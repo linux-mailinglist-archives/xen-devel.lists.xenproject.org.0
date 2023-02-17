@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D60E69B207
+	by mail.lfdr.de (Postfix) with ESMTPS id 33DC269B208
 	for <lists+xen-devel@lfdr.de>; Fri, 17 Feb 2023 18:49:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.497215.768126 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.497216.768138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pT4qf-0003Nm-58; Fri, 17 Feb 2023 17:48:41 +0000
+	id 1pT4qh-0003fl-FO; Fri, 17 Feb 2023 17:48:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 497215.768126; Fri, 17 Feb 2023 17:48:41 +0000
+Received: by outflank-mailman (output) from mailman id 497216.768138; Fri, 17 Feb 2023 17:48:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pT4qf-0003Ls-27; Fri, 17 Feb 2023 17:48:41 +0000
-Received: by outflank-mailman (input) for mailman id 497215;
- Fri, 17 Feb 2023 17:48:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pT4qh-0003c6-Bq; Fri, 17 Feb 2023 17:48:43 +0000
+Received: by outflank-mailman (input) for mailman id 497216;
+ Fri, 17 Feb 2023 17:48:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VZJw=6N=citrix.com=prvs=405a65846=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pT4qd-0002rh-0E
- for xen-devel@lists.xenproject.org; Fri, 17 Feb 2023 17:48:39 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4e7c8e8c-aeeb-11ed-933d-83870f6b2ba8;
- Fri, 17 Feb 2023 18:48:37 +0100 (CET)
+ id 1pT4qf-0003GN-6L
+ for xen-devel@lists.xenproject.org; Fri, 17 Feb 2023 17:48:41 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c263dcb-aeeb-11ed-93b5-47a8fe42b414;
+ Fri, 17 Feb 2023 18:48:36 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,52 +36,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e7c8e8c-aeeb-11ed-933d-83870f6b2ba8
+X-Inumbo-ID: 4c263dcb-aeeb-11ed-93b5-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1676656117;
+  d=citrix.com; s=securemail; t=1676656116;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=p5sxvZxuV8RUOamp6LgQhbUMlW7vsrfgFydE9dC8HYM=;
-  b=btB9RcRxg60efDRlyKVErHhgzTCGlP5BFc44jbBG8mHrOjYVvvHdHR52
-   oiAnBt6QGpNd7FA3tD/2l0KL2K6DwfXmAa1QA/tthZUlQr6IzMWqNOYhK
-   Q+GKCuOnpSATlsHRShyd1JWs4AyvJgIFRsO0O5J9MFIqfPqZTfD9Ha8rN
-   I=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=ti3YGuh5AB+DkoIjcnY6SodZUoUvn3qg2dzkSWt0iaU=;
+  b=FVizbSmtPmHUn/RrywOSt0iHNUvIE6H5Xho4rvNw79p4tqr24AkAMuvQ
+   XnBXukdiOjh0TGyQKsxxx3U7f4g773w3+O+2aawqt6AyAC1jhJPTGXq+j
+   c7NqMZjBP+Uv0DO9snd0oP2ZRbYjRbWdJG1MKwH1wK/npCTatVAB/dY9C
+   s=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 96897981
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 97511809
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:yAfCsqKg0l3I1J+gFE+Rx5UlxSXFcZb7ZxGr2PjKsXjdYENS02FWn
- 2EeCmuDPq7bN2L9KYglbd+1phlS7cCAz9Q3HQJlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpJrfPcwP9TlK6q4mhA5AVhPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c54Dl1q7
- fBIdwsdcw6h2e2xg+ybWNFj05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TbG5UEwRfI/
- woq+Uz0P0snG/m61QbYyWLymPHMhirkAYkdQejQGvlC3wTImz175ActfUS/iem0jAi5Qd03A
- 1wZ/G8ioLY/8GSvT8LhRFuorXicpBkeVtFMVeog52ml6IDZ/gKYDWgsVSNaZZots8peeNAx/
- gbXxZWzX2Up6eDLDyvHrd94sA9eJwAaIlMmfSNUEjAV/sfB/o40zUzvXO5sRfvdYsLOJRn8x
- DWDrS4bjroVjNIW26jTwW0rkw5AtbCSEFdru1y/snaNq1ogOdX7P9DABU3zt64oEWqPcrWWU
- JHoceC65ftGM5yCnTflrA4lTODwvKbt3NExbDdS83gdG9aFoSLLkWN4umsWyKJV3iEsIGaBX
- aMrkVkNjKK/xVPzBUONX6q/Ct4x0Y/rHsn/W/bfY7JmO8YuKlLYpn02NRXLjwgBdXTAdollZ
- P+mnTuEVy5GWcyLMhLoLwvi7VPb7n9nnj6CLXwK5x+mzaCfdBaopUQtaTOzghQCxPrc+m39q
- o8PX/ZmPj0DCIUSlAGLq99MRb3LRFBnba3LRzt/LbLSfFM2QDt6VJc8A9oJIuRYokicrc+Ql
- lnVZ6OS4AGXaaHvQelSVk1eVQ==
-IronPort-HdrOrdr: A9a23:mm60zqFOjei4Jq6+pLqE18eALOsnbusQ8zAXPo5KOGVom62j5r
- iTdZEgvyMc5wxhPU3I9erwWpVoBEmslqKdgrNxAV7BZniDhILAFugLhrcKgQeBJ8SUzJ876U
- 4PSdkZNDQyNzRHZATBjTVQ3+xO/DBPys6Vuds=
+IronPort-Data: A9a23:tUaVdqh8VgjMdx6kNb1JOkzLX161cRAKZh0ujC45NGQN5FlHY01je
+ htvW2uFP/bZYmf9LYskaYS+800AvJODnIU1Ggc//ihhHngb9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsy+qWt0N8klgZmP6sT5gaBzyN94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQlJw8EXB2Kgd6JnoicZvEwneo6Ac7CadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27J+
+ T+fpjShU3n2MvS18ACr0Fyul9Xkw37GddINKpKV2P1T1Qj7Kms7V0RNCArTTeOCol6zXZdTJ
+ lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJ4Mcc39QWMwar8+BuCCy4PSTspQMMinN87Q3otz
+ FDhoj/yLWUx6vvPEyvbr+rK62roYkD5MFPuewc5QjQM0dTqpr0M0CjoYs4/C4Cso9rcTGSYL
+ y+xkAAygLAajMgu3qq9/Ezajz/EmqUlXjLZ9S2MADv7s1oRiJqNItXxtAOFtaoowJOxFAHpg
+ ZQSpySJAAni57mpnTfFfugCFarBCx2tYGyF2g4H83XMGl2QF5+fkWJ4um0WyKRBaJxsldrVj
+ Kj74Fo52XOrFCH2BZKbmqroYyjQ8YDuFM7+StffZcdUb556eWevpX8xOxPPhTy1wBN3wcnT3
+ Kt3lu72UB4n5VlPlmLqF4/xL5d1rszB+Y8jbc+ilEn2uVZvTHWUVa0EIDOzghMRtcu5TPHu2
+ 48HbaOikkwPONASlwGLqeb/23hWdylkbX03wuQLHtO+zv1OQz1wVaaBmel6JOSIXc19z4/1w
+ 510YWcAoHKXuJENAVzaApy/QNsDhapCkE8=
+IronPort-HdrOrdr: A9a23:tDamwa/G6BXc/XPLPXNuk+HRdr1zdoMgy1knxilNoENuHfBwxv
+ rDoB1E73LJYW4qKQwdcdDpAtjkfZquz+8I3WBxB8bpYOCCggWVxe5ZnPLfKlHbak7DH6tmpN
+ 1dmstFeZDN5DpB/L7HCWCDer5KqrjmzEnrv5ak854Ed3AyV0gK1XYcNu/vKDwReOAwP+tfKH
+ Pz3LskmxOQPVAsKuirDHgMWObO4/XNiZLdeBYDQzI39QWUijusybjiVzyVxA0XXT9jyaortT
+ GtqX232oyT99WAjjPM3W7a6Jpb3PPn19t4HcSJzuQFNzn2jQ6sRYJ5H5mPpio8ru2D4Esj1P
+ PMvxAjFcJu7G65RBD4nTLdny3blBo+4X7rzlGVxVH5p9bieT48A81dwapEbxrw8SMbzZ9B+Z
+ MO+1jcm4tcDBvGkii4zcPPTQtWmk29pmdnufIPjkZYTZAVZNZq3M0iFQJuYdc99RDBmcIa+d
+ pVfYThDTFtABenhkXizypSKRqXLzMO91m9Mw4/U4euokdrdThCvjUlLYok7y89HdsGOuh5zv
+ WBPaJymL5USMgKKap7GecaWMOyTnfAWBTWLQupUB3a/Yw8SgXwQqTMkcMIzfDvfIZNwIo5mZ
+ zHXl8dvWkue1j2AcnL2JFQ6BjCTGi0QDyok6hlltNEk6y5QKCuPTyISVgoncflq/IDAtfDU/
+ L2PJ5NGffsIWbnBI4M1QzjXJtZL2UYTaQuy54GckPLptiOJpzht+TdfvqWLL3xESw8Ume6GX
+ cHVCibHrQ10qlqYA6MvPH8YQKeRqWkx+MBLEHzxZlh9LQw
 X-IronPort-AV: E=Sophos;i="5.97,306,1669093200"; 
-   d="scan'208";a="96897981"
+   d="scan'208";a="97511809"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 1/3] x86/kexec: Drop compatibility_mode_far
-Date: Fri, 17 Feb 2023 17:48:12 +0000
-Message-ID: <20230217174814.1006961-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/3] x86/kexec: Simplify the relocation of compat_mode_gdt_desc
+Date: Fri, 17 Feb 2023 17:48:13 +0000
+Message-ID: <20230217174814.1006961-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230217174814.1006961-1-andrew.cooper3@citrix.com>
 References: <20230217174814.1006961-1-andrew.cooper3@citrix.com>
@@ -89,9 +98,10 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-ljmp is (famously?) incompatible between Intel and AMD CPUs, and while we're
-using one of the compatible forms, we've got a good stack and lret is the far
-more common way of doing this.
+Assemble the GDT base relative to kexec_reloc, and simply add the identity map
+base address to relocate.
+
+Adjust a stale comment, and drop the unused matching label.
 
 No functional change.
 
@@ -101,44 +111,42 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 ---
- xen/arch/x86/x86_64/kexec_reloc.S | 16 ++++------------
- 1 file changed, 4 insertions(+), 12 deletions(-)
+ xen/arch/x86/x86_64/kexec_reloc.S | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
 diff --git a/xen/arch/x86/x86_64/kexec_reloc.S b/xen/arch/x86/x86_64/kexec_reloc.S
-index f4842025eb56..035164e96f38 100644
+index 035164e96f38..a81f64146190 100644
 --- a/xen/arch/x86/x86_64/kexec_reloc.S
 +++ b/xen/arch/x86/x86_64/kexec_reloc.S
-@@ -86,12 +86,11 @@ ENTRY(kexec_reloc)
-         movq    %rax, (compat_mode_gdt_desc + 2)(%rip)
+@@ -72,7 +72,6 @@ ENTRY(kexec_reloc)
+         testq   $KEXEC_RELOC_FLAG_COMPAT, %r8
+         jnz     .L_call_32_bit
+ 
+-.L_call_64_bit:
+         /* Call the image entry point.  This should never return. */
+         callq   *%rbp
+         ud2
+@@ -81,9 +80,8 @@ ENTRY(kexec_reloc)
+         /* Setup IDT. */
+         lidt    compat_mode_idt(%rip)
+ 
+-        /* Load compat GDT. */
+-        leaq    compat_mode_gdt(%rip), %rax
+-        movq    %rax, (compat_mode_gdt_desc + 2)(%rip)
++        /* Relocate and load compat GDT. */
++        add     %rdi, 2 + compat_mode_gdt_desc(%rip)
          lgdt    compat_mode_gdt_desc(%rip)
  
--        /* Relocate compatibility mode entry point address. */
--        leal    compatibility_mode(%rip), %eax
--        movl    %eax, compatibility_mode_far(%rip)
--
          /* Enter compatibility mode. */
--        ljmp    *compatibility_mode_far(%rip)
-+        lea     compatibility_mode(%rip), %rax
-+        push    $0x10
-+        push    %rax
-+        lretq
- 
- relocate_pages:
-         /* %rdi - indirection page maddr */
-@@ -171,13 +170,6 @@ compatibility_mode:
-         ud2
- 
+@@ -172,7 +170,7 @@ compatibility_mode:
          .align 4
--compatibility_mode_far:
--        .long 0x00000000             /* set in call_32_bit above */
--        .word 0x0010
--
--        .type compatibility_mode_far, @object
--        .size compatibility_mode_far, . - compatibility_mode_far
--
  compat_mode_gdt_desc:
          .word .Lcompat_mode_gdt_end - compat_mode_gdt -1
-         .quad 0x0000000000000000     /* set in call_32_bit above */
+-        .quad 0x0000000000000000     /* set in call_32_bit above */
++        .quad . - kexec_reloc        /* Relocated before use */
+ 
+         .type compat_mode_gdt_desc, @object
+         .size compat_mode_gdt_desc, . - compat_mode_gdt_desc
 -- 
 2.30.2
 
