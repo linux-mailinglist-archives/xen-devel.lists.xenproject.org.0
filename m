@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB0969B698
-	for <lists+xen-devel@lfdr.de>; Sat, 18 Feb 2023 01:08:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.497384.768372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B3AC69B696
+	for <lists+xen-devel@lfdr.de>; Sat, 18 Feb 2023 01:08:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.497385.768382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pTAlh-0004ka-Ij; Sat, 18 Feb 2023 00:07:57 +0000
+	id 1pTAli-00051R-Rg; Sat, 18 Feb 2023 00:07:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 497384.768372; Sat, 18 Feb 2023 00:07:57 +0000
+Received: by outflank-mailman (output) from mailman id 497385.768382; Sat, 18 Feb 2023 00:07:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pTAlh-0004hu-F8; Sat, 18 Feb 2023 00:07:57 +0000
-Received: by outflank-mailman (input) for mailman id 497384;
- Sat, 18 Feb 2023 00:07:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pTAli-0004y7-Oe; Sat, 18 Feb 2023 00:07:58 +0000
+Received: by outflank-mailman (input) for mailman id 497385;
+ Sat, 18 Feb 2023 00:07:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kEmr=6O=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pTAlf-00049k-Qe
- for xen-devel@lists.xenproject.org; Sat, 18 Feb 2023 00:07:55 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 498b7b5f-af20-11ed-93b5-47a8fe42b414;
- Sat, 18 Feb 2023 01:07:53 +0100 (CET)
+ id 1pTAlg-0004hK-IB
+ for xen-devel@lists.xenproject.org; Sat, 18 Feb 2023 00:07:56 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4a684696-af20-11ed-933d-83870f6b2ba8;
+ Sat, 18 Feb 2023 01:07:54 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5395D6209D;
- Sat, 18 Feb 2023 00:07:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1560DC4339C;
- Sat, 18 Feb 2023 00:07:50 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0D48AB81F9C;
+ Sat, 18 Feb 2023 00:07:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A1FC4339B;
+ Sat, 18 Feb 2023 00:07:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,26 +43,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 498b7b5f-af20-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: 4a684696-af20-11ed-933d-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676678871;
-	bh=ReIRkrUsD0aUe+sTs/xO/eCMbv89yibMdXJjNiWEuAk=;
+	s=k20201202; t=1676678872;
+	bh=rUrGZbmK5uUfTRLHvZznH/0nYIsKj1VaIsQqXSJ4KcE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RQAS7xGmEushY27lNqqHLEenfNcDuYaKE+/0N40gzg7jRPHhPRb9MtotVPHL3bu/D
-	 px9xCTX686rQk/SkR0+UWcTL6a12fxpTvOiejKVQGS1DydYxEbUdf/mubzDnlK3dKH
-	 FZ39joQ6KWFt3Zns8SrXTmRO3kQ+fVvaSc4aN9Sl38culfDEVbPmEFHfS17ZNRASgt
-	 CTHlF6hYob4UIEmF8u7x2OZjE1x7Cc056A034k1D5NcwxeQoGDY34p4/8eBi0AHv7K
-	 lH2TvmDcHEdnII1FyPmu/AJ2a1DOKVxIyAV1c9eIsV03057wsILS30RrtxnawIkpMw
-	 YASyorI4o+/GA==
+	b=fdXfXs0hIdsyOK/tzub8r8b40+y1tj/20arJhlZdrXRSh4aSGvc/hzZIcWuwvcNjS
+	 EOUAT8mB9eQ9G+erZQA1ahtN0+SDK88M0+B5DPNqlYtvz6PyTa7ah36onBZbi0lQ7R
+	 tBeLKAfNpcK6IHtGeOiioj0Q3Ec4pTiKSghSEoRJZYWWXpKNgJKaOC+CpoLNjNk5l2
+	 OGhr6zd2hIu8g3JubpRzVblukLM2drJlIaYLNOjdkTy3rLWJvEkJe/0r3c+ySUIZd/
+	 kzhwZ7Wh8SzCRjwwWNwIk5KGl3nFrFMuc+hCrVNB9kmSwifmiMYKz+N6Ex3lDrAhMt
+	 wqC7AmYezZ4iQ==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
 	cardoe@cardoe.com,
 	michal.orzel@amd.com,
 	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [PATCH v3 2/3] automation: add binaries/ to artifacts for Yocto arm32 job
-Date: Fri, 17 Feb 2023 16:07:46 -0800
-Message-Id: <20230218000747.2965719-2-sstabellini@kernel.org>
+Subject: [PATCH v3 3/3] automation: expand arm32 dom0 test adding xl domain creation
+Date: Fri, 17 Feb 2023 16:07:47 -0800
+Message-Id: <20230218000747.2965719-3-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <alpine.DEB.2.22.394.2302171606480.2127160@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2302171606480.2127160@ubuntu-linux-20-04-desktop>
@@ -72,104 +71,158 @@ Content-Transfer-Encoding: 8bit
 
 From: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Copy the build output of Yocto builds to binaries/ for the arm32 target,
-and export binaries/ among the jobs artifacts so that they can be reused
-by other jobs.
+As part of the arm32 dom0 test, also create a simple domU using xl. To
+do that, we need the toolstack installed in the dom0 rootfs. We switch
+to using the kernel and rootfs built by the Yocto arm32 job.
+
+Remove the PCI node from the host device tree: it is unused but causes a
+Linux hang at boot.
+
+Use xen-watchdog to trigger the domU creation for convience
+(/etc/local.d is not handled by rootfs.)
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 ---
 Changes in v2:
-- add --copy-output so that whether the binaries get copied or not is
-user selectable
-- rename OUTPUT to OUTPUTDIR and move it up in the file
+- remove unsued debian-unstable-gcc-arm32 dependency for
+qemu-smoke-dom0-arm32-gcc
+- remove job qemu-smoke-dom0-arm32-gcc-debug as it doesn't make sense
+anymore
+- grep for both dom0 and domU prompts in qemu-smoke-dom0-arm32.sh
 ---
- automation/build/yocto/build-yocto.sh | 16 ++++++++++++++++
- automation/gitlab-ci/build.yaml       |  4 +++-
- 2 files changed, 19 insertions(+), 1 deletion(-)
+ automation/gitlab-ci/test.yaml              | 11 +----
+ automation/scripts/qemu-smoke-dom0-arm32.sh | 52 +++++++++++++++------
+ 2 files changed, 41 insertions(+), 22 deletions(-)
 
-diff --git a/automation/build/yocto/build-yocto.sh b/automation/build/yocto/build-yocto.sh
-index 3601cebc3c..93ce81ce82 100755
---- a/automation/build/yocto/build-yocto.sh
-+++ b/automation/build/yocto/build-yocto.sh
-@@ -18,6 +18,7 @@ CACHEDIR="$HOME/yocto-cache"
- LOGDIR="$HOME/logs"
- XENDIR="$HOME/xen"
- BUILDDIR="$HOME/build"
-+OUTPUTDIR=`pwd`/binaries
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 00273b21c8..6d09c97702 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -171,15 +171,7 @@ qemu-smoke-dom0-arm32-gcc:
+     - ./automation/scripts/qemu-smoke-dom0-arm32.sh 2>&1 | tee ${LOGFILE}
+   needs:
+     - *arm32-test-needs
+-    - debian-unstable-gcc-arm32
+-
+-qemu-smoke-dom0-arm32-gcc-debug:
+-  extends: .qemu-arm32
+-  script:
+-    - ./automation/scripts/qemu-smoke-dom0-arm32.sh 2>&1 | tee ${LOGFILE}
+-  needs:
+-    - *arm32-test-needs
+-    - debian-unstable-gcc-arm32-debug
++    - yocto-qemuarm
  
- # what yocto bsp we support
- TARGET_SUPPORTED="qemuarm qemuarm64 qemux86-64"
-@@ -31,6 +32,7 @@ do_build="y"
- do_run="y"
- do_localsrc="n"
- do_dump="n"
-+do_copy="n"
- build_result=0
+ qemu-smoke-dom0less-arm32-gcc:
+   extends: .qemu-arm32
+@@ -244,6 +236,7 @@ qemu-smoke-dom0less-arm32-gcc-debug-without-dom0:
+   needs:
+     - *arm32-test-needs
+     - debian-unstable-gcc-arm32-debug
++    - yocto-qemuarm
  
- # layers to include in the project
-@@ -166,6 +168,16 @@ function project_build() {
-         source "${YOCTODIR}/poky/oe-init-build-env" "${destdir}"
+ qemu-alpine-x86_64-gcc:
+   extends: .qemu-x86-64
+diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
+index 98e4d481f6..2c80df089f 100755
+--- a/automation/scripts/qemu-smoke-dom0-arm32.sh
++++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
+@@ -3,14 +3,37 @@
+ set -ex
  
-         bitbake "${build_image}" || exit 1
-+        if [ $do_copy = "y" ]
-+        then
-+            if [ $target = "qemuarm" ]
-+            then
-+                mkdir -p $OUTPUTDIR
-+                cp $BUILDDIR/tmp/deploy/images/qemuarm/zImage $OUTPUTDIR
-+                cp $BUILDDIR/tmp/deploy/images/qemuarm/xen-qemuarm $OUTPUTDIR
-+                cp $BUILDDIR/tmp/deploy/images/qemuarm/xen-image-minimal-qemuarm.tar.bz2 $OUTPUTDIR
-+            fi
-+        fi
-     ) || return 1
- }
+ cd binaries
+-# Use the kernel from Debian
+-curl --fail --silent --show-error --location --output vmlinuz http://http.us.debian.org/debian/dists/bullseye/main/installer-armhf/current/images/netboot/vmlinuz
+-# Use a tiny initrd based on busybox from Alpine Linux
+-curl --fail --silent --show-error --location --output initrd.tar.gz https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/armhf/alpine-minirootfs-3.15.1-armhf.tar.gz
  
-@@ -235,6 +247,7 @@ Options:
-                    Default: ${CACHEDIR}
-   --layer-dir=DIR  directory containing the checkout of yocto layers
-                    Default: ${YOCTODIR}
-+  --copy-output    Copy output binaries to binaries/
- EOF
- }
++mkdir rootfs
++cd rootfs
++tar xvf ../xen-image-minimal-qemuarm.tar.bz2
++mkdir -p ./root
++echo "name=\"test\"
++memory=400
++vcpus=1
++kernel=\"/root/zImage\"
++ramdisk=\"/root/initrd.cpio.gz\"
++extra=\"console=hvc0 root=/dev/ram0 rdinit=/bin/sh\"
++" > root/test.cfg
++echo "#!/bin/bash
++
++xl list
++
++xl create -c /root/test.cfg
++
++" > ./root/xen.start
++echo "bash /root/xen.start" >> ./etc/init.d/xen-watchdog
++
++curl --fail --silent --show-error --location --output initrd.tar.gz https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/armhf/alpine-minirootfs-3.15.1-armhf.tar.gz
+ mkdir rootfs
+ cd rootfs
+ tar xvzf ../initrd.tar.gz
++find . | cpio -H newc -o | gzip > ../root/initrd.cpio.gz
++cd ..
++rm -rf rootfs
++rm initrd.tar.gz
++
++cp ../zImage ./root
+ find . | cpio -H newc -o | gzip > ../initrd.gz
+ cd ..
  
-@@ -290,6 +303,9 @@ do
-         --layer-dir=*)
-             YOCTODIR="${OPTION#*=}"
-             ;;
-+        --copy-output)
-+            do_copy="y"
-+            ;;
-         --*)
-             echo "Invalid option ${OPTION}"
-             help
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index b6ae1c663b..d731642785 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -208,13 +208,14 @@
-     - /^coverity-tested\/.*/
-     - /^stable-.*/
-   script:
--    - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` ${YOCTO_BOARD}
-+    - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` ${YOCTO_BOARD} ${YOCTO_OUTPUT}
-   variables:
-     YOCTO_VERSION: kirkstone
-     CONTAINER: yocto:${YOCTO_VERSION}-${YOCTO_BOARD}-${YOCTO_HOST}
-   artifacts:
-     paths:
-       - 'logs/*'
-+      - binaries/
-     when: always
-   needs: []
+@@ -20,22 +43,25 @@ curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
+    -machine virt \
+    -machine virtualization=true \
+    -smp 4 \
+-   -m 1024 \
++   -m 2048 \
+    -serial stdio \
+    -monitor none \
+    -display none \
+    -machine dumpdtb=virt.dtb
  
-@@ -744,6 +745,7 @@ yocto-qemuarm:
-   extends: .yocto-test-arm64
-   variables:
-     YOCTO_BOARD: qemuarm
-+    YOCTO_OUTPUT: --copy-output
++# XXX disable pci to avoid Linux hang
++fdtput virt.dtb -p -t s /pcie@10000000 status disabled
++
+ # ImageBuilder
+ echo 'MEMORY_START="0x40000000"
+-MEMORY_END="0x80000000"
++MEMORY_END="0xC0000000"
  
- yocto-qemux86-64:
-   extends: .yocto-test-arm64
+ DEVICE_TREE="virt.dtb"
+-XEN="xen"
+-DOM0_KERNEL="vmlinuz"
++XEN="xen-qemuarm"
++DOM0_KERNEL="zImage"
+ DOM0_RAMDISK="initrd.gz"
+-DOM0_CMD="console=hvc0 earlyprintk clk_ignore_unused root=/dev/ram0 rdinit=/bin/sh"
+-XEN_CMD="console=dtuart dom0_mem=512M bootscrub=0"
++DOM0_CMD="console=hvc0 earlyprintk clk_ignore_unused root=/dev/ram0 rdinit=/sbin/init"
++XEN_CMD="console=dtuart dom0_mem=1024M bootscrub=0"
+ 
+ NUM_DOMUS=0
+ 
+@@ -51,12 +77,12 @@ bash imagebuilder/scripts/uboot-script-gen -t tftp -d . -c config
+ rm -f smoke.serial
+ set +e
+ echo "  virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"| \
+-timeout -k 1 240 \
++timeout -k 1 720 \
+ ./qemu-system-arm \
+    -machine virt \
+    -machine virtualization=true \
+    -smp 4 \
+-   -m 1024 \
++   -m 2048 \
+    -serial stdio \
+    -monitor none \
+    -display none \
+@@ -66,5 +92,5 @@ timeout -k 1 240 \
+    -bios /usr/lib/u-boot/qemu_arm/u-boot.bin |& tee smoke.serial
+ 
+ set -e
+-(grep -q "^/ #" smoke.serial) || exit 1
++(grep -q "Domain-0" smoke.serial && grep -q "^/ #" smoke.serial) || exit 1
+ exit 0
 -- 
 2.25.1
 
