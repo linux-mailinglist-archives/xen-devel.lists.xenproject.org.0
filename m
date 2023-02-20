@@ -2,50 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DD2869D207
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 18:17:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.498292.769154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 029D969D27D
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 19:02:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.498326.769170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pU9mt-0006Db-Ju; Mon, 20 Feb 2023 17:17:15 +0000
+	id 1pUATI-0004sY-WE; Mon, 20 Feb 2023 18:01:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 498292.769154; Mon, 20 Feb 2023 17:17:15 +0000
+Received: by outflank-mailman (output) from mailman id 498326.769170; Mon, 20 Feb 2023 18:01:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pU9mt-0006B1-Gi; Mon, 20 Feb 2023 17:17:15 +0000
-Received: by outflank-mailman (input) for mailman id 498292;
- Mon, 20 Feb 2023 17:17:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kEKe=6Q=templeofstupid.com=kjlx@srs-se1.protection.inumbo.net>)
- id 1pU9ms-00064N-7y
- for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 17:17:14 +0000
-Received: from gold.apple.relay.mailchannels.net
- (gold.apple.relay.mailchannels.net [23.83.208.72])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 68b9cdcc-b142-11ed-93b5-47a8fe42b414;
- Mon, 20 Feb 2023 18:17:11 +0100 (CET)
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
- by relay.mailchannels.net (Postfix) with ESMTP id ABE0688175E
- for <xen-devel@lists.xenproject.org>; Mon, 20 Feb 2023 17:17:09 +0000 (UTC)
-Received: from pdx1-sub0-mail-a306.dreamhost.com (unknown [127.0.0.6])
- (Authenticated sender: dreamhost)
- by relay.mailchannels.net (Postfix) with ESMTPA id 4CDFB88184A
- for <xen-devel@lists.xenproject.org>; Mon, 20 Feb 2023 17:17:09 +0000 (UTC)
-Received: from pdx1-sub0-mail-a306.dreamhost.com (pop.dreamhost.com
- [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
- by 100.120.227.140 (trex/6.7.1); Mon, 20 Feb 2023 17:17:09 +0000
-Received: from kmjvbox (c-76-102-200-71.hsd1.ca.comcast.net [76.102.200.71])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: kjlx@templeofstupid.com)
- by pdx1-sub0-mail-a306.dreamhost.com (Postfix) with ESMTPSA id 4PL8H76xmYz14y
- for <xen-devel@lists.xenproject.org>; Mon, 20 Feb 2023 09:17:07 -0800 (PST)
-Received: from johansen (uid 1000) (envelope-from kjlx@templeofstupid.com)
- id e0067 by kmjvbox (DragonFly Mail Agent v0.12);
- Mon, 20 Feb 2023 09:17:04 -0800
+	id 1pUATI-0004q4-SJ; Mon, 20 Feb 2023 18:01:04 +0000
+Received: by outflank-mailman (input) for mailman id 498326;
+ Mon, 20 Feb 2023 18:01:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pUATH-0004py-Av
+ for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 18:01:03 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pUATG-0007mS-8b; Mon, 20 Feb 2023 18:01:02 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231] helo=[10.95.98.51])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pUATG-0000yE-2y; Mon, 20 Feb 2023 18:01:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,100 +39,277 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68b9cdcc-b142-11ed-93b5-47a8fe42b414
-X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1676913429; a=rsa-sha256;
-	cv=none;
-	b=kvnksgyh6M8oen6dXHa6hqwrt0jYmY79LMBMaoI1zA39VHsu55q9+GDTX/8PpDQO41/syg
-	tq3Mwm4LnvT/ruGjzdDBmZKeIO3Pr9biW2Z2VyL+c0fVlyTwS4cLuIfernBesdjMZ1VfnY
-	UJGK/4Irz+IBqL+0UOQCt3Q9Lc8YEJ9itq4Xh6+aqQy/opSK8ghgoVwVcSlb7+Z8OmYhzo
-	gViuhA0KA8mAbQzGS3Skg1GbvAQBhoxcn6XbWKhZWpwVkj5giAFsGcG877wrsZW/AfaBEl
-	KzZwIkpGwgf/M+ZR1uXpEt5ePH4y4Avi1BEyakqBy1NjIS2qH5QgvuuxF6/chg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1676913429;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=1W/yHp+digs/9tQmrEdxtc9OFifUEYrTHbBFllZM5ek=;
-	b=J5WP74FErdjwIGmhBynl9T4C1+WS224WE7CKPt25NBtgS3CtoPpUongJ/S06U09ud2vnHB
-	IYSxUzn7j1TTn7ZhNxo03brQHY4HL9z77GM7LLfAOBiZT2uC0hzojc0FUoH0jtUCRLKx/B
-	bf4puFtu1qm7pJxFDEkUo0eLMGtPYTT24MEXm779X4kT9S7bnQu/iEKcglWNR0cOJJTi+E
-	ujCOgCQaHDGdQyoDhdETkCDu+fnbybw2pGakwmZh34eO97bIAnv/m5NzZCkTW1NePgTi+b
-	ZpA2/Hvk1X6MtXlQ0IP7Kpp6bNZQJL7dHqndt1mx4Fj5C52dBqT/HFVAoDe66w==
-ARC-Authentication-Results: i=1;
-	rspamd-5db48964c-wmdpd;
-	auth=pass smtp.auth=dreamhost smtp.mailfrom=kjlx@templeofstupid.com
-X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
-X-MC-Relay: Good
-X-MailChannels-SenderId: dreamhost|x-authsender|kjlx@templeofstupid.com
-X-MailChannels-Auth-Id: dreamhost
-X-Skirt-Well-Made: 2c2945951908affb_1676913429530_3151703476
-X-MC-Loop-Signature: 1676913429530:3091638531
-X-MC-Ingress-Time: 1676913429530
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=templeofstupid.com;
-	s=dreamhost; t=1676913428;
-	bh=1W/yHp+digs/9tQmrEdxtc9OFifUEYrTHbBFllZM5ek=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=UUG+txwSbZjwjKPTHOyD8W9Nra+sAjzKNx1Z6Zjyj2c3VHCmyut7CT3coeCJ0wFee
-	 Wxoq7Kx4mLjOFB5TJiSakB0a5Dwa8JHYwJLGt5lY2dAgcucToTPtRj2A7vMLrsfGup
-	 4IrCnF1Oay8LPGaD551QoJYhFev96Qv8lxefMIik=
-Date: Mon, 20 Feb 2023 09:17:04 -0800
-From: Krister Johansen <kjlx@templeofstupid.com>
-To: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	Anthony Liguori <aliguori@amazon.com>,
-	David Reaver <me@davidreaver.com>,
-	Brendan Gregg <brendan@intel.com>
-Subject: [PATCH linux-next 2/2] x86/xen/time: cleanup xen_tsc_safe_clocksource
-Message-ID: <f6bab47230b00cecb67f2c5d94716c8236609967.1676610413.git.kjlx@templeofstupid.com>
-References: <cover.1676610413.git.kjlx@templeofstupid.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=MPti7fO+hkxEWKAMwLaEgaLbjtYIVnIaPQkxsP2ylWA=; b=0WqZ+capgSdVnhioAO0nwdVhrA
+	hazMXCCRSEh4JyJ/UN2ywA6cvbFJgzYAMZZ8EEwVrNTnQmJCt1pJA9onJOx6VQx3Zw+rH9x+2EIP+
+	EbAwr/DaWpGTnL7rMExYJIZh/OB5y0FvyfWrmafI0NSMXJoiuvTgSK46F/Xh85MYFt1k=;
+Message-ID: <20151614-96ca-0875-29a0-8099953b7e61@xen.org>
+Date: Mon, 20 Feb 2023 18:01:00 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1676610413.git.kjlx@templeofstupid.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.7.1
+Subject: Re: [PATCH v2 01/13] tools/xenstore: don't allow creating too many
+ nodes in a transaction
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230120100028.11142-1-jgross@suse.com>
+ <20230120100028.11142-2-jgross@suse.com>
+ <2131198f-f54b-2c38-8104-1c8b63e9990c@xen.org>
+ <c203062e-fd76-3aa1-8014-bf7d13eae1aa@suse.com>
+ <bd355c4c-b3a9-ac79-8522-5ff227ae26ab@xen.org>
+ <adae39fe-1b72-e4ac-eb17-8bbfb28011f2@suse.com>
+ <a0431ac1-4d1a-23c4-cb31-1d9d8812fc94@xen.org>
+ <32a517cf-4448-2208-4877-83c7a7531635@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <32a517cf-4448-2208-4877-83c7a7531635@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Modifies xen_tsc_safe_clocksource() to use newly defined constants from
-arch/x86/include/asm/xen/cpuid.h.  This replaces a numeric value with
-XEN_CPUID_TSC_MODE_NEVER_EMULATE, and deletes a comment that is now self
-explanatory.
 
-There should be no change in the function's behavior.
 
-Signed-off-by: Krister Johansen <kjlx@templeofstupid.com>
----
- arch/x86/xen/time.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On 20/02/2023 14:21, Juergen Gross wrote:
+> On 20.02.23 15:15, Julien Grall wrote:
+>> On 20/02/2023 13:49, Juergen Gross wrote:
+>>> On 20.02.23 13:07, Julien Grall wrote:
+>>>> Hi Juergen,
+>>>>
+>>>> On 20/02/2023 11:04, Juergen Gross wrote:
+>>>>> On 20.02.23 10:46, Julien Grall wrote:
+>>>>>> Hi Juergen,
+>>>>>>
+>>>>>> On 20/01/2023 10:00, Juergen Gross wrote:
+>>>>>>> The accounting for the number of nodes of a domain in an active
+>>>>>>> transaction is not working correctly, as it allows to create 
+>>>>>>> arbitrary
+>>>>>>> number of nodes. The transaction will finally fail due to exceeding
+>>>>>>> the number of nodes quota, but before closing the transaction an
+>>>>>>> unprivileged guest could cause Xenstore to use a lot of memory.
+>>>>>>
+>>>>>> I know I said I would delay my decision on this patch. However, I 
+>>>>>> was still expecting the commit message to be updated based on our 
+>>>>>> previous discussion.
+>>>>>
+>>>>> As said before, I was waiting on the settlement of our discussion 
+>>>>> before
+>>>>> doing the update.
+>>>>
+>>>> This is not a very good practice to resend a patch without recording 
+>>>> the disagreement because new reviewers may not be aware of the 
+>>>> disagreement and this could end up to be committed by mistake...
+>>>
+>>> You said you wanted to look into this patch in detail after the previous
+>>> series, so I move it into this series. The wording update would strongly
+>>> depend on the outcome of the discussion IMO, so I didn't do it yet.
+>> This could have been mentioned after ---. This could allow people to 
+>> understand the concern and then participate.
+> 
+> Will do so in future.
+> 
+>>
+>>>
+>>>>>> Also thinking more about it, "The transaction will finally fail 
+>>>>>> due to exceeding the number of nodes quota" may not be true for a 
+>>>>>> couple of reasons:
+>>>>>>    1) The transaction may removed a node afterwards.
+>>>>>
+>>>>> Yes, and? Just because it is a transaction, this is still a 
+>>>>> violation of
+>>>>> the quota. Even outside a transaction you could use the same 
+>>>>> reasoning,
+>>>>> but you don't (which is correct, of course).
+>>>>
+>>>> I can understand your point. However, to me, the goal of the 
+>>>> transaction is to commit everything in one go at the end. So the 
+>>>> violations in the middle should not matter.
+>>>
+>>> Of course they should.
+>>>
+>>> We wouldn't allow to write over-sized nodes, even if they could be 
+>>> rewritten in
+>>> the same transaction with a smaller size.
+>>
+>> I view the two different.
+>>
+>>> We wouldn't allow to create nodes which would violate overall memory
+>>> consumption.
+>>>
+>>> We wouldn't allow nodes with more permission entries than allowed, 
+>>> even if they
+>>> could be reduced in the same transaction again.
+>>>
+>>> I don't see why the number of nodes shouldn't be taken into account.
+>>>
+>>>> Furthermore, I would expect a transaction to work on a snapshot of 
+>>>> the system. So it feels really strange to me that we are constantly 
+>>>> checking the quota with the updated values rather than the initial one.
+>>>
+>>> You are aware that the code without this patch is just neglecting the 
+>>> nodes
+>>> created in the transaction? It just is using the current number of nodes
+>>> outside any transaction for quota check.
+>>
+>> Are you referring to the quota check within the transaction?
+> 
+> I'm referring to the quota check in create_node(). >
+>>
+>>> So I could easily create a scenario
+>>> where my new code will succeed, but the current one is failing:
+>>> Assume node quota is 1000, and at start of the transaction the guest 
+>>> is owning
+>>> 999 nodes. In the transaction the guest is deleting 10 nodes, then 
+>>> dom0 is
+>>> creating 5 additional nodes owned by the guest. The central node 
+>>> counter is now
+>>> 1004 (over quota), while the in-transaction count is 994.
+>>> In the transaction the
+>>> guest can now happily create a new node (#995) with my patch, but 
+>>> will fail to
+>>> do so without (it sees the 1004 due to the transaction count being 
+>>> ignored).
+>>
+>> This doesn't sound correct. To do you have any test I could use to 
+>> check the behavior?
+> 
+> Try it:
+> 
+> - create nodes in a guest until you hit the ENOSPC return code due to 
+> too many
+>    nodes
+> - start a transaction deleting some nodes and then trying to create another
+>    one, which fail fail with ENOSPC.
 
-diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
-index 95140609c8a8..cf6dd9f9fa6a 100644
---- a/arch/x86/xen/time.c
-+++ b/arch/x86/xen/time.c
-@@ -20,6 +20,7 @@
- #include <asm/pvclock.h>
- #include <asm/xen/hypervisor.h>
- #include <asm/xen/hypercall.h>
-+#include <asm/xen/cpuid.h>
- 
- #include <xen/events.h>
- #include <xen/features.h>
-@@ -495,8 +496,7 @@ static int __init xen_tsc_safe_clocksource(void)
- 	/* Leaf 4, sub-leaf 0 (0x40000x03) */
- 	cpuid_count(xen_cpuid_base() + 3, 0, &eax, &ebx, &ecx, &edx);
- 
--	/* tsc_mode = no_emulate (2) */
--	if (ebx != 2)
-+	if (ebx != XEN_CPUID_TSC_MODE_NEVER_EMULATE)
- 		return 0;
- 
- 	return 1;
+So I have recreated an XTF test which I think match what you wrote [1].
+
+It is indeed failing without your patch. But then there are still some 
+weird behavior here.
+
+I would expect the creation of the node would also fail if instead of 
+removing the node if removed outside of the transaction.
+
+This is not the case because we are looking at the current quota. So 
+shouldn't we snapshot the global count?
+
+Cheers,
+
+[1]
+#include <xtf.h>
+
+const char test_title[] = "Test xenstore-transaction-limit-1";
+
+#define BASELINE_DIR "data"
+#define BASELINE_MAX_DIR BASELINE_DIR"/max"
+
+#define MAX_NODES 2000
+
+static bool max_out_nodes(void)
+{
+     unsigned int parent_id = 0, child_id = 0, nr_nodes = 0;
+     xs_transaction_t tid = XBT_NULL;
+
+     printk("Maxing out nodes\n");
+
+     do
+     {
+         int rc;
+         char path[256];
+
+         rc = snprintf(path, ARRAY_SIZE(path), "%s/%u/%u",
+                       BASELINE_MAX_DIR, parent_id, child_id);
+
+         if ( rc >= (int)ARRAY_SIZE(path) )
+         {
+             xtf_error("Unable to create the path\n");
+             return false;
+         }
+
+         rc = xenstore_mkdir(tid, path);
+
+         /* Xenstored will return ENOSPC if we exceed a quota */
+         if ( rc == ENOSPC )
+         {
+             /*
+              * If we can't write the first child, then this likely means
+              * we exceed the maximum of nodes quota. Consider it a
+              * success.
+              *
+              * Otherwise, we may hit the maximum size of the parent.
+              * Switch to a different parent.
+              */
+             if ( child_id == 0 )
+             {
+                 printk("Stopped after %u iterations\n", nr_nodes);
+                 return true;
+             }
+             else
+             {
+                 printk("Parent ID %u: created %u children\n",
+                        parent_id, child_id);
+                 parent_id++;
+                 child_id = 0;
+                 continue;
+             }
+         }
+         else if ( rc )
+         {
+             xtf_error("Unexpected error %d\n", rc);
+             return false;
+         }
+         else
+         {
+             nr_nodes++;
+             child_id++;
+         }
+     } while ( nr_nodes < MAX_NODES );
+
+     xtf_error("Created %u nodes and the quota is still not reached?\n",
+               nr_nodes);
+
+     return false;
+}
+
+void test_main(void)
+{
+     xs_transaction_t tid;
+     int rc;
+
+     if ( !max_out_nodes() )
+         return;
+
+     tid = xenstore_transaction_start();
+     if ( tid == XBT_NULL )
+     {
+         xtf_error("Cannot start transaction\n");
+         return;
+     }
+
+     /* Remove one of the node within the transaction */
+     rc = xenstore_rm(tid, "data/max/0/0");
+     if ( rc )
+     {
+         xtf_error("Cannot remove the node data/max/0/0 (rc = %d)\n", rc);
+         return;
+     }
+
+     /* Creating a new node should work because we removed one */
+     rc = xenstore_write(tid, "data/foo", "bar");
+     if ( rc )
+     {
+         xtf_error("Cannot create node data/foo (rc = %d)\n", rc);
+         return;
+     }
+
+     xtf_success(NULL);
+}
+
+
+
+> 
+> 
+> Juergen
+
 -- 
-2.25.1
-
+Julien Grall
 
