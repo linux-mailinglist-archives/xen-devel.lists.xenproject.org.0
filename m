@@ -2,46 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A95A169D654
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 23:30:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.498413.769277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C5AE69D675
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 23:50:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.498420.769288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUEfJ-0000in-If; Mon, 20 Feb 2023 22:29:45 +0000
+	id 1pUEz3-0004Z3-7h; Mon, 20 Feb 2023 22:50:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 498413.769277; Mon, 20 Feb 2023 22:29:45 +0000
+Received: by outflank-mailman (output) from mailman id 498420.769288; Mon, 20 Feb 2023 22:50:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUEfJ-0000fz-FV; Mon, 20 Feb 2023 22:29:45 +0000
-Received: by outflank-mailman (input) for mailman id 498413;
- Mon, 20 Feb 2023 22:29:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HNad=6Q=epam.com=prvs=6415815d8c=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
- id 1pUEfI-0000ft-Ao
- for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 22:29:44 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 118c2b6c-b16e-11ed-933d-83870f6b2ba8;
- Mon, 20 Feb 2023 23:29:42 +0100 (CET)
-Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31KHN8NS003537; Mon, 20 Feb 2023 22:29:37 GMT
-Received: from eur04-db3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2051.outbound.protection.outlook.com [104.47.12.51])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3nvd0hgpas-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 20 Feb 2023 22:29:36 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
- by AM7PR03MB6184.eurprd03.prod.outlook.com (2603:10a6:20b:141::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.21; Mon, 20 Feb
- 2023 22:29:32 +0000
-Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::967e:573a:15a9:176e]) by VI1PR03MB3710.eurprd03.prod.outlook.com
- ([fe80::967e:573a:15a9:176e%4]) with mapi id 15.20.6111.018; Mon, 20 Feb 2023
- 22:29:31 +0000
+	id 1pUEz3-0004WP-4n; Mon, 20 Feb 2023 22:50:09 +0000
+Received: by outflank-mailman (input) for mailman id 498420;
+ Mon, 20 Feb 2023 22:50:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pUEz1-0004WJ-VT
+ for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 22:50:08 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pUEz1-0006Bg-1u; Mon, 20 Feb 2023 22:50:07 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pUEz0-0008Ce-SC; Mon, 20 Feb 2023 22:50:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,367 +39,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 118c2b6c-b16e-11ed-933d-83870f6b2ba8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lN8HYgBW2xXMKFN5iSiIovwYbEbJMdmG8f2oynVewZYC0HLyVJXiN+PKN1XeSPE4uIku885xtbWLvdgF0RkRNVYCSIEnjAxkD92coeRUU4lu1IWShwfqSWISQJGGEF6bToR3Om+9NxcMSdFGy/ENzLsXohdaH51i9Ykwea9VASJCgUUTqW/MohLCicwCJn/9CowoOfD062vvkKJNQjXcjOXIyc9OVHzjEuye7xEupj3KfkkU7V1FFX9ym5wF+4G1pAy+oBL33UQbK/HjsppiVbyJsnFzNZ97rdm9SEIr6jSHVV6dYc+3CbjUzrEiSqdIL0Rs+bYy6UhPX5wZQt8CNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rgR3Iu1Rr9Nu0FdGhM/WZ/b0x1eHMMrtpWQ4dd8r63Q=;
- b=AG62hJaolsLJ6lmEEGu2Ea6JfuO0XzkClyEvRd7S08D3j+yjlke6xZLzzYJND29ffNKHm2zQJ92NjtHMeNQHekdE2WWwhyuTKWP5LjkrmccF6lc+sJcOCpymhl6GVpPCC7Q/cc22MfPaEDt7rw7052WpOKnpLeii8c1+t+mDY5bHFH6rX+DkLdehAIx3x4z2kMcGGQxh8U6c5jVR7nhySw0tWfvDzTkpMnR1EYtFW0OhhIAcpHEqf49Reg49Szhe3ihCCsrrejtf23Fg0yoZSaJV7lpLSYBj7GI8zije5vY4siCxqUWPtPQOK8I5Q0ENJU3pS6S5XQS1BrxGdB3eKA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rgR3Iu1Rr9Nu0FdGhM/WZ/b0x1eHMMrtpWQ4dd8r63Q=;
- b=XBlAYr3rwbKrpGoc+3ZJeCD4wXXazBOvZ9bBuY2iF7fPK4fpZYMlOxIZejBJmJAUiePaGzp+wFmC5YXV1vhQj51zC1Y2sCFyaeJOCUDh6j7rULGJcsfND/SxmPBOusj1PVH89Lp2toPMctcryw8h8KrgW1+8HozlcTPhZLv6IyJ9C/HmBRusww1MEbHR2a6djtjEnMr9Hpb3OMnpv/EYXLsbq5jHiUFqSgwRRK+hVt7BosctPTlYEwThaBiYVPpS4teqn7SeBC0K8FNj8OlcvlOVDNAjZHK0s11XyDnZhxX5yu2ZhxjA+HaAzn7czdFroFL0CxLU4XANJpsC4ekknA==
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
-        Jan Beulich
-	<jbeulich@suse.com>,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
-        Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
-        Julien Grall
-	<julien@xen.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [RFC PATCH 07/10] xen: pci: add per-device locking
-Thread-Topic: [RFC PATCH 07/10] xen: pci: add per-device locking
-Thread-Index: AQHYvUN/+u7dK30KdkO8lqgvo0jPya6z7CCAgCWN6wA=
-Date: Mon, 20 Feb 2023 22:29:31 +0000
-Message-ID: <87cz64ynqs.fsf@epam.com>
-References: <20220831141040.13231-1-volodymyr_babchuk@epam.com>
- <20220831141040.13231-8-volodymyr_babchuk@epam.com>
- <alpine.DEB.2.22.394.2301271615330.1978264@ubuntu-linux-20-04-desktop>
-In-Reply-To: 
- <alpine.DEB.2.22.394.2301271615330.1978264@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: mu4e 1.8.9; emacs 28.2
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|AM7PR03MB6184:EE_
-x-ms-office365-filtering-correlation-id: 0b9bcd88-38a2-48ba-637f-08db1391efe3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- OdmpZP6XG5yMzr5gK5G3IU9fmdt2Xrn6uZ0Fzf0ojZMMLUbDm/1vMOCMjPWD/yVm026P698SpfyVyXu//aCsRHpOxFS4tbjrLvB8NL2yOcxRFA5kBQyx8CeBjpX5fwAqIlapv5FaTk5csSX2jXHf+WjU54eCSwqsR87zdbuMfcvaARRUFrKaYBsEOGL1uQLeo/rvcpxKI/rvvf0XWyfor3pPL+93F0EJQIJo0vBhq3wj1Kx4mIHme5Q9r1AYdJNXMvoKDXVQAT5JvWVZ3fNv6CH7kJLOqsX5hVQTVaGvknZwbnCXvl4qZbogPma+syPpT51TiwGCxkbDG10OjvT8/kS9iLc5Wq2Nzr9s5G+EBFIRtVO9M9THJlvYpnPTwzU8HTHPjOX4+q+Zb9DM5Nh0PNj88DJ+N+/0Y9bznxc8wrxBnWi9+NYke9wkwJKt1gZZAvP/wa3wNM8CU8G6NstBIPgVEaQ865nXdRPZF+vgoKikZ/7kHVQE5kFuUwBbWvX8zTbTy5cfKZobJTk360hPCakZJDD8NkMv1xr9GZYWTwr37cJOJca+NUNphK2H9XGBlHSHpS9/fbLgGz5a30BF5iXtKXpV9gwxvKyuxjdoUNtvTCYBHLr11/OaF427vBCWWiUoWnYdYVQpR7fVeozWuVdhAu7sm+UQr+92D272b6IfXlIIZNNgr+ARUnf40RV3AbOXCsbzubTMFRjPTyudfg==
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(366004)(396003)(376002)(346002)(39860400002)(451199018)(122000001)(38100700002)(2906002)(8936002)(5660300002)(26005)(6512007)(54906003)(76116006)(41300700001)(83380400001)(91956017)(38070700005)(2616005)(36756003)(6916009)(66446008)(8676002)(66476007)(66556008)(64756008)(4326008)(66946007)(6486002)(55236004)(86362001)(478600001)(6506007)(316002)(186003)(71200400001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?GqIC3WT7Z5iE0REFMyNlcA2pM09+cZIeUPs2DpEUNwR5ke1ZoyGK+tdDl0?=
- =?iso-8859-1?Q?2v6EgjiQCHe3ICJgoRjyaPL1aAH/pgM84aoTJxZ2fl+UG0B9U6NxyH6mF6?=
- =?iso-8859-1?Q?BZXVv9vKaEDsROxVW8wnQQfYNlYcd3fYcAzEZsrwhHKLAeZEZfksg/i9W8?=
- =?iso-8859-1?Q?Rh84olG2JEXkxXyaGydf46Oj6Mw5oGVXg6j9e1V0fIIYOdJpugGQcHqcG9?=
- =?iso-8859-1?Q?avByIgwcZt1TnR4nXrUfpYe5chwMWSoFaklRNapIM5EQJM1HenPjx/cEio?=
- =?iso-8859-1?Q?X+ycbCUC4LnzF3+JmEiYoUAUl5TwYoL9gze2sUnJ6joZNPT9d8yBhx6tf6?=
- =?iso-8859-1?Q?vo55IvrstLf1xld8g6yVTJzLD/Xa6f7Mt0jmQBQfnkBeZ83IFaGZC7afIR?=
- =?iso-8859-1?Q?eSEJB+CW6u7rEqWzr72KKt+Sdit+da1DCvjlgSWpJ6Ov0vtLgCcciLGnGS?=
- =?iso-8859-1?Q?n4puYrHWOVKkzPt7kNDTWXeVeMTYPvGkEcU/T4Jbdys4MJSY5joapMkoRo?=
- =?iso-8859-1?Q?LNmEyYhE1eP4f63+Zz0wRsT8624JIm0KuvCmYI0mzT2BxGrBASThgzALmT?=
- =?iso-8859-1?Q?gfsX6aZcHe6vSTXefUXRItVeqikySyPof6RGLAPkj/vcVpIyRYfqYiBPIQ?=
- =?iso-8859-1?Q?En6oQB4BEASz/RJ8nAjkSH2uXP0LG8nilqjVIBgqGnEKYG4ELDNjPODFVR?=
- =?iso-8859-1?Q?Co8V/OQI7rkO4kuHAyhxjuTQt64YIwL/iSUj/hBDuaP29j1OoyPAZbreFJ?=
- =?iso-8859-1?Q?h/75+C+HmNZkEGnRkYwYk+qwbI0GgktE/h94bgiQK5hBjzjLz76YT7xvAl?=
- =?iso-8859-1?Q?tH3Mh7TJiMUivBtXE3/yPzvtEesAVbpov9wMm121FiZQWUVKuDRax7TqmB?=
- =?iso-8859-1?Q?T+qujpWq5kK18IS1R16FsBGUIfcgp5vybv1dRMC+f4rmkv9OBT/62sIvv/?=
- =?iso-8859-1?Q?rw0VY5Oy7tKk7XDr402FzAXfWQa8eFUTXG0zRIqxx2mMfF43wHxQXMC/L2?=
- =?iso-8859-1?Q?N4e3YVqFLkteFOqPPlZM4D86p+LGr8/Znw3UOBuulMsEbDMrHl0pVQURGZ?=
- =?iso-8859-1?Q?M90e7q7gmdMWpmdG4zVJr72YzM6CpiZ6b//j/KfJPE8m4jZumJFWWVxk2G?=
- =?iso-8859-1?Q?VDgwLyMjPCOb/QP2cmEX6TBvj1KPWtvx6aQ5+3R4DJLQtiEeK3jzUH1gvW?=
- =?iso-8859-1?Q?dgQy+Vu5KAmoWETPjybOegBtLFiP8DuKfAy1LTdJshEN3RnCBiVjcYmsDT?=
- =?iso-8859-1?Q?jxlgw0+RZxNOoivqCJEsjgC8unu8SYWVy5HGmiQvpvoAzVD6znQbT2G2fH?=
- =?iso-8859-1?Q?DzD5KHHucHT0zwstCCc5wkYuiGs1RDcQNqxHWxA9L78i1mlCnr86Coj2Kp?=
- =?iso-8859-1?Q?WsuVb4oLECfxyZRgmH0TIJdxIFJhHaTCb61ZB8vS1fmsct4Jn9RxHJ/QAR?=
- =?iso-8859-1?Q?KBsuTn3ShvXyxLGRjbofOKZi0O4p1Ocq2hXEvGZvAaJ+rKVZPrcVopCd1v?=
- =?iso-8859-1?Q?M7+1sBKKGGtVfXvvaPBuDR2ZenlnaQbCEYWj7yflW7zHRu7Lgr78KaydSX?=
- =?iso-8859-1?Q?WgIrHSnhCty4VvbanSlSBf7sFTuQumxF0OZJwuneZ/IKV0UspBaxY4FC1q?=
- =?iso-8859-1?Q?bK46CgNMfhu/XwIoQJ4eAzJe2XiBS7fpcHFfOyNaYaOqkLa4TLAJUrmA?=
- =?iso-8859-1?Q?=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=sGkU79cHzFGJlqo3sbWpC0pTqDQR2c1WZMmX2tNNvak=; b=uZzYIojCr2WX1IMDG6qJCWohYu
+	A8ec5dchts7SfeNvRrCoRPbj0AOfp5dprNf+6zVXIGzBo5WxN4HfvlanuMVYQX7A30PFlJp4forAp
+	YTc23Sq0subbkSZTv7ocfebXKpbwTtq08SnrC8YKrWFpAc2rUGXZq6bKAIHrGBxEuK50=;
+Message-ID: <e35bb9f8-2bc8-66b3-6fd8-1b2473f9daef@xen.org>
+Date: Mon, 20 Feb 2023 22:50:05 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b9bcd88-38a2-48ba-637f-08db1391efe3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Feb 2023 22:29:31.8430
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5Ruos/Cnb+sfY0u63BS5H9PkbWMbtmkjs0Vv1QFbehP1vhHRUyMcdyiv0tmJP8iJF0D3tTzBAjU3saQyu1HDzGkjfL4KQCcLezTubCjjVjk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR03MB6184
-X-Proofpoint-GUID: fbdF4JrvU72T7nBP76jQGx368ldgYx3N
-X-Proofpoint-ORIG-GUID: fbdF4JrvU72T7nBP76jQGx368ldgYx3N
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
- definitions=2023-02-20_17,2023-02-20_02,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 phishscore=0
- impostorscore=0 lowpriorityscore=0 suspectscore=0 mlxlogscore=931
- spamscore=0 priorityscore=1501 adultscore=0 clxscore=1015 mlxscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2212070000 definitions=main-2302200208
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.7.2
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230120100028.11142-1-jgross@suse.com>
+ <20230120100028.11142-5-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v2 04/13] tools/xenstore: add framework to commit
+ accounting data on success only
+In-Reply-To: <20230120100028.11142-5-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi Juergen,
 
-Hi Stefano,
+On 20/01/2023 10:00, Juergen Gross wrote:
+> Instead of modifying accounting data and undo those modifications in
+> case of an error during further processing, add a framework for
+> collecting the needed changes and commit them only when the whole
+> operation has succeeded.
+> 
+> This scheme can reuse large parts of the per transaction accounting.
+> The changed_domain handling can be reused, but the array size of the
+> accounting data should be possible to be different for both use cases.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>   tools/xenstore/xenstored_core.c   |  5 +++
+>   tools/xenstore/xenstored_core.h   |  3 ++
+>   tools/xenstore/xenstored_domain.c | 64 +++++++++++++++++++++++++++----
+>   tools/xenstore/xenstored_domain.h |  5 ++-
+>   4 files changed, 68 insertions(+), 9 deletions(-)
+> 
+> diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+> index 27dfbe9593..2d10cacf35 100644
+> --- a/tools/xenstore/xenstored_core.c
+> +++ b/tools/xenstore/xenstored_core.c
+> @@ -1023,6 +1023,9 @@ static void send_error(struct connection *conn, int error)
+>   			break;
+>   		}
+>   	}
+> +
+> +	acc_drop(conn);
+> +
+>   	send_reply(conn, XS_ERROR, xsd_errors[i].errstring,
+>   			  strlen(xsd_errors[i].errstring) + 1);
+>   }
+> @@ -1060,6 +1063,7 @@ void send_reply(struct connection *conn, enum xsd_sockmsg_type type,
+>   	}
+>   
+>   	conn->in = NULL;
+> +	acc_commit(conn);
 
-Stefano Stabellini <sstabellini@kernel.org> writes:
+AFAIU, if send_reply() is called then we would need to commit the 
+accounting even if we can't send the reply (i.e. send_reply()). So 
+shouldn't this be call right at the beginning of send_reply()?
 
-> On Wed, 31 Aug 2022, Volodymyr Babchuk wrote:
->> Spinlock in struct pci_device will be used to protect access to device
->> itself. Right now it is used mostly by MSI code.
->>=20
->> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->
-> There are 2 instances of:
->
->     BUG_ON(list_empty(&dev->msi_list));
->
-> in xen/arch/x86/msi.c:__pci_disable_msi and
-> xen/arch/x86/msi.c:__pci_disable_msix which are not protected by
-> pcidev_lock. However list_empty needs to be protected. (pci_disable_msi
-> can also be called from xen/arch/x86/irq.c where it is not surrounded by
-> pcidev_lock.)
+>   
+>   	/* Update relevant header fields and fill in the message body. */
+>   	bdata->hdr.msg.type = type;
+> @@ -2195,6 +2199,7 @@ struct connection *new_connection(const struct interface_funcs *funcs)
+>   	new->is_stalled = false;
+>   	new->transaction_started = 0;
+>   	INIT_LIST_HEAD(&new->out_list);
+> +	INIT_LIST_HEAD(&new->acc_list);
+>   	INIT_LIST_HEAD(&new->ref_list);
+>   	INIT_LIST_HEAD(&new->watches);
+>   	INIT_LIST_HEAD(&new->transaction_list);
+> diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+> index c59b06551f..1f811f38cb 100644
+> --- a/tools/xenstore/xenstored_core.h
+> +++ b/tools/xenstore/xenstored_core.h
+> @@ -139,6 +139,9 @@ struct connection
+>   	struct list_head out_list;
+>   	uint64_t timeout_msec;
+>   
+> +	/* Not yet committed accounting data (valid if in != NULL). */
+> +	struct list_head acc_list;
+> +
+>   	/* Referenced requests no longer pending. */
+>   	struct list_head ref_list;
+>   
+> diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+> index f459c5aabb..33105dba8f 100644
+> --- a/tools/xenstore/xenstored_domain.c
+> +++ b/tools/xenstore/xenstored_domain.c
+> @@ -100,7 +100,7 @@ struct changed_domain
+>   	unsigned int domid;
+>   
+>   	/* Accounting data. */
+> -	int acc[ACC_TR_N];
+> +	int acc[];
 
-I checked all call paths. pci_disable_msi() is called from three places in
-xen/arch/x86/irq.c. As I can see, all three are "protected" with
-ASSERT(pcidevs_locked()), or am I missing something?
+Is this actually worth it? How much memory would we save?
 
->
-> Given that they are BUG_ON, I wonder if we could remove them instead of
-> adding locks there. It would make things simpler.
+>   };
+>   
+>   static struct hashtable *domhash;
+> @@ -577,6 +577,7 @@ static struct changed_domain *acc_find_changed_domain(struct list_head *head,
+>   
+>   static struct changed_domain *acc_get_changed_domain(const void *ctx,
+>   						     struct list_head *head,
+> +						     enum accitem acc_sz,
+>   						     unsigned int domid)
+>   {
+>   	struct changed_domain *cd;
+> @@ -585,7 +586,7 @@ static struct changed_domain *acc_get_changed_domain(const void *ctx,
+>   	if (cd)
+>   		return cd;
+>   
+> -	cd = talloc_zero(ctx, struct changed_domain);
+> +	cd = talloc_zero_size(ctx, sizeof(*cd) + acc_sz * sizeof(cd->acc[0]));
+>   	if (!cd)
+>   		return NULL;
+>   
+> @@ -596,13 +597,13 @@ static struct changed_domain *acc_get_changed_domain(const void *ctx,
+>   }
+>   
+>   static int acc_add_changed_dom(const void *ctx, struct list_head *head,
+> -			       enum accitem what, int val, unsigned int domid)
+> +			       enum accitem acc_sz, enum accitem what,
+> +			       int val, unsigned int domid)
+>   {
+>   	struct changed_domain *cd;
+>   
+> -	assert(what < ARRAY_SIZE(cd->acc));
+> -
+> -	cd = acc_get_changed_domain(ctx, head, domid);
+> +	assert(what < acc_sz);
+> +	cd = acc_get_changed_domain(ctx, head, acc_sz, domid);
+>   	if (!cd)
+>   		return 0;
+>   
+> @@ -1071,6 +1072,7 @@ static int domain_acc_add(struct connection *conn, unsigned int domid,
+>   			  enum accitem what, int add, bool no_dom_alloc)
+>   {
+>   	struct domain *d;
+> +	struct changed_domain *cd;
+>   	struct list_head *head;
+>   	int ret;
+>   
+> @@ -1091,10 +1093,26 @@ static int domain_acc_add(struct connection *conn, unsigned int domid,
+>   		}
+>   	}
+>   
+> +	/* Temporary accounting data until final commit? */
+> +	if (conn && conn->in && what < ACC_REQ_N) {
+> +		/* Consider transaction local data. */
+> +		ret = 0;
+> +		if (conn->transaction && what < ACC_TR_N) {
+> +			head = transaction_get_changed_domains(
+> +				conn->transaction);
+> +			cd = acc_find_changed_domain(head, domid);
+> +			if (cd)
+> +				ret = cd->acc[what];
+> +		}
+> +		ret += acc_add_changed_dom(conn->in, &conn->acc_list, ACC_REQ_N,
+> +					  what, add, domid);
+> +		return errno ? -1 : domain_acc_add_chk(d, what, ret, domid);
+> +	}
+> +
+>   	if (conn && conn->transaction && what < ACC_TR_N) {
+>   		head = transaction_get_changed_domains(conn->transaction);
+> -		ret = acc_add_changed_dom(conn->transaction, head, what,
+> -					  add, domid);
+> +		ret = acc_add_changed_dom(conn->transaction, head, ACC_TR_N,
+> +					  what, add, domid);
+>   		if (errno) {
+>   			fail_transaction(conn->transaction);
+>   			return -1;
+> @@ -1107,6 +1125,36 @@ static int domain_acc_add(struct connection *conn, unsigned int domid,
+>   	return d->acc[what];
+>   }
+>   
+> +void acc_drop(struct connection *conn)
+> +{
+> +	struct changed_domain *cd;
+> +
+> +	while ((cd = list_top(&conn->acc_list, struct changed_domain, list))) {
 
-Well, I will be happy to remove them, if there are no objections.
+NIT: You could use list_for_each_safe();
 
->
->
->> ---
->>  xen/arch/x86/hvm/vmsi.c       |  6 +++++-
->>  xen/arch/x86/msi.c            | 16 ++++++++++++++++
->>  xen/drivers/passthrough/msi.c |  8 +++++++-
->>  xen/drivers/passthrough/pci.c |  2 ++
->>  xen/include/xen/pci.h         | 12 ++++++++++++
->>  5 files changed, 42 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
->> index 7fb1075673..c9e5f279c5 100644
->> --- a/xen/arch/x86/hvm/vmsi.c
->> +++ b/xen/arch/x86/hvm/vmsi.c
->> @@ -203,10 +203,14 @@ static struct msi_desc *msixtbl_addr_to_desc(
->> =20
->>      nr_entry =3D (addr - entry->gtable) / PCI_MSIX_ENTRY_SIZE;
->> =20
->> +    pcidev_lock(entry->pdev);
->>      list_for_each_entry( desc, &entry->pdev->msi_list, list )
->>          if ( desc->msi_attrib.type =3D=3D PCI_CAP_ID_MSIX &&
->> -             desc->msi_attrib.entry_nr =3D=3D nr_entry )
->> +             desc->msi_attrib.entry_nr =3D=3D nr_entry ) {
->> +	    pcidev_unlock(entry->pdev);
->
-> code style
->
->
->>              return desc;
->> +	}
->> +    pcidev_unlock(entry->pdev);
->> =20
->>      return NULL;
->>  }
->> diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
->> index bccaccb98b..6b62c4f452 100644
->> --- a/xen/arch/x86/msi.c
->> +++ b/xen/arch/x86/msi.c
->> @@ -389,6 +389,7 @@ static bool msi_set_mask_bit(struct irq_desc *desc, =
-bool host, bool guest)
->>      default:
->>          return 0;
->>      }
->> +
->
-> spurious change
->
->
->>      entry->msi_attrib.host_masked =3D host;
->>      entry->msi_attrib.guest_masked =3D guest;
->> =20
->> @@ -585,12 +586,17 @@ static struct msi_desc *find_msi_entry(struct pci_=
-dev *dev,
->>  {
->>      struct msi_desc *entry;
->> =20
->> +    pcidev_lock(dev);
->>      list_for_each_entry( entry, &dev->msi_list, list )
->>      {
->>          if ( entry->msi_attrib.type =3D=3D cap_id &&
->>               (irq =3D=3D -1 || entry->irq =3D=3D irq) )
->> +	{
->> +	    pcidev_unlock(dev);
->>              return entry;
->> +	}
->>      }
->> +    pcidev_unlock(dev);
->> =20
->>      return NULL;
->>  }
->> @@ -661,7 +667,9 @@ static int msi_capability_init(struct pci_dev *dev,
->>          maskbits |=3D ~(uint32_t)0 >> (32 - dev->msi_maxvec);
->>          pci_conf_write32(dev->sbdf, mpos, maskbits);
->>      }
->> +    pcidev_lock(dev);
->>      list_add_tail(&entry->list, &dev->msi_list);
->> +    pcidev_unlock(dev);
->> =20
->>      *desc =3D entry;
->>      /* Restore the original MSI enabled bits  */
->> @@ -946,7 +954,9 @@ static int msix_capability_init(struct pci_dev *dev,
->> =20
->>  	pcidev_get(dev);
->> =20
->> +	pcidev_lock(dev);
->>          list_add_tail(&entry->list, &dev->msi_list);
->> +	pcidev_unlock(dev);
->>          *desc =3D entry;
->>      }
->> =20
->> @@ -1231,11 +1241,13 @@ static void msi_free_irqs(struct pci_dev* dev)
->>  {
->>      struct msi_desc *entry, *tmp;
->> =20
->> +    pcidev_lock(dev);
->>      list_for_each_entry_safe( entry, tmp, &dev->msi_list, list )
->>      {
->>          pci_disable_msi(entry);
->>          msi_free_irq(entry);
->>      }
->> +    pcidev_unlock(dev);
->>  }
->> =20
->>  void pci_cleanup_msi(struct pci_dev *pdev)
->> @@ -1354,6 +1366,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
->>      if ( ret )
->>          return ret;
->> =20
->> +    pcidev_lock(pdev);
->>      list_for_each_entry_safe( entry, tmp, &pdev->msi_list, list )
->>      {
->>          unsigned int i =3D 0, nr =3D 1;
->> @@ -1371,6 +1384,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
->>              dprintk(XENLOG_ERR, "Restore MSI for %pp entry %u not set?\=
-n",
->>                      &pdev->sbdf, i);
->>              spin_unlock_irqrestore(&desc->lock, flags);
->> +	    pcidev_unlock(pdev);
->>              if ( type =3D=3D PCI_CAP_ID_MSIX )
->>                  pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
->>                                   control & ~PCI_MSIX_FLAGS_ENABLE);
->> @@ -1393,6 +1407,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
->>              if ( unlikely(!memory_decoded(pdev)) )
->>              {
->>                  spin_unlock_irqrestore(&desc->lock, flags);
->> +		pcidev_unlock(pdev);
->>                  pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
->>                                   control & ~PCI_MSIX_FLAGS_ENABLE);
->>                  return -ENXIO;
->> @@ -1438,6 +1453,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
->>          pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
->>                           control | PCI_MSIX_FLAGS_ENABLE);
->> =20
->> +    pcidev_unlock(pdev);
->>      return 0;
->>  }
->> =20
->> diff --git a/xen/drivers/passthrough/msi.c b/xen/drivers/passthrough/msi=
-.c
->> index ce1a450f6f..98f4d2721a 100644
->> --- a/xen/drivers/passthrough/msi.c
->> +++ b/xen/drivers/passthrough/msi.c
->> @@ -22,6 +22,7 @@ int pdev_msi_init(struct pci_dev *pdev)
->>  {
->>      unsigned int pos;
->> =20
->> +    pcidev_lock(pdev);
->>      INIT_LIST_HEAD(&pdev->msi_list);
->> =20
->>      pos =3D pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->de=
-vfn),
->> @@ -41,7 +42,10 @@ int pdev_msi_init(struct pci_dev *pdev)
->>          uint16_t ctrl;
->> =20
->>          if ( !msix )
->> -            return -ENOMEM;
->> +        {
->> +             pcidev_unlock(pdev);
->> +             return -ENOMEM;
->> +        }
->> =20
->>          spin_lock_init(&msix->table_lock);
->> =20
->> @@ -51,6 +55,8 @@ int pdev_msi_init(struct pci_dev *pdev)
->>          pdev->msix =3D msix;
->>      }
->> =20
->> +    pcidev_unlock(pdev);
->> +
->>      return 0;
->>  }
->> =20
->> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci=
-.c
->> index c8da80b981..c83397211b 100644
->> --- a/xen/drivers/passthrough/pci.c
->> +++ b/xen/drivers/passthrough/pci.c
->> @@ -1383,7 +1383,9 @@ static int cf_check _dump_pci_devices(struct pci_s=
-eg *pseg, void *arg)
->>              printk("%pd", pdev->domain);
->>          printk(" - node %-3d refcnt %d", (pdev->node !=3D NUMA_NO_NODE)=
- ? pdev->node : -1,
->>                 atomic_read(&pdev->refcnt));
->> +        pcidev_lock(pdev);
->>          pdev_dump_msi(pdev);
->> +        pcidev_unlock(pdev);
->>          printk("\n");
->>      }
->>      spin_unlock(&pseg->alldevs_lock);
->> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
->> index e71a180ef3..d0a7339d84 100644
->> --- a/xen/include/xen/pci.h
->> +++ b/xen/include/xen/pci.h
->> @@ -106,6 +106,8 @@ struct pci_dev {
->>      uint8_t msi_maxvec;
->>      uint8_t phantom_stride;
->> =20
->> +    /* Device lock */
->> +    spinlock_t lock;
->>      nodeid_t node; /* NUMA node */
->> =20
->>      /* Device to be quarantined, don't automatically re-assign to dom0 =
-*/
->> @@ -235,6 +237,16 @@ int msixtbl_pt_register(struct domain *, struct pir=
-q *, uint64_t gtable);
->>  void msixtbl_pt_unregister(struct domain *, struct pirq *);
->>  void msixtbl_pt_cleanup(struct domain *d);
->> =20
->> +static inline void pcidev_lock(struct pci_dev *pdev)
->> +{
->> +    spin_lock(&pdev->lock);
->> +}
->> +
->> +static inline void pcidev_unlock(struct pci_dev *pdev)
->> +{
->> +    spin_unlock(&pdev->lock);
->> +}
->> +
->>  #ifdef CONFIG_HVM
->>  int arch_pci_clean_pirqs(struct domain *d);
->>  #else
->> --=20
->> 2.36.1
->>=20
+> +		list_del(&cd->list);
+> +		talloc_free(cd);
+> +	}
+> +}
+> +
+> +void acc_commit(struct connection *conn)
+> +{
+> +	struct changed_domain *cd;
+> +	struct buffered_data *in = conn->in;
+> +	enum accitem what;
+> +
+> +	conn->in = NULL; /* Avoid recursion. */
+
+I am not sure I understand this comment. Can you provide more details 
+where the recursion would happen?
+
+> +	while ((cd = list_top(&conn->acc_list, struct changed_domain, list))) {
+
+NIT: You could use list_for_each_safe();
+
+> +		list_del(&cd->list);
+> +		for (what = 0; what < ACC_REQ_N; what++)
+
+There is a chance that some compiler will complain about this line 
+because ACC_REQ_N = 0. So this would always be true. Therefore...
+
+> +			if (cd->acc[what])
+> +				domain_acc_add(conn, cd->domid, what,
+> +					       cd->acc[what], true);
+> +
+> +		talloc_free(cd);
+> +	}
+> +
+> +	conn->in = in;
+> +}
+> +
+>   int domain_nbentry_inc(struct connection *conn, unsigned int domid)
+>   {
+>   	return (domain_acc_add(conn, domid, ACC_NODES, 1, false) < 0)
+> diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
+> index 8259c114b0..cd85bd0cad 100644
+> --- a/tools/xenstore/xenstored_domain.h
+> +++ b/tools/xenstore/xenstored_domain.h
+> @@ -20,7 +20,8 @@
+>   #define _XENSTORED_DOMAIN_H
+>   
+>   enum accitem {
+> -	ACC_NODES,
+> +	ACC_REQ_N,       /* Number of elements per request and domain. */
+> +	ACC_NODES = ACC_REQ_N,
+
+I would bring forward the change in patch #5. I mean:
+
+ACC_NODES,
+ACC_REQ_N
+
+>   	ACC_TR_N,        /* Number of elements per transaction and domain. */
+>   	ACC_N = ACC_TR_N /* Number of elements per domain. */
+>   };
+
+This enum is getting extremely confusing. There are many "number of 
+elements per ... domain". Can you clarify?
+
+> @@ -103,6 +104,8 @@ void domain_outstanding_domid_dec(unsigned int domid);
+>   int domain_get_quota(const void *ctx, struct connection *conn,
+>   		     unsigned int domid);
+>   int acc_fix_domains(struct list_head *head, bool update);
+> +void acc_drop(struct connection *conn);
+> +void acc_commit(struct connection *conn);
+>   
+>   /* Write rate limiting */
+>   
+
+Cheers,
+
+-- 
+Julien Grall
 
