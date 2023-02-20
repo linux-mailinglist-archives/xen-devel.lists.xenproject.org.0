@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17D2A69D450
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 20:47:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.498351.769196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C66A69D451
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 20:47:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.498353.769217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUC82-0001v8-2P; Mon, 20 Feb 2023 19:47:14 +0000
+	id 1pUC89-0002PA-K7; Mon, 20 Feb 2023 19:47:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 498351.769196; Mon, 20 Feb 2023 19:47:14 +0000
+Received: by outflank-mailman (output) from mailman id 498353.769217; Mon, 20 Feb 2023 19:47:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUC81-0001rl-Vx; Mon, 20 Feb 2023 19:47:13 +0000
-Received: by outflank-mailman (input) for mailman id 498351;
- Mon, 20 Feb 2023 19:47:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pUC89-0002NZ-Go; Mon, 20 Feb 2023 19:47:21 +0000
+Received: by outflank-mailman (input) for mailman id 498353;
+ Mon, 20 Feb 2023 19:47:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CT8u=6Q=citrix.com=prvs=408b4b2b9=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pUC80-0001rf-5t
- for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 19:47:12 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b23a48b-b157-11ed-93b5-47a8fe42b414;
- Mon, 20 Feb 2023 20:47:08 +0100 (CET)
+ id 1pUC87-00026t-8z
+ for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 19:47:19 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 61d62945-b157-11ed-933d-83870f6b2ba8;
+ Mon, 20 Feb 2023 20:47:18 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,53 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b23a48b-b157-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: 61d62945-b157-11ed-933d-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1676922428;
+  d=citrix.com; s=securemail; t=1676922438;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=ozmrT0xsF9T2UPZ0eCR4FeQWVNqHXbEoi8spot3TtxA=;
-  b=JSqgews5QXcv/KlA8+0Y3m8haXat6Y1kcI6dUjZdlH+ADugB6aEIm8v6
-   q5q/dUPf73dtYrST6zVeWl2BSH4oXeycJ5LCOpVtaEuSe792e82fPklLY
-   A0/6maeTzWfhAJGOa64tU7USQaCbb55jd3CRRLBnkMNclqfZ/XUQPfhap
-   A=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=59YlNFN9gprKCcNZMjv06aajCgsZGhQvKhHumYZ971A=;
+  b=SPF/HPidQT9QQH5iPFa59F21Skd7EwKYwPpTzZr3hIRNst87M8qbZ/CG
+   l+hYbHJO9iAs/HzTqWvEwnMt8uwM4dT5xzWrY/H5EsbFK6utJOKnxhkrQ
+   d+xjQfHM+/MjqS5pnniLUoV6H7Np6KrCUlj9z1tWzy7TWub0z5+2oKy1E
+   Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 97796898
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 97179658
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:OQvNBqCEez9KdRVW/z/jw5YqxClBgxIJ4kV8jS/XYbTApGt31DEFn
- DdJXW7Xbq3bMWCnftEibd+2pkJQ7ZDQyoJjQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbyRFtMpvlDs15K6p4GlC5gRkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw1N14PTlkz
- v4hBTktah6DnMWN5pmwc7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
- pdHL2M1N3wsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9K4PVFJsFzxbwS
- mTu9lnBKyomJMakxRmHqVPwoNXhhGDjcddHfFG/3qEz2wDCroAJMzUGWF3+rfSnh0qWX9NEN
- 1dS6icotbI19kGgUp/6RRLQiFyuswMYWtFQO/Yn8wzLwa3Riy6GAkAUQzgHb8Yp3PLaXhRzi
- AXPxYmwQ2Uy7vvMEyn1GqqoQS2aFxMaETcoXi09YAIl59fju6YIqDnEd4M2eEKqteHdFTb1y
- jGMiSExgbQPkMIGv5mGEUD7byGE/caQEFNsjunDdif8t14iOtb5D2C9wQKDhcusOrp1WbVoU
- JIsv8GFpN4DApiW/MBmaLVcRer5jxpp3dC1vLKOI3XD327wk5JAVdoKiN2bGKuOGp9dEQIFm
- GeJ5WtsCGZ7ZRNGl5NfbYOrENgNxqP9D9njXf28RoMQPcYgLV/frH43Phb4M4XRfK8Ey/xXB
- HtmWZz0USZy5VpPkVJauNvxIZd0n3tjlAs/tLjwzgi90Kr2WZJmYe5tDbd6VchgtPnsiFyMo
- 75i2z6il003vBvWPnOGrub+7DkicRAGOHwBg5YJL77eclU6SThJ5j246epJRrGJVp99zo/gl
- kxRkGcBoLYjrRUr8Tm3V00=
-IronPort-HdrOrdr: A9a23:A1uTNKCpRMHEJJPlHels55DYdb4zR+YMi2TDt3oddfU1SL38qy
- nKpp4mPHDP5wr5NEtPpTniAtjjfZq/z/5ICOAqVN/PYOCPggCVxepZnOjfKlPbehEX9oRmpN
- 1dWpk7MvLcJxxRt+GS2njdLz4jquP3jZxBU43lvgtQpQIBUdAe0+9gYDzrdXGf3GN9dOEE/J
- z33Lsgm9LxEU5nF/hSHxM+LpD+m+E=
+IronPort-Data: A9a23:pLOcRKowHzvlRUst5zmcGuqzJU5eBmIOZRIvgKrLsJaIsI4StFCzt
+ garIBmFPvaJZWLwfot1Pojk9BkGu5/RzdBqTwpl+C82E3sR85uZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WxwUmAWP6gR5weEzSFNVvrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXAAkqR06uod66+ZW+QchghPglLca2f7pK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVxrl6PqLVxyG/U1AFri5DmMcbPe8zMTsJQ9qqdj
+ jOZpjuoXExKXDCZ4SulyFacvdHupxrQCYECTOT/1dBx2nTGkwT/DzVJDADm8JFVkHWWRNZ3O
+ 0ESvC00osAa5EGtC9XwQRC8iHqFpQIHHcpdFfUg7wOAwbaS5ByWbkAmZDNcbN0ttOctWCcnk
+ FSOmrvU6SdH6ePPDyjHr/HN8G30YHJORYMfWcMaZTIiyofOhr0/tzXKRfdvEpKzj9KoWgill
+ lhmsxMCr7kUiMcK0YCy8lbGny+gq/D1c+Il2unEdjn7t10kPeZJc6TtsAGGtqgYcO51W3Hb5
+ BA5d96iAPfi5H1nvAiEW60zEb6g/J5p2xWM0Ac0T/HNG9lAkkNPnLy8AhkkeS+F0e5eI1cFh
+ XM/XisIvfdu0IOCN/MfXm5II51CIVLcPdrkTOvISdFFf4J8cgSKlAk3OxHOjjm9yBhzyPpnU
+ Xt+TSpLJSxHYZmLMRLsH7tNuVPV7n1WKZzvqWDTkE38jOv2iI+9QrYZKlqeBt3VH4vdyDg5B
+ +13bpPQoz0GCb2WX8Ui2dJLRbz8BSRhVM+eRg0+XrLrHzeK70l7VaaBnON+J90890mX/8+Rl
+ kyAtoZj4AKXrRX6xc+iMxiPtJuHsU5DkE8G
+IronPort-HdrOrdr: A9a23:5+eu96tj6q3WnvMJZVjhrGNG7skDttV00zEX/kB9WHVpm6yj+v
+ xG/c5rsCMc7Qx6ZJhOo7+90cW7L080lqQFg7X5X43DYOCOggLBQL2KhbGI/9SKIVycygcy78
+ Zdm6gVMqyLMXFKyfzUzSP9OewGqeP3lJxBh43lvgpQpdcBUdAd0+97YDzrbXGfXGN9dP0E/A
+ L33Ls9m9KnE05nCPhSVhE+LpH+T8SgruOfXSI7
 X-IronPort-AV: E=Sophos;i="5.97,313,1669093200"; 
-   d="scan'208";a="97796898"
+   d="scan'208";a="97179658"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 1/2] xen/ioapic: Don't use local_irq_restore() to disable irqs
-Date: Mon, 20 Feb 2023 19:47:01 +0000
-Message-ID: <20230220194702.2260181-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/2] x86/irq: Improve local_irq_restore() code generation and performance
+Date: Mon, 20 Feb 2023 19:47:02 +0000
+Message-ID: <20230220194702.2260181-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230220194702.2260181-1-andrew.cooper3@citrix.com>
 References: <20230220194702.2260181-1-andrew.cooper3@citrix.com>
@@ -90,49 +90,47 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Despite its name, the irq{save,restore}() APIs are only intended to
-conditionally disable and re-enable interrupts.
+POPF is a horribly expensive instruction, while STI is an optimised fastpath.
 
-IO-APIC's timer_irq_works() violates this intention.  As it is init code,
-switch to simple irq enable/disable().
+Switching POPF for a conditional branch and STI caused an 8% perf improvement
+in various linux measurements.  While I don't expect the change to be that
+dramatic in Xen, there will be an improvement.
 
-No functional change.
+Furthermore, there is the following code generation improvement:
+
+  add/remove: 0/0 grow/shrink: 3/52 up/down: 52/-966 (-914)
+
+owing to not needing to opencode the restriction to just IF in asm.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
-
-This is a logical equivelent to Linux's 058df195c2 "x86/ioapic: Cleanup the
-timer_works() irqflags mess", but we've diverged far enough for the patch to
-not be remotely relevant.
 ---
- xen/arch/x86/io_apic.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ xen/arch/x86/include/asm/system.h | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index 9b8a972cf570..199098fa3e0f 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -1502,15 +1502,14 @@ static void __init setup_ioapic_ids_from_mpc(void)
-  */
- static int __init timer_irq_works(void)
- {
--    unsigned long t1, flags;
-+    unsigned long t1;
+diff --git a/xen/arch/x86/include/asm/system.h b/xen/arch/x86/include/asm/system.h
+index 65e63de69a67..4be235472ecd 100644
+--- a/xen/arch/x86/include/asm/system.h
++++ b/xen/arch/x86/include/asm/system.h
+@@ -267,13 +267,8 @@ static inline unsigned long array_index_mask_nospec(unsigned long index,
+ })
+ #define local_irq_restore(x)                                     \
+ ({                                                               \
+-    BUILD_BUG_ON(sizeof(x) != sizeof(long));                     \
+-    asm volatile ( "pushfq\n\t"                                  \
+-                   "andq %0, (%%rsp)\n\t"                        \
+-                   "orq  %1, (%%rsp)\n\t"                        \
+-                   "popfq"                                       \
+-                   : : "i?r" ( ~X86_EFLAGS_IF ),                 \
+-                       "ri" ( (x) & X86_EFLAGS_IF ) );           \
++    if ( (x) & X86_EFLAGS_IF )                                   \
++        local_irq_enable();                                      \
+ })
  
-     t1 = ACCESS_ONCE(pit0_ticks);
- 
--    local_save_flags(flags);
-     local_irq_enable();
-     /* Let ten ticks pass... */
-     mdelay((10 * 1000) / HZ);
--    local_irq_restore(flags);
-+    local_irq_disable();
- 
-     /*
-      * Expect a few ticks at least, to be sure some possible
+ static inline int local_irq_is_enabled(void)
 -- 
 2.30.2
 
