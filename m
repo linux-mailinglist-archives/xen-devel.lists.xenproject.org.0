@@ -2,42 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9249669D62E
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 23:12:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.498406.769266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A95A169D654
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 23:30:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.498413.769277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUEOQ-00077R-Vd; Mon, 20 Feb 2023 22:12:18 +0000
+	id 1pUEfJ-0000in-If; Mon, 20 Feb 2023 22:29:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 498406.769266; Mon, 20 Feb 2023 22:12:18 +0000
+Received: by outflank-mailman (output) from mailman id 498413.769277; Mon, 20 Feb 2023 22:29:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUEOQ-00075L-Rr; Mon, 20 Feb 2023 22:12:18 +0000
-Received: by outflank-mailman (input) for mailman id 498406;
- Mon, 20 Feb 2023 22:12:17 +0000
+	id 1pUEfJ-0000fz-FV; Mon, 20 Feb 2023 22:29:45 +0000
+Received: by outflank-mailman (input) for mailman id 498413;
+ Mon, 20 Feb 2023 22:29:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CT8u=6Q=citrix.com=prvs=408b4b2b9=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pUEOP-000753-EC
- for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 22:12:17 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a0bea1c1-b16b-11ed-933d-83870f6b2ba8;
- Mon, 20 Feb 2023 23:12:15 +0100 (CET)
-Received: from mail-bn7nam10lp2102.outbound.protection.outlook.com (HELO
- NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.102])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 20 Feb 2023 17:12:08 -0500
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by BN9PR03MB6121.namprd03.prod.outlook.com (2603:10b6:408:11a::18)
+ <SRS0=HNad=6Q=epam.com=prvs=6415815d8c=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1pUEfI-0000ft-Ao
+ for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 22:29:44 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 118c2b6c-b16e-11ed-933d-83870f6b2ba8;
+ Mon, 20 Feb 2023 23:29:42 +0100 (CET)
+Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31KHN8NS003537; Mon, 20 Feb 2023 22:29:37 GMT
+Received: from eur04-db3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2051.outbound.protection.outlook.com [104.47.12.51])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3nvd0hgpas-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 20 Feb 2023 22:29:36 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by AM7PR03MB6184.eurprd03.prod.outlook.com (2603:10a6:20b:141::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.19; Mon, 20 Feb
- 2023 22:12:07 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6111.020; Mon, 20 Feb 2023
- 22:12:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.21; Mon, 20 Feb
+ 2023 22:29:32 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::967e:573a:15a9:176e]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::967e:573a:15a9:176e%4]) with mapi id 15.20.6111.018; Mon, 20 Feb 2023
+ 22:29:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,171 +53,367 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a0bea1c1-b16b-11ed-933d-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1676931135;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=0yTJzDsMslstLixdZonO67454OOLovjj86hvtJJqeEo=;
-  b=Im2HkCl2U8XmFYervE+Zw/GBxULpIXZclh08iNO334wZF2xD3GI9H8qE
-   vRKzUFqAU1szxWZ2n+2W67EKoewOQhX++xfqfGbGNxrmkveDxmbYvK5aY
-   VJ9q5q/g/CFE8Gc8b2xNUvXUO9rKaX4N2bhbkLA/lnlH1u7MU5n1ntohY
-   M=;
-X-IronPort-RemoteIP: 104.47.70.102
-X-IronPort-MID: 100222667
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:3pTfq60J9Plgl4VLHfbD5elwkn2cJEfYwER7XKvMYLTBsI5bpzVRy
- mROWW7TOazeYzfzfdF0adu29EICucPSzIRgHFBvpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8tuTS93uDgNyo4GlD5gZkPagR1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfB1xnr
- dc7Ciw0Tk6Hp72U/o2LdeVHr5F2RCXrFNt3VnBI6xj8VK5ja7acBqLA6JlfwSs6gd1IEbDGf
- c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxouy6KlFYZPLvFabI5fvSjQ8lPk1nej
- WXB52njWTkRNcCFyCrD+XWp7gPKtXqjANhITuPmqZaGhnWM+V4YGA87WWGxpMCI2kiAAvB0F
- xwLr39GQa8asRbDosPGdxelumyNuhkQXMVZO+I/4QCJjKHT5m6xFmUCCzJMdtEinMs3XiAxk
- E+EmcvzAj5iu6HTTmiSnp+Wpz6vPSkeLUcZeDQJCwAC5rHLv4Ubnh/JCNF5H8aIYsbdHDjxx
- 3WAqnc4jrBK1coTjfzjpxbAni6moYXPQkgt/ALLU2m57wR/Iom4e4iv7lud5vFFRGqEcmS8U
- LE/s5D2xIgz4VulzkRhnM1l8GmV2su4
-IronPort-HdrOrdr: A9a23:9WzPLKE2WzsC9iXDpLqE+ceALOsnbusQ8zAXPiFKJCC9F/by/f
- xG885rtiMc9wxhOk3I9ervBEDiex/hHPxOgbX5VI3KNDUO01HGEGgN1+rfKjTbakjDytI=
-X-IronPort-AV: E=Sophos;i="5.97,313,1669093200"; 
-   d="scan'208";a="100222667"
+X-Inumbo-ID: 118c2b6c-b16e-11ed-933d-83870f6b2ba8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eeTbhuJo0ZwfJFjTlNSXz5XcL+diBkaUS0eSC3HUCVydJlVNbp5iTa2Q/BiBJOwsLGTkcl3byYH7KIffsIM+jh7cMffeGrW3g3vvwi4prcx+QvihC2JRUZwjFwrMabcLh6QyLGySDJtGL5htTDUtCg3GGLr1l6L25Q5Vno0SAUO3knCtBDuUNJfkaUH6hntWY93BBgjLKXtLE3U4V5dK40YYeEAD5wZH+Vo3lw0xYMdOksECMbHaQrptNATe4R54WUZzX4CMl+mCIzuZ+Wlx0eIO4hr8fwAXtJNumCHqwQOU/A5UUnxehpCAgcPfTWCwYyYlLFxNh1LYvgvfmbF9fg==
+ b=lN8HYgBW2xXMKFN5iSiIovwYbEbJMdmG8f2oynVewZYC0HLyVJXiN+PKN1XeSPE4uIku885xtbWLvdgF0RkRNVYCSIEnjAxkD92coeRUU4lu1IWShwfqSWISQJGGEF6bToR3Om+9NxcMSdFGy/ENzLsXohdaH51i9Ykwea9VASJCgUUTqW/MohLCicwCJn/9CowoOfD062vvkKJNQjXcjOXIyc9OVHzjEuye7xEupj3KfkkU7V1FFX9ym5wF+4G1pAy+oBL33UQbK/HjsppiVbyJsnFzNZ97rdm9SEIr6jSHVV6dYc+3CbjUzrEiSqdIL0Rs+bYy6UhPX5wZQt8CNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8CZ9xh4uPgpeeBH6akqmJ0HUOpbOWuDJAv/CjYdHLhU=;
- b=L1dSQQqLo/P71lc35dsosRrElOLhornx7SD66d2PGpT2o8sg9EGHrAUBGnBzDkgN/aRcY9YISjHgMQM1S4ZeFIbH6e5TVSlz1dDoJRp9c2PF5qYGeNfBgmUXONmJ8WEqsiGPm5mwpxe9PUocflz4cMEtVv//tCYWbX1iXYJtY5bfDfGf/YIXOGpsFcijiBKE2mQy+59Ydz6XznWVu6WohZgc8MKwwi/Xzf7cQzZxZlx5SK7KZsTT29hNCu6mx3TgOfVW5kxLh2TDOLgtx+moJ1nTJu495kBWrPXWzrq2ke/XHqriQesELRQQ9UuFoG7kkaKFQispUsV5f7dn5JjE1A==
+ bh=rgR3Iu1Rr9Nu0FdGhM/WZ/b0x1eHMMrtpWQ4dd8r63Q=;
+ b=AG62hJaolsLJ6lmEEGu2Ea6JfuO0XzkClyEvRd7S08D3j+yjlke6xZLzzYJND29ffNKHm2zQJ92NjtHMeNQHekdE2WWwhyuTKWP5LjkrmccF6lc+sJcOCpymhl6GVpPCC7Q/cc22MfPaEDt7rw7052WpOKnpLeii8c1+t+mDY5bHFH6rX+DkLdehAIx3x4z2kMcGGQxh8U6c5jVR7nhySw0tWfvDzTkpMnR1EYtFW0OhhIAcpHEqf49Reg49Szhe3ihCCsrrejtf23Fg0yoZSaJV7lpLSYBj7GI8zije5vY4siCxqUWPtPQOK8I5Q0ENJU3pS6S5XQS1BrxGdB3eKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8CZ9xh4uPgpeeBH6akqmJ0HUOpbOWuDJAv/CjYdHLhU=;
- b=V+6V/iCpck9mXDGXnmtR0K74SaBR45BzTGTF9uOkvSo9g/R+pU9CpqxmjQzRV03P6BfG1n+2BnJTVDL7VKX4RizHLtCWQ7Czf6B1Awd+q0nKVQMFvegFJQQy1vR6GCl/pNeOLGMnEYT5Agwex0Rl4+JhAIYECl9ujUbjJScX1Xs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <0f35ee23-c6f2-9015-4328-266baf287156@citrix.com>
-Date: Mon, 20 Feb 2023 22:12:00 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 1/4] x86/svm: cleanup svm.c
-Content-Language: en-GB
-To: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20230217184814.1243046-1-burzalodowa@gmail.com>
- <20230217184814.1243046-2-burzalodowa@gmail.com>
-In-Reply-To: <20230217184814.1243046-2-burzalodowa@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0150.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:188::11) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+ bh=rgR3Iu1Rr9Nu0FdGhM/WZ/b0x1eHMMrtpWQ4dd8r63Q=;
+ b=XBlAYr3rwbKrpGoc+3ZJeCD4wXXazBOvZ9bBuY2iF7fPK4fpZYMlOxIZejBJmJAUiePaGzp+wFmC5YXV1vhQj51zC1Y2sCFyaeJOCUDh6j7rULGJcsfND/SxmPBOusj1PVH89Lp2toPMctcryw8h8KrgW1+8HozlcTPhZLv6IyJ9C/HmBRusww1MEbHR2a6djtjEnMr9Hpb3OMnpv/EYXLsbq5jHiUFqSgwRRK+hVt7BosctPTlYEwThaBiYVPpS4teqn7SeBC0K8FNj8OlcvlOVDNAjZHK0s11XyDnZhxX5yu2ZhxjA+HaAzn7czdFroFL0CxLU4XANJpsC4ekknA==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+        Jan Beulich
+	<jbeulich@suse.com>,
+        Andrew Cooper <andrew.cooper3@citrix.com>,
+        =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
+        Wei Liu
+	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+        Julien Grall
+	<julien@xen.org>, Paul Durrant <paul@xen.org>
+Subject: Re: [RFC PATCH 07/10] xen: pci: add per-device locking
+Thread-Topic: [RFC PATCH 07/10] xen: pci: add per-device locking
+Thread-Index: AQHYvUN/+u7dK30KdkO8lqgvo0jPya6z7CCAgCWN6wA=
+Date: Mon, 20 Feb 2023 22:29:31 +0000
+Message-ID: <87cz64ynqs.fsf@epam.com>
+References: <20220831141040.13231-1-volodymyr_babchuk@epam.com>
+ <20220831141040.13231-8-volodymyr_babchuk@epam.com>
+ <alpine.DEB.2.22.394.2301271615330.1978264@ubuntu-linux-20-04-desktop>
+In-Reply-To: 
+ <alpine.DEB.2.22.394.2301271615330.1978264@ubuntu-linux-20-04-desktop>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.8.9; emacs 28.2
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|AM7PR03MB6184:EE_
+x-ms-office365-filtering-correlation-id: 0b9bcd88-38a2-48ba-637f-08db1391efe3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ OdmpZP6XG5yMzr5gK5G3IU9fmdt2Xrn6uZ0Fzf0ojZMMLUbDm/1vMOCMjPWD/yVm026P698SpfyVyXu//aCsRHpOxFS4tbjrLvB8NL2yOcxRFA5kBQyx8CeBjpX5fwAqIlapv5FaTk5csSX2jXHf+WjU54eCSwqsR87zdbuMfcvaARRUFrKaYBsEOGL1uQLeo/rvcpxKI/rvvf0XWyfor3pPL+93F0EJQIJo0vBhq3wj1Kx4mIHme5Q9r1AYdJNXMvoKDXVQAT5JvWVZ3fNv6CH7kJLOqsX5hVQTVaGvknZwbnCXvl4qZbogPma+syPpT51TiwGCxkbDG10OjvT8/kS9iLc5Wq2Nzr9s5G+EBFIRtVO9M9THJlvYpnPTwzU8HTHPjOX4+q+Zb9DM5Nh0PNj88DJ+N+/0Y9bznxc8wrxBnWi9+NYke9wkwJKt1gZZAvP/wa3wNM8CU8G6NstBIPgVEaQ865nXdRPZF+vgoKikZ/7kHVQE5kFuUwBbWvX8zTbTy5cfKZobJTk360hPCakZJDD8NkMv1xr9GZYWTwr37cJOJca+NUNphK2H9XGBlHSHpS9/fbLgGz5a30BF5iXtKXpV9gwxvKyuxjdoUNtvTCYBHLr11/OaF427vBCWWiUoWnYdYVQpR7fVeozWuVdhAu7sm+UQr+92D272b6IfXlIIZNNgr+ARUnf40RV3AbOXCsbzubTMFRjPTyudfg==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(366004)(396003)(376002)(346002)(39860400002)(451199018)(122000001)(38100700002)(2906002)(8936002)(5660300002)(26005)(6512007)(54906003)(76116006)(41300700001)(83380400001)(91956017)(38070700005)(2616005)(36756003)(6916009)(66446008)(8676002)(66476007)(66556008)(64756008)(4326008)(66946007)(6486002)(55236004)(86362001)(478600001)(6506007)(316002)(186003)(71200400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?GqIC3WT7Z5iE0REFMyNlcA2pM09+cZIeUPs2DpEUNwR5ke1ZoyGK+tdDl0?=
+ =?iso-8859-1?Q?2v6EgjiQCHe3ICJgoRjyaPL1aAH/pgM84aoTJxZ2fl+UG0B9U6NxyH6mF6?=
+ =?iso-8859-1?Q?BZXVv9vKaEDsROxVW8wnQQfYNlYcd3fYcAzEZsrwhHKLAeZEZfksg/i9W8?=
+ =?iso-8859-1?Q?Rh84olG2JEXkxXyaGydf46Oj6Mw5oGVXg6j9e1V0fIIYOdJpugGQcHqcG9?=
+ =?iso-8859-1?Q?avByIgwcZt1TnR4nXrUfpYe5chwMWSoFaklRNapIM5EQJM1HenPjx/cEio?=
+ =?iso-8859-1?Q?X+ycbCUC4LnzF3+JmEiYoUAUl5TwYoL9gze2sUnJ6joZNPT9d8yBhx6tf6?=
+ =?iso-8859-1?Q?vo55IvrstLf1xld8g6yVTJzLD/Xa6f7Mt0jmQBQfnkBeZ83IFaGZC7afIR?=
+ =?iso-8859-1?Q?eSEJB+CW6u7rEqWzr72KKt+Sdit+da1DCvjlgSWpJ6Ov0vtLgCcciLGnGS?=
+ =?iso-8859-1?Q?n4puYrHWOVKkzPt7kNDTWXeVeMTYPvGkEcU/T4Jbdys4MJSY5joapMkoRo?=
+ =?iso-8859-1?Q?LNmEyYhE1eP4f63+Zz0wRsT8624JIm0KuvCmYI0mzT2BxGrBASThgzALmT?=
+ =?iso-8859-1?Q?gfsX6aZcHe6vSTXefUXRItVeqikySyPof6RGLAPkj/vcVpIyRYfqYiBPIQ?=
+ =?iso-8859-1?Q?En6oQB4BEASz/RJ8nAjkSH2uXP0LG8nilqjVIBgqGnEKYG4ELDNjPODFVR?=
+ =?iso-8859-1?Q?Co8V/OQI7rkO4kuHAyhxjuTQt64YIwL/iSUj/hBDuaP29j1OoyPAZbreFJ?=
+ =?iso-8859-1?Q?h/75+C+HmNZkEGnRkYwYk+qwbI0GgktE/h94bgiQK5hBjzjLz76YT7xvAl?=
+ =?iso-8859-1?Q?tH3Mh7TJiMUivBtXE3/yPzvtEesAVbpov9wMm121FiZQWUVKuDRax7TqmB?=
+ =?iso-8859-1?Q?T+qujpWq5kK18IS1R16FsBGUIfcgp5vybv1dRMC+f4rmkv9OBT/62sIvv/?=
+ =?iso-8859-1?Q?rw0VY5Oy7tKk7XDr402FzAXfWQa8eFUTXG0zRIqxx2mMfF43wHxQXMC/L2?=
+ =?iso-8859-1?Q?N4e3YVqFLkteFOqPPlZM4D86p+LGr8/Znw3UOBuulMsEbDMrHl0pVQURGZ?=
+ =?iso-8859-1?Q?M90e7q7gmdMWpmdG4zVJr72YzM6CpiZ6b//j/KfJPE8m4jZumJFWWVxk2G?=
+ =?iso-8859-1?Q?VDgwLyMjPCOb/QP2cmEX6TBvj1KPWtvx6aQ5+3R4DJLQtiEeK3jzUH1gvW?=
+ =?iso-8859-1?Q?dgQy+Vu5KAmoWETPjybOegBtLFiP8DuKfAy1LTdJshEN3RnCBiVjcYmsDT?=
+ =?iso-8859-1?Q?jxlgw0+RZxNOoivqCJEsjgC8unu8SYWVy5HGmiQvpvoAzVD6znQbT2G2fH?=
+ =?iso-8859-1?Q?DzD5KHHucHT0zwstCCc5wkYuiGs1RDcQNqxHWxA9L78i1mlCnr86Coj2Kp?=
+ =?iso-8859-1?Q?WsuVb4oLECfxyZRgmH0TIJdxIFJhHaTCb61ZB8vS1fmsct4Jn9RxHJ/QAR?=
+ =?iso-8859-1?Q?KBsuTn3ShvXyxLGRjbofOKZi0O4p1Ocq2hXEvGZvAaJ+rKVZPrcVopCd1v?=
+ =?iso-8859-1?Q?M7+1sBKKGGtVfXvvaPBuDR2ZenlnaQbCEYWj7yflW7zHRu7Lgr78KaydSX?=
+ =?iso-8859-1?Q?WgIrHSnhCty4VvbanSlSBf7sFTuQumxF0OZJwuneZ/IKV0UspBaxY4FC1q?=
+ =?iso-8859-1?Q?bK46CgNMfhu/XwIoQJ4eAzJe2XiBS7fpcHFfOyNaYaOqkLa4TLAJUrmA?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|BN9PR03MB6121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 172468eb-3e8f-4f59-027b-08db138f8099
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	jmCX/RE8fQzBgITAr7/E606bYgtriBRyC1zPd5OwkjScaaWIquavG/V3bp07OY9E2Bdwah0DtHry9TpwrDHQU2BfdfjTev2KCeWK87VdhFqZQkyIDaVB5j6IpIXitCxdGMoP2D6BxtfxumbSl1I2ZRklFklzNLZ2YpGHeu0fCXfbx+262bJQSSp4Gi4TmSvzjEqeOZ3SdF/3MizQ84pnNGdgCBz0oslqOgZoLgV+gQOd/w1DSMm3zqW1MKIC0sSK0OfydYXQjEHXuMcLj3HXjDJkFIvCb9wJhmh16d2kwq/6+zoW3HPLv/0PTC0+HzPIT51420wZuSQuhtXcUafu2mxKBnl9BH7EL9/fvQKkR0p+LZmew53fL67cjnSYhnsxc2BFRrxVLoU5JbH+XBjK4jIYwhJP6WhmO2/+IuPL9Fl+Rl9Senn9opbimSLN0OaFkHDtigI12KPl2CktHkfpmoSt8E00CdxgrRrBs/X/fZoT/SVmRMZi60grg1n4ud+yKs/AIHQYTPnRdZsmUKNE9KEcGYTpj70FVeYMjkSQDQOLOCeO6ellLyXktIs0jfkQrNlmweJp9bEGLF2vdHLO8c8GX5x/kx8asPOgCGsg80EJQvLAqVZchCLQMV6D7qM5N1bXGxpGIU+5l/WZ5BGWfvpC7k7AenajfhneukBHdc0qusf60SZK+9W2I81FP/mUID1huIqCHxmikKdBDy3jgasOSJtAtM0tpICzAbSoHTc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(376002)(39860400002)(396003)(346002)(366004)(451199018)(2906002)(86362001)(31686004)(82960400001)(38100700002)(6486002)(41300700001)(53546011)(6506007)(186003)(6512007)(478600001)(26005)(36756003)(31696002)(66946007)(66556008)(66476007)(83380400001)(54906003)(8676002)(316002)(2616005)(8936002)(4326008)(6666004)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bDl2d0NxNjI0b1U3d3JWU211YVhOMjRReW1DSXI0cnRBNWpBMDVPQUdvV1p6?=
- =?utf-8?B?dEdwOSttdDZRRHBDYWtJa1lHQ2RsQTExQ2I4eW5UN3pZWldQcXJ1SW9GWkR1?=
- =?utf-8?B?eHFYa2kyNHpCdFZrL0NSVEJoaE9TdmJSWlVDZW1UQXlnQ0g5OHRuNjRnWU55?=
- =?utf-8?B?Y0F4ZGczNEtyRDVJK0FDR1RlWEd2U2hTV1BDemo0YW0zMlJJSUtYZGdwV3NO?=
- =?utf-8?B?Y0hxUTRJWkFVMzB6VjhXbk1melRJMmJOMmRiWHovczI3TW9HM3UxZlJsVnpo?=
- =?utf-8?B?aTlSbzJkQlBrRkhXN0MwWVYzR1QzaWpwejZySWthNW1MZmh3Vk1UckgwQ0hY?=
- =?utf-8?B?dnVsWGE5YW1iQ0xPb1FaK2FKdnZvV1JjNTFJYXl0WVpQZ2dWV2ZVQm0xODdH?=
- =?utf-8?B?dzM3dEdTN0NRbDRuVzI2SzNXYTJiZGgyTTdObno3MXlUbzhuN3dBaE5ydENS?=
- =?utf-8?B?dnM2Y1h5aTUxRkRiMncxUTRBQ1dKR28wYTdieU9hU3dxbjNEQ0R4anlmYnBk?=
- =?utf-8?B?SDhEUGZuRTJvUzJJeXYwWllwNklBcUdKN295K1dtdFY0QXFFU1hjWkJ6a1Vv?=
- =?utf-8?B?dncvMklxR29vdnN5T3g0Y0RQKzZibkwvWnB3TDg3OEprSEoyM3hTTXBld0pn?=
- =?utf-8?B?NkVxOUIxVnBZUmhwVVVPcnpZdXFUQnRJSFhKaFAvcHFkeHNQaEtUWDZ6Vmph?=
- =?utf-8?B?SXRTWElwVUxBYXVmMjZ2SWd4Vkd6V1RxeHJUTlBMSm16dWxFYVhCQ2RsZUti?=
- =?utf-8?B?eEM5NGpJTS8rYUNDNkVvOFI0a016VDM2UmtueUhYYUg1UWl1cThXWFB4bHk5?=
- =?utf-8?B?VTh6S1BzZ01GNTYrTzJyaVpCYm5zVnJPenRBS2xJbnZjVW9wS25ZdEYzSnpj?=
- =?utf-8?B?MUdFY1lFaDY2S1k0RmRkMTFDNVh3bzFUNXhObE45NUsvV2d2cHdCaFlrWFM3?=
- =?utf-8?B?UnJtakFneldoY3N5eENuWmZaUW5CeWdLQVUvRkFuQ2dZbE0rdkZtRVFnRldW?=
- =?utf-8?B?Z0VXYU1ZS0dWc0xySWoxSWplSThQTUxrUkJlT2R0K2x1MmF1akdVUzE4bkh4?=
- =?utf-8?B?bE5ycVgxajRIYzRPemdRdElPVEdIK25zUmZCRnBzMXcyS2xXTWtZd0hDTGFr?=
- =?utf-8?B?SExIK3I1ZWV3Y0tEZ3lQVlpiL1NvS2kyRkJrOVBMV1JmYk56V29oY2U5T3Ba?=
- =?utf-8?B?SmQ1U0tEQmFXNlJmcEhEeXorK3lFVEx2OGJDS0tKbi9wb010ZFdWVXhZWHJD?=
- =?utf-8?B?Y1IzcXVGWkREYXE4Ym90ZWNvNHR3SCt4b0FtSnA3elBHWmxSeWZzSGJacTdP?=
- =?utf-8?B?MGk1SE8wK2pOb1JLRDNDWnVqWWJQUjBsd1NxMXkrbW9WbHFGWG1YTmM5Q2w4?=
- =?utf-8?B?MzEwelRwc1RxUlkwTktibTRHV3IwL0o2NG4vOE1ORkRKSE9WYmo5U1FEY0Ny?=
- =?utf-8?B?YW1XZG1ONk12dnZTbjB4Vm9lUm5Uc0dQOC9yQUZxa3RRRkhTc0VGYVE0aEJY?=
- =?utf-8?B?L2F0SGdreXpDVWRkSFlXV29XS25KMjRjT1l4OCs2MkM5dXNFdXkyczJ2cjNL?=
- =?utf-8?B?RWQxSFkwN1FUTEU2MVdraHRZdUdPUDVTaEd4MFYyOFJ0eU9Eem81RGJiTFB0?=
- =?utf-8?B?V3UwTXppQnJ1RkxqOE1kbmxDcGt4NVZRdEs3QnRGWXFwcm1BUGF1UnA0R1do?=
- =?utf-8?B?THNSUmxaanRFcmY0RHU5R0ZwVkQybldzdlR0L1JrVUZ0bFEzdkxpNHRSTzlm?=
- =?utf-8?B?amFFdThwVHFkVS9iakJmS2l5cTFhK05qc0loMDZ4eWRzSWZXN0RlVk1FY2RR?=
- =?utf-8?B?U1NpeFhiOStQSis5d2JLQVhDcUU2Ukd6Zmc1QU1UV3FuWGR3aGphYU5kMmVT?=
- =?utf-8?B?RmQrYUlEUGFzNzZIVkpHaW8xandrMjltSnQvUjluaysvWTg2U0pXVFlDd2c4?=
- =?utf-8?B?eUdnY3VlZVlTYnJkK2h6dm9MU2xpczB0bFNnODU5dWhUeXk2UEhjNUN6QnZH?=
- =?utf-8?B?Q2ozL0FBYTZPQlJERDAvSDAxUW1nQjhhTG9tUXFxNWx1bHR6RjNuWkcxWnRa?=
- =?utf-8?B?RURQK1FXMDBPM2MwcVFnWFRYU3BOOHdVKytQUCs1aW1meWkyczNSWGhrR3Rx?=
- =?utf-8?B?MXlMN2dCWm55dDN2VS95WFcxeHp5UnlHU3poVVlrcnlKNExTTTVVcFM1THlu?=
- =?utf-8?B?NWc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	3GDDJBeDkvO5IxTHt7Orldgpqz1sxGDqIflPqeRgF2dd3TEKsoYl/gkykVG3ZU7DZnlB+qnDmognJUHvuKonyr8jXGlmN0yKqhVsqwzCpwEYdK3wOjYxQxj0cvfD751IbFsgC9v9u3te9uq2sMzL2oSm1SDsEk1sc6mwmDil/cHHRRplrsn2DjulycPD9ZvLTwJYamMgm8w5dHlb7H6onxL9VggW1PIRImS5Wy7DsrulTgE1QCaXW+98mfo40FiZsp20Ea28FI9ReIIcj1RTWUrEw7RQBQg7Al1QfGofA+lA9a9u6wfjzzjd4ZL8FuOOoueHnKrHkm6cq64JlhJbm5QmTezATkToi5AyR4ZoHuyOIuWuKVR5wfhbu/bzlnxadMyfuOcQXGcIBWsnEoZ7W4mCSjz+wpGv8x+10aqoBiXm2dCqGZgSmROWUYFJf7jWLWX08EEx2xVPP2QC3j7I3iVJv+XM/o3hC3SKdxoWFHZ8MFCHgjVFXJRglwFU30AJnTU1JmbMYEKnT/jNvQr/5D7l/m7o2+8V42Eq99Zfhruld+1aAFR6TnET68GTtzBvub2hRzkFxKSmbl2CDUjIvYTOlYMltzmaAJPsMT6+xbEwxcQUcM5O5KO7v8Bnj00oD1Q0H6iZFqE4sGG0Y776ELgTSo8PR1djzSGiwHUOhE4qoOKYPouDu7pYKNDMquEHAsxxNrKcF8zgs8KR8JieANhxhX7gWD4vnKZs7IEjNp90BkIGR5Us8cBN7I5uOi9pvwv8DWt3VW4JaJKXVGpSzCOswNZ7mXv/E/9H5N0vUT+I7DctIfUo2/DjuHb8f5RVk5gG3Vgj/feBxpsthNyawOVXuZ5itH4kjFJtko9JGWg=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 172468eb-3e8f-4f59-027b-08db138f8099
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2023 22:12:06.5725
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b9bcd88-38a2-48ba-637f-08db1391efe3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Feb 2023 22:29:31.8430
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UdxZlWUFj8LRAZv/yiQGIeYCwsIsVwf8SpCwlbYeQslwJ+sXCY7sKT2jW+hRu3UEoW4i/mmBe1XzRzrUVxmAPP2E9qxZCIxVZC0x1mkR84w=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR03MB6121
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 5Ruos/Cnb+sfY0u63BS5H9PkbWMbtmkjs0Vv1QFbehP1vhHRUyMcdyiv0tmJP8iJF0D3tTzBAjU3saQyu1HDzGkjfL4KQCcLezTubCjjVjk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR03MB6184
+X-Proofpoint-GUID: fbdF4JrvU72T7nBP76jQGx368ldgYx3N
+X-Proofpoint-ORIG-GUID: fbdF4JrvU72T7nBP76jQGx368ldgYx3N
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-20_17,2023-02-20_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 phishscore=0
+ impostorscore=0 lowpriorityscore=0 suspectscore=0 mlxlogscore=931
+ spamscore=0 priorityscore=1501 adultscore=0 clxscore=1015 mlxscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302200208
 
-On 17/02/2023 6:48 pm, Xenia Ragiadakou wrote:
-> Do not include the headers:
->   xen/irq.h
->   asm/hvm/svm/intr.h
->   asm/io.h
->   asm/mem_sharing.h
->   asm/regs.h
 
-Out of interest, how are you calculating these?  They're accurate as far
-as I can tell.
+Hi Stefano,
 
-Looking at asm/hvm/svm/*, intr.h itself can be straight deleted,
-svmdebug.h can be merged into vmcb.h, and all the others can move into
-xen/arch/x86/hvm/svm/ as local headers.  None of them have any business
-being included elsewhere in Xen.
+Stefano Stabellini <sstabellini@kernel.org> writes:
 
-> because none of the declarations and macro definitions in them is used.
-> Sort alphabetically the rest of the headers.
+> On Wed, 31 Aug 2022, Volodymyr Babchuk wrote:
+>> Spinlock in struct pci_device will be used to protect access to device
+>> itself. Right now it is used mostly by MSI code.
+>>=20
+>> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>
+> There are 2 instances of:
+>
+>     BUG_ON(list_empty(&dev->msi_list));
+>
+> in xen/arch/x86/msi.c:__pci_disable_msi and
+> xen/arch/x86/msi.c:__pci_disable_msix which are not protected by
+> pcidev_lock. However list_empty needs to be protected. (pci_disable_msi
+> can also be called from xen/arch/x86/irq.c where it is not surrounded by
+> pcidev_lock.)
 
-Minor grammar point. "Sort the rest of the headers alphabetically" would
-be a more normal way of phrasing this.
+I checked all call paths. pci_disable_msi() is called from three places in
+xen/arch/x86/irq.c. As I can see, all three are "protected" with
+ASSERT(pcidevs_locked()), or am I missing something?
 
 >
-> Remove the forward declaration of svm_function_table and place start_svm()
-> after the svm_function_table's definition.
->
-> Replace double new lines with one.
->
-> No functional change intended.
->
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+> Given that they are BUG_ON, I wonder if we could remove them instead of
+> adding locks there. It would make things simpler.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Well, I will be happy to remove them, if there are no objections.
+
+>
+>
+>> ---
+>>  xen/arch/x86/hvm/vmsi.c       |  6 +++++-
+>>  xen/arch/x86/msi.c            | 16 ++++++++++++++++
+>>  xen/drivers/passthrough/msi.c |  8 +++++++-
+>>  xen/drivers/passthrough/pci.c |  2 ++
+>>  xen/include/xen/pci.h         | 12 ++++++++++++
+>>  5 files changed, 42 insertions(+), 2 deletions(-)
+>>=20
+>> diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+>> index 7fb1075673..c9e5f279c5 100644
+>> --- a/xen/arch/x86/hvm/vmsi.c
+>> +++ b/xen/arch/x86/hvm/vmsi.c
+>> @@ -203,10 +203,14 @@ static struct msi_desc *msixtbl_addr_to_desc(
+>> =20
+>>      nr_entry =3D (addr - entry->gtable) / PCI_MSIX_ENTRY_SIZE;
+>> =20
+>> +    pcidev_lock(entry->pdev);
+>>      list_for_each_entry( desc, &entry->pdev->msi_list, list )
+>>          if ( desc->msi_attrib.type =3D=3D PCI_CAP_ID_MSIX &&
+>> -             desc->msi_attrib.entry_nr =3D=3D nr_entry )
+>> +             desc->msi_attrib.entry_nr =3D=3D nr_entry ) {
+>> +	    pcidev_unlock(entry->pdev);
+>
+> code style
+>
+>
+>>              return desc;
+>> +	}
+>> +    pcidev_unlock(entry->pdev);
+>> =20
+>>      return NULL;
+>>  }
+>> diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
+>> index bccaccb98b..6b62c4f452 100644
+>> --- a/xen/arch/x86/msi.c
+>> +++ b/xen/arch/x86/msi.c
+>> @@ -389,6 +389,7 @@ static bool msi_set_mask_bit(struct irq_desc *desc, =
+bool host, bool guest)
+>>      default:
+>>          return 0;
+>>      }
+>> +
+>
+> spurious change
+>
+>
+>>      entry->msi_attrib.host_masked =3D host;
+>>      entry->msi_attrib.guest_masked =3D guest;
+>> =20
+>> @@ -585,12 +586,17 @@ static struct msi_desc *find_msi_entry(struct pci_=
+dev *dev,
+>>  {
+>>      struct msi_desc *entry;
+>> =20
+>> +    pcidev_lock(dev);
+>>      list_for_each_entry( entry, &dev->msi_list, list )
+>>      {
+>>          if ( entry->msi_attrib.type =3D=3D cap_id &&
+>>               (irq =3D=3D -1 || entry->irq =3D=3D irq) )
+>> +	{
+>> +	    pcidev_unlock(dev);
+>>              return entry;
+>> +	}
+>>      }
+>> +    pcidev_unlock(dev);
+>> =20
+>>      return NULL;
+>>  }
+>> @@ -661,7 +667,9 @@ static int msi_capability_init(struct pci_dev *dev,
+>>          maskbits |=3D ~(uint32_t)0 >> (32 - dev->msi_maxvec);
+>>          pci_conf_write32(dev->sbdf, mpos, maskbits);
+>>      }
+>> +    pcidev_lock(dev);
+>>      list_add_tail(&entry->list, &dev->msi_list);
+>> +    pcidev_unlock(dev);
+>> =20
+>>      *desc =3D entry;
+>>      /* Restore the original MSI enabled bits  */
+>> @@ -946,7 +954,9 @@ static int msix_capability_init(struct pci_dev *dev,
+>> =20
+>>  	pcidev_get(dev);
+>> =20
+>> +	pcidev_lock(dev);
+>>          list_add_tail(&entry->list, &dev->msi_list);
+>> +	pcidev_unlock(dev);
+>>          *desc =3D entry;
+>>      }
+>> =20
+>> @@ -1231,11 +1241,13 @@ static void msi_free_irqs(struct pci_dev* dev)
+>>  {
+>>      struct msi_desc *entry, *tmp;
+>> =20
+>> +    pcidev_lock(dev);
+>>      list_for_each_entry_safe( entry, tmp, &dev->msi_list, list )
+>>      {
+>>          pci_disable_msi(entry);
+>>          msi_free_irq(entry);
+>>      }
+>> +    pcidev_unlock(dev);
+>>  }
+>> =20
+>>  void pci_cleanup_msi(struct pci_dev *pdev)
+>> @@ -1354,6 +1366,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+>>      if ( ret )
+>>          return ret;
+>> =20
+>> +    pcidev_lock(pdev);
+>>      list_for_each_entry_safe( entry, tmp, &pdev->msi_list, list )
+>>      {
+>>          unsigned int i =3D 0, nr =3D 1;
+>> @@ -1371,6 +1384,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+>>              dprintk(XENLOG_ERR, "Restore MSI for %pp entry %u not set?\=
+n",
+>>                      &pdev->sbdf, i);
+>>              spin_unlock_irqrestore(&desc->lock, flags);
+>> +	    pcidev_unlock(pdev);
+>>              if ( type =3D=3D PCI_CAP_ID_MSIX )
+>>                  pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
+>>                                   control & ~PCI_MSIX_FLAGS_ENABLE);
+>> @@ -1393,6 +1407,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+>>              if ( unlikely(!memory_decoded(pdev)) )
+>>              {
+>>                  spin_unlock_irqrestore(&desc->lock, flags);
+>> +		pcidev_unlock(pdev);
+>>                  pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
+>>                                   control & ~PCI_MSIX_FLAGS_ENABLE);
+>>                  return -ENXIO;
+>> @@ -1438,6 +1453,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+>>          pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
+>>                           control | PCI_MSIX_FLAGS_ENABLE);
+>> =20
+>> +    pcidev_unlock(pdev);
+>>      return 0;
+>>  }
+>> =20
+>> diff --git a/xen/drivers/passthrough/msi.c b/xen/drivers/passthrough/msi=
+.c
+>> index ce1a450f6f..98f4d2721a 100644
+>> --- a/xen/drivers/passthrough/msi.c
+>> +++ b/xen/drivers/passthrough/msi.c
+>> @@ -22,6 +22,7 @@ int pdev_msi_init(struct pci_dev *pdev)
+>>  {
+>>      unsigned int pos;
+>> =20
+>> +    pcidev_lock(pdev);
+>>      INIT_LIST_HEAD(&pdev->msi_list);
+>> =20
+>>      pos =3D pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->de=
+vfn),
+>> @@ -41,7 +42,10 @@ int pdev_msi_init(struct pci_dev *pdev)
+>>          uint16_t ctrl;
+>> =20
+>>          if ( !msix )
+>> -            return -ENOMEM;
+>> +        {
+>> +             pcidev_unlock(pdev);
+>> +             return -ENOMEM;
+>> +        }
+>> =20
+>>          spin_lock_init(&msix->table_lock);
+>> =20
+>> @@ -51,6 +55,8 @@ int pdev_msi_init(struct pci_dev *pdev)
+>>          pdev->msix =3D msix;
+>>      }
+>> =20
+>> +    pcidev_unlock(pdev);
+>> +
+>>      return 0;
+>>  }
+>> =20
+>> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci=
+.c
+>> index c8da80b981..c83397211b 100644
+>> --- a/xen/drivers/passthrough/pci.c
+>> +++ b/xen/drivers/passthrough/pci.c
+>> @@ -1383,7 +1383,9 @@ static int cf_check _dump_pci_devices(struct pci_s=
+eg *pseg, void *arg)
+>>              printk("%pd", pdev->domain);
+>>          printk(" - node %-3d refcnt %d", (pdev->node !=3D NUMA_NO_NODE)=
+ ? pdev->node : -1,
+>>                 atomic_read(&pdev->refcnt));
+>> +        pcidev_lock(pdev);
+>>          pdev_dump_msi(pdev);
+>> +        pcidev_unlock(pdev);
+>>          printk("\n");
+>>      }
+>>      spin_unlock(&pseg->alldevs_lock);
+>> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+>> index e71a180ef3..d0a7339d84 100644
+>> --- a/xen/include/xen/pci.h
+>> +++ b/xen/include/xen/pci.h
+>> @@ -106,6 +106,8 @@ struct pci_dev {
+>>      uint8_t msi_maxvec;
+>>      uint8_t phantom_stride;
+>> =20
+>> +    /* Device lock */
+>> +    spinlock_t lock;
+>>      nodeid_t node; /* NUMA node */
+>> =20
+>>      /* Device to be quarantined, don't automatically re-assign to dom0 =
+*/
+>> @@ -235,6 +237,16 @@ int msixtbl_pt_register(struct domain *, struct pir=
+q *, uint64_t gtable);
+>>  void msixtbl_pt_unregister(struct domain *, struct pirq *);
+>>  void msixtbl_pt_cleanup(struct domain *d);
+>> =20
+>> +static inline void pcidev_lock(struct pci_dev *pdev)
+>> +{
+>> +    spin_lock(&pdev->lock);
+>> +}
+>> +
+>> +static inline void pcidev_unlock(struct pci_dev *pdev)
+>> +{
+>> +    spin_unlock(&pdev->lock);
+>> +}
+>> +
+>>  #ifdef CONFIG_HVM
+>>  int arch_pci_clean_pirqs(struct domain *d);
+>>  #else
+>> --=20
+>> 2.36.1
+>>=20
 
