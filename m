@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0DF469CFC3
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 15:57:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.498194.769019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB96369D184
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Feb 2023 17:41:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.498235.769063 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pU7bL-0000ds-SX; Mon, 20 Feb 2023 14:57:11 +0000
+	id 1pU9Dw-0006Yt-Mp; Mon, 20 Feb 2023 16:41:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 498194.769019; Mon, 20 Feb 2023 14:57:11 +0000
+Received: by outflank-mailman (output) from mailman id 498235.769063; Mon, 20 Feb 2023 16:41:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pU7bL-0000bf-Pr; Mon, 20 Feb 2023 14:57:11 +0000
-Received: by outflank-mailman (input) for mailman id 498194;
- Mon, 20 Feb 2023 14:57:09 +0000
+	id 1pU9Dw-0006Vo-K3; Mon, 20 Feb 2023 16:41:08 +0000
+Received: by outflank-mailman (input) for mailman id 498235;
+ Mon, 20 Feb 2023 16:41:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=HMXb=6Q=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pU7bJ-0000bX-UY
- for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 14:57:09 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NJGl=6Q=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pU9Dv-0006Vi-U0
+ for xen-devel@lists.xenproject.org; Mon, 20 Feb 2023 16:41:07 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d91bfb4f-b12e-11ed-933d-83870f6b2ba8;
- Mon, 20 Feb 2023 15:57:08 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8D52F2049A;
- Mon, 20 Feb 2023 14:57:08 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 60ADC134BA;
- Mon, 20 Feb 2023 14:57:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id s10mFkSK82P1QwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 20 Feb 2023 14:57:08 +0000
+ id 5f4e76e2-b13d-11ed-933d-83870f6b2ba8;
+ Mon, 20 Feb 2023 17:41:06 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id f16so1709196ljq.10
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Feb 2023 08:41:06 -0800 (PST)
+Received: from 34-6F-24-FC-D2-65..
+ (46.204.108.92.nat.umts.dynamic.t-mobile.pl. [46.204.108.92])
+ by smtp.gmail.com with ESMTPSA id
+ f8-20020a2e6a08000000b002934d555783sm65798ljc.6.2023.02.20.08.41.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Feb 2023 08:41:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,50 +45,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d91bfb4f-b12e-11ed-933d-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1676905028; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=gW0vA6lTPSl+sxfxbA90Yvch05sHmFUrm4oBgNvFLrs=;
-	b=nNfEFQUkkb9yR/Ds+9WAHF4G6bYAE3CDxo5xdaftCeoG/XRXuIgI2Xtko8EIRvQ6TWagXI
-	iQPh3CC7kfyB1QWON4FMqAL1INBdsiKf5HgR3M5/xezCkCKX2IESBJRXAWjhOtAghDWYfX
-	bugdWjdWJaV5b47c+TmV+gdCMAlRAW4=
-From: Juergen Gross <jgross@suse.com>
+X-Inumbo-ID: 5f4e76e2-b13d-11ed-933d-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=IiEn/Rcm1MU1Cyz/bLiQ58eQG40sQBxNpXMLCDni3G4=;
+        b=F9/K41sVEDsZPYf6mDjjHOcxm/puT6B1iAnP9m9qhoX2w17zGAIA/ueuSzAWDs9XbK
+         T9GRlhCCo1r0CMzu74E632JDKkcqpDgX1R+LTplu6DGWUhm+51toYcOux7g6vdHiIozL
+         +fLUIrBMlLTSwoxzA+WhAgcW1W31az00w7sLLkmqApCE4udLpYu86QRuhsEscn9YjR1v
+         UFxPQq5V2JnZXgQOObYH86a+86FwON2u4DbWLnCptYvzISpZUP6RfT15+zoO/i9VP1ck
+         BX85ygqaiDUIcTlyqsLCVv65g3AuvolFpISqzKl3L009DncaIeIE/G0GUp20bPXAD+fu
+         XaEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IiEn/Rcm1MU1Cyz/bLiQ58eQG40sQBxNpXMLCDni3G4=;
+        b=G1VeZ6iYv/7lIhshDy3yC1F3ZflCjUgHruSWv9eszoTIJgdLPonBcEXOqLRwdN1cEz
+         fWPu15ClF7mROVOOm+ZCaI5aZWN+5lO6eXDupzN1sPOkRKi0H6nazBQSMM0iIvRKgvEe
+         b0sfwzxAHCLSDKX0aliBCpPTnrO+KlIKZY6EJLIMZCkjyncOz2dauTRCyg+7Zg2155Np
+         7tflkdE/IPc57bTdyMUyDcoG0biiS5zm8jusYb41vXYqmCZyQPz03KdxHnoeE2qszaFO
+         yJhiSrPr4cSygfgpZcY59/cAmmkiBo79auXMVGZsCcGGl4IyEXlQv25ibJXcDu6GujRQ
+         3Szw==
+X-Gm-Message-State: AO0yUKUjQUVur+8YD6RcZNxi7BJeyCuoDpVdqMOMExNDFEriUDoND5QV
+	d+aeMM6s1UKdPQ5JXTvbeIuQO4n+94M=
+X-Google-Smtp-Source: AK7set+HzUhRBLgzeYobI5sPALQGFvy3w4VEajoAXRLuwNu1zqLtvzT1A22pd9yPsZTcPu9/deSU4A==
+X-Received: by 2002:a2e:a1c7:0:b0:293:6037:9850 with SMTP id c7-20020a2ea1c7000000b0029360379850mr722019ljm.51.1676911266074;
+        Mon, 20 Feb 2023 08:41:06 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Gianluca Guida <gianluca@rivosinc.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	George Dunlap <george.dunlap@citrix.com>,
 	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH] tools/xenstore: remove stale comment in create_node()
-Date: Mon, 20 Feb 2023 15:57:06 +0100
-Message-Id: <20230220145706.15905-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
+	Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 0/4] introduce generic implementation of macros from bug.h
+Date: Mon, 20 Feb 2023 18:40:56 +0200
+Message-Id: <cover.1676909088.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is a part of a comment in create_node() which should have been
-deleted when modifying the related coding.
+A large part of the content of the bug.h is repeated among all
+architectures (especially x86 and RISCV have the same implementation), so it
+was created a new config CONFIG_GENERIC_BUG_FRAME which is used to
+introduce generic implementation of do_bug_frame() and move x86's <asm/bug.h>
+to <xen/common/...> with the following changes:
+  * Add inclusion of arch-specific header <asm/bug.h>
+  * Rename the guard and remove x86 specific changes
+  * Wrap macros BUG_FRAME/run_in_exception_handler/WARN/BUG/assert_failed/etc
+    into #ifndef "BUG_FRAME/run_in_exception_handler/WARN/BUG/assert_failed/etc"
+    thereby each architecture can override the generic implementation of macros.
+  * Add #if{n}def __ASSEMBLY__ ... #endif
+  * Introduce BUG_FRAME_STRUCTURE define to be able to change the structure of bug
+    frame
+  * Introduce BUG_INSTR and MODIFIER to make _ASM_BUGFRAME_TEXT reusable between x86 and
+    RISC-V.
+  * Make macros related to bug frame structure more generic.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
+For ARM only common parts were removed from <asm/bug.h> and re-use generic
+do_bug_frame() for ARM.
+
+RISC-V will be switched to use <xen/bug.h> and in the future, it will use common
+the version of do_bug_frame() when xen/common will work for RISC-V.
+
 ---
- tools/xenstore/xenstored_core.c | 3 ---
- 1 file changed, 3 deletions(-)
+Changes in V2:
+  * Update cover letter.
+  * Switch to x86 implementation as generic as it is more compact ( at least from the point of view of bug frame structure).
+  * Put [PATCH v1 4/4] xen: change <asm/bug.h> to <xen/bug.h> as second patch,
+    update the patch to change all <asm/bug.h> to <xen/bug.h> among the whole project
+    to not break compilation.
+  * Rename CONFIG_GENERIC_DO_BUG_FRAME to CONFIG_GENERIC_BUG_FRAME.
+  * Change the macro bug_loc(b) to avoid the need for a cast:
+    #define bug_loc(b) ((unsigned long)(b) + (b)->loc_disp)
+  * Rename BUG_FRAME_STUFF to BUG_FRAME_STRUCT
+  * Make macros related to bug frame structure more generic.
+  * Rename bug_file() in ARM implementation to bug_ptr() as generic do_bug_frame() uses
+    bug_ptr().
+  * Introduce BUG_INSTR and MODIFIER to make _ASM_BUGFRAME_TEXT reusable between x86 and
+    RISC-V.
+  * Rework do_invalid_op() in x86 ( re-use handle_bug_frame() and find_bug_frame() )
+---
+Oleksii Kurochko (4):
+  xen: introduce CONFIG_GENERIC_BUG_FRAME
+  xen: change <asm/bug.h> to <xen/bug.h>
+  xen/arm: switch ARM to use generic implementation of bug.h
+  xen/x86: switch x86 to use generic implemetation of bug.h
 
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 7348f935bc..a61db2db2d 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -1480,9 +1480,6 @@ static struct node *create_node(struct connection *conn, const void *ctx,
- 	 * All new created nodes will have i->parent set, while the final
- 	 * node will be already existing and won't have i->parent set.
- 	 * New nodes are subject to quota handling.
--	 * Initially set a destructor for all new nodes removing them from
--	 * TDB again and undoing quota accounting for the case of an error
--	 * during the write loop.
- 	 */
- 	for (i = node; i; i = i->parent) {
- 		/* i->parent is set for each new node, so check quota. */
+ xen/arch/arm/Kconfig                 |   1 +
+ xen/arch/arm/include/asm/bug.h       |  32 +-----
+ xen/arch/arm/include/asm/div64.h     |   2 +-
+ xen/arch/arm/include/asm/traps.h     |   2 -
+ xen/arch/arm/traps.c                 |  79 -------------
+ xen/arch/arm/vgic/vgic-v2.c          |   2 +-
+ xen/arch/arm/vgic/vgic.c             |   2 +-
+ xen/arch/x86/Kconfig                 |   1 +
+ xen/arch/x86/acpi/cpufreq/cpufreq.c  |   2 +-
+ xen/arch/x86/include/asm/asm_defns.h |   2 +-
+ xen/arch/x86/include/asm/bug.h       |  88 +--------------
+ xen/arch/x86/traps.c                 |  81 +++-----------
+ xen/common/Kconfig                   |   3 +
+ xen/common/Makefile                  |   1 +
+ xen/common/bug.c                     | 113 +++++++++++++++++++
+ xen/drivers/cpufreq/cpufreq.c        |   2 +-
+ xen/include/xen/bug.h                | 161 +++++++++++++++++++++++++++
+ xen/include/xen/lib.h                |   2 +-
+ 18 files changed, 306 insertions(+), 270 deletions(-)
+ create mode 100644 xen/common/bug.c
+ create mode 100644 xen/include/xen/bug.h
+
 -- 
-2.35.3
+2.39.0
 
 
