@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ADA969E533
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 17:56:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.499023.770050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 800EF69E537
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 17:56:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.499025.770066 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUVwB-0007Fk-B5; Tue, 21 Feb 2023 16:56:19 +0000
+	id 1pUVwC-0007Yd-GG; Tue, 21 Feb 2023 16:56:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 499023.770050; Tue, 21 Feb 2023 16:56:19 +0000
+Received: by outflank-mailman (output) from mailman id 499025.770066; Tue, 21 Feb 2023 16:56:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUVwB-00076F-4S; Tue, 21 Feb 2023 16:56:19 +0000
-Received: by outflank-mailman (input) for mailman id 499023;
- Tue, 21 Feb 2023 16:56:16 +0000
+	id 1pUVwC-0007Qg-1X; Tue, 21 Feb 2023 16:56:20 +0000
+Received: by outflank-mailman (input) for mailman id 499025;
+ Tue, 21 Feb 2023 16:56:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TJL1=6R=citrix.com=prvs=409c08766=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pUVw8-0006LK-QC
- for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 16:56:16 +0000
+ id 1pUVwA-0006LK-DO
+ for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 16:56:18 +0000
 Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
  [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a6d01d7f-b208-11ed-93b6-47a8fe42b414;
- Tue, 21 Feb 2023 17:56:14 +0100 (CET)
+ id a6e795ff-b208-11ed-93b6-47a8fe42b414;
+ Tue, 21 Feb 2023 17:56:16 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,53 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6d01d7f-b208-11ed-93b6-47a8fe42b414
+X-Inumbo-ID: a6e795ff-b208-11ed-93b6-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1676998574;
+  d=citrix.com; s=securemail; t=1676998576;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=8cDiBnY23n4DTQU+8+mCfEObQrVGXl20gEs0zMV2ut8=;
-  b=FbKAeuoIwXA5Xq2iAHHsD3ctE0MKa61tEp91ev9oh4dBSGPG+GL/vnmd
-   HylyUvTULjXNo51XrBfJX/t3qLIgYXWSOp6faEr/IQ0nZOSCaf/y/Nxzj
-   CbtiRr7bsZ9D1wVmXAEvine7NpZc8ymXNvxQhvuH7nKu+pGeoEykfwaBV
-   0=;
+  bh=UseCy4+DGI15ehevA8lX7nQmBmn5pL/bMgIUe4HdfiA=;
+  b=SpLtwq+UFEPVDSGIYr4ML4Gq1Mc0Cad78RzLKXHxRbMZtJa3SxwGhjjV
+   Y+RKyBmizPp9H6xBxvL+kDv4blFdFKMrbkS7IZutuavmlJGPGk6ieFGId
+   ABSIIt/ekXk1d2NdUy1tePAaQu+Z5I0eOBGTAy1pLo/ejT75Pi6BMygiW
+   k=;
 Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 97316298
+X-MesageID: 97316300
 X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:EzTa/a5t624+VFfSXuMW0wxRtCLHchMFZxGqfqrLsTDasY5as4F+v
- jAfX2vQMqnbYGWgc9h3bNzlpB4GvJODm4JnTgo5+S41Hi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9VU+45wehBtC5gZlPaoR5QeF/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m6
- cEUOG5WTw+/vriqmK+fa+5SoZxyI5y+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
- YxDM2MpNUmeJUQVYT/7C7pn9AusrnD5bz1frkPTvact6nLf5AdwzKLsIJzefdniqcB9zxnD/
- zycrjSR7hcyH8Sv7xG393eXpu7Dny24fZwoLrSZ6as/6LGU7jNKU0BHPbehmtGph0j7V99BJ
- kg8/is1sbN05EGtVsP6XRCzvDiDpBF0c9FZCeE95SmGw7DY5AvfDW8BJhZac8AvvsIyQT0s1
- 3eKksnvCDgpt6eaIU9x7Z/N82n0Y3JMazZfO2ldF1BtD8TfTJ8bki/DXog4MbGJt4fpQSzU4
- je0i3BviOBG5SIU7JmT8VfCijOqg5HGSA8p+wnaNl6YAhNFiJ2NPNLxtwWChRpUBMPAFwTa4
- iBY8ySLxLpWZaxhghBhVwnk8FuBw/+eeAPRjld0d3XK32T8oiXzFWy8DdwXGauIDirmUWW0C
- KMwkVkLjHO2AJdNRfYuC79d8+xwkcDd+S3ND5g4lOZmbJlrbxOg9ypzf0OW1G2FuBFyzv9uY
- MfDIZn1Vi5y5UFbIN2eHbp17FPW7npmmTO7qW7TknxLLoZylFbKEOxYYTNin8gy7b+eoRW9z
- jqsH5Li9vmra8WnOnO/2ddKfTg3wY0TWcieRzp/KrTSfWKL2QgJV5fs/F/WU9Y7wfoPzbyQp
- ynVt40x4AOXuEAr4D6iMhhLAI4Dl74jxZ7nFUTA5WqV5kU=
-IronPort-HdrOrdr: A9a23:Mksvda/q9jL3N5+Te1luk+AuI+orL9Y04lQ7vn2ZKSY5TiVXra
- CTdZUgpHnJYVMqMk3I9uruBEDtex3hHNtOkOss1NSZLW7bUQmTXeJfBOLZqlWNJ8S9zJ856U
- 4JScND4bbLfDxHZKjBgTVRE7wbsaa6GKLDv5ah85+6JzsaGp2J7G1Ce3am+lUdfng+OXKgfq
- Dsm/auoVCbCAwqR/X+PFYpdc7ZqebGkZr3CCR2eyLOuGG1/EiVAKeRKWnj4isj
+IronPort-Data: A9a23:N1uj96qyt3qDMSc3Vi5zp3snLWleBmICZRIvgKrLsJaIsI4StFCzt
+ garIBmBOKyOZTejKd8lYIvl/UkAu5OBytI2HlA//yFnFSgU85uZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WxwUmAWP6gR5weEzSBNV/rzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXACwwYgDd3MOp/IvhVrFxouUkEu6zbYxK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVRrk6VoqwmpXDe1gVr3JDmMcbPe8zMTsJQ9qqdj
+ jOZpD2nWUlCXDCZ4TSUqnKeo7bMoQy4X6BIHoWZ/8VBv2TGkwT/DzVJDADm8JFVkHWWS99Zb
+ kAZ5Ccqhawz71CwCMnwWQWip3yJtQJaXMBfe8Ux4RuBzaf86A+DCm8JCDVGbbQOr9QqTDYn0
+ luImdLBBjF1trCRD3WH+d+pQSiaYHZPazVYPGldEFVDuoO4yG0usv7RZspeHL7r1fzqJQiq3
+ 2iXiAk5uZJL3MFegs1X4mv7qz6ro5HISCs86QPWQn+p42tFWWK1W2C7wQOFtKgdde51WnHE5
+ SFZwJbGsIjiGLnXzESwrPMx8KZFDhpvGBnVmhZREpYo7FxBEFbzLNkLsFmSyKqEW/vomAMFg
+ meJ5Gu9B7cJZhNGiJObhKroUqwXIVDIT4iNaxwtRoMmjmJNXAGG5jpyQkWbwnrglkMh+YlmZ
+ 8jFIJ/8VSZFUP8/pNZTewv6+eV2rh3SOEuJHcyrp/hZ+ef2iIGppUctbwLVM7FRAFKsqwTJ6
+ ddPX/ZmOD0GONASlhL/qNZJRXhTdChTOHwDg5APHgJ1ClY8ST5J5j646e9JRrGJaIwPyLmWp
+ CrmAhYAoLc97FWeQTi3hrlYQOuHdf5CQbgTYUTA4X7AN6AfXLuS
+IronPort-HdrOrdr: A9a23:+gAjrKzdJSoWJP+tGuBWKrPw2r1zdoMgy1knxilNoHxuH/BwWf
+ rPoB17726TtN91YhsdcL+7V5VoLUmzyXcx2/hyAV7AZniAhILLFvAA0WKK+VSJdxEWtNQtsJ
+ uIG5IUNDSaNykfsS+V2miF+9ZL+qj5zEir792usUuEm2tRGtBdBwQSMHfqLqVvLjM2fKbQjP
+ Cnl7d6TzzLQwVuUu2LQkMrcsLkvNPxmJfvcXc9dmIaAFnnt0LS1FbieSLopCsjbw==
 X-IronPort-AV: E=Sophos;i="5.97,315,1669093200"; 
-   d="scan'208";a="97316298"
+   d="scan'208";a="97316300"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
 	<anthony.perard@citrix.com>, Doug Goldstein <cardoe@cardoe.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>
-Subject: [XEN PATCH v2 5/7] automation: Add more aliases in containerize
-Date: Tue, 21 Feb 2023 16:55:40 +0000
-Message-ID: <20230221165542.7642-6-anthony.perard@citrix.com>
+Subject: [XEN PATCH v2 6/7] automation: Remove testing on Debian Jessie
+Date: Tue, 21 Feb 2023 16:55:41 +0000
+Message-ID: <20230221165542.7642-7-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230221165542.7642-1-anthony.perard@citrix.com>
 References: <20230221165542.7642-1-anthony.perard@citrix.com>
@@ -90,29 +90,74 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
- automation/scripts/containerize | 3 +++
- 1 file changed, 3 insertions(+)
+Jessie as rearch EOL in 2020.
 
-diff --git a/automation/scripts/containerize b/automation/scripts/containerize
-index 9e508918bf..9b1a302d05 100755
---- a/automation/scripts/containerize
-+++ b/automation/scripts/containerize
-@@ -33,9 +33,12 @@ case "_${CONTAINER}" in
-     _fedora) CONTAINER="${BASE}/fedora:29";;
-     _focal) CONTAINER="${BASE}/ubuntu:focal" ;;
-     _jessie) CONTAINER="${BASE}/debian:jessie" ;;
-+    _jessie-i386) CONTAINER="${BASE}/debian:jessie-i386" ;;
-     _stretch|_) CONTAINER="${BASE}/debian:stretch" ;;
-+    _stretch-i386) CONTAINER="${BASE}/debian:stretch-i386" ;;
-     _buster-gcc-ibt) CONTAINER="${BASE}/debian:buster-gcc-ibt" ;;
-     _unstable|_) CONTAINER="${BASE}/debian:unstable" ;;
-+    _unstable-i386) CONTAINER="${BASE}/debian:unstable-i386" ;;
-     _unstable-arm32-gcc) CONTAINER="${BASE}/debian:unstable-arm32-gcc" ;;
-     _unstable-arm64v8) CONTAINER="${BASE}/debian:unstable-arm64v8" ;;
-     _trusty) CONTAINER="${BASE}/ubuntu:trusty" ;;
+Even if we update the containers, we would still not be able to reach
+HTTPS webside with Let's Encrypt certificates and thus would need more
+change to the container.
+
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+
+Notes:
+    HTTPS would fail unless we commit "automation: Remove expired root
+    certificates used to be used by let's encrypt", that is. Patch still in
+    the series, and fix Jessie.
+
+ automation/gitlab-ci/build.yaml | 40 ---------------------------------
+ 1 file changed, 40 deletions(-)
+
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index 22ce1c45e7..2be1b05d5c 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -221,46 +221,6 @@ centos-7-gcc-debug:
+   variables:
+     CONTAINER: centos:7
+ 
+-debian-jessie-clang:
+-  extends: .clang-x86-64-build
+-  variables:
+-    CONTAINER: debian:jessie
+-
+-debian-jessie-clang-debug:
+-  extends: .clang-x86-64-build-debug
+-  variables:
+-    CONTAINER: debian:jessie
+-
+-debian-jessie-gcc:
+-  extends: .gcc-x86-64-build
+-  variables:
+-    CONTAINER: debian:jessie
+-
+-debian-jessie-gcc-debug:
+-  extends: .gcc-x86-64-build-debug
+-  variables:
+-    CONTAINER: debian:jessie
+-
+-debian-jessie-32-clang:
+-  extends: .clang-x86-32-build
+-  variables:
+-    CONTAINER: debian:jessie-i386
+-
+-debian-jessie-32-clang-debug:
+-  extends: .clang-x86-32-build-debug
+-  variables:
+-    CONTAINER: debian:jessie-i386
+-
+-debian-jessie-32-gcc:
+-  extends: .gcc-x86-32-build
+-  variables:
+-    CONTAINER: debian:jessie-i386
+-
+-debian-jessie-32-gcc-debug:
+-  extends: .gcc-x86-32-build-debug
+-  variables:
+-    CONTAINER: debian:jessie-i386
+-
+ debian-stretch-clang:
+   extends: .clang-x86-64-build
+   variables:
 -- 
 Anthony PERARD
 
