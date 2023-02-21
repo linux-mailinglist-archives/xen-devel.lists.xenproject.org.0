@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2BAE69DF08
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 12:40:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.498809.769729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 597ED69DF21
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 12:42:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.498817.769738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUR05-00017N-27; Tue, 21 Feb 2023 11:40:01 +0000
+	id 1pUR2R-0002Uj-Fo; Tue, 21 Feb 2023 11:42:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 498809.769729; Tue, 21 Feb 2023 11:40:01 +0000
+Received: by outflank-mailman (output) from mailman id 498817.769738; Tue, 21 Feb 2023 11:42:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUR04-000140-VQ; Tue, 21 Feb 2023 11:40:00 +0000
-Received: by outflank-mailman (input) for mailman id 498809;
- Tue, 21 Feb 2023 11:39:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pUR2R-0002SM-Cw; Tue, 21 Feb 2023 11:42:27 +0000
+Received: by outflank-mailman (input) for mailman id 498817;
+ Tue, 21 Feb 2023 11:42:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RUos=6R=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pUR03-00013s-7X
- for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 11:39:59 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7789a0e6-b1dc-11ed-933d-83870f6b2ba8;
- Tue, 21 Feb 2023 12:39:58 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id cy6so10441277edb.5
- for <xen-devel@lists.xenproject.org>; Tue, 21 Feb 2023 03:39:57 -0800 (PST)
-Received: from [192.168.1.93] (adsl-185.109.242.225.tellas.gr.
- [109.242.225.185]) by smtp.gmail.com with ESMTPSA id
- g13-20020a056402090d00b004acbda55f6bsm1121112edz.27.2023.02.21.03.39.56
+ id 1pUR2P-0002SG-V1
+ for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 11:42:26 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b8867161-b1dc-11ed-93b6-47a8fe42b414;
+ Tue, 21 Feb 2023 12:41:46 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id f13so15419243edz.6
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Feb 2023 03:42:23 -0800 (PST)
+Received: from [192.168.1.93] ([188.73.238.161])
+ by smtp.gmail.com with ESMTPSA id
+ n17-20020a50c211000000b004ad7bfad182sm3368396edf.6.2023.02.21.03.42.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Feb 2023 03:39:56 -0800 (PST)
+ Tue, 21 Feb 2023 03:42:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,123 +44,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7789a0e6-b1dc-11ed-933d-83870f6b2ba8
+X-Inumbo-ID: b8867161-b1dc-11ed-93b6-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=WqmPUovFgDUxQPlbJvg4n4NrDEAZoHu4pIIoXueWiLQ=;
-        b=ic0ESN9hy+9m5eCfetPMrQato5/Hchj6QXy1L4bm+gIxTwnsZm1oM9+XpCPvRKq463
-         cVbuFXI1kayqS2i4PvUTFlsKqQjz5AblOdJxhZoJQjTJZJwp5ywtEc7H8OiZj8ZaN/Kb
-         5bG9BzNq6fiSPpfNHJcu+0/4g0OfwFiWNNjdwkQMus4Qgt5hDLHKYH37SjoEkpUOCfuz
-         jAN6BvW9Q8osMaWfeqWUJHkmbFcJikozpTqCTBcw4F5DdECrjEXPqrhh5zAo4KrkjnvM
-         z9DuMiu73GfgOpmjHXRrOaCWFvfzZtdtzDpMfT2dZL3F6AJrhaw4Vxq0NSDtMjNJsDyl
-         uMjg==
+        bh=XL5bp8r8QAaNoeNfuHR79AjlEEXjEq2YSKIfFs/T1NI=;
+        b=QVgOaqfnQmwnobbi+g1kuSYA0pAHQ7F7mVldjEiKNE/C93OIZa16gvyHw1Y7oOoh/h
+         rrLj1R9nrAJAgIkvmi7+wxDteNEJHOX90WmZhELby3qpdj6ICAhLtes4ZLDXxSyDFl71
+         Gcwr0a8O4/zD0cMqyqowy+cwO1kNFxVsc8Zv28CgQFHJnae2IeBYlP74wb4fzZ4cFlEZ
+         UE8oUnYtswDMJbvNYNCmSp2LCR+o9Of+CN4mf71I/YoQIZ4Lb6pymTXiYvjeB5lV1sAY
+         tUw/lC1gt9hgcoExH9TXKFa8M6A4zeGpVp7usasJBfEB4cDWyBDxBtAvidLC+Qe/s29f
+         PHoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WqmPUovFgDUxQPlbJvg4n4NrDEAZoHu4pIIoXueWiLQ=;
-        b=yoP/g3ORSaAXM2/0yp3C0rb2/EH82/JG4KEjnpkHgLtr5XUNbj5mgGcRbSX61gPNpl
-         gkYKyyBJikv4yh8EZX7CFNMzwKzaOAOY89EntLita6lUzWbMzUPXAvr3IxUbIAFn06mM
-         PfjImLWHmn4Mmi7eTjWvyD6Sbp+bea+39rzB3XvFb7zPiHD5uIdBiIRd7DRfHCa8LEPV
-         le2jyoDCcKgUPr2VX3jr+iDlitYtpcxBfKYA6RnMeAh5QY1OA6ebVLuZpgViXM0VJoNy
-         YZ1tGG0dM2iVKM2EOHG/ajvUK26GLOTp4bPjdjtkoxF88J7wOEPKjxhLiij+6KmXGEam
-         QAxA==
-X-Gm-Message-State: AO0yUKWil1T4/9HRNfBOy21XyT51zhPZaKDb2D+zIUz0a4nEHz/V8boL
-	YJ9YJVa86g3ecahNH/Mb2ECcLIZCQ/I=
-X-Google-Smtp-Source: AK7set9nbuGdDG923HFAQfWNQHolDR23UOWU29Y3ntu3EBM7dTSkRXXYoP7OqXp9+0Yx0MRk+fh+4g==
-X-Received: by 2002:aa7:c2c7:0:b0:4ac:d30d:c3a3 with SMTP id m7-20020aa7c2c7000000b004acd30dc3a3mr3117250edp.32.1676979597145;
-        Tue, 21 Feb 2023 03:39:57 -0800 (PST)
-Message-ID: <35502e08-6a59-63a9-be4e-4e0592dae61d@gmail.com>
-Date: Tue, 21 Feb 2023 13:39:55 +0200
+        bh=XL5bp8r8QAaNoeNfuHR79AjlEEXjEq2YSKIfFs/T1NI=;
+        b=6mesfGNWYuGpMOKF1Ci/wVnPIQrLYL53b1BTclVtJcKNKSM3OPqKQ9xRkpnwDIaUvF
+         y7DMO1MBsC5iu3NRQ2lUMxHaJ7oiDvqHFdGUa3vXUckEmW+5LXaZlLYY/oo5c2uyl9Zx
+         IrKg4pySWonSxTsft/bcXHe2mSTIzJ4IUjPEJPyW6AgXImzYmlfgCBRRUNUrkZ9XYI/e
+         +wC/lVEr1CQpoKfK1SI9Uz+0DALJ8fve6dhkDGdjQH4HSlwJdEJhjbjDd7F6+zbPIoTp
+         lG75eUD8stfcXSpUwwWn3RfRDDrbwkCHDScxICttOxhoq3PqfHcll0fzJpsV89L4Mq8m
+         Mg2g==
+X-Gm-Message-State: AO0yUKXHIk6rNIrEn0kAFOIoRFguqZOxc0iom2j+3Gbv17HXMSbdBpWj
+	DgjfouIKHJ8xn5IWzPDw84k=
+X-Google-Smtp-Source: AK7set802DIil1PYJVd9i1w8kd95YG9BpQW7x+YgIaymIDEEsyn5YBlQit6Bp3Bgi9vgGEje3nMt5g==
+X-Received: by 2002:a05:6402:4d:b0:4ac:b32e:b6f with SMTP id f13-20020a056402004d00b004acb32e0b6fmr5758765edu.23.1676979743114;
+        Tue, 21 Feb 2023 03:42:23 -0800 (PST)
+Message-ID: <712f3022-3760-717d-7683-b320fb8dad3e@gmail.com>
+Date: Tue, 21 Feb 2023 13:42:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH 4/4] x86/vmx: cleanup vmx.h
+Subject: Re: [PATCH 1/4] x86/svm: cleanup svm.c
 Content-Language: en-US
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20230217184814.1243046-1-burzalodowa@gmail.com>
- <20230217184814.1243046-5-burzalodowa@gmail.com>
- <236c784d-e128-c35c-3c95-9b4dda08804a@suse.com>
+ <20230217184814.1243046-2-burzalodowa@gmail.com>
+ <0f35ee23-c6f2-9015-4328-266baf287156@citrix.com>
+ <936cd14b-70b8-0c28-3aa8-85e5b3f2a8c9@gmail.com>
+ <12c71fff-a27c-36ca-992e-1b1d1c075c4b@suse.com>
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <236c784d-e128-c35c-3c95-9b4dda08804a@suse.com>
+In-Reply-To: <12c71fff-a27c-36ca-992e-1b1d1c075c4b@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
-On 2/21/23 13:23, Jan Beulich wrote:
-> On 17.02.2023 19:48, Xenia Ragiadakou wrote:
->> Do not include the headers:
->>    asm/i387.h
->>    asm/hvm/trace.h
->>    asm/processor.h
->>    asm/regs.h
->> because none of the declarations and macro definitions in them is used in
->> this file. Sort alphabetically the rest of the headers.
->> Fix build by including asm/i387.h in vmx.c, needed for vcpu_restore_fpu_lazy().
+On 2/21/23 13:12, Jan Beulich wrote:
+> On 21.02.2023 08:45, Xenia Ragiadakou wrote:
+>> Hi Andrew,
 >>
->> Move the definition of GAS_VMX_OP just above the functions that use it and
->> undefine it after its usage.
+>> On 2/21/23 00:12, Andrew Cooper wrote:
+>>> On 17/02/2023 6:48 pm, Xenia Ragiadakou wrote:
+>>>> Do not include the headers:
+>>>>     xen/irq.h
+>>>>     asm/hvm/svm/intr.h
+>>>>     asm/io.h
+>>>>     asm/mem_sharing.h
+>>>>     asm/regs.h
+>>>
+>>> Out of interest, how are you calculating these?  They're accurate as far
+>>> as I can tell.
 >>
->> Move in vmcs.c the definitions of:
->>    ept_sync_all()
->>    __vmxoff()
->>    __vmxon()
->> because they are used only in this file. Take the opportunity to remove a
->> trailing white space.
+>> I do not use a script (at least not a decent one), if that 's the
+>> question :) . I verify that none of the symbols defined or declared in
+>> the header is used in the file including the header.
+>>
+>>>
+>>> Looking at asm/hvm/svm/*, intr.h itself can be straight deleted,
+>>> svmdebug.h can be merged into vmcb.h, and all the others can move into
+>>> xen/arch/x86/hvm/svm/ as local headers.  None of them have any business
+>>> being included elsewhere in Xen.
+>>
+>> I can send another patch for that.
+>>
+>>>
+>>>> because none of the declarations and macro definitions in them is used.
+>>>> Sort alphabetically the rest of the headers.
+>>>
+>>> Minor grammar point. "Sort the rest of the headers alphabetically" would
+>>> be a more normal way of phrasing this.
+>>
+>> I will fix it in v2.
 > 
-> While the latter two are probably fine to be moved, I think the first one
-> wants to remain where it is, as new uses might appear.
-
-Ok I will leave it where it is.
-
+> I guess this can be adjusted while committing, seeing that ...
 > 
->> Move in vmx.c the definitions of:
->>    pi_test_and_set_pir()
->>    pi_test_pir()
->>    pi_test_and_set_on()
->>    pi_set_on()
->>    pi_test_and_clear_on()
->>    pi_test_on()
->>    pi_get_pir()
->>    pi_test_sn()
->>    pi_set_sn()
->>    pi_clear_sn()
->>    vpid_sync_vcpu_gva()
->> because they are used only in this file.
+>>>> Remove the forward declaration of svm_function_table and place start_svm()
+>>>> after the svm_function_table's definition.
+>>>>
+>>>> Replace double new lines with one.
+>>>>
+>>>> No functional change intended.
+>>>>
+>>>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>>>
+>>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > 
-> I'm not fully convinced of such movement. As a general remark: We typically
-> avoid "inline" for functions in .c files. Yet most if not all of the above
-> are pretty good candidates for being explicitly marked "inline".
+> ... it's otherwise ready to be committed.
 
-I could create a private header.
-
-> 
->> Move in vmx.c the declarations of:
->>    ve_info_t
->>    ept_qual_t
->>    idt_or_gdt_instr_info_t
->>    ldt_or_tr_instr_info_t
->> because they are used only in this file.
-> 
-> I disagree with the movement of such types. Sooner or later they may want
-> using by vvmx.c as well. If you want to move them, then to a private header
-> under xen/arch/x86/hvm/vmx/.
-
-Ok will do.
-
-> 
-> Finally I think at least the individual groups of what is being moved or
-> adjusted want splitting into separate patches.
-
-Ok.
+Great, thx.
 
 > 
 > Jan
