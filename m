@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D32F369E97A
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 22:27:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.499179.770223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2B8069EA49
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 23:37:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.499190.770233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUa9T-0001fW-Ue; Tue, 21 Feb 2023 21:26:19 +0000
+	id 1pUbFC-0002U0-2d; Tue, 21 Feb 2023 22:36:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 499179.770223; Tue, 21 Feb 2023 21:26:19 +0000
+Received: by outflank-mailman (output) from mailman id 499190.770233; Tue, 21 Feb 2023 22:36:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUa9T-0001d0-RT; Tue, 21 Feb 2023 21:26:19 +0000
-Received: by outflank-mailman (input) for mailman id 499179;
- Tue, 21 Feb 2023 21:26:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pUbFB-0002S9-W6; Tue, 21 Feb 2023 22:36:17 +0000
+Received: by outflank-mailman (input) for mailman id 499190;
+ Tue, 21 Feb 2023 22:36:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=U5xX=6R=tibco.com=sdyasli@srs-se1.protection.inumbo.net>)
- id 1pUa9R-0001ct-Im
- for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 21:26:17 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5f7d91f8-b22e-11ed-a089-e9535cc0f9c3;
- Tue, 21 Feb 2023 22:26:16 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id h16so22842476edz.10
- for <xen-devel@lists.xenproject.org>; Tue, 21 Feb 2023 13:26:16 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1pUbFA-0002S2-G9
+ for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 22:36:16 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pUbF9-0006jI-Bw; Tue, 21 Feb 2023 22:36:15 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pUbF9-0001M9-6V; Tue, 21 Feb 2023 22:36:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,67 +39,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f7d91f8-b22e-11ed-a089-e9535cc0f9c3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=ontRbTiCbaS8agLcerZLCHDWnInQNV4DuMau5l48sng=;
-        b=Z2SdCEOJV2uEqpU/ui01AbLiSvckGBYIL0kDcq6C4PfHbKn8Xp3w+OjZ58QEHq1n0u
-         kbRPx/Jpz8l5iPY5NloYHCZXcFt0KY1VN5KCWXo/yb5FCcEsfmOol4rSS014iP+qW1QG
-         FjeJGngd8+QZQ7JT9r7PVNHhu953/PxaHD58Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ontRbTiCbaS8agLcerZLCHDWnInQNV4DuMau5l48sng=;
-        b=FlqX1ZzcPfjhYcV18MtTiOsHf6x2Gl7cdQIrUEgf7KQ6vyYRKDQocaKVS2OaXxSOIx
-         J9iFIcAmSTwZAWuUKI4HlbcO5QQPvj9LZqYClRF75PzqQ6qqo5OaFUf19uA8uyXY05V+
-         6YkJ9DPQdDtXEoSF3qOlDaJTnT5LPGXAL86cEwPJ8zITo4nVd/5xAatms1k9X/JweXwL
-         fHUT+zWoWfz8+1cQbzXLxs1NmwKM3rcJ+1VSnBImUjXO+8LUrN2CPtB3L/t/CuxPeJxy
-         geHn7+wq+ouIIeEiC84eXUfLecCmAvW7skVL74d/zYsxM7LK95SOvWwN2wX2W5b9KH8P
-         ij3Q==
-X-Gm-Message-State: AO0yUKVYYjC3LTJQ32nJz3TDFZzzVonaj33PmgyxwIECF/IMgUQDlbvh
-	0XFd4Nn03dRjeiIKdz6PIy2Fx3LLt1D1rPYHWJ3Wew==
-X-Google-Smtp-Source: AK7set/YpaYTqoZo2mpFEA1k42RwEc7aebJptWLdzOAdx42NV9ZnuPkQKmxJ+u3ftwvPJHOZJysmg0f++o3oqetZ75M=
-X-Received: by 2002:a17:906:4f0b:b0:8b2:d871:d74a with SMTP id
- t11-20020a1709064f0b00b008b2d871d74amr6639811eju.10.1677014775450; Tue, 21
- Feb 2023 13:26:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=8N7ZTxZRpwrluNySXgT83M02a08yev1m+nEgeD0g1zU=; b=ERs3UxJVspoKio5b59Zw04RBbz
+	Cxnr6dLB37UZIYPLSIWLVgZp+QXa8LOh14pAky+T9bE9AZ2NjWFvExirAWHMukVdXHBKiDlPupkIi
+	zIGsMT+ylyrOsNquTtYEwVm0/zEi7AtxAoX/bqW6Nv1+5fBB99mRgE1gW2XpxKrtOgmw=;
+Message-ID: <5fc2636e-45b0-e515-d901-18dc5fc214eb@xen.org>
+Date: Tue, 21 Feb 2023 22:36:13 +0000
 MIME-Version: 1.0
-References: <20230215153846.18582-1-sergey.dyasli@citrix.com>
- <20230215153846.18582-3-sergey.dyasli@citrix.com> <e608a174-c158-5e69-4650-51195dfee5fe@suse.com>
-In-Reply-To: <e608a174-c158-5e69-4650-51195dfee5fe@suse.com>
-From: Sergey Dyasli <sergey.dyasli@cloud.com>
-Date: Tue, 21 Feb 2023 21:26:04 +0000
-Message-ID: <CAPRVcucou5c+Lsj+QH=H529_GP=mhLxmxsmh5jAFKB4TSc6Z9Q@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] x86/ucode/AMD: late load the patch on every
- logical thread
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, Sergey Dyasli <sergey.dyasli@citrix.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.7.2
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>
+References: <20230120100028.11142-1-jgross@suse.com>
+ <20230120100028.11142-2-jgross@suse.com>
+ <2131198f-f54b-2c38-8104-1c8b63e9990c@xen.org>
+ <c203062e-fd76-3aa1-8014-bf7d13eae1aa@suse.com>
+ <bd355c4c-b3a9-ac79-8522-5ff227ae26ab@xen.org>
+ <adae39fe-1b72-e4ac-eb17-8bbfb28011f2@suse.com>
+ <a0431ac1-4d1a-23c4-cb31-1d9d8812fc94@xen.org>
+ <32a517cf-4448-2208-4877-83c7a7531635@suse.com>
+ <20151614-96ca-0875-29a0-8099953b7e61@xen.org>
+ <e90591bd-1242-0721-242b-5db2565349f8@suse.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v2 01/13] tools/xenstore: don't allow creating too many
+ nodes in a transaction
+In-Reply-To: <e90591bd-1242-0721-242b-5db2565349f8@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 21, 2023 at 2:03 PM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 15.02.2023 16:38, Sergey Dyasli wrote:
-> > --- a/xen/arch/x86/cpu/microcode/core.c
-> > +++ b/xen/arch/x86/cpu/microcode/core.c
-> > @@ -398,10 +398,16 @@ static int cf_check microcode_nmi_callback(
-> >           (!ucode_in_nmi && cpu == primary) )
-> >          return 0;
-> >
-> > -    if ( cpu == primary )
-> > +    if ( boot_cpu_data.x86_vendor == X86_VENDOR_AMD )
->
-> Given their origin, I'm pretty certain Hygon wants treating the same here
-> and below.
+Hi Juergen,
 
-Hygon? ucode_ops is currently initialised only for Amd and Intel.
-Speaking of which, I'm thinking about adding a new function
-is_cpu_primary() there. This would make the core code much cleaner.
-I'll see if I can make it work.
+On 21/02/2023 08:10, Juergen Gross wrote:
+> On 20.02.23 19:01, Julien Grall wrote:
+>> So I have recreated an XTF test which I think match what you wrote [1].
+>>
+>> It is indeed failing without your patch. But then there are still some 
+>> weird behavior here.
+>>
+>> I would expect the creation of the node would also fail if instead of 
+>> removing the node if removed outside of the transaction.
+>>
+>> This is not the case because we are looking at the current quota. So 
+>> shouldn't we snapshot the global count?
+> 
+> As we don't do a global snapshot of the data base for a transaction 
+> (this was
+> changed due to huge memory needs, bad performance, and a higher transaction
+> failure rate), 
 
-Thanks,
-Sergey
+I am a bit surprised that the only way to do proper transaction is to 
+have a global snapshot. Instead, you could have an overlay.
+
+> I don't think we should snapshot the count either.
+
+But that would mean that the quota will change depending on modification 
+of the global database while the transaction is inflight.
+
+I guess this is not better nor worse that the current situation. But it 
+is still really confusing for a client because:
+   1) The error could happen at random point
+   2) You may see an inconsistent database as nodes are only cached when 
+they are first accessed
+
+> A transaction is performed atomically at the time it is finished. Therefore
+> seeing the current global state inside the transaction (with the 
+> transaction
+> private state on top like an overlay) is absolutely fine IMO.
+
+To me it is just showing that our concept of transaction is very broken 
+in C Xenstored. I am curious to know whether OXenstored is behaving the 
+same way.
+
+Anyway, I agree this is not better nor worse than the current situation. 
+So I will acked this patch:
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+-- 
+Julien Grall
 
