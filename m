@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2B8069EA49
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 23:37:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.499190.770233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFA1869EA5A
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 23:42:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.499196.770244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUbFC-0002U0-2d; Tue, 21 Feb 2023 22:36:18 +0000
+	id 1pUbLL-0004Dy-Nr; Tue, 21 Feb 2023 22:42:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 499190.770233; Tue, 21 Feb 2023 22:36:18 +0000
+Received: by outflank-mailman (output) from mailman id 499196.770244; Tue, 21 Feb 2023 22:42:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUbFB-0002S9-W6; Tue, 21 Feb 2023 22:36:17 +0000
-Received: by outflank-mailman (input) for mailman id 499190;
- Tue, 21 Feb 2023 22:36:16 +0000
+	id 1pUbLL-0004Bn-Kr; Tue, 21 Feb 2023 22:42:39 +0000
+Received: by outflank-mailman (input) for mailman id 499196;
+ Tue, 21 Feb 2023 22:42:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pUbFA-0002S2-G9
- for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 22:36:16 +0000
+ (envelope-from <julien@xen.org>) id 1pUbLK-0004Bh-NR
+ for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 22:42:38 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pUbF9-0006jI-Bw; Tue, 21 Feb 2023 22:36:15 +0000
+ id 1pUbLJ-0006zv-Sx; Tue, 21 Feb 2023 22:42:37 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pUbF9-0001M9-6V; Tue, 21 Feb 2023 22:36:15 +0000
+ id 1pUbLJ-0001cJ-O3; Tue, 21 Feb 2023 22:42:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,81 +42,161 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
 	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=8N7ZTxZRpwrluNySXgT83M02a08yev1m+nEgeD0g1zU=; b=ERs3UxJVspoKio5b59Zw04RBbz
-	Cxnr6dLB37UZIYPLSIWLVgZp+QXa8LOh14pAky+T9bE9AZ2NjWFvExirAWHMukVdXHBKiDlPupkIi
-	zIGsMT+ylyrOsNquTtYEwVm0/zEi7AtxAoX/bqW6Nv1+5fBB99mRgE1gW2XpxKrtOgmw=;
-Message-ID: <5fc2636e-45b0-e515-d901-18dc5fc214eb@xen.org>
-Date: Tue, 21 Feb 2023 22:36:13 +0000
+	bh=PfEg1fMfXnnEetfIB7XGPVKIr8vDaNbxhGpoEd0ZMZI=; b=COfpxK4CRWsDk8KfGZRpM0C6rD
+	tqja7xKnvNcrJm5COl+Cf6KhOOGLBYhsUOZb7hvxOI7srpcQzhn5nZEKJJ/0HjrWT/nWdiJ1fhwqn
+	voADAStmLsxIcJVXQz4t5zaFDmGBT/50riGAFmE+EDiYSXOu4EnGajt53V+nuMVVDUZs=;
+Message-ID: <6b9b0afc-da89-6f6f-859f-c8f7ae0be972@xen.org>
+Date: Tue, 21 Feb 2023 22:42:36 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.7.2
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
 References: <20230120100028.11142-1-jgross@suse.com>
- <20230120100028.11142-2-jgross@suse.com>
- <2131198f-f54b-2c38-8104-1c8b63e9990c@xen.org>
- <c203062e-fd76-3aa1-8014-bf7d13eae1aa@suse.com>
- <bd355c4c-b3a9-ac79-8522-5ff227ae26ab@xen.org>
- <adae39fe-1b72-e4ac-eb17-8bbfb28011f2@suse.com>
- <a0431ac1-4d1a-23c4-cb31-1d9d8812fc94@xen.org>
- <32a517cf-4448-2208-4877-83c7a7531635@suse.com>
- <20151614-96ca-0875-29a0-8099953b7e61@xen.org>
- <e90591bd-1242-0721-242b-5db2565349f8@suse.com>
+ <20230120100028.11142-5-jgross@suse.com>
+ <e35bb9f8-2bc8-66b3-6fd8-1b2473f9daef@xen.org>
+ <66e2bbb2-b244-77c7-d6bf-21d037ddaac9@suse.com>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2 01/13] tools/xenstore: don't allow creating too many
- nodes in a transaction
-In-Reply-To: <e90591bd-1242-0721-242b-5db2565349f8@suse.com>
+Subject: Re: [PATCH v2 04/13] tools/xenstore: add framework to commit
+ accounting data on success only
+In-Reply-To: <66e2bbb2-b244-77c7-d6bf-21d037ddaac9@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 Hi Juergen,
 
-On 21/02/2023 08:10, Juergen Gross wrote:
-> On 20.02.23 19:01, Julien Grall wrote:
->> So I have recreated an XTF test which I think match what you wrote [1].
+On 21/02/2023 08:37, Juergen Gross wrote:
+> On 20.02.23 23:50, Julien Grall wrote:
+>>> +        list_del(&cd->list);
+>>> +        talloc_free(cd);
+>>> +    }
+>>> +}
+>>> +
+>>> +void acc_commit(struct connection *conn)
+>>> +{
+>>> +    struct changed_domain *cd;
+>>> +    struct buffered_data *in = conn->in;
+>>> +    enum accitem what;
+>>> +
+>>> +    conn->in = NULL; /* Avoid recursion. */
 >>
->> It is indeed failing without your patch. But then there are still some 
->> weird behavior here.
->>
->> I would expect the creation of the node would also fail if instead of 
->> removing the node if removed outside of the transaction.
->>
->> This is not the case because we are looking at the current quota. So 
->> shouldn't we snapshot the global count?
+>> I am not sure I understand this comment. Can you provide more details 
+>> where the recursion would happen?
 > 
-> As we don't do a global snapshot of the data base for a transaction 
-> (this was
-> changed due to huge memory needs, bad performance, and a higher transaction
-> failure rate), 
+> domain_acc_add() might do temporary accounting if conn->in isn't NULL.
 
-I am a bit surprised that the only way to do proper transaction is to 
-have a global snapshot. Instead, you could have an overlay.
+I am confused. To me recursion means the function (or the caller) will 
+call itself. But here you seem to say you just want to avoid temporary 
+accounting.
 
-> I don't think we should snapshot the count either.
+What did I miss?
 
-But that would mean that the quota will change depending on modification 
-of the global database while the transaction is inflight.
+> 
+>>
+>>> +    while ((cd = list_top(&conn->acc_list, struct changed_domain, 
+>>> list))) {
+>>
+>> NIT: You could use list_for_each_safe();
+> 
+> Like above.
+> 
+>>
+>>> +        list_del(&cd->list);
+>>> +        for (what = 0; what < ACC_REQ_N; what++)
+>>
+>> There is a chance that some compiler will complain about this line 
+>> because ACC_REQ_N = 0. So this would always be true. Therefore...
+> 
+> Huh? It would always be false.
 
-I guess this is not better nor worse that the current situation. But it 
-is still really confusing for a client because:
-   1) The error could happen at random point
-   2) You may see an inconsistent database as nodes are only cached when 
-they are first accessed
+Yes false sorry. This doesn't change about the potential (temporary) 
+warning.
 
-> A transaction is performed atomically at the time it is finished. Therefore
-> seeing the current global state inside the transaction (with the 
-> transaction
-> private state on top like an overlay) is absolutely fine IMO.
+> 
+>>
+>>> +            if (cd->acc[what])
+>>> +                domain_acc_add(conn, cd->domid, what,
+>>> +                           cd->acc[what], true);
+>>> +
+>>> +        talloc_free(cd);
+>>> +    }
+>>> +
+>>> +    conn->in = in;
+>>> +}
+>>> +
+>>>   int domain_nbentry_inc(struct connection *conn, unsigned int domid)
+>>>   {
+>>>       return (domain_acc_add(conn, domid, ACC_NODES, 1, false) < 0)
+>>> diff --git a/tools/xenstore/xenstored_domain.h 
+>>> b/tools/xenstore/xenstored_domain.h
+>>> index 8259c114b0..cd85bd0cad 100644
+>>> --- a/tools/xenstore/xenstored_domain.h
+>>> +++ b/tools/xenstore/xenstored_domain.h
+>>> @@ -20,7 +20,8 @@
+>>>   #define _XENSTORED_DOMAIN_H
+>>>   enum accitem {
+>>> -    ACC_NODES,
+>>> +    ACC_REQ_N,       /* Number of elements per request and domain. */
+>>> +    ACC_NODES = ACC_REQ_N,
+>>
+>> I would bring forward the change in patch #5. I mean:
+>>
+>> ACC_NODES,
+>> ACC_REQ_N
+> 
+> I'm not sure this is a good idea. This would activate the temporary
+> accounting for nodes, but keeping the error handling active. I'd rather
+> activate temporary accounting for nodes together with removing the
+> accounting correction in the error handling.
 
-To me it is just showing that our concept of transaction is very broken 
-in C Xenstored. I am curious to know whether OXenstored is behaving the 
-same way.
+I am not sure I fully understand what you would rather do. Can you clarify?
 
-Anyway, I agree this is not better nor worse than the current situation. 
-So I will acked this patch:
+> 
+>>
+>>>       ACC_TR_N,        /* Number of elements per transaction and 
+>>> domain. */
+>>>       ACC_N = ACC_TR_N /* Number of elements per domain. */
+>>>   };
+>>
+>> This enum is getting extremely confusing. There are many "number of 
+>> elements per ... domain". Can you clarify?
+> 
+> I will add some more comments to the header. Would you like it better to 
+> have
+> the limits indented more? something like:
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+I am afraid it doesn't help understanding the comment. For instance,
+
+> 
+> enum accitem {
+>          ACC_NODES,
+>          /* Number of elements per request and domain. */
+
+you wrote "per request and domain" here. But...
+
+>          ACC_REQ_N,
+>          /* Number of elements per transaction and domain. */
+
+... here this is "per transaction and domain". Should not nbe "elements 
+per transaction"? And if not, then why don't we had "per request, 
+transaction and domain" above?
+
+>              ACC_TR_N = ACC_REQ_N,
+>          ACC_WATCH = ACC_TR_N,
+>          ACC_OUTST,
+>          ACC_MEM,
+>          ACC_TRANS,
+>          ACC_TRANSNODES,
+>          ACC_NPERM,
+>          ACC_PATHLEN,
+>          ACC_NODESZ,
+>          /* Number of elements per domain. */
+>              ACC_N
+> };
+> 
+> 
+> Juergen
+> 
 
 Cheers,
 
