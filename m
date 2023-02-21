@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6697D69DF32
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 12:45:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.498796.769749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 857D369DEEF
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Feb 2023 12:36:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.498799.769717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUR58-00035e-TH; Tue, 21 Feb 2023 11:45:14 +0000
+	id 1pUQw3-0000Dh-HH; Tue, 21 Feb 2023 11:35:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 498796.769749; Tue, 21 Feb 2023 11:45:14 +0000
+Received: by outflank-mailman (output) from mailman id 498799.769717; Tue, 21 Feb 2023 11:35:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUR58-00033t-Q4; Tue, 21 Feb 2023 11:45:14 +0000
-Received: by outflank-mailman (input) for mailman id 498796;
- Tue, 21 Feb 2023 11:31:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6azs=6R=zhukoff.net=pavel@srs-se1.protection.inumbo.net>)
- id 1pUQrX-00006G-F0
- for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 11:31:11 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3940b7b7-b1db-11ed-933d-83870f6b2ba8;
- Tue, 21 Feb 2023 12:31:05 +0100 (CET)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 128645C00AF;
- Tue, 21 Feb 2023 06:31:03 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 21 Feb 2023 06:31:03 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 21 Feb 2023 06:31:02 -0500 (EST)
+	id 1pUQw3-0000B8-EJ; Tue, 21 Feb 2023 11:35:51 +0000
+Received: by outflank-mailman (input) for mailman id 498799;
+ Tue, 21 Feb 2023 11:35:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RUos=6R=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1pUQw1-0000B0-QU
+ for xen-devel@lists.xenproject.org; Tue, 21 Feb 2023 11:35:49 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ccb2448c-b1db-11ed-93b6-47a8fe42b414;
+ Tue, 21 Feb 2023 12:35:11 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id o12so16308154edb.9
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Feb 2023 03:35:47 -0800 (PST)
+Received: from [192.168.1.93] (adsl-185.109.242.225.tellas.gr.
+ [109.242.225.185]) by smtp.gmail.com with ESMTPSA id
+ r3-20020a50aac3000000b004ad745b8506sm3195559edc.34.2023.02.21.03.35.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 21 Feb 2023 03:35:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,112 +44,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3940b7b7-b1db-11ed-933d-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zhukoff.net; h=
-	cc:cc:content-transfer-encoding:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:sender:subject:subject:to:to;
-	 s=fm1; t=1676979063; x=1677065463; bh=i2ie1WFcVhi5uCvumoVgxqFPz
-	hMCaPOtaACT2Dv2yC8=; b=abSYmEdhvfIoXEM1h3Z+p9zx2omIvHh5XPQcGavD/
-	buJWUhwaBMUgXgkpGNNSoTSPNifhgJwIZF6qKUtqUTl3vFsMMJwcUwuXjYzpNvaV
-	qtQyKpHMR/wWeeokyZNCk4GlYl7LexW/orRN8DggJXvXLhR6fGiKOlAYtVd2/gEN
-	qyljxfpTcTVAjwb7WE/301hYym4HYRrRgMQ4DKTr8iwO52zmk+7oK3GOh6mjhMul
-	T0faNRQ4UJzaSihqE5tW1NyYzrZhc3MRzu+SPBpr3jDKyyZwCAV4qK1iWe5UNld4
-	c4v+9aOmTQerRiHglBAYuVMLId4b54f+1FM9xNxG9hlbw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1676979063; x=1677065463; bh=i2ie1WFcVhi5uCvumoVgxqFPzhMCaPOtaAC
-	T2Dv2yC8=; b=Lb4rCoUy3xxRetZZPHCUxereLUzvGnK7uwTSwc+uvnx08R0kHnc
-	VyyyRxw/QwUiYuz3qxNU7YjDBJjBL3gMzn9htauqzo/BP5XfXkQl6qAyCtGUuFL2
-	+Kf0XbUYr6332BxuWRXjqCMeyrSBJ5KCYGslJQOU8JQ1+G9Q8bmI2aN6LuitrUjP
-	JjuFHzzNVaq+MwZU6YRKqw/dx49wJ680juY0ZNzYUUEd76OsOCS+ST6CYEikR5zg
-	alp+XsNf6NakrFpMQNpjLvz/Cr1921smbFX0Nshac6uSu0oAaZo913tGNZh2fjbO
-	w4eQiXuUYfmiLqU7yjrkZGj0PwB4b31VFGg==
-X-ME-Sender: <xms:dqv0Y4OJWxy58oYm3F7yxXjnq0TOI1w2DAen_UHcA5u2gb8vYBgUoQ>
-    <xme:dqv0Y-9aP_dG8Xjj92gK9-d56aE7aJv6Xbyjq-7FP2STo34kEfjH3u8FFIJRhuJ64
-    FrNR8MM9UVK6n5p4XM>
-X-ME-Received: <xmr:dqv0Y_TJYD9EBMnzD4dn2PYBTX1pQNYLC12S_ygjnA_GwDc_eVWf7MDJbfOeIpd-Vw0MpHTEmdET>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudejjedgvdekucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpefhvfevufffkffoggfgsedtkeertd
-    ertddtnecuhfhrohhmpefrrghvvghlucgkhhhukhhovhcuoehprghvvghlseiihhhukhho
-    fhhfrdhnvghtqeenucggtffrrghtthgvrhhnpeevfeejkeejudegledtkeejhfettdefje
-    euffehieekvddugfdtffffledvvdefhfenucevlhhushhtvghrufhiiigvpedtnecurfgr
-    rhgrmhepmhgrihhlfhhrohhmpehprghvvghlseiihhhukhhofhhfrdhnvght
-X-ME-Proxy: <xmx:dqv0YwuhevuhNkgImTzay4_bRmD6sKCmPhD9-U_EWGCS_ZNru_RETw>
-    <xmx:dqv0Ywc4TnydFXkxHUJCkYJgpILAn2ju7nTQHLpjj0rOuZ1toZaAew>
-    <xmx:dqv0Y03B_mx6DB4TRLl0aVTfIvbbPx5PlU5Hh7FYx8VONE7dgIrPvw>
-    <xmx:d6v0Y8GiwstzL-cIxMYl081N_XlGroreCGnf7B2mde7qDxp5v9Yitw>
-Feedback-ID: ib94946c9:Fastmail
-From: Pavel Zhukov <pavel@zhukoff.net>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	Pavel Zhukov <pavel@zhukoff.net>
-Subject: [ImageBuilder][PATCH] uboot-script-gen: Add virtio loader
-Date: Tue, 21 Feb 2023 12:30:36 +0100
-Message-Id: <20230221113035.5899-1-pavel@zhukoff.net>
-X-Mailer: git-send-email 2.39.1
+X-Inumbo-ID: ccb2448c-b1db-11ed-93b6-47a8fe42b414
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=grGr8FjyLpEbOiecwKSx+QmMcxw3brJvaL15RF60xw0=;
+        b=hbG5uBKD4QWvF+/APB386Q/zkx4UdhJ7+2DBH9+dkWEj0ppU0XwViYwAUqnmwHNFla
+         043lE9DhX5SMUh5kgUQwJTOpJDVTjv3K+xpvXGg/WZiRWaC3775RxvQaA5P4AwEQ/9J7
+         UtM8jZ2wqizsU9AeEDO+/GCG+KAYf49HAccJvhq5QUd+Z0woRjzh84CC0qcUohESuRj/
+         hY51bpIkpteyyIAY+RUXPpGNmRkp5Kq5DOc2YgH2U+aIMV3FDx2s2M9xD0xiPzBS6En1
+         uE4B9fcChcYSnKBZFZkupSJgG0K5PJMqhGwNflI7s5+Y7K9EZI07rfj1l1+v+Dl96Vm8
+         xo1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=grGr8FjyLpEbOiecwKSx+QmMcxw3brJvaL15RF60xw0=;
+        b=LOfget5WK16LHQQilmrXWnAV3jmmkh3Ggsxp0HlmRhvNGhKM/rTssjMuPAXtOrIFtQ
+         hz5X9TDKbpRl/CKlHM5cheKKC7QIdLqzaTu+IEeFdn2vpHEYfW376dd5i+EuQX3An2Og
+         TX7YDxd/3bHimIZ8E7OxPLexzwK5kOgalC/wHogdumQMUoW0T0Ky9GtgHDciZBaqKrFO
+         lWxnX/kffKRpXlo+psC58CLuJl2Ds0B5bYFdZwVa64CThusrXF0NWy7pUD0wR9X3RUM1
+         im6Dqy6cPl0Vlf5DUplEgWO12KUJDrZX0pG7dYMq57lgWdc5qSyp2QhwWGXlRz4wBuTj
+         y/9A==
+X-Gm-Message-State: AO0yUKWiiE+oTyfzPYDY3KTSfe+3j5XK4r0JHbSsQJl2y2txEwjv2Png
+	qS8sZX03GOj7yi2/3JDxDGk=
+X-Google-Smtp-Source: AK7set8lRS6TB07A5bgoOcB6Kz47PcMvPomLkymjgWAB/RU4JA8sBzTPSM2+3JFDZxgM5afAT++NGw==
+X-Received: by 2002:a50:ec8d:0:b0:4aa:a390:bf4a with SMTP id e13-20020a50ec8d000000b004aaa390bf4amr5433170edr.20.1676979347377;
+        Tue, 21 Feb 2023 03:35:47 -0800 (PST)
+Message-ID: <dc7f5a3f-2a5a-e745-991b-13f12126677f@gmail.com>
+Date: Tue, 21 Feb 2023 13:35:45 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH 3/4] x86/vmx: cleanup vmx.c
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20230217184814.1243046-1-burzalodowa@gmail.com>
+ <20230217184814.1243046-4-burzalodowa@gmail.com>
+ <3477e48c-e6bc-af9d-65a9-c6c0556318ad@suse.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <3477e48c-e6bc-af9d-65a9-c6c0556318ad@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-uboot supports virtio-blk drives and can load kernel image from it.
-Adding option to use '-t virtio' for loading image from virtio device
+Hi Jan,
 
-Signed-off-by: Pavel Zhukov <pavel@zhukoff.net>
----
- README.md                | 14 +++++++-------
- scripts/uboot-script-gen |  3 +++
- 2 files changed, 10 insertions(+), 7 deletions(-)
+On 2/21/23 13:26, Jan Beulich wrote:
+> On 17.02.2023 19:48, Xenia Ragiadakou wrote:
+>> Do not include the headers:
+>>    asm/hvm/vpic.h
+>>    asm/hvm/vpt.h
+>>    asm/io.h
+>>    asm/mce.h
+>>    asm/mem_sharing.h
+>>    asm/regs.h
+>>    public/arch-x86/cpuid.h
+>>    public/hvm/save.h
+>> because none of the declarations and macro definitions in them is used.
+>> Sort alphabetically the rest of the headers.
+>>
+>> Rearrange the code to replace all forward declarations with the function
+>> definitions.
+>>
+>> Replace double new lines with one.
+>>
+>> Reduce scope of nvmx_enqueue_n2_exceptions() to static because it is used
+>> only in this file.
+>>
+>> Move vmx_update_debug_state() in vmcs.c because it is used only in this file
+>> and limit its scope to this file by declaring it static and removing its
+>> declaration from vmx.h.
+>>
+>> Take the opportunity to remove all trailing spaces in vmx.c.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>> ---
+>>   xen/arch/x86/hvm/vmx/vmcs.c            |   12 +
+>>   xen/arch/x86/hvm/vmx/vmx.c             | 5844 ++++++++++++------------
+>>   xen/arch/x86/include/asm/hvm/vmx/vmx.h |    1 -
+>>   3 files changed, 2913 insertions(+), 2944 deletions(-)
+> 
+> I'm afraid this is close to unreviewable and hence absolutely needs splitting.
+> With this massive amount of re-arrangement (it's half of vmx.c, after all) I'm
+> also concerned of losing "git blame"-ability for fair parts of the code there.
 
-diff --git a/README.md b/README.md
-index cb0cb13..64e62cd 100644
---- a/README.md
-+++ b/README.md
-@@ -267,9 +267,9 @@ Where:\
- -d specifies the "root" directory (paths in the config file are relative
-    to it), this is not a working directory (any output file locations
-    are specified in the config and any temporary files are in /tmp)\
---t specifies the u-boot command to load the binaries. "tftp", "sd", "usb"
--   and "scsi" are shorthands for "tftpb", "load mmc 0:1", "fatload usb 0:1"
--   and "load scsi 0:1", but actually any arbitrary command can be used,
-+-t specifies the u-boot command to load the binaries. "tftp", "sd", "usb", "virtio"
-+   and "scsi" are shorthands for "tftpb", "load mmc 0:1", "fatload usb 0:1",
-+   "virtio load 0:1" and "load scsi 0:1", but actually any arbitrary command can be used,
-    for instance -t "fatload" is valid.  The only special commands are:
-    fit, which generates a FIT image using a script, and fit_std, which
-    produces a standard style of fit image without a script, but has
-@@ -339,10 +339,10 @@ Where:\
- -o specifies the output disk image file name\
- -a specifies whether the disk image size is to be aligned to the nearest
-    power of two\
---t specifies the u-boot command to load the binaries. "tftp", "sd", "usb"
--   and "scsi" are shorthands for "tftpb", "load mmc 0:1", "fatload usb 0:1"
--   and "load scsi 0:1", but actually any arbitrary command can be used,
--   for instance -t "fatload" is valid.
-+-t specifies the u-boot command to load the binaries. "tftp", "sd", "usb",
-+   "virtio" and "scsi" are shorthands for "tftpb", "load mmc 0:1",
-+   "fatload usb 0:1", "load virtio 0:1" and "load scsi 0:1", but actually
-+   any arbitrary command can be used, for instance -t "fatload" is valid.
- 
- 
- disk\_image supports these additional parameters on the config file:
-diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-index 7e5cc08..f07e334 100755
---- a/scripts/uboot-script-gen
-+++ b/scripts/uboot-script-gen
-@@ -1025,6 +1025,9 @@ while getopts ":c:t:d:ho:k:u:fp:" opt; do
-         sd )
-             load_opt="load mmc 0:1"
-             ;;
-+        virtio )
-+            load_opt="load virtio 0:1"
-+            ;;
-         usb )
-             load_opt="fatload usb 0:1"
-             ;;
+I understand. Let me split the changes apart from the one that 
+rearranges the code. Do you agree in principle? or do you want me to 
+except and sth else?
+
+> 
+> Jan
+
 -- 
-2.39.1
-
+Xenia
 
