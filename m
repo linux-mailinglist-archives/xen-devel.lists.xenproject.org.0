@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DBCA69F1C9
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Feb 2023 10:34:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.499301.770381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B79D69F1E9
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Feb 2023 10:38:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.499307.770392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUlVD-00017D-03; Wed, 22 Feb 2023 09:33:31 +0000
+	id 1pUlZJ-0001hz-Gp; Wed, 22 Feb 2023 09:37:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 499301.770381; Wed, 22 Feb 2023 09:33:30 +0000
+Received: by outflank-mailman (output) from mailman id 499307.770392; Wed, 22 Feb 2023 09:37:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUlVC-00014O-Sp; Wed, 22 Feb 2023 09:33:30 +0000
-Received: by outflank-mailman (input) for mailman id 499301;
- Wed, 22 Feb 2023 09:33:28 +0000
+	id 1pUlZJ-0001fl-DV; Wed, 22 Feb 2023 09:37:45 +0000
+Received: by outflank-mailman (input) for mailman id 499307;
+ Wed, 22 Feb 2023 09:37:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NHsq=6S=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pUlVA-00014I-Lq
- for xen-devel@lists.xenproject.org; Wed, 22 Feb 2023 09:33:28 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20621.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::621])
+ (envelope-from <SRS0=WsoH=6S=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pUlZH-0001ff-Qv
+ for xen-devel@lists.xenproject.org; Wed, 22 Feb 2023 09:37:44 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4f708b8-b293-11ed-93b6-47a8fe42b414;
- Wed, 22 Feb 2023 10:33:26 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB9PR04MB8316.eurprd04.prod.outlook.com (2603:10a6:10:246::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.18; Wed, 22 Feb
- 2023 09:33:24 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6134.019; Wed, 22 Feb 2023
- 09:33:24 +0000
+ id 8c499b91-b294-11ed-93b6-47a8fe42b414;
+ Wed, 22 Feb 2023 10:37:39 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 839C45C341;
+ Wed, 22 Feb 2023 09:37:39 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5A373139DB;
+ Wed, 22 Feb 2023 09:37:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id xX/GFGPi9WPBZAAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 22 Feb 2023 09:37:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,172 +51,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4f708b8-b293-11ed-93b6-47a8fe42b414
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mGeRGAKNDePP0MOKYv4g6/oNP0WzMpZ+EAy9DcH1GqHj9xoQVWgeKmg5yXjXbuwImIk1QSRYCFP8qjMgGgF1x68oVwQi6oDyqXBZYkGR6ZuxbTr9Q2SKL5mX1X1kiP08P1M0/B3TFvw5dZXBbgwoCn0PsIrucBfudd2xZd8cGsSpcXCPoqwFkzgEt0bEYnsdHXAMkQESgACYY58rCQBwH02mF0nAhvOS1/A+d/vkxKod989LWCMoJwkcnbNTz6IXIPSXgT04QZMOpN/UFIHDgAlPgbi/2Qxf1KPDNS8KynjURnn/x9rdCDP99oNZeiGWf5t+DjJVqBJS0tabI2qbGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8/T6Dg7QHblN9sHPTSrT66ZFu1n2VLTRFa9wx5/oY7w=;
- b=OPSefJA/BKjhTa+nhsuKkLdHD8J3IkTRpwzoTMNh0nVbMEuWJ/pwHXawUmr44WxGUH+RsLlq3EouIiXKpZq2vKGA+Eh6kQtGzLJFeo1faobO8dYXcCE/+OPfNapmJ/TWMZhWrLejN/xP3puWiF5VMoovxFZqEN2rLp6WYQ8omrsN1DCM+cCYZygMSsNwMIjIMVOO14p8MKqyxi1iswp9krTz04lSzBBLudpIKHjQBFbxw1zxJH7sxNs8Erfq4CFjPRFXU3nSBx0X1IAoV96RgwFGY2cX/9BDTTL/QKvkTGQ/wKskSiT5TUZ0Aw57v7OBkpS8Y0lMA39hFqzKvxbrhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8/T6Dg7QHblN9sHPTSrT66ZFu1n2VLTRFa9wx5/oY7w=;
- b=F/Bzwj5hsUr0qjMHGptPRhvfQdXA2pwN5axE3aXFThRIje3XPMczi9LNIHCFje1oV/doAKZt4Pa33wIxQ7UnEWTCMkDFkoDv72os604K1PYmowJjsy3VrK1JVvNFw7hL8WSkl7FsAag0gNmh81jh906mMIDJYVEfRZO5XZJARBhpLjLm41UVH9FKy/lX7yL5oQUJRzbqW4TXqAqaSeVrbwtop09/PZEPj7pwLP9yruK2GTlAJhbjEzE3y+CffzpQI2opKqRi9h4Us0GH+82bHRfB17poeq//NzChwSncWPLKK3zVcL9ufVl9l8X2iepYDPgbsk4EHHOj34ReGervHg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <71b9a6c4-950b-201e-7d39-eee602f2c26c@suse.com>
-Date: Wed, 22 Feb 2023 10:33:22 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 1/2] xen/ioapic: Don't use local_irq_restore() to disable
- irqs
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230220194702.2260181-1-andrew.cooper3@citrix.com>
- <20230220194702.2260181-2-andrew.cooper3@citrix.com>
- <b6b91164-32f0-3615-be8d-da99d9513666@suse.com>
- <95737b30-f377-7c2a-316f-8dc6ed7a863a@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <95737b30-f377-7c2a-316f-8dc6ed7a863a@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0153.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 8c499b91-b294-11ed-93b6-47a8fe42b414
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1677058659; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/Iji8OsdvXBhM/POPsPgFug1wYdIPUler1Sxos8F54g=;
+	b=VSD+OIL8BXUoaRJvG+Tba/xlaswW2gJMECurw6bHg3QO8j1h4sLjZGd87pfxkR9ei+4F/G
+	hBaqJY84Fua2hGg0CtsuWGQZygYgUw8lPtsup+oa3P0MOG0pNv0lEg94f53sEvUChHAjU1
+	MLBswK5DXMGvN7jWvBPirUDDjRJKTyg=
+Message-ID: <a51cf7d2-a3ba-b68d-ee52-899328201a16@suse.com>
+Date: Wed, 22 Feb 2023 10:37:38 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b8213f3-f68d-487d-d02f-08db14b7d82d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	rECo/Mfh85s/uWpxX/BPjVqngPJ4zHgkLcG2I4HwwA+gorKY84i0RpIN6IeM/3i7HB9AoEXEg5bsVC+ZVwA8Md6PSNv8Ksv44EMswdx5wN5SdSeLccddHYhidkBAOGFxObSkjSSXnq8AaNs7rOJSEt6dLcFtuSIg4UJE8ey5Vt7sY141idJw2rzMlXo5v/Ze9dxh/JTyHznFbn0Zt+6udvlrdPLmIB8Ix9+x8IVXw/ASEBHPoeGenjB3MzbMSPtYkArsjuwN3OevqqdEP/xaWOOkdq46WgdSboQSvCwRivuoi+5zYoj5XCCsy2QJJk9bQRbAt8SNTsii5W6vWJDJ9rIAHGnA1bnfakl49l/KbgOFqSuTxGO6Sa1IFAQcEZd90fCHI/kwzuORLwfyINWVpj695URU5GhP9pUpTbO22nANdUQvnZt1jvdEi/KxJ/cPABKlw1XELQCoamfa8FbfY+wAaE/q6gpvhorOqZRg1YOqZkaSsrgJAmlP8jf00LsjIP0RjNcXNX5ffGwAe7LltLHkOdyv/yQptnpp8rXJDWeRb8tBVyILzgMaKnHjnPO3656Te6CHLrpJgZpDdjNZxM/Py/UH6wWqBotLgqRsnRUD5p8J8m5NqtQwOlqIiivqWwhdunAgeGh6qKzR2X9MkQBT2S/bfeQR9kLuW6oxDnwNsO1vIx+rpIn9wpdeYJfPR3fKSDN1hJ4ymiWvVUwoL5QPsQ9kj93CBUA3FFQOILk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(396003)(366004)(136003)(39860400002)(376002)(451199018)(36756003)(478600001)(31696002)(86362001)(2906002)(38100700002)(316002)(54906003)(41300700001)(5660300002)(8936002)(83380400001)(66476007)(66946007)(4326008)(8676002)(66556008)(6916009)(31686004)(6486002)(186003)(26005)(6512007)(53546011)(6506007)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dzkvVEJ1MVJMM2VUZVExa2dydjVOaVMxcjFKSFIvTzJUdDZndHJUTlZFNCt5?=
- =?utf-8?B?VGVkR0FVU3E2TFJ1aXZhU0JZMnZZN1NKVWVhc1YwSEptZXRqaFZRRE1vTUtM?=
- =?utf-8?B?eTVjV1U5UEVxYk92TmtxNlh1YThKZlcvWm9zZzg0OTg2NEdpUDdhYkNINWdX?=
- =?utf-8?B?QVRpYU1PT0cxa2M3TWE4UFBlNUhya2d1Y2FLY0NvWnljZjNHM1N6Zmx0ZWFF?=
- =?utf-8?B?aGNLdFd1OW1hQUl6ckE5R0RGTHBRc3N3cGpnM3JNQjhYL05YVmRsOGNMa0Ex?=
- =?utf-8?B?Q2tKQWJQZVd3T0txSXByaGFnUGpIaWk2a3VRTDdLVC9QdEc3dHZjZzYvdk1j?=
- =?utf-8?B?a05JM1ZkOFZEQ3l1Z0lvZjNOa09ST3RsMGtpdFNKeWRET2p6RFpMTXI1MGYv?=
- =?utf-8?B?TXZVOS81d3dXRnl1QVZ6WGl2WXM0ZlRSenQrc1pyWklKMGtBS01BT245Y3pF?=
- =?utf-8?B?aU9YN2hRamdHZE1QZ1M2Z0dKRTRja0oweUR4anZkWHpVOExSNzQ0RE83UUk2?=
- =?utf-8?B?d2F1UzJGVUtDK2traUxXNk5DdU5zNC9CMkNTb1FUMVBTZHdlT2hUWVVLRVQ3?=
- =?utf-8?B?cXF2TU4rOTlMNlhMQ0RZUzZTbGN4SkVmOWE4ekpSbEE1b0RKekpRYi90RWZ2?=
- =?utf-8?B?WHYwNWZLcTlxbkdveUJhQ1BnelZTd2hCMXVKcFZnWFp0ZFB2U2V0UE1NM2pv?=
- =?utf-8?B?Z0V5NXZkNUJidFgxTzZRWTc3WUlrNDdtSFR3cWoyd0c3bU1jV1NuVm14bGRo?=
- =?utf-8?B?M2FOZDNTQ2lKL2g4TFhTdVdqWUx5M2kxdkJ5WlBCcUNENEFaSVRuTXJzdFpE?=
- =?utf-8?B?Ly9tb3k5Tlhrb1gzSGRNVktFTktpVjF3YkoyTTkvdG9kV1RQcUprMnZOTHcz?=
- =?utf-8?B?UkNwK3pzbG9aU005Q29tSGdWK1hRM0Q1c3I4RGZYOE41RmorbFlIT1lPNXA3?=
- =?utf-8?B?U0F4ZDBQYUdBdzhGbmJGVzZTWFA0SGt6U3Q3REhXVy9sMDdoNnlabkZadTA1?=
- =?utf-8?B?b25zbk5TQmVGTHZjMUNwN2xrQXJuVkQ2a2lCdGxCMDBvY0pOWll1YXp1OE5j?=
- =?utf-8?B?NHZGTEdvUWI3MEJVVHdUNWV3azYwbFZaTFppb2x3VkFqOWVkMWp0d0hMTGRS?=
- =?utf-8?B?TElSNHJ1RzBtQThRSDJrMEhjSG9ya0Nxa3d5cURNNGJVekJyNy9JdkdGenFF?=
- =?utf-8?B?UzUraklHNFN1NWhMWGZyTm5TVUNUVUJOOXd4MHFRemZEUGZlTHhEVVd1NU1P?=
- =?utf-8?B?ME03LzFId2lpOU1qY25CRWF1Yk9mSEdLcWRKV2o5Nit4WVFjRytpTy9NN0ZW?=
- =?utf-8?B?aHNNZjFlY1JNMEZNR3RoYWhQUWRZanR0WWFEcmtlOE5tUlh4blRkYXIyeHhV?=
- =?utf-8?B?K2hRaFRTUm1ZZ1U3K3NtMnhod1NLNUV2UEpGWGg2endTMU10UTdRNXhlUDNt?=
- =?utf-8?B?cXZvOUwxaHFKRDdTNkcySG4zSW5sYWdJYmNxRSt3VnZtNHcvR0xzWlIrc3pS?=
- =?utf-8?B?YmJlVFAvVDQwbmlZU2NqOW9aMVI2L2piZHFQclNtNFFad2JXNU80VTBHOU40?=
- =?utf-8?B?b0tCVXVNd1lQTU1QMWtPMWlSbVBjcWw0SmF6d0xkSHdOaEx6NVNQK2V4aG5X?=
- =?utf-8?B?OGkyZUU1T1ZRWUVjNlVrdWpFVSt2ajQ4aGhnVVBqSW1qNnI1dFYvaDlocW9T?=
- =?utf-8?B?QUdQYVZnTXZXbENLZURoNHdVV3BRN0g5L3h6M2tWL0k1VFhjNHY2MVh1SmMw?=
- =?utf-8?B?anBvdmJwZkdWR29kU2xWY2lKL0tOV1hmQnVPbXUzL2h4RVRwU3BMOURzZG5D?=
- =?utf-8?B?bWFpZDUvenY1aWNFVEZQWk9zRzZPTHh3SjZlZ0dsNmw3K21nUVpZNmIveDZl?=
- =?utf-8?B?SGU1UytLaytVZWE4VldPaEJxVXdKdVFlcTJ4OFNjdFNwZ05Fb0dvei9HTVZv?=
- =?utf-8?B?Q090bmlMc3dKeWhaNGVHSUJQeW16Vy9uK2FFWDZUYWRjL0MxZXlkMy8ycDRk?=
- =?utf-8?B?T25OVWt6T0dkOVQ2S2ZHdTdsKzRmR1dxN1U0b2kycnNmZ2h5dVBMRzVwU0h4?=
- =?utf-8?B?ZUZ2OUh0UituT3daT3VYUUIwOHZhd2dnMnVTRnNZaUcrdWxXZmJ0M0pJSENC?=
- =?utf-8?Q?fotdcrqRPS5+sh7q+N+QVM14w?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b8213f3-f68d-487d-d02f-08db14b7d82d
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Feb 2023 09:33:24.3227
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YjMCv17RwiTg59um+mMo73bpRaiO92MARHa0otIF7thGk27NpTwbQlHNQO2Sct/owvPTig8/7HQmrlx8JYHmMg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8316
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v2 01/13] tools/xenstore: don't allow creating too many
+ nodes in a transaction
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>
+References: <20230120100028.11142-1-jgross@suse.com>
+ <20230120100028.11142-2-jgross@suse.com>
+ <2131198f-f54b-2c38-8104-1c8b63e9990c@xen.org>
+ <c203062e-fd76-3aa1-8014-bf7d13eae1aa@suse.com>
+ <bd355c4c-b3a9-ac79-8522-5ff227ae26ab@xen.org>
+ <adae39fe-1b72-e4ac-eb17-8bbfb28011f2@suse.com>
+ <a0431ac1-4d1a-23c4-cb31-1d9d8812fc94@xen.org>
+ <32a517cf-4448-2208-4877-83c7a7531635@suse.com>
+ <20151614-96ca-0875-29a0-8099953b7e61@xen.org>
+ <e90591bd-1242-0721-242b-5db2565349f8@suse.com>
+ <5fc2636e-45b0-e515-d901-18dc5fc214eb@xen.org>
+ <28c5c478-b1b6-c8e1-ce9c-287e8afc604a@suse.com>
+ <f73142d0-d550-78e3-6119-a963560d0b12@xen.org>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <f73142d0-d550-78e3-6119-a963560d0b12@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------OzNMiYGf4oUyP9My4G6kRV9J"
 
-On 21.02.2023 19:14, Andrew Cooper wrote:
-> On 21/02/2023 1:40 pm, Jan Beulich wrote:
->> On 20.02.2023 20:47, Andrew Cooper wrote:
->>> Despite its name, the irq{save,restore}() APIs are only intended to
->>> conditionally disable and re-enable interrupts.
->> Are they?
-> 
-> Yes, absolutely.
-> 
-> And as said before, the potentially dubious naming does not give us
-> permission or the right to interpret the behaviour differently.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------OzNMiYGf4oUyP9My4G6kRV9J
+Content-Type: multipart/mixed; boundary="------------N07yogLjHR4aWprqHXhRtYl1";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>
+Message-ID: <a51cf7d2-a3ba-b68d-ee52-899328201a16@suse.com>
+Subject: Re: [PATCH v2 01/13] tools/xenstore: don't allow creating too many
+ nodes in a transaction
+References: <20230120100028.11142-1-jgross@suse.com>
+ <20230120100028.11142-2-jgross@suse.com>
+ <2131198f-f54b-2c38-8104-1c8b63e9990c@xen.org>
+ <c203062e-fd76-3aa1-8014-bf7d13eae1aa@suse.com>
+ <bd355c4c-b3a9-ac79-8522-5ff227ae26ab@xen.org>
+ <adae39fe-1b72-e4ac-eb17-8bbfb28011f2@suse.com>
+ <a0431ac1-4d1a-23c4-cb31-1d9d8812fc94@xen.org>
+ <32a517cf-4448-2208-4877-83c7a7531635@suse.com>
+ <20151614-96ca-0875-29a0-8099953b7e61@xen.org>
+ <e90591bd-1242-0721-242b-5db2565349f8@suse.com>
+ <5fc2636e-45b0-e515-d901-18dc5fc214eb@xen.org>
+ <28c5c478-b1b6-c8e1-ce9c-287e8afc604a@suse.com>
+ <f73142d0-d550-78e3-6119-a963560d0b12@xen.org>
+In-Reply-To: <f73142d0-d550-78e3-6119-a963560d0b12@xen.org>
 
-When I started to work with Linux, I seem to recall there were more uses
-of this nature, not considered dubious at the time. Views change, and if
-such views aren't expressed in the function names, then it is even more
-so important that this is spelled out in some other prominent way. So ...
+--------------N07yogLjHR4aWprqHXhRtYl1
+Content-Type: multipart/mixed; boundary="------------av6WNI7RO55KITFxB6HOvG7b"
 
->>  Maybe nowadays they indeed are, but I couldn't spot any wording
->> to this effect in Linux'es Documentation/ (and I don't think we have
->> anywhere such could be put). Yet I'd expect such a statement to be backed
->> by something.
-> 
-> It is backed by the rude words the owners of this API had to say on
-> discovering this particular use.
+--------------av6WNI7RO55KITFxB6HOvG7b
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-... have those rude words found their way into documentation, in a
-place I simply didn't spot?
+T24gMjIuMDIuMjMgMDk6NTIsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
+Cj4gDQo+IE9uIDIyLzAyLzIwMjMgMDg6MzYsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBP
+biAyMS4wMi4yMyAyMzozNiwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+IEhpIEp1ZXJnZW4s
+DQo+Pj4NCj4+PiBPbiAyMS8wMi8yMDIzIDA4OjEwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
+Pj4+PiBPbiAyMC4wMi4yMyAxOTowMSwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+Pj4gU28g
+SSBoYXZlIHJlY3JlYXRlZCBhbiBYVEYgdGVzdCB3aGljaCBJIHRoaW5rIG1hdGNoIHdoYXQg
+eW91IHdyb3RlIFsxXS4NCj4+Pj4+DQo+Pj4+PiBJdCBpcyBpbmRlZWQgZmFpbGluZyB3aXRo
+b3V0IHlvdXIgcGF0Y2guIEJ1dCB0aGVuIHRoZXJlIGFyZSBzdGlsbCBzb21lIA0KPj4+Pj4g
+d2VpcmQgYmVoYXZpb3IgaGVyZS4NCj4+Pj4+DQo+Pj4+PiBJIHdvdWxkIGV4cGVjdCB0aGUg
+Y3JlYXRpb24gb2YgdGhlIG5vZGUgd291bGQgYWxzbyBmYWlsIGlmIGluc3RlYWQgb2YgDQo+
+Pj4+PiByZW1vdmluZyB0aGUgbm9kZSBpZiByZW1vdmVkIG91dHNpZGUgb2YgdGhlIHRyYW5z
+YWN0aW9uLg0KPj4+Pj4NCj4+Pj4+IFRoaXMgaXMgbm90IHRoZSBjYXNlIGJlY2F1c2Ugd2Ug
+YXJlIGxvb2tpbmcgYXQgdGhlIGN1cnJlbnQgcXVvdGEuIFNvIA0KPj4+Pj4gc2hvdWxkbid0
+IHdlIHNuYXBzaG90IHRoZSBnbG9iYWwgY291bnQ/DQo+Pj4+DQo+Pj4+IEFzIHdlIGRvbid0
+IGRvIGEgZ2xvYmFsIHNuYXBzaG90IG9mIHRoZSBkYXRhIGJhc2UgZm9yIGEgdHJhbnNhY3Rp
+b24gKHRoaXMgd2FzDQo+Pj4+IGNoYW5nZWQgZHVlIHRvIGh1Z2UgbWVtb3J5IG5lZWRzLCBi
+YWQgcGVyZm9ybWFuY2UsIGFuZCBhIGhpZ2hlciB0cmFuc2FjdGlvbg0KPj4+PiBmYWlsdXJl
+IHJhdGUpLCANCj4+Pg0KPj4+IEkgYW0gYSBiaXQgc3VycHJpc2VkIHRoYXQgdGhlIG9ubHkg
+d2F5IHRvIGRvIHByb3BlciB0cmFuc2FjdGlvbiBpcyB0byBoYXZlIGEgDQo+Pj4gZ2xvYmFs
+IHNuYXBzaG90LiBJbnN0ZWFkLCB5b3UgY291bGQgaGF2ZSBhbiBvdmVybGF5Lg0KPj4NCj4+
+IEkgZGlkbid0IHNheSB0aGF0IGEgZ2xvYmFsIHNuYXBzaG90IGlzIHRoZSBvbmx5IHdheS4g
+QW5kIHdlIGFyZSB1c2luZyBhbg0KPj4gb3ZlcmxheS4NCj4+DQo+Pj4NCj4+Pj4gSSBkb24n
+dCB0aGluayB3ZSBzaG91bGQgc25hcHNob3QgdGhlIGNvdW50IGVpdGhlci4NCj4+Pg0KPj4+
+IEJ1dCB0aGF0IHdvdWxkIG1lYW4gdGhhdCB0aGUgcXVvdGEgd2lsbCBjaGFuZ2UgZGVwZW5k
+aW5nIG9uIG1vZGlmaWNhdGlvbiBvZiANCj4+PiB0aGUgZ2xvYmFsIGRhdGFiYXNlIHdoaWxl
+IHRoZSB0cmFuc2FjdGlvbiBpcyBpbmZsaWdodC4NCj4+DQo+PiBJIHJlYWxseSBkb24ndCBz
+ZWUgdGhlIHByb2JsZW0gd2l0aCB0aGF0LiBCdXQgaXQgc2VlbXMgb3VyIHZpZXdzIGFyZSBk
+aWZmZXJlbnQNCj4+IGluIHRoaXMgY2FzZS4NCj4gDQo+IFNlZSBiZWxvdy4NCj4gDQo+Pg0K
+Pj4+IEkgZ3Vlc3MgdGhpcyBpcyBub3QgYmV0dGVyIG5vciB3b3JzZSB0aGF0IHRoZSBjdXJy
+ZW50IHNpdHVhdGlvbi4gQnV0IGl0IGlzIA0KPj4+IHN0aWxsIHJlYWxseSBjb25mdXNpbmcg
+Zm9yIGEgY2xpZW50IGJlY2F1c2U6DQo+Pj4gwqDCoCAxKSBUaGUgZXJyb3IgY291bGQgaGFw
+cGVuIGF0IHJhbmRvbSBwb2ludA0KPj4NCj4+IFllcywgbGlrZSB3aXRob3V0IGEgdHJhbnNh
+Y3Rpb24uDQo+Pg0KPj4+IMKgwqAgMikgWW91IG1heSBzZWUgYW4gaW5jb25zaXN0ZW50IGRh
+dGFiYXNlIGFzIG5vZGVzIGFyZSBvbmx5IGNhY2hlZCB3aGVuIHRoZXkgDQo+Pj4gYXJlIGZp
+cnN0IGFjY2Vzc2VkDQo+Pg0KPj4gSXQgaXNuJ3QgaW5jb25zaXN0ZW50IGF0IGFsbC4gVGhl
+IHNhbWUgY291bGQgaGFwcGVuIGlmIHN1Y2ggb3RoZXIgbm9kZXMgYXJlDQo+PiBhZGRlZC9t
+b2RpZmllZC9yZW1vdmVkIGp1c3QgYSBtaWNyb3NlY29uZCBiZWZvcmUgeW91IHN0YXJ0IHRo
+ZSB0cmFuc2FjdGlvbi4NCj4+IFlvdSB3b24ndCBiZSBhYmxlIHRvIHRlbGwgdGhlIGRpZmZl
+cmVuY2UuIFlvdSBjYW4gb25seSByZWFzb24gYWJvdXQgbm9kZXMNCj4+IGJlaW5nIGFjY2Vz
+c2VkIGluIHRoZSB0cmFuc2FjdGlvbiwgYW5kIHRob3NlIGFyZSB0cmFuc2FjdGlvbi1sb2Nh
+bC4NCj4gDQo+IEkgYW0gbm90IHRhbGtpbmcgYWJvdXQgdGhlIGNhc2UgYSBub2RlIGlzIGFk
+ZGVkL21vZGlmaWVkL3JlbW92ZWQgb3V0c2lkZSBvZiBhIA0KPiB0cmFuc2FjdGlvbi4gSSBh
+bSB0YWxraW5nIGFib3V0IHRoZSBpbi10cmFuc2FjdGlvbiBjYXNlLiBGb3IgZXhhbXBsZSwg
+bGV0IHNheSB3ZSANCj4gaGF2ZSBhIHRyYW5zYWN0aW9uIEEgdGhhdCByZW1vdmUgbm9kZSAx
+LCAyIGFuZCB0cmFuc2FjdGlvbiBCIHRvIGFjY2VzcyAxLCAyIChpdCANCj4gbWF5IGRvIG1v
+cmUpLg0KPiANCj4gTm93IGxldCdzIGltYWdpbmUgdGhlIGZvbGxvd2luZyBzZXF1ZW5jZSB3
+aXRoIHRoZSBpbml0aWFsIHN0YXRlIGlzIG5vZGUgMSBhbmQgMiANCj4gZXhpc3RzOg0KPiAN
+Cj4gIMKgLSBUQSBzdGFydGVkDQo+ICDCoC0gVEEgcmVtb3ZlIDENCj4gIMKgLSBUQSByZW1v
+dmUgMg0KPiAgwqAtIFRBIHJlbW92ZSAzDQo+ICDCoC0gVEIgc3RhcnRlZA0KPiAgwqAtIFRC
+IHJlYWQgMQ0KPiAgwqAtIFRBIGVuZGVkDQo+ICDCoC0gVEIgcmVhZCAyDQo+IA0KPiBXaXRo
+IHRoZSBhYm92ZSwgb25lIHdvdWxkIGV4cGVjdCB0aGF0IHRyYW5zYWN0aW9uIEIgY2FuIHJl
+YWQgMiBhcyB0cmFuc2FjdGlvbiBBIA0KPiBkaWRuJ3QgY29tbWl0IGJlZm9yZSBCIHN0YXJ0
+ZWQuIEJ1dCB0aGlzIGlzIG5vdCB3aGF0J3MgaGFwcGVuaW5nLg0KPiANCj4gTXkgcG9pbnQg
+aGVyZSBpcyB0aGF0IGEgcHJvdG9jb2wgY291bGQgcmVxdWlyZSB0aGF0IGlmIDEgaXMgcHJl
+c2VudCB0aGVuIDIgaXMuIA0KPiBTbyBpdCB3b3VsZCBiZSB2YWxpZCBmb3IgYSBjbGllbnQg
+dG8gZXJyb3Igb3V0IGJlY2F1c2UgdGhlIG90aGVyIHNpZGUgd2FzIA0KPiBjb25zaWRlcmVk
+IHRvIGhhdmUgbWlzYmVoYXZlZC4gSG93ZXZlciwgaGVyZSB0aGlzIGlzIGp1c3QgaG93IFhl
+bnN0b3JlZCBiZWhhdmUgDQo+IGFuZCBBRkFJQ1QgaXQgaXMgdW5kb2N1bWVudGVkLg0KDQpB
+aCwgb2theS4NCg0KWWVzLCBJIGNhbiBzZWUgeW91ciBwb2ludC4NCg0KSSB3YXMgdGhpbmtp
+bmcgZm9yIHNvbWUgdGltZSBub3cgdG8gc3dpdGNoIG92ZXIgdG8gYSAiQ29weSBvbiBXcml0
+ZSIgc2NoZW1lIGZvcg0KdHJhbnNhY3Rpb25zLiBUaGlzIHdpbGwgcmVxdWlyZSB0byBnZXQg
+cmlkIG9mIFREQiwgYXMgb3RoZXJ3aXNlIGl0IHdpbGwgYmUgcXVpdGUNCmhhcmQgdG8gc2V0
+dXAgdGhlIG5lZWRlZCBsaW5rcyBiZXR3ZWVuIG5vZGVzLg0KDQpJJ20gcXVpdGUgY2xvc2Ug
+dG8gc3VjY2VlZCBvbiB0aGUgVERCIHJlbW92YWwuIFN3aXRjaGluZyB0aGUgdHJhbnNhY3Rp
+b24NCm1lY2hhbmlzbSB3aWxsIG5lZWQgc29tZSBtb3JlIHRob3VnaHRzLCB0aG91Z2guDQoN
+ClNvIHRoaXMgaXMgbm90aGluZyBJJ2xsIGJlIGFibGUgdG8gc29sdmUgc29vbi4gOy0pDQoN
+Cg0KSnVlcmdlbg0K
+--------------av6WNI7RO55KITFxB6HOvG7b
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> Conditionally enabling with a construct like this is bogus everywhere. 
-> It is only ever safe to enable irqs if you know exactly why they were
-> disabled previously, and that can never be the case with a construct
-> like this.
-> 
-> It only reason this one example doesn't explode is because its an init
-> path not nested within an irq/irqsave lock or other critical region.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Which is why, I assume, it was deemed fine to code that way back then.
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
->>> IO-APIC's timer_irq_works() violates this intention.  As it is init code,
->>> switch to simple irq enable/disable().
->> If all callers of the function obviously did have interrupts off, I might
->> agree. But the last of them sits _after_ local_irq_restore(), and all of
->> this is called from underneath smp_prepare_cpus()
-> 
-> Which do you mean "the last of them" ?
+--------------av6WNI7RO55KITFxB6HOvG7b--
 
-Is "last" ambiguous here in any way? If so, this code fragment is the one:
+--------------N07yogLjHR4aWprqHXhRtYl1--
 
-    unlock_ExtINT_logic();
+--------------OzNMiYGf4oUyP9My4G6kRV9J
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-    local_irq_restore(flags);
+-----BEGIN PGP SIGNATURE-----
 
-    if (timer_irq_works()) {
-        printk(" works.\n");
-        return;
-    }
-    printk(" failed :(.\n");
-    panic("IO-APIC + timer doesn't work!  Boot with apic_verbosity=debug and send a report\n");
-}
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmP14mIFAwAAAAAACgkQsN6d1ii/Ey9z
+igf9GLwzr9R2fLV7Kefkg+u4e5kGZlqOIQVtiComlHwXg1CTWWh1y0HgDX7tLmfN2b2Yy85YYd64
+856pLJx4w8ye7m3rgErks6kI7FkMAHOq3UulTXcifm+NdYfsWneICZoJzyA8TL1zcYLMwue7B0SN
+1NLTpXrJUMpC4ssgTcm8rajP/1ahq3/rW0uL7SyzMAgVRiPGDeTiLNU6YZWI0mDUrrLvAJqAJwKk
+bIoAWJbOjT2cADEoLlg4zHA5ex6KjASKVN0j4CZzpgffPzNdU4Tg7DqFf1Tap23cW5cIERpbgH3X
++sRRG9fZhSdx0zrk9DklIs45Ftb88VJF6U33NgniHw==
+=lEjF
+-----END PGP SIGNATURE-----
 
-Besides aspects one may deem benign and/or pre-existing, your change leads
-to the "works" path now running (returning) with IRQs off, when the caller
-expects them on.
-
-> There is a large amount of genuinely dead logic here.
-
-Possibly.
-
-Jan
+--------------OzNMiYGf4oUyP9My4G6kRV9J--
 
