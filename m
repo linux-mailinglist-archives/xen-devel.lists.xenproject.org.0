@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7917F69F816
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Feb 2023 16:34:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.499553.770858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F0EB69F81B
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Feb 2023 16:34:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.499554.770873 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUr8L-00055U-U8; Wed, 22 Feb 2023 15:34:17 +0000
+	id 1pUr8O-0005pN-MY; Wed, 22 Feb 2023 15:34:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 499553.770858; Wed, 22 Feb 2023 15:34:17 +0000
+Received: by outflank-mailman (output) from mailman id 499554.770873; Wed, 22 Feb 2023 15:34:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUr8K-0004iT-D0; Wed, 22 Feb 2023 15:34:16 +0000
-Received: by outflank-mailman (input) for mailman id 499553;
- Wed, 22 Feb 2023 15:34:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pUr8N-0005HY-CL; Wed, 22 Feb 2023 15:34:19 +0000
+Received: by outflank-mailman (input) for mailman id 499554;
+ Wed, 22 Feb 2023 15:34:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JvgA=6S=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pUr8C-0001MC-Bc
- for xen-devel@lists.xenproject.org; Wed, 22 Feb 2023 15:34:08 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 589ce21f-b2c6-11ed-a089-e9535cc0f9c3;
- Wed, 22 Feb 2023 16:34:07 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id g8so6807600lfj.2
- for <xen-devel@lists.xenproject.org>; Wed, 22 Feb 2023 07:34:07 -0800 (PST)
+ id 1pUr8E-0001MH-Nb
+ for xen-devel@lists.xenproject.org; Wed, 22 Feb 2023 15:34:10 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 58c7bb9a-b2c6-11ed-93b6-47a8fe42b414;
+ Wed, 22 Feb 2023 16:34:08 +0100 (CET)
+Received: by mail-lf1-x12d.google.com with SMTP id i9so10367529lfc.6
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Feb 2023 07:34:09 -0800 (PST)
 Received: from localhost.localdomain (h-46-59-78-111.A175.priv.bahnhof.se.
  [46.59.78.111]) by smtp.gmail.com with ESMTPSA id
- q9-20020ac25289000000b004db0d26adb4sm927746lfm.182.2023.02.22.07.34.06
+ q9-20020ac25289000000b004db0d26adb4sm927746lfm.182.2023.02.22.07.34.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 22 Feb 2023 07:34:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 589ce21f-b2c6-11ed-a089-e9535cc0f9c3
+X-Inumbo-ID: 58c7bb9a-b2c6-11ed-93b6-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qhAiY5OLLPHeZBZaC/MjkG52+6CXwzhSsS3y4KPhi9A=;
-        b=cky4pHS//IDFn8KcURyNgEQyvp6E4MB4IMdKlCgh47mvVsRQlq9BRRMlVq8DdZL8jb
-         eMuzQbcLf4sF/lfyHIHRni4sEPnlikqeVLYcW5Ku+sGPopazRytm7RDXOhc739bzWQsI
-         JySIaXdFwJjbsHB2ePyF4iiiWuClN+EUfie3s/rkur03emkjT57nxcpg/0abTSwpQ89S
-         mZD/CJtVpeZnvrccbmeva3AsuRZWB4l68xCDfjIYKKVaEPOwVvryAn6PUzOm4ZjnFutJ
-         WpHEmbRuXwSd/QQbYwtmz/5SiySYHrNKK4JNk6eSrm97uIVFnlBPofTOjRry2XxdVyLf
-         zhQg==
+        bh=8mpbdpWvkQP3NZC61nZP/NPeTV2c8jtDhk5/FkNx/Xw=;
+        b=hmD0HnFwUA9POGeBbCmOz3zaonZ39Kq5HvhDBcqw4q4BOOQV/dU0BVezOkVQShkaoM
+         ZsXwZKJYYOFCM7MY0jtygaykHy/TqeFJHl/nToc3gyFVK3WEy4QdS3tZJSvsk/2L5Pxd
+         24i+LVCwqjOJtB2JPUiQCQajkohPAKRb9SQJayOwH9ayLS/WwM+yem+vjYAGtOxkWbzi
+         k1jtSfjVv0jFUXJ+jGK/bDU1WkhAtdbH+0rb3+R1RgnhnDOFxGm4rhsFdzoswJWFXDP2
+         wa0lZaL/nZJhSTSKBRaLFZws+puREJRWuRnGrHVsriSZmpv8g9N6+WAd91ybtpI8nwgI
+         0xiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=qhAiY5OLLPHeZBZaC/MjkG52+6CXwzhSsS3y4KPhi9A=;
-        b=i/OCr7sKGqRbCgT3VHvEK1Q30aBJJa2FQjlPWbPQGZWrp2VIXydpOmMPVxQXTULY0j
-         EuVJkPaQlHIC2ZpnFPmmi0ubjSPjG+etcFGGgHe/KOPToOsQSICt+aSZgQOe6z/0gjA9
-         TFi6vLNcGgGgsN3D9mypiyEbXGqziKJZ2KwzVO6L2X4aFeYY201qlunPEbXwPK0B375A
-         mT/FR2HRiqqDNTiiZIm1feKSMAC9l4jBXlXimC/a93M7oXE7WrxPwOx/CzkjCLsCO33H
-         ZD5vZC9JxTxrqEVsQcrXINl6SwleOFaYBTnkpMkU7PJq8jmitiuW7uTdY/0ddu0NVMw0
-         RPMQ==
-X-Gm-Message-State: AO0yUKXzjSJH3yloYpRtBwlRBqCzBjQFyQEWvxoIstqpJqAyVhust2W5
-	IKikGaRX5E7SHvyk8XsoEQMySJUmOmgRb0HZ3D4=
-X-Google-Smtp-Source: AK7set/kmBjenoML7LDyTljAhBrKRq++3DX/KZvrrW+9a4EJ0hpd35LEVJfNiOGCpNNLk1MoOSkTyg==
-X-Received: by 2002:ac2:54b0:0:b0:4d2:72bf:7382 with SMTP id w16-20020ac254b0000000b004d272bf7382mr2950346lfk.37.1677080047369;
-        Wed, 22 Feb 2023 07:34:07 -0800 (PST)
+        bh=8mpbdpWvkQP3NZC61nZP/NPeTV2c8jtDhk5/FkNx/Xw=;
+        b=EyJe4d9v6CWMr9+CXlOFvGi+YefvsIA8juXmwqL+z8oo5pQws4lBTVCyqmUrqmkdLv
+         GV/0Z/A19Mgjm/NoNiTHcvrLMBUcZv+FftLKkrAI9Mal2kfWnEz319edpyqtlSUHeJ98
+         Apv1hXupx8JM53Lsgnq+zjjZ3vhLZEJEUAFcc5hGClaSsUNET2fu2Ck6t6b6MSvCSttz
+         oolYJEzCRIH66WI9EIo12U4WUnpubwudfVStrdDcDI2gTauK22Fp232Ji2XHJzPHkhct
+         G1YCDaQDORmHW0fRYHc7PXgd0Pp0WhcNevCLxZwiCU5DHg89jE79S8+1LDCwpZ4PrYTD
+         WRXg==
+X-Gm-Message-State: AO0yUKW0scNVQk/EARNBIKtLvgWOkcIqwfLhN5ClHsqfQJu6ZuN6Hk/X
+	DOYG1K1HJNm1SQQY5MjDKNZ34f+gCRm6zREQ1KE=
+X-Google-Smtp-Source: AK7set+0TRegHa85MMH11cxIFnQQ6a0Xj9077dunvyV3UVJYeFbfsDVnZWDz2A/+evM6CP8tk9cPHQ==
+X-Received: by 2002:ac2:4c0f:0:b0:4cb:2c19:ec21 with SMTP id t15-20020ac24c0f000000b004cb2c19ec21mr2816894lfq.0.1677080048376;
+        Wed, 22 Feb 2023 07:34:08 -0800 (PST)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: Bertrand.Marquis@arm.com,
@@ -84,98 +84,115 @@ Cc: Bertrand.Marquis@arm.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [XEN PATCH v7 16/20] xen/arm: ffa: add defines for sharing memory
-Date: Wed, 22 Feb 2023 16:33:13 +0100
-Message-Id: <ad85591c42f4db3c3001ae4b5572c1096c159593.1677079672.git.jens.wiklander@linaro.org>
+Subject: [XEN PATCH v7 17/20] xen/arm: ffa: add ABI structs for sharing memory
+Date: Wed, 22 Feb 2023 16:33:14 +0100
+Message-Id: <50da283fe4a91820a818d13db4ce50fd8414580a.1677079672.git.jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1677079671.git.jens.wiklander@linaro.org>
 References: <cover.1677079671.git.jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Adds defines needed for sharing using the function FFA_MEM_SHARE and
-friends.
+Adds the ABI structs used by function FFA_MEM_SHARE and friends for
+sharing memory.
 
 Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
 ---
- xen/arch/arm/tee/ffa.c | 57 ++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
+ xen/arch/arm/tee/ffa.c | 74 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
 
 diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 3571817c0bcd..bfd378f7fcd7 100644
+index bfd378f7fcd7..94c90b252454 100644
 --- a/xen/arch/arm/tee/ffa.c
 +++ b/xen/arch/arm/tee/ffa.c
-@@ -22,6 +22,14 @@
- #include <asm/tee/ffa.h>
- #include <asm/regs.h>
+@@ -197,6 +197,11 @@
+ #define FFA_MSG_SEND                    0x8400006EU
+ #define FFA_MSG_POLL                    0x8400006AU
  
 +/*
-+ * References:
-+ * FF-A-1.0-REL: FF-A specification version 1.0 available at
-+ *               https://developer.arm.com/documentation/den0077/a
-+ * FF-A-1.1-REL0: FF-A specification version 1.1 available at
-+ *                https://developer.arm.com/documentation/den0077/e
++ * Structs below ending with _1_0 are defined in FF-A-1.0-REL and
++ * struct ending with _1_1 are defined in FF-A-1.1-REL0.
 + */
 +
- /* Error codes */
- #define FFA_RET_OK                      0
- #define FFA_RET_NOT_SUPPORTED           -1
-@@ -66,6 +74,55 @@
-  */
- #define FFA_PAGE_SIZE                   SZ_4K
+ /* Partition information descriptor */
+ struct ffa_partition_info_1_0 {
+     uint16_t id;
+@@ -211,6 +216,75 @@ struct ffa_partition_info_1_1 {
+     uint8_t uuid[16];
+ };
  
-+/*
-+ * Limit for shared buffer size. Please note that this define limits
-+ * number of pages. But user buffer can be not aligned to a page
-+ * boundary. So it is possible that user would not be able to share
-+ * exactly FFA_MAX_SHM_BUFFER_PG * FFA_PAGE_SIZE bytes.
-+ *
-+ * FF-A doesn't have any direct requirments on GlobalPlatform or vice
-+ * versa, but an implementation can very well use FF-A in order to provide
-+ * a GlobalPlatform interface on top.
-+ *
-+ * Global Platform specification for TEE requires that any TEE
-+ * implementation should allow to share buffers with size of at least
-+ * 512KB. Due to align issue mentioned above, we need to increase this
-+ * value with one.
-+ */
-+#define FFA_MAX_SHM_PAGE_COUNT          (SZ_512K / FFA_PAGE_SIZE + 1)
++/* Constituent memory region descriptor */
++struct ffa_address_range {
++    uint64_t address;
++    uint32_t page_count;
++    uint32_t reserved;
++};
 +
-+/*
-+ * Limits the number of shared buffers that guest can have at once. This
-+ * is to prevent case, when guests tricks XEN into exhausting its own
-+ * memory by allocating many small buffers. This value has been chosen
-+ * arbitrary.
-+ */
-+#define FFA_MAX_SHM_COUNT               32
++/* Composite memory region descriptor */
++struct ffa_mem_region {
++    uint32_t total_page_count;
++    uint32_t address_range_count;
++    uint64_t reserved;
++    struct ffa_address_range address_range_array[];
++};
 +
-+/* FF-A-1.1-REL0 section 10.9.2 Memory region handle, page 167 */
-+#define FFA_HANDLE_HYP_FLAG             BIT(63, ULL)
-+#define FFA_HANDLE_INVALID              0xffffffffffffffffULL
++/* Memory access permissions descriptor */
++struct ffa_mem_access_perm {
++    uint16_t endpoint_id;
++    uint8_t perm;
++    uint8_t flags;
++};
 +
-+/*
-+ * The bits for FFA_NORMAL_MEM_REG_ATTR FFA_MEM_ACC_RW below are
-+ * defined in FF-A-1.1-REL0 Table 10.18 at page 175.
-+ */
-+ /* Memory attributes: Normal memory, Write-Back cacheable, Inner shareable */
-+#define FFA_NORMAL_MEM_REG_ATTR         0x2fU
-+/* Memory access permissions: Read-write */
-+#define FFA_MEM_ACC_RW                  0x2U
++/* Endpoint memory access descriptor */
++struct ffa_mem_access {
++    struct ffa_mem_access_perm access_perm;
++    uint32_t region_offs;
++    uint64_t reserved;
++};
 +
-+/* FF-A-1.1-REL0 section 10.11.4 Flags usage, page 184-187 */
-+/* Clear memory before mapping in receiver */
-+#define FFA_MEMORY_REGION_FLAG_CLEAR            BIT(0, U)
-+/* Relayer may time slice this operation */
-+#define FFA_MEMORY_REGION_FLAG_TIME_SLICE       BIT(1, U)
-+/* Clear memory after receiver relinquishes it */
-+#define FFA_MEMORY_REGION_FLAG_CLEAR_RELINQUISH BIT(2, U)
-+/* Share memory transaction */
-+#define FFA_MEMORY_REGION_TRANSACTION_TYPE_SHARE (1U << 3)
++/* Lend, donate or share memory transaction descriptor */
++struct ffa_mem_transaction_1_0 {
++    uint16_t sender_id;
++    uint8_t mem_reg_attr;
++    uint8_t reserved0;
++    uint32_t flags;
++    uint64_t global_handle;
++    uint64_t tag;
++    uint32_t reserved1;
++    uint32_t mem_access_count;
++    struct ffa_mem_access mem_access_array[];
++};
 +
++struct ffa_mem_transaction_1_1 {
++    uint16_t sender_id;
++    uint16_t mem_reg_attr;
++    uint32_t flags;
++    uint64_t global_handle;
++    uint64_t tag;
++    uint32_t mem_access_size;
++    uint32_t mem_access_count;
++    uint32_t mem_access_offs;
++    uint8_t reserved[12];
++};
 +
- /* Framework direct request/response */
- #define FFA_MSG_FLAG_FRAMEWORK          BIT(31, U)
- #define FFA_MSG_TYPE_MASK               0xFFU;
++/* Endpoint RX/TX descriptor */
++struct ffa_endpoint_rxtx_descriptor_1_0 {
++    uint16_t sender_id;
++    uint16_t reserved;
++    uint32_t rx_range_count;
++    uint32_t tx_range_count;
++};
++
++struct ffa_endpoint_rxtx_descriptor_1_1 {
++    uint16_t sender_id;
++    uint16_t reserved;
++    uint32_t rx_region_offs;
++    uint32_t tx_region_offs;
++};
++
+ struct ffa_ctx {
+     void *rx;
+     const void *tx;
 -- 
 2.34.1
 
