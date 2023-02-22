@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC55E69F3D4
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Feb 2023 13:01:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.499396.770513 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 252A869F3CE
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Feb 2023 13:00:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.499398.770534 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUnnV-0000IR-U0; Wed, 22 Feb 2023 12:00:33 +0000
+	id 1pUnnZ-0000mA-EA; Wed, 22 Feb 2023 12:00:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 499396.770513; Wed, 22 Feb 2023 12:00:33 +0000
+Received: by outflank-mailman (output) from mailman id 499398.770534; Wed, 22 Feb 2023 12:00:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pUnnV-0000FL-RB; Wed, 22 Feb 2023 12:00:33 +0000
-Received: by outflank-mailman (input) for mailman id 499396;
- Wed, 22 Feb 2023 12:00:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pUnnZ-0000kX-9z; Wed, 22 Feb 2023 12:00:37 +0000
+Received: by outflank-mailman (input) for mailman id 499398;
+ Wed, 22 Feb 2023 12:00:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0Q6c=6S=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pUnnT-0000FF-Pt
- for xen-devel@lists.xenproject.org; Wed, 22 Feb 2023 12:00:31 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 809f8dbd-b2a8-11ed-a089-e9535cc0f9c3;
- Wed, 22 Feb 2023 13:00:30 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id da10so30583596edb.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Feb 2023 04:00:30 -0800 (PST)
+ id 1pUnnY-0000Rg-1U
+ for xen-devel@lists.xenproject.org; Wed, 22 Feb 2023 12:00:36 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 81d0e24f-b2a8-11ed-93b6-47a8fe42b414;
+ Wed, 22 Feb 2023 13:00:32 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id b12so29314066edd.4
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Feb 2023 04:00:32 -0800 (PST)
 Received: from uni.router.wind (adsl-161.109.242.137.tellas.gr.
  [109.242.137.161]) by smtp.googlemail.com with ESMTPSA id
- br4-20020a170906d14400b008de729c8a03sm2133171ejb.38.2023.02.22.04.00.28
+ br4-20020a170906d14400b008de729c8a03sm2133171ejb.38.2023.02.22.04.00.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Feb 2023 04:00:28 -0800 (PST)
+ Wed, 22 Feb 2023 04:00:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,94 +44,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 809f8dbd-b2a8-11ed-a089-e9535cc0f9c3
+X-Inumbo-ID: 81d0e24f-b2a8-11ed-93b6-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=vctN9byLZ3zzX+3VJyfxjohjvmSQiMhPGUBNk/doJeU=;
-        b=IznCQCRCnR2fPm5jak0+CYdnx7/Rjl+M1r781niBYAoNyTus693IF9EGbpNEEu3j8k
-         ooT2RPBZmUZ6kc7NEXAgG2KN9RwRcbKX6+FCqNpJLn7TQjTDBJwiCva0HLrq/pAW5fCh
-         2Fh1OKGa114KgoMTsKiWCUSAefgo9cdP1yH694O+4Da85Qq+awGlloPMEepyD6goIsLv
-         ii3ZjWqYPd+b+pyo8v7Uyiv3vASf3e1TVrO70Va/L3wlc9X6Z+h11sPiesP+66R14Y1i
-         D72aEJIaIeRuI5WyiqtTBx1bWiiqF+XkY3Q4mhf0RMW/tPouJ8EujKFfz2jlKc87P6Pc
-         E2lQ==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3N3piCiGWBTq0LmBNA8fpZwNDzK/IZkQT7MxXOAi4Ls=;
+        b=cYDsEaf7/te6v2zDN6IZBxWjfuyyDdqGG4sQ9zaJas4CNh5Gk6qUBaT6M6QNPDSuI4
+         2dC9qQD0Jzyt3PJRXmItZj7lwxskarHK+cSJvsj7mAZCSuI25DENgApLwztENg62pTAs
+         PQ0xjWoEvJUXLpsR2u6uz5NmfLkRy5B8RYyMkEqMgj922RI0q9mREW+ANql2Apy1ZVak
+         NbYkXVLuak60fJiNYclhEvD3f+mGOmpR+g+8M3tN6bPsM1qnfUAJ2Pioutsj7MhhjLY1
+         05c+9aq+D0cWC3jUCWnOT0GdLUztO3tjlJGhw0FunEcfDgF69bXaQoOqmLuqgfySTGCN
+         8b6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vctN9byLZ3zzX+3VJyfxjohjvmSQiMhPGUBNk/doJeU=;
-        b=SaePBZSsJDD/WteJtFcKieeMMXQKH5Obm4GhJAFkZDCDVa8IZzweEWYnF3OthVuD1W
-         LDIAXoF7gycBwaKLd2xK44KLTsVLUTHK+ooqV5vDbX2OPdUcXEYrDERIoT0qBtZ82d0k
-         J0jybsdCFjxJ4dnQfGAfSSWoQUIv4spDD60XcLaE48CpI/7S6XJsKRI717vxDelMxM8c
-         VFcyuBD4OkYIich7ZcwdwfnggLPKN2bpR8DfHeoPhbz2frPgou7SEzxu2bG+Wb6gPF/g
-         IkHbqdjaZNTp/0gjregwF29BPX1Gyff918dsEaV2HPQL/xNDgcq9sWeGvRY7O+lLta+N
-         NWbA==
-X-Gm-Message-State: AO0yUKXGZnGkLwgtyKDZKkZEqelRWtGm+Hpv851+aIHlYP5prDZcdHgV
-	kCm1cfCaf4g3naeFAJXzy3mN89olpMU=
-X-Google-Smtp-Source: AK7set9qw2grfl40dxYJZ/ez6sUwMy1z/NWiRVGdfxseW35rfGF/sZ9crOu1dVjFngdF4b08gssBRw==
-X-Received: by 2002:a17:907:7817:b0:8b1:3a23:8ec7 with SMTP id la23-20020a170907781700b008b13a238ec7mr14234567ejc.43.1677067229419;
-        Wed, 22 Feb 2023 04:00:29 -0800 (PST)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3N3piCiGWBTq0LmBNA8fpZwNDzK/IZkQT7MxXOAi4Ls=;
+        b=blARJ6eisRSgHtxjxOgwnaPsoI0YXCHHJAkyNQjlcc7YFhLD1dvcji38908lyqyF7m
+         fBr0LCIsrSGAWGLfZzeDVdJYlrjYdnDNj0WBhml+SMF890mPcpu2KVe6AoncY4jfbTv7
+         Kcx3wIgVjKyVPG3di/iVt08PtnS8TnhTbZRTB0IH5Xll6yJwAPghXUqUgsszDOaPaIMn
+         EC09qMowOLxb0y80Ghti4pqb+42a3Lale6aVaFxth3ZNiPbcO7WZTBWn21Pg+6mn+Ar0
+         p+r7Wo0UX4kz2fT/VNoie1fbp/DrK/OpnTGm9rl99d0YYULRF1ZEEzhs2mJ7lA/ZFdU2
+         TUGQ==
+X-Gm-Message-State: AO0yUKXOoC9jaLtIofOsPUy1MJuNaDuebTvsGWZO6GR7PmQFIiESqpiL
+	Njw/F0i8WKn7PWyBKUPmGYIyD5VIA1k=
+X-Google-Smtp-Source: AK7set+b72Vu/wbcA1IfmKn1TWGG7/7r4g7qVI595O8rmfN6pyzv8OpoHyY52kM6bA3bcvxK5auL2w==
+X-Received: by 2002:a17:906:805a:b0:873:1b57:b27f with SMTP id x26-20020a170906805a00b008731b57b27fmr14555060ejw.61.1677067231533;
+        Wed, 22 Feb 2023 04:00:31 -0800 (PST)
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH v2 0/9] x86/hvm: {svm,vmx}.{c,h} cleanup
-Date: Wed, 22 Feb 2023 14:00:14 +0200
-Message-Id: <20230222120023.3004624-1-burzalodowa@gmail.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 1/9] x86/svm: remove unused forward declaration of struct vcpu from svm.h
+Date: Wed, 22 Feb 2023 14:00:15 +0200
+Message-Id: <20230222120023.3004624-2-burzalodowa@gmail.com>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20230222120023.3004624-1-burzalodowa@gmail.com>
+References: <20230222120023.3004624-1-burzalodowa@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series attempts a cleanup of files {svm,vmx}.{c,h} by removing
-redundant headers and sorting the rest, reducing the scope of declarations
-and definitions, moving functions used only by internal {svm,vmx} code to
-private headers.
+Remove forward declaration of struct vcpu, that is a leftover since
+the removal of svm_update_guest_cr()'s declaration from svm.h.
 
-This series aims to address the comments made on the first version.
+Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+Fixes: b158e72abe30 ("x86/hvm: CFI hardening for hvm_funcs")
+---
 
-Main changes from the v1 series:
-  - split the changes into smaller reviewable patches
-  - drop the huge code rearrangment done in vmx.c
-  - instead of spreading arround the declarations in c files to hide them,
-    use private headers
+Changes in v2:
+  - leave the forward declaration of struct cpu_user_regs in place,
+    suggested by Andrew
+  - add a fixes tag based on Andrew's comment
+  - update commit message
 
-There are more detailed per-patch changesets.
+ xen/arch/x86/include/asm/hvm/svm/svm.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-Xenia Ragiadakou (9):
-  x86/svm: remove unused forward declaration of struct vcpu from svm.h
-  x86/svm: opencode SVM_PAUSE{FILTER,THRESH}_INIT
-  x86/svm: move declarations used only by svm code from svm.h to private
-    header
-  x86/vmx: remove unused included headers from vmx.h
-  x86/vmx: reduce scope of GAS_VMX_OP definition
-  x86/vmx: move declations used only by vmx code from vmx.h to private
-    header
-  x86/vmx: remove unused included headers from vmx.c
-  x86/vmx: declare nvmx_enqueue_n2_exceptions() static
-  x86/vmx: move vmx_update_debug_state() in vmcs.c and declare it static
-
- xen/arch/x86/hvm/svm/nestedsvm.c       |   1 +
- xen/arch/x86/hvm/svm/svm.c             |   2 +
- xen/arch/x86/hvm/svm/svm.h             |  40 +++
- xen/arch/x86/hvm/svm/vmcb.c            |   4 +-
- xen/arch/x86/hvm/vmx/intr.c            |   2 +
- xen/arch/x86/hvm/vmx/realmode.c        |   2 +
- xen/arch/x86/hvm/vmx/vmcs.c            |  14 +
- xen/arch/x86/hvm/vmx/vmx.c             |  73 ++--
- xen/arch/x86/hvm/vmx/vmx.h             | 458 ++++++++++++++++++++++++
- xen/arch/x86/hvm/vmx/vvmx.c            |   2 +
- xen/arch/x86/include/asm/hvm/svm/svm.h |  33 --
- xen/arch/x86/include/asm/hvm/vmx/vmx.h | 468 +------------------------
- 12 files changed, 564 insertions(+), 535 deletions(-)
- create mode 100644 xen/arch/x86/hvm/svm/svm.h
- create mode 100644 xen/arch/x86/hvm/vmx/vmx.h
-
+diff --git a/xen/arch/x86/include/asm/hvm/svm/svm.h b/xen/arch/x86/include/asm/hvm/svm/svm.h
+index 65e35a4f59..fa39d4d76a 100644
+--- a/xen/arch/x86/include/asm/hvm/svm/svm.h
++++ b/xen/arch/x86/include/asm/hvm/svm/svm.h
+@@ -46,7 +46,6 @@ static inline void svm_invlpga(unsigned long linear, uint32_t asid)
+ }
+ 
+ struct cpu_user_regs;
+-struct vcpu;
+ 
+ unsigned long *svm_msrbit(unsigned long *msr_bitmap, uint32_t msr);
+ void __update_guest_eip(struct cpu_user_regs *regs, unsigned int inst_len);
 -- 
 2.37.2
 
