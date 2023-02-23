@@ -2,50 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F72B6A0E8F
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Feb 2023 18:20:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.500597.772073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABCEC6A0ED3
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Feb 2023 18:40:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.500605.772084 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVFFL-0007vu-7B; Thu, 23 Feb 2023 17:19:07 +0000
+	id 1pVFZW-0002iX-T9; Thu, 23 Feb 2023 17:39:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 500597.772073; Thu, 23 Feb 2023 17:19:07 +0000
+Received: by outflank-mailman (output) from mailman id 500605.772084; Thu, 23 Feb 2023 17:39:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVFFL-0007sv-47; Thu, 23 Feb 2023 17:19:07 +0000
-Received: by outflank-mailman (input) for mailman id 500597;
- Thu, 23 Feb 2023 17:19:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pVFZW-0002gO-QE; Thu, 23 Feb 2023 17:39:58 +0000
+Received: by outflank-mailman (input) for mailman id 500605;
+ Thu, 23 Feb 2023 17:39:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AoXJ=6T=templeofstupid.com=kjlx@srs-se1.protection.inumbo.net>)
- id 1pVFFJ-0007sp-6q
- for xen-devel@lists.xenproject.org; Thu, 23 Feb 2023 17:19:05 +0000
-Received: from caracal.birch.relay.mailchannels.net
- (caracal.birch.relay.mailchannels.net [23.83.209.30])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 291e0371-b39e-11ed-a82a-c9ca1d2f71af;
- Thu, 23 Feb 2023 18:19:01 +0100 (CET)
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
- by relay.mailchannels.net (Postfix) with ESMTP id 47F195C1787
- for <xen-devel@lists.xenproject.org>; Thu, 23 Feb 2023 17:18:58 +0000 (UTC)
-Received: from pdx1-sub0-mail-a304.dreamhost.com (unknown [127.0.0.6])
- (Authenticated sender: dreamhost)
- by relay.mailchannels.net (Postfix) with ESMTPA id C388B5C1867
- for <xen-devel@lists.xenproject.org>; Thu, 23 Feb 2023 17:18:57 +0000 (UTC)
-Received: from pdx1-sub0-mail-a304.dreamhost.com (pop.dreamhost.com
- [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
- by 100.97.74.37 (trex/6.7.1); Thu, 23 Feb 2023 17:18:58 +0000
-Received: from kmjvbox (c-76-102-200-71.hsd1.ca.comcast.net [76.102.200.71])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: kjlx@templeofstupid.com)
- by pdx1-sub0-mail-a304.dreamhost.com (Postfix) with ESMTPSA id 4PN09s2svGz1F
- for <xen-devel@lists.xenproject.org>; Thu, 23 Feb 2023 09:18:57 -0800 (PST)
-Received: from johansen (uid 1000) (envelope-from kjlx@templeofstupid.com)
- id e0084 by kmjvbox (DragonFly Mail Agent v0.12);
- Thu, 23 Feb 2023 09:18:54 -0800
+ <SRS0=Hn77=6T=citrix.com=prvs=4118f8fe8=sergey.dyasli@srs-se1.protection.inumbo.net>)
+ id 1pVFZV-0002gI-JZ
+ for xen-devel@lists.xenproject.org; Thu, 23 Feb 2023 17:39:57 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 148b60a9-b3a1-11ed-88bb-e56d68cac8db;
+ Thu, 23 Feb 2023 18:39:55 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,130 +36,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 291e0371-b39e-11ed-a82a-c9ca1d2f71af
-X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1677172737; a=rsa-sha256;
-	cv=none;
-	b=fmyLAAsEUuGbLGF9pjrJm06bn69Tkq5A/hhz4FxFqvdp7k38zbuLZZTDPlC8fRZOh+njMf
-	57JCdO1D0lLc0fcgCkqv8IodEFiUdJnD4m8HUf/F45zphacBpRK0z7fMch2K8sRY4Fmeyf
-	eLAtP02F4irsxKnwR2KuDv26oFA3e9UudMualONfkpRqUCAH/8+qG/SsiPTDj+2NyBQKGj
-	Bemj6PB+Qpvdw7oO+LzwGDMewdhNqweYU3emhZq1tJTp1GxcyT4Gs2DTXJXbN17lbbHi5e
-	TCmtRk5F0Zuu3ViW/1K6L5AUdDZLHRzchjhVlDVqWAUxIpaTtCQ4sxgRPkHEjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1677172737;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=lRYce4KCQENlo/4Iyy0wDSPQmcZweRPYZ7BvHZ9CWRo=;
-	b=V6BKmAHgsomefRwdKSThgaX2R7oGzr+lBxoYDj+3/vwtQlwE4SqkL+D6un6pZ8LA0Pa3au
-	9aEAwuUWglj/11VDdegPoEPuA8tZdGcgxG/95rG0LQRYTSUepaLjyI0d0Is21KtjBM5kug
-	c2hGZTcgVUHQSF+2QiLqIZKleCQ1sePjmS/bM9bwi1kFrDQF6a0fpXhJ/c0T7eN7bd7Uxp
-	66qzCfZLLm/5SC2Ak6D4yAux+gNBeItjD6Eug1NQknMzKetn7Bw+GKfque3+rO1Sv9Bna/
-	Tf4L3RoldC4tyHbwKbNRDbpiRPuBAFvAJtLeatJrYuAWwk6bdhR70XI3WeRLYQ==
-ARC-Authentication-Results: i=1;
-	rspamd-9788b98bc-ll7r5;
-	auth=pass smtp.auth=dreamhost smtp.mailfrom=kjlx@templeofstupid.com
-X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|kjlx@templeofstupid.com
-X-MailChannels-Auth-Id: dreamhost
-X-Troubled-Imminent: 6163f91c7fcb1717_1677172738116_3373059583
-X-MC-Loop-Signature: 1677172738116:3732760560
-X-MC-Ingress-Time: 1677172738116
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=templeofstupid.com;
-	s=dreamhost; t=1677172737;
-	bh=lRYce4KCQENlo/4Iyy0wDSPQmcZweRPYZ7BvHZ9CWRo=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=oPIxTFyZbMU3AEcozwC1RmCJGc00jusHFNFoQQEuMMaPyjzSDKAvMkKTIAJVzWzng
-	 DZkvMkL0LeNHmwVu0fJkiqnT43AE8G/dQY83QZlEwNOFV5S/bKAcBW+5LtE+QN2Wnb
-	 Ftx4k00m5JnHe3CXR598SkIRB4GertoqAtjZQMao=
-Date: Thu, 23 Feb 2023 09:18:54 -0800
-From: Krister Johansen <kjlx@templeofstupid.com>
-To: Marcelo Tosatti <mtosatti@redhat.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Anthony Liguori <aliguori@amazon.com>,
-	David Reaver <me@davidreaver.com>,
-	Brendan Gregg <brendan@intel.com>
-Subject: Re: [PATCH linux-next 2/2] x86/xen/time: cleanup
- xen_tsc_safe_clocksource
-Message-ID: <20230223171854.GA1963@templeofstupid.com>
-References: <cover.1676610413.git.kjlx@templeofstupid.com>
- <f6bab47230b00cecb67f2c5d94716c8236609967.1676610413.git.kjlx@templeofstupid.com>
- <87h6vgov2p.ffs@tglx>
- <20230221041440.GA1934@templeofstupid.com>
- <Y/d5XhtOaYkNRnpQ@tpad>
+X-Inumbo-ID: 148b60a9-b3a1-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1677173995;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=heX9QGJ3ArrOvzL0t7BU7TpHkq708TM4w75XVc2gD9M=;
+  b=dlhAdYYCGCvgeOVZM2oN2hGQPKWzWMRTZDHSzAO8CRqjdVReBv9pWotz
+   a093++O08/mbfU2zddbwQMpYcQUOpZNkze+qdR/KCXXwJZ+0WL+fQvfXP
+   4U3FDlcOUaPQYNYRrhdIo1TbrGeLkjAsPKn3asVNVAONroFahx7rzCHYh
+   c=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 97090717
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:tn5tnaz3v5ztyWoyXix6t+cjxirEfRIJ4+MujC+fZmUNrF6WrkUPx
+ mEfWGqCPq2CZDDzL91waITloU4BsMPWxtNjSFc++SAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw//F+UwHUMja4mtC5QRkP6sT5zcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KWFkt
+ sEqAXMHVBeK3aWW/Y+9ZMJNi+12eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
+ ZBAL2MyMlKZOUYn1lQ/UfrSmM+zi2PwfiwepEOcvq42y2PS0BZwwP7mN9+9ltmiFJoNzx7H/
+ z2uE2LRWxRHBdGZ6Da+tVGmgbTGnwLLer0xG+jtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHslhwWVsdUEuY6wBqQ0aeS6AGcbkAbShZRZdpgs9U5LQHGz
+ XfQwYmvX2Y29uTIFzTErOz8QS6O1TY9LUVBWB0tDgE/5NC556EOsxThZfduOfvg5jHqIg3Yz
+ zePpSk4orwci88Xyqm2lWz6byKQSovhFVBsuFiONo6xxkYgPdP+OdT0gbTOxawYRLt1WGVtq
+ 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hP0yT/FWyzyGskTKuMDirjUW6BX
+ aMrkVkNjKK/xVPzBUONX6q/Ct4x0Y/rHsn/W/bfY7JmO8YuK1fWpHA3PRHPgwgBdXTAdollZ
+ P+mnTuEVy5GWcyLMhLrLwvi7VPb7n9nnj6CLXwK5x+mzaCfdBaopUQtaTOzghQCxPrc+m39q
+ o8PX/ZmPj0DCIUSlAGLq99MRb3LRFBnba3LRzt/KrTaf1M7RjB8U5c8A9oJIuRYokicrc+Ql
+ lnVZ6OS4AOXaaHvQelSVk1eVQ==
+IronPort-HdrOrdr: A9a23:X3PHfaigYN2fxGKocYJsONQRTnBQXs4ji2hC6mlwRA09TySZ//
+ rAoB17726RtN9/YhAdcLy7VZVoIkmskKKdg7NwAV7KZmCP0wGVxelZnOnfKlbbdREWmNQw6U
+ 4ZSdkcNOHN
+X-IronPort-AV: E=Sophos;i="5.97,322,1669093200"; 
+   d="scan'208";a="97090717"
+From: Sergey Dyasli <sergey.dyasli@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Sergey Dyasli
+	<sergey.dyasli@citrix.com>
+Subject: [PATCH v5] x86/ucode/AMD: late load the patch on every logical thread
+Date: Thu, 23 Feb 2023 17:39:24 +0000
+Message-ID: <20230223173924.11815-1-sergey.dyasli@citrix.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y/d5XhtOaYkNRnpQ@tpad>
+Content-Type: text/plain
 
-Hi Marcelo,
+Currently late ucode loading is performed only on the first core of CPU
+siblings.  But according to the latest recommendation from AMD, late
+ucode loading should happen on every logical thread/core on AMD CPUs.
 
-On Thu, Feb 23, 2023 at 11:34:06AM -0300, Marcelo Tosatti wrote:
-> On Mon, Feb 20, 2023 at 08:14:40PM -0800, Krister Johansen wrote:
-> > On Mon, Feb 20, 2023 at 11:01:18PM +0100, Thomas Gleixner wrote:
-> > > On Mon, Feb 20 2023 at 09:17, Krister Johansen wrote:
-> > > > @@ -495,8 +496,7 @@ static int __init xen_tsc_safe_clocksource(void)
-> > > >  	/* Leaf 4, sub-leaf 0 (0x40000x03) */
-> > > >  	cpuid_count(xen_cpuid_base() + 3, 0, &eax, &ebx, &ecx, &edx);
-> > > >  
-> > > > -	/* tsc_mode = no_emulate (2) */
-> > > > -	if (ebx != 2)
-> > > > +	if (ebx != XEN_CPUID_TSC_MODE_NEVER_EMULATE)
-> > > >  		return 0;
-> > > >  
-> > > >  	return 1;
-> > > 
-> > > What about removing more stupidity from that function?
-> > > 
-> > > static bool __init xen_tsc_safe_clocksource(void)
-> > > {
-> > > 	u32 eax, ebx. ecx, edx;
-> > >  
-> > > 	/* Leaf 4, sub-leaf 0 (0x40000x03) */
-> > > 	cpuid_count(xen_cpuid_base() + 3, 0, &eax, &ebx, &ecx, &edx);
-> > > 
-> > > 	return ebx == XEN_CPUID_TSC_MODE_NEVER_EMULATE;
-> > > }
-> > 
-> > I'm all for simplifying.  I'm happy to clean up that return to be more
-> > idiomatic.  I was under the impression, perhaps mistaken, though, that
-> > the X86_FEATURE_CONSTANT_TSC, X86_FEATURE_NONSTOP_TSC, and
-> > check_tsc_unstable() checks were actually serving a purpose: to ensure
-> > that we don't rely on the tsc in environments where it's being emulated
-> > and the OS would be better served by using a PV clock.  Specifically,
-> > kvmclock_init() makes a very similar set of checks that I also thought
-> > were load-bearing.
-> 
-> kvmclock_init will lower the rating of kvmclock so that TSC clocksource
-> can be used instead:
-> 
->         /*
->          * X86_FEATURE_NONSTOP_TSC is TSC runs at constant rate
->          * with P/T states and does not stop in deep C-states.
->          *
->          * Invariant TSC exposed by host means kvmclock is not necessary:
->          * can use TSC as clocksource.
->          *
->          */
->         if (boot_cpu_has(X86_FEATURE_CONSTANT_TSC) &&
->             boot_cpu_has(X86_FEATURE_NONSTOP_TSC) &&
->             !check_tsc_unstable())
->                 kvm_clock.rating = 299;
+To achieve that, introduce is_cpu_primary() helper which will consider
+every logical cpu as "primary" when running on AMD CPUs.  Also include
+Hygon in the check for future-proofing.
 
-Yes, I saw the change you made to the kvmclock to do this and was
-inspired to try to do something similar for Xen:
+Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>
+---
+v5:
+- refactored the code by adding is_cpu_primary() helper
+- include Hygon cpus into the check
 
-https://lore.kernel.org/xen-devel/20221216162118.GB2633@templeofstupid.com/
+v4:
+- new patch
+---
+ xen/arch/x86/cpu/microcode/core.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
-Thanks,
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index ba6e7b42c6..cfa2d5053a 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -276,6 +276,20 @@ static bool microcode_update_cache(struct microcode_patch *patch)
+     return true;
+ }
+ 
++/* Returns true if ucode should be loaded on a given cpu */
++static bool is_cpu_primary(unsigned int cpu)
++{
++    if ( boot_cpu_data.x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
++        /* Load ucode on every logical thread/core */
++        return true;
++
++    /* Intel CPUs should load ucode only on the first core of SMT siblings */
++    if ( cpu == cpumask_first(per_cpu(cpu_sibling_mask, cpu)) )
++        return true;
++
++    return false;
++}
++
+ /* Wait for a condition to be met with a timeout (us). */
+ static int wait_for_condition(bool (*func)(unsigned int data),
+                               unsigned int data, unsigned int timeout)
+@@ -382,7 +396,7 @@ static int primary_thread_work(const struct microcode_patch *patch)
+ static int cf_check microcode_nmi_callback(
+     const struct cpu_user_regs *regs, int cpu)
+ {
+-    unsigned int primary = cpumask_first(this_cpu(cpu_sibling_mask));
++    bool primary_cpu = is_cpu_primary(cpu);
+     int ret;
+ 
+     /* System-generated NMI, leave to main handler */
+@@ -395,10 +409,10 @@ static int cf_check microcode_nmi_callback(
+      * ucode_in_nmi.
+      */
+     if ( cpu == cpumask_first(&cpu_online_map) ||
+-         (!ucode_in_nmi && cpu == primary) )
++         (!ucode_in_nmi && primary_cpu) )
+         return 0;
+ 
+-    if ( cpu == primary )
++    if ( primary_cpu )
+         ret = primary_thread_work(nmi_patch);
+     else
+         ret = secondary_nmi_work();
+@@ -549,7 +563,7 @@ static int cf_check do_microcode_update(void *patch)
+      */
+     if ( cpu == cpumask_first(&cpu_online_map) )
+         ret = control_thread_fn(patch);
+-    else if ( cpu == cpumask_first(this_cpu(cpu_sibling_mask)) )
++    else if ( is_cpu_primary(cpu) )
+         ret = primary_thread_fn(patch);
+     else
+         ret = secondary_thread_fn();
+@@ -642,7 +656,7 @@ static long cf_check microcode_update_helper(void *data)
+     /* Calculate the number of online CPU core */
+     nr_cores = 0;
+     for_each_online_cpu(cpu)
+-        if ( cpu == cpumask_first(per_cpu(cpu_sibling_mask, cpu)) )
++        if ( is_cpu_primary(cpu) )
+             nr_cores++;
+ 
+     printk(XENLOG_INFO "%u cores are to update their microcode\n", nr_cores);
+-- 
+2.17.1
 
--K
 
