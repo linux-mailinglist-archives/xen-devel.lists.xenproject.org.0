@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F0FC6A0BEF
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Feb 2023 15:35:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.500457.771847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C70D6A0C04
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Feb 2023 15:41:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.500463.771857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVCh8-0000az-Iu; Thu, 23 Feb 2023 14:35:38 +0000
+	id 1pVCmL-0002Pc-4p; Thu, 23 Feb 2023 14:41:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 500457.771847; Thu, 23 Feb 2023 14:35:38 +0000
+Received: by outflank-mailman (output) from mailman id 500463.771857; Thu, 23 Feb 2023 14:41:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVCh8-0000Z0-Ei; Thu, 23 Feb 2023 14:35:38 +0000
-Received: by outflank-mailman (input) for mailman id 500457;
- Thu, 23 Feb 2023 14:35:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pVCh6-0000Yu-Df
- for xen-devel@lists.xenproject.org; Thu, 23 Feb 2023 14:35:36 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pVCh5-0006mo-UZ; Thu, 23 Feb 2023 14:35:35 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225]
- helo=[192.168.22.85]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pVCh5-0000cE-Ny; Thu, 23 Feb 2023 14:35:35 +0000
+	id 1pVCmL-0002ND-28; Thu, 23 Feb 2023 14:41:01 +0000
+Received: by outflank-mailman (input) for mailman id 500463;
+ Thu, 23 Feb 2023 14:40:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gPya=6T=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1pVCmJ-0002N7-9K
+ for xen-devel@lists.xenproject.org; Thu, 23 Feb 2023 14:40:59 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 15dbeecc-b388-11ed-88bb-e56d68cac8db;
+ Thu, 23 Feb 2023 15:40:58 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id eg37so39070329edb.12
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Feb 2023 06:40:58 -0800 (PST)
+Received: from [192.168.1.93] ([188.73.239.233])
+ by smtp.gmail.com with ESMTPSA id
+ c96-20020a509fe9000000b004acc6cbc451sm5250482edf.36.2023.02.23.06.40.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 23 Feb 2023 06:40:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,67 +44,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=X5cTTLQ0ZLQi6Fwxkx1Emxoye/fpsaVVBqeexbkjIac=; b=CtoMxA+wqmk1GYwiTr8FdZjRLC
-	9a+dbJQNEIo+RSOiPFkw/jYCdUTQc1DtW5KyCL2xikyKDKj8uMKGAHvTSKBgWtt0UUxxwrtCk+uiV
-	YT8AcNM5AdqIKyGnyER9ULsEHhNka4gVE05NmCPcTtT57Pbm9mc5K2BwCFCe2wyXKSZk=;
-Message-ID: <399c85a9-2130-efa4-7a14-7f9f76084662@xen.org>
-Date: Thu, 23 Feb 2023 14:35:33 +0000
+X-Inumbo-ID: 15dbeecc-b388-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qHwE7z/0gSktJtzO9ucPdaPg4gUrmR8qi5tYGxjSgFY=;
+        b=VBBgesPit9SczEmDXT7JrDL9DM0vvYpcX7kBnuLSuXRX6VYqh4JSzcEq73fMYWfvzB
+         TktmazsdA5+QFMr9D3vhYO7xKfHck9j3wnjAc+9B1vEJK+rY3gEdtUGLibywfsGq7Q9U
+         A88q+Dif3jvGZjsvW7X+gRX5eLWbMN0Se8qvyr1yHTlQ56F2SdIQyUdQ8nEMskQX10Vb
+         azhDIYP3iEfmc4PN9WqzxXW2aohNbzc0DLzaq5aMWc+XvaBmvdvsYBzoQUpAB9LufGZP
+         8WriJJi0rJXHJnLdAJWzQoxEqSB6wMr17N6kva/GoIJshdDLRUvOJrwHG3mWJ1LF52bw
+         JRyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qHwE7z/0gSktJtzO9ucPdaPg4gUrmR8qi5tYGxjSgFY=;
+        b=5poeDmaUG3llzOC43GdgcrA04Yl5B31BYxIR2+dokmuEEMx0VvRU7GRsbBuyfgUOyC
+         uzlc13rNgQBAhrADxO8WKlCT0UbZ83UCQT2YUBM1jkpFn1aY0yBNKVDsFTcvTidmPTuZ
+         KvTrrMboB14B1sCh/N+ZI2gOF0ojU867RScwrtn5VLwbpSTKhIlEotAZAuB/r8xFt+Zz
+         eDyv/4hM0JnQFAa+ZVlC0KEw/EJWXfMYLtp0HfiER8eu3taB7Ek1WmbRe8WCw+kQiIIA
+         nsaZCgJyxW86KWcKK4K/o3o0wOvlGqp1+/ULnylhQf6DvviqPdEwkdEwUGpEbSdrB8DB
+         ouKQ==
+X-Gm-Message-State: AO0yUKWwTshKaRVVggmIDXvvTs0mgywln8d1h8DMRIcZKfdzLvmHtxIm
+	KDc4WfeOInIvpvHNRV1UcoPpzOuj+nM=
+X-Google-Smtp-Source: AK7set/+Ip0Cgb71r8bj8ZiQYo8nc5bWEZJeUKgWX6fQYP/yLSDPJoiyo/DcplsSHS2CveHZLXY1Kw==
+X-Received: by 2002:a17:906:b03:b0:8b1:7eb7:d53d with SMTP id u3-20020a1709060b0300b008b17eb7d53dmr23434292ejg.49.1677163257754;
+        Thu, 23 Feb 2023 06:40:57 -0800 (PST)
+Message-ID: <90d033f2-2b5e-1450-0fb9-7352a2973e9b@gmail.com>
+Date: Thu, 23 Feb 2023 16:40:56 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.8.0
-Subject: Re: [XEN PATCH v7 01/20] xen/arm: smccc: add support for SMCCCv1.2
- extended input/output registers
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v2 3/9] x86/svm: move declarations used only by svm code
+ from svm.h to private header
 Content-Language: en-US
-To: Jens Wiklander <jens.wiklander@linaro.org>, xen-devel@lists.xenproject.org
-Cc: Bertrand.Marquis@arm.com, Marc Bonnici <marc.bonnici@arm.com>,
- Achin Gupta <achin.gupta@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Luca Fancellu <luca.fancellu@arm.com>
-References: <cover.1677079671.git.jens.wiklander@linaro.org>
- <13719ab3736160259ad9245d5d5b5071b8933194.1677079672.git.jens.wiklander@linaro.org>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <13719ab3736160259ad9245d5d5b5071b8933194.1677079672.git.jens.wiklander@linaro.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20230222120023.3004624-1-burzalodowa@gmail.com>
+ <20230222120023.3004624-4-burzalodowa@gmail.com>
+ <9f42efc9-ced2-95b4-cbbd-8b5b3a1d4ca7@citrix.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <9f42efc9-ced2-95b4-cbbd-8b5b3a1d4ca7@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jens,
 
-On 22/02/2023 15:32, Jens Wiklander wrote:
-> SMCCC v1.2 [1] AArch64 allows x0-x17 to be used as both parameter
-> registers and result registers for the SMC and HVC instructions.
+On 2/23/23 13:16, Andrew Cooper wrote:
+> On 22/02/2023 12:00 pm, Xenia Ragiadakou wrote:
+>> Create a new private header in arch/x86/hvm/svm called svm.h and move there
+>> all definitions and declarations that are used solely by svm code.
+>>
+>> The function svm_invlpga() stays in arch/x86/hvm/svm/svm.h because it is used
+>> by arch/x86/hvm/svm/asid.h.
 > 
-> Arm Firmware Framework for Armv8-A specification makes use of x0-x7 as
-> parameter and result registers.
+> I'm reasonably sure that all headers in arch/x86/hvm/svm/ other than
+> svm.h can move to being private easily.
 > 
-> Let us add new interface to support this extended set of input/output
-> registers.
+>>
+>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>> ---
+>>
+>> Changes in v2:
+>>   - new patch, the creation of a private header was suggested by Andrew and Jan
+>>
+>> I have not added #ifndef guards as it is a private and it should not be
+>> included by other headers. However, this is considered a MISRA-C violation
+>> ... I 'm not sure what to do.
 > 
-> This is based on 3fdc0cb59d97 ("arm64: smccc: Add support for SMCCCv1.2
-> extended input/output registers") by Sudeep Holla from the Linux kernel
+> Always have guards.  Firstly because that is the decision taken by the
+> MISRA working group.
 > 
-> The SMCCC version reported to the VM is bumped to 1.2 in order to support
-> handling FF-A messages.
+> But more importantly, because life is too short to deal with the
+> shooting yourself in the foot which will occur from trying to take
+> shortcuts like these.
 > 
-> [1] https://developer.arm.com/documentation/den0028/c/?lang=en
 > 
-> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+>> diff --git a/xen/arch/x86/hvm/svm/svm.h b/xen/arch/x86/hvm/svm/svm.h
+>> new file mode 100644
+>> index 0000000000..b2ec293078
+>> --- /dev/null
+>> +++ b/xen/arch/x86/hvm/svm/svm.h
+>> @@ -0,0 +1,40 @@
+>> +#include <xen/types.h>
+> 
+> Elsewhere, we're retrofitting SPDX tags to all source files, but we're
+> already putting tags in new source files.
+> 
+> This one needs to be /* SPDX-License-Identifier: GPL-2.0 */ I think.
+> 
+>> +
+>> +static inline void svm_vmload_pa(paddr_t vmcb)
+>> +{
+>> +    asm volatile (
+>> +        ".byte 0x0f,0x01,0xda" /* vmload */
+>> +        : : "a" (vmcb) : "memory" );
+>> +}
+>> +
+>> +static inline void svm_vmsave_pa(paddr_t vmcb)
+>> +{
+>> +    asm volatile (
+>> +        ".byte 0x0f,0x01,0xdb" /* vmsave */
+>> +        : : "a" (vmcb) : "memory" );
+>> +}
+>> +
+>> +struct cpu_user_regs;
+> 
+> Looking at this, you could fold patch 1 into this patch and reduce the
+> net churn.  It would be fine to say "delete used forward declaration" in
+> the commit message, seeing as you're deleting that block of code anyway
+> from svm.h
+> 
+> If you want to do this, then I'll skip committing patch 1.
 
-One remark here. The tags are usually added chronologically. So your 
-signed-off-by should be first.
+Yes I will do it.
 
-I am not planning to commit this patch until one of the patch using the 
-call is ready. If this happen in this version, then I am happy to fix it 
-on commit. Otherwise, please do it in the next version:
-
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
+> 
+> ~Andrew
 
 -- 
-Julien Grall
+Xenia
 
