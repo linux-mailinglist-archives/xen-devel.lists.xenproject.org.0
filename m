@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86E1F6A0688
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Feb 2023 11:48:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.500203.771468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A8C76A0697
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Feb 2023 11:50:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.500209.771478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pV98E-0001Zc-1Q; Thu, 23 Feb 2023 10:47:22 +0000
+	id 1pV9BR-0003HQ-Fi; Thu, 23 Feb 2023 10:50:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 500203.771468; Thu, 23 Feb 2023 10:47:21 +0000
+Received: by outflank-mailman (output) from mailman id 500209.771478; Thu, 23 Feb 2023 10:50:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pV98D-0001WF-UM; Thu, 23 Feb 2023 10:47:21 +0000
-Received: by outflank-mailman (input) for mailman id 500203;
- Thu, 23 Feb 2023 10:47:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5wz9=6T=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pV98C-0001W7-T5
- for xen-devel@lists.xenproject.org; Thu, 23 Feb 2023 10:47:21 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20602.outbound.protection.outlook.com
- [2a01:111:f400:7d00::602])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 70ff8133-b367-11ed-a82a-c9ca1d2f71af;
- Thu, 23 Feb 2023 11:47:18 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by GV1PR04MB9136.eurprd04.prod.outlook.com (2603:10a6:150:27::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.21; Thu, 23 Feb
- 2023 10:47:15 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6134.019; Thu, 23 Feb 2023
- 10:47:15 +0000
+	id 1pV9BR-0003FZ-Cb; Thu, 23 Feb 2023 10:50:41 +0000
+Received: by outflank-mailman (input) for mailman id 500209;
+ Thu, 23 Feb 2023 10:50:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fv/5=6T=citrix.com=prvs=411d40f12=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pV9BP-0003FT-Fr
+ for xen-devel@lists.xenproject.org; Thu, 23 Feb 2023 10:50:39 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e7b188b2-b367-11ed-88bb-e56d68cac8db;
+ Thu, 23 Feb 2023 11:50:38 +0100 (CET)
+Received: from mail-mw2nam12lp2042.outbound.protection.outlook.com (HELO
+ NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.42])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 23 Feb 2023 05:50:28 -0500
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by DS7PR03MB5639.namprd03.prod.outlook.com (2603:10b6:5:2c6::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.19; Thu, 23 Feb
+ 2023 10:50:26 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6134.021; Thu, 23 Feb 2023
+ 10:50:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,599 +49,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70ff8133-b367-11ed-a82a-c9ca1d2f71af
+X-Inumbo-ID: e7b188b2-b367-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1677149438;
+  h=message-id:date:from:subject:to:cc:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=TjLloH/KNTkgRE0ZBRqwjS44bh0g4V2xC78Tb/zFma0=;
+  b=W9ApNW2PLD1I5pi9jZiT7tI9hRmto6/kdk9oWoVwda+GE2/cZxCgcYaX
+   ivxt2ODFqsThs/MX0ochfqUfSTV40XZq00OJ9W52yb8oZ7AF3TkXQ+fVW
+   9Us7Ld6AfXwbi6jIBQs6Td0PTNTM7d0sbKXwbcWzjG3GoPyl3zrJNO1Vu
+   s=;
+X-IronPort-RemoteIP: 104.47.66.42
+X-IronPort-MID: 97585219
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:pZ5px6IZUiJw09sYFE+R6ZQlxSXFcZb7ZxGr2PjKsXjdYENS1mZSy
+ DEZD2+PaKqKYWP9fdp0atm180gDvMXUztAxTAdlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpJrfPcwP9TlK6q4mhA5AZlPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5lHnNW5
+ KI4Mgk/Yy+/2+627LCCSfZj05FLwMnDZOvzu1lG5BSAV7MDfsqGRK/Ho9hFwD03m8ZCW+7EY
+ NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/RppTSJpOBy+OGF3N79U9qGX8hK2G2fo
+ XrL5T/RCRAGLt2PjzGC9xpAg8eewn6rBdhLRdVU8NZw0EzCxFUxJiEIXEmSoPeD0HCFQdRmf
+ hl8Fi0G6PJaGFaQZtv3UgC8oXWElgUBQNcWGOo/gCmH17DG6gKeCm8bRxZObdUnsIk9QjlC/
+ kCNt8PkA3poqrL9YWKQ8PKYoC2/PQARLHQefmkUQA0d+d7hrYovyBXVQb5e/LWdi9T0HXT13
+ GqMpS1n3bEL15ZXjeO84EzNhC+qqt7RVAkp6w7LX2WjqARkeIqiYI/u4l/ehRpdELukopC6l
+ CBss6CjAComVPlhSATlrD0xIYyU
+IronPort-HdrOrdr: A9a23:nGTKqq6qgJFh83dwqAPXwMbXdLJyesId70hD6qkRc3Bom6mj/P
+ xG88516faZslgssRMb+exoSZPgfZq0z/cci+Qs1NyZLWrbUQWTXeRfxLqn7zr8GzDvss5xvJ
+ 0QF5SW0eeAb2RHsQ==
+X-IronPort-AV: E=Sophos;i="5.97,320,1669093200"; 
+   d="scan'208";a="97585219"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=itDUbXRl6w+N+vZBX5lxT9/CtAdZGdIQl+LDIRDokeKRee0TYAgTaogaeKVEyxuntHs/VThIJ5plqOv4gWX8ead1+3O7ZrCaA+U1MVdxTHSUBwES4jHACAPo5BYpH3I4Tclye+5Vyxj/o9NsMTEFYIz9QS9ad+XKg6gOZPrYyjmeRj/iUDKLJYgiiIOzLsKgxnjtlFzrgZs8VDY5KKi5ldQLv1AN0y14Qy+3RdZbNZ/LQ4MaSfR4Lo2MEhY6Zfa3m5g+QFzXXzBlVuOUzIWjxQWRU37xT0PeJAme0/tIgWNDls9DHMLGtmKV9glVkzIwoE2cEhUeklPE89F+AnhwPA==
+ b=m4LEjw001EVVkS7dwbHifxF63iTgQ7gOcI+I+x10TZI4sWpPjBjtGakw6Y3rXfa1/s3xpaLyK3ABa1LiQluxFx3Fo3S2ft5WrLIE9ZDjcWHp8ykPcVVeNuNmLEkanIsWWrpkpSjonpPvcy8oV3bSel4zvCQVCc20aiu/SM7QiCzNMD+d9ECI80UOQoqU9dXRweXSWSw+FXqxBe8IYf8cokVHmxmyt270Rsga5nAtMEdZn959ABHv4hwWzdC6L34vSpOanVqfVJa4wwzC/rBYkUrBKIzCmbPgh1DNJJhL/I+bSVvk3xy4uhygzoLIQrxHkUw8opZjIEYnlOG9lG2rBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nLX1JbNCaYIFdv8qRmLWUgI/pW3BQV7SvINfOnJS+Nk=;
- b=KnRUnVxZYxyPcLy5jGdBnCB8KPjoy7i+NcL5pQ7eJjQtLW3I9czzl6RZqoNhlLMAH7KHBIiVSh6HGUOyNR5usnHedGHWfVpfHHxLU6Ugt/9qzspYf4vbj9SWCcrsS4BfxhLW15g5tZWAnzO+hRdpTNo4etDhT/lcgp8x4uEI8FKlUVBtxwQDxkTABDRIK2v3lWhJmvTz8X4WBlRiYyslkqShng8zqe8HIqGRYPLGrSY06DZXLdHS4/4QYhIBH9SSodr9SoHoxUYLrsnR+5YvZ2HbAyvPxnfPTaBeSp/lr1WaVu1VFwEh5IvOLu01fR+WASfKval0PxaBRscDz/83Fw==
+ bh=M/tXN2Q8taSMsAcMfz02T+xeXvn5gf+arlcTs2lVIKs=;
+ b=bkNysSqFEsuEbGktq8Fys5CTxkSJlcROv/xpQHT7Ij8bYe7emU5mN7A8oeG1BTS/QSs0upNn0b/tkb8eBHiFO/Rrb8IybkN0hOx8xi8NTvKDjMY1RENThB5N98hCOopQ2F/zshytJ2z+H0qc0mSOFiKlWf+01KZEijWDbRewoKZrsYy9HSjjzuWOBr7DFyjCC2YpyU86SK/ub6jg1iCRnKcyI406Wap5b0u7z+zDrpiQYyZQAuxlMItvG9dpB5N09jN1m7IXp2L5A1t4msTtv7sPTB+zSIhS7Ika9uNRaRyrtJDH8q18d3Hd3sFWftYlarSMw4SnQgoXTgobE/bjTg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nLX1JbNCaYIFdv8qRmLWUgI/pW3BQV7SvINfOnJS+Nk=;
- b=asknoQG9r0I/0iT2nP4UW8lXZ5ZmtQn3uFQlkLfjzLnt14j11RlrRsnKb8rmVhUBjnXWSxA77aWbY5CNQG2W+vxBqK7XE4OsqgUvdTN+kpfd7Y+rvHrdTvQJ8mXahon4afKEgEWvTzgRYAhv4mbLdmcR0KPV7dmIe4gaHEUb/GmIiYnu9lFb8IuUl6qywx7mJSdET5v28fL6xsPVx7qtef752IMRZS2TxChDRzhKRYiWSJ+1e5Dla0TrIgD5cS8PfcEAvC6foG/KIeHDBifiLPcAtgPD/wHuHc8E5DuAjXaMJfmW1DJijrXz3zjIxA3h7m4Vw70Ba4Y0Pwp20F9jOw==
+ bh=M/tXN2Q8taSMsAcMfz02T+xeXvn5gf+arlcTs2lVIKs=;
+ b=iWuJOkmsrLWRvTWLIRbWlvXiy2L8eNDQuhmjOShviG+oqdoYhfu178ztV1QKPgNFcZEUptgvv+d6d7qjk9LWV3l29xL/fcnyDrxw8h2bIwK2IcZQZTjdTUM1K6ZYZtsbl9qTtjFxnSmAWg+y+2XqdUDDqfsqslgTrMbIjgD+Gbg=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <0f169088-53bc-afe5-8f10-970c17f261b7@suse.com>
-Date: Thu, 23 Feb 2023 11:47:12 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v2 6/9] x86/vmx: move declations used only by vmx code
- from vmx.h to private header
-Content-Language: en-US
-To: Xenia Ragiadakou <burzalodowa@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <fddfa8d2-fa32-83a6-0781-08999dea31d7@citrix.com>
+Date: Thu, 23 Feb 2023 10:50:20 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 1/9] x86/svm: remove unused forward declaration of
+ struct vcpu from svm.h
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, Xenia Ragiadakou <burzalodowa@gmail.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20230222120023.3004624-1-burzalodowa@gmail.com>
- <20230222120023.3004624-7-burzalodowa@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230222120023.3004624-7-burzalodowa@gmail.com>
+ <20230222120023.3004624-2-burzalodowa@gmail.com>
+ <d3d892a5-c641-c945-0f07-9bf0e8cf5e80@suse.com>
+In-Reply-To: <d3d892a5-c641-c945-0f07-9bf0e8cf5e80@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0086.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0318.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:197::17) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|GV1PR04MB9136:EE_
-X-MS-Office365-Filtering-Correlation-Id: 708ad89b-95b4-4810-b592-08db158b53a0
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|DS7PR03MB5639:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab8d881f-abc7-4f19-0c85-08db158bc543
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	5JOfTeDrX/C9dHNL71gbFbyAvPHCKKMZA+nkbM/oN2pnXpEOTEOeuykyCs2PpSyuN8yPpMY47mf8oOyCYfk09Z7I9tZ1lZ7JwLL+Si8ef4Be7+oMnQ6yHrs5GKYa9KytxlMXGLbZBBdST5znn29dFmQXZHaV1+dKr22b4TugFzZrKg1gPN85hwmz6fh3hzkH387segs8SoIxaaSVrU7FeRjYWprslgz/qLIcGjcqMj25OQbNmNpz26m/t+DiOBWzRkn37HzhFE10nn1y197+FARZqhLTJFd2tE/c1WdCb9B5dLFTLDMPUvsPjc55RamZk4ft53+RG6rW6cmMS0N6p9vh8XysGahw/VdnMMGXo5cbtdvukMYCdNTp7q2dZLl/rlJvHs1wRkTSrcsekwzK3+dlqC7SrCNFGOdon32Vc/pJA2yIDb4PDwcX/zlwhSmQtjX2As8Y3Dkxka7dbuH05vQHumMR6KcFRl95f4oeYBfXnCX2c0q5DJ7z85reXIl40YGFswfcO4fg6n/jscf0JF2o35QN4tedgMTliFHwZUU0rf4D5rfh+yBYpbNn/nH9RVxTfxE34eLV10qbVUn6EYOCXYxllNkVwc1ftUq7VnaW5koBfxQNroEvIZ5gWwP6MddXtpduKiwC96mO80g81wiwOkPHbQG0fQ8gzO+AEy3IeR0WK6aRZjqeNChfY3MqtdgVb+Ti4uUXMUvnRJq3MAg/vQmS3hXhGx420m7CAtM=
+	OOsAKy7oSkRNEV0otw2l5047jsT8HIE66/TptKZGFAqiE7wxkq7dIQaVr5EQ8zYhMTT+y+Z8EZQ3B/kPEWa5MEt+hfBcKQWS0m+YOf5bgjs7B2CLGWUJFv1+E6CwQB5S3CNBdjaHL0FdvioDsSPR/HwiDfhCD78FhGHaWe+ApFodlqCszLRwEScKIKRHHZQFJ9DpG35mpIBHPr0rvRCDDyQfHFxbOPlrQvdZ+wdoeltv0ZYrKudLma5zUpb9vrWLMJQRYhaPF+yBmOvR+HS1nUsitmP/0t39oH1Jy2g/hTXZfJF4/PGX0UxosGfIz4w1hsC1jIXFTanqgkEKEondyvG/tfoEVE2QqzNQSjuuiU1Bje00YXjM5gzzkojd5ANkG4O6sXiVq8UV2Dqxofl3W/KBWrwH9pUoiYpNR/okkEK3XNGGKU4MMkmAxWIvgwwKwG6GP5OhGmkiNkjOtx6UOflaTtb0nlp649+sVxy9bRwVXjvbrKOOuLy6CmxNINjAo6tOjoL4q3O9tAY8e6FGDIqzcabxzVMdOcQlV+4cmV4FG0+GvaU/YL7UNdoKvAHUkfc1nANuSbXbzCvUAPdBTMB5de9TWbLnpU/fddFp811sDtI2Q5gQ5GavMsY7NN6tKW5pvTE8IQrUir1E1jn+d4G7+waRxlSY7IZLKsg78dU9Dj3HGc18hlBQ6ENvkDs/w8wib5Vm/pBgGy+KqnA3/9d0Lot/jhluvHHJaeC03t0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(366004)(376002)(396003)(39860400002)(136003)(451199018)(31686004)(30864003)(2906002)(5660300002)(8936002)(41300700001)(83380400001)(66946007)(4326008)(8676002)(66476007)(66556008)(316002)(6666004)(36756003)(478600001)(6486002)(26005)(186003)(53546011)(6506007)(31696002)(2616005)(38100700002)(86362001)(6512007)(54906003)(110136005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(451199018)(478600001)(31696002)(82960400001)(38100700002)(86362001)(2906002)(316002)(110136005)(54906003)(41300700001)(8936002)(4326008)(8676002)(66946007)(66556008)(66476007)(83380400001)(6666004)(31686004)(6512007)(6486002)(26005)(186003)(5660300002)(53546011)(36756003)(2616005)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a2tOajJrRytoZlBVWUhoV1d0WWhacStmVFpIZnRmZDFab05aMkwrMXZ1S1RR?=
- =?utf-8?B?UTE4clFoUlZIMmkrb3dOK2VHTDF2TVFFaEVuTzVzeDA1RXlseVZQMEJrdXND?=
- =?utf-8?B?am9GV1BmMHcyM0NNVVBsNkhSdXBJaVpjbER6VFpHSlY2UVVrSTFKbVhaeGRm?=
- =?utf-8?B?eUN0dWpkaE5tNS9JVk1iaE5DM2NRWDVtUVh2c01XQnJ1azg1Y1ZlSktTSito?=
- =?utf-8?B?UzBjVGVLdmVxdXRDK2wzOTA2ZC96VnJTY0c2VldXSlc4SmtBUnFvQmtiTk1M?=
- =?utf-8?B?RGsvODJUOFA4SXdhU1ppeHl4TG1BRXlybi9rNExUd0xzUWl3a1g1ZmZEU3BC?=
- =?utf-8?B?WTFZS3FKNTh6WnBJb1QybUZvZDB0UTVDaEJ5OVpHTzJsVCthc3BoNzVoREsx?=
- =?utf-8?B?a2xzMm8xL3RvM3JJRnlUdmhIUGpveXJ3MjdVQlBvRVV6RC9aZ3J6M1ZEMzdI?=
- =?utf-8?B?aVZxZnovblVxWGtJcjZxSEdvSWpzN3VzQ1ZpOHhPRk9TKzdQTXJJOWJtendN?=
- =?utf-8?B?QVVCVWx6MExTOGlncUVwREZiUEROSTVhRCtvWjRFd0RuVGJRMHIxakZleWRJ?=
- =?utf-8?B?WlhuT0JsZnVsUmxiTGdHSWJWbklCQ1RlbTdOcEVDVHNwVUVSUHlwMlY3NDVD?=
- =?utf-8?B?eXNoNVFVNFJuWkkzT3FSdDNJbDhvZml3WWlaaEQ3RU1Bb3NGell1TWFWT3pr?=
- =?utf-8?B?VWl1citLZTI4anRBNXNSbUdyTjgwSUtBZ3NYZlMvYXNKSXh1VGFBZUtwQWpw?=
- =?utf-8?B?Z0N3YjdDeHp4L21XUkJwVk05K0liWWZ0cVFNdjFwWDlWMnVOTXVLejNuQjFm?=
- =?utf-8?B?b2QwdUJ0SXZNWjJXUCtqeUVyT0xGNjE0TWxjZEVhU3VyUElXaDNad2RWZUZZ?=
- =?utf-8?B?dDBEdGFFSlpRZTRQNThSbWlQcG16WG5hRWV1b0YwTlF0enBlOVlZMFQ1aHRF?=
- =?utf-8?B?Rk9wUDlZTlZVa011MThHMDRBaTVzV2JTMlJMNFlnSmlTUWRRZFM2V2p3QUo3?=
- =?utf-8?B?RUd2bk41MkJaS0VqUFh2SGhTazdIYlZBUVpGNDlKM05rck5weis5UXVNckoy?=
- =?utf-8?B?bmFHc1Q0U1JxclJHMnFqc0hoaS8vNzJEcHB1Sm0wZ081Mlo4N3JZZGdjQ0RB?=
- =?utf-8?B?bUNhSGhEbWJlNXFZbVlZTVFGUVhHZDQwNmtodk91cG03aFZlL1JoNk5HVHE1?=
- =?utf-8?B?cEpKRzVOcTNHK2tPL2NLaytWOXRNa3RrNHF6bnR5eVRmTnN3bml0Q2ZjSFNN?=
- =?utf-8?B?MGFaV3pyNTV2c3NxZnR5R0Z5V2VNSEV3clE2RkZsYzl4RE5EampQVE0vdDls?=
- =?utf-8?B?K2NpdnIwV01lVjRwbVR3Y3lIM2hxRHRXUDhBTnRXRkgyOFpXNFZYWlU3Mi9z?=
- =?utf-8?B?K2V1WjljdGhSWC83M0VRSE1FVVArRXdXdEVsV3RvaXJjcWRHcTcvelBNSmMv?=
- =?utf-8?B?ejZiSnh4RTJiamp3RDN2Y201a0ZJSm9Vclh5Ni92Y09ITXVxZnFvUmdFM0RB?=
- =?utf-8?B?aDlyVlNUNzZueU4vNmFJREpmL0NJcjJjdUZ0ZFlZQmdicGZWczRsYkNSWW5B?=
- =?utf-8?B?N3ViWGJkRVVnaTlkRTk1VjZLVFFlRkJsQkJvN1lOUVVLMnp6SG5CbXVGTUEy?=
- =?utf-8?B?N3BYSFZnMnlKclZvNlVwSnY1Y1haMWZzRDZIYzUrdEJ6TkdCYmVHVnl6NmZt?=
- =?utf-8?B?djQxUGtWY0w1MS9vYUUrTUhqUUFQczBnd21UbjFLSGlBZnVOZXRsV25oT2tT?=
- =?utf-8?B?ejVhTlkwWjhJR3YzWkFhQXJ4T1MwK0YrekkyU3loWHJsZFR6RFFMWnNNQ1Nr?=
- =?utf-8?B?SnppbFVzSUpZb3NBUzhMbW1vR1hTRjI5SmxaVnExNWhQQWRqWDRyTjhrZHlZ?=
- =?utf-8?B?RjFsME9OdmVBY0Y5azJyRHZJZE00NlpQRnduTEpvcmhUaFFjS2VJaGtHN0lN?=
- =?utf-8?B?WldBRWdCT1pjQVRPZ3pOc1VsRk1Pa2d0WjBpVFE5R0pXdWhmWHY5OXFLb3pQ?=
- =?utf-8?B?UVp6bHdzN095SVpscG9rODlRQ2VYOXVBRlBFZm5rYUFsTXNDWTZ3dHNJYjNC?=
- =?utf-8?B?SVBUOFZXVVhUb0xCTnJyM05NcGJVMDFBQWxER1dNRmlWZHVKNjZlVWlBTExE?=
- =?utf-8?Q?8ddM9TlQ9c77dpX4/rt/CrPsV?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 708ad89b-95b4-4810-b592-08db158b53a0
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?UW5IN3RUWWtkUXY1dnl5UGN5NjE1TmM1ZHVNUEw2RDVZRnNzYkt2RmRKOTRt?=
+ =?utf-8?B?WHkwVmNsUFZBOGFpNkhBYkV2U1FKZHhpcU0yTUdGazBkRmNVK1p6b012UG53?=
+ =?utf-8?B?U1lnWXhQeEJuQ0xpcENhdEhFTjd6TFEyRzRrNERiRDgvVUd4OTd5WTVvRXdl?=
+ =?utf-8?B?RG8ySVBIUVdIRlh2enpJYXJiMXVseVlYOGY1SFNIczNkbTRsQWdTaWNoN200?=
+ =?utf-8?B?MVhLNGR4bU4rcHlXb1dwa0JCaGlXQ1Y2aVdLOGhpTHpXeE4wL1gwMkVSMUJO?=
+ =?utf-8?B?TkNiK3dsTnJaNWZEZ0dQcUU2cGFPMy9heG1GN1hobDF4TjJ4WmQ3cHhtV2Fw?=
+ =?utf-8?B?ZEpidEQzbnZ0cDltQ2ozVGVySU1WbTdta0dQSDlaWHVGZXNTcmFXS21kcU9X?=
+ =?utf-8?B?ZERNU3RkZzJWM0s3ZTM0NHFMK1d5c2ROWlNEdUZVNVV4OVZnV2Y2QmNreUgw?=
+ =?utf-8?B?UEhUYWorenAram1zdWJpYTVmWDlHamVJNkFhMEFIbDFXM01janVEZ3VHL3dL?=
+ =?utf-8?B?bjRIVlNmMENVdGwxT2o3TzBRYTNSVW1xVVNFcUFoVW5zMzdQNTdub1NRUzlP?=
+ =?utf-8?B?czN0aWdYb0ZibnhxN1ZBakhsNnF6aE9uNzdQMnp2RHdHUldGNUM3amp4Qmo2?=
+ =?utf-8?B?ZUdFMkJoc3pzMncyaHlxU0luUXhobzN1Z1JKclZaOWZsM2c3WGVSK1paYk5l?=
+ =?utf-8?B?ZXVlTEp5eEs2dXZMbkRQMnpKeS9WY2s1TGJVWnlQbGVjVmdUZXBuWUN4ODBH?=
+ =?utf-8?B?eEhEQnJoZlBuMFhDSVV3c2FoKzZiWE1uMzVNUERyKzU0ZTFQdkptbzZFQjR6?=
+ =?utf-8?B?aU9lMWVVL1R3b3g2SUtReFVjVDM1TkJRR2JlUTZJN0cyeHdyZkdWV3AydzFF?=
+ =?utf-8?B?THdBRVM3QS9RVFhYSFc0TTNEQm1ZVkZ0am5nVjl5dHUwUlZDblM5c2NTTGN4?=
+ =?utf-8?B?cWxCNk9TU0hZdjEwTkh3RS8rWHhpbG85dFpqekRGV1lUM3B6OW5iSEluUzNL?=
+ =?utf-8?B?c0tJckxyYUQybGRYL3JrL3NNZVlTWjRGOU1rblIvVm9rSnVXUGFWZndwOVhC?=
+ =?utf-8?B?S2N4anhLTkVUOWR6U0IvWk1UUlRjWHpmZkxMTlZqKzJOdWI3UHNRM0pPTGh5?=
+ =?utf-8?B?d3NkSGgrQjVYT0xydVdqckI2RHF3eGNYbFR4UlU1T2lyWTdUY1NwUjNYNnNV?=
+ =?utf-8?B?eStZRXRpdHFleHliSlplL25hTmJTaEJxOG96RXVrem5kVU53QXNyeFhJcjg2?=
+ =?utf-8?B?VmZHVnd3R1N6OHRkR2NYYklQWHZadFg4OUtZK3dwQ3AyZ1hpN1NHK29LRlpy?=
+ =?utf-8?B?VHhta1F1bUM1UXhncjZBeVNBMzk4R3FQeUM2Sk1yb1V6amorWi9veVJFakhR?=
+ =?utf-8?B?REl6cUtneVBmV0FRNEJ5b3JYbjJsQ1Bpc0huSDk0Ui8rdFNFOVdEZ0dTTEQw?=
+ =?utf-8?B?UHh2SHFDTGhMTVdnb3JQTnZHeTRGaDdubFkvWkFIQjEvc0ZvemI4UEtQZ1o2?=
+ =?utf-8?B?eGpSbzhhTzVnOVR0MEpFc29xdU9MRG1rMnNpNWtaR3ZqUWI2M2tYbFdOL1VM?=
+ =?utf-8?B?dDA0TnBSV1dEWWVPYzNOVnVkNFlRSDBQM0t3ekFiSlFMLzNHV25GVGFBeW4v?=
+ =?utf-8?B?Zjdpa1pnaVU4Z043WldmY251OUMxamZLbzBJQXB2d1UyVG1mZThiUWd4U2JM?=
+ =?utf-8?B?T2ZUNXZFUGNvZmpVWWpIUmR1QjFoRU5qR2pBelg5MzZPN0wyS09qbFh3dEFx?=
+ =?utf-8?B?MWlURzRkQ3NEOSt2cWtkemNqTGFtTXdVQmdRQ2xzQ2RtL0RIWVBPK2dlWThB?=
+ =?utf-8?B?cnA5TlhWb2wrUEc1SEtNWlJneGQ4SVd0aE9CYWJRRUFYdVJRMWlubkpOTDho?=
+ =?utf-8?B?bEdBTFVHRU9jWWtaSnVsYlA4MG9FSHlEcmtDYXNTNUxWaUs1UWhrUm5wbnNO?=
+ =?utf-8?B?SnlBcEJPbGRCcGlVOXY2dVluNmRyREhCaEwzZVBjbGNwc1kyUXNud0JYcEsr?=
+ =?utf-8?B?dnljQlgvWWJCZllXbjdLeXNHZmM3T2RIajI5bjdFTlQ4U1hFSGtiM1E4VVBa?=
+ =?utf-8?B?UEgyNU1iTmxPQUV5aUV1VmlVWmlIcUZFbmdVVDZGTS9sYmFORTV0dmlxdWNH?=
+ =?utf-8?B?S2h3SUVjZmFibGdRTWR0N3Y2TU9oaUllT2lNa3E1RFMxU25ZQVZLdjBoeDBy?=
+ =?utf-8?B?QlE9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	Hih88SpRaqC4bHEqaU7Rguhi1sGSlCbOqytrwRh+cOMPkrItD1H5dkwQqcgwpupxrAA4RD1t+/gUgR0LphhhEwhBcrEdTlKwTrRVBpHaalXJblPuw1hXFRfeir9n6DQWt18Goq6f/18zTy8s2ifJLRddCvTauMp70DAUEk6h89LwLQvnCr0qk2i6NLhVjQufmPC9YeCd3qb6dhkfVdYIBHcskN0YWGiM1uqOE0abBM3RVZCcIjmFZpfs6b6IyT+vo36c4UQVFQmrM7wJqc+W6NuQTL8rdXXpNrmz7sSF2/+o+rtaP+hz8cJ+ugW9reECG7TNviGc7kvgpqrrURa04zBF9DHEeE4Zi4pSCxS/vgqNF6/RsMFS1diZDB9+iGb1KCUHBdBWK3Cj7wYZSPThhc0FhqkcSOQmXB0W2XEH93Ps1OZvMnW+/b2BSfEmPEqc/usvsp9qmzgsqNnjR1UqC+HiK6BJjia3+NsJ+X125OzRXOZv++pcHn1N3l3kvlW3kQaHZGcRGKinTBNTPK+gb5HMeDihH8X8wAOGbdEfcQzw+sOFrOxayeH/AOehB7jp3Ol3V/ihH1EPVIodsP3ZaeYAxJg5kwY7rMSQwdR69P6pMg669cAPlavbspqiyFfQACf9mjQocmTAMBoMNkbufyTrrXCm64/uuWol4q1lU025/U/mdUASH15dh7JqGJLtROjGRBvuiUN0L0PCQ0qUwRmsLG/WiP7e5MLCu1WbSDz9Max8DF0HGHNPIiOdiga0nGqMPMvbgBmrFe3a3hSw7XoxxREVI19HQEOKLBy+ocdmZvhaDtFtu2lLgMGGiQrETpTAMJTYo3APSqKrfRZq53dlmMJuE9+XV8jZmffTsSc=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab8d881f-abc7-4f19-0c85-08db158bc543
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2023 10:47:15.1829
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2023 10:50:26.8449
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l2luPLUmKsEBnqZStOiL1ImuU7c80qnSwHwyE02fh8YYlOSR/dNe19D7Vuw1uxkHvxA1/IOdK8khDjq1gaIasA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9136
+X-MS-Exchange-CrossTenant-UserPrincipalName: Vm5uv8aKjFS+YM2qT1nfgCcpPbAQR+f82fo7Gm6EMZfXrLE2P/ZrxkhWFmTNLWS0HTt/f78jYNCg4o3HQrb0ZeRZo0WemiAIyxx0hEtQIIU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5639
 
-On 22.02.2023 13:00, Xenia Ragiadakou wrote:
-> --- /dev/null
-> +++ b/xen/arch/x86/hvm/vmx/vmx.h
-> @@ -0,0 +1,459 @@
-> +#include <xen/sched.h>
-> +
-> +#include <asm/asm_defns.h>
-> +#include <asm/hvm/vmx/vmcs.h>
-> +#include <asm/hvm/vmx/vmx.h>
-> +#include <asm/types.h>
+On 22/02/2023 12:59 pm, Jan Beulich wrote:
+> On 22.02.2023 13:00, Xenia Ragiadakou wrote:
+>> Remove forward declaration of struct vcpu, that is a leftover since
+>> the removal of svm_update_guest_cr()'s declaration from svm.h.
+>>
+>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+>
+>> Fixes: b158e72abe30 ("x86/hvm: CFI hardening for hvm_funcs")
+> I'm a little puzzled by this (a stray forward decl of a struct isn't
+> really a bug imo), but ...
+>> ---
+>>
+>> Changes in v2:
+>>   - leave the forward declaration of struct cpu_user_regs in place,
+>>     suggested by Andrew
+>>   - add a fixes tag based on Andrew's comment
+> ... I realize you were asked to add it. (As a minor remark, more
+> commonly the Fixes: tag would come ahead of the S-o-b: one, I think.)
 
-As in the earlier patch, please use xen/types.h right away.
+I didn't intend my reply to mean "put in a fixes tag".  I was just
+trying to make an observation.  But it doesn't hurt either.
 
-> +extern int8_t opt_ept_exec_sp;
-> +
-> +#define PI_xAPIC_NDST_MASK      0xFF00
-> +
-> +void vmx_asm_vmexit_handler(struct cpu_user_regs);
+But I do agree that a Fixes tag ought to be ahead of a SoB tag.  Where
+possible, we put tags in chronological order.
 
-Even if it was like this originally, this is bogus. This not-really-a-
-function doesn't take any parameters. It's declaration also looks to be
-missing cf_check - Andrew, was this deliberate?
+I can fix that on commit.
 
-> +void vmx_intr_assist(void);
-> +void noreturn cf_check vmx_do_resume(void);
-> +void cf_check vmx_vlapic_msr_changed(struct vcpu *v);
-> +void vmx_realmode(struct cpu_user_regs *regs);
-> +void vmx_update_debug_state(struct vcpu *v);
-> +void vmx_update_exception_bitmap(struct vcpu *v);
-> +void vmx_update_cpu_exec_control(struct vcpu *v);
-> +void vmx_update_secondary_exec_control(struct vcpu *v);
-> +
-> +#define POSTED_INTR_ON  0
-> +#define POSTED_INTR_SN  1
-> +static inline int pi_test_and_set_pir(uint8_t vector, struct pi_desc *pi_desc)
-
-Nit: Blank line please after the #define-s.
-
-> +{
-> +    return test_and_set_bit(vector, pi_desc->pir);
-> +}
-> +
-> +static inline int pi_test_pir(uint8_t vector, const struct pi_desc *pi_desc)
-> +{
-> +    return test_bit(vector, pi_desc->pir);
-> +}
-> +
-> +static inline int pi_test_and_set_on(struct pi_desc *pi_desc)
-> +{
-> +    return test_and_set_bit(POSTED_INTR_ON, &pi_desc->control);
-> +}
-> +
-> +static inline void pi_set_on(struct pi_desc *pi_desc)
-> +{
-> +    set_bit(POSTED_INTR_ON, &pi_desc->control);
-> +}
-> +
-> +static inline int pi_test_and_clear_on(struct pi_desc *pi_desc)
-> +{
-> +    return test_and_clear_bit(POSTED_INTR_ON, &pi_desc->control);
-> +}
-> +
-> +static inline int pi_test_on(struct pi_desc *pi_desc)
-> +{
-> +    return pi_desc->on;
-> +}
-> +
-> +static inline unsigned long pi_get_pir(struct pi_desc *pi_desc, int group)
-> +{
-> +    return xchg(&pi_desc->pir[group], 0);
-> +}
-> +
-> +static inline int pi_test_sn(struct pi_desc *pi_desc)
-> +{
-> +    return pi_desc->sn;
-> +}
-> +
-> +static inline void pi_set_sn(struct pi_desc *pi_desc)
-> +{
-> +    set_bit(POSTED_INTR_SN, &pi_desc->control);
-> +}
-> +
-> +static inline void pi_clear_sn(struct pi_desc *pi_desc)
-> +{
-> +    clear_bit(POSTED_INTR_SN, &pi_desc->control);
-> +}
-
-Considering all of these are currently used by vmx.c only I wonder whether
-we shouldn't go a step further and put the posted-interrupt stuff in its
-own private header.
-
-> +/*
-> + * Interruption-information format
-> + *
-> + * Note INTR_INFO_NMI_UNBLOCKED_BY_IRET is also used with Exit Qualification
-> + * field for EPT violations, PML full and SPP-related event vmexits.
-> + */
-> +#define INTR_INFO_VECTOR_MASK           0xff            /* 7:0 */
-> +#define INTR_INFO_INTR_TYPE_MASK        0x700           /* 10:8 */
-> +#define INTR_INFO_DELIVER_CODE_MASK     0x800           /* 11 */
-> +#define INTR_INFO_NMI_UNBLOCKED_BY_IRET 0x1000          /* 12 */
-> +#define INTR_INFO_VALID_MASK            0x80000000      /* 31 */
-> +#define INTR_INFO_RESVD_BITS_MASK       0x7ffff000
-> +
-> +/*
-> + * Exit Qualifications for NOTIFY VM EXIT
-> + */
-> +#define NOTIFY_VM_CONTEXT_INVALID       1u
-> +
-> +/*
-> + * Exit Qualifications for MOV for Control Register Access
-> + */
-> +enum {
-> +    VMX_CR_ACCESS_TYPE_MOV_TO_CR,
-> +    VMX_CR_ACCESS_TYPE_MOV_FROM_CR,
-> +    VMX_CR_ACCESS_TYPE_CLTS,
-> +    VMX_CR_ACCESS_TYPE_LMSW,
-> +};
-> +typedef union cr_access_qual {
-
-Nit: Blank line please again above here.
-
-> +    unsigned long raw;
-> +    struct {
-> +        uint16_t cr:4,
-> +                 access_type:2,  /* VMX_CR_ACCESS_TYPE_* */
-> +                 lmsw_op_type:1, /* 0 => reg, 1 => mem   */
-> +                 :1,
-> +                 gpr:4,
-> +                 :4;
-> +        uint16_t lmsw_data;
-> +        uint32_t :32;
-> +    };
-> +} __transparent__ cr_access_qual_t;
-> +
-> +/*
-> + * Access Rights
-> + */
-> +#define X86_SEG_AR_SEG_TYPE     0xf        /* 3:0, segment type */
-> +#define X86_SEG_AR_DESC_TYPE    (1u << 4)  /* 4, descriptor type */
-> +#define X86_SEG_AR_DPL          0x60       /* 6:5, descriptor privilege level */
-> +#define X86_SEG_AR_SEG_PRESENT  (1u << 7)  /* 7, segment present */
-> +#define X86_SEG_AR_AVL          (1u << 12) /* 12, available for system software */
-> +#define X86_SEG_AR_CS_LM_ACTIVE (1u << 13) /* 13, long mode active (CS only) */
-> +#define X86_SEG_AR_DEF_OP_SIZE  (1u << 14) /* 14, default operation size */
-> +#define X86_SEG_AR_GRANULARITY  (1u << 15) /* 15, granularity */
-> +#define X86_SEG_AR_SEG_UNUSABLE (1u << 16) /* 16, segment unusable */
-> +
-> +extern uint8_t posted_intr_vector;
-> +
-> +#define INVEPT_SINGLE_CONTEXT   1
-> +#define INVEPT_ALL_CONTEXT      2
-> +
-> +#define INVVPID_INDIVIDUAL_ADDR                 0
-> +#define INVVPID_SINGLE_CONTEXT                  1
-> +#define INVVPID_ALL_CONTEXT                     2
-> +#define INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 3
-> +
-> +static always_inline void __vmptrld(u64 addr)
-> +{
-> +    asm volatile (
-> +#ifdef HAVE_AS_VMX
-> +                   "vmptrld %0\n"
-> +#else
-> +                   VMPTRLD_OPCODE MODRM_EAX_06
-> +#endif
-> +                   /* CF==1 or ZF==1 --> BUG() */
-> +                   UNLIKELY_START(be, vmptrld)
-> +                   _ASM_BUGFRAME_TEXT(0)
-> +                   UNLIKELY_END_SECTION
-> +                   :
-> +#ifdef HAVE_AS_VMX
-> +                   : "m" (addr),
-> +#else
-> +                   : "a" (&addr),
-> +#endif
-> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
-> +                   : "memory");
-> +}
-> +
-> +static always_inline void __vmpclear(u64 addr)
-> +{
-> +    asm volatile (
-> +#ifdef HAVE_AS_VMX
-> +                   "vmclear %0\n"
-> +#else
-> +                   VMCLEAR_OPCODE MODRM_EAX_06
-> +#endif
-> +                   /* CF==1 or ZF==1 --> BUG() */
-> +                   UNLIKELY_START(be, vmclear)
-> +                   _ASM_BUGFRAME_TEXT(0)
-> +                   UNLIKELY_END_SECTION
-> +                   :
-> +#ifdef HAVE_AS_VMX
-> +                   : "m" (addr),
-> +#else
-> +                   : "a" (&addr),
-> +#endif
-> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
-> +                   : "memory");
-> +}
-> +
-> +static always_inline void __vmwrite(unsigned long field, unsigned long value)
-> +{
-> +    asm volatile (
-> +#ifdef HAVE_AS_VMX
-> +                   "vmwrite %1, %0\n"
-> +#else
-> +                   VMWRITE_OPCODE MODRM_EAX_ECX
-> +#endif
-> +                   /* CF==1 or ZF==1 --> BUG() */
-> +                   UNLIKELY_START(be, vmwrite)
-> +                   _ASM_BUGFRAME_TEXT(0)
-> +                   UNLIKELY_END_SECTION
-> +                   :
-> +#ifdef HAVE_AS_VMX
-> +                   : "r" (field) , "rm" (value),
-> +#else
-> +                   : "a" (field) , "c" (value),
-> +#endif
-> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
-> +        );
-> +}
-> +
-> +
-> +#ifdef HAVE_AS_VMX
-
-Nit: No double blank lines please (there's at least one more instance
-further down).
-
-> +# define GAS_VMX_OP(yes, no) yes
-> +#else
-> +# define GAS_VMX_OP(yes, no) no
-> +#endif
-> +
-> +static inline enum vmx_insn_errno vmread_safe(unsigned long field,
-> +                                              unsigned long *value)
-> +{
-> +    unsigned long ret = VMX_INSN_SUCCEED;
-> +    bool fail_invalid, fail_valid;
-> +
-> +    asm volatile ( GAS_VMX_OP("vmread %[field], %[value]\n\t",
-> +                              VMREAD_OPCODE MODRM_EAX_ECX)
-> +                   ASM_FLAG_OUT(, "setc %[invalid]\n\t")
-> +                   ASM_FLAG_OUT(, "setz %[valid]\n\t")
-> +                   : ASM_FLAG_OUT("=@ccc", [invalid] "=rm") (fail_invalid),
-> +                     ASM_FLAG_OUT("=@ccz", [valid] "=rm") (fail_valid),
-> +                     [value] GAS_VMX_OP("=rm", "=c") (*value)
-> +                   : [field] GAS_VMX_OP("r", "a") (field));
-> +
-> +    if ( unlikely(fail_invalid) )
-> +        ret = VMX_INSN_FAIL_INVALID;
-> +    else if ( unlikely(fail_valid) )
-> +        __vmread(VM_INSTRUCTION_ERROR, &ret);
-> +
-> +    return ret;
-> +}
-> +
-> +static inline enum vmx_insn_errno vmwrite_safe(unsigned long field,
-> +                                               unsigned long value)
-> +{
-> +    unsigned long ret = VMX_INSN_SUCCEED;
-> +    bool fail_invalid, fail_valid;
-> +
-> +    asm volatile ( GAS_VMX_OP("vmwrite %[value], %[field]\n\t",
-> +                              VMWRITE_OPCODE MODRM_EAX_ECX)
-> +                   ASM_FLAG_OUT(, "setc %[invalid]\n\t")
-> +                   ASM_FLAG_OUT(, "setz %[valid]\n\t")
-> +                   : ASM_FLAG_OUT("=@ccc", [invalid] "=rm") (fail_invalid),
-> +                     ASM_FLAG_OUT("=@ccz", [valid] "=rm") (fail_valid)
-> +                   : [field] GAS_VMX_OP("r", "a") (field),
-> +                     [value] GAS_VMX_OP("rm", "c") (value));
-> +
-> +    if ( unlikely(fail_invalid) )
-> +        ret = VMX_INSN_FAIL_INVALID;
-> +    else if ( unlikely(fail_valid) )
-> +        __vmread(VM_INSTRUCTION_ERROR, &ret);
-> +
-> +    return ret;
-> +}
-> +
-> +#undef GAS_VMX_OP
-> +
-> +
-> +static always_inline void __invept(unsigned long type, uint64_t eptp)
-> +{
-> +    struct {
-> +        uint64_t eptp, rsvd;
-> +    } operand = { eptp };
-> +
-> +    /*
-> +     * If single context invalidation is not supported, we escalate to
-> +     * use all context invalidation.
-> +     */
-> +    if ( (type == INVEPT_SINGLE_CONTEXT) &&
-> +         !cpu_has_vmx_ept_invept_single_context )
-> +        type = INVEPT_ALL_CONTEXT;
-> +
-> +    asm volatile (
-> +#ifdef HAVE_AS_EPT
-> +                   "invept %0, %1\n"
-> +#else
-> +                   INVEPT_OPCODE MODRM_EAX_08
-> +#endif
-> +                   /* CF==1 or ZF==1 --> BUG() */
-> +                   UNLIKELY_START(be, invept)
-> +                   _ASM_BUGFRAME_TEXT(0)
-> +                   UNLIKELY_END_SECTION
-> +                   :
-> +#ifdef HAVE_AS_EPT
-> +                   : "m" (operand), "r" (type),
-> +#else
-> +                   : "a" (&operand), "c" (type),
-> +#endif
-> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
-> +                   : "memory" );
-> +}
-> +
-> +static always_inline void __invvpid(unsigned long type, u16 vpid, u64 gva)
-> +{
-> +    struct __packed {
-> +        u64 vpid:16;
-> +        u64 rsvd:48;
-> +        u64 gva;
-> +    }  operand = {vpid, 0, gva};
-
-I don't think __packed is needed here. I wonder if it could be dropped as
-you move the code. In any event, here and elsewhere, u64 -> uint64_t (and
-alike) please.
-
-> +    /* Fix up #UD exceptions which occur when TLBs are flushed before VMXON. */
-> +    asm volatile ( "1: "
-> +#ifdef HAVE_AS_EPT
-> +                   "invvpid %0, %1\n"
-> +#else
-> +                   INVVPID_OPCODE MODRM_EAX_08
-> +#endif
-> +                   /* CF==1 or ZF==1 --> BUG() */
-> +                   UNLIKELY_START(be, invvpid)
-> +                   _ASM_BUGFRAME_TEXT(0)
-> +                   UNLIKELY_END_SECTION "\n"
-> +                   "2:"
-> +                   _ASM_EXTABLE(1b, 2b)
-> +                   :
-> +#ifdef HAVE_AS_EPT
-> +                   : "m" (operand), "r" (type),
-> +#else
-> +                   : "a" (&operand), "c" (type),
-> +#endif
-> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
-> +                   : "memory" );
-> +}
-> +
-> +static inline void ept_sync_all(void)
-> +{
-> +    __invept(INVEPT_ALL_CONTEXT, 0);
-> +}
-> +
-> +static inline void vpid_sync_vcpu_gva(struct vcpu *v, unsigned long gva)
-> +{
-> +    int type = INVVPID_INDIVIDUAL_ADDR;
-> +
-> +    /*
-> +     * If individual address invalidation is not supported, we escalate to
-> +     * use single context invalidation.
-> +     */
-> +    if ( likely(cpu_has_vmx_vpid_invvpid_individual_addr) )
-> +        goto execute_invvpid;
-> +
-> +    type = INVVPID_SINGLE_CONTEXT;
-> +
-> +    /*
-> +     * If single context invalidation is not supported, we escalate to
-> +     * use all context invalidation.
-> +     */
-> +    if ( !cpu_has_vmx_vpid_invvpid_single_context )
-> +        type = INVVPID_ALL_CONTEXT;
-> +
-> +execute_invvpid:
-
-Nit (style): Labels indented by at least one blank please.
-
-> +    __invvpid(type, v->arch.hvm.n1asid.asid, (u64)gva);
-> +}
-> +
-> +static inline void vpid_sync_all(void)
-> +{
-> +    __invvpid(INVVPID_ALL_CONTEXT, 0, 0);
-> +}
-> +
-> +static inline void __vmxoff(void)
-> +{
-> +    asm volatile (
-> +        VMXOFF_OPCODE
-> +        : : : "memory" );
-
-All on a single line perhaps?
-
-> +}
-> +
-> +static inline int __vmxon(u64 addr)
-> +{
-> +    int rc;
-> +
-> +    asm volatile (
-> +        "1: " VMXON_OPCODE MODRM_EAX_06 "\n"
-> +        "   setna %b0 ; neg %0\n" /* CF==1 or ZF==1 --> rc = -1 */
-> +        "2:\n"
-> +        ".section .fixup,\"ax\"\n"
-> +        "3: sub $2,%0 ; jmp 2b\n"    /* #UD or #GP --> rc = -2 */
-> +        ".previous\n"
-> +        _ASM_EXTABLE(1b, 3b)
-> +        : "=q" (rc)
-> +        : "0" (0), "a" (&addr)
-> +        : "memory");
-
-Nit: Missing blank before final parenthesis. Would also be nice if the
-comments lined up.
-
-> +    return rc;
-> +}
-> +
-> +int cf_check vmx_guest_x86_mode(struct vcpu *v);
-> +unsigned int vmx_get_cpl(void);
-> +void vmx_inject_extint(int trap, uint8_t source);
-> +void vmx_inject_nmi(void);
-> +
-> +void update_guest_eip(void);
-> +
-> +void vmx_pi_per_cpu_init(unsigned int cpu);
-> +void vmx_pi_desc_fixup(unsigned int cpu);
-> +
-> +void vmx_sync_exit_bitmap(struct vcpu *v);
-> +
-> +#define APIC_INVALID_DEST           0xffffffff
-> +
-> +/* #VE information page */
-> +typedef struct {
-> +    u32 exit_reason;
-> +    u32 semaphore;
-> +    u64 exit_qualification;
-> +    u64 gla;
-> +    u64 gpa;
-> +    u16 eptp_index;
-> +} ve_info_t;
-> +
-> +/* VM-Exit instruction info for LIDT, LGDT, SIDT, SGDT */
-> +typedef union idt_or_gdt_instr_info {
-> +    unsigned long raw;
-> +    struct {
-> +        unsigned long scaling   :2,  /* bits 0:1 - Scaling */
-> +                                :5,  /* bits 6:2 - Undefined */
-> +        addr_size               :3,  /* bits 9:7 - Address size */
-> +                                :1,  /* bit 10 - Cleared to 0 */
-> +        operand_size            :1,  /* bit 11 - Operand size */
-> +                                :3,  /* bits 14:12 - Undefined */
-> +        segment_reg             :3,  /* bits 17:15 - Segment register */
-> +        index_reg               :4,  /* bits 21:18 - Index register */
-> +        index_reg_invalid       :1,  /* bit 22 - Index register invalid */
-> +        base_reg                :4,  /* bits 26:23 - Base register */
-> +        base_reg_invalid        :1,  /* bit 27 - Base register invalid */
-> +        instr_identity          :1,  /* bit 28 - 0:GDT, 1:IDT */
-> +        instr_write             :1,  /* bit 29 - 0:store, 1:load */
-> +                                :34; /* bits 30:63 - Undefined */
-> +    };
-> +} idt_or_gdt_instr_info_t;
-> +
-> +/* VM-Exit instruction info for LLDT, LTR, SLDT, STR */
-> +typedef union ldt_or_tr_instr_info {
-> +    unsigned long raw;
-> +    struct {
-> +        unsigned long scaling   :2,  /* bits 0:1 - Scaling */
-> +                                :1,  /* bit 2 - Undefined */
-> +        reg1                    :4,  /* bits 6:3 - Reg1 */
-> +        addr_size               :3,  /* bits 9:7 - Address size */
-> +        mem_reg                 :1,  /* bit 10 - Mem/Reg */
-> +                                :4,  /* bits 14:11 - Undefined */
-> +        segment_reg             :3,  /* bits 17:15 - Segment register */
-> +        index_reg               :4,  /* bits 21:18 - Index register */
-> +        index_reg_invalid       :1,  /* bit 22 - Index register invalid */
-> +        base_reg                :4,  /* bits 26:23 - Base register */
-> +        base_reg_invalid        :1,  /* bit 27 - Base register invalid */
-> +        instr_identity          :1,  /* bit 28 - 0:LDT, 1:TR */
-> +        instr_write             :1,  /* bit 29 - 0:store, 1:load */
-> +                                :34; /* bits 31:63 - Undefined */
-> +    };
-> +} ldt_or_tr_instr_info_t;
-
-One file wide remark: I assume you've put things here in the order they
-were in originally. I think it would be nice if some re-arrangement was
-done, e.g. all structures first (unless there's a reason speaking
-against doing so, and of course not including any which are local to
-specific inline functions), then all variable decalarations, all function
-delarations, and finally all inline functions.
-
-Jan
+~Andrew
 
