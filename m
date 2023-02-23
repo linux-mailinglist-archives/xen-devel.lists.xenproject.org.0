@@ -2,65 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03B7B6A0BD8
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Feb 2023 15:26:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.500440.771825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84BA26A0BE1
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Feb 2023 15:29:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.500450.771836 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVCYJ-0006Ih-DN; Thu, 23 Feb 2023 14:26:31 +0000
+	id 1pVCax-0007So-Ug; Thu, 23 Feb 2023 14:29:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 500440.771825; Thu, 23 Feb 2023 14:26:31 +0000
+Received: by outflank-mailman (output) from mailman id 500450.771836; Thu, 23 Feb 2023 14:29:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVCYJ-0006Fo-9A; Thu, 23 Feb 2023 14:26:31 +0000
-Received: by outflank-mailman (input) for mailman id 500440;
- Thu, 23 Feb 2023 14:26:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pVCax-0007Q2-Re; Thu, 23 Feb 2023 14:29:15 +0000
+Received: by outflank-mailman (input) for mailman id 500450;
+ Thu, 23 Feb 2023 14:29:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ERnD=6T=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1pVCYH-0006F5-Re
- for xen-devel@lists.xenproject.org; Thu, 23 Feb 2023 14:26:29 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2060d.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::60d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ee26c73-b386-11ed-a82a-c9ca1d2f71af;
- Thu, 23 Feb 2023 15:26:27 +0100 (CET)
-Received: from AM5PR0701CA0022.eurprd07.prod.outlook.com
- (2603:10a6:203:51::32) by AS8PR08MB7942.eurprd08.prod.outlook.com
- (2603:10a6:20b:53a::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.21; Thu, 23 Feb
- 2023 14:26:22 +0000
-Received: from AM7EUR03FT006.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:203:51:cafe::7e) by AM5PR0701CA0022.outlook.office365.com
- (2603:10a6:203:51::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.17 via Frontend
- Transport; Thu, 23 Feb 2023 14:26:22 +0000
+ id 1pVCaw-0007OA-33
+ for xen-devel@lists.xenproject.org; Thu, 23 Feb 2023 14:29:14 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on20621.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::621])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 717e1334-b386-11ed-88bb-e56d68cac8db;
+ Thu, 23 Feb 2023 15:29:13 +0100 (CET)
+Received: from DB6PR0201CA0039.eurprd02.prod.outlook.com (2603:10a6:4:3f::49)
+ by GV2PR08MB8318.eurprd08.prod.outlook.com (2603:10a6:150:b5::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.19; Thu, 23 Feb
+ 2023 14:29:07 +0000
+Received: from DBAEUR03FT014.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:3f:cafe::e6) by DB6PR0201CA0039.outlook.office365.com
+ (2603:10a6:4:3f::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.19 via Frontend
+ Transport; Thu, 23 Feb 2023 14:29:06 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT006.mail.protection.outlook.com (100.127.141.21) with
+ DBAEUR03FT014.mail.protection.outlook.com (100.127.143.22) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6134.21 via Frontend Transport; Thu, 23 Feb 2023 14:26:22 +0000
-Received: ("Tessian outbound 8038f0863a52:v132");
- Thu, 23 Feb 2023 14:26:21 +0000
-Received: from 4eab9c6ecb50.1
+ 15.20.6134.21 via Frontend Transport; Thu, 23 Feb 2023 14:29:06 +0000
+Received: ("Tessian outbound 43b0faad5a68:v132");
+ Thu, 23 Feb 2023 14:29:06 +0000
+Received: from 0af5b98e6956.2
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- DEE96907-732C-44E2-A93D-BE0E7460D939.1; 
- Thu, 23 Feb 2023 14:26:10 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4eab9c6ecb50.1
+ 3E9C5C9C-BAA7-4CCE-B9D8-33E692F30474.1; 
+ Thu, 23 Feb 2023 14:29:00 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0af5b98e6956.2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 23 Feb 2023 14:26:10 +0000
+ Thu, 23 Feb 2023 14:28:59 +0000
 Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by DB9PR08MB8650.eurprd08.prod.outlook.com (2603:10a6:10:3d2::17)
+ by AM7PR08MB5319.eurprd08.prod.outlook.com (2603:10a6:20b:dc::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.20; Thu, 23 Feb
- 2023 14:26:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.21; Thu, 23 Feb
+ 2023 14:28:47 +0000
 Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
  ([fe80::fca8:db36:98b:b1c4]) by AM6PR08MB3784.eurprd08.prod.outlook.com
  ([fe80::fca8:db36:98b:b1c4%7]) with mapi id 15.20.6134.021; Thu, 23 Feb 2023
- 14:26:06 +0000
+ 14:28:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,12 +72,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ee26c73-b386-11ed-a82a-c9ca1d2f71af
+X-Inumbo-ID: 717e1334-b386-11ed-88bb-e56d68cac8db
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HYV1UllHu+z5OezRdKEkSVtgLGDsGPCpzAw1biBkPAQ=;
- b=TC7xOHzu9BptJSD7t1JteeBHeOIhXMdVtgAhfLPZxG2r6Y8GO43D3ivjuO/F4xGsYyi1Z0WGtOp0fB3zN8XhwvKZn8oI8KJ5wbXPYdCqemeAs+i83xmlXDeP7zOTdR3o1A+4tCJRVyOTIXFIxDO4x5AcnmN+iIYSGQwKrrLMMjc=
+ bh=qlWZk0bqqV6v3CZkxy6QwvlP5s/BWN27HWXK5DTmjM0=;
+ b=8TtczvRAPJC+3ewcpYVnjppkhcFTeVs1C6X6taRBMOKIyYdbdyOgyQ31OSxz13AjKs3MaqukGNmt3nL2+d8kq7m1YXLGceV5C7r62IgsY0xW8wTuMb08ExsuAVzsbY/HLGdW/c8mdJ4DBZmDmtQji+pH7u5T8S/gCiI5eHwkWoM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -86,38 +86,40 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
  pr=C
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: 78048b12f75a9532
+X-CR-MTA-CID: 15ff6a42f3ccae8f
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AaU1ukEK8KyvjeEwXt3JAR+aQFnQb9EX5HUpTjsY+DkfJDbEtbJBjiopWf56EqUYlWApXnQ8LM7XaQ88bLnWZT3BSUzlPc1TJSW8TLv2wUHCDrUpucKANtaXS4CP+2cswr+cg2uyQaWXhHmx6RsO3jlQKVRMXtChlrLcN5NimbL6xrmHr3sNbG8p9/M0lCkDbb0zcCyJv8m7pXBwlW9iG+RCdWN43RQVIPuwsHfbEfTK9+cKGTLJL0UAH9558WA7LjYuUdFJB/6igZJslaspCh436OvcekgHrJb4WsM+9RwZBIyz/K+r307Z6Em+EdSWaNlf2WJc2P/1tWtFqBeITg==
+ b=MRUZy8QBnrJginRRYnL6nICuGnPF/3WMs27lcrTqpIPbpygfX+w0FcJJFSseKIh4laYWEKdP1I1LQuoJxfMr5zCSCYSdWvDXAGZw/On44nYzZpprCnmld1JOWR0HSbybsed2iFhqQhOxEumuT9g9STjhavP/1+rXPJl54iLa3GAL08MwSsJDig1IyWJX+xHBHk9md0Uf8FS/Qrd4hgin3uglMAmcX/QNmaPIsLeZxB8uQ1d/95I3C0VRMAIlsVaVBDEeVsO/mSkal5GfsjZXgUuEnalRpyT0xNnvIMC6c6SAEPUaOa/MiR2kkVpLmBWiRhbvlLtgypWFeYyyC0Os1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HYV1UllHu+z5OezRdKEkSVtgLGDsGPCpzAw1biBkPAQ=;
- b=VDq+KYwoDll7SNJxyDC38O3QeQzuHEsXhnFQhqL6K+ipUhFIOsfpsV9ElkON1TylHAX0oAIwLVockBGJjHUFvxPgdAF2a9EwA6EVp2M/vXCITo2AimswxBrBoi2e8dPezDGI1czxkwzuEGY8mvN1dYBKiVUtyb4SBB4whjNujBVr+DsL1w5DdQHeB+ns2MdlXXMEEMjOZEPyK7taRxAwLMoYqssvaLfSUOh94/FVM0gUEO6cxNLJpBDkHsxZ+FATsz3ohwd7n1DDdoUnPdNulnRcw9JVaKyYMxMjXRsYjWD5OVL5jZAUQmw4HefFNGu1dBiF3VKqidT3cvMAlzL46g==
+ bh=qlWZk0bqqV6v3CZkxy6QwvlP5s/BWN27HWXK5DTmjM0=;
+ b=Vp65RbCJBY2fseNLE2JfPSjJY7VeIcvsZMJAYm9AOCBUMRSDf7Wz0A2/JWRN4JoSo5fjAqkVfzewGqfHiRErUlw8LdrpkrZS0QhcPUW8WflKW9V3dYqU/vrqxqPRuS0KpYMIgwId+rs4U3bt8AQH/Z1aJlcPDUc+t+ih2fvueIPgg8H/8MOXylDyO2XASYYgo/kQtLKGOPq0ZXpu3U3FWfuobYouwnVYbfi8rPo6rZJjQ9NqopDrGeQknqA397e4Uaj1FZkluxVHJTHw37M2p5mWCi35G2Rboykrgzr0aSddulUBVS7AdEeQMymx6vJcZkmZlpWKfG4xMYhKgAu4bw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HYV1UllHu+z5OezRdKEkSVtgLGDsGPCpzAw1biBkPAQ=;
- b=TC7xOHzu9BptJSD7t1JteeBHeOIhXMdVtgAhfLPZxG2r6Y8GO43D3ivjuO/F4xGsYyi1Z0WGtOp0fB3zN8XhwvKZn8oI8KJ5wbXPYdCqemeAs+i83xmlXDeP7zOTdR3o1A+4tCJRVyOTIXFIxDO4x5AcnmN+iIYSGQwKrrLMMjc=
+ bh=qlWZk0bqqV6v3CZkxy6QwvlP5s/BWN27HWXK5DTmjM0=;
+ b=8TtczvRAPJC+3ewcpYVnjppkhcFTeVs1C6X6taRBMOKIyYdbdyOgyQ31OSxz13AjKs3MaqukGNmt3nL2+d8kq7m1YXLGceV5C7r62IgsY0xW8wTuMb08ExsuAVzsbY/HLGdW/c8mdJ4DBZmDmtQji+pH7u5T8S/gCiI5eHwkWoM=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Luca Fancellu
-	<Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>, Julien Grall
-	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v5 2/5] xen/arm64: Rework the memory layout
-Thread-Topic: [PATCH v5 2/5] xen/arm64: Rework the memory layout
-Thread-Index: AQHZMolNKWoO8TApqkilwj+aGDfZ6q7cu74AgAAEqwA=
-Date: Thu, 23 Feb 2023 14:26:06 +0000
-Message-ID: <10C94F78-A46D-48CE-8E6F-90F78153C02F@arm.com>
-References: <20230127195508.2786-1-julien@xen.org>
- <20230127195508.2786-3-julien@xen.org>
- <FCB35FDB-C5BA-44F8-BB4B-BB576D2C4AE4@arm.com>
-In-Reply-To: <FCB35FDB-C5BA-44F8-BB4B-BB576D2C4AE4@arm.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici
+	<Marc.Bonnici@arm.com>, Achin Gupta <Achin.Gupta@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Luca Fancellu <Luca.Fancellu@arm.com>
+Subject: Re: [XEN PATCH v7 01/20] xen/arm: smccc: add support for SMCCCv1.2
+ extended input/output registers
+Thread-Topic: [XEN PATCH v7 01/20] xen/arm: smccc: add support for SMCCCv1.2
+ extended input/output registers
+Thread-Index: AQHZRtMYVVTNOF7qc0qcOVZW1lBMHq7cmJQA
+Date: Thu, 23 Feb 2023 14:28:47 +0000
+Message-ID: <1F99611A-13C1-402A-AED0-5ED40E4E94AF@arm.com>
+References: <cover.1677079671.git.jens.wiklander@linaro.org>
+ <13719ab3736160259ad9245d5d5b5071b8933194.1677079672.git.jens.wiklander@linaro.org>
+In-Reply-To:
+ <13719ab3736160259ad9245d5d5b5071b8933194.1677079672.git.jens.wiklander@linaro.org>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -126,249 +128,233 @@ x-mailer: Apple Mail (2.3731.400.51.1.1)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|DB9PR08MB8650:EE_|AM7EUR03FT006:EE_|AS8PR08MB7942:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47b5b2df-8e16-477e-2f3b-08db15a9eff6
+	AM6PR08MB3784:EE_|AM7PR08MB5319:EE_|DBAEUR03FT014:EE_|GV2PR08MB8318:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81ebd603-91fd-4951-c262-08db15aa51f0
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- QclXPf2QUR9yTCxn7aGK6QWplqsg1qaeSyHpwU3tOZFLCHugDo/59BJrWiewLb+jWXWQ7b/nO8X2CMvJMp2ZHfYI/XOQ1/2XIcA1j0sitQtkxe/EbPK3f/WUzBVlL5dunST4mEfyggqrxVNucXZb5+LbxrH+nfwRLJCXZq9NZKslHyFP2AzDRUbrwVH1oVRXZNrt6KB+MrvELWwH9q/YBs//QHRETcgcEyiNAayc1HxStnxwj3IRu2Jye59sx0W0KNP5L6IYIaW8ZwmiXg+CbxH0o+n7rG72LiyQnbg+9Ea3nSRNqIlCQmn4tqhRH5K7j9N6+MmxsCUZMcwu2jHSfqNOhNyvNSS9ZpFjKrmbo5+Ny/whwQuk1PAM8pMeS+fG8PlZlRdKQGq34tOsDmO0dEHVr4OrjvWpR2kpCTiwYyRJONC33kymm9TXDGAhedxvifRvXg0VzeK/MBpMurxFIDxqTTcERGFhIS//J3197TiBb1PRuVSvq5ZV6kH5pIOZf88WmYa/8zhpt1Es5D3ZzAgUBsJPvKhYC7efKKkECLd9Ksvylz/tKNmxmvMFj6fgB/oamKtScAMUP6ODT+7ZdBcx6O4UvdXEoNWxq9tK6YafhaFhnWSoLvwljzf0zC/HsvhIchjv4W5DCmcZV8TirWIP7tdGB9H7M+XQL2m7KXKyCy6q39CRHAn4qkAyc5mM3JveVsFfhwYeXEdIYpBG7DZOXIiSD9/Ji6DYZFxdimN2chgO3UAuwPSwebNqRqEw94i14n5TTuUoCIASy+/XbZRwyZ4ipVV4Y/PusUIkGYo=
+ CRC0Qmxzx32QHCXkke6toaqjdccBxn7q5JF5Czgcw2xYKatgkR8xYWUsdv09GdFkc4uPYxwQqQJjmXXioBw5vRunmqsNK/PNaEYp0jZLDH9uRHfl736TEslJof1zUAFRZFDc/urzIUaQ8M81hjISrn0L8ujYqKI67FvglM7vi0FtBrYAxWYQQuGMvx+td5qfN6baQZH5xGc86xgkls2lquPEo6CVPxiQDmj32w5AqxkYSVoqK6/HAOoK6oWfI/VxFIekSBniKsaXvVBnWgn4/X/YsCKE55JTsVGzPqGyD1+bUkKFz8AiAFb6/esamHj5LOsmNAszlj4pQiB8N0HMC+NX41gX51HnYA3TNqenI7wHPj9S8MyIcQj9Ma/UjxjEv1i54m2ouHii7+vQlNT7RXbPf2GkpuGeYy4k65uODU0j8nUUPMFajYRHh/IRzdnTFzoAmxXypQeICuwd7nw6qo1Xm88JohTRxiQzzDgu7pt6M7foZzCUFm4T6CAI5PgvkjCtqRpJqW4wdwIpbje/O/okt8Wr84l4U6zhskFLsziskNpvfDvPDOz3+nLBTzBWGEHGhzblzsn8YMglj5OcUmiYfrVuhUvNKYAcvDgZklOmDQyO17QY+8zAb+ihUj3e75CqnkQY11rfLlWOoFeAFoTLruSE1Hp3Kfnq87LKx/x/vzWRt/isRq5keCPql3nhM46ruP5ruosHd+r0RVYMl9wvDyv+/UwFvMMMh1Hs3hM=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(396003)(366004)(136003)(39860400002)(376002)(451199018)(6486002)(76116006)(71200400001)(66556008)(122000001)(6916009)(4326008)(8676002)(66446008)(66476007)(38070700005)(66946007)(64756008)(86362001)(2906002)(41300700001)(91956017)(5660300002)(8936002)(38100700002)(2616005)(316002)(33656002)(54906003)(83380400001)(36756003)(478600001)(26005)(6512007)(6506007)(186003)(53546011)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(39860400002)(376002)(366004)(346002)(396003)(451199018)(6512007)(2906002)(38100700002)(83380400001)(122000001)(38070700005)(91956017)(8936002)(66446008)(8676002)(66556008)(64756008)(4326008)(6916009)(41300700001)(53546011)(76116006)(66946007)(5660300002)(66476007)(36756003)(71200400001)(478600001)(6506007)(186003)(26005)(2616005)(6486002)(86362001)(316002)(33656002)(54906003)(966005)(45980500001);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <4A7A0B213CD1CF438E40FFCCCE4DBA7D@eurprd08.prod.outlook.com>
+Content-ID: <33E646BCAB50944EACBEFF0E437CE431@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB8650
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR08MB5319
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT006.eop-EUR03.prod.protection.outlook.com
+ DBAEUR03FT014.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	c45304d5-3fef-4507-86df-08db15a9e6bf
+	a6d20426-17a5-4c0a-31c9-08db15aa4664
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	guIUi2GKxJmPMiFBce0CTjkBz8D3oKJg4NNR0hhVu6fxlUJ1XmScI5q8FXgjkbXoz5xF9QKT2iCJaC4KRV8pbOefCSME3d36YxtQZM5n0QZ1H4SEvaJCHQS2h9kaja+s4NRB25A7JANYBmvTvn5CW0jI6XNXQTW3SQQFGXC58fNaXQEMj5bEDHLBTRkM3b7mc21Y9J1KSReSfrz+1ocFVVEZSSXq0KPS9y5AA4f5wj9g2U4t+lAf8a16ZnX31ZP/Ch40dYOcHq6qJk+NtBJJraQDLpDgCx4TuIq5tLyLTQ9cvzQUkFydWOgu8XOjurpj8gVxl/uwizNp16764apBTov2X6/l3rOEnNSX/vvoJmyvuNM/fcHPoXQWWYs3n4JxiSHVzwjCO+SHkwyNK4Us7Fy5IEzhMIU/vG7VWkRw3LsVsuUmR6iaYcCrM4tKZlLtDpRNtTCroA7X+aJI4R9uJBbZ+Qjf78fvc71Polvqwb6uXa9PXZmk/tErTjCt4QzgOwrEU0SztSQqCG4tzNXYT6/yn5/JW7CElIX1qg5kLdn3sQtkM4XK6Vd+ypIajvydXiU0tCt71vt6UoidAqSbvwlmiazVTwZqq8N/eoXd3iKPmqCXfVxKosmPrbsKyx2KqEor4KRb/gezXqDY1Q6VDl8w40zsHCt5G9xoFzqufKqNF44LLN/Su9KGm4lMXSnwQjwtp/qgtsCogBpK68GyUA==
+	Ri7abhdZ5YgyJptnjimBY7KnJySoHWxvUojh1E7APpLx0qzar9OtYKzYANU3yabAOHnWm7jYVibo6bE/r6TqxI4N226K0bAGx4mRfKg0zi9QL4FuVNSk/ORDuJLvQMjegS/KeX0B2Y5fbilmcCROAOCUwFrxI6b31r2EbksCgMcMgSAnXxG3u/O0e5c8q3nMI0qxqK8HxMd3yKoUNr3Hy9sC54/NuiwPTDk2uRlcXJmYO7tMeXE20CcOGeS+fF3+3wKBcq3s2wOCId+DZ/8NXOih2kRrY4mZkN4+tMaO2fm/EmfNLZOVtfWKYoo5jSCz3l0OOvaxHNGala2K1E0RGvwKrtrL+eLEKVT//kKTgbqw5XGjzEaxAbE4LyrQEoNml0RhIBOwvpRw59+kgZRNdZ1e/jlyKz5bbizT2QiDNkcv3ikx7hBWCZYpOZVz7GKX9+HW3+u9uIcppvULywkNSUIQ8nY20bGF+F//ztHzxcUeZqkMvHOvjmSq0RjqZ31h0x++MWS4teP/hIFdWkeRou1dAqda58HhdyFnJhKhilP/CBr1TZmeh6urG5wxOLUg/1J18WtbG/2MUO4kDOF6zdpEWEnQyIOZw3s8Yttbo7rwgmWG4iYJxnapGF9fwPwQ83LtAhL2XIRSw+5sl9CeJ/3u93z2NZY8GDZN3/GmEs+r4yZlp3MK03Hmco6V7mQI
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(396003)(39860400002)(136003)(451199018)(46966006)(36840700001)(40470700004)(2616005)(26005)(5660300002)(6512007)(186003)(8936002)(40460700003)(6486002)(6862004)(6506007)(336012)(53546011)(4326008)(47076005)(107886003)(83380400001)(356005)(36756003)(82310400005)(40480700001)(81166007)(478600001)(8676002)(82740400003)(41300700001)(2906002)(70206006)(70586007)(36860700001)(33656002)(316002)(86362001)(54906003);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199018)(36840700001)(46966006)(40470700004)(6486002)(47076005)(83380400001)(478600001)(2906002)(36756003)(5660300002)(6512007)(86362001)(966005)(41300700001)(8936002)(6862004)(53546011)(82310400005)(33656002)(81166007)(36860700001)(356005)(186003)(26005)(2616005)(336012)(40480700001)(54906003)(6506007)(316002)(8676002)(82740400003)(4326008)(70586007)(40460700003)(70206006);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2023 14:26:22.1664
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2023 14:29:06.6257
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47b5b2df-8e16-477e-2f3b-08db15a9eff6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81ebd603-91fd-4951-c262-08db15aa51f0
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT006.eop-EUR03.prod.protection.outlook.com
+	DBAEUR03FT014.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7942
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB8318
 
+Hi Jens,
 
-
-> On 23 Feb 2023, at 15:09, Bertrand Marquis <Bertrand.Marquis@arm.com> wro=
-te:
+> On 22 Feb 2023, at 16:32, Jens Wiklander <jens.wiklander@linaro.org> wrot=
+e:
 >=20
-> Hi Julien,
+> SMCCC v1.2 [1] AArch64 allows x0-x17 to be used as both parameter
+> registers and result registers for the SMC and HVC instructions.
 >=20
->> On 27 Jan 2023, at 20:55, Julien Grall <julien@xen.org> wrote:
->>=20
->> From: Julien Grall <jgrall@amazon.com>
->>=20
->> Xen is currently not fully compliant with the Arm Arm because it will
->> switch the TTBR with the MMU on.
->>=20
->> In order to be compliant, we need to disable the MMU before
->> switching the TTBR. The implication is the page-tables should
->> contain an identity mapping of the code switching the TTBR.
->>=20
->> In most of the case we expect Xen to be loaded in low memory. I am aware
->> of one platform (i.e AMD Seattle) where the memory start above 512GB.
->> To give us some slack, consider that Xen may be loaded in the first 2TB
->> of the physical address space.
->>=20
->> The memory layout is reshuffled to keep the first four slots of the zero=
-eth
->> level free. Xen will now be loaded at (2TB + 2MB). This requires a sligh=
-t
->> tweak of the boot code because XEN_VIRT_START cannot be used as an
->> immediate.
->>=20
->> This reshuffle will make trivial to create a 1:1 mapping when Xen is
->> loaded below 2TB.
->>=20
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
->> Tested-by: Luca Fancellu <luca.fancellu@arm.com>
->> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> Arm Firmware Framework for Armv8-A specification makes use of x0-x7 as
+> parameter and result registers.
 >=20
-> With the finding for the comparison to 4 and not 2 found by Michal fixed:
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com <mailto:bertrand.=
-marquis@arm.com>>
-
-Sorry for that:
+> Let us add new interface to support this extended set of input/output
+> registers.
+>=20
+> This is based on 3fdc0cb59d97 ("arm64: smccc: Add support for SMCCCv1.2
+> extended input/output registers") by Sudeep Holla from the Linux kernel
+>=20
+> The SMCCC version reported to the VM is bumped to 1.2 in order to support
+> handling FF-A messages.
+>=20
+> [1] https://developer.arm.com/documentation/den0028/c/?lang=3Den
+>=20
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
 
 Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
 Cheers
 Bertrand
 
+> ---
+> xen/arch/arm/arm64/asm-offsets.c |  9 +++++++
+> xen/arch/arm/arm64/smc.S         | 42 ++++++++++++++++++++++++++++++++
+> xen/arch/arm/include/asm/smccc.h | 40 ++++++++++++++++++++++++++++++
+> xen/arch/arm/vsmc.c              |  2 +-
+> 4 files changed, 92 insertions(+), 1 deletion(-)
 >=20
-> Cheers
-> Bertrand
+> diff --git a/xen/arch/arm/arm64/asm-offsets.c b/xen/arch/arm/arm64/asm-of=
+fsets.c
+> index 7226cd9b2eb0..7adb67a1b81a 100644
+> --- a/xen/arch/arm/arm64/asm-offsets.c
+> +++ b/xen/arch/arm/arm64/asm-offsets.c
+> @@ -57,6 +57,15 @@ void __dummy__(void)
+>    BLANK();
+>    OFFSET(SMCCC_RES_a0, struct arm_smccc_res, a0);
+>    OFFSET(SMCCC_RES_a2, struct arm_smccc_res, a2);
+> +   OFFSET(ARM_SMCCC_1_2_REGS_X0_OFFS, struct arm_smccc_1_2_regs, a0);
+> +   OFFSET(ARM_SMCCC_1_2_REGS_X2_OFFS, struct arm_smccc_1_2_regs, a2);
+> +   OFFSET(ARM_SMCCC_1_2_REGS_X4_OFFS, struct arm_smccc_1_2_regs, a4);
+> +   OFFSET(ARM_SMCCC_1_2_REGS_X6_OFFS, struct arm_smccc_1_2_regs, a6);
+> +   OFFSET(ARM_SMCCC_1_2_REGS_X8_OFFS, struct arm_smccc_1_2_regs, a8);
+> +   OFFSET(ARM_SMCCC_1_2_REGS_X10_OFFS, struct arm_smccc_1_2_regs, a10);
+> +   OFFSET(ARM_SMCCC_1_2_REGS_X12_OFFS, struct arm_smccc_1_2_regs, a12);
+> +   OFFSET(ARM_SMCCC_1_2_REGS_X14_OFFS, struct arm_smccc_1_2_regs, a14);
+> +   OFFSET(ARM_SMCCC_1_2_REGS_X16_OFFS, struct arm_smccc_1_2_regs, a16);
+> }
 >=20
->>=20
->> ---
->>   Changes in v5:
->>       - We are reserving 4 slots rather than 2.
->>       - Fix the addresses in the layout comment.
->>       - Fix the size of the region in the layout comment
->>       - Add Luca's tested-by (the reviewed-by was not added
->>         because of the changes requested by Michal
->>       - Add Michal's reviewed-by
->>=20
->>   Changes in v4:
->>       - Correct the documentation
->>       - The start address is 2TB, so slot0 is 4 not 2.
->>=20
->>   Changes in v2:
->>       - Reword the commit message
->>       - Load Xen at 2TB + 2MB
->>       - Update the documentation to reflect the new layout
->> ---
->> xen/arch/arm/arm64/head.S         |  3 ++-
->> xen/arch/arm/include/asm/config.h | 34 +++++++++++++++++++++----------
->> xen/arch/arm/mm.c                 | 11 +++++-----
->> 3 files changed, 31 insertions(+), 17 deletions(-)
->>=20
->> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
->> index 4a3f87117c83..663f5813b12e 100644
->> --- a/xen/arch/arm/arm64/head.S
->> +++ b/xen/arch/arm/arm64/head.S
->> @@ -607,7 +607,8 @@ create_page_tables:
->>         * need an additional 1:1 mapping, the virtual mapping will
->>         * suffice.
->>         */
->> -        cmp   x19, #XEN_VIRT_START
->> +        ldr   x0, =3DXEN_VIRT_START
->> +        cmp   x19, x0
->>        bne   1f
->>        ret
->> 1:
->> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/as=
-m/config.h
->> index 5df0e4c4959b..e388462c23d1 100644
->> --- a/xen/arch/arm/include/asm/config.h
->> +++ b/xen/arch/arm/include/asm/config.h
->> @@ -72,16 +72,13 @@
->> #include <xen/page-size.h>
->>=20
->> /*
->> - * Common ARM32 and ARM64 layout:
->> + * ARM32 layout:
->> *   0  -   2M   Unmapped
->> *   2M -   4M   Xen text, data, bss
->> *   4M -   6M   Fixmap: special-purpose 4K mapping slots
->> *   6M -  10M   Early boot mapping of FDT
->> *   10M - 12M   Livepatch vmap (if compiled in)
->> *
->> - * ARM32 layout:
->> - *   0  -  12M   <COMMON>
->> - *
->> *  32M - 128M   Frametable: 32 bytes per page for 12GB of RAM
->> * 256M -   1G   VMAP: ioremap and early_ioremap use this virtual address
->> *                    space
->> @@ -90,14 +87,23 @@
->> *   2G -   4G   Domheap: on-demand-mapped
->> *
->> * ARM64 layout:
->> - * 0x0000000000000000 - 0x0000007fffffffff (512GB, L0 slot [0])
->> - *   0  -  12M   <COMMON>
->> + * 0x0000000000000000 - 0x000001ffffffffff (2TB, L0 slots [0..3])
->> + *
->> + *  Reserved to identity map Xen
->> + *
->> + * 0x0000020000000000 - 0x0000027fffffffff (512GB, L0 slot [4]
->> + *  (Relative offsets)
->> + *   0  -   2M   Unmapped
->> + *   2M -   4M   Xen text, data, bss
->> + *   4M -   6M   Fixmap: special-purpose 4K mapping slots
->> + *   6M -  10M   Early boot mapping of FDT
->> + *  10M -  12M   Livepatch vmap (if compiled in)
->> *
->> *   1G -   2G   VMAP: ioremap and early_ioremap
->> *
->> *  32G -  64G   Frametable: 56 bytes per page for 2TB of RAM
->> *
->> - * 0x0000008000000000 - 0x00007fffffffffff (127.5TB, L0 slots [1..255])
->> + * 0x0000028000000000 - 0x00007fffffffffff (125TB, L0 slots [5..255])
->> *  Unused
->> *
->> * 0x0000800000000000 - 0x000084ffffffffff (5TB, L0 slots [256..265])
->> @@ -107,7 +113,17 @@
->> *  Unused
->> */
->>=20
->> +#ifdef CONFIG_ARM_32
->> #define XEN_VIRT_START          _AT(vaddr_t, MB(2))
->> +#else
->> +
->> +#define SLOT0_ENTRY_BITS  39
->> +#define SLOT0(slot) (_AT(vaddr_t,slot) << SLOT0_ENTRY_BITS)
->> +#define SLOT0_ENTRY_SIZE  SLOT0(1)
->> +
->> +#define XEN_VIRT_START          (SLOT0(4) + _AT(vaddr_t, MB(2)))
->> +#endif
->> +
->> #define XEN_VIRT_SIZE           _AT(vaddr_t, MB(2))
->>=20
->> #define FIXMAP_VIRT_START       (XEN_VIRT_START + XEN_VIRT_SIZE)
->> @@ -163,10 +179,6 @@
->>=20
->> #else /* ARM_64 */
->>=20
->> -#define SLOT0_ENTRY_BITS  39
->> -#define SLOT0(slot) (_AT(vaddr_t,slot) << SLOT0_ENTRY_BITS)
->> -#define SLOT0_ENTRY_SIZE  SLOT0(1)
->> -
->> #define VMAP_VIRT_START  GB(1)
->> #define VMAP_VIRT_SIZE   GB(1)
->>=20
->> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
->> index f758cad545fa..0b0edf28d57a 100644
->> --- a/xen/arch/arm/mm.c
->> +++ b/xen/arch/arm/mm.c
->> @@ -153,7 +153,7 @@ static void __init __maybe_unused build_assertions(v=
-oid)
->> #endif
->>    /* Page table structure constraints */
->> #ifdef CONFIG_ARM_64
->> -    BUILD_BUG_ON(zeroeth_table_offset(XEN_VIRT_START));
->> +    BUILD_BUG_ON(zeroeth_table_offset(XEN_VIRT_START) < 2);
->> #endif
->>    BUILD_BUG_ON(first_table_offset(XEN_VIRT_START));
->> #ifdef CONFIG_ARCH_MAP_DOMAIN_PAGE
->> @@ -496,10 +496,11 @@ void __init setup_pagetables(unsigned long boot_ph=
-ys_offset)
->>    phys_offset =3D boot_phys_offset;
->>=20
->> #ifdef CONFIG_ARM_64
->> -    p =3D (void *) xen_pgtable;
->> -    p[0] =3D pte_of_xenaddr((uintptr_t)xen_first);
->> -    p[0].pt.table =3D 1;
->> -    p[0].pt.xn =3D 0;
->> +    pte =3D pte_of_xenaddr((uintptr_t)xen_first);
->> +    pte.pt.table =3D 1;
->> +    pte.pt.xn =3D 0;
->> +    xen_pgtable[zeroeth_table_offset(XEN_VIRT_START)] =3D pte;
->> +
->>    p =3D (void *) xen_first;
->> #else
->>    p =3D (void *) cpu0_pgtable;
->> --=20
->> 2.38.1
-
+> /*
+> diff --git a/xen/arch/arm/arm64/smc.S b/xen/arch/arm/arm64/smc.S
+> index 91bae62dd4d2..fc6b676e2ee3 100644
+> --- a/xen/arch/arm/arm64/smc.S
+> +++ b/xen/arch/arm/arm64/smc.S
+> @@ -27,3 +27,45 @@ ENTRY(__arm_smccc_1_0_smc)
+>         stp     x2, x3, [x4, #SMCCC_RES_a2]
+> 1:
+>         ret
+> +
+> +/*
+> + * void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
+> + *                        struct arm_smccc_1_2_regs *res)
+> + */
+> +ENTRY(arm_smccc_1_2_smc)
+> +    /* Save `res` and free a GPR that won't be clobbered by SMC call */
+> +    stp     x1, x19, [sp, #-16]!
+> +
+> +    /* Ensure `args` won't be clobbered while loading regs in next step =
+*/
+> +    mov x19, x0
+> +
+> +    /* Load the registers x0 - x17 from the struct arm_smccc_1_2_regs */
+> +    ldp x0, x1, [x19, #ARM_SMCCC_1_2_REGS_X0_OFFS]
+> +    ldp x2, x3, [x19, #ARM_SMCCC_1_2_REGS_X2_OFFS]
+> +    ldp x4, x5, [x19, #ARM_SMCCC_1_2_REGS_X4_OFFS]
+> +    ldp x6, x7, [x19, #ARM_SMCCC_1_2_REGS_X6_OFFS]
+> +    ldp x8, x9, [x19, #ARM_SMCCC_1_2_REGS_X8_OFFS]
+> +    ldp x10, x11, [x19, #ARM_SMCCC_1_2_REGS_X10_OFFS]
+> +    ldp x12, x13, [x19, #ARM_SMCCC_1_2_REGS_X12_OFFS]
+> +    ldp x14, x15, [x19, #ARM_SMCCC_1_2_REGS_X14_OFFS]
+> +    ldp x16, x17, [x19, #ARM_SMCCC_1_2_REGS_X16_OFFS]
+> +
+> +    smc #0
+> +
+> +    /* Load the `res` from the stack */
+> +    ldr x19, [sp]
+> +
+> +    /* Store the registers x0 - x17 into the result structure */
+> +    stp x0, x1, [x19, #ARM_SMCCC_1_2_REGS_X0_OFFS]
+> +    stp x2, x3, [x19, #ARM_SMCCC_1_2_REGS_X2_OFFS]
+> +    stp x4, x5, [x19, #ARM_SMCCC_1_2_REGS_X4_OFFS]
+> +    stp x6, x7, [x19, #ARM_SMCCC_1_2_REGS_X6_OFFS]
+> +    stp x8, x9, [x19, #ARM_SMCCC_1_2_REGS_X8_OFFS]
+> +    stp x10, x11, [x19, #ARM_SMCCC_1_2_REGS_X10_OFFS]
+> +    stp x12, x13, [x19, #ARM_SMCCC_1_2_REGS_X12_OFFS]
+> +    stp x14, x15, [x19, #ARM_SMCCC_1_2_REGS_X14_OFFS]
+> +    stp x16, x17, [x19, #ARM_SMCCC_1_2_REGS_X16_OFFS]
+> +
+> +    /* Restore original x19 */
+> +    ldp     xzr, x19, [sp], #16
+> +    ret
+> diff --git a/xen/arch/arm/include/asm/smccc.h b/xen/arch/arm/include/asm/=
+smccc.h
+> index b3dbeecc90ad..1adcd37443c7 100644
+> --- a/xen/arch/arm/include/asm/smccc.h
+> +++ b/xen/arch/arm/include/asm/smccc.h
+> @@ -33,6 +33,7 @@
+>=20
+> #define ARM_SMCCC_VERSION_1_0   SMCCC_VERSION(1, 0)
+> #define ARM_SMCCC_VERSION_1_1   SMCCC_VERSION(1, 1)
+> +#define ARM_SMCCC_VERSION_1_2   SMCCC_VERSION(1, 2)
+>=20
+> /*
+>  * This file provides common defines for ARM SMC Calling Convention as
+> @@ -265,6 +266,45 @@ void __arm_smccc_1_0_smc(register_t a0, register_t a=
+1, register_t a2,
+>         else                                                    \
+>             arm_smccc_1_0_smc(__VA_ARGS__);                     \
+>     } while ( 0 )
+> +
+> +/*
+> + * struct arm_smccc_1_2_regs - Arguments for or Results from SMC call
+> + * @a0-a17 argument values from registers 0 to 17
+> + */
+> +struct arm_smccc_1_2_regs {
+> +    unsigned long a0;
+> +    unsigned long a1;
+> +    unsigned long a2;
+> +    unsigned long a3;
+> +    unsigned long a4;
+> +    unsigned long a5;
+> +    unsigned long a6;
+> +    unsigned long a7;
+> +    unsigned long a8;
+> +    unsigned long a9;
+> +    unsigned long a10;
+> +    unsigned long a11;
+> +    unsigned long a12;
+> +    unsigned long a13;
+> +    unsigned long a14;
+> +    unsigned long a15;
+> +    unsigned long a16;
+> +    unsigned long a17;
+> +};
+> +
+> +/*
+> + * arm_smccc_1_2_smc() - make SMC calls
+> + * @args: arguments passed via struct arm_smccc_1_2_regs
+> + * @res: result values via struct arm_smccc_1_2_regs
+> + *
+> + * This function is used to make SMC calls following SMC Calling Convent=
+ion
+> + * v1.2 or above. The content of the supplied param are copied from the
+> + * structure to registers prior to the SMC instruction. The return value=
+s
+> + * are updated with the content from registers on return from the SMC
+> + * instruction.
+> + */
+> +void arm_smccc_1_2_smc(const struct arm_smccc_1_2_regs *args,
+> +                       struct arm_smccc_1_2_regs *res);
+> #endif /* CONFIG_ARM_64 */
+>=20
+> #endif /* __ASSEMBLY__ */
+> diff --git a/xen/arch/arm/vsmc.c b/xen/arch/arm/vsmc.c
+> index 7335276f3fa1..cd68fa80e98a 100644
+> --- a/xen/arch/arm/vsmc.c
+> +++ b/xen/arch/arm/vsmc.c
+> @@ -85,7 +85,7 @@ static bool handle_arch(struct cpu_user_regs *regs)
+>     switch ( fid )
+>     {
+>     case ARM_SMCCC_VERSION_FID:
+> -        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_1);
+> +        set_user_reg(regs, 0, ARM_SMCCC_VERSION_1_2);
+>         return true;
+>=20
+>     case ARM_SMCCC_ARCH_FEATURES_FID:
+> --=20
+> 2.34.1
+>=20
 
 
