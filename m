@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 893A06A1E94
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 16:31:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.501202.772849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5A16A1EA6
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 16:35:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.501210.772859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVa2l-0007ez-2u; Fri, 24 Feb 2023 15:31:31 +0000
+	id 1pVa6U-0008Jm-M8; Fri, 24 Feb 2023 15:35:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 501202.772849; Fri, 24 Feb 2023 15:31:31 +0000
+Received: by outflank-mailman (output) from mailman id 501210.772859; Fri, 24 Feb 2023 15:35:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVa2k-0007bj-Vw; Fri, 24 Feb 2023 15:31:30 +0000
-Received: by outflank-mailman (input) for mailman id 501202;
- Fri, 24 Feb 2023 15:31:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pVa6U-0008HQ-J9; Fri, 24 Feb 2023 15:35:22 +0000
+Received: by outflank-mailman (input) for mailman id 501210;
+ Fri, 24 Feb 2023 15:35:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U2EX=6U=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
- id 1pVa2j-0007bd-Gb
- for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 15:31:29 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4dad0dbd-b458-11ed-a82a-c9ca1d2f71af;
- Fri, 24 Feb 2023 16:31:27 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id h14so5643107wru.4
- for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 07:31:27 -0800 (PST)
-Received: from horizon ([2a01:e0a:257:8c60:48e5:bfa:d652:b8ef])
+ <SRS0=SyF0=6U=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1pVa6S-0008HK-BT
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 15:35:20 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d8031373-b458-11ed-88bb-e56d68cac8db;
+ Fri, 24 Feb 2023 16:35:19 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id ck15so57515502edb.0
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 07:35:19 -0800 (PST)
+Received: from EPUAKYIW03DD.. ([91.123.150.38])
  by smtp.gmail.com with ESMTPSA id
- n9-20020a5d4c49000000b002c54536c662sm13066801wrt.34.2023.02.24.07.31.25
+ kg19-20020a17090776f300b008be0b7242d5sm8441360ejc.90.2023.02.24.07.35.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Feb 2023 07:31:25 -0800 (PST)
+ Fri, 24 Feb 2023 07:35:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,239 +44,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4dad0dbd-b458-11ed-a82a-c9ca1d2f71af
+X-Inumbo-ID: d8031373-b458-11ed-88bb-e56d68cac8db
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=ZV5C0hVPYC0aBKYitXuskCf1e0ZV+iPaAkzufBrwV78=;
-        b=bUs9rI57R7lETZvlexfoMYqFcthg+BP9KjLRVlfr8m9O4jPRkDWbpR6GrT1PHtyp4H
-         SOuq72nNfwoJ75aVCnyG4tdLak4uaL9HLHVl+l+nyENG5snmRuRJlxAyT1xTQlajRoyS
-         iv9ixqUlywGoy1HHsqoFNO/1jvVW4ZxWqM/eWGxrAGqD21HuJ10ItwmdaOMVPDjyD61z
-         4qCPZei9hgzlYBw1xWaI2j0N+jXaL38aUc3l3yP5XyjhxP2CScQsMAJvuQxhNN4oUpQf
-         lvWtw23iisvpE6QXkdo0bX+06h2Us2lV5Saf6WnsTaHjCl69QymH/yz2mS4aUxOX83QW
-         f3LA==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VzbLUEUjtY0tsDWNS62Tcb+S81iHP1D44kGH0OHXbkA=;
+        b=UUW2cNQxQ9wiI1y1uEIiov8/aAn6pQQMVXzfBkhJVbnD02igAWyzWePL5TL0KIpFXc
+         f06QP9Z9KFOrAD5Ctv6w7WEt4EpGTRp7azcZPWKRgRcy7Rq6bww9dx6TUNU5NGO2rgjk
+         yo4aNdOesMKZr3LRk9rjWzwFngPGaCK+rpUGcmZndXmJb/SCuTPWMP987JyoGPrq687s
+         ZVdvsxSaXkI4Dq/rU97CmzGR6MHk9vwsst50gUNty8yu/Rf8o86l8jy2Z4iYWyKTLm2+
+         qmsbKn9RXvDBmUJKNNwq8NfnVSmnAykvHSw/wUNDR0l1tseozRwukyc+jIcN3OqCKJFh
+         W4xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZV5C0hVPYC0aBKYitXuskCf1e0ZV+iPaAkzufBrwV78=;
-        b=HF7xvNPq4r7BDCfcRc9kkRwGzjNRBrLk9K79lWJB2u4YZ5r6fHsysHrMX6zCb773UR
-         u+N6h/f5pDBM5+nn9FDJ/NgYx0uConzR3eMJdyuxxyY3OA24Gv744sUKUFJleD60+uoN
-         R9VJp+VHmUX16isUfCjKoUKAmEzFJUFKo4wwBjsR7p9aAS4CTVf/7MSQwKuYqkdnVGEU
-         m5HoJEkHLWcOyWqNudnRORPDjUfZ9myKY8U52UkH/X8fdwwQOw2KApLSTM1C9EVSq2M2
-         a5ZrjrORg+hPPTTfuiyYZWf7KC/J3BdNqnlxI41nXTkNL4sVEssFQAMYgRWFcFjNv6H+
-         Ztpw==
-X-Gm-Message-State: AO0yUKU0wgX2wGBJKiskEgdB+FVf4BUWZPHUKzX1ylpvp8U0HSGjT8OE
-	3FOFasnQ2ic49+b74jDV8Mg=
-X-Google-Smtp-Source: AK7set/Np1CirXs68TrXcIO5r9v7owhi/BkPczCCiv337bPpwNzV1c9xKda0dwqXrgIiYO3IFX1zGg==
-X-Received: by 2002:a5d:4e47:0:b0:2c8:840:26ea with SMTP id r7-20020a5d4e47000000b002c8084026eamr824217wrt.12.1677252686447;
-        Fri, 24 Feb 2023 07:31:26 -0800 (PST)
-Date: Fri, 24 Feb 2023 16:31:23 +0100
-From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [RFC PATCH v2 2/2] tools/misc: Add xen-vcpus-stats tool
-Message-ID: <20230224153123.GA3764964@horizon>
-References: <cover.1665138677.git.matias.vara@vates.fr>
- <df706d6dcfba965909d776dda163fdb261d1a0ea.1665138677.git.matias.vara@vates.fr>
- <f71bbf79-e452-f2d6-58f9-0f2cf019c7b6@citrix.com>
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=VzbLUEUjtY0tsDWNS62Tcb+S81iHP1D44kGH0OHXbkA=;
+        b=gNwM13qojWkzyD+4jmmpniF3BH3CaKWpJHsmg8gPSZakKNUsSiyYSvelzipPBr3C98
+         Ha5JciJ8niw1r6hs/SFUEbJlswUBe7mI76IBWzqlY9PEP92xMyUilKyaNp1EOADuUQnK
+         fTKAb+pQhzi5zWQqEpIlhPA7ettHO9RhvuJ3pQ9SrCoxxh/rDBAXkwD1OG1HnwfcIpVR
+         uHxXcdqqO1gnBokT/NN0VumQKJNCWP0G7NcfcNIrMPIu89+49SuJJc0jTmmVfM7eXEjE
+         1W+OY97BgX5GzB8knPhWXqXLBkIId+3qhfJJFgbmIi0x8dj6dxry2/EhfEd6S1AW+ny4
+         f8HA==
+X-Gm-Message-State: AO0yUKWb6nwwiBKGC+S0CgBnyLb6Ua0RuDmBS+42GKfewmigC/pZEsxd
+	Yro/JFfgmWTmA3jGFi6W6owmRfmb+3I=
+X-Google-Smtp-Source: AK7set9QwwaNgb3OunBObQ+DvB0YGMDXoLNPjUGf1qbnK8dvMDVSCNC8+t8Bu3sMBeMmTuUP+/sN9w==
+X-Received: by 2002:a17:907:1612:b0:8e4:86ed:7203 with SMTP id hb18-20020a170907161200b008e486ed7203mr144549ejc.11.1677252918233;
+        Fri, 24 Feb 2023 07:35:18 -0800 (PST)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux-foundation.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	David Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] drm/virtio: Pass correct device to dma_sync_sgtable_for_device()
+Date: Fri, 24 Feb 2023 17:34:50 +0200
+Message-Id: <20230224153450.526222-1-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f71bbf79-e452-f2d6-58f9-0f2cf019c7b6@citrix.com>
 
-Hello Andrew and thanks for the comments,
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-On Thu, Feb 23, 2023 at 04:01:09PM +0000, Andrew Cooper wrote:
-> On 07/10/2022 1:39 pm, Matias Ezequiel Vara Larsen wrote:
-> 
-> A couple of observations, all unrelated to the stats themselves.
-> 
-> Although overall, I'm not entirely certain that a tool like this is
-> going to be very helpful after initial development.  Something to
-> consider would be to alter libxenstat to use this new interface?
-> 
+The "vdev->dev.parent" should be used instead of "vdev->dev" as a device
+for which to perform the DMA operation in both
+virtio_gpu_cmd_transfer_to_host_2d(3d).
 
-Yes. We discussed about this in a design sesion at the summit. I could not move
-forward on that direction yet but it is the right way to go. I use this tool
-only to play with the interface and I could just remove it from the RFC in next
-versions.
+Because the virtio-gpu device "vdev->dev" doesn't really have DMA OPS
+assigned to it, but parent (virtio-pci or virtio-mmio) device
+"vdev->dev.parent" has. The more, the sgtable in question the code is
+trying to sync here was mapped for the parent device (by using its DMA OPS)
+previously at:
+virtio_gpu_object_shmem_init()->drm_gem_shmem_get_pages_sgt()->
+dma_map_sgtable(), so should be synced here for the same parent device.
 
-> > diff --git a/tools/misc/Makefile b/tools/misc/Makefile
-> > index 2b683819d4..837e4b50da 100644
-> > --- a/tools/misc/Makefile
-> > +++ b/tools/misc/Makefile
-> > @@ -49,6 +49,7 @@ TARGETS_COPY += xenpvnetboot
-> >
-> > # Everything which needs to be built
-> > TARGETS_BUILD := $(filter-out $(TARGETS_COPY),$(TARGETS_ALL))
-> > +TARGETS_BUILD += xen-vcpus-stats
-> 
-> This patch is whitespace corrupted.  If at all possible, you need to see
-> about getting `git send-email` working to send patches with, as it deals
-> with most of the whitespace problems for you.
-> 
-> I'm afraid you can't simply copy the patch text into an email and send that.
-> 
+Fixes: b5c9ed70d1a9 ("drm/virtio: Improve DMA API usage for shmem BOs")
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+This patch fixes the following issue when running on top of Xen with 
+CONFIG_XEN_VIRTIO=y (patch was only tested in Xen environment (ARM64 guest)
+w/ and w/o using Xen grants for virtio):
 
-I am using `git send-email` to send patches. I may have missed some flag.
-I'll double-check. 
+[    0.830235] [drm] pci: virtio-gpu-pci detected at 0000:00:03.0
+[    0.832078] [drm] features: +virgl +edid -resource_blob -host_visible
+[    0.832084] [drm] features: -context_init
+[    0.837320] [drm] number of scanouts: 1
+[    0.837460] [drm] number of cap sets: 2
+[    0.904372] [drm] cap set 0: id 1, max-version 1, max-size 308
+[    0.905399] [drm] cap set 1: id 2, max-version 2, max-size 696
+[    0.907202] [drm] Initialized virtio_gpu 0.1.0 0 for 0000:00:03.0 on minor 0
+[    0.927241] virtio-pci 0000:00:03.0: [drm] drm_plane_enable_fb_damage_clips() not called
+[    0.927279] Unable to handle kernel paging request at virtual address ffffffffc0053000
+[    0.927284] Mem abort info:
+[    0.927286]   ESR = 0x0000000096000144
+[    0.927289]   EC = 0x25: DABT (current EL), IL = 32 bits
+[    0.927293]   SET = 0, FnV = 0
+[    0.927295]   EA = 0, S1PTW = 0
+[    0.927298]   FSC = 0x04: level 0 translation fault
+[    0.927301] Data abort info:
+[    0.927303]   ISV = 0, ISS = 0x00000144
+[    0.927305]   CM = 1, WnR = 1
+[    0.927308] swapper pgtable: 4k pages, 48-bit VAs, pgdp=000000004127f000
+[    0.927312] [ffffffffc0053000] pgd=0000000000000000, p4d=0000000000000000
+[    0.927323] Internal error: Oops: 0000000096000144 [#1] PREEMPT SMP
+[    0.927329] Modules linked in:
+[    0.927336] CPU: 0 PID: 1 Comm: swapper/0 Tainted: G        W          6.2.0-rc4-yocto-standard #1
+[    0.927343] Hardware name: XENVM-4.18 (DT)
+[    0.927346] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+[    0.927352] pc : dcache_clean_poc+0x20/0x38
+[    0.927370] lr : arch_sync_dma_for_device+0x24/0x30
+[    0.927379] sp : ffff80000972b3e0
+[    0.927381] x29: ffff80000972b3e0 x28: ffff000001aa8a00 x27: 0000000000000000
+[    0.927389] x26: 0000000000000000 x25: ffff000002815010 x24: 0000000000000000
+[    0.927396] x23: ffff8000090f9078 x22: 0000000000000001 x21: 0000000000000002
+[    0.927403] x20: ffff000002b6b580 x19: 8000000000053000 x18: ffffffffffffffff
+[    0.927410] x17: 0000000000000000 x16: 0000000000000000 x15: ffff80000963b94e
+[    0.927416] x14: 0000000000000001 x13: ffff80000963b93b x12: 64615f616d645f67
+[    0.927423] x11: ffff800009513110 x10: 000000000000000a x9 : ffff80000972b360
+[    0.927430] x8 : ffff8000095130c8 x7 : ffff80000972b150 x6 : 000000000000000c
+[    0.927436] x5 : 0000000000000000 x4 : 0000000000000000 x3 : 000000000000003f
+[    0.927443] x2 : 0000000000000040 x1 : ffffffffc0067000 x0 : ffffffffc0053000
+[    0.927450] Call trace:
+[    0.927452]  dcache_clean_poc+0x20/0x38
+[    0.927459]  dma_direct_sync_sg_for_device+0x124/0x130
+[    0.927466]  dma_sync_sg_for_device+0x64/0xd0
+[    0.927475]  virtio_gpu_cmd_transfer_to_host_2d+0x10c/0x110
+[    0.927483]  virtio_gpu_primary_plane_update+0x340/0x3d0
+[    0.927490]  drm_atomic_helper_commit_planes+0xe8/0x20c
+[    0.927497]  drm_atomic_helper_commit_tail+0x54/0xa0
+[    0.927503]  commit_tail+0x160/0x190
+[    0.927507]  drm_atomic_helper_commit+0x16c/0x180
+[    0.927513]  drm_atomic_commit+0xa8/0xe0
+[    0.927521]  drm_client_modeset_commit_atomic+0x200/0x260
+[    0.927529]  drm_client_modeset_commit_locked+0x5c/0x1a0
+[    0.927536]  drm_client_modeset_commit+0x30/0x60
+[    0.927540]  drm_fb_helper_set_par+0xc8/0x120
+[    0.927548]  fbcon_init+0x3b8/0x510
+[    0.927557]  visual_init+0xb4/0x104
+[    0.927565]  do_bind_con_driver.isra.0+0x1c4/0x394
+[    0.927572]  do_take_over_console+0x144/0x1fc
+[    0.927577]  do_fbcon_takeover+0x6c/0xe4
+[    0.927583]  fbcon_fb_registered+0x1e4/0x1f0
+[    0.927588]  register_framebuffer+0x214/0x310
+[    0.927592]  __drm_fb_helper_initial_config_and_unlock+0x33c/0x540
+[    0.927599]  drm_fb_helper_initial_config+0x4c/0x60
+[    0.927604]  drm_fbdev_client_hotplug+0xc4/0x150
+[    0.927609]  drm_fbdev_generic_setup+0x90/0x154
+[    0.927614]  virtio_gpu_probe+0xc8/0x16c
+[    0.927621]  virtio_dev_probe+0x19c/0x240
+[    0.927629]  really_probe+0xbc/0x2dc
+[    0.927637]  __driver_probe_device+0x78/0xe0
+[    0.927641]  driver_probe_device+0xd8/0x160
+[    0.927645]  __driver_attach+0x94/0x19c
+[    0.927649]  bus_for_each_dev+0x70/0xd0
+[    0.927656]  driver_attach+0x24/0x30
+[    0.927660]  bus_add_driver+0x154/0x20c
+[    0.927664]  driver_register+0x78/0x130
+[    0.927670]  register_virtio_driver+0x24/0x3c
+[    0.927675]  virtio_gpu_driver_init+0x18/0x24
+[    0.927684]  do_one_initcall+0x50/0x1d0
+[    0.927691]  kernel_init_freeable+0x210/0x27c
+[    0.927699]  kernel_init+0x24/0x12c
+[    0.927707]  ret_from_fork+0x10/0x20
+[    0.927716] Code: d2800082 9ac32042 d1000443 8a230000 (d50b7a20)
+[    0.927721] ---[ end trace 0000000000000000 ]---
+[    0.927728] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+[    0.927732] SMP: stopping secondary CPUs
+[    0.927791] Kernel Offset: disabled
+[    0.927794] CPU features: 0x80000,41058100,0000421b
+[    0.927799] Memory Limit: none
+[    1.015063] ---[ end Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b ]---
+---
+---
+ drivers/gpu/drm/virtio/virtgpu_vq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> >
-> > # ... including build-only targets
-> > TARGETS_BUILD-$(CONFIG_X86)    += xen-vmtrace
-> > @@ -135,4 +136,9 @@ xencov: xencov.o
-> > xen-ucode: xen-ucode.o
-> >     $(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
-> >
-> > +xen-vcpus-stats.o: CFLAGS += $(CFLAGS_libxenforeginmemory)
-> > +
-> > +xen-vcpus-stats: xen-vcpus-stats.o
-> > +    $(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl)
-> > $(LDLIBS_libxenforeignmemory) $(APPEND_LDFLAGS)
-> > +
-> > -include $(DEPS_INCLUDE)
-> > diff --git a/tools/misc/xen-vcpus-stats.c b/tools/misc/xen-vcpus-stats.c
-> > new file mode 100644
-> > index 0000000000..29d0efb124
-> > --- /dev/null
-> > +++ b/tools/misc/xen-vcpus-stats.c
-> > @@ -0,0 +1,87 @@
-> > +#include <err.h>
-> > +#include <errno.h>
-> > +#include <error.h>
-> > +#include <stdio.h>
-> > +#include <stdlib.h>
-> > +#include <string.h>
-> > +#include <sys/mman.h>
-> > +#include <signal.h>
-> > +
-> > +#include <xenctrl.h>
-> > +#include <xenforeignmemory.h>
-> > +#include <xen/vcpu.h>
-> > +
-> > +#define rmb()   asm volatile("lfence":::"memory")
-> 
-> This is rmb(), but rmb() isn't what you want.
-> 
-> You want smp_rmb(), which is
-> 
-> #define smp_rmb() asm volatile ("" ::: "memory")
-> 
-> 
-> I'm surprised we haven't got this in a common location, considering how
-> often it goes wrong.  (Doesn't help that there's plenty of buggy
-> examples to copy, even in xen.git)
-> 
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index a04a9b20896d..1778a2081fd6 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -604,7 +604,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
+ 	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
+ 
+ 	if (virtio_gpu_is_shmem(bo) && use_dma_api)
+-		dma_sync_sgtable_for_device(&vgdev->vdev->dev,
++		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
+ 					    bo->base.sgt, DMA_TO_DEVICE);
+ 
+ 	cmd_p = virtio_gpu_alloc_cmd(vgdev, &vbuf, sizeof(*cmd_p));
+@@ -1026,7 +1026,7 @@ void virtio_gpu_cmd_transfer_to_host_3d(struct virtio_gpu_device *vgdev,
+ 	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
+ 
+ 	if (virtio_gpu_is_shmem(bo) && use_dma_api)
+-		dma_sync_sgtable_for_device(&vgdev->vdev->dev,
++		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
+ 					    bo->base.sgt, DMA_TO_DEVICE);
+ 
+ 	cmd_p = virtio_gpu_alloc_cmd(vgdev, &vbuf, sizeof(*cmd_p));
+-- 
+2.34.1
 
-Got it. I'll rework on it in the next version. For inspiration, I used the code
-at arch/x86/kernel/pvclock.c:pvclock_read_wallclock(). 
-
-> > +
-> > +static sig_atomic_t interrupted;
-> > +static void close_handler(int signum)
-> > +{
-> > +    interrupted = 1;
-> > +}
-> > +
-> > +int main(int argc, char **argv)
-> > +{
-> > +    xenforeignmemory_handle *fh;
-> > +    xenforeignmemory_resource_handle *res;
-> > +    size_t size;
-> > +    int rc, domid, period, vcpu;
-> > +    shared_vcpustatspage_t * info;
-> 
-> shared_vcpustatspage_t *info;
-> 
-> no space after the *.
-> 
-> But you also cannot have a single structure describing that.  I'll reply
-> to the cover letter discussing ABIs.
-
-I am reading it and I will comment on this soon. 
-
-> 
-> > +    struct sigaction act;
-> > +    uint32_t version;
-> > +    uint64_t value;
-> > +
-> > +    if (argc != 4 ) {
-> 
-> { on a new line.
-> 
-> > +        fprintf(stderr, "Usage: %s <domid> <vcpu> <period>\n", argv[0]);
-> > +        return 1;
-> > +    }
-> > +
-> > +    domid = atoi(argv[1]);
-> > +    vcpu = atoi(argv[2]);
-> > +    period = atoi(argv[3]);
-> > +
-> > +    act.sa_handler = close_handler;
-> > +    act.sa_flags = 0;
-> > +    sigemptyset(&act.sa_mask);
-> > +    sigaction(SIGHUP,  &act, NULL);
-> > +    sigaction(SIGTERM, &act, NULL);
-> > +    sigaction(SIGINT,  &act, NULL);
-> > +    sigaction(SIGALRM, &act, NULL);
-> > +
-> > +    fh = xenforeignmemory_open(NULL, 0);
-> > +
-> > +    if ( !fh )
-> > +        err(1, "xenforeignmemory_open");
-> > +
-> > +    rc = xenforeignmemory_resource_size(
-> > +        fh, domid, XENMEM_resource_stats_table,
-> > +        0, &size);
-> > +
-> > +    if ( rc )
-> > +        err(1, "Fail: Get size");
-> > +
-> > +    res = xenforeignmemory_map_resource(
-> > +        fh, domid, XENMEM_resource_stats_table,
-> > +        0, XENMEM_resource_stats_frame_vcpustats, size >> XC_PAGE_SHIFT,
-> > +        (void **)&info, PROT_READ, 0);
-> > +
-> > +    if ( !res )
-> > +        err(1, "Fail: Map");
-> > +
-> > +    while ( !interrupted ) {
-> 
-> { on newline again.
-> 
-> > +        sleep(period);
-> > +        do {
-> > +            version = info->vcpu_info[vcpu].version;
-> > +            rmb();
-> > +            value = info->vcpu_info[vcpu].runstate_running_time;
-> > +            rmb();
-> > +        } while ((info->vcpu_info[vcpu].version & 1) ||
-> > +                (version != info->vcpu_info[vcpu].version));
-> 
-> So I think this will function correctly.
-> 
-> But I do recall seeing a rather nice way of wrapping a sequence lock in
-> C99.  I'll see if I can find it.
-> 
-> > +        printf("running_vcpu_time[%d]: %ld\n", vcpu, value);
-> > +    }
-> > +
-> > +    rc = xenforeignmemory_unmap_resource(fh, res);
-> > +    if ( rc )
-> > +        err(1, "Fail: Unmap");
-> 
-> Given that you unmap(), you ought to close the fh handle too.
-> 
-
-Thanks, I'll fix these issues in the next version. I think Jan's review have
-already spotted some of them.
-
-Matias
 
