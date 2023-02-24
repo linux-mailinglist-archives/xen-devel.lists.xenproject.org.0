@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FE0F6A21BF
+	by mail.lfdr.de (Postfix) with ESMTPS id 3913F6A21BE
 	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 19:50:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.501415.773173 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.501416.773182 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVd9D-0002Mz-4L; Fri, 24 Feb 2023 18:50:23 +0000
+	id 1pVd9F-0002en-Cb; Fri, 24 Feb 2023 18:50:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 501415.773173; Fri, 24 Feb 2023 18:50:23 +0000
+Received: by outflank-mailman (output) from mailman id 501416.773182; Fri, 24 Feb 2023 18:50:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVd9D-0002JF-1M; Fri, 24 Feb 2023 18:50:23 +0000
-Received: by outflank-mailman (input) for mailman id 501415;
- Fri, 24 Feb 2023 18:50:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pVd9F-0002bb-9U; Fri, 24 Feb 2023 18:50:25 +0000
+Received: by outflank-mailman (input) for mailman id 501416;
+ Fri, 24 Feb 2023 18:50:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vhFC=6U=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pVd9B-0001Wv-8v
- for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 18:50:21 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 16941704-b474-11ed-88bb-e56d68cac8db;
- Fri, 24 Feb 2023 19:50:20 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id o12so973145edb.9
- for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 10:50:20 -0800 (PST)
+ id 1pVd9E-0002YL-6h
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 18:50:24 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 176698b8-b474-11ed-a82a-c9ca1d2f71af;
+ Fri, 24 Feb 2023 19:50:22 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id h16so957915edz.10
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 10:50:22 -0800 (PST)
 Received: from uni.router.wind (adsl-185.109.242.225.tellas.gr.
  [109.242.225.185]) by smtp.googlemail.com with ESMTPSA id
- me19-20020a170906aed300b008b17662e1f7sm10585245ejb.53.2023.02.24.10.50.19
+ me19-20020a170906aed300b008b17662e1f7sm10585245ejb.53.2023.02.24.10.50.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Feb 2023 10:50:19 -0800 (PST)
+ Fri, 24 Feb 2023 10:50:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,53 +44,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16941704-b474-11ed-88bb-e56d68cac8db
+X-Inumbo-ID: 176698b8-b474-11ed-a82a-c9ca1d2f71af
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=EVRXkyrkP5QFPLk14BArykZPkRsSPQyM5ImGy6R3Rls=;
-        b=H8CE5B8FtW7HBZUNB+eEIqli2ySexAbCBkHo2Fe4zsCgCRi+7hbLECKFyq8YQSxQzE
-         i0fegid+8lkZ0/klzpIRgXk1CNkLYT4w1ehKTQDW9pl2sZ5eP8gr60HhyOjGug72FJWo
-         W9ViG/CDuQ8iZNAZRy0it6FCzximnW+dQR3zm9xscua7kzystn+nrm5gzrckwW/VklyB
-         n3CjOJAg7bnyJ0CXGjR/GZLFg0Sy4knGYEQTjuBDuH87xQ1dKigbHFpHTklHyT0hBd9V
-         5V+ucOrWm1ScdsuiUIhfotC1hyPmz/++IjqBYGZSx24gWJxKyszeOepdJZ3wFHlDiOCe
-         oW0A==
+        bh=KL9lzwZ35ftF87QkRCnj2FkoflnDCOsUHUBVWqz7qNU=;
+        b=HF3jxW9vODJL8Fmk50sLGa5xDdXq2HeRmYVvW+7y7LqH1gpMOeFrUeBrPO1y9fuUsp
+         IJCB6GhYPiI9dDLqQu8KfkUpMsUCYIgwI515HV49XGRexLXxUTjtIIDZd64PhjHo9gSj
+         OW2p13RKl/tMe1ltzZdYj+b7YDxXjavoEN7k9q9tDRQ1JQQuVN4Z0Ck1NUZgEo7GzDxu
+         37I2EljTppxssX60KPqD3VzVZ3NvhWIeKMLR4WwaPntdLkANisi9Chp+NLd9Ns6F/K9/
+         qQtohPTnArQJZhwhrTsBAVEYWDLQP3h5Ds/HSwYeZVWuHYCnMNFm5VjuXKunmxNmWFHP
+         GtGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=EVRXkyrkP5QFPLk14BArykZPkRsSPQyM5ImGy6R3Rls=;
-        b=44Hyhd2TMpvQE9qPVIc/rUvLGzhKIt01AqTfY7e684CBmN+YrbRpbI89AKcFLBQMkN
-         qp1jHK30f4w4C8uMPiGL6zNJu3q8jTWnM2124FjtY22eBbJAm5eF0E3JKQW8WHs+2jAF
-         6YzuNp3F/KGZghH5t2zNQKABo6726/ldxv/xZV8Z1fJMvf6W8FFrRmUGmc4hmIfexiUk
-         eDltB7cHPvXpTZ1yw4hRWp7WMHA66XZriyQ8vkSqWUrCPLaQNxxF91kaEvDFCW9oKyHm
-         lBYvF4PoYnVxDO9gE1NV9A4Zz9mToQfgQzk65+Rsj1PJzVXR0VF3Yut7frIGB8o/ajH7
-         HMAQ==
-X-Gm-Message-State: AO0yUKX+3EkBVBSZJIHeMsMSBPH3U2ea2Gt5at0P69t5vXQptTA6W7/Z
-	xbtwWg6KKnnUNPBiWZWJ0D4ABfpP5U0=
-X-Google-Smtp-Source: AK7set+TpHnuQ8SG+/zZz97KRpdgwMkSwKqi4YH0qqP0s+IJ7pgKT8ycsnrT0kWyENH+iIfTU+higg==
-X-Received: by 2002:a17:906:8d0a:b0:8f2:62a9:6159 with SMTP id rv10-20020a1709068d0a00b008f262a96159mr5518393ejc.2.1677264620157;
-        Fri, 24 Feb 2023 10:50:20 -0800 (PST)
+        bh=KL9lzwZ35ftF87QkRCnj2FkoflnDCOsUHUBVWqz7qNU=;
+        b=h6W0rM6O5ttV+IYmGvWJOEvnc8Mc1taP7jXun63Y9CF4tOliJ32XD2QEL1sI9LjdzZ
+         h/SpwAjDTL9CY6w9WaqTSdX2TxM+/ZEAMe0QpY4hGuyIcrFMXu1GtSmpWK9+U2b4NEBy
+         d8Z/ZQEpQtAjBPersfUpFSZpY/YOr/Tgyq7hQf5Zg8MTW/v8AE7VqBuEaq0U1P4/Txey
+         pFy+yvSoi1LkdNg+Mgr+XUpgntMtuf9ITYTVSv62ctUDYc4wgCgvRzdkaKQglQQzchfr
+         HSVeARRcPdvAZT291JznQuRYAjrQ26bChrWc+VQGLHKVAJhaNv0FLr1/sTcmaOsJ2DoQ
+         Chkw==
+X-Gm-Message-State: AO0yUKXWjJy5fQIAEeE0PL/TrhTIZEgrCtZMsjDaLZj1Mv/5wkAVlN4k
+	NSdA6VguJWTf1VEpz2QWfThYVhX49AU=
+X-Google-Smtp-Source: AK7set8wO/M04U9cnd0sCME4qj2tNOUpoPg6UmcMghRa+mE7pAAWnUID9EMwFSS7vNY1mRRHj4XKzA==
+X-Received: by 2002:a17:906:e293:b0:8aa:9abe:8edd with SMTP id gg19-20020a170906e29300b008aa9abe8eddmr27669015ejb.66.1677264621570;
+        Fri, 24 Feb 2023 10:50:21 -0800 (PST)
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 03/14] x86/svm: delete header asm/hvm/svm/intr.h
-Date: Fri, 24 Feb 2023 20:49:59 +0200
-Message-Id: <20230224185010.3692754-4-burzalodowa@gmail.com>
+Subject: [PATCH v3 04/14] x86/svm: make emulate.h private
+Date: Fri, 24 Feb 2023 20:50:00 +0200
+Message-Id: <20230224185010.3692754-5-burzalodowa@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230224185010.3692754-1-burzalodowa@gmail.com>
 References: <20230224185010.3692754-1-burzalodowa@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Delete asm/hvm/svm/intr.h because it contains only the declaration of
-svm_intr_assist() which is referenced only by assembly.
+The header asm/hvm/svm/emulate.h is used only internally by the SVM code,
+so it can be changed into a private header.
+
+Take the opportunity to use an SPDX tag for the licence.
 
 No functional change intended.
 
@@ -98,35 +100,43 @@ Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 ---
 
 Changes in v3:
-  - new patch, suggested by Andrew
+  - new patch
 
- xen/arch/x86/hvm/svm/intr.c             |  1 -
- xen/arch/x86/include/asm/hvm/svm/intr.h | 25 -------------------------
- 2 files changed, 26 deletions(-)
- delete mode 100644 xen/arch/x86/include/asm/hvm/svm/intr.h
+ xen/arch/x86/hvm/svm/emulate.c                |  3 ++-
+ .../x86/{include/asm => }/hvm/svm/emulate.h   | 20 +++++--------------
+ xen/arch/x86/hvm/svm/nestedsvm.c              |  2 +-
+ xen/arch/x86/hvm/svm/svm.c                    |  2 +-
+ 4 files changed, 9 insertions(+), 18 deletions(-)
+ rename xen/arch/x86/{include/asm => }/hvm/svm/emulate.h (73%)
 
-diff --git a/xen/arch/x86/hvm/svm/intr.c b/xen/arch/x86/hvm/svm/intr.c
-index 9525f35593..d21e930af0 100644
---- a/xen/arch/x86/hvm/svm/intr.c
-+++ b/xen/arch/x86/hvm/svm/intr.c
-@@ -29,7 +29,6 @@
- #include <asm/hvm/io.h>
- #include <asm/hvm/vlapic.h>
+diff --git a/xen/arch/x86/hvm/svm/emulate.c b/xen/arch/x86/hvm/svm/emulate.c
+index 16fc134883..4a84b4e761 100644
+--- a/xen/arch/x86/hvm/svm/emulate.c
++++ b/xen/arch/x86/hvm/svm/emulate.c
+@@ -24,7 +24,8 @@
+ #include <asm/hvm/hvm.h>
  #include <asm/hvm/svm/svm.h>
--#include <asm/hvm/svm/intr.h>
- #include <asm/hvm/nestedhvm.h> /* for nestedhvm_vcpu_in_guestmode */
- #include <asm/vm_event.h>
- #include <xen/event.h>
-diff --git a/xen/arch/x86/include/asm/hvm/svm/intr.h b/xen/arch/x86/include/asm/hvm/svm/intr.h
-deleted file mode 100644
-index ae52d9f948..0000000000
---- a/xen/arch/x86/include/asm/hvm/svm/intr.h
-+++ /dev/null
-@@ -1,25 +0,0 @@
--/*
-- * intr.h: SVM Architecture related definitions
-- * Copyright (c) 2005, AMD Corporation.
-- * Copyright (c) 2004, Intel Corporation.
+ #include <asm/hvm/svm/vmcb.h>
+-#include <asm/hvm/svm/emulate.h>
++
++#include "emulate.h"
+ 
+ static unsigned long svm_nextrip_insn_length(struct vcpu *v)
+ {
+diff --git a/xen/arch/x86/include/asm/hvm/svm/emulate.h b/xen/arch/x86/hvm/svm/emulate.h
+similarity index 73%
+rename from xen/arch/x86/include/asm/hvm/svm/emulate.h
+rename to xen/arch/x86/hvm/svm/emulate.h
+index eb1a8c24af..c0d27772a5 100644
+--- a/xen/arch/x86/include/asm/hvm/svm/emulate.h
++++ b/xen/arch/x86/hvm/svm/emulate.h
+@@ -1,23 +1,13 @@
++/* SPDX-License-Identifier: GPL-2.0 */
+ /*
+  * emulate.h: SVM instruction emulation bits.
++ *
+  * Copyright (c) 2005, AMD Corporation.
+  * Copyright (c) 2004, Intel Corporation.
 - *
 - * This program is free software; you can redistribute it and/or modify it
 - * under the terms and conditions of the GNU General Public License,
@@ -139,15 +149,64 @@ index ae52d9f948..0000000000
 - *
 - * You should have received a copy of the GNU General Public License along with
 - * this program; If not, see <http://www.gnu.org/licenses/>.
-- *
-- */
--
--#ifndef __ASM_X86_HVM_SVM_INTR_H__
--#define __ASM_X86_HVM_SVM_INTR_H__
--
--void svm_intr_assist(void);
--
--#endif /* __ASM_X86_HVM_SVM_INTR_H__ */
+  */
+ 
+-#ifndef __ASM_X86_HVM_SVM_EMULATE_H__
+-#define __ASM_X86_HVM_SVM_EMULATE_H__
++#ifndef __X86_HVM_SVM_EMULATE_PRIV_H__
++#define __X86_HVM_SVM_EMULATE_PRIV_H__
+ 
+ /*
+  * Encoding for svm_get_insn_len().  We take X86EMUL_OPC() for the main
+@@ -53,7 +43,7 @@ struct vcpu;
+ unsigned int svm_get_insn_len(struct vcpu *v, unsigned int instr_enc);
+ unsigned int svm_get_task_switch_insn_len(void);
+ 
+-#endif /* __ASM_X86_HVM_SVM_EMULATE_H__ */
++#endif /* __X86_HVM_SVM_EMULATE_PRIV_H__ */
+ 
+ /*
+  * Local variables:
+diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
+index a341ccc876..5f5752ce21 100644
+--- a/xen/arch/x86/hvm/svm/nestedsvm.c
++++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+@@ -17,7 +17,6 @@
+  */
+ 
+ #include <asm/hvm/support.h>
+-#include <asm/hvm/svm/emulate.h>
+ #include <asm/hvm/svm/svm.h>
+ #include <asm/hvm/svm/vmcb.h>
+ #include <asm/hvm/nestedhvm.h>
+@@ -27,6 +26,7 @@
+ #include <asm/event.h> /* for local_event_delivery_(en|dis)able */
+ #include <asm/p2m.h> /* p2m_get_pagetable, p2m_get_nestedp2m */
+ 
++#include "emulate.h"
+ #include "svm.h"
+ 
+ #define NSVM_ERROR_VVMCB        1
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 793a10eaca..c767a3eb76 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -37,7 +37,6 @@
+ #include <asm/hvm/monitor.h>
+ #include <asm/hvm/nestedhvm.h>
+ #include <asm/hvm/support.h>
+-#include <asm/hvm/svm/emulate.h>
+ #include <asm/hvm/svm/nestedsvm.h>
+ #include <asm/hvm/svm/svm.h>
+ #include <asm/hvm/svm/svmdebug.h>
+@@ -55,6 +54,7 @@
+ #include <public/sched.h>
+ 
+ #include "asid.h"
++#include "emulate.h"
+ #include "svm.h"
+ 
+ void noreturn svm_asm_do_resume(void);
 -- 
 2.37.2
 
