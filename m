@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 618FD6A1CE0
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 14:18:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.501044.772619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE4E6A1D0D
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 14:37:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.501051.772629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVXyB-0001AH-FT; Fri, 24 Feb 2023 13:18:39 +0000
+	id 1pVYFr-0004O7-VI; Fri, 24 Feb 2023 13:36:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 501044.772619; Fri, 24 Feb 2023 13:18:39 +0000
+Received: by outflank-mailman (output) from mailman id 501051.772629; Fri, 24 Feb 2023 13:36:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVXyB-00018P-CV; Fri, 24 Feb 2023 13:18:39 +0000
-Received: by outflank-mailman (input) for mailman id 501044;
- Fri, 24 Feb 2023 13:18:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pVYFr-0004LH-Sa; Fri, 24 Feb 2023 13:36:55 +0000
+Received: by outflank-mailman (input) for mailman id 501051;
+ Fri, 24 Feb 2023 13:36:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zq+K=6U=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pVXy9-00018J-KN
- for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 13:18:37 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be1bb5b4-b445-11ed-a82a-c9ca1d2f71af;
- Fri, 24 Feb 2023 14:18:35 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id l25so13480784wrb.3
- for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 05:18:35 -0800 (PST)
+ <SRS0=iPiP=6U=citrix.com=prvs=412d30f06=edvin.torok@srs-se1.protection.inumbo.net>)
+ id 1pVYFr-0004LB-BQ
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 13:36:55 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4b1705b0-b448-11ed-88bb-e56d68cac8db;
+ Fri, 24 Feb 2023 14:36:53 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,135 +36,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be1bb5b4-b445-11ed-a82a-c9ca1d2f71af
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=bZMZWljjINbt3cbT8XvI8FDvFGZuMTOtIROv06JT5e8=;
-        b=YrxrMEESeyWJv6DgP5n7pbFRLiSTIsXyQU8bOR1xG4Z9ENi5FKzm407nHECiPzIKxQ
-         mOhY1Dzf6SHoSHbwyOW8H6hNz4uvU3yDHm01Mur/NaVcXkZGimUAKGRm0Aybomh4qcbA
-         RK7GkWsgfk2p6dJ5wa35GGrW6ZpS0KXufLw/ajXVzhI6vvKmnPk2raYBoKe4ebVkwIRA
-         s/atD4sQqH5FrTOkym/ZBWPm3l9EIKo2bIqI8LPG2yB1v6zNxuhM3qQsHQJYEAXP8Kom
-         9Z4K7516qIPcHQ9I4tOXxYUBtTLr0Z9xkkTAnJV2DAdpE6bAzAMlSTg7sCcHCkBluWSr
-         Q65w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bZMZWljjINbt3cbT8XvI8FDvFGZuMTOtIROv06JT5e8=;
-        b=6FJl5Wwy93q2Gv1mYeu74PHcXhYanYUNuQm3x04rZk5y8sltIwgfljmihtcmJd4vnE
-         5mmMgF+zp4lCnlF9HTsYwNJ9RCIbHFfDlLXNYVdFO+L8nc1VOab2bvwIC4AQsXtqDaku
-         j1c/eUH/Qw3tZetvPwE+KAw0BseQ/HzrPr25b3qHZPQvsdQ1AfUMNHWi4F055Bme1+XE
-         9AfXtaOYWt7EyZzQ7uJ9+g/qWEzpcJFwSIX+DUPrUZJal9Iv8i8hPkHwRGToZdP/U0F2
-         sVo1zZDnJr5VCNnSnzbJTu+LTOMggz6BRYuC1jHSY7IJCHSsC3ZpV2NMiTESR0jbp1zd
-         i/Rg==
-X-Gm-Message-State: AO0yUKUSUfGLVoTCzilAw10EpCwMdN9PRnVJeGtxGZVZrQwX/6bk5Iqb
-	O3GDv7X7zegZTRefrDKjjsmBmvXWzfSRZaO6s50sFA==
-X-Google-Smtp-Source: AK7set+DBzCY5Ru6dJrnynKF/H65JA8NtfVUfLf/+RDDrTa9eiM+lJbBaaG1wdDYYw6MxN1poR1cuQ5F+MWpayqlY8o=
-X-Received: by 2002:a05:6000:15c1:b0:2c7:cc8:7825 with SMTP id
- y1-20020a05600015c100b002c70cc87825mr1398138wry.3.1677244714968; Fri, 24 Feb
- 2023 05:18:34 -0800 (PST)
+X-Inumbo-ID: 4b1705b0-b448-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1677245813;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=sligjGhE8zp3txxXLxxDw/E3mUVI6/l5sCV442ETKLo=;
+  b=XjM+ceeAEadGfmuMioL1cD8i2lFx5yS9XYBaXOJmFac086JL8d8eCbz3
+   e+KpLSKcrTw2E5ClvXY5lEE7+0mrqa8rvx/cbcYPXJfMnsWlfyMlvVEEK
+   e+RC6/3AGc8cFSVNYaAr13PaqH/rKo/4lgKFBych82HHJHMaV4BfBA65s
+   E=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 98414694
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:qXFGeKnnYVUdPMvBgjz2wvbo5gyJJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIdWWmCOf6LY2f9fN10PN7k9E0HsZ/UndVrSgVopC01EyMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE4p7auaVA8w5ARkPqgR5gOGzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ fkeczU0dznavMfo+5ucZc9Kq/ghA/C+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
+ ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglHyfyNZrhSJorAw4EDYzRBr0airO93QEjCPbZQFwh/E+
+ DOal4j/KggbP86w0DWnzlyh2qzGx3LKQ6ciNYTto5aGh3XMnzdOWXX6T2CTo/ajjVWlc8lCM
+ EFS8S0rxYAt8GS7Q9+7WAe3yFaUsxhZV9dOHukS7ACW1rGS8wufHnIDTDNKdJohrsBeeNAx/
+ gbXxZWzX2Up6eDLDyvHrd94sA9eJwAQKzQHXDYtFDAgveLKh64VqD/zTPlaRfvdYsLOJRn8x
+ DWDrS4bjroVjNIW26jTwW0rkw5AtbCSEFdru1y/snaNq1ogOdX7P9DABU3zt64oEWqPcrWWU
+ JHoceC65ftGM5yCnTflrA4lTODwvKbt3NExbDdS83gdG9aFoSPLkWN4umsWyKJV3iEsKFfUj
+ Lf741852XOqFCLCgVVLS4ywEd826qPrCM7oUPvZBvIXPMcuLVDYpn4zNB7Bt4wIrKTLuftiU
+ ap3jO72VSpKYUiZ5GfeqxghPU8DmXllmDK7qWHTxBW7y7uODEN5up9cWGZimtsRtfveyC2Mq
+ oY3Cid/40kHOAEISnWNoNF7wJFjBSRTOK0aXOQOLLbbfVA5RTBxYxITqJt4E7FYc21uvr+g1
+ hmAtoVwkTITWVWvxd22V01e
+IronPort-HdrOrdr: A9a23:RSlYHal907ntCY/7oo0jx1/d/pLpDfI93DAbv31ZSRFFG/Fw9v
+ rCoB1/73SftN9/YgBCpTn+AtjjfZqxz/BICOoqUYtKPjOHhILAFugL0WKI+VLd8kPFl9K13J
+ 0QFpRDNA==
+X-IronPort-AV: E=Sophos;i="5.97,324,1669093200"; 
+   d="scan'208";a="98414694"
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>, Wei Liu
+	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross
+	<jgross@suse.com>
+Subject: [PATCH v1 0/2] fix memory leaks reported by GCC -fanalyzer
+Date: Fri, 24 Feb 2023 13:36:44 +0000
+Message-ID: <cover.1677245356.git.edwin.torok@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <cover.1677079671.git.jens.wiklander@linaro.org>
- <a3f70753dc853c2fb81efad72321ec00accf3f27.1677079672.git.jens.wiklander@linaro.org>
- <6B714A07-F3D0-4F27-BA66-078433430B3D@arm.com>
-In-Reply-To: <6B714A07-F3D0-4F27-BA66-078433430B3D@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Fri, 24 Feb 2023 14:18:24 +0100
-Message-ID: <CAHUa44F=Zp+=iStkAxAVk2D5thj7vdyyJ-b3SkgETkS4udz0Ag@mail.gmail.com>
-Subject: Re: [XEN PATCH v7 06/20] xen/arm: ffa: add flags for FFA_PARTITION_INFO_GET
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
-	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
+From: Edwin Török <edwin.torok@cloud.com>
 
-On Fri, Feb 24, 2023 at 10:30 AM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> > On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wrote:
-> >
-> > Defines flags used for the function FFA_PARTITION_INFO_GET.
-> >
-> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> > ---
-> > xen/arch/arm/tee/ffa.c | 26 ++++++++++++++++++++++++++
-> > 1 file changed, 26 insertions(+)
-> >
-> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> > index aa6cdbe0a4f9..f4562ed2defc 100644
-> > --- a/xen/arch/arm/tee/ffa.c
-> > +++ b/xen/arch/arm/tee/ffa.c
-> > @@ -56,6 +56,32 @@
-> > #define FFA_MY_VERSION          MAKE_FFA_VERSION(FFA_MY_VERSION_MAJOR, \
-> >                                                  FFA_MY_VERSION_MINOR)
-> >
-> > +/*
-> > + * Flags used for the FFA_PARTITION_INFO_GET return message:
->
-> This is somehow no completely precise.
-> Could I suggest to use what the doc says:
-> Flags to determine partition properties in FFA_PARTITION_INFO_GET return message
+Using GCC 12.2.1 with -fanalyzer it has shown some memory leaks:
 
-OK
+This is how I enabled -fanalyzer (adding it to CFLAGS for toplevel
+configure didn't seem to work):
 
->
->
-> > + * BIT(0): Supports receipt of direct requests
-> > + * BIT(1): Can send direct requests
-> > + * BIT(2): Can send and receive indirect messages
-> > + * BIT(3): Supports receipt of notifications
-> > + * BIT(4-5): Partition ID is a PE endpoint ID
->
-> You describe all bits until 5 but not 6,7 and 8.
-> Please describe all of them to be coherent.
+```
+CFLAGS += $(call cc-option,$(CC),-fanalyzer)
+```
 
-OK
+Note that there are more errors shown than fixed here, but they seem to
+be false positives (which is why this flag cannot, yet, be enabled by
+default).
 
->
-> > + */
-> > +#define FFA_PART_PROP_DIRECT_REQ_RECV   BIT(0, U)
-> > +#define FFA_PART_PROP_DIRECT_REQ_SEND   BIT(1, U)
-> > +#define FFA_PART_PROP_INDIRECT_MSGS     BIT(2, U)
-> > +#define FFA_PART_PROP_RECV_NOTIF        BIT(3, U)
-> > +#define FFA_PART_PROP_IS_PE_ID          (0U << 4)
-> > +#define FFA_PART_PROP_IS_SEPID_INDEP    (1U << 4)
-> > +#define FFA_PART_PROP_IS_SEPID_DEP      (2U << 4)
-> > +#define FFA_PART_PROP_IS_AUX_ID         (3U << 4)
-> > +#define FFA_PART_PROP_NOTIF_CREATED     BIT(6, U)
-> > +#define FFA_PART_PROP_NOTIF_DESTROYED   BIT(7, U)
-> > +#define FFA_PART_PROP_AARCH64_STATE     BIT(8, U)
->
-> bits definitions are coherent with the standard
->
-> > +
-> > +/*
-> > + * Flag used as parameter to FFA_PARTITION_INFO_GET to return partition
-> > + * count only.
-> > + */
-> > +#define FFA_PARTITION_INFO_GET_COUNT_FLAG BIT(0, U)
->
-> same here.
+Edwin Török (2):
+  xc_core_arch_map_p2m_tree_rw: fix memory leak
+  backup_ptes: fix leak on realloc failure
 
-Thanks,
-Jens
+ tools/libs/guest/xg_core_x86.c     | 2 ++
+ tools/libs/guest/xg_offline_page.c | 7 +++++--
+ 2 files changed, 7 insertions(+), 2 deletions(-)
 
->
-> Cheers
-> Bertrand
->
-> > +
-> > /* Function IDs */
-> > #define FFA_ERROR                       0x84000060U
-> > #define FFA_SUCCESS_32                  0x84000061U
-> > --
-> > 2.34.1
-> >
->
+-- 
+2.39.1
+
 
