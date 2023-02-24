@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 207AD6A1B6C
+	by mail.lfdr.de (Postfix) with ESMTPS id B29206A1B6D
 	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 12:35:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.500950.772540 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.500952.772557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVWM8-000816-8g; Fri, 24 Feb 2023 11:35:16 +0000
+	id 1pVWMC-0008T1-0k; Fri, 24 Feb 2023 11:35:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 500950.772540; Fri, 24 Feb 2023 11:35:16 +0000
+Received: by outflank-mailman (output) from mailman id 500952.772557; Fri, 24 Feb 2023 11:35:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVWM8-0007ya-5X; Fri, 24 Feb 2023 11:35:16 +0000
-Received: by outflank-mailman (input) for mailman id 500950;
- Fri, 24 Feb 2023 11:35:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pVWMB-0008LX-Rx; Fri, 24 Feb 2023 11:35:19 +0000
+Received: by outflank-mailman (input) for mailman id 500952;
+ Fri, 24 Feb 2023 11:35:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AdiI=6U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pVWM6-0007Ri-67
- for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 11:35:14 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4d9edc5d-b437-11ed-88bb-e56d68cac8db;
- Fri, 24 Feb 2023 12:35:13 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id h3so7820599lja.12
- for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 03:35:13 -0800 (PST)
+ id 1pVWM9-0008F6-JN
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 11:35:17 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4e97e729-b437-11ed-a82a-c9ca1d2f71af;
+ Fri, 24 Feb 2023 12:35:15 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id m7so17451980lfj.8
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 03:35:15 -0800 (PST)
 Received: from 34-6F-24-FC-D2-65..
  (46.204.108.92.nat.umts.dynamic.t-mobile.pl. [46.204.108.92])
  by smtp.gmail.com with ESMTPSA id
- a25-20020a05651c031900b00295a8d1ecc7sm50489ljp.18.2023.02.24.03.35.11
+ a25-20020a05651c031900b00295a8d1ecc7sm50489ljp.18.2023.02.24.03.35.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Feb 2023 03:35:13 -0800 (PST)
+ Fri, 24 Feb 2023 03:35:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d9edc5d-b437-11ed-88bb-e56d68cac8db
+X-Inumbo-ID: 4e97e729-b437-11ed-a82a-c9ca1d2f71af
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IcCcmDaZL5zu7cfe/7cHTiIVDkNgVS1oXLcUiC5qO7w=;
-        b=JK3DMo2dMWh8dHqhVMFgjt/8fBVa204x55PqUZhNMcPl/464ndON30L8Gxp6y9mpDt
-         HgAAYeyp4JGL2FjqSo8MCaVJHs7mhoW6pMBKY4A/GyW2N9dF/N6ggBMfM/BYVCu/d6qO
-         t1Bsk4A0HQ/8pPyoXmyxS3HHoqpqpjOYT2TyNsAMeNqbB5bWUhnJ5lu9Ha631xMZ+Yvq
-         ijKZ4nGskNg2xI07SDBO1c57YboWiyupmVEcttAyW8b67wEuJVUdlPZd9uWrsGua8K3w
-         u1wdhALPqpJkXjXdfeAiQ0Hh5/7lz1HRPyJMWYuu7di3qR0rpvDBnDQSnnNgKzvJjKwg
-         mqnA==
+        bh=51X9MeY84AeI86UksVCXFvV/ywJXDcqY/IRT+9++n+0=;
+        b=Cm3iRbMNcUp94s2Ne+koA/IZarQkv+AuXuJQGinD3yoETGZxCS5ZTTBkWfUwQbTUDV
+         +U0Omhk1NpXJlMZgGbmGgEktbRg0ISL7W5jRcyHCXR+DxUnpIsiYymmRqxahcTTF6xJt
+         LzPoaiP69oL2FQmuu4J/Kcai1W8LGjDvFtxXHI3kZ3SRppYbcArl//S6cJElWlfbiwxS
+         O83FiFSbyyzpAUmZhEfKcj4b9ycFlTQN98CdpLGO4JUKGg6BtqmRSET2Ysy04TS6s3Rf
+         FZriy3YtvdXg/uWv6aX3M0cOP0gscdZlcDEQef+NAfpyO2VkLqZxkY5bY8FRE5OJQn/o
+         mRPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=IcCcmDaZL5zu7cfe/7cHTiIVDkNgVS1oXLcUiC5qO7w=;
-        b=rEkongJXukuMETybYXu4/Dvwyjarsw+B/ROKX9G2gBQXstSadVTXq0XhphMrFGCC4t
-         wxnABcB8JQvFLNjl3tK/AwaDKSKH7/mvhwnJ8Rdb7IkE9F5HXLEHcDsGXNrtebQ/ILvA
-         YBRY/d3Opz7sSgZPumXl3Z//xxQHFlY44vrGBC+y/da1NqACEAGw7rn6Oc3vPfGMlAdp
-         6IzzHV4EQ1HZ/+0RSVdFmoyDpMr/N6Bm+VO2DNChq4EC+U/2jVhCvzAB0uZX3RmH2FFJ
-         7hqQRMPPKmrXaKSuZDFpSdG1I0tIdAeScVSPqOn069I/JfgrUjM0wQSFU+OVVu0Vz5Go
-         oL5Q==
-X-Gm-Message-State: AO0yUKW4HBcK+aU9ojrhoaWbX0/gQe6SzHH6Iq4MedvGd7qbeIRNvQNx
-	6xLrLG/FRzW0QEnyfL7GqaaF4f0pJU4=
-X-Google-Smtp-Source: AK7set/EXM1tkclqIwZBSYHsUoP7ePa7hIn3WHt4VPvdZEUY/320uQhvIUMa3beAC7izmOId4sJqNA==
-X-Received: by 2002:a05:651c:547:b0:294:6361:6fe6 with SMTP id q7-20020a05651c054700b0029463616fe6mr7081109ljp.8.1677238513273;
-        Fri, 24 Feb 2023 03:35:13 -0800 (PST)
+        bh=51X9MeY84AeI86UksVCXFvV/ywJXDcqY/IRT+9++n+0=;
+        b=ObOGbBgfFxVdrRTNSfXbz7xfaJams4uxJe1M5xmMA/jfnRaFVZx1FtFhusBIWDpGOx
+         ALU44CYodzCes7xW+FdZMIv9GsoYu0t2Sd5SG7TRPhyvH96TVBasBJm8pUnwAdhr/sRx
+         7Ts4e9rhf2NKk0s2+KF4OTAD7u1ENTylu9GFsFJI9kPOqjz/7/7aROr78GY2+uh2dad5
+         r/HXfwwtGlVCy7DgG2O7fQ7XHOG3T9QDJUtnbHrXh1aNRJJjlId5W0G8gSM2uqIrOLVq
+         RsZcQ1LMLWvMp7kLipGrbh331E78JaVH9hSbe0HIaKVVHwf1ci+StJ0jEh5xrtDPRrAF
+         skew==
+X-Gm-Message-State: AO0yUKWzXP0zcYRN6knVS7eaYjy5IKJ3EClH5odZU9nwnEs4XOgCoPHB
+	ZoPfl2Eg8HuTvOPyL0PP6zAwpPX+Xyg=
+X-Google-Smtp-Source: AK7set+oZ+AFDYIcbDmMMFFIbxZwMRNFhQH6aO+qx8QQaR//6vlQ2TEWysdF5xvyqn4sb4oxguCajg==
+X-Received: by 2002:ac2:5927:0:b0:4dd:9a38:fcc with SMTP id v7-20020ac25927000000b004dd9a380fccmr3430648lfi.63.1677238514815;
+        Fri, 24 Feb 2023 03:35:14 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Julien Grall <julien@xen.org>,
@@ -86,86 +86,310 @@ Cc: Julien Grall <julien@xen.org>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v4 2/5] xen/riscv: introduce trap_init()
-Date: Fri, 24 Feb 2023 13:35:02 +0200
-Message-Id: <b1b2252d3105eeaf0cee10ae2be253c8526d0e5c.1677237653.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v4 3/5] xen/riscv: introduce an implementation of macros from <asm/bug.h>
+Date: Fri, 24 Feb 2023 13:35:03 +0200
+Message-Id: <a70ce0599da9549b5c4e601e5b410cfec5fc185b.1677237653.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <cover.1677237653.git.oleksii.kurochko@gmail.com>
 References: <cover.1677237653.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+The patch introduces macros: BUG(), WARN(), run_in_exception(),
+assert_failed.
+
+The implementation uses "ebreak" instruction in combination with
+diffrent bug frame tables (for each type) which contains useful
+information.
+
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 ---
 Changes in V4:
-  - Nothing changed
+  - Updates in RISC-V's <asm/bug.h>:
+    * Add explanatory comment about why there is only defined for 32-bits length
+      instructions and 16/32-bits BUG_INSN_{16,32}.
+    * Change 'unsigned long' to 'unsigned int' inside GET_INSN_LENGTH().
+    * Update declaration of is_valid_bugaddr(): switch return type from int to bool
+      and the argument from 'unsigned int' to 'vaddr'.
+  - Updates in RISC-V's traps.c:
+    * replace /xen and /asm includes 
+    * update definition of is_valid_bugaddr():switch return type from int to bool
+      and the argument from 'unsigned int' to 'vaddr'. Code style inside function
+      was updated too.
+    * do_bug_frame() refactoring:
+      * local variables start and bug became 'const struct bug_frame'
+      * bug_frames[] array became 'static const struct bug_frame[] = ...'
+      * remove all casts
+      * remove unneeded comments and add an explanatory comment that the do_bug_frame()
+        will be switched to a generic one.
+    * do_trap() refactoring:
+      * read 16-bits value instead of 32-bits as compressed instruction can
+        be used and it might happen than only 16-bits may be accessible.
+      * code style updates
+      * re-use instr variable instead of re-reading instruction.
+  - Updates in setup.c:
+    * add blank line between xen/ and asm/ includes.
 ---
 Changes in V3:
-  - Nothing changed
+  - Rebase the patch "xen/riscv: introduce an implementation of macros
+    from <asm/bug.h>" on top of patch series [introduce generic implementation
+    of macros from bug.h]
 ---
 Changes in V2:
-  - Rename setup_trap_handler() to trap_init().
-  - Add Reviewed-by to the commit message.
+  - Remove __ in define namings
+  - Update run_in_exception_handler() with
+    register void *fn_ asm(__stringify(BUG_FN_REG)) = (fn);
+  - Remove bug_instr_t type and change it's usage to uint32_t
 ---
- xen/arch/riscv/include/asm/traps.h | 1 +
- xen/arch/riscv/setup.c             | 4 ++++
- xen/arch/riscv/traps.c             | 7 +++++++
- 3 files changed, 12 insertions(+)
+ xen/arch/riscv/include/asm/bug.h       |  48 ++++++++++
+ xen/arch/riscv/include/asm/processor.h |   2 +
+ xen/arch/riscv/setup.c                 |   1 +
+ xen/arch/riscv/traps.c                 | 125 +++++++++++++++++++++++++
+ xen/arch/riscv/xen.lds.S               |  10 ++
+ 5 files changed, 186 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/bug.h
 
-diff --git a/xen/arch/riscv/include/asm/traps.h b/xen/arch/riscv/include/asm/traps.h
-index f3fb6b25d1..f1879294ef 100644
---- a/xen/arch/riscv/include/asm/traps.h
-+++ b/xen/arch/riscv/include/asm/traps.h
-@@ -7,6 +7,7 @@
+diff --git a/xen/arch/riscv/include/asm/bug.h b/xen/arch/riscv/include/asm/bug.h
+new file mode 100644
+index 0000000000..67ade6f895
+--- /dev/null
++++ b/xen/arch/riscv/include/asm/bug.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) 2012 Regents of the University of California
++ * Copyright (C) 2021-2023 Vates
++ *
++ */
++#ifndef _ASM_RISCV_BUG_H
++#define _ASM_RISCV_BUG_H
++
++#include <xen/types.h>
++
++#ifndef __ASSEMBLY__
++
++#define BUG_INSTR "ebreak"
++
++/*
++ * The base instruction set has a fixed length of 32-bit naturally aligned
++ * instructions.
++ *
++ * There are extensions of variable length ( where each instruction can be
++ * any number of 16-bit parcels in length ) but they aren't used in Xen
++ * and Linux kernel ( where these definitions were taken from ).
++ *
++ * Compressed ISA is used now where the instruction length is 16 bit  and
++ * 'ebreak' instruction, in this case, can be either 16 or 32 bit (
++ * depending on if compressed ISA is used or not )
++ */
++#define INSN_LENGTH_MASK        _UL(0x3)
++#define INSN_LENGTH_32          _UL(0x3)
++
++#define BUG_INSN_32             _UL(0x00100073) /* ebreak */
++#define BUG_INSN_16             _UL(0x9002)     /* c.ebreak */
++#define COMPRESSED_INSN_MASK    _UL(0xffff)
++
++#define GET_INSN_LENGTH(insn)                               \
++({                                                          \
++    unsigned int len;                                       \
++    len = ((insn & INSN_LENGTH_MASK) == INSN_LENGTH_32) ?   \
++        4UL : 2UL;                                          \
++    len;                                                    \
++})
++
++/* These are defined by the architecture */
++bool is_valid_bugaddr(vaddr_t addr);
++
++#endif /* !__ASSEMBLY__ */
++
++#endif /* _ASM_RISCV_BUG_H */
+diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
+index a71448e02e..ef23d9589e 100644
+--- a/xen/arch/riscv/include/asm/processor.h
++++ b/xen/arch/riscv/include/asm/processor.h
+@@ -69,6 +69,8 @@ static inline void die(void)
+         wfi();
+ }
  
- void do_trap(struct cpu_user_regs *cpu_regs);
- void handle_trap(void);
-+void trap_init(void);
- 
++void show_execution_state(const struct cpu_user_regs *regs);
++
  #endif /* __ASSEMBLY__ */
  
+ #endif /* _ASM_RISCV_PROCESSOR_H */
 diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index d09ffe1454..c8513ca4f8 100644
+index c8513ca4f8..73b9a82883 100644
 --- a/xen/arch/riscv/setup.c
 +++ b/xen/arch/riscv/setup.c
-@@ -1,7 +1,9 @@
+@@ -1,3 +1,4 @@
++#include <xen/bug.h>
  #include <xen/compile.h>
  #include <xen/init.h>
  
-+#include <asm/csr.h>
- #include <asm/early_printk.h>
-+#include <asm/traps.h>
- 
- /* Xen stack for bringing up the first CPU. */
- unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
-@@ -11,6 +13,8 @@ void __init noreturn start_xen(void)
- {
-     early_printk("Hello from C env\n");
- 
-+    trap_init();
-+
-     for ( ;; )
-         asm volatile ("wfi");
- 
 diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-index 29b1a0dfae..ad7311f269 100644
+index ad7311f269..d87a9cfd2c 100644
 --- a/xen/arch/riscv/traps.c
 +++ b/xen/arch/riscv/traps.c
-@@ -13,6 +13,13 @@
- #include <asm/processor.h>
- #include <asm/traps.h>
+@@ -5,6 +5,7 @@
+  * RISC-V Trap handlers
+  */
  
-+void trap_init(void)
++#include <xen/bug.h>
+ #include <xen/errno.h>
+ #include <xen/lib.h>
+ 
+@@ -99,7 +100,131 @@ static void do_unexpected_trap(const struct cpu_user_regs *regs)
+     die();
+ }
+ 
++void show_execution_state(const struct cpu_user_regs *regs)
 +{
-+    unsigned long addr = (unsigned long)&handle_trap;
-+
-+    csr_write(CSR_STVEC, addr);
++    early_printk("implement show_execution_state(regs)\n");
 +}
 +
- static const char *decode_trap_cause(unsigned long cause)
++/*
++ * TODO: change early_printk's function to early_printk with format
++ *       when s(n)printf() will be added.
++ *
++ * Probably the TODO won't be needed as generic do_bug_frame() (at
++ * least, for ARM and RISC-V) has been introduced and current
++ * implementation will be replaced with generic one when panic(),
++ * printk() and find_text_region() (virtual memory?) will be
++ * ready/merged
++ */
++int do_bug_frame(const struct cpu_user_regs *regs, vaddr_t pc)
++{
++    const struct bug_frame *start, *end;
++    const struct bug_frame *bug = NULL;
++    unsigned int id = 0;
++    const char *filename, *predicate;
++    int lineno;
++
++    static const struct bug_frame* bug_frames[] = {
++        &__start_bug_frames[0],
++        &__stop_bug_frames_0[0],
++        &__stop_bug_frames_1[0],
++        &__stop_bug_frames_2[0],
++        &__stop_bug_frames_3[0],
++    };
++
++    for ( id = 0; id < BUGFRAME_NR; id++ )
++    {
++        start = bug_frames[id];
++        end   = bug_frames[id + 1];
++
++        while ( start != end )
++        {
++            if ( (vaddr_t)bug_loc(start) == pc )
++            {
++                bug = start;
++                goto found;
++            }
++
++            start++;
++        }
++    }
++
++ found:
++    if ( bug == NULL )
++        return -ENOENT;
++
++    if ( id == BUGFRAME_run_fn )
++    {
++        void (*fn)(const struct cpu_user_regs *) = bug_ptr(bug);
++
++        fn(regs);
++
++        goto end;
++    }
++
++    /* WARN, BUG or ASSERT: decode the filename pointer and line number. */
++    filename = bug_ptr(bug);
++    lineno = bug_line(bug);
++
++    switch ( id )
++    {
++    case BUGFRAME_warn:
++        early_printk("Xen WARN at ");
++        early_printk(filename);
++        early_printk("\n");
++
++        show_execution_state(regs);
++
++        goto end;
++
++    case BUGFRAME_bug:
++        early_printk("Xen BUG at ");
++        early_printk(filename);
++        early_printk("\n");
++
++        show_execution_state(regs);
++        early_printk("change wait_for_interrupt to panic() when common is available\n");
++        die();
++
++    case BUGFRAME_assert:
++        /* ASSERT: decode the predicate string pointer. */
++        predicate = bug_msg(bug);
++
++        early_printk("Assertion \'");
++        early_printk(predicate);
++        early_printk("\' failed at ");
++        early_printk(filename);
++        early_printk("\n");
++
++        show_execution_state(regs);
++        early_printk("change wait_for_interrupt to panic() when common is available\n");
++        die();
++    }
++
++    return -EINVAL;
++
++ end:
++    return 0;
++}
++
++bool is_valid_bugaddr(vaddr_t insn)
++{
++    if ( (insn & INSN_LENGTH_MASK) == INSN_LENGTH_32 )
++        return ( insn == BUG_INSN_32 );
++    else
++        return ( (insn & COMPRESSED_INSN_MASK) == BUG_INSN_16 );
++}
++
+ void do_trap(struct cpu_user_regs *cpu_regs)
  {
-     static const char *const trap_causes[] = {
++    register_t pc = cpu_regs->sepc;
++    uint16_t instr = *(uint16_t *)pc;
++
++    if ( is_valid_bugaddr(instr) ) {
++        if ( !do_bug_frame(cpu_regs, cpu_regs->sepc) ) {
++            cpu_regs->sepc += GET_INSN_LENGTH(instr);
++            return;
++        }
++    }
++
+     do_unexpected_trap(cpu_regs);
+ }
+diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
+index ca57cce75c..139e2d04cb 100644
+--- a/xen/arch/riscv/xen.lds.S
++++ b/xen/arch/riscv/xen.lds.S
+@@ -39,6 +39,16 @@ SECTIONS
+     . = ALIGN(PAGE_SIZE);
+     .rodata : {
+         _srodata = .;          /* Read-only data */
++        /* Bug frames table */
++       __start_bug_frames = .;
++       *(.bug_frames.0)
++       __stop_bug_frames_0 = .;
++       *(.bug_frames.1)
++       __stop_bug_frames_1 = .;
++       *(.bug_frames.2)
++       __stop_bug_frames_2 = .;
++       *(.bug_frames.3)
++       __stop_bug_frames_3 = .;
+         *(.rodata)
+         *(.rodata.*)
+         *(.data.rel.ro)
 -- 
 2.39.0
 
