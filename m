@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B6CE6A1782
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 08:50:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.500779.772269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2CBD6A17D6
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 09:21:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.500791.772281 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVSpe-0005Nd-5a; Fri, 24 Feb 2023 07:49:30 +0000
+	id 1pVTJY-0002pw-4C; Fri, 24 Feb 2023 08:20:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 500779.772269; Fri, 24 Feb 2023 07:49:30 +0000
+Received: by outflank-mailman (output) from mailman id 500791.772281; Fri, 24 Feb 2023 08:20:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVSpe-0005Lw-2N; Fri, 24 Feb 2023 07:49:30 +0000
-Received: by outflank-mailman (input) for mailman id 500779;
- Fri, 24 Feb 2023 07:49:28 +0000
+	id 1pVTJY-0002o6-1S; Fri, 24 Feb 2023 08:20:24 +0000
+Received: by outflank-mailman (input) for mailman id 500791;
+ Fri, 24 Feb 2023 08:20:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vhFC=6U=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pVSpc-0005Lo-Mi
- for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 07:49:28 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cKFb=6U=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pVTJW-0002o0-LQ
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 08:20:22 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2043.outbound.protection.outlook.com [40.107.7.43])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c337ad20-b417-11ed-88bb-e56d68cac8db;
- Fri, 24 Feb 2023 08:49:27 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id s26so51447225edw.11
- for <xen-devel@lists.xenproject.org>; Thu, 23 Feb 2023 23:49:27 -0800 (PST)
-Received: from [192.168.1.93] (adsl-185.109.242.138.tellas.gr.
- [109.242.138.185]) by smtp.gmail.com with ESMTPSA id
- f3-20020a1709064dc300b008d5183c1e20sm5817225ejw.190.2023.02.23.23.49.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Feb 2023 23:49:26 -0800 (PST)
+ id 13cbedd8-b41c-11ed-88bb-e56d68cac8db;
+ Fri, 24 Feb 2023 09:20:20 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB7847.eurprd04.prod.outlook.com (2603:10a6:20b:2ad::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.24; Fri, 24 Feb
+ 2023 08:19:51 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%7]) with mapi id 15.20.6134.024; Fri, 24 Feb 2023
+ 08:19:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,563 +46,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c337ad20-b417-11ed-88bb-e56d68cac8db
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=E6EIuE8IiS1yq9TPJJ+03OXKJdlmDGL+kBrVOrx4FEo=;
-        b=T3egfQTWqq79AH1MY8MbekjomcUgyGcENtZQ7FS9P8Y/2XZLELOP6YyAGRdi7Lf2Vr
-         /ZvZx6sOVS+BngP2wUpwPs69t8zrE1kg6zlrL2EJGm5+VTBV/GIM6KNoHxo6noLdk5pf
-         FYbO8T6mHivmOd5L1al72skRPlupTi3S21WrKmW/I1flVNZetPdFYmHV/9KW9N9IhwyB
-         vI2V9cjbhK5Fzjjhx6I4aX5/NFRIOJbTinVpi3nHwngzMCcHdSDKX0g1F0LTzBdjPQSr
-         rehyT3gH/QdzZW8i+UgIOirG7M1kCOhxJ8JfMEYWYDpsogpneNJvztunJ+UsqXz932HZ
-         4TbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=E6EIuE8IiS1yq9TPJJ+03OXKJdlmDGL+kBrVOrx4FEo=;
-        b=KhZy60T6/FkY+0Pyki9NL/fkThSBE/DdyhMIahd51OU+O1pd5uUXrb6y6ABDStAbdo
-         glD1ETQSxksqV8QIOfNWcfBLQTitn+2npMi32aizJu03zRwplu85u3MUKO+/hiJxTlnj
-         AO4qL1RKF2dfB+IKDY5i/xxbynJeDTunysUw6hOhgNWBpCQ4Tj14Ofj3fnLBRGxm5Ju2
-         k4df/u56SwyPgHg5nQHvcyzItb79S8dHy0HJqt+pfDvlPDAE8cd+RfIa7EDDMReFhbed
-         BSAQxBGuNxN07vgDC0g5pByvpQ7Do6LLd7wt4pUKN6E76QAOdu7Mtp6xk8Dg4zCaNYPF
-         ME6Q==
-X-Gm-Message-State: AO0yUKVxJaLpY5aYb29R61Ml9T5FrHZPfk89TCaL5Cid8pU5jk2CnLqL
-	2y55VjpvldwvEVVt5MYyaxL5HeDjIVw=
-X-Google-Smtp-Source: AK7set+zNjwWJX4a7MKhegDubQIgGgtjA6OvhPTLH1g53GDlXKy8/SM6HKERJUOSnrReJEFPEOhvIg==
-X-Received: by 2002:a17:906:f28b:b0:870:b950:18d4 with SMTP id gu11-20020a170906f28b00b00870b95018d4mr23155818ejb.5.1677224966550;
-        Thu, 23 Feb 2023 23:49:26 -0800 (PST)
-Message-ID: <37e79367-70b6-f541-ccd8-7ce797082756@gmail.com>
-Date: Fri, 24 Feb 2023 09:49:24 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v2 6/9] x86/vmx: move declations used only by vmx code
- from vmx.h to private header
+X-Inumbo-ID: 13cbedd8-b41c-11ed-88bb-e56d68cac8db
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Cn5ossra50KLT+392CQyQdKvklrE0mVVJv5c7kOOx6kmrbfYQ3mLasAQN8cWq5yo9O/Tlv7SF5R+zrtZBGjx9HLpC2WkCVwnLgSahS34zgaURhVtttVxg2rpUvyNY+W+enajiB6TP3xYxeztXH0bTi5s/Gs8V9BwhNfAEZHPyq/L+mUpwbOd1xodzrOz8qQjp0ypPRimxK+0xhhpWQ9GJgCgbsAzmYCytR6+n7YUvyIky/T2HphDrzFRgFU7xI5rRcDIHBq+dYfdVLwjqpwUwdaIGhQa8QziWJ4MUzBpIUDcyrH12lvXz9ydq7+KJYE8AQW8SezeLQ8Dlm4rEK7alQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7Gv+wYNM4QAqxr0nnC0ab+e5SwAxfWJYqyURxigy4ig=;
+ b=EU8aaI0n5GS0Iiji3GK+yuZWbNjv2rySw1RBDPyLwmarVikdEECl8DKrym9A03sg7Zp5SYFWuxxkO+bJ0F/xiTnrVSCSdtLra2kVPHcE910cYU6VHG+wZaOHhoBKahRmISo0SyXdFB1VXAK69H2QqMxxKfDUZh02ox8ScVZgbosWg0HKlvhIqHfuPfKh0vDYJfQDW/Y21fvuYncXGam7dR1PQEVF9B8M7ymoZT5mfAPdxOXTpwZKznX2MTMC10nS6KeFk1NibBGDOprJoQk9xpowzjILUjsbm7YyZYMl6wjMSIqaHjCj/xApx+UPOnaLekZQU/QIKmcphwMWVuFDxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7Gv+wYNM4QAqxr0nnC0ab+e5SwAxfWJYqyURxigy4ig=;
+ b=Z87nXtLCwdZ0GKikIpl2H3OoSQzrLWOnqDikZGKWlOChYSc8ysoZ1mwUQ7EYG+Rk7GDAxJ4+75mpXrtJNlyXI1lquUputcx86iN5rxwdyJb+oBxvGu1nup0zZekxEwlWCNuNsZYAQfMAq9ZUua9WNv2GG9MCjD7u+WJagUaoHdwYpYoW4SA+e9BFEWAIWdj+of5EX/BdC4kV8/t+XaCENejlB90iPgrMtdZL4/bZHaMnL3waeFB3CWUoGy594kWAlKyR9qXqVmRFxZGdZI4tjFDZ9/9vZQUy8ywkgRWAtfZG9+PrCRdWPoUNvDBv8ymMNkU5lOfqv3pMP6uKs1k5Bg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <400b11d9-7905-1cc5-2ab3-e77d3fbd9908@suse.com>
+Date: Fri, 24 Feb 2023 09:19:48 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] Call SetVirtualAddressMap() by default
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20230222120023.3004624-1-burzalodowa@gmail.com>
- <20230222120023.3004624-7-burzalodowa@gmail.com>
- <0f169088-53bc-afe5-8f10-970c17f261b7@suse.com>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <0f169088-53bc-afe5-8f10-970c17f261b7@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <9a0e5021a612951c4174c45099edc8a4fb5bd3bb.1677091168.git.demi@invisiblethingslab.com>
+ <dc46acc1-9eb9-8091-28df-405a66879a85@suse.com> <Y/dlPXeJlPRwEB1s@mail-itl>
+ <49f35c93-2235-4223-89dd-3e6256a17369@suse.com> <Y/dwd5Gkv5Ps61eC@mail-itl>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <Y/dwd5Gkv5Ps61eC@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0040.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:48::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB7847:EE_
+X-MS-Office365-Filtering-Correlation-Id: 895cd266-cac8-416c-a221-08db163fe675
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	yNdiAkIZi9Mn3XcSHZLscTSBuGUgJc1aLyt9CmWshVFC5AGHFSfW5FQ4ZzvPBp3Flme26+SNmraV3M7e+UUxCs9GIRi5C9GMQwXyx270BaWeE5JRMnI/goTB8lI4e01G0Rig8IfncX3TMvxMuevYJKEi5FcYIRtzcgcHncWhrRuPWCoXKxhEhLkRT60yqZMg6agcM+mFYL5hXvo+htqQtAOXc6T8iSguLAHQpJqqCwFFwDUxbPhj5mkCXtzXRV/y+DbvQ5KcXNdnznAMPKZBP+4texPZmSwzerDqVLgkcxQ1NvpNhzYwjVDukE5zDakpT3mz12Nw9LfXctKnpChmG0DROQ7zNy8Jy3yeSJqT+DVi3SvXK0ut3ww14fAevDSniCZ/GYODUfoV/iwTZ51q57MIzTsWIOMvBkZ7E0bjtzkjBsXZn140yzzfTrbavjODXI3O8cT67X0d9xjurPYIOIQGzwAoVnEwJWd943RhLNr3JSVh9kR0TBUAHHKX4eLkhcGoZUUQoxKp7rZDxGGkyku3inHEAJhR58H6L6GLez6IKP0vMF3Zj0INAouCVo8fX/PXw7ExAnsIATl+NMc1Rl/cjb7nTNYd+LuWdpjMy1N0AbU5S+E9FMUHF8oi6ea8Z31u8fAaZEmTAga3fe6O/6pYpeSVMhtJelKUOT3g8R2yeKRYJNhBhzxxkagVDH4oSk+uM7tORQppLqMj8MkhfZCSuvyQbzaGtcxmbpDLeU/pq+wbrobtuNmveghXLj3WxsJl0Ggz131/Rt0N+51sPQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(366004)(346002)(39860400002)(136003)(396003)(451199018)(36756003)(66946007)(6666004)(966005)(6486002)(53546011)(66574015)(2616005)(26005)(6506007)(186003)(6512007)(8936002)(41300700001)(86362001)(2906002)(31696002)(5660300002)(54906003)(316002)(38100700002)(478600001)(6916009)(8676002)(66476007)(66556008)(4326008)(83380400001)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?clVxRkxCTERxcUFMTkk0djRoN3ZxNEQ2eXRCcE9nbU5FNGxlN1F5VnFuN2lj?=
+ =?utf-8?B?S0p2T3U1dUJOMTRHdUxYbHRHMG1Ib1c1eVI2QWJ0cWFCTXhzTzBmSUVjWXpQ?=
+ =?utf-8?B?bUNhdmZsUVN0Q3Y5SUZ3bXhwZURXMUNnUmplR0RvTkFLcjlneTV2OW5KUzlU?=
+ =?utf-8?B?M2dTWVpBN2MrWS9TbytVMGZxZlROQ055Mm1sa1c2STFWcVF2UE83cG1TUXVL?=
+ =?utf-8?B?NGM0bkxHRW83WFJsREo2Tk5CRHlsc0VITDZsUm1YZk44dFIrL0J3dUZyK1Nw?=
+ =?utf-8?B?U1crQWtsNm9MWWNTU2lHdUtaU2UyVCtPblVMeVg1d1VZd3ZZeFovT3NmMjRn?=
+ =?utf-8?B?d1V0bEtCUWVhZVhSYXBrSGhJR1JIMVBxN3N4QnRJZ3hFek9oUTNpUnRNWFV3?=
+ =?utf-8?B?OXBJZUZaeCs4RUliRGdIeWxsTXliZUZORWhYb2k2YThINXhKejcycVBDVmhZ?=
+ =?utf-8?B?SXBaMmdjaVRYV2t5UWkxNFdGbDZiaUduUHlNNXIwNHR5ZWNlN3pXYlF6b0d4?=
+ =?utf-8?B?UjNoVjB4K1VZdkxzbmMyck9QVloxYTZFR290ZVQrKzQ4cTFJUGszZktIZTZp?=
+ =?utf-8?B?THE3V3hHb2EzeFRFeWRPdVVvZ2V2QlpsTEdIcUd0QnRnTDhIQTU2UllQdWhw?=
+ =?utf-8?B?ME9mejdmUjVoaEl5WGt1MjZnSWdodE5ERXFIQlAxVWkvWTNJM0pxZTcrK3po?=
+ =?utf-8?B?ZlNMSExWUEpHV2dQTUlMZ2d2YTY4RmpZTGN6K3BPenJpR2FDd2lxbERhaU11?=
+ =?utf-8?B?NDRQQzZiUG03UWMyM3FOdTdIdjVkMmJ0OE9xQ2pDSUFOdGhxNi9SSnBiTjhY?=
+ =?utf-8?B?U0tXUXZkb0VRRDM0bEtKNGp1MHV2dVJqZGo1b25wZnFaUWhqNitOYy8xYVBQ?=
+ =?utf-8?B?OXhDOFZGblM2WC9oQkdMVWlWUEtCcmtNSWMxL0FMUXZyWEd2aXNLSnhINEhw?=
+ =?utf-8?B?QjFVSU1odFlidzdhVWdNc244VmEvbDQza3dPd2svT25nSko4aHgxY0VIWHRo?=
+ =?utf-8?B?Q2FlR2pkY1BTMGhZcWhBOTgyc25TLzMwYXZ2OVp3NGpGaUh1YUlrMzhPa1RV?=
+ =?utf-8?B?WUVVcnJIRDU2Q0ZyQVA3TlowRGN5MVF6UGZybW1ReTRvd2kzL084cWRFV1Vx?=
+ =?utf-8?B?ZzJRTEZBRWN1eFFUWnhINHZNRGNGekhaZksxZnNNRnVMNEUyM2dVYzhGTDJv?=
+ =?utf-8?B?T3VPRFNsbHFLNkRTRG1ZajF6NDdQaU8xVmx5ZjBOdHVGYXFFNnRBQ2NpaUt4?=
+ =?utf-8?B?SGo0MytZSmVBcm9OTVV3TW1sM09ad0tTN3BNZmZtd3pHZTQzdFNEYkljQVc4?=
+ =?utf-8?B?WFFLT25PSHpwSXV0alFnQkNQK0hhQnMrZVJpeDBNWUhBdlJ2K2h3QXZXQzg0?=
+ =?utf-8?B?M2ExcFdkTDk2UjNEdGhHN1g0RGs0aU4wTittb1plWERqWS9za0J0WmtIVUlZ?=
+ =?utf-8?B?eGtKbG1BRFVFUXljWHNNblp5d0RBL3ZhVlE3QnVQbUlxTGFMNDVWS0J3Nkpl?=
+ =?utf-8?B?RU05dVFhdGRhQnBHYVlieTBKczArdnA2WHBJSGRUdS9DblFNR3k4STZIVTdj?=
+ =?utf-8?B?SWlmU1NQY0RSMCt1bWdZWCtsOWFIenRxUmNINFU3aUNGRlp2dTI0bDlPTDRC?=
+ =?utf-8?B?SjhROEEwL0xOUW9CeHNHbHc0UUNGVGNaaEN3dGxKWE9OaEd0TmJuWGtXd1hR?=
+ =?utf-8?B?b0l0Z045dHZRM0pHQ2VnVWRiQU44SnNvZloralJjQVlRcUtNZWxEaTJLOUNK?=
+ =?utf-8?B?a21vY0pBbVZwZTJPRGZ6LzdJbitYdzRmWnBSbFdiNmxFYW9VZGY0TW1EMEpz?=
+ =?utf-8?B?Y2ZlUjhxeE1ycmlrcGV3NC95OHQ3N084NUtJNEVMUmZ4RzF2eTNRVUpLeVBu?=
+ =?utf-8?B?RlhQaEQ0NHhOTWNaVGo0WHhnM1RDbkswSGlJMzE1bGdaVythblVvUW04M1Zw?=
+ =?utf-8?B?QzRmTlhuNlBFeXp1cm9vWmlkWXIxK2ZGQmt6SmhObXZXNHQxUEMrb1JnOW9X?=
+ =?utf-8?B?UDM1Zmdoc3hSNkFtV3NIQW5vaWhBcVNKT1BFRWxaZEdCTVhFY0dnSjBCeU9t?=
+ =?utf-8?B?ZkMrL3JZeDQvbU1jOTgrS1lnT2VPRzhNbnkwWVRzQzVCL3ZwS0FFK1lQcmhL?=
+ =?utf-8?Q?8ODZT8UzISqjTQk7beqJ8BZcJ?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 895cd266-cac8-416c-a221-08db163fe675
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2023 08:19:50.9682
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iYXUGy6ScWl9Jqfg/fdKuVzp1IpWvlCAfjK49ZBxPh7/6hxgJqwWr5ua872MhbNyNI2JKK6c4VrccV/SGisO7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7847
 
-Hi Jan,
+On 23.02.2023 14:56, Marek Marczykowski-Górecki wrote:
+> On Thu, Feb 23, 2023 at 02:21:11PM +0100, Jan Beulich wrote:
+>> On 23.02.2023 14:08, Marek Marczykowski-Górecki wrote:
+>>> On Thu, Feb 23, 2023 at 11:16:28AM +0100, Jan Beulich wrote:
+>>>> On 22.02.2023 20:14, Demi Marie Obenour wrote:
+>>>>> To quote Andrew Cooper:
+>>>>>
+>>>>>> I know we've had this argument before, but not calling
+>>>>>> SetVirtualAddressMap() isn't a viable option.  It's a prerequisite to
+>>>>>> function on literally millions of devices
+>>>>>
+>>>>> Qubes OS has been shipping EFI_SET_VIRTUAL_ADDRESS_MAP for years, and I
+>>>>> believe OpenXT and EVE ship it as well. Mark EFI_SET_VIRTUAL_ADDRESS_MAP
+>>>>> as SUPPORTED and enable it by default.
+>>>>
+>>>> This is insufficient justification. The main reason why we don't call
+>>>> it is because it can be called only once. Any entity taking over later
+>>>> (e.g. via kexec) can't do anything anymore about the virtual address
+>>>> associations once set. Hence what's needed to justify a change like
+>>>> this is an explanation of why this restriction is not really an issue
+>>>> to anyone in any case.
+>>>
+>>> AFAIR from the discussion about the original patch, kexec under Xen does
+>>> not preserve runtime services working anyway, so this limitation is more
+>>> about some possible kexec implementation in the future, not actually
+>>> breaking something right now. And since Linux calls
+>>> SetVirtualAddressMap() _and_ supports kexec just fine, it's definitely
+>>> possible to design this future kexec extension to work after
+>>> SetVirtualAddressMap() too.
+>>>
+>>> Relevant parts of that older discussion:
+>>> - https://lore.kernel.org/all/272a9354-bcb4-50a4-a251-6a453221d6e3@citrix.com/T/#u
+>>> - https://lore.kernel.org/all/20191009235725.GT8065@mail-itl/T/#u
+>>
+>> Well, there are various statements there without further reference. I'm
+>> having a hard time seeing how a full-fledged Linux could do well without
+>> runtime services, or without being able to set the virtual address map
+>> to its liking. If they can, then a question would be why they need to
+>> set the virtual address map in the first place (yes, there is this
+>> supposed "firmware bugs" argument, which unfortunately I lack any proof
+>> of; at the very least I'm unaware of bug reports against Xen boiling
+>> down to us not making this call). 
+> 
+> The second link points at a thread of one of such bug reports.
 
-On 2/23/23 12:47, Jan Beulich wrote:
-> On 22.02.2023 13:00, Xenia Ragiadakou wrote:
->> --- /dev/null
->> +++ b/xen/arch/x86/hvm/vmx/vmx.h
->> @@ -0,0 +1,459 @@
->> +#include <xen/sched.h>
->> +
->> +#include <asm/asm_defns.h>
->> +#include <asm/hvm/vmx/vmcs.h>
->> +#include <asm/hvm/vmx/vmx.h>
->> +#include <asm/types.h>
-> 
-> As in the earlier patch, please use xen/types.h right away.
-> 
->> +extern int8_t opt_ept_exec_sp;
->> +
->> +#define PI_xAPIC_NDST_MASK      0xFF00
->> +
->> +void vmx_asm_vmexit_handler(struct cpu_user_regs);
-> 
-> Even if it was like this originally, this is bogus. This not-really-a-
-> function doesn't take any parameters. It's declaration also looks to be
-> missing cf_check - Andrew, was this deliberate?
-> 
->> +void vmx_intr_assist(void);
->> +void noreturn cf_check vmx_do_resume(void);
->> +void cf_check vmx_vlapic_msr_changed(struct vcpu *v);
->> +void vmx_realmode(struct cpu_user_regs *regs);
->> +void vmx_update_debug_state(struct vcpu *v);
->> +void vmx_update_exception_bitmap(struct vcpu *v);
->> +void vmx_update_cpu_exec_control(struct vcpu *v);
->> +void vmx_update_secondary_exec_control(struct vcpu *v);
->> +
->> +#define POSTED_INTR_ON  0
->> +#define POSTED_INTR_SN  1
->> +static inline int pi_test_and_set_pir(uint8_t vector, struct pi_desc *pi_desc)
-> 
-> Nit: Blank line please after the #define-s.
-> 
->> +{
->> +    return test_and_set_bit(vector, pi_desc->pir);
->> +}
->> +
->> +static inline int pi_test_pir(uint8_t vector, const struct pi_desc *pi_desc)
->> +{
->> +    return test_bit(vector, pi_desc->pir);
->> +}
->> +
->> +static inline int pi_test_and_set_on(struct pi_desc *pi_desc)
->> +{
->> +    return test_and_set_bit(POSTED_INTR_ON, &pi_desc->control);
->> +}
->> +
->> +static inline void pi_set_on(struct pi_desc *pi_desc)
->> +{
->> +    set_bit(POSTED_INTR_ON, &pi_desc->control);
->> +}
->> +
->> +static inline int pi_test_and_clear_on(struct pi_desc *pi_desc)
->> +{
->> +    return test_and_clear_bit(POSTED_INTR_ON, &pi_desc->control);
->> +}
->> +
->> +static inline int pi_test_on(struct pi_desc *pi_desc)
->> +{
->> +    return pi_desc->on;
->> +}
->> +
->> +static inline unsigned long pi_get_pir(struct pi_desc *pi_desc, int group)
->> +{
->> +    return xchg(&pi_desc->pir[group], 0);
->> +}
->> +
->> +static inline int pi_test_sn(struct pi_desc *pi_desc)
->> +{
->> +    return pi_desc->sn;
->> +}
->> +
->> +static inline void pi_set_sn(struct pi_desc *pi_desc)
->> +{
->> +    set_bit(POSTED_INTR_SN, &pi_desc->control);
->> +}
->> +
->> +static inline void pi_clear_sn(struct pi_desc *pi_desc)
->> +{
->> +    clear_bit(POSTED_INTR_SN, &pi_desc->control);
->> +}
-> 
-> Considering all of these are currently used by vmx.c only I wonder whether
-> we shouldn't go a step further and put the posted-interrupt stuff in its
-> own private header.
-> 
->> +/*
->> + * Interruption-information format
->> + *
->> + * Note INTR_INFO_NMI_UNBLOCKED_BY_IRET is also used with Exit Qualification
->> + * field for EPT violations, PML full and SPP-related event vmexits.
->> + */
->> +#define INTR_INFO_VECTOR_MASK           0xff            /* 7:0 */
->> +#define INTR_INFO_INTR_TYPE_MASK        0x700           /* 10:8 */
->> +#define INTR_INFO_DELIVER_CODE_MASK     0x800           /* 11 */
->> +#define INTR_INFO_NMI_UNBLOCKED_BY_IRET 0x1000          /* 12 */
->> +#define INTR_INFO_VALID_MASK            0x80000000      /* 31 */
->> +#define INTR_INFO_RESVD_BITS_MASK       0x7ffff000
->> +
->> +/*
->> + * Exit Qualifications for NOTIFY VM EXIT
->> + */
->> +#define NOTIFY_VM_CONTEXT_INVALID       1u
->> +
->> +/*
->> + * Exit Qualifications for MOV for Control Register Access
->> + */
->> +enum {
->> +    VMX_CR_ACCESS_TYPE_MOV_TO_CR,
->> +    VMX_CR_ACCESS_TYPE_MOV_FROM_CR,
->> +    VMX_CR_ACCESS_TYPE_CLTS,
->> +    VMX_CR_ACCESS_TYPE_LMSW,
->> +};
->> +typedef union cr_access_qual {
-> 
-> Nit: Blank line please again above here.
-> 
->> +    unsigned long raw;
->> +    struct {
->> +        uint16_t cr:4,
->> +                 access_type:2,  /* VMX_CR_ACCESS_TYPE_* */
->> +                 lmsw_op_type:1, /* 0 => reg, 1 => mem   */
->> +                 :1,
->> +                 gpr:4,
->> +                 :4;
->> +        uint16_t lmsw_data;
->> +        uint32_t :32;
->> +    };
->> +} __transparent__ cr_access_qual_t;
->> +
->> +/*
->> + * Access Rights
->> + */
->> +#define X86_SEG_AR_SEG_TYPE     0xf        /* 3:0, segment type */
->> +#define X86_SEG_AR_DESC_TYPE    (1u << 4)  /* 4, descriptor type */
->> +#define X86_SEG_AR_DPL          0x60       /* 6:5, descriptor privilege level */
->> +#define X86_SEG_AR_SEG_PRESENT  (1u << 7)  /* 7, segment present */
->> +#define X86_SEG_AR_AVL          (1u << 12) /* 12, available for system software */
->> +#define X86_SEG_AR_CS_LM_ACTIVE (1u << 13) /* 13, long mode active (CS only) */
->> +#define X86_SEG_AR_DEF_OP_SIZE  (1u << 14) /* 14, default operation size */
->> +#define X86_SEG_AR_GRANULARITY  (1u << 15) /* 15, granularity */
->> +#define X86_SEG_AR_SEG_UNUSABLE (1u << 16) /* 16, segment unusable */
->> +
->> +extern uint8_t posted_intr_vector;
->> +
->> +#define INVEPT_SINGLE_CONTEXT   1
->> +#define INVEPT_ALL_CONTEXT      2
->> +
->> +#define INVVPID_INDIVIDUAL_ADDR                 0
->> +#define INVVPID_SINGLE_CONTEXT                  1
->> +#define INVVPID_ALL_CONTEXT                     2
->> +#define INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 3
->> +
->> +static always_inline void __vmptrld(u64 addr)
->> +{
->> +    asm volatile (
->> +#ifdef HAVE_AS_VMX
->> +                   "vmptrld %0\n"
->> +#else
->> +                   VMPTRLD_OPCODE MODRM_EAX_06
->> +#endif
->> +                   /* CF==1 or ZF==1 --> BUG() */
->> +                   UNLIKELY_START(be, vmptrld)
->> +                   _ASM_BUGFRAME_TEXT(0)
->> +                   UNLIKELY_END_SECTION
->> +                   :
->> +#ifdef HAVE_AS_VMX
->> +                   : "m" (addr),
->> +#else
->> +                   : "a" (&addr),
->> +#endif
->> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
->> +                   : "memory");
->> +}
->> +
->> +static always_inline void __vmpclear(u64 addr)
->> +{
->> +    asm volatile (
->> +#ifdef HAVE_AS_VMX
->> +                   "vmclear %0\n"
->> +#else
->> +                   VMCLEAR_OPCODE MODRM_EAX_06
->> +#endif
->> +                   /* CF==1 or ZF==1 --> BUG() */
->> +                   UNLIKELY_START(be, vmclear)
->> +                   _ASM_BUGFRAME_TEXT(0)
->> +                   UNLIKELY_END_SECTION
->> +                   :
->> +#ifdef HAVE_AS_VMX
->> +                   : "m" (addr),
->> +#else
->> +                   : "a" (&addr),
->> +#endif
->> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
->> +                   : "memory");
->> +}
->> +
->> +static always_inline void __vmwrite(unsigned long field, unsigned long value)
->> +{
->> +    asm volatile (
->> +#ifdef HAVE_AS_VMX
->> +                   "vmwrite %1, %0\n"
->> +#else
->> +                   VMWRITE_OPCODE MODRM_EAX_ECX
->> +#endif
->> +                   /* CF==1 or ZF==1 --> BUG() */
->> +                   UNLIKELY_START(be, vmwrite)
->> +                   _ASM_BUGFRAME_TEXT(0)
->> +                   UNLIKELY_END_SECTION
->> +                   :
->> +#ifdef HAVE_AS_VMX
->> +                   : "r" (field) , "rm" (value),
->> +#else
->> +                   : "a" (field) , "c" (value),
->> +#endif
->> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
->> +        );
->> +}
->> +
->> +
->> +#ifdef HAVE_AS_VMX
-> 
-> Nit: No double blank lines please (there's at least one more instance
-> further down).
-> 
->> +# define GAS_VMX_OP(yes, no) yes
->> +#else
->> +# define GAS_VMX_OP(yes, no) no
->> +#endif
->> +
->> +static inline enum vmx_insn_errno vmread_safe(unsigned long field,
->> +                                              unsigned long *value)
->> +{
->> +    unsigned long ret = VMX_INSN_SUCCEED;
->> +    bool fail_invalid, fail_valid;
->> +
->> +    asm volatile ( GAS_VMX_OP("vmread %[field], %[value]\n\t",
->> +                              VMREAD_OPCODE MODRM_EAX_ECX)
->> +                   ASM_FLAG_OUT(, "setc %[invalid]\n\t")
->> +                   ASM_FLAG_OUT(, "setz %[valid]\n\t")
->> +                   : ASM_FLAG_OUT("=@ccc", [invalid] "=rm") (fail_invalid),
->> +                     ASM_FLAG_OUT("=@ccz", [valid] "=rm") (fail_valid),
->> +                     [value] GAS_VMX_OP("=rm", "=c") (*value)
->> +                   : [field] GAS_VMX_OP("r", "a") (field));
->> +
->> +    if ( unlikely(fail_invalid) )
->> +        ret = VMX_INSN_FAIL_INVALID;
->> +    else if ( unlikely(fail_valid) )
->> +        __vmread(VM_INSTRUCTION_ERROR, &ret);
->> +
->> +    return ret;
->> +}
->> +
->> +static inline enum vmx_insn_errno vmwrite_safe(unsigned long field,
->> +                                               unsigned long value)
->> +{
->> +    unsigned long ret = VMX_INSN_SUCCEED;
->> +    bool fail_invalid, fail_valid;
->> +
->> +    asm volatile ( GAS_VMX_OP("vmwrite %[value], %[field]\n\t",
->> +                              VMWRITE_OPCODE MODRM_EAX_ECX)
->> +                   ASM_FLAG_OUT(, "setc %[invalid]\n\t")
->> +                   ASM_FLAG_OUT(, "setz %[valid]\n\t")
->> +                   : ASM_FLAG_OUT("=@ccc", [invalid] "=rm") (fail_invalid),
->> +                     ASM_FLAG_OUT("=@ccz", [valid] "=rm") (fail_valid)
->> +                   : [field] GAS_VMX_OP("r", "a") (field),
->> +                     [value] GAS_VMX_OP("rm", "c") (value));
->> +
->> +    if ( unlikely(fail_invalid) )
->> +        ret = VMX_INSN_FAIL_INVALID;
->> +    else if ( unlikely(fail_valid) )
->> +        __vmread(VM_INSTRUCTION_ERROR, &ret);
->> +
->> +    return ret;
->> +}
->> +
->> +#undef GAS_VMX_OP
->> +
->> +
->> +static always_inline void __invept(unsigned long type, uint64_t eptp)
->> +{
->> +    struct {
->> +        uint64_t eptp, rsvd;
->> +    } operand = { eptp };
->> +
->> +    /*
->> +     * If single context invalidation is not supported, we escalate to
->> +     * use all context invalidation.
->> +     */
->> +    if ( (type == INVEPT_SINGLE_CONTEXT) &&
->> +         !cpu_has_vmx_ept_invept_single_context )
->> +        type = INVEPT_ALL_CONTEXT;
->> +
->> +    asm volatile (
->> +#ifdef HAVE_AS_EPT
->> +                   "invept %0, %1\n"
->> +#else
->> +                   INVEPT_OPCODE MODRM_EAX_08
->> +#endif
->> +                   /* CF==1 or ZF==1 --> BUG() */
->> +                   UNLIKELY_START(be, invept)
->> +                   _ASM_BUGFRAME_TEXT(0)
->> +                   UNLIKELY_END_SECTION
->> +                   :
->> +#ifdef HAVE_AS_EPT
->> +                   : "m" (operand), "r" (type),
->> +#else
->> +                   : "a" (&operand), "c" (type),
->> +#endif
->> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
->> +                   : "memory" );
->> +}
->> +
->> +static always_inline void __invvpid(unsigned long type, u16 vpid, u64 gva)
->> +{
->> +    struct __packed {
->> +        u64 vpid:16;
->> +        u64 rsvd:48;
->> +        u64 gva;
->> +    }  operand = {vpid, 0, gva};
-> 
-> I don't think __packed is needed here. I wonder if it could be dropped as
-> you move the code. In any event, here and elsewhere, u64 -> uint64_t (and
-> alike) please.
-> 
->> +    /* Fix up #UD exceptions which occur when TLBs are flushed before VMXON. */
->> +    asm volatile ( "1: "
->> +#ifdef HAVE_AS_EPT
->> +                   "invvpid %0, %1\n"
->> +#else
->> +                   INVVPID_OPCODE MODRM_EAX_08
->> +#endif
->> +                   /* CF==1 or ZF==1 --> BUG() */
->> +                   UNLIKELY_START(be, invvpid)
->> +                   _ASM_BUGFRAME_TEXT(0)
->> +                   UNLIKELY_END_SECTION "\n"
->> +                   "2:"
->> +                   _ASM_EXTABLE(1b, 2b)
->> +                   :
->> +#ifdef HAVE_AS_EPT
->> +                   : "m" (operand), "r" (type),
->> +#else
->> +                   : "a" (&operand), "c" (type),
->> +#endif
->> +                     _ASM_BUGFRAME_INFO(BUGFRAME_bug, __LINE__, __FILE__, 0)
->> +                   : "memory" );
->> +}
->> +
->> +static inline void ept_sync_all(void)
->> +{
->> +    __invept(INVEPT_ALL_CONTEXT, 0);
->> +}
->> +
->> +static inline void vpid_sync_vcpu_gva(struct vcpu *v, unsigned long gva)
->> +{
->> +    int type = INVVPID_INDIVIDUAL_ADDR;
->> +
->> +    /*
->> +     * If individual address invalidation is not supported, we escalate to
->> +     * use single context invalidation.
->> +     */
->> +    if ( likely(cpu_has_vmx_vpid_invvpid_individual_addr) )
->> +        goto execute_invvpid;
->> +
->> +    type = INVVPID_SINGLE_CONTEXT;
->> +
->> +    /*
->> +     * If single context invalidation is not supported, we escalate to
->> +     * use all context invalidation.
->> +     */
->> +    if ( !cpu_has_vmx_vpid_invvpid_single_context )
->> +        type = INVVPID_ALL_CONTEXT;
->> +
->> +execute_invvpid:
-> 
-> Nit (style): Labels indented by at least one blank please.
-> 
->> +    __invvpid(type, v->arch.hvm.n1asid.asid, (u64)gva);
->> +}
->> +
->> +static inline void vpid_sync_all(void)
->> +{
->> +    __invvpid(INVVPID_ALL_CONTEXT, 0, 0);
->> +}
->> +
->> +static inline void __vmxoff(void)
->> +{
->> +    asm volatile (
->> +        VMXOFF_OPCODE
->> +        : : : "memory" );
-> 
-> All on a single line perhaps?
-> 
->> +}
->> +
->> +static inline int __vmxon(u64 addr)
->> +{
->> +    int rc;
->> +
->> +    asm volatile (
->> +        "1: " VMXON_OPCODE MODRM_EAX_06 "\n"
->> +        "   setna %b0 ; neg %0\n" /* CF==1 or ZF==1 --> rc = -1 */
->> +        "2:\n"
->> +        ".section .fixup,\"ax\"\n"
->> +        "3: sub $2,%0 ; jmp 2b\n"    /* #UD or #GP --> rc = -2 */
->> +        ".previous\n"
->> +        _ASM_EXTABLE(1b, 3b)
->> +        : "=q" (rc)
->> +        : "0" (0), "a" (&addr)
->> +        : "memory");
-> 
-> Nit: Missing blank before final parenthesis. Would also be nice if the
-> comments lined up.
-> 
->> +    return rc;
->> +}
->> +
->> +int cf_check vmx_guest_x86_mode(struct vcpu *v);
->> +unsigned int vmx_get_cpl(void);
->> +void vmx_inject_extint(int trap, uint8_t source);
->> +void vmx_inject_nmi(void);
->> +
->> +void update_guest_eip(void);
->> +
->> +void vmx_pi_per_cpu_init(unsigned int cpu);
->> +void vmx_pi_desc_fixup(unsigned int cpu);
->> +
->> +void vmx_sync_exit_bitmap(struct vcpu *v);
->> +
->> +#define APIC_INVALID_DEST           0xffffffff
->> +
->> +/* #VE information page */
->> +typedef struct {
->> +    u32 exit_reason;
->> +    u32 semaphore;
->> +    u64 exit_qualification;
->> +    u64 gla;
->> +    u64 gpa;
->> +    u16 eptp_index;
->> +} ve_info_t;
->> +
->> +/* VM-Exit instruction info for LIDT, LGDT, SIDT, SGDT */
->> +typedef union idt_or_gdt_instr_info {
->> +    unsigned long raw;
->> +    struct {
->> +        unsigned long scaling   :2,  /* bits 0:1 - Scaling */
->> +                                :5,  /* bits 6:2 - Undefined */
->> +        addr_size               :3,  /* bits 9:7 - Address size */
->> +                                :1,  /* bit 10 - Cleared to 0 */
->> +        operand_size            :1,  /* bit 11 - Operand size */
->> +                                :3,  /* bits 14:12 - Undefined */
->> +        segment_reg             :3,  /* bits 17:15 - Segment register */
->> +        index_reg               :4,  /* bits 21:18 - Index register */
->> +        index_reg_invalid       :1,  /* bit 22 - Index register invalid */
->> +        base_reg                :4,  /* bits 26:23 - Base register */
->> +        base_reg_invalid        :1,  /* bit 27 - Base register invalid */
->> +        instr_identity          :1,  /* bit 28 - 0:GDT, 1:IDT */
->> +        instr_write             :1,  /* bit 29 - 0:store, 1:load */
->> +                                :34; /* bits 30:63 - Undefined */
->> +    };
->> +} idt_or_gdt_instr_info_t;
->> +
->> +/* VM-Exit instruction info for LLDT, LTR, SLDT, STR */
->> +typedef union ldt_or_tr_instr_info {
->> +    unsigned long raw;
->> +    struct {
->> +        unsigned long scaling   :2,  /* bits 0:1 - Scaling */
->> +                                :1,  /* bit 2 - Undefined */
->> +        reg1                    :4,  /* bits 6:3 - Reg1 */
->> +        addr_size               :3,  /* bits 9:7 - Address size */
->> +        mem_reg                 :1,  /* bit 10 - Mem/Reg */
->> +                                :4,  /* bits 14:11 - Undefined */
->> +        segment_reg             :3,  /* bits 17:15 - Segment register */
->> +        index_reg               :4,  /* bits 21:18 - Index register */
->> +        index_reg_invalid       :1,  /* bit 22 - Index register invalid */
->> +        base_reg                :4,  /* bits 26:23 - Base register */
->> +        base_reg_invalid        :1,  /* bit 27 - Base register invalid */
->> +        instr_identity          :1,  /* bit 28 - 0:LDT, 1:TR */
->> +        instr_write             :1,  /* bit 29 - 0:store, 1:load */
->> +                                :34; /* bits 31:63 - Undefined */
->> +    };
->> +} ldt_or_tr_instr_info_t;
-> 
-> One file wide remark: I assume you've put things here in the order they
-> were in originally. I think it would be nice if some re-arrangement was
-> done, e.g. all structures first (unless there's a reason speaking
-> against doing so, and of course not including any which are local to
-> specific inline functions), then all variable decalarations, all function
-> delarations, and finally all inline functions.
+Hmm, yes, digging through the about two dozen mails, I can see there is a
+connection to (not) calling SetVirtualAddressMap() there.
 
-Yes I put everything as it was. Thanks for the review I will address all 
-your comments above in v3.
-
-I have a question regarding the rearrangement, where are the definitions 
-placed (if there is not a semantic relation with some other part)?
-
+>> Plus maybe they can merely because old
+>> and new OS are similar enough in their (virtual) memory layout? IOW
+>> kexec-ing to Linux for crash dumping purposes is just one (important)
+>> example of the functionality that needs retaining. 
 > 
-> Jan
+> It works just fine with Xen calling SetVirtualAddressMap().
+> SetVirtualAddressMap() is relevant only for using runtime services, and
+> you don't need them for crash dumps. In fact, runtime services are not
+> accessible to post-kexec Linux anyway, so this call doesn't change
+> anything.
+> Additionally, given most stuff works
+> just fine with efi=no-rs proves it isn't severe limitation, if it really
+> would need to be there - but as Andrew noted, given Linux example, it
+> doesn't really need to be the case - it may simply require a bit more
+> thinking when adding runtime services capability past kexec.
 
--- 
-Xenia
+All of what you say here is what I had meant to cover by adding the
+"(important)", which initially I didn't have. 
+
+>> Once we get better
+>> PVH Dom0 support, maybe other Dom0 OSes surface with entirely different
+>> needs.
+> 
+> I find this claim rather weird. Runtime services are a thing that Xen
+> needs to call, not some domain. And Xen has control over its memory
+> layout.
+> 
+> _If_ PVH dom0 would really turn out to be incompatible with
+> SetVirtualAddressMap() call by Xen (which I highly doubt), then some
+> alternative for that case can be made. But that's only speculation.
+
+The remark wasn't about Dom0 itself wanting runtime services access:
+Dom0 isn't going to be provided such, at least not to the physical EFI's.
+If such was needed for PVH Dom0, we'd need to wire it to virtual firmware
+hooks (which in turn may or may not be viewed as against some of the
+ideas of PVH).
+
+The remark was instead meant to point out that such an alternative OS
+may want to invoke another (native) instance of itself for e.g. crash
+dumping purposes.
+
+>> As said back then - part of the reason why in the original
+>> implementation I've avoided making this call is because of the fear of
+>> closing possible roads we may need to take in the future.
+> 
+> Yet, not calling SetVirtualAddressMap() leads to actual issues _right
+> now_, not in some hypothetical undefined future.
+
+That's the way you, Andrew, and others like to put it. My view at this
+is that it's not the lack of the call, but the improper implementation
+of firmware which leads to an apparent need for this call. Like for all
+other firmware bug workarounds, I'm happy to accept any proposals for
+workarounds, as long as such workarounds either don't impact spec-
+compliant systems, or as long as they're off by default. In the case
+here this would mean that I'm likely to approve a change which converts
+the EFI_SET_VIRTUAL_ADDRESS_MAP Kconfig to a command line option (as
+long as it looks technically correct, of course), improving flexibility
+from the present build-time-only control. (Qubes and other distros
+would then be free to change the default of that option from "false" to
+"true", and that would be a pretty easy to maintain local change.)
+
+However, part of the reason why originally this wasn't (even meant to
+be) controllable via Kconfig (or any pre-Kconfig means) was that I
+don't think the handling of the ->VirtualStart fields is correct for
+this case in efi_init_memory(): The final layout simply cannot be done
+there (after SetVirtualAddressMap() was already called). Since I don't
+think laying out virtual space can be moved ahead, this would mean
+moving the call to SetVirtualAddressMap() past this layout phase. Yet
+then we may again end up calling runtime services functions (time
+ones in particular, but note that I didn't check the order of things,
+so "may" was deliberate) ahead of calling SetVirtualAddressMap().
+
+Plus, once you look at the layout code, you'll find a number of cases
+which simply end in an error message.
+
+To confess - I was quite happy back at the time that I could use the
+kexec concern as a justification for not needing to solve these issues
+right away.
+
+These issues would, however, need sorting (by code changes or verbal
+justification) no matter whether the Kconfig default was to change
+(or even just the EXPERT dependency to go away), or whether the
+conversion to a command line option was the way to go.
+
+Jan
 
