@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E26026A1FE4
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 17:44:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.501294.772978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36CC36A1FF2
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 17:46:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.501301.772989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVbAp-0008H2-OL; Fri, 24 Feb 2023 16:43:55 +0000
+	id 1pVbCk-0000Rh-3K; Fri, 24 Feb 2023 16:45:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 501294.772978; Fri, 24 Feb 2023 16:43:55 +0000
+Received: by outflank-mailman (output) from mailman id 501301.772989; Fri, 24 Feb 2023 16:45:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVbAp-0008FK-LT; Fri, 24 Feb 2023 16:43:55 +0000
-Received: by outflank-mailman (input) for mailman id 501294;
- Fri, 24 Feb 2023 16:43:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pVbCk-0000Ps-0U; Fri, 24 Feb 2023 16:45:54 +0000
+Received: by outflank-mailman (input) for mailman id 501301;
+ Fri, 24 Feb 2023 16:45:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AdiI=6U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pVbAn-0008EV-KT
- for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 16:43:53 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6b57e1a2-b462-11ed-a82a-c9ca1d2f71af;
- Fri, 24 Feb 2023 17:43:52 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id i9so18482718lfc.6
- for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 08:43:52 -0800 (PST)
+ id 1pVbCj-0000Pm-Cy
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 16:45:53 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b348ebdc-b462-11ed-88bb-e56d68cac8db;
+ Fri, 24 Feb 2023 17:45:52 +0100 (CET)
+Received: by mail-lj1-x230.google.com with SMTP id e9so14752399ljn.9
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 08:45:52 -0800 (PST)
 Received: from [192.168.8.199] (46.204.108.92.nat.umts.dynamic.t-mobile.pl.
  [46.204.108.92]) by smtp.gmail.com with ESMTPSA id
- i19-20020a056512007300b004dd7fefd2c8sm571491lfo.242.2023.02.24.08.43.50
+ p12-20020a2eb98c000000b00295a8c68585sm164521ljp.56.2023.02.24.08.45.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Feb 2023 08:43:51 -0800 (PST)
+ Fri, 24 Feb 2023 08:45:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +44,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b57e1a2-b462-11ed-a82a-c9ca1d2f71af
+X-Inumbo-ID: b348ebdc-b462-11ed-88bb-e56d68cac8db
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=BPSRDjzdeB6txEqgf31L69bsNBIZpJBcGCUVmQUMvow=;
-        b=Jbwivhhsyp6NmIirVTDq0Ay8uIPynWaFixc1ORAuEuyO5BA09TSEKNoxBU07mhU/w7
-         P2kmIW2xjtls2yXvoj5po+TmYC1exZh5ddp9uJJ3R2caQMBp/CBKRMYxDlTHe28pEGuq
-         iEN47V6JN804Mm/eeVfWE4ma6jeg2UkBMXWlgZ8BDvWtLF8h9eK5387x3sUE7yKNlMS2
-         louajjp48udf6eMeiJ6iZYQ3vW7zhvd82KU60c+RIfyKQo+bspVmpXLYHKR5O8EXRPjB
-         5mWMwg0LkTqEPpOgN0dwgIC8zEsv979VXwW1IL0RTi9nfw/ooZSKhx9uHdwoy6m2o0fG
-         O+Qw==
+        bh=3ROOQhNVqMUAZjCPKo1j893EG5DhF3n7MP2Vc/cEbqM=;
+        b=ObREOdVIkTL7+BZruWwXUhb5iSYubU0L5FZGdOWSb9MZ7bTnGOweGmo5BEnWoKQLMS
+         fHMmxw4Q7yIyoscNuRUK0g3QeHNRXpPXPuiQDN3c7mc2qFzyXrS1eSwxn4pM+w8Ny5PF
+         Vr5AuAFPvqi2NNVCJ8f9Ig4HGvl+QUy6q1Gy5r1VjuLYTpqYhPHi+bauCuV6MRU3xlg6
+         /ZxtzFv/BXMllo2FVqq1PMzScPlSmczHC0i5kiiUJ1rvuGm/OeEdVmiteOMvpATIhdC5
+         wQ7RxYkD/WJh8Fzt5wC0ax/e1aDMPW8AqbIKmaQSMo3mNBBzvzHsaYHudDKPl96aOPnJ
+         EARw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=BPSRDjzdeB6txEqgf31L69bsNBIZpJBcGCUVmQUMvow=;
-        b=vc1rP1q/V75nL7FZUHDhbYszyicewejeBbGQA8wqEzIaBAjwZYQkOcLhORl5zyO/90
-         KVrJHZqoF4GszW21+WW8c0qJvhnXK9t03EM/Juon0WyoDltS4xrDPrWrTRkIQcAyJvca
-         1AUSv+gPCVbvvjiB6iuO8wnYRKILQajfHN9XS8ulHOQBcrCeVtIJnbk/jNqKFhitakYU
-         jFx5UIDemvgPQr3+xCev+X+wUYHudc0dGdBrF1/cXEsjj3lGerfXSXQ24bDELy4dWF+A
-         WNCVsG9dlcaq53Ibg6m1shczwUdCPhsdAFHQDpj+z0Aw00AeadLaV3j2+cxyQg/Gig+x
-         ergw==
-X-Gm-Message-State: AO0yUKVpFWroOdF9nCueGz+UBMKhDGDzHfnV78E5qFIbzR33bGmN/Iqt
-	0YRybXcXbS936EJp1Qw2ivk=
-X-Google-Smtp-Source: AK7set9PCqIaaQPnEYXdGQws7RFxWAeG1oClAj3Y/Ca2uM2PFg5Zs3wNYslc9KKRwVURrbXVL/UvbA==
-X-Received: by 2002:a19:ac45:0:b0:4cb:1189:285c with SMTP id r5-20020a19ac45000000b004cb1189285cmr6453054lfc.10.1677257031376;
-        Fri, 24 Feb 2023 08:43:51 -0800 (PST)
-Message-ID: <a7f7160d431041d861bedb0921a76461bb09a00d.camel@gmail.com>
-Subject: Re: [PATCH] xen/riscv: init bss section
+        bh=3ROOQhNVqMUAZjCPKo1j893EG5DhF3n7MP2Vc/cEbqM=;
+        b=LppnWg+E9BXYCAFnQ0JEEv19ixZMY5OyVSe+Aq9irYnG5vy9agJnG+fEdEMesUIQ2Q
+         Hnn7h6TP+cH8GdEwEtuYJoY2az1QQ8h+ZO5/ulkLcXjee78desAIuTKrabhTAwlKE7Pi
+         oCHHfYXKcPpeTm1fc50d2dk85lexkeulaAuHK0A1VeHu8djg7daVMDqQc+5Dk8p+vqOg
+         mb8BlKKR7EmSFVn3FPQpK1qZhDiXC6IT9egvszoiz3IB7+k1149dOmuLWqKKSvZ/jKMG
+         umtCOOYzshOeA13a3DQla+MoF6deF42um8ssElsW9W+gPx5wbYNYUThxvh3wpXgoYW0S
+         YLOA==
+X-Gm-Message-State: AO0yUKVoJbmjouG5dziE+VHzS58//NIDTXGiQIlk0UMPc8dxQuubsA+k
+	JkguBRohFYegUe+BqLZg3ik=
+X-Google-Smtp-Source: AK7set+KZcYir25Il4lRADq69l+LCW/DoYQjlmKpiReKiVkXg9/RvhI1Gw5P/BP5X60nx7qrB6oCaw==
+X-Received: by 2002:a05:651c:4d1:b0:290:4dd3:c177 with SMTP id e17-20020a05651c04d100b002904dd3c177mr7573990lji.32.1677257152256;
+        Fri, 24 Feb 2023 08:45:52 -0800 (PST)
+Message-ID: <446e180b380251ec2c2e0778b73cf2c06739fe21.camel@gmail.com>
+Subject: Re: [PATCH v1 3/3] automation: update RISC-V smoke test
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>,
- xen-devel@lists.xenproject.org
-Date: Fri, 24 Feb 2023 18:43:49 +0200
-In-Reply-To: <d0a46792-ed15-788e-6a61-f6b0d8f36983@suse.com>
-References: 
-	<134bf758ecd93deffc6623605a8c020a17f64be8.1677249688.git.oleksii.kurochko@gmail.com>
-	 <d0a46792-ed15-788e-6a61-f6b0d8f36983@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida
+	 <gianluca@rivosinc.com>, Doug Goldstein <cardoe@cardoe.com>
+Date: Fri, 24 Feb 2023 18:45:50 +0200
+In-Reply-To: <88839882-29bc-0de1-ae6f-f47dc1ee3aee@citrix.com>
+References: <cover.1677250203.git.oleksii.kurochko@gmail.com>
+	 <38ddf88eabd9cc36c332d6a27c6ee1242d33df19.1677250203.git.oleksii.kurochko@gmail.com>
+	 <88839882-29bc-0de1-ae6f-f47dc1ee3aee@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
 
-On Fri, 2023-02-24 at 15:56 +0100, Jan Beulich wrote:
-> On 24.02.2023 15:48, Oleksii Kurochko wrote:
-> > --- a/xen/arch/riscv/setup.c
-> > +++ b/xen/arch/riscv/setup.c
-> > @@ -24,6 +24,18 @@ static void test_macros_from_bug_h(void)
-> > =C2=A0=C2=A0=C2=A0=C2=A0 early_printk("WARN is most likely working\n");
-> > =C2=A0}
+On Fri, 2023-02-24 at 15:27 +0000, Andrew Cooper wrote:
+> On 24/02/2023 3:06 pm, Oleksii Kurochko wrote:
+> > The smoke test was updated to verify that MMU has been enabled.
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > =C2=A0automation/scripts/qemu-smoke-riscv64.sh | 2 +-
+> > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+> >=20
+> > diff --git a/automation/scripts/qemu-smoke-riscv64.sh
+> > b/automation/scripts/qemu-smoke-riscv64.sh
+> > index 02fc66be03..01cd08e407 100755
+> > --- a/automation/scripts/qemu-smoke-riscv64.sh
+> > +++ b/automation/scripts/qemu-smoke-riscv64.sh
+> > @@ -16,5 +16,5 @@ qemu-system-riscv64 \
+> > =C2=A0=C2=A0=C2=A0=C2=A0 |& tee smoke.serial
 > > =C2=A0
-> > +static void __init init_bss(void)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 extern char __bss_start;
-> > +=C2=A0=C2=A0=C2=A0 extern char __bss_end;
+> > =C2=A0set -e
+> > -(grep -q "WARN is most likely working" smoke.serial) || exit 1
+> > +(grep -q "MMU has been enabled" smoke.serial) || exit 1
+> > =C2=A0exit 0
 >=20
-> Better use [] and then perhaps omit the & operators further down.
-> However, I thought we have a compiler warning option in use which
-> precludes extern declarations which aren't at file scope. Even if
-> I'm misremembering, perhaps better to move them.
-Thanks. I will update the code then to use [].
+> There's a more simple way than this.=C2=A0 I'll do a patch.
+Definitely your way is more simple. Thanks.
 >=20
-> > +=C2=A0=C2=A0=C2=A0 char *bss =3D &__bss_start;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 while ( bss < &__bss_end ) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *bss =3D 0;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bss++;
-> > +=C2=A0=C2=A0=C2=A0 }
-> > +}
->=20
-> If you're sure you can defer this until being in C code, why not use
-> memset()?
-I had an issue with from <xen/string.h>
-
-
-#ifndef __HAVE_ARCH_MEMSET
-#define memset(s, c, n) __builtin_memset(s, c, n)
-#endif
-
-but there is no issue any more so I think I can use memset().
->=20
-> Jan
+> ~Andrew
 ~ Oleksii
 
