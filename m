@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06E846A21E4
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 19:59:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.501474.773270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADE466A225B
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 20:30:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.501514.773293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVdHi-0000U1-1N; Fri, 24 Feb 2023 18:59:10 +0000
+	id 1pVdl6-0006ac-OT; Fri, 24 Feb 2023 19:29:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 501474.773270; Fri, 24 Feb 2023 18:59:10 +0000
+Received: by outflank-mailman (output) from mailman id 501514.773293; Fri, 24 Feb 2023 19:29:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVdHh-0000Mx-Th; Fri, 24 Feb 2023 18:59:09 +0000
-Received: by outflank-mailman (input) for mailman id 501474;
- Fri, 24 Feb 2023 18:59:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pVdl6-0006Y1-KU; Fri, 24 Feb 2023 19:29:32 +0000
+Received: by outflank-mailman (input) for mailman id 501514;
+ Fri, 24 Feb 2023 19:29:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vhFC=6U=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pVd9X-0002YL-GY
- for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 18:50:43 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 21472588-b474-11ed-a82a-c9ca1d2f71af;
- Fri, 24 Feb 2023 19:50:38 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id f13so1043298edz.6
- for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 10:50:38 -0800 (PST)
-Received: from uni.router.wind (adsl-185.109.242.225.tellas.gr.
- [109.242.225.185]) by smtp.googlemail.com with ESMTPSA id
- me19-20020a170906aed300b008b17662e1f7sm10585245ejb.53.2023.02.24.10.50.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Feb 2023 10:50:37 -0800 (PST)
+ <SRS0=V4+4=6U=citrix.com=prvs=412e064f8=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pVdl4-0006Xt-Du
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 19:29:30 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8c7a71be-b479-11ed-88bb-e56d68cac8db;
+ Fri, 24 Feb 2023 20:29:28 +0100 (CET)
+Received: from mail-bn7nam10lp2100.outbound.protection.outlook.com (HELO
+ NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.100])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 24 Feb 2023 14:29:24 -0500
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by CO1PR03MB5907.namprd03.prod.outlook.com (2603:10b6:303:6e::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.24; Fri, 24 Feb
+ 2023 19:29:21 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6134.021; Fri, 24 Feb 2023
+ 19:29:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,482 +49,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21472588-b474-11ed-a82a-c9ca1d2f71af
+X-Inumbo-ID: 8c7a71be-b479-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1677266968;
+  h=message-id:date:from:subject:to:cc:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=OFro7h0AJZcfednimzLgri+QYxEpuz4UHy0T/n6gh5E=;
+  b=bWEbXWXqbdwUMz0QqYYEanI/vt011p/o8K1TpZafnBSBgfq6WGvitK8W
+   BKyWJmlZ3ZXuutJI04qw6HT2OG2XQO15ex1A53ZELwBxWHtf7GXhxgSZt
+   U4wCuwpESY16eqoE/C6kFv7kxu5/SWOLXalH/NC7uU5KPmvDKmQtMGxFV
+   I=;
+X-IronPort-RemoteIP: 104.47.70.100
+X-IronPort-MID: 98460822
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:p+IeM63Y3Wli8gb04fbD5Tpwkn2cJEfYwER7XKvMYLTBsI5bpzEEy
+ GQZUGnUafjfYjChed8gOY23oU1VusXTnd9rTQZkpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8tuTS93uDgNyo4GlD5gZkOagQ1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfBDxt3
+ 9AReQoxUAGCltPt7J2DFu9ImZF2RCXrFNt3VnBI6xj8VK5ja7acBqLA6JlfwSs6gd1IEbDGf
+ c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxouy6KlFQZPLvFabI5fvSjQ8lPk1nej
+ WXB52njWTkRNcCFyCrD+XWp7gPKtXKrBNxKROfinhJsqAKr3HxKLQA5bFimoNCXg3KVYsh8N
+ mVBr0LCqoB3riRHVOLVVQCisneAuRIbRNN4HOgz6QXLwa3Riy6JC25BQjNfZdgOsM4tWSdsx
+ lKPh8nuBzFkrPuSU3313rWeoC62OCMVBXQffiJCRgwAi/H8pKkjgxSJScxseIa3k9uzHzjzy
+ jKLqSEWhrMPgMpN3KK+lXjEjiytoN7VTwczzgTRQm+hqAh+YeaYi5eA7FHa6bNKKtmfR1zY5
+ HwcwZHGtKYJEI2HkzGLTKMVBra16v2ZMTrax1lyA50m8Dfr8HmmFWxN3AxDyI5SGp5sUVfUj
+ IX742u9OLc70KOWUJJK
+IronPort-HdrOrdr: A9a23:ObH81qreejEeJ5WjsGUIpmcaV5rreYIsimQD101hICG9Evb0qy
+ nOpoV/6faQslwssR4b9uxoVJPvfZq+z+8W3WByB9eftWDd0QPFEGgL1+DfKlbbak7DH4BmtJ
+ uJc8JFeafNJGk/t+nWyk2TKfFI+qjizEir792uskuEm2tRGt1dBwQSMHflLqVvLjM2YqbQjP
+ Cnl7F6TzzLQwVwUizqbkN1JtQqvrfw5erbXSI=
+X-IronPort-AV: E=Sophos;i="5.97,325,1669093200"; 
+   d="scan'208";a="98460822"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UFHEARyaLXPh8RuJgp7Rh5zkejSTa8kL13S2M/bECMcloO5Zgph8mi4TeKWZlwyXoGSTUEt7EQKpRp27iPkRoWfoTdtyOPjbjT2BeigbbB84Q4PbZVMOaJzOhw1bpIAnU8/hq6HEJmlcuAQ6rdt0HHNB/a33DWklSKRSseyzbIr/zfO3AS0Xu9ea+H+xeyCue3TC1/s+sxs5gaqF/IrZl2TUXt2cfVmOcMGPr/UadPgw5a7PvaHjMfMGzQwrihwB2NrSef12wukhI135gefIuVGDyyo5Fg6fqZ7CgTfvdAI0V+3w7/Bfu9HhG4fy7/T0Ckp3nAbFB6ISC2tu6Xgxcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IF72UqMKYtYo7gCbrTF6rw0GunHgKCYG55j2RyMonFc=;
+ b=S2tq12jnyqV7Z/c0+0s44g4cxjEJUme7yHmkckjj9qNzUbmly9DbrjN3EXVjZk7j9voj7JL1E3mv5jubkw6JbcDu8rOIdi5LdtIQ9GvDz35UvRTzJWd/rOlithBnwDLwIgVCVpA4vANeCy/OjZ7P/VA/YnmQmrfxFT/PvI8ep1Ik6144ggYSM1MWPqICgHlypnKICr7X4fu4F1CikEoZL4PciaHtIuvFz3CkrKFkVC6jfHXDA9O7qcQIvwTLq1gkA4UZejYZO7pn2GHSP2D2SzBbcNxvvNSR7yi9H7WZRhhEDmv66YGAC6oVu5DvNw+JwMeW/xfbFkIUl9LT8N+iAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oPu/CWLizak/IEWUGPIk9YBOHGWgcE+p+9Gx9liFImY=;
-        b=M+rCwNla4KthKEp+2PbbfuXze83MK0Onq9VS/jOP3ModXka4wg5mqXP3eoc63+12c8
-         81Pwd0hASHLJSYItsXHT+btPrTRHXMLeGwc6JF7ZhPAguXJqOaZySGhufxigZqPzkPaw
-         ab+CEHbB/33pjSMbBd9l5b2n3nBex+c/vu1sWH9ddywhg/szO8E3HQQ2uw4sPb1hFvev
-         IXmFH60eAXk95yrDXn9ddOzkkbdysDY0viDBYUIdARzlp26NUwl7dMo+O52FrfQQWaLx
-         /qZkwa1sUz49n+PnhsiYQuwNXI0sBv9FH+Dw2/VGuvEcCwEN/8Z+rKspNWPI1iQCOPbS
-         z8UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oPu/CWLizak/IEWUGPIk9YBOHGWgcE+p+9Gx9liFImY=;
-        b=tjhF9beAQ/X9/jX2IvCexSxsYhMRY00vpfgjOIEzJrkog5AQ7h1qDMO8m2ybfQmTrD
-         SS6CRJuljfzouzaeE9lDx6NzlW3RRYCZPEJReKQvlroVVVjztVzWfJnL3HEFDS6hioiw
-         wxk6HFRzjITBGLcdBvARnP+T7x11DD5QQFPorcuiaJdXnGgMMEwJZlX/oQldkZxZiSym
-         prBaqMTm/RMKFzK7y+rTSb5hWTfi6P+e2CuHZ/sq7EGcV+i4QqGMmKwWchvB7rdhEyck
-         CuPbYVD3UYz6Ue3na+HwC3sRNnpu++X1rrr7nyWEZydJycMYC7dutobLjO4ijIfbQ6Ok
-         ht5A==
-X-Gm-Message-State: AO0yUKUT3JQ7sCtGebVCOZ/p8OCAi6kz2d/Si6+KsmshLYn7ZDRAyuFz
-	mKzCPMUgSXKWqSCftygr3ZcC1zFQqHM=
-X-Google-Smtp-Source: AK7set9VCrxsCfrj8WDMJqnfM3n3CCnV/bOaEvihD8tqZ0eHsE5kIn0RiNmLBZtpr8p7NCKKWlojSQ==
-X-Received: by 2002:a17:906:f249:b0:878:81d7:9f77 with SMTP id gy9-20020a170906f24900b0087881d79f77mr21568882ejb.34.1677264638178;
-        Fri, 24 Feb 2023 10:50:38 -0800 (PST)
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 14/14] x86/vmx: move vmcs declarations used only by vmx code to private header
-Date: Fri, 24 Feb 2023 20:50:10 +0200
-Message-Id: <20230224185010.3692754-15-burzalodowa@gmail.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20230224185010.3692754-1-burzalodowa@gmail.com>
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IF72UqMKYtYo7gCbrTF6rw0GunHgKCYG55j2RyMonFc=;
+ b=MtKSjQyNkVYzCcogLitVGW/A1d+Jvnr/EnI0tWzcFJMdWPZWMfnNEnhHwXH/+K4UWV/QE9U57NIHc7HRKOSIFdyLjZ5Dc/BTpETEz3fmyFLJOYsr2Tl+oULvo6IQ2ZBxnWdnAZ0/C1y4NY51eo+aY2qiIf3QMfv8R8dUo/9y32o=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <e51c2ed6-4dc2-bf77-5d89-7023b3201fd0@citrix.com>
+Date: Fri, 24 Feb 2023 19:29:14 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v3 00/14] x86/hvm: {svm,vmx} {c,h} cleanup
+Content-Language: en-GB
+To: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
 References: <20230224185010.3692754-1-burzalodowa@gmail.com>
-MIME-Version: 1.0
+In-Reply-To: <20230224185010.3692754-1-burzalodowa@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO6P123CA0059.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:310::17) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|CO1PR03MB5907:EE_
+X-MS-Office365-Filtering-Correlation-Id: 896d71d6-f5d2-46f1-1c6b-08db169d6de0
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	RJOE6Nhni7/rfVGfJktkzdqQJrxE38y/W4kmsNV445TaeJaa7conLM26HscsOmlI8Syjxbk/CcxdP46e4Wdzw0j0DJrdADuRbAhkAbtV9YLOFYzR8v72Rk8p7j3w4ac5qfv58bynfTv4ulLVCQFt29C9Ux6CE8b9TQexL6Wj1hRDXx63Qr0IJkg3sakNn3lNnkdL9+N0r+6r/r9YPxZ3DfPy/iTairDMAEb5bWYOK0HfZHwTCB83QEj6fJ/1MNcVzxqhKW3aL6XRDBmHZACS3uNzqu8L5klCwUx+Xljj1+3BhTsW+AW5MlTS6LURfL23VLH2W+ZYqsGG6RCrAUydh7L2XioZIK+30H9xOGhKszri6L7edbO7kk1SouR+vsStIxklzpo6exg2eEmupuZMgGhrkBpGiIixMSxUe2x7dZjdqSpytaBfkoZQ7UvYB/5/Sjv6D72iiTWPiQ7C2d20/pShpJwZycchbX4KkVdnlmeLZRLtdWU1CHlwZpwgxDIF7CNi8QDcbaYMF9Om+q1pRyQWzgn/+ZsUbXXrzutGIK8yBHEKFAP1dJM8cQF76iVON22eyG8fzySBopurl8YfSZYtvXOybQLzx2UG3QHmDtcPag8nvua7kce8SxLg69HyutB6ZgnfTwxnngFVBXYFrByn/tBbXj3BtbbfS6EYjfsZYerW/dimkxpW8WKq/uae5/bfHQvtLQ6h4afE2t/XiM8jCSGkzjNjZLqyBFGHjXo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(39860400002)(376002)(366004)(136003)(346002)(451199018)(2616005)(316002)(6486002)(31696002)(36756003)(86362001)(54906003)(31686004)(26005)(186003)(2906002)(66476007)(4744005)(66556008)(6512007)(66946007)(8676002)(41300700001)(53546011)(6666004)(6506007)(478600001)(4326008)(5660300002)(82960400001)(8936002)(83380400001)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?c0xUVlJ4emQwWE5IcjFEQUM0MzdlOXJ6WHRsVitDUmRTeWVZR3ZIY2xyYlVN?=
+ =?utf-8?B?akQ3dzc4NWFHa2RvZ3N4amlJY2NQaHIzYUlkVFp2Mml0cGtBTDVlZXBrMkhW?=
+ =?utf-8?B?RVl6U2hIaFdLOFY0SlRRNENzdjBqM0pJaFRmV3NOT2MwK1R6b3A0RkVsV2cy?=
+ =?utf-8?B?Wkx2TE1Rd0d6dHlJSVJXaURVRFMxRkV4TWJkaGFqYnJ5bmVkV1NZalJiUjdM?=
+ =?utf-8?B?N3ZIVks4OE9yR05ITHMwamNxSGljOGljdm9haGlXWTlDUkN5Sm1lV1VrTEkz?=
+ =?utf-8?B?VmdCTXRpUkpQb1hNcW12VTJMTlhicHdCZktKS1FaeU1BbkFNZjlKUEhzWnN5?=
+ =?utf-8?B?blpIY2lmN0s0VVZVU1l2Q3FMMG5CU0grTEVKSVA3OSswSFVlMWRlUWNMYWZk?=
+ =?utf-8?B?Zll1Nk9kN29jeG1Mck9PcUM1T3doSDhvK1djNXZiTEFLWUtpN2JzbzBjaVNW?=
+ =?utf-8?B?Tmdmb3h3dXBVRzlCVEtjQXlWWkVUNEdOK1QwMEg2bytrQURoVzc4ZVlnTHhU?=
+ =?utf-8?B?ek1OcFNNWUk5aEZHNWVDMG1hY3JIQlc1ZFR3cWkvTkQ3WHJYVkU5dm8vNGNl?=
+ =?utf-8?B?WmZhWmEyL0RkbFdtUXZ6a1hBUzJuYnNiSVVIMklIQWhYaGpHU3lDczNOMHBo?=
+ =?utf-8?B?SVlYRklORGNPMzJJZGczUll4WmlTdlVYOTB3S3dpRW9Pc0JkT0ZuNXFrQjZK?=
+ =?utf-8?B?aW5kbFNZdTJDREJ0clE2U2M3T3N5bmFGdDlEZ0RNbFdDak9RUkNzM1hiRENS?=
+ =?utf-8?B?ZTdNbm05RVl5TDRBOStsa1htOHhYT213S1BIWThHRUMwTXZxN211R2RBNkNt?=
+ =?utf-8?B?RHo5Z2tjVGk1Y2JRVkwyN29XaHQrSWxHUzNMdHp6cGdob1ZNakxhOFhiRGph?=
+ =?utf-8?B?OWQzS1dBT2V1MEhkTE83MlhtWk5UcEdRSjFhM2JNeXI3aDk1d2xzNEFCZHV3?=
+ =?utf-8?B?Znh6WmdPbmh5UWNYdHpDbWJaS0pLSzVsTExBNE1jL043ZU12OFh6Snc5SFVO?=
+ =?utf-8?B?SFJqdEtabHhpT1VJQkJ5QzZLVDBBcWV4eTRSbDdKSUFxcEpLMWp3RHJPcmEv?=
+ =?utf-8?B?d2FtSEpPc0J1WTNYc1JLV2dMVXJTZWl3a2ppbkNFcjB4WUNCVUpBQmJyVy9n?=
+ =?utf-8?B?ckZ0SEZ2eUFRMkVZZm1OWkRtOU56bU1TN2xObjdnSStYOXgvTHl5QkcwQUNH?=
+ =?utf-8?B?S0I1UjhKMXZzcm1FaEY5VWs2WWZvVmM1QktMNzRGRks0TTFvQmFwT3FPNmtm?=
+ =?utf-8?B?eDRncGYzaVRsZ1R2SHZXNWVkb252b1FuNVBpZnp3cFFWUE5zaFVjWU1FLzhs?=
+ =?utf-8?B?ZzhGZUJMYUZZUnYraGFQSnJqMEgxK0VsYm00ZWpLQnUxU1gyZEpKZzREOElt?=
+ =?utf-8?B?REhzN08wWVMwM3hRV3NPT0Z3MFlUVTk3alNZY3d6czZxOTdtU3lpSXBWam01?=
+ =?utf-8?B?SWZVaW8vUEJEWmxsSmNocVVZRTJ0Mmo5eDZKV2cyTko3ZjQ3YytwZ21zN1Yw?=
+ =?utf-8?B?UU1vV1VlODV3RFc2WEJqR1lWazB3OXd2ZDFsWUpkTDY3Ym5EeERTeG4vR3ZW?=
+ =?utf-8?B?S2JPbGd0L3dFdzM1WE1yUkx1cHQ2ZjgzRktDclN1WHNxODVyTkpoYm1GeWlr?=
+ =?utf-8?B?cVVaN2JhaE1uWkY0dmxsd2RwRWZMeGRjMTNGamFVWnlFcG01aG5VMnBISzA0?=
+ =?utf-8?B?azA3ckdjc0RwSFBUYnFlZVZNRGt6THBIU24vY0J2YWFKaE5UV0JyRytzOW5Z?=
+ =?utf-8?B?M3VGWTAzbEJzSWxRTzdpZ1E5ZUkwT29TWGdNdWtWcitmd24waU11ZS8wZTJR?=
+ =?utf-8?B?ZHMyVUpVc1o3OUVNR0wycFdKMFZNWDZWbE82TFVwYTdaRDVUU3IzODI3a0VB?=
+ =?utf-8?B?UGhDS2NUcEZFUVRTOW9hZHpoQnlQSk1qS3BaQVoxRGh1TTBhRmNIaFBVY3JE?=
+ =?utf-8?B?ZE50U3NXblg4YkxZa1hhTjlkeGhpWDRWNFVNazBva3c4WkF2R0NuRlF3cjhK?=
+ =?utf-8?B?YkdidTltU1NROHc1TDNRekdBS1ZScEcwanJpS0wvcjZzR2Fta2MzUnA1NE9F?=
+ =?utf-8?B?a0V4cXhnUHZvNUpNNG5TOE5xMlFxSStQczhPcllWRmVFcVY4VGp1NTFVTVM5?=
+ =?utf-8?B?MURCUVIyRUR0TENuWkFYRDdlcXBsRnhBanFGK1hSc3BaalBBQmNhVDdKTmlq?=
+ =?utf-8?B?c1E9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	e3IRNp+HFslcpuMteg/bbDGp/qJI4MsRXrPo4wiM80uFh1MrzWwh21rxHv60Vxx0H1xkDawslwqx51rgyLmgM73uCFjrl+x/S7WGOqB9LDhz/CM0W7voJeA4UmI6wk93wtbcR3hsYkT4nJ6EErxNFumcTuGH4SsQq41YkiQuxJuSuMtMh6FoQwy8d1L5Z3M+um7iIJ0b4juaKEsl3KLM6rfY9Lsts69x48bHYRVYXTQWM6i/6PCyA9y6Pnta/oMTbDZEIR4SXYMNpGBceQzPDv1viVbprEyRv+LENme/zqmy0LKR+OCmzjSKyTjJ4bNN2mQnJJRQOXCH7N8XMI/AREdkYETVOLbGf/aFDcSykLyI6xh7qtCuj5VgJcYw5aa8fTR1m5rIwVWvJR143S8gNQavCity4+A7JNIUKopn6S0b3qfAFuXYmljZeAMqaKULi5k8rKytybGe5NpP1It226/yVhbVv8RrtRDdOiBID6xGkO0g9wLFm+fiGD2jEx33fJbcJj9YUx58kcgy/5OUueadZlcwdD72V+b/PauuNUDrxbifBCMYmlQFHJ8dMLZe5C/OPkyAfqpbNTogzS8ehefJWOWqOuXsq2vcZ9r4xN+dxGvx9a6RUbAYmisjd45TAtBLC2wv0zP4x/yKyCtT1uwu88Qgmgh0bcxLsf1fKhe8y8iWqY1p+GpsGuZvbTZPCU9xpzwFPCqcn16fmqPKYZOV5cza5YarR6zn03q2kvCmLr6Np2slgaXYcko8pYD9FIr9u+QP4eGWK9iym+kDdL24JbgVYUGpEPcaDEShtsH7gKeO63z0qqkVGEZF24F2vHPcZp6qL6wD0SJRuoaZ2HkSt9jXomvgLt0qf8NZX22e1m/lqMVt5jrxgoybJLkK
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 896d71d6-f5d2-46f1-1c6b-08db169d6de0
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2023 19:29:21.6043
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gkNP3Jp7ipalSN5cVeVnymwRHcRe3P6d5wzAQOlibcYj1UfwAEdBV0tJjnqCnRh0zAP/tSIOJB+RdEX+IHaaJrFsizghU+pRmRyZ03WknpE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB5907
 
-Create a new private header in arch/x86/hvm/vmx called vmcs.h and move
-there all definitions and declarations that are used only by vmx code and
-don't need to reside in an external header.
+On 24/02/2023 6:49 pm, Xenia Ragiadakou wrote:
+> There are more detailed per-patch changesets.
+>
+> Xenia Ragiadakou (14):
+>   x86/svm: move declarations used only by svm code from svm.h to private
+>     header
+>   x86/svm: make asid.h private
+>   x86/svm: delete header asm/hvm/svm/intr.h
 
-Take the opportunity to replace u* with uint*_t, bool_t with bool and to
-re-arrange the header as follows, all structures first, then all variable
-declarations, all function delarations, and finally all inline functions.
+Thankyou for this work.  I've acked and committed patches 1 and 3.
 
-No functional change intended.
+Note that you had one hunk in patch 5 (whitespace correction in
+svm_invlpga) that obviously should have been in patch 1, so I've moved it.
 
-Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
----
+Looking at asid.h, I still can't bare to keep it even in that state, so
+I've constructed an alternative which I'll email out in a moment.
 
-Changes in v3:
- - new patch
-
- xen/arch/x86/hvm/vmx/intr.c             |   1 +
- xen/arch/x86/hvm/vmx/vmcs.c             |   1 +
- xen/arch/x86/hvm/vmx/vmcs.h             | 100 ++++++++++++++++++++
- xen/arch/x86/hvm/vmx/vmx.c              |   1 +
- xen/arch/x86/hvm/vmx/vvmx.c             |   1 +
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h | 118 +++++-------------------
- 6 files changed, 128 insertions(+), 94 deletions(-)
- create mode 100644 xen/arch/x86/hvm/vmx/vmcs.h
-
-diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
-index 8431937f42..d8387e7215 100644
---- a/xen/arch/x86/hvm/vmx/intr.c
-+++ b/xen/arch/x86/hvm/vmx/intr.c
-@@ -38,6 +38,7 @@
- #include <asm/hvm/trace.h>
- #include <asm/vm_event.h>
- 
-+#include "vmcs.h"
- #include "vmx.h"
- #include "vvmx.h"
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index 3d0f6be5bb..57e19e8dad 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -42,6 +42,7 @@
- #include <asm/tboot.h>
- #include <asm/apic.h>
- 
-+#include "vmcs.h"
- #include "vmx.h"
- #include "vvmx.h"
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.h b/xen/arch/x86/hvm/vmx/vmcs.h
-new file mode 100644
-index 0000000000..c0cca0ce73
---- /dev/null
-+++ b/xen/arch/x86/hvm/vmx/vmcs.h
-@@ -0,0 +1,100 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * vmcs.h: VMCS related definitions
-+ *
-+ * Copyright (c) 2004, Intel Corporation.
-+ */
-+
-+#ifndef __X86_HVM_VMX_VMCS_PRIV_H__
-+#define __X86_HVM_VMX_VMCS_PRIV_H__
-+
-+#include <xen/sched.h>
-+#include <xen/types.h>
-+
-+#include <asm/hvm/vmx/vmcs.h>
-+
-+struct vmcs_struct {
-+    uint32_t vmcs_revision_id;
-+    unsigned char data [0]; /* vmcs size is read from MSR */
-+};
-+
-+#define _VMX_DOMAIN_PML_ENABLED    0
-+#define VMX_DOMAIN_PML_ENABLED     (1ul << _VMX_DOMAIN_PML_ENABLED)
-+
-+/*
-+ * Layout of the MSR bitmap, as interpreted by hardware:
-+ *  - *_low  covers MSRs 0 to 0x1fff
-+ *  - *_ligh covers MSRs 0xc0000000 to 0xc0001fff
-+ */
-+struct vmx_msr_bitmap {
-+    unsigned long read_low  [0x2000 / BITS_PER_LONG];
-+    unsigned long read_high [0x2000 / BITS_PER_LONG];
-+    unsigned long write_low [0x2000 / BITS_PER_LONG];
-+    unsigned long write_high[0x2000 / BITS_PER_LONG];
-+};
-+
-+#define NR_PML_ENTRIES   512
-+
-+void vmcs_dump_vcpu(struct vcpu *v);
-+int vmx_vmcs_init(void);
-+int cf_check vmx_cpu_up_prepare(unsigned int cpu);
-+void cf_check vmx_cpu_dead(unsigned int cpu);
-+int cf_check vmx_cpu_up(void);
-+void cf_check vmx_cpu_down(void);
-+
-+int vmx_create_vmcs(struct vcpu *v);
-+void vmx_destroy_vmcs(struct vcpu *v);
-+bool __must_check vmx_vmcs_try_enter(struct vcpu *v);
-+void vmx_vmcs_reload(struct vcpu *v);
-+
-+void vmx_vmcs_switch(paddr_t from, paddr_t to);
-+void vmx_set_eoi_exit_bitmap(struct vcpu *v, uint8_t vector);
-+void vmx_clear_eoi_exit_bitmap(struct vcpu *v, uint8_t vector);
-+bool vmx_msr_is_intercepted(struct vmx_msr_bitmap *msr_bitmap,
-+                            unsigned int msr, bool is_write) __nonnull(1);
-+void virtual_vmcs_enter(const struct vcpu *);
-+void virtual_vmcs_exit(const struct vcpu *);
-+u64 virtual_vmcs_vmread(const struct vcpu *, uint32_t encoding);
-+enum vmx_insn_errno virtual_vmcs_vmread_safe(const struct vcpu *v,
-+                                             uint32_t vmcs_encoding,
-+                                             uint64_t *val);
-+void virtual_vmcs_vmwrite(const struct vcpu *, uint32_t encoding, uint64_t val);
-+enum vmx_insn_errno virtual_vmcs_vmwrite_safe(const struct vcpu *v,
-+                                              uint32_t vmcs_encoding,
-+                                              uint64_t val);
-+
-+DECLARE_PER_CPU(bool, vmxon);
-+
-+bool vmx_vcpu_pml_enabled(const struct vcpu *v);
-+int vmx_vcpu_enable_pml(struct vcpu *v);
-+void vmx_vcpu_disable_pml(struct vcpu *v);
-+void vmx_vcpu_flush_pml_buffer(struct vcpu *v);
-+
-+static inline int vmx_read_guest_loadonly_msr(
-+    const struct vcpu *v, uint32_t msr, uint64_t *val)
-+{
-+    const struct vmx_msr_entry *ent =
-+        vmx_find_msr(v, msr, VMX_MSR_GUEST_LOADONLY);
-+
-+    if ( !ent )
-+    {
-+        *val = 0;
-+        return -ESRCH;
-+    }
-+
-+    *val = ent->data;
-+
-+    return 0;
-+}
-+
-+#endif /* __X86_HVM_VMX_VMCS_PRIV_H__ */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 73ab4e9816..c5f6902206 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -57,6 +57,7 @@
- #include <public/hvm/ioreq.h>
- 
- #include "pi.h"
-+#include "vmcs.h"
- #include "vmx.h"
- #include "vvmx.h"
- 
-diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-index 0af5411076..d0a6fa2d20 100644
---- a/xen/arch/x86/hvm/vmx/vvmx.c
-+++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -29,6 +29,7 @@
- #include <asm/hvm/vmx/vvmx.h>
- #include <asm/hvm/nestedhvm.h>
- 
-+#include "vmcs.h"
- #include "vmx.h"
- #include "vvmx.h"
- 
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-index 0a84e74478..47206b1e9d 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -20,22 +20,10 @@
- 
- #include <xen/mm.h>
- 
--extern void vmcs_dump_vcpu(struct vcpu *v);
--extern int vmx_vmcs_init(void);
--int cf_check vmx_cpu_up_prepare(unsigned int cpu);
--void cf_check vmx_cpu_dead(unsigned int cpu);
--int cf_check vmx_cpu_up(void);
--void cf_check vmx_cpu_down(void);
--
--struct vmcs_struct {
--    u32 vmcs_revision_id;
--    unsigned char data [0]; /* vmcs size is read from MSR */
--};
--
- struct vmx_msr_entry {
--    u32 index;
--    u32 mbz;
--    u64 data;
-+    uint32_t index;
-+    uint32_t mbz;
-+    uint64_t data;
- };
- 
- #define EPT_DEFAULT_MT      X86_MT_WB
-@@ -49,14 +37,12 @@ struct ept_data {
-                      :5,     /* rsvd. */
-                      mfn:52;
-         };
--        u64 eptp;
-+        uint64_t eptp;
-     };
-     /* Set of PCPUs needing an INVEPT before a VMENTER. */
-     cpumask_var_t invalidate;
- };
- 
--#define _VMX_DOMAIN_PML_ENABLED    0
--#define VMX_DOMAIN_PML_ENABLED     (1ul << _VMX_DOMAIN_PML_ENABLED)
- struct vmx_domain {
-     mfn_t apic_access_mfn;
-     /* VMX_DOMAIN_* */
-@@ -69,36 +55,22 @@ struct vmx_domain {
-     bool exec_sp;
- };
- 
--/*
-- * Layout of the MSR bitmap, as interpreted by hardware:
-- *  - *_low  covers MSRs 0 to 0x1fff
-- *  - *_ligh covers MSRs 0xc0000000 to 0xc0001fff
-- */
--struct vmx_msr_bitmap {
--    unsigned long read_low  [0x2000 / BITS_PER_LONG];
--    unsigned long read_high [0x2000 / BITS_PER_LONG];
--    unsigned long write_low [0x2000 / BITS_PER_LONG];
--    unsigned long write_high[0x2000 / BITS_PER_LONG];
--};
--
- struct pi_desc {
-     DECLARE_BITMAP(pir, X86_NR_VECTORS);
-     union {
-         struct {
--            u16     on     : 1,  /* bit 256 - Outstanding Notification */
--                    sn     : 1,  /* bit 257 - Suppress Notification */
--                    rsvd_1 : 14; /* bit 271:258 - Reserved */
--            u8      nv;          /* bit 279:272 - Notification Vector */
--            u8      rsvd_2;      /* bit 287:280 - Reserved */
--            u32     ndst;        /* bit 319:288 - Notification Destination */
-+            uint16_t   on     : 1,  /* bit 256 - Outstanding Notification */
-+                       sn     : 1,  /* bit 257 - Suppress Notification */
-+                       rsvd_1 : 14; /* bit 271:258 - Reserved */
-+            uint8_t    nv;          /* bit 279:272 - Notification Vector */
-+            uint8_t    rsvd_2;      /* bit 287:280 - Reserved */
-+            uint32_t   ndst;        /* bit 319:288 - Notification Destination */
-         };
--        u64 control;
-+        uint64_t control;
-     };
--    u32 rsvd[6];
-+    uint32_t rsvd[6];
- } __attribute__ ((aligned (64)));
- 
--#define NR_PML_ENTRIES   512
--
- struct pi_blocking_vcpu {
-     struct list_head     list;
-     spinlock_t           *lock;
-@@ -123,9 +95,9 @@ struct vmx_vcpu {
-     int                  launched;
- 
-     /* Cache of cpu execution control. */
--    u32                  exec_control;
--    u32                  secondary_exec_control;
--    u32                  exception_bitmap;
-+    uint32_t             exec_control;
-+    uint32_t             secondary_exec_control;
-+    uint32_t             exception_bitmap;
- 
-     uint64_t             shadow_gs;
-     uint64_t             star;
-@@ -154,7 +126,7 @@ struct vmx_vcpu {
-     unsigned long        host_cr0;
- 
-     /* Do we need to tolerate a spurious EPT_MISCONFIG VM exit? */
--    bool_t               ept_spurious_misconfig;
-+    bool                 ept_spurious_misconfig;
- 
-     /* Processor Trace configured and enabled for the vcpu. */
-     bool                 ipt_active;
-@@ -191,12 +163,8 @@ struct vmx_vcpu {
-     struct pi_blocking_vcpu pi_blocking;
- };
- 
--int vmx_create_vmcs(struct vcpu *v);
--void vmx_destroy_vmcs(struct vcpu *v);
- void vmx_vmcs_enter(struct vcpu *v);
--bool_t __must_check vmx_vmcs_try_enter(struct vcpu *v);
- void vmx_vmcs_exit(struct vcpu *v);
--void vmx_vmcs_reload(struct vcpu *v);
- 
- #define CPU_BASED_VIRTUAL_INTR_PENDING        0x00000004
- #define CPU_BASED_USE_TSC_OFFSETING           0x00000008
-@@ -219,14 +187,14 @@ void vmx_vmcs_reload(struct vcpu *v);
- #define CPU_BASED_MONITOR_EXITING             0x20000000
- #define CPU_BASED_PAUSE_EXITING               0x40000000
- #define CPU_BASED_ACTIVATE_SECONDARY_CONTROLS 0x80000000
--extern u32 vmx_cpu_based_exec_control;
-+extern uint32_t vmx_cpu_based_exec_control;
- 
- #define PIN_BASED_EXT_INTR_MASK         0x00000001
- #define PIN_BASED_NMI_EXITING           0x00000008
- #define PIN_BASED_VIRTUAL_NMIS          0x00000020
- #define PIN_BASED_PREEMPT_TIMER         0x00000040
- #define PIN_BASED_POSTED_INTERRUPT      0x00000080
--extern u32 vmx_pin_based_exec_control;
-+extern uint32_t vmx_pin_based_exec_control;
- 
- #define VM_EXIT_SAVE_DEBUG_CNTRLS       0x00000004
- #define VM_EXIT_IA32E_MODE              0x00000200
-@@ -238,7 +206,7 @@ extern u32 vmx_pin_based_exec_control;
- #define VM_EXIT_LOAD_HOST_EFER          0x00200000
- #define VM_EXIT_SAVE_PREEMPT_TIMER      0x00400000
- #define VM_EXIT_CLEAR_BNDCFGS           0x00800000
--extern u32 vmx_vmexit_control;
-+extern uint32_t vmx_vmexit_control;
- 
- #define VM_ENTRY_IA32E_MODE             0x00000200
- #define VM_ENTRY_SMM                    0x00000400
-@@ -247,7 +215,7 @@ extern u32 vmx_vmexit_control;
- #define VM_ENTRY_LOAD_GUEST_PAT         0x00004000
- #define VM_ENTRY_LOAD_GUEST_EFER        0x00008000
- #define VM_ENTRY_LOAD_BNDCFGS           0x00010000
--extern u32 vmx_vmentry_control;
-+extern uint32_t vmx_vmentry_control;
- 
- #define SECONDARY_EXEC_VIRTUALIZE_APIC_ACCESSES 0x00000001
- #define SECONDARY_EXEC_ENABLE_EPT               0x00000002
-@@ -269,7 +237,7 @@ extern u32 vmx_vmentry_control;
- #define SECONDARY_EXEC_TSC_SCALING              0x02000000
- #define SECONDARY_EXEC_BUS_LOCK_DETECTION       0x40000000
- #define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000
--extern u32 vmx_secondary_exec_control;
-+extern uint32_t vmx_secondary_exec_control;
- 
- #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
- #define VMX_EPT_WALK_LENGTH_4_SUPPORTED                     0x00000040
-@@ -286,7 +254,7 @@ extern u32 vmx_secondary_exec_control;
- #define VMX_VPID_INVVPID_SINGLE_CONTEXT                  0x20000000000ULL
- #define VMX_VPID_INVVPID_ALL_CONTEXT                     0x40000000000ULL
- #define VMX_VPID_INVVPID_SINGLE_CONTEXT_RETAINING_GLOBAL 0x80000000000ULL
--extern u64 vmx_ept_vpid_cap;
-+extern uint64_t vmx_ept_vpid_cap;
- 
- #define VMX_MISC_PROC_TRACE                     0x00004000
- #define VMX_MISC_CR3_TARGET                     0x01ff0000
-@@ -373,7 +341,7 @@ extern u64 vmx_ept_vpid_cap;
-  */
- #define VMX_BASIC_DEFAULT1_ZERO		(1ULL << 55)
- 
--extern u64 vmx_basic_msr;
-+extern uint64_t vmx_basic_msr;
- #define cpu_has_vmx_ins_outs_instr_info \
-     (!!(vmx_basic_msr & VMX_BASIC_INS_OUT_INFO))
- 
-@@ -614,23 +582,6 @@ static inline int vmx_read_guest_msr(const struct vcpu *v, uint32_t msr,
-     return 0;
- }
- 
--static inline int vmx_read_guest_loadonly_msr(
--    const struct vcpu *v, uint32_t msr, uint64_t *val)
--{
--    const struct vmx_msr_entry *ent =
--        vmx_find_msr(v, msr, VMX_MSR_GUEST_LOADONLY);
--
--    if ( !ent )
--    {
--        *val = 0;
--        return -ESRCH;
--    }
--
--    *val = ent->data;
--
--    return 0;
--}
--
- static inline int vmx_write_guest_msr(struct vcpu *v, uint32_t msr,
-                                       uint64_t val)
- {
-@@ -644,7 +595,6 @@ static inline int vmx_write_guest_msr(struct vcpu *v, uint32_t msr,
-     return 0;
- }
- 
--
- /* MSR intercept bitmap infrastructure. */
- enum vmx_msr_intercept_type {
-     VMX_MSR_R  = 1,
-@@ -656,27 +606,7 @@ void vmx_clear_msr_intercept(struct vcpu *v, unsigned int msr,
-                              enum vmx_msr_intercept_type type);
- void vmx_set_msr_intercept(struct vcpu *v, unsigned int msr,
-                            enum vmx_msr_intercept_type type);
--void vmx_vmcs_switch(paddr_t from, paddr_t to);
--void vmx_set_eoi_exit_bitmap(struct vcpu *v, u8 vector);
--void vmx_clear_eoi_exit_bitmap(struct vcpu *v, u8 vector);
--bool vmx_msr_is_intercepted(struct vmx_msr_bitmap *msr_bitmap,
--                            unsigned int msr, bool is_write) __nonnull(1);
--void virtual_vmcs_enter(const struct vcpu *);
--void virtual_vmcs_exit(const struct vcpu *);
--u64 virtual_vmcs_vmread(const struct vcpu *, u32 encoding);
--enum vmx_insn_errno virtual_vmcs_vmread_safe(const struct vcpu *v,
--                                             u32 vmcs_encoding, u64 *val);
--void virtual_vmcs_vmwrite(const struct vcpu *, u32 encoding, u64 val);
--enum vmx_insn_errno virtual_vmcs_vmwrite_safe(const struct vcpu *v,
--                                              u32 vmcs_encoding, u64 val);
--
--DECLARE_PER_CPU(bool_t, vmxon);
--
--bool_t vmx_vcpu_pml_enabled(const struct vcpu *v);
--int vmx_vcpu_enable_pml(struct vcpu *v);
--void vmx_vcpu_disable_pml(struct vcpu *v);
--void vmx_vcpu_flush_pml_buffer(struct vcpu *v);
--bool_t vmx_domain_pml_enabled(const struct domain *d);
-+bool vmx_domain_pml_enabled(const struct domain *d);
- int vmx_domain_enable_pml(struct domain *d);
- void vmx_domain_disable_pml(struct domain *d);
- void vmx_domain_flush_pml_buffers(struct domain *d);
--- 
-2.37.2
-
+~Andrew
 
