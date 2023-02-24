@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8C16A21C4
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 19:50:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.501418.773203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9347B6A21C0
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 19:50:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.501419.773212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVd9J-0003G2-7b; Fri, 24 Feb 2023 18:50:29 +0000
+	id 1pVd9K-0003YC-Js; Fri, 24 Feb 2023 18:50:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 501418.773203; Fri, 24 Feb 2023 18:50:29 +0000
+Received: by outflank-mailman (output) from mailman id 501419.773212; Fri, 24 Feb 2023 18:50:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVd9J-0003CZ-35; Fri, 24 Feb 2023 18:50:29 +0000
-Received: by outflank-mailman (input) for mailman id 501418;
- Fri, 24 Feb 2023 18:50:27 +0000
+	id 1pVd9K-0003TJ-FF; Fri, 24 Feb 2023 18:50:30 +0000
+Received: by outflank-mailman (input) for mailman id 501419;
+ Fri, 24 Feb 2023 18:50:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vhFC=6U=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pVd9H-0001Wv-Kz
- for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 18:50:27 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
+ id 1pVd9J-0001Wv-3F
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 18:50:29 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a51def2-b474-11ed-88bb-e56d68cac8db;
- Fri, 24 Feb 2023 19:50:27 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id x10so890554edd.13
- for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 10:50:27 -0800 (PST)
+ id 1b5adb9f-b474-11ed-88bb-e56d68cac8db;
+ Fri, 24 Feb 2023 19:50:28 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id o12so974360edb.9
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 10:50:28 -0800 (PST)
 Received: from uni.router.wind (adsl-185.109.242.225.tellas.gr.
  [109.242.225.185]) by smtp.googlemail.com with ESMTPSA id
- me19-20020a170906aed300b008b17662e1f7sm10585245ejb.53.2023.02.24.10.50.25
+ me19-20020a170906aed300b008b17662e1f7sm10585245ejb.53.2023.02.24.10.50.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Feb 2023 10:50:26 -0800 (PST)
+ Fri, 24 Feb 2023 10:50:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,53 +44,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a51def2-b474-11ed-88bb-e56d68cac8db
+X-Inumbo-ID: 1b5adb9f-b474-11ed-88bb-e56d68cac8db
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qi5tSetwNB2KxLoKFto8c4h593SGH+tQKkr8ph4elAo=;
-        b=cgBa9w+QDqIEgbqmSB94g1hRBCeI3j4m4nhjP5KZ4Cfo4v1t2Mq47pYwFxO/0Ot/F8
-         Jq7Uejult3qFPddSY7UKMHxaGk/sTfgi8NYboZBCa1IePRLhZfOky60sn1MHzI8PR3gP
-         wq2E305K7NetQVnwafcOE9hHOyAAyIoxjpDrSSsUGPL3zv1h5nqPr8LHVAYJfWLAB6L1
-         3VnurPD9X7rrPgdVCNpfe9/pfMNDNv8+zdCzKwEcSujZ5IMaexx1QNWhKm4gph6kdITm
-         jhRsxRt+lphRabXmvGVmfRDnFQxJp2r1FEBmfpr6lh/2clWUgcrKNxu41sZxlHe0v6Gp
-         +NUA==
+        bh=JPYCsGMeBTiPN9pOJ5LMApZIn6k2wD9Q3YWmBtml8QE=;
+        b=Vv5j0WwwWDrjByFvRX4M/pnpcjrev6SIvPMEeM65ox88mEYfJAfV/B9fCU4oZySTwq
+         D7ixLk6mVcJ+bZxqI7PNm5aRuxZl/UBUOgo9wbuENOuUXRMZe0AH6gRhLwsjx5TGptXP
+         IFqiVki0Sh4GrrR3p0xS8pjCPGCHTG3vAHLqQ0KLW4SrU2FBDt9obwxrMaA2NF/rbCxh
+         WzExUc1JgQHJgae/ooyWQl72GyI3EQTnSeKFPTtgYS5rqk6uMZD0yTKOkGHgb0Ape0Pf
+         TL6utOAOWIObULsR4ufbQ1+sxBGlnKBMWqxE7frncjeXWPAqWctzMpWGp6tFi9stWKzQ
+         6M7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=qi5tSetwNB2KxLoKFto8c4h593SGH+tQKkr8ph4elAo=;
-        b=4xMselme8ZSQNGNPJ8kFyz2GFQ2aZW5fyZSJClSmg1z5/Kc7qG2kgG93qjvitGeQxz
-         CzQuYMyUmpYGr7ONL/1Edvj1xksioIQYzm3YDddiai7an3B3wQyQY09IDMMlkJ5HN7vZ
-         X0J3Pgj/Ht53goP1sLYSt5TMM9NrUEjmT4wkuTNXOxSO+cw0uSsu08WgdmQfJpRSJZDr
-         pzf1m3NFAx8/F1/Upitwjot5r0rrmRfslijoDB5px6pGwwcQ0R3z4gDS87F6HV5wevnz
-         ciNUPK6gHgHdi6VezjY3uHa+5d2BEAMbCluqafUGufEEGHNSUy+uxaDWdnfPPZjpaYk/
-         zoKA==
-X-Gm-Message-State: AO0yUKVozoIoWlDCTqiYyX/2IvcV+E7YI3MxnG9Co73X02sNsp+DxcgG
-	/w7OH7De/REeNXAgwGfYy8rTBOAKeGg=
-X-Google-Smtp-Source: AK7set8b7hRU9JfFfiGBOSn2pcFnBtYVPgGpW5Hwa2AxGLaJd9xetIYoMA3yRULeOHwUcudm3Nw8/g==
-X-Received: by 2002:a17:906:7488:b0:8b1:7a86:b06f with SMTP id e8-20020a170906748800b008b17a86b06fmr27507338ejl.63.1677264626471;
-        Fri, 24 Feb 2023 10:50:26 -0800 (PST)
+        bh=JPYCsGMeBTiPN9pOJ5LMApZIn6k2wD9Q3YWmBtml8QE=;
+        b=FnqoKZdmLgPmKYutv3wXCjrRSi67ARfAj9HIhUq6FCQG+jE97qzIC4yowHEU0Mzc+i
+         tIvDOHH2PBWgz5vOSFizu9qXR+6iEWBz+tOjo1ONyTs2T5l0viY7DJhjYGw82deQn/DD
+         dKiyvqd/JlQPzTNgF2TCqJPGp1ov9sfnzhFqdwPJiO4yhusJx3pD2mb7YwBBGu7JqrAq
+         y7ftGQEyLfgVvn2f/ZmNrNsjN0wKSA0OLTSSy4sTS4n+/OkUPsW3RqrYlvTZOydYYayc
+         +3+K/AMLsRqT+kSWr5dCbYDm0oFLj7eC2CVoWF6FbHRwuXik59xZRscuCQP7ECtF5Blc
+         2ypA==
+X-Gm-Message-State: AO0yUKVlWTTS2g9T2BEJ3Cf3EcKbPw7M+cIZjR8Mlr7iTGFdNtE8upk3
+	/MXSJ5xMmICPlr21p5/Mcd0jg5Ar4Mc=
+X-Google-Smtp-Source: AK7set+QTjwryCVbsSQr32RjmQeAdXlFIteI8LnZIqM7lH+SpUsxV5Of3ROMxoBTa8a0P9/zRmJB0Q==
+X-Received: by 2002:a17:907:2c66:b0:8f3:8bfd:a8e with SMTP id ib6-20020a1709072c6600b008f38bfd0a8emr684802ejc.26.1677264628225;
+        Fri, 24 Feb 2023 10:50:28 -0800 (PST)
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
+Cc: Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 07/14] x86/svm: move svmdebug.h declarations to private vmcb.h and delete it
-Date: Fri, 24 Feb 2023 20:50:03 +0200
-Message-Id: <20230224185010.3692754-8-burzalodowa@gmail.com>
+Subject: [PATCH v3 08/14] x86/vmx: move vmx_update_debug_state() in vmcs.c and declare it static
+Date: Fri, 24 Feb 2023 20:50:04 +0200
+Message-Id: <20230224185010.3692754-9-burzalodowa@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230224185010.3692754-1-burzalodowa@gmail.com>
 References: <20230224185010.3692754-1-burzalodowa@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the declarations in svmdebug.h to private vmcb.h because are vmcb
-specific and are used only by internal svm code, and delete svmdebug.h.
+Move vmx_update_debug_state() in vmcs.c because it is used only in this
+file and limit its scope to this file by declaring it static and removing
+its declaration from vmx.h.
 
 No functional change intended.
 
@@ -98,125 +101,72 @@ Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 ---
 
 Changes in v3:
-  - new patch, suggested by Andrew
+  - apply the change before moving the declarations into private headers
+    to avoid churn, suggested by Jan
 
- xen/arch/x86/hvm/svm/nestedsvm.c            |  1 -
- xen/arch/x86/hvm/svm/svm.c                  |  1 -
- xen/arch/x86/hvm/svm/svmdebug.c             |  1 -
- xen/arch/x86/hvm/svm/vmcb.c                 |  1 -
- xen/arch/x86/hvm/svm/vmcb.h                 |  6 +++++
- xen/arch/x86/include/asm/hvm/svm/svmdebug.h | 30 ---------------------
- 6 files changed, 6 insertions(+), 34 deletions(-)
- delete mode 100644 xen/arch/x86/include/asm/hvm/svm/svmdebug.h
+ xen/arch/x86/hvm/vmx/vmcs.c            | 12 ++++++++++++
+ xen/arch/x86/hvm/vmx/vmx.c             | 12 ------------
+ xen/arch/x86/include/asm/hvm/vmx/vmx.h |  1 -
+ 3 files changed, 12 insertions(+), 13 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
-index efbd9bbb77..201da7d531 100644
---- a/xen/arch/x86/hvm/svm/nestedsvm.c
-+++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-@@ -20,7 +20,6 @@
- #include <asm/hvm/svm/svm.h>
- #include <asm/hvm/svm/vmcb.h>
- #include <asm/hvm/nestedhvm.h>
--#include <asm/hvm/svm/svmdebug.h>
- #include <asm/paging.h> /* paging_mode_hap */
- #include <asm/event.h> /* for local_event_delivery_(en|dis)able */
- #include <asm/p2m.h> /* p2m_get_pagetable, p2m_get_nestedp2m */
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 86b1bf3242..0a1b447e36 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -38,7 +38,6 @@
- #include <asm/hvm/nestedhvm.h>
- #include <asm/hvm/support.h>
- #include <asm/hvm/svm/svm.h>
--#include <asm/hvm/svm/svmdebug.h>
- #include <asm/hvm/svm/vmcb.h>
- #include <asm/hvm/trace.h>
- #include <asm/iocap.h>
-diff --git a/xen/arch/x86/hvm/svm/svmdebug.c b/xen/arch/x86/hvm/svm/svmdebug.c
-index ade74dfd8f..7fd0753116 100644
---- a/xen/arch/x86/hvm/svm/svmdebug.c
-+++ b/xen/arch/x86/hvm/svm/svmdebug.c
-@@ -19,7 +19,6 @@
- #include <xen/sched.h>
- #include <asm/processor.h>
- #include <asm/msr-index.h>
--#include <asm/hvm/svm/svmdebug.h>
+diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+index ed71ecfb62..d3c75b3803 100644
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -1868,6 +1868,18 @@ void vmx_vmentry_failure(void)
  
- #include "vmcb.h"
+ void noreturn vmx_asm_do_vmentry(void);
  
-diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
-index 1d512fedb0..657b4b1670 100644
---- a/xen/arch/x86/hvm/svm/vmcb.c
-+++ b/xen/arch/x86/hvm/svm/vmcb.c
-@@ -27,7 +27,6 @@
- #include <asm/msr-index.h>
- #include <asm/p2m.h>
- #include <asm/hvm/svm/svm.h>
--#include <asm/hvm/svm/svmdebug.h>
- #include <asm/spec_ctrl.h>
- 
- #include "vmcb.h"
-diff --git a/xen/arch/x86/hvm/svm/vmcb.h b/xen/arch/x86/hvm/svm/vmcb.h
-index c58625fd80..80143164e5 100644
---- a/xen/arch/x86/hvm/svm/vmcb.h
-+++ b/xen/arch/x86/hvm/svm/vmcb.h
-@@ -11,6 +11,7 @@
- 
- #include <xen/types.h>
- 
-+#include <asm/hvm/svm/vmcb.h>
- #include <asm/x86_emulate.h>
- 
- /* general 1 intercepts */
-@@ -518,6 +519,11 @@ void svm_destroy_vmcb(struct vcpu *v);
- 
- void setup_vmcb_dump(void);
- 
-+void svm_sync_vmcb(struct vcpu *v, enum vmcb_sync_state new_state);
-+void svm_vmcb_dump(const char *from, const struct vmcb_struct *vmcb);
-+bool svm_vmcb_isvalid(const char *from, const struct vmcb_struct *vmcb,
-+                      const struct vcpu *v, bool verbose);
++static void vmx_update_debug_state(struct vcpu *v)
++{
++    if ( v->arch.hvm.debug_state_latch )
++        v->arch.hvm.vmx.exception_bitmap |= 1U << TRAP_int3;
++    else
++        v->arch.hvm.vmx.exception_bitmap &= ~(1U << TRAP_int3);
 +
- /*
-  * VMCB accessor functions.
-  */
-diff --git a/xen/arch/x86/include/asm/hvm/svm/svmdebug.h b/xen/arch/x86/include/asm/hvm/svm/svmdebug.h
-deleted file mode 100644
-index 330c1d91aa..0000000000
---- a/xen/arch/x86/include/asm/hvm/svm/svmdebug.h
-+++ /dev/null
-@@ -1,30 +0,0 @@
--/*
-- * svmdebug.h: SVM related debug defintions
-- * Copyright (c) 2011, AMD Corporation.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope it will be useful, but WITHOUT
-- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-- * more details.
-- *
-- * You should have received a copy of the GNU General Public License along with
-- * this program; If not, see <http://www.gnu.org/licenses/>.
-- *
-- */
++    vmx_vmcs_enter(v);
++    vmx_update_exception_bitmap(v);
++    vmx_vmcs_exit(v);
++}
++
+ void cf_check vmx_do_resume(void)
+ {
+     struct vcpu *v = current;
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 0ec33bcc18..294c8490b4 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -1613,18 +1613,6 @@ static void cf_check vmx_update_host_cr3(struct vcpu *v)
+     vmx_vmcs_exit(v);
+ }
+ 
+-void vmx_update_debug_state(struct vcpu *v)
+-{
+-    if ( v->arch.hvm.debug_state_latch )
+-        v->arch.hvm.vmx.exception_bitmap |= 1U << TRAP_int3;
+-    else
+-        v->arch.hvm.vmx.exception_bitmap &= ~(1U << TRAP_int3);
 -
--#ifndef __ASM_X86_HVM_SVM_SVMDEBUG_H__
--#define __ASM_X86_HVM_SVM_SVMDEBUG_H__
+-    vmx_vmcs_enter(v);
+-    vmx_update_exception_bitmap(v);
+-    vmx_vmcs_exit(v);
+-}
 -
--#include <asm/types.h>
--#include <asm/hvm/svm/vmcb.h>
--
--void svm_sync_vmcb(struct vcpu *v, enum vmcb_sync_state new_state);
--void svm_vmcb_dump(const char *from, const struct vmcb_struct *vmcb);
--bool svm_vmcb_isvalid(const char *from, const struct vmcb_struct *vmcb,
--                      const struct vcpu *v, bool verbose);
--
--#endif /* __ASM_X86_HVM_SVM_SVMDEBUG_H__ */
+ static void cf_check vmx_update_guest_cr(
+     struct vcpu *v, unsigned int cr, unsigned int flags)
+ {
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+index f6308ed656..82a9487b40 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+@@ -88,7 +88,6 @@ void cf_check vmx_vlapic_msr_changed(struct vcpu *v);
+ struct hvm_emulate_ctxt;
+ void vmx_realmode_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt);
+ void vmx_realmode(struct cpu_user_regs *regs);
+-void vmx_update_debug_state(struct vcpu *v);
+ void vmx_update_exception_bitmap(struct vcpu *v);
+ void vmx_update_cpu_exec_control(struct vcpu *v);
+ void vmx_update_secondary_exec_control(struct vcpu *v);
 -- 
 2.37.2
 
