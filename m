@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D91726A24D7
-	for <lists+xen-devel@lfdr.de>; Sat, 25 Feb 2023 00:03:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.501616.773452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D9B6A2525
+	for <lists+xen-devel@lfdr.de>; Sat, 25 Feb 2023 00:40:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.501626.773462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVh5u-0004So-Mu; Fri, 24 Feb 2023 23:03:14 +0000
+	id 1pVhf7-0001HV-I1; Fri, 24 Feb 2023 23:39:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 501616.773452; Fri, 24 Feb 2023 23:03:14 +0000
+Received: by outflank-mailman (output) from mailman id 501626.773462; Fri, 24 Feb 2023 23:39:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVh5u-0004R1-K0; Fri, 24 Feb 2023 23:03:14 +0000
-Received: by outflank-mailman (input) for mailman id 501616;
- Fri, 24 Feb 2023 23:03:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pVh5s-0004Qo-9K; Fri, 24 Feb 2023 23:03:12 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pVh5s-0004SA-7T; Fri, 24 Feb 2023 23:03:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pVh5r-0002Gj-RF; Fri, 24 Feb 2023 23:03:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pVh5r-0003w1-Qn; Fri, 24 Feb 2023 23:03:11 +0000
+	id 1pVhf7-0001Fn-FQ; Fri, 24 Feb 2023 23:39:37 +0000
+Received: by outflank-mailman (input) for mailman id 501626;
+ Fri, 24 Feb 2023 23:39:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vhFC=6U=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1pVhf6-0001Fh-Lt
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 23:39:36 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7dd50d2a-b49c-11ed-a82a-c9ca1d2f71af;
+ Sat, 25 Feb 2023 00:39:34 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id ck15so3850933edb.0
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Feb 2023 15:39:33 -0800 (PST)
+Received: from [192.168.1.93] (adsl-185.109.242.225.tellas.gr.
+ [109.242.225.185]) by smtp.gmail.com with ESMTPSA id
+ p22-20020a1709061b5600b008cca31606a8sm137145ejg.51.2023.02.24.15.39.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Feb 2023 15:39:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +44,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=d2xRcga2iINC8iXlphnFvwjcrx2iOlTWyRWWAQEVgL4=; b=XF305qrBW2xKx7CAiFzh7oHzXa
-	dOSQSifLpfCrVRZW/32/kBRH89qdjNUxyedAuAdkRYKGPa5wAsgSfo9Q1xG9Omr3cW1zm43dP7klh
-	hLw1awhl3eemnMYFXVZkLXUJ5xtPfjhzThku+Tan4ZhOzGt+wInVEhjsBZ/vnbsT52k0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-178391-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 7dd50d2a-b49c-11ed-a82a-c9ca1d2f71af
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=B68Sep32+JKax6LMqOVftT1OIdWZERFDZhh8bffld0o=;
+        b=GOXf6X05etoByxIIU9IgJwUYRWF4VJgPYFsRb/sRffY29QCTVJGIwI6mVCbyBUIw2h
+         dqhQHRElUyqKbQ+JJGPWudp4L3nfyAwdGPNrwmcmqWgYXOiAyoL/ZC4SZ62Fba+IdKoo
+         6Ah3i9En0yAjf4BAIPzPDUu65tSaZyoqwXdtrh9Kxh6ylHQ5sEUdlX+KDG7H87nPj0PT
+         WR1bi6JBNJw2VeoB/6J7waalfO1QTsi2wJwU1uoHosdJ8+41rP1NzWTBz6YKYIHSyrh/
+         N5CnzOu12jDv0DadRSB7VYx+M3CJAsCW1y4P7YNSZw7oQC9wBlXQ1CtzmBrXacD6MC3u
+         XeXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=B68Sep32+JKax6LMqOVftT1OIdWZERFDZhh8bffld0o=;
+        b=WitEHQNCk3QWRpAZlnAW7bB4hHt2H93DG+/mIELWgb5k/lbHV5sRpB1+AGtQYgPoQt
+         jUmYZ7yAhiqueqQc3X1n8BlIVHGqtcGwLFSUyq5BPPvI9XB3TQy3caw9RxBaKvFHSL3Q
+         tuyzr5QXIgbUY6lfvvyHPZbCkYU97LaNbqWkF45EEMte/pSemFo2nH3ExujETaSWxsZK
+         WLxE/89nJHMu7+0eYVfrUW8FlMqN58iAWcw1P04w7A2noOBAmhUPkj7BEZ3o95pRbS9t
+         sUhMw5++0mda0xa2kD9PSW9I48Jz6q1NGcVYx4Yp4JcNkqpvE9/iJg4+0tBS9u+yi9WM
+         /K6w==
+X-Gm-Message-State: AO0yUKWTR1l1pOwcZT/H8SRh8v21dj9SlU4A2jtV83EsQ5NwbthMJpLl
+	zn6zPAsSYipCcsGv6ZvYriw=
+X-Google-Smtp-Source: AK7set/JTCHOeX9QHcXqLwpEIukOtycUMO3fXCpccaOuRG4dL8YP7Yw9yAG7uuD36hINJOPHWk6q4g==
+X-Received: by 2002:a17:906:c312:b0:88a:7037:855e with SMTP id s18-20020a170906c31200b0088a7037855emr26353966ejz.9.1677281973209;
+        Fri, 24 Feb 2023 15:39:33 -0800 (PST)
+Message-ID: <e134469b-b40b-91a5-0522-e8abf37f4453@gmail.com>
+Date: Sat, 25 Feb 2023 01:39:31 +0200
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 178391: tolerable trouble: pass/starved - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    xen=608f85a1818697156b72ace4913a17c8178a0ef5
-X-Osstest-Versions-That:
-    xen=7b66792ea7f77fb9e587e1e9c530a7c869eecba1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 24 Feb 2023 23:03:11 +0000
-
-flight 178391 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/178391/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
-
-version targeted for testing:
- xen                  608f85a1818697156b72ace4913a17c8178a0ef5
-baseline version:
- xen                  7b66792ea7f77fb9e587e1e9c530a7c869eecba1
-
-Last test of basis   178376  2023-02-24 18:03:34 Z    0 days
-Testing same since   178391  2023-02-24 21:00:27 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Xenia Ragiadakou <burzalodowa@gmail.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  starved 
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          starved 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v3 00/14] x86/hvm: {svm,vmx} {c,h} cleanup
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
+References: <20230224185010.3692754-1-burzalodowa@gmail.com>
+ <e51c2ed6-4dc2-bf77-5d89-7023b3201fd0@citrix.com>
+ <8745c599-bf9f-1eec-739f-3d42920dc546@gmail.com>
+ <989903f7-4ea0-a1d8-923f-efb84c70ba21@citrix.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <989903f7-4ea0-a1d8-923f-efb84c70ba21@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+On 2/24/23 23:33, Andrew Cooper wrote:
+> On 24/02/2023 8:08 pm, Xenia Ragiadakou wrote:
+>>
+>> On 2/24/23 21:29, Andrew Cooper wrote:
+>>> On 24/02/2023 6:49 pm, Xenia Ragiadakou wrote:
+>>>> There are more detailed per-patch changesets.
+>>>>
+>>>> Xenia Ragiadakou (14):
+>>>>     x86/svm: move declarations used only by svm code from svm.h to
+>>>> private
+>>>>       header
+>>>>     x86/svm: make asid.h private
+>>>>     x86/svm: delete header asm/hvm/svm/intr.h
+>>>
+>>> Thankyou for this work.  I've acked and committed patches 1 and 3.
+>>>
+>>> Note that you had one hunk in patch 5 (whitespace correction in
+>>> svm_invlpga) that obviously should have been in patch 1, so I've
+>>> moved it.
+>>
+>> Thanks, I missed that  ...
+>>
+>>>
+>>> Looking at asid.h, I still can't bare to keep it even in that state, so
+>>> I've constructed an alternative which I'll email out in a moment.
+>>
+>> I 'm also in favor of less headers.
+> 
+> I've committed as far as the nestedhvm move.  At that point, I've sent
+> out a small patch to try and help decouple later changes.
+> 
+> But I think we want to change tact slightly at this point, so I'm not
+> going to do any further tweaking on commit.
+> 
+> Next, I think we want to rename asm/hvm/svm/svm.h to asm/hvm/svm.h,
+> updating the non-SVM include paths as we go.  Probably best to
+> chain-include the other svm/hvm/svm/*.h headers temporarily, so we've
+> only got one tree-wide cleanup of the external include paths.
+> 
+> Quick tangent - I will be making all of that cpu_has_svm_*
+> infrastructure disappear by moving it into the normal CPUID handling,
+> but I've not had sufficient time to finish that yet.
+> 
+> Next, hvm/svm/nestedsvm.h can merge straight into hvm/svm.h, and
+> disappear (after my decoupling patch has gone in).
+> 
+> After that, hvm/svm/vmcb.h can be cleanly split in half.  struct
+> svm_{domain,vcpu} can move sideways into hvm/svm.h (with a forward
+> declaration of vmcb_struct), as can the svm msr intercept declarations.
+> Everything else can move to being a private vmcb.h
+> 
+> Finally your svmdebug.h can come at the end, pretty much in the same
+> shape it is now.  One thing to say is that right now, you've left enum
+> vmcb_sync_state public, but it's type is already decoupled by virtue of
+> struct svm_vcpu having a uint8_t field rather than an enum field.
+> 
+> And I think that cleanly gets rid of the entire asm/hvm/svm/* dir, which
+> is a great position to get to.
+> 
+> 
+> Beyond that, you will want to clean up the hvm msr intercept handling as
+> hvm_funcs, which I think will decouple the vpmu files from svm/vmx
+> specifically, but that will want to be a separate series.
+> 
+> How does this sound?
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Thanks for the review. I think it sounds good.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+The last part i.e the hvm msr intercept handling as hvm_funcs, I have it 
+already I just didn't have the chance to send it yet (because the 
+changes affect {svm,vmx}.h). I will rebase and send it on Monday for 
+review to verify that we are on the same page.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> 
+> Thanks,
+> 
+> ~Andrew
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   7b66792ea7..608f85a181  608f85a1818697156b72ace4913a17c8178a0ef5 -> smoke
+-- 
+Xenia
 
