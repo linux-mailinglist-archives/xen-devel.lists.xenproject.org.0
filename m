@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DFC86A207D
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 18:29:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.501345.773069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4465D6A207C
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Feb 2023 18:29:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.501343.773048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVbt0-0001Dn-EF; Fri, 24 Feb 2023 17:29:34 +0000
+	id 1pVbsx-0000fk-PN; Fri, 24 Feb 2023 17:29:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 501345.773069; Fri, 24 Feb 2023 17:29:34 +0000
+Received: by outflank-mailman (output) from mailman id 501343.773048; Fri, 24 Feb 2023 17:29:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pVbt0-0001AU-A2; Fri, 24 Feb 2023 17:29:34 +0000
-Received: by outflank-mailman (input) for mailman id 501345;
- Fri, 24 Feb 2023 17:29:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pVbsx-0000cJ-M0; Fri, 24 Feb 2023 17:29:31 +0000
+Received: by outflank-mailman (input) for mailman id 501343;
+ Fri, 24 Feb 2023 17:29:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+11/=6U=citrix.com=prvs=4121c3e27=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pVbsy-0000bj-1s
- for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 17:29:32 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c8f907a6-b468-11ed-a82a-c9ca1d2f71af;
+ id 1pVbsw-0008WD-IK
+ for xen-devel@lists.xenproject.org; Fri, 24 Feb 2023 17:29:30 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ca4721db-b468-11ed-88bb-e56d68cac8db;
  Fri, 24 Feb 2023 18:29:29 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -36,52 +36,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8f907a6-b468-11ed-a82a-c9ca1d2f71af
+X-Inumbo-ID: ca4721db-b468-11ed-88bb-e56d68cac8db
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1677259769;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=1ZVP9ILrNhbusIRgE8ATcFEGu4Gjie58ccJgoiV0r98=;
-  b=X0Vij8GE+XKzqzP8iINDyFxUbYiR63g9uOezhfy10fmFZrm2YMI0TimO
-   fH/+AToj+WTO/zySdXxKMQWDP8awDaliWlkfTNg17na/JbfNtdiyRmuRX
-   KlqbQzyItX+erRR8oS6V+xV6rkCjOF3oGs8z6oUujQtwzvbtX8p+FtJdK
-   E=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=vL1+kixkoAxqRCdE4M2Z2BxIpHTnvKCzyD7h58x79y8=;
+  b=Ep+ljSti8Mf9h+4aAjrV9jqFiH1r7V7cdbvW+9G3fRphFhqCLL7bfB5C
+   D9AXeNFDHK/8qD6YWMvUlu2kS0i1U+URpqdScXiWiezpWkuwWkHtRsx/P
+   SZjWvageT+Se3XHdmbl/UTk7/guP6WKPXGrzK41Sl24MwDNY4XGhlfJEW
+   o=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 98354844
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 98447619
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:6RPR6qlcfYMDshxa1vzFXybo5gyZJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xJMDzqDM/vYMWSjKNskO97l9BhTvcLdy9VnT1RurCk8ECMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE4p7auaVA8w5ARkPqgR5gOGzBH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- e0cORogSi6EvsP18eOKUedhv54CC+C+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglH2dSFYr1SE47I6+WHJwCR60aT3McqTcduPLSlQthfI/
- T+arzilav0cHMaF8hWCr2qdv7PwgHL3cqspHaT7+sc/1TV/wURMUUZLBDNXu8KRmkO4Ht5SN
- UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JbGvc27wylwaPO7wGUQGMDS1Zpc8c6vcU7QTgr0
- F6hnN7zAzFr9rqPRhqgGqy89G3of3JPdClbOHFCFFFeizX+nG0tpgPLX/xONJCyt/y2KGDB2
- D6HlXIfoJxG2KbnyJ6H1VzAhjutoL3AQQg0+hjbUwqZ0+9pWGK2T9f2sAaGtJ6sOK7cFwDc5
- yZcx6By+chUVfmweDqxrPLh9V1Dz9KMK3XijFFmBPHNHBz9qif4Lei8DNyTTXqF0/romxezP
- Sc/WisLvve/2UdGiocmC79d8+xwkcDd+S3ND5g4lOZmbJlrbxOg9ypzf0OW1G2FuBFyzv5mZ
- sjBLpv9XSdy5UFbIN2eHbp17FPW7npmmTO7qW7TknxLLoZylFbKEOxYYTNin8gy7b+eoRW9z
- jqsH5Li9vmra8WnOnO/2ddKfTg3wY0TWcieRzp/KrTSfWKL2QgJV5fs/F/WU9A6w/8Izr+Vp
- xlQmCZwkTLCuJEOEi3SAlgLVV8ldc8XQa4TVcD0AWuV5g==
-IronPort-HdrOrdr: A9a23:FZq3Zq6fLKauuWrWPwPXwM7XdLJyesId70hD6qhwISY7TiX+rb
- HIoB17726MtN9/YhAdcLy7VZVoBEmsl6KdgrNhWYtKPjOHhILAFugLhuHfKn/bakjDH4ZmpM
- FdmsNFZuEYY2IXsS+D2njaL+od
+IronPort-Data: A9a23:b8167KKB5VLYO1kfFE+R8pUlxSXFcZb7ZxGr2PjKsXjdYENSg2ECm
+ mIYWD2CaK6OZTPzc91/Ptm19UkOu5fRyNRlG1FlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpJrfPcwP9TlK6q4mhA5AZiPasjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5OMH9Ty
+ 78EJAwgcwibt+a84JCcCctj05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpNU6bC/FMEg5/5JYWleG0hn75YntApUicv6Yf6GnP1g1hlrPqNbI5f/TbFZkJwRjB9
+ woq+UzhCB86C/6i5gC71VPzntPpgyrLcaA7QejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
+ lcI4Ww+oK4q7kupQ9LhGRqirxastRcGV91dO+Yz8g2Kx+zf5APxLnMfUjdLZdgitck3bT8nz
+ FmEm5XuHzMHjVGOYSvDrPHO92r0YHVLazZYPkfoUDfp/fHakZ8usFHTQupODbatvtn/ORPXg
+ BKF+X1Wa6ooseYH0KCy/Fbiij2qp4TUQgNd2jg7Tl5J/SsiOtf7OtXABUzzqK8Zcd3HFgXpU
+ G0swZD20QwYMX2aeMVhqs0pFarh2fuKOSa0bbVHT8h4rGTFF5JOkOltDNBCyKVBaJtsldzBO
+ hW7VeZtCHh7bROXgVdfOd7ZNijQ8YDuFM7+StffZcdUb556eWevpX8xOhfPgDqyzRl8wMnT3
+ Kt3lu72UB4n5VlPlmLqF4/xL5d2rszB+Y8jbc+ilEn2uVZvTHWUVa0EIDOzghMRtcu5TPHu2
+ 48HbaOikkwPONASlwGLqeY7N04RF3EnCPje8ooPHgJ1ClY8ST5J5j646e9JRrGJaIwJybuTo
+ ynlBxYwJZiWrSSvFDhmo0tLMNvHNauTZ1phVcDwFT5EA0QeXLs=
+IronPort-HdrOrdr: A9a23:jRoZzKme+6NaJg1U6sX0NZsprLjpDfKX3DAbv31ZSRFFG/FwWf
+ rOoB19726TtN9xYgBGpTnkAsO9qBznmKKdjbN8AV7mZniEhINHRLsSkbcKgAeQZhEXz4ZmpN
+ hdmtFFeaPN5DpB7foSkTPId+rIm+P3iZxA7N22pxxQpENRGsNdBmFCZTpzeXcGITWua6BWKH
+ O03Ls3mxOQPVoWc+WmDT0/U+DYodqjruOdXTc2QzAm9SiThneS5LT7ChiV2Qp2aUI1/Z4StU
+ bEji3k7eGZv/u60x/R0HKWx5lag9f60LJ4dbyxo/lQBDXwqxqiIL5sXLCPp1kO0ZmS1Go=
 X-IronPort-AV: E=Sophos;i="5.97,325,1669093200"; 
-   d="scan'208";a="98354844"
+   d="scan'208";a="98447619"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
 	<anthony.perard@citrix.com>, Doug Goldstein <cardoe@cardoe.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>
-Subject: [XEN PATCH v3 3/4] automation: Remove expired root certificates used to be used by let's encrypt
-Date: Fri, 24 Feb 2023 17:29:14 +0000
-Message-ID: <20230224172915.39675-4-anthony.perard@citrix.com>
+Subject: [XEN PATCH v3 4/4] automation: Remove non-debug x86_32 build jobs
+Date: Fri, 24 Feb 2023 17:29:15 +0000
+Message-ID: <20230224172915.39675-5-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230224172915.39675-1-anthony.perard@citrix.com>
 References: <20230224172915.39675-1-anthony.perard@citrix.com>
@@ -89,39 +91,71 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-While the Let's Encrypt root certificate ISRG_Root_X1.crt is already
-present, openssl seems to still check for the root certificate
-DST_Root_CA_X3.crt which has expired. This prevent https connections.
-
-Removing DST_Root_CA_X3 fix the issue.
+In the interest of having less jobs, we remove the x86_32 build jobs
+that do release build. Debug build is very likely to be enough to find
+32bit build issues.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
 
 Notes:
     v3:
-    - remove change to Debian Jessie containers, as we won't use them with
-      HTTPS urls.
+    - new patch
     
-    v2:
-    - remove unneeded changes to CentOS containers
+    Proposed here:
+        https://lore.kernel.org/r/7ec61260-0fec-25e2-6fa7-ec1d86e8067d@citrix.com
 
- automation/build/ubuntu/trusty.dockerfile | 5 +++++
- 1 file changed, 5 insertions(+)
+ automation/gitlab-ci/build.yaml | 20 --------------------
+ 1 file changed, 20 deletions(-)
 
-diff --git a/automation/build/ubuntu/trusty.dockerfile b/automation/build/ubuntu/trusty.dockerfile
-index b298a515c6..22e294c20c 100644
---- a/automation/build/ubuntu/trusty.dockerfile
-+++ b/automation/build/ubuntu/trusty.dockerfile
-@@ -47,3 +47,8 @@ RUN apt-get update && \
-         apt-get autoremove -y && \
-         apt-get clean && \
-         rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
-+
-+# Remove expired certificate that Let's Encrypt certificates used to relie on.
-+# (Not needed anymore)
-+RUN sed -i 's#mozilla/DST_Root_CA_X3\.crt#!\0#' /etc/ca-certificates.conf && \
-+    update-ca-certificates
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index 2be1b05d5c..a2891c5937 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -251,21 +251,11 @@ debian-stretch-gcc-debug:
+   variables:
+     CONTAINER: debian:stretch
+ 
+-debian-stretch-32-clang:
+-  extends: .clang-x86-32-build
+-  variables:
+-    CONTAINER: debian:stretch-i386
+-
+ debian-stretch-32-clang-debug:
+   extends: .clang-x86-32-build-debug
+   variables:
+     CONTAINER: debian:stretch-i386
+ 
+-debian-stretch-32-gcc:
+-  extends: .gcc-x86-32-build
+-  variables:
+-    CONTAINER: debian:stretch-i386
+-
+ debian-stretch-32-gcc-debug:
+   extends: .gcc-x86-32-build-debug
+   variables:
+@@ -311,21 +301,11 @@ debian-unstable-gcc-debug-randconfig:
+     CONTAINER: debian:unstable
+     RANDCONFIG: y
+ 
+-debian-unstable-32-clang:
+-  extends: .clang-x86-32-build
+-  variables:
+-    CONTAINER: debian:unstable-i386
+-
+ debian-unstable-32-clang-debug:
+   extends: .clang-x86-32-build-debug
+   variables:
+     CONTAINER: debian:unstable-i386
+ 
+-debian-unstable-32-gcc:
+-  extends: .gcc-x86-32-build
+-  variables:
+-    CONTAINER: debian:unstable-i386
+-
+ debian-unstable-32-gcc-debug:
+   extends: .gcc-x86-32-build-debug
+   variables:
 -- 
 Anthony PERARD
 
