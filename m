@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26EFE6A4174
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 13:10:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502457.774284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D13F56A4177
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 13:10:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502461.774295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWcKf-0003xF-Vx; Mon, 27 Feb 2023 12:10:17 +0000
+	id 1pWcKl-0004Mg-Df; Mon, 27 Feb 2023 12:10:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502457.774284; Mon, 27 Feb 2023 12:10:17 +0000
+Received: by outflank-mailman (output) from mailman id 502461.774295; Mon, 27 Feb 2023 12:10:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWcKf-0003uC-Sh; Mon, 27 Feb 2023 12:10:17 +0000
-Received: by outflank-mailman (input) for mailman id 502457;
- Mon, 27 Feb 2023 12:10:16 +0000
+	id 1pWcKl-0004Jl-AJ; Mon, 27 Feb 2023 12:10:23 +0000
+Received: by outflank-mailman (input) for mailman id 502461;
+ Mon, 27 Feb 2023 12:10:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zQU0=6X=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pWcKe-00039C-9P
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 12:10:16 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ id 1pWcKk-00039C-1h
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 12:10:22 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1b7b076-b697-11ed-88bb-e56d68cac8db;
- Mon, 27 Feb 2023 13:10:15 +0100 (CET)
+ id b5150e23-b697-11ed-88bb-e56d68cac8db;
+ Mon, 27 Feb 2023 13:10:21 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8BDB81FD63;
- Mon, 27 Feb 2023 12:10:15 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 352D5219F4;
+ Mon, 27 Feb 2023 12:10:21 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 548CD13A43;
- Mon, 27 Feb 2023 12:10:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F2CFD13A43;
+ Mon, 27 Feb 2023 12:10:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id cDthE6ed/GMSNQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 27 Feb 2023 12:10:15 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id eOUWOqyd/GMtNQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 27 Feb 2023 12:10:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,16 +51,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1b7b076-b697-11ed-88bb-e56d68cac8db
+X-Inumbo-ID: b5150e23-b697-11ed-88bb-e56d68cac8db
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1677499815; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1677499821; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=irti9dshWtZl+rE8Uu5A3Tbf4UdOJi+qh8/ebGpIp0U=;
-	b=DsyqlgXcZ7ed7Hc7tySnhQwhCl6MMs9AABtkrZAlSlTTICyulBdNwRc2124BqIzP0D7Rv/
-	1KJyNg7tmEdmYEb108GN/hwTTlU5C0weSCyQ498JNvdxzyfGQuT1X6LMqR78F1WCsttUwr
-	aNpiljEnp93D/vapXOIsAbB84dzTzks=
+	bh=cGDTryXA/fAzaKK5uzbhHS2WMaHPYkQlraK/zFukITQ=;
+	b=ktEbKrX7zS6S6jjNsOHtDjW+Yjfy7KrBBqH0J7LVRf782Ms0e5pckmG4oOnpA9EgjvrmLe
+	ZBozM4YbPwZp7CGu8jCAJPWIGaVnj8/s0qnVa7QkIXMBsSOJlZcXV5n72cXCHaeLERNd9O
+	26fISx2GyB68ZvLZpNFF9+rESgbDCio=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -69,125 +69,136 @@ Cc: Juergen Gross <jgross@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 2/3] tools: get rid of additional min() and max() definitions
-Date: Mon, 27 Feb 2023 13:09:56 +0100
-Message-Id: <20230227120957.10037-3-jgross@suse.com>
+Subject: [PATCH 3/3] tools: add offsetof() to xen-tools/libs.h
+Date: Mon, 27 Feb 2023 13:09:57 +0100
+Message-Id: <20230227120957.10037-4-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230227120957.10037-1-jgross@suse.com>
 References: <20230227120957.10037-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Defining min(), min_t(), max() and max_t() at other places than
-xen-tools/libs.h isn't needed, as the definitions in said header can
-be used instead.
-
-Same applies to BUILD_BUG_ON() in hvmloader.
+Instead of having multiple files defining offsetof(), add the
+definition to tools/include/xen-tools/libs.h.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/firmware/hvmloader/util.h |  8 ++------
- tools/libs/vchan/init.c         |  3 +--
- tools/tests/vhpet/emul.h        | 11 +----------
- tools/tests/vpci/emul.h         | 16 ----------------
- 4 files changed, 4 insertions(+), 34 deletions(-)
+ tools/firmware/hvmloader/util.h | 3 ---
+ tools/firmware/include/stddef.h | 4 ++--
+ tools/include/xen-tools/libs.h  | 4 ++++
+ tools/libfsimage/Rules.mk       | 2 ++
+ tools/libfsimage/xfs/fsys_xfs.c | 4 +---
+ tools/libs/vchan/init.c         | 4 ----
+ tools/tests/vhpet/emul.h        | 2 --
+ 7 files changed, 9 insertions(+), 14 deletions(-)
 
 diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
-index 8d95eab28a..69afcc6daa 100644
+index 69afcc6daa..668ee74f3c 100644
 --- a/tools/firmware/hvmloader/util.h
 +++ b/tools/firmware/hvmloader/util.h
-@@ -9,6 +9,8 @@
- #include <xen/hvm/hvm_info_table.h>
- #include "e820.h"
+@@ -30,9 +30,6 @@ enum {
+ #define SEL_DATA32          0x0020
+ #define SEL_CODE64          0x0028
+ 
+-#undef offsetof
+-#define offsetof(t, m) ((unsigned long)&((t *)0)->m)
+-
+ #undef NULL
+ #define NULL ((void*)0)
+ 
+diff --git a/tools/firmware/include/stddef.h b/tools/firmware/include/stddef.h
+index c7f974608a..926ae12fa5 100644
+--- a/tools/firmware/include/stddef.h
++++ b/tools/firmware/include/stddef.h
+@@ -1,10 +1,10 @@
+ #ifndef _STDDEF_H_
+ #define _STDDEF_H_
  
 +#include <xen-tools/libs.h>
 +
- /* Request un-prefixed values from errno.h. */
- #define XEN_ERRNO(name, value) name = value,
- enum {
-@@ -41,12 +43,6 @@ void __assert_failed(const char *assertion, const char *file, int line)
- void __bug(const char *file, int line) __attribute__((noreturn));
- #define BUG() __bug(__FILE__, __LINE__)
- #define BUG_ON(p) do { if (p) BUG(); } while (0)
--#define BUILD_BUG_ON(p) ((void)sizeof(char[1 - 2 * !!(p)]))
--
--#define min_t(type,x,y) \
--        ({ type __x = (x); type __y = (y); __x < __y ? __x: __y; })
--#define max_t(type,x,y) \
--        ({ type __x = (x); type __y = (y); __x > __y ? __x: __y; })
+ typedef __SIZE_TYPE__ size_t;
  
- #define MB(mb) (mb##ULL << 20)
- #define GB(gb) (gb##ULL << 30)
-diff --git a/tools/libs/vchan/init.c b/tools/libs/vchan/init.c
-index 9195bd3b98..ea2d7f2c54 100644
---- a/tools/libs/vchan/init.c
-+++ b/tools/libs/vchan/init.c
-@@ -45,6 +45,7 @@
- #include <xen/sys/gntalloc.h>
- #include <xen/sys/gntdev.h>
- #include <libxenvchan.h>
+ #define NULL ((void*)0)
+ 
+-#define offsetof(t, m) __builtin_offsetof(t, m)
+-
+ #endif
+diff --git a/tools/include/xen-tools/libs.h b/tools/include/xen-tools/libs.h
+index 3672486daa..c222aa5bb0 100644
+--- a/tools/include/xen-tools/libs.h
++++ b/tools/include/xen-tools/libs.h
+@@ -71,4 +71,8 @@
+     typeof( ((type *)0)->member ) *__mptr = (ptr);        \
+     (type *)( (char *)__mptr - offsetof(type,member) );})
+ 
++#ifndef offsetof
++#define offsetof(a, b) __builtin_offsetof(a, b)
++#endif
++
+ #endif	/* __XEN_TOOLS_LIBS__ */
+diff --git a/tools/libfsimage/Rules.mk b/tools/libfsimage/Rules.mk
+index cf37d6cb0d..85674f2379 100644
+--- a/tools/libfsimage/Rules.mk
++++ b/tools/libfsimage/Rules.mk
+@@ -3,6 +3,8 @@ include $(XEN_ROOT)/tools/libfsimage/common.mk
+ FSLIB = fsimage.so
+ TARGETS += $(FSLIB)
+ 
++CFLAGS += $(CFLAGS_xeninclude)
++
+ .PHONY: all
+ all: $(TARGETS)
+ 
+diff --git a/tools/libfsimage/xfs/fsys_xfs.c b/tools/libfsimage/xfs/fsys_xfs.c
+index d735a88e55..4c0cde9777 100644
+--- a/tools/libfsimage/xfs/fsys_xfs.c
++++ b/tools/libfsimage/xfs/fsys_xfs.c
+@@ -19,6 +19,7 @@
+ 
+ #include <xenfsimage_grub.h>
+ #include "xfs.h"
 +#include <xen-tools/libs.h>
  
- #include "vchan.h"
+ #define MAX_LINK_COUNT	8
  
-@@ -72,8 +73,6 @@
- #define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
- #endif
+@@ -182,9 +183,6 @@ fsb2daddr (xfs_fsblock_t fsbno)
+ 			 (xfs_agblock_t)(fsbno & mask32lo(xfs.agblklog)));
+ }
  
--#define max(a,b) ((a > b) ? a : b)
+-#undef offsetof
+-#define offsetof(t,m)	((size_t)&(((t *)0)->m))
+-
+ static inline int
+ btroot_maxrecs (fsi_file_t *ffi)
+ {
+diff --git a/tools/libs/vchan/init.c b/tools/libs/vchan/init.c
+index ea2d7f2c54..9c0c5ca0c5 100644
+--- a/tools/libs/vchan/init.c
++++ b/tools/libs/vchan/init.c
+@@ -69,10 +69,6 @@
+ #define MAX_RING_SHIFT 20
+ #define MAX_RING_SIZE (1 << MAX_RING_SHIFT)
+ 
+-#ifndef offsetof
+-#define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
+-#endif
 -
  static int init_gnt_srv(struct libxenvchan *ctrl, int domain)
  {
  	int pages_left = ctrl->read.order >= PAGE_SHIFT ? 1 << (ctrl->read.order - PAGE_SHIFT) : 0;
 diff --git a/tools/tests/vhpet/emul.h b/tools/tests/vhpet/emul.h
-index 7db47c5beb..efd04ed313 100644
+index efd04ed313..2eeefa7098 100644
 --- a/tools/tests/vhpet/emul.h
 +++ b/tools/tests/vhpet/emul.h
-@@ -114,16 +114,7 @@ enum
-     TASKLET_SOFTIRQ,
+@@ -115,8 +115,6 @@ enum
      NR_COMMON_SOFTIRQS
  };
--/*
-- * ..and if you can't take the strict
-- * types, you can specify one yourself.
-- *
-- * Or not use min/max at all, of course.
-- */
--#define min_t(type, x, y) \
--    ({ type __x = (x); type __y = (y); __x < __y ? __x : __y; })
--#define max_t(type, x, y) \
--    ({ type __x = (x); type __y = (y); __x > __y ? __x : __y; })
-+
- #define offsetof(t, m) ((unsigned long )&((t *)0)->m)
  
+-#define offsetof(t, m) ((unsigned long )&((t *)0)->m)
+-
  struct domain;
-diff --git a/tools/tests/vpci/emul.h b/tools/tests/vpci/emul.h
-index 237edb4e95..bf3cef5586 100644
---- a/tools/tests/vpci/emul.h
-+++ b/tools/tests/vpci/emul.h
-@@ -106,22 +106,6 @@ typedef union {
- #define BUG() assert(0)
- #define ASSERT_UNREACHABLE() assert(0)
  
--#define min(x, y) ({                    \
--        const typeof(x) tx = (x);       \
--        const typeof(y) ty = (y);       \
--                                        \
--        (void) (&tx == &ty);            \
--        tx < ty ? tx : ty;              \
--})
--
--#define max(x, y) ({                    \
--        const typeof(x) tx = (x);       \
--        const typeof(y) ty = (y);       \
--                                        \
--        (void) (&tx == &ty);            \
--        tx > ty ? tx : ty;              \
--})
--
- #endif
- 
- /*
+ struct vcpu
 -- 
 2.35.3
 
