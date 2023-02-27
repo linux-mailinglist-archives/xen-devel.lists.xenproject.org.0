@@ -2,56 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E1B06A3EAD
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 10:53:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502311.774055 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A8196A3F21
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 11:07:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502321.774065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWaCL-0007Wm-Gt; Mon, 27 Feb 2023 09:53:33 +0000
+	id 1pWaP5-00012f-HE; Mon, 27 Feb 2023 10:06:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502311.774055; Mon, 27 Feb 2023 09:53:33 +0000
+Received: by outflank-mailman (output) from mailman id 502321.774065; Mon, 27 Feb 2023 10:06:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWaCL-0007UH-Ds; Mon, 27 Feb 2023 09:53:33 +0000
-Received: by outflank-mailman (input) for mailman id 502311;
- Mon, 27 Feb 2023 09:53:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pWaP5-00010M-EO; Mon, 27 Feb 2023 10:06:43 +0000
+Received: by outflank-mailman (input) for mailman id 502321;
+ Mon, 27 Feb 2023 10:06:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rB3s=6X=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1pWaCK-0007TY-5x
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 09:53:32 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20603.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::603])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96a1ab08-b684-11ed-88bb-e56d68cac8db;
- Mon, 27 Feb 2023 10:53:30 +0100 (CET)
-Received: from CY5PR22CA0073.namprd22.prod.outlook.com (2603:10b6:930:80::21)
- by SA0PR12MB7478.namprd12.prod.outlook.com (2603:10b6:806:24b::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Mon, 27 Feb
- 2023 09:53:28 +0000
-Received: from CY4PEPF0000C966.namprd02.prod.outlook.com
- (2603:10b6:930:80:cafe::47) by CY5PR22CA0073.outlook.office365.com
- (2603:10b6:930:80::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29 via Frontend
- Transport; Mon, 27 Feb 2023 09:53:27 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000C966.mail.protection.outlook.com (10.167.241.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.12 via Frontend Transport; Mon, 27 Feb 2023 09:53:27 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Feb
- 2023 03:53:25 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Feb
- 2023 01:53:25 -0800
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Mon, 27 Feb 2023 03:53:23 -0600
+ <SRS0=ddEZ=6X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pWaP3-00010G-RX
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 10:06:41 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6d612dcd-b686-11ed-a82a-c9ca1d2f71af;
+ Mon, 27 Feb 2023 11:06:39 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id j17so5793355ljq.11
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Feb 2023 02:06:39 -0800 (PST)
+Received: from [192.168.8.114] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
+ [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
+ e6-20020a05651c038600b002934ebf2f6asm670115ljp.73.2023.02.27.02.06.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Feb 2023 02:06:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,86 +44,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96a1ab08-b684-11ed-88bb-e56d68cac8db
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JzfSAjUq57C8AQhc6Ozxo/ljipf1vX4jmazdbiToaqzIkw5Pt4VGh83n3kkGVKU6uI6RNENwdyf+TKz6IBVc5T9DQvNEnkU3PNqdIGrPGpHXoABA5Eyaiw/DNsIAAuHY6u78mdu/98TvLbq+vOmG/8m2qBxBrTLrY1t19rRZ2ptd5NKyMdcgF6e9QU664/Fk4cgsMm8laoYMdq6/PBWQIKff4D5LY4s4rBPm6bPGTzFGEEM70p6xDPsnjAa4SvOEiO6wPXLWs/vJBrUvRoveGP0wUqu/7TKWsaAPsoPT52u6+9OlWp0slj5xGVUnWMIBZnKbQS3uvORSQe1CrceKgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8+aGyjPFZtYlmEZJ6BhqQiZTpCZjQwGAzAQyCFGUhQI=;
- b=mmeF1V70sAEUeZa+v7byMkhmLRZzfD0lHZGY8E5CWyY+Cdz5VOeIzqwaSsFdFuvB8PnOBhRhY7XLQKU9tkZJSlaCNtR7hL9DwPQbyGz42U3lNNOn/pfEiaGRoxzKWebrRLcygVq3wzwyUd+jefEJkSVCKiImrnf9Qfnte4296FOZUe+AQLJBKp4J1Y/+aPWeA9DkFHHoiNOyWZegfv8ruWE0bfFlEX+nR+azj6nAWlQ6n02UuBOKjab7gNjAxSPXU4CU2JZ78MrFP3jfGWFTHBCd1WNDse4pUvRqLX23lOzjK6NWP6t83Pju32kKXogGscuBa8obesK4dr7ft1bRsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8+aGyjPFZtYlmEZJ6BhqQiZTpCZjQwGAzAQyCFGUhQI=;
- b=Al88jI1uD2r0Nwe+E09HKrBwzc70jMnOupL/UtVT7PBFlb5eAtCYz2ZnLy1RKKJFYs5EigDKN62zhhQ6g99Mw0HYG50xpHewDw54IqcifmC78Ma5+6Mhy5LXzeUcosfrRocKgoWDfAdkEoLGuq8psYc71IrsHJ2HzKyTm2V8ERA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: [PATCH] build: add crypto/ to SUBDIRS
-Date: Mon, 27 Feb 2023 10:53:15 +0100
-Message-ID: <20230227095315.6483-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 6d612dcd-b686-11ed-a82a-c9ca1d2f71af
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=treUYICgArfcv5NTJiKLwtwiypW1saXfGPcvwV2iSdo=;
+        b=e3aEZriyaz3dBeUeg86QJHeawQVzj4/T94bs4iwpzE4lkqAO8bt1cqEC3bsupVWX/c
+         ugbk7P6FByR197BoogVHPxBYnhwUgh7G4oQFLmOZP6ioKIcxE0YVxAw+xr+ybJ0LWNHo
+         pVIaKk3pfbppg8NyqfSEuZ6VL138WdbLwIPJ7l20V6dX0AxN/ON5Db9K46cN/J08sa1P
+         3Qc33ZLkUk/qFjnkYoQowU+RhF4bXkjA/zr05eSRKFSLVAmWFWI1pGHUgFV6djJGMkl7
+         SFkSrIsosKTQk6kjxtL2H+gLwBbNpZeA9ZrQU5Zfgh5WM9EYhcAz0EUDIaYaDJ7gp7wB
+         BBDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=treUYICgArfcv5NTJiKLwtwiypW1saXfGPcvwV2iSdo=;
+        b=M1csQG/1b1V0+7Ba+GbRamvGNgKTueupF9NNUGAotoOwdzBwraGLWzjyEmm7WM729F
+         kqoiXYH4uRBugkRXgCaa2+jQnGJsXG1V7U/dpD2CaxW/pUXZqMrPwY7WgDm5EkRUX15/
+         Euv8yO7ChCfC/RDCt5GA1/3FnK5OqSJzy+2RGXY2g+AJyg85K/8kmAWKyN3a/aLLETkN
+         x3ghtax43NKRDOkBvs1TGcRuBXJycoGHM6fxk0tgaiWNl06uTnbs/+1KrzfTlTc5PZnD
+         gKD1ikDwTu9fp4XkFcESETpVxSymMG7t35NgqJlaR2DHi+fG458OkzluFfJJ4klx5DJ4
+         u7wA==
+X-Gm-Message-State: AO0yUKWzSdwvPLjkVTwBV9aWJjFcMXv6YMjXiz3J0RFeVmNER5Y1i8fx
+	NNAzU6G91PL3f+PatzSOTsE=
+X-Google-Smtp-Source: AK7set9r5yiRGC8mrV6z8MG9ev1gGTlXmjtzc/yAP3xIoQmrP+DVo7ZRTg6FDNUIfBi/m76qm6b/qw==
+X-Received: by 2002:a05:651c:211b:b0:295:9d32:a673 with SMTP id a27-20020a05651c211b00b002959d32a673mr6801088ljq.3.1677492398947;
+        Mon, 27 Feb 2023 02:06:38 -0800 (PST)
+Message-ID: <76fba853b0997db19b62839f2d2b1280c9820ffb.camel@gmail.com>
+Subject: Re: [PATCH] xen/riscv: init bss section
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida
+	 <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
+	Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
+Date: Mon, 27 Feb 2023 12:06:37 +0200
+In-Reply-To: <349f4817-ab12-b648-a0d7-76ed4aaafc74@citrix.com>
+References: 
+	<134bf758ecd93deffc6623605a8c020a17f64be8.1677249688.git.oleksii.kurochko@gmail.com>
+	 <349f4817-ab12-b648-a0d7-76ed4aaafc74@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000C966:EE_|SA0PR12MB7478:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cdfdc62-3317-4c62-093a-08db18a8796b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	rW5JjVL58UuLPQqP8YSTmZKOn8Umr+w9EiRT/c2O/j+oTRtGgJgZKTQPyXzZvET9wpw9l6zCIu2F1kQl+Uikh6fxQ8dg7NnlQuLIFdkS10fdftTyE3L0KzDmEvXrHPdD27rMServejuCet+Xeiqsr2EWuH5xUxHJX6Ze7ywBoKY+EruN281i8DAgRI0AHPmVNoPh4e6CuuQ9yvHoWTFUoyJRuS5Bpdcg48fIP4zIhpXxUc/RMOdmAJ1zx1MQIZ/AzENPcj7EvmxxKdacHF0xJQVQ7oDHgtPP5iyBxXPB116FHvduKUntG6g82mm3BWnVcOg7Zx5imNOprISumnUUi63RP1T7ktTaEkU1MohRvNjUVNbdmefjOvpcI9pJvGvQZ5j77RYeAUoknb+hY9M3OwOZalWYlYqWjy5hH/HQlxnAHQQN6TayoMMWBEGy9L4LMTS/ScmtIt82sYNnR7eMBNbg+MuPf42+SaFQ9oePSEAiVNAHNKA9AoMEa0lnApso2JV+mZ8kaOdTOS81/ddRzc4BLsshpOizkYi+7mzkU/493Qp8Ke/c9TI3jMAs0CtPqlSWfjBQspMlJJL+FoD5q+1Hjt5M7DV9TEMVP/z79+ISFsAgeB49zMbX1W3Rca8KN52Jkl551o4/h0DkcGg55NZIq4/lx9M/lkV0yz2+9v1yecugaI5+8a1gSjCOBmBETQkrz7b1PxXdaNenWcJ+GICoZ1XZjPKjBZu73VyQ3Z4=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(346002)(376002)(136003)(396003)(451199018)(40470700004)(36840700001)(46966006)(2906002)(44832011)(1076003)(5660300002)(8936002)(36756003)(4744005)(41300700001)(54906003)(40460700003)(70206006)(70586007)(316002)(86362001)(40480700001)(4326008)(6916009)(8676002)(356005)(478600001)(82740400003)(6666004)(81166007)(36860700001)(82310400005)(26005)(186003)(2616005)(336012)(47076005)(426003)(83380400001)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 09:53:27.2593
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cdfdc62-3317-4c62-093a-08db18a8796b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000C966.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7478
 
-This is done so that the crypto/ source files are listed in all_sources
-and thus taken into account for cscope,tags,... targets.
-
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
- xen/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/Makefile b/xen/Makefile
-index 2d55bb9401f4..27a2034b593e 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -589,7 +589,7 @@ $(TARGET): outputmakefile FORCE
- 	$(Q)$(MAKE) $(build)=. arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
- 	$(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' 'ALL_LIBS=$(ALL_LIBS-y)' $@
- 
--SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
-+SUBDIRS = xsm arch/$(TARGET_ARCH) common crypto drivers lib test
- define all_sources
-     ( find include -type f -name '*.h' -print; \
-       find $(SUBDIRS) -type f -name '*.[chS]' -print )
--- 
-2.25.1
-
+On Fri, 2023-02-24 at 16:55 +0000, Andrew Cooper wrote:
+> On 24/02/2023 2:48 pm, Oleksii Kurochko wrote:
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > =C2=A0xen/arch/riscv/setup.c | 14 ++++++++++++++
+> > =C2=A01 file changed, 14 insertions(+)
+> >=20
+> > diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+> > index 154bf3a0bc..593bb471a4 100644
+> > --- a/xen/arch/riscv/setup.c
+> > +++ b/xen/arch/riscv/setup.c
+> > @@ -24,6 +24,18 @@ static void test_macros_from_bug_h(void)
+> > =C2=A0=C2=A0=C2=A0=C2=A0 early_printk("WARN is most likely working\n");
+> > =C2=A0}
+> > =C2=A0
+> > +static void __init init_bss(void)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 extern char __bss_start;
+> > +=C2=A0=C2=A0=C2=A0 extern char __bss_end;
+> > +=C2=A0=C2=A0=C2=A0 char *bss =3D &__bss_start;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 while ( bss < &__bss_end ) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *bss =3D 0;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bss++;
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> > +
+> > =C2=A0void __init noreturn start_xen(void)
+> > =C2=A0{
+> > =C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > @@ -38,6 +50,8 @@ void __init noreturn start_xen(void)
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 asm volatile( "mv %0, a1" : "=3Dr" (dtb_base) =
+);
+> > =C2=A0
+> > +=C2=A0=C2=A0=C2=A0 init_bss();
+> > +
+> > =C2=A0=C2=A0=C2=A0=C2=A0 early_printk("Hello from C env\n");
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 trap_init();
+>=20
+> Zeroing the BSS needs to one of the earliest thing you do.=C2=A0 It reall=
+y
+> does need to be before entering C, and needs to be as close to the
+> start
+> of head.S as you can reasonably make it.
+>=20
+> I'd put it even before loading sp in start.
+>=20
+> Even like this, there are various things the compiler might do behind
+> your back which expect a) the BSS to already be zeroed, and b) not
+> change value unexpectedly.
+>=20
+>=20
+> Also, note:
+>=20
+> arch/riscv/xen.lds.S-143-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D=
+ ALIGN(POINTER_ALIGN);
+> arch/riscv/xen.lds.S:144:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __bss=
+_end =3D .;
+>=20
+> The POINTER_ALIGN there is specifically so you can depend on
+> __bss_{start,end} being suitably aligned to use a register-width
+> store,
+> rather than using byte stores, which in 64bit means you've got 8x
+> fewer
+> iterations.
+Thanks for the comments. I'll take them into account in the next
+version of the patch.
+>=20
+> ~Andrew
+~ Oleksii
 
