@@ -2,36 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06BC66A4122
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 12:48:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502436.774235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 355DE6A4127
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 12:50:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502442.774245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWbyu-0006PE-4S; Mon, 27 Feb 2023 11:47:48 +0000
+	id 1pWc1P-00086w-G6; Mon, 27 Feb 2023 11:50:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502436.774235; Mon, 27 Feb 2023 11:47:48 +0000
+Received: by outflank-mailman (output) from mailman id 502442.774245; Mon, 27 Feb 2023 11:50:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWbyu-0006N2-0v; Mon, 27 Feb 2023 11:47:48 +0000
-Received: by outflank-mailman (input) for mailman id 502436;
- Mon, 27 Feb 2023 11:47:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pWc1P-00084f-D9; Mon, 27 Feb 2023 11:50:23 +0000
+Received: by outflank-mailman (input) for mailman id 502442;
+ Mon, 27 Feb 2023 11:50:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8ZTe=6X=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
- id 1pWbys-0006Mv-7e
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 11:47:46 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b18b0c3-b694-11ed-a82a-c9ca1d2f71af;
- Mon, 27 Feb 2023 12:47:43 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 04F925C0113
- for <xen-devel@lists.xenproject.org>; Mon, 27 Feb 2023 06:47:42 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Mon, 27 Feb 2023 06:47:42 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <xen-devel@lists.xenproject.org>; Mon, 27 Feb 2023 06:47:40 -0500 (EST)
+ <SRS0=CxqC=6X=redhat.com=berrange@srs-se1.protection.inumbo.net>)
+ id 1pWc1O-00084V-2i
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 11:50:22 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e90da18f-b694-11ed-88bb-e56d68cac8db;
+ Mon, 27 Feb 2023 12:50:20 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-611--S0vocKJPE6OuEDYgPwYzA-1; Mon, 27 Feb 2023 06:50:16 -0500
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A983185CBE0;
+ Mon, 27 Feb 2023 11:50:15 +0000 (UTC)
+Received: from redhat.com (unknown [10.33.36.71])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 47033140EBF4;
+ Mon, 27 Feb 2023 11:50:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,155 +50,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b18b0c3-b694-11ed-a82a-c9ca1d2f71af
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1677498462; x=1677584862; bh=yV4MrXXUxU
-	9IU8DWFk78q7mVFHt7RwX9jjJngnV2xlk=; b=jf95fAWQqAG9eEShUWQAa17MGt
-	vXN8QutZtU9JT42u8xrWnUZUe8hyufFJl6vuRCZWiYgvz/rKCqEPBEkQ1uFs4Akb
-	zVXAXEjZ/KWJ57IsTlqgl5LxxBSPBiCwTduLbfargdmGt6Vgz+djEl7jMpOI2uMb
-	wZ7Df3p8fV4upGUKaIM2wfZ4WNuRCihiP0HHVka8CDLyCtrKO6AVVHc/aECa4YVP
-	TXlRuNReuMxpY1GcztS6jPv5+uVb4euNH0dLWEWKqm9dpqhiIUaCobqoOq/6UN+I
-	fY08zQ5glwcvUDYwxKdvuxtaCw9sJg57h6G45y5OtGbo71vmqx73C2ecBnuA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:message-id:mime-version
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1677498462; x=
-	1677584862; bh=yV4MrXXUxU9IU8DWFk78q7mVFHt7RwX9jjJngnV2xlk=; b=c
-	IkW0A7ZcD/KJHDq1nhzEkqkZDvWShbr+OjqU9z3mFxDqfNoBe56ofxnfiEs/CaAn
-	AAM4JVPXQLCCi/9H8IbHJ1VIQiaKhS8C5tbInbmBxo7OAnKJvghOf3f/lP5eGu2L
-	Al+oeUcesnhzcgMMK6M5jRHbiSGUKdt1l/zem1/8eN0ZkGW808ras+veuGOZ+Dn5
-	Mz8nX2G/C0RyCuORAKGX9yt6VaOb01tf55rBmFGe9UYpXQ5GToqhmj9n/hGsY5h1
-	17HkY92TUIHA1ArCSkwPmijpd0tl2+E9rPxlW5b8YY2/iWLPXASYrrXbgOPeTEuZ
-	8vOXMJfCLagetGRCHm2gw==
-X-ME-Sender: <xms:XZj8Y81JK0V-8LTmC1NHKeqbxVkuh67md6_9elCp-ERQ-yYHTmmMEg>
-    <xme:XZj8Y3G2rm4jAlBVxz1y_okos735PZRiLnojw5iKgDA5_LgJRZ5rn6QVilYbLnzwc
-    QBrtA45QIz6gU0>
-X-ME-Received: <xmr:XZj8Y06M2T2dQeQw0-A3Q28qCL6-tCZecRkLCLUS0usYO0xzqun80-N3vlofVg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudeltddgvdelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucenucfjughrpefkffggvffhufgtsehgtderredttd
-    ejnecuhfhrohhmpefuihhmohhnucfirghishgvrhcuoehsihhmohhnsehinhhvihhsihgs
-    lhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepfedvfedtueevve
-    euffekueekheefgfetgfekgfevvefhteetieejieevledutefhnecuvehluhhsthgvrhfu
-    ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepshhimhhonhesihhnvhhishhisg
-    hlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:XZj8Y109egqQuna94y3A4Kp0Von07j3HPFnUQ9UHNtPzv0ih9sjDnw>
-    <xmx:XZj8Y_FyLb34A2OMsq5VFlfjYqQl4M2TDyraO4c30CZTHJN8-CN25g>
-    <xmx:XZj8Y-8Ssdbt61k4jqyH15Qcen0JwTDYbkmLeMQkn4Y0Uj8xKJSyHQ>
-    <xmx:Xpj8YzRBXFew73EBp2Ec_7hJFBH2Xnkl9ggluo5U-Q_KphRT4s1nBw>
-Feedback-ID: idc5945a3:Fastmail
-Message-ID: <9051e484-b128-715a-9253-48af8e47bb9d@invisiblethingslab.com>
-Date: Mon, 27 Feb 2023 12:48:03 +0100
+X-Inumbo-ID: e90da18f-b694-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1677498619;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
+	bh=dygdNjOBh/f7cSHZKBYj9epAgNeJlw1ARAk1Xkm8Jpw=;
+	b=BJvDBHl5jl4W0s+HI0NSbot4kwCEUIHj6X4i/7CrDZEkEiXrFHBkTgEBJIVy1iPqeN0AL5
+	ajygKRH1pIeI8A86M1VYCzV5zjQ7p5ZBZ6nEYAC10zZCve7ee54vk8Tb0EIGwaGrQ6OW2x
+	T1vLRf6fToDMPuUHG1jSc0ltbNmZZzI=
+X-MC-Unique: -S0vocKJPE6OuEDYgPwYzA-1
+Date: Mon, 27 Feb 2023 11:50:07 +0000
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Thomas Huth <thuth@redhat.com>
+Cc: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	qemu-arm@nongnu.org, Maxim Levitsky <mlevitsk@redhat.com>,
+	libvir-list@redhat.com,
+	Richard Henderson <richard.henderson@linaro.org>,
+	xen-devel@lists.xenproject.org,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Subject: Re: [PATCH 1/2] docs/about: Deprecate 32-bit x86 hosts and
+ qemu-system-i386
+Message-ID: <Y/yY72L9wyjuv3Yz@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+References: <20230227111050.54083-1-thuth@redhat.com>
+ <20230227111050.54083-2-thuth@redhat.com>
 MIME-Version: 1.0
-Content-Language: en-US
-To: xen-devel <xen-devel@lists.xenproject.org>
-From: Simon Gaiser <simon@invisiblethingslab.com>
-Subject: S0ix support in Xen
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------QrAJXv57Ra6xEPnOyKXrq10Q"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20230227111050.54083-2-thuth@redhat.com>
+User-Agent: Mutt/2.2.9 (2022-11-12)
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------QrAJXv57Ra6xEPnOyKXrq10Q
-Content-Type: multipart/mixed; boundary="------------GnLahEIS1gQSpvTceurb00Oy";
- protected-headers="v1"
-From: Simon Gaiser <simon@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <9051e484-b128-715a-9253-48af8e47bb9d@invisiblethingslab.com>
-Subject: S0ix support in Xen
+On Mon, Feb 27, 2023 at 12:10:49PM +0100, Thomas Huth wrote:
+> Hardly anybody still uses 32-bit x86 hosts today, so we should
+> start deprecating them to finally have less test efforts.
+> With regards to 32-bit KVM support in the x86 Linux kernel,
+> the developers confirmed that they do not need a recent
+> qemu-system-i386 binary here:
+> 
+>  https://lore.kernel.org/kvm/Y%2ffkTs5ajFy0hP1U@google.com/
+> 
+> Signed-off-by: Thomas Huth <thuth@redhat.com>
+> ---
+>  docs/about/deprecated.rst | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/docs/about/deprecated.rst b/docs/about/deprecated.rst
+> index 15084f7bea..98517f5187 100644
+> --- a/docs/about/deprecated.rst
+> +++ b/docs/about/deprecated.rst
+> @@ -196,6 +196,19 @@ CI coverage support may bitrot away before the deprecation process
+>  completes. The little endian variants of MIPS (both 32 and 64 bit) are
+>  still a supported host architecture.
+>  
+> +32-bit x86 hosts and ``qemu-system-i386`` (since 8.0)
+> +'''''''''''''''''''''''''''''''''''''''''''''''''''''
+> +
+> +Testing 32-bit x86 host OS support takes a lot of precious time during the
+> +QEMU contiguous integration tests, and considering that most OS vendors
+> +stopped shipping 32-bit variants of their x86 OS distributions and most
+> +x86 hardware from the past >10 years is capable of 64-bit, keeping the
+> +32-bit support alive is an inadequate burden for the QEMU project. Thus
+> +QEMU will soon drop the support for 32-bit x86 host systems and the
+> +``qemu-system-i386`` binary. Use ``qemu-system-x86_64`` (which is a proper
+> +superset of ``qemu-system-i386``) on a 64-bit host machine instead.
 
---------------GnLahEIS1gQSpvTceurb00Oy
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+I feel like we should have separate deprecation entries for the
+i686 host support, and for qemu-system-i386 emulator binary, as
+although they're related they are independant features with
+differing impact. eg removing qemu-system-i386 affects all
+host architectures, not merely 32-bit x86 host, so I think we
+can explain the impact more clearly if we separate them.
 
-Hi,
+How about something like....
 
-I have been looking into using S0ix with Xen. On systems with with 11th
-gen (Tiger Lake) Intel mobile CPUs or newer this is often the only
-supported suspend method, thus we want to support it in Qubes OS.
 
-Below a summary of my current understanding of what's needed (and known
-unknowns). I would appreciate some feedback (what's missing, preferred
-solutions, etc.).
+32-bit x86 hosts
+''''''''''''''''
 
-Note this topic is much above my previous experience with Xen and x86
-power management internals, so sorry if I'm missing things that are
-obvious to you.
+Support for 32-bit x86 host deployments is increasingly uncommon in
+mainstream Linux distributions given the widespread availability of
+64-bit x86 hardware. The QEMU project no longer considers 32-bit
+x86 support to be an effective use of its limited resources, and
+thus intends to discontinue it.
 
-PIT timer: During some previous private discussion it was mentioned that
-the PIT timer that Xen initializes for IO-APIC testing prevents S0ix
-residency and therefore that part needs to be reworked. But if I'm
-reading the current code correctly Xen can already use the HPET timer
-instead, either with an automatic fallback if PIT is unavailable or by
-forcing it via hpet=3Dlegacy-replacement=3D1. Looking at the rest I think=
+Current users of QEMU on 32-bit x86 hosts should either continue
+using existing releases of QEMU, with the caveat that they will
+no longer get security fixes, or migrate to a 64-bit platform
+which remains capable of running 32-bit guests if needed.
 
-the PIT isn't used if Xen finds another clocksource. Did I miss
-something?
+``qemu-system-i386`` binary removal
+'''''''''''''''''''''''''''''''''''
 
-mwait idle driver: While mwait-idle.c share a lot of code with Linux's
-intel_idle.c and the imported code seems to have been updated (for
-example for Alder Lake) it only supports the CPUs with hardcoded
-cstates. Linux's code also has a code path to read the cstate config
-from ACPI if the driver doesn't has a hard coded config for the model.
-This is needed for example for Tiger Lake. For my current testing I
-added the values the Linux code reads from ACPI by hand. But that's of
-course no proper solution. How should this be handled in Xen (IIUC some
-ACPI things are handled by Xen and some by dom0)?
+The ``qemu-system-x86_64`` binary can be used to run 32-bit guests
+by selecting a 32-bit CPU model, including KVM support on x86_64
+hosts. Once support for the 32-bit x86 host platform is discontinued,
+the ``qemu-system-i386`` binary will be redundant. Current users are
+recommended to reconfigure their systems to use the ``qemu-system-x86_64``
+binary.
 
-The debugging code in xen/arch/x86/acpi/cpu_idle.c (and maybe other
-places) need to learn about deeper package C states, for example for
-Tiger Lake.
 
-In general having the power management debugging available that you have
-under plain Linux through /sys/kernel/debug/pmc_core, etc. would be
-nice. Some things are as easy as allowing some dom0 to read some MSRs.
-But didn't looked into it further, some functions might also be required
-more complex integration (like extending xenpm's functionality).
 
-I'm not sure yet is what else in Xen needs to learn about S0ix. Running
-domains need to be halted, that can be handled by the toolstack. What
-other Xen internal things need to be aware of S0ix? Like avoiding
-unnecessary timer wakeups or similar. That's currently my biggest
-unknown and it would be great if someone with more insight and overview
-could give some hints here.
+Same point for the next patch about 32-bit arm vs qemu-system-arm
+binary.
 
-On my test system (NUC11TNHi5, Tiger Lake) I haven't seen it reaching
-cstates lower PC7 with Xen (so it can of course not reach S0ix
-residency). With plain Linux I got it working on that system although it
-was rather fiddly and probably something is fishy on the firmware side.
-After seeing it very occasionally not working under plain Linux I have
-installed a newer firmware version. With that Xen currently doesn't wake
-up after triggering s2idle in dom0. I'm currently looking into that and
-will follow up if I have more details on that part.
+With regards,
+Daniel
+-- 
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
-Thanks, Simon
-
---------------GnLahEIS1gQSpvTceurb00Oy--
-
---------------QrAJXv57Ra6xEPnOyKXrq10Q
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmP8mHUACgkQkO9xfO/x
-ly+OTw//Ttuj24tsus8Vf2WApd6pfTZtp2AfbMwl5OmmvAz85tUaxmocrLNBnAPd
-yu3QtPj2HzFPk3mneV/798S/LaoRz0P6k0sO/30cNabd3Jl3wz7MmlBb+06NK/33
-hIYWO1uQe4DfN1DWy5gWZkKZz2wSbvQeTXMPF7ANlRb478Na0GCA1d02JOFWJoLk
-jB5RcFk4a30rmM/I7MUsO9uinfAj+nc+h7Hu5L8s7Y/etVhjbg3RE2Mjp9Y87fID
-Kb80XMHFs8BMZSmyV0pRNthMx09Zwv20O89rooqy8WbdrU6IVPjjyxPVUVax3DvQ
-nRZREwO1ib5TTn9IsiWPe87I1OG8/QRilmFQBdHqIfPlf9S7o+K4fR1hSqOlv2DM
-rnnCyFwntE6UPpvKwnhFS/gT7EavMk7o/yhCrQ3eDSJf7hA9D8/j/NrIK8EfKC0P
-AFSnoT/BKNLXzPIUhsBqvqvHAwqbnwcRoTkX5eoyUvXDeRkVlmARdl0BHvqclfum
-0Ik5XNNiIoyZwUtT8iVjjsgP9dbC9C15mNlLtbeNYKwZ2/Vm+zldYfOdMhniajay
-2tJw1yJaPokYaTC0Mmfbx66P6x7u5fDFst5hCWTQ51jEBFsT/2CP5kyzWr8Vj+XU
-X8bU5vu6G5jrzV2plOjBgqyxpjukCrDw4tk9yagM+90+SF5JDQ8=
-=fmDO
------END PGP SIGNATURE-----
-
---------------QrAJXv57Ra6xEPnOyKXrq10Q--
 
