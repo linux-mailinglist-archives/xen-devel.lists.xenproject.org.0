@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77DD56A3F78
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 11:29:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502335.774085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 476F76A3F8A
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 11:37:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502342.774095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWakE-0004iy-MD; Mon, 27 Feb 2023 10:28:34 +0000
+	id 1pWasH-0006UC-Fb; Mon, 27 Feb 2023 10:36:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502335.774085; Mon, 27 Feb 2023 10:28:34 +0000
+Received: by outflank-mailman (output) from mailman id 502342.774095; Mon, 27 Feb 2023 10:36:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWakE-0004fr-IX; Mon, 27 Feb 2023 10:28:34 +0000
-Received: by outflank-mailman (input) for mailman id 502335;
- Mon, 27 Feb 2023 10:28:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pWasH-0006SU-Cc; Mon, 27 Feb 2023 10:36:53 +0000
+Received: by outflank-mailman (input) for mailman id 502342;
+ Mon, 27 Feb 2023 10:36:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=10za=6X=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pWakC-0004fl-Bx
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 10:28:32 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20601.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::601])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7a2457e9-b689-11ed-a82a-c9ca1d2f71af;
- Mon, 27 Feb 2023 11:28:30 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DU2PR04MB8631.eurprd04.prod.outlook.com (2603:10a6:10:2de::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Mon, 27 Feb
- 2023 10:28:28 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%7]) with mapi id 15.20.6134.027; Mon, 27 Feb 2023
- 10:28:28 +0000
+ (envelope-from <SRS0=XlDa=6X=tibco.com=etorok@srs-se1.protection.inumbo.net>)
+ id 1pWasG-0006SO-5C
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 10:36:52 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a4887a17-b68a-11ed-88bb-e56d68cac8db;
+ Mon, 27 Feb 2023 11:36:50 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ m14-20020a7bce0e000000b003e00c739ce4so3502648wmc.5
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Feb 2023 02:36:50 -0800 (PST)
+Received: from smtpclient.apple (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ iv16-20020a05600c549000b003e0238d9101sm9525650wmb.31.2023.02.27.02.36.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 27 Feb 2023 02:36:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,139 +45,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a2457e9-b689-11ed-a82a-c9ca1d2f71af
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gqulIReHECLUFgreDXBVhDPwpL/bxAo3R9d38gI7Z84XKQw/ULD8ovys6ehk6jTw7gHwWm8vueoJvD3lt/RmDNv2rU+chaMwqZEmAZ25jSMWFA5/33bkBYZjkrFAJh8w7Gg5v+jSuZIwuKXkgQRrXW0P5AInLwtreP4DPMKHr6vzMi/YPp37SgYqZv5aplupTAgU05kV+xJTJ7a5KRXph1pm9GL02EqvUBHWmIO5CsNUQzFFag2/3gukPykMuaBDg9fPPU2uD8T6dK0q+QYOsPVkEjFqzDOEy6FXge+J3K3AOrrVUtYmraMaT2ZSBNetLJXqU1b9lEx1GaZXjZ7z1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xemvVeuHKZ4/0l9nmKQQeEDDCxZXPRnuijuLdkSoXkY=;
- b=naeLn9uRGH8OcNAYGozOjJYi5teDUxjIIImWGhepay+9/K67JUzTEHJ7BOAiWu5mVOWWafdKFPCJI5TuunT4vbE/HmXM0UkkXGurHvTKPGhAZjpB+PNA0LfjnRAdeh/h9CB+12yxRkVJVMC0AZiUSZtsS7H0cv3nb9IkokrIwkECRm29f3AXA5TZHL2ui09za2W+hH59l/gQZdUFrb4gTHh63grZcPjG0qoiG/pEQi19bKfAvrHzzREtwuSrt4NbFtjcn0IcMHPrMG5lvOow27pIwSATMxeSSFTIAU5MVbU0J1XbyB7e7yaDzK8tyNseZfRd1G8liejfCwG8Ctlrpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xemvVeuHKZ4/0l9nmKQQeEDDCxZXPRnuijuLdkSoXkY=;
- b=FOjKPl2YByrB60yuQDEUqm0zxNDZy/BnWj1FPFQs7/u9XJb8E1zWJs/wfSwzaycwpol6wetnlucsM0mzjE0P3XCgFwCbC0vSJKd3wJvFI3GlpmJ5UB4YK2wmbMe9ItIVKwH1ea2LDCA80Ql88T7AoP1dfYCLBeZotGlbnkmL3CZShuArCA+iQui/XbvhL3sKDUXxrAuiOtH7ymZ7Ft6igbxUV93V8Pw9vfMLI6ZCqWKZwBaRYVpPGIugrCCYav3Syah9wh5RpE1ZBPy3hYLqMgiQrXWODVjaG0eoih45JBEfmy+l0jeF/NbNRZFmTxtM+Dl8wl24xuhQJ4RbLVcXBQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <9fbbfa17-821f-8c9e-376e-911481a1988b@suse.com>
-Date: Mon, 27 Feb 2023 11:28:28 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] Drop ELF notes from non-EFI binary too
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20230225235642.38880-1-marmarek@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230225235642.38880-1-marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0068.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU2PR04MB8631:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd059842-3b53-4a44-3af8-08db18ad5d71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	QXcS9EMsQ9cSIulD0fy1V6Fc81OMrC60i/sFiY3g8We67nFd3wtAPqn0o/SdgZK+F2WB4xLHEjaEgdJV/rjXMzvCO/Fa2XzEiwpvv0/8V8vin9LzL4LDzyUAH4T4GO/G2MGjCdQgzD1GbBYJ4uuwKxPRooowJfFT7OyLrcYLc+iWT+DsYuVPtY7lnVuDRhGYYqfTY9cFrFDnLlkj5pHuN32hhTJkWTPoJ8W4UDhI/HQeRqJGRod9qdeS0/HbR9F3QMcC+f+axcXpxImqQBRjpi/keQ0Bs4Z466hiCAIeRAyC6Vt8EmyrjVs03rYJBK7hhL5LN+wQP/waQKPUPc8nPv41UY7ytkmBlo5/8KiYrxU8rFsgNsVDWXgdFUUp/V7btrMOp+BM9FcHPMpQ2LZqB9GAiN4Csv5Rqf95a3KRhctvsU9qYJkOBmpD+KalvONnrRYPp6oS0koSHig8o7lD08InUPnl5RWiGpJRaWGxKiv2lTDKoIPZDLoov2IZjWwvEDfK/X6ZKi/4m1sPEAJx8OD4pvdjmUQyPjctm/O0n1LZBsAzchgmTkukRH63zGvWtzYKgvGXJgr5/RYY7WmiF7ibS+5eKTE+FQrc4AdQuehAf0fJMdV6cj3HWC7+hpSn/X4ocZu2FcKDScV6V/QKdtyN8uDtX+8vG3oZPTK+d30bEpj4UXMVMLEqYa2QDDCFCf8Rx6/Kts9Cs9sOyH1AHYnCpN2iSLNm8JCjBE1ilCo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(39860400002)(366004)(346002)(136003)(396003)(451199018)(8936002)(2906002)(5660300002)(31686004)(41300700001)(66476007)(66946007)(66556008)(4326008)(6916009)(8676002)(316002)(54906003)(478600001)(6486002)(26005)(6512007)(186003)(53546011)(6506007)(2616005)(86362001)(36756003)(31696002)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NHV4ZGV2U2pzNWtqZ2RYWnE2ZkwzTGRrS1h3bkhVenk0bGNZSHprbnB5blZG?=
- =?utf-8?B?L1dkeXJsenhxM29Za1VFdHgyaXg1eGJJZFEzaVlXZzh2T3hDR1k2bk1rWDR1?=
- =?utf-8?B?UzhaQnd2SC9KV3RiWUYxTE5YU0owVisyQWt3TGY5K29DdG5KR216ekx4TE4x?=
- =?utf-8?B?aHJHdEplTWgwWHVmcEFuS2MrcXlrdkpNUGcrWG5zL0ptWmdMUUlEVVNKbGlS?=
- =?utf-8?B?QXR6ODN0UFl0Q3kwTy9iMXBOVzUxWjlMbHZIUDhxSjROVHZVYW9YQTk4M0RT?=
- =?utf-8?B?bEFCZHF1V1hOMmU2M21CbDU1S3JMSll4NXZjTWlXUDdOK2R4eURIQ1JOQlBK?=
- =?utf-8?B?VTFWdmRqNU1lc2FyNCtUKzVJSW8xRmdET1IzZVpTV3R6S1paTnlyUWRMZWVt?=
- =?utf-8?B?Um5QazRoK0tpR3FDT1EzN3lxZ0dXbWMxWmx0MkRIcG5VejlLY0gxc2tZTzkz?=
- =?utf-8?B?SWxFMno3eTQ1elFSZmVGNEdJYkJNTGN6dHQ1UTQ3dnpaNnRWL3RHU0IzTTBl?=
- =?utf-8?B?K1dBYjdPNzg1ZHFseTZlcE0ydVFIVGFBUDNPbkkvOWlYTmlscVBxMWE5cDNT?=
- =?utf-8?B?VExxUmhENENuYW9JazV2RWx2ak9VTnpMYkZwNFNWbDlUZlJJYkZwWXhBRWRo?=
- =?utf-8?B?UUFTN1JHUUdmNXY3bS9YTjV1N3E0cnBTQWdrdW0wOVgvM1BTN1kzZEVxZ3o2?=
- =?utf-8?B?TllWWGlLTGp0Nk5RZnN1ME4ySS9NK2t1ckZIS2NIaVJLWmJNSlkwQlNYMlg2?=
- =?utf-8?B?dXRTUkpkWXNHa2ova2UxT2oyblNLeU9SbDFRbjlPMlNNZzcwL2hDTnh0dXdF?=
- =?utf-8?B?bFRnVE8zZXk1ZzFVSzRuUHhIKzJDSmxXRlFvbmhkNG1jYWFlOURpR2dvVmg0?=
- =?utf-8?B?ZU5nNW14VXdRMmZFelVLWEEzYm5wYXN4M2ZLSklqcEZOSmNFOER4UDBSNDFn?=
- =?utf-8?B?ZndqejZDNWhibmFJOHJBOG5TaXdHK1Q0SjR6dFFPeHhHcC9PcGRoL2pqZ3Fx?=
- =?utf-8?B?TzF6bFlOeUluYTIyZVZ2STNvUHI0bm5Dejd4VVRvdzNYS2FLT3R6YlpOU29h?=
- =?utf-8?B?QmdVREx0QndXdzg0VENXUDFONjh3Mk5YQ0VNa2N3VVdYZ2IzdGZrM2NvTGFZ?=
- =?utf-8?B?bXhaSlJMcmswSnR0SlRIY2gycUxLVkIxWnZrSkpLa09aU1NtOEgrTlVwRGt3?=
- =?utf-8?B?TnZTYWZzUXVLL3RWUVBOcHJyNHVhM2VxbGZwY08rS0E4Q2ZtK3NlaENyNFM1?=
- =?utf-8?B?R1haVHlkWDAzdE94REZueGpjV2xyK1hzbUlTSnIwQzFKL2NnbVorU3p5Q3I0?=
- =?utf-8?B?c095WUFEdWJnU1lCbFh2Zm94MUJVZlJEK2Z5REt3QVRvNFpNQ1UrdFMyWmhL?=
- =?utf-8?B?MWRsTjFGdCtxVFNNNlVvQnJMRkxrMDFYendOQ2RSL2xaUkswbmtZWGVmT0lH?=
- =?utf-8?B?dWY4T0dMTGJzYVRhQ1VGWkZPdDRzTjNkWi9PS1pTdytyYjNLR2VzaWxSNU1N?=
- =?utf-8?B?ZDh4ZmVXZDVTamt5OTAvRG5pUWkwejQ5aGE1R3B5Y2NJZWlwZURoZVVYb2x1?=
- =?utf-8?B?T3NORmlZVGkyeXZVSEFLenI5WUZleHRyQnJBdnhLeGg2UllMdWpzMVF2d3FP?=
- =?utf-8?B?bUloaHFTSDV0cTZaN3pHTzdWVXRiTUsrb3IySmFWZVdOVkRSeVp1M1JLdGd1?=
- =?utf-8?B?SiswM2F4MWdjZGt3UHZ3L1ZsYzljL0RzOTFHeVdGUkVuSjRLMmhJdTlSb3Fq?=
- =?utf-8?B?amJUVEkwVnUvdXRKWXJqRFE2TlpKajdKdjZ5TVRUYXhkLy9lMnlpSzJRT2U2?=
- =?utf-8?B?MmVlQkFTNmhTVjB0TDVQVGwrYVplVndPTlRCdExXTTdJL1pBZjB0emV1bTdD?=
- =?utf-8?B?bFF6azg4QnF6TktDODJnVk1yeXc1eityVUN1NjQ2QXVRWTMwd2c1MklhR2dr?=
- =?utf-8?B?M1RzY1N5V0dFUWpZbjZIQ0oxZzdpSVAxc25PZW1NN1NTRHo4My9neGhqai9n?=
- =?utf-8?B?NE9Ib1RIN0JqY3BsVlFVdURQK25UaVpudTNQQTUwaDh5bFlISks0ZzZSUFNj?=
- =?utf-8?B?d1VTN1A1ejRwL0xFQTJtNXFDT1NWU0ZIamI1RGdoaC8rUmhNdXVDY3A5NFlo?=
- =?utf-8?Q?ntxp5uH5kbhxnBDLA5DcFYU1o?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd059842-3b53-4a44-3af8-08db18ad5d71
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 10:28:28.0886
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q85rndYDbrjHMZyVuc06nKA5oGSLPsVr+aZorhbib3JR4ScZxOvPiRUfue0egV5z50pJq6/vTZah8aO+pFZEMw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8631
+X-Inumbo-ID: a4887a17-b68a-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a8pB/BCHGRqVaLWNW4zGNZH93WiFNX3eE2S7y7D/bYY=;
+        b=VOo/rP1ba4GwSb6W954ILkbAMxmWKcJZM25yr5NX29v3ujDNfh60QWCyUJrBbLti0P
+         boZXsL55hEJ/VWXE70R+7cAB6ASAJ9wm+uaL6djM1KhLYN2Uxmo9PNN4JE9ghvRdRFdp
+         7usQExGCWon/aOrafPMxOpvMXO5nWu0ywDxSQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=a8pB/BCHGRqVaLWNW4zGNZH93WiFNX3eE2S7y7D/bYY=;
+        b=Bz7+5IF8dtDvuSRLQ0q80lubuslBBqfNysBA4BBBSlHogEjzZC8S8Lmy6rQ64amyRW
+         saLA3PFiVrtuGn7zAqhqbEoiZgYx+07LA9kOzbVQWPJQBaYrKAXkhWc/j2pJ/S4lJ9O3
+         xXfAnP2QWK0snU7eLzfG1V4pdSUAfNHngcKRpKk61hqSzY1n0wxtOB3ARvCPfWDH3aoA
+         1H2MOO6qqJw8tAUYDfAaQ3N/s8oKUn4WVEw8gTl00UDuM18lAxjY/yiIQiQe/ylnSKsC
+         36uMX6YGG+XoqEPwsnHNngbJxt9RMofytJvlJuiyiaVLQfXPrLaVnaMWrsUehR+rRf/k
+         bbzA==
+X-Gm-Message-State: AO0yUKXcZBYAIDDK0NlX7pccgJGsteW44pfc2Zu8hz1bhprnN9KfpdAg
+	k1kMagMxKqEBZEIDwKCa/aJgQx7cGukiWSf1
+X-Google-Smtp-Source: AK7set8sDMia5Y+6XWxLJDMwaWjcTomucsdmg5mcO+u0zHPzcWMganhS2iKrfeQ/16OZBhG36BFUGg==
+X-Received: by 2002:a05:600c:34cb:b0:3eb:a4e:a2b2 with SMTP id d11-20020a05600c34cb00b003eb0a4ea2b2mr8913567wmq.4.1677494209629;
+        Mon, 27 Feb 2023 02:36:49 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.300.101.1.3\))
+Subject: Re: [PATCH v1 1/2] xc_core_arch_map_p2m_tree_rw: fix memory leak
+From: Edwin Torok <edwin.torok@cloud.com>
+In-Reply-To: <12b656b2-76d5-2ce6-9548-5ee8e57451ae@citrix.com>
+Date: Mon, 27 Feb 2023 10:36:38 +0000
+Cc: =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
+ xen-devel@lists.xenproject.org,
+ Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <050C988E-3E83-4F1C-87AE-9B221B04EB81@cloud.com>
+References: <cover.1677245356.git.edwin.torok@cloud.com>
+ <c721e627bc74047c0c5e55c0aeae7d72bbc3ce0e.1677245356.git.edwin.torok@cloud.com>
+ <12b656b2-76d5-2ce6-9548-5ee8e57451ae@citrix.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+X-Mailer: Apple Mail (2.3731.300.101.1.3)
 
-On 26.02.2023 00:56, Marek Marczykowski-Górecki wrote:
-> The ELF is repacked from from 64bit to 32bit. With CET-related notes,
-> which use 64bit fields, this results in 32bit binary with corrupted
-> notes. Drop them all (except build-id and PVH note retained
-> explicitly).
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
 
-Perhaps a misunderstanding: Yes, I did suggest this as a possibility,
-but I didn't really mean we actually do so. At the very least not
-without further clarifying what the cons of doing so are. The notes,
-after all, are actually valid in xen-syms; they become bogus in the
-course of mkelf32's processing.
 
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -192,13 +192,6 @@ SECTIONS
->  #endif
->  #endif
->  
-> -#ifndef EFI
-> -  /* Retain these just for the purpose of possible analysis tools. */
-> -  DECL_SECTION(.note) {
-> -       *(.note.*)
-> -  } PHDR(note) PHDR(text)
-> -#endif
+> On 24 Feb 2023, at 14:56, Andrew Cooper <Andrew.Cooper3@citrix.com> =
+wrote:
+>=20
+> On 24/02/2023 1:36 pm, Edwin T=C3=B6r=C3=B6k wrote:
+>> From: Edwin T=C3=B6r=C3=B6k <edwin.torok@cloud.com>
+>>=20
+>> Prior to bd7a29c3d0 'out' would've always been executed and memory
+>> freed, but that commit changed it such that it returns early and =
+leaks.
+>>=20
+>> Found using gcc 12.2.1 `-fanalyzer`:
+>> ```
+>> xg_core_x86.c: In function =E2=80=98xc_core_arch_map_p2m_tree_rw=E2=80=99=
+:
+>> xg_core_x86.c:300:5: error: leak of =E2=80=98p2m_frame_list_list=E2=80=99=
+ [CWE-401] [-Werror=3Danalyzer-malloc-leak]
+>>  300 |     return p2m_frame_list;
+>>      |     ^~~~~~
+>>  =E2=80=98xc_core_arch_map_p2m_writable=E2=80=99: events 1-2
+>>    |
+>>    |  378 | xc_core_arch_map_p2m_writable(xc_interface *xch, struct =
+domain_info_context *dinfo, xc_dominfo_t *info,
+>>    |      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>    |      | |
+>>    |      | (1) entry to =E2=80=98xc_core_arch_map_p2m_writable=E2=80=99=
+
+>>    |......
+>>    |  381 |     return xc_core_arch_map_p2m_rw(xch, dinfo, info, =
+live_shinfo, live_p2m, 1);
+>>    |      |            =
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>    |      |            |
+>>    |      |            (2) calling =E2=80=98xc_core_arch_map_p2m_rw=E2=80=
+=99 from =E2=80=98xc_core_arch_map_p2m_writable=E2=80=99
+>>    |
+>>    +--> =E2=80=98xc_core_arch_map_p2m_rw=E2=80=99: events 3-10
+>>           |
+>>           |  319 | xc_core_arch_map_p2m_rw(xc_interface *xch, struct =
+domain_info_context *dinfo, xc_dominfo_t *info,
+>>           |      | ^~~~~~~~~~~~~~~~~~~~~~~
+>>           |      | |
+>>           |      | (3) entry to =E2=80=98xc_core_arch_map_p2m_rw=E2=80=99=
+
+>>           |......
+>>           |  328 |     if ( xc_domain_nr_gpfns(xch, info->domid, =
+&dinfo->p2m_size) < 0 )
+>>           |      |        ~
+>>           |      |        |
+>>           |      |        (4) following =E2=80=98false=E2=80=99 =
+branch...
+>>           |......
+>>           |  334 |     if ( dinfo->p2m_size < info->nr_pages  )
+>>           |      |     ~~ ~
+>>           |      |     |  |
+>>           |      |     |  (6) following =E2=80=98false=E2=80=99 =
+branch...
+>>           |      |     (5) ...to here
+>>           |......
+>>           |  340 |     p2m_cr3 =3D GET_FIELD(live_shinfo, =
+arch.p2m_cr3, dinfo->guest_width);
+>>           |      |     ~~~~~~~
+>>           |      |     |
+>>           |      |     (7) ...to here
+>>           |  341 |
+>>           |  342 |     p2m_frame_list =3D p2m_cr3 ? =
+xc_core_arch_map_p2m_list_rw(xch, dinfo, dom, live_shinfo, p2m_cr3)
+>>           |      |                      =
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~~
+>>           |  343 |                              : =
+xc_core_arch_map_p2m_tree_rw(xch, dinfo, dom, live_shinfo);
+>>           |      |                              =
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>           |      |                              | |
+>>           |      |                              | (9) ...to here
+>>           |      |                              | (10) calling =
+=E2=80=98xc_core_arch_map_p2m_tree_rw=E2=80=99 from =
+=E2=80=98xc_core_arch_map_p2m_rw=E2=80=99
+>>           |      |                              (8) following =
+=E2=80=98false=E2=80=99 branch...
+>>           |
+>>           +--> =E2=80=98xc_core_arch_map_p2m_tree_rw=E2=80=99: events =
+11-24
+>>                  |
+>>                  |  228 | xc_core_arch_map_p2m_tree_rw(xc_interface =
+*xch, struct domain_info_context *dinfo,
+>>                  |      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>                  |      | |
+>>                  |      | (11) entry to =
+=E2=80=98xc_core_arch_map_p2m_tree_rw=E2=80=99
+>>                  |......
+>>                  |  245 |     if ( !live_p2m_frame_list_list )
+>>                  |      |        ~
+>>                  |      |        |
+>>                  |      |        (12) following =E2=80=98false=E2=80=99=
+ branch (when =E2=80=98live_p2m_frame_list_list=E2=80=99 is non-NULL)...
+>>                  |......
+>>                  |  252 |     if ( !(p2m_frame_list_list =3D =
+malloc(PAGE_SIZE)) )
+>>                  |      |     ~~ ~                         =
+~~~~~~~~~~~~~~~~~
+>>                  |      |     |  |                         |
+>>                  |      |     |  |                         (14) =
+allocated here
+>>                  |      |     |  (15) assuming =
+=E2=80=98p2m_frame_list_list=E2=80=99 is non-NULL
+>>                  |      |     |  (16) following =E2=80=98false=E2=80=99=
+ branch (when =E2=80=98p2m_frame_list_list=E2=80=99 is non-NULL)...
+>>                  |      |     (13) ...to here
+>>                  |......
+>>                  |  257 |     memcpy(p2m_frame_list_list, =
+live_p2m_frame_list_list, PAGE_SIZE);
+>>                  |      |     ~~~~~~
+>>                  |      |     |
+>>                  |      |     (17) ...to here
+>>                  |......
+>>                  |  266 |     else if ( dinfo->guest_width < =
+sizeof(unsigned long) )
+>>                  |      |             ~
+>>                  |      |             |
+>>                  |      |             (18) following =E2=80=98false=E2=80=
+=99 branch...
+>>                  |......
+>>                  |  270 |     live_p2m_frame_list =3D
+>>                  |      |     ~~~~~~~~~~~~~~~~~~~
+>>                  |      |     |
+>>                  |      |     (19) ...to here
+>>                  |......
+>>                  |  275 |     if ( !live_p2m_frame_list )
+>>                  |      |        ~
+>>                  |      |        |
+>>                  |      |        (20) following =E2=80=98false=E2=80=99=
+ branch (when =E2=80=98live_p2m_frame_list=E2=80=99 is non-NULL)...
+>>                  |......
+>>                  |  282 |     if ( !(p2m_frame_list =3D =
+malloc(P2M_TOOLS_FL_SIZE)) )
+>>                  |      |     ~~ ~
+>>                  |      |     |  |
+>>                  |      |     |  (22) following =E2=80=98false=E2=80=99=
+ branch (when =E2=80=98p2m_frame_list=E2=80=99 is non-NULL)...
+>>                  |      |     (21) ...to here
+>>                  |......
+>>                  |  287 |     memset(p2m_frame_list, 0, =
+P2M_TOOLS_FL_SIZE);
+>>                  |      |     ~~~~~~
+>>                  |      |     |
+>>                  |      |     (23) ...to here
+>>                  |......
+>>                  |  300 |     return p2m_frame_list;
+>>                  |      |     ~~~~~~
+>>                  |      |     |
+>>                  |      |     (24) =E2=80=98p2m_frame_list_list=E2=80=99=
+ leaks here; was allocated at (14)
+>>                  |
+>> ```
+>> Fixes: bd7a29c3d0 ("tools/libs/ctrl: fix xc_core_arch_map_p2m() to =
+support linear p2m table")
+>>=20
+>> Signed-off-by: Edwin T=C3=B6r=C3=B6k <edwin.torok@cloud.com>
+>> ---
+>> tools/libs/guest/xg_core_x86.c | 2 ++
+>> 1 file changed, 2 insertions(+)
+>>=20
+>> diff --git a/tools/libs/guest/xg_core_x86.c =
+b/tools/libs/guest/xg_core_x86.c
+>> index 61106b98b8..69929879d7 100644
+>> --- a/tools/libs/guest/xg_core_x86.c
+>> +++ b/tools/libs/guest/xg_core_x86.c
+>> @@ -297,6 +297,8 @@ xc_core_arch_map_p2m_tree_rw(xc_interface *xch, =
+struct domain_info_context *dinf
+>>=20
+>>     dinfo->p2m_frames =3D P2M_FL_ENTRIES;
+>>=20
+>> +    free(p2m_frame_list_list);
+>> +
+>>     return p2m_frame_list;
+>>=20
+>>  out:
+>=20
+> I agree there are problems here, but I think they're larger still.  =
+The
+> live_p2m_frame_list_list and live_p2m_frame_list foreign mappings are
+> leaked too on the success path.
+
+
+I thought the goal of that function was to create the mapping (judging =
+by its name), but looking at its caller there is another =
+map_foreign_pages there,
+so there is indeed a leak (-fanalyzer won't be able to spot these unless =
+we figure out a way to put some attributs on these map and unmap to =
+teach it that they are alloc/free pairs).
+
+Pushed updated commits here (top 2): leak-fixes =
+<https://github.com/edwintorok/xen/commits/leak-fixes>
+Before posting a V2 I'll try it out on an actual machine though, just to =
+check that we don't have a double-free instead now.
+
+Thanks,
+--Edwin
+
+>=20
+> I think this is the necessary fix:
+>=20
+> ~Andrew
+>=20
+> ----8<----
+>=20
+> diff --git a/tools/libs/guest/xg_core_x86.c =
+b/tools/libs/guest/xg_core_x86.c
+> index 61106b98b877..c5e4542ccccc 100644
+> --- a/tools/libs/guest/xg_core_x86.c
+> +++ b/tools/libs/guest/xg_core_x86.c
+> @@ -229,11 +229,11 @@ xc_core_arch_map_p2m_tree_rw(xc_interface *xch,
+> struct domain_info_context *dinf
+>                               uint32_t dom, shared_info_any_t =
+*live_shinfo)
+>  {
+>      /* Double and single indirect references to the live P2M table */
+> -    xen_pfn_t *live_p2m_frame_list_list;
+> +    xen_pfn_t *live_p2m_frame_list_list =3D NULL;
+>      xen_pfn_t *live_p2m_frame_list =3D NULL;
+>      /* Copies of the above. */
+>      xen_pfn_t *p2m_frame_list_list =3D NULL;
+> -    xen_pfn_t *p2m_frame_list;
+> +    xen_pfn_t *p2m_frame_list =3D NULL;
+> =20
+>      int err;
+>      int i;
+> @@ -297,8 +297,6 @@ xc_core_arch_map_p2m_tree_rw(xc_interface *xch,
+> struct domain_info_context *dinf
+> =20
+>      dinfo->p2m_frames =3D P2M_FL_ENTRIES;
+> =20
+> -    return p2m_frame_list;
 > -
->    _erodata = .;
->  
->    . = ALIGN(SECTION_ALIGN);
+>   out:
+>      err =3D errno;
+> =20
+> @@ -312,7 +310,7 @@ xc_core_arch_map_p2m_tree_rw(xc_interface *xch,
+> struct domain_info_context *dinf
+> =20
+>      errno =3D err;
+> =20
+> -    return NULL;
+> +    return p2m_frame_list;
+>  }
+> =20
+>  static int
+>=20
 
-Is this sufficient? .note.* isn't part of DISCARD_SECTIONS except for
-xen.efi. I would expect it needs to move there from DISCARD_EFI_SECTIONS.
-Otherwise, aiui, the linker's orphan section placement will kick in. Yet
-at that point you'd also affect Arm and RISC-V (which, interestingly,
-don't place .note.* anywhere at all right now, afaics).
-
-Jan
 
