@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07ADA6A4875
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 18:46:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502850.774865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57E0B6A49F2
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 19:40:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502858.774874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWhZF-0004oK-O7; Mon, 27 Feb 2023 17:45:41 +0000
+	id 1pWiOk-0003an-Kn; Mon, 27 Feb 2023 18:38:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502850.774865; Mon, 27 Feb 2023 17:45:41 +0000
+Received: by outflank-mailman (output) from mailman id 502858.774874; Mon, 27 Feb 2023 18:38:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWhZF-0004lj-L7; Mon, 27 Feb 2023 17:45:41 +0000
-Received: by outflank-mailman (input) for mailman id 502850;
- Mon, 27 Feb 2023 17:45:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pWhZE-0004ld-MY
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 17:45:40 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pWhZD-0007Bw-Rp; Mon, 27 Feb 2023 17:45:39 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=[192.168.16.186]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pWhZD-0005tx-JL; Mon, 27 Feb 2023 17:45:39 +0000
+	id 1pWiOk-0003Xp-Hw; Mon, 27 Feb 2023 18:38:54 +0000
+Received: by outflank-mailman (input) for mailman id 502858;
+ Mon, 27 Feb 2023 18:38:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CxqC=6X=redhat.com=berrange@srs-se1.protection.inumbo.net>)
+ id 1pWiOj-0003Xj-6x
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 18:38:53 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f9a8bee6-b6cd-11ed-88bb-e56d68cac8db;
+ Mon, 27 Feb 2023 19:38:50 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-179-ZBZqiBNHN0mYplCPChLFgg-1; Mon, 27 Feb 2023 13:38:45 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF4533823A02;
+ Mon, 27 Feb 2023 18:38:44 +0000 (UTC)
+Received: from redhat.com (unknown [10.33.36.71])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 464B5C15BAD;
+ Mon, 27 Feb 2023 18:38:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,158 +50,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ccwLrDinQxsJbM8K67Ij8jF2IqygExBdiA3E33b/zyA=; b=yxOGkmVckt6juhLN9GCGKIEQYW
-	TMIBsuWNDw6HyQMJjLNLTi6SYl+lJA9IN9IsHvvM59kmrDT5raqO936OH6wBImO+N6UIUkdmWxX9v
-	jsyMtpykZwWjYPY1Qwyv/0NAO4aE+zm78tz+hI8X67J8UeW/DglC8lYGdxw5OjFIAMyQ=;
-Message-ID: <b8dd2333-5f3b-10ea-7ddd-47bd5f84ca5f@xen.org>
-Date: Mon, 27 Feb 2023 17:45:37 +0000
+X-Inumbo-ID: f9a8bee6-b6cd-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1677523128;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
+	bh=SWMomstYXFyZNSPGsc1edKoA4SVgbmaaZjlg916u2cs=;
+	b=XrN6BQFh5BuTy8DO4dCwSWuYL7/mCWC6gmEw7tpA9rLX5TqE2MrZSji/USw7iq/RTpA+yG
+	hexdHKjQ0VC+PbhewM3H8Etf7vpeBRpYi15dabvRKRgXsj+YfOhbm57TMIVlLOhWEImhJc
+	qx6sAvQXLX1+KFUy/lqFo0Tz30pucvE=
+X-MC-Unique: ZBZqiBNHN0mYplCPChLFgg-1
+Date: Mon, 27 Feb 2023 18:38:39 +0000
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: Thomas Huth <thuth@redhat.com>
+Cc: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	qemu-arm@nongnu.org, Maxim Levitsky <mlevitsk@redhat.com>,
+	libvir-list@redhat.com,
+	Richard Henderson <richard.henderson@linaro.org>,
+	xen-devel@lists.xenproject.org,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
+Subject: Re: [PATCH 0/2] Deprecate support for 32-bit x86 and arm hosts
+Message-ID: <Y/z4rwv09Ckhbtfp@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+References: <20230227111050.54083-1-thuth@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.8.0
-Subject: Re: [PATCH v1 2/3] xen/riscv: setup initial pagetables
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>
-References: <cover.1677250203.git.oleksii.kurochko@gmail.com>
- <83444f8f90cf2adf431762d919ba958a25ff8ce4.1677250203.git.oleksii.kurochko@gmail.com>
- <52072f1b-0cf8-a218-eefc-a8c1b4cecf43@xen.org>
- <e2a1968767e7a0f1535920ada14ec2f323e0f9c5.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <e2a1968767e7a0f1535920ada14ec2f323e0f9c5.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20230227111050.54083-1-thuth@redhat.com>
+User-Agent: Mutt/2.2.9 (2022-11-12)
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 
-Hi,
-
-On 27/02/2023 17:17, Oleksii wrote:
-> On Sat, 2023-02-25 at 18:05 +0000, Julien Grall wrote:
->> Hi,
->>
->> On 24/02/2023 15:06, Oleksii Kurochko wrote:
->>> Calculate load and linker linker image addresses and
->>> setup initial pagetables.
->>>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> ---
->>>    xen/arch/riscv/setup.c | 11 +++++++++++
->>>    1 file changed, 11 insertions(+)
->>>
->>> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
->>> index b7cd438a1d..f69bc278bb 100644
->>> --- a/xen/arch/riscv/setup.c
->>> +++ b/xen/arch/riscv/setup.c
->>> @@ -1,9 +1,11 @@
->>>    #include <xen/bug.h>
->>>    #include <xen/compile.h>
->>>    #include <xen/init.h>
->>> +#include <xen/kernel.h>
->>>    
->>>    #include <asm/csr.h>
->>>    #include <asm/early_printk.h>
->>> +#include <asm/mm.h>
->>>    #include <asm/traps.h>
->>>    
->>>    /* Xen stack for bringing up the first CPU. */
->>> @@ -43,6 +45,11 @@ static void __init disable_fpu(void)
->>>    
->>>    void __init noreturn start_xen(void)
->>>    {
->>> +    unsigned long load_start    = (unsigned long)start;
->>> +    unsigned long load_end      = load_start + (unsigned
->>> long)(_end - _start);
->>
->> I am a bit puzzled, on top of load_addr() and linker_addr(), you
->> wrote
->> it can't use global variable/function. But here... you are using
->> them.
->> So how is this different?
-> I don't use load_addr() and linker_addr() macros here.
-
-I understand that. But my comment was related to:
-
-/*
-  * WARNING: load_addr() and linker_addr() are to be called only when 
-the MMU is
-  * disabled and only when executed by the primary CPU.  They cannot 
-refer to
-  * any global variable or functions.
-  */
-
-_start and _end are global variables. So why can you use them here but 
-not there?
-
-If you could use them in load_addr() then you could simplify a lot your 
-logic.
-
->>
->>> +    unsigned long linker_start  = (unsigned long)_start;
->>> +    unsigned long linker_end    = (unsigned long)_end;
->>
->> I am a bit confused with how you define the start/end for both the
->> linker and load. In one you use _start and the other _end.
->>
->> Both are fixed at compile time, so I assume the values will be a
->> linked
->> address rather than the load address. So how is this meant to how?
->>
-> _start, _end - it is label from linker script so I use them to define
-> linker_start and linker_end addresses.
+On Mon, Feb 27, 2023 at 12:10:48PM +0100, Thomas Huth wrote:
+> We're struggling quite badly with our CI minutes on the shared
+> gitlab runners, so we urgently need to think of ways to cut down
+> our supported build and target environments. qemu-system-i386 and
+> qemu-system-arm are not really required anymore, since nobody uses
+> KVM on the corresponding systems for production anymore, and the
+> -x86_64 and -arch64 variants are a proper superset of those binaries.
+> So it's time to deprecate them and the corresponding 32-bit host
+> environments now.
 > 
-> load_start is defined as an address of start() function from head.S and
-> load_end is the load_start + the size  (_end - _start)
-
-I think you misunderstood my comment. I understand what the variables 
-are for. But I don't understand the computation because Xen could be 
-loaded at a different address than the runtime address.
-
+> This is a follow-up patch series from the previous discussion here:
 > 
->> Furthermore, I would expect linker_start and load_start to point to
->> the
->> same symbol (the only different is one store the virtual address
->> whereas
->> the other the physical address). But here you are technically using
->> two
->> different symbol. Can you explain why?
-> It is used to make identity mapping for the range [load_addr, load_end]
-> and [linker_addr, linker_end]. It was done so because in Bobby's
-> patches in the linker script XEN_VIRT_START is defined as
-> _AT(vaddr_t,0x00200000) but bootloader loads Xen at 0x80200000 and so
-> in this case loadr_addr != linker_addr.
-> But I have changed XEN_VIRT_START to 0x8020...00 so they are equal now.
+>  https://lore.kernel.org/qemu-devel/20230130114428.1297295-1-thuth@redhat.com/
+> 
+> where people still mentioned that there is still interest in certain
+> support for 32-bit host hardware. But as far as I could see, there is
+> no real need for 32-bit host support for system emulation on x86 and
+> arm anymore, so it should be fine if we drop these host environments
+> now (these are also the two architectures that contribute the most to
+> the long test times in our CI, so we would benefit a lot by dropping
+> those).
 
-So this will be broken as soon as this code will be tested on an 
-hardware where there is no RAM at 0x8020...00. I would strongly 
-recommend for you to test your code with XEN_VIRT_START != load address.
+Your description here is a little ambiguous about what's being
+proposed. When you say dropping 32-bit host support do you mean
+just for the system emulator binaries, or for QEMU entirely ?
 
->>
->>> +
->>>        /*
->>>         * The following things are passed by bootloader:
->>>         *   a0 -> hart_id
->>> @@ -65,6 +72,10 @@ void __init noreturn start_xen(void)
->>>    
->>>        test_macros_from_bug_h();
->>>    
->>> +    setup_initial_pagetables(load_start, load_end, linker_start,
->>> linker_end);
->>
->> Shouldn't this happen earlier in start_xen()?
-> It can. If to be honest I don't know if it should. I added at the end
-> only because it was the last thing I worked on...
+And when the deprecation period is passed, are you proposing
+to actively prevent 32-bit builds, or merely stopping CI testing
+and leave 32-bit builds still working if people want them ?
 
-I think we should enable the MMU and switch to the runtime mapping as 
-early as possible.
 
-Cheers,
-
+With regards,
+Daniel
 -- 
-Julien Grall
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
+
 
