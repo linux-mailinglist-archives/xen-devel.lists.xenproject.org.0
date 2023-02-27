@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE08C6A4C3A
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 21:26:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502909.774945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A174E6A4C7F
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 21:55:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502918.774955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWk4V-0004vh-4C; Mon, 27 Feb 2023 20:26:07 +0000
+	id 1pWkVG-0000rw-9y; Mon, 27 Feb 2023 20:53:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502909.774945; Mon, 27 Feb 2023 20:26:07 +0000
+Received: by outflank-mailman (output) from mailman id 502918.774955; Mon, 27 Feb 2023 20:53:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWk4V-0004sw-16; Mon, 27 Feb 2023 20:26:07 +0000
-Received: by outflank-mailman (input) for mailman id 502909;
- Mon, 27 Feb 2023 20:26:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pWkVG-0000of-6b; Mon, 27 Feb 2023 20:53:46 +0000
+Received: by outflank-mailman (input) for mailman id 502918;
+ Mon, 27 Feb 2023 20:53:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o5XK=6X=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
- id 1pWk4S-0004sq-RI
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 20:26:04 +0000
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [2607:f8b0:4864:20::643])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f239e204-b6dc-11ed-a82a-c9ca1d2f71af;
- Mon, 27 Feb 2023 21:26:00 +0100 (CET)
-Received: by mail-pl1-x643.google.com with SMTP id u5so4670770plq.7
- for <xen-devel@lists.xenproject.org>; Mon, 27 Feb 2023 12:26:00 -0800 (PST)
-Received: from [192.168.6.128] (rrcs-173-198-77-218.west.biz.rr.com.
- [173.198.77.218]) by smtp.gmail.com with ESMTPSA id
- u13-20020a170902714d00b00198e7d97171sm4989806plm.128.2023.02.27.12.25.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Feb 2023 12:25:58 -0800 (PST)
+ <SRS0=/yXf=6X=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1pWkVF-0000oZ-CT
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 20:53:45 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d072bb6e-b6e0-11ed-88bb-e56d68cac8db;
+ Mon, 27 Feb 2023 21:53:42 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 12FD732002FB;
+ Mon, 27 Feb 2023 15:53:39 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Mon, 27 Feb 2023 15:53:39 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 27 Feb 2023 15:53:37 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,140 +43,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f239e204-b6dc-11ed-a82a-c9ca1d2f71af
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=BDeTj+J/22nMN720Gd3H2ETn00LmeBnchjc/wTnuog4=;
-        b=EAObgI2qw74QHK+8hCkJz8AvIZZmBITIs/sYHA2Qlf0q57YpW/Dr7gUvwprNjgNAnn
-         +tZotGe5/JI1mPTPCJRpK+sqr0VoxX5Fku22esRricaGbqDFSpqFRXKVIgNYAn9GkliW
-         Oe9Dd22bF8X6W/0QHVVxzkPE/gHx6X2a8hxSBtmETuGQy4yQwP3yCW0Mo8hDvw6jVxbV
-         Y2vIwM86mBNextdY4sttG0Wg+S3PF5SIwSirMluiN6LKsNGk1lNme2RkHCwC52QuLArf
-         e9Xg5/aHPVqv6xyuWlZ0ByeYLl2EhBxOKbUv7CiCsssKfSyeLgGpXX5AfBheNrx1RH5D
-         QWIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BDeTj+J/22nMN720Gd3H2ETn00LmeBnchjc/wTnuog4=;
-        b=PennLqvE4rFun+K7tZ6pxQg+LuIFl1Hi2K6781tbRhr/TJ6QHdKeQPBE0rNjCz2g9X
-         J7kA1TsMdz+PfIVa+pjoeET1pXEnDUqztR+25X5chfocE3Azcx3ladSlzkLLvrq9PVF6
-         TLLBeQI23vIW+5v6PIRL5okzOqJOeMrYxEFMEv4uBEWe3dVh0Mog5VHjhAYtvptOqEbo
-         D+D8rinQ/o4fD2iDa3+k+Z5Z/vTaEqH3ksWBSnbOJvrMBnRNYJvWG5+R8mY3GNkyFqOG
-         eq0XW/ssUE+fGTwqlQEXtk8GqBPRUAyBKHu6cLUXsftWF3oouuJp7VwOaBOT3jPWHjo/
-         xHug==
-X-Gm-Message-State: AO0yUKWr38HcWlZnOVcRYHmb0v/PnfbTAWic9GTwrjsjftMva84jKisA
-	H7R5byYzbLCPl0JGtffJSY/9ISfVzvOZQmNNtJBB9g==
-X-Google-Smtp-Source: AK7set+Ks0aC8CRh4CLuUfbNCHNObCKFD90fNX9o+WEpCa8NNy9bsMTnaB8yMj6nDUaS4c+izcebqA==
-X-Received: by 2002:a17:902:820d:b0:19c:d505:cdba with SMTP id x13-20020a170902820d00b0019cd505cdbamr66339pln.62.1677529558562;
-        Mon, 27 Feb 2023 12:25:58 -0800 (PST)
-Message-ID: <e14f92fa-c3f2-6d14-2517-0ef41ff72911@linaro.org>
-Date: Mon, 27 Feb 2023 10:25:53 -1000
+X-Inumbo-ID: d072bb6e-b6e0-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1677531218; x=
+	1677617618; bh=RVavUoNX4EDZuLj6Sm5XmnX0jbm/NN++mhcZCvWhnP4=; b=H
+	5ekDTUKhz1V8Bxbkt3JIDn7yFY8Sz3Oa5sNWFuia12SB5cVVSbFbR+J29Y0i4Qd4
+	IO5z6MkaqgUQwZEU/HXHBmqIJPglKdsnfpPQSyvAu+JboS4rt4POa0/e998o7VFK
+	6/C1VTDD+qwCW7diGpGYVnuXYip9Bovwd+l88LAWtxL4rrFb78cw06ogzDdki+Hq
+	5In/R4JeV/kP6ppA40wFOw9nFTW8yd4+3pXCF2toP9hQgb5gLF7Q69smDO+0kuYF
+	LOo++tO48QqR0FwYZqstQAIf6BArJux+pjtVfVqyMDdi53i0nNrhNbGvhv8y7G3T
+	iixzePzrguudJT/R8JkWw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1677531218; x=1677617618; bh=RVavUoNX4EDZuLj6Sm5XmnX0jbm/
+	NN++mhcZCvWhnP4=; b=MB8HyW+sjWTtHj0ONpqQ4+UHlKI7L8G4/U/1JaeOvOCr
+	4ecHIiQTr/hQcFiEn1BHoFBQRxy4dQNb5qxZwrqjZr/zNn2xu5aDZdZjpARFIMbO
+	17hAl5TEwFpxFiKbAoRcum0y07m047idTM407bL/lNxahqjboJkXkVdwLb4+O4pa
+	AkwAKQR/4IiYAUFJhfeaqiFe5eb4oKNumiZj7zFWQlb3og4fxvfO3xMKYqJIoB/W
+	KZ2S28w7380BNNoLW1rm2Cv5JeIOgO7mhhPehAzASjcqQDIUeFI7ACa/M/wBeZAe
+	UaCvCZw/hfpfKRYIkwKmEbAgCHTA1q6+d6nkNR63DQ==
+X-ME-Sender: <xms:Uhj9Y14Q9OQT9n5bjNFA7xoGbTJ0C1hLgwzGQAds7iUgJ1f7oiZgxg>
+    <xme:Uhj9Yy6IPaWTL9VMQ-6qC2roc1HsawBe7Cij1BwhMwxzDSURmaxkJqDeSD6hZhZwB
+    lbLGwAIdlgW8OA>
+X-ME-Received: <xmr:Uhj9Y8enVAmwJ7fWH_zcbzpsSMRluklBE2ziLXfHprPkAI7tIffEGZvPNc8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudeltddgudefkecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghm
+    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeekteegiefhteehffegvdeggeej
+    udelleeltdffveevtdetfeejuefgieeuhfeuleenucffohhmrghinhepkhgvrhhnvghlrd
+    horhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhep
+    uggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:Uhj9Y-KlH4rO115_UiBSP4reIEMsi1GgbARHHfRhWVifOjLkmy_iTg>
+    <xmx:Uhj9Y5JxHmPglHwlfxVe_KpqSMzAYm_5RSMdZ9PnpZuxGiwR4Kec0g>
+    <xmx:Uhj9Y3wjfl1ibyUybUjWC6zcb332DU-lb1_xb6M-Pe8j_uqUoBFpJg>
+    <xmx:Uhj9Y5384G-UxTp_sMbeVxRXNFzpF-BvSWz3cuqRbRkArHiXRDIejg>
+Feedback-ID: iac594737:Fastmail
+Date: Mon, 27 Feb 2023 15:53:32 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v5 4/5] Build system: Replace git:// and http:// with
+ https://
+Message-ID: <Y/0YUK+lzX/pHWNl@itl-email>
+References: <cover.1677356813.git.demi@invisiblethingslab.com>
+ <85a65c8c5cbd7cab3b9eb57aed27a59443c7a6ff.1677356813.git.demi@invisiblethingslab.com>
+ <5a66c333-51e8-6e82-9bfb-10d52164e96e@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH 1/2] docs/about: Deprecate 32-bit x86 hosts and
- qemu-system-i386
-Content-Language: en-US
-To: =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Thomas Huth <thuth@redhat.com>
-Cc: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, qemu-arm@nongnu.org,
- Maxim Levitsky <mlevitsk@redhat.com>, libvir-list@redhat.com,
- xen-devel@lists.xenproject.org, Reinoud Zandijk <reinoud@netbsd.org>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
-References: <20230227111050.54083-1-thuth@redhat.com>
- <20230227111050.54083-2-thuth@redhat.com> <Y/yY72L9wyjuv3Yz@redhat.com>
-From: Richard Henderson <richard.henderson@linaro.org>
-In-Reply-To: <Y/yY72L9wyjuv3Yz@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-On 2/27/23 01:50, Daniel P. Berrangé wrote:
-> On Mon, Feb 27, 2023 at 12:10:49PM +0100, Thomas Huth wrote:
->> Hardly anybody still uses 32-bit x86 hosts today, so we should
->> start deprecating them to finally have less test efforts.
->> With regards to 32-bit KVM support in the x86 Linux kernel,
->> the developers confirmed that they do not need a recent
->> qemu-system-i386 binary here:
->>
->>   https://lore.kernel.org/kvm/Y%2ffkTs5ajFy0hP1U@google.com/
->>
->> Signed-off-by: Thomas Huth <thuth@redhat.com>
->> ---
->>   docs/about/deprecated.rst | 13 +++++++++++++
->>   1 file changed, 13 insertions(+)
->>
->> diff --git a/docs/about/deprecated.rst b/docs/about/deprecated.rst
->> index 15084f7bea..98517f5187 100644
->> --- a/docs/about/deprecated.rst
->> +++ b/docs/about/deprecated.rst
->> @@ -196,6 +196,19 @@ CI coverage support may bitrot away before the deprecation process
->>   completes. The little endian variants of MIPS (both 32 and 64 bit) are
->>   still a supported host architecture.
->>   
->> +32-bit x86 hosts and ``qemu-system-i386`` (since 8.0)
->> +'''''''''''''''''''''''''''''''''''''''''''''''''''''
->> +
->> +Testing 32-bit x86 host OS support takes a lot of precious time during the
->> +QEMU contiguous integration tests, and considering that most OS vendors
->> +stopped shipping 32-bit variants of their x86 OS distributions and most
->> +x86 hardware from the past >10 years is capable of 64-bit, keeping the
->> +32-bit support alive is an inadequate burden for the QEMU project. Thus
->> +QEMU will soon drop the support for 32-bit x86 host systems and the
->> +``qemu-system-i386`` binary. Use ``qemu-system-x86_64`` (which is a proper
->> +superset of ``qemu-system-i386``) on a 64-bit host machine instead.
-> 
-> I feel like we should have separate deprecation entries for the
-> i686 host support, and for qemu-system-i386 emulator binary, as
-> although they're related they are independant features with
-> differing impact.
-
-Agreed.
-
-> 32-bit x86 hosts
-> ''''''''''''''''
-> 
-> Support for 32-bit x86 host deployments is increasingly uncommon in
-> mainstream Linux distributions given the widespread availability of
-> 64-bit x86 hardware. The QEMU project no longer considers 32-bit
-> x86 support to be an effective use of its limited resources, and
-> thus intends to discontinue it.
-> 
-> Current users of QEMU on 32-bit x86 hosts should either continue
-> using existing releases of QEMU, with the caveat that they will
-> no longer get security fixes, or migrate to a 64-bit platform
-> which remains capable of running 32-bit guests if needed.
-Ack.
-
-> 
-> ``qemu-system-i386`` binary removal
-> '''''''''''''''''''''''''''''''''''
-> 
-> The ``qemu-system-x86_64`` binary can be used to run 32-bit guests
-> by selecting a 32-bit CPU model, including KVM support on x86_64
-> hosts. Once support for the 32-bit x86 host platform is discontinued,
-> the ``qemu-system-i386`` binary will be redundant.
-
-Missing "kvm" in this last sentence?  It is otherwise untrue for tcg.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xOCM4c90/6pTg/XH"
+Content-Disposition: inline
+In-Reply-To: <5a66c333-51e8-6e82-9bfb-10d52164e96e@suse.com>
 
 
-> Current users are
-> recommended to reconfigure their systems to use the ``qemu-system-x86_64``
-> binary.
+--xOCM4c90/6pTg/XH
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Feb 2023 15:53:32 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v5 4/5] Build system: Replace git:// and http:// with
+ https://
 
-Ack.
+On Mon, Feb 27, 2023 at 09:42:24AM +0100, Jan Beulich wrote:
+> On 25.02.2023 21:37, Demi Marie Obenour wrote:
+> > --- a/stubdom/configure
+> > +++ b/stubdom/configure
+> > @@ -3545,7 +3545,7 @@ if test "x$LIBPCI_URL" =3D "x"; then :
+> >  	if test "x$extfiles" =3D "xy"; then :
+> >    LIBPCI_URL=3D\$\(XEN_EXTFILES_URL\)
+> >  else
+> > -  LIBPCI_URL=3D"http://www.kernel.org/pub/software/utils/pciutils"
+> > +  LIBPCI_URL=3D"https://mirrors.edge.kernel.org/pub/software/utils/pci=
+utils"
+> >  fi
+>=20
+> Simply replacing https:// in the original URL does work. Why did you alter
+> it beyond that? Yes, either access leads to the URL you specify, but that
+> forwarding (or however it's implemented) may change down the road (and it
+> could, aiui, even be dependent upon where in the world the access is comi=
+ng
+> from). In any event, here and below, any adjustment beyond what the title
+> says wants explaining in the description.
+>=20
+> Jan
 
-> Same point for the next patch about 32-bit arm vs qemu-system-arm
-> binary.
+    $ curl --head --fail https://www.kernel.org/pub/software/utils/pciutils=
+/pciutils-2.2.9.tar.bz2
+    HTTP/1.1 301 Moved Permanently
+    Server: nginx
+    Date: Mon, 27 Feb 2023 20:46:38 GMT
+    Content-Type: text/html
+    Content-Length: 162
+    Connection: keep-alive
+    Location: https://mirrors.edge.kernel.org/pub/software/utils/pciutils/p=
+ciutils-2.2.9.tar.bz2
+    X-Frame-Options: DENY
+    X-Content-Type-Options: nosniff
+    Strict-Transport-Security: max-age=3D15768001
+    Referrer-Policy: same-origin
+    Content-Security-Policy: default-src 'self'; img-src https: data:
 
-Ack.
+This means that all future requests should be made to
+https://mirrors.edge.kernel.org/pub/software/utils/pciutils/pciutils-2.2.9.=
+tar.bz2
+as per the HTTP standard.  If this were a temporary redirect you would
+be correct, but it is not.  See:
 
+> Some URLS returned 301 or 302 redirects, so I replaced them with the
+> URLs that were redirected to.
 
-r~
+=66rom the commit message.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--xOCM4c90/6pTg/XH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmP9GFAACgkQsoi1X/+c
+IsF9exAAhwb2DoNSJMQw+TI/tTwtLGbq79bgkeM+j03cLhC9q11NPp+zgagICuM7
+UNmh6rMdKdmIdBpvGr4FHvUYwmXZeX60JzNc2Xc98KgjQ4l+KClCKQ7/TP80ccz1
+Z6iv9DKu3fatGCsGyiXU3G3T3wNku26GtMcvc+8jK62RcXORVjq12moyh1hFxx/J
+OYpCiZdaY8X3Qf+bOqXijBn81LjbLWt0+781gXNk76RaedTGmWs5gVNsxVrdIQak
+MQBB2JIjq3oPuHJzhihO868bgLsjzUhy+uSY/3mDsg3dm6bNIgWvQB3S0tfg+MaO
+ErVdEqNRThpxy61zEHSFAZK4doPQQ1yqyvksqRNg5kGnEoKW/c/54b82eddHwDJH
+f2h4iPgO5Fa9vhWVPKQoK8dhKq4bW8uzl/sfr4rpf0UtgTqcZoUyBmXb2IdWVFSt
+PVOE/6SVDg2xfI8roUQWLvHZPZ+G2a4w+J1QRBd+7yX/ugkDM+27yKSLe6mjM9FV
+zG5qKXDg73/iTbv9p2Jk6WeSFtL8tn7KHZZwyhXzrtTN5dpa9KkIFnSVYZG1riJH
+ry/FWe0k1oFCua0XQ7N0/or24TIsqNvJ6MmTBzy+WdTF7VXRW32+aYr+gdixVBXj
+6VS4oQ9qCxC7knU48rTa3v79909vuGu/WpZ6z36gs+M19FSwnX8=
+=7ykJ
+-----END PGP SIGNATURE-----
+
+--xOCM4c90/6pTg/XH--
 
