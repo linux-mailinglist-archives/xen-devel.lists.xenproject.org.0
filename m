@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD026A47B7
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 18:17:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502835.774844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A20FD6A482A
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 18:37:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502842.774855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWh7b-0008BD-4K; Mon, 27 Feb 2023 17:17:07 +0000
+	id 1pWhQL-0002uK-NU; Mon, 27 Feb 2023 17:36:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502835.774844; Mon, 27 Feb 2023 17:17:07 +0000
+Received: by outflank-mailman (output) from mailman id 502842.774855; Mon, 27 Feb 2023 17:36:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWh7b-00088Z-1I; Mon, 27 Feb 2023 17:17:07 +0000
-Received: by outflank-mailman (input) for mailman id 502835;
- Mon, 27 Feb 2023 17:17:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ddEZ=6X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pWh7a-00088T-1A
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 17:17:06 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d780928-b6c2-11ed-a82a-c9ca1d2f71af;
- Mon, 27 Feb 2023 18:17:03 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id z42so7197282ljq.13
- for <xen-devel@lists.xenproject.org>; Mon, 27 Feb 2023 09:17:03 -0800 (PST)
-Received: from [192.168.8.114] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
- [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
- b15-20020a2e988f000000b0029599744c02sm806368ljj.75.2023.02.27.09.17.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Feb 2023 09:17:02 -0800 (PST)
+	id 1pWhQL-0002rO-Jq; Mon, 27 Feb 2023 17:36:29 +0000
+Received: by outflank-mailman (input) for mailman id 502842;
+ Mon, 27 Feb 2023 17:36:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pWhQJ-0002rI-W2
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 17:36:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pWhQJ-0006rY-Di; Mon, 27 Feb 2023 17:36:27 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.16.186]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pWhQJ-0005Jc-3r; Mon, 27 Feb 2023 17:36:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,149 +39,392 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d780928-b6c2-11ed-a82a-c9ca1d2f71af
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=ZmBDKNUPDF5/6k02WURTwKtK8hP0cnZH3gnLZ0vsKqY=;
-        b=fTfmiGmNowgJdmHo9aHhG8N03I6wPkruq3KKaZIjVUVlRmxYXoogeotwuPknvk4+Lg
-         G8fZEmYEKW7x/kUosVYRYD5Xc7FL67baY0jhQqYXK5ShHOa+No9VSfEEIe5XumRIudfe
-         xaRi6MCgvq42KKicsYtHieWKhLgF9Pa0P7LgJFdBnUpgLvWwk1lwD5lTKj1FLG0iI7+h
-         +7XOYIZj/qx1fOXQCQftVW4zBqQNVXmB6ZEPxHgssyEysBKpUmB7BFqw2J/iSRdWXHFn
-         dHrnzB4AryQorTlfoRnllprREu+fr9NhYXHQrRzYyOdZlcS93ROStliL/MkUz7czProX
-         pgXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZmBDKNUPDF5/6k02WURTwKtK8hP0cnZH3gnLZ0vsKqY=;
-        b=3Pwdwi8rweOY/XuFpFWQd5RKmesxiE7vHWZsFztG+WVDlt9QNhqATBr+XJ2sJ+IjFx
-         KL/3hZygNO6+CoeB+zp9akqxpnlApw6Qu9HbUt9Fz8bXQLruDfg1z3zYPEN1SP+fH9yj
-         Cu+y90pvfK5EAt6AEYJpU7xXkrX8cS8SlL42MiJJy9YaqCk63BSdce6PS4ugjJwZUVKK
-         FFVuRdYN9zbeYoI//85dz4RBzm8E6b/H0dAFreTUu5n7Lb3jsGmzP+cuG0JHzj3lWbMg
-         V1sqlBKL6EYZAmSpxWQXbi9YLiHTzyIL1HN6BIDpeGB7vkOq2xqnofJfcLSlAt13f9GW
-         7khw==
-X-Gm-Message-State: AO0yUKXSuVVbO46yo6oj5IqffnkCMZYQkHDzGXQW4Qqh+VO8ejqFCpeO
-	h6174H3CFHU9c7mOVH7ok1Q=
-X-Google-Smtp-Source: AK7set9Z86gIV1i4uNaiNwfHMGoLQvnGDSzsCJTAzKzAbTTJN1UGsYFujB4c3piXRIG93SsRh/iVYw==
-X-Received: by 2002:a2e:1414:0:b0:293:4b96:1b6b with SMTP id u20-20020a2e1414000000b002934b961b6bmr8789797ljd.25.1677518222778;
-        Mon, 27 Feb 2023 09:17:02 -0800 (PST)
-Message-ID: <e2a1968767e7a0f1535920ada14ec2f323e0f9c5.camel@gmail.com>
-Subject: Re: [PATCH v1 2/3] xen/riscv: setup initial pagetables
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>
-Date: Mon, 27 Feb 2023 19:17:01 +0200
-In-Reply-To: <52072f1b-0cf8-a218-eefc-a8c1b4cecf43@xen.org>
-References: <cover.1677250203.git.oleksii.kurochko@gmail.com>
-	 <83444f8f90cf2adf431762d919ba958a25ff8ce4.1677250203.git.oleksii.kurochko@gmail.com>
-	 <52072f1b-0cf8-a218-eefc-a8c1b4cecf43@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=dho0XloKh1//pn/ArxdTM71Bv2vfHZJjCwAdFErs5rw=; b=0nF9RGKju6c8r8y1wTV/nMvZ14
+	SvfbozGZ6c/9eIwtDPAa1ngkCq42IDpZo0S5yazea+6daR+v6SCykaqdwtlchmk86e7opTnd9ZtVn
+	XiJblheB2mBFqUWgXGa+TGCUztGHpyIzCQ8ZlIqhJOym8YHvhmEg7NItyiNIbZ0sqrfk=;
+Message-ID: <98d45f93-b611-1016-45b5-3d7487af261f@xen.org>
+Date: Mon, 27 Feb 2023 17:36:24 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.8.0
+Subject: Re: [PATCH v1 1/3] xen/riscv: introduce setup_initial_pages
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>
+References: <cover.1677250203.git.oleksii.kurochko@gmail.com>
+ <a145fbbfb166d9f6bd4859b669d23a1f52004b2b.1677250203.git.oleksii.kurochko@gmail.com>
+ <fca300ad-0fd1-70ed-4cd4-82e89f5c3351@xen.org>
+ <a0f3f1ca4277c1f8aeeaf6531d90c5b04c244af9.camel@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <a0f3f1ca4277c1f8aeeaf6531d90c5b04c244af9.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, 2023-02-25 at 18:05 +0000, Julien Grall wrote:
-> Hi,
->=20
-> On 24/02/2023 15:06, Oleksii Kurochko wrote:
-> > Calculate load and linker linker image addresses and
-> > setup initial pagetables.
-> >=20
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > =C2=A0 xen/arch/riscv/setup.c | 11 +++++++++++
-> > =C2=A0 1 file changed, 11 insertions(+)
-> >=20
-> > diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-> > index b7cd438a1d..f69bc278bb 100644
-> > --- a/xen/arch/riscv/setup.c
-> > +++ b/xen/arch/riscv/setup.c
-> > @@ -1,9 +1,11 @@
-> > =C2=A0 #include <xen/bug.h>
-> > =C2=A0 #include <xen/compile.h>
-> > =C2=A0 #include <xen/init.h>
-> > +#include <xen/kernel.h>
-> > =C2=A0=20
-> > =C2=A0 #include <asm/csr.h>
-> > =C2=A0 #include <asm/early_printk.h>
-> > +#include <asm/mm.h>
-> > =C2=A0 #include <asm/traps.h>
-> > =C2=A0=20
-> > =C2=A0 /* Xen stack for bringing up the first CPU. */
-> > @@ -43,6 +45,11 @@ static void __init disable_fpu(void)
-> > =C2=A0=20
-> > =C2=A0 void __init noreturn start_xen(void)
-> > =C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0 unsigned long load_start=C2=A0=C2=A0=C2=A0 =3D (uns=
-igned long)start;
-> > +=C2=A0=C2=A0=C2=A0 unsigned long load_end=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 =3D load_start + (unsigned
-> > long)(_end - _start);
->=20
-> I am a bit puzzled, on top of load_addr() and linker_addr(), you
-> wrote=20
-> it can't use global variable/function. But here... you are using
-> them.=20
-> So how is this different?
-I don't use load_addr() and linker_addr() macros here.
->=20
-> > +=C2=A0=C2=A0=C2=A0 unsigned long linker_start=C2=A0 =3D (unsigned long=
-)_start;
-> > +=C2=A0=C2=A0=C2=A0 unsigned long linker_end=C2=A0=C2=A0=C2=A0 =3D (uns=
-igned long)_end;
->=20
-> I am a bit confused with how you define the start/end for both the=20
-> linker and load. In one you use _start and the other _end.
->=20
-> Both are fixed at compile time, so I assume the values will be a
-> linked=20
-> address rather than the load address. So how is this meant to how?
->=20
-_start, _end - it is label from linker script so I use them to define
-linker_start and linker_end addresses.
+Hi Oleksii,
 
-load_start is defined as an address of start() function from head.S and
-load_end is the load_start + the size  (_end - _start)
+On 27/02/2023 16:52, Oleksii wrote:
+> On Sat, 2023-02-25 at 17:53 +0000, Julien Grall wrote:
+>>> +/*
+>>> + * WARNING: load_addr() and linker_addr() are to be called only
+>>> when the MMU is
+>>> + * disabled and only when executed by the primary CPU.  They
+>>> cannot refer to
+>>> + * any global variable or functions.
+>>
+>> I find interesting you are saying when _setup_initial_pagetables() is
+>> called from setup_initial_pagetables(). Would you be able to explain
+>> how
+>> this is different?
+> I am not sure that I understand your question correctly but
+> _setup_initial_pagetables() was introduced to map some addresses with
+> write/read flag. Probably I have to rename it to something that is more
+> clear.
 
-> Furthermore, I would expect linker_start and load_start to point to
-> the=20
-> same symbol (the only different is one store the virtual address
-> whereas=20
-> the other the physical address). But here you are technically using
-> two=20
-> different symbol. Can you explain why?
-It is used to make identity mapping for the range [load_addr, load_end]
-and [linker_addr, linker_end]. It was done so because in Bobby's
-patches in the linker script XEN_VIRT_START is defined as
-_AT(vaddr_t,0x00200000) but bootloader loads Xen at 0x80200000 and so
-in this case loadr_addr !=3D linker_addr.
-But I have changed XEN_VIRT_START to 0x8020...00 so they are equal now.
->=20
-> > +
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * The following things are passed =
-by bootloader:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 a0 -> hart_id
-> > @@ -65,6 +72,10 @@ void __init noreturn start_xen(void)
-> > =C2=A0=20
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 test_macros_from_bug_h();
-> > =C2=A0=20
-> > +=C2=A0=C2=A0=C2=A0 setup_initial_pagetables(load_start, load_end, link=
-er_start,
-> > linker_end);
->=20
-> Shouldn't this happen earlier in start_xen()?
-It can. If to be honest I don't know if it should. I added at the end
-only because it was the last thing I worked on...
->=20
-> Cheers,
->=20
-~ Oleksii
+So the comment suggests that you code cannot refer to global 
+functions/variables when the MMU is off. So I have multiple questions:
+   * Why only global? IOW, why static would be OK?
+   * setup_initial_pagetables() has a call to 
+_setup_initial_pagetables() (IOW referring to another function). Why is 
+it fine?
+   * You have code in the next patch referring to global variables 
+(mainly _start and _end). How is this different?
+
+>>
+>>> + */
+>>> +
+>>> +/*
+>>> + * Convert an addressed layed out at link time to the address
+>>> where it was loaded
+>>
+>> Typo: s/addressed/address/ ?
+> Yes, it should be address. and 'layed out' should be changed to 'laid
+> out'...
+>>
+>>> + * by the bootloader.
+>>> + */
+>>
+>> Looking at the implementation, you seem to consider that any address
+>> not
+>> in the range [linker_addr_start, linker_addr_end[ will have a 1:1
+>> mappings.
+>>
+>> I am not sure this is what you want. So I would consider to throw an
+>> error if such address is passed.
+> I thought that at this stage and if no relocation was done it is 1:1
+> except the case when load_addr_start != linker_addr_start.
+
+The problem is what you try to map one to one may clash with the linked 
+region for Xen. So it is not always possible to map the region 1:1.
+
+Therefore, I don't see any use for the else part here.
+
+> 
+> 
+>>
+>>> +#define
+>>> load_addr(linker_address)
+>>>      \
+>>> +
+>>> ({
+>>>          \
+>>> +        unsigned long __linker_address = (unsigned
+>>> long)(linker_address);      \
+>>> +        if ( linker_addr_start <= __linker_address
+>>> &&                          \
+>>> +            __linker_address < linker_addr_end
+>>> )                               \
+>>> +
+>>> {
+>>>      \
+>>> +            __linker_address
+>>> =                                                 \
+>>> +                __linker_address - linker_addr_start +
+>>> load_addr_start;        \
+>>> +
+>>> }
+>>>      \
+>>> +
+>>> __linker_address;
+>>>      \
+>>> +    })
+>>> +
+>>> +/* Convert boot-time Xen address from where it was loaded by the
+>>> boot loader to the address it was layed out
+>>> + * at link-time.
+>>> + */
+>>
+>> Coding style: The first line is too long and multi-line comments look
+>> like:
+>>
+>> /*
+>>    * Foo
+>>    * Bar
+>>    */
+>>
+>>> +#define
+>>> linker_addr(load_address)
+>>>      \
+>>
+>> Same remark as for load_addr() above.
+>>
+>>> +
+>>> ({
+>>>          \
+>>> +        unsigned long __load_address = (unsigned
+>>> long)(load_address);          \
+>>> +        if ( load_addr_start <= __load_address
+>>> &&                              \
+>>> +            __load_address < load_addr_end
+>>> )                                   \
+>>> +
+>>> {
+>>>      \
+>>> +            __load_address
+>>> =                                                   \
+>>> +                __load_address - load_addr_start +
+>>> linker_addr_start;          \
+>>> +
+>>> }
+>>>      \
+>>> +
+>>> __load_address;
+>>>      \
+>>> +    })
+>>> +
+>>> +static void __attribute__((section(".entry")))
+>>> +_setup_initial_pagetables(pte_t *second, pte_t *first, pte_t
+>>> *zeroeth,
+>> Can this be named to setup_initial_mapping() so this is clearer and
+>> avoid the one '_' different with the function below.
+> Sure. It will be better.
+>>
+>>> +                         unsigned long map_start,
+>>> +                         unsigned long map_end,
+>>> +                         unsigned long pa_start,
+>>> +                         bool writable)
+>>
+>> What about the executable bit?
+> It's always executable... But as you mentioned above PTE_LEAF_DEFAULT
+> should be either RX or RW.
+> I think it makes sense to add flags instead of writable.
+>>
+>>> +{
+>>> +    unsigned long page_addr;
+>>> +    unsigned long index2;
+>>> +    unsigned long index1;
+>>> +    unsigned long index0;
+>>
+>> index* could be defined in the loop below.
+> It could. But I am curious why it is better?
+>>
+>>> +
+>>> +    /* align start addresses */
+>>> +    map_start &= ZEROETH_MAP_MASK;
+>>> +    pa_start &= ZEROETH_MAP_MASK;
+>>
+>> Hmmm... I would actually expect the address to be properly aligned
+>> and
+>> therefore not require an alignment here.
+>>
+>> Otherwise, this raise the question of what happen if you have region
+>> using the same page?
+> That map_start &=  ZEROETH_MAP_MASK is needed to page number of address
+> w/o page offset.
+
+My point is why would the page offset be non-zero?
+
+>>
+>>> +
+>>> +    page_addr = map_start;
+>>> +    while ( page_addr < map_end )
+>>
+>> Looking at the loop, it looks like you are assuming that the region
+>> will
+>> never cross a boundary of a page-table (either L0, L1, L2). I am not
+>> convinced you can make such assumption (see below).
+>>
+>> But if you really want to make such assumption then you should add
+>> some
+>> guard (either BUILD_BUG_ON(), ASSERT(), proper check) in your code to
+>> avoid any surprise in the future.
+> I am not sure that I fully understand what is the problem here.
+> The address is aligned on (1<<12) boundary and each itearation is
+> mapped (1<<12) page so all looks fine or I misunderstood you.
+
+Let's take an example, imagine the region you want to map is 4MB. 
+AFAICT, you are only passing one L0 page-table. So your code will end up 
+to overwrite the previous entries in the zeroeth page-table and then add 
+another link in the L1 page-table.
+
+>>
+>>> +    {
+>>> +        index2 = pagetable_second_index(page_addr);
+>>> +        index1 = pagetable_first_index(page_addr);
+>>> +        index0 = pagetable_zeroeth_index(page_addr);
+>>> +
+>>> +        /* Setup level2 table */
+>>> +        second[index2] = paddr_to_pte((unsigned long)first);
+>>> +        second[index2].pte |= PTE_TABLE;
+>>> +
+>>> +        /* Setup level1 table */
+>>> +        first[index1] = paddr_to_pte((unsigned long)zeroeth);
+>>> +        first[index1].pte |= PTE_TABLE;
+>>> +
+>>> +        /* Setup level0 table */
+>>> +        if ( !pte_is_valid(&zeroeth[index0]) )
+>>
+>> Can you explain why you are checking !pte_is_valid() for the L0 entry
+>> but not the other?
+> My mistake it should be checked for each level.
+
+In which case, shouldn't you return an error if the entry is always valid?
+
+>>
+>>> +        {
+>>> +            /* Update level0 table */
+>>> +            zeroeth[index0] = paddr_to_pte((page_addr - map_start)
+>>> + pa_start);
+>>> +            zeroeth[index0].pte |= PTE_LEAF_DEFAULT;
+>>> +            zeroeth[index0].pte &= ~((!writable) ? PTE_WRITABLE :
+>>> 0);
+>>
+>> Looking at the default value, it would mean that a non-writable
+>> mapping
+>> is automatically executable. This seems wrong for the section is not
+>> meant to be executable (like rodata).
+> Yes, you are right. I'll reowrk setup_initial_mapping() to pass flags
+> instead of write/read - only flag.
+>>
+>>> +        }
+>>> +
+>>> +        /* Point to next page */
+>>> +        page_addr += ZEROETH_SIZE;
+>>> +    }
+>>> +}
+>>> +
+>>> +/*
+>>> + * setup_initial_pagetables:
+>>> + *
+>>> + * 1) Build the page tables for Xen that map the following:
+>>> + *   1.1)  The physical location of Xen (where the bootloader
+>>> loaded it)
+>>> + *   1.2)  The link-time location of Xen (where the linker
+>>> expected Xen's
+>>> + *         addresses to be)
+>>> + * 2) Load the page table into the SATP and enable the MMU
+>>> + */
+>>> +void __attribute__((section(".entry")))
+>>
+>> I couldn't find a section ".entry" in the linker.
+>>
+>>> +setup_initial_pagetables(unsigned long load_addr_start,
+>>> +                         unsigned long load_addr_end,
+>>> +                         unsigned long linker_addr_start,
+>>> +                         unsigned long linker_addr_end)
+>>> +{
+>>> +    pte_t *second;
+>>> +    pte_t *first;
+>>> +    pte_t *zeroeth;
+>>> +
+>>> +    clear_pagetables(load_addr_start, load_addr_end,
+>>> +                     linker_addr_start, linker_addr_end);
+>>> +
+>>> +    /* Get the addresses where the page tables were loaded */
+>>> +    second  = (pte_t *)load_addr(&xen_second_pagetable);
+>>> +    first   = (pte_t *)load_addr(&xen_first_pagetable);
+>>> +    zeroeth = (pte_t *)load_addr(&xen_zeroeth_pagetable);
+>>
+>> I would consider to embed the type cast in load_addr() so you are
+>> adding
+>> some type safety within your code.
+> Definitely it will be better but setup_initial_mapping() uses 'unsigned
+> long' for passing address that should be mapped.
+
+One possibility would be to introduce a new wrapper for the typesafety. 
+Anyway, it is not essential for now. Let's at least get the logic 
+correct first :).
+
+>>
+>>> +
+>>> +    /*
+>>> +     * Create a mapping from Xen's link-time addresses to where
+>>> they were actually loaded.
+>>
+>> This is line is way long than 80 characters. Please make sure to wrap
+>> it
+>> 80 characters.
+>>
+>>> +     */
+>>> +    _setup_initial_pagetables(second, first, zeroeth,
+>>> +                              linker_addr(&_stext),
+>>> +                              linker_addr(&_etext),
+>>> +                              load_addr(&_stext),
+>>> +                              false);
+>>> +    _setup_initial_pagetables(second, first, zeroeth,
+>>> +                              linker_addr(&__init_begin),
+>>> +                              linker_addr(&__init_end),
+>>> +                              load_addr(&__init_begin),
+>>> +                              true);
+>>> +    _setup_initial_pagetables(second, first, zeroeth,
+>>> +                              linker_addr(&_srodata),
+>>> +                              linker_addr(&_erodata),
+>>> +                              load_addr(&_srodata),
+>>> +                              false);
+>>> +    _setup_initial_pagetables(second, first, zeroeth,
+>>> +                              linker_addr_start,
+>>> +                              linker_addr_end,
+>>> +                              load_addr_start,
+>>> +                              true);
+>>
+>> Where do you guarantee that Xen will always fit in an L0 table and
+>> the
+>> start address is aligned to the size of an L0 table?
+> I don't guarantee that it fit in an L0 table but the start address is
+> aligned to the size of the L0 table at the start.
+Then it should be fixed.
+
+>>
+>>> +
+>>> +    /*
+>>> +     * Create a mapping of the load time address range to... the
+>>> load time address range.
+>>
+>> Same about the line length here.
+>>
+>>> +     * This mapping is used at boot time only.
+>>> +     */
+>>> +    _setup_initial_pagetables(second, first, zeroeth,
+>>
+>> This can only work if Xen is loaded at its linked address. So you
+>> need a
+>> separate set of L0, L1 tables for the identity mapping.
+>>
+>> That said, this would not be sufficient because:
+>>     1) Xen may not be loaded at a 2M boundary (you can control with
+>> U-boot, but not with EFI). So this may cross a boundary and therefore
+>> need multiple pages.
+>>     2) The load region may overlap the link address
+>>
+>> While I think it would be good to handle those cases from the start,
+>> I
+>> would understand why are not easy to solve. So I think the minimum is
+>> to
+>> throw some errors if you are in a case you can't support.
+> Do you mean to throw some error in load_addr()/linkder_addr()?
+
+In this case, I meant to check if load_addr != linker_addr, then throw 
+an error.
+
+Cheers,
+
+-- 
+Julien Grall
 
