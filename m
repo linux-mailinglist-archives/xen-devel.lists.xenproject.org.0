@@ -2,40 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED8B6A4509
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 15:46:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502648.774536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41CE36A450A
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 15:46:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502650.774544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWelq-00049v-Sn; Mon, 27 Feb 2023 14:46:30 +0000
+	id 1pWem8-0004Y1-4C; Mon, 27 Feb 2023 14:46:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502648.774536; Mon, 27 Feb 2023 14:46:30 +0000
+Received: by outflank-mailman (output) from mailman id 502650.774544; Mon, 27 Feb 2023 14:46:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWelq-00046X-Oz; Mon, 27 Feb 2023 14:46:30 +0000
-Received: by outflank-mailman (input) for mailman id 502648;
- Mon, 27 Feb 2023 14:46:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=10za=6X=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pWelp-00046R-9B
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 14:46:29 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2061c.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::61c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83eb2c91-b6ad-11ed-88bb-e56d68cac8db;
- Mon, 27 Feb 2023 15:46:28 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB6896.eurprd04.prod.outlook.com (2603:10a6:803:12e::12)
+	id 1pWem8-0004VL-0P; Mon, 27 Feb 2023 14:46:48 +0000
+Received: by outflank-mailman (input) for mailman id 502650;
+ Mon, 27 Feb 2023 14:46:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rB3s=6X=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pWem6-0004Ql-Jz
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 14:46:46 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20601.outbound.protection.outlook.com
+ [2a01:111:f400:7e83::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8a715ff6-b6ad-11ed-a82a-c9ca1d2f71af;
+ Mon, 27 Feb 2023 15:46:40 +0100 (CET)
+Received: from BN9P222CA0020.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::25)
+ by MN2PR12MB4301.namprd12.prod.outlook.com (2603:10b6:208:1d4::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Mon, 27 Feb
- 2023 14:46:26 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%7]) with mapi id 15.20.6134.027; Mon, 27 Feb 2023
- 14:46:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.27; Mon, 27 Feb
+ 2023 14:46:36 +0000
+Received: from BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10c:cafe::b3) by BN9P222CA0020.outlook.office365.com
+ (2603:10b6:408:10c::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29 via Frontend
+ Transport; Mon, 27 Feb 2023 14:46:36 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT005.mail.protection.outlook.com (10.13.176.69) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6156.16 via Frontend Transport; Mon, 27 Feb 2023 14:46:36 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Feb
+ 2023 08:46:35 -0600
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 27 Feb 2023 08:46:34 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,236 +59,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83eb2c91-b6ad-11ed-88bb-e56d68cac8db
+X-Inumbo-ID: 8a715ff6-b6ad-11ed-a82a-c9ca1d2f71af
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YLEWDkXW58jvYvdyDFxA+tgP1Wlm9dgE/wEUsRTDZLvP5M7LrGpq6obV+0ev9rKRA72Q1OFUqDbWbNadpc6ZCrjqaV8H0aDRrrZM+yHW60NqDFCG295qBpxBqAi+HyHuuA4ICF5ChGexa8DpEQVt6kgaCtYMZFr7117L7scykk1LgLrMoILRyQ9wEwV7OTFyxFhoeuhOBGTnjqORUlSp0rlF33ozSAt8sRXIugUbV2pfzmEf5b2+8s41IYGiHu9m5dSjszFcWoKeVy60z+g0S08ltL8TjcWfpbVniIEuESIYOMo81u0FjQtnzRILOr/sCytv7Ok6y1ngHTW29Fn3cw==
+ b=h513patHevOVVsikYkSTPL9llwCBJ7Vm+1VMwE31de89s1ombciXtgbLXnmTc2IOBkG7LvGMmYF9NpWgHgPZJ1OAa5EHSmb+KrFMAomG5u7Q0mfgnB0VYGztp8K2Bx5P2AWxaziP+feVk/rJtP1Q4qRWQ9yEgggZkv0jMI2q4HPNu3M/+TW2Tfrz9XCemwx9ihbZ6ASIzRbCTibwMq1Uf839SG6K/HYOIwRkqDNz5y3HwQvU4d0D9HM2rfFS5hpplAKRVfai+yZynhhVssZBS6unBuL8ss9GFHp14vbf6seULHGElyraOSn21WRCMQyYB4hdy9qqtGJVigUSJeSuCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jdkh2oAG5nnCXQvMNmwAI6pYV0dsGBMjdClv8mL+7Ss=;
- b=WjTE3jrcXpBB3P3nd4aa89EM/buT5YcdqGvJAIfwPZ2iHUWa8ykrkTVVcRkaJ6Ze3HtywjWS4UWSxPAb06VO1IWDAapqkwC4eAgRmQgyvdHVbcHhSojgZedlO4sTA01w9xMeKoD2JEz0HGqOqfRDZakRe1pQZUvTo4wggIE7j1s3ePlNf9gKWwyCEvgLzcFwTApRwwVc0QvR5/KbksV9548Xd1ahWhUtbMPwAy0VhrRwIv06Oqcc0j3DM99NusBYPQ5m7/FERbF+gZIyyDx2Ao7OBa+RdCc9pcXmY+5ZZfFDoriUrP1GdNWHo42Ixbgw0Zq9tE28jcOXqsQmwO2f6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=M8dh507pGMYHxnf6lKuc6a4Vv1vbjkxjg77QAZ51vcU=;
+ b=mRszAGoAirkh2hTo/VYIIQfv82XxhVTMFMxeT0sN5sfr7+PHwxkpUZzeacfWhEKAEvfOyEkIQ2pqK9tq8NnEW4jkhPMma/kQTouAb9cCctAeOWSsxRWYhsoLFEFBnCBoHNhqzyMXY5ny2N296elR7/qUpqbAfYBSKEvJv6pW+XXy+csKZchPX74aFwZOOFjAtAvsvwaAihu8LQiA64uYxDB6P134PO2Cjyy7h52ndcARTKfsMIRv0riqw9bqaDB9077toVI6AQM9KBRjqRIX1Vj5/mubTwmjUfHDqiMnzMJ5BgWBNvz+EsrUH80Zcro3bIBQjpB47QELSQdYANfSzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jdkh2oAG5nnCXQvMNmwAI6pYV0dsGBMjdClv8mL+7Ss=;
- b=uQZFTNwBCfIV4DRhSwGdNXtn3NBKL5z1bEK1/f6PADFtagYl2U/B8i4GRpCucpwuOpmh1CSyE3lRgNumnKsY1kJjPg7KXb93nNKdFWUnQOsuEt0+Ji3vcGEMm17+TUpJWY7a83uHNUD0LkOvS7O49Zq8I6KGAU1857ktH/Bs0NtZAWuNlOa3BzR3S1radTcnfTNNYEvue4Tavx7qHAVQEr6+2OH+VG1GjQZvzbuKBQXbl8rj9d8ET+IOE3yGFhH8os/mq5IzwXgDGuxi0Yl7GQ+WI4eRjzEW2m4K2nzT1PHPzLMiC63sTEbtoNBKvpJ2ww0D/iwsEk3JfE5JLhk/mw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <90ec98cc-e416-05c3-f507-5e4b2b7f937d@suse.com>
-Date: Mon, 27 Feb 2023 15:46:26 +0100
+ bh=M8dh507pGMYHxnf6lKuc6a4Vv1vbjkxjg77QAZ51vcU=;
+ b=XvRRR+WvP54czRkhustQ/f3NLhncNYxU6XPcRJrlmvUDnuuXN5E6oD2fwfHRXhtKmReT8wvozWM8x9itNIk1Hk7K+q2aNJSdNZuE2DJsywkdjjmzQNuh0q7XxEiWsR5mTmLUVdMdtMyDHE9T2q877b/r1fEdLBaIidVRbVcUk6Q=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <c38e0913-e588-712f-6e0f-698f9dbf51ba@amd.com>
+Date: Mon, 27 Feb 2023 15:46:34 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v3 4/4] xen/x86: switch x86 to use generic implemetation
- of bug.h
+Subject: Re: [PATCH] build: add crypto/ to SUBDIRS
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1677233393.git.oleksii.kurochko@gmail.com>
- <38bb75b9add8655288347aa4df1394450e4e10c9.1677233393.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <38bb75b9add8655288347aa4df1394450e4e10c9.1677233393.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	<xen-devel@lists.xenproject.org>
+References: <20230227095315.6483-1-michal.orzel@amd.com>
+ <c16cbd72-9a5d-cea7-dd17-c9521328fffa@suse.com>
+ <113d8d74-19a6-85da-8b89-1a21bf95960e@amd.com>
+ <bbf3edac-d992-28b0-91b2-ca97159fbce2@suse.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <bbf3edac-d992-28b0-91b2-ca97159fbce2@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0079.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
-MIME-Version: 1.0
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VI1PR04MB6896:EE_
-X-MS-Office365-Filtering-Correlation-Id: 673ce911-51db-4e3a-7d88-08db18d1673a
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT005:EE_|MN2PR12MB4301:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef5bf30b-c48d-4ec5-39c2-08db18d16d3e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	RzGKpwSJzo1d1YZk2SGYbIahAzg1fmkQR+2zNl/9IozDyXa94DUTZspGxHlFnuVERxhBKBpRTIkHooNUmf7TxEmX3/mwtKzIFu8rYisp1/L78s8MeldKjG0H6nfe/E+pLZjc62hJgFddpyDDbRzpgX5kaNZ6SzUnxtqNmHkzhrJzVp/L9jLKq4L9NfMchv8saOLVwF2UQAvdM0HfQet/nnMfSKixJyAugR1XZVsDHjHK0MLL99mFqsVBkn47QWrHhspRmW3tnjJd9oQxZfH5779sjxqFv5NLjq679MNk+sXZxmARUTj52n9Gk+ki5tr8Bn68IIwxsBpMY9qTqSALwJCwPADmPMRUWFxw6f6ZGNhJUW9Jqbc3ndFY3PHGjFfgCcG1nMnE3rpq+R3jO155QK/ikXBrZAN+x+AGy7HVryRESNjM31I3jfSkCxjyGH+v95cZ/YqnDt/aYosP+M964hoC4fYTTGTWRfcBgW+C11JBg0nNmdd7mmKOXC2ObHE4BxhoCFjNQawutp8yujV1X2kMc8dXCyFKGCCXzv3j3/DycMrF5tH1vwnu7BXEBwj13YxzRSd6Wi8Wl8x+0IsgIztnd1wIEI4uhX7jxd5sl5nuli268ACMfmprcwAxOdCm5Wz5lBgmLzVLF3Voxkty9lLDWSPMceXEwlxWQeAVhf9KuoCWx4zFTkv+Kw0L11EyHw22MMSA9+f2nmDHaYsnx9p+dtnVqPfRNtOXAz4J/haW1bEyOXqJN9uKE8HLBqP8
+	Ju0Js9mEPV+g/1W2UBrEkHAh7PavoXSLragB5McX+EO88ZCNm+epKc1b99odVEs35kjjKG8q5qSRh3ot/MnvXKYJfAWPjqavCbHTCm1lSfJDjjHmljjh2pgTj3vgtsMSA/fO2aynqn/L/wv+kFX6MhinRwGsqmfgflcv5hjr2vPKmndz+q8+8pVYdPq7GKyyUeuIoy9evZoT3EUOz4wk52rxht5+x8Vllik8OJ5FlCjKBgDQWgTssXycvofVJKPV3+cFiq38BbJBPNQHhJR07CB2YnjkghvqRlxSej9Qs6ViHAiqch8tifKJ17/V4jFviA9CZ3H5b4gaL5COfZSw2XiFoMEKG1qSPKDg3Y0GKLOhMP6M50Ruoawo3Eb+Ec4ByrkSKhq+attP6ZYP8iWKaWKpGyDwAVvDGYM5S8CV1gbiBI7njRHw9eHwijJhdec4vzqMMY8f0iJMHFb8gEjZuhifz5QNbTMU5TVzEMaSh1IefAofRs4D2WTRMLWk0w/Ct4Tz8JRhqSZ9wd2um6/7tACbfO6OpDyKBBMdJZaZk6nZKPk+f03N8pqmQhFf6O419ktB/OsBL58bVkMJewygtx6+J6KehoYALRVfUosZkutQdhJvPRYvD7u7ypgmiT69TMu5pphI8olWTcwy7hOdeb4F6LkOMRB2g88NGXwy4G3fXrJwAAOtjn2UU6Z40xSAe/lHmX7ENWODGlNtWhpSWXyg54fU/fTgvAhHWa2uvprjnGnOf13mrZhEzUa7+Bftfj+M9NWQZp79eTXm9s+YUg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(396003)(136003)(346002)(39850400004)(376002)(451199018)(316002)(2906002)(31686004)(31696002)(36756003)(5660300002)(8936002)(86362001)(6512007)(6506007)(66946007)(186003)(26005)(8676002)(6916009)(66476007)(4326008)(54906003)(66556008)(38100700002)(53546011)(41300700001)(2616005)(83380400001)(478600001)(6486002)(41533002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MEZhcjd0MWFJWlp2RXNsT2JvYytJRDR0Z2huN1BERW9GYm8zZG44SnRZZ1pq?=
- =?utf-8?B?b3hjL3pUekMzL3VETkN0M3JUNDB1bDFLR0p0aitpZG5NQ2hmSjBVOHpTQ0Jz?=
- =?utf-8?B?UkdNQTJGcUpqNUVNT21BVHhacGhDVmJnb3luVE9PajAvckhQRkwvYTkyeGhm?=
- =?utf-8?B?NFNkZGpERThtdmNDUndKdkc2djlrR1crZWtERVBZZVhPdGdhOFpJQlZpSnVW?=
- =?utf-8?B?M3F0a0VHVGluMkNRU2hOV1ZTU1NzYWVNSE96OXhWTUhsbkZ1bVQycWdDaE9w?=
- =?utf-8?B?dHdhc2hzbkV3Tm1aY0ZaWDVBaGdIVmZBSDQrUDV0YllpcUYzL284UjNWeGxQ?=
- =?utf-8?B?bHMzWm84YTU0YUZUMXd0MXBiRWw2cXNGRHNqZzVkVDJhclpVSmlrS1VUcXc1?=
- =?utf-8?B?VWpCNzVYS0E3dG5MeDRvUmhqMVAzNzE2VTRkbS9DQUlpRCs1ekpEbDFHVXFP?=
- =?utf-8?B?WEEwa3RLcU5JZWdWSHgxeEJTOU9uN25aRi9UOXpJbS96TFNKVStMZHNLQUlJ?=
- =?utf-8?B?T0wzc0I2MWJtVnh1WDJoWkRJbjVRaEdmN3NvOG1GbVNzWGkxampLdWhrTnRr?=
- =?utf-8?B?aXNtZkpPQkZoUkdVWDdaV0VsVk9VemJmRS9JSWFxQ0FmRktEM0VaNHNpa1hP?=
- =?utf-8?B?b1h2Q1dYUGd4UDFsbFEyemFnT2psMnlmT2owei9rMjI1elA4bTBLUjk1RnBS?=
- =?utf-8?B?UjNQaDFydmxpZUdWMmI1alZSVk9jeUJsVzZ6TUl1KzJJak91R3lvU3pTQjRF?=
- =?utf-8?B?bUw2bkpvamM0MTRlbjdleDduRUEwM1l6WFZQSXpwZTRkaVJmbjA0cDFzK3d1?=
- =?utf-8?B?Q3N6UWlzQ2ZhWkNYZ29JTnQya1M2a0E2S005VkZMbG9vcWhhcmlvcXB3ZXNo?=
- =?utf-8?B?RXZmV1VkbEgway9VVHJPMS9HTEVoZWJudTF4QUUzRlQydjE2T0ZYUGt4SU9h?=
- =?utf-8?B?ckRubUdyOS9TZnArMkIwbkYyNEdjLzBZeU5sQ08ydm43N1huVSsvNzAzaHln?=
- =?utf-8?B?eitRMnFhclAwVERSZXFhL1hQanVxNWVPSCtXaFVvZk92TmFTSHpMTWpvcWJM?=
- =?utf-8?B?clRtRkZsS3I5aFhZeGZFOXp4Z2dzbFVBRG1Pb0ZTbHlpQjhCQ09id0Jvb2xS?=
- =?utf-8?B?bm9rZXp6aGxhSzBPbEl5dnI4aGw1ZkxQZTFLVy9hZlJRbzRpMERPZStjOHZo?=
- =?utf-8?B?Q3dCNE9UbDFRSlU5aWZ0TDZIRFRVb0dIMm1tWmtnZUk0M21LZTV3T0RwT3oy?=
- =?utf-8?B?VERXV1pvTHBFaWdSaU5EZk00d1g1UThnRDlCa2Z6cjZvSmxMeEcvdVIwRkJm?=
- =?utf-8?B?ZjVWMzhpMzhUaDRWMTFweS8xUnVZNVFGOFE2WlI0Z3FtUzNGRmd3UWRSS0Rx?=
- =?utf-8?B?OHlpZlpoR3QyQ2VpRmRHN0pwVnlHWEhXdDZERmY5UXVFd0pUczhTQTJ0a29z?=
- =?utf-8?B?R1hBcThTajBVSDA3aUh3S0xpZ1lzU3d4eFlRTVRxbDBYS0xMZWVoN0ppcVRt?=
- =?utf-8?B?d2h4dmFkeGNKSm8zVDV2UThOd2lGSmVtV0ZTaUI1TUtqNEhHSTc1cGUrSkNk?=
- =?utf-8?B?dk9jZ0h3cU9ocmlIYUczbWVnQzlqOUtCL1lpbXljM0txWnBtMVdNVHdPUUxm?=
- =?utf-8?B?eTJWdUJuWDU1cTVZQ0syWlRsN1ZGQkM3NEVObWFqS3FSbDlHWHNSV1JiaStt?=
- =?utf-8?B?alpBUTFvN0dSNEltclVwb0JvdWF4T0JBNThnVWthV0lWUzNWcW9uRXdxcUZN?=
- =?utf-8?B?UkQxUUtXSHAwQnk3YUdMTVRmNmViWW43RUhvWFB6R3VTL2EwaHZYMUdkN3Z2?=
- =?utf-8?B?aHFveHZydjYxTHpIZkJKcWNDOW40MWFwVnFockExZ1hlTld5VWNNU0kya2E2?=
- =?utf-8?B?bjF4clhNVndyY3FSNHFKcHBJaDQ4OUVrK3RtQmRVR1hEazJLWmtHK0JTZTNR?=
- =?utf-8?B?VndxL1VPYys2empaMlZlN29zNmpxU1I3RzQ0UEljUDIvaHl4V1FsRG1pdUo3?=
- =?utf-8?B?L2ZxOTYyTzBSQ1EyeEZTMmNRc1JTamc5Y2lZMUFzWko4V3lCaXdZNktYVmk5?=
- =?utf-8?B?ekVZOVczSDJKY3pRT2tPT1Y5QmxxcFVVdUd4dWpwRzhLaEhraEMwbW5abGd5?=
- =?utf-8?Q?aPiGTWnmuDYTB7w9/j+GnQnVp?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 673ce911-51db-4e3a-7d88-08db18d1673a
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 14:46:26.3268
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199018)(40470700004)(36840700001)(46966006)(4326008)(70586007)(70206006)(31686004)(6916009)(83380400001)(426003)(36860700001)(41300700001)(47076005)(82740400003)(336012)(54906003)(316002)(36756003)(8676002)(81166007)(16576012)(8936002)(5660300002)(44832011)(356005)(86362001)(478600001)(53546011)(186003)(26005)(40460700003)(31696002)(82310400005)(2906002)(40480700001)(2616005)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 14:46:36.2770
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DzMGWu6g2bnvCrCSy7iSV0yfCBnlr3MupONbQkvUNzp7hqpvH/rhtNEXSPNEY3Cq+OnkMIWPPzZzc8zTgyOSsQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6896
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef5bf30b-c48d-4ec5-39c2-08db18d16d3e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4301
 
-On 24.02.2023 12:31, Oleksii Kurochko wrote:
-> The following changes were made:
-> * Make GENERIC_BUG_FRAME mandatory for X86
-> * Update asm/bug.h using generic implementation in <xen/bug.h>
-> * Change prototype of debugger_trap_fatal() in asm/debugger.h
->   to align it with generic prototype in <xen/debugger.h>.
-> * Update do_invalid_op using generic do_bug_frame()
+
+
+On 27/02/2023 14:54, Jan Beulich wrote:
 > 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> 
+> On 27.02.2023 14:41, Michal Orzel wrote:
+>> Hi Jan,
+>>
+>> On 27/02/2023 11:10, Jan Beulich wrote:
+>>>
+>>>
+>>> On 27.02.2023 10:53, Michal Orzel wrote:
+>>>> --- a/xen/Makefile
+>>>> +++ b/xen/Makefile
+>>>> @@ -589,7 +589,7 @@ $(TARGET): outputmakefile FORCE
+>>>>       $(Q)$(MAKE) $(build)=. arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
+>>>>       $(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' 'ALL_LIBS=$(ALL_LIBS-y)' $@
+>>>>
+>>>> -SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
+>>>> +SUBDIRS = xsm arch/$(TARGET_ARCH) common crypto drivers lib test
+>>>>  define all_sources
+>>>>      ( find include -type f -name '*.h' -print; \
+>>>>        find $(SUBDIRS) -type f -name '*.[chS]' -print )
+>>>
+>>> As long as it's arch/$(TARGET_ARCH) that's used here, crypto should imo
+>>> also only be included when selected (or at the very least only when an
+>>> arch might select it, which afaics is possible on x86 only right now).
+>>>
+>>> It would also help if in the description you made explicit that SUBDIRS
+>>> isn't used for anything else (the name, after all, is pretty generic).
+>>> Which actually points at an issue: I suppose the variable would actually
+>>> better be used elsewhere as well, e.g. in the _clean: rule and perhaps
+>>> also in the setting of ALL_OBJS-y. (That'll require splitting the
+>>> variable, to that e.g. _clean would use $(SUBDIRS), $(SUBDIRS-y), and
+>>> $(SUBDIRS-) collectively.) It is, imo, that lack of consolidation which
+>>> has caused crypto to be missing from SUBDIRS.
+>>>
+>> I think what you wrote can be split into 2 parts: the part being a goal of this patch
+>> and the cleanup/improvements that would be beneficial but not related to this patch.
+>> The second part involves more code and there are parts to be discussed:
+>>
+>> 1) If we decide to create ALL_OBJS-y from SUBDIRS, then we would need to carve out test/ dir
+>> that is not part of ALL_OBJS-y and add it to SUBDIRS later on. Also, the order of ALL_OBJS-y matters
+>> for linking, so we would need to transfer the responsibility to SUBDIRS. The natural placement of
+>> SUBDIRS (including SUBDIRS-y, etc.) would be right above ALL_OBJS-y. However, when doing clean (next point),
+>> need-config is set to n and SUBDIRS would be empty. This means it would need to be defined somewhere at the
+>> top of the Makefile (thus harder to make sure the linking order is correct).
+>>
+>> 2) If we deicide to use SUBDIRS for _clean rule, then we would need some foreach loop, right?
+>> Apart from that, there are other directories that are not part of SUBDIRS i.e. include/, tools/.
+>> Together with SUBDIRS variable, it would create confusion (these dirs are also sub-directories, so why
+>> not having them listed in this variable?). Also, I can see that we do clean not only for $(TARGET_ARCH)
+>> but for all the existing architectures.
+> 
+> I understand that the changes would be more involved, but I disagree with
+> your "two parts" statement: If what I've outlined was already the case,
+> your patch would not even exist (because crypto/ would already be taken
+> care of wherever needed).
+> 
+>> I would prefer to stick for now to the goal of this patch which is to add crypto/ so that it is taken
+>> into account for the tags/csope generation. Would the following change be ok for that purpose?
+>>
+>> diff --git a/xen/Makefile b/xen/Makefile
+>> index 2d55bb9401f4..05bf301bd7ab 100644
+>> --- a/xen/Makefile
+>> +++ b/xen/Makefile
+>> @@ -589,7 +589,9 @@ $(TARGET): outputmakefile FORCE
+>>       $(Q)$(MAKE) $(build)=. arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
+>>       $(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' 'ALL_LIBS=$(ALL_LIBS-y)' $@
+>>
+>> -SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
+>> +SUBDIRS-$(CONFIG_CRYPTO) += crypto
+>> +SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test $(SUBDIRS-y)
+>> +
+>>  define all_sources
+>>      ( find include -type f -name '*.h' -print; \
+>>        find $(SUBDIRS) -type f -name '*.[chS]' -print )
+> 
+> The fact that, afaict, this won't do is related to the outline I gave.
+> You've referred yourself to need-config. Most if not all of the goals
+> SUBDIRS is (currently) relevant for are listed in no-dot-config-targets.
+> Hence your change above is effectively a no-op, because CONFIG_CRYPTO
+> will simply be unset in the common case. Therefore if an easy change is
+> wanted, the original version of it would be it. An intermediate
+> approach might be to add crypto to SUBDIRS only when TARGET_ARCH=x86.
+> But neither would preclude the same issue from being introduced again,
+> when a new subdir appears.
+I understand your concerns. However, I cannot see how your suggested changes
+e.g. making use of SUBDIRS in ALL_OBJS and _clean would solve our issue.
+They would reduce the repetitions (hence I called them cleanup/improvements)
+but as we want to keep tags,cscope,clean as no-dot-config targets, we would still not be able to use:
+SUBDIRS-$(CONFIG_CRYPTO) += crypto
+and use it in all_sources (because as you pointed out, it will be a no-op).
 
-Hmm, there's the question of where to draw the boundary between patch 2
-and the one here. Personally I'd say the earlier patch should drop
-everything that becomes redundant there. I can see the more minimalistic
-earlier change as viable, but then the description there needs to say
-why things are being kept which - in principle - could be dropped.
+Also, why do we care so much about guarding crypto/ if we take into account
+so many architecture/config dependent files for tags/cscope (e.g. in drivers, lib/x86, etc.)?
+If these are no-dot-config targets, then we should take everything, apart from really big directories
+like arch/ ones.
 
-> --- a/xen/arch/x86/include/asm/bug.h
-> +++ b/xen/arch/x86/include/asm/bug.h
-> @@ -3,75 +3,10 @@
->  
->  #ifndef __ASSEMBLY__
->  
-> -#define BUG_FRAME_STRUCT
-> +#define BUG_INSTR       "ud2"
-> +#define BUG_ASM_CONST   "c"
->  
-> -struct bug_frame {
-> -    signed int loc_disp:BUG_DISP_WIDTH;
-> -    unsigned int line_hi:BUG_LINE_HI_WIDTH;
-> -    signed int ptr_disp:BUG_DISP_WIDTH;
-> -    unsigned int line_lo:BUG_LINE_LO_WIDTH;
-> -    signed int msg_disp[];
-> -};
-> -
-> -#define bug_loc(b) ((const void *)(b) + (b)->loc_disp)
-> -#define bug_ptr(b) ((const void *)(b) + (b)->ptr_disp)
-> -#define bug_line(b) (((((b)->line_hi + ((b)->loc_disp < 0)) &                \
-> -                       ((1 << BUG_LINE_HI_WIDTH) - 1)) <<                    \
-> -                      BUG_LINE_LO_WIDTH) +                                   \
-> -                     (((b)->line_lo + ((b)->ptr_disp < 0)) &                 \
-> -                      ((1 << BUG_LINE_LO_WIDTH) - 1)))
-> -#define bug_msg(b) ((const char *)(b) + (b)->msg_disp[1])
-> -
-> -#define _ASM_BUGFRAME_TEXT(second_frame)                                     \
-> -    ".Lbug%=: ud2\n"                                                         \
-> -    ".pushsection .bug_frames.%c[bf_type], \"a\", @progbits\n"               \
-> -    ".p2align 2\n"                                                           \
-> -    ".Lfrm%=:\n"                                                             \
-> -    ".long (.Lbug%= - .Lfrm%=) + %c[bf_line_hi]\n"                           \
-> -    ".long (%c[bf_ptr] - .Lfrm%=) + %c[bf_line_lo]\n"                        \
-> -    ".if " #second_frame "\n"                                                \
-> -    ".long 0, %c[bf_msg] - .Lfrm%=\n"                                        \
-> -    ".endif\n"                                                               \
-> -    ".popsection\n"                                                          \
-> -
-> -#define _ASM_BUGFRAME_INFO(type, line, ptr, msg)                             \
-> -    [bf_type]    "i" (type),                                                 \
-> -    [bf_ptr]     "i" (ptr),                                                  \
-> -    [bf_msg]     "i" (msg),                                                  \
-> -    [bf_line_lo] "i" ((line & ((1 << BUG_LINE_LO_WIDTH) - 1))                \
-> -                      << BUG_DISP_WIDTH),                                    \
-> -    [bf_line_hi] "i" (((line) >> BUG_LINE_LO_WIDTH) << BUG_DISP_WIDTH)
-> -
-> -#define BUG_FRAME(type, line, ptr, second_frame, msg) do {                   \
-> -    BUILD_BUG_ON((line) >> (BUG_LINE_LO_WIDTH + BUG_LINE_HI_WIDTH));         \
-> -    BUILD_BUG_ON((type) >= BUGFRAME_NR);                                     \
-> -    asm volatile ( _ASM_BUGFRAME_TEXT(second_frame)                          \
-> -                   :: _ASM_BUGFRAME_INFO(type, line, ptr, msg) );            \
-> -} while (0)
-> -
-> -
-> -#define WARN() BUG_FRAME(BUGFRAME_warn, __LINE__, __FILE__, 0, NULL)
-> -#define BUG() do {                                              \
-> -    BUG_FRAME(BUGFRAME_bug,  __LINE__, __FILE__, 0, NULL);      \
-> -    unreachable();                                              \
-> -} while (0)
-> -
-> -/*
-> - * TODO: untangle header dependences, break BUILD_BUG_ON() out of xen/lib.h,
-> - * and use a real static inline here to get proper type checking of fn().
-> - */
-> -#define run_in_exception_handler(fn)                            \
-> -    do {                                                        \
-> -        (void)((fn) == (void (*)(struct cpu_user_regs *))NULL); \
-> -        BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL);             \
-> -    } while ( 0 )
-> -
-> -#define assert_failed(msg) do {                                 \
-> -    BUG_FRAME(BUGFRAME_assert, __LINE__, __FILE__, 1, msg);     \
-> -    unreachable();                                              \
-> -} while (0)
-> -
-> -#else  /* !__ASSEMBLY__ */
-> +#else
-
-While for new #ifdef-ary such comments can reasonably be omitted when
-the blocks are short, I'd recommend keeping existing comments (except
-in extreme cases) in the interest of reduced code churn. In the case
-here, considering that ...
-
-> @@ -113,6 +48,6 @@ struct bug_frame {
->  #define ASSERT_FAILED(msg)                                      \
->       BUG_FRAME BUGFRAME_assert, __LINE__, __FILE__, 1, msg
->  
-> -#endif /* !__ASSEMBLY__ */
-> +#endif /* __ASSEMBLY__ */
-
-... you keep (but alter - please don't) the comment on the #endif,
-that's even more so a reason to also keep the comment on #else.
-
-> --- a/xen/arch/x86/include/asm/debugger.h
-> +++ b/xen/arch/x86/include/asm/debugger.h
-> @@ -14,9 +14,9 @@
->  
->  /* Returns true if GDB handled the trap, or it is surviveable. */
->  static inline bool debugger_trap_fatal(
-> -    unsigned int vector, struct cpu_user_regs *regs)
-> +    unsigned int vector, const struct cpu_user_regs *regs)
->  {
-> -    int rc = __trap_to_gdb(regs, vector);
-> +    int rc = __trap_to_gdb((struct cpu_user_regs *)regs, vector);
-
-I view casts in general as risky and hence preferable to avoid. Casting
-away const-ness is particularly problematic. I guess the least bad
-option is to drop const from the do_bug_frame()'s parameter again in
-patch 1. However, for a fatal trap (assuming that really _is_ fatal,
-i.e. execution cannot continue), not allowing register state to be
-altered makes kind of sense. So I wonder whether we couldn't push the
-casting into the gdbstub functions. But quite likely that's going to
-be too intrusive for re-work like you do here.
-
-Jan
+~Michal
 
