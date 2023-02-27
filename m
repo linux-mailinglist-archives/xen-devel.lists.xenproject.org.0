@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58B316A475E
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 17:56:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502829.774835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD026A47B7
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 18:17:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502835.774844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWgnH-00051O-DN; Mon, 27 Feb 2023 16:56:07 +0000
+	id 1pWh7b-0008BD-4K; Mon, 27 Feb 2023 17:17:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502829.774835; Mon, 27 Feb 2023 16:56:07 +0000
+Received: by outflank-mailman (output) from mailman id 502835.774844; Mon, 27 Feb 2023 17:17:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWgnH-0004yO-A5; Mon, 27 Feb 2023 16:56:07 +0000
-Received: by outflank-mailman (input) for mailman id 502829;
- Mon, 27 Feb 2023 16:56:06 +0000
+	id 1pWh7b-00088Z-1I; Mon, 27 Feb 2023 17:17:07 +0000
+Received: by outflank-mailman (input) for mailman id 502835;
+ Mon, 27 Feb 2023 17:17:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=10za=6X=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pWgnG-0004yG-Dz
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 16:56:06 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2050.outbound.protection.outlook.com [40.107.7.50])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ddEZ=6X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pWh7a-00088T-1A
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 17:17:06 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ec5ee76-b6bf-11ed-a82a-c9ca1d2f71af;
- Mon, 27 Feb 2023 17:56:04 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8641.eurprd04.prod.outlook.com (2603:10a6:20b:428::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Mon, 27 Feb
- 2023 16:55:34 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%7]) with mapi id 15.20.6134.027; Mon, 27 Feb 2023
- 16:55:34 +0000
+ id 8d780928-b6c2-11ed-a82a-c9ca1d2f71af;
+ Mon, 27 Feb 2023 18:17:03 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id z42so7197282ljq.13
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Feb 2023 09:17:03 -0800 (PST)
+Received: from [192.168.8.114] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
+ [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
+ b15-20020a2e988f000000b0029599744c02sm806368ljj.75.2023.02.27.09.17.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Feb 2023 09:17:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,144 +44,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ec5ee76-b6bf-11ed-a82a-c9ca1d2f71af
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cA8WQKWUgoLB54fKstOXVAzWhEb+2Z5KgBcBMMuSIGu7+xsiDHRSAM99PiJZi781Ul9g02ahtst4xA4ZlPu6MgL3d7Fzsd9qGQZAgNSYZhC4uKUJL+23EIixidIR8r9pQlHYDUN/gaYRB5t6lIie77fT9Nati/JFqnFRQO9Qk73UGQ7Z7J5OCQ2mX2V3TnjWpGOl0iAFu39ey/42ctj6k05ZiZY2f9vlkXSE59vFOH9DNED8FXTDtXVR9CGU2Reox+xUKoLdsQl27ouiSgnpQO3fs1nkPTpbxJfrT5q2sVKImOSuttC2EJioZKW5s6kQCdqGwRgcPoFAGCsCPE7otg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0J3ewT9MFOG2BqMeY/Msa0rH9hQug4Apo/qJD+XOAF8=;
- b=B3MjriUBWvm3En64ggj1lH0BLwkc+avphNkhpkqIDSb+gE8x9GhR9UK92AQZSXZ2OLDUrXPyDnRcaArmjxXZZAr8oKhVIIKoHThz6GcnMvHwQNCWzP6Mqu9K2CvaZiMzT/+3PQXN9fiVHifLb6bbolE1orLOKNsGsVjFSTCsdmuukZdChI/GRYTrKtPn4aOyTy6yALidg+Tu5MezIhaaAPR5qKX733ZkI4gD2SikRKEe5jg7vqyB6iuZdg7HK8j0Edw1YvS+UKpo4cDltFxnV9ODu888aJBDi//NFV2q017MoyUbcn3y/qgccBg5Ol/2UnNlIK6AalBdgSuZthFLVw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0J3ewT9MFOG2BqMeY/Msa0rH9hQug4Apo/qJD+XOAF8=;
- b=wdIVj+plSPcpUx53SrMERzJ6FV4szQVL2G8DBJYjZBNjL/SCkBPKljdpBP/gwt3MnOXbbGOP1vDtwZ/1zkLW2d7Hfm2Ykwa+eD0KScYU8/mxlohGJityRseOYh+kexYOJT/vBvrUCFLN9Cv3Qm12w03+ULCeRoypHcq1glr+iGoZjN196O8XdSwUueCyejytT3GT7LlEKd7LObFvf0oE5RdI4a1oRSQuQs2MnP1rN7jg3Ialmosgvq7XjPrVjJA2kzpwJy2K4UDJK1zEhpPnPRCeupKe1xQfVELBg0NIMYIsZmybpqZqJAStHwGB6MpTsSY7d/429fn0/HAncxWkdA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <0914b98c-0813-d28b-d150-c26d0c37a132@suse.com>
-Date: Mon, 27 Feb 2023 17:55:32 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] IOMMU/VT-d: Fix iommu=no-igfx if the IOMMU scope contains
- phantom device
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
-References: <20230226000822.42384-1-marmarek@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230226000822.42384-1-marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0080.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 8d780928-b6c2-11ed-a82a-c9ca1d2f71af
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ZmBDKNUPDF5/6k02WURTwKtK8hP0cnZH3gnLZ0vsKqY=;
+        b=fTfmiGmNowgJdmHo9aHhG8N03I6wPkruq3KKaZIjVUVlRmxYXoogeotwuPknvk4+Lg
+         G8fZEmYEKW7x/kUosVYRYD5Xc7FL67baY0jhQqYXK5ShHOa+No9VSfEEIe5XumRIudfe
+         xaRi6MCgvq42KKicsYtHieWKhLgF9Pa0P7LgJFdBnUpgLvWwk1lwD5lTKj1FLG0iI7+h
+         +7XOYIZj/qx1fOXQCQftVW4zBqQNVXmB6ZEPxHgssyEysBKpUmB7BFqw2J/iSRdWXHFn
+         dHrnzB4AryQorTlfoRnllprREu+fr9NhYXHQrRzYyOdZlcS93ROStliL/MkUz7czProX
+         pgXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ZmBDKNUPDF5/6k02WURTwKtK8hP0cnZH3gnLZ0vsKqY=;
+        b=3Pwdwi8rweOY/XuFpFWQd5RKmesxiE7vHWZsFztG+WVDlt9QNhqATBr+XJ2sJ+IjFx
+         KL/3hZygNO6+CoeB+zp9akqxpnlApw6Qu9HbUt9Fz8bXQLruDfg1z3zYPEN1SP+fH9yj
+         Cu+y90pvfK5EAt6AEYJpU7xXkrX8cS8SlL42MiJJy9YaqCk63BSdce6PS4ugjJwZUVKK
+         FFVuRdYN9zbeYoI//85dz4RBzm8E6b/H0dAFreTUu5n7Lb3jsGmzP+cuG0JHzj3lWbMg
+         V1sqlBKL6EYZAmSpxWQXbi9YLiHTzyIL1HN6BIDpeGB7vkOq2xqnofJfcLSlAt13f9GW
+         7khw==
+X-Gm-Message-State: AO0yUKXSuVVbO46yo6oj5IqffnkCMZYQkHDzGXQW4Qqh+VO8ejqFCpeO
+	h6174H3CFHU9c7mOVH7ok1Q=
+X-Google-Smtp-Source: AK7set9Z86gIV1i4uNaiNwfHMGoLQvnGDSzsCJTAzKzAbTTJN1UGsYFujB4c3piXRIG93SsRh/iVYw==
+X-Received: by 2002:a2e:1414:0:b0:293:4b96:1b6b with SMTP id u20-20020a2e1414000000b002934b961b6bmr8789797ljd.25.1677518222778;
+        Mon, 27 Feb 2023 09:17:02 -0800 (PST)
+Message-ID: <e2a1968767e7a0f1535920ada14ec2f323e0f9c5.camel@gmail.com>
+Subject: Re: [PATCH v1 2/3] xen/riscv: setup initial pagetables
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bob
+ Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+ <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>
+Date: Mon, 27 Feb 2023 19:17:01 +0200
+In-Reply-To: <52072f1b-0cf8-a218-eefc-a8c1b4cecf43@xen.org>
+References: <cover.1677250203.git.oleksii.kurochko@gmail.com>
+	 <83444f8f90cf2adf431762d919ba958a25ff8ce4.1677250203.git.oleksii.kurochko@gmail.com>
+	 <52072f1b-0cf8-a218-eefc-a8c1b4cecf43@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8641:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8684822-a424-488f-0cca-08db18e37103
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	dlyTyBtZiJEEmVuVjHtjLJtuCjv8cXmOn7eAlGLLYBftHHULXT0BWfI9u0i0ApFBDtFhCViGd1F/hMh5EyFNXlej3+8Wp3TVkhXDuHoWT5PH3JoJxcKJmiXli8ka6E6dUOqUUHJNoKXVGYvwbjJeFx0QRcgMxdlTJLqa9EaBLYMylpWFhObI8QKuPfYp8cbykaIN33XdaohcES42po0QuRyfH/jS4B/GvpTbw6XFFBdj27e+n9lc97+4N23ir9AaJ5WFpdnMmitU3HhUeq3RbF/CmPoetg57II/FfS6CZywam31WdSWxn610wmDTsVu52N3OSB7G5J3vaJB1e19Va60+mQWSWiR+UU3AQ4BoZcvudhgugTEf9QJroX9z6mIo6l4m4RNPKNr8tSeZCOLxy0oRZhrFGWu10ectxh0uk8mxmEiF1DcoetvWVAQO2fjBnVY0ytacHUZpTYFekPsP34szs8gZvV6Ec094bpSBGG+iNL0HeE63TL2o5yMXuMT+yqDL4M5MR+9vN/bEbGxWK8wuY7T0Nes9H7xVCi2SeBvMFEvSXTS5EvKCg5mLIldXr2PKoT0+AWTOKHvocDVL91Tp8w2kf2ZpORpNi4smzYLhi4dzGbTcxojRStShzzgpfOqxpi1skLuqK8+yqO37/Uv+FQ/UNDSgMPUMaNC9RVnO9uLUHIFPSS+0wOqSdYbxg0+4QOFMUb7kL5yd2SFyBSX9KdjuwUIlfGIQFz2xH5k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(346002)(39860400002)(376002)(396003)(136003)(451199018)(66899018)(31686004)(2616005)(316002)(36756003)(31696002)(86362001)(6486002)(186003)(8676002)(5660300002)(2906002)(66556008)(8936002)(6512007)(66476007)(4326008)(66946007)(41300700001)(478600001)(53546011)(66574015)(6506007)(6916009)(26005)(38100700002)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NG5lcDRrV0tkVlJGbUJ1TnMrNlgzOVI1Q2xTVXpnMDFybnEyT0JqTFJGZGh6?=
- =?utf-8?B?QUp2RGVlVUxTbEI4SUZCV3lpekhDcTNkUS8vdTdTeVZRcC9hQnZKM1M3b3lR?=
- =?utf-8?B?RDFXZ0Y4RUtzaUN6c3NaR0p3dnZaZWRiVDZ0TnQweEgzclBUd3I4TU5ET3RO?=
- =?utf-8?B?Q3F6T3g0S2VxdytWQnU1WDZHcmh2ZFNhUlhDZmk3Vmk3S2RHL0wxTXJ5aW1P?=
- =?utf-8?B?U2pUZjc5aGUrUUExVE1ZclE0bU9zR1R6Qjl6ZkZuWUJVMGN0Y0wwTHByNFVF?=
- =?utf-8?B?cmZxNW95WWxDdVFTYjZ1QVlsUGs2Zk9BY0N1T0ViOTVkaEp2NVN2S0M4QTNh?=
- =?utf-8?B?RSs0QXVHbTVTODM3VDFDQmdrT1pnQWlzRlRHQTVMVlE3RXl0UXFmeDFXeFRo?=
- =?utf-8?B?dHpwcFpxamdjVkNVeU9oVm5DdDlERHR1bTNGQXNEZEJrZ0hrbnUvbUk5ejFV?=
- =?utf-8?B?SkV4RCtiTVNiWW5VRzY1aWVieSt5eFdMenBZQ0FHTlJNeElmVXBxV21TaTQ0?=
- =?utf-8?B?QlRGSUFsUm9hUFF3K09vd0s4d0JQMFRMVDgrQ0NIRDdHUWdYT1ZwVDA4Sm8y?=
- =?utf-8?B?ZFI4aUlrWmNlNmxhMEE2c1hxeGJpYTFCWS92aVZyNUoxRDdmait4SlNLRDhL?=
- =?utf-8?B?VkUvRkhRb012U2craTIvQ2xJdTlMMG1GT0hhcFdveGZzeW52NlV1RkZmU1FU?=
- =?utf-8?B?ME5wS2pCcDZLcnpRTEI4cjk2djJNMHJxTXJUR0xvajlWQWRsVDZjNytSSUV2?=
- =?utf-8?B?aC95NVd1OCtxU05CWHNtbkp6Rm8wYjRjVkJsNkwrRWIyN21BTmtJazdzbDdh?=
- =?utf-8?B?M3VIQVRUZGg1OVhNZ0tSeU13Y1I1a1FOcjNQWkJ3TUtMY3VMa2lCUVc4M0dB?=
- =?utf-8?B?NGVFOHJnQjg2MDd2NWJGQ21FdUh4MVNLMWw5ZDFvVjI5MC9JbEVKN0toRHBE?=
- =?utf-8?B?a2VKWTlKQWR5S0U5elNNRnNlK1FVa3lLWXlPWHV6a2lQY0t3Y3ZEQ2pPS0s4?=
- =?utf-8?B?K0YwM0VMQ2JLaENnbHQzUjVXbGptQTh2eGtNRVMyb3ZXSUx4b2tKeDFoOXdG?=
- =?utf-8?B?ekxXSlFnY0lKVldWdXJkQjZxVjk3SHkzYzQzYXhuZmNjMmFocnRtdmsyUjFu?=
- =?utf-8?B?SE03Q0hRdHpnS0s0T1IzRGNrTGJDaW0ya2g2dUpFRWhhQWdNK0E2K2tUUzRT?=
- =?utf-8?B?YmJRWkUrQXFjZ0l1OVlZdExWOEhBanpRWkE2Nkdta0hOait6czBTcWs2Z0tD?=
- =?utf-8?B?SUZtRWRGNTBDbnFReGxZWkNYdE40V0R3WGxFNzlUVkxKWDMvYUdKWlRwb1RR?=
- =?utf-8?B?dnJ2RmE5U05zSU5meXFGOUJOWHQ0ZUMyS1ZXVmFGWEhJT2M4ZVdwbDh6UmQ5?=
- =?utf-8?B?Nmw4clBUcTRvbTNFZWhtSXE4ZFV1VkY0d0ZhSytNR1llRXp5cTN5OGROUUlW?=
- =?utf-8?B?eHQ5NEIrUnpadnVCWnZtZTlLYlpEa2FpRk5kMGRETTBRbXFKWHorUDIwcDQr?=
- =?utf-8?B?bTB0b1dFdHNCVUJOVU1mTGNXTFRYcllBb3NVa1U4eWFWcitsc1pSNWIrdko5?=
- =?utf-8?B?MXluVW1qNEpra1Roa215dnhwbXFOdG43ZXNKd1FZcVk5YjV2WTRTS0ZySUZS?=
- =?utf-8?B?RnRxT3ZEMjNvQ3d5T3RMZWFWTTdYWDUvdU5ONmFaN012K1VpTlpZYlNWWUxw?=
- =?utf-8?B?WlIwU3B2Qy9YNFArQlk5dVdoK2NxUXFnOGg4eDNaR2tuSUxnK2Y3eGJyUmM1?=
- =?utf-8?B?byttK0JZVzdaTHBoeG43cXlya3hndEFxbVluMnpxdDgyVFdvQVYyc1lhYVhF?=
- =?utf-8?B?YjdkQ2hQQUpRSXpTR3oyMWZlaHBDcWVhOU9ENkE4Vk9NWStHZHdmbUZvcnM1?=
- =?utf-8?B?TVoyOVg2a1NhUUQ3VzBITlBjK3djSmNTYjlXdDZQUWJTQ3lOT2VuQ0k2em5a?=
- =?utf-8?B?Nlh1cVBxUzFRdnc5ZndrTm45c3A0M000bUp1NWtVNzdCaTFMYWorWE5Id2o4?=
- =?utf-8?B?VTRXN29IU3RSS0hRZlFUSy85WEdPdXF4a0JuMG9qenZNVzZIOWtLYmJPcEtj?=
- =?utf-8?B?RHVaYXpXOWkvWGZVSmhlSGkxdHVGa1BrS1pjZ0lqdXJkdHAxaTE4YVp3Zy9u?=
- =?utf-8?Q?efCEBlBmZN92vzc7PEfkT5X1P?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8684822-a424-488f-0cca-08db18e37103
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 16:55:33.7756
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BQoPYPu/oLMYYmprILMfJGV+A46UARSXNXz1KNFqtf3c393qA0nILMrT1ZTBXNEjLBQBqi6lQISD6VIqy2cYEw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8641
 
-On 26.02.2023 01:08, Marek Marczykowski-Górecki wrote:
-> If the scope for IGD's IOMMU contains additional device that doesn't
-> actually exist, iommu=no-igfx would not disable that IOMMU. In this
-> particular case (Thinkpad x230) it included
-> 00:02.1, but there is no such device on this platform.
-> Consider only existing devices for "gfx only" check.
-> 
+On Sat, 2023-02-25 at 18:05 +0000, Julien Grall wrote:
+> Hi,
+>=20
+> On 24/02/2023 15:06, Oleksii Kurochko wrote:
+> > Calculate load and linker linker image addresses and
+> > setup initial pagetables.
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > =C2=A0 xen/arch/riscv/setup.c | 11 +++++++++++
+> > =C2=A0 1 file changed, 11 insertions(+)
+> >=20
+> > diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+> > index b7cd438a1d..f69bc278bb 100644
+> > --- a/xen/arch/riscv/setup.c
+> > +++ b/xen/arch/riscv/setup.c
+> > @@ -1,9 +1,11 @@
+> > =C2=A0 #include <xen/bug.h>
+> > =C2=A0 #include <xen/compile.h>
+> > =C2=A0 #include <xen/init.h>
+> > +#include <xen/kernel.h>
+> > =C2=A0=20
+> > =C2=A0 #include <asm/csr.h>
+> > =C2=A0 #include <asm/early_printk.h>
+> > +#include <asm/mm.h>
+> > =C2=A0 #include <asm/traps.h>
+> > =C2=A0=20
+> > =C2=A0 /* Xen stack for bringing up the first CPU. */
+> > @@ -43,6 +45,11 @@ static void __init disable_fpu(void)
+> > =C2=A0=20
+> > =C2=A0 void __init noreturn start_xen(void)
+> > =C2=A0 {
+> > +=C2=A0=C2=A0=C2=A0 unsigned long load_start=C2=A0=C2=A0=C2=A0 =3D (uns=
+igned long)start;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long load_end=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 =3D load_start + (unsigned
+> > long)(_end - _start);
+>=20
+> I am a bit puzzled, on top of load_addr() and linker_addr(), you
+> wrote=20
+> it can't use global variable/function. But here... you are using
+> them.=20
+> So how is this different?
+I don't use load_addr() and linker_addr() macros here.
+>=20
+> > +=C2=A0=C2=A0=C2=A0 unsigned long linker_start=C2=A0 =3D (unsigned long=
+)_start;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long linker_end=C2=A0=C2=A0=C2=A0 =3D (uns=
+igned long)_end;
+>=20
+> I am a bit confused with how you define the start/end for both the=20
+> linker and load. In one you use _start and the other _end.
+>=20
+> Both are fixed at compile time, so I assume the values will be a
+> linked=20
+> address rather than the load address. So how is this meant to how?
+>=20
+_start, _end - it is label from linker script so I use them to define
+linker_start and linker_end addresses.
 
-Hmm, perhaps
+load_start is defined as an address of start() function from head.S and
+load_end is the load_start + the size  (_end - _start)
 
-Fixes: 2d7f191b392e ('VT-d: generalize and correct "iommu=no-igfx" handling')
-
-?
-
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> ---
-> I have looked at existence check acpi_parse_one_drhd(), but re-using
-> that one wouldn't work for two reasons:
->  - gfx_only logic is very much tied to acpi_parse_dev_scope()
-
-I think this one could be dealt with, but ...
-
->  - pci_device_detect() in acpi_parse_one_drhd() is skipped in case of
->    (implicit or explicit) iommu=force
-
-... I agree this is a good reason to put the check in acpi_parse_dev_scope().
-
-> --- a/xen/drivers/passthrough/vtd/dmar.c
-> +++ b/xen/drivers/passthrough/vtd/dmar.c
-> @@ -396,6 +396,7 @@ static int __init acpi_parse_dev_scope(
->                      igd_drhd_address = drhd->address;
->  
->                  if ( gfx_only &&
-> +                     pci_device_detect(seg, bus, path->dev, path->fn) &&
->                       pci_conf_read8(PCI_SBDF(seg, bus, path->dev, path->fn),
->                                      PCI_CLASS_DEVICE + 1) != 0x03
->                                      /* PCI_BASE_CLASS_DISPLAY */ )
-
-If we're adding an existence check, then maybe better in the surrounding
-if(): Setting igd_drhd_address when there's not really a device at the
-designated address isn't very sensible either. (In fact I think I'm going
-to alter the inner part of that if() again as well.)
-
-Jan
+> Furthermore, I would expect linker_start and load_start to point to
+> the=20
+> same symbol (the only different is one store the virtual address
+> whereas=20
+> the other the physical address). But here you are technically using
+> two=20
+> different symbol. Can you explain why?
+It is used to make identity mapping for the range [load_addr, load_end]
+and [linker_addr, linker_end]. It was done so because in Bobby's
+patches in the linker script XEN_VIRT_START is defined as
+_AT(vaddr_t,0x00200000) but bootloader loads Xen at 0x80200000 and so
+in this case loadr_addr !=3D linker_addr.
+But I have changed XEN_VIRT_START to 0x8020...00 so they are equal now.
+>=20
+> > +
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * The following things are passed =
+by bootloader:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 a0 -> hart_id
+> > @@ -65,6 +72,10 @@ void __init noreturn start_xen(void)
+> > =C2=A0=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 test_macros_from_bug_h();
+> > =C2=A0=20
+> > +=C2=A0=C2=A0=C2=A0 setup_initial_pagetables(load_start, load_end, link=
+er_start,
+> > linker_end);
+>=20
+> Shouldn't this happen earlier in start_xen()?
+It can. If to be honest I don't know if it should. I added at the end
+only because it was the last thing I worked on...
+>=20
+> Cheers,
+>=20
+~ Oleksii
 
