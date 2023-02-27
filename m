@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A1776A4180
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 13:14:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502478.774315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 255B16A4189
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 13:17:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502483.774324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWcOC-0006Ca-2i; Mon, 27 Feb 2023 12:13:56 +0000
+	id 1pWcRR-0006oy-Gx; Mon, 27 Feb 2023 12:17:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502478.774315; Mon, 27 Feb 2023 12:13:56 +0000
+Received: by outflank-mailman (output) from mailman id 502483.774324; Mon, 27 Feb 2023 12:17:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWcOB-0006AX-WF; Mon, 27 Feb 2023 12:13:56 +0000
-Received: by outflank-mailman (input) for mailman id 502478;
- Mon, 27 Feb 2023 12:13:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ddEZ=6X=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pWcOA-0006AP-7B
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 12:13:54 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 32b7e844-b698-11ed-a82a-c9ca1d2f71af;
- Mon, 27 Feb 2023 13:13:52 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id z5so6193193ljc.8
- for <xen-devel@lists.xenproject.org>; Mon, 27 Feb 2023 04:13:52 -0800 (PST)
-Received: from [192.168.8.114] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
- [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
- b15-20020a2e988f000000b0029599744c02sm711861ljj.75.2023.02.27.04.13.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Feb 2023 04:13:51 -0800 (PST)
+	id 1pWcRR-0006mi-EK; Mon, 27 Feb 2023 12:17:17 +0000
+Received: by outflank-mailman (input) for mailman id 502483;
+ Mon, 27 Feb 2023 12:17:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=10za=6X=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pWcRQ-0006mc-5Q
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 12:17:16 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab7e4347-b698-11ed-88bb-e56d68cac8db;
+ Mon, 27 Feb 2023 13:17:15 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB9PR04MB8074.eurprd04.prod.outlook.com (2603:10a6:10:24a::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Mon, 27 Feb
+ 2023 12:17:12 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%7]) with mapi id 15.20.6134.027; Mon, 27 Feb 2023
+ 12:17:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,180 +47,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32b7e844-b698-11ed-a82a-c9ca1d2f71af
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=9lNsBql8aioKtLfiL9IaOFFrgzEWLfErMQPcFuOlMa0=;
-        b=WCJ3JEr4kRlN1Qhj2STHJ44/uFHZooDxOtULn+JaTQeNf/YadR9xhDuqENa21IjKZR
-         +nIRLk3JaEmK/4DjnOJgkPP9uNEk3za3JaRfmU03xvL6nCAmJ3Wx1XPaZmnrbw3HAWgX
-         vUrEo1riNgX9BvolGh5C0tzV+4OeWId1atQZAQqXkD43TOG9yRHHbvScH4Ret9+k4u47
-         8bc470S11bnFsPbCzdi27yWr3R/fGdbpMoXQYBEtZ6iGA46PXMjKBNfBupUqutdas7OO
-         br7HANgo7xyqEhxErrIoED7YIm4f03Y+yFugU5inkuTuWapxBjN+FW7CZ+PYvBJsfCY3
-         3MQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9lNsBql8aioKtLfiL9IaOFFrgzEWLfErMQPcFuOlMa0=;
-        b=jd9XOTvc2Hf+UxDhui5PXzb5ViJ9Z2PiENKnhcL4/PcF8VbTDByCtff+n4qlXh4BmO
-         AhV5ya2KhRFpQ03EjUyrzH07vEGknyl09NVgefB+LBljybK6/qKrEMSORSk04Uvj15Eh
-         q3yROyYfvmJwDnH7lqSjcg2r05y0d6ywwBjcj/XkIJz6PkDoYUkjemLsmRtfW5XDL/4k
-         CSIbiuWc0XcaoqLMfVEJ+271gaeQAbrdChC6bLH1XEA6A5oMyMlUp/M/i6tecVR/15so
-         XnikHRaz6ihikdxHt4WpCtJHLP3FWc0YJDtLxg0N3GInRuFLJcMxf7g5lc5BDR4W3+7U
-         3pzw==
-X-Gm-Message-State: AO0yUKV4FSYRvKOYg3R0gLG3q8uw3gOsd0plXzzUcpn3p/sSV1BC0+ZD
-	61+TqF9cjXEJ8IkLRp7QFQc=
-X-Google-Smtp-Source: AK7set/kMbU9Q7XYd8aNpw23ZRqLlSp9+UmQDM46LWoaTF+sw2C9o/dGeZiAKii5Sbp+gt5TQI6hVQ==
-X-Received: by 2002:a2e:8e84:0:b0:295:a3a6:614 with SMTP id z4-20020a2e8e84000000b00295a3a60614mr3755855ljk.12.1677500031464;
-        Mon, 27 Feb 2023 04:13:51 -0800 (PST)
-Message-ID: <19c2c6f283e9f220fa54d9c08a911aa3d3f530ef.camel@gmail.com>
-Subject: Re: [PATCH] xen/riscv: read hart_id and dtb_base passed by
- bootloader
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>,
+X-Inumbo-ID: ab7e4347-b698-11ed-88bb-e56d68cac8db
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ln+1PI7CHLob1AflkE8/AmVVQGrBqDvmNFpPvmPekmoorLJ3FTBQb9rvXMEjr7QXgnhdSTX4pGifW0a+p7by/kdOahQulhaZulXm1RLN5LN212dTOR4BfQ10wC7TIcISQ4/lE4OQXFm3eNBxj65qfXhLAI2Seae/fqjlw+f2xtFaZ771CqY4qPCmSti0mH6ZSb4kopgR6IyarclUBAd5Hzw9Wvii/rvtD7X4Zs1L2/S1fNrCevEhO+QWZCEMfCIPkhbE0solszUhQQqNlmj75bE54guKNl6+OfZdKgF4ayEUdXv3y8PfodvlGQM+MGJSVsWJEsEYVffwhwF3dRdC0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b4y1Fdn6C5vngabLpwtHHHEOotk460qslV729UxlBs0=;
+ b=K3wGcEzLqa31YNo4zAFCwZKFlgMJZxQktA6dbTzszwalVxWR4dFJYugsXtpG0FUbiRubgmRgApQRsmsYObb5ygjVbOAzvYMRiV+6AhDLq5MshyD4BSii++sh/6eYbH6ew9fjdttAL8e2gFUtjf3dgeNo6SIgDY1KM05Uh41DOcrY2/ZIvLHHXXWWEg0D5kHivppx8yPfJvLRXe5ciwqaZIJMS4G3wC3fLNCe91BUxhZQZWF3prgT6L9k+DGLS61bLGbs8qI9m4HvizMSj/4Hq4EkNpnMubg7RB7BSlsNrMtnkqlbIXf51ClZ2Llg34BT6Y5XryZAS8ngX99xQaa0Ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b4y1Fdn6C5vngabLpwtHHHEOotk460qslV729UxlBs0=;
+ b=v/P0z24xNv2cIZQx4qFVBlzR5wvJK7k4a/88VUsmwzZXtDw2owJWN73R6x4zUxwR24+qIYyAxIugFxgiJMZD0S/tar5gA6UtLWbm8clwMm6JZqQEASeI43+knh2lj56Gtja7+gy1v8BMxwqnFPYczZiIVN5OM4VRJgBpo4fl1o57x7Wt1CXR6U5F8+mCrEji44acqe9/nc/X/Pezs6G2COkU22Ks1061eiKtEENuY07MjcRf8lG+otV/91dor7D4J6bhsak3ogKNJxQs+zfd+61s3yGcQeuM2Fj7UWuQJkDd0Nz+64zNCUz7FQ7sfjA5ft2LuaEW2SgBm0+PTBgIVA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <60252bef-c732-b061-8ec0-c4022eb41255@suse.com>
+Date: Mon, 27 Feb 2023 13:17:11 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v3 00/14] x86/hvm: {svm,vmx} {c,h} cleanup
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xenia Ragiadakou <burzalodowa@gmail.com>,
  xen-devel@lists.xenproject.org
-Date: Mon, 27 Feb 2023 14:13:49 +0200
-In-Reply-To: <f7b66c62-d67d-bd46-648c-b48a2e9ec76f@suse.com>
-References: 
-	<94d722dea114defa2a5efe29e6511829f0c54b41.1677249592.git.oleksii.kurochko@gmail.com>
-	 <cbc043ac-fde9-50d9-a63f-40a6b4a59f34@suse.com>
-	 <b2e99dbc61295ef8ab41ba8e8afa8f606ed6503d.camel@gmail.com>
-	 <738ca749-2abb-6ab4-db8f-81ff41f4de16@suse.com>
-	 <f5d3743acbac46c4fb3ddfe879e417bff77139be.camel@gmail.com>
-	 <f7b66c62-d67d-bd46-648c-b48a2e9ec76f@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+References: <20230224185010.3692754-1-burzalodowa@gmail.com>
+ <e51c2ed6-4dc2-bf77-5d89-7023b3201fd0@citrix.com>
+ <8745c599-bf9f-1eec-739f-3d42920dc546@gmail.com>
+ <989903f7-4ea0-a1d8-923f-efb84c70ba21@citrix.com>
+ <aa326f9a-94ca-75b9-6d4a-ab6fdf992c29@suse.com>
+ <2fec6c39-f73c-719b-7bc9-02e1ec3f195b@citrix.com>
+ <5e623eaa-ce32-e3ac-2089-68bf8125b5db@suse.com>
+ <18b9b99e-1d93-73d8-f9b8-873f44287c5c@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <18b9b99e-1d93-73d8-f9b8-873f44287c5c@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0061.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8074:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7a839ac-5ed1-41c9-c7f0-08db18bc8dcf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Up318CLvM0Da25FBX5etIqnCqV1u34Hb9ShpjhSf3XVI+xZ8PKwYmVcHuKVf0s+cXT4d+RRu1TcAJwCOBK5UGnRAXOWQiGX4rlbYG2AymrqWag/qyuc/2hN6AS4MgVLM7ozsHco8HLPuAlzlyYvA/6o7VxrJo7mI8UDqY54aiPORGUgU4abb3AnW9hrSn2WTRAKkSEW+nFhHOZObCylCJ3XUhdMbx1FfyDetMeSloxxJMkBSFizbBuo2z4jfPe/t5xjeLs21GmiTHtAeVxpa6IB84OycPv4zmhyV809KQibqY0Ux0d7U7DxKkmrg7pf7wF7iXwgw8HGJxzr4krMB7Jb2YUhVKfHSiwxtHRmWi7ut/S2Jw99Xka8yMdcS2661UjP6C1md2bc76q8cyBm+pCMDn5Hp1k+cWrT6wkkt19FMeoKxB79Ktb5G9bU8EPT17HUe2G1CAPQ+/atk6g9rxtjs0H5gijK5axbUbXnYvIBbUA/hXONYpYhFUiJhvx0MULdmRKWaAPi+tYYUho1v13RwgNrWgJrsZ92FO0cWo+uxvPS1T60LN0zWd0GL7X9Ak/HsQB4e0xDcRmLX376/M6/U2+12jWg3qYc06+bMuVR0y6/FZmkFDQNPjuD+/8TFgUBiG0Ka4qThJn275sdjsOZ3aJhykqkIFazt7OuFBIy9nJFnHWYUlIFFa+VMIV7Y611RtpmVRgXa+XKp7vMByPs8xZOBIEyqCt7fhewthq8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(396003)(136003)(346002)(366004)(39860400002)(451199018)(31686004)(316002)(36756003)(54906003)(86362001)(31696002)(38100700002)(83380400001)(6506007)(53546011)(26005)(6512007)(186003)(2616005)(8936002)(2906002)(6486002)(5660300002)(478600001)(41300700001)(6916009)(4326008)(8676002)(66556008)(66476007)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VkNQOFJPUGN3eWpGMW5Wc0V2d0kwaks3SjNTbHo4cVRnNkhhYXROVGQwck1X?=
+ =?utf-8?B?eXF6WDJHYWhXb29QbDJwZDRHOWJ4VXB6ZHZzbnZTV2J5OE1ZczZDL2FLdFow?=
+ =?utf-8?B?VktOSnFTckxkTTNraEtRZEJ0Wmc2QVllRDl2VWNBd3hVQzVUbFBrVVZjWmJi?=
+ =?utf-8?B?SjFac1hGa29OYWZybGN0YllRcVduRXJJUG02S2tRZnEyU0tUQkxNR1puMjNW?=
+ =?utf-8?B?T1BzWmlhb0o3bWpnb2ZhVEg4aDVRMEdOcmRyYVhUUWtmbDZ6UXhaOTQzVm9x?=
+ =?utf-8?B?UTFTeWozNDlMM1NEVHRqcncxNjJBYlBqM05hT1liVHN6c2RNQXJBNUM2dlVN?=
+ =?utf-8?B?eVgwY3hpcVEvL3lWVk42bnl2aGhYdDFIOFFaVjA0N2NYcHpQMTZwdlpiSm5V?=
+ =?utf-8?B?b0JZU2k1TWZqaUZTQ0xpWWZETjUzTUlWK1QzbFlEenMwVkdiYkpwTE55YXVj?=
+ =?utf-8?B?ZzFGT25VdTh4QnBkTm95RXovVWhJbHd5elJWWmpCaDRER0xLemJsNEczOE8v?=
+ =?utf-8?B?UFRWcjgzOWNHYUxPMlpFeERaOW4vTVhudFVZTm4xdm9COTFUWk5DanlQc01a?=
+ =?utf-8?B?VTcxL1JKT0xsV0hab1djTjd4M1lOM0oySlJPT0xYMG1sU3p6R1RETWFGSzhL?=
+ =?utf-8?B?RWlocHdmK3p5MFU1WmZqazR5Q29nVmF6M3JuQXJ5bXM4cFpoRldxb2tXQm1h?=
+ =?utf-8?B?ZWtNaHJRdEkwc0NNcEgrbGE0WC9yeWt0bXZsU21aS3lBYkpuV0s1NXJkUFJa?=
+ =?utf-8?B?S1FpVW1SRVN3T3E5NWNGU2tSVGZYdEZSUkphekVlaXY3OHNldG9hTGtSV09L?=
+ =?utf-8?B?SFdmeFpFQi9POTJYOWMvM1ZobDFSSktZd3FhVkVKMlVrQjNObWNkZ0FkYlZu?=
+ =?utf-8?B?N29sNlcwSFA4MnNCbG1ETWMvOU9VRVE4MHo1V3IyenZpc2szVkJYRDYvZitU?=
+ =?utf-8?B?SGJ3ZDdYamkyWnNPY0hiMHFGcWJlTnRpQzU5Zjlxd0JEbUV5RGJPdEZvMmlp?=
+ =?utf-8?B?VjdvZ2IxWkt3TFQwRVh6YkVOWkQ0aUdPaDk0aDdTVmVENDIrOS9pR0Q2NFZG?=
+ =?utf-8?B?bEJ0aGg1NHdQaXFwS3ZMLzBFWjZzZ2ZpYzFRQXpqMFZtU0hqQTdWendyVTZw?=
+ =?utf-8?B?SXQzOWFxWEtRb1ZEN0ZXdkpIT21aa3FrbkFwRXZiZWhUc0tjOWdWOXlBT04z?=
+ =?utf-8?B?dXR5cjZ2aTNhQnJSSEgwaE5sVWNBd0IxWFJLNkV2WVBFWncrNG11N051U1Ev?=
+ =?utf-8?B?blMwZGFGT09nQU5IWmRLUVQ0YzZOeFJOTXJYL2dIdHFvS2o1dG5QNVhBbzFU?=
+ =?utf-8?B?MXc1eTJkekM1eGMxMlVhS2ZMblJ4SURCUjErWXFna1p3SnhUa3orWEwrYTdF?=
+ =?utf-8?B?aE1QOWlodGtNVCt3YU9zbmtwd0pqZnhRKytjejNXZFl3eDQ4Wm5PQWRPdkRX?=
+ =?utf-8?B?YStwaEh6cWtySU5vWUpkWExCVEEyL0U2TUwrYnlmUm9ydFcrenhRN2hJc1ln?=
+ =?utf-8?B?RXdGM3R2L0JIRU5FSmJZUmp1bk1qN25QakRMSHNOeHJYZTlodEJVb0ZjMDYx?=
+ =?utf-8?B?VExzZjgxWk5lV3h3TEtpSG1SdnJYczlDbGl5cjV5VGZlcW84djhmMGdKTGdF?=
+ =?utf-8?B?Q3MyVkFKL2poKzJ3Rlc4cnlGVGU4ZG1aSzI5QVFSUDhPbE9qOE5zSFozR2Ja?=
+ =?utf-8?B?TDczVmlDNDlnNmVyZmRUZGJ6WXV3U2p4Q3hHNERWMERVaEc5WEJ3R0VQOFRo?=
+ =?utf-8?B?blNVZzZhUjhwM3hDR0hQMGJReDIyeitQcmNncUtOSzI4dEdGa0tuNTJrR0Zp?=
+ =?utf-8?B?S3RXVEszQzRSemhlNU9Bb0NDWjNFRE9pU2gxNWJZWGtFQ29DcG1QRWxmeDBr?=
+ =?utf-8?B?YTJSbXpWK0VOY1pQRkNCbUJmU0RmOHVJMGtWQmxlcXBmYkZyUktjS05JN2Zy?=
+ =?utf-8?B?WW5KbldVQzRaSlpsY1JhdUFjSFUxdGtjczY3dEZWTGVaMnQ5Q3BXcDk2UDdI?=
+ =?utf-8?B?K09MVHJhSUJQWDBuNUFwNDF5Z1dtVUQwZGZYSUI4ZDRUYWRPY1NwZDZzZnpt?=
+ =?utf-8?B?ZHU2a3VVTzV6Wmp3OUt2OE5LMkxhNWlaaEZaWGtxSFhFOWgwRkJFSFltRVAy?=
+ =?utf-8?Q?XJqwDCUxD09N6GQrRNu9U8NTs?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7a839ac-5ed1-41c9-c7f0-08db18bc8dcf
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 12:17:11.8929
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QTBluK9QvONMpJpHDFNYIMHQ4bBFasZbEWJk31nkQpaRBdHijyUdQtzdHi8qHeQ7J5aUWvpLRuFCrrlv+5hnIQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8074
 
-On Mon, 2023-02-27 at 12:37 +0100, Jan Beulich wrote:
-> On 27.02.2023 12:19, Oleksii wrote:
-> > On Mon, 2023-02-27 at 10:17 +0100, Jan Beulich wrote:
-> > > On 24.02.2023 17:36, Oleksii wrote:
-> > > > On Fri, 2023-02-24 at 16:04 +0100, Jan Beulich wrote:
-> > > > > On 24.02.2023 15:48, Oleksii Kurochko wrote:
-> > > > > > Signed-off-by: Oleksii Kurochko
-> > > > > > <oleksii.kurochko@gmail.com>
-> > > > > > ---
-> > > > > > =C2=A0xen/arch/riscv/setup.c | 12 ++++++++++++
-> > > > > > =C2=A01 file changed, 12 insertions(+)
-> > > > > >=20
-> > > > > > diff --git a/xen/arch/riscv/setup.c
-> > > > > > b/xen/arch/riscv/setup.c
-> > > > > > index b3f8b10f71..154bf3a0bc 100644
-> > > > > > --- a/xen/arch/riscv/setup.c
-> > > > > > +++ b/xen/arch/riscv/setup.c
-> > > > > > @@ -26,6 +26,18 @@ static void test_macros_from_bug_h(void)
-> > > > > > =C2=A0
-> > > > > > =C2=A0void __init noreturn start_xen(void)
-> > > > > > =C2=A0{
-> > > > > > +=C2=A0=C2=A0=C2=A0 /*
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * The following things are passed by =
-bootloader:
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 a0 -> hart_id
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 a1 -> dtb_base
-> > > > > > +=C2=A0=C2=A0=C2=A0 */
-> > > > > > +=C2=A0=C2=A0=C2=A0 register unsigned long hart_id=C2=A0 asm("a=
-0");
-> > > > > > +=C2=A0=C2=A0=C2=A0 register unsigned long dtb_base asm("a1");
-> > > > > > +
-> > > > > > +=C2=A0=C2=A0=C2=A0 asm volatile( "mv %0, a0" : "=3Dr" (hart_id=
-) );
-> > > > > > +
-> > > > > > +=C2=A0=C2=A0=C2=A0 asm volatile( "mv %0, a1" : "=3Dr" (dtb_bas=
-e) );
-> > > > >=20
-> > > > > Are you sure this (a) works and (b) is what you want? You're
-> > > > > inserting
-> > > > Oh, yeah... it should be:
-> > > > =C2=A0 unsigned long hart_id;
-> > > > =C2=A0 unsigned long dtb_base;
-> > >=20
-> > > As per below - no, I don't think so. I continue to think these
-> > > want
-> > > to be function parameters.
-> > >=20
-> > > > I did experiments with 'register' and 'asm()' and after rebase
-> > > > of
-> > > > my
-> > > > internal branches git backed these changes...
-> > > >=20
-> > > > Sorry for that I have to double check patches next time.
-> > > >=20
-> > > > It looks like it works only because the variables aren't used
-> > > > anywhere.
-> > > > > "mov a0, a0" and "mov a1, a1". I suppose as long as the two
-> > > > > local
-> > > > > variables aren't used further down in the function, the
-> > > > > compiler
-> > > > > will
-> > > > > be able to recognize both registers as dead, and hence use
-> > > > > them
-> > > > > for
-> > > > > argument passing to later functions that you call. But I
-> > > > > would
-> > > > > expect
-> > > > > that to break once you actually consume either of the
-> > > > > variables.
-> > > > >=20
-> > > > > Fundamentally I think this is the kind of thing you want do
-> > > > > to in
-> > > > > assembly. However, in the specific case here, can't you
-> > > > > simply
-> > > > > have
-> > > > >=20
-> > > > > void __init noreturn start_xen(unsigned long hard_id,
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long dtb_base)
-> > > > > {
-> > > > > =C2=A0=C2=A0=C2=A0 ...
-> > > > >=20
-> > > > > and all is going to be fine, without any asm()?
-> > > > One of the things that I would like to do is to not use an
-> > > > assembler as
-> > > > much as possible. And as we have C environment ready after a
-> > > > few
-> > > > assembly instructions in head.S I thought it would be OK to do
-> > > > it
-> > > > in C
-> > > > code somewhere at the start so someone/sonething doesn't alter
-> > > > register
-> > > > a0 and a1.
-> > >=20
-> > > Avoiding assembly code where possible if of course appreciated,
-> > > because
-> > > generally C code is easier to maintain. But of course this can
-> > > only
-> > > be
-> > > done if things can be expressed correctly. And you need to keep
-> > > in
-> > > mind
-> > > that asm() statements also are assembly code, just lower volume.
-> > >=20
-> > Let's get hard_id and dtb_base in head.S and pass them as arguments
-> > of
-> > start_xen() function as you mentioned before.
->=20
-> Still looks like a misunderstanding to me. Aiui a0 and a1 are the
-> registers to hold first and second function arguments each. If
-> firmware places the two values in these two registers, then
-> start_xen(), with the adjusted declaration, will fit the purpose
-> without any assembly code.
->=20
-It will work for the code we have now, but it will be more save to save
-registers a0 and a1 to some variables and pass them to start_xen() as
-arguments as they can be changed by something before the start_xen()
-call in the future.
+On 27.02.2023 13:06, Andrew Cooper wrote:
+> On 27/02/2023 11:33 am, Jan Beulich wrote:
+>> On 27.02.2023 12:15, Andrew Cooper wrote:
+>>> On 27/02/2023 10:46 am, Jan Beulich wrote:
+>>>> On 24.02.2023 22:33, Andrew Cooper wrote:
+>>>>> But I think we want to change tact slightly at this point, so I'm not
+>>>>> going to do any further tweaking on commit.
+>>>>>
+>>>>> Next, I think we want to rename asm/hvm/svm/svm.h to asm/hvm/svm.h,
+>>>>> updating the non-SVM include paths as we go.  Probably best to
+>>>>> chain-include the other svm/hvm/svm/*.h headers temporarily, so we've
+>>>>> only got one tree-wide cleanup of the external include paths.
+>>>>>
+>>>>> Quick tangent - I will be making all of that cpu_has_svm_*
+>>>>> infrastructure disappear by moving it into the normal CPUID handling,
+>>>>> but I've not had sufficient time to finish that yet.
+>>>>>
+>>>>> Next, hvm/svm/nestedsvm.h can merge straight into hvm/svm.h, and
+>>>>> disappear (after my decoupling patch has gone in).
+>>>> Why would you want to fold hvm/svm/nestedsvm.h into hvm/svm/svm.h?
+>>>> The latter doesn't use anything from the former, does it?
+>>> It's about what else uses them.
+>>>
+>>> hvm_vcpu needs both svm_vcpu and nestedsvm, so both headers are always
+>>> included in tandem.
+>> Well, yes, that's how things are today. But can you explain to me why
+>> hvm_vcpu has to know nestedsvm's layout?
+> 
+> Because it's part of the same single memory allocation.
 
-~ Oleksii
+Which keeps growing, and sooner or later we'll need to find something
+again to split off, so we won't exceed a page in size. The nested
+structures would, to me, look to be prime candidates for such.
 
+>> If the field was a pointer,
+>> a forward decl of that struct would suffice, and any entity in the
+>> rest of Xen not caring about struct nestedsvm would no longer see it
+>> (and hence also no longer be re-built if a change is made there).
+> 
+> Yes, you could hide it as a pointer.  The cost of doing so is an
+> unnecessary extra memory allocation, and extra pointer handling on
+> create/destroy, not to mention extra pointer chasing in memory during use.
+> 
+>>> nestedsvm is literally just one struct now, and no subsystem ought to
+>>> have multiple headers when one will do.
+>> When one will do, yes. Removing build dependencies is a good reason
+>> to have separate headers, though.
+> 
+> Its not the only only option, and an #ifdef CONFIG_NESTED_VIRT inside
+> the struct would be an equally acceptable way of doing this which
+> wouldn't involve making an extra memory allocation.
+
+That would make it a build-time decision, but then on NESTED_VIRT=y
+hypervisors there might still be guests not meaning to use that
+functionality, and for quite some time that may actually be a majority.
+
+> Everything you've posed here is way out of scope for Xenia's series. 
+
+There was never an intention to extend the scope of the work she's doing.
+Instead I was trying to limit the scope by suggesting to avoid a piece
+of rework which later may want undoing.
+
+Jan
 
