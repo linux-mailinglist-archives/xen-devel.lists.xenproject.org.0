@@ -2,52 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41CE36A450A
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 15:46:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.502650.774544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 566506A4520
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Feb 2023 15:49:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.502658.774555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWem8-0004Y1-4C; Mon, 27 Feb 2023 14:46:48 +0000
+	id 1pWeoE-0005MF-Lq; Mon, 27 Feb 2023 14:48:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 502650.774544; Mon, 27 Feb 2023 14:46:48 +0000
+Received: by outflank-mailman (output) from mailman id 502658.774555; Mon, 27 Feb 2023 14:48:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWem8-0004VL-0P; Mon, 27 Feb 2023 14:46:48 +0000
-Received: by outflank-mailman (input) for mailman id 502650;
- Mon, 27 Feb 2023 14:46:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pWeoE-0005Iy-IM; Mon, 27 Feb 2023 14:48:58 +0000
+Received: by outflank-mailman (input) for mailman id 502658;
+ Mon, 27 Feb 2023 14:48:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rB3s=6X=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1pWem6-0004Ql-Jz
- for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 14:46:46 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20601.outbound.protection.outlook.com
- [2a01:111:f400:7e83::601])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8a715ff6-b6ad-11ed-a82a-c9ca1d2f71af;
- Mon, 27 Feb 2023 15:46:40 +0100 (CET)
-Received: from BN9P222CA0020.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::25)
- by MN2PR12MB4301.namprd12.prod.outlook.com (2603:10b6:208:1d4::22)
+ <SRS0=1hUI=6X=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1pWeoC-0005Is-Q3
+ for xen-devel@lists.xenproject.org; Mon, 27 Feb 2023 14:48:56 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2062b.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dbcad65b-b6ad-11ed-88bb-e56d68cac8db;
+ Mon, 27 Feb 2023 15:48:55 +0100 (CET)
+Received: from AM6PR02CA0021.eurprd02.prod.outlook.com (2603:10a6:20b:6e::34)
+ by AS2PR08MB9692.eurprd08.prod.outlook.com (2603:10a6:20b:604::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.27; Mon, 27 Feb
- 2023 14:46:36 +0000
-Received: from BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10c:cafe::b3) by BN9P222CA0020.outlook.office365.com
- (2603:10b6:408:10c::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.26; Mon, 27 Feb
+ 2023 14:48:53 +0000
+Received: from AM7EUR03FT055.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:6e:cafe::77) by AM6PR02CA0021.outlook.office365.com
+ (2603:10a6:20b:6e::34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29 via Frontend
- Transport; Mon, 27 Feb 2023 14:46:36 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT005.mail.protection.outlook.com (10.13.176.69) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.16 via Frontend Transport; Mon, 27 Feb 2023 14:46:36 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 27 Feb
- 2023 08:46:35 -0600
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 27 Feb 2023 08:46:34 -0600
+ Transport; Mon, 27 Feb 2023 14:48:53 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM7EUR03FT055.mail.protection.outlook.com (100.127.141.28) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6156.16 via Frontend Transport; Mon, 27 Feb 2023 14:48:53 +0000
+Received: ("Tessian outbound b29c0599cbc9:v135");
+ Mon, 27 Feb 2023 14:48:53 +0000
+Received: from 490f95cec287.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ D94D4280-329E-4C8F-B0F8-095C37A75250.1; 
+ Mon, 27 Feb 2023 14:48:42 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 490f95cec287.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 27 Feb 2023 14:48:42 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by VE1PR08MB5647.eurprd08.prod.outlook.com (2603:10a6:800:1b2::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Mon, 27 Feb
+ 2023 14:48:39 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::fca8:db36:98b:b1c4]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::fca8:db36:98b:b1c4%7]) with mapi id 15.20.6134.027; Mon, 27 Feb 2023
+ 14:48:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,169 +72,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a715ff6-b6ad-11ed-a82a-c9ca1d2f71af
+X-Inumbo-ID: dbcad65b-b6ad-11ed-88bb-e56d68cac8db
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xgk1oCjyVY9ja+3zfXTQLFhzrjUGIMb5fwkTK2FrSNs=;
+ b=E7GW98x8OH9oQ4YPEwAeuX3qxp4q9A7unxq39sqinxKDJEc6sLpDcS0c+6MOErHaBEYbITVKBholsN5/TJxF1ppy3TUoFcjejh7CeiV43yhUDMxxbF1uO8qx7VNTZsmmYM/h2bCf+4CQQsXDH8zOc96dj88KO2O9/de/dSZjKG8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 235306aadbd222af
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h513patHevOVVsikYkSTPL9llwCBJ7Vm+1VMwE31de89s1ombciXtgbLXnmTc2IOBkG7LvGMmYF9NpWgHgPZJ1OAa5EHSmb+KrFMAomG5u7Q0mfgnB0VYGztp8K2Bx5P2AWxaziP+feVk/rJtP1Q4qRWQ9yEgggZkv0jMI2q4HPNu3M/+TW2Tfrz9XCemwx9ihbZ6ASIzRbCTibwMq1Uf839SG6K/HYOIwRkqDNz5y3HwQvU4d0D9HM2rfFS5hpplAKRVfai+yZynhhVssZBS6unBuL8ss9GFHp14vbf6seULHGElyraOSn21WRCMQyYB4hdy9qqtGJVigUSJeSuCw==
+ b=PkDMUxxlRvpWMq4TOF7zpK1gbazjcFBwivixZ2/iuP/h7nqRKAWoPUq9AS+MlLPMjbWk57u1fYzg9GjjVGUGy3oAH49vLdN6pr7RDO4Gfgk9TVSN4wxBi3zi8zpWnH1FMTtjujit7HlAtWgpbnCi7wUzHkh5ty+y7IGS+kI/Hbs0IYLmkcz4gnEgkKIGVvV1NWPKzZWXbHjmApTIFf9eVDquxPv+n+Yuf0M/2dD15QyEgu185fDixgULtfrj0uQb4NKv7W10BnSyaam7DT1uuWTR7XXnOc5HisnjUKI3Gka6FAyPwGKC87iRrnObG0CFbeyx2ySmqZDcKydMQMZMrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M8dh507pGMYHxnf6lKuc6a4Vv1vbjkxjg77QAZ51vcU=;
- b=mRszAGoAirkh2hTo/VYIIQfv82XxhVTMFMxeT0sN5sfr7+PHwxkpUZzeacfWhEKAEvfOyEkIQ2pqK9tq8NnEW4jkhPMma/kQTouAb9cCctAeOWSsxRWYhsoLFEFBnCBoHNhqzyMXY5ny2N296elR7/qUpqbAfYBSKEvJv6pW+XXy+csKZchPX74aFwZOOFjAtAvsvwaAihu8LQiA64uYxDB6P134PO2Cjyy7h52ndcARTKfsMIRv0riqw9bqaDB9077toVI6AQM9KBRjqRIX1Vj5/mubTwmjUfHDqiMnzMJ5BgWBNvz+EsrUH80Zcro3bIBQjpB47QELSQdYANfSzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=xgk1oCjyVY9ja+3zfXTQLFhzrjUGIMb5fwkTK2FrSNs=;
+ b=AUvQi8VSK4bgdiy038IPKZyDOoxPzVMy3b+aLlM6NnsoaimMwyYLRKzzcH4uEL1Lxtk9ccVbzCb+E4yervaL5Y7Wp2fp/IhpPAQDp+F3DVAjtpxp1Ryh21BG/bJHc6IfnoO0SjZTGEqqIE+ZdE+HaQUsLgJWzop9Gw4rJfdgrxU0yEh9QOpjbp8CryLr9uFG5G49Qyl832aVK4RryYZByDTWtOdyDf7jFZZvIASloGFhhTmE2ggSPrh34d4BppgaSqkCAlUO/lywKrxHSIlTl5qPNx+E9exUa0hgKb7+1icKbUNDRdIugRBOVa9lWzq1Gv0Wz9zkXF06v+u9kRsXlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M8dh507pGMYHxnf6lKuc6a4Vv1vbjkxjg77QAZ51vcU=;
- b=XvRRR+WvP54czRkhustQ/f3NLhncNYxU6XPcRJrlmvUDnuuXN5E6oD2fwfHRXhtKmReT8wvozWM8x9itNIk1Hk7K+q2aNJSdNZuE2DJsywkdjjmzQNuh0q7XxEiWsR5mTmLUVdMdtMyDHE9T2q877b/r1fEdLBaIidVRbVcUk6Q=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <c38e0913-e588-712f-6e0f-698f9dbf51ba@amd.com>
-Date: Mon, 27 Feb 2023 15:46:34 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] build: add crypto/ to SUBDIRS
+ bh=xgk1oCjyVY9ja+3zfXTQLFhzrjUGIMb5fwkTK2FrSNs=;
+ b=E7GW98x8OH9oQ4YPEwAeuX3qxp4q9A7unxq39sqinxKDJEc6sLpDcS0c+6MOErHaBEYbITVKBholsN5/TJxF1ppy3TUoFcjejh7CeiV43yhUDMxxbF1uO8qx7VNTZsmmYM/h2bCf+4CQQsXDH8zOc96dj88KO2O9/de/dSZjKG8=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici
+	<Marc.Bonnici@arm.com>, Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk
+	<volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>
+Subject: Re: [XEN PATCH v7 09/20] xen/arm: ffa: add support for FFA_ID_GET
+Thread-Topic: [XEN PATCH v7 09/20] xen/arm: ffa: add support for FFA_ID_GET
+Thread-Index: AQHZRtMaqQfE5Y/rpE6cfyFi/Dbnk67i53QA
+Date: Mon, 27 Feb 2023 14:48:39 +0000
+Message-ID: <FF2BBB34-102C-425F-9A9A-2D6FA1BEB2D4@arm.com>
+References: <cover.1677079671.git.jens.wiklander@linaro.org>
+ <82e4e0c3ac1614822fddd90336c22e6fad5b485e.1677079672.git.jens.wiklander@linaro.org>
+In-Reply-To:
+ <82e4e0c3ac1614822fddd90336c22e6fad5b485e.1677079672.git.jens.wiklander@linaro.org>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20230227095315.6483-1-michal.orzel@amd.com>
- <c16cbd72-9a5d-cea7-dd17-c9521328fffa@suse.com>
- <113d8d74-19a6-85da-8b89-1a21bf95960e@amd.com>
- <bbf3edac-d992-28b0-91b2-ca97159fbce2@suse.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <bbf3edac-d992-28b0-91b2-ca97159fbce2@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT005:EE_|MN2PR12MB4301:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef5bf30b-c48d-4ec5-39c2-08db18d16d3e
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.400.51.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3784:EE_|VE1PR08MB5647:EE_|AM7EUR03FT055:EE_|AS2PR08MB9692:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ed2b639-f4f4-47fa-f246-08db18d1bee1
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ Nd431pvPVXG/i13vyx0Pj8Kc1ugKzFk3SKAbiOU8V92sO+fcoZzEME+Rf2um1/k26ah13YKL+3mdo9VuOnHiRHvSDk/agDAnLUtg0H6Oq/pArgQZpxAJKvNPQ+Ae+sYu5G52ftrKblXiPxOGokqmOh3DcHtex5b5pB9zfQqp6aMAf0+gUlwZTOpruZ1k3i1Ve5BR93xTdk9OsrcGUl3wdkdC32S7iwvNzx6KJ0dA+ef2iWDkLvndJUDulyF2AURKltb3qgVMx4YxaRNwXrKJdOgBeh/cwj3sNaCLSGzCQ7Z1q4jL41Xl7r4d49g3yOtVJkyPlaTBvRPWQr9bRPE3I6NHO3UeQQoFgEXX2kotY5JWy/cloC6FaeW3raLu53yZyTobx5kU+fAe95/ygysOmEdvdObC7C9O5+dRwdX4T8kn54eZG3CXDe/4OG0RjR8OGTwRhIt4nr+vm7ORfEUaEiCeOWBrV+d0+8ui6S6zcH2ukTEnteP7+urMt3XmUSe+uYXG+s7Ux8qEF/SeLUwtktD2NfNaUXQXvXsQ9abkVyEt9n+a2o/c35blBAHdtKmyhlT3t0D5IviPz3nfd9ylMZQEEpOkAe3kXZEuCpqA2m5Y+1n4/8SUzFfJZIe6CjwmFmyf3NCQOsMinlWUwtJAuBlvutrI9qn+arZ9+i0ssNcyajYlZRkfXgQGd4LwerqL0TRvvbc62atjyyre7srz/DCxjchAfk3DMt/4orZJlXM=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(376002)(136003)(396003)(39850400004)(366004)(346002)(451199018)(36756003)(8936002)(5660300002)(6512007)(6506007)(53546011)(38100700002)(316002)(122000001)(83380400001)(26005)(186003)(2616005)(86362001)(33656002)(54906003)(91956017)(66946007)(76116006)(66476007)(41300700001)(6916009)(66446008)(66556008)(4326008)(8676002)(64756008)(478600001)(71200400001)(6486002)(38070700005)(2906002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <419C19DCA2DF5A46B6477A5BC15E4D4B@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5647
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7EUR03FT055.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	aacb6945-68b3-4da4-5c96-08db18d1b689
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Ju0Js9mEPV+g/1W2UBrEkHAh7PavoXSLragB5McX+EO88ZCNm+epKc1b99odVEs35kjjKG8q5qSRh3ot/MnvXKYJfAWPjqavCbHTCm1lSfJDjjHmljjh2pgTj3vgtsMSA/fO2aynqn/L/wv+kFX6MhinRwGsqmfgflcv5hjr2vPKmndz+q8+8pVYdPq7GKyyUeuIoy9evZoT3EUOz4wk52rxht5+x8Vllik8OJ5FlCjKBgDQWgTssXycvofVJKPV3+cFiq38BbJBPNQHhJR07CB2YnjkghvqRlxSej9Qs6ViHAiqch8tifKJ17/V4jFviA9CZ3H5b4gaL5COfZSw2XiFoMEKG1qSPKDg3Y0GKLOhMP6M50Ruoawo3Eb+Ec4ByrkSKhq+attP6ZYP8iWKaWKpGyDwAVvDGYM5S8CV1gbiBI7njRHw9eHwijJhdec4vzqMMY8f0iJMHFb8gEjZuhifz5QNbTMU5TVzEMaSh1IefAofRs4D2WTRMLWk0w/Ct4Tz8JRhqSZ9wd2um6/7tACbfO6OpDyKBBMdJZaZk6nZKPk+f03N8pqmQhFf6O419ktB/OsBL58bVkMJewygtx6+J6KehoYALRVfUosZkutQdhJvPRYvD7u7ypgmiT69TMu5pphI8olWTcwy7hOdeb4F6LkOMRB2g88NGXwy4G3fXrJwAAOtjn2UU6Z40xSAe/lHmX7ENWODGlNtWhpSWXyg54fU/fTgvAhHWa2uvprjnGnOf13mrZhEzUa7+Bftfj+M9NWQZp79eTXm9s+YUg==
+	iGPco0Tv3i5T8IqIsJ2wlzusZnIvoJP5px31Mu/OOSwGr8b77HL5RSff6ZJG4cbSE0rfyXKwWApm381k5/v6oAE7bweQ03U0L+m3HHjKowFWwm70kdtSd/J/6QFrOKk5KrkC0VHjHbvqq4419xDji0g4CU07SKy2TJFo48GYbC5bUIO8notZGqwcom/64TqMRGaiQTg1/4y8Rz63jB20tS7cCeZp4YUMl2KaAlnv/MVqgyeeFMbWomAuapx7gSzapMURm8qaSSfU7YWycoUf4xwWc63jQjp7T9JFCyGIvNt6tx6yucTxSJvJ8tRXONeHO89Re/b7rKLjNw6RvuZwM6KaP8DMQtcDi4FzADkc1YtYrA+gfa4RqsjTNJyaYyHrtb0wEGVv8yV5xIwTOxX1JqRe2jCTkOUsdbFvojI95QfRXfeI1VIJ3Sz0Y+uoASQhQxU7hK32p47m8ZBI46E5I44iLT1e0zYfHIlsVRiFpu5nf5/mmh8rDkPZS+x7/zzGVPeL6vC5eQoq533mzZgAgYa/KECNZr/cjrOkY9xRlIj1YCseIOOKWLuA9DZ+Fw8ayfHi2tulExqrlYdcpBRfQBx8EHs9Nxvqd/d2RdKtmgyqlbXLlZyCs7mW3kQmZj9t7qAG71dASUFq9YvfFkeMGYa3Le8bkoIObRTVHkEQv7GiHmNSkXuQ8wy+H+//X+L9H37PWG5tgKl92XfwWB2SEA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199018)(40470700004)(36840700001)(46966006)(4326008)(70586007)(70206006)(31686004)(6916009)(83380400001)(426003)(36860700001)(41300700001)(47076005)(82740400003)(336012)(54906003)(316002)(36756003)(8676002)(81166007)(16576012)(8936002)(5660300002)(44832011)(356005)(86362001)(478600001)(53546011)(186003)(26005)(40460700003)(31696002)(82310400005)(2906002)(40480700001)(2616005)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 14:46:36.2770
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(39850400004)(136003)(346002)(376002)(396003)(451199018)(36840700001)(46966006)(40470700004)(83380400001)(6506007)(40460700003)(36756003)(36860700001)(86362001)(6862004)(8936002)(82740400003)(81166007)(47076005)(356005)(5660300002)(40480700001)(82310400005)(33656002)(478600001)(336012)(2616005)(26005)(6512007)(6486002)(53546011)(70206006)(4326008)(8676002)(2906002)(70586007)(316002)(186003)(41300700001)(54906003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2023 14:48:53.2298
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef5bf30b-c48d-4ec5-39c2-08db18d16d3e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ed2b639-f4f4-47fa-f246-08db18d1bee1
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
+	AM7EUR03FT055.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4301
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9692
 
+Hi Jens,
 
+> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wrot=
+e:
+>=20
+> Adds support for the FF-A function FFA_ID_GET to return the ID of the
+> calling client.
+>=20
+> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> ---
+> xen/arch/arm/tee/ffa.c | 21 ++++++++++++++++++++-
+> 1 file changed, 20 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index 8b0b80ce1ff5..463fd7730573 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -167,6 +167,12 @@ static bool ffa_get_version(uint32_t *vers)
+>     return true;
+> }
+>=20
+> +static uint16_t get_vm_id(const struct domain *d)
+> +{
+> +    /* +1 since 0 is reserved for the hypervisor in FF-A */
+> +    return d->domain_id + 1;
+> +}
+> +
+> static void set_regs(struct cpu_user_regs *regs, register_t v0, register_=
+t v1,
+>                      register_t v2, register_t v3, register_t v4, registe=
+r_t v5,
+>                      register_t v6, register_t v7)
+> @@ -181,6 +187,12 @@ static void set_regs(struct cpu_user_regs *regs, reg=
+ister_t v0, register_t v1,
+>         set_user_reg(regs, 7, v7);
+> }
+>=20
+> +static void set_regs_success(struct cpu_user_regs *regs, uint32_t w2,
+> +                             uint32_t w3)
+> +{
+> +    set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, 0, 0, 0, 0);
+> +}
+> +
+> static void handle_version(struct cpu_user_regs *regs)
+> {
+>     struct domain *d =3D current->domain;
+> @@ -210,6 +222,9 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
+s)
+>     case FFA_VERSION:
+>         handle_version(regs);
+>         return true;
+> +    case FFA_ID_GET:
+> +        set_regs_success(regs, get_vm_id(d), 0);
+> +        return true;
+>=20
+>     default:
+>         gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
+> @@ -221,7 +236,11 @@ static int ffa_domain_init(struct domain *d)
+> {
+>     struct ffa_ctx *ctx;
+>=20
+> -    if ( !ffa_version )
+> +     /*
+> +      * We can't use that last possible domain ID or get_vm_id() would c=
+ause
+> +      * an overflow.
+> +      */
+> +    if ( !ffa_version || d->domain_id =3D=3D UINT16_MAX)
+>         return -ENODEV;
 
-On 27/02/2023 14:54, Jan Beulich wrote:
-> 
-> 
-> On 27.02.2023 14:41, Michal Orzel wrote:
->> Hi Jan,
->>
->> On 27/02/2023 11:10, Jan Beulich wrote:
->>>
->>>
->>> On 27.02.2023 10:53, Michal Orzel wrote:
->>>> --- a/xen/Makefile
->>>> +++ b/xen/Makefile
->>>> @@ -589,7 +589,7 @@ $(TARGET): outputmakefile FORCE
->>>>       $(Q)$(MAKE) $(build)=. arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
->>>>       $(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' 'ALL_LIBS=$(ALL_LIBS-y)' $@
->>>>
->>>> -SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
->>>> +SUBDIRS = xsm arch/$(TARGET_ARCH) common crypto drivers lib test
->>>>  define all_sources
->>>>      ( find include -type f -name '*.h' -print; \
->>>>        find $(SUBDIRS) -type f -name '*.[chS]' -print )
->>>
->>> As long as it's arch/$(TARGET_ARCH) that's used here, crypto should imo
->>> also only be included when selected (or at the very least only when an
->>> arch might select it, which afaics is possible on x86 only right now).
->>>
->>> It would also help if in the description you made explicit that SUBDIRS
->>> isn't used for anything else (the name, after all, is pretty generic).
->>> Which actually points at an issue: I suppose the variable would actually
->>> better be used elsewhere as well, e.g. in the _clean: rule and perhaps
->>> also in the setting of ALL_OBJS-y. (That'll require splitting the
->>> variable, to that e.g. _clean would use $(SUBDIRS), $(SUBDIRS-y), and
->>> $(SUBDIRS-) collectively.) It is, imo, that lack of consolidation which
->>> has caused crypto to be missing from SUBDIRS.
->>>
->> I think what you wrote can be split into 2 parts: the part being a goal of this patch
->> and the cleanup/improvements that would be beneficial but not related to this patch.
->> The second part involves more code and there are parts to be discussed:
->>
->> 1) If we decide to create ALL_OBJS-y from SUBDIRS, then we would need to carve out test/ dir
->> that is not part of ALL_OBJS-y and add it to SUBDIRS later on. Also, the order of ALL_OBJS-y matters
->> for linking, so we would need to transfer the responsibility to SUBDIRS. The natural placement of
->> SUBDIRS (including SUBDIRS-y, etc.) would be right above ALL_OBJS-y. However, when doing clean (next point),
->> need-config is set to n and SUBDIRS would be empty. This means it would need to be defined somewhere at the
->> top of the Makefile (thus harder to make sure the linking order is correct).
->>
->> 2) If we deicide to use SUBDIRS for _clean rule, then we would need some foreach loop, right?
->> Apart from that, there are other directories that are not part of SUBDIRS i.e. include/, tools/.
->> Together with SUBDIRS variable, it would create confusion (these dirs are also sub-directories, so why
->> not having them listed in this variable?). Also, I can see that we do clean not only for $(TARGET_ARCH)
->> but for all the existing architectures.
-> 
-> I understand that the changes would be more involved, but I disagree with
-> your "two parts" statement: If what I've outlined was already the case,
-> your patch would not even exist (because crypto/ would already be taken
-> care of wherever needed).
-> 
->> I would prefer to stick for now to the goal of this patch which is to add crypto/ so that it is taken
->> into account for the tags/csope generation. Would the following change be ok for that purpose?
->>
->> diff --git a/xen/Makefile b/xen/Makefile
->> index 2d55bb9401f4..05bf301bd7ab 100644
->> --- a/xen/Makefile
->> +++ b/xen/Makefile
->> @@ -589,7 +589,9 @@ $(TARGET): outputmakefile FORCE
->>       $(Q)$(MAKE) $(build)=. arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
->>       $(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' 'ALL_LIBS=$(ALL_LIBS-y)' $@
->>
->> -SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
->> +SUBDIRS-$(CONFIG_CRYPTO) += crypto
->> +SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test $(SUBDIRS-y)
->> +
->>  define all_sources
->>      ( find include -type f -name '*.h' -print; \
->>        find $(SUBDIRS) -type f -name '*.[chS]' -print )
-> 
-> The fact that, afaict, this won't do is related to the outline I gave.
-> You've referred yourself to need-config. Most if not all of the goals
-> SUBDIRS is (currently) relevant for are listed in no-dot-config-targets.
-> Hence your change above is effectively a no-op, because CONFIG_CRYPTO
-> will simply be unset in the common case. Therefore if an easy change is
-> wanted, the original version of it would be it. An intermediate
-> approach might be to add crypto to SUBDIRS only when TARGET_ARCH=x86.
-> But neither would preclude the same issue from being introduced again,
-> when a new subdir appears.
-I understand your concerns. However, I cannot see how your suggested changes
-e.g. making use of SUBDIRS in ALL_OBJS and _clean would solve our issue.
-They would reduce the repetitions (hence I called them cleanup/improvements)
-but as we want to keep tags,cscope,clean as no-dot-config targets, we would still not be able to use:
-SUBDIRS-$(CONFIG_CRYPTO) += crypto
-and use it in all_sources (because as you pointed out, it will be a no-op).
+In reality the overflow could only happen if this is called by the IDLE dom=
+ain right now.
+Anyway this could change and this is making the code more robust at no real=
+ cost.
 
-Also, why do we care so much about guarding crypto/ if we take into account
-so many architecture/config dependent files for tags/cscope (e.g. in drivers, lib/x86, etc.)?
-If these are no-dot-config targets, then we should take everything, apart from really big directories
-like arch/ ones.
+I would just suggest here to return a different error code like ERANGE for =
+example to
+prevent missing ENODEV with other cases not related to FFA not being availa=
+ble.
 
-~Michal
+Cheers
+Bertrand
+
+>=20
+>     ctx =3D xzalloc(struct ffa_ctx);
+> --=20
+> 2.34.1
+>=20
+
 
