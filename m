@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA616A5CAC
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 17:01:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503518.775790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3552B6A5CE2
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 17:13:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503530.775801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX2PL-0003DA-I0; Tue, 28 Feb 2023 16:00:51 +0000
+	id 1pX2aq-00051w-Kv; Tue, 28 Feb 2023 16:12:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503518.775790; Tue, 28 Feb 2023 16:00:51 +0000
+Received: by outflank-mailman (output) from mailman id 503530.775801; Tue, 28 Feb 2023 16:12:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX2PL-0003Aq-FA; Tue, 28 Feb 2023 16:00:51 +0000
-Received: by outflank-mailman (input) for mailman id 503518;
- Tue, 28 Feb 2023 16:00:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YG3a=6Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pX2PJ-0003Ak-78
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 16:00:49 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 113e42c4-b781-11ed-9695-2f268f93b82a;
- Tue, 28 Feb 2023 17:00:48 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id s22so13836841lfi.9
- for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 08:00:48 -0800 (PST)
-Received: from [192.168.8.114] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
- [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
- i26-20020a056512007a00b004a0589786ddsm1390308lfo.69.2023.02.28.08.00.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Feb 2023 08:00:47 -0800 (PST)
+	id 1pX2aq-00050E-HP; Tue, 28 Feb 2023 16:12:44 +0000
+Received: by outflank-mailman (input) for mailman id 503530;
+ Tue, 28 Feb 2023 16:12:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pX2ap-000504-OU; Tue, 28 Feb 2023 16:12:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pX2ap-0005wy-Ku; Tue, 28 Feb 2023 16:12:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pX2ap-0006yF-7g; Tue, 28 Feb 2023 16:12:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pX2ap-0007Y1-77; Tue, 28 Feb 2023 16:12:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,91 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 113e42c4-b781-11ed-9695-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=5oLrTsmo5DP2t57tNcUhgSb25T6lEvw2eBBMdK+tYaU=;
-        b=XKfoCX+eUGGbN+xbdIfINzzCi99W/fpoFLa5n/nhfmy30+0h/QgBxp6LB8vf55uJpZ
-         gpkwsUP4N+w64OOwEjIv79IGRfa++AS4bXtZUXIj03tdsRx9P/CSN7/KZ9eYrPIthMco
-         c+EUmQg6hS9wCxMVBnRBp8NfE+9EBlXdX23Tty9T1gTwyEjTmOPKBpvCe/gzYDjxQh1v
-         Q6nLWVSvTBaqFJtIxD5QX4QLNDPKejGnEIPiXG6mjchmi3Eoq0wdDResrrAKjNorw4/Z
-         iDtI6TF+TXD7mV3lvjbrYjvQ/v3djrG/lYKiEYN9/wwhzikOk3Run7Y2McXVNcBMEAaZ
-         ctXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5oLrTsmo5DP2t57tNcUhgSb25T6lEvw2eBBMdK+tYaU=;
-        b=pVj5CQsCRY4MnWgUTkFs2siEUE9pVPabbpwK5YzMG6ybraEEozmVeS1AhHBaRgKujV
-         wmoSt+w9IFIu6yCBTOHSENPkjC2V+INbL59cMNG6n3ZOWSA7SOdiwAN2Gpq/M2v7a5yG
-         qHWFNyLXHQVSyJ7gJZnts4nk+y1C9v1f2X7wSake5cDn6W0RCeBj5XE7yNbx1zi5DbxE
-         tXwH5SlnP1DpevGvw5kmE4C2deL7E9j5G28FdaVzzjuX83hn0Jh39diKQADeoECBTHF8
-         Mt4nvyXJMDL9XkU+26Z13WxAsKjhfAkpZoFbYoUb7JY4EVaEI9kNv0CszcIs0PHNGVk7
-         RfWA==
-X-Gm-Message-State: AO0yUKXxlZmDURX0JE0dwwlG1+Z9nMlGszl3ePEXg3tZ/jl+iSus3Pxe
-	cR9PJh4s+4lMC619aVW1H18=
-X-Google-Smtp-Source: AK7set/jj9BW/DhnCWdL5AG6rwlgWIeb1rbSbCXrjgZX/CSpnyxXEtmwLFo1komzXlMosAhy4urTCw==
-X-Received: by 2002:ac2:4a79:0:b0:4db:3847:12f0 with SMTP id q25-20020ac24a79000000b004db384712f0mr985586lfp.50.1677600047870;
-        Tue, 28 Feb 2023 08:00:47 -0800 (PST)
-Message-ID: <6ff1684cdea34004525e4931f00aa5a9c89b28a9.camel@gmail.com>
-Subject: Re: [PATCH v3 2/4] xen: change <asm/bug.h> to <xen/bug.h>
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bertrand
- Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, George Dunlap <george.dunlap@citrix.com>, Wei
- Liu <wl@xen.org>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
- <roger.pau@citrix.com>, Julien Grall <julien@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Tue, 28 Feb 2023 18:00:44 +0200
-In-Reply-To: <58615dc6-0d89-bbcf-acce-73a5cd943cc4@suse.com>
-References: <cover.1677233393.git.oleksii.kurochko@gmail.com>
-	 <19404db4a577e17dffef85a101449a507965be19.1677233393.git.oleksii.kurochko@gmail.com>
-	 <468d6130-739e-4b0e-44e7-5aab520a0cac@xen.org>
-	 <e22d11d172226cab566a5e0f79d6cf51f402d3ad.camel@gmail.com>
-	 <58615dc6-0d89-bbcf-acce-73a5cd943cc4@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=6Y4SHHTbwS0IqZzusJiNPQStbh9Gy+ssQEFmc//5ipM=; b=kHPAbHPy33Dl18Va9Vp2vO3r1M
+	s02Ok0RDykENF5ZYLM/bLR34fjKSPqN/TDAT5iV+c9JxIAdN5dfz+6gR1QtThImygF2I2R8Nf7Ljh
+	2Od1vhr1n067y3JUiE0I46rOckBUBsZZ+pTpwkhoGBfx9FPrEbXeHFwp9zDFu/svR0As=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-178776-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 178776: tolerable trouble: pass/starved - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=a4557f515fb002010b34b79102278ea03d6b31a3
+X-Osstest-Versions-That:
+    xen=bfc3780f23ded229f42a2565783e21c32083bbfd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 28 Feb 2023 16:12:43 +0000
 
-On Tue, 2023-02-28 at 14:30 +0100, Jan Beulich wrote:
-> On 28.02.2023 14:07, Oleksii wrote:
-> > On Sat, 2023-02-25 at 16:47 +0000, Julien Grall wrote:
-> > > On 24/02/2023 11:31, Oleksii Kurochko wrote:
-> > > > --- a/xen/arch/arm/include/asm/bug.h
-> > > > +++ b/xen/arch/arm/include/asm/bug.h
-> > > > @@ -1,6 +1,8 @@
-> > > > =C2=A0 #ifndef __ARM_BUG_H__
-> > > > =C2=A0 #define __ARM_BUG_H__
-> > > > =C2=A0=20
-> > > > +#include <xen/types.h>
-> > >=20
-> > > You are not adding new code in bug.h, so can you explain why this
-> > > is
-> > > now=20
-> > > necessary?
-> > I am not adding new code but inside 'struct bug_frame' there are
-> > uint16_t and uint32_t which are defined in <xen/types.h>.
-> >=20
-> > And after <asm/bug.h> was changed to <xen/bug.h> it started to
-> > complain
-> > on these types.
->=20
-> Wouldn't xen/bug.h want to include xen/types.h anyway, and then
-> clearly
-> before including asm/bug.h?
-<xen/types.h> can be moved to <xen/bug.h> but generic implementation
-doesn't use any specific from <xen/types.h> types.
-But probably you are right that it would be better move to
-<xen/bug.h>...
->=20
-> Jan
-~ Oleksii
+flight 178776 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/178776/
 
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
+
+version targeted for testing:
+ xen                  a4557f515fb002010b34b79102278ea03d6b31a3
+baseline version:
+ xen                  bfc3780f23ded229f42a2565783e21c32083bbfd
+
+Last test of basis   178708  2023-02-27 23:00:25 Z    0 days
+Testing same since   178776  2023-02-28 14:00:26 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Demi Marie Obenour <demi@invisiblethingslab.com>
+  Jan Beulich <jbeulich@suse.com>
+  Sergey Dyasli <sergey.dyasli@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  starved 
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   bfc3780f23..a4557f515f  a4557f515fb002010b34b79102278ea03d6b31a3 -> smoke
 
