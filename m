@@ -2,41 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B42286A54FC
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 10:00:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503137.775296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B58206A54FD
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 10:00:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503138.775307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWvq3-0003KS-1v; Tue, 28 Feb 2023 08:59:59 +0000
+	id 1pWvqA-0004Fy-BK; Tue, 28 Feb 2023 09:00:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503137.775296; Tue, 28 Feb 2023 08:59:59 +0000
+Received: by outflank-mailman (output) from mailman id 503138.775307; Tue, 28 Feb 2023 09:00:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWvq2-0003Hp-V7; Tue, 28 Feb 2023 08:59:58 +0000
-Received: by outflank-mailman (input) for mailman id 503137;
- Tue, 28 Feb 2023 08:59:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bF4M=6Y=redhat.com=mst@srs-se1.protection.inumbo.net>)
- id 1pWvq1-0003Hh-Gb
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 08:59:57 +0000
+	id 1pWvqA-0004CL-7e; Tue, 28 Feb 2023 09:00:06 +0000
+Received: by outflank-mailman (input) for mailman id 503138;
+ Tue, 28 Feb 2023 09:00:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XTHW=6Y=redhat.com=berrange@srs-se1.protection.inumbo.net>)
+ id 1pWvq8-0003qW-3n
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 09:00:04 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 444c6785-b746-11ed-a550-8520e6686977;
- Tue, 28 Feb 2023 09:59:55 +0100 (CET)
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-606-JdkdCTXaPuyBe5pGTO3r-A-1; Tue, 28 Feb 2023 03:59:50 -0500
-Received: by mail-ed1-f71.google.com with SMTP id
- c1-20020a0564021f8100b004acbe232c03so12665203edc.9
- for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 00:59:50 -0800 (PST)
-Received: from redhat.com ([2.52.141.194]) by smtp.gmail.com with ESMTPSA id
- ha14-20020a170906a88e00b008c405ebc32esm4229508ejb.28.2023.02.28.00.59.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Feb 2023 00:59:48 -0800 (PST)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 489738b9-b746-11ed-9693-2f268f93b82a;
+ Tue, 28 Feb 2023 10:00:02 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-553-unzHq4k8NrGaRGqkhunq0A-1; Tue, 28 Feb 2023 03:59:57 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02EC9299E747;
+ Tue, 28 Feb 2023 08:59:57 +0000 (UTC)
+Received: from redhat.com (unknown [10.33.36.73])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CEF2A2026D4B;
+ Tue, 28 Feb 2023 08:59:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,91 +50,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 444c6785-b746-11ed-a550-8520e6686977
+X-Inumbo-ID: 489738b9-b746-11ed-9693-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677574793;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	s=mimecast20190719; t=1677574800;
+	h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gh14Q5XVK57GCqNInt9dvGWviONbEUABlkLCEvFo+1A=;
-	b=AaVUWEiihEs1K2QiNVXGFjjsoiK+3Tm6kFC7fiZ3f1lNi1RQ4CUlkEQpRif//e6/AC+KjP
-	3K00v5ewZzibU0pRoaRCPfWWQkQtiUQ1Fsb8unpJD2H1EMzuuy/oKLiKiKz7POW8CsasVc
-	xT4PxaVNmtxmFC6qv9Z3uWC4B6DdYww=
-X-MC-Unique: JdkdCTXaPuyBe5pGTO3r-A-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677574789;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gh14Q5XVK57GCqNInt9dvGWviONbEUABlkLCEvFo+1A=;
-        b=mL0GxDhTICz/XaWs+SS21LXSHHRPVWNn3cXqGZeuf0ECZWBVpq4Ap/n/HtgwN3v6Vo
-         Ol7A8TAhtAEDdvmpw2z76ua44TPSnobDT3BMADycBM4LlccD2upvtn34HGMm8n1E0TPM
-         HnBcHw8LVnJdnbQdf0p6+ZZ1i9xe9GKTnPB9YbdvCC843WSy9JaG/luxNHEm3o8rpWOt
-         Sn05s0TXdqfENNZEZbquV+qub7f4dvvj3yTAYgMD5jJR4qrdhtVpQM4mnFkMeJ2QVChK
-         Eiic7gK+jSeUrEWBEQX6Y15qjZjKv2C7SgkDvTL2tJNGyPi0o8Q+DqHGP0m07oAjU/cd
-         TrxQ==
-X-Gm-Message-State: AO0yUKXihplNSxrJrH1+iO/6tvP327LFmNmVzzT7tzKkEkoJ+dqdjWaS
-	UqzxX5Fs71+oJM+XPgcP5QlcH3xR9oxoDGAYrDIavZWBVod58jsS8MbN+BgQsDowWu9egyiVJ6z
-	AXEyB99gPHwujw5Cwh/oxfStI7Ds=
-X-Received: by 2002:a17:906:264d:b0:8b1:79d0:bc58 with SMTP id i13-20020a170906264d00b008b179d0bc58mr1697110ejc.16.1677574789519;
-        Tue, 28 Feb 2023 00:59:49 -0800 (PST)
-X-Google-Smtp-Source: AK7set+fUW5AwCYmimNt17fLi6VkNVMvM8T0LSvQi1PwptV14D5OBhXq8nQB0YakRdPxskPQaBqfcQ==
-X-Received: by 2002:a17:906:264d:b0:8b1:79d0:bc58 with SMTP id i13-20020a170906264d00b008b179d0bc58mr1697089ejc.16.1677574789259;
-        Tue, 28 Feb 2023 00:59:49 -0800 (PST)
-Date: Tue, 28 Feb 2023 03:59:44 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Richard Henderson <richard.henderson@linaro.org>
-Cc: Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Thomas Huth <thuth@redhat.com>, qemu-devel@nongnu.org,
+	bh=0EF5YmrVTXup8974t3suecxHHmZbvsS2aqdc5XTi5Ek=;
+	b=TFeIbr+E02sglU+6eQ+p6KSHvdM5aYW4bedHT0OcqZKOtR1hC+1NHWfE+0GjpXmVHRvjz1
+	2Eb1a2h1QJVXRKEv86gGUxbxXA523Ge25/H3KfwQIpB6gPdDIXOTrtzlKOu2OVFf1jxnOM
+	lqCiYcFSpX7y58/0PeQ9ybuXUywj1Jc=
+X-MC-Unique: unzHq4k8NrGaRGqkhunq0A-1
+Date: Tue, 28 Feb 2023 08:59:52 +0000
+From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Thomas Huth <thuth@redhat.com>, qemu-devel@nongnu.org,
 	Peter Maydell <peter.maydell@linaro.org>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	Markus Armbruster <armbru@redhat.com>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
 	qemu-arm@nongnu.org, Maxim Levitsky <mlevitsk@redhat.com>,
-	libvir-list@redhat.com, xen-devel@lists.xenproject.org,
+	libvir-list@redhat.com,
+	Richard Henderson <richard.henderson@linaro.org>,
+	xen-devel@lists.xenproject.org,
 	Reinoud Zandijk <reinoud@netbsd.org>,
 	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
 Subject: Re: [PATCH 1/2] docs/about: Deprecate 32-bit x86 hosts and
  qemu-system-i386
-Message-ID: <20230228035917-mutt-send-email-mst@kernel.org>
+Message-ID: <Y/3CiEKKoG06t9rr@redhat.com>
+Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 References: <20230227111050.54083-1-thuth@redhat.com>
  <20230227111050.54083-2-thuth@redhat.com>
  <Y/yY72L9wyjuv3Yz@redhat.com>
  <20230227150858-mutt-send-email-mst@kernel.org>
- <d1151c34-c2e3-50aa-b12e-f6c5cafed5d3@linaro.org>
+ <84d7d3e5-0da2-7506-44a7-047ebfcfc4da@redhat.com>
+ <20230228031026-mutt-send-email-mst@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <d1151c34-c2e3-50aa-b12e-f6c5cafed5d3@linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230228031026-mutt-send-email-mst@kernel.org>
+User-Agent: Mutt/2.2.9 (2022-11-12)
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 
-On Mon, Feb 27, 2023 at 10:21:14AM -1000, Richard Henderson wrote:
-> On 2/27/23 10:12, Michael S. Tsirkin wrote:
-> > On Mon, Feb 27, 2023 at 11:50:07AM +0000, Daniel P. Berrangé wrote:
-> > > I feel like we should have separate deprecation entries for the
-> > > i686 host support, and for qemu-system-i386 emulator binary, as
-> > > although they're related they are independant features with
-> > > differing impact. eg removing qemu-system-i386 affects all
-> > > host architectures, not merely 32-bit x86 host, so I think we
-> > > can explain the impact more clearly if we separate them.
+On Tue, Feb 28, 2023 at 03:19:20AM -0500, Michael S. Tsirkin wrote:
+> On Tue, Feb 28, 2023 at 08:49:09AM +0100, Thomas Huth wrote:
+> > On 27/02/2023 21.12, Michael S. Tsirkin wrote:
+> > > On Mon, Feb 27, 2023 at 11:50:07AM +0000, Daniel P. BerrangÃ© wrote:
+> > > > I feel like we should have separate deprecation entries for the
+> > > > i686 host support, and for qemu-system-i386 emulator binary, as
+> > > > although they're related they are independant features with
+> > > > differing impact. eg removing qemu-system-i386 affects all
+> > > > host architectures, not merely 32-bit x86 host, so I think we
+> > > > can explain the impact more clearly if we separate them.
+> > > 
+> > > Removing qemu-system-i386 seems ok to me - I think qemu-system-x86_64 is
+> > > a superset.
+> > > 
+> > > Removing support for building on 32 bit systems seems like a pity - it's
+> > > one of a small number of ways to run 64 bit binaries on 32 bit systems,
+> > > and the maintainance overhead is quite small.
 > > 
-> > Removing qemu-system-i386 seems ok to me - I think qemu-system-x86_64 is
-> > a superset.
-> > 
-> > Removing support for building on 32 bit systems seems like a pity - it's
-> > one of a small number of ways to run 64 bit binaries on 32 bit systems,
-> > and the maintainance overhead is quite small.
+> > Note: We're talking about 32-bit *x86* hosts here. Do you really think that
+> > someone is still using QEMU usermode emulation
+> > to run 64-bit binaries on a 32-bit x86 host?? ... If so, I'd be very surprised!
 > 
-> It's not that small.  It only works for single-threaded system mode.  It
-> silently does not honor atomicity for user-only mode, which is perhaps worse
-> not working at all.
+> I don't know - why x86 specifically? One can build a 32 bit binary on any host.
+> I think 32 bit x86 environments are just more common in the cloud.
 
-We should probably block multi-threading on 32 bit then.
+Can you point to anything that backs up that assertion. Clouds I've
+seen always give you a 64-bit environment, and many OS no longer
+even ship 32-bit installable media. I would be surprised if 32-bit
+is above very very low single digits usage compared to x86_64.
 
+> > > In fact, keeping this support around forces correct use of
+> > > posix APIs such as e.g. PRIx64 which makes the code base
+> > > more future-proof.
+> > 
+> > If you're concerned about PRIx64 and friends: We still continue to do
+> > compile testing with 32-bit MIPS cross-compilers and Windows 32-bit
+> > cross-compilers for now. The only thing we'd lose is the 32-bit "make check"
+> > run in the CI.
+> > 
+> >  Thomas
+> 
+> Yes - fundamentally 32 bit does not seem that different from e.g.
+> windows builds - we presumably support these but AFAIK CI does not
+> test these.
+
+We do compile test windows in CI via mingw, and we also do build
+and unit tests via msys.
+
+Even Windows has dropped 32-bit support though, and so the only
+reason we keep 32-bit Windows around is because of Windows 10.
+Once a Windows 12 comes along, we'll not need to support 32-bit
+Windows either.
+
+With regards,
+Daniel
 -- 
-MST
+|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
+|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
+|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
 
 
