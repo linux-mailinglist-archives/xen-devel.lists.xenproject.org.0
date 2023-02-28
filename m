@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A78A6A601F
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 21:06:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503738.776051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC68F6A6036
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 21:14:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503750.776061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX6E4-0006qK-UC; Tue, 28 Feb 2023 20:05:28 +0000
+	id 1pX6MU-0000Cm-Pj; Tue, 28 Feb 2023 20:14:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503738.776051; Tue, 28 Feb 2023 20:05:28 +0000
+Received: by outflank-mailman (output) from mailman id 503750.776061; Tue, 28 Feb 2023 20:14:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX6E4-0006o6-Qs; Tue, 28 Feb 2023 20:05:28 +0000
-Received: by outflank-mailman (input) for mailman id 503738;
- Tue, 28 Feb 2023 20:05:27 +0000
+	id 1pX6MU-00009G-MG; Tue, 28 Feb 2023 20:14:10 +0000
+Received: by outflank-mailman (input) for mailman id 503750;
+ Tue, 28 Feb 2023 20:14:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mcKI=6Y=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1pX6E3-0006o0-4a
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 20:05:27 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4VB9=6Y=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1pX6MT-000099-V5
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 20:14:09 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c7def7e-b7a3-11ed-9698-2f268f93b82a;
- Tue, 28 Feb 2023 21:05:25 +0100 (CET)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-44-L1Tq-5ugMsSVHB7n2BProg-1; Tue, 28 Feb 2023 15:05:20 -0500
-Received: by mail-wm1-f70.google.com with SMTP id
- j32-20020a05600c1c2000b003e9bdf02c9fso7360745wms.6
- for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 12:05:20 -0800 (PST)
-Received: from [192.168.8.100] (tmo-112-221.customers.d1-online.com.
- [80.187.112.221]) by smtp.gmail.com with ESMTPSA id
- c16-20020a05600c0ad000b003e214803343sm16622509wmr.46.2023.02.28.12.05.17
+ id 7549725d-b7a4-11ed-9699-2f268f93b82a;
+ Tue, 28 Feb 2023 21:14:09 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id o12so44978187edb.9
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 12:14:08 -0800 (PST)
+Received: from [192.168.1.93] (adsl-150.109.242.227.tellas.gr.
+ [109.242.227.150]) by smtp.gmail.com with ESMTPSA id
+ gq23-20020a170906e25700b008e40853a712sm4912839ejb.97.2023.02.28.12.14.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Feb 2023 12:05:18 -0800 (PST)
+ Tue, 28 Feb 2023 12:14:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,117 +44,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c7def7e-b7a3-11ed-9698-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677614723;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nQd+QhpwRnF3wyVrQuuVP52v3cZ2QpqTThkyv4Fl8ik=;
-	b=iujQtoOg/vphkJxwewKlF6Iu4LmW82xRr4skgeoBWVvqibnVw2LxCEcsyJqym3cbUYDMl4
-	u8SimHyaGZMAoJgevG8TW5QZZhdzJ90kAfQVpIasgt56o6HeYFF0ndRCGGkxhXdJt0QOAc
-	KB0spX596PlgiCpQ1Lj0wYs3hQw/4n0=
-X-MC-Unique: L1Tq-5ugMsSVHB7n2BProg-1
+X-Inumbo-ID: 7549725d-b7a4-11ed-9699-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=R1dNmKfClY06Aa5L+h7HpDXRG5fzMVTrS1Rvpy2Yqh4=;
+        b=hl972ajbGvEPkLN34AULA+v1WNk0v/BdgPH7qbhkUMvmUz7PU+0KuaZpplqEPniHjv
+         j0l9M0g2vd9F//DN1NRHNVuitMocES15xba2wCJpDX5eYqdt/XrgTyNrcLI/FCVfi/9S
+         Q3v4LcucnbpCrH8WrUKKgig79FTTJH1iMw1rcxZ5DnyeFtowmrXVAGMyNDT96YsSK5Ql
+         qTjRjzvjE8/US6Fp2TvM6kWnwlyF5k2Ta27Cz4FP2Y1qHThLMImpo9CkqtQhVMLgc1eq
+         mRHaXGegcTV3uGmSAbkJ9nr7rMG4Ag0ZAE9QckLv+HOMJIQ1Ln312d5dS/ytpHaWaT4d
+         tVHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
-         :content-language:user-agent:mime-version:date:message-id
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nQd+QhpwRnF3wyVrQuuVP52v3cZ2QpqTThkyv4Fl8ik=;
-        b=40pPAIQo/tA8Hmp3OAgwrbH1kA5lK9C2gajPDwFbX5Quc59ZDKLzi/tvYp482+lHys
-         0wcqv9I5tNHC9LiP2D7r4udRvUscMOHq+gNZ3kBElx8xghbataw6b9nZmS14X/fj3Ov4
-         6f3YJ0cit9StUhzk1jxw2eYsEKg/NkYui8etsIy0mBS/rtZpWVOhC5GNYHEmBQRMuQR/
-         bNnbW+o0g41CCedHMp7cIjeR85tVPSPet/y18y2++//jbJi7FXFDxc93+1lD/DBHYwVv
-         4xeo/2ECam54OmXHN5aOa6d2e9VQsV4CmGNrM/RMy4nqld5pDchxVESk7iTmU+vA5AR2
-         ISjg==
-X-Gm-Message-State: AO0yUKWuwYXY7kc8rAV1W5XZZQuk5c2YNvZXCqVzxOirWMPfv/ZocAnZ
-	BuyCU3QEIXKDla6jge5Stpg2SzEZ4AThEouhMhyTlvRWdyi3IWjmTHLQd1GqGfzOnnX9+aSmZE2
-	OccRJorVlNxGcLhiXHmtE8n4sZiQ=
-X-Received: by 2002:adf:e945:0:b0:2c7:17a0:c6b5 with SMTP id m5-20020adfe945000000b002c717a0c6b5mr2892275wrn.34.1677614719637;
-        Tue, 28 Feb 2023 12:05:19 -0800 (PST)
-X-Google-Smtp-Source: AK7set9MmF9eZGPOsdEoWMFU4L/R5a85Aqi1pG3SMRTtHFB4tUvsUD1H2dNf0t4BROa+7hwk1Y3Vhg==
-X-Received: by 2002:adf:e945:0:b0:2c7:17a0:c6b5 with SMTP id m5-20020adfe945000000b002c717a0c6b5mr2892258wrn.34.1677614719335;
-        Tue, 28 Feb 2023 12:05:19 -0800 (PST)
-Message-ID: <99a83e65-273a-ea1b-e7d9-bbdd8ca32145@redhat.com>
-Date: Tue, 28 Feb 2023 21:05:16 +0100
+        bh=R1dNmKfClY06Aa5L+h7HpDXRG5fzMVTrS1Rvpy2Yqh4=;
+        b=MKkUnISCacWWxDl8SW0ET7o12ewUNAGpeHprEy/DQZxuzTtadv6pKEWowHXo0Jr62f
+         RysXxuVudPXKZmPLB3QILrcPEu0BHnucHIfuqLF8DVHnJzD73kXBsDk+6Q7k0DU0hIyJ
+         qrlqtxtuDuUaECwx8xOpBagY+LMBCQdturKy0Fn7uzNjOrLPalfN2T2uBhH0tdmEdyFb
+         QITO/ba79gqjHIgbG3kmph1LuPAbiKunKcxoNwdcoN3O1VqkmLOfngPdP5SiQGK0eUen
+         KdGxB8YWA/Vwam5lTfJj6TdYD/aaKEMA0DtJYQChiLAPrXSJjTcIX/NJnfvM9uy+AJ8+
+         nEGg==
+X-Gm-Message-State: AO0yUKUGn4w84ZQeoJ9iXgsc5eHrDe8auUY/ZiqVIa7f2BMC63htrL9g
+	LglcFjNZ5vvIaoQwIC4XlDo=
+X-Google-Smtp-Source: AK7set+B5IDQZveX9IAjKXZNyj7lFIDsDGoHllTaRdB1XGgOc1fMH4saK/BOV0zx7OnNtx7Ik4I6Xg==
+X-Received: by 2002:a17:907:c207:b0:8f6:dc49:337f with SMTP id ti7-20020a170907c20700b008f6dc49337fmr5616290ejc.43.1677615248334;
+        Tue, 28 Feb 2023 12:14:08 -0800 (PST)
+Message-ID: <ab142406-36ed-ac42-a93c-f0fb5cf7950f@gmail.com>
+Date: Tue, 28 Feb 2023 22:14:02 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, qemu-arm@nongnu.org,
- Maxim Levitsky <mlevitsk@redhat.com>, libvir-list@redhat.com,
- Richard Henderson <richard.henderson@linaro.org>,
- xen-devel@lists.xenproject.org, Reinoud Zandijk <reinoud@netbsd.org>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
-References: <20230227111050.54083-1-thuth@redhat.com>
- <Y/z4rwv09Ckhbtfp@redhat.com>
- <001bedba-b12f-4dd8-0866-7ccb9ce877d0@redhat.com>
- <Y/3C+jC3Lk5MJxfu@redhat.com>
-From: Thomas Huth <thuth@redhat.com>
-Subject: Re: [PATCH 0/2] Deprecate support for 32-bit x86 and arm hosts
-In-Reply-To: <Y/3C+jC3Lk5MJxfu@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH 4/4] x86/hvm: create hvm_funcs for
+ {svm,vmx}_{set,clear}_msr_intercept()
 Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
+References: <20230227075652.3782973-1-burzalodowa@gmail.com>
+ <20230227075652.3782973-5-burzalodowa@gmail.com>
+ <732bbee0-24d3-f5e8-7353-b40a77c3ee2e@suse.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <732bbee0-24d3-f5e8-7353-b40a77c3ee2e@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28/02/2023 10.01, Daniel P. Berrangé wrote:
-> On Tue, Feb 28, 2023 at 08:39:49AM +0100, Thomas Huth wrote:
->> On 27/02/2023 19.38, Daniel P. Berrangé wrote:
->>> On Mon, Feb 27, 2023 at 12:10:48PM +0100, Thomas Huth wrote:
->>>> We're struggling quite badly with our CI minutes on the shared
->>>> gitlab runners, so we urgently need to think of ways to cut down
->>>> our supported build and target environments. qemu-system-i386 and
->>>> qemu-system-arm are not really required anymore, since nobody uses
->>>> KVM on the corresponding systems for production anymore, and the
->>>> -x86_64 and -arch64 variants are a proper superset of those binaries.
->>>> So it's time to deprecate them and the corresponding 32-bit host
->>>> environments now.
->>>>
->>>> This is a follow-up patch series from the previous discussion here:
->>>>
->>>>    https://lore.kernel.org/qemu-devel/20230130114428.1297295-1-thuth@redhat.com/
->>>>
->>>> where people still mentioned that there is still interest in certain
->>>> support for 32-bit host hardware. But as far as I could see, there is
->>>> no real need for 32-bit host support for system emulation on x86 and
->>>> arm anymore, so it should be fine if we drop these host environments
->>>> now (these are also the two architectures that contribute the most to
->>>> the long test times in our CI, so we would benefit a lot by dropping
->>>> those).
->>>
->>> Your description here is a little ambiguous about what's being
->>> proposed. When you say dropping 32-bit host support do you mean
->>> just for the system emulator binaries, or for QEMU entirely ?
->>
->> Just for system emulation. Some people said that user emulation still might
->> be useful for some 32-bit environments.
->>
->>> And when the deprecation period is passed, are you proposing
->>> to actively prevent 32-bit builds, or merely stopping CI testing
->>> and leave 32-bit builds still working if people want them ?
->>
->> CI is the main pain point, so that's the most important thing. So whether we
->> throw a warning or a hard error while configuring the build, I don't care
->> too much.
+
+On 2/28/23 16:58, Jan Beulich wrote:
+> On 27.02.2023 08:56, Xenia Ragiadakou wrote:
+>> Add hvm_funcs hooks for {set,clear}_msr_intercept() for controlling the msr
+>> intercept in common vpmu code.
 > 
-> If we're merely wanting to drop CI support, we can do that any time and
-> deprecation is not required/expected.  We should only be using deprecation
-> where we're explicitly intending that the code will cease to work.
+> What is this going to buy us? All calls ...
+> 
+>> --- a/xen/arch/x86/cpu/vpmu_amd.c
+>> +++ b/xen/arch/x86/cpu/vpmu_amd.c
+>> @@ -165,9 +165,9 @@ static void amd_vpmu_set_msr_bitmap(struct vcpu *v)
+>>   
+>>       for ( i = 0; i < num_counters; i++ )
+>>       {
+>> -        svm_clear_msr_intercept(v, counters[i], MSR_RW);
+>> -        svm_set_msr_intercept(v, ctrls[i], MSR_W);
+>> -        svm_clear_msr_intercept(v, ctrls[i], MSR_R);
+>> +        hvm_clear_msr_intercept(v, counters[i], MSR_RW);
+>> +        hvm_set_msr_intercept(v, ctrls[i], MSR_W);
+>> +        hvm_clear_msr_intercept(v, ctrls[i], MSR_R);
+>>       }
+>>   
+>>       msr_bitmap_on(vpmu);
+>> @@ -180,8 +180,8 @@ static void amd_vpmu_unset_msr_bitmap(struct vcpu *v)
+>>   
+>>       for ( i = 0; i < num_counters; i++ )
+>>       {
+>> -        svm_set_msr_intercept(v, counters[i], MSR_RW);
+>> -        svm_set_msr_intercept(v, ctrls[i], MSR_RW);
+>> +        hvm_set_msr_intercept(v, counters[i], MSR_RW);
+>> +        hvm_set_msr_intercept(v, ctrls[i], MSR_RW);
+>>       }
+>>   
+>>       msr_bitmap_off(vpmu);
+> 
+> ... here will got to the SVM functions anyway, while ...
+> 
+>> --- a/xen/arch/x86/cpu/vpmu_intel.c
+>> +++ b/xen/arch/x86/cpu/vpmu_intel.c
+>> @@ -230,22 +230,22 @@ static void core2_vpmu_set_msr_bitmap(struct vcpu *v)
+>>   
+>>       /* Allow Read/Write PMU Counters MSR Directly. */
+>>       for ( i = 0; i < fixed_pmc_cnt; i++ )
+>> -        vmx_clear_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR0 + i, MSR_RW);
+>> +        hvm_clear_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR0 + i, MSR_RW);
+>>   
+>>       for ( i = 0; i < arch_pmc_cnt; i++ )
+>>       {
+>> -        vmx_clear_msr_intercept(v, MSR_IA32_PERFCTR0 + i, MSR_RW);
+>> +        hvm_clear_msr_intercept(v, MSR_IA32_PERFCTR0 + i, MSR_RW);
+>>   
+>>           if ( full_width_write )
+>> -            vmx_clear_msr_intercept(v, MSR_IA32_A_PERFCTR0 + i, MSR_RW);
+>> +            hvm_clear_msr_intercept(v, MSR_IA32_A_PERFCTR0 + i, MSR_RW);
+>>       }
+>>   
+>>       /* Allow Read PMU Non-global Controls Directly. */
+>>       for ( i = 0; i < arch_pmc_cnt; i++ )
+>> -        vmx_clear_msr_intercept(v, MSR_P6_EVNTSEL(i), MSR_R);
+>> +        hvm_clear_msr_intercept(v, MSR_P6_EVNTSEL(i), MSR_R);
+>>   
+>> -    vmx_clear_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR_CTRL, MSR_R);
+>> -    vmx_clear_msr_intercept(v, MSR_IA32_DS_AREA, MSR_R);
+>> +    hvm_clear_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR_CTRL, MSR_R);
+>> +    hvm_clear_msr_intercept(v, MSR_IA32_DS_AREA, MSR_R);
+>>   }
+>>   
+>>   static void core2_vpmu_unset_msr_bitmap(struct vcpu *v)
+>> @@ -253,21 +253,21 @@ static void core2_vpmu_unset_msr_bitmap(struct vcpu *v)
+>>       unsigned int i;
+>>   
+>>       for ( i = 0; i < fixed_pmc_cnt; i++ )
+>> -        vmx_set_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR0 + i, MSR_RW);
+>> +        hvm_set_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR0 + i, MSR_RW);
+>>   
+>>       for ( i = 0; i < arch_pmc_cnt; i++ )
+>>       {
+>> -        vmx_set_msr_intercept(v, MSR_IA32_PERFCTR0 + i, MSR_RW);
+>> +        hvm_set_msr_intercept(v, MSR_IA32_PERFCTR0 + i, MSR_RW);
+>>   
+>>           if ( full_width_write )
+>> -            vmx_set_msr_intercept(v, MSR_IA32_A_PERFCTR0 + i, MSR_RW);
+>> +            hvm_set_msr_intercept(v, MSR_IA32_A_PERFCTR0 + i, MSR_RW);
+>>       }
+>>   
+>>       for ( i = 0; i < arch_pmc_cnt; i++ )
+>> -        vmx_set_msr_intercept(v, MSR_P6_EVNTSEL(i), MSR_R);
+>> +        hvm_set_msr_intercept(v, MSR_P6_EVNTSEL(i), MSR_R);
+>>   
+>> -    vmx_set_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR_CTRL, MSR_R);
+>> -    vmx_set_msr_intercept(v, MSR_IA32_DS_AREA, MSR_R);
+>> +    hvm_set_msr_intercept(v, MSR_CORE_PERF_FIXED_CTR_CTRL, MSR_R);
+>> +    hvm_set_msr_intercept(v, MSR_IA32_DS_AREA, MSR_R);
+>>   }
+>>   
+>>   static inline void __core2_vpmu_save(struct vcpu *v)
+> 
+> ... all calls here will go to VMX'es. For making either vpmu_<vendor>.c
+> build without that vendor's virtualization enabled, isn't it all it
+> takes to have ...
+> 
+>> @@ -916,6 +932,18 @@ static inline void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
+>>       ASSERT_UNREACHABLE();
+>>   }
+>>   
+>> +static inline void hvm_set_msr_intercept(struct vcpu *v, uint32_t msr,
+>> +                                         int flags)
+>> +{
+>> +    ASSERT_UNREACHABLE();
+>> +}
+>> +
+>> +static inline void hvm_clear_msr_intercept(struct vcpu *v, uint32_t msr,
+>> +                                           int flags)
+>> +{
+>> +    ASSERT_UNREACHABLE();
+>> +}
+> 
+> ... respective SVM and VMX stubs in place instead?
 
-Well, without CI, I assume that the code will bitrot quite fast (considering 
-that there are continuous improvements to TCG, for example). And who's then 
-still volunteering to fix bugs that have crept in months ago, for a host 
-architecture that nobody really uses anymore?
-Clearly, 32-bit x86 host is pretty much dead nowadays, especially for 
-programs like QEMU that need beefy host hardware. Why do we still waste our 
-time with this?
+IMO it is more readable and they looked very good candidates for being 
+abstracted because they are doing the same thing under both technologies.
+Are you suggesting that their usage in common code should be discouraged 
+and should not be exported via the hvm_funcs interface? Or just that the 
+amount of changes cannot be justified.
+IIUC Andrew also suggested to use hvm_funcs for msr intercept handling 
+but I 'm not sure whether he had this or sth else in mind.
 
-  Thomas
-
+-- 
+Xenia
 
