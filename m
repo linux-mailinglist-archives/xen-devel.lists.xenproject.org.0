@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D2526A56C6
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 11:31:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503222.775421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D00E6A56DF
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 11:36:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503228.775430 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWxGC-0005tI-Hn; Tue, 28 Feb 2023 10:31:04 +0000
+	id 1pWxL7-0006W2-2w; Tue, 28 Feb 2023 10:36:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503222.775421; Tue, 28 Feb 2023 10:31:04 +0000
+Received: by outflank-mailman (output) from mailman id 503228.775430; Tue, 28 Feb 2023 10:36:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWxGC-0005rA-EL; Tue, 28 Feb 2023 10:31:04 +0000
-Received: by outflank-mailman (input) for mailman id 503222;
- Tue, 28 Feb 2023 10:31:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YG3a=6Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pWxGA-0005r4-VU
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 10:31:03 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id febe4694-b752-11ed-a550-8520e6686977;
- Tue, 28 Feb 2023 11:31:00 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id f16so9630224ljq.10
- for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 02:31:00 -0800 (PST)
-Received: from [192.168.8.114] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
- [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
- b28-20020a05651c033c00b002947028ae7csm1132356ljp.72.2023.02.28.02.30.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Feb 2023 02:30:59 -0800 (PST)
+	id 1pWxL7-0006UK-0H; Tue, 28 Feb 2023 10:36:09 +0000
+Received: by outflank-mailman (input) for mailman id 503228;
+ Tue, 28 Feb 2023 10:36:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6iFD=6Y=tibco.com=clindig@srs-se1.protection.inumbo.net>)
+ id 1pWxL4-0006UB-RD
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 10:36:06 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b2d48e1f-b753-11ed-9693-2f268f93b82a;
+ Tue, 28 Feb 2023 11:36:03 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id az36so6072119wmb.1
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 02:36:02 -0800 (PST)
+Received: from smtpclient.apple (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ z14-20020a05600c220e00b003e11f280b8bsm15403749wml.44.2023.02.28.02.36.01
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 28 Feb 2023 02:36:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,124 +44,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: febe4694-b752-11ed-a550-8520e6686977
+X-Inumbo-ID: b2d48e1f-b753-11ed-9693-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=R9s7fnqgePtqWJ7qc7BcwaGOakPxblytLMey93ztBk0=;
-        b=XaXKaO41glMOigeY1OIkkBejuQYc6sV9t8ovZgfRVyl3TQvlVEsRZfYGfYHo6u0yqe
-         S7L37x0pqKtVf0i+39bploFhMTCCDjGvV6umauFfsusjvGfcNytNlcxWWEcw+cqO7bh5
-         0rpHbuwaz0RqythGPRDKlaWEmW5bYbfHqypXc3R8zdMVneUYx+mSvycOwDFZ8ubjfokg
-         SFiyLxSd0pJ/lpPnIMTRZ10WtZGbcahV+7aMKTdUBdwpXqAqYz3Lbc8KxPR9aBbhh5Cd
-         kPw50wWXDLLv1Z6zdMHQabuzoYRqt8zYEGuUIgAG7xpy2AIHThSMiVd4iFGyPKCN26PG
-         i1Mg==
+        d=cloud.com; s=cloud;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JGLeblcmBGk6y9bwTMPY/mk+Czph7mN7rCy0DyVYDaE=;
+        b=i03uKIFbFYWJvXc2k4z/o10JO/BiIoq6vgfPGXO6QVcGD/MVt91WalMRNj3HVlThRL
+         ijNhvJfGhihKdF/gUkBKU5c23zCcab5v31ZWfuYl2ekCCWx78VSsg/SmF/dP645usu/Q
+         QrMNNUvstfBRtCW2A24YiHbjohs5+o66y32UE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=R9s7fnqgePtqWJ7qc7BcwaGOakPxblytLMey93ztBk0=;
-        b=2HhQmvjvyXbseM4N9NRYXxnz2V7lzt42fwSeP3sjKL9C7pSaxgR0iyLWcKXtOXyGpm
-         EtmbUU5LXwfB9O8O00d8nE7s0gXMa308sVM49dpbXpnp/ZZOo40RicermsS8b6ML6+bG
-         Wz3T/JeWmCoXakzuguCpTM1YMtYSb9hbe9DhBOwVGaQz21KAiGzZHVu+1SEhDrz33gYn
-         idjEyQT3ec3MLWMllTFz0Rbba4d9NZmG+zFt4mRd3ZPhtnnK6HwbP7VXau8qPX0ilydU
-         D0FLdBFiLz0Nfyz78BuK8WizEn0IEPJsDLM3bQIQWPnf7DICdMVg62A9PVQV/PxEXSnN
-         L46g==
-X-Gm-Message-State: AO0yUKW3C502ibVB1PC1o7u/Y7Z2PC+FAbGv0WzHasL5TnzrvxcduAdg
-	9QxOQ0nYxa+gWpwgsu4q0I4=
-X-Google-Smtp-Source: AK7set/OMNpz1pE7SCF9PRP6SmN1T4NKTyBlCrYuvaVsPvFK7ya7hhi8k0HXhCkc4VB6xvn2hsgsDQ==
-X-Received: by 2002:a2e:86d9:0:b0:295:a3a9:a3e4 with SMTP id n25-20020a2e86d9000000b00295a3a9a3e4mr737811ljj.45.1677580260151;
-        Tue, 28 Feb 2023 02:31:00 -0800 (PST)
-Message-ID: <507c5449a56ce5cf5758bef967d511bf545d8405.camel@gmail.com>
-Subject: Re: [PATCH v3 1/4] xen: introduce CONFIG_GENERIC_BUG_FRAME
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, George
- Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
- <wl@xen.org>,  xen-devel@lists.xenproject.org
-Date: Tue, 28 Feb 2023 12:30:57 +0200
-In-Reply-To: <f052e88e-1c85-3116-b76a-24785b005121@suse.com>
-References: <cover.1677233393.git.oleksii.kurochko@gmail.com>
-	 <932b0fd2a211d2d837d00e1bda87a84ad680fe7b.1677233393.git.oleksii.kurochko@gmail.com>
-	 <f052e88e-1c85-3116-b76a-24785b005121@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
-MIME-Version: 1.0
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=JGLeblcmBGk6y9bwTMPY/mk+Czph7mN7rCy0DyVYDaE=;
+        b=VssJLxKzo/N+baJFmsAFxcjuuhisJ3Fey1xJjn2KB3Sr5w+KFL4swTCjpQ6/dxdRxZ
+         tOzEjjuvpXT7liPBs0xy+oY8bwGc1i9vIUr8HG+PnNFD3H0h/YHm0sakG/awoHzpfwzY
+         LqZ1wyUqxwtwS9/FJTS9c3RWf0NTbn3ZmwBTXGTaM3vOFBIJkprOzyLgKE/FXtiThz+Z
+         oGFE+vLh82ndzABTyGTMV2sDqWrRorT3HvhAsmXYx40Heg55LWUnAhp2CkVLAtwzqdHZ
+         v0BIFSX6Mn/t5nIAKYAABRYdgl3sufRKLpseaui+L0Q61bIB1NDSHrsmTc44mG1OpIMP
+         wcGg==
+X-Gm-Message-State: AO0yUKWfhdgUfRVAfCxDbRv1S3QVi4aOWirPHCRiZ+x3kiu8Sq1uDZ7G
+	/vNUJXeNHUZSFGbHXp3NEyTuyQ==
+X-Google-Smtp-Source: AK7set/++YXjnoLEdpNkP63TFAJbWOuJARn1sXAItRDt640/wHjWUMN/85rQox53hLw1g41p/05VJg==
+X-Received: by 2002:a05:600c:1652:b0:3eb:399d:ab18 with SMTP id o18-20020a05600c165200b003eb399dab18mr1682758wmn.35.1677580562277;
+        Tue, 28 Feb 2023 02:36:02 -0800 (PST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
+Subject: Re: [PATCH v2 0/4] tools: use xen-tools/libs.h for common definitions
+From: Christian Lindig <christian.lindig@cloud.com>
+In-Reply-To: <20230227154153.31080-1-jgross@suse.com>
+Date: Tue, 28 Feb 2023 10:36:00 +0000
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ David Scott <dave@recoil.org>,
+ =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+ Julien Grall <julien@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <D0EEECEC-1BBB-4723-80B7-2D12769F29FC@cloud.com>
+References: <20230227154153.31080-1-jgross@suse.com>
+To: Juergen Gross <jgross@suse.com>
+X-Mailer: Apple Mail (2.3696.120.41.1.1)
 
-T24gTW9uLCAyMDIzLTAyLTI3IGF0IDE1OjIzICswMTAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBP
-biAyNC4wMi4yMDIzIDEyOjMxLCBPbGVrc2lpIEt1cm9jaGtvIHdyb3RlOgo+ID4gLS0tIC9kZXYv
-bnVsbAo+ID4gKysrIGIveGVuL2NvbW1vbi9idWcuYwo+ID4gQEAgLTAsMCArMSwxMDkgQEAKPiA+
-ICsjaW5jbHVkZSA8eGVuL2J1Zy5oPgo+ID4gKyNpbmNsdWRlIDx4ZW4vZGVidWdnZXIuaD4KPiA+
-ICsjaW5jbHVkZSA8eGVuL2Vycm5vLmg+Cj4gPiArI2luY2x1ZGUgPHhlbi9rZXJuZWwuaD4KPiA+
-ICsjaW5jbHVkZSA8eGVuL2xpdmVwYXRjaC5oPgo+ID4gKyNpbmNsdWRlIDx4ZW4vc3RyaW5nLmg+
-Cj4gPiArI2luY2x1ZGUgPHhlbi90eXBlcy5oPgo+ID4gKyNpbmNsdWRlIDx4ZW4vdmlydHVhbF9y
-ZWdpb24uaD4KPiA+ICsKPiA+ICsjaW5jbHVkZSA8YXNtL3Byb2Nlc3Nvci5oPgo+ID4gKwo+ID4g
-Ky8qIFNldCBkZWZhdWx0IHZhbHVlIGZvciBUUkFQX2ludmFsaWRfb3AgYXMgaXQgaXMgZGVmaW5l
-ZCBvbmx5IGZvcgo+ID4gWDg2IG5vdyAqLwo+ID4gKyNpZm5kZWYgVFJBUF9pbnZhbGlkX29wCj4g
-PiArI2RlZmluZSBUUkFQX2ludmFsaWRfb3AgMAo+ID4gKyNlbmRpZgo+ID4gKwo+ID4gK2ludCBk
-b19idWdfZnJhbWUoY29uc3Qgc3RydWN0IGNwdV91c2VyX3JlZ3MgKnJlZ3MsIHVuc2lnbmVkIGxv
-bmcKPiA+IHBjKQo+ID4gK3sKPiA+ICvCoMKgwqAgY29uc3Qgc3RydWN0IGJ1Z19mcmFtZSAqYnVn
-ID0gTlVMTDsKPiA+ICvCoMKgwqAgY29uc3Qgc3RydWN0IHZpcnR1YWxfcmVnaW9uICpyZWdpb247
-Cj4gPiArwqDCoMKgIGNvbnN0IGNoYXIgKnByZWZpeCA9ICIiLCAqZmlsZW5hbWUsICpwcmVkaWNh
-dGU7Cj4gPiArwqDCoMKgIHVuc2lnbmVkIGxvbmcgZml4dXA7Cj4gPiArwqDCoMKgIHVuc2lnbmVk
-IGludCBpZCA9IEJVR0ZSQU1FX05SLCBsaW5lbm87Cj4gPiArCj4gPiArwqDCoMKgIHJlZ2lvbiA9
-IGZpbmRfdGV4dF9yZWdpb24ocGMpOwo+ID4gK8KgwqDCoCBpZiAoIHJlZ2lvbiApCj4gPiArwqDC
-oMKgIHsKPiA+ICvCoMKgwqDCoMKgwqDCoCBmb3IgKCBpZCA9IDA7IGlkIDwgQlVHRlJBTUVfTlI7
-IGlkKysgKQo+ID4gK8KgwqDCoMKgwqDCoMKgIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGNvbnN0IHN0cnVjdCBidWdfZnJhbWUgKmI7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1
-bnNpZ25lZCBpbnQgaTsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZvciAoIGkg
-PSAwLCBiID0gcmVnaW9uLT5mcmFtZVtpZF0uYnVnczsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGkgPCByZWdpb24tPmZyYW1lW2lkXS5uX2J1Z3M7IGIrKywgaSsrICkK
-PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgaWYgKCBidWdfbG9jKGIpID09IHBjICkKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGJ1ZyA9IGI7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290
-byBmb3VuZDsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+ID4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgfQo+ID4gK8KgwqDCoMKgwqDCoMKgIH0KPiA+ICvCoMKgwqAgfQo+
-ID4gKwo+ID4gKyBmb3VuZDoKPiA+ICvCoMKgwqAgaWYgKCAhYnVnICkKPiA+ICvCoMKgwqDCoMKg
-wqDCoCByZXR1cm4gLUVJTlZBTDsKPiA+ICsKPiA+ICvCoMKgwqAgaWYgKCBpZCA9PSBCVUdGUkFN
-RV9ydW5fZm4gKQo+ID4gK8KgwqDCoCB7Cj4gPiArI2lmZGVmIEJVR19GTl9SRUcKPiA+ICvCoMKg
-wqDCoMKgwqDCoCB2b2lkICgqZm4pKGNvbnN0IHN0cnVjdCBjcHVfdXNlcl9yZWdzICopID0gKHZv
-aWQgKilyZWdzLQo+ID4gPkJVR19GTl9SRUc7Cj4gPiArI2Vsc2UKPiA+ICvCoMKgwqDCoMKgwqDC
-oCB2b2lkICgqZm4pKGNvbnN0IHN0cnVjdCBjcHVfdXNlcl9yZWdzICopID0gYnVnX3B0cihidWcp
-Owo+ID4gKyNlbmRpZgo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgIGZuKHJlZ3MpOwo+ID4gKwo+
-ID4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiBpZDsKPiA+ICvCoMKgwqAgfQo+ID4gKwo+ID4gK8Kg
-wqDCoCAvKiBXQVJOLCBCVUcgb3IgQVNTRVJUOiBkZWNvZGUgdGhlIGZpbGVuYW1lIHBvaW50ZXIg
-YW5kIGxpbmUKPiA+IG51bWJlci4gKi8KPiA+ICvCoMKgwqAgZmlsZW5hbWUgPSBidWdfcHRyKGJ1
-Zyk7Cj4gPiArwqDCoMKgIGlmICggIWlzX2tlcm5lbChmaWxlbmFtZSkgJiYgIWlzX3BhdGNoKGZp
-bGVuYW1lKSApCj4gPiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4gPiArwqDCoMKg
-IGZpeHVwID0gc3RybGVuKGZpbGVuYW1lKTsKPiA+ICvCoMKgwqAgaWYgKCBmaXh1cCA+IDUwICkK
-PiA+ICvCoMKgwqAgewo+ID4gK8KgwqDCoMKgwqDCoMKgIGZpbGVuYW1lICs9IGZpeHVwIC0gNDc7
-Cj4gPiArwqDCoMKgwqDCoMKgwqAgcHJlZml4ID0gIi4uLiI7Cj4gPiArwqDCoMKgIH0KPiA+ICvC
-oMKgwqAgbGluZW5vID0gYnVnX2xpbmUoYnVnKTsKPiA+ICsKPiA+ICvCoMKgwqAgc3dpdGNoICgg
-aWQgKQo+ID4gK8KgwqDCoCB7Cj4gPiArwqDCoMKgIGNhc2UgQlVHRlJBTUVfd2FybjoKPiA+ICvC
-oMKgwqDCoMKgwqDCoCBwcmludGsoIlhlbiBXQVJOIGF0ICVzJXM6JWRcbiIsIHByZWZpeCwgZmls
-ZW5hbWUsIGxpbmVubyk7Cj4gPiArwqDCoMKgwqDCoMKgwqAgc2hvd19leGVjdXRpb25fc3RhdGUo
-cmVncyk7Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGlkOwo+ID4gKwo+ID4gK8Kg
-wqDCoCBjYXNlIEJVR0ZSQU1FX2J1ZzoKPiA+ICvCoMKgwqDCoMKgwqDCoCBwcmludGsoIlhlbiBC
-VUcgYXQgJXMlczolZFxuIiwgcHJlZml4LCBmaWxlbmFtZSwgbGluZW5vKTsKPiA+ICsKPiA+ICvC
-oMKgwqDCoMKgwqDCoCBpZiAoIGRlYnVnZ2VyX3RyYXBfZmF0YWwoVFJBUF9pbnZhbGlkX29wLCBy
-ZWdzKSApCj4gCj4gVFJBUF9pbnZhbGlkX29wIGlzLCBhcyBzYWlkLCBhYm91dCB0byBkaXNhcHBl
-YXIgb24geDg2IGFzIHdlbGwuIEkKPiB0aGluawo+IHRoaXMgY29uc3RydWN0IHdhbnRzIGFic3Ry
-YWN0aW5nIGJ5IGFub3RoZXIgYXNtL2J1Zy5oIHByb3ZpZGVkIG1hY3JvCj4gKHRha2luZyBqdXN0
-IHJlZ3MpLgo+IApUaGFua3MgZm9yIHRoZSBsaW5rLgoKTmljZSBpZGVhIHRvIGFic3RyYWN0ICdk
-ZWJ1Z2dlcl90cmFwX2ZhdGFsKFRSQVBfaW52YWxpZF9vcCwgcmVncyknLgpBY3R1YWxseSB3ZSBo
-YXZlIHRvIG9wdGlvbnMgaGVyZToKMS4gQXMgeW91IHByb3Bvc2VkIGFic3RyYWN0IGluIDxhc20v
-YnVnLmg+OgogICB4ODY6ICAjZGVmaW5lIERFQlVHX1RSQVBfRkFUQUwocmVncykgZGVidWdnZXJf
-dHJhcF9mYXRhbChYODZfRVhDX0dQLApyZWdzKQogICBBUk06ICNkZWZpbmUgREVCVUdfVFJBUF9G
-QVRBTChyZWdzKSAwCiAgIFJJU0MtVjogI2RlZmluZSBERUJVR19UUkFQX0ZBVEFMKHJlZ3MpIDAK
-ICBGb3IgQVJNIGFuZCBSSVNDLVYgaXQgZG9lc24ndCB1c2Ugc28gd2UgY2FuIHNraXAgdGhlIGNo
-ZWNrIGlmICgKREVCVUdfVFJBUF9GQVRBTCApLgoKMi4gQWJzdHJhY3Qgb25seSBUUkFQX2ludmFs
-aWRfb3AgaW4gPGFzbS9idWcuaD4KICB4ODY6ICNkZWZpbmUgVFJBUF9pbnZhbHVkX29wIFg4Nl9F
-WENfR1AKICBSSVNDLVY6ICNkZWZpbmUgVFJBUF9pbnZhbGlkX29wIDAKICBBUk46ICNkZWZpbmUg
-VFJBUF9pbnZhbGlkX29wIDAKICAKICBJIGFtIG5vdCBzdXJlIGlmIHdlIGhhdmUgdG8gcHJvdmlk
-ZSByZWFsIGludmFsaWQgb3Bjb2RlcyBmb3IgUklTQy1WCmFuZCBBUk0gYXMgaXQgbG9va3MgbGlr
-ZSBkZWJ1Z190cmFwX2ZhdGFsKCkgaXNuJ3QgdXNlZCBpbiBBUk0mUklTQy1WCm5vdy4KCkNvdWxk
-IHlvdSBwbGVhc2Ugc3VnZ2VzdCB3aGljaCBvbmUgb3B0aW9uIGlzIGJldHRlcj8KCn4gT2xla3Np
-aQoKICAKCj4gSmFuCgo=
+
+
+> On 27 Feb 2023, at 15:41, Juergen Gross <jgross@suse.com> wrote:
+> 
+> There are some macros defined multiple times in tools. Use only
+> a single header file for defining those macros and drop the copies.
+> 
+> V2:
+> - add patch 1 (Andrew Cooper)
+> 
+> Juergen Gross (4):
+>  tools: rename xen-tools/libs.h file to common-macros.h
+>  tools: add container_of() macro to xen-tools/common-macros.h
+>  tools: get rid of additional min() and max() definitions
+>  tools: add offsetof() to xen-tools/common-macros.h
+> 
+> tools/console/daemon/io.c                     |  2 +-
+> tools/firmware/hvmloader/util.h               | 11 ++--------
+> tools/firmware/include/stddef.h               |  4 ++--
+> tools/fuzz/cpu-policy/afl-policy-fuzzer.c     |  2 +-
+> .../xen-tools/{libs.h => common-macros.h}     | 22 ++++++++++++++++---
+> tools/libfsimage/Rules.mk                     |  2 ++
+> tools/libfsimage/xfs/fsys_xfs.c               |  4 +---
+> tools/libs/call/buffer.c                      |  2 +-
+> tools/libs/ctrl/xc_pm.c                       |  2 +-
+> tools/libs/ctrl/xc_private.h                  |  2 +-
+> tools/libs/foreignmemory/linux.c              |  2 +-
+> tools/libs/gnttab/freebsd.c                   |  2 +-
+> tools/libs/gnttab/linux.c                     |  2 +-
+> tools/libs/guest/xg_core_arm.c                |  2 +-
+> tools/libs/guest/xg_cpuid_x86.c               |  2 +-
+> tools/libs/guest/xg_dom_arm.c                 |  2 +-
+> tools/libs/guest/xg_dom_bzimageloader.c       |  2 +-
+> tools/libs/guest/xg_dom_x86.c                 |  2 +-
+> tools/libs/guest/xg_sr_common.c               |  2 +-
+> tools/libs/light/libxl_internal.h             |  2 +-
+> tools/libs/light/libxl_psr.c                  |  2 +-
+> tools/libs/stat/xenstat_linux.c               |  2 +-
+> tools/libs/vchan/init.c                       |  7 +-----
+> tools/misc/xen-access.c                       |  2 +-
+> tools/misc/xen-cpuid.c                        |  2 +-
+> tools/misc/xen-diag.c                         |  2 +-
+> tools/misc/xen-hptool.c                       |  2 +-
+> tools/misc/xen-livepatch.c                    |  2 +-
+> tools/misc/xen-mfndump.c                      |  2 +-
+> tools/misc/xenpm.c                            |  2 +-
+> tools/ocaml/libs/mmap/xenmmap_stubs.c         |  2 +-
+> tools/ocaml/libs/xc/xenctrl_stubs.c           |  2 +-
+> tools/python/xen/lowlevel/xc/xc.c             |  2 +-
+> tools/tests/cpu-policy/test-cpu-policy.c      |  2 +-
+> .../paging-mempool/test-paging-mempool.c      |  2 +-
+> tools/tests/resource/test-resource.c          |  2 +-
+> tools/tests/tsx/test-tsx.c                    |  2 +-
+> tools/tests/vhpet/emul.h                      | 16 +-------------
+> tools/tests/vpci/emul.h                       | 22 +------------------
+> tools/tests/x86_emulator/x86-emulate.h        |  7 +-----
+> tools/tests/xenstore/test-xenstore.c          |  2 +-
+> tools/xenstore/list.h                         |  6 ++---
+> tools/xenstore/utils.h                        |  2 +-
+> tools/xentrace/analyze.h                      |  2 +-
+> tools/xl/xl_cmdtable.c                        |  2 +-
+> xen/lib/x86/private.h                         |  2 +-
+> 46 files changed, 68 insertions(+), 105 deletions(-)
+> rename tools/include/xen-tools/{libs.h => common-macros.h} (74%)
+> 
+> -- 
+> 2.35.3
+> 
+
+Acked-by: Christian Lindig <christian.lindig@cloud.com>
+
 
 
