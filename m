@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 828146A5AB0
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 15:18:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503389.775651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3C4A6A5AB2
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 15:19:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503394.775661 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX0nc-0005fe-DZ; Tue, 28 Feb 2023 14:17:48 +0000
+	id 1pX0od-0006ET-QH; Tue, 28 Feb 2023 14:18:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503389.775651; Tue, 28 Feb 2023 14:17:48 +0000
+Received: by outflank-mailman (output) from mailman id 503394.775661; Tue, 28 Feb 2023 14:18:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX0nc-0005cI-Ac; Tue, 28 Feb 2023 14:17:48 +0000
-Received: by outflank-mailman (input) for mailman id 503389;
- Tue, 28 Feb 2023 14:17:46 +0000
+	id 1pX0od-0006Cl-NU; Tue, 28 Feb 2023 14:18:51 +0000
+Received: by outflank-mailman (input) for mailman id 503394;
+ Tue, 28 Feb 2023 14:18:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=S+N/=6Y=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pX0na-0005bu-Pd
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 14:17:46 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ id 1pX0oc-0006Cb-Ch
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 14:18:50 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ab1acedc-b772-11ed-a550-8520e6686977;
- Tue, 28 Feb 2023 15:17:44 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id e37so7444513wri.10
- for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 06:17:44 -0800 (PST)
+ id d12818b2-b772-11ed-a550-8520e6686977;
+ Tue, 28 Feb 2023 15:18:48 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ l7-20020a05600c4f0700b003e79fa98ce1so5974308wmq.2
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 06:18:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,124 +40,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab1acedc-b772-11ed-a550-8520e6686977
+X-Inumbo-ID: d12818b2-b772-11ed-a550-8520e6686977
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Lh7KWnQCnU0Xy11ERAph7q0T0htYbN4VPL78n+lioss=;
-        b=XINu/uhsOJAR39CS67rUqmJs/rhFSfkCX8HqvT63CTx6mHONjE9le76h8tDNBoE8XP
-         QfWKinWYzqxkHUe8jjDTBx+ER48Z+9RH4TEIbG3bpR1omN+vgaCMR5fDLfpFIcuDgBme
-         +Ub9xwPgmZVhYJxCdwDLde5/4rl5y2SAA9f1ueHxLFp4NPNvsa+I9V15fT+vO/rBE/K5
-         sUlXjuqCPy8vPRqKRKp9AJxqvr3iKHiIkdKYXKnkfKHs899uG6BagQa3cjLQSkxhv7TQ
-         zY59pg8/s7WXBlq4OFoyQyLkxiiILhlOG1LyBLXd9XvkY/FhHGILTB94brBSupekT6vw
-         3gAA==
+        bh=s+ekqBER0OZIQJK/rifnO8+K5Gv3JnO/QqzguiwJQR8=;
+        b=vCc3ypjBwpKyt+odXIrAHGY9Z74C63Ld7q+XZDT9Ye1gpK73glFZcBRKhYIV2QGWsB
+         y1kMqdY87+Sgin3paMBWp/5/wGZ8lDpiEV18kBMIIKN3oTxjCYHhI4lczWDfeKGfQ2hx
+         vz5G1DwMHVkVvTmVaRo8IflAtPu6WGdlZhm2NalGnFrjRp9UAbZt9Qsa39MwdELWsv9q
+         pMWHIK7nNH5RgxXqR7asvpqLKwqZk4zT+svy3fjxFyb2H4xdcxoEhRswBhPsHR1AB2px
+         pJegrBUzZQkQfe6vCHwkprDX7B4MzPtTep6NUjYCetFcUAX4TqgHTuGl6fKo0Vo8yXlu
+         Ft0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Lh7KWnQCnU0Xy11ERAph7q0T0htYbN4VPL78n+lioss=;
-        b=TpPFLBvsmdCVqyxTk+w+VRaNXUrKUsX07TDTYB3apehTLaMaThq/Qj5hkjCJCJtIwZ
-         wPAvx063pfm/Ctau7npmgqQJ65l6InLVNthWSxx3igIlGdGdGiL8tF08nF/UXNAW3CDz
-         kYsn8oPNs/86ghRGqAHdWJ+7jljAGjidIUH+bztBh0ARZA/psVUvJ3K8eAL/Vn56AXqU
-         O6GGJGwaw2IHvn8rOusAOO6qnWnBVZrEIysRgez4y3PTfZHl+Nk0gHsZNPmLZ/pbb1GQ
-         gLC81veJ2CIJU9hlZ++RtKHAwL46IwcFiNAgXiLA2zfI6xY2NuFX0CxYFWlblbxT22Mk
-         ml7Q==
-X-Gm-Message-State: AO0yUKX7aS9X3pa2oG0RkDEOFO62v7UImOPs+4kwzvfVLfFkFiY8vGFF
-	mk5hDsaS+pU2UC2VXdRJveEkFUJLDcXhh+rzSzk/3g==
-X-Google-Smtp-Source: AK7set9ALWNnTzuE5yynXOxHXNX7V1XLJWiXHtwYThD2yDLqXza4mUi6fIfw5+bRR+gu6z25mV7pZMUVLrZVnIoNlFI=
-X-Received: by 2002:a5d:63c6:0:b0:2c9:bd6e:83c0 with SMTP id
- c6-20020a5d63c6000000b002c9bd6e83c0mr534828wrw.3.1677593863893; Tue, 28 Feb
- 2023 06:17:43 -0800 (PST)
+        bh=s+ekqBER0OZIQJK/rifnO8+K5Gv3JnO/QqzguiwJQR8=;
+        b=NFpWO1vN8OXLEDgmeyo/mEw0fj6DjVfZno+q+GpgSZkAjh/BI4w66ri9qZzTrEFyG7
+         SVddMN0uNSZVurgoioQQFWIbS1QhZPI2UnFs9359giayFJ+MX4awvctM0hVrwyOb+NeL
+         cZwkpE1GIOE8Hp+iuJMayDVjw543dStGFQvaYdtFH0Y87lVqmxP9XV2aYqmdNPuv8z8g
+         RNSJ6P3zkZLpUcfP7m/yLX8ln0FBL1gzTGYAixsuR2qbgiAn1PsgDmZll2+WZrT0bEFM
+         hgX+XEL9oVO8OLSSgxG6lzTXN13mpiBNTEOqOrM22hCn6Q0hfK3NV4ZOJLbRXW+wQyPp
+         wyaw==
+X-Gm-Message-State: AO0yUKU9PMxbOSoCuPKn8NZS2/fuZeB5k0tV+UlzSfeeEYx+Q8dP9ng6
+	w1ABbVq7X14eLauHUNywT9genWpr5oIOcRXJUxUzoQ==
+X-Google-Smtp-Source: AK7set8XMJT5Qvonbc4oLViypw+cMqo6N4makMAu0K8a07GWP3VC4dr+60EcI7v3OyV1Apg8vuoMseAzr/2L50IbTYw=
+X-Received: by 2002:a05:600c:4f4d:b0:3df:97a1:75e2 with SMTP id
+ m13-20020a05600c4f4d00b003df97a175e2mr823357wmq.4.1677593927792; Tue, 28 Feb
+ 2023 06:18:47 -0800 (PST)
 MIME-Version: 1.0
 References: <cover.1677079671.git.jens.wiklander@linaro.org>
- <6c0ef5d2174bfa8c25aeb94395160ab9d863b63a.1677079672.git.jens.wiklander@linaro.org>
- <EE2EF6DF-0BBB-4F55-A34B-321795F7821B@arm.com>
-In-Reply-To: <EE2EF6DF-0BBB-4F55-A34B-321795F7821B@arm.com>
+ <82e4e0c3ac1614822fddd90336c22e6fad5b485e.1677079672.git.jens.wiklander@linaro.org>
+ <FF2BBB34-102C-425F-9A9A-2D6FA1BEB2D4@arm.com> <42827e14-8daa-66ed-328a-92940dc98a95@xen.org>
+In-Reply-To: <42827e14-8daa-66ed-328a-92940dc98a95@xen.org>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 28 Feb 2023 15:17:33 +0100
-Message-ID: <CAHUa44HimPR8-JQtbq46AebCTOnjarzQ1sRYE2QxwDQOKs-EMw@mail.gmail.com>
-Subject: Re: [XEN PATCH v7 08/20] xen/arm: ffa: note dependency on 4k pages
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
-	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Date: Tue, 28 Feb 2023 15:18:37 +0100
+Message-ID: <CAHUa44GmSdKwOToQHm3dWQ5stkdy+4Wxm9wdKyQMyTeHgn3kaQ@mail.gmail.com>
+Subject: Re: [XEN PATCH v7 09/20] xen/arm: ffa: add support for FFA_ID_GET
+To: Julien Grall <julien@xen.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	Marc Bonnici <Marc.Bonnici@arm.com>, Achin Gupta <Achin.Gupta@arm.com>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Bertrand,
+Hi,
 
-On Fri, Feb 24, 2023 at 4:27 PM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
+On Mon, Feb 27, 2023 at 4:00 PM Julien Grall <julien@xen.org> wrote:
 >
-> HI Jens,
+> Hi,
 >
-> > On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wrote:
+> On 27/02/2023 14:48, Bertrand Marquis wrote:
+> >> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wrote:
+> >>
+> >> Adds support for the FF-A function FFA_ID_GET to return the ID of the
+> >> calling client.
+> >>
+> >> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >> ---
+> >> xen/arch/arm/tee/ffa.c | 21 ++++++++++++++++++++-
+> >> 1 file changed, 20 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >> index 8b0b80ce1ff5..463fd7730573 100644
+> >> --- a/xen/arch/arm/tee/ffa.c
+> >> +++ b/xen/arch/arm/tee/ffa.c
+> >> @@ -167,6 +167,12 @@ static bool ffa_get_version(uint32_t *vers)
+> >>      return true;
+> >> }
+> >>
+> >> +static uint16_t get_vm_id(const struct domain *d)
+> >> +{
+> >> +    /* +1 since 0 is reserved for the hypervisor in FF-A */
+> >> +    return d->domain_id + 1;
+> >> +}
+> >> +
+> >> static void set_regs(struct cpu_user_regs *regs, register_t v0, register_t v1,
+> >>                       register_t v2, register_t v3, register_t v4, register_t v5,
+> >>                       register_t v6, register_t v7)
+> >> @@ -181,6 +187,12 @@ static void set_regs(struct cpu_user_regs *regs, register_t v0, register_t v1,
+> >>          set_user_reg(regs, 7, v7);
+> >> }
+> >>
+> >> +static void set_regs_success(struct cpu_user_regs *regs, uint32_t w2,
+> >> +                             uint32_t w3)
+> >> +{
+> >> +    set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, 0, 0, 0, 0);
+> >> +}
+> >> +
+> >> static void handle_version(struct cpu_user_regs *regs)
+> >> {
+> >>      struct domain *d = current->domain;
+> >> @@ -210,6 +222,9 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+> >>      case FFA_VERSION:
+> >>          handle_version(regs);
+> >>          return true;
+> >> +    case FFA_ID_GET:
+> >> +        set_regs_success(regs, get_vm_id(d), 0);
+> >> +        return true;
+> >>
+> >>      default:
+> >>          gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
+> >> @@ -221,7 +236,11 @@ static int ffa_domain_init(struct domain *d)
+> >> {
+> >>      struct ffa_ctx *ctx;
+> >>
+> >> -    if ( !ffa_version )
+> >> +     /*
+> >> +      * We can't use that last possible domain ID or get_vm_id() would cause
+> >> +      * an overflow.
+> >> +      */
+> >> +    if ( !ffa_version || d->domain_id == UINT16_MAX)
+> >>          return -ENODEV;
 > >
-> > Adds a BUILD_BUG_ON() to assert the dependency on 4k pages in the FF-A
-> > mediator.
+> > In reality the overflow could only happen if this is called by the IDLE domain right now.
+> > Anyway this could change and this is making the code more robust at no real cost.
 > >
-> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> > I would just suggest here to return a different error code like ERANGE for example to
+> > prevent missing ENODEV with other cases not related to FFA not being available.
 >
-> NIT: I would s/note/enforce/ in the title:
-> xen/arm: ffa: enforce 4k pages
+> +1. I would also like to suggest to use >= rather than == in case we
+> decide to support more than 16-bit domid.
 
-OK, I'll fix it.
+Makes sense, I'll fix it.
 
 Thanks,
 Jens
 
 >
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Cheers,
 >
-> Cheers
-> Bertrand
->
-> > ---
-> > xen/arch/arm/tee/ffa.c | 21 +++++++++++++++++++++
-> > 1 file changed, 21 insertions(+)
-> >
-> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> > index d04bac9cc47f..8b0b80ce1ff5 100644
-> > --- a/xen/arch/arm/tee/ffa.c
-> > +++ b/xen/arch/arm/tee/ffa.c
-> > @@ -56,6 +56,16 @@
-> > #define FFA_MY_VERSION          MAKE_FFA_VERSION(FFA_MY_VERSION_MAJOR, \
-> >                                                  FFA_MY_VERSION_MINOR)
-> >
-> > +/*
-> > + * The FF-A specification explicitly works with 4K pages as a measure of
-> > + * memory size, for example, FFA_RXTX_MAP takes one parameter "RX/TX page
-> > + * count" which is the number of contiguous 4K pages allocated. Xen may use
-> > + * a different page size depending on the configuration to avoid confusion
-> > + * with PAGE_SIZE use a special define when it's a page size as in the FF-A
-> > + * specification.
-> > + */
-> > +#define FFA_PAGE_SIZE                   SZ_4K
-> > +
-> > /* Framework direct request/response */
-> > #define FFA_MSG_FLAG_FRAMEWORK          BIT(31, U)
-> > #define FFA_MSG_TYPE_MASK               0xFFU;
-> > @@ -242,6 +252,17 @@ static bool ffa_probe(void)
-> >     unsigned int major_vers;
-> >     unsigned int minor_vers;
-> >
-> > +    /*
-> > +     * FF-A often works in units of 4K pages and currently it's assumed
-> > +     * that we can map memory using that granularity. See also the comment
-> > +     * above the FFA_PAGE_SIZE define.
-> > +     *
-> > +     * It is possible to support a PAGE_SIZE larger than 4K in Xen, but
-> > +     * until that is fully handled in this code make sure that we only use
-> > +     * 4K page sizes.
-> > +     */
-> > +    BUILD_BUG_ON(PAGE_SIZE != FFA_PAGE_SIZE);
-> > +
-> >     /*
-> >      * psci_init_smccc() updates this value with what's reported by EL-3
-> >      * or secure world.
-> > --
-> > 2.34.1
-> >
->
+> --
+> Julien Grall
 
