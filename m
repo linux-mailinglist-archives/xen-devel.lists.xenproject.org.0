@@ -2,52 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C42546A5787
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 12:11:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503248.775471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1D306A578D
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 12:13:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503252.775481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWxsq-0005Sl-Jx; Tue, 28 Feb 2023 11:11:00 +0000
+	id 1pWxuQ-0005zW-Us; Tue, 28 Feb 2023 11:12:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503248.775471; Tue, 28 Feb 2023 11:11:00 +0000
+Received: by outflank-mailman (output) from mailman id 503252.775481; Tue, 28 Feb 2023 11:12:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWxsq-0005Ph-Gk; Tue, 28 Feb 2023 11:11:00 +0000
-Received: by outflank-mailman (input) for mailman id 503248;
- Tue, 28 Feb 2023 11:10:59 +0000
+	id 1pWxuQ-0005x0-Ru; Tue, 28 Feb 2023 11:12:38 +0000
+Received: by outflank-mailman (input) for mailman id 503252;
+ Tue, 28 Feb 2023 11:12:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KG2Y=6Y=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1pWxso-0005Pb-Tx
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 11:10:59 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20607.outbound.protection.outlook.com
- [2a01:111:f400:7e88::607])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mcKI=6Y=redhat.com=thuth@srs-se1.protection.inumbo.net>)
+ id 1pWxuO-0005wl-Pn
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 11:12:37 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 903c288c-b758-11ed-a550-8520e6686977;
- Tue, 28 Feb 2023 12:10:53 +0100 (CET)
-Received: from BN0PR07CA0023.namprd07.prod.outlook.com (2603:10b6:408:141::6)
- by DM4PR12MB8451.namprd12.prod.outlook.com (2603:10b6:8:182::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.29; Tue, 28 Feb
- 2023 11:10:50 +0000
-Received: from BN8NAM11FT090.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:141:cafe::c) by BN0PR07CA0023.outlook.office365.com
- (2603:10b6:408:141::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.30 via Frontend
- Transport; Tue, 28 Feb 2023 11:10:50 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT090.mail.protection.outlook.com (10.13.177.105) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6156.17 via Frontend Transport; Tue, 28 Feb 2023 11:10:50 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 28 Feb
- 2023 05:10:49 -0600
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 28 Feb 2023 05:10:48 -0600
+ id cbe3f3f3-b758-11ed-a550-8520e6686977;
+ Tue, 28 Feb 2023 12:12:34 +0100 (CET)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-563-kK4wtX-AOEiLkAIiud-KSQ-1; Tue, 28 Feb 2023 06:12:30 -0500
+Received: by mail-wm1-f72.google.com with SMTP id
+ p22-20020a7bcc96000000b003e2036a1516so6752173wma.7
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 03:12:30 -0800 (PST)
+Received: from [192.168.0.2] (ip-109-43-177-75.web.vodafone.de.
+ [109.43.177.75]) by smtp.gmail.com with ESMTPSA id
+ n17-20020a05600c4f9100b003e876122dc1sm16604362wmq.47.2023.02.28.03.12.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Feb 2023 03:12:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,108 +49,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 903c288c-b758-11ed-a550-8520e6686977
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IXLqBoG0z/uAV9TPAxFxQrNC+WenpnIBq0ay40RZmelw6Lyji2E/jBh3qDRW2Gdwiblu9tHAUOBS4KwuIi3ypi46KrifrzuUuzTkvW0ShwZmvMvWGhbzKI+O0swBVkYTPSPgTP2KfnWOdUXSQ0OcdWmzx/1/rU7tgirRqT6fOXV8f4Dyk4QE1jL+aiEZ+7IhB38OX9Rkin2qq5ya/4seyLUvj/ZPKeHSLAjSMOBQqeqJz/W/OTOOgfzf4hTIuC+eFBtabfFKbj/y57h5zwx4c/qKMTlmrG8rPd4uL8WlLlXT/Sp82Kara9TbhdRPu6UUjACRT8KQOc0b/gVGfprIRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vlUMh6B6jAvgKlcVcmtBYCCvYf1PJVMVHdIdhhSF/Z8=;
- b=QOQKVPoxnlAs6Tw/Z000T6ARqrle/9q8Erxg6lkpUycGyai/CVrq1L/VZhAHYWwue6LtZC94YwjOdUe32OB6erEoTvWuXvrRtBQy0O5AediJKBfoWY1TGTHxIkV/ZV4ISSp9PXB6OkVvkyTlA46apZWKUt2cN/VOtGi4K+HUi5afl1MOO3opGkk8TSenMOX8c0xLb4ylrzmiuTBHSqD1qSn0uqlPQNz4lMjts1+LK7t1QXoA5oRHvnBEhPiJ6y2UV4HSm3R/wuDThp4R/OQmrCgavwJdCVUUbkW+dwJIHfGVBqvwf1Ud5Rt+pHU7zphDrjT1inNP4LQJ+ZoRODBcyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vlUMh6B6jAvgKlcVcmtBYCCvYf1PJVMVHdIdhhSF/Z8=;
- b=GWfqzAhdRD1HtPYctkPkOUhheZNQlJXCHOhbFrZqYtTsJwG8lRjoF9NBay4QQ8pzAd0UxlAozajrsjws59iawmtHzJ+wfberjOZqhidoI81rwSMe3ND21PszOs7gX9iERfBhxM9JiraqrD6Rj+EAE8MuksnulS0Yl51WUmfXZzY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <15c427ed-c452-a0d7-078e-58f040dcd9b4@amd.com>
-Date: Tue, 28 Feb 2023 12:10:48 +0100
+X-Inumbo-ID: cbe3f3f3-b758-11ed-a550-8520e6686977
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1677582752;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wpQuPL8c90Bf1pFHe7Ri8yXfJ5L7MD+vOWGStm2xqk0=;
+	b=F6t7KpQnECisySRDgBCX/Z1BCyqu3ed6TZAJapLDgZiRYRj8SGK6auTes4H/xusNaZG1lN
+	9/d37ZLQWOrNWvXfHJ/G5JBGQnNuZm7YLuRZKbqpug/+p1nujw+N+ENU7fCE6UkQUtF5FF
+	gS7ABRpeOHW65VfWO7JBsamjgm+3hy4=
+X-MC-Unique: kK4wtX-AOEiLkAIiud-KSQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wpQuPL8c90Bf1pFHe7Ri8yXfJ5L7MD+vOWGStm2xqk0=;
+        b=ywDKBzGZVk+rVMFnUeduqxOZhOpC/2nLYQmfsE55NOJFqxjY3CLHPL8tJCf5KnBnYD
+         YKhW8hERr8CxMXFTvfFAa3PuwogEZVh5zXwN1R0+qFnO7J5qavwTTAn2i9koD3+tL9XI
+         uObYPHaRFKg5rR5ghJNOelXWlLNXaEgsbBR4zo65sQHFlpRiCHWVCkMSOl0KR2SlpN26
+         O4V/X0Q/ot/lRiYxCKle+l9VjO0UQyYRSCkezn85R1V4XJkhav7AFBhrcxU4S8S+rHlH
+         D0m0lF60pO3Ln/uOVOx7y1Sg3RoSGNjGUuBxB+Acrc3xDYQd8UG/wdYb0rZUsnrm92xl
+         Y+Tg==
+X-Gm-Message-State: AO0yUKXcrMarVtBzR0sV0uPNoq4dCpiY+sv8fYzvUv8rbDRcD6XumnRE
+	OXqasC7426Utwp/Z1ma4sdeSm8+gHbRpabu5nbw/66mr3p/BYBVE/LVfxoXCiz00Ki1wf6XiSpE
+	za8PN1prq6DVREZ5Gw3Uqqdujt7I=
+X-Received: by 2002:a5d:6b0e:0:b0:2c7:a39:6e30 with SMTP id v14-20020a5d6b0e000000b002c70a396e30mr2049939wrw.38.1677582749883;
+        Tue, 28 Feb 2023 03:12:29 -0800 (PST)
+X-Google-Smtp-Source: AK7set9oI/QD/RgvVvZBifmeDs/yaRHSeI1eCXGJYICkxBr0U4eDOUrIAvE9ljzr41EoyMJbhF+aig==
+X-Received: by 2002:a5d:6b0e:0:b0:2c7:a39:6e30 with SMTP id v14-20020a5d6b0e000000b002c70a396e30mr2049919wrw.38.1677582749642;
+        Tue, 28 Feb 2023 03:12:29 -0800 (PST)
+Message-ID: <072a7502-6061-12b2-f778-736c6a8f5912@redhat.com>
+Date: Tue, 28 Feb 2023 12:12:22 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] xen/arm: check max_init_domid validity
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+ Markus Armbruster <armbru@redhat.com>
+Cc: =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
+ Peter Maydell <peter.maydell@linaro.org>, libvir-list@redhat.com,
+ Richard Henderson <richard.henderson@linaro.org>, qemu-devel@nongnu.org,
+ qemu-arm@nongnu.org, Reinoud Zandijk <reinoud@netbsd.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ xen-devel@lists.xenproject.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Maxim Levitsky <mlevitsk@redhat.com>, =?UTF-8?Q?Alex_Benn=c3=a9e?=
+ <alex.bennee@linaro.org>
+References: <Y/yY72L9wyjuv3Yz@redhat.com>
+ <20230227150858-mutt-send-email-mst@kernel.org>
+ <84d7d3e5-0da2-7506-44a7-047ebfcfc4da@redhat.com>
+ <20230228031026-mutt-send-email-mst@kernel.org> <Y/3CiEKKoG06t9rr@redhat.com>
+ <20230228040115-mutt-send-email-mst@kernel.org>
+ <fe4626c6-6103-d5e5-6920-9dfb4777b979@redhat.com>
+ <Y/3MIUDRBUSNg6C5@redhat.com> <20230228050908-mutt-send-email-mst@kernel.org>
+ <87cz5uhy50.fsf@pond.sub.org> <20230228055016-mutt-send-email-mst@kernel.org>
+From: Thomas Huth <thuth@redhat.com>
+Subject: Re: [PATCH 1/2] docs/about: Deprecate 32-bit x86 hosts and
+ qemu-system-i386
+In-Reply-To: <20230228055016-mutt-send-email-mst@kernel.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-To: Bertrand Marquis <bertrand.marquis@arm.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <0cf2013e5e6018cae300c39fb65ed526eac5c35c.1677511937.git.bertrand.marquis@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <0cf2013e5e6018cae300c39fb65ed526eac5c35c.1677511937.git.bertrand.marquis@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT090:EE_|DM4PR12MB8451:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5d9af49-0819-4426-1cad-08db197c7324
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	S116uJ4ooo8PaPzcZOpDq3iRMmrkEWjqSvYVKyvBAzV5oN+AZvUvS2MLBRtc20h7m6K0mxPWLMg5aq8LdU73NU77uZrPScHU1mdF1kvnvP9ZKYPBX/vjQCEeRc7adxG0Zb3ymS6+FYuRekmhsAPW/pai4bPAspZdNeSKycZc2J7BR3sbvblg5NprDt4d6njxICr4XQLFvIyibOgiPsK+PbmY2aoIUY74+O2TlMgZu+USpebrOYQ/6UF0/BGFNFx69bNEw9/UWiqHNMWtH+395ElvR+r3WLGHBMvmzw8aO1vfjN1CIJ9qoontM5SvuLSowgfTjYEUw/tjjBHO41cifx88uJ/dLbZaRkGzwoF/DZuETipUl3mAo5QkVPPWIYQ6LW8DfVX9P4pMX69MaJsrn2QwCzCU0ylXDHa8y8ZS8vh2TSZ8qUw4t7fFY7+EdeTQYYN8ZN2HNq/0caiJqSkq445hDLfsce2n7ErnYiYShE+ueALLymq9XQWDBP/pjoYOnYX3zNMYp7Ck8JWjKhuk2/8zL6/sUSXtNRnQ868rH+EcI+G001A6wUrZfMUolVVyLabHOx2yVPcvoKpUbYwHq+3kfFeLEiqVqb/1I8DaPY/KObriBBB/62frqqIYU2Yc/1s44DJpfblpa4+9Ws1TDAOpYcI9ykcrxY8Ko1xvi1dvC9vVheCqCO0JhjiFf44nPsyQFayv+lLJbw41OlhOdILqmyhZn6/5VHabxkN7PzNELlQ1uI1W25YO7qQlGDYOfLvWL0INzNTT7Tmjck+1Jg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(376002)(39860400002)(396003)(346002)(136003)(451199018)(46966006)(40470700004)(36840700001)(426003)(2906002)(36860700001)(31686004)(44832011)(82310400005)(81166007)(5660300002)(8936002)(47076005)(336012)(2616005)(16576012)(356005)(86362001)(40480700001)(316002)(4326008)(53546011)(26005)(82740400003)(186003)(8676002)(41300700001)(54906003)(110136005)(478600001)(70586007)(31696002)(36756003)(70206006)(40460700003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2023 11:10:50.0974
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5d9af49-0819-4426-1cad-08db197c7324
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT090.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8451
 
-Hi Bertrand,
-
-On 28/02/2023 09:08, Bertrand Marquis wrote:
+On 28/02/2023 11.51, Michael S. Tsirkin wrote:
+> On Tue, Feb 28, 2023 at 11:39:39AM +0100, Markus Armbruster wrote:
+>> The question to answer: Is 32 bit x86 worth its upkeep?  Two
+>> sub-questions: 1. Is it worth the human attention?  2. Is it worth
+>> (scarce!) CI minutes?
 > 
-> 
-> Before trying to create a dom0less guest, check that max_init_domid
-> increment will generate a valid domain ID, lower than
-> DOMID_FIRST_RESERVED.
-> 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->  xen/arch/arm/domain_build.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index edca23b986d2..9707eb7b1bb1 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -3879,6 +3879,9 @@ void __init create_domUs(void)
->          if ( !dt_device_is_compatible(node, "xen,domain") )
->              continue;
-> 
-> +        if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
-> +            panic("No more domain IDs available\n");
-Here are some of my thoughts:
-1. The check if domid is >= DOMID_FIRST_RESERVED is used in quite a lot of
-places in the Xen code. We might want to introduce a global function for that purpose
-instead of repeating this check all over the codebase.
+> 3. Is it worth arguing about?
 
-2. This check is something that could be moved to be generic. At the moment we do have
-an ASSERT with is_system_domain in domain_create. I know domain_create can be called for
-domids in special range so this would need to be thought through.
+You are aware of the problems we're currently struggeling with, aren't you? 
+Darn, we're having *SEVERE* problems with the CI, the QEMU project ran out 
+of CI minutes for the second time this year, and you ask whether it's worth 
+arguing about??? You're not serious with this question, are you?
 
-3. The placement of this check at the top of the function before starting to parse dt properties
-might be problematic in the future if we decide to allow specifying static domids for dom0less domUs.
-In a static configuration, most of the time, we do not have xenstore (either because of lack of xenstore
-support or because of lack of dom0). AFAIKT, in Xen a domain can get to know its domid only through xenstore
-(DOMID_SELF is not working in all the cases). Also, in a static configuration, it makes the life of an integrator
-easy to know all the domids upfront to easily set up some communication, grant tables, etc.
+  Thomas
 
-Let me know your thoughts.
-
-~Michal
 
