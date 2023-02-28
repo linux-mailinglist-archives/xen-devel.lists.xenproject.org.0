@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0E466A5A69
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 14:55:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503379.775631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8FC06A5A87
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 15:05:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503384.775641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX0RM-0001m3-CL; Tue, 28 Feb 2023 13:54:48 +0000
+	id 1pX0bC-0003iL-82; Tue, 28 Feb 2023 14:04:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503379.775631; Tue, 28 Feb 2023 13:54:48 +0000
+Received: by outflank-mailman (output) from mailman id 503384.775641; Tue, 28 Feb 2023 14:04:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX0RM-0001jL-9U; Tue, 28 Feb 2023 13:54:48 +0000
-Received: by outflank-mailman (input) for mailman id 503379;
- Tue, 28 Feb 2023 13:54:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pX0bC-0003gR-5F; Tue, 28 Feb 2023 14:04:58 +0000
+Received: by outflank-mailman (input) for mailman id 503384;
+ Tue, 28 Feb 2023 14:04:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rjMb=6Y=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pX0RL-0001iw-AQ
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 13:54:47 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20621.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::621])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 74b054cd-b76f-11ed-a550-8520e6686977;
- Tue, 28 Feb 2023 14:54:45 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VE1PR04MB7245.eurprd04.prod.outlook.com (2603:10a6:800:1b1::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.30; Tue, 28 Feb
- 2023 13:54:42 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%7]) with mapi id 15.20.6134.030; Tue, 28 Feb 2023
- 13:54:41 +0000
+ (envelope-from <julien@xen.org>) id 1pX0bA-0003gL-Ji
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 14:04:56 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pX0b9-0002MQ-4E; Tue, 28 Feb 2023 14:04:55 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=[192.168.12.216]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pX0b8-0006sm-U3; Tue, 28 Feb 2023 14:04:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,118 +39,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74b054cd-b76f-11ed-a550-8520e6686977
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UNLIEmuF1R4GPCQ6EQ5M1sy7wuc+dziS9H/OCSExMpRrYsRNe+JB4ck0uvSTOxvfeQmsCbAAkeju9Xj7VbfmrFYLuwC7DPmCGByHdHOMGVraB24K21Ji5COXfLIo0H9bV63bTkCw0M0JV2tESSYU/5stMJw8ophy4CK1cP3SzHtBIdjYQDUSLRU/r9gEqqmHsJodHkbIRgm+B0j3lyH2QeqQg7jHxIamD/ZnIgWZwhjCf56RmhHj3fAzivIOglendSfNLft8QhMMDPKxwMj/x+lTeHTMB9VO1QP0YmIHWuF4jNYlyEtrBnBHMBZU/3kp2uO8/RdHi9jQ7wBK4fZ6fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gykwv65k3Yffqhsud5qsfwAdbPu/bgdZv7XtGsphVcU=;
- b=eFHvYIsV97569V/a1ao0N4uutu04iy2mRzi0IMlV0vH0Af0IppHjuG1lp7UZ2FvSQinzHWgHVNisbsnfObJhp2rLADKiY7MJV972TMBXyqYW8MRJ0ngo9Qw8SRHMz7E4dknr/H4tlqgQX4FC/pHL9FpeqTw4nixQLORj3wRUJYqcDJ3dn93BmdEDoBRrAIeuzXF7vAyPL/j4J1wOdl/mvQqWUH+2RtxPH8SaqwCUnZTTrmq8kLEWgngZYgO7mJ6WodYPDf1lgKGLuNXDKMm9Jhca/HPEwSeKg/Mk6qYUt9p4JKkC1WhOECbiFH+W4dV5Ju5Ud0Z/y/3fG6gKkPu72Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gykwv65k3Yffqhsud5qsfwAdbPu/bgdZv7XtGsphVcU=;
- b=EFP+h+5nfsMt74FxUgYnPzeVZp/4F+X9qRJ0PUZiWRwnMccBRLX+D+zxVHdtZ4/M+JGeYT1LckbJogz8r5ZdXcXiYe5uQkP4C5wjfTwZ00L0iuNZDkRwso6claFRwzXW2IuwpZrSL3tCApYZPPr2DBr0CEt0CiGysav/priLUV/oKJM/NVKNVGssM3AXsZjMa5Bm1d0d0oixH7VQ6BEnnjtGktqbZfRh7SLZMcPU83RHe5pt5WIPkRAdBArwmjkuoYG3Zhw7kfMDZw96qOe1qksiTEXyIlh4kvNkzqDcLX453q0W9+VvnulaDxcfg7Yxab7NTdLphKK7Krg5QSpqlw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <75987896-01d8-b706-4405-0b248498ec34@suse.com>
-Date: Tue, 28 Feb 2023 14:54:39 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 1/4] x86/vpmu: rename {svm,vmx}_vpmu_initialise to
- {amd,core2}_vpmu_initialise
-Content-Language: en-US
-To: Xenia Ragiadakou <burzalodowa@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
-References: <20230227075652.3782973-1-burzalodowa@gmail.com>
- <20230227075652.3782973-2-burzalodowa@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230227075652.3782973-2-burzalodowa@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0185.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=9bdTtz8ajUjFXClJC1OngUeqd7zfvR7ia3k1e8SbcWE=; b=vo9ABfVyqM7FAv+xJqB6j/9OWd
+	ufS3DiXBSkdFS7RGdvVLvsic27S6p5u8YZGKRwO9qczvISyiXQWuc04qvF8pw/VKn+xQqlaO0w1Ff
+	t2jBx+gov2ZI3tbB6UIdUcGavvyjxuhRyoHFPGIdv4ckj+o9GZhstO/dMVGp2CmJmG5I=;
+Message-ID: <fc6bdc7f-fb82-a8be-e0cb-c15594aa6cfd@xen.org>
+Date: Tue, 28 Feb 2023 14:04:52 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VE1PR04MB7245:EE_
-X-MS-Office365-Filtering-Correlation-Id: a98a3a25-1a25-4cac-613a-08db199356ed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	KTY5qSHeuApbxrlgrscu+fhtITouID3+emQdbw0dPX/yakFoOf9VmzYgGxun91MHeXKsJ94opNA30zSPBnqMMiYH3qSWWi2EDxLIXOgtx4F05IrM7+O/3+ZYZd9ZjtnkFbxuo2VEiQhE/pjxmooMlPyO5eLV/FopplBmSOGbeQMswP4/N5raKibAaUaue2+tzMS5UyJraVkXIrmlph+Za85h4s1i2ttSSxLIoWpC6UUhQ0Hf1qFGUidXEmnrqh+D1u75lnLGpZk1qrDUE2lEZk5lbJCyGF+w4F17vJr1JoZCXdspoq83qy2V4bvTxlmyBo4YmlIoVpKH/DkJqc8Dq2RM2fgrzrmWjkidoIUUHosniT0qF3wLHZKOHWR4l9LDgje+wlZJRdi3A6/W5Mo5hHFKtM5+tqk/T8MRvNs5j3ny7JW8IRFsEByHQl8IuGz+ELSbGBNlGGTNRDJVsrhD8nS8/jRn0TVlkq5LkF2tYQ5eyF1sEaJPPD2u/pOhdn4qgklDyLKhCCp3hvMmZFo0K/3wjLYKykO4OEU+rWQsrqbkdxSYerr7d/73wBbnXBLrQoPkVCDt3yD1h8Z0IQi/zhKx3xlObcG9UFadXcjVyyFmuPL5IqjSCSt7bcpfQAmdmlIGzqtUJ9m9YWWQm6D1TLLVi8eYVY/9Bu3yEDhd1M7xaoY/x9DZ93K+dP7bpouREvK56O24Sbv36cZRbyONok3MOQdjqvj6HdPE8NUiW1o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(396003)(366004)(136003)(376002)(346002)(39860400002)(451199018)(54906003)(86362001)(4744005)(6486002)(316002)(31686004)(478600001)(31696002)(53546011)(2906002)(186003)(41300700001)(6506007)(26005)(8936002)(83380400001)(5660300002)(66476007)(2616005)(6512007)(36756003)(38100700002)(8676002)(66946007)(66556008)(6916009)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MW9BWHltcDB6KzE2WHhidHhBZFB0bGJ5ZkJzSnlKb2FhOGtjOWJxWnQ1QU42?=
- =?utf-8?B?UWhaVk5oaGhaS1BJNHpXeFJBemlzOEJ2Nk8zNGtYOTgwZ09kcW95M3JCUjV3?=
- =?utf-8?B?aUg1TE1sSDdmRHJSL1FBaXdJcnA0TkR1TGhlT3lrTlM1cHUxZzN6RE5BbkJa?=
- =?utf-8?B?bnNYUXBrNWZOWVllMUxGcVd3QnJPMjZhdnJQZ3NTbTU4L3FxTHlWNkhUZFVB?=
- =?utf-8?B?MkM1YTNxaElTOHNkNEg2dW9PVkVVaGtpQUhjK1lWcVk2ZUdWQkRzWEhXd2l3?=
- =?utf-8?B?cGlnbXpMV2pvWDJva1NUM3hvcm04bFZWYm4ycHFKWm50Z2xzMFBReU5NVWd4?=
- =?utf-8?B?SkhQbjBjdXQ5YVFtbmp6LzdZUXpWcEFVci9sZC9hb240Y0RmT2MxQ0lKL0xh?=
- =?utf-8?B?VWw1aHlMNzZpbUpUUlZ6cVhnV2RBRjAySFFsV00zMUx6Sk94emZCSDhkNEJT?=
- =?utf-8?B?d2VLWVhmNVMzTENkbzlFTlRuMnphNjhPNXNFb2VLcit1UEFTN29yR0hpeXh5?=
- =?utf-8?B?eWplN2FPK2s2anVSVlZ0OFVveU5GdUNXdUkyMWtSZXBXeUhJZnM3dTIwVUFK?=
- =?utf-8?B?NTBveHkxU3p0R054bDFaSDJOZld4TXg1TVJiWCttbGZuZURFNEdYMU9venFB?=
- =?utf-8?B?Z2JqRXJvOWF5Wkxaelp6OG5qSHJ2YXNadldWSHU5NzNNVE9PQW8yaFFxM0Fx?=
- =?utf-8?B?SUJzSTZnamNUUkRFTEJvOTZ0ZTJhT1J5Zys1cmQ5V0xKVmZBcEVJMUpGMzFi?=
- =?utf-8?B?dWJZdnBUTktpcEhuOGpvUGxqSFhzbGVZeHd2RWMxQllUellab0w2TGJEeDdn?=
- =?utf-8?B?bmhzRDltTnFaNUl6RVlRVkQvYk05aFREVGZBMWxvT0hwVUtGWjV3aG5CQ0o5?=
- =?utf-8?B?L0xyV3gwV0NXcVJJUnFQeTJiczVuTlZ1aVhqbWJvV0dVK05NS09OSkhrdVI2?=
- =?utf-8?B?ZzBtcGJadkx2TVRpbEYxOGgyUUtJT080K2lmYlJjQWgzaTNYRzIwM3p0Rk45?=
- =?utf-8?B?dGpqTHh2aDhNQlJWVTBIbFkvcjFlSVQzU04xN2dJMzIvRGpxaGxqS2psUlRF?=
- =?utf-8?B?L0MycjR5V24vV3doOGNqZjZIbTEyOTFhVHR4M1RvZ2dUalgrSGc4eU1ZSUg3?=
- =?utf-8?B?Nk5QS09iUGtqbjRVcEFNZ09XU0s2d3FnUEp2UmRUNUQ5N05sM1N1bWNUZkND?=
- =?utf-8?B?OFhDTFQrSnN3c0wrd2c5OCtGQTAxS1FjUnBzQ1RZVGcwdVZpKzdvOC9NOXRo?=
- =?utf-8?B?OFRxMEtpUjRmU01BT0FhK2QxbkxyWE9OOVg5T2lZTDNKeXNVM0NEUDJFOVVE?=
- =?utf-8?B?d2RzK0FXQldFc2JDcWlTekVkZlBzK0RzOHNHL1N3cVprTTNOeWF6Q2V5Z3ow?=
- =?utf-8?B?ZlYwc0M5alNscDFIUW9ISFdzYW12VFJqK3NuSm5aTmJrd3Jmd2ZheUV5dFA1?=
- =?utf-8?B?S0RmU3B6RkRsdDYvaGp5Tjh0MWI2K2FkTG1QRURXcVVHMVRaeWJMZlhKa1pQ?=
- =?utf-8?B?ZndJMnFDOXREZmZmSHRFdm11dStwTXd5a3UxbVN1ajBzWWhmT0N1MVlzVndz?=
- =?utf-8?B?U2Q3MDhldEwrcjF6U3ZzQTY5cURQa2FPZTlqNEN1VGU5YVRlczVrZjh4ejRL?=
- =?utf-8?B?TzBmdVZKa0NCTEFlQVMveXdMODVzVDgvOGpQZFl4NG04QitmbFVDTXJJWGQ0?=
- =?utf-8?B?dy9kd1NVT2pGQnZ1NFhiOFRNRlpVK2x4KzFzUkh6aVNYNkJQRXZucGE2YTN2?=
- =?utf-8?B?TTlSM1k3YzRacXFlcUtmMmJMK0tKVmVBNmJiOTlhZStrYWJyRlhZRlF2LzBO?=
- =?utf-8?B?UkFZc3R5WndSU1A2WG9PNS9jL2FzZ1hMeGN0MnhGRkRnYVBjNjB3MExVdjF4?=
- =?utf-8?B?Ym9YR2NNOU1xMzJnVjQ5OUZJNjRjT1FlMDgzc3RaVE16bTlSRDVacmUrRm9M?=
- =?utf-8?B?bktvamY1bHNxYjdTTkdzTjMrVHNhL0QwYTRjdnEvZnJKbnE3UjBOVHlaZ3hB?=
- =?utf-8?B?NXlKM21HV2RWSXB3MkxBUm1TYmZJMzZpYzBTNjQwM29tcnlIRWVabDhLakRP?=
- =?utf-8?B?bTV6aUlwdTRpcE1XODZXZW43VStWVGJXdi8zek15TGN6dWRHdURWZUJUOEMz?=
- =?utf-8?Q?vpTv9q5Bm8C0loZp2zcJVeB9E?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a98a3a25-1a25-4cac-613a-08db199356ed
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2023 13:54:41.4216
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9byzr0MHXk8jGqxid9nE2uSnjTJZeUaWv/GfHTDiESwwmt4c2KKoeNRkTxnxZOr3K5VUR0eqPbES1xd29aKDiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7245
-
-On 27.02.2023 08:56, Xenia Ragiadakou wrote:
-> PMU virtualization is not dependent on the hardware virtualization support.
-> Rename {svm,vmx}_vpmu_initialise to {amd,core2}_vpmu_initialise because
-> the {svm,vmx} prefix is misleading.
-> 
-> Take the opportunity to remove the also misleading comment stating that
-> vpmu is specific to hvm guests, and correct the filename.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.8.0
+Subject: Re: [PATCH v3 2/4] xen: change <asm/bug.h> to <xen/bug.h>
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <cover.1677233393.git.oleksii.kurochko@gmail.com>
+ <19404db4a577e17dffef85a101449a507965be19.1677233393.git.oleksii.kurochko@gmail.com>
+ <468d6130-739e-4b0e-44e7-5aab520a0cac@xen.org>
+ <319ddd67bca2291afe7f27cba3cf8eb4e1307747.camel@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <319ddd67bca2291afe7f27cba3cf8eb4e1307747.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+
+On 28/02/2023 12:38, Oleksii wrote:
+> Hi Julien,
+
+Hi,
+
+> On Sat, 2023-02-25 at 16:47 +0000, Julien Grall wrote:
+>> Hi Oleksii,
+>>
+>> On 24/02/2023 11:31, Oleksii Kurochko wrote:
+>>> Since the generic version of bug.h stuff was introduced use
+>>> <xen/bug.h>
+>>> instead of unnecessary <asm/bug.h>
+>>>
+>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>> ---
+>>> Changes in V3:
+>>>    * Update patch 2 not to break compilation: move some parts from
+>>> patches 3 and 4
+>>>      to patch 2:
+>>>      * move some generic parts from <asm/bug.h> to <xen/bug.h>
+>>>      * add define BUG_FRAME_STRUCT in ARM's <asm/bug.h>
+>>> ---
+>>> Changes in V2:
+>>>    * Put [PATCH v1 4/4] xen: change <asm/bug.h> to <xen/bug.h> as
+>>> second patch,
+>>>      update the patch to change all <asm/bug.h> to <xen/bug.h> among
+>>> the whole project
+>>>      to not break build.
+>>>    * Update the commit message.
+>>> ---
+>>>    xen/arch/arm/include/asm/bug.h       | 19 +++----------------
+>>>    xen/arch/arm/include/asm/div64.h     |  2 +-
+>>>    xen/arch/arm/vgic/vgic-v2.c          |  2 +-
+>>>    xen/arch/arm/vgic/vgic.c             |  2 +-
+>>>    xen/arch/x86/acpi/cpufreq/cpufreq.c  |  2 +-
+>>>    xen/arch/x86/include/asm/asm_defns.h |  2 +-
+>>>    xen/arch/x86/include/asm/bug.h       | 19 ++-----------------
+>>>    xen/drivers/cpufreq/cpufreq.c        |  2 +-
+>>>    xen/include/xen/lib.h                |  2 +-
+>>>    9 files changed, 12 insertions(+), 40 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/include/asm/bug.h
+>>> b/xen/arch/arm/include/asm/bug.h
+>>> index f4088d0913..cacaf014ab 100644
+>>> --- a/xen/arch/arm/include/asm/bug.h
+>>> +++ b/xen/arch/arm/include/asm/bug.h
+>>> @@ -1,6 +1,8 @@
+>>>    #ifndef __ARM_BUG_H__
+>>>    #define __ARM_BUG_H__
+>>>    
+>>> +#include <xen/types.h>
+>>
+>> You are not adding new code in bug.h, so can you explain why this is
+>> now
+>> necessary?
+>>
+>>> +
+>>>    #if defined(CONFIG_ARM_32)
+>>>    # include <asm/arm32/bug.h>
+>>>    #elif defined(CONFIG_ARM_64)
+>>> @@ -9,9 +11,7 @@
+>>>    # error "unknown ARM variant"
+>>>    #endif
+>>>    
+>>> -#define BUG_DISP_WIDTH    24
+>>> -#define BUG_LINE_LO_WIDTH (31 - BUG_DISP_WIDTH)
+>>> -#define BUG_LINE_HI_WIDTH (31 - BUG_DISP_WIDTH)
+>>
+>> Even if the values are the same as the one you defined in the common
+>> bug.h, it doesn't feel right to remove them as long as...
+>>
+>>> +#define BUG_FRAME_STRUCT
+>>
+>> the arch is defining BUG_FRAME_STRUCT. So I would say the generic one
+>> should be defined within BUG_FRAME_STRUCT.
+>>
+> One of the reason BUG_DISP_WIDTH, BUG_LINE_* were removed is that they
+> don't use in ARM at all...
+
+Hmmm ok. But this sort of things should have been documented in the 
+commit message even thought it doesn't feel this is related to what the 
+patch is doing.
+
+Cheers,
+
+-- 
+Julien Grall
 
