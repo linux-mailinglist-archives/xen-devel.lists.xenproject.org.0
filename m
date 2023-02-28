@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9DB86A5B46
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 16:05:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503435.775711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0356A5B51
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 16:07:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503442.775721 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX1Xf-0007FB-D2; Tue, 28 Feb 2023 15:05:23 +0000
+	id 1pX1Za-0007q0-T1; Tue, 28 Feb 2023 15:07:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503435.775711; Tue, 28 Feb 2023 15:05:23 +0000
+Received: by outflank-mailman (output) from mailman id 503442.775721; Tue, 28 Feb 2023 15:07:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX1Xf-0007CM-A6; Tue, 28 Feb 2023 15:05:23 +0000
-Received: by outflank-mailman (input) for mailman id 503435;
- Tue, 28 Feb 2023 15:05:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pX1Za-0007nk-Q2; Tue, 28 Feb 2023 15:07:22 +0000
+Received: by outflank-mailman (input) for mailman id 503442;
+ Tue, 28 Feb 2023 15:07:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4VB9=6Y=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pX1Xe-0007CG-1Y
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 15:05:22 +0000
+ id 1pX1ZZ-0007nX-EK
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 15:07:21 +0000
 Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
  [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50c86d35-b779-11ed-a550-8520e6686977;
- Tue, 28 Feb 2023 16:05:19 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id i34so41255809eda.7
- for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 07:05:19 -0800 (PST)
-Received: from [192.168.1.93] (adsl-150.109.242.227.tellas.gr.
- [109.242.227.150]) by smtp.gmail.com with ESMTPSA id
- x16-20020a170906441000b008d09b900614sm4536023ejo.80.2023.02.28.07.05.17
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 993b01c4-b779-11ed-9695-2f268f93b82a;
+ Tue, 28 Feb 2023 16:07:20 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id d30so41347305eda.4
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 07:07:20 -0800 (PST)
+Received: from [192.168.1.93] ([188.73.239.246])
+ by smtp.gmail.com with ESMTPSA id
+ h11-20020a17090634cb00b008e36f9b2308sm4602113ejb.43.2023.02.28.07.07.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Feb 2023 07:05:18 -0800 (PST)
+ Tue, 28 Feb 2023 07:07:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,235 +44,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50c86d35-b779-11ed-a550-8520e6686977
+X-Inumbo-ID: 993b01c4-b779-11ed-9695-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=RUmwbozT7YbHnyo7OEP0SEgOgg9ho/6ShyNhqhfcrbk=;
-        b=VG8NrYoNYWEzJ3vhndNMWIZKN4pKrvqt8f+2msS+YfyKEXYGBBdT4BQ2fTlIOs/kfs
-         EvLYT4iUJuTYqhxDc4NlUC2ZfdarJT/n2WHD5tBmE6Vc9fz1bjR1eckBE7LJCkJTP+Dx
-         uAoXMR+jEuKx3XwLC94+67IQ3zFUduXes7XKAsichYcK/hupuxFR8ARr9b180lxBnMaS
-         bmUuJA4C2OA9WOakRj0Z6x6buI++wsa3VJX0EBcUjZZ82pK7c3tqI5k2zt/Djr4BZSx9
-         K5ew5mlEfcDeiIbh3zj2YgPZ8x7NANuPjWCKyRQUUQgw4Xv3z8Iw1+ZYPzFVlONaci3J
-         D5uA==
+        bh=jK06YMa7zlDhPqSW5oUxHX1w39uN0C+HqUUTiKN/nsM=;
+        b=oNHppN0RyMGMuT7903lIZhzSpOaSH+80s4RVVPSLJiC0uLViblU4UF+q7mU46dv2Nj
+         LKgB2AgQzZ5hhqKIH7GelhBEzOKZ0roJv90vNh4A0G7Kib/bCd9P48GXeiBvDKwvLphn
+         30Eqe+DpsnzYBYqQkfdW2M28lBqdmjMuAwa2UrFAnWddNToy6MmdFxHbqmb369JJDOS1
+         QiKUUsDAFHdYgrsw569RVc6N5bzf6rpMqrifRe4QbIfwLSQe3MAKU+NareA+VK5G5QXO
+         s2ljhXQTcL4HCzsgduiNodZ8x2gkLHLSbPe7g9D6toYa2BLKzs/9UEq94tkrpPYZCZDx
+         eNhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RUmwbozT7YbHnyo7OEP0SEgOgg9ho/6ShyNhqhfcrbk=;
-        b=aFbepCA6Cqw4Jvm0ItEAR3BkvTtBkcfodXjAYVLJWmPJASFRC/uMY8EnSKY2CCd+P+
-         ZvRPkjojSNeATvaVEluhP/2PzOKTy/1v2DadIatKAXVxaUTHXNxfksfX5Vi+TJzqDj1o
-         lJdqOi9SRHQHRl0E5ryVPbHn4MX3a9E9HseWIPAKXcwDU49bwmlySjIU+qAPtXo3SUMK
-         6NrUj/QGLESXWEDpD4ArNNlY52BJqbCC1Iz+an9e9XSGt51ESJfO2CpSwL3OnSVAHvo/
-         oJSC4rYeOURlWEjemZj+E6EsHLh37pc8xYdQ1EbnGmoAawpzSBAz4wBVtWjxl4sco/LF
-         UfnQ==
-X-Gm-Message-State: AO0yUKVo9gcoyoXIMm8t3CHmxknAAz0HlmVVk6FEP070VMQUbn0pwY3z
-	WVo8YSb9es5qepv3qLVn22U=
-X-Google-Smtp-Source: AK7set/zJ7bEh3HkyxuhljlAoeBNv9LOlZ2kKmv+wNE56dbhHeBQ+vw0N9nvbq8W7Hsh92BU84PLBg==
-X-Received: by 2002:a17:907:3f88:b0:8ae:6b88:e52d with SMTP id hr8-20020a1709073f8800b008ae6b88e52dmr14484928ejc.7.1677596718787;
-        Tue, 28 Feb 2023 07:05:18 -0800 (PST)
-Message-ID: <b13c5685-7d52-e0e0-95ad-7d766790d057@gmail.com>
-Date: Tue, 28 Feb 2023 17:05:17 +0200
+        bh=jK06YMa7zlDhPqSW5oUxHX1w39uN0C+HqUUTiKN/nsM=;
+        b=B1g8x9aUWYWOo5C2+mLvIpph5gmTxUJBWqBnBCBpBXzl6iOOksN57qU980eVysWm6k
+         ujwKdLMPWpQU4YbVCn0890BBn/YzWaDp1SECu+60lJNQLQpb+uScqADEc0IsF7bxYq44
+         SqzB3OGxRZx2L01EDAHGQnSFdL6XQkqJ1821e76b8xoR5Cve96XsEFF2vRnKF7JNg8ie
+         Yy+XWE2b+GAXQiDNNQgJFYWq0Bla8Pnn1ySO3dxRM0JttaWLE8h8d+NTimNbbmOa//IY
+         /Y+qs9OMhkmIsf1zdGmZ7oVfK36IxzcPmuqK6IsQRU+EY0NqIZddIwU3eSjI0kFrAWQN
+         btCg==
+X-Gm-Message-State: AO0yUKV9MvPz3n9cIL1UaSaHGq87bPhxQNQnbVJYUG+6mv8TG0vUeBsu
+	UDn6OnNZhRVrB3t1DT797iCY+glzzHY=
+X-Google-Smtp-Source: AK7set9lnKjsUg2OudHwFhWc4ZA6TJgCORl/hZ3KQgNST0B2MjoteQbX44rZL8zU0ZRNn4Z7yiq0eA==
+X-Received: by 2002:a17:906:c0cf:b0:8b1:812f:2578 with SMTP id bn15-20020a170906c0cf00b008b1812f2578mr3399387ejb.45.1677596840158;
+        Tue, 28 Feb 2023 07:07:20 -0800 (PST)
+Message-ID: <e91460f8-9872-9968-0aa1-268b3dc68d9c@gmail.com>
+Date: Tue, 28 Feb 2023 17:07:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH 2/4] x86/svm: split svm_intercept_msr() into
- svm_{set,clear}_msr_intercept()
+Subject: Re: [PATCH 3/4] x86/vmx: replace enum vmx_msr_intercept_type with the
+ msr access flags
 Content-Language: en-US
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
  <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20230227075652.3782973-1-burzalodowa@gmail.com>
- <20230227075652.3782973-3-burzalodowa@gmail.com>
- <bf77733a-d0cc-8e31-5a05-f0709e7ef1fb@suse.com>
+ <20230227075652.3782973-4-burzalodowa@gmail.com>
+ <c9c6b915-fd3f-22d9-ebf9-5497eb6aa578@suse.com>
+ <bd819cdd-1c63-65b2-090f-911a4f9e8157@suse.com>
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <bf77733a-d0cc-8e31-5a05-f0709e7ef1fb@suse.com>
+In-Reply-To: <bd819cdd-1c63-65b2-090f-911a4f9e8157@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
 
-On 2/28/23 16:20, Jan Beulich wrote:
-> On 27.02.2023 08:56, Xenia Ragiadakou wrote:
->> This change aims to render the control interface of MSR intercepts identical
->> between SVM and VMX code, so that the control of the MSR intercept in common
->> code can be done through an hvm_funcs callback.
+On 2/28/23 16:34, Jan Beulich wrote:
+> On 28.02.2023 15:31, Jan Beulich wrote:
+>> On 27.02.2023 08:56, Xenia Ragiadakou wrote:
+>>> --- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+>>> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+>>> @@ -644,18 +644,8 @@ static inline int vmx_write_guest_msr(struct vcpu *v, uint32_t msr,
+>>>       return 0;
+>>>   }
+>>>   
+>>> -
+>>> -/* MSR intercept bitmap infrastructure. */
+>>> -enum vmx_msr_intercept_type {
+>>> -    VMX_MSR_R  = 1,
+>>> -    VMX_MSR_W  = 2,
+>>> -    VMX_MSR_RW = VMX_MSR_R | VMX_MSR_W,
+>>> -};
+>>> -
+>>> -void vmx_clear_msr_intercept(struct vcpu *v, unsigned int msr,
+>>> -                             enum vmx_msr_intercept_type type);
+>>> -void vmx_set_msr_intercept(struct vcpu *v, unsigned int msr,
+>>> -                           enum vmx_msr_intercept_type type);
+>>> +void vmx_clear_msr_intercept(struct vcpu *v, unsigned int msr, int type);
+>>> +void vmx_set_msr_intercept(struct vcpu *v, unsigned int msr, int type);
 >>
->> Create two new functions:
->> - svm_set_msr_intercept(), enables interception of read/write accesses to the
->>    corresponding MSR, by setting the corresponding read/write bits in the MSRPM
->>    based on the flags
->> - svm_clear_msr_intercept(), disables interception of read/write accesses to
->>    the corresponding MSR, by clearing the corresponding read/write bits in the
->>    MSRPM based on the flags
+>> unsigned int please again for the last parameter each.
 > 
-> In how far is VMX'es present model better than SVM's? They both have pros and
-> cons, depending on the specific use. I'm not asking to do it the other way
-> around (at least not yet), I'd merely like to understand why we're going to
-> gain two new hooks (if I'm not mistaken) when we could also get away with
-> just one.
+> Oh, also, another remark here towards patch 2: Note how the middle parameter
+> each is "unsigned int msr" here, when in SVM code you make it (kind of leave
+> it) uint32_t. As per ./CODING_STYLE unsigned int is to be preferred; in any
+> event both (and the eventual hook) want to agree.
 
-SVM approach always touches both read/write bits (either by setting or 
-clearing them). I thought that using the SVM approach on VMX could be 
-considered a functional change (because there are parts where VMX 
-assumes that a bit is already set or cleared and does not touch it).
-
-> 
->> --- a/xen/arch/x86/cpu/vpmu_amd.c
->> +++ b/xen/arch/x86/cpu/vpmu_amd.c
->> @@ -165,8 +165,9 @@ static void amd_vpmu_set_msr_bitmap(struct vcpu *v)
->>   
->>       for ( i = 0; i < num_counters; i++ )
->>       {
->> -        svm_intercept_msr(v, counters[i], MSR_INTERCEPT_NONE);
->> -        svm_intercept_msr(v, ctrls[i], MSR_INTERCEPT_WRITE);
->> +        svm_clear_msr_intercept(v, counters[i], MSR_RW);
->> +        svm_set_msr_intercept(v, ctrls[i], MSR_W);
->> +        svm_clear_msr_intercept(v, ctrls[i], MSR_R);
->>       }
->>   
->>       msr_bitmap_on(vpmu);
->> @@ -179,8 +180,8 @@ static void amd_vpmu_unset_msr_bitmap(struct vcpu *v)
->>   
->>       for ( i = 0; i < num_counters; i++ )
->>       {
->> -        svm_intercept_msr(v, counters[i], MSR_INTERCEPT_RW);
->> -        svm_intercept_msr(v, ctrls[i], MSR_INTERCEPT_RW);
->> +        svm_set_msr_intercept(v, counters[i], MSR_RW);
->> +        svm_set_msr_intercept(v, ctrls[i], MSR_RW);
->>       }
-> 
-> This, aiui, restores back original state (I question the condition that the
-> caller uses, though, but that's a separate issue). Therefore is the single
-> "set" in the earlier function actually needed?
-
-This is what the svm_intercept_msr(v, ctrls[i], MSR_INTERCEPT_WRITE) 
-does, i.e it sets the WRITE and clears the READ. It is not needed if it 
-is already set, but in my opinion the redundant parts should be removed 
-in another patch.
-
-> 
->> --- a/xen/arch/x86/hvm/svm/svm.c
->> +++ b/xen/arch/x86/hvm/svm/svm.c
->> @@ -288,23 +288,34 @@ svm_msrbit(unsigned long *msr_bitmap, uint32_t msr)
->>       return msr_bit;
->>   }
->>   
->> -void svm_intercept_msr(struct vcpu *v, uint32_t msr, int flags)
->> +void svm_set_msr_intercept(struct vcpu *v, uint32_t msr, int flags)
-> 
-> Can the last parameter become "unsigned int", please?
-> 
->>   {
->> -    unsigned long *msr_bit;
->> -    const struct domain *d = v->domain;
->> +    unsigned long *msr_bit = svm_msrbit(v->arch.hvm.svm.msrpm, msr);
->> +
->> +    if ( msr_bit == NULL )
->> +        return;
->>   
->> -    msr_bit = svm_msrbit(v->arch.hvm.svm.msrpm, msr);
->> -    BUG_ON(msr_bit == NULL);
-> 
-> The conversion from BUG_ON() to "return" needs explanation; I don't see
-> why that's warranted here. From all I can tell the case is impossible
-> due to the way construct_vmcb() works, and hence BUG_ON() is appropriate
-> (and personally I would also be fine with no check at all, provided I'm
-> not overlooking anything).
-
-It was my mistake I should have not removed it.
-
-> 
->> @@ -312,8 +323,10 @@ static void cf_check svm_enable_msr_interception(struct domain *d, uint32_t msr)
->>   {
->>       struct vcpu *v;
->>   
->> -    for_each_vcpu ( d, v )
->> -        svm_intercept_msr(v, msr, MSR_INTERCEPT_WRITE);
->> +    for_each_vcpu ( d, v ) {
-> 
-> Nit: Brace placement.
-
-Sorry. I will fix.
-
-> 
->> @@ -595,22 +608,31 @@ static void cf_check svm_cpuid_policy_changed(struct vcpu *v)
->>       vmcb_set_exception_intercepts(vmcb, bitmap);
->>   
->>       /* Give access to MSR_SPEC_CTRL if the guest has been told about it. */
->> -    svm_intercept_msr(v, MSR_SPEC_CTRL,
->> -                      cp->extd.ibrs ? MSR_INTERCEPT_NONE : MSR_INTERCEPT_RW);
->> +    if ( cp->extd.ibrs )
->> +        svm_clear_msr_intercept(v, MSR_SPEC_CTRL, MSR_RW);
->> +    else
->> +        svm_set_msr_intercept(v, MSR_SPEC_CTRL, MSR_RW);
->>   
->>       /*
->>        * Always trap write accesses to VIRT_SPEC_CTRL in order to cache the guest
->>        * setting and avoid having to perform a rdmsr on vmexit to get the guest
->>        * setting even if VIRT_SSBD is offered to Xen itself.
->>        */
->> -    svm_intercept_msr(v, MSR_VIRT_SPEC_CTRL,
->> -                      cp->extd.virt_ssbd && cpu_has_virt_ssbd &&
->> -                      !cpu_has_amd_ssbd ?
->> -                      MSR_INTERCEPT_WRITE : MSR_INTERCEPT_RW);
->> +    if ( cp->extd.virt_ssbd && cpu_has_virt_ssbd && !cpu_has_amd_ssbd )
->> +    {
->> +        svm_set_msr_intercept(v, MSR_VIRT_SPEC_CTRL, MSR_W);
->> +        svm_clear_msr_intercept(v, MSR_VIRT_SPEC_CTRL, MSR_R);
->> +    }
->> +    else
->> +    {
->> +        svm_set_msr_intercept(v, MSR_VIRT_SPEC_CTRL, MSR_RW);
->> +    }
-> 
-> Preferably omit the braces for "else" here, just like you do above and ...
-
-I added them for symmetry, since the first has. I find it easier to 
-follow, personally. I can omit it.
-
-> 
->>       /* Give access to MSR_PRED_CMD if the guest has been told about it. */
->> -    svm_intercept_msr(v, MSR_PRED_CMD,
->> -                      cp->extd.ibpb ? MSR_INTERCEPT_NONE : MSR_INTERCEPT_RW);
->> +    if ( cp->extd.ibpb )
->> +        svm_clear_msr_intercept(v, MSR_VIRT_SPEC_CTRL, MSR_RW);
->> +    else
->> +        svm_set_msr_intercept(v, MSR_VIRT_SPEC_CTRL, MSR_RW);
-> 
-> ... here.
-> 
->> --- a/xen/arch/x86/include/asm/hvm/svm/vmcb.h
->> +++ b/xen/arch/x86/include/asm/hvm/svm/vmcb.h
->> @@ -585,13 +585,12 @@ void svm_destroy_vmcb(struct vcpu *v);
->>   
->>   void setup_vmcb_dump(void);
->>   
->> -#define MSR_INTERCEPT_NONE    0
->> -#define MSR_INTERCEPT_READ    1
->> -#define MSR_INTERCEPT_WRITE   2
->> -#define MSR_INTERCEPT_RW      (MSR_INTERCEPT_WRITE | MSR_INTERCEPT_READ)
->> -void svm_intercept_msr(struct vcpu *v, uint32_t msr, int enable);
->> -#define svm_disable_intercept_for_msr(v, msr) svm_intercept_msr((v), (msr), MSR_INTERCEPT_NONE)
->> -#define svm_enable_intercept_for_msr(v, msr) svm_intercept_msr((v), (msr), MSR_INTERCEPT_RW)
->> +void svm_set_msr_intercept(struct vcpu *v, uint32_t msr, int flags);
->> +void svm_clear_msr_intercept(struct vcpu *v, uint32_t msr, int flags);
->> +#define svm_disable_intercept_for_msr(v, msr) \
->> +    svm_clear_msr_intercept((v), (msr), MSR_RW)
->> +#define svm_enable_intercept_for_msr(v, msr) \
->> +    svm_set_intercept_msr((v), (msr), MSR_RW)
-> 
-> Please avoid excess parentheses. Also could you clarify why you retain
-> these shorthands when you don't use them in the conversion that you're
-> doing (e.g. ())? Are you intending them to go
-> away down the road?
-
-Ok.
-I did not understand the question. Which shorthands?
+Thx. I will fix and keep it in mind.
 
 > 
 > Jan
