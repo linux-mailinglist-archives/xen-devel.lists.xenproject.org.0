@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C01036A545C
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 09:26:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503095.775257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5E176A5463
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 09:31:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503108.775267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWvIw-00051D-EY; Tue, 28 Feb 2023 08:25:46 +0000
+	id 1pWvNh-0006pi-3J; Tue, 28 Feb 2023 08:30:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503095.775257; Tue, 28 Feb 2023 08:25:46 +0000
+Received: by outflank-mailman (output) from mailman id 503108.775267; Tue, 28 Feb 2023 08:30:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWvIw-0004xq-BO; Tue, 28 Feb 2023 08:25:46 +0000
-Received: by outflank-mailman (input) for mailman id 503095;
- Tue, 28 Feb 2023 08:25:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pWvNg-0006mR-W9; Tue, 28 Feb 2023 08:30:40 +0000
+Received: by outflank-mailman (input) for mailman id 503108;
+ Tue, 28 Feb 2023 08:30:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rjMb=6Y=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pWvIu-0004xg-Fq
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 08:25:44 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20609.outbound.protection.outlook.com
- [2a01:111:f400:7eaf::609])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7de0af48-b741-11ed-9693-2f268f93b82a;
- Tue, 28 Feb 2023 09:25:43 +0100 (CET)
+ id 1pWvNe-0006mL-R1
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 08:30:38 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2080.outbound.protection.outlook.com [40.107.7.80])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2cd2aa99-b742-11ed-a550-8520e6686977;
+ Tue, 28 Feb 2023 09:30:36 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB9PR04MB8233.eurprd04.prod.outlook.com (2603:10a6:10:24b::17)
+ by AM9PR04MB7697.eurprd04.prod.outlook.com (2603:10a6:20b:2d6::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.20; Tue, 28 Feb
- 2023 08:25:41 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6134.30; Tue, 28 Feb
+ 2023 08:30:07 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b%7]) with mapi id 15.20.6134.030; Tue, 28 Feb 2023
- 08:25:41 +0000
+ 08:30:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,280 +46,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7de0af48-b741-11ed-9693-2f268f93b82a
+X-Inumbo-ID: 2cd2aa99-b742-11ed-a550-8520e6686977
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f/sn4/eRH2JOIZTR3Gm0WstoVWIxGt7dJNlaYHjfRBu4ZW9hRFyBdbyKqGXhjkQF1z7nFTba6HbZ6gcDApj38U+48IEUtTROcG5I+vq66q3VhccG9cSJHLAazpGx7/59LMH9uCZJboelFbXGSk8GCr49yoTCj2836MPq2npfg7jWFqKSfcE7K4cUC6K9uxm8aeUyuTqt2MpH+N7OK6j3jlYJYms1eLL0Qi+T1q62C+wnHogLslNOuTvyukCgFrcvhbHJd8+U5yOQWs4wwocwZU0dK4CSIub2qWqh+yUvaEY3khB9yqAwQYBFVS983nVlMtaG31plu3Pp0AQCMK0geQ==
+ b=jpmXQOg07UfoaNStzobtvmhaw5PzWmNgAObeoA8PWn25pwMhuM6l35M7Pk0LEwLRTe5tGRuf7/VR6j42GaiiMcKeRgHm2BxgoJmnR+K3XMPJVMeI6+Wl/qQAbePDqidG9G5v2aPf81KIHjCxX+sS3X0pwrWcrOcTdMc8UxUWVfaQTnYueo0ziwv1qBsl2Ty1z1dBWm+5HNlW3nnNdF7W4ewX1GqEUMSNge2hyS2HV7mvJlxPjm420Ldp5vyy7dTW5y9C3tQyAxcedRKfXvF+p7++x9UgQXG+ds6igTMSF5UCUkesEQ+LbDS2mcJrkOzpZQNHNnSWWfQZABfcbJVMzg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5cHhUllAWzizlBTNqM3PpXr8BBp+/9MKKVyIqA7v+Yc=;
- b=Jb3gOf9MuhuhFkmZe296fzzejOdDGs0E70szWwx1dJn+KFo9Q19MaFk06mwajdJdPVDy9CRFNQIukDAZGHL1pZTo4yb4l3Fp53ZlyN9MjyO65yMNjf4BvSgR7coOi7aA1AcCkEWHxLkaMjVeTABAvpJHjhaK9qyfaax5KPW2Wh752U+HXZzSV8m7lU4CRvMmoz5L5lg+qJyP6NUg6xIiPy3AqaynvCc3yALFqvw3rgpMC6I/YREHrsFiLaHPVu2vMxK5aFbgGmQuP/nfDhVfCZHihLtjQ+W3Lgeb6w84bJ9lNwBhMIJc/f0EdcNRLSvDMOErASYHtr8DVHiLZXkPzQ==
+ bh=iwf21ZBreCLvl8McYUksuSerg7uKP6mlEmgasvp9ifQ=;
+ b=EzY52TvSjhXhDj2zTvwBI4R+i9Na5M9YsC0y1dWYv5LCECHxH+qpxInyOPjz8Kv0jAajkJeUHIjX1c2Ye+0HomUVLd3zZQAg35T5b8kzpg3RESb0G0R3DBeNLFzVGaCJWQlZhFENDbw4Lsbte0k7ah1PSobzbwVgZE8C6PuKEDESnlaZEMTpuqk6XHRa2OjWWkbUePkmkPoJy0ZBtabUGGkOLHCpKQXm3m9ZtS0tal/UuZsWdl3KXziesnvD43EebZIQFOWehlbg4IGhUYxRYaxjZ+bXTOJDZegYcglgXnzdAUHKuvVwKJzK2jYmKPafBJIJNYRVVdO9nFUE6I18+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5cHhUllAWzizlBTNqM3PpXr8BBp+/9MKKVyIqA7v+Yc=;
- b=jhXigrtse95Q0bF0YyqwevlwQF7atrwGXOx0XuAfkBnzqG9paKP0ipGrFRTUykhS6Sh7xFV7hmfp6AV3qxyIFjxhoXwCV4mtMGAF3c43W4gB6/Zbi9B+Q+RqJtECjRZyH22/1DZPUNxCBqzyicKGkvhU+EVcVyUFvo6t0SfE0kIb+IBcP4ukjq+1dZihxy/W7z+9fYUwcIxAXSbgRlN5zzQFZzvUxGIuAsMp8xir5E86OJwxJlWIfeRcCs9FDU1bejfXdPz1MtFmnh4yPPbv7DjUQ3sXc6R0EAOFgactQObNgLRpJ70qdMNRcX0MYTwSw8SJajLDOaVjLqPHnySEow==
+ bh=iwf21ZBreCLvl8McYUksuSerg7uKP6mlEmgasvp9ifQ=;
+ b=To3qr9kxPpkn+d+kYv3U28jE9F5BeoQvSvGtCySGF8hzek1+MsWPEnchnE8iy2uMgR053Dmg5rVkAtqJKIc9LyTkX7vWpjiqnuQUWDWeHgey1Ahrdwad59EoKniJR3mGwb9ETAXGVwm9gf0oU7dJkS1y+8maulISRKIbB1qOMOj8toUgDDH4FleM7ZPTOeF9tOJG+hsL82HUh0qbMQAoRQkrG9YGdch1fyBM4106jQkhDF8+0gf5aR0HKPIYjNhCInwtNfTdy6xF/ODpPp/mhET112JtpSQMavjSS1OwqcQq6BW1ARr36KetY4vRKV0Jar40oGdAwXpFjJ8EY9Z1fQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <874a28ac-3ae4-a6c6-c230-570be3672441@suse.com>
-Date: Tue, 28 Feb 2023 09:25:38 +0100
+Message-ID: <ad4f8624-6420-8b6c-829e-828ffca9bd1e@suse.com>
+Date: Tue, 28 Feb 2023 09:30:05 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH] build: add crypto/ to SUBDIRS
+Subject: Re: [PATCH v2] core-parking: fix build with gcc12 and NR_CPUS=1
 Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20230227095315.6483-1-michal.orzel@amd.com>
- <c16cbd72-9a5d-cea7-dd17-c9521328fffa@suse.com>
- <113d8d74-19a6-85da-8b89-1a21bf95960e@amd.com>
- <bbf3edac-d992-28b0-91b2-ca97159fbce2@suse.com>
- <c38e0913-e588-712f-6e0f-698f9dbf51ba@amd.com>
- <8bb1d032-639b-d6f4-28f7-2f5e5fbcbf4e@suse.com>
- <bb354282-3236-c7d0-edc2-c7d18d2afde2@amd.com>
- <23af7286-fc1a-d495-d5af-a137dbc66898@suse.com>
- <5d2890c9-d78b-69af-fec3-dace8723ea24@amd.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <3e72f386-7afa-84a5-54c5-14d17609dac7@suse.com>
+ <3ca0416c-0d16-1345-0d42-6c66759e477a@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <5d2890c9-d78b-69af-fec3-dace8723ea24@amd.com>
+In-Reply-To: <3ca0416c-0d16-1345-0d42-6c66759e477a@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0186.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0154.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8233:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3d7d5cc-ff56-4c19-4784-08db196560cb
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB7697:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0c4e4e9-a6c0-412e-ae12-08db1965ff65
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	1450xiH66ATGIF5NgNue0Xhr15mWiebe3b1bBg3z4Y8530jEaHUj3hJUR9P3NPM1iipIjzEH8hcUaEUAfe6687sO13m7IvwcJOv27sG/UBRxZSOfPIDusd15NMrSLFwxQVP0VUgngEHG2GVSKCrcuqSyr+hydIrR5pTuSoOpmRECCRJrJGfStC35krQDHeYPhKO0AJFqzMzbqb7ggbyb9MnpH8QZcAByCgmp+wqSnpVUU7nl/Xbijqny/2Xwc4urgrnxvateS9BidHTQiUeuujFGZA0e0IBMNALVN2Z8GnW5MWhP2xTBLBPI99YSXvgPxs4j5zA18wEJRfsLRcN/rrWzHLLTz+JRoHqTjxiFbCy2ZqfjlWWAMcjKPZwolZYnRwR5gIGyRmN9L9IJGXtKSlxqeahOyG1zl5HUK4m8vEAeoCEt5z/M0ucesq/vfbjsexEUWfnBQD4M3linjdbv0CvwTLz+5gAAH3DxEhVXiTGypOXGA9qtQVxzZqSoemPHyPYA3nke9KKAbEUBaLu56MBS6OhhJDI1GstPKd892R5ou4UIcFnQ3Rhxn725Lx5RRgSx0/m9YSckZf5m95Tb27MonrUBhXkvmZsDj4qeQFOF1tmwiVz54PBS3Lo96SClOykcWG/bGH5aNtE+TJOwKzdHejd6YKc2BXTg1jpEfR9v97/kELSjJeM1HhUruZIOFxdhZskY/nrcxDeEbhPXp0TxRBrSf2bS0AVNHPR4p7c=
+	Ufnsolse4lmln8KlCowRv2xzCh0RnPY2d64OLLsIHb6KpK12NR5Mhrqrk3u+C/wHNYE96GifpLqgH3RQCUVVnuLaFiQT9AOhkBWoK7NbCr1+ismcBJJRFzqIszaFbaABTIvAxjRruGjRU3ipNc2J3QWEX/bxELu6dxdiiiNabPlAP2wvJLk3V76aixxy8p2qprLbGiYVa/Ly84QYJps2msHfnRwLIYqyhPfw5SOVP0IYu5zlCdbdkYgOXCROUAq1dQv7ht9NGZlMsQg9+nh0Q1nrAfUf9GUwF7gaeqg8tN1iqTxYzKvNplxMQM/4OzVyybqXybsHRS6Slf6w4p3XZYyDOxXBeLCEFRFbJXtTvqfP6BopM94rIxg8UJ3S3SqL7GO+2beEAdqfpBgH0ToFijk/UmYRYXwJ6+Izqebz2A4GCBt40cJt8u0MxDm813WgEa+3EPiNX4CfyzdOvMeZtklnIFlUGAgGnDrLDP8OZ5nHgQZkK7ujHjhrftC5PcVF1L1l4H1t1XVtupNChRskYLobHri1v8q++IM/mgGvNI8bPRUUcRHGz8FQ+sHl1zbxSXZ0Bh4Lsq9YYhHdtk6eaiX5UDGyw/4ZkaLhqwuAOIuIgeNJIL7wlQqeG8dhAQWQxZq1LGoEaCrr5QVg3AmOjf7EAqcUk5Ws4heBJWIGT6mre1nHLjP0IBEb7PlUVU5SGbjU75RloPsFhwKhQSCM9CQtI28PJE4e6V0qO6eoJ/g=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(366004)(396003)(39860400002)(376002)(136003)(451199018)(31696002)(86362001)(6506007)(26005)(6916009)(36756003)(186003)(53546011)(4326008)(8936002)(66476007)(2616005)(66946007)(6512007)(41300700001)(5660300002)(54906003)(83380400001)(6486002)(38100700002)(66556008)(8676002)(478600001)(2906002)(316002)(6666004)(66899018)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(39860400002)(366004)(376002)(136003)(396003)(451199018)(31686004)(86362001)(36756003)(66476007)(66946007)(66556008)(41300700001)(8676002)(5660300002)(8936002)(6916009)(4326008)(2906002)(31696002)(38100700002)(6486002)(478600001)(54906003)(316002)(83380400001)(26005)(2616005)(186003)(53546011)(6512007)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZDlCOEIxVUlrZFVKK00zamJmZ0d2VHVRMFJnamNqNUdCQ0o3dmRSbzhjcDNY?=
- =?utf-8?B?Ky82bVRxTFQrOTZ0eXdrVFpYTGIyeWJQYmxDZlM1a2NYTllrOE5USW91UkdM?=
- =?utf-8?B?T3VzVzlJLzJUS05SWEtrWk9qcFB3emFZZXpqS0tNVHlmM21rYm5XRDYyd3l3?=
- =?utf-8?B?ZktOWXhjcmVqNkFBRXRKSGRyLzE0bjVaT0RKV3FzM3NVc2ZXMTdXeEFsUDI1?=
- =?utf-8?B?dzdydXBGcWp3WUNkUXZGZC9FMHhOS1pnSUNRMGFtNmFpZzYxWDArd3BPTEVq?=
- =?utf-8?B?aDZTUisrK3FlcklGRGxOaDlxZTcrV1N1R1ljam9WWC9XakE0M0ZOcVF5enQ4?=
- =?utf-8?B?RUw5aEp6cDNnY0NvVGhKQ3ZUeXl4THlGVFdlRndLbzJVb3pOano3cVd0YXZN?=
- =?utf-8?B?U3duMktUa1NXYWNvaldKUXZFQkhTQ2xnY2NtWjRUWlNsR3cxZDZtK0krQVVr?=
- =?utf-8?B?ck9jNWNlRHN0NHdNck1oU21XRkVvNS8vam9yMUxoQTJYNFlTUHVIazFPdzlB?=
- =?utf-8?B?QVVhTis0NExCMWZRdnIxNHZTb1N0S2RIMnVXTWJzcHgrOXNabTZIb0RjYW1H?=
- =?utf-8?B?NGN4WWsrd3RyTjQwYWUzaUJwSDIrQ0U3cDRPMlZTWHM0TFBHL2pCdkM5dGZP?=
- =?utf-8?B?eC94ZWVxQnRLdUhOaXptZUh3K1daaE9CWFhFQjVCdHZQZlRWM0QxaTNDcHFv?=
- =?utf-8?B?YnJuaFB3b2pDOERncUljMktTTEhlWlAwMXp5VFRhUlBGUkg3WE5LeFFzZ2g0?=
- =?utf-8?B?am1ZWGRhOVlvb1JHZUE4c1Q0OWtNL3YrSHRPbzc1RXJBRjZPMEREd2N6R09r?=
- =?utf-8?B?UDk0MmV5YWVGNkRXYVpkT0NvRnU2YW13NThJSzZ0c2hiV0dVOXE1d2NPZEZk?=
- =?utf-8?B?SmRjMmUzaTNGd3VteFFlbFhXNzZ1VHlqcHJ4S3pISG94Qzk3OHVZZGJlc0RE?=
- =?utf-8?B?aTVRRitZampFR3NOaEZnQ2E0M292Q1hLanhsYjhJTEdMMmVoTCtnSzdIb2Ns?=
- =?utf-8?B?LzJoVncwVmF3ZnF5Nm5NMU16QzhST3pIVm9iK3pjREZyTk1lTzFKZGJjV1Qr?=
- =?utf-8?B?d1hPTk5ldko4RzhyQS9yRnpiT21yRWVLQThOMngvemZrbGJPRUNHK2xybVZp?=
- =?utf-8?B?QnlLdHVObytacmliVk5TaVpweEZiZitKMkIyR2txeThBL0E4Q2ZTU01nNlhv?=
- =?utf-8?B?dXQ3N3Z2NndJaUNLUzlIdnhOZHBJVWpJY0VyZTFMZC9qVWd1TGVibXNmcDAy?=
- =?utf-8?B?VkR2bWhhdFZIOW1PWkFrcGZPdEVNN3Jad2JOUVRzblYvUi9rTzd3YUFQLy9q?=
- =?utf-8?B?Zm5YQWYwSXY5ZCtPK3FuWW5ZUTFKU05JRFcxMEJZbHd3d3MrcDBROXRqeHFX?=
- =?utf-8?B?SFZuRVFkMGZJd0Jkd1IxRWluYmJQaUlMZ0lnbmVlYWJXaGptS3p4NW1oZ2xG?=
- =?utf-8?B?UTNEZ0hSM2xpdjVuRjdKaVNqTGY5M1ZkS2dxSllzckpzZnAyakpDQnAxZk84?=
- =?utf-8?B?eHJXT0pBZkduZHI5dzNvV3hnUUduTzFJUFdwYndMVitCdDBLbWdKcmxUb21R?=
- =?utf-8?B?VGFIQldoa2lkYXZOOGZOYllCZWNRSytYbDh0YUpZR01ybG1pT0puZkh6NTNX?=
- =?utf-8?B?VVRYSCt3cm1Kb0NFMFUzcG80YnMrbytka1F0VGNYZXpMS1cxWkphZ2hmNDY2?=
- =?utf-8?B?OFd6QTh2b0krM3BWU01RcDBXRDVoQUhDb2NEWWRMRnZWaWx1TlhTL2U4ckRq?=
- =?utf-8?B?dzRIdWh2SmE0S2xSbzhNektBaU5RcW5rblNjU3J6N1NMRFFrSHQ1WFk5TUFN?=
- =?utf-8?B?YWJGRmw3aGdOMkNJNkZJMGdlVWhKTDJtNytwM29uc1pZbFFHaTVhUXRSaUdi?=
- =?utf-8?B?RlFqSHc1RUo3anFNSEpjKzZVcU9qMUx1aEQzdWtQNWtteHVyb3ZJOGZpSDQ2?=
- =?utf-8?B?Ujl3YVVDRnAydG1vQi92MGhtY1Vxd3VpeEVLN1pwenVOc0Z6cDJoNkFXbVFY?=
- =?utf-8?B?dGphYUVWLzQ2MlFFWnFYZHAwelZGN21qYmNrL3lOV2sraW4wdk9Eemc0WjQ2?=
- =?utf-8?B?K3NhelR6N3F6VkRPMnZMend1bjlSZEk2Uy9KYWZvbzNEWlRVMjBXRTI5RGN6?=
- =?utf-8?Q?av5Z8hHqFY+2iMAGNU0JlxozV?=
+	=?utf-8?B?TzZPUFZ0UHNUK3lPSTl6TFRwcE1aNjFZaG1TVkkyZzdaYUkxU2Q0bkJ0Yk1q?=
+ =?utf-8?B?aGVnTEV3L3lHUDFKMXppbWoybkcrZy92VWx2bWlXR1JWWHd3UjExM3lWL2x4?=
+ =?utf-8?B?c0VveG14YmJkcE8welh3VElZQ2FRTWdzTUZRaUtpcGF2V2JrRzBEeFVNOUth?=
+ =?utf-8?B?dVZhQXBtQmo1MXBxWUwySFRLWDZxZ1R4Z1BjQ05NcDQxUXpXTmJ5eVl4YkdX?=
+ =?utf-8?B?OFo2a1VuUVlDbXdWVjBYNGlnRWNzRllQamlEV1dBUFkxSlA4ZGZ2eUlEZGZy?=
+ =?utf-8?B?bGt1LzhYQWpBcElDNmZ3bWNUUmlubmxiWVBLcHZDRGJpVngwREZlbjJtUmZL?=
+ =?utf-8?B?WjJiRkptSk56VHBnWjdqKzYvbFl4YnEzcEJUdUZFemV3bmJoTnZOeFY4aDZw?=
+ =?utf-8?B?bjdoTC84YnlUTHZtL1ozaDNzSUxqMDExR2dMMDRybk9oRDNKWWlYdHNkdGdL?=
+ =?utf-8?B?cThDNjN6Ylo5d1IzMyt6cEZXOXJVbUI3aDBwWEFwUFZXTG50eTVvUTU2elU1?=
+ =?utf-8?B?dWhEVW5MY2crYWpIYmY1eUtZSFB6QTc2TUxuTU5wNVhSZCtKcDQ1SFl0ZEU2?=
+ =?utf-8?B?aFZhUVJaYlBUQWhYMnVZUnZ6aEV0RTIwc1MxcmFlWkQ3dS9MaE5sMHoyYVoy?=
+ =?utf-8?B?dEQ0WTBIU1diNTRwSG5VOWRzSlRwdmtDZjErNzlEU05wQXBGVkQvZGVNTjRk?=
+ =?utf-8?B?NWlPMDhaZ2dSZVVEa1NncFFTMHREb2tNaEpsRDVZQVd6cUMzNE1rbjNEOEZS?=
+ =?utf-8?B?elpheXpvZjhuL1F3WHJSSG5jV2hXM0NNNVZYcDVHZ2dKaXc5ck9HK0lFM1d2?=
+ =?utf-8?B?L0NsOXYvQjdRdUx6WUtVbTlBWFN3TkU2TUMrTW8wVlRDQmMrMHBrdkdMSmxz?=
+ =?utf-8?B?c21LTE1CTlVHSEFUVnVGOHRUZ003YVlpcllUbTIzOXpZY25FcTFlS09YckJs?=
+ =?utf-8?B?WHlRT0dYNFRjWERvOFNENjFKU3NmTnNWaUY1UmI4NFJqR3RhQ1lhcEZvb00y?=
+ =?utf-8?B?eFl3YXk5ZHFXUHFrYkprM3UxNjdLUldMalc3VU9lVnR1RGxqemI4ZGdyUGM3?=
+ =?utf-8?B?WmhrSUYrNndzOVZDdnpjczRsWm16Q2dsTGc1WUllQmNtT1JhSmlFcURqYUtX?=
+ =?utf-8?B?NWZYSzYweXhCOFdDQlVyTGczeXEwcXpteVNSMTVhV05xTHRwUDBreTJyTUdq?=
+ =?utf-8?B?cDhJZGtuUUtpZENuNzNrNWFnd0dlcXU3WjZ2ZHlMY0p6UTdyYzdaT3dOTUxp?=
+ =?utf-8?B?bHRxWkpGbjlOQTZOVGEzQk1ta0NkSFlxaTVoZ2hCdS9sbWlQb1JpMHNITEV5?=
+ =?utf-8?B?Zk9sRkVSTDNhR0cvb3BpVENmYjk5NXliVWg5SjFPMU5wQTRCMG9qZHRCWFRr?=
+ =?utf-8?B?Y1N5ek12dHdmejRSN1N0YVlCYUJhcFB1c2U3OUFMNjFZREVHQkZwNWIzUXpl?=
+ =?utf-8?B?WVQraXovMkQ5b1hyb2NROGFzQUhmKzJmUlZYZ1dNeU9XckZiR1VkUXJweHZo?=
+ =?utf-8?B?Y1l6NjBqR21rWGZLS0JWS29DbkkySnJIVFJkYXNBL3pDQkIweTBqbjArTUdM?=
+ =?utf-8?B?dzNzQWQ4M2ZrQUQvL2wyVzQ3QXIxR2JxcEFla0xBY3g0Z0hNNEhkMFArRllw?=
+ =?utf-8?B?eC9VelRxRk52UHh4OUJLWjZ2ZFUyRFI5bWYyMEtSMzdqck0vV3RHVHZnZnJz?=
+ =?utf-8?B?eEdSNlNDekwxSHVzK0RjLzRNU1lZV2tJaVZHSGV2T0hTbE9EeTJUU2hPcW5B?=
+ =?utf-8?B?NFR0RnVLQkx4RmNqaFQ0ZlpJcGZveVd0L3JEVFQzRFo0YVpySFA4UnlhUnpy?=
+ =?utf-8?B?N0o5bGlRYUFxRzJWZms1Z29mcXowZDUzc2s2MnhsY2c5clpacTArTStJaUdT?=
+ =?utf-8?B?QzRvdFZqdWEvRUdHaXloQXA5Y0N1QlhJelkrTTFlRjNKL3ZueXhxbklwSjFE?=
+ =?utf-8?B?UlRSMGhyeUt2MlBNWHNmdC96UlJHNUZ0a1FyYmV1cU1wQmROVzNmbnB4b1ov?=
+ =?utf-8?B?elkvdFA0YVlGOHRoKy80VThYTUtVSVdZRk5SckdoOEN6aHZqWkQwVUdIVC9N?=
+ =?utf-8?B?Qkh2a3FzaGZiSmMwTmRzUFB5MFNvZHhOR2o0MGpidnIrcHlEUzIwdElZWEVu?=
+ =?utf-8?Q?BdqXajeZW7zjXfkzT+E3GGGVk?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3d7d5cc-ff56-4c19-4784-08db196560cb
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0c4e4e9-a6c0-412e-ae12-08db1965ff65
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2023 08:25:41.1414
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2023 08:30:07.1708
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jQP6zE1hpEltRD0UE1wSyfOocB0H9h4lisbF1oITPJZKVtlQPAwUshEDHU43dBk9wV2LbDhIMO7ZcZ8uEHGQUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8233
+X-MS-Exchange-CrossTenant-UserPrincipalName: vIlbJ/WJ81HYBHK3fixUnuePME84HVOUEd5WzrCfb0hW6yRgbX0DLKsugLpEh71eInZoOt420UufRrPHwb4big==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7697
 
-On 28.02.2023 09:14, Michal Orzel wrote:
-> 
-> 
-> On 27/02/2023 16:57, Jan Beulich wrote:
+On 27.02.2023 20:43, Andrew Cooper wrote:
+> On 09/09/2022 3:30 pm, Jan Beulich wrote:
+>> Gcc12 takes issue with core_parking_remove()'s
 >>
+>>    for ( ; i < cur_idle_nums; ++i )
+>>        core_parking_cpunum[i] = core_parking_cpunum[i + 1];
 >>
->> On 27.02.2023 16:46, Michal Orzel wrote:
->>> On 27/02/2023 16:00, Jan Beulich wrote:
->>>> On 27.02.2023 15:46, Michal Orzel wrote:
->>>>> On 27/02/2023 14:54, Jan Beulich wrote:
->>>>>> On 27.02.2023 14:41, Michal Orzel wrote:
->>>>>>> On 27/02/2023 11:10, Jan Beulich wrote:
->>>>>>>> On 27.02.2023 10:53, Michal Orzel wrote:
->>>>>>>>> --- a/xen/Makefile
->>>>>>>>> +++ b/xen/Makefile
->>>>>>>>> @@ -589,7 +589,7 @@ $(TARGET): outputmakefile FORCE
->>>>>>>>>       $(Q)$(MAKE) $(build)=. arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
->>>>>>>>>       $(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' 'ALL_LIBS=$(ALL_LIBS-y)' $@
->>>>>>>>>
->>>>>>>>> -SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
->>>>>>>>> +SUBDIRS = xsm arch/$(TARGET_ARCH) common crypto drivers lib test
->>>>>>>>>  define all_sources
->>>>>>>>>      ( find include -type f -name '*.h' -print; \
->>>>>>>>>        find $(SUBDIRS) -type f -name '*.[chS]' -print )
->>>>>>>>
->>>>>>>> As long as it's arch/$(TARGET_ARCH) that's used here, crypto should imo
->>>>>>>> also only be included when selected (or at the very least only when an
->>>>>>>> arch might select it, which afaics is possible on x86 only right now).
->>>>>>>>
->>>>>>>> It would also help if in the description you made explicit that SUBDIRS
->>>>>>>> isn't used for anything else (the name, after all, is pretty generic).
->>>>>>>> Which actually points at an issue: I suppose the variable would actually
->>>>>>>> better be used elsewhere as well, e.g. in the _clean: rule and perhaps
->>>>>>>> also in the setting of ALL_OBJS-y. (That'll require splitting the
->>>>>>>> variable, to that e.g. _clean would use $(SUBDIRS), $(SUBDIRS-y), and
->>>>>>>> $(SUBDIRS-) collectively.) It is, imo, that lack of consolidation which
->>>>>>>> has caused crypto to be missing from SUBDIRS.
->>>>>>>>
->>>>>>> I think what you wrote can be split into 2 parts: the part being a goal of this patch
->>>>>>> and the cleanup/improvements that would be beneficial but not related to this patch.
->>>>>>> The second part involves more code and there are parts to be discussed:
->>>>>>>
->>>>>>> 1) If we decide to create ALL_OBJS-y from SUBDIRS, then we would need to carve out test/ dir
->>>>>>> that is not part of ALL_OBJS-y and add it to SUBDIRS later on. Also, the order of ALL_OBJS-y matters
->>>>>>> for linking, so we would need to transfer the responsibility to SUBDIRS. The natural placement of
->>>>>>> SUBDIRS (including SUBDIRS-y, etc.) would be right above ALL_OBJS-y. However, when doing clean (next point),
->>>>>>> need-config is set to n and SUBDIRS would be empty. This means it would need to be defined somewhere at the
->>>>>>> top of the Makefile (thus harder to make sure the linking order is correct).
->>>>>>>
->>>>>>> 2) If we deicide to use SUBDIRS for _clean rule, then we would need some foreach loop, right?
->>>>>>> Apart from that, there are other directories that are not part of SUBDIRS i.e. include/, tools/.
->>>>>>> Together with SUBDIRS variable, it would create confusion (these dirs are also sub-directories, so why
->>>>>>> not having them listed in this variable?). Also, I can see that we do clean not only for $(TARGET_ARCH)
->>>>>>> but for all the existing architectures.
->>>>>>
->>>>>> I understand that the changes would be more involved, but I disagree with
->>>>>> your "two parts" statement: If what I've outlined was already the case,
->>>>>> your patch would not even exist (because crypto/ would already be taken
->>>>>> care of wherever needed).
->>>>>>
->>>>>>> I would prefer to stick for now to the goal of this patch which is to add crypto/ so that it is taken
->>>>>>> into account for the tags/csope generation. Would the following change be ok for that purpose?
->>>>>>>
->>>>>>> diff --git a/xen/Makefile b/xen/Makefile
->>>>>>> index 2d55bb9401f4..05bf301bd7ab 100644
->>>>>>> --- a/xen/Makefile
->>>>>>> +++ b/xen/Makefile
->>>>>>> @@ -589,7 +589,9 @@ $(TARGET): outputmakefile FORCE
->>>>>>>       $(Q)$(MAKE) $(build)=. arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
->>>>>>>       $(Q)$(MAKE) $(build)=. MKRELOC=$(MKRELOC) 'ALL_OBJS=$(ALL_OBJS-y)' 'ALL_LIBS=$(ALL_LIBS-y)' $@
->>>>>>>
->>>>>>> -SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
->>>>>>> +SUBDIRS-$(CONFIG_CRYPTO) += crypto
->>>>>>> +SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test $(SUBDIRS-y)
->>>>>>> +
->>>>>>>  define all_sources
->>>>>>>      ( find include -type f -name '*.h' -print; \
->>>>>>>        find $(SUBDIRS) -type f -name '*.[chS]' -print )
->>>>>>
->>>>>> The fact that, afaict, this won't do is related to the outline I gave.
->>>>>> You've referred yourself to need-config. Most if not all of the goals
->>>>>> SUBDIRS is (currently) relevant for are listed in no-dot-config-targets.
->>>>>> Hence your change above is effectively a no-op, because CONFIG_CRYPTO
->>>>>> will simply be unset in the common case. Therefore if an easy change is
->>>>>> wanted, the original version of it would be it. An intermediate
->>>>>> approach might be to add crypto to SUBDIRS only when TARGET_ARCH=x86.
->>>>>> But neither would preclude the same issue from being introduced again,
->>>>>> when a new subdir appears.
->>>>> I understand your concerns. However, I cannot see how your suggested changes
->>>>> e.g. making use of SUBDIRS in ALL_OBJS and _clean would solve our issue.
->>>>> They would reduce the repetitions (hence I called them cleanup/improvements)
->>>>> but as we want to keep tags,cscope,clean as no-dot-config targets,
->>>>
->>>> I, for one, didn't take this is a goal (perhaps for clean, but there ...
->>> So you would suggest to make these targets (except clean) .config dependent?
->>>
->>>
->>>>
->>>>> we would still not be able to use:
->>>>> SUBDIRS-$(CONFIG_CRYPTO) += crypto
->>>>> and use it in all_sources (because as you pointed out, it will be a no-op).
->>>>
->>>> ... the problem is obvious to solve, as outlined before).
->>>>
->>>>> Also, why do we care so much about guarding crypto/ if we take into account
->>>>> so many architecture/config dependent files for tags/cscope (e.g. in drivers,
->>>>> lib/x86, etc.)?
->>>>
->>>> Good question, which I'm afraid I have to answer with asking back:
->>>>
->>>>> If these are no-dot-config targets, then we should take everything, apart
->>>>> from really big directories like arch/ ones.
->>>>
->>>> Why is arch/ other than arch/$(TARGET_ARCH) to be ignored? And if it is,
->>>> why would crypto, used by only x86, not be ignored? As always I'd prefer
->>>> firm rules, not arbitrary and/or fuzzy boundaries.
->>>>
->>>> Furthermore, considering e.g. cscope: Personally I view it as actively
->>>> wrong to constrain it to just one arch. That'll lead to mistakes as
->>>> soon as you want to make any cross-arch or even tree-wide change. Hence
->>>> it would probably want treating just like clean. I can't comment on the
->>>> various tags (case-insensitive) goals, as I don't know what they're
->>>> about.
->>> The useful thing about generating tags/cscope per-arch is that you can limit
->>> the number of findings. Each symbol leads to one definition and not to multiple
->>> ones. But this is still not ideal solution because doing this per-arch
->>> and not per-config leads to inconsistency. Also, as you wrote, sometimes it is useful
->>> to have all the symbols loaded when doing tree-wide changes. So in ideal world we should
->>> have an option to use approach or another. I reckon this is why Linux
->>> has a separate script for that which allows to set all-arch/per-arch, config-dependent/config-independent.
->>>
->>> Anyway, I do not have any ready-made solution for this problem.
->>> The only benefit of this patch would be that the symbols for crypto/ would be visible
->>> in cscope/tags (TBOOT uses the crypto functions but there are no definitions present
->>> which may be suprising for people using ctags).
->>> But I can understand if you do not want to take this patch in, due to all the observations above.
+>> complaining that the right hand side array access is past the bounds of
+>> 1. Clearly the compiler can't know that cur_idle_nums can only ever be
+>> zero in this case (as the sole CPU cannot be parked).
 >>
->> Well, I'm not outright opposed. But I definitely want to hear another
->> maintainer's view before deciding.
+>> Arrange for core_parking.c's contents to not be needed altogether, and
+>> then disable its building when NR_CPUS == 1.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> v2: Disable building of core_parking.c altogether.
+>>
+>> --- a/xen/arch/x86/Kconfig
+>> +++ b/xen/arch/x86/Kconfig
+>> @@ -10,7 +10,7 @@ config X86
+>>     select ALTERNATIVE_CALL
+>>     select ARCH_MAP_DOMAIN_PAGE
+>>     select ARCH_SUPPORTS_INT128
+>> -    select CORE_PARKING
+>> +    select CORE_PARKING if NR_CPUS > 1
 > 
-> While waiting for other maintainers vote, I would like to propose an intermediate approach
-> that would at least result in unified approach (related to what you wrote about constraints):
+> The appropriate change is:
 > 
-> In general, there are 2 *main* approaches when dealing with code indexing.
-> The first is a "tree-wide" approach, where we do not take Kconfig into account.
-> The second is a "config-aware" approach, where we take into account Kconfig options.
+> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+> index 6a7825f4ba3c..2a5c3304e2b0 100644
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -10,7 +10,7 @@ config X86
+>         select ALTERNATIVE_CALL
+>         select ARCH_MAP_DOMAIN_PAGE
+>         select ARCH_SUPPORTS_INT128
+> -       select CORE_PARKING
+> +       imply CORE_PARKING
+>         select HAS_ALTERNATIVE
+>         select HAS_COMPAT
+>         select HAS_CPUFREQ
+> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> index f1ea3199c8eb..855c843113e3 100644
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -10,6 +10,7 @@ config COMPAT
+>  
+>  config CORE_PARKING
+>         bool
+> +       depends on NR_CPUS > 1
+>  
+>  config GRANT_TABLE
+>         bool "Grant table support" if EXPERT
 > 
-> At the moment, in Xen, the approach taken is not uniform because we take all the directories
-> into account except arch/ where we take only $(TARGET_ARCH) into indexing. This makes it difficult
-> to reason about. What is the rule then - how big is the directory?
 > 
-> The intermediate solution is to switch for now to "tree-wide" approach by modifying the SUBDIRS
-> from:
-> SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
-> to:
-> SUBDIRS = xsm arch common drivers lib test crypto
+> The core parking code really does malfunction with NR_CPUS == 1, so
+> really does need a hard dependency.
 > 
-> This way, the approach is clear for everyone and we do not make any exceptions. Also the name of
-> SUBDIRS and all_sources makes sense as they are read as "global" by default as oppose to e.g. "all_compiled_sources".
-> In the future, we can then add support for "config-aware" approach by taking into account Kconfig which involes
-> more code.
-> 
-> Benefits:
->  - clear approach, no fuzzy boundaries - all in
->  - crypto can be included right away as well as any new subdir without requiring to fix the infrastructure first
+> It turns out our version of Kbuild does understand the imply keyword,
+> which is the right way to spell "I want this feature unless something
+> else happens to rule it out".
 
-I'm okay with that proposal (albeit if you make a patch, please have "crypto"
-at least ahead of "test"), but it'll need agreement by people actually using
-any of the affected make goals.
+I've switched to that; as said in the private discussion we had, I
+simply didn't know of "imply"; I've never come across a use so far in
+Linux. But ...
+
+> As noted in the kbuild docs, select should only be used for immutable
+> properties (this arch has $X), whereas imply should be used for all "I
+> want $Y".  Most places we use select ought to use imply instead.
+
+... I agree that's what we want to use here and likely a several other
+places.
+
+>> --- a/xen/arch/x86/platform_hypercall.c
+>> +++ b/xen/arch/x86/platform_hypercall.c
+>> @@ -727,12 +727,17 @@ ret_t do_platform_op(
+>>         case XEN_CORE_PARKING_SET:
+>>             idle_nums = min_t(uint32_t,
+>>                     op->u.core_parking.idle_nums, num_present_cpus() -
+>> 1);
+>> -            ret = continue_hypercall_on_cpu(
+>> -                    0, core_parking_helper, (void *)(unsigned
+>> long)idle_nums);
+>> +            if ( CONFIG_NR_CPUS > 1 )
+>> +                ret = continue_hypercall_on_cpu(
+>> +                        0, core_parking_helper,
+>> +                        (void *)(unsigned long)idle_nums);
+>> +            else if ( idle_nums )
+>> +                ret = -EINVAL;
+>>             break;
+>>
+>>         case XEN_CORE_PARKING_GET:
+>> -            op->u.core_parking.idle_nums = get_cur_idle_nums();
+>> +            op->u.core_parking.idle_nums = CONFIG_NR_CPUS > 1
+>> +                                           ? get_cur_idle_nums() : 0;
+> 
+> These don't look right.
+> 
+> If the core parking feature isn't available, it should uniformly fail,
+> not report success on the get side and fail on the set side.
+
+I disagree. There's no reason to report failure when we can fulfill a
+request. Note also that "set" doesn't unconditionally fail either the
+way I've coded it. Both are so people won't have to special case
+single-CPU environment higher up the call stack.
+
+>> --- a/xen/arch/x86/sysctl.c
+>> +++ b/xen/arch/x86/sysctl.c
+>> @@ -157,7 +157,7 @@ long arch_do_sysctl(
+>>         long (*fn)(void *);
+>>         void *hcpu;
+>>
+>> -        switch ( op )
+>> +        switch ( op | -(CONFIG_NR_CPUS == 1) )
+> 
+> Extending what Julien has said...
+> 
+> We use this pattern exactly twice, and I would probably ack a patch
+> disallowing it in the coding style.
+> 
+> Its a trick that is too clever for its own good.  To anyone who hasn't
+> encountered it, its straight obfuscation, and even I, who knows how the
+> trick works, still has to reverse engineer the expression every single
+> time to figure out which way it ends up resolving.
+
+Well, I've replaced it then. Will send a v3 in due course.
 
 Jan
 
