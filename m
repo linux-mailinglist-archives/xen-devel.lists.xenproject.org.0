@@ -2,41 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4EF86A5661
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 11:12:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503208.775401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E2E16A568D
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 11:25:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503216.775411 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWwxK-0002B9-IA; Tue, 28 Feb 2023 10:11:34 +0000
+	id 1pWxA4-00042z-OE; Tue, 28 Feb 2023 10:24:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503208.775401; Tue, 28 Feb 2023 10:11:34 +0000
+Received: by outflank-mailman (output) from mailman id 503216.775411; Tue, 28 Feb 2023 10:24:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pWwxK-00029B-F3; Tue, 28 Feb 2023 10:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 503208;
- Tue, 28 Feb 2023 10:11:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bF4M=6Y=redhat.com=mst@srs-se1.protection.inumbo.net>)
- id 1pWwxI-000295-Jh
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 10:11:32 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 43f663b2-b750-11ed-a550-8520e6686977;
- Tue, 28 Feb 2023 11:11:29 +0100 (CET)
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-595-09S_Es5xONijalfTxXXmWA-1; Tue, 28 Feb 2023 05:11:26 -0500
-Received: by mail-ed1-f70.google.com with SMTP id
- ck7-20020a0564021c0700b004a25d8d7593so13182481edb.0
- for <xen-devel@lists.xenproject.org>; Tue, 28 Feb 2023 02:11:26 -0800 (PST)
-Received: from redhat.com ([2.52.141.194]) by smtp.gmail.com with ESMTPSA id
- gg4-20020a170906e28400b008b1779ba3c1sm4349246ejb.115.2023.02.28.02.11.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Feb 2023 02:11:24 -0800 (PST)
+	id 1pWxA4-0003zu-LR; Tue, 28 Feb 2023 10:24:44 +0000
+Received: by outflank-mailman (input) for mailman id 503216;
+ Tue, 28 Feb 2023 10:24:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UJ3u=6Y=citrix.com=prvs=4169be7e0=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pWxA4-0003zo-23
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 10:24:44 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1c1e1017-b752-11ed-9693-2f268f93b82a;
+ Tue, 28 Feb 2023 11:24:42 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,128 +36,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43f663b2-b750-11ed-a550-8520e6686977
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677579088;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VUsHXm3vGD11b06eHDzEiEyoV6j+i/reAk8OksRIJe4=;
-	b=bA4isbCU9jAQEoDGGyJAKam3z8rsLjVp0nFnkACCRZdKUa+CAOkxeBbILHbifTpFiuEr0v
-	2dLFxY3UGUKlHHxpUcQyxodio1pey6HdFIC/In55VtI/akhuVE1UVULpp5P4rzk7f9iVex
-	HdhcJwz7kwxojW88KaJzu1VQX0kfDiM=
-X-MC-Unique: 09S_Es5xONijalfTxXXmWA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677579085;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VUsHXm3vGD11b06eHDzEiEyoV6j+i/reAk8OksRIJe4=;
-        b=r6ZNVv4m6I4mQzok9wlfQjQocmBQ4XDF+Axnkr6aalSTziJJfcCwZ2GKDsbZoZt2BD
-         e/ry9aOrOfxoYODGakD6yd9EgHkBpkju14OpqmEqD3hfDDJVLmo56Y9RTV7XQ6T1W18e
-         ju3H8xQccxVePb6JhbmLkPpfwAGDJ6HALneKdNG4folEPiZa08V40mIRq0g3gb8rDZmq
-         YOsTOPxByr111cfMxY+/mIoAjMJCxEZXI0lEtU1G+MxZGGDlEShDYMuciKevInV03kAU
-         3w4WwVgwIm1h7Nf+OYU0ld+SiSA2zFCPjKSIPeHZMI2GJttQL+rN46yyZdqaGtjvnTzL
-         M3Gw==
-X-Gm-Message-State: AO0yUKUPgbMlHu5X4mEd39O0k7xohfz5BVIk6D4MXVUuTN5e9Qt7s9y6
-	nUSXrYAliVqLSmdB+uAyIXGIhxLwqebfQa+HQFAK7ck/i1FwYv/h5qjL79SC8VgSRlAzhFQ1uEX
-	6B4Wqu3fX/yVBfwpY3+cXIWzgR2s=
-X-Received: by 2002:a17:907:cb81:b0:8b0:fbd1:1a61 with SMTP id un1-20020a170907cb8100b008b0fbd11a61mr2776590ejc.52.1677579085708;
-        Tue, 28 Feb 2023 02:11:25 -0800 (PST)
-X-Google-Smtp-Source: AK7set8xTF/bnD+AxesQL3OArWO5MlnXAcPheJM7sgj7/8nBceO+OQxCu+BpM+tstcL3jw1NyHbFqQ==
-X-Received: by 2002:a17:907:cb81:b0:8b0:fbd1:1a61 with SMTP id un1-20020a170907cb8100b008b0fbd11a61mr2776557ejc.52.1677579085382;
-        Tue, 28 Feb 2023 02:11:25 -0800 (PST)
-Date: Tue, 28 Feb 2023 05:11:20 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>
-Cc: Thomas Huth <thuth@redhat.com>,
-	Peter Maydell <peter.maydell@linaro.org>, libvir-list@redhat.com,
-	Richard Henderson <richard.henderson@linaro.org>,
-	qemu-devel@nongnu.org, Markus Armbruster <armbru@redhat.com>,
-	qemu-arm@nongnu.org, Reinoud Zandijk <reinoud@netbsd.org>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	xen-devel@lists.xenproject.org, Paolo Bonzini <pbonzini@redhat.com>,
-	Maxim Levitsky <mlevitsk@redhat.com>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
-Subject: Re: [PATCH 1/2] docs/about: Deprecate 32-bit x86 hosts and
- qemu-system-i386
-Message-ID: <20230228050908-mutt-send-email-mst@kernel.org>
-References: <20230227111050.54083-1-thuth@redhat.com>
- <20230227111050.54083-2-thuth@redhat.com>
- <Y/yY72L9wyjuv3Yz@redhat.com>
- <20230227150858-mutt-send-email-mst@kernel.org>
- <84d7d3e5-0da2-7506-44a7-047ebfcfc4da@redhat.com>
- <20230228031026-mutt-send-email-mst@kernel.org>
- <Y/3CiEKKoG06t9rr@redhat.com>
- <20230228040115-mutt-send-email-mst@kernel.org>
- <fe4626c6-6103-d5e5-6920-9dfb4777b979@redhat.com>
- <Y/3MIUDRBUSNg6C5@redhat.com>
+X-Inumbo-ID: 1c1e1017-b752-11ed-9693-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1677579881;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=9XvZtlxH5GfF+AFGiSjc3odNHkgkPlPvaXMY6RXprKo=;
+  b=NAPBx4T9o5SFQmQTnyv+u/gRoWSDNn3WTZsiVe/71OGBL7VihOBOc4qe
+   kKDpk6KNkMb8vlgZXKuXwNnxlBl+yO4I4u6ycA/xrJbbs4UsnCmlM/z1+
+   YjB2GXBqg5mB+grWFPJnlDrz2rjAlJIXBiF7PF3NTpUngWJ0RUm2JaxXv
+   c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 98730083
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:vSojrK/lzSnbegvQ8RLyDrUDTH6TJUtcMsCJ2f8bNWPcYEJGY0x3x
+ mIXWWmBO67YZTb2Kttxa9jn9kpXuJ6En99hHFY/+Xg8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kI/1BjOkGlA5AdmP6ob5Aa2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklk0
+ NkRdGs2YCzaiti/7IO+RsdBl5saeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGOkcUUrsUIMtWcOOAj3/jczpeuRSNqLA++WT7xw1tyrn9dtHSf7RmQO0EzhnD/
+ jqWpAwVBDk7btGYkTOG+U6R3NDIliLDAqEAS7eno6sCbFq7mTVIVUx+uUGAifuzh1O6WtlfA
+ 1cJ4Sdopq83nGSpSdS7XRy+iHmetxUYVpxbFOhSwAuK0KvPpQGCGnIDUCVCefQhrsY9QTFs3
+ ViM9/v5CDoqvLCLRHa18raPsSj0KSUTNXUFZyIPUU0C+daLiIgrgwjGVNpLDK+/hdqzEjb1q
+ w1mtwBn2e9V15RSkfzmoxae2WnESoX1ohAdzCDyVz7+1Q1FPYOfbqCZ7FT1wOcfFdPMJrWeh
+ 0Qsl8+b5eEIKJiCki2RXekAdI2UC+a53C702gA2QcR4n9i50zv6JN0LvmkiTKt8GpxcEQIFd
+ nM/ru+4CHV7GHKxJZF6bIuqYyjB5fixTI+1Phw4gzcnX3SQSONl1HszDaJz9zq3+KTJrU3YE
+ cbzTCpUJSxGYZmLNRLvLwvn7Zclxzol2UTYTo3hwhKs3NK2PSDKFupfagrWMrFlvctoRTk5F
+ P4FaqO3J+h3CrWiMkE7D6ZIRbz1EZTLLc+v8JEGHgJyCgFnBHsgG5fsLUAJIuRYc1Buvr6Qp
+ BmVAxYIoGcTcFWbcW1mnFg/MuKwNXu+xFpnVRER0aGAgCF6MN31t/dCJvPav9APrYRe8BK9d
+ NFdE+3oPxiFYm2vF+g1BXUlkLFfSQ==
+IronPort-HdrOrdr: A9a23:1znaP6/06VvgkLQlYzduk+D6I+orL9Y04lQ7vn2ZKCY7TiX8ra
+ uTdZsgpHrJYVoqNE3I5+rhBEDwex3hHPdOiOF9AV7hZniEhIKGFvAE0WKI+Vzd8kPFh4xg/J
+ tBN45jFdb3EV92tsri5hKkeuxQuOVviJrY4ds31B1WPGdXgkxbnn5E4o33KCdLeDU=
+X-IronPort-AV: E=Sophos;i="5.98,221,1673931600"; 
+   d="scan'208";a="98730083"
+Date: Tue, 28 Feb 2023 10:24:35 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Joe Jin <joe.jin@oracle.com>, Boris Ostrovsky
+	<boris.ostrovsky@oracle.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: Is xl vcpu-set broken
+Message-ID: <Y/3WYxg9GiJXNyuQ@perard>
+References: <792d9693-7bb1-9143-064a-d3687b78415f@oracle.com>
+ <467c21e0-e41f-3d52-f5e0-8bcc70bfc923@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <Y/3MIUDRBUSNg6C5@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <467c21e0-e41f-3d52-f5e0-8bcc70bfc923@suse.com>
 
-On Tue, Feb 28, 2023 at 09:40:49AM +0000, Daniel P. Berrangé wrote:
-> On Tue, Feb 28, 2023 at 10:14:52AM +0100, Thomas Huth wrote:
-> > On 28/02/2023 10.03, Michael S. Tsirkin wrote:
-> > > On Tue, Feb 28, 2023 at 08:59:52AM +0000, Daniel P. Berrangé wrote:
-> > > > On Tue, Feb 28, 2023 at 03:19:20AM -0500, Michael S. Tsirkin wrote:
-> > > > > On Tue, Feb 28, 2023 at 08:49:09AM +0100, Thomas Huth wrote:
-> > > > > > On 27/02/2023 21.12, Michael S. Tsirkin wrote:
-> > > > > > > On Mon, Feb 27, 2023 at 11:50:07AM +0000, Daniel P. Berrangé wrote:
-> > > > > > > > I feel like we should have separate deprecation entries for the
-> > > > > > > > i686 host support, and for qemu-system-i386 emulator binary, as
-> > > > > > > > although they're related they are independant features with
-> > > > > > > > differing impact. eg removing qemu-system-i386 affects all
-> > > > > > > > host architectures, not merely 32-bit x86 host, so I think we
-> > > > > > > > can explain the impact more clearly if we separate them.
-> > > > > > > 
-> > > > > > > Removing qemu-system-i386 seems ok to me - I think qemu-system-x86_64 is
-> > > > > > > a superset.
-> > > > > > > 
-> > > > > > > Removing support for building on 32 bit systems seems like a pity - it's
-> > > > > > > one of a small number of ways to run 64 bit binaries on 32 bit systems,
-> > > > > > > and the maintainance overhead is quite small.
-> > > > > > 
-> > > > > > Note: We're talking about 32-bit *x86* hosts here. Do you really think that
-> > > > > > someone is still using QEMU usermode emulation
-> > > > > > to run 64-bit binaries on a 32-bit x86 host?? ... If so, I'd be very surprised!
-> > > > > 
-> > > > > I don't know - why x86 specifically? One can build a 32 bit binary on any host.
-> > > > > I think 32 bit x86 environments are just more common in the cloud.
-> > > > 
-> > > > Can you point to anything that backs up that assertion. Clouds I've
-> > > > seen always give you a 64-bit environment, and many OS no longer
-> > > > even ship 32-bit installable media.
-> > > 
-> > > Sorry about being unclear. I meant that it seems easier to run CI in the
-> > > cloud in a 32 bit x64 environment than get a 32 bit ARM environment.
+On Tue, Feb 28, 2023 at 10:37:00AM +0100, Jan Beulich wrote:
+> On 28.02.2023 07:44, Joe Jin wrote:
+> > We encountered a vcpu-set issue on old xen, when I tried to confirm
+> > if xen upstream xen has the same issue I find neither my upstream build
+> > nor ubuntu 22.04 xen-hypervisor-4.16 work.
 > > 
-> > It's still doable ... but for how much longer? We're currently depending on
-> > Fedora, but they also slowly drop more and more support for this
-> > environment, see e.g.:
+> > I can add vcpus(8->16) to my guest but I can not reduce vcpu number:
+> > 
+> > root@ubuntu2204:~/vm# xl list
+> > Name                                        ID   Mem VCPUs    State    Time(s)
+> > Domain-0                                     0 255424    32     r-----     991.9
+> > testvm                                       1   4088    16     -b----      94.6
+> > root@ubuntu2204:~/vm# xl vcpu-set testvm 8
+> > root@ubuntu2204:~/vm# xl list
+> > Name                                        ID   Mem VCPUs    State    Time(s)
+> > Domain-0                                     0 255424    32     r-----     998.5
+> > testvm                                       1   4088    16     -b----      97.3
+> > 
+> > After xl vcpu-set, xenstore showed online cpu number reduced to 8:
+[...]
+> > 
+> > But guest did not received any offline events at all.
+> > 
+> > From source code my understand is for cpu online, libxl will
+> > send device_add to qemu to trigger vcpu add, for cpu offline,
+> > it still rely on xenstore, is this correct?
 > 
-> FWIW, we should cull our fedora-i386-cross.docker dockerfile and
-> replace it with a debian i686 dockerfile generated by lcitool.
-> There's no compelling reason why i686 should be different from
-> all our other cross builds which are based on Debian. The Debian
-> lcitool generated container would have access to a wider range
-> of deps than our hand written Fedora one.
-> 
-> >  https://www.theregister.com/2022/03/10/fedora_inches_closer_to_dropping/
-> 
-> With regards,
-> Daniel
+> Judging from the DSDT we provide, offlining looks to also be intended to
+> go the ACPI way. Whereas libxl only ever sends "device_add" commands to
+> qemu, afaics (or "cpu-add" for older qemu). Anthony - do you have any
+> insight what the intentions here are?
 
-... and is closer to where 32 bit is likely to be deployed which is
-systems like e.g. raspberry pi os which until recently was only
-32 bit.
+The intention is to one day implement cpu offline in QEMU upstream for
+HVM guest, I don't think that's ever been done so far.
+
+As we use device_add for cpu hotplug, we would probably do device_del
+for hot-unplug, so qemu would still have to send the appropriate even to
+the guest.
+
+Someone will have to figure out if "device_del" works with a Xen guest,
+doc here:
+    https://www.qemu.org/docs/master/system/cpu-hotplug.html#vcpu-hot-unplug
+
+Cheers,
 
 -- 
-MST
-
+Anthony PERARD
 
