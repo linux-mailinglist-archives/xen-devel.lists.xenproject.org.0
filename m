@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096116A5E5C
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 18:40:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503618.775942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A4456A5E6A
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Feb 2023 18:49:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503642.775970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX3xQ-00077l-MF; Tue, 28 Feb 2023 17:40:08 +0000
+	id 1pX463-0001BL-4i; Tue, 28 Feb 2023 17:49:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503618.775942; Tue, 28 Feb 2023 17:40:08 +0000
+Received: by outflank-mailman (output) from mailman id 503642.775970; Tue, 28 Feb 2023 17:49:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pX3xQ-00075v-Gs; Tue, 28 Feb 2023 17:40:08 +0000
-Received: by outflank-mailman (input) for mailman id 503618;
- Tue, 28 Feb 2023 17:40:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WuWh=6Y=citrix.com=prvs=4168872ba=sergey.dyasli@srs-se1.protection.inumbo.net>)
- id 1pX3xP-0006sS-0Z
- for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 17:40:07 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef28cf96-b78e-11ed-9695-2f268f93b82a;
- Tue, 28 Feb 2023 18:40:05 +0100 (CET)
+	id 1pX463-00017t-1U; Tue, 28 Feb 2023 17:49:03 +0000
+Received: by outflank-mailman (input) for mailman id 503642;
+ Tue, 28 Feb 2023 17:49:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pX460-00017j-QJ
+ for xen-devel@lists.xenproject.org; Tue, 28 Feb 2023 17:49:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pX460-0008DV-1U; Tue, 28 Feb 2023 17:49:00 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ helo=[192.168.12.216]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pX45z-0005WB-PJ; Tue, 28 Feb 2023 17:48:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,214 +39,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef28cf96-b78e-11ed-9695-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1677606005;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=kdC88fnrW3jwxtsuxpGeNQRlenhGudj0ts02zqy7nC0=;
-  b=UIRFRGfdI5Bj1Qio7ep0z3zGvALT3C8U5fEaQdy26WAQnzhe0zUsyZxx
-   D+v3LRoxyVw1nYxPTf6p6yFwe8fqGBqnQwju+OLR44eg4T9d2saUx/WOj
-   EWtMohFvoKmvhfqNaDZMazxXLPWRKf7Dk8NjsCh0ofcTIPG+F616gnx3Y
-   g=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 97712737
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:aBlO+qOutWkswmPvrR1ql8FynXyQoLVcMsEvi/4bfWQNrUpw0zwDx
- zAbDGqEaKmINjf0ed90b9uzpkoCscTXxtZiTAto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGj9SuvLrRC9H5qyo42tC5AxmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0sVqX0NM1
- fwCEgpOf0ujt9Oay7Krd8A506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w2Nk+ojx5nYz/7DLolkf2ni2i5fyxRs1aUjaE2/3LS3Ep6172F3N/9K4PVHJ8KxRnwS
- mTurnjgXhswZc6lxWTbqGCLivSWlATWYddHfFG/3qEz2wDCroAJMzUGWF3+rfSnh0qWX9NEN
- 1dS6icotbI19kGgUp/6RRLQiHyOswMYWtFQO/Yn8wzLwa3Riy6GAkAUQzgHb8Yp3Oc0SiYtz
- UShhM7yCHpkt7j9YXCA8raZqxuiNC5TKnUNDQcfVhcM6dTnpIA1jzrMQ8xlHarzicf6cQwc2
- BjT8nJ43e9Ky5dWiePipwuvby+QSobhbRNrxAf3Xnif1EBoP66VVqCj6UjmxKMVRGqGdWWps
- H8BksmYyekBC5CRiSCAKNkw8KGVC+Wta2OF3wM2d3U133H0oiP4I9gMiN1rDB0xWvvobwMFd
- 6M6Vel5wJZIdEWnYqZsC25aI5R7lPOwfTgJux29UzavXnSTXFXalM2NTRTKt4wIrKTLufBXB
- HtjWZzwZUv28Iw+pNZMe88T0KUw2gc1zn7JSJbwwnyPiOTBOyPPE+ZdbArSP4jVCZ9oRy2Pr
- r5i2zaikU0DAIUSnAGMmWLsEbz6BSdiXs2nwyCmXuWCPhBnCAkc5wz5mNscl3het/0NzI/gp
- yjtMnK0PXKj3RUr3y3WMCE8AF4uNL4jxU8G0dsEZg74iiVzMN30s8/ytfIfJNEayQCq9tYsJ
- 9FtRilKKq4npujvk9jFUaTAkQ==
-IronPort-HdrOrdr: A9a23:cVrne6ky+hi/320npnxreUI5IC3pDfIs3DAbv31ZSRFFG/Fxl6
- iV88jztCWE7gr5N0tApTntAsS9qDbnhPxICOoqTNCftWvd2FdARbsKheCJ/9SjIVyaygc079
- YFT0EUMrPN5DZB4foSmDPIcOod/A==
-X-IronPort-AV: E=Sophos;i="5.98,222,1673931600"; 
-   d="scan'208";a="97712737"
-From: Sergey Dyasli <sergey.dyasli@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Sergey Dyasli <sergey.dyasli@citrix.com>
-Subject: [PATCH v2 3/3] tools/xen-ucode: print information about currently loaded ucode
-Date: Tue, 28 Feb 2023 17:39:32 +0000
-Message-ID: <20230228173932.28510-4-sergey.dyasli@citrix.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20230228173932.28510-1-sergey.dyasli@citrix.com>
-References: <20230228173932.28510-1-sergey.dyasli@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=D0aPMIK7eB1gZTgJIWG/ri37Z8vUj9fxtEepC5SrDpM=; b=YupIBKniiEveDAG95KIuItm9rL
+	64b8SXeWSJDwDxXDhGAfDXPPg09W2xwo5uIXm5bkU5zJQL6fvJRE4BWiEwRpJmhDLbnyJHbZJksTW
+	6XTN5Qpa59UC8CU3FfiTBC3OGju16l6jgiM7DVpeOiujfXeoBu53PbndIF4E4d6C4at8=;
+Message-ID: <46e96dd9-bcb4-4569-b282-05c019cabcc3@xen.org>
+Date: Tue, 28 Feb 2023 17:48:57 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.8.0
+Subject: Re: [PATCH v3 3/4] xen/arm: switch ARM to use generic implementation
+ of bug.h
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1677233393.git.oleksii.kurochko@gmail.com>
+ <d80c136720c156d6ef83f27f1ce8dca5dba5b5a0.1677233393.git.oleksii.kurochko@gmail.com>
+ <f82b8c50-47f2-d8b0-5a2c-60203e5d5e26@xen.org>
+ <c0e628d744f03c70d2e7b66540ea27aa31d90043.camel@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <c0e628d744f03c70d2e7b66540ea27aa31d90043.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Add an option to xen-ucode tool to print the currently loaded ucode
-version and also print it during usage info.  Print CPU signature and
-processor flags as well.  The raw data comes from cpuinfo directory in
-xenhypfs and from XENPF_get_cpu_version platform op.
+Hi Oleksii,
 
-Example output:
-    Intel:
-    Current CPU signature is: 06-55-04 (raw 0x50654)
-    Current CPU microcode revision is: 0x2006e05
-    Current CPU processor flags are: 0x1
+On 28/02/2023 15:09, Oleksii wrote:
+> On Sat, 2023-02-25 at 16:49 +0000, Julien Grall wrote:
+>> Hi Oleksii,
+>>
+>> On 24/02/2023 11:31, Oleksii Kurochko wrote:
+>>> The following changes were made:
+>>> * make GENERIC_BUG_FRAME mandatory for ARM
+>>
+>> I have asked in patch #1 but will ask it again because I think this
+>> should be recorded in the commit message. Can you outline why it is
+>> not
+>> possible to completely switch to the generic version?
+> I haven't tried to switch ARM too because of comment regarding 'i' in
+> <asm/bug.h>:
+> /*
+>   * GCC will not allow to use "i"  when PIE is enabled (Xen doesn't set
+> the
+>   * flag but instead rely on the default value from the compiler). So
+> the
+>   * easiest way to implement run_in_exception_handler() is to pass the
+> to
+>   * be called function in a fixed register.
+>   */
 
-    AMD:
-    Current CPU signature is: fam19h (raw 0xa00f11)
-    Current CPU microcode revision is: 0xa0011a8
+I would expect this comment to be valid for any arch. So if there is a 
+need to deal with PIE, then we would not be able to use "i" in the BUG 
+frame.
 
-Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>
----
- tools/misc/Makefile    |  2 +-
- tools/misc/xen-ucode.c | 97 ++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 98 insertions(+), 1 deletion(-)
+Note that we are now explicitly compiling Xen without PIE (see Config.mk).
 
-diff --git a/tools/misc/Makefile b/tools/misc/Makefile
-index 1c6e1d6a04..e345ac76db 100644
---- a/tools/misc/Makefile
-+++ b/tools/misc/Makefile
-@@ -136,6 +136,6 @@ xencov: xencov.o
- 	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
- 
- xen-ucode: xen-ucode.o
--	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(APPEND_LDFLAGS)
-+	$(CC) $(LDFLAGS) -o $@ $< $(LDLIBS_libxenctrl) $(LDLIBS_libxenhypfs) $(APPEND_LDFLAGS)
- 
- -include $(DEPS_INCLUDE)
-diff --git a/tools/misc/xen-ucode.c b/tools/misc/xen-ucode.c
-index ad32face2b..7e657689f4 100644
---- a/tools/misc/xen-ucode.c
-+++ b/tools/misc/xen-ucode.c
-@@ -11,6 +11,96 @@
- #include <sys/stat.h>
- #include <fcntl.h>
- #include <xenctrl.h>
-+#include <xenhypfs.h>
-+
-+static const char intel_id[] = "GenuineIntel";
-+static const char   amd_id[] = "AuthenticAMD";
-+
-+static const char sig_path[] = "/cpuinfo/cpu-signature";
-+static const char rev_path[] = "/cpuinfo/microcode-revision";
-+static const char  pf_path[] = "/cpuinfo/processor-flags";
-+
-+static int hypfs_read_uint(struct xenhypfs_handle *hdl, const char *path,
-+                           unsigned int *var)
-+{
-+    char *result;
-+    result = xenhypfs_read(hdl, path);
-+    if ( !result )
-+        return -1;
-+
-+    errno = 0;
-+    *var = strtol(result, NULL, 10);
-+    if ( errno )
-+        return -1;
-+
-+    return 0;
-+}
-+
-+static void show_curr_cpu(FILE *f)
-+{
-+    int ret;
-+    struct xenhypfs_handle *hdl;
-+    xc_interface *xch;
-+    struct xenpf_pcpu_version cpu_ver = {0};
-+    bool intel = false, amd = false;
-+    unsigned int cpu_signature, pf, ucode_revision;
-+
-+    hdl = xenhypfs_open(NULL, 0);
-+    if ( !hdl )
-+        return;
-+
-+    xch = xc_interface_open(0, 0, 0);
-+    if ( xch == NULL )
-+        return;
-+
-+    ret = xc_get_cpu_version(xch, &cpu_ver);
-+    if ( ret )
-+        return;
-+
-+    if ( memcmp(cpu_ver.vendor_id, intel_id,
-+                sizeof(cpu_ver.vendor_id)) == 0 )
-+        intel = true;
-+    else if ( memcmp(cpu_ver.vendor_id, amd_id,
-+                     sizeof(cpu_ver.vendor_id)) == 0 )
-+        amd = true;
-+
-+    if ( hypfs_read_uint(hdl, sig_path, &cpu_signature) != 0 )
-+        return;
-+
-+    if ( hypfs_read_uint(hdl, rev_path, &ucode_revision) != 0 )
-+        return;
-+
-+    if ( intel && hypfs_read_uint(hdl, pf_path,  &pf) != 0 )
-+        return;
-+
-+    /*
-+     * Print signature in a form that allows to quickly identify which ucode
-+     * blob to load, e.g.:
-+     *
-+     *      Intel:   /lib/firmware/intel-ucode/06-55-04
-+     *      AMD:     /lib/firmware/amd-ucode/microcode_amd_fam19h.bin
-+     */
-+    if ( intel )
-+    {
-+        fprintf(f, "Current CPU signature is: %02x-%02x-%02x (raw %#x)\n",
-+                   cpu_ver.family, cpu_ver.model, cpu_ver.stepping,
-+                   cpu_signature);
-+    }
-+    else if ( amd )
-+    {
-+        fprintf(f, "Current CPU signature is: fam%xh (raw %#x)\n",
-+                   cpu_ver.family, cpu_signature);
-+    }
-+
-+    if ( intel || amd )
-+        fprintf(f, "Current CPU microcode revision is: %#x\n", ucode_revision);
-+
-+    if ( intel )
-+        fprintf(f, "Current CPU processor flags are: %#x\n", pf);
-+
-+    xc_interface_close(xch);
-+    xenhypfs_close(hdl);
-+}
- 
- int main(int argc, char *argv[])
- {
-@@ -25,9 +115,16 @@ int main(int argc, char *argv[])
-         fprintf(stderr,
-                 "xen-ucode: Xen microcode updating tool\n"
-                 "Usage: %s <microcode blob>\n", argv[0]);
-+        show_curr_cpu(stderr);
-         exit(2);
-     }
- 
-+    if ( !strcmp(argv[1], "show-cpu-info") )
-+    {
-+        show_curr_cpu(stdout);
-+        return 0;
-+    }
-+
-     filename = argv[1];
-     fd = open(filename, O_RDONLY);
-     if ( fd < 0 )
+Cheers,
+
 -- 
-2.17.1
-
+Julien Grall
 
