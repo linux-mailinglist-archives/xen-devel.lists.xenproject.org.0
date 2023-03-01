@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD3876A70A0
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 17:14:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.504141.776697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92EE36A70B3
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 17:18:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.504145.776707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXP5r-0000UK-4V; Wed, 01 Mar 2023 16:14:15 +0000
+	id 1pXP9V-00016I-KM; Wed, 01 Mar 2023 16:18:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 504141.776697; Wed, 01 Mar 2023 16:14:15 +0000
+Received: by outflank-mailman (output) from mailman id 504145.776707; Wed, 01 Mar 2023 16:18:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXP5r-0000ST-1C; Wed, 01 Mar 2023 16:14:15 +0000
-Received: by outflank-mailman (input) for mailman id 504141;
- Wed, 01 Mar 2023 16:14:13 +0000
+	id 1pXP9V-000144-HH; Wed, 01 Mar 2023 16:18:01 +0000
+Received: by outflank-mailman (input) for mailman id 504145;
+ Wed, 01 Mar 2023 16:18:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=S3ad=6Z=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pXP5p-0000SN-0D
- for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 16:14:13 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
+ <SRS0=ofKM=6Z=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1pXP9T-00013w-V1
+ for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 16:18:00 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a8ec1ef-b84c-11ed-96a6-2f268f93b82a;
- Wed, 01 Mar 2023 17:14:12 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id i9so18338564lfc.6
- for <xen-devel@lists.xenproject.org>; Wed, 01 Mar 2023 08:14:11 -0800 (PST)
-Received: from fedora.. (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
- [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
- h20-20020ac25974000000b004dd0bbc89a1sm1776196lfp.244.2023.03.01.08.14.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Mar 2023 08:14:10 -0800 (PST)
+ id a1c9710c-b84c-11ed-96a6-2f268f93b82a;
+ Wed, 01 Mar 2023 17:17:59 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ j19-20020a05600c191300b003eb3e1eb0caso7615660wmq.1
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Mar 2023 08:17:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,125 +40,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a8ec1ef-b84c-11ed-96a6-2f268f93b82a
+X-Inumbo-ID: a1c9710c-b84c-11ed-96a6-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1677687251;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VrJOB0YyYKCsLpRkXtn6hYbcpuVZfe6Ic8uPAhle/rY=;
-        b=FSKCVBdebJjXp/pHfDdVE8CYIbNk2rvmBqjYLuEHriGZp0kf23k8NVk1CxuKdic9dl
-         6wCl4FBXgDIniaNnJwkrKAQy+RGG1LTbrQ/g2SyNva5tBdC4yTbIk8IQ67N34xMtGSCv
-         4/xdmSL4Rs1AWiy7dLRWl0KSxBNjj9u/OdnhlXmFzniVwx3eM2A0r2lD8f75O6OWaa7f
-         7q1C+b6xtFDA63LV9sdWy6axqUb6uCjXo5O0XPQmo6x/IeoIKVkZmGiOxHLTLCLkjj1v
-         JjAmHt5wQl1zJuwTd15BeyqTJYEZMrMclqtyU2fn01FDCAoBPsk22K0qCBs7Z+TrvRjH
-         aiWw==
+        d=linaro.org; s=google;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=lTBB/RNxDH/thSNqh1+tF6GTV7+xAO5ZpXvZn/HmJes=;
+        b=JvfyHicKMnciQKS3n/LenPgsSQg7fg7IT+zJpyzS+XXE3kRhGfVbOOW/8MLF6V68eD
+         a3K62VU8yCrcFCWM6ELIoILxv3WgP+Dhpj8l3BDH8pWgONSy4iu3HtPd63vq8UIoJbym
+         K5ykIFNfov48P+d6C8wydMt8AqAnH5uYQN8ouVIchaW63YejXtZUIG5/V+m7G387WEvX
+         M2dtQCZrpucoYrnLcFTSx1yXapnyzpn+SdN7Zb2dtW6YQrmYP36AcqgAx1KE6MRDxQeD
+         pXvHwWS80R37IBsMvyY7O+DrCJBtumD0vOTg8WXOcdyEeKnJ7v7rbR34CotsenaCfqLa
+         tG7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677687251;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=VrJOB0YyYKCsLpRkXtn6hYbcpuVZfe6Ic8uPAhle/rY=;
-        b=5KM4rCrH0yic+BC/Wl5rI1/AyUXXKkOCC6zok7ntQxmBcR7O6X2KNNMBcMSbxX6Rxz
-         kJoXJbODw2SGvQDznVyY6F1tMXXHv3+TWgvjE0wK1slZvRQG/5I3hrrs7yOaiT5Vs3JD
-         bJeWfTqBoZLcPetDrIGRWNjFrfFlK8QoOSoVcj8gfCSCsHFrVCUThiX+KWIjS4lbE30K
-         H7d4xhdUadK9jUQBVTJuxYccx4zi0gEvP35tMRHh6jIvUaykBWn0xEdxIUV/S26sgHrn
-         MxJpMSeIqmyy5wdMMZDML5fSAUTm++uV0JNTlf7VfkcStjgmBbf7iZ35XrxrS20EGMwv
-         CaHQ==
-X-Gm-Message-State: AO0yUKUY5CwJEOAxN9hUA9vYFq9vKfgExfH6q8KAMT6LGTEEKXDVEE+C
-	pdRNbuSUXHsplbvEWt45UZrs9J4mWPQ=
-X-Google-Smtp-Source: AK7set85hNpo77A9Fp8vUSH8SIkyrJipDfszac+9cCwVx83AVAijN5cYv9uvmL2fPzSCvbY3WbAbzQ==
-X-Received: by 2002:ac2:5927:0:b0:4dd:abb9:dae4 with SMTP id v7-20020ac25927000000b004ddabb9dae4mr1841952lfi.25.1677687251114;
-        Wed, 01 Mar 2023 08:14:11 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v1] xen/arm: align *(.proc.info) in the linker script
-Date: Wed,  1 Mar 2023 18:14:07 +0200
-Message-Id: <74973920d8722df3ce533979314564f331acf16e.1677687247.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.39.0
+        bh=lTBB/RNxDH/thSNqh1+tF6GTV7+xAO5ZpXvZn/HmJes=;
+        b=u/9gqVbECCxcz8hmhHFHXv5VoygHyd6XglKYrnFDMfb9p8X58iB1/HF1r6pox2xiTw
+         q3bR5tM7xzAWQTuDAJGOa6KF8oFRy1138puBbFe4iZU24hMGcRiIKqnDvvTKl08z2qR4
+         EnnCPPQjoOPctUQo0ToCTN98qTL8s6QLsNnQS91TntP4xi1dirztIc/DO37lNXRntVTP
+         P0nZ0nNCyJT3lbEUTxyHd6FvJDPE7SPZXlDxXbiIcuESQqeovJP5LMegV/FwyH0RDx3J
+         rMh0+kjVBQVRrK/CUg0hq6WFupAv4JqlkzhWfrOSCB4y+u+Q9b7iU6zM10BButU7bhLw
+         TJ1A==
+X-Gm-Message-State: AO0yUKXDxHZ6Q7m0+Xdup+VmAWMTpFr6d7zvDj/tp7agYfCvwTxXqL2S
+	QHk2ILMlQ79RbLLsS385n2qH4WJmoN4Jnuge+m9RmA==
+X-Google-Smtp-Source: AK7set8Yp603sWG2LB3kD+pZaweSsKCF2TR9e5Nc0BOpe8tkTWFjMKTfIPeCTswBMu2uKwcrDmTg9P1O1dnpNX7RdrI=
+X-Received: by 2002:a05:600c:444c:b0:3df:d8c9:caa7 with SMTP id
+ v12-20020a05600c444c00b003dfd8c9caa7mr1994343wmn.4.1677687478081; Wed, 01 Mar
+ 2023 08:17:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1677079671.git.jens.wiklander@linaro.org>
+ <3332563e64568b2ffd236b1f428c27aa4cdf9790.1677079672.git.jens.wiklander@linaro.org>
+ <F22A4773-94E8-4F24-A5C8-BF4E075A7698@arm.com> <CAHUa44FrC_S1Ot8-2s3=q5f7omZ+gsZhYTJUTMA0yVG5BBp6mw@mail.gmail.com>
+ <05270146-5270-4ADE-A89A-7231D623833B@arm.com>
+In-Reply-To: <05270146-5270-4ADE-A89A-7231D623833B@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 1 Mar 2023 17:17:47 +0100
+Message-ID: <CAHUa44GYLex7GTpgXgfjvsbYKMkYEfyNgVW2P=CUf83HZxtD1w@mail.gmail.com>
+Subject: Re: [XEN PATCH v7 10/20] xen/arm: ffa: add direct request support
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
+	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 
-During testing of bug.h's macros generic implementation yocto-qemuarm
-job crashed with data abort:
+Hi,
 
-(XEN) Data Abort Trap. Syndrome=0x1830021
-(XEN) Walking Hypervisor VA 0x2a5ca6 on CPU0 via TTBR 0x000000004014a000
-(XEN) 1ST[0x000] = 0x0000000040149f7f
-(XEN) 2ND[0x001] = 0x0040000040148f7f
-(XEN) 3RD[0x0a5] = 0x00400000400b5fff
-(XEN) CPU0: Unexpected Trap: Data Abort
-(XEN) ----[ Xen-4.18-unstable  arm32  debug=y  Not tainted ]----
-(XEN) CPU:    0
-(XEN) PC:     0020063c head.o#__lookup_processor_type+0x1c/0x44
-(XEN) CPSR:   600001da MODE:Hypervisor
-(XEN)      R0: 412fc0f1 R1: 002a5ca2 R2: 002a5cd2 R3: 600001da
-(XEN)      R4: 002a7e9c R5: 00000011 R6: 00000000 R7: ffffffff
-(XEN)      R8: 48008f20 R9: 00000000 R10:00000000 R11:002ffecc R12:00000000
-(XEN) HYP: SP: 002ffeb8 LR: 00200618
-(XEN)
-(XEN)   VTCR_EL2: 00000000
-(XEN)  VTTBR_EL2: 0000000000000000
-(XEN)
-(XEN)  SCTLR_EL2: 30cd187f
-(XEN)    HCR_EL2: 00000038
-(XEN)  TTBR0_EL2: 000000004014a000
-(XEN)
-(XEN)    ESR_EL2: 97830021
-(XEN)  HPFAR_EL2: 00000000
-(XEN)      HDFAR: 002a5ca6
-(XEN)      HIFAR: 00000000
-(XEN)
-(XEN) Xen stack trace from sp=002ffeb8:
-(XEN)    97830021 002a7e9c 00000000 00276a88 002fff54 002c8fc4 11112131 10011142
-(XEN)    00000000 002a5500 00000000 00000000 00008f20 00002000 48000000 002e01f0
-(XEN)    00000000 60000000 00000000 40000000 00000001 002e0208 002a7e8c 002a7e88
-(XEN)    002b0ab4 002e31f0 00000000 60000000 00000003 ffffffff 00000000 002aa000
-(XEN)    00200060 00000000 00000000 48000000 40010000 3fe10000 00000000 00200068
-(XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-(XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-(XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-(XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-(XEN)    00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-(XEN)    00000000 00000000
-(XEN) Xen call trace:
-(XEN)    [<0020063c>] head.o#__lookup_processor_type+0x1c/0x44 (PC)
-(XEN)    [<00200618>] lookup_processor_type+0xc/0x14 (LR)
-(XEN)    [<002c8fc4>] start_xen+0xb8c/0x1138
-(XEN)    [<00200068>] head.o#primary_switched+0x8/0x1c
-(XEN)
-(XEN)
-(XEN) ****************************************
-(XEN) Panic on CPU 0:
-(XEN) CPU0: Unexpected Trap: Data Abort
-(XEN) ****************************************
-(XEN)
-(XEN) Reboot in five seconds...
-(XEN) Xen: Platform reset did not work properly!
-(XEN) Xen: Platform reset did not work properly!
+On Wed, Mar 1, 2023 at 2:06 PM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> HI Jens,
+>
+> > On 1 Mar 2023, at 11:55, Jens Wiklander <jens.wiklander@linaro.org> wrote:
+> >
+> > Hi Bertrand,
+> >
+> > On Mon, Feb 27, 2023 at 4:28 PM Bertrand Marquis
+> > <Bertrand.Marquis@arm.com> wrote:
+> >>
+> >> Hi Jens,
+> >>
+> >>> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wrote:
+> >>>
+> >>> Adds support for sending a FF-A direct request. Checks that the SP also
+> >>> supports handling a 32-bit direct request. 64-bit direct requests are
+> >>> not used by the mediator itself so there is not need to check for that.
+> >>>
+> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >>> ---
+> >>> xen/arch/arm/tee/ffa.c | 119 +++++++++++++++++++++++++++++++++++++++++
+> >>> 1 file changed, 119 insertions(+)
+> >>>
+> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >>> index 463fd7730573..a5d8a12635b6 100644
+> >>> --- a/xen/arch/arm/tee/ffa.c
+> >>> +++ b/xen/arch/arm/tee/ffa.c
+> >>> @@ -142,6 +142,7 @@
+> >>>
+> >>> struct ffa_ctx {
+> >>>    uint32_t guest_vers;
+> >>> +    bool interrupted;
+> >>
+> >> This is added and set here for one special error code but is never used.
+> >> I would suggest to introduce this when there will be an action based on it.
+> >
+> > I'm sorry, I forgot about completing this. I'll add code to deal with
+> > FFA_INTERRUPT. This will be tricky to test though since we don't use
+> > FFA_INTERRUPT like this with OP-TEE. The Hypervisor is required by the
+> > FF-A standard to support it so I better add something.
+>
+> You can do that in a different patch then and just remove this from this patch ?
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- xen/arch/arm/xen.lds.S | 1 +
- 1 file changed, 1 insertion(+)
+OK, I'll do that.
 
-diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-index 3f7ebd19f3..1b392345bc 100644
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -67,6 +67,7 @@ SECTIONS
-        *(.data.rel.ro)
-        *(.data.rel.ro.*)
- 
-+       . = ALIGN(4);
-        __proc_info_start = .;
-        *(.proc.info)
-        __proc_info_end = .;
--- 
-2.39.0
+>
+> >
+> >>
+> >>> };
+> >>>
+> >>> /* Negotiated FF-A version to use with the SPMC */
+> >>> @@ -167,6 +168,55 @@ static bool ffa_get_version(uint32_t *vers)
+> >>>    return true;
+> >>> }
+> >>>
+> >>> +static int32_t get_ffa_ret_code(const struct arm_smccc_1_2_regs *resp)
+> >>> +{
+> >>> +    switch ( resp->a0 )
+> >>> +    {
+> >>> +    case FFA_ERROR:
+> >>> +        if ( resp->a2 )
+> >>> +            return resp->a2;
+> >>> +        else
+> >>> +            return FFA_RET_NOT_SUPPORTED;
+> >>> +    case FFA_SUCCESS_32:
+> >>> +    case FFA_SUCCESS_64:
+> >>> +        return FFA_RET_OK;
+> >>> +    default:
+> >>> +        return FFA_RET_NOT_SUPPORTED;
+> >>> +    }
+> >>> +}
+> >>> +
+> >>> +static int32_t ffa_simple_call(uint32_t fid, register_t a1, register_t a2,
+> >>> +                               register_t a3, register_t a4)
+> >>> +{
+> >>> +    const struct arm_smccc_1_2_regs arg = {
+> >>> +        .a0 = fid,
+> >>> +        .a1 = a1,
+> >>> +        .a2 = a2,
+> >>> +        .a3 = a3,
+> >>> +        .a4 = a4,
+> >>> +    };
+> >>> +    struct arm_smccc_1_2_regs resp;
+> >>> +
+> >>> +    arm_smccc_1_2_smc(&arg, &resp);
+> >>> +
+> >>> +    return get_ffa_ret_code(&resp);
+> >>> +}
+> >>> +
+> >>> +static int32_t ffa_features(uint32_t id)
+> >>> +{
+> >>> +    return ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
+> >>> +}
+> >>> +
+> >>> +static bool check_mandatory_feature(uint32_t id)
+> >>> +{
+> >>> +    uint32_t ret = ffa_features(id);
+> >>> +
+> >>> +    if (ret)
+> >>> +        printk(XENLOG_ERR "ffa: mandatory feature id %#x missing\n", id);
+> >>
+> >> It might be useful here to actually print the error code.
+> >> Are we sure that all errors actually mean not supported ?
+> >
+> > Yes, that's what the standard says.
+>
+> The error code might still be useful in the print.
 
+OK, I'll add it.
+
+>
+> >
+> >>
+> >>> +
+> >>> +    return !ret;
+> >>> +}
+> >>> +
+> >>> static uint16_t get_vm_id(const struct domain *d)
+> >>> {
+> >>>    /* +1 since 0 is reserved for the hypervisor in FF-A */
+> >>> @@ -208,6 +258,66 @@ static void handle_version(struct cpu_user_regs *regs)
+> >>>    set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
+> >>> }
+> >>>
+> >>> +static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
+> >>> +{
+> >>> +    struct arm_smccc_1_2_regs arg = { .a0 = fid, };
+> >>> +    struct arm_smccc_1_2_regs resp = { };
+> >>> +    struct domain *d = current->domain;
+> >>> +    struct ffa_ctx *ctx = d->arch.tee;
+> >>> +    uint32_t src_dst;
+> >>> +    uint64_t mask;
+> >>> +
+> >>> +    if ( smccc_is_conv_64(fid) )
+> >>> +        mask = GENMASK_ULL(63, 0);
+> >>> +    else
+> >>> +        mask = GENMASK_ULL(31, 0);
+> >>> +
+> >>> +    src_dst = get_user_reg(regs, 1);
+> >>> +    if ( (src_dst >> 16) != get_vm_id(d) )
+> >>> +    {
+> >>> +        resp.a0 = FFA_ERROR;
+> >>> +        resp.a2 = FFA_RET_INVALID_PARAMETERS;
+> >>> +        goto out;
+> >>> +    }
+> >>> +
+> >>> +    arg.a1 = src_dst;
+> >>> +    arg.a2 = get_user_reg(regs, 2) & mask;
+> >>> +    arg.a3 = get_user_reg(regs, 3) & mask;
+> >>> +    arg.a4 = get_user_reg(regs, 4) & mask;
+> >>> +    arg.a5 = get_user_reg(regs, 5) & mask;
+> >>> +    arg.a6 = get_user_reg(regs, 6) & mask;
+> >>> +    arg.a7 = get_user_reg(regs, 7) & mask;
+> >>> +
+> >>> +    while ( true )
+> >>> +    {
+> >>> +        arm_smccc_1_2_smc(&arg, &resp);
+> >>> +
+> >>> +        switch ( resp.a0 )
+> >>> +        {
+> >>> +        case FFA_INTERRUPT:
+> >>> +            ctx->interrupted = true;
+> >>> +            goto out;
+> >>> +        case FFA_ERROR:
+> >>> +        case FFA_SUCCESS_32:
+> >>> +        case FFA_SUCCESS_64:
+> >>> +        case FFA_MSG_SEND_DIRECT_RESP_32:
+> >>> +        case FFA_MSG_SEND_DIRECT_RESP_64:
+> >>> +            goto out;
+> >>> +        default:
+> >>> +            /* Bad fid, report back. */
+> >>> +            memset(&arg, 0, sizeof(arg));
+> >>> +            arg.a0 = FFA_ERROR;
+> >>> +            arg.a1 = src_dst;
+> >>> +            arg.a2 = FFA_RET_NOT_SUPPORTED;
+> >>> +            continue;
+> >>
+> >> There is a potential infinite loop here and i do not understand
+> >> why this needs to be done.
+> >> Here if something is returning a value that you do not understand
+> >> you send back an ERROR to it. I do not find in the spec where this
+> >> is supposed to be done.
+> >> Can you explain a bit here ?
+> >
+> > This should normally not happen, but the SP/SPMC is responding with a
+> > request that we don't know what to do with. The standard doesn't say
+> > how to handle that as far as I understand. However, returning back to
+> > the VM at this point with an error may leave the SP/SPMC in a strange
+> > state. So I think it's better to report back to the SP/SPMC that the
+> > request isn't understood and hopefully it can at least return back
+> > with an error in a sane state.
+> >
+> > I'll add something to the comment.
+>
+> Please also make sure that the code is not looping infinitely on this.
+
+I'll remove the loop as agreed in the other mail.
+
+>
+> >
+> >>
+> >>> +        }
+> >>> +    }
+> >>> +
+> >>> +out:
+> >>> +    set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 & mask,
+> >>> +             resp.a4 & mask, resp.a5 & mask, resp.a6 & mask, resp.a7 & mask);
+> >>> +}
+> >>> +
+> >>> static bool ffa_handle_call(struct cpu_user_regs *regs)
+> >>> {
+> >>>    uint32_t fid = get_user_reg(regs, 0);
+> >>> @@ -225,6 +335,12 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+> >>>    case FFA_ID_GET:
+> >>>        set_regs_success(regs, get_vm_id(d), 0);
+> >>>        return true;
+> >>> +    case FFA_MSG_SEND_DIRECT_REQ_32:
+> >>> +#ifdef CONFIG_ARM_64
+> >>> +    case FFA_MSG_SEND_DIRECT_REQ_64:
+> >>> +#endif
+> >>> +        handle_msg_send_direct_req(regs, fid);
+> >>> +        return true;
+> >>>
+> >>>    default:
+> >>>        gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
+> >>> @@ -310,6 +426,9 @@ static bool ffa_probe(void)
+> >>>    printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
+> >>>           major_vers, minor_vers);
+> >>>
+> >>> +    if ( !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> >>> +        return false;
+> >>
+> >> One could not need this feature and here this will make everything unavailable instead.
+> >> Why not just reporting back the unsupported error to clients using unsupported interfaces ?
+> >
+> > One could perhaps argue that this check should be moved to a later
+> > patch in this series. Perhaps there's some future configuration that
+> > might make sense without this feature, but for now, it doesn't make
+> > sense to initialize without it.
+>
+> I am starting to wonder if we should not at boot scan for available features, save them
+> somewhere and then accept/reject calls depending on the supported features.
+>
+> Maybe just add a TODO here so that we remember that this is something that could be
+> checked/modified one day. That would also give an insight if someone has such a usecase
+> one day.
+
+I'll add a comment.
+
+Cheers,
+Jens
+
+
+>
+> Cheers
+> Bertrand
+>
+> >
+> > Thanks,
+> > Jens
+> >
+> >>
+> >> Cheers
+> >> Bertrand
+> >>
+> >>> +
+> >>>    ffa_version = vers;
+> >>>
+> >>>    return true;
+> >>> --
+> >>> 2.34.1
+>
+>
 
