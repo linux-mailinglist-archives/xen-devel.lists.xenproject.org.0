@@ -2,65 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F0796A6CAA
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 13:59:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.504031.776511 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5A136A6CD5
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 14:06:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.504035.776522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXM2o-0005br-CS; Wed, 01 Mar 2023 12:58:54 +0000
+	id 1pXM9f-0007Sa-52; Wed, 01 Mar 2023 13:05:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 504031.776511; Wed, 01 Mar 2023 12:58:54 +0000
+Received: by outflank-mailman (output) from mailman id 504035.776522; Wed, 01 Mar 2023 13:05:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXM2o-0005ZO-99; Wed, 01 Mar 2023 12:58:54 +0000
-Received: by outflank-mailman (input) for mailman id 504031;
- Wed, 01 Mar 2023 12:58:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pXM9f-0007PF-1X; Wed, 01 Mar 2023 13:05:59 +0000
+Received: by outflank-mailman (input) for mailman id 504035;
+ Wed, 01 Mar 2023 13:05:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Km5w=6Z=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1pXM2m-0005ZI-Ri
- for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 12:58:53 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on20620.outbound.protection.outlook.com
- [2a01:111:f400:fe16::620])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d0b865e2-b830-11ed-96a4-2f268f93b82a;
- Wed, 01 Mar 2023 13:58:52 +0100 (CET)
-Received: from DU2P250CA0005.EURP250.PROD.OUTLOOK.COM (2603:10a6:10:231::10)
- by DU0PR08MB7810.eurprd08.prod.outlook.com (2603:10a6:10:3b6::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.18; Wed, 1 Mar
- 2023 12:58:31 +0000
-Received: from DBAEUR03FT007.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:231:cafe::e6) by DU2P250CA0005.outlook.office365.com
- (2603:10a6:10:231::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.17 via Frontend
- Transport; Wed, 1 Mar 2023 12:58:31 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT007.mail.protection.outlook.com (100.127.142.161) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6156.18 via Frontend Transport; Wed, 1 Mar 2023 12:58:31 +0000
-Received: ("Tessian outbound c2bcb4c18c29:v135");
- Wed, 01 Mar 2023 12:58:31 +0000
-Received: from 23ad23beddcf.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- CC5AB4EC-5BEC-44FA-9883-88F4BFE22EA1.1; 
- Wed, 01 Mar 2023 12:58:21 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 23ad23beddcf.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 01 Mar 2023 12:58:21 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by AS8PR08MB6581.eurprd08.prod.outlook.com (2603:10a6:20b:33a::24)
+ <SRS0=nLqk=6Z=citrix.com=prvs=417c45763=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pXM9c-0007P9-PY
+ for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 13:05:57 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ca82ef15-b831-11ed-a550-8520e6686977;
+ Wed, 01 Mar 2023 14:05:53 +0100 (CET)
+Received: from mail-bn7nam10lp2105.outbound.protection.outlook.com (HELO
+ NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.105])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 01 Mar 2023 08:05:41 -0500
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by MN2PR03MB5198.namprd03.prod.outlook.com (2603:10b6:208:19e::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.18; Wed, 1 Mar
- 2023 12:58:16 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::806c:fd65:92cf:7b7a]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::806c:fd65:92cf:7b7a%6]) with mapi id 15.20.6156.018; Wed, 1 Mar 2023
- 12:58:16 +0000
+ 2023 13:05:38 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6134.030; Wed, 1 Mar 2023
+ 13:05:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,509 +49,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0b865e2-b830-11ed-96a4-2f268f93b82a
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 554768b3bde68d82
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: ca82ef15-b831-11ed-a550-8520e6686977
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1677675953;
+  h=message-id:date:from:subject:to:cc:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=aadJC1iTn4lLQPFMgwUhplmnbOj+G3QekYaEkl0oS3c=;
+  b=ArXB/NNUlnnJNlJ47Hpkjo1G4Cw+QAxrDcKSpRicJ3wkk3dK7IYtggA6
+   EfhAnToG8STu2PUjvscuVXEYUg7KurCbj4rVBUT3e3aS+fUJzmCiwUQY7
+   hN8sAnOHygc0/Irj6xW+x1Mt29Mt3HWdX191RKcqvuu0pOnhxlm8co2KB
+   Q=;
+X-IronPort-RemoteIP: 104.47.70.105
+X-IronPort-MID: 101436795
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:0jj896twU6exU3LqnNnjcgujsefnVL5fMUV32f8akzHdYApBsoF/q
+ tZmKW+GOPyNM2ekc9x/a9/i/U1Q6pHVxtZrTVA+pXs3EXgW+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
+ Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj6Fv0gnRkPaoQ5ASGziFPZH4iDfrZw0XQE9E88tGSH
+ 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
+ Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
+ fMwMiwrczKx2rKP452EdvJIitoCM+PoBdZK0p1g5Wmx4fcOZ7nmGv2Pz/kHmTA6i4ZJAOrUY
+ NcfZXx3dhPcbhZTO1ARTpUjgOOvgXq5eDpdwL6XjfNvvy6Pk0ouiP60aIe9lt+iHK25mm6xo
+ G7c8nu/KRYdLNGFkhKO8262h/+JliT+MG4XPOTgr6Ix3gLCmwT/DjUGdAufgOKwsHW5ZPxee
+ 0IOxHYCiIItoRnDot7VGkfQTGS/lhwWVsdUEuY6wBqQ0aeS6AGcbkAOUyRTYdghuMgpTBQl0
+ 1aIm5XiAjkHmKKRYWKQ8PGTtzzaESoIKykEbCwNTwoA6vHipp0+ilTESdMLOK24kNzzXy3xy
+ jairS4iirFVhskOv42r8FaCjz+yq5zhSg8u+h6RTm+j9hl+ZoOue8qv81ez0BpbBIOQT13Et
+ n5bncGbtbgKFcvUzHHLR/gRFra04frDKCfbnVNkA5gm8XKq5mKneodTpjp5IS+FL/o5RNMgW
+ 2eL0Ss52XOZFCDCgXNfC25pN/kX8A==
+IronPort-HdrOrdr: A9a23:DmWYw6i2h5e/HDUbr4CdDqAdWXBQXvgji2hC6mlwRA09TyX4rb
+ HKoB1/73WYtN9/Yh0dcLy7V5VoOEmskqKdgrNhX4tKPjOHhILAFugL0WKF+VPd8kbFh41gPM
+ lbEpSWP+eAaWSS3fyQ3OBhKadb/DBcytHRuQ4C9QYKcei3UdAa0+6mMHfnLqUYLDM2fKYEKA
+ ==
+X-IronPort-AV: E=Sophos;i="5.98,224,1673931600"; 
+   d="scan'208";a="101436795"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gsp0hneMtamq9DE7yU1IzEiofVr/wL6Ys9PEtPIhksMVJ3N3znAFe9DO5V4AN1MknEjCa7ptBPTzyqmB8R4pKD7XnOn0+Ev5FEIaWmqMdPzs4Xez+lOQ7w4lQmzyARJmiwKFp4j7saLM8+1/wG6jOz2SLC3ET+vak4ED/DmwdVrEpnQYcJ2GZM2ryJMRl6S0GNOijC/8nV+zQrE7nzv6M2ln6Jcjjd0eiCzSzZ9BtFrjrr8DJhMuSQDB+zQ3wRpjTkD2vrxNzWCSr/ds+jaU/U4TAye0IhW5CHidgFdBA9nFpaz3PKON3KgiEMF89vKu14mieTfUXDV37lOwK5/Ijw==
+ b=oJ99BwJIkBBwYI9FOQsA4QS0mVd8QPUqfaMQEl/8jHAk1QjWlp6aj9TDOqmhvlQ15JvtZ0Tu/Dh2fUmB+TqgzMpz9JvehaiJzGPDM7NgDuz5wrKF7Xz0Slg4vkdCSZrmhqva30bdeHGpSO4ic08EJM85RmswvP8xWfiy5EAMVQ4kDPu4ONRi5lCTDdyoXgyP5VkJrzxaz5YKbT4TpaJyNPph21Hmog2OxBP3Wmun0ypoxZrpIvbR4NxUB2qogTRlb/QOQ3YG3m/fVXP0I57s7ZkgqJJE+NYmTnW5WzlklMDaovbS17kPUzmSxnhJCzFZUCjVQc0oM+7dI5VKV8DKpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FQoDK29fiaGnolOUfOuRZGypB3Ndo2P6LtThh5ULN5c=;
- b=T3kCkQ/TdGKdMfAb2MK1K6ptptuqiEeFLzRmSFbkn0gl85t0u3WNYkw+JaSegdqPEObLwVGsjLOO83eeTuZ4pygpvPM7RxReZJocNpF+4KTBFwFhOKDZgiBDMscGuKdvyX8RXVsD+JwKlhm7GcFHTzp4xKxuRd1OO/mXuUm9UuUQR/CvAMs/q5lAM45Th9CHHIaRZZEd0oSxNlu1gYY6tZeXfdQxdz38oai+vwjd+a0YljCbNzdIiJGosf/22kJpJvDv81NHkLmOIazMEzO8aVDrRuk+cngj5Ev5i19RhQ/2VYgMTGKzwQeSSbuxHTTgpRdSuzd/awp6LszVwc9j7w==
+ bh=KyDq4tgG8c/dGgCmChWu9MmDNCIb7NVa3KtQ/Z9+Uws=;
+ b=cYsZdzh87WhigYpN54cITHC7FkFMWbqvPrI/513D0aA1uPS95Tm03DXB0S79WuHPetl2VD8y+Ee2bNEwEi+SWZhrM6KCbKILabWhV8pGsw4Ach4zYQS/+LerhtuEgkgQR/IYAUVZJFZJBGtI6/rQBYxP+2FfC96o9+Ls5v0zlimRsVuMA1IbaZf7f2Pv958y3tkd6rQzzkuFsb5yl0zeI0XjJgDSK0sxlYwETL529y0265kzfdJYqU2YjXJy1yPE/auU8+rzFhnpl60aXjazF4cR7Ism1GQSFwQrXoSzUn8jLm0V/QBbYZsH21Z807w0BcSUL4BrTIrIx0fZN076Vw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FQoDK29fiaGnolOUfOuRZGypB3Ndo2P6LtThh5ULN5c=;
- b=lR8b58ePX4+ptdGydksZ5HDHinCH93Qq84tXF010MscEx6APe/kwfQ9ufeoVsVLAUOauLO40Z7QL+BpoDeoAMsiIIJTElxw/6DHM1ZHi81eg6Wt9FDcJN1xSf/Z1QqVPJKNMnQkRMl9wE6dXtSYYB8gBWkFmXTsv3GdFBG2rSDk=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jens Wiklander <jens.wiklander@linaro.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici
-	<Marc.Bonnici@arm.com>, Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk
-	<volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>
-Subject: Re: [XEN PATCH v7 12/20] xen/arm: ffa: send guest events to Secure
- Partitions
-Thread-Topic: [XEN PATCH v7 12/20] xen/arm: ffa: send guest events to Secure
- Partitions
-Thread-Index: AQHZRtMbJTLQExtpBE6ThIQepjPcla7km2EAgAEk3QCAAC0KAA==
-Date: Wed, 1 Mar 2023 12:58:16 +0000
-Message-ID: <8D294745-AE0E-41B7-9B42-7C463AC77F93@arm.com>
-References: <cover.1677079671.git.jens.wiklander@linaro.org>
- <cfd9ae67bdf24bee796b418937dd1486018fd188.1677079672.git.jens.wiklander@linaro.org>
- <3DE2B127-8820-400A-86FC-3A38F40CADFD@arm.com>
- <CAHUa44EjD7mSE0DZShoRh9PAPVPWXL0gXUpi69s-2ktaMMSa8A@mail.gmail.com>
-In-Reply-To:
- <CAHUa44EjD7mSE0DZShoRh9PAPVPWXL0gXUpi69s-2ktaMMSa8A@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.400.51.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|AS8PR08MB6581:EE_|DBAEUR03FT007:EE_|DU0PR08MB7810:EE_
-X-MS-Office365-Filtering-Correlation-Id: b27b253b-af9c-45df-8f0e-08db1a54a8d2
-x-checkrecipientrouted: true
-nodisclaimer: true
+ bh=KyDq4tgG8c/dGgCmChWu9MmDNCIb7NVa3KtQ/Z9+Uws=;
+ b=CSMIj31RlNZZgZWHOQ1IM5JFIJj61RSYx7RHZ5sKs+tz3p63sGNbA6x0L24mazFVR8l1HMsgmCt6sPPIdtki2BRJM5X0t34ckf4kcfkFgfngCdS3k5g1+irCD4yhja5WuxMFW7UiAQD6tZxENVKRtSFEStG1QbZd3rEhc8RA95c=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <3f45d953-fea1-355d-0366-35f63958184a@citrix.com>
+Date: Wed, 1 Mar 2023 13:05:32 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v3 00/14] x86/hvm: {svm,vmx} {c,h} cleanup
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, Xenia Ragiadakou <burzalodowa@gmail.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
+References: <20230224185010.3692754-1-burzalodowa@gmail.com>
+ <e51c2ed6-4dc2-bf77-5d89-7023b3201fd0@citrix.com>
+ <8745c599-bf9f-1eec-739f-3d42920dc546@gmail.com>
+ <989903f7-4ea0-a1d8-923f-efb84c70ba21@citrix.com>
+ <aa326f9a-94ca-75b9-6d4a-ab6fdf992c29@suse.com>
+ <2fec6c39-f73c-719b-7bc9-02e1ec3f195b@citrix.com>
+ <5e623eaa-ce32-e3ac-2089-68bf8125b5db@suse.com>
+ <18b9b99e-1d93-73d8-f9b8-873f44287c5c@citrix.com>
+ <60252bef-c732-b061-8ec0-c4022eb41255@suse.com>
+ <dc6b36df-f46d-0903-0789-5dda74490eca@gmail.com>
+ <491961e2-f9a3-2bd5-e757-a094577ed068@suse.com>
+In-Reply-To: <491961e2-f9a3-2bd5-e757-a094577ed068@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0563.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:33b::11) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|MN2PR03MB5198:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5e1d7ce-7d95-4367-c878-08db1a55a712
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- XCgHuGgCbA4yeIfAJ3ZU/o913usIJGZnbXRFuT4/GWf8eWGhKs3s8QUlV24pi9fcR+CtmOJe/vP58KvQ6KClGb9fY4UUCBgTWGUOCLu5RlDMi8t02ih2kNghPAWWNCGhvzsP5EgqYxbsSCn9q+KNtB8y0GYbEyfphf6VJjNwnDGQvz/eTroHxBNGUssXFKFQRX961uzvop254Xzzyrdr2oSUZylRv/fsRpvvQ3buVGlHb07gCErQkRp3l+X9e/Zse1dm2bJB9w7NIKaq2CbImFGY1KRklqq2wCgLW9Q6UMaCfaeVaBg4tUCKwgJJKX1irmQCcO4NpMhE1w5CNyh8JwhC39Gr3b5SIAoy3bevHMred3Rc1yScrpCBcMzB73o70QMtTRHXCOQPqLVzX8sw3HPkF75SScjPMbNodxjwDue6kRystdJeS+QJ6Dmb7fZh96YSkoSiq6joRjF3UU3U0Wkf0iEbQQ5qc+XhNVlA6O9hJc8/c4fS4tQk98MK4iN0TXYxu7nrYEciwpFRlhG1vIsdtQY7y9PLIuH7aeb9GzhpePv+MZDQnWjESEoeyXKnruABO4Q4cbZzlEtRUPevX8G4gNjkJScDW1ReQZHLUYFJKKKVa6NKVH9825l+UBGtU2VE4E7OjnZHLmNlqKogMl6lIpSlInpOAvXTHQDuOlK1/Dna86Sx00WC3zGgOddvCiRFjAN3uUOixuWQoZjLbTmvvcEaOAI4twWZsoe7PBI=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(136003)(39860400002)(376002)(396003)(346002)(451199018)(36756003)(478600001)(83380400001)(54906003)(316002)(33656002)(4326008)(122000001)(64756008)(66446008)(8676002)(38100700002)(76116006)(6916009)(66476007)(53546011)(6506007)(2616005)(91956017)(6512007)(186003)(71200400001)(6486002)(5660300002)(66946007)(66556008)(30864003)(41300700001)(8936002)(38070700005)(86362001)(2906002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <43C1CF303103F14E99471C66D5A397D7@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6581
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT007.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	ee6ecd5d-7910-416e-3581-08db1a54a001
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	umndVVLeVsCjEn6ErkOPryy4StnWgpJt9x1Dhwzw8+J5LvymGst3l45eUj3V9DH8ghnRrQXT1ZNJJxYX/3Qro+P3IYNzriUDrPlq5v8iKRsIvf96A3Y9Q1QYvK8r/Zfn66dqFxK3jhzonvUBQtcSjX3lL9/3tXywXFNaCM35BY/DyDr+5o+1OL5Dt/+RFtgdWFMCGjofRsNczFi1TbtuRp9JpeHDCc89vx13WBqz9xSyJf0Wj5+JpswcB1FYqoe+G1g2sebR9yTcRCHBF7hMYOH5aJdZmzvJ6Wa7xHUB6xieiQAMOwTfsXMBYbbP4LmQIL3Ruc3d10M/dq3H/vZCEbeAxaB/8HtNg0vxatXzNS0yTn7KNBtfRHGfQB+USqZjMLzQV0JhQa2aYz3bjJ5eoymF61IctOdtTtTDJN2GJ2kmOesqDe50ZH6Km9RXLDVucrrZN+5rCfhJg2PD//aPDUhcYLqWsmXh1CzMrIoA3/FmmrFAQgJ6XSaSi5BzbRMBoHM5u3bXLFx8rKLjJzvgiahXaQ05MZqxdcIr/WLb4/HlK0Z+6tdgwwe8kupWGfCUkOkc9XCc/UV39lfs9TlpleUFhXNoTuCFVhS++mP3UQVo4N8Uv2uFP9M29xH/pR/r8IftzsX5ZWHyr1gZceHePsBKKmTwiW8QPQ02p/Bh9eSHRlHX4TK80L4Lq3BD8Z4Qb1SQqcvm7cHHFS+V1BImRQ==
+	2PqCG60/N3E6ns2g3iU75OotjaGDKRCfN7sU94AmehQi0hO1Wb7h6yWexqVCdZEN8AJtW7y34hTWh0eARF4Sg+DJ9ckbshIwCsFFWj0Q2p03bM4VrbDfUryXUCqsWN5WmNTYyF3W6zwk9VQTQx3l5MtcMgo1ZCxOKJyOv49gGubU5bDhrb/9N/NOmN2LrdNkmknmIs17YlpCRc4FQatuKhBWJXkKFmbblb1r+KXkWOmpFpxweyID4P/xtJhErg2+YIXd459ubQeWnyYr8RiomS3CpOnTLp7iVngk5DRhhFQKBLC8XepS2jpn5FpuKYHhHJHYytgrraeXii37T3JjKpOo+ned4dp4yo2UZWU6Pdhr8UsuaArrWQHTbNZcdDgADHWqa9llYZGeodc+8DDl8qfH0s6aZhjA/Juu3/lljwE4OcKbdCCOL6fK5c5aYfzCPWY4KTIkVu/wKcYCJaXVCyKR3dd4JpMkCL+Smq7aTZdB4yTJBYLowa9D+gTI//csWs91kYoxb3f/GwVlOqPkcoWm31izggTluold5Unhcx9k6JOF9ZwcGrSRy82KkeOhVTA9n06crfREobTTqGSi830tH4aCgQzyEctnIv3Rmek2wBwYG1vWaBQaLcXoW2Om1njnIsRjBAl4/TxNz4EienPD51JIMdrdqEx6cLORjhyefjqwpLb4WFDoJvVN3b6WDXMJEDTgFJ9yqzTLrM4KdRYAztYJMxitA3XGvlrGSvI=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(136003)(39860400002)(396003)(376002)(346002)(451199018)(40470700004)(46966006)(36840700001)(36756003)(82310400005)(83380400001)(478600001)(336012)(47076005)(54906003)(316002)(33656002)(82740400003)(4326008)(40480700001)(81166007)(8676002)(36860700001)(6512007)(53546011)(40460700003)(186003)(6506007)(2616005)(26005)(6486002)(5660300002)(70206006)(70586007)(30864003)(86362001)(41300700001)(6862004)(8936002)(2906002)(356005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2023 12:58:31.4847
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(376002)(396003)(366004)(39860400002)(136003)(346002)(451199018)(86362001)(31686004)(31696002)(2616005)(5660300002)(110136005)(8936002)(83380400001)(54906003)(41300700001)(186003)(6506007)(26005)(6512007)(8676002)(66476007)(66556008)(66946007)(82960400001)(4326008)(478600001)(316002)(6486002)(53546011)(2906002)(6666004)(38100700002)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YmkxTUJpbWV5L0hMTXlESEkxbHg1eWFweGoybVFMUHo3VHZPODhRVmorNnI4?=
+ =?utf-8?B?YU8wSXl0cVVEc0x1K0RtWDdTSDYxSmZsM1F6WmZmU0g0WHp4UXhmY0djYVMr?=
+ =?utf-8?B?Q2xldWVDN05qa2ZidFZMY1Vla1JHYVBLSHdjbVptODZNYTRITXRZbGZHNmpq?=
+ =?utf-8?B?WjljSFg4ZW42ZXl1TlBqc0VHRGhYM0FtMitNcTF1MXJlQVE3WGZlbmxHa3Vv?=
+ =?utf-8?B?SmQxaW42d2ZSblJwUjRZeDZ6VmJab1ZMdklYZ3RMbm1EQ2VBelI4QjFtUHFT?=
+ =?utf-8?B?cmQ2SUErcndJVFUxOVNSNldqNDNEeEpSblRyUFVvQ2I4MU9mTFlBK3BzMFdJ?=
+ =?utf-8?B?YnFjdjBxMGgwRnFPcWVnem1FdDFnc3cvNkFia3R1MUIzd2xLNnVueWh3Y1c1?=
+ =?utf-8?B?Q0JCcUVCbThaelhsUmlpa01ScmVmdFltcm1iOVlHUTVOMmJTWmpCWUw5d3I5?=
+ =?utf-8?B?eGhjQUNhNzdrVjVseXUwOE0rTFlNUXc3Q2VKSE5HUloyQkVkOXZJZnFmVmFK?=
+ =?utf-8?B?bnpIVzFQMVN0NWtMMDRVY2Fhb0hrbXIrYWwyU3U4Y09EWkVFV0hwZlhVWkhP?=
+ =?utf-8?B?OU5WWVdlTHlJR01sdW5LekdOdWRDczBGdDhNbk1WYXc5dUc4cFZTMCszYnhs?=
+ =?utf-8?B?bk0vY1BLVC9mNDR6S2xoWnp5aUpUVTk5VEZpRnBUUmdzOUNxc0NjS29GV3Za?=
+ =?utf-8?B?aDNmb1c3Nk5jbXBaWWdML3ZHbUVPMEVPbW1CUGhmTHVaaXhkTldYRDZpeGRT?=
+ =?utf-8?B?TFFXaUhkcStKSVE4L052RW5iM1N2cWJVNFJvNVl0elh6UzhpOW5JVWdqd09R?=
+ =?utf-8?B?TjlsbFkyQlNYc1NRUmp5b2ZaMlhpUXZ4ZmFIY1F3aVdsaWVyMTAwSXZIdlV0?=
+ =?utf-8?B?bWxQTHd4YkpTVnpxVDNiMjJVRGR3SDZkSlpwcEJzVmNUcFBkL1IrNzl5Ym43?=
+ =?utf-8?B?SWNLRGZvMk5PRDRRbXhHR3hwcEh6RlIzNHRRSG1tN2s2NEtqM1BzUTFXV0pw?=
+ =?utf-8?B?TUZXV01wQk1MTVVUamY0L3VlZzZ5SGlyVkpscWJITlRuMnFkVW1uVTVoZSt0?=
+ =?utf-8?B?THoveExBbC9pT2t2Z28rZ0tzR3pzQVcxYVBkWkR0NFRQdDVkNXVLay9sZTlu?=
+ =?utf-8?B?WXJOT1F3UkZBeFN6MTNQVGJQdlltT05YR3IwNWtnQmJUVkRGT0FudE5vdnd3?=
+ =?utf-8?B?R1JNKzBWQUJsZ3FtQnQ4aUo5Qk41bFkrdjl3eDV4Q296azVwR1AxTGVXcU1O?=
+ =?utf-8?B?cytMNG5sYnJvQkVGMDV4amJuN1ZyalRRV3ZWclNTcEdxYVdMNGdpUFUvZkdk?=
+ =?utf-8?B?RnkyNUpEMnJOUVhaSjM4RzgzSzZWT2ZiWkRsdlRlMm1LYmtTQ29abGw2ajU2?=
+ =?utf-8?B?M2NrYkdwQmZHd1JiaWFZR1kyYURZVlZkNUhDREtyZGNGdVh4cWxYYmFydkJR?=
+ =?utf-8?B?YWdxOStJcHdISFZsTURhTWgzV240cVRjTUFyMEhxZGZxMXVvUGQ5aFhMYjdt?=
+ =?utf-8?B?ZmhoOXFSc0hodUNJSW1vSWRuc1VBWDNXTVhuMkhWTzFlTDZLOVMxM1JlR3hW?=
+ =?utf-8?B?SjVUek5aT2FlSWdSWE9MdGc0blFBTWhJLzNBVklKQ3RZa2pDb3pGeW05TjRI?=
+ =?utf-8?B?N2Q5SHZ3dXJuL1RjcC9GY2lzb2RITndLdlVoMkloYTdFY09zbzNlS1RpcEwx?=
+ =?utf-8?B?MllvczlUM1BZVlpWMitRYXpvRVRRQXNGSW9EQk9QVTE4enBERTJUL0o2a1BM?=
+ =?utf-8?B?c2VaNTFnREcrWFpmNVdtK0QxZTJ1N3VPb2NvL3BTeUxNRlM5cGxWR0xJdW9D?=
+ =?utf-8?B?dGxUTzZDZ1U0QUJDYVI2MGpHcDU5TW12NUFZL1QzaC9PZSt3TjZ6RUZSLzRm?=
+ =?utf-8?B?eEZ4eEc5bDJsVlJnbllzaGVuKzl6aXhPczVmdWo4dHhOMXhIdVBEdTkvNUJ6?=
+ =?utf-8?B?QVBMdzRmeCtLcFZDVk1wNEhpM2hYcXIzRXRJWFp3TXZQdERlOWZ2SjJYMG9T?=
+ =?utf-8?B?eHNVeFZsZno2L0N6VWJRdFRWa0VrM1dYMmJudWFBT09XdXM5bVBia1FSaTJu?=
+ =?utf-8?B?dDZGdzZWOTliR0xXWnVWZGhIR2NVa1liaUJSdm8xZmFzVmdna0cxMUwwRXZ3?=
+ =?utf-8?B?OHdITEIxWUlFdlRxM1hUU3hYZVRxUTNCRXlrbEltbm9vdms2MkN3YjkyVkQ3?=
+ =?utf-8?B?WXc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	CTKBchZNR255sUC5UfZUsu4Eg22K+R3W6NYGTCvduTW8wEs5rm4igAwg4XJ9iGTrEU45ERykMaHJ6ByFYgMTJg7gqxcRUPlOgqyeMR5o6IkqLeRfqyQOXyB9VKHEJFQsRb0eWfFihXoKIhQ5qaLxmHWgQYy4vX8i3zOgHbIG/dy9NqoEWXJ2FymsGZmbTORNYIwrgmk1anAamQbmfS6u08gdgpw7eSH5O84H9ytZHFTvXVlMRIhUY5VZk7v7nV1qbZd+9Ln7vEpSc3+quTPYlwQkU4BYWxNSgOT9Twse2wHEKAiFu+HHu99couxsj52D84VCzsk8cRiG3RHTYnALhwxhLlQWL8hSGL5KyMNfF3ul+i+ArbVa//oH3IiSSlaDP5PrU6/HP1GMvtZEy0X2olkoDvElxPC1UZ00xpjZavYtC97wYjzAiOZG5w/LjhxLz8ey0ZO2s2pcrPoe/SffKJOR1+nCfWc+nyyLoFwSGMsUOexg+whDNGNgMwGqya+RLxYqEIldVLAdQkl1I6e/9V4cmFmc7w8843J7lJHxSP6vxAB94zliTgrpuboOMJInc8r4fUNWbiiufa1Oox0IMMHNDEMIxsH1+eEuDlDB+SbuwFmfck1Ltq7KFGQy5pRDXFeoWanR99+tZXdvE8dRMj8RYniem/LxuD/IUqMnzr3oe2zJDkPLmtl4h/bx7B/5Jdfuuug2vQLgwsg4iC9aQgCusFy1dNn4k33yp73p1AqQEDjx9+X3Fvcqn4I9rNsgchi0ol9g+4jgqTUVsaEB4TACjM4soy7oAfsEzm+/N2x9RIFhGJZWQuIcCiUqvz34nHPvx1Y+Eg54XrbR13BnmE2ZmI/w6E6VggIQcwRvpXu9i688Mcz0H3Z9mwfyUkh0
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5e1d7ce-7d95-4367-c878-08db1a55a712
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2023 13:05:38.2656
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b27b253b-af9c-45df-8f0e-08db1a54a8d2
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT007.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7810
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c+LRrVok5qCFmjUKJx/E7ifbY5CodYlCUxgW8lEKpxSyhlRfT3DVNHG6VIvXb45la9YUQBKQzt/2gTvh4oHSu+Gk+fADkd/k233RymDNOhk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5198
 
-Hi Jens,
+On 28/02/2023 7:11 am, Jan Beulich wrote:
+> On 28.02.2023 08:09, Xenia Ragiadakou wrote:
+>> On 2/27/23 14:17, Jan Beulich wrote:
+>>> On 27.02.2023 13:06, Andrew Cooper wrote:
+>>>> On 27/02/2023 11:33 am, Jan Beulich wrote:
+>>>>> On 27.02.2023 12:15, Andrew Cooper wrote:
+>>>>>> On 27/02/2023 10:46 am, Jan Beulich wrote:
+>>>>>>> On 24.02.2023 22:33, Andrew Cooper wrote:
+>>>>>>>> But I think we want to change tact slightly at this point, so I'm not
+>>>>>>>> going to do any further tweaking on commit.
+>>>>>>>>
+>>>>>>>> Next, I think we want to rename asm/hvm/svm/svm.h to asm/hvm/svm.h,
+>>>>>>>> updating the non-SVM include paths as we go.  Probably best to
+>>>>>>>> chain-include the other svm/hvm/svm/*.h headers temporarily, so we've
+>>>>>>>> only got one tree-wide cleanup of the external include paths.
+>>>>>>>>
+>>>>>>>> Quick tangent - I will be making all of that cpu_has_svm_*
+>>>>>>>> infrastructure disappear by moving it into the normal CPUID handling,
+>>>>>>>> but I've not had sufficient time to finish that yet.
+>>>>>>>>
+>>>>>>>> Next, hvm/svm/nestedsvm.h can merge straight into hvm/svm.h, and
+>>>>>>>> disappear (after my decoupling patch has gone in).
+>>>>>>> Why would you want to fold hvm/svm/nestedsvm.h into hvm/svm/svm.h?
+>>>>>>> The latter doesn't use anything from the former, does it?
+>>>>>> It's about what else uses them.
+>>>>>>
+>>>>>> hvm_vcpu needs both svm_vcpu and nestedsvm, so both headers are always
+>>>>>> included in tandem.
+>>>>> Well, yes, that's how things are today. But can you explain to me why
+>>>>> hvm_vcpu has to know nestedsvm's layout?
+>>>> Because it's part of the same single memory allocation.
+>>> Which keeps growing, and sooner or later we'll need to find something
+>>> again to split off, so we won't exceed a page in size. The nested
+>>> structures would, to me, look to be prime candidates for such.
+>>>
+>>>>> If the field was a pointer,
+>>>>> a forward decl of that struct would suffice, and any entity in the
+>>>>> rest of Xen not caring about struct nestedsvm would no longer see it
+>>>>> (and hence also no longer be re-built if a change is made there).
+>>>> Yes, you could hide it as a pointer.  The cost of doing so is an
+>>>> unnecessary extra memory allocation, and extra pointer handling on
+>>>> create/destroy, not to mention extra pointer chasing in memory during use.
+>>>>
+>>>>>> nestedsvm is literally just one struct now, and no subsystem ought to
+>>>>>> have multiple headers when one will do.
+>>>>> When one will do, yes. Removing build dependencies is a good reason
+>>>>> to have separate headers, though.
+>>>> Its not the only only option, and an #ifdef CONFIG_NESTED_VIRT inside
+>>>> the struct would be an equally acceptable way of doing this which
+>>>> wouldn't involve making an extra memory allocation.
+>>> That would make it a build-time decision, but then on NESTED_VIRT=y
+>>> hypervisors there might still be guests not meaning to use that
+>>> functionality, and for quite some time that may actually be a majority.
+>>>
+>>>> Everything you've posed here is way out of scope for Xenia's series.
+>>> There was never an intention to extend the scope of the work she's doing.
+>>> Instead I was trying to limit the scope by suggesting to avoid a piece
+>>> of rework which later may want undoing.
+>> Can I suggest to leave hvm/svm/svm.h and hvm/svm/nestedsvm.h separate 
+>> for now?
+> As per before - that's my preference. It'll be Andrew who you would need
+> to convince, as he did suggest the folding.
 
-> On 1 Mar 2023, at 11:16, Jens Wiklander <jens.wiklander@linaro.org> wrote=
-:
->=20
-> Hi Bertrand,
->=20
-> On Tue, Feb 28, 2023 at 5:49 PM Bertrand Marquis
-> <Bertrand.Marquis@arm.com> wrote:
->>=20
->> Hi Jens,
->>=20
->>> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
->>>=20
->>> The FF-A specification defines framework messages sent as direct
->>> requests when certain events occurs. For instance when a VM (guest) is
->>> created or destroyed. Only SPs which have subscribed to these events
->>> will receive them. An SP can subscribe to these messages in its
->>> partition properties.
->>>=20
->>> Adds a check that the SP supports the needed FF-A features
->>> FFA_PARTITION_INFO_GET and FFA_RX_RELEASE.
->>>=20
->>> The partition properties of each SP is retrieved with
->>> FFA_PARTITION_INFO_GET which returns the information in our RX buffer.
->>> Using FFA_PARTITION_INFO_GET changes the owner of the RX buffer to the
->>> caller (us), so once we're done with the buffer it must be released
->>> using FFA_RX_RELEASE before another call can be made.
->>>=20
->>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
->>> ---
->>> xen/arch/arm/tee/ffa.c | 191 ++++++++++++++++++++++++++++++++++++++++-
->>> 1 file changed, 190 insertions(+), 1 deletion(-)
->>>=20
->>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
->>> index 07dd5c36d54b..f1b014b6c7f4 100644
->>> --- a/xen/arch/arm/tee/ffa.c
->>> +++ b/xen/arch/arm/tee/ffa.c
->>> @@ -140,6 +140,14 @@
->>> #define FFA_MSG_SEND                    0x8400006EU
->>> #define FFA_MSG_POLL                    0x8400006AU
->>>=20
->>> +/* Partition information descriptor */
->>> +struct ffa_partition_info_1_1 {
->>> +    uint16_t id;
->>> +    uint16_t execution_context;
->>> +    uint32_t partition_properties;
->>> +    uint8_t uuid[16];
->>> +};
->>> +
->>> struct ffa_ctx {
->>>    uint32_t guest_vers;
->>>    bool interrupted;
->>> @@ -148,6 +156,12 @@ struct ffa_ctx {
->>> /* Negotiated FF-A version to use with the SPMC */
->>> static uint32_t ffa_version __ro_after_init;
->>>=20
->>> +/* SPs subscribing to VM_CREATE and VM_DESTROYED events */
->>> +static uint16_t *subscr_vm_created __read_mostly;
->>> +static unsigned int subscr_vm_created_count __read_mostly;
->>=20
->> In the spec the number is returned in w2 so you should utse uint32_t her=
-e.
->=20
-> I don't understand. This value is increased for each SP which has the
-> property set in the Partition information descriptor.
+Please fold them.
 
-Using generic types should be prevented when possible.
-Here this is a subset of the number of partition which is uint32_t (wX reg)=
- so
-i think this would be the logical type for this.
+I have strong doubts that they would actually be unfolded, even if we
+did want to make nested virt a build time choice.
 
->=20
->>=20
->>> +static uint16_t *subscr_vm_destroyed __read_mostly;
->>> +static unsigned int subscr_vm_destroyed_count __read_mostly;
->>=20
->> Same here
->>=20
->>> +
->>> /*
->>> * Our rx/tx buffers shared with the SPMC.
->>> *
->>> @@ -237,6 +251,72 @@ static int32_t ffa_rxtx_map(register_t tx_addr, re=
-gister_t rx_addr,
->>>    return ffa_simple_call(fid, tx_addr, rx_addr, page_count, 0);
->>> }
->>>=20
->>> +static int32_t ffa_partition_info_get(uint32_t w1, uint32_t w2, uint32=
-_t w3,
->>> +                                      uint32_t w4, uint32_t w5,
->>> +                                      uint32_t *count)
->>> +{
->>> +    const struct arm_smccc_1_2_regs arg =3D {
->>> +        .a0 =3D FFA_PARTITION_INFO_GET,
->>> +        .a1 =3D w1,
->>> +        .a2 =3D w2,
->>> +        .a3 =3D w3,
->>> +        .a4 =3D w4,
->>> +        .a5 =3D w5,
->>> +    };
->>> +    struct arm_smccc_1_2_regs resp;
->>> +    uint32_t ret;
->>> +
->>> +    arm_smccc_1_2_smc(&arg, &resp);
->>> +
->>> +    ret =3D get_ffa_ret_code(&resp);
->>> +    if ( !ret )
->>> +        *count =3D resp.a2;
->>> +
->>> +    return ret;
->>> +}
->>> +
->>> +static int32_t ffa_rx_release(void)
->>> +{
->>> +    return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
->>> +}
->>> +
->>> +static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
->>> +                                      uint8_t msg)
->>=20
->> This function is actually only useable to send framework created/destroy=
-ed
->> messages so the function name should be adapted to be less generic.
->>=20
->> ffa_send_vm_events ?
->>=20
->> unless you want to modify it later to send more framework messages ?
->=20
-> That was the plan, but that may never happen. I'll rename it to
-> ffa_send_vm_event() since we're only sending one event at a time.
->=20
->>=20
->>> +{
->>> +    uint32_t exp_resp =3D FFA_MSG_FLAG_FRAMEWORK;
->>> +    int32_t res;
->>> +
->>> +    if ( msg =3D=3D FFA_MSG_SEND_VM_CREATED )
->>> +        exp_resp |=3D FFA_MSG_RESP_VM_CREATED;
->>> +    else if ( msg =3D=3D FFA_MSG_SEND_VM_DESTROYED )
->>> +        exp_resp |=3D FFA_MSG_RESP_VM_DESTROYED;
->>> +    else
->>> +        return FFA_RET_INVALID_PARAMETERS;
->>> +
->>> +    do {
->>> +        const struct arm_smccc_1_2_regs arg =3D {
->>> +            .a0 =3D FFA_MSG_SEND_DIRECT_REQ_32,
->>> +            .a1 =3D sp_id,
->>> +            .a2 =3D FFA_MSG_FLAG_FRAMEWORK | msg,
->>> +            .a5 =3D vm_id,
->>> +        };
->>> +        struct arm_smccc_1_2_regs resp;
->>> +
->>> +        arm_smccc_1_2_smc(&arg, &resp);
->>> +        if ( resp.a0 !=3D FFA_MSG_SEND_DIRECT_RESP_32 || resp.a2 !=3D =
-exp_resp )
->>> +        {
->>> +            /*
->>> +             * This is an invalid response, likely due to some error i=
-n the
->>> +             * implementation of the ABI.
->>> +             */
->>> +            return FFA_RET_INVALID_PARAMETERS;
->>> +        }
->>> +        res =3D resp.a3;
->>> +    } while ( res =3D=3D FFA_RET_INTERRUPTED || res =3D=3D FFA_RET_RET=
-RY );
->>=20
->> We might end up in an infinite loop here or increase interrupt response =
-time.
->> In the general case we could return that code directly to the VM but her=
-e we
->> are in the VM creation/destroy path so we cannot do that.
->>=20
->> Maybe in debug mode at least we should have a retry counter here for now
->> with a print ?
->=20
-> OK, I'll add something.
->=20
->>=20
->>> +
->>> +    return res;
->>> +}
->>> +
->>> static uint16_t get_vm_id(const struct domain *d)
->>> {
->>>    /* +1 since 0 is reserved for the hypervisor in FF-A */
->>> @@ -371,6 +451,10 @@ static bool ffa_handle_call(struct cpu_user_regs *=
-regs)
->>> static int ffa_domain_init(struct domain *d)
->>> {
->>>    struct ffa_ctx *ctx;
->>> +    unsigned int n;
->>> +    unsigned int m;
->>> +    unsigned int c_pos;
->>> +    int32_t res;
->>>=20
->>>     /*
->>>      * We can't use that last possible domain ID or get_vm_id() would c=
-ause
->>> @@ -383,24 +467,121 @@ static int ffa_domain_init(struct domain *d)
->>>    if ( !ctx )
->>>        return -ENOMEM;
->>>=20
->>> +    for ( n =3D 0; n < subscr_vm_created_count; n++ )
->>> +    {
->>> +        res =3D ffa_direct_req_send_vm(subscr_vm_created[n], get_vm_id=
-(d),
->>> +                                     FFA_MSG_SEND_VM_CREATED);
->>> +        if ( res )
->>> +        {
->>> +            printk(XENLOG_ERR "ffa: Failed to report creation of vm_id=
- %u to  %u: res %d\n",
->>> +                   get_vm_id(d), subscr_vm_created[n], res);
->>=20
->> in this function, get_vm_id(d) will not change so i would suggest to sto=
-re it in a local variable
->> instead of calling get_vm_id each time.
->=20
-> OK
->=20
->>=20
->>> +            c_pos =3D n;
->>> +            goto err;
->>> +        }
->>> +    }
->>> +
->>>    d->arch.tee =3D ctx;
->>>=20
->>>    return 0;
->>> +
->>> +err:
->>> +    /* Undo any already sent vm created messaged */
->>> +    for ( n =3D 0; n < c_pos; n++ )
->>> +        for ( m =3D 0; m < subscr_vm_destroyed_count; m++ )
->>> +            if ( subscr_vm_destroyed[m] =3D=3D subscr_vm_created[n] )
->>> +                ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_=
-id(d),
->>> +                                       FFA_MSG_SEND_VM_DESTROYED);
->>> +
->>> +    return -ENOMEM;
->>=20
->> The VM creation is not failing due to missing memory here.
->> We need to find a better error code.
->> Maybe ENOTCONN ?
->> I am open to ideas here :-)
->=20
-> That makes sense, I'll change it to ENOTCONN.
->=20
->>=20
->>> }
->>>=20
->>> /* This function is supposed to undo what ffa_domain_init() has done */
->>> static int ffa_relinquish_resources(struct domain *d)
->>> {
->>>    struct ffa_ctx *ctx =3D d->arch.tee;
->>> +    unsigned int n;
->>> +    int32_t res;
->>>=20
->>>    if ( !ctx )
->>>        return 0;
->>>=20
->>> +    for ( n =3D 0; n < subscr_vm_destroyed_count; n++ )
->>> +    {
->>> +        res =3D ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_=
-id(d),
->>> +                                     FFA_MSG_SEND_VM_DESTROYED);
->>> +
->>> +        if ( res )
->>> +            printk(XENLOG_ERR "ffa: Failed to report destruction of vm=
-_id %u to  %u: res %d\n",
->>> +                   get_vm_id(d), subscr_vm_destroyed[n], res);
->>> +    }
->>> +
->>>    XFREE(d->arch.tee);
->>>=20
->>>    return 0;
->>> }
->>>=20
->>> +static bool init_subscribers(void)
->>> +{
->>> +    struct ffa_partition_info_1_1 *fpi;
->>> +    bool ret =3D false;
->>> +    uint32_t count;
->>> +    int e;
->>> +    uint32_t n;
->>> +    uint32_t c_pos;
->>> +    uint32_t d_pos;
->>> +
->>> +    if ( ffa_version < FFA_VERSION_1_1 )
->>> +        return true;
->>=20
->> Correct me if i am wrong but on 1.0 version we cannot retrieve the count=
- but
->> we could do the slow path and do a first loop on info_get until we get a=
-n error ?
->=20
-> Sending the events is not supported in 1.0 so there's nothing to
-> record in that case.
+(I'm not actually convinced that the existing nestedvcpu structure will
+survive first-pass design of a working nested virt solution.)
 
-Please add a comment here to say that subscribers are only supported after =
-1.1
-and also mention it in the commit message.
-
-Cheers
-Bertrand
-
->=20
-> Thanks,
-> Jens
->=20
->>=20
->>> +
->>> +    e =3D ffa_partition_info_get(0, 0, 0, 0, 0, &count);
->>> +    if ( e )
->>> +    {
->>> +        printk(XENLOG_ERR "ffa: Failed to get list of SPs: %d\n", e);
->>> +        goto out;
->>> +    }
->>> +
->>> +    fpi =3D ffa_rx;
->>> +    subscr_vm_created_count =3D 0;
->>> +    subscr_vm_destroyed_count =3D 0;
->>> +    for ( n =3D 0; n < count; n++ )
->>> +    {
->>> +        if (fpi[n].partition_properties & FFA_PART_PROP_NOTIF_CREATED)
->>> +            subscr_vm_created_count++;
->>> +        if (fpi[n].partition_properties & FFA_PART_PROP_NOTIF_DESTROYE=
-D)
->>> +            subscr_vm_destroyed_count++;
->>> +    }
->>> +
->>> +    if ( subscr_vm_created_count )
->>> +        subscr_vm_created =3D xzalloc_array(uint16_t, subscr_vm_create=
-d_count);
->>> +    if ( subscr_vm_destroyed_count )
->>> +        subscr_vm_destroyed =3D xzalloc_array(uint16_t,
->>> +                                            subscr_vm_destroyed_count)=
-;
->>> +    if ( (subscr_vm_created_count && !subscr_vm_created) ||
->>> +         (subscr_vm_destroyed_count && !subscr_vm_destroyed) )
->>> +    {
->>> +        printk(XENLOG_ERR "ffa: Failed to allocate subscription lists\=
-n");
->>> +        subscr_vm_created_count =3D 0;
->>> +        subscr_vm_destroyed_count =3D 0;
->>> +        XFREE(subscr_vm_created);
->>> +        XFREE(subscr_vm_destroyed);
->>> +        goto out;
->>> +    }
->>> +
->>> +    for ( c_pos =3D 0, d_pos =3D 0, n =3D 0; n < count; n++ )
->>> +    {
->>> +        if ( fpi[n].partition_properties & FFA_PART_PROP_NOTIF_CREATED=
- )
->>> +            subscr_vm_created[c_pos++] =3D fpi[n].id;
->>> +        if ( fpi[n].partition_properties & FFA_PART_PROP_NOTIF_DESTROY=
-ED )
->>> +            subscr_vm_destroyed[d_pos++] =3D fpi[n].id;
->>> +    }
->>> +
->>> +    ret =3D true;
->>> +out:
->>> +    ffa_rx_release();
->>> +
->>> +    return ret;
->>> +}
->>> +
->>> static bool ffa_probe(void)
->>> {
->>>    uint32_t vers;
->>> @@ -447,7 +628,8 @@ static bool ffa_probe(void)
->>>    printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
->>>           major_vers, minor_vers);
->>>=20
->>> -    if (
->>> +    if ( !check_mandatory_feature(FFA_PARTITION_INFO_GET) ||
->>> +         !check_mandatory_feature(FFA_RX_RELEASE) ||
->>> #ifdef CONFIG_ARM_64
->>>         !check_mandatory_feature(FFA_RXTX_MAP_64) ||
->>> #endif
->>> @@ -475,6 +657,9 @@ static bool ffa_probe(void)
->>>    ffa_page_count =3D 1;
->>>    ffa_version =3D vers;
->>>=20
->>> +    if ( !init_subscribers() )
->>> +        goto err_free_ffa_tx;
->>> +
->>>    return true;
->>>=20
->>> err_free_ffa_tx:
->>> @@ -485,6 +670,10 @@ err_free_ffa_rx:
->>>    ffa_rx =3D NULL;
->>>    ffa_page_count =3D 0;
->>>    ffa_version =3D 0;
->>> +    XFREE(subscr_vm_created);
->>> +    subscr_vm_created_count =3D 0;
->>> +    XFREE(subscr_vm_destroyed);
->>> +    subscr_vm_destroyed_count =3D 0;
->>>=20
->>>    return false;
->>> }
->>> --
->>> 2.34.1
->>>=20
->>=20
->> Cheers
->> Bertrand
-
-
+~Andrew
 
