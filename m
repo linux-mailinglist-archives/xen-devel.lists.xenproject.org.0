@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04BD76A6B23
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 11:56:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503978.776432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43C626A6B6C
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 12:11:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503983.776442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXK87-0002Xc-FQ; Wed, 01 Mar 2023 10:56:15 +0000
+	id 1pXKMB-0005YO-P0; Wed, 01 Mar 2023 11:10:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503978.776432; Wed, 01 Mar 2023 10:56:15 +0000
+Received: by outflank-mailman (output) from mailman id 503983.776442; Wed, 01 Mar 2023 11:10:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXK87-0002Ue-C3; Wed, 01 Mar 2023 10:56:15 +0000
-Received: by outflank-mailman (input) for mailman id 503978;
- Wed, 01 Mar 2023 10:56:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pXKMB-0005Vn-Jd; Wed, 01 Mar 2023 11:10:47 +0000
+Received: by outflank-mailman (input) for mailman id 503983;
+ Wed, 01 Mar 2023 11:10:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ofKM=6Z=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pXK86-0002UY-2O
- for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 10:56:14 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a9880553-b81f-11ed-a550-8520e6686977;
- Wed, 01 Mar 2023 11:56:04 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id q16so12779959wrw.2
- for <xen-devel@lists.xenproject.org>; Wed, 01 Mar 2023 02:56:04 -0800 (PST)
+ id 1pXKM9-0005Vh-Pn
+ for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 11:10:45 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b583da0a-b821-11ed-96a2-2f268f93b82a;
+ Wed, 01 Mar 2023 12:10:43 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ r19-20020a05600c459300b003eb3e2a5e7bso5955190wmo.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Mar 2023 03:10:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,267 +40,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9880553-b81f-11ed-a550-8520e6686977
+X-Inumbo-ID: b583da0a-b821-11ed-96a2-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=FLPQ5ivAfU4K/+cx7QVIhcG4xpjbEVmar2z1VrlZraU=;
-        b=ImzqzTbb24V/SwSnRSXi8YwqqPXYJk24QRKJH6TS+4mcdOsmMthMIidRPX3k/Rt4Q/
-         98iEyadEJaNXttZDO1Y4Mnci3ZtmJ5qzCYqZQ63L77CNWZ2aHf9XUcAwcr4bGXWoMpdw
-         Ss8leMQA6RysWYVhPku0TGhneu/Z0LuAzKQ8W4JmjLWD57a/UlJrIJF+if5oJS507m58
-         74qdEZW10ptg+QtyzzPerluvmB96Ahr70uIY3HZfNkTvvjNhN9l9ZIGs8b7ySDPA/2Gt
-         AW0DcfUgRTYkQBWkd+JV/p0DHWynmpWunRSn/O/6JuWzcgj/i9of82oVptl/n0+Ccf+b
-         kpug==
+        bh=43NEp65FCnbsH5C57qUnVodu9n1bAZUZnX5yQ0z5Xns=;
+        b=hvGk7h2e/GtZGKCwHP26u/Sm5NO7mGvQXCDnszCmgWrdlmQSNe5GMfLD5RPmD8cj5R
+         1htAgI6H7FoOS6cSJSDTUgz2BArevWYtVlt1mlTyvSDLeCCvAagVMua3njQBXBMpPNe9
+         dbwx/RkuCxzcIHJjZs4JFo098WIlf0OoxpMlSnFeHzMhKJsiqxbtgmY+RpMHSNBo/UBl
+         VVXoze65EdSEgJV0OxSTPIPkti3Bu21SPmQ14yrnwZMrDDOz5KOO9JotQpDrHntF4B4x
+         dwM9fLcUDhbGT6mYxvEqCEN+FVWskYWZP2M1DykH73GM3UykcLxtEeQ42UTFcCvbYOvI
+         dqUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=FLPQ5ivAfU4K/+cx7QVIhcG4xpjbEVmar2z1VrlZraU=;
-        b=gayGo4+hb/kko0OUB0TQayKPwYcibaNij5fBeKzJr5XDRZ7akTSReHfwepkt1v8NEw
-         oEYm8hhia0eeT7U0kAfhJTK1btkCPURveSwBbtm977DWoO0E2/xroXs6AuNxP2B7TzWT
-         O3Q1GujaYPAGubYiTgvNfs3O0miEm+bxNCR0WzkxnBOBQZuN4+woXAu2IhTmSpsq2gCJ
-         /Dut77nx8eXMwfdWfZI0hfQz0U1YNjMxz7LupGVwmYsGlTsqk4Wqci8q9XCWFETXuC16
-         v8+91BXOIgUW4BlE1XHZzdmhsOGBkgpbPszk4tcI80SIyV0/prGb7XSCB7erH3OqEBkG
-         3VZQ==
-X-Gm-Message-State: AO0yUKU29MMOZqXCIfNXjL0PnQX+ReZvFBhTB/NZz5IAoNV3iQg5JZvW
-	hoJvGfwk/wSLeZ0Dfq+6p8s/Ts4Bk3qntYvei8uJ9w==
-X-Google-Smtp-Source: AK7set+yI3aActmVhzYrXXjX2cwVcWqdod7nIob+IjBZThsP81vtOYYpmBPn0nzj/16l8I1L6py+HRvZjRs25g2qXTM=
-X-Received: by 2002:a5d:5a9a:0:b0:2c5:4adc:6e52 with SMTP id
- bp26-20020a5d5a9a000000b002c54adc6e52mr4113614wrb.3.1677668164186; Wed, 01
- Mar 2023 02:56:04 -0800 (PST)
+        bh=43NEp65FCnbsH5C57qUnVodu9n1bAZUZnX5yQ0z5Xns=;
+        b=6Hmv2kZMcDnza+JYjhMFOT6jP0CB28pPBQZlPWMq4+d7Qfn7xmuLVHrNS6aov5jrb0
+         d+OtMBtXVNnZzuxPl4K8+YC3S3dPZny2Q55aGsDnqMKqUXzM6E20HQvyGbtE9Ukw2sEE
+         VMJ60ymWGZG0U5Mgj4b7SizvtIavBiK8oDwbTsoaWU2sUhX+LmtfCB4ad0Jgsue08JGS
+         JN2k+x1GKp7UZL9jPiD5TPTwCvVZ2/WVe/upttc5KOfMhIrtVfdSiILlldlDwzEGCJJC
+         ulqLfzp42OfhyPGLEyyZ66+3l8feUw+vy2srNE+TjIy/jwiIAVJT7tehwfh1QhlDbmlK
+         rGQQ==
+X-Gm-Message-State: AO0yUKXwBBPUnK4/rO2AM/s3Ne6BFImIMNF9d7jjEaoqHHVU554c+Tfd
+	PH+t7EjARljaLiP6S4+UgQT+4dA6UJb2SocADuD6sQ==
+X-Google-Smtp-Source: AK7set/7iT/VVwjVkMD+IBdCYc8ovjsKODxntFNeOuCrFd8KmwO+WiMbt5pkrNkVWjczzjXWXtqF/j6T54M8CYFQTYE=
+X-Received: by 2002:a05:600c:4446:b0:3df:97de:8bab with SMTP id
+ v6-20020a05600c444600b003df97de8babmr1666749wmn.4.1677669042870; Wed, 01 Mar
+ 2023 03:10:42 -0800 (PST)
 MIME-Version: 1.0
 References: <cover.1677079671.git.jens.wiklander@linaro.org>
- <3332563e64568b2ffd236b1f428c27aa4cdf9790.1677079672.git.jens.wiklander@linaro.org>
- <F22A4773-94E8-4F24-A5C8-BF4E075A7698@arm.com>
-In-Reply-To: <F22A4773-94E8-4F24-A5C8-BF4E075A7698@arm.com>
+ <c553f850d76f4c31f5ce464f39bcb010722b9f99.1677079672.git.jens.wiklander@linaro.org>
+ <CD0E4A9B-4E07-42AB-A40B-41A9FD98C1F2@arm.com> <CAHUa44EcoXdpyBOkUNZvN0=cCNjNsiZXfgER8EvsK1+f0P_tPA@mail.gmail.com>
+ <09363EA7-700B-4EA1-A7FB-6A5321D9E4D9@arm.com>
+In-Reply-To: <09363EA7-700B-4EA1-A7FB-6A5321D9E4D9@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 1 Mar 2023 11:55:53 +0100
-Message-ID: <CAHUa44FrC_S1Ot8-2s3=q5f7omZ+gsZhYTJUTMA0yVG5BBp6mw@mail.gmail.com>
-Subject: Re: [XEN PATCH v7 10/20] xen/arm: ffa: add direct request support
+Date: Wed, 1 Mar 2023 12:10:32 +0100
+Message-ID: <CAHUa44Fa_ZjHvdjQRhc_+N_LKzJ1u9Kk1gz0CDYgA2d5pu2VcQ@mail.gmail.com>
+Subject: Re: [XEN PATCH v7 11/20] xen/arm: ffa: map SPMC rx/tx buffers
 To: Bertrand Marquis <Bertrand.Marquis@arm.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
 	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
 	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Bertrand,
+Hi,
 
-On Mon, Feb 27, 2023 at 4:28 PM Bertrand Marquis
+On Wed, Mar 1, 2023 at 10:56 AM Bertrand Marquis
 <Bertrand.Marquis@arm.com> wrote:
 >
 > Hi Jens,
 >
-> > On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wrote:
+> > On 1 Mar 2023, at 10:30, Jens Wiklander <jens.wiklander@linaro.org> wrote:
 > >
-> > Adds support for sending a FF-A direct request. Checks that the SP also
-> > supports handling a 32-bit direct request. 64-bit direct requests are
-> > not used by the mediator itself so there is not need to check for that.
+> > Hi Bertrand,
 > >
-> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> > ---
-> > xen/arch/arm/tee/ffa.c | 119 +++++++++++++++++++++++++++++++++++++++++
-> > 1 file changed, 119 insertions(+)
+> > On Tue, Feb 28, 2023 at 1:57 PM Bertrand Marquis
+> > <Bertrand.Marquis@arm.com> wrote:
+> >>
+> >> Hi Jens,
+> >>
+> >>> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wrote:
+> >>>
+> >>> When initializing the FF-A mediator map the RX and TX buffers shared with
+> >>> the SPMC.
+> >>>
+> >>> These buffer are later used to to transmit data that cannot be passed in
+> >>> registers only.
+> >>>
+> >>> Adds a check that the SP supports the needed FF-A features
+> >>> FFA_RXTX_MAP_64 / FFA_RXTX_MAP_32 and FFA_RXTX_UNMAP. In 64-bit mode we
+> >>> must use FFA_RXTX_MAP_64 since registers are used to transmit the
+> >>> physical addresses of the RX/TX buffers.
+> >>
+> >> Right now, FFA on 32bit would only work correctly if LPAE is not used and only addresses
+> >> under 4G are used by Xen and by guests as addresses are transferred through a single register.
+> >>
+> >> I think that we need for now to only enable FFA support on 64bit as the limitations we
+> >> would need to enforce on 32bit are complex and the use case for FFA on 32bit platforms
+> >> is not that obvious now.
 > >
-> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> > index 463fd7730573..a5d8a12635b6 100644
-> > --- a/xen/arch/arm/tee/ffa.c
-> > +++ b/xen/arch/arm/tee/ffa.c
-> > @@ -142,6 +142,7 @@
-> >
-> > struct ffa_ctx {
-> >     uint32_t guest_vers;
-> > +    bool interrupted;
+> > OK, I'll drop the #ifdef CONFIG_ARM_64 and #ifdef CONFIG_ARM_32 and
+> > instead depend on ARM_64 in Kconfig.
+> > If we ever want to use this on ARM_32 we'll have to go through
+> > everything anyway.
 >
-> This is added and set here for one special error code but is never used.
-> I would suggest to introduce this when there will be an action based on it.
-
-I'm sorry, I forgot about completing this. I'll add code to deal with
-FFA_INTERRUPT. This will be tricky to test though since we don't use
-FFA_INTERRUPT like this with OP-TEE. The Hypervisor is required by the
-FF-A standard to support it so I better add something.
-
+> Yes this is the best solution for now.
+> And support.md patch is already saying already arm64.
 >
-> > };
 > >
-> > /* Negotiated FF-A version to use with the SPMC */
-> > @@ -167,6 +168,55 @@ static bool ffa_get_version(uint32_t *vers)
-> >     return true;
-> > }
+> >>
+> >>>
+> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >>> ---
+> >>> xen/arch/arm/tee/ffa.c | 57 +++++++++++++++++++++++++++++++++++++++++-
+> >>> 1 file changed, 56 insertions(+), 1 deletion(-)
+> >>>
+> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >>> index a5d8a12635b6..07dd5c36d54b 100644
+> >>> --- a/xen/arch/arm/tee/ffa.c
+> >>> +++ b/xen/arch/arm/tee/ffa.c
+> >>> @@ -148,6 +148,15 @@ struct ffa_ctx {
+> >>> /* Negotiated FF-A version to use with the SPMC */
+> >>> static uint32_t ffa_version __ro_after_init;
+> >>>
+> >>> +/*
+> >>> + * Our rx/tx buffers shared with the SPMC.
+> >>> + *
+> >>> + * ffa_page_count is the number of pages used in each of these buffers.
+> >>> + */
+> >>> +static void *ffa_rx __read_mostly;
+> >>> +static void *ffa_tx __read_mostly;
+> >>> +static unsigned int ffa_page_count __read_mostly;
+> >>> +
+> >>> static bool ffa_get_version(uint32_t *vers)
+> >>> {
+> >>>    const struct arm_smccc_1_2_regs arg = {
+> >>> @@ -217,6 +226,17 @@ static bool check_mandatory_feature(uint32_t id)
+> >>>    return !ret;
+> >>> }
+> >>>
+> >>> +static int32_t ffa_rxtx_map(register_t tx_addr, register_t rx_addr,
+> >>> +                            uint32_t page_count)
+> >>
+> >> Using register_t type here is doing an implicit cast when called and on
+> >> 32bit this might later remove part of the address.
+> >> This function must take paddr_t as parameters.
 > >
-> > +static int32_t get_ffa_ret_code(const struct arm_smccc_1_2_regs *resp)
-> > +{
-> > +    switch ( resp->a0 )
-> > +    {
-> > +    case FFA_ERROR:
-> > +        if ( resp->a2 )
-> > +            return resp->a2;
-> > +        else
-> > +            return FFA_RET_NOT_SUPPORTED;
-> > +    case FFA_SUCCESS_32:
-> > +    case FFA_SUCCESS_64:
-> > +        return FFA_RET_OK;
-> > +    default:
-> > +        return FFA_RET_NOT_SUPPORTED;
-> > +    }
-> > +}
-> > +
-> > +static int32_t ffa_simple_call(uint32_t fid, register_t a1, register_t a2,
-> > +                               register_t a3, register_t a4)
-> > +{
-> > +    const struct arm_smccc_1_2_regs arg = {
-> > +        .a0 = fid,
-> > +        .a1 = a1,
-> > +        .a2 = a2,
-> > +        .a3 = a3,
-> > +        .a4 = a4,
-> > +    };
-> > +    struct arm_smccc_1_2_regs resp;
-> > +
-> > +    arm_smccc_1_2_smc(&arg, &resp);
-> > +
-> > +    return get_ffa_ret_code(&resp);
-> > +}
-> > +
-> > +static int32_t ffa_features(uint32_t id)
-> > +{
-> > +    return ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
-> > +}
-> > +
-> > +static bool check_mandatory_feature(uint32_t id)
-> > +{
-> > +    uint32_t ret = ffa_features(id);
-> > +
-> > +    if (ret)
-> > +        printk(XENLOG_ERR "ffa: mandatory feature id %#x missing\n", id);
->
-> It might be useful here to actually print the error code.
-> Are we sure that all errors actually mean not supported ?
-
-Yes, that's what the standard says.
-
->
-> > +
-> > +    return !ret;
-> > +}
-> > +
-> > static uint16_t get_vm_id(const struct domain *d)
-> > {
-> >     /* +1 since 0 is reserved for the hypervisor in FF-A */
-> > @@ -208,6 +258,66 @@ static void handle_version(struct cpu_user_regs *regs)
-> >     set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
-> > }
+> > I'll change to paddr_t for rx/tx.
 > >
-> > +static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
-> > +{
-> > +    struct arm_smccc_1_2_regs arg = { .a0 = fid, };
-> > +    struct arm_smccc_1_2_regs resp = { };
-> > +    struct domain *d = current->domain;
-> > +    struct ffa_ctx *ctx = d->arch.tee;
-> > +    uint32_t src_dst;
-> > +    uint64_t mask;
-> > +
-> > +    if ( smccc_is_conv_64(fid) )
-> > +        mask = GENMASK_ULL(63, 0);
-> > +    else
-> > +        mask = GENMASK_ULL(31, 0);
-> > +
-> > +    src_dst = get_user_reg(regs, 1);
-> > +    if ( (src_dst >> 16) != get_vm_id(d) )
-> > +    {
-> > +        resp.a0 = FFA_ERROR;
-> > +        resp.a2 = FFA_RET_INVALID_PARAMETERS;
-> > +        goto out;
-> > +    }
-> > +
-> > +    arg.a1 = src_dst;
-> > +    arg.a2 = get_user_reg(regs, 2) & mask;
-> > +    arg.a3 = get_user_reg(regs, 3) & mask;
-> > +    arg.a4 = get_user_reg(regs, 4) & mask;
-> > +    arg.a5 = get_user_reg(regs, 5) & mask;
-> > +    arg.a6 = get_user_reg(regs, 6) & mask;
-> > +    arg.a7 = get_user_reg(regs, 7) & mask;
-> > +
-> > +    while ( true )
-> > +    {
-> > +        arm_smccc_1_2_smc(&arg, &resp);
-> > +
-> > +        switch ( resp.a0 )
-> > +        {
-> > +        case FFA_INTERRUPT:
-> > +            ctx->interrupted = true;
-> > +            goto out;
-> > +        case FFA_ERROR:
-> > +        case FFA_SUCCESS_32:
-> > +        case FFA_SUCCESS_64:
-> > +        case FFA_MSG_SEND_DIRECT_RESP_32:
-> > +        case FFA_MSG_SEND_DIRECT_RESP_64:
-> > +            goto out;
-> > +        default:
-> > +            /* Bad fid, report back. */
-> > +            memset(&arg, 0, sizeof(arg));
-> > +            arg.a0 = FFA_ERROR;
-> > +            arg.a1 = src_dst;
-> > +            arg.a2 = FFA_RET_NOT_SUPPORTED;
-> > +            continue;
+> >>
+> >>> +{
+> >>> +    uint32_t fid = FFA_RXTX_MAP_32;
+> >>> +
+> >>> +    if ( IS_ENABLED(CONFIG_ARM_64) )
+> >>> +        fid = FFA_RXTX_MAP_64;
+> >>> +
+> >>> +    return ffa_simple_call(fid, tx_addr, rx_addr, page_count, 0);
+> >>
+> >> simple call might not be suitable on 32bits due to the conversion.
+> >> As said earlier, it would make more sense to disable FFA on 32bit and
+> >> put some comments/build_bug_on in the code in places where there
+> >> would be something to fix.
+> >
+> > I'm dropping the 32-bit support.
+> >
+> >>
+> >>> +}
+> >>> +
+> >>> static uint16_t get_vm_id(const struct domain *d)
+> >>> {
+> >>>    /* +1 since 0 is reserved for the hypervisor in FF-A */
+> >>> @@ -384,6 +404,7 @@ static int ffa_relinquish_resources(struct domain *d)
+> >>> static bool ffa_probe(void)
+> >>> {
+> >>>    uint32_t vers;
+> >>> +    int e;
+> >>>    unsigned int major_vers;
+> >>>    unsigned int minor_vers;
+> >>>
+> >>> @@ -426,12 +447,46 @@ static bool ffa_probe(void)
+> >>>    printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
+> >>>           major_vers, minor_vers);
+> >>>
+> >>> -    if ( !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> >>> +    if (
+> >>> +#ifdef CONFIG_ARM_64
+> >>> +         !check_mandatory_feature(FFA_RXTX_MAP_64) ||
+> >>> +#endif
+> >>> +#ifdef CONFIG_ARM_32
+> >>> +         !check_mandatory_feature(FFA_RXTX_MAP_32) ||
+> >>> +#endif
+> >>> +         !check_mandatory_feature(FFA_RXTX_UNMAP) ||
+> >>> +         !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> >>>        return false;
+> >>>
+> >>> +    ffa_rx = alloc_xenheap_pages(0, 0);
+> >>> +    if ( !ffa_rx )
+> >>> +        return false;
+> >>> +
+> >>> +    ffa_tx = alloc_xenheap_pages(0, 0);
+> >>> +    if ( !ffa_tx )
+> >>> +        goto err_free_ffa_rx;
+> >>> +
+> >>> +    e = ffa_rxtx_map(__pa(ffa_tx), __pa(ffa_rx), 1);
+> >>> +    if ( e )
+> >>> +    {
+> >>> +        printk(XENLOG_ERR "ffa: Failed to map rxtx: error %d\n", e);
+> >>> +        goto err_free_ffa_tx;
+> >>> +    }
+> >>> +    ffa_page_count = 1;
+> >>
+> >> ffa_page_count is a constant here and is not used to do the allocation or
+> >> passed as parameter to ffa_rxtx_map.
+> >>
+> >> Do you expect this value to be modified ? how ?
+> >
+> > I expect this value to match how many FFA_PAGE_SIZE pages have been
+> > mapped for the RX/TX buffers. Currently, this is only 1 but will have
+> > to be changed later if PAGE_SIZE in Xen or in the secure world is
+> > larger than FFA_PAGE_SIZE. We may also later add support
+> > configurations where RX/TX buffers aren't mapped.
 >
-> There is a potential infinite loop here and i do not understand
-> why this needs to be done.
-> Here if something is returning a value that you do not understand
-> you send back an ERROR to it. I do not find in the spec where this
-> is supposed to be done.
-> Can you explain a bit here ?
+> So it is a constant and the buffers are just mapped or not mapped.
 
-This should normally not happen, but the SP/SPMC is responding with a
-request that we don't know what to do with. The standard doesn't say
-how to handle that as far as I understand. However, returning back to
-the VM at this point with an error may leave the SP/SPMC in a strange
-state. So I think it's better to report back to the SP/SPMC that the
-request isn't understood and hopefully it can at least return back
-with an error in a sane state.
-
-I'll add something to the comment.
+Correct
 
 >
-> > +        }
-> > +    }
-> > +
-> > +out:
-> > +    set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 & mask,
-> > +             resp.a4 & mask, resp.a5 & mask, resp.a6 & mask, resp.a7 & mask);
-> > +}
-> > +
-> > static bool ffa_handle_call(struct cpu_user_regs *regs)
-> > {
-> >     uint32_t fid = get_user_reg(regs, 0);
-> > @@ -225,6 +335,12 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
-> >     case FFA_ID_GET:
-> >         set_regs_success(regs, get_vm_id(d), 0);
-> >         return true;
-> > +    case FFA_MSG_SEND_DIRECT_REQ_32:
-> > +#ifdef CONFIG_ARM_64
-> > +    case FFA_MSG_SEND_DIRECT_REQ_64:
-> > +#endif
-> > +        handle_msg_send_direct_req(regs, fid);
-> > +        return true;
 > >
-> >     default:
-> >         gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
-> > @@ -310,6 +426,9 @@ static bool ffa_probe(void)
-> >     printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
-> >            major_vers, minor_vers);
+> >>
+> >> Please set it first and use it for allocation and as parameter to rxtx_map so
+> >> that a modification of the value would only have to be done in one place.
+> >>
+> >> Please use a define if this is a constant.
 > >
-> > +    if ( !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
-> > +        return false;
+> > How about adding a define FFA_MIN_RXTX_PAGE_COUNT and giving that to
+> > ffa_rxtx_map() and later assigning it to ffa_page_count if the call
+> > succeeds?
 >
-> One could not need this feature and here this will make everything unavailable instead.
-> Why not just reporting back the unsupported error to clients using unsupported interfaces ?
+> Why MIN ?
 
-One could perhaps argue that this check should be moved to a later
-patch in this series. Perhaps there's some future configuration that
-might make sense without this feature, but for now, it doesn't make
-sense to initialize without it.
+I was trying to prepare a bit for the future with a minimum value that
+would be rounded up to a larger granule as needed depending on
+PAGE_SIZE in Xen and what might be discovered about the secure world.
+
+>
+> How about just using ffa_rx or ffa_tx being NULL or not to check if the buffers are
+> mapped and remove the count.
+
+Sure, I'll drop the _MIN_ part of the define then.
+
+>
+> >
+> >>
+> >> As it is a global variable, does the parameter to rxtx_map make sense ?
+> >
+> > Yes, ffa_rxtx_map() is a dumb wrapper so it should have all the needed
+> > parameters for the SMC provided.
+>
+> Then passing FFA_MIN_RXTX_PAGE_COUNT should be enough.
+
+OK.
 
 Thanks,
 Jens
@@ -308,12 +291,33 @@ Jens
 > Cheers
 > Bertrand
 >
-> > +
-> >     ffa_version = vers;
 > >
-> >     return true;
-> > --
-> > 2.34.1
+> > Cheers,
+> > Jens
 > >
+> >>
+> >> Cheers
+> >> Bertrand
+> >>
+> >>>    ffa_version = vers;
+> >>>
+> >>>    return true;
+> >>> +
+> >>> +err_free_ffa_tx:
+> >>> +    free_xenheap_pages(ffa_tx, 0);
+> >>> +    ffa_tx = NULL;
+> >>> +err_free_ffa_rx:
+> >>> +    free_xenheap_pages(ffa_rx, 0);
+> >>> +    ffa_rx = NULL;
+> >>> +    ffa_page_count = 0;
+> >>> +    ffa_version = 0;
+> >>> +
+> >>> +    return false;
+> >>> }
+> >>>
+> >>> static const struct tee_mediator_ops ffa_ops =
+> >>> --
+> >>> 2.34.1
+>
 >
 
