@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43C626A6B6C
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 12:11:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503983.776442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 834326A6BBC
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 12:32:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503989.776452 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXKMB-0005YO-P0; Wed, 01 Mar 2023 11:10:47 +0000
+	id 1pXKgS-0000GW-Gd; Wed, 01 Mar 2023 11:31:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503983.776442; Wed, 01 Mar 2023 11:10:47 +0000
+Received: by outflank-mailman (output) from mailman id 503989.776452; Wed, 01 Mar 2023 11:31:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXKMB-0005Vn-Jd; Wed, 01 Mar 2023 11:10:47 +0000
-Received: by outflank-mailman (input) for mailman id 503983;
- Wed, 01 Mar 2023 11:10:45 +0000
+	id 1pXKgS-0000EL-DX; Wed, 01 Mar 2023 11:31:44 +0000
+Received: by outflank-mailman (input) for mailman id 503989;
+ Wed, 01 Mar 2023 11:31:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ofKM=6Z=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pXKM9-0005Vh-Pn
- for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 11:10:45 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=4Y5i=6Z=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pXKgR-0000EF-Ka
+ for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 11:31:43 +0000
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on2060b.outbound.protection.outlook.com
+ [2a01:111:f400:7eaf::60b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b583da0a-b821-11ed-96a2-2f268f93b82a;
- Wed, 01 Mar 2023 12:10:43 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- r19-20020a05600c459300b003eb3e2a5e7bso5955190wmo.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Mar 2023 03:10:43 -0800 (PST)
+ id a33a270d-b824-11ed-96a3-2f268f93b82a;
+ Wed, 01 Mar 2023 12:31:42 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by VI1PR04MB6957.eurprd04.prod.outlook.com (2603:10a6:803:135::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.18; Wed, 1 Mar
+ 2023 11:31:38 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%7]) with mapi id 15.20.6134.030; Wed, 1 Mar 2023
+ 11:31:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,284 +47,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b583da0a-b821-11ed-96a2-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=43NEp65FCnbsH5C57qUnVodu9n1bAZUZnX5yQ0z5Xns=;
-        b=hvGk7h2e/GtZGKCwHP26u/Sm5NO7mGvQXCDnszCmgWrdlmQSNe5GMfLD5RPmD8cj5R
-         1htAgI6H7FoOS6cSJSDTUgz2BArevWYtVlt1mlTyvSDLeCCvAagVMua3njQBXBMpPNe9
-         dbwx/RkuCxzcIHJjZs4JFo098WIlf0OoxpMlSnFeHzMhKJsiqxbtgmY+RpMHSNBo/UBl
-         VVXoze65EdSEgJV0OxSTPIPkti3Bu21SPmQ14yrnwZMrDDOz5KOO9JotQpDrHntF4B4x
-         dwM9fLcUDhbGT6mYxvEqCEN+FVWskYWZP2M1DykH73GM3UykcLxtEeQ42UTFcCvbYOvI
-         dqUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=43NEp65FCnbsH5C57qUnVodu9n1bAZUZnX5yQ0z5Xns=;
-        b=6Hmv2kZMcDnza+JYjhMFOT6jP0CB28pPBQZlPWMq4+d7Qfn7xmuLVHrNS6aov5jrb0
-         d+OtMBtXVNnZzuxPl4K8+YC3S3dPZny2Q55aGsDnqMKqUXzM6E20HQvyGbtE9Ukw2sEE
-         VMJ60ymWGZG0U5Mgj4b7SizvtIavBiK8oDwbTsoaWU2sUhX+LmtfCB4ad0Jgsue08JGS
-         JN2k+x1GKp7UZL9jPiD5TPTwCvVZ2/WVe/upttc5KOfMhIrtVfdSiILlldlDwzEGCJJC
-         ulqLfzp42OfhyPGLEyyZ66+3l8feUw+vy2srNE+TjIy/jwiIAVJT7tehwfh1QhlDbmlK
-         rGQQ==
-X-Gm-Message-State: AO0yUKXwBBPUnK4/rO2AM/s3Ne6BFImIMNF9d7jjEaoqHHVU554c+Tfd
-	PH+t7EjARljaLiP6S4+UgQT+4dA6UJb2SocADuD6sQ==
-X-Google-Smtp-Source: AK7set/7iT/VVwjVkMD+IBdCYc8ovjsKODxntFNeOuCrFd8KmwO+WiMbt5pkrNkVWjczzjXWXtqF/j6T54M8CYFQTYE=
-X-Received: by 2002:a05:600c:4446:b0:3df:97de:8bab with SMTP id
- v6-20020a05600c444600b003df97de8babmr1666749wmn.4.1677669042870; Wed, 01 Mar
- 2023 03:10:42 -0800 (PST)
+X-Inumbo-ID: a33a270d-b824-11ed-96a3-2f268f93b82a
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iqtE3VFVRQbVuf1qQiLHJfYvOPnjudz/08eV+DalB2HOqbBk+IYCDgMaQLKZSMBTf8MveVq/xJXIoVxU+VFEZhRQK93W3MLyXEK7WXnuUeKdhmgl6RHXTuSBnvKAKYQL+gglL+qMRC57KlS6Df3Y3IP8hEiUI9IqMnOioTxihICmByHQ1UTzSPVI7txgWcv67/F7WARSozIkKGGRoprqRRxBa/1PPOGHDkrqnbBaaXKpHSAEAuTW3NxroXqFwvfdbzm4SbgPWfZUFzZO+aZjy1OruVZ8HVnbBIRQitOp7p6+qecSfkmNmsFVKDY+8vhjE5x1UevgEGSVt8MyREBDzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0cRGSWGw5TownVAgAZXte9N6z2rD5qDW3hNoCD4QBlc=;
+ b=mdN0I7VoHGRJiCptsoTPEuZkTj5DUT2rc2MWqRc2/dpl4IVwrQCMx9NRNmLu/YrOxjQ4ituYfeiCLLL5gPFoJOzMaKyNFWiddzh+RfZiYQIFSJiIJNTvtzndeeXlhKZV30DJU1oV2778VPcSIyfAo6IYh4ptmjZB/ISEl7VbgiUrpywyhyjocBOVIPpwdFIPYDEr1sM6ecoeU/gvoMKG7lVn23WxnOTTd2/eXBmHcVNX98yhPthXxPPfeG4RuZgHJMFc3QS2LClaUSs0AdWvsrUP6MXBY+V+mFwDhnyNuoa+jAXXC6yJl5rQnoGDMLDAW6BpW9nS0pvG+J7813G0Rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0cRGSWGw5TownVAgAZXte9N6z2rD5qDW3hNoCD4QBlc=;
+ b=4XTGNfbGOoizn7bULgZKmRDe5yPhj43nMFBaNtZUEUI71QoE5ZMO5OzTBwj9pGXDet1UvZZXrkAI/yMkCtKsdRH97+9SleALlfaWluOMJy/WB81DlbaKgovCvaGRvbb3pD9ZrEuwA38pcVF+brd/mmKzWULwT105UM0Xbt6Xkkh3TGJJ8RHK2HPikgA7w4lT9onWa5ng1YZwP5ZgBBo2EEXbjjf3cTOruncKv1pXFdxqvO/wSC5lFfPUe2kxVCyolIyCAuJZtKlf+QKzB2ay4l0Zn+uWXg7dwQXfJoKC+hUftFjGLGfd6uF6dYv4Ako6DSVIxr+zUufIh4J4HahPRQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <4fee8e81-79d3-eafc-b806-ea061216e072@suse.com>
+Date: Wed, 1 Mar 2023 12:31:36 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 3/3] tools/xen-ucode: print information about currently
+ loaded ucode
+Content-Language: en-US
+To: Sergey Dyasli <sergey.dyasli@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20230228173932.28510-1-sergey.dyasli@citrix.com>
+ <20230228173932.28510-4-sergey.dyasli@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230228173932.28510-4-sergey.dyasli@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0053.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:48::17) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-References: <cover.1677079671.git.jens.wiklander@linaro.org>
- <c553f850d76f4c31f5ce464f39bcb010722b9f99.1677079672.git.jens.wiklander@linaro.org>
- <CD0E4A9B-4E07-42AB-A40B-41A9FD98C1F2@arm.com> <CAHUa44EcoXdpyBOkUNZvN0=cCNjNsiZXfgER8EvsK1+f0P_tPA@mail.gmail.com>
- <09363EA7-700B-4EA1-A7FB-6A5321D9E4D9@arm.com>
-In-Reply-To: <09363EA7-700B-4EA1-A7FB-6A5321D9E4D9@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 1 Mar 2023 12:10:32 +0100
-Message-ID: <CAHUa44Fa_ZjHvdjQRhc_+N_LKzJ1u9Kk1gz0CDYgA2d5pu2VcQ@mail.gmail.com>
-Subject: Re: [XEN PATCH v7 11/20] xen/arm: ffa: map SPMC rx/tx buffers
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
-	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VI1PR04MB6957:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ba5ccb4-295c-478e-cdf9-08db1a48855b
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	wzuSFJOyMf92fYTOFruZvqAOMmTbS9Fe2oG3E4GI1gpPGtG3c1bMoVZWboz0k0dGSi5RCGWQtjTacVMZChSmSxJEWtt+j/eYtLm5qErrgJnU92nnpdIPIcTh2oBhB065Go//JI2b0McvjTbv6FKMwSYozB7ZWi+c75mZQVYhLqgm3wUrldvaRk/aZIlYRWJDyHB0QHJqpOfygLjeshd5v+XhiNlSPv0lHtVmgFwpBoCWIuUoKUClGrO4dtg/U2pyNuurzUP414RjpJQORHnnmqT/P5rrK4jQOPqcTUzaYSkma1YeOTnA2IUP1r5BmaB5wjU8SvJ8MqcBRR8g9+qcJexh+3VmxYCZoBABRan3E0thswaDblDK9AUGiXlj5vzub83D1pgmN2OUdFr4ozogvFIGmrJkDC3oAGLl98uT9+PsDWcxn/uJ3Md3+Z3zox9wk5QpZjSokgMDFhUVV0QMGnJ1EWlwKEmVum6Ur5pap130i9G5KhIOta/rPHO9u0rCKLos2VkwlbgD8NJ+UfD+jXDuX7bC2BZQtt/koLEgCwhPX/PLdXHFwnavcjWHx1346qRh6ox6B7vJhkKqUaHTSB4x1tRSV824iZF+BIjnGetTon3qltRGk4cL2ErSAd7Z46BZbumYjheGzYEylmxUHLOjmNTXxU0/wSoJDRkkWWrTCSeqy7Qi0b6R8BC3MUnR73e/5r1oLI+YF0Dk7Cbwki7+m4N7kLtkcvE58mLd2ME=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(366004)(136003)(396003)(346002)(39860400002)(451199018)(31686004)(66899018)(83380400001)(478600001)(316002)(54906003)(36756003)(4326008)(38100700002)(6916009)(66476007)(8676002)(53546011)(2616005)(6506007)(6512007)(186003)(26005)(6486002)(5660300002)(31696002)(66946007)(66556008)(41300700001)(8936002)(2906002)(86362001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZUk1b3h0cndDcWh4OVhmS1ZiZG5ZOXZNK0xqNlNYS0NHVkljL0N2TzZQb05W?=
+ =?utf-8?B?UGdVQlQ2cHZWZ3lMdzZzdkJRVERnWHRmbUhLNnkvV3VRelpRcGsxQzZWVm5n?=
+ =?utf-8?B?MkUzb2JBdm1iTVlrQXp2cnFCTnFmU2YrZCsrUkdYTUZCa3NIeFl1NGZ6SXhH?=
+ =?utf-8?B?dEs5UTE5LzdWbmdDNU5CdzZVRy9QWDZCSyt6TmNMdzE2THN0WU4xbUJMMTdM?=
+ =?utf-8?B?Sk9VODJXWVJrd0UxS2ltR3VhV0hCWUlFNGwyZkNQUzU4ZVNhbzRtTnJza09C?=
+ =?utf-8?B?RzNlOFB2SFBMT2pJRWNoRFVxdE9UK1A1K2x3aEhsalc0Yk9kZ0h4YjhjZlFD?=
+ =?utf-8?B?NkRLUHBNM3B0QmI3SnIxU2Jxc09Fa0xWWUhneE5IWGh0NGE3OEVXcnRlOGh4?=
+ =?utf-8?B?MWJITXppRkdoZVRpVVQ3QTZNdW1UU0svMHhnemVmTng5alhTYm1pSnUrVWlw?=
+ =?utf-8?B?cm9jcld0dE0rTUZVdm1kclViQUlSUXVSQlZDcHRMMVVmWjVrQlFnMkhjMVlS?=
+ =?utf-8?B?cjlVSUs5Skt6cHRVRU9JU2g5eWtYRXRXTXN3Y3NUMDBNbUdoY2pMSHdzRmg4?=
+ =?utf-8?B?ZGNuRHhjL0tkcXFzSTR0U080S3R3R29EaXF0WWlJZXI5RWpkNXJKVmo1b2ta?=
+ =?utf-8?B?SElZQXhTcXZqSHRjVjRTdkUrcndEcVYvV1VVLzR3T0Vlb3V6MDNKL29Kd1Fm?=
+ =?utf-8?B?Q0JLMzFGbXdVRkd5RUFuQkZiby8yVllsYjBuM3Y2R0VBNUVDSGJ2WGQ2SzdB?=
+ =?utf-8?B?YWZMV0J2ZVZVYjI4LzdsZzhYQ01PUHJRZnh6cVgvSHpHNlQ3NkJLS1F0TXZD?=
+ =?utf-8?B?WlY1OEI2cURQUW03L3VoVHNCZHFaMFBTR3EvZElmSG5xM3dXQVdRMjMzaXQ5?=
+ =?utf-8?B?TFlyd0daQlBZWmI4ZGtTOVhJejY0NFJpa3o5aHJlQ05acDNuVDV0bjhkNE1j?=
+ =?utf-8?B?SHh1NytmdG5qUVdjamV1WFpOWkdLMFFwcFh1QUViNktWYUxOaGU4NHZJK3lD?=
+ =?utf-8?B?RHMzbC9iVUw4Tkg0Vm1jNVByYUlVQmdsZDFnRzNGVjRwV25RT2N1Z1FUbWhH?=
+ =?utf-8?B?ZjFjWXNhbDFKTmdXMXdFbzd6SjdXcDlhbzVTYnVyQ3htRlBVSkxQR3lYdUQz?=
+ =?utf-8?B?WkhLV3JLOHVlRmUreEcwWHVCTlBsSUJlNFdSRFp1eHpxTjhSVEJRU2JCdWlJ?=
+ =?utf-8?B?aU1uQ25YbEpuc1RwSHpnc1VibWhHUEF1NXdva0xYMzIzOUlFaHZlaW5sZEVp?=
+ =?utf-8?B?OVluWFpIeG5MbE4wZ3l5bGowUFlLdnF3OFV2S1NSZ0lCRjN2SUVmUFBpYXNz?=
+ =?utf-8?B?eU5COSt5UDFxQWFnV1BSRlZBOUovaGo3OERPQzlVaVlLaStwSkR0eU9YWVFN?=
+ =?utf-8?B?RzZHMUV1VTF3ZkJRNlpNaVdYZTE1ZHRSUHhvbTh0VW1DK2dXWU1GMzE3aFZi?=
+ =?utf-8?B?R0hXeW1YK2ZRVG1zYnc4VlJiT1RtSWxQR1g4V1grMjRvdFlZYURSTlJuQXRx?=
+ =?utf-8?B?MzlKcmNIc1FjclNjZHpqTU0xYXJxSGlQbHVuMmtwanBoMDhMVzJEdldXeTBp?=
+ =?utf-8?B?RnFUUWxqRFBpK3lSa3JXaWk5Z0hRWnhZdk1DUjhXU3VmTEMxOUZ1L3RycmhW?=
+ =?utf-8?B?eE5ySElkTVpZSnlvVEhMN3FhSGpMRDZWK0Y0cW13d01WYnJ4V0haQTRZeUZW?=
+ =?utf-8?B?RmJvODRUekhIb29SVmxMczJvR0QxWXBYTjhISUp5UzhuMVdtVmZ0VWdGNTNa?=
+ =?utf-8?B?Yk1RZCttVFk4WDFXN1gwT3MyMCtYSWQ3Y3owR1AyTHVpOThiM1ZMbU1mTVFt?=
+ =?utf-8?B?UjQ4OEdZSXFlWWtCZ0VndGRpdjlSWUhxbkpqa2U1WVJYOEZDck5Wck5obDd4?=
+ =?utf-8?B?OEhmL1FqMTc1ZnFIZzVoVzZYS3FWZUNIelBhZjB4L0ZQT1gwR3JIelJCZkZo?=
+ =?utf-8?B?b3VwalJUMnZMcEthNU9lakJ6Z09ROTc0ZW9RZVBNRStSTTN3S2J3dEhieERP?=
+ =?utf-8?B?dmVhdTF3SmNoYkRNZ0ZxNDdRVUh5MHFsRXIwZE9EZVllbGRtVnhYQkxxRURK?=
+ =?utf-8?B?b1ZvUHM5dFJqd0U1WUdkZlFXbXk3elpuRDBDMTFscmZDcmozaTg4a3llYnZt?=
+ =?utf-8?Q?/xPz0nZNuiUCqPwQbnx3qnyIm?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ba5ccb4-295c-478e-cdf9-08db1a48855b
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2023 11:31:38.2285
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ipg4GRwQwlNKXIBrifTlWmj3/676hcQREidYBRX8hJJVclgWKr0CQ2gF6jJlgql5Y995XmHL9sk85vsTou4f/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6957
 
-Hi,
+On 28.02.2023 18:39, Sergey Dyasli wrote:
+> Add an option to xen-ucode tool to print the currently loaded ucode
+> version and also print it during usage info.  Print CPU signature and
+> processor flags as well.  The raw data comes from cpuinfo directory in
+> xenhypfs and from XENPF_get_cpu_version platform op.
 
-On Wed, Mar 1, 2023 at 10:56 AM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> > On 1 Mar 2023, at 10:30, Jens Wiklander <jens.wiklander@linaro.org> wrote:
-> >
-> > Hi Bertrand,
-> >
-> > On Tue, Feb 28, 2023 at 1:57 PM Bertrand Marquis
-> > <Bertrand.Marquis@arm.com> wrote:
-> >>
-> >> Hi Jens,
-> >>
-> >>> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wrote:
-> >>>
-> >>> When initializing the FF-A mediator map the RX and TX buffers shared with
-> >>> the SPMC.
-> >>>
-> >>> These buffer are later used to to transmit data that cannot be passed in
-> >>> registers only.
-> >>>
-> >>> Adds a check that the SP supports the needed FF-A features
-> >>> FFA_RXTX_MAP_64 / FFA_RXTX_MAP_32 and FFA_RXTX_UNMAP. In 64-bit mode we
-> >>> must use FFA_RXTX_MAP_64 since registers are used to transmit the
-> >>> physical addresses of the RX/TX buffers.
-> >>
-> >> Right now, FFA on 32bit would only work correctly if LPAE is not used and only addresses
-> >> under 4G are used by Xen and by guests as addresses are transferred through a single register.
-> >>
-> >> I think that we need for now to only enable FFA support on 64bit as the limitations we
-> >> would need to enforce on 32bit are complex and the use case for FFA on 32bit platforms
-> >> is not that obvious now.
-> >
-> > OK, I'll drop the #ifdef CONFIG_ARM_64 and #ifdef CONFIG_ARM_32 and
-> > instead depend on ARM_64 in Kconfig.
-> > If we ever want to use this on ARM_32 we'll have to go through
-> > everything anyway.
->
-> Yes this is the best solution for now.
-> And support.md patch is already saying already arm64.
->
-> >
-> >>
-> >>>
-> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> >>> ---
-> >>> xen/arch/arm/tee/ffa.c | 57 +++++++++++++++++++++++++++++++++++++++++-
-> >>> 1 file changed, 56 insertions(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> >>> index a5d8a12635b6..07dd5c36d54b 100644
-> >>> --- a/xen/arch/arm/tee/ffa.c
-> >>> +++ b/xen/arch/arm/tee/ffa.c
-> >>> @@ -148,6 +148,15 @@ struct ffa_ctx {
-> >>> /* Negotiated FF-A version to use with the SPMC */
-> >>> static uint32_t ffa_version __ro_after_init;
-> >>>
-> >>> +/*
-> >>> + * Our rx/tx buffers shared with the SPMC.
-> >>> + *
-> >>> + * ffa_page_count is the number of pages used in each of these buffers.
-> >>> + */
-> >>> +static void *ffa_rx __read_mostly;
-> >>> +static void *ffa_tx __read_mostly;
-> >>> +static unsigned int ffa_page_count __read_mostly;
-> >>> +
-> >>> static bool ffa_get_version(uint32_t *vers)
-> >>> {
-> >>>    const struct arm_smccc_1_2_regs arg = {
-> >>> @@ -217,6 +226,17 @@ static bool check_mandatory_feature(uint32_t id)
-> >>>    return !ret;
-> >>> }
-> >>>
-> >>> +static int32_t ffa_rxtx_map(register_t tx_addr, register_t rx_addr,
-> >>> +                            uint32_t page_count)
-> >>
-> >> Using register_t type here is doing an implicit cast when called and on
-> >> 32bit this might later remove part of the address.
-> >> This function must take paddr_t as parameters.
-> >
-> > I'll change to paddr_t for rx/tx.
-> >
-> >>
-> >>> +{
-> >>> +    uint32_t fid = FFA_RXTX_MAP_32;
-> >>> +
-> >>> +    if ( IS_ENABLED(CONFIG_ARM_64) )
-> >>> +        fid = FFA_RXTX_MAP_64;
-> >>> +
-> >>> +    return ffa_simple_call(fid, tx_addr, rx_addr, page_count, 0);
-> >>
-> >> simple call might not be suitable on 32bits due to the conversion.
-> >> As said earlier, it would make more sense to disable FFA on 32bit and
-> >> put some comments/build_bug_on in the code in places where there
-> >> would be something to fix.
-> >
-> > I'm dropping the 32-bit support.
-> >
-> >>
-> >>> +}
-> >>> +
-> >>> static uint16_t get_vm_id(const struct domain *d)
-> >>> {
-> >>>    /* +1 since 0 is reserved for the hypervisor in FF-A */
-> >>> @@ -384,6 +404,7 @@ static int ffa_relinquish_resources(struct domain *d)
-> >>> static bool ffa_probe(void)
-> >>> {
-> >>>    uint32_t vers;
-> >>> +    int e;
-> >>>    unsigned int major_vers;
-> >>>    unsigned int minor_vers;
-> >>>
-> >>> @@ -426,12 +447,46 @@ static bool ffa_probe(void)
-> >>>    printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
-> >>>           major_vers, minor_vers);
-> >>>
-> >>> -    if ( !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
-> >>> +    if (
-> >>> +#ifdef CONFIG_ARM_64
-> >>> +         !check_mandatory_feature(FFA_RXTX_MAP_64) ||
-> >>> +#endif
-> >>> +#ifdef CONFIG_ARM_32
-> >>> +         !check_mandatory_feature(FFA_RXTX_MAP_32) ||
-> >>> +#endif
-> >>> +         !check_mandatory_feature(FFA_RXTX_UNMAP) ||
-> >>> +         !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
-> >>>        return false;
-> >>>
-> >>> +    ffa_rx = alloc_xenheap_pages(0, 0);
-> >>> +    if ( !ffa_rx )
-> >>> +        return false;
-> >>> +
-> >>> +    ffa_tx = alloc_xenheap_pages(0, 0);
-> >>> +    if ( !ffa_tx )
-> >>> +        goto err_free_ffa_rx;
-> >>> +
-> >>> +    e = ffa_rxtx_map(__pa(ffa_tx), __pa(ffa_rx), 1);
-> >>> +    if ( e )
-> >>> +    {
-> >>> +        printk(XENLOG_ERR "ffa: Failed to map rxtx: error %d\n", e);
-> >>> +        goto err_free_ffa_tx;
-> >>> +    }
-> >>> +    ffa_page_count = 1;
-> >>
-> >> ffa_page_count is a constant here and is not used to do the allocation or
-> >> passed as parameter to ffa_rxtx_map.
-> >>
-> >> Do you expect this value to be modified ? how ?
-> >
-> > I expect this value to match how many FFA_PAGE_SIZE pages have been
-> > mapped for the RX/TX buffers. Currently, this is only 1 but will have
-> > to be changed later if PAGE_SIZE in Xen or in the secure world is
-> > larger than FFA_PAGE_SIZE. We may also later add support
-> > configurations where RX/TX buffers aren't mapped.
->
-> So it is a constant and the buffers are just mapped or not mapped.
+While I don't mind the use of the platform-op, I'm little puzzled by the
+mix. If CPU information is to be exposed in hypfs, can't we expose there
+everything that's needed here?
 
-Correct
+Then again, perhaps in a different context, Andrew pointed out that hypfs
+is an optional component, so relying on its presence in the underlying
+hypervisor will need weighing against the alternative of adding a new
+platform-op for the ucode-related data (as you had it in v1). Since I'm
+unaware of a request to switch, are there specific reasons you did?
 
->
-> >
-> >>
-> >> Please set it first and use it for allocation and as parameter to rxtx_map so
-> >> that a modification of the value would only have to be done in one place.
-> >>
-> >> Please use a define if this is a constant.
-> >
-> > How about adding a define FFA_MIN_RXTX_PAGE_COUNT and giving that to
-> > ffa_rxtx_map() and later assigning it to ffa_page_count if the call
-> > succeeds?
->
-> Why MIN ?
+> --- a/tools/misc/xen-ucode.c
+> +++ b/tools/misc/xen-ucode.c
+> @@ -11,6 +11,96 @@
+>  #include <sys/stat.h>
+>  #include <fcntl.h>
+>  #include <xenctrl.h>
+> +#include <xenhypfs.h>
+> +
+> +static const char intel_id[] = "GenuineIntel";
+> +static const char   amd_id[] = "AuthenticAMD";
+> +
+> +static const char sig_path[] = "/cpuinfo/cpu-signature";
+> +static const char rev_path[] = "/cpuinfo/microcode-revision";
+> +static const char  pf_path[] = "/cpuinfo/processor-flags";
 
-I was trying to prepare a bit for the future with a minimum value that
-would be rounded up to a larger granule as needed depending on
-PAGE_SIZE in Xen and what might be discovered about the secure world.
+Together with the use below I conclude (without having looked at patch 1
+yet) that you only expose perhaps the BSP's data, rather than such for
+all CPUs. (And I was actually going to put up the question whether data
+like the one presented here might not also be of interest for parked
+CPUs.)
 
->
-> How about just using ffa_rx or ffa_tx being NULL or not to check if the buffers are
-> mapped and remove the count.
+> +static int hypfs_read_uint(struct xenhypfs_handle *hdl, const char *path,
+> +                           unsigned int *var)
+> +{
+> +    char *result;
+> +    result = xenhypfs_read(hdl, path);
+> +    if ( !result )
+> +        return -1;
+> +
+> +    errno = 0;
+> +    *var = strtol(result, NULL, 10);
 
-Sure, I'll drop the _MIN_ part of the define then.
+Better use strtoul() (as you're after an unsigned quantity), and perhaps
+also better to not assume 10 as the radix (neither signature nor ucode
+revision are very useful to expose as decimal numbers in hypfs)? Plus
+perhaps deal with the result not fitting in "unsigned int"?
 
->
-> >
-> >>
-> >> As it is a global variable, does the parameter to rxtx_map make sense ?
-> >
-> > Yes, ffa_rxtx_map() is a dumb wrapper so it should have all the needed
-> > parameters for the SMC provided.
->
-> Then passing FFA_MIN_RXTX_PAGE_COUNT should be enough.
+> +    if ( errno )
+> +        return -1;
+> +
+> +    return 0;
+> +}
+> +
+> +static void show_curr_cpu(FILE *f)
+> +{
+> +    int ret;
+> +    struct xenhypfs_handle *hdl;
+> +    xc_interface *xch;
+> +    struct xenpf_pcpu_version cpu_ver = {0};
+> +    bool intel = false, amd = false;
+> +    unsigned int cpu_signature, pf, ucode_revision;
+> +
+> +    hdl = xenhypfs_open(NULL, 0);
+> +    if ( !hdl )
+> +        return;
+> +
+> +    xch = xc_interface_open(0, 0, 0);
+> +    if ( xch == NULL )
+> +        return;
+> +
+> +    ret = xc_get_cpu_version(xch, &cpu_ver);
+> +    if ( ret )
+> +        return;
+> +
+> +    if ( memcmp(cpu_ver.vendor_id, intel_id,
+> +                sizeof(cpu_ver.vendor_id)) == 0 )
+> +        intel = true;
+> +    else if ( memcmp(cpu_ver.vendor_id, amd_id,
+> +                     sizeof(cpu_ver.vendor_id)) == 0 )
+> +        amd = true;
+> +
+> +    if ( hypfs_read_uint(hdl, sig_path, &cpu_signature) != 0 )
+> +        return;
+> +
+> +    if ( hypfs_read_uint(hdl, rev_path, &ucode_revision) != 0 )
+> +        return;
 
-OK.
+You consume these two fields only when "intel || amd"; without having
+looked at patch 1 yet I'd also assume the node might not be present for
+other vendors, and hence no output would be produced at all then, due
+to the failure here.
 
-Thanks,
-Jens
+> +    if ( intel && hypfs_read_uint(hdl, pf_path,  &pf) != 0 )
 
->
-> Cheers
-> Bertrand
->
-> >
-> > Cheers,
-> > Jens
-> >
-> >>
-> >> Cheers
-> >> Bertrand
-> >>
-> >>>    ffa_version = vers;
-> >>>
-> >>>    return true;
-> >>> +
-> >>> +err_free_ffa_tx:
-> >>> +    free_xenheap_pages(ffa_tx, 0);
-> >>> +    ffa_tx = NULL;
-> >>> +err_free_ffa_rx:
-> >>> +    free_xenheap_pages(ffa_rx, 0);
-> >>> +    ffa_rx = NULL;
-> >>> +    ffa_page_count = 0;
-> >>> +    ffa_version = 0;
-> >>> +
-> >>> +    return false;
-> >>> }
-> >>>
-> >>> static const struct tee_mediator_ops ffa_ops =
-> >>> --
-> >>> 2.34.1
->
->
+Nit: Stray double blank before "&pf".
+
+> +        return;
+> +
+> +    /*
+> +     * Print signature in a form that allows to quickly identify which ucode
+> +     * blob to load, e.g.:
+> +     *
+> +     *      Intel:   /lib/firmware/intel-ucode/06-55-04
+> +     *      AMD:     /lib/firmware/amd-ucode/microcode_amd_fam19h.bin
+> +     */
+> +    if ( intel )
+> +    {
+> +        fprintf(f, "Current CPU signature is: %02x-%02x-%02x (raw %#x)\n",
+> +                   cpu_ver.family, cpu_ver.model, cpu_ver.stepping,
+> +                   cpu_signature);
+> +    }
+> +    else if ( amd )
+> +    {
+> +        fprintf(f, "Current CPU signature is: fam%xh (raw %#x)\n",
+> +                   cpu_ver.family, cpu_signature);
+> +    }
+
+    else
+        fprintf("...", cpu_ver.vendor_id,
+                cpu_ver.family, cpu_ver.model, cpu_ver.stepping);
+
+? Otherwise some kind of error message would imo be needed, such that the
+tool won't exit successfully without providing any output at all. Recall
+that we consider Hygon an alive target CPU, just with (at present) no
+ucode support.
+
+> +    if ( intel || amd )
+> +        fprintf(f, "Current CPU microcode revision is: %#x\n", ucode_revision);
+> +
+> +    if ( intel )
+> +        fprintf(f, "Current CPU processor flags are: %#x\n", pf);
+> +
+> +    xc_interface_close(xch);
+> +    xenhypfs_close(hdl);
+
+Maybe do these earlier, as soon as you're done with each of the two items?
+
+Jan
 
