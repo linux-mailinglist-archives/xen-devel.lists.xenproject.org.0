@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70ED86A69D5
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 10:31:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.503912.776322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6CB6A69DA
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 10:34:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.503920.776332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXInu-0002dK-GQ; Wed, 01 Mar 2023 09:31:18 +0000
+	id 1pXIr6-0003Qf-WA; Wed, 01 Mar 2023 09:34:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 503912.776322; Wed, 01 Mar 2023 09:31:18 +0000
+Received: by outflank-mailman (output) from mailman id 503920.776332; Wed, 01 Mar 2023 09:34:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXInu-0002bP-DD; Wed, 01 Mar 2023 09:31:18 +0000
-Received: by outflank-mailman (input) for mailman id 503912;
- Wed, 01 Mar 2023 09:31:16 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pXIns-0002ak-Ce
- for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 09:31:16 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pXInr-0001tS-R3; Wed, 01 Mar 2023 09:31:15 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.13.48]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pXInr-0004yL-Ic; Wed, 01 Mar 2023 09:31:15 +0000
+	id 1pXIr6-0003O6-Sm; Wed, 01 Mar 2023 09:34:36 +0000
+Received: by outflank-mailman (input) for mailman id 503920;
+ Wed, 01 Mar 2023 09:34:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+deI=6Z=citrix.com=prvs=41760556e=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pXIr5-0003O0-Fk
+ for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 09:34:35 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 45391394-b814-11ed-96a0-2f268f93b82a;
+ Wed, 01 Mar 2023 10:34:34 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,110 +36,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=vyPrgYJtpIQ29fZngSepxLvEwIvazQBTjmg9qMO/gLY=; b=YSrsbJdWjKjm9xZfHRn4+LL53Q
-	tT1p5SvGTrvVThqJ/hrKaPDj43R+yN1NjJgUFZYvv27P/5wbUJHBlVQPSGtt2mkpqBKJsBnqiLzsy
-	o7buf8DeNfpEFlcMX9RBhDbRbLWCh9TzRgG/rJKlljLXYTcHGEi7/kUYDT6lzdW9aA80=;
-Message-ID: <538020a3-07d2-391b-0fcc-4e4b4902d2f7@xen.org>
-Date: Wed, 1 Mar 2023 09:31:13 +0000
+X-Inumbo-ID: 45391394-b814-11ed-96a0-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1677663273;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZIIN8U2JdP2J4jSKpbH0dD+3F1ihZCBbCdcFRnEBVWA=;
+  b=DMRuDZ140B/mVTL+qLQbg6lUZ0Pa749ShDiOzeeD8N9y2NdEutPg0IfB
+   21cMd0lZy8oURJKau3R9IVuTGJcc6t3iDnuUIj0LWbt0gshQm6ckmufqH
+   gBZkeEJBI7JQu2z1hg3rhtNMEtDHE+N35CgWvDxw/UbG4rCplSrFqWT6t
+   A=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 98990256
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:uNCbB6JKymPuqaAVFE+R5ZUlxSXFcZb7ZxGr2PjKsXjdYENS1TJUy
+ 2ZOX2mDO62PM2fwfdkiPY++8kpQ6pLVm99rGwplqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpJrfPTwP9TlK6q4mhA5QRnPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5zBlpQy
+ MYRFAsRY0uAu+GH+4u7W8VV05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpNU6bC/FMEg5/5JYWleG0hn75YntApUicv6Yf6GnP1g1hlrPqNbI5f/TbFZQExhzF+
+ Aoq+Uz/OUldbfiH5gOI2VKioe7KmnjJW4I7QejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
+ lcI4Ww+oK4q7kupQ9LhGRqirxastRcGV91dO+Yz8g2Kx+zf5APxLnMfUjdLZdgitck3bT8nz
+ FmEm5XuHzMHmLSNRGiU7Lu8sTK4Mi9TJmgHDRLoViNcvYOl+ttqyEuSEJA6SvXdYsDJ9S/Yx
+ zexshUEjokokcNQ1Jm4zGv+gyOAn82cJuIq3Tn/UmWg5wJ/QYeqYY209FTWhcp9wJalokqp5
+ yZdxZXHhAwaJdTUzXHWHr1RdF28z6zdWAAwl2KDCHXIG96F33e4Nb5d7zhlTKuCGpZVIGS5C
+ KM/VO442XOyAJdIRfUqC25SI55wpUQFKTgCfqG8Uza2SsItHDJrBQk3DaJq40jjkVI3jYY0M
+ oqBfMCnAB4yUPo4k2TuFrxFje5wnUjSIF8/orihknyaPUe2PibJGd/pznPVBgzG0E90iFqMq
+ IsOXyd74x5eTPf/ckHqHX07dDg3wYwALcmu8aR/L7fTSjeK7Ul9U5c9N5t9Id0690mU/8+Ul
+ kyAtrhwkgeu2Caed1XbAp2hAZu2NatCQbsAFXREFT6VN7ILONfHAHs3H3fvQYQayQ==
+IronPort-HdrOrdr: A9a23:rJ7hgK9C7lDm3ch+Cs1uk+AuI+orL9Y04lQ7vn2ZKSY5TiVXra
+ CTdZUgpHnJYVMqMk3I9uruBEDtex3hHNtOkOss1NSZLW7bUQmTXeJfBOLZqlWNJ8S9zJ856U
+ 4JScND4bbLfDxHZKjBgTVRE7wbsaa6GKLDv5ah85+6JzsaGp2J7G1Ce3am+lUdfng+OXKgfq
+ Dsm/auoVCbCAwqR/X+PFYpdc7ZqebGkZr3CCR2eyLOuGG1/EiVAKeRKWnj4isj
+X-IronPort-AV: E=Sophos;i="5.98,224,1673931600"; 
+   d="scan'208";a="98990256"
+Date: Wed, 1 Mar 2023 09:34:20 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH] automation: Rework archlinux container
+Message-ID: <Y/8cHAV6L8sN+dDr@perard>
+References: <20230228181649.51066-1-anthony.perard@citrix.com>
+ <27e9e2bb-423c-8ad0-aaf0-351b756c6c40@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.8.0
-Subject: Re: [PATCH v3 3/4] xen/arm: switch ARM to use generic implementation
- of bug.h
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1677233393.git.oleksii.kurochko@gmail.com>
- <d80c136720c156d6ef83f27f1ce8dca5dba5b5a0.1677233393.git.oleksii.kurochko@gmail.com>
- <f82b8c50-47f2-d8b0-5a2c-60203e5d5e26@xen.org>
- <c0e628d744f03c70d2e7b66540ea27aa31d90043.camel@gmail.com>
- <46e96dd9-bcb4-4569-b282-05c019cabcc3@xen.org>
- <a2980d855cb11e447a794725163ff120d38fc127.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <a2980d855cb11e447a794725163ff120d38fc127.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <27e9e2bb-423c-8ad0-aaf0-351b756c6c40@citrix.com>
 
-Hi,
-
-On 01/03/2023 08:58, Oleksii wrote:
-> On Tue, 2023-02-28 at 17:48 +0000, Julien Grall wrote:
->> Hi Oleksii,
->>
->> On 28/02/2023 15:09, Oleksii wrote:
->>> On Sat, 2023-02-25 at 16:49 +0000, Julien Grall wrote:
->>>> Hi Oleksii,
->>>>
->>>> On 24/02/2023 11:31, Oleksii Kurochko wrote:
->>>>> The following changes were made:
->>>>> * make GENERIC_BUG_FRAME mandatory for ARM
->>>>
->>>> I have asked in patch #1 but will ask it again because I think
->>>> this
->>>> should be recorded in the commit message. Can you outline why it
->>>> is
->>>> not
->>>> possible to completely switch to the generic version?
->>> I haven't tried to switch ARM too because of comment regarding 'i'
->>> in
->>> <asm/bug.h>:
->>> /*
->>>    * GCC will not allow to use "i"  when PIE is enabled (Xen doesn't
->>> set
->>> the
->>>    * flag but instead rely on the default value from the compiler).
->>> So
->>> the
->>>    * easiest way to implement run_in_exception_handler() is to pass
->>> the
->>> to
->>>    * be called function in a fixed register.
->>>    */
->>
->> I would expect this comment to be valid for any arch. So if there is
->> a
->> need to deal with PIE, then we would not be able to use "i" in the
->> BUG
->> frame.
->>
->> Note that we are now explicitly compiling Xen without PIE (see
->> Config.mk).
-> Then it looks like some architectures isn't expected to be compiled
-> with PIE. I mean that x86's bug.h is used 'i' and there is no any
-> alternative version in case of PIE.
+On Tue, Feb 28, 2023 at 06:48:26PM +0000, Andrew Cooper wrote:
+> On 28/02/2023 6:16 pm, Anthony PERARD wrote:
+> > Base image "archlinux/base" isn't available anymore,
+> >     https://lists.archlinux.org/pipermail/arch-dev-public/2020-November/030181.html
+> >
+> > But instead of switching to archlinux/archlinux, we will use the
+> > official image from Docker. Main difference is that the first one is
+> > updated daily while the second is updated weekly.
+> >
+> > Also, as we will install the packages from "base-devel" anyway, switch
+> > to the "base-devel" tag.
+> >
+> > "dev86" package is now available from the main repo, no need for
+> > multilib repo anymore.
+> >
+> > It is recommended to initialise local signing key used by pacman, so
+> > let's do that.
+> >
+> > Replace "markdown" by "discount" as the former isn't available anymore
+> > and has been replaced by the later.
+> >
+> > Also, clean pacman's cache.
+> >
+> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 > 
-> If Xen should be compilable with PIE then we have to use ARM
-> implementation of bug.h everywhere. ( based on comment about 'i' with
-> PIE ).
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-The comment was added because until commit ecd6b9759919 ("Config.mk: 
-correct PIE-related option(s) in EMBEDDED_EXTRA_CFLAGS") we would let 
-the compiler to decide whether PIE should be enabled.
+Thanks, I've rebuild the container with my prototype:
+    https://gitlab.com/xen-project/people/anthonyper/xen/-/pipelines/791711467
 
-Now we are forcing -fno-pie for Xen on any architecture (the flag is 
-added at the top-level in Config.mk).
-
-> 
-> Now I am totally confused...
-
-My point was not about using the Arm implementation everywhere. My point 
-was that we disable even for Arm and therefore it is fine to use the 
-common version.
-
-If in the future we need to support PIE in Xen (I am not aware of any 
-effort yet), then we could decide to update the common BUG framework. 
-But for now, I don't think this is something you need to care in your 
-series.
+I'll send a patch series for this prototype soon.
 
 Cheers,
 
 -- 
-Julien Grall
+Anthony PERARD
 
