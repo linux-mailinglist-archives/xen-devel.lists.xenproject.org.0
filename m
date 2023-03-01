@@ -2,33 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CEF66A717C
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 17:45:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.504172.776747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26E886A721C
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Mar 2023 18:30:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.504185.776757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXPaD-0007HV-EP; Wed, 01 Mar 2023 16:45:37 +0000
+	id 1pXQGq-00053q-Nu; Wed, 01 Mar 2023 17:29:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 504172.776747; Wed, 01 Mar 2023 16:45:37 +0000
+Received: by outflank-mailman (output) from mailman id 504185.776757; Wed, 01 Mar 2023 17:29:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXPaD-0007Em-B0; Wed, 01 Mar 2023 16:45:37 +0000
-Received: by outflank-mailman (input) for mailman id 504172;
- Wed, 01 Mar 2023 16:45:35 +0000
+	id 1pXQGq-00051O-KS; Wed, 01 Mar 2023 17:29:40 +0000
+Received: by outflank-mailman (input) for mailman id 504185;
+ Wed, 01 Mar 2023 17:29:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ofKM=6Z=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pXPaB-0007Eg-BV
- for xen-devel@lists.xenproject.org; Wed, 01 Mar 2023 16:45:35 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ <SRS0=oYBP=6Z=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1pXQGo-00051I-2b
+ for xen-devel@lists.xen.org; Wed, 01 Mar 2023 17:29:38 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7c2067b2-b850-11ed-96a6-2f268f93b82a;
- Wed, 01 Mar 2023 17:45:33 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- m14-20020a7bce0e000000b003e00c739ce4so8243435wmc.5
- for <xen-devel@lists.xenproject.org>; Wed, 01 Mar 2023 08:45:34 -0800 (PST)
+ id a0a688ae-b856-11ed-96a6-2f268f93b82a;
+ Wed, 01 Mar 2023 18:29:33 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-549-AmWt6nP_Mm2y_Io2Gr2Kzw-1; Wed, 01 Mar 2023 12:29:29 -0500
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8DA843C18346;
+ Wed,  1 Mar 2023 17:29:28 +0000 (UTC)
+Received: from localhost (unknown [10.39.192.234])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id BAFD0492C14;
+ Wed,  1 Mar 2023 17:29:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,351 +50,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c2067b2-b850-11ed-96a6-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=MQAKXkGrb8E8NzL+w10fn1tljGDxzJj+8MRo/QNIceM=;
-        b=aak7mtAh/IXes0UPMwxIc7YC4+sR6MFUa5Fm5CCDgQE6XRzf1CNi4sxQxEAF7OnHd5
-         jICpWd1lb7YVc08QtStvGNd+uhRYksc80QKpskLhMujEc+Z5xZIbYMGrlE1X2eXVvtIM
-         VCrekGv9jdENTpIhZdz60VYBD0GGhkt2IwjDbByAwI/c7txWJX76QUdLOj3v935LbnQ9
-         xmxDqpes4a1jNwTtwYBTPrYNMb26j7loiEwgUyTL9hXGeVFQw3rq+bdfHjlJQSWbNUXi
-         2lqmqZXB+mb67ZV0De081UwdoA7cd/GLeTgplmHlb9MipbXoOOPJmDCjDDa4HvdDRghT
-         ZidQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MQAKXkGrb8E8NzL+w10fn1tljGDxzJj+8MRo/QNIceM=;
-        b=XVR3xVchd/oA4W4ahBGFnft1o7pWP17aoB5sbJXgYoCwOINCGyr2tM+iwwugvqrgkg
-         ZADQZsuep0rfwXcmQPANC84ycOH9xeB0SIBHfzBeHWhfeSc9g+H+rZkyca7H3cdjSs5T
-         Hkv5BYa9O7JDEBj55EgpWmgn1vsSBBS9SEdLsfkvTvwcBF6y2QQSNUxok5jYUgKNzdIT
-         PiRdKpcreFD943ts2ncpNN5i63rbqvgslfPvamkGRUgKCDCOuB1ZfKq0tHSz2Xh/bo5m
-         HKXs7uUlwioXAJ2/1kaXTxni9Jm5tNrN5tV8Hbe43raCN8qXAP7uB9Dj2IWd1b/n/h7L
-         pSgQ==
-X-Gm-Message-State: AO0yUKUDJzNTwguN0yez7LV+Oc0WHG5MhaJaINQ9Lk2O3YpQ0bpI2SYt
-	FO5twgM5GzB8Jz2+bmSgj4HCtUBRops8kGOWrtsUdA==
-X-Google-Smtp-Source: AK7set+HcmjSn9wHn7ruFx7xlaQgLJXQJguUqCkeG8mzVkzUp+Ug/moGqn8SwcHCS+4QHbY57474gsf+Zx8GwzWJrIY=
-X-Received: by 2002:a05:600c:444c:b0:3df:d8c9:caa7 with SMTP id
- v12-20020a05600c444c00b003dfd8c9caa7mr2022383wmn.4.1677689133387; Wed, 01 Mar
- 2023 08:45:33 -0800 (PST)
+X-Inumbo-ID: a0a688ae-b856-11ed-96a6-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1677691771;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GNUtwYSzrma9QPDi9kyv0SaiYSEO9P+i9joIVnBked8=;
+	b=DW9OztKZh+W3ovLp86zzNTEJWa4C0m4F7cfUfPs+7MuAjUG8b7GRj9Ug7FynI/VG8Tv5NL
+	gE5DrDsFgswM1PJ2z50VejJuPI6sguSom3PNZt4dAYbgR5kTnnYhH9176Ew1h1tfN1uXK+
+	BBYw3HGqYsszISxY0LD57FW/PWR3894=
+X-MC-Unique: AmWt6nP_Mm2y_Io2Gr2Kzw-1
+Date: Wed, 1 Mar 2023 12:29:25 -0500
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>, qemu-devel@nongnu.org,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xen.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Sebastien Boeuf <sebastien.boeuf@intel.com>,
+	Liu Jiang <gerry@linux.alibaba.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	virtio-dev@lists.oasis-open.org
+Subject: Re: [virtio-dev] [RFC QEMU] docs: vhost-user: Add custom memory
+ mapping support
+Message-ID: <Y/+LdfF0rL3wEqfd@fedora>
+References: <Y/9zkDAS4odz93GM@fedora>
+ <877cw0ctpr.fsf@linaro.org>
 MIME-Version: 1.0
-References: <cover.1677079671.git.jens.wiklander@linaro.org>
- <cfd9ae67bdf24bee796b418937dd1486018fd188.1677079672.git.jens.wiklander@linaro.org>
- <3DE2B127-8820-400A-86FC-3A38F40CADFD@arm.com> <CAHUa44EjD7mSE0DZShoRh9PAPVPWXL0gXUpi69s-2ktaMMSa8A@mail.gmail.com>
- <8D294745-AE0E-41B7-9B42-7C463AC77F93@arm.com>
-In-Reply-To: <8D294745-AE0E-41B7-9B42-7C463AC77F93@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 1 Mar 2023 17:45:22 +0100
-Message-ID: <CAHUa44E45G7jh+LgFdF8EZ7E68MCjmXUyNK=z3QrW+Rx_hAwAA@mail.gmail.com>
-Subject: Re: [XEN PATCH v7 12/20] xen/arm: ffa: send guest events to Secure Partitions
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
-	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ji5TbNtGJsInl60F"
+Content-Disposition: inline
+In-Reply-To: <877cw0ctpr.fsf@linaro.org>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 
-Hi,
 
-On Wed, Mar 1, 2023 at 1:58 PM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> > On 1 Mar 2023, at 11:16, Jens Wiklander <jens.wiklander@linaro.org> wrote:
-> >
-> > Hi Bertrand,
-> >
-> > On Tue, Feb 28, 2023 at 5:49 PM Bertrand Marquis
-> > <Bertrand.Marquis@arm.com> wrote:
-> >>
-> >> Hi Jens,
-> >>
-> >>> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wrote:
-> >>>
-> >>> The FF-A specification defines framework messages sent as direct
-> >>> requests when certain events occurs. For instance when a VM (guest) is
-> >>> created or destroyed. Only SPs which have subscribed to these events
-> >>> will receive them. An SP can subscribe to these messages in its
-> >>> partition properties.
-> >>>
-> >>> Adds a check that the SP supports the needed FF-A features
-> >>> FFA_PARTITION_INFO_GET and FFA_RX_RELEASE.
-> >>>
-> >>> The partition properties of each SP is retrieved with
-> >>> FFA_PARTITION_INFO_GET which returns the information in our RX buffer.
-> >>> Using FFA_PARTITION_INFO_GET changes the owner of the RX buffer to the
-> >>> caller (us), so once we're done with the buffer it must be released
-> >>> using FFA_RX_RELEASE before another call can be made.
-> >>>
-> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> >>> ---
-> >>> xen/arch/arm/tee/ffa.c | 191 ++++++++++++++++++++++++++++++++++++++++-
-> >>> 1 file changed, 190 insertions(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> >>> index 07dd5c36d54b..f1b014b6c7f4 100644
-> >>> --- a/xen/arch/arm/tee/ffa.c
-> >>> +++ b/xen/arch/arm/tee/ffa.c
-> >>> @@ -140,6 +140,14 @@
-> >>> #define FFA_MSG_SEND                    0x8400006EU
-> >>> #define FFA_MSG_POLL                    0x8400006AU
-> >>>
-> >>> +/* Partition information descriptor */
-> >>> +struct ffa_partition_info_1_1 {
-> >>> +    uint16_t id;
-> >>> +    uint16_t execution_context;
-> >>> +    uint32_t partition_properties;
-> >>> +    uint8_t uuid[16];
-> >>> +};
-> >>> +
-> >>> struct ffa_ctx {
-> >>>    uint32_t guest_vers;
-> >>>    bool interrupted;
-> >>> @@ -148,6 +156,12 @@ struct ffa_ctx {
-> >>> /* Negotiated FF-A version to use with the SPMC */
-> >>> static uint32_t ffa_version __ro_after_init;
-> >>>
-> >>> +/* SPs subscribing to VM_CREATE and VM_DESTROYED events */
-> >>> +static uint16_t *subscr_vm_created __read_mostly;
-> >>> +static unsigned int subscr_vm_created_count __read_mostly;
-> >>
-> >> In the spec the number is returned in w2 so you should utse uint32_t here.
-> >
-> > I don't understand. This value is increased for each SP which has the
-> > property set in the Partition information descriptor.
->
-> Using generic types should be prevented when possible.
+--ji5TbNtGJsInl60F
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I'm usually of the opposite opinion, fixed width integers should only
-be used when there's a good reason to do so. However, if this is the
-Xen philosophy I can replace all those unsigned int with uint32_t if
-that's preferable.
+On Wed, Mar 01, 2023 at 04:31:41PM +0000, Alex Benn=E9e wrote:
+>=20
+> Stefan Hajnoczi <stefanha@redhat.com> writes:
+>=20
+> > [[PGP Signed Part:Undecided]]
+> > Resend - for some reason my email didn't make it out.
+> >
+> > From: Stefan Hajnoczi <stefanha@redhat.com>
+> > Subject: Re: [virtio-dev] [RFC QEMU] docs: vhost-user: Add custom memory
+> >  mapping support
+> > To: Viresh Kumar <viresh.kumar@linaro.org>
+> > Cc: qemu-devel@nongnu.org, virtio-dev@lists.oasis-open.org, "Michael S.
+> >  Tsirkin" <mst@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org=
+>,
+> >  Alex Benn=E9e <alex.bennee@linaro.org>,
+> > 	stratos-dev@op-lists.linaro.org, Oleksandr Tyshchenko
+> >  <olekstysh@gmail.com>, xen-devel@lists.xen.org, Andrew Cooper
+> >  <andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>, Sebastien
+> >  Boeuf
+> > 	<sebastien.boeuf@intel.com>, Liu Jiang <gerry@linux.alibaba.com>, Math=
+ieu
+> >  Poirier <mathieu.poirier@linaro.org>
+> > Date: Tue, 21 Feb 2023 10:17:01 -0500 (1 week, 1 day, 1 hour ago)
+> > Flags: seen, signed, personal
+> >
+> > On Tue, Feb 21, 2023 at 03:20:41PM +0530, Viresh Kumar wrote:
+> >> The current model of memory mapping at the back-end works fine with
+> >> Qemu, where a standard call to mmap() for the respective file
+> >> descriptor, passed from front-end, is generally all we need to do befo=
+re
+> >> the front-end can start accessing the guest memory.
+> >>=20
+> >> There are other complex cases though, where we need more information at
+> >> the backend and need to do more than just an mmap() call. For example,
+> >> Xen, a type-1 hypervisor, currently supports memory mapping via two
+> >> different methods, foreign-mapping (via /dev/privcmd) and grant-dev (v=
+ia
+> >> /dev/gntdev). In both these cases, the back-end needs to call mmap()
+> >> followed by an ioctl() (or vice-versa), and need to pass extra
+> >> information via the ioctl(), like the Xen domain-id of the guest whose
+> >> memory we are trying to map.
+> >>=20
+> >> Add a new protocol feature, 'VHOST_USER_PROTOCOL_F_CUSTOM_MMAP', which
+> >> lets the back-end know about the additional memory mapping requirement=
+s.
+> >> When this feature is negotiated, the front-end can send the
+> >> 'VHOST_USER_CUSTOM_MMAP' message type to provide the additional
+> >> information to the back-end.
+> >>=20
+> >> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> >> ---
+> >>  docs/interop/vhost-user.rst | 32 ++++++++++++++++++++++++++++++++
+> >>  1 file changed, 32 insertions(+)
+> >
+> > The alternative to an in-band approach is to configure these details
+> > out-of-band. For example, via command-line options to the vhost-user
+> > back-end:
+> >
+> >   $ my-xen-device --mapping-type=3Dforeign-mapping --domain-id=3D123
+> >
+> > I was thinking about both approaches and don't see an obvious reason to
+> > choose one or the other. What do you think?
+>=20
+> In-band has the nice property of being dynamic and not having to have
+> some other thing construct command lines. We are also trying to keep the
+> daemons from being Xen specific and keep the type of mmap as an
+> implementation detail that is mostly elided by the rust-vmm memory
+> traits.
 
-> Here this is a subset of the number of partition which is uint32_t (wX reg) so
-> i think this would be the logical type for this.
+Okay.
 
-The maximum number is actually UINT16_MAX so an observant reader might
-wonder why the uint32_t type was used here.
+> >
+> >> diff --git a/docs/interop/vhost-user.rst b/docs/interop/vhost-user.rst
+> >> index 3f18ab424eb0..f2b1d705593a 100644
+> >> --- a/docs/interop/vhost-user.rst
+> >> +++ b/docs/interop/vhost-user.rst
+> >> @@ -258,6 +258,23 @@ Inflight description
+> >> =20
+> >>  :queue size: a 16-bit size of virtqueues
+> >> =20
+> >> +Custom mmap description
+> >> +^^^^^^^^^^^^^^^^^^^^^^^
+> >> +
+> >> ++-------+-------+
+> >> +| flags | value |
+> >> ++-------+-------+
+> >> +
+> >> +:flags: 64-bit bit field
+> >> +
+> >> +- Bit 0 is Xen foreign memory access flag - needs Xen foreign memory =
+mapping.
+> >> +- Bit 1 is Xen grant memory access flag - needs Xen grant memory mapp=
+ing.
+> >> +
+> >> +:value: a 64-bit hypervisor specific value.
+> >> +
+> >> +- For Xen foreign or grant memory access, this is set with guest's xe=
+n domain
+> >> +  id.
+> >
+> > This is highly Xen-specific. How about naming the feature XEN_MMAP
+> > instead of CUSTOM_MMAP? If someone needs to add other mmap data later,
+> > they should define their own struct instead of trying to squeeze into
+> > the same fields as Xen.
+>=20
+> We hope to support additional mmap mechanisms in the future - one
+> proposal is to use the hypervisor specific interface to support an
+> ioctl() that creates a domain specific device which can then be treated
+> more generically.
+>=20
+> Could we not declare the message as flag + n bytes of domain specific
+> message as defined my msglen?
 
->
-> >
-> >>
-> >>> +static uint16_t *subscr_vm_destroyed __read_mostly;
-> >>> +static unsigned int subscr_vm_destroyed_count __read_mostly;
-> >>
-> >> Same here
-> >>
-> >>> +
-> >>> /*
-> >>> * Our rx/tx buffers shared with the SPMC.
-> >>> *
-> >>> @@ -237,6 +251,72 @@ static int32_t ffa_rxtx_map(register_t tx_addr, register_t rx_addr,
-> >>>    return ffa_simple_call(fid, tx_addr, rx_addr, page_count, 0);
-> >>> }
-> >>>
-> >>> +static int32_t ffa_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
-> >>> +                                      uint32_t w4, uint32_t w5,
-> >>> +                                      uint32_t *count)
-> >>> +{
-> >>> +    const struct arm_smccc_1_2_regs arg = {
-> >>> +        .a0 = FFA_PARTITION_INFO_GET,
-> >>> +        .a1 = w1,
-> >>> +        .a2 = w2,
-> >>> +        .a3 = w3,
-> >>> +        .a4 = w4,
-> >>> +        .a5 = w5,
-> >>> +    };
-> >>> +    struct arm_smccc_1_2_regs resp;
-> >>> +    uint32_t ret;
-> >>> +
-> >>> +    arm_smccc_1_2_smc(&arg, &resp);
-> >>> +
-> >>> +    ret = get_ffa_ret_code(&resp);
-> >>> +    if ( !ret )
-> >>> +        *count = resp.a2;
-> >>> +
-> >>> +    return ret;
-> >>> +}
-> >>> +
-> >>> +static int32_t ffa_rx_release(void)
-> >>> +{
-> >>> +    return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
-> >>> +}
-> >>> +
-> >>> +static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
-> >>> +                                      uint8_t msg)
-> >>
-> >> This function is actually only useable to send framework created/destroyed
-> >> messages so the function name should be adapted to be less generic.
-> >>
-> >> ffa_send_vm_events ?
-> >>
-> >> unless you want to modify it later to send more framework messages ?
-> >
-> > That was the plan, but that may never happen. I'll rename it to
-> > ffa_send_vm_event() since we're only sending one event at a time.
-> >
-> >>
-> >>> +{
-> >>> +    uint32_t exp_resp = FFA_MSG_FLAG_FRAMEWORK;
-> >>> +    int32_t res;
-> >>> +
-> >>> +    if ( msg == FFA_MSG_SEND_VM_CREATED )
-> >>> +        exp_resp |= FFA_MSG_RESP_VM_CREATED;
-> >>> +    else if ( msg == FFA_MSG_SEND_VM_DESTROYED )
-> >>> +        exp_resp |= FFA_MSG_RESP_VM_DESTROYED;
-> >>> +    else
-> >>> +        return FFA_RET_INVALID_PARAMETERS;
-> >>> +
-> >>> +    do {
-> >>> +        const struct arm_smccc_1_2_regs arg = {
-> >>> +            .a0 = FFA_MSG_SEND_DIRECT_REQ_32,
-> >>> +            .a1 = sp_id,
-> >>> +            .a2 = FFA_MSG_FLAG_FRAMEWORK | msg,
-> >>> +            .a5 = vm_id,
-> >>> +        };
-> >>> +        struct arm_smccc_1_2_regs resp;
-> >>> +
-> >>> +        arm_smccc_1_2_smc(&arg, &resp);
-> >>> +        if ( resp.a0 != FFA_MSG_SEND_DIRECT_RESP_32 || resp.a2 != exp_resp )
-> >>> +        {
-> >>> +            /*
-> >>> +             * This is an invalid response, likely due to some error in the
-> >>> +             * implementation of the ABI.
-> >>> +             */
-> >>> +            return FFA_RET_INVALID_PARAMETERS;
-> >>> +        }
-> >>> +        res = resp.a3;
-> >>> +    } while ( res == FFA_RET_INTERRUPTED || res == FFA_RET_RETRY );
-> >>
-> >> We might end up in an infinite loop here or increase interrupt response time.
-> >> In the general case we could return that code directly to the VM but here we
-> >> are in the VM creation/destroy path so we cannot do that.
-> >>
-> >> Maybe in debug mode at least we should have a retry counter here for now
-> >> with a print ?
-> >
-> > OK, I'll add something.
-> >
-> >>
-> >>> +
-> >>> +    return res;
-> >>> +}
-> >>> +
-> >>> static uint16_t get_vm_id(const struct domain *d)
-> >>> {
-> >>>    /* +1 since 0 is reserved for the hypervisor in FF-A */
-> >>> @@ -371,6 +451,10 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
-> >>> static int ffa_domain_init(struct domain *d)
-> >>> {
-> >>>    struct ffa_ctx *ctx;
-> >>> +    unsigned int n;
-> >>> +    unsigned int m;
-> >>> +    unsigned int c_pos;
-> >>> +    int32_t res;
-> >>>
-> >>>     /*
-> >>>      * We can't use that last possible domain ID or get_vm_id() would cause
-> >>> @@ -383,24 +467,121 @@ static int ffa_domain_init(struct domain *d)
-> >>>    if ( !ctx )
-> >>>        return -ENOMEM;
-> >>>
-> >>> +    for ( n = 0; n < subscr_vm_created_count; n++ )
-> >>> +    {
-> >>> +        res = ffa_direct_req_send_vm(subscr_vm_created[n], get_vm_id(d),
-> >>> +                                     FFA_MSG_SEND_VM_CREATED);
-> >>> +        if ( res )
-> >>> +        {
-> >>> +            printk(XENLOG_ERR "ffa: Failed to report creation of vm_id %u to  %u: res %d\n",
-> >>> +                   get_vm_id(d), subscr_vm_created[n], res);
-> >>
-> >> in this function, get_vm_id(d) will not change so i would suggest to store it in a local variable
-> >> instead of calling get_vm_id each time.
-> >
-> > OK
-> >
-> >>
-> >>> +            c_pos = n;
-> >>> +            goto err;
-> >>> +        }
-> >>> +    }
-> >>> +
-> >>>    d->arch.tee = ctx;
-> >>>
-> >>>    return 0;
-> >>> +
-> >>> +err:
-> >>> +    /* Undo any already sent vm created messaged */
-> >>> +    for ( n = 0; n < c_pos; n++ )
-> >>> +        for ( m = 0; m < subscr_vm_destroyed_count; m++ )
-> >>> +            if ( subscr_vm_destroyed[m] == subscr_vm_created[n] )
-> >>> +                ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_id(d),
-> >>> +                                       FFA_MSG_SEND_VM_DESTROYED);
-> >>> +
-> >>> +    return -ENOMEM;
-> >>
-> >> The VM creation is not failing due to missing memory here.
-> >> We need to find a better error code.
-> >> Maybe ENOTCONN ?
-> >> I am open to ideas here :-)
-> >
-> > That makes sense, I'll change it to ENOTCONN.
-> >
-> >>
-> >>> }
-> >>>
-> >>> /* This function is supposed to undo what ffa_domain_init() has done */
-> >>> static int ffa_relinquish_resources(struct domain *d)
-> >>> {
-> >>>    struct ffa_ctx *ctx = d->arch.tee;
-> >>> +    unsigned int n;
-> >>> +    int32_t res;
-> >>>
-> >>>    if ( !ctx )
-> >>>        return 0;
-> >>>
-> >>> +    for ( n = 0; n < subscr_vm_destroyed_count; n++ )
-> >>> +    {
-> >>> +        res = ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_id(d),
-> >>> +                                     FFA_MSG_SEND_VM_DESTROYED);
-> >>> +
-> >>> +        if ( res )
-> >>> +            printk(XENLOG_ERR "ffa: Failed to report destruction of vm_id %u to  %u: res %d\n",
-> >>> +                   get_vm_id(d), subscr_vm_destroyed[n], res);
-> >>> +    }
-> >>> +
-> >>>    XFREE(d->arch.tee);
-> >>>
-> >>>    return 0;
-> >>> }
-> >>>
-> >>> +static bool init_subscribers(void)
-> >>> +{
-> >>> +    struct ffa_partition_info_1_1 *fpi;
-> >>> +    bool ret = false;
-> >>> +    uint32_t count;
-> >>> +    int e;
-> >>> +    uint32_t n;
-> >>> +    uint32_t c_pos;
-> >>> +    uint32_t d_pos;
-> >>> +
-> >>> +    if ( ffa_version < FFA_VERSION_1_1 )
-> >>> +        return true;
-> >>
-> >> Correct me if i am wrong but on 1.0 version we cannot retrieve the count but
-> >> we could do the slow path and do a first loop on info_get until we get an error ?
-> >
-> > Sending the events is not supported in 1.0 so there's nothing to
-> > record in that case.
->
-> Please add a comment here to say that subscribers are only supported after 1.1
-> and also mention it in the commit message.
+What is the advantage over defining separate messages? Separate messages
+are cleaner and more typesafe.
 
-OK.
+> > There is an assumption in this design that a single
+> > VHOST_USER_CUSTOM_MMAP message provides the information necessary for
+> > all mmaps. Are you sure the limitation that every mmap belongs to the
+> > same domain will be workable in the future?
+>=20
+> Like a daemon servicing multiple VMs? Won't those still be separate
+> vhost-user control channels though?
 
-Thanks,
-Jens
+I don't have a concrete example, but was thinking of a guest that shares
+memory with other guests (like the experimental virtio-vhost-user
+device). Maybe there would be a scenario where some memory belongs to
+one domain and some belongs to another (but has been mapped into the
+first domain), and the vhost-user back-end needs to access both.
+
+The other thing that comes to mind is that the spec must clearly state
+which mmaps are affected by the Xen domain information. For example,
+just mem table memory regions and not the
+VHOST_USER_PROTOCOL_F_LOG_SHMFD feature?
+
+> >
+> >> +
+> >>  C structure
+> >>  -----------
+> >> =20
+> >> @@ -867,6 +884,7 @@ Protocol features
+> >>    #define VHOST_USER_PROTOCOL_F_INBAND_NOTIFICATIONS 14
+> >>    #define VHOST_USER_PROTOCOL_F_CONFIGURE_MEM_SLOTS  15
+> >>    #define VHOST_USER_PROTOCOL_F_STATUS               16
+> >> +  #define VHOST_USER_PROTOCOL_F_CUSTOM_MMAP          17
+> >> =20
+> >>  Front-end message types
+> >>  -----------------------
+> >> @@ -1422,6 +1440,20 @@ Front-end message types
+> >>    query the back-end for its device status as defined in the Virtio
+> >>    specification.
+> >> =20
+> >> +``VHOST_USER_CUSTOM_MMAP``
+> >
+> > Most vhost-user protocol messages have a verb like
+> > get/set/close/add/listen/etc. I suggest renaming this to
+> > VHOST_USER_SET_XEN_MMAP_INFO.
+>=20
+> VHOST_USER_CONFIG_MMAP_QUIRKS?
+>=20
+> VHOST_USER_CONFIG_MMAP_TYPE?
+
+SET is the verb that's often used when the front-end provides
+configuration parameters to the back-end (e.g.
+VHOST_USER_SET_MEM_TABLE, VHOST_USER_SET_FEATURES, etc).
+
+Stefan
+
+--ji5TbNtGJsInl60F
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmP/i3UACgkQnKSrs4Gr
+c8g0qgf/aroAfmrv1TKO2MYdPTHh2fwqteXAzCt8TAYg0U3/xHgLY/ao9VPUDPKu
+ZJkCQ/HBUSZnHbh8XkXwbq6D7vIyXBi6SYbQ59aLIPojafvrXUaKPgPD/4pr0Qut
+bToML/9vzfGInhDDB2b6appsFUVpx2MIJf9mWDhsxeL9TeMcbiy+zefjizBejGAL
+OM0aRjnxrG8pB4DIXlLM+K5gNm1hvuE/8SR0gEFQQ8KLmu4HpkTTCm1/hLvrfXRL
+uCCAOg6CKfUfxJcxIywC4TgsJ6b3/7r8O3wwItcmvPCup8mc5dnz7c9W9JqkOU/i
+MrmqUcDNOLz9nOqJfGufULCLFLawRA==
+=OtkO
+-----END PGP SIGNATURE-----
+
+--ji5TbNtGJsInl60F--
+
 
