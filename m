@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BDBF6A8823
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 18:54:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505298.778004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4DD66A8826
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 18:54:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505297.777998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXn7l-00008R-5Y; Thu, 02 Mar 2023 17:53:49 +0000
+	id 1pXn7k-0008Sc-Tl; Thu, 02 Mar 2023 17:53:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505298.778004; Thu, 02 Mar 2023 17:53:49 +0000
+Received: by outflank-mailman (output) from mailman id 505297.777998; Thu, 02 Mar 2023 17:53:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXn7k-0008Rc-U1; Thu, 02 Mar 2023 17:53:48 +0000
-Received: by outflank-mailman (input) for mailman id 505298;
- Thu, 02 Mar 2023 17:53:47 +0000
+	id 1pXn7k-0008Pc-KO; Thu, 02 Mar 2023 17:53:48 +0000
+Received: by outflank-mailman (input) for mailman id 505297;
+ Thu, 02 Mar 2023 17:53:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BPDg=62=citrix.com=prvs=418368d91=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pXn7j-00086v-3J
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 17:53:47 +0000
+ id 1pXn7i-00086v-M1
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 17:53:46 +0000
 Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
  [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d0cb084-b923-11ed-a550-8520e6686977;
- Thu, 02 Mar 2023 18:53:45 +0100 (CET)
+ id 2a55e85a-b923-11ed-a550-8520e6686977;
+ Thu, 02 Mar 2023 18:53:42 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,124 +36,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d0cb084-b923-11ed-a550-8520e6686977
+X-Inumbo-ID: 2a55e85a-b923-11ed-a550-8520e6686977
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1677779625;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=Pqjolciy/GYaOh/EUUxEl9qt3jG0Ps61g++fsO8Rsmo=;
-  b=GcHEtLSafx9DhybyYzjnebuSYLNmy89Wmpkz4JhaYZRS9+gIsHjqgyzo
-   a69YF/LYIxUFQ9qM1mu8RCEFcTv8HIlst8KyS+f05O9CFEeDTs8NA6h2G
-   OIujfWsCt+FszkIpKFyy8zf4oHVPjHEWPZjqOEts4MqDqsFNygLC3wAdA
-   A=;
+  d=citrix.com; s=securemail; t=1677779622;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Gw4QRlvuKAg+gD2hKfl/VjnsdW7wmqK+tl77agSSFfE=;
+  b=JCLA4theHIg+fCAY3tiJwhgU4zSU78hgKX84/QZ9/qeikFMu0nXgc4l5
+   W/DBw2RvsE6KKbOjGbZ6SsCiwjdrpukgTP3GFk8vnQERt5cGzeI98PvGt
+   V815wWU6JgaYB8pLiC39LEoZGhqvfh6L/63i8wRzuuoeU0U/5t7VPj3op
+   0=;
 Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 101652772
+X-MesageID: 101652773
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:riksuKmrKu4cilt5syG4ocro5gybJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIeXmjUb//eZWbxft1yaYy/o0kF6MXRx9ZgSVY+pSxmFCMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE4p7aSaVA8w5ARkPqgQ5AWGzBH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- e4qMiEEcBahu8udxK6DG8MzxekOLsa+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglH2dSFYr1SE47I6+WHJwCR60aT3McqTcduPLSlQth/A/
- zybpTumWHn2MvSYzmG3olGUjNbesgjrCaAzRb6fztBD1Qj7Kms7V0RNCArTTeOCol6zXZdTJ
- lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJ4CPYm4QuAzq7V5QexBWUeSDNFLts8u6ceTjUw2
- liEt9jgHzBovfueTnf1y1uPhWrsY25PdzZEPHJaC1JfuLEPvb3fkDrdfMxyGbCzrOHcMjXs+
- 2Gg82sTqrcc2JtjO7qAwXjLhDelp57sRwEz5xnKUm/N0j6VdLJJdKTztwGFsK8owJKxCwDY4
- SNaw5T2APUmV8nlqcCbfAka8FhFDd6hOSaUv1NgFoJJG9+Fqy/6JtA4DN2TyS5U3ic4ld3BO
- hK7VeB5vsU70J6WgUhfMuqM5zwCl/SIKDgcfqm8giBySpZwbhSb2ypleFSd2Wvg+GB1z/5gZ
- 8bGIZ71VCpLYUiC8NZRb71AuYLHOwhknT+DLXwF50/PPUWiiI69Fu5ebQrmghER56KYugTFm
- +uzxOPToyizpNbWO3GNmaZKdABiEJTOLcyuwyChXrLZc1UO9aBII6O5/I7NjKQ+xPgOzb6Qo
- CjsMqKaoXKm7UD6xcyxQigLQNvSsVxX9xrX4QRE0Y6U5kUe
-IronPort-HdrOrdr: A9a23:pLwkj6BC9YtXctTlHelo55DYdb4zR+YMi2TDt3oddfU1SL38qy
- nKpp4mPHDP5wr5NEtPpTniAtjjfZq/z/5ICOAqVN/PYOCPggCVxepZnOjfKlPbehEX9oRmpN
- 1dm6oVMqyMMbCt5/yKnDVRELwbsaa6GLjDv5a785/0JzsaE52J6W1Ce2GmO3wzfiZqL7wjGq
- GR48JWzgDQAkj+PqyAdx84t/GonayzqK7b
+IronPort-Data: A9a23:mnH6Mq1I0kJeGAJrj/bD5clxkn2cJEfYwER7XKvMYLTBsI5bp2MEy
+ zcXCmGBM/bbZzb1eNwiPY+28h9QsZKDz941SFZkpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8tuTS+HuDgNyo4GlD5gdmP6gQ1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfE1NU5
+ PUGLhIxRzuHm9rn6u34Z8RuiZF2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
+ ZNfMGcxKk2aOHWjOX9OYH46tO6umnn4dSwesF+PrLA7y2PS0BZwwP7mN9+9ltmiHJ0MwBvC+
+ T2dl4j/KgoZa4Gu+CajyHnyvf3Dki/FQawJMITto5aGh3XMnzdOWXX6T2CTqvCjhkmzc9lWM
+ UAT92wlqq1a3FewUtD3Uhm8oXiFlh0RQdxdF6s98g7l4rrZ5UOVC3YJShZFacc6r4kmSDoyz
+ FiLktj1Qzt1v9WopWm1r+nO62noYG5McDFEPHVfJecY3zX9iJMBlAPGUNBBLIeeisHNSBuvg
+ B2nridr0t3/kvU3/6m8+FnGhRelqZ7IUhM5623rY4610u9qTNX7PtL1sDA3+d4Fdd/EFQfZ4
+ BDojuDEtIgz4YexeDthqQnnNJWg/L67PTLVmjaD9LFxpm32qxZPkW29iQySxXuF0O5eJFcFg
+ 2eJ42u9AaO/21P7BZKbm6rrV6wXIVHITLwJrMz8YNtUeYRWfwSa5ixobkP49zmzzxdywPxvY
+ c7CLZfE4ZMm5UNPlmfeegvg+eVzmnBWKZ37HvgXMChLIZLBPSXIGN/pwXOFb/wj7bPsnekm2
+ 483Cid+8D0GCLeWSnCOoeYuwaUicSBT6Wbe95YGKYZu42NORAkcNhMm6eh6J9c+xvwLz7agE
+ 7PUchYw9WcTTEbvcW2iAk2Popu1NXqjhRrX5RARAGs=
+IronPort-HdrOrdr: A9a23:kuiJnKECtHJRKDPnpLqELMeALOsnbusQ8zAXPiBKJCC9E/bo8v
+ xG+c5w6faaslkssR0b9+xoW5PwI080l6QU3WB5B97LMDUO0FHCEGgI1/qA/9SPIUzDHu4279
+ YbT0B9YueAcGSTW6zBkXWF+9VL+qj5zEix792uq0uE1WtRGtldBwESMHf9LmRGADNoKLAeD5
+ Sm6s9Ot1ObCA8qhpTSPAhiYwDbzee77a7bXQ==
 X-IronPort-AV: E=Sophos;i="5.98,228,1673931600"; 
-   d="scan'208";a="101652772"
+   d="scan'208";a="101652773"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [RFC XEN PATCH 0/7] automation, RFC prototype, Have GitLab CI built its own containers
-Date: Thu, 2 Mar 2023 17:53:25 +0000
-Message-ID: <20230302175332.56052-1-anthony.perard@citrix.com>
+	<anthony.perard@citrix.com>, Doug Goldstein <cardoe@cardoe.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+Subject: [RFC XEN PATCH 1/7] automation: Automatically rebuild debian:unstable container
+Date: Thu, 2 Mar 2023 17:53:26 +0000
+Message-ID: <20230302175332.56052-2-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230302175332.56052-1-anthony.perard@citrix.com>
+References: <20230302175332.56052-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Patch series available in this git branch:
-https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.gitlab-containers-auto-rebuild-v1
+Only run this on the staging branch, whenever the dockerfile changes.
 
-Hi,
+Allow to set a suffix when building containers, to be able to test it
+before changing the one in production.
 
-I have done some research to be able to build containers in the CI. This works
-only for x86 containers as I've setup only a single x86 gitlab-runner to be
-able to run docker-in-docker.
+Using "rules" instead of "only" as this allow to use variables in the
+"changes" rules. Also, "rules" is the preferred keyword as
+"only/except" isn't being actively developed in GitLab.
 
-The runner is setup to only accept jobs from a branch that is "protected" in
-gitlab. Also, one need credential to push to the container register, those are
-called "Group deploy tokens", and I've set the variables CI_DEPLOY_USER and
-CI_DEPLOY_PASSWORD in the project "xen-project/xen" (variables only visible on
-a pipeline running on a protected branch).
+Use $CI_PIPELINE_SOURCE==push to evaluate "rules:changes" only on
+push. In most other cases, "rules:changes" evaluate to true so
+checking CI_PIPELINE_SOURCE is important.
 
-These patch introduce quite a lot of redundancies in jobs, 2 new jobs per
-containers which build/push containers, and duplicate most of build.yaml.
-This mean that if we go with this, we have to duplicate and keep in sync many
-jobs.
-
-To avoid having to do the duplicated jobs by hand, I could look at
-creating a script that use "build.yaml" as input and produce the 3
-stages needed to update a container, but that script would need to be
-run by hand, as gitlab can't really use it, unless ..
-
-I've look at generated pipeline, and they look like this in gitlab:
-    https://gitlab.com/xen-project/people/anthonyper/xen/-/pipelines/777665738
-But the result of the generated/child pipeline doesn't seems to be taken into
-account in the original pipeline, which make me think that we can't use them to
-generate "build.yaml". But maybe the could be use for generating the pipeline
-that will update a container.
-Doc:
-    https://docs.gitlab.com/ee/ci/pipelines/downstream_pipelines.html#dynamic-child-pipelines
-
-So, with all of this, is it reasonable to test containers before
-pushing them to production? Or is it to much work? We could simply have jobs
-tacking care of rebuilding a container and pushing them to production without
-testing.
-
-An example with the variable DO_REBUILD_CONTAINER and PUSH_CONTAINER set (and
-existing build/test jobs disabled):
-    https://gitlab.com/xen-project/people/anthonyper/xen/-/pipelines/791711467
-
-Cheers,
-
-Anthony PERARD (7):
-  automation: Automatically rebuild debian:unstable container
-  automation: Introduce test-containers stage
-  automation: Add a template per container for build jobs.
-  automation: Adding containers build jobs and test of thoses
-  automation: Introduce DO_REBUILD_CONTAINER, to allow to rebuild a
-    container
-  automation: Push container been tested
-  automation: Add some more push containers jobs
-
- .gitlab-ci.yml                            |   6 +
- automation/build/Makefile                 |  14 +-
- automation/gitlab-ci/build.yaml           | 327 ++++++++------
- automation/gitlab-ci/containers.yaml      |  98 +++++
- automation/gitlab-ci/push-containers.yaml |  79 ++++
- automation/gitlab-ci/test-containers.yaml | 496 ++++++++++++++++++++++
- 6 files changed, 894 insertions(+), 126 deletions(-)
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+ .gitlab-ci.yml                       |  2 ++
+ automation/build/Makefile            |  4 ++--
+ automation/gitlab-ci/containers.yaml | 25 +++++++++++++++++++++++++
+ 3 files changed, 29 insertions(+), 2 deletions(-)
  create mode 100644 automation/gitlab-ci/containers.yaml
- create mode 100644 automation/gitlab-ci/push-containers.yaml
- create mode 100644 automation/gitlab-ci/test-containers.yaml
 
+diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
+index c8bd7519d5..c5d499b321 100644
+--- a/.gitlab-ci.yml
++++ b/.gitlab-ci.yml
+@@ -1,7 +1,9 @@
+ stages:
+   - build
+   - test
++  - containers
+ 
+ include:
+   - 'automation/gitlab-ci/build.yaml'
+   - 'automation/gitlab-ci/test.yaml'
++  - 'automation/gitlab-ci/containers.yaml'
+diff --git a/automation/build/Makefile b/automation/build/Makefile
+index 4df43b0407..5515938878 100644
+--- a/automation/build/Makefile
++++ b/automation/build/Makefile
+@@ -16,9 +16,9 @@ help:
+ include yocto/yocto.inc
+ 
+ %: %.dockerfile ## Builds containers
+-	$(DOCKER_CMD) build --pull -t $(REGISTRY)/$(@D):$(@F) -f $< $(<D)
++	$(DOCKER_CMD) build --pull -t $(REGISTRY)/$(@D):$(@F)$(BUILD_CONTAINER_SUFFIX) -f $< $(<D)
+ 	@if [ ! -z $${PUSH+x} ]; then \
+-		$(DOCKER_CMD) push $(REGISTRY)/$(@D):$(@F); \
++		$(DOCKER_CMD) push $(REGISTRY)/$(@D):$(@F)$(BUILD_CONTAINER_SUFFIX); \
+ 	fi
+ 
+ .PHONY: all clean
+diff --git a/automation/gitlab-ci/containers.yaml b/automation/gitlab-ci/containers.yaml
+new file mode 100644
+index 0000000000..ace93eaccf
+--- /dev/null
++++ b/automation/gitlab-ci/containers.yaml
+@@ -0,0 +1,25 @@
++.container-build-tmpl:
++  stage: containers
++  image: docker:stable
++  tags:
++    - container-builder
++  rules:
++    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "staging"
++      changes:
++        - automation/build/${BUILD_CONTAINER}.dockerfile
++  services:
++    - docker:dind
++  before_script:
++    - apk add make
++    - docker info
++    - docker login -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD $CI_REGISTRY
++  script:
++    - make -C automation/build ${BUILD_CONTAINER} PUSH=1 BUILD_CONTAINER_SUFFIX=-test
++  after_script:
++    - docker logout
++
++debian-unstable-container:
++  extends:
++    - .container-build-tmpl
++  variables:
++    BUILD_CONTAINER: debian/unstable
 -- 
 Anthony PERARD
 
