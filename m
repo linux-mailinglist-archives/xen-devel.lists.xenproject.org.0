@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 935EB6A8D3B
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 00:49:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505483.778297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7E686A8D53
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 00:51:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505488.778307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXsfN-0000rZ-Tg; Thu, 02 Mar 2023 23:48:53 +0000
+	id 1pXshJ-0002WT-9U; Thu, 02 Mar 2023 23:50:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505483.778297; Thu, 02 Mar 2023 23:48:53 +0000
+Received: by outflank-mailman (output) from mailman id 505488.778307; Thu, 02 Mar 2023 23:50:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXsfN-0000pr-Qp; Thu, 02 Mar 2023 23:48:53 +0000
-Received: by outflank-mailman (input) for mailman id 505483;
- Thu, 02 Mar 2023 23:48:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pXshJ-0002UV-5u; Thu, 02 Mar 2023 23:50:53 +0000
+Received: by outflank-mailman (input) for mailman id 505488;
+ Thu, 02 Mar 2023 23:50:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4tCB=62=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pXsfM-0000pl-2q
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 23:48:52 +0000
+ id 1pXshH-0002UN-K4
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 23:50:51 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c70b6ae0-b954-11ed-a550-8520e6686977;
- Fri, 03 Mar 2023 00:48:49 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0f1137cd-b955-11ed-96ad-2f268f93b82a;
+ Fri, 03 Mar 2023 00:50:50 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 98378615E7;
- Thu,  2 Mar 2023 23:48:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F87C433EF;
- Thu,  2 Mar 2023 23:48:46 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0AF7C615E7;
+ Thu,  2 Mar 2023 23:50:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232A7C433EF;
+ Thu,  2 Mar 2023 23:50:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,149 +43,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c70b6ae0-b954-11ed-a550-8520e6686977
+X-Inumbo-ID: 0f1137cd-b955-11ed-96ad-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677800927;
-	bh=7a6IbtBRS8S5NBMck0JXQ0Fuo9CoQWI6Jn1MSWmC9Lg=;
+	s=k20201202; t=1677801048;
+	bh=Sdk9Ok/e+YBLzSbWZW3D3COI7xsqH8tIB0rTyM3efRY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=krzoh8v52XcldIok/HOrPqNKzrH4BLy9ogvg/ffLj6Doo1g/U4Cwv5J6sz0yjh4HJ
-	 45x2THMTVsDe2EkTN75aEbmOz8s6X4oLK+OMnmfSSHfTDlew0kgjYD/XRTInuVXrb2
-	 sA3b24At6CBJeuW4BZ559eKDlKWGaxyG5NUp0/5rmFlXmAYePP7YeBRCeC5ADe0BYa
-	 IQlKB2bN1tCTrZ2Dahk5sAL5T3yjmNh3L8zaVhxnMpQq/tyK/EznbEeXdW5NLO9eem
-	 CZ6RD3h5WPpoP1D/1LXq7ka39c6pEoRlkYRSwsRXFZEqFV0PU6doRGn1YPRVUCA1CQ
-	 BDJtWjQI8O2Ng==
-Date: Thu, 2 Mar 2023 15:48:44 -0800 (PST)
+	b=o5FOVl9paKdaZxUSsqWRkKDmBJS+og1/3pxvEN+KpLdbFCVxSuMI8oqF1XW7kOp9K
+	 5pzeFn3yfmxz8QNUhJlO2s+GYPPihaYUkOEKDmDMavwKLalCn8gQKoLeBdfJlAePN1
+	 8mtDAaxXb0ELVr1DdjuBAm9v07iQiK9mi3EA16i0xcvPq/ZTIK2RaWgv7V/vl3YKC2
+	 xGWqn2DHPxnpR5ysZsTTb2Sb8u0qyoJ8JKXccSTqVvU62VGxhlk+KCUV2svBNpnKw6
+	 e7Z9pt+KIH2MNmh5lH1d7AQ6Dc7Rx/GxJYobj99jQwzBMBEOqBwbmnJ9xOsPbEXQ5w
+	 MtSsyXuG1jyIA==
+Date: Thu, 2 Mar 2023 15:50:45 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "jiamei.xie" <jiamei.xie@arm.com>
-cc: xen-devel@lists.xenproject.org, wei.chen@arm.com, sstabellini@kernel.org
-Subject: Re: [ImageBuilder][PATCH 2/2] uboot-script-gen: Add support for
- static shared memory
-In-Reply-To: <20230302044606.136130-3-jiamei.xie@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2303021547030.863724@ubuntu-linux-20-04-desktop>
-References: <20230302044606.136130-1-jiamei.xie@arm.com> <20230302044606.136130-3-jiamei.xie@arm.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2 1/2] xen/cppcheck: add a way to exclude files from
+ the scan
+In-Reply-To: <D40B74ED-1FB2-440F-A816-A47F837FABD6@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2303021550180.863724@ubuntu-linux-20-04-desktop>
+References: <20230301095320.264301-1-luca.fancellu@arm.com> <20230301095320.264301-2-luca.fancellu@arm.com> <alpine.DEB.2.22.394.2303011558170.3680@ubuntu-linux-20-04-desktop> <D40B74ED-1FB2-440F-A816-A47F837FABD6@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-535574450-1677801048=:863724"
 
-On Thu, 2 Mar 2023, jiamei.xie wrote:
-> Introduce support for creating shared-mem node for dom0less domUs in
-> the device tree. Add the following options:
-> - DOMU_SHARED_MEM[number]="HPA GPA size"
->   if specified, indicates the host physical address HPA will get mapped
->   at guest address GPA in domU and the memory of size will be reserved
->   to be shared memory.
-> - DOMU_SHARED_MEM_ID[number]
->   An arbitrary string that represents the unique identifier of the shared
->   memory region, with a strict limit on the number of characters(\0
->   included)
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-535574450-1677801048=:863724
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Thu, 2 Mar 2023, Luca Fancellu wrote:
+> >> +Exclude file list for xen-analysis script
+> >> +=========================================
+> >> +
+> >> +The code analysis is performed on the Xen codebase for both MISRA checkers and
+> >> +static analysis checkers, there are some files however that needs to be removed
+> >> +from the findings report because they are not owned by Xen and they must be kept
+> >> +in sync with their origin (completely or even partially), hence we can't easily
+> >> +fix findings or deviate from them.
+> > 
+> > I would stay more generic and say something like:
+> > 
+> > The code analysis is performed on the Xen codebase for both MISRA
+> > checkers and static analysis checkers, there are some files however that
+> > needs to be removed from the findings report for various reasons (e.g.
+> > they are imported from external sources, they generate too many false
+> > positive results, etc.).
+> > 
+> > But what you wrote is also OK.
 > 
-> The static shared memory is used between two dom0less domUs.
+> I’m ok with that too, I can update with your wordings
+> >> 
+> >> +++ b/xen/scripts/xen_analysis/exclusion_file_list.py
+> >> @@ -0,0 +1,79 @@
+> >> +#!/usr/bin/env python3
+> >> +
+> >> +import os, glob, json
+> >> +from . import settings
+> >> +
+> >> +class ExclusionFileListError(Exception):
+> >> +    pass
+> >> +
+> >> +
+> >> +def __cppcheck_path_exclude_syntax(path):
+> >> +    # Prepending * to the relative path to match every path where the Xen
+> >> +    # codebase could be
+> >> +    path = "*" + path
+> >> +
+> >> +    # Check if the path is to a folder without the wildcard at the end
+> >> +    if not (path.endswith(".c") or path.endswith(".h") or path.endswith("*")):
+> > 
+> > Isn't there a python call to check that it is actually a folder? I think
+> > that would be more resilient because otherwise if someone passes a .S or
+> > .cpp file it would be detected as directory.
+> > 
+> > 
+> >> +        # The path is to a folder, if it doesn't have the final /, add it
+> >> +        if not path.endswith("/"):
+> >> +            path = path + "/"
+> >> +        # Since the path is a folder, add a wildcard to the end so that
+> >> +        # cppcheck will remove every issue related with this path
+> >> +        path = path + "*"
+> >> +
+> >> +    return path
 > 
-> Below is an example:
-> NUM_DOMUS=2
-> DOMU_SHARED_MEM[0]="0x50000000 0x6000000 0x10000000"
-> DOMU_SHARED_MEM_ID[0]="my-shared-mem-0"
-> DOMU_SHARED_MEM[1]="0x50000000 0x6000000 0x10000000"
-> DOMU_SHARED_MEM_ID[1]="my-shared-mem-0"
-
-Rather than two separate properties, do you think it would make sense to
-just use one as follows?
-
-NUM_DOMUS=2
-DOMU_SHARED_MEM[0]="my-shared-mem-0 0x50000000 0x6000000 0x10000000"
-DOMU_SHARED_MEM[1]="my-shared-mem-0 0x50000000 0x6000000 0x10000000"
-
-The good thing about bash is that it doesn't care if they are numbers or
-strings :-)
-
-
-> This static shared memory region is identified as "my-shared-mem-0", host
-> physical address starting at 0x50000000 of 256MB will be reserved to be
-> shared between two domUs. It will get mapped at 0x6000000 in both guest
-> physical address space. Both DomUs are the borrower domain, the owner
-> domain is the default owner domain DOMID_IO.
+> Yes you are very right, here I wanted to accept the relative path to a folder with
+> or without the ending '/*’, but it carries on much more complexity because here the
+> relative path can contain wildcards in it, so we can’t use os.path.isdir() which would
+> fail.
 > 
-> Signed-off-by: jiamei.xie <jiamei.xie@arm.com>
-> ---
->  README.md                | 18 ++++++++++++++++++
->  scripts/uboot-script-gen | 26 ++++++++++++++++++++++++++
->  2 files changed, 44 insertions(+)
+> At cost of being more strict on how folders shall be declared, I think it’s better to
+> enforce the ‘/*’ at the end of a path that is excluding a folder.
 > 
-> diff --git a/README.md b/README.md
-> index 787f413..48044ee 100644
-> --- a/README.md
-> +++ b/README.md
-> @@ -192,6 +192,24 @@ Where:
->    if specified, indicates the host physical address regions
->    [baseaddr, baseaddr + size) to be reserved to the VM for static allocation.
+> We have a previous check using glob() to ensure path with wildcards are real path
+> so we are safe that the passed relative path are OK.
+> 
+> Dropping the requirement of passing folder paths with or without the ‘/*’ simplifies
+> the code and this would be the final result:
+> 
+> 
+> diff --git a/docs/misra/exclude-list.rst b/docs/misra/exclude-list.rst
+> index 969539c46beb..c97431a86120 100644
+> --- a/docs/misra/exclude-list.rst
+> +++ b/docs/misra/exclude-list.rst
+> @@ -3,11 +3,11 @@
+>  Exclude file list for xen-analysis script
+>  =========================================
 >  
-> +- DOMU_SHARED_MEM[number]="HPA GPA size" and DOMU_SHARED_MEM_ID[number]
-> +  if specified, indicate the host physical address HPA will get mapped at
-> +  guest address GPA in domU and the memory of size will be reserved to be
-> +  shared memory. The shared memory is used between two dom0less domUs.
-> +
-> +  Below is an example:
-> +  NUM_DOMUS=2
-> +  DOMU_SHARED_MEM[0]="0x50000000 0x6000000 0x10000000"
-> +  DOMU_SHARED_MEM_ID[0]="my-shared-mem-0"
-> +  DOMU_SHARED_MEM[1]="0x50000000 0x6000000 0x10000000"
-> +  DOMU_SHARED_MEM_ID[1]="my-shared-mem-0"
-> +
-> +  This static shared memory region is identified as "my-shared-mem-0", host
-> +  physical address starting at 0x50000000 of 256MB will be reserved to be
-> +  shared between two domUs. It will get mapped at 0x6000000 in both guest
-> +  physical address space. Both DomUs are the borrower domain, the owner
-> +  domain is the default owner domain DOMID_IO.
-> +
->  - DOMU_DIRECT_MAP[number] can be set to 1 or 0.
->    If set to 1, the VM is direct mapped. The default is 1.
->    This is only applicable when DOMU_STATIC_MEM is specified.
-> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-> index 4775293..46215c8 100755
-> --- a/scripts/uboot-script-gen
-> +++ b/scripts/uboot-script-gen
-> @@ -204,6 +204,27 @@ function add_device_tree_static_heap()
->      dt_set "$path" "xen,static-heap" "hex" "${cells[*]}"
->  }
+> -The code analysis is performed on the Xen codebase for both MISRA checkers and
+> -static analysis checkers, there are some files however that needs to be removed
+> -from the findings report because they are not owned by Xen and they must be kept
+> -in sync with their origin (completely or even partially), hence we can't easily
+> -fix findings or deviate from them.
+> +The code analysis is performed on the Xen codebase for both MISRA
+> +checkers and static analysis checkers, there are some files however that
+> +needs to be removed from the findings report for various reasons (e.g.
+> +they are imported from external sources, they generate too many false
+> +positive results, etc.).
 >  
-> +function add_device_tree_static_shared_mem()
-> +{
-> +    local path=$1
-> +    local domid=$2
-> +    local regions=$3
-> +    local SHARED_MEM_ID=$4
-> +    local cells=()
-> +    local SHARED_MEM_HOST=${regions%% *}
-> +
-> +    dt_mknode "${path}" "domU${domid}-shared-mem@${SHARED_MEM_HOST}"
-> +
-> +    for val in ${regions[@]}
-> +    do
-> +        cells+=("$(printf "0x%x 0x%x" $(($val >> 32)) $(($val & ((1 << 32) - 1))))")
-> +    done
-> +
-> +    dt_set "${path}/domU${domid}-shared-mem@${SHARED_MEM_HOST}" "compatible" "str" "xen,domain-shared-memory-v1"
-> +    dt_set "${path}/domU${domid}-shared-mem@${SHARED_MEM_HOST}" "xen,shm-id" "str" "${SHARED_MEM_ID}"
-> +    dt_set "${path}/domU${domid}-shared-mem@${SHARED_MEM_HOST}" "xen,shared-mem" "hex" "${cells[*]}"
-> +}
-> +
->  function add_device_tree_cpupools()
->  {
->      local cpu
-> @@ -329,6 +350,11 @@ function xen_device_tree_editing()
->              dt_set "/chosen/domU$i" "xen,enhanced" "str" "enabled"
->          fi
+>  For this reason the file docs/misra/exclude-list.json is used to exclude every
+>  entry listed in that file from the final report.
+> @@ -42,3 +42,5 @@ Here is an explanation of the fields inside an object of the "content" array:
 >  
-> +        if test -n "${DOMU_SHARED_MEM[i]}" -a -n "${DOMU_SHARED_MEM_ID[i]}"
-> +        then
-> +                add_device_tree_static_shared_mem "/chosen/domU${i}" "${i}" "${DOMU_SHARED_MEM[i]}" "${DOMU_SHARED_MEM_ID[i]}"
-> +        fi
-> +
->          if test "${DOMU_COLORS[$i]}"
->          then
->              local startcolor=$(echo "${DOMU_COLORS[$i]}"  | cut -d "-" -f 1)
-> -- 
-> 2.25.1
+>  To ease the review and the modifications of the entries, they shall be listed in
+>  alphabetical order referring to the rel_path field.
+> +Excluded folder paths shall end with '/*' in order to match everything on that
+> +folder.
+> diff --git a/xen/scripts/xen_analysis/exclusion_file_list.py b/xen/scripts/xen_analysis/exclusion_file_list.py
+> index 4a47a90f5944..871e480586bb 100644
+> --- a/xen/scripts/xen_analysis/exclusion_file_list.py
+> +++ b/xen/scripts/xen_analysis/exclusion_file_list.py
+> @@ -12,15 +12,6 @@ def __cppcheck_path_exclude_syntax(path):
+>      # codebase could be
+>      path = "*" + path
+>  
+> -    # Check if the path is to a folder without the wildcard at the end
+> -    if not (path.endswith(".c") or path.endswith(".h") or path.endswith("*")):
+> -        # The path is to a folder, if it doesn't have the final /, add it
+> -        if not path.endswith("/"):
+> -            path = path + "/"
+> -        # Since the path is a folder, add a wildcard to the end so that
+> -        # cppcheck will remove every issue related with this path
+> -        path = path + "*"
+> -
+>      return path
+>  
+>  
+> I’ve included also your wording and I’ve specified in the docs how to exclude a folder.
 > 
+> Do you think it’s ok to proceed in this way?
+
+Yes I think that's fine. I like that the python script becomes simpler
+--8323329-535574450-1677801048=:863724--
 
