@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB8306A8AB4
+	by mail.lfdr.de (Postfix) with ESMTPS id CC7D06A8AB5
 	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 21:47:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505405.778207 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.505401.778181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXppC-0005zv-Ar; Thu, 02 Mar 2023 20:46:50 +0000
+	id 1pXppA-0005SQ-Ba; Thu, 02 Mar 2023 20:46:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505405.778207; Thu, 02 Mar 2023 20:46:50 +0000
+Received: by outflank-mailman (output) from mailman id 505401.778181; Thu, 02 Mar 2023 20:46:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXppB-0005mN-Sd; Thu, 02 Mar 2023 20:46:49 +0000
-Received: by outflank-mailman (input) for mailman id 505405;
- Thu, 02 Mar 2023 20:46:48 +0000
+	id 1pXppA-0005N4-1z; Thu, 02 Mar 2023 20:46:48 +0000
+Received: by outflank-mailman (input) for mailman id 505401;
+ Thu, 02 Mar 2023 20:46:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IBoy=62=infradead.org=mcgrof@srs-se1.protection.inumbo.net>)
- id 1pXppA-0004ie-4J
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 20:46:48 +0000
+ id 1pXpp8-0004ie-F9
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 20:46:46 +0000
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [2607:7c80:54:3::133])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5709df2d-b93b-11ed-a550-8520e6686977;
- Thu, 02 Mar 2023 21:46:44 +0100 (CET)
+ id 5689b507-b93b-11ed-a550-8520e6686977;
+ Thu, 02 Mar 2023 21:46:43 +0100 (CET)
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.94.2 #2
- (Red Hat Linux)) id 1pXpoc-003HXW-Pv; Thu, 02 Mar 2023 20:46:14 +0000
+ (Red Hat Linux)) id 1pXpoc-003HXY-T5; Thu, 02 Mar 2023 20:46:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 5709df2d-b93b-11ed-a550-8520e6686977
+X-Inumbo-ID: 5689b507-b93b-11ed-a550-8520e6686977
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=b/ElRNVyLTcjLcjUYbTcuyx0KXFL0MQ9s53W3J7Nkdk=; b=JCk7vmd3WPk/eusfOMOFOK2REk
-	1XVuRYTKBgLvoHrvgM9QB8cHTbTgvan1wf+AtXio6deB/kkhZpQfQneT6nmVXKxIezrONKrOTELf3
-	rmCdFYzMHmg0TONwR5JS3VZ4zjWOMvXxjMFqyI6psWBRhwrNFSzKCozLL3Y7WMmT9MwO2epJUmMn1
-	nx1ETSbvwg/quZ3YXXD2gyOYG/pSUp1kP3DtHGRkmCdbO6zoWCzkVSo+qXR4XGbcXKmbNwBRWEY4U
-	V/tsgcudL0zXWPh1vuYy3EMUxTm83D/qlj7qqRLAlpw6hkLDL5UQ5XuwLQuQCuAhQx5o/qgOt8lew
-	PxDMLkug==;
+	bh=dtfyNVshuDQIj+dlbLKUh3FrBpHjPuB+OiDl4kHMg0w=; b=y+/KNE5d+TW3hH8L9Iql5pMuDY
+	mtQ2q1980lq3pkwG/xQP1LmilCyPNzezGqF7q0DG5V7xsGEwDTYwL1JvJCDFTe/zRXH57HGHD5QW/
+	O8UeGtO2rrvC7q1JiYXTkhaSl2XwOkiMf9u7Bw475hl1I50DYfKypH7bafzPo/5auQO5nAWWpyMzo
+	gGUrJvFV6cuTyc3hE4lyn5hDmXOrOPtNk1IXXmXNQPVhLjpjwJ7GPmbWttNzvSv3PP/4O3nghH0oh
+	Q9RypKa5XuLJaNXMpBIQPO6xY6fjA5jHIzzVMBlTxnFZ6w8BOSv37SOKMsJSXJC05q7iNhPjFZil9
+	SHo+B+Mg==;
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: ebiederm@xmission.com,
 	keescook@chromium.org,
@@ -86,9 +86,9 @@ Cc: j.granados@samsung.com,
 	openipmi-developer@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Luis Chamberlain <mcgrof@kernel.org>
-Subject: [PATCH 6/7] tty: simplify sysctl registration
-Date: Thu,  2 Mar 2023 12:46:11 -0800
-Message-Id: <20230302204612.782387-7-mcgrof@kernel.org>
+Subject: [PATCH 7/7] xen: simplify sysctl registration for balloon
+Date: Thu,  2 Mar 2023 12:46:12 -0800
+Message-Id: <20230302204612.782387-8-mcgrof@kernel.org>
 X-Mailer: git-send-email 2.37.1
 In-Reply-To: <20230302204612.782387-1-mcgrof@kernel.org>
 References: <20230302204612.782387-1-mcgrof@kernel.org>
@@ -97,51 +97,52 @@ Content-Transfer-Encoding: 8bit
 Sender: Luis Chamberlain <mcgrof@infradead.org>
 
 register_sysctl_table() is a deprecated compatibility wrapper.
-register_sysctl_init() can do the directory creation for you so just use
-that
+register_sysctl_init() can do the directory creation for you so just
+use that.
 
 Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 ---
- drivers/tty/tty_io.c | 20 +-------------------
+ drivers/xen/balloon.c | 20 +-------------------
  1 file changed, 1 insertion(+), 19 deletions(-)
 
-diff --git a/drivers/tty/tty_io.c b/drivers/tty/tty_io.c
-index 36fb945fdad4..766750e355ac 100644
---- a/drivers/tty/tty_io.c
-+++ b/drivers/tty/tty_io.c
-@@ -3614,31 +3614,13 @@ static struct ctl_table tty_table[] = {
+diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+index 617a7f4f07a8..586a1673459e 100644
+--- a/drivers/xen/balloon.c
++++ b/drivers/xen/balloon.c
+@@ -97,24 +97,6 @@ static struct ctl_table balloon_table[] = {
  	{ }
  };
  
--static struct ctl_table tty_dir_table[] = {
+-static struct ctl_table balloon_root[] = {
 -	{
--		.procname	= "tty",
+-		.procname	= "balloon",
 -		.mode		= 0555,
--		.child		= tty_table,
+-		.child		= balloon_table,
 -	},
 -	{ }
 -};
 -
--static struct ctl_table tty_root_table[] = {
+-static struct ctl_table xen_root[] = {
 -	{
--		.procname	= "dev",
+-		.procname	= "xen",
 -		.mode		= 0555,
--		.child		= tty_dir_table,
+-		.child		= balloon_root,
 -	},
 -	{ }
 -};
 -
- /*
-  * Ok, now we can initialize the rest of the tty devices and can count
-  * on memory allocations, interrupts etc..
-  */
- int __init tty_init(void)
- {
--	register_sysctl_table(tty_root_table);
-+	register_sysctl_init("dev/tty", tty_table);
- 	cdev_init(&tty_cdev, &tty_fops);
- 	if (cdev_add(&tty_cdev, MKDEV(TTYAUX_MAJOR, 0), 1) ||
- 	    register_chrdev_region(MKDEV(TTYAUX_MAJOR, 0), 1, "/dev/tty") < 0)
+ #else
+ #define xen_hotplug_unpopulated 0
+ #endif
+@@ -747,7 +729,7 @@ static int __init balloon_init(void)
+ #ifdef CONFIG_XEN_BALLOON_MEMORY_HOTPLUG
+ 	set_online_page_callback(&xen_online_page);
+ 	register_memory_notifier(&xen_memory_nb);
+-	register_sysctl_table(xen_root);
++	register_sysctl_init("xen/balloon", balloon_table);
+ #endif
+ 
+ 	balloon_add_regions();
 -- 
 2.39.1
 
