@@ -2,37 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 569EA6A8B8E
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 23:17:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505465.778266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D49066A8B96
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 23:18:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505470.778278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXrEN-0005EA-Nu; Thu, 02 Mar 2023 22:16:55 +0000
+	id 1pXrFQ-0005l8-3T; Thu, 02 Mar 2023 22:18:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505465.778266; Thu, 02 Mar 2023 22:16:55 +0000
+Received: by outflank-mailman (output) from mailman id 505470.778278; Thu, 02 Mar 2023 22:18:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXrEN-0005BN-LF; Thu, 02 Mar 2023 22:16:55 +0000
-Received: by outflank-mailman (input) for mailman id 505465;
- Thu, 02 Mar 2023 22:16:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pWRm=62=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1pXrEL-0005BH-W8
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 22:16:54 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eeafa0d5-b947-11ed-a550-8520e6686977;
- Thu, 02 Mar 2023 23:16:51 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id f11so543306wrv.8
- for <xen-devel@lists.xenproject.org>; Thu, 02 Mar 2023 14:16:51 -0800 (PST)
-Received: from [192.168.27.175] (43.red-95-127-39.staticip.rima-tde.net.
- [95.127.39.43]) by smtp.gmail.com with ESMTPSA id
- k21-20020a7bc415000000b003e206cc7237sm4096886wmi.24.2023.03.02.14.16.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Mar 2023 14:16:50 -0800 (PST)
+	id 1pXrFQ-0005hk-04; Thu, 02 Mar 2023 22:18:00 +0000
+Received: by outflank-mailman (input) for mailman id 505470;
+ Thu, 02 Mar 2023 22:17:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=igkB=62=gmail.com=tcminyard@srs-se1.protection.inumbo.net>)
+ id 1pXrFP-0005he-73
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 22:17:59 +0000
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [2607:f8b0:4864:20::832])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 160f0efd-b948-11ed-96ad-2f268f93b82a;
+ Thu, 02 Mar 2023 23:17:58 +0100 (CET)
+Received: by mail-qt1-x832.google.com with SMTP id l13so986091qtv.3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Mar 2023 14:17:58 -0800 (PST)
+Received: from serve.minyard.net ([47.184.176.248])
+ by smtp.gmail.com with ESMTPSA id
+ w19-20020ac843d3000000b003bfbf3afe51sm468742qtn.93.2023.03.02.14.17.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Mar 2023 14:17:56 -0800 (PST)
+Received: from minyard.net (unknown
+ [IPv6:2001:470:b8f6:1b:9812:99fe:c8aa:e89a])
+ by serve.minyard.net (Postfix) with ESMTPSA id 2843A18000C;
+ Thu,  2 Mar 2023 22:17:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,93 +47,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eeafa0d5-b947-11ed-a550-8520e6686977
+X-Inumbo-ID: 160f0efd-b948-11ed-96ad-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1677795411;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=j/QW1HM2Mk99OFnysxfaddjjhGUCTkKLCoCNHfnkBus=;
-        b=ALhBjpW+9d/4nqIcn9T7comSyKRfOMYle0Ef7GQcmPgOMdutjgV9UKobixXu/69zHV
-         Gna/Ej5gE7HUKBhbCvqj8/rzOOj3rbijoydiLuqrANb5aNRLMwdpFwlO6Ij0SEjLwLD2
-         SuURyr8oCgi/BLZT/28QMLcv7vIq/RsDcJEHtcwC9g3SA4Sh23srhZ96u5XizNgGCXBf
-         ZH3j7PM46/BS1tqUUOXxHHonLNrabmZBig13eMG/aln6neAwBf8pxBBx/y54Rue4bw03
-         m/17PD9lLEL2rAwGbbb36CMxU3NG/S/W6it0v6UIN8EOIM9HtOZbnfqO+RvCmNpJkpgk
-         4s4Q==
+        d=gmail.com; s=20210112; t=1677795477;
+        h=in-reply-to:content-disposition:mime-version:references:reply-to
+         :message-id:subject:cc:to:from:date:sender:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=V0eFa8ILkm7saCjWoXNnQHqm1RHUvtu7xtFURhRmKWU=;
+        b=GWIdVRbSbgGAneugFpQgdh5lGR+K1O2RColDxiylPsGvgbxgTi3suTXXA6wFi8OCK0
+         VNr55Ah0Gc82W4FpWSTsMpjDZ1Erp/WmIRnZDS0YpniCm5SeKBzDA3FCJ8OcngRfT3am
+         LJR4Wv1lndNYH/Q/fwVcsuZerou4gr/yo1YSLP0kQcvMrmf2NmdjcDnwIAjLduXqmPNe
+         VlNJuhUG6Jamo98Ukf3GRQnXMF/KhWX9aS1xIH9/YtXknnp6o/3S59Xtp1bxusSnAubi
+         fOjhj1lJxSPeHuAjqExElFjdtMpPl+2YjDqfLqGQB/n6i2Ayg1FV3OBABQqVd1q1TZM5
+         StNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677795411;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j/QW1HM2Mk99OFnysxfaddjjhGUCTkKLCoCNHfnkBus=;
-        b=idI1gSI/yhMjfA9b7d7SEM35BoyJAYsF24uhLG3XqQqBp3FTm0fM0rFVWnuB4hop5N
-         tp6AL/iTRyaqXmg7JJyvRs2K973DTCvfhSCOJRDIGb4T6Dh1HPX167ddkyCHp7UhnZNc
-         FlvyBE2+Zcxjb+ORV4Ef90BElEWRaouGwruJDR36CgUEA5X0uC3G2bcCOI7EGCVXybs9
-         vhEykO3zigYTsVqemg6A+41698eHzNXcBSB/3P60UEXiLb1fFDdd3So3LuwNljBFNaiE
-         rLa3NDTjHXq73fe29OQk43ZBElTwoJoF4QLVlN5d/OSyD7jGrS9iXOfxNTR1qXjBqIHS
-         w21g==
-X-Gm-Message-State: AO0yUKWaLGDsZR+mn8Yj0ZdkMTg/+H4+nN50ud+61T6Q9cxRTgDYsVr3
-	lxpMN/MUka4rcFcgGfXuT04dug==
-X-Google-Smtp-Source: AK7set8FAJoagkadDS0ky4D6I6VKl6CQte+kz2H8UpkpBkrwx3GyTQUjYMJKyj+fdM6XhAnFPLxhzw==
-X-Received: by 2002:a05:6000:11c2:b0:2c7:1d55:a56b with SMTP id i2-20020a05600011c200b002c71d55a56bmr8281108wrx.70.1677795411324;
-        Thu, 02 Mar 2023 14:16:51 -0800 (PST)
-Message-ID: <733a61bc-0e41-a864-c7fa-f177b35afa25@linaro.org>
-Date: Thu, 2 Mar 2023 23:16:47 +0100
+        d=1e100.net; s=20210112; t=1677795477;
+        h=in-reply-to:content-disposition:mime-version:references:reply-to
+         :message-id:subject:cc:to:from:date:sender:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=V0eFa8ILkm7saCjWoXNnQHqm1RHUvtu7xtFURhRmKWU=;
+        b=oWLkigZ20h7oFypufCMSMye707uipIiKSgrEMM6XlyXCO0/9eBwlGvKTYBcSXXYPfw
+         vEV8ipcGGHx9EVD5t4nIzB8XlzrLgqFbF0lyoEDsVPAe1edYJHrTKkVOXkzgiEKWxj2C
+         CTc+v0ulTRP8hyHDxQJazFfd2GV1WGzmGOZWtR+zyIyMuyxrFE8TqSy7mxCxJZ9nBIFl
+         IHWk/5YqNLJTOXcWnVATkU7GtHiryugaUfafttENzXpCTFtUug75/0vlofzLtQ9Y+CqC
+         XuYyoEzwAAYqAyx6W5oYYs+wVUrwvhqQmpGY0xCvjY1r6qYMd8OFp8QF020+ZHlmGBjr
+         YiQA==
+X-Gm-Message-State: AO0yUKVV0Dq37/Z8tM8cowwFlyyrbLGAKp9dZ0AbIcg7QAiWDtf8UuPo
+	PAfITBQdaH+mv1GnYcB/qA==
+X-Google-Smtp-Source: AK7set/y+bOjExP+nvbPQ/5QcDoAS99DJhG2vCN39iU8gau82df1z2MZqb9gk8YkNPi+sskmliPrlQ==
+X-Received: by 2002:ac8:5f47:0:b0:3bf:dd45:ed68 with SMTP id y7-20020ac85f47000000b003bfdd45ed68mr19008132qta.47.1677795476934;
+        Thu, 02 Mar 2023 14:17:56 -0800 (PST)
+Sender: Corey Minyard <tcminyard@gmail.com>
+Date: Thu, 2 Mar 2023 16:17:53 -0600
+From: Corey Minyard <minyard@acm.org>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Cc: ebiederm@xmission.com, keescook@chromium.org, yzaikin@google.com,
+	jejb@linux.ibm.com, martin.petersen@oracle.com, kys@microsoft.com,
+	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+	song@kernel.org, robinmholt@gmail.com, steve.wahl@hpe.com,
+	mike.travis@hpe.com, arnd@arndb.de, gregkh@linuxfoundation.org,
+	jirislaby@kernel.org, jgross@suse.com, sstabellini@kernel.org,
+	oleksandr_tyshchenko@epam.com, xen-devel@lists.xenproject.org,
+	j.granados@samsung.com, zhangpeng362@huawei.com,
+	tangmeng@uniontech.com, willy@infradead.org, nixiaoming@huawei.com,
+	sujiaxun@uniontech.com, patches@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org, apparmor@lists.ubuntu.com,
+	linux-raid@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	openipmi-developer@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/7] ipmi: simplify sysctl registration
+Message-ID: <ZAEgkeb6E+k8PFZc@minyard.net>
+Reply-To: minyard@acm.org
+References: <20230302204612.782387-1-mcgrof@kernel.org>
+ <20230302204612.782387-3-mcgrof@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.8.0
-Subject: Re: [PATCH v2 4/6] docs/about/deprecated: Deprecate the
- qemu-system-arm binary
-Content-Language: en-US
-To: Thomas Huth <thuth@redhat.com>, qemu-devel@nongnu.org,
- Peter Maydell <peter.maydell@linaro.org>,
- Daniel Berrange <berrange@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, qemu-arm@nongnu.org,
- Maxim Levitsky <mlevitsk@redhat.com>, libvir-list@redhat.com,
- Richard Henderson <richard.henderson@linaro.org>,
- xen-devel@lists.xenproject.org, Reinoud Zandijk <reinoud@netbsd.org>
-References: <20230302163106.465559-1-thuth@redhat.com>
- <20230302163106.465559-5-thuth@redhat.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
-In-Reply-To: <20230302163106.465559-5-thuth@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230302204612.782387-3-mcgrof@kernel.org>
 
-On 2/3/23 17:31, Thomas Huth wrote:
-> qemu-system-aarch64 is a proper superset of qemu-system-arm,
-> and the latter was mainly still required for 32-bit KVM support.
-> But this 32-bit KVM arm support has been dropped in the Linux
-> kernel a couple of years ago already, so we don't really need
-> qemu-system-arm anymore, thus deprecated it now.
+On Thu, Mar 02, 2023 at 12:46:07PM -0800, Luis Chamberlain wrote:
+> register_sysctl_table() is a deprecated compatibility wrapper.
+> register_sysctl() can do the directory creation for you so just use
+> that.
+
+Thanks, I have included this in my tree for the next merge window.
+
+-corey
+
 > 
-> Signed-off-by: Thomas Huth <thuth@redhat.com>
+> Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 > ---
->   docs/about/deprecated.rst | 10 ++++++++++
->   1 file changed, 10 insertions(+)
+>  drivers/char/ipmi/ipmi_poweroff.c | 16 +---------------
+>  1 file changed, 1 insertion(+), 15 deletions(-)
 > 
-> diff --git a/docs/about/deprecated.rst b/docs/about/deprecated.rst
-> index a30aa8dfdf..21ce70b5c9 100644
-> --- a/docs/about/deprecated.rst
-> +++ b/docs/about/deprecated.rst
-> @@ -45,6 +45,16 @@ run 32-bit guests by selecting a 32-bit CPU model, including KVM support
->   on x86_64 hosts. Thus users are recommended to reconfigure their systems
->   to use the ``qemu-system-x86_64`` binary instead.
->   
-> +``qemu-system-arm`` binary (since 8.0)
-> +''''''''''''''''''''''''''''''''''''''
-> +
-> +``qemu-system-aarch64`` is a proper superset of ``qemu-system-arm``. The
-> +latter was mainly a requirement for running KVM on 32-bit arm hosts, but
-> +this 32-bit KVM support has been removed some years ago already (see:
-
-s/some/few/?
-
-> +https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=541ad0150ca4
-> +). Thus the QEMU project will drop the ``qemu-system-arm`` binary in a
-> +future release. Use ``qemu-system-aarch64`` instead.
-
-If we unify, wouldn't it be simpler to name the single qemu-system
-binary emulating various ARM architectures as 'qemu-system-arm'?
+> diff --git a/drivers/char/ipmi/ipmi_poweroff.c b/drivers/char/ipmi/ipmi_poweroff.c
+> index 163ec9749e55..870659d91db2 100644
+> --- a/drivers/char/ipmi/ipmi_poweroff.c
+> +++ b/drivers/char/ipmi/ipmi_poweroff.c
+> @@ -659,20 +659,6 @@ static struct ctl_table ipmi_table[] = {
+>  	{ }
+>  };
+>  
+> -static struct ctl_table ipmi_dir_table[] = {
+> -	{ .procname	= "ipmi",
+> -	  .mode		= 0555,
+> -	  .child	= ipmi_table },
+> -	{ }
+> -};
+> -
+> -static struct ctl_table ipmi_root_table[] = {
+> -	{ .procname	= "dev",
+> -	  .mode		= 0555,
+> -	  .child	= ipmi_dir_table },
+> -	{ }
+> -};
+> -
+>  static struct ctl_table_header *ipmi_table_header;
+>  #endif /* CONFIG_PROC_FS */
+>  
+> @@ -689,7 +675,7 @@ static int __init ipmi_poweroff_init(void)
+>  		pr_info("Power cycle is enabled\n");
+>  
+>  #ifdef CONFIG_PROC_FS
+> -	ipmi_table_header = register_sysctl_table(ipmi_root_table);
+> +	ipmi_table_header = register_sysctl("dev/ipmi", ipmi_table);
+>  	if (!ipmi_table_header) {
+>  		pr_err("Unable to register powercycle sysctl\n");
+>  		rv = -ENOMEM;
+> -- 
+> 2.39.1
+> 
 
