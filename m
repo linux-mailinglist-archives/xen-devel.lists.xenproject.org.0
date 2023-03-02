@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E1A16A853E
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 16:35:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505060.777691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB0796A8542
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 16:35:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505052.777609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXkxW-0004PH-04; Thu, 02 Mar 2023 15:35:06 +0000
+	id 1pXkxM-000231-Dg; Thu, 02 Mar 2023 15:34:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505060.777691; Thu, 02 Mar 2023 15:35:05 +0000
+Received: by outflank-mailman (output) from mailman id 505052.777609; Thu, 02 Mar 2023 15:34:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXkxV-00043g-Il; Thu, 02 Mar 2023 15:35:05 +0000
-Received: by outflank-mailman (input) for mailman id 505060;
- Thu, 02 Mar 2023 15:34:58 +0000
+	id 1pXkxM-0001pG-7B; Thu, 02 Mar 2023 15:34:56 +0000
+Received: by outflank-mailman (input) for mailman id 505052;
+ Thu, 02 Mar 2023 15:34:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ucY8=62=casper.srs.infradead.org=BATV+a1ad97f05afd282148df+7130+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1pXkxO-0001Jv-5m
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 15:34:58 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=ZMsQ=62=desiato.srs.infradead.org=BATV+9a0490e5ac528e462c30+7130+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1pXkxK-0001Jv-5T
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 15:34:54 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c263863f-b90f-11ed-96ad-2f268f93b82a;
+ id c2cd18b0-b90f-11ed-96ad-2f268f93b82a;
  Thu, 02 Mar 2023 16:34:49 +0100 (CET)
 Received: from i7.infradead.org ([2001:8b0:10b:1:21e:67ff:fecb:7a92])
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pXkx4-002UNI-Ax; Thu, 02 Mar 2023 15:34:38 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1pXkx4-00FL3i-1h; Thu, 02 Mar 2023 15:34:39 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1pXkx4-004uyz-18; Thu, 02 Mar 2023 15:34:38 +0000
+ Linux)) id 1pXkx4-004uz3-1J; Thu, 02 Mar 2023 15:34:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: c263863f-b90f-11ed-96ad-2f268f93b82a
+X-Inumbo-ID: c2cd18b0-b90f-11ed-96ad-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=NF8xN9k5qsj8llf3yVbtIw6AiA0womeXOrSieif4acs=; b=cUA7Lvw0yCJuWXSkIWQA5xO/xU
-	Oi0tHoBTGkTy0ikl27dE7lIj+pLnQsIXy2aPk8GHf/8P6QyEaLRtXsCQ5Wztsruq7+fRMIPkInvid
-	BhmWYmiNrX78XsgufP3qVCbduJfDZnim6W1zVR9V8Wfmw/VG1oJrRoh1PUlM/r6Hp+G62mybpghc7
-	a8a7VW3IfgxIBcXBUsZ+Qyjd/iEcWuoKDr7AwRrFBR7DRB9SuvWx6lnvLe5SrB6THBkKal1wOvUwv
-	h0Bs0RxEp/SQ2jbKEd6YwoRvmiAWSkdzE0EEf6ov2BVNwEYQq5NBZN/fSFsZw7QPTTKvriSAOH6M6
-	Rg5fMqgQ==;
+	bh=5roE0YB+d8rwQAkUuNGzRtMIdxxHP+hz32oiYI6yf7w=; b=ZMiL3mxSXiO+MHU/FiBVWoME3R
+	Ko8a+F95bX2y7tnmyGdEXww1EHQVtXKhZhpvb53UzDhaNdyAizxp6zbLhC/cr4n+P61sgFp0AdPaj
+	D6wZ7McMkUylocJagzgdfPt1R9h/nElYoVS1F0u/ecX/c670vQGs7wE25vMaa1lRHilGn7juoT7al
+	YK6prpJLu6NRRZMv9TA4DJDt8kzN+Qs2L/Mn90lvZtfxjLTmU2uUtnst/V/xbcF21ooQAXcUjEtLp
+	9K9WdnAR+WDmKcQFNQ6Nz4l2yptOdA5bSIQhIjtk0HZBTCEpPNniyRWjtyd/dsNmg0oQib7SFidI7
+	be11QR6Q==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -62,342 +62,274 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	vikram.garhwal@amd.com,
 	Anthony Perard <anthony.perard@citrix.com>,
 	xen-devel@lists.xenproject.org
-Subject: [RFC PATCH v1 11/25] hw/xen: Pass grant ref to gnttab unmap operation
-Date: Thu,  2 Mar 2023 15:34:21 +0000
-Message-Id: <20230302153435.1170111-12-dwmw2@infradead.org>
+Subject: [RFC PATCH v1 12/25] hw/xen: Add foreignmem operations to allow redirection to internal emulation
+Date: Thu,  2 Mar 2023 15:34:22 +0000
+Message-Id: <20230302153435.1170111-13-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230302153435.1170111-1-dwmw2@infradead.org>
 References: <20230302153435.1170111-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The previous commit introduced redirectable gnttab operations fairly
-much like-for-like, with the exception of the extra arguments to the
-->open() call which were always NULL/0 anyway.
-
-This *changes* the arguments to the ->unmap() operation to include the
-original ref# that was mapped. Under real Xen it isn't necessary; all we
-need to do from QEMU is munmap(), then the kernel will release the grant,
-and Xen does the tracking/refcounting for the guest.
-
-When we have emulated grant tables though, we need to do all that for
-ourselves. So let's have the back ends keep track of what they mapped
-and pass it in to the ->unmap() method for us.
-
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Signed-off-by: Paul Durrant <pdurrant@amazon.com>
 ---
- hw/9pfs/xen-9p-backend.c            |  7 ++++---
- hw/block/dataplane/xen-block.c      |  1 +
- hw/char/xen_console.c               |  2 +-
- hw/net/xen_nic.c                    | 13 ++++++++-----
- hw/usb/xen-usb.c                    | 21 ++++++++++++++++-----
- hw/xen/xen-bus.c                    |  4 ++--
- hw/xen/xen-legacy-backend.c         |  4 ++--
- hw/xen/xen-operations.c             |  9 ++++++++-
- include/hw/xen/xen-bus.h            |  2 +-
- include/hw/xen/xen-legacy-backend.h |  6 +++---
- include/hw/xen/xen_backend_ops.h    |  7 ++++---
- 11 files changed, 50 insertions(+), 26 deletions(-)
+ hw/char/xen_console.c            |  8 +++---
+ hw/display/xenfb.c               | 20 +++++++-------
+ hw/xen/xen-operations.c          | 45 ++++++++++++++++++++++++++++++++
+ include/hw/xen/xen_backend_ops.h | 26 ++++++++++++++++++
+ include/hw/xen/xen_common.h      | 13 ---------
+ softmmu/globals.c                |  1 +
+ tests/unit/test-xs-node.c        |  1 +
+ 7 files changed, 88 insertions(+), 26 deletions(-)
 
-diff --git a/hw/9pfs/xen-9p-backend.c b/hw/9pfs/xen-9p-backend.c
-index 864bdaf952..d8bb0e847c 100644
---- a/hw/9pfs/xen-9p-backend.c
-+++ b/hw/9pfs/xen-9p-backend.c
-@@ -359,12 +359,13 @@ static int xen_9pfs_free(struct XenLegacyDevice *xendev)
-         if (xen_9pdev->rings[i].data != NULL) {
-             xen_be_unmap_grant_refs(&xen_9pdev->xendev,
-                                     xen_9pdev->rings[i].data,
-+                                    xen_9pdev->rings[i].intf->ref,
-                                     (1 << xen_9pdev->rings[i].ring_order));
-         }
-         if (xen_9pdev->rings[i].intf != NULL) {
--            xen_be_unmap_grant_refs(&xen_9pdev->xendev,
--                                    xen_9pdev->rings[i].intf,
--                                    1);
-+            xen_be_unmap_grant_ref(&xen_9pdev->xendev,
-+                                   xen_9pdev->rings[i].intf,
-+                                   xen_9pdev->rings[i].ref);
-         }
-         if (xen_9pdev->rings[i].bh != NULL) {
-             qemu_bh_delete(xen_9pdev->rings[i].bh);
-diff --git a/hw/block/dataplane/xen-block.c b/hw/block/dataplane/xen-block.c
-index 2785b9e849..e55b713002 100644
---- a/hw/block/dataplane/xen-block.c
-+++ b/hw/block/dataplane/xen-block.c
-@@ -705,6 +705,7 @@ void xen_block_dataplane_stop(XenBlockDataPlane *dataplane)
-         Error *local_err = NULL;
- 
-         xen_device_unmap_grant_refs(xendev, dataplane->sring,
-+                                    dataplane->ring_ref,
-                                     dataplane->nr_ring_ref, &local_err);
-         dataplane->sring = NULL;
- 
 diff --git a/hw/char/xen_console.c b/hw/char/xen_console.c
-index 63153dfde4..19ad6c946a 100644
+index 19ad6c946a..e9cef3e1ef 100644
 --- a/hw/char/xen_console.c
 +++ b/hw/char/xen_console.c
-@@ -271,7 +271,7 @@ static void con_disconnect(struct XenLegacyDevice *xendev)
+@@ -237,9 +237,9 @@ static int con_initialise(struct XenLegacyDevice *xendev)
+ 
+     if (!xendev->dev) {
+         xen_pfn_t mfn = con->ring_ref;
+-        con->sring = xenforeignmemory_map(xen_fmem, con->xendev.dom,
+-                                          PROT_READ | PROT_WRITE,
+-                                          1, &mfn, NULL);
++        con->sring = qemu_xen_foreignmem_map(con->xendev.dom, NULL,
++                                             PROT_READ | PROT_WRITE,
++                                             1, &mfn, NULL);
+     } else {
+         con->sring = xen_be_map_grant_ref(xendev, con->ring_ref,
+                                           PROT_READ | PROT_WRITE);
+@@ -269,7 +269,7 @@ static void con_disconnect(struct XenLegacyDevice *xendev)
+ 
+     if (con->sring) {
          if (!xendev->dev) {
-             xenforeignmemory_unmap(xen_fmem, con->sring, 1);
+-            xenforeignmemory_unmap(xen_fmem, con->sring, 1);
++            qemu_xen_foreignmem_unmap(con->sring, 1);
          } else {
--            xen_be_unmap_grant_ref(xendev, con->sring);
-+            xen_be_unmap_grant_ref(xendev, con->sring, con->ring_ref);
+             xen_be_unmap_grant_ref(xendev, con->sring, con->ring_ref);
          }
-         con->sring = NULL;
-     }
-diff --git a/hw/net/xen_nic.c b/hw/net/xen_nic.c
-index 7d92c2d022..166d03787d 100644
---- a/hw/net/xen_nic.c
-+++ b/hw/net/xen_nic.c
-@@ -181,7 +181,7 @@ static void net_tx_packets(struct XenNetDev *netdev)
-                 qemu_send_packet(qemu_get_queue(netdev->nic),
-                                  page + txreq.offset, txreq.size);
-             }
--            xen_be_unmap_grant_ref(&netdev->xendev, page);
-+            xen_be_unmap_grant_ref(&netdev->xendev, page, txreq.gref);
-             net_tx_response(netdev, &txreq, NETIF_RSP_OKAY);
-         }
-         if (!netdev->tx_work) {
-@@ -261,7 +261,7 @@ static ssize_t net_rx_packet(NetClientState *nc, const uint8_t *buf, size_t size
+diff --git a/hw/display/xenfb.c b/hw/display/xenfb.c
+index 260eb38a76..2c4016fcbd 100644
+--- a/hw/display/xenfb.c
++++ b/hw/display/xenfb.c
+@@ -98,8 +98,9 @@ static int common_bind(struct common *c)
+     if (xenstore_read_fe_int(&c->xendev, "event-channel", &c->xendev.remote_port) == -1)
          return -1;
-     }
-     memcpy(page + NET_IP_ALIGN, buf, size);
--    xen_be_unmap_grant_ref(&netdev->xendev, page);
-+    xen_be_unmap_grant_ref(&netdev->xendev, page, rxreq.gref);
-     net_rx_response(netdev, &rxreq, NETIF_RSP_OKAY, NET_IP_ALIGN, size, 0);
  
-     return size;
-@@ -343,7 +343,8 @@ static int net_connect(struct XenLegacyDevice *xendev)
-                                        netdev->rx_ring_ref,
-                                        PROT_READ | PROT_WRITE);
-     if (!netdev->rxs) {
--        xen_be_unmap_grant_ref(&netdev->xendev, netdev->txs);
-+        xen_be_unmap_grant_ref(&netdev->xendev, netdev->txs,
-+                               netdev->tx_ring_ref);
-         netdev->txs = NULL;
+-    c->page = xenforeignmemory_map(xen_fmem, c->xendev.dom,
+-                                   PROT_READ | PROT_WRITE, 1, &mfn, NULL);
++    c->page = qemu_xen_foreignmem_map(c->xendev.dom, NULL,
++                                      PROT_READ | PROT_WRITE, 1, &mfn,
++                                      NULL);
+     if (c->page == NULL)
          return -1;
-     }
-@@ -368,11 +369,13 @@ static void net_disconnect(struct XenLegacyDevice *xendev)
-     xen_pv_unbind_evtchn(&netdev->xendev);
  
-     if (netdev->txs) {
--        xen_be_unmap_grant_ref(&netdev->xendev, netdev->txs);
-+        xen_be_unmap_grant_ref(&netdev->xendev, netdev->txs,
-+                               netdev->tx_ring_ref);
-         netdev->txs = NULL;
-     }
-     if (netdev->rxs) {
--        xen_be_unmap_grant_ref(&netdev->xendev, netdev->rxs);
-+        xen_be_unmap_grant_ref(&netdev->xendev, netdev->rxs,
-+                               netdev->rx_ring_ref);
-         netdev->rxs = NULL;
-     }
- }
-diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
-index 0f7369e7ed..a770a64cb4 100644
---- a/hw/usb/xen-usb.c
-+++ b/hw/usb/xen-usb.c
-@@ -101,6 +101,8 @@ struct usbback_hotplug {
- struct usbback_info {
-     struct XenLegacyDevice         xendev;  /* must be first */
-     USBBus                   bus;
-+    uint32_t                 urb_ring_ref;
-+    uint32_t                 conn_ring_ref;
-     void                     *urb_sring;
-     void                     *conn_sring;
-     struct usbif_urb_back_ring urb_ring;
-@@ -277,10 +279,11 @@ static int usbback_init_packet(struct usbback_req *usbback_req)
- static void usbback_do_response(struct usbback_req *usbback_req, int32_t status,
-                                 int32_t actual_length, int32_t error_count)
+@@ -115,7 +116,7 @@ static void common_unbind(struct common *c)
  {
-+    uint32_t ref[USBIF_MAX_SEGMENTS_PER_REQUEST];
-     struct usbback_info *usbif;
-     struct usbif_urb_response *res;
-     struct XenLegacyDevice *xendev;
--    unsigned int notify;
-+    unsigned int notify, i;
- 
-     usbif = usbback_req->usbif;
-     xendev = &usbif->xendev;
-@@ -293,13 +296,19 @@ static void usbback_do_response(struct usbback_req *usbback_req, int32_t status,
-     }
- 
-     if (usbback_req->buffer) {
--        xen_be_unmap_grant_refs(xendev, usbback_req->buffer,
-+        for (i = 0; i < usbback_req->nr_buffer_segs; i++) {
-+            ref[i] = usbback_req->req.seg[i].gref;
-+        }
-+        xen_be_unmap_grant_refs(xendev, usbback_req->buffer, ref,
-                                 usbback_req->nr_buffer_segs);
-         usbback_req->buffer = NULL;
-     }
- 
-     if (usbback_req->isoc_buffer) {
--        xen_be_unmap_grant_refs(xendev, usbback_req->isoc_buffer,
-+        for (i = 0; i < usbback_req->nr_extra_segs; i++) {
-+            ref[i] = usbback_req->req.seg[i + usbback_req->req.nr_buffer_segs].gref;
-+        }
-+        xen_be_unmap_grant_refs(xendev, usbback_req->isoc_buffer, ref,
-                                 usbback_req->nr_extra_segs);
-         usbback_req->isoc_buffer = NULL;
-     }
-@@ -832,11 +841,11 @@ static void usbback_disconnect(struct XenLegacyDevice *xendev)
-     xen_pv_unbind_evtchn(xendev);
- 
-     if (usbif->urb_sring) {
--        xen_be_unmap_grant_ref(xendev, usbif->urb_sring);
-+        xen_be_unmap_grant_ref(xendev, usbif->urb_sring, usbif->urb_ring_ref);
-         usbif->urb_sring = NULL;
-     }
-     if (usbif->conn_sring) {
--        xen_be_unmap_grant_ref(xendev, usbif->conn_sring);
-+        xen_be_unmap_grant_ref(xendev, usbif->conn_sring, usbif->conn_ring_ref);
-         usbif->conn_sring = NULL;
-     }
- 
-@@ -889,6 +898,8 @@ static int usbback_connect(struct XenLegacyDevice *xendev)
-         return -1;
-     }
- 
-+    usbif->urb_ring_ref = urb_ring_ref;
-+    usbif->conn_ring_ref = conn_ring_ref;
-     urb_sring = usbif->urb_sring;
-     conn_sring = usbif->conn_sring;
-     BACK_RING_INIT(&usbif->urb_ring, urb_sring, XC_PAGE_SIZE);
-diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-index b247e86f28..aee6a8c9b0 100644
---- a/hw/xen/xen-bus.c
-+++ b/hw/xen/xen-bus.c
-@@ -967,10 +967,10 @@ void *xen_device_map_grant_refs(XenDevice *xendev, uint32_t *refs,
-     return map;
- }
- 
--void xen_device_unmap_grant_refs(XenDevice *xendev, void *map,
-+void xen_device_unmap_grant_refs(XenDevice *xendev, void *map, uint32_t *refs,
-                                  unsigned int nr_refs, Error **errp)
- {
--    if (qemu_xen_gnttab_unmap(xendev->xgth, map, nr_refs)) {
-+    if (qemu_xen_gnttab_unmap(xendev->xgth, map, refs, nr_refs)) {
-         error_setg_errno(errp, errno, "xengnttab_unmap failed");
+     xen_pv_unbind_evtchn(&c->xendev);
+     if (c->page) {
+-        xenforeignmemory_unmap(xen_fmem, c->page, 1);
++        qemu_xen_foreignmem_unmap(c->page, 1);
+         c->page = NULL;
      }
  }
-diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
-index 1e9a28f263..a48a25aeb5 100644
---- a/hw/xen/xen-legacy-backend.c
-+++ b/hw/xen/xen-legacy-backend.c
-@@ -137,11 +137,11 @@ void *xen_be_map_grant_refs(struct XenLegacyDevice *xendev, uint32_t *refs,
- }
+@@ -500,15 +501,16 @@ static int xenfb_map_fb(struct XenFB *xenfb)
+     fbmfns = g_new0(xen_pfn_t, xenfb->fbpages);
  
- void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
--                             unsigned int nr_refs)
-+                             uint32_t *refs, unsigned int nr_refs)
- {
-     assert(xendev->ops->flags & DEVOPS_FLAG_NEED_GNTDEV);
+     xenfb_copy_mfns(mode, n_fbdirs, pgmfns, pd);
+-    map = xenforeignmemory_map(xen_fmem, xenfb->c.xendev.dom,
+-                               PROT_READ, n_fbdirs, pgmfns, NULL);
++    map = qemu_xen_foreignmem_map(xenfb->c.xendev.dom, NULL, PROT_READ,
++                                  n_fbdirs, pgmfns, NULL);
+     if (map == NULL)
+         goto out;
+     xenfb_copy_mfns(mode, xenfb->fbpages, fbmfns, map);
+-    xenforeignmemory_unmap(xen_fmem, map, n_fbdirs);
++    qemu_xen_foreignmem_unmap(map, n_fbdirs);
  
--    if (qemu_xen_gnttab_unmap(xendev->gnttabdev, ptr, nr_refs)) {
-+    if (qemu_xen_gnttab_unmap(xendev->gnttabdev, ptr, refs, nr_refs)) {
-         xen_pv_printf(xendev, 0, "xengnttab_unmap failed: %s\n",
-                       strerror(errno));
-     }
+-    xenfb->pixels = xenforeignmemory_map(xen_fmem, xenfb->c.xendev.dom,
+-            PROT_READ, xenfb->fbpages, fbmfns, NULL);
++    xenfb->pixels = qemu_xen_foreignmem_map(xenfb->c.xendev.dom, NULL,
++                                            PROT_READ, xenfb->fbpages,
++                                            fbmfns, NULL);
+     if (xenfb->pixels == NULL)
+         goto out;
+ 
+@@ -927,7 +929,7 @@ static void fb_disconnect(struct XenLegacyDevice *xendev)
+      *   Replacing the framebuffer with anonymous shared memory
+      *   instead.  This releases the guest pages and keeps qemu happy.
+      */
+-    xenforeignmemory_unmap(xen_fmem, fb->pixels, fb->fbpages);
++    qemu_xen_foreignmem_unmap(fb->pixels, fb->fbpages);
+     fb->pixels = mmap(fb->pixels, fb->fbpages * XC_PAGE_SIZE,
+                       PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANON,
+                       -1, 0);
 diff --git a/hw/xen/xen-operations.c b/hw/xen/xen-operations.c
-index eb5fb0a59f..73dabac8e5 100644
+index 73dabac8e5..61e56a7abe 100644
 --- a/hw/xen/xen-operations.c
 +++ b/hw/xen/xen-operations.c
-@@ -200,6 +200,13 @@ static xengnttab_handle *libxengnttab_backend_open(void)
-     return xengnttab_open(NULL, 0);
- }
+@@ -22,6 +22,7 @@
+  */
+ #undef XC_WANT_COMPAT_EVTCHN_API
+ #undef XC_WANT_COMPAT_GNTTAB_API
++#undef XC_WANT_COMPAT_MAP_FOREIGN_API
  
-+static int libxengnttab_backend_unmap(xengnttab_handle *xgt,
-+                                      void *start_address, uint32_t *refs,
-+                                      uint32_t count)
+ #include <xenctrl.h>
+ 
+@@ -56,10 +57,13 @@ typedef xc_gnttab xengnttab_handle;
+ #define xengnttab_map_domain_grant_refs(h, c, d, r, p) \
+     xc_gnttab_map_domain_grant_refs(h, c, d, r, p)
+ 
++typedef xc_interface xenforeignmemory_handle;
++
+ #else /* CONFIG_XEN_CTRL_INTERFACE_VERSION >= 40701 */
+ 
+ #include <xenevtchn.h>
+ #include <xengnttab.h>
++#include <xenforeignmemory.h>
+ 
+ #endif
+ 
+@@ -218,6 +222,46 @@ static struct gnttab_backend_ops libxengnttab_backend_ops = {
+     .unmap = libxengnttab_backend_unmap,
+ };
+ 
++#if CONFIG_XEN_CTRL_INTERFACE_VERSION < 40701
++
++static void *libxenforeignmem_backend_map(uint32_t dom, void *addr, int prot,
++                                          size_t pages, xfn_pfn_t *pfns,
++                                          int *errs)
 +{
-+    return xengnttab_unmap(xgt, start_address, count);
++    if (errs) {
++        return xc_map_foreign_bulk(xen_xc, dom, prot, pfns, errs, pages);
++    } else {
++        return xc_map_foreign_pages(xen_xc, dom, prot, pfns, pages);
++    }
 +}
 +
- 
- static struct gnttab_backend_ops libxengnttab_backend_ops = {
-     .features = XEN_GNTTAB_OP_FEATURE_MAP_MULTIPLE,
-@@ -208,7 +215,7 @@ static struct gnttab_backend_ops libxengnttab_backend_ops = {
-     .grant_copy = libxengnttab_fallback_grant_copy,
-     .set_max_grants = xengnttab_set_max_grants,
-     .map_refs = xengnttab_map_domain_grant_refs,
--    .unmap = xengnttab_unmap,
-+    .unmap = libxengnttab_backend_unmap,
- };
- 
++static int libxenforeignmem_backend_unmap(void *addr, size_t pages)
++{
++    return munmap(addr, pages * XC_PAGE_SIZE);
++}
++
++#else /* CONFIG_XEN_CTRL_INTERFACE_VERSION >= 40701 */
++
++static void *libxenforeignmem_backend_map(uint32_t dom, void *addr, int prot,
++                                          size_t pages, xen_pfn_t *pfns,
++                                          int *errs)
++{
++    return xenforeignmemory_map2(xen_fmem, dom, addr, prot, 0, pages, pfns,
++                                 errs);
++}
++
++static int libxenforeignmem_backend_unmap(void *addr, size_t pages)
++{
++    return xenforeignmemory_unmap(xen_fmem, addr, pages);
++}
++
++#endif
++
++struct foreignmem_backend_ops libxenforeignmem_backend_ops = {
++    .map = libxenforeignmem_backend_map,
++    .unmap = libxenforeignmem_backend_unmap,
++};
++
  void setup_xen_backend_ops(void)
-diff --git a/include/hw/xen/xen-bus.h b/include/hw/xen/xen-bus.h
-index 72d71d1eb7..5a90e79d53 100644
---- a/include/hw/xen/xen-bus.h
-+++ b/include/hw/xen/xen-bus.h
-@@ -102,7 +102,7 @@ void xen_device_set_max_grant_refs(XenDevice *xendev, unsigned int nr_refs,
- void *xen_device_map_grant_refs(XenDevice *xendev, uint32_t *refs,
-                                 unsigned int nr_refs, int prot,
-                                 Error **errp);
--void xen_device_unmap_grant_refs(XenDevice *xendev, void *map,
-+void xen_device_unmap_grant_refs(XenDevice *xendev, void *map, uint32_t *refs,
-                                  unsigned int nr_refs, Error **errp);
- 
- typedef struct XenDeviceGrantCopySegment {
-diff --git a/include/hw/xen/xen-legacy-backend.h b/include/hw/xen/xen-legacy-backend.h
-index eaf79cd221..ab28583267 100644
---- a/include/hw/xen/xen-legacy-backend.h
-+++ b/include/hw/xen/xen-legacy-backend.h
-@@ -52,7 +52,7 @@ void xen_be_set_max_grant_refs(struct XenLegacyDevice *xendev,
- void *xen_be_map_grant_refs(struct XenLegacyDevice *xendev, uint32_t *refs,
-                             unsigned int nr_refs, int prot);
- void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
--                             unsigned int nr_refs);
-+                             uint32_t *refs, unsigned int nr_refs);
- 
- int xen_be_copy_grant_refs(struct XenLegacyDevice *xendev,
-                            bool to_domain, XenGrantCopySegment segs[],
-@@ -65,9 +65,9 @@ static inline void *xen_be_map_grant_ref(struct XenLegacyDevice *xendev,
- }
- 
- static inline void xen_be_unmap_grant_ref(struct XenLegacyDevice *xendev,
--                                          void *ptr)
-+                                          void *ptr, uint32_t ref)
  {
--    return xen_be_unmap_grant_refs(xendev, ptr, 1);
-+    return xen_be_unmap_grant_refs(xendev, ptr, &ref, 1);
+ #if CONFIG_XEN_CTRL_INTERFACE_VERSION >= 40800
+@@ -232,4 +276,5 @@ void setup_xen_backend_ops(void)
+ #endif
+     xen_evtchn_ops = &libxenevtchn_backend_ops;
+     xen_gnttab_ops = &libxengnttab_backend_ops;
++    xen_foreignmem_ops = &libxenforeignmem_backend_ops;
  }
- 
- /* actual backend drivers */
 diff --git a/include/hw/xen/xen_backend_ops.h b/include/hw/xen/xen_backend_ops.h
-index bb3333ab00..6f9d8e2c62 100644
+index 6f9d8e2c62..0dff06bbde 100644
 --- a/include/hw/xen/xen_backend_ops.h
 +++ b/include/hw/xen/xen_backend_ops.h
-@@ -144,7 +144,8 @@ struct gnttab_backend_ops {
-     int (*set_max_grants)(xengnttab_handle *xgt, uint32_t nr_grants);
-     void *(*map_refs)(xengnttab_handle *xgt, uint32_t count, uint32_t domid,
-                       uint32_t *refs, int prot);
--    int (*unmap)(xengnttab_handle *xgt, void *start_address, uint32_t count);
-+    int (*unmap)(xengnttab_handle *xgt, void *start_address, uint32_t *refs,
-+                 uint32_t count);
- };
- 
- extern struct gnttab_backend_ops *xen_gnttab_ops;
-@@ -204,13 +205,13 @@ static inline void *qemu_xen_gnttab_map_refs(xengnttab_handle *xgt,
+@@ -214,6 +214,32 @@ static inline int qemu_xen_gnttab_unmap(xengnttab_handle *xgt,
+     return xen_gnttab_ops->unmap(xgt, start_address, refs, count);
  }
  
- static inline int qemu_xen_gnttab_unmap(xengnttab_handle *xgt,
--                                        void *start_address,
-+                                        void *start_address, uint32_t *refs,
-                                         uint32_t count)
- {
-     if (!xen_gnttab_ops) {
-         return -ENOSYS;
-     }
--    return xen_gnttab_ops->unmap(xgt, start_address, count);
-+    return xen_gnttab_ops->unmap(xgt, start_address, refs, count);
- }
- 
++struct foreignmem_backend_ops {
++    void *(*map)(uint32_t dom, void *addr, int prot, size_t pages,
++                 xen_pfn_t *pfns, int *errs);
++    int (*unmap)(void *addr, size_t pages);
++};
++
++extern struct foreignmem_backend_ops *xen_foreignmem_ops;
++
++static inline void *qemu_xen_foreignmem_map(uint32_t dom, void *addr, int prot,
++                                            size_t pages, xen_pfn_t *pfns,
++                                            int *errs)
++{
++    if (!xen_foreignmem_ops) {
++        return NULL;
++    }
++    return xen_foreignmem_ops->map(dom, addr, prot, pages, pfns, errs);
++}
++
++static inline int qemu_xen_foreignmem_unmap(void *addr, size_t pages)
++{
++    if (!xen_foreignmem_ops) {
++        return -ENOSYS;
++    }
++    return xen_foreignmem_ops->unmap(addr, pages);
++}
++
  void setup_xen_backend_ops(void);
+ 
+ #endif /* QEMU_XEN_BACKEND_OPS_H */
+diff --git a/include/hw/xen/xen_common.h b/include/hw/xen/xen_common.h
+index d4d10d3ff1..632ce617cc 100644
+--- a/include/hw/xen/xen_common.h
++++ b/include/hw/xen/xen_common.h
+@@ -32,19 +32,6 @@ typedef xc_interface xenforeignmemory_handle;
+ #define xenforeignmemory_open(l, f) xen_xc
+ #define xenforeignmemory_close(h)
+ 
+-static inline void *xenforeignmemory_map(xc_interface *h, uint32_t dom,
+-                                         int prot, size_t pages,
+-                                         const xen_pfn_t arr[/*pages*/],
+-                                         int err[/*pages*/])
+-{
+-    if (err)
+-        return xc_map_foreign_bulk(h, dom, prot, arr, err, pages);
+-    else
+-        return xc_map_foreign_pages(h, dom, prot, arr, pages);
+-}
+-
+-#define xenforeignmemory_unmap(h, p, s) munmap(p, s * XC_PAGE_SIZE)
+-
+ #else /* CONFIG_XEN_CTRL_INTERFACE_VERSION >= 40701 */
+ 
+ #include <xenforeignmemory.h>
+diff --git a/softmmu/globals.c b/softmmu/globals.c
+index 23bb27f0f6..dda32986f7 100644
+--- a/softmmu/globals.c
++++ b/softmmu/globals.c
+@@ -67,3 +67,4 @@ enum xen_mode xen_mode = XEN_DISABLED;
+ bool xen_domid_restrict;
+ struct evtchn_backend_ops *xen_evtchn_ops;
+ struct gnttab_backend_ops *xen_gnttab_ops;
++struct foreignmem_backend_ops *xen_foreignmem_ops;
+diff --git a/tests/unit/test-xs-node.c b/tests/unit/test-xs-node.c
+index fda6a047d0..b80d10ff98 100644
+--- a/tests/unit/test-xs-node.c
++++ b/tests/unit/test-xs-node.c
+@@ -23,6 +23,7 @@ static GList *xs_node_list;
+  * doesn't hurt).
+  */
+ #define __XEN_PUBLIC_XEN_H__
++typedef unsigned long xen_pfn_t;
+ 
+ #include "hw/i386/kvm/xenstore_impl.c"
+ 
 -- 
 2.39.0
 
