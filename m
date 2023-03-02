@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBEB46A8845
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 19:07:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505353.778082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A45AE6A8849
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 19:08:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505357.778092 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXnKy-0006nY-IS; Thu, 02 Mar 2023 18:07:28 +0000
+	id 1pXnLU-0007Hb-RL; Thu, 02 Mar 2023 18:08:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505353.778082; Thu, 02 Mar 2023 18:07:28 +0000
+Received: by outflank-mailman (output) from mailman id 505357.778092; Thu, 02 Mar 2023 18:08:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXnKy-0006kl-FF; Thu, 02 Mar 2023 18:07:28 +0000
-Received: by outflank-mailman (input) for mailman id 505353;
- Thu, 02 Mar 2023 18:07:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pXnLU-0007FV-O0; Thu, 02 Mar 2023 18:08:00 +0000
+Received: by outflank-mailman (input) for mailman id 505357;
+ Thu, 02 Mar 2023 18:07:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fuJ3=62=redhat.com=berrange@srs-se1.protection.inumbo.net>)
- id 1pXnKx-0006kf-FW
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 18:07:27 +0000
+ id 1pXnLT-00073M-HD
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 18:07:59 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1599fa45-b925-11ed-a550-8520e6686977;
- Thu, 02 Mar 2023 19:07:25 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 298bb88c-b925-11ed-96ad-2f268f93b82a;
+ Thu, 02 Mar 2023 19:07:59 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-662-HQifpbvcNp2xRQ326_T1bQ-1; Thu, 02 Mar 2023 13:07:20 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+ us-mta-460-ueznbH63Oj-2dfli66aY8w-1; Thu, 02 Mar 2023 13:07:54 -0500
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B25C38012D5;
- Thu,  2 Mar 2023 18:07:19 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ECC3E3C10C66;
+ Thu,  2 Mar 2023 18:07:53 +0000 (UTC)
 Received: from redhat.com (unknown [10.33.36.46])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 60A0E440DF;
- Thu,  2 Mar 2023 18:07:15 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C1F01492B01;
+ Thu,  2 Mar 2023 18:07:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,20 +50,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1599fa45-b925-11ed-a550-8520e6686977
+X-Inumbo-ID: 298bb88c-b925-11ed-96ad-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677780444;
+	s=mimecast20190719; t=1677780477;
 	h=from:from:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RIFIu9FzFlmMJ7rjilkD4RNn39gojKgiNaI+RvmuVps=;
-	b=FLLCE6PKLnnRwR03rUMpxuGCl3sfMfxR4aXlUng7tKjiIvcIYVGsB2OorKHk+2ZdGwZVxN
-	lbjhjInti/HpFWEIq8XcTL+HkWApqZeNvkoB0JBXuljFlJnbr/mtcJ9ZpyBhoMrNuQse6l
-	9SNrP0fXvGhsmeardWfd8W4zxBZt6W8=
-X-MC-Unique: HQifpbvcNp2xRQ326_T1bQ-1
-Date: Thu, 2 Mar 2023 18:07:09 +0000
+	bh=DnPTB81/Gt6pY7mNbCORydL/Gzv6g9K34G65htUwk+0=;
+	b=Hv3qAp80708jbtyil/ZGWO3qZa6uZo3OZoMLWU219aG6z/hgcPRpBDB+IPZBw4K697rx2/
+	NBIyo3i1usCpFInbZl3T+xwx7XezWBHDp7HArHEMx2HySnba3YGJQeGAELzNqaTGxoc3dO
+	YO+8G/gY3Meqzo11eqAhKGZ8PEpxmMk=
+X-MC-Unique: ueznbH63Oj-2dfli66aY8w-1
+Date: Thu, 2 Mar 2023 18:07:48 +0000
 From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 To: Thomas Huth <thuth@redhat.com>
 Cc: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
@@ -75,71 +75,34 @@ Cc: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
 	Richard Henderson <richard.henderson@linaro.org>,
 	xen-devel@lists.xenproject.org,
 	Reinoud Zandijk <reinoud@netbsd.org>
-Subject: Re: [PATCH v2 3/6] gitlab-ci.d/crossbuilds: Drop the i386 jobs
-Message-ID: <ZADlzSMBnjUgyyu0@redhat.com>
+Subject: Re: [PATCH v2 4/6] docs/about/deprecated: Deprecate the
+ qemu-system-arm binary
+Message-ID: <ZADl9O8Yq+vLVI9A@redhat.com>
 Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
 References: <20230302163106.465559-1-thuth@redhat.com>
- <20230302163106.465559-4-thuth@redhat.com>
+ <20230302163106.465559-5-thuth@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230302163106.465559-4-thuth@redhat.com>
+In-Reply-To: <20230302163106.465559-5-thuth@redhat.com>
 User-Agent: Mutt/2.2.9 (2022-11-12)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 
-On Thu, Mar 02, 2023 at 05:31:03PM +0100, Thomas Huth wrote:
-> Hardly anybody still uses 32-bit x86 environments for running QEMU,
-> so let's stop wasting our scarce CI minutes with these jobs.
+On Thu, Mar 02, 2023 at 05:31:04PM +0100, Thomas Huth wrote:
+> qemu-system-aarch64 is a proper superset of qemu-system-arm,
+> and the latter was mainly still required for 32-bit KVM support.
+> But this 32-bit KVM arm support has been dropped in the Linux
+> kernel a couple of years ago already, so we don't really need
+> qemu-system-arm anymore, thus deprecated it now.
 > 
 > Signed-off-by: Thomas Huth <thuth@redhat.com>
 > ---
->  .gitlab-ci.d/crossbuilds.yml | 16 ----------------
->  1 file changed, 16 deletions(-)
+>  docs/about/deprecated.rst | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 
 Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
 
-There's still the mingw 32-bit x86 build, but probably wolrth
-keeping that until we actually stop 32-bit from a technical
-POV, because Stefan still publishes the 32-bit windows
-installers currently
-
-Similarly  the dockerfile can stay in case someone wants to
-reproduce a flaw locally
-
-Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-
-
-> diff --git a/.gitlab-ci.d/crossbuilds.yml b/.gitlab-ci.d/crossbuilds.yml
-> index 101416080c..3ce51adf77 100644
-> --- a/.gitlab-ci.d/crossbuilds.yml
-> +++ b/.gitlab-ci.d/crossbuilds.yml
-> @@ -43,22 +43,6 @@ cross-arm64-user:
->    variables:
->      IMAGE: debian-arm64-cross
->  
-> -cross-i386-system:
-> -  extends: .cross_system_build_job
-> -  needs:
-> -    job: i386-fedora-cross-container
-> -  variables:
-> -    IMAGE: fedora-i386-cross
-> -    MAKE_CHECK_ARGS: check-qtest
-> -
-> -cross-i386-user:
-> -  extends: .cross_user_build_job
-> -  needs:
-> -    job: i386-fedora-cross-container
-> -  variables:
-> -    IMAGE: fedora-i386-cross
-> -    MAKE_CHECK_ARGS: check
-> -
->  cross-i386-tci:
->    extends: .cross_accel_build_job
->    timeout: 60m
-> -- 
-> 2.31.1
-> 
 
 With regards,
 Daniel
