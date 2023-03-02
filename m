@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E5806A7853
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 01:22:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.504272.776860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D5C76A7854
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 01:23:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.504276.776870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXWhi-0007WF-Gr; Thu, 02 Mar 2023 00:21:50 +0000
+	id 1pXWjc-00083b-Rf; Thu, 02 Mar 2023 00:23:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 504272.776860; Thu, 02 Mar 2023 00:21:50 +0000
+Received: by outflank-mailman (output) from mailman id 504276.776870; Thu, 02 Mar 2023 00:23:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXWhi-0007Th-Dq; Thu, 02 Mar 2023 00:21:50 +0000
-Received: by outflank-mailman (input) for mailman id 504272;
- Thu, 02 Mar 2023 00:21:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pXWjc-00080Y-P1; Thu, 02 Mar 2023 00:23:48 +0000
+Received: by outflank-mailman (input) for mailman id 504276;
+ Thu, 02 Mar 2023 00:23:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4tCB=62=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pXWhh-0007Tb-HB
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 00:21:49 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3793e3a1-b890-11ed-a550-8520e6686977;
- Thu, 02 Mar 2023 01:21:46 +0100 (CET)
+ id 1pXWjb-00080S-6p
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 00:23:47 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7e34add7-b890-11ed-96a8-2f268f93b82a;
+ Thu, 02 Mar 2023 01:23:45 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 1955AB8119A;
- Thu,  2 Mar 2023 00:21:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6474EC433EF;
- Thu,  2 Mar 2023 00:21:43 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 84AE9614E5;
+ Thu,  2 Mar 2023 00:23:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0951AC433EF;
+ Thu,  2 Mar 2023 00:23:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,270 +43,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3793e3a1-b890-11ed-a550-8520e6686977
+X-Inumbo-ID: 7e34add7-b890-11ed-96a8-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677716504;
-	bh=HiG5sGWJHGo1P9kF+5ROkOmITj9p1fEO+7XYUM5daDo=;
+	s=k20201202; t=1677716623;
+	bh=hoaV2YYfeZZYxZl8ERPMFjQBbViDaAu1zWsF/WY+DFg=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=J5ZpTE9x2UFeTQhZJLwfCkLRYtssWZdJJp3Z88kQo5uF/6c5I9/wCQtn+ayLXXP1a
-	 hvQr2qJ35+bzjZEoUjKxon3rcpEboXaUij2OLl1YC01H7ov3UKv86UCWejxdF0Y99T
-	 ElABItE0jEarg4u8gXqJdJ2afMl4K1kKQunKXsVsnU96A7gUTOR1ZlLNKBDnE98fQ4
-	 MCxOGH6aDXe6mIWoJIcwqiqTJvqMdWu3K1RsrNiUsv9hv5zWjSI/mVCIV6SRg+Yy2c
-	 PNa1O6Hx85QKew0kPWQ5RyPpukP6cNg3OseDd0k/aEkZtycUsvm9y2ph1rl2DW9hjy
-	 BOMKWbwvhe34w==
-Date: Wed, 1 Mar 2023 16:21:41 -0800 (PST)
+	b=uzrV7F/VvQlYzR+2YkJhOXpyzvJGwrlXkv1L4DXiN0GZjZP24m3s15TR5nYaDcOoM
+	 +h0uS/0jfalTrbK/h8s8rIrHPUMuEwmk6B7vhKiWv4TzsJdCEeJtJxLSNZT6lljw9R
+	 RTDkJhgfVuUphQIwQeLHK09LaVHO4rJAFJxkn3Wi8wuLIDnWJNyfC/XsVCOI8Bg+A0
+	 j252125QDDaxGfqR3WKNhbBtZRi/IL1YqM4T5nV3d086l+JaNlO2yYewPecBgbyBd9
+	 ZO3/gcnbmAP/JGCBDXhHsllhUzLEhaLHQLlYilSEgQ7jd3OWSxIcCJbAPJmzIdUqZl
+	 rwmT9ZtouKKDg==
+Date: Wed, 1 Mar 2023 16:23:41 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Luca Fancellu <luca.fancellu@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, wei.chen@arm.com, 
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH v2 2/2] xen/misra: add entries to exclude-list.json
-In-Reply-To: <20230301095320.264301-3-luca.fancellu@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2303011605310.3680@ubuntu-linux-20-04-desktop>
-References: <20230301095320.264301-1-luca.fancellu@arm.com> <20230301095320.264301-3-luca.fancellu@arm.com>
+    Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] automation: Add missing and drop obsoleted aliases from
+ containerize
+In-Reply-To: <20230301090644.4452-1-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2303011622060.3680@ubuntu-linux-20-04-desktop>
+References: <20230301090644.4452-1-michal.orzel@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 1 Mar 2023, Luca Fancellu wrote:
-> Add entries to the exclude-list.json for those files that need to be
-> excluded from the analysis scan.
+On Wed, 1 Mar 2023, Michal Orzel wrote:
+> Add missing aliases for:
+>  - debian:unstable-cppcheck
+>  - debian:unstable-arm64v8-arm32-gcc
+>  - ubuntu:bionic
 > 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Remove aliases for no longer used containers:
+>  - centos:7.2
+>  - debian:unstable-arm32-gcc
+> 
+> Modify docs to refer to CentOS 7 instead of 7.2 not to create confusion.
+> 
 > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-
-I checked the results both x86 and arm and they look much more
-reasonable (with the exception of the way too many unusedStructMember
-reports on x86).
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> This list is originated from Michal's work here:
-> https://patchwork.kernel.org/project/xen-devel/patch/20221116092032.4423-1-michal.orzel@amd.com/#25123099
-> and changed to adapt to this task.
-> Changes from v1:
->  - updated list with new files from Stefano
->  - add comment field for every entry (Jan)
+> Open questions related to the CI cleanup (@Andrew, @Anthony):
+>  - Why do we keep suse:sles11sp4 dockerfile?
+
+please remove, it EOLed in 2016
+
+
+>  - Why do we keep jessie dockefiles?
+
+please remove, it EOLed in 2020
+
+
 > ---
-> ---
->  docs/misra/exclude-list.json | 199 ++++++++++++++++++++++++++++++++++-
->  1 file changed, 198 insertions(+), 1 deletion(-)
+>  automation/build/README.md      | 4 ++--
+>  automation/scripts/containerize | 5 +++--
+>  2 files changed, 5 insertions(+), 4 deletions(-)
 > 
-> diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
-> index 1fb0ac67747b..ca1e2dd678ff 100644
-> --- a/docs/misra/exclude-list.json
-> +++ b/docs/misra/exclude-list.json
-> @@ -1,4 +1,201 @@
->  {
->      "version": "1.0",
-> -    "content": []
-> +    "content": [
-> +        {
-> +            "rel_path": "arch/arm/arm64/cpufeature.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/arm/arm64/insn.c",
-> +            "comment": "Imported on Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/arm/arm64/lib/find_next_bit.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/acpi/boot.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/acpi/cpu_idle.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/acpi/cpufreq/cpufreq.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/acpi/cpuidle_menu.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/acpi/lib.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/cpu/amd.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/cpu/centaur.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/cpu/common.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/cpu/hygon.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/cpu/intel.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/cpu/intel_cacheinfo.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/cpu/mcheck/non-fatal.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/cpu/mtrr/*",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/cpu/mwait-idle.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/delay.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/dmi_scan.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/mpparse.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/srat.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/time.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "arch/x86/x86_64/mmconf-fam10h.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/bitmap.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/bunzip2.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/earlycpio.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/inflate.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/libfdt/*",
-> +            "comment": "External library"
-> +        },
-> +        {
-> +            "rel_path": "common/livepatch_elf.c",
-> +            "comment": "Not in scope initially as it generates many violations and it is not enabled in safety configurations"
-> +        },
-> +        {
-> +            "rel_path": "common/lzo.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/lz4/decompress.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/radix-tree.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/ubsan/ubsan.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/un*.c",
-> +            "comment": "unlz4.c implementation by Yann Collet, the others un* are from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/xz/*",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "common/zstd/*",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "crypto/*",
-> +            "comment": "Origin is external and documented in crypto/README.source"
-> +        },
-> +        {
-> +            "rel_path": "drivers/acpi/apei/*",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "drivers/acpi/hwregs.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "drivers/acpi/numa.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "drivers/acpi/osl.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "drivers/acpi/tables.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "drivers/acpi/tables/*",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "drivers/acpi/utilities/*",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "drivers/video/font_*",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "lib/list-sort.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "lib/rbtree.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "lib/xxhash*.c",
-> +            "comment": "Imported from Linux, ignore for now"
-> +        },
-> +        {
-> +            "rel_path": "xsm/flask/*",
-> +            "comment": "Not in scope initially as it generates many violations and it is not enabled in safety configurations"
-> +        }
-> +    ]
->  }
+> diff --git a/automation/build/README.md b/automation/build/README.md
+> index 4cc1acb6b41c..2d07cafe0eaa 100644
+> --- a/automation/build/README.md
+> +++ b/automation/build/README.md
+> @@ -44,10 +44,10 @@ understands.
+>    DOCKER_CMD=podman ./automation/scripts/containerize make
+>    ```
+>  
+> -- CONTAINER: This overrides the container to use. For CentOS 7.2, use:
+> +- CONTAINER: This overrides the container to use. For CentOS 7, use:
+>  
+>    ```
+> -  CONTAINER=centos72 ./automation/scripts/containerize make
+> +  CONTAINER=centos7 ./automation/scripts/containerize make
+>    ```
+>  
+>  - CONTAINER_PATH: This overrides the path that will be available under the
+> diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+> index 9b1a302d0565..5476ff0ea10d 100755
+> --- a/automation/scripts/containerize
+> +++ b/automation/scripts/containerize
+> @@ -29,7 +29,6 @@ case "_${CONTAINER}" in
+>      _archlinux|_arch) CONTAINER="${BASE}/archlinux:current" ;;
+>      _riscv64) CONTAINER="${BASE}/archlinux:current-riscv64" ;;
+>      _centos7) CONTAINER="${BASE}/centos:7" ;;
+> -    _centos72) CONTAINER="${BASE}/centos:7.2" ;;
+>      _fedora) CONTAINER="${BASE}/fedora:29";;
+>      _focal) CONTAINER="${BASE}/ubuntu:focal" ;;
+>      _jessie) CONTAINER="${BASE}/debian:jessie" ;;
+> @@ -39,8 +38,10 @@ case "_${CONTAINER}" in
+>      _buster-gcc-ibt) CONTAINER="${BASE}/debian:buster-gcc-ibt" ;;
+>      _unstable|_) CONTAINER="${BASE}/debian:unstable" ;;
+>      _unstable-i386) CONTAINER="${BASE}/debian:unstable-i386" ;;
+> -    _unstable-arm32-gcc) CONTAINER="${BASE}/debian:unstable-arm32-gcc" ;;
+> +    _unstable-arm64v8-arm32-gcc) CONTAINER="${BASE}/debian:unstable-arm64v8-arm32-gcc" ;;
+>      _unstable-arm64v8) CONTAINER="${BASE}/debian:unstable-arm64v8" ;;
+> +    _unstable-cppcheck) CONTAINER="${BASE}/debian:unstable-cppcheck" ;;
+> +    _bionic) CONTAINER="${BASE}/ubuntu:bionic" ;;
+>      _trusty) CONTAINER="${BASE}/ubuntu:trusty" ;;
+>      _xenial) CONTAINER="${BASE}/ubuntu:xenial" ;;
+>      _opensuse-leap|_leap) CONTAINER="${BASE}/suse:opensuse-leap" ;;
 > -- 
-> 2.34.1
+> 2.25.1
 > 
 
