@@ -2,40 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE4C76A81E7
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 13:07:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.504876.777303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDCED6A81EB
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 13:09:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.504881.777313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXhi3-0003hC-Cs; Thu, 02 Mar 2023 12:06:55 +0000
+	id 1pXhjz-0004HN-Ml; Thu, 02 Mar 2023 12:08:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 504876.777303; Thu, 02 Mar 2023 12:06:55 +0000
+Received: by outflank-mailman (output) from mailman id 504881.777313; Thu, 02 Mar 2023 12:08:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXhi3-0003fU-8a; Thu, 02 Mar 2023 12:06:55 +0000
-Received: by outflank-mailman (input) for mailman id 504876;
- Thu, 02 Mar 2023 12:06:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qSkR=62=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pXhi1-0003fO-K2
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 12:06:53 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0608.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::608])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b7e04507-b8f2-11ed-96ad-2f268f93b82a;
- Thu, 02 Mar 2023 13:06:52 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB8843.eurprd04.prod.outlook.com (2603:10a6:20b:40a::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.18; Thu, 2 Mar
- 2023 12:06:50 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%7]) with mapi id 15.20.6156.019; Thu, 2 Mar 2023
- 12:06:50 +0000
+	id 1pXhjz-0004F5-Je; Thu, 02 Mar 2023 12:08:55 +0000
+Received: by outflank-mailman (input) for mailman id 504881;
+ Thu, 02 Mar 2023 12:08:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=O9bk=62=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1pXhjx-0004Cn-HO
+ for xen-devel@lists.xen.org; Thu, 02 Mar 2023 12:08:53 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fe105d93-b8f2-11ed-a550-8520e6686977;
+ Thu, 02 Mar 2023 13:08:51 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-52-zd8RQRQ2Pp2eE56cxYUSzQ-1; Thu, 02 Mar 2023 07:08:45 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F0B0629AA2D1;
+ Thu,  2 Mar 2023 12:08:44 +0000 (UTC)
+Received: from localhost (unknown [10.39.193.244])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 252BAC16900;
+ Thu,  2 Mar 2023 12:08:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,132 +50,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7e04507-b8f2-11ed-96ad-2f268f93b82a
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WgYKAZXJX4FJZ0sS3qwva0C8BARuWviUzp22OGQqFkfm1sYUC7WmQTuJOWrGMIekgbymPHjvz3+SenFZDl7xouowla/FKDNdsbcXEZEwyFianP6/vwYXahvtLL8MlPCMQI9dcS2YlmZOar2uTDbgkeYjEm06rIwSZWab1G2DgcMLQz3eeWPx17GmyjAfyUzC2A6IuZxfl5O1Ezf2kjBsKTyRJefzrOXqObPtDry2v38zCkeq15IvygPNrfMlVSK4oVyvAVtIGmu1njnIMeInthVEbn4IZNIxd/6vyHr0BtGOcwV5tRsMl7jg3GJG2iJqLTuzPLIPF5HGPbH2H5FLNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZMZMLXesqsPROcVtwa0a3bbNLvjOhi5q6DookAxN+/4=;
- b=EZ34QJccMIbL1BCOQcNcb7K1Jxv1U5NmkU/A8blpTI/ofIRl3ppfyZzZ286bkrfW7EqsU1fRxAkUXvV45qclz/ayn7a/mwLeO7V89YYkTBukYNwHVjHUjfbBVC9iqPvdmS0dmF7+4KlzA6p0OkVxEBBEiL+Bns14F23GuYBwLV7SPy0iZdPr1Hrjp98smE8SiZk4Uz7XE3Rm51DWHuAgc2/mDSBS+3qGttpYes61gLdbfxGXkdPb1dpEQQoXfreNAhZSH3oa5I/g8y+95fT7COY62l2sqlB8y1T/RfdkvpCd2IK7q/ILBZq8Ok0liFBcdH8oKj2MGpE+7yF5F0K6Ng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZMZMLXesqsPROcVtwa0a3bbNLvjOhi5q6DookAxN+/4=;
- b=pjXnCOzoIZXzJMdR7tU5klL8yU9uipEyqMA3KpMldStleUmS6h+KOK/jFtcl1laL7/cFTJdD1TfLHwd6/kf6tKhcpYJZX1ENHHPDcxSb9avJ2W23qrUZOn/3wjPnU2abQ6umSvS1DNPOg0Hoxqe/Rbwazhce2KEr+n4mo4C98srWIH6JmEnzxmdOSUfu9OUwAFtyvHLIMCh8PNxwn3U+WnDwEJrxwlWhud86RPGM1LptO2S+GwWXeffqPqUW5lWDnUPT3dZbH2Qy8eVsZNEkwQXDEImlvbeR5mEUJV3bjszp1yet+rECmCAA1vA1QSYzSSgcU4dbbGser4uqyGNGSQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4a33482a-fd89-c8e9-ad5f-1e72dd644d2b@suse.com>
-Date: Thu, 2 Mar 2023 13:06:48 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/HVM: purge dubious lastpage diagnostic
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0039.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: fe105d93-b8f2-11ed-a550-8520e6686977
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1677758930;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zYlH+hIiB4rpEx0aI7Jl43K417fIUls6bh2grm6pmnY=;
+	b=YzMkRFAR0jD3h5UgXydSqzOvMxi5a+f420ynSOBXhmC8Flm9xURzK5/A0fl+PWPWhxR6zL
+	4sldsU86cwKlgh2RxAw8Mt2z+CVrJMeo2ukE16zlaarOIrDa6LUyahlgEaMiVHyUUqkqQZ
+	2bnxWu4sB/suM773VkOutcxWLtC0pd8=
+X-MC-Unique: zd8RQRQ2Pp2eE56cxYUSzQ-1
+Date: Thu, 2 Mar 2023 07:08:42 -0500
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	qemu-devel@nongnu.org, "Michael S. Tsirkin" <mst@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xen.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Sebastien Boeuf <sebastien.boeuf@intel.com>,
+	Liu Jiang <gerry@linux.alibaba.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	virtio-dev@lists.oasis-open.org
+Subject: Re: [virtio-dev] [RFC QEMU] docs: vhost-user: Add custom memory
+ mapping support
+Message-ID: <20230302120842.GB2480875@fedora>
+References: <Y/9zkDAS4odz93GM@fedora>
+ <877cw0ctpr.fsf@linaro.org>
+ <Y/+LdfF0rL3wEqfd@fedora>
+ <20230302081907.pwt4nvz5buyt2dz3@vireshk-i7>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8843:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d6f4480-9144-4f06-fbbc-08db1b169aa3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	GshVenhGerKceX/tMB8n1uDO6GZ0QIAJx69lumUwdNltZiInwdtHkjkYatTsKnVbFFLtkUPc5AJ4U2NEQtM+/Hnezww/n6pJCqn/89KeEvJ/Ygk7UHOpMRDWzivGistOAk81oQwlQFIAfFo9R2GBhpla38kKqUfkYdTQTQnqjZX8gpPEniknQso4FbrqihjXPZtfj4qHHQ3ZjRp67gDD2tDEOIgPhDnSL7/NKGDVgV++4M63ZODTG/ECzYVOzxjkUcPRx4Ok+OdQ4UKjW0YCl00DmZWFSRkB4NAC1hQZwoDIswa8Or5dTg2djxRD7abf0BjVwwbKgpqAsNORggxkazK+hBPzmSH3ncnm/ePZU/2yz42Nctb9ryglHW2PyEW1Own11+jBcrwkRShLcdgn3Q/KnEBOS1fHHPVx6Lk8aGtTXuv6/RiwGrctV2gJbMzD/7AvfwZ3tkHtELipJc1YPVUjFFumeOzkZ5BY7IuVcEKDuijMltZ2F8hzOTPWxLz+lrtLT2AUOfd+VPVsP7PVdcM4mrePgyLx1mekyShUj661jFy8+0C5uVILEn5tOFLz90B0vhNKFhEdmuCa6f4tucsGQmyZJdw9yuOUCUb5LjdBTCQ6eL5Bw2nMyFtQ8LDvTX82kK/chK2Y7yzRX9kuMNmNUaPKxPsIdPPZgQycfYvkwlAEYLQr/X7TlCTs9CFFeeChleNQIdKGpCWWTVKM071BYaaKQTgCk+2VeURzmB8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(39860400002)(366004)(136003)(396003)(376002)(451199018)(86362001)(26005)(6512007)(186003)(478600001)(6506007)(31696002)(6486002)(2616005)(316002)(54906003)(38100700002)(2906002)(36756003)(83380400001)(41300700001)(5660300002)(31686004)(8936002)(66946007)(66556008)(66476007)(4326008)(6916009)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YW1FYTYyaEZLR214YnFXNEFQdE1ZYURrZmtQL2JTRHpiOGs2UkV0bk9MMXN2?=
- =?utf-8?B?TWpsQW5NNk9qRFpnU2FIdW9uU0VDSGErOXpMTENUazBUSVpjZWdWU2JCTHZk?=
- =?utf-8?B?UWNUakFEMlVsL1hUdFlGUDRZNmoyV3RqRTJsanV1OEZ5ZWFIWXZsVjg4NU5K?=
- =?utf-8?B?YjIzaVpHcGF4Rlhaa0FEZnlBKzd2NnFBZ1NhcEVqbzlRNnJiUkROTFBFdlNs?=
- =?utf-8?B?NVkzRWJlbEVTbVR6TityaUZ3VDVMM2l5MUdNTmczeFJzVGdNeVlLV2pCd3pT?=
- =?utf-8?B?TUNrcStYOFAydnNQOXlWaFZTRXoyUGVjZWEzMmJFaERUeWwvOGNsV01TWjdN?=
- =?utf-8?B?eVVaOXh0Q2NnMXNtZE1QSkxDaTY1cHc3dTEwSkVvNUZJL2U4Q0dMNmI2MVU5?=
- =?utf-8?B?bmlRWkU5Qmk3anpBdzFmZWlMU3h0QjhMUFcrZC8rUERocWlzUjY1dkc2akM5?=
- =?utf-8?B?RG5kakFacWYwbWdJQnRxNXVvbUNhbU9CbzlqQXFWNWZRdllXMDRZeXkwUlV0?=
- =?utf-8?B?WHAyemh2dkFCQm5lOHVHbjRzb29sakVWdDNWbXR3MnVrN241SmRZa0IzVUp3?=
- =?utf-8?B?NTg4SGxTUEk0NUtrbDVydnJaQ0pIc3QrOGIxTmozcWZGaDV2YmdKMDdJTmV3?=
- =?utf-8?B?eGUveEtzMFRLV0NZemhnS0w5dlczWkRxSDF3bXdXNnJoT0tnN005Rnc4eFVB?=
- =?utf-8?B?ZDNwcnRNNHUwYWZ4Y25tUEkrSThnbEJJQmNDTC9sSGVOOFdBZkZIWUtZRnRE?=
- =?utf-8?B?ZkZ1VUZQU2lRSlBubUtwM2lBaTlHbVRlS3hOSkNwVHdmUUJLWFk3YVpBM2NC?=
- =?utf-8?B?ZmxZMlRGT2RmMCtXYVBONFNwelNkL2NZY2RVdEpDaE0venc0Q0cxWmVJTVpx?=
- =?utf-8?B?SFRpbjgya0RLaVVqd3Y3UDA5NVlLYitTMDJrQ2tCYjNxcjNMbjZPUmthWEpK?=
- =?utf-8?B?WnFiVWdhUmZnREJqVHNFYXBZWWh3OWlXRjhhQkJGeUVuUFJZbm95TTI5MGRt?=
- =?utf-8?B?OUpkNW1RSElZVE9EMU5xcVQwUFJUbzMzTnRQKzArN0E2M1FHRW8zQVRxNFV0?=
- =?utf-8?B?QlpBZGo0TnUrWXcrL3NoVXNjTEM1OVNmZWMzekIvNU5UWjdKRFNhdkRVcUpz?=
- =?utf-8?B?TU52djdyeHUzQjlPazFRcWQ0OGdsc29yMmt2MVlkeHg2d09qeFArV2t3RjF4?=
- =?utf-8?B?eThESkIyT0E5TFYwczlIaUYwc0R1MzNmeXo0VnlDSkNxMTEwTlN5Y1FDNERO?=
- =?utf-8?B?bzB5RXJ2dC9MRG5Lb1o5eTN4NUFmTWpGaXRWTExOTmNhaDJvS21uTkc2OWtW?=
- =?utf-8?B?dERlellzTzNHdE5ia0ZvVmFGQVg5VWw4ODdWWFIxYUM1VExYL1J6bU1iQnpq?=
- =?utf-8?B?OG00TjA3SW8weVhBaWRYWlV0bkp4RjZSVUFxL1R4R05ocXNYNlFIWFNyTzhC?=
- =?utf-8?B?aW95aUplZzhUTjVUN244QlIvL0piblQvMEEyTlk5VElSSk0yUkJnOE5nMHJp?=
- =?utf-8?B?eDhhTG0wOE55WGhwbWtVTjVoUFZDYkxLSDFrR002ejRDL0d3NEU3N29tV2p2?=
- =?utf-8?B?dFFFaTdwQjk3L0h6UjRlM09KY3l3WTRPNHl0cjF0ZnB2dkZtNGNaeWFuMWtn?=
- =?utf-8?B?TFoxM0JTc2NPYzJvSW5yaGx6dFBrWmFRNktDTHhMN2Rwb1dKYkJUSjRVVkUy?=
- =?utf-8?B?OUNENGV2QS91OXNRRGJPcVlQZHMrR2NFQVRENk5xQ2FTNVNoQXMxaXRzK242?=
- =?utf-8?B?aUhQeVBMa2ZVTHNwaWFMN1huUU1Pb1ZqU3Fubm5WaTJiNGZDajJHOW1PZTZR?=
- =?utf-8?B?cG0rbjJTNmFuZ01zRHJWVTJmN3Awc1lVVlpMOWorZzlZdkZrOFFKSVpNZHJC?=
- =?utf-8?B?LzVzQTRFRmtzV0Z0MU5MUHVob1k3NkE0WG8zYXdFeWdJUWRtVjJiOEpmL0dy?=
- =?utf-8?B?OExKZS90OTNRYWJwdC83Q0l2aUxDd0RJcW5GbVpHWDh5WlNsNmorVkY5bDRM?=
- =?utf-8?B?M0Z1aXhna1ZoOE9Bdy9KSmVhckVhVTMvdW9aYnQxR2Rwa1hJaWNFM0d2cHcr?=
- =?utf-8?B?aHIxM1dLQzBzcUU2ZEZYaTBmemROdWFzaGFBY3ptQWlIOUN4d25iWFRKNG4v?=
- =?utf-8?Q?oWKqk87B2VlZLhkjVMsauCu7N?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d6f4480-9144-4f06-fbbc-08db1b169aa3
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2023 12:06:50.1819
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eCS4CP/iiTmVgjrjHq4K5yuYBxu68Lr5C5yqnaw2FCEqCcxptCemOgaiArZu8DQZqVmXPs0ZQEJw6xX1D6B6EA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8843
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="R8x4bQWlTQ/fknb6"
+Content-Disposition: inline
+In-Reply-To: <20230302081907.pwt4nvz5buyt2dz3@vireshk-i7>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 
-Quoting b5d8b03db136 ("x86/shadow: Drop dubious lastpage diagnostic"):
 
-"This is a global variable (actually 3, one per GUEST_PAGING_LEVEL), operated
- on using atomics only (with no regard to what else shares the same cacheline),
- which emits a diagnostic (in debug builds only) without changing any program
- behaviour.
+--R8x4bQWlTQ/fknb6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
- It is presumably left-over debugging, as it interlinks the behaviour of all
- vCPUs in chronological order.  Based on the read-only p2m types, this
- diagnostic can be tripped by entirely legitimate guest behaviour."
+On Thu, Mar 02, 2023 at 01:49:07PM +0530, Viresh Kumar wrote:
+> On 01-03-23, 12:29, Stefan Hajnoczi wrote:
+> > What is the advantage over defining separate messages? Separate messages
+> > are cleaner and more typesafe.
+>=20
+> I thought we wanted to keep single message for one kind of functionality,=
+ which
+> is mmap related quirks here. And so it would be better if we can reuse th=
+e same
+> for next hypervisor which may need this.
+>=20
+> The value parameter is not fixed and is hypervisor specific, for Xen this=
+ is the
+> domain id, for others it may mean something else.
 
-All the same applies here (it's only a single variable of course).
+mmap-related quirks have no parameters or behavior in common so there's
+no advantage in sharing a single vhost-user protocol message. Sharing
+the same message just makes it awkward to build and parse the message.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > I don't have a concrete example, but was thinking of a guest that shares
+> > memory with other guests (like the experimental virtio-vhost-user
+> > device). Maybe there would be a scenario where some memory belongs to
+> > one domain and some belongs to another (but has been mapped into the
+> > first domain), and the vhost-user back-end needs to access both.
+>=20
+> These look tricky (and real) and I am not sure how we would want to handle
+> these. Maybe wait until we have a real use-case ?
 
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -3354,16 +3354,7 @@ static enum hvm_translation_result __hvm
-                 memcpy(buf, p, count);
-                 hvmemul_write_cache(v, gfn_to_gaddr(gfn) | pgoff, buf, count);
-             }
--            else if ( p2m_is_discard_write(p2mt) )
--            {
--                static unsigned long lastpage;
--
--                if ( xchg(&lastpage, gfn_x(gfn)) != gfn_x(gfn) )
--                    dprintk(XENLOG_G_DEBUG,
--                            "%pv attempted write to read-only gfn %#lx (mfn=%#"PRI_mfn")\n",
--                            v, gfn_x(gfn), mfn_x(page_to_mfn(page)));
--            }
--            else
-+            else if ( !p2m_is_discard_write(p2mt) )
-             {
-                 if ( buf )
-                     memcpy(p, buf, count);
+A way to deal with that is to include mmap information every time fds
+are passed with a message instead of sending one global message at the
+start of the vhost-user connection. This would allow each mmap to
+associate extra information instead of forcing them all to use the same
+information.
+
+> > The other thing that comes to mind is that the spec must clearly state
+> > which mmaps are affected by the Xen domain information. For example,
+> > just mem table memory regions and not the
+> > VHOST_USER_PROTOCOL_F_LOG_SHMFD feature?
+>=20
+> Maybe we can mention that only the mmap's performed via /dev/xen/privcmd =
+and
+> /dev/xen/gntdev files are affected by this ?
+
+No, this doesn't explain when mmap must be performed via
+/dev/xen/privcmd and /dev/xen/gntdev. The spec should be explicit about
+this instead of assuming that the device implementer already knows this.
+
+Stefan
+
+--R8x4bQWlTQ/fknb6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmQAkcoACgkQnKSrs4Gr
+c8iQbgf7BYwOXalaOt9tawNBuNNxLm51ZzyWrR5YxkBDb7Ko5Ja0ft7PtgNn876L
+a4Ike7lWdQM1O+glxxDybaubjNLbx5rl6H86QR5jkn1HaMUGDNnePPWMwi6jj+1M
+MrXoTPbTaSlzFIZSnTSYDcg9qEYan2cSK4J9ol40Isv9wHA7xLxD9kKmfEMNqiLY
+9wnUkNbvd9E7C6ODp7R3UZlCy/XHGt0xFEAATzSGKRj9K47TM0Fj208dYIrNOtiO
+XYc4hdGsEC4QXqNEDmhbH15uTbn8QHr4aiA8v7gn9Tzv3ux81adOpdf/i5dfSnzr
+HnK2yy7RDHS1+5bXCGQdLYyed8Wufg==
+=NjUt
+-----END PGP SIGNATURE-----
+
+--R8x4bQWlTQ/fknb6--
+
 
