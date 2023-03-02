@@ -2,64 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC4686A7D16
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 09:56:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.504731.777077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 457166A7D7F
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 10:21:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.504738.777086 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXej7-0003v8-G6; Thu, 02 Mar 2023 08:55:49 +0000
+	id 1pXf79-0007o2-HD; Thu, 02 Mar 2023 09:20:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 504731.777077; Thu, 02 Mar 2023 08:55:49 +0000
+Received: by outflank-mailman (output) from mailman id 504738.777086; Thu, 02 Mar 2023 09:20:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXej7-0003tB-DV; Thu, 02 Mar 2023 08:55:49 +0000
-Received: by outflank-mailman (input) for mailman id 504731;
- Thu, 02 Mar 2023 08:55:47 +0000
+	id 1pXf79-0007m6-EI; Thu, 02 Mar 2023 09:20:39 +0000
+Received: by outflank-mailman (input) for mailman id 504738;
+ Thu, 02 Mar 2023 09:20:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lklr=62=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1pXej5-0003t5-Nz
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 08:55:47 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on20606.outbound.protection.outlook.com
- [2a01:111:f400:fe13::606])
+ <SRS0=5rfr=62=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pXf77-0007lq-Nu
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 09:20:37 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02e7a239-b8d8-11ed-a550-8520e6686977;
- Thu, 02 Mar 2023 09:55:42 +0100 (CET)
-Received: from DB3PR08CA0008.eurprd08.prod.outlook.com (2603:10a6:8::21) by
- AM0PR08MB5475.eurprd08.prod.outlook.com (2603:10a6:208:188::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6156.19; Thu, 2 Mar 2023 08:55:30 +0000
-Received: from DBAEUR03FT062.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:8:0:cafe::f0) by DB3PR08CA0008.outlook.office365.com
- (2603:10a6:8::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.18 via Frontend
- Transport; Thu, 2 Mar 2023 08:55:30 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT062.mail.protection.outlook.com (100.127.142.64) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6156.18 via Frontend Transport; Thu, 2 Mar 2023 08:55:29 +0000
-Received: ("Tessian outbound 2ba0ed2ebb9f:v135");
- Thu, 02 Mar 2023 08:55:29 +0000
-Received: from f1553225d149.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 3C405CF7-6DFE-402D-B750-2897FCA0A0F2.1; 
- Thu, 02 Mar 2023 08:55:18 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f1553225d149.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 02 Mar 2023 08:55:18 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by AM7PR08MB5512.eurprd08.prod.outlook.com (2603:10a6:20b:de::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.19; Thu, 2 Mar
- 2023 08:55:15 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::f0e7:5f67:ed2f:a70a]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::f0e7:5f67:ed2f:a70a%4]) with mapi id 15.20.6156.018; Thu, 2 Mar 2023
- 08:55:15 +0000
+ id 7c51ecd1-b8db-11ed-a550-8520e6686977;
+ Thu, 02 Mar 2023 10:20:34 +0100 (CET)
+Received: by mail-lj1-x22d.google.com with SMTP id h3so16866670lja.12
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Mar 2023 01:20:34 -0800 (PST)
+Received: from fedora.. (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
+ [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
+ g7-20020a2eb5c7000000b002946be8475esm2018442ljn.135.2023.03.02.01.20.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Mar 2023 01:20:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,123 +44,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02e7a239-b8d8-11ed-a550-8520e6686977
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qXgK/+wGSplPdHF/FL01UQYN7tMUop+Xnt4MppqqvLY=;
- b=yt+eDf0+NHts3hC29fT+Q0+P9JTMgx+sGeP/0y1hIzrBZGvuYie/vBQKF54N0OynHdKq/COK/VpneSYB8/0nkDs3hgzmm1oyVvHLRqo8ITGov2ayeW0i48c3XY2b+ATn/D+Wa7kONI5inEWe34VAF9rSCx7tO86CbZAqwfmDtMc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 1c800889619869aa
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ieSvnFS5wu17LZVl6V5h1wqN9+++9+vkS3PUtdkEBDrfP8uLqseaaGZKjHw0JvoGzQ2WPfWuY9z3sHB5Y5PE79kxTUsjy1vKgq6SNMr73u9PJVsZkJmOtoJzVNlR3q1AroIdgjC8xnkEuyY3FucNLmxmjrgPCIasXV0A0pwSR8YV2W6sfvryICqqlw/0C2yi1AZGJ6ca6cD2nu97ckwo9Fz+wMd/y45SGxvSqd9b4QofJ+JA1R7tF7zPMvMrkM3F4WHfjBs0jCAKouwKxlv03yi0JjuSgBhuM8KCqYY9S4HbFDMRlbD0f6j1g43zzFthrzRqFYCXC+m4TcQBHCmqug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qXgK/+wGSplPdHF/FL01UQYN7tMUop+Xnt4MppqqvLY=;
- b=QesxT+pCHY7UozskjfS1yIThUTLdeGB2kU/xvxUlMq0JpQRMmLFa73FjyuYglk9PGFvtfSUuUQkpdehPEzaJwVU8K18uP5/+yOhmr9K2dCcvNH7UExthFp+dUCbHDL5XapU+1wdgj3KkH7Vi0q2MREJCfJu8VAV02kyLER6ohsaZHBJP01MWHAUJ5yltt/q32zRy+qlcsQJ4Un4PZ3m+g+FyHq0gVl0TJKQtIBWzNkdNICekYegMsynU7xnN/sVxfWd1CcR0t8bVWY4RivamkJiqCHUPsMY04697J1nTL7TlFqzsbCwx/pyVbhzNTuWnQ7nUJJJvQBp4vsfpjsrPuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qXgK/+wGSplPdHF/FL01UQYN7tMUop+Xnt4MppqqvLY=;
- b=yt+eDf0+NHts3hC29fT+Q0+P9JTMgx+sGeP/0y1hIzrBZGvuYie/vBQKF54N0OynHdKq/COK/VpneSYB8/0nkDs3hgzmm1oyVvHLRqo8ITGov2ayeW0i48c3XY2b+ATn/D+Wa7kONI5inEWe34VAF9rSCx7tO86CbZAqwfmDtMc=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu
-	<wl@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH v2 2/2] xen/misra: add entries to exclude-list.json
-Thread-Topic: [PATCH v2 2/2] xen/misra: add entries to exclude-list.json
-Thread-Index: AQHZTCO+YULgtT6v8UGWpLW+tpxpla7moaSAgACPcYA=
-Date: Thu, 2 Mar 2023 08:55:15 +0000
-Message-ID: <23059C98-EEE9-4F27-AB54-4648629D497A@arm.com>
-References: <20230301095320.264301-1-luca.fancellu@arm.com>
- <20230301095320.264301-3-luca.fancellu@arm.com>
- <alpine.DEB.2.22.394.2303011605310.3680@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2303011605310.3680@ubuntu-linux-20-04-desktop>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.400.51.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3749:EE_|AM7PR08MB5512:EE_|DBAEUR03FT062:EE_|AM0PR08MB5475:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0f54edf-7d1a-4c9e-522d-08db1afbdff2
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- A3dnbb3F6u7PrcJqTUfFTUL0fVZzukjk3SKH/JxRo/bJoN8boD+jFVAR129t+V3Jc6BVU1kRwuSpq10+68AMJQu3dZ4FR8RovyFMfwK8YaGzUt4Xr5KOz4CUF56fx8eds716Px7FvsucOYrbcjJfarvwtkxjd+Phz32AoBwdPnT842ptviBbJMJReXT+IUwjY1u/GUMxNIvimTCUndJsXN4+euSjGsucqZiLqHDDof6P3ccR8gVagZprzQ9VN69VBy22nDTQg8tFrsV29697KF9s7lugJUi0gUBTScxuKeIWxh54LEmkwkqv/SHESNvaizGU6QE7RJrWNRmjxDH33D21DTdk26hBJO+DbUpDEPOTO1AaiCgPxIaL3ESXoU/DxDkpWN4TLdOt/pcpXp+6+qmDjaGXU8TgHxx3dxyXK3QsEwQ3r2zV5SAr3sEM4R1LHt3AQbAISPVUzkh1eTU5213wVBXu5Hefyt+j6/78bzJmXTf3fWzO2Odh2LJloTM3m1k2pWk81SQOFvoMA+3KWYDjPP6fheMAydK+th9hgvp7jJnTMTsJTSkJ05lIZ3ziIR7L5J/DzgX0CVdwv5M3nRjv/4CuKxuckytFT2a0G6HoGz6XyRVNlHKtDOrQ9mnAyPF5OjsLEtQ+aKToj4zyZqcmzSNRKT6yv1W1lhBDLvnFsLD4Y10Kvyj5Gv926IqeTsSNIDsAlIZ9xYwaJWs8JsNfib9sSuHEcZrpnp289eM=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(346002)(136003)(366004)(376002)(396003)(451199018)(36756003)(33656002)(53546011)(6486002)(6506007)(6512007)(2616005)(186003)(26005)(54906003)(41300700001)(316002)(91956017)(4326008)(64756008)(4744005)(66556008)(66476007)(8676002)(76116006)(6916009)(2906002)(66446008)(71200400001)(8936002)(5660300002)(478600001)(38100700002)(122000001)(86362001)(38070700005)(66946007)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <23E69306C5777C45985E75626D3F2063@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 7c51ecd1-b8db-11ed-a550-8520e6686977
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1677748833;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=0f5cV2uw6HaMEMZa/XjoT427b94bmO91+3UBySL88d8=;
+        b=nsSxTlipcgYZrC6T43xJ8cmmRtaQGYbhQDlHKnOHiBcu5VPb85nIvSPoHHMfNYucox
+         tiZCh8H6lWxlIw+r7HV9SQ1FLNFSnWTz/KDrfJPagPDljMMYeV3NMn+CJ1yXnn3huFWT
+         ep1Crph+gr5EJ9d+4Jo6QRrHHnFoy4GCSV5y6Q91QuOTLDqwu7DarzlQoOrf59nQwEte
+         wJUApYCrixGErrp1e7bge2Zusn1TLZ0ZqgP7SMrGIF9W3C63uCN2yEG3+i+JFmuopJ5e
+         o3cxh9uHK5+KzrMUiwpmPwPEILlvmwOwAeoaLrko6vJlLIYo5TTo0BsL6Zp7a+cz8Xpy
+         z3qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1677748833;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0f5cV2uw6HaMEMZa/XjoT427b94bmO91+3UBySL88d8=;
+        b=w2FHnGcUFNyA/drIDtTRJ4RGUPt0vkRWtodG17m2K7myhgmYfZAZ8+EbxRIbUNLHLj
+         wwR92hSmOblVB+8kKQY+Wu5FzW8Tc1g0TFEWV8OyN6ZHSjLg8sKroFPOJYxfPffzwWZl
+         qR07KPrCNKR3n+LZajLinS9MnW5YhQ9sWspYXPZQfXGwqdpNIgdt+52NmHi+kBvWrEjD
+         PCp982qch7EoUhmGZkncdyWP+bHVfP3WbOmSKFXysAAGF8MfmW7vSiXaAdhbhBph94ju
+         LiR4YWLhsvFG+WYlsKDp0QL+Sgc0D0PgyRfKGXqOCEF0P4gcVkFpHEEXivf24DRnEnQG
+         i+WQ==
+X-Gm-Message-State: AO0yUKVKd9fHsG/2+HoP8olUzo4FmCp0IEFhkQIeqHv/45el/JDwYOYl
+	lIEzCNhLqwbF8aX/0lZW3u5mzHI1bj8=
+X-Google-Smtp-Source: AK7set9CF+7DjWYSvJUZXMLS28wZ14vOFuv08owtM+Lh13GoMmyHOpi07eEcjYl++QLzHts4xp7sKQ==
+X-Received: by 2002:a2e:c42:0:b0:293:1b3e:985f with SMTP id o2-20020a2e0c42000000b002931b3e985fmr2475789ljd.24.1677748833313;
+        Thu, 02 Mar 2023 01:20:33 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Julien Grall <julien@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v4 0/4] introduce generic implementation of macros from bug.h
+Date: Thu,  2 Mar 2023 11:20:24 +0200
+Message-Id: <cover.1677747527.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR08MB5512
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT062.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	3933473d-a4fb-4260-ed78-08db1afbd74e
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	5k6oOK5ox/xJxbAxwzTqdur8vdV+ZhH3CxiDFxIPgElEnPdufrP7g3AY9fUr/EVVW+XiReDsy10CJTuKj9BV9j5DbkwIFdX3KTpGrsb1MJ4O/vZ3LDt+0eg9efllRDX8Uyfxtt5zEI5xBRriRGGOPmZqyTDckIQfyHuVKkk1hEKO1HTLpd5m3rpVkYs7dTQA9Wv6sFlorXx2Y2cMLO1mkD6J3ByMPQ0Q2qjdDQ6Jtqdc6FpAQ7BCyrpGtzsTznyKNgkvNs8XZXYSO8vrkr27JtJtbt1IOrj1RH5aJS5YHq2e5bbApenG7L1s9G0flmvgG/SSoTe7vXFsA7ejUbcrzTyvbG0hRAv0DI4DK7PydLW8ho9ThTaCKfTIJy51pUAVG5j6kc1HrgvPgwwQQL6aVd5S6ZzOSvUv1dC9kQmQskGBuQlXizpEaF0EDFbt+EDjw5bfYC1VOPzaHQgmAtBhmwh4GePlHFlRBZpBuSkjiaK58TPjihoVjIQ4S95INUdKJirRGL4ANapoQT6mmI1o4wEe2bEgOZC72oNZZ0GoXlcizX1FJgmS6honarSdL2vReKQ4PQZzoR2pwTXDoyt60eXzxmFKWAURTOxO26rrOGPqy9pm5mjZcaPV+qjjwfRshIdtoptCfzjbgADvikFRiSAiI786ozvuVDm4xMEMB80WTy51BuRsdbWnxtG5k9wQBYsiBYOGVV09HIdWtINvpw==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(396003)(39860400002)(136003)(346002)(376002)(451199018)(36840700001)(46966006)(40470700004)(36860700001)(47076005)(33656002)(40460700003)(36756003)(5660300002)(6862004)(8936002)(82740400003)(81166007)(478600001)(356005)(86362001)(40480700001)(82310400005)(186003)(2616005)(26005)(336012)(6512007)(6486002)(53546011)(6506007)(70206006)(4744005)(2906002)(8676002)(70586007)(316002)(41300700001)(4326008)(54906003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2023 08:55:29.9214
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0f54edf-7d1a-4c9e-522d-08db1afbdff2
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT062.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5475
+Content-Transfer-Encoding: 8bit
 
+The patch series is based on the patch [1].
 
+A large part of the content of the bug.h is repeated among all
+architectures (especially x86 and RISCV have the same implementation), so it
+was created a new config CONFIG_GENERIC_BUG_FRAME which is used to
+introduce generic implementation of do_bug_frame() and move x86's <asm/bug.h>
+to <xen/common/...> with the following changes:
+  * Add inclusion of arch-specific header <asm/bug.h>
+  * Rename the guard and remove x86 specific changes
+  * Wrap macros BUG_FRAME/run_in_exception_handler/WARN/BUG/assert_failed/etc
+    into #ifndef "BUG_FRAME/run_in_exception_handler/WARN/BUG/assert_failed/etc"
+    thereby each architecture can override the generic implementation of macros.
+  * Add #if{n}def __ASSEMBLY__ ... #endif
+  * Introduce BUG_FRAME_STRUCTURE define to be able to change the structure of bug
+    frame
+  * Introduce BUG_INSTR and BUG_ASM_CONST to make _ASM_BUGFRAME_TEXT reusable between
+    architectures
+  * Make macros related to bug frame structure more generic.
 
-> On 2 Mar 2023, at 00:21, Stefano Stabellini <sstabellini@kernel.org> wrot=
-e:
->=20
-> On Wed, 1 Mar 2023, Luca Fancellu wrote:
->> Add entries to the exclude-list.json for those files that need to be
->> excluded from the analysis scan.
->>=20
->> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->=20
->=20
-> I checked the results both x86 and arm and they look much more
-> reasonable (with the exception of the way too many unusedStructMember
-> reports on x86).
+RISC-V will be switched to use <xen/bug.h> and in the future, it will use common
+the version of do_bug_frame() when xen/common will work for RISC-V.
 
-Hi Stefano,
+[1]: https://lore.kernel.org/xen-devel/74973920d8722df3ce533979314564f331acf16e.1677687247.git.oleksii.kurochko@gmail.com/
 
-yes I will send a patch to suppress unusedStructMember globally
+---
+Changes in V4:
+ * Introduce and use generic BUG_DEBUGGER_TRAP_FATAL(regs) mnacros which is used to deal with
+   debugger_trap_fatal(TRAP_invalid_op, regs) where TRAP_invalid_op is x86-specific.
+ * Add comment what do_bug_frame() returns.
+ * Do refactoring of do_bug_frame():
+     * invert the condition 'if ( region )' in do_bug_frame() to reduce the indention.
+		 * change type of variable i from 'unsigned int' to 'size_t' as it  is compared with
+		   n_bugs which has type 'size_t'
+ * Remove '#include <xen/stringify.h>' from <xen/bug.h> as it doesn't need any more after switch to
+   x86 implementation.
+ * Remove '#include <xen/errno.h>' as it isn't needed any more
+ * Move bug_*() macros inside '#ifndef BUG_FRAME_STRUCT'
+ * Add <xen/lib.h> to fix compile issue with BUILD_ON()...
+ * Add documentation for BUG_ASM_CONST.
+ * Defines BUG_DISP_WIDTH, BUG_LINE_LO_WIDTH, BUG_LINE_HI_WIDTH were moved into
+   "ifndef BUG_FRAME_STRUCT" in <xen/bug.h> as they are specific for 'struct bug_frame' and so should
+   co-exist together. So the defines were back to <asm/bug.h> until BUG_FRAME_STRUCT will be defined in
+	 <asm/bug.h>.
+ * Switch ARM implementation to generic one
+ * Remove BUG_FN_REG from arm{16,32}/bug.h as it isn't needed after switch to generic implementation
+ * Back comment /* !__ASSEMBLY__ */ for #else case in <asm/bug.h>
+ * Remove changes related to x86/.../asm/debuger.h as do_bug_frame() prototype was updated and cpu_user_regs
+	 isn't const any more.
 
+---
+Changes in V3:
+ * Nothing was done with the comment in <xen/bug.h> before run_in_exception_handler
+   but I think it can be changed during the merge.
+ * Add debugger_trap_fatal() to do_bug_frame(). It simplifies usage of
+   do_bug_frame() for x86 so making handle_bug_frame() and find_bug_frame()
+   not needed anymore.
+ * Update do_bug_frame() to return -EINVAL if something goes wrong; otherwise
+   id of bug_frame
+ * Update _ASM_BUGFRAME_TEXT to make it more portable.
+ * Drop unnecessary comments.
+ * Update patch 2 not to break compilation: move some parts from patches 3 and 4
+   to patch 2
+ * As prototype and what do_bug_frame() returns was changed so patch 3 and 4
+   was updated to use a new version of do_bug_frame
+ * Change debugger_trap_fatal() prototype for x86 to align with prototype in
+   <xen/debugger.h>
+---
+Changes in V2:
+  * Update cover letter.
+  * Switch to x86 implementation as generic as it is more compact ( at least from the point of view of bug frame structure).
+  * Put [PATCH v1 4/4] xen: change <asm/bug.h> to <xen/bug.h> as second patch,
+    update the patch to change all <asm/bug.h> to <xen/bug.h> among the whole project
+    to not break compilation.
+  * Rename CONFIG_GENERIC_DO_BUG_FRAME to CONFIG_GENERIC_BUG_FRAME.
+  * Change the macro bug_loc(b) to avoid the need for a cast:
+    #define bug_loc(b) ((unsigned long)(b) + (b)->loc_disp)
+  * Rename BUG_FRAME_STUFF to BUG_FRAME_STRUCT
+  * Make macros related to bug frame structure more generic.
+  * Rename bug_file() in ARM implementation to bug_ptr() as generic do_bug_frame() uses
+    bug_ptr().
+  * Introduce BUG_INSTR and MODIFIER to make _ASM_BUGFRAME_TEXT reusable between x86 and
+    RISC-V.
+  * Rework do_invalid_op() in x86 ( re-use handle_bug_frame() and find_bug_frame() )
+---
+Oleksii Kurochko (4):
+  xen: introduce CONFIG_GENERIC_BUG_FRAME
+  xen: change <asm/bug.h> to <xen/bug.h>
+  xen/arm: switch ARM to use generic implementation of bug.h
+  xen/x86: switch x86 to use generic implemetation of bug.h
+
+ xen/arch/arm/Kconfig                 |   1 +
+ xen/arch/arm/arm32/traps.c           |   2 +-
+ xen/arch/arm/include/asm/arm32/bug.h |   2 -
+ xen/arch/arm/include/asm/arm64/bug.h |   2 -
+ xen/arch/arm/include/asm/bug.h       |  88 +--------------
+ xen/arch/arm/include/asm/div64.h     |   2 +-
+ xen/arch/arm/include/asm/traps.h     |   2 -
+ xen/arch/arm/traps.c                 |  81 +-------------
+ xen/arch/arm/vgic/vgic-v2.c          |   2 +-
+ xen/arch/arm/vgic/vgic.c             |   2 +-
+ xen/arch/x86/Kconfig                 |   1 +
+ xen/arch/x86/acpi/cpufreq/cpufreq.c  |   2 +-
+ xen/arch/x86/include/asm/asm_defns.h |   2 +-
+ xen/arch/x86/include/asm/bug.h       |  84 +-------------
+ xen/arch/x86/traps.c                 |  81 ++------------
+ xen/common/Kconfig                   |   3 +
+ xen/common/Makefile                  |   1 +
+ xen/common/bug.c                     | 103 +++++++++++++++++
+ xen/drivers/cpufreq/cpufreq.c        |   2 +-
+ xen/include/xen/bug.h                | 158 +++++++++++++++++++++++++++
+ xen/include/xen/lib.h                |   2 +-
+ 21 files changed, 289 insertions(+), 334 deletions(-)
+ create mode 100644 xen/common/bug.c
+ create mode 100644 xen/include/xen/bug.h
+
+-- 
+2.39.0
 
 
