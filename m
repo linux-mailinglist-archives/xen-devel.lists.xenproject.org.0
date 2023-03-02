@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D4786A84A2
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 15:50:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.504978.777463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 843A86A84AB
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 15:54:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.504983.777473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXkFw-0006wF-Ub; Thu, 02 Mar 2023 14:50:04 +0000
+	id 1pXkJe-0007mN-DB; Thu, 02 Mar 2023 14:53:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 504978.777463; Thu, 02 Mar 2023 14:50:04 +0000
+Received: by outflank-mailman (output) from mailman id 504983.777473; Thu, 02 Mar 2023 14:53:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXkFw-0006sA-Qv; Thu, 02 Mar 2023 14:50:04 +0000
-Received: by outflank-mailman (input) for mailman id 504978;
- Thu, 02 Mar 2023 14:50:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pXkFu-0006ZR-TF
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 14:50:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pXkFu-0003YH-H0; Thu, 02 Mar 2023 14:50:02 +0000
-Received: from [15.248.2.148] (helo=[10.24.67.20])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pXkFu-0003Hk-BY; Thu, 02 Mar 2023 14:50:02 +0000
+	id 1pXkJe-0007k7-AK; Thu, 02 Mar 2023 14:53:54 +0000
+Received: by outflank-mailman (input) for mailman id 504983;
+ Thu, 02 Mar 2023 14:53:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=5rfr=62=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pXkJc-0007jz-OH
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 14:53:52 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0c258645-b90a-11ed-96ad-2f268f93b82a;
+ Thu, 02 Mar 2023 15:53:52 +0100 (CET)
+Received: by mail-lf1-x132.google.com with SMTP id g17so22480710lfv.4
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Mar 2023 06:53:51 -0800 (PST)
+Received: from [192.168.8.114] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
+ [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
+ y18-20020ac24472000000b004b55075f813sm2154896lfl.227.2023.03.02.06.53.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Mar 2023 06:53:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,131 +44,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=5fe8Zad2At3QNtgzV6CN27Y1npXSjdEYhVSLoYTF1TA=; b=SERxtXvpHGISyJozv4vW5EXu6k
-	M/sAzfO3cV6JylVih8lxeZjuxSTmUqVDuvjJ6uAGeoIqRmMlZgtOoIYGO1wyttKjCAbpCgbHeIiyU
-	MIvd6hlaqsMQGpOLhAtyeyPeuwIVg9wLacI6yztPaoI9v5O5kKJ4nIGDXgXWws2hArdY=;
-Message-ID: <ab953ad7-0345-ce60-610d-02b6f4b26398@xen.org>
-Date: Thu, 2 Mar 2023 14:50:00 +0000
+X-Inumbo-ID: 0c258645-b90a-11ed-96ad-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1677768831;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=5SSUBnQqHZ5gnDJR6SbL7el1W56pgUBsPLQROqNCbBA=;
+        b=kbum3z7UjiUCredUTmZLAy315pNhwnUDrVOjLuPLdh/E+LYzTWvapbsxwyHQf0tMlO
+         70JHxlTejh9zFGAXgnNb00avPcPrzGPtDpEhNifl4W4w/UxFv3j52K73lElJNi79Pedq
+         DH1f5W8flCWdU9uyslkS07kNWo/dXqFIxh6UycV3G5f8pyKpSRIkE/mT7aevktMiPLi9
+         U3dh9PyGR3YuSUguJHaq9O0S2dzrMfxi6Y8kIsK199wELr1YAR7v5Kw/Nr+Y3FpsMAzc
+         bOhc3458LdfEi852ALm6FiHFWagP7h1QZNxJyHTb6k7QwL3xMKF8H7ICl6C3YK58YMex
+         v7+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1677768831;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5SSUBnQqHZ5gnDJR6SbL7el1W56pgUBsPLQROqNCbBA=;
+        b=xVwfWQ/TIeigpCB9mjLa4/tKhzr6kwLfZ4weQc5gqfi3QtS1SOx+o6PMoew35XuquC
+         a54TDI/6oV35GxVt7cLdSpBJWGtAImYASaKzqZJaXjLOHe9jrbZ0hCitgqjqnWeSifdk
+         6ZB7tNxN6n+jaIDIDEJ9bJLkaBA9LXl/GH38dVy0Jmk04B+ausOnl2ZHZMzSNLsZawr/
+         lAeGUf4OTiMlILnYlnQIODCZVUyaf9p3H9a2xHGs4kHFJ2Z4Zpmy8axU/iHn7lAH7YBQ
+         QFrMjPySQC5HwiN/nIjLkT5MyFTtcWgvAGZLMhUHXn6eCm0Zoq/disEg2gsjAo0oPAby
+         ouEg==
+X-Gm-Message-State: AO0yUKWQYBQMExEDqTNg35Qc13wfQoHwTN0/dhFiV52xXp/1PWK0cLZx
+	S2ElrP1rZG+/PANIRXD130I=
+X-Google-Smtp-Source: AK7set+SlsYHw1yr+JIpv4Z7S22rTl2rUaj/2yv9etriWM0GIBdCQ/OOIJdt1+r3medPbcX+jv4afg==
+X-Received: by 2002:ac2:520f:0:b0:4ca:98ec:7d9a with SMTP id a15-20020ac2520f000000b004ca98ec7d9amr2537707lfl.15.1677768831384;
+        Thu, 02 Mar 2023 06:53:51 -0800 (PST)
+Message-ID: <f0d1e5b78482639a25f1ef0cf878309344383e7e.camel@gmail.com>
+Subject: Re: [PATCH v2 1/3] xen/riscv: read/save hart_id and dtb_base passed
+ by bootloader
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,  Gianluca Guida <gianluca@rivosinc.com>, Bob
+ Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+ <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
+Date: Thu, 02 Mar 2023 16:53:49 +0200
+In-Reply-To: <881fd332-91c1-fea2-d1a2-3a5444a6f272@citrix.com>
+References: <cover.1677762812.git.oleksii.kurochko@gmail.com>
+	 <3edbb40e86e480b2b71d596ff61c05336004b14c.1677762812.git.oleksii.kurochko@gmail.com>
+	 <881fd332-91c1-fea2-d1a2-3a5444a6f272@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.8.0
-Subject: Re: [PATCH v1] xen/arm: align *(.proc.info) in the linker script
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <74973920d8722df3ce533979314564f331acf16e.1677687247.git.oleksii.kurochko@gmail.com>
- <370809af-75e6-546a-53e4-71a76444f367@xen.org>
- <a9c2638cd8620d74ec719845132ef65f08b4c934.camel@gmail.com>
- <cf15b113-ac6f-e115-6c38-38b25a265934@xen.org>
- <f2f6544a-a59e-2e10-0b8f-080f91708459@xen.org>
- <472fee066070db9cb3c662bf5cc6f8cb681aeb1b.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <472fee066070db9cb3c662bf5cc6f8cb681aeb1b.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Oleksii,
+On Thu, 2023-03-02 at 14:02 +0000, Andrew Cooper wrote:
+> On 02/03/2023 1:23 pm, Oleksii Kurochko wrote:
+> > diff --git a/xen/arch/riscv/riscv64/head.S
+> > b/xen/arch/riscv/riscv64/head.S
+> > index ffd95f9f89..851b4691a5 100644
+> > --- a/xen/arch/riscv/riscv64/head.S
+> > +++ b/xen/arch/riscv/riscv64/head.S
+> > @@ -6,8 +7,31 @@ ENTRY(start)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Mask all interrupts=
+ */
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 csrw=C2=A0=C2=A0=C2=A0=
+ CSR_SIE, zero
+> > =C2=A0
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Save HART ID and DTB bas=
+e */
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lla=C2=A0=C2=A0=C2=A0=C2=A0=
+ a6, _bootcpu_id
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 REG_S=C2=A0=C2=A0 a0, (a6)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lla=C2=A0=C2=A0=C2=A0=C2=A0=
+ a6, _dtb_base
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 REG_S=C2=A0=C2=A0 a1, (a6)
+> > +
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 la=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 sp, cpu0_boot_stack
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 li=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 t0, STACK_SIZE
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 add=C2=A0=C2=A0=C2=A0=
+=C2=A0 sp, sp, t0
+> > =C2=A0
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lla=C2=A0=C2=A0=C2=A0=C2=A0=
+ a6, _bootcpu_id
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 REG_L=C2=A0=C2=A0 a0, (a6)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lla=C2=A0=C2=A0=C2=A0=C2=A0=
+ a6, _dtb_base
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 REG_L=C2=A0=C2=A0 a1, (a6)
+>=20
+> This is overkill.
+>=20
+> Put a comment at start identifying which parameters are in which
+> registers, and just make sure not to clobber them - RISCV has plenty
+> of
+> registers.
+>=20
+> Right now, we don't touch the a registers at all, which is why your
+> v1
+> patch worked.=C2=A0 (a0 and a1 still have the same value when we get into
+> C).
+>=20
+> If we do need to start calling more complex things here (and I'm not
+> sure that we do), we could either store the parameters in s2-11, or
+> spill them onto the stack; both of which are preferable to spilling
+> to
+> global variables like this.
+>=20
+> > +
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tail=C2=A0=C2=A0=C2=A0=
+ start_xen
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Boot cpu id is pass=
+ed by a bootloader
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > +_bootcpu_id:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RISCV_PTR 0x0
+>=20
+> Just a note (as you want to delete this anyway), this isn't a PTR,
+> it's
+> a LONG.
+>=20
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * DTB base is passed =
+by a bootloader
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > +_dtb_base:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 RISCV_PTR 0x0
+> > diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+> > index 1c87899e8e..d9723fe1c0 100644
+> > --- a/xen/arch/riscv/setup.c
+> > +++ b/xen/arch/riscv/setup.c
+> > @@ -7,7 +7,8 @@
+> > =C2=A0unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
+> > =C2=A0=C2=A0=C2=A0=C2=A0 __aligned(STACK_SIZE);
+> > =C2=A0
+> > -void __init noreturn start_xen(void)
+> > +void __init noreturn start_xen(unsigned long bootcpu_id,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long dtb_base)
+>=20
+> To be clear, this change should be this hunk exactly as it is, and a
+> comment immediately ahead of ENTRY(start) describing the entry ABI.
+>=20
+> There is no need currently to change any of the asm code.
+I think that I'll use s2 and s3 to save bootcpu_id.
 
-On 02/03/2023 07:34, Oleksii wrote:
-> Hi Julien,
->>>> On Wed, 2023-03-01 at 16:21 +0000, Julien Grall wrote:
->>>>> Hi Oleksii,
->>>>>
->>>>> On 01/03/2023 16:14, Oleksii Kurochko wrote:
->>>>>> During testing of bug.h's macros generic implementation
->>>>>> yocto-
->>>>>> qemuarm
->>>>>> job crashed with data abort:
->>>>>
->>>>> The commit message is lacking some information. You are telling
->>>>> us
->>>>> that
->>>>> there is an error when building with your series, but this
->>>>> doesn't
->>>>> tell
->>>>> me why this is the correct fix.
->>>>>
->>>>> This is also why I asked to have the xen binary because I want
->>>>> to
->>>>> check
->>>>> whether this was a latent bug in Xen or your series effectively
->>>>> introduce a bug.
->>>>>
->>>>> Note that regardless what I just wrote this is a good idea to
->>>>> align
->>>>> __proc_info_start. I will try to have a closer look later and
->>>>> propose
->>>>> a
->>>>> commit message and/or any action for your other series.
->>>> Regarding binaries please take a look here:
->>>> https://lore.kernel.org/xen-devel/aa2862eacccfb0574859bf4cda8f4992baa5d2e1.camel@gmail.com/
->>>>
->>>> I am not sure if you get my answer as I had the message from
->>>> delivery
->>>> server that it was blocked for some reason.
->>>
->>> I got the answer. The problem now is gitlab only keep the artifact
->>> for
->>> the latest build and it only provide a zImage (having the ELF would
->>> be
->>> easier).
->>>
->>> I will try to reproduce the error on my end.
->>
->> I managed to reproduce it. It looks like that after your bug patch,
->> *(.rodata.*) will not be end on a 4-byte boundary. Before your patch,
->> all the messages will be in .rodata.str. Now they are in
->> .bug_frames.*,
->> so there some difference in .rodata.*.
->>
->> That said, it is not entirely clear why we never seen the issue
->> before
->> because my guessing there are no guarantee that .rodata.* will be
->> suitably aligned.
->>
->> Anyway, here a proposal for the commit message:
->>
->> "
->> xen/arm: Ensure the start *(.proc.info) of is 4-byte aligned
->>
->> The entries in *(.proc.info) are expected to be 4-byte aligned and
->> the
->> compiler will access them using 4-byte load instructions. On Arm32,
->> the
->> alignment is strictly enforced by the processor and will result to a
->> data abort if it is not correct.
->>
->> However, the linker script doesn't encode this requirement. So we are
->> at
->> the mercy of the compiler/linker to have aligned the previous
->> sections
->> suitably.
->>
->> This was spotted when trying to use the upcoming generic bug
->> infrastructure with the compiler provided by Yocto.
->>
->> Link:
->> https://lore.kernel.org/xen-devel/6735859208c6dcb7320f89664ae298005f70827b.camel@gmail.com/
->> "
->>
->> If you are happy with the proposed commit message, then I can update
->> it
->> while committing.
-> I am happy with the proposed commit message.
+But I am unsure I understand why the asm code shouldn't be changed.
 
-Thanks. With that:
+I mean that a0-7 are used as function arguments, a0-1 are used for
+return value so they are expected to be changed. That is why we have to
+save them somewhere.
 
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+If I understand you correctly I can write in a comment ahead of
+ENTRY(start) that a0, and a1 are reserved for hart_id and dtb_base
+which are passed from a bootloader but it will work only if start_xen
+will be only C function called from head.S.
 
-I have addressed Jan's comment and committed the patch.
+I probably misunderstand you...
 
-Cheers,
+~ Oleksii
 
--- 
-Julien Grall
 
