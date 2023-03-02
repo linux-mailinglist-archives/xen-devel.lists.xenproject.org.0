@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF81B6A7FC3
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 11:15:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.504827.777241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97D1F6A803A
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 11:47:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.504835.777253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXfxT-0004Yd-Dd; Thu, 02 Mar 2023 10:14:43 +0000
+	id 1pXgSC-00008g-1L; Thu, 02 Mar 2023 10:46:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 504827.777241; Thu, 02 Mar 2023 10:14:43 +0000
+Received: by outflank-mailman (output) from mailman id 504835.777253; Thu, 02 Mar 2023 10:46:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXfxT-0004W5-B0; Thu, 02 Mar 2023 10:14:43 +0000
-Received: by outflank-mailman (input) for mailman id 504827;
- Thu, 02 Mar 2023 10:14:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5rfr=62=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pXfxS-0004Vz-7c
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 10:14:42 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0add365b-b8e3-11ed-a550-8520e6686977;
- Thu, 02 Mar 2023 11:14:39 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id h3so17010564lja.12
- for <xen-devel@lists.xenproject.org>; Thu, 02 Mar 2023 02:14:39 -0800 (PST)
-Received: from [192.168.8.114] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
- [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
- bi36-20020a05651c232400b002934b5c5c67sm2039418ljb.32.2023.03.02.02.14.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Mar 2023 02:14:38 -0800 (PST)
+	id 1pXgSB-00005h-UA; Thu, 02 Mar 2023 10:46:27 +0000
+Received: by outflank-mailman (input) for mailman id 504835;
+ Thu, 02 Mar 2023 10:46:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pXgSA-00005T-VI; Thu, 02 Mar 2023 10:46:26 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pXgSA-0006OD-S6; Thu, 02 Mar 2023 10:46:26 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pXgSA-0001sM-EP; Thu, 02 Mar 2023 10:46:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pXgSA-00021w-Dx; Thu, 02 Mar 2023 10:46:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,106 +42,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0add365b-b8e3-11ed-a550-8520e6686977
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1677752079;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=T8PCUS/2Lgtyx8KlmTKKx3chAx6sf/xCNb4M3wTnjEQ=;
-        b=b+OzqTRKB0Rg/sHV7lr4drv7LvOFyTUdnp6UsXiihyRddtDCxJBDfG0fsD7YpJ+AxL
-         hHxVXSuh9k7q7Cas6gK7QkQU4JCVcIiXtuPnELMxwzHHSQO2Ch3D9rxTdVzbqvnZnZuq
-         xmE97wUFr6nf4ZYclwrJQarq4yAX0zLmeXKNfEv6ln8a2ayrsmXDKpjccpFgp/yAGfJY
-         yCTxmgJI1zs7AhYiHLvs0CkhETk4TspgXh9vJmUSCh8EuB+f6bHQ35dQARySAqdsLL47
-         7QLhIxXys4DxE/fzAXYPFQqdrM2pbNWdmJ4M+W5cVRrI52txdd9ANlordxDO+SH1ls1n
-         XoPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1677752079;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=T8PCUS/2Lgtyx8KlmTKKx3chAx6sf/xCNb4M3wTnjEQ=;
-        b=jzlABBjdVowomsnYG99MeF0i82OeS5FBqZeYdvjwUpYEkabeF/kJc7GSSyMVBFRa9h
-         Oc6hVz7zd4SWlMlRbvCrrT+S/ttW4KfhMTWH4j+b5vhnR4uMGhurgSTc56wsPa1DRJaG
-         SFRN3vycjzqiT1kDA6QDdi1fsXK5ddTAbfar1MrSO4EnBHXjTXwcSasAZi0RAVV/jgKA
-         4UsPZfNtO5MaBaddICOorhjfY68jYDAPDrVdIU7Ugwf5fENXY6enr7CLuvCsj6bCTUpL
-         Cy+hyXmzjYbfqIKvzQ5y9JzOXzuq0bLNSkaWyTEInXvOqv5eKdF41On7fMs40wApGR+R
-         +sDg==
-X-Gm-Message-State: AO0yUKVNxYUiRN5CiUlqgjU3FCGPqnfgylySb5RRhTrzHcu9CZph5Ltz
-	z3D3DVFP1+lTI02BSolFZiQ=
-X-Google-Smtp-Source: AK7set+oksFA7BURn7kRqkDrvG1eAcSBPSG8NreA+XowMzgXnQ/t3sWtwtPcYCvkAejTEoDJ+sn/Ow==
-X-Received: by 2002:a05:651c:38c:b0:295:9d32:a653 with SMTP id e12-20020a05651c038c00b002959d32a653mr2766834ljp.35.1677752079166;
-        Thu, 02 Mar 2023 02:14:39 -0800 (PST)
-Message-ID: <842e420f2a4a023c65d820b352cd97f4b1861986.camel@gmail.com>
-Subject: Re: [PATCH v4 3/4] xen/arm: switch ARM to use generic
- implementation of bug.h
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, George Dunlap <george.dunlap@citrix.com>, Wei
- Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Date: Thu, 02 Mar 2023 12:14:37 +0200
-In-Reply-To: <ee8939d9-3071-b08f-e3f9-9a0611f8f10a@suse.com>
-References: <cover.1677747527.git.oleksii.kurochko@gmail.com>
-	 <fd0b81101c702b8d082a78507ce081b2fc2bbb41.1677747527.git.oleksii.kurochko@gmail.com>
-	 <ee8939d9-3071-b08f-e3f9-9a0611f8f10a@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=x0xydYzj8DGsDgr2doZiWykROrkcN6zOxXJUIlF74+0=; b=2u9Y48pos9SCGSJBM4dVziqIPU
+	oncEwzrwvVocMBmMur6AzajmOzvAL2WO9NLFxpDovQc+fB8OT8eoLL4DlFGGEtwgBvEbZgDKov7oB
+	kTbJKpa/vwGD8LOTMwOwqWbLoGmBssLZLJWS/L/2lyfQ1lenqFvOyfRp1g/DRBLCcP/8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-178942-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
+Subject: [libvirt test] 178942: regressions - trouble: blocked/fail/pass/starved
+X-Osstest-Failures:
+    libvirt:build-arm64:xen-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
+    libvirt:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:build-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    libvirt:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    libvirt=3ba5974034a282370f5551d71afead6a3a5cadc6
+X-Osstest-Versions-That:
+    libvirt=541670dd5cc33f621f1199e5421efd2c79c25b1a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 02 Mar 2023 10:46:26 +0000
 
-On Thu, 2023-03-02 at 10:55 +0100, Jan Beulich wrote:
-> On 02.03.2023 10:20, Oleksii Kurochko wrote:
-> > The following changes were made:
-> > * make GENERIC_BUG_FRAME mandatory for ARM
-> > * As do_bug_frame() returns -EINVAL in case something goes wrong
-> > =C2=A0 otherwise id of bug frame. Thereby 'if' cases where
-> > do_bug_frame() was
-> > =C2=A0 updated to check if the returned value is less than 0
-> > * Switch ARM's implementation of bug.h macros to generic one
-> >=20
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > Changes in V4:
-> > =C2=A0* Switch ARM implementation to generic one
-> > =C2=A0* Remove BUG_FN_REG from arm{16,32}/bug.h as it isn't needed afte=
-r
-> > switch to generic implementation
->=20
-> In which case why ...
->=20
-> > --- a/xen/common/bug.c
-> > +++ b/xen/common/bug.c
-> > @@ -46,11 +46,7 @@ int do_bug_frame(struct cpu_user_regs *regs,
-> > unsigned long pc)
-> > =C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0 if ( id =3D=3D BUGFRAME_run_fn )
-> > =C2=A0=C2=A0=C2=A0=C2=A0 {
-> > -#ifdef BUG_FN_REG
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void (*fn)(const struct cpu=
-_user_regs *) =3D (void *)regs-
-> > >BUG_FN_REG;
-> > -#else
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void (*fn)(const struc=
-t cpu_user_regs *) =3D bug_ptr(bug);
-> > -#endif
-> > =C2=A0
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fn(regs);
->=20
-> ... is what is being removed here again introduced in the first place
-> (in an earlier patch)?
-Missed that.
+flight 178942 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/178942/
 
-I looked again at the current patch and realized that ARM-specific
-do_bug_frame() has been removed only in the current patch.
+Regressions :-(
 
-So you are right, there is no any sense to introduce these lines in
-first patch of the patch series.
->=20
-> Jan
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64                   6 xen-build                fail REGR. vs. 178838
+ test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 178838
 
-~ Oleksii
+Tests which did not succeed, but are not blocking:
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
+version targeted for testing:
+ libvirt              3ba5974034a282370f5551d71afead6a3a5cadc6
+baseline version:
+ libvirt              541670dd5cc33f621f1199e5421efd2c79c25b1a
+
+Last test of basis   178838  2023-03-01 04:20:25 Z    1 days
+Testing same since   178942  2023-03-02 04:20:15 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  fail    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 3ba5974034a282370f5551d71afead6a3a5cadc6
+Author: Andrea Bolognani <abologna@redhat.com>
+Date:   Wed Mar 1 18:48:43 2023 +0100
+
+    qemu: Align arguments correctly
+    
+    Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+
+commit 20e063c2fd3b19439f7440b27e894c4cd966422f
+Author: Peter Krempa <pkrempa@redhat.com>
+Date:   Mon Feb 27 12:34:47 2023 +0100
+
+    ci: Regenerate gitlab CI config with latest lcitool
+    
+    The latest 'lcitool' now generates the CI config in a way which
+    allows users to kick off pipelines with the upstream projects container
+    environment rather than building a throwaway updated environment each
+    time and enables a gitlab feature to time individual script lines.
+    Pull it into libvirt.
+    
+    Signed-off-by: Peter Krempa <pkrempa@redhat.com>
+    Reviewed-by: Erik Skultety <eskultet@redhat.com>
+
+commit 61233dfbee616e36af6c495493cace0f3370f37b
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Mon Feb 27 10:22:28 2023 +0100
+
+    qemu_monitor: Decouple switch()-es in qemuMonitorJSONGetMemoryDeviceInfo()
+    
+    There are two switch() statements over the same variable inside
+    of qemuMonitorJSONGetMemoryDeviceInfo(). Join them together into
+    one switch.
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Kristina Hanicova <khanicov@redhat.com>
+
+commit f173f6a79c759b5d286940f5a58d43f38366ebae
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Mon Feb 27 10:58:27 2023 +0100
+
+    qemu_monitor: Switch to virDomainMemoryModel enum in qemuMonitorJSONGetMemoryDeviceInfo()
+    
+    When processing memory devices (as a reply from QEMU), a bunch of
+    STREQ()-s is used. Fortunately, the set of strings we process is
+    the same as virDomainMemoryModel enum. Therefore, we can use
+    virDomainMemoryModelTypeFromString() and then use integer
+    comparison (well, switch()). This has an upside: introducing a
+    new memory model lets us see what places need adjusting
+    immediately at compile time.
+    
+    NB, this is in contrast with cmd line generator
+    (qemuBuildMemoryDeviceProps()), where more specific models are
+    generated (e.g. "pc-dimm", "virtio-mem-pci", etc.). But QEMU
+    reports back the parent model, instead of specific child
+    instance.
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Kristina Hanicova <khanicov@redhat.com>
+
+commit b4851deb799c3e48cfb5e4c44f5560500e1ad6c7
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Mon Feb 27 10:31:43 2023 +0100
+
+    libvirt_private.syms: Export virDomainMemoryModelTypeFromString()
+    
+    The virDomainMemoryModelTypeFromString() is not exported, though
+    the enum translation functions are declared in
+    src/conf/domain_conf.h.
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Kristina Hanicova <khanicov@redhat.com>
+
+commit 590a6c1b781b1484352beb5af489d9124597f8a8
+Author: Peter Krempa <pkrempa@redhat.com>
+Date:   Mon Feb 27 09:10:08 2023 +0100
+
+    kbase: virtiofs: Add a note that virtiofs is not migratable
+    
+    Note that certain operations will not work.
+    
+    Resolves: https://gitlab.com/libvirt/libvirt/-/issues/452
+    Signed-off-by: Peter Krempa <pkrempa@redhat.com>
+    Reviewed-by: Martin Kletzander <mkletzan@redhat.com>
+
+commit 5d591421220c850aa64a640eaf2a151ba7866400
+Author: Peter Krempa <pkrempa@redhat.com>
+Date:   Mon Feb 27 11:00:34 2023 +0100
+
+    ci: Regenerate gitlab config with latest lcitool
+    
+    The 'cirrus-run' and 'check-dco' containers are now exported as
+    ':latest' instead of ':master'.
+    
+    Signed-off-by: Peter Krempa <pkrempa@redhat.com>
+    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+
+commit 3b7d109a177d01e92481ca5dd082104fdce5b08c
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Wed Mar 1 11:15:06 2023 +0100
+
+    Post-release version bump to 9.2.0
+    
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+
+commit 96d015a1cf790575c5e5f8c64c22fc7e3ea26b4a
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Wed Mar 1 11:10:41 2023 +0100
+
+    Release of libvirt-9.1.0
+    
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+
+commit ab992fd193ebd420f44302dd2cf59013c6399573
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Wed Mar 1 09:38:29 2023 +0100
+
+    NEWS: Document my contributions for upcoming release
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Jiri Denemark <jdenemar@redhat.com>
+
+commit f29d75cc0fc00d19bb35c3f9b4e82f2235e7978d
+Author: Andrea Bolognani <abologna@redhat.com>
+Date:   Tue Feb 28 22:32:35 2023 +0100
+
+    NEWS: Clarify limitations of passt support
+    
+    Let users know that we're working on lifting the limitations
+    and that they should not use the feature in production until
+    then.
+    
+    Signed-off-by: Andrea Bolognani <abologna@redhat.com>
+    Reviewed-by: Laine Stump <laine@redhat.com>
 
