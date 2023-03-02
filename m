@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BB706A8828
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 18:54:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505296.777991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B2576A8825
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 18:54:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505299.778014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXn7k-0008PQ-Gf; Thu, 02 Mar 2023 17:53:48 +0000
+	id 1pXn7l-0000N6-Lc; Thu, 02 Mar 2023 17:53:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505296.777991; Thu, 02 Mar 2023 17:53:48 +0000
+Received: by outflank-mailman (output) from mailman id 505299.778014; Thu, 02 Mar 2023 17:53:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXn7k-0008MN-DB; Thu, 02 Mar 2023 17:53:48 +0000
-Received: by outflank-mailman (input) for mailman id 505296;
- Thu, 02 Mar 2023 17:53:46 +0000
+	id 1pXn7l-0000C6-Fe; Thu, 02 Mar 2023 17:53:49 +0000
+Received: by outflank-mailman (input) for mailman id 505299;
+ Thu, 02 Mar 2023 17:53:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BPDg=62=citrix.com=prvs=418368d91=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pXn7i-00086w-IU
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 17:53:46 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2bc319f9-b923-11ed-96ad-2f268f93b82a;
- Thu, 02 Mar 2023 18:53:44 +0100 (CET)
+ id 1pXn7j-00086w-IU
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 17:53:47 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2cb47d8d-b923-11ed-96ad-2f268f93b82a;
+ Thu, 02 Mar 2023 18:53:45 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,52 +36,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2bc319f9-b923-11ed-96ad-2f268f93b82a
+X-Inumbo-ID: 2cb47d8d-b923-11ed-96ad-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1677779624;
+  d=citrix.com; s=securemail; t=1677779625;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=mVBiVBPMb7eSTKOxEt/bZdgZZJJ4ZGwNZDi0xUkKmco=;
-  b=JPU3yzpMe1mh0pupu9DKCrC88lp9jsFKwiljP0IM2ThbOblAUsZ0R5/D
-   BLFh5EfvFlgaFxFkxQ79ezJz3JMHMrGjf2AXfC3HvqrvcTpEuBGnHdtB8
-   RDkPUUN2uknAf1WNVTUJD0iFzXYfit2Ov7xMUh/Gf9/SaJFBkilLIA21A
-   8=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=5MNo1ps8O2O0aeLQiXGpyjU3jhCbvyS2iGWQkujCObw=;
+  b=Ypta3oKZqs32cHavA+kXrbFJgcK10POplzP2LQeKkQ0iTVRb+V0dgw2S
+   AOFF02FcuCr0lt0DwdRxSReKZcSRGslIRbRaol6ZlzYeyJ7RVVFXW/qAb
+   j8XWswznmo7XEFB2zSile8ccySKj4GOulfdUu4H3A6K1HgCv3AWAB6q6Q
+   I=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 99632357
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 99135360
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Q7fdK6vn/E9s/P8F3ezscJYhi+fnVE1eMUV32f8akzHdYApBsoF/q
- tZmKW6EP/jeMTD1eI1/PYW2oxwB65LRydNhS1Y9pHtgHyoU+JbJXdiXEBz9bniYRiHhoOCLz
- O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
- Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj6Fv0gnRkPaoQ5ASGzSFOZH4iDfrZw0XQE9E88tGSH
- 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
- Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
- fMwIQsqZx6B27KN8YmkZNJKosYBBtjJBdZK0p1g5Wmx4fcORJnCR+PB5MNC3Sd2jcdLdRrcT
- 5NHM3w1Nk2GOkARfA5NU/rSn8/x7pX7WzRetFKSo7tx+2XJxRZ9+LPsLMDUapqBQsA9ckOw9
- zOYpD6iX05y2Nq39WqMqVGQjNDztwz7QJsZC5ylxuNojwjGroAUIEJPDgbqyRWjsWa1UshTL
- EE88SM0oa8/skesS7HVRAakqXSJuhodXdt4EOAg7gyJjK3O7G6xFmUCCzJMdtEinMs3XiAxk
- E+EmcvzAj5iu6HTTmiSnop4thvrZ3JTdzVbI3ZZE01cuYKLTJwPYgznR+1EGaC30o3OKArv7
- QusiCocraQxtJtev0mkxmzvjzWpr5nPawc64ATLQ26ohj9EiJ6Zi5+AsgaCs6sZRGqNZhzY5
- SVfxZDChAwbJcvV/BFhVtnhC11ACxytFDTHyWBiEJA6n9hG0y7yJNsAiN2SyaoADyrlRdMLS
- BWO0e+yzMUJVJdPUUOQS9PZNijS5fK8fekJr9iNBja0XrB/dRWc4AZlblOK0mbmnSAEyP9gZ
- snKLJb0VC9GWMyLKQZaoM9HjNcWKt0WnzuPFfgXMTz8uVZhWJJlYehcawbfBgzIxKiFvB/U4
- 75i2ziikn1ivBnFSnCPq+Y7dAlaRUXX8Liq86S7gMbfeFs5cIzgYteNqY4cl3tNxP8JzbyRp
- i/kCye1CjPX3BX6FOlDUVg7AJuHYHq1hStT0fAEVbpw50UeXA==
-IronPort-HdrOrdr: A9a23:+qbiMKGgH5xKE1X4pLqE/8eALOsnbusQ8zAXPiFKOH9om6mj/K
- qTdZsgpH3JYUkqKRQdcLy7VZVoIkm9yXcW2+cs1N6ZNWHbUQ2TQL2KhrGC/9SPIULDH+dmpM
- NdT5Q=
+IronPort-Data: A9a23:Ywu3D6MFXMM7GF7vrR2+l8FynXyQoLVcMsEvi/4bfWQNrUolhjBWx
+ zEcXGyBbv7ZN2Pze4t1aoq18x9UsZTTyNdmHAto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGj9SuvLrRC9H5qyo42tD5gZmPpingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0ulrAFoJ7
+ +ckEh4IMhqlpvqb5+ujZfY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
+ ZNEN3w2Nk+ojx5nYz/7DLo3mvuogX/uNSVVsluPqYI84nTJzRw327/oWDbQUo3bHJ4IxRjAz
+ o7A10/zXj1KJeSH8yi61X2W2+bgghjnWLtHQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFaPtwQQXNd4GOQg5AaAjKHT5m6xHXMYRzRMbNgnss4eRjEw0
+ FKN2dTzClRSXKa9ECzHsO3O9HXrZHZTdDVZDcMZcecby9b/obp0lAnzdPhmTKSTr8XYPmjo7
+ C/f+UDSmI4vpcIM0qy6+3XOjDStuoXFQ2YJ2+nHYo62xlgnPdD4PuRE/XCetK8dd9jBEjFtq
+ VBew6CjAPYy4YZhfcBnaMEEB/mX6vmMK1UwanY/TsB6p1xBF5NOFL28AQ2Sxm8zb67omhezO
+ ic/XD+9A7cCVEZGlYctP+qM5z0ClMAM7+jNWPHOdcZpaZNsbgKB9ywGTRfOgD+zwRV8yfhmZ
+ cbznSOQ4ZEyU/kP8dZLb71Fje9DKt4Wngs/uqwXPzz4iOHDNRZ5uJ8OMUeUb/BR0U93iFy9z
+ jqrDOPTk083eLSnMkHqHXs7cQhiwY4TWcqn9KS6t4erfmJbJY3WI6SKneh6ItQ7xvU9eyWh1
+ ijVZ3K0AWHX3RXvQThmoFg5AF8zdf6TdU4GABE=
+IronPort-HdrOrdr: A9a23:+aSsLaHsmK+8UxhYpLqE5seALOsnbusQ8zAXPiFKJSC9F/byqy
+ nAppsmPHPP5gr5OktBpTnwAsi9qBrnnPYejLX5Vo3SPzUO1lHYSb1K3M/PxCDhBj271sM179
+ YFT0GmMqyTMWRH
 X-IronPort-AV: E=Sophos;i="5.98,228,1673931600"; 
-   d="scan'208";a="99632357"
+   d="scan'208";a="99135360"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
 	<anthony.perard@citrix.com>, Doug Goldstein <cardoe@cardoe.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>
-Subject: [RFC XEN PATCH 3/7] automation: Add a template per container for build jobs.
-Date: Thu, 2 Mar 2023 17:53:28 +0000
-Message-ID: <20230302175332.56052-4-anthony.perard@citrix.com>
+Subject: [RFC XEN PATCH 4/7] automation: Adding containers build jobs and test of thoses
+Date: Thu, 2 Mar 2023 17:53:29 +0000
+Message-ID: <20230302175332.56052-5-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230302175332.56052-1-anthony.perard@citrix.com>
 References: <20230302175332.56052-1-anthony.perard@citrix.com>
@@ -89,613 +89,380 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Have one template per container, which each build job will extend.
-This will allow to add more variable which are linked to a used
-container.
+For the test-containers jobs, mostly copy from "build.yaml", rename
+'.container-*-tmpl' templates to '.container-*-testtmpl', prefix build
+jobs with "test-", add BUILD_CONTAINER and "needs" to container
+template.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- automation/gitlab-ci/build.yaml | 327 ++++++++++++++++++++------------
- 1 file changed, 202 insertions(+), 125 deletions(-)
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 38bb22d860..1f186bf346 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -255,285 +255,346 @@
+Notes:
+    WARNING: This is an incomplete list of the containers that can be
+    rebuilt and tested.
+
+ automation/gitlab-ci/containers.yaml      |  74 ++++++-
+ automation/gitlab-ci/test-containers.yaml | 257 ++++++++++++++++++++++
+ 2 files changed, 330 insertions(+), 1 deletion(-)
+
+diff --git a/automation/gitlab-ci/containers.yaml b/automation/gitlab-ci/containers.yaml
+index ace93eaccf..a6d61980b1 100644
+--- a/automation/gitlab-ci/containers.yaml
++++ b/automation/gitlab-ci/containers.yaml
+@@ -18,8 +18,80 @@
+   after_script:
+     - docker logout
+ 
+-debian-unstable-container:
++archlinux-current-container:
++  variables:
++    BUILD_CONTAINER: archlinux/current
++  extends:
++    - .container-build-tmpl
++
++centos-7-2-container:
++  variables:
++    BUILD_CONTAINER: centos/7.2
++  extends:
++    - .container-build-tmpl
++
++centos-7-container:
++  variables:
++    BUILD_CONTAINER: centos/7
++  extends:
++    - .container-build-tmpl
++
++debian-jessie-container:
++  variables:
++    BUILD_CONTAINER: debian/jessie
++  extends:
++    - .container-build-tmpl
++
++debian-jessie-32-container:
++  variables:
++    BUILD_CONTAINER: debian/jessie-i386
++  extends:
++    - .container-build-tmpl
++
++debian-stretch-container:
++  variables:
++    BUILD_CONTAINER: debian/stretch
++  extends:
++    - .container-build-tmpl
++
++debian-stretch-32-container:
++  variables:
++    BUILD_CONTAINER: debian/stretch-i386
+   extends:
+     - .container-build-tmpl
++
++debian-unstable-container:
+   variables:
+     BUILD_CONTAINER: debian/unstable
++  extends:
++    - .container-build-tmpl
++
++debian-unstable-32-container:
++  variables:
++    BUILD_CONTAINER: debian/unstable-i386
++  extends:
++    - .container-build-tmpl
++
++ubuntu-trusty-container:
++  variables:
++    BUILD_CONTAINER: ubuntu/trusty
++  extends:
++    - .container-build-tmpl
++
++ubuntu-xenial-container:
++  variables:
++    BUILD_CONTAINER: ubuntu/xenial
++  extends:
++    - .container-build-tmpl
++
++ubuntu-bionic-container:
++  variables:
++    BUILD_CONTAINER: ubuntu/bionic
++  extends:
++    - .container-build-tmpl
++
++ubuntu-focal-container:
++  variables:
++    BUILD_CONTAINER: ubuntu/focal
++  extends:
++    - .container-build-tmpl
+diff --git a/automation/gitlab-ci/test-containers.yaml b/automation/gitlab-ci/test-containers.yaml
+index 5dbf3902ff..4d5c6ba364 100644
+--- a/automation/gitlab-ci/test-containers.yaml
++++ b/automation/gitlab-ci/test-containers.yaml
+@@ -197,6 +197,148 @@
  
  # Jobs below this line
  
--archlinux-gcc:
--  extends: .gcc-x86-64-build
-+.container-archlinux:
-   variables:
-     CONTAINER: archlinux:current
- 
-+archlinux-gcc:
-+  extends:
-+    - .gcc-x86-64-build
-+    - .container-archlinux
++.container-archlinux-testtmpl:
++  variables:
++    CONTAINER: archlinux:current
++    BUILD_CONTAINER: archlinux/current
++  needs:
++    - archlinux-current-container
 +
- archlinux-gcc-debug:
--  extends: .gcc-x86-64-build-debug
--  variables:
--    CONTAINER: archlinux:current
++test-archlinux-gcc:
 +  extends:
-+    - .gcc-x86-64-build-debug
-+    - .container-archlinux
- 
--centos-7-gcc:
--  extends: .gcc-x86-64-build
-+.container-centos-7:
-   variables:
-     CONTAINER: centos:7
- 
-+centos-7-gcc:
-+  extends:
-+    - .gcc-x86-64-build
-+    - .container-centos-7
++    - .gcc-x86-64-testbuild
++    - .container-archlinux-testtmpl
 +
- centos-7-gcc-debug:
--  extends: .gcc-x86-64-build-debug
--  variables:
--    CONTAINER: centos:7
++test-archlinux-gcc-debug:
 +  extends:
-+    - .gcc-x86-64-build-debug
-+    - .container-centos-7
- 
--debian-stretch-clang:
--  extends: .clang-x86-64-build
-+.container-debian-stretch:
-   variables:
-     CONTAINER: debian:stretch
- 
-+debian-stretch-clang:
-+  extends:
-+    - .clang-x86-64-build
-+    - .container-debian-stretch
++    - .gcc-x86-64-testbuild-debug
++    - .container-archlinux-testtmpl
 +
- debian-stretch-clang-debug:
--  extends: .clang-x86-64-build-debug
--  variables:
--    CONTAINER: debian:stretch
-+  extends:
-+    - .clang-x86-64-build-debug
-+    - .container-debian-stretch
- 
- debian-stretch-clang-8:
--  extends: .clang-8-x86-64-build
--  variables:
--    CONTAINER: debian:stretch
-+  extends:
-+    - .clang-8-x86-64-build
-+    - .container-debian-stretch
- 
- debian-stretch-clang-8-debug:
--  extends: .clang-8-x86-64-build-debug
--  variables:
--    CONTAINER: debian:stretch
-+  extends:
-+    - .clang-8-x86-64-build-debug
-+    - .container-debian-stretch
- 
- debian-stretch-gcc:
--  extends: .gcc-x86-64-build
--  variables:
--    CONTAINER: debian:stretch
-+  extends:
-+    - .gcc-x86-64-build
-+    - .container-debian-stretch
- 
- debian-stretch-gcc-debug:
--  extends: .gcc-x86-64-build-debug
--  variables:
--    CONTAINER: debian:stretch
-+  extends:
-+    - .gcc-x86-64-build-debug
-+    - .container-debian-stretch
- 
--debian-stretch-32-clang-debug:
--  extends: .clang-x86-32-build-debug
-+.container-debian-stretch-32:
-   variables:
-     CONTAINER: debian:stretch-i386
- 
-+debian-stretch-32-clang-debug:
-+  extends:
-+    - .clang-x86-32-build-debug
-+    - .container-debian-stretch-32
++.container-centos-7-testtmpl:
++  variables:
++    CONTAINER: centos:7
++    BUILD_CONTAINER: centos/7
++  needs:
++    - centos-7-container
 +
- debian-stretch-32-gcc-debug:
--  extends: .gcc-x86-32-build-debug
--  variables:
--    CONTAINER: debian:stretch-i386
++test-centos-7-gcc:
 +  extends:
-+    - .gcc-x86-32-build-debug
-+    - .container-debian-stretch-32
- 
- debian-buster-gcc-ibt:
--  extends: .gcc-x86-64-build
++    - .gcc-x86-64-testbuild
++    - .container-centos-7-testtmpl
++
++test-centos-7-gcc-debug:
 +  extends:
-+    - .gcc-x86-64-build
-   variables:
-     CONTAINER: debian:buster-gcc-ibt
-     RANDCONFIG: y
-     EXTRA_FIXED_RANDCONFIG: |
-       CONFIG_XEN_IBT=y
- 
--debian-unstable-clang:
--  extends: .clang-x86-64-build
-+.container-debian-unstable:
++    - .gcc-x86-64-testbuild-debug
++    - .container-centos-7-testtmpl
++
++.container-debian-jessie-testtmpl:
++  variables:
++    CONTAINER: debian:jessie
++    BUILD_CONTAINER: debian/jessie
++  needs:
++    - debian-jessie-container
++
++test-debian-jessie-clang:
++  extends:
++    - .clang-x86-64-testbuild
++    - .container-debian-jessie-testtmpl
++
++test-debian-jessie-clang-debug:
++  extends:
++    - .clang-x86-64-testbuild-debug
++    - .container-debian-jessie-testtmpl
++
++test-debian-jessie-gcc:
++  extends:
++    - .gcc-x86-64-testbuild
++    - .container-debian-jessie-testtmpl
++
++test-debian-jessie-gcc-debug:
++  extends:
++    - .gcc-x86-64-testbuild-debug
++    - .container-debian-jessie-testtmpl
++
++.container-debian-32-jessie-testtmpl:
++  variables:
++    CONTAINER: debian:jessie-i386
++    BUILD_CONTAINER: debian/jessie-i386
++  needs:
++    - debian-jessie-32-container
++
++test-debian-jessie-32-clang:
++  extends:
++    - .clang-x86-32-testbuild
++    - .container-debian-32-jessie-testtmpl
++
++test-debian-jessie-32-clang-debug:
++  extends:
++    - .clang-x86-32-testbuild-debug
++    - .container-debian-32-jessie-testtmpl
++
++test-debian-jessie-32-gcc:
++  extends:
++    - .gcc-x86-32-testbuild
++    - .container-debian-32-jessie-testtmpl
++
++test-debian-jessie-32-gcc-debug:
++  extends:
++    - .gcc-x86-32-testbuild-debug
++    - .container-debian-32-jessie-testtmpl
++
++.container-debian-stretch-testtmpl:
++  variables:
++    CONTAINER: debian:stretch
++    BUILD_CONTAINER: debian/stretch
++  needs:
++    - debian-stretch-container
++
++test-debian-stretch-clang:
++  extends:
++    - .clang-x86-64-testbuild
++    - .container-debian-stretch-testtmpl
++
++test-debian-stretch-clang-debug:
++  extends:
++    - .clang-x86-64-testbuild-debug
++    - .container-debian-stretch-testtmpl
++
++test-debian-stretch-clang-8:
++  extends:
++    - .clang-8-x86-64-testbuild
++    - .container-debian-stretch-testtmpl
++
++test-debian-stretch-clang-8-debug:
++  extends:
++    - .clang-8-x86-64-testbuild-debug
++    - .container-debian-stretch-testtmpl
++
++test-debian-stretch-gcc:
++  extends:
++    - .gcc-x86-64-testbuild
++    - .container-debian-stretch-testtmpl
++
++test-debian-stretch-gcc-debug:
++  extends:
++    - .gcc-x86-64-testbuild-debug
++    - .container-debian-stretch-testtmpl
++
++.container-debian-stretch-32-testtmpl:
++  variables:
++    CONTAINER: debian:stretch-i386
++    BUILD_CONTAINER: debian/stretch-i386
++  needs:
++    - debian-stretch-32-container
++
++test-debian-stretch-32-clang-debug:
++  extends:
++    - .clang-x86-32-testbuild-debug
++    - .container-debian-stretch-32-testtmpl
++
++test-debian-stretch-32-gcc-debug:
++  extends:
++    - .gcc-x86-32-testbuild-debug
++    - .container-debian-stretch-32-testtmpl
++
+ .container-debian-unstable-testtmpl:
    variables:
      CONTAINER: debian:unstable
- 
-+debian-unstable-clang:
-+  extends:
-+    - .clang-x86-64-build
-+    - .container-debian-unstable
+@@ -237,3 +379,118 @@ test-debian-unstable-gcc-debug-randconfig:
+     - .container-debian-unstable-testtmpl
+   variables:
+     RANDCONFIG: y
 +
- debian-unstable-clang-debug:
--  extends: .clang-x86-64-build-debug
--  variables:
--    CONTAINER: debian:unstable
-+  extends:
-+    - .clang-x86-64-build-debug
-+    - .container-debian-unstable
- 
- debian-unstable-gcc:
--  extends: .gcc-x86-64-build
--  variables:
--    CONTAINER: debian:unstable
-+  extends:
-+    - .gcc-x86-64-build
-+    - .container-debian-unstable
- 
- debian-unstable-gcc-debug:
--  extends: .gcc-x86-64-build-debug
--  variables:
--    CONTAINER: debian:unstable
-+  extends:
-+    - .gcc-x86-64-build-debug
-+    - .container-debian-unstable
- 
- debian-unstable-gcc-randconfig:
--  extends: .gcc-x86-64-build
-+  extends:
-+    - .gcc-x86-64-build
-+    - .container-debian-unstable
-   variables:
--    CONTAINER: debian:unstable
-     RANDCONFIG: y
- 
- debian-unstable-gcc-debug-randconfig:
--  extends: .gcc-x86-64-build-debug
-+  extends:
-+    - .gcc-x86-64-build-debug
-+    - .container-debian-unstable
-   variables:
--    CONTAINER: debian:unstable
-     RANDCONFIG: y
- 
--debian-unstable-32-clang-debug:
--  extends: .clang-x86-32-build-debug
-+.container-debian-unstable-32:
-   variables:
-     CONTAINER: debian:unstable-i386
- 
-+debian-unstable-32-clang-debug:
-+  extends:
-+    - .clang-x86-32-build-debug
-+    - .container-debian-unstable-32
++.container-debian-unstable-32-testtmpl:
++  variables:
++    CONTAINER: debian:unstable-i386
++    BUILD_CONTAINER: debian/unstable-i386
++  needs:
++    - debian-unstable-32-container
 +
- debian-unstable-32-gcc-debug:
--  extends: .gcc-x86-32-build-debug
--  variables:
--    CONTAINER: debian:unstable-i386
++test-debian-unstable-32-clang-debug:
 +  extends:
-+    - .gcc-x86-32-build-debug
-+    - .container-debian-unstable-32
- 
- fedora-gcc:
--  extends: .gcc-x86-64-build
-+  extends:
-+    - .gcc-x86-64-build
-   variables:
-     CONTAINER: fedora:29
- 
- fedora-gcc-debug:
--  extends: .gcc-x86-64-build-debug
-+  extends:
-+    - .gcc-x86-64-build-debug
-   variables:
-     CONTAINER: fedora:29
- 
- # Ubuntu Trusty's Clang is 3.4 while Xen requires 3.5
- 
--ubuntu-trusty-gcc:
--  extends: .gcc-x86-64-build
-+.container-ubuntu-trusty:
-   variables:
-     CONTAINER: ubuntu:trusty
- 
-+ubuntu-trusty-gcc:
-+  extends:
-+    - .gcc-x86-64-build
-+    - .container-ubuntu-trusty
++    - .clang-x86-32-testbuild-debug
++    - .container-debian-unstable-32-testtmpl
 +
- ubuntu-trusty-gcc-debug:
--  extends: .gcc-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:trusty
++test-debian-unstable-32-gcc-debug:
 +  extends:
-+    - .gcc-x86-64-build-debug
-+    - .container-ubuntu-trusty
- 
--ubuntu-xenial-clang:
--  extends: .clang-x86-64-build
-+.container-ubuntu-xenial:
-   variables:
-     CONTAINER: ubuntu:xenial
- 
-+ubuntu-xenial-clang:
-+  extends:
-+    - .clang-x86-64-build
-+    - .container-ubuntu-xenial
++    - .gcc-x86-32-testbuild-debug
++    - .container-debian-unstable-32-testtmpl
 +
- ubuntu-xenial-clang-debug:
--  extends: .clang-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:xenial
-+  extends:
-+    - .clang-x86-64-build-debug
-+    - .container-ubuntu-xenial
- 
- ubuntu-xenial-gcc:
--  extends: .gcc-x86-64-build
--  variables:
--    CONTAINER: ubuntu:xenial
-+  extends:
-+    - .gcc-x86-64-build
-+    - .container-ubuntu-xenial
- 
- ubuntu-xenial-gcc-debug:
--  extends: .gcc-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:xenial
-+  extends:
-+    - .gcc-x86-64-build-debug
-+    - .container-ubuntu-xenial
- 
--ubuntu-bionic-clang:
--  extends: .clang-x86-64-build
-+.container-ubuntu-bionic:
-   variables:
-     CONTAINER: ubuntu:bionic
- 
-+ubuntu-bionic-clang:
-+  extends:
-+    - .clang-x86-64-build
-+    - .container-ubuntu-bionic
++.container-ubuntu-trusty-testtmpl:
++  variables:
++    CONTAINER: ubuntu:trusty
++    BUILD_CONTAINER: ubuntu/trusty
++  needs:
++    - ubuntu-trusty-container
 +
- ubuntu-bionic-clang-debug:
--  extends: .clang-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:bionic
++test-ubuntu-trusty-gcc:
 +  extends:
-+    - .clang-x86-64-build-debug
-+    - .container-ubuntu-bionic
- 
- ubuntu-bionic-gcc:
--  extends: .gcc-x86-64-build
--  variables:
--    CONTAINER: ubuntu:bionic
-+  extends:
-+    - .gcc-x86-64-build
-+    - .container-ubuntu-bionic
- 
- ubuntu-bionic-gcc-debug:
--  extends: .gcc-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:bionic
-+  extends:
-+    - .gcc-x86-64-build-debug
-+    - .container-ubuntu-bionic
- 
--ubuntu-focal-gcc:
--  extends: .gcc-x86-64-build
-+.container-ubuntu-focal:
-   variables:
-     CONTAINER: ubuntu:focal
- 
-+ubuntu-focal-gcc:
-+  extends:
-+    - .gcc-x86-64-build
-+    - .container-ubuntu-focal
++    - .gcc-x86-64-testbuild
++    - .container-ubuntu-trusty-testtmpl
 +
- ubuntu-focal-gcc-debug:
--  extends: .gcc-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:focal
++test-ubuntu-trusty-gcc-debug:
 +  extends:
-+    - .gcc-x86-64-build-debug
-+    - .container-ubuntu-focal
- 
- ubuntu-focal-clang:
--  extends: .clang-x86-64-build
--  variables:
--    CONTAINER: ubuntu:focal
++    - .gcc-x86-64-testbuild-debug
++    - .container-ubuntu-trusty-testtmpl
++
++.container-ubuntu-xenial-testtmpl:
++  variables:
++    CONTAINER: ubuntu:xenial
++    BUILD_CONTAINER: ubuntu/xenial
++  needs:
++    - ubuntu-xenial-container
++
++test-ubuntu-xenial-clang:
 +  extends:
-+    - .clang-x86-64-build
-+    - .container-ubuntu-focal
- 
- ubuntu-focal-clang-debug:
--  extends: .clang-x86-64-build-debug
--  variables:
--    CONTAINER: ubuntu:focal
++    - .clang-x86-64-testbuild
++    - .container-ubuntu-xenial-testtmpl
++
++test-ubuntu-xenial-clang-debug:
 +  extends:
-+    - .clang-x86-64-build-debug
-+    - .container-ubuntu-focal
- 
- opensuse-leap-clang:
--  extends: .clang-x86-64-build
++    - .clang-x86-64-testbuild-debug
++    - .container-ubuntu-xenial-testtmpl
++
++test-ubuntu-xenial-gcc:
 +  extends:
-+    - .clang-x86-64-build
-   variables:
-     CONTAINER: suse:opensuse-leap
- 
- opensuse-leap-clang-debug:
--  extends: .clang-x86-64-build-debug
++    - .gcc-x86-64-testbuild
++    - .container-ubuntu-xenial-testtmpl
++
++test-ubuntu-xenial-gcc-debug:
 +  extends:
-+    - .clang-x86-64-build-debug
-   variables:
-     CONTAINER: suse:opensuse-leap
- 
- opensuse-leap-gcc:
--  extends: .gcc-x86-64-build
++    - .gcc-x86-64-testbuild-debug
++    - .container-ubuntu-xenial-testtmpl
++
++.container-ubuntu-bionic-testtmpl:
++  variables:
++    CONTAINER: ubuntu:bionic
++    BUILD_CONTAINER: ubuntu/bionic
++  needs:
++    - ubuntu-bionic-container
++
++test-ubuntu-bionic-clang:
 +  extends:
-+    - .gcc-x86-64-build
-   variables:
-     CONTAINER: suse:opensuse-leap
- 
- opensuse-leap-gcc-debug:
--  extends: .gcc-x86-64-build-debug
++    - .clang-x86-64-testbuild
++    - .container-ubuntu-bionic-testtmpl
++
++test-ubuntu-bionic-clang-debug:
 +  extends:
-+    - .gcc-x86-64-build-debug
-   variables:
-     CONTAINER: suse:opensuse-leap
- 
- opensuse-tumbleweed-clang:
--  extends: .clang-x86-64-build
++    - .clang-x86-64-testbuild-debug
++    - .container-ubuntu-bionic-testtmpl
++
++test-ubuntu-bionic-gcc:
 +  extends:
-+    - .clang-x86-64-build
-   variables:
-     CONTAINER: suse:opensuse-tumbleweed
-   allow_failure: true
- 
- opensuse-tumbleweed-clang-debug:
--  extends: .clang-x86-64-build-debug
++    - .gcc-x86-64-testbuild
++    - .container-ubuntu-bionic-testtmpl
++
++test-ubuntu-bionic-gcc-debug:
 +  extends:
-+    - .clang-x86-64-build-debug
-   variables:
-     CONTAINER: suse:opensuse-tumbleweed
-   allow_failure: true
- 
- opensuse-tumbleweed-gcc:
--  extends: .gcc-x86-64-build
++    - .gcc-x86-64-testbuild-debug
++    - .container-ubuntu-bionic-testtmpl
++
++.container-ubuntu-focal-testtmpl:
++  variables:
++    CONTAINER: ubuntu:focal
++    BUILD_CONTAINER: ubuntu/focal
++  needs:
++    - ubuntu-focal-container
++
++test-ubuntu-focal-gcc:
 +  extends:
-+    - .gcc-x86-64-build
-   variables:
-     CONTAINER: suse:opensuse-tumbleweed
-   allow_failure: true
- 
- opensuse-tumbleweed-gcc-debug:
--  extends: .gcc-x86-64-build-debug
++    - .gcc-x86-64-testbuild
++    - .container-ubuntu-focal-testtmpl
++
++test-ubuntu-focal-gcc-debug:
 +  extends:
-+    - .gcc-x86-64-build-debug
-   variables:
-     CONTAINER: suse:opensuse-tumbleweed
-   allow_failure: true
- 
- alpine-3.12-gcc:
--  extends: .gcc-x86-64-build
++    - .gcc-x86-64-testbuild-debug
++    - .container-ubuntu-focal-testtmpl
++
++test-ubuntu-focal-clang:
 +  extends:
-+    - .gcc-x86-64-build
-   variables:
-     CONTAINER: alpine:3.12
- 
- alpine-3.12-gcc-debug:
--  extends: .gcc-x86-64-build-debug
++    - .clang-x86-64-testbuild
++    - .container-ubuntu-focal-testtmpl
++
++test-ubuntu-focal-clang-debug:
 +  extends:
-+    - .gcc-x86-64-build-debug
-   variables:
-     CONTAINER: alpine:3.12
- 
- alpine-3.12-clang:
--  extends: .clang-x86-64-build
-+  extends:
-+    - .clang-x86-64-build
-   variables:
-     CONTAINER: alpine:3.12
- 
- alpine-3.12-clang-debug:
--  extends: .clang-x86-64-build-debug
-+  extends:
-+    - .clang-x86-64-build-debug
-   variables:
-     CONTAINER: alpine:3.12
- 
- # Arm32 cross-build
- 
- debian-unstable-gcc-arm32:
--  extends: .gcc-arm32-cross-build
-+  extends:
-+    - .gcc-arm32-cross-build
-   variables:
-     CONTAINER: debian:unstable-arm64v8-arm32-gcc
-     HYPERVISOR_ONLY: y
- 
- debian-unstable-gcc-arm32-debug:
--  extends: .gcc-arm32-cross-build-debug
-+  extends:
-+    - .gcc-arm32-cross-build-debug
-   variables:
-     CONTAINER: debian:unstable-arm64v8-arm32-gcc
-     HYPERVISOR_ONLY: y
- 
- debian-unstable-gcc-arm32-randconfig:
--  extends: .gcc-arm32-cross-build
-+  extends:
-+    - .gcc-arm32-cross-build
-   variables:
-     CONTAINER: debian:unstable-arm64v8-arm32-gcc
-     HYPERVISOR_ONLY: y
-     RANDCONFIG: y
- 
- debian-unstable-gcc-arm32-debug-randconfig:
--  extends: .gcc-arm32-cross-build-debug
-+  extends:
-+    - .gcc-arm32-cross-build-debug
-   variables:
-     CONTAINER: debian:unstable-arm64v8-arm32-gcc
-     HYPERVISOR_ONLY: y
-@@ -562,51 +623,60 @@ debian-unstable-gcc-arm32-debug-staticmem:
- # Arm builds
- 
- debian-unstable-gcc-arm64:
--  extends: .gcc-arm64-build
-+  extends:
-+    - .gcc-arm64-build
-   variables:
-     CONTAINER: debian:unstable-arm64v8
- 
- debian-unstable-gcc-debug-arm64:
--  extends: .gcc-arm64-build-debug
-+  extends:
-+    - .gcc-arm64-build-debug
-   variables:
-     CONTAINER: debian:unstable-arm64v8
- 
- debian-unstable-gcc-arm64-randconfig:
--  extends: .gcc-arm64-build
-+  extends:
-+    - .gcc-arm64-build
-   variables:
-     CONTAINER: debian:unstable-arm64v8
-     RANDCONFIG: y
- 
- debian-unstable-gcc-debug-arm64-randconfig:
--  extends: .gcc-arm64-build-debug
-+  extends:
-+    - .gcc-arm64-build-debug
-   variables:
-     CONTAINER: debian:unstable-arm64v8
-     RANDCONFIG: y
- 
- alpine-3.12-gcc-arm64:
--  extends: .gcc-arm64-build
-+  extends:
-+    - .gcc-arm64-build
-   variables:
-     CONTAINER: alpine:3.12-arm64v8
- 
- alpine-3.12-gcc-debug-arm64:
--  extends: .gcc-arm64-build-debug
-+  extends:
-+    - .gcc-arm64-build-debug
-   variables:
-     CONTAINER: alpine:3.12-arm64v8
- 
- alpine-3.12-gcc-arm64-randconfig:
--  extends: .gcc-arm64-build
-+  extends:
-+    - .gcc-arm64-build
-   variables:
-     CONTAINER: alpine:3.12-arm64v8
-     RANDCONFIG: y
- 
- alpine-3.12-gcc-debug-arm64-randconfig:
--  extends: .gcc-arm64-build-debug
-+  extends:
-+    - .gcc-arm64-build-debug
-   variables:
-     CONTAINER: alpine:3.12-arm64v8
-     RANDCONFIG: y
- 
- alpine-3.12-gcc-arm64-staticmem:
--  extends: .gcc-arm64-build
-+  extends:
-+    - .gcc-arm64-build
-   variables:
-     CONTAINER: alpine:3.12-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -615,7 +685,8 @@ alpine-3.12-gcc-arm64-staticmem:
-       CONFIG_STATIC_MEMORY=y
- 
- alpine-3.12-gcc-debug-arm64-staticmem:
--  extends: .gcc-arm64-build-debug
-+  extends:
-+    - .gcc-arm64-build-debug
-   variables:
-     CONTAINER: alpine:3.12-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -624,7 +695,8 @@ alpine-3.12-gcc-debug-arm64-staticmem:
-       CONFIG_STATIC_MEMORY=y
- 
- alpine-3.12-gcc-arm64-boot-cpupools:
--  extends: .gcc-arm64-build
-+  extends:
-+    - .gcc-arm64-build
-   variables:
-     CONTAINER: alpine:3.12-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -634,7 +706,8 @@ alpine-3.12-gcc-arm64-boot-cpupools:
-       CONFIG_BOOT_TIME_CPUPOOLS=y
- 
- alpine-3.12-gcc-debug-arm64-boot-cpupools:
--  extends: .gcc-arm64-build-debug
-+  extends:
-+    - .gcc-arm64-build-debug
-   variables:
-     CONTAINER: alpine:3.12-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -642,21 +715,24 @@ alpine-3.12-gcc-debug-arm64-boot-cpupools:
- 
- # RISC-V 64 cross-build
- archlinux-current-gcc-riscv64:
--  extends: .gcc-riscv64-cross-build
-+  extends:
-+    - .gcc-riscv64-cross-build
-   variables:
-     CONTAINER: archlinux:current-riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     HYPERVISOR_ONLY: y
- 
- archlinux-current-gcc-riscv64-debug:
--  extends: .gcc-riscv64-cross-build-debug
-+  extends:
-+    - .gcc-riscv64-cross-build-debug
-   variables:
-     CONTAINER: archlinux:current-riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     HYPERVISOR_ONLY: y
- 
- archlinux-current-gcc-riscv64-randconfig:
--  extends: .gcc-riscv64-cross-build
-+  extends:
-+    - .gcc-riscv64-cross-build
-   variables:
-     CONTAINER: archlinux:current-riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-@@ -665,7 +741,8 @@ archlinux-current-gcc-riscv64-randconfig:
-       CONFIG_COVERAGE=n
- 
- archlinux-current-gcc-riscv64-debug-randconfig:
--  extends: .gcc-riscv64-cross-build-debug
-+  extends:
-+    - .gcc-riscv64-cross-build-debug
-   variables:
-     CONTAINER: archlinux:current-riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
++    - .clang-x86-64-testbuild-debug
++    - .container-ubuntu-focal-testtmpl
 -- 
 Anthony PERARD
 
