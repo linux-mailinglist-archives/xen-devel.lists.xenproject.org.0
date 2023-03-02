@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BC9C6A8544
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 16:35:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505064.777729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 132B96A8579
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Mar 2023 16:39:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505159.777807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXkxc-0005lp-Qu; Thu, 02 Mar 2023 15:35:12 +0000
+	id 1pXl1r-0005Y1-DN; Thu, 02 Mar 2023 15:39:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505064.777729; Thu, 02 Mar 2023 15:35:12 +0000
+Received: by outflank-mailman (output) from mailman id 505159.777807; Thu, 02 Mar 2023 15:39:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXkxb-0005Ql-MF; Thu, 02 Mar 2023 15:35:11 +0000
-Received: by outflank-mailman (input) for mailman id 505064;
- Thu, 02 Mar 2023 15:35:01 +0000
+	id 1pXl1r-0005UA-9A; Thu, 02 Mar 2023 15:39:35 +0000
+Received: by outflank-mailman (input) for mailman id 505159;
+ Thu, 02 Mar 2023 15:39:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZMsQ=62=desiato.srs.infradead.org=BATV+9a0490e5ac528e462c30+7130+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1pXkxQ-0001Jw-NV
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 15:35:00 +0000
+ id 1pXkxT-0001Jw-Nx
+ for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 15:35:03 +0000
 Received: from desiato.infradead.org (desiato.infradead.org
  [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c49d05a4-b90f-11ed-a550-8520e6686977;
+ id c2b5ee8b-b90f-11ed-a550-8520e6686977;
  Thu, 02 Mar 2023 16:34:49 +0100 (CET)
 Received: from i7.infradead.org ([2001:8b0:10b:1:21e:67ff:fecb:7a92])
  by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1pXkx4-00FL3b-0G; Thu, 02 Mar 2023 15:34:38 +0000
+ id 1pXkx4-00FL3c-0S; Thu, 02 Mar 2023 15:34:39 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1pXkx3-004uyX-38; Thu, 02 Mar 2023 15:34:37 +0000
+ Linux)) id 1pXkx4-004uyb-06; Thu, 02 Mar 2023 15:34:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: c49d05a4-b90f-11ed-a550-8520e6686977
+X-Inumbo-ID: c2b5ee8b-b90f-11ed-a550-8520e6686977
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=gNY1jRXkt4M+fhnisAFzyDAWz2lraNB7iybmZmnwhbA=; b=GRyqh7DapHLe3B/pRWqdW4OS43
-	eIn+XARqVp00KvshV2cnL61jmlRonq5iwlxJrBirExF2US0rY7depwSF8Yd5UTakOZgffCvMm9bsS
-	VFNt1q7bf14maCXqnYIS2gH1j2+1Wd1jGG8TeFrloEpDJPHlWLcw1SsO47qi5wL1w1sHhBl4rGOwl
-	MUeNJiQ/D4Pe+yHFi7511Irjgf3BlpSbixgsH6pmk/r5R6hK9VAa3GCsSjV6WeKj9gaQr9/AqE8Qx
-	QwnqAuq9chcegAbBj/OYPnfMrVN7FnK4KQPExfwlN4kmYm3E1OJCxahLdi4JP2GPqlwv+5KDzZsGh
-	9ud3Rf7g==;
+	bh=/2Rzkhe6vu3EnqlxwxkKLSnLjHu/z1N676CpAY7tWpg=; b=Z8dtiQ7yWkEb1ddrgJZy0gvVmE
+	otVXOrzfKGhO9DjOfDJv3l8Ah1QRjKdyE+b8EUcmFMREDODMrCyGnNnAS9kog4DMTXOnDW//4vZbe
+	I5UzmmY/pqLKm33tYKjJmxfK4Mjz2f83UXZJ5J8gKwSw2rXjnF85wWXprQfkgx1lopZBO44h8b+Uj
+	ZvTRZkjQgcyjsT40iSijXqugHcN+2yeYb4oAdJ3WA6+x+pJDC7olA1/OPhbKUHt9m9zhCD/C0feWM
+	h+QKHC0suHjb18drhfuqf5IdFPL+zv1pS6wO6J4qQ0AiJOMM+mfoaFLbMlRvttcFQInz1fqxrlUhF
+	/lsrJAYQ==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -62,9 +62,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	vikram.garhwal@amd.com,
 	Anthony Perard <anthony.perard@citrix.com>,
 	xen-devel@lists.xenproject.org
-Subject: [RFC PATCH v1 04/25] hw/xen: Implement XenStore transactions
-Date: Thu,  2 Mar 2023 15:34:14 +0000
-Message-Id: <20230302153435.1170111-5-dwmw2@infradead.org>
+Subject: [RFC PATCH v1 05/25] hw/xen: Watches on XenStore transactions
+Date: Thu,  2 Mar 2023 15:34:15 +0000
+Message-Id: <20230302153435.1170111-6-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230302153435.1170111-1-dwmw2@infradead.org>
 References: <20230302153435.1170111-1-dwmw2@infradead.org>
@@ -75,286 +75,281 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Given that the whole thing supported copy on write from the beginning,
-transactions end up being fairly simple. On starting a transaction, just
-take a ref of the existing root; swap it back in on a successful commit.
+Firing watches on the nodes that still exist is relatively easy; just
+walk the tree and look at the nodes with refcount of one.
 
-The main tree has a transaction ID too, and we keep a record of the last
-transaction ID given out. if the main tree is ever modified when it isn't
-the latest, it gets a new transaction ID.
+Firing watches on *deleted* nodes is more fun. We add 'modified_in_tx'
+and 'deleted_in_tx' flags to each node. Nodes with those flags cannot
+be shared, as they will always be unique to the transaction in which
+they were created.
 
-A commit can only succeed if the main tree hasn't moved on since it was
-forked. Strictly speaking, the XenStore protocol allows a transaction to
-succeed as long as nothing *it* read or wrote has changed in the interim,
-but no implementations do that; *any* change is sufficient to abort a
-transaction.
+When xs_node_walk would need to *create* a node as scaffolding and it
+encounters a deleted_in_tx node, it can resurrect it simply by clearing
+its deleted_in_tx flag. If that node originally had any *data*, they're
+gone, and the modified_in_tx flag will have been set when it was first
+deleted.
 
-This does not yet fire watches on the changed nodes on a commit. That bit
-is more fun and will come in a follow-on commit.
+We then attempt to send appropriate watches when the transaction is
+committed, properly delete the deleted_in_tx nodes, and remove the
+modified_in_tx flag from the others.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/i386/kvm/xenstore_impl.c | 150 ++++++++++++++++++++++++++++++++++--
- tests/unit/test-xs-node.c   | 118 ++++++++++++++++++++++++++++
- 2 files changed, 262 insertions(+), 6 deletions(-)
+ hw/i386/kvm/xenstore_impl.c | 151 ++++++++++++++++++++++-
+ tests/unit/test-xs-node.c   | 231 +++++++++++++++++++++++++++++++++++-
+ 2 files changed, 380 insertions(+), 2 deletions(-)
 
 diff --git a/hw/i386/kvm/xenstore_impl.c b/hw/i386/kvm/xenstore_impl.c
-index 2e464af93a..e5074ab1ec 100644
+index e5074ab1ec..380f8003ec 100644
 --- a/hw/i386/kvm/xenstore_impl.c
 +++ b/hw/i386/kvm/xenstore_impl.c
-@@ -46,13 +46,56 @@ typedef struct XsWatch {
-     int rel_prefix;
- } XsWatch;
+@@ -32,6 +32,8 @@ typedef struct XsNode {
+     GByteArray *content;
+     GHashTable *children;
+     uint64_t gencnt;
++    bool deleted_in_tx;
++    bool modified_in_tx;
+ #ifdef XS_NODE_UNIT_TEST
+     gchar *name; /* debug only */
+ #endif
+@@ -153,6 +155,13 @@ static XsNode *xs_node_copy(XsNode *old)
+     XsNode *n = xs_node_new();
  
-+typedef struct XsTransaction {
-+    XsNode *root;
-+    unsigned int nr_nodes;
-+    unsigned int base_tx;
-+    unsigned int tx_id;
-+    unsigned int dom_id;
-+} XsTransaction;
+     n->gencnt = old->gencnt;
 +
- struct XenstoreImplState {
-     XsNode *root;
-     unsigned int nr_nodes;
-     GHashTable *watches;
-     unsigned int nr_domu_watches;
-+    GHashTable *transactions;
-+    unsigned int nr_domu_transactions;
-+    unsigned int root_tx;
-+    unsigned int last_tx;
- };
- 
-+
-+static void nobble_tx(gpointer key, gpointer value, gpointer user_data)
-+{
-+    unsigned int *new_tx_id = user_data;
-+    XsTransaction *tx = value;
-+
-+    if (tx->base_tx == *new_tx_id) {
-+        /* Transactions based on XBT_NULL will always fail */
-+        tx->base_tx = XBT_NULL;
++#ifdef XS_NODE_UNIT_TEST
++    if (n->name) {
++        n->name = g_strdup(old->name);
 +    }
-+}
++#endif
 +
-+static inline unsigned int next_tx(struct XenstoreImplState *s)
-+{
-+    unsigned int tx_id;
-+
-+    /* Find the next TX id which isn't either XBT_NULL or in use. */
-+    do {
-+        tx_id = ++s->last_tx;
-+    } while (tx_id == XBT_NULL || tx_id == s->root_tx ||
-+             g_hash_table_lookup(s->transactions, GINT_TO_POINTER(tx_id)));
-+
-+    /*
-+     * It is vanishingly unlikely, but ensure that no outstanding transaction
-+     * is based on the (previous incarnation of the) newly-allocated TX id.
-+     */
-+    g_hash_table_foreach(s->transactions, nobble_tx, &tx_id);
-+
-+    return tx_id;
-+}
-+
- static inline XsNode *xs_node_new(void)
- {
-     XsNode *n = g_new0(XsNode, 1);
-@@ -159,6 +202,7 @@ struct walk_op {
- 
-     GList *watches;
-     unsigned int dom_id;
-+    unsigned int tx_id;
- 
-     /* The number of nodes which will exist in the tree if this op succeeds. */
-     unsigned int new_nr_nodes;
-@@ -176,6 +220,7 @@ struct walk_op {
-     bool inplace;
+     if (old->children) {
+         n->children = g_hash_table_new_full(g_str_hash, g_str_equal, g_free,
+                                             (GDestroyNotify)xs_node_unref);
+@@ -221,6 +230,9 @@ struct walk_op {
      bool mutating;
      bool create_dirs;
-+    bool in_transaction;
+     bool in_transaction;
++
++    /* Tracking during recursion so we know which is first. */
++    bool deleted_in_tx;
  };
  
  static void fire_watches(struct walk_op *op, bool parents)
-@@ -183,7 +228,7 @@ static void fire_watches(struct walk_op *op, bool parents)
-     GList *l = NULL;
-     XsWatch *w;
- 
--    if (!op->mutating) {
-+    if (!op->mutating || op->in_transaction) {
-         return;
+@@ -277,6 +289,9 @@ static int xs_node_add_content(XsNode **n, struct walk_op *op)
+         g_byte_array_unref((*n)->content);
      }
- 
-@@ -450,10 +495,23 @@ static int xs_node_walk(XsNode **n, struct walk_op *op)
-         assert(!op->watches);
-         /*
-          * On completing the recursion back up the path walk and reaching the
--         * top, assign the new node count if the operation was successful.
-+         * top, assign the new node count if the operation was successful. If
-+         * the main tree was changed, bump its tx ID so that outstanding
-+         * transactions correctly fail. But don't bump it every time; only
-+         * if it makes a difference.
-          */
-         if (!err && op->mutating) {
--            op->s->nr_nodes = op->new_nr_nodes;
-+            if (!op->in_transaction) {
-+                if (op->s->root_tx != op->s->last_tx) {
-+                    op->s->root_tx = next_tx(op->s);
-+                }
-+                op->s->nr_nodes = op->new_nr_nodes;
-+            } else {
-+                XsTransaction *tx = g_hash_table_lookup(op->s->transactions,
-+                                                        GINT_TO_POINTER(op->tx_id));
-+                assert(tx);
-+                tx->nr_nodes = op->new_nr_nodes;
-+            }
-         }
-     }
-     return err;
-@@ -535,14 +593,23 @@ static int init_walk_op(XenstoreImplState *s, struct walk_op *op,
-     op->inplace = true;
-     op->mutating = false;
-     op->create_dirs = false;
-+    op->in_transaction = false;
-     op->dom_id = dom_id;
-+    op->tx_id = tx_id;
-     op->s = s;
- 
-     if (tx_id == XBT_NULL) {
-         *rootp = &s->root;
-         op->new_nr_nodes = s->nr_nodes;
-     } else {
--        return ENOENT;
-+        XsTransaction *tx = g_hash_table_lookup(s->transactions,
-+                                                GINT_TO_POINTER(tx_id));
-+        if (!tx) {
-+            return ENOENT;
-+        }
-+        *rootp = &tx->root;
-+        op->new_nr_nodes = tx->nr_nodes;
-+        op->in_transaction = true;
-     }
- 
+     (*n)->content = g_byte_array_ref(data);
++    if (op->tx_id != XBT_NULL) {
++        (*n)->modified_in_tx = true;
++    }
      return 0;
-@@ -616,13 +683,71 @@ int xs_impl_directory(XenstoreImplState *s, unsigned int dom_id,
- int xs_impl_transaction_start(XenstoreImplState *s, unsigned int dom_id,
-                               xs_transaction_t *tx_id)
- {
--    return ENOSYS;
-+    XsTransaction *tx;
-+
-+    if (*tx_id != XBT_NULL) {
-+        return EINVAL;
-+    }
-+
-+    if (dom_id && s->nr_domu_transactions >= XS_MAX_TRANSACTIONS) {
-+        return ENOSPC;
-+    }
-+
-+    tx = g_new0(XsTransaction, 1);
-+
-+    tx->nr_nodes = s->nr_nodes;
-+    tx->tx_id = next_tx(s);
-+    tx->base_tx = s->root_tx;
-+    tx->root = xs_node_ref(s->root);
-+    tx->dom_id = dom_id;
-+
-+    g_hash_table_insert(s->transactions, GINT_TO_POINTER(tx->tx_id), tx);
-+    if (dom_id) {
-+        s->nr_domu_transactions++;
-+    }
-+    *tx_id = tx->tx_id;
-+    return 0;
-+}
-+
-+static int transaction_commit(XenstoreImplState *s, XsTransaction *tx)
+ }
+ 
+@@ -333,10 +348,62 @@ static int node_rm_recurse(gpointer key, gpointer value, gpointer user_data)
+     return this_inplace;
+ }
+ 
++static XsNode *xs_node_copy_deleted(XsNode *old, struct walk_op *op);
++static void copy_deleted_recurse(gpointer key, gpointer value,
++                                 gpointer user_data)
 +{
-+    if (s->root_tx != tx->base_tx) {
-+        return EAGAIN;
-+    }
-+    xs_node_unref(s->root);
-+    s->root = tx->root;
-+    tx->root = NULL;
-+    s->root_tx = tx->tx_id;
-+    s->nr_nodes = tx->nr_nodes;
++    struct walk_op *op = user_data;
++    GHashTable *siblings = op->op_opaque2;
++    XsNode *n = xs_node_copy_deleted(value, op);
 +
 +    /*
-+     * XX: Walk the new root and fire watches on any node which has a
-+     * refcount of one (which is therefore unique to this transaction).
++     * Reinsert the deleted_in_tx copy of the node into the parent's
++     * 'children' hash table. Having stashed it from op->op_opaque2
++     * before the recursive call to xs_node_copy_deleted() scribbled
++     * over it.
 +     */
-+    return 0;
- }
- 
- int xs_impl_transaction_end(XenstoreImplState *s, unsigned int dom_id,
-                             xs_transaction_t tx_id, bool commit)
++    g_hash_table_insert(siblings, g_strdup(key), n);
++}
++
++static XsNode *xs_node_copy_deleted(XsNode *old, struct walk_op *op)
++{
++    XsNode *n = xs_node_new();
++
++    n->gencnt = old->gencnt;
++
++#ifdef XS_NODE_UNIT_TEST
++    if (old->name) {
++        n->name = g_strdup(old->name);
++    }
++#endif
++
++    if (old->children) {
++        n->children = g_hash_table_new_full(g_str_hash, g_str_equal, g_free,
++                                            (GDestroyNotify)xs_node_unref);
++        op->op_opaque2 = n->children;
++        g_hash_table_foreach(old->children, copy_deleted_recurse, op);
++    }
++    n->deleted_in_tx = true;
++    /* If it gets resurrected we only fire a watch if it lost its content */
++    if (old->content) {
++        n->modified_in_tx = true;
++    }
++    op->new_nr_nodes--;
++    return n;
++}
++
+ static int xs_node_rm(XsNode **n, struct walk_op *op)
  {
--    return ENOSYS;
-+    int ret = 0;
-+    XsTransaction *tx = g_hash_table_lookup(s->transactions,
-+                                            GINT_TO_POINTER(tx_id));
-+
-+    if (!tx || tx->dom_id != dom_id) {
-+        return ENOENT;
-+    }
-+
-+    if (commit) {
-+        ret = transaction_commit(s, tx);
-+    }
-+
-+    g_hash_table_remove(s->transactions, GINT_TO_POINTER(tx_id));
-+    if (dom_id) {
-+        assert(s->nr_domu_transactions);
-+        s->nr_domu_transactions--;
-+    }
-+    return ret;
- }
+     bool this_inplace = op->inplace;
  
- int xs_impl_rm(XenstoreImplState *s, unsigned int dom_id,
-@@ -839,15 +964,28 @@ int xs_impl_reset_watches(XenstoreImplState *s, unsigned int dom_id)
++    if (op->tx_id != XBT_NULL) {
++        /* It's not trivial to do inplace handling for this one */
++        XsNode *old = *n;
++        *n = xs_node_copy_deleted(old, op);
++        xs_node_unref(old);
++        return 0;
++    }
++
+     /* Fire watches for, and count, nodes in the subtree which get deleted */
+     if ((*n)->children) {
+         g_hash_table_foreach_remove((*n)->children, node_rm_recurse, op);
+@@ -408,6 +475,10 @@ static int xs_node_walk(XsNode **n, struct walk_op *op)
+     }
+ 
+     if (child) {
++        if (child->deleted_in_tx) {
++            assert(child->ref == 1);
++            /* Cannot actually set child->deleted_in_tx = false until later */
++        }
+         xs_node_ref(child);
+         /*
+          * Now we own it too. But if we can modify inplace, that's going to
+@@ -475,6 +546,15 @@ static int xs_node_walk(XsNode **n, struct walk_op *op)
+         xs_node_unref(old);
+     }
+ 
++    /*
++     * If we resurrected a deleted_in_tx node, we can mark it as no longer
++     * deleted now that we know the overall operation has succeeded.
++     */
++    if (op->create_dirs && child && child->deleted_in_tx) {
++        op->new_nr_nodes++;
++        child->deleted_in_tx = false;
++    }
++
+     /*
+      * The child may be NULL here, for a remove operation. Either way,
+      * xs_node_add_child() will do the right thing and return a value
+@@ -709,8 +789,69 @@ int xs_impl_transaction_start(XenstoreImplState *s, unsigned int dom_id,
      return 0;
  }
  
-+static void xs_tx_free(void *_tx)
++static gboolean tx_commit_walk(gpointer key, gpointer value,
++                               gpointer user_data)
 +{
-+    XsTransaction *tx = _tx;
-+    if (tx->root) {
-+        xs_node_unref(tx->root);
++    struct walk_op *op = user_data;
++    int path_len = strlen(op->path);
++    int key_len = strlen(key);
++    bool fire_parents = true;
++    XsWatch *watch;
++    XsNode *n = value;
++
++    if (n->ref != 1) {
++        return false;
 +    }
-+    g_free(tx);
++
++    if (n->deleted_in_tx) {
++        /*
++         * We first watches on our parents if we are the *first* node
++         * to be deleted (the topmost one). This matches the behaviour
++         * when deleting in the live tree.
++         */
++        fire_parents = !op->deleted_in_tx;
++
++        /* Only used on the way down so no need to clear it later */
++        op->deleted_in_tx = true;
++    }
++
++    assert(key_len + path_len + 2 <= sizeof(op->path));
++    op->path[path_len] = '/';
++    memcpy(op->path + path_len + 1, key, key_len + 1);
++
++    watch = g_hash_table_lookup(op->s->watches, op->path);
++    if (watch) {
++        op->watches = g_list_append(op->watches, watch);
++    }
++
++    if (n->children) {
++        g_hash_table_foreach_remove(n->children, tx_commit_walk, op);
++    }
++
++    if (watch) {
++        op->watches = g_list_remove(op->watches, watch);
++    }
++
++    /*
++     * Don't fire watches if this node was only copied because a
++     * descendent was changed. The modifieD_in_tx flag indicates the
++     * ones which were really changed.
++     */
++    if (n->modified_in_tx || n->deleted_in_tx) {
++        fire_watches(op, fire_parents);
++        n->modified_in_tx = false;
++    }
++    op->path[path_len] = '\0';
++
++    /* Deleted nodes really do get expunged when we commit */
++    return n->deleted_in_tx;
 +}
 +
- XenstoreImplState *xs_impl_create(void)
+ static int transaction_commit(XenstoreImplState *s, XsTransaction *tx)
  {
-     XenstoreImplState *s = g_new0(XenstoreImplState, 1);
- 
-     s->watches = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
-+    s->transactions = g_hash_table_new_full(g_direct_hash, g_direct_equal,
-+                                            NULL, xs_tx_free);
-     s->nr_nodes = 1;
-     s->root = xs_node_new();
- #ifdef XS_NODE_UNIT_TEST
-     s->root->name = g_strdup("/");
- #endif
++    struct walk_op op;
++    XsNode **n;
 +
-+    s->root_tx = s->last_tx = 1;
-     return s;
+     if (s->root_tx != tx->base_tx) {
+         return EAGAIN;
+     }
+@@ -720,10 +861,18 @@ static int transaction_commit(XenstoreImplState *s, XsTransaction *tx)
+     s->root_tx = tx->tx_id;
+     s->nr_nodes = tx->nr_nodes;
+ 
++    init_walk_op(s, &op, XBT_NULL, tx->dom_id, "/", &n);
++    op.deleted_in_tx = false;
++    op.mutating = true;
++
+     /*
+-     * XX: Walk the new root and fire watches on any node which has a
++     * Walk the new root and fire watches on any node which has a
+      * refcount of one (which is therefore unique to this transaction).
+      */
++    if (s->root->children) {
++        g_hash_table_foreach_remove(s->root->children, tx_commit_walk, &op);
++    }
++
+     return 0;
  }
+ 
 diff --git a/tests/unit/test-xs-node.c b/tests/unit/test-xs-node.c
-index 19000b64b2..3c3654550a 100644
+index 3c3654550a..02c72baa62 100644
 --- a/tests/unit/test-xs-node.c
 +++ b/tests/unit/test-xs-node.c
-@@ -42,6 +42,7 @@ static void xs_impl_delete(XenstoreImplState *s)
-     g_assert(s->nr_nodes == 1);
+@@ -347,7 +347,13 @@ static void do_test_xs_node_tx(bool fail, bool commit)
+     } else {
+         g_assert(!err);
+     }
+-    g_assert(!watches->len);
++    if (commit && !fail) {
++        g_assert(!strcmp(watches->str,
++                         "some/relative/pathwatch"));
++        g_string_truncate(watches, 0);
++    } else {
++       g_assert(!watches->len);
++    }
+     g_assert(s->nr_nodes == 7);
  
-     g_hash_table_unref(s->watches);
-+    g_hash_table_unref(s->transactions);
-     xs_node_unref(s->root);
-     g_free(s);
- 
-@@ -271,12 +272,129 @@ static void test_xs_node_simple(void)
+     err = xs_impl_unwatch(s, DOMID_GUEST, "some", "watch",
+@@ -386,6 +392,226 @@ static void test_xs_node_tx_succeed(void)
+     do_test_xs_node_tx(false, true);
  }
  
- 
-+static void do_test_xs_node_tx(bool fail, bool commit)
++static void test_xs_node_tx_rm(void)
 +{
 +    XenstoreImplState *s = setup();
 +    GString *watches = g_string_new(NULL);
@@ -373,110 +368,217 @@ index 19000b64b2..3c3654550a 100644
 +    g_string_truncate(watches, 0);
 +
 +    /* Write something */
-+    err = write_str(s, DOMID_GUEST, XBT_NULL, "some/relative/path",
++    err = write_str(s, DOMID_GUEST, XBT_NULL, "some/deep/dark/relative/path",
 +                    "something");
-+    g_assert(s->nr_nodes == 7);
 +    g_assert(!err);
++    g_assert(s->nr_nodes == 9);
 +    g_assert(!strcmp(watches->str,
-+                     "some/relative/pathwatch"));
++                     "some/deep/dark/relative/pathwatch"));
 +    g_string_truncate(watches, 0);
 +
 +    /* Create a transaction */
 +    err = xs_impl_transaction_start(s, DOMID_GUEST, &tx_id);
 +    g_assert(!err);
 +
-+    if (fail) {
-+        /* Write something else in the root */
-+        err = write_str(s, DOMID_GUEST, XBT_NULL, "some/relative/path",
-+                        "another thing");
-+        g_assert(!err);
-+        g_assert(s->nr_nodes == 7);
-+        g_assert(!strcmp(watches->str,
-+                         "some/relative/pathwatch"));
-+        g_string_truncate(watches, 0);
-+    }
-+
++    /* Delete the tree in the transaction */
++    err = xs_impl_rm(s, DOMID_GUEST, tx_id, "some/deep/dark");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 9);
 +    g_assert(!watches->len);
 +
-+    /* Perform a write in the transaction */
-+    err = write_str(s, DOMID_GUEST, tx_id, "some/relative/path",
-+                    "something else");
++    err = xs_impl_read(s, DOMID_GUEST, XBT_NULL, "some/deep/dark/relative/path",
++                       data);
 +    g_assert(!err);
-+    g_assert(s->nr_nodes == 7);
-+    g_assert(!watches->len);
-+
-+    err = xs_impl_read(s, DOMID_GUEST, XBT_NULL, "some/relative/path", data);
-+    g_assert(!err);
-+    if (fail) {
-+        g_assert(data->len == strlen("another thing"));
-+        g_assert(!memcmp(data->data, "another thing", data->len));
-+    } else {
-+        g_assert(data->len == strlen("something"));
-+        g_assert(!memcmp(data->data, "something", data->len));
-+    }
++    g_assert(data->len == strlen("something"));
++    g_assert(!memcmp(data->data, "something", data->len));
 +    g_byte_array_set_size(data, 0);
 +
-+    err = xs_impl_read(s, DOMID_GUEST, tx_id, "some/relative/path", data);
++    /* Commit the transaction */
++    err = xs_impl_transaction_end(s, DOMID_GUEST, tx_id, true);
 +    g_assert(!err);
-+    g_assert(data->len == strlen("something else"));
-+    g_assert(!memcmp(data->data, "something else", data->len));
-+    g_byte_array_set_size(data, 0);
++    g_assert(s->nr_nodes == 6);
 +
-+    /* Attempt to commit the transaction */
-+    err = xs_impl_transaction_end(s, DOMID_GUEST, tx_id, commit);
-+    if (commit && fail) {
-+        g_assert(err == EAGAIN);
-+    } else {
-+        g_assert(!err);
-+    }
-+    g_assert(!watches->len);
-+    g_assert(s->nr_nodes == 7);
++    g_assert(!strcmp(watches->str, "some/deep/darkwatch"));
++    g_string_truncate(watches, 0);
++
++    /* Now the node is gone */
++    err = xs_impl_read(s, DOMID_GUEST, XBT_NULL, "some/deep/dark/relative/path",
++                       data);
++    g_assert(err == ENOENT);
++    g_byte_array_unref(data);
 +
 +    err = xs_impl_unwatch(s, DOMID_GUEST, "some", "watch",
 +                        watch_cb, watches);
 +    g_assert(!err);
 +
-+    err = xs_impl_read(s, DOMID_GUEST, XBT_NULL, "some/relative/path", data);
-+    g_assert(!err);
-+    if (fail) {
-+        g_assert(data->len == strlen("another thing"));
-+        g_assert(!memcmp(data->data, "another thing", data->len));
-+    } else if (commit) {
-+        g_assert(data->len == strlen("something else"));
-+        g_assert(!memcmp(data->data, "something else", data->len));
-+    } else {
-+        g_assert(data->len == strlen("something"));
-+        g_assert(!memcmp(data->data, "something", data->len));
-+    }
-+    g_byte_array_unref(data);
 +    g_string_free(watches, true);
 +    xs_impl_delete(s);
 +}
 +
-+static void test_xs_node_tx_fail(void)
++static void test_xs_node_tx_resurrect(void)
 +{
-+    do_test_xs_node_tx(true, true);
++    XenstoreImplState *s = setup();
++    GString *watches = g_string_new(NULL);
++    GByteArray *data = g_byte_array_new();
++    unsigned int tx_id = XBT_NULL;
++    int err;
++
++    g_assert(s);
++
++    /* Write something */
++    err = write_str(s, DOMID_GUEST, XBT_NULL, "some/deep/dark/relative/path",
++                    "something");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 9);
++
++    /* This node will be wiped and resurrected */
++    err = write_str(s, DOMID_GUEST, XBT_NULL, "some/deep/dark",
++                    "foo");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 9);
++
++    /* Set a watch */
++    err = xs_impl_watch(s, DOMID_GUEST, "some", "watch",
++                        watch_cb, watches);
++    g_assert(!err);
++    g_assert(watches->len == strlen("somewatch"));
++    g_assert(!strcmp(watches->str, "somewatch"));
++    g_string_truncate(watches, 0);
++
++    /* Create a transaction */
++    err = xs_impl_transaction_start(s, DOMID_GUEST, &tx_id);
++    g_assert(!err);
++
++    /* Delete the tree in the transaction */
++    err = xs_impl_rm(s, DOMID_GUEST, tx_id, "some/deep");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 9);
++    g_assert(!watches->len);
++
++    /* Resurrect part of it */
++    err = write_str(s, DOMID_GUEST, tx_id, "some/deep/dark/different/path",
++                    "something");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 9);
++
++    /* Commit the transaction */
++    err = xs_impl_transaction_end(s, DOMID_GUEST, tx_id, true);
++    g_assert(!err);
++    g_assert(s->nr_nodes == 9);
++
++    /* lost data */
++    g_assert(strstr(watches->str, "some/deep/dark/different/pathwatch"));
++    /* topmost deleted */
++    g_assert(strstr(watches->str, "some/deep/dark/relativewatch"));
++    /* lost data */
++    g_assert(strstr(watches->str, "some/deep/darkwatch"));
++
++    g_string_truncate(watches, 0);
++
++    /* Now the node is gone */
++    err = xs_impl_read(s, DOMID_GUEST, XBT_NULL, "some/deep/dark/relative/path",
++                       data);
++    g_assert(err == ENOENT);
++    g_byte_array_unref(data);
++
++    err = xs_impl_unwatch(s, DOMID_GUEST, "some", "watch",
++                        watch_cb, watches);
++    g_assert(!err);
++
++    g_string_free(watches, true);
++    xs_impl_delete(s);
 +}
 +
-+static void test_xs_node_tx_abort(void)
++static void test_xs_node_tx_resurrect2(void)
 +{
-+    do_test_xs_node_tx(false, false);
-+    do_test_xs_node_tx(true, false);
-+}
-+static void test_xs_node_tx_succeed(void)
-+{
-+    do_test_xs_node_tx(false, true);
++    XenstoreImplState *s = setup();
++    GString *watches = g_string_new(NULL);
++    GByteArray *data = g_byte_array_new();
++    unsigned int tx_id = XBT_NULL;
++    int err;
++
++    g_assert(s);
++
++    /* Write something */
++    err = write_str(s, DOMID_GUEST, XBT_NULL, "some/deep/dark/relative/path",
++                    "something");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 9);
++
++    /* Another node to remain shared */
++    err = write_str(s, DOMID_GUEST, XBT_NULL, "some/place/safe", "keepme");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 11);
++
++    /* This node will be wiped and resurrected */
++    err = write_str(s, DOMID_GUEST, XBT_NULL, "some/deep/dark",
++                    "foo");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 11);
++
++    /* Set a watch */
++    err = xs_impl_watch(s, DOMID_GUEST, "some", "watch",
++                        watch_cb, watches);
++    g_assert(!err);
++    g_assert(watches->len == strlen("somewatch"));
++    g_assert(!strcmp(watches->str, "somewatch"));
++    g_string_truncate(watches, 0);
++
++    /* Create a transaction */
++    err = xs_impl_transaction_start(s, DOMID_GUEST, &tx_id);
++    g_assert(!err);
++
++    /* Delete the tree in the transaction */
++    err = xs_impl_rm(s, DOMID_GUEST, tx_id, "some/deep");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 11);
++    g_assert(!watches->len);
++
++    /* Resurrect part of it */
++    err = write_str(s, DOMID_GUEST, tx_id, "some/deep/dark/relative/path",
++                    "something");
++    g_assert(!err);
++    g_assert(s->nr_nodes == 11);
++
++    /* Commit the transaction */
++    err = xs_impl_transaction_end(s, DOMID_GUEST, tx_id, true);
++    g_assert(!err);
++    g_assert(s->nr_nodes == 11);
++
++    /* lost data */
++    g_assert(strstr(watches->str, "some/deep/dark/relative/pathwatch"));
++    /* lost data */
++    g_assert(strstr(watches->str, "some/deep/darkwatch"));
++
++    g_string_truncate(watches, 0);
++
++    /* Now the node is gone */
++    err = xs_impl_read(s, DOMID_GUEST, XBT_NULL, "some/deep/dark/relative/path",
++                       data);
++    g_assert(!err);
++    g_assert(data->len == strlen("something"));
++    g_assert(!memcmp(data->data, "something", data->len));
++
++    g_byte_array_unref(data);
++
++    err = xs_impl_unwatch(s, DOMID_GUEST, "some", "watch",
++                        watch_cb, watches);
++    g_assert(!err);
++
++    g_string_free(watches, true);
++    xs_impl_delete(s);
 +}
 +
  int main(int argc, char **argv)
  {
      g_test_init(&argc, &argv, NULL);
-     module_call_init(MODULE_INIT_QOM);
- 
-     g_test_add_func("/xs_node/simple", test_xs_node_simple);
-+    g_test_add_func("/xs_node/tx_abort", test_xs_node_tx_abort);
-+    g_test_add_func("/xs_node/tx_fail", test_xs_node_tx_fail);
-+    g_test_add_func("/xs_node/tx_succeed", test_xs_node_tx_succeed);
+@@ -395,6 +621,9 @@ int main(int argc, char **argv)
+     g_test_add_func("/xs_node/tx_abort", test_xs_node_tx_abort);
+     g_test_add_func("/xs_node/tx_fail", test_xs_node_tx_fail);
+     g_test_add_func("/xs_node/tx_succeed", test_xs_node_tx_succeed);
++    g_test_add_func("/xs_node/tx_rm", test_xs_node_tx_rm);
++    g_test_add_func("/xs_node/tx_resurrect", test_xs_node_tx_resurrect);
++    g_test_add_func("/xs_node/tx_resurrect2", test_xs_node_tx_resurrect2);
  
      return g_test_run();
  }
