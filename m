@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C421D6A8E73
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 02:01:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505509.778317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 841336A8EFA
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 02:51:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505514.778327 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXtmJ-0005ol-8Y; Fri, 03 Mar 2023 01:00:07 +0000
+	id 1pXuZL-0000P2-1L; Fri, 03 Mar 2023 01:50:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505509.778317; Fri, 03 Mar 2023 01:00:07 +0000
+Received: by outflank-mailman (output) from mailman id 505514.778327; Fri, 03 Mar 2023 01:50:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXtmJ-0005jx-5F; Fri, 03 Mar 2023 01:00:07 +0000
-Received: by outflank-mailman (input) for mailman id 505509;
- Fri, 03 Mar 2023 01:00:05 +0000
+	id 1pXuZK-0000Mi-UK; Fri, 03 Mar 2023 01:50:46 +0000
+Received: by outflank-mailman (input) for mailman id 505514;
+ Fri, 03 Mar 2023 01:50:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zpNm=63=microsoft.com=mikelley@srs-se1.protection.inumbo.net>)
- id 1pXtmG-0004gO-Pf
- for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 01:00:04 +0000
-Received: from BN3PR00CU001-vft-obe.outbound.protection.outlook.com
- (mail-eastus2azlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c110::1])
+ <SRS0=RVKH=63=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1pXuZK-0000Mc-7l
+ for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 01:50:46 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b9cf72ac-b95e-11ed-a550-8520e6686977;
- Fri, 03 Mar 2023 02:00:02 +0100 (CET)
-Received: from BYAPR21MB1688.namprd21.prod.outlook.com (2603:10b6:a02:bf::26)
- by DS0PR21MB3862.namprd21.prod.outlook.com (2603:10b6:8:117::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.7; Fri, 3 Mar
- 2023 00:59:58 +0000
-Received: from BYAPR21MB1688.namprd21.prod.outlook.com
- ([fe80::629a:b75a:482e:2d4a]) by BYAPR21MB1688.namprd21.prod.outlook.com
- ([fe80::629a:b75a:482e:2d4a%5]) with mapi id 15.20.6178.007; Fri, 3 Mar 2023
- 00:59:58 +0000
+ id cde271bf-b965-11ed-a550-8520e6686977;
+ Fri, 03 Mar 2023 02:50:42 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A3F4FB81620;
+ Fri,  3 Mar 2023 01:50:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1DBC433EF;
+ Fri,  3 Mar 2023 01:50:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,166 +43,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9cf72ac-b95e-11ed-a550-8520e6686977
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AuvQ9CDuHTMoZoDb9rs1DRZD52BGA2lguPZ0TBoSd6InI4TRNTWQYv306bTWu8JaofJ9ALgDDCpx5MQV+F9V0R/aDN0T4sdhUxGJpwTq+Qy/6+fQ1pII3YOALF7R9JNwRQSl6cTCIG1mOzBevY4Dq5wXVy7WMN52ZFT5JKtsflH+AZXAS4u0Y0c+skSVPDuK5noB87ZonlrRe8Gx596LC/5bWOCJoeBEAsH70F2Yew+umsSwnIHQ4N1s1R0kaEHVBuKEz9HqjXa0bahlIZqw23dFMNMUvLM5cTNCj3uAtVf8yQqX8PkJKKT/OLKq1tJrYHRSgAqwVspHcaNOkKxqeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hcwaIoYuY8LkEKc/K8Y1d7YqRltWlySlqVn09ozurWo=;
- b=KTN6sLYr7jCChpiimVQRmeG2pwlp5F1YONzPfwqk82Bo5gP1hIN0ts/5vmbyLbbquIrmOlG+OAAmFY/CWH+jNmOzSYJE4fLLH6KpJIZb7HeqhrYmICTHqU9e1VIz/m1/mbD13u3Y1QknMA6ft0MJyeiU4vpb8xGjb0bC1CsMsUrRYDIgaDJdzpIuNA8f7IOcoQXb3vhAARofFUUYjUSmcEld+fYhxjQYxcRSBqHog/G4m3E/USZntIZ5gGJ1FM/LdpM3piFFMUfihHzYlZD1u+Ae8oaXt4OQ9JKCuB8Fez1VYUlxDabRUGJDItRZQUJhPDb77bi4tGv2VN2halZT1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hcwaIoYuY8LkEKc/K8Y1d7YqRltWlySlqVn09ozurWo=;
- b=LVLreJfQLFqKH8U4sGCDkzsfz9neFxkUuGRsl8DqLSj5AdVo39uRPljKiJo6tsjJFw2vbLB13JkI6SygMLOlOIOde47WEuuV3jRXazucmOfm3tvv7yeo/KrapIm8f9ro7ykPzvUr0gdOGV13GBqg3DqzAa+Hu/imBrVtt+xRz7w=
-From: "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-To: Luis Chamberlain <mcgrof@kernel.org>, "ebiederm@xmission.com"
-	<ebiederm@xmission.com>, "keescook@chromium.org" <keescook@chromium.org>,
-	"yzaikin@google.com" <yzaikin@google.com>, "jejb@linux.ibm.com"
-	<jejb@linux.ibm.com>, "martin.petersen@oracle.com"
-	<martin.petersen@oracle.com>, "minyard@acm.org" <minyard@acm.org>, KY
- Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
-	"wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	"song@kernel.org" <song@kernel.org>, "robinmholt@gmail.com"
-	<robinmholt@gmail.com>, "steve.wahl@hpe.com" <steve.wahl@hpe.com>,
-	"mike.travis@hpe.com" <mike.travis@hpe.com>, "arnd@arndb.de" <arnd@arndb.de>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"jirislaby@kernel.org" <jirislaby@kernel.org>, "jgross@suse.com"
-	<jgross@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "j.granados@samsung.com" <j.granados@samsung.com>,
-	"zhangpeng362@huawei.com" <zhangpeng362@huawei.com>, "tangmeng@uniontech.com"
-	<tangmeng@uniontech.com>, "willy@infradead.org" <willy@infradead.org>,
-	"nixiaoming@huawei.com" <nixiaoming@huawei.com>, "sujiaxun@uniontech.com"
-	<sujiaxun@uniontech.com>, "patches@lists.linux.dev"
-	<patches@lists.linux.dev>, "linux-fsdevel@vger.kernel.org"
-	<linux-fsdevel@vger.kernel.org>, "apparmor@lists.ubuntu.com"
-	<apparmor@lists.ubuntu.com>, "linux-raid@vger.kernel.org"
-	<linux-raid@vger.kernel.org>, "linux-scsi@vger.kernel.org"
-	<linux-scsi@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "openipmi-developer@lists.sourceforge.net"
-	<openipmi-developer@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 3/7] hv: simplify sysctl registration
-Thread-Topic: [PATCH 3/7] hv: simplify sysctl registration
-Thread-Index: AQHZTUghmT7Wxm+Iike4T3P5qQULMa7oPC4w
-Date: Fri, 3 Mar 2023 00:59:57 +0000
-Message-ID:
- <BYAPR21MB16886A06B7D3DBC4A10EF984D7B39@BYAPR21MB1688.namprd21.prod.outlook.com>
-References: <20230302204612.782387-1-mcgrof@kernel.org>
- <20230302204612.782387-4-mcgrof@kernel.org>
-In-Reply-To: <20230302204612.782387-4-mcgrof@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=fe1c164e-92ed-4e67-a49a-a1d27905e5b8;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2023-03-03T00:59:14Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BYAPR21MB1688:EE_|DS0PR21MB3862:EE_
-x-ms-office365-filtering-correlation-id: 498f5fa7-384d-434b-9bdb-08db1b829bfa
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 7luQdAIeYd5DgNZR0tGfR/9z4g/rMl+7zsncSixc5P0tSF2YznjxdKfNk2/XxD6P036DDuO+gCtuwUmxbimpR8Hpem3XHlv1oO+q1bTUM++rxQ2Ii0LEyz+wROLz/N31ouX7S+QTBuysw34y//aFm1YSLoWrjxlvUANhsy7vCei2qokx36c8iT9FDc0QOhdfkY6eZnUmehOfKTyLJFT/3kKh9dHiGM4pjos2Ycs+7PoXzYd4vBgmZjNbhCoixf8eO4mvM0aoPPiG8lkSITXpn7g3PeihGrs18A1AaYrr6JZ5DbZguaOTuJyt64npXPPPGaJyQJHLeAkEQoo8u0ixrNJ/3y2AR5pilPKj4vpAPUzlTXny3EYcWxg7dXnCTfuGsTA96I/uT92bCZv9TKH7PHLQSg/R5Rl+O/uTMULQ4u3rrVFgYD/EwNLTLMjNSy4vJZKcdSP2opAl0Gg8jgRMTXGs4vQ0KJiJ4PlMepgeg6UyUIgyBj8sEaNFBYuF3Y8zgyv2koCiTKmyeaVAt53oHJKOacAn/ovwnom5kyHaGxVEOEc3iv07s0V6i/fTN7s7TFZS7NzQV1L1tvprKry8SRyziTKBs0eb53aus1kwmqo4eIwwAV19RdCPtQDZTQy3BNuM58c+t/8DFDlvUQtQMkrToH27wp3tA9Dr7fgwgR9WZsyCqyuI0XCZ08XcToSrwxNaZJMRaUByugMqUm0yULNghWDvejHn2mTPf5aCueS/QolYN9ganhHiO9jg9rz2mmUVK5eu4VItO+bNagQV4Q==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR21MB1688.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(136003)(366004)(396003)(39860400002)(376002)(451199018)(7696005)(86362001)(6506007)(66446008)(316002)(64756008)(55016003)(4326008)(66556008)(66476007)(8676002)(921005)(54906003)(110136005)(83380400001)(2906002)(122000001)(33656002)(26005)(82960400001)(9686003)(186003)(7416002)(7406005)(82950400001)(76116006)(52536014)(66946007)(8936002)(38070700005)(5660300002)(38100700002)(71200400001)(478600001)(10290500003)(41300700001)(8990500004);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Ajsq1TcVBn/ZLc3bc9sjhQmJ5VdDc49BQXeKLlNu5Xi4zQAjIAs7HTggdJef?=
- =?us-ascii?Q?d5lH3GhjyhYxRc39AEP4URGZq7GKgXxA0Vn4MfAje8V8ivdT+ZfFDUrCsW8e?=
- =?us-ascii?Q?7sSfq9xxnM5qq2U5oWNasrF8qnie2hbZ9LpmEyHusy2WOFiDLWD50Sv+Hva6?=
- =?us-ascii?Q?7bzMLasCQrRBrKzM0gqZP+5YiMjeIRb32uFOM2irqfBfj4cL/0imWLRD5Hq/?=
- =?us-ascii?Q?PE3A2tX/La/Kd+gdJHdQjFs6lHOjqVNANhP+Nf4GmBF3EphSt6mXbN0ou2OR?=
- =?us-ascii?Q?GN0bKnVDlbdI/H3V7D0Qrq7qhKlacE02BwZvPuDqZf3EPjJ3qGOIOL3PaTea?=
- =?us-ascii?Q?9CAI6za1+0JsolWIG9jauZtMVgB7taUYltoQ07FE5QD5Yoe7jLJlXV7/FrBf?=
- =?us-ascii?Q?B0qNP1LMdyYJ2Bm/HMHl1GniNGQyZeEja54IzlVTEbdZJtPKq4PW+LSod1n/?=
- =?us-ascii?Q?knyIGVPGr1AMLjwjl+iJ5VLtrMtyIUpvgIl99P0e9BnaV24LZhLdhxKxJObN?=
- =?us-ascii?Q?B2JFSUp2CDvw4j1aG9i2QSbrcWbDH/whvqtCspG4ader+UMxN78zbApssmDz?=
- =?us-ascii?Q?ZG7ebyOnon0A93z8ClnmaECKcl+VQ4LKYbQcYeP1Xx75vxArx5WZNvHwvK1B?=
- =?us-ascii?Q?2ucIk51ZHwGtB2AXNCQFUZJ2Hvk6hkOg4WQSni29h9mQinYPDkjl9JRoTQxH?=
- =?us-ascii?Q?bsnD10sd5jpQwKEhmZCVTBx9YxnP+jRSZw0qWanrhKjaskv+maKFjYWWqKM8?=
- =?us-ascii?Q?PkBWNrhxbuLQ6i2tAQUpUrYpfXvOA7vCQywuqiyDlLSzR1cxLNkQ6p69eIu6?=
- =?us-ascii?Q?L+sS1uH2rSjrmBTohd7P1VuG8yRUFAL6OIKGTjOxn2c69hkUajhOPHEYTSAi?=
- =?us-ascii?Q?I6AhrBAnCIAgCFUvvsqP1uJ+NYWUTCVh7Gw2cgIVvtHS608v4+Nq3DIzyJ9f?=
- =?us-ascii?Q?87oU27P4cZPjozZG+mNGMcVq9M87ha+n2HuHGDe0RT4e2z/alPMT11LjpFnd?=
- =?us-ascii?Q?rCL+i+0TFLZuvhZZodEYpL4SZq+13/lm4fwaJh5p+QUzd4MBdAJaeBgFXmnA?=
- =?us-ascii?Q?46/n8wKY4PeVwhJldIxHJaDUWERBY4Z/3bZzPu3GCgKfPc+rzxsDNxt2JqaX?=
- =?us-ascii?Q?xsSks+hYmF41SwWMsf9ztHnOFCaED+W9nbQmlLKOoF1ULbXQ3Ee1Ea/kiKTx?=
- =?us-ascii?Q?8woDr1xYwd2gTqZAPOzgJTAKNV62vXparryLddhI89Zg4SJG6zczb53yJLCK?=
- =?us-ascii?Q?lXCuuDSpxZTiNk32qLOshIDxnSq3K6NRONByvmZK/Fqqo2OP59MsPIWkm03n?=
- =?us-ascii?Q?etWje6b76FuXRvDJi3d0lEZddit+VzjvMQhN9+aVDzlTTcXG6P4FyoI/Erqa?=
- =?us-ascii?Q?fmywD0gRJZ3hCzj0VnIEcr2W7q0SxvBdus0yHywgex4Bwxt8Ck+uNvlEmPCf?=
- =?us-ascii?Q?h3l2DVTr8A7wwKI3o8mk8HKewLClpYeqn+UoCvfe9psUV3Jm8nfGAjWPMDMm?=
- =?us-ascii?Q?aUJmbyXPOiXE6GKni1hIF2P3q1GIaDJ2dI0vtmw+UatAnjSvGXOivH4M8MfZ?=
- =?us-ascii?Q?9MUBFg4n3Vtg7x+s7/ShI2o3Aq7UpkhH4aG6XPDeJQFbNvUphiZ1RzE/mv5l?=
- =?us-ascii?Q?xg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: cde271bf-b965-11ed-a550-8520e6686977
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1677808240;
+	bh=J4jq6uQhFtdRXuZ1EBQsnhna5276jBkAgGExuHkgetc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ihVgY7Nk0vloYX++qkIRiPGAl+YQ3qDHKqVurRj5j3GOZP47aHnPH4XbtUeF91iJ6
+	 AT2uBNPx4085x59iqgaWdgI78PEuuU+2B9TUXS205demTh7ok30P5ExrW0BIb3xKtR
+	 ljqHAQZOYbWVRQUupaB9htYETdBgbuc4WfbTq/Gx1q+Jrwx95IJUuM4pPP4PMELBj9
+	 1PcM8q+BltsOS/aOCo700n8XjLnHn+kz1VsuS+4jvusD/4A/7E6ir2irBv0TnXHBQD
+	 GQz9BeWDUKuJfWe19IHJDjDE/6vm+uFgQMeaF4G5buwsqYwaNs5ZFLwiCfxNLSZjmq
+	 +59osOiVPXaww==
+Date: Thu, 2 Mar 2023 17:50:37 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "jiamei.xie" <jiamei.xie@arm.com>
+cc: xen-devel@lists.xenproject.org, wei.chen@arm.com, sstabellini@kernel.org, 
+    bertrand.marquis@arm.com, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH 1/2] automation: arm64: Create a test job for testing
+ static heap on qemu
+In-Reply-To: <20230302044421.136068-2-jiamei.xie@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2303021748290.863724@ubuntu-linux-20-04-desktop>
+References: <20230302044421.136068-1-jiamei.xie@arm.com> <20230302044421.136068-2-jiamei.xie@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR21MB1688.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 498f5fa7-384d-434b-9bdb-08db1b829bfa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Mar 2023 00:59:57.9023
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DcXel5WdWBH6prBf0eyu02o+jyHBBZnK9EZRtDBaMLWw1+SzlPHPmquDTa7XuodbaT1BylXcJcvDRudky5c3L+jqQLrpSx9i6f8CZkASXtM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR21MB3862
+Content-Type: text/plain; charset=US-ASCII
 
-From: Luis Chamberlain <mcgrof@infradead.org> On Behalf Of Luis Chamberlain=
- Sent: Thursday, March 2, 2023 12:46 PM
->
-> register_sysctl_table() is a deprecated compatibility wrapper.
-> register_sysctl() can do the directory creation for you so just use
-> that.
->=20
-> Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
+On Thu, 2 Mar 2023, jiamei.xie wrote:
+> From: Jiamei Xie <jiamei.xie@arm.com>
+> 
+> Create a new test job, called qemu-smoke-dom0less-arm64-gcc-staticheap.
+> 
+> Add property "xen,static-heap" under /chosen node to enable static-heap.
+> If the domU can start successfully with static-heap enabled, then this
+> test pass.
+> 
+> Signed-off-by: Jiamei Xie <jiamei.xie@arm.com>
+
+Hi Jiamei, thanks for the patch!
+
+
 > ---
->  drivers/hv/vmbus_drv.c | 11 +----------
->  1 file changed, 1 insertion(+), 10 deletions(-)
->=20
-> diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-> index d24dd65b33d4..229353f1e9c2 100644
-> --- a/drivers/hv/vmbus_drv.c
-> +++ b/drivers/hv/vmbus_drv.c
-> @@ -1460,15 +1460,6 @@ static struct ctl_table hv_ctl_table[] =3D {
->  	{}
->  };
->=20
-> -static struct ctl_table hv_root_table[] =3D {
-> -	{
-> -		.procname	=3D "kernel",
-> -		.mode		=3D 0555,
-> -		.child		=3D hv_ctl_table
-> -	},
-> -	{}
-> -};
-> -
->  /*
->   * vmbus_bus_init -Main vmbus driver initialization routine.
->   *
-> @@ -1547,7 +1538,7 @@ static int vmbus_bus_init(void)
->  		 * message recording won't be available in isolated
->  		 * guests should the following registration fail.
->  		 */
-> -		hv_ctl_table_hdr =3D register_sysctl_table(hv_root_table);
-> +		hv_ctl_table_hdr =3D register_sysctl("kernel", hv_ctl_table);
->  		if (!hv_ctl_table_hdr)
->  			pr_err("Hyper-V: sysctl table register error");
->=20
-> --
-> 2.39.1
+>  automation/gitlab-ci/test.yaml                 | 16 ++++++++++++++++
+>  .../scripts/qemu-smoke-dom0less-arm64.sh       | 18 ++++++++++++++++++
+>  2 files changed, 34 insertions(+)
+> 
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 1c5f400b68..5a9b88477a 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -133,6 +133,22 @@ qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
+>      - *arm64-test-needs
+>      - alpine-3.12-gcc-debug-arm64-staticmem
+>  
+> +qemu-smoke-dom0less-arm64-gcc-staticheap:
+> + extends: .qemu-arm64
+> + script:
+> +   - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
+> + needs:
+> +   - *arm64-test-needs
+> +   - alpine-3.12-gcc-arm64
+> +
+> +qemu-smoke-dom0less-arm64-gcc-debug-staticheap:
+> + extends: .qemu-arm64
+> + script:
+> +   - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
+> + needs:
+> +   - *arm64-test-needs
+> +   - alpine-3.12-gcc-debug-arm64
+> +
+>  qemu-smoke-dom0less-arm64-gcc-boot-cpupools:
+>    extends: .qemu-arm64
+>    script:
+> diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+> index 182a4b6c18..4e73857199 100755
+> --- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
+> +++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
+> @@ -27,6 +27,11 @@ fi
+>  "
+>  fi
+>  
+> +if [[ "${test_variant}" == "static-heap" ]]; then
+> +    passed="${test_variant} test passed"
+> +    domU_check="echo \"${passed}\""
+> +fi
+> +
+>  if [[ "${test_variant}" == "boot-cpupools" ]]; then
+>      # Check if domU0 (id=1) is assigned to Pool-1 with null scheduler
+>      passed="${test_variant} test passed"
+> @@ -128,6 +133,19 @@ if [[ "${test_variant}" == "static-mem" ]]; then
+>      echo -e "\nDOMU_STATIC_MEM[0]=\"${domu_base} ${domu_size}\"" >> binaries/config
+>  fi
+>  
+> +if [[ "${test_variant}" == "static-heap" ]]; then
+> +    # ImageBuilder uses the config file to create the uboot script. Devicetree
+> +    # will be set via the generated uboot script.
+> +    # The valid memory range is 0x40000000 to 0x80000000 as defined before.
+> +    # ImageBuillder sets the kernel and ramdisk range based on the file size.
+> +    # It will use the memory range between 0x45600000 to 0x47AED1E8, so set
+> +    # memory range between 0x50000000 and 0x80000000 as static heap.
 
-Reviewed-by: Michael Kelley <mikelley@microsoft.com>
+I think this is OK. One suggestion to make things more reliable would be
+to change MEMORY_END to be 0x50000000 so that you can be sure that
+ImageBuilder won't go over the limit. You could do it just for this
+test, which would be safer, but to be honest you could limit MEMORY_END
+to 0x50000000 for all tests in qemu-smoke-dom0less-arm64.sh because it
+shouldn't really cause any problems.
+
+
+> +    echo  '
+> +STATIC_HEAP="0x50000000 0x30000000"
+> +# The size of static heap should be greater than the guest memory
+> +DOMU_MEM[0]="128"' >> binaries/config
+> +fi
+> +
+>  if [[ "${test_variant}" == "boot-cpupools" ]]; then
+>      echo '
+>  CPUPOOL[0]="cpu@1 null"
+> -- 
+> 2.25.1
+> 
 
