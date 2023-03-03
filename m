@@ -2,42 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 886F56A9AA2
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 16:29:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.506086.779102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B867D6A9B3F
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 16:54:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.506096.779111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY7KZ-00024A-On; Fri, 03 Mar 2023 15:28:23 +0000
+	id 1pY7jR-0006Fg-UH; Fri, 03 Mar 2023 15:54:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 506086.779102; Fri, 03 Mar 2023 15:28:23 +0000
+Received: by outflank-mailman (output) from mailman id 506096.779111; Fri, 03 Mar 2023 15:54:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY7KZ-00021B-L0; Fri, 03 Mar 2023 15:28:23 +0000
-Received: by outflank-mailman (input) for mailman id 506086;
- Fri, 03 Mar 2023 15:28:22 +0000
+	id 1pY7jR-0006DS-Qt; Fri, 03 Mar 2023 15:54:05 +0000
+Received: by outflank-mailman (input) for mailman id 506096;
+ Fri, 03 Mar 2023 15:54:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SP4M=63=citrix.com=prvs=419214df4=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pY7KY-000215-Jv
- for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 15:28:22 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05fc6a7c-b9d8-11ed-96af-2f268f93b82a;
- Fri, 03 Mar 2023 16:28:20 +0100 (CET)
-Received: from mail-bn8nam11lp2169.outbound.protection.outlook.com (HELO
- NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.169])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 03 Mar 2023 10:28:05 -0500
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by PH0PR03MB6606.namprd03.prod.outlook.com (2603:10b6:510:b4::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.22; Fri, 3 Mar
- 2023 15:28:03 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6156.021; Fri, 3 Mar 2023
- 15:28:02 +0000
+ <SRS0=0Pyx=63=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1pY7jQ-0006DK-8b
+ for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 15:54:04 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9ea1a725-b9db-11ed-96af-2f268f93b82a;
+ Fri, 03 Mar 2023 16:54:03 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id q16so2758289wrw.2
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Mar 2023 07:54:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,185 +39,424 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05fc6a7c-b9d8-11ed-96af-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1677857300;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=P8MJjgEjF4acIyDSKOUuOeExBUIKlMf26s84ww942lc=;
-  b=dWjtBhFTg7AR55GDyJGcRT8wshwH+mvrXWVwJlyM02jPAH5GDDdRm9Uy
-   0zAAw4W74LaYQfPrL9cOlwFloKw4OVgcFSVRpOPn4HNclkCMsJ/sut39U
-   9GPOpq1bSAdp/lVVrRvHioW89//79fQ9h1cv/vTLUu0eeAmwjxbNv/rfe
-   Q=;
-X-IronPort-RemoteIP: 104.47.58.169
-X-IronPort-MID: 98731819
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:TAFAsq7KS66SnYqwNZywrQxRtCbGchMFZxGqfqrLsTDasY5as4F+v
- mMfUWyBOqmJNmT8fdhwPt/i9UNSupLXn4RkQVBpqX8wHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9VU+7JwehBtC5gZlPasT5weE/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m0
- f8/cDQScB+6iuO8memjWuxlpZ0qI5y+VG8fkikIITDxK98DGMmGaYOaoNhS0XE3m9xEGuvYa
- 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6OnEoojumF3Nn9I7RmQe18mEqCq
- 32A1GP+GhwAb/SUyCaf82LqjejK9c/+cNNCS+bhpqc76LGV7lA2Nxo0VHSfmNeSjBejWPVfM
- l4r2yV7+MDe82TuFLERRSaQsHOC+xIRRddUO+k78x2WjLrZ5R6DAWoJRSIHb8Yp3Oc0TzE30
- l6Cn/vyGCdi9raSTBqgGqy8qDqzPW0fKz8EbCpdFA8duYC98cc0kw7FSctlHOitlNrpFDrsw
- jeM6i8jm7EUis1N3KK+lbzavw+RSlHyZlZdzm3qsqiNt2uVuKbNi1SU1GXm
-IronPort-HdrOrdr: A9a23:SZQqeaCLIWOuRf3lHemo55DYdb4zR+YMi2TDgXoBLSC9E/b5qy
- nApp8mPHPP4gr5O0tApTnjAsa9qCjnhPtICOAqVN+ftW/d1VdAR7sN0WKN+VHd84KVzJ876U
- /NGZIOa+EZrDJB/KTH3DU=
-X-IronPort-AV: E=Sophos;i="5.98,231,1673931600"; 
-   d="scan'208";a="98731819"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C2mfUUNxSHdfbBvWuli7YjohpFCcfDHr1DBqSRMtlUuG2yqUaiLUBWnqgGDZRQKZGAhuYA9GNmQCr+ciybif1nqpFHPejB0bDj6XteeK9uR/szlH913n0m0gaJWFt3XG4UyKBJ7tm11TicTdpaDcKDCdJEvnvgJDPJtrqQt4+KNtDnECrKBm+4N9eMXgEWpqNIi6XXWFhYwGTWm+8Rf6NcKbz8+AZkpB2zXf4VV1OlkvJW5gOiFNk3mexCpbd0LZYAwi1dTAU2x4/A032S1XsD5/gScSownSfSamyaiONyINRSPoSTd1gP6j+u0hA4sTBeXeMXdMNZqrPBZD8SOlKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wi9FK1PD7eCidk9Ig71Sj5Wn3Jb8t3uNB0UsTz9k8sI=;
- b=mDyvI8h52BvESSVW+y4p/kUUd66Qv29dS26DOFX2nTIlaSs8eBPiD2+99rofdvpf13om8feoIqXtsLSqP2uABGDa5psbr1xspt7C0TIY61zrMpjJ6JdbX88mntCtJUJFrT/cdu0Yxx5dFRJqOLc+78Tkb222upi/cUGMohkt6VwELx9faTo3MIEEFxCQ07OcC1SNF2Gr5gHiorGnDJ0yu694o7PEre3JZ4cUyRHL1RHQAFJYeaa8nyNePRrIJ8UUtKSHJmd6mBHgoBaLq1anfuesmpbSnSh+iNw+ehN7YX9wCmcByC2/snm0axGN57xsjOUDXubqa+KhfMnmRVADSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: 9ea1a725-b9db-11ed-96af-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wi9FK1PD7eCidk9Ig71Sj5Wn3Jb8t3uNB0UsTz9k8sI=;
- b=cVC+rofIS+t7ijifPa9tt+7GVvm7193S682teZ8ZHD+cAjiNuWU2WLTXiB8Gq0+EKyY11EMd/UMLuYYVyO82BJeifWopSjkdF5/Tz6nXAYexIoUMO4342gvCZjpgHGbLDSP0QjLoESL+3T9PtiNbO03obGLZhJ+s4L05uIA3WQs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <b8670d3a-704b-110a-8400-fabb0b1d1879@citrix.com>
-Date: Fri, 3 Mar 2023 15:27:56 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH backport for-4.15] tools: Drop gettext as a build
- dependency
-Content-Language: en-GB
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-References: <20230303145535.23412-1-anthony.perard@citrix.com>
-In-Reply-To: <20230303145535.23412-1-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0322.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a4::22) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+        d=linaro.org; s=google; t=1677858842;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=EwLE8Mmz42hRAjp2mmXTpqJQBrQRV5VJhB28xGyyOdg=;
+        b=DUwN32XaNvlkJH3gMBc0ZzjN+msxdJOe2ocXGR9kakTFWlPYvYIjrWDZrCURKsc/o+
+         UDsA1p7FnNhuMyBwEpR/Yf0nIglXaHx/BxJmLdJzseXMJ7K2fkjQ0lXmuJBqCJeSAr3t
+         9nkx5Hq/cdABRnB/j9IfwNk2+bjeMIQbs6SjPxrS6r1JpsF7SDESO2nZtLg8dc8je3DB
+         YyxCVz3b7Ayuy7HQA2SALou15NxThYZ53lt+sqozSJ40TLq8rlRggJ8vXuDbu+9CQGxb
+         eMKMHAXM5FiRslutLvBheapp3fX21kEr4wiMWiAuq2w9oJsFwXAFNKxQaVuwhiAD04Cy
+         YxMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1677858842;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=EwLE8Mmz42hRAjp2mmXTpqJQBrQRV5VJhB28xGyyOdg=;
+        b=O7KA/mt1jiWnJQr963ccSEhw3kj3f5aJysf09wjy62VmqVbfBXi6XrWo4euQBZvC8c
+         5pKfoRStfT3voSC1kmZpJcNRRsXlJ34qXDfSyNsex2YQh5CldmzRLTvVo5d+w69nrhzY
+         ife6j9Ixxyu8Mh3vhqN7/JP1SOmS0i/brkxO75+jCO2f7c+eq1GMxG333eenEg1AsKh+
+         VbfgLY1v6eeSk7APf2vu68c/DYMXmk6rF5O9OHZEkdDCKcw59N3qthwGyj1XC/gGh2Sv
+         gyBRbNDPvAkvde9AINzgTpGvsSWtgHA0ttffC7G9OZvl2sa4VthwxGkXngtCzTj2KZRe
+         wxwA==
+X-Gm-Message-State: AO0yUKXNN5+KBbMd5lUc7LyVd6tY7q5Ac1KQuKb6zDgsR1QVP0HrWVbJ
+	7nTAYl+UEFLb8s63BrFyt1AEh7VdtX31JS9GI/b5eg==
+X-Google-Smtp-Source: AK7set+IlKxLNys9Fp16oomNgswEXya0h/gjlIyAaTXcDSxgBdGUQNUtENA2JiHu2ZNV0RtpxKQ2Z1GZfbMD6+hW2D4=
+X-Received: by 2002:a5d:638d:0:b0:2c7:150c:a0f4 with SMTP id
+ p13-20020a5d638d000000b002c7150ca0f4mr495178wru.3.1677858842018; Fri, 03 Mar
+ 2023 07:54:02 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|PH0PR03MB6606:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5fd31c8-3e77-4773-865a-08db1bfbe085
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	XbmKLvFbAeeA44q4vOH3XTj/Nm/JZ9bCR4/biCl2k+bMrOt31dbutMc1YRPQaGy3ao/QCAGpu3vprwEp0U9DHBhws5OpcKVIpXZaqr7IGJRMSi1IQ2MGQfDfSPEAvwbJaAtOX1AbAj0rL803KLFWvk/1JaMFQQIWaIEppQgzprmlDzhQkuNQFwo/Z3kQWEiFk+e0Hhmy8eQeNmQQNdi93PvJQAipyklAc6+RHvcVxQKHgf3A2qrIDFbkaHqzYOE5D5hw51+KoqLmiJgYh6EXS26ktDVankN06zPFvvCQ0wlvt4cJCfsd8pF+8XgQP1PHyWvVe7JL8pPs4VZxUtAN8TzENLcFbyAgqc4VmhUL4om9aKklhX3mzIOLGsJuy1C2wlJA7+T3tOSqo6Fms37LJwnKg6xft5iQxEQX0mR/JXtsjozB/1Qm3RroRRNl3KXeWHof3qERfmU6hpde3LoJgWXDcvRj0GCFu3fac8Z+YnrPss49lXDSCnRjdTEJaXiJT8WmCLLH6m5uBr+YDZfvEAnL7j8nGmUFxHDnA/Z8i+bOZAf52v7qjBczQ4UHscDdvBEX8rdhwg3gHscY6qQ8SveV2nbv+ujtJiPGQ/IqerFJC1A4zK5FWqrBL9AurRfA8bN3l+LD6yy12n8vkHHrYn9CFOC3V+Y93wIAaneDqKX9e25Rm31foKXl/GNU8dY+H2pD9Ld84/PqB1nmZ5lqp786NX3Qnwu3JrLyYOI7TB2AkodKTq6S8I0MnIk8l/kEOKO6qpWIqGPdpBZREqmX1w==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(366004)(136003)(376002)(346002)(39860400002)(451199018)(66476007)(186003)(38100700002)(82960400001)(316002)(8936002)(4326008)(66946007)(41300700001)(8676002)(2906002)(5660300002)(478600001)(2616005)(53546011)(6666004)(66556008)(6512007)(6506007)(26005)(966005)(6486002)(36756003)(83380400001)(31696002)(86362001)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YU43UzZBU1g1Yk1EREpKYll1djJjZ1lZWmtnQU1QOHlNZlFCQXFoZjVjWS9v?=
- =?utf-8?B?SlEvMDAwRVhudHN3VVpiTzAwcWtaV0t1Q1BZTktYTWJwV0RBVStmQUtUenQr?=
- =?utf-8?B?RExxdHgrRlBCalNOZm9lNmtTWnNLMWpnSGwzbWU4Qjk2dHNLcXhJZE5vUFpX?=
- =?utf-8?B?YnhKSDEvOFBFdnBDaEQvZnJxSGFpRXJPaC9DZHE4MC9WSFBVeklOY1BQeGxV?=
- =?utf-8?B?aW41MTdTWU5yL1lRUkV5eXVjUkg3OHRvenk3ZGVTZ3phOCtiRUdVTlZRUXVi?=
- =?utf-8?B?a2pOM01Fc3NGd1ZHcWdYTWt5NllVbXRQaEhUNEVacDZvVnFpUjFoaU9VMzRV?=
- =?utf-8?B?SnhYZThuV2RHZXp5NER5WXdPM2poZitzQXhuemVWZWZtRUFHWlA2RVNBYSth?=
- =?utf-8?B?R1VLMWRkQ0hJTTY0T0V5NVpFWkJKaDIxeUxrZkFQcTlaVTV4cXA0eEJIM2o4?=
- =?utf-8?B?bkt3bGlDWjVXdlh5NUlTaWdEWXNpbWgvaGE1RVFUZXprVTRHck5oNmtXVC9n?=
- =?utf-8?B?NnNLaFphU3VVb29LTnB4M0ZBZGFwTUUxZVY4amVpNW9uSTBCSjJlaWswQWNC?=
- =?utf-8?B?eDlQTzR0SDJXbGJaMUJ3VTd2cFl4M21WcTRGYWlBQ3o5SDdEeEwzcTZ1L0l1?=
- =?utf-8?B?Slk3VmR6UDJ4Q0swTzdsaXdHRVVHLzMwSWJ3d0taRDFmZk5aZTBUaWNzU3ZM?=
- =?utf-8?B?aWlNc21WdkV5ZzZJYmtEL28vQ0RFOWhiRUc5VkpnTXlEVGNzYVFGL1BZSEhC?=
- =?utf-8?B?SEZJLzM0ZWtPdWVldjJhbUt4OGVTN0NzWjFDRzY3TVNTMUtsVWRuaXBFN0ZO?=
- =?utf-8?B?ekFOeW9EcGZ3eXlLQmNSbUh5clNtTTVpWHhJZWxicmc3TUtaejRRa2E1dWJz?=
- =?utf-8?B?WGRpdmcwUkhLRGRHZEJ3TmlicVhITjJFZ0RIcVhSS1ExVXhERXFkeTJSaWU3?=
- =?utf-8?B?ZzFuK04wc3k3b0MyNTRFMHpKR2xYNmp2bVRIaXZVUDFjWW1BelVSRkdURGNE?=
- =?utf-8?B?UXF2cjNDam91Vzh0WjluZVp2alBlc1VhUk5vVlFuRUVLRzA4NEdFeXkxdzh3?=
- =?utf-8?B?V01WZ1RaOHFlZFE1N2xwdGNaak5vdUtuZWlFR1Y0bDFNcE5TaGcwN2EyZXhD?=
- =?utf-8?B?WnlUN3ZVbnVLOW04Y1FHeDg5d1VTdkhMa2JqTjRaUGw0YkNSM1hlSWtFamIv?=
- =?utf-8?B?YXJMVzVySEZneFBVdzJKT3NjQ1RjTHhCeXZXNVcrTVJBWTZrSWJQVEtsVXhl?=
- =?utf-8?B?dWl0aU8rc2U4VzRoTkk4cWcxcUkyMHY1MUFBb1hhRmducTBBaUxHSW5Cc1p3?=
- =?utf-8?B?UHFBa0JEaFUwNlVjNlZqYjc3Ujk0UFN6clNYc2tIU3psOHdTUmRQSXk5RWl2?=
- =?utf-8?B?Q2hRNG9WU3lEQzFaUlRyUHd3WXAyTHR6R2pRMnplcHJYcHpmZSs1VHo0VEU0?=
- =?utf-8?B?REhDOG9OdUZWMHYvRU1tQ3BvQTdYT2JSL0FNSXlMcUJSUlpwZzVCSGdjSmhK?=
- =?utf-8?B?dER1dzdHS3VSZW5SYmJVSjByYkMyR0p0WCtBdTFQbW9zM3d2ZUlDVmNtSVFS?=
- =?utf-8?B?SVZIOFpWZGFNdmJqUEV0dHZWbE1TM2pERWh4T3FCTWJ2VHl2STRKM28rUTZY?=
- =?utf-8?B?VTY5UktWbGlRQnZOcjVERTJBNnZaRHhlMm53MDcxY3pWb2pUVGxoSmVhZzB2?=
- =?utf-8?B?bDBEc0JyL2RsQkZ6UHJudmJiVzBwV1Z2dGZIWngxa1ZFUXlxSmtnL094NGxW?=
- =?utf-8?B?VmhOSi9ScFpudkZuZTNRUFp6dXVpNHQxV3VPeWVzZFJrMWZGOFVsMXNwOE5z?=
- =?utf-8?B?L3I1RHFCdExaWHE4Um83Wlc5ek5nRjhtRTZKWTFOdDBZZ28reDlQYUpkR1VV?=
- =?utf-8?B?VDZKZlhzaXZyakpFRmhpTzdoeEVMWTFQTEk0WEhtc1dPdU9xcm5oZUw5NjNM?=
- =?utf-8?B?MkpOZE9sZ2NTKy9Qd2JuOTZhVkE1d0xrb3dNSi9idWpKT3ZXK0Y4d1pMOHYr?=
- =?utf-8?B?NHcwUHhCUjB3clhMY3M1UFdub0lGakVrbVVicUh2cVR2azRtQ0RkdHFDWmJv?=
- =?utf-8?B?RDFSZDFHaHRRT3JpR3NsdDBjYW4zWU5YSmdxay9qenN2cGZodEpob0Q5R3Mw?=
- =?utf-8?B?N3o1b3NKSXhERkZEQTROMElBczd0MEJJQjMvN1VvQkJ3Rm9ERWhuMHAxTnVM?=
- =?utf-8?B?eUE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	tGX2oZHGdGiBUy82f+1+EaA9H27n+eoOaaMT3rmYpr9kQVZtH/eXeAW16pF5y/VrM5wAOxaDw7Ahu9aFn+5C+IlQOmCcl50GNUuU+KcOKaqKF71/oeZhoHfvaagmMxQ5AwbIFJKVGZtsu/6abFzQfPEe/c1dbdYBFdurj1IWefXCN1IjBu3AElkJIjfNgjKu109IJ5UA94YibRArt+m6DIsXtjyM+oRv8fQfj4EVQN0YvQVU1CQ3EBMxZKY8oBb9pMC14I4Y+qy3qL37UK0LXIHFvEOeUjzDmfUnX9AxqjMmwz/KeBbsnAbH6ip24/U6cCWoscop0xzqqJhC4xdme7/qBtMyvI42zwd+B9+fx43RnWewR7QuguGqRnvCE749PfDMB4DKC+ZRHA6AIvmG7m3Xh1uCuq6SPEXxHimuvtzbitihQRoB5P85NJ23BPwfcHExOhxHR5GRYCsPSMaOcHw1DEvECJguIR3ecyX7srqRLfu84VeupdVuxLRh7HTiUhg9e2KuCXkF1JNesaba3xOAUeYOpvZBJ6hRyAPTUnLUe3f5Cspe4ibbQeCPdJ4pTKO/9TreOp6Kksi9aRqXvfLl6OwZ/AFhwxyAYvTngwBuGlQNS7NqlfFiEGwh60RMcRZRftvSWWLEyXhT6cczZNDDIHvS9hXphomM8x9PrQ8kI34N45rhi8VequCkg7x8u/j69EvteW5oaB3XF/hvW1G/60ZyoPnjv0rFhsXCUjeM4003mnS3hJeO/cfty6N9xfuiKd32fttVBRjS0Q+d52F6Evx/9qfhhmoESavjLQ0=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5fd31c8-3e77-4773-865a-08db1bfbe085
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 15:28:02.4238
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f8As7RPq+98MDIuam7Eh2oVTE0YYl5VFjc66940rAPsyyqTfZX3TpkLymMoZcr5RV/iCDw0VrSc4j/8rd5HLGSGuhttNjSDf454PsR7U6Ic=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6606
+References: <cover.1677079671.git.jens.wiklander@linaro.org>
+ <fc8e8f1d2d8dbefffd28f6ff1dff600094be8182.1677079672.git.jens.wiklander@linaro.org>
+ <55C1E9E3-1515-40BD-8C9B-93564A2B4421@arm.com> <CAHUa44HyQv0f=eaMS9McpzsMAT_xrOOs8HynV7bq+WnjE5CqxA@mail.gmail.com>
+ <03A8E301-74F8-4BD3-9A89-7F08A96B108D@arm.com>
+In-Reply-To: <03A8E301-74F8-4BD3-9A89-7F08A96B108D@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Fri, 3 Mar 2023 16:53:51 +0100
+Message-ID: <CAHUa44HJub-+T5gaD8nOa_sUZRQJLsTMo-VAb=ZDLL+G+Lqt0Q@mail.gmail.com>
+Subject: Re: [XEN PATCH v7 14/20] xen/arm: ffa: support guest FFA_PARTITION_INFO_GET
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
+	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 03/03/2023 2:55 pm, Anthony PERARD wrote:
-> From: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi,
+
+On Fri, Mar 3, 2023 at 2:50=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
 >
-> It has not been a dependency since at least 4.13.  Remove its mandatory check
-> from ./configure.
 >
-> Annotate the dependency in the CI dockerfiles, and drop them from CirrusCI and
-> TravisCI.
 >
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-> (cherry picked from commit e21a6a4f966a7e91cb0bb014dbe15d15cc0502ad)
-> ---
+> > On 3 Mar 2023, at 14:17, Jens Wiklander <jens.wiklander@linaro.org> wro=
+te:
+> >
+> > Hi Bertrand,
+> >
+> > On Fri, Mar 3, 2023 at 10:51=E2=80=AFAM Bertrand Marquis
+> > <Bertrand.Marquis@arm.com> wrote:
+> >>
+> >> Hi Jens,
+> >>
+> >>> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> =
+wrote:
+> >>>
+> >>> Adds support in the mediator to handle FFA_PARTITION_INFO_GET request=
+s
+> >>> from a guest. The requests are forwarded to the SPMC and the response=
+ is
+> >>> translated according to the FF-A version in use by the guest.
+> >>>
+> >>> Using FFA_PARTITION_INFO_GET changes the owner of the RX buffer to th=
+e
+> >>> caller (the guest in this case), so once it is done with the buffer i=
+t
+> >>> must be released using FFA_RX_RELEASE before another call can be made=
+.
+> >>>
+> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >>> ---
+> >>> xen/arch/arm/tee/ffa.c | 126 ++++++++++++++++++++++++++++++++++++++++=
+-
+> >>> 1 file changed, 124 insertions(+), 2 deletions(-)
+> >>>
+> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >>> index 953b6dfd5eca..3571817c0bcd 100644
+> >>> --- a/xen/arch/arm/tee/ffa.c
+> >>> +++ b/xen/arch/arm/tee/ffa.c
+> >>> @@ -141,6 +141,12 @@
+> >>> #define FFA_MSG_POLL                    0x8400006AU
+> >>>
+> >>> /* Partition information descriptor */
+> >>> +struct ffa_partition_info_1_0 {
+> >>> +    uint16_t id;
+> >>> +    uint16_t execution_context;
+> >>> +    uint32_t partition_properties;
+> >>> +};
+> >>> +
+> >>> struct ffa_partition_info_1_1 {
+> >>>    uint16_t id;
+> >>>    uint16_t execution_context;
+> >>> @@ -157,9 +163,8 @@ struct ffa_ctx {
+> >>>    uint32_t guest_vers;
+> >>>    bool tx_is_mine;
+> >>>    bool interrupted;
+> >>> +    spinlock_t lock;
+> >>> };
+> >>> -
+> >>> -
+> >>
+> >> This is removing 2 empty lines (previous patch was wrongly adding one)
+> >> but one empty line is required here.
+> >
+> > I'll fix it.
+> >
+> >>
+> >>> /* Negotiated FF-A version to use with the SPMC */
+> >>> static uint32_t ffa_version __ro_after_init;
+> >>>
+> >>> @@ -173,10 +178,16 @@ static unsigned int subscr_vm_destroyed_count _=
+_read_mostly;
+> >>> * Our rx/tx buffers shared with the SPMC.
+> >>> *
+> >>> * ffa_page_count is the number of pages used in each of these buffers=
+.
+> >>> + *
+> >>> + * The RX buffer is protected from concurrent usage with ffa_rx_buff=
+er_lock.
+> >>> + * Note that the SPMC is also tracking the ownership of our RX buffe=
+r so
+> >>> + * for calls which uses our RX buffer to deliver a result we must ca=
+ll
+> >>> + * ffa_rx_release() to let the SPMC know that we're done with the bu=
+ffer.
+> >>> */
+> >>> static void *ffa_rx __read_mostly;
+> >>> static void *ffa_tx __read_mostly;
+> >>> static unsigned int ffa_page_count __read_mostly;
+> >>> +static DEFINE_SPINLOCK(ffa_rx_buffer_lock);
+> >>>
+> >>> static bool ffa_get_version(uint32_t *vers)
+> >>> {
+> >>> @@ -463,6 +474,98 @@ static uint32_t handle_rxtx_unmap(void)
+> >>>    return FFA_RET_OK;
+> >>> }
+> >>>
+> >>> +static uint32_t handle_partition_info_get(uint32_t w1, uint32_t w2, =
+uint32_t w3,
+> >>> +                                          uint32_t w4, uint32_t w5,
+> >>> +                                          uint32_t *count)
+> >>> +{
+> >>> +    bool query_count_only =3D w5 & FFA_PARTITION_INFO_GET_COUNT_FLAG=
+;
+> >>> +    uint32_t w5_mask =3D 0;
+> >>> +    uint32_t ret =3D FFA_RET_DENIED;
+> >>> +    struct domain *d =3D current->domain;
+> >>> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> >>> +
+> >>> +    /*
+> >>> +     * FF-A v1.0 has w5 MBZ while v1.1 allows
+> >>> +     * FFA_PARTITION_INFO_GET_COUNT_FLAG to be non-zero.
+> >>> +     */
+> >>> +    if ( ctx->guest_vers =3D=3D FFA_VERSION_1_1 )
+> >>> +        w5_mask =3D FFA_PARTITION_INFO_GET_COUNT_FLAG;
+> >>> +    if ( w5 & ~w5_mask )
+> >>> +        return FFA_RET_INVALID_PARAMETERS;
+> >>> +
+> >>> +    if ( query_count_only )
+> >>> +        return ffa_partition_info_get(w1, w2, w3, w4, w5, count);
+> >>
+> >> This code seems a bit to complex.
+> >> I would suggest the following:
+> >>
+> >> if (w5 & FFA_PARTITION_INFO_GET_COUNT_FLAG)
+> >> {
+> >>     if ( ctx->guest_vers =3D=3D FFA_VERSION_1_1 )
+> >>        return ffa_partition_info_get(w1, w2, w3, w4, w5, count);
+> >>     else
+> >>        return FFA_RET_INVALID_PARAMETERS;
+> >> }
+> >
+> > OK, I can use that. I'll have to add a
+> > if (w5)
+> >    return FFA_RET_INVALID_PARAMETERS;
+> >
+> > since the rest of the bits must be zero.
 >
-> Notes:
->     As we dropped "gettext" from many containers, build on staging-4.15
->     starts to fail due to unmet dependency. But that dependency isn't needed,
->     but configure hasn't been updated.
->     
->     pipeline with many fail due to missing gettext:
->         https://gitlab.com/xen-project/xen/-/pipelines/793302203
->     
->     pipeline with that patch backported:
->         https://gitlab.com/xen-project/people/anthonyper/xen/-/pipelines/794335026
->     still several build failure, but less, and not due to configure step failing.
->     
->     Commit can be cherry-picked cleanly to staging-4.15.
->     
->     That commit would be needed as well on staging-4.14, but it doesn't
->     apply cleanly due to change in configure, and missing dockerfiles.
+> ok
+>
+> >
+> >>
+> >>> +
+> >>> +    if ( !ffa_page_count )
+> >>> +        return FFA_RET_DENIED;
+> >>> +
+> >>> +    spin_lock(&ctx->lock);
+> >>> +    spin_lock(&ffa_rx_buffer_lock);
+> >>> +    if ( !ctx->page_count || !ctx->tx_is_mine )
+> >>
+> >> If i understand correctly tx_is_mine is protecting the guest rx
+> >> buffer until rx_release is called by the guest so that we do not
+> >> write in it before the guest has retrieved the data from it.
+> >>
+> >> The name is very misleading, maybe rx_is_writeable or free would be be=
+tter ?
+> >
+> > The FF-A specification talks about ownership of the TX buffer (from
+> > the VMs point of view), hence the name.
+> > I'll change it to rx_is_free to be more intuitive without the spec.
+>
+> Yes but in the code it is quite unclear so better to rename it here.
+>
+> >
+> >>
+> >> Also it would be more optimal to test it before taking ffa_rx_buffer_l=
+ock.
+> >
+> > Yes, I'll change that.
+> >
+> >>
+> >>
+> >>> +        goto out;
+> >>> +    ret =3D ffa_partition_info_get(w1, w2, w3, w4, w5, count);
+> >>> +    if ( ret )
+> >>> +        goto out;
+> >>> +
+> >>> +    if ( ctx->guest_vers =3D=3D FFA_VERSION_1_0 )
+> >>> +    {
+> >>> +        size_t n;
+> >>> +        struct ffa_partition_info_1_1 *src =3D ffa_rx;
+> >>> +        struct ffa_partition_info_1_0 *dst =3D ctx->rx;
+> >>> +
+> >>> +        if ( ctx->page_count * FFA_PAGE_SIZE < *count * sizeof(*dst)=
+ )
+> >>> +        {
+> >>> +            ret =3D FFA_RET_NO_MEMORY;
+> >>> +            goto out_rx_release;
+> >>> +        }
+> >>> +
+> >>> +        for ( n =3D 0; n < *count; n++ )
+> >>> +        {
+> >>> +            dst[n].id =3D src[n].id;
+> >>> +            dst[n].execution_context =3D src[n].execution_context;
+> >>> +            dst[n].partition_properties =3D src[n].partition_propert=
+ies;
+> >>> +        }
+> >>> +    }
+> >>> +    else
+> >>> +    {
+> >>> +        size_t sz =3D *count * sizeof(struct ffa_partition_info_1_1)=
+;
+> >>> +
+> >>> +        if ( ctx->page_count * FFA_PAGE_SIZE < sz )
+> >>> +        {
+> >>> +            ret =3D FFA_RET_NO_MEMORY;
+> >>> +            goto out_rx_release;
+> >>> +        }
+> >>> +
+> >>> +
+> >>> +        memcpy(ctx->rx, ffa_rx, sz);
+> >>> +    }
+> >>> +    ctx->tx_is_mine =3D false;
+> >>
+> >> at this point we have no reason to hold ctx->lock
+> >
+> > ctx->lock is special, we're never supposed to have contention on that
+> > lock. I believe that we in principle could use spin_trylock() instead
+> > and return FFA_RET_BUSY if it fails, but that might be a bit too much.
+> > The VM is supposed to synchronize calls that use the RXTX buffers. So
+> > unlocking ctx->lock early should give nothing for well-behaving
+> > guests, I'd prefer to keep things simple and unlock in reverse order
+> > if you don't mind. I'll add a comment.
+>
+> Please add a comment and a TODO as we have very big locked sections
+> here and xen is not preemptible so having someone blocked here by an
+> other core doing something is a concern.
+>
+> If it is expected that a VM should synchronize calls then we might want t=
+o
+> switch the ctx lock to use trylock and return busy.
 
-Urgh - I'm sorry about this.  I'd completely forgotten about this mess.
+I'll try that. In fact, it should be possible to do the same with the
+ffa_rx_buffer_lock at least here in handle_partition_info_get(). In a
+later patch where share_shm() is introduced, it might only be possible
+with trylock if the guest uses the FFA_MEMORY_REGION_FLAG_TIME_SLICE
+flag.
 
-We do need to get CI working reliably, even on all old branches, so we
-do need to backport this too.
+>
+> >
+> >>
+> >>> +out_rx_release:
+> >>> +    ffa_rx_release();
+> >>
+> >> There should be no case where do release without unlocking.
+> >>
+> >> It might be cleaner to have 2 functions ffa_rx_get and ffa_rx_release
+> >> handling both the lock and the rx_release message.
+> >
+> > I'd like to keep ffa_rx_release() as a dumb wrapper. ffa_rx_release()
+> > is also used in init_subscribers()  where we don't use any locks.
+> > ffa_rx_release() is called after a successful call to
+> > ffa_partition_info_get() where we also gained ownership of our RX
+> > buffer. Things might be a bit too intertwined for further abstraction.
+> > I'll add a comment explaining the relationship between
+> > ffa_partition_info_get() and ffa_rx_release().
+>
+> That would not create any problem to take the lock where it is not
+> done already and would make the implemenation a bit more robust.
+>
+> If at some point some FFA services are used in different cores during
+> the boot phase, it might make sense to take the lock even if we are in
+> situations where there should be no concurrency just to make the code
+> safer.
+>
+> Please tell me what you think here.
 
-But looking at the diffstat below, I think we also want to backport
-other things too (the change removing Travis), and I'm not sure we want
-to re-add the dockerfile comment seeing as we've already dropped it and
-rebuilt them all, and this patch is the one that stops it being mandatory.
+I agree that some extra locking would be harmless, but there's a
+problem that ffa_rx_release() should only be called if we in fact have
+ownership of the RX buffer. We must if for instance
+ffa_partition_info_get() returns an error not call ffa_rx_release().
 
-That would simplify this patch a lot, and make it applicable to 4.14
-too, I think.
+I think there is some value in only managing the locks in the
+handle_*() function since that makes it easier to see the locking
+order etc. That said, I wouldn't mind doing some locking in a helper
+function if it came naturally, but so far it hasn't in my opinion.
 
-Jan - are you happy for Anthony and I to just go free reign on the older
-branches until we've got testing into a working state?
+Cheers,
+Jens
 
-~Andrew
+>
+> >
+> >>
+> >>> +out:
+> >>> +    spin_unlock(&ffa_rx_buffer_lock);
+> >>
+> >> this should stay with ffa_rx_release
+> >
+> > Depending on if you accept my explanation above.
+>
+>
+> Cheers
+> Bertrand
+>
+> >
+> > Thanks,
+> > Jens
+> >
+> >>
+> >> Cheers
+> >> Bertrand
+> >>
+> >>> +    spin_unlock(&ctx->lock);
+> >>> +
+> >>> +    return ret;
+> >>> +}
+> >>> +
+> >>> +static uint32_t handle_rx_release(void)
+> >>> +{
+> >>> +    uint32_t ret =3D FFA_RET_DENIED;
+> >>> +    struct domain *d =3D current->domain;
+> >>> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> >>> +
+> >>> +    spin_lock(&ctx->lock);
+> >>> +    if ( !ctx->page_count || ctx->tx_is_mine )
+> >>> +        goto out;
+> >>> +    ret =3D FFA_RET_OK;
+> >>> +    ctx->tx_is_mine =3D true;
+> >>> +out:
+> >>> +    spin_unlock(&ctx->lock);
+> >>> +
+> >>> +    return ret;
+> >>> +}
+> >>> +
+> >>> static void handle_msg_send_direct_req(struct cpu_user_regs *regs, ui=
+nt32_t fid)
+> >>> {
+> >>>    struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
+> >>> @@ -528,6 +631,7 @@ static bool ffa_handle_call(struct cpu_user_regs =
+*regs)
+> >>>    uint32_t fid =3D get_user_reg(regs, 0);
+> >>>    struct domain *d =3D current->domain;
+> >>>    struct ffa_ctx *ctx =3D d->arch.tee;
+> >>> +    uint32_t count;
+> >>>    int e;
+> >>>
+> >>>    if ( !ctx )
+> >>> @@ -559,6 +663,24 @@ static bool ffa_handle_call(struct cpu_user_regs=
+ *regs)
+> >>>        else
+> >>>            set_regs_success(regs, 0, 0);
+> >>>        return true;
+> >>> +    case FFA_PARTITION_INFO_GET:
+> >>> +        e =3D handle_partition_info_get(get_user_reg(regs, 1),
+> >>> +                                      get_user_reg(regs, 2),
+> >>> +                                      get_user_reg(regs, 3),
+> >>> +                                      get_user_reg(regs, 4),
+> >>> +                                      get_user_reg(regs, 5), &count)=
+;
+> >>> +        if ( e )
+> >>> +            set_regs_error(regs, e);
+> >>> +        else
+> >>> +            set_regs_success(regs, count, 0);
+> >>> +        return true;
+> >>> +    case FFA_RX_RELEASE:
+> >>> +        e =3D handle_rx_release();
+> >>> +        if ( e )
+> >>> +            set_regs_error(regs, e);
+> >>> +        else
+> >>> +            set_regs_success(regs, 0, 0);
+> >>> +        return true;
+> >>>    case FFA_MSG_SEND_DIRECT_REQ_32:
+> >>> #ifdef CONFIG_ARM_64
+> >>>    case FFA_MSG_SEND_DIRECT_REQ_64:
+> >>> --
+> >>> 2.34.1
+>
+>
 
