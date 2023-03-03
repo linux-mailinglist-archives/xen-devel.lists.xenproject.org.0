@@ -2,43 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68E6F6A968B
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 12:39:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505911.778914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C16D56A96CC
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 12:56:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505925.778929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY3kw-0005BE-DI; Fri, 03 Mar 2023 11:39:22 +0000
+	id 1pY40c-00085L-Rk; Fri, 03 Mar 2023 11:55:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505911.778914; Fri, 03 Mar 2023 11:39:22 +0000
+Received: by outflank-mailman (output) from mailman id 505925.778929; Fri, 03 Mar 2023 11:55:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY3kw-00058s-AX; Fri, 03 Mar 2023 11:39:22 +0000
-Received: by outflank-mailman (input) for mailman id 505911;
- Fri, 03 Mar 2023 11:39:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pY40c-00083Q-Oj; Fri, 03 Mar 2023 11:55:34 +0000
+Received: by outflank-mailman (input) for mailman id 505925;
+ Fri, 03 Mar 2023 11:55:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z0SY=63=redhat.com=berrange@srs-se1.protection.inumbo.net>)
- id 1pY3ku-00056c-Qo
- for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 11:39:20 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 07ca3766-b9b8-11ed-a550-8520e6686977;
- Fri, 03 Mar 2023 12:39:18 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-374-7_OlWQwlO0GNqGzgpw94mw-1; Fri, 03 Mar 2023 06:39:15 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BA9B29AA3B0;
- Fri,  3 Mar 2023 11:39:15 +0000 (UTC)
-Received: from redhat.com (unknown [10.33.36.53])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E45B6140EBF4;
- Fri,  3 Mar 2023 11:39:11 +0000 (UTC)
+ <SRS0=y5Qx=63=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pY40b-000831-0k
+ for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 11:55:33 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4cd8aaea-b9ba-11ed-96af-2f268f93b82a;
+ Fri, 03 Mar 2023 12:55:32 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id z42so2011729ljq.13
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Mar 2023 03:55:32 -0800 (PST)
+Received: from [192.168.8.114] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
+ [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
+ f20-20020a2e9e94000000b0029573844d03sm267815ljk.109.2023.03.03.03.55.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Mar 2023 03:55:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,97 +44,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07ca3766-b9b8-11ed-a550-8520e6686977
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677843557;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=Sexof3CaldIYpbgHhQFfPYuNh/PjDrWj3k12Gp1hVDo=;
-	b=gfnbDeFS/1h7xrKmbd7CdcCsbxZwXVvujI8mcjHXvfHTPf05x4gvLOYJr9u6iwdl9rme2n
-	y4H+JqDEazLxMF6mKEl8cBPWAuDTXrsFH17dc6+0Q1nu8SgTIjAnbcfjfyXvn3sdZ0pqvA
-	UdJOZeLNJEn/wErEynup7KMEU0IlkU0=
-X-MC-Unique: 7_OlWQwlO0GNqGzgpw94mw-1
-Date: Fri, 3 Mar 2023 11:39:09 +0000
-From: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-To: Thomas Huth <thuth@redhat.com>
-Cc: Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Markus Armbruster <armbru@redhat.com>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	qemu-arm@nongnu.org, Maxim Levitsky <mlevitsk@redhat.com>,
-	libvir-list@redhat.com,
-	Richard Henderson <richard.henderson@linaro.org>,
-	xen-devel@lists.xenproject.org,
-	Reinoud Zandijk <reinoud@netbsd.org>
-Subject: Re: [PATCH v2 4/6] docs/about/deprecated: Deprecate the
- qemu-system-arm binary
-Message-ID: <ZAHcXUvAKFHeJiM7@redhat.com>
-Reply-To: Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>
-References: <20230302163106.465559-1-thuth@redhat.com>
- <20230302163106.465559-5-thuth@redhat.com>
- <CAFEAcA8JZqKnSN98PoO684zS1ZADj_KkaWO2QMk3w9uXk2cdMg@mail.gmail.com>
- <4e6512e4-b159-cbe2-5f74-89fab25208e6@redhat.com>
+X-Inumbo-ID: 4cd8aaea-b9ba-11ed-96af-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1677844532;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=qlYhNSBZAob4jbsatiLLFbnxAljXrHi0a9m8RVeqp3I=;
+        b=YkoNOV3vdI2uugmRM0SZa36qG4u8Z/rP7WFjpbjLsMCibLt/1N49C/1OcBA25KnCKz
+         90zhfXgRPH3CMQ3VeaGoyfeF8YDW6XcDBC2W807O14vj190hfGx2+aWUnCHUtKnuDd/Q
+         6xFCNWiGCgoXFDYdeINhaBr7M4tJk7Q2MU+cS5Y3SEFy5zHEyM1pAukSzmsEWEaIaCfe
+         IiX26q+EOvCzqtMqEOaJOwXDfPHLwk69HyS6IA7zEoGiEYd6fb4Zo0ap38QbTWN4w8Ph
+         eCmx4DPp35ENH+Qmbu9xpxKhRjV3BC8/SnpljOkEsNj54AXwvtd4+j65qaafVoDdkGTK
+         etGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1677844532;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qlYhNSBZAob4jbsatiLLFbnxAljXrHi0a9m8RVeqp3I=;
+        b=aAOPqf7Jc4Wtcajm4rj63a8d6dSWG1GWk0pM6tp0FBZtXFf7T5KzP7eLzR/z1NxeUJ
+         TunT7UlNfYiieFEQubD+sfgMwLbtSeYAq9fQXMNaZ0G2oumiXt8vmgwrIsqZaJXKCQ/a
+         AXbiv8Om8BGBr32lrZ9Md13mg5hUA4Ez0cESfYd/DXJ1XZmfCGu5Fwpvodu9Etjtn0hn
+         ns3Ps3kzxxYp8auJnBdqqtNssihfBXUbk3I2Kj4Tf64W4FCstLYyOMWtWYINO3MEo5WY
+         8H619mJetjpitkjxN5iSGGCUoBvaafOQJjnIUCYRmEQuwEh34VupS7IsmvqtUQaHHr5K
+         EsqQ==
+X-Gm-Message-State: AO0yUKWpeguzVehQ81tGHymZwtoDBRIjyvFw1kuYP//sEAos3bm9UWxF
+	Yk3/1iy6819rNa56Fgw7Qzo=
+X-Google-Smtp-Source: AK7set952/Dmk2wXALe+K+Pf1Ypgn9LOy/1kM/gZNR0EvhESVkFHJNePHotFh5GsM9S+lyH6Yhf4jQ==
+X-Received: by 2002:a2e:5757:0:b0:295:a956:5db1 with SMTP id r23-20020a2e5757000000b00295a9565db1mr470822ljd.18.1677844531578;
+        Fri, 03 Mar 2023 03:55:31 -0800 (PST)
+Message-ID: <b16b282ceb630dc641babfccd209f12ca4aa9fd5.camel@gmail.com>
+Subject: Re: [PATCH v5 3/4] xen/arm: switch ARM to use generic
+ implementation of bug.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+  xen-devel@lists.xenproject.org
+Date: Fri, 03 Mar 2023 13:55:30 +0200
+In-Reply-To: <b4adc3c2-6356-c552-93a3-c2a66ec53a04@suse.com>
+References: <cover.1677839409.git.oleksii.kurochko@gmail.com>
+	 <9de74cc424d5f198ac76ff46394aa5b99502d24e.1677839409.git.oleksii.kurochko@gmail.com>
+	 <b4adc3c2-6356-c552-93a3-c2a66ec53a04@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <4e6512e4-b159-cbe2-5f74-89fab25208e6@redhat.com>
-User-Agent: Mutt/2.2.9 (2022-11-12)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 
-On Fri, Mar 03, 2023 at 12:31:42PM +0100, Thomas Huth wrote:
-> On 03/03/2023 12.16, Peter Maydell wrote:
-> > On Thu, 2 Mar 2023 at 16:31, Thomas Huth <thuth@redhat.com> wrote:
-> > > 
-> > > qemu-system-aarch64 is a proper superset of qemu-system-arm,
-> > > and the latter was mainly still required for 32-bit KVM support.
-> > > But this 32-bit KVM arm support has been dropped in the Linux
-> > > kernel a couple of years ago already, so we don't really need
-> > > qemu-system-arm anymore, thus deprecated it now.
-> > > 
-> > > Signed-off-by: Thomas Huth <thuth@redhat.com>
-> > > ---
-> > >   docs/about/deprecated.rst | 10 ++++++++++
-> > >   1 file changed, 10 insertions(+)
-> > > 
-> > > diff --git a/docs/about/deprecated.rst b/docs/about/deprecated.rst
-> > > index a30aa8dfdf..21ce70b5c9 100644
-> > > --- a/docs/about/deprecated.rst
-> > > +++ b/docs/about/deprecated.rst
-> > > @@ -45,6 +45,16 @@ run 32-bit guests by selecting a 32-bit CPU model, including KVM support
-> > >   on x86_64 hosts. Thus users are recommended to reconfigure their systems
-> > >   to use the ``qemu-system-x86_64`` binary instead.
-> > > 
-> > > +``qemu-system-arm`` binary (since 8.0)
-> > > +''''''''''''''''''''''''''''''''''''''
-> > > +
-> > > +``qemu-system-aarch64`` is a proper superset of ``qemu-system-arm``.
-> > 
-> > I think this is not quite true -- at the moment if you want
-> > "every feature we implement, 32-bit" the only way to get
-> > that is 'qemu-system-arm -cpu max'. The '-cpu max' on
-> > qemu-system-aarch64 is 64-bit, and we don't implement for TCG
-> > the "-cpu max,aarch64=off" syntax that we do for KVM that would
-> > let the user say "no 64-bit support".
-> 
-> Ok ... so what does that mean now? ... can we continue with this patch, e.g.
-> after rephrasing the text a little bit, or do we need to implement "-cpu
-> max,aarch64=off" for TCG first?
+On Fri, 2023-03-03 at 12:29 +0100, Jan Beulich wrote:
+> On 03.03.2023 11:38, Oleksii Kurochko wrote:
+> > The following changes were made:
+> > * make GENERIC_BUG_FRAME mandatory for ARM
+> > * As do_bug_frame() returns -EINVAL in case something goes wrong
+> > =C2=A0 otherwise id of bug frame. Thereby 'if' cases where
+> > do_bug_frame() was
+> > =C2=A0 updated to check if the returned value is less than 0
+> > * Switch ARM's implementation of bug.h macros to generic one
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > Changes in V5:
+> > =C2=A0* Nothing changed
+>=20
+> I'm glad this isn't true, and the change to common/bug.c ...
+>=20
+> > ---
+> > =C2=A0xen/arch/arm/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
+> > =C2=A0xen/arch/arm/arm32/traps.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
+> > =C2=A0xen/arch/arm/include/asm/arm32/bug.h |=C2=A0 2 -
+> > =C2=A0xen/arch/arm/include/asm/arm64/bug.h |=C2=A0 2 -
+> > =C2=A0xen/arch/arm/include/asm/bug.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 | 75 +-----------------------
+> > --
+> > =C2=A0xen/arch/arm/include/asm/traps.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
+2 -
+> > =C2=A0xen/arch/arm/traps.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 81 +-----------------=
+------
+> > ----
+> > =C2=A07 files changed, 4 insertions(+), 161 deletions(-)
+>=20
+> ... is gone.
+Thanks for clarification.
 
-I think we need to have a way to request the max 32-bit CPU before we
-deprecate, because deprecation has to tell people what they should use
-instead.
+I had to add this information.
 
-For qemu-system-i686 -cpu max, I guess we have lm=off to hide the 64-bit
-support, so that's OK from QEMU POV, but will need libvirt enhancement
-as I don't think we've taken that into account.
+It is gone because the first patch of the patch series was
+updated and the changes from common/bug.c which were in
+the previous version of the patch has been removed so after
+rebase they disappered in the current patch.
 
-
-With regards,
-Daniel
--- 
-|: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-|: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-|: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
-
+~ Oleksii
 
