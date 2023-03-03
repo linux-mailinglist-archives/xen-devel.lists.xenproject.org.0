@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 841336A8EFA
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 02:51:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505514.778327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B1ED6A8F03
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 02:57:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505519.778337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXuZL-0000P2-1L; Fri, 03 Mar 2023 01:50:47 +0000
+	id 1pXufD-000121-Ku; Fri, 03 Mar 2023 01:56:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505514.778327; Fri, 03 Mar 2023 01:50:47 +0000
+Received: by outflank-mailman (output) from mailman id 505519.778337; Fri, 03 Mar 2023 01:56:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXuZK-0000Mi-UK; Fri, 03 Mar 2023 01:50:46 +0000
-Received: by outflank-mailman (input) for mailman id 505514;
- Fri, 03 Mar 2023 01:50:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pXufD-000102-IF; Fri, 03 Mar 2023 01:56:51 +0000
+Received: by outflank-mailman (input) for mailman id 505519;
+ Fri, 03 Mar 2023 01:56:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RVKH=63=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pXuZK-0000Mc-7l
- for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 01:50:46 +0000
+ id 1pXufC-0000zw-43
+ for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 01:56:50 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cde271bf-b965-11ed-a550-8520e6686977;
- Fri, 03 Mar 2023 02:50:42 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a892ce6d-b966-11ed-96ad-2f268f93b82a;
+ Fri, 03 Mar 2023 02:56:49 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id A3F4FB81620;
- Fri,  3 Mar 2023 01:50:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1DBC433EF;
- Fri,  3 Mar 2023 01:50:39 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 958B3B8161F;
+ Fri,  3 Mar 2023 01:56:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63027C433EF;
+ Fri,  3 Mar 2023 01:56:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,123 +43,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cde271bf-b965-11ed-a550-8520e6686977
+X-Inumbo-ID: a892ce6d-b966-11ed-96ad-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677808240;
-	bh=J4jq6uQhFtdRXuZ1EBQsnhna5276jBkAgGExuHkgetc=;
+	s=k20201202; t=1677808606;
+	bh=RFMk4bNqwpsiuY41rWDiX2skM//pLsTzyQyFjORv0ZI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ihVgY7Nk0vloYX++qkIRiPGAl+YQ3qDHKqVurRj5j3GOZP47aHnPH4XbtUeF91iJ6
-	 AT2uBNPx4085x59iqgaWdgI78PEuuU+2B9TUXS205demTh7ok30P5ExrW0BIb3xKtR
-	 ljqHAQZOYbWVRQUupaB9htYETdBgbuc4WfbTq/Gx1q+Jrwx95IJUuM4pPP4PMELBj9
-	 1PcM8q+BltsOS/aOCo700n8XjLnHn+kz1VsuS+4jvusD/4A/7E6ir2irBv0TnXHBQD
-	 GQz9BeWDUKuJfWe19IHJDjDE/6vm+uFgQMeaF4G5buwsqYwaNs5ZFLwiCfxNLSZjmq
-	 +59osOiVPXaww==
-Date: Thu, 2 Mar 2023 17:50:37 -0800 (PST)
+	b=ApWme3FMgkWcjV2fASFbpM9ES09Hgss3VdVrGn8EtgclIlxs9KXD73nQ17YwxX0FU
+	 iHE+kmloxawP6+wP71ECcbFXtTSzFrq46NNmy8RX/Rn35f5NTyeG6YjW0OPhQH7fh7
+	 3CieWGThj+0gIIxqAvR5HBwQ0aYkFsCTe7gvF2n5BtWDbG1IiAsG136tq/4JSIhTjj
+	 Xtq/Kyj+t4gWwQ2Pns9xr7J9GsZClbzfrmyfraYDilhDD6013ALQfd0X2Frp1sSqOR
+	 LfNyO+OzLKcT/3itgZW//b/7TyBDwy0PQqmzam+CCt18IE2/JD78pQJZlOPmOpEVJD
+	 1uy1xeDEYlCzw==
+Date: Thu, 2 Mar 2023 17:56:43 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: "jiamei.xie" <jiamei.xie@arm.com>
 cc: xen-devel@lists.xenproject.org, wei.chen@arm.com, sstabellini@kernel.org, 
     bertrand.marquis@arm.com, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH 1/2] automation: arm64: Create a test job for testing
- static heap on qemu
-In-Reply-To: <20230302044421.136068-2-jiamei.xie@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2303021748290.863724@ubuntu-linux-20-04-desktop>
-References: <20230302044421.136068-1-jiamei.xie@arm.com> <20230302044421.136068-2-jiamei.xie@arm.com>
+Subject: Re: [PATCH 2/2] automation: arm64: Create a test job for testing
+ static shared memory on qemu
+In-Reply-To: <20230302044421.136068-3-jiamei.xie@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2303021754470.863724@ubuntu-linux-20-04-desktop>
+References: <20230302044421.136068-1-jiamei.xie@arm.com> <20230302044421.136068-3-jiamei.xie@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Thu, 2 Mar 2023, jiamei.xie wrote:
-> From: Jiamei Xie <jiamei.xie@arm.com>
+> Create a new test job, called qemu-smoke-dom0less-arm64-gcc-static-shared-mem.
 > 
-> Create a new test job, called qemu-smoke-dom0less-arm64-gcc-staticheap.
+> Adjust qemu-smoke-dom0less-arm64.sh script to accomodate the static
+> shared memory test as a new test variant. The test variant is determined
+> based on the first argument passed to the script. For testing static
+> shared memory, the argument is 'static-shared-mem'.
 > 
-> Add property "xen,static-heap" under /chosen node to enable static-heap.
-> If the domU can start successfully with static-heap enabled, then this
-> test pass.
+> The test configures two dom0less DOMUs with a static shared memory
+> region and adds a check in the init script.
 > 
-> Signed-off-by: Jiamei Xie <jiamei.xie@arm.com>
-
-Hi Jiamei, thanks for the patch!
-
-
+> The check consists in comparing the contents of the /proc/device-tree/reserved-memory
+> xen-shmem entry with the static shared memory range and id with which
+> DOMUs were configured. If the memory layout is correct, a message gets
+> printed by DOMU.
+> 
+> At the end of the qemu run, the script searches for the specific message
+> in the logs and fails if not found.
+> 
+> Signed-off-by: jiamei.xie <jiamei.xie@arm.com>
 > ---
->  automation/gitlab-ci/test.yaml                 | 16 ++++++++++++++++
->  .../scripts/qemu-smoke-dom0less-arm64.sh       | 18 ++++++++++++++++++
->  2 files changed, 34 insertions(+)
+>  automation/gitlab-ci/build.yaml               | 18 ++++++++++++
+>  automation/gitlab-ci/test.yaml                | 16 ++++++++++
+>  .../scripts/qemu-smoke-dom0less-arm64.sh      | 29 +++++++++++++++++++
+>  3 files changed, 63 insertions(+)
 > 
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index 38bb22d860..820cc0af83 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -623,6 +623,24 @@ alpine-3.12-gcc-debug-arm64-staticmem:
+>        CONFIG_UNSUPPORTED=y
+>        CONFIG_STATIC_MEMORY=y
+>  
+> +alpine-3.12-gcc-arm64-static-shared-mem:
+> +  extends: .gcc-arm64-build
+> +  variables:
+> +    CONTAINER: alpine:3.12-arm64v8
+> +    EXTRA_XEN_CONFIG: |
+> +      CONFIG_UNSUPPORTED=y
+> +      CONFIG_STATIC_MEMORY=y
+> +      CONFIG_STATIC_SHM=y
+> +
+> +alpine-3.12-gcc-debug-arm64-static-shared-mem:
+> +  extends: .gcc-arm64-build-debug
+> +  variables:
+> +    CONTAINER: alpine:3.12-arm64v8
+> +    EXTRA_XEN_CONFIG: |
+> +      CONFIG_UNSUPPORTED=y
+> +      CONFIG_STATIC_MEMORY=y
+> +      CONFIG_STATIC_SHM=y
+> +
+>  alpine-3.12-gcc-arm64-boot-cpupools:
+>    extends: .gcc-arm64-build
+>    variables:
 > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 1c5f400b68..5a9b88477a 100644
+> index 5a9b88477a..f4d36babda 100644
 > --- a/automation/gitlab-ci/test.yaml
 > +++ b/automation/gitlab-ci/test.yaml
-> @@ -133,6 +133,22 @@ qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
->      - *arm64-test-needs
->      - alpine-3.12-gcc-debug-arm64-staticmem
+> @@ -149,6 +149,22 @@ qemu-smoke-dom0less-arm64-gcc-debug-staticheap:
+>     - *arm64-test-needs
+>     - alpine-3.12-gcc-debug-arm64
 >  
-> +qemu-smoke-dom0less-arm64-gcc-staticheap:
-> + extends: .qemu-arm64
-> + script:
-> +   - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
-> + needs:
-> +   - *arm64-test-needs
-> +   - alpine-3.12-gcc-arm64
+> +qemu-smoke-dom0less-arm64-gcc-static-shared-mem:
+> +  extends: .qemu-arm64
+> +  script:
+> +    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
+> +  needs:
+> +    - *arm64-test-needs
+> +    - alpine-3.12-gcc-arm64-static-shared-mem
 > +
-> +qemu-smoke-dom0less-arm64-gcc-debug-staticheap:
-> + extends: .qemu-arm64
-> + script:
-> +   - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-heap 2>&1 | tee ${LOGFILE}
-> + needs:
-> +   - *arm64-test-needs
-> +   - alpine-3.12-gcc-debug-arm64
+> +qemu-smoke-dom0less-arm64-gcc-debug-static-shared-mem:
+> +  extends: .qemu-arm64
+> +  script:
+> +    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-shared-mem 2>&1 | tee ${LOGFILE}
+> +  needs:
+> +    - *arm64-test-needs
+> +    - alpine-3.12-gcc-debug-arm64-static-shared-mem
 > +
 >  qemu-smoke-dom0less-arm64-gcc-boot-cpupools:
 >    extends: .qemu-arm64
 >    script:
 > diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> index 182a4b6c18..4e73857199 100755
+> index 4e73857199..fe3a282726 100755
 > --- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
 > +++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
-> @@ -27,6 +27,11 @@ fi
->  "
+> @@ -32,6 +32,25 @@ if [[ "${test_variant}" == "static-heap" ]]; then
+>      domU_check="echo \"${passed}\""
 >  fi
 >  
-> +if [[ "${test_variant}" == "static-heap" ]]; then
-> +    passed="${test_variant} test passed"
-> +    domU_check="echo \"${passed}\""
-> +fi
 > +
+> +if [[ "${test_variant}" == "static-shared-mem" ]]; then
+> +    passed="${test_variant} test passed"
+> +    SHARED_MEM_HOST="50000000"
+> +    SHARED_MEM_GUEST="4000000"
+> +    SHARED_MEM_SIZE="10000000"
+> +    SHARED_MEM_ID="my-shared-mem-0"
+> +
+> +    domU_check="
+> +current_id=\$(cat /proc/device-tree/reserved-memory/xen-shmem@4000000/xen,id 2>/dev/null)
+> +expected_id=\"\$(echo ${SHARED_MEM_ID})\"
+> +current_reg=\$(hexdump -e '16/1 \"%02x\"' /proc/device-tree/reserved-memory/xen-shmem@4000000/reg 2>/dev/null)
+> +expected_reg=$(printf \"%016x%016x\" 0x${SHARED_MEM_GUEST} 0x${SHARED_MEM_SIZE})
+> +if [[ \"\${expected_reg}\" == \"\${current_reg}\" && \"\${current_id}\" == \"\${expected_id}\" ]]; then
+> +    echo \"${passed}\"
+> +fi
+> +    "
+> +fi
+
+all good so far
+
+
 >  if [[ "${test_variant}" == "boot-cpupools" ]]; then
 >      # Check if domU0 (id=1) is assigned to Pool-1 with null scheduler
 >      passed="${test_variant} test passed"
-> @@ -128,6 +133,19 @@ if [[ "${test_variant}" == "static-mem" ]]; then
+> @@ -133,6 +152,16 @@ if [[ "${test_variant}" == "static-mem" ]]; then
 >      echo -e "\nDOMU_STATIC_MEM[0]=\"${domu_base} ${domu_size}\"" >> binaries/config
 >  fi
 >  
-> +if [[ "${test_variant}" == "static-heap" ]]; then
-> +    # ImageBuilder uses the config file to create the uboot script. Devicetree
-> +    # will be set via the generated uboot script.
-> +    # The valid memory range is 0x40000000 to 0x80000000 as defined before.
-> +    # ImageBuillder sets the kernel and ramdisk range based on the file size.
-> +    # It will use the memory range between 0x45600000 to 0x47AED1E8, so set
-> +    # memory range between 0x50000000 and 0x80000000 as static heap.
+> +if [[ "${test_variant}" == "static-shared-mem" ]]; then
+> +echo "NUM_DOMUS=2
+> +DOMU_SHARED_MEM[0]=\""0x${SHARED_MEM_HOST} 0x${SHARED_MEM_GUEST} 0x${SHARED_MEM_SIZE}"\"
+> +DOMU_SHARED_MEM_ID[0]="${SHARED_MEM_ID}"
+> +DOMU_KERNEL[1]=\"Image\"
+> +DOMU_RAMDISK[1]=\"initrd\"
 
-I think this is OK. One suggestion to make things more reliable would be
-to change MEMORY_END to be 0x50000000 so that you can be sure that
-ImageBuilder won't go over the limit. You could do it just for this
-test, which would be safer, but to be honest you could limit MEMORY_END
-to 0x50000000 for all tests in qemu-smoke-dom0less-arm64.sh because it
-shouldn't really cause any problems.
+Please move the second domU creation above to the general ImageBuilder
+script. It is fine to start 2 dom0less guests for all tests (assuming it
+doesn't break anything).
+
+So here under the if [[ "${test_variant}" == "static-shared-mem" ]] we
+can keep the setting of DOMU_SHARED_MEM and DOMU_SHARED_MEM_ID. (Or only
+DOMU_SHARED_MEM if you follow the suggestion on the other patch.)
 
 
-> +    echo  '
-> +STATIC_HEAP="0x50000000 0x30000000"
-> +# The size of static heap should be greater than the guest memory
-> +DOMU_MEM[0]="128"' >> binaries/config
+
+> +DOMU_SHARED_MEM[1]=\"0x${SHARED_MEM_HOST} 0x${SHARED_MEM_GUEST} 0x${SHARED_MEM_SIZE}\"
+> +DOMU_SHARED_MEM_ID[1]=\"${SHARED_MEM_ID}\"" >> binaries/config
 > +fi
 > +
->  if [[ "${test_variant}" == "boot-cpupools" ]]; then
->      echo '
->  CPUPOOL[0]="cpu@1 null"
+>  if [[ "${test_variant}" == "static-heap" ]]; then
+>      # ImageBuilder uses the config file to create the uboot script. Devicetree
+>      # will be set via the generated uboot script.
 > -- 
 > 2.25.1
 > 
