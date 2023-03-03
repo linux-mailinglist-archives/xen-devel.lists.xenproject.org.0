@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7E686A8D53
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 00:51:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505488.778307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C421D6A8E73
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 02:01:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505509.778317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXshJ-0002WT-9U; Thu, 02 Mar 2023 23:50:53 +0000
+	id 1pXtmJ-0005ol-8Y; Fri, 03 Mar 2023 01:00:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505488.778307; Thu, 02 Mar 2023 23:50:53 +0000
+Received: by outflank-mailman (output) from mailman id 505509.778317; Fri, 03 Mar 2023 01:00:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXshJ-0002UV-5u; Thu, 02 Mar 2023 23:50:53 +0000
-Received: by outflank-mailman (input) for mailman id 505488;
- Thu, 02 Mar 2023 23:50:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pXtmJ-0005jx-5F; Fri, 03 Mar 2023 01:00:07 +0000
+Received: by outflank-mailman (input) for mailman id 505509;
+ Fri, 03 Mar 2023 01:00:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4tCB=62=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pXshH-0002UN-K4
- for xen-devel@lists.xenproject.org; Thu, 02 Mar 2023 23:50:51 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0f1137cd-b955-11ed-96ad-2f268f93b82a;
- Fri, 03 Mar 2023 00:50:50 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0AF7C615E7;
- Thu,  2 Mar 2023 23:50:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232A7C433EF;
- Thu,  2 Mar 2023 23:50:47 +0000 (UTC)
+ <SRS0=zpNm=63=microsoft.com=mikelley@srs-se1.protection.inumbo.net>)
+ id 1pXtmG-0004gO-Pf
+ for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 01:00:04 +0000
+Received: from BN3PR00CU001-vft-obe.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b9cf72ac-b95e-11ed-a550-8520e6686977;
+ Fri, 03 Mar 2023 02:00:02 +0100 (CET)
+Received: from BYAPR21MB1688.namprd21.prod.outlook.com (2603:10b6:a02:bf::26)
+ by DS0PR21MB3862.namprd21.prod.outlook.com (2603:10b6:8:117::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.7; Fri, 3 Mar
+ 2023 00:59:58 +0000
+Received: from BYAPR21MB1688.namprd21.prod.outlook.com
+ ([fe80::629a:b75a:482e:2d4a]) by BYAPR21MB1688.namprd21.prod.outlook.com
+ ([fe80::629a:b75a:482e:2d4a%5]) with mapi id 15.20.6178.007; Fri, 3 Mar 2023
+ 00:59:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,164 +47,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f1137cd-b955-11ed-96ad-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1677801048;
-	bh=Sdk9Ok/e+YBLzSbWZW3D3COI7xsqH8tIB0rTyM3efRY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=o5FOVl9paKdaZxUSsqWRkKDmBJS+og1/3pxvEN+KpLdbFCVxSuMI8oqF1XW7kOp9K
-	 5pzeFn3yfmxz8QNUhJlO2s+GYPPihaYUkOEKDmDMavwKLalCn8gQKoLeBdfJlAePN1
-	 8mtDAaxXb0ELVr1DdjuBAm9v07iQiK9mi3EA16i0xcvPq/ZTIK2RaWgv7V/vl3YKC2
-	 xGWqn2DHPxnpR5ysZsTTb2Sb8u0qyoJ8JKXccSTqVvU62VGxhlk+KCUV2svBNpnKw6
-	 e7Z9pt+KIH2MNmh5lH1d7AQ6Dc7Rx/GxJYobj99jQwzBMBEOqBwbmnJ9xOsPbEXQ5w
-	 MtSsyXuG1jyIA==
-Date: Thu, 2 Mar 2023 15:50:45 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2 1/2] xen/cppcheck: add a way to exclude files from
- the scan
-In-Reply-To: <D40B74ED-1FB2-440F-A816-A47F837FABD6@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2303021550180.863724@ubuntu-linux-20-04-desktop>
-References: <20230301095320.264301-1-luca.fancellu@arm.com> <20230301095320.264301-2-luca.fancellu@arm.com> <alpine.DEB.2.22.394.2303011558170.3680@ubuntu-linux-20-04-desktop> <D40B74ED-1FB2-440F-A816-A47F837FABD6@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: b9cf72ac-b95e-11ed-a550-8520e6686977
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AuvQ9CDuHTMoZoDb9rs1DRZD52BGA2lguPZ0TBoSd6InI4TRNTWQYv306bTWu8JaofJ9ALgDDCpx5MQV+F9V0R/aDN0T4sdhUxGJpwTq+Qy/6+fQ1pII3YOALF7R9JNwRQSl6cTCIG1mOzBevY4Dq5wXVy7WMN52ZFT5JKtsflH+AZXAS4u0Y0c+skSVPDuK5noB87ZonlrRe8Gx596LC/5bWOCJoeBEAsH70F2Yew+umsSwnIHQ4N1s1R0kaEHVBuKEz9HqjXa0bahlIZqw23dFMNMUvLM5cTNCj3uAtVf8yQqX8PkJKKT/OLKq1tJrYHRSgAqwVspHcaNOkKxqeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hcwaIoYuY8LkEKc/K8Y1d7YqRltWlySlqVn09ozurWo=;
+ b=KTN6sLYr7jCChpiimVQRmeG2pwlp5F1YONzPfwqk82Bo5gP1hIN0ts/5vmbyLbbquIrmOlG+OAAmFY/CWH+jNmOzSYJE4fLLH6KpJIZb7HeqhrYmICTHqU9e1VIz/m1/mbD13u3Y1QknMA6ft0MJyeiU4vpb8xGjb0bC1CsMsUrRYDIgaDJdzpIuNA8f7IOcoQXb3vhAARofFUUYjUSmcEld+fYhxjQYxcRSBqHog/G4m3E/USZntIZ5gGJ1FM/LdpM3piFFMUfihHzYlZD1u+Ae8oaXt4OQ9JKCuB8Fez1VYUlxDabRUGJDItRZQUJhPDb77bi4tGv2VN2halZT1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hcwaIoYuY8LkEKc/K8Y1d7YqRltWlySlqVn09ozurWo=;
+ b=LVLreJfQLFqKH8U4sGCDkzsfz9neFxkUuGRsl8DqLSj5AdVo39uRPljKiJo6tsjJFw2vbLB13JkI6SygMLOlOIOde47WEuuV3jRXazucmOfm3tvv7yeo/KrapIm8f9ro7ykPzvUr0gdOGV13GBqg3DqzAa+Hu/imBrVtt+xRz7w=
+From: "Michael Kelley (LINUX)" <mikelley@microsoft.com>
+To: Luis Chamberlain <mcgrof@kernel.org>, "ebiederm@xmission.com"
+	<ebiederm@xmission.com>, "keescook@chromium.org" <keescook@chromium.org>,
+	"yzaikin@google.com" <yzaikin@google.com>, "jejb@linux.ibm.com"
+	<jejb@linux.ibm.com>, "martin.petersen@oracle.com"
+	<martin.petersen@oracle.com>, "minyard@acm.org" <minyard@acm.org>, KY
+ Srinivasan <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+	"wei.liu@kernel.org" <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	"song@kernel.org" <song@kernel.org>, "robinmholt@gmail.com"
+	<robinmholt@gmail.com>, "steve.wahl@hpe.com" <steve.wahl@hpe.com>,
+	"mike.travis@hpe.com" <mike.travis@hpe.com>, "arnd@arndb.de" <arnd@arndb.de>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"jirislaby@kernel.org" <jirislaby@kernel.org>, "jgross@suse.com"
+	<jgross@suse.com>, "sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"oleksandr_tyshchenko@epam.com" <oleksandr_tyshchenko@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: "j.granados@samsung.com" <j.granados@samsung.com>,
+	"zhangpeng362@huawei.com" <zhangpeng362@huawei.com>, "tangmeng@uniontech.com"
+	<tangmeng@uniontech.com>, "willy@infradead.org" <willy@infradead.org>,
+	"nixiaoming@huawei.com" <nixiaoming@huawei.com>, "sujiaxun@uniontech.com"
+	<sujiaxun@uniontech.com>, "patches@lists.linux.dev"
+	<patches@lists.linux.dev>, "linux-fsdevel@vger.kernel.org"
+	<linux-fsdevel@vger.kernel.org>, "apparmor@lists.ubuntu.com"
+	<apparmor@lists.ubuntu.com>, "linux-raid@vger.kernel.org"
+	<linux-raid@vger.kernel.org>, "linux-scsi@vger.kernel.org"
+	<linux-scsi@vger.kernel.org>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "openipmi-developer@lists.sourceforge.net"
+	<openipmi-developer@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH 3/7] hv: simplify sysctl registration
+Thread-Topic: [PATCH 3/7] hv: simplify sysctl registration
+Thread-Index: AQHZTUghmT7Wxm+Iike4T3P5qQULMa7oPC4w
+Date: Fri, 3 Mar 2023 00:59:57 +0000
+Message-ID:
+ <BYAPR21MB16886A06B7D3DBC4A10EF984D7B39@BYAPR21MB1688.namprd21.prod.outlook.com>
+References: <20230302204612.782387-1-mcgrof@kernel.org>
+ <20230302204612.782387-4-mcgrof@kernel.org>
+In-Reply-To: <20230302204612.782387-4-mcgrof@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=fe1c164e-92ed-4e67-a49a-a1d27905e5b8;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2023-03-03T00:59:14Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BYAPR21MB1688:EE_|DS0PR21MB3862:EE_
+x-ms-office365-filtering-correlation-id: 498f5fa7-384d-434b-9bdb-08db1b829bfa
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 7luQdAIeYd5DgNZR0tGfR/9z4g/rMl+7zsncSixc5P0tSF2YznjxdKfNk2/XxD6P036DDuO+gCtuwUmxbimpR8Hpem3XHlv1oO+q1bTUM++rxQ2Ii0LEyz+wROLz/N31ouX7S+QTBuysw34y//aFm1YSLoWrjxlvUANhsy7vCei2qokx36c8iT9FDc0QOhdfkY6eZnUmehOfKTyLJFT/3kKh9dHiGM4pjos2Ycs+7PoXzYd4vBgmZjNbhCoixf8eO4mvM0aoPPiG8lkSITXpn7g3PeihGrs18A1AaYrr6JZ5DbZguaOTuJyt64npXPPPGaJyQJHLeAkEQoo8u0ixrNJ/3y2AR5pilPKj4vpAPUzlTXny3EYcWxg7dXnCTfuGsTA96I/uT92bCZv9TKH7PHLQSg/R5Rl+O/uTMULQ4u3rrVFgYD/EwNLTLMjNSy4vJZKcdSP2opAl0Gg8jgRMTXGs4vQ0KJiJ4PlMepgeg6UyUIgyBj8sEaNFBYuF3Y8zgyv2koCiTKmyeaVAt53oHJKOacAn/ovwnom5kyHaGxVEOEc3iv07s0V6i/fTN7s7TFZS7NzQV1L1tvprKry8SRyziTKBs0eb53aus1kwmqo4eIwwAV19RdCPtQDZTQy3BNuM58c+t/8DFDlvUQtQMkrToH27wp3tA9Dr7fgwgR9WZsyCqyuI0XCZ08XcToSrwxNaZJMRaUByugMqUm0yULNghWDvejHn2mTPf5aCueS/QolYN9ganhHiO9jg9rz2mmUVK5eu4VItO+bNagQV4Q==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR21MB1688.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(136003)(366004)(396003)(39860400002)(376002)(451199018)(7696005)(86362001)(6506007)(66446008)(316002)(64756008)(55016003)(4326008)(66556008)(66476007)(8676002)(921005)(54906003)(110136005)(83380400001)(2906002)(122000001)(33656002)(26005)(82960400001)(9686003)(186003)(7416002)(7406005)(82950400001)(76116006)(52536014)(66946007)(8936002)(38070700005)(5660300002)(38100700002)(71200400001)(478600001)(10290500003)(41300700001)(8990500004);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Ajsq1TcVBn/ZLc3bc9sjhQmJ5VdDc49BQXeKLlNu5Xi4zQAjIAs7HTggdJef?=
+ =?us-ascii?Q?d5lH3GhjyhYxRc39AEP4URGZq7GKgXxA0Vn4MfAje8V8ivdT+ZfFDUrCsW8e?=
+ =?us-ascii?Q?7sSfq9xxnM5qq2U5oWNasrF8qnie2hbZ9LpmEyHusy2WOFiDLWD50Sv+Hva6?=
+ =?us-ascii?Q?7bzMLasCQrRBrKzM0gqZP+5YiMjeIRb32uFOM2irqfBfj4cL/0imWLRD5Hq/?=
+ =?us-ascii?Q?PE3A2tX/La/Kd+gdJHdQjFs6lHOjqVNANhP+Nf4GmBF3EphSt6mXbN0ou2OR?=
+ =?us-ascii?Q?GN0bKnVDlbdI/H3V7D0Qrq7qhKlacE02BwZvPuDqZf3EPjJ3qGOIOL3PaTea?=
+ =?us-ascii?Q?9CAI6za1+0JsolWIG9jauZtMVgB7taUYltoQ07FE5QD5Yoe7jLJlXV7/FrBf?=
+ =?us-ascii?Q?B0qNP1LMdyYJ2Bm/HMHl1GniNGQyZeEja54IzlVTEbdZJtPKq4PW+LSod1n/?=
+ =?us-ascii?Q?knyIGVPGr1AMLjwjl+iJ5VLtrMtyIUpvgIl99P0e9BnaV24LZhLdhxKxJObN?=
+ =?us-ascii?Q?B2JFSUp2CDvw4j1aG9i2QSbrcWbDH/whvqtCspG4ader+UMxN78zbApssmDz?=
+ =?us-ascii?Q?ZG7ebyOnon0A93z8ClnmaECKcl+VQ4LKYbQcYeP1Xx75vxArx5WZNvHwvK1B?=
+ =?us-ascii?Q?2ucIk51ZHwGtB2AXNCQFUZJ2Hvk6hkOg4WQSni29h9mQinYPDkjl9JRoTQxH?=
+ =?us-ascii?Q?bsnD10sd5jpQwKEhmZCVTBx9YxnP+jRSZw0qWanrhKjaskv+maKFjYWWqKM8?=
+ =?us-ascii?Q?PkBWNrhxbuLQ6i2tAQUpUrYpfXvOA7vCQywuqiyDlLSzR1cxLNkQ6p69eIu6?=
+ =?us-ascii?Q?L+sS1uH2rSjrmBTohd7P1VuG8yRUFAL6OIKGTjOxn2c69hkUajhOPHEYTSAi?=
+ =?us-ascii?Q?I6AhrBAnCIAgCFUvvsqP1uJ+NYWUTCVh7Gw2cgIVvtHS608v4+Nq3DIzyJ9f?=
+ =?us-ascii?Q?87oU27P4cZPjozZG+mNGMcVq9M87ha+n2HuHGDe0RT4e2z/alPMT11LjpFnd?=
+ =?us-ascii?Q?rCL+i+0TFLZuvhZZodEYpL4SZq+13/lm4fwaJh5p+QUzd4MBdAJaeBgFXmnA?=
+ =?us-ascii?Q?46/n8wKY4PeVwhJldIxHJaDUWERBY4Z/3bZzPu3GCgKfPc+rzxsDNxt2JqaX?=
+ =?us-ascii?Q?xsSks+hYmF41SwWMsf9ztHnOFCaED+W9nbQmlLKOoF1ULbXQ3Ee1Ea/kiKTx?=
+ =?us-ascii?Q?8woDr1xYwd2gTqZAPOzgJTAKNV62vXparryLddhI89Zg4SJG6zczb53yJLCK?=
+ =?us-ascii?Q?lXCuuDSpxZTiNk32qLOshIDxnSq3K6NRONByvmZK/Fqqo2OP59MsPIWkm03n?=
+ =?us-ascii?Q?etWje6b76FuXRvDJi3d0lEZddit+VzjvMQhN9+aVDzlTTcXG6P4FyoI/Erqa?=
+ =?us-ascii?Q?fmywD0gRJZ3hCzj0VnIEcr2W7q0SxvBdus0yHywgex4Bwxt8Ck+uNvlEmPCf?=
+ =?us-ascii?Q?h3l2DVTr8A7wwKI3o8mk8HKewLClpYeqn+UoCvfe9psUV3Jm8nfGAjWPMDMm?=
+ =?us-ascii?Q?aUJmbyXPOiXE6GKni1hIF2P3q1GIaDJ2dI0vtmw+UatAnjSvGXOivH4M8MfZ?=
+ =?us-ascii?Q?9MUBFg4n3Vtg7x+s7/ShI2o3Aq7UpkhH4aG6XPDeJQFbNvUphiZ1RzE/mv5l?=
+ =?us-ascii?Q?xg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-535574450-1677801048=:863724"
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR21MB1688.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 498f5fa7-384d-434b-9bdb-08db1b829bfa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Mar 2023 00:59:57.9023
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: DcXel5WdWBH6prBf0eyu02o+jyHBBZnK9EZRtDBaMLWw1+SzlPHPmquDTa7XuodbaT1BylXcJcvDRudky5c3L+jqQLrpSx9i6f8CZkASXtM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR21MB3862
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-535574450-1677801048=:863724
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Thu, 2 Mar 2023, Luca Fancellu wrote:
-> >> +Exclude file list for xen-analysis script
-> >> +=========================================
-> >> +
-> >> +The code analysis is performed on the Xen codebase for both MISRA checkers and
-> >> +static analysis checkers, there are some files however that needs to be removed
-> >> +from the findings report because they are not owned by Xen and they must be kept
-> >> +in sync with their origin (completely or even partially), hence we can't easily
-> >> +fix findings or deviate from them.
-> > 
-> > I would stay more generic and say something like:
-> > 
-> > The code analysis is performed on the Xen codebase for both MISRA
-> > checkers and static analysis checkers, there are some files however that
-> > needs to be removed from the findings report for various reasons (e.g.
-> > they are imported from external sources, they generate too many false
-> > positive results, etc.).
-> > 
-> > But what you wrote is also OK.
-> 
-> I’m ok with that too, I can update with your wordings
-> >> 
-> >> +++ b/xen/scripts/xen_analysis/exclusion_file_list.py
-> >> @@ -0,0 +1,79 @@
-> >> +#!/usr/bin/env python3
-> >> +
-> >> +import os, glob, json
-> >> +from . import settings
-> >> +
-> >> +class ExclusionFileListError(Exception):
-> >> +    pass
-> >> +
-> >> +
-> >> +def __cppcheck_path_exclude_syntax(path):
-> >> +    # Prepending * to the relative path to match every path where the Xen
-> >> +    # codebase could be
-> >> +    path = "*" + path
-> >> +
-> >> +    # Check if the path is to a folder without the wildcard at the end
-> >> +    if not (path.endswith(".c") or path.endswith(".h") or path.endswith("*")):
-> > 
-> > Isn't there a python call to check that it is actually a folder? I think
-> > that would be more resilient because otherwise if someone passes a .S or
-> > .cpp file it would be detected as directory.
-> > 
-> > 
-> >> +        # The path is to a folder, if it doesn't have the final /, add it
-> >> +        if not path.endswith("/"):
-> >> +            path = path + "/"
-> >> +        # Since the path is a folder, add a wildcard to the end so that
-> >> +        # cppcheck will remove every issue related with this path
-> >> +        path = path + "*"
-> >> +
-> >> +    return path
-> 
-> Yes you are very right, here I wanted to accept the relative path to a folder with
-> or without the ending '/*’, but it carries on much more complexity because here the
-> relative path can contain wildcards in it, so we can’t use os.path.isdir() which would
-> fail.
-> 
-> At cost of being more strict on how folders shall be declared, I think it’s better to
-> enforce the ‘/*’ at the end of a path that is excluding a folder.
-> 
-> We have a previous check using glob() to ensure path with wildcards are real path
-> so we are safe that the passed relative path are OK.
-> 
-> Dropping the requirement of passing folder paths with or without the ‘/*’ simplifies
-> the code and this would be the final result:
-> 
-> 
-> diff --git a/docs/misra/exclude-list.rst b/docs/misra/exclude-list.rst
-> index 969539c46beb..c97431a86120 100644
-> --- a/docs/misra/exclude-list.rst
-> +++ b/docs/misra/exclude-list.rst
-> @@ -3,11 +3,11 @@
->  Exclude file list for xen-analysis script
->  =========================================
->  
-> -The code analysis is performed on the Xen codebase for both MISRA checkers and
-> -static analysis checkers, there are some files however that needs to be removed
-> -from the findings report because they are not owned by Xen and they must be kept
-> -in sync with their origin (completely or even partially), hence we can't easily
-> -fix findings or deviate from them.
-> +The code analysis is performed on the Xen codebase for both MISRA
-> +checkers and static analysis checkers, there are some files however that
-> +needs to be removed from the findings report for various reasons (e.g.
-> +they are imported from external sources, they generate too many false
-> +positive results, etc.).
->  
->  For this reason the file docs/misra/exclude-list.json is used to exclude every
->  entry listed in that file from the final report.
-> @@ -42,3 +42,5 @@ Here is an explanation of the fields inside an object of the "content" array:
->  
->  To ease the review and the modifications of the entries, they shall be listed in
->  alphabetical order referring to the rel_path field.
-> +Excluded folder paths shall end with '/*' in order to match everything on that
-> +folder.
-> diff --git a/xen/scripts/xen_analysis/exclusion_file_list.py b/xen/scripts/xen_analysis/exclusion_file_list.py
-> index 4a47a90f5944..871e480586bb 100644
-> --- a/xen/scripts/xen_analysis/exclusion_file_list.py
-> +++ b/xen/scripts/xen_analysis/exclusion_file_list.py
-> @@ -12,15 +12,6 @@ def __cppcheck_path_exclude_syntax(path):
->      # codebase could be
->      path = "*" + path
->  
-> -    # Check if the path is to a folder without the wildcard at the end
-> -    if not (path.endswith(".c") or path.endswith(".h") or path.endswith("*")):
-> -        # The path is to a folder, if it doesn't have the final /, add it
-> -        if not path.endswith("/"):
-> -            path = path + "/"
-> -        # Since the path is a folder, add a wildcard to the end so that
-> -        # cppcheck will remove every issue related with this path
-> -        path = path + "*"
+From: Luis Chamberlain <mcgrof@infradead.org> On Behalf Of Luis Chamberlain=
+ Sent: Thursday, March 2, 2023 12:46 PM
+>
+> register_sysctl_table() is a deprecated compatibility wrapper.
+> register_sysctl() can do the directory creation for you so just use
+> that.
+>=20
+> Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
+> ---
+>  drivers/hv/vmbus_drv.c | 11 +----------
+>  1 file changed, 1 insertion(+), 10 deletions(-)
+>=20
+> diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+> index d24dd65b33d4..229353f1e9c2 100644
+> --- a/drivers/hv/vmbus_drv.c
+> +++ b/drivers/hv/vmbus_drv.c
+> @@ -1460,15 +1460,6 @@ static struct ctl_table hv_ctl_table[] =3D {
+>  	{}
+>  };
+>=20
+> -static struct ctl_table hv_root_table[] =3D {
+> -	{
+> -		.procname	=3D "kernel",
+> -		.mode		=3D 0555,
+> -		.child		=3D hv_ctl_table
+> -	},
+> -	{}
+> -};
 > -
->      return path
->  
->  
-> I’ve included also your wording and I’ve specified in the docs how to exclude a folder.
-> 
-> Do you think it’s ok to proceed in this way?
+>  /*
+>   * vmbus_bus_init -Main vmbus driver initialization routine.
+>   *
+> @@ -1547,7 +1538,7 @@ static int vmbus_bus_init(void)
+>  		 * message recording won't be available in isolated
+>  		 * guests should the following registration fail.
+>  		 */
+> -		hv_ctl_table_hdr =3D register_sysctl_table(hv_root_table);
+> +		hv_ctl_table_hdr =3D register_sysctl("kernel", hv_ctl_table);
+>  		if (!hv_ctl_table_hdr)
+>  			pr_err("Hyper-V: sysctl table register error");
+>=20
+> --
+> 2.39.1
 
-Yes I think that's fine. I like that the python script becomes simpler
---8323329-535574450-1677801048=:863724--
+Reviewed-by: Michael Kelley <mikelley@microsoft.com>
 
