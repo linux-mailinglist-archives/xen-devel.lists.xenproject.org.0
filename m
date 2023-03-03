@@ -2,42 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FADA6A96E5
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 12:59:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505934.778939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79E6B6A9700
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 13:10:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505949.778949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY44E-0000RF-DF; Fri, 03 Mar 2023 11:59:18 +0000
+	id 1pY4EH-0002Wq-Kj; Fri, 03 Mar 2023 12:09:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505934.778939; Fri, 03 Mar 2023 11:59:18 +0000
+Received: by outflank-mailman (output) from mailman id 505949.778949; Fri, 03 Mar 2023 12:09:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY44E-0000OI-9t; Fri, 03 Mar 2023 11:59:18 +0000
-Received: by outflank-mailman (input) for mailman id 505934;
- Fri, 03 Mar 2023 11:59:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pY4EH-0002UC-HM; Fri, 03 Mar 2023 12:09:41 +0000
+Received: by outflank-mailman (input) for mailman id 505949;
+ Fri, 03 Mar 2023 12:09:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SP4M=63=citrix.com=prvs=419214df4=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pY44C-0000K3-1H
- for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 11:59:16 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d0b9adb1-b9ba-11ed-96af-2f268f93b82a;
- Fri, 03 Mar 2023 12:59:15 +0100 (CET)
-Received: from mail-dm6nam10lp2107.outbound.protection.outlook.com (HELO
- NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.107])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 03 Mar 2023 06:59:11 -0500
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by PH0PR03MB6574.namprd03.prod.outlook.com (2603:10b6:510:b9::12)
+ <SRS0=DvcW=63=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pY4EG-0002U5-A8
+ for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 12:09:40 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20628.outbound.protection.outlook.com
+ [2a01:111:f400:7eb2::628])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 41dbfa9f-b9bc-11ed-a550-8520e6686977;
+ Fri, 03 Mar 2023 13:09:34 +0100 (CET)
+Received: from BN1PR12CA0021.namprd12.prod.outlook.com (2603:10b6:408:e1::26)
+ by MN2PR12MB4223.namprd12.prod.outlook.com (2603:10b6:208:1d3::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.21; Fri, 3 Mar
- 2023 11:59:06 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6156.021; Fri, 3 Mar 2023
- 11:59:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.22; Fri, 3 Mar
+ 2023 12:09:30 +0000
+Received: from BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e1:cafe::ae) by BN1PR12CA0021.outlook.office365.com
+ (2603:10b6:408:e1::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.22 via Frontend
+ Transport; Fri, 3 Mar 2023 12:09:30 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT021.mail.protection.outlook.com (10.13.177.114) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6156.19 via Frontend Transport; Fri, 3 Mar 2023 12:09:30 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 3 Mar
+ 2023 06:09:29 -0600
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Fri, 3 Mar 2023 06:09:28 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,177 +59,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0b9adb1-b9ba-11ed-96af-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1677844754;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=4qx6QdZIJfrtqyxRdZiDUNM1v4TNZOZGNA8/SLZlOzk=;
-  b=YNPmVwj92QIY6M81Yk1UIwsNWviOJRPUYRjd4l9RRObAQCMo7S/4sMPO
-   dPjHIuJ55WwDJXr4fqKj7k02kvjTuimC1R/GgZj1ci+Qm8e6lFno7ml/q
-   3EPVTBzgQBf82SnBKS/Qdf6OKyOQeCH1MFNacKRKvY9gIJWwIXThEu47O
-   w=;
-X-IronPort-RemoteIP: 104.47.58.107
-X-IronPort-MID: 99327614
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:OeeDNK3b+6YQSEDrdvbD5R9wkn2cJEfYwER7XKvMYLTBsI5bpzQFz
- zYfUT+CaK7YamWmKot/aIu3oEsDuJbRz4JrTlE6pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8tuTS+HuDgNyo4GlD5gdmPqgS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfP3BCr
- OMhFi4xVSuo2u+MxK6iCcBPv5F2RCXrFNt3VnBI6xj8VK5jbbWdBqLA6JlfwSs6gd1IEbDGf
- c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqsy6KlFMZPLvFabI5fvSjQ8lPk1nej
- WXB52njWTkRNcCFyCrD+XWp7gPKtXKqA9hNSuTknhJsqECrzXwvNTMdbmCyhOe1llKUQ4x2J
- 3VBr0LCqoB3riRHVOLVWhyzoHeA+BkGSddUO+Q/5EeGza+8yxaUAC0IQyBMbPQitdQqXno62
- 1mRhdTrCDdz9rqPRhq1/b6OoTS/ESMcN2MFaGkPSg5ty8L4vIg5gxbLT9BiOK24lNv4HXf32
- T/ikcQlr7AajMpO26Dl+1nC2mqovsKQFlFz4RjLVGW46A8/fJSie4Gj9Vnc67BHMZqdSV6C+
- nMDnqBy8dwzMH1ErwTVKM1lIV1jz6/t3OH06bK3I6Qcyg==
-IronPort-HdrOrdr: A9a23:eYczp6kKMZXcb/+LkKkE7gj0j/HpDfI93DAbv31ZSRFFG/Fw9v
- rCoB1/73SftN9/YhEdcK+7Scu9qB/nmqKdgrN8AV7BZniEhILAFugL0WKI+Vzd8kPFmNK13J
- 0QFpRDNA==
-X-IronPort-AV: E=Sophos;i="5.98,230,1673931600"; 
-   d="scan'208";a="99327614"
+X-Inumbo-ID: 41dbfa9f-b9bc-11ed-a550-8520e6686977
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GN9Gjhf+n1TODQqNwCeBq51dn3OY6Kpdy6pG/N29tLCajsyKbGz3DCBT3XAIECtCaC9bS8YGkWWa/2ceq8FQeH1Ixsd7OMtuGZmLECi1CYsTCFh25j0YbKflQivER7GLHTA0YZUoEbmhAj/88Y/yEOfUUBCUKemj5MHpFdQIxDD7ikyfF4zJc/Jw3usaA/WG3yuRheTnpLM/n1UewfAE1hw8AhCA+5Aiv8VwcQkLf8ovIKeLWfhZt0wlWRvQAMW95FhsGLPRU9odbhUKHQS6+6W54v2rWuFhp5US3HVuJDQ26p2o0jPkwmJU9YvfjT9aOg7ZA0sxoak5Qtxg19Dqeg==
+ b=IdnGYK2pjlh6nsLeJO6zT4Rt0BfXBZ8gXg0uy9A9xV6WP30OynBr2/ssAxmVJTKYIYAP4EZuVi33x14u/k1/MwnRHJvVWZG6ReMizoUgMFeALGp1AxKnlMgxD6ZXBzXQRJKA+Hl7r+vwPVcbY+9JsOrhoueQATdbAHx/RJjGj73BX/9XwmGjbOuj54+JtYoTqaEOGoz+DeBwv5iozFsNnYfu2l0Gr7QfGTbAh9+iFlpinM3F2ah1+dG0LRR8Tc4YJg7kTBSGIk1XztvcqOgoqWhbRktca+XnmKU9RH2ukm1yWxsZubXiLMl2Ex74fk7hdFDdMhmRuFsuPsKLlPxFPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+Pk9DikWWyqoofKzDY/0yqHGk/YP3v+dSWXxHaaICMI=;
- b=mueHVjTm+FEY1gCS6IesuihItsb52gj5z/zL/nwqgDquTxhgboHppVLFeEq2uxnzMs1F1G1Bp1kVG6fLULMBwPiMlCmDynS28mUSWEEmvQ84BbEZKBJsVCBY2FvLfoobBpHNITcF1n1EbU6fXyXDrEd/cIATNapVnxR+8Cs2/IuXQ9JLuaXnjeLml4UbLE1q/7TCnI19MFzpW6Md+K0Ofc+8QpxZLWMIUFna3zIIQPT4gLyqAIKfHlvhLXvfQDVbVW7p7heiipDHw9FLEBxq8eUa5tPsP1oMb8DYjG+n2J+ANweLPdsyv0JqKfsKuKOQOb1jJbP50UxgT69eEYoW9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ bh=KPqu7jOc0vI9s4y/WybfmC0Ew++zE39dV2zMMv0sMqY=;
+ b=ZDRdaxc9INFp/OR3HElIaU3DNl4y5mLXqsdbyNRA7UV7QTqKN2kZChRMXrT0ZXejQaCM7Z41W7WE7kvnMnx9cQ+9EvUmd/mFYvSHw70tTaPVbrlPhRzqtOoEfLQGOeMkKYtsLHQtzFNTQko61FKJf5Lqp/N0choByXcx4gQBxi9gfx3pOEecuhxG+ekZCvs2hlv9d2nc6I3Ko5QhFsJoIqTXM/jU/Nug6VcWlKtEna3qMn2NUgrAfrC8nw8BsSgD4Bt1TnYpQ3lWPpprRlSvuIF8zsTHK8bR6XxbSdKJF8ErqIKiVXcsjZ4opK8eMtghLT299aHytL7QJtByjt4G/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+Pk9DikWWyqoofKzDY/0yqHGk/YP3v+dSWXxHaaICMI=;
- b=MqAR6EXRwRp87Cp+Ev6qcYco0zjmq+4aXu8AtoSdDcIAKj4P+/5UMl7/9Rz3qpYqf2O0Rj+jTM2gfdhAhETelByE7ldcmrjqAIV9jEkSEqJSm8o5zEgcKP2QmFb2YursJkxK4Nfq/9a0vF+aXttz0bxN5lqAVfO4Y41/59RaNR0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <62e997e2-8e45-9048-10fa-469bfb28b08b@citrix.com>
-Date: Fri, 3 Mar 2023 11:59:00 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+ bh=KPqu7jOc0vI9s4y/WybfmC0Ew++zE39dV2zMMv0sMqY=;
+ b=k3S+lGLlkaisPjIBJNcamQRyvEQt9uRAsLTmdloqFjkztGFXA80jQ4bcrlkuKHyN2AVG8ZpgXOSdNzQ0Js/lK12CvYmAZuvgs+kcZvCdqhwFE7e3hElkgUHse5YA/9maFY46gXlRFtZFd1NjBG10ykpJkF1P1Mr8Wv7mXL7x8+E=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <631c534d-5781-7884-4814-7182b0c59621@amd.com>
+Date: Fri, 3 Mar 2023 13:09:22 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
 Subject: Re: [PATCH] automation: Add missing and drop obsoleted aliases from
  containerize
-Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Anthony PERARD <anthony.perard@citrix.com>
 References: <20230301090644.4452-1-michal.orzel@amd.com>
-In-Reply-To: <20230301090644.4452-1-michal.orzel@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P123CA0081.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:138::14) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
-MIME-Version: 1.0
+ <62e997e2-8e45-9048-10fa-469bfb28b08b@citrix.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <62e997e2-8e45-9048-10fa-469bfb28b08b@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|PH0PR03MB6574:EE_
-X-MS-Office365-Filtering-Correlation-Id: 50aee5a8-78c2-4100-d202-08db1bdeb083
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT021:EE_|MN2PR12MB4223:EE_
+X-MS-Office365-Filtering-Correlation-Id: faf147a2-e864-4d27-13b5-08db1be02473
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	8ICUpMqr7hKlGIzgHRwdBnVAZzI1rn2ZIC7OHDcuzsojHpmRr+oBtapchyfOFT1LYWHnzCFsC+lFVDwSbPjhaECuTINZPj0ogK6z6Eflh9DRI+2hiBfztRx7YzBMQfo5ZJk+/QNJBCn/FKQMjgmuHEgL/w+2UNtNne6zM2FcH3mmp59g7jVvIvZaTZknpyvebjkYsDXkCF5ysvMpcmhLrrALi7TPlf1uaE4jiVd8gq6kplPcd7xsTVzec9CVapzRMelEU+yh7Ij/wZKMgMAxJeXlHPPz7jVEmVihzljlCfdBYzKdbe0qQ7RWiNR53UEjl2QzaY34BVD4EMxKtSA+du627TMnWBi4zEbKrtDpB42UtQMJbu1RgeeSZ6i0VARLJO/uUhoqz7iXPhPGS/KkubkgnujdLaHdlM71w+K5VpLmM75jhfJfS/5cfporVyIghmpTDLRdc1UKbQ/IlaRhJxQFK9/1WsvS6kxR1rz6QbNJLDdNEQg2AL3hiTWAqkdL0WNQBJvZEg1eUyxYR1vqnDkRpb1/bloy3bCGGah5o3sXhwZkzRd71+oG3XOb4Asi8mSUVc10fPCODfg7k/wqhb8eBVTU27PirSrtVNYryQ3vSK8auODKNwJShGJHNj9cLYNA0qzgt3FIf69qBPk8h8n6d7ERlQzh4M9yEPsLSZ0H4ffUkMcxWQT3aIwqFnxrNRNM8vx0XPFPFmH+/iMjaoa+RueFoIYIy830tCAqwKs=
+	viX6ep4N0clk6HGvfqMbBpctoa50t0NpCmgPOf2M7X4wOvwxkZo7lEnpr2QWClfuTjYE8U4h4EHhuC81htx7yHXeamKDJ0rbETXbhSbC6Jp+xhI8WjmAbAzkXJcRrVeZNJJsLh9wosNu0R6HXPdXGXTrFxIyJUsnJ1B5wG7HCPNTCXkcypvobf8pyMEhUVFZpWaKPBcPMSIumKZ9/lqHsvVeLMMyg9JV14zwLtwuqHGZtAJI2atInodTEN8ZfzZJwRS1N4UgJaVDFMGH0qt/D0mh9ZrYwQo912RC6XB15A5Smzw/KeOFG8YhyFLKl5GMAXcgNCJTz6tup+DoG07onXqPxl4YZ9kGY3h3BTQhMg+9zFlnAYMO0tgMg/4SfhLYfIG1Fp/EpuHd8Hy6kL8OXnH/wNMxRnvE4BO1I4P9wtuU8HA2nWHk5HPyNXpk+yFH3DTQ5wc8nwmd8Scu4L6me1xjVTMunpRCxHaZXhkLDAEdG2XiMUamwOZwlX0rgli8UDs1hDbSfXjcrrin25TanzWJzdGTOuJAyXiBQsoh8BALC5AwR6rGyamf7w97aJ30IbT58b1zOhEZ6eP1xRF98lfe1Pqr98xOBlXd2CGVCu56pTkwlWrvjmvvE16UNSCqqcCEYYM3lzkaec6/X9B54OndPBfy02bKz6/EHTxtKVwbQRvvo0kzebxrz3VrylzzYQg4lEdGZQNT0DUmodJ55GD1/2Ed81vZC+hDFrCEv7QqAxgQp4yztelJge/1Fvp15cnhL/rX2F0LekeXrtcWYg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(136003)(366004)(376002)(346002)(39860400002)(451199018)(66556008)(86362001)(8936002)(66476007)(66946007)(31696002)(4326008)(38100700002)(8676002)(2906002)(54906003)(316002)(82960400001)(5660300002)(478600001)(36756003)(41300700001)(2616005)(107886003)(6506007)(6512007)(53546011)(26005)(6666004)(31686004)(186003)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZkJvSC9hV3hYVnlRTjRFejZReGxxUkhwRks0VXV2SnZsYWRWR0N5RjN2THlv?=
- =?utf-8?B?blBiRm5SakxNRGpJQTZrZFRUZnRQUXVZUmptYjg0RE0rUXdmRFN0MkVrdW9V?=
- =?utf-8?B?YUJCR0N0ZmZrd0ZEWFczKzNDRTNvc016TmJ4S1pUVXJiQTE0R1hjUmNZUGVW?=
- =?utf-8?B?ZndtYmVRckxjeEM2VkhhNlpLK1l4YTRKVFNrdytzMWtsWVYrNTF2QThVQTk2?=
- =?utf-8?B?ck43MVI4Uks5VDFnakxlK0kvMGYyejdXRUp4SnBRZmxjaURQYXI2WkNSTmpQ?=
- =?utf-8?B?RzY5ZndNQUYvbytkQW9TajlxeFh4VkNYNWtLZDUrdTQ4V3E4TW9jUm9WZHlL?=
- =?utf-8?B?UnlvL09xM24rVDJ5Z2J6YmM0S1pLTDdhQzNwd1BzMFFzcFByUjhMRnJGTXcz?=
- =?utf-8?B?RXVXUHZ1aU4ydTF5UXY3S2trUyt2Nll1Y3JpdThxVUU2R25lVVpqT3FRTXdF?=
- =?utf-8?B?blFVRUV2dEUyZEFpYTdGcWtranNzVllQT2VhWjJ6OWpkd2RCejhhZ1BNemdC?=
- =?utf-8?B?ZDJFZkJ2VloremdOb3ZmNXUzMFV5a1ZXZ1MrOHE3OE82SXRYR2FGeE53ZTh3?=
- =?utf-8?B?ZHRNWjNWOWtFVVV4Y2pSc0p4YTlzc21BMXdqY00wdFkzTitzYW9rTzMwWFUz?=
- =?utf-8?B?WVZhckx3RGtSZGRDa0RVYTJRY3N1dVJCSThiSUwrajYwZzR6dXZWUnV5Y0RW?=
- =?utf-8?B?dE1pRmJFc1kvZ1pac29vc2tXNS9WQU1zY0xWTHhXVHo1OERXNDNWTGNjaG8w?=
- =?utf-8?B?TGlma0pNSXhSeHd1WWZoN1JobnVycVhUNW1yMkNESldBQ3JlL1QxT1RKb3lu?=
- =?utf-8?B?QllnNVhkT0kyaERrdThyR2gwTlFKUG9mV3VzQzhWMG5EY3hwcWNVc3dvRmtP?=
- =?utf-8?B?S1hJM0ozUUtINUV4eWhmM2pnNWFiblF1QjdVWkwvMHBTZnlkdDhsOGtrYmpO?=
- =?utf-8?B?N0ZYMjJtc0xEMDBtU29KOFJxbEpJdXR6WHo1dGxvcGc0cDRXNFlTSVJDc0FC?=
- =?utf-8?B?UnZZdXlzaHM2TGRZdmxsUEdvS1NVU2J3bnQ0ZUUvTGZhcWJmUkN0b2lJRzVO?=
- =?utf-8?B?MUk5eXh4L1VOck94c0RudkhLRVpjZVl5TnQxNTQyOExHNGRBbWtRU05OR1Q3?=
- =?utf-8?B?NVpNaFZVQnJTdVJ3aWVqUHhiQ05WaDFoSitRVXJmNGppMG0xVDJ3RGtTNTBx?=
- =?utf-8?B?KzlxcjJYYVBENlIwQ1ozaXkzVTQrbWFqTnlBRUlReS9BV2c5bEhMcU5LU2tM?=
- =?utf-8?B?TXI0SWlablN3VWtZNWd0MWNVM21lZXRUZS9iV04vbmhsOVVURkdCVUZ0RElv?=
- =?utf-8?B?dmRUVkRtMERhdzFwZTZMVFZnNTNJUk5xN1MvWkNiQnZDdHJlcGhYMmw2SERE?=
- =?utf-8?B?RHR4VUZOSE93L2Q2c3A0a0FGRTBiQzZHOUxZVy92NnlRQ0dVT1UvZ0FXV3Bs?=
- =?utf-8?B?Y2RzRlZCV0tDYXMvSFgxZWlqU1ZvV0E2OGdCclZKMGZTWlJoYlJyTWJadTE0?=
- =?utf-8?B?eU9oa1hqUkwwVjd1Zm5yZ1RFQVcyaGlOY2U0WVdzWXFJNUhTZ1lFYm8zRk45?=
- =?utf-8?B?cTU5elRleGVmQVpLS1FkSmg5d3FiVXZ1MTdnSlVMY0RYZ2JYMTVBRU9xQmp1?=
- =?utf-8?B?QUVNV3ozajRqdEgvOTV0SVZSeGhiWDZYZkxoc0J1UnJVdmhYUCtWY1ZHNzVM?=
- =?utf-8?B?MzRVdGlTaEFZR1RiSXF6cGVqSmVhZmd4aTdHcWhQell4K1hmNFhVTmhPVFdE?=
- =?utf-8?B?bDUwekpqNGpVck8vc2JpdFNFTm5RMk1EeXl1cHdxUmNjNmVLUlJ3K0ttSmpK?=
- =?utf-8?B?RWJySnZha0NONDY4QmRrNXlaUEZXbWJqdFprMU9Fakp5SzB6MjhDeVlqZy9B?=
- =?utf-8?B?UGgrRTZvdmtXeTZYaXVoUWM3N01NMExGbi8xbzkrbTk3SnppT29QKzljeDBw?=
- =?utf-8?B?ZEEwVTljQmxmRGdYa0xkUC83OWtrWVRmMEozcitFaDh1aGpad3ZYQTlHNHhu?=
- =?utf-8?B?bUx3Ni9XQldENTdVNHdxbXlVUGJTNyt4WTkrck5xdEw2c3RHSnI2cjAxRVBw?=
- =?utf-8?B?M0JlOG42eUJhcUFyQVAxbnRML01rR3VoL1dUWlRGZWIyS2NZQlRSekVxMDBu?=
- =?utf-8?B?dGZzVlV5MEdjTGNJelluNDc3SHFjaWZTN092WjlhaURpMEJRdjF2Lzhacklw?=
- =?utf-8?B?bnc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	O/nxVtLoQKzwPdity1+9slR0/O4Oq+pUg/spd5NJLuLGMIh6a3HaeWmswTVIwewPU+mpNcWktq9gyxO3LaIEpUcntO04kR+YZdc5JRLPNf6QAeuUlFwKff2VvbyOUCrPSXLXfb6jlNLXGgu/xmD5CzlOU49+YNjtoTcITcYGJLMs9ciK6kl95gYIMS5jA6EpRD+DMFJmntfaNakRV6pCRjeOOj/temU7U7GGA+cYtkdCkMEu3wAHFjmQS0UA3qGAaysRLaO0uJAaf9e3zVwjrUSoqBDU7Qh1klbQO1J1w1zsboo7HZA/Y4AsiTG6OUMnvT1yRza+NXYRcuHHMHh2uVKwpyLgoWPIVYFCRP9tQ3zcQKH+FzPNVQo1Du4PnA28NwSaIWGDLa3hr4bxyOUJL5dWGInIkPLel9QktcrL8Gv0BXhfXdtx7nXWxCfXMsWLjsxkTta0BNLJF0dWSS4IBQIh0BUkAP87TBAwfmDdUcoLaQ03u1W03lDCZLIBzz+uaiqIvX9o0M+1hgnSmkkueYijifGCbtjlaTQLDTk1SBOhUbsMH2/kNUeXLIh6bJMN02lHjPHtm5IXqbg2CoLftqUf5keJiMfO5X3FnsY6lUa+4KmKPvG/erq/VGDLk1UxFaaDipLwCH0QwRMgGNA1dRq8prFMnojeaRBr862+SaebBkQardvkY0RCM5glTEmOI50lc3gP3KLvSUocpAKMwAJ+7s6ApVCLZTsgoMignOhJoDF1mfbz1BPgRYv8cbTMm1bThUEbA7ap7PiLW5lVHTNQ59RoD0wb1ugkPPMwc9OknqRdNkg/aYMTaRib5bODYAzDASxwZjwl8AdLZE6LwRza/IYOH5GANLu3QEsLjo8=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50aee5a8-78c2-4100-d202-08db1bdeb083
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 11:59:06.3988
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(346002)(396003)(376002)(39860400002)(136003)(451199018)(46966006)(40470700004)(36840700001)(478600001)(186003)(16576012)(82740400003)(110136005)(40480700001)(8936002)(36860700001)(356005)(316002)(86362001)(41300700001)(31696002)(54906003)(81166007)(82310400005)(36756003)(2616005)(426003)(47076005)(336012)(5660300002)(40460700003)(4326008)(44832011)(26005)(31686004)(2906002)(8676002)(70586007)(70206006)(53546011)(6666004)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2023 12:09:30.0734
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q3DdUimn05LQuTjoJWtJSZKDnEi5iPqmiDppFyO8xMSnd+sfAYwcYM9ocy2yNOEEqQPbHebn+QXweCoi5j/tRhtgFhnIPugvjFUAhx+E/ew=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6574
-
-On 01/03/2023 9:06 am, Michal Orzel wrote:
-> Add missing aliases for:
->  - debian:unstable-cppcheck
->  - debian:unstable-arm64v8-arm32-gcc
->  - ubuntu:bionic
->
-> Remove aliases for no longer used containers:
->  - centos:7.2
->  - debian:unstable-arm32-gcc
->
-> Modify docs to refer to CentOS 7 instead of 7.2 not to create confusion.
->
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> ---
-> Open questions related to the CI cleanup (@Andrew, @Anthony):
->  - Why do we keep suse:sles11sp4 dockerfile?
->  - Why do we keep jessie dockefiles?
-
-Because we don't yet have a process for retirement of such things.
-
-Right now, all branches other than staging are using the jessie
-containers.  While it's still in use on any branch, we need some way to
-rebuild the container (potentially with modifications - see the recent
-HTTPS fun), and standard practice is "patches into staging".
-
-An alternative could be to patch into the most recent staging branch
-containing the dockerfile.
+X-MS-Exchange-CrossTenant-Network-Message-Id: faf147a2-e864-4d27-13b5-08db1be02473
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN8NAM11FT021.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4223
 
 
-sles11sp4 is more complicated.  We specifically tried to get a SLES
-container working, but it was always in a weird state (only @suse people
-could rebuild the container).  We did eventually replace it with
-OpenSUSE containers, but I can't currently locate any evidence in the
-gitlab yml that we wired sles11sp4 up.   Which is confusing because I
-swear we did have it running at some point in the past...
 
-~Andrew
+On 03/03/2023 12:59, Andrew Cooper wrote:
+> 
+> 
+> On 01/03/2023 9:06 am, Michal Orzel wrote:
+>> Add missing aliases for:
+>>  - debian:unstable-cppcheck
+>>  - debian:unstable-arm64v8-arm32-gcc
+>>  - ubuntu:bionic
+>>
+>> Remove aliases for no longer used containers:
+>>  - centos:7.2
+>>  - debian:unstable-arm32-gcc
+>>
+>> Modify docs to refer to CentOS 7 instead of 7.2 not to create confusion.
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> ---
+>> Open questions related to the CI cleanup (@Andrew, @Anthony):
+>>  - Why do we keep suse:sles11sp4 dockerfile?
+>>  - Why do we keep jessie dockefiles?
+> 
+> Because we don't yet have a process for retirement of such things.
+> 
+> Right now, all branches other than staging are using the jessie
+> containers.  While it's still in use on any branch, we need some way to
+> rebuild the container (potentially with modifications - see the recent
+> HTTPS fun), and standard practice is "patches into staging".
+> 
+> An alternative could be to patch into the most recent staging branch
+> containing the dockerfile.
+> 
+> 
+> sles11sp4 is more complicated.  We specifically tried to get a SLES
+> container working, but it was always in a weird state (only @suse people
+> could rebuild the container).  We did eventually replace it with
+> OpenSUSE containers, but I can't currently locate any evidence in the
+> gitlab yml that we wired sles11sp4 up.   Which is confusing because I
+> swear we did have it running at some point in the past...
+
+Ok, thanks for answering. Stefano wanted me to remove these unused dockefiles.
+Are you ok with that or only to remove sles for now?
+
+~Michal
 
