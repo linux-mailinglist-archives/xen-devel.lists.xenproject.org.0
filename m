@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35CB86A9C68
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 17:53:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.506131.779162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D34676A9C75
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 17:55:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.506136.779172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY8f7-0008TY-Cn; Fri, 03 Mar 2023 16:53:41 +0000
+	id 1pY8gJ-0000c4-Nw; Fri, 03 Mar 2023 16:54:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 506131.779162; Fri, 03 Mar 2023 16:53:41 +0000
+Received: by outflank-mailman (output) from mailman id 506136.779172; Fri, 03 Mar 2023 16:54:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY8f7-0008QT-9n; Fri, 03 Mar 2023 16:53:41 +0000
-Received: by outflank-mailman (input) for mailman id 506131;
- Fri, 03 Mar 2023 16:53:39 +0000
+	id 1pY8gJ-0000ZH-Kl; Fri, 03 Mar 2023 16:54:55 +0000
+Received: by outflank-mailman (input) for mailman id 506136;
+ Fri, 03 Mar 2023 16:54:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=csqk=63=citrix.com=prvs=4196fa7ca=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pY8f5-0008QJ-Cq
- for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 16:53:39 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ef787ea6-b9e3-11ed-a550-8520e6686977;
- Fri, 03 Mar 2023 17:53:36 +0100 (CET)
+ <SRS0=lE8C=63=casper.srs.infradead.org=BATV+c2a260b7edcf36afa963+7131+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1pY8gI-0000Z2-2i
+ for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 16:54:54 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1bf0dee5-b9e4-11ed-a550-8520e6686977;
+ Fri, 03 Mar 2023 17:54:51 +0100 (CET)
+Received: from [2001:8b0:10b:5:4ce9:a0c4:1cf4:98d9]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pY8gA-003Fda-VK; Fri, 03 Mar 2023 16:54:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,157 +41,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef787ea6-b9e3-11ed-a550-8520e6686977
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1677862416;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=EJ7aC+BF1AzWXCEZ0JpqSlmiFXvoJnQrBO7MqzqOVGw=;
-  b=anvEej1CBw9x4qodWbvEM3kPVD6OcPx49CbqK7cWTkD3DH/aGUNksqdu
-   xfxbAgWv306i+lQtQunry7ukY52M1d7ytQDBBZuQre/XRSwmT8Fw4420M
-   /bBnLD5Qmqgin17RY9QVUEvDIWHf/qqBblhzC/rJmUI3IXkfHei6SZqgv
-   g=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 101792754
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:BifYhKBc+rGlfxVW/zLjw5YqxClBgxIJ4kV8jS/XYbTApDx23jIAm
- jEfX2COP6nZZmfyKYt0PYznp00AuZXcyNdkQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbyRFu8pvlDs15K6p4GhA5QRkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw/8NeE19T/
- vYheA8WcCmpgeC6/ai+Y7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
- pdHL2M1N3wsYDUWUrsTIJs4gOevgGi5azBCoUiZjaE2/3LS3Ep6172F3N/9I4TTGpQPwRvEz
- o7A102gXVIKFPHY8xuI+U32pMnBuHnAaZ1HQdVU8dY12QbOlwT/EiY+XlKhrf60okW3Qd5YJ
- gof/S9GhbMp6EWhQ935Xhu5iH2JpBgRX5xXCeJSwBGAzO/Y7hiUAkAATyVdc5o2uckuXzso2
- 1SV2dTzClRSXKa9ECzHsO3O9HXrZHZTdDVZDcMZcecby9zGiZMNkxnFd4ZcC7CMpNv3FQzqx
- hnf+UDSmI4vpcIM0qy6+3XOjDStuoXFQ2YJ2+nHYo62xlgnPdD4PuRE/XCetK8dd9jBEjFtq
- VBew6CjAPYy4YZhfcBnaMEEB/mX6vmMK1UwanY/TsB6p1xBF5NOFL28AQ2Sxm8zb67omhezO
- ic/XD+9A7cCVEZGlYctP+qM5z0ClMAM7+jNWPHOdcZpaZNsbgKB9ywGTRfOgD+ywBJ0wf5jZ
- czznSOQ4ZEyU/kP8dZLb71Fje9DKt4Wngs/uqwXPzz4iOHDNRZ5uJ8OMUeUb/BR0U93iFy9z
- jqrDOPTk083eLSnMkHqHXs7cQhiwY4TWcqn9KS6t4erfmJbJY3WI6WKke15J9c9wMy4VI7gp
- xmAZ6OR83Kn7VWvFOlAQioLhG/HNXqnkU8GAA==
-IronPort-HdrOrdr: A9a23:sMJKz6sqEyvUtAMcKXfcW2Qh7skCo4Mji2hC6mlwRA09TyXGra
- 6TdaUguiMc1gx8ZJkh8erwQJVoJkmshaKdgLNhTotKOTOGhILGFvAZ0WKP+UyHJ8S6zJ8j6U
- 4iSdkkNDSSNykKsS+Z2njELz96+qjezEnAv463pB0BLXAIGsUQiDuVEjzrd3GeBjM2e6bRf6
- DsnfavyQDQAEj+Oa+Adww4ttz41qn2fd/dEFI7Li9izDPLoSKj6bb8HRTd9hACUwlXybNnym
- TBmxyR3NTpjxnuoCWstVP73tBzop/M29FDDMuDhow+MTP3kDulY4xnRvmroC01iPvH0idurP
- D85zMbe+hj4XLYeW+45TH33RP77Too43j+jXeFnHrYp9DjTj5SMbsCuWtgSGqc16MchqA97E
- sL5RPZi3NvN2KPoM0p3amKa/lo/nDE6UbK39RjyEC3arFuIYO5nbZvi3+9L61wah4SkLpXbN
- VGPYX57PZScVSVK1XYpHQH+q33Yp0SJGbNfqFQgL3Z79EApgEK86Jf/r1Rop4ZzuNld3Bb3Z
- WDDphV
-X-IronPort-AV: E=Sophos;i="5.98,231,1673931600"; 
-   d="scan'208";a="101792754"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Doug Goldstein <cardoe@cardoe.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: [XEN PATCH] automation: Use --no-install-recommends and -slim base for debian/unstable
-Date: Fri, 3 Mar 2023 16:52:58 +0000
-Message-ID: <20230303165258.12577-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 1bf0dee5-b9e4-11ed-a550-8520e6686977
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=UHUCjvMFxm0l89f9hnesx1o/wutaXOCI24n17jQX5/M=; b=QKHH2btXZLWy6ifETkPmmogHJn
+	gOtSxDQaf5sZZjCfGtB8blFV5B2ONNwoxOUkUB6dofn0TOi+n75dQz/xw/bkPKSXpfsF+K7FNngt9
+	/7r1e1wzJHZeXSEWi2i47Z//99Z8FphuzdExsv2xmmGBZMyG5LbjMUqHNWrGagEU5AP6rs8EhzpxB
+	+wfRXROrSkIxmf3SaH3V9k3I48JCdrJdjcYkxqAlBwtpgEUdCkwnixqT/9Dc1mwOXXBt6ViUa1uPK
+	n8eCeBNMczZzpizVGXnmvPsqU4ZrvqpWpdtHd/frKz9UrN2Q8d0tp5qCn06Vh5oHo566ltPRDVAjx
+	zDjgarOA==;
+Message-ID: <1060e7786498f384634b01c335bf7bf43365e1fe.camel@infradead.org>
+Subject: Re: IRQ affinity not working on Xen pci-platform device
+From: David Woodhouse <dwmw2@infradead.org>
+To: Thomas Gleixner <tglx@linutronix.de>, linux-kernel
+	 <linux-kernel@vger.kernel.org>, xen-devel <xen-devel@lists.xenproject.org>
+Date: Fri, 03 Mar 2023 16:54:46 +0000
+In-Reply-To: <87fsalkcck.ffs@tglx>
+References: <07866eaf6354dd43d87cffb6eebf101716845b66.camel@infradead.org>
+	 <87fsalkcck.ffs@tglx>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-e4GUeChf1iKUMDucCFaE"
+User-Agent: Evolution 3.44.4-0ubuntu1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-Use "--no-install-recommends" to avoid installing many packages that
-aren't needed, many are *-doc packages. Also start using the -slim
-base image as they remove a few unused files/directories, like docs/.
 
-Explicitly install "ca-certificates" as it is only recommended for
-"wget".
-Explicitly install "ocaml-findlib" as it is only recommended for
-"libfindlib-ocaml-dev".
+--=-e4GUeChf1iKUMDucCFaE
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Using "--no-install-recommends" saves about 600MB on the uncompress
-image. 2.89GB vs 2.3GB (value from `docker image list`).
+On Fri, 2023-03-03 at 17:51 +0100, Thomas Gleixner wrote:
+> David!
+>=20
+> On Fri, Mar 03 2023 at 15:16, David Woodhouse wrote:
+> > I added the 'xen_no_vector_callback' kernel parameter a while back
+> > (commit b36b0fe96af) to ensure we could test that more for Linux
+> > guests.
+> >=20
+> > Most of my testing at the time was done with just two CPUs, and I
+> > happened to just test it with four. It fails, because the IRQ isn't
+> > actually affine to CPU0.
+> >=20
+> > I tried making it work anyway (in line with the comment in platform-
+> > pci.c which says that it shouldn't matter if it *runs* on CPU0 as long
+> > as it processes events *for* CPU0). That didn't seem to work.
+> >=20
+> > If I put the irq_set_affinity() call *before* the request_irq() that
+> > does actually work. But it's setting affinity on an IRQ it doesn't even
+> > own yet.
+>=20
+> The core allows it for raisins. See below... :)
+>=20
+> > Test hacks below; this is testable with today's QEMU master (yay!) and:
+> >=20
+> > =C2=A0 qemu-system-x86_64 -display none -serial mon:stdio -smp 4 \
+> > =C2=A0=C2=A0=C2=A0=C2=A0 -accel kvm,xen-version=3D0x4000a,kernel-irqchi=
+p=3Dsplit \
+> > =C2=A0=C2=A0=C2=A0=C2=A0 -kernel ~/git/linux/arch/x86/boot//bzImage \
+> > =C2=A0=C2=A0=C2=A0=C2=A0 -append "console=3DttyS0,115200 xen_no_vector_=
+callback"
+> >=20
+> > ...
+> >=20
+> > [=C2=A0=C2=A0=C2=A0 0.577173] ACPI: \_SB_.LNKC: Enabled at IRQ 11
+> > [=C2=A0=C2=A0=C2=A0 0.578149] The affinity mask was 0-3
+> > [=C2=A0=C2=A0=C2=A0 0.579081] The affinity mask is 0-3 and the handler =
+is on 2
+> > [=C2=A0=C2=A0=C2=A0 0.580288] The affinity mask is 0 and the handler is=
+ on 2
+>=20
+> What happens is that once the interrupt is requested, the affinity
+> setting is deferred to the first interrupt. See the marvelous dance in
+> arch/x86/kernel/apic/msi.c::msi_set_affinity().
+>=20
+> If you do the setting before request_irq() then the startup will assign
+> it to the target mask right away.
+>=20
+> Btw, you are using irq_get_affinity_mask(), which gives you the desired
+> target mask. irq_get_effective_affinity_mask() gives you the real one.
+>=20
+> Can you verify that the thing moves over after the first interrupt or is
+> that too late already?
 
-Switching to -slim save about 130MB.
+It doesn't seem to move. The hack to just return IRQ_NONE if invoked on
+CPU !=3D 0 was intended to do just that. It's a level-triggered interrupt
+so when the handler does nothing on the "wrong" CPU, it ought to get
+invoked again on the *correct* CPU and actually=C2=A0work that time.
 
-Overwall, we go from 2.89GB to 2.17GB.
+But no, as the above logs show, it gets invoked twice *both* on CPU2.
 
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
----
+If I do the setting before request_irq() then it should assign it right
+away (unless that IRQ was already in use? It's theoretically a shared
+PCI INTx line). But even then, that would mean I'm messing with
+affinity on an IRQ I haven't even requested yet and don't own?
 
-Notes:
-    Change to use "-slim" was proposed by Andy. I went futher and added
-    --no-install-recommends.
-    
-    I've tried to find other missing packages by looking at differences
-    in  "tools/config.log", "stubdom/config.log", "config/", and
-    "xen/.config".
-    
-    A test is in progress to check that no jobs are broken, but result
-    probably not before next week.
-        https://gitlab.com/xen-project/people/anthonyper/xen/-/pipelines/795600920
-    
-    I've only tested gcc debug=n on x86_64 locally.
+--=-e4GUeChf1iKUMDucCFaE
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
- automation/build/debian/unstable-i386.dockerfile | 6 ++++--
- automation/build/debian/unstable.dockerfile      | 6 ++++--
- 2 files changed, 8 insertions(+), 4 deletions(-)
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwMzAzMTY1NDQ2WjAvBgkqhkiG9w0BCQQxIgQgoDjoCbx6
+ohEyPZTBlI0gH7O61koLIfXf+5eDBIhdFlswgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCVDnN2tkfXnJ1GsKi9fHqp65x14fnHR+1W
+SeH3tVdBljfv6H9VtPXSptzlK3D0S7wZVFGkW60IJp4Ws0gh+bW4cTob0u34khoAN5AjkAj6iQPB
+A2iKfYFhAsie2EFWS5T/awp8+8Dm61NJzBzgshcXkJazafrBDxjJ2Nr+JEZi7sJBsFEMByI976Hr
+AALk7iFyYhmLGVet2BZbq7Hj70X4UNJpzoRTegIyJBLEGKALDMWm4Ze7Z8kg1rL6znljTBdMI/KS
+k2Wgp2wENl5ojI8m9uyaskGa8ohR2xKoaxPquLdsJGIfa9ycQaJqmCSSEJ0LGsfmy8IbdVOw93UL
+SCNMt5SUziQtaIXZzArg+sc/kzubEwts4RqJr2VfwA7QC0yO6+jj0dXytI9WFyhONl4mZqIOzSR3
+/bhBhndnh4NYtgVhE4BTCZ+pC0HWG+hUTLOQSz7DRojeJLkZV6dRVIskbAYR9CmNeX6s244kbid8
+CTtZO1JayxYA5kPK77arZGRTIHoLv6ZzPJSAMYwOkinteAPyBJ6LLaTVa+jID0W+mK8aydDwmZ6c
+bMiQFLgB/JgIx2GBNnQXbD1s5mk8xc4gU1JEQkVqOR8ALMKkY77PgFsyQcFt66CKxNHE93+qSgto
+qr1v2iB9We7wu20bErOvci6bxq1ocUJkd9stTigFtQAAAAAAAA==
 
-diff --git a/automation/build/debian/unstable-i386.dockerfile b/automation/build/debian/unstable-i386.dockerfile
-index 1c4928b09e..cc116d32e9 100644
---- a/automation/build/debian/unstable-i386.dockerfile
-+++ b/automation/build/debian/unstable-i386.dockerfile
-@@ -1,4 +1,4 @@
--FROM i386/debian:unstable
-+FROM i386/debian:unstable-slim
- LABEL maintainer.name="The Xen Project" \
-       maintainer.email="xen-devel@lists.xenproject.org"
- 
-@@ -12,7 +12,8 @@ ENTRYPOINT ["linux32"]
- 
- # build depends
- RUN apt-get update && \
--    apt-get --quiet --yes install \
-+    apt-get --quiet --no-install-recommends --yes install \
-+        ca-certificates \
-         build-essential \
-         zlib1g-dev \
-         libncurses5-dev \
-@@ -35,6 +36,7 @@ RUN apt-get update && \
-         libc6-dev \
-         libnl-3-dev \
-         ocaml-nox \
-+        ocaml-findlib \
-         libfindlib-ocaml-dev \
-         markdown \
-         transfig \
-diff --git a/automation/build/debian/unstable.dockerfile b/automation/build/debian/unstable.dockerfile
-index 6ef2878200..06ac909a85 100644
---- a/automation/build/debian/unstable.dockerfile
-+++ b/automation/build/debian/unstable.dockerfile
-@@ -1,4 +1,4 @@
--FROM debian:unstable
-+FROM debian:unstable-slim
- LABEL maintainer.name="The Xen Project" \
-       maintainer.email="xen-devel@lists.xenproject.org"
- 
-@@ -10,7 +10,8 @@ WORKDIR /build
- 
- # build depends
- RUN apt-get update && \
--    apt-get --quiet --yes install \
-+    apt-get --quiet --no-install-recommends --yes install \
-+        ca-certificates \
-         build-essential \
-         zlib1g-dev \
-         libncurses5-dev \
-@@ -34,6 +35,7 @@ RUN apt-get update && \
-         libc6-dev-i386 \
-         libnl-3-dev \
-         ocaml-nox \
-+        ocaml-findlib \
-         libfindlib-ocaml-dev \
-         markdown \
-         transfig \
--- 
-Anthony PERARD
 
+--=-e4GUeChf1iKUMDucCFaE--
 
