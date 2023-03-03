@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BB666A9D95
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 18:26:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.506146.779181 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22CBD6A9D99
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 18:26:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.506151.779193 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY99H-0004uv-76; Fri, 03 Mar 2023 17:24:51 +0000
+	id 1pY9AO-0005Se-IC; Fri, 03 Mar 2023 17:26:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 506146.779181; Fri, 03 Mar 2023 17:24:51 +0000
+Received: by outflank-mailman (output) from mailman id 506151.779193; Fri, 03 Mar 2023 17:26:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pY99H-0004sV-4N; Fri, 03 Mar 2023 17:24:51 +0000
-Received: by outflank-mailman (input) for mailman id 506146;
- Fri, 03 Mar 2023 17:24:49 +0000
+	id 1pY9AO-0005Pa-E9; Fri, 03 Mar 2023 17:26:00 +0000
+Received: by outflank-mailman (input) for mailman id 506151;
+ Fri, 03 Mar 2023 17:25:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=csqk=63=citrix.com=prvs=4196fa7ca=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pY99F-0004sP-HT
- for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 17:24:49 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a41102c-b9e8-11ed-96af-2f268f93b82a;
- Fri, 03 Mar 2023 18:24:47 +0100 (CET)
+ <SRS0=0Pyx=63=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1pY9AM-0005Mp-6B
+ for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 17:25:58 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7588f144-b9e8-11ed-96af-2f268f93b82a;
+ Fri, 03 Mar 2023 18:25:57 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id bw19so2980716wrb.13
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Mar 2023 09:25:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,149 +39,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a41102c-b9e8-11ed-96af-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1677864287;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OGd1B43vpGlou4isA0dW5MPsOTZUetkoVqF0AbM9xe4=;
-  b=R8SjVJw81WlZDoDEPmzfjGw47rEVLucOEHuS6yyDK2fdFfQh5322hXHb
-   +EidB4rdUoF0oKIgU+01Gzko3sfBRwDQq+yIF61wlCJr5qo9OP9vtFMro
-   fuvz433AYG9ssawqPd+UryUuW0IYSuwuNnjHUodveZ2qTWHLB9678IgT8
-   A=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 99372835
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:xCByFqJUjbAfKFh5FE+R5JUlxSXFcZb7ZxGr2PjKsXjdYENS3zdWz
- TBOUWHSb6neajChf49wbYq2o0tUvZ7UmtFqSABlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpJrfPTwP9TlK6q4mhA5QRlPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c51G1B2s
- vUALAoWfw2IhMzn/+uLVbhz05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpNU6bC/FMEg5/5JYWleG0hn75YntApUicv6Yf6GnP1g1hlrPqNbI5f/TbFJ4KxBbD+
- woq+UymJDMlbNGtzQan91OunMyXunz1WJ4dQejQGvlC3wTImz175ActfUCgvfCzh0q6WtReA
- 08Z4Cwjqe417kPDZsnwWVi0rWCJujYYWsFMCKsq5QeV0K3W7g2FQG8eQVZpY9U8uMg7bTcjz
- FOOkpXiAjkHmLSNRGiU7Lu8sTK4Mi9TJmgHDRLoViNcvYOl+ttqyEuSEJA6SvXdYsDJ9S/Yw
- Sq7lG83n7Eplt8W3KaVrG+esy39uc2cJuIq3Tn/UmWg5wJ/QYeqYY209FTWhcp9wJalokqp5
- yZdxZXHhAwaJdTUzXHWHr1RdF28z6zdWAAwl2KDCHXIG96F33e4Nb5d7zhlTKuCGpZVIGS5C
- KM/VO442XOyAJdIRfUqC25SI55wpUQFKTgCfqG8Uza2SsItHDJrBQk3DaJq40jjkVI3jYY0M
- oqBfMCnAB4yUPo4k2XmHb9NjuN3nUjSIF8/orihknyaPUe2PibJGd/pznPVBgzG0E90iFqMq
- IsOXyd74x5eTPf/ckHqHX07dDg3wYwALcmu8aR/L7fTSjeK7Ul9U5c9N5t9Id0690mU/8+Ul
- kyAtrhwkgGv2yWbcl3VAp2hAZu2NatCQbsAFXREFT6VN7ILOO5DMI93m0MLQIQa
-IronPort-HdrOrdr: A9a23:7uLtTq467OMjUeRsTAPXwPLXdLJyesId70hD6qkmc20zTiX+rb
- HMoB1773/JYVkqM03I9errBEDiexLhHPxOjrX5Zo3SODUO0VHARL2Ki7GO/9SKIUPDH4BmuZ
- uJ3MJFebvN5fQRt7eZ3OEYeexQpeW6zA==
-X-IronPort-AV: E=Sophos;i="5.98,231,1673931600"; 
-   d="scan'208";a="99372835"
-Date: Fri, 3 Mar 2023 17:24:40 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [RFC XEN PATCH 0/7] automation, RFC prototype, Have GitLab CI
- built its own containers
-Message-ID: <ZAItWIy7oUqRmulW@perard>
-References: <20230302175332.56052-1-anthony.perard@citrix.com>
- <alpine.DEB.2.22.394.2303021836450.863724@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 7588f144-b9e8-11ed-96af-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1677864357;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eolyThTGlo6bEtjLFljkUurvUru9DXvRMlLGBK04tqc=;
+        b=AesRmXH0khLbC7bbUOs7pw2sYP2zbK4e8Nl67bmVo2NwV7MgG3uU3/SHZJ77e0d0fe
+         SSfPiDeJpjF7raa8G9bTw9Sx9/DmIrFzQSvq+Wc7UQTr5w848HcFVcJKan1mzaworwVh
+         fQZBWqFaoe89Uoi0kE56w81bobCVg2WxhJn3GvwE0AsxLtT2DvB7D6ZushmObFiqhHOk
+         6WEYbwqaMO3gHAWV4mus3QXg+dv3j9BhjgKx5xZBYcxHQ/wRxsQOg8x6iuC/ehf/8ba9
+         oFFMQ5H473Aaviut3bUlcEq70mmwVKFpNIxGnydwQ6s+IKdbC7DZqmYla0hIaGu7of0t
+         ykhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1677864357;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=eolyThTGlo6bEtjLFljkUurvUru9DXvRMlLGBK04tqc=;
+        b=3YvZVnRCxnZiCPsGQ6zstdTeA4uij43tdlZ07hCucooLi6neJhqPUE7yCF6RJkGexZ
+         gAkC+lTBvHv2GK8gN9O6ay8gllvlY0PXZIeBwn4cf3oGxs6LlFz2cSxW6YAvJ/1L5wuq
+         RHKHcw/dAnpxHW8dM8YvzNnLArIvGlroNk3D+0K64snZ5guBI/PVtO18kRuotBguVHwy
+         h14nubM9sgX7/qnXg6xs/V7KUVsq+1Ey1zaOvm1yoD0qHMS95RaS8jlPs2hcIseQblv3
+         Aif22FfzuJaK9Rnl7V6mUKAe/jm/JAfVAzomS225mPFSobRTsx6QVDAmil4tKkIcJZZb
+         FNxw==
+X-Gm-Message-State: AO0yUKWdGVUfki4lT7qvoGtmzWycygJvRw4eBReMnYMMLU5PyPoou0gP
+	dcs2pJQxZdir31tg8zWX0nGYhUeCyyvrBlT47JJ48g==
+X-Google-Smtp-Source: AK7set+uFm5Ox8uBG0e4DrfiiRS12o40zbZ8qCJfHHpY+y9zrkfvYpgvMi4pcdgNBGcAGeMQQiV+3Fy3eWmrRxl4iOk=
+X-Received: by 2002:a5d:428c:0:b0:2c9:8a3c:9fa0 with SMTP id
+ k12-20020a5d428c000000b002c98a3c9fa0mr631778wrq.3.1677864356856; Fri, 03 Mar
+ 2023 09:25:56 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2303021836450.863724@ubuntu-linux-20-04-desktop>
+References: <cover.1677079671.git.jens.wiklander@linaro.org>
+ <50da283fe4a91820a818d13db4ce50fd8414580a.1677079672.git.jens.wiklander@linaro.org>
+ <171822A4-1150-4A35-94AD-52879B1B7EF0@arm.com>
+In-Reply-To: <171822A4-1150-4A35-94AD-52879B1B7EF0@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Fri, 3 Mar 2023 18:25:46 +0100
+Message-ID: <CAHUa44GLF6MFanZQwtM1u2ddo+=Kw=ZK6tSTkpcXz6EFG5ihAQ@mail.gmail.com>
+Subject: Re: [XEN PATCH v7 17/20] xen/arm: ffa: add ABI structs for sharing memory
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
+	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Mar 02, 2023 at 06:48:35PM -0800, Stefano Stabellini wrote:
-> On Thu, 2 Mar 2023, Anthony PERARD wrote:
-> > Patch series available in this git branch:
-> > https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.gitlab-containers-auto-rebuild-v1
-> > 
-> > Hi,
-> > 
-> > I have done some research to be able to build containers in the CI. This works
-> > only for x86 containers as I've setup only a single x86 gitlab-runner to be
-> > able to run docker-in-docker.
-> > 
-> > The runner is setup to only accept jobs from a branch that is "protected" in
-> > gitlab. Also, one need credential to push to the container register, those are
-> > called "Group deploy tokens", and I've set the variables CI_DEPLOY_USER and
-> > CI_DEPLOY_PASSWORD in the project "xen-project/xen" (variables only visible on
-> > a pipeline running on a protected branch).
-> > 
-> > These patch introduce quite a lot of redundancies in jobs, 2 new jobs per
-> > containers which build/push containers, and duplicate most of build.yaml.
-> > This mean that if we go with this, we have to duplicate and keep in sync many
-> > jobs.
-> > 
-> > To avoid having to do the duplicated jobs by hand, I could look at
-> > creating a script that use "build.yaml" as input and produce the 3
-> > stages needed to update a container, but that script would need to be
-> > run by hand, as gitlab can't really use it, unless ..
-> > 
-> > I've look at generated pipeline, and they look like this in gitlab:
-> >     https://gitlab.com/xen-project/people/anthonyper/xen/-/pipelines/777665738
-> > But the result of the generated/child pipeline doesn't seems to be taken into
-> > account in the original pipeline, which make me think that we can't use them to
-> > generate "build.yaml". But maybe the could be use for generating the pipeline
-> > that will update a container.
-> > Doc:
-> >     https://docs.gitlab.com/ee/ci/pipelines/downstream_pipelines.html#dynamic-child-pipelines
-> > 
-> > So, with all of this, is it reasonable to test containers before
-> > pushing them to production? Or is it to much work? We could simply have jobs
-> > tacking care of rebuilding a container and pushing them to production without
-> > testing.
-> 
-> I don't think it is a good idea to duplicate build.yaml, also because
-> some of the containers are used in the testing stage too, so an updated
-> container could be OK during the build phase and break the testing
-> phase. We would need to duplicate both build.yaml and test.yaml, which
-> is not feasible.
-> 
-> In practice today people either:
-> 1) re-build a container locally & test it locally before pushing
-> 2) re-build a container locally, docker push it, then run a private
->    gitlab pipeline, if it passes send out a patch to xen-devel
-> 
-> 1) is not affected by this series
-> 2) is also not affected because by the time the pipeline is created, the
-> container is already updated
-> 
-> However, there are cases where it would definitely be nice to have a
-> "button" to press to update a container. For instance, when a pipeline
-> failis due to a Debian unstable apt-get failure, which can be easily fixed
-> by updating the Debian unstable container.
-> 
-> So I think it would be nice to have jobs that can automatically update
-> the build containers but I would set them to manually trigger instead of
-> automatically (when: manual).
+Hi Bertrand,
 
-What I was looking at with this work was to be able to have container
-been rebuild automatically on a schedule. We have/had containers that
-were 3yr old, and when it's a container that supposed to test the lasted
-version of a distro, or a rolling release distro, they are kind of
-useless if they aren't rebuild regularly. So I was looking to take the
-human out of the loop and have computers the tedious work of rebuilding a
-container every month or two.
+On Fri, Mar 3, 2023 at 3:20=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > Adds the ABI structs used by function FFA_MEM_SHARE and friends for
+> > sharing memory.
+> >
+> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+>
+> All the structures are coherent with the spec.
 
-Containers that needs to be rebuilt regularly to stay relevant are
-archlinux, debian/unstable, fedora/latest, propably opensuse/leap and
-opensuse/tumbleweed. I don't know if they are others.
+Thanks for double-checking.
 
+>
+> Just one small question after but independent if you choose or not to cha=
+nge the names:
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>
+> Cheers
+> Bertrand
+>
+> > ---
+> > xen/arch/arm/tee/ffa.c | 74 ++++++++++++++++++++++++++++++++++++++++++
+> > 1 file changed, 74 insertions(+)
+> >
+> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> > index bfd378f7fcd7..94c90b252454 100644
+> > --- a/xen/arch/arm/tee/ffa.c
+> > +++ b/xen/arch/arm/tee/ffa.c
+> > @@ -197,6 +197,11 @@
+> > #define FFA_MSG_SEND                    0x8400006EU
+> > #define FFA_MSG_POLL                    0x8400006AU
+> >
+> > +/*
+> > + * Structs below ending with _1_0 are defined in FF-A-1.0-REL and
+> > + * struct ending with _1_1 are defined in FF-A-1.1-REL0.
+> > + */
+> > +
+> > /* Partition information descriptor */
+> > struct ffa_partition_info_1_0 {
+> >     uint16_t id;
+> > @@ -211,6 +216,75 @@ struct ffa_partition_info_1_1 {
+> >     uint8_t uuid[16];
+> > };
+> >
+> > +/* Constituent memory region descriptor */
+> > +struct ffa_address_range {
+> > +    uint64_t address;
+> > +    uint32_t page_count;
+> > +    uint32_t reserved;
+> > +};
+> > +
+> > +/* Composite memory region descriptor */
+> > +struct ffa_mem_region {
+> > +    uint32_t total_page_count;
+> > +    uint32_t address_range_count;
+> > +    uint64_t reserved;
+> > +    struct ffa_address_range address_range_array[];
+> > +};
+> > +
+> > +/* Memory access permissions descriptor */
+> > +struct ffa_mem_access_perm {
+> > +    uint16_t endpoint_id;
+> > +    uint8_t perm;
+> > +    uint8_t flags;
+> > +};
+> > +
+> > +/* Endpoint memory access descriptor */
+> > +struct ffa_mem_access {
+> > +    struct ffa_mem_access_perm access_perm;
+> > +    uint32_t region_offs;
+> > +    uint64_t reserved;
+> > +};
+> > +
+> > +/* Lend, donate or share memory transaction descriptor */
+> > +struct ffa_mem_transaction_1_0 {
+> > +    uint16_t sender_id;
+> > +    uint8_t mem_reg_attr;
+> > +    uint8_t reserved0;
+> > +    uint32_t flags;
+> > +    uint64_t global_handle;
+>
+> Why global ? spec is just saying handle.
+>
+> > +    uint64_t tag;
+> > +    uint32_t reserved1;
+> > +    uint32_t mem_access_count;
+> > +    struct ffa_mem_access mem_access_array[];
+> > +};
+> > +
+> > +struct ffa_mem_transaction_1_1 {
+> > +    uint16_t sender_id;
+> > +    uint16_t mem_reg_attr;
+> > +    uint32_t flags;
+> > +    uint64_t global_handle;
+>
+> Same here
 
-> Alternatively, we could move the "containers.yaml" stage to be the first
-> step, rebuild the containers and push them to a "staging" area
-> (registry.gitlab.com/xen-project/xen/staging), run the build and test
-> steps fetching from the staging area instead of the regular, if all
-> tests pass, then push the containers to
-> registry.gitlab.com/xen-project/xen as last step.
-
-Sounds good, I can look into how easily it would be to use a different
-registry to run a pipeline.
+I'll change it.
 
 Cheers,
+Jens
 
--- 
-Anthony PERARD
+>
+> > +    uint64_t tag;
+> > +    uint32_t mem_access_size;
+> > +    uint32_t mem_access_count;
+> > +    uint32_t mem_access_offs;
+> > +    uint8_t reserved[12];
+> > +};
+> > +
+> > +/* Endpoint RX/TX descriptor */
+> > +struct ffa_endpoint_rxtx_descriptor_1_0 {
+> > +    uint16_t sender_id;
+> > +    uint16_t reserved;
+> > +    uint32_t rx_range_count;
+> > +    uint32_t tx_range_count;
+> > +};
+> > +
+> > +struct ffa_endpoint_rxtx_descriptor_1_1 {
+> > +    uint16_t sender_id;
+> > +    uint16_t reserved;
+> > +    uint32_t rx_region_offs;
+> > +    uint32_t tx_region_offs;
+> > +};
+> > +
+> > struct ffa_ctx {
+> >     void *rx;
+> >     const void *tx;
+> > --
+> > 2.34.1
+> >
+>
 
