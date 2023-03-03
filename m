@@ -2,42 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D8336A91C6
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 08:36:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.505580.778430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A889F6A91CF
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Mar 2023 08:41:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.505587.778440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXzy0-0006Ze-Gk; Fri, 03 Mar 2023 07:36:36 +0000
+	id 1pY02c-0008KF-5X; Fri, 03 Mar 2023 07:41:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 505580.778430; Fri, 03 Mar 2023 07:36:36 +0000
+Received: by outflank-mailman (output) from mailman id 505587.778440; Fri, 03 Mar 2023 07:41:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pXzy0-0006Xl-Cl; Fri, 03 Mar 2023 07:36:36 +0000
-Received: by outflank-mailman (input) for mailman id 505580;
- Fri, 03 Mar 2023 07:36:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=M2mb=63=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1pXzxy-0006Xf-JK
- for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 07:36:34 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d6ad1ef-b996-11ed-a550-8520e6686977;
- Fri, 03 Mar 2023 08:36:32 +0100 (CET)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-184-jdpySTYRMCSgj7QZiCCVTw-1; Fri, 03 Mar 2023 02:36:26 -0500
-Received: by mail-wm1-f70.google.com with SMTP id
- l31-20020a05600c1d1f00b003e8626cdd42so598879wms.3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Mar 2023 23:36:26 -0800 (PST)
-Received: from [192.168.0.2] (ip-109-43-176-203.web.vodafone.de.
- [109.43.176.203]) by smtp.gmail.com with ESMTPSA id
- o16-20020a056000011000b002c703d59fa7sm1378189wrx.12.2023.03.02.23.36.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Mar 2023 23:36:24 -0800 (PST)
+	id 1pY02c-0008HX-2q; Fri, 03 Mar 2023 07:41:22 +0000
+Received: by outflank-mailman (input) for mailman id 505587;
+ Fri, 03 Mar 2023 07:41:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0Pyx=63=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1pY02Z-0008HR-Pk
+ for xen-devel@lists.xenproject.org; Fri, 03 Mar 2023 07:41:19 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c9163dbc-b996-11ed-96ae-2f268f93b82a;
+ Fri, 03 Mar 2023 08:41:19 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ l7-20020a05600c1d0700b003eb5e6d906bso701587wms.5
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Mar 2023 23:41:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,108 +40,317 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d6ad1ef-b996-11ed-a550-8520e6686977
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677828990;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YqyFTRlmVYRz5ObkrkzuCnVGtE9KoVvtsCrfZj31l2s=;
-	b=Mz5DtgHIOv5fkvLbpWpASosPqxMU2rCztWRkuXRgmUIM2pUua8beGIkEKBztkjIoo9x4Wq
-	Pn21opSNlLfcgu4iIK0LZnXWQ37WIOrtolSQus9YVLe2TewtQsvUkC4gVHMcHfBC82saGy
-	HhHLgj83iYZAsRiFGevFBHI1RIPl1QQ=
-X-MC-Unique: jdpySTYRMCSgj7QZiCCVTw-1
+X-Inumbo-ID: c9163dbc-b996-11ed-96ae-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1677829278;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=P8ENmnYLA9A29rzQTlBYRObb8VBGo1jVDB3cSSloeNg=;
+        b=HU0R4x5pHPym+tl1v4wTUoJxN1wqU3L37NUfk2KdnFYFkCHRxtIToa2x19wfKG4PHM
+         cVtGxGUHPwYxQzuwrlLArnQRzTTmMxP9nt7Mri84faoI5nPB+vKQf1tBAJ5zUDn0jArq
+         69V+30ij1zpFlLRcJA62E/7FjCmBRpjEEOlmtFvPcy4Bk3SteJUAFaLF2JRkuCmqAaHB
+         isobetXid7ZmrH4CFfpoDYHwBj1kwA/8lQpDSbdBxap2+Uar8X/ShL3oyX9eMNx1NLIn
+         hNMnHRIyoPzmrp3Y5z2IG7vAidzcKLq7m+mOuNNFE5nXb3RzZDh+0bPJUDeR9VTTYma0
+         7YDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YqyFTRlmVYRz5ObkrkzuCnVGtE9KoVvtsCrfZj31l2s=;
-        b=B8PL3R5U1ArvTDNs0BtxgragD3hSYak02LBce0o3Vv4GZ6ifKZHWUJHJeSkYzXhFC0
-         KmqVvZDefKSYBDdxS/8XDiXnOgURt3opOw7MgATMAu2aCc8aEIG9tdfRg6YPMNLq+AZd
-         q2714n8o92hlvX2B0qekCXgOOmeUJ7sZDYBFaJ9NjtLrWCSC91ZGnec4dV5sOjG75eCw
-         AP5QKagdHJBN5ZXEYRiFrIZlYexU9w1z0zi14WBcct/NSHwGJG/VxzI1FDIxqwAfb9f6
-         vDH9qmrUHIsI7C4h5g8p7RVddKGv+3WBD3Mds2U0kkBn/ZkK0EnhmgKaDUCn5XXaRSjY
-         vC9A==
-X-Gm-Message-State: AO0yUKXlW03kqROekaiYSNydBTq7R3MzviRGAB8tTTj+FKXbeLqEZiVQ
-	bxquQXJcc2qExiLo5R2SMDmljmxWsVCLjZ8jAqvETEFKXpCOsrSRa1Vz287gAkvmgOi2mEkgwMH
-	YfKK7NZ+jh74KxGJzoOgUpONizrg=
-X-Received: by 2002:a5d:5544:0:b0:242:1809:7e17 with SMTP id g4-20020a5d5544000000b0024218097e17mr786028wrw.6.1677828985659;
-        Thu, 02 Mar 2023 23:36:25 -0800 (PST)
-X-Google-Smtp-Source: AK7set9cVmsT0uaOjLpyfGRqzmsceoSUEMI//iNaoUptBCRvsgzqA+n1h2dF2/JHs3Sf1sqcgq/pNg==
-X-Received: by 2002:a5d:5544:0:b0:242:1809:7e17 with SMTP id g4-20020a5d5544000000b0024218097e17mr786014wrw.6.1677828985284;
-        Thu, 02 Mar 2023 23:36:25 -0800 (PST)
-Message-ID: <29a8a698-b056-714a-3a94-c591e5b55c44@redhat.com>
-Date: Fri, 3 Mar 2023 08:36:22 +0100
+        d=1e100.net; s=20210112; t=1677829278;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=P8ENmnYLA9A29rzQTlBYRObb8VBGo1jVDB3cSSloeNg=;
+        b=0aMOGmTo4MH1rbg5M0IowGTbvK5WsiejfGXlArWk7e1A6bYPqwUfS/HmDLxS23nkha
+         XrjfBcgZoG42DPju5iWkT1a1AYSCfmmsyHkMniso3X6YKJiZZEN4GYYfddDKzcLVk5gm
+         d3T5dnEFQ+iqm28z23oBYFItHsmHMCu1zlrV3ym5h6sGjgVrrrqbmhbU/YyZqo1Y8lDV
+         vkZ7d+QDae/YMTZ3wHRZ7/z8SqbYMxiN5l7GeUc1LkfdF/aU+/wys37OT7H63JGIPZeE
+         ejKh8xGDsJJrsQV+XcscAnbPWw71ijgQPSIj0JKorQWd/oox8IUTiO+aLsIzPp+r5gwX
+         /wWQ==
+X-Gm-Message-State: AO0yUKXGotNC1/q8rGIeLrx3mltjlOk2QqAFa0ASvfMvaaWnm4NKcGPl
+	g+XxJmJW3mrJO+Rd0z8sKpYIhFBn2J+gI7vxcYUTQw==
+X-Google-Smtp-Source: AK7set9ap9ZxKykHzdiUWjYYDhCdIFeynF2eP/cGM2TWTsAvjzXrWeioJRxNJYOgUn7AiXvx0t0YSt2aivZwcfbSWec=
+X-Received: by 2002:a05:600c:3596:b0:3eb:3998:8bed with SMTP id
+ p22-20020a05600c359600b003eb39988bedmr1811825wmq.1.1677829278134; Thu, 02 Mar
+ 2023 23:41:18 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH v2 4/6] docs/about/deprecated: Deprecate the
- qemu-system-arm binary
-To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>,
- qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
- Daniel Berrange <berrange@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, qemu-arm@nongnu.org,
- Maxim Levitsky <mlevitsk@redhat.com>, libvir-list@redhat.com,
- Richard Henderson <richard.henderson@linaro.org>,
- xen-devel@lists.xenproject.org, Reinoud Zandijk <reinoud@netbsd.org>
-References: <20230302163106.465559-1-thuth@redhat.com>
- <20230302163106.465559-5-thuth@redhat.com>
- <733a61bc-0e41-a864-c7fa-f177b35afa25@linaro.org>
-From: Thomas Huth <thuth@redhat.com>
-In-Reply-To: <733a61bc-0e41-a864-c7fa-f177b35afa25@linaro.org>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <cover.1677079671.git.jens.wiklander@linaro.org>
+ <be5a37c0ec23bf8119f5cb68ec58d8cca16d9812.1677079672.git.jens.wiklander@linaro.org>
+ <BE16E58C-FBDF-4815-A6C1-CB0D3C573816@arm.com>
+In-Reply-To: <BE16E58C-FBDF-4815-A6C1-CB0D3C573816@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Fri, 3 Mar 2023 08:41:07 +0100
+Message-ID: <CAHUa44HmBsH2tCk=N=sovVVbgs9v5kLkOfJNzLfqXifZ=8iZtw@mail.gmail.com>
+Subject: Re: [XEN PATCH v7 13/20] xen/arm: ffa: support mapping guest RX/TX buffers
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
+	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 02/03/2023 23.16, Philippe Mathieu-Daudé wrote:
-> On 2/3/23 17:31, Thomas Huth wrote:
->> qemu-system-aarch64 is a proper superset of qemu-system-arm,
->> and the latter was mainly still required for 32-bit KVM support.
->> But this 32-bit KVM arm support has been dropped in the Linux
->> kernel a couple of years ago already, so we don't really need
->> qemu-system-arm anymore, thus deprecated it now.
->>
->> Signed-off-by: Thomas Huth <thuth@redhat.com>
->> ---
->>   docs/about/deprecated.rst | 10 ++++++++++
->>   1 file changed, 10 insertions(+)
->>
->> diff --git a/docs/about/deprecated.rst b/docs/about/deprecated.rst
->> index a30aa8dfdf..21ce70b5c9 100644
->> --- a/docs/about/deprecated.rst
->> +++ b/docs/about/deprecated.rst
->> @@ -45,6 +45,16 @@ run 32-bit guests by selecting a 32-bit CPU model, 
->> including KVM support
->>   on x86_64 hosts. Thus users are recommended to reconfigure their systems
->>   to use the ``qemu-system-x86_64`` binary instead.
->> +``qemu-system-arm`` binary (since 8.0)
->> +''''''''''''''''''''''''''''''''''''''
->> +
->> +``qemu-system-aarch64`` is a proper superset of ``qemu-system-arm``. The
->> +latter was mainly a requirement for running KVM on 32-bit arm hosts, but
->> +this 32-bit KVM support has been removed some years ago already (see:
-> 
-> s/some/few/?
+Hi Bertrand,
 
-I can also use "three years ago" since the patch had been merged in March 2020.
+On Thu, Mar 2, 2023 at 4:05=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > Adds support in the mediator to map and unmap the RX and TX buffers
+> > provided by the guest using the two FF-A functions FFA_RXTX_MAP and
+> > FFA_RXTX_UNMAP.
+> >
+> > These buffer are later used to to transmit data that cannot be passed i=
+n
+> > registers only.
+> >
+> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> > ---
+> > xen/arch/arm/tee/ffa.c | 127 +++++++++++++++++++++++++++++++++++++++++
+> > 1 file changed, 127 insertions(+)
+> >
+> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> > index f1b014b6c7f4..953b6dfd5eca 100644
+> > --- a/xen/arch/arm/tee/ffa.c
+> > +++ b/xen/arch/arm/tee/ffa.c
+> > @@ -149,10 +149,17 @@ struct ffa_partition_info_1_1 {
+> > };
+> >
+> > struct ffa_ctx {
+> > +    void *rx;
+> > +    const void *tx;
+> > +    struct page_info *rx_pg;
+> > +    struct page_info *tx_pg;
+> > +    unsigned int page_count;
+> >     uint32_t guest_vers;
+> > +    bool tx_is_mine;
+> >     bool interrupted;
+> > };
+> >
+> > +
+> Newline probably added by mistake.
 
->> +https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=541ad0150ca4 
->>
->> +). Thus the QEMU project will drop the ``qemu-system-arm`` binary in a
->> +future release. Use ``qemu-system-aarch64`` instead.
-> 
-> If we unify, wouldn't it be simpler to name the single qemu-system
-> binary emulating various ARM architectures as 'qemu-system-arm'?
+Yes, I'll remove it.
 
-That would be more intuitive for people who are completely new to QEMU, but 
-I guess it will cause a lot of "you broke my script that uses the -aarch64 
-binary" troubles again. So I think it's likely better to not go down that road.
+>
+> > /* Negotiated FF-A version to use with the SPMC */
+> > static uint32_t ffa_version __ro_after_init;
+> >
+> > @@ -337,6 +344,11 @@ static void set_regs(struct cpu_user_regs *regs, r=
+egister_t v0, register_t v1,
+> >         set_user_reg(regs, 7, v7);
+> > }
+> >
+> > +static void set_regs_error(struct cpu_user_regs *regs, uint32_t error_=
+code)
+> > +{
+> > +    set_regs(regs, FFA_ERROR, 0, error_code, 0, 0, 0, 0, 0);
+> > +}
+> > +
+> > static void set_regs_success(struct cpu_user_regs *regs, uint32_t w2,
+> >                              uint32_t w3)
+> > {
+> > @@ -358,6 +370,99 @@ static void handle_version(struct cpu_user_regs *r=
+egs)
+> >     set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
+> > }
+> >
+> > +static uint32_t handle_rxtx_map(uint32_t fid, register_t tx_addr,
+> > +                                register_t rx_addr, uint32_t page_coun=
+t)
+> > +{
+> > +    uint32_t ret =3D FFA_RET_INVALID_PARAMETERS;
+> > +    struct domain *d =3D current->domain;
+> > +    struct ffa_ctx *ctx =3D d->arch.tee;
+> > +    struct page_info *tx_pg;
+> > +    struct page_info *rx_pg;
+> > +    p2m_type_t t;
+> > +    void *rx;
+> > +    void *tx;
+> > +
+> > +    if ( !smccc_is_conv_64(fid) )
+> > +    {
+> > +        tx_addr &=3D UINT32_MAX;
+> > +        rx_addr &=3D UINT32_MAX;
+> > +    }
+>
+> I am bit wondering here what we should do:
+> - we could just say that 32bit version of the call is not allowed for non=
+ 32bit guests
+> - we could check that the highest bits are 0 for 64bit guests and return =
+an error if not
+> - we can just mask hopping that if there was a mistake the address after =
+the mask
+> does not exist in the guest space
+>
+> At the end nothing in the spec is preventing a 64bit guest to use the 32b=
+it so it might
+> be a good idea to return an error if the highest 32bit are not 0 here ?
 
-  Thomas
+The SMC Calling Convention says:
+When an SMC32/HVC32 call is made from AArch64:
+- A Function Identifier is passed in register W0.
+- Arguments are passed in registers W1-W7.
 
+So masking off the higher bits is all that should be done.
+
+>
+> > +
+> > +    /* For now to keep things simple, only deal with a single page */
+> > +    if ( page_count !=3D 1 )
+> > +        return FFA_RET_NOT_SUPPORTED;
+>
+> Please add a TODO here and a print as this is a limitation we will probab=
+ly have to
+> work on soon.
+
+I'll add an arbitrary upper limit and a print if it's exceeded.
+
+>
+>
+> > +
+> > +    /* Already mapped */
+> > +    if ( ctx->rx )
+> > +        return FFA_RET_DENIED;
+> > +
+> > +    tx_pg =3D get_page_from_gfn(d, gfn_x(gaddr_to_gfn(tx_addr)), &t, P=
+2M_ALLOC);
+> > +    if ( !tx_pg )
+> > +        return FFA_RET_INVALID_PARAMETERS;
+> > +    /* Only normal RAM for now */
+> > +    if ( !p2m_is_ram(t) )
+> > +        goto err_put_tx_pg;
+> > +
+> > +    rx_pg =3D get_page_from_gfn(d, gfn_x(gaddr_to_gfn(rx_addr)), &t, P=
+2M_ALLOC);
+> > +    if ( !tx_pg )
+> > +        goto err_put_tx_pg;
+> > +    /* Only normal RAM for now */
+> > +    if ( !p2m_is_ram(t) )
+> > +        goto err_put_rx_pg;
+> > +
+> > +    tx =3D __map_domain_page_global(tx_pg);
+> > +    if ( !tx )
+> > +        goto err_put_rx_pg;
+> > +
+> > +    rx =3D __map_domain_page_global(rx_pg);
+> > +    if ( !rx )
+> > +        goto err_unmap_tx;
+> > +
+> > +    ctx->rx =3D rx;
+> > +    ctx->tx =3D tx;
+> > +    ctx->rx_pg =3D rx_pg;
+> > +    ctx->tx_pg =3D tx_pg;
+> > +    ctx->page_count =3D 1;
+>
+> please use page_count here instead of 1 so that this is not forgotten onc=
+e
+> we add support for more pages.
+
+OK
+
+Cheers,
+Jens
+
+>
+>
+> Cheers
+> Bertrand
+>
+> > +    ctx->tx_is_mine =3D true;
+> > +    return FFA_RET_OK;
+> > +
+> > +err_unmap_tx:
+> > +    unmap_domain_page_global(tx);
+> > +err_put_rx_pg:
+> > +    put_page(rx_pg);
+> > +err_put_tx_pg:
+> > +    put_page(tx_pg);
+> > +
+> > +    return ret;
+> > +}
+> > +
+> > +static void rxtx_unmap(struct ffa_ctx *ctx)
+> > +{
+> > +    unmap_domain_page_global(ctx->rx);
+> > +    unmap_domain_page_global(ctx->tx);
+> > +    put_page(ctx->rx_pg);
+> > +    put_page(ctx->tx_pg);
+> > +    ctx->rx =3D NULL;
+> > +    ctx->tx =3D NULL;
+> > +    ctx->rx_pg =3D NULL;
+> > +    ctx->tx_pg =3D NULL;
+> > +    ctx->page_count =3D 0;
+> > +    ctx->tx_is_mine =3D false;
+> > +}
+> > +
+> > +static uint32_t handle_rxtx_unmap(void)
+> > +{
+> > +    struct domain *d =3D current->domain;
+> > +    struct ffa_ctx *ctx =3D d->arch.tee;
+> > +
+> > +    if ( !ctx->rx )
+> > +        return FFA_RET_INVALID_PARAMETERS;
+> > +
+> > +    rxtx_unmap(ctx);
+> > +
+> > +    return FFA_RET_OK;
+> > +}
+> > +
+> > static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint=
+32_t fid)
+> > {
+> >     struct arm_smccc_1_2_regs arg =3D { .a0 =3D fid, };
+> > @@ -423,6 +528,7 @@ static bool ffa_handle_call(struct cpu_user_regs *r=
+egs)
+> >     uint32_t fid =3D get_user_reg(regs, 0);
+> >     struct domain *d =3D current->domain;
+> >     struct ffa_ctx *ctx =3D d->arch.tee;
+> > +    int e;
+> >
+> >     if ( !ctx )
+> >         return false;
+> > @@ -435,6 +541,24 @@ static bool ffa_handle_call(struct cpu_user_regs *=
+regs)
+> >     case FFA_ID_GET:
+> >         set_regs_success(regs, get_vm_id(d), 0);
+> >         return true;
+> > +    case FFA_RXTX_MAP_32:
+> > +#ifdef CONFIG_ARM_64
+> > +    case FFA_RXTX_MAP_64:
+> > +#endif
+> > +        e =3D handle_rxtx_map(fid, get_user_reg(regs, 1), get_user_reg=
+(regs, 2),
+> > +                            get_user_reg(regs, 3));
+> > +        if ( e )
+> > +            set_regs_error(regs, e);
+> > +        else
+> > +            set_regs_success(regs, 0, 0);
+> > +        return true;
+> > +    case FFA_RXTX_UNMAP:
+> > +        e =3D handle_rxtx_unmap();
+> > +        if ( e )
+> > +            set_regs_error(regs, e);
+> > +        else
+> > +            set_regs_success(regs, 0, 0);
+> > +        return true;
+> >     case FFA_MSG_SEND_DIRECT_REQ_32:
+> > #ifdef CONFIG_ARM_64
+> >     case FFA_MSG_SEND_DIRECT_REQ_64:
+> > @@ -515,6 +639,9 @@ static int ffa_relinquish_resources(struct domain *=
+d)
+> >                    get_vm_id(d), subscr_vm_destroyed[n], res);
+> >     }
+> >
+> > +    if ( ctx->rx )
+> > +        rxtx_unmap(ctx);
+> > +
+> >     XFREE(d->arch.tee);
+> >
+> >     return 0;
+> > --
+> > 2.34.1
+> >
+>
 
