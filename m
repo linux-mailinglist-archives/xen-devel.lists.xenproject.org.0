@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EC256AC57F
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Mar 2023 16:35:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.507020.780257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9AEA6AC7F2
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Mar 2023 17:30:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.507057.780270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZCs5-0005do-Ip; Mon, 06 Mar 2023 15:35:29 +0000
+	id 1pZDi5-0004Dm-HF; Mon, 06 Mar 2023 16:29:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 507020.780257; Mon, 06 Mar 2023 15:35:29 +0000
+Received: by outflank-mailman (output) from mailman id 507057.780270; Mon, 06 Mar 2023 16:29:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZCs5-0005ag-GD; Mon, 06 Mar 2023 15:35:29 +0000
-Received: by outflank-mailman (input) for mailman id 507020;
- Mon, 06 Mar 2023 15:35:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sNqe=66=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1pZCs3-0005aa-45
- for xen-devel@lists.xen.org; Mon, 06 Mar 2023 15:35:27 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 82ef4976-bc34-11ed-96b5-2f268f93b82a;
- Mon, 06 Mar 2023 16:35:25 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-554-L6-SOzn1OAGkVQ6bHCSKTQ-1; Mon, 06 Mar 2023 10:35:15 -0500
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	id 1pZDi5-0004B9-E2; Mon, 06 Mar 2023 16:29:13 +0000
+Received: by outflank-mailman (input) for mailman id 507057;
+ Mon, 06 Mar 2023 16:29:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kIMi=66=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pZDi4-0004Az-8I
+ for xen-devel@lists.xenproject.org; Mon, 06 Mar 2023 16:29:12 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 03946f70-bc3c-11ed-a550-8520e6686977;
+ Mon, 06 Mar 2023 17:29:07 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F6BD8027FD;
- Mon,  6 Mar 2023 15:34:54 +0000 (UTC)
-Received: from localhost (unknown [10.39.195.176])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B131A492C14;
- Mon,  6 Mar 2023 15:34:53 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 009F7219FD;
+ Mon,  6 Mar 2023 16:29:06 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BBEC013A66;
+ Mon,  6 Mar 2023 16:29:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id rBKDLNEUBmT9TwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 06 Mar 2023 16:29:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,185 +51,1308 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82ef4976-bc34-11ed-96b5-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678116923;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RhktDrmgHXbh+B4QkEdlxbs0OpCbKljBE7TnSqUmdxc=;
-	b=LFXyVCKveEOTuuMzi9Qt5JzQANUXmnIIBZeROQH6DRDz4yqFnRNPm2cBsBvMwYwGOIdfjc
-	udnUG7681qzgMRnhhTU7bEOHFjgbc2bzJqrq521DPc+w04CoeLIJxTL0PVi/xhRLHE32vy
-	MB2RYjbfTycv2YzBXB4hDhiy6DFBcHQ=
-X-MC-Unique: L6-SOzn1OAGkVQ6bHCSKTQ-1
-Date: Mon, 6 Mar 2023 10:34:51 -0500
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: qemu-devel@nongnu.org, virtio-dev@lists.oasis-open.org,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xen.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Sebastien Boeuf <sebastien.boeuf@intel.com>,
-	Liu Jiang <gerry@linux.alibaba.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Subject: Re: [PATCH V2] docs: vhost-user: Add Xen specific memory mapping
- support
-Message-ID: <20230306153451.GB51288@fedora>
-References: <7c3c120bcf2cf023e873800fd3f55239dd302e38.1678100850.git.viresh.kumar@linaro.org>
+X-Inumbo-ID: 03946f70-bc3c-11ed-a550-8520e6686977
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1678120146; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=XYkvJWDskDu0UyIQJhZo4ZtUp5tTjH1h/3j6J1D6JLc=;
+	b=gEJiScqD8l7hthItK9kXJV++q/ooIKVwb0sQr9ZtgVNOn6h/X8hA1cRsJBS951/De6+BLH
+	ost9iqUmpLh/6aiquHew1Lh+d8plT+KksEzS/CUz49ZEWxqrPGEN9KzaAztXsGVBwUYULA
+	DSGlFsyK7f1ZJ7i8Ki72tOcfKGqsbAA=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH] tools/tests: remove vhpet tests
+Date: Mon,  6 Mar 2023 17:29:04 +0100
+Message-Id: <20230306162904.7831-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="6o3hguOYtNtqX5if"
-Content-Disposition: inline
-In-Reply-To: <7c3c120bcf2cf023e873800fd3f55239dd302e38.1678100850.git.viresh.kumar@linaro.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Content-Transfer-Encoding: 8bit
 
+tools/tests/vhpet tests don't build since ages (at least since 4.10)
+and they can't be activated from outside of tools/tests/vhpet.
 
---6o3hguOYtNtqX5if
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Remove them as they seem to be irrelevant.
 
-On Mon, Mar 06, 2023 at 04:40:24PM +0530, Viresh Kumar wrote:
-> The current model of memory mapping at the back-end works fine where a
-> standard call to mmap() (for the respective file descriptor) is enough
-> before the front-end can start accessing the guest memory.
->=20
-> There are other complex cases though where the back-end needs more
-> information and simple mmap() isn't enough. For example Xen, a type-1
-> hypervisor, currently supports memory mapping via two different methods,
-> foreign-mapping (via /dev/privcmd) and grant-dev (via /dev/gntdev). In
-> both these cases, the back-end needs to call mmap() and ioctl(), and
-> need to pass extra information via the ioctl(), like the Xen domain-id
-> of the guest whose memory we are trying to map.
->=20
-> Add a new protocol feature, 'VHOST_USER_PROTOCOL_F_XEN_MMAP', which lets
-> the back-end know about the additional memory mapping requirements.
-> When this feature is negotiated, the front-end can send the
-> 'VHOST_USER_SET_XEN_MMAP' message type to provide the additional
-> information to the back-end.
->=20
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-> ---
-> V1->V2:
-> - Make the custom mmap feature Xen specific, instead of being generic.
-> - Clearly define which memory regions are impacted by this change.
-> - Allow VHOST_USER_SET_XEN_MMAP to be called multiple times.
-> - Additional Bit(2) property in flags.
->=20
->  docs/interop/vhost-user.rst | 36 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 36 insertions(+)
->=20
-> diff --git a/docs/interop/vhost-user.rst b/docs/interop/vhost-user.rst
-> index 3f18ab424eb0..8be5f5eae941 100644
-> --- a/docs/interop/vhost-user.rst
-> +++ b/docs/interop/vhost-user.rst
-> @@ -258,6 +258,24 @@ Inflight description
-> =20
->  :queue size: a 16-bit size of virtqueues
-> =20
-> +Xen mmap description
-> +^^^^^^^^^^^^^^^^^^^^
-> +
-> ++-------+-------+
-> +| flags | domid |
-> ++-------+-------+
-> +
-> +:flags: 64-bit bit field
-> +
-> +- Bit 0 is set for Xen foreign memory memory mapping.
-> +- Bit 1 is set for Xen grant memory memory mapping.
-> +- Bit 2 is set if the back-end can directly map additional memory (like
-> +  descriptor buffers or indirect descriptors, which aren't part of alrea=
-dy
-> +  shared memory regions) without the need of front-end sending an additi=
-onal
-> +  memory region first.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+Andrew seems to remember that Roger wanted to keep those tests, but
+this information might be stale or based on false assumptions.
+So this patch should only go in with Roger's Ack.
 
-I don't understand what Bit 2 does. Can you rephrase this? It's unclear
-to me how additional memory can be mapped without a memory region
-(especially the fd) is sent?
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ tools/tests/vhpet/.gitignore |   4 -
+ tools/tests/vhpet/Makefile   |  39 --
+ tools/tests/vhpet/emul.h     | 414 -------------------
+ tools/tests/vhpet/main.c     | 776 -----------------------------------
+ 4 files changed, 1233 deletions(-)
+ delete mode 100644 tools/tests/vhpet/.gitignore
+ delete mode 100644 tools/tests/vhpet/Makefile
+ delete mode 100644 tools/tests/vhpet/emul.h
+ delete mode 100644 tools/tests/vhpet/main.c
 
-> +
-> +:domid: a 64-bit Xen hypervisor specific domain id.
-> +
->  C structure
->  -----------
-> =20
-> @@ -867,6 +885,7 @@ Protocol features
->    #define VHOST_USER_PROTOCOL_F_INBAND_NOTIFICATIONS 14
->    #define VHOST_USER_PROTOCOL_F_CONFIGURE_MEM_SLOTS  15
->    #define VHOST_USER_PROTOCOL_F_STATUS               16
-> +  #define VHOST_USER_PROTOCOL_F_XEN_MMAP             17
-> =20
->  Front-end message types
->  -----------------------
-> @@ -1422,6 +1441,23 @@ Front-end message types
->    query the back-end for its device status as defined in the Virtio
->    specification.
-> =20
-> +``VHOST_USER_SET_XEN_MMAP``
-> +  :id: 41
-> +  :equivalent ioctl: N/A
-> +  :request payload: Xen mmap description
-> +  :reply payload: N/A
-> +
-> +  When the ``VHOST_USER_PROTOCOL_F_XEN_MMAP`` protocol feature has been
-> +  successfully negotiated, this message is submitted by the front-end to=
- set the
-> +  Xen hypervisor specific memory mapping configurations at the back-end.=
-  These
-> +  configurations should be used to mmap memory regions, virtqueues, desc=
-riptors
-> +  and descriptor buffers. The front-end must send this message before any
-> +  memory-regions are sent to the back-end via ``VHOST_USER_SET_MEM_TABLE=
-`` or
-> +  ``VHOST_USER_ADD_MEM_REG`` message types. The front-end can send this =
-message
-> +  multiple times, if different mmap configurations are required for diff=
-erent
-> +  memory regions, where the most recent ``VHOST_USER_SET_XEN_MMAP`` must=
- be used
-> +  by the back-end to map any newly shared memory regions.
-
-This message modifies the behavior of subsequent
-VHOST_USER_SET_MEM_TABLE and VHOST_USER_ADD_MEM_REG messages. The memory
-region structs can be extended and then VHOST_USER_SET_XEN_MMAP isn't
-needed.
-
-In other words:
-
-  When VHOST_USER_PROTOCOL_F_XEN_MMAP is negotiated, each "Memory
-  regions description" and "Single memory region description" has the
-  following additional fields appended:
-
-  +----------------+-------+
-  | xen_mmap_flags | domid |
-  +----------------+-------+
-
-  :xen_mmap_flags: 64-bit bit field
-  :domid: a 64-bit Xen hypervisor specific domain id.
-
-Stefan
-
---6o3hguOYtNtqX5if
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmQGCBsACgkQnKSrs4Gr
-c8ioqggAr0sNzP6odV6D7q20EAu0U8ebHThXN5TfZ1O1jznw1m3Elh711LqjSR95
-EMzBureA2VwAyjXwVMLcA557T71x1e7yaFBaw0EIn1sbQaX0yjUlWZq0RiR4JKbw
-JL84hDrdkgZtX+Vixgp+rfRBs8qyzSBmC8F0zlhJOgkEob0D42hsNPohZIKj2g3a
-cmUEXIrrGswJ5gYyP/j0OT587jybv4MA08r/jssdjYniqvZk7Ud3gcnen2pzTLyk
-B6c/fjZK7a6nqf3LQSssQ5xbQR4mbQ9UTdkzh1jyT7v3B/3dWnnBviWftlvMjSDR
-PZ4DkjIcicxpP2QEr9tK1qBSqf2K8g==
-=pUBT
------END PGP SIGNATURE-----
-
---6o3hguOYtNtqX5if--
+diff --git a/tools/tests/vhpet/.gitignore b/tools/tests/vhpet/.gitignore
+deleted file mode 100644
+index 4cefa62218..0000000000
+--- a/tools/tests/vhpet/.gitignore
++++ /dev/null
+@@ -1,4 +0,0 @@
+-test_vhpet
+-test_vhpet.out
+-hpet.h
+-hpet.c
+diff --git a/tools/tests/vhpet/Makefile b/tools/tests/vhpet/Makefile
+deleted file mode 100644
+index 2d56ffdfd9..0000000000
+--- a/tools/tests/vhpet/Makefile
++++ /dev/null
+@@ -1,39 +0,0 @@
+-
+-XEN_ROOT=$(CURDIR)/../../..
+-include $(XEN_ROOT)/tools/Rules.mk
+-
+-TARGET := test_vhpet
+-
+-.PHONY: all
+-all: $(TARGET)
+-
+-.PHONY: run
+-run: $(TARGET)
+-	./$(TARGET) > $(TARGET).out
+-	./$(TARGET) 0 > $(TARGET).0.out
+-	./$(TARGET) 0 1 0 20 > $(TARGET).0.1.0.20.out
+-	./$(TARGET) 200 > $(TARGET).200.out
+-	./$(TARGET) 200 1 0 20 > $(TARGET).200.1.0.20.out
+-	./$(TARGET) 300 5 > $(TARGET).200.5.out
+-	./$(TARGET) 400 4 2000 > $(TARGET).200.4.2000.out
+-	./$(TARGET) 0 1 0 20 0x0103 > $(TARGET).0.1.0.20.0x0103.out
+-	./$(TARGET) 200 1 0 20 0x0103 > $(TARGET).200.1.0.20.0x0103.out
+-
+-$(TARGET): hpet.c main.c hpet.h emul.h Makefile
+-	$(HOSTCC) -g -o $@ hpet.c main.c
+-
+-.PHONY: clean
+-clean:
+-	rm -rf $(TARGET) $(TARGET).out *.o *~ core* hpet.h hpet.c
+-
+-.PHONY: distclean
+-distclean: clean
+-
+-.PHONY: install
+-install:
+-
+-hpet.h: $(XEN_ROOT)/xen/arch/x86/include/asm/hpet.h
+-	cp $< $@
+-
+-hpet.c: $(XEN_ROOT)/xen/arch/x86/hvm/hpet.c
+-	sed -e "/#include/d" -e "1i#include \"emul.h\"\n" <$< >$@
+diff --git a/tools/tests/vhpet/emul.h b/tools/tests/vhpet/emul.h
+deleted file mode 100644
+index b022cc0eab..0000000000
+--- a/tools/tests/vhpet/emul.h
++++ /dev/null
+@@ -1,414 +0,0 @@
+-/*
+- * Xen emulation for hpet
+- *
+- * Copyright (C) 2014 Verizon Corporation
+- *
+- * This file is free software; you can redistribute it and/or modify it
+- * under the terms of the GNU General Public License Version 2 (GPLv2)
+- * as published by the Free Software Foundation.
+- *
+- * This file is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * General Public License for more details. <http://www.gnu.org/licenses/>.
+- */
+-
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <stdint.h>
+-#include <inttypes.h>
+-#include <string.h>
+-
+-#define PCI_HAVE_64BIT_ADDRESS
+-#include <pci/types.h>
+-
+-#include "hpet.h"
+-
+-#include <xen-tools/libs.h>
+-
+-#define NR_CPUS 8
+-
+-typedef int64_t s_time_t;
+-typedef int spinlock_t;
+-typedef int bool_t;
+-
+-#define BITS_PER_LONG __WORDSIZE
+-#define BITS_TO_LONGS(bits) \
+-    (((bits) + BITS_PER_LONG - 1) / BITS_PER_LONG)
+-#define DECLARE_BITMAP(name, bits) \
+-    unsigned long name[BITS_TO_LONGS(bits)]
+-typedef struct cpumask
+-{
+-    DECLARE_BITMAP(bits, NR_CPUS);
+-} cpumask_t;
+-typedef cpumask_t *cpumask_var_t;
+-struct msi_desc
+-{
+-    struct msi_attrib
+-    {
+-        u8    type    : 5;    /* {0: unused, 5h:MSI, 11h:MSI-X} */
+-        u8    maskbit : 1;    /* mask-pending bit supported ?   */
+-        u8    masked  : 1;
+-        u8    is_64   : 1;    /* Address size: 0=32bit 1=64bit  */
+-        u8    pos;            /* Location of the msi capability */
+-        u16   entry_nr;       /* specific enabled entry         */
+-    } msi_attrib;
+-};
+-
+-struct msi_msg
+-{
+-    u32     address_lo;     /* low 32 bits of msi message address */
+-    u32     address_hi;     /* high 32 bits of msi message address */
+-    u32     data;           /* 16 bits of msi message data */
+-    u32     dest32;         /* used when Interrupt Remapping with EIM is enabled */
+-};
+-
+-#define X86EMUL_OKAY 100
+-#define EINVAL 101
+-
+-#define DBG_LEVEL_PIT 200
+-
+-#define TRC_HW_VCHIP_HPET_START_TIMER 300
+-#define TRC_HW_VCHIP_HPET_STOP_TIMER 301
+-#define TRC_HW_VCHIP_PIT_STOP_TIMER 302
+-
+-#define TRC_HVM_VCHIP_HPET_START_TIMER 400
+-#define TRC_HVM_VCHIP_HPET_STOP_TIMER 401
+-#define TRC_HVM_VCHIP_PIT_STOP_TIMER 402
+-
+-#define TRC_HVM_EMUL_HPET_START_TIMER 400
+-#define TRC_HVM_EMUL_HPET_STOP_TIMER 401
+-#define TRC_HVM_EMUL_PIT_STOP_TIMER 402
+-
+-#define __read_mostly
+-#define __initdata
+-#define __init
+-#define __maybe_unused
+-#define __cacheline_aligned
+-#define boolean_param(a, b)
+-#define fix_to_virt(a) a
+-#define xmalloc_array(_type, _num) (void *)(_type)(_num)
+-#define DEFINE_PER_CPU(_type, _name) _type _name
+-
+-#define KERN_DEBUG
+-#define KERN_INFO
+-
+-#define XENLOG_WARNING
+-#define XENLOG_INFO
+-#define XENLOG_ERR
+-#define XENLOG_GUEST
+-
+-#define MSI_TYPE_UNKNOWN 0
+-#define MSI_TYPE_HPET    1
+-#define MSI_TYPE_IOMMU   2
+-
+-#define STIME_MAX ((s_time_t)((uint64_t)~0ull>>1))
+-
+-/* Low-latency softirqs come first in the following list. */
+-enum
+-{
+-    TIMER_SOFTIRQ = 0,
+-    SCHEDULE_SOFTIRQ,
+-    NEW_TLBFLUSH_CLOCK_PERIOD_SOFTIRQ,
+-    RCU_SOFTIRQ,
+-    TASKLET_SOFTIRQ,
+-    NR_COMMON_SOFTIRQS
+-};
+-/*
+- * ..and if you can't take the strict
+- * types, you can specify one yourself.
+- *
+- * Or not use min/max at all, of course.
+- */
+-#define min_t(type, x, y) \
+-    ({ type __x = (x); type __y = (y); __x < __y ? __x : __y; })
+-#define max_t(type, x, y) \
+-    ({ type __x = (x); type __y = (y); __x > __y ? __x : __y; })
+-#define offsetof(t, m) ((unsigned long )&((t *)0)->m)
+-#define container_of(ptr, type, member) ({              \
+-        typeof( ((type *)0)->member ) *__mptr = (ptr);  \
+-        (type *)( (char *)__mptr - offsetof(type,member) ); })
+-
+-struct domain;
+-
+-struct vcpu
+-{
+-    int vcpu_id;
+-    struct domain *domain;
+-};
+-
+-typedef void time_cb(struct vcpu *v, void *opaque);
+-
+-struct periodic_time
+-{
+-#define PTSRC_isa    1 /* ISA time source */
+-#define PTSRC_lapic  2 /* LAPIC time source */
+-    u8 source;                  /* PTSRC_ */
+-};
+-
+-void destroy_periodic_time(struct periodic_time *pt);
+-void create_periodic_time(
+-    struct vcpu *v, struct periodic_time *pt, uint64_t delta,
+-    uint64_t period, uint8_t irq, time_cb *cb, void *data);
+-
+-#define HPET_TIMER_NUM 3
+-
+-struct hpet_registers
+-{
+-    /* Memory-mapped, software visible registers */
+-    uint64_t capability;        /* capabilities */
+-    uint64_t config;            /* configuration */
+-    uint64_t isr;               /* interrupt status reg */
+-    uint64_t mc64;              /* main counter */
+-    struct                      /* timers */
+-    {
+-        uint64_t config;        /* configuration/cap */
+-        uint64_t cmp;           /* comparator */
+-        uint64_t fsb;           /* FSB route, not supported now */
+-    } timers[HPET_TIMER_NUM];
+-
+-    /* Hidden register state */
+-    uint64_t period[HPET_TIMER_NUM]; /* Last value written to comparator */
+-    uint64_t comparator64[HPET_TIMER_NUM]; /* 64 bit running comparator */
+-    uint64_t offset64[HPET_TIMER_NUM]; /* offset so comparator calc "works" */
+-    uint64_t first_mc64[HPET_TIMER_NUM]; /* 1st interval main counter */
+-    bool_t first_enabled[HPET_TIMER_NUM]; /* In 1st interval */
+-};
+-
+-typedef struct HPETState
+-{
+-    struct hpet_registers hpet;
+-    uint64_t stime_freq;
+-    uint64_t hpet_to_ns_scale; /* hpet ticks to ns (multiplied by 2^10) */
+-    uint64_t hpet_to_ns_limit; /* max hpet ticks convertable to ns      */
+-    uint64_t mc_offset;
+-    struct periodic_time pt[HPET_TIMER_NUM];
+-    spinlock_t lock;
+-} HPETState;
+-
+-typedef struct PITState
+-{
+-    struct periodic_time pt0;
+-    spinlock_t lock;
+-} PITState;
+-
+-
+-struct pl_time      /* platform time */
+-{
+-    struct HPETState vhpet;
+-    /* guest_time = Xen sys time + stime_offset */
+-    int64_t stime_offset;
+-    /* Ensures monotonicity in appropriate timer modes. */
+-    uint64_t last_guest_time;
+-    spinlock_t pl_time_lock;
+-};
+-
+-#define HVM_PARAM_HPET_ENABLED 11
+-
+-struct hvm_domain
+-{
+-    struct pl_time         pl_time;
+-    long params[20];
+-};
+-
+-struct arch_domain
+-{
+-    struct hvm_domain hvm_domain;
+-    struct PITState vpit;
+-};
+-
+-struct domain
+-{
+-    int domain_id;
+-    struct arch_domain arch;
+-    struct vcpu *vcpu[NR_CPUS];
+-};
+-
+-typedef int (*hvm_mmio_read_t)(struct vcpu *v,
+-                               unsigned long addr,
+-                               unsigned long length,
+-                               unsigned long *val);
+-typedef int (*hvm_mmio_write_t)(struct vcpu *v,
+-                                unsigned long addr,
+-                                unsigned long length,
+-                                unsigned long val);
+-typedef int (*hvm_mmio_check_t)(struct vcpu *v, unsigned long addr);
+-
+-
+-struct hvm_mmio_ops
+-{
+-    hvm_mmio_check_t check;
+-    hvm_mmio_read_t  read;
+-    hvm_mmio_write_t write;
+-};
+-
+-/* Marshalling and unmarshalling uses a buffer with size and cursor. */
+-typedef struct hvm_domain_context
+-{
+-    uint32_t cur;
+-    uint32_t size;
+-    uint8_t *data;
+-} hvm_domain_context_t;
+-
+-int current_domain_id(void);
+-#define dprintk(_l, _f, _a...)                  \
+-    printk(_l "%s:%d: " _f, __FILE__ , __LINE__ , ## _a )
+-#define gdprintk(_l, _f, _a...)                         \
+-    printk(XENLOG_GUEST _l "%s:%d:d%d " _f, __FILE__,   \
+-           __LINE__, current_domain_id() , ## _a )
+-struct vcpu *get_current();
+-#define current get_current()
+-
+-#define HVM_SAVE_CODE(_x) HVM_SAVE_CODE_##_x
+-#define HVM_SAVE_LENGTH(_x) HVM_SAVE_LENGTH_##_x
+-
+-/*
+- * HPET
+- */
+-
+-uint64_t hvm_get_guest_time(struct vcpu *v);
+-
+-#define HPET_TIMER_NUM     3    /* 3 timers supported now */
+-struct hvm_hw_hpet
+-{
+-    /* Memory-mapped, software visible registers */
+-    uint64_t capability;        /* capabilities */
+-    uint64_t res0;              /* reserved */
+-    uint64_t config;            /* configuration */
+-    uint64_t res1;              /* reserved */
+-    uint64_t isr;               /* interrupt status reg */
+-    uint64_t res2[25];          /* reserved */
+-    uint64_t mc64;              /* main counter */
+-    uint64_t res3;              /* reserved */
+-    struct                      /* timers */
+-    {
+-        uint64_t config;        /* configuration/cap */
+-        uint64_t cmp;           /* comparator */
+-        uint64_t fsb;           /* FSB route, not supported now */
+-        uint64_t res4;          /* reserved */
+-    } timers[HPET_TIMER_NUM];
+-    uint64_t res5[4 * (24 - HPET_TIMER_NUM)]; /* reserved, up to 0x3ff */
+-
+-    /* Hidden register state */
+-    uint64_t period[HPET_TIMER_NUM]; /* Last value written to comparator */
+-};
+-
+-typedef int (*hvm_save_handler)(struct domain *d,
+-                                hvm_domain_context_t *h);
+-typedef int (*hvm_load_handler)(struct domain *d,
+-                                hvm_domain_context_t *h);
+-
+-struct hvm_save_descriptor
+-{
+-    uint16_t typecode;          /* Used to demux the various types below */
+-    uint16_t instance;          /* Further demux within a type */
+-    uint32_t length;            /* In bytes, *not* including this descriptor */
+-};
+-
+-void hvm_register_savevm(uint16_t typecode,
+-                         const char *name,
+-                         hvm_save_handler save_state,
+-                         hvm_load_handler load_state,
+-                         size_t size, int kind);
+-
+-#define HVMSR_PER_DOM 1
+-
+-#define HVM_REGISTER_SAVE_RESTORE(_x, _save, _load, _num, _k)       \
+-    int __init __hvm_register_##_x##_save_and_restore(void)     \
+-    {                                                                   \
+-        hvm_register_savevm(HVM_SAVE_CODE(_x),                          \
+-                            #_x,                                        \
+-                            &_save,                                     \
+-                            &_load,                                     \
+-                            (_num) * (HVM_SAVE_LENGTH(_x)               \
+-                                 + sizeof(struct hvm_save_descriptor)), \
+-                            _k);                                        \
+-        return 0;                                                       \
+-    }                                                                   \
+-
+-#define HVM_SAVE_CODE_HPET 0
+-#define HVM_SAVE_LENGTH_HPET sizeof(struct hvm_hw_hpet)
+-
+-#define printk printf
+-
+-#define spin_lock(a)
+-#define spin_unlock(a)
+-#define spin_lock_init(a)
+-#define spin_is_locked(a) 1
+-#define ASSERT(a)
+-
+-#define ADDR (*(volatile long *) addr)
+-
+-static inline void __set_bit(int nr, volatile void *addr)
+-{
+-    asm volatile(
+-        "btsl %1,%0"
+-        : "=m"(ADDR)
+-        : "Ir"(nr), "m"(ADDR) : "memory");
+-}
+-
+-static inline void __clear_bit(int nr, volatile void *addr)
+-{
+-    asm volatile(
+-        "btrl %1,%0"
+-        : "=m"(ADDR)
+-        : "Ir"(nr), "m"(ADDR) : "memory");
+-}
+-
+-static inline unsigned int find_first_set_bit(unsigned long word)
+-{
+-    asm("bsf %1,%0" : "=r"(word) : "r"(word));
+-    return (unsigned int)word;
+-}
+-
+-#define HVM_DBG_LOG(level, _f, _a...)                   \
+-    do {                                \
+-        printf("[HVM:%d.%d] <%s> " _f "\n",                             \
+-               current->domain->domain_id, current->vcpu_id, __func__,  \
+-               ## _a);                                                  \
+-    } while ( 0 )
+-
+-void __domain_crash(struct domain *d);
+-#define domain_crash(d) do {                        \
+-        printf("domain_crash called from %s:%d\n", __FILE__, __LINE__); \
+-        __domain_crash(d);                                              \
+-    } while ( 0 )
+-
+-#define MICROSECS(_us) ((s_time_t)((_us) * 1000ULL))
+-
+-#define pt_global_vcpu_target(d)        \
+-    ((d)->vcpu ? (d)->vcpu[0] : NULL)
+-
+-#define TRACE_0D(a)
+-#define TRACE_1D(a, b)
+-#define TRACE_2D(a, b, c)
+-#define TRACE_3D(a, b, c, d)
+-#define TRACE_4D(a, b, c, d, e)
+-#define TRACE_5D(a, b, c, d, e, f)
+-#define TRACE_6D(a, b, c, d, e, f, g)
+-
+-#define TRC_PAR_LONG(par) ((par)&0xFFFFFFFF),((par)>>32)
+-
+-#define TRACE_2_LONG_2D(_e, d1, d2, ...) \
+-    TRACE_4D(_e, d1, d2)
+-#define TRACE_2_LONG_3D(_e, d1, d2, d3, ...) \
+-    TRACE_5D(_e, d1, d2, d3)
+-#define TRACE_2_LONG_4D(_e, d1, d2, d3, d4, ...) \
+-    TRACE_6D(_e, d1, d2, d3, d4)
+-
+-/* debug */
+-
+-extern int __read_mostly hpet_debug;
+-extern uint64_t __read_mostly hpet_force_diff;
+-extern uint64_t __read_mostly hpet_force_mc64;
+-extern uint64_t __read_mostly hpet_force_cmp;
+-extern uint64_t __read_mostly hpet_force_period;
+-
+-/*
+- * Local variables:
+- * mode: C
+- * c-file-style: "BSD"
+- * c-basic-offset: 4
+- * indent-tabs-mode: nil
+- * End:
+- */
+diff --git a/tools/tests/vhpet/main.c b/tools/tests/vhpet/main.c
+deleted file mode 100644
+index 6fe65ea808..0000000000
+--- a/tools/tests/vhpet/main.c
++++ /dev/null
+@@ -1,776 +0,0 @@
+-/*
+- * Xen emulation for hpet
+- *
+- * Copyright (C) 2014 Verizon Corporation
+- *
+- * This file is free software; you can redistribute it and/or modify it
+- * under the terms of the GNU General Public License Version 2 (GPLv2)
+- * as published by the Free Software Foundation.
+- *
+- * This file is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+- * General Public License for more details. <http://www.gnu.org/licenses/>.
+- */
+-
+-/*
+- * http://www.intel.com/content/dam/www/public/us/en/documents/technical-specifications/software-developers-hpet-spec-1-0a.pdf
+- *
+- * xen_source is a directory that has all xen source below it.
+- *
+- * Usage:
+- *
+-
+-
+-  xen_source=../../..
+-  sed -e "/#include/d" -e "1i#include \"emul.h\"\n" <$xen_source/xen/arch/x86/hvm/hpet.c >hpet.c
+-  cp $xen_source/xen/include/asm-x86/hpet.h .
+-
+-  gcc -g -o test_vhpet hpet.c main.c
+-  ./test_vhpet >test_vhpet.out
+-
+- *
+- *
+- * This is almost the same as
+- *
+-
+-  make run
+-
+- *
+- * Or
+- *
+- * make -C tools/tests/vhpet run
+- *
+- * From a xen source tree.  The differance
+- * is that you need to be in a xen source tree
+- * and normal make rules apply.
+- *
+- */
+-
+-#define FORCE_THOUSANDS_SEP
+-
+-#include <locale.h>
+-#include <langinfo.h>
+-#include <stdarg.h>
+-#include "emul.h"
+-#include "hpet.h"
+-
+-#define S_TO_NS    1000000000ULL           /* 1s  = 10^9  ns */
+-
+-#define START_MC64 0x108a8
+-
+-static int hpet_mult = 1;
+-static int hpet_add;
+-static int hvm_clock_cost = 1234567;
+-static int tick_count = 1;
+-static int debug = 3;
+-
+-static int skip_load;
+-static int skip_error_on_load;
+-
+-static char *global_thousep;
+-
+-extern const struct hvm_mmio_ops hpet_mmio_ops;
+-
+-struct domain dom1;
+-struct vcpu vcpu0;
+-struct hvm_hw_hpet hpet_save;
+-
+-
+-uint64_t hvm_guest_time;
+-
+-static struct
+-{
+-    hvm_save_handler save;
+-    hvm_load_handler load;
+-    const char *name;
+-    size_t size;
+-    int kind;
+-} hvm_sr_handlers[3] = {{NULL, NULL, "<?>"},};
+-
+-static uint64_t new_guest_time[] = {
+-    0x20,
+-    0x2a840,
+-    0xf4200,
+-    0x10000000000ULL,
+-    0x0fffffffffefff00ULL,
+-    0x20,
+-    0xffffffff00000000ULL,
+-    0x20,
+-};
+-
+-static int print_error(const char *fmt, ...)
+-{
+-    va_list args;
+-    int i = 0;
+-
+-    if ( (debug & 0x0100) && skip_error_on_load )
+-        return i;
+-
+-    va_start(args, fmt);
+-    if ( debug & 0x0001 )
+-        i = vfprintf(stdout, fmt, args);
+-    va_end(args);
+-    va_start(args, fmt);
+-    if ( debug & 0x0002 )
+-        i = vfprintf(stderr, fmt, args);
+-    va_end(args);
+-    return i;
+-}
+-
+-
+-int current_domain_id(void)
+-{
+-    return current->domain->domain_id;
+-}
+-
+-struct vcpu *get_current()
+-{
+-    return &vcpu0;
+-}
+-
+-void __domain_crash(struct domain *d)
+-{
+-    exit(42);
+-}
+-
+-uint64_t hvm_get_guest_time(struct vcpu *v)
+-{
+-    uint64_t ret = hvm_guest_time;
+-
+-    hvm_guest_time += hvm_clock_cost;
+-    return ret;
+-}
+-
+-int _hvm_init_entry(struct hvm_domain_context *h,
+-                    uint16_t tc, uint16_t inst, uint32_t len)
+-{
+-    h->cur = 0;
+-    h->size = sizeof(hpet_save);
+-    h->data = (void *)&hpet_save;
+-
+-    return 0;
+-}
+-
+-int _hvm_check_entry(struct hvm_domain_context *h,
+-                     uint16_t type, uint32_t len, bool_t strict_length)
+-{
+-    h->cur = 0;
+-    h->size = sizeof(hpet_save);
+-    h->data = (void *)&hpet_save;
+-
+-    return 0;
+-}
+-
+-void __init hvm_register_savevm(uint16_t typecode,
+-                                const char *name,
+-                                hvm_save_handler save_state,
+-                                hvm_load_handler load_state,
+-                                size_t size, int kind)
+-{
+-    hvm_sr_handlers[typecode].save = save_state;
+-    hvm_sr_handlers[typecode].load = load_state;
+-    hvm_sr_handlers[typecode].name = name;
+-    hvm_sr_handlers[typecode].size = size;
+-    hvm_sr_handlers[typecode].kind = kind;
+-}
+-
+-int do_save(uint16_t typecode, struct domain *d, hvm_domain_context_t *h)
+-{
+-    return hvm_sr_handlers[typecode].save(d, h);
+-}
+-
+-int do_load(uint16_t typecode, struct domain *d, hvm_domain_context_t *h)
+-{
+-    if (skip_load & 0x1)
+-    {
+-        printf("skip_load=%#x\n", skip_load);
+-    }
+-    else
+-    {
+-        int ret;
+-
+-        printf("do_load\n");
+-        skip_error_on_load = 1;
+-        ret = hvm_sr_handlers[typecode].load(d, h);
+-        skip_error_on_load = 0;
+-    }
+-}
+-
+-static void dump_hpet(void)
+-{
+-    int i;
+-    unsigned long long conf;
+-    struct hvm_hw_hpet h = hpet_save;
+-    conf = (unsigned long long) h.config;
+-    printf("    HPET: capability %#llx config %#llx(%s%s)\n",
+-           (unsigned long long) h.capability,
+-           conf,
+-           conf & HPET_CFG_ENABLE ? "E" : "",
+-           conf & HPET_CFG_LEGACY ? "L" : "");
+-    printf("          isr %#llx counter %#llx(%'lld)\n",
+-           (unsigned long long) h.isr,
+-           (unsigned long long) h.mc64,
+-           (unsigned long long) h.mc64);
+-    for (i = 0; i < HPET_TIMER_NUM; i++)
+-    {
+-        conf = (unsigned long long) h.timers[i].config;
+-        printf("          timer%i config %#llx(%s%s%s) cmp %#llx(%'lld)\n", i,
+-               conf,
+-               conf & HPET_TN_ENABLE ? "E" : "",
+-               conf & HPET_TN_PERIODIC ? "P" : "",
+-               conf & HPET_TN_32BIT ? "32" : "",
+-               (unsigned long long) h.timers[i].cmp,
+-               (unsigned long long) h.timers[i].cmp);
+-        printf("          timer%i period %#llx(%'lld) fsb %#llx\n", i,
+-               (unsigned long long) h.period[i],
+-               (unsigned long long) h.period[i],
+-               (unsigned long long) h.timers[i].fsb);
+-    }
+-}
+-
+-void pit_stop_channel0_irq(PITState *pit)
+-{
+-    printf("pit_stop_channel0_irq: pit=%p\n", pit);
+-
+-    TRACE_1D(TRC_HVM_VCHIP_PIT_STOP_TIMER, get_cycles());
+-    spin_lock(&pit->lock);
+-    destroy_periodic_time(&pit->pt0);
+-    spin_unlock(&pit->lock);
+-}
+-
+-void destroy_periodic_time(struct periodic_time *pt)
+-{
+-    int idx = ((long)pt) & 0x7;
+-
+-    printf("destroy_periodic_time: pt=%d\n", idx);
+-}
+-
+-void create_periodic_time(struct vcpu *v, struct periodic_time *pt,
+-                          uint64_t delta, uint64_t period, uint8_t irq,
+-                          time_cb *cb, void *data)
+-{
+-    int idx = ((long)pt) & 0x7;
+-
+-    if ( debug & 0x0010 )
+-    {
+-        int i;
+-
+-        printf("create_periodic_time: "
+-               "mc64=%#lx(%'ld) mc_offset=%#lx(%'ld)\n",
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.mc64,
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.mc64,
+-               dom1.arch.hvm_domain.pl_time.vhpet.mc_offset,
+-               dom1.arch.hvm_domain.pl_time.vhpet.mc_offset);
+-        for (i = 0; i < 3; i++)
+-        {
+-            printf("                 "
+-                   "[%d] cmp64=%#lx(%'ld) cmp=%#lx(%'ld)\n", i,
+-                   dom1.arch.hvm_domain.pl_time.vhpet.hpet.comparator64[i],
+-                   dom1.arch.hvm_domain.pl_time.vhpet.hpet.comparator64[i],
+-                   dom1.arch.hvm_domain.pl_time.vhpet.hpet.timers[i].cmp,
+-                   dom1.arch.hvm_domain.pl_time.vhpet.hpet.timers[i].cmp);
+-        }
+-    }
+-    if ( period )
+-    {
+-        printf("create_periodic_time: pt=%d delta=%'"PRId64" period=%'"PRIu64
+-               " - %'"PRIu64".%02d Hz irq=%d\n",
+-               idx, delta, period, (uint64_t)(S_TO_NS / period),
+-               (int)((S_TO_NS / (period / 100ULL)) % 100), irq);
+-        /* +160 is for hpet_tick_to_ns() not simple. */
+-        if ( delta > (period * (hpet_mult + hpet_add + 160)) )
+-            print_error("%s(%ld): Possible ..MP-BIOS bug: 8254 timer...: delta=%'"PRId64
+-                        " period=%'"PRIu64"\n", __func__, __LINE__,
+-                        delta, period);
+-    }
+-    else
+-        printf("create_periodic_time: pt=%d delta=%'"PRId64
+-               " period=%'"PRIu64" irq=%d\n",
+-               idx, delta, period, irq);
+-}
+-
+-void udelay(int w)
+-{
+-}
+-
+-unsigned int hpet_readl(unsigned long a)
+-{
+-    unsigned long ret = 0;
+-    hpet_mmio_ops.read(current, a, 4, &ret);
+-    return ret;
+-}
+-
+-void hpet_writel(unsigned long d, unsigned long a)
+-{
+-    hpet_mmio_ops.write(current, a, 4, d);
+-    return;
+-}
+-
+-static void _hpet_print_config(const char *function, int line)
+-{
+-    u32 i, timers, l, h;
+-    printk(KERN_INFO "hpet: %s(%d):\n", function, line);
+-    l = hpet_readl(HPET_ID);
+-    h = hpet_readl(HPET_PERIOD);
+-    timers = ((l & HPET_ID_NUMBER) >> HPET_ID_NUMBER_SHIFT) + 1;
+-    printk(KERN_INFO "hpet: ID: 0x%x, PERIOD: 0x%x\n", l, h);
+-    l = hpet_readl(HPET_CFG);
+-    h = hpet_readl(HPET_STATUS);
+-    printk(KERN_INFO "hpet: CFG: 0x%x, STATUS: 0x%x\n", l, h);
+-    l = hpet_readl(HPET_COUNTER);
+-    h = hpet_readl(HPET_COUNTER + 4);
+-    printk(KERN_INFO "hpet: COUNTER_l: 0x%x, COUNTER_h: 0x%x\n", l, h);
+-
+-    for (i = 0; i < timers; i++)
+-    {
+-        l = hpet_readl(HPET_Tn_CFG(i));
+-        h = hpet_readl(HPET_Tn_CFG(i) + 4);
+-        printk(KERN_INFO "hpet: T%d: CFG_l: 0x%x, CFG_h: 0x%x\n",
+-               i, l, h);
+-        l = hpet_readl(HPET_Tn_CMP(i));
+-        h = hpet_readl(HPET_Tn_CMP(i) + 4);
+-        printk(KERN_INFO "hpet: T%d: CMP_l: 0x%x, CMP_h: 0x%x\n",
+-               i, l, h);
+-        l = hpet_readl(HPET_Tn_ROUTE(i));
+-        h = hpet_readl(HPET_Tn_ROUTE(i) + 4);
+-        printk(KERN_INFO "hpet: T%d ROUTE_l: 0x%x, ROUTE_h: 0x%x\n",
+-               i, l, h);
+-    }
+-}
+-
+-#define hpet_print_config()                     \
+-    do {                                        \
+-        _hpet_print_config(__func__, __LINE__); \
+-    } while ( 0 )
+-
+-static void hpet_stop_counter(void)
+-{
+-    unsigned long cfg = hpet_readl(HPET_CFG);
+-    cfg &= ~HPET_CFG_ENABLE;
+-    hpet_writel(cfg, HPET_CFG);
+-}
+-
+-static void hpet_reset_counter(unsigned long low, unsigned long high)
+-{
+-    hpet_writel(low, HPET_COUNTER);
+-    hpet_writel(high, HPET_COUNTER + 4);
+-}
+-
+-static void hpet_start_counter(void)
+-{
+-    unsigned long cfg = hpet_readl(HPET_CFG);
+-    cfg |= HPET_CFG_ENABLE;
+-    hpet_writel(cfg, HPET_CFG);
+-}
+-
+-static void hpet_restart_counter(void)
+-{
+-    hpet_stop_counter();
+-    hpet_reset_counter(0, 0);
+-    hpet_start_counter();
+-}
+-
+-static void hpet_set_mode(uint64_t delta, int timer)
+-{
+-    unsigned long cfg, cmp, cmp2, now;
+-
+-    hpet_stop_counter();
+-    now = hpet_readl(HPET_COUNTER);
+-    cmp = now + (unsigned long)(hpet_mult * delta) + hpet_add;
+-    cfg = hpet_readl(HPET_Tn_CFG(timer));
+-    /* Make sure we use edge triggered interrupts */
+-    cfg &= ~HPET_TN_LEVEL;
+-    cfg |= HPET_TN_ENABLE | HPET_TN_PERIODIC |
+-           HPET_TN_SETVAL | HPET_TN_32BIT;
+-    /* Mask to 32 bits just like the hardware */
+-    cmp = (uint32_t)cmp;
+-    delta = (uint32_t)delta;
+-    /* Do the config */
+-    hpet_writel(cfg, HPET_Tn_CFG(timer));
+-    hpet_writel(cmp, HPET_Tn_CMP(timer));
+-    printf("%s(%ld): HPET_TN_SETVAL cmp=%#lx(%'ld) timer=%d\n",
+-           __func__, __LINE__, cmp, cmp, timer);
+-    udelay(1);
+-    /*
+-     * HPET on AMD 81xx needs a second write (with HPET_TN_SETVAL
+-     * cleared) to T0_CMP to set the period. The HPET_TN_SETVAL
+-     * bit is automatically cleared after the first write.
+-     * (See AMD-8111 HyperTransport I/O Hub Data Sheet,
+-     * Publication # 24674)
+-     */
+-    hpet_writel((unsigned long) delta, HPET_Tn_CMP(timer));
+-    printf("%s(%ld): period=%#lx(%'ld) timer=%d\n", __func__, __LINE__,
+-           (unsigned long) delta, (unsigned long) delta, timer);
+-    cmp2 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp2 != cmp )
+-        print_error("%s(%ld): T%d Error: Set %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp2, cmp2);
+-
+-    hpet_start_counter();
+-    hpet_print_config();
+-}
+-
+-
+-hpet_check_stopped(uint64_t old_delta, int timer)
+-{
+-    unsigned long mc_low, mc_high, old_cmp, now;
+-    unsigned long cfg, cmp, delta, cmp2, cmp3;
+-
+-    if (skip_load & 0x2)
+-    {
+-        printf("Skip hpet_check_stopped. skip_load=%#x\n", skip_load);
+-        return;
+-    }
+-    hpet_stop_counter();
+-    mc_low = hpet_readl(HPET_COUNTER);
+-    mc_high = hpet_readl(HPET_COUNTER + 4);
+-    old_cmp = hpet_readl(HPET_Tn_CMP(timer));
+-
+-    hpet_reset_counter(67752, 0);
+-    cmp = 255252;
+-    delta = 62500;
+-
+-    now = hpet_readl(HPET_COUNTER);
+-    if ( now != 67752 )
+-        print_error("%s(%ld): T%d Error: Set mc %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, 67752, 67752, now, now);
+-    cfg = hpet_readl(HPET_Tn_CFG(timer));
+-    cfg |= HPET_TN_SETVAL;
+-    hpet_writel(cfg, HPET_Tn_CFG(timer));
+-    hpet_writel(cmp, HPET_Tn_CMP(timer));
+-    printf("%s(%ld): HPET_TN_SETVAL cmp=%#lx(%'ld) timer=%d\n",
+-           __func__, __LINE__, cmp, cmp, timer);
+-    cmp2 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp2 != cmp )
+-        print_error("%s(%ld): T%d Error: Set cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp2, cmp2);
+-
+-    hpet_writel((unsigned long) delta, HPET_Tn_CMP(timer));
+-    printf("%s(%ld): period=%#lx(%'ld) timer=%d\n", __func__, __LINE__,
+-           (unsigned long) delta, (unsigned long) delta, timer);
+-    cmp3 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp3 != cmp )
+-        print_error("%s(%ld): T%d Error: Set period, cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp3, cmp3);
+-
+-    if ( dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer] != delta )
+-        printf("%s(%ld): T%d Warning: Set period %#lx(%'ld) != %#lx(%'ld)\n",
+-               __func__, __LINE__, timer, delta, delta,
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer],
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer]);
+-
+-    hpet_reset_counter(67752, 0);
+-    cmp = 255252;
+-    delta = 62500;
+-
+-    now = hpet_readl(HPET_COUNTER);
+-    if ( now != 67752 )
+-        print_error("%s(%ld): T%d Error: Set mc %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, 67752, 67752, now, now);
+-    cfg = hpet_readl(HPET_Tn_CFG(timer));
+-    cfg |= HPET_TN_SETVAL;
+-    hpet_writel(cfg, HPET_Tn_CFG(timer));
+-    hpet_writel(cmp, HPET_Tn_CMP(timer));
+-    printf("%s(%ld): HPET_TN_SETVAL cmp=%#lx(%'ld) timer=%d\n",
+-           __func__, __LINE__, cmp, cmp, timer);
+-    cmp2 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp2 != cmp )
+-        print_error("%s(%ld): T%d Error: Set cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp2, cmp2);
+-
+-    hpet_writel((unsigned long) delta, HPET_Tn_CMP(timer));
+-    printf("%s(%ld): period=%#lx(%'ld) timer=%d\n", __func__, __LINE__,
+-           (unsigned long) delta, (unsigned long) delta, timer);
+-    cmp3 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp3 != cmp )
+-        print_error("%s(%ld): T%d Error: Set period, cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp3, cmp3);
+-
+-    if ( dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer] != delta )
+-        printf("%s(%ld): T%d Warning: Set period %#lx(%'ld) != %#lx(%'ld)\n",
+-               __func__, __LINE__, timer, delta, delta,
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer],
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer]);
+-
+-    hpet_reset_counter(67700, 0);
+-
+-    now = hpet_readl(HPET_COUNTER);
+-    if ( now != 67700 )
+-        print_error("%s(%ld): T%d Error: Set mc %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, 67752, 67752, now, now);
+-    cmp2 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp2 != cmp )
+-        print_error("%s(%ld): T%d Error: Set mc, cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp2, cmp2);
+-
+-    cmp3 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp3 != cmp )
+-        print_error("%s(%ld): T%d Error: Set mc, cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp3, cmp3);
+-
+-    if ( dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer] != delta )
+-        printf("%s(%ld): T%d Warning: Set mc, period %#lx(%'ld) != %#lx(%'ld)\n",
+-               __func__, __LINE__, timer, delta, delta,
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer],
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer]);
+-
+-    cmp = 67701;
+-
+-    now = hpet_readl(HPET_COUNTER);
+-    if ( now != 67700 )
+-        print_error("%s(%ld): T%d Error: Set cmp, mc %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, 67752, 67752, now, now);
+-    cfg = hpet_readl(HPET_Tn_CFG(timer));
+-    cfg |= HPET_TN_SETVAL;
+-    hpet_writel(cfg, HPET_Tn_CFG(timer));
+-    hpet_writel(cmp, HPET_Tn_CMP(timer));
+-    printf("%s(%ld): HPET_TN_SETVAL cmp=%#lx(%'ld) timer=%d\n",
+-           __func__, __LINE__, cmp, cmp, timer);
+-    cmp2 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp2 != cmp )
+-        print_error("%s(%ld): T%d Error: Set cmp, cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp2, cmp2);
+-
+-    cmp3 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp3 != cmp )
+-        print_error("%s(%ld): T%d Error: Set cmp, cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp3, cmp3);
+-
+-    if ( dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer] != delta )
+-        printf("%s(%ld): T%d Warning: Set cmp, period %#lx(%'ld) != %#lx(%'ld)\n",
+-               __func__, __LINE__, timer, delta, delta,
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer],
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer]);
+-
+-    delta = 500;
+-
+-    now = hpet_readl(HPET_COUNTER);
+-    if ( now != 67700 )
+-        print_error("%s(%ld): T%d Error: Set period, mc %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, 67752, 67752, now, now);
+-    cmp2 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp2 != cmp )
+-        print_error("%s(%ld): T%d Error: Set period, cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp2, cmp2);
+-
+-    hpet_writel((unsigned long) delta, HPET_Tn_CMP(timer));
+-    printf("%s(%ld): period=%#lx(%'ld) timer=%d\n", __func__, __LINE__,
+-           (unsigned long) delta, (unsigned long) delta, timer);
+-    cmp3 = hpet_readl(HPET_Tn_CMP(timer));
+-    if ( cmp3 != cmp )
+-        print_error("%s(%ld): T%d Error: Set period, cmp %#lx(%'ld) != %#lx(%'ld)\n",
+-                    __func__, __LINE__, timer, cmp, cmp, cmp3, cmp3);
+-
+-    if ( dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer] != delta )
+-        printf("%s(%ld): T%d Warning: Set period, period %#lx(%'ld) != %#lx(%'ld)\n",
+-               __func__, __LINE__, timer, delta, delta,
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer],
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.period[timer]);
+-
+-    hpet_reset_counter(mc_low, mc_high);
+-    cfg = hpet_readl(HPET_Tn_CFG(timer));
+-    cfg |= HPET_TN_SETVAL;
+-    hpet_writel(cfg, HPET_Tn_CFG(timer));
+-    hpet_writel(old_cmp, HPET_Tn_CMP(timer));
+-    hpet_writel(old_delta, HPET_Tn_CMP(timer));
+-    hpet_start_counter();
+-}
+-
+-
+-int
+-main(int argc, char **argv)
+-{
+-    hvm_domain_context_t hdc;
+-    struct hvm_hw_hpet hpet0;
+-    struct hvm_hw_hpet hpet1;
+-    struct hvm_hw_hpet hpet2;
+-    int i, k;
+-
+-    setlocale(LC_ALL, "");
+-
+-#ifdef FORCE_THOUSANDS_SEP
+-    setlocale(LC_NUMERIC, "en_US.utf8");
+-#endif
+-    global_thousep = nl_langinfo(THOUSEP);
+-
+-    printf("test_vhpet 1.0\n");
+-
+-    if ( argc > 1 )
+-        hvm_clock_cost = atoi(argv[1]);
+-    if ( argc > 2 )
+-        hpet_mult = atoi(argv[2]);
+-    if ( argc > 3 )
+-        hpet_add = atoi(argv[3]);
+-    if ( argc > 4 )
+-        tick_count = atoi(argv[4]);
+-    if ( argc > 5 )
+-        debug = strtol(argv[5], NULL, 0);
+-
+-    printf("hvm_clock_cost=%'d hpet_mult=%'d hpet_add=%'d tick_count=%d debug=%#x\n",
+-           hvm_clock_cost, hpet_mult, hpet_add, tick_count, debug);
+-
+-    dom1.domain_id = 1;
+-    dom1.vcpu[0] = &vcpu0;
+-    vcpu0.vcpu_id = 0;
+-    vcpu0.domain = &dom1;
+-
+-    __hvm_register_HPET_save_and_restore();
+-
+-    for (skip_load = 3; skip_load >= 0; skip_load--)
+-    {
+-
+-        printf("\nskip_load=%d\n", skip_load);
+-
+-        hvm_guest_time = 16;
+-
+-        hpet_init(&vcpu0);
+-
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet0 = hpet_save;
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet1 = hpet_save;
+-        if (hpet0.mc64 != hpet1.mc64)
+-            print_error("%s(%ld): With clock stopped mc64 changed: %'ld to %'ld\n",
+-                        __func__, __LINE__, hpet0.mc64, hpet1.mc64);
+-
+-        do_load(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet2 = hpet_save;
+-        if (hpet1.mc64 != hpet2.mc64)
+-            print_error("%s(%ld): With clock stopped mc64 changed: %'ld to %'ld\n",
+-                        __func__, __LINE__, hpet1.mc64, hpet2.mc64);
+-
+-        dom1.arch.hvm_domain.pl_time.vhpet.hpet.mc64 = START_MC64;
+-        dom1.arch.hvm_domain.pl_time.vhpet.mc_offset = START_MC64
+-            - hvm_guest_time - hvm_clock_cost;
+-        printf("\n"
+-               "mc64=%#lx(%'ld) mc_offset=%#lx(%'ld)\n",
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.mc64,
+-               dom1.arch.hvm_domain.pl_time.vhpet.hpet.mc64,
+-               dom1.arch.hvm_domain.pl_time.vhpet.mc_offset,
+-               dom1.arch.hvm_domain.pl_time.vhpet.mc_offset);
+-
+-        printf("\nhvm_guest_time=%#lx(%'ld)\n",
+-               hvm_guest_time, hvm_guest_time);
+-
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet0 = hpet_save;
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet1 = hpet_save;
+-        if (hpet0.mc64 != hpet1.mc64)
+-            print_error("%s(%ld): With clock stopped mc64 changed: %'ld to %'ld\n",
+-                        __func__, __LINE__, hpet0.mc64, hpet1.mc64);
+-
+-        do_load(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet2 = hpet_save;
+-        if (hpet1.mc64 != hpet2.mc64)
+-            print_error("%s(%ld): With clock stopped mc64 changed: %'ld to %'ld\n",
+-                        __func__, __LINE__, hpet1.mc64, hpet2.mc64);
+-
+-        hpet_set_mode(0xf424, 0);
+-        hpet_check_stopped(0xf424, 0);
+-
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet0 = hpet_save;
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet1 = hpet_save;
+-        do_load(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet2 = hpet_save;
+-
+-        hpet_set_mode(0, 1);
+-        hpet_check_stopped(0, 1);
+-
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet0 = hpet_save;
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet1 = hpet_save;
+-
+-        do_load(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet2 = hpet_save;
+-
+-        hpet_set_mode(~0ULL, 2);
+-        hpet_check_stopped(~0ULL, 2);
+-
+-        hpet_set_mode(0x80000000, 2);
+-        hpet_check_stopped(0x80000000, 2);
+-
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet0 = hpet_save;
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet1 = hpet_save;
+-
+-        do_load(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-        dump_hpet();
+-        hpet2 = hpet_save;
+-
+-
+-        for (k = 0; k < ARRAY_SIZE(new_guest_time); k++)
+-        {
+-            hvm_guest_time = new_guest_time[k];
+-            printf("\nhvm_guest_time=%#lx(%'ld)\n",
+-                   hvm_guest_time, hvm_guest_time);
+-
+-            do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-            dump_hpet();
+-            hpet0 = hpet_save;
+-            do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-            dump_hpet();
+-            hpet1 = hpet_save;
+-
+-            do_load(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-            do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-            dump_hpet();
+-            hpet2 = hpet_save;
+-
+-            for (i = 0; i < tick_count; i++)
+-            {
+-                hvm_guest_time += 0x10;
+-                printf("\nhvm_guest_time=%#lx(%'ld)\n",
+-                       hvm_guest_time, hvm_guest_time);
+-
+-                do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-                dump_hpet();
+-                hpet0 = hpet_save;
+-                do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-                dump_hpet();
+-                hpet1 = hpet_save;
+-
+-                do_load(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-                do_save(HVM_SAVE_CODE(HPET), &dom1, &hdc);
+-                dump_hpet();
+-                hpet2 = hpet_save;
+-
+-            }
+-        }
+-    }
+-
+-    return 0;
+-}
+-
+-/*
+- * Local variables:
+- * mode: C
+- * c-file-style: "BSD"
+- * c-basic-offset: 4
+- * indent-tabs-mode: nil
+- * End:
+- */
+-- 
+2.35.3
 
 
