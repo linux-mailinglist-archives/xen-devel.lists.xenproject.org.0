@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 065016AD2DC
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 00:33:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.507154.780382 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59CAB6AD2DA
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 00:33:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.507155.780393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZKKI-0005cY-Ll; Mon, 06 Mar 2023 23:33:06 +0000
+	id 1pZKKU-0005vI-W3; Mon, 06 Mar 2023 23:33:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 507154.780382; Mon, 06 Mar 2023 23:33:06 +0000
+Received: by outflank-mailman (output) from mailman id 507155.780393; Mon, 06 Mar 2023 23:33:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZKKI-0005al-IX; Mon, 06 Mar 2023 23:33:06 +0000
-Received: by outflank-mailman (input) for mailman id 507154;
- Mon, 06 Mar 2023 23:33:05 +0000
+	id 1pZKKU-0005t3-QR; Mon, 06 Mar 2023 23:33:18 +0000
+Received: by outflank-mailman (input) for mailman id 507155;
+ Mon, 06 Mar 2023 23:33:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Xk/k=66=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pZKKH-0005af-Ah
- for xen-devel@lists.xenproject.org; Mon, 06 Mar 2023 23:33:05 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1pZKKS-0005af-L4
+ for xen-devel@lists.xenproject.org; Mon, 06 Mar 2023 23:33:16 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d045101-bc77-11ed-96b5-2f268f93b82a;
- Tue, 07 Mar 2023 00:33:03 +0100 (CET)
+ id 44296f09-bc77-11ed-96b5-2f268f93b82a;
+ Tue, 07 Mar 2023 00:33:15 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7F789B811CF;
- Mon,  6 Mar 2023 23:33:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89F5BC433EF;
- Mon,  6 Mar 2023 23:33:00 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 50DAC61183;
+ Mon,  6 Mar 2023 23:33:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13912C433D2;
+ Mon,  6 Mar 2023 23:33:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,45 +43,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d045101-bc77-11ed-96b5-2f268f93b82a
+X-Inumbo-ID: 44296f09-bc77-11ed-96b5-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678145581;
-	bh=3kCHul096AnixOzy6e3aMMZqVmUKsKICgEw5epe/Bjg=;
-	h=Date:From:To:cc:Subject:From;
-	b=nbhnouVwN9+er8jy+RkSs6juuNACfWwaZqdkt9hsU5Wmf+l9ygACUlSqtvBtx2c/c
-	 +mju2mm3axoFXMs5S2PG4fQLOa8yVNGZpYfDQrFhxJVFsjlDLbTJTw9kil9gOCJHiv
-	 XEormtSGmddbltEBOTSaDb2fWah6Ud+BzPzYeS0jzxT6EW/xRU6Og77wNjN+X5Y9k/
-	 SJJqf/MrIXcegvI4IDXF6mqh280E91GjHn0zzd7X1qED9cPznj4tdRU5xfQ4rvptQ6
-	 gd4cmU9yinCttROXwEhvmul5ByWAEOwNR/MShlgP45soo0vDyXWxZx8fRGt3r+ktjo
-	 VlcNtL/AmTfHg==
-Date: Mon, 6 Mar 2023 15:32:58 -0800 (PST)
+	s=k20201202; t=1678145593;
+	bh=M+QhWGuUbzDwVJWG4MjZlhHdrqDNz+IKRDebRuiLYvE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JGUcZrP22a/1n9ksr5ZPhfmZILFtHTqoUKGsZC6tZIMTjkS60pYJIQak1TWe79JK8
+	 xSZnSYzr0hLJycVeyiKhNsnlw0jGnuY8mgNVrp82OTy2aOewQbr8gHbi+k8K93ZR7G
+	 khQP9Yk3BHFYQ/YHv5EEdwav7zpQ2wH4rDqOyfXXfHQdEdMd297Rf+8JIWzRkqj6Br
+	 sohbWcp4SMrnaSiNW5CYuIuHo/9mtvlWwnCznInFYJfadW7CuNby1LTE0jHMhSXoPC
+	 KF2jIl7iCQo94S9sZU6L16viT5tL8vzQ5dyMSgGWr2d4YcHj3tu54cCgGqLl8eTfIS
+	 qFDt4JmrntU7w==
 From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, cardoe@cardoe.com, michal.orzel@amd.com
-Subject: [PATCH v3 0/2] automation: introduce a Xilinx hardware test
-Message-ID: <alpine.DEB.2.22.394.2303061531240.863724@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Cc: sstabellini@kernel.org,
+	cardoe@cardoe.com,
+	michal.orzel@amd.com,
+	Stefano Stabellini <stefano.stabellini@amd.com>
+Subject: [PATCH v3 1/2] automation: add Ubuntu container for Xilinx hardware tests
+Date: Mon,  6 Mar 2023 15:33:09 -0800
+Message-Id: <20230306233310.1993693-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <alpine.DEB.2.22.394.2303061531240.863724@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2303061531240.863724@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-Hi all,
+From: Stefano Stabellini <stefano.stabellini@amd.com>
 
-This short patch series introduces the first Xen gitlab-ci test run on
-real hardware: a physical Xilinx ZCU102 board.
+This container is only run on the controller PC (x86) to trigger the
+test on a connected Xilinx ZCU102 physical board.
 
-The gitlab container is run on a workstation physically connected to a
-ZCU102 board. The test script looks very similar to a regular QEMU test
-script, except that at the end it reboots the physical board and
-connects to the serial instead of launching QEMU.
+Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+---
+Changes in v3:
+- improve in-code comment
+- add reviewed-by
+---
+ .../build/ubuntu/xenial-xilinx.dockerfile     | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+ create mode 100644 automation/build/ubuntu/xenial-xilinx.dockerfile
 
-The gitlab runner is currently restricted to
-https://gitlab.com/xen-project/xen. A CI/CD variable called
-"XILINX_JOBS" is set to true for https://gitlab.com/xen-project/xen, so
-that we can signal the pipeline to create a xilinx job, otherwise the
-job is skipped as the runner is not available.
+diff --git a/automation/build/ubuntu/xenial-xilinx.dockerfile b/automation/build/ubuntu/xenial-xilinx.dockerfile
+new file mode 100644
+index 0000000000..5f70871352
+--- /dev/null
++++ b/automation/build/ubuntu/xenial-xilinx.dockerfile
+@@ -0,0 +1,25 @@
++FROM ubuntu:16.04
++LABEL maintainer.name="The Xen Project " \
++      maintainer.email="xen-devel@lists.xenproject.org"
++
++ENV DEBIAN_FRONTEND=noninteractive
++ENV USER root
++
++RUN mkdir /build
++WORKDIR /build
++
++# board bringup depends
++RUN apt-get update && \
++    apt-get --quiet --yes install \
++        snmp \
++        snmp-mibs-downloader \
++        u-boot-tools \
++        device-tree-compiler \
++        cpio \
++        git \
++        gzip \
++        file \
++        && \
++        apt-get autoremove -y && \
++        apt-get clean && \
++        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+-- 
+2.25.1
 
-Cheers,
-
-Stefano
 
