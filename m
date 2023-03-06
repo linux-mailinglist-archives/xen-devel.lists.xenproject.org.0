@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 763446AB8B5
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Mar 2023 09:47:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.506784.779979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDF476AB8BE
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Mar 2023 09:47:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.506785.779988 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZ6V7-0001nS-O2; Mon, 06 Mar 2023 08:47:21 +0000
+	id 1pZ6VA-00024M-0y; Mon, 06 Mar 2023 08:47:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 506784.779979; Mon, 06 Mar 2023 08:47:21 +0000
+Received: by outflank-mailman (output) from mailman id 506785.779988; Mon, 06 Mar 2023 08:47:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZ6V7-0001jX-JH; Mon, 06 Mar 2023 08:47:21 +0000
-Received: by outflank-mailman (input) for mailman id 506784;
- Mon, 06 Mar 2023 08:47:19 +0000
+	id 1pZ6V9-000221-Sd; Mon, 06 Mar 2023 08:47:23 +0000
+Received: by outflank-mailman (input) for mailman id 506785;
+ Mon, 06 Mar 2023 08:47:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=A4jh=66=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1pZ6V5-0000dk-TJ
- for xen-devel@lists.xenproject.org; Mon, 06 Mar 2023 08:47:19 +0000
+ id 1pZ6V8-0000dk-To
+ for xen-devel@lists.xenproject.org; Mon, 06 Mar 2023 08:47:22 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 80609d35-bbfb-11ed-96b4-2f268f93b82a;
- Mon, 06 Mar 2023 09:47:19 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ id 822d7c10-bbfb-11ed-96b4-2f268f93b82a;
+ Mon, 06 Mar 2023 09:47:22 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-67-cbgnrg-hNoiPEn6lO3Smbg-1; Mon, 06 Mar 2023 03:47:14 -0500
+ us-mta-534-DmKCntfRM1qxeZT9MJ-5Eg-1; Mon, 06 Mar 2023 03:47:16 -0500
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
  [10.11.54.5])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 54444185A7A4;
- Mon,  6 Mar 2023 08:47:13 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 188F43813F2F;
+ Mon,  6 Mar 2023 08:47:16 +0000 (UTC)
 Received: from thuth.com (unknown [10.39.193.101])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DF4AC440DE;
- Mon,  6 Mar 2023 08:47:10 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 92FC3175AD;
+ Mon,  6 Mar 2023 08:47:13 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80609d35-bbfb-11ed-96b4-2f268f93b82a
+X-Inumbo-ID: 822d7c10-bbfb-11ed-96b4-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678092437;
+	s=mimecast20190719; t=1678092441;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Tu4fLVUa5CKH9yGWFtuNR/Tn/c+l+6gsZNxsu/a/pnc=;
-	b=ByIlNLDwb6LDeAYU+vUZHPccOcfthy0mS9BpjFlsIrHH8CXMd58EPcbp7MM/QO7o8/Mild
-	TLoa86NJ13xrie3btLLnWHZYhSmyrncL/SegN+/whM49QdsCzIXJg8009GTL9rJrfSA3V+
-	QbwoWyCpvIgS9HdeYh80k7Qft3gN3Zs=
-X-MC-Unique: cbgnrg-hNoiPEn6lO3Smbg-1
+	bh=4T9cplH6CcELavmnQDL+WvQDU+eNL+kdMeEtlFvM8H4=;
+	b=jThZ/X3t7qjLsFky59u0JMwMERLIW3z6thHSHWI+Bx7WIgzDXSISBzw6sF2MSWvtOfDIFH
+	TmvZ3Ze4jOrO2Kk4uplPDo8X2F3Y0zMkdK7tG/5ZcxsyBkV9FcURe0+96XSkvSCgbo1LnT
+	WnCjdzqr3yPN1wchTab5pKCpSpunyUY=
+X-MC-Unique: DmKCntfRM1qxeZT9MJ-5Eg-1
 From: Thomas Huth <thuth@redhat.com>
 To: qemu-devel@nongnu.org,
 	Peter Maydell <peter.maydell@linaro.org>,
@@ -77,9 +77,9 @@ Cc: Markus Armbruster <armbru@redhat.com>,
 	Reinoud Zandijk <reinoud@netbsd.org>,
 	Wilfred Mallawa <wilfred.mallawa@wdc.com>,
 	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Subject: [PATCH v4 4/5] docs/about/deprecated: Deprecate 32-bit arm hosts for system emulation
-Date: Mon,  6 Mar 2023 09:46:57 +0100
-Message-Id: <20230306084658.29709-5-thuth@redhat.com>
+Subject: [PATCH v4 5/5] gitlab-ci.d/crossbuilds: Drop the 32-bit arm system emulation jobs
+Date: Mon,  6 Mar 2023 09:46:58 +0100
+Message-Id: <20230306084658.29709-6-thuth@redhat.com>
 In-Reply-To: <20230306084658.29709-1-thuth@redhat.com>
 References: <20230306084658.29709-1-thuth@redhat.com>
 MIME-Version: 1.0
@@ -87,40 +87,49 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 
-For running QEMU in system emulation mode, the user needs a rather
-strong host system, i.e. not only an embedded low-frequency controller.
-All recent beefy arm host machines should support 64-bit now, it's
-unlikely that anybody is still seriously using QEMU on a 32-bit arm
-CPU, so we deprecate the 32-bit arm hosts here to finally save use
-some time and precious CI minutes.
+Hardly anybody still uses 32-bit arm environments for running QEMU,
+so let's stop wasting our scarce CI minutes with these jobs.
 
 Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Reviewed-by: Wilfred Mallawa <wilfred.mallawa@wdc.com>
 Signed-off-by: Thomas Huth <thuth@redhat.com>
 ---
- docs/about/deprecated.rst | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ .gitlab-ci.d/crossbuilds.yml | 14 --------------
+ 1 file changed, 14 deletions(-)
 
-diff --git a/docs/about/deprecated.rst b/docs/about/deprecated.rst
-index c4fcc6b33c..f0de517dc2 100644
---- a/docs/about/deprecated.rst
-+++ b/docs/about/deprecated.rst
-@@ -220,6 +220,15 @@ be an effective use of its limited resources, and thus intends to discontinue
- it. Since all recent x86 hardware from the past >10 years is capable of the
- 64-bit x86 extensions, a corresponding 64-bit OS should be used instead.
+diff --git a/.gitlab-ci.d/crossbuilds.yml b/.gitlab-ci.d/crossbuilds.yml
+index a25cb87ae4..61b8ac86ee 100644
+--- a/.gitlab-ci.d/crossbuilds.yml
++++ b/.gitlab-ci.d/crossbuilds.yml
+@@ -1,13 +1,6 @@
+ include:
+   - local: '/.gitlab-ci.d/crossbuild-template.yml'
  
-+System emulation on 32-bit arm hosts (since 8.0)
-+''''''''''''''''''''''''''''''''''''''''''''''''
-+
-+Since QEMU needs a strong host machine for running full system emulation, and
-+all recent powerful arm hosts support 64-bit, the QEMU project deprecates the
-+support for running any system emulation on 32-bit arm hosts in general. Use
-+64-bit arm hosts for system emulation instead. (Note: "user" mode emulation
-+continuous to be supported on 32-bit arm hosts, too)
-+
+-cross-armel-system:
+-  extends: .cross_system_build_job
+-  needs:
+-    job: armel-debian-cross-container
+-  variables:
+-    IMAGE: debian-armel-cross
+-
+ cross-armel-user:
+   extends: .cross_user_build_job
+   needs:
+@@ -15,13 +8,6 @@ cross-armel-user:
+   variables:
+     IMAGE: debian-armel-cross
  
- QEMU API (QAPI) events
- ----------------------
+-cross-armhf-system:
+-  extends: .cross_system_build_job
+-  needs:
+-    job: armhf-debian-cross-container
+-  variables:
+-    IMAGE: debian-armhf-cross
+-
+ cross-armhf-user:
+   extends: .cross_user_build_job
+   needs:
 -- 
 2.31.1
 
