@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 626926AB6C5
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Mar 2023 08:08:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.506658.779748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 033F86AB6D2
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Mar 2023 08:13:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.506664.779758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZ4xA-0003gy-2C; Mon, 06 Mar 2023 07:08:12 +0000
+	id 1pZ525-0005Hw-Ll; Mon, 06 Mar 2023 07:13:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 506658.779748; Mon, 06 Mar 2023 07:08:12 +0000
+Received: by outflank-mailman (output) from mailman id 506664.779758; Mon, 06 Mar 2023 07:13:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZ4x9-0003e6-Vb; Mon, 06 Mar 2023 07:08:11 +0000
-Received: by outflank-mailman (input) for mailman id 506658;
- Mon, 06 Mar 2023 07:08:10 +0000
+	id 1pZ525-0005Ee-Iw; Mon, 06 Mar 2023 07:13:17 +0000
+Received: by outflank-mailman (input) for mailman id 506664;
+ Mon, 06 Mar 2023 07:13:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kIMi=66=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pZ4x8-0003dy-Gl
- for xen-devel@lists.xenproject.org; Mon, 06 Mar 2023 07:08:10 +0000
+ id 1pZ524-0005EI-85
+ for xen-devel@lists.xenproject.org; Mon, 06 Mar 2023 07:13:16 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6557a0b-bbed-11ed-96b4-2f268f93b82a;
- Mon, 06 Mar 2023 08:08:09 +0100 (CET)
+ id 5c48e208-bbee-11ed-96b4-2f268f93b82a;
+ Mon, 06 Mar 2023 08:13:15 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D48D821A3C;
- Mon,  6 Mar 2023 07:08:08 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 22B1F21EB3;
+ Mon,  6 Mar 2023 07:13:14 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A1D5313513;
- Mon,  6 Mar 2023 07:08:08 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8A06913513;
+ Mon,  6 Mar 2023 07:13:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gX5GJliRBWRzJQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 06 Mar 2023 07:08:08 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id SGQ1IImSBWTyJgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 06 Mar 2023 07:13:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,84 +51,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6557a0b-bbed-11ed-96b4-2f268f93b82a
+X-Inumbo-ID: 5c48e208-bbee-11ed-96b4-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1678086488; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1678086794; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GxnEcqxtAuM7DCHjX6Aj+nxa2Y99uuDgnDC9yGlaTf8=;
-	b=Q6h3AzueJA2LsHjC0dFuHURbb3o+LrqUAIm0T9rEFmgznEbHPf56aDLg3b787jpT974SlA
-	nl5hD2Vg809qAb1s81Mt7E18edaY9sKHAOi64wBgNEM6O0gpHdFCOqDyMIveldFuCxr7Mi
-	gdM0kG8tQzKMa8hERYc3NCVqyXRebDY=
-Message-ID: <21357fda-9e22-d46e-17c2-81b72b76ea59@suse.com>
-Date: Mon, 6 Mar 2023 08:08:08 +0100
+	bh=YvDMhSXmiGVzbLzei78fgWHA9om6Y2kLxVX8sxZc5Gw=;
+	b=bKDgHjtxGNG6fq67wCumi1sHfMM0tgk7FIUhaw+ZqSzBRxSQjsWuss0R4q1hdi0XGRNJaj
+	nDSerQOpEefdoe4JKVVe7XAcQf/L55lu0xNZyK8YQZHkSIlhze4rhNlNYFNbPMDGYBE8ZG
+	+1XRnAJ1Pv7fTJCav/Cf8zRycj//udo=
+Message-ID: <30f30ce8-697b-2df2-143d-d182d53760cc@suse.com>
+Date: Mon, 6 Mar 2023 08:13:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH v2 4/4] tools: add offsetof() to xen-tools/common-macros.h
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20230227154153.31080-1-jgross@suse.com>
- <20230227154153.31080-5-jgross@suse.com>
- <8a0a2cb9-17e9-31c3-5876-cdfcc669ddc4@suse.com>
+Subject: Re: [PATCH v2 1/4] tools: rename xen-tools/libs.h file to
+ common-macros.h
 Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Julien Grall <julien@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+References: <20230227154153.31080-1-jgross@suse.com>
+ <20230227154153.31080-2-jgross@suse.com>
+ <07780c4a-48ff-9c63-9f73-39d8e272a6bd@suse.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <8a0a2cb9-17e9-31c3-5876-cdfcc669ddc4@suse.com>
+In-Reply-To: <07780c4a-48ff-9c63-9f73-39d8e272a6bd@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------tMm1yFFimv9NaxGmcABv9nzx"
+ boundary="------------j41H5dxvaQGy1AYlSTp6Kk4H"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------tMm1yFFimv9NaxGmcABv9nzx
-Content-Type: multipart/mixed; boundary="------------46HIhK00EMfhtfl8OI6tQ8wQ";
+--------------j41H5dxvaQGy1AYlSTp6Kk4H
+Content-Type: multipart/mixed; boundary="------------WkBSwxi9p5IDAUC2Us7JgSzE";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org
-Message-ID: <21357fda-9e22-d46e-17c2-81b72b76ea59@suse.com>
-Subject: Re: [PATCH v2 4/4] tools: add offsetof() to xen-tools/common-macros.h
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Julien Grall <julien@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Message-ID: <30f30ce8-697b-2df2-143d-d182d53760cc@suse.com>
+Subject: Re: [PATCH v2 1/4] tools: rename xen-tools/libs.h file to
+ common-macros.h
 References: <20230227154153.31080-1-jgross@suse.com>
- <20230227154153.31080-5-jgross@suse.com>
- <8a0a2cb9-17e9-31c3-5876-cdfcc669ddc4@suse.com>
-In-Reply-To: <8a0a2cb9-17e9-31c3-5876-cdfcc669ddc4@suse.com>
+ <20230227154153.31080-2-jgross@suse.com>
+ <07780c4a-48ff-9c63-9f73-39d8e272a6bd@suse.com>
+In-Reply-To: <07780c4a-48ff-9c63-9f73-39d8e272a6bd@suse.com>
 
---------------46HIhK00EMfhtfl8OI6tQ8wQ
-Content-Type: multipart/mixed; boundary="------------mEKhpf2TyHgRog5cm7pwQTaT"
+--------------WkBSwxi9p5IDAUC2Us7JgSzE
+Content-Type: multipart/mixed; boundary="------------jGWdJtZYKimcYxNOtN25KN0Z"
 
---------------mEKhpf2TyHgRog5cm7pwQTaT
+--------------jGWdJtZYKimcYxNOtN25KN0Z
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMjcuMDIuMjMgMTY6NTMsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNy4wMi4yMDIz
-IDE2OjQxLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEvdG9vbHMvZmlybXdhcmUv
-aW5jbHVkZS9zdGRkZWYuaA0KPj4gKysrIGIvdG9vbHMvZmlybXdhcmUvaW5jbHVkZS9zdGRk
-ZWYuaA0KPj4gQEAgLTEsMTAgKzEsMTAgQEANCj4+ICAgI2lmbmRlZiBfU1REREVGX0hfDQo+
-PiAgICNkZWZpbmUgX1NURERFRl9IXw0KPj4gICANCj4+ICsjaW5jbHVkZSA8eGVuLXRvb2xz
-L2NvbW1vbi1tYWNyb3MuaD4NCj4+ICsNCj4+ICAgdHlwZWRlZiBfX1NJWkVfVFlQRV9fIHNp
-emVfdDsNCj4+ICAgDQo+PiAgICNkZWZpbmUgTlVMTCAoKHZvaWQqKTApDQo+PiAgIA0KPj4g
-LSNkZWZpbmUgb2Zmc2V0b2YodCwgbSkgX19idWlsdGluX29mZnNldG9mKHQsIG0pDQo+PiAt
-DQo+PiAgICNlbmRpZg0KPiANCj4gVGhlIEMgc3RhbmRhcmQgaXMgcHJldHR5IHNwZWNpZmlj
-IGFib3V0IHdoYXQgYSBoZWFkZXIgb2YgdGhpcyBuYW1lDQo+IG1heSBvciAoaW4gcGFydGlj
-dWxhciBoZXJlKSBtYXkgbm90IGRlZmluZS4gWW91IGFkZCBtdWNoIG1vcmUgdG8gdGhlDQo+
-IG5hbWUgc3BhY2UgdGhhbiBqdXN0IHRoZSByZXBsYWNlbWVudCBvZmZzZXRvZigpLiBJZiB0
-aGlzIHdhcyBhDQo+IGhlYWRlciB1c2VkIGJ5IGFuIGluZGl2aWR1YWwgY29tcG9uZW50LCB0
-aGlzIG1pZ2h0IGJlIGZpbmUuIEJ1dCB0aGlzDQo+IGhlYWRlciBpcyBtZWFudCB0byBzZXJ2
-ZSBhbGwgY29tcG9uZW50cyB1bmRlciBmaXJtd2FyZS8gd2hpY2ggY2FyZQ0KPiB0byBpbmNs
-dWRlIGl0LiBBdCBwcmVzZW50IHRoYXQncyBodm1sb2FkZXIgKHdoaWNoIHdlIGNvbnRyb2ws
-IHNvIHdlDQo+IGNhbiBhcnJhbmdlIGZvciBpdCB0byBiZSBmcmVlIG9mIGNvbGxpc2lvbnMp
-IGFuZCByb21iaW9zICh3aGljaCB3ZQ0KPiBkbyBub3QgcmVhbGx5IGNvbnRyb2wsIGFuZCB3
-aGljaCBwZW9wbGUgYWxzbyBtYXkgbm90IGJ1aWxkIHJvdXRpbmVseQ0KPiBhbnltb3JlKS4N
-Cg0KR29vZCBwb2ludC4NCg0KSSBoYXZlIHZlcmlmaWVkIHRoYXQgdGhlIGJ1aWxkIGlzIHN0
-aWxsIHN1Y2NlZWRpbmcgd2l0aG91dCB0aGUgbW9kaWZpY2F0aW9uDQpvZiB0b29scy9maXJt
-d2FyZS9pbmNsdWRlL3N0ZGRlZi5oLCBzbyBJJ2xsIGRyb3AgdGhpcyBodW5rLg0KDQoNCkp1
-ZXJnZW4NCg0K
---------------mEKhpf2TyHgRog5cm7pwQTaT
+T24gMjcuMDIuMjMgMTY6NDYsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNy4wMi4yMDIz
+IDE2OjQxLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEvdG9vbHMvaW5jbHVkZS94
+ZW4tdG9vbHMvbGlicy5oDQo+PiArKysgYi90b29scy9pbmNsdWRlL3hlbi10b29scy9jb21t
+b24tbWFjcm9zLmgNCj4+IEBAIC0xLDUgKzEsMTMgQEANCj4+IC0jaWZuZGVmIF9fWEVOX1RP
+T0xTX0xJQlNfXw0KPj4gLSNkZWZpbmUgX19YRU5fVE9PTFNfTElCU19fDQo+PiArI2lmbmRl
+ZiBfX1hFTl9UT09MU19DT01NT05fTUFDUk9TX18NCj4+ICsjZGVmaW5lIF9fWEVOX1RPT0xT
+X0NPTU1PTl9NQUNST1NfXw0KPj4gKw0KPj4gKy8qDQo+PiArICogQ2F1dGlvbjoNCj4+ICsg
+Kg0KPj4gKyAqIFRoaXMgaGVhZGVyIG11c3QgYmUgY29tcGxldGVseSBzZWxmLWNvbnRhaW5l
+ZC4gVGhlcmUgYXJlIG5vIGV4dGVybmFsDQo+PiArICogcmVmZXJlbmNlcyB0byB2YXJpYWJs
+ZXMgb3IgZnVuY3Rpb25zIGFsbG93ZWQsIGFzIHRoZSBmaWxlIG1pZ2h0IGJlIGluY2x1ZGVk
+DQo+PiArICogZm9yIGRpZmZlcmVudCBydW50aW1lIGVudmlyb25tZW50cywgc3VjaCBhcyBm
+aXJtd2FyZSBvciBub3JtYWwgcHJvZ3JhbXMuDQo+PiArICovDQo+IA0KPiBNYXkgSSBhc2sg
+dG8gZ28gYSB0aW55IHN0ZXAgZnVydGhlcjogcy9ub3JtYWwvdGFyZ2V0IGFuZCBidWlsZCBo
+b3N0LyBvcg0KPiBzb21ldGhpbmcgYWxpa2U/DQoNCkZpbmUgd2l0aCBtZS4NCg0KDQpKdWVy
+Z2VuDQoNCg==
+--------------jGWdJtZYKimcYxNOtN25KN0Z
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -186,25 +198,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------mEKhpf2TyHgRog5cm7pwQTaT--
+--------------jGWdJtZYKimcYxNOtN25KN0Z--
 
---------------46HIhK00EMfhtfl8OI6tQ8wQ--
+--------------WkBSwxi9p5IDAUC2Us7JgSzE--
 
---------------tMm1yFFimv9NaxGmcABv9nzx
+--------------j41H5dxvaQGy1AYlSTp6Kk4H
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQFkVgFAwAAAAAACgkQsN6d1ii/Ey+k
-xwf9FyAuK9EHmk6KlgL7JX9LZqRFMMaKAjG+c1pnuU9mBoKce/9HJ80Y7GyR3/rSkw5EjujWH8jk
-SferJLgdLbb6ahpAWJpc5ZF3lMf+3y4LlVaFLftp2oXVxtIe8R7j9GAD8eppT967rvPo5Vn5lDfi
-qSEzmnTM6Js9F0o9g1UTrkutzFe4X/7CN8wYSC82XojuuB5AG8ipmsc1SNg1A2nkp/SvWdl1zMNC
-bWMTuYQcHi0+sdBuiRm+KGyIcFObCMNskuEP18anBkU6/kMm8dHwZUHOIiekiYLc1/3Ss0nQPcpv
-8vJFYR8+HOMJn7gBYNhlvZFUR2ZbhKSUfi00v2N15g==
-=5Bg/
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQFkokFAwAAAAAACgkQsN6d1ii/Ey8i
+UQf+LV/FIqbyaf/Q3ejvWAe6IyyoqEHUjoeeIhkwJRCExrEkhb+D/Qi9s9BNa/DxryFZFNmgao7t
+V5Q1eu7pxGe6oAXtWwIzdoPzNjgdpnAo0QVTEmEf6RSI+oDsimi74CNnBSc6Zvr5cyXVmPa+gejD
+5KvA43F87UAGmBYVjHduo1unGSoHOcBlDCCEejafyqKDAhLdXBu5EtsZczUC5F9txIQE8b45TTKt
+Vd1OtyYDtRLY1hD4E9Sh1tRCmjjm61nLY3b/oVmdyy0+ZhdgC+j/6KiUDOOB+t/efB0FMvZltOI9
+HU7PNOW59TT000/IU2UZApSaaqhKorKLlzeq0pnAuQ==
+=vBLy
 -----END PGP SIGNATURE-----
 
---------------tMm1yFFimv9NaxGmcABv9nzx--
+--------------j41H5dxvaQGy1AYlSTp6Kk4H--
 
