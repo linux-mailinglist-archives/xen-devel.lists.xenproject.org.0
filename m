@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF2B86AC2F0
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Mar 2023 15:18:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.506963.780188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49ECD6AC320
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Mar 2023 15:23:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.506969.780197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZBfd-0001E7-FC; Mon, 06 Mar 2023 14:18:33 +0000
+	id 1pZBkI-0002na-1X; Mon, 06 Mar 2023 14:23:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 506963.780188; Mon, 06 Mar 2023 14:18:33 +0000
+Received: by outflank-mailman (output) from mailman id 506969.780197; Mon, 06 Mar 2023 14:23:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZBfd-0001BC-C9; Mon, 06 Mar 2023 14:18:33 +0000
-Received: by outflank-mailman (input) for mailman id 506963;
- Mon, 06 Mar 2023 14:18:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=A4jh=66=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1pZBfc-0001B6-Fa
- for xen-devel@lists.xenproject.org; Mon, 06 Mar 2023 14:18:32 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c3e82a70-bc29-11ed-a550-8520e6686977;
- Mon, 06 Mar 2023 15:18:29 +0100 (CET)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-658-Nj0kTPHFM9C-RtqlKixEnw-1; Mon, 06 Mar 2023 09:18:27 -0500
-Received: by mail-wm1-f71.google.com with SMTP id
- l31-20020a05600c1d1f00b003e8626cdd42so3631737wms.3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Mar 2023 06:18:26 -0800 (PST)
-Received: from [192.168.0.2] (ip-109-43-177-59.web.vodafone.de.
- [109.43.177.59]) by smtp.gmail.com with ESMTPSA id
- g40-20020a05600c4ca800b003eb3933ef10sm10076844wmp.46.2023.03.06.06.18.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Mar 2023 06:18:25 -0800 (PST)
+	id 1pZBkH-0002lT-UM; Mon, 06 Mar 2023 14:23:21 +0000
+Received: by outflank-mailman (input) for mailman id 506969;
+ Mon, 06 Mar 2023 14:23:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=opIj=66=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
+ id 1pZBkG-0002lN-1V
+ for xen-devel@lists.xenproject.org; Mon, 06 Mar 2023 14:23:20 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 70d85b09-bc2a-11ed-96b5-2f268f93b82a;
+ Mon, 06 Mar 2023 15:23:18 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id bx12so8967559wrb.11
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Mar 2023 06:23:18 -0800 (PST)
+Received: from horizon ([2a01:e0a:257:8c60:48e5:bfa:d652:b8ef])
+ by smtp.gmail.com with ESMTPSA id
+ w9-20020a05600018c900b002c5a1bd5280sm9962275wrq.95.2023.03.06.06.23.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Mar 2023 06:23:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,108 +44,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3e82a70-bc29-11ed-a550-8520e6686977
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678112308;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Mbkz7IRHAR6Gk1TwwjGuAsPHXnfma+ZrprMAvR7H3bE=;
-	b=cUvCgz/1TOpzETe9v9/qhb1vtRanSRVtiwRKMOx5m3cAMGtnbIs0Wfcz5QpzV+VCSL5zUk
-	nMfb+zDYgRppITaBxRUeNQUwc9v8/ZJis+j7cuCXNklMqvRzMjHtL1b1L5N3APpS6CZST2
-	lNcuoeeB75NnrLoQs59Wrwr/UGvvr1U=
-X-MC-Unique: Nj0kTPHFM9C-RtqlKixEnw-1
+X-Inumbo-ID: 70d85b09-bc2a-11ed-96b5-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1678112598;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=kLPMiR6YYwqNgf2OlRvfzJqSL0t/mkX/PsJDY3H57xw=;
+        b=k3R31LV7JvDl39nt0S9VkjCUZoCyt9O8ISPSj+joNhpmwvK8JPlGMyXLzseJTV/JVH
+         2bSQa6UUZBL3BiNIzW85NbmIZd20mOnu5wCxX9zOk1OrGLfHS//36kEUWwxx/kWrOZUx
+         eZ1j7dBJj18x3FxZs9P5cjzImG05g4j3eAjj/ILk4eoSOWWzHOMywQ7KXpKKm5NAQ2ze
+         wrbxlieCjOGYhN4BZAThtPmIYyQPjau0sCn/rCGIrjpx8aHk9DCrC+A1YLgDsE+aHv7B
+         JDYGW8ZFw2ry52Mm+s+rEy6C7astEvr0wWcBJxIwDQuSNIE1MFrMdclW6swuNBUFGio2
+         ZgXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678112306;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20210112; t=1678112598;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Mbkz7IRHAR6Gk1TwwjGuAsPHXnfma+ZrprMAvR7H3bE=;
-        b=ZZRZOoLq/IqJHAdv7xl+rX6A+yt8nMek4GFXeEmsqPBOf0Kdy+OGItcEBxLHXhh3GY
-         wzph7sR8QyYO9LHBAIDmzzeQ/SYsxnc/TWSwDaGLpKvi22aWb1hL0P+BIX3EzVLV7f54
-         p1AW8tJmgEjelUfmZazOAyg9R5dP3SCxu1ZngNfG0JtxZBRwTSgIg5X2Rr05UZ8zf+TJ
-         J5yWFDeCDlnC7HzKOCz6cEBz+nFWuCLNdJesQcI/KfaCRcmoTSMcjqbd4fKoKA7bhxEN
-         nVqPEpa1j9jZoFzhRsOBtf4X88iH5ieaGJ9vJTC+VhmUvab8A9rLBfoTx/VtgBvqR52R
-         sosg==
-X-Gm-Message-State: AO0yUKUrJ5QTs3akOT+O+31ZforJHJB3FWKqPdtp544bt+Mg7v9CFTAH
-	G4ci85fA7XKBf8G+TEe1BVwyn/hPFgmG4H+HJgLJPd103CHW8QREb13r+2ObkAVzVAnI7UNUcmd
-	8rQ5Vpf+OsGjWBjZYW08eJhfmnIg=
-X-Received: by 2002:a05:600c:198e:b0:3eb:36fa:b78d with SMTP id t14-20020a05600c198e00b003eb36fab78dmr9109242wmq.23.1678112305985;
-        Mon, 06 Mar 2023 06:18:25 -0800 (PST)
-X-Google-Smtp-Source: AK7set/MR21FgoX8RyVFXUFY4MzV72bl/PWGUpJmW46y4RO7kLsnJJfonvCikk1sHoHsw2wpQdbBPg==
-X-Received: by 2002:a05:600c:198e:b0:3eb:36fa:b78d with SMTP id t14-20020a05600c198e00b003eb36fab78dmr9109217wmq.23.1678112305735;
-        Mon, 06 Mar 2023 06:18:25 -0800 (PST)
-Message-ID: <7f1501ba-f875-b227-8d7e-f43e69b2ab8d@redhat.com>
-Date: Mon, 6 Mar 2023 15:18:23 +0100
+        bh=kLPMiR6YYwqNgf2OlRvfzJqSL0t/mkX/PsJDY3H57xw=;
+        b=U63DjTD5+s/lfeQNUwKuiqAVthTLul2mWMcaeYOSoPe1v5tKfP5Nt3yQgaKwHtMhpk
+         7lcMPzTuHOKlHvyW5KcfjBMmUSBX+6wtYdQGKeCr7O3RYxl/eY5ijVP0SdIS2XNbKJuS
+         vPsg8/7M0+alo4IsNWdmTvdvZCaZMr19bE7J6oc+f5mGG9V4vFonC2D8kt9nMWfQdnHV
+         Fn90PaH5ycWiQ4yWH2Vts3HCFKnbBlA5tG7h9+XRNWnN5zXOE6nOYU4rMndP6uqc9nJc
+         SzcO6D9KHdEfgX7SxrfxQgQugxOmlzFBS+zkOV+I9bDsxXt5ExxsYPc8mGRnYXyUtQ5n
+         CsTw==
+X-Gm-Message-State: AO0yUKXKggwP6oaw9tMK0Bzf2PDq1kNuzxFxEBvBubjRaHA0hMT1mqmk
+	q4pqVfTspG7vo3GVU+ZJpZYdVFPY0p0=
+X-Google-Smtp-Source: AK7set/X9acdGdf+HnkIBmL5miVkVxZaa8WO7FPuXAwt0OLPaGPNUyfrAhfrjcO+Cd5poaDrB3yikg==
+X-Received: by 2002:a5d:4d02:0:b0:2c5:58fc:e1bb with SMTP id z2-20020a5d4d02000000b002c558fce1bbmr7739372wrt.10.1678112597867;
+        Mon, 06 Mar 2023 06:23:17 -0800 (PST)
+Date: Mon, 6 Mar 2023 15:23:15 +0100
+From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+	Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: API/ABIs: Re: [RFC PATCH v2 0/2] Add a new acquire resource to
+ query vcpu statistics
+Message-ID: <20230306142315.GA745324@horizon>
+References: <cover.1665138677.git.matias.vara@vates.fr>
+ <90a551bc-ffda-6db8-775b-11c100bf6f52@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH v4 2/5] docs/about/deprecated: Deprecate the
- qemu-system-i386 binary
-To: =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>
-Cc: qemu-devel@nongnu.org, Peter Maydell <peter.maydell@linaro.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, qemu-arm@nongnu.org,
- Maxim Levitsky <mlevitsk@redhat.com>, libvir-list@redhat.com,
- Richard Henderson <richard.henderson@linaro.org>,
- xen-devel@lists.xenproject.org, Reinoud Zandijk <reinoud@netbsd.org>,
- Wilfred Mallawa <wilfred.mallawa@wdc.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-References: <20230306084658.29709-1-thuth@redhat.com>
- <20230306084658.29709-3-thuth@redhat.com> <ZAWx5eBskd1cItDx@redhat.com>
- <a97c8b6d-8e58-82b5-d73f-72a7061fb5d4@redhat.com>
- <ZAXzUIs6wODe7/hf@redhat.com>
-From: Thomas Huth <thuth@redhat.com>
-In-Reply-To: <ZAXzUIs6wODe7/hf@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <90a551bc-ffda-6db8-775b-11c100bf6f52@citrix.com>
 
-On 06/03/2023 15.06, Daniel P. BerrangÃ© wrote:
-> On Mon, Mar 06, 2023 at 02:48:16PM +0100, Thomas Huth wrote:
->> On 06/03/2023 10.27, Daniel P. BerrangÃ© wrote:
->>> On Mon, Mar 06, 2023 at 09:46:55AM +0100, Thomas Huth wrote:
->>>> [...] If a 32-bit CPU guest
->>>> +environment should be enforced, you can switch off the "long mode" CPU
->>>> +flag, e.g. with ``-cpu max,lm=off``.
->>>
->>> I had the idea to check this today and this is not quite sufficient,
->> [...]
->>> A further difference is that qemy-system-i686 does not appear to enable
->>> the 'syscall' flag, but I've not figured out where that difference is
->>> coming from in the code.
->>
->> I think I just spotted this by accident in target/i386/cpu.c
->> around line 637:
->>
->> #ifdef TARGET_X86_64
->> #define TCG_EXT2_X86_64_FEATURES (CPUID_EXT2_SYSCALL | CPUID_EXT2_LM)
->> #else
->> #define TCG_EXT2_X86_64_FEATURES 0
->> #endif
+Hello Andrew and thanks for the comments, please find my comments below.
+
+On Thu, Feb 23, 2023 at 07:56:28PM +0000, Andrew Cooper wrote:
+> A discussion about forward extensible APIs and ABIs here.
 > 
-> Hmm, so right now the difference between qemu-system-i386 and
-> qemu-system-x86_64 is based on compile time conditionals. So we
-> have the burden of building everything twice and also a burden
-> of testing everything twice.
+> First, its important to say that this should be "domain stats" and not
+> just "vcpu stats".  This is easy to account for now, but hard to
+> retrofit later.
 > 
-> If we eliminate qemu-system-i386 we get rid of our own burden,
-> but users/mgmt apps need to adapt to force qemu-system-x86_64
-> to present a 32-bit system.
+> For the shared memory, we have a minimum granularity of PAGE_SIZE (4k
+> for now, but this will change in due course on non-x86 architectures),
+> and a resource-agnostic way of determining the resource size (as a
+> multiple of the page size).
 > 
-> What about if we had qemu-system-i386 be a hardlink to
-> qemu-system-x86_64, and then changed behaviour based off the
-> executed binary name ?
+> But there are other things we need to consider:
+> 
+> 1) To be sensibly extendable, there needs to be some metadata, and the
+> domain stats is clearly going to be a different shape to the vcpu stats.
+> 
+> 2) We also want to give Xen some flexibility to allocate memory in a
+> suitable manner for the system.
+> 
+> 3) Xen and the userspace consuming this interface will likely be built
+> from different versions of the header.  This needs to inter-operate with
+> the common subset of functionality.
+> 
+> 
+> So what we want, at least to describe the shape, is something like this:
+> 
+> struct dom_shmem_stats {
+>     uint32_t dom_size; // sizeof(dom)
+>     uint32_t vcpu_offs;
+>     uint32_t vcpu_size; // sizeof(vcpu)
+>     uint32_t vcpu_stride;
+>     ...
+> };
+> 
+> struct vcpu_shmem_stats {
+>     ...
+> };
+> 
+> where the data layout shall be that there is one dom structure starting
+> at 0, and an array of vcpu_stride objects starting at vcpu_offset.
+> 
+> Obviously, some invariants apply.  vcpu_offs >= dom_size, and
+> vcpu_stride >= vcpu_size.  The total size of the mapping must be larger
+> than vcpu_offs + vcpus * vcpu_stride  (and no, I intentionally don't
+> care about the rounding at the end because it doesn't change things in
+> practice.)
+> 
 
-We could also simply provide a shell script that runs:
+Would it make sense to use different type-specific resources identifiers for
+each "stat"?, e.g., XENMEM_resource_stats_table_id_vcpustats,
+XENMEM_resource_stats_table_id_domstats and so on. The size of each of these
+type-specific resources would be queried by using
+`xenforeignmemory_resource_size()`. The mapping would be done by using
+`xenforeignmemory_map_resource()`.
 
-  qemu-system-x86_64 -cpu qemu32 $*
+The metadata to represent the XENMEM_resource_stats_table_id_vcpustats
+resource could be:
 
-... that'd sounds like the simplest solution to me.
+struct vcpu_shmem_stats {
+#define STATS_A (1u << 0)
+...
+#define VCPU_STATS_MAGIC 0xaabbccdd
+     uint32_t magic;
+     uint32_t stats_active;
+     uint32_t offset;  // roundup(sizeof(vcpu_shmem_stats), cacheline_size)
+     uint32_t size;    // sizeof(vcpu_stats)
+     uint32_t stride;  // roundup(sizeof(vcpu_stats), cacheline_size)
+     uint32_t _pad;
+     ...
+};
 
-  Thomas
+struct vcpu_stats {
+    /*
+     * If the least-significant bit of the seq number is set then an update
+     * is in progress and the consumer must wait to read a consistent set of
+     * values. This mechanism is similar to Linux's seqlock.
+     */
+    uint32_t seq;
+    uint32 _pad;
+    uint64_t stats_a; // e.g., runstate_running_time
+    ...
+};
 
+The data layout shall be that there is one vcpu_shmem_stats structure starting
+at 0, and an array of stride objects starting at offset, i.e., vcpu_stats
+structures. The invariants would be:
+* 1. offset >= sizeof(struct vcpu_shmem_stats)
+* 2. stride >= size
+* 3. the total size of the mapping in frames, which is the value returned by
+  resource_size(), must be larger than (offs + vcpus * stride).
+* 4. Xen must not produce any data outside of [base, stride) for vcpu data.
+
+The steps to add a new counter B would be:
+1. append the new field at vcpu_stats structure.
+2. define the bit in stats_active,.i.e., #define STATS_B (1u << 1)
+3. advertise STATS_B
+I may be missing some steps here but that would be the overall process.
+
+Regarding your email, I have the following comments:
+
+- I still do not know how to choose the value of cacheline_size. I understand
+this value shall be between the actual cacheline_size and PAGE_SIZE. A value
+that could match most architectures could be 256 bytes.
+
+- Xen shall use the "stats_active" field to indicate what it is producing. In
+  this field, reserved bits shall be 0. This shall allow us to agree on the
+layout even when producer and consumer are compiled with different headers.
+
+- In the vcpu_stats structure, new fields can only ever be appended.
+
+- The magic field shall act as a sanity check but also as an ABI version in case
+we decide to break backward-compatibility.
+
+> A very simple layout, packing the data as closely as reasonable, might be:
+> 
+> vcpu_offs = roundup(sizeof(dom), cacheline_size)
+> vcpu_stride = roundup(sizeof(vcpu), cacheline_size);
+> 
+> but Xen might have reason to use some other rounding.  As the dom or
+> vcpu size approaches a page, then Xen will want to change allocation
+> scheme to use page size for both, and not vmap the lot as one
+> consecutive region.
+> 
+> 
+> 
+> For the stats data itself, there wants to be some indication of what
+> data Xen is producing, so userspace can know not to bother consuming. 
+> So something like:
+> 
+> struct $foo_stats {
+>     ...
+> 
+> #define STATS_A (1u << 0)
+> #define STATS_B (1u << 2)
+>     uint32_t stats_active;
+>    
+>     struct $foo_stats_a {
+>         uint32_t single_field;
+>         ... // maybe other singleton fields
+>     };
+> 
+>     struct $foo_stats_b {
+>         uint32_t seq;  // "seq" is more common than "version"
+>         uint32_t _pad;
+>         uint64_t field1;
+>         uint64_t field2;
+>         ...
+>     };
+> };
+> 
+> 
+> Forward compatibility rules say that you can only ever append new
+> fields.  But as hinted at with the stats_active field, its fine to leave
+> reserved fields around for future use, generally with a rule that
+> anything reserved shall be 0.
+> 
+> Importantly, this means that offsetof(dom, stats_b) is fixed, and will
+> inter-operate just fine if e.g. userspace knows about a stats_c that Xen
+> doesn't know about.
+> 
+> But this does highlight some more invariants.  Xen must not produce any
+> data outside of [0, vcpu_offs) for dom data, and [base, vcpu_stride) for
+> vcpu data.
+> 
+> Furthermore, Xen should not produce any data not indicated by the
+> stats_active field.  That said, if Xen is compiled knowing about
+> dom->stats_c, and userspace is not, then userspace will observe Xen
+> advertising a stat it doesn't know, and producing data beyond
+> userspace's sizeof(dom), but within dom->vcpu_offs.  This is explicitly
+> fine and expected, and why Xen writes it's sizeof() information into the
+> dom header.  This allows both sides to agree on the layout even when
+> they're not compiled from identical copies of the header.
+> 
+> 
+> 
+> A few closing thoughts.
+> 
+> 1) It is wise to have a magic number at the head of each dom and vcpu
+> struct.  This helps sanity check that both sides have correctly agreed
+> on the layout, but can also serve double duty as an ABI "version".  If
+> we screw up spectacularly, and decide that the best course of action is
+> to break backwards compatibility, then we can change the magic and edit
+> the structs in a non-forwards-compatible way.
+> 
+> 2) We may get to a point of wanting arch specific stats.  This can be
+> accommodated in the model by having struct arch_{dom,vcpu}_stats at
+> positions described by the layout at the start of dom.  It would be wise
+> to leave space (reserved fields) there to use if necessary.  This is
+> cleaner than deciding that we need to put some new layout fields after
+> the latest $foo_stats_$N and before $foo_stats_$M.
+> 
+
+I did not address this yet. The vcpu_stats could have some fields that would be
+architecture-dependent. Those fields would be advertised by the stats_active
+field.
+
+> 3) It would be great if we could have something in tools/tests/ which
+> can attach to a running VM and assess the correctness of the invariants
+> given.  Better yet if it could compile for each change of the ABI and
+> assess the correctness for all.
+> 
+
+I agree.
+
+Feedback is welcome.
+
+Thanks, Matias.
 
