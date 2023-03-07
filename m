@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E98406AE017
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 14:13:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.507367.780762 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADCD36AE024
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 14:16:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.507370.780772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZX7q-0003lb-On; Tue, 07 Mar 2023 13:13:06 +0000
+	id 1pZXAw-0004L2-72; Tue, 07 Mar 2023 13:16:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 507367.780762; Tue, 07 Mar 2023 13:13:06 +0000
+Received: by outflank-mailman (output) from mailman id 507370.780772; Tue, 07 Mar 2023 13:16:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZX7q-0003ic-LN; Tue, 07 Mar 2023 13:13:06 +0000
-Received: by outflank-mailman (input) for mailman id 507367;
- Tue, 07 Mar 2023 13:13:05 +0000
+	id 1pZXAw-0004J1-3T; Tue, 07 Mar 2023 13:16:18 +0000
+Received: by outflank-mailman (input) for mailman id 507370;
+ Tue, 07 Mar 2023 13:16:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zeiT=67=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pZX7p-0003iW-Qg
- for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 13:13:05 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ <SRS0=bVoF=67=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1pZXAv-0004Iu-Bt
+ for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 13:16:17 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ca65f837-bce9-11ed-a550-8520e6686977;
- Tue, 07 Mar 2023 14:13:03 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- fm20-20020a05600c0c1400b003ead37e6588so10360268wmb.5
- for <xen-devel@lists.xenproject.org>; Tue, 07 Mar 2023 05:13:03 -0800 (PST)
-Received: from [192.168.8.114] (46.204.108.143.nat.umts.dynamic.t-mobile.pl.
- [46.204.108.143]) by smtp.gmail.com with ESMTPSA id
- r20-20020a05600c425400b003dc47d458cdsm12999796wmm.15.2023.03.07.05.13.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Mar 2023 05:13:02 -0800 (PST)
+ id 3d2a1c43-bcea-11ed-a550-8520e6686977;
+ Tue, 07 Mar 2023 14:16:15 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ ay29-20020a05600c1e1d00b003e9f4c2b623so10369248wmb.3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Mar 2023 05:16:15 -0800 (PST)
+Received: from [192.168.25.218] (54-240-197-238.amazon.com. [54.240.197.238])
+ by smtp.gmail.com with ESMTPSA id
+ f5-20020a7bc8c5000000b003e896d953a8sm16951714wml.17.2023.03.07.05.16.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 07 Mar 2023 05:16:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca65f837-bce9-11ed-a550-8520e6686977
+X-Inumbo-ID: 3d2a1c43-bcea-11ed-a550-8520e6686977
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678194782;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=qDCpDGgHNtS2NsIBbrdrVDnUk/BCKkJzDAx6MtlGpG4=;
-        b=IiSoZgw5yMDmgc+bGDPcDpfFP7ncs5y/L2OeUrP3WBkxJ6lmdkTjLJzsBiIRZYi6Rv
-         TIUtAKLhUfjO5kMrHX46SyLdxioMF3UIeuhOb6DaMIebwq6PDD7McdEgpZvDL3vH+/P9
-         Cwy6x9l9xdwtH1XpT/pVdQk0teEYr7vfq9yeMU6y5IssiDW+FD5QMeKmc2UgT1aoM3N9
-         Wbs7e+tXq/4escirl+x2PVrRYFdduDAitMrhsBJRNihz1b6OVf4KeW+JKUxaUA1862Ar
-         ZVwdLglaUSZQ/nLLV/XsOkybsDwPdPa7DMX7P+PGA6o0r7IwZgBKwLAN+UhrPiUGlAmH
-         AFzQ==
+        d=gmail.com; s=20210112; t=1678194975;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NFum2acnD9qYIwVa4tN5V4rmj4o+XnW3TVVaSWehf/Q=;
+        b=SZwu487hPaxa1Ml6JrIRmk1SY/X8d1XEVA1jvsk+qGJqyzpAGGs9uOKiVrUZep6KgC
+         9joBlBXOePTp4l1Ul9zRJ6OScp+nUDimFrAcgK1umvqbMRDW8iU/QdVo7vT11uqrxmgW
+         FZKOgl0HA9zzzg7ldT8D+wDOwqhqj6idTeX8casyH7OhHPnypet9OLHo+cvzxHhXS2Al
+         QeUHwUq7uYT1aChO4csj3cWZsYbeVmILH8HI0OmGqxBgndZvD7yfBqWZrMzr4LHicCak
+         3qOnEMyM1QlEnqhbuI8jS1I6v2elutXpeNlz1BIOVOBPUH+0meavW0W+Bb7Cx6EyzA4G
+         70qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678194782;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qDCpDGgHNtS2NsIBbrdrVDnUk/BCKkJzDAx6MtlGpG4=;
-        b=qC5Ubl6D7kuy1NTj8+1vX1ChueGUaz80ZCogfceX+sf1B9UWocj7hyf4V8uABVMA9d
-         XIfytrZL8+IIr9uH5ApcWp1YMfBdn9ssUgkXuk5dv4vwXF4VndLxzQSQUOiUAHsjUru2
-         wMAL2BmDHFciMCWbmV7rjVGax/m+nrFfc9h2GGSNl7O1eafSm8Hm4MbzVlO45cK+W6QQ
-         8C2Bmn4ZazKDuh5zroUH/HK0y7WvNEHDc8utuiscyswhrU9nLpDphKpQXkuvMqFhUmxO
-         xQIoqcWN9m29Qy52ieaDWxuce3R8detv5bASo/ukBKdY8EKcPTPJaEjfe75oyswu8cAw
-         5M+g==
-X-Gm-Message-State: AO0yUKUJHnP5N32SIA+ZrBPdBMsJ2vbryTIO9Turvdsc3LHRtg6xi6bF
-	fIIhkuspe+r0cmS78OamWtY=
-X-Google-Smtp-Source: AK7set8WPR6Yp/tqqLyYNyklxSdVu4GIQkkt5j9my+mdaUgJmpBeQg3o8FhZICQtfrVogJ777Aqk3Q==
-X-Received: by 2002:a05:600c:b85:b0:3eb:966e:b2a5 with SMTP id fl5-20020a05600c0b8500b003eb966eb2a5mr9363200wmb.17.1678194782334;
-        Tue, 07 Mar 2023 05:13:02 -0800 (PST)
-Message-ID: <46e7e298e52afcee46bb7fd52ddd181227356c98.camel@gmail.com>
-Subject: Re: [PATCH v5 1/4] xen: introduce CONFIG_GENERIC_BUG_FRAME
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Tue, 07 Mar 2023 15:13:00 +0200
-In-Reply-To: <17d7dc28a767ec9012d4a7ac3d337c4b9c34d98e.camel@gmail.com>
-References: <cover.1677839409.git.oleksii.kurochko@gmail.com>
-	 <5cd3dd5233cf41ad54ce1cd98b706085b95bfcee.1677839409.git.oleksii.kurochko@gmail.com>
-	 <91343570-3532-521f-9bfe-3a68902426d0@suse.com>
-	 <17d7dc28a767ec9012d4a7ac3d337c4b9c34d98e.camel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+        d=1e100.net; s=20210112; t=1678194975;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NFum2acnD9qYIwVa4tN5V4rmj4o+XnW3TVVaSWehf/Q=;
+        b=n6+c7aaDGvNRKUfxn7/Mxs8H7/UDqIJSObkuTBgjtt6gzdEWWtXOzSKwfco4ax3BcN
+         wEEAa7rrZs08S69jQrAlC+0Ns8WiqZ8UMq02N059SxxnZgmgxMbC+731NKu+EPI6d+/h
+         8lVPYk+ClFYczcTJuz9Zvg6AuiNTtc/9zK7v6lBpxpuub515CRHBR7Uv5ss3UuZAS4Mh
+         G+z95QKLgVZw3n6UTbETkND7wiV4Th2QGv2a0Uu4Pp5ND1elnC3obXQIj86KrFIQmwgu
+         G/zXF5Nhhy+Hh7vWkZge+YmnA28Tl1NcrCzGaEf4bX5oktdrsoKRIRGGCu9dXyi8n1H5
+         1Vig==
+X-Gm-Message-State: AO0yUKXOzzdOgb6t4Gc/FI5AqyYSU0wrpkrFNxR88ijFZzF4Ys0z9sXF
+	bGmJdPOL7R7W5xl96Jl5pzBucfxovC2fjw==
+X-Google-Smtp-Source: AK7set/3FVQWrAPQv/TXVvlTUtHXEfMHwVBFmnk+0VpesCeDk1kQ6VPtR483XrvlOZgc5jZ/Tz2uWA==
+X-Received: by 2002:a05:600c:1c05:b0:3eb:2e32:72c3 with SMTP id j5-20020a05600c1c0500b003eb2e3272c3mr13181892wms.22.1678194974851;
+        Tue, 07 Mar 2023 05:16:14 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <58ab28a8-ac77-889f-fb5a-aec140811889@xen.org>
+Date: Tue, 7 Mar 2023 13:16:13 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Reply-To: paul@xen.org
+Subject: Re: [RFC PATCH v1 04/25] hw/xen: Implement XenStore transactions
+Content-Language: en-US
+To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ Ankur Arora <ankur.a.arora@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, vikram.garhwal@amd.com,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+References: <20230302153435.1170111-1-dwmw2@infradead.org>
+ <20230302153435.1170111-5-dwmw2@infradead.org>
+Organization: Xen Project
+In-Reply-To: <20230302153435.1170111-5-dwmw2@infradead.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> > > > > +
-> > > > > +#define BUG_FRAME(type, line, ptr, second_frame, msg) do
-> > > > > {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > > > > +=C2=A0=C2=A0=C2=A0 BUILD_BUG_ON((line) >> (BUG_LINE_LO_WIDTH +
-> > > > > BUG_LINE_HI_WIDTH));=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 \
-> > > > > +=C2=A0=C2=A0=C2=A0 BUILD_BUG_ON((type) >=3D
-> > > > > BUGFRAME_NR);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
-> > > > > +=C2=A0=C2=A0=C2=A0 asm volatile (
-> > > > > _ASM_BUGFRAME_TEXT(second_frame)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 :: _ASM_BUGFRAME_INFO(type, l=
-ine, ptr,
-> > > > > msg)
-> > > > > );=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 \
-> > > > > +} while (0)
-> > >=20
-> > > Isn't this tied to BUG_FRAME_STRUCT being defined (or not)? At
-> > > least
-> > > the 1st BUILD_BUG_ON() looks problematic if an arch wasn't to use
-> > > the generic struct: With how you have things right now
-> > > BUG_LINE_{LO,HI}_WIDTH may not be defined, and the check would
-> > > also
-> > > be at risk of causing false positives. Perhaps it's appropriate
-> > > to
-> > > have a separate #ifdef (incl the distinct identifier used), but
-> > > that
-> > > first BUILD_BUG_ON() needs abstracting out.
-> Missed that. Thanks.
-> I'll introduce that a separate #ifdef before BUG_FRAME:
->=20
-> #ifndef BUILD_BUG_ON_LINE_WIDTH
-> #define BUILD_BUG_ON_LINE_WIDTH \
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BUILD_BUG_ON((line) >> (BUG_LI=
-NE_LO_WIDTH +
-> BUG_LINE_HI_WIDTH))
-> #endif
-I think even better will be to do in the following way:
+On 02/03/2023 15:34, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+> 
+> Given that the whole thing supported copy on write from the beginning,
+> transactions end up being fairly simple. On starting a transaction, just
+> take a ref of the existing root; swap it back in on a successful commit.
+> 
+> The main tree has a transaction ID too, and we keep a record of the last
+> transaction ID given out. if the main tree is ever modified when it isn't
+> the latest, it gets a new transaction ID.
+> 
+> A commit can only succeed if the main tree hasn't moved on since it was
+> forked. Strictly speaking, the XenStore protocol allows a transaction to
+> succeed as long as nothing *it* read or wrote has changed in the interim,
+> but no implementations do that; *any* change is sufficient to abort a
+> transaction.
+> 
+> This does not yet fire watches on the changed nodes on a commit. That bit
+> is more fun and will come in a follow-on commit.
+> 
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+>   hw/i386/kvm/xenstore_impl.c | 150 ++++++++++++++++++++++++++++++++++--
+>   tests/unit/test-xs-node.c   | 118 ++++++++++++++++++++++++++++
+>   2 files changed, 262 insertions(+), 6 deletions(-)
+> 
 
-#ifndef LINE_WIDTH
-#define LINE_WIDTH (BUG_LINE_LO_WIDTH + BUG_LINE_HI_WIDTH)
-#endif
-
-#define BUG_FRAME(type, line, ptr, second_frame, msg) do {           =20
-\
-    BUILD_BUG_ON((line) >> LINE_WIDTH);                              =20
-\
-    BUILD_BUG_ON((type) >=3D BUGFRAME_NR);                             =20
-\
-    asm volatile ( _ASM_BUGFRAME_TEXT(second_frame)                  =20
-\
-                   :: _ASM_BUGFRAME_INFO(type, line, ptr, msg) );    =20
-\
-} while (false)
-
-~ Oleksii
+Reviewed-by: Paul Durrant <paul@xen.org>
 
 
