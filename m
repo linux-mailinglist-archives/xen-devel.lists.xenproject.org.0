@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6A0A6AE7BA
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 18:00:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.507644.781421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06CAC6AE8B4
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 18:18:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.507648.781438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZafw-0007KP-Lj; Tue, 07 Mar 2023 17:00:32 +0000
+	id 1pZawv-0000jv-Ir; Tue, 07 Mar 2023 17:18:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 507644.781421; Tue, 07 Mar 2023 17:00:32 +0000
+Received: by outflank-mailman (output) from mailman id 507648.781438; Tue, 07 Mar 2023 17:18:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZafw-0007Hw-Ic; Tue, 07 Mar 2023 17:00:32 +0000
-Received: by outflank-mailman (input) for mailman id 507644;
- Tue, 07 Mar 2023 17:00:30 +0000
+	id 1pZawv-0000eY-Bq; Tue, 07 Mar 2023 17:18:05 +0000
+Received: by outflank-mailman (input) for mailman id 507648;
+ Tue, 07 Mar 2023 17:18:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bVoF=67=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1pZafu-0007Ho-TK
- for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 17:00:30 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ <SRS0=yYpO=67=casper.srs.infradead.org=BATV+9298a7250c90fe94fbb7+7135+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1pZawt-0000az-RI
+ for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 17:18:03 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90be248c-bd09-11ed-96b5-2f268f93b82a;
- Tue, 07 Mar 2023 18:00:30 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- t25-20020a1c7719000000b003eb052cc5ccso10858649wmi.4
- for <xen-devel@lists.xenproject.org>; Tue, 07 Mar 2023 09:00:30 -0800 (PST)
-Received: from [192.168.25.218] (54-240-197-230.amazon.com. [54.240.197.230])
- by smtp.gmail.com with ESMTPSA id
- o33-20020a05600c512100b003e209186c07sm20143602wms.19.2023.03.07.09.00.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 07 Mar 2023 09:00:29 -0800 (PST)
+ id 03110188-bd0c-11ed-96b5-2f268f93b82a;
+ Tue, 07 Mar 2023 18:18:01 +0100 (CET)
+Received: from i7.infradead.org ([2001:8b0:10b:1:21e:67ff:fecb:7a92])
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pZawj-006axJ-8S; Tue, 07 Mar 2023 17:17:53 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1pZawj-009cgU-0h; Tue, 07 Mar 2023 17:17:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,120 +41,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90be248c-bd09-11ed-96b5-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678208429;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=GUDIygacfCGVR8fGo1IJ3EdUPNHwyAGo+roo8APTsNk=;
-        b=ph1sfvMxY+XZesLpU7cO7ml/bRJUJG2DNJ7+XYzCof2Z2t+1m3vq5apYJFeYV7Aice
-         zfSv7AUvd+MEntffGDYCodsF89eozNPxKdE5O/3ShJU/Fzsb7Cjs7sRdVxhfNb/eT1rX
-         mOK2EcUqV6oBobYdaqtKv7z1VtoVpokXETVoOQvlhI75I8/DLXAcGlNz3ZypvOcfAcNs
-         PJ/wyx/Y7Agnp3QZHEUuD0wojqHtujpfhaWhd7tGgCc6wVWvWA/gHKTSTZ+5ErvcIVRK
-         skFzghgn8xvfJaC9naklym9POMszOYVbhrQwjFxOaIy0GuO/NytKp+xJN76mz/pWdKkL
-         i02g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678208429;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GUDIygacfCGVR8fGo1IJ3EdUPNHwyAGo+roo8APTsNk=;
-        b=iyzoD4k55CZCR9qFw0aUdnNPUfdlzq0Ane5GcC9JqGqnBFSTXNIQ3c6MqRoemT99+m
-         23qTmN+Q/C5y7qLyDiCK8CjhTT/pxcq8sTXOT7yrjk/TIcKrrsGkQRy0QCfTLKWaKiE+
-         9HnVxjAuMco5vxPRfmlS2uVu7pa6pmYITBRkcrfMh6qalPf/znqu1umBxi0TRPwGTeiR
-         r6DmM+ejOnOWx+TYZa5dydcWo6C14BqKhkp59zQ0q9nrS2av3ysqSU9X/x7hmzfGh9nJ
-         GZtHmwml38TKDsMjUZjOCcy0x1rK/KJH5ET7BjCb4DqogPa9McUgPVDUQcnmp6JPPMjZ
-         OCLw==
-X-Gm-Message-State: AO0yUKUsPdpsvvw55GEV0u9B2Ca2HDvGdwT15wSQ6NBQMVwNc3EANC59
-	5ocNRZpImrVROQixChqfa78=
-X-Google-Smtp-Source: AK7set88xSK51uoh3VVvDUs/jOF+Gr5Ee1CiOxaq5zxqImeG9T02U2YrY4P93URvNhWTORPq7ylJaw==
-X-Received: by 2002:a05:600c:4751:b0:3eb:578d:decb with SMTP id w17-20020a05600c475100b003eb578ddecbmr12283511wmo.28.1678208429602;
-        Tue, 07 Mar 2023 09:00:29 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <c97bd1cd-5540-bfb0-0fda-68d2cb6254d0@xen.org>
-Date: Tue, 7 Mar 2023 17:00:28 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Reply-To: paul@xen.org
-Subject: Re: [RFC PATCH v1 07/25] hw/xen: Implement core serialize/deserialize
- methods for xenstore_impl
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org,
- Juan Quintela <quintela@redhat.com>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>
+X-Inumbo-ID: 03110188-bd0c-11ed-96b5-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Message-Id:Date:Subject:Cc:To:From:Reply-To:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=gecK8XcXzPvwgAnWptcdPizelJbQTy3RtfVzFHsB5zQ=; b=pgRTQI3kJDMrZOsnRUinGOlu0T
+	1OfvBVlkwUjjeIm/Yj6QrFcaqAcXr0i0xoYOvzqgfcMtcVqftQFvy0I1jOuNkGAcQ36UZ1tihkJMt
+	qkECVD6eDm1T6XJDmmGxeCtlDz6v5L/BNM7ZHPqGcLexx5tNL/pKxW9MARaJgevcff/djCOOhzp/y
+	8dMMTuibd1vG5ZXMj8GgcO+KrFMg+cWmtj3cpBbZFCDHMshuoDvUool526j9rAa87D6jPWQDvODuL
+	ESgEI2Dz+Xkic3f8QwwkBtFE6bBIAdQx51XkV4CDduwnyYjEN+PjhIIAqWHBO0XEyqdLxyXLKud9y
+	EFdHh1KA==;
+From: David Woodhouse <dwmw2@infradead.org>
+To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
- Joao Martins <joao.m.martins@oracle.com>,
- Ankur Arora <ankur.a.arora@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>, vikram.garhwal@amd.com,
- Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-References: <20230302153435.1170111-1-dwmw2@infradead.org>
- <20230302153435.1170111-8-dwmw2@infradead.org>
- <5f03307a80c33b62380128bf3f638d47eca74357.camel@infradead.org>
- <e1e4f027-25bc-2e1c-4451-b4d304493f16@xen.org>
- <1ab939956031328a9a16fb4e76417e23f292e6ba.camel@infradead.org>
- <335a946a-6eae-00e6-b30f-142522cc4c26@xen.org>
-Organization: Xen Project
-In-Reply-To: <335a946a-6eae-00e6-b30f-142522cc4c26@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+	Paul Durrant <paul@xen.org>,
+	Joao Martins <joao.m.martins@oracle.com>,
+	Ankur Arora <ankur.a.arora@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	vikram.garhwal@amd.com,
+	Anthony Perard <anthony.perard@citrix.com>,
+	xen-devel@lists.xenproject.org,
+	Juan Quintela <quintela@redhat.com>,
+	"Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+	Peter Maydell <peter.maydell@linaro.org>
+Subject: [PATCH v2 00/27] Enable PV backends with Xen/KVM emulation
+Date: Tue,  7 Mar 2023 17:17:23 +0000
+Message-Id: <20230307171750.2293175-1-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.39.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On 07/03/2023 16:59, Paul Durrant wrote:
-> On 07/03/2023 16:52, David Woodhouse wrote:
->> On Tue, 2023-03-07 at 16:39 +0000, Paul Durrant wrote:
->>> On 07/03/2023 16:33, David Woodhouse wrote:
->>>> On Thu, 2023-03-02 at 15:34 +0000, David Woodhouse wrote:
->>>>> From: David Woodhouse <dwmw@amazon.co.uk>
->>>>>
->>>>> In fact I think we want to only serialize the contents of the domain's
->>>>> path in /local/domain/${domid} and leave the rest to be recreated? 
->>>>> Will
->>>>> defer to Paul for that.
->>>>>
->>>>> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
->>>>
->>>> Paul, your Reviewed-by: on this one is conspicuous in its absence. I
->>>> mentioned migration in the cover letter — this much is working fine,
->>>> but it's the PV back ends that don't yet work.
->>>>
->>>> I'd quite like to merge the basic serialization/deserialization of
->>>> XenStore itself, with the unit tests.
->>>
->>> The patch is basically ok, I just think the serialization should be
->>> limited to the guest nodes... filtering out those not owned by xen_domid
->>> would probably work for that.
->>
->> Yeah, so let's just do this (as part of this patch #7) for now:
->>
->> --- a/hw/i386/kvm/xen_xenstore.c
->> +++ b/hw/i386/kvm/xen_xenstore.c
->> @@ -235,6 +235,7 @@ static int xen_xenstore_post_load(void *opaque, int
->> ver)
->>   static const VMStateDescription xen_xenstore_vmstate = {
->>       .name = "xen_xenstore",
->> +    .unmigratable = 1, /* The PV back ends don't migrate yet */
->>       .version_id = 1,
->>       .minimum_version_id = 1,
->>       .needed = xen_xenstore_is_needed,
->>
->>
->> It means we can't migrate guests even if they're only using fully
->> emulated devices... but I think that's a reasonable limitation until we
->> implement it fully.
->>
-> 
-> Ok. With that added...
-> 
-> Revieweed-by: Paul Durrant <paul@xen.org>
+Following on from the basic platform support which has already been
+merged, here's phase 2 which wires up the XenBus and PV back ends.
 
-Typoed, sorry...
+It starts with a basic single-tenant internal implementation of a 
+XenStore, with a copy-on-write tree, watches, transactions, quotas.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+Then we introduce operations tables for the grant table, event channel,
+foreignmen and xenstore operations so that in addition to using the Xen
+libraries for those, QEMU can use its internal emulated versions.
 
-> 
+A little bit of cleaning up of header files, and we can enable the build
+of xen-bus in the CONFIG_XEN_EMU build, and run a Xen guest with an
+actual PV disk...
+
+   qemu-system-x86_64 -serial mon:stdio -M q35 -display none -m 1G -smp 2 \
+      -accel kvm,xen-version=0x4000e,kernel-irqchip=split \
+      -kernel bzImage -append "console=ttyS0 root=/dev/xvda1 selinux=0" \
+      -drive file=/var/lib/libvirt/images/fedora28.qcow2,if=none,id=disk \
+      -device xen-disk,drive=disk,vdev=xvda
+
+The main thing that isn't working here is migration. I've implemented it 
+for the internal xenstore and the unit tests exercise it, but the 
+existing PV back ends don't support it, perhaps partly because support 
+for guest transparent live migration support isn't upstream in Xen yet. 
+So the disk doesn't come back correctly after migration. I'm content 
+with that for 8.0 though, and we just mark the emulated XenStore device
+as unmigratable to prevent users from trying.
+
+The other pre-existing constraint is that only the block back end has
+yet been ported to the "new" XenBus infrastructure, and is actually
+capable of creating its own backend nodes. Again, I can live with
+that for 8.0. Maybe this will motivate us to finally get round to
+converting the rest off XenLegacyBackend and killing it.
+
+We also don't have a simple way to perform grant mapping of multiple
+guest pages to contiguous addresses, as we can under real Xen. So we
+don't advertise max-ring-page-order for xen-disk in the emulated mode.
+Fixing that — if we actually want to — would probably require mapping
+RAM from an actual backing store object, so that it can be mapped again
+at a different location for the PV back end to see.
+
+v2: https://git.infradead.org/users/dwmw2/qemu.git/shortlog/refs/heads/xenfv-2
+
+ • Full set of reviewed-by tags from Paul (and associated minor fixes).
+
+ • Disable migration for emulated XenStore device.
+
+ • Update docs and add MAINTAINERS entry.
+
+v1: https://lore.kernel.org/qemu-devel/20230302153435.1170111-1-dwmw2@infradead.org/
+    https://git.infradead.org/users/dwmw2/qemu.git/shortlog/refs/heads/xenfv-1
+
+David Woodhouse (23):
+      hw/xen: Add xenstore wire implementation and implementation stubs
+      hw/xen: Add basic XenStore tree walk and write/read/directory support
+      hw/xen: Implement XenStore watches
+      hw/xen: Implement XenStore transactions
+      hw/xen: Watches on XenStore transactions
+      hw/xen: Implement core serialize/deserialize methods for xenstore_impl
+      hw/xen: Add evtchn operations to allow redirection to internal emulation
+      hw/xen: Add gnttab operations to allow redirection to internal emulation
+      hw/xen: Pass grant ref to gnttab unmap operation
+      hw/xen: Add foreignmem operations to allow redirection to internal emulation
+      hw/xen: Move xenstore_store_pv_console_info to xen_console.c
+      hw/xen: Use XEN_PAGE_SIZE in PV backend drivers
+      hw/xen: Rename xen_common.h to xen_native.h
+      hw/xen: Build PV backend drivers for CONFIG_XEN_BUS
+      hw/xen: Only advertise ring-page-order for xen-block if gnttab supports it
+      hw/xen: Hook up emulated implementation for event channel operations
+      hw/xen: Add emulated implementation of grant table operations
+      hw/xen: Add emulated implementation of XenStore operations
+      hw/xen: Map guest XENSTORE_PFN grant in emulated Xenstore
+      hw/xen: Implement soft reset for emulated gnttab
+      i386/xen: Initialize Xen backends from pc_basic_device_init() for emulation
+      MAINTAINERS: Add entry for Xen on KVM emulation
+      docs: Update Xen-on-KVM documentation for PV disk support
+
+Paul Durrant (4):
+      hw/xen: Implement XenStore permissions
+      hw/xen: Create initial XenStore nodes
+      hw/xen: Add xenstore operations to allow redirection to internal emulation
+      hw/xen: Avoid crash when backend watch fires too early
+
+ MAINTAINERS                                   |    9 +
+ accel/xen/xen-all.c                           |   69 +-
+ docs/system/i386/xen.rst                      |   30 +-
+ hw/9pfs/meson.build                           |    2 +-
+ hw/9pfs/xen-9p-backend.c                      |   32 +-
+ hw/block/dataplane/meson.build                |    2 +-
+ hw/block/dataplane/xen-block.c                |   12 +-
+ hw/block/meson.build                          |    2 +-
+ hw/block/xen-block.c                          |   12 +-
+ hw/char/meson.build                           |    2 +-
+ hw/char/xen_console.c                         |   57 +-
+ hw/display/meson.build                        |    2 +-
+ hw/display/xenfb.c                            |   32 +-
+ hw/i386/kvm/meson.build                       |    1 +
+ hw/i386/kvm/trace-events                      |   15 +
+ hw/i386/kvm/xen_evtchn.c                      |   15 +
+ hw/i386/kvm/xen_gnttab.c                      |  325 ++++-
+ hw/i386/kvm/xen_gnttab.h                      |    1 +
+ hw/i386/kvm/xen_xenstore.c                    | 1251 +++++++++++++++-
+ hw/i386/kvm/xenstore_impl.c                   | 1927 +++++++++++++++++++++++++
+ hw/i386/kvm/xenstore_impl.h                   |   63 +
+ hw/i386/pc.c                                  |    7 +
+ hw/i386/pc_piix.c                             |    4 +-
+ hw/i386/xen/xen-hvm.c                         |   38 +-
+ hw/i386/xen/xen-mapcache.c                    |    2 +-
+ hw/i386/xen/xen_platform.c                    |    7 +-
+ hw/net/xen_nic.c                              |   25 +-
+ hw/usb/meson.build                            |    2 +-
+ hw/usb/xen-usb.c                              |   29 +-
+ hw/xen/meson.build                            |    6 +-
+ hw/xen/trace-events                           |    2 +-
+ hw/xen/xen-bus-helper.c                       |   62 +-
+ hw/xen/xen-bus.c                              |  411 +-----
+ hw/xen/xen-legacy-backend.c                   |  254 +---
+ hw/xen/xen-operations.c                       |  478 ++++++
+ hw/xen/xen_devconfig.c                        |    4 +-
+ hw/xen/xen_pt.c                               |    2 +-
+ hw/xen/xen_pt.h                               |    2 +-
+ hw/xen/xen_pt_config_init.c                   |    2 +-
+ hw/xen/xen_pt_graphics.c                      |    1 -
+ hw/xen/xen_pt_msi.c                           |    4 +-
+ hw/xen/xen_pvdev.c                            |   63 +-
+ include/hw/xen/xen-bus-helper.h               |   26 +-
+ include/hw/xen/xen-bus.h                      |   21 +-
+ include/hw/xen/xen-legacy-backend.h           |   24 +-
+ include/hw/xen/xen.h                          |   24 +-
+ include/hw/xen/xen_backend_ops.h              |  408 ++++++
+ include/hw/xen/{xen_common.h => xen_native.h} |   75 +-
+ include/hw/xen/xen_pvdev.h                    |    6 +-
+ softmmu/globals.c                             |    4 +
+ target/i386/kvm/xen-emu.c                     |    5 +
+ tests/unit/meson.build                        |    1 +
+ tests/unit/test-xs-node.c                     |  871 +++++++++++
+ 53 files changed, 5804 insertions(+), 927 deletions(-)
+
+
 
 
