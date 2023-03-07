@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 031C26AF075
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 19:30:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.507854.782042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 138E36AF017
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 19:28:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.507789.781888 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZc4H-0008Dq-CZ; Tue, 07 Mar 2023 18:29:45 +0000
+	id 1pZc2A-0005fN-F1; Tue, 07 Mar 2023 18:27:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 507854.782042; Tue, 07 Mar 2023 18:29:45 +0000
+Received: by outflank-mailman (output) from mailman id 507789.781888; Tue, 07 Mar 2023 18:27:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZc4H-00089q-6W; Tue, 07 Mar 2023 18:29:45 +0000
-Received: by outflank-mailman (input) for mailman id 507854;
- Tue, 07 Mar 2023 18:29:43 +0000
+	id 1pZc29-0005PQ-Sg; Tue, 07 Mar 2023 18:27:33 +0000
+Received: by outflank-mailman (input) for mailman id 507789;
+ Tue, 07 Mar 2023 18:27:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yYpO=67=casper.srs.infradead.org=BATV+9298a7250c90fe94fbb7+7135+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1pZc29-0002MP-7Q
- for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 18:27:33 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=tG96=67=desiato.srs.infradead.org=BATV+98a25f4d4d04c9e21499+7135+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1pZc23-0002MP-70
+ for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 18:27:27 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b450af81-bd15-11ed-a550-8520e6686977;
- Tue, 07 Mar 2023 19:27:23 +0100 (CET)
+ id b1385493-bd15-11ed-a550-8520e6686977;
+ Tue, 07 Mar 2023 19:27:18 +0100 (CET)
 Received: from i7.infradead.org ([2001:8b0:10b:1:21e:67ff:fecb:7a92])
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pZc1n-006deC-Bg; Tue, 07 Mar 2023 18:27:11 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1pZc1n-00H8T9-1b; Tue, 07 Mar 2023 18:27:11 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1pZc1n-009e8h-0y; Tue, 07 Mar 2023 18:27:11 +0000
+ Linux)) id 1pZc1n-009e8m-1A; Tue, 07 Mar 2023 18:27:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: b450af81-bd15-11ed-a550-8520e6686977
+X-Inumbo-ID: b1385493-bd15-11ed-a550-8520e6686977
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:
-	To:From:Reply-To:Content-ID:Content-Description;
-	bh=NmTq7xdswHQSe29JrCR0/eIaXBdiuGrCFOBx7jmSa9Y=; b=G5SUOmko1fipL6SDB2hu4ruoGS
-	eW+Z8a2i4uMjcVHutfcbZBhulMuTBg2xj9mzOtwBLqAYYQVsmRhUPZgA6Nqm0vVvXGujfwEB0ycAf
-	xR6+Bv1PKODyup3HH+4ZtQFr6PTKtAbDjiElsV4NeIOoyU4VaCXSLwk8JJ9P91GVywFguHdalmefi
-	A/tHH4qSAlmWCdasOv7ocYXRlowDFuWxjqqMBMGUrMtBXCHqnNYF6OSLbX/AoyWECJCThLZD97NLL
-	QdPN3dKR8s+VZofQYjpr8NJFrnW9f7n7nGvBawhggne6nZqV9Ipn4bfzz5hPrEPrIVRDU9C/7L+c1
-	sShbyWUw==;
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
+	Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=fc5fNxYs5D3U6kXGx5cElygYY2FPhVguerYudj3biCw=; b=AMCPitHI2oIV1QQWXdEvgGhPj8
+	j6WcZ2/4dbxT0ByT3S/umEbpo9vxpiCfIjRZaC5t6RcmhuyAS0mKyq+xsWYdZTRe53t86LxV5XeEh
+	m9uCDDk1B28AvE0tQQpyMkQFrQrH4We2wpZnAIElrCzfvrKQyAdHTjRWbD+iMisyUidCWKG690aOo
+	c5oak1BArIJSF1K7ZOfxDG08Cglcm1R3MLiqs5GDfz3ZN4kZQmtQSchokOdjoOLlU19OauxQXZq67
+	cuVywq5L21T98a6bXFm9ChszPzL7eQRBBzg811zNSOmRonyWsR+BPHaewxFsqlZHYqfsxb9wMYqPm
+	Kn/XYj0Q==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Peter Maydell <peter.maydell@linaro.org>
 Cc: qemu-devel@nongnu.org,
@@ -65,667 +65,866 @@ Cc: qemu-devel@nongnu.org,
 	xen-devel@lists.xenproject.org,
 	Juan Quintela <quintela@redhat.com>,
 	"Dr . David Alan Gilbert" <dgilbert@redhat.com>
-Subject: [PULL 09/27] hw/xen: Add evtchn operations to allow redirection to internal emulation
-Date: Tue,  7 Mar 2023 18:26:49 +0000
-Message-Id: <20230307182707.2298618-10-dwmw2@infradead.org>
+Subject: [PULL 10/27] hw/xen: Add gnttab operations to allow redirection to internal emulation
+Date: Tue,  7 Mar 2023 18:26:50 +0000
+Message-Id: <20230307182707.2298618-11-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <20230307182707.2298618-1-dwmw2@infradead.org>
 References: <20230307182707.2298618-1-dwmw2@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The existing implementation calling into the real libxenevtchn moves to
-a new file hw/xen/xen-operations.c, and is called via a function table
-which in a subsequent commit will also be able to invoke the emulated
-event channel support.
+Move the existing code using libxengnttab to xen-operations.c and allow
+the operations to be redirected so that we can add emulation of grant
+table mapping for backend drivers.
+
+In emulation, mapping more than one grant ref to be virtually contiguous
+would be fairly difficult. The best way to do it might be to make the
+ram_block mappings actually backed by a file (shmem or a deleted file,
+perhaps) so that we can have multiple *shared* mappings of it. But that
+would be fairly intrusive.
+
+Making the backend drivers cope with page *lists* instead of expecting
+the mapping to be contiguous is also non-trivial, since some structures
+would actually *cross* page boundaries (e.g. the 32-bit blkif responses
+which are 12 bytes).
+
+So for now, we'll support only single-page mappings in emulation. Add a
+XEN_GNTTAB_OP_FEATURE_MAP_MULTIPLE flag to indicate that the native Xen
+implementation *does* support multi-page maps, and a helper function to
+query it.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Reviewed-by: Paul Durrant <paul@xen.org>
 ---
- hw/9pfs/xen-9p-backend.c            |  24 +++---
- hw/i386/xen/xen-hvm.c               |  27 ++++---
- hw/xen/meson.build                  |   1 +
- hw/xen/xen-bus.c                    |  22 +++---
- hw/xen/xen-legacy-backend.c         |   8 +-
- hw/xen/xen-operations.c             |  71 +++++++++++++++++
- hw/xen/xen_pvdev.c                  |  12 +--
- include/hw/xen/xen-bus.h            |   1 +
- include/hw/xen/xen-legacy-backend.h |   1 +
- include/hw/xen/xen_backend_ops.h    | 118 ++++++++++++++++++++++++++++
- include/hw/xen/xen_common.h         |  12 ---
- include/hw/xen/xen_pvdev.h          |   1 +
+ hw/xen/xen-bus.c                    | 112 ++------------------
+ hw/xen/xen-legacy-backend.c         | 125 ++--------------------
+ hw/xen/xen-operations.c             | 157 ++++++++++++++++++++++++++++
+ hw/xen/xen_pvdev.c                  |   2 +-
+ include/hw/xen/xen-bus.h            |   3 +-
+ include/hw/xen/xen-legacy-backend.h |  13 +--
+ include/hw/xen/xen_backend_ops.h    | 100 ++++++++++++++++++
+ include/hw/xen/xen_common.h         |  39 -------
  softmmu/globals.c                   |   1 +
- 13 files changed, 242 insertions(+), 57 deletions(-)
- create mode 100644 hw/xen/xen-operations.c
- create mode 100644 include/hw/xen/xen_backend_ops.h
+ 9 files changed, 280 insertions(+), 272 deletions(-)
 
-diff --git a/hw/9pfs/xen-9p-backend.c b/hw/9pfs/xen-9p-backend.c
-index 65c4979c3c..864bdaf952 100644
---- a/hw/9pfs/xen-9p-backend.c
-+++ b/hw/9pfs/xen-9p-backend.c
-@@ -241,7 +241,7 @@ static void xen_9pfs_push_and_notify(V9fsPDU *pdu)
-     xen_wmb();
- 
-     ring->inprogress = false;
--    xenevtchn_notify(ring->evtchndev, ring->local_port);
-+    qemu_xen_evtchn_notify(ring->evtchndev, ring->local_port);
- 
-     qemu_bh_schedule(ring->bh);
- }
-@@ -324,8 +324,8 @@ static void xen_9pfs_evtchn_event(void *opaque)
-     Xen9pfsRing *ring = opaque;
-     evtchn_port_t port;
- 
--    port = xenevtchn_pending(ring->evtchndev);
--    xenevtchn_unmask(ring->evtchndev, port);
-+    port = qemu_xen_evtchn_pending(ring->evtchndev);
-+    qemu_xen_evtchn_unmask(ring->evtchndev, port);
- 
-     qemu_bh_schedule(ring->bh);
- }
-@@ -337,10 +337,10 @@ static void xen_9pfs_disconnect(struct XenLegacyDevice *xendev)
- 
-     for (i = 0; i < xen_9pdev->num_rings; i++) {
-         if (xen_9pdev->rings[i].evtchndev != NULL) {
--            qemu_set_fd_handler(xenevtchn_fd(xen_9pdev->rings[i].evtchndev),
--                    NULL, NULL, NULL);
--            xenevtchn_unbind(xen_9pdev->rings[i].evtchndev,
--                             xen_9pdev->rings[i].local_port);
-+            qemu_set_fd_handler(qemu_xen_evtchn_fd(xen_9pdev->rings[i].evtchndev),
-+                                NULL, NULL, NULL);
-+            qemu_xen_evtchn_unbind(xen_9pdev->rings[i].evtchndev,
-+                                   xen_9pdev->rings[i].local_port);
-             xen_9pdev->rings[i].evtchndev = NULL;
-         }
-     }
-@@ -447,12 +447,12 @@ static int xen_9pfs_connect(struct XenLegacyDevice *xendev)
-         xen_9pdev->rings[i].inprogress = false;
- 
- 
--        xen_9pdev->rings[i].evtchndev = xenevtchn_open(NULL, 0);
-+        xen_9pdev->rings[i].evtchndev = qemu_xen_evtchn_open();
-         if (xen_9pdev->rings[i].evtchndev == NULL) {
-             goto out;
-         }
--        qemu_set_cloexec(xenevtchn_fd(xen_9pdev->rings[i].evtchndev));
--        xen_9pdev->rings[i].local_port = xenevtchn_bind_interdomain
-+        qemu_set_cloexec(qemu_xen_evtchn_fd(xen_9pdev->rings[i].evtchndev));
-+        xen_9pdev->rings[i].local_port = qemu_xen_evtchn_bind_interdomain
-                                             (xen_9pdev->rings[i].evtchndev,
-                                              xendev->dom,
-                                              xen_9pdev->rings[i].evtchn);
-@@ -463,8 +463,8 @@ static int xen_9pfs_connect(struct XenLegacyDevice *xendev)
-             goto out;
-         }
-         xen_pv_printf(xendev, 2, "bind evtchn port %d\n", xendev->local_port);
--        qemu_set_fd_handler(xenevtchn_fd(xen_9pdev->rings[i].evtchndev),
--                xen_9pfs_evtchn_event, NULL, &xen_9pdev->rings[i]);
-+        qemu_set_fd_handler(qemu_xen_evtchn_fd(xen_9pdev->rings[i].evtchndev),
-+                            xen_9pfs_evtchn_event, NULL, &xen_9pdev->rings[i]);
-     }
- 
-     xen_9pdev->security_model = xenstore_read_be_str(xendev, "security_model");
-diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
-index e5a1dd19f4..cb1d24f592 100644
---- a/hw/i386/xen/xen-hvm.c
-+++ b/hw/i386/xen/xen-hvm.c
-@@ -761,7 +761,7 @@ static ioreq_t *cpu_get_ioreq(XenIOState *state)
-     int i;
-     evtchn_port_t port;
- 
--    port = xenevtchn_pending(state->xce_handle);
-+    port = qemu_xen_evtchn_pending(state->xce_handle);
-     if (port == state->bufioreq_local_port) {
-         timer_mod(state->buffered_io_timer,
-                 BUFFER_IO_MAX_DELAY + qemu_clock_get_ms(QEMU_CLOCK_REALTIME));
-@@ -780,7 +780,7 @@ static ioreq_t *cpu_get_ioreq(XenIOState *state)
-         }
- 
-         /* unmask the wanted port again */
--        xenevtchn_unmask(state->xce_handle, port);
-+        qemu_xen_evtchn_unmask(state->xce_handle, port);
- 
-         /* get the io packet from shared memory */
-         state->send_vcpu = i;
-@@ -1147,7 +1147,7 @@ static void handle_buffered_io(void *opaque)
-                 BUFFER_IO_MAX_DELAY + qemu_clock_get_ms(QEMU_CLOCK_REALTIME));
-     } else {
-         timer_del(state->buffered_io_timer);
--        xenevtchn_unmask(state->xce_handle, state->bufioreq_local_port);
-+        qemu_xen_evtchn_unmask(state->xce_handle, state->bufioreq_local_port);
-     }
- }
- 
-@@ -1196,8 +1196,8 @@ static void cpu_handle_ioreq(void *opaque)
-         }
- 
-         req->state = STATE_IORESP_READY;
--        xenevtchn_notify(state->xce_handle,
--                         state->ioreq_local_port[state->send_vcpu]);
-+        qemu_xen_evtchn_notify(state->xce_handle,
-+                               state->ioreq_local_port[state->send_vcpu]);
-     }
- }
- 
-@@ -1206,7 +1206,7 @@ static void xen_main_loop_prepare(XenIOState *state)
-     int evtchn_fd = -1;
- 
-     if (state->xce_handle != NULL) {
--        evtchn_fd = xenevtchn_fd(state->xce_handle);
-+        evtchn_fd = qemu_xen_evtchn_fd(state->xce_handle);
-     }
- 
-     state->buffered_io_timer = timer_new_ms(QEMU_CLOCK_REALTIME, handle_buffered_io,
-@@ -1249,7 +1249,7 @@ static void xen_exit_notifier(Notifier *n, void *data)
-         xenforeignmemory_unmap_resource(xen_fmem, state->fres);
-     }
- 
--    xenevtchn_close(state->xce_handle);
-+    qemu_xen_evtchn_close(state->xce_handle);
-     xs_daemon_close(state->xenstore);
- }
- 
-@@ -1397,9 +1397,11 @@ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory)
-     xen_pfn_t ioreq_pfn;
-     XenIOState *state;
- 
-+    setup_xen_backend_ops();
-+
-     state = g_new0(XenIOState, 1);
- 
--    state->xce_handle = xenevtchn_open(NULL, 0);
-+    state->xce_handle = qemu_xen_evtchn_open();
-     if (state->xce_handle == NULL) {
-         perror("xen: event channel open");
-         goto err;
-@@ -1463,8 +1465,9 @@ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory)
- 
-     /* FIXME: how about if we overflow the page here? */
-     for (i = 0; i < max_cpus; i++) {
--        rc = xenevtchn_bind_interdomain(state->xce_handle, xen_domid,
--                                        xen_vcpu_eport(state->shared_page, i));
-+        rc = qemu_xen_evtchn_bind_interdomain(state->xce_handle, xen_domid,
-+                                              xen_vcpu_eport(state->shared_page,
-+                                                             i));
-         if (rc == -1) {
-             error_report("shared evtchn %d bind error %d", i, errno);
-             goto err;
-@@ -1472,8 +1475,8 @@ void xen_hvm_init_pc(PCMachineState *pcms, MemoryRegion **ram_memory)
-         state->ioreq_local_port[i] = rc;
-     }
- 
--    rc = xenevtchn_bind_interdomain(state->xce_handle, xen_domid,
--                                    state->bufioreq_remote_port);
-+    rc = qemu_xen_evtchn_bind_interdomain(state->xce_handle, xen_domid,
-+                                          state->bufioreq_remote_port);
-     if (rc == -1) {
-         error_report("buffered evtchn bind error %d", errno);
-         goto err;
-diff --git a/hw/xen/meson.build b/hw/xen/meson.build
-index ae0ace3046..f195bbd25c 100644
---- a/hw/xen/meson.build
-+++ b/hw/xen/meson.build
-@@ -5,6 +5,7 @@ softmmu_ss.add(when: ['CONFIG_XEN', xen], if_true: files(
-   'xen-legacy-backend.c',
-   'xen_devconfig.c',
-   'xen_pvdev.c',
-+  'xen-operations.c',
- ))
- 
- xen_specific_ss = ss.source_set()
 diff --git a/hw/xen/xen-bus.c b/hw/xen/xen-bus.c
-index df3f6b9ae0..d0b1ae93da 100644
+index d0b1ae93da..b247e86f28 100644
 --- a/hw/xen/xen-bus.c
 +++ b/hw/xen/xen-bus.c
-@@ -1095,12 +1095,12 @@ static bool xen_device_poll(void *opaque)
- static void xen_device_event(void *opaque)
+@@ -947,7 +947,7 @@ static void xen_device_frontend_destroy(XenDevice *xendev)
+ void xen_device_set_max_grant_refs(XenDevice *xendev, unsigned int nr_refs,
+                                    Error **errp)
  {
-     XenEventChannel *channel = opaque;
--    unsigned long port = xenevtchn_pending(channel->xeh);
-+    unsigned long port = qemu_xen_evtchn_pending(channel->xeh);
+-    if (xengnttab_set_max_grants(xendev->xgth, nr_refs)) {
++    if (qemu_xen_gnttab_set_max_grants(xendev->xgth, nr_refs)) {
+         error_setg_errno(errp, errno, "xengnttab_set_max_grants failed");
+     }
+ }
+@@ -956,9 +956,8 @@ void *xen_device_map_grant_refs(XenDevice *xendev, uint32_t *refs,
+                                 unsigned int nr_refs, int prot,
+                                 Error **errp)
+ {
+-    void *map = xengnttab_map_domain_grant_refs(xendev->xgth, nr_refs,
+-                                                xendev->frontend_id, refs,
+-                                                prot);
++    void *map = qemu_xen_gnttab_map_refs(xendev->xgth, nr_refs,
++                                         xendev->frontend_id, refs, prot);
  
-     if (port == channel->local_port) {
-         xen_device_poll(channel);
- 
--        xenevtchn_unmask(channel->xeh, port);
-+        qemu_xen_evtchn_unmask(channel->xeh, port);
+     if (!map) {
+         error_setg_errno(errp, errno,
+@@ -971,109 +970,17 @@ void *xen_device_map_grant_refs(XenDevice *xendev, uint32_t *refs,
+ void xen_device_unmap_grant_refs(XenDevice *xendev, void *map,
+                                  unsigned int nr_refs, Error **errp)
+ {
+-    if (xengnttab_unmap(xendev->xgth, map, nr_refs)) {
++    if (qemu_xen_gnttab_unmap(xendev->xgth, map, nr_refs)) {
+         error_setg_errno(errp, errno, "xengnttab_unmap failed");
      }
  }
  
-@@ -1115,11 +1115,11 @@ void xen_device_set_event_channel_context(XenDevice *xendev,
-     }
- 
-     if (channel->ctx)
--        aio_set_fd_handler(channel->ctx, xenevtchn_fd(channel->xeh), true,
-+        aio_set_fd_handler(channel->ctx, qemu_xen_evtchn_fd(channel->xeh), true,
-                            NULL, NULL, NULL, NULL, NULL);
- 
-     channel->ctx = ctx;
--    aio_set_fd_handler(channel->ctx, xenevtchn_fd(channel->xeh), true,
-+    aio_set_fd_handler(channel->ctx, qemu_xen_evtchn_fd(channel->xeh), true,
-                        xen_device_event, NULL, xen_device_poll, NULL, channel);
+-static void compat_copy_grant_refs(XenDevice *xendev, bool to_domain,
+-                                   XenDeviceGrantCopySegment segs[],
+-                                   unsigned int nr_segs, Error **errp)
+-{
+-    uint32_t *refs = g_new(uint32_t, nr_segs);
+-    int prot = to_domain ? PROT_WRITE : PROT_READ;
+-    void *map;
+-    unsigned int i;
+-
+-    for (i = 0; i < nr_segs; i++) {
+-        XenDeviceGrantCopySegment *seg = &segs[i];
+-
+-        refs[i] = to_domain ? seg->dest.foreign.ref :
+-            seg->source.foreign.ref;
+-    }
+-
+-    map = xengnttab_map_domain_grant_refs(xendev->xgth, nr_segs,
+-                                          xendev->frontend_id, refs,
+-                                          prot);
+-    if (!map) {
+-        error_setg_errno(errp, errno,
+-                         "xengnttab_map_domain_grant_refs failed");
+-        goto done;
+-    }
+-
+-    for (i = 0; i < nr_segs; i++) {
+-        XenDeviceGrantCopySegment *seg = &segs[i];
+-        void *page = map + (i * XC_PAGE_SIZE);
+-
+-        if (to_domain) {
+-            memcpy(page + seg->dest.foreign.offset, seg->source.virt,
+-                   seg->len);
+-        } else {
+-            memcpy(seg->dest.virt, page + seg->source.foreign.offset,
+-                   seg->len);
+-        }
+-    }
+-
+-    if (xengnttab_unmap(xendev->xgth, map, nr_segs)) {
+-        error_setg_errno(errp, errno, "xengnttab_unmap failed");
+-    }
+-
+-done:
+-    g_free(refs);
+-}
+-
+ void xen_device_copy_grant_refs(XenDevice *xendev, bool to_domain,
+                                 XenDeviceGrantCopySegment segs[],
+                                 unsigned int nr_segs, Error **errp)
+ {
+-    xengnttab_grant_copy_segment_t *xengnttab_segs;
+-    unsigned int i;
+-
+-    if (!xendev->feature_grant_copy) {
+-        compat_copy_grant_refs(xendev, to_domain, segs, nr_segs, errp);
+-        return;
+-    }
+-
+-    xengnttab_segs = g_new0(xengnttab_grant_copy_segment_t, nr_segs);
+-
+-    for (i = 0; i < nr_segs; i++) {
+-        XenDeviceGrantCopySegment *seg = &segs[i];
+-        xengnttab_grant_copy_segment_t *xengnttab_seg = &xengnttab_segs[i];
+-
+-        if (to_domain) {
+-            xengnttab_seg->flags = GNTCOPY_dest_gref;
+-            xengnttab_seg->dest.foreign.domid = xendev->frontend_id;
+-            xengnttab_seg->dest.foreign.ref = seg->dest.foreign.ref;
+-            xengnttab_seg->dest.foreign.offset = seg->dest.foreign.offset;
+-            xengnttab_seg->source.virt = seg->source.virt;
+-        } else {
+-            xengnttab_seg->flags = GNTCOPY_source_gref;
+-            xengnttab_seg->source.foreign.domid = xendev->frontend_id;
+-            xengnttab_seg->source.foreign.ref = seg->source.foreign.ref;
+-            xengnttab_seg->source.foreign.offset =
+-                seg->source.foreign.offset;
+-            xengnttab_seg->dest.virt = seg->dest.virt;
+-        }
+-
+-        xengnttab_seg->len = seg->len;
+-    }
+-
+-    if (xengnttab_grant_copy(xendev->xgth, nr_segs, xengnttab_segs)) {
+-        error_setg_errno(errp, errno, "xengnttab_grant_copy failed");
+-        goto done;
+-    }
+-
+-    for (i = 0; i < nr_segs; i++) {
+-        xengnttab_grant_copy_segment_t *xengnttab_seg = &xengnttab_segs[i];
+-
+-        if (xengnttab_seg->status != GNTST_okay) {
+-            error_setg(errp, "xengnttab_grant_copy seg[%u] failed", i);
+-            break;
+-        }
+-    }
+-
+-done:
+-    g_free(xengnttab_segs);
++    qemu_xen_gnttab_grant_copy(xendev->xgth, to_domain, xendev->frontend_id,
++                               (XenGrantCopySegment *)segs, nr_segs, errp);
  }
  
-@@ -1131,13 +1131,13 @@ XenEventChannel *xen_device_bind_event_channel(XenDevice *xendev,
-     XenEventChannel *channel = g_new0(XenEventChannel, 1);
-     xenevtchn_port_or_error_t local_port;
+ struct XenEventChannel {
+@@ -1235,7 +1142,7 @@ static void xen_device_unrealize(DeviceState *dev)
+     xen_device_backend_destroy(xendev);
  
--    channel->xeh = xenevtchn_open(NULL, 0);
-+    channel->xeh = qemu_xen_evtchn_open();
-     if (!channel->xeh) {
-         error_setg_errno(errp, errno, "failed xenevtchn_open");
-         goto fail;
+     if (xendev->xgth) {
+-        xengnttab_close(xendev->xgth);
++        qemu_xen_gnttab_close(xendev->xgth);
+         xendev->xgth = NULL;
      }
  
--    local_port = xenevtchn_bind_interdomain(channel->xeh,
-+    local_port = qemu_xen_evtchn_bind_interdomain(channel->xeh,
-                                             xendev->frontend_id,
-                                             port);
-     if (local_port < 0) {
-@@ -1160,7 +1160,7 @@ XenEventChannel *xen_device_bind_event_channel(XenDevice *xendev,
+@@ -1298,15 +1205,12 @@ static void xen_device_realize(DeviceState *dev, Error **errp)
  
- fail:
-     if (channel->xeh) {
--        xenevtchn_close(channel->xeh);
-+        qemu_xen_evtchn_close(channel->xeh);
+     xendev->watch_list = watch_list_create(xendev->xsh);
+ 
+-    xendev->xgth = xengnttab_open(NULL, 0);
++    xendev->xgth = qemu_xen_gnttab_open();
+     if (!xendev->xgth) {
+         error_setg_errno(errp, errno, "failed xengnttab_open");
+         goto unrealize;
      }
  
-     g_free(channel);
-@@ -1177,7 +1177,7 @@ void xen_device_notify_event_channel(XenDevice *xendev,
-         return;
-     }
- 
--    if (xenevtchn_notify(channel->xeh, channel->local_port) < 0) {
-+    if (qemu_xen_evtchn_notify(channel->xeh, channel->local_port) < 0) {
-         error_setg_errno(errp, errno, "xenevtchn_notify failed");
-     }
- }
-@@ -1193,14 +1193,14 @@ void xen_device_unbind_event_channel(XenDevice *xendev,
- 
-     QLIST_REMOVE(channel, list);
- 
--    aio_set_fd_handler(channel->ctx, xenevtchn_fd(channel->xeh), true,
-+    aio_set_fd_handler(channel->ctx, qemu_xen_evtchn_fd(channel->xeh), true,
-                        NULL, NULL, NULL, NULL, NULL);
- 
--    if (xenevtchn_unbind(channel->xeh, channel->local_port) < 0) {
-+    if (qemu_xen_evtchn_unbind(channel->xeh, channel->local_port) < 0) {
-         error_setg_errno(errp, errno, "xenevtchn_unbind failed");
-     }
- 
--    xenevtchn_close(channel->xeh);
-+    qemu_xen_evtchn_close(channel->xeh);
-     g_free(channel);
- }
- 
+-    xendev->feature_grant_copy =
+-        (xengnttab_grant_copy(xendev->xgth, 0, NULL) == 0);
+-
+     xen_device_backend_create(xendev, errp);
+     if (*errp) {
+         goto unrealize;
 diff --git a/hw/xen/xen-legacy-backend.c b/hw/xen/xen-legacy-backend.c
-index afba71f6eb..9ce3dc204b 100644
+index 9ce3dc204b..1e9a28f263 100644
 --- a/hw/xen/xen-legacy-backend.c
 +++ b/hw/xen/xen-legacy-backend.c
-@@ -294,13 +294,13 @@ static struct XenLegacyDevice *xen_be_get_xendev(const char *type, int dom,
-     xendev->debug      = debug;
-     xendev->local_port = -1;
+@@ -43,7 +43,6 @@ struct xs_handle *xenstore;
+ const char *xen_protocol;
  
--    xendev->evtchndev = xenevtchn_open(NULL, 0);
-+    xendev->evtchndev = qemu_xen_evtchn_open();
-     if (xendev->evtchndev == NULL) {
-         xen_pv_printf(NULL, 0, "can't open evtchn device\n");
-         qdev_unplug(DEVICE(xendev), NULL);
-         return NULL;
-     }
--    qemu_set_cloexec(xenevtchn_fd(xendev->evtchndev));
-+    qemu_set_cloexec(qemu_xen_evtchn_fd(xendev->evtchndev));
+ /* private */
+-static bool xen_feature_grant_copy;
+ static int debug;
  
-     xen_pv_insert_xendev(xendev);
+ int xenstore_write_be_str(struct XenLegacyDevice *xendev, const char *node,
+@@ -113,7 +112,7 @@ void xen_be_set_max_grant_refs(struct XenLegacyDevice *xendev,
+ {
+     assert(xendev->ops->flags & DEVOPS_FLAG_NEED_GNTDEV);
  
-@@ -751,14 +751,14 @@ int xen_be_bind_evtchn(struct XenLegacyDevice *xendev)
-     if (xendev->local_port != -1) {
-         return 0;
+-    if (xengnttab_set_max_grants(xendev->gnttabdev, nr_refs)) {
++    if (qemu_xen_gnttab_set_max_grants(xendev->gnttabdev, nr_refs)) {
+         xen_pv_printf(xendev, 0, "xengnttab_set_max_grants failed: %s\n",
+                       strerror(errno));
      }
--    xendev->local_port = xenevtchn_bind_interdomain
-+    xendev->local_port = qemu_xen_evtchn_bind_interdomain
-         (xendev->evtchndev, xendev->dom, xendev->remote_port);
-     if (xendev->local_port == -1) {
-         xen_pv_printf(xendev, 0, "xenevtchn_bind_interdomain failed\n");
-         return -1;
+@@ -126,8 +125,8 @@ void *xen_be_map_grant_refs(struct XenLegacyDevice *xendev, uint32_t *refs,
+ 
+     assert(xendev->ops->flags & DEVOPS_FLAG_NEED_GNTDEV);
+ 
+-    ptr = xengnttab_map_domain_grant_refs(xendev->gnttabdev, nr_refs,
+-                                          xen_domid, refs, prot);
++    ptr = qemu_xen_gnttab_map_refs(xendev->gnttabdev, nr_refs, xen_domid, refs,
++                                   prot);
+     if (!ptr) {
+         xen_pv_printf(xendev, 0,
+                       "xengnttab_map_domain_grant_refs failed: %s\n",
+@@ -142,119 +141,27 @@ void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
+ {
+     assert(xendev->ops->flags & DEVOPS_FLAG_NEED_GNTDEV);
+ 
+-    if (xengnttab_unmap(xendev->gnttabdev, ptr, nr_refs)) {
++    if (qemu_xen_gnttab_unmap(xendev->gnttabdev, ptr, nr_refs)) {
+         xen_pv_printf(xendev, 0, "xengnttab_unmap failed: %s\n",
+                       strerror(errno));
      }
-     xen_pv_printf(xendev, 2, "bind evtchn port %d\n", xendev->local_port);
--    qemu_set_fd_handler(xenevtchn_fd(xendev->evtchndev),
-+    qemu_set_fd_handler(qemu_xen_evtchn_fd(xendev->evtchndev),
-                         xen_pv_evtchn_event, NULL, xendev);
-     return 0;
  }
+ 
+-static int compat_copy_grant_refs(struct XenLegacyDevice *xendev,
+-                                  bool to_domain,
+-                                  XenGrantCopySegment segs[],
+-                                  unsigned int nr_segs)
+-{
+-    uint32_t *refs = g_new(uint32_t, nr_segs);
+-    int prot = to_domain ? PROT_WRITE : PROT_READ;
+-    void *pages;
+-    unsigned int i;
+-
+-    for (i = 0; i < nr_segs; i++) {
+-        XenGrantCopySegment *seg = &segs[i];
+-
+-        refs[i] = to_domain ?
+-            seg->dest.foreign.ref : seg->source.foreign.ref;
+-    }
+-
+-    pages = xengnttab_map_domain_grant_refs(xendev->gnttabdev, nr_segs,
+-                                            xen_domid, refs, prot);
+-    if (!pages) {
+-        xen_pv_printf(xendev, 0,
+-                      "xengnttab_map_domain_grant_refs failed: %s\n",
+-                      strerror(errno));
+-        g_free(refs);
+-        return -1;
+-    }
+-
+-    for (i = 0; i < nr_segs; i++) {
+-        XenGrantCopySegment *seg = &segs[i];
+-        void *page = pages + (i * XC_PAGE_SIZE);
+-
+-        if (to_domain) {
+-            memcpy(page + seg->dest.foreign.offset, seg->source.virt,
+-                   seg->len);
+-        } else {
+-            memcpy(seg->dest.virt, page + seg->source.foreign.offset,
+-                   seg->len);
+-        }
+-    }
+-
+-    if (xengnttab_unmap(xendev->gnttabdev, pages, nr_segs)) {
+-        xen_pv_printf(xendev, 0, "xengnttab_unmap failed: %s\n",
+-                      strerror(errno));
+-    }
+-
+-    g_free(refs);
+-    return 0;
+-}
+-
+ int xen_be_copy_grant_refs(struct XenLegacyDevice *xendev,
+                            bool to_domain,
+                            XenGrantCopySegment segs[],
+                            unsigned int nr_segs)
+ {
+-    xengnttab_grant_copy_segment_t *xengnttab_segs;
+-    unsigned int i;
+     int rc;
+ 
+     assert(xendev->ops->flags & DEVOPS_FLAG_NEED_GNTDEV);
+ 
+-    if (!xen_feature_grant_copy) {
+-        return compat_copy_grant_refs(xendev, to_domain, segs, nr_segs);
+-    }
+-
+-    xengnttab_segs = g_new0(xengnttab_grant_copy_segment_t, nr_segs);
+-
+-    for (i = 0; i < nr_segs; i++) {
+-        XenGrantCopySegment *seg = &segs[i];
+-        xengnttab_grant_copy_segment_t *xengnttab_seg = &xengnttab_segs[i];
+-
+-        if (to_domain) {
+-            xengnttab_seg->flags = GNTCOPY_dest_gref;
+-            xengnttab_seg->dest.foreign.domid = xen_domid;
+-            xengnttab_seg->dest.foreign.ref = seg->dest.foreign.ref;
+-            xengnttab_seg->dest.foreign.offset = seg->dest.foreign.offset;
+-            xengnttab_seg->source.virt = seg->source.virt;
+-        } else {
+-            xengnttab_seg->flags = GNTCOPY_source_gref;
+-            xengnttab_seg->source.foreign.domid = xen_domid;
+-            xengnttab_seg->source.foreign.ref = seg->source.foreign.ref;
+-            xengnttab_seg->source.foreign.offset =
+-                seg->source.foreign.offset;
+-            xengnttab_seg->dest.virt = seg->dest.virt;
+-        }
+-
+-        xengnttab_seg->len = seg->len;
+-    }
+-
+-    rc = xengnttab_grant_copy(xendev->gnttabdev, nr_segs, xengnttab_segs);
+-
++    rc = qemu_xen_gnttab_grant_copy(xendev->gnttabdev, to_domain, xen_domid,
++                                    segs, nr_segs, NULL);
+     if (rc) {
+-        xen_pv_printf(xendev, 0, "xengnttab_copy failed: %s\n",
+-                      strerror(errno));
+-    }
+-
+-    for (i = 0; i < nr_segs; i++) {
+-        xengnttab_grant_copy_segment_t *xengnttab_seg =
+-            &xengnttab_segs[i];
+-
+-        if (xengnttab_seg->status != GNTST_okay) {
+-            xen_pv_printf(xendev, 0, "segment[%u] status: %d\n", i,
+-                          xengnttab_seg->status);
+-            rc = -1;
+-        }
++        xen_pv_printf(xendev, 0, "xengnttab_grant_copy failed: %s\n",
++                      strerror(-rc));
+     }
+-
+-    g_free(xengnttab_segs);
+     return rc;
+ }
+ 
+@@ -466,7 +373,7 @@ static int xen_be_try_initialise(struct XenLegacyDevice *xendev)
+     }
+ 
+     if (xendev->ops->flags & DEVOPS_FLAG_NEED_GNTDEV) {
+-        xendev->gnttabdev = xengnttab_open(NULL, 0);
++        xendev->gnttabdev = qemu_xen_gnttab_open();
+         if (xendev->gnttabdev == NULL) {
+             xen_pv_printf(NULL, 0, "can't open gnttab device\n");
+             return -1;
+@@ -524,7 +431,7 @@ static void xen_be_disconnect(struct XenLegacyDevice *xendev,
+         xendev->ops->disconnect(xendev);
+     }
+     if (xendev->gnttabdev) {
+-        xengnttab_close(xendev->gnttabdev);
++        qemu_xen_gnttab_close(xendev->gnttabdev);
+         xendev->gnttabdev = NULL;
+     }
+     if (xendev->be_state != state) {
+@@ -687,8 +594,6 @@ static void xen_set_dynamic_sysbus(void)
+ 
+ void xen_be_init(void)
+ {
+-    xengnttab_handle *gnttabdev;
+-
+     xenstore = xs_daemon_open();
+     if (!xenstore) {
+         xen_pv_printf(NULL, 0, "can't connect to xenstored\n");
+@@ -697,19 +602,11 @@ void xen_be_init(void)
+ 
+     qemu_set_fd_handler(xs_fileno(xenstore), xenstore_update, NULL, NULL);
+ 
+-    if (xen_xc == NULL || xen_fmem == NULL) {
++    if (xen_evtchn_ops == NULL || xen_gnttab_ops == NULL) {
+         xen_pv_printf(NULL, 0, "Xen operations not set up\n");
+         exit(1);
+     }
+ 
+-    gnttabdev = xengnttab_open(NULL, 0);
+-    if (gnttabdev != NULL) {
+-        if (xengnttab_grant_copy(gnttabdev, 0, NULL) == 0) {
+-            xen_feature_grant_copy = true;
+-        }
+-        xengnttab_close(gnttabdev);
+-    }
+-
+     xen_sysdev = qdev_new(TYPE_XENSYSDEV);
+     sysbus_realize_and_unref(SYS_BUS_DEVICE(xen_sysdev), &error_fatal);
+     xen_sysbus = qbus_new(TYPE_XENSYSBUS, xen_sysdev, "xen-sysbus");
 diff --git a/hw/xen/xen-operations.c b/hw/xen/xen-operations.c
-new file mode 100644
-index 0000000000..1a959d89e8
---- /dev/null
+index 1a959d89e8..2e74a28965 100644
+--- a/hw/xen/xen-operations.c
 +++ b/hw/xen/xen-operations.c
-@@ -0,0 +1,71 @@
-+/*
-+ * QEMU Xen backend support: Operations for true Xen
-+ *
-+ * Copyright © 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-+ *
-+ * Authors: David Woodhouse <dwmw2@infradead.org>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2 or later.
-+ * See the COPYING file in the top-level directory.
-+ */
+@@ -21,6 +21,7 @@
+  * must be undefined before including xenctrl.h
+  */
+ #undef XC_WANT_COMPAT_EVTCHN_API
++#undef XC_WANT_COMPAT_GNTTAB_API
+ 
+ #include <xenctrl.h>
+ 
+@@ -43,12 +44,141 @@ typedef evtchn_port_or_error_t xenevtchn_port_or_error_t;
+ #define xenevtchn_unmask(h, p) xc_evtchn_unmask(h, p)
+ #define xenevtchn_unbind(h, p) xc_evtchn_unbind(h, p)
+ 
++typedef xc_gnttab xengnttab_handle;
 +
-+#include "qemu/osdep.h"
-+#include "qapi/error.h"
++#define xengnttab_open(l, f) xc_gnttab_open(l, f)
++#define xengnttab_close(h) xc_gnttab_close(h)
++#define xengnttab_set_max_grants(h, n) xc_gnttab_set_max_grants(h, n)
++#define xengnttab_map_grant_ref(h, d, r, p) xc_gnttab_map_grant_ref(h, d, r, p)
++#define xengnttab_unmap(h, a, n) xc_gnttab_munmap(h, a, n)
++#define xengnttab_map_grant_refs(h, c, d, r, p) \
++    xc_gnttab_map_grant_refs(h, c, d, r, p)
++#define xengnttab_map_domain_grant_refs(h, c, d, r, p) \
++    xc_gnttab_map_domain_grant_refs(h, c, d, r, p)
 +
-+#include "hw/xen/xen_backend_ops.h"
-+#include "hw/xen/xen_common.h"
+ #else /* CONFIG_XEN_CTRL_INTERFACE_VERSION >= 40701 */
+ 
+ #include <xenevtchn.h>
++#include <xengnttab.h>
+ 
+ #endif
+ 
++/* Xen before 4.8 */
 +
-+/*
-+ * If we have new enough libxenctrl then we do not want/need these compat
-+ * interfaces, despite what the user supplied cflags might say. They
-+ * must be undefined before including xenctrl.h
-+ */
-+#undef XC_WANT_COMPAT_EVTCHN_API
++static int libxengnttab_fallback_grant_copy(xengnttab_handle *xgt,
++                                            bool to_domain, uint32_t domid,
++                                            XenGrantCopySegment segs[],
++                                            unsigned int nr_segs, Error **errp)
++{
++    uint32_t *refs = g_new(uint32_t, nr_segs);
++    int prot = to_domain ? PROT_WRITE : PROT_READ;
++    void *map;
++    unsigned int i;
++    int rc = 0;
 +
-+#include <xenctrl.h>
++    for (i = 0; i < nr_segs; i++) {
++        XenGrantCopySegment *seg = &segs[i];
 +
-+/*
-+ * We don't support Xen prior to 4.2.0.
-+ */
++        refs[i] = to_domain ? seg->dest.foreign.ref :
++            seg->source.foreign.ref;
++    }
++    map = xengnttab_map_domain_grant_refs(xgt, nr_segs, domid, refs, prot);
++    if (!map) {
++        if (errp) {
++            error_setg_errno(errp, errno,
++                             "xengnttab_map_domain_grant_refs failed");
++        }
++        rc = -errno;
++        goto done;
++    }
 +
-+/* Xen 4.2 through 4.6 */
-+#if CONFIG_XEN_CTRL_INTERFACE_VERSION < 40701
++    for (i = 0; i < nr_segs; i++) {
++        XenGrantCopySegment *seg = &segs[i];
++        void *page = map + (i * XEN_PAGE_SIZE);
 +
-+typedef xc_evtchn xenevtchn_handle;
-+typedef evtchn_port_or_error_t xenevtchn_port_or_error_t;
++        if (to_domain) {
++            memcpy(page + seg->dest.foreign.offset, seg->source.virt,
++                   seg->len);
++        } else {
++            memcpy(seg->dest.virt, page + seg->source.foreign.offset,
++                   seg->len);
++        }
++    }
 +
-+#define xenevtchn_open(l, f) xc_evtchn_open(l, f);
-+#define xenevtchn_close(h) xc_evtchn_close(h)
-+#define xenevtchn_fd(h) xc_evtchn_fd(h)
-+#define xenevtchn_pending(h) xc_evtchn_pending(h)
-+#define xenevtchn_notify(h, p) xc_evtchn_notify(h, p)
-+#define xenevtchn_bind_interdomain(h, d, p) xc_evtchn_bind_interdomain(h, d, p)
-+#define xenevtchn_unmask(h, p) xc_evtchn_unmask(h, p)
-+#define xenevtchn_unbind(h, p) xc_evtchn_unbind(h, p)
++    if (xengnttab_unmap(xgt, map, nr_segs)) {
++        if (errp) {
++            error_setg_errno(errp, errno, "xengnttab_unmap failed");
++        }
++        rc = -errno;
++    }
 +
-+#else /* CONFIG_XEN_CTRL_INTERFACE_VERSION >= 40701 */
++done:
++    g_free(refs);
++    return rc;
++}
 +
-+#include <xenevtchn.h>
++#if CONFIG_XEN_CTRL_INTERFACE_VERSION >= 40800
 +
++static int libxengnttab_backend_grant_copy(xengnttab_handle *xgt,
++                                           bool to_domain, uint32_t domid,
++                                           XenGrantCopySegment *segs,
++                                           uint32_t nr_segs, Error **errp)
++{
++    xengnttab_grant_copy_segment_t *xengnttab_segs;
++    unsigned int i;
++    int rc;
++
++    xengnttab_segs = g_new0(xengnttab_grant_copy_segment_t, nr_segs);
++
++    for (i = 0; i < nr_segs; i++) {
++        XenGrantCopySegment *seg = &segs[i];
++        xengnttab_grant_copy_segment_t *xengnttab_seg = &xengnttab_segs[i];
++
++        if (to_domain) {
++            xengnttab_seg->flags = GNTCOPY_dest_gref;
++            xengnttab_seg->dest.foreign.domid = domid;
++            xengnttab_seg->dest.foreign.ref = seg->dest.foreign.ref;
++            xengnttab_seg->dest.foreign.offset = seg->dest.foreign.offset;
++            xengnttab_seg->source.virt = seg->source.virt;
++        } else {
++            xengnttab_seg->flags = GNTCOPY_source_gref;
++            xengnttab_seg->source.foreign.domid = domid;
++            xengnttab_seg->source.foreign.ref = seg->source.foreign.ref;
++            xengnttab_seg->source.foreign.offset =
++                seg->source.foreign.offset;
++            xengnttab_seg->dest.virt = seg->dest.virt;
++        }
++
++        xengnttab_seg->len = seg->len;
++    }
++
++    if (xengnttab_grant_copy(xgt, nr_segs, xengnttab_segs)) {
++        if (errp) {
++            error_setg_errno(errp, errno, "xengnttab_grant_copy failed");
++        }
++        rc = -errno;
++        goto done;
++    }
++
++    rc = 0;
++    for (i = 0; i < nr_segs; i++) {
++        xengnttab_grant_copy_segment_t *xengnttab_seg = &xengnttab_segs[i];
++
++        if (xengnttab_seg->status != GNTST_okay) {
++            if (errp) {
++                error_setg(errp, "xengnttab_grant_copy seg[%u] failed", i);
++            }
++            rc = -EIO;
++            break;
++        }
++    }
++
++done:
++    g_free(xengnttab_segs);
++    return rc;
++}
 +#endif
 +
-+static xenevtchn_handle *libxenevtchn_backend_open(void)
+ static xenevtchn_handle *libxenevtchn_backend_open(void)
+ {
+     return xenevtchn_open(NULL, 0);
+@@ -65,7 +195,34 @@ struct evtchn_backend_ops libxenevtchn_backend_ops = {
+     .pending = xenevtchn_pending,
+ };
+ 
++static xengnttab_handle *libxengnttab_backend_open(void)
 +{
-+    return xenevtchn_open(NULL, 0);
++    return xengnttab_open(NULL, 0);
 +}
 +
-+struct evtchn_backend_ops libxenevtchn_backend_ops = {
-+    .open = libxenevtchn_backend_open,
-+    .close = xenevtchn_close,
-+    .bind_interdomain = xenevtchn_bind_interdomain,
-+    .unbind = xenevtchn_unbind,
-+    .get_fd = xenevtchn_fd,
-+    .notify = xenevtchn_notify,
-+    .unmask = xenevtchn_unmask,
-+    .pending = xenevtchn_pending,
++
++static struct gnttab_backend_ops libxengnttab_backend_ops = {
++    .features = XEN_GNTTAB_OP_FEATURE_MAP_MULTIPLE,
++    .open = libxengnttab_backend_open,
++    .close = xengnttab_close,
++    .grant_copy = libxengnttab_fallback_grant_copy,
++    .set_max_grants = xengnttab_set_max_grants,
++    .map_refs = xengnttab_map_domain_grant_refs,
++    .unmap = xengnttab_unmap,
 +};
 +
-+void setup_xen_backend_ops(void)
-+{
-+    xen_evtchn_ops = &libxenevtchn_backend_ops;
-+}
+ void setup_xen_backend_ops(void)
+ {
++#if CONFIG_XEN_CTRL_INTERFACE_VERSION >= 40800
++    xengnttab_handle *xgt = xengnttab_open(NULL, 0);
++
++    if (xgt) {
++        if (xengnttab_grant_copy(xgt, 0, NULL) == 0) {
++            libxengnttab_backend_ops.grant_copy = libxengnttab_backend_grant_copy;
++        }
++        xengnttab_close(xgt);
++    }
++#endif
+     xen_evtchn_ops = &libxenevtchn_backend_ops;
++    xen_gnttab_ops = &libxengnttab_backend_ops;
+ }
 diff --git a/hw/xen/xen_pvdev.c b/hw/xen/xen_pvdev.c
-index 1a5177b354..86a2c8e567 100644
+index 86a2c8e567..d8582cc74c 100644
 --- a/hw/xen/xen_pvdev.c
 +++ b/hw/xen/xen_pvdev.c
-@@ -238,14 +238,14 @@ void xen_pv_evtchn_event(void *opaque)
-     struct XenLegacyDevice *xendev = opaque;
-     evtchn_port_t port;
- 
--    port = xenevtchn_pending(xendev->evtchndev);
-+    port = qemu_xen_evtchn_pending(xendev->evtchndev);
-     if (port != xendev->local_port) {
-         xen_pv_printf(xendev, 0,
-                       "xenevtchn_pending returned %d (expected %d)\n",
-                       port, xendev->local_port);
-         return;
-     }
--    xenevtchn_unmask(xendev->evtchndev, port);
-+    qemu_xen_evtchn_unmask(xendev->evtchndev, port);
- 
-     if (xendev->ops->event) {
-         xendev->ops->event(xendev);
-@@ -257,15 +257,15 @@ void xen_pv_unbind_evtchn(struct XenLegacyDevice *xendev)
-     if (xendev->local_port == -1) {
-         return;
-     }
--    qemu_set_fd_handler(xenevtchn_fd(xendev->evtchndev), NULL, NULL, NULL);
--    xenevtchn_unbind(xendev->evtchndev, xendev->local_port);
-+    qemu_set_fd_handler(qemu_xen_evtchn_fd(xendev->evtchndev), NULL, NULL, NULL);
-+    qemu_xen_evtchn_unbind(xendev->evtchndev, xendev->local_port);
-     xen_pv_printf(xendev, 2, "unbind evtchn port %d\n", xendev->local_port);
-     xendev->local_port = -1;
- }
- 
- int xen_pv_send_notify(struct XenLegacyDevice *xendev)
- {
--    return xenevtchn_notify(xendev->evtchndev, xendev->local_port);
-+    return qemu_xen_evtchn_notify(xendev->evtchndev, xendev->local_port);
- }
- 
- /* ------------------------------------------------------------- */
-@@ -306,7 +306,7 @@ void xen_pv_del_xendev(struct XenLegacyDevice *xendev)
-     }
- 
-     if (xendev->evtchndev != NULL) {
--        xenevtchn_close(xendev->evtchndev);
-+        qemu_xen_evtchn_close(xendev->evtchndev);
+@@ -309,7 +309,7 @@ void xen_pv_del_xendev(struct XenLegacyDevice *xendev)
+         qemu_xen_evtchn_close(xendev->evtchndev);
      }
      if (xendev->gnttabdev != NULL) {
-         xengnttab_close(xendev->gnttabdev);
+-        xengnttab_close(xendev->gnttabdev);
++        qemu_xen_gnttab_close(xendev->gnttabdev);
+     }
+ 
+     QTAILQ_REMOVE(&xendevs, xendev, next);
 diff --git a/include/hw/xen/xen-bus.h b/include/hw/xen/xen-bus.h
-index 4d966a2dbb..e21b83796e 100644
+index e21b83796e..72d71d1eb7 100644
 --- a/include/hw/xen/xen-bus.h
 +++ b/include/hw/xen/xen-bus.h
-@@ -8,6 +8,7 @@
- #ifndef HW_XEN_BUS_H
+@@ -9,7 +9,7 @@
  #define HW_XEN_BUS_H
  
-+#include "hw/xen/xen_backend_ops.h"
- #include "hw/xen/xen_common.h"
+ #include "hw/xen/xen_backend_ops.h"
+-#include "hw/xen/xen_common.h"
++#include "hw/xen/interface/io/xenbus.h"
  #include "hw/sysbus.h"
  #include "qemu/notify.h"
+ #include "qom/object.h"
+@@ -33,7 +33,6 @@ struct XenDevice {
+     bool backend_online;
+     XenWatch *backend_online_watch;
+     xengnttab_handle *xgth;
+-    bool feature_grant_copy;
+     bool inactive;
+     QLIST_HEAD(, XenEventChannel) event_channels;
+     QLIST_ENTRY(XenDevice) list;
 diff --git a/include/hw/xen/xen-legacy-backend.h b/include/hw/xen/xen-legacy-backend.h
-index e31cd3a068..06985b1f03 100644
+index 06985b1f03..eaf79cd221 100644
 --- a/include/hw/xen/xen-legacy-backend.h
 +++ b/include/hw/xen/xen-legacy-backend.h
-@@ -2,6 +2,7 @@
+@@ -1,8 +1,8 @@
+ #ifndef HW_XEN_LEGACY_BACKEND_H
  #define HW_XEN_LEGACY_BACKEND_H
  
- #include "hw/xen/xen_common.h"
-+#include "hw/xen/xen_backend_ops.h"
+-#include "hw/xen/xen_common.h"
+ #include "hw/xen/xen_backend_ops.h"
++#include "hw/xen/interface/io/xenbus.h"
  #include "hw/xen/xen_pvdev.h"
  #include "net/net.h"
  #include "qom/object.h"
+@@ -54,17 +54,6 @@ void *xen_be_map_grant_refs(struct XenLegacyDevice *xendev, uint32_t *refs,
+ void xen_be_unmap_grant_refs(struct XenLegacyDevice *xendev, void *ptr,
+                              unsigned int nr_refs);
+ 
+-typedef struct XenGrantCopySegment {
+-    union {
+-        void *virt;
+-        struct {
+-            uint32_t ref;
+-            off_t offset;
+-        } foreign;
+-    } source, dest;
+-    size_t len;
+-} XenGrantCopySegment;
+-
+ int xen_be_copy_grant_refs(struct XenLegacyDevice *xendev,
+                            bool to_domain, XenGrantCopySegment segs[],
+                            unsigned int nr_segs);
 diff --git a/include/hw/xen/xen_backend_ops.h b/include/hw/xen/xen_backend_ops.h
-new file mode 100644
-index 0000000000..9605456e81
---- /dev/null
+index 9605456e81..bb3333ab00 100644
+--- a/include/hw/xen/xen_backend_ops.h
 +++ b/include/hw/xen/xen_backend_ops.h
-@@ -0,0 +1,118 @@
-+/*
-+ * QEMU Xen backend support
-+ *
-+ * Copyright © 2022 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-+ *
-+ * Authors: David Woodhouse <dwmw2@infradead.org>
-+ *
-+ * This work is licensed under the terms of the GNU GPL, version 2 or later.
-+ * See the COPYING file in the top-level directory.
-+ */
+@@ -29,6 +29,12 @@
+ typedef struct xenevtchn_handle xenevtchn_handle;
+ typedef int xenevtchn_port_or_error_t;
+ typedef uint32_t evtchn_port_t;
++typedef uint16_t domid_t;
++typedef uint32_t grant_ref_t;
 +
-+#ifndef QEMU_XEN_BACKEND_OPS_H
-+#define QEMU_XEN_BACKEND_OPS_H
++#define XEN_PAGE_SHIFT       12
++#define XEN_PAGE_SIZE        (1UL << XEN_PAGE_SHIFT)
++#define XEN_PAGE_MASK        (~(XEN_PAGE_SIZE - 1))
+ 
+ struct evtchn_backend_ops {
+     xenevtchn_handle *(*open)(void);
+@@ -113,6 +119,100 @@ static inline int qemu_xen_evtchn_pending(xenevtchn_handle *xc)
+     return xen_evtchn_ops->pending(xc);
+ }
+ 
++typedef struct xengntdev_handle xengnttab_handle;
 +
-+/*
-+ * For the time being, these operations map fairly closely to the API of
-+ * the actual Xen libraries, e.g. libxenevtchn. As we complete the migration
-+ * from XenLegacyDevice back ends to the new XenDevice model, they may
-+ * evolve to slightly higher-level APIs.
-+ *
-+ * The internal emulations do not emulate the Xen APIs entirely faithfully;
-+ * only enough to be used by the Xen backend devices. For example, only one
-+ * event channel can be bound to each handle, since that's sufficient for
-+ * the device support (only the true Xen HVM backend uses more). And the
-+ * behaviour of unmask() and pending() is different too because the device
-+ * backends don't care.
-+ */
++typedef struct XenGrantCopySegment {
++    union {
++        void *virt;
++        struct {
++            uint32_t ref;
++            off_t offset;
++        } foreign;
++    } source, dest;
++    size_t len;
++} XenGrantCopySegment;
 +
-+typedef struct xenevtchn_handle xenevtchn_handle;
-+typedef int xenevtchn_port_or_error_t;
-+typedef uint32_t evtchn_port_t;
++#define XEN_GNTTAB_OP_FEATURE_MAP_MULTIPLE  (1U << 0)
 +
-+struct evtchn_backend_ops {
-+    xenevtchn_handle *(*open)(void);
-+    int (*bind_interdomain)(xenevtchn_handle *xc, uint32_t domid,
-+                            evtchn_port_t guest_port);
-+    int (*unbind)(xenevtchn_handle *xc, evtchn_port_t port);
-+    int (*close)(struct xenevtchn_handle *xc);
-+    int (*get_fd)(struct xenevtchn_handle *xc);
-+    int (*notify)(struct xenevtchn_handle *xc, evtchn_port_t port);
-+    int (*unmask)(struct xenevtchn_handle *xc, evtchn_port_t port);
-+    int (*pending)(struct xenevtchn_handle *xc);
++struct gnttab_backend_ops {
++    uint32_t features;
++    xengnttab_handle *(*open)(void);
++    int (*close)(xengnttab_handle *xgt);
++    int (*grant_copy)(xengnttab_handle *xgt, bool to_domain, uint32_t domid,
++                      XenGrantCopySegment *segs, uint32_t nr_segs,
++                      Error **errp);
++    int (*set_max_grants)(xengnttab_handle *xgt, uint32_t nr_grants);
++    void *(*map_refs)(xengnttab_handle *xgt, uint32_t count, uint32_t domid,
++                      uint32_t *refs, int prot);
++    int (*unmap)(xengnttab_handle *xgt, void *start_address, uint32_t count);
 +};
 +
-+extern struct evtchn_backend_ops *xen_evtchn_ops;
++extern struct gnttab_backend_ops *xen_gnttab_ops;
 +
-+static inline xenevtchn_handle *qemu_xen_evtchn_open(void)
++static inline bool qemu_xen_gnttab_can_map_multi(void)
 +{
-+    if (!xen_evtchn_ops) {
++    return xen_gnttab_ops &&
++        !!(xen_gnttab_ops->features & XEN_GNTTAB_OP_FEATURE_MAP_MULTIPLE);
++}
++
++static inline xengnttab_handle *qemu_xen_gnttab_open(void)
++{
++    if (!xen_gnttab_ops) {
 +        return NULL;
 +    }
-+    return xen_evtchn_ops->open();
++    return xen_gnttab_ops->open();
 +}
 +
-+static inline int qemu_xen_evtchn_bind_interdomain(xenevtchn_handle *xc,
-+                                                   uint32_t domid,
-+                                                   evtchn_port_t guest_port)
++static inline int qemu_xen_gnttab_close(xengnttab_handle *xgt)
 +{
-+    if (!xen_evtchn_ops) {
++    if (!xen_gnttab_ops) {
 +        return -ENOSYS;
 +    }
-+    return xen_evtchn_ops->bind_interdomain(xc, domid, guest_port);
++    return xen_gnttab_ops->close(xgt);
 +}
 +
-+static inline int qemu_xen_evtchn_unbind(xenevtchn_handle *xc,
-+                                         evtchn_port_t port)
++static inline int qemu_xen_gnttab_grant_copy(xengnttab_handle *xgt,
++                                             bool to_domain, uint32_t domid,
++                                             XenGrantCopySegment *segs,
++                                             uint32_t nr_segs, Error **errp)
 +{
-+    if (!xen_evtchn_ops) {
++    if (!xen_gnttab_ops) {
 +        return -ENOSYS;
 +    }
-+    return xen_evtchn_ops->unbind(xc, port);
++
++    return xen_gnttab_ops->grant_copy(xgt, to_domain, domid, segs, nr_segs,
++                                      errp);
 +}
 +
-+static inline int qemu_xen_evtchn_close(xenevtchn_handle *xc)
++static inline int qemu_xen_gnttab_set_max_grants(xengnttab_handle *xgt,
++                                                 uint32_t nr_grants)
 +{
-+    if (!xen_evtchn_ops) {
++    if (!xen_gnttab_ops) {
 +        return -ENOSYS;
 +    }
-+    return xen_evtchn_ops->close(xc);
++    return xen_gnttab_ops->set_max_grants(xgt, nr_grants);
 +}
 +
-+static inline int qemu_xen_evtchn_fd(xenevtchn_handle *xc)
++static inline void *qemu_xen_gnttab_map_refs(xengnttab_handle *xgt,
++                                             uint32_t count, uint32_t domid,
++                                             uint32_t *refs, int prot)
 +{
-+    if (!xen_evtchn_ops) {
++    if (!xen_gnttab_ops) {
++        return NULL;
++    }
++    return xen_gnttab_ops->map_refs(xgt, count, domid, refs, prot);
++}
++
++static inline int qemu_xen_gnttab_unmap(xengnttab_handle *xgt,
++                                        void *start_address,
++                                        uint32_t count)
++{
++    if (!xen_gnttab_ops) {
 +        return -ENOSYS;
 +    }
-+    return xen_evtchn_ops->get_fd(xc);
++    return xen_gnttab_ops->unmap(xgt, start_address, count);
 +}
 +
-+static inline int qemu_xen_evtchn_notify(xenevtchn_handle *xc,
-+                                         evtchn_port_t port)
-+{
-+    if (!xen_evtchn_ops) {
-+        return -ENOSYS;
-+    }
-+    return xen_evtchn_ops->notify(xc, port);
-+}
-+
-+static inline int qemu_xen_evtchn_unmask(xenevtchn_handle *xc,
-+                                         evtchn_port_t port)
-+{
-+    if (!xen_evtchn_ops) {
-+        return -ENOSYS;
-+    }
-+    return xen_evtchn_ops->unmask(xc, port);
-+}
-+
-+static inline int qemu_xen_evtchn_pending(xenevtchn_handle *xc)
-+{
-+    if (!xen_evtchn_ops) {
-+        return -ENOSYS;
-+    }
-+    return xen_evtchn_ops->pending(xc);
-+}
-+
-+void setup_xen_backend_ops(void);
-+
-+#endif /* QEMU_XEN_BACKEND_OPS_H */
+ void setup_xen_backend_ops(void);
+ 
+ #endif /* QEMU_XEN_BACKEND_OPS_H */
 diff --git a/include/hw/xen/xen_common.h b/include/hw/xen/xen_common.h
-index 9a13a756ae..34abd0a772 100644
+index 34abd0a772..d4d10d3ff1 100644
 --- a/include/hw/xen/xen_common.h
 +++ b/include/hw/xen/xen_common.h
-@@ -28,18 +28,7 @@ extern xc_interface *xen_xc;
+@@ -28,17 +28,6 @@ extern xc_interface *xen_xc;
  #if CONFIG_XEN_CTRL_INTERFACE_VERSION < 40701
  
  typedef xc_interface xenforeignmemory_handle;
--typedef xc_evtchn xenevtchn_handle;
- typedef xc_gnttab xengnttab_handle;
--typedef evtchn_port_or_error_t xenevtchn_port_or_error_t;
+-typedef xc_gnttab xengnttab_handle;
 -
--#define xenevtchn_open(l, f) xc_evtchn_open(l, f);
--#define xenevtchn_close(h) xc_evtchn_close(h)
--#define xenevtchn_fd(h) xc_evtchn_fd(h)
--#define xenevtchn_pending(h) xc_evtchn_pending(h)
--#define xenevtchn_notify(h, p) xc_evtchn_notify(h, p)
--#define xenevtchn_bind_interdomain(h, d, p) xc_evtchn_bind_interdomain(h, d, p)
--#define xenevtchn_unmask(h, p) xc_evtchn_unmask(h, p)
--#define xenevtchn_unbind(h, p) xc_evtchn_unbind(h, p)
+-#define xengnttab_open(l, f) xc_gnttab_open(l, f)
+-#define xengnttab_close(h) xc_gnttab_close(h)
+-#define xengnttab_set_max_grants(h, n) xc_gnttab_set_max_grants(h, n)
+-#define xengnttab_map_grant_ref(h, d, r, p) xc_gnttab_map_grant_ref(h, d, r, p)
+-#define xengnttab_unmap(h, a, n) xc_gnttab_munmap(h, a, n)
+-#define xengnttab_map_grant_refs(h, c, d, r, p) \
+-    xc_gnttab_map_grant_refs(h, c, d, r, p)
+-#define xengnttab_map_domain_grant_refs(h, c, d, r, p) \
+-    xc_gnttab_map_domain_grant_refs(h, c, d, r, p)
  
- #define xengnttab_open(l, f) xc_gnttab_open(l, f)
- #define xengnttab_close(h) xc_gnttab_close(h)
-@@ -69,7 +58,6 @@ static inline void *xenforeignmemory_map(xc_interface *h, uint32_t dom,
+ #define xenforeignmemory_open(l, f) xen_xc
+ #define xenforeignmemory_close(h)
+@@ -58,7 +47,6 @@ static inline void *xenforeignmemory_map(xc_interface *h, uint32_t dom,
  
  #else /* CONFIG_XEN_CTRL_INTERFACE_VERSION >= 40701 */
  
--#include <xenevtchn.h>
- #include <xengnttab.h>
+-#include <xengnttab.h>
  #include <xenforeignmemory.h>
  
-diff --git a/include/hw/xen/xen_pvdev.h b/include/hw/xen/xen_pvdev.h
-index 7cd4bc2b82..9c27b14764 100644
---- a/include/hw/xen/xen_pvdev.h
-+++ b/include/hw/xen/xen_pvdev.h
-@@ -1,6 +1,7 @@
- #ifndef QEMU_HW_XEN_PVDEV_H
- #define QEMU_HW_XEN_PVDEV_H
+ #endif
+@@ -648,31 +636,4 @@ static inline int xen_set_ioreq_server_state(domid_t dom,
  
-+#include "hw/xen/xen_backend_ops.h"
- #include "hw/xen/xen_common.h"
- /* ------------------------------------------------------------- */
+ #endif
  
+-/* Xen before 4.8 */
+-
+-#if CONFIG_XEN_CTRL_INTERFACE_VERSION < 40800
+-
+-struct xengnttab_grant_copy_segment {
+-    union xengnttab_copy_ptr {
+-        void *virt;
+-        struct {
+-            uint32_t ref;
+-            uint16_t offset;
+-            uint16_t domid;
+-        } foreign;
+-    } source, dest;
+-    uint16_t len;
+-    uint16_t flags;
+-    int16_t status;
+-};
+-
+-typedef struct xengnttab_grant_copy_segment xengnttab_grant_copy_segment_t;
+-
+-static inline int xengnttab_grant_copy(xengnttab_handle *xgt, uint32_t count,
+-                                       xengnttab_grant_copy_segment_t *segs)
+-{
+-    return -ENOSYS;
+-}
+-#endif
+-
+ #endif /* QEMU_HW_XEN_COMMON_H */
 diff --git a/softmmu/globals.c b/softmmu/globals.c
-index 0a4405614e..eb62739be1 100644
+index eb62739be1..23bb27f0f6 100644
 --- a/softmmu/globals.c
 +++ b/softmmu/globals.c
-@@ -65,3 +65,4 @@ bool qemu_uuid_set;
- uint32_t xen_domid;
+@@ -66,3 +66,4 @@ uint32_t xen_domid;
  enum xen_mode xen_mode = XEN_DISABLED;
  bool xen_domid_restrict;
-+struct evtchn_backend_ops *xen_evtchn_ops;
+ struct evtchn_backend_ops *xen_evtchn_ops;
++struct gnttab_backend_ops *xen_gnttab_ops;
 -- 
 2.39.0
 
