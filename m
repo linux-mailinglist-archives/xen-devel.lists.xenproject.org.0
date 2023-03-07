@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72A556AF723
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 22:03:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.507901.782081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E1716AF73D
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 22:09:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.507908.782091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZeS5-0005Xi-Ri; Tue, 07 Mar 2023 21:02:29 +0000
+	id 1pZeYt-0006GJ-KV; Tue, 07 Mar 2023 21:09:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 507901.782081; Tue, 07 Mar 2023 21:02:29 +0000
+Received: by outflank-mailman (output) from mailman id 507908.782091; Tue, 07 Mar 2023 21:09:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZeS5-0005Ux-P7; Tue, 07 Mar 2023 21:02:29 +0000
-Received: by outflank-mailman (input) for mailman id 507901;
- Tue, 07 Mar 2023 21:02:28 +0000
+	id 1pZeYt-0006Dy-Hj; Tue, 07 Mar 2023 21:09:31 +0000
+Received: by outflank-mailman (input) for mailman id 507908;
+ Tue, 07 Mar 2023 21:09:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YLjA=67=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pZeS4-0005Ur-Do
- for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 21:02:28 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=/goj=67=microsoft.com=mikelley@srs-se1.protection.inumbo.net>)
+ id 1pZeYr-0006Ds-2X
+ for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 21:09:29 +0000
+Received: from BN3PR00CU001.outbound.protection.outlook.com
+ (mail-eastus2azlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c110::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bc7dbc8-bd2b-11ed-87f5-c1b5be75604c;
- Tue, 07 Mar 2023 22:02:26 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 477A36153C;
- Tue,  7 Mar 2023 21:02:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDD10C433D2;
- Tue,  7 Mar 2023 21:02:21 +0000 (UTC)
+ id 5761c2f7-bd2c-11ed-87f5-c1b5be75604c;
+ Tue, 07 Mar 2023 22:09:27 +0100 (CET)
+Received: from BYAPR21MB1688.namprd21.prod.outlook.com (2603:10b6:a02:bf::26)
+ by PH7PR21MB3140.namprd21.prod.outlook.com (2603:10b6:510:1d4::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.16; Tue, 7 Mar
+ 2023 21:09:22 +0000
+Received: from BYAPR21MB1688.namprd21.prod.outlook.com
+ ([fe80::629a:b75a:482e:2d4a]) by BYAPR21MB1688.namprd21.prod.outlook.com
+ ([fe80::629a:b75a:482e:2d4a%4]) with mapi id 15.20.6178.016; Tue, 7 Mar 2023
+ 21:09:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,124 +47,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bc7dbc8-bd2b-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1678222942;
-	bh=qxE5sHUKfGVd/qIxDUtt3kzOpaqZNxI1zAzEa/0oLSQ=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ai62tdksuV8lZzRph5Uwgmhw8S3F4M5TL8PPC5uzVTvKSVmw6g43JrPMTSJxnd5P/
-	 PBVsu6aExzM9O7jvRqRQ16B0doMCD1zXkElXeRfrBLxf2aASyqIHVAaAF2mPdk1Ilv
-	 hhZ+RWpM0UhAC8s0O+55GK3a8NGzXnUy1aB7sZC7fR0z6wUmMM1iIZ1BuKs2mSxq9Q
-	 iGi1WzsB2nti8wmNVq8LM8u2ln+O+hTE4JEcf9rs0TSL30ntgdEh8XvIt9zfGcAfmU
-	 2xp75malDVxgL56Stbqy4h+U2aBxqvip+vsRx5CbWE22i39qp7nlpVIjKFAzlBtb//
-	 5mXwZeJtwM1nA==
-Date: Tue, 7 Mar 2023 13:02:20 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Andrei Cherechesu <andrei.cherechesu@nxp.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v1 2/2] arch/arm: time: Add support for parsing interrupts
- by names
-In-Reply-To: <370745D6-D6AF-43D0-8E9F-2DB160BE0E07@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2303071301300.863724@ubuntu-linux-20-04-desktop>
-References: <20230307100949.9231-1-andrei.cherechesu@oss.nxp.com> <20230307100949.9231-3-andrei.cherechesu@oss.nxp.com> <370745D6-D6AF-43D0-8E9F-2DB160BE0E07@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 5761c2f7-bd2c-11ed-87f5-c1b5be75604c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AF9/OdLrivLbzj+PJnkoJWNeEMMfCXsxtCn7lGRPWs1NqZiRg44iqGhZxczATUgfYc8e2U2+XrikT2oYL6Zi2tDKhe6nRgnELGh4WnEa4LmVJHq8Nm3cQ9KC0F8dZxsUhQ0hFlLxUP2CwcX8Lb2nTHTn+LHOAcGNlp5fx4znvWQYriYTpDRez5sxfAkGgwY/8LfQv30ZPqBI0nvQsIXbpuWo+Au0A98KnvcKcYkwEX58QfaTboecSvEsvIxXXyGDuXcZSD/dJbi3NaOXWQSkauMAsDhxpza7qOQlSbHiaAWUkcG0SI48cdb7MYZecIYELq5WUvtBmuADwfoKgUYy/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gIEaKjgrFWbRgGSfrWcOdWmNL5btujXYEYfw3wDX7tE=;
+ b=iwG3kJIgEtDxUaM7XA5oGzdn+52DA8WhtKWe/Sp2urXD1ID+/Kr47ARnGMNKqCX6FsUqWdicRXlkJ0t9mYk2qHU9GONJcrED41HL15rpe6aIV+hb93WmxtbFvYb+H2E8Kw5agEi8c1lUg2TG7NIEIt3WY9cKqe90kLYFoXmKkJ9uYYIr24zGuo2tz0RocYvjsBL2ewA5O4egCPObXx2W5H6IWwqb8A4Bc4jvZaW3F5vSd9toNO3lsghafbNDKHQWPM+h2NW5FmKTUksFIfO3NrhL1pK9PS03u+shz5NG5155As0TbJeZKBMY/7lX6fwjO/0np0o0ddUxILiYHAAAmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gIEaKjgrFWbRgGSfrWcOdWmNL5btujXYEYfw3wDX7tE=;
+ b=YQlW4NVxZDJ7kmuiMn0iV4ZGlmNIoaXVhjXM6IyKexBJUV8chl0Bvp2BARZPRlUESQXolrKAeacg/FLIipWZxsxNHQG+em92Ghe8D/AYcuYlu3mGeIgTuZSdSfWtKCs9O4PkbtOcYQIDHb3AowLWrsIhjcx9vn9CVZ94fn1NeAA=
+From: "Michael Kelley (LINUX)" <mikelley@microsoft.com>
+To: Juergen Gross <jgross@suse.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "x86@kernel.org" <x86@kernel.org>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+CC: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, KY Srinivasan <kys@microsoft.com>, Haiyang
+ Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui
+	<decui@microsoft.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andy
+ Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
+Subject: RE: [PATCH v4 00/12] x86/mtrr: fix handling with PAT but without MTRR
+Thread-Topic: [PATCH v4 00/12] x86/mtrr: fix handling with PAT but without
+ MTRR
+Thread-Index: AQHZUEnfXAWHZPt6fU+0bsYvtV7j7a7vz79w
+Date: Tue, 7 Mar 2023 21:09:22 +0000
+Message-ID:
+ <BYAPR21MB16887D38D0A2F2EF1B6E2300D7B79@BYAPR21MB1688.namprd21.prod.outlook.com>
+References: <20230306163425.8324-1-jgross@suse.com>
+In-Reply-To: <20230306163425.8324-1-jgross@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=c109dd38-892f-4330-8e9b-47000582b9dc;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2023-03-07T21:02:44Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BYAPR21MB1688:EE_|PH7PR21MB3140:EE_
+x-ms-office365-filtering-correlation-id: b015e6c5-3a0c-4a92-6db4-08db1f5039a2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ cPvtkv1I08uKzSLRy3qvnj9RgdTT6290IhjxC7pN74fEf65l+3vF7tdwBvGH3bdpGvd0wLFI8hzCQLMxl2/JdqsOCV5fInYD+0pALOvdSmDb+RkpEUoJP3JAlmxs6cbWP+t1WYLyXh2J5/2AuN4AUxh8tCFpG8+2ssJWooHoYFsOAN2XUTDxBYEwl0Ck1d0szLZkFQWs0TR85b4MTIZdamttlmy04/MwRPEYGZMc8lPXdZHwpulE/sPNt5nIu3Kc6I/ZMHqLCl1GCWnK95UoroEhSDcN7QEsyRgHWwnmO6/9fx+qwN5lActinilA7YvjhblaiCPcYv2RbCI7lgFxSK196Ett+ABsq6WviPBq7YzsXdxzMrVNmvDaumjiFDvkiDXdieQl425IIDd6nmfnWeJuyIjgFBgHxDjwRj2NkHhyTP56x7K5eOyYEKeKbiZaZQLgVdg4oRCULaN7HSB+olvi30pu3w70uGCga0rkTLdtqFCdBzLMiVBog5dDXLlDNA6I6mFN8/Hmdz6nEsl+VjWKYDvSqVofcbPNVAbPKKEWKBMU7+YAKvKrhhEjNiEJYXrXL8iNMMye4acrpUI2OuuGLmyFnmoP0GHN2c2VfFV4KWR+76I+IzXdSXxScsqRNZOacDH3x2kd0H48g/SCZX/RmSYlFS/yY8UiC41s04IlvhWLTIkYYJ3vz0xbANjKdA9xfxY8GdyjKeWbtqeOn+y41oryuCkz06Im4nIA2gOaNDm55x8NDRKEAvFoPCj1
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR21MB1688.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(346002)(396003)(39860400002)(366004)(376002)(451199018)(9686003)(186003)(38100700002)(26005)(2906002)(55016003)(316002)(8936002)(71200400001)(54906003)(52536014)(110136005)(38070700005)(478600001)(5660300002)(10290500003)(7416002)(33656002)(7696005)(64756008)(66446008)(66476007)(66556008)(4326008)(8676002)(82950400001)(82960400001)(76116006)(86362001)(66946007)(6506007)(8990500004)(41300700001)(122000001)(83380400001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?1Zllg+ZLwHIVNQ/RcCgjL0tBKNcDuA+EEGSpzFy4q6gd1rreP6qbHDMK4zMV?=
+ =?us-ascii?Q?6+bTcNPZFIU7f8c6KBXmTMksjHNeHufY5A/bWy7211/fUxweOyhKUwFLy6I3?=
+ =?us-ascii?Q?q0ipSgjgtumlz8q3K2GifdL+OiXSESXn5HJPHhMeXh5cPXDzwPeAYap2xuDZ?=
+ =?us-ascii?Q?pkjoxPyA/NtjJnPyWApedC1h/eLRTm2pqG0xjsi5ui27Yv02GxEXalYDXsJd?=
+ =?us-ascii?Q?XA2hkizTPwyj1soDW9Q0+qTfy4QR24UMu7/kQ7LQ4zPJf78XD/BK9X+yB0hP?=
+ =?us-ascii?Q?9+YLOq4Vx0AVR9PPMDYd3pKkMVS7LHoJNG5oNJi+RJqjO60v8RMgemqYcAXo?=
+ =?us-ascii?Q?EaIGSqBMp9rlLw8yUSq2Wyvazfh5GTw5PB2LWV4DstU+md0Kq5PDGUK6SfN7?=
+ =?us-ascii?Q?lWsq+nDcnOQLm/J3jJuwnCtI1zEytmjGt9c4aDxdujjuSTDIXv6jx8nZwiPl?=
+ =?us-ascii?Q?+1ngWjoI6N0xHm8DDe4ylOonPmR5W167+2XU07hUcic4woBSnc3h1V99W1Ls?=
+ =?us-ascii?Q?1ea0+14BEqA8f23H+ZEWdcW6ytvTE4D87t45s/pNTMzp7+vH2E8MLDxPe0b/?=
+ =?us-ascii?Q?RFh3WJzg5dY8Z5qkVm0I23qC00o7rtSUW3QdFsKItUy6BppGqgl3ORZLbWjO?=
+ =?us-ascii?Q?/377HNyHR4yNRVffTLKvULHFflgCzosKV0mRw8PaVUK6dpLVGaI2b/fWd5sg?=
+ =?us-ascii?Q?RSlruxlFFM+tuGlSUCUdClDqtyRGIN203cvGU+EHDV/tUCakTs9+cTTKUs8K?=
+ =?us-ascii?Q?KFkWxAhhI+K5LIa8m2GX39r6OoojVX6pi2boPxalmwq9WwOpZfOYhTPYQ4ZN?=
+ =?us-ascii?Q?A/kkYvEsyT7449FEzVgPxBwDFSrPJBC9dTZoxLGfP8jAQ1LQ3kUKLIkSxWwH?=
+ =?us-ascii?Q?dUuxIgldfusM83Y0osBbOObRyg2iVMnHOGiWwtTfwc50tdwJAqsCEjNVxeBy?=
+ =?us-ascii?Q?yCvbQTuSiviCfIod0jiURWGD5Mre/DAAMCoSoqqclteD9aH5FqZ7Z6KpOjqO?=
+ =?us-ascii?Q?zeweKCiFgEmx0tdpL5LBw7haaZl1Qu0zcBfUdv5D/dBioQtS3NpueLU5fS0t?=
+ =?us-ascii?Q?zk3jZZta0SuDovhY2LK0zqquzYIVhVKojaOr2nGPh3WPRYS5Uuc8WQ9LV/vX?=
+ =?us-ascii?Q?zqFhBVGvGBLQbcdMD9HJbHGMa1xbLtJkFOkRjK51nhbaq/nf0SohRkoCvBEz?=
+ =?us-ascii?Q?lPBUc7IGSdy4JHLVxBhiUf+yYydhr0X7UUbvcwefjDSVxCvgf/zR7tip3Vwj?=
+ =?us-ascii?Q?Q7LdjEFNpUhBjSZ/4eX/0bA20EKQK0wSdkPJuiGv9ydKjVAerohqJiu8Hc1x?=
+ =?us-ascii?Q?D5dsMpiWIBTQNr46rZ9R1j75O7B2PPm4zsAWjw+ohVsvJXKVYxDi6lKPfg0Y?=
+ =?us-ascii?Q?DYTol3MK/3wFKjMzxDSQeWJt9Sq2QeN2sQCOD+p0id/9ffjsdvQv6LlJsYOx?=
+ =?us-ascii?Q?1gh2VThorrvvkmdt90cAydIUF837wSN+e2JpG4QtAZPzdg4ryxsMar9YUNBy?=
+ =?us-ascii?Q?OUaONsrmK6EXG7jmzqznMcgdGhdxTNIyUAGnaj9AE1V+lsrAPdOr4eldJc1p?=
+ =?us-ascii?Q?KGLJaldC6IBID98yxoj5qP4rcgvh90cQ+1Q0E9HMQfOllgWw4E3k//+EaGkL?=
+ =?us-ascii?Q?pw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR21MB1688.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b015e6c5-3a0c-4a92-6db4-08db1f5039a2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Mar 2023 21:09:22.7223
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FmNEvBYBhIfXkeI/59sRaZd+C87DzO/Yqyc3rY1Y3qNorX/9JYuteMYNZ6ElJbWaY2lYAYRRUapv5yDo/Ei5pbt1Xlxo2K0QsbGHc3lepS0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR21MB3140
 
-On Tue, 7 Mar 2023, Bertrand Marquis wrote:
-> > On 7 Mar 2023, at 11:09, Andrei Cherechesu (OSS) <andrei.cherechesu@oss.nxp.com> wrote:
-> > 
-> > From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> > 
-> > Added support for parsing the ARM generic timer interrupts DT
-> > node by the "interrupt-names" property, if it is available.
-> > 
-> > If not available, the usual parsing based on the expected
-> > IRQ order is performed.
-> > 
-> > Also added the "hyp-virt" PPI to the timer PPI list, even
-> > though it's currently not in use. If the "hyp-virt" PPI is
-> > not found, the hypervisor won't panic.
-> > 
-> > Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> > ---
-> > xen/arch/arm/include/asm/time.h |  3 ++-
-> > xen/arch/arm/time.c             | 26 ++++++++++++++++++++++----
-> > 2 files changed, 24 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/xen/arch/arm/include/asm/time.h b/xen/arch/arm/include/asm/time.h
-> > index 4b401c1110..49ad8c1a6d 100644
-> > --- a/xen/arch/arm/include/asm/time.h
-> > +++ b/xen/arch/arm/include/asm/time.h
-> > @@ -82,7 +82,8 @@ enum timer_ppi
-> >     TIMER_PHYS_NONSECURE_PPI = 1,
-> >     TIMER_VIRT_PPI = 2,
-> >     TIMER_HYP_PPI = 3,
-> > -    MAX_TIMER_PPI = 4,
-> > +    TIMER_HYP_VIRT_PPI = 4,
-> > +    MAX_TIMER_PPI = 5,
-> > };
-> > 
-> > /*
-> > diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> > index 433d7be909..794da646d6 100644
-> > --- a/xen/arch/arm/time.c
-> > +++ b/xen/arch/arm/time.c
-> > @@ -38,6 +38,14 @@ uint32_t __read_mostly timer_dt_clock_frequency;
-> > 
-> > static unsigned int timer_irq[MAX_TIMER_PPI];
-> > 
-> > +static const char *timer_irq_names[MAX_TIMER_PPI] = {
-> > +    [TIMER_PHYS_SECURE_PPI] = "sec-phys",
-> > +    [TIMER_PHYS_NONSECURE_PPI] = "phys",
-> > +    [TIMER_VIRT_PPI] = "virt",
-> > +    [TIMER_HYP_PPI] = "hyp-phys",
-> > +    [TIMER_HYP_VIRT_PPI] = "hyp-virt",
-> > +};
-> > +
-> 
-> I would need some reference or a pointer to some doc to check those.
-> 
-> > unsigned int timer_get_irq(enum timer_ppi ppi)
-> > {
-> >     ASSERT(ppi >= TIMER_PHYS_SECURE_PPI && ppi < MAX_TIMER_PPI);
-> > @@ -149,15 +157,25 @@ static void __init init_dt_xen_time(void)
-> > {
-> >     int res;
-> >     unsigned int i;
-> > +    bool has_names;
-> > +
-> > +    has_names = dt_property_read_bool(timer, "interrupt-names");
-> > 
-> >     /* Retrieve all IRQs for the timer */
-> >     for ( i = TIMER_PHYS_SECURE_PPI; i < MAX_TIMER_PPI; i++ )
-> >     {
-> > -        res = platform_get_irq(timer, i);
-> > -
-> > -        if ( res < 0 )
-> > +        if ( has_names )
-> > +            res = platform_get_irq_byname(timer, timer_irq_names[i]);
-> > +        else
-> > +            res = platform_get_irq(timer, i);
-> > +
-> > +        if ( res > 0 )
-> 
-> The behaviour of the code is changed here compared to the current
-> version as res = 0 will now generate a panic.
-> 
-> Some device tree might not specify an interrupt number and just put
-> 0 and Xen will now panic on those systems.
-> As I have no idea if such systems exists and the behaviour is modified
-> you should justify this and mention it in the commit message or keep
-> the old behaviour and let 0 go through without a panic.
-> 
-> @stefano, julien any idea here ? should just keep the old behaviour ?
+From: Juergen Gross <jgross@suse.com> Sent: Monday, March 6, 2023 8:34 AM
+>=20
+> This series tries to fix the rather special case of PAT being available
+> without having MTRRs (either due to CONFIG_MTRR being not set, or
+> because the feature has been disabled e.g. by a hypervisor).
+>=20
+> The main use cases are Xen PV guests and SEV-SNP guests running under
+> Hyper-V.
+>=20
+> Instead of trying to work around all the issues by adding if statements
+> here and there, just try to use the complete available infrastructure
+> by setting up a read-only MTRR state when needed.
+>=20
+> In the Xen PV case the current MTRR MSR values can be read from the
+> hypervisor, while for the SEV-SNP case all needed is to set the
+> default caching mode to "WB".
+>=20
+> I have added more cleanup which has been discussed when looking into
+> the most recent failures.
+>=20
+> Note that I couldn't test the Hyper-V related change (patch 3).
+>=20
+> Running on bare metal and with Xen didn't show any problems with the
+> series applied.
+>=20
+> It should be noted that patches 9+10 are replacing today's way to
+> lookup the MTRR cache type for a memory region from looking at the
+> MTRR register values to building a memory map with the cache types.
+> This should make the lookup much faster and much easier to understand.
+>=20
+> Changes in V2:
+> - replaced former patches 1+2 with new patches 1-4, avoiding especially
+>   the rather hacky approach of V1, while making all the MTRR type
+>   conflict tests available for the Xen PV case
+> - updated patch 6 (was patch 4 in V1)
+>=20
+> Changes in V3:
+> - dropped patch 5 of V2, as already applied
+> - split patch 1 of V2 into 2 patches
+> - new patches 6-10
+> - addressed comments
+>=20
+> Changes in V4:
+> - addressed comments
+>=20
+> Juergen Gross (12):
+>   x86/mtrr: split off physical address size calculation
+>   x86/mtrr: optimize mtrr_calc_physbits()
+>   x86/mtrr: support setting MTRR state for software defined MTRRs
+>   x86/hyperv: set MTRR state when running as SEV-SNP Hyper-V guest
+>   x86/xen: set MTRR state when running as Xen PV initial domain
+>   x86/mtrr: replace vendor tests in MTRR code
+>   x86/mtrr: allocate mtrr_value array dynamically
+>   x86/mtrr: add get_effective_type() service function
+>   x86/mtrr: construct a memory map with cache modes
+>   x86/mtrr: use new cache_map in mtrr_type_lookup()
+>   x86/mtrr: don't let mtrr_type_lookup() return MTRR_TYPE_INVALID
+>   x86/mm: only check uniform after calling mtrr_type_lookup()
+>=20
+>  arch/x86/include/asm/mtrr.h        |  15 +-
+>  arch/x86/include/uapi/asm/mtrr.h   |   6 +-
+>  arch/x86/kernel/cpu/mshyperv.c     |   4 +
+>  arch/x86/kernel/cpu/mtrr/amd.c     |   2 +-
+>  arch/x86/kernel/cpu/mtrr/centaur.c |   2 +-
+>  arch/x86/kernel/cpu/mtrr/cleanup.c |   4 +-
+>  arch/x86/kernel/cpu/mtrr/cyrix.c   |   2 +-
+>  arch/x86/kernel/cpu/mtrr/generic.c | 492 ++++++++++++++++++-----------
+>  arch/x86/kernel/cpu/mtrr/mtrr.c    |  94 +++---
+>  arch/x86/kernel/cpu/mtrr/mtrr.h    |   7 +-
+>  arch/x86/kernel/setup.c            |   2 +
+>  arch/x86/mm/pgtable.c              |  24 +-
+>  arch/x86/xen/enlighten_pv.c        |  52 +++
+>  13 files changed, 454 insertions(+), 252 deletions(-)
+>=20
+> --
+> 2.35.3
 
-platform_get_irq returns 0 if the irq is 0. The irq cannot be 0 because
-0 is reserved for SGIs, not PPIs. So I think it is OK to consider 0 an
-error.
+I've tested a Linux 6.2 kernel plus this series in a normal Hyper-V
+guest and in a Hyper-V guest using SEV-SNP with vTOM.  MMIO
+memory is correctly mapped as WB or UC- depending on the
+request, which fixes the original problem introduced for Hyper-V
+by the Xen-specific change.
+
+Tested-by: Michael Kelley <mikelley@microsoft.com>
 
