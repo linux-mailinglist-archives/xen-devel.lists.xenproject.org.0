@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AF3D6AE33A
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 15:49:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.507472.781021 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 756956AE35C
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 15:53:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.507480.781032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZYcd-0002ro-7m; Tue, 07 Mar 2023 14:48:59 +0000
+	id 1pZYg3-0004Zp-QU; Tue, 07 Mar 2023 14:52:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 507472.781021; Tue, 07 Mar 2023 14:48:59 +0000
+Received: by outflank-mailman (output) from mailman id 507480.781032; Tue, 07 Mar 2023 14:52:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZYcd-0002p9-44; Tue, 07 Mar 2023 14:48:59 +0000
-Received: by outflank-mailman (input) for mailman id 507472;
- Tue, 07 Mar 2023 14:48:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pZYg3-0004Ww-Mt; Tue, 07 Mar 2023 14:52:31 +0000
+Received: by outflank-mailman (input) for mailman id 507480;
+ Tue, 07 Mar 2023 14:52:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yYpO=67=casper.srs.infradead.org=BATV+9298a7250c90fe94fbb7+7135+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1pZYca-0002Lz-Pl
- for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 14:48:57 +0000
+ id 1pZYg2-0004Wq-RL
+ for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 14:52:30 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2db29641-bcf7-11ed-a550-8520e6686977;
- Tue, 07 Mar 2023 15:48:53 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aeda126e-bcf7-11ed-96b5-2f268f93b82a;
+ Tue, 07 Mar 2023 15:52:29 +0100 (CET)
 Received: from [2001:8b0:10b:5:640c:634b:db90:9c87]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pZYcT-006UYR-8P; Tue, 07 Mar 2023 14:48:49 +0000
+ id 1pZYfz-006Ug6-R7; Tue, 07 Mar 2023 14:52:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,19 +41,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2db29641-bcf7-11ed-a550-8520e6686977
+X-Inumbo-ID: aeda126e-bcf7-11ed-96b5-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=3VK1x/GnUv1bomVR2NRjy7iGAlY+aJ7tdAAZjUR68Jo=; b=RjRcz05+naI3gpqz2yM1NJMAc2
-	PqqXpLGxOfuL/dO6eI4+awHwqRk6kISjaClxgdEX4WR+8Z5rDwZ9j/GyuFoq48hAMUN6L2z1O918o
-	ZXJPw12PF5yvnodZYYKBoghJFSgqfnKUAurT+pBQG66Ta1nXho2feA6DWcogJ3OV99J9Y9IdR/Vl2
-	xSpLUlK3lK6uUTcJdv3xeJNFqSLiHJaAcoyD+3Xlan7UI+TTNLkTn+zZbBWVnIoQxxXwyzAoVcR16
-	qeENCz6wa6iAMnXDKxf99reioYXEMEnME3Bj7zV48AyBYq+DBdU9DB/VQZzF5UYTV84ciYLAfFIZy
-	mA+cEeWg==;
-Message-ID: <bac842b0b1ea81e5aee922f3864bf57b99c515d4.camel@infradead.org>
-Subject: Re: [RFC PATCH v1 12/25] hw/xen: Add foreignmem operations to allow
+	bh=NM5iY4Nn2TQHVHW60ithMLKb9Sk7IdBVcMTvxKsytlo=; b=mCpju/yXxi7M9lVabSMmnR15lS
+	TNNd73gvQ5a3a5ncKSkR+qgP1q0DUwavndqnEkIPjpah/d53CXpOMwpMPR3gyAm4KHsPNOZpGjy/j
+	WTdkXdMirls8AKREHcJnJmh7moo55cWWz8ZCBbDDxF9L0aGe8FzpK5XQ0MQ8sx6JUvxCPvVpPLmLW
+	brE4BLbPJT54Y0JM+sVTgh/E98GC0TmT2YgIWtb6pdkU8Q9z4k+yTGKLHpYeeJXglEcTWaXEtvSYZ
+	8f5THH3cHLyMCY8VxG7L0z9m7wnFkPw78lv7qZmpa5FqnVFoBvjabKGmsjYhV2GBOmBPya6uudgSe
+	Q28von4g==;
+Message-ID: <a5321652a4f0742edfbe8d14154959176d2538a5.camel@infradead.org>
+Subject: Re: [RFC PATCH v1 13/25] hw/xen: Add xenstore operations to allow
  redirection to internal emulation
 From: David Woodhouse <dwmw2@infradead.org>
 To: paul@xen.org, qemu-devel@nongnu.org
@@ -61,41 +61,40 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>, Joao Martins
  <joao.m.martins@oracle.com>, Ankur Arora <ankur.a.arora@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>, vikram.garhwal@amd.com,
  Anthony Perard <anthony.perard@citrix.com>,  xen-devel@lists.xenproject.org
-Date: Tue, 07 Mar 2023 14:48:47 +0000
-In-Reply-To: <470e51bf-5159-fd32-93b5-03f5bdf5f050@xen.org>
+Date: Tue, 07 Mar 2023 14:52:27 +0000
+In-Reply-To: <71e68af5-1528-f5c3-221a-5166af9396c6@xen.org>
 References: <20230302153435.1170111-1-dwmw2@infradead.org>
-	 <20230302153435.1170111-13-dwmw2@infradead.org>
-	 <470e51bf-5159-fd32-93b5-03f5bdf5f050@xen.org>
+	 <20230302153435.1170111-14-dwmw2@infradead.org>
+	 <71e68af5-1528-f5c3-221a-5166af9396c6@xen.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-FoqbE/HMUlB5H1Dh7um1"
+	boundary="=-5VaiBU4L8kSd+PiqZGvg"
 User-Agent: Evolution 3.44.4-0ubuntu1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-FoqbE/HMUlB5H1Dh7um1
+--=-5VaiBU4L8kSd+PiqZGvg
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2023-03-07 at 14:40 +0000, Paul Durrant wrote:
->=20
-> > -
-> > -#define xenforeignmemory_unmap(h, p, s) munmap(p, s * XC_PAGE_SIZE)
-> > -
->=20
-> Actually, probably best 'static inline' that, or at least put brackets=
-=20
-> round the 'p' and 's' for safety.
->=20
-That's the one we're *removing* :)
-
-> With either one of those options chosen...
+On Tue, 2023-03-07 at 14:44 +0000, Paul Durrant wrote:
+> On 02/03/2023 15:34, David Woodhouse wrote:
+> > From: Paul Durrant <pdurrant@amazon.com>
+> >=20
+> > Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> > ---
 >=20
 > Reviewed-by: Paul Durrant <paul@xen.org>
 
-Taking that anyway.
+You're reviewing your own code on some of those... :)
 
---=-FoqbE/HMUlB5H1Dh7um1
+Do we need to get review from *another* person listed in MAINTAINERS
+for Xen? Or shall I add my own R-by tags for those ones too?
+
+
+
+--=-5VaiBU4L8kSd+PiqZGvg
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -187,25 +186,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwMzA3MTQ0ODQ3WjAvBgkqhkiG9w0BCQQxIgQgfOhaNgUX
-r6APDYEwIvSj6LoIyq58d40gEt4k6uBop1Ewgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwMzA3MTQ1MjI3WjAvBgkqhkiG9w0BCQQxIgQgyaGNhqvM
+tYrbjyHuecW0B5ckVDP0OrXDovzKHnBNdp0wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgArryNwfE8fQRDDjy41kT6Fk/IMDEE/8zD0
-X9psIyxKx7ESNWsP8ba/0OfL4exst0plb73IxJDLh2GTQNErpF/seq+0zlxzG83VOMbFj/awbWDb
-UoIIMnAbi2311wnVKb+uaaZbdd0CX9A4mu7aUGsp31vVC7SW+lVhke1d0NsOPV/gy6pcBxbkhUHL
-3rceXeHfaTVOgJguTNc0svinvU2YQlBMSUjKc48mlwLP/sEsSBuVbmr++nQFBLpC/8uPwiWE9XHX
-ghbN3UQaY0Ooq4MGjMJ8bOB0u+4FY0tVR1oMV6y3n0MPYk22HMPh8Y9VtTbR5dbWZNFAVkxiqb7I
-sGsLQo54xrWKaIoq/bkxIC/KjGk/2MkieZq/QQnrghk6v8NaBu7thbmvCOczZ0JoLZXDy+a5KCS3
-2QWH9SmSW5mxYkKkcNQj871NTPj+iLcp8cr7Hr2FrcmwXNXmTq8MM6sQl60zfyU3NtUpIppk5yF9
-sITfxFR6HQmrl+t6amQZa9t5n123oFgnv06SHLWX0CIje+FnOCn8LCx1LCF8ROp5JWDR4u72YzmI
-y+pH/3JUjfQkiNxROvdD7TUEitNwILfryXqjLSvCKZshWZH1H7tHuxrZhStFB3397oKgvyGF6sIa
-S/eyQeXPUEk4Vcma/o0/wHmEbjQOe7rWWO5GHk2qcAAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAL4GNtIAZAcbTjnxs45Ba/uLwFu0Wv7ijf
+06KIALZvoHaILqZCUubcsod0Bvtp5ioUZ67EByItywCtuW5uaSo98DFbCAwS5Zf2Ein9mQpufMkl
+ZXiXFDk/H5zmHIBFNhFhPigZ/eiYR3EJDhCBuypK5c8k7rTq/1ByQCodVutMXUh2M60bOkJRRwKU
+TWx925gsIQvx+HyGaDb+hLIn2Y8viiW16C8fBPO0N8QpwWXoO4Q3u2HeG5ywMoIERe1Lg7+ZPvUV
+u+q2npKB71Pc4Hul4Fqix2p4GOoaVv1fN1b4TC0+Qc9RDx7rlQlFGgrV+WxQEARThvhRjWHkxcHb
+h6xsiOZkZRBiYJYW80GGkdNVoncHhe/obO9hb+CvmhZPwNKLLmMa5L6NFATX7ovDX/dNiFAy01XI
+bYF02YTfmf45nrj1MJfwLIyZBoK+MeaiEoEK+TYVG+l/rT243sx+DzNqDHceM9fsFAyXykPFG48m
+THmi+wT1ZzsKIIGJfJGkoB0RoRH15wpsyN99XaeCAGkbN7sInOJxQSPA54nPPtPslKrsz6SENHsz
+3PWtRzMj7u0EtZCNO7Rb/Q1sCIyGwOcy/W38ryEAT3HAxYL0Lp4iZHB7VK8EraV/S6JiylHUQbiS
+SnHSGvTBGRXyZp14xItm3xvko+zY1JHV1DhWO8wEFQAAAAAAAA==
 
 
---=-FoqbE/HMUlB5H1Dh7um1--
+--=-5VaiBU4L8kSd+PiqZGvg--
 
