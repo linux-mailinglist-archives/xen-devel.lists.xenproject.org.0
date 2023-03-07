@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B57E06AD4F0
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 03:45:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.507194.780441 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5FFA6AD6F2
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 06:45:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.507202.780453 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZNIx-0001sj-C0; Tue, 07 Mar 2023 02:43:55 +0000
+	id 1pZQ73-0005kH-62; Tue, 07 Mar 2023 05:43:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 507194.780441; Tue, 07 Mar 2023 02:43:55 +0000
+Received: by outflank-mailman (output) from mailman id 507202.780453; Tue, 07 Mar 2023 05:43:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZNIx-0001r4-7E; Tue, 07 Mar 2023 02:43:55 +0000
-Received: by outflank-mailman (input) for mailman id 507194;
- Tue, 07 Mar 2023 02:43:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pZQ73-0005gt-2h; Tue, 07 Mar 2023 05:43:49 +0000
+Received: by outflank-mailman (input) for mailman id 507202;
+ Tue, 07 Mar 2023 05:43:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NRYl=67=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
- id 1pZNIv-0001qy-Tp
- for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 02:43:53 +0000
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [2607:f8b0:4864:20::102f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e315cd8f-bc91-11ed-a550-8520e6686977;
- Tue, 07 Mar 2023 03:43:50 +0100 (CET)
-Received: by mail-pj1-x102f.google.com with SMTP id
- h17-20020a17090aea9100b0023739b10792so10629225pjz.1
- for <xen-devel@lists.xenproject.org>; Mon, 06 Mar 2023 18:43:49 -0800 (PST)
-Received: from ?IPV6:2602:ae:154a:9f01:b1e0:bfd9:8b1a:efeb?
- ([2602:ae:154a:9f01:b1e0:bfd9:8b1a:efeb])
- by smtp.gmail.com with ESMTPSA id
- li11-20020a170903294b00b0017a032d7ae4sm7360964plb.104.2023.03.06.18.43.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Mar 2023 18:43:47 -0800 (PST)
+ <SRS0=g8Ij=67=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
+ id 1pZQ70-0005gn-S9
+ for xen-devel@lists.xen.org; Tue, 07 Mar 2023 05:43:47 +0000
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [2607:f8b0:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0357a4e1-bcab-11ed-96b5-2f268f93b82a;
+ Tue, 07 Mar 2023 06:43:45 +0100 (CET)
+Received: by mail-pl1-x62c.google.com with SMTP id p20so12906727plw.13
+ for <xen-devel@lists.xen.org>; Mon, 06 Mar 2023 21:43:41 -0800 (PST)
+Received: from localhost ([122.172.83.155]) by smtp.gmail.com with ESMTPSA id
+ s9-20020aa78d49000000b00593baab06dcsm7141652pfe.198.2023.03.06.21.43.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Mar 2023 21:43:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,67 +43,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e315cd8f-bc91-11ed-a550-8520e6686977
+X-Inumbo-ID: 0357a4e1-bcab-11ed-96b5-2f268f93b82a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1678157028;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=TZZUerayr4Vwu+mLpbm9993BkKWAeLPQd3Hs8A+YpLQ=;
-        b=GJPBc3z+jhZ0HwjeNXwiWdLykxv/heTtof0JnXRPLTjNLt7XoK4QATdgNl+zC+uYER
-         10d0xOLQbQ5tKYoDbIepka+6YTmlOUZmsOSvE70UNfF3w9HogCJB7jX1p7RTdlmoYAfV
-         JPY7PUgR2Wlg1G7tB4aycGrixENBPBoSczpL3n5ygJXhOGdt0hO2g+lGwFfljuixSS0L
-         MJPHza/Fg/HF+l4hSqLwluZc/FJxCAJaiegNxwZntC0CHWeeXnLOvth8uFAOaT2d8fta
-         bCGTwmswBAEx6jDFOnheZ5bo6qC0nc8ABG1jflBxDQb5iGqPx1QACgdrDd/l/2Vtkp5n
-         KjsA==
+        d=linaro.org; s=google; t=1678167819;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=JyZwio1/+xEWEzxkU6lojpUS2ztMZWUFHUjMcU1o9Ac=;
+        b=o16eilWBr6zovjyWBhZARYVUNpNVmCZ957WBaB90uj7v0ijWyRBXmC7axWu8HUZPyg
+         KqtIzrubb7yLJoVYDDZjm8XSUkAGsxsVMF9j0TaooAIhC06dzpsknR7pU+ntUYNBPIYT
+         L7y1UFhH7xiji8e84ojd1iOgzmq/UBxzbkvGoVJ+KKxlHycKVg9CHQ1yapCkzDtiCZXd
+         furkDTqHtAcgVuaERH1QSL3vMTrnJZHGg9Rl4Gf9Vz1r5GnKsMD0qQf1lZAVUWBPkp7l
+         WKFe79gq/A1iq09ibizZAB9etxoUb6KR8vArQ+xrG08rqo9LuI4R39iZlL6K/d//KcJj
+         fk0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678157028;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=TZZUerayr4Vwu+mLpbm9993BkKWAeLPQd3Hs8A+YpLQ=;
-        b=37xJ1qOff/rUVDMRHa3OWeB8dkyY+c6rqHEsYyCJdIbe19QT+sRkr7Navm9PJP7hBJ
-         92t/By/FAONFkQ/L9b1WmeL3g3hcUnjgxU0Xb4/I8pToZE5QlfQE190FP4LgPy3161fT
-         tPfTFsabGTQH7i/Dz6O2q5IvpwfbC2MNpQ0X72EuAY2tjDxcQLX4Mnj1OdfyuUkRK0aV
-         /QcxchhqXoQLYzWytZj4QDc7pciq+ceBsnp5WtIio/zXHFO+oCZsSlRJGgtaTgrj0taP
-         A/1et1n5EWyOe0kZBfMH7iG9HDl3SALfSzOWVsH7U2OpaC/DZS9WScrphQujHKjB68oo
-         NIzg==
-X-Gm-Message-State: AO0yUKUgxCyaN02VIkM1If/2a+yh/mEfVGuu8ckSKDW5mYq0HkJk0X3O
-	sovkM/m/inwfDINWVtSQ5cVj2w==
-X-Google-Smtp-Source: AK7set8T2iiJsAa1B9KEmbNwjnC1t3/UPR2fiiOhp2gcxJV18BX8m8me8ijn0RPS48CAkLqh08YiJw==
-X-Received: by 2002:a17:902:d2c9:b0:19a:7d0e:ceea with SMTP id n9-20020a170902d2c900b0019a7d0eceeamr14474139plc.25.1678157027766;
-        Mon, 06 Mar 2023 18:43:47 -0800 (PST)
-Message-ID: <861d7a45-734e-8115-ec57-7d0629fa36a1@linaro.org>
-Date: Mon, 6 Mar 2023 18:43:45 -0800
+        d=1e100.net; s=20210112; t=1678167819;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JyZwio1/+xEWEzxkU6lojpUS2ztMZWUFHUjMcU1o9Ac=;
+        b=VsyHUktcrsLlkTFhr12YwsiE9dDckGQ+vRed6UyeiF+Bw2XCd7aED7mYVQ2W+Fknj4
+         WYsDDDhhOADWgNThDYmimnR+HA3gHCKUtP9brdq1a+BuBYH1SdsoyHWpGM7gxMeMYFQ1
+         Y2nOQnxaDtn7EfVonI9iIs6Q3D5dkmJgJSK8KVQJFTDb1JcDkINEviAvVxoZy+b8TWYZ
+         B6avz6EpVq9mmrC5T/uBjK7omikC1EuH/UtNs9sqKXWbYCm1sgMERNpAUHzxdMPEbBZJ
+         ZIkzBNxnhkvjNMglVlQ+n8YT3Lu/Yl6pEKqUAiMdqube7bNeO83sMv6mDQlK+opNbFjI
+         ULwg==
+X-Gm-Message-State: AO0yUKW0CFQaWsuRaguhjUMbhWMlglCDkyeLwjbhjrFEP7fgcJtBzw+Y
+	6/bHstjE1Mq3PFjqgxSY9Ct9OA==
+X-Google-Smtp-Source: AK7set89vFW4+ayrW7cytv4tRdqoqnfUXD2/9IyuD77nfB09OVscnz1hGiNeFSav+nWeZHFOSm9Lqg==
+X-Received: by 2002:a05:6a20:7d88:b0:cc:a5d6:4471 with SMTP id v8-20020a056a207d8800b000cca5d64471mr17965217pzj.58.1678167819311;
+        Mon, 06 Mar 2023 21:43:39 -0800 (PST)
+Date: Tue, 7 Mar 2023 11:13:36 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org, virtio-dev@lists.oasis-open.org,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xen.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Sebastien Boeuf <sebastien.boeuf@intel.com>,
+	Liu Jiang <gerry@linux.alibaba.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>
+Subject: Re: [PATCH V2] docs: vhost-user: Add Xen specific memory mapping
+ support
+Message-ID: <20230307054336.uvky5d7q2qqlxdcv@vireshk-i7>
+References: <7c3c120bcf2cf023e873800fd3f55239dd302e38.1678100850.git.viresh.kumar@linaro.org>
+ <20230306153451.GB51288@fedora>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v4 4/5] docs/about/deprecated: Deprecate 32-bit arm hosts
- for system emulation
-Content-Language: en-US
-To: Thomas Huth <thuth@redhat.com>, qemu-devel@nongnu.org,
- Peter Maydell <peter.maydell@linaro.org>,
- Daniel Berrange <berrange@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: Markus Armbruster <armbru@redhat.com>,
- =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>, qemu-arm@nongnu.org,
- Maxim Levitsky <mlevitsk@redhat.com>, libvir-list@redhat.com,
- xen-devel@lists.xenproject.org, Reinoud Zandijk <reinoud@netbsd.org>,
- Wilfred Mallawa <wilfred.mallawa@wdc.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-References: <20230306084658.29709-1-thuth@redhat.com>
- <20230306084658.29709-5-thuth@redhat.com>
-From: Richard Henderson <richard.henderson@linaro.org>
-In-Reply-To: <20230306084658.29709-5-thuth@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230306153451.GB51288@fedora>
 
-On 3/6/23 00:46, Thomas Huth wrote:
-> +continuous to be supported on 32-bit arm hosts, too)
+On 06-03-23, 10:34, Stefan Hajnoczi wrote:
+> On Mon, Mar 06, 2023 at 04:40:24PM +0530, Viresh Kumar wrote:
+> > +Xen mmap description
+> > +^^^^^^^^^^^^^^^^^^^^
+> > +
+> > ++-------+-------+
+> > +| flags | domid |
+> > ++-------+-------+
+> > +
+> > +:flags: 64-bit bit field
+> > +
+> > +- Bit 0 is set for Xen foreign memory memory mapping.
+> > +- Bit 1 is set for Xen grant memory memory mapping.
+> > +- Bit 2 is set if the back-end can directly map additional memory (like
+> > +  descriptor buffers or indirect descriptors, which aren't part of already
+> > +  shared memory regions) without the need of front-end sending an additional
+> > +  memory region first.
+> 
+> I don't understand what Bit 2 does. Can you rephrase this? It's unclear
+> to me how additional memory can be mapped without a memory region
+> (especially the fd) is sent?
 
-"continues"
+I (somehow) assumed we will be able to use the same file descriptor
+that was shared for the virtqueues memory regions and yes I can see
+now why it wouldn't work or create problems.
 
-Acked-by: Richard Henderson <richard.henderson@linaro.org>
+And I need suggestion now on how to make this work.
 
+With Xen grants, the front end receives grant address from the from
+guest kernel, they aren't physical addresses, kind of IOMMU stuff.
 
-r~
+The back-end gets access for memory regions of the virtqueues alone
+initially.  When the back-end gets a request, it reads the descriptor
+and finds the buffer address, which isn't part of already shared
+regions. The same happens for descriptor addresses in case indirect
+descriptor feature is negotiated.
+
+At this point I was thinking maybe the back-end can simply call the
+mmap/ioctl to map the memory, using the file descriptor used for the
+virtqueues.
+
+How else can we make this work ? We also need to unmap/remove the
+memory region, as soon as the buffer is processed as the grant address
+won't be relevant for any subsequent request.
+
+Should I use VHOST_USER_IOTLB_MSG for this ? I did look at it and I
+wasn't convinced if it was an exact fit. For example it says that a
+memory address reported with miss/access fail should be part of an
+already sent memory region, which isn't the case here.
+
+> This message modifies the behavior of subsequent
+> VHOST_USER_SET_MEM_TABLE and VHOST_USER_ADD_MEM_REG messages. The memory
+> region structs can be extended and then VHOST_USER_SET_XEN_MMAP isn't
+> needed.
+> 
+> In other words:
+> 
+>   When VHOST_USER_PROTOCOL_F_XEN_MMAP is negotiated, each "Memory
+>   regions description" and "Single memory region description" has the
+>   following additional fields appended:
+> 
+>   +----------------+-------+
+>   | xen_mmap_flags | domid |
+>   +----------------+-------+
+
+This looks fine.
+
+-- 
+viresh
 
