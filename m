@@ -2,36 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87F636AE477
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 16:21:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.507505.781092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BD106AE4A2
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Mar 2023 16:27:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.507510.781103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZZ86-0002fq-7N; Tue, 07 Mar 2023 15:21:30 +0000
+	id 1pZZDz-0003JM-VJ; Tue, 07 Mar 2023 15:27:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 507505.781092; Tue, 07 Mar 2023 15:21:30 +0000
+Received: by outflank-mailman (output) from mailman id 507510.781103; Tue, 07 Mar 2023 15:27:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pZZ86-0002dW-3x; Tue, 07 Mar 2023 15:21:30 +0000
-Received: by outflank-mailman (input) for mailman id 507505;
- Tue, 07 Mar 2023 15:21:28 +0000
+	id 1pZZDz-0003Fv-Pe; Tue, 07 Mar 2023 15:27:35 +0000
+Received: by outflank-mailman (input) for mailman id 507510;
+ Tue, 07 Mar 2023 15:27:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bbCp=67=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pZZ84-0002dQ-Kk
- for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 15:21:28 +0000
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b89f5b8b-bcfb-11ed-96b5-2f268f93b82a;
- Tue, 07 Mar 2023 16:21:26 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 10CB43200912;
- Tue,  7 Mar 2023 10:21:21 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 07 Mar 2023 10:21:22 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 7 Mar 2023 10:21:20 -0500 (EST)
+ <SRS0=TARO=67=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1pZZDy-0003Fp-B1
+ for xen-devel@lists.xenproject.org; Tue, 07 Mar 2023 15:27:34 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on0619.outbound.protection.outlook.com
+ [2a01:111:f400:fe0e::619])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 943be782-bcfc-11ed-96b5-2f268f93b82a;
+ Tue, 07 Mar 2023 16:27:32 +0100 (CET)
+Received: from DB7PR03CA0083.eurprd03.prod.outlook.com (2603:10a6:10:72::24)
+ by AS4PR08MB8189.eurprd08.prod.outlook.com (2603:10a6:20b:58c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.27; Tue, 7 Mar
+ 2023 15:27:30 +0000
+Received: from DBAEUR03FT022.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:72:cafe::e8) by DB7PR03CA0083.outlook.office365.com
+ (2603:10a6:10:72::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29 via Frontend
+ Transport; Tue, 7 Mar 2023 15:27:28 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT022.mail.protection.outlook.com (100.127.142.217) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6156.29 via Frontend Transport; Tue, 7 Mar 2023 15:27:28 +0000
+Received: ("Tessian outbound 0df938784972:v135");
+ Tue, 07 Mar 2023 15:27:28 +0000
+Received: from b978e48d9a39.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ F79C6E8B-0AC2-4F03-9F30-BE59437B548E.1; 
+ Tue, 07 Mar 2023 15:27:20 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b978e48d9a39.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 07 Mar 2023 15:27:20 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by AM0PR08MB5364.eurprd08.prod.outlook.com (2603:10a6:208:186::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.29; Tue, 7 Mar
+ 2023 15:27:19 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::806c:fd65:92cf:7b7a]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::806c:fd65:92cf:7b7a%7]) with mapi id 15.20.6156.029; Tue, 7 Mar 2023
+ 15:27:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,150 +72,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b89f5b8b-bcfb-11ed-96b5-2f268f93b82a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1678202481; x=1678288881; bh=zQByrxCmOalTEwZf09f5Lw3PO5cSPCbHeH3
-	/8l9yHkw=; b=La9sa7hO9YQd/ZqQ1sMGgeVS/jBC/IrkWpFkXwP3jbAcc3QbMME
-	bckT7S552kRbQzZEAoq01qn5qsL1O0cnBla7sBL2y8/zcTWHHbZIBTFad/hwRaTP
-	X1BccRwrzpz4AlYoCkxqha7KhD5lvMKSqlphKKgTBi+8qu9Vi2kKQEpOX3UHgK8W
-	kvKThNGOcH1qUm8//bwtdMMb8Q752wpKXDd9jqWS539O6E4nzvHoFIiiGpaIQlM6
-	mfQEVX72cVSoDsG4pp8Ig5Xr0kXQhK/0ruGIorvElVju9/A+u4aWiG06AYwDlROG
-	48oiAnhAzcS+8lTmGQVCkFZCnVeeu13EQiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1678202481; x=1678288881; bh=zQByrxCmOalTE
-	wZf09f5Lw3PO5cSPCbHeH3/8l9yHkw=; b=ZZ+10uK7jJdr0PlHCMyoEA5tysvzH
-	S0KS0Ifh4iZVYReWoNWnsZwtWDIJ2sdieVYqsfYSKqhIiWeLFjv91/G9ByBHfLO6
-	vN4wE/GOB/Gxo91AqkJygaLjBQF2ShqH4qITqJXmYj9Uu6OoH4pX6gfx7C2uKqGC
-	lyVnS13BpCXsAN5MpVSWPMUTsIvRNDaXQv3rMZHgMlzEwHw7J+g+i6m+UxzUxhgg
-	f4pKSE7JzaSwv1dd2RZtySt4u4DVFI15c3eisRkKCI7rnGx9zfbmQFE3zBKv9xz6
-	lREz6aIPfFyuVY2YRDkC+twh8fukfL6XBeOQQhkVW4mhuSjbwkCbfSpGA==
-X-ME-Sender: <xms:cVYHZB7mABOxiI6ReXy1EjniIfwpuyLpE6KhuOz0TNRmBa7szeZZLA>
-    <xme:cVYHZO4Kv1W2X8Q5dSHceQWmuNbYatkNVaAvRQ3Uc_LYLzmUyPsJNd4d-X5gmSWGe
-    tQu1oYHHuUSNw>
-X-ME-Received: <xmr:cVYHZIfT8ZTSYrXUzuLWd6md7unOYIVPAS-e9lK950nWse_MkpsJoQn9qcEsZ-zaW_z6VIAbU-rbaY00u-x5vnL99aAsKc5KJcY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvddutddgieelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepveeu
-    jeetgeelleetudeuvefhtefgffejvedtvdfgieevheetheelgeeuledvjeevnecuffhomh
-    grihhnpehgihhtlhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
-    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhm
-X-ME-Proxy: <xmx:cVYHZKLGWQZx6L0geh1UD7GQqAqiSJkzK92QKBVFqleaNAsEJACK6A>
-    <xmx:cVYHZFLjSjLEVB0v7laokORmcOSnSTVVhOwXaGyld_GIWMARyJQvDg>
-    <xmx:cVYHZDwSnd5XPVN13fZz-OLFrldKGywcQ2wgy7RveaCxqJKBU8kgQQ>
-    <xmx:cVYHZF0D5wyaUZ5vW7WxbiAIqYcUS_z5CRmxsfER-pXgF7MR73Hn9A>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 7 Mar 2023 16:21:17 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org, cardoe@cardoe.com,
-	michal.orzel@amd.com,
-	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: Re: [PATCH v2 2/2] automation: introduce a dom0less test run on
- Xilinx hardware
-Message-ID: <ZAdWbrW74dcPYhnM@mail-itl>
-References: <alpine.DEB.2.22.394.2303031554080.863724@ubuntu-linux-20-04-desktop>
- <20230303235719.1181690-2-sstabellini@kernel.org>
- <290dec66-c5a5-0609-f95f-7e3bcfd3fc94@citrix.com>
- <alpine.DEB.2.22.394.2303061450530.863724@ubuntu-linux-20-04-desktop>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="J4X/aXPpLIykDIn/"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2303061450530.863724@ubuntu-linux-20-04-desktop>
-
-
---J4X/aXPpLIykDIn/
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 943be782-bcfc-11ed-96b5-2f268f93b82a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=39TtagBEJpHWqEuAdKldn4Ewj5WiElEj/f3CGEoWGaA=;
+ b=iXTyA2IlsoOg6P0IAUTR0W3akke+XEyU+Wb0Eu3OyP7NWyD+K9/421nI3ZyptLDoZtf5bnWLHO4HdO8ra8flZ4FPqfk+I+gAaXHohD+LTBu9YGaPu/P+GMgk1sMsKuuhHQDZenjwbV6d7U+AtCmJu9gIoscYFZxs0aUzDgq3vnw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 66875ceb0931c61a
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KlN+q3+m9HWQPr8gycaTRhZNPIRjK83L/4irmvOb4VdTnS5Vc26290ffDjK2FcR4AcF/yfiZntGqvQEbwBhtd1YnBhLCBoLHnYQMxf9JkOnTG/Kx12BiWzvNijTtiNsMMQ2auHpqsNpuMqGpuZwwx6E771aa90B5JSyi8btCT4QNPaRCNi+enL/Y9MSLmV4pNv6GVhOfc37JQcjK8jkP1LOsamky0XWUT6vEroF+W5Ve05ASnTjankdM70r95e5n0cvgJUnuv+g0L+MMm6+95N3heW2FZbDR/plhW8nf3xXGYAVkgJMptPOqZx1P2zPKNWUJLJ64FuBIkZP4oLcghg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=39TtagBEJpHWqEuAdKldn4Ewj5WiElEj/f3CGEoWGaA=;
+ b=iv2Wob6lcWLHF7/qd6FOHDvk9gxGlOkmMaxv4T0oJnurFIULzX/q2WFC60EXXrYEzCgeV3oQ9LB7XiVIrEJgZr4akpd/fZnTV6xWfLAFWGev8n9AQMgob5TiTGWG1ldGpGyPzfsSErFiDco9UGGMoVIMYHPV9idCJwk8my3+sDeYP3HcLFcntdIoST4ZIV/GjwM6ydEzX5XtotspXilZ6DgawUh8J/dnK6ThcEgiGwMucfJNCzuLbMmk6v+BuvC82ErShqd8lT+tNSoR4Im5O0IoERtbTi6jn2aBPcrpJ97DT24nrKJlypeWDqpVGREYP2KOu+mN+x/kFEsh1lnx7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=39TtagBEJpHWqEuAdKldn4Ewj5WiElEj/f3CGEoWGaA=;
+ b=iXTyA2IlsoOg6P0IAUTR0W3akke+XEyU+Wb0Eu3OyP7NWyD+K9/421nI3ZyptLDoZtf5bnWLHO4HdO8ra8flZ4FPqfk+I+gAaXHohD+LTBu9YGaPu/P+GMgk1sMsKuuhHQDZenjwbV6d7U+AtCmJu9gIoscYFZxs0aUzDgq3vnw=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Andrei Cherechesu
+	<andrei.cherechesu@nxp.com>
+Subject: Re: [PATCH v1 0/2] Fix ARM Generic Timer interrupt parsing
+Thread-Topic: [PATCH v1 0/2] Fix ARM Generic Timer interrupt parsing
+Thread-Index: AQHZUN0kJnuAhQfQv0iYnuJGnTc3ZK7vcNOA
+Date: Tue, 7 Mar 2023 15:27:19 +0000
+Message-ID: <6A06A9E8-4643-4920-83D9-3B628D29A386@arm.com>
+References: <20230307100949.9231-1-andrei.cherechesu@oss.nxp.com>
+In-Reply-To: <20230307100949.9231-1-andrei.cherechesu@oss.nxp.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.400.51.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3784:EE_|AM0PR08MB5364:EE_|DBAEUR03FT022:EE_|AS4PR08MB8189:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24b48f7f-b225-4b60-50be-08db1f2075ed
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ DRQQhp0yp8BVDNOnGE0DdPc4Ccdw5cov4N+XDQWzponlEgRabTHMCNcL4q3cL2ApFZkbO/8EH/I6YQ8ew5YUEGYB49rihYKBU7MdVs4JT9o3/wY9/MUoGqFf0YWG7wi80Idvn4xp81EIWqD++gEVeHGZmD53lhUDTUjfU/5IHjG9L9/q3skIOaUXf/mQTCX3XfLHpLvFYMGLn3yUmHVUpvppdFYHemitSHF1TxPTPW8SryW5dh8vdwGspmYfzyFQ0SzIaeoH2uSf9xrjrHftDT/hQE9fnYyPhJ3KO9qBbxw0m7a0H6vZXDB846hyo50zBoKF4ctYQvelWBHXfH3JZXqToqgtVZEQtgrczG98aB1Z1eb8TeAl3LcUEjN2zk0Li9MJH12y9fHBQvxvgrg5HAVMuRMMSvdgjnEB315+R0C0l158swiWGJv46xP6ctIh7V8cd5ldYf+ydNcQJoRsSYnCX1+63G/68n18GN0JCunQU5PbBL0GdjrX2dF4+dc1bb1PEuuGk58VjFb4dhk3lVuc3BkdAsCfcTBmlHpBP5+cSgAgil58G9XlfkRKyC45Tn9ygL/tR9qfb4qnyK3UzgadIsExidD7MgYmxuiVi/3dxn8/vDiXW/MhRxyxyQPPYXjvloxHE96/6FOYQC1/0zPh/TMVs6hLaHbTek1R7wgNhvPLX8T4H3zKL2G4eh3q873zN2IMY9lajPy2NmsHQAdtmziCSZDOKahPtsCAx00CHe0XtuCumv0Enfpt92xg
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(376002)(39860400002)(136003)(396003)(366004)(346002)(451199018)(5660300002)(8936002)(2906002)(41300700001)(76116006)(4326008)(64756008)(66446008)(66946007)(66556008)(83380400001)(6916009)(66476007)(8676002)(91956017)(53546011)(316002)(54906003)(33656002)(478600001)(6486002)(71200400001)(6506007)(6512007)(186003)(86362001)(122000001)(38100700002)(36756003)(2616005)(38070700005)(41533002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <83EC1F964D7595418B74828F539EECDF@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 7 Mar 2023 16:21:17 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org, cardoe@cardoe.com,
-	michal.orzel@amd.com,
-	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: Re: [PATCH v2 2/2] automation: introduce a dom0less test run on
- Xilinx hardware
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5364
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT022.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	902ec318-cb8c-4bc3-8d2b-08db1f207094
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	vlJKLVaSR6Fa5MiGZbgBZkenH+6Ah7yzHSt9C/7Ap/DS0y7HzWW48CvUF4DH3UG+y+OSCRVsPTnz1Hixy4jDUEoMVbdZP5Of9883ggxGslIQqBsYq3lEU7EuRkzo2q/1RWSdlc+VAqERFLJ2ob3zlbRXj3nctd66tkQyBdLDe6niB4u0RlZaC+F4AtRxuKQbTyvL05wxIg9zttNBJZDzrfpUHT/6wXAewPYBSDGZX9qe/ScKoKngAvUMx95l6kPcFmQnMohShvcun0CY1yFdES1Q4dC3DFhe2s7XZbvRFYOboMzrxvPXstxWSKHU7tG2bol5NlOGt5LcxFJKFT+BzhMsDEPpHwBZzRf9kSxpIfNk7vnLc/t3PENvl1w80o478LhnuzSJvOaRcaWDyYruoPbjCs3gzlCMwYxVuJC4quVQVqfDzA1j0OzzvD74ckF2a6pmJHp/7Fu5HUSl+A/klRQp2Dsl54bcSOzHPbLzqfmI4ZkVg7EkvthlYnFfmHHYCk8jSfAJQANwQgYIDhbkcJeLcef5fv6wARZNhTlVJBIDh6bYNDEhWpzhje91iMJMTuI+txmlTFGYUsCZoMFhpxUZNrXBXkqLOFQI3fz+BSJrfJGyRonK0SCuH0eMDEiQlq62/5lKui+NsThNIbAnqUerrBZQ5LdJje9WIjLDimz1/jX73HTXlp/kfFzfb+7eHlplZJ/azR1NTHy07/49kq9wkpvCiglK7l1ZiFFEYqQ=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(396003)(136003)(376002)(346002)(39860400002)(451199018)(36840700001)(46966006)(40470700004)(26005)(6506007)(82310400005)(53546011)(6512007)(36756003)(6486002)(36860700001)(47076005)(40460700003)(356005)(83380400001)(86362001)(40480700001)(82740400003)(33656002)(81166007)(2616005)(336012)(186003)(70206006)(41300700001)(4326008)(8676002)(70586007)(2906002)(5660300002)(8936002)(6862004)(478600001)(316002)(54906003)(41533002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2023 15:27:28.0958
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24b48f7f-b225-4b60-50be-08db1f2075ed
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT022.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB8189
 
-On Mon, Mar 06, 2023 at 03:02:51PM -0800, Stefano Stabellini wrote:
-> On Mon, 6 Mar 2023, Andrew Cooper wrote:
-> > On 03/03/2023 11:57 pm, Stefano Stabellini wrote:
-> > > +  only:
-> > > +    variables:
-> > > +      - $XILINX_JOBS =3D=3D "true" && $CI_COMMIT_REF_PROTECTED =3D=
-=3D "true"
-> >=20
-> > We don't want to protect every branch of a tree that only a select
-> > number of people can push to,
+Hi Andrei,
+
+When submitting patches, please use the add_maintainer.pl script so that ma=
+intainers of the code
+modified are added in CC.
+
+> On 7 Mar 2023, at 11:09, Andrei Cherechesu (OSS) <andrei.cherechesu@oss.n=
+xp.com> wrote:
 >=20
-> Actually this is useful, more on this below
+> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+>=20
+> This 2-patch series fixes the parsing of the ARM Generic Timer
+> interrupts from the device tree.
+>=20
+> If the generic timer interrupts order in the DT was different than
+> the expected order in Xen code, these interrupts would no longer be
+> correctly parsed and registered by Xen, and would result in boot failure.
+>=20
+> This method with using "interrupt-names" for the generic timer interrupts
+> instead of having them hardcoded in the DTB in a specific order is the ne=
+wer
+> approach already implemented in Linux. Xen did not have the necessary cod=
+e for
+> this approach, and it has been implemented by the means of this patch ser=
+ies.
+
+Would mind giving a link to an example or the Linux documentation if there =
+is one ?
+
+Cheers
+Bertrand
+
+>=20
+> Functionality should remain the same if "interrupt-names" is not present =
+in the
+> Generic Timer DTB node of the platform, but the interrupts should then st=
+ill be
+> present in the expected "sec-phys", "phys", "virt", "hyp-phys", "hyp-virt=
+" order.
+> If "interrupt-names" is present, now it is also correctly handled.
+>=20
+> Andrei Cherechesu (2):
+>  arch/arm: irq: Add platform_get_irq_byname() implementation
+>  arch/arm: time: Add support for parsing interrupts by names
+>=20
+> xen/arch/arm/include/asm/irq.h        |  2 ++
+> xen/arch/arm/include/asm/time.h       |  3 ++-
+> xen/arch/arm/irq.c                    | 14 +++++++++++
+> xen/arch/arm/time.c                   | 26 +++++++++++++++++---
+> xen/drivers/passthrough/arm/smmu-v3.c | 35 +++++----------------------
+> 5 files changed, 46 insertions(+), 34 deletions(-)
+>=20
+> --=20
+> 2.35.1
 >=20
 >=20
-> > nor (for this, or others configured with
-> > the runner), want to impose branching conventions on them.
-> >=20
-> > In all anticipated cases, those able to push would also be able to
-> > reconfigure the protected-ness of branches, so this doesn't gain us any
-> > security I don't think, but it certainly puts more hoops in the way to
-> > be jumped through.
->=20
-> It is true that it adds a small inconvenience to the user, but I think
-> the benefits outweigh the inconvenience at the moment (that could change
-> though.)
->=20
-> With this, I can register the gitlab runner with a specific gitlab
-> project (for instance
-> https://gitlab.com/xen-project/people/sstabellini/xen) then I can mark
-> all branches as "protected" and select very specific access permissions,
-> e.g. I can give individual access to Julien, Bertrand, Michal, anyone,
-> to specific branches, which is great to allow them to run individual
-> pre-commit tests permanently or temporarily.
->=20
-> I couldn't find another way to do it at the moment, as non-protected
-> branches don't come with detailed access permissions. But it is possible
-> that as we setup a new sub-group under https://gitlab.com/xen-project
-> for people with access to the runner, then we might be able to remove
-> this restriction because it becomes unnecessary. We can remove the
-> protected check at that point.
 
-You can configure runner to run only jobs from protected branches. This
-way it actually prevent running jobs from non-protected branches. Just a
-condition in .gitlab-ci.yml can be simply removed by anybody who wants
-to abuse your runner (and have push access to non-protected branch -
-which may or may not include all of patchew).
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---J4X/aXPpLIykDIn/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQHVm0ACgkQ24/THMrX
-1yw4/Qf+MtuO1mgjQ9Rt2N2y+xm6qyz2166Cp3LW1JsbDyY7jBDjXymWk2V07R1I
-OEtRozoVY7K0Za24WXW9eI+GCm7OBEAjvZOj6zDwpzQp/lrwDE6elS7ElqVz8ybP
-2Su7myk+lKR5eWbq8VFMNVcUyWyFaYsXqE/4O8GJIbbS/4HiRylnL8IrdmhI5zkY
-wqexiZCQbHxf12oNngaLnqXtOAcbf7qT5zHS2tajZTHmwhr+5orNi4r7g6GLh++2
-UoAu+TwpwP4luBmeMcn49Jmftx9cAmLe09HCsriffsRC41NF8yzTR5bI/BvyNtjf
-ewcBrFqtoGNn0mHAENHom1cMk+5hOA==
-=J9WM
------END PGP SIGNATURE-----
-
---J4X/aXPpLIykDIn/--
 
