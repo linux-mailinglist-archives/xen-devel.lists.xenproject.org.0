@@ -2,52 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 873896B25C4
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Mar 2023 14:47:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508284.782821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14CF46B26D0
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Mar 2023 15:23:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508289.782832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1paGbJ-0005k1-1E; Thu, 09 Mar 2023 13:46:33 +0000
+	id 1paHAX-0002gF-U6; Thu, 09 Mar 2023 14:22:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508284.782821; Thu, 09 Mar 2023 13:46:33 +0000
+Received: by outflank-mailman (output) from mailman id 508289.782832; Thu, 09 Mar 2023 14:22:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1paGbI-0005hh-Ui; Thu, 09 Mar 2023 13:46:32 +0000
-Received: by outflank-mailman (input) for mailman id 508284;
- Thu, 09 Mar 2023 13:46:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ne43=7B=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1paGbH-0005hb-MH
- for xen-devel@lists.xenproject.org; Thu, 09 Mar 2023 13:46:32 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20601.outbound.protection.outlook.com
- [2a01:111:f400:7eae::601])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c824d530-be80-11ed-956e-85ef70e17bfa;
- Thu, 09 Mar 2023 14:46:25 +0100 (CET)
-Received: from MW4P220CA0022.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::27)
- by CH2PR12MB4325.namprd12.prod.outlook.com (2603:10b6:610:a9::14)
+	id 1paHAX-0002ct-R7; Thu, 09 Mar 2023 14:22:57 +0000
+Received: by outflank-mailman (input) for mailman id 508289;
+ Thu, 09 Mar 2023 14:22:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=wtzB=7B=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1paHAV-0002cl-Rs
+ for xen-devel@lists.xenproject.org; Thu, 09 Mar 2023 14:22:55 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on20601.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e116c920-be85-11ed-87f5-c1b5be75604c;
+ Thu, 09 Mar 2023 15:22:54 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM9PR04MB7570.eurprd04.prod.outlook.com (2603:10a6:20b:281::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.18; Thu, 9 Mar
- 2023 13:46:21 +0000
-Received: from CO1NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:115:cafe::59) by MW4P220CA0022.outlook.office365.com
- (2603:10b6:303:115::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19 via Frontend
- Transport; Thu, 9 Mar 2023 13:46:21 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT057.mail.protection.outlook.com (10.13.174.205) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.18 via Frontend Transport; Thu, 9 Mar 2023 13:46:21 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 9 Mar
- 2023 07:46:20 -0600
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 9 Mar 2023 07:46:19 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.16; Thu, 9 Mar
+ 2023 14:22:51 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.019; Thu, 9 Mar 2023
+ 14:22:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,237 +47,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c824d530-be80-11ed-956e-85ef70e17bfa
+X-Inumbo-ID: e116c920-be85-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FCUCBVuAha2F5KGdV6KigIZGxRc1Ae0qdbGjYkiv6NtYfpGpj9Vg+ynbEtT/V98nnQSrdeCeQZRQPuFyBCkxU3YDmIYOqOiLxsQujaI+2F/ivGPk52h3cLg18dviL4YEGDybie1jjNZcKxHP/RRUynibYlUMdCVj0l3CDJyaUxgEwG5+OyquSTtDuzMmijYHlLPiUF2Gk2OCMpz57ki8NFB9rF9hxWwV08hf2WcspXrAo0d7wMk27pZwu6JrRzOIKqyqU5ps1Xml3U7xt3WiW6TzhoFSyJm5bZhZ4lCS1VJL9gFYh1ONtI80GlY2at4bS2l0udQc1w5zIN3lwKhavw==
+ b=fex1dFuxERtW6taTru6ELm2mDwpkJ+HzVsH6RSt9TBSbNQfSpwGIYUrrJ7/YSauyWKdEElA49aRRC1J/AFW2zCrUGNBAl+jrD4L7gc0Jl4oWdHI7/A/QzZ7fwl4Er077UvsuU8h64EB5mdgGbVWDyjCGv2oscvE0X7bGj4xncP3wMrRuAUzrCUaE12MZ1VmNetqfybyFXQWrsokrJDT2QSCUJYaCgNAQT2ttZ/n1SN1IODhT7OPMgYFffq+IUOBoZ3XoDJSqPe3Jo/PoL4PZ/X4JBT/yJ6W2s4ZoY3yA1Hk7OrhlMNsI6FqhcP28Gxtqtg9BhJPmOpbHFW7+EqK4FA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tXnibmtTrFawTaL2374okS9Ai2LcsMHUqWONMynBM3M=;
- b=L74eIHcpe+sacw1ciFai/BcfWasL6huRXC6t19oXgasG5uwZApY2djzmwwM4tDMndYnPJjVp7HR8Fi2KKX3PvLluE/NW5+6K+LPeGxGnXcBGe3sqXH3/Tq2da6/pPgJaSqRbFJzKTDxtJx3RVLZDWQW9QD1n09QOSOwjRLgREQgxQKbExZHhqrRVh3JUAF2d7u22ExuToHPp2UCmitaxgvGgZ7vCJAcmI3ct6dwUsjroO8XbRMSa9Fh0kkrK23P3MUHxfVrg3BFKi8uxD1F9P6Y0o0NgRdsD240nd7vWybRCStMe2uxHglKuXRxkWt7DTDgDeUX6rW/FzY20ubBQtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=FsqKWsHJXt2SE+yZhMazS6mjdOcTgeigfH8BA4QM3Qw=;
+ b=ec7NSda+e4oRqY3rJW4EUBs0I9yKoaPDIzAGDQCxVKbY8RVxIU7i5014ddbrVWsRf8hB0+RXluRtQUsj3YU57KbvXBAN0oDL0hz99S5p2PJKs/lUFQgOSEzdpNqdI7Ovot62SxcUvEOmRQbjviWk3tL+vDV+nN36FKAOKLbrx0HFhN8leE9s5oprOJjGzsd0it/TOYuQtk/8Qu/lGEywiy+ngH4GGeszJM6qsjYtNRg9lVBKMC5mFseYiw4FHjducv84lRKD0SUWKrT+3/XZiT1LkqhCwi9KLj6qNrzrL0q6u3ie4XP2GTCxTkdwcue8Zurym0nAXc9fYKzkY7cd2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tXnibmtTrFawTaL2374okS9Ai2LcsMHUqWONMynBM3M=;
- b=UJ1l729hoiDvgfYWypePF9V5JqsCucJfZRFhzoogyR8mROwCra+QB5vAGOnrVaLUZGcyyWEzar9hEdPOTrCT+RwBVs2DG+VFLbWYJztzIJgJggQVrL0YVIZx/vUddzOO4pIyAWuZsVniJnORT+jQmfYgPTV7eW/yrAnwDS95/dg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <93cefcfc-1cfe-bb79-0f6d-5e578ad153fa@amd.com>
-Date: Thu, 9 Mar 2023 14:46:18 +0100
-MIME-Version: 1.0
+ bh=FsqKWsHJXt2SE+yZhMazS6mjdOcTgeigfH8BA4QM3Qw=;
+ b=Zh4pUC6ta0sjeFZuxXUlNIbzLGCyrHChmETwF5YN1WiR2p/Xjo6g4ch+KgYKM0vk6R97vGnLTk79OPN69AS8BcZ7eDp8hpHkYw39dVofp3z0rI6maKaZHaJeP9XMCTCc/HRvqcA5REeHDMhvSSPaN5ffg2avwfgdCwd/JwkvjxzGp7MK+z24CkG+EqAjOT06ZW1CWPji8MYJ3688FhCdXy39xYluK7HgMMK1aaaZcE3YSsjXQfz6k32TSXB4LmF7fZmxHmrk1DkHYiRb2Yg1uWyoPqQfNpSLC2oP6KfJbz+Stex/4MCohf4b2EyCrhUU77gdskD7fSE1YNoqYKUO5g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <40019342-d04a-c925-9cce-03fa118fd1ff@suse.com>
+Date: Thu, 9 Mar 2023 15:22:48 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v1 2/2] arch/arm: time: Add support for parsing interrupts
- by names
+Subject: Re: [PATCH v7 2/5] xen/arm: remove unused defines in <asm/bug.h>
 Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, "Andrei Cherechesu (OSS)"
-	<andrei.cherechesu@oss.nxp.com>, Xen-devel <xen-devel@lists.xenproject.org>,
-	Andrei Cherechesu <andrei.cherechesu@nxp.com>, Julien Grall <julien@xen.org>
-References: <20230307100949.9231-1-andrei.cherechesu@oss.nxp.com>
- <20230307100949.9231-3-andrei.cherechesu@oss.nxp.com>
- <370745D6-D6AF-43D0-8E9F-2DB160BE0E07@arm.com>
- <alpine.DEB.2.22.394.2303071301300.863724@ubuntu-linux-20-04-desktop>
- <B58C926D-25FD-4EB6-A83C-229E72E16181@arm.com>
- <7a0734e9-a980-3dc1-026d-0c96a89c4d5c@amd.com>
- <0932C0EB-F90A-45D4-87F4-3594E6E74C64@arm.com>
- <3c0a6e88-2a1a-f06a-cac1-59801b1acfd6@amd.com>
- <D0D43830-5F75-4284-86E5-967E2059B377@arm.com>
- <df481924-6fa9-cac3-f822-9ff51b0824fe@amd.com>
- <CA41DB66-DB7E-4EDD-9A34-38328A2A8C9E@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <CA41DB66-DB7E-4EDD-9A34-38328A2A8C9E@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1678368234.git.oleksii.kurochko@gmail.com>
+ <ff898ad47ab1caae2ddfe3c9d34e7ebca8f40d44.1678368234.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ff898ad47ab1caae2ddfe3c9d34e7ebca8f40d44.1678368234.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR3P281CA0131.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT057:EE_|CH2PR12MB4325:EE_
-X-MS-Office365-Filtering-Correlation-Id: 810512f1-6903-4a74-2405-08db20a4aaaa
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB7570:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91a4601a-cfbd-4f91-b079-08db20a9c3ce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	MTECn1OeQjEBCGrhI6cRs5ibxMynsrPuudMpDcJFnz7JcGXAarSWsFIlZ1m1kpGvTjaygr3V7IHP7AkbKW5ofLVY+kq3kDsWhy+Yj4WTbdYJSFpowismiahBrQpA0kWqTz4w5kp7VmLc3m+PR9DU40p2OxWtR+kdLiPeRF99tKPsp/vd3WFh8E5fNG/D3TjaEh1UoauNQNMELv7NQ5WJlRo/K/S25DWhySb+56oa2X9JeAGyxe/9H+1nQg/kk4P8GKG1b9rSypC40KqgliAhlkVay5XTpaOGUG19jjTyvlkv4dDtFIwabXc0/8PV2QuPDhcQmUEPlSbGowD4Tir9zDvu/7y7/bEXUxAl1Y3BaiB27v9CTNuHt5XxHHwgnrZrVRN+GjBmME7Y4Rw368v6ijzw+L4BHBKFxJftMgiORsFllUMkwffZapCG0StocG5siRLrKKkIA59XN+kF4V4yG8qSQND9BCb1YblDqzOE149WhoBWbOs/Q4KRtzJIiGVqwaUEVOCdNnwFTBgP3cc01/6ZadqCWTTRRc6F9BgEdbsZFlkIVpHDh53pXFZajkg7T8+998eFaa9BaNpDMqL99+Bt6esHYGRJ6x3pcMES3+ZnG6tq/mHuMvzlhN5Qxd54LEMdN41d1gMPMJdMjnxHpxyIHjDkGFENwwRq6D0AICqRmo3WMGTz1ThX9Jwrxr7ZQgBfusmn8Hr7g1zHQlULhRQC2EJ9eu7/9onDAqK9pMMopouvaDsCx/CuQnXLYoI3mml02ztOItQe/DAMXGPYRA==
+	BiOQ65k94UMi67YmEGYoJ1gM7HRaEajkD725NpDTtrslpl5PftyuLiNKSagdphsBQmXYtdHQLE8rRYkxC2+7P7oPqklfGdhl3o8QeNe+YaPdmOAJ+HY6e8Nbj5WkX9jqG1zTkIO1Jue3na4Y+W1rIyjR2DxDZIlaG3G97+/fWhLPccX9v7HN+OKA7I28cWKZOE1/hhVQ1oTHXbspwaSGAhHZn1XOY5Ykzv2+Di2nN1Yz3y/y2SDaxtZgDg+aOZ6ejJkP9/Y9kMX6Yh2zrHyZ6BZQCEt6eJmPgI7iD+4Zh03NLt4x+G85fk4G9nj3xZKrj5Ojg0sTU9nNWyBPP29CkKhzaBahwdrVwT/AJdncLYv5rLxVF930flrBWok3Mf9UrxfFvg41rv/n29tWHx7deq41lrrlhcsWNK4xc2AXmYVcWHNq0QUWJpu1V3/m2MX5KD3Ev7M3QpAXVun5M1bymT21zw9GO82Vg5+KZRzJIWoI582R22wZcXCbKfakIwqjvaKsfB5m8xRnuufEMJdz4qMEosxHV9Ma3XReGUViuuylvLC7wrYnCnglS7dF0l7VW4fvDQ1kbBqF7en493RRBpIMqz4v55VWjjWKF4wOaBQGopwUI2PN2V6kQNQcBQwG7lRLqhtwhLBS+DAvg/ET0m7irZCfuIxpGitVXCjdLUCtqL7KpMsHH7zPkVjIrQRwIIRpAT6Csvor3Z9L37nCnKHHOglTYWcCdD8ATe2dFOk=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(396003)(39860400002)(136003)(346002)(376002)(451199018)(40470700004)(46966006)(36840700001)(31686004)(82310400005)(82740400003)(36860700001)(83380400001)(426003)(47076005)(36756003)(54906003)(478600001)(40480700001)(356005)(316002)(16576012)(2616005)(336012)(40460700003)(186003)(26005)(81166007)(53546011)(5660300002)(41300700001)(44832011)(70206006)(8936002)(4326008)(6916009)(70586007)(8676002)(2906002)(86362001)(31696002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 13:46:21.1497
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(376002)(346002)(396003)(136003)(39860400002)(451199018)(31696002)(86362001)(8676002)(38100700002)(36756003)(66946007)(4744005)(5660300002)(8936002)(41300700001)(66476007)(6916009)(2906002)(66556008)(4326008)(186003)(53546011)(83380400001)(2616005)(316002)(478600001)(54906003)(6666004)(6506007)(6512007)(26005)(31686004)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eVcyMkJkV3AzekJSTXk5aFlaRFo4Qkc3aGpKNmwzOWtFby9KM1Jpb0VJWEpJ?=
+ =?utf-8?B?WGFmTkxiMStrei9xdVp3em5TYmRyVXBrZDcwcnFmK0RqR0NjYmR4OWtmZTRG?=
+ =?utf-8?B?S01Damo2VGs3ZVVZb0p2eUxCYlpRL2lMTkR3SlN2SzZxZ25Bd1JYanR0RG9Q?=
+ =?utf-8?B?c0xrSmQzd0laSEFLNGE5eDZRMXdaRzFmQ0dIaU0vTTVoQmNGbFE1dDVyNHAx?=
+ =?utf-8?B?Skp5Y2lxcC9ncEVoR3dpRGlGbzFuclIzU1kwUTlvTmg0Nkt3ZVhmQ1UwM1gv?=
+ =?utf-8?B?dFJWU2hrcERDNmV4Z0ptTlBRTG5DMnZMb3ZSYTFOMXlzY0l5Y1BwbmVZZ2U1?=
+ =?utf-8?B?OW1yV0FVOTRUbzNnSTBzNjhpUDZjajdidE1nOTFRQ2dJNXRmSzhHUHF1Qy9r?=
+ =?utf-8?B?Q2RrK2FuUy9tN3pYRmJuY1lIT3lsUUVuU2dNVkxqN2dscE0zamo3ZWh0Qksv?=
+ =?utf-8?B?eGNxQjNydGhtaGJ4SDB1QVJzcmhET3FLYms5d3JhR211cVRNQ3VMbkxIdFBN?=
+ =?utf-8?B?OFJDckJMb3gxa1E4THhDNGZHaHlQTWlxbGNPVnF3VjcyQkhTdloweWtDRDVH?=
+ =?utf-8?B?NGNINUNyamU5ZXBadzFNelFkcFR6OHFVRkk4cml6RFU4WmtmbmMxL0JEMGRI?=
+ =?utf-8?B?bk1NeTVZa2VVRGE2dVhnRmMxQjcrR093d2UvcFFzUUR3Z1Z2L3dUT2hkZS8v?=
+ =?utf-8?B?RVJaajFDMUV5SEYzRDdSU2N4bmxsREN6a3JNVVJXYS81MXNZenVZMWFzNzd4?=
+ =?utf-8?B?cVpnVk00S1ZPMHAvbkN4SjFGUWJHOGdIbk5QUUViMXgwdHh2K0tJbU1IczYr?=
+ =?utf-8?B?enJkOEl3NTl5c2FSNTExNGpCNVBKK3FaUkZyUGlPWnJmOHcrbmJMM0F0MExX?=
+ =?utf-8?B?UVF0aXpQdGsxdWY4ZUw5RzZBNzNhYk9wM282TGZIUWU2MEsxS1pFeGtmcTVJ?=
+ =?utf-8?B?Z2NRL0hQelNVSUg3c3Rrc2lYUjJXVkRGUVJhYm5SQUlrUTFLeEF2RFhEWlBR?=
+ =?utf-8?B?RHRmaVpyaDRTQzh2YWhPbVg1b2JmWHJGWkRBemhUaTBDRnNIRWpNbkVOTFY5?=
+ =?utf-8?B?R2JGNisyNENUSkEzTkdKcEdqUVJBa0pTUDZ1ZDhmRkt0alh5Rm13eHZvYTE3?=
+ =?utf-8?B?dE9zdTdkUHBwbWVibFhOYm8veThtN1p1REtoUnlPZUV4N25Bd1JMRUZtbUN3?=
+ =?utf-8?B?SlJPQ0huSHkyczlsYWF6SnBpSmc2Q0lsdE5qVjRjbVV0Smp0MWZ3aDZQb3Jj?=
+ =?utf-8?B?VFZUVDgvVGlMMFFwMWJEWVduR2ljeWVvMGhvanpwNTNvZTFHWldEaUU2enpt?=
+ =?utf-8?B?RHpxa1JtZEVXd1pEcHdGVGZ4bHptOWVHeU5USmlSZlQ0VGNXQXNFRWZCMEs1?=
+ =?utf-8?B?K2J3eW9yVytWTzM1UjA0R0lQc3hyTUwrMk9VR0loTTNoN3FIMG53aDQvNmVn?=
+ =?utf-8?B?d0xzcWQ3c0lBQ0FJa2tVeW5nbm5mMW5DZEtlYm4rQTlNRXVnaDJWdHk4bFUz?=
+ =?utf-8?B?ci9keHFoeVpzdXpHZnNrNWJ1bmdoYVVZUUU4SzRrbXBxUGxidXFXMkJIR3pE?=
+ =?utf-8?B?VjlZUVpYR0tjaTYxczhMRkY2d1hsV2R6UTJWWGdSMjNkVXRjd0VSRVd6VGIw?=
+ =?utf-8?B?V3FENkdUbkpOeVJkMGpHV2wrYW1oM3UvcVoxNXVtZVlKcjR4MTdlUFpZS3lV?=
+ =?utf-8?B?UW5xWTdNd29pL05DbDF1SHhEWmJoelU3bThobVZPM1JTOEdtakF2cmhYd3U0?=
+ =?utf-8?B?RHVBbGJFVVd3NkFRRmhIdTZ1SFBRL25LWEFmMWZycEpmdVFybzZPS1ptSUFS?=
+ =?utf-8?B?R1NmS0RUOCthL1VQbXZMcG5rdlU3Y2ZNZ0FGWTF5L2RqMnZHTWNsOHpUK0hE?=
+ =?utf-8?B?SHc1b0VkQmhZSFdUQU1LY0FGRTV2N0FIMlBsbWtMakVxalZDMzFSbmRydmJ1?=
+ =?utf-8?B?MW81RmJzeGR5cGRTU2JJSGJIUm9YcUVRODlHYUxTZnNUampQNjhUZ29ZUFVh?=
+ =?utf-8?B?anY0alp1OElkbXEzODU0WkNOSmVEcGVURmIreWhHVit4SEpPMFVxaDFkaDVl?=
+ =?utf-8?B?NmhlSy93YS9RZFdWanBkTk5GYTJCaDdCRnhmendUblBmTk1rM2hjb1dXa3Iz?=
+ =?utf-8?Q?Z+xJKmHYJKfmnxP/HKAB0LhMu?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91a4601a-cfbd-4f91-b079-08db20a9c3ce
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2023 14:22:51.1909
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 810512f1-6903-4a74-2405-08db20a4aaaa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT057.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4325
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oL0Q0F2a+zX+3hrqqXqQCAa5GS5F3qqBBP+FcIL4y4hH+gC2VKmGYxEg+6R0Uq2fEDr+0zrzEJ6D8BxtWdtN/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7570
 
+On 09.03.2023 14:33, Oleksii Kurochko wrote:
+> The following defines BUG_DISP_WIDTH, BUG_LINE_LO_WIDTH,
+> BUG_LINE_HI_WIDTH aren't used in ARM so could be purged
+> as unused.
 
+Requested-by: Jan Beulich <jbeulich@suse.com>
+or (but it's not really a bug)
+Reported-by: Jan Beulich <jbeulich@suse.com>
 
-On 09/03/2023 13:45, Bertrand Marquis wrote:
-> 
-> 
-> Hi Michal,
-> 
->> On 9 Mar 2023, at 13:42, Michal Orzel <michal.orzel@amd.com> wrote:
->>
->> Hi Bertrand,
->>
->> On 09/03/2023 13:19, Bertrand Marquis wrote:
->>>
->>>
->>> Hi Michal,
->>>
->>>> On 9 Mar 2023, at 12:35, Michal Orzel <michal.orzel@amd.com> wrote:
->>>>
->>>>
->>>>
->>>> On 09/03/2023 11:39, Bertrand Marquis wrote:
->>>>>
->>>>>
->>>>> Hi Michal,
->>>>>
->>>>>> On 9 Mar 2023, at 11:05, Michal Orzel <michal.orzel@amd.com> wrote:
->>>>>>
->>>>>>
->>>>>>
->>>>>> On 09/03/2023 09:02, Bertrand Marquis wrote:
->>>>>>>
->>>>>>>
->>>>>>> Hi Stefano,
->>>>>>>
->>>>>>>> On 7 Mar 2023, at 22:02, Stefano Stabellini <sstabellini@kernel.org> wrote:
->>>>>>>>
->>>>>>>> On Tue, 7 Mar 2023, Bertrand Marquis wrote:
->>>>>>>>>> On 7 Mar 2023, at 11:09, Andrei Cherechesu (OSS) <andrei.cherechesu@oss.nxp.com> wrote:
->>>>>>>>>>
->>>>>>>>>> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
->>>>>>>>>>
->>>>>>>>>> Added support for parsing the ARM generic timer interrupts DT
->>>>>>>>>> node by the "interrupt-names" property, if it is available.
->>>>>>>>>>
->>>>>>>>>> If not available, the usual parsing based on the expected
->>>>>>>>>> IRQ order is performed.
->>>>>>>>>>
->>>>>>>>>> Also added the "hyp-virt" PPI to the timer PPI list, even
->>>>>>>>>> though it's currently not in use. If the "hyp-virt" PPI is
->>>>>>>>>> not found, the hypervisor won't panic.
->>>>>>>>>>
->>>>>>>>>> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
->>>>>>>>>> ---
->>>>>>>>>> xen/arch/arm/include/asm/time.h |  3 ++-
->>>>>>>>>> xen/arch/arm/time.c             | 26 ++++++++++++++++++++++----
->>>>>>>>>> 2 files changed, 24 insertions(+), 5 deletions(-)
->>>>>>>>>>
->>>>>>>>>> diff --git a/xen/arch/arm/include/asm/time.h b/xen/arch/arm/include/asm/time.h
->>>>>>>>>> index 4b401c1110..49ad8c1a6d 100644
->>>>>>>>>> --- a/xen/arch/arm/include/asm/time.h
->>>>>>>>>> +++ b/xen/arch/arm/include/asm/time.h
->>>>>>>>>> @@ -82,7 +82,8 @@ enum timer_ppi
->>>>>>>>>> TIMER_PHYS_NONSECURE_PPI = 1,
->>>>>>>>>> TIMER_VIRT_PPI = 2,
->>>>>>>>>> TIMER_HYP_PPI = 3,
->>>>>>>>>> -    MAX_TIMER_PPI = 4,
->>>>>>>>>> +    TIMER_HYP_VIRT_PPI = 4,
->>>>>>>>>> +    MAX_TIMER_PPI = 5,
->>>>>>>>>> };
->>>>>>>>>>
->>>>>>>>>> /*
->>>>>>>>>> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
->>>>>>>>>> index 433d7be909..794da646d6 100644
->>>>>>>>>> --- a/xen/arch/arm/time.c
->>>>>>>>>> +++ b/xen/arch/arm/time.c
->>>>>>>>>> @@ -38,6 +38,14 @@ uint32_t __read_mostly timer_dt_clock_frequency;
->>>>>>>>>>
->>>>>>>>>> static unsigned int timer_irq[MAX_TIMER_PPI];
->>>>>>>>>>
->>>>>>>>>> +static const char *timer_irq_names[MAX_TIMER_PPI] = {
->>>>>>>>>> +    [TIMER_PHYS_SECURE_PPI] = "sec-phys",
->>>>>>>>>> +    [TIMER_PHYS_NONSECURE_PPI] = "phys",
->>>>>>>>>> +    [TIMER_VIRT_PPI] = "virt",
->>>>>>>>>> +    [TIMER_HYP_PPI] = "hyp-phys",
->>>>>>>>>> +    [TIMER_HYP_VIRT_PPI] = "hyp-virt",
->>>>>>>>>> +};
->>>>>>>>>> +
->>>>>>>>>
->>>>>>>>> I would need some reference or a pointer to some doc to check those.
->>>>>>>>>
->>>>>>>>>> unsigned int timer_get_irq(enum timer_ppi ppi)
->>>>>>>>>> {
->>>>>>>>>> ASSERT(ppi >= TIMER_PHYS_SECURE_PPI && ppi < MAX_TIMER_PPI);
->>>>>>>>>> @@ -149,15 +157,25 @@ static void __init init_dt_xen_time(void)
->>>>>>>>>> {
->>>>>>>>>> int res;
->>>>>>>>>> unsigned int i;
->>>>>>>>>> +    bool has_names;
->>>>>>>>>> +
->>>>>>>>>> +    has_names = dt_property_read_bool(timer, "interrupt-names");
->>>>>>>>>>
->>>>>>>>>> /* Retrieve all IRQs for the timer */
->>>>>>>>>> for ( i = TIMER_PHYS_SECURE_PPI; i < MAX_TIMER_PPI; i++ )
->>>>>>>>>> {
->>>>>>>>>> -        res = platform_get_irq(timer, i);
->>>>>>>>>> -
->>>>>>>>>> -        if ( res < 0 )
->>>>>>>>>> +        if ( has_names )
->>>>>>>>>> +            res = platform_get_irq_byname(timer, timer_irq_names[i]);
->>>>>>>>>> +        else
->>>>>>>>>> +            res = platform_get_irq(timer, i);
->>>>>>>>>> +
->>>>>>>>>> +        if ( res > 0 )
->>>>>>>>>
->>>>>>>>> The behaviour of the code is changed here compared to the current
->>>>>>>>> version as res = 0 will now generate a panic.
->>>>>>>>>
->>>>>>>>> Some device tree might not specify an interrupt number and just put
->>>>>>>>> 0 and Xen will now panic on those systems.
->>>>>>>>> As I have no idea if such systems exists and the behaviour is modified
->>>>>>>>> you should justify this and mention it in the commit message or keep
->>>>>>>>> the old behaviour and let 0 go through without a panic.
->>>>>>>>>
->>>>>>>>> @stefano, julien any idea here ? should just keep the old behaviour ?
->>>>>>>>
->>>>>>>> platform_get_irq returns 0 if the irq is 0. The irq cannot be 0 because
->>>>>>>> 0 is reserved for SGIs, not PPIs. So I think it is OK to consider 0 an
->>>>>>>> error.
->>>>>>>
->>>>>>> Problem here is that a DTB might not specify all interrupts and just put
->>>>>>> 0 for the one not used (or not available for example if you have no secure
->>>>>>> world).
->>>>>> Xen requires presence of EL3,EL2 and on such system, at least the following timers needs to be there
->>>>>> according to Arm ARM:
->>>>>> - EL3 phys (if EL3 is there)
->>>>>
->>>>> This might be needed by EL3 but not by Xen.
->>>> Xen requires system with EL3 and if there is EL3, both Arm spec and dt bindings requires sec-phys timer to be there.
->>>> So it would be very strange to see a fake interrupt with IRQ being 0. But if we relly want to only care about
->>>> what Xen needs, then we could live with that (although it is difficult for me to find justification for 0 there).
->>>> Device trees are created per system and if system has EL3, then why forcing 0 to be listed for sec-phys timer?
->>>>
->>>
->>> Let's see that on the other angle: why should Xen check stuff that it does not need ?
->> Because apart from what it needs or not, there is a matter of a failure in Xen.
->> Xen exposes timer IRQs to dom0 as they were taken from dtb and allowing 0 for any of the timer IRQ would result
->> in a Xen failure when reserving such IRQ. Xen presets SGI IRQs, meaning bits 0:15 in allocated_irqs bitmap are set.
->> This is why when calling vgic_reserve_virq and passing SGI always results in calling a BUG().
->>
->> So we have two options:
->> - panic earlier with a meaningful message when IRQ is 0
->> - let Xen continue and reach BUG which would be not that obvious for people using but not knowing Xen
-> 
-> So you are saying that in the current state 0 would be ignored during scan and create a bug later.
-Yes, provided platform_get_irq() returns 0. This is however only theory because IMO it is impossible at the moment.
-Both GICs, do not allow specifying SGIs in dt bindings and require at least 3 cells where 1st one specifies type.
-So if we have a fake IRQ 0 as PPI, platform_get_irq will return 16 and for SPI - 32.
-Therefore I cannot see how it would return 0.
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-~Michal
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 
