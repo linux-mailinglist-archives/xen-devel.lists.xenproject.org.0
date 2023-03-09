@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 307296BD458
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 16:51:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510684.788830 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE3D26BD465
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 16:54:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510687.788839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcpsO-0004jt-HV; Thu, 16 Mar 2023 15:50:48 +0000
+	id 1pcpvI-0005Hd-W7; Thu, 16 Mar 2023 15:53:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510684.788830; Thu, 16 Mar 2023 15:50:48 +0000
+Received: by outflank-mailman (output) from mailman id 510687.788839; Thu, 16 Mar 2023 15:53:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcpsO-0004hK-ET; Thu, 16 Mar 2023 15:50:48 +0000
-Received: by outflank-mailman (input) for mailman id 510684;
- Thu, 16 Mar 2023 15:50:47 +0000
+	id 1pcpvI-0005Fv-TJ; Thu, 16 Mar 2023 15:53:48 +0000
+Received: by outflank-mailman (input) for mailman id 510687;
+ Thu, 16 Mar 2023 15:53:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hbW7=7I=gmail.com=bobbyeshleman@srs-se1.protection.inumbo.net>)
- id 1pcpsN-0004hE-FZ
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 15:50:47 +0000
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [2607:f8b0:4864:20::1029])
+ id 1pcpvH-0005Fl-U6
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 15:53:47 +0000
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [2607:f8b0:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f950fd2-c412-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 16:50:45 +0100 (CET)
-Received: by mail-pj1-x1029.google.com with SMTP id
- fy10-20020a17090b020a00b0023b4bcf0727so2042906pjb.0
- for <xen-devel@lists.xenproject.org>; Thu, 16 Mar 2023 08:50:45 -0700 (PDT)
+ id bb6c7f26-c412-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 16:53:46 +0100 (CET)
+Received: by mail-pl1-x632.google.com with SMTP id v21so2206005ple.9
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Mar 2023 08:53:46 -0700 (PDT)
 Received: from localhost (c-73-164-155-12.hsd1.wa.comcast.net. [73.164.155.12])
  by smtp.gmail.com with ESMTPSA id
- g3-20020a631103000000b00502ecb91940sm5341065pgl.55.2023.03.16.08.50.42
+ y4-20020a17090a538400b00233ebcb52a6sm3316476pjh.36.2023.03.16.08.53.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Mar 2023 08:50:42 -0700 (PDT)
+ Thu, 16 Mar 2023 08:53:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f950fd2-c412-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: bb6c7f26-c412-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678981843;
+        d=gmail.com; s=20210112; t=1678982024;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Zb5qGTl6aSkFsxWcvkop6l4a/S7eBQjhAOxEjj4dDbs=;
-        b=I2dAn9pe37LmtA7qMzHzvRwfZlz8tUxPA5wp8Dov/WryYu3Aa01ZvPesAPAOO6NrXs
-         mV7lnZaDESsxyBR16K7qzlAwD7xwCmUo6Nvy+ZtfBQdr3NWjnMYmevEai7SSde0JIXuL
-         aVjssjULt65ccY9TeLpgouaCULUaGgdmGX/PafPoo+UhchOdxq+C6Uno+XTqByagTdZ0
-         rja9xnOMr50UvTJJO7zqNGwjxFvdLrw/SazkmjQkmdWrcGoiM+0ZzG3dlY5QqEu+fMP8
-         cd6jEftudOhqFhtmgWQO/KO1v5A8vCY8c/apXcEf64wMit/gJmlymQIPL4vGm1Y/MVwA
-         1qGw==
+        bh=+UDMozFfeUR88M0TZxg7YsaEyPR2kVSV9EQT/QTwkbc=;
+        b=evXuV2aPbSk18UnqUrpEsdy/KfjKwfioSxuVpS7EzfM8VAID+xSr6R5QSb20s4ixJU
+         v1Hzh9W7DKdWy+wNjYeDvYxf0Thxig23/7mym0W9sNRj7QpI9rKyXdK5erRuR8o37lfv
+         sZ/v2i9k6tMf7Yi8BuW9M8bI1nF8gt1fkcGD+e6gDlmeRWd43ib+gZzjKBSyBC9Imiv4
+         VoF7jd+5e9Df69Wl86b8vrrc04Q6bz83MmkgpPJERWeiWFyzfHZRFfYH3Eb4NTnZz73g
+         360Mxm/nXRbZB4l+c4XEUGGK1Uep/7Pe1YMmMjnY4qYIPrqkwj9l6V1eTScHmVM+1XMY
+         qW3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678981843;
+        d=1e100.net; s=20210112; t=1678982024;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Zb5qGTl6aSkFsxWcvkop6l4a/S7eBQjhAOxEjj4dDbs=;
-        b=HrvyIK+vonUsCdddNB3xBw15rI5kogYFSfHiSulwE5Pi7Nn//8wDksZ3H30io+Sg0d
-         F+m2ryDcccqIkpUjj8s8wSoINuqD0J1QSbCevnteC5KLN9vUbUqJa3ilHGqUKKLJsrB9
-         71BcNyKGdkxdVhbVg49MTgA1ySP/vPMmCgJW2s4y5QfrEbkZ+NA/yY/4x4Bv/RAuWpvP
-         C/l+JvB0tZkDMPy6vf4NUwDMwnDg31iydScr6j7Pwr5DlrNzrlCdrOLI9+6Wb8TF0PzJ
-         AdUR/oxMnX3fP+/Wwwjuday8qBNKBefNptygTqE3OcZsmsvgMenXLwMqrJVZ7dk+lq9O
-         A86w==
-X-Gm-Message-State: AO0yUKUi5Dm6TPaYwa06NnZc66GfagIalliBBK+o6JGnAq84X3J13C94
-	2r2DEtivSgCuni4WbP+IeDg=
-X-Google-Smtp-Source: AK7set+ygFijG98UokCphYKZ8xGszxZu25m0//Zdx4H4IfdFxfYURwpK349ao/TBRn7NkzsmTehiKA==
-X-Received: by 2002:a05:6a20:1e46:b0:cd:9b0:b287 with SMTP id cy6-20020a056a201e4600b000cd09b0b287mr3462354pzb.24.1678981843448;
-        Thu, 16 Mar 2023 08:50:43 -0700 (PDT)
-Date: Thu, 9 Mar 2023 10:39:18 +0000
+        bh=+UDMozFfeUR88M0TZxg7YsaEyPR2kVSV9EQT/QTwkbc=;
+        b=l0CKtS+EoH/wMiiCYKaoDFxmPZBGHE1ODsyaNrW4F3Pzq3cim+LB6LkSndNyNRf41d
+         jK9LVDLVTMsfDE/c9YZw0z6/6D4SB26v4VScKzBv9j5zEfpfvsWLRnKkhPFql8MATEn1
+         r6kAPN8j3OFyRwpxr1VaX+n9ruIhi/hdaMcMhZhSY6hYeAOlh3dCaNcVp4zmk1wxBvz/
+         iM/vDbt5cI8LDOmseu6daV+aSr+4coX/eqgIxKKPCcRqfaWZH1voUOYQ7kYDtUdPrZEN
+         muLNPt/bGpqPzh2PSXrjMEOmG1WgIG7/z8NhvdFT4YAJW/ordpBj+DCgwo/mKchSpZ0o
+         +rrg==
+X-Gm-Message-State: AO0yUKWZZJbLxBvcDte6XHcp0RTpuTWEFNFMVMk2TdA5EXrOSWqdYe5C
+	6UbSa4H0iEDjZTl/6fmcu7E=
+X-Google-Smtp-Source: AK7set+KqLYyY2QLwdA+LPNhoOzNpffvlYvsbc1MQVFl69f1eTjILzk8cc+bXqHcnzqjVVJu5qIBrw==
+X-Received: by 2002:a17:90b:1e43:b0:23e:fa90:ba37 with SMTP id pi3-20020a17090b1e4300b0023efa90ba37mr4230152pjb.49.1678982024560;
+        Thu, 16 Mar 2023 08:53:44 -0700 (PDT)
+Date: Thu, 9 Mar 2023 10:42:34 +0000
 From: Bobby Eshleman <bobbyeshleman@gmail.com>
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
@@ -84,7 +83,7 @@ Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
 Subject: Re: [PATCH v3 1/3] xen/riscv: disable fpu
-Message-ID: <ZAm3Vj7KtpkJOjRS@bullseye>
+Message-ID: <ZAm4GuOmz7fhKF3X@bullseye>
 References: <cover.1677838213.git.oleksii.kurochko@gmail.com>
  <1fe0c827b9e5c2fef569e25ad7ca377111228d29.1677838213.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
@@ -124,5 +123,7 @@ On Fri, Mar 03, 2023 at 12:24:22PM +0200, Oleksii Kurochko wrote:
 > 
 > 
 
-Acked-by: Bobby Eshleman <bobbyeshleman@gmail.com>
+My last email had the wrong trailer:
+
+Reviewed-by: Bobby Eshleman <bobbyeshleman@gmail.com>
 
