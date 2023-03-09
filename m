@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE3D26BD465
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 16:54:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510687.788839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E06076BD46E
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 16:55:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510689.788850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcpvI-0005Hd-W7; Thu, 16 Mar 2023 15:53:48 +0000
+	id 1pcpxA-0005sz-C7; Thu, 16 Mar 2023 15:55:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510687.788839; Thu, 16 Mar 2023 15:53:48 +0000
+Received: by outflank-mailman (output) from mailman id 510689.788850; Thu, 16 Mar 2023 15:55:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcpvI-0005Fv-TJ; Thu, 16 Mar 2023 15:53:48 +0000
-Received: by outflank-mailman (input) for mailman id 510687;
- Thu, 16 Mar 2023 15:53:47 +0000
+	id 1pcpxA-0005q4-8s; Thu, 16 Mar 2023 15:55:44 +0000
+Received: by outflank-mailman (input) for mailman id 510689;
+ Thu, 16 Mar 2023 15:55:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hbW7=7I=gmail.com=bobbyeshleman@srs-se1.protection.inumbo.net>)
- id 1pcpvH-0005Fl-U6
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 15:53:47 +0000
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [2607:f8b0:4864:20::632])
+ id 1pcpx8-0005pt-IG
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 15:55:42 +0000
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [2607:f8b0:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb6c7f26-c412-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 16:53:46 +0100 (CET)
-Received: by mail-pl1-x632.google.com with SMTP id v21so2206005ple.9
- for <xen-devel@lists.xenproject.org>; Thu, 16 Mar 2023 08:53:46 -0700 (PDT)
+ id ffaee903-c412-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 16:55:40 +0100 (CET)
+Received: by mail-pl1-x62b.google.com with SMTP id ja10so2226505plb.5
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Mar 2023 08:55:40 -0700 (PDT)
 Received: from localhost (c-73-164-155-12.hsd1.wa.comcast.net. [73.164.155.12])
  by smtp.gmail.com with ESMTPSA id
- y4-20020a17090a538400b00233ebcb52a6sm3316476pjh.36.2023.03.16.08.53.44
+ i6-20020aa787c6000000b00625f5aaa1d9sm1505628pfo.83.2023.03.16.08.55.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Mar 2023 08:53:44 -0700 (PDT)
+ Thu, 16 Mar 2023 08:55:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb6c7f26-c412-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: ffaee903-c412-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678982024;
+        d=gmail.com; s=20210112; t=1678982139;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+UDMozFfeUR88M0TZxg7YsaEyPR2kVSV9EQT/QTwkbc=;
-        b=evXuV2aPbSk18UnqUrpEsdy/KfjKwfioSxuVpS7EzfM8VAID+xSr6R5QSb20s4ixJU
-         v1Hzh9W7DKdWy+wNjYeDvYxf0Thxig23/7mym0W9sNRj7QpI9rKyXdK5erRuR8o37lfv
-         sZ/v2i9k6tMf7Yi8BuW9M8bI1nF8gt1fkcGD+e6gDlmeRWd43ib+gZzjKBSyBC9Imiv4
-         VoF7jd+5e9Df69Wl86b8vrrc04Q6bz83MmkgpPJERWeiWFyzfHZRFfYH3Eb4NTnZz73g
-         360Mxm/nXRbZB4l+c4XEUGGK1Uep/7Pe1YMmMjnY4qYIPrqkwj9l6V1eTScHmVM+1XMY
-         qW3w==
+        bh=XKL34Xqt4xY7ZISRahgSxHiYWvle8IcTwtJOw2t/yO4=;
+        b=JtntGSx33/xC4I/zU++edcwMqhx7v5w22QgHer9Q2srqPfWeOi2rNKGJsNcZ7bit5C
+         o4SkvIxe3Gk5kdmitOzt37hEa6SpCAExtKleOS7aN3H5FdWS/YEkcAw2anC2jIxO+fKf
+         rEhv5GKuKO6VW5r/ZCWUrObeOffm3nd23at1o4r5HrAznmjC48+YW3aHbUPaghY4/PKA
+         O0FF7m9Yy+tAOO26C2b71cxLhEXIWyYz7N0z7ED24P3a9YbjBZSu+HwEpjGDJezOXi/Q
+         Vq3gmTbu+BHeDFkgFtLyl5yBpjkRBru+G0uFXHw3vC0m+Laom9bAkYr5/o8NUiYpXCXU
+         96ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678982024;
+        d=1e100.net; s=20210112; t=1678982139;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+UDMozFfeUR88M0TZxg7YsaEyPR2kVSV9EQT/QTwkbc=;
-        b=l0CKtS+EoH/wMiiCYKaoDFxmPZBGHE1ODsyaNrW4F3Pzq3cim+LB6LkSndNyNRf41d
-         jK9LVDLVTMsfDE/c9YZw0z6/6D4SB26v4VScKzBv9j5zEfpfvsWLRnKkhPFql8MATEn1
-         r6kAPN8j3OFyRwpxr1VaX+n9ruIhi/hdaMcMhZhSY6hYeAOlh3dCaNcVp4zmk1wxBvz/
-         iM/vDbt5cI8LDOmseu6daV+aSr+4coX/eqgIxKKPCcRqfaWZH1voUOYQ7kYDtUdPrZEN
-         muLNPt/bGpqPzh2PSXrjMEOmG1WgIG7/z8NhvdFT4YAJW/ordpBj+DCgwo/mKchSpZ0o
-         +rrg==
-X-Gm-Message-State: AO0yUKWZZJbLxBvcDte6XHcp0RTpuTWEFNFMVMk2TdA5EXrOSWqdYe5C
-	6UbSa4H0iEDjZTl/6fmcu7E=
-X-Google-Smtp-Source: AK7set+KqLYyY2QLwdA+LPNhoOzNpffvlYvsbc1MQVFl69f1eTjILzk8cc+bXqHcnzqjVVJu5qIBrw==
-X-Received: by 2002:a17:90b:1e43:b0:23e:fa90:ba37 with SMTP id pi3-20020a17090b1e4300b0023efa90ba37mr4230152pjb.49.1678982024560;
-        Thu, 16 Mar 2023 08:53:44 -0700 (PDT)
-Date: Thu, 9 Mar 2023 10:42:34 +0000
+        bh=XKL34Xqt4xY7ZISRahgSxHiYWvle8IcTwtJOw2t/yO4=;
+        b=fJYIiCb4TrbLJwkyjtGbIsw3IZH9esn6dDDdHyw9j+VXGtR23FXy75xy0j/Vdj13tY
+         eWCHEvMdDSJweN7twT/7T0EUALXe4yNLjv/AhuGveRhFfgNkCQ+858I2r8HCwXPBYqVm
+         Z0nWgf8v/l9OXbfypTakiKHsd2y4ltKyzM7oa45ixaNboEZ3SB3+vF8vN0tz4CRVpp1Z
+         wEunv+DUVaeFBOU9Cp7KheIngPyvnfBpoktIg/b7zNQD3IL7ywZJ/EbAg2PjNd+y07Ha
+         7CXUjvqnXSi6RyO88pJV+T+oBpfEkjSZU4n1dKO9w7v7Zuz8zSdhW5iIo19nPjqU8xoH
+         yTJQ==
+X-Gm-Message-State: AO0yUKXqsKcZdul1F1EXITLQHckCCH9hq3R7etZlla4liyr7qqRjCuRf
+	dFoipK9CtutZPmt1XaUA2LBRnSHQyVGTYA==
+X-Google-Smtp-Source: AK7set+z1BZpC/bQpMEMMxpK1gRiogFcBIckK81DyBrJxl1Ia56K3bGNKAUklueFWNaFzIFB2jq8yg==
+X-Received: by 2002:a05:6a20:3d92:b0:cc:ca9:4fde with SMTP id s18-20020a056a203d9200b000cc0ca94fdemr5462998pzi.33.1678982138959;
+        Thu, 16 Mar 2023 08:55:38 -0700 (PDT)
+Date: Thu, 9 Mar 2023 10:44:38 +0000
 From: Bobby Eshleman <bobbyeshleman@gmail.com>
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
@@ -82,48 +82,67 @@ Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
 	Gianluca Guida <gianluca@rivosinc.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: Re: [PATCH v3 1/3] xen/riscv: disable fpu
-Message-ID: <ZAm4GuOmz7fhKF3X@bullseye>
+Subject: Re: [PATCH v3 2/3] xen/riscv: read/save hart_id and dtb_base passed
+ by bootloader
+Message-ID: <ZAm4lurJxfMeEmxt@bullseye>
 References: <cover.1677838213.git.oleksii.kurochko@gmail.com>
- <1fe0c827b9e5c2fef569e25ad7ca377111228d29.1677838213.git.oleksii.kurochko@gmail.com>
+ <43aaa58fac47029b7d11f1d80d310786d7a078a6.1677838213.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1fe0c827b9e5c2fef569e25ad7ca377111228d29.1677838213.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <43aaa58fac47029b7d11f1d80d310786d7a078a6.1677838213.git.oleksii.kurochko@gmail.com>
 
-On Fri, Mar 03, 2023 at 12:24:22PM +0200, Oleksii Kurochko wrote:
-> Disable FPU to detect illegal usage of floating point in kernel
-> space.
-> 
+On Fri, Mar 03, 2023 at 12:24:23PM +0200, Oleksii Kurochko wrote:
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > ---
->  xen/arch/riscv/riscv64/head.S | 7 +++++++
->  1 file changed, 7 insertions(+)
+> Changes since v2:
+>  * Add the comment for start() function with the explanation what and
+>    how OpenSBI pass to start() function.
+>  * Clean up start() code related to read&save hart_id & dtb_base.  
+> ---
+> Changes since v1:
+>  * read/save/pass of hart_id and  dtb_base passed by a bootloader
+>    were moved to head.S. 
+>  * Update start_xen() to recieve hard_id & dtb_base
+> ---
+>  xen/arch/riscv/riscv64/head.S | 5 +++++
+>  xen/arch/riscv/setup.c        | 3 ++-
+>  2 files changed, 7 insertions(+), 1 deletion(-)
 > 
 > diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
-> index ffd95f9f89..52fa41c778 100644
+> index 52fa41c778..adf5d6c74a 100644
 > --- a/xen/arch/riscv/riscv64/head.S
 > +++ b/xen/arch/riscv/riscv64/head.S
-> @@ -6,6 +6,13 @@ ENTRY(start)
->          /* Mask all interrupts */
->          csrw    CSR_SIE, zero
+> @@ -2,6 +2,11 @@
+>  
+>          .section .text.header, "ax", %progbits
 >  
 > +        /*
-> +         * Disable FPU to detect illegal usage of
-> +         * floating point in kernel space
+> +         * OpenSBI pass to start():
+> +         *   a0 -> hart_id ( bootcpu_id )
+> +         *   a1 -> dtb_base 
 > +         */
-> +        li      t0, SSTATUS_FS
-> +        csrc    CSR_SSTATUS, t0
-> +
->          la      sp, cpu0_boot_stack
->          li      t0, STACK_SIZE
->          add     sp, sp, t0
+>  ENTRY(start)
+>          /* Mask all interrupts */
+>          csrw    CSR_SIE, zero
+> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+> index 1c87899e8e..d9723fe1c0 100644
+> --- a/xen/arch/riscv/setup.c
+> +++ b/xen/arch/riscv/setup.c
+> @@ -7,7 +7,8 @@
+>  unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
+>      __aligned(STACK_SIZE);
+>  
+> -void __init noreturn start_xen(void)
+> +void __init noreturn start_xen(unsigned long bootcpu_id,
+> +                               unsigned long dtb_base)
+>  {
+>      early_printk("Hello from C env\n");
+>  
 > -- 
 > 2.39.0
 > 
 > 
-
-My last email had the wrong trailer:
 
 Reviewed-by: Bobby Eshleman <bobbyeshleman@gmail.com>
 
