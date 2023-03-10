@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B1496B520A
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 21:38:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508585.783399 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73C846B520D
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 21:38:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508586.783409 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pajUg-0007mv-Mt; Fri, 10 Mar 2023 20:37:38 +0000
+	id 1pajUh-00083C-UY; Fri, 10 Mar 2023 20:37:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508585.783399; Fri, 10 Mar 2023 20:37:38 +0000
+Received: by outflank-mailman (output) from mailman id 508586.783409; Fri, 10 Mar 2023 20:37:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pajUg-0007kT-JT; Fri, 10 Mar 2023 20:37:38 +0000
-Received: by outflank-mailman (input) for mailman id 508585;
- Fri, 10 Mar 2023 20:37:37 +0000
+	id 1pajUh-00080m-RT; Fri, 10 Mar 2023 20:37:39 +0000
+Received: by outflank-mailman (input) for mailman id 508586;
+ Fri, 10 Mar 2023 20:37:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cIIN=7C=citrix.com=prvs=426914f36=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pajUf-0007G2-5Y
- for xen-devel@lists.xenproject.org; Fri, 10 Mar 2023 20:37:37 +0000
+ id 1pajUg-0007G2-2f
+ for xen-devel@lists.xenproject.org; Fri, 10 Mar 2023 20:37:38 +0000
 Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
  [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 62ca3ef9-bf83-11ed-956e-85ef70e17bfa;
- Fri, 10 Mar 2023 21:37:35 +0100 (CET)
+ id 63f8e932-bf83-11ed-956e-85ef70e17bfa;
+ Fri, 10 Mar 2023 21:37:36 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,53 +36,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62ca3ef9-bf83-11ed-956e-85ef70e17bfa
+X-Inumbo-ID: 63f8e932-bf83-11ed-956e-85ef70e17bfa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1678480655;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=vWKg24kXULjAm/MIBSk16wv0jwgKTvpBpsdeyDx77L0=;
-  b=LgzMsFphtFV5qjDfriZSGomjvX7TegV8a8nw77Sf3o6H0ANu14ij9gpX
-   mi+hvw5b/I8l4nA5UBCuFgD5UxKSwbjzfeVGxH1LZYrR/uUgB7R5+4moC
-   RAGzF1m2HYLxF9E5Xjczf8YF8/35Fq4fX79cBpE/VePwiuZDmFP+bKPx0
-   Y=;
+  bh=673Bxj0bL18+MxyyKCgsUOM/K/4wVmpeWWAB7TVmf04=;
+  b=TOhF3yoAEmUzInWZk57uRRnvtnqTItQpFf5BPWPuIE8nkH8I9Td6MiMR
+   Cz69I6MAYEFURl1HeqsbvxNdOOB0fhV/vUe+0sX0yDlbXwPyIiwFo3E5f
+   aCu/bgqNgSlKFN4gB9nq2KECyrL6J/mAqOYA4LdWiM74t3kb9nGJVflwH
+   8=;
 Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 100282288
+X-MesageID: 100282289
 X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:nML/MK6hTN16GX4sYFWVNwxRtCnHchMFZxGqfqrLsTDasY5as4F+v
- mBOWzqGb/fYN2H1fd90YI6+9xhS6sKDm4RqQAdsrSFjHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9VU+7JwehBtC5gZlPasS5AeE/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5my
- 61BBDsPYzG4qvu42Iq8FeBJqOV8FZy+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
- YxDM2MpNUmeJUQVYT/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9xx7A/
- DKcpTSpav0cHOG+8DSVzXm9utOV3iXQYqQpJref0tc/1TV/wURMUUZLBDNXu8KRmkO4Ht5SN
- UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JyOeAn7ACGyoLP/h2UQGMDS1Zpd9gOpMIwAzsw2
- Te0c8jBXGI19ufPEDTEq+nS9GnpUcQIEYMcTRFVFCcO4dTCm6wqgAr3SYlqNYCU0eSgTFkc3
- Au2hCQ5grwSi+sC2KO64U3LjlqQm3TZcuImzl6JBzz4t2uVcKbgPtX1sgaDsZ6sOa7DFjG8U
- G44d99yBQzkJbWEj2SzTeoEB9lFDN7VYWSH0TaD83TMnglBGkJPn6gKvFmSx28zaK7onAMFh
- 2eC0T69HLcJYBOXgVZfOupd8fgCw6n6DsjCXfvJdNdIaZUZXFbZo3EyOhXKjj6wzBFEfUQD1
- XCzK5rEMJrnIf4/kGreqxk1i9fHORzSNUuMHMumnnxLIJKVZWKPSKdtDbd9RrlR0U9wmy2Mq
- 4w3H5LTm31ivBjWPnG/HXg7cQpbchDWxPne96RqSwJ0ClE9QT1/VaePnetJlk4Mt/09q9okN
- 0qVAidwoGcTT1Wdc21mtlgLhGvTYKtC
-IronPort-HdrOrdr: A9a23:SVLPaKFVHK15kswspLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5r
- mTdZUgpHnJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
- YZT0EUMrzN5DZB4voSmDPIceod/A==
+IronPort-Data: A9a23:iEN4H68YU7a52s4GH3MbDrUDoH6TJUtcMsCJ2f8bNWPcYEJGY0x3n
+ TNKCGCDM/bcMzahKt0jYNmx/U0AvpGDnYM2TAFsqCk8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kI/1BjOkGlA5AdmPqkT5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklwp
+ KU0IzIATyuunuyu+LXkQ8xCp5saeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGOkcUUrsUIMtWcOOAr3/zaTBH7nmSorI6+TP7xw1tyrn9dtHSf7RmQO0Mxh7C9
+ jicrzWR7hcyFoWg6xen6ymXqvLesD3naY4LFYCR6as/6LGU7jNKU0BHPbehmtGph0j7V99BJ
+ kg8/is1sbN05EGtVsP6XRCzvDiDpBF0c/h6HvA+6QqN4rHJ+AvfDW8BJhZebPQ2uclwQiYlv
+ neFls3kLSZiu7qUTTSa7Lj8kN+pEXFLdylYP3ZCFFZbpYC5++nfky4jUP5dQfeZhd/4OArd2
+ j6SlC9hjpA9rJEygvDTEU/8vxqgoZ3ATwgQ7wrRX3644g4RWLNJd7BE+nCAs68ecd/xok2p+
+ SFdxpPAtLxm4YSlznTlfQkbIF2+Cx9p2hX4iEUnIZQu/i/FF5WLLdEJu2EWyKuE3685ld7Vj
+ K374185CHx7ZiHCgUpLj2WZWqwXIVDIT4iNaxwtRoMmjmJNXAGG5jpyQkWbwnrglkMh+YlmZ
+ 8jLLZn3VydEVPg+pNZTewv6+eV3rh3SOEuJHcyrp/hZ+eD2iIGppUctbwLVM7FRAFKsqwTJ6
+ ddPX/ZmOD0GONASlhL/qNZJRXhTdChTOHwDg5APHgJ1ClY8ST5J5j646e9JRrGJaIwOzb6Uo
+ C/lBBMAoLc97FWeQTi3hrlYQOuHdf5CQbgTZ3RE0YqAs5T7XbuS0Q==
+IronPort-HdrOrdr: A9a23:mSv0gasjU46lOVx2cLEVxjh87skCM4Mji2hC6mlwRA09TyX4rb
+ HaoB1/73SbtN9/YhEdcK+7SdW9qB/nlKKdgrNhTotKIjOW2ldARbsKheHfKlbbak7DH4BmpM
+ Jdm6MXMqyOMbAT5/yX3OHSeexO/DFJmprEuc7ui05ICSVWQ+VY6QF9YzzrYHGfhmN9dOQE/F
+ 733Ls2m9JkE05nH/hTfUN1O9TrlpnwjZf7ZhxDLwc/gTP+9A+A2frBCh2F2RVbeC9OxLpKyx
+ m5ryXJop+7tu29yFv632vehq4m/+fJ+594HcmRjcpQDCvqhh3AXvUGZ5Sy+Aotpf2p6hIRsP
+ SkmWZZA+1Dr0nJe32zo1/W1xL+3C0I43vvoGXo+kfLkIjCXTcnDMgEuo5DaBve7CMbzatB7J
+ 4=
 X-IronPort-AV: E=Sophos;i="5.98,250,1673931600"; 
-   d="scan'208";a="100282288"
+   d="scan'208";a="100282289"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>
-Subject: [PATCH 2/3] tools/xen-cpuid: Rework the handling of dynamic featuresets
-Date: Fri, 10 Mar 2023 20:37:11 +0000
-Message-ID: <20230310203712.1431387-3-andrew.cooper3@citrix.com>
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Christian Lindig
+	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>,
+	=?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>, Rob Hoes
+	<Rob.Hoes@citrix.com>
+Subject: [PATCH 3/3] x86/sysctl: Retrofit XEN_SYSCTL_cpu_featureset_{pv,hvm}_max
+Date: Fri, 10 Mar 2023 20:37:12 +0000
+Message-ID: <20230310203712.1431387-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230310203712.1431387-1-andrew.cooper3@citrix.com>
 References: <20230310203712.1431387-1-andrew.cooper3@citrix.com>
@@ -90,118 +96,133 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-struct fsinfo is the vestigial remnant of an older internal design which
-didn't survive very long.
+Featuresets are supposed to be disappearing when the CPU policy infrastructure
+is complete, but that has taken longer than expected, and isn't going to be
+complete imminently either.
 
-Simplify things by inlining get_featureset() and having a single memory
-allocation that gets reused.  This in turn changes featuresets[] to be a
-simple list of names, so rename it to fs_names[].
+In the meantime, Xen does have proper default/max featuresets, and xen-cpuid
+can even get them via the XEN_SYSCTL_cpu_policy_* interface, but only knows
+now to render them nicely via the featureset interface.
 
-No functional change.
+Differences between default and max are a frequent source of errors,
+frequently too in secret leading up to an embargo, so extend the featureset
+sysctl to allow xen-cpuid to render them all nicely.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>
+CC: Christian Lindig <christian.lindig@citrix.com>
+CC: David Scott <dave@recoil.org>
+CC: Edwin Török <edwin.torok@cloud.com>
+CC: Rob Hoes <Rob.Hoes@citrix.com>
+
+I actually this SYSCTL extention in the XenServer patchqueue for reasons that
+started with the TSX fiasco; I have no idea why its taken until now to think
+it would be a good idea to wire into xen-cpuid too...
 ---
- tools/misc/xen-cpuid.c | 53 ++++++++++++++++++------------------------
- 1 file changed, 22 insertions(+), 31 deletions(-)
+ tools/misc/xen-cpuid.c          | 10 ++++++----
+ tools/ocaml/libs/xc/xenctrl.ml  |  8 +++++++-
+ tools/ocaml/libs/xc/xenctrl.mli |  8 +++++++-
+ xen/arch/x86/sysctl.c           |  4 +++-
+ xen/include/public/sysctl.h     |  2 ++
+ 5 files changed, 25 insertions(+), 7 deletions(-)
 
 diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-index 361102d8cfb1..227df7352e2b 100644
+index 227df7352e2b..37a7eaa8edfc 100644
 --- a/tools/misc/xen-cpuid.c
 +++ b/tools/misc/xen-cpuid.c
-@@ -246,16 +246,11 @@ static const struct {
- 
+@@ -247,10 +247,12 @@ static const struct {
  #define COL_ALIGN "18"
  
--static struct fsinfo {
--    const char *name;
--    uint32_t len;
--    uint32_t *fs;
--} featuresets[] =
--{
--    [XEN_SYSCTL_cpu_featureset_host] = { "Host", 0, NULL },
--    [XEN_SYSCTL_cpu_featureset_raw]  = { "Raw",  0, NULL },
--    [XEN_SYSCTL_cpu_featureset_pv]   = { "PV",   0, NULL },
--    [XEN_SYSCTL_cpu_featureset_hvm]  = { "HVM",  0, NULL },
-+static const char *const fs_names[] = {
-+    [XEN_SYSCTL_cpu_featureset_host] = "Host",
-+    [XEN_SYSCTL_cpu_featureset_raw]  = "Raw",
-+    [XEN_SYSCTL_cpu_featureset_pv]   = "PV",
-+    [XEN_SYSCTL_cpu_featureset_hvm]  = "HVM",
+ static const char *const fs_names[] = {
+-    [XEN_SYSCTL_cpu_featureset_host] = "Host",
+-    [XEN_SYSCTL_cpu_featureset_raw]  = "Raw",
+-    [XEN_SYSCTL_cpu_featureset_pv]   = "PV",
+-    [XEN_SYSCTL_cpu_featureset_hvm]  = "HVM",
++    [XEN_SYSCTL_cpu_featureset_raw]     = "Raw",
++    [XEN_SYSCTL_cpu_featureset_host]    = "Host",
++    [XEN_SYSCTL_cpu_featureset_pv]      = "PV Default",
++    [XEN_SYSCTL_cpu_featureset_hvm]     = "HVM Default",
++    [XEN_SYSCTL_cpu_featureset_pv_max]  = "PV Max",
++    [XEN_SYSCTL_cpu_featureset_hvm_max] = "HVM Max",
  };
  
  static void dump_leaf(uint32_t leaf, const char *const *strs)
-@@ -302,22 +297,10 @@ static void decode_featureset(const uint32_t *features,
-     }
- }
+diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
+index a59dee093897..e4096bf92c1d 100644
+--- a/tools/ocaml/libs/xc/xenctrl.ml
++++ b/tools/ocaml/libs/xc/xenctrl.ml
+@@ -370,7 +370,13 @@ external version_changeset: handle -> string = "stub_xc_version_changeset"
+ external version_capabilities: handle -> string =
+   "stub_xc_version_capabilities"
  
--static int get_featureset(xc_interface *xch, unsigned int idx)
--{
--    struct fsinfo *f = &featuresets[idx];
--
--    f->len = nr_features;
--    f->fs = calloc(nr_features, sizeof(*f->fs));
--
--    if ( !f->fs )
--        err(1, "calloc(, featureset)");
--
--    return xc_get_cpu_featureset(xch, idx, &f->len, f->fs);
--}
--
- static void dump_info(xc_interface *xch, bool detail)
- {
-     unsigned int i;
-+    uint32_t *fs;
+-type featureset_index = Featureset_raw | Featureset_host | Featureset_pv | Featureset_hvm
++type featureset_index =
++  | Featureset_raw
++  | Featureset_host
++  | Featureset_pv
++  | Featureset_hvm
++  | Featureset_pv_max
++  | Featureset_hvm_max
+ external get_cpu_featureset : handle -> featureset_index -> int64 array = "stub_xc_get_cpu_featureset"
  
-     printf("nr_features: %u\n", nr_features);
+ external watchdog : handle -> int -> int32 -> int
+diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
+index 3154e90f4f98..ef2254537430 100644
+--- a/tools/ocaml/libs/xc/xenctrl.mli
++++ b/tools/ocaml/libs/xc/xenctrl.mli
+@@ -297,7 +297,13 @@ external version_changeset : handle -> string = "stub_xc_version_changeset"
+ external version_capabilities : handle -> string
+   = "stub_xc_version_capabilities"
  
-@@ -348,26 +331,34 @@ static void dump_info(xc_interface *xch, bool detail)
-                       nr_features, "HVM Hap Default", detail);
+-type featureset_index = Featureset_raw | Featureset_host | Featureset_pv | Featureset_hvm
++type featureset_index =
++  | Featureset_raw
++  | Featureset_host
++  | Featureset_pv
++  | Featureset_hvm
++  | Featureset_pv_max
++  | Featureset_hvm_max
+ external get_cpu_featureset : handle -> featureset_index -> int64 array = "stub_xc_get_cpu_featureset"
  
-     printf("\nDynamic sets:\n");
--    for ( i = 0; i < ARRAY_SIZE(featuresets); ++i )
-+
-+    fs = malloc(sizeof(*fs) * nr_features);
-+    if ( !fs )
-+        err(1, "malloc(featureset)");
-+
-+    for ( i = 0; i < ARRAY_SIZE(fs_names); ++i )
+ external pages_to_kib : int64 -> int64 = "stub_pages_to_kib"
+diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
+index f42a3b843ba7..6600eb43471b 100644
+--- a/xen/arch/x86/sysctl.c
++++ b/xen/arch/x86/sysctl.c
+@@ -323,14 +323,16 @@ long arch_do_sysctl(
+ 
+     case XEN_SYSCTL_get_cpu_featureset:
      {
--        if ( get_featureset(xch, i) )
-+        uint32_t len = nr_features;
-+        int ret;
-+
-+        memset(fs, 0, sizeof(*fs) * nr_features);
-+
-+        ret = xc_get_cpu_featureset(xch, i, &len, fs);
-+        if ( ret )
-         {
-             if ( errno == EOPNOTSUPP )
-             {
--                printf("%s featureset not supported by Xen\n",
--                       featuresets[i].name);
-+                printf("%s featureset not supported by Xen\n", fs_names[i]);
-                 continue;
-             }
- 
-             err(1, "xc_get_featureset()");
-         }
- 
--        decode_featureset(featuresets[i].fs, featuresets[i].len,
--                          featuresets[i].name, detail);
-+        decode_featureset(fs, len, fs_names[i], detail);
-     }
- 
--    for ( i = 0; i < ARRAY_SIZE(featuresets); ++i )
--        free(featuresets[i].fs);
-+    free(fs);
- }
- 
- static void print_policy(const char *name,
+-        static const struct cpuid_policy *const policy_table[4] = {
++        static const struct cpuid_policy *const policy_table[6] = {
+             [XEN_SYSCTL_cpu_featureset_raw]  = &raw_cpuid_policy,
+             [XEN_SYSCTL_cpu_featureset_host] = &host_cpuid_policy,
+ #ifdef CONFIG_PV
+             [XEN_SYSCTL_cpu_featureset_pv]   = &pv_def_cpuid_policy,
++            [XEN_SYSCTL_cpu_featureset_pv_max] = &pv_max_cpuid_policy,
+ #endif
+ #ifdef CONFIG_HVM
+             [XEN_SYSCTL_cpu_featureset_hvm]  = &hvm_def_cpuid_policy,
++            [XEN_SYSCTL_cpu_featureset_hvm_max] = &hvm_max_cpuid_policy,
+ #endif
+         };
+         const struct cpuid_policy *p = NULL;
+diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
+index 001a4de27375..e8dded9fb94a 100644
+--- a/xen/include/public/sysctl.h
++++ b/xen/include/public/sysctl.h
+@@ -796,6 +796,8 @@ struct xen_sysctl_cpu_featureset {
+ #define XEN_SYSCTL_cpu_featureset_host     1
+ #define XEN_SYSCTL_cpu_featureset_pv       2
+ #define XEN_SYSCTL_cpu_featureset_hvm      3
++#define XEN_SYSCTL_cpu_featureset_pv_max   4
++#define XEN_SYSCTL_cpu_featureset_hvm_max  5
+     uint32_t index;       /* IN: Which featureset to query? */
+     uint32_t nr_features; /* IN/OUT: Number of entries in/written to
+                            * 'features', or the maximum number of features if
 -- 
 2.30.2
 
