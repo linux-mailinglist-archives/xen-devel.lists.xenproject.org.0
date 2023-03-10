@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5392E6B4CBF
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 17:24:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508531.783265 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B6B56B4E11
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 18:09:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508537.783276 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pafWl-00058T-9Q; Fri, 10 Mar 2023 16:23:31 +0000
+	id 1pagDp-00026L-Ma; Fri, 10 Mar 2023 17:08:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508531.783265; Fri, 10 Mar 2023 16:23:31 +0000
+Received: by outflank-mailman (output) from mailman id 508537.783276; Fri, 10 Mar 2023 17:08:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pafWl-00056J-6H; Fri, 10 Mar 2023 16:23:31 +0000
-Received: by outflank-mailman (input) for mailman id 508531;
- Fri, 10 Mar 2023 16:23:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pafWj-000569-UC; Fri, 10 Mar 2023 16:23:29 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pafWj-0008Kl-RS; Fri, 10 Mar 2023 16:23:29 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pafWj-0001Cv-9n; Fri, 10 Mar 2023 16:23:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pafWj-0003IM-9M; Fri, 10 Mar 2023 16:23:29 +0000
+	id 1pagDp-00022x-J6; Fri, 10 Mar 2023 17:08:01 +0000
+Received: by outflank-mailman (input) for mailman id 508537;
+ Fri, 10 Mar 2023 17:08:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Hylx=7C=citrix.com=prvs=426f5b69d=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pagDo-00022r-K1
+ for xen-devel@lists.xenproject.org; Fri, 10 Mar 2023 17:08:00 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 17887a98-bf66-11ed-87f5-c1b5be75604c;
+ Fri, 10 Mar 2023 18:07:57 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,147 +36,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=TrYKNt8Dy+MYNdHW7ygUPcOnzrC88DfrvEE7foBAG6c=; b=K4HfJl3Hmw0q1Qk4AR7uA/HX92
-	f5ZCYN5kT8E6ZNILnl0cGloVdbiQbRjPRG6JvMfqEA0I39L+eeF04laS6uxZOsh7xiTv++IJpw2wn
-	Un84Tlwj1k+PTQUcK5PGeNQe3sx8y08gB4zTqyd7aHIppmrxP4tE927Vi2bPrO7dTJnk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-179528-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 17887a98-bf66-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1678468077;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=qJUHxRCsNx0u9euoS9TNdoV5MXh2jlAdF3MSmsTTQNg=;
+  b=VE5Spo3DgUk58XmcBU9cit8ok45wKZyc4U+CMDn8GHp3hbTF3E4yrEqb
+   72VPuanGLxStClWLS1ElJKaebpqVXp8m99JZm3IpejN0iNj5w+Em0EAJU
+   fHEIN837x5INa4bvTmE4+mttgQB2GrCUEaBTdeK8+PiINWFgkVME0NDr3
+   s=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 100764149
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:F0KSMa+I2iEAdop7pGysDrUDjH6TJUtcMsCJ2f8bNWPcYEJGY0x3y
+ jFJCmCBM/mKNGrweNslO4y+oEkDvpbQzIIyTgQ6pX88E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kI/1BjOkGlA5AdmPqkT5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkl3q
+ OwyKDohUCvSnum0nKqDEftHvpwseZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGOkcUUrsUIMtWcOOAj3/jczpeuRSNqLA++WT7xw1tyrn9dtHSf7RmQO0Mxh7H+
+ D6fozWR7hcyHdKumDSK9zWXouaUmQb3fqRRRJ2y36s/6LGU7jNKU0BHPbehmtGph0j7V99BJ
+ kg8/is1sbN05EGtVsP6XRCzvDiDpBF0c9tPEcUq5QeV0K3W7g2FQG8eQVZ8hMcO7ZFsA2Zwj
+ xnQwo2vXGY02FGIdZ6D3o7JvRmyMwQrFj4bbi1YVTNe8fLb+I5m23ojUe1fOKKyi9T0HxT5z
+ DaLsDUyit0vsCIb60mo1QuZ2mzx//AlWiZwv1yKBTz9smuVcab/P+SVBU7nAeGsxWpzZn2Ip
+ zA6lseX94ji5rndxXXWEI3h8FxEjstp0QEwY3Y1QvHNFBz3oRZPmLy8BxkvTHqFyu5eJVfUj
+ Lb74Gu9HqN7MnqwdrNQaImsEcksxqWIPY27CaCPPoQfOsMsK1PvEMRSiam4hT2FraTRuftnZ
+ cfznTiEVx729piLPBLpHrxAgNfHNwg1xH/JRICT8vhU+eP2WZJhcp9caAHmRrlgvMu5TPD9r
+ 4432z2il08OD4UTo0D/reYuELz9BSFmVMGp9ZEJKbXrz8gPMDhJNsI9CIgJI+RN95m5XM+Tp
+ hlRhmcwJILDuED6
+IronPort-HdrOrdr: A9a23:d2apPansdgKVacUIJYalLctuxGLpDfLo3DAbv31ZSRFFG/Fw9/
+ rCoB17726QtN91YhsdcL+7V5VoLUmzyXcX2/hyAV7BZmnbUQKTRekP0WKL+Vbd8kbFh41gPM
+ lbEpSXCLfLfCJHZcSR2njELz73quP3jJxBho3lvghQpRkBUdAF0+/gYDzranGfQmN9dP0EPa
+ vZ3OVrjRy6d08aa8yqb0N1JNQq97Xw5fTbiQdtPW9f1DWz
+X-IronPort-AV: E=Sophos;i="5.98,250,1673931600"; 
+   d="scan'208";a="100764149"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Ian Jackson <iwj@xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [OSSTEST PATCH] PDU/IPMI: Be less aggressive with IPMI commands
+Date: Fri, 10 Mar 2023 17:07:21 +0000
+Message-ID: <20230310170721.14493-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: [libvirt test] 179528: tolerable trouble: fail/pass/starved - PUSHED
-X-Osstest-Failures:
-    libvirt:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:heisenbug
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:build-armhf-libvirt:build-check(1):starved:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
-    libvirt:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    libvirt=61d51c9c418dd3c77794519a5f66a02118b11326
-X-Osstest-Versions-That:
-    libvirt=3138e204b2e3f4d765af66faf1fc9b566de370dd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 10 Mar 2023 16:23:29 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-flight 179528 libvirt real [real]
-flight 179536 libvirt real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/179528/
-http://logs.test-lab.xenproject.org/osstest/logs/179536/
+The machine rimava0 doesn't power off or power on when we keep doing
+"power status" then "power off" ipmi command without waiting.
 
-Failures :-/ but no regressions.
+Currently, osstest does:
+    loop
+	ipmitool power status
+	ipmitool power off
+	sleep 1
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail pass in 179536-retest
+This loop goes on forever, the machine never change power state.
+Adding some wait in between both command works.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- build-armhf-libvirt           1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
+While here, test for timeout just after a status check instead of
+sending the `power off` command again which we would never check the
+result of.
 
-version targeted for testing:
- libvirt              61d51c9c418dd3c77794519a5f66a02118b11326
-baseline version:
- libvirt              3138e204b2e3f4d765af66faf1fc9b566de370dd
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+ Osstest/PDU/ipmi.pm | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Last test of basis   179515  2023-03-09 04:18:47 Z    1 days
-Testing same since   179528  2023-03-10 04:18:54 Z    0 days    1 attempts
+diff --git a/Osstest/PDU/ipmi.pm b/Osstest/PDU/ipmi.pm
+index 21c94d98..ce498cb7 100644
+--- a/Osstest/PDU/ipmi.pm
++++ b/Osstest/PDU/ipmi.pm
+@@ -69,10 +69,10 @@ sub pdu_power_state {
+     my $count = 60;
+     for (;;) {
+         last if $getstatus->() eq $onoff;
++        die "did not power $onoff" unless --$count > 0;
++        sleep(1);
+ 
+ 	system_checked((@cmd, qw(power), $onoff));
+-
+-        die "did not power $onoff" unless --$count > 0;
+         sleep(1);
+     }
+ }
+-- 
+Anthony PERARD
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Pavel Hrdina <phrdina@redhat.com>
-  Tim Wiederhake <twiederh@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  starved 
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          starved 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     starved 
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               starved 
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 starved 
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   3138e204b2..61d51c9c41  61d51c9c418dd3c77794519a5f66a02118b11326 -> xen-tested-master
 
