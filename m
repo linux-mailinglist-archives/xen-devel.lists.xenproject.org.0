@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8A226B3A35
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 10:19:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508451.783115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBD0E6B3C7A
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 11:40:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508463.783126 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1paYu9-0003xa-E7; Fri, 10 Mar 2023 09:19:13 +0000
+	id 1paa9Q-0005vw-Ce; Fri, 10 Mar 2023 10:39:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508451.783115; Fri, 10 Mar 2023 09:19:13 +0000
+Received: by outflank-mailman (output) from mailman id 508463.783126; Fri, 10 Mar 2023 10:39:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1paYu9-0003vL-BE; Fri, 10 Mar 2023 09:19:13 +0000
-Received: by outflank-mailman (input) for mailman id 508451;
- Fri, 10 Mar 2023 09:19:11 +0000
+	id 1paa9Q-0005sg-8j; Fri, 10 Mar 2023 10:39:04 +0000
+Received: by outflank-mailman (input) for mailman id 508463;
+ Fri, 10 Mar 2023 10:39:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ltz4=7C=citrix.com=prvs=426ffb546=roger.pau@srs-se1.protection.inumbo.net>)
- id 1paYu7-0003vF-BI
- for xen-devel@lists.xenproject.org; Fri, 10 Mar 2023 09:19:11 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b4edb24-bf24-11ed-87f5-c1b5be75604c;
- Fri, 10 Mar 2023 10:19:08 +0100 (CET)
-Received: from mail-dm6nam11lp2168.outbound.protection.outlook.com (HELO
- NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.168])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 10 Mar 2023 04:18:41 -0500
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
- by CH2PR03MB5206.namprd03.prod.outlook.com (2603:10b6:610:a3::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.19; Fri, 10 Mar
- 2023 09:18:39 +0000
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda%3]) with mapi id 15.20.6178.019; Fri, 10 Mar 2023
- 09:18:38 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VN0O=7C=redhat.com=thuth@srs-se1.protection.inumbo.net>)
+ id 1paa9O-0005rD-By
+ for xen-devel@lists.xenproject.org; Fri, 10 Mar 2023 10:39:02 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c3d83f03-bf2f-11ed-87f5-c1b5be75604c;
+ Fri, 10 Mar 2023 11:39:00 +0100 (CET)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-343-gH9lfLG0Mp2ZC7ZZ7qsavQ-1; Fri, 10 Mar 2023 05:38:57 -0500
+Received: by mail-wm1-f72.google.com with SMTP id
+ l31-20020a05600c1d1f00b003e8626cdd42so1642605wms.3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Mar 2023 02:38:57 -0800 (PST)
+Received: from [192.168.0.2] (ip-109-43-178-140.web.vodafone.de.
+ [109.43.178.140]) by smtp.gmail.com with ESMTPSA id
+ h19-20020a05600c351300b003e2058a7109sm2840339wmq.14.2023.03.10.02.38.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Mar 2023 02:38:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,224 +49,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b4edb24-bf24-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1678439948;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=mh2ueymrj7czzT7GtkczhUnwPi5VvVdRNyQ7JrvHfcM=;
-  b=hwIQGyJvT7EWSlTf6YSLuyzfMjQRO5IzuuZCsfmX3DylP1Zm3z3UVJ4S
-   IXaQaRCSQezQ6uGEYGP85QGb4SOkq1yJJEMtv/dAWWmRwjsm9he0ikILy
-   RXW+MZhwKG6zYtB8UcLevY17l6MR1Rkni5GOHQN2RorkeurOjEufAXd2C
-   k=;
-X-IronPort-RemoteIP: 104.47.57.168
-X-IronPort-MID: 99102769
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:JtusRK/OavLdGZ3uCnMXDrUDNX+TJUtcMsCJ2f8bNWPcYEJGY0x3z
- GAWWGDVOKuIY2Sme4pwPdmwo0sE6J/QzddqTQJp/iA8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ire7kI/1BjOkGlA5AdmPqkT5Aa2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklX0
- uAmK2hXViuDguW27eOUcsZ8uecseZyD0IM34hmMzBn/JNN/GNXvZvuP4tVVmjAtmspJAPDSI
- dIDbiZiZwjBZBsJPUoLDJU5n6GjgXyXnz9w8QrJ4/ZopTWMilUvgNABM/KMEjCObd9SkUuC4
- HrP4kzyAw0ANczZwj2Amp6prr6exHuhB9xDfFG+3uJOrWSOgWAvNCMTZVTig+Tnsm6ZROsKf
- iT4/QJr98De7neDS8HwdxC8pHOeuxcaHdtcVeQngCmW0bbd6QudAmkCTxZCZcYguctwQiYlv
- neLkMnuHidHq6CORDSW8bL8hTyoNCcWLUcGZCkZXQUC/t/vqZ0yiRSJScxseIa3j8f0AjX5y
- SGiryUkgbgXy8kR2M2T+VHBniLppZXTSAMxzhvYU3jj7Q5jYoOhIYuy5jDz/ftGaYqUUFSFl
- HwFgNSFqvADC4mXky6AS/lLG6umj96BMTvBkUZ3FNwt+iqF/3+4YZsW5yN6LU1ydMEedlfUj
- FT7vApQ4NpfOSWsZKouOoapUZ10ne7nCMjvUe3SYpxWeJ9teQSb/SZoI0mNw2Tql0tqmqY6U
- XuGTfuR4b8hIfwP5FKLqy01i+9DKvwWrY8Lea3G8g==
-IronPort-HdrOrdr: A9a23:cJoaBKOm7wHldcBcTjGjsMiBIKoaSvp037By7TEIdfUnSL3iqy
- nOpoVl6faQskdlZJhOo6HnBEDtewK+yXcX2/huAV7BZniehILAFugLhuGOr1KPek3DH4VmpM
- Jdmt1FebrN5C9B/KLHCWeDYrQd6ejC34ztvOHaz318CSFGApsQn3YLe3Sm+wZNNXN77NICZe
- ehz9sCoyC/PXcaasn+AXUaRe3OusDGj/vdEG877jAcmXWzsQ8=
-X-IronPort-AV: E=Sophos;i="5.98,249,1673931600"; 
-   d="scan'208";a="99102769"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E3cAHFupXgiLqlR4UYUipZiXR/MKnEZKZzhc81DSpZ/iPNGZnyV7svywErGjgNQV9ENj/hvkwNBO7ElzDs66/65Oa45Yv+e6j94H+r6NcnZMKN8NzvUhvZsICUhZKzeHoRsBhURLU3FsQvG6FCi4PrQzkwofkoSQocpvz/w8nrM5CAU7zTxgxudh3Wti3ec5GTSSciAELvmE2IEJ3BGIlmpsZR8rZcQP4lSHZedYdH+LhMyIZW89ehrJUUXNzyc1dFlYNu1RC86nWwZF2deHAKginZC9D2WqeMowSzPpp61jx8lc7/yvDnxPLSMykpqtc5cN1p5gJkswVM4sQ7lJRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=isv7pyswxh4k7JvnZXYR3aaQSe4UF5A2aKOxjW1mFpU=;
- b=FL2AH6LbdKxdL3CwOYra7m/8gu3s1kBtPj9AVz7GhYmgkP4exIJIg9YYx8WMdi/f1Ki5ZH4HU51xYN+yZG2oeVznBSlpzGpx+0wptNSIU35D9rmcqVx+HjR5GUfcpkE9YcwrY5cVv1TJvBr+1+HxJ33nqqL3oHB0+BMn6DdptnXxvj19/ZXWOP66S48Cdlr2ByFcIUAQYXFsr/VBnbtij7EUN2/VyJ7eFt1JqLZZz3ZmFAjMNl+mlTS4PMRGgPB6QBE/FS6BrOKm8Cbk6zeNsr4S2G9oV1JJak39TyMyS8GVvKp8cVxZnUf0OPPE+DLz0OPWIC6XQSGWVSValSzP1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=isv7pyswxh4k7JvnZXYR3aaQSe4UF5A2aKOxjW1mFpU=;
- b=CZvJMH375ij5f0xTyy2ALIIHGVor6d4M2Inp69vlAMfkow/FjB3Vu38rvNQiFKoHQ13QsutWWIVulbZk+0Ky/+jdbv5ujVXyWd+TElFV54UbR0kM7y2kYk6iCfyeM9Rk58RS4ohIi8VuqBZ9Pm/Xy+ImBR1qkwhM7RP97x8ZTW8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 10 Mar 2023 10:18:32 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH v2] hvc/xen: prevent concurrent accesses to the shared
- ring
-Message-ID: <ZAr16LM+qpGqa1h6@Air-de-Roger>
-References: <20221130150919.13935-1-roger.pau@citrix.com>
- <alpine.DEB.2.22.394.2211301657200.4039@ubuntu-linux-20-04-desktop>
- <Y4nkFZal7oy+aICa@Air-de-Roger>
- <Y5cgYLNwtPbmP1JL@Air-de-Roger>
- <ZAm8BDGTMaI0XmMI@Air-de-Roger>
- <87zg8lo7fw.fsf@mpe.ellerman.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87zg8lo7fw.fsf@mpe.ellerman.id.au>
-X-ClientProxiedBy: LO4P123CA0670.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:351::16) To SJ0PR03MB6360.namprd03.prod.outlook.com
- (2603:10b6:a03:395::11)
+X-Inumbo-ID: c3d83f03-bf2f-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1678444738;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uLsSJ9HfwXSuLvEmI+ykLii9J7TAAUU/sN9QFRCPKLM=;
+	b=VZeu/Lcsfy0gsUeMawE77mhMz8FXgeAVsNuaKGl/79LJcri3ev+ajKAFhPjXR8X/ThJ8S2
+	leWaB++h4uL5qc80WvWwOpcSlrVdR+cnqROAi5IERyD1XKcVc0nmYlN9wHP4vMCaNaCDDO
+	dN9TVSA/GqCF540QvY6V0vzbVTFaF48=
+X-MC-Unique: gH9lfLG0Mp2ZC7ZZ7qsavQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678444736;
+        h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uLsSJ9HfwXSuLvEmI+ykLii9J7TAAUU/sN9QFRCPKLM=;
+        b=12gpzv2+1P4TGf0PWcz2ToZYbJET3+G5IqmcIrtK7SSrqJ9ekDWJaOvns2UpNJ1iZZ
+         TvnfaFKEN64cv1ACPwlnhjZZRUExtGQ9M2h0N1t0kf4CFD/kVYRY/k5zve8KRA+HK1gw
+         YeLZB2/Ciw7KKBDAbcbL8uzaswNGYznublIcF0Ly/O7XeAIToIuiwhKZh2An1ZRuWFW6
+         FNTp1JCJH7PpgJx0+DsfdoiYpW9hJhcvHZhnyE2arcT4jyQNcoru/aYouSpDfYBvZWsc
+         X5fx5yh2e4YDd6X9yQODbW/3K0v+1YCR0eXFd6Epq06vMf+heqt/lGWlxI40GazqM5ro
+         t1EQ==
+X-Gm-Message-State: AO0yUKULydi92xq12H85YnLRNztVu8K91ap/GodCZf19VY5HQEpmp/38
+	Ou5cjKs8oZsLY1vqEQmcH5RlJbH0YOo/Ul3n3zqcOytN6peVv6nwyPo3paiuPNABrLYR06ws6vJ
+	rshYHy+kgwybPocXlYTCW1eF93iA=
+X-Received: by 2002:a05:600c:4f44:b0:3eb:383c:1870 with SMTP id m4-20020a05600c4f4400b003eb383c1870mr2188779wmq.11.1678444736263;
+        Fri, 10 Mar 2023 02:38:56 -0800 (PST)
+X-Google-Smtp-Source: AK7set9TrEJ0rqjEGofCtU/tMmbs/X59NXj5FV3c7sySdDmqWmiZ57yMWYZ+XYP/NP20l27b3iCfjA==
+X-Received: by 2002:a05:600c:4f44:b0:3eb:383c:1870 with SMTP id m4-20020a05600c4f4400b003eb383c1870mr2188722wmq.11.1678444735868;
+        Fri, 10 Mar 2023 02:38:55 -0800 (PST)
+Message-ID: <289e9e47-be6d-1f7f-b0b6-f5b9ed5bc1e8@redhat.com>
+Date: Fri, 10 Mar 2023 11:38:52 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|CH2PR03MB5206:EE_
-X-MS-Office365-Filtering-Correlation-Id: c4548530-6aba-478f-e1bf-08db21486ef4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	pI+ZnyWZZSKqOaRA79Z9OpSJLCSR+6tbSFL2pSwqcAOUcYj7Ltz03JeoH5g4xNPks2qMJV8R9SnG6xWdOUmwHAcrtHT9g6f/ZrWhRiwfMZDe/EAmipiSatsnR70fE707PNpIrLK0ddwvFbxwE8hsdiOgXJy9cURiV4mo2dkSUN6j8kX5E2LfQyj0pW6RRV7q9RgRcveW73e+062UUeN5A9OCjcAYmwDDTtIyuxaVBm3hu1B2o13nTuOIg1V1FY5p/HgAOFVjqSyZ2xbI0kQ49XoUPUcDYh52Q9/C7Au4eOs55MYE+7oM2fLBMfIJV480J6dBA3bE2gHOt8vSN1WXWrTtR5CdUv1iKh2Yze1GGGi41krwHSjoV3Col0OzwsXrd2459BmSaxkgLuTOmAfGPfq4E5606oAbBGlgD47/HJFjqHwQ82r4ioVSH3lBp5ICY1UZnnKseCZt40u22BVnRZqBo7kusATZJAf1RLMZFtJK34neDvPSXEYhvCFZFS+NPwn5K/ibMd5cXXbo4uRAMQXOYgrvPj/fNb1PAL+UrMT/CTNqHhxpVlpEDI5MJ5C0gbT/UHNrwbki7nMJyC8Fk17ER/29YzD/bSBMXOh1u29EpIru2rBcUigj/l3A36oyTLSePUoSyUtVuHORSwXhUTs/ExAkAowv8rYVUX9bY6crLULrBAfXh+gitfuiTngp
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(7916004)(4636009)(136003)(376002)(366004)(396003)(39860400002)(346002)(451199018)(85182001)(6486002)(82960400001)(186003)(26005)(6666004)(6506007)(41300700001)(83380400001)(9686003)(66946007)(8676002)(8936002)(4326008)(6916009)(2906002)(6512007)(66476007)(66556008)(5660300002)(54906003)(38100700002)(316002)(86362001)(33716001)(478600001)(67856001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NmRRVTZTL0RUN3pLREhsNGdoZkJNU25WN3Fvd2ZnVjBoZ2JDZzlhRVRxRlVQ?=
- =?utf-8?B?WUhTYUk3R29VbzJrK0IxMFhWQ1JqM1ZIZ3JIaWR6b3o0b09CdGkrRXBOTmRP?=
- =?utf-8?B?ZFVzK2Z2KzcxbHFsVGZkTDNRWW5NQzFnUjZ3UWhwQWNjTituM2N5dkltT3hR?=
- =?utf-8?B?eEtkWHM3L2ppMDlrZHdlZVVUZXBnQzVoYUU5WVVEMllleVNlb0Y3OFZRWlNR?=
- =?utf-8?B?czhKdkR4UlhWREQ5UHhpb2ZZaStORXFVUjJ2UXVPYkRraUJIWW9CR1dRUnE1?=
- =?utf-8?B?TGwwcWVkQTYzSlF5MUlMYW1rZDB1RXVJcDNBalpTYlhRTFJBNUoyUjJqcGhW?=
- =?utf-8?B?d3hYNVBDTXRCd2xyMXRqWkVSbERDRWhrQlRoWmJOYmJtK0ZSS1R3bUpFZS9E?=
- =?utf-8?B?K2k4TWxsVElSNU5YYnlBMlRLSlBiZERuRXp6WVA1MEpwTUIyWGVORFAxY2c0?=
- =?utf-8?B?UzhQYkZLNENtTmp4ZGV2dFdGakNZWnB0L0tJcVZ6Y0l2bFpFWTlIL2MvZ3JW?=
- =?utf-8?B?VUwyWWZYdTVPakxEV1hod1p2UytKQUc4L1VBTDV0Lzl0VXRmeUFtaGRNL0x0?=
- =?utf-8?B?c0M2WUVCYXRScU52SFQ5NVhIdEJDVjQwbWhJcUdCTlBMeUJwOTJ2S3orODlB?=
- =?utf-8?B?UCtVRktzRlNmZ0pBdXBvQ3RCRXJGWVk3T3ZlSVBrdDV0bjFLQkRQS3JGQ2E4?=
- =?utf-8?B?dTA1aVVteDFJcFhYOXdVeWh5VUJ2VFh2ekRJSkZYTFRDR3F1Yll0cUorZ0Nv?=
- =?utf-8?B?QXNsc256L1RENWNWdVZwREcrZ1luRUhhQm1PRUR4dHJHWUsrRkZKak0xb3Ux?=
- =?utf-8?B?cmlKUmNYM1VYdkg1NlZ6MWE5TFZNenBsZVVrdzVrZnh4RnRTZGpMc01pVi82?=
- =?utf-8?B?cXhsa1ZzdktmODRjMldFLzZoR3FnTnpqbXZIV0xDUDR3dGhxYjFWcUFxbnlO?=
- =?utf-8?B?NFp0OURIVHhnd3h4UjV3OFF1emRvNEpDLzZsL0tHbVRjWG5lWmx2WGE2L2Q3?=
- =?utf-8?B?a3lyVFA4bTFQK3NjRlQ5RU1UU0NLZXlERnJXVjMzQmwrQWJjMjIrUWhkZE5J?=
- =?utf-8?B?clBmRTdLVWRQMlNmbkVvdE94eC9ZREZ2dkZjUkVsVUFaV3VaZkFubEpZVHlW?=
- =?utf-8?B?MFUyWWNKb0R4bXBvQ2pjTlpmc2pSY3BqVzFjWU5vcTE4ZHZWWkZGZlhOekhz?=
- =?utf-8?B?aU1TVjlhaUNpVW9NQ0xiZ2ZuNldIMGpaTWN1K0xQM1NuMzY0Z0xTYTUyVkEr?=
- =?utf-8?B?NnhPRFBGK0p5RjlneUdhU2ZwZFpJKyt0TkJHalQwZlhXelpOMjM5RXFMRWJm?=
- =?utf-8?B?T0U3Tk84emFpQmN3RWRtWTRaMUJOUkhaOElJUS9RdkN5dzlrY21xdmRNR3dC?=
- =?utf-8?B?K2VsaVpmRkQ3dnVhNThxK1JKaURlSkFRS3prR0NpK0syMEdNeFJ0MVErZldD?=
- =?utf-8?B?VjZNUFBVY0pGS2loLyt6VTlBV0h2ZU5RdDRWNDhodVRKcVk4dmNoQXJJWG9l?=
- =?utf-8?B?dWE1amhhRTgrczJtNTRWYW52Rkp0TWduTVBDVnozSlgxOUQ0TEtnaW5UcXlz?=
- =?utf-8?B?SS9kY0x1OWxXRjRKekVlRUNmYW40SndwdnU4ZGVwTllMNHEvNGVTUG5zNmVq?=
- =?utf-8?B?T1pmTVpKK1EvZWprbXVqaHZlemdkWmxWVkUrTndEcVJCUk9ONEs3a3JFVjIy?=
- =?utf-8?B?MFVzKytZRnI4dVlFc1RoUWp4bmw2ajl2M0xHMGNyd3pwSGhCVTZUQXFxR0ZU?=
- =?utf-8?B?K2tRUEd1bnlpbUk0Q0RZNXkyTElVWnpNQlp4bTQ2WU5xNWVmN2FibExCYTk0?=
- =?utf-8?B?ZzU0MnRZVi9hRXJCazdITkhscGtQYWxNNEE1dkNxZ0RoUjVqZEhlOUVKelps?=
- =?utf-8?B?aXRrSjlRa09DZzhnU09GNHcvWjQvcTduTk9WSitqUEV5TG5QSUJvM05ManZI?=
- =?utf-8?B?aUVZdFhkMk0yQ2x2TytFaHJwdFNYUWtHVTgyZEs5TDZjeUgwWEMxUW9ydWZj?=
- =?utf-8?B?MlFVZHQ5T1hOd25McTE4ZmRYbmcyZjQvUFNjdXdjL085WEJSWWY3RTJ0S0dD?=
- =?utf-8?B?RVM3U2RNOHd1dFZVQVJVZXRjR2QyNXJlWVNxMHN2TEQrUitFUHFqM1dZNVZt?=
- =?utf-8?Q?Nq1AvQ6AywcwV3uOHSQkxzl6r?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	=?utf-8?B?amN2Y0Y2ZG03cEQvam12S1NNRFo3em9xU1dxaDlsNXBaK1VvTzg2RkRPTlRu?=
- =?utf-8?B?ZEczRHV1ckhSMWliaExKOFBLN2Z0TkgrNCtvS1ZpdFlsWmtpS2xGaGl6T3hY?=
- =?utf-8?B?Vkt3VWZGYWd1dTAxNnFlNWd4SW9UalcreFB3YkU4L21idk9aRjlqYkJHVDk2?=
- =?utf-8?B?cXMrRjZxdW9vNFQrb2tEU3ZkcDBIK2tSOVAzZXBuUnQweGZnUndhQ1NsS1F1?=
- =?utf-8?B?QnFtMFNJZjk3QnZ1cStHOHhud1NWWTIvcm1VMzB4NlBNUUJmMDFqUlMwN2Fu?=
- =?utf-8?B?MisySEIydzcwd0hTZlNmZjJkNWhSczl3Yk9Bb3pHb0JSVENscXBxcVQ0WDBD?=
- =?utf-8?B?RkxZa3NNOHVWNnhCRUxxbExhUEJUTFE4K1p0QnpUdkFZNHFybS9KSkJpckUx?=
- =?utf-8?B?NGgza0ZOaFlEWFFDZ0dBS2U4anYwYU5UMmkzclh6ZG1UQ1ZvS3FJaFFoK0Rv?=
- =?utf-8?B?bC9tOGlTdWV0NnIvS29mY0dpSTFBYllwRk9rY01iRGE0YitJU2FzK3orbERr?=
- =?utf-8?B?Ylk2eXdINWJFOTN1UEJscFZVYll4bUdLRGFvVkp0N1B3dExiYVQzdDBNSzFp?=
- =?utf-8?B?Nkw4K1lXZlhwTGJVd3BUSGltcmNpRXZVQjFZQmhUdG9oUFRIZGxkajN4V2tp?=
- =?utf-8?B?N0UwVE5OdVdpTGRiNEltbm1uSFllcE4xOHRhZS91UmZUSE9hQ3hxQkcyZDdW?=
- =?utf-8?B?LzFOOEpmY0F0SHFZb0p6Z25QeUxVSXI4bUVBdUs4QmVHWmdTbHFyd05kdldy?=
- =?utf-8?B?ME4raUdLNWxaSXg2NTlkdUQweEZrVE1UVXg1cmhSNVdNQmQ0YXBXa3hSejhz?=
- =?utf-8?B?MjhDTmZyVTJRTG12ZVQ5dVJHZDJaQUdvdjBwaEtubnZyWGJ0MWZHdk40TVVR?=
- =?utf-8?B?ZDg0Y2ZlUWNzbitUSkJ3WHR3Q3RrTVBtL2k3ajc5cTA4VzI0S0lVWGFOWUNx?=
- =?utf-8?B?UU5CSElKUS9QN3dpWDVraTUrbjZEWXZyMGMxRHRTZS9EVEt5Uy9uSlI2UFBJ?=
- =?utf-8?B?VEo1L0tRdmRqN2pBZ3VDWnZsQi8wV3Y1dCtxYWdRcFNjZjEwckpsQjNaWU9t?=
- =?utf-8?B?OWNTOThzSU5rQWdBUXlQQ3ZMeDl1eklkamV5alU5aXBodmxYbGNDNG1Tdnpa?=
- =?utf-8?B?Z0xTbnM0enVHV25SWUpYRlVyL2hRU1V1RU9kQzRwVDRTNXZ0bEpReVNYL0cx?=
- =?utf-8?B?R1ZPc2hWME9yNXhURGpRSW50UVNYeVhUMmRlOVZLVklBOVBCdHlCdkg0Mm8y?=
- =?utf-8?B?WFBZaTZMRWhXZU9HSkg0TXJyOG9QRFNhWFgrNWViK1VUcGRxQVFjU0txaEMx?=
- =?utf-8?Q?safIwPNU7S7SydN93fn9H+aHuretHgaJtK?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c4548530-6aba-478f-e1bf-08db21486ef4
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2023 09:18:38.8773
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wnsamIzCoRukN23yQdXuyERRG3a4VqluDdcL62tciiEagrn63HaHJHXVq9G/TsF8dbht+UtlKoLInmrdri/K1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5206
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
+To: Alexander Bulekov <alxndr@bu.edu>, qemu-devel@nongnu.org
+Cc: Stefan Hajnoczi <stefanha@redhat.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>,
+ Mauro Matteo Cascella <mcascell@redhat.com>, Peter Xu <peterx@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, David Hildenbrand <david@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Laurent Vivier <lvivier@redhat.com>,
+ Bandan Das <bsd@redhat.com>, "Edgar E . Iglesias"
+ <edgar.iglesias@gmail.com>, Darren Kenny <darren.kenny@oracle.com>,
+ Bin Meng <bin.meng@windriver.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ "Michael S . Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ =?UTF-8?Q?Daniel_P_=2e_Berrang=c3=a9?= <berrange@redhat.com>,
+ Eduardo Habkost <eduardo@habkost.net>, Jon Maloy <jmaloy@redhat.com>,
+ Siqi Chen <coc.cyqh@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
+ Amit Shah <amit@kernel.org>, =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?=
+ <marcandre.lureau@redhat.com>, John Snow <jsnow@redhat.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Keith Busch <kbusch@kernel.org>, Klaus Jensen <its@irrelevant.dk>,
+ Fam Zheng <fam@euphon.net>, Dmitry Fleytman <dmitry.fleytman@gmail.com>,
+ "Gonglei (Arei)" <arei.gonglei@huawei.com>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+ "open list:virtio-blk" <qemu-block@nongnu.org>,
+ "open list:i.MX31 (kzm)" <qemu-arm@nongnu.org>,
+ "open list:Old World (g3beige)" <qemu-ppc@nongnu.org>
+References: <20230205040737.3567731-1-alxndr@bu.edu>
+ <20230205040737.3567731-5-alxndr@bu.edu>
+From: Thomas Huth <thuth@redhat.com>
+Subject: Re: [PATCH v6 4/4] hw: replace most qemu_bh_new calls with
+ qemu_bh_new_guarded
+In-Reply-To: <20230205040737.3567731-5-alxndr@bu.edu>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 10, 2023 at 10:01:39AM +1100, Michael Ellerman wrote:
-> Roger Pau Monné <roger.pau@citrix.com> writes:
-> > On Mon, Dec 12, 2022 at 01:36:48PM +0100, Roger Pau Monné wrote:
-> >> On Fri, Dec 02, 2022 at 12:40:05PM +0100, Roger Pau Monné wrote:
-> >> > On Wed, Nov 30, 2022 at 05:08:06PM -0800, Stefano Stabellini wrote:
-> >> > > On Wed, 30 Nov 2022, Roger Pau Monne wrote:
-> >> > > > The hvc machinery registers both a console and a tty device based on
-> >> > > > the hv ops provided by the specific implementation.  Those two
-> >> > > > interfaces however have different locks, and there's no single locks
-> >> > > > that's shared between the tty and the console implementations, hence
-> >> > > > the driver needs to protect itself against concurrent accesses.
-> >> > > > Otherwise concurrent calls using the split interfaces are likely to
-> >> > > > corrupt the ring indexes, leaving the console unusable.
-> >> > > >
-> >> > > > Introduce a lock to xencons_info to serialize accesses to the shared
-> >> > > > ring.  This is only required when using the shared memory console,
-> >> > > > concurrent accesses to the hypercall based console implementation are
-> >> > > > not an issue.
-> >> > > >
-> >> > > > Note the conditional logic in domU_read_console() is slightly modified
-> >> > > > so the notify_daemon() call can be done outside of the locked region:
-> >> > > > it's an hypercall and there's no need for it to be done with the lock
-> >> > > > held.
-> >> > >
-> >> > > For domU_read_console: I don't mean to block this patch but we need to
-> >> > > be sure about the semantics of hv_ops.get_chars. Either it is expected
-> >> > > to be already locked, then we definitely shouldn't add another lock to
-> >> > > domU_read_console. Or it is not expected to be already locked, then we
-> >> > > should add the lock.
-> >> > >
-> >> > > My impression is that it is expected to be already locked, but I think
-> >> > > we need Greg or Jiri to confirm one way or the other.
-> >> >
-> >> > Let me move both to the 'To:' field then.
-> >> >
-> >> > My main concern is the usage of hv_ops.get_chars hook in
-> >> > hvc_poll_get_char(), as it's not obvious to me that callers of
-> >> > tty->poll_get_char hook as returned by tty_find_polling_driver() will
-> >> > always do so with the tty lock held (in fact the only user right now
-> >> > doesn't seem to hold the tty lock).
-> >> >
-> >> > > Aside from that the rest looks fine.
-> >
-> > I guess I could reluctantly remove the lock in the get_chars hook,
-> > albeit I'm not convinced at all the lock is not needed there.
+On 05/02/2023 05.07, Alexander Bulekov wrote:
+> This protects devices from bh->mmio reentrancy issues.
 > 
-> I don't know the xen driver, but other HVC backends have a lock around
-> their private state in their get_chars() implementations.
-> 
-> See eg. hvterm_raw_get_chars().
+> Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
+> Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+> Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
+> ---
+...
+> diff --git a/hw/9pfs/xen-9p-backend.c b/hw/9pfs/xen-9p-backend.c
+> index 65c4979c3c..f077c1b255 100644
+> --- a/hw/9pfs/xen-9p-backend.c
+> +++ b/hw/9pfs/xen-9p-backend.c
+> @@ -441,7 +441,9 @@ static int xen_9pfs_connect(struct XenLegacyDevice *xendev)
+>           xen_9pdev->rings[i].ring.out = xen_9pdev->rings[i].data +
+>                                          XEN_FLEX_RING_SIZE(ring_order);
+>   
+> -        xen_9pdev->rings[i].bh = qemu_bh_new(xen_9pfs_bh, &xen_9pdev->rings[i]);
+> +        xen_9pdev->rings[i].bh = qemu_bh_new_guarded(xen_9pfs_bh,
+> +                                                     &xen_9pdev->rings[i],
+> +                                                     &DEVICE(xen_9pdev)->mem_reentrancy_guard);
 
-Yes, that was one of the motivation for adding the lock also here, and
-it has already been mentioned.  The other is the usage of the hooks by
-callers of hvc_poll_get_char().
+xen_9pdev is not derived from DeviceState, so you must not cast it with 
+DEVICE().
 
-Thanks, Roger.
+> diff --git a/hw/ide/ahci.c b/hw/ide/ahci.c
+> index 7ce001cacd..37091150cb 100644
+> --- a/hw/ide/ahci.c
+> +++ b/hw/ide/ahci.c
+> @@ -1508,7 +1508,8 @@ static void ahci_cmd_done(const IDEDMA *dma)
+>       ahci_write_fis_d2h(ad);
+>   
+>       if (ad->port_regs.cmd_issue && !ad->check_bh) {
+> -        ad->check_bh = qemu_bh_new(ahci_check_cmd_bh, ad);
+> +        ad->check_bh = qemu_bh_new_guarded(ahci_check_cmd_bh, ad,
+> +                                           &DEVICE(ad)->mem_reentrancy_guard);
+>           qemu_bh_schedule(ad->check_bh);
+>       }
+>   }
+
+Dito - ad is not derived from DeviceState, so you cannot use DEVICE() here.
+
+(This was causing the crash in the macOS CI job)
+
+> diff --git a/hw/ide/core.c b/hw/ide/core.c
+> index 5d1039378f..8c8d1a8ec2 100644
+> --- a/hw/ide/core.c
+> +++ b/hw/ide/core.c
+> @@ -519,7 +519,8 @@ BlockAIOCB *ide_issue_trim(
+>   
+>       iocb = blk_aio_get(&trim_aiocb_info, s->blk, cb, cb_opaque);
+>       iocb->s = s;
+> -    iocb->bh = qemu_bh_new(ide_trim_bh_cb, iocb);
+> +    iocb->bh = qemu_bh_new_guarded(ide_trim_bh_cb, iocb,
+> +                                   &DEVICE(s)->mem_reentrancy_guard);
+
+IDEState s is also not directly derived from DeviceState. Not sure, but 
+maybe you can get to the device here in a similar way that is done in 
+ide_identify() :
+
+      IDEDevice *dev = s->unit ? s->bus->slave : s->bus->master;
+
+?
+
+> diff --git a/hw/virtio/virtio-balloon.c b/hw/virtio/virtio-balloon.c
+> index 746f07c4d2..309cebacc6 100644
+> --- a/hw/virtio/virtio-balloon.c
+> +++ b/hw/virtio/virtio-balloon.c
+> @@ -908,8 +908,9 @@ static void virtio_balloon_device_realize(DeviceState *dev, Error **errp)
+>           precopy_add_notifier(&s->free_page_hint_notify);
+>   
+>           object_ref(OBJECT(s->iothread));
+> -        s->free_page_bh = aio_bh_new(iothread_get_aio_context(s->iothread),
+> -                                     virtio_ballloon_get_free_page_hints, s);
+> +        s->free_page_bh = aio_bh_new_guarded(iothread_get_aio_context(s->iothread),
+> +                                             virtio_ballloon_get_free_page_hints, s,
+> +                                             &DEVICE(s)->mem_reentrancy_guard);
+
+You could use "dev" instead of "s" here to get rid of the DEVICE() cast.
+
+The remaining changes look fine to me.
+
+  Thomas
+
 
