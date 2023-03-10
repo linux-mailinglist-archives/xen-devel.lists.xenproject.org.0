@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A74B36B4E33
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 18:14:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508543.783311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB28D6B5005
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 19:23:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508564.783341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pagJq-0004Lb-E9; Fri, 10 Mar 2023 17:14:14 +0000
+	id 1pahNZ-0006if-0y; Fri, 10 Mar 2023 18:22:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508543.783311; Fri, 10 Mar 2023 17:14:14 +0000
+Received: by outflank-mailman (output) from mailman id 508564.783341; Fri, 10 Mar 2023 18:22:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pagJq-0004FY-7l; Fri, 10 Mar 2023 17:14:14 +0000
-Received: by outflank-mailman (input) for mailman id 508543;
- Fri, 10 Mar 2023 17:14:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N78y=7C=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
- id 1pagJo-0003j4-Mc
- for xen-devel@lists.xenproject.org; Fri, 10 Mar 2023 17:14:12 +0000
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f90b0c42-bf66-11ed-87f5-c1b5be75604c;
- Fri, 10 Mar 2023 18:14:10 +0100 (CET)
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2023 09:13:48 -0800
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga006.jf.intel.com with ESMTP; 10 Mar 2023 09:13:37 -0800
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 867E0367; Fri, 10 Mar 2023 19:14:21 +0200 (EET)
+	id 1pahNY-0006fn-TU; Fri, 10 Mar 2023 18:22:08 +0000
+Received: by outflank-mailman (input) for mailman id 508564;
+ Fri, 10 Mar 2023 18:22:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pahNX-0006fc-1w; Fri, 10 Mar 2023 18:22:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pahNX-0002tr-05; Fri, 10 Mar 2023 18:22:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pahNW-0006es-EJ; Fri, 10 Mar 2023 18:22:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pahNW-0001wx-Di; Fri, 10 Mar 2023 18:22:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,137 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f90b0c42-bf66-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1678468450; x=1710004450;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=At9xdYTQNTpkoGAW78tZWvzRJ4xj1ehsEwPouDTGZjw=;
-  b=JKDAZMXgzId5lQQjEGTaDxBOOl8LMf05qAEHN5P0No6Kz5iij++12cmf
-   dhxEAxekjW9IfwJ4mgOd95H0Zp8ehbnp9TyD4ih7Ifafk0I6BdbkiDqrI
-   ZQV8i33lpQ8azb7/THdt1os1DDXFKXoxVkjpmwUmVVwYa0YcBzAgh4kHZ
-   HLia9FQXPZIvsrtF6MGhrJRBMCn0qAIl+yxAQpQHiH6cFpNJo2GvqWVwv
-   4WRDiOZCXEShmpvTdrhc3Cib8Qouf7nYQ3ENfoIVY6jyd764MiZfqeu3e
-   QWq7YUsJKzilC6sJHdk9899HmhTbhwRApeLTjmTP/xeHEJ2HcxKHgPWTz
-   A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="325132284"
-X-IronPort-AV: E=Sophos;i="5.98,250,1673942400"; 
-   d="scan'208";a="325132284"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10645"; a="655250064"
-X-IronPort-AV: E=Sophos;i="5.98,250,1673942400"; 
-   d="scan'208";a="655250064"
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Juergen Gross <jgross@suse.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-acpi@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	Matt Turner <mattst88@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Anatolij Gustschin <agust@denx.de>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH v4 4/4] pcmcia: Convert to use pci_bus_for_each_resource_p()
-Date: Fri, 10 Mar 2023 19:14:16 +0200
-Message-Id: <20230310171416.23356-5-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230310171416.23356-1-andriy.shevchenko@linux.intel.com>
-References: <20230310171416.23356-1-andriy.shevchenko@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=uHAnqG5q3CZaw/wbHccctVTMEiIe1QAOraH8+Sbt2qM=; b=o3qcYY9N7031s8H2kIMUaPPc9J
+	NGM9tj0rHXduIC2IwB/+dFTxju8M42ole/AhZ/N6kEw5DoSoB/jQz4aZTocfP2QoRhcqnQU016hup
+	VPISxGSFAEYNKMaJNfPLqP3Bwij1I0qg5/iJQ7hOasT+tPB9+elOYR61w2+BP9lapfQI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-179537-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 179537: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=9b94ebb0c826ad9a747f93ee351d5d076e920f6e
+X-Osstest-Versions-That:
+    ovmf=a4c9c2b0f00a8f950b3058d4e97534a2613ed8bf
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 10 Mar 2023 18:22:06 +0000
 
-The pci_bus_for_each_resource_p() hides the iterator loop since
-it may be not used otherwise. With this, we may drop that iterator
-variable definition.
+flight 179537 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/179537/
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Krzysztof Wilczyński <kw@linux.com>
-Acked-by: Dominik Brodowski <linux@dominikbrodowski.net>
----
- drivers/pcmcia/rsrc_nonstatic.c | 9 +++------
- drivers/pcmcia/yenta_socket.c   | 3 +--
- 2 files changed, 4 insertions(+), 8 deletions(-)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 9b94ebb0c826ad9a747f93ee351d5d076e920f6e
+baseline version:
+ ovmf                 a4c9c2b0f00a8f950b3058d4e97534a2613ed8bf
 
-diff --git a/drivers/pcmcia/rsrc_nonstatic.c b/drivers/pcmcia/rsrc_nonstatic.c
-index ad1141fddb4c..9d92d4bb6239 100644
---- a/drivers/pcmcia/rsrc_nonstatic.c
-+++ b/drivers/pcmcia/rsrc_nonstatic.c
-@@ -934,7 +934,7 @@ static int adjust_io(struct pcmcia_socket *s, unsigned int action, unsigned long
- static int nonstatic_autoadd_resources(struct pcmcia_socket *s)
- {
- 	struct resource *res;
--	int i, done = 0;
-+	int done = 0;
- 
- 	if (!s->cb_dev || !s->cb_dev->bus)
- 		return -ENODEV;
-@@ -960,12 +960,9 @@ static int nonstatic_autoadd_resources(struct pcmcia_socket *s)
- 	 */
- 	if (s->cb_dev->bus->number == 0)
- 		return -EINVAL;
--
--	for (i = 0; i < PCI_BRIDGE_RESOURCE_NUM; i++) {
--		res = s->cb_dev->bus->resource[i];
--#else
--	pci_bus_for_each_resource(s->cb_dev->bus, res, i) {
- #endif
-+
-+	pci_bus_for_each_resource_p(s->cb_dev->bus, res) {
- 		if (!res)
- 			continue;
- 
-diff --git a/drivers/pcmcia/yenta_socket.c b/drivers/pcmcia/yenta_socket.c
-index 1365eaa20ff4..2e5bdf3db0ba 100644
---- a/drivers/pcmcia/yenta_socket.c
-+++ b/drivers/pcmcia/yenta_socket.c
-@@ -673,9 +673,8 @@ static int yenta_search_res(struct yenta_socket *socket, struct resource *res,
- 			    u32 min)
- {
- 	struct resource *root;
--	int i;
- 
--	pci_bus_for_each_resource(socket->dev->bus, root, i) {
-+	pci_bus_for_each_resource_p(socket->dev->bus, root) {
- 		if (!root)
- 			continue;
- 
--- 
-2.39.1
+Last test of basis   179532  2023-03-10 09:10:48 Z    0 days
+Testing same since   179537  2023-03-10 15:10:41 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Sami Mujawar <sami.mujawar@arm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   a4c9c2b0f0..9b94ebb0c8  9b94ebb0c826ad9a747f93ee351d5d076e920f6e -> xen-tested-master
 
