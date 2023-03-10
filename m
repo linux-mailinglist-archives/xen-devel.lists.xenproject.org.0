@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBD0E6B3C7A
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 11:40:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508463.783126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E9076B3D0B
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Mar 2023 11:58:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508466.783136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1paa9Q-0005vw-Ce; Fri, 10 Mar 2023 10:39:04 +0000
+	id 1paaRq-0000LR-UR; Fri, 10 Mar 2023 10:58:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508463.783126; Fri, 10 Mar 2023 10:39:04 +0000
+Received: by outflank-mailman (output) from mailman id 508466.783136; Fri, 10 Mar 2023 10:58:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1paa9Q-0005sg-8j; Fri, 10 Mar 2023 10:39:04 +0000
-Received: by outflank-mailman (input) for mailman id 508463;
- Fri, 10 Mar 2023 10:39:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VN0O=7C=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1paa9O-0005rD-By
- for xen-devel@lists.xenproject.org; Fri, 10 Mar 2023 10:39:02 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3d83f03-bf2f-11ed-87f5-c1b5be75604c;
- Fri, 10 Mar 2023 11:39:00 +0100 (CET)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-343-gH9lfLG0Mp2ZC7ZZ7qsavQ-1; Fri, 10 Mar 2023 05:38:57 -0500
-Received: by mail-wm1-f72.google.com with SMTP id
- l31-20020a05600c1d1f00b003e8626cdd42so1642605wms.3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Mar 2023 02:38:57 -0800 (PST)
-Received: from [192.168.0.2] (ip-109-43-178-140.web.vodafone.de.
- [109.43.178.140]) by smtp.gmail.com with ESMTPSA id
- h19-20020a05600c351300b003e2058a7109sm2840339wmq.14.2023.03.10.02.38.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Mar 2023 02:38:55 -0800 (PST)
+	id 1paaRq-0000JW-R7; Fri, 10 Mar 2023 10:58:06 +0000
+Received: by outflank-mailman (input) for mailman id 508466;
+ Fri, 10 Mar 2023 10:58:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KOTX=7C=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
+ id 1paaRq-0000JP-5g
+ for xen-devel@lists.xenproject.org; Fri, 10 Mar 2023 10:58:06 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6e2a4be7-bf32-11ed-956e-85ef70e17bfa;
+ Fri, 10 Mar 2023 11:58:03 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ m25-20020a7bcb99000000b003e7842b75f2so3127191wmi.3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Mar 2023 02:58:03 -0800 (PST)
+Received: from horizon ([2a01:e0a:257:8c60:48e5:bfa:d652:b8ef])
+ by smtp.gmail.com with ESMTPSA id
+ i22-20020a1c5416000000b003dc49e0132asm2705480wmb.1.2023.03.10.02.58.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Mar 2023 02:58:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,163 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3d83f03-bf2f-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678444738;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uLsSJ9HfwXSuLvEmI+ykLii9J7TAAUU/sN9QFRCPKLM=;
-	b=VZeu/Lcsfy0gsUeMawE77mhMz8FXgeAVsNuaKGl/79LJcri3ev+ajKAFhPjXR8X/ThJ8S2
-	leWaB++h4uL5qc80WvWwOpcSlrVdR+cnqROAi5IERyD1XKcVc0nmYlN9wHP4vMCaNaCDDO
-	dN9TVSA/GqCF540QvY6V0vzbVTFaF48=
-X-MC-Unique: gH9lfLG0Mp2ZC7ZZ7qsavQ-1
+X-Inumbo-ID: 6e2a4be7-bf32-11ed-956e-85ef70e17bfa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1678445883;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=mpcjl2hoHMP9cG/XHbZNkap5Y1mQ3PDL3dEarn6gP0Q=;
+        b=jnV9X3+5n4yPxENZ7IV80rb//F8TgQ65lDLi8+NSTS7QFdfaaj05+bwjAvhwM4mFlM
+         kKqZVByt4lTvvntvHNph/xjVsmSv+bp9YuTaSaM5HwGP8/xwvlmPu5S0SH7d/b7KQ/kH
+         bYZkfMBwmDAj+uEcXxhr7qUh3RWPAWRy/3npIW/wWxA/Bkq6DYjyj4hg/h59Tdw/n8gS
+         011Gh/dTq9MqS8bA7Qm5CpMT/3NOd/ytu3Pgclo2np8oRIix8gWr+YS/+JWdipKxESRm
+         IJL1Tcw7m2Nk5QHrs3YajYEKntX5WfSMrNkm5fmpkNiNh+L/8DmUcpok+pmpkrKa0m2y
+         7/XQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678444736;
-        h=content-transfer-encoding:in-reply-to:subject:from:references:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=uLsSJ9HfwXSuLvEmI+ykLii9J7TAAUU/sN9QFRCPKLM=;
-        b=12gpzv2+1P4TGf0PWcz2ToZYbJET3+G5IqmcIrtK7SSrqJ9ekDWJaOvns2UpNJ1iZZ
-         TvnfaFKEN64cv1ACPwlnhjZZRUExtGQ9M2h0N1t0kf4CFD/kVYRY/k5zve8KRA+HK1gw
-         YeLZB2/Ciw7KKBDAbcbL8uzaswNGYznublIcF0Ly/O7XeAIToIuiwhKZh2An1ZRuWFW6
-         FNTp1JCJH7PpgJx0+DsfdoiYpW9hJhcvHZhnyE2arcT4jyQNcoru/aYouSpDfYBvZWsc
-         X5fx5yh2e4YDd6X9yQODbW/3K0v+1YCR0eXFd6Epq06vMf+heqt/lGWlxI40GazqM5ro
-         t1EQ==
-X-Gm-Message-State: AO0yUKULydi92xq12H85YnLRNztVu8K91ap/GodCZf19VY5HQEpmp/38
-	Ou5cjKs8oZsLY1vqEQmcH5RlJbH0YOo/Ul3n3zqcOytN6peVv6nwyPo3paiuPNABrLYR06ws6vJ
-	rshYHy+kgwybPocXlYTCW1eF93iA=
-X-Received: by 2002:a05:600c:4f44:b0:3eb:383c:1870 with SMTP id m4-20020a05600c4f4400b003eb383c1870mr2188779wmq.11.1678444736263;
-        Fri, 10 Mar 2023 02:38:56 -0800 (PST)
-X-Google-Smtp-Source: AK7set9TrEJ0rqjEGofCtU/tMmbs/X59NXj5FV3c7sySdDmqWmiZ57yMWYZ+XYP/NP20l27b3iCfjA==
-X-Received: by 2002:a05:600c:4f44:b0:3eb:383c:1870 with SMTP id m4-20020a05600c4f4400b003eb383c1870mr2188722wmq.11.1678444735868;
-        Fri, 10 Mar 2023 02:38:55 -0800 (PST)
-Message-ID: <289e9e47-be6d-1f7f-b0b6-f5b9ed5bc1e8@redhat.com>
-Date: Fri, 10 Mar 2023 11:38:52 +0100
+        d=1e100.net; s=20210112; t=1678445883;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mpcjl2hoHMP9cG/XHbZNkap5Y1mQ3PDL3dEarn6gP0Q=;
+        b=NBCWgjmQcDo7MY2Ml4hkI59Y6jLtFKOKRZ3k8CMhC5eyfpkDIPy82K01V1snlAKi40
+         A0/+2Wl+ZDmu9pVap1wQSxeynHeaEuFroqihuWlG6MbOXC1aZSiP8OXfSCYWQieU+UCp
+         B3i4LSNj35niTagZouNQEONXIg9OCtSMiKE/Lcpjrj8pgR9Gg+60RPLHlAP2I6EILx+V
+         +iSJfSnXQ35fQA0GpFLLauQ2mRpt1sFLkTgNCB2RkHqEiNsWNnEqm/W3gCag99cUGu9A
+         IVbV1jZH3qg86PIjL0udNAQa9GQkkJzzGA8BscAf+IDsUx0F80kwIQpkkW5kIVoCWTJ5
+         0P9g==
+X-Gm-Message-State: AO0yUKXINyDPd5jbaNuubDA2eEWZ298Dg3uR0Ca8GTho2EWU/p+ycCGB
+	lUmELvNLDItMbuG4YK/BpKtXui2pAcYZXQ==
+X-Google-Smtp-Source: AK7set/F4d6EWWSFODz1aoQ0rMNTFfW/gbj4O9MYD2mAw8t08ht/CP8CCavZDGnWRLz41MHW4I7wGg==
+X-Received: by 2002:a05:600c:35c9:b0:3ea:d601:976f with SMTP id r9-20020a05600c35c900b003ead601976fmr2221669wmq.23.1678445883023;
+        Fri, 10 Mar 2023 02:58:03 -0800 (PST)
+Date: Fri, 10 Mar 2023 11:58:00 +0100
+From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: API/ABIs: Re: [RFC PATCH v2 0/2] Add a new acquire resource to
+ query vcpu statistics
+Message-ID: <20230310105800.GA1285481@horizon>
+References: <cover.1665138677.git.matias.vara@vates.fr>
+ <90a551bc-ffda-6db8-775b-11c100bf6f52@citrix.com>
+ <20230306142315.GA745324@horizon>
+ <c40f1a4e-63a5-af2a-e5db-729b1af80708@suse.com>
+ <20230308115410.GA1108824@horizon>
+ <d0354bab-3022-6048-8d58-45f63aaf26be@suse.com>
+ <20230309103825.GA1221165@horizon>
+ <645fcd9a-755a-e2a2-f332-93c5e571b9e5@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Alexander Bulekov <alxndr@bu.edu>, qemu-devel@nongnu.org
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>,
- Mauro Matteo Cascella <mcascell@redhat.com>, Peter Xu <peterx@redhat.com>,
- Jason Wang <jasowang@redhat.com>, David Hildenbrand <david@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Laurent Vivier <lvivier@redhat.com>,
- Bandan Das <bsd@redhat.com>, "Edgar E . Iglesias"
- <edgar.iglesias@gmail.com>, Darren Kenny <darren.kenny@oracle.com>,
- Bin Meng <bin.meng@windriver.com>, Paolo Bonzini <pbonzini@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- =?UTF-8?Q?Daniel_P_=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Eduardo Habkost <eduardo@habkost.net>, Jon Maloy <jmaloy@redhat.com>,
- Siqi Chen <coc.cyqh@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- Kevin Wolf <kwolf@redhat.com>, Hanna Reitz <hreitz@redhat.com>,
- Amit Shah <amit@kernel.org>, =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?=
- <marcandre.lureau@redhat.com>, John Snow <jsnow@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- Keith Busch <kbusch@kernel.org>, Klaus Jensen <its@irrelevant.dk>,
- Fam Zheng <fam@euphon.net>, Dmitry Fleytman <dmitry.fleytman@gmail.com>,
- "Gonglei (Arei)" <arei.gonglei@huawei.com>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
- "open list:virtio-blk" <qemu-block@nongnu.org>,
- "open list:i.MX31 (kzm)" <qemu-arm@nongnu.org>,
- "open list:Old World (g3beige)" <qemu-ppc@nongnu.org>
-References: <20230205040737.3567731-1-alxndr@bu.edu>
- <20230205040737.3567731-5-alxndr@bu.edu>
-From: Thomas Huth <thuth@redhat.com>
-Subject: Re: [PATCH v6 4/4] hw: replace most qemu_bh_new calls with
- qemu_bh_new_guarded
-In-Reply-To: <20230205040737.3567731-5-alxndr@bu.edu>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <645fcd9a-755a-e2a2-f332-93c5e571b9e5@suse.com>
 
-On 05/02/2023 05.07, Alexander Bulekov wrote:
-> This protects devices from bh->mmio reentrancy issues.
+On Thu, Mar 09, 2023 at 12:50:18PM +0100, Jan Beulich wrote:
+> On 09.03.2023 11:38, Matias Ezequiel Vara Larsen wrote:
+> > On Wed, Mar 08, 2023 at 03:16:05PM +0100, Jan Beulich wrote:
+> >> On 08.03.2023 12:54, Matias Ezequiel Vara Larsen wrote:
+> >>> On Tue, Mar 07, 2023 at 11:12:00AM +0100, Jan Beulich wrote:
+> >>>> On 06.03.2023 15:23, Matias Ezequiel Vara Larsen wrote:
+> >>>>> - Xen shall use the "stats_active" field to indicate what it is producing. In
+> >>>>>   this field, reserved bits shall be 0. This shall allow us to agree on the
+> >>>>> layout even when producer and consumer are compiled with different headers.
+> >>>>
+> >>>> I wonder how well such a bitfield is going to scale. It provides for
+> >>>> only 32 (maybe 64) counters. Of course this may seem a lot right now,
+> >>>> but you never know how quickly something like this can grow. Plus
+> >>>> with ...
+> >>>>
+> >>>
+> >>> Would it make sense to define it like this?:
+> >>>
+> >>> struct vcpu_shmem_stats {
+> >>> #define STATS_A (1u << 0)
+> >>> ...
+> >>> #define VCPU_STATS_MAGIC 0xaabbccdd
+> >>>      uint32_t magic;
+> >>>      uint32_t offset;  // roundup(sizeof(vcpu_shmem_stats) + sizeof(uint32_t) * nr_stats, cacheline_size)
+> >>>      uint32_t size;    // sizeof(vcpu_stats)
+> >>>      uint32_t stride;  // roundup(sizeof(vcpu_stats), cacheline_size)
+> >>>      uint32_t nr_stats; // size of stats_active in uint32_t
+> >>>      uint32_t stats_active[XEN_FLEX_ARRAY_DIM];
+> >>>      ...
+> >>> };
+> >>
+> > 
+> > The use of stats_active[] is meant to have a bitmap that could scale thus not
+> > limiting the number of counters in the vcpu_stat structure to 32 or 64. I can't
+> > see other way to have an unlimited number of counters though.
+> > 
+> >> Possibly, but this would make it harder to use the interface. An alternative
+> >> might be to specify that an actual stats value set to ~0 marks an inactive
+> >> element. Since these are 64-bit counters, with today's and tomorrow's
+> >> computers we won't be at risk of a counter reaching a value of 2^^64-1, I
+> >> guess. And even if there was one where such a risk could not be excluded
+> >> (e.g. because of using pretty large increments), one would merely need to
+> >> make sure to saturate at 2^^64-2. Plus at such a point one would need to
+> >> consider anyway to switch to 128-bit fields, as neither saturated nor
+> >> wrapped values are of much use to consumers.
+> >>
+> > 
+> > If I understand well, this use-case is in case an element in the stats_active
+> > bitmap becomes inactive, i.e., it is set to "0" in stats_active[]. You are
+> > proposing to set to ~0 the actual stats value to mark an inactive element. I
+> > may be missing something here but would not be enough to set to "0" the
+> > corresponding stats_active[] bit? 
 > 
-> Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
-> Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-> Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
-> ---
-...
-> diff --git a/hw/9pfs/xen-9p-backend.c b/hw/9pfs/xen-9p-backend.c
-> index 65c4979c3c..f077c1b255 100644
-> --- a/hw/9pfs/xen-9p-backend.c
-> +++ b/hw/9pfs/xen-9p-backend.c
-> @@ -441,7 +441,9 @@ static int xen_9pfs_connect(struct XenLegacyDevice *xendev)
->           xen_9pdev->rings[i].ring.out = xen_9pdev->rings[i].data +
->                                          XEN_FLEX_RING_SIZE(ring_order);
->   
-> -        xen_9pdev->rings[i].bh = qemu_bh_new(xen_9pfs_bh, &xen_9pdev->rings[i]);
-> +        xen_9pdev->rings[i].bh = qemu_bh_new_guarded(xen_9pfs_bh,
-> +                                                     &xen_9pdev->rings[i],
-> +                                                     &DEVICE(xen_9pdev)->mem_reentrancy_guard);
+> The suggestion was to eliminate the need for stats_active[].
+> 
+Oh, I see, thanks for the clarification. To summarise, these are the current
+options:
+1. Use a "uint64_t" field thus limiting the number of counters to 64. The
+current vcpu_runstate_info structure is limited to 4 counters though, one for
+each RUNSTATE_*. 
+2. Use a dynamic array but this makes harder to use the interface.
+3. Eliminate stats_active and set to ~0 the actual stats value to mark inactive
+counters. This requires adding a "nr_stats" field to know how many counters are.
+Also, this requires to make sure to saturate at 2^^64-2.
 
-xen_9pdev is not derived from DeviceState, so you must not cast it with 
-DEVICE().
+I might miss some details here but these are the options to evaluate. 
 
-> diff --git a/hw/ide/ahci.c b/hw/ide/ahci.c
-> index 7ce001cacd..37091150cb 100644
-> --- a/hw/ide/ahci.c
-> +++ b/hw/ide/ahci.c
-> @@ -1508,7 +1508,8 @@ static void ahci_cmd_done(const IDEDMA *dma)
->       ahci_write_fis_d2h(ad);
->   
->       if (ad->port_regs.cmd_issue && !ad->check_bh) {
-> -        ad->check_bh = qemu_bh_new(ahci_check_cmd_bh, ad);
-> +        ad->check_bh = qemu_bh_new_guarded(ahci_check_cmd_bh, ad,
-> +                                           &DEVICE(ad)->mem_reentrancy_guard);
->           qemu_bh_schedule(ad->check_bh);
->       }
->   }
+I would go with a variation of 1) by using two uint64_t, i.e., up to 128 vcpu's
+counters, which I think it would be enough. I may be wrong.
 
-Dito - ad is not derived from DeviceState, so you cannot use DEVICE() here.
-
-(This was causing the crash in the macOS CI job)
-
-> diff --git a/hw/ide/core.c b/hw/ide/core.c
-> index 5d1039378f..8c8d1a8ec2 100644
-> --- a/hw/ide/core.c
-> +++ b/hw/ide/core.c
-> @@ -519,7 +519,8 @@ BlockAIOCB *ide_issue_trim(
->   
->       iocb = blk_aio_get(&trim_aiocb_info, s->blk, cb, cb_opaque);
->       iocb->s = s;
-> -    iocb->bh = qemu_bh_new(ide_trim_bh_cb, iocb);
-> +    iocb->bh = qemu_bh_new_guarded(ide_trim_bh_cb, iocb,
-> +                                   &DEVICE(s)->mem_reentrancy_guard);
-
-IDEState s is also not directly derived from DeviceState. Not sure, but 
-maybe you can get to the device here in a similar way that is done in 
-ide_identify() :
-
-      IDEDevice *dev = s->unit ? s->bus->slave : s->bus->master;
-
-?
-
-> diff --git a/hw/virtio/virtio-balloon.c b/hw/virtio/virtio-balloon.c
-> index 746f07c4d2..309cebacc6 100644
-> --- a/hw/virtio/virtio-balloon.c
-> +++ b/hw/virtio/virtio-balloon.c
-> @@ -908,8 +908,9 @@ static void virtio_balloon_device_realize(DeviceState *dev, Error **errp)
->           precopy_add_notifier(&s->free_page_hint_notify);
->   
->           object_ref(OBJECT(s->iothread));
-> -        s->free_page_bh = aio_bh_new(iothread_get_aio_context(s->iothread),
-> -                                     virtio_ballloon_get_free_page_hints, s);
-> +        s->free_page_bh = aio_bh_new_guarded(iothread_get_aio_context(s->iothread),
-> +                                             virtio_ballloon_get_free_page_hints, s,
-> +                                             &DEVICE(s)->mem_reentrancy_guard);
-
-You could use "dev" instead of "s" here to get rid of the DEVICE() cast.
-
-The remaining changes look fine to me.
-
-  Thomas
-
+Thoughs?
+ 
+Matias 
 
