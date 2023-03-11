@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 911576B57F6
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Mar 2023 04:04:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508640.783502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 935D26B5821
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Mar 2023 04:58:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508645.783512 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1papWE-00018v-0i; Sat, 11 Mar 2023 03:03:38 +0000
+	id 1paqMe-000845-SD; Sat, 11 Mar 2023 03:57:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508640.783502; Sat, 11 Mar 2023 03:03:37 +0000
+Received: by outflank-mailman (output) from mailman id 508645.783512; Sat, 11 Mar 2023 03:57:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1papWD-000170-Qo; Sat, 11 Mar 2023 03:03:37 +0000
-Received: by outflank-mailman (input) for mailman id 508640;
- Sat, 11 Mar 2023 03:03:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1papWC-00016o-EE; Sat, 11 Mar 2023 03:03:36 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1papWC-0005k4-BR; Sat, 11 Mar 2023 03:03:36 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1papWB-0003ps-VY; Sat, 11 Mar 2023 03:03:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1papWB-00059X-V0; Sat, 11 Mar 2023 03:03:35 +0000
+	id 1paqMe-00082B-PE; Sat, 11 Mar 2023 03:57:48 +0000
+Received: by outflank-mailman (input) for mailman id 508645;
+ Sat, 11 Mar 2023 03:57:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YOt7=7D=yandex.ru=isaikin-dmitry@srs-se1.protection.inumbo.net>)
+ id 1paqMd-000824-20
+ for xen-devel@lists.xenproject.org; Sat, 11 Mar 2023 03:57:47 +0000
+Received: from forward106j.mail.yandex.net (forward106j.mail.yandex.net
+ [2a02:6b8:0:801:2::109])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dda5d619-bfc0-11ed-956e-85ef70e17bfa;
+ Sat, 11 Mar 2023 04:57:40 +0100 (CET)
+Received: from myt5-0b9dd93077fa.qloud-c.yandex.net
+ (myt5-0b9dd93077fa.qloud-c.yandex.net
+ [IPv6:2a02:6b8:c12:1723:0:640:b9d:d930])
+ by forward106j.mail.yandex.net (Yandex) with ESMTP id 424D06BD6847;
+ Sat, 11 Mar 2023 06:57:37 +0300 (MSK)
+Received: by myt5-0b9dd93077fa.qloud-c.yandex.net (smtp/Yandex) with ESMTPSA
+ id YvV5xDKdaGk1-5XJAuz1V; Sat, 11 Mar 2023 06:57:36 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,280 +44,282 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7tX6+Iwa6c1QJ0S0tQluEC4oUdgPD6BVgpM7uAEsRoU=; b=3R87mn6MwVAYM5Kj6Ru0yaavPm
-	epiHfFMOeZ0+M5efwT4yn3eH/kO8C94BeCMl79dKOsr/Tu4VKPPiUuzji59I6qn81+ev+Upjp7f+f
-	xXvQp3hVncuxZ54GJT19GYgi+pDqEhKZkypAjTVPu5cAYY2LqlvfEInT1W92VlS2eP+Y=;
+X-Inumbo-ID: dda5d619-bfc0-11ed-956e-85ef70e17bfa
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail; t=1678507056;
+	bh=25PD64yC72TNM7aOPywmC1U4uP/4jHnQ+w7kRXvd99M=;
+	h=Message-Id:Date:Cc:Subject:To:From;
+	b=vsx6nHdfWpKA5I5isgu5bq9fEboanlhV2vNCXg6w5bmwHasPoRueRAGSxY4hox3bD
+	 HW49gCF11LcHYkFB4XJ2iNvkBj7a+NSqfIalXlCPl6hE2C9u5d8mK2MfSXUU0UOzf9
+	 nIM8++zvfrj7G4DzcWTDeHWNuyD/1I3Bpv3HIZzg=
+Authentication-Results: myt5-0b9dd93077fa.qloud-c.yandex.net; dkim=pass header.i=@yandex.ru
+From: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-179534-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Dmitry Isaykin <isaikin-dmitry@yandex.ru>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Anton Belousov <abelousov@ptsecurity.com>
+Subject: [XEN PATCH] x86/monitor: Add new monitor event to catch I/O instructions
+Date: Sat, 11 Mar 2023 06:57:32 +0300
+Message-Id: <3f577545b8ee6846ff98c4411cdc96dfe1412b3e.1678505295.git.isaikin-dmitry@yandex.ru>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 179534: regressions - trouble: fail/pass/starved
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-i386-libvirt:guest-start:fail:regression
-    qemu-mainline:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
-    qemu-mainline:test-amd64-i386-libvirt-pair:guest-start/debian:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qcow2:debian-di-install:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:debian-di-install:fail:regression
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
-    qemu-mainline:test-amd64-amd64-libvirt:guest-start:fail:regression
-    qemu-mainline:test-amd64-i386-libvirt-raw:debian-di-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    qemu-mainline:test-arm64-arm64-libvirt-raw:debian-di-install:fail:regression
-    qemu-mainline:test-amd64-i386-xl-vhd:debian-di-install:fail:regression
-    qemu-mainline:test-arm64-arm64-xl-vhd:debian-di-install:fail:regression
-    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-localmigrate/x10:fail:heisenbug
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:heisenbug
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
-    qemu-mainline:build-armhf-libvirt:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
-    qemu-mainline:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    qemuu=ee59483267de29056b5b2ee2421ef3844e5c9932
-X-Osstest-Versions-That:
-    qemuu=7b0f0aa55fd292fa3489755a3a896e496c51ea86
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 11 Mar 2023 03:03:35 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 179534 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/179534/
+Adds monitor support for I/O instructions.
 
-Regressions :-(
+Signed-off-by: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
+Signed-off-by: Anton Belousov <abelousov@ptsecurity.com>
+---
+ tools/include/xenctrl.h                |  1 +
+ tools/libs/ctrl/xc_monitor.c           | 13 +++++++++++++
+ xen/arch/x86/hvm/hvm.c                 |  5 +++++
+ xen/arch/x86/hvm/monitor.c             | 21 +++++++++++++++++++++
+ xen/arch/x86/hvm/vmx/vmx.c             |  2 ++
+ xen/arch/x86/include/asm/domain.h      |  1 +
+ xen/arch/x86/include/asm/hvm/monitor.h |  3 +++
+ xen/arch/x86/include/asm/hvm/support.h |  3 +++
+ xen/arch/x86/include/asm/monitor.h     |  3 ++-
+ xen/arch/x86/monitor.c                 | 13 +++++++++++++
+ xen/include/public/domctl.h            |  1 +
+ xen/include/public/vm_event.h          | 10 ++++++++++
+ 12 files changed, 75 insertions(+), 1 deletion(-)
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-libvirt      14 guest-start              fail REGR. vs. 179518
- test-amd64-i386-libvirt-xsm  14 guest-start              fail REGR. vs. 179518
- test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 179518
- test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 179518
- test-amd64-i386-libvirt-pair 25 guest-start/debian       fail REGR. vs. 179518
- test-amd64-amd64-xl-qcow2    12 debian-di-install        fail REGR. vs. 179518
- test-amd64-amd64-libvirt-vhd 12 debian-di-install        fail REGR. vs. 179518
- test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 179518
- test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 179518
- test-amd64-i386-libvirt-raw  12 debian-di-install        fail REGR. vs. 179518
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 179518
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 179518
- test-arm64-arm64-libvirt-raw 12 debian-di-install        fail REGR. vs. 179518
- test-amd64-i386-xl-vhd       12 debian-di-install        fail REGR. vs. 179518
- test-arm64-arm64-xl-vhd      12 debian-di-install        fail REGR. vs. 179518
+diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+index 23037874d3..05967ecc92 100644
+--- a/tools/include/xenctrl.h
++++ b/tools/include/xenctrl.h
+@@ -2102,6 +2102,7 @@ int xc_monitor_emul_unimplemented(xc_interface *xch, uint32_t domain_id,
+                                   bool enable);
+ int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
+                       bool sync);
++int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable);
+ /**
+  * This function enables / disables emulation for each REP for a
+  * REP-compatible instruction.
+diff --git a/tools/libs/ctrl/xc_monitor.c b/tools/libs/ctrl/xc_monitor.c
+index c5fa62ff30..3cb96f444f 100644
+--- a/tools/libs/ctrl/xc_monitor.c
++++ b/tools/libs/ctrl/xc_monitor.c
+@@ -261,6 +261,19 @@ int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
+     return do_domctl(xch, &domctl);
+ }
+ 
++int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable)
++{
++    DECLARE_DOMCTL;
++
++    domctl.cmd = XEN_DOMCTL_monitor_op;
++    domctl.domain = domain_id;
++    domctl.u.monitor_op.op = enable ? XEN_DOMCTL_MONITOR_OP_ENABLE
++                                    : XEN_DOMCTL_MONITOR_OP_DISABLE;
++    domctl.u.monitor_op.event = XEN_DOMCTL_MONITOR_EVENT_IO;
++
++    return do_domctl(xch, &domctl);
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 0c81e2afc7..72c9f65626 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -3484,6 +3484,11 @@ int hvm_vmexit_cpuid(struct cpu_user_regs *regs, unsigned int inst_len)
+     return hvm_monitor_cpuid(inst_len, leaf, subleaf);
+ }
+ 
++void hvm_io_instruction_intercept(uint16_t port, int dir, unsigned int bytes, unsigned int string_ins)
++{
++    hvm_monitor_io_instruction(port, dir, bytes, string_ins);
++}
++
+ void hvm_rdtsc_intercept(struct cpu_user_regs *regs)
+ {
+     msr_split(regs, hvm_get_guest_tsc(current));
+diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
+index a11cd76f4d..f8b11d1de9 100644
+--- a/xen/arch/x86/hvm/monitor.c
++++ b/xen/arch/x86/hvm/monitor.c
+@@ -233,6 +233,27 @@ int hvm_monitor_cpuid(unsigned long insn_length, unsigned int leaf,
+     return monitor_traps(curr, 1, &req);
+ }
+ 
++void hvm_monitor_io_instruction(uint16_t port, int dir,
++                                unsigned int bytes, unsigned int string_ins)
++{
++    struct vcpu *curr = current;
++    struct arch_domain *ad = &curr->domain->arch;
++    vm_event_request_t req = {};
++
++    if ( !ad->monitor.io_enabled )
++        return;
++
++    req.reason = VM_EVENT_REASON_IO_INSTRUCTION;
++    req.u.io_instruction.data_size = bytes;
++    req.u.io_instruction.port = port;
++    req.u.io_instruction.dir = dir;
++    req.u.io_instruction.string_ins = string_ins;
++
++    set_npt_base(curr, &req);
++
++    monitor_traps(curr, true, &req);
++}
++
+ void hvm_monitor_interrupt(unsigned int vector, unsigned int type,
+                            unsigned int err, uint64_t cr2)
+ {
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 278b829f73..a64c5078c5 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -4579,6 +4579,8 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+             uint16_t port = (exit_qualification >> 16) & 0xFFFF;
+             int bytes = (exit_qualification & 0x07) + 1;
+             int dir = (exit_qualification & 0x08) ? IOREQ_READ : IOREQ_WRITE;
++            int str_ins = (exit_qualification & 0x10) ? 1 : 0;
++            hvm_io_instruction_intercept(port, dir, bytes, str_ins);
+             if ( handle_pio(port, bytes, dir) )
+                 update_guest_eip(); /* Safe: IN, OUT */
+         }
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index b5354c3677..86bd3493e6 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -428,6 +428,7 @@ struct arch_domain
+         unsigned int descriptor_access_enabled                             : 1;
+         unsigned int guest_request_userspace_enabled                       : 1;
+         unsigned int emul_unimplemented_enabled                            : 1;
++        unsigned int io_enabled                                            : 1;
+         /*
+          * By default all events are sent.
+          * This is used to filter out pagefaults.
+diff --git a/xen/arch/x86/include/asm/hvm/monitor.h b/xen/arch/x86/include/asm/hvm/monitor.h
+index 639f6dfa37..22d2b366a6 100644
+--- a/xen/arch/x86/include/asm/hvm/monitor.h
++++ b/xen/arch/x86/include/asm/hvm/monitor.h
+@@ -54,6 +54,9 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
+ int hvm_monitor_vmexit(unsigned long exit_reason,
+                        unsigned long exit_qualification);
+ 
++void hvm_monitor_io_instruction(uint16_t port, int dir,
++                                unsigned int bytes, unsigned int string_ins);
++
+ #endif /* __ASM_X86_HVM_MONITOR_H__ */
+ 
+ /*
+diff --git a/xen/arch/x86/include/asm/hvm/support.h b/xen/arch/x86/include/asm/hvm/support.h
+index 6b583738ec..ecb2b9ecb8 100644
+--- a/xen/arch/x86/include/asm/hvm/support.h
++++ b/xen/arch/x86/include/asm/hvm/support.h
+@@ -157,6 +157,9 @@ int __must_check hvm_msr_read_intercept(
+ int __must_check hvm_msr_write_intercept(
+     unsigned int msr, uint64_t msr_content, bool may_defer);
+ 
++void hvm_io_instruction_intercept(uint16_t port, int dir,
++                                  unsigned int bytes, unsigned int string_ins);
++
+ #endif /* __ASM_X86_HVM_SUPPORT_H__ */
+ 
+ /*
+diff --git a/xen/arch/x86/include/asm/monitor.h b/xen/arch/x86/include/asm/monitor.h
+index d8d54c5f23..96e6a9d0d8 100644
+--- a/xen/arch/x86/include/asm/monitor.h
++++ b/xen/arch/x86/include/asm/monitor.h
+@@ -90,7 +90,8 @@ static inline uint32_t arch_monitor_get_capabilities(struct domain *d)
+                     (1U << XEN_DOMCTL_MONITOR_EVENT_WRITE_CTRLREG) |
+                     (1U << XEN_DOMCTL_MONITOR_EVENT_EMUL_UNIMPLEMENTED) |
+                     (1U << XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT) |
+-                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT));
++                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT) |
++                    (1U << XEN_DOMCTL_MONITOR_EVENT_IO));
+ 
+     if ( hvm_is_singlestep_supported() )
+         capabilities |= (1U << XEN_DOMCTL_MONITOR_EVENT_SINGLESTEP);
+diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
+index 30ca71432c..d4857faf8a 100644
+--- a/xen/arch/x86/monitor.c
++++ b/xen/arch/x86/monitor.c
+@@ -346,6 +346,19 @@ int arch_monitor_domctl_event(struct domain *d,
+         break;
+     }
+ 
++    case XEN_DOMCTL_MONITOR_EVENT_IO:
++    {
++        bool old_status = ad->monitor.io_enabled;
++
++        if ( unlikely(old_status == requested_status) )
++            return -EEXIST;
++
++        domain_pause(d);
++        ad->monitor.io_enabled = requested_status;
++        domain_unpause(d);
++        break;
++    }
++
+     default:
+         /*
+          * Should not be reached unless arch_monitor_get_capabilities() is
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index 51be28c3de..7280e9f968 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -1063,6 +1063,7 @@ struct xen_domctl_psr_cmt_op {
+ /* Enabled by default */
+ #define XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT     11
+ #define XEN_DOMCTL_MONITOR_EVENT_VMEXIT                12
++#define XEN_DOMCTL_MONITOR_EVENT_IO                    13
+ 
+ struct xen_domctl_monitor_op {
+     uint32_t op; /* XEN_DOMCTL_MONITOR_OP_* */
+diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
+index 0035c26e12..86e4cdba7c 100644
+--- a/xen/include/public/vm_event.h
++++ b/xen/include/public/vm_event.h
+@@ -160,6 +160,8 @@
+ #define VM_EVENT_REASON_EMUL_UNIMPLEMENTED      14
+ /* VMEXIT */
+ #define VM_EVENT_REASON_VMEXIT                  15
++/* IN/OUT Instruction executed */
++#define VM_EVENT_REASON_IO_INSTRUCTION          16
+ 
+ /* Supported values for the vm_event_write_ctrlreg index. */
+ #define VM_EVENT_X86_CR0    0
+@@ -388,6 +390,13 @@ struct vm_event_vmexit {
+     } arch;
+ };
+ 
++struct vm_event_io_instruction {
++    uint32_t data_size;
++    uint32_t port;
++    uint32_t dir;
++    uint32_t string_ins;
++};
++
+ typedef struct vm_event_st {
+     uint32_t version;   /* VM_EVENT_INTERFACE_VERSION */
+     uint32_t flags;     /* VM_EVENT_FLAG_* */
+@@ -409,6 +418,7 @@ typedef struct vm_event_st {
+         struct vm_event_debug                 debug_exception;
+         struct vm_event_cpuid                 cpuid;
+         struct vm_event_vmexit                vmexit;
++        struct vm_event_io_instruction        io_instruction;
+         union {
+             struct vm_event_interrupt_x86     x86;
+         } interrupt;
+-- 
+2.39.2
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 18 guest-localmigrate/x10 fail in 179526 pass in 179534
- test-amd64-i386-xl-qemuu-win7-amd64 12 windows-install     fail pass in 179526
-
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop   fail in 179526 like 179518
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 179518
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 179518
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 179518
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 179518
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
- build-armhf-libvirt           1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
-
-version targeted for testing:
- qemuu                ee59483267de29056b5b2ee2421ef3844e5c9932
-baseline version:
- qemuu                7b0f0aa55fd292fa3489755a3a896e496c51ea86
-
-Last test of basis   179518  2023-03-09 10:37:19 Z    1 days
-Testing same since   179526  2023-03-10 01:53:40 Z    1 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Akihiko Odaki <akihiko.odaki@daynix.com>
-  Alex Bennée <alex.bennee@linaro.org>
-  Alex Williamson <alex.williamson@redhat.com>
-  Avihai Horon <avihaih@nvidia.com>
-  BALATON Zoltan <balaton@eik.bme.hu>
-  Bernhard Beschow <shentey@gmail.com>
-  Cédric Le Goater <clg@kaod.org>
-  Cédric Le Goater <clg@redhat.com>
-  David Woodhouse <dwmw2@infradead.org>
-  David Woodhouse <dwmw@amazon.co.uk>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Jared Rossi <jrossi@linux.ibm.com>
-  Jiaxun Yang <jiaxun.yang@flygoat.com>
-  Joao Martins <joao.m.martins@oracle.com>
-  Juan Quintela <quintela@redhat.com>
-  Karthikeyan Pasupathi <pkarthikeyan1509@gmail.com>
-  Kevin Wolf <kwolf@redhat.com>
-  Mads Ynddal <m.ynddal@samsung.com>
-  Marcin Nowakowski <marcin.nowakowski@fungible.com>
-  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-  Matheus Tavares Bernardino <quic_mathbern@quicinc.com>
-  Paul Durrant <paul@xen.org>
-  Paul Durrant <pdurrant@amazon.com>
-  Peter Maydell <peter.maydell@linaro.org>
-  Philippe Mathieu-Daudé <philmd@linaro.org>
-  Rene Engel <ReneEngel80@emailn.de>
-  Richard Henderson <richard.henderson@linaro.org>
-  Ted Chen <znscnchen@gmail.com>
-  Thomas Huth <thuth@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  starved 
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          starved 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          starved 
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-i386-libvirt-xsm                                  fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  starved 
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  starved 
- test-armhf-armhf-xl-cubietruck                               starved 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     starved 
- test-amd64-i386-libvirt                                      fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                starved 
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-i386-libvirt-pair                                 fail    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               starved 
- test-amd64-amd64-xl-qcow2                                    fail    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 starved 
- test-amd64-i386-libvirt-raw                                  fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     starved 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      starved 
- test-amd64-i386-xl-vhd                                       fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 2392 lines long.)
 
