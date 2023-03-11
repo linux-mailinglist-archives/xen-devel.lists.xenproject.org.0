@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE08C6B5C88
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Mar 2023 14:56:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508707.783572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B47836B5D06
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Mar 2023 15:52:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508728.783582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pazgK-0004VN-Ei; Sat, 11 Mar 2023 13:54:44 +0000
+	id 1pb0ZL-00038j-HX; Sat, 11 Mar 2023 14:51:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508707.783572; Sat, 11 Mar 2023 13:54:44 +0000
+Received: by outflank-mailman (output) from mailman id 508728.783582; Sat, 11 Mar 2023 14:51:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pazgK-0004T7-C4; Sat, 11 Mar 2023 13:54:44 +0000
-Received: by outflank-mailman (input) for mailman id 508707;
- Sat, 11 Mar 2023 13:54:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=KD/t=7D=gmail.com=error27@srs-se1.protection.inumbo.net>)
- id 1pazgI-0004T0-6J
- for xen-devel@lists.xenproject.org; Sat, 11 Mar 2023 13:54:42 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 43494a40-c014-11ed-956e-85ef70e17bfa;
- Sat, 11 Mar 2023 14:54:38 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- j19-20020a05600c1c1300b003e9b564fae9so7980608wms.2
- for <xen-devel@lists.xenproject.org>; Sat, 11 Mar 2023 05:54:38 -0800 (PST)
-Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- hn4-20020a05600ca38400b003dc1d668866sm2899772wmb.10.2023.03.11.05.54.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 11 Mar 2023 05:54:37 -0800 (PST)
+	id 1pb0ZL-00036U-Ep; Sat, 11 Mar 2023 14:51:35 +0000
+Received: by outflank-mailman (input) for mailman id 508728;
+ Sat, 11 Mar 2023 14:51:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PEBH=7D=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1pb0ZJ-00036O-NM
+ for xen-devel@lists.xenproject.org; Sat, 11 Mar 2023 14:51:33 +0000
+Received: from rs227.mailgun.us (rs227.mailgun.us [209.61.151.227])
+ by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
+ id 352d57c3-c01c-11ed-87f5-c1b5be75604c;
+ Sat, 11 Mar 2023 15:51:31 +0100 (CET)
+Received: from mail-yb1-f176.google.com (mail-yb1-f176.google.com
+ [209.85.219.176]) by
+ a70f3eba752c with SMTP id 640c9571b0de3c33d3ef4ea5 (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Sat, 11 Mar 2023 14:51:29 GMT
+Received: by mail-yb1-f176.google.com with SMTP id o199so6068333ybc.7
+ for <xen-devel@lists.xenproject.org>; Sat, 11 Mar 2023 06:51:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,159 +41,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43494a40-c014-11ed-956e-85ef70e17bfa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678542877;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=w6VNgsWjX3Wuvimz8g5dmkPK1Cy/m4ikAbDoLw6beJQ=;
-        b=EgpADp9mPyWPriOHQHt/ftRejPRpNulP0dfOXzeleBhIPgj1NGQIJbytBzJ2k1iF4R
-         CyITUZOvJLHKAPxgRdheh7BTJmNg+LH8xo7nE4cpnK/TrtstTxkyuMZEe6QB0uKZbsho
-         bha6cNC4l0ab+HfNrdxjVgcV4nNCXjrWHLvd5AgmtK0unzXSSZWpk338fqWEaWfbfDXc
-         gS8s4MTSvK5KviuS4DzupSZgdAs7GDKSC97xY/DJNQkr+LExD4sU3rKuRX3/o8kJ1rWj
-         n5Cc6BbMqxbQX9xXF/Ai+zkDgJk3y+PUHE9rOyhjFvIaxai7o22SnhvFxKXJxhQbJB/I
-         C2Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678542877;
-        h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=w6VNgsWjX3Wuvimz8g5dmkPK1Cy/m4ikAbDoLw6beJQ=;
-        b=4LnHY3ExcAC2z8eYPmf2qukNgJAyk3ywESRptN68z8ultrX7JJmO4s9RoxRByOWypI
-         3V7/GCn2PyzOjlCE1jUG94yLEgfMc7wacDtnE/tNZwzWQWkg5CdOneqAwG2DHQhZT/+M
-         Hje28Mb+Hv/Oj0jHKIKtH77cR867I5Vc4g7GVCSA4VtgFg9aSqu2tprcUoQN1IOMHXXC
-         OHUmBitL+xdMEdb0/S/f9WAXwMjLaL2p4SNqnqTMhRhgF59E7BnbPlW10A5oXs6GOpv8
-         39v+rao3dVOYegef670GcaADj2YHkF7K5FAzyn7b57lauq0hc7LkKDkKCdFkKh/9CDGF
-         a4cw==
-X-Gm-Message-State: AO0yUKVIfFbn9+HCLCjabgeZCkBG+ECEuaF0LJdjkdKZTBZAReMAPuqU
-	ev6lHOJ389Yd8yLRooBjieA=
-X-Google-Smtp-Source: AK7set8Q/kmI9mpEEdXrr7E14surqp2hrZc9WFbOGPYrv2F11V19h1lecKjCq/bjwK7VwWka+od15A==
-X-Received: by 2002:a05:600c:4e8c:b0:3eb:4cb5:dfa with SMTP id f12-20020a05600c4e8c00b003eb4cb50dfamr5440417wmq.31.1678542877399;
-        Sat, 11 Mar 2023 05:54:37 -0800 (PST)
-Date: Sat, 11 Mar 2023 16:54:32 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: oe-kbuild@lists.linux.dev,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Randy Dunlap <rdunlap@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Juergen Gross <jgross@suse.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org, linux-pci@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org
-Cc: lkp@intel.com, oe-kbuild-all@lists.linux.dev,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	Matt Turner <mattst88@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>
-Subject: Re: [PATCH v4 1/4] PCI: Introduce pci_dev_for_each_resource()
-Message-ID: <d057ac5c-5947-41e1-abc7-9428fbd2fbe2@kili.mountain>
+X-Inumbo-ID: 352d57c3-c01c-11ed-87f5-c1b5be75604c
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
+ q=dns/txt; s=mailo; t=1678546289; x=1678553489; h=Content-Type: Cc: To: To:
+ Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
+ MIME-Version: Sender: Sender;
+ bh=prnD3HSi7AZyhTBSqAoZ/PGJ4XTNp7GpB00h7XSuOsM=;
+ b=CnJ8mIZ8YfNNyP4JK1VCyEnekVlcSDFcy7n6xbhtvUS7nQCHZLUEt1yvnAJfrgz/J9wUbk3ziOWMaNU778Cp1f16yKMBuwOns7UtMeAYGtoVrSQ28CBjj3iXpc2j6H6xlg4Pg/GyWBArYkql3FzoMmrky9EGI48RhFac3gvlOlBUOqbajCGnsDLZ0udxTtL+/ZEGlmEBwgWlJxxPLf0JZ3kWc/pyZZ4uVVZbadcK9XVpaHHSx490gvJ212VMQwNJUh3Vri5ugUvxKHp4qsb0gvvXz1B5J6BBDNrmB33IKdgYRnPCNlP71FIwuNPJtnY2G4qDsZnynKbZvGWLsY6f3A==
+X-Mailgun-Sending-Ip: 209.61.151.227
+X-Mailgun-Sid: WyIyYTNmOCIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsImNkODQwIl0=
+Sender: tamas@tklengyel.com
+X-Gm-Message-State: AO0yUKXkU8I56LuGojTDVEb0hEEpDbMpeukPn0FfO4R6wnFAcMoxB0db
+	4+ILdMur68lGlccAY68mik+ABIzSmosqhqwzAjQ=
+X-Google-Smtp-Source: AK7set91islrT4iKxUPh0w+9cI/ORvzHij7YC1jdynpUGTJAGu61EaCVw6Q9QCgHtG3lQZEaGq+labzvRlb6CfO7K1s=
+X-Received: by 2002:a5b:a0c:0:b0:a24:1001:1fd2 with SMTP id
+ k12-20020a5b0a0c000000b00a2410011fd2mr17676915ybq.0.1678546288775; Sat, 11
+ Mar 2023 06:51:28 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230310171416.23356-2-andriy.shevchenko@linux.intel.com>
+References: <3f577545b8ee6846ff98c4411cdc96dfe1412b3e.1678505295.git.isaikin-dmitry@yandex.ru>
+In-Reply-To: <3f577545b8ee6846ff98c4411cdc96dfe1412b3e.1678505295.git.isaikin-dmitry@yandex.ru>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Sat, 11 Mar 2023 09:50:52 -0500
+X-Gmail-Original-Message-ID: <CABfawhn0+XuByYGM-rAkQy+XL9E4aNiBDfE5irOzvRVesuKMjg@mail.gmail.com>
+Message-ID: <CABfawhn0+XuByYGM-rAkQy+XL9E4aNiBDfE5irOzvRVesuKMjg@mail.gmail.com>
+Subject: Re: [XEN PATCH] x86/monitor: Add new monitor event to catch I/O instructions
+To: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Anton Belousov <abelousov@ptsecurity.com>
+Content-Type: multipart/alternative; boundary="000000000000481a9505f6a10300"
 
-Hi Andy,
+--000000000000481a9505f6a10300
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On Fri, Mar 10, 2023 at 10:57=E2=80=AFPM Dmitry Isaykin <isaikin-dmitry@yan=
+dex.ru>
+wrote:
+>
+> Adds monitor support for I/O instructions.
+>
+> Signed-off-by: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
+> Signed-off-by: Anton Belousov <abelousov@ptsecurity.com>
+> ---
+>  tools/include/xenctrl.h                |  1 +
+>  tools/libs/ctrl/xc_monitor.c           | 13 +++++++++++++
+>  xen/arch/x86/hvm/hvm.c                 |  5 +++++
+>  xen/arch/x86/hvm/monitor.c             | 21 +++++++++++++++++++++
+>  xen/arch/x86/hvm/vmx/vmx.c             |  2 ++
+>  xen/arch/x86/include/asm/domain.h      |  1 +
+>  xen/arch/x86/include/asm/hvm/monitor.h |  3 +++
+>  xen/arch/x86/include/asm/hvm/support.h |  3 +++
+>  xen/arch/x86/include/asm/monitor.h     |  3 ++-
+>  xen/arch/x86/monitor.c                 | 13 +++++++++++++
+>  xen/include/public/domctl.h            |  1 +
+>  xen/include/public/vm_event.h          | 10 ++++++++++
+>  12 files changed, 75 insertions(+), 1 deletion(-)
+>
+> diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+> index 23037874d3..05967ecc92 100644
+> --- a/tools/include/xenctrl.h
+> +++ b/tools/include/xenctrl.h
+> @@ -2102,6 +2102,7 @@ int xc_monitor_emul_unimplemented(xc_interface
+*xch, uint32_t domain_id,
+>                                    bool enable);
+>  int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable=
+,
+>                        bool sync);
+> +int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable);
+>  /**
+>   * This function enables / disables emulation for each REP for a
+>   * REP-compatible instruction.
+> diff --git a/tools/libs/ctrl/xc_monitor.c b/tools/libs/ctrl/xc_monitor.c
+> index c5fa62ff30..3cb96f444f 100644
+> --- a/tools/libs/ctrl/xc_monitor.c
+> +++ b/tools/libs/ctrl/xc_monitor.c
+> @@ -261,6 +261,19 @@ int xc_monitor_vmexit(xc_interface *xch, uint32_t
+domain_id, bool enable,
+>      return do_domctl(xch, &domctl);
+>  }
+>
+> +int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable)
+> +{
+> +    DECLARE_DOMCTL;
+> +
+> +    domctl.cmd =3D XEN_DOMCTL_monitor_op;
+> +    domctl.domain =3D domain_id;
+> +    domctl.u.monitor_op.op =3D enable ? XEN_DOMCTL_MONITOR_OP_ENABLE
+> +                                    : XEN_DOMCTL_MONITOR_OP_DISABLE;
+> +    domctl.u.monitor_op.event =3D XEN_DOMCTL_MONITOR_EVENT_IO;
+> +
+> +    return do_domctl(xch, &domctl);
+> +}
+> +
+>  /*
+>   * Local variables:
+>   * mode: C
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index 0c81e2afc7..72c9f65626 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -3484,6 +3484,11 @@ int hvm_vmexit_cpuid(struct cpu_user_regs *regs,
+unsigned int inst_len)
+>      return hvm_monitor_cpuid(inst_len, leaf, subleaf);
+>  }
+>
+> +void hvm_io_instruction_intercept(uint16_t port, int dir, unsigned int
+bytes, unsigned int string_ins)
+> +{
+> +    hvm_monitor_io_instruction(port, dir, bytes, string_ins);
+> +}
+> +
+>  void hvm_rdtsc_intercept(struct cpu_user_regs *regs)
+>  {
+>      msr_split(regs, hvm_get_guest_tsc(current));
+> diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
+> index a11cd76f4d..f8b11d1de9 100644
+> --- a/xen/arch/x86/hvm/monitor.c
+> +++ b/xen/arch/x86/hvm/monitor.c
+> @@ -233,6 +233,27 @@ int hvm_monitor_cpuid(unsigned long insn_length,
+unsigned int leaf,
+>      return monitor_traps(curr, 1, &req);
+>  }
+>
+> +void hvm_monitor_io_instruction(uint16_t port, int dir,
+> +                                unsigned int bytes, unsigned int
+string_ins)
+> +{
+> +    struct vcpu *curr =3D current;
+> +    struct arch_domain *ad =3D &curr->domain->arch;
+> +    vm_event_request_t req =3D {};
+> +
+> +    if ( !ad->monitor.io_enabled )
+> +        return;
+> +
+> +    req.reason =3D VM_EVENT_REASON_IO_INSTRUCTION;
+> +    req.u.io_instruction.data_size =3D bytes;
+> +    req.u.io_instruction.port =3D port;
+> +    req.u.io_instruction.dir =3D dir;
+> +    req.u.io_instruction.string_ins =3D string_ins;
+> +
+> +    set_npt_base(curr, &req);
+> +
+> +    monitor_traps(curr, true, &req);
+> +}
+> +
+>  void hvm_monitor_interrupt(unsigned int vector, unsigned int type,
+>                             unsigned int err, uint64_t cr2)
+>  {
+> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+> index 278b829f73..a64c5078c5 100644
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -4579,6 +4579,8 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+>              uint16_t port =3D (exit_qualification >> 16) & 0xFFFF;
+>              int bytes =3D (exit_qualification & 0x07) + 1;
+>              int dir =3D (exit_qualification & 0x08) ? IOREQ_READ :
+IOREQ_WRITE;
+> +            int str_ins =3D (exit_qualification & 0x10) ? 1 : 0;
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/PCI-Introduce-pci_dev_for_each_resource/20230311-011642
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
-patch link:    https://lore.kernel.org/r/20230310171416.23356-2-andriy.shevchenko%40linux.intel.com
-patch subject: [PATCH v4 1/4] PCI: Introduce pci_dev_for_each_resource()
-config: x86_64-randconfig-m001 (https://download.01.org/0day-ci/archive/20230311/202303112149.xD47qKOY-lkp@intel.com/config)
-compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
+You are already in a branch here where str_ins is checked and known to be 1=
+.
 
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Reported-by: Dan Carpenter <error27@gmail.com>
-| Link: https://lore.kernel.org/r/202303112149.xD47qKOY-lkp@intel.com/
+> +            hvm_io_instruction_intercept(port, dir, bytes, str_ins);
 
-smatch warnings:
-drivers/pnp/quirks.c:248 quirk_system_pci_resources() warn: was && intended here instead of ||?
+IMHO you should have this intercept be called outside the if-else. The
+function already kind-of indicates str_ins is an input yet right now only
+called when it's 1.
 
-vim +248 drivers/pnp/quirks.c
+The rest of the plumbing in the patch LGTM.
 
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  229  static void quirk_system_pci_resources(struct pnp_dev *dev)
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  230  {
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  231  	struct pci_dev *pdev = NULL;
-059b4a086017fb Mika Westerberg 2023-03-10  232  	struct resource *res, *r;
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  233  	int i, j;
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  234  
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  235  	/*
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  236  	 * Some BIOSes have PNP motherboard devices with resources that
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  237  	 * partially overlap PCI BARs.  The PNP system driver claims these
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  238  	 * motherboard resources, which prevents the normal PCI driver from
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  239  	 * requesting them later.
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  240  	 *
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  241  	 * This patch disables the PNP resources that conflict with PCI BARs
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  242  	 * so they won't be claimed by the PNP system driver.
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  243  	 */
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  244  	for_each_pci_dev(pdev) {
-059b4a086017fb Mika Westerberg 2023-03-10  245  		pci_dev_for_each_resource(pdev, r, i) {
-059b4a086017fb Mika Westerberg 2023-03-10  246  			unsigned long type = resource_type(r);
-999ed65ad12e37 Rene Herman     2008-07-25  247  
-059b4a086017fb Mika Westerberg 2023-03-10 @248  			if (type != IORESOURCE_IO || type != IORESOURCE_MEM ||
-                                                                                                  ^^
-This || needs to be &&.  This loop will always hit the continue path
-without doing anything.
+Thanks,
+Tamas
 
-059b4a086017fb Mika Westerberg 2023-03-10  249  			    resource_size(r) == 0)
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  250  				continue;
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  251  
-059b4a086017fb Mika Westerberg 2023-03-10  252  			if (r->flags & IORESOURCE_UNSET)
-f7834c092c4299 Bjorn Helgaas   2015-03-03  253  				continue;
-f7834c092c4299 Bjorn Helgaas   2015-03-03  254  
-95ab3669f78306 Bjorn Helgaas   2008-04-28  255  			for (j = 0;
-999ed65ad12e37 Rene Herman     2008-07-25  256  			     (res = pnp_get_resource(dev, type, j)); j++) {
-aee3ad815dd291 Bjorn Helgaas   2008-06-27  257  				if (res->start == 0 && res->end == 0)
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  258  					continue;
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  259  
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  260  				/*
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  261  				 * If the PNP region doesn't overlap the PCI
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  262  				 * region at all, there's no problem.
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  263  				 */
-059b4a086017fb Mika Westerberg 2023-03-10  264  				if (!resource_overlaps(res, r))
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  265  					continue;
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  266  
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  267  				/*
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  268  				 * If the PNP region completely encloses (or is
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  269  				 * at least as large as) the PCI region, that's
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  270  				 * also OK.  For example, this happens when the
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  271  				 * PNP device describes a bridge with PCI
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  272  				 * behind it.
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  273  				 */
-059b4a086017fb Mika Westerberg 2023-03-10  274  				if (res->start <= r->start && res->end >= r->end)
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  275  					continue;
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  276  
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  277  				/*
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  278  				 * Otherwise, the PNP region overlaps *part* of
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  279  				 * the PCI region, and that might prevent a PCI
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  280  				 * driver from requesting its resources.
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  281  				 */
-c7dabef8a2c59e Bjorn Helgaas   2009-10-27  282  				dev_warn(&dev->dev,
-059b4a086017fb Mika Westerberg 2023-03-10  283  					 "disabling %pR because it overlaps %s BAR %d %pR\n",
-059b4a086017fb Mika Westerberg 2023-03-10  284  					 res, pci_name(pdev), i, r);
-4b34fe156455d2 Bjorn Helgaas   2008-06-02  285  				res->flags |= IORESOURCE_DISABLED;
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  286  			}
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  287  		}
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  288  	}
-0509ad5e1a7d92 Bjorn Helgaas   2008-03-11  289  }
+--000000000000481a9505f6a10300
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+<div dir=3D"ltr"><br><br>On Fri, Mar 10, 2023 at 10:57=E2=80=AFPM Dmitry Is=
+aykin &lt;<a href=3D"mailto:isaikin-dmitry@yandex.ru">isaikin-dmitry@yandex=
+.ru</a>&gt; wrote:<br>&gt;<br>&gt; Adds monitor support for I/O instruction=
+s.<br>&gt;<br>&gt; Signed-off-by: Dmitry Isaykin &lt;<a href=3D"mailto:isai=
+kin-dmitry@yandex.ru">isaikin-dmitry@yandex.ru</a>&gt;<br>&gt; Signed-off-b=
+y: Anton Belousov &lt;<a href=3D"mailto:abelousov@ptsecurity.com">abelousov=
+@ptsecurity.com</a>&gt;<br>&gt; ---<br>&gt; =C2=A0tools/include/xenctrl.h =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=A01 +<br>&gt; =
+=C2=A0tools/libs/ctrl/xc_monitor.c =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 13 =
++++++++++++++<br>&gt; =C2=A0xen/arch/x86/hvm/hvm.c =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | =C2=A05 +++++<br>&gt; =C2=A0xen/arch/x86/=
+hvm/monitor.c =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 21 ++++++++++++++=
++++++++<br>&gt; =C2=A0xen/arch/x86/hvm/vmx/vmx.c =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 | =C2=A02 ++<br>&gt; =C2=A0xen/arch/x86/include/asm/domai=
+n.h =C2=A0 =C2=A0 =C2=A0| =C2=A01 +<br>&gt; =C2=A0xen/arch/x86/include/asm/=
+hvm/monitor.h | =C2=A03 +++<br>&gt; =C2=A0xen/arch/x86/include/asm/hvm/supp=
+ort.h | =C2=A03 +++<br>&gt; =C2=A0xen/arch/x86/include/asm/monitor.h =C2=A0=
+ =C2=A0 | =C2=A03 ++-<br>&gt; =C2=A0xen/arch/x86/monitor.c =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 13 +++++++++++++<br>&gt; =C2=A0=
+xen/include/public/domctl.h =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| =C2=
+=A01 +<br>&gt; =C2=A0xen/include/public/vm_event.h =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0| 10 ++++++++++<br>&gt; =C2=A012 files changed, 75 insertions(+),=
+ 1 deletion(-)<br>&gt;<br>&gt; diff --git a/tools/include/xenctrl.h b/tools=
+/include/xenctrl.h<br>&gt; index 23037874d3..05967ecc92 100644<br>&gt; --- =
+a/tools/include/xenctrl.h<br>&gt; +++ b/tools/include/xenctrl.h<br>&gt; @@ =
+-2102,6 +2102,7 @@ int xc_monitor_emul_unimplemented(xc_interface *xch, uin=
+t32_t domain_id,<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0bool enable);<br>&gt; =C2=A0int xc_monitor_vmexit(xc_interface *xch, uin=
+t32_t domain_id, bool enable,<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bool sync);<br>&gt; +int xc=
+_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable);<br>&gt; =
+=C2=A0/**<br>&gt; =C2=A0 * This function enables / disables emulation for e=
+ach REP for a<br>&gt; =C2=A0 * REP-compatible instruction.<br>&gt; diff --g=
+it a/tools/libs/ctrl/xc_monitor.c b/tools/libs/ctrl/xc_monitor.c<br>&gt; in=
+dex c5fa62ff30..3cb96f444f 100644<br>&gt; --- a/tools/libs/ctrl/xc_monitor.=
+c<br>&gt; +++ b/tools/libs/ctrl/xc_monitor.c<br>&gt; @@ -261,6 +261,19 @@ i=
+nt xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,<br=
+>&gt; =C2=A0 =C2=A0 =C2=A0return do_domctl(xch, &amp;domctl);<br>&gt; =C2=
+=A0}<br>&gt;<br>&gt; +int xc_monitor_io(xc_interface *xch, uint32_t domain_=
+id, bool enable)<br>&gt; +{<br>&gt; + =C2=A0 =C2=A0DECLARE_DOMCTL;<br>&gt; =
++<br>&gt; + =C2=A0 =C2=A0domctl.cmd =3D XEN_DOMCTL_monitor_op;<br>&gt; + =
+=C2=A0 =C2=A0domctl.domain =3D domain_id;<br>&gt; + =C2=A0 =C2=A0domctl.u.m=
+onitor_op.op =3D enable ? XEN_DOMCTL_MONITOR_OP_ENABLE<br>&gt; + =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0: XEN_DOMCTL_MONITOR_OP_DISABLE;<b=
+r>&gt; + =C2=A0 =C2=A0domctl.u.monitor_op.event =3D XEN_DOMCTL_MONITOR_EVEN=
+T_IO;<br>&gt; +<br>&gt; + =C2=A0 =C2=A0return do_domctl(xch, &amp;domctl);<=
+br>&gt; +}<br>&gt; +<br>&gt; =C2=A0/*<br>&gt; =C2=A0 * Local variables:<br>=
+&gt; =C2=A0 * mode: C<br>&gt; diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arc=
+h/x86/hvm/hvm.c<br>&gt; index 0c81e2afc7..72c9f65626 100644<br>&gt; --- a/x=
+en/arch/x86/hvm/hvm.c<br>&gt; +++ b/xen/arch/x86/hvm/hvm.c<br>&gt; @@ -3484=
+,6 +3484,11 @@ int hvm_vmexit_cpuid(struct cpu_user_regs *regs, unsigned in=
+t inst_len)<br>&gt; =C2=A0 =C2=A0 =C2=A0return hvm_monitor_cpuid(inst_len, =
+leaf, subleaf);<br>&gt; =C2=A0}<br>&gt;<br>&gt; +void hvm_io_instruction_in=
+tercept(uint16_t port, int dir, unsigned int bytes, unsigned int string_ins=
+)<br>&gt; +{<br>&gt; + =C2=A0 =C2=A0hvm_monitor_io_instruction(port, dir, b=
+ytes, string_ins);<br>&gt; +}<br>&gt; +<br>&gt; =C2=A0void hvm_rdtsc_interc=
+ept(struct cpu_user_regs *regs)<br>&gt; =C2=A0{<br>&gt; =C2=A0 =C2=A0 =C2=
+=A0msr_split(regs, hvm_get_guest_tsc(current));<br>&gt; diff --git a/xen/ar=
+ch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c<br>&gt; index a11cd76f4d.=
+.f8b11d1de9 100644<br>&gt; --- a/xen/arch/x86/hvm/monitor.c<br>&gt; +++ b/x=
+en/arch/x86/hvm/monitor.c<br>&gt; @@ -233,6 +233,27 @@ int hvm_monitor_cpui=
+d(unsigned long insn_length, unsigned int leaf,<br>&gt; =C2=A0 =C2=A0 =C2=
+=A0return monitor_traps(curr, 1, &amp;req);<br>&gt; =C2=A0}<br>&gt;<br>&gt;=
+ +void hvm_monitor_io_instruction(uint16_t port, int dir,<br>&gt; + =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int bytes, unsigned int string_ins)=
+<br>&gt; +{<br>&gt; + =C2=A0 =C2=A0struct vcpu *curr =3D current;<br>&gt; +=
+ =C2=A0 =C2=A0struct arch_domain *ad =3D &amp;curr-&gt;domain-&gt;arch;<br>=
+&gt; + =C2=A0 =C2=A0vm_event_request_t req =3D {};<br>&gt; +<br>&gt; + =C2=
+=A0 =C2=A0if ( !ad-&gt;monitor.io_enabled )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0return;<br>&gt; +<br>&gt; + =C2=A0 =C2=A0req.reason =3D VM_EVENT_REAS=
+ON_IO_INSTRUCTION;<br>&gt; + =C2=A0 =C2=A0req.u.io_instruction.data_size =
+=3D bytes;<br>&gt; + =C2=A0 =C2=A0req.u.io_instruction.port =3D port;<br>&g=
+t; + =C2=A0 =C2=A0req.u.io_instruction.dir =3D dir;<br>&gt; + =C2=A0 =C2=A0=
+req.u.io_instruction.string_ins =3D string_ins;<br>&gt; +<br>&gt; + =C2=A0 =
+=C2=A0set_npt_base(curr, &amp;req);<br>&gt; +<br>&gt; + =C2=A0 =C2=A0monito=
+r_traps(curr, true, &amp;req);<br>&gt; +}<br>&gt; +<br>&gt; =C2=A0void hvm_=
+monitor_interrupt(unsigned int vector, unsigned int type,<br>&gt; =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 unsigned int err, uint64_t cr2)<br>&gt; =C2=A0{<br>&gt; d=
+iff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c<br>&gt;=
+ index 278b829f73..a64c5078c5 100644<br>&gt; --- a/xen/arch/x86/hvm/vmx/vmx=
+.c<br>&gt; +++ b/xen/arch/x86/hvm/vmx/vmx.c<br>&gt; @@ -4579,6 +4579,8 @@ v=
+oid vmx_vmexit_handler(struct cpu_user_regs *regs)<br>&gt; =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint16_t port =3D (exit_qualification &gt=
+;&gt; 16) &amp; 0xFFFF;<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0int bytes =3D (exit_qualification &amp; 0x07) + 1;<br>&gt; =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int dir =3D (exit_qualification &amp;=
+ 0x08) ? IOREQ_READ : IOREQ_WRITE;<br><div>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0int str_ins =3D (exit_qualification &amp; 0x10) ? 1 : 0;</=
+div><div><br></div><div>You are already in a branch here where str_ins is c=
+hecked and known to be 1.<br></div><div><br></div>&gt; + =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0hvm_io_instruction_intercept(port, dir, bytes, str_=
+ins);<br><div><div><span style=3D"font-family:sans-serif" role=3D"presentat=
+ion" dir=3D"ltr" class=3D"gmail-"><br></span></div><div>IMHO you should hav=
+e this intercept be called outside the if-else. The function already kind-o=
+f indicates str_ins is an input yet right now only called when it&#39;s 1.<=
+span style=3D"font-family:sans-serif" role=3D"presentation" dir=3D"ltr" cla=
+ss=3D"gmail-"><br></span></div><div><span style=3D"font-family:sans-serif" =
+role=3D"presentation" dir=3D"ltr" class=3D"gmail-"><br></span></div><div><s=
+pan style=3D"font-family:sans-serif" role=3D"presentation" dir=3D"ltr" clas=
+s=3D"gmail-">The rest of the plumbing in the patch LGTM.<br></span></div><d=
+iv><span style=3D"font-family:sans-serif" role=3D"presentation" dir=3D"ltr"=
+ class=3D"gmail-"><br></span></div><div><span style=3D"font-family:sans-ser=
+if" role=3D"presentation" dir=3D"ltr" class=3D"gmail-">Thanks,<br></span></=
+div><div><span style=3D"font-family:sans-serif" role=3D"presentation" dir=
+=3D"ltr" class=3D"gmail-">Tamas<br></span></div><div><span style=3D"font-fa=
+mily:sans-serif" role=3D"presentation" dir=3D"ltr" class=3D"gmail-"><span s=
+tyle=3D"font-family:sans-serif" role=3D"presentation" dir=3D"ltr"> </span>
 
+</span>
+
+</div></div></div>
+
+--000000000000481a9505f6a10300--
 
