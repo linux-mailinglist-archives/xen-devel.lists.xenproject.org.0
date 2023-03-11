@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A81CF6B56EC
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Mar 2023 01:46:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508628.783481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 911576B57F6
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Mar 2023 04:04:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508640.783502 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1panMR-00011Q-PP; Sat, 11 Mar 2023 00:45:23 +0000
+	id 1papWE-00018v-0i; Sat, 11 Mar 2023 03:03:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508628.783481; Sat, 11 Mar 2023 00:45:23 +0000
+Received: by outflank-mailman (output) from mailman id 508640.783502; Sat, 11 Mar 2023 03:03:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1panMR-0000z1-Mc; Sat, 11 Mar 2023 00:45:23 +0000
-Received: by outflank-mailman (input) for mailman id 508628;
- Sat, 11 Mar 2023 00:45:22 +0000
+	id 1papWD-000170-Qo; Sat, 11 Mar 2023 03:03:37 +0000
+Received: by outflank-mailman (input) for mailman id 508640;
+ Sat, 11 Mar 2023 03:03:36 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1panMQ-0000yr-Hl; Sat, 11 Mar 2023 00:45:22 +0000
+ id 1papWC-00016o-EE; Sat, 11 Mar 2023 03:03:36 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1panMQ-0003yK-FE; Sat, 11 Mar 2023 00:45:22 +0000
+ id 1papWC-0005k4-BR; Sat, 11 Mar 2023 03:03:36 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1panMQ-00082m-0w; Sat, 11 Mar 2023 00:45:22 +0000
+ id 1papWB-0003ps-VY; Sat, 11 Mar 2023 03:03:36 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1panMQ-0002mo-0X; Sat, 11 Mar 2023 00:45:22 +0000
+ id 1papWB-00059X-V0; Sat, 11 Mar 2023 03:03:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,175 +45,168 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Iv30fjcVNbqgt2sWH58/L9rdffEUoJo8RKfjiDdVrD0=; b=YfBI9c/25WcToQ8yUKCbMAzst3
-	jf+5UpET78mSw2SMYJR3kiCJhb8bQ+BAg97D8aWhCdY2tm2hTF2weDOojM6eMkr6QaihEV6CuSOwl
-	paW8AOIBx0mvXGo/6sEDTpZZcsgFnqj64HjY1/6ZbrubLB73cjOorAZXbP4bzknQi2a4=;
+	bh=7tX6+Iwa6c1QJ0S0tQluEC4oUdgPD6BVgpM7uAEsRoU=; b=3R87mn6MwVAYM5Kj6Ru0yaavPm
+	epiHfFMOeZ0+M5efwT4yn3eH/kO8C94BeCMl79dKOsr/Tu4VKPPiUuzji59I6qn81+ev+Upjp7f+f
+	xXvQp3hVncuxZ54GJT19GYgi+pDqEhKZkypAjTVPu5cAYY2LqlvfEInT1W92VlS2eP+Y=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-179531-mainreport@xen.org>
+Message-ID: <osstest-179534-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [linux-linus test] 179531: regressions - trouble: fail/pass/starved
+Subject: [qemu-mainline test] 179534: regressions - trouble: fail/pass/starved
 X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:guest-start/debian.repeat:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:guest-localmigrate:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:guest-saverestore:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:guest-migrate/dst_host/src_host/debian.repeat:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:guest-localmigrate:fail:regression
-    linux-linus:test-amd64-coresched-amd64-xl:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl:guest-stop:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:guest-stop:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:guest-localmigrate/x10:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:guest-localmigrate/x10:fail:regression
-    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-pair:guest-start/debian:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:guest-localmigrate:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-pygrub:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:debian-di-install:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:debian-di-install:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:guest-localmigrate:fail:allowable
-    linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-examine:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
-    linux-linus:build-armhf-libvirt:build-check(1):starved:nonblocking
-    linux-linus:build-armhf:hosts-allocate:starved:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-pair:guest-start/debian:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qcow2:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:debian-di-install:fail:regression
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
+    qemu-mainline:test-amd64-amd64-libvirt:guest-start:fail:regression
+    qemu-mainline:test-amd64-i386-libvirt-raw:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+    qemu-mainline:test-arm64-arm64-libvirt-raw:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-i386-xl-vhd:debian-di-install:fail:regression
+    qemu-mainline:test-arm64-arm64-xl-vhd:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-localmigrate/x10:fail:heisenbug
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:windows-install:fail:heisenbug
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    qemu-mainline:build-armhf-libvirt:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    qemu-mainline:build-armhf:hosts-allocate:starved:nonblocking
 X-Osstest-Versions-This:
-    linux=44889ba56cbb3d51154660ccd15818bc77276696
+    qemuu=ee59483267de29056b5b2ee2421ef3844e5c9932
 X-Osstest-Versions-That:
-    linux=3f0b0903fde584a7398f82fc00bf4f8138610b87
+    qemuu=7b0f0aa55fd292fa3489755a3a896e496c51ea86
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 11 Mar 2023 00:45:22 +0000
+Date: Sat, 11 Mar 2023 03:03:35 +0000
 
-flight 179531 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/179531/
+flight 179534 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/179534/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- test-amd64-amd64-freebsd12-amd64 13 guest-start          fail REGR. vs. 178042
- test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-xl-credit1 22 guest-start/debian.repeat fail REGR. vs. 178042
- test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 178042
- test-amd64-amd64-xl-xsm      18 guest-localmigrate       fail REGR. vs. 178042
- test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 178042
- test-amd64-amd64-freebsd11-amd64 13 guest-start          fail REGR. vs. 178042
- test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-libvirt     17 guest-saverestore        fail REGR. vs. 178042
- test-amd64-amd64-libvirt-pair 28 guest-migrate/dst_host/src_host/debian.repeat fail REGR. vs. 178042
- test-amd64-amd64-xl-credit2  18 guest-localmigrate       fail REGR. vs. 178042
- test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 178042
- test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 178042
- test-arm64-arm64-xl          17 guest-stop               fail REGR. vs. 178042
- test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 178042
- test-arm64-arm64-xl-credit2  17 guest-stop               fail REGR. vs. 178042
- test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 18 guest-localmigrate/x10 fail REGR. vs. 178042
- test-amd64-amd64-xl-qemuu-ovmf-amd64 18 guest-localmigrate/x10 fail REGR. vs. 178042
- test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 178042
- test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-pair        25 guest-start/debian       fail REGR. vs. 178042
- test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 178042
- test-amd64-amd64-xl-multivcpu 18 guest-localmigrate      fail REGR. vs. 178042
- test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 178042
- test-amd64-amd64-xl-vhd      12 debian-di-install        fail REGR. vs. 178042
- test-amd64-amd64-pygrub      12 debian-di-install        fail REGR. vs. 178042
- test-amd64-amd64-libvirt-raw 12 debian-di-install        fail REGR. vs. 178042
- test-amd64-amd64-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 178042
- test-arm64-arm64-xl-vhd      12 debian-di-install        fail REGR. vs. 178042
- test-arm64-arm64-libvirt-raw 12 debian-di-install        fail REGR. vs. 178042
+ test-amd64-i386-libvirt      14 guest-start              fail REGR. vs. 179518
+ test-amd64-i386-libvirt-xsm  14 guest-start              fail REGR. vs. 179518
+ test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 179518
+ test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 179518
+ test-amd64-i386-libvirt-pair 25 guest-start/debian       fail REGR. vs. 179518
+ test-amd64-amd64-xl-qcow2    12 debian-di-install        fail REGR. vs. 179518
+ test-amd64-amd64-libvirt-vhd 12 debian-di-install        fail REGR. vs. 179518
+ test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 179518
+ test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 179518
+ test-amd64-i386-libvirt-raw  12 debian-di-install        fail REGR. vs. 179518
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 179518
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 179518
+ test-arm64-arm64-libvirt-raw 12 debian-di-install        fail REGR. vs. 179518
+ test-amd64-i386-xl-vhd       12 debian-di-install        fail REGR. vs. 179518
+ test-arm64-arm64-xl-vhd      12 debian-di-install        fail REGR. vs. 179518
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 16 guest-localmigrate fail REGR. vs. 178042
- test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 178042
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 18 guest-localmigrate/x10 fail in 179526 pass in 179534
+ test-amd64-i386-xl-qemuu-win7-amd64 12 windows-install     fail pass in 179526
 
 Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop   fail in 179526 like 179518
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 179518
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 179518
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 179518
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 179518
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-examine      1 build-check(1)               starved  n/a
  test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
  test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
  test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
  test-armhf-armhf-xl           1 build-check(1)               starved  n/a
  test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
  test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
  test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
  test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
  build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
  build-armhf                   2 hosts-allocate               starved  n/a
 
 version targeted for testing:
- linux                44889ba56cbb3d51154660ccd15818bc77276696
+ qemuu                ee59483267de29056b5b2ee2421ef3844e5c9932
 baseline version:
- linux                3f0b0903fde584a7398f82fc00bf4f8138610b87
+ qemuu                7b0f0aa55fd292fa3489755a3a896e496c51ea86
 
-Last test of basis   178042  2023-02-21 17:44:43 Z   17 days
-Failing since        178093  2023-02-22 05:02:47 Z   16 days   34 attempts
-Testing same since   179531  2023-03-10 08:58:13 Z    0 days    1 attempts
+Last test of basis   179518  2023-03-09 10:37:19 Z    1 days
+Testing same since   179526  2023-03-10 01:53:40 Z    1 days    2 attempts
 
 ------------------------------------------------------------
-2075 people touched revisions under test,
-not listing them all
+People who touched revisions under test:
+  Akihiko Odaki <akihiko.odaki@daynix.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Williamson <alex.williamson@redhat.com>
+  Avihai Horon <avihaih@nvidia.com>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bernhard Beschow <shentey@gmail.com>
+  Cédric Le Goater <clg@kaod.org>
+  Cédric Le Goater <clg@redhat.com>
+  David Woodhouse <dwmw2@infradead.org>
+  David Woodhouse <dwmw@amazon.co.uk>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jared Rossi <jrossi@linux.ibm.com>
+  Jiaxun Yang <jiaxun.yang@flygoat.com>
+  Joao Martins <joao.m.martins@oracle.com>
+  Juan Quintela <quintela@redhat.com>
+  Karthikeyan Pasupathi <pkarthikeyan1509@gmail.com>
+  Kevin Wolf <kwolf@redhat.com>
+  Mads Ynddal <m.ynddal@samsung.com>
+  Marcin Nowakowski <marcin.nowakowski@fungible.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Matheus Tavares Bernardino <quic_mathbern@quicinc.com>
+  Paul Durrant <paul@xen.org>
+  Paul Durrant <pdurrant@amazon.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Philippe Mathieu-Daudé <philmd@linaro.org>
+  Rene Engel <ReneEngel80@emailn.de>
+  Richard Henderson <richard.henderson@linaro.org>
+  Ted Chen <znscnchen@gmail.com>
+  Thomas Huth <thuth@redhat.com>
 
 jobs:
  build-amd64-xsm                                              pass    
@@ -231,67 +224,79 @@ jobs:
  build-arm64-pvops                                            pass    
  build-armhf-pvops                                            pass    
  build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          fail    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
  test-armhf-armhf-xl                                          starved 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
  test-amd64-amd64-libvirt-xsm                                 fail    
  test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-i386-libvirt-xsm                                  fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
  test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-freebsd11-amd64                             fail    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
  test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
  test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
  test-armhf-armhf-xl-credit1                                  starved 
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
  test-armhf-armhf-xl-credit2                                  starved 
  test-armhf-armhf-xl-cubietruck                               starved 
  test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     starved 
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         fail    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
  test-amd64-amd64-libvirt                                     fail    
  test-armhf-armhf-libvirt                                     starved 
- test-amd64-amd64-xl-multivcpu                                fail    
+ test-amd64-i386-libvirt                                      fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
  test-armhf-armhf-xl-multivcpu                                starved 
- test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
  test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      fail    
- test-amd64-amd64-libvirt-qcow2                               fail    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
  test-armhf-armhf-libvirt-qcow2                               starved 
- test-amd64-amd64-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-qcow2                                    fail    
  test-arm64-arm64-libvirt-raw                                 fail    
  test-armhf-armhf-libvirt-raw                                 starved 
- test-amd64-amd64-xl-rtds                                     fail    
+ test-amd64-i386-libvirt-raw                                  fail    
+ test-amd64-amd64-xl-rtds                                     pass    
  test-armhf-armhf-xl-rtds                                     starved 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-amd64-xl-shadow                                   fail    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 fail    
  test-arm64-arm64-xl-vhd                                      fail    
  test-armhf-armhf-xl-vhd                                      starved 
+ test-amd64-i386-xl-vhd                                       fail    
 
 
 ------------------------------------------------------------
@@ -312,5 +317,5 @@ Test harness code can be found at
 
 Not pushing.
 
-(No revision log; it would be 240530 lines long.)
+(No revision log; it would be 2392 lines long.)
 
