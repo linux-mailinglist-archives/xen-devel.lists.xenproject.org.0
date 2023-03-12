@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 363846B6416
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Mar 2023 10:29:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508936.783963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F7246B6413
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Mar 2023 10:29:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508935.783956 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbI0j-0006xW-2B; Sun, 12 Mar 2023 09:29:01 +0000
+	id 1pbI0i-0006na-Ho; Sun, 12 Mar 2023 09:29:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508936.783963; Sun, 12 Mar 2023 09:29:00 +0000
+Received: by outflank-mailman (output) from mailman id 508935.783956; Sun, 12 Mar 2023 09:29:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbI0i-0006nW-QZ; Sun, 12 Mar 2023 09:29:00 +0000
-Received: by outflank-mailman (input) for mailman id 508936;
- Sun, 12 Mar 2023 09:28:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pbI0i-0006kW-Cv; Sun, 12 Mar 2023 09:29:00 +0000
+Received: by outflank-mailman (input) for mailman id 508935;
+ Sun, 12 Mar 2023 09:28:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TSl9=7E=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1pbHwQ-0000RV-GM
- for xen-devel@lists.xenproject.org; Sun, 12 Mar 2023 09:24:34 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20615.outbound.protection.outlook.com
- [2a01:111:f400:7e88::615])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b1f5d54f-c0b7-11ed-956e-85ef70e17bfa;
- Sun, 12 Mar 2023 10:24:32 +0100 (CET)
-Received: from MW2PR16CA0063.namprd16.prod.outlook.com (2603:10b6:907:1::40)
- by MN0PR12MB5713.namprd12.prod.outlook.com (2603:10b6:208:370::18) with
+ id 1pbHwb-00008O-IM
+ for xen-devel@lists.xenproject.org; Sun, 12 Mar 2023 09:24:45 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2062f.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b930664d-c0b7-11ed-87f5-c1b5be75604c;
+ Sun, 12 Mar 2023 10:24:45 +0100 (CET)
+Received: from MW2PR16CA0059.namprd16.prod.outlook.com (2603:10b6:907:1::36)
+ by DS7PR12MB5861.namprd12.prod.outlook.com (2603:10b6:8:78::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Sun, 12 Mar
  2023 09:24:25 +0000
 Received: from CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::4e) by MW2PR16CA0063.outlook.office365.com
- (2603:10b6:907:1::40) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:907:1:cafe::a9) by MW2PR16CA0059.outlook.office365.com
+ (2603:10b6:907:1::36) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24 via Frontend
- Transport; Sun, 12 Mar 2023 09:24:24 +0000
+ Transport; Sun, 12 Mar 2023 09:24:25 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  CO1NAM11FT023.mail.protection.outlook.com (10.13.175.35) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.24 via Frontend Transport; Sun, 12 Mar 2023 09:24:24 +0000
+ 15.20.6178.24 via Frontend Transport; Sun, 12 Mar 2023 09:24:25 +0000
 Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Mar
- 2023 04:24:14 -0500
+ 2023 04:24:19 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1f5d54f-c0b7-11ed-956e-85ef70e17bfa
+X-Inumbo-ID: b930664d-c0b7-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lJ8zOA5kGkaSgC7NCCwRyi/7/U65U0kMfdvT8XCDumaCqjrSAzfQVLM0/L1QtYxPyth+cVPsXFCHfSsWa8OWFa9X+65fzDa3XTDJlsmihFBYGM0Zt4NXiisAh3UbUUEULA1zboZHf+f4KJfr8wBWqGyKV4bGWJyHPZtc+kuBSxHTK4C1wWEO6EK7WTiarWN4VPA9Y6qdt+d3+dItwXLZOM/tXAUAzGS/+uiCY3sw+jbokP9qrVJ/L4jFom6jtzo0+AZqvkWcVtYPhlrQiUO4Cpf/Kkf5cTF3qqESeZclRpD2M4N777jEU0WpJkSXz3Xa/HxUmw48GKl2ky0yXsYl0g==
+ b=MDxG38gN6o3InzwxdsiS0pdsSUyUcpkLYB27zCiDLC7KyDY6cdg4imH3a4gJQjDnCQaJGbU5yxkOCJRW2zjuFwakupl+gxRvFDFoGjtdkvbO2mV/skbhS0/AbnuZJvp1uaP54txefRESK60pJW0RZqddfk6AJlN3fpIy1FAHRjI1EoNAmKmeRU6W2XYC/FX4RyBQXxKDsAs0McnSs12hRALJp1oZRu8x1eseVckFRoCdETisPVd016WxnhQFm+NZEnikOvpLGOg10jOEYuhK2iEZF1kw+hKz5olibFQFb7rlaiULgP+f8v2G7AQ7vT+L1d+dHU/b6KPMaHSbaJQzpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y4njz8PcbedF2EFcPkz+yQS3FwMkw58Lg0EB1K4nngM=;
- b=aPLpzrqPmWQN5fExNmE3FlLxTfb2fqy4XW6Hr/C5kSwoM2pvzH+pi/l9sh5p+cF/o08VF4ikN987p/ysJYPFV/ZlMFXIny/2Bu2XOnIXkus/Z4HYy7Rigc6vDLHV8AipEipApdjbkCNhyFa3DRI4wP+ca5p689NROJb76e21L+EmKv3bEInC7wCEfEFJt7laQcekqnuHJbcryTtva7yCNg29Aho2q4sNghDZps3E3Guo7IZ+++zC0rJa8X1vTuncLtRmaBIhcDZ+Y1kCI5SBsU2XOwesFv8sqSvaKLH6qbY1jP/KJkDdKAZz6uuo1LIo/1rCHVvIoS9NRFAjwYD73g==
+ bh=ONcZvV/3JhVdOa/JNutn7iJ/bvID7ShJBlvTVgAdRIs=;
+ b=KcaW8FIKuQD4JI4o67xgsUW4hw4Y2z6p6E86AASbgTFWGltm74IjS5ldvizdXeXqflnMyNUZY0iCEInLx7pSHNWO9GWBZ7BL7vv3Gy1RDs9knVkKolJLokB+v1KbnJPu1qBjVJHMWYew3DazipL8o+pB3hlfmypjkTVp7CG/JUmhrp2Yhhahc5C0gLOrctcvqpSft+Jt/v2UKB94md3gU3BKAy5RZOAVm+SNAqw/UiydDVs47RgUYhd3ybf4CFUcI+tXyIvld+RfPrzX26fVrdsse/Fd9RPV8qVUQB41JJwh0wVzvV9fEhKqx16ym1eAXpF7Sf6K0Xjvb3TUXT2aiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y4njz8PcbedF2EFcPkz+yQS3FwMkw58Lg0EB1K4nngM=;
- b=Xm9tlht+S2z1npnDreRVji+7EsXdOnKJVStwjsyntl8C+ovf3KydAmoLyTIWJttiISvOVv/FeRejaC+GAxY2q+h31MAE+NfQ1ix4zr0kMtDSbvZ2QtpjozqSkvJldgD3FKfvHN1+L6cHVbzjSFpvOQnIZLVkvvQtMP0/bTwUKBM=
+ bh=ONcZvV/3JhVdOa/JNutn7iJ/bvID7ShJBlvTVgAdRIs=;
+ b=aRKb5y0/t8LrvwnfB7g8HXEFes1DVbFg2/OPIyt+RXNMf30Y0PB1wAoZ1w02iV4TS41uPJRIHv2y+kIa7KXh8lCplhbz04v04CdSqq65Ry/DrDZFXlOIBM1ALXuK+WDden82Xfcn1mWrxevRdUevLxyfmqciCV99T7Og037QJ+8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -92,9 +92,9 @@ CC: Alex Deucher <alexander.deucher@amd.com>,
 	<burzalodowa@gmail.com>, Honglei Huang <honglei1.huang@amd.com>, Julia Zhang
 	<julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>, Huang Rui
 	<ray.huang@amd.com>
-Subject: [RFC QEMU PATCH 14/18] softmmu: Add ram block check to map the xen ram memory
-Date: Sun, 12 Mar 2023 17:22:40 +0800
-Message-ID: <20230312092244.451465-15-ray.huang@amd.com>
+Subject: [RFC QEMU PATCH 15/18] softmmu: Enable qemu ram allocation with fd for Xen
+Date: Sun, 12 Mar 2023 17:22:41 +0800
+Message-ID: <20230312092244.451465-16-ray.huang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230312092244.451465-1-ray.huang@amd.com>
 References: <20230312092244.451465-1-ray.huang@amd.com>
@@ -106,49 +106,51 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT023:EE_|MN0PR12MB5713:EE_
-X-MS-Office365-Filtering-Correlation-Id: 233e2c47-7e92-4f01-06d9-08db22db91d6
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT023:EE_|DS7PR12MB5861:EE_
+X-MS-Office365-Filtering-Correlation-Id: 320fbbc4-3ebe-422a-ab2d-08db22db92a0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	zHnqSl2fLXBhXNsZMqMSmxcTNXoqbiR9wgoBOqhzuE25PU5xzUBROyipeJ20qdqgBu47Igfhv8BR2S41enqTbfwa6fvu470AmztSdQYuBcJurQJ6Ovrp7PMPQGB3WF0mm6z5FpvUgk7jlaxNTEU/iimnZ1GfzQpIMFaVpS9dRFndou8voXUBKjiZ3QFU51QRupf4fb9QBuWq+CqSpNVILV7Y2dkMFphn4vHbOgwiQ8s1quKz3sViG33+KB+SJrhgvtzC42DF/6s4AeznygswP3dL7QHpADIQ+V9Odx22BdWb/hUYhnR7cUiyX+evy0QMg7zwdWTBZah/MqyT8CpQWESdq/Fi4QwxXGBi16vLDJEo2uIn7iMJSuZEIRdPQvWugpKE25KpkODHZFqdLFjVLH28L2os72QBkjV/sTJljX/S046dig7uVU7eEhEm5THQcGAbx74Y2/NEmCQMBjXW5Gdc0Qp0j6TW/ZZCchwvKoC5EUMj4ceOEqhRnH0TUiKcmWa8tkVxz5+oouPViwTXX5e/9VKJj23OxWMVuOQ4OD/5L1uVZTYQGxktNcZg3ThM6mcI0dBW+q4DWGO1FWbHogbQxMnnykDJ2cFGDaxhNCWGwUhncpmLTSqiCIOMUlFLEhLW5jICSo/UVzPHICtSMStzAhfsrNie3oqOLPTMC1rkD+cH694CIXKlX/tVacoMH0iN6MooKd624mFuC1TGw3zg0XZ96s5KfNXW8lj0VnsiR084vR5wYbP5tEd9GWZe
+	XkZ9taQILHR0OZ90dxiZRfwAFgw/6CfL4DrM9E48dgM040CHWp7IozkZrznaCg9GKRAXXUr8XF8K+TWTWaBRhv74DPVKjtknJS+YP3S4LbFv8tdFMj8ufhpUpIs5nBy/RIcFqyYB/U1Bk+LckmLcJfRXkSMKZd/tpkL1Azp32fM2S+r3oRkTRlpXRN8tgl0zKdIPNQpH8xINo/In0dZT2XBG7rb+sMLZQEAFLPZCVQkevGrvEmgsPxGmEfE4r1o/o81TVfRmYSVDACekrhBe04kkgw9w4FF5tMyqrJNp6qRkqTc6qRHEOX+lT06KaXLp2dHTd+wSNo/74LImwAbI496CrUkDoSP0cAXm4q1Fe/ZVhK+Xfr0v0sFa58yTvKzV3mtzjKqk2pkin4d7tADWygQGBShrlSSaQmXCTIwn9qCEbSC8ODmXgP+URxeShkdw6hw/4Xct/GdpxfiX1wBnuMvQkhz1W2Pxe6Ge6vw8E4AmZ7G37stGjV/ONvPq0ru9ZsVNa6uetY+GR3ZOXri+EsDmN7D1wqQA2L+vIRi7in6Y8EX2ZcEPMkY6VdOpPeKOf63Oli4go4+oJJeuWncOWqr9gf6sDJPXAiDi2GFn05QNDu1FfbUt9phihs/vgFRL5S7cAXtXM3AXdgZZRQj0RCToGAb1S0ARcJoN4v4a4YDj0/irzXdNk2gk5dGCwfpMVR+piiloufY/RHmlmfCEiREyFSc7XucXtqKSzZ4hbCspSk+agj4k8YhJEYOpTzUN
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(396003)(376002)(39860400002)(346002)(451199018)(40470700004)(36840700001)(46966006)(2906002)(81166007)(82740400003)(83380400001)(36756003)(40460700003)(4744005)(5660300002)(7416002)(40480700001)(70206006)(70586007)(41300700001)(8936002)(8676002)(921005)(356005)(4326008)(316002)(54906003)(86362001)(36860700001)(110136005)(82310400005)(478600001)(7696005)(47076005)(426003)(336012)(2616005)(16526019)(186003)(1076003)(26005)(6666004)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(346002)(39860400002)(376002)(396003)(136003)(451199018)(36840700001)(46966006)(40470700004)(5660300002)(7416002)(40460700003)(4744005)(36756003)(83380400001)(47076005)(426003)(478600001)(82310400005)(7696005)(6666004)(1076003)(26005)(2616005)(336012)(16526019)(186003)(921005)(356005)(4326008)(8676002)(70206006)(70586007)(40480700001)(8936002)(41300700001)(86362001)(54906003)(110136005)(36860700001)(316002)(82740400003)(81166007)(2906002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2023 09:24:24.1399
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2023 09:24:25.4680
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 233e2c47-7e92-4f01-06d9-08db22db91d6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 320fbbc4-3ebe-422a-ab2d-08db22db92a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	CO1NAM11FT023.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5713
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5861
 
-The xen ram memory should be mapped with addr instead of ramblock
-offset. So we need to add a check to make sure current ramblock is xen
-ram memory.
+Venus is requesting the function on Xen as well, enable this path on Xen
+hypervisor.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
 ---
- softmmu/physmem.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ softmmu/physmem.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
 diff --git a/softmmu/physmem.c b/softmmu/physmem.c
-index 1b0bb35da9..e54561bace 100644
+index e54561bace..2838dee2f2 100644
 --- a/softmmu/physmem.c
 +++ b/softmmu/physmem.c
-@@ -2333,7 +2333,7 @@ static void *qemu_ram_ptr_length(RAMBlock *ram_block, ram_addr_t addr,
-          * because we don't want to map the entire memory in QEMU.
-          * In that case just map the requested area.
-          */
--        if (block->offset == 0) {
-+        if (block->offset == 0 || (!lock && xen_ram_block_check(block))) {
-             return xen_map_cache(addr, *size, lock, lock);
-         }
+@@ -2060,11 +2060,6 @@ RAMBlock *qemu_ram_alloc_from_fd(ram_addr_t size, MemoryRegion *mr,
+     assert((ram_flags & ~(RAM_SHARED | RAM_PMEM | RAM_NORESERVE |
+                           RAM_PROTECTED)) == 0);
  
+-    if (xen_enabled()) {
+-        error_setg(errp, "-mem-path not supported with Xen");
+-        return NULL;
+-    }
+-
+     if (kvm_enabled() && !kvm_has_sync_mmu()) {
+         error_setg(errp,
+                    "host lacks kvm mmu notifiers, -mem-path unsupported");
 -- 
 2.25.1
 
