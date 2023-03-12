@@ -2,37 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB1276B63EF
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Mar 2023 10:23:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508894.783814 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32BEC6B63F0
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Mar 2023 10:23:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508897.783824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbHuN-00087p-3f; Sun, 12 Mar 2023 09:22:27 +0000
+	id 1pbHvH-0000B4-Dh; Sun, 12 Mar 2023 09:23:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508894.783814; Sun, 12 Mar 2023 09:22:27 +0000
+Received: by outflank-mailman (output) from mailman id 508897.783824; Sun, 12 Mar 2023 09:23:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbHuN-000851-0b; Sun, 12 Mar 2023 09:22:27 +0000
-Received: by outflank-mailman (input) for mailman id 508894;
- Sun, 12 Mar 2023 09:22:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pbHvH-00008U-At; Sun, 12 Mar 2023 09:23:23 +0000
+Received: by outflank-mailman (input) for mailman id 508897;
+ Sun, 12 Mar 2023 09:23:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=y+T3=7E=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1pbHuL-00084v-2D
- for xen-devel@lists.xenproject.org; Sun, 12 Mar 2023 09:22:25 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 63fc510d-c0b7-11ed-956e-85ef70e17bfa;
- Sun, 12 Mar 2023 10:22:21 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id fd5so3469914edb.7
- for <xen-devel@lists.xenproject.org>; Sun, 12 Mar 2023 01:22:21 -0800 (PST)
-Received: from [127.0.0.1] (dynamic-078-054-022-093.78.54.pool.telefonica.de.
- [78.54.22.93]) by smtp.gmail.com with ESMTPSA id
- f17-20020a1709062c5100b008cdb0628991sm2029248ejh.57.2023.03.12.01.22.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 12 Mar 2023 01:22:19 -0800 (PST)
+ (envelope-from <SRS0=TSl9=7E=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
+ id 1pbHvG-00008O-MY
+ for xen-devel@lists.xenproject.org; Sun, 12 Mar 2023 09:23:22 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7e89::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 86ea1974-c0b7-11ed-87f5-c1b5be75604c;
+ Sun, 12 Mar 2023 10:23:21 +0100 (CET)
+Received: from MW4PR03CA0212.namprd03.prod.outlook.com (2603:10b6:303:b9::7)
+ by DM4PR12MB5069.namprd12.prod.outlook.com (2603:10b6:5:388::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Sun, 12 Mar
+ 2023 09:23:17 +0000
+Received: from CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b9:cafe::d7) by MW4PR03CA0212.outlook.office365.com
+ (2603:10b6:303:b9::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24 via Frontend
+ Transport; Sun, 12 Mar 2023 09:23:17 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT088.mail.protection.outlook.com (10.13.175.131) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.24 via Frontend Transport; Sun, 12 Mar 2023 09:23:17 +0000
+Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Mar
+ 2023 04:23:11 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,184 +56,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63fc510d-c0b7-11ed-956e-85ef70e17bfa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678612940;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8L9fPPoucSazfhBtYDRn5YU9uUE231Badun+aOJjCOU=;
-        b=jiyyN4hwdcO/uyGu3iBO7iNQ0QAse37tJ5T+5h/lAttRu7DV7Y6WWNxqShYsWFDZAi
-         mUxbflK2bKBW8Ti1fmJVSVZqWJi42+Kt8iMshn4CYSpI+e7UKzhX5I90k4i2Pr7cd/AU
-         3cCMUv5HmCDNYDIa9asYEnI6I57nFYAQSMZCyW6AamTafgh+qwFAuH0NZswBMvAxKbfU
-         AQAZBX8p9u5ShPwUDbAnZVPrwXPfnQc+9aBJPmjjZN8YgcSplHBWU150oTAf3CX8bff4
-         /Ko9V3f6aiHA5KfxEBtPbcplaXodVQ9tmdPA07OW+fe4lBWsiIE+Zuwx437gz3EcQJc7
-         SQUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678612940;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=8L9fPPoucSazfhBtYDRn5YU9uUE231Badun+aOJjCOU=;
-        b=nDJZaXlwkz8HKitKh06OhjEk2Ka+a279B5ijtRlb9AygOm7gQjoaFS0fu9MUPbNrxI
-         z8pI14hzaiLWbFihZCQ/uCGrJh5t/xyYORql8QrHk2UNOCV5ndIUC3QPNDdV2DwT6Bm1
-         jrICrl2v1pwTF2MhXyzr1tvH6EU2LOq2zaWuCmjdM1oczglgpSfGaze+5KjNN/3EbNbB
-         ZuO+jI89CQwBw54rvNQ+oz1CYoe/ZWL7JJkAR5UwP5dAxKSI/YuOmhRD2JjWG9kOg5CE
-         Ui0MyGetulIOLHcLgOcGDPh1EJVuuJwEgHtxiDylBGNocasu5ZlYQMTY5/n0AP/0Ge12
-         SXYw==
-X-Gm-Message-State: AO0yUKX8GE/R+itKWFf0bRV97tRqV1kfv1HsS84tYieC8wiyMIg2qRNH
-	MRWJzOMxvcdD3/y1qBk1IPc=
-X-Google-Smtp-Source: AK7set8yBeg31XQKfmoTaC29paIeauT+GEVkQNJjPXCxUO5TvFDds4X5C4VGctJ8/NTb8IxR5loyMw==
-X-Received: by 2002:a17:906:4783:b0:878:4497:380e with SMTP id cw3-20020a170906478300b008784497380emr40141144ejc.4.1678612940280;
-        Sun, 12 Mar 2023 01:22:20 -0800 (PST)
-Date: Sun, 12 Mar 2023 09:22:13 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: Chuck Zmudzinski <brchuckz@aol.com>
-CC: qemu-devel@nongnu.org, Richard Henderson <richard.henderson@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- =?ISO-8859-1?Q?Herv=E9_Poussineau?= <hpoussin@reactos.org>,
- Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
- =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v2 0/6] Resolve TYPE_PIIX3_XEN_DEVICE
-In-Reply-To: <c20b7056-037d-67ff-0b2d-ea931d501bac@aol.com>
-References: <20230104144437.27479-1-shentey@gmail.com> <20230118051230-mutt-send-email-mst@kernel.org> <Y9ADQ/Yu8QQD0oyD@perard.uk.xensource.com> <0C2B1FE4-BB48-4C38-9161-6569BA1D6226@gmail.com> <96A4863B-D6BA-48B5-B5E4-54DD103FEBAA@gmail.com> <6C8AA4D4-FF57-4E43-A464-7F64C576ED5B@gmail.com> <c20b7056-037d-67ff-0b2d-ea931d501bac@aol.com>
-Message-ID: <FD7FF486-D06D-4CC1-8618-13B4138596B2@gmail.com>
+X-Inumbo-ID: 86ea1974-c0b7-11ed-87f5-c1b5be75604c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Fg6UulKLXxxEkJmYPIx8qnWvni29p7FV9dj+DMb89W8MvZVM0fVyL50WnDpTPS6aA3cio6mkfFWtTf4/m2sqcepBHgpTRIs/dc298QRDzbRi9cOgL2GgMZX5VGD5y1hivDIKO/SKB0z9LUpcg6SWUyuBMDONJOw6hPCcmBAPN+5t6wX1xPbfdiRayJsbBTIEAchSZON2VHKpG92a4P38XQT6flvbJG+sIiV2PsnCjQXu3auKNlLyUq1GX1t3PYjHvxXER8EtQql0Y/6du9CC1mMgdtp+ZymChBWnMhCjz/iJLYQNWCM36oRqqiMB+GqwLNuKigftfRhtivbsOq+X9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k2EhLkpJ5Bj+UqeV9Zo6yka7OKyWM7CAOQ4/btZiqTY=;
+ b=N48ZSOGZYX9C8O++GVZ4OyIiftwVCPytmrAjHRmSsSDKpQSTbjqG8+2x/ABdOW5rb10AvBT9RUgiukGeJoZ3m66XrpcLNHElazThAShbEbYOILD2WW9pgjNcChr/aL+hs4pXJWtaLepvOtKk93h/vawdDEwkbGdFZi3vvhu4dLblBhm+kDKx215drCYS4ec8PpNiCz7OVvFdwGQvbcTrpWoH/i1K5MOK0uer8R2adJQ/mqLTdUIvrCo/K00BQ991In+6a4tqNe+FSPsP7g4cbinYyXLth/IH8MUx8afJQmOR6OhawrjdxvtOiMF26avjW/yj/NPW30WeKXuEowC3Rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k2EhLkpJ5Bj+UqeV9Zo6yka7OKyWM7CAOQ4/btZiqTY=;
+ b=x5qr/E6mebGROUi0TTmgiFTQPIHGG+tciZui3vEF7ox4oMScO5jdI8V7LYiJRZoeLy4y7/FAwmPUop/k6j7fVS2A1RyDrrt4s8x6gsWEI1suMV2bbQFtq0wkLHc0pcYEheoN5fAyGeNvnTWakmittTNOPxPfkPiY1HZ+94So7Tk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Huang Rui <ray.huang@amd.com>
+To: Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>, Antonio Caggiano
+	<antonio.caggiano@collabora.com>, "Dr . David Alan Gilbert"
+	<dgilbert@redhat.com>, Robert Beckett <bob.beckett@collabora.com>,
+	<qemu-devel@nongnu.org>, <xen-devel@lists.xenproject.org>
+CC: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Stewart
+ Hildebrand" <Stewart.Hildebrand@amd.com>, Xenia Ragiadakou
+	<burzalodowa@gmail.com>, Honglei Huang <honglei1.huang@amd.com>, Julia Zhang
+	<julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>, Huang Rui
+	<ray.huang@amd.com>
+Subject: [RFC QEMU PATCH 00/18] Add VirtIO GPU and Passthrough GPU support on Xen
+Date: Sun, 12 Mar 2023 17:22:26 +0800
+Message-ID: <20230312092244.451465-1-ray.huang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT088:EE_|DM4PR12MB5069:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c271532-8421-43eb-f4a3-08db22db69d1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	S8A2564QMP9Yqtqu5dIclnI6VFn/vMn8EzVhEdBGZy41t7aam1KZf0Vyg4RJuJB89GvCm/3m4PsBClTzmMjkgYVMK0+xRffcrJjKMk8Dm/lDKNrIzrKlbdpHgzkIMPOodK7S4+NNBjvT4INMrnvrrUJell6rtHbRN4KaIygn6x2hvu+aOFiF3ume5/RaHrnIPVEnyazHZ0LMDdQdkfIBusYU4Fes6ApZuIFEGA41+2ScFwWSE2JcccLoOPL1FlQ3IVrxvV9pp3s4eUlrU4CDQL6wa/d8NrUbw9V7s3ra4fiRxuCGGNNdnn/fSHEa4NUX5Nq8tk+0hxMkTCNRwDqhJSkGpZUZ4U+kd9PnF2GbCfRy1Oq7QAjdVMuvVV3shhMPmwKbWFlIXj7I/7pweMqaV5b1GxlGNdhzh9ARQG3IlRem0ykn9zRpWq1w2syaHgP1IztwXBPsSzPgW0/aOLEyQ4iJ73/whnAEgkZ3L4i/a+2+wfvWmFkNhZLte0c0csxbg8WKTB34VmL+dHxzoaaweUHXK0qONpzOsNcCfIDk6cj31QxBLzH49RwnPCecYTQTu/yT9q1isqVV8R9Y1f5spX/G8H2+zh0TW9rEY/S4rYeBCoCthYsNW7aIjJrSG0MrNTve1Ql+2BzqartUk6EbMQCscwcqMvejUTcOL+ivmO6z3cTVaaVc9wRZV3MGniKIihph5+E4U8Mq+fvSPGcKqq8PdycoZAOFwCyAsywEWLPZ3pnZHMBvYUOf88Pi0kcHH9JR7/axzbUDkVhWmSUCC5wAbjfjDDugMsd7qN+n3zKvi+fIROLXegzSkts5MM9w
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199018)(36840700001)(46966006)(40470700004)(921005)(356005)(86362001)(36860700001)(82740400003)(81166007)(36756003)(2906002)(41300700001)(7416002)(8936002)(5660300002)(40480700001)(40460700003)(82310400005)(4326008)(83380400001)(1076003)(26005)(186003)(16526019)(336012)(66574015)(426003)(47076005)(316002)(110136005)(2616005)(54906003)(8676002)(70206006)(70586007)(478600001)(6666004)(966005)(7696005)(5930299012)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2023 09:23:17.0044
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c271532-8421-43eb-f4a3-08db22db69d1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5069
 
+Hi all,
 
+We are working to introduce VirtIO GPU and Passthrough GPU support on Xen.
 
-Am 11=2E M=C3=A4rz 2023 22:20:29 UTC schrieb Chuck Zmudzinski <brchuckz@ao=
-l=2Ecom>:
->On 2/9/2023 4:53 PM, Bernhard Beschow wrote:
->> Am 1=2E Februar 2023 08:11:10 UTC schrieb Bernhard Beschow <shentey@gma=
-il=2Ecom>:
->> >
->> >
->> >Am 24=2E Januar 2023 17:07:30 UTC schrieb Bernhard Beschow <shentey@gm=
-ail=2Ecom>:
->> >>
->> >>
->> >>Am 24=2E Januar 2023 16:11:47 UTC schrieb Anthony PERARD <anthony=2Ep=
-erard@citrix=2Ecom>:
->> >>>On Wed, Jan 18, 2023 at 05:13:03AM -0500, Michael S=2E Tsirkin wrote=
-:
->> >>>> On Wed, Jan 04, 2023 at 03:44:31PM +0100, Bernhard Beschow wrote:
->> >>>> > This series first renders TYPE_PIIX3_XEN_DEVICE redundant and fi=
-nally removes
->> >>>> > it=2E The motivation is to 1/ decouple PIIX from Xen and 2/ to m=
-ake Xen in the PC
->> >>>> > machine agnostic to the precise southbridge being used=2E 2/ wil=
-l become
->> >>>> > particularily interesting once PIIX4 becomes usable in the PC ma=
-chine, avoiding
->> >>>> > the "Frankenstein" use of PIIX4_ACPI in PIIX3=2E
->> >>>>=20
->> >>>> Looks ok to me=2E
->> >>>> Reviewed-by: Michael S=2E Tsirkin <mst@redhat=2Ecom>
->> >>>>=20
->> >>>> Feel free to merge through Xen tree=2E
->> >>>
->> >>>Hi Bernhard,
->> >>
->> >>Hi Anthony,
->> >>
->> >>>The series currently doesn't apply on master=2E And a quick try at
->> >>>applying the series it is based on also failed=2E Could you rebase i=
-t , or
->> >>>maybe you would prefer to wait until the other series "Consolidate
->> >>>PIIX=2E=2E=2E" is fully applied?
->> >>
->> >>Thanks for looking into it!
->> >>
->> >>You can get the compilable series from https://patchew=2Eorg/QEMU/202=
-30104144437=2E27479-1-shentey@gmail=2Ecom/ =2E If it doesn't work for you l=
-et me know, then I can rebase onto master=2E All necessary dependencies for=
- the series are upstreamed meanwhile=2E
->> >
->> >Ping
->>
->> Ping^2
->
->Hi Bernhard,
+https://lists.xenproject.org/archives/html/xen-devel/2023-03/msg00714.html
 
-Hi Chuck,
+Currently, only virgl for VirtIO GPU and Passthrough GPU on PV dom0 can
+works on Xen. These series introduce more graphic support for Xen on QEMU
+part.
 
->I took a look at this today to see why it cannot be applied=2E
+1) Add Venus with QEMU for VirtIO GPU on Xen
 
-Thanks for looking at it!
+Antonio Caggiano made the venus with QEMU on KVM platform below, patch 1 to
+11 are inherited from his original work to support the features of
+context init, hostmem, resource uuid, and blob resources for Venus. We have
+rebase the support to the latest version.
+https://www.collabora.com/news-and-blog/blog/2021/11/26/venus-on-qemu-enabling-new-virtual-vulkan-driver/
 
->I can see clearly that
->all the prerequisite patches have *not* been applied to master yet, so I =
-can
->understand why Anthony cannot pull this up yet=2E Specifically, the serie=
-s that
->consolidates PIIX3 and PIIX4 south bridges is not yet applied, and that i=
-s one of
->the prerequisites=2E I think you said it was reviewed, but it apparently =
-never got
->pulled up into master=2E
+But on Xen, it still needs to add "-mem-path" function in the QEMU. Because
+it requires the memory-backend-memfd support. Please check patch 12 to 16.
 
-Correct, the PIIX consolidation series isn't merged yet=2E This series cur=
-rently depends on it to avoid merge conflicts but doesn't need it otherwise=
-=2E Back then I anticipated that the consolidation series would land in mas=
-ter soon since it was fully reviewed before this one=2E But that turned out=
- not to be the case=2E
+With the Venus supported on Xen, we can enable Zink + Venus for OpenGL
+rendering on guest domU as well.
 
-This series depends on some necessary refactoring [1] which I did in the c=
-ontext of PIIX consolidation which is already in master=2E So this series c=
-an easily be rebased onto master and it even simplifies the consolidation s=
-eries a bit=2E I'll take this route now and I'll post a v3=2E
+2) Add Video hardware accelerate support for virgl
 
-Best regards,
-Bernhard
+Please check patch 17, that adds get_drm_fd callback to let guest know
+hardware accel codec is used.
 
-[1] https://lore=2Ekernel=2Eorg/qemu-devel/20221120150550=2E63059-1-shente=
-y@gmail=2Ecom/
+3) Enable Passthrough GPU on Xen PVH dom0 in QEMU
 
->
->For reference, here is the link to the prerequisite patch set I tested wi=
-th
->this patch set:
->
->https://lore=2Ekernel=2Eorg/qemu-devel/20221221170003=2E2929-1-shentey@gm=
-ail=2Ecom/
->
->The patch set I tested is a 30-patch series, and I don't know if it has
->been partially applied=2E The title of that patch set is:
->
->This series consolidates the implementations of the PIIX3 and PIIX4 south
->
->So before this patch set to resolve the TYPE_PIIX3_XEN_DEVICE can be
->applied, the patch set to consolidate the PIIX3 and PIIX4 south bridges
->needs to be applied=2E
->
->I don't know if the feature freeze means these patches that do not add an=
-y
->new features still need to wait until the next development cycle=2E
->
->Kind regards,
->
->Chuck
->
->> >
->> >>
->> >>Thanks,
->> >>Bernhard
->> >>>
->> >>>Thanks=2E
->> >>>
->> >>>> > Testing done:
->> >>>> > None, because I don't know how to conduct this properly :(
->> >>>> >=20
->> >>>> > Based-on: <20221221170003=2E2929-1-shentey@gmail=2Ecom>
->> >>>> >           "[PATCH v4 00/30] Consolidate PIIX south bridges"
->> >>>
->
+Please check patch 18, that translate host irq to gsi for PCIe Passthrough
+on PVH dom0.
+
+Below are the screenshot of these functions, please take a look.
+
+Venus: https://drive.google.com/file/d/1_lPq6DMwHu1JQv7LUUVRx31dBj0HJYcL/view?usp=share_link
+Zink: https://drive.google.com/file/d/1FxLmKu6X7uJOxx1ZzwOm1yA6IL5WMGzd/view?usp=share_link
+Passthrough GPU: https://drive.google.com/file/d/17onr5gvDK8KM_LniHTSQEI2hGJZlI09L/view?usp=share_link
+
+Repositories
+Kernel: https://git.kernel.org/pub/scm/linux/kernel/git/rui/linux.git/log/?h=upstream-fox-xen
+Xen: https://gitlab.com/huangrui123/xen/-/commits/upstream-for-xen
+QEMU: https://gitlab.com/huangrui123/qemu/-/commits/upstream-for-xen
+Mesa: https://gitlab.freedesktop.org/rui/mesa/-/commits/upstream-for-xen
+Virglrenderer: https://gitlab.freedesktop.org/rui/virglrenderer/-/commits/upstream-for-xen
+
+Thanks,
+Ray
+
+Antonio Caggiano (8):
+  virtio-gpu: Handle resource blob commands
+  virtio-gpu: CONTEXT_INIT feature
+  virtio-gpu: Unrealize
+  virtio-gpu: Resource UUID
+  virtio-gpu: Support Venus capset
+  virtio-gpu: Initialize Venus
+  meson: Enable virglrenderer unstable APIs
+  virtio-gpu: Handle set scanout blob command
+
+Chen Jiqian (1):
+  xen: translate irq of host pci device to gsi
+
+Dr. David Alan Gilbert (1):
+  virtio: Add shared memory capability
+
+Gerd Hoffmann (1):
+  virtio-gpu: hostmem
+
+Honglei Huang (2):
+  virtio-gpu: fix hw-display-virtio-gpu.so undefined symbol
+    virtio_gpu_virgl_resource_unmap
+  virtio-gpu: Add video hardware accelerate support for virgl
+
+Huang Rui (4):
+  softmmu: Fix the size to map cache with xen for host virtual address
+  hw/i386/xen/xen-hvm: Introduce xen_ram_block_check function
+  softmmu: Add ram block check to map the xen ram memory
+  softmmu: Enable qemu ram allocation with fd for Xen
+
+Robert Beckett (1):
+  virtio-gpu: make blob scanout use dmabuf fd
+
+ hw/display/meson.build                      |   2 +-
+ hw/display/trace-events                     |   1 +
+ hw/display/virtio-gpu-base.c                |   7 +-
+ hw/display/virtio-gpu-pci.c                 |  14 +
+ hw/display/virtio-gpu-virgl.c               | 326 +++++++++++++++++++-
+ hw/display/virtio-gpu.c                     | 101 +++++-
+ hw/display/virtio-vga.c                     |  33 +-
+ hw/i386/xen/xen-hvm.c                       |  15 +
+ hw/virtio/virtio-pci.c                      |  18 ++
+ hw/xen/xen-host-pci-device.c                |   3 +-
+ include/hw/virtio/virtio-gpu-bswap.h        |  18 ++
+ include/hw/virtio/virtio-gpu.h              |  28 ++
+ include/hw/virtio/virtio-pci.h              |   4 +
+ include/hw/xen/xen.h                        |   1 +
+ include/standard-headers/linux/virtio_gpu.h |   2 +
+ meson.build                                 |  11 +
+ softmmu/physmem.c                           |  12 +-
+ 17 files changed, 559 insertions(+), 37 deletions(-)
+
+-- 
+2.25.1
+
 
