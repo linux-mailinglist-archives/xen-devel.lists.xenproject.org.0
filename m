@@ -2,49 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70FD16B63C2
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Mar 2023 08:56:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508867.783789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB1276B63EF
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Mar 2023 10:23:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.508894.783814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbGYY-0004Lx-WF; Sun, 12 Mar 2023 07:55:51 +0000
+	id 1pbHuN-00087p-3f; Sun, 12 Mar 2023 09:22:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508867.783789; Sun, 12 Mar 2023 07:55:50 +0000
+Received: by outflank-mailman (output) from mailman id 508894.783814; Sun, 12 Mar 2023 09:22:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbGYY-0004I2-R4; Sun, 12 Mar 2023 07:55:50 +0000
-Received: by outflank-mailman (input) for mailman id 508867;
- Sun, 12 Mar 2023 07:55:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pbHuN-000851-0b; Sun, 12 Mar 2023 09:22:27 +0000
+Received: by outflank-mailman (input) for mailman id 508894;
+ Sun, 12 Mar 2023 09:22:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TSl9=7E=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1pbGYW-0002sM-QX
- for xen-devel@lists.xenproject.org; Sun, 12 Mar 2023 07:55:48 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20603.outbound.protection.outlook.com
- [2a01:111:f400:7e89::603])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c2c0786-c0ab-11ed-87f5-c1b5be75604c;
- Sun, 12 Mar 2023 08:55:48 +0100 (CET)
-Received: from MW4PR04CA0079.namprd04.prod.outlook.com (2603:10b6:303:6b::24)
- by CY8PR12MB7124.namprd12.prod.outlook.com (2603:10b6:930:5f::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Sun, 12 Mar
- 2023 07:55:44 +0000
-Received: from CO1NAM11FT092.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6b:cafe::d8) by MW4PR04CA0079.outlook.office365.com
- (2603:10b6:303:6b::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24 via Frontend
- Transport; Sun, 12 Mar 2023 07:55:44 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT092.mail.protection.outlook.com (10.13.175.225) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.24 via Frontend Transport; Sun, 12 Mar 2023 07:55:44 +0000
-Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Mar
- 2023 01:55:40 -0600
+ (envelope-from <SRS0=y+T3=7E=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1pbHuL-00084v-2D
+ for xen-devel@lists.xenproject.org; Sun, 12 Mar 2023 09:22:25 +0000
+Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
+ [2a00:1450:4864:20::52e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 63fc510d-c0b7-11ed-956e-85ef70e17bfa;
+ Sun, 12 Mar 2023 10:22:21 +0100 (CET)
+Received: by mail-ed1-x52e.google.com with SMTP id fd5so3469914edb.7
+ for <xen-devel@lists.xenproject.org>; Sun, 12 Mar 2023 01:22:21 -0800 (PST)
+Received: from [127.0.0.1] (dynamic-078-054-022-093.78.54.pool.telefonica.de.
+ [78.54.22.93]) by smtp.gmail.com with ESMTPSA id
+ f17-20020a1709062c5100b008cdb0628991sm2029248ejh.57.2023.03.12.01.22.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 12 Mar 2023 01:22:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,96 +44,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c2c0786-c0ab-11ed-87f5-c1b5be75604c
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k6od8Ui+8rvQqhsi13zA+X91t8sSne8C6Xqcl5Vi8Ac8Irm6fqaj+YavusP0Q5BF3DfFjRtKaISMJZ72SSre89AwzksVmfitwZRWaCxBO8Cc8sT+fchU0mKxhKxrQEXqmzznLLo5L4ATGQ/Weda8QPVqwiporZTqArpXETcptUdG9i5O09F2d9PYBhruRMo7ZDaD7Xsacxjbq1Kj6U6YWYN4lqCt8214NoANu16TScELTJgdx/dJoaMX55RrYUUjLh7pY6rqlg+2LcQ/scNhYZGcRHSS3bPjmGTjCyG1FArYd7tmfut+qT+n4ecKtJYPYtc1p/2LGinZOlne7EXEIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VvCxL42WhJeLNFutCnPoClf571Zr2l7PD0WD0zKoqR4=;
- b=DbuNGNdmxAVLa5dBFenuNGRSMQuq8VF0W6LFYCNlrR0TL4var87e/XioH5grLMf/V/mNfRhQ8NT/Bnqt3k4BbzvxxRYel7caM1dhV765hqpXtLSKGV3B1X4uDrNI73dkLTaI4fKc9tmrRuMZ6RMd2NPjhsnTmtBi83HrK+ApmsjTaHLd+5Tu7jOo0EZcWy4cOXUJoi1W31Or1ix3BeDunRaIcmlsaU3UidJZLaleeZFiIaCZ8AzC/gF6nOO2zxpqFl1c4ADcnTjQWsV6i7qXbX4KlxgBjZmD2YEiJq0Dpny2k9oKfNl0K7euZg4RMLRvAPXnAIGx1Ee20Ne73zKhww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VvCxL42WhJeLNFutCnPoClf571Zr2l7PD0WD0zKoqR4=;
- b=Y0yr+8AIyz+Tjm+DEftF0MLEbAi3F3Ayy8+O9ki+5womPX8LiZotpH50JmQCyBzZBgKaQJgt5+JRNiUX8GhMxCWqzVLQv9XZW6aEJsT/xovGTsJ9moFFlC4LvH0h+QJZ/ZFK5mPWfIrSzMT0MqyC58LNFdi1bNqbKPyvL6EFwtw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Huang Rui <ray.huang@amd.com>
-To: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, "Anthony
- PERARD" <anthony.perard@citrix.com>, <xen-devel@lists.xenproject.org>
-CC: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Stewart
- Hildebrand" <Stewart.Hildebrand@amd.com>, Xenia Ragiadakou
-	<burzalodowa@gmail.com>, Honglei Huang <honglei1.huang@amd.com>, Julia Zhang
-	<julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>, Huang Rui
-	<ray.huang@amd.com>
-Subject: [RFC XEN PATCH 6/6] tools/libs/light: pci: translate irq to gsi
-Date: Sun, 12 Mar 2023 15:54:55 +0800
-Message-ID: <20230312075455.450187-7-ray.huang@amd.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230312075455.450187-1-ray.huang@amd.com>
-References: <20230312075455.450187-1-ray.huang@amd.com>
+X-Inumbo-ID: 63fc510d-c0b7-11ed-956e-85ef70e17bfa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1678612940;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8L9fPPoucSazfhBtYDRn5YU9uUE231Badun+aOJjCOU=;
+        b=jiyyN4hwdcO/uyGu3iBO7iNQ0QAse37tJ5T+5h/lAttRu7DV7Y6WWNxqShYsWFDZAi
+         mUxbflK2bKBW8Ti1fmJVSVZqWJi42+Kt8iMshn4CYSpI+e7UKzhX5I90k4i2Pr7cd/AU
+         3cCMUv5HmCDNYDIa9asYEnI6I57nFYAQSMZCyW6AamTafgh+qwFAuH0NZswBMvAxKbfU
+         AQAZBX8p9u5ShPwUDbAnZVPrwXPfnQc+9aBJPmjjZN8YgcSplHBWU150oTAf3CX8bff4
+         /Ko9V3f6aiHA5KfxEBtPbcplaXodVQ9tmdPA07OW+fe4lBWsiIE+Zuwx437gz3EcQJc7
+         SQUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678612940;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=8L9fPPoucSazfhBtYDRn5YU9uUE231Badun+aOJjCOU=;
+        b=nDJZaXlwkz8HKitKh06OhjEk2Ka+a279B5ijtRlb9AygOm7gQjoaFS0fu9MUPbNrxI
+         z8pI14hzaiLWbFihZCQ/uCGrJh5t/xyYORql8QrHk2UNOCV5ndIUC3QPNDdV2DwT6Bm1
+         jrICrl2v1pwTF2MhXyzr1tvH6EU2LOq2zaWuCmjdM1oczglgpSfGaze+5KjNN/3EbNbB
+         ZuO+jI89CQwBw54rvNQ+oz1CYoe/ZWL7JJkAR5UwP5dAxKSI/YuOmhRD2JjWG9kOg5CE
+         Ui0MyGetulIOLHcLgOcGDPh1EJVuuJwEgHtxiDylBGNocasu5ZlYQMTY5/n0AP/0Ge12
+         SXYw==
+X-Gm-Message-State: AO0yUKX8GE/R+itKWFf0bRV97tRqV1kfv1HsS84tYieC8wiyMIg2qRNH
+	MRWJzOMxvcdD3/y1qBk1IPc=
+X-Google-Smtp-Source: AK7set8yBeg31XQKfmoTaC29paIeauT+GEVkQNJjPXCxUO5TvFDds4X5C4VGctJ8/NTb8IxR5loyMw==
+X-Received: by 2002:a17:906:4783:b0:878:4497:380e with SMTP id cw3-20020a170906478300b008784497380emr40141144ejc.4.1678612940280;
+        Sun, 12 Mar 2023 01:22:20 -0800 (PST)
+Date: Sun, 12 Mar 2023 09:22:13 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: Chuck Zmudzinski <brchuckz@aol.com>
+CC: qemu-devel@nongnu.org, Richard Henderson <richard.henderson@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ =?ISO-8859-1?Q?Herv=E9_Poussineau?= <hpoussin@reactos.org>,
+ Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
+ =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v2 0/6] Resolve TYPE_PIIX3_XEN_DEVICE
+In-Reply-To: <c20b7056-037d-67ff-0b2d-ea931d501bac@aol.com>
+References: <20230104144437.27479-1-shentey@gmail.com> <20230118051230-mutt-send-email-mst@kernel.org> <Y9ADQ/Yu8QQD0oyD@perard.uk.xensource.com> <0C2B1FE4-BB48-4C38-9161-6569BA1D6226@gmail.com> <96A4863B-D6BA-48B5-B5E4-54DD103FEBAA@gmail.com> <6C8AA4D4-FF57-4E43-A464-7F64C576ED5B@gmail.com> <c20b7056-037d-67ff-0b2d-ea931d501bac@aol.com>
+Message-ID: <FD7FF486-D06D-4CC1-8618-13B4138596B2@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT092:EE_|CY8PR12MB7124:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4584d947-dae9-4148-93f7-08db22cf2efb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	mME8tRiX+y0U+BwM87CU6cSmdbkJal1ge1GJLPgSSpTBL9x4zXntuepSUm7dhJXRSp6ignmrInSYc8GBObK1tB5kcT7X8PpQF1RNRCU1nNvKpZFjjEGYVGlvksxl7ZzF31qE9Vpz/FG1c0ArsGMJxLhstb0kdc0zHtVzta2ThmtSk0JaMouWh2vn3v6dGj4k4RMrWUZ3d9k6mKtarlp0lcQxwUVusWutpE+P4TFUBMKMRivXOvAz3+853/PI+YnWaqIEy/UuMxCAZ6ma6lmi8EccDoqDQL+90u+fV+apHzXaIfRThCiPdbca3za+VQ04nOmkR1XFUSufyXbCHpsUAg5S2+kBY1S8IgXt/K1rOa90V+y7TB3odec2nJ6QxA2SuN/QY0YHIlJpzhNvIcdvJmFDCoO26C/YvNRarz1vnwuMzxWskgVB/0xYEDjHYpmqgxmZ8uP3hE3eEPmyGGQdPnr/SgaVljBigW+82S5aiSCG4+4tbIqPBvghR6zTIpbVi4c8mr0dx7vidm38GKs96RIyLFz2Vqu63vtlpccpOphD2Cy7ySSjYEqc8AqevqVxXV4oPS0lRCxzLbzDKW7+nHcEua2xY9EbNiOSWsaF3/eCN0GtWsodpgTWHCL2aIfGU8cw0DJ5w/964jfhiG+qBJteeZ7/qIzewFCzmSE8A+qSe9APTJpTasrsuDWP+88XqJ2CJiJ8vW8PEgOFZ4FQsnR7+19+nBRIvdz2n1yVHsI=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199018)(36840700001)(46966006)(40470700004)(356005)(86362001)(36860700001)(82740400003)(81166007)(36756003)(2906002)(41300700001)(4744005)(8936002)(5660300002)(40480700001)(40460700003)(82310400005)(4326008)(1076003)(26005)(186003)(16526019)(336012)(426003)(47076005)(316002)(110136005)(2616005)(54906003)(8676002)(70206006)(70586007)(478600001)(6666004)(7696005)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2023 07:55:44.3308
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4584d947-dae9-4148-93f7-08db22cf2efb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT092.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7124
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Chen Jiqian <Jiqian.Chen@amd.com>
 
-Use new xc_physdev_gsi_from_irq to get the GSI number
 
-Signed-off-by: Chen Jiqian <Jiqian.Chen@amd.com>
-Signed-off-by: Huang Rui <ray.huang@amd.com>
----
- tools/libs/light/libxl_pci.c | 1 +
- 1 file changed, 1 insertion(+)
+Am 11=2E M=C3=A4rz 2023 22:20:29 UTC schrieb Chuck Zmudzinski <brchuckz@ao=
+l=2Ecom>:
+>On 2/9/2023 4:53 PM, Bernhard Beschow wrote:
+>> Am 1=2E Februar 2023 08:11:10 UTC schrieb Bernhard Beschow <shentey@gma=
+il=2Ecom>:
+>> >
+>> >
+>> >Am 24=2E Januar 2023 17:07:30 UTC schrieb Bernhard Beschow <shentey@gm=
+ail=2Ecom>:
+>> >>
+>> >>
+>> >>Am 24=2E Januar 2023 16:11:47 UTC schrieb Anthony PERARD <anthony=2Ep=
+erard@citrix=2Ecom>:
+>> >>>On Wed, Jan 18, 2023 at 05:13:03AM -0500, Michael S=2E Tsirkin wrote=
+:
+>> >>>> On Wed, Jan 04, 2023 at 03:44:31PM +0100, Bernhard Beschow wrote:
+>> >>>> > This series first renders TYPE_PIIX3_XEN_DEVICE redundant and fi=
+nally removes
+>> >>>> > it=2E The motivation is to 1/ decouple PIIX from Xen and 2/ to m=
+ake Xen in the PC
+>> >>>> > machine agnostic to the precise southbridge being used=2E 2/ wil=
+l become
+>> >>>> > particularily interesting once PIIX4 becomes usable in the PC ma=
+chine, avoiding
+>> >>>> > the "Frankenstein" use of PIIX4_ACPI in PIIX3=2E
+>> >>>>=20
+>> >>>> Looks ok to me=2E
+>> >>>> Reviewed-by: Michael S=2E Tsirkin <mst@redhat=2Ecom>
+>> >>>>=20
+>> >>>> Feel free to merge through Xen tree=2E
+>> >>>
+>> >>>Hi Bernhard,
+>> >>
+>> >>Hi Anthony,
+>> >>
+>> >>>The series currently doesn't apply on master=2E And a quick try at
+>> >>>applying the series it is based on also failed=2E Could you rebase i=
+t , or
+>> >>>maybe you would prefer to wait until the other series "Consolidate
+>> >>>PIIX=2E=2E=2E" is fully applied?
+>> >>
+>> >>Thanks for looking into it!
+>> >>
+>> >>You can get the compilable series from https://patchew=2Eorg/QEMU/202=
+30104144437=2E27479-1-shentey@gmail=2Ecom/ =2E If it doesn't work for you l=
+et me know, then I can rebase onto master=2E All necessary dependencies for=
+ the series are upstreamed meanwhile=2E
+>> >
+>> >Ping
+>>
+>> Ping^2
+>
+>Hi Bernhard,
 
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index f4c4f17545..47cf2799bf 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -1486,6 +1486,7 @@ static void pci_add_dm_done(libxl__egc *egc,
-         goto out_no_irq;
-     }
-     if ((fscanf(f, "%u", &irq) == 1) && irq) {
-+        irq = xc_physdev_gsi_from_irq(ctx->xch, irq);
-         r = xc_physdev_map_pirq(ctx->xch, domid, irq, &irq);
-         if (r < 0) {
-             LOGED(ERROR, domainid, "xc_physdev_map_pirq irq=%d (error=%d)",
--- 
-2.25.1
+Hi Chuck,
 
+>I took a look at this today to see why it cannot be applied=2E
+
+Thanks for looking at it!
+
+>I can see clearly that
+>all the prerequisite patches have *not* been applied to master yet, so I =
+can
+>understand why Anthony cannot pull this up yet=2E Specifically, the serie=
+s that
+>consolidates PIIX3 and PIIX4 south bridges is not yet applied, and that i=
+s one of
+>the prerequisites=2E I think you said it was reviewed, but it apparently =
+never got
+>pulled up into master=2E
+
+Correct, the PIIX consolidation series isn't merged yet=2E This series cur=
+rently depends on it to avoid merge conflicts but doesn't need it otherwise=
+=2E Back then I anticipated that the consolidation series would land in mas=
+ter soon since it was fully reviewed before this one=2E But that turned out=
+ not to be the case=2E
+
+This series depends on some necessary refactoring [1] which I did in the c=
+ontext of PIIX consolidation which is already in master=2E So this series c=
+an easily be rebased onto master and it even simplifies the consolidation s=
+eries a bit=2E I'll take this route now and I'll post a v3=2E
+
+Best regards,
+Bernhard
+
+[1] https://lore=2Ekernel=2Eorg/qemu-devel/20221120150550=2E63059-1-shente=
+y@gmail=2Ecom/
+
+>
+>For reference, here is the link to the prerequisite patch set I tested wi=
+th
+>this patch set:
+>
+>https://lore=2Ekernel=2Eorg/qemu-devel/20221221170003=2E2929-1-shentey@gm=
+ail=2Ecom/
+>
+>The patch set I tested is a 30-patch series, and I don't know if it has
+>been partially applied=2E The title of that patch set is:
+>
+>This series consolidates the implementations of the PIIX3 and PIIX4 south
+>
+>So before this patch set to resolve the TYPE_PIIX3_XEN_DEVICE can be
+>applied, the patch set to consolidate the PIIX3 and PIIX4 south bridges
+>needs to be applied=2E
+>
+>I don't know if the feature freeze means these patches that do not add an=
+y
+>new features still need to wait until the next development cycle=2E
+>
+>Kind regards,
+>
+>Chuck
+>
+>> >
+>> >>
+>> >>Thanks,
+>> >>Bernhard
+>> >>>
+>> >>>Thanks=2E
+>> >>>
+>> >>>> > Testing done:
+>> >>>> > None, because I don't know how to conduct this properly :(
+>> >>>> >=20
+>> >>>> > Based-on: <20221221170003=2E2929-1-shentey@gmail=2Ecom>
+>> >>>> >           "[PATCH v4 00/30] Consolidate PIIX south bridges"
+>> >>>
+>
 
