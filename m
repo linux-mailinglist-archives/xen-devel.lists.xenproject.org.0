@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFC216B6418
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A8B76B6417
 	for <lists+xen-devel@lfdr.de>; Sun, 12 Mar 2023 10:29:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508942.784007 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.508940.783987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbI0p-0008IK-34; Sun, 12 Mar 2023 09:29:07 +0000
+	id 1pbI0m-0007l6-Tj; Sun, 12 Mar 2023 09:29:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508942.784007; Sun, 12 Mar 2023 09:29:07 +0000
+Received: by outflank-mailman (output) from mailman id 508940.783987; Sun, 12 Mar 2023 09:29:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbI0o-0008Dn-Rc; Sun, 12 Mar 2023 09:29:06 +0000
-Received: by outflank-mailman (input) for mailman id 508942;
- Sun, 12 Mar 2023 09:29:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pbI0m-0007iY-Nl; Sun, 12 Mar 2023 09:29:04 +0000
+Received: by outflank-mailman (input) for mailman id 508940;
+ Sun, 12 Mar 2023 09:29:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TSl9=7E=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1pbHw0-0000RV-Cn
- for xen-devel@lists.xenproject.org; Sun, 12 Mar 2023 09:24:08 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20609.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::609])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a28aa367-c0b7-11ed-956e-85ef70e17bfa;
- Sun, 12 Mar 2023 10:24:06 +0100 (CET)
-Received: from MW4P223CA0002.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::7) by
- DM6PR12MB4449.namprd12.prod.outlook.com (2603:10b6:5:2a5::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.24; Sun, 12 Mar 2023 09:24:03 +0000
-Received: from CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:80:cafe::e) by MW4P223CA0002.outlook.office365.com
- (2603:10b6:303:80::7) with Microsoft SMTP Server (version=TLS1_2,
+ id 1pbHw3-00008O-FM
+ for xen-devel@lists.xenproject.org; Sun, 12 Mar 2023 09:24:11 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061d.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::61d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a4dcfae3-c0b7-11ed-87f5-c1b5be75604c;
+ Sun, 12 Mar 2023 10:24:10 +0100 (CET)
+Received: from MW4PR03CA0337.namprd03.prod.outlook.com (2603:10b6:303:dc::12)
+ by DS7PR12MB6287.namprd12.prod.outlook.com (2603:10b6:8:94::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.22; Sun, 12 Mar
+ 2023 09:24:06 +0000
+Received: from CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dc:cafe::9d) by MW4PR03CA0337.outlook.office365.com
+ (2603:10b6:303:dc::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24 via Frontend
- Transport; Sun, 12 Mar 2023 09:24:03 +0000
+ Transport; Sun, 12 Mar 2023 09:24:06 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT038.mail.protection.outlook.com (10.13.174.231) with Microsoft SMTP
+ CO1NAM11FT007.mail.protection.outlook.com (10.13.174.131) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.23 via Frontend Transport; Sun, 12 Mar 2023 09:24:02 +0000
+ 15.20.6178.23 via Frontend Transport; Sun, 12 Mar 2023 09:24:05 +0000
 Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Mar
- 2023 04:23:56 -0500
+ 2023 04:24:01 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a28aa367-c0b7-11ed-956e-85ef70e17bfa
+X-Inumbo-ID: a4dcfae3-c0b7-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=isOdDQt6RyjVPyAMiYXNojtUDwXr35WJV/hV99dIzs9xuesQgHdX+W68k6kbhBD8U5eQZR1t9wFpy9TIh2Ji0C8ozhNX6oGTc58LI7vI+T3JGnxZVvz3SSGdVtDnRR+YvpfO0RyTy3eOPIzjPiVDMvlQqaL0l+LI1vuGSRy/CfV2fIXTb3XM+i+Jka41bX5k9g0HdEMWFz31q4GwsUgZV9d0ox0ZMMT4XbcrCi8p7Lvj88LcaodoqXAlYyAe0n/lSWph9Lhnp/IFfrR6S4o5JTDIQ3RDSqiNDV4NDtydmu6Y+LCmkQ6l8ek0t0rT8hyDnxyf9sVaFj5lhodTCvP6ww==
+ b=Pbm4MWQMJ9vrBH9ZOoisFYWMLLh7XTn0isq7KbTSHDprPVGRfwNEKES8zlAzvdB1wTyHERyXUmp0WbjQtPE+QDKK+duANG25hrLElGldgpzchKcXVuWWjHVnDAaLmqvWJvQk4XuNeBYHzLqG1HmmPJagS65l4ghGEavm1YmCDokO/xYnCY0UxZV6WG9YE8oR4b7+XAgeTqQZbcquEkwbiqFRNEsddoJ2lGyU4XHjf2ag+BOTytRlmFs0YpsDfJkWhLZ5LW5RVJbPniQ65NE3EIGEI5mmKLa9NTXkR77zf/7dP7mpe4sHRbnX1DAnQRjDOtCYLGnaN0wOtduMU2nfLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/W6fQSR4XNefyBjEnNx+xHfZ42DHRPg5Zu3WKU9uK+4=;
- b=GdcmHVdhIvqZRDr6gi+26r8rU/McSZnQwIU70jXaC4Gs4JfDmu9zO9MlZg0HIMN1zkbPKEQcvyQsupIBEAFqMaX1sk17rmxhKlmiwTFJwXHEoiAWDLP0cmN0784aMjVybolTQ9RnR6H/RyCYqyWRSt+F2abXL1aKscFOE/Ud8cnGiUmUkY+Sjr8F/98dzh4VD0I2ySluUV++XwNPV4VIyVEvDU/RYHtjyKs3Y//S8qSTlvMAHyIzthySoJMoWjAYhbuEUi5Zx7rLl1rq12xpRmqmXc/Af6Ps0MeeygRS6tbI0vz5W8LIb3FjqSX4yVHRADa4AOxV/DT5J0guKpmlNw==
+ bh=FNkEmUpH7IGDk/2IJhLSTZ80eBUHZ2EIp5WUPKtLLzY=;
+ b=H/eBaXlm4SfHROK6bxkilnkrPEGnjjNpfTCjdy23XtvlWHsBwimPtXmnTsnEC9f1oSteluL/owUiHhGWHBTuaIX48YQuciiX6ETIeZrEWv3hFfExAkh81bRiRZkAIaH9gkThLbs74aMjpkHH3XyaIJzVy17w0OBfsfJCNAmA1Tm4gAq0E7QFp0Tx9/V+Gf0AfjcCu3vG8J3FxKqYd7LBJjZdAZjKKX6bGlAdi7YdTlYqkVROj1C8/9Uh75/7AgMutP6hpk2Ukx3C/7gB/ZO4KKiuabFYmLtFylEu+/i2h3oUquB463NtjvpEb6k8J6Fd7JXrBp3BLLSXsvuErlUidw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=redhat.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/W6fQSR4XNefyBjEnNx+xHfZ42DHRPg5Zu3WKU9uK+4=;
- b=je3L3MCKPTObPgXmj4V+3UoH2L+MabeJVZ9CHGaS7Si2MuYKX1SzE9SGxtvvpp6suulYk4qb+WCNwT143M7UEIGvrFI84KdHgl7A1MbyoYxK3eh+Op9T5zmdj4VCbEnUhNOFw/7GyqWRYKL0atOT4uakqCW8tD0a+qaE8fK5qsE=
+ bh=FNkEmUpH7IGDk/2IJhLSTZ80eBUHZ2EIp5WUPKtLLzY=;
+ b=HHSMUTBexlt+a34Xupwt9zVfbKCKgn1afhICP0Sn0F0Oq5OLmyKgs+VTd/q+xL+JfXOaVHmvnwIuu7qNrXd0HWqr8Gho8Z0Aq6QWspUn7kbjLstiHcMZ+gSQy+uBymXf1/aM7GXGXSawVmfsM9QCU21gKmdNg0pPzNv2Alyqnok=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -91,9 +91,9 @@ CC: Alex Deucher <alexander.deucher@amd.com>,
  Hildebrand" <Stewart.Hildebrand@amd.com>, Xenia Ragiadakou
 	<burzalodowa@gmail.com>, Honglei Huang <honglei1.huang@amd.com>, Julia Zhang
 	<julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>
-Subject: [RFC QEMU PATCH 10/18] virtio-gpu: Handle set scanout blob command
-Date: Sun, 12 Mar 2023 17:22:36 +0800
-Message-ID: <20230312092244.451465-11-ray.huang@amd.com>
+Subject: [RFC QEMU PATCH 11/18] virtio-gpu: make blob scanout use dmabuf fd
+Date: Sun, 12 Mar 2023 17:22:37 +0800
+Message-ID: <20230312092244.451465-12-ray.huang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230312092244.451465-1-ray.huang@amd.com>
 References: <20230312092244.451465-1-ray.huang@amd.com>
@@ -105,98 +105,202 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT038:EE_|DM6PR12MB4449:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9554ee66-e5c4-4edd-5212-08db22db8534
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT007:EE_|DS7PR12MB6287:EE_
+X-MS-Office365-Filtering-Correlation-Id: b74e6c69-b477-4d2c-248b-08db22db86ff
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	5CLHP5wU2YH8UsonWfyKjo2Bma1/vH7DsvUbXzwsz2LNisDvP+HsGpeoDmF11m0CLuwwlUygEJ5LtBBmqWEU1/xVV+3eNpSiO/i/XLGFr9FlSqX/w33c9syHwmQc1GxVmeNJ8mQcGqeYAKjlTcCydXC7AiHEgo2/UAPkfUvxdQcuAskMdDswxDxmFCOce4PobuZWdFaOztpVcguL8sP6O7G0tmhO1mDhreC2TWl6+TOosLQn+ghFAz7R0n6i5cF9AtYP453TCDPIA4pwmK8H42l8giBx7V6B1rIWY3JwZSv5vL647GTkFXt4sJvxWBD7WqdeYpmZ3zulxPNsc/zO789WGaYpQTUkIB/OLPXxDbV14/fGdKUg7jg96jUl1RyEP9Xr99BwZoFKE3XBa5VS/tt/huvN+EooBQ0NlrZWWquYEeKG/1vUxWSyoq19+3LaJZ86qCYRcwzBTYA7iFlXbcb2Ljnbro6AzK0zpB2/qJ2Go5Seo+X94BASrOvqodKd+Gs9yoJEBJ/9mBknFWieZWpodjaH5SmPwTCLOegZLQ3fe/Usq7SGU0aI6sqHWBZouT/BdU85UXoHQzayiF0yzSnYpnmsdz/eEdo4cRbjiVbUuTsFcstsqBC55REHXOIZUsfjjLvLIz397EYxx4j0PBW4ZQkaR35F/l6//nuG31cvZGkrOdzEGfdl6rUaMe6/MnnU3ck9TShs7wQ6urycmihFWp9z8HbNCY/0iiKITg4RnMQXwggYdX0ouI9AEyQA
+	t6ub4QDusTL1/8jllv0iUXcdHrMi0fysP/UoBYZkSUYjVL0uMnKIDMJUubWcf+H2Mmez3U+ObN23sLAPdmxhjRay5Rmja+ks3F57wNHvAfAkOAS14v+Q1H8sU/0QuOVcw3RSrvU7zMhs6OBTLjcIw8Rnv2nEACvjRi9R0Rl2Ang5IHRODQTHnUTa/KWWyTnerlkXna13+PtlAPdQNLA6BsZaYFyOvEOjWeheqkqfhDeBIFMXatbIycA5LN3apDhBtY9INJMhSM0tu/kopJllQNcJGBqU7CBkX69/68Th7VoidphekqOUObxXKmbLe07WGIKovaKrjN+xmDrBhjN5ivCXfUmpJh4V9S8e2EVsYptv6ONQdvgsPDBAP/kuLhptu65ZGsYAekRDAavjalzudSkUguuaS+inqjm7pgkCXfa1sekYLfvL913w0anwZtj1Qk7dFY/rogVo/iGSmuBoZitfMWVoBJFeGV72ArP3Wb7oXq+3yFHewEyNiu8rJ06pE4l6CPskMc9JJTPCAIKUIqdto0NjmNl0muUmorduVRo5rAcD5jlpop6Rv+cYxY9rnYdyH9UVcB8n1VJVrAnrKZ0cqLXSKNLeouFsAMP4jZBCS1s+towxX0xNHejMkIXXz808kBgOOCFZADnH+cgnfB1G3Mr5bEbJS+LNfXgesSAKzXlVFcNkQsFxe2Zg0G/XiSxr4SrfyVhV299S2wAa6iSpGIHr9uesvJVbi8R02gLQXiEdGIet80uUNucTCJ+q
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(396003)(39860400002)(136003)(451199018)(40470700004)(46966006)(36840700001)(82310400005)(36756003)(86362001)(16526019)(186003)(41300700001)(1076003)(26005)(5660300002)(40460700003)(7416002)(336012)(4326008)(2616005)(8936002)(316002)(7696005)(110136005)(478600001)(54906003)(70586007)(8676002)(6666004)(70206006)(40480700001)(81166007)(82740400003)(921005)(356005)(2906002)(83380400001)(47076005)(426003)(36860700001)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199018)(36840700001)(40470700004)(46966006)(186003)(356005)(921005)(2906002)(16526019)(82740400003)(26005)(1076003)(81166007)(2616005)(8936002)(5660300002)(36860700001)(6666004)(7416002)(336012)(426003)(47076005)(40460700003)(41300700001)(86362001)(8676002)(4326008)(82310400005)(40480700001)(70586007)(70206006)(36756003)(7696005)(478600001)(316002)(83380400001)(110136005)(54906003)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2023 09:24:02.9475
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2023 09:24:05.9544
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9554ee66-e5c4-4edd-5212-08db22db8534
+X-MS-Exchange-CrossTenant-Network-Message-Id: b74e6c69-b477-4d2c-248b-08db22db86ff
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4449
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6287
 
-From: Antonio Caggiano <antonio.caggiano@collabora.com>
+From: Robert Beckett <bob.beckett@collabora.com>
 
-Use mapped data pointer as data for the scanout.
+This relies on a virglrenderer change to include the dmabuf fd when
+returning resource info.
 
-Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
+Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
 ---
- hw/display/virtio-gpu-virgl.c  |  3 +++
- hw/display/virtio-gpu.c        | 11 +++++++----
- include/hw/virtio/virtio-gpu.h |  2 ++
- 3 files changed, 12 insertions(+), 4 deletions(-)
+ hw/display/virtio-gpu-virgl.c  | 103 ++++++++++++++++++++++++++++++++-
+ hw/display/virtio-gpu.c        |   4 +-
+ include/hw/virtio/virtio-gpu.h |   5 ++
+ 3 files changed, 109 insertions(+), 3 deletions(-)
 
 diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
-index f5ce206b93..1fe144f64d 100644
+index 1fe144f64d..69083d15a9 100644
 --- a/hw/display/virtio-gpu-virgl.c
 +++ b/hw/display/virtio-gpu-virgl.c
-@@ -653,6 +653,9 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
-     case VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB:
-         virgl_cmd_resource_create_blob(g, cmd);
-         break;
-+    case VIRTIO_GPU_CMD_SET_SCANOUT_BLOB:
-+        virtio_gpu_set_scanout_blob(g, cmd);
-+        break;
-     case VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB:
-         virgl_cmd_resource_map_blob(g, cmd);
-         break;
-diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
-index c7d1e52cb5..1e334a1e78 100644
---- a/hw/display/virtio-gpu.c
-+++ b/hw/display/virtio-gpu.c
-@@ -144,7 +144,7 @@ virtio_gpu_find_check_resource(VirtIOGPU *g, uint32_t resource_id,
-     }
+@@ -18,6 +18,7 @@
+ #include "hw/virtio/virtio-gpu.h"
+ #include "hw/virtio/virtio-gpu-bswap.h"
+ #include "hw/virtio/virtio-iommu.h"
++#include "hw/virtio/virtio-gpu-pixman.h"
  
-     if (require_backing) {
--        if (!res->iov || (!res->image && !res->blob)) {
-+        if (!res->iov || (!res->image && !res->blob) || !res->mapped) {
-             qemu_log_mask(LOG_GUEST_ERROR, "%s: no backing storage %d\n",
-                           caller, resource_id);
-             if (error) {
-@@ -637,7 +637,10 @@ static void virtio_gpu_do_set_scanout(VirtIOGPU *g,
-         }
+ #include <virglrenderer.h>
  
-         data = res->blob;
--    } else {
-+    } else if (res->mapped) {
-+        data = (uint8_t *)res->mapped;
-+    }
-+    else {
-         data = (uint8_t *)pixman_image_get_data(res->image);
-     }
- 
-@@ -714,8 +717,8 @@ static void virtio_gpu_set_scanout(VirtIOGPU *g,
-                               &fb, res, &ss.r, &cmd->error);
+@@ -208,6 +209,106 @@ static void virgl_cmd_set_scanout(VirtIOGPU *g,
+     g->parent_obj.scanout[ss.scanout_id].resource_id = ss.resource_id;
  }
  
--static void virtio_gpu_set_scanout_blob(VirtIOGPU *g,
--                                        struct virtio_gpu_ctrl_command *cmd)
-+void virtio_gpu_set_scanout_blob(VirtIOGPU *g,
++static void virgl_cmd_set_scanout_blob(VirtIOGPU *g,
 +                                 struct virtio_gpu_ctrl_command *cmd)
++{
++    struct virtio_gpu_simple_resource *res;
++    struct virtio_gpu_framebuffer fb = { 0 };
++    struct virtio_gpu_set_scanout_blob ss;
++    struct virgl_renderer_resource_info info;
++    uint64_t fbend;
++
++    VIRTIO_GPU_FILL_CMD(ss);
++    virtio_gpu_scanout_blob_bswap(&ss);
++    trace_virtio_gpu_cmd_set_scanout_blob(ss.scanout_id, ss.resource_id,
++                                          ss.r.width, ss.r.height, ss.r.x,
++                                          ss.r.y);
++
++    if (ss.scanout_id >= g->parent_obj.conf.max_outputs) {
++        qemu_log_mask(LOG_GUEST_ERROR, "%s: illegal scanout id specified %d",
++                      __func__, ss.scanout_id);
++        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_SCANOUT_ID;
++        return;
++    }
++
++    if (ss.resource_id == 0) {
++        virtio_gpu_disable_scanout(g, ss.scanout_id);
++        return;
++    }
++
++    if (ss.width < 16 ||
++	ss.height < 16 ||
++	ss.r.x + ss.r.width > ss.width ||
++	ss.r.y + ss.r.height > ss.height) {
++        qemu_log_mask(LOG_GUEST_ERROR, "%s: illegal scanout %d bounds for"
++                      " resource %d, rect (%d,%d)+%d,%d, fb %d %d\n",
++                      __func__, ss.scanout_id, ss.resource_id,
++                      ss.r.x, ss.r.y, ss.r.width, ss.r.height,
++                      ss.width, ss.height);
++        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER;
++        return;
++    }
++
++    if (!console_has_gl(g->parent_obj.scanout[ss.scanout_id].con)) {
++	    qemu_log_mask(LOG_GUEST_ERROR, "%s: unable to scanout blot without GL!\n", __func__);
++	    return;
++    }
++
++    res = virtio_gpu_find_resource(g, ss.resource_id);
++    if (!res) {
++            qemu_log_mask(LOG_GUEST_ERROR,
++                          "%s: illegal resource specified %d\n",
++                          __func__, ss.resource_id);
++            cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
++            return;
++    }
++    if (virgl_renderer_resource_get_info(ss.resource_id, &info)) {
++            qemu_log_mask(LOG_GUEST_ERROR,
++                          "%s: illegal virgl resource specified %d\n",
++                          __func__, ss.resource_id);
++            cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
++            return;
++    }
++    if (!res->dmabuf_fd && info.fd)
++	    res->dmabuf_fd = info.fd;
++
++    fb.format = virtio_gpu_get_pixman_format(ss.format);
++    if (!fb.format) {
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "%s: host couldn't handle guest format %d\n",
++                      __func__, ss.format);
++        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER;
++        return;
++    }
++
++    fb.bytes_pp = DIV_ROUND_UP(PIXMAN_FORMAT_BPP(fb.format), 8);
++    fb.width = ss.width;
++    fb.height = ss.height;
++    fb.stride = ss.strides[0];
++    fb.offset = ss.offsets[0] + ss.r.x * fb.bytes_pp + ss.r.y * fb.stride;
++
++    fbend = fb.offset;
++    fbend += fb.stride * (ss.r.height - 1);
++    fbend += fb.bytes_pp * ss.r.width;
++    if (fbend > res->blob_size) {
++        qemu_log_mask(LOG_GUEST_ERROR,
++                      "%s: fb end out of range\n",
++                      __func__);
++        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER;
++        return;
++    }
++
++    g->parent_obj.enable = 1;
++    if (virtio_gpu_update_dmabuf(g, ss.scanout_id, res, &fb, &ss.r)) {
++	    qemu_log_mask(LOG_GUEST_ERROR,
++			  "%s: failed to update dmabuf\n", __func__);
++	    cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER;
++	    return;
++    }
++    virtio_gpu_update_scanout(g, ss.scanout_id, res, &ss.r);
++}
++
++
+ static void virgl_cmd_submit_3d(VirtIOGPU *g,
+                                 struct virtio_gpu_ctrl_command *cmd)
  {
+@@ -654,7 +755,7 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+         virgl_cmd_resource_create_blob(g, cmd);
+         break;
+     case VIRTIO_GPU_CMD_SET_SCANOUT_BLOB:
+-        virtio_gpu_set_scanout_blob(g, cmd);
++        virgl_cmd_set_scanout_blob(g, cmd);
+         break;
+     case VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB:
+         virgl_cmd_resource_map_blob(g, cmd);
+diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
+index 1e334a1e78..95e421a525 100644
+--- a/hw/display/virtio-gpu.c
++++ b/hw/display/virtio-gpu.c
+@@ -371,7 +371,7 @@ static void virtio_gpu_resource_create_blob(VirtIOGPU *g,
+     QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+ }
+ 
+-static void virtio_gpu_disable_scanout(VirtIOGPU *g, int scanout_id)
++void virtio_gpu_disable_scanout(VirtIOGPU *g, int scanout_id)
+ {
+     struct virtio_gpu_scanout *scanout = &g->parent_obj.scanout[scanout_id];
      struct virtio_gpu_simple_resource *res;
-     struct virtio_gpu_framebuffer fb = { 0 };
+@@ -575,7 +575,7 @@ static void virtio_unref_resource(pixman_image_t *image, void *data)
+     pixman_image_unref(data);
+ }
+ 
+-static void virtio_gpu_update_scanout(VirtIOGPU *g,
++void virtio_gpu_update_scanout(VirtIOGPU *g,
+                                       uint32_t scanout_id,
+                                       struct virtio_gpu_simple_resource *res,
+                                       struct virtio_gpu_rect *r)
 diff --git a/include/hw/virtio/virtio-gpu.h b/include/hw/virtio/virtio-gpu.h
-index 0a44aea4ee..ce49cdfafb 100644
+index ce49cdfafb..ba509833db 100644
 --- a/include/hw/virtio/virtio-gpu.h
 +++ b/include/hw/virtio/virtio-gpu.h
-@@ -284,6 +284,8 @@ void virtio_gpu_simple_process_cmd(VirtIOGPU *g, struct virtio_gpu_ctrl_command
- void virtio_gpu_update_cursor_data(VirtIOGPU *g,
-                                    struct virtio_gpu_scanout *s,
+@@ -286,6 +286,11 @@ void virtio_gpu_update_cursor_data(VirtIOGPU *g,
                                     uint32_t resource_id);
-+void virtio_gpu_set_scanout_blob(VirtIOGPU *g,
-+                                 struct virtio_gpu_ctrl_command *cmd);
+ void virtio_gpu_set_scanout_blob(VirtIOGPU *g,
+                                  struct virtio_gpu_ctrl_command *cmd);
++void virtio_gpu_update_scanout(VirtIOGPU *g,
++                                      uint32_t scanout_id,
++                                      struct virtio_gpu_simple_resource *res,
++                                      struct virtio_gpu_rect *r);
++void virtio_gpu_disable_scanout(VirtIOGPU *g, int scanout_id);
  
  /* virtio-gpu-udmabuf.c */
  bool virtio_gpu_have_udmabuf(void);
