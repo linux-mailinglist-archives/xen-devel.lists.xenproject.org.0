@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 872936B63BD
+	by mail.lfdr.de (Postfix) with ESMTPS id 89B5D6B63BE
 	for <lists+xen-devel@lfdr.de>; Sun, 12 Mar 2023 08:56:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.508866.783774 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.508864.783758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbGYU-0003qP-JE; Sun, 12 Mar 2023 07:55:46 +0000
+	id 1pbGYS-0003Tv-VE; Sun, 12 Mar 2023 07:55:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 508866.783774; Sun, 12 Mar 2023 07:55:46 +0000
+Received: by outflank-mailman (output) from mailman id 508864.783758; Sun, 12 Mar 2023 07:55:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbGYU-0003jV-FO; Sun, 12 Mar 2023 07:55:46 +0000
-Received: by outflank-mailman (input) for mailman id 508866;
+	id 1pbGYS-0003QS-Rx; Sun, 12 Mar 2023 07:55:44 +0000
+Received: by outflank-mailman (input) for mailman id 508864;
  Sun, 12 Mar 2023 07:55:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TSl9=7E=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1pbGYS-0003Pk-I7
+ id 1pbGYS-0003Pk-2L
  for xen-devel@lists.xenproject.org; Sun, 12 Mar 2023 07:55:44 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20627.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::627])
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on20615.outbound.protection.outlook.com
+ [2a01:111:f400:7e8c::615])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45eaf9cc-c0ab-11ed-956e-85ef70e17bfa;
- Sun, 12 Mar 2023 08:55:37 +0100 (CET)
-Received: from MW4PR03CA0075.namprd03.prod.outlook.com (2603:10b6:303:b6::20)
- by PH7PR12MB7455.namprd12.prod.outlook.com (2603:10b6:510:20e::8)
+ id 47bc34a4-c0ab-11ed-956e-85ef70e17bfa;
+ Sun, 12 Mar 2023 08:55:41 +0100 (CET)
+Received: from MW4P222CA0008.NAMP222.PROD.OUTLOOK.COM (2603:10b6:303:114::13)
+ by SN7PR12MB7884.namprd12.prod.outlook.com (2603:10b6:806:343::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.23; Sun, 12 Mar
- 2023 07:55:31 +0000
-Received: from CO1NAM11FT110.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:b6:cafe::56) by MW4PR03CA0075.outlook.office365.com
- (2603:10b6:303:b6::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.22; Sun, 12 Mar
+ 2023 07:55:35 +0000
+Received: from CO1NAM11FT039.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:114:cafe::74) by MW4P222CA0008.outlook.office365.com
+ (2603:10b6:303:114::13) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24 via Frontend
- Transport; Sun, 12 Mar 2023 07:55:31 +0000
+ Transport; Sun, 12 Mar 2023 07:55:34 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT110.mail.protection.outlook.com (10.13.175.125) with Microsoft SMTP
+ CO1NAM11FT039.mail.protection.outlook.com (10.13.174.110) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.24 via Frontend Transport; Sun, 12 Mar 2023 07:55:31 +0000
+ 15.20.6178.23 via Frontend Transport; Sun, 12 Mar 2023 07:55:34 +0000
 Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Sun, 12 Mar
- 2023 01:55:27 -0600
+ 2023 01:55:30 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45eaf9cc-c0ab-11ed-956e-85ef70e17bfa
+X-Inumbo-ID: 47bc34a4-c0ab-11ed-956e-85ef70e17bfa
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PjMwgE8mPP0SiC4FrlJnrf//RiKlmVb/kwUWp0dOLZI3XpNR/I58JUdHTN0+sNm2XMb8jTrDu7rst67z6Q0Qc+Q4QdnpUNT+ojYicyFS68w4nVp8nOvzRSYAZZSzB7DCZhF5tsX4UHvl2d3aPPe9jjMt6fRTZt+ymazWBvqFQS7sG6kR2uuPVgR4ERTjUO64AZ3SCEqCz8Ffw40A4UEfPvWiWB1l/Po6JpSoBPp5j3D3PevS5lDVq6S3O4aspk34m6DXpZAOWc3Zv7Xe7NkhFrOKc2A8hnH39MuCF59b7CWVHcusaxO1z/z5g+8MD5GkBrmrRsQyQdT07S6xpJjytw==
+ b=nafOpKlcIRTyg23HgmNgeQkBMxcgPqyA+mEVMtwaTireY2ua1u8PC6QLPlmlBuMGi6VmhQ7RehMi+u2Qe43Pip41ifwt0J5Zojp/glznLBpxoahxYRm0vXyWgKi44gD1H2Tn0FqFN34r0C4qZl1F85kTp2b8eJvmp2y0j1KYWGm6bY69otz2NMFUQo6RggA4kchCeqRA7+GUQ/uMJmP8GvLpM9N4NMXUdz02akiZPA+bLePk/oxVvWiLAt6NGih4d3nQqeUc1KmqPtmDAy1HUaEiyk5/+QKYOZ7Xc3ECDe9xrGTN07kfqN5PH62qIDrEQLDT+QJ+IpiLd/iLQaoaSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7H1lvZLVrUyYMTjixlNAUXTLFqacVwjL/tsS+Mp+YSE=;
- b=oMZQKfSHyPDFMz/WgFcDqzwFhJIvf9zxOi2Or+mafz/UDV5aum9jp0lIYwLxCbHzRV6X9t7T7iFd0aZnJLqdoPclInQHzacw+pg+eD9DbNVd8yfxHgA9D2gV9ypLwck7z6wgrHeLuKXN6z6VZepPM/Cw/DVwmvTjLIjogrX9PwAe7Dt+34W4pTxOuRTstKMm0NyZO5huqDVBoVSdEOd1WzojpEf9dkFVlyWFLyn6O5LhwoVqJx4Vp/67CV8tbz/fcw4CqUzFr0uCquyyg7rYQjvLXpBueA+sEgpCiiEPy6n4Fe+DI285OjYGPjNtRztbCQ8QXswmzCWcEe8tNBe4zg==
+ bh=MqKEnNbvS9HCCnWGJMjgGluFe8YkMoLVY+wYZUwY7qc=;
+ b=bddKS3TL/Uh7aL49Om9fHR4SkJWUdHk+zXq2qqcdp2fdKjt3ME3JGjg/XIAqEgkWllKbbMyAFetD1ZoArZAuGlPzdGOnvyzSINvW9CfEwz3e1aS3xx0n36AwdJ2H4gxwVsAZzzt08C1eggLr8K7CkG6WM8CA5oIDBY5l2hkRayuECBUJye6WHakHnanvy2O+yGhgsaSSsMlj2kMMquPIxvOM9RX/ZT+RudVsfF+uYQPXaPxfaXl5P7vLPod0bNIBXdcgh2fd9AyrExLsOUJ64n3wzfnmHtzLDv9YaIQGMGGZN/Yq9d9qy26fso/vQbriOAxDrtntQ0Mv+w5PF2lX7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7H1lvZLVrUyYMTjixlNAUXTLFqacVwjL/tsS+Mp+YSE=;
- b=aFLTQMpv6G6TnNZIF9+YRVleSDcyLDMlwsKv5VP+PUqpJxErOVKMOWAiWZjRmlbs51ELgpHJnOVX44Sqivlhwbx8MqYaWi+ckhNxeFMqUQk8FK14snw3+0b8Z4RFRuqtoXJLaeu7D3FpUccagXjEGrhwAKxaM+vBcZkpT3xXBuQ=
+ bh=MqKEnNbvS9HCCnWGJMjgGluFe8YkMoLVY+wYZUwY7qc=;
+ b=Vtk+ryNxIrEPUE5C8tMAbcx+eSA81qs/72RbEWiV/pwEhncKMPWmuCTzcI/L1xR+lI753l2WqSSOtWnU5bdc3kUmDdSk+OBv60Pt+RIptSPi90P2DG8gNf1nl7vtJYdfw1RiYheNrXxSBYOH9/JhQacWmNExxtLnZLC/vnGC14Y=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -88,9 +88,9 @@ CC: Alex Deucher <alexander.deucher@amd.com>,
 	<burzalodowa@gmail.com>, Honglei Huang <honglei1.huang@amd.com>, Julia Zhang
 	<julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>, Huang Rui
 	<ray.huang@amd.com>
-Subject: [RFC XEN PATCH 2/6] vpci: accept BAR writes if dom0 is PVH
-Date: Sun, 12 Mar 2023 15:54:51 +0800
-Message-ID: <20230312075455.450187-3-ray.huang@amd.com>
+Subject: [RFC XEN PATCH 3/6] x86/pvh: shouldn't check pirq flag when map pirq in PVH
+Date: Sun, 12 Mar 2023 15:54:52 +0800
+Message-ID: <20230312075455.450187-4-ray.huang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230312075455.450187-1-ray.huang@amd.com>
 References: <20230312075455.450187-1-ray.huang@amd.com>
@@ -102,53 +102,52 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT110:EE_|PH7PR12MB7455:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ca02b2e-99f9-486a-a652-08db22cf2713
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT039:EE_|SN7PR12MB7884:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a3fbf4c-a82e-40a3-ce66-08db22cf293b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	LhjfsuJXLp0rfRSLBsmLtugm6VXhYoTckpv0j40DyeBu5W2Ego1kbUXBPaTK8GkOVwFHAm+zkAQEFMDYtYWMxFKFgqZeEa+djHBaTkz4GyVZbze44Qt6M4peHEFFAX0eCKh034NE2+htzsQiDczLJomx6EkD2AUMH82CDP1AJzanTjCZ651oitxwxDXf2rBzp1hZMlbMekxs3ECJdKqwSNHE8S14l7u+orIU+gExG6iTxZib99JcyqZS9PZL7cI5KWqx2DnEFMKHd2MrvYlSs7qYbKqWeR6NSq0tLK+c3D7LcnydZxojgYU0TT/NM1KGmo9WCE8Kt4dFEKRaWpeXwHeoTrYbEhvFB5Eo1DnVQsk13UynyN9bObxU5qv2lGFNh8kpFwvIaXd0s1qGhNBMvUlRgvcEFg2UaCefSk+h9K+8OXvGVyp7y6NA38sUeuk3De28SIeNB+dcoBsC5D36dhkQBUoZ3Ee20N2SUxY54M13AZfscXUQ9R7FsRay9B4CYd/HItIeuNJGcFcpgBJJjtkO0o+jHIct5cS9ZWYDgba5ai8y1PGOluT0D3vgcRRBk7tSCxHfCjASbnw2v8bGC0KcYaXbYEhgisGvUb80CWZDi05MxO5TCBQ1hs+BALfIwp0A5vPawrd6YsEwhQXIvSaBq+FRBsqY32glouw/FWF8rSDRGjFaJl870h5URJT2z0AqLdwoE/XY6tZZs3L6rqvN86Xmiz8IQW2CMn36cTo=
+	wOTDAhecHy1DdJft9GB+NcrF+9kAPYVZKaFxJds2eNv09Tmzv2MN/7TnNNSj5KCOH40fr/xauOptYwrZKqODcYf7j8kpaITM82Ao5wlpwUbbOfS3hYYSwTjePgEMsgBGkpwDU067dBohJN76gqaTd3swqY0b5PWTzP+EJzaACtfpQQje8bucMNa60n0YO3lTE3Ou+I6VhltxK1JMEimGUKWJi7JkJQAjn+ufNhvsQYaSWd0iEXj3qK6LVRZ/9h46BlT4pTLmwL79eIVDcz5vRrAeTNUm2sWXD8sQsYbDyK4ez6tT8ZdC/EJxklXXu/JO2Q3rm/c/lgq7Dm0fXqw4Unuo5tN+z3507dw81sCV6X+wzCdDSCWWG2zMSqt4PAgLTZBoxFoVZBUeVA6yNpVABY5uaeDXSA7Nm+4+rYs6fqj9XLbKCZx6UhIUcsnB3YlyOk8UdSG11PuJJjBL+lcb/V2UrlEVTyuwpNxUWo4PInEOpUJsMCc8Frr/O38+jkMbN/RNmeeZUBJd3WPcM8StXlgcJ8I2SDxGPLOTNWo3cmk8wOHIiwVXBMovVtWG9jJymKTuBuDzIdTj2muXPJ4gQWK8Wtd/vScJgEi5UuWVyoCJH5oFX23a1XG/yJX00apn5cxdkRhrR3TZ03+l0cpFhPdngG0hl6gjZ57sP4gwufZJDpG288Il8l026L6uBRLUEMZHtm2CCG6I4F4Q0OAkBYNn9ZjxfLcxkvnQ9vRRDzo=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(396003)(346002)(376002)(39860400002)(451199018)(40470700004)(36840700001)(46966006)(40460700003)(4326008)(5660300002)(4744005)(8936002)(41300700001)(2906002)(81166007)(82740400003)(36860700001)(86362001)(356005)(36756003)(7696005)(70586007)(70206006)(6666004)(8676002)(40480700001)(82310400005)(426003)(47076005)(83380400001)(110136005)(478600001)(54906003)(316002)(186003)(26005)(1076003)(16526019)(336012)(2616005)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(376002)(346002)(39860400002)(396003)(136003)(451199018)(36840700001)(46966006)(40470700004)(83380400001)(70206006)(70586007)(4326008)(36860700001)(82740400003)(426003)(82310400005)(336012)(47076005)(41300700001)(81166007)(2616005)(316002)(16526019)(26005)(110136005)(54906003)(1076003)(356005)(186003)(8676002)(40460700003)(4744005)(36756003)(8936002)(5660300002)(40480700001)(478600001)(2906002)(6666004)(7696005)(86362001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2023 07:55:31.0668
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2023 07:55:34.6854
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ca02b2e-99f9-486a-a652-08db22cf2713
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a3fbf4c-a82e-40a3-ce66-08db22cf293b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT110.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT039.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7455
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7884
 
 From: Chen Jiqian <Jiqian.Chen@amd.com>
 
-When dom0 is PVH and we want to passthrough gpu to guest,
-we should allow BAR writes even through BAR is mapped. If
-not, the value of BARs are not initialized when guest firstly
-start.
+PVH is also hvm type domain, but PVH hasn't X86_EMU_USE_PIRQ
+flag. So, when dom0 is PVH and call PHYSDEVOP_map_pirq, it
+will fail at check has_pirq();
 
 Signed-off-by: Chen Jiqian <Jiqian.Chen@amd.com>
 Signed-off-by: Huang Rui <ray.huang@amd.com>
 ---
- xen/drivers/vpci/header.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/arch/x86/hvm/hypercall.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index ec2e978a4e..918d11fbce 100644
---- a/xen/drivers/vpci/header.c
-+++ b/xen/drivers/vpci/header.c
-@@ -392,7 +392,7 @@ static void cf_check bar_write(
-      * Xen only cares whether the BAR is mapped into the p2m, so allow BAR
-      * writes as long as the BAR is not mapped into the p2m.
-      */
--    if ( bar->enabled )
-+    if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
-     {
-         /* If the value written is the current one avoid printing a warning. */
-         if ( val != (uint32_t)(bar->addr >> (hi ? 32 : 0)) )
+diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
+index 405d0a95af..16a2f5c0b3 100644
+--- a/xen/arch/x86/hvm/hypercall.c
++++ b/xen/arch/x86/hvm/hypercall.c
+@@ -89,8 +89,6 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+     case PHYSDEVOP_eoi:
+     case PHYSDEVOP_irq_status_query:
+     case PHYSDEVOP_get_free_pirq:
+-        if ( !has_pirq(currd) )
+-            return -ENOSYS;
+         break;
+ 
+     case PHYSDEVOP_pci_mmcfg_reserved:
 -- 
 2.25.1
 
