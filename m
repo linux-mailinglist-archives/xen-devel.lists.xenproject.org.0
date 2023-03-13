@@ -2,42 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B76306B713D
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Mar 2023 09:36:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509144.784401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92D376B716A
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Mar 2023 09:46:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509148.784413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbdfR-0006Pe-K0; Mon, 13 Mar 2023 08:36:29 +0000
+	id 1pbdoW-00084m-KE; Mon, 13 Mar 2023 08:45:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509144.784401; Mon, 13 Mar 2023 08:36:29 +0000
+Received: by outflank-mailman (output) from mailman id 509148.784413; Mon, 13 Mar 2023 08:45:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbdfR-0006Nu-FQ; Mon, 13 Mar 2023 08:36:29 +0000
-Received: by outflank-mailman (input) for mailman id 509144;
- Mon, 13 Mar 2023 08:36:28 +0000
+	id 1pbdoW-00081y-HH; Mon, 13 Mar 2023 08:45:52 +0000
+Received: by outflank-mailman (input) for mailman id 509148;
+ Mon, 13 Mar 2023 08:45:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eMjs=7F=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1pbdfP-0006Nl-Sk
- for xen-devel@lists.xenproject.org; Mon, 13 Mar 2023 08:36:28 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rcAY=7F=casper.srs.infradead.org=BATV+7ed4dc4158d7c4ffff6c+7141+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1pbdoU-00081s-GL
+ for xen-devel@lists.xenproject.org; Mon, 13 Mar 2023 08:45:51 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23efd089-c17a-11ed-87f5-c1b5be75604c;
- Mon, 13 Mar 2023 09:36:26 +0100 (CET)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-491--5SNFHy_O0-_So_2shfO5A-1; Mon, 13 Mar 2023 04:36:23 -0400
-Received: by mail-wm1-f72.google.com with SMTP id
- t1-20020a7bc3c1000000b003dfe223de49so7453202wmj.5
- for <xen-devel@lists.xenproject.org>; Mon, 13 Mar 2023 01:36:23 -0700 (PDT)
-Received: from [192.168.0.2] (ip-109-43-179-26.web.vodafone.de.
- [109.43.179.26]) by smtp.gmail.com with ESMTPSA id
- q12-20020adfcd8c000000b002ceaeb4b608sm3160170wrj.34.2023.03.13.01.36.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 13 Mar 2023 01:36:21 -0700 (PDT)
+ id 725970ec-c17b-11ed-87f5-c1b5be75604c;
+ Mon, 13 Mar 2023 09:45:48 +0100 (CET)
+Received: from [2001:8b0:10b:5:387d:8494:1979:edd1]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pbdo7-00BjCa-Bf; Mon, 13 Mar 2023 08:45:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,119 +41,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23efd089-c17a-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678696584;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OWt5vj9MMwXb4l9+uwottEsS1Nl//OGUSfQKqU3untY=;
-	b=X47CRGb3XaA3Y2sMQ1kWSGAXypOVI0TlgZ58jKdkALmWS35gVuImYuIwjxDw8i2U4uujmK
-	qLCMJkxu4/K8OgX8cZ1n48mOqZKFzOTTHHV9Vz28UxXJhvGXsHlqx7KSWoqYASML+yiJhV
-	qXMM/96fxz6rR7gjcz2lF+Xa60fpXoA=
-X-MC-Unique: -5SNFHy_O0-_So_2shfO5A-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678696582;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OWt5vj9MMwXb4l9+uwottEsS1Nl//OGUSfQKqU3untY=;
-        b=wBUNZrviorCaZW37FLIL+PYpfOVlowhx7x8LTDF3b+a2TazfvSn6g9qjUo2rKtlH4/
-         7/VFKkxiSpl27bLuKMUWY76bPZIL1paVxz/e40C8Hu72rJfCnmOFdmu3XRBcwRKg2jHV
-         z8bAAxGbois4bYJsLfSG0fltiJECPUB2InKzTeqc1vw6ZF3vUGXmXQHHuYscSsx3SVZj
-         4MQRjPTjcwenn3jsUsXYPVMsRpejoYA8ZoaU5b85wf8HNabGZCD2ug9XxX/J1IIXyzbu
-         qAundeBTVM5BKPze9ZyKTttvVdGfDuw/3p5uLh7MZzgF+FaDVTCuUUTBX1WTEllU7BD7
-         UUiA==
-X-Gm-Message-State: AO0yUKUNzC2ujWinGFj+5BAyJ+QTF7KKk8cNAh42ZFyeoincfDMywQ1h
-	RjfCCRllBiaccx/2d0VnMcLGQyygDWpkR7M+r6NUkj2Buh5a7nHIU3NZWh8Fp17hdxNiQheEokD
-	ZgJEVtMVTMFCzsr+vIAbXZflSVrU=
-X-Received: by 2002:a5d:6504:0:b0:2ce:39d3:c9a5 with SMTP id x4-20020a5d6504000000b002ce39d3c9a5mr21946664wru.22.1678696582376;
-        Mon, 13 Mar 2023 01:36:22 -0700 (PDT)
-X-Google-Smtp-Source: AK7set+MQhE6wSCnJV1f3TtYtFcxGiN5fNsHY1JDaSaepfTCQcDtrqqNRgmQVYfYKIYqqxPt0EH8gA==
-X-Received: by 2002:a5d:6504:0:b0:2ce:39d3:c9a5 with SMTP id x4-20020a5d6504000000b002ce39d3c9a5mr21946635wru.22.1678696582103;
-        Mon, 13 Mar 2023 01:36:22 -0700 (PDT)
-Message-ID: <18ea04ff-4ebf-b163-0dcf-f0b8e966bda4@redhat.com>
-Date: Mon, 13 Mar 2023 09:36:18 +0100
+X-Inumbo-ID: 725970ec-c17b-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=iZw1+AjD/67gYbBYEP5ALSHDL75fLdN6MckfIi+xKFI=; b=YhKPiFeBPZFdyQZ25nI4wKly2R
+	L+r/cUgkNl1QUXhvXq+HIgaZGejG4SfjiLc9O4F0JwZJPw057EY8bneQrwus21rhpEvAgvUdHj8Xb
+	6gVqsyoAfcMn1zb5q9MyNzPH3yS74NoHJ7yRLkCACubWviXBfexVgAukjVtdcXLiIzLLyJGOEtWDx
+	xQtH4MVkZlv+TIa28PtX57ThKr+5xJV7q3cZtMpBx7a8uCSfba3G7Ei65JsdukeqyXGLesqEXQ8q1
+	sjkF0OpeQ51C0bjAKke2VOOFM4G3vsw81kvWiMsQ51/P+A6jB8IaFqsmae8F7N4HkM8DN+rCjFugx
+	E+aLMBaw==;
+Message-ID: <5062bef5b5cfd3e2d7f313de9af306f5e4f841f5.camel@infradead.org>
+Subject: Re: [PULL 13/27] hw/xen: Add xenstore operations to allow
+ redirection to internal emulation
+From: David Woodhouse <dwmw2@infradead.org>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org, Paolo
+ Bonzini <pbonzini@redhat.com>, Paul Durrant <paul@xen.org>, Joao Martins
+ <joao.m.martins@oracle.com>,  Ankur Arora <ankur.a.arora@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,  vikram.garhwal@amd.com,
+ Anthony Perard <anthony.perard@citrix.com>, 
+ xen-devel@lists.xenproject.org, Juan Quintela <quintela@redhat.com>, "Dr .
+ David Alan Gilbert" <dgilbert@redhat.com>
+Date: Mon, 13 Mar 2023 08:45:26 +0000
+In-Reply-To: <CAKf6xpuH2E=16s1jFvgL9J723wv0dhBD5aYWP2NBNj5rZio2jg@mail.gmail.com>
+References: <20230307182707.2298618-1-dwmw2@infradead.org>
+	 <20230307182707.2298618-14-dwmw2@infradead.org>
+	 <CAKf6xpuH2E=16s1jFvgL9J723wv0dhBD5aYWP2NBNj5rZio2jg@mail.gmail.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-CPP1nMHDJQ5Y8o3/fii3"
+User-Agent: Evolution 3.44.4-0ubuntu1 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-Subject: Re: [PATCH v7 4/6] hw: replace most qemu_bh_new calls with
- qemu_bh_new_guarded
-To: Alexander Bulekov <alxndr@bu.edu>, qemu-devel@nongnu.org
-Cc: Stefan Hajnoczi <stefanha@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>,
- Mauro Matteo Cascella <mcascell@redhat.com>, Peter Xu <peterx@redhat.com>,
- Jason Wang <jasowang@redhat.com>, David Hildenbrand <david@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Laurent Vivier <lvivier@redhat.com>,
- Bandan Das <bsd@redhat.com>, "Edgar E . Iglesias"
- <edgar.iglesias@gmail.com>, Darren Kenny <darren.kenny@oracle.com>,
- Bin Meng <bin.meng@windriver.com>, Paolo Bonzini <pbonzini@redhat.com>,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- =?UTF-8?Q?Daniel_P_=2e_Berrang=c3=a9?= <berrange@redhat.com>,
- Eduardo Habkost <eduardo@habkost.net>, Jon Maloy <jmaloy@redhat.com>,
- Siqi Chen <coc.cyqh@gmail.com>, Paul Durrant <paul@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Kevin Wolf <kwolf@redhat.com>,
- Hanna Reitz <hreitz@redhat.com>, Amit Shah <amit@kernel.org>,
- =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@redhat.com>,
- John Snow <jsnow@redhat.com>, Peter Maydell <peter.maydell@linaro.org>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- Keith Busch <kbusch@kernel.org>, Klaus Jensen <its@irrelevant.dk>,
- Fam Zheng <fam@euphon.net>, Dmitry Fleytman <dmitry.fleytman@gmail.com>,
- "Gonglei (Arei)" <arei.gonglei@huawei.com>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
- "open list:virtio-blk" <qemu-block@nongnu.org>,
- "open list:i.MX31 (kzm)" <qemu-arm@nongnu.org>,
- "open list:New World (mac99)" <qemu-ppc@nongnu.org>
-References: <20230313082417.827484-1-alxndr@bu.edu>
- <20230313082417.827484-5-alxndr@bu.edu>
-From: Thomas Huth <thuth@redhat.com>
-In-Reply-To: <20230313082417.827484-5-alxndr@bu.edu>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On 13/03/2023 09.24, Alexander Bulekov wrote:
-> This protects devices from bh->mmio reentrancy issues.
-> 
-> Thanks: Thomas Huth <thuth@redhat.com> for diagnosing OS X test failure.
-> Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
-> Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-> Reviewed-by: Michael S. Tsirkin <mst@redhat.com>
-> Reviewed-by: Paul Durrant <paul@xen.org>
-> Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
-> ---
->   hw/9pfs/xen-9p-backend.c        | 5 ++++-
->   hw/block/dataplane/virtio-blk.c | 3 ++-
->   hw/block/dataplane/xen-block.c  | 5 +++--
->   hw/char/virtio-serial-bus.c     | 3 ++-
->   hw/display/qxl.c                | 9 ++++++---
->   hw/display/virtio-gpu.c         | 6 ++++--
->   hw/ide/ahci.c                   | 3 ++-
->   hw/ide/ahci_internal.h          | 1 +
->   hw/ide/core.c                   | 4 +++-
->   hw/misc/imx_rngc.c              | 6 ++++--
->   hw/misc/macio/mac_dbdma.c       | 2 +-
->   hw/net/virtio-net.c             | 3 ++-
->   hw/nvme/ctrl.c                  | 6 ++++--
->   hw/scsi/mptsas.c                | 3 ++-
->   hw/scsi/scsi-bus.c              | 3 ++-
->   hw/scsi/vmw_pvscsi.c            | 3 ++-
->   hw/usb/dev-uas.c                | 3 ++-
->   hw/usb/hcd-dwc2.c               | 3 ++-
->   hw/usb/hcd-ehci.c               | 3 ++-
->   hw/usb/hcd-uhci.c               | 2 +-
->   hw/usb/host-libusb.c            | 6 ++++--
->   hw/usb/redirect.c               | 6 ++++--
->   hw/usb/xen-usb.c                | 3 ++-
->   hw/virtio/virtio-balloon.c      | 5 +++--
->   hw/virtio/virtio-crypto.c       | 3 ++-
->   25 files changed, 66 insertions(+), 33 deletions(-)
 
-Reviewed-by: Thomas Huth <thuth@redhat.com>
+--=-CPP1nMHDJQ5Y8o3/fii3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, 2023-03-12 at 15:19 -0400, Jason Andryuk wrote:
+>=20
+> This breaks dm_restrict=3D1 since the xs_open is not allowed by the
+> time
+> this is called.=C2=A0 There are other evtchn errors before this as well:
+> # cat /var/log/xen/qemu-dm-debian.log
+> char device redirected to /dev/pts/8 (label serial0)
+> xen be core: can't open evtchn device
+> xen be core: can't open evtchn device
+> xen be core: can't open evtchn device
+> xen be core: can't open evtchn device
+> xen be core: can't open evtchn device
+> xen be core: can't open evtchn device
+> xen be core: can't open evtchn device
+> xen be core: can't open evtchn device
+> Could not contact XenStore
+>=20
+> Ok, those "xen be core: can't open evtchn device" were there before
+> the recent changes and seem to be non-fatal.
+
+Hm, I *think* we can just revert that part and use the global
+'xenstore' like we did before, except via the new ops.
+
+--- a/accel/xen/xen-all.c
++++ b/accel/xen/xen-all.c
+@@ -32,28 +32,18 @@ xendevicemodel_handle *xen_dmod;
+=20
+ static void xenstore_record_dm_state(const char *state)
+ {
+-    struct xs_handle *xs;
+     char path[50];
+=20
+-    /* We now have everything we need to set the xenstore entry. */
+-    xs =3D xs_open(0);
+-    if (xs =3D=3D NULL) {
+-        fprintf(stderr, "Could not contact XenStore\n");
+-        exit(1);
+-    }
+-
+     snprintf(path, sizeof (path), "device-model/%u/state", xen_domid);
+     /*
+      * This call may fail when running restricted so don't make it fatal i=
+n
+      * that case. Toolstacks should instead use QMP to listen for state ch=
+anges.
+      */
+-    if (!xs_write(xs, XBT_NULL, path, state, strlen(state)) &&
++    if (!qemu_xen_xs_write(xenstore, XBT_NULL, path, state, strlen(state))=
+ &&
+             !xen_domid_restrict) {
+         error_report("error recording dm state");
+         exit(1);
+     }
+-
+-    xs_close(xs);
+ }
+=20
+=20
+Alternatively, that xs_write is destined to fail anyway in the
+xen_domid_restrict case, isn't it? So the xs_open() should be allowed
+to fail similarly. Or perhaps we shouldn't even *try*?
+
+--=-CPP1nMHDJQ5Y8o3/fii3
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwMzEzMDg0NTI2WjAvBgkqhkiG9w0BCQQxIgQgQBBw8DMs
+t3VO8hkO8WPiQwf10lYpPRUdsSh3VDB3+t8wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBmzX8rA3LiLFj8XFKYOE2WAFc8BMwA1zkl
+k0a6H11cqzVfNRuW9IhyG+dsFFFJ+crIzmJXixZAuC4MGgdAZIq9CevYPeY3Cootqhezm6IUsCIH
+Rj7Luq7OejNqUW0miUQbMs6gWXqTJboaBTbtRLVHiT/mSuQblhCeZOY35+iUBsMKIIE5Xd9pkoDn
+IwnJByJ/WlxrtT/GToixHwdoJ73+gOfw421xP2IxrzCeUAYbB/IGWvootWC5FqVNnWnMLehyEge9
+ChoMHjN50a/KMMEL0osxGgN1cGX4T8vTD6UhaM4vPWNttbey3PQgJf8Hb8O0wN727X/61FbMwhrW
+OJNrURrALem9UxxO9VNxxGrPnrihyAj+iXAGW88UUSnjsj0Peu6YLv7tZ3qHDx/PXkMqcvzyOyXJ
+iVK2bI3Cj4Nuyk0OWi5aw8o5ZaUx9XimkYzb2hYhwzKZX67mFT2DqDyKOE+59il83u/E/B3SeaFt
+SBObVzxHhlpmQwq7GVFqsHHdc0sDeXf9HPVMbT7ICley1r/xe6QfN2Lva72F9Jdi8tNAywRD7a6l
+vWagJRT7paWUmeKOgDDi/pUpAdSy8uMzyopd6o/EZjDgFITBpvwAIAviapjs0xNKfMaVWa4h9sXC
+22+TqaH1YhlIevwkCJ/RoJjf9bwsvO1+JuSK3lOEHwAAAAAAAA==
+
+
+--=-CPP1nMHDJQ5Y8o3/fii3--
 
