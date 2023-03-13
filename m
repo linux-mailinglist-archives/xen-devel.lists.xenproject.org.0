@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 589CC6B7877
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Mar 2023 14:09:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509253.784688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 912486B7875
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Mar 2023 14:09:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509254.784699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbhue-0007so-A8; Mon, 13 Mar 2023 13:08:28 +0000
+	id 1pbhui-00088M-Ha; Mon, 13 Mar 2023 13:08:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509253.784688; Mon, 13 Mar 2023 13:08:28 +0000
+Received: by outflank-mailman (output) from mailman id 509254.784699; Mon, 13 Mar 2023 13:08:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbhue-0007qe-72; Mon, 13 Mar 2023 13:08:28 +0000
-Received: by outflank-mailman (input) for mailman id 509253;
- Mon, 13 Mar 2023 13:08:26 +0000
+	id 1pbhui-00085l-Dl; Mon, 13 Mar 2023 13:08:32 +0000
+Received: by outflank-mailman (input) for mailman id 509254;
+ Mon, 13 Mar 2023 13:08:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=E75v=7F=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
- id 1pbhuc-0007qY-MX
- for xen-devel@lists.xenproject.org; Mon, 13 Mar 2023 13:08:26 +0000
+ id 1pbhuh-0007qY-45
+ for xen-devel@lists.xenproject.org; Mon, 13 Mar 2023 13:08:31 +0000
 Received: from EUR04-HE1-obe.outbound.protection.outlook.com
  (mail-he1eur04on0601.outbound.protection.outlook.com
  [2a01:111:f400:fe0d::601])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 22a34674-c1a0-11ed-87f5-c1b5be75604c;
- Mon, 13 Mar 2023 14:08:25 +0100 (CET)
+ id 2684480d-c1a0-11ed-87f5-c1b5be75604c;
+ Mon, 13 Mar 2023 14:08:30 +0100 (CET)
 Received: from VI1PR04MB5056.eurprd04.prod.outlook.com (2603:10a6:803:5a::13)
  by DU2PR04MB8520.eurprd04.prod.outlook.com (2603:10a6:10:2d3::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Mon, 13 Mar
- 2023 13:08:20 +0000
+ 2023 13:08:28 +0000
 Received: from VI1PR04MB5056.eurprd04.prod.outlook.com
  ([fe80::f883:bd6d:18d4:c487]) by VI1PR04MB5056.eurprd04.prod.outlook.com
  ([fe80::f883:bd6d:18d4:c487%4]) with mapi id 15.20.6178.024; Mon, 13 Mar 2023
- 13:08:20 +0000
+ 13:08:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,22 +47,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22a34674-c1a0-11ed-87f5-c1b5be75604c
+X-Inumbo-ID: 2684480d-c1a0-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ExG/uhiTUAJz/Rqp1T6T4IHBH3E4AvGtzF5vV5DAaOO7r2KAZPjuja6ONakMatBCDqY5j6vG1s5Xf0uYx5TstwGHO3kWrk9GnE65PMjWVDa+Ah+r2wqVA6ASq0J4Y7L94pADsJ+vpE5mLR5YGKS5c4qBb9+r0OEyol8h7Q5zj6iV7CebwQh6cscG5UWwtEBFyWyTgq2E1fiI87Mt0hlMsLa9cdpFDHCwBXG+nV6aNfqKPDc6ptnI06fmNAMF+ZBbpQOBC6BpbJZ6fP4wUEm7mHKyysJK6J8zYUsFCaXjnWjEh9ojjy6zyQHLazWG4jfQUQIhNUlkpj4NQqgJimhAGQ==
+ b=cYBbjh9zCziNfLx7Kqv+dlOwe2Bt+LRSwO7PRtKi1o/vu0V6BsS4jta6S6/hFJp2IxC7Wli6/fVR0YY4wBOAFLhfGeLWG9zeM8U9eg2iFP9qaGtoqOuAKfab7LglehIPhn7Gl3OyiWTHoejtBXMUsnBIY0hFxpYaSa0vOiE8zAlEWA45y+bG7ODih2ukpXuCdkwUl+YSvmG0xkcVmtdOTNC6QeEG8CBAS5e9KNPmlWpsvCWk/cGamXxt28uTbHmRlW85Z2H+HOsSEEn9R2BqgtbBpmBheyPPtw6dXA8/gkIh0I+oSVyq6uZd6B3ulfoVjdsaJAGqlZKw1FMmkJMR8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HveRXjE7WkEwWdvVZdbgoST0v0U007njgzyEMA8jgDY=;
- b=FugOCUuQQQw7ByIeE8DpgISAdu0sMQLAVlHjoEVbci7OEJDSVgSJcFffG6BcHvcqTc0hh5ww+YFE4VhnF/R2GgbIxVWn+3NfW/ve04bP1kn+5p9slGtPf3RIPlxB4vtX5sGuWGxU7tNgun8KYuTXfAilCNZaRm81/3FxXDFWL+UFKI1p9eVv/u0V4UXAcqSDJV4Tbq05zCBGP2xUXxvEtktEhWeyRL2SjTQuoNK2fksPU8R+ExzwGPLKgc81ghIsoWnSwFBja+AkMmvLGZ7FX8gPL2gwXxvm8A91rtjD9cGhSHaCB3/DmloPlQx7b8k6LasulTfjqK3zCdW1kPEABQ==
+ bh=uQNYeJoSq7Q9ZqnSKcAT7DwtkzmkKIujQqNfvAuqlr0=;
+ b=LvCs9hwahRHCh2qbt8fUOYjq4fwtGgmTH/TQcCGJfef33+h9Uv0qEFsFiCqiXiEHYSGsNClgx1Sff7xZp+2DuRAYYiBZ9H/i9QeWjYPQ8Wde8+AYuSyT/oHPkkVfNJYnsLQ058HW8CFo+w4OaiCMOlKuGZQsLTxfJaL3F1JhnoNBOXZANkQonMDJGwf/VIEntxRmOLadQbmAXhW+3OslVXQZqgjfotOJuI6O8RBhELkqzyRqodmMUbBbmUtP58efFPt+YmJPQPbu1wKFkNbtWpKdBhEtVTekA+X8sKMDZWyEqfWReps5SRjm4XLJvwMQXfT2ae58fzYk/TZBibUG9g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector2-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HveRXjE7WkEwWdvVZdbgoST0v0U007njgzyEMA8jgDY=;
- b=GRMS8F0rS6R3cEGakEy4Un9hDDIdSaNAPVXXbCHdWmUjEJLqlNEG+1R39jPjrfDXS8LaTwBvyxZvDk7piPWBaGGA7LqGBkXUpoE/EnoNrrSBnRmkgg6gbvSjeNreNOIDPvwM63J/ylzI/b9ZbXv974L0CCWe8Do3NzmFgIsXIdE=
+ bh=uQNYeJoSq7Q9ZqnSKcAT7DwtkzmkKIujQqNfvAuqlr0=;
+ b=RHu/3XfhBS606kxDz3C7rgzQwNFecSBeM1AVKWDxDgs/ggnBV59B7hLo2VFqGkiMm67kcRRWSfMfub2vF4Waqib6e4+Fn1aX/IX6yvd2bbeFHa+pnd9YJvTvJH6ZsZuzU2bo98+56bHcNlm92ftcYvE4ti0uECG8FBQjJNkKLxA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 From: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
@@ -73,11 +73,14 @@ Cc: michal.orzel@amd.com,
 	julien@xen.org,
 	Volodymyr_Babchuk@epam.com,
 	rahul.singh@arm.com,
-	Andrei Cherechesu <andrei.cherechesu@nxp.com>
-Subject: [PATCH v3 0/2] Fix ARM Generic Timer interrupt parsing
-Date: Mon, 13 Mar 2023 15:08:01 +0200
-Message-Id: <20230313130803.3499098-1-andrei.cherechesu@oss.nxp.com>
+	Andrei Cherechesu <andrei.cherechesu@nxp.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [PATCH v3 1/2] arch/arm: irq: Add platform_get_irq_byname() implementation
+Date: Mon, 13 Mar 2023 15:08:02 +0200
+Message-Id: <20230313130803.3499098-2-andrei.cherechesu@oss.nxp.com>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20230313130803.3499098-1-andrei.cherechesu@oss.nxp.com>
+References: <20230313130803.3499098-1-andrei.cherechesu@oss.nxp.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: AM0PR03CA0001.eurprd03.prod.outlook.com
@@ -87,105 +90,189 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: VI1PR04MB5056:EE_|DU2PR04MB8520:EE_
-X-MS-Office365-Filtering-Correlation-Id: 268d79e0-d8a8-48fd-babe-08db23c40491
+X-MS-Office365-Filtering-Correlation-Id: 9064394f-12b0-4336-5bb0-08db23c40918
 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	AoK49Kh1Xd34kmOweLjW/vvpZfhT/pql7hGKwHuIxZUMr5NYFAHNLFyIuO92MJSTbmUZqjZcgpbQkPbsqnVVPYhG5ZZTBl5jushnqjEhTH60jHvQnP+pfsXcLzRlrKWj68CPDiN0fUMq4Rl0aAU8bX1q/NLNJh3kMuJEPhSZdakCpsGQpd7zwBIcSkBxuIU4ESwggRY09BV7lRZ8A+V9ZzVb6/fSGGRd+ZrAeUnf+sc9k6AQh+ojHZe9tgzY0tZmIMGkuW/yQOsNbz5U22+ZalGe73LMyCJkEQuIOUX5j28RBHzTUDUKexCIqoC58KffTjAtceqHDBRnb2Q9IQwPkkkpEPzDjmVCz7y2IYlBm+7m1O47jB0/NfvySFsoLTzygjNmLwxmxezXtfip2Tz0A5coIzkXS4QbAOL/+Iamdl0IfiQHKNHnrsk+FSn9rw7ni99C6wu9mlbSDDXPtY8PUS48+MjodeLg4umdaubNITGPeodUhdFWRum7/VifcXA0zC+eiMhcowU96mWAf0fRT2xRa1ZU5JDHXoH76iSSNi+hXPHPWIR9nQ8j9b05jEsPZouWYrWaE7DxIFPA8yZ5cbnCORVPA37l+S0mFvmxng7XmBe1XoZzxVNxbmqx9Ro8xAwODuI9WJrT173kNyvX7ixsE1MCTw/zfr39OXTUQKQ35ZSM+BePmamZ+FbTIunfDrtOXR8cepnAGvbYGNR293WcShaSRk8uWU/4eqhPWqg=
+	+vIMt+qbAQt3KeSXQuiqxuShSWEIZd4vIBMSEj4/G8JcKQ4mBpbKGcKe+tCbYvly5V7EhSzIFpbQL0J7iuktU99VYE2YVS5tOAd/BRjjGAKbLjPcafgYi+BdnH1iiT0rlnTazGinJKMzh829mhYnhafLOAvUDcEiCn4wMreYr2u6tEt6T7LSOOW+ywnO42uC+AFBXoqe7iVqu262ExG4ToRYFD/SEGFrkz/U2ZrZskdj1P9Cp0Ia4bSuDD5+ibp8X/AyRgP6GRIwBve22xRuC/WClaO/o48CZ+BbeV6/wFv+Ysbm4weIrzft6L737+MLBLO5UTUstpwo1i0fy2CCt3ZsYTolMkuEXNgMLvkK6M6seeyyO0mYjMCjB9mUQ5Cpoh4QjKBM7WN7hie1l2+d7B2hQHhJ5xxRBKf5yfuktyKyqdiHK+lQLLXjAviRidLL1uBkw725p1Tb+XjfU363STzJ/sz5B/+3qiZvWEp4/0HuQc01gzUQubv7hnbuDb0RR6SKij8ePKhqPoyYYdKXR7GqoT8PjpIDiHxs+2wB4CyXL1tYcrcBaQ+8GeO9YEwdEkyBSqAIvNR7IlXJh4Eti3N92NQKR6kRc4Xj9InpGNxNt+1awRCJ6gELDB+gbVNRMC9NvrTJLaHdSPgF8Xe7PBfBZlP/T6R+l9xt44wH7y1fsVWQ3Wi26mh26+KSmwlF33pQVeVmm4uQOORqK9F5Iw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5056.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(396003)(136003)(39860400002)(366004)(451199018)(2616005)(186003)(6512007)(26005)(1076003)(6506007)(83380400001)(8936002)(6666004)(38100700002)(5660300002)(6486002)(66556008)(66476007)(8676002)(4326008)(52116002)(38350700002)(6916009)(66946007)(41300700001)(2906002)(478600001)(316002)(86362001)(41533002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5056.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(396003)(136003)(39860400002)(366004)(451199018)(2616005)(186003)(6512007)(26005)(1076003)(6506007)(83380400001)(8936002)(6666004)(38100700002)(5660300002)(6486002)(66556008)(66476007)(8676002)(4326008)(52116002)(38350700002)(6916009)(66946007)(41300700001)(2906002)(478600001)(316002)(54906003)(86362001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YW8+r116Mt6pdAcZU1YOtTW4Q1qTvSa8RdNnZcl7xlsh18NIDYHG4eXYFIlg?=
- =?us-ascii?Q?INNNJTbXHyGIrU8EL/yBYw+VqqqCG7FjEPN0JPM66kNsPwPsKRhlQtZrC5LL?=
- =?us-ascii?Q?Hq0fprJ0pdrJu7VH3XQGmuXgG+yoMZm4pZOl+4NMURFnNfYff9DHI3kikEUM?=
- =?us-ascii?Q?7BOl2p35an3F/4CfaS1oNbbEMiHiTftKNYOJTXdl6XvjgHDYOasw4ma0mwBg?=
- =?us-ascii?Q?pmZNuG19FvutttnZc/hvPn00tvNqK4EkWIxdgJkCDlUCIKQtfL/6Sp2Cu2OX?=
- =?us-ascii?Q?RlMPZDUa0fAkqT9WuSwmMWR6A4rynCRsW9OX1Ns51+lkvifvM6TIMCnn0O64?=
- =?us-ascii?Q?cPqTWar/tb3RJyLGbqflOzjbFiUw+GxQtZYIqBfQ47IuSGsW9vzB/vWYK9uK?=
- =?us-ascii?Q?bFlbJPze8K4+fBGgN41LQpW4Oy6HF+LfOi8DZDH8/tZza7JdIYwwUrawdmOk?=
- =?us-ascii?Q?6EiE/OLKBm8YlgaZJEOkWsHt2l0j/SsYi8PUmjjLWZRXlsnbNKUMKwdmck2y?=
- =?us-ascii?Q?VT8vUn86wH83wOoZ1mbBFnEwtcdagSKZuqvT4dhjgJqUUs6AlKL0rxZ3S429?=
- =?us-ascii?Q?H4hfO9yBbwm+F3RuTFFwHDF7sUQEa67v0LsUzuoZ5AIMPmphrubHAvGujsYv?=
- =?us-ascii?Q?AFjYn0Q8AHCnlbtWwYeC8ttouRHpVlhIrp3RteW+oC6VG4hK/EsWMWmCjzar?=
- =?us-ascii?Q?RXgB37/XCGROT1RRvB8IUSDVWs6awuq1XFA/dGS9ROIEXuxWJ7lf9DF5KSFX?=
- =?us-ascii?Q?iO0NKA6+A0r1bul6UE6Ee/FoSBntpHZub/qfD2x51qkH1Kdy/rv/vT8QcQso?=
- =?us-ascii?Q?eeUuxVoie8FLYIL6e4OkKN6db9tW8Tozeo+r6wxl1hK65DwMURsXGa06KRuX?=
- =?us-ascii?Q?AyuBMGihqH4JC1SXKw5Y7PHwUDjHHybj+DcfK3CwHU5gZ8dzKUYNvVYjBA3l?=
- =?us-ascii?Q?dWfus74AhSgreofgKZsVGoJD/pkcf1gMNds2fjuDH/cHpIcdK+xrelvlMV5Q?=
- =?us-ascii?Q?8D4lXtBZkEByaA2FDo3b4lEJkH85elKhRaTDE5+QTBZM06Ls0ZZcLcGjuy0a?=
- =?us-ascii?Q?lA49J/h84o/0mgtf5my99DaNv2e+Us5g//hHj/At+ES3H84gEqzhVw1OQoIC?=
- =?us-ascii?Q?cHEhnJwi9BNC5EucmTU6RaCgQhqZvHy1GHHDp2I+ygDAMWriFLiZ6gziOSFx?=
- =?us-ascii?Q?uGoLctqKtfd8JpqCNt03dxNwxBNlYti5Kp62qTrn6oH4Ooq3JLelEW49dEfL?=
- =?us-ascii?Q?V/rdfZJ+L1vLlTguUuNyNqG0nToc8QGkd9NhRcSx63BIXuNFq/lCA9b/7ccl?=
- =?us-ascii?Q?mAlIF3LxMGQzqgtyUs3WWF1JoBAtsQsje8t97PVd9jB96gQ1Qi7zhzrSznyq?=
- =?us-ascii?Q?V10jpSdrCwuCTH7kC1f6o4wDxDOUef3o71DdGlR8+Ncl4yvdg6mrV4TjqQqq?=
- =?us-ascii?Q?ANZ+hDMGFMxvoKqvYROpL6j+SmAIB5wdMmEI1KpYkaabaQ/Ht+d93941Xicn?=
- =?us-ascii?Q?EyWTz/cBpuIFD4fwcWMs2wFQBPvbzzCDsbUChisQtGiIUlNVuc81bZu8MpvH?=
- =?us-ascii?Q?5qvft9Hnnl66jNblpzrIC0ZkQ+12O7eEAqIk2r6AX2oKq2DVx4vtb/MWMjmt?=
- =?us-ascii?Q?hA=3D=3D?=
+	=?us-ascii?Q?gssfjbbymzR8dHKbGSQXnU1vO0NcpOQPMv8nXLbZ3/I4e2lAgtH/1Pd2gpif?=
+ =?us-ascii?Q?rAD+FHSsI+iJT+kaApOArXIePK4/vRWAYtLfl7EGhgbXwwvnC4fPhlFBllB6?=
+ =?us-ascii?Q?9c3Y/CK7nIPHl5DAhN4pzJYa9y1nndm2WQ1YghC8TjffBgev8uL9WH+0NZZ+?=
+ =?us-ascii?Q?pX1bAnf+l3W/gTXk1Snr4jTSmhwUM+Q+44g1lak7eqwn/aBj4Z02MIpcrxCD?=
+ =?us-ascii?Q?yoi6cm040bpJsXZZNs5fms+OfD5PHWAeVJUSRKUIGRYrY291JXYwpX+IZWPS?=
+ =?us-ascii?Q?nvTod/6ddpF3e3zqOotHs3LYzsN5URJhBmCTy58UylWBFgieX3ny+0UPMEhI?=
+ =?us-ascii?Q?QKLzfzJdwx2kCtN0dFg2a/OOxaWajdyX/BxU1eieiZDZ584mE28hGOIiF2x4?=
+ =?us-ascii?Q?4MPgi8oC2cSpoUtRyOcWku+Jt9VsgnEfOLqAIkEg30jrwUz743v2u2we+bdB?=
+ =?us-ascii?Q?hm3p3RdCKqv8NLjXmiQMxULLMs86em5h30EdUbDAZoqQ+rIkrFCQ42OEd+dL?=
+ =?us-ascii?Q?fUSruFetDWlC633hhwBq4AG+biS8N2O94cXC65qfo8JfVq7SN435Lbnm7FpB?=
+ =?us-ascii?Q?2214Xjo3PmFngspNuNRDcYd5GChXhwTIGyzJCfAbDBfMAdygvwOAfhgAfxUg?=
+ =?us-ascii?Q?2IbNHxUjmKPM6ynrBTKBzhTxxdyE8q6RfY98p34lGRnfu16PauTcbiyfjvAD?=
+ =?us-ascii?Q?4agoWqpx9gNVFhd7qACHSHgK0raHy3mu35wVXSp/GReYJD2nhOD42SU0vJkN?=
+ =?us-ascii?Q?mnqIv4+HvzD94QsmzGCnbuuEOtyWfYopZH1oP66DJC3GR6JXUfOdFbCGN6qL?=
+ =?us-ascii?Q?mhwqxiqSETZQQRJehGtAPZr29dt/xvTJyoOZEs9f+2UAs/yCNwvMH+4xK4ZP?=
+ =?us-ascii?Q?0Pita7D8qQudyQ5sIWrROXL0j+49TtE+LqXBMY0bcUw8x65+zeSB9GSNBMKZ?=
+ =?us-ascii?Q?+D9JwTqXB+MdFbmV+yH0RW+C+Ch2XoTaurBk11gk15+AnqACp81Bqf6N+w7n?=
+ =?us-ascii?Q?dHCjffkoCaaUmFSqWm84YSN9cRUcTTxu0mWRNraqEZGvjMRdXFr8fP4beSJ5?=
+ =?us-ascii?Q?IkDPC3k47GkTDxAD3XliSZoQo0jHnYYmkgmaZBcMeXgxVOjmsaf6aHjuX//n?=
+ =?us-ascii?Q?Ox0y0MWsnTBaDFHMDG7QcsSNuaKuXsL/FXhHfKZoNWlqJbfSQ/5nsuz1A0jY?=
+ =?us-ascii?Q?nyLdlGQKxmQhtKbX8hjdNU9UJnIIlgatTxp4QwpIMjLM8wDh8hlzktkimWlK?=
+ =?us-ascii?Q?enhSnj3jxj9mqvLJifOgcYHt+6P76nS2jp7uOMUGTGqJ4/DLZBIJB4Qn2sol?=
+ =?us-ascii?Q?eXH29U4eMLNHfguuMq4QkPfh81EZ42yYy7rgWMwLtYc/Z+Ja6RiNOnpipvSV?=
+ =?us-ascii?Q?oAGcNor73LhYRxsBjWyMqy+bKMQuAXECzmRjlrxDMAvNis4ei/3+9gSnpB6d?=
+ =?us-ascii?Q?cWm3sCcKfyHi/gI426HxNdJCmZFlbEJ6upX3jBSO6aGE/XKVLUG1yf5hU4W0?=
+ =?us-ascii?Q?Vnbg5plOG8OtHjykR3BgP+s543K2JrBqB9H//w3NbE1Ol6PwJjg+XqZ4JrG6?=
+ =?us-ascii?Q?ltdVOXRVk7vODynTi7Su1E8tzTD9Uxxc7nPlyv5a3hbpb5y7K4RFAVqGc5H1?=
+ =?us-ascii?Q?/g=3D=3D?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 268d79e0-d8a8-48fd-babe-08db23c40491
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9064394f-12b0-4336-5bb0-08db23c40918
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5056.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2023 13:08:20.2309
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2023 13:08:27.8710
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VLxA04uM3c4FljvPpUtxa6v+W6Md7N+Ezed4ct/H664pU2ZwKzMcpIFeDr2Zx8LsrcdCXVuihFMlJ9tMn6rwG53/UL0dHjQG0qBdJUB/bS8=
+X-MS-Exchange-CrossTenant-UserPrincipalName: BhIq6XikF4xyjnHVwZDKialzGi94INt+y4Nr8nAYFTNVdGDvnkha918Rym7OOhUdYkTNjhnIHZB+jF6xm5ZvX+/WlugPnGa8+BgmBl/x0vo=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8520
 
 From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
 
-This 2-patch series fixes the parsing of the ARM Generic Timer
-interrupts from the device tree.
+Moved implementation for the function which parses the IRQs of a DT
+node by the "interrupt-names" property from the SMMU-v3 driver
+to the IRQ core code and made it non-static to be used as helper.
 
-If the generic timer interrupts order in the DT was different than
-the expected order in Xen code, these interrupts would no longer be
-correctly parsed and registered by Xen, and would result in boot
-failure.
+Also changed it to receive a "struct dt_device_node*" as parameter,
+like its counterpart, platform_get_irq(). Updated its usage inside
+the SMMU-v3 driver accordingly.
 
-This method with using "interrupt-names" for the generic timer
-interrupts instead of having them hardcoded in the DTB in a specific
-order is the newer approach already implemented in Linux. Xen did not
-have the necessary code for this approach, and it has been implemented
-by the means of this patch series.
-
-Functionality should remain the same if "interrupt-names" is not
-present in the Generic Timer DTB node of the platform, but the
-interrupts should then still be present in the expected "sec-phys",
-"phys", "virt", "hyp-phys", "hyp-virt" order. If "interrupt-names"
-is present, now it is also correctly handled.
-
-Changes v2->v3:
- - Fixed 2nd commit message to mention that treating 0 as a valid
-return for platform_get_irq would lead to a BUG() when trying to
-reserve vIRQ being SGI instead of "during vgic_reserve_virq()".
- - Moved timer_irq_names[] in the init_dt_xen_time() function
-as it's only used there, and marked it as __initconst and
-also as const ptr.
-
-Changes v1->v2:
- - Rebased on latest staging as of 2023-03-09
- - Fixed coding style of comment added in 2nd commit
- - Added to 2nd commit message explanation as to why 0 should
-be treated as an error case for platform_get_irq
-
-
-Andrei Cherechesu (2):
-  arch/arm: irq: Add platform_get_irq_byname() implementation
-  arch/arm: time: Add support for parsing interrupts by names
-
+Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+---
  xen/arch/arm/include/asm/irq.h        |  2 ++
- xen/arch/arm/include/asm/time.h       |  3 ++-
  xen/arch/arm/irq.c                    | 14 +++++++++++
- xen/arch/arm/time.c                   | 26 +++++++++++++++++---
  xen/drivers/passthrough/arm/smmu-v3.c | 35 +++++----------------------
- 5 files changed, 46 insertions(+), 34 deletions(-)
+ 3 files changed, 22 insertions(+), 29 deletions(-)
 
+diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/irq.h
+index 245f49dcba..af94f41994 100644
+--- a/xen/arch/arm/include/asm/irq.h
++++ b/xen/arch/arm/include/asm/irq.h
+@@ -89,6 +89,8 @@ int irq_set_type(unsigned int irq, unsigned int type);
+ 
+ int platform_get_irq(const struct dt_device_node *device, int index);
+ 
++int platform_get_irq_byname(struct dt_device_node *np, const char *name);
++
+ void irq_set_affinity(struct irq_desc *desc, const cpumask_t *cpu_mask);
+ 
+ /*
+diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+index 79718f68e7..ded495792b 100644
+--- a/xen/arch/arm/irq.c
++++ b/xen/arch/arm/irq.c
+@@ -718,6 +718,20 @@ int platform_get_irq(const struct dt_device_node *device, int index)
+     return irq;
+ }
+ 
++int platform_get_irq_byname(struct dt_device_node *np, const char *name)
++{
++	int index;
++
++	if ( unlikely(!name) )
++		return -EINVAL;
++
++	index = dt_property_match_string(np, "interrupt-names", name);
++	if ( index < 0 )
++		return index;
++
++	return platform_get_irq(np, index);
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
+index d58c5cd0bf..bfdb62b395 100644
+--- a/xen/drivers/passthrough/arm/smmu-v3.c
++++ b/xen/drivers/passthrough/arm/smmu-v3.c
+@@ -200,30 +200,6 @@ static inline void dev_iommu_priv_set(struct device *dev, void *priv)
+ 	fwspec->iommu_priv = priv;
+ }
+ 
+-static int platform_get_irq_byname_optional(struct device *dev,
+-				const char *name)
+-{
+-	int index, ret;
+-	struct dt_device_node *np  = dev_to_dt(dev);
+-
+-	if (unlikely(!name))
+-		return -EINVAL;
+-
+-	index = dt_property_match_string(np, "interrupt-names", name);
+-	if (index < 0) {
+-		dev_info(dev, "IRQ %s not found\n", name);
+-		return index;
+-	}
+-
+-	ret = platform_get_irq(np, index);
+-	if (ret < 0) {
+-		dev_err(dev, "failed to get irq index %d\n", index);
+-		return -ENODEV;
+-	}
+-
+-	return ret;
+-}
+-
+ /* Start of Linux SMMUv3 code */
+ static bool disable_bypass = 1;
+ 
+@@ -2434,6 +2410,7 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
+ 	int irq, ret;
+ 	paddr_t ioaddr, iosize;
+ 	struct arm_smmu_device *smmu;
++	struct dt_device_node *np = dev_to_dt(pdev);
+ 
+ 	smmu = xzalloc(struct arm_smmu_device);
+ 	if (!smmu)
+@@ -2451,7 +2428,7 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* Base address */
+-	ret = dt_device_get_address(dev_to_dt(pdev), 0, &ioaddr, &iosize);
++	ret = dt_device_get_address(np, 0, &ioaddr, &iosize);
+ 	if (ret)
+ 		goto out_free_smmu;
+ 
+@@ -2484,19 +2461,19 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
+ 
+ 	/* Interrupt lines */
+ 
+-	irq = platform_get_irq_byname_optional(pdev, "combined");
++	irq = platform_get_irq_byname(np, "combined");
+ 	if (irq > 0)
+ 		smmu->combined_irq = irq;
+ 	else {
+-		irq = platform_get_irq_byname_optional(pdev, "eventq");
++		irq = platform_get_irq_byname(np, "eventq");
+ 		if (irq > 0)
+ 			smmu->evtq.q.irq = irq;
+ 
+-		irq = platform_get_irq_byname_optional(pdev, "priq");
++		irq = platform_get_irq_byname(np, "priq");
+ 		if (irq > 0)
+ 			smmu->priq.q.irq = irq;
+ 
+-		irq = platform_get_irq_byname_optional(pdev, "gerror");
++		irq = platform_get_irq_byname(np, "gerror");
+ 		if (irq > 0)
+ 			smmu->gerr_irq = irq;
+ 	}
 -- 
 2.35.1
 
