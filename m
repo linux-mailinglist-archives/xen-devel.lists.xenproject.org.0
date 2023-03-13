@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBDF26B7CE6
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Mar 2023 16:58:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509337.784897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97E8C6B7D39
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Mar 2023 17:16:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509340.784911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbkYQ-0003cM-SR; Mon, 13 Mar 2023 15:57:42 +0000
+	id 1pbkpp-0006le-D7; Mon, 13 Mar 2023 16:15:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509337.784897; Mon, 13 Mar 2023 15:57:42 +0000
+Received: by outflank-mailman (output) from mailman id 509340.784911; Mon, 13 Mar 2023 16:15:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbkYQ-0003Zy-Pf; Mon, 13 Mar 2023 15:57:42 +0000
-Received: by outflank-mailman (input) for mailman id 509337;
- Mon, 13 Mar 2023 15:57:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pbkpp-0006jW-8t; Mon, 13 Mar 2023 16:15:41 +0000
+Received: by outflank-mailman (input) for mailman id 509340;
+ Mon, 13 Mar 2023 16:15:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LnkN=7F=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1pbkYP-0003Zr-IC
- for xen-devel@lists.xenproject.org; Mon, 13 Mar 2023 15:57:41 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20603.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::603])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c72243a8-c1b7-11ed-87f5-c1b5be75604c;
- Mon, 13 Mar 2023 16:57:40 +0100 (CET)
-Received: from DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) by
- CH2PR12MB5001.namprd12.prod.outlook.com (2603:10b6:610:61::18) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.24; Mon, 13 Mar 2023 15:57:35 +0000
-Received: from DM5PR12MB2504.namprd12.prod.outlook.com
- ([fe80::4f9:60f8:cb12:d022]) by DM5PR12MB2504.namprd12.prod.outlook.com
- ([fe80::4f9:60f8:cb12:d022%3]) with mapi id 15.20.6178.022; Mon, 13 Mar 2023
- 15:57:35 +0000
+ (envelope-from <SRS0=ddKj=7F=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pbkpo-0006jQ-IM
+ for xen-devel@lists.xenproject.org; Mon, 13 Mar 2023 16:15:40 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on2060f.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::60f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ba186a4c-c1b4-11ed-b45f-930f4c7d94ae;
+ Mon, 13 Mar 2023 16:35:48 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS4PR04MB9434.eurprd04.prod.outlook.com (2603:10a6:20b:4ea::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Mon, 13 Mar
+ 2023 16:15:34 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.024; Mon, 13 Mar 2023
+ 16:15:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,160 +47,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c72243a8-c1b7-11ed-87f5-c1b5be75604c
+X-Inumbo-ID: ba186a4c-c1b4-11ed-b45f-930f4c7d94ae
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LOOr8buJClWzMRvizM8nlA3R6FjVDrQpQnZIktkvYpQ8mCnKjgpbQNrbZlgZu5/6i4wz3Nl8Lfs61hTGZ/jQQOqrkEUvPUxK4s9EhrCVMCUwcq2SHMrCXyb1zfThXO7lMrrNkRHgfBHRewy4VCxGJHDKarh3VOHn6G5hH7YMf4ecMIoZdJZv9YqQ3XBCyuI6LhM9ex2IA6n7H4HIJSggEIK38oo+H8SYJ05HvIxoECPa/SHDdyjGVWGSJDJFgthIRz83tW0Mk43lK/xgIqY6B4oxGet3BiNMP5PsCezC3OF2mOMllzdCYk49k1qKR6M+KoReEmw54PhteZyoBapDvA==
+ b=DaZqK2pvmHDUUTVH2oRib8F2qtzU2Gu0IrhGLzCna3LAZIQ4K1kJmfFtuwIbBYFEwYSTy8osHd5ikV1vlrN5clyBZAMd8d89q3vIm51vGliLXfSLRrIzoO2lWLAJAqBZgr99Wif0lddq6X43W1nQmiAlKje1AeQkUwyISXpRK7w2pDdvSwbJPr0VLXjGOQNL6FIoCU4xWaS4NGPrq+EqrFNmwxO8NgNiQeHbRzoCmxF/rtLWzjyxcoG3C8eqv+s4X7t06ljNh+LXjvLHSnnHg/FZmn34XtYx9cf4FG5Ektrc+GK02S4t3iFMkX8icNPOjy42ww13/tG8ug86Ac4InQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Bthr1QWPFMEqeEDh/KBoh+yxNrZXBaalAi4REG9k+To=;
- b=GUQOJdF4fZ7B8/hcJL/I+7A8dFtSDs5laUhtLKOpeLT6tU89lyN+BSltV3uxxBhJ8FNS3XnPt3iAnC8dYRgdngEFkI1siWpzOrHGEe9sd2fMcFlfcs1gwrUy+v1+W2JbO1C4JBEdPIM8ELeSJBDq5mSmXZVfnL+QetgPVnwDLBpsq2WffPcca4kPCSNcwafcIwP0pm01ZT7U4j3Hn3rZmDJO7uFZC9XbNiQbunQ4KsUTJDZFi9+TzJwaffDS7mz8b5Nz+UsYkcHwRPwJVm1PnU3uYNA2b2cO5Xk72PlKp0lqM9QUU2hi1EMfanMAQiBIsDmL6Cfs+W5eX/hdc9xavA==
+ bh=H8ayyE/TOhRdwhKKcF4iK01e8s/A1foQtZEUI6plLkw=;
+ b=mj1UuQfnyJADGq4iEbvUb3Rl8hrP3sMWVWXVMWePdm7lwtuHX/lHtQwW5tJC082auVdkFLmXLeTymcZYDDzEenMBKdWmLPeLwmOXtIBcY/xy0EWtvPz7H6xZ8ib4TM32ALXIMRHt3iA+1y+la36me6dU2IOXKMEn3u6P7kgRIc6wswCAqTLoE3cPKWzDKxTOwLImWC+JiWGTEFvBP3HXzyHeYOHvzNNmVgREJ6nG97K8gmPGLzvE8Tzibf91bskQbtPBt+wICDWmlAKkbiryvH/kaEjEuz/abJpGJY+pif2axBR1fj7Fc2HKuyG9jEHUhPodTSojUgzMBtf2NmKs5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bthr1QWPFMEqeEDh/KBoh+yxNrZXBaalAi4REG9k+To=;
- b=RonlFwTGhLWJoIFEmyTjeIL31IxdmFI5TXQBOhq3xJ0jy5rCkuS1rIG6p7MbcscdvAldY7ZPV96PU3lwpnHLVftmrlEDuWbQs8MqGhc4IZB7rii6trgiBs3MY1dYfRbMwtg4qzXB9kyCe17wGVYPD865/zGBolm0F7mO5x6n45s=
+ bh=H8ayyE/TOhRdwhKKcF4iK01e8s/A1foQtZEUI6plLkw=;
+ b=pBSRAqO6COKqe0he2uDwHvhcvf1swdw/Yj0aQCN2L2ct4N9Lw+G2adcP0CT15WRHT7tzoEAXenvnaQp0zc9bIOqhj2G0k/0lZ4D2dcTdgZJy9/yx8sErkUkPdsp0p7PDrwq4Q52w7TGZXn6MjeH563vj+vPkQvqURF33x0uprHJ+tqutQzrlBJ6pv2/IKT8bAhE9vJL+OBPB97FWi2E4LRsKT3b5EpIPxKOSKbjP2EPj5HmDaqMfF1g7arUrz/hI4mYc0ejUFCBav36HnPJKotF3T9GO+5mkHsNUpXDdeZ5C7S3R3s0ltA1sQ4UCOQOollitULYcjBaBjsYsaaSZYw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Date: Mon, 13 Mar 2023 23:57:09 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	"Dr . David Alan Gilbert" <dgilbert@redhat.com>,
-	Robert Beckett <bob.beckett@collabora.com>,
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
-	"Koenig, Christian" <Christian.Koenig@amd.com>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	"Zhang, Julia" <Julia.Zhang@amd.com>,
-	"Chen, Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [RFC QEMU PATCH 08/18] virtio-gpu: Initialize Venus
-Message-ID: <ZA9H1TtNTiPEj130@amd.com>
-References: <20230312092244.451465-1-ray.huang@amd.com>
- <20230312092244.451465-9-ray.huang@amd.com>
- <68195782-0309-2f81-7f1f-84a7fe7bb05c@collabora.com>
- <d6f31fd0-bc04-79a5-266b-5e6ba7bf2a03@collabora.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d6f31fd0-bc04-79a5-266b-5e6ba7bf2a03@collabora.com>
-X-ClientProxiedBy: SG2PR02CA0037.apcprd02.prod.outlook.com
- (2603:1096:3:18::25) To DM5PR12MB2504.namprd12.prod.outlook.com
- (2603:10b6:4:b5::19)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <8b258946-4fe4-b988-ac25-a99ae1f06806@suse.com>
+Date: Mon, 13 Mar 2023 17:15:32 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [XEN PATCH] x86/monitor: Add new monitor event to catch I/O
+ instructions
+Content-Language: en-US
+To: Tamas K Lengyel <tamas@tklengyel.com>,
+ Dmitry Isaykin <isaikin-dmitry@yandex.ru>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Anton Belousov <abelousov@ptsecurity.com>
+References: <3f577545b8ee6846ff98c4411cdc96dfe1412b3e.1678505295.git.isaikin-dmitry@yandex.ru>
+ <CABfawhn0+XuByYGM-rAkQy+XL9E4aNiBDfE5irOzvRVesuKMjg@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <CABfawhn0+XuByYGM-rAkQy+XL9E4aNiBDfE5irOzvRVesuKMjg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FRYP281CA0006.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::16)
+ To VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2504:EE_|CH2PR12MB5001:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7c66f17-0fdc-4ad4-33f4-08db23dba9ac
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS4PR04MB9434:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ce1104a-f075-48bb-97d4-08db23de2c90
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ews51hkgbGsIyA9wHIv53MzFWxxjoxwz+SbcBp57AdkoW1IKiCGhnMEQ1E67Sa77whd8AqUy9MofT3ynem1WKQ2KvrmcHkBKOEjvYRGXS6Na6A/vHn+++Dc93xTNAtoVlj5HI4WmbVxhQ/7o7pZuoJe6EDuCh2HHJNXf+7jbCxFb79erpWcJ4NuhMFNUwjS1+geaBWY22vXqDQPvzwyiUaLmB3Iu3K31EoOOFDPjtFzEr2/w0IA9wSOy726EW8HbcEu05/Y7GxNNUq58AkzujE5qXTPy7VJ41r8K6tTXf7qa9ZPqEwscOx10+rqSvj1Ky/BEHAYdhaZDGcELVFUQuT2aGEF9NIlmmUaTR3fkNiBed4ENhK3UE260BnW/RB5qsik3KaiQKjYbF3FPeCqmK+xiJ2IvZVkqzgOiXdCZZTy+rD9cW+vREmI9lFYTByNjbqxKfulHyfpWEHo57GYsl+Pa0KX/+GsOlUknkwGN+oeZALTY/mASpsVV42u+ELMvtzem7biJAcaKZvTg3O1Y2XZvKvAHM2KK5pDMMelyXkHH+H2XjgsWJ9tGP0M8FYCL/Ae7VddF3hgi+Vj1cH4FY/LkHHjIQnc0BZ/pxpVowrc/SE3sV8w8c2pL24vbxAnT
+	F3F0CEZ0wx9J4OnMNMgPAKn9xQyTDOG0NMCSjfVLy1HVCz+eoJqZP+hJP/Z5LdoOiho727ofH+C7q/cO7jJvH8pmKi9OYeEcW55oVTU2J4vWbARkWoJnPuCZ2iF6osjRj5TtrHSoUdWUa2tcOF8qMQZnLhnFcCkZvJsJJxDaLWiL6reSRZDt/c3Z8fHOSvK4JM8JUbDXjAOesU5a42rC8AKcALMQQifTW6yZgO3rA/RYoSndmPkPtfXDSBXT4YFzy3rmbCjMLHLhlok04sl3XK6mSMen5r3Zx6Bo6TiSeiGMQpJASHBNqY6/lOAp/7wIDWTFHPcv7HYAoRLD1ufn7wvpc8X0YA2RG95rMQZZBYNUyLoMd/0RTUcaoWucrLfL4VtTzVVgPlSKa2pAIqtrfLffG3YDJhvUBP4PM9l7IqG17lDVqTbmSwN0yHzbIou9jRirF8kMVTIOu05h08G71hif1psC11ZGfoHEFsAwgJZpXOtm4ANVSaKDmHfPzTPIk/vxQ0EdTZPrMVWS4BzAZscy580s9M0apNqKf95jQFzL8HGiLqwwuMz81eEIBQcd96/SL+TrHWXUSc84KFeGJhFgYM3NbysQ2DQ2OXRoFTNexRVn5aJBclT4j2B06hM4WcyMBSpv0tfJjek/HJpkoVxLxN2VHQqbPW1y1YfFVuUoQoOhxS/V+RvbVlvMerpD6EyT7jdkowNcTAqPTmYtNkWtdXXgKM/7yewLls5hj4jXd8MZoLSzXKdbSPM5WhpvpFQOfl6iQozBgg9+r4RqyQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM5PR12MB2504.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(346002)(396003)(376002)(39860400002)(136003)(451199018)(41300700001)(54906003)(478600001)(8676002)(4326008)(66556008)(66476007)(66946007)(8936002)(6916009)(36756003)(86362001)(38100700002)(26005)(53546011)(6512007)(966005)(6486002)(6666004)(186003)(5660300002)(7416002)(2906002)(316002)(6506007)(83380400001)(2616005);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(136003)(376002)(39860400002)(396003)(366004)(451199018)(2616005)(7416002)(186003)(31686004)(53546011)(6512007)(6506007)(26005)(8936002)(38100700002)(5660300002)(6486002)(8676002)(66556008)(4326008)(66476007)(2906002)(41300700001)(478600001)(316002)(36756003)(31696002)(66946007)(110136005)(86362001)(54906003)(23180200003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?lec8PC7VQ1zBZ4Jul/ISAM9lhC9H/xcyVA13B1UHAJDWr3guis7kdC8BGLoJ?=
- =?us-ascii?Q?K4mawDAtOWBU/KTHwzr1Rjvarm2OkIxbMvP++D9RexRddpnUlY9eO3MSuxAM?=
- =?us-ascii?Q?tE9RfbufraSoyQ2fGqmbbY7caDL2DNUqrKDF73kXkBypd+HcIsXz3rriwOYV?=
- =?us-ascii?Q?Cd7p7YLGhFRQu8Fvr3vP9ikIYNVx+Twj/HPL1TO266X5OFOYYykGGxEzlcE3?=
- =?us-ascii?Q?x099wZ/YovgQogFxAx7ixpW0a4TIIIpknMJIIGipxSNpsEwZo6GAc5aFebgJ?=
- =?us-ascii?Q?jAqMbAgjLvFsOapbst/uEYWhm5x94vQQUae6P3pSfPjBYCG6Jo1iR3Fo7UNU?=
- =?us-ascii?Q?RGBFOSxsdUmkXKOSmGKFXxHA2ZtACTuH6fSDuLvfzkW5pT/JNPXVhVVVOvNc?=
- =?us-ascii?Q?7I9wKtjkkOk5X1TC97XSMqn2JVXjVmEc//oPx7mZC9Dn7pNFifvbLRgbfAIv?=
- =?us-ascii?Q?2AWkUzYaDItKydKsOpPdrc8xdOdryh9yvYwe4L2Mr3fNhvQa4L9WOb1wk0JR?=
- =?us-ascii?Q?/GVldr6W3u4flZ8Hbefuya6Nbts3jZIR25KKoiUSndKM0+FVYMXQoUj7gutr?=
- =?us-ascii?Q?/k7wiJr2xQFFJ/Awu0LyKzz/4fe/kKo7Jsgi8iA0DI/xLzog55XZaPvmtgps?=
- =?us-ascii?Q?0T21Ga55KsGRk3RDqqJDWISombYKcvFw0Rm+XZ+KKIGwy4M6EtQw4DxXljgq?=
- =?us-ascii?Q?B7pQvL0LqjCf0sPXB2KmTOrgsKlB6EKfwKi2CJz77L8H+WeaeGju8/23c71S?=
- =?us-ascii?Q?3nSoPoqXBS99IejVYPJL5ySumxMWt3G3vsWmbVlyqSDLncfRGDPdNzq0tifW?=
- =?us-ascii?Q?i/LF94D/4W7X3zVsPi99ET+oFdhNCsW8EM9vQ57nfhVnZ/DXGtkHMZCQu6oO?=
- =?us-ascii?Q?xXD2KvAwvThpZ3KaIWL1b5eqjjiAUC2HoGW7WqhEBq4xjq0rNKX42olWT5oG?=
- =?us-ascii?Q?mC7sNmwDWhJ4uMydAK3nw8if4VZpak4kMTAMgygaNS2L/khL8SY+VDMxikBT?=
- =?us-ascii?Q?p/WDStPL+i7GaA6vw+HLSL/wvt8yMNqTYeGJwTjQKhxUBvueRruVzj39hc5Y?=
- =?us-ascii?Q?5iw1wBtVqSTy9v7wqmpXmk04PvVnyCwap3Mwx3imGgVmta8X/dgs6nhC5Td4?=
- =?us-ascii?Q?Q4lBruRvLCz5+0pMyCpEyNfJorX6YZrvwqikxWWf1VWTYVAB1owN78hfcuGj?=
- =?us-ascii?Q?QHby9QA6VQjIiKAsD+z8rzkTqcPuai8r/LLtWbWcO1zf4R+XFV9LuPXfX/+t?=
- =?us-ascii?Q?V+Gr1LRqQGGs6N7HqrAm3yNETxL7r9FIsoKDoQXVR3eGBAp/06vC23MVbfdF?=
- =?us-ascii?Q?SfgFOaAL1MiP6pjDdDRDUpafAOpmi2qTfG6sxWIKxbfsoZKaKxhY7wrTMKbg?=
- =?us-ascii?Q?69gEO81DJ4gk+yTitNW/kGSw9WL6zqB4/000CormDylqzcf9it2bq5ACfYQt?=
- =?us-ascii?Q?BeNmJijxMTziWmp8E1rQeCsBKUC9JhrWBXiJVL8da6B1IWrTBnsVPUE9DvdM?=
- =?us-ascii?Q?8ACkszZIyi01evGIE1opXZPM4aPQFr93vK0whwmGOToYlrJ6ebYA9gkJkdLg?=
- =?us-ascii?Q?wdXPUYQSwKTJu+eUTImEXDxiTTvz02a8mPlCa0fE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7c66f17-0fdc-4ad4-33f4-08db23dba9ac
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2504.namprd12.prod.outlook.com
+	=?utf-8?B?aVgxbldMdy9VSDE0NHpseDhYQVh4K1p1QXp6b2FXSlc3TE1Iby9IbTdXa3Er?=
+ =?utf-8?B?cVlDcUlndU40clppakxEb1lXZFN2RlZZK0VrT1hhWG1rT2lPMUxxYWY4eXUy?=
+ =?utf-8?B?NW02cnhoTFR0WmdzM0xRbFUwQnJJS3B4M2JBVk1YckNrN1l5QnIxZTN1RWlR?=
+ =?utf-8?B?YXQ4N01zdU8yUWFwS0VaTG9LVHd5cnMxeDhWb3VHN2VlWVNndWlhTEpzRGJQ?=
+ =?utf-8?B?Ykh1bDZCa3Q3ZVhMRFZuNy94Qm1aVlBMVFFHQVZlRXc2UllDVWVzYjFuZFd2?=
+ =?utf-8?B?K2hDb0h4RGFiNHhiQjlHUTNwYXVYeTNMdVRTM0k0bWtqWHk3UUpDNXFrVW5q?=
+ =?utf-8?B?UGRiaFU3Y2lteWdpczlTQTF4Q2IzQ00vWW01TUErN0QrOWt6NlJsOVgwaXlV?=
+ =?utf-8?B?QUl5TlV6NlpHL01wSWxKUlBjQTFiRGVWclgvenJnY0kwbGoyNHlHaENrNTNz?=
+ =?utf-8?B?SHJybCt6R3g3QVhDc0FjZk9ITVN6eDU2eFU3L2RlaHBENHQxV1hGdXRhSmpU?=
+ =?utf-8?B?UWZra3I4bGp1THNUNC84YS9ONEtGZ1BsdHIwSkEzMitTUzRQS0l3eE9pQjNB?=
+ =?utf-8?B?ditXZndZT0Vaekh4T005MHRKQ0lDZVJMclQ4REVyK2tNUExlU3Q3bHl6UEJK?=
+ =?utf-8?B?V3daeTd6eTdVTncwRjdpbElGbStZcmNwbFZNLzdkcVhmVEtpYUJsZXJUVGU1?=
+ =?utf-8?B?S3UvbFNCbFR2eWt6WG84N3JZbXlBUnNwM25Ua1RkK0RPbGpIVk4remJyRDZU?=
+ =?utf-8?B?THRWZDcxRnl3Q294OEp6Y3N5RFQ3RUpXZy9VVnVJQ0xUOFR6MVZGRUdZTnVT?=
+ =?utf-8?B?VHg2d2g0V2ZKSjJlZlBKdk5JT2d2RnNZT0xlM29oV003SHJZSzRKR0NaaTdE?=
+ =?utf-8?B?V3JmajZES0ViZkxjb1JOY3JUL285TUk2eVdjeVcxajlWTUtiS1ZOMGtFdzRR?=
+ =?utf-8?B?RWtLQlZMQWh4Q0hyOGZSTWZmME5QblpPOEg1NEQrMTdFd1BhZFlmeVlIeEZm?=
+ =?utf-8?B?cnUyNHF0NlpFMk5sWFZzKzdmaGJFeXMxckN4Q1pYcm94NTBUNXZqWFFmbUNm?=
+ =?utf-8?B?a3hPNCs0cTJFd1M1bExJTmEwOVJjdmFmdXlmbFBjdktUVktJVjNyMTgzVGRW?=
+ =?utf-8?B?TDFkeVlPcEdQUFg1K0l6Um1lSkQrRjZEWFJuS1lDdmEvOTJVcldtQkVRaTF2?=
+ =?utf-8?B?L3M5c3djTEpWR3BHL3YxNkJMTEpZdGkxVGY2VVNrZlhVUkM3azNEVVROZWdz?=
+ =?utf-8?B?Wk9SazNjQUdQZ3Yrby9hTWdnNmRXVWJJWmpMK0EwL2hEcXMxRk1wYlVraTZH?=
+ =?utf-8?B?RFV5cEZDSzN0ZEUxQmtWa053MHNjK2VuaGRFcytlalZHVXBlVEhjMzhHSXgr?=
+ =?utf-8?B?RzRZM200NjZrWmx2SjBIRUo4MHMvcEM0VEI3bzI4TFZaK05NK2NIR05mbFRQ?=
+ =?utf-8?B?Yk9GUldTU3RqRFdXUVVySWFyYXp6YUl6WUlHNGV2WnNoenNRUjRTVnA1d2tq?=
+ =?utf-8?B?QnY2NjhPSmRLWUREOW9KMmlMNnd0Ymx5K3JKcTZNdjRUMzd6ZVVjWVY5Q0wz?=
+ =?utf-8?B?R2NFMEFreUR0L3RSOEF1QkNrWEpGeUF3aVYrYUJnT21XZHJTdGRFa0N6b2dv?=
+ =?utf-8?B?UnhiUTd1MGZLNzgrS3lYdytTeEhhUHdVdVBnVDg2NjVuUk9mSlhWR0h5bzFs?=
+ =?utf-8?B?YnNmeFlXeExqdmZBV2dMMFJ0UWtzcHVlZjRCcUJLSm1jNzByRVpjb1hhd3Bq?=
+ =?utf-8?B?UG5yZ29xckN0T25OYXFtS1FxUkJHMnVNeWNQS2tQRlh0L0JLR2tNYzV0WGhR?=
+ =?utf-8?B?L2E1eXJMMFUrWHZUYkNxb1RhenZ6ZGNkaU00MlErUzR1R25sMExxaXNqc0xo?=
+ =?utf-8?B?TFlYcVQxWTZBMjljd0c2LzA4OWQwcmRlK1E3TDhsSEExdUIzVG5GbG5JcDh4?=
+ =?utf-8?B?WVkvekpzK0hSN1FweldZS1oybDRmZ1Y5SmpYUCtSRWNhejJtcmRJcC82bkRp?=
+ =?utf-8?B?VGVGTUc2RGFpYktXZFdxRXgxYzk0YnhDL3VQL2JsbHJDODkzR2xPaFA2dUc5?=
+ =?utf-8?B?bU1kdEJHNUlJNks2QTFGMTc5WmpSdkc0M2ZzMVJuU0VobWlnTzNnRWJxSUxW?=
+ =?utf-8?Q?cH81/aYy9Yeyt7WjVZgmwMnPH?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ce1104a-f075-48bb-97d4-08db23de2c90
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2023 15:57:35.5908
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2023 16:15:34.2316
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +uI52VvInu/hbxHLYI1Gx1H5YDvSUiLAdY9tOQTnPq5h3X4NDGbg2+/QhaAOh02/NsB/a+sm3wDN5t14B8NLYQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB5001
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3ESBCJPiZ/lLWDiancNOY8VDj8Icx3xUI35UMJea0kzBw/PAKIPMhuwxuPfZkCjTFeRuGvffelS32Pqbk2gPSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9434
 
-On Mon, Mar 13, 2023 at 10:22:24AM +0800, Dmitry Osipenko wrote:
-> On 3/12/23 20:51, Dmitry Osipenko wrote:
-> > On 3/12/23 12:22, Huang Rui wrote:
-> >> From: Antonio Caggiano <antonio.caggiano@collabora.com>
-> >>
-> >> Request Venus when initializing VirGL.
-> >>
-> >> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
-> >> ---
-> >>  hw/display/virtio-gpu-virgl.c | 4 ++++
-> >>  1 file changed, 4 insertions(+)
-> >>
-> >> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
-> >> index fe03dc916f..f5ce206b93 100644
-> >> --- a/hw/display/virtio-gpu-virgl.c
-> >> +++ b/hw/display/virtio-gpu-virgl.c
-> >> @@ -803,7 +803,11 @@ int virtio_gpu_virgl_init(VirtIOGPU *g)
-> >>  {
-> >>      int ret;
-> >>  
-> >> +#ifdef VIRGL_RENDERER_VENUS
-> >> +    ret = virgl_renderer_init(g, VIRGL_RENDERER_VENUS, &virtio_gpu_3d_cbs);
-> >> +#else
-> >>      ret = virgl_renderer_init(g, 0, &virtio_gpu_3d_cbs);
-> >> +#endif
-> > 
-> > Note that Venus now requires VIRGL_RENDERER_RENDER_SERVER flag to be
-> > set. Please test the patches with the latest virglrenderer and etc.
-> > 
-> > The #ifdef also doesn't allow adding new flags, it should look like:
-> > 
-> > #ifdef VIRGL_RENDERER_VENUS
-> >     flags |= VIRGL_RENDERER_RENDER_SERVER;
-> > #endif
-> > 
-> >     ret = virgl_renderer_init(g, flags, &virtio_gpu_3d_cbs);
-> > 
+On 11.03.2023 15:50, Tamas K Lengyel wrote:
+> On Fri, Mar 10, 2023 at 10:57 PM Dmitry Isaykin <isaikin-dmitry@yandex.ru>
+>> --- a/xen/arch/x86/hvm/vmx/vmx.c
+>> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+>> @@ -4579,6 +4579,8 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+>>              uint16_t port = (exit_qualification >> 16) & 0xFFFF;
+>>              int bytes = (exit_qualification & 0x07) + 1;
+>>              int dir = (exit_qualification & 0x08) ? IOREQ_READ :
+> IOREQ_WRITE;
+>> +            int str_ins = (exit_qualification & 0x10) ? 1 : 0;
 > 
-> BTW, Alex reviewed the Venus v3 patches a month ago [1] and the review
-> comments need to be addressed. AFAICS, you're actually using the very
-> old Venus patches here that stopped working about a year ago, so again
-> you're using a very outdated virglrenderer version.
-> 
-> Please take it all into account if you'll beat me to posting the next
-> version of Venus patches ;)
-> 
-> [1]
-> https://lore.kernel.org/qemu-devel/20220926142422.22325-1-antonio.caggiano@collabora.com/
-> 
+> You are already in a branch here where str_ins is checked and known to be 1.
 
-Thanks Dmitry point it out, I will use the latest v3 patches, and try to
-address the comments in next version. :-)
+0 that is, i.e. only non-string insns would presently be reported.
 
-Thanks,
-Ray
+Dmitry, you also want to make this variable and the corresponding function
+parameters "bool". Unless of course they need changing anyway to e.g.
+communicate the address of the data (as also indicated by Andrew).
+
+>> +            hvm_io_instruction_intercept(port, dir, bytes, str_ins);
+> 
+> IMHO you should have this intercept be called outside the if-else. The
+> function already kind-of indicates str_ins is an input yet right now only
+> called when it's 1.
+
+I agree. Question is, as above, what further data may need supplying to
+the monitor agent to make the intercept useful. Merely %rsi / %rdi as
+Andrew suggested may not suffice, as especially outside of 64-bit mode
+the involved segment base may be non-zero.
+
+Jan
 
