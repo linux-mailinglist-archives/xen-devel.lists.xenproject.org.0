@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 521F66B7B40
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Mar 2023 15:56:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509322.784865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC856B7B4E
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Mar 2023 15:59:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509326.784875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbjb2-00049X-ML; Mon, 13 Mar 2023 14:56:20 +0000
+	id 1pbjdf-0004lh-9N; Mon, 13 Mar 2023 14:59:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509322.784865; Mon, 13 Mar 2023 14:56:20 +0000
+Received: by outflank-mailman (output) from mailman id 509326.784875; Mon, 13 Mar 2023 14:59:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbjb2-000469-IT; Mon, 13 Mar 2023 14:56:20 +0000
-Received: by outflank-mailman (input) for mailman id 509322;
- Mon, 13 Mar 2023 14:56:18 +0000
+	id 1pbjdf-0004jw-5L; Mon, 13 Mar 2023 14:59:03 +0000
+Received: by outflank-mailman (input) for mailman id 509326;
+ Mon, 13 Mar 2023 14:59:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Pif0=7F=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pbjb0-000463-KJ
- for xen-devel@lists.xenproject.org; Mon, 13 Mar 2023 14:56:18 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 70a34862-c1aa-11ed-b457-930f4c7d94ae;
- Mon, 13 Mar 2023 15:22:10 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4BFB41FE0A;
- Mon, 13 Mar 2023 14:56:11 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1E07D13582;
- Mon, 13 Mar 2023 14:56:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vJqGBYs5D2QBWwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 13 Mar 2023 14:56:11 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6L42=7F=invisiblethingslab.com=simon@srs-se1.protection.inumbo.net>)
+ id 1pbjdd-0004j2-Nh
+ for xen-devel@lists.xenproject.org; Mon, 13 Mar 2023 14:59:02 +0000
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d388d827-c1aa-11ed-b457-930f4c7d94ae;
+ Mon, 13 Mar 2023 15:24:57 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 40AE63200950
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Mar 2023 10:58:56 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Mon, 13 Mar 2023 10:58:56 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <xen-devel@lists.xenproject.org>; Mon, 13 Mar 2023 10:58:54 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,140 +43,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70a34862-c1aa-11ed-b457-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1678719371; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b2agE0JCok/7csJcfIX/eUtHsF0vQfk7ZWFqKgMQuSM=;
-	b=Q2Z83LJIEybiTdWCk/i9Oh872edGw3Me9kUsDm7LvWULTixZZildtUC01fdpzctT2htd00
-	Uo/U9migWiPC0MN0x/fcOwNOOwRYFDPKMQIIam+7rnloSaNmSmZ8ZiO2+FhgaVWf71rjnK
-	6lJa+0kkooxMdJEdJ84wC4aqyTXRe6o=
-Message-ID: <d0134dc9-8a4d-54b9-6a10-3f4602c8afae@suse.com>
-Date: Mon, 13 Mar 2023 15:56:10 +0100
+X-Inumbo-ID: d388d827-c1aa-11ed-b457-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:content-type:date:date
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1678719535; x=1678805935; bh=ekL30hUV11WTmvrfjmLPnt6ofiYJ5JinL7V
+	Gv9I9Bt4=; b=bK0tpI+7Ch+vo5s4nFyqmhFt5xKLqKS4eICPeHzHDYeuhRXy6LQ
+	SdqjWrNxQbH7KFYlMiDLWHpK3GSK4ELyQquMn9rXaQQQN9wXQB2hmMQokbx8QTdC
+	4OA3iL8J043oWuP+ROoyDZ4YtMTo5V1BIUNJYj+qzrQyTORdos82GaLLyyY4nyEF
+	hAiakdet3E7GmoldQzmIZ3EORP8oz8qWQWj4jdtyI9YH1FilwdLih1dRziqg4HHH
+	/Hl+RuWqdg4mx0qHkAembJG/dvShl7EBQTNyEvKWv7U6eS3Z1/rggdQx+uiwK7TX
+	OQuqIL/qAllJmRkyr7J+6YJ6ixT8IuvqEdA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1678719535; x=1678805935; bh=ekL30hUV11WTm
+	vrfjmLPnt6ofiYJ5JinL7VGv9I9Bt4=; b=avAT7YdAAVT8OCu21kKFTST6ORpIe
+	cH8GOk/4daIyJkbLkHW5rLOwpeUVQ9nTvKs9DWIcLDASag9dbDNMoQXTiiNvKnrH
+	riyewP/JZZn5jdFlItFVb4tFRbqptCCz+b7tbSPZzFHm4fnng9W8TYUMFDcmwObx
+	mAxDEXka/N7UI1T5qFyWqG4b+f0QeAFrnblqnt/4JfdLe96TsnICJUvMB8AzVbQQ
+	Q5VzCh6qCy9zWWuEt+KcMF78NATSMkFquLfE1FQhgh0Ab/pfZSARGqJfy1TMQovC
+	o+T8g6onjwuT1/bWErfyigje5FnQapxdgxKRyUsw6fAnUGspbw8dyNvow==
+X-ME-Sender: <xms:LzoPZJhyhzUnyI2YEDRM1YSdlyjDw0FxOBAQ5FA-K_y11xsKz7gpVg>
+    <xme:LzoPZOB2tjeHHoERl04_FCLF6ugSZ7LpSp9X83E36TS-AaDqW_TguxGKY4ES-O7Hk
+    eurWnfKDT-RqsY>
+X-ME-Received: <xmr:LzoPZJE1XnXJ_hRLc_vXyayiQfN3-ZF8DtvbIjqqGAib4C9KHUIscgdHFneN1w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvddvgedgieelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucenucfjughrpefkffgguffhvfhfjggtsehgtderre
+    dttdejnecuhfhrohhmpefuihhmohhnucfirghishgvrhcuoehsihhmohhnsehinhhvihhs
+    ihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeduheevve
+    dttdeludfgueevleekveeihfeuvdfhgeetieeiffegudetveduueegnecuffhomhgrihhn
+    pehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
+    grihhlfhhrohhmpehsihhmohhnsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtgho
+    mh
+X-ME-Proxy: <xmx:LzoPZOSAzAEjQK2Z3_Tmqz-96TMgqBkJvStjALuX7xHwVtDlHD1OKQ>
+    <xmx:LzoPZGx9U0ZszTKLYnQXDD7H-Q_gyQkoCzohM8FESI2UuBHQwx320w>
+    <xmx:LzoPZE4LsrxO-2n2sJ2LcxajC9NXbHUH7eQChSfnDAYZ-S8Rge0WgQ>
+    <xmx:LzoPZF-Y6oq-E8FlzjqgnbGQgFKh7oTBfEeQjV2IJoDp20Mt3ov42Q>
+Feedback-ID: idc5945a3:Fastmail
+Message-ID: <10726811-33d9-94ab-edce-0e8de6d6021a@invisiblethingslab.com>
+Date: Mon, 13 Mar 2023 15:59:23 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] x86/PVH: obtain VGA console info in Dom0
+Subject: Re: S0ix support in Xen
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <8f315e92-7bda-c124-71cc-478ab9c5e610@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <8f315e92-7bda-c124-71cc-478ab9c5e610@suse.com>
+From: Simon Gaiser <simon@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+References: <9051e484-b128-715a-9253-48af8e47bb9d@invisiblethingslab.com>
+In-Reply-To: <9051e484-b128-715a-9253-48af8e47bb9d@invisiblethingslab.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------7dQkfSYHmGnc7BYvj5AbcpQF"
+ boundary="------------zHRZCHvdimxymIELgfWJJ5LW"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------7dQkfSYHmGnc7BYvj5AbcpQF
-Content-Type: multipart/mixed; boundary="------------TBOefvrvjzr0ve6KOxGz7jVr";
+--------------zHRZCHvdimxymIELgfWJJ5LW
+Content-Type: multipart/mixed; boundary="------------4tMPZ13elEkbQ3FkHkz8eJ5d";
  protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Message-ID: <d0134dc9-8a4d-54b9-6a10-3f4602c8afae@suse.com>
-Subject: Re: [PATCH] x86/PVH: obtain VGA console info in Dom0
-References: <8f315e92-7bda-c124-71cc-478ab9c5e610@suse.com>
-In-Reply-To: <8f315e92-7bda-c124-71cc-478ab9c5e610@suse.com>
+From: Simon Gaiser <simon@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <10726811-33d9-94ab-edce-0e8de6d6021a@invisiblethingslab.com>
+Subject: Re: S0ix support in Xen
+References: <9051e484-b128-715a-9253-48af8e47bb9d@invisiblethingslab.com>
+In-Reply-To: <9051e484-b128-715a-9253-48af8e47bb9d@invisiblethingslab.com>
 
---------------TBOefvrvjzr0ve6KOxGz7jVr
-Content-Type: multipart/mixed; boundary="------------ssHXJ57YgblBEdBervDhXC1e"
-
---------------ssHXJ57YgblBEdBervDhXC1e
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTMuMDMuMjMgMTU6NDUsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBBIG5ldyBwbGF0Zm9y
-bS1vcCB3YXMgYWRkZWQgdG8gWGVuIHRvIGFsbG93IG9idGFpbmluZyB0aGUgc2FtZSBWR0EN
-Cj4gY29uc29sZSBpbmZvcm1hdGlvbiBQViBEb20wIGlzIGhhbmRlZC4gSW52b2tlIHRoZSBu
-ZXcgZnVuY3Rpb24gYW5kIGhhdmUNCj4gdGhlIG91dHB1dCBkYXRhIHByb2Nlc3NlZCBieSB4
-ZW5faW5pdF92Z2EoKS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1
-bGljaEBzdXNlLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0Bz
-dXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoNCg==
---------------ssHXJ57YgblBEdBervDhXC1e
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+--------------4tMPZ13elEkbQ3FkHkz8eJ5d
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Simon Gaiser:
+[...]
+> On my test system (NUC11TNHi5, Tiger Lake) I haven't seen it reaching
+> cstates lower PC7 with Xen (so it can of course not reach S0ix
+> residency). With plain Linux I got it working on that system although i=
+t
+> was rather fiddly and probably something is fishy on the firmware side.=
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> After seeing it very occasionally not working under plain Linux I have
+> installed a newer firmware version. With that Xen currently doesn't wak=
+e
+> up after triggering s2idle in dom0. I'm currently looking into that and=
 
---------------ssHXJ57YgblBEdBervDhXC1e--
+> will follow up if I have more details on that part.
 
---------------TBOefvrvjzr0ve6KOxGz7jVr--
+Solved the wakeup issue, see
+https://lore.kernel.org/xen-devel/20230313134102.3157-1-simon@invisibleth=
+ingslab.com/
+(doesn't change the cstate it reaches)
 
---------------7dQkfSYHmGnc7BYvj5AbcpQF
+--------------4tMPZ13elEkbQ3FkHkz8eJ5d--
+
+--------------zHRZCHvdimxymIELgfWJJ5LW
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQPOYoFAwAAAAAACgkQsN6d1ii/Ey8m
-wQgAjor/sSloK0dAsrS4NLFnEoyaPRMmtbIivBDIHRcDTY6ob20wGXeeUvRTyPFfad9k2+wYQo1j
-IWA9iS/tGcakntcLljXaSyqjdSKSzkRO+lyqZlVy1xby9zOFVlhl1Fu6NZzbZhXUK+ClcSsaKhkC
-tbVSdy2JsYTzIPQ9yXKBQ2aGLEK+CRT2pcqm/AY0o9LfZ4hraZNfDQg9joYSXoP/EE1KddMgIhec
-QM3w3PIVlbgVlbAtdYu97Q/CJzCNM3fTI/PcZnNZrjE4cbSD0FdAhU6wjHYU3Y0ad75xi0QEhJgj
-ogrfWUaH6J9TrpkkrSWbB+/HpCvod/aCbevRb5T2SQ==
-=/8OJ
+iQIzBAEBCgAdFiEE3E8ezGzG3N1CTQ//kO9xfO/xly8FAmQPOk0ACgkQkO9xfO/x
+ly8wqhAAlE4jvwo1Fhgw+Abe8J+WRIgWwujig3URbu84B2nujZ0KLwygGAlX6yoa
+gxB6pAnDJ9ZujFkRt/2GPoc3IaBaB/HbLD/qqX2ThuLwegm4mHJD6BZwf1WQBrmu
+aGOMQHwZU6udMloNFRjvUaqqx40ecLnGvBwbJWYLqjwxP8GztEIxIZBsNECbdyde
+6BA/EX7YMkkg04y1mUpt1zEJOoUwLSrGPLmN4RJjKOZ0iOpHTpeVBS3lBIq/MsSf
+PIuaEaosomyvyAkIWyhDVUf5no5b0x7Q3lJ2j7m16vGvQF7OwX9v/edR7XEbdPaL
+pQIqby3CtEKtIuCCzkMnRi+HD306Bpflcn/gTDBKsinM7USxQItBJAa7AQh5Fqgm
+rMHZ+h1zuHl60m5K4H2qEeTFYw6Liu8756M24Mc5iXlEG07Cg0wU9ganEwtum3bL
+j50TOXXqIEDI+Nth8LvO+lBYCNtDQzUxgBvVi7phyj9tmanw4dD185EKPztAfXY3
+K1wZog89K87wqikkD1I9QZlRCTQ6nGJV2XlJoq2Y7rdJMm8Z90qxW4sOiqkEuRVd
+Q3iEw4IgkT/nG8dhQy8BPRiNbcA9Vkr93CQO52lY8sL5eB3AnhfteXamaJMfZtk1
+w8UEGnjWEOt1jfyQrBfPLn0aPW+4yfaqDmlysKkE/7ArKwfQvCs=
+=fcbc
 -----END PGP SIGNATURE-----
 
---------------7dQkfSYHmGnc7BYvj5AbcpQF--
+--------------zHRZCHvdimxymIELgfWJJ5LW--
 
