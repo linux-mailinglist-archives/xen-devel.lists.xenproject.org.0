@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9E7D6B9DAA
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 18:57:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509779.786233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EB7D6B9DB8
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 18:59:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509781.786243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc8t1-0005gC-6a; Tue, 14 Mar 2023 17:56:35 +0000
+	id 1pc8vJ-0006Fa-Iw; Tue, 14 Mar 2023 17:58:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509779.786233; Tue, 14 Mar 2023 17:56:35 +0000
+Received: by outflank-mailman (output) from mailman id 509781.786243; Tue, 14 Mar 2023 17:58:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc8t1-0005dO-3d; Tue, 14 Mar 2023 17:56:35 +0000
-Received: by outflank-mailman (input) for mailman id 509779;
- Tue, 14 Mar 2023 17:56:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W49v=7G=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pc8sz-0005dI-IJ
- for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 17:56:33 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c0a7b33-c291-11ed-b464-930f4c7d94ae;
- Tue, 14 Mar 2023 18:56:30 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id r18so15174596wrx.1
- for <xen-devel@lists.xenproject.org>; Tue, 14 Mar 2023 10:56:29 -0700 (PDT)
+	id 1pc8vJ-0006DB-GL; Tue, 14 Mar 2023 17:58:57 +0000
+Received: by outflank-mailman (input) for mailman id 509781;
+ Tue, 14 Mar 2023 17:58:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pc8vI-0006Cp-AG; Tue, 14 Mar 2023 17:58:56 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pc8vI-0003YR-8I; Tue, 14 Mar 2023 17:58:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pc8vH-0002TS-Q9; Tue, 14 Mar 2023 17:58:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pc8vH-0007CB-Pj; Tue, 14 Mar 2023 17:58:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,816 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c0a7b33-c291-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1678816589;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/xZ3wbLmcC7/kuogwYOC/xsHryI5rEDYqzCVZtxrEKE=;
-        b=m/YZBhwZ+uKzMqXmEkGF/xD6qdauzkVFuwhOxW/WPY4XL2bn5H8N+q6aPKsExbRxbu
-         1A9FaWXrCQySYQyHsG64+jH8HkplLLiytWPSd5MC93Tqo7Edln4j5+S33FXPdt9bQ0aM
-         umlyzFxG9rkPPAXW0TwJ4WUCRkV/umCz72l3B61GDFw2WgUHydP5xuHPXuVJhYAjfrUo
-         sKdupMePSMMTxi9dI/3tV5GignbnyGdjHR1xkgSJfcHQQmy+g7pcsmEnDw92YeKyvUSB
-         mJxP8uIwfUPVlCmQa5/o/EyS7K+joqZEAOgA3w8x2g1+mvaerfVxjfMCjQ+weh4wAGC3
-         x5tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678816589;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/xZ3wbLmcC7/kuogwYOC/xsHryI5rEDYqzCVZtxrEKE=;
-        b=ktfZjmCiu+0sdwKDDZ+ZcwV/ERKE0F6tp9TOE4UJaGsdF5ZLRCIaIPHSpInfJHEJhJ
-         pYVWhGAm7+WgmxTVjT52tIJBfoddKLRi1+jgw6T0xegZoZc8muOpSQMLJRe/5MGN59CY
-         ZbjJy34jDOZzQyOhYWMgBKYJl3tNjpCg08VKEdGEfA5vaVyP/xg4MJL+BTff5M2v5MCr
-         ck1C/t1g4a5hMeHP1AtKYZEiRAXo9TE61DpGspsdeBLN5a8mCX3bXAvmjLx2eiPR5myC
-         g+csIRuesFQF37KpkTtdhJkzRPmfhI44fRtUltGNcYTk9Uzn68+eXmfVXXOtX+an9sUL
-         7fEw==
-X-Gm-Message-State: AO0yUKXFY5kDlQnKuh2istDskhf0DW185YwcjE1vTXmGAxWHA3al561R
-	S7vasjTWThX4XizLJ/w5JI/qKDMcEsqIQD7K5/VBfA==
-X-Google-Smtp-Source: AK7set9pZ+U7qWqye8ZCi/tdzn/olJhf2M3za5GClGdHpzm33ggU8JkDKnh5NEoMtThF72W1RvR/RCB2HpSH65hgLGk=
-X-Received: by 2002:a5d:4b02:0:b0:2c9:bd6e:83c0 with SMTP id
- v2-20020a5d4b02000000b002c9bd6e83c0mr7237219wrq.3.1678816588786; Tue, 14 Mar
- 2023 10:56:28 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1677079671.git.jens.wiklander@linaro.org>
- <fdca8effb1c2c209fd9d15c90360196fa67a845c.1677079672.git.jens.wiklander@linaro.org>
- <CC630914-0816-40F9-B33C-86EC4E3B4BE6@arm.com>
-In-Reply-To: <CC630914-0816-40F9-B33C-86EC4E3B4BE6@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 14 Mar 2023 18:56:17 +0100
-Message-ID: <CAHUa44FHh1d4+6dc2CW0Zpu+7uBaK0i=DRENQbtZwGoOR50aDw@mail.gmail.com>
-Subject: Re: [XEN PATCH v7 18/20] xen/arm: ffa: support sharing memory
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
-	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=uJ8Pf1npkSJTQ7OuzAPG0RGKNmHR9GPTMNC05DFtjVQ=; b=GoUeYf/MdukAIPUd6G/v1cYMja
+	yVoGVVTDqLYZWykTatAI+s0mNNDga48rsRPYgt+XpsvJniLhHplMMGrrUSyom5pQ5/7PtYyI0cNq1
+	9vGYdf+hDdXZ3bZtUjgU8cq4GKUJQoJTtmuXYABn83Le7wpCTRxKE4VHPjVFd/GmmOW0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-179616-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 179616: tolerable trouble: pass/starved - PUSHED
+X-Osstest-Failures:
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:build-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    libvirt:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    libvirt=c434a7e48faff075ef9e40b483519910c4ee360c
+X-Osstest-Versions-That:
+    libvirt=8419dd3b69cfada783a2e6df315e45dd294b0d18
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 14 Mar 2023 17:58:55 +0000
 
-Hi Bertrand,
+flight 179616 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/179616/
 
-On Mon, Mar 13, 2023 at 9:49=E2=80=AFAM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> > On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
-> >
-> > Adds support for a guest to share memory with an SP using FFA_MEM_SHARE
-> > and FFA_MEM_RECLAIM. Only small memory regions can be shared using a
-> > single call to FFA_MEM_SHARE are supported.
->
-> This sentence needs a bit of rephrasing and to add more details: what is =
-"small".
+Failures :-/ but no regressions.
 
-OK, how about "Only memory regions small enough to be shared with a
-single call..."
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
->
-> >
-> > A memory region that doesn't need to be shared any longer can be
-> > reclaimed with FFA_MEM_RECLAIM once the SP doesn't use it any longer.
-> > This is checked by the SPMC and not in control of the mediator.
->
-> This explanation would make more sense in the following patch adding supp=
-ort
->  for Reclaim.
+version targeted for testing:
+ libvirt              c434a7e48faff075ef9e40b483519910c4ee360c
+baseline version:
+ libvirt              8419dd3b69cfada783a2e6df315e45dd294b0d18
 
-Quite right, I'll move it to the next patch.
+Last test of basis   179549  2023-03-11 04:20:21 Z    3 days
+Testing same since   179616  2023-03-14 04:18:50 Z    0 days    1 attempts
 
->
-> >
-> > With this commit we have a FF-A version 1.1 [1] mediator able to
-> > communicate with a Secure Partition in secure world using shared memory=
-.
-> > The secure world must use FF-A version 1.1, but the guest is free to us=
-e
-> > version 1.0 or version 1.1.
->
-> I do not see anything limiting that in the code.
-> During init we accept 1.0 or 1.1 versions of the secure world.
+------------------------------------------------------------
+People who touched revisions under test:
+  Daniel P. Berrangé <berrange@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
 
-Good catch, I'll update to only accept version 1.1 in the secure world.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
->
-> >
-> > Adds a check that the SP supports the needed FF-A features
-> > FFA_MEM_SHARE_64 or FFA_MEM_SHARE_32.
-> >
-> > [1] https://developer.arm.com/documentation/den0077/latest
-> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> > ---
-> > xen/arch/arm/tee/ffa.c | 491 +++++++++++++++++++++++++++++++++++++++++
-> > 1 file changed, 491 insertions(+)
-> >
-> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> > index 94c90b252454..cdc286caf62c 100644
-> > --- a/xen/arch/arm/tee/ffa.c
-> > +++ b/xen/arch/arm/tee/ffa.c
-> > @@ -270,6 +270,38 @@ struct ffa_mem_transaction_1_1 {
-> >     uint8_t reserved[12];
-> > };
-> >
-> > +/* Calculate offset of struct ffa_mem_access from start of buffer */
-> > +#define MEM_ACCESS_OFFSET(access_idx) \
-> > +    ( sizeof(struct ffa_mem_transaction_1_1) + \
-> > +      ( access_idx ) * sizeof(struct ffa_mem_access) )
-> > +
-> > +/* Calculate offset of struct ffa_mem_region from start of buffer */
-> > +#define REGION_OFFSET(access_count, region_idx) \
-> > +    ( MEM_ACCESS_OFFSET(access_count) + \
-> > +      ( region_idx ) * sizeof(struct ffa_mem_region) )
-> > +
-> > +/* Calculate offset of struct ffa_address_range from start of buffer *=
-/
-> > +#define ADDR_RANGE_OFFSET(access_count, region_count, range_idx) \
-> > +    ( REGION_OFFSET(access_count, region_count) + \
-> > +      ( range_idx ) * sizeof(struct ffa_address_range) )
-> > +
-> > +/*
-> > + * The parts needed from struct ffa_mem_transaction_1_0 or struct
-> > + * ffa_mem_transaction_1_1, used to provide an abstraction of differen=
-ce in
-> > + * data structures between version 1.0 and 1.1. This is just an intern=
-al
-> > + * interface and can be changed without changing any ABI.
-> > + */
-> > +struct ffa_mem_transaction_x {
->
-> I would suggest to s/_x/_int/ in the name here
 
-OK, I'll update
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
->
-> > +    uint16_t sender_id;
-> > +    uint8_t mem_reg_attr;
-> > +    uint8_t flags;
-> > +    uint8_t mem_access_size;
-> > +    uint8_t mem_access_count;
-> > +    uint16_t mem_access_offs;
-> > +    uint64_t global_handle;
-> > +    uint64_t tag;
-> > +};
-> > +
-> > /* Endpoint RX/TX descriptor */
-> > struct ffa_endpoint_rxtx_descriptor_1_0 {
-> >     uint16_t sender_id;
-> > @@ -294,8 +326,20 @@ struct ffa_ctx {
-> >     uint32_t guest_vers;
-> >     bool tx_is_mine;
-> >     bool interrupted;
-> > +    struct list_head shm_list;
-> > +    unsigned int shm_count;
-> >     spinlock_t lock;
-> > };
-> > +
-> > +struct ffa_shm_mem {
-> > +    struct list_head list;
-> > +    uint16_t sender_id;
-> > +    uint16_t ep_id;     /* endpoint, the one lending */
-> > +    uint64_t handle;    /* FFA_HANDLE_INVALID if not set yet */
-> > +    unsigned int page_count;
-> > +    struct page_info *pages[];
-> > +};
-> > +
-> > /* Negotiated FF-A version to use with the SPMC */
-> > static uint32_t ffa_version __ro_after_init;
-> >
-> > @@ -310,6 +354,8 @@ static unsigned int subscr_vm_destroyed_count __rea=
-d_mostly;
-> >  *
-> >  * ffa_page_count is the number of pages used in each of these buffers.
-> >  *
-> > + * The TX buffer is protected from concurrent usage with ffa_tx_buffer=
-_lock.
-> > + *
-> >  * The RX buffer is protected from concurrent usage with ffa_rx_buffer_=
-lock.
-> >  * Note that the SPMC is also tracking the ownership of our RX buffer s=
-o
-> >  * for calls which uses our RX buffer to deliver a result we must call
-> > @@ -319,6 +365,7 @@ static void *ffa_rx __read_mostly;
-> > static void *ffa_tx __read_mostly;
-> > static unsigned int ffa_page_count __read_mostly;
-> > static DEFINE_SPINLOCK(ffa_rx_buffer_lock);
-> > +static DEFINE_SPINLOCK(ffa_tx_buffer_lock);
-> >
-> > static bool ffa_get_version(uint32_t *vers)
-> > {
-> > @@ -429,6 +476,42 @@ static int32_t ffa_rx_release(void)
-> >     return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
-> > }
-> >
-> > +static int32_t ffa_mem_share(uint32_t tot_len, uint32_t frag_len,
-> > +                             register_t addr, uint32_t pg_count,
-> > +                             uint64_t *handle)
-> > +{
-> > +    struct arm_smccc_1_2_regs arg =3D {
-> > +        .a0 =3D FFA_MEM_SHARE_32,
-> > +        .a1 =3D tot_len,
-> > +        .a2 =3D frag_len,
-> > +        .a3 =3D addr,
-> > +        .a4 =3D pg_count,
-> > +    };
-> > +    struct arm_smccc_1_2_regs resp;
-> > +
-> > +    if ( IS_ENABLED(CONFIG_ARM_64) )
-> > +        arg.a0 =3D FFA_MEM_SHARE_64;
-> > +
-> > +    arm_smccc_1_2_smc(&arg, &resp);
-> > +
-> > +    switch ( resp.a0 )
-> > +    {
-> > +    case FFA_ERROR:
-> > +        if ( resp.a2 )
-> > +            return resp.a2;
-> > +        else
-> > +            return FFA_RET_NOT_SUPPORTED;
-> > +    case FFA_SUCCESS_32:
-> > +        *handle =3D regpair_to_uint64(resp.a3, resp.a2);
-> > +        return FFA_RET_OK;
-> > +    case FFA_MEM_FRAG_RX:
-> > +        *handle =3D regpair_to_uint64(resp.a2, resp.a1);
-> > +        return resp.a3;
->
-> You are using an int32_t type to cast something that is uint32_t from the=
- spec
-> and here could in fact be a uint64_t.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-In practice only much smaller values can be valid, however, I
-understand that that's not your point. What's the best recovery if the
-SPMC gives an invalid value for FFA_MEM_FRAG_RX? The SPMC has
-allocated a memory-sharing state when it returns FFA_MEM_FRAG_RX. The
-specification doesn't say how to remove that state apart from either
-completing it successfully or if it's terminated earlier by the SPMC.
-One option is to do a FFA_MEM_FRAG_TX call with invalid arguments so
-that the SPMC can free up the memory-sharing state. Thoughts?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->
->
-> > +    default:
-> > +        return FFA_RET_NOT_SUPPORTED;
-> > +    }
-> > +}
-> > +
-> > static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
-> >                                       uint8_t msg)
-> > {
-> > @@ -757,6 +840,404 @@ out:
-> >              resp.a4 & mask, resp.a5 & mask, resp.a6 & mask, resp.a7 & =
-mask);
-> > }
-> >
-> > +/*
-> > + * Gets all page and assigns them to the supplied shared memory object=
-. If
-> > + * this function fails then the caller is still expected to call
-> > + * put_shm_pages() as a cleanup.
-> > + */
-> > +static int get_shm_pages(struct domain *d, struct ffa_shm_mem *shm,
-> > +                         const struct ffa_address_range *range,
-> > +                         uint32_t range_count, unsigned int start_page=
-_idx,
-> > +                         unsigned int *last_page_idx)
-> > +{
-> > +    unsigned int pg_idx =3D start_page_idx;
-> > +    gfn_t gfn;
-> > +    unsigned int n;
-> > +    unsigned int m;
-> > +    p2m_type_t t;
-> > +    uint64_t addr;
-> > +
-> > +    for ( n =3D 0; n < range_count; n++ )
-> > +    {
-> > +        for ( m =3D 0; m < range[n].page_count; m++ )
-> > +        {
-> > +            if ( pg_idx >=3D shm->page_count )
-> > +                return FFA_RET_INVALID_PARAMETERS;
-> > +
-> > +            addr =3D read_atomic(&range[n].address);
-> > +            gfn =3D gaddr_to_gfn(addr + m * FFA_PAGE_SIZE);
-> > +            shm->pages[pg_idx] =3D get_page_from_gfn(d, gfn_x(gfn), &t=
-,
-> > +   P2M_ALLOC);
-> > +            if ( !shm->pages[pg_idx] )
-> > +                return FFA_RET_DENIED;
-> > +            pg_idx++;
->
-> This increment could be done at the end, why here ?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Do you mean after the p2m_is_ram() check? I'll move it there.
 
->
-> > +            /* Only normal RAM for now */
-> > +            if ( !p2m_is_ram(t) )
-> > +                return FFA_RET_DENIED;
-> > +        }
-> > +    }
-> > +
-> > +    *last_page_idx =3D pg_idx;
-> > +
-> > +    return FFA_RET_OK;
-> > +}
-> > +
-> > +static void put_shm_pages(struct ffa_shm_mem *shm)
-> > +{
-> > +    unsigned int n;
-> > +
-> > +    for ( n =3D 0; n < shm->page_count && shm->pages[n]; n++ )
-> > +    {
-> > +        put_page(shm->pages[n]);
-> > +        shm->pages[n] =3D NULL;
->
-> If an error occured during the generation you might have part
-> of the pages which are NULL already.
->
-> So you should do a if (pages[n] !=3D NULL) here
+Pushing revision :
 
-I'm doing that above in the head of the loop, the loop is terminated
-at the first pages[n] =3D=3D NULL.
-
->
-> > +    }
-> > +}
-> > +
-> > +static struct ffa_shm_mem *alloc_ffa_shm_mem(struct ffa_ctx *ctx,
-> > +                                             unsigned int page_count)
-> > +{
-> > +    struct ffa_shm_mem *shm;
-> > +
-> > +    if ( page_count >=3D FFA_MAX_SHM_PAGE_COUNT ||
-> > +         ctx->shm_count >=3D FFA_MAX_SHM_COUNT )
-> > +        return NULL;
->
-> Shouldn't you also filter out for page_count =3D 0 ?
-
-Sure, 0 doesn't make sense. But I should probably do it before this
-function is called since I suppose we'd like to return something
-different from FFA_RET_NO_MEMORY.
-
->
-> > +
-> > +    shm =3D xzalloc_flex_struct(struct ffa_shm_mem, pages, page_count)=
-;
-> > +    if ( shm )
-> > +    {
-> > +        ctx->shm_count++;
-> > +        shm->page_count =3D page_count;
-> > +    }
-> > +
-> > +    return shm;
-> > +}
-> > +
-> > +static void free_ffa_shm_mem(struct ffa_ctx *ctx, struct ffa_shm_mem *=
-shm)
-> > +{
-> > +    if ( shm ) {
-> > +        ASSERT(ctx->shm_count > 0);
-> > +        ctx->shm_count--;
-> > +        put_shm_pages(shm);
-> > +        xfree(shm);
-> > +    }
-> > +}
-> > +
-> > +static void init_range(struct ffa_address_range *addr_range,
-> > +                       paddr_t pa)
-> > +{
-> > +    memset(addr_range, 0, sizeof(*addr_range));
-> > +    addr_range->address =3D pa;
-> > +    addr_range->page_count =3D 1;
-> > +}
-> > +
-> > +/*
-> > + * This function uses the ffa_tx buffer to transmit the memory transac=
-tion
-> > + * descriptor. The function depends ffa_tx_buffer_lock to be used to g=
-uard
-> > + * the buffer from concurrent use.
-> > + */
-> > +static int share_shm(struct ffa_shm_mem *shm)
-> > +{
-> > +    const uint32_t max_frag_len =3D ffa_page_count * FFA_PAGE_SIZE;
-> > +    struct ffa_mem_access *mem_access_array;
-> > +    struct ffa_mem_transaction_1_1 *descr;
-> > +    struct ffa_address_range *addr_range;
-> > +    struct ffa_mem_region *region_descr;
-> > +    const unsigned int region_count =3D 1;
-> > +    void *buf =3D ffa_tx;
-> > +    uint32_t frag_len;
-> > +    uint32_t tot_len;
-> > +    paddr_t last_pa;
-> > +    unsigned int n;
-> > +    paddr_t pa;
-> > +
-> > +    ASSERT(spin_is_locked(&ffa_tx_buffer_lock));
-> > +    if ( !shm->page_count )
-> > +    {
-> > +        ASSERT_UNREACHABLE();
-> > +        return FFA_RET_INVALID_PARAMETERS;
->
-> page_count =3D 0 should be filtered out before reaching this and this sho=
-uld
-> only be an assert if you want but no unreachable with a return.
-
-I'm adding code to filter out page_count =3D 0. I'm not sure what you
-expect here, should I remove the entire check here or what do you
-want?
-
->
-> > +    }
-> > +
-> > +    descr =3D buf;
-> > +    memset(descr, 0, sizeof(*descr));
-> > +    descr->sender_id =3D shm->sender_id;
-> > +    descr->global_handle =3D shm->handle;
-> > +    descr->mem_reg_attr =3D FFA_NORMAL_MEM_REG_ATTR;
-> > +    descr->mem_access_count =3D 1;
-> > +    descr->mem_access_size =3D sizeof(*mem_access_array);
-> > +    descr->mem_access_offs =3D MEM_ACCESS_OFFSET(0);
-> > +
-> > +    mem_access_array =3D buf + descr->mem_access_offs;
-> > +    memset(mem_access_array, 0, sizeof(*mem_access_array));
-> > +    mem_access_array[0].access_perm.endpoint_id =3D shm->ep_id;
-> > +    mem_access_array[0].access_perm.perm =3D FFA_MEM_ACC_RW;
-> > +    mem_access_array[0].region_offs =3D REGION_OFFSET(descr->mem_acces=
-s_count, 0);
-> > +
-> > +    region_descr =3D buf + mem_access_array[0].region_offs;
-> > +    memset(region_descr, 0, sizeof(*region_descr));
-> > +    region_descr->total_page_count =3D shm->page_count;
-> > +
-> > +    region_descr->address_range_count =3D 1;
-> > +    last_pa =3D page_to_maddr(shm->pages[0]);
-> > +    for ( n =3D 1; n < shm->page_count; last_pa =3D pa, n++ )
-> > +    {
-> > +        pa =3D page_to_maddr(shm->pages[n]);
-> > +        if ( last_pa + FFA_PAGE_SIZE =3D=3D pa )
-> > +            continue;
-> > +        region_descr->address_range_count++;
-> > +    }
-> > +
-> > +    tot_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_coun=
-t,
-> > +                                region_descr->address_range_count);
-> > +    if ( tot_len > max_frag_len )
-> > +        return FFA_RET_NOT_SUPPORTED;
-> > +
-> > +    addr_range =3D region_descr->address_range_array;
-> > +    frag_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_cou=
-nt, 1);
-> > +    last_pa =3D page_to_maddr(shm->pages[0]);
-> > +    init_range(addr_range, last_pa);
-> > +    for ( n =3D 1; n < shm->page_count; last_pa =3D pa, n++ )
-> > +    {
-> > +        pa =3D page_to_maddr(shm->pages[n]);
-> > +        if ( last_pa + FFA_PAGE_SIZE =3D=3D pa )
-> > +        {
-> > +            addr_range->page_count++;
-> > +            continue;
-> > +        }
-> > +
-> > +        frag_len +=3D sizeof(*addr_range);
-> > +        addr_range++;
-> > +        init_range(addr_range, pa);
-> > +    }
-> > +
-> > +    return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
-> > +}
-> > +
-> > +static int read_mem_transaction(uint32_t ffa_vers, const void *buf, si=
-ze_t blen,
-> > +                                struct ffa_mem_transaction_x *trans)
-> > +{
-> > +    uint16_t mem_reg_attr;
-> > +    uint32_t flags;
-> > +    uint32_t count;
-> > +    uint32_t offs;
-> > +    uint32_t size;
-> > +
-> > +    if ( ffa_vers >=3D FFA_VERSION_1_1 )
-> > +    {
-> > +        const struct ffa_mem_transaction_1_1 *descr;
-> > +
-> > +        if ( blen < sizeof(*descr) )
-> > +            return FFA_RET_INVALID_PARAMETERS;
-> > +
-> > +        descr =3D buf;
-> > +        trans->sender_id =3D descr->sender_id;
-> > +        mem_reg_attr =3D descr->mem_reg_attr;
-> > +        flags =3D descr->flags;
-> > +        trans->global_handle =3D descr->global_handle;
-> > +        trans->tag =3D descr->tag;
-> > +
-> > +        count =3D descr->mem_access_count;
-> > +        size =3D descr->mem_access_size;
-> > +        offs =3D descr->mem_access_offs;
-> > +    }
-> > +    else
-> > +    {
-> > +        const struct ffa_mem_transaction_1_0 *descr;
-> > +
-> > +        if ( blen < sizeof(*descr) )
-> > +            return FFA_RET_INVALID_PARAMETERS;
-> > +
-> > +        descr =3D buf;
-> > +        trans->sender_id =3D descr->sender_id;
-> > +        mem_reg_attr =3D descr->mem_reg_attr;
-> > +        flags =3D descr->flags;
-> > +        trans->global_handle =3D descr->global_handle;
-> > +        trans->tag =3D descr->tag;
-> > +
-> > +        count =3D descr->mem_access_count;
-> > +        size =3D sizeof(struct ffa_mem_access);
-> > +        offs =3D offsetof(struct ffa_mem_transaction_1_0, mem_access_a=
-rray);
-> > +    }
-> > +    /*
-> > +     * Make sure that "descr" which is shared with the guest isn't acc=
-essed
-> > +     * again after this point.
-> > +     */
-> > +    barrier();
->
-> I am not really following the comment here. You accessed the content of d=
-escr
-> before and it is in the rxtx buffer so why is this needed ?
-
-I'm making sure that the compiler doesn't optimize and reorders the
-reads from memory in funny ways, for instance, reading again after the
-ifs just below. The RXTX buffer is shared with the guest so it can
-potentially be updated concurrently by another CPU.
-
->
-> > +
-> > +    /*
-> > +     * We're doing a rough check to see that no information is lost wh=
-en
-> > +     * tranfering the values into a struct ffa_mem_transaction_x below=
-. The
-> > +     * fields in struct ffa_mem_transaction_x are wide enough to hold =
-any
-> > +     * valid value so being out of range means that something is wrong=
-.
-> > +     */
-> > +    if ( mem_reg_attr > UINT8_MAX || flags > UINT8_MAX || size > UINT8=
-_MAX ||
-> > +        count > UINT8_MAX || offs > UINT16_MAX )
-> > +        return FFA_RET_INVALID_PARAMETERS;
-> > +
-> > +    /* Check that the endpoint memory access descriptor array fits */
-> > +    if ( size * count + offs > blen )
-> > +        return FFA_RET_INVALID_PARAMETERS;
-> > +
-> > +    trans->mem_reg_attr =3D mem_reg_attr;
-> > +    trans->flags =3D flags;
-> > +    trans->mem_access_size =3D size;
-> > +    trans->mem_access_count =3D count;
-> > +    trans->mem_access_offs =3D offs;
-> > +
-> > +    return 0;
-> > +}
-> > +
-> > +static void handle_mem_share(struct cpu_user_regs *regs)
-> > +{
-> > +    uint32_t tot_len =3D get_user_reg(regs, 1);
-> > +    uint32_t frag_len =3D get_user_reg(regs, 2);
-> > +    uint64_t addr =3D get_user_reg(regs, 3);
-> > +    uint32_t page_count =3D get_user_reg(regs, 4);
-> > +    const struct ffa_mem_region *region_descr;
-> > +    const struct ffa_mem_access *mem_access;
-> > +    struct ffa_mem_transaction_x trans;
-> > +    struct domain *d =3D current->domain;
-> > +    struct ffa_ctx *ctx =3D d->arch.tee;
-> > +    struct ffa_shm_mem *shm =3D NULL;
-> > +    unsigned int last_page_idx =3D 0;
-> > +    register_t handle_hi =3D 0;
-> > +    register_t handle_lo =3D 0;
-> > +    int ret =3D FFA_RET_DENIED;
-> > +    uint32_t range_count;
-> > +    uint32_t region_offs;
-> > +
-> > +    /*
-> > +     * We're only accepting memory transaction descriptors via the rx/=
-tx
-> > +     * buffer.
->
-> Is this a limitation coming fomr the spec or from the implementation ?
-
-This is just a limitation in the implementation.
-
->
-> > +     */
-> > +    if ( addr )
-> > +    {
-> > +        ret =3D FFA_RET_NOT_SUPPORTED;
-> > +        goto out_set_ret;
-> > +    }
-> > +
-> > +    /* Check that fragment length doesn't exceed total length */
-> > +    if ( frag_len > tot_len )
-> > +    {
-> > +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> > +        goto out_set_ret;
-> > +    }
-> > +
-> > +    /* We currently only support a single fragment */
->
-> It would make sense to add some text at the beginning of the files listin=
-g
-> the current limitations of the implementation.
-
-That's quite a bit to keep track of, especially since it will change
-with each patch. If it's important perhaps we can summarize that in a
-final commit instead. By the way, this particular limitation is
-removed in a later patch.
-
->
-> > +    if ( frag_len !=3D tot_len )
-> > +    {
-> > +        ret =3D FFA_RET_NOT_SUPPORTED;
-> > +        goto out_set_ret;
-> > +    }
-> > +
-> > +    spin_lock(&ctx->lock);
-> > +
-> > +    if ( frag_len > ctx->page_count * FFA_PAGE_SIZE )
-> > +        goto out_unlock;
-> > +
-> > +    if ( !ffa_page_count )
-> > +    {
-> > +        ret =3D FFA_RET_NO_MEMORY;
-> > +        goto out_unlock;
-> > +    }
-> > +
-> > +    ret =3D read_mem_transaction(ctx->guest_vers, ctx->tx, frag_len, &=
-trans);
-> > +    if ( ret )
-> > +        goto out_unlock;
-> > +
-> > +    if ( trans.mem_reg_attr !=3D FFA_NORMAL_MEM_REG_ATTR )
-> > +    {
-> > +        ret =3D FFA_RET_NOT_SUPPORTED;
-> > +        goto out_unlock;
-> > +    }
-> > +
-> > +    /* Only supports sharing it with one SP for now */
->
-> Also a limitation to list.
-
-OK
-
->
-> > +    if ( trans.mem_access_count !=3D 1 )
-> > +    {
-> > +        ret =3D FFA_RET_NOT_SUPPORTED;
-> > +        goto out_unlock;
-> > +    }
-> > +
-> > +    if ( trans.sender_id !=3D get_vm_id(d) )
-> > +    {
-> > +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> > +        goto out_unlock;
-> > +    }
-> > +
-> > +    /* Check that it fits in the supplied data */
-> > +    if ( trans.mem_access_offs + trans.mem_access_size > frag_len )
-> > +        goto out_unlock;
-> > +
->
-> Why are you using atomic operations to access rxtx buffer after here ?
-
-To limit how the compiler can reorder the reads from memory.
-
->
-> > +    mem_access =3D ctx->tx + trans.mem_access_offs;
-> > +    if ( read_atomic(&mem_access->access_perm.perm) !=3D FFA_MEM_ACC_R=
-W )
->
-> Also a limitation to list.
-
-OK
-
-Thanks,
-Jens
-
->
-> > +    {
-> > +        ret =3D FFA_RET_NOT_SUPPORTED;
-> > +        goto out_unlock;
-> > +    }
-> > +
-> > +    region_offs =3D read_atomic(&mem_access->region_offs);
-> > +    if ( sizeof(*region_descr) + region_offs > frag_len )
-> > +    {
-> > +        ret =3D FFA_RET_NOT_SUPPORTED;
-> > +        goto out_unlock;
-> > +    }
-> > +
-> > +    region_descr =3D ctx->tx + region_offs;
-> > +    range_count =3D read_atomic(&region_descr->address_range_count);
-> > +    page_count =3D read_atomic(&region_descr->total_page_count);
-> > +
-> > +    shm =3D alloc_ffa_shm_mem(ctx, page_count);
-> > +    if ( !shm )
-> > +    {
-> > +        ret =3D FFA_RET_NO_MEMORY;
-> > +        goto out_unlock;
-> > +    }
-> > +    shm->sender_id =3D trans.sender_id;
-> > +    shm->ep_id =3D read_atomic(&mem_access->access_perm.endpoint_id);
-> > +
-> > +    /*
-> > +     * Check that the Composite memory region descriptor fits.
-> > +     */
-> > +    if ( sizeof(*region_descr) + region_offs +
-> > +         range_count * sizeof(struct ffa_address_range) > frag_len )
-> > +    {
-> > +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> > +        goto out;
-> > +    }
-> > +
-> > +    ret =3D get_shm_pages(d, shm, region_descr->address_range_array, r=
-ange_count,
-> > +                        0, &last_page_idx);
-> > +    if ( ret )
-> > +        goto out;
-> > +    if ( last_page_idx !=3D shm->page_count )
-> > +    {
-> > +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> > +        goto out;
-> > +    }
-> > +
-> > +    /* Note that share_shm() uses our tx buffer */
-> > +    spin_lock(&ffa_tx_buffer_lock);
-> > +    ret =3D share_shm(shm);
-> > +    spin_unlock(&ffa_tx_buffer_lock);
-> > +    if ( ret )
-> > +        goto out;
-> > +
-> > +    list_add_tail(&shm->list, &ctx->shm_list);
-> > +
-> > +    uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
-> > +
-> > +out:
-> > +    if ( ret )
-> > +        free_ffa_shm_mem(ctx, shm);
-> > +out_unlock:
-> > +    spin_unlock(&ctx->lock);
-> > +
-> > +out_set_ret:
-> > +    if ( ret =3D=3D 0)
-> > +            set_regs_success(regs, handle_lo, handle_hi);
-> > +    else
-> > +            set_regs_error(regs, ret);
-> > +}
-> > +
-> > static bool ffa_handle_call(struct cpu_user_regs *regs)
-> > {
-> >     uint32_t fid =3D get_user_reg(regs, 0);
-> > @@ -818,6 +1299,12 @@ static bool ffa_handle_call(struct cpu_user_regs =
-*regs)
-> > #endif
-> >         handle_msg_send_direct_req(regs, fid);
-> >         return true;
-> > +    case FFA_MEM_SHARE_32:
-> > +#ifdef CONFIG_ARM_64
-> > +    case FFA_MEM_SHARE_64:
-> > +#endif
-> > +        handle_mem_share(regs);
-> > +        return true;
-> >
-> >     default:
-> >         gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
-> > @@ -857,6 +1344,8 @@ static int ffa_domain_init(struct domain *d)
-> >         }
-> >     }
-> >
-> > +    INIT_LIST_HEAD(&ctx->shm_list);
-> > +
-> >     d->arch.tee =3D ctx;
-> >
-> >     return 0;
-> > @@ -1012,11 +1501,13 @@ static bool ffa_probe(void)
-> >          !check_mandatory_feature(FFA_RX_RELEASE) ||
-> > #ifdef CONFIG_ARM_64
-> >          !check_mandatory_feature(FFA_RXTX_MAP_64) ||
-> > +         !check_mandatory_feature(FFA_MEM_SHARE_64) ||
-> > #endif
-> > #ifdef CONFIG_ARM_32
-> >          !check_mandatory_feature(FFA_RXTX_MAP_32) ||
-> > #endif
-> >          !check_mandatory_feature(FFA_RXTX_UNMAP) ||
-> > +         !check_mandatory_feature(FFA_MEM_SHARE_32) ||
-> >          !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
-> >         return false;
-> >
-> > --
-> > 2.34.1
->
->
-> Cheers
-> Bertrand
->
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   8419dd3b69..c434a7e48f  c434a7e48faff075ef9e40b483519910c4ee360c -> xen-tested-master
 
