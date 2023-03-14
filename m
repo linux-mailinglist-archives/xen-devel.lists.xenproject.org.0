@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E7506B8F78
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 11:14:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509522.785406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 777906B8F9B
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 11:19:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509525.785419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc1fG-0002Hk-BX; Tue, 14 Mar 2023 10:13:54 +0000
+	id 1pc1kL-0002zp-07; Tue, 14 Mar 2023 10:19:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509522.785406; Tue, 14 Mar 2023 10:13:54 +0000
+Received: by outflank-mailman (output) from mailman id 509525.785419; Tue, 14 Mar 2023 10:19:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc1fG-0002Ew-8T; Tue, 14 Mar 2023 10:13:54 +0000
-Received: by outflank-mailman (input) for mailman id 509522;
- Tue, 14 Mar 2023 10:13:52 +0000
+	id 1pc1kK-0002xN-Sc; Tue, 14 Mar 2023 10:19:08 +0000
+Received: by outflank-mailman (input) for mailman id 509525;
+ Tue, 14 Mar 2023 10:19:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dXSW=7G=citrix.com=prvs=430734c92=roger.pau@srs-se1.protection.inumbo.net>)
- id 1pc1fE-0002Eq-7n
- for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 10:13:52 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e96ac14c-c250-11ed-87f5-c1b5be75604c;
- Tue, 14 Mar 2023 11:13:50 +0100 (CET)
-Received: from mail-dm6nam10lp2101.outbound.protection.outlook.com (HELO
- NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.101])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 14 Mar 2023 06:13:46 -0400
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
- by SN4PR03MB6766.namprd03.prod.outlook.com (2603:10b6:806:212::20)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=3caR=7G=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pc1kI-0002xF-P0
+ for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 10:19:06 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2062f.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a62fa1e0-c251-11ed-87f5-c1b5be75604c;
+ Tue, 14 Mar 2023 11:19:05 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PAXPR04MB8974.eurprd04.prod.outlook.com (2603:10a6:102:20d::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Tue, 14 Mar
- 2023 10:13:44 +0000
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda%3]) with mapi id 15.20.6178.019; Tue, 14 Mar 2023
- 10:13:44 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.26; Tue, 14 Mar
+ 2023 10:19:03 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Tue, 14 Mar 2023
+ 10:19:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,544 +47,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e96ac14c-c250-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1678788830;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=z8WyPBBctI4bdaBwIcJP6Wa2GGiqZSHu8111TZ84Fls=;
-  b=Sro7xTTPiStn0hgZ3hdMewJeoYqXlI3MCcIVYAQbYaXauuKp9dmfiF1s
-   paUCdR0HCT3QfBos+yV6T0kqV4HpYgxgU6zk4JmkBv7FmwywIoZccl/rO
-   K84PTyBchBnlXi8BqhmJtHJsoFdobJT8Bl5MeB6v/8moWi2DZ4prosHiE
-   k=;
-X-IronPort-RemoteIP: 104.47.58.101
-X-IronPort-MID: 100122420
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:63QfRKN+DiUdhrDvrR23lsFynXyQoLVcMsEvi/4bfWQNrUoj1GQBm
- zMaWGuAafrYMTHyfNlxOom08U1VuMLcyYdrHQto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGj9SuvLrRC9H5qyo42tD5wBmPJingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0rtJMXFVx
- 9sjEwEyYECstseZ/KywScA506zPLOGzVG8ekldJ6GiBSNoDH9XESaiM4sJE1jAtgMwIBezZe
- 8cSdTtoalLHfgFLPVAUTpk5mY9EhFGmK2Ee9A3T+PpxujCKpOBy+OGF3N79YNuFSN8Thk+Fj
- mnH4374ElcRM9n3JT+tqyr037WVwXmjMG4UPJij27ltnQfI/UkWJl4JcXK3ouKjrnfrDrqzL
- GRRoELCt5Ma5EGtC9XwQRC8iHqFpQIHHcpdFfUg7wOAwbaS5ByWbkAGRDNcbN0ttOctWCcnk
- FSOmrvU6SdHtbSUTTeR8+mSpDbrYSwNdzZaPGkDUBcP5MTlrMcrlBXTQ91/EamzyNroBTX3x
- DPMpy8771kOsfM2O2yA1Qivq1qRSlLhF2bZOi2/srqZ0z5E
-IronPort-HdrOrdr: A9a23:gsgl7q5tqDgvrpe7ZwPXwfSCI+orL9Y04lQ7vn2ZFiY5TiXIra
- qTdaogviMc6QxhEE3I/OrtV5VoLkmsl6KdjbNhdItKPzOWwFdAUrsSibcKqgeIc0Oeh41gPM
- FbAt1D4bXLfC5HZOnBkW6F+r0bsby6Gc6T9JXj5kYoZxprZshbnnNE40ugYwxLbTgDIaB8OI
- uX58JBqTblUXMLbv6jDn1Ae+TYvdXEmL/vfBZDXnccmUqzpALtzIS/PwmT3x8YXT8K6bA+8V
- Ldmwi8wqm4qfm0xjLVymeWxZVLn9nKzMdFGaW3+4goAwSprjztSJVqWrWEsjxwiOaz6GwymN
- 2JmBskN9Qb0QKcQongyyGM5yDQlBIVr1Pyw16RhnXu5ebjQighNsZHjYVFNjPE9ksJprhHof
- t29lPck6ASIQLLnSz76dSNfQptjFCIrX0rlvNWp2BDULEZdKRaoeUkjRto+a87bXnHAb0cYa
- 5T5YDnlbJrmGqhHjXkV7xUsZqRtzoIb027q3M5y4GoOght7TpEJnQjtYcidw87heMAorl/lq
- v52/dT5f9zp4ktHOBA7NNte7rFNoT7LCi8QF66EBDbE6ELUki93KLf8fE84e2wZZwEpaFC46
- jpQRdRsGIoZljjEtKDx4Ba6xylehTFYR39jsla64Nlp73gQbaDC1z4dHk+18Okr+4DHMHRQf
- C6IfttcoHeBHqrEYNExBDhV5JPMnx2arxohv8rH0iOqtnKLYOvvOrdf/bcYKb3FF8fKx7CK2
- pGRjn6P8VG4ASxVnv/nRSUR3PhE3aPgq5YAezB/uAJyI8CcpNXqAMck1ik/cTjE0wljpAL
-X-IronPort-AV: E=Sophos;i="5.98,259,1673931600"; 
-   d="scan'208";a="100122420"
+X-Inumbo-ID: a62fa1e0-c251-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SIwQX7ur8uwauvWXQ6DqywbrXMJod8KEOeeaxlWz4InRFGSh+uZlSX0MFlVa1J9nFa+MmhKLeKWvQ4xonOR4+FxW2PFDE0tOc782dT0P1Ratt9pQ2kaerYpqfk5+5nQ3wHf8ELi05itgl9PoxzgfOIKE6fExEZLcZ07C8iIxwF2FDvXkcIhzw9ckbODJk6sddJ1Hn+XReF5KbQLed9x7r32xBXfAhyg7JEc/6M6voCS3oV6QgULofcLnraz3MAbGIYuMkyvQhTfBLk0gsX8r3jkhvm+3tkkSSRD++lY8q+us8DhoXAx0sPeqh1hS18ZjR0tfzo+hvhgbNQsiAVOLeQ==
+ b=HWj5cI68KjhVCus9HL/9cuWPJvNu9QX9UQkkCyxBKU/ewRQcL2x/ECqAjZt1yQI2sDgMOzkZrd77Y5PF8hADUuv8nkn5Y8dN6H7an+p8zpH30Wz6/QVR+utPx1+T4vc3sexE86oIhncgkidHsg01VMB9c+762hHxbNrZ0xgOZOHFLcMvVyzm5uXxXwY7RIMqGkSv3eeXkPkHt6XBM3w2mCsgZjTB8ERoJBnBVvuEbRlWKU5gSvVzVgyTer4zA+CqqmAowpMZjCMSq6s5u1rRrZrjekTqBHFoJ+q9xvBKFVAd+p2NpddBWYw2ximZq6DQrdSnJhiAzA8pzk7MaeuGbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DlbQb2nbl8GJ3brMpKES1M8hi+FxR0QVkO6xDYCDg4I=;
- b=Q4SjvpHf96w43fp4kP9aCq9LhofvQgWVgI9/O5zSWvXWIJTvKXNt6qSr9Lh3K6xIekKZfcYXbDZTHml7FYALj4UkqSu3BOecW5aZl7MCtZhh7BO7fL1aOBI+4YEzwei+aS/k9BplKVTIk7Z2pxqgVLFTKjYbLoYYBzfxE8sGd6jq7pJjCdrDN7AyYOKrtUKrpQUe9kLTkecxGO74Rwiu6cG2Ih0Ze/hPFftdEaz0xZSD6vuGVSYgXK9Pd853zoan4iGmsSAkNAnPPQ3JeH5Gzfyema8XIe3LoVptNM+lKoNmfRcTWHPOxBbyPvygM2wyYm2GM+rqbYx3NZzPgEwbPQ==
+ bh=RHkD6PhycPuvNiAuX72UD+P+GjRnHCGWJNfKJ9noZjU=;
+ b=oQN3OxU+I8tlO6iCt/sq7zBZxcCM+WpSWyGitNx6kZKFR3K6dML6FRzzYgsnpukzXXkHLhLG/FvnGW4szy1FwuILNO08wPhDRT8zynyRHcNZwGelY/ornXsut4JKO7OINl/xaRoZ8PIMES7S00v1puDx9xL0o3Hyqp08bX+q+wVhe5OEy8zCJ89jxqZccyEJeSRAdunuQwmJeg5CrKq7k6MotsD8dvf3NyGEp+QGr/l09hvpwZm8AzFj4aK8kuC4La6y3Sc5kmdfYsvPPn0+nInkRo5ic8FDOUyUv7BXLGgVnXUQHQ3rprZVhRnF/Nn/AiFA3MoPvOyaXUPbZuHt+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DlbQb2nbl8GJ3brMpKES1M8hi+FxR0QVkO6xDYCDg4I=;
- b=SD4+PTWsyNWFZ2XTVc6yQMwXs/YFXhTZPeMHOHMgAvZNKWrQQgiFv4XozMWCc49WdXZa4OpNFKZrwFPVrX19PPfdZd6mALA6Sjmu+XiJc0yPsr+Gqria0MZUudXjgbMxO9pPtc6mKAlAST60nZx6wk7wW/fSakdUddczYd0ST5U=
+ bh=RHkD6PhycPuvNiAuX72UD+P+GjRnHCGWJNfKJ9noZjU=;
+ b=aP/Z4ipWplRrNdqhcLP+vYjeDKMIE+2y/HbS4qZiChWdswRPsSe5J9UR2gCWUDFYkakJvpFzHTB04KIOppMNLe3c6SMXSH0ARxxYCxnXufmYcunNdfYZ+yGH/ZIPk68HEHBkwTL9t8rlMsD8sn7SZywUcCzY1yijTtd6f35eAqZ7R/FQKa9qTbY2qDp2rtz5cMcQ43/5zE4YUOozCPimvzAf5JFq6egbMFqBJUvWCMYHUHq7kr7RoM5YXNaXOOYipEqmBygQskwdX7VBzl72WYj2yK4iZOUJSrAR51mKAm9BTsaVSlyMQ/KUVaLhSJUow6mh5VTgw9Q1tozMllyDHQ==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	Roger Pau Monne <roger.pau@citrix.com>
-Subject: [PATCH] vpci/msix: handle accesses adjacent to the MSI-X table
-Date: Tue, 14 Mar 2023 11:13:31 +0100
-Message-Id: <20230314101331.4194-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.39.0
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <593392ae-91ce-3499-1aa7-fcfe664025cd@suse.com>
+Date: Tue, 14 Mar 2023 11:19:01 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] xen/cpufreq: Remove <asm/bug.h>
+Content-Language: en-US
+To: Jason Andryuk <jandryuk@gmail.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20230313175103.20778-1-jandryuk@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230313175103.20778-1-jandryuk@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LNXP123CA0013.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:d2::25) To SJ0PR03MB6360.namprd03.prod.outlook.com
- (2603:10b6:a03:395::11)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0088.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|SN4PR03MB6766:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30254bcb-c3c3-4415-5ef0-08db2474cab7
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8974:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbbad7c1-79e4-4efa-bf0a-08db2475893b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	CJ89XVzvpdEwVGy4Nir69ZAZlCHxT01xN+DAJyyQ0CerEcAsB256tvV6iDZdbfKbqxKk3kcmfh02iHjsVYD1jhRa0qVZppyUimFT4j8kQtbGZxp4ZMcOIe1/ZnoQin44YLX0LDnxsp9GKNINw8UbNJBWhMjhXrmQqBaPk2VEvKWz0fA0kb2BgE5nx3wCgcIBBvbCFVU/6AnnZxh4X88dF85lWd3j+bbMUh2Cn9xUVxYmKu1MySIAZxp6jFsF6zNi3WMjy2oHb/nqw8HO4M2k9ywGf+56VCC1GX3Dbb+uuhd3/gJ1PqmtkzWK3MwQlr6bvH5rc78yZDSGz5ThLjqDct2pw7YlTEhgjQ99QgixzwaanQ2jqY3me7PVhrxKFTyVUwzBuq4eUbksMR9aDkQH7lMypgngVEfGCn9c+FhqEYKBcFa84u9hYkB0uv3+VHdCEBsNz2uNtb/soUOdMjl0yXwFbUfOmcEVDA7KMMx2VI8i2c3qkUhgvOOyr+9p5598XhB+FJRGs0L++BQVYJCxzTpgg3sLvCHoC1vmLQhcZQCpT3XhyMP3rUb5bFWqR9gjsW9gsRhH8nOSrcO07HL11+d2laqno2K2WtOHNHnhl8nCtthSRdac1Oz07z89DZm+HXp3C8qvOnesxL78D1xktxRxaglZa5mS3MdIKYQ1YGrFjKXGlPOdxNEPlKUQgJlQFJ7kIP6KHU//ADzGhYsI1g==
+	3pN3EKtztFGdYWoAeEQSzKG9ZS2RtwnYkuwiPfTIiBh5oh89A0YD5aS3xvH1czBTWe+VnJKv6hwbSADC3NTtAOpKeqCpm0n35KXFkOSFl/2q4cK9LJ4ywMHQuI93OureXZm5tp/w+GlHxO1AsRhQYpSF9S9hubrH5bwPCNKcSw3rndNC5usgXuAvjpBY1Ndzdvw/gzgiKjhqXESwn/7F6pPIbQ9c5mL4c374nFKt4GdyEb3l9X58n4strK/yVL06TD3tlryVH20EQSMz4g/UI5KaZCkpYLGKea3zVqCrAO+hOyrXKMDyfulypMbeNPTlNi6EpAx2+Z22jfh2Q59jYUxtzJevb+cmk5fQMj2fGq/OCu5R90qnhsaRh7EPzsFUeeiZjiPaZJ+pzCNYeGcZV4+v7Ziq0eqoM+P9PjZ7fbki9OLV5COgI7eXYfIsS71j7ReVV9FLMUiXdvUD/nkwtLZesPam6YZYFxtkNIJu+FR/47gECpG50BOPaAZ4YiC29iLw8O5ynK+fwmYKapnTjY0BKFKv5lv60Ef0Xm1FJA9WVzCRFSyOYRFyjkwBqpd/ge2O+eFmOQmT6kL9TjEaCy4tmnNuhLAMv5POQxpAIaNip9ss1Cx++P0V6xlSQAP0yAcmbtRh+ojvEyX5DgN8UKW2tnlgraKAlnBeZUc42DGMKfX1UXQ0ZvfYY7fNIJlrTlHNoNlbLdXWqFaTAP1QiLUKU5Clms0jGXrLcOvLe4E=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(366004)(376002)(396003)(136003)(346002)(451199018)(4326008)(8936002)(5660300002)(6916009)(2616005)(41300700001)(186003)(6512007)(6506007)(1076003)(26005)(36756003)(86362001)(2906002)(83380400001)(66946007)(107886003)(66556008)(8676002)(66476007)(30864003)(6486002)(316002)(478600001)(6666004)(38100700002)(82960400001)(309714004);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(136003)(376002)(39860400002)(346002)(366004)(396003)(451199018)(86362001)(31696002)(36756003)(38100700002)(41300700001)(2906002)(8936002)(5660300002)(4326008)(6512007)(186003)(26005)(6506007)(2616005)(53546011)(83380400001)(54906003)(316002)(110136005)(66946007)(66476007)(8676002)(6486002)(66556008)(478600001)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bFF5VnNzTFVmY2dES1J3Z3FJRWRQZmVEaXU0YXA4OEZneU9QL3cxbnVIYnd0?=
- =?utf-8?B?bGJKdmQxN0FmQTR4YVlSaWxmcVdFdjlLdTVYRVd6cmRYWkhYOHVBbEFDOGZY?=
- =?utf-8?B?YUVIbTZTWXRYam8rOTFBd3dteCtYVlJGUDlYR3hpYS84ZXFuNDJZZVA5R1Ba?=
- =?utf-8?B?VnJsTFZUTWI5cFNlMWo0T3Y3WWNuUDNyZ2cwTFo3c3E2YTB6UVkrUUNFL2N4?=
- =?utf-8?B?MHRXVmdlTjJvbG1DM21NWkwwY2RPMTE2TFgyUmFlbmp4UzJPRnQzQ1FBNkRn?=
- =?utf-8?B?bG9KSEF6QSs4N2N5aDdiWkNWRHorWkduQmpXZmVJNTBaMmI0NksyTi9uNUpL?=
- =?utf-8?B?bmxsQjFEZU9ZVjlJdHVJM0FxQ3RoWEljRDJQYjBkTWJHQ1NuZEhXN09kSEl6?=
- =?utf-8?B?aVZjZ3NiQ0IvSktpRGlwZ1QybzR1U080c1M5SG5nbHFWRzE0d0RyQ2VsSy9r?=
- =?utf-8?B?eTlSTUhxL1M5bkwva1QwSnVuYUg3MVNTQldPanI4LzcrUS9UNEc4UThzWm9X?=
- =?utf-8?B?N2Nwb1h2Ty9TVEJaNmUrWS9lTkNteWN4STRsRUUyMm92bXFvRnFDY2lYQ2hz?=
- =?utf-8?B?STVsbEprdGw3OXVHczg2L2hQWEtyOW4rcGRnbnlTeDVvZUgwTFhyUDFhWVN2?=
- =?utf-8?B?c0V5TjJpeCtpWnp5Rktnc0hlUndBUEVwc0JyS1NwUWpPUFJWM0V6MzVROTNP?=
- =?utf-8?B?M0RQYWZrY1U5bkVtazZlSFBkV0oweWlmZ21DczJ0S2duVHJDdm1TTXpDMVZ3?=
- =?utf-8?B?SzZtd09HWWtMVDBmeGI5Y1lJazdUaWMrYStVTnBiTytkeG13V3ZaM1U0QXR3?=
- =?utf-8?B?ZTk4NVVweG8xaUVXY0tBU245ZllpdUZqV2FpbkwyREpyNmVtdW4yeXpUK0N5?=
- =?utf-8?B?c0pmaFBBTjhtTnJHblJaOVE1eU1MTG95OVlnVXhLa1JMYXU1VzloRlY5akNa?=
- =?utf-8?B?OEk4VVZXQk5pVlBoUnhqQ3dERTBrK3FOUzNUWlpCRHJwREJ1T05Va016ZVZJ?=
- =?utf-8?B?c1AzeXVnbEoyUDZreXlHd2VSbGFUc09Xcjd0RlJUMk5JR0JmWjdEbTdlUExr?=
- =?utf-8?B?dTR1QVZmZno0aUkvbndmQjJkb0VYZXgxRUtqbndBRTExNm9DcDVyQS9kVUt1?=
- =?utf-8?B?Q2VPYVZndGRDczBHZTBRL2lndTRoNVFSNnU5YXJseUZMUHJRcFdHL3paL3Ur?=
- =?utf-8?B?RFF2YnRsYjJCUTV2VTFYajVmRVRHTW92VzV6OXZPVjZLTVlZRnk1bC80TCtR?=
- =?utf-8?B?c1UycXlpckxkSWo4ZkUyem1rZ1RoYkpwWk43RlBDL1J1bzJDZTBwZlcrSVhw?=
- =?utf-8?B?UW9kOTRMTUlScWptVFFwaU0zdTZkNXQzeExVdzhPUE40ZnA3SHI5RGNaZHk4?=
- =?utf-8?B?cHpjWXg5UkxzU09XV3BQU0xsWmRjUkdmUzRFMXMzOWZJUmM0RTFudHhORS8y?=
- =?utf-8?B?S2VYNno2dlY1bXdpOVIwNkNQS3hFK0EwZFRGN2VZbFJYMkJhQTZwaUNxL2E5?=
- =?utf-8?B?WFFsaVUzOG1laWNaTW84N21IalVEU25qRE56cHJqRnRwb0NJRnFid2VTMlc4?=
- =?utf-8?B?OWZRSnNSMmxwSGpjQ3RJTXZHZngrUm1aVGptZ1d4cVNlOGtsMmpZd0pLUHBX?=
- =?utf-8?B?dGpCRjA4Sk4xN1h3bXF0QW1MTm9teTU2RlVsODBGWUFDOVpCZmMxRXBSdHc5?=
- =?utf-8?B?N3VKT2t1eTF2QkVzWUs2NXVVdXNwZGZSdVVOZ1FvWEIrZW1PUHhsN1kxNGtL?=
- =?utf-8?B?ZnhlOWkxS1FqVjVDUkNZcU9ibzV3YVU4dTBZelFDa3ZzenJ4bjZTbVp4MXBH?=
- =?utf-8?B?NS9FZVlNMzNBOU8rendCNklNY1VOUkxSRkhxWTJ6bUZ3elRHY3o0Q2gxQlpk?=
- =?utf-8?B?QlZiaU1kdHVrQlE2aEgyLzAwcVl6SVpqYkJDVjdsZnFPUnpQSmNPbHdWbTVr?=
- =?utf-8?B?elQvSm0xaXFPQmJwN05OMllhTHNIY25INHBxSDQrS1hEeTlPb0syMHNvaCtZ?=
- =?utf-8?B?S1pIU2JVYXhockN0dUpMRW1QNFVpZmR4VnhHZ3NGZHlCdCsvU3Q1cGhubm1x?=
- =?utf-8?B?c2pCZkpxbDdyWFJyVHA5b1BRS1Y1SUhvcVNCeEZ6N3orWXhLbi95T2RuWjk1?=
- =?utf-8?B?SFFEbmwwaUt1d0J3QU40NnBDb0hsVHI1aE1selNhV1g0WVV1M1NiUStqM0h1?=
- =?utf-8?B?Wmc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	mEPFXGyX/u5dDcFQ7rzfM35NWIfrBdleAFutWqzW+QsFX0DUqEFZ0uGhJNY5Hw4OpT7HSP+SphGPoJGjCfTAbfyAnyWjUysPj/fr8RWxq/eIAXrrLZwwWJ+qDk7ffAJK5PuHQOnab51iyWMA6inDrTwxWlNLhB1KSifLsHVlf6mS3eeWA+f+PgAXDqAFU9+OMoFmdkWWR8nj2pn1b9fKmn1MqeKKxHMJoLIjx4YG61Q+/1RpJfEWR+yRzA5k6eG7GzBMmxLo2RsMEgu4gXSO6OEFMbVJk4BcAkHSbSc60VpW6aVMV1LEYpDqVnP6hVKbpquT8sH2btKX+nz0VUG+wOuJ27TPaEL88kLpt4gqXZswmVqSf4OXkYSqpguwA9T+C3LTM3PVgP3rjQpQGVxScvvQ7aCvR8UZ1p2y1UWnciTwD7Bc16jVt3q218ARRO3T0Rw6W11r/9i0BiDJVniWdqwneUUUBlotSnEblTGbGSC1WhzvSbO1OruzMrWYvMtp6jCPmhR16CxFoJ1F70DMFcX85uLA1M9vvzW/krxukmM6BjAIuOYjhfi2AVrVFSsIiDL9AlCqJCk7JSe+P9AesLn/8J4PwQjEfsaKSc71N09FoKfl4Bdh7iCD/hoM99Cn7an5KFHBq+91x8sqtv4P8wDJuagdsyBhQjjLjKgPThh/GXVGCxXfGjVMCko1I5GJpIUy1j/AWltDbd88Y7t27i07KPZOtBGKqt/vs1CNqdgQxurvVDmL6/JkNXS9BDq7KTH5HNbwTtcdAGIrkKywg7YWKddpUkt+jd3scyNDZwPV14UWRhH03KcciTIwLeC0
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30254bcb-c3c3-4415-5ef0-08db2474cab7
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+	=?utf-8?B?RUlZaFltVTF4SERuVU9SVldqZWNyeDdvMnpXMHhWa21HYTFVV1lJS1hIazZh?=
+ =?utf-8?B?dkM2NFhXeHNFeFNjV3ZUcktGYXYxQjF3VmdQWDlaV1Vrd01wMGVrRVZMNEIw?=
+ =?utf-8?B?KzM2L3ZpMDNUVDFTUlMvWUhmYUJPRkhEV1F2R05Fa1VoQ3JXMzNqMC9Sdk80?=
+ =?utf-8?B?VFExME51MllxWWZXZyszY0FyK0RnMnRZN3VCbzBwVlBLMWdibmtwZGV0RWs4?=
+ =?utf-8?B?MW5vdzNqRGM2c2J3WWxkVE9oQ3h1anlPT1FCWGlXeTNpWnNYcUdWVHhCWldW?=
+ =?utf-8?B?L1VCRlNUR2NyUVlDRmtYUXVNUlhFNW9ZdFJjMjh6RllMZXg1Rzd3Nk9oSkFz?=
+ =?utf-8?B?WFBQYkxaYmVTTEhiTTY2K0ZER0tJdk1pUGV1dXJON0RwTkVqRlVHUUdEazBS?=
+ =?utf-8?B?bGRkOVBRdDVET2hSNXdZSXlYOUk1aFBrRWdnSHR6ZWE0L1QzQ1NGdTNMM3pV?=
+ =?utf-8?B?MlpZT0tDNzhudUVnejdEZFM1T0lzb1ZheWM2YTd3bFZsRTcvblJGQWN0Tll1?=
+ =?utf-8?B?VnJ1SjZaL0JmVmx1bWtIZ1FtWkNFWk12UlpzQVBONHpLZVZyUGxJUW9OWXJM?=
+ =?utf-8?B?MnVTMVZ2b0d0UWtRZFlzYlBHSndleFdWSmkwdGV5cHhsdDlLamlDWG9ZeWRD?=
+ =?utf-8?B?QzhsQ0RJTmZlelpuODdzWkpzNGREbDU0TnFOQ3lJcjl1QUdhNE1HUEVzQjNw?=
+ =?utf-8?B?ZDRZamszMHpOQVh5V2ZDOStMcTZSRitZck8xRnJXcjd0dzhONW1oRWZaMEVj?=
+ =?utf-8?B?NlBSOE9sdUpZV29RN3ZLcXQybnVGRWtiNlZ0YTc3a1I5OEgxSjdwRWhjNFBh?=
+ =?utf-8?B?a2g4dnlkeEZKamRwbnpyYndXUmJvb3NJV1VZaTRGUnA5bDF3T0RCK0dVdDFp?=
+ =?utf-8?B?dXJmK2tHcmNQakkvR0JvL1crVm12bkJkbERyZFlVck1TOElLOC8xc3FpSjR4?=
+ =?utf-8?B?ZlMrSVpkd044M0VvcjdPMHFIdWZ4WTNnM04yL25CMmtheHRiNjhpVU1FWmlO?=
+ =?utf-8?B?UTcrQkxjQ1pFTXE3VGkvU1NzbGcwT3M1QmFDOFFWaFo2bFY0NDFyak5LTDRk?=
+ =?utf-8?B?V1dwWi9mTmt4WVJnaVY4djJCRzJjZDc0VlpEQ1FacjFnVEh6NkFHTkVubzdu?=
+ =?utf-8?B?SHpkT1JNU1EvRGFLbHllbkdsVkFwUGVSYVZmNzFiZkh6UlRIakdHdTRKdk1I?=
+ =?utf-8?B?RW5NRENCem10eXlsTjNvVDE5akpkeVIzMlFlc2NaUldBclh5MkdHdkdZc0lh?=
+ =?utf-8?B?ek1KWE1QdEJ5d0ViQy9ZK25nTUQzOXdPbU9NMkg1YVV2bVQxWFJNdG5BS3lv?=
+ =?utf-8?B?UlkyWGRUTjZLZWNlZjlSLzRUVVh0YXlMaEFseUkzMVFNRWtFVmYyeXZia1RG?=
+ =?utf-8?B?VFc4SGROUWVWR3V3NHdSMExEOTgxZDRTd1dMNTJQa05PZ1dmWHFBWjE3OTl5?=
+ =?utf-8?B?MlZNS0xUU2RJd1JVU2h0dFBKVHVGSG1YQkZOSUd3bzBoeTdlRnA1QWxRbFF3?=
+ =?utf-8?B?ai9TTGF1TUxFekV3TEFHbUorbHd4TXUzTE5vZWlHRExVL2UrSlkwaEt2TzZj?=
+ =?utf-8?B?c3d2bDlmSEFaVXc1cldTaE9lbjdsUGY2eDkrWHFyeEQ2ZnNJS0h4MHVqUHU4?=
+ =?utf-8?B?UnoyT3dUK1IwZEtUU2d2QzJyWXVlNmg3SjR6ckErYVNtR2JkMmRkdWJ6NWtZ?=
+ =?utf-8?B?UHRxaGRadjNrOHdiOStYVDlNMzlGZlBKaDEyZEVtaE52RWUrem1mZnJwVG9y?=
+ =?utf-8?B?Y1o1UG1IQzRIZisxcFh1dnBKcGh4RFhrNjVpUnVsbHdwUzVvNzY2aTFxVlI4?=
+ =?utf-8?B?dHo1N3orOWl5RjBiTGtpYVk4cEVzMXhWSkRYT1lRQnhyeWtXTUV0RlZIN2dZ?=
+ =?utf-8?B?Zk5HZW5xcnhXOXRwdng1cUNwK3ZKcmRjZ3hUeWtPdzZ4V3ZKSXpwUUdWYVBZ?=
+ =?utf-8?B?d2VybzJkQTAvcjFTVDl5YjR5cGtZVURzMm1Ib1piVisxbm5kckJhM2N1Ujha?=
+ =?utf-8?B?NDBDaGR1WmtGMXgrVzdQdWxVT3pzYW9zalRNSmFYdTVzQ0d0VlFDM3pEUVJ3?=
+ =?utf-8?B?V3VGZmR6bDV2ZHJYcDFDOThNWFZiRDU1YWxPVlVlYU51SHFxYVFRTWVoRzNM?=
+ =?utf-8?Q?CV1czTkDCcm3hlWCjmLhYvtz3?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbbad7c1-79e4-4efa-bf0a-08db2475893b
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2023 10:13:44.1221
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2023 10:19:03.6630
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TXgDljPuV37sO0MW6SWglI72TURd2J+GJK0MfGK1TLH6fGbltKlmcYrTNX0ZxKrp7EYmo9yd+5vpYInU0tJPzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN4PR03MB6766
+X-MS-Exchange-CrossTenant-UserPrincipalName: U7Qb57kRYvyGDShHKhedDScG978Wt1usUnFL3FgMQOXccfXQu5LQyaoAfp1NPH/Hgia14vbYMLcrvm7eK6bgVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8974
 
-The handling of the MSI-X table accesses by Xen requires that any
-pages part of the MSI-X table are not mapped into the domain physmap.
-As a result, any device registers in the same pages as the start or
-the end of the MSIX table is not currently accessible, as the accesses
-are just dropped.
+On 13.03.2023 18:51, Jason Andryuk wrote:
+> The header is unneeded - there are no uses of BUG() or WARN() in these
+> cpufreq files.  Remove the include.  It is still include transitively
+> from xen/lib.h.
+> 
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 
-Note the spec forbids such placing of registers, as the MSIX and PBA
-tables must be 4K isolated from any other registers:
+This, in a way, is a review comment on Oleksii's "xen: change <asm/bug.h>
+to <xen/bug.h>". We can certainly put in the change as you have it (for
+him to drop the touching of the two files), but I'd find it more logical
+to continue to be part of his change, just with the xen/bug.h replacement
+includes dropped. Thoughts, either of you?
 
-"If a Base Address register that maps address space for the MSI-X
-Table or MSI-X PBA also maps other usable address space that is not
-associated with MSI-X structures, locations (e.g., for CSRs) used in
-the other address space must not share any naturally aligned 4-KB
-address range with one where either MSI-X structure resides."
+Things would be different if it was clear that the change here was dropping
+all unnecessary includes from the cpufreq files. But that doesn't look to
+be the case, as I think ...
 
-Yet the 'Intel Wi-Fi 6 AX201' device on one of my boxes has registers
-in the same page as the MSIX table, and thus won't work on a PVH dom0
-without this fix.
+> --- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
+> +++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
+> @@ -35,7 +35,6 @@
+>  #include <xen/sched.h>
+>  #include <xen/timer.h>
+>  #include <xen/xmalloc.h>
+> -#include <asm/bug.h>
+>  #include <asm/msr.h>
+>  #include <asm/io.h>
 
-In order to cope with the behavior passthrough any accesses that fall
-on the same page as the MSIX table (but don't fall between) it to the
-underlying hardware.  Such forwarding also takes care of the PBA
-accesses in case the PBA is sharing a page with the MSIX table, so it
-allows to remove the code doing this handling in msix_{read,write}.
+... at least this one should be unnecessary as well, even more so ...
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/drivers/vpci/msix.c | 259 +++++++++++++++++++++++++---------------
- xen/drivers/vpci/vpci.c |   7 +-
- xen/include/xen/vpci.h  |   6 +-
- 3 files changed, 175 insertions(+), 97 deletions(-)
+> --- a/xen/drivers/cpufreq/cpufreq.c
+> +++ b/xen/drivers/cpufreq/cpufreq.c
+> @@ -39,7 +39,6 @@
+>  #include <xen/guest_access.h>
+>  #include <xen/domain.h>
+>  #include <xen/cpu.h>
+> -#include <asm/bug.h>
+>  #include <asm/io.h>
 
-diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-index bea0cc7aed..1b59c7fc14 100644
---- a/xen/drivers/vpci/msix.c
-+++ b/xen/drivers/vpci/msix.c
-@@ -27,6 +27,13 @@
-     ((addr) >= vmsix_table_addr(vpci, nr) &&                              \
-      (addr) < vmsix_table_addr(vpci, nr) + vmsix_table_size(vpci, nr))
- 
-+#define VMSIX_ADDR_ADJACENT(addr, vpci, nr)                               \
-+    ((PFN_DOWN(addr) == PFN_DOWN(vmsix_table_addr(vpci, nr)) &&           \
-+      (addr) < vmsix_table_addr(vpci, nr)) ||                             \
-+     (PFN_DOWN(addr) == PFN_DOWN(vmsix_table_addr(vpci, nr) +             \
-+                                 vmsix_table_size(vpci, nr) - 1) &&       \
-+      (addr) >= vmsix_table_addr(vpci, nr) + vmsix_table_size(vpci, nr)))
-+
- static uint32_t cf_check control_read(
-     const struct pci_dev *pdev, unsigned int reg, void *data)
- {
-@@ -145,11 +152,9 @@ static struct vpci_msix *msix_find(const struct domain *d, unsigned long addr)
-     list_for_each_entry ( msix, &d->arch.hvm.msix_tables, next )
-     {
-         const struct vpci_bar *bars = msix->pdev->vpci->header.bars;
--        unsigned int i;
- 
--        for ( i = 0; i < ARRAY_SIZE(msix->tables); i++ )
--            if ( bars[msix->tables[i] & PCI_MSIX_BIRMASK].enabled &&
--                 VMSIX_ADDR_IN_RANGE(addr, msix->pdev->vpci, i) )
-+        if ( bars[msix->tables[VPCI_MSIX_TABLE] & PCI_MSIX_BIRMASK].enabled &&
-+             VMSIX_ADDR_IN_RANGE(addr, msix->pdev->vpci, VPCI_MSIX_TABLE) )
-                 return msix;
-     }
- 
-@@ -182,36 +187,38 @@ static struct vpci_msix_entry *get_entry(struct vpci_msix *msix,
-     return &msix->entries[(addr - start) / PCI_MSIX_ENTRY_SIZE];
- }
- 
--static void __iomem *get_pba(struct vpci *vpci)
-+static void __iomem *get_table(struct vpci *vpci, unsigned int slot)
- {
-     struct vpci_msix *msix = vpci->msix;
-     /*
--     * PBA will only be unmapped when the device is deassigned, so access it
-+     * MSIX will only be unmapped when the device is deassigned, so access it
-      * without holding the vpci lock.
-      */
--    void __iomem *pba = read_atomic(&msix->pba);
-+    void __iomem *table = read_atomic(&msix->table[slot]);
- 
--    if ( likely(pba) )
--        return pba;
-+    if ( likely(table) )
-+        return table;
- 
--    pba = ioremap(vmsix_table_addr(vpci, VPCI_MSIX_PBA),
--                  vmsix_table_size(vpci, VPCI_MSIX_PBA));
--    if ( !pba )
--        return read_atomic(&msix->pba);
-+    table = ioremap(round_pgdown(vmsix_table_addr(vpci, VPCI_MSIX_TABLE) +
-+                                 (slot == VPCI_MSIX_TBL_HEAD ?
-+                                  0 : vmsix_table_size(vpci, VPCI_MSIX_TABLE))),
-+                    PAGE_SIZE);
-+    if ( !table )
-+        return read_atomic(&msix->table[slot]);
- 
-     spin_lock(&vpci->lock);
--    if ( !msix->pba )
-+    if ( !msix->table[slot] )
-     {
--        write_atomic(&msix->pba, pba);
-+        write_atomic(&msix->table[slot], table);
-         spin_unlock(&vpci->lock);
-     }
-     else
-     {
-         spin_unlock(&vpci->lock);
--        iounmap(pba);
-+        iounmap(table);
-     }
- 
--    return read_atomic(&msix->pba);
-+    return read_atomic(&msix->table[slot]);
- }
- 
- static int cf_check msix_read(
-@@ -230,45 +237,6 @@ static int cf_check msix_read(
-     if ( !access_allowed(msix->pdev, addr, len) )
-         return X86EMUL_OKAY;
- 
--    if ( VMSIX_ADDR_IN_RANGE(addr, msix->pdev->vpci, VPCI_MSIX_PBA) )
--    {
--        struct vpci *vpci = msix->pdev->vpci;
--        unsigned int idx = addr - vmsix_table_addr(vpci, VPCI_MSIX_PBA);
--        const void __iomem *pba = get_pba(vpci);
--
--        /*
--         * Access to PBA.
--         *
--         * TODO: note that this relies on having the PBA identity mapped to the
--         * guest address space. If this changes the address will need to be
--         * translated.
--         */
--        if ( !pba )
--        {
--            gprintk(XENLOG_WARNING,
--                    "%pp: unable to map MSI-X PBA, report all pending\n",
--                    &msix->pdev->sbdf);
--            return X86EMUL_OKAY;
--        }
--
--        switch ( len )
--        {
--        case 4:
--            *data = readl(pba + idx);
--            break;
--
--        case 8:
--            *data = readq(pba + idx);
--            break;
--
--        default:
--            ASSERT_UNREACHABLE();
--            break;
--        }
--
--        return X86EMUL_OKAY;
--    }
--
-     spin_lock(&msix->pdev->vpci->lock);
-     entry = get_entry(msix, addr);
-     offset = addr & (PCI_MSIX_ENTRY_SIZE - 1);
-@@ -317,43 +285,6 @@ static int cf_check msix_write(
-     if ( !access_allowed(msix->pdev, addr, len) )
-         return X86EMUL_OKAY;
- 
--    if ( VMSIX_ADDR_IN_RANGE(addr, msix->pdev->vpci, VPCI_MSIX_PBA) )
--    {
--        struct vpci *vpci = msix->pdev->vpci;
--        unsigned int idx = addr - vmsix_table_addr(vpci, VPCI_MSIX_PBA);
--        const void __iomem *pba = get_pba(vpci);
--
--        if ( !is_hardware_domain(d) )
--            /* Ignore writes to PBA for DomUs, it's behavior is undefined. */
--            return X86EMUL_OKAY;
--
--        if ( !pba )
--        {
--            /* Unable to map the PBA, ignore write. */
--            gprintk(XENLOG_WARNING,
--                    "%pp: unable to map MSI-X PBA, write ignored\n",
--                    &msix->pdev->sbdf);
--            return X86EMUL_OKAY;
--        }
--
--        switch ( len )
--        {
--        case 4:
--            writel(data, pba + idx);
--            break;
--
--        case 8:
--            writeq(data, pba + idx);
--            break;
--
--        default:
--            ASSERT_UNREACHABLE();
--            break;
--        }
--
--        return X86EMUL_OKAY;
--    }
--
-     spin_lock(&msix->pdev->vpci->lock);
-     entry = get_entry(msix, addr);
-     offset = addr & (PCI_MSIX_ENTRY_SIZE - 1);
-@@ -438,6 +369,145 @@ static const struct hvm_mmio_ops vpci_msix_table_ops = {
-     .write = msix_write,
- };
- 
-+const static struct vpci_msix *adjacent_find(const struct domain *d,
-+                                             unsigned long addr)
-+{
-+    const struct vpci_msix *msix;
-+
-+    list_for_each_entry ( msix, &d->arch.hvm.msix_tables, next )
-+        /*
-+         * So far vPCI only traps accesses to the MSIX table, but not the PBA
-+         * explicitly, and hence we only need to check for the hole created by
-+         * the MSIX table.
-+         *
-+         * If the PBA table is also trapped, the check here should be expanded
-+         * to take it into account.
-+         */
-+        if ( VMSIX_ADDR_ADJACENT(addr, msix->pdev->vpci, VPCI_MSIX_TABLE) )
-+            return msix;
-+
-+    return NULL;
-+}
-+
-+static int cf_check adjacent_accept(struct vcpu *v, unsigned long addr)
-+{
-+    return !!adjacent_find(v->domain, addr);
-+}
-+
-+static int cf_check adjacent_read(
-+    struct vcpu *v, unsigned long addr, unsigned int len, unsigned long *data)
-+{
-+    const struct domain *d = v->domain;
-+    const struct vpci_msix *msix = adjacent_find(d, addr);
-+    const void __iomem *mem;
-+    paddr_t msix_tbl;
-+    struct vpci *vpci;
-+
-+    *data = ~0ul;
-+
-+    if ( !msix )
-+        return X86EMUL_RETRY;
-+
-+    vpci = msix->pdev->vpci;
-+    msix_tbl = vmsix_table_addr(vpci, VPCI_MSIX_TABLE);
-+
-+    if ( addr + len > round_pgup(msix_tbl +
-+                                 vmsix_table_size(vpci, VPCI_MSIX_TABLE)) )
-+        return X86EMUL_OKAY;
-+
-+    mem = get_table(vpci,
-+                    PFN_DOWN(addr) == PFN_DOWN(msix_tbl) ? VPCI_MSIX_TBL_HEAD
-+                                                         : VPCI_MSIX_TBL_TAIL);
-+    if ( !mem )
-+        return X86EMUL_OKAY;
-+
-+    switch ( len )
-+    {
-+    case 1:
-+        *data = readb(mem + PAGE_OFFSET(addr));
-+        break;
-+
-+    case 2:
-+        *data = readw(mem + PAGE_OFFSET(addr));
-+        break;
-+
-+    case 4:
-+        *data = readl(mem + PAGE_OFFSET(addr));
-+        break;
-+
-+    case 8:
-+        *data = readq(mem + PAGE_OFFSET(addr));
-+        break;
-+
-+    default:
-+        ASSERT_UNREACHABLE();
-+    }
-+
-+    return X86EMUL_OKAY;
-+}
-+
-+static int cf_check adjacent_write(
-+    struct vcpu *v, unsigned long addr, unsigned int len, unsigned long data)
-+{
-+    const struct domain *d = v->domain;
-+    const struct vpci_msix *msix = adjacent_find(d, addr);
-+    void __iomem *mem;
-+    paddr_t msix_tbl;
-+    struct vpci *vpci;
-+
-+    if ( !msix )
-+        return X86EMUL_RETRY;
-+
-+    vpci = msix->pdev->vpci;
-+    msix_tbl = vmsix_table_addr(vpci, VPCI_MSIX_TABLE);
-+
-+    if ( addr + len > round_pgup(msix_tbl +
-+                                 vmsix_table_size(vpci, VPCI_MSIX_TABLE)) )
-+        return X86EMUL_OKAY;
-+
-+    if ( (VMSIX_ADDR_IN_RANGE(addr, vpci, VPCI_MSIX_PBA) ||
-+          VMSIX_ADDR_IN_RANGE(addr + len - 1, vpci, VPCI_MSIX_PBA)) &&
-+         !is_hardware_domain(d) )
-+        /* Ignore writes to PBA for DomUs, it's undefined behavior. */
-+        return X86EMUL_OKAY;
-+
-+    mem = get_table(vpci,
-+                    PFN_DOWN(addr) == PFN_DOWN(msix_tbl) ? VPCI_MSIX_TBL_HEAD
-+                                                         : VPCI_MSIX_TBL_TAIL);
-+    if ( !mem )
-+        return X86EMUL_OKAY;
-+
-+    switch ( len )
-+    {
-+    case 1:
-+        writeb(data, mem + PAGE_OFFSET(addr));
-+        break;
-+
-+    case 2:
-+        writew(data, mem + PAGE_OFFSET(addr));
-+        break;
-+
-+    case 4:
-+        writel(data, mem + PAGE_OFFSET(addr));
-+        break;
-+
-+    case 8:
-+        writeq(data, mem + PAGE_OFFSET(addr));
-+        break;
-+
-+    default:
-+        ASSERT_UNREACHABLE();
-+    }
-+
-+    return X86EMUL_OKAY;
-+}
-+
-+static const struct hvm_mmio_ops vpci_msix_adj_ops = {
-+    .check = adjacent_accept,
-+    .read = adjacent_read,
-+    .write = adjacent_write,
-+};
-+
- int vpci_make_msix_hole(const struct pci_dev *pdev)
- {
-     struct domain *d = pdev->domain;
-@@ -530,7 +600,10 @@ static int cf_check init_msix(struct pci_dev *pdev)
-     }
- 
-     if ( list_empty(&d->arch.hvm.msix_tables) )
-+    {
-         register_mmio_handler(d, &vpci_msix_table_ops);
-+        register_mmio_handler(d, &vpci_msix_adj_ops);
-+    }
- 
-     pdev->vpci->msix = msix;
-     list_add(&msix->next, &d->arch.hvm.msix_tables);
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index 6d48d496bb..652807a4a4 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -54,9 +54,12 @@ void vpci_remove_device(struct pci_dev *pdev)
-     spin_unlock(&pdev->vpci->lock);
-     if ( pdev->vpci->msix )
-     {
-+        unsigned int i;
-+
-         list_del(&pdev->vpci->msix->next);
--        if ( pdev->vpci->msix->pba )
--            iounmap(pdev->vpci->msix->pba);
-+        for ( i = 0; i < ARRAY_SIZE(pdev->vpci->msix->table); i++ )
-+            if ( pdev->vpci->msix->table[i] )
-+                iounmap(pdev->vpci->msix->table[i]);
-     }
-     xfree(pdev->vpci->msix);
-     xfree(pdev->vpci->msi);
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index d8acfeba8a..b1ea312778 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -133,8 +133,10 @@ struct vpci {
-         bool enabled         : 1;
-         /* Masked? */
-         bool masked          : 1;
--        /* PBA map */
--        void __iomem *pba;
-+        /* Partial table map. */
-+#define VPCI_MSIX_TBL_HEAD 0
-+#define VPCI_MSIX_TBL_TAIL 1
-+        void __iomem *table[2];
-         /* Entries. */
-         struct vpci_msix_entry {
-             uint64_t addr;
--- 
-2.39.0
+... here.
 
+Jan
 
