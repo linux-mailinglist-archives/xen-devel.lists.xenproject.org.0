@@ -2,34 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C30F06B9825
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 15:39:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509684.785931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3F346B982A
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 15:42:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509691.785941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc5oR-0000f9-RB; Tue, 14 Mar 2023 14:39:39 +0000
+	id 1pc5qf-00029T-Bm; Tue, 14 Mar 2023 14:41:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509684.785931; Tue, 14 Mar 2023 14:39:39 +0000
+Received: by outflank-mailman (output) from mailman id 509691.785941; Tue, 14 Mar 2023 14:41:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc5oR-0000d2-NY; Tue, 14 Mar 2023 14:39:39 +0000
-Received: by outflank-mailman (input) for mailman id 509684;
- Tue, 14 Mar 2023 14:39:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Jlvw=7G=ilande.co.uk=mark.cave-ayland@srs-se1.protection.inumbo.net>)
- id 1pc5oP-0000cw-J8
- for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 14:39:37 +0000
-Received: from mail.ilande.co.uk (mail.ilande.co.uk [2001:41c9:1:41f::167])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0ace75ab-c276-11ed-87f5-c1b5be75604c;
- Tue, 14 Mar 2023 15:39:36 +0100 (CET)
-Received: from host86-163-239-161.range86-163.btcentralplus.com
- ([86.163.239.161] helo=[10.8.0.6])
- by mail.ilande.co.uk with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.92) (envelope-from <mark.cave-ayland@ilande.co.uk>)
- id 1pc5nX-0005Qr-Nu; Tue, 14 Mar 2023 14:38:47 +0000
+	id 1pc5qf-00026b-8i; Tue, 14 Mar 2023 14:41:57 +0000
+Received: by outflank-mailman (input) for mailman id 509691;
+ Tue, 14 Mar 2023 14:41:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6q5S=7G=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pc5qd-00026T-Sp
+ for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 14:41:55 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c8fbb0d-c276-11ed-b464-930f4c7d94ae;
+ Tue, 14 Mar 2023 15:41:54 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 03C4321C6E;
+ Tue, 14 Mar 2023 14:41:53 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C726313A26;
+ Tue, 14 Mar 2023 14:41:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id +y/wLrCHEGQIJgAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 14 Mar 2023 14:41:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,305 +51,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ace75ab-c276-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ilande.co.uk; s=20220518; h=Subject:Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:MIME-Version:Date:Message-ID:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=MHeqY/i8JTacdCm6spIoosz74dKHC7KWM8iUBqmIX20=; b=ASuuMXR2uuC+AL5d8Q4Y9Ejp5A
-	SIb8FNXadeu1gMI9Ea6OrmLmjIQ7KXxKngtYicbAhFSUuXZX408Se6kGQLBfLGNQShOwDomOJICsL
-	8c0QV821bGUWgSsDyNWXPgK9oh5GEuVntfhtv4LC0bBQiEqC2mQEwsKExCkwBIPD8gE5Sm3LgdAxC
-	iIx6VOoAmJ+wdg1PUVq18UJ2F6jfFpGwPUolC+qM0EX2CnhwWz41XBP56UmR+CGStTp9L9Z14iZJJ
-	XRTaSS3WSlrqMRCFVuer+NtZ9xRMBlnDRjEBIsvViuVd8nBO4/Jxi1y+jaeXo+elDH29Du+QPYAZO
-	AZnHe/m31p4tRSMR/6O8l4utD7fFVSvqXKoZzBDipFwFph9wFJEx90SaVaIX3lepvzzliGSCi/d4K
-	o6SmCdhVX1839ZXSOVmYohMkS+wu/tiiMGBZZ/8/i0LIfsxaYrcNnot7Biv3vp5ElWmBiVFTTxp22
-	m+bTjCw5w60wqBB/j8MlXWaCHx00NEhbZyEV6we0ffdpeflLZfsEerrDeMj/ksnL8VsknoXO5xET9
-	vKPrJ7AJJLif5yJ+KWzEF5BTIziXdqhyevkXjZPfQa8ITd7tx6I0I6Bdp74G7D9OM3h5FkllpeQtJ
-	BqfaA5Simwtx9C7ax4EflrOsVXeDm6bgn2zDF32o0=;
-Message-ID: <850cf67e-151a-b1c3-7265-1428659e3a6a@ilande.co.uk>
-Date: Tue, 14 Mar 2023 14:39:22 +0000
+X-Inumbo-ID: 5c8fbb0d-c276-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1678804913; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6ijl+wMxkUG8QWAXHj6uxwD5E3sbhf3ed0PHU4a3LeM=;
+	b=GgUzFjUaPH+Eu2EIexNJCHkEW0CvofmomOlKjgcnHAg0AtCCnEjnhm0PCkgaRyk/FOgciX
+	bb67VVr551P49+vhF3ezpuKqCj/hf+zqKExrzQacuNh8spdg/3Iskc/QL5zGSMpClFw/J+
+	oEEj//3loyu+/qg14Faw8rYiQZtk/ik=
+Message-ID: <e2e81547-e1a1-9743-16b2-ff78ab67efbb@suse.com>
+Date: Tue, 14 Mar 2023 15:41:52 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 4/4] xen/blkback: move blkif_get_x86_*_req() into
+ blkback.c
 Content-Language: en-US
-To: Chuck Zmudzinski <brchuckz@aol.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Cc: qemu-devel@nongnu.org, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Artyom Tarasenko <atar4qemu@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1678763217.git.brchuckz@aol.com>
- <d9ae459b2814425c2d9e756e45d993c824da150a.1678763217.git.brchuckz@aol.com>
- <20230314023148-mutt-send-email-mst@kernel.org>
- <0c8ee7e9-dd23-262f-f67e-359e14abf6f2@ilande.co.uk>
- <20230314091653-mutt-send-email-mst@kernel.org>
- <34eda0c4-3d90-0e22-7888-81bf18e2a5f0@aol.com>
- <7b79ec08-064c-7940-0285-be8a96e2a144@ilande.co.uk>
- <7b822b6c-a0dc-63c9-722e-e1e0361a8d9d@aol.com>
-From: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-In-Reply-To: <7b822b6c-a0dc-63c9-722e-e1e0361a8d9d@aol.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+References: <20230314142741.24917-1-jgross@suse.com>
+ <20230314142741.24917-5-jgross@suse.com>
+ <a4b422c6-eb08-89e5-9c97-4e0c4d0f8f01@suse.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <a4b422c6-eb08-89e5-9c97-4e0c4d0f8f01@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------n9iNOJwt0R0fqoF8Vp6gy0OC"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------n9iNOJwt0R0fqoF8Vp6gy0OC
+Content-Type: multipart/mixed; boundary="------------FOk1qaSv01TC1C12afP5Laln";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+Message-ID: <e2e81547-e1a1-9743-16b2-ff78ab67efbb@suse.com>
+Subject: Re: [PATCH v2 4/4] xen/blkback: move blkif_get_x86_*_req() into
+ blkback.c
+References: <20230314142741.24917-1-jgross@suse.com>
+ <20230314142741.24917-5-jgross@suse.com>
+ <a4b422c6-eb08-89e5-9c97-4e0c4d0f8f01@suse.com>
+In-Reply-To: <a4b422c6-eb08-89e5-9c97-4e0c4d0f8f01@suse.com>
+
+--------------FOk1qaSv01TC1C12afP5Laln
+Content-Type: multipart/mixed; boundary="------------qTwKcS191XFvVpeaSmV16np9"
+
+--------------qTwKcS191XFvVpeaSmV16np9
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 86.163.239.161
-X-SA-Exim-Mail-From: mark.cave-ayland@ilande.co.uk
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
-	mail.default.ilande.bv.iomart.io
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=5.0 tests=ALL_TRUSTED,BAYES_00,
-	URIBL_BLOCKED,URIBL_SBL_A autolearn=no autolearn_force=no version=3.4.2
-Subject: Re: [PATCH v2 2/2] pci: allow slot_reserved_mask to be ignored with
- manual slot assignment
-X-SA-Exim-Version: 4.2.1 (built Wed, 08 May 2019 21:11:16 +0000)
-X-SA-Exim-Scanned: Yes (on mail.ilande.co.uk)
+Content-Transfer-Encoding: base64
 
-On 14/03/2023 14:21, Chuck Zmudzinski wrote:
+T24gMTQuMDMuMjMgMTU6MzMsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxNC4wMy4yMDIz
+IDE1OjI3LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gVjI6DQo+PiAtIGFkZCBjb25zdCwg
+dXNlIHVuc2lnbmVkIGludCBmb3IgbG9vcCBjb3VudGVycyAoUm9nZXIgUGF1IE1vbm7DqSkN
+Cj4gDQo+IEhtbSwgLi4uDQo+IA0KPj4gLS0tIGEvZHJpdmVycy9ibG9jay94ZW4tYmxrYmFj
+ay9ibGtiYWNrLmMNCj4+ICsrKyBiL2RyaXZlcnMvYmxvY2sveGVuLWJsa2JhY2svYmxrYmFj
+ay5jDQo+PiBAQCAtMTA3Miw3ICsxMDcyLDExMSBAQCBzdGF0aWMgdm9pZCBlbmRfYmxvY2tf
+aW9fb3Aoc3RydWN0IGJpbyAqYmlvKQ0KPj4gICAJYmlvX3B1dChiaW8pOw0KPj4gICB9DQo+
+PiAgIA0KPj4gK3N0YXRpYyB2b2lkIGJsa2lmX2dldF94ODZfMzJfcmVxKHN0cnVjdCBibGtp
+Zl9yZXF1ZXN0ICpkc3QsDQo+PiArCQkJCSBjb25zdCBzdHJ1Y3QgYmxraWZfeDg2XzMyX3Jl
+cXVlc3QgKnNyYykNCj4+ICt7DQo+PiArCXVuc2lnbmVkIGludCBpLCBuOw0KPiANCj4gLi4u
+IGhlcmUgeW91IGRpZCwgYnV0IC4uLg0KPiANCj4+ICtzdGF0aWMgdm9pZCBibGtpZl9nZXRf
+eDg2XzY0X3JlcShzdHJ1Y3QgYmxraWZfcmVxdWVzdCAqZHN0LA0KPj4gKwkJCQkgc3RydWN0
+IGJsa2lmX3g4Nl82NF9yZXF1ZXN0ICpzcmMpDQo+PiArew0KPj4gKwlpbnQgaSwgbjsNCj4g
+DQo+IC4uLiB3aGF0IGFib3V0IHRoZXNlPw0KDQpPaCwgaW5kZWVkLiBJIGNvdWxkIHNheSBS
+b2dlciBjb21tZW50ZWQgb25seSBvbiBibGtpZl9nZXRfeDg2XzMyX3JlcSgpLCBidXQgdGhp
+cw0Kd291bGQgYmUgYSByYXRoZXIgbGFtZSBleGN1c2UuIDstKQ0KDQpJJ2xsIHJlc2VuZCB0
+aGF0IGxhc3QgcGF0Y2guDQoNCg0KSnVlcmdlbg0KDQo=
+--------------qTwKcS191XFvVpeaSmV16np9
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> On 3/14/2023 9:41 AM, Mark Cave-Ayland wrote:
->> On 14/03/2023 13:26, Chuck Zmudzinski wrote:
->>
->>> On 3/14/2023 9:17 AM, Michael S. Tsirkin wrote:
->>>> On Tue, Mar 14, 2023 at 12:43:12PM +0000, Mark Cave-Ayland wrote:
->>>>> On 14/03/2023 06:33, Michael S. Tsirkin wrote:
->>>>>
->>>>>> On Tue, Mar 14, 2023 at 12:01:09AM -0400, Chuck Zmudzinski wrote:
->>>>>>> Commit 4f67543bb8c5 ("xen/pt: reserve PCI slot 2 for Intel igd-passthru")
->>>>>>> uses slot_reserved_mask to reserve slot 2 for the Intel IGD for the
->>>>>>> xenfv machine when the guest is configured for igd-passthru.
->>>>>>>
->>>>>>> A desired extension to that commit is to allow use of the reserved slot
->>>>>>> if the administrator manually configures a device to use the reserved
->>>>>>> slot. Currently, slot_reserved_mask is enforced unconditionally. With
->>>>>>> this patch, the pci bus can be configured so the slot is only reserved
->>>>>>> if the pci device to be added to the bus is configured for automatic
->>>>>>> slot assignment.
->>>>>>>
->>>>>>> To enable the desired behavior of slot_reserved_mask machine, add a
->>>>>>> boolean member enforce_slot_reserved_mask_manual to struct PCIBus and
->>>>>>> add a function pci_bus_ignore_slot_reserved_mask_manual which can be
->>>>>>> called to change the default behavior of always enforcing
->>>>>>> slot_reserved_mask so, in that case, slot_reserved_mask is only enforced
->>>>>>> when the pci device being added is configured for automatic slot
->>>>>>> assignment.
->>>>>>>
->>>>>>> Call the new pci_bus_ignore_slot_reserved_mask_manual function after
->>>>>>> creating the pci bus for the pc/i440fx/xenfv machine type to implement
->>>>>>> the desired behavior of causing slot_reserved_mask to only apply when
->>>>>>> the pci device to be added to a pc/i440fx/xenfv machine is configured
->>>>>>> for automatic slot assignment.
->>>>>>>
->>>>>>> Link: https://lore.kernel.org/qemu-devel/20230106064838-mutt-send-email-mst@kernel.org/
->>>>>>> Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
->>>>>>
->>>>>> I really dislike this.
->>>>>> It seems that xen should not have used slot_reserved_mask,
->>>>>> and instead needs something new like slot_manual_mask.
->>>>>> No?
->>>>>
->>>>> My suggestion was to move the validation logic to a separate callback
->>>>> function in PCIBus (see
->>>>> https://lists.gnu.org/archive/html/qemu-devel/2023-03/msg03988.html) but
->>>>> perhaps I wasn't clear enough in pointing out that I was thinking this could
->>>>> *replace* the existing slot_reserved_mask mechanism, rather than providing a
->>>>> hook to allow it to be manipulated.
->>>>>
->>>>> Here's a very rough patch put together over lunch that attempts this for
->>>>> pci_bus_devfn_reserved(): the idea is that sun4u and Xen would call
->>>>> pci_bus_set_slot_reserved_fn() with a suitable pci_slot_reserved_fn
->>>>> implementation, and slot_reserved_mask gets removed completely i.e.:
->>>>>
->>>>>
->>>>> diff --git a/hw/pci/pci.c b/hw/pci/pci.c
->>>>> index def5000e7b..30b856499a 100644
->>>>> --- a/hw/pci/pci.c
->>>>> +++ b/hw/pci/pci.c
->>>>> @@ -493,6 +493,13 @@ bool pci_bus_bypass_iommu(PCIBus *bus)
->>>>>        return host_bridge->bypass_iommu;
->>>>>    }
->>>>>
->>>>> +static bool pci_bus_default_slot_reserved(PCISlotReservationType restype,
->>>>> +                                          int devfn)
->>>>> +{
->>>>> +    /* All slots accessible by default */
->>>>> +    return false;
->>>>> +}
->>>>> +
->>>>>    static void pci_root_bus_internal_init(PCIBus *bus, DeviceState *parent,
->>>>>                                           MemoryRegion *address_space_mem,
->>>>>                                           MemoryRegion *address_space_io,
->>>>> @@ -500,7 +507,7 @@ static void pci_root_bus_internal_init(PCIBus *bus,
->>>>> DeviceState *parent,
->>>>>    {
->>>>>        assert(PCI_FUNC(devfn_min) == 0);
->>>>>        bus->devfn_min = devfn_min;
->>>>> -    bus->slot_reserved_mask = 0x0;
->>>>> +    bus->slot_reserved_fn = pci_bus_default_slot_reserved;
->>>>>        bus->address_space_mem = address_space_mem;
->>>>>        bus->address_space_io = address_space_io;
->>>>>        bus->flags |= PCI_BUS_IS_ROOT;
->>>>> @@ -1111,9 +1118,15 @@ static bool pci_bus_devfn_available(PCIBus *bus, int devfn)
->>>>>        return !(bus->devices[devfn]);
->>>>>    }
->>>>>
->>>>> -static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn)
->>>>> +static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn,
->>>>> +                                   PCISlotReservationType restype)
->>>>> +{
->>>>> +    return bus->slot_reserved_fn(restype, devfn);
->>>>> +}
->>>>> +
->>>>> +void pci_bus_set_slot_reserved_fn(PCIBus *bus, pci_slot_reserved_fn fn)
->>>>>    {
->>>>> -    return bus->slot_reserved_mask & (1UL << PCI_SLOT(devfn));
->>>>> +    bus->slot_reserved_fn = fn;
->>>>>    }
->>>>>
->>>>>    /* -1 for devfn means auto assign */
->>>>> @@ -1141,7 +1154,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
->>>>>            for(devfn = bus->devfn_min ; devfn < ARRAY_SIZE(bus->devices);
->>>>>                devfn += PCI_FUNC_MAX) {
->>>>>                if (pci_bus_devfn_available(bus, devfn) &&
->>>>> -                   !pci_bus_devfn_reserved(bus, devfn)) {
->>>>> +                   !pci_bus_devfn_reserved(bus, devfn, PCI_SLOT_RESERVATION_AUTO)) {
->>>>>                    goto found;
->>>>>                }
->>>>>            }
->>>>> @@ -1149,7 +1162,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
->>>>>                       "or reserved", name);
->>>>>            return NULL;
->>>>>        found: ;
->>>>> -    } else if (pci_bus_devfn_reserved(bus, devfn)) {
->>>>> +    } else if (pci_bus_devfn_reserved(bus, devfn, PCI_SLOT_RESERVATION_MANUAL)) {
->>>>>            error_setg(errp, "PCI: slot %d function %d not available for %s,"
->>>>>                                           MemoryRegion *address_space_io,
->>>>> @@ -500,7 +507,7 @@ static void pci_root_bus_internal_init(PCIBus *bus,
->>>>> DeviceState *parent,
->>>>>    {
->>>>>        assert(PCI_FUNC(devfn_min) == 0);
->>>>>        bus->devfn_min = devfn_min;
->>>>> -    bus->slot_reserved_mask = 0x0;
->>>>> +    bus->slot_reserved_fn = pci_bus_default_slot_reserved;
->>>>>        bus->address_space_mem = address_space_mem;
->>>>>        bus->address_space_io = address_space_io;
->>>>>        bus->flags |= PCI_BUS_IS_ROOT;
->>>>> @@ -1111,9 +1118,15 @@ static bool pci_bus_devfn_available(PCIBus *bus, int devfn)
->>>>>        return !(bus->devices[devfn]);
->>>>>    }
->>>>>
->>>>> -static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn)
->>>>> +static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn,
->>>>> +                                   PCISlotReservationType restype)
->>>>> +{
->>>>> +    return bus->slot_reserved_fn(restype, devfn);
->>>>> +}
->>>>> +
->>>>> +void pci_bus_set_slot_reserved_fn(PCIBus *bus, pci_slot_reserved_fn fn)
->>>>>    {
->>>>> -    return bus->slot_reserved_mask & (1UL << PCI_SLOT(devfn));
->>>>> +    bus->slot_reserved_fn = fn;
->>>>>    }
->>>>>
->>>>>    /* -1 for devfn means auto assign */
->>>>> @@ -1141,7 +1154,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
->>>>>            for(devfn = bus->devfn_min ; devfn < ARRAY_SIZE(bus->devices);
->>>>>                devfn += PCI_FUNC_MAX) {
->>>>>                if (pci_bus_devfn_available(bus, devfn) &&
->>>>> -                   !pci_bus_devfn_reserved(bus, devfn)) {
->>>>> +                   !pci_bus_devfn_reserved(bus, devfn, PCI_SLOT_RESERVATION_AUTO)) {
->>>>>                    goto found;
->>>>>                }
->>>>>            }
->>>>> @@ -1149,7 +1162,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
->>>>>                       "or reserved", name);
->>>>>            return NULL;
->>>>>        found: ;
->>>>> -    } else if (pci_bus_devfn_reserved(bus, devfn)) {
->>>>> +    } else if (pci_bus_devfn_reserved(bus, devfn, PCI_SLOT_RESERVATION_MANUAL)) {
->>>>>            error_setg(errp, "PCI: slot %d function %d not available for %s,"
->>>>>                       " reserved",
->>>>>                       PCI_SLOT(devfn), PCI_FUNC(devfn), name);
->>>>> diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
->>>>> index d5a40cd058..8a949f7ae1 100644
->>>>> --- a/include/hw/pci/pci.h
->>>>> +++ b/include/hw/pci/pci.h
->>>>> @@ -257,10 +257,18 @@ MemoryRegion *pci_address_space_io(PCIDevice *dev);
->>>>>     */
->>>>>    int pci_bar(PCIDevice *d, int reg);
->>>>>
->>>>> +typedef enum PCISlotReservationType {
->>>>> +    PCI_SLOT_RESERVATION_AUTO,
->>>>> +    PCI_SLOT_RESERVATION_MANUAL
->>>>> +} PCISlotReservationType;
->>>>> +
->>>>> +typedef bool (*pci_slot_reserved_fn)(PCISlotReservationType restype, int devfn);
->>>>>    typedef void (*pci_set_irq_fn)(void *opaque, int irq_num, int level);
->>>>>    typedef int (*pci_map_irq_fn)(PCIDevice *pci_dev, int irq_num);
->>>>>    typedef PCIINTxRoute (*pci_route_irq_fn)(void *opaque, int pin);
->>>>>
->>>>> +void pci_bus_set_slot_reserved_fn(PCIBus *bus, pci_slot_reserved_fn fn);
->>>>> +
->>>>>    #define TYPE_PCI_BUS "PCI"
->>>>>    OBJECT_DECLARE_TYPE(PCIBus, PCIBusClass, PCI_BUS)
->>>>>    #define TYPE_PCIE_BUS "PCIE"
->>>>> diff --git a/include/hw/pci/pci_bus.h b/include/hw/pci/pci_bus.h
->>>>> index 5653175957..d68ea1418d 100644
->>>>> --- a/include/hw/pci/pci_bus.h
->>>>> +++ b/include/hw/pci/pci_bus.h
->>>>> @@ -36,7 +36,7 @@ struct PCIBus {
->>>>>        PCIIOMMUFunc iommu_fn;
->>>>>        void *iommu_opaque;
->>>>>        uint8_t devfn_min;
->>>>> -    uint32_t slot_reserved_mask;
->>>>> +    pci_slot_reserved_fn slot_reserved_fn;
->>>>>        pci_set_irq_fn set_irq;
->>>>>        pci_map_irq_fn map_irq;
->>>>>        pci_route_irq_fn route_intx_to_irq;
->>>>>
->>>>>
->>>>> If this approach seems reasonable, I'm happy for someone else to take this
->>>>> over and turn it into a proper series.
->>>>>
->>>>>
->>>>> ATB,
->>>>>
->>>>> Mark.
->>>>
->>>> It's ok too though I think I like chuck's proposal better:
->>>> less callbacks to chase.
->>>>
->>>
->>> I would be willing to pursue this if there were more use cases for
->>> slot_reserved_mask than just the two cases we have now: xen and sun4u.
->>> Until there is a clear demand for a more general way to manipulate the
->>> mask, I agree with Michael that the KISS principle should apply here.
->>
->> No worries. The thinking behind this idea was that it feel like the Xen case is
->> special in that it has separate requirements for auto slot allocation and manual slot
->> allocation: if slot reservation were used in more places, I'd expect the sun4u case
->> to be more common, in which case it seems a bit more work for the common case to have
->> to set both slot_reserved_mask_auto and slot_reserved_mask_manual separately. Perhaps
->> a single accessor function can be used to set both mask values together for a PCIBus?
-> 
-> My immediate thought as a way to avoid needing to set both masks in the
-> sun4u machine would be to add an initialization function that defines the
-> relationship between the two masks. The sun4u machine would use a default
-> function that simply sets the manual mask equal to the auto mask. In the
-> special case of xen, the manual mask would be set to 0.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I must admit I wasn't too concerned about having two separate masks, more that in the 
-common case you would have to remember to call two functions. I was thinking that 
-instead of having separate pci_bus_set_slot_reserved_mask_auto() and 
-pci_bus_set_slot_reserved_mask_manual() accessors, you could just have:
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-   pci_bus_set_slot_reserved_mask(uint32_t auto_mask, uint32_t manual_mask);
+--------------qTwKcS191XFvVpeaSmV16np9--
 
-since that gives a single function call for all cases, and it seems fairly intuitive 
-what pci_bus_set_slot_reserved_mask(foo, foo) is doing vs. 
-pci_bus_set_slot_reserved_mask(foo, bar).
+--------------FOk1qaSv01TC1C12afP5Laln--
 
+--------------n9iNOJwt0R0fqoF8Vp6gy0OC
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-ATB,
+-----BEGIN PGP SIGNATURE-----
 
-Mark.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQQh7AFAwAAAAAACgkQsN6d1ii/Ey+s
+Lwf/W1GZkuCUcl//iOtOAJJ673B8AUDNKd/uo91bd/aJNJchgms7HaNX8vjQUju1yHnMLFvySB8N
+QOpn1XrOx1e76ngnkVt3Jc5SeQA66g4nJfmKIiduvQM9DxLjp05FfprUgKJPuqUWY3LvE2wf2c5T
+w1W+umV0rus9+jQRg8wB5+3AlZcCLYhdaZkubDfw9WBwFRueKp9il4IDfcpApKn1ERBvJ9Yli/hQ
+rYTcXK0YYkWGHChTESow0uzw3eG5sjxJGfcMgAzlDwamdoAuG8PDuG/dacroe0EIadft7Nc9tIxD
+ugph9LIJOTuH6TBhswDR/XrZTpcDrJz/ymIMaIU7hA==
+=Jlsu
+-----END PGP SIGNATURE-----
+
+--------------n9iNOJwt0R0fqoF8Vp6gy0OC--
 
