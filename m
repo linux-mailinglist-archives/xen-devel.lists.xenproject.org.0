@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F6A6B893D
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 05:02:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509442.785196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8176A6B8943
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 05:02:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509441.785190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbvqu-0003Lt-4L; Tue, 14 Mar 2023 04:01:32 +0000
+	id 1pbvqt-0003Hc-Q5; Tue, 14 Mar 2023 04:01:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509442.785196; Tue, 14 Mar 2023 04:01:32 +0000
+Received: by outflank-mailman (output) from mailman id 509441.785190; Tue, 14 Mar 2023 04:01:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbvqt-0003He-TZ; Tue, 14 Mar 2023 04:01:31 +0000
-Received: by outflank-mailman (input) for mailman id 509442;
- Tue, 14 Mar 2023 04:01:30 +0000
+	id 1pbvqt-0003Fu-MN; Tue, 14 Mar 2023 04:01:31 +0000
+Received: by outflank-mailman (input) for mailman id 509441;
+ Tue, 14 Mar 2023 04:01:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9LtO=7G=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1pbvqr-0003Fb-TX
- for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 04:01:30 +0000
-Received: from sonic312-25.consmr.mail.gq1.yahoo.com
- (sonic312-25.consmr.mail.gq1.yahoo.com [98.137.69.206])
+ id 1pbvqq-0003Fb-Kv
+ for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 04:01:29 +0000
+Received: from sonic313-21.consmr.mail.gq1.yahoo.com
+ (sonic313-21.consmr.mail.gq1.yahoo.com [98.137.65.84])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e26db9a7-c21c-11ed-87f5-c1b5be75604c;
- Tue, 14 Mar 2023 05:01:25 +0100 (CET)
+ id e313a1d5-c21c-11ed-87f5-c1b5be75604c;
+ Tue, 14 Mar 2023 05:01:26 +0100 (CET)
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic312.consmr.mail.gq1.yahoo.com with HTTP; Tue, 14 Mar 2023 04:01:22 +0000
+ sonic313.consmr.mail.gq1.yahoo.com with HTTP; Tue, 14 Mar 2023 04:01:23 +0000
 Received: by hermes--production-ne1-759c9b8c64-fztnz (Yahoo Inc. Hermes SMTP
  Server) with ESMTPA ID 76100b2c878269fd1c2471a41328eeeb; 
- Tue, 14 Mar 2023 04:01:17 +0000 (UTC)
+ Tue, 14 Mar 2023 04:01:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,42 +42,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e26db9a7-c21c-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1678766482; bh=1+u0lRMKY06Q3afqGvjIRM93Hh6BLtsy7Va/1C/NuCg=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=S8YdMeALJ0dtBBv8ugZdhLn6w794VU3vXP+pU0a2hfm3rdYFMUrEWdLx6+vDeRJNfxCRs02Y5EAy/e9selVnsazOBoPrKhbhaA39wc20/wWyc1insCa4JU7T+lMooPVuG+ilT01v2iuOmYJB2Oi5e130xV7l4Ia7B2AaqeA52zOmoUVW+LfN7W1qwQTH0Xbd4TuviIWTaDXhUXVTIetAChifpjBhKXxIRvgAhC61u4mD3EjdHdWScRiyLf37GdxSgz/280eEj9A/krKJJRX50qaJjYLt4/t6+Yxr/xTAYWZaTHgZz8C+kmZD9usIzjqb2J3tXeMWumxhVRgeftcW3Q==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1678766482; bh=TSfXtiVDxZZ55hu83CwP8B5UBxaCuyvpUCRxBKpo5Lq=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=i1qgpHoND6l3VGC1VnwL0d5pIr/2Zbc/4bioad8ltFM7+vm9mHzTFojbqKM0UdoGGdcqMnic2WyttvdeqMPtqLDpbmlfQtbyPazQUAyjCmwDdbtTi1XjCh4B5veQWzHdSFegTMl4fsyH3axHT1PH+o81fZxBtGKEkL3Q0kcy5HPAWcVScb7QJvsolLQJH+JgYWYWfAg0i609j9k3OjzRaO2gVZ8lTHFj0xTZLDuxgMMR7csKYTr0hzs5GHtKEuIjgzJn69doSZ3+PFr9wB3lpneet+goi7XjgYiEuk3YbvpdNaFERrDa26pWnt/YMnqFqSUT56yyz4Mf7DWCt22ucQ==
-X-YMail-OSG: a9C.w0gVM1lCDMl2JTdGNzo_5tnf2l2.bZk3cMSDLidExWCAWJUzIDAfsoRcOyz
- ZsvAaR8kDu_lQGVNpARz_PuOYiYf1v.MzlbT7lby7UrRmKETZE_T6HyjO4obxUnb5P1Hkd7zC0ZJ
- AsxFAZ2QDErf6VK3y.vkWEB4OQNiHy9R4U8w_K50IWFP9ZmOmBXwyMEnZ1KxDyOrRi58FU.DZ0y_
- t4bC2eH.FpjsTzsQyLheBU6pkxMjqkH3KA6zX0ODG6gg_DNmgHjsg8vdTt8tEO9Rw3IXANTr9QtB
- en3oo8G.JoFofQwd_0ACBSVtUrCvb.xJHcq3O8HowgwNHglkQLj9BLlLBelQQajZWCv7e1w1CMJE
- Sm5rwNnCpk.61YNLkvVMEnBBUyeA5uL7MQ83HrjfPiCEXJPC.eiOwF9prahphnpK9RVGR56Dfu3L
- E4i5ULlZL0rBy.RpfN0epvHsaHRUkT9o1cJ1VSx_rSuNYhtUnB3nTQCoYN1GRnesodS09mfJqf8J
- 6eZIPUtWclYdTEztcRpO2sZYj5iVc46sw12MzG7fuiZ4ld1_oCI8Lj_gJ1O0L6n14QranDBhOOG_
- PmrEPi79.kS3zs0jO2pDaVT1KCLJCbQ8LfMEN8GayUzM1k1.kIwFvCVNlHKI4WelUyxwCfTYJelD
- M2uCHMRDuzmRTANtMvpiOFdmz6zzefGwggrAiKuohRMQb0rs0SSFUL3eRdOse4u_.KNtXMIWe5Hr
- Q8fitnoe0hHimSU3LfzHVhNRy.9V6n_tw96MaregJfgHkBufaM1N05BjSsie5WWyZhEeasWLMTYz
- fOGyPfJrMefExgYpqqINOE2yXkVz.2GL7pd8uTRHxXrkHpDboU0D2xIa4s0ln9y3UqoIj_h_UoLy
- X6BiGzhi0bw78HKlSZYn4Ht3n5MkPlbq11cn3I7Bwciib9.rd2V1m7Os4AACnH.SS4yoLCO4vQM2
- TECbQ4BoWL2MxVHghS0pXzjSTcaQKUB92JT6wnUVMnrHCXjAO4BtmfAfrAAk8D0xmfeJz9MMg.tm
- RNrSOpRcB5jGYPuj5DA1VEVRh5saGeTmFQR_aGV.8WYneawEDtsNHK68UETAPKEpAcwD5Cp4R7ua
- VG0dOa3aIaB6UZtv9kJDK7tq40XvfHZs0Qp2cj6DwrAVs2WchW6Ey11V2nuaINHvb.LW9dKWf7mS
- 2.aVBSoWXmNrEfe5YVJlXBExRSzxaYtuTQ4LAuDVxMEjHBAzafHr_KQlpJWPcr7gP1uAQz0_BWu5
- sPbAYF1xmbVetLtUmHvoU9PtrwnX9MXw2jtg6bdOmw.czA1rGuSgbsBsr.m1k84aIJWKEtacZ0cB
- 2kxkOCXMRvhkpGuIjVtyRqNEoBjIJocr6fZ3nftyDS_WWtKlMKg3e54MZ_Vd.MdyCIx6UqfGMidn
- gwz7jP6hUom0h3Wssfq6nD_LZoyh5uqY6GX2m8.G_iZpgZfZkaOAGNRDTVlWn1C6li4ti_LlZiFL
- DKfTYGhbmQkjkek1CBhuR.D9rYUEcgWlyXkS1ESnHDVLpEp.8MGKl.fIFdUeyWp2r74a4.MnPiV_
- oQEBlvLRSnE_0qUXaGOr5Eixx.tbxGMk.nXAMC_4d.kgkSQq3Libsugjj8qC48i412fWtibV2tYa
- Ukl.LqjhC643MlqfDSv4INAMFMWp3.p26a2vB396ndt9AgduHLuSLuJ4q0ZzBKnyaqppSgzDkxU4
- J9hohQnpR3mLcF5d5IGM0tIyEx1z0MGLp6j_p1aqDeiQqwr9LOF12tocZKC2Fb98YGHECp0ZY3yZ
- 6ZjSR6ZeQIEoLLeEIwGaClOIcd_EeMF9Ou.eufsJE28ZRiUyp2_pus3d.4pmjk8Q6DCyHQe0Idx4
- 4.b7gF5SVZL7kZ7kwir2ai5lBmZtB8Ks7aK3P0t.rXYEeelApXVI9lfmFKp7zOoWtcswJbUADb_j
- M5I4_s0qHk9U2Jt5m.R6uDx.guntRMbo3QV8J080pVHHZIwRXDJYgOvwZbSM.XSieWPr1YCalOQA
- y_VVw2psXi8jckCncFugbmSyfxodP3z7__A3tLCe6XtOyPr_t4ypE3qLPeIkxpPEx0Vqgl5Egwml
- DBRCEibyJsEzvtPYwsvRhfRsm_pCCXMRp35tjIMw37fu7HI_PLtsx1Y45SPkxX7Uj0l5YufWXx7f
- Ed2D2HPptILnPlEyCxnDtNAaJIMdJG_ubC2zB.ZcHexoy.yRGaEwJu8dnWLVxgiEPIIccNdmO4h5
- 4Zd3u9hE-
+X-Inumbo-ID: e313a1d5-c21c-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1678766483; bh=hfIkxSt+f+w40Cm5/M8txYvuJH0EIEq7wMJSl6CHjTc=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=Hn2KFrOTdsWVmqwlYzlCNlDd6dqHo8PgxkHCnLsmTwWHW593iiSsON92yeIfmYVVMfA622tx9wvf7tDmz+5QgYzs+CyancqvLUGmBVKnP9lgNec7GbUdi9p5wzvFLpbVC1Fbc5dudbvZxqqqEAMm1+ONnz6m9HDd+hqCy2NKKYtxg9aFeRyJ368WyHfO2KPTh44SsNIDN4lgxwuS7UepDFW0hw4ASdAffV4Ps3TCUQsnct53crItSNwELd8A9DF+iDEPF/V0gOnQjNlYsauTJk5W5YPGmHvpNhSTgMuRMMtMeLbobCdusRQozSLK2FCpTkJRwQmUMzEoOa0b/eYqmg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1678766483; bh=/VOoJql8lXeru8oKxaUG/fk6MHm8CuHBVdiEt+8+QoE=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=L5SB8/I4MIZ7KgcWKEAFrmw72vNMvOt2IBCKEKrEPtMcxLW1/70bWPohEW1Ug+hUUS2nbtXCLnk95S3SEdhSgnIwjpU5qyY2zKQEJVpU8Pmlug2GABleHgZREQaaziiUQH4NSKTO3fygO7tosJD0vmigNePWCFixdmb37gEscAYTaRLi6qKND4eEjc8rlAoHaKcGX4zJkEV88og9XrlQMloFIEm5gkSJQTi/ckB4awsnJ/TlwFVjSCj4lZXvudr2dcG4IPTxeO6wYdkjbrfksmqQzZ6/wncn0hvtI7C/9IKFdyNlo0BgUm3ZVRETwePGmfgS8Mxf9JZ9bzABRscXSA==
+X-YMail-OSG: D_Z9IvAVM1kLR_jhTFM_ZCB2sg5gSZYx_12HH28Rf7FQWEw3EksJQKnda7SlG4l
+ VJoP8O3qGRs2ouoMQ8_lTvWLFHCx9Y6Iw5gemgzjSKegTd5EIl9IRiQhoFSUz_mmQlbdH7R0etsb
+ Oosh3OyCJ_djOxxGSQIoVqo0NM5aG9J0mphAvz1XfTXvOjaZXqB3RG.ZX3lH3JUkVcWzHT0OuSyY
+ PXZ24bF.0XMR9gw7kIBwKZNYGu7M164CJqRcS3IZETxzTIS3.0eCt1bMJ3LkReOH_lPzxeF82wuJ
+ i0SDJmrrCm9zJ9Jii762e1m70.tQ_N2dSnSLK51CQpD8pptW7_FkJ6aoBVBDQbMd9kfNWSJLBQiD
+ 1oC20nTBecTahDb.0ihBESrmE4Zj8lG3shpYwV.yTSR3Z3NA8WECiJOsf6J5vxIzhMcWpIxxJyYo
+ zgU_PRDrYE68vYFfYZutiA7xVvZ8mV.qLRXlT3srhonLf02genJzKG.JjJ4qtrpb2HwgTY3ODUsu
+ 7k.p1SX4xBZa6Gusfpe6KkMcxhcI.iUYPbmdJpNVSqwqoTm5aLab0ryr7sMFQac_NKcBjdqwOhwb
+ STXCuMxfBdJP0_j8Xp3vOmXxURNDVunc2F8eEv7miti.d3W.wmF8u6PiCB5uT944BDz992CYT131
+ NE2ySUcKnADsnwYVcxKHlhfXX22APh0ICjbtp.QrqC8QWTmHWEurgQDT5BNmVsD8BrgQi2LeiTD5
+ cg6hzc.iAafBwto1SDEmthllDs4.qtHYMKmNzhXWWJIuY3hBXGOansle34e9py9Po0sQ8p.ixBZg
+ UKuoNzW_6oIteO3OQxpXBCT0Q7GiunzAG.7fN0HdP1B1xf_42vF.SRcnAeoA3nwfep.0pvFo78_y
+ fIeOuYQ3wvx7rJa_B6.ZGHJ.MWCV.LGcm8ySmhjdfQ5Nl11t9WwnDSJ2OaIHUrEPwmgYXrpayAJI
+ BQjErTZT.xOFVJeM_7Nc.kwpq_Qhd5jErkK9Ak8KviTFqtBc7c3VI8pJuDq4b1SQChS7B_QgYQOe
+ Dl3pP4Vu_vqJnPCltc.zgeyP5o2YgBfRWb9iSdOsAcRPI3.GQcwn6Ss49JLpjwafOmbRiHLhR0V_
+ PUVomBnpvk7N7JxCCYDjkDaiAoRDtWWUz3asUUZqSRB1Geoc9GYpKRPMoSYhQVnERHZ2KKzPe34T
+ pC_bdGPXn12nn1dxgI6bOuI.N_7ANsHRHYO1rHju0O.eVQx07IWH5W8vaELGg6PgfMlR1q3pafAR
+ kcbldX31PtJ64BXaEVprQ8PvX6mzvwctW1yAynKQ_5UQJF1hTJASASqWS3KfEQMVRZ8b6FjYWa0d
+ dlXfmAMqswVDvQ4q.P_hJNiiUhEL2ySbHWJ0cQ1SyZ186vp.fwJfibk6uu5RkBxIDO3uuqZY_fuw
+ y03akzbmXaDGTw9lmNN_RRZdzwcKE3CGZhGJ8D01NVO8yqUlp61co0F0Dk3DUAe4HuF31cGvhyVI
+ SvDBA7prZ7iq9UZp9reNfo01LWtFgyuVhHsqx5pN64mQUBhekXta.voxq0J6w577Xf2INwYmJ9hN
+ ydIYcXla3agUYmBKUQlzu.z5ChgOT8BxlFZHj9RqxpHeq5bzfZlMY42IlnIdZgwHQ_AiqYoYjR2m
+ 9w7QOgrCpa1m.pP.KMMGpQmIHWN1rnF.qO70Bc8C6l4vqxsz5IjbaQEsT1DtnxwiMlmgq9y8NWUV
+ 04LbHb2Z4HwWTGd.iPvgla7pCU__Vbp5pl54URt7TW4ynqPRTaLvsz_w1JpvkRNt6vSdwZZ9EVqW
+ 54SFxeBQJMuKm.KwKdJYZHhslbrd4p6mSl5GOPUjBrh2gfgSkmaivMQ7IIz3P2OQnPbSqNsqqtfS
+ eWPLQHfD3sJhq9wnxG5PBELMsO0HCGYIqGOmTIcbIn8OArp5aoiz93aoJpaHj03_0AZgIonW6WDJ
+ zBWRpLw9ID2T0m40r6G.IgMn7lK.YJdmp4UMkJMR2No7ZBK6oEgAMk_NK4PyzmF9.84bHbL8jtjN
+ D.eS9RuaGFjX9HUthTaFpqNfMU5Web6lljPpbEgH_KKOvBALw.iUqdpPOLE7Mg4t8C1tOBET6XWW
+ smjghbpLkggqqOriVRCrDr9WMvXU8QBHH1KWMIda3rES7zrjK9brc0X1rLxQRm_FXvXN4k4otNtj
+ 89nkIFCSrE6jcHzDoOkdC6EEIjJRC3mc8WUG1NRRhvbl_GYKlYCsSKjeHNmW5f1VhzEL4NjQj
 X-Sonic-MF: <brchuckz@aim.com>
-X-Sonic-ID: d1a5d7b0-8caa-4204-ada0-a818a27dc087
+X-Sonic-ID: 511d7520-f088-48d5-93aa-9784919af414
 From: Chuck Zmudzinski <brchuckz@aol.com>
 To: qemu-devel@nongnu.org
 Cc: "Michael S. Tsirkin" <mst@redhat.com>,
@@ -88,55 +87,142 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Paul Durrant <paul@xen.org>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v2 0/2] pci: slot_reserved_mask improvements
-Date: Tue, 14 Mar 2023 00:01:07 -0400
-Message-Id: <cover.1678763217.git.brchuckz@aol.com>
+Subject: [PATCH v2 1/2] pci: avoid accessing slot_reserved_mask directly outside of pci.c
+Date: Tue, 14 Mar 2023 00:01:08 -0400
+Message-Id: <7248ee8127e73299c53e38a635505033685787e0.1678763217.git.brchuckz@aol.com>
 X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1678763217.git.brchuckz@aol.com>
+References: <cover.1678763217.git.brchuckz@aol.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-References: <cover.1678763217.git.brchuckz.ref@aol.com>
 
-This patch series consists of two patches. The first provides accessor
-functions in pci.h to avoid direct access of slot_reserved_mask
-according to the comment at the top of include/hw/pci/pci_bus.h. No
-functional change is intended with this patch.
+This patch provides accessor functions as replacements for direct
+access to slot_reserved_mask according to the comment at the top
+of include/hw/pci/pci_bus.h which advises that data structures for
+PCIBus should not be directly accessed but instead be accessed using
+accessor functions in pci.h.
 
-The second patch allows a pci bus to be configured so slot_reserved_mask
-will only be enforced when the device to be added to the bus is
-configured for automatic slot assignment. The second patch also uses the
-new capability in the case of the pc/i440fx/xenfv machine types so
-the current behavior of reserving slot 2 for the Intel IGD for the
-xenfv machine will be ignored if an administrator manually configures
-another device to use the reserved slot.
+Three accessor functions can conveniently replace all direct accesses
+of slot_reserved_mask. With this patch, the new accessor functions are
+used in hw/sparc64/sun4u.c and hw/xen/xen_pt.c and pci_bus.h is removed
+from the included header files of the same two files.
 
-The current behavior of always reserving slots in the sun4u machine is
-preserved by this patch series; the patch series only changes how
-slot_reserved_mask works in the xenfv machine. Although the patch
-series can affect xenfv machines configured for igd-passthru if an
-administrator assigns some of the pci slot addresses manually, it
-does not affect the libxl default configuration for igd-passthru because
-libxl uses automatic slot assignment by default.
+No functional change intended.
 
-Link: https://lore.kernel.org/qemu-devel/20230106064838-mutt-send-email-mst@kernel.org/
+Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+---
+v2: This is the first version of this patch, it did not exist in v1.
 
-Chuck Zmudzinski (2):
-  pci: avoid accessing slot_reserved_mask directly outside of pci.c
-  pci: allow slot_reserved_mask to be ignored with manual slot
-    assignment
+ hw/pci/pci.c         | 15 +++++++++++++++
+ hw/sparc64/sun4u.c   |  7 +++----
+ hw/xen/xen_pt.c      |  7 +++----
+ include/hw/pci/pci.h |  3 +++
+ 4 files changed, 24 insertions(+), 8 deletions(-)
 
-Changelog
-
-v2: Add first patch and cover letter to make this a 2-patch series
-    Make changes to the second patch (see second patch for changelog)
-
- hw/pci-host/i440fx.c     |  1 +
- hw/pci/pci.c             | 29 ++++++++++++++++++++++++++++-
- hw/sparc64/sun4u.c       |  7 +++----
- hw/xen/xen_pt.c          |  7 +++----
- include/hw/pci/pci.h     |  4 ++++
- include/hw/pci/pci_bus.h |  1 +
- 6 files changed, 40 insertions(+), 9 deletions(-)
-
+diff --git a/hw/pci/pci.c b/hw/pci/pci.c
+index def5000e7b..8a87ccc8b0 100644
+--- a/hw/pci/pci.c
++++ b/hw/pci/pci.c
+@@ -1116,6 +1116,21 @@ static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn)
+     return bus->slot_reserved_mask & (1UL << PCI_SLOT(devfn));
+ }
+ 
++uint32_t pci_bus_get_slot_reserved_mask(PCIBus *bus)
++{
++    return bus->slot_reserved_mask;
++}
++
++void pci_bus_set_slot_reserved_mask(PCIBus *bus, uint32_t mask)
++{
++    bus->slot_reserved_mask |= mask;
++}
++
++void pci_bus_clear_slot_reserved_mask(PCIBus *bus, uint32_t mask)
++{
++    bus->slot_reserved_mask &= ~mask;
++}
++
+ /* -1 for devfn means auto assign */
+ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
+                                          const char *name, int devfn,
+diff --git a/hw/sparc64/sun4u.c b/hw/sparc64/sun4u.c
+index a25e951f9d..eae7589462 100644
+--- a/hw/sparc64/sun4u.c
++++ b/hw/sparc64/sun4u.c
+@@ -31,7 +31,6 @@
+ #include "hw/irq.h"
+ #include "hw/pci/pci.h"
+ #include "hw/pci/pci_bridge.h"
+-#include "hw/pci/pci_bus.h"
+ #include "hw/pci/pci_host.h"
+ #include "hw/qdev-properties.h"
+ #include "hw/pci-host/sabre.h"
+@@ -608,9 +607,9 @@ static void sun4uv_init(MemoryRegion *address_space_mem,
+     /* Only in-built Simba APBs can exist on the root bus, slot 0 on busA is
+        reserved (leaving no slots free after on-board devices) however slots
+        0-3 are free on busB */
+-    pci_bus->slot_reserved_mask = 0xfffffffc;
+-    pci_busA->slot_reserved_mask = 0xfffffff1;
+-    pci_busB->slot_reserved_mask = 0xfffffff0;
++    pci_bus_set_slot_reserved_mask(pci_bus, 0xfffffffc);
++    pci_bus_set_slot_reserved_mask(pci_busA, 0xfffffff1);
++    pci_bus_set_slot_reserved_mask(pci_busB, 0xfffffff0);
+ 
+     ebus = pci_new_multifunction(PCI_DEVFN(1, 0), true, TYPE_EBUS);
+     qdev_prop_set_uint64(DEVICE(ebus), "console-serial-base",
+diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
+index 2d33d178ad..a540149639 100644
+--- a/hw/xen/xen_pt.c
++++ b/hw/xen/xen_pt.c
+@@ -57,7 +57,6 @@
+ #include <sys/ioctl.h>
+ 
+ #include "hw/pci/pci.h"
+-#include "hw/pci/pci_bus.h"
+ #include "hw/qdev-properties.h"
+ #include "hw/qdev-properties-system.h"
+ #include "xen_pt.h"
+@@ -951,7 +950,7 @@ void xen_igd_reserve_slot(PCIBus *pci_bus)
+     }
+ 
+     XEN_PT_LOG(0, "Reserving PCI slot 2 for IGD\n");
+-    pci_bus->slot_reserved_mask |= XEN_PCI_IGD_SLOT_MASK;
++    pci_bus_set_slot_reserved_mask(pci_bus, XEN_PCI_IGD_SLOT_MASK);
+ }
+ 
+ static void xen_igd_clear_slot(DeviceState *qdev, Error **errp)
+@@ -971,7 +970,7 @@ static void xen_igd_clear_slot(DeviceState *qdev, Error **errp)
+         return;
+     }
+ 
+-    if (!(pci_bus->slot_reserved_mask & XEN_PCI_IGD_SLOT_MASK)) {
++    if (!(pci_bus_get_slot_reserved_mask(pci_bus) & XEN_PCI_IGD_SLOT_MASK)) {
+         xpdc->pci_qdev_realize(qdev, errp);
+         return;
+     }
+@@ -982,7 +981,7 @@ static void xen_igd_clear_slot(DeviceState *qdev, Error **errp)
+         s->real_device.dev == XEN_PCI_IGD_DEV &&
+         s->real_device.func == XEN_PCI_IGD_FN &&
+         s->real_device.vendor_id == PCI_VENDOR_ID_INTEL) {
+-        pci_bus->slot_reserved_mask &= ~XEN_PCI_IGD_SLOT_MASK;
++        pci_bus_clear_slot_reserved_mask(pci_bus, XEN_PCI_IGD_SLOT_MASK);
+         XEN_PT_LOG(pci_dev, "Intel IGD found, using slot 2\n");
+     }
+     xpdc->pci_qdev_realize(qdev, errp);
+diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
+index d5a40cd058..935b4b91b4 100644
+--- a/include/hw/pci/pci.h
++++ b/include/hw/pci/pci.h
+@@ -287,6 +287,9 @@ void pci_bus_irqs(PCIBus *bus, pci_set_irq_fn set_irq,
+ void pci_bus_map_irqs(PCIBus *bus, pci_map_irq_fn map_irq);
+ void pci_bus_irqs_cleanup(PCIBus *bus);
+ int pci_bus_get_irq_level(PCIBus *bus, int irq_num);
++uint32_t pci_bus_get_slot_reserved_mask(PCIBus *bus);
++void pci_bus_set_slot_reserved_mask(PCIBus *bus, uint32_t mask);
++void pci_bus_clear_slot_reserved_mask(PCIBus *bus, uint32_t mask);
+ /* 0 <= pin <= 3 0 = INTA, 1 = INTB, 2 = INTC, 3 = INTD */
+ static inline int pci_swizzle(int slot, int pin)
+ {
 -- 
 2.39.2
 
