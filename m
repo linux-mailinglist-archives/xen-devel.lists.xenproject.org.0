@@ -2,35 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F13ED6B94ED
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 13:52:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509584.785605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA2EA6B95CD
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 14:17:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509590.785615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc48h-0004kK-TW; Tue, 14 Mar 2023 12:52:27 +0000
+	id 1pc4WL-0007ZG-0c; Tue, 14 Mar 2023 13:16:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509584.785605; Tue, 14 Mar 2023 12:52:27 +0000
+Received: by outflank-mailman (output) from mailman id 509590.785615; Tue, 14 Mar 2023 13:16:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc48h-0004hm-Q5; Tue, 14 Mar 2023 12:52:27 +0000
-Received: by outflank-mailman (input) for mailman id 509584;
- Tue, 14 Mar 2023 12:52:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pc4WK-0007WC-Tu; Tue, 14 Mar 2023 13:16:52 +0000
+Received: by outflank-mailman (input) for mailman id 509590;
+ Tue, 14 Mar 2023 13:16:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pc48h-0004hc-3c; Tue, 14 Mar 2023 12:52:27 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pc48h-0004Qi-10; Tue, 14 Mar 2023 12:52:27 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pc48g-0005G1-Kz; Tue, 14 Mar 2023 12:52:26 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pc48g-0005fp-KS; Tue, 14 Mar 2023 12:52:26 +0000
+ (envelope-from <SRS0=7E33=7G=redhat.com=mst@srs-se1.protection.inumbo.net>)
+ id 1pc4WJ-0007W4-IK
+ for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 13:16:51 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 793455f9-c26a-11ed-87f5-c1b5be75604c;
+ Tue, 14 Mar 2023 14:16:49 +0100 (CET)
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-648-mcfBmHJ9PrOvMrkb81M5ng-1; Tue, 14 Mar 2023 09:16:46 -0400
+Received: by mail-ed1-f71.google.com with SMTP id
+ b7-20020a056402350700b004d2a3d5cd3fso21742557edd.8
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Mar 2023 06:16:45 -0700 (PDT)
+Received: from redhat.com ([2a02:14f:1f7:4129:3ef9:ea05:f0ca:6b81])
+ by smtp.gmail.com with ESMTPSA id
+ r8-20020a170906c28800b00928e0ea53e5sm1138289ejz.84.2023.03.14.06.16.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Mar 2023 06:16:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,277 +49,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=uZ8MuMa0ar/rWxEBSHwUxQPqa6BIalxO7dLPuCsCc0o=; b=anGw67VURhqXTbQ5yuNzEEgv9i
-	5iHK+v/1ywxxo3fRdsZik9wb445BfG6mpBEfVfIk9+M8HMMafMdyXKVLNbfiwvlzxzsQjdJaBY0+3
-	wZHxcrGQFCBkFlpHVyGe4gHaequxcxW23w3UingKmwPvkOqMueck9ynio2k6bT2lMb88=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-179607-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 793455f9-c26a-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1678799807;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hIAXseRKi4A6hgBwN93vaPfaXQdoWyfyU0Q1ZAsvdyE=;
+	b=GV9b9xfCzHHlET54GemQxQj8R2yuonHA2HWNEgw5ZFKUjW8WYqOeX0Tixsb5tvRZViKnn6
+	sCHFJ0SFUYRusjrfrN+FllXywReG7v+M/7tAOPIcqy1br6GiWD+4w+AsYcIhOzVSbC4EJq
+	6dVPoxO6rTS+7r0VrWqcVD7RqwNc3kw=
+X-MC-Unique: mcfBmHJ9PrOvMrkb81M5ng-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678799803;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=hIAXseRKi4A6hgBwN93vaPfaXQdoWyfyU0Q1ZAsvdyE=;
+        b=1alC9XDPQb1w1S7zsJLC/vae/GY0dWm5iVS/GN2W03tiLWOvD1f4VIe4rhlajWM9hN
+         r05LZL1zTLkusrrqo6Xm8apy6NoDGXly7tBH2El1ywOsihu5GlPpWbq0dH++RmiLc+9i
+         f5NXZsm4FozSxfmSVdHqvP2fdyeKkeeHeXV4WhNroqFRxAP6NRzok1+Vr4ZSwh5/Y4rU
+         Oz/55wUWZWBSmkJxv+2GsmfMYXnVoIMVpmM8RaUprT27fiVl5u3EXsoqMh4bN31SBtar
+         JtGNo9X6DAO3D4v2lNQrHrbmT+wn1rSpOL0+ZitpaUMr7ScPPxhehhJtJapeftVVQFT9
+         undg==
+X-Gm-Message-State: AO0yUKW2bzkNEtOVtjpn/L87ooZwvUVXWcwOmlZ8RcmUkXcZXI7RlI7m
+	oB60ik8C5UwU1eG4sLuN4n2esKZvlYHZ1ARRJ9hKKi9lthNXQvmXi9UVgM5K9fe6lylAEc78udI
+	/OlBhH+l/N5rlpXO55Cg6WeYO4Hc=
+X-Received: by 2002:a17:907:d13:b0:8f4:809e:faee with SMTP id gn19-20020a1709070d1300b008f4809efaeemr2766641ejc.19.1678799803059;
+        Tue, 14 Mar 2023 06:16:43 -0700 (PDT)
+X-Google-Smtp-Source: AK7set/bTtWokPnmCG+Y9HcT9FaE2j2zBWfT9dGSuyKJ37cXmbtLNdihy9mpTH9ckpsrrBBKuM8Gcw==
+X-Received: by 2002:a17:907:d13:b0:8f4:809e:faee with SMTP id gn19-20020a1709070d1300b008f4809efaeemr2766612ejc.19.1678799802743;
+        Tue, 14 Mar 2023 06:16:42 -0700 (PDT)
+Date: Tue, 14 Mar 2023 09:16:36 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Chuck Zmudzinski <brchuckz@aol.com>
+Cc: qemu-devel@nongnu.org, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+	Artyom Tarasenko <atar4qemu@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 2/2] pci: allow slot_reserved_mask to be ignored with
+ manual slot assignment
+Message-ID: <20230314091342-mutt-send-email-mst@kernel.org>
+References: <cover.1678763217.git.brchuckz@aol.com>
+ <d9ae459b2814425c2d9e756e45d993c824da150a.1678763217.git.brchuckz@aol.com>
+ <20230314023148-mutt-send-email-mst@kernel.org>
+ <ad2741b3-1f5f-8704-d51b-426d3d496811@aol.com>
 MIME-Version: 1.0
-Subject: [linux-linus test] 179607: regressions - trouble: fail/pass/starved
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:guest-saverestore.2:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:guest-localmigrate:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:guest-localmigrate/x10:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-xsm:guest-stop:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:guest-saverestore:fail:regression
-    linux-linus:test-amd64-coresched-amd64-xl:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:guest-saverestore.2:fail:regression
-    linux-linus:test-arm64-arm64-xl:guest-start/debian.repeat:fail:regression
-    linux-linus:test-arm64-arm64-xl-thunderx:guest-start/debian.repeat:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:guest-localmigrate/x10:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-pair:guest-start/debian:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-pygrub:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:debian-di-install:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:debian-di-install:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-examine:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
-    linux-linus:build-armhf-libvirt:build-check(1):starved:nonblocking
-    linux-linus:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    linux=fc89d7fb499b0162e081f434d45e8d1b47e82ece
-X-Osstest-Versions-That:
-    linux=3f0b0903fde584a7398f82fc00bf4f8138610b87
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 14 Mar 2023 12:52:26 +0000
+In-Reply-To: <ad2741b3-1f5f-8704-d51b-426d3d496811@aol.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-flight 179607 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/179607/
+On Tue, Mar 14, 2023 at 08:33:02AM -0400, Chuck Zmudzinski wrote:
+> On 3/14/2023 2:33 AM, Michael S. Tsirkin wrote:
+> > On Tue, Mar 14, 2023 at 12:01:09AM -0400, Chuck Zmudzinski wrote:
+> > > Commit 4f67543bb8c5 ("xen/pt: reserve PCI slot 2 for Intel igd-passthru")
+> > > uses slot_reserved_mask to reserve slot 2 for the Intel IGD for the
+> > > xenfv machine when the guest is configured for igd-passthru.
+> > > 
+> > > A desired extension to that commit is to allow use of the reserved slot
+> > > if the administrator manually configures a device to use the reserved
+> > > slot. Currently, slot_reserved_mask is enforced unconditionally. With
+> > > this patch, the pci bus can be configured so the slot is only reserved
+> > > if the pci device to be added to the bus is configured for automatic
+> > > slot assignment.
+> > > 
+> > > To enable the desired behavior of slot_reserved_mask machine, add a
+> > > boolean member enforce_slot_reserved_mask_manual to struct PCIBus and
+> > > add a function pci_bus_ignore_slot_reserved_mask_manual which can be
+> > > called to change the default behavior of always enforcing
+> > > slot_reserved_mask so, in that case, slot_reserved_mask is only enforced
+> > > when the pci device being added is configured for automatic slot
+> > > assignment.
+> > > 
+> > > Call the new pci_bus_ignore_slot_reserved_mask_manual function after
+> > > creating the pci bus for the pc/i440fx/xenfv machine type to implement
+> > > the desired behavior of causing slot_reserved_mask to only apply when
+> > > the pci device to be added to a pc/i440fx/xenfv machine is configured
+> > > for automatic slot assignment.
+> > > 
+> > > Link: https://lore.kernel.org/qemu-devel/20230106064838-mutt-send-email-mst@kernel.org/
+> > > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+> >
+> > I really dislike this. 
+> > It seems that xen should not have used slot_reserved_mask,
+> > and instead needs something new like slot_manual_mask.
+> > No?
+> 
+> Actually, xen would use something like slot_auto_mask, and
+> sun4u would use both slot_auto_mask and slot_manual_mask.
+> 
+> Is it just that this patch touches hw/pci-host/i440fx.c that you
+> don't like or is it that you don't like adding slot_reserved_mask_manual
+> and pci_bus_ignore_slot_reserved_mask_manual, or is it both
+> that you don't like?
 
-Regressions :-(
+I don't like the enforce_slot_reserved_mask_manual flag -
+I prefer straight forward logic with no branches in
+the common code.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-freebsd12-amd64 13 guest-start          fail REGR. vs. 178042
- test-amd64-amd64-xl-credit1  19 guest-saverestore.2      fail REGR. vs. 178042
- test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 178042
- test-amd64-amd64-xl-xsm      18 guest-localmigrate       fail REGR. vs. 178042
- test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 178042
- test-amd64-amd64-freebsd11-amd64 13 guest-start          fail REGR. vs. 178042
- test-amd64-amd64-xl-multivcpu 20 guest-localmigrate/x10  fail REGR. vs. 178042
- test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 178042
- test-amd64-amd64-libvirt-xsm 19 guest-stop               fail REGR. vs. 178042
- test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-credit2  17 guest-saverestore        fail REGR. vs. 178042
- test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 178042
- test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 178042
- test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 178042
- test-arm64-arm64-xl-credit2  14 guest-start              fail REGR. vs. 178042
- test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 178042
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 16 guest-saverestore.2 fail REGR. vs. 178042
- test-arm64-arm64-xl         18 guest-start/debian.repeat fail REGR. vs. 178042
- test-arm64-arm64-xl-thunderx 18 guest-start/debian.repeat fail REGR. vs. 178042
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 18 guest-localmigrate/x10 fail REGR. vs. 178042
- test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 178042
- test-amd64-amd64-pair        25 guest-start/debian       fail REGR. vs. 178042
- test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 178042
- test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 178042
- test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 178042
- test-amd64-amd64-xl-vhd      12 debian-di-install        fail REGR. vs. 178042
- test-amd64-amd64-pygrub      12 debian-di-install        fail REGR. vs. 178042
- test-amd64-amd64-libvirt-raw 12 debian-di-install        fail REGR. vs. 178042
- test-amd64-amd64-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 178042
- test-arm64-arm64-xl-vhd      12 debian-di-install        fail REGR. vs. 178042
- test-arm64-arm64-libvirt-raw 12 debian-di-install        fail REGR. vs. 178042
+> If it's the former that you don't like, the call to
+> pci_bus_ignore_slot_reserved_mask_manual can be moved to
+> xen_igd_reserve_slot in hw/xen/xen_pt.c and this would
+> avoid touching hw/pci-host/i440fx.c.
+> 
+> If it's the latter that you don't like, both slot_reserved_mask_manual
+> and pci_bus_ignore_slot_reserved_mask_manual can be removed
+> and this can be implemented with two independent slot masks:
+> 
+> rename slot_reserved_mask as slot_auto_mask - used by both xen and sun4u
+> slot_manual_mask - new mask, used only by sun4u.
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 178042
+Sounds good to me, except let's add "reserved" in here.
+slot_reserved_mask_auto, slot_reserved_mask_manual ?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-examine      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
- build-armhf-libvirt           1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
-
-version targeted for testing:
- linux                fc89d7fb499b0162e081f434d45e8d1b47e82ece
-baseline version:
- linux                3f0b0903fde584a7398f82fc00bf4f8138610b87
-
-Last test of basis   178042  2023-02-21 17:44:43 Z   20 days
-Failing since        178093  2023-02-22 05:02:47 Z   20 days   40 attempts
-Testing same since   179607  2023-03-13 19:40:31 Z    0 days    1 attempts
-
-------------------------------------------------------------
-2122 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  starved 
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          starved 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          starved 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-freebsd11-amd64                             fail    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  starved 
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  starved 
- test-armhf-armhf-xl-cubietruck                               starved 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     starved 
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     starved 
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                starved 
- test-amd64-amd64-pair                                        fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      fail    
- test-amd64-amd64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               starved 
- test-amd64-amd64-libvirt-raw                                 fail    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 starved 
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     starved 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-amd64-xl-shadow                                   fail    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      fail    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      starved 
+> We would also need to have two sets of accessor functions in this case, one
+> set to access slot_auto_mask, and the other to access slot_manual_mask.
+> Since the sun4u machine does not need to either get the value of
+> slot_manual_mask or clear the slot_manual_mask, slot_manual_mask
+> would only need to have one accessor function to set the value of the
+> mask. slot_auto_mask would have all three accessor functions that xen
+> needs to use.
+> 
+> Would that be OK?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Sounds good to me.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> >
+> > > ---
+> > > Changelog
+> > > 
+> > > v2: Change Subject of patch from
+> > >     "pci: add enforce_slot_reserved_mask_manual property" To
+> > >     "pci: allow slot_reserved_mask to be ignored with manual slot assignment"
+> > > 
+> > >     Add pci_bus_ignore_slot_reserved_mask_manual function
+> > > 
+> > >     Call pci_bus_ignore_slot_reserved_mask_manual at appropriate place
+> > >     in hw/pci-host/i440fx.c
+> > > 
+> > >  hw/pci-host/i440fx.c     |  1 +
+> > >  hw/pci/pci.c             | 14 +++++++++++++-
+> > >  include/hw/pci/pci.h     |  1 +
+> > >  include/hw/pci/pci_bus.h |  1 +
+> > >  4 files changed, 16 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/hw/pci-host/i440fx.c b/hw/pci-host/i440fx.c
+> > > index 262f82c303..8e00b88926 100644
+> > > --- a/hw/pci-host/i440fx.c
+> > > +++ b/hw/pci-host/i440fx.c
+> > > @@ -257,6 +257,7 @@ PCIBus *i440fx_init(const char *pci_type,
+> > >      s = PCI_HOST_BRIDGE(dev);
+> > >      b = pci_root_bus_new(dev, NULL, pci_address_space,
+> > >                           address_space_io, 0, TYPE_PCI_BUS);
+> > > +    pci_bus_ignore_slot_reserved_mask_manual(b);
+> > >      s->bus = b;
+> > >      object_property_add_child(qdev_get_machine(), "i440fx", OBJECT(dev));
+> > >      sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
+> > > diff --git a/hw/pci/pci.c b/hw/pci/pci.c
+> > > index 8a87ccc8b0..670ecc6986 100644
+> > > --- a/hw/pci/pci.c
+> > > +++ b/hw/pci/pci.c
+> > > @@ -501,6 +501,7 @@ static void pci_root_bus_internal_init(PCIBus *bus, DeviceState *parent,
+> > >      assert(PCI_FUNC(devfn_min) == 0);
+> > >      bus->devfn_min = devfn_min;
+> > >      bus->slot_reserved_mask = 0x0;
+> > > +    bus->enforce_slot_reserved_mask_manual = true;
+> > >      bus->address_space_mem = address_space_mem;
+> > >      bus->address_space_io = address_space_io;
+> > >      bus->flags |= PCI_BUS_IS_ROOT;
+> > > @@ -1116,6 +1117,17 @@ static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn)
+> > >      return bus->slot_reserved_mask & (1UL << PCI_SLOT(devfn));
+> > >  }
+> > >  
+> > > +static bool pci_bus_devfn_reserved_manual(PCIBus *bus, int devfn)
+> > > +{
+> > > +    return bus->enforce_slot_reserved_mask_manual &&
+> > > +            (bus->slot_reserved_mask & (1UL << PCI_SLOT(devfn)));
+> > > +}
+> > > +
+> > > +void pci_bus_ignore_slot_reserved_mask_manual(PCIBus *bus)
+> > > +{
+> > > +    bus->enforce_slot_reserved_mask_manual = false;
+> > > +}
+> > > +
+> > >  uint32_t pci_bus_get_slot_reserved_mask(PCIBus *bus)
+> > >  {
+> > >      return bus->slot_reserved_mask;
+> > > @@ -1164,7 +1176,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
+> > >                     "or reserved", name);
+> > >          return NULL;
+> > >      found: ;
+> > > -    } else if (pci_bus_devfn_reserved(bus, devfn)) {
+> > > +    } else if (pci_bus_devfn_reserved_manual(bus, devfn)) {
+> > >          error_setg(errp, "PCI: slot %d function %d not available for %s,"
+> > >                     " reserved",
+> > >                     PCI_SLOT(devfn), PCI_FUNC(devfn), name);
+> > > diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
+> > > index 935b4b91b4..48d29ec234 100644
+> > > --- a/include/hw/pci/pci.h
+> > > +++ b/include/hw/pci/pci.h
+> > > @@ -287,6 +287,7 @@ void pci_bus_irqs(PCIBus *bus, pci_set_irq_fn set_irq,
+> > >  void pci_bus_map_irqs(PCIBus *bus, pci_map_irq_fn map_irq);
+> > >  void pci_bus_irqs_cleanup(PCIBus *bus);
+> > >  int pci_bus_get_irq_level(PCIBus *bus, int irq_num);
+> > > +void pci_bus_ignore_slot_reserved_mask_manual(PCIBus *bus);
+> > >  uint32_t pci_bus_get_slot_reserved_mask(PCIBus *bus);
+> > >  void pci_bus_set_slot_reserved_mask(PCIBus *bus, uint32_t mask);
+> > >  void pci_bus_clear_slot_reserved_mask(PCIBus *bus, uint32_t mask);
+> > > diff --git a/include/hw/pci/pci_bus.h b/include/hw/pci/pci_bus.h
+> > > index 5653175957..e0f15ee9be 100644
+> > > --- a/include/hw/pci/pci_bus.h
+> > > +++ b/include/hw/pci/pci_bus.h
+> > > @@ -37,6 +37,7 @@ struct PCIBus {
+> > >      void *iommu_opaque;
+> > >      uint8_t devfn_min;
+> > >      uint32_t slot_reserved_mask;
+> > > +    bool enforce_slot_reserved_mask_manual;
+> > >      pci_set_irq_fn set_irq;
+> > >      pci_map_irq_fn map_irq;
+> > >      pci_route_irq_fn route_intx_to_irq;
+> > > -- 
+> > > 2.39.2
+> >
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 245340 lines long.)
 
