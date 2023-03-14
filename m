@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 691906B85FB
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 00:18:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509394.785075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 285576B8778
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 02:16:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509403.785091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbrQ7-0001zA-Of; Mon, 13 Mar 2023 23:17:35 +0000
+	id 1pbtFs-0005Tu-NX; Tue, 14 Mar 2023 01:15:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509394.785075; Mon, 13 Mar 2023 23:17:35 +0000
+Received: by outflank-mailman (output) from mailman id 509403.785091; Tue, 14 Mar 2023 01:15:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pbrQ7-0001xR-Lm; Mon, 13 Mar 2023 23:17:35 +0000
-Received: by outflank-mailman (input) for mailman id 509394;
- Mon, 13 Mar 2023 23:17:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pbtFs-0005S3-KV; Tue, 14 Mar 2023 01:15:08 +0000
+Received: by outflank-mailman (input) for mailman id 509403;
+ Tue, 14 Mar 2023 01:15:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Jvaw=7F=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1pbrQ5-0001xK-MC
- for xen-devel@lists.xenproject.org; Mon, 13 Mar 2023 23:17:33 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3700202f-c1f5-11ed-b464-930f4c7d94ae;
- Tue, 14 Mar 2023 00:17:25 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id k10so55051292edk.13
- for <xen-devel@lists.xenproject.org>; Mon, 13 Mar 2023 16:17:30 -0700 (PDT)
+ <SRS0=xZxk=7G=web.de=tachyon_gun@srs-se1.protection.inumbo.net>)
+ id 1pbtFr-0005Rx-5G
+ for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 01:15:07 +0000
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a69ee17f-c205-11ed-87f5-c1b5be75604c;
+ Tue, 14 Mar 2023 02:15:05 +0100 (CET)
+Received: from [185.71.171.210] ([185.71.171.210]) by web-mail.web.de
+ (3c-app-webde-bs22.server.lan [172.19.170.22]) (via HTTP); Tue, 14 Mar 2023
+ 02:15:03 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,165 +39,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3700202f-c1f5-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678749450;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/9I78Cyb92tlpD0pxxthBhr0hJmIIDxB9AXNX2L7yYo=;
-        b=EztFVng3SMqRAMPFyRS2iqTlFyw/musIq4ZJTe6tpYxuznXla+KIuslhxzYHyfhwNY
-         qJU2ErDWAYkO70AIsZR0jdqw8GSgKpDZdSHs+i/GfCgaVouf6HZ1Bbmf4bGt49SVq9+M
-         Zffa3RVsrNjUELLx5VU6cBqFSbLE1BVyblqFAT9RB4W4PELSryrSH6xF9maEQIUnyNe2
-         oXh4w0krevPgXnFCWZmyaeaZpf0pWElTKMO3ZdNw6vtni3icuxTtZ1FMEeP/57weMbQW
-         7htMQVV32odcxZyG9b4VjGOI+JGivhDUgS6KRgVOeJ9G5KRUYYNCwAfbcmVVrhlkbTuD
-         chZQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678749450;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/9I78Cyb92tlpD0pxxthBhr0hJmIIDxB9AXNX2L7yYo=;
-        b=vbS5CfMTFOyhHWr7dSM/rEb1HgitQ1x79bKVm8pIWf6Xd0xWKK8W588xPElFlhAyTD
-         vvTyAPLDEyJhVedV3p/l1nP9FZ6fdJhatTnK3G8lBFKp2Mm9SdcDszE9xnq3lbYthw0E
-         CAA4lthzT6Q+TWdt8jDHEEb68b7RSEhrVvc0lrXj5eRkJBvUDIr5cfQqhp93ZuN39h69
-         MuFVevTRLGQAgEJMRQu63b71B8T1joHy+bUuNu8idDyhUN3AC7v3NC8PF6zdKI6dUhhC
-         7IWHIAjHipItlkPVYDtwfT2cSBVgdsXDfPmNtIukUUvICrjTkfI9PajqtvLlwFBKtQDC
-         aNwg==
-X-Gm-Message-State: AO0yUKUCrqYZWae1OH4FpYn7+btAiWDFVBtu427FSUvM1XrK1D71EgvI
-	XUksMdWsKXHopEMAq+WLIE5/G7ks7PTbQJpCXaU=
-X-Google-Smtp-Source: AK7set97PfEpqjdeGqjYGfSvaN6ETH7lY49N26u1x9C+z7Z//EzMqhrvs+2EgL2O0xxKu2hDGBaQ/lkq9hbPNc3KQVE=
-X-Received: by 2002:a17:907:e91:b0:924:32b2:e3d1 with SMTP id
- ho17-20020a1709070e9100b0092432b2e3d1mr146951ejc.3.1678749450023; Mon, 13 Mar
- 2023 16:17:30 -0700 (PDT)
+X-Inumbo-ID: a69ee17f-c205-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+	t=1678756504; i=tachyon_gun@web.de;
+	bh=XY2+nkIiZkcoQyfuUeewwAzpVCKrCOwHxQeazcGTW70=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ifp4QY8OnuGFxuBaDH4HMPJrJy+HwGww5/Ytf6Fu1CQQLwqkQUc4ZvugbRaHISVY3
+	 C2k41xhi1IOS+v0qnpNjRo9oxlGvPshTYvUMh4M8HdT4lt9wnBH2XAdZrZXvxLFMOc
+	 damDMIHx6DYH9oQHubQgiARL/kwZBNDaII5lirOO9T7fNnvvmGyzuxtd+PYXqQMqK1
+	 MfN23YHhs+MFuy59XM7wMvIMlocNYNmIdxS6VkW3vOGNR+rcR7u0mcJySRKt/kHUA/
+	 u2tSBba5JdJCFLzkBkGYxm/p2v5VFb4eZJyC8SeNhVcNWxCO5OmanYVJUTD9bAUxrV
+	 iA1cYE4ZEQ2VA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
 MIME-Version: 1.0
-References: <20230307182707.2298618-1-dwmw2@infradead.org> <20230307182707.2298618-14-dwmw2@infradead.org>
- <CAKf6xpuH2E=16s1jFvgL9J723wv0dhBD5aYWP2NBNj5rZio2jg@mail.gmail.com> <5062bef5b5cfd3e2d7f313de9af306f5e4f841f5.camel@infradead.org>
-In-Reply-To: <5062bef5b5cfd3e2d7f313de9af306f5e4f841f5.camel@infradead.org>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 13 Mar 2023 19:17:17 -0400
-Message-ID: <CAKf6xptRmeVmH3xmF8QffQA=aYeXxCWUw9ta2HaYx1xQngzjTA@mail.gmail.com>
-Subject: Re: [PULL 13/27] hw/xen: Add xenstore operations to allow redirection
- to internal emulation
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Paul Durrant <paul@xen.org>, 
-	Joao Martins <joao.m.martins@oracle.com>, Ankur Arora <ankur.a.arora@oracle.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, vikram.garhwal@amd.com, 
-	Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org, 
-	Juan Quintela <quintela@redhat.com>, "Dr . David Alan Gilbert" <dgilbert@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <trinity-7e872635-20a4-4120-a08d-2d62a77d2da5-1678756503867@3c-app-webde-bs22>
+From: Denis <tachyon_gun@web.de>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Aw: Re: [help] Xen 4.14.5 on Devuan 4.0 Chimaera, regression from
+ Xen 4.0.1
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 14 Mar 2023 02:15:03 +0100
+Importance: normal
+Sensitivity: Normal
+In-Reply-To: <31151e94-b8b3-15ab-3680-e1c6e2e97530@suse.com>
+References: <trinity-8973751a-6742-4309-b02d-0b4c38f4206e-1678390468345@3c-app-webde-bap36>
+ <84f66bc0-ae7c-febe-9a15-98453c48d051@citrix.com>
+ <ce1a289e-6ed7-9b5c-42f5-069f16bd6984@suse.com>
+ <trinity-429ff607-c131-4745-8c96-9d7f6f61234f-1678481409956@3c-app-webde-bs42>
+ <31151e94-b8b3-15ab-3680-e1c6e2e97530@suse.com>
 Content-Transfer-Encoding: quoted-printable
+X-UI-Message-Type: mail
+X-Priority: 3
+X-Provags-ID: V03:K1:N0m0/xAO2QlHWb6XSuTrCEUSww9RfRIN1+Yojk8CQFhQu7jGmq4ktubJGs5ItIDXgCfIx
+ a8kbTbfgp5zgbbMNRuZvsUYYUAOpGEyIvTVW1t/WL4XMDGHlhdebwYVzhSRSSuKNBam1c0XfR/iy
+ d5ZeYBfOPWbLQ6WuYLOhmFSqnKr0ot0dIYY6Aw7JY2vJojO7MwinT42p7f5tAOFcHDLp3M9wDu88
+ zGMuaIECEfj2ihlVfeDTTZEg5N3w3hO6d984AQtR0c/FreVB4duwGhcx2koRbvee1xQsnlwXk+xK
+ Qc=
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:RtjRjOo5Zdo=;Zl9E5gBCLGGCt2GosUOt1CRqfR3
+ 9kA8QdLB2eGvonCy8abJRUelmERFBFI3Z0JpLyyyUB5IL9P8Kh8O+IYTA9tVjNvJww2wt2TVR
+ v/N+pQCb2lok/PFWMTaglRNrxGACDhBnoomlVgtYX4BelXjAHCkEr5Yjb72p+QZmIlApkf/bf
+ LWQo1ZXWMOZs8QSykt4IlzJUfOFdGazO8oCjeOAdm7chVmzQKcueUKSC8vXMZH5ItnIY+2w9l
+ +xZmEhvMWNZHHJbe1Y5d7GdAzw2LdN1wSE4oLnRE0wbwi1AtTOpXunAxULUP3Ud0H2SfSbFUG
+ KLVPcfYDr8X865zvgFjHagq2U+NkxefDqm8SZ77BjEuLkEotwx7bjPKZrVFXvM+5FkQdK14C2
+ ylwHoHe1d5dDAKdoVNf5E1Mk8pn+iY71LWM+RCJV2yD7loRwAkTx4bhiTZtsQV/5EsFgK258B
+ 7yAKmZ9/2o8jhvSXQ7sda5Y+k27gVbNr+bHn14HovnTKG0v2T3MUun6m08TjAfGXViED9nFAY
+ E4kTB4epvbxw4Zbq1qf/s9AgnFvQfnoO5A87zCYXWNMlrpAuZgZ8m3+mnbxK9OJuUcHqnUGjd
+ bgDFRwcHzKiJubXuP6umGp6uDJ/zpvK3lYGAnuqBOqgqSnKFOkzuNjbibECZ3A/3QpdqltN3a
+ iowoo8GEMyo5Z3lT/iajZ2YMQhkHt1WycQKRLfR9Ju8REzh17pjYQ+pjZzv2kQjqHdfhHiAWF
+ UGJV0x9jwWKucpkJDSR5GvElQGdZViOKWrg+o0+eFiTqH1UnaWM7SDKh/MOGbnMzCG7/B1+F3
+ JfgOnAuUEdRYSnuxxtJOWnaA==
 
-Hi, David,
+On 13=2E03=2E2023 10:36, Jan wrote
+> On 10=2E03=2E2023 21:50, Denis wrote:
+> > On 10=2E03=2E2023 09:51, Jan Beulich wrote:
+> >> On 09=2E03=2E2023 21:37, Andrew Cooper wrote:
+> >>> On 09/03/2023 7:34 pm, tachyon_gun@web=2Ede wrote:
+> >>>> A short snippet of what I see when invoking "xl dmesg":
+> >>>> =C2=A0
+> >>>> (XEN) No southbridge IO-APIC found in IVRS table
+> >>>> (XEN) AMD-Vi: Error initialization
+> >>>> (XEN) I/O virtualisation disabled=C2=A0
+> >>>> =C2=A0
+> >>>> What I would like to see (taken from Xen=C2=A04=2E0=2E1 running on =
+Debian
+> >>>> Squeeze, in use since 2011):
+> >>>> =C2=A0
+> >>>> (XEN) IOAPIC[0]: apic_id 8, version 33, address 0xfec00000, GSI 0-2=
+3
+> >>>> (XEN) Enabling APIC mode: =C2=A0Flat=2E =C2=A0Using 1 I/O APICs
+> >>>> (XEN) Using scheduler: SMP Credit Scheduler (credit)
+> >>>> (XEN) Detected 2611=2E936 MHz processor=2E
+> >>>> (XEN) Initing memory sharing=2E
+> >>>> (XEN) HVM: ASIDs enabled=2E
+> >>>> (XEN) HVM: SVM enabled
+> >>>> (XEN) HVM: Hardware Assisted Paging detected=2E
+> >>>> (XEN) AMD-Vi: IOMMU 0 Enabled=2E
+> >>>> (XEN) I/O virtualisation enabled
+> >>>> =C2=A0
+> >>>> My question would be if this is=C2=A0"normal" behaviour due to olde=
+r hardware
+> >>>> being used with newer versions of Xen (compared to the old 4=2E0=2E=
+1) or if
+> >>>> this is=C2=A0a bug=2E
+> >>>> If the latter, has this been addressed already in newer version (4=
+=2E14+)?
+> >>
+> >> No, the code there is still the same=2E The commit introducing the ch=
+eck
+> >> (06bbcaf48d09 ["AMD IOMMU: fail if there is no southbridge IO-APIC"])
+> >> specifically provided for a workaround: "iommu=3Dno-intremap" on the =
+Xen
+> >> command line=2E Could you give this a try? (As per below this could b=
+e
+> >> what we want to do "automatically" in such a situation, i=2Ee=2E with=
+out
+> >> the need for a command line option=2E But you then still would face a
+> >> perceived regression of interrupt remapping being disabled on such a
+> >> system=2E)
+> >>
+> >> The other possible workaround, "iommu=3Dno-amd-iommu-perdev-intremap"=
+,
+> >> is something I rather wouldn't want to recommend, but you may still
+> >> want to give it a try=2E
+> > =20
+> > Thanks for your reply=2E
+> >=20
+> > I added the lines you suggested and it seems that "AMD-Vi: IOMMU 0" an=
+d
+> > "I/O virtualisation" is enabled again=2E
+>=20
+> Good - that'll have to do as a workaround for the time being=2E
+>=20
+> > There are only minor differences in the "xl dmesg" output=2E
+> > In the one with "iommu=3Dno-amd-iommu-perdev-intremap",=20
+> > the line "No southbridge IO-APIC found in IVRS table" is listed=2E
+>=20
+> That's as expected - the message is issued as a non-error one in this
+> case=2E
+>=20
+> > Though I yet have to test a HVM domU with passthrough=2E
+> >=20
+> > I'll attach the two "xl dmesg" files and a third one from the old vers=
+ion of Xen=2E
+> >=20
+> >>>> I'll attach some log files (hypervisor=2Elog, dom0=2Elog, xl_info=
+=2Elog,
+> >>>> lspci_vvv=2Elog, acpi=2Edmp, ivrs=2Edat, ivrs=2Edsl)=2E
+> >>>> =C2=A0
+> >>>> Thank you for your time=2E
+> >>>
+> >>> Let me braindump the investigation so far before I forget it=2E
+> >>>
+> >>> Xen requires that there is an IVRS special-device record describing =
+an
+> >>> IO-APIC 00:14=2E0=2E  This check failing is the source of the "No
+> >>> southbridge" message, and the cause of the IOMMU(s) being turned off=
+=2E
+> >>>
+> >>> The MADT and IVRS tables agree that there is one IO-APIC in the syst=
+em,
+> >>> but that's the northbridge IO-APIC, not the southbridge=2E
+> >>>
+> >>> The block diagram for the southbridge does have a PIC/IO-APIC as par=
+t of
+> >>> the PCI bridge, so honestly I was expecting the MADT to describe 2
+> >>> IO-APICs=2E  But OTOH, I could see this legitimately not existing in
+> >>> configurations where the PCI bridge isn't in use=2E
+> >>>
+> >>> `xl dmesg` does have a few unknown irqs, so there might be something
+> >>> down in the southbridge really generating interrupts=2E  Or there mi=
+ght be
+> >>> a IRQ misconfiguration elsewhere, and this is just a red herring=2E
+> >>>
+> >>> However, a consequence of the northbridge and southbridge being sepa=
+rate
+> >>> chips means that all southbridge IO is fully encapsulated by the IOM=
+MU
+> >>> in the northbridge=2E
+> >>>
+> >>> So irrespective of whether there is ah IO-APIC operating properly in=
+ the
+> >>> southbridge, and whether or not it's properly described, I think Xen=
+'s
+> >>> insistence that there must be an IVRS special-device entry for it is=
+ bogus=2E
+> >>>
+> >>>
+> >>> Furthermore, Xen's decisions are monumentally stupid=2E  It takes a
+> >>> specifically safe (IOMMU-wise) system, and because it can't figure o=
+ut a
+> >>> partial aspect of interrupt handling the southbridge, decided that t=
+he
+> >>> system can't be safe (a false conclusion) and turns the IOMMU off fu=
+lly
+> >>> to compensate, which makes the system concretely less safe=2E
+> >=20
+> > Also, thank you Andrew for bringing this in=2E
+> >=20
+> >> So this touches once again the area of the fuzzy split between the IO=
+MMU
+> >> being disabled as a whole (meaning DMA+interrupt remapping off) vs on=
+ly
+> >> one of the two being off (where presently we are unable to turn off j=
+ust
+> >> DMA remapping)=2E Indeed the original Linux commit, which our change =
+was
+> >> inspired by, results in merely interrupt remapping getting turned off
+> >> (afaict), and that hasn't changed=2E (Would be nice to have this conf=
+irmed
+> >> for the system in question, i=2Ee=2E without Xen underneath Linux=2E)=
+ It would
+> >> certainly be possible for us to do so too - it might be a one line ch=
+ange:
+> > =20
+> > Could you elaborate on that one?
+>=20
+> I guess I'd need to know what you're missing; the entire paragraph was
+> intended more for Andrew and Roger (and others who are interested on the
+> "development" side) rather than you=2E Specifically =2E=2E=2E
+>=20
+> > Should I test something else?
+>=20
+> =2E=2E=2E there was no request for any further testing here, for the mom=
+ent=2E
 
-On Mon, Mar 13, 2023 at 4:45=E2=80=AFAM David Woodhouse <dwmw2@infradead.or=
-g> wrote:
->
-> On Sun, 2023-03-12 at 15:19 -0400, Jason Andryuk wrote:
-> >
-> > This breaks dm_restrict=3D1 since the xs_open is not allowed by the
-> > time
-> > this is called.  There are other evtchn errors before this as well:
-> > # cat /var/log/xen/qemu-dm-debian.log
-> > char device redirected to /dev/pts/8 (label serial0)
-> > xen be core: can't open evtchn device
-> > xen be core: can't open evtchn device
-> > xen be core: can't open evtchn device
-> > xen be core: can't open evtchn device
-> > xen be core: can't open evtchn device
-> > xen be core: can't open evtchn device
-> > xen be core: can't open evtchn device
-> > xen be core: can't open evtchn device
-> > Could not contact XenStore
-> >
-> > Ok, those "xen be core: can't open evtchn device" were there before
-> > the recent changes and seem to be non-fatal.
->
-> Hm, I *think* we can just revert that part and use the global
-> 'xenstore' like we did before, except via the new ops.
->
-> --- a/accel/xen/xen-all.c
-> +++ b/accel/xen/xen-all.c
-> @@ -32,28 +32,18 @@ xendevicemodel_handle *xen_dmod;
->
->  static void xenstore_record_dm_state(const char *state)
->  {
-> -    struct xs_handle *xs;
->      char path[50];
->
-> -    /* We now have everything we need to set the xenstore entry. */
-> -    xs =3D xs_open(0);
-> -    if (xs =3D=3D NULL) {
-> -        fprintf(stderr, "Could not contact XenStore\n");
-> -        exit(1);
-> -    }
-> -
->      snprintf(path, sizeof (path), "device-model/%u/state", xen_domid);
->      /*
->       * This call may fail when running restricted so don't make it fatal=
- in
->       * that case. Toolstacks should instead use QMP to listen for state =
-changes.
->       */
-> -    if (!xs_write(xs, XBT_NULL, path, state, strlen(state)) &&
-> +    if (!qemu_xen_xs_write(xenstore, XBT_NULL, path, state, strlen(state=
-)) &&
->              !xen_domid_restrict) {
->          error_report("error recording dm state");
->          exit(1);
->      }
-> -
-> -    xs_close(xs);
->  }
+ah=2E=2E=2Esorry, going by "Would be nice to have this confirmed forthe sy=
+stem=20
+in question, i=2Ee=2E without Xen underneath Linux" I thought I could test=
+=20
+something which might help shed some light on all of this=2E
 
-This looks good, better than what I posted, and seems to work for both
-dm_restrict set and unset.
-
->
-> Alternatively, that xs_write is destined to fail anyway in the
-> xen_domid_restrict case, isn't it? So the xs_open() should be allowed
-> to fail similarly. Or perhaps we shouldn't even *try*?
-
-For dm_restricted, xs_write() does fail.  I verified that with a print
-statement.  I think "shouldn't even try" makes sense.  I'm thinking
-that  xen_domid_restricted shouldn't even add the callback.  Something
-like:
-
---- a/accel/xen/xen-all.c
-+++ b/accel/xen/xen-all.c
-@@ -39,8 +39,7 @@ static void xenstore_record_dm_state(const char *state)
-      * This call may fail when running restricted so don't make it fatal i=
-n
-      * that case. Toolstacks should instead use QMP to listen for
-state changes.
-      */
--    if (!qemu_xen_xs_write(xenstore, XBT_NULL, path, state, strlen(state))=
- &&
--            !xen_domid_restrict) {
-+    if (!qemu_xen_xs_write(xenstore, XBT_NULL, path, state, strlen(state))=
-) {
-         error_report("error recording dm state");
-         exit(1);
-     }
-@@ -101,7 +100,10 @@ static int xen_init(MachineState *ms)
-         xc_interface_close(xen_xc);
-         return -1;
-     }
--    qemu_add_vm_change_state_handler(xen_change_state_handler, NULL);
-+
-+    if(!xen_domid_restrict)
-+        qemu_add_vm_change_state_handler(xen_change_state_handler, NULL);
-+
-     /*
-      * opt out of system RAM being allocated by generic code
-      */
-
-That works for both dm_restrict 0 & 1.
-
-I think you should submit your change and I can follow up with the
-above if it seems desirable.
-
-Thanks,
-Jason
+Denis
 
