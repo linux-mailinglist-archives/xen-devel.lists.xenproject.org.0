@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 246E36B9F5F
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 20:09:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509792.786273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 459886B9F62
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 20:10:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509794.786283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcA0u-00085X-8q; Tue, 14 Mar 2023 19:08:48 +0000
+	id 1pcA26-0000TR-JS; Tue, 14 Mar 2023 19:10:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509792.786273; Tue, 14 Mar 2023 19:08:48 +0000
+Received: by outflank-mailman (output) from mailman id 509794.786283; Tue, 14 Mar 2023 19:10:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcA0u-00082w-5e; Tue, 14 Mar 2023 19:08:48 +0000
-Received: by outflank-mailman (input) for mailman id 509792;
- Tue, 14 Mar 2023 19:08:46 +0000
+	id 1pcA26-0000PC-GR; Tue, 14 Mar 2023 19:10:02 +0000
+Received: by outflank-mailman (input) for mailman id 509794;
+ Tue, 14 Mar 2023 19:10:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=snfi=7G=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pcA0s-00082q-PB
- for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 19:08:46 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ <SRS0=xZxk=7G=web.de=tachyon_gun@srs-se1.protection.inumbo.net>)
+ id 1pcA25-0000JB-Em
+ for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 19:10:01 +0000
+Received: from mout.web.de (mout.web.de [212.227.17.12])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a42d4c4f-c29b-11ed-87f5-c1b5be75604c;
- Tue, 14 Mar 2023 20:08:45 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id o12so66233608edb.9
- for <xen-devel@lists.xenproject.org>; Tue, 14 Mar 2023 12:08:45 -0700 (PDT)
-Received: from [192.168.8.114] (46.204.101.131.nat.umts.dynamic.t-mobile.pl.
- [46.204.101.131]) by smtp.gmail.com with ESMTPSA id
- vs6-20020a170907a58600b0092bef8ad0basm1429885ejc.183.2023.03.14.12.08.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 12:08:44 -0700 (PDT)
+ id d10870bb-c29b-11ed-87f5-c1b5be75604c;
+ Tue, 14 Mar 2023 20:10:00 +0100 (CET)
+Received: from [92.76.123.191] ([92.76.123.191]) by web-mail.web.de
+ (3c-app-webde-bap40.server.lan [172.19.172.40]) (via HTTP); Tue, 14 Mar
+ 2023 20:09:57 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +39,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a42d4c4f-c29b-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678820924;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=9bN7i8qGgPABJTaBtFRpMOLVWc/OGL8QFg78cpLEP/M=;
-        b=aGI5OcPiePc7ByolVcSQSX5h0Cl6iaQKAt2nldHuHm9rCMuJ+gk2+kotnfb7u6YiqN
-         zrg1axtDbh1Chk7ZusoTK4E+rJssFC1Wg1JKMZqhLrVhEKa7PVbI3CBWvDVAGw0WH1Lu
-         zbdKu25F5F9zbZ4ewBp7mg546bFPCb/xmrgByHFbQbKLVGgIAYkuF1T+PHEahuC+5LlA
-         8Hc5caC+aQNLzftLQF8MQcAyYT9SVrg2xxeDcU+z7mDxKWGYMNy1gDfgDrGFUb+e/Wsr
-         ZOu0zsLT36hOUdyubG436PDlLJtFPZN/yVHG8GQLIZrj80eAlo3y/tNk1T/kdfcu+0sb
-         za0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678820924;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=9bN7i8qGgPABJTaBtFRpMOLVWc/OGL8QFg78cpLEP/M=;
-        b=NVvXBYKDX3JXzkF5L8lpq4xREfESAEU0f07IP24g68x9U2HcswaJFDTBWzAMBUJ3Wq
-         vRU1/2aetxnEhi+AYW1DyIjJQDXCeW32l1VJzhZby59eBQMBwoz3mmvqrDiF/CYwOAZp
-         3N0n8QHQEN3nHZEjHB/5h0e4l4pMaSpNZMumvNZmGzkwDYndM3s4MreqdjznaYZ09cKl
-         U2NJFWZsKN0KVy+aeJfkIMAhM2fOATJ3lNku7D7zBWEnZQmGd1XXEGfOnwviLfiiSd/o
-         VxFcLbKujJy4rq9fdQxNWH3M6O22E4qN2tyAsyHl4LsKb+bCM7kg8p0X4kmN7XAvrO50
-         U7/g==
-X-Gm-Message-State: AO0yUKXy6oO+j8HdZPHUgWCEoyf113xQdB5ZNWevkecbCZDUg3vcvKSm
-	YHqqD95kpROT/1eH0CwpvJQ=
-X-Google-Smtp-Source: AK7set/R2U9agF3qJn079PAwjXFpYMT4U90yYcVXHSzSoT2x0+oZsOhVnvsXMGZygx0B/rbmopHy8A==
-X-Received: by 2002:a17:907:9952:b0:877:a3c4:807b with SMTP id kl18-20020a170907995200b00877a3c4807bmr3347509ejc.68.1678820924423;
-        Tue, 14 Mar 2023 12:08:44 -0700 (PDT)
-Message-ID: <645c09598419abf498c3693c463a310a46d74be7.camel@gmail.com>
-Subject: Re: [PATCH] xen/cpufreq: Remove <asm/bug.h>
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jason Andryuk <jandryuk@gmail.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau
- =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Tue, 14 Mar 2023 21:08:42 +0200
-In-Reply-To: <CAKf6xpvdOz2eYXqsxLN879NtMYZvuGWXk7bgcCwnbRfAGofL4Q@mail.gmail.com>
-References: <20230313175103.20778-1-jandryuk@gmail.com>
-	 <593392ae-91ce-3499-1aa7-fcfe664025cd@suse.com>
-	 <CAKf6xpvdOz2eYXqsxLN879NtMYZvuGWXk7bgcCwnbRfAGofL4Q@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
+X-Inumbo-ID: d10870bb-c29b-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+	t=1678820997; i=tachyon_gun@web.de;
+	bh=K8b6TQ/yuFp8adhkzTY8OO+4t/3xvqoZl6YAW0PinoE=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rliAD70S+qkX8EwJR2Hbv1E9HcosKequRfhG0GZLg2dfT/iE6Rm2Fk3SOGbr35TkS
+	 0ZgpJ0cKin6kKbuwDerMewcr7+kQX9G1oFMC5B1RDtL16rO22+IbEihWLZbTt19ZsO
+	 HrNNiKoVTRTXVQpt8ds5k97I/WFFB5LbbxyerdJy75l1qAB5j8e6BDraL31NXW8dDR
+	 3uzaloHdBorXvolXFKRUqvjRFHFnUKCBOjvI0Oo4ON3OCD6JsbewUCUCwGwYWojoI3
+	 llqkl9poAC41TwLSpzkLHV+1tsR/UahgSjdVIKYslbKWEOmCneU60N17erFH6Iiv2a
+	 Fwke7iw9MwtSA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
 MIME-Version: 1.0
+Message-ID: <trinity-4a07ad86-ea5d-415b-b8cc-e9f0289e1a10-1678820997547@3c-app-webde-bap40>
+From: Denis <tachyon_gun@web.de>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Aw: Re: [help] Xen 4.14.5 on Devuan 4.0 Chimaera, regression from
+ Xen 4.0.1
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 14 Mar 2023 20:09:57 +0100
+Importance: normal
+Sensitivity: Normal
+In-Reply-To: <805f8cbd-e6ce-85bb-7ad6-3c461fc41c07@suse.com>
+References: <trinity-8973751a-6742-4309-b02d-0b4c38f4206e-1678390468345@3c-app-webde-bap36>
+ <84f66bc0-ae7c-febe-9a15-98453c48d051@citrix.com>
+ <ce1a289e-6ed7-9b5c-42f5-069f16bd6984@suse.com>
+ <trinity-429ff607-c131-4745-8c96-9d7f6f61234f-1678481409956@3c-app-webde-bs42>
+ <31151e94-b8b3-15ab-3680-e1c6e2e97530@suse.com>
+ <trinity-7e872635-20a4-4120-a08d-2d62a77d2da5-1678756503867@3c-app-webde-bs22>
+ <2afa0abe-abe5-a3d8-658f-abc466d78101@suse.com>
+ <trinity-7c345507-5695-4649-a62b-be4dd793cc00-1678805608384@3c-app-webde-bap40>
+ <40da0146-21fa-d5a9-7ae1-4ed2cf4a5785@suse.com>
+ <trinity-720cf1eb-48bc-4eba-9e14-e9eb570b1e7f-1678812331526@3c-app-webde-bap40>
+ <805f8cbd-e6ce-85bb-7ad6-3c461fc41c07@suse.com>
+X-UI-Message-Type: mail
+X-Priority: 3
+X-Provags-ID: V03:K1:2DEchfj5kLglH60t5pKhF6di/C/5jzSlcXEACneDr4CyEgIN4s/Fb3Ctt+lCNvBU8reze
+ T7G3BJ0UuyLgfRZUXbcxmktEbPUJZCF8xX0/SoxujG0wUe+gaU8D3Sv7tAP7DiAeBb3+giLZH3u9
+ 222vHN0toXzKLR6rEBprut3B8Hw+ue0sgJzaePRxSM0rgtAqfYM+FDc748fupcuJlj2lG206b6Aa
+ Yr2vJjwQcRQw+pwfzozw9zDPxWI8fM/0Rio/1pRz4EQm/Vllm/t1g2SLcPWVBff71hUoKjRm979k
+ ug=
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:HBWskucrB3o=;b3TWLp3Z9P+CV9FH3cUdVlbCDzH
+ myVul0lPJkB0DeBHuqEPdYBX7aAg6wW3pdrtiWs1T3zSB5NwSiUKAROUnn7nG0MdnSWjIPotk
+ h6tCtwxWI/0Ezi/iypULofKEI2hmPNUsKmkKutjTiXg3oO4HBwlRIjSOWDq8H7zCh5v16VybT
+ kaFZZdd6qVqMoRYR0am/+Jyi3erPhfSgGiiqf+v+yIj04KOy82M0zF4BidvSg/RKJRKY0IRr7
+ BfR//BhRlHkZWL+oYDBbB9kSLYdqo0fEGV9ys26xuqozTBognTqsqqZl5Ik23LEW/RRtB+xKz
+ wGn858xLzAEl//okOUP+cZL+2zxo1H7/faqJFlYkX8+/VbvA0Aa/eC3sCiZbazsrI8BCSscLG
+ 9uakGDwzZQYlJ9O+oCZCySDxEwPU4cjcQgfbMHe1KnQTCQaFdsnCUxhJ84xITp5N/4ULkXPUl
+ 1/X/OcSDb6gX2gFHCdywKxh/Qi2FKTuws6PvMO5c1X0+FSMkcePqQ8Ot92kpGZCbDE82GyB/x
+ wDnK5wkD2mG5st1FUX9i0+8xuQBx0IkUmiamqe3e2RmzcjogA9H+oENCzN6Wpz/LKRKzA7C98
+ cn5ft+WgEc8azCQO6TXJSZZ7M38db3eN/TEQ0Eiuf1/DZlVd2XX2cYi7RyA3C89KRKUUKaknH
+ yvZ/yNOWStV4g1/OWn8XlzgUvdvzgfIXlPoTFfKs0ASMMcPbs9F4WtSi88Nd6FjM1qBmgnRDD
+ hESoqu/uYyh3BXuhCdCAbUh3W+8VO9udsCLB8pX6PsxFk7v1ufi8EDeKNE4GpjlqlKERRBsJP
+ B2LtJuHy1Su+cqsRx2rSmG6w==
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2023-03-14 at 08:14 -0400, Jason Andryuk wrote:
-> On Tue, Mar 14, 2023 at 6:19=E2=80=AFAM Jan Beulich <jbeulich@suse.com>
-> wrote:
-> >=20
-> > On 13.03.2023 18:51, Jason Andryuk wrote:
-> > > The header is unneeded - there are no uses of BUG() or WARN() in
-> > > these
-> > > cpufreq files.=C2=A0 Remove the include.=C2=A0 It is still include
-> > > transitively
-> > > from xen/lib.h.
-> > >=20
-> > > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> >=20
-> > This, in a way, is a review comment on Oleksii's "xen: change
-> > <asm/bug.h>
-> > to <xen/bug.h>". We can certainly put in the change as you have it
-> > (for
-> > him to drop the touching of the two files), but I'd find it more
-> > logical
-> > to continue to be part of his change, just with the xen/bug.h
-> > replacement
-> > includes dropped. Thoughts, either of you?
->=20
-> Yes, Oleskii's work brought it to my attention.=C2=A0 I submitted it this
-> way to follow the "one change per commit" rule of thumb, seeing it as
-> distinct from, though related to, the asm -> xen rename.=C2=A0 If you
-> prefer to have it rolled into Oleksii's change, that is fine by me.
-I think we can do it as a part of my changes to not produce additional
-commits with the similar meaning.
->=20
-> > Things would be different if it was clear that the change here was
-> > dropping
-> > all unnecessary includes from the cpufreq files. But that doesn't
-> > look to
-> > be the case, as I think ...
->=20
-> Correct, I did not inspect other includes.
->=20
-> Regards,
-> Jason
-~ Oleksii
+On 14.03.2023 17:59, Jan Beulich wrote:
+> On 14.03.2023 17:45, Denis wrote:
+> > On 14.03.2023 16:37, Jan Beulich wrote:
+> >> On 14.03.2023 15:53, Denis wrote:
+> >>> What tests could I do or what info should I provide to help?
+> >>
+> >> Boot plain Linux (no Xen underneath) and collect the full set of kern=
+el
+> >> boot messages (some distros store this at /var/log/boot.msg); "full"
+> >> meaning we want to be able to see all output regardless of log-level.
+> >
+> > I'll attach some files from /var/log.
+>
+> Thanks, and there we go:
+>
+> [    0.121463] AMD-Vi: [Firmware Bug]: : No southbridge IOAPIC found
+> [    0.121495] AMD-Vi: Disabling interrupt remapping
+>
+> It's 5.10, so somewhat old already, but from looking at the code I would=
+n't
+> expect anything else with a newer kernel.
 
+So older versions (be it Kerenel or Xen) didn't look for a secondary South=
+bridge IOAPIC?
+If so, was that a change made due to the vulnerabilities in Xen due to pas=
+sed-through
+devices?
+Just asking because age-old distros worked as it seems...
+
+
+Denis
 
