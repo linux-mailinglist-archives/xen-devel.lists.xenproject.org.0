@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 119A26B9457
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 13:44:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509580.785596 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F13ED6B94ED
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 13:52:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509584.785605 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc40F-000398-15; Tue, 14 Mar 2023 12:43:43 +0000
+	id 1pc48h-0004kK-TW; Tue, 14 Mar 2023 12:52:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509580.785596; Tue, 14 Mar 2023 12:43:43 +0000
+Received: by outflank-mailman (output) from mailman id 509584.785605; Tue, 14 Mar 2023 12:52:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pc40E-00035l-UJ; Tue, 14 Mar 2023 12:43:42 +0000
-Received: by outflank-mailman (input) for mailman id 509580;
- Tue, 14 Mar 2023 12:43:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Jlvw=7G=ilande.co.uk=mark.cave-ayland@srs-se1.protection.inumbo.net>)
- id 1pc40C-00035f-Jk
- for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 12:43:40 +0000
-Received: from mail.ilande.co.uk (mail.ilande.co.uk [2001:41c9:1:41f::167])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d590f97e-c265-11ed-b464-930f4c7d94ae;
- Tue, 14 Mar 2023 13:43:35 +0100 (CET)
-Received: from host86-163-239-161.range86-163.btcentralplus.com
- ([86.163.239.161] helo=[10.8.0.6])
- by mail.ilande.co.uk with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.92) (envelope-from <mark.cave-ayland@ilande.co.uk>)
- id 1pc3zA-0004h1-Sb; Tue, 14 Mar 2023 12:42:41 +0000
+	id 1pc48h-0004hm-Q5; Tue, 14 Mar 2023 12:52:27 +0000
+Received: by outflank-mailman (input) for mailman id 509584;
+ Tue, 14 Mar 2023 12:52:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pc48h-0004hc-3c; Tue, 14 Mar 2023 12:52:27 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pc48h-0004Qi-10; Tue, 14 Mar 2023 12:52:27 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pc48g-0005G1-Kz; Tue, 14 Mar 2023 12:52:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pc48g-0005fp-KS; Tue, 14 Mar 2023 12:52:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,254 +42,277 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d590f97e-c265-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ilande.co.uk; s=20220518; h=Subject:Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:References:Cc:To:From:MIME-Version:Date:Message-ID:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=O5zCB1k2FdYUY9A+/YbV/9tfJVsNytKUjXn99hzuQrI=; b=T5gl8ugKxyFxp7CAOpT7W7YPdW
-	d1HVLOEnxwRdw6qDuE4k+1pi3L2hk8senh9fHvFDHJwixrmZELulKCDMhn7TQwvLPMeieYEMdYkbl
-	R3r+jw1gGk3Ee83AcUOnM5S/+RtWdIIgZAXrr++swM3aangyCP5+gDh+B0RXzQp4ioc9B+QvRAkIs
-	fYxU2cncF+H8j6p8z6GzgDOOCJgoMd84zmUTeWT8ccBDOiYlZ0JkEetFZpSq/tqyI87kbEdoxh4az
-	F4HDaZ9PC9MEq8RmrnypKa/cyQ5ao6786riogJDnhXPQLkatn1kdB9fJ7RPg43IKq/k9MVbFTSV7l
-	+leSCTbH7cMUNGg0FLBeno3ijAfVBc+bXI8cviFUmI0dyZ0lJU22YcN9NkFPHkECfb3MytlAQYHP+
-	G/roYxd2FZV2A6MInhE+0AtlE1qG0Zz+r2GF+HggLncWupjuc75f+1l62+QX7L08n1yao4wniW98C
-	GaExflts9xht5ltBN936lcAFxiyKojbJPCcZBvBKiFFLCTL23MmmYTTpaf4J5OdDU1Gmr9EYkglM4
-	msEh5oYyDXmqb9PxxNffuw1nEA/fWw/Aun2Nuqkt/KM2L69xYomy0g/HI4Dg9FO3gn3S/AWRuHLC4
-	ji1EHxDUp3PzO7eIWvjkKnb8jdjjT8vI4rk6qnoiY=;
-Message-ID: <0c8ee7e9-dd23-262f-f67e-359e14abf6f2@ilande.co.uk>
-Date: Tue, 14 Mar 2023 12:43:12 +0000
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=uZ8MuMa0ar/rWxEBSHwUxQPqa6BIalxO7dLPuCsCc0o=; b=anGw67VURhqXTbQ5yuNzEEgv9i
+	5iHK+v/1ywxxo3fRdsZik9wb445BfG6mpBEfVfIk9+M8HMMafMdyXKVLNbfiwvlzxzsQjdJaBY0+3
+	wZHxcrGQFCBkFlpHVyGe4gHaequxcxW23w3UingKmwPvkOqMueck9ynio2k6bT2lMb88=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-179607-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-From: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
-To: "Michael S. Tsirkin" <mst@redhat.com>, Chuck Zmudzinski <brchuckz@aol.com>
-Cc: qemu-devel@nongnu.org, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Artyom Tarasenko <atar4qemu@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1678763217.git.brchuckz@aol.com>
- <d9ae459b2814425c2d9e756e45d993c824da150a.1678763217.git.brchuckz@aol.com>
- <20230314023148-mutt-send-email-mst@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20230314023148-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 86.163.239.161
-X-SA-Exim-Mail-From: mark.cave-ayland@ilande.co.uk
-X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
-	mail.default.ilande.bv.iomart.io
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=5.0 tests=ALL_TRUSTED,BAYES_00,
-	URIBL_BLOCKED,URIBL_SBL_A autolearn=no autolearn_force=no version=3.4.2
-Subject: Re: [PATCH v2 2/2] pci: allow slot_reserved_mask to be ignored with
- manual slot assignment
-X-SA-Exim-Version: 4.2.1 (built Wed, 08 May 2019 21:11:16 +0000)
-X-SA-Exim-Scanned: Yes (on mail.ilande.co.uk)
+Subject: [linux-linus test] 179607: regressions - trouble: fail/pass/starved
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:guest-saverestore.2:fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:guest-localmigrate:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:guest-localmigrate/x10:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:guest-stop:fail:regression
+    linux-linus:test-amd64-amd64-libvirt:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:guest-saverestore:fail:regression
+    linux-linus:test-amd64-coresched-amd64-xl:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:guest-saverestore.2:fail:regression
+    linux-linus:test-arm64-arm64-xl:guest-start/debian.repeat:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:guest-start/debian.repeat:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:guest-localmigrate/x10:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-pair:guest-start/debian:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-amd64-amd64-pygrub:debian-di-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-raw:debian-di-install:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:debian-di-install:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:debian-di-install:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:debian-di-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    linux-linus:build-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    linux=fc89d7fb499b0162e081f434d45e8d1b47e82ece
+X-Osstest-Versions-That:
+    linux=3f0b0903fde584a7398f82fc00bf4f8138610b87
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 14 Mar 2023 12:52:26 +0000
 
-On 14/03/2023 06:33, Michael S. Tsirkin wrote:
+flight 179607 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/179607/
 
-> On Tue, Mar 14, 2023 at 12:01:09AM -0400, Chuck Zmudzinski wrote:
->> Commit 4f67543bb8c5 ("xen/pt: reserve PCI slot 2 for Intel igd-passthru")
->> uses slot_reserved_mask to reserve slot 2 for the Intel IGD for the
->> xenfv machine when the guest is configured for igd-passthru.
->>
->> A desired extension to that commit is to allow use of the reserved slot
->> if the administrator manually configures a device to use the reserved
->> slot. Currently, slot_reserved_mask is enforced unconditionally. With
->> this patch, the pci bus can be configured so the slot is only reserved
->> if the pci device to be added to the bus is configured for automatic
->> slot assignment.
->>
->> To enable the desired behavior of slot_reserved_mask machine, add a
->> boolean member enforce_slot_reserved_mask_manual to struct PCIBus and
->> add a function pci_bus_ignore_slot_reserved_mask_manual which can be
->> called to change the default behavior of always enforcing
->> slot_reserved_mask so, in that case, slot_reserved_mask is only enforced
->> when the pci device being added is configured for automatic slot
->> assignment.
->>
->> Call the new pci_bus_ignore_slot_reserved_mask_manual function after
->> creating the pci bus for the pc/i440fx/xenfv machine type to implement
->> the desired behavior of causing slot_reserved_mask to only apply when
->> the pci device to be added to a pc/i440fx/xenfv machine is configured
->> for automatic slot assignment.
->>
->> Link: https://lore.kernel.org/qemu-devel/20230106064838-mutt-send-email-mst@kernel.org/
->> Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
-> 
-> I really dislike this.
-> It seems that xen should not have used slot_reserved_mask,
-> and instead needs something new like slot_manual_mask.
-> No?
+Regressions :-(
 
-My suggestion was to move the validation logic to a separate callback function in 
-PCIBus (see https://lists.gnu.org/archive/html/qemu-devel/2023-03/msg03988.html) but 
-perhaps I wasn't clear enough in pointing out that I was thinking this could 
-*replace* the existing slot_reserved_mask mechanism, rather than providing a hook to 
-allow it to be manipulated.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-freebsd12-amd64 13 guest-start          fail REGR. vs. 178042
+ test-amd64-amd64-xl-credit1  19 guest-saverestore.2      fail REGR. vs. 178042
+ test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 178042
+ test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 178042
+ test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 178042
+ test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 178042
+ test-amd64-amd64-xl-xsm      18 guest-localmigrate       fail REGR. vs. 178042
+ test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 178042
+ test-amd64-amd64-freebsd11-amd64 13 guest-start          fail REGR. vs. 178042
+ test-amd64-amd64-xl-multivcpu 20 guest-localmigrate/x10  fail REGR. vs. 178042
+ test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 178042
+ test-amd64-amd64-libvirt-xsm 19 guest-stop               fail REGR. vs. 178042
+ test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 178042
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 178042
+ test-amd64-amd64-xl-credit2  17 guest-saverestore        fail REGR. vs. 178042
+ test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 178042
+ test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 178042
+ test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 178042
+ test-arm64-arm64-xl-credit2  14 guest-start              fail REGR. vs. 178042
+ test-arm64-arm64-libvirt-xsm 14 guest-start              fail REGR. vs. 178042
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 16 guest-saverestore.2 fail REGR. vs. 178042
+ test-arm64-arm64-xl         18 guest-start/debian.repeat fail REGR. vs. 178042
+ test-arm64-arm64-xl-thunderx 18 guest-start/debian.repeat fail REGR. vs. 178042
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 18 guest-localmigrate/x10 fail REGR. vs. 178042
+ test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 178042
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 178042
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 178042
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 178042
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 178042
+ test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 178042
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 178042
+ test-amd64-amd64-pair        25 guest-start/debian       fail REGR. vs. 178042
+ test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 178042
+ test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 178042
+ test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 178042
+ test-amd64-amd64-xl-vhd      12 debian-di-install        fail REGR. vs. 178042
+ test-amd64-amd64-pygrub      12 debian-di-install        fail REGR. vs. 178042
+ test-amd64-amd64-libvirt-raw 12 debian-di-install        fail REGR. vs. 178042
+ test-amd64-amd64-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 178042
+ test-arm64-arm64-xl-vhd      12 debian-di-install        fail REGR. vs. 178042
+ test-arm64-arm64-libvirt-raw 12 debian-di-install        fail REGR. vs. 178042
 
-Here's a very rough patch put together over lunch that attempts this for 
-pci_bus_devfn_reserved(): the idea is that sun4u and Xen would call 
-pci_bus_set_slot_reserved_fn() with a suitable pci_slot_reserved_fn implementation, 
-and slot_reserved_mask gets removed completely i.e.:
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 178042
 
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 178042
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 178042
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 178042
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 178042
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-examine      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
-diff --git a/hw/pci/pci.c b/hw/pci/pci.c
-index def5000e7b..30b856499a 100644
---- a/hw/pci/pci.c
-+++ b/hw/pci/pci.c
-@@ -493,6 +493,13 @@ bool pci_bus_bypass_iommu(PCIBus *bus)
-      return host_bridge->bypass_iommu;
-  }
+version targeted for testing:
+ linux                fc89d7fb499b0162e081f434d45e8d1b47e82ece
+baseline version:
+ linux                3f0b0903fde584a7398f82fc00bf4f8138610b87
 
-+static bool pci_bus_default_slot_reserved(PCISlotReservationType restype,
-+                                          int devfn)
-+{
-+    /* All slots accessible by default */
-+    return false;
-+}
-+
-  static void pci_root_bus_internal_init(PCIBus *bus, DeviceState *parent,
-                                         MemoryRegion *address_space_mem,
-                                         MemoryRegion *address_space_io,
-@@ -500,7 +507,7 @@ static void pci_root_bus_internal_init(PCIBus *bus, DeviceState 
-*parent,
-  {
-      assert(PCI_FUNC(devfn_min) == 0);
-      bus->devfn_min = devfn_min;
--    bus->slot_reserved_mask = 0x0;
-+    bus->slot_reserved_fn = pci_bus_default_slot_reserved;
-      bus->address_space_mem = address_space_mem;
-      bus->address_space_io = address_space_io;
-      bus->flags |= PCI_BUS_IS_ROOT;
-@@ -1111,9 +1118,15 @@ static bool pci_bus_devfn_available(PCIBus *bus, int devfn)
-      return !(bus->devices[devfn]);
-  }
+Last test of basis   178042  2023-02-21 17:44:43 Z   20 days
+Failing since        178093  2023-02-22 05:02:47 Z   20 days   40 attempts
+Testing same since   179607  2023-03-13 19:40:31 Z    0 days    1 attempts
 
--static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn)
-+static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn,
-+                                   PCISlotReservationType restype)
-+{
-+    return bus->slot_reserved_fn(restype, devfn);
-+}
-+
-+void pci_bus_set_slot_reserved_fn(PCIBus *bus, pci_slot_reserved_fn fn)
-  {
--    return bus->slot_reserved_mask & (1UL << PCI_SLOT(devfn));
-+    bus->slot_reserved_fn = fn;
-  }
+------------------------------------------------------------
+2122 people touched revisions under test,
+not listing them all
 
-  /* -1 for devfn means auto assign */
-@@ -1141,7 +1154,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
-          for(devfn = bus->devfn_min ; devfn < ARRAY_SIZE(bus->devices);
-              devfn += PCI_FUNC_MAX) {
-              if (pci_bus_devfn_available(bus, devfn) &&
--                   !pci_bus_devfn_reserved(bus, devfn)) {
-+                   !pci_bus_devfn_reserved(bus, devfn, PCI_SLOT_RESERVATION_AUTO)) {
-                  goto found;
-              }
-          }
-@@ -1149,7 +1162,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
-                     "or reserved", name);
-          return NULL;
-      found: ;
--    } else if (pci_bus_devfn_reserved(bus, devfn)) {
-+    } else if (pci_bus_devfn_reserved(bus, devfn, PCI_SLOT_RESERVATION_MANUAL)) {
-          error_setg(errp, "PCI: slot %d function %d not available for %s,"
-                                         MemoryRegion *address_space_io,
-@@ -500,7 +507,7 @@ static void pci_root_bus_internal_init(PCIBus *bus, DeviceState 
-*parent,
-  {
-      assert(PCI_FUNC(devfn_min) == 0);
-      bus->devfn_min = devfn_min;
--    bus->slot_reserved_mask = 0x0;
-+    bus->slot_reserved_fn = pci_bus_default_slot_reserved;
-      bus->address_space_mem = address_space_mem;
-      bus->address_space_io = address_space_io;
-      bus->flags |= PCI_BUS_IS_ROOT;
-@@ -1111,9 +1118,15 @@ static bool pci_bus_devfn_available(PCIBus *bus, int devfn)
-      return !(bus->devices[devfn]);
-  }
-
--static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn)
-+static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn,
-+                                   PCISlotReservationType restype)
-+{
-+    return bus->slot_reserved_fn(restype, devfn);
-+}
-+
-+void pci_bus_set_slot_reserved_fn(PCIBus *bus, pci_slot_reserved_fn fn)
-  {
--    return bus->slot_reserved_mask & (1UL << PCI_SLOT(devfn));
-+    bus->slot_reserved_fn = fn;
-  }
-
-  /* -1 for devfn means auto assign */
-@@ -1141,7 +1154,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
-          for(devfn = bus->devfn_min ; devfn < ARRAY_SIZE(bus->devices);
-              devfn += PCI_FUNC_MAX) {
-              if (pci_bus_devfn_available(bus, devfn) &&
--                   !pci_bus_devfn_reserved(bus, devfn)) {
-+                   !pci_bus_devfn_reserved(bus, devfn, PCI_SLOT_RESERVATION_AUTO)) {
-                  goto found;
-              }
-          }
-@@ -1149,7 +1162,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
-                     "or reserved", name);
-          return NULL;
-      found: ;
--    } else if (pci_bus_devfn_reserved(bus, devfn)) {
-+    } else if (pci_bus_devfn_reserved(bus, devfn, PCI_SLOT_RESERVATION_MANUAL)) {
-          error_setg(errp, "PCI: slot %d function %d not available for %s,"
-                     " reserved",
-                     PCI_SLOT(devfn), PCI_FUNC(devfn), name);
-diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
-index d5a40cd058..8a949f7ae1 100644
---- a/include/hw/pci/pci.h
-+++ b/include/hw/pci/pci.h
-@@ -257,10 +257,18 @@ MemoryRegion *pci_address_space_io(PCIDevice *dev);
-   */
-  int pci_bar(PCIDevice *d, int reg);
-
-+typedef enum PCISlotReservationType {
-+    PCI_SLOT_RESERVATION_AUTO,
-+    PCI_SLOT_RESERVATION_MANUAL
-+} PCISlotReservationType;
-+
-+typedef bool (*pci_slot_reserved_fn)(PCISlotReservationType restype, int devfn);
-  typedef void (*pci_set_irq_fn)(void *opaque, int irq_num, int level);
-  typedef int (*pci_map_irq_fn)(PCIDevice *pci_dev, int irq_num);
-  typedef PCIINTxRoute (*pci_route_irq_fn)(void *opaque, int pin);
-
-+void pci_bus_set_slot_reserved_fn(PCIBus *bus, pci_slot_reserved_fn fn);
-+
-  #define TYPE_PCI_BUS "PCI"
-  OBJECT_DECLARE_TYPE(PCIBus, PCIBusClass, PCI_BUS)
-  #define TYPE_PCIE_BUS "PCIE"
-diff --git a/include/hw/pci/pci_bus.h b/include/hw/pci/pci_bus.h
-index 5653175957..d68ea1418d 100644
---- a/include/hw/pci/pci_bus.h
-+++ b/include/hw/pci/pci_bus.h
-@@ -36,7 +36,7 @@ struct PCIBus {
-      PCIIOMMUFunc iommu_fn;
-      void *iommu_opaque;
-      uint8_t devfn_min;
--    uint32_t slot_reserved_mask;
-+    pci_slot_reserved_fn slot_reserved_fn;
-      pci_set_irq_fn set_irq;
-      pci_map_irq_fn map_irq;
-      pci_route_irq_fn route_intx_to_irq;
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     starved 
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      fail    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-libvirt-raw                                 fail    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      fail    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      starved 
 
 
-If this approach seems reasonable, I'm happy for someone else to take this over and 
-turn it into a proper series.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-ATB,
+Not pushing.
 
-Mark.
+(No revision log; it would be 245340 lines long.)
 
