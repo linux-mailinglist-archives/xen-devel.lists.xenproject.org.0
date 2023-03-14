@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459886B9F62
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 20:10:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509794.786283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0E236B9F64
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 20:12:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509797.786293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcA26-0000TR-JS; Tue, 14 Mar 2023 19:10:02 +0000
+	id 1pcA47-0001kC-VT; Tue, 14 Mar 2023 19:12:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509794.786283; Tue, 14 Mar 2023 19:10:02 +0000
+Received: by outflank-mailman (output) from mailman id 509797.786293; Tue, 14 Mar 2023 19:12:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcA26-0000PC-GR; Tue, 14 Mar 2023 19:10:02 +0000
-Received: by outflank-mailman (input) for mailman id 509794;
- Tue, 14 Mar 2023 19:10:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pcA47-0001iD-SS; Tue, 14 Mar 2023 19:12:07 +0000
+Received: by outflank-mailman (input) for mailman id 509797;
+ Tue, 14 Mar 2023 19:12:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xZxk=7G=web.de=tachyon_gun@srs-se1.protection.inumbo.net>)
- id 1pcA25-0000JB-Em
- for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 19:10:01 +0000
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d10870bb-c29b-11ed-87f5-c1b5be75604c;
- Tue, 14 Mar 2023 20:10:00 +0100 (CET)
-Received: from [92.76.123.191] ([92.76.123.191]) by web-mail.web.de
- (3c-app-webde-bap40.server.lan [172.19.172.40]) (via HTTP); Tue, 14 Mar
- 2023 20:09:57 +0100
+ <SRS0=snfi=7G=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pcA46-0001hx-Ku
+ for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 19:12:06 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1abd5568-c29c-11ed-b464-930f4c7d94ae;
+ Tue, 14 Mar 2023 20:12:03 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id da10so66399480edb.3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Mar 2023 12:12:03 -0700 (PDT)
+Received: from [192.168.8.114] (46.204.101.131.nat.umts.dynamic.t-mobile.pl.
+ [46.204.101.131]) by smtp.gmail.com with ESMTPSA id
+ x26-20020a170906135a00b008e8e975e185sm1507669ejb.32.2023.03.14.12.12.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Mar 2023 12:12:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,94 +44,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d10870bb-c29b-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
-	t=1678820997; i=tachyon_gun@web.de;
-	bh=K8b6TQ/yuFp8adhkzTY8OO+4t/3xvqoZl6YAW0PinoE=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=rliAD70S+qkX8EwJR2Hbv1E9HcosKequRfhG0GZLg2dfT/iE6Rm2Fk3SOGbr35TkS
-	 0ZgpJ0cKin6kKbuwDerMewcr7+kQX9G1oFMC5B1RDtL16rO22+IbEihWLZbTt19ZsO
-	 HrNNiKoVTRTXVQpt8ds5k97I/WFFB5LbbxyerdJy75l1qAB5j8e6BDraL31NXW8dDR
-	 3uzaloHdBorXvolXFKRUqvjRFHFnUKCBOjvI0Oo4ON3OCD6JsbewUCUCwGwYWojoI3
-	 llqkl9poAC41TwLSpzkLHV+1tsR/UahgSjdVIKYslbKWEOmCneU60N17erFH6Iiv2a
-	 Fwke7iw9MwtSA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-MIME-Version: 1.0
-Message-ID: <trinity-4a07ad86-ea5d-415b-b8cc-e9f0289e1a10-1678820997547@3c-app-webde-bap40>
-From: Denis <tachyon_gun@web.de>
+X-Inumbo-ID: 1abd5568-c29c-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1678821123;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=dJofpBQX78OOGX37duequ6e5EWi+LIgEtv671taA/iM=;
+        b=kt/vnDqdVLyH/2E6milF9Ah9iMK/BULOiLSc0593HYNFLeIjt3BS5BVdLR/RMSzE6W
+         pEGtyYbRuYUzu6maei1KfUeZQqOYz40fAGqW68+IDdfmy5sT00yRJtfq/iAGRE3cMyed
+         +mbJ4BCPj/v0Wb5Ubn6pDtWMzoGvVnRxK4h9FFGjXbxL2V4kc4PV03dPHkMxchCnElQQ
+         87t00q/btL+MK7/bqBg8HeoXZgzvBs6hdMAR8zwBguBxFExTXxEUy/Fnqt8V9ZZ/t0b4
+         YRAv4DlulbQlTMhJ3jqA3hrkIa9iqy4Nlg4yB/ai0EMLm3lV5Tqdx7OCVTsLOjkDmvy9
+         5u/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678821123;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dJofpBQX78OOGX37duequ6e5EWi+LIgEtv671taA/iM=;
+        b=y/ShqnrN2W6jKczTh2rQ+m6SSsWiQ6DWwy87SPfheiHpUa+MZgQ7W9R3KimqGpBD6N
+         AlsDfSDc5l6vNBN69SqDoHc5OfFgLY4TGjJcPTQuuElxmWnn9wmjcyMngVfz3QMpwPHt
+         4+IEEC6CM+rbb6hDnn9dEq94kHKkAM5/btuHsGVROgI6l9DiyeOprj78EsWuqBu1jRjQ
+         MW6WNm7PKk3Y1Uz7F55E2UMjeS+Aq1X8SnE4So9X3EXhr5tkulz6diu7sNMJyAjbhjNO
+         FWkH7U837YmiXJYY5UqIcOT1eB3G6sQ2Wvd0DbMjJr4nGp6coGk2zENPxMAw+nY3MvRk
+         m1hg==
+X-Gm-Message-State: AO0yUKVKex3nuyarR2GBHiKFeg8TNLFK1ZKDUbT4t5nvn2rhxC8f7XMA
+	QWopWgpBgfLCTKJPz1+s3/k=
+X-Google-Smtp-Source: AK7set8IsOBOCDQadlJ4pc3DACYjdNGeZXy9kOuiZ2JB6dgWsBjxT7tTylGQuhJjJxGA/TFtXbg2sQ==
+X-Received: by 2002:a17:906:2dda:b0:8af:447a:ff8e with SMTP id h26-20020a1709062dda00b008af447aff8emr3129797eji.20.1678821123331;
+        Tue, 14 Mar 2023 12:12:03 -0700 (PDT)
+Message-ID: <192fbcf22a6c6e16498cc208eeb37fc6e08ce56a.camel@gmail.com>
+Subject: Re: [PATCH v7 1/5] xen: introduce CONFIG_GENERIC_BUG_FRAME
+From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Aw: Re: [help] Xen 4.14.5 on Devuan 4.0 Chimaera, regression from
- Xen 4.0.1
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 14 Mar 2023 20:09:57 +0100
-Importance: normal
-Sensitivity: Normal
-In-Reply-To: <805f8cbd-e6ce-85bb-7ad6-3c461fc41c07@suse.com>
-References: <trinity-8973751a-6742-4309-b02d-0b4c38f4206e-1678390468345@3c-app-webde-bap36>
- <84f66bc0-ae7c-febe-9a15-98453c48d051@citrix.com>
- <ce1a289e-6ed7-9b5c-42f5-069f16bd6984@suse.com>
- <trinity-429ff607-c131-4745-8c96-9d7f6f61234f-1678481409956@3c-app-webde-bs42>
- <31151e94-b8b3-15ab-3680-e1c6e2e97530@suse.com>
- <trinity-7e872635-20a4-4120-a08d-2d62a77d2da5-1678756503867@3c-app-webde-bs22>
- <2afa0abe-abe5-a3d8-658f-abc466d78101@suse.com>
- <trinity-7c345507-5695-4649-a62b-be4dd793cc00-1678805608384@3c-app-webde-bap40>
- <40da0146-21fa-d5a9-7ae1-4ed2cf4a5785@suse.com>
- <trinity-720cf1eb-48bc-4eba-9e14-e9eb570b1e7f-1678812331526@3c-app-webde-bap40>
- <805f8cbd-e6ce-85bb-7ad6-3c461fc41c07@suse.com>
-X-UI-Message-Type: mail
-X-Priority: 3
-X-Provags-ID: V03:K1:2DEchfj5kLglH60t5pKhF6di/C/5jzSlcXEACneDr4CyEgIN4s/Fb3Ctt+lCNvBU8reze
- T7G3BJ0UuyLgfRZUXbcxmktEbPUJZCF8xX0/SoxujG0wUe+gaU8D3Sv7tAP7DiAeBb3+giLZH3u9
- 222vHN0toXzKLR6rEBprut3B8Hw+ue0sgJzaePRxSM0rgtAqfYM+FDc748fupcuJlj2lG206b6Aa
- Yr2vJjwQcRQw+pwfzozw9zDPxWI8fM/0Rio/1pRz4EQm/Vllm/t1g2SLcPWVBff71hUoKjRm979k
- ug=
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:HBWskucrB3o=;b3TWLp3Z9P+CV9FH3cUdVlbCDzH
- myVul0lPJkB0DeBHuqEPdYBX7aAg6wW3pdrtiWs1T3zSB5NwSiUKAROUnn7nG0MdnSWjIPotk
- h6tCtwxWI/0Ezi/iypULofKEI2hmPNUsKmkKutjTiXg3oO4HBwlRIjSOWDq8H7zCh5v16VybT
- kaFZZdd6qVqMoRYR0am/+Jyi3erPhfSgGiiqf+v+yIj04KOy82M0zF4BidvSg/RKJRKY0IRr7
- BfR//BhRlHkZWL+oYDBbB9kSLYdqo0fEGV9ys26xuqozTBognTqsqqZl5Ik23LEW/RRtB+xKz
- wGn858xLzAEl//okOUP+cZL+2zxo1H7/faqJFlYkX8+/VbvA0Aa/eC3sCiZbazsrI8BCSscLG
- 9uakGDwzZQYlJ9O+oCZCySDxEwPU4cjcQgfbMHe1KnQTCQaFdsnCUxhJ84xITp5N/4ULkXPUl
- 1/X/OcSDb6gX2gFHCdywKxh/Qi2FKTuws6PvMO5c1X0+FSMkcePqQ8Ot92kpGZCbDE82GyB/x
- wDnK5wkD2mG5st1FUX9i0+8xuQBx0IkUmiamqe3e2RmzcjogA9H+oENCzN6Wpz/LKRKzA7C98
- cn5ft+WgEc8azCQO6TXJSZZ7M38db3eN/TEQ0Eiuf1/DZlVd2XX2cYi7RyA3C89KRKUUKaknH
- yvZ/yNOWStV4g1/OWn8XlzgUvdvzgfIXlPoTFfKs0ASMMcPbs9F4WtSi88Nd6FjM1qBmgnRDD
- hESoqu/uYyh3BXuhCdCAbUh3W+8VO9udsCLB8pX6PsxFk7v1ufi8EDeKNE4GpjlqlKERRBsJP
- B2LtJuHy1Su+cqsRx2rSmG6w==
+Cc: Jason Andryuk <jandryuk@gmail.com>, Julien Grall <julien@xen.org>, 
+ Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, George
+ Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Date: Tue, 14 Mar 2023 21:12:01 +0200
+In-Reply-To: <3df43c25-6c06-0cbb-5452-c989511a7e15@suse.com>
+References: <cover.1678368234.git.oleksii.kurochko@gmail.com>
+	 <671cd744b92f14ddc0c47ca471e03e3229cb89ba.1678368234.git.oleksii.kurochko@gmail.com>
+	 <3df43c25-6c06-0cbb-5452-c989511a7e15@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
+MIME-Version: 1.0
 
-On 14.03.2023 17:59, Jan Beulich wrote:
-> On 14.03.2023 17:45, Denis wrote:
-> > On 14.03.2023 16:37, Jan Beulich wrote:
-> >> On 14.03.2023 15:53, Denis wrote:
-> >>> What tests could I do or what info should I provide to help?
-> >>
-> >> Boot plain Linux (no Xen underneath) and collect the full set of kern=
-el
-> >> boot messages (some distros store this at /var/log/boot.msg); "full"
-> >> meaning we want to be able to see all output regardless of log-level.
-> >
-> > I'll attach some files from /var/log.
->
-> Thanks, and there we go:
->
-> [    0.121463] AMD-Vi: [Firmware Bug]: : No southbridge IOAPIC found
-> [    0.121495] AMD-Vi: Disabling interrupt remapping
->
-> It's 5.10, so somewhat old already, but from looking at the code I would=
-n't
-> expect anything else with a newer kernel.
+On Mon, 2023-03-13 at 17:26 +0100, Jan Beulich wrote:
+> On 09.03.2023 14:33, Oleksii Kurochko wrote:
+> > --- /dev/null
+> > +++ b/xen/common/bug.c
+> > @@ -0,0 +1,107 @@
+> > +#include <xen/bug.h>
+> > +#include <xen/errno.h>
+> > +#include <xen/kernel.h>
+> > +#include <xen/livepatch.h>
+> > +#include <xen/string.h>
+> > +#include <xen/types.h>
+> > +#include <xen/virtual_region.h>
+> > +
+> > +#include <asm/processor.h>
+> > +
+> > +/*
+> > + * Returns a negative value in case of an error otherwise
+> > + * BUGFRAME_{run_fn, warn, bug, assert}
+> > + */
+> > +int do_bug_frame(struct cpu_user_regs *regs, unsigned long pc)
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 const struct bug_frame *bug =3D NULL;
+> > +=C2=A0=C2=A0=C2=A0 const struct virtual_region *region;
+> > +=C2=A0=C2=A0=C2=A0 const char *prefix =3D "", *filename, *predicate;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long fixup;
+> > +=C2=A0=C2=A0=C2=A0 unsigned int id =3D BUGFRAME_NR, lineno;
+>=20
+> Unnecessary initializer; "id" is set ...
+>=20
+> > +=C2=A0=C2=A0=C2=A0 region =3D find_text_region(pc);
+> > +=C2=A0=C2=A0=C2=A0 if ( !region )
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
+> > +
+> > +=C2=A0=C2=A0=C2=A0 for ( id =3D 0; id < BUGFRAME_NR; id++ )
+>=20
+> ... unconditionally here.
+>=20
+> > --- /dev/null
+> > +++ b/xen/include/xen/bug.h
+> > @@ -0,0 +1,162 @@
+> > +#ifndef __XEN_BUG_H__
+> > +#define __XEN_BUG_H__
+> > +
+> > +#define BUGFRAME_run_fn 0
+> > +#define BUGFRAME_warn=C2=A0=C2=A0 1
+> > +#define BUGFRAME_bug=C2=A0=C2=A0=C2=A0 2
+> > +#define BUGFRAME_assert 3
+> > +
+> > +#define BUGFRAME_NR=C2=A0=C2=A0=C2=A0=C2=A0 4
+> > +
+> > +#define BUG_DISP_WIDTH=C2=A0=C2=A0=C2=A0 24
+> > +#define BUG_LINE_LO_WIDTH (31 - BUG_DISP_WIDTH)
+> > +#define BUG_LINE_HI_WIDTH (31 - BUG_DISP_WIDTH)
+> > +
+> > +#include <asm/bug.h>
+> > +
+> > +#ifndef __ASSEMBLY__
+> > +
+> > +#ifndef BUG_DEBUGGER_TRAP_FATAL
+> > +#define BUG_DEBUGGER_TRAP_FATAL(regs) 0
+> > +#endif
+> > +
+> > +#include <xen/lib.h>
+> > +
+> > +#ifndef BUG_FRAME_STRUCT
+> > +
+> > +struct bug_frame {
+> > +=C2=A0=C2=A0=C2=A0 signed int loc_disp:BUG_DISP_WIDTH;
+> > +=C2=A0=C2=A0=C2=A0 unsigned int line_hi:BUG_LINE_HI_WIDTH;
+> > +=C2=A0=C2=A0=C2=A0 signed int ptr_disp:BUG_DISP_WIDTH;
+> > +=C2=A0=C2=A0=C2=A0 unsigned int line_lo:BUG_LINE_LO_WIDTH;
+> > +=C2=A0=C2=A0=C2=A0 signed int msg_disp[];
+> > +};
+> > +
+> > +#define bug_loc(b) ((unsigned long)(b) + (b)->loc_disp)
+> > +
+> > +#define bug_ptr(b) ((const void *)(b) + (b)->ptr_disp)
+> > +
+> > +#define bug_line(b) (((((b)->line_hi + ((b)->loc_disp < 0))
+> > &=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((1 << BUG_=
+LINE_HI_WIDTH) - 1))
+> > <<=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BUG_LINE_LO_WIDTH=
+)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (((b)->line_lo + ((b)->=
+ptr_disp < 0))
+> > &=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((1 << BUG_LINE_L=
+O_WIDTH) - 1)))
+> > +
+> > +#define bug_msg(b) ((const char *)(b) + (b)->msg_disp[1])
+> > +
+> > +#ifndef BUILD_BUG_ON_LINE_WIDTH
+> > +#define BUILD_BUG_ON_LINE_WIDTH(line) \
+> > +=C2=A0=C2=A0=C2=A0 BUILD_BUG_ON((line) >> (BUG_LINE_LO_WIDTH +
+> > BUG_LINE_HI_WIDTH))
+> > +#endif
+>=20
+> I still don't see why you have #ifdef here. What I would expect is
+> (as
+> expressed before)
+>=20
+> #define BUILD_BUG_ON_LINE_WIDTH(line) \
+> =C2=A0=C2=A0=C2=A0 BUILD_BUG_ON((line) >> (BUG_LINE_LO_WIDTH + BUG_LINE_H=
+I_WIDTH))
+>=20
+> #else=C2=A0 /* BUG_FRAME_STRUCT */
+>=20
+> #ifndef BUILD_BUG_ON_LINE_WIDTH
+> #define BUILD_BUG_ON_LINE_WIDTH(line) ((void)(line)
+> #endif
+>=20
+> (perhaps shortened to
+>=20
+> #elif !defined(BUILD_BUG_ON_LINE_WIDTH)
+> #define BUILD_BUG_ON_LINE_WIDTH(line) ((void)(line)
+>=20
+> )
+>=20
+> > +#endif /* BUG_FRAME_STRUCT */
+>=20
+> ... and then the separate conditional further down dropped. Have you
+> found anything speaking against this approach?
+Both options are fine from compilation point of view.
 
-So older versions (be it Kerenel or Xen) didn't look for a secondary South=
-bridge IOAPIC?
-If so, was that a change made due to the vulnerabilities in Xen due to pas=
-sed-through
-devices?
-Just asking because age-old distros worked as it seems...
+Lets change it to proposed by you option with '#elif !defined(...)...'
 
+I'll prepare new patch series and sent it to the mailing list.
 
-Denis
+I would like to add the changes from the [PATCH] xen/cpufreq: Remove
+<asm/bug.h> by=C2=A0Jason Andryuk <jandryuk@gmail.com> but I don't know how
+correctly do that. I mean should I added one more Signed-off to the
+patch?
+
+Thanks.
+
+~ Oleksii
 
