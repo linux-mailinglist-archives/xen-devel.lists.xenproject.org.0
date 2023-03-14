@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9FD46B9F95
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 20:26:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509807.786329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE5006BA08A
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Mar 2023 21:17:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509822.786378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcAHo-0004hI-0a; Tue, 14 Mar 2023 19:26:16 +0000
+	id 1pcB4c-0004t5-5a; Tue, 14 Mar 2023 20:16:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509807.786329; Tue, 14 Mar 2023 19:26:15 +0000
+Received: by outflank-mailman (output) from mailman id 509822.786378; Tue, 14 Mar 2023 20:16:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcAHn-0004bR-T3; Tue, 14 Mar 2023 19:26:15 +0000
-Received: by outflank-mailman (input) for mailman id 509807;
- Tue, 14 Mar 2023 19:26:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pcB4c-0004rN-2q; Tue, 14 Mar 2023 20:16:42 +0000
+Received: by outflank-mailman (input) for mailman id 509822;
+ Tue, 14 Mar 2023 20:16:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oTSp=7G=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
- id 1pcAHm-0004ZR-69
- for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 19:26:14 +0000
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f356a68-c29e-11ed-b464-930f4c7d94ae;
- Tue, 14 Mar 2023 20:26:05 +0100 (CET)
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2023 12:26:02 -0700
-Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga006.jf.intel.com with ESMTP; 14 Mar 2023 12:25:52 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id BC9AF3B8; Tue, 14 Mar 2023 21:26:37 +0200 (EET)
+ <SRS0=snfi=7G=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pcB4Z-0004r9-PT
+ for xen-devel@lists.xenproject.org; Tue, 14 Mar 2023 20:16:39 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1f98d079-c2a5-11ed-87f5-c1b5be75604c;
+ Tue, 14 Mar 2023 21:16:38 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id cn21so36836194edb.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Mar 2023 13:16:37 -0700 (PDT)
+Received: from [192.168.8.114] (46.204.101.131.nat.umts.dynamic.t-mobile.pl.
+ [46.204.101.131]) by smtp.gmail.com with ESMTPSA id
+ br7-20020a170906d14700b008c979c74732sm1520701ejb.156.2023.03.14.13.16.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Mar 2023 13:16:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,137 +44,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f356a68-c29e-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1678821965; x=1710357965;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=3Bu5KEQ7VbEZVFxJWJ3dCxTl63qFR3TMO6ewhBoLJ+8=;
-  b=Rs/n/UIKpCYOOBY2I8BN77mI8S6xGzNxXzB17sZg9tI4lGIjN5P/VMHC
-   ohVvG52IX+fxbHvLc/TYIn2WAAPjmxQUXwZxn3FnVvpIJi71nyGkGczbj
-   somZHcsed52IZ1D0cRu9NTVIQdYRGweaxi2AJcnQ2ibVooL4XNj0dsZ34
-   JO0BGWc5T9yVHy95qxwZKwvYnec6wTN5JrDZN7BCQFdv5b7OrxXthcd8i
-   z0ZOOD0UHWYbiTP/te5MOfaKx3u3VKz2emexYNGSKwWunGZOxvP97YeIB
-   yrmEE+hChFiTq1q1+n6csWotFsSnkISuq2mf4EKyHl3RMBspeCo3kpl6m
-   A==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="402389725"
-X-IronPort-AV: E=Sophos;i="5.98,260,1673942400"; 
-   d="scan'208";a="402389725"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10649"; a="656474978"
-X-IronPort-AV: E=Sophos;i="5.98,260,1673942400"; 
-   d="scan'208";a="656474978"
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Juergen Gross <jgross@suse.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-acpi@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	Matt Turner <mattst88@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Anatolij Gustschin <agust@denx.de>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH v5 4/4] pcmcia: Convert to use pci_bus_for_each_resource_p()
-Date: Tue, 14 Mar 2023 21:26:34 +0200
-Message-Id: <20230314192634.63531-5-andriy.shevchenko@linux.intel.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230314192634.63531-1-andriy.shevchenko@linux.intel.com>
-References: <20230314192634.63531-1-andriy.shevchenko@linux.intel.com>
+X-Inumbo-ID: 1f98d079-c2a5-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1678824997;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=2nEz2dpMPbvL8ON3mDc6ZbiUBwMkCNptBtABAlbR4bc=;
+        b=LpfISWhaGDuUUXnu0ZK3knLJA3URBqgF5AhxOIvJ9JfHg91Ns5b9fVcAEu4L2fbYkS
+         uhw9yl7UxBIpYb2++Gebx0S5jhAtgKFXC4bDMLlIigERSsI4zd2pBTmtMIrPiXRCpJsd
+         49niiWDoknIhPT7JmCdPcDla4OlcMfHe4hirRkhAK9s83Fn8eUvl9w2SoDj+U5wv3AO/
+         3iPmfA63GfiZH8mDwbzJR/JrVU70zjTPnDUKomcdJ6FaIlV+lU7BXpWsM7KEJUOwJ18J
+         3tch9Q8WJvixY5YW+t7dDaNBVxdGyp7q8Iwu0A/o8HJJPh2ZAEMdLzVLCFm5I/9NDWQZ
+         Xq7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678824997;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=2nEz2dpMPbvL8ON3mDc6ZbiUBwMkCNptBtABAlbR4bc=;
+        b=0JZgMV4j/X53bg+M19tR9MNVquqPLZuofBRPryKWCDW3g9uIeGw+REh6dk1CBwG1pP
+         KBKRgTLYkaXXyf+NaGnspcPkoV1Acxvqx9sDU1/Yf5K7biEExZtlY+6OQXEretuk+Cd8
+         pAkS2r1qV7NeN1Lf+GzcegdQGLVtQZQjkOZNgSqt5ZEZnNUwHLmz5HGxvx3M0Z+eyNaR
+         xHGKMyPhXMie7eLm3/T1D573yHgUxuCD0qkqnXqeV/oJZ6vQ6hetcDaAtjam648IZddV
+         qFoTDp5jQt8bntQwfjxSWlYqug1/E/nmXsACKLJv7IM3ipPaU3XgK6AXSaOTGeeF836p
+         5OdA==
+X-Gm-Message-State: AO0yUKW00/fHCSEBzndBcMkdmOoWRJke58+cqrT3NOCz2uxKPLH3E7sR
+	ADsfpY65cZCVTysMl40J39Y=
+X-Google-Smtp-Source: AK7set+Ty+7Z3xgwWokHWZwB+s1Aky+zamPEQOLabnC4NN3/mQ2K+Sv6IW0gNyyJiFTvWerfRYs2sw==
+X-Received: by 2002:a17:906:ae51:b0:921:5cce:6592 with SMTP id lf17-20020a170906ae5100b009215cce6592mr3543652ejb.59.1678824996857;
+        Tue, 14 Mar 2023 13:16:36 -0700 (PDT)
+Message-ID: <e7c42fc7561b88b1a18463b9b28d0b09cd6553c4.camel@gmail.com>
+Subject: Re: [PATCH v1] xen/riscv: make calculation of stack address
+ PC-relative
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida
+	 <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
+	Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
+Date: Tue, 14 Mar 2023 22:16:34 +0200
+In-Reply-To: <9c5ec3f3-c909-8f45-4460-1b29ce333d10@citrix.com>
+References: 
+	<ad2249c1b5be01f99ef9c294a3264da0c9715bab.1678809641.git.oleksii.kurochko@gmail.com>
+	 <9c5ec3f3-c909-8f45-4460-1b29ce333d10@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-The pci_bus_for_each_resource_p() hides the iterator loop since
-it may be not used otherwise. With this, we may drop that iterator
-variable definition.
+On Tue, 2023-03-14 at 17:09 +0000, Andrew Cooper wrote:
+> On 14/03/2023 4:00 pm, Oleksii Kurochko wrote:
+> > The patch is needed to keep all addresses PC-relative.
+> >=20
+> > Pseudoinstruction 'la' can be transformed to 'auipc/addi' or
+> > 'auipc/l{w|d}'. It depends on the .option directive: nopic and pic.
+> >=20
+> > Right now, 'la' transforms to 'auipc/l{w|d}', which in case of
+> > cpu0_boot_stack[] will lead to the usage of _GLOBAL_OFFSET_TABLE_
+> > where all addresses will be without counting that it might happen
+> > that linker address !=3D load address.
+> >=20
+> > To be sure that SP is loaded always PC-relative address
+> > 'la' should be changed to 'lla', which always transforms to
+> > 'auipc/addi'.
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > =C2=A0xen/arch/riscv/riscv64/head.S | 2 +-
+> > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+> >=20
+> > diff --git a/xen/arch/riscv/riscv64/head.S
+> > b/xen/arch/riscv/riscv64/head.S
+> > index 8887f0cbd4..e12d2a7cf3 100644
+> > --- a/xen/arch/riscv/riscv64/head.S
+> > +++ b/xen/arch/riscv/riscv64/head.S
+> > @@ -27,7 +27,7 @@ ENTRY(start)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 add=C2=A0=C2=A0=C2=A0=
+=C2=A0 t3, t3, __SIZEOF_POINTER__
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bltu=C2=A0=C2=A0=C2=A0=
+ t3, t4, .L_clear_bss
+> > =C2=A0
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 la=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 sp, cpu0_boot_stack
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lla=C2=A0=C2=A0=C2=A0=C2=A0=
+ sp, cpu0_boot_stack
+>=20
+> I don't think this is the appropriate way forward.=C2=A0 It's very much
+> smells like duct tape hiding the real bug.
+>=20
+As an option, I thought to add in head.S '.option nopic' directive to
+make la translated to auipc/addi [1] pair.
+As an alternative option, adds to AFLAGS +=3D -fno-PIC... but still...
 
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Reviewed-by: Krzysztof Wilczyński <kw@linux.com>
-Acked-by: Dominik Brodowski <linux@dominikbrodowski.net>
----
- drivers/pcmcia/rsrc_nonstatic.c | 9 +++------
- drivers/pcmcia/yenta_socket.c   | 3 +--
- 2 files changed, 4 insertions(+), 8 deletions(-)
+I checked in Linux binary how 'la' instruction is transformed, and it
+looks like it is translated as I expect to auipc/addi pair:
+ffffffe000001066: 00027517 auipc a0,0x27
+ffffffe00000106a: f9a50513 addi a0,a0,-102 # ffffffe000028000
+<early_pg_dir>
 
-diff --git a/drivers/pcmcia/rsrc_nonstatic.c b/drivers/pcmcia/rsrc_nonstatic.c
-index ad1141fddb4c..9d92d4bb6239 100644
---- a/drivers/pcmcia/rsrc_nonstatic.c
-+++ b/drivers/pcmcia/rsrc_nonstatic.c
-@@ -934,7 +934,7 @@ static int adjust_io(struct pcmcia_socket *s, unsigned int action, unsigned long
- static int nonstatic_autoadd_resources(struct pcmcia_socket *s)
- {
- 	struct resource *res;
--	int i, done = 0;
-+	int done = 0;
- 
- 	if (!s->cb_dev || !s->cb_dev->bus)
- 		return -ENODEV;
-@@ -960,12 +960,9 @@ static int nonstatic_autoadd_resources(struct pcmcia_socket *s)
- 	 */
- 	if (s->cb_dev->bus->number == 0)
- 		return -EINVAL;
--
--	for (i = 0; i < PCI_BRIDGE_RESOURCE_NUM; i++) {
--		res = s->cb_dev->bus->resource[i];
--#else
--	pci_bus_for_each_resource(s->cb_dev->bus, res, i) {
- #endif
-+
-+	pci_bus_for_each_resource_p(s->cb_dev->bus, res) {
- 		if (!res)
- 			continue;
- 
-diff --git a/drivers/pcmcia/yenta_socket.c b/drivers/pcmcia/yenta_socket.c
-index 1365eaa20ff4..2e5bdf3db0ba 100644
---- a/drivers/pcmcia/yenta_socket.c
-+++ b/drivers/pcmcia/yenta_socket.c
-@@ -673,9 +673,8 @@ static int yenta_search_res(struct yenta_socket *socket, struct resource *res,
- 			    u32 min)
- {
- 	struct resource *root;
--	int i;
- 
--	pci_bus_for_each_resource(socket->dev->bus, root, i) {
-+	pci_bus_for_each_resource_p(socket->dev->bus, root) {
- 		if (!root)
- 			continue;
- 
--- 
-2.39.2
+I checked compiler flags between Xen and Linux. The difference is in-
+fno-PIE (Linux also adds -mabi and -march to AFLAGS):
 
+1. Linux build command of head.S: riscv64-linux-gnu-gcc -Wp,-
+MD,arch/riscv/kernel/.head.o.d -nostdinc -isystem /usr/lib/gcc-
+cross/riscv64-linux-gnu/9/include -I./arch/riscv/include -
+I./arch/riscv/include/generated -I./include -I./arch/riscv/include/uapi
+-I./arch/riscv/include/generated/uapi -I./include/uapi -
+I./include/generated/uapi -include ./include/linux/kconfig.h -
+D__KERNEL__ -D__ASSEMBLY__ -fno-PIE -mabi=3Dlp64 -march=3Drv64imafdc -c -o
+arch/riscv/kernel/head.o arch/riscv/kernel/head.S
+
+2. Xen build command of head.S:riscv64-linux-gnu-gcc -MMD -MP -MF
+arch/riscv/riscv64/.head.o.d -D__ASSEMBLY__ -Wa,--noexecstack -
+DBUILD_ID -fno-strict-aliasing -Wall -Wstrict-prototypes -Wdeclaration-
+after-statement -Wno-unused-but-set-variable -Wno-unused-local-typedefs
+-O1 -fno-omit-frame-pointer -nostdinc -fno-builtin -fno-common -Werror
+-Wredundant-decls -Wno-pointer-arith -Wvla -pipe -D__XEN__ -include
+./include/xen/config.h -Wa,--strip-local-absolute -g -mabi=3Dlp64 -
+I./include -I./arch/riscv/include -march=3Drv64gc -mstrict-align -
+mcmodel=3Dmedany - -c arch/riscv/riscv64/head.S -o
+arch/riscv/riscv64/head.o
+
+So can we update AFLAGS in xen/arch/riscv/arch.mk with -fno-PIE or will
+it still be an incorrect fix?
+
+[1]
+https://github.com/riscv-non-isa/riscv-asm-manual/blob/master/riscv-asm.md#=
+pseudoinstructions
+
+~ Oleksii
 
