@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E62FE6BC0B3
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 00:16:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510264.787600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A19696BC0D9
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 00:25:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510266.787609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcaKf-0008KL-On; Wed, 15 Mar 2023 23:14:57 +0000
+	id 1pcaUh-0001fP-N9; Wed, 15 Mar 2023 23:25:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510264.787600; Wed, 15 Mar 2023 23:14:57 +0000
+Received: by outflank-mailman (output) from mailman id 510266.787609; Wed, 15 Mar 2023 23:25:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcaKf-0008Ie-L0; Wed, 15 Mar 2023 23:14:57 +0000
-Received: by outflank-mailman (input) for mailman id 510264;
- Wed, 15 Mar 2023 23:14:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pcaUh-0001cf-KD; Wed, 15 Mar 2023 23:25:19 +0000
+Received: by outflank-mailman (input) for mailman id 510266;
+ Wed, 15 Mar 2023 23:25:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Owab=7H=collabora.com=dmitry.osipenko@srs-se1.protection.inumbo.net>)
- id 1pcaKd-0008IW-SY
- for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 23:14:56 +0000
-Received: from madras.collabora.co.uk (madras.collabora.co.uk
- [2a00:1098:0:82:1000:25:2eeb:e5ab])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3072932b-c387-11ed-87f5-c1b5be75604c;
- Thu, 16 Mar 2023 00:14:53 +0100 (CET)
-Received: from [192.168.2.157] (109-252-120-116.nat.spd-mgts.ru
- [109.252.120.116])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ <SRS0=keCs=7H=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1pcaUg-0001cT-3k
+ for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 23:25:18 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a3f7a091-c388-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 00:25:15 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- (Authenticated sender: dmitry.osipenko)
- by madras.collabora.co.uk (Postfix) with ESMTPSA id 6C7566602097;
- Wed, 15 Mar 2023 23:14:50 +0000 (GMT)
+ by ams.source.kernel.org (Postfix) with ESMTPS id C9A69B81F69;
+ Wed, 15 Mar 2023 23:25:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13837C4339B;
+ Wed, 15 Mar 2023 23:25:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,98 +43,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3072932b-c387-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1678922091;
-	bh=kfbQvx/fSEJBURTbw+/HXV8hkAheOenZMDFc7GsHgaA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=TAsmnXa90YaFQQOG4k9koeZ3LR5Ie8vvLmANBMhpXuM5wFSm6KGVPa9zHNsMQio5n
-	 2LEwXOACKu0vD0XTtAQO6eoQtlNKJRfhDF55FomfLvig1hogjFctUD6zx2C2uFTZB2
-	 gvbJx0psCt0B90Hc3ndt3flaGdSuArzw3zHap1uh68BuOi1hv6sQNaF1B/a3liZlJN
-	 EBgG2wI2C0XhYJF6Yru7DMurnjQGGyk6lwrFAMXEZhbI0euGu4GCdTOHrlT65p7ODh
-	 FMk1ayFUiLtKkwepYML19bsKMB3qJM+qGMYBSJITCA+LrFvkaJYecxmBC3fJ/sHjdp
-	 0IaLGcZuFqWmg==
-Message-ID: <53c25304-bc30-b5af-846e-b247aab67be9@collabora.com>
-Date: Thu, 16 Mar 2023 02:14:47 +0300
+X-Inumbo-ID: a3f7a091-c388-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1678922713;
+	bh=jc1Gbldgu0s3c1IL4ZwUV75CvRBN1rI1hujAlbgRO+M=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=NnDonRvDGOEUa1gqnkXP4Rh19Niwv9n0KsLi7zCRaxG2und0Dk6en63v1orrj6ZGw
+	 lozAuqt876/Db9pEtvAZt2dR5InwzKUlbBdsfnujEuG5F/cujBwEY5jHoe1VE7OuS9
+	 3LMXbUq59uW8YMc83N0zrUSpADe/oEKUGVmV1RIIA0/yveyALHfvtJ9S6+RJLXwKKs
+	 povEA3lU9rUCt++t5O3sgG1gRk3tAhaQsgKZNbl5UdljiPuS3lZG7lIaPIlD8OgIq0
+	 dk3NgWu2z0h5LVZyBMVvG/QWHp7XM3OFPKp0tTwY2yrLMOUsaePm7IewZlpl6eDagG
+	 NfFs5aff/mgCQ==
+Date: Wed, 15 Mar 2023 16:25:06 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Huang Rui <ray.huang@amd.com>, 
+    Alex Deucher <alexander.deucher@amd.com>, 
+    =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+    Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
+    Xenia Ragiadakou <burzalodowa@gmail.com>, 
+    Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>, 
+    Chen Jiqian <Jiqian.Chen@amd.com>, Juergen Gross <jgross@suse.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
+In-Reply-To: <f5e03f2a-8176-528f-e885-9a97940367c0@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2303151616200.3462@ubuntu-linux-20-04-desktop>
+References: <20230312120157.452859-1-ray.huang@amd.com> <20230312120157.452859-2-ray.huang@amd.com> <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com> <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
+ <f5e03f2a-8176-528f-e885-9a97940367c0@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [RFC QEMU PATCH 08/18] virtio-gpu: Initialize Venus
-Content-Language: en-US
-To: Huang Rui <ray.huang@amd.com>
-Cc: Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin"
- <mst@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Jan Beulich <jbeulich@suse.com>,
- "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
- Robert Beckett <bob.beckett@collabora.com>,
- "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>,
- "Huang, Honglei1" <Honglei1.Huang@amd.com>,
- "Zhang, Julia" <Julia.Zhang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
-References: <20230312092244.451465-1-ray.huang@amd.com>
- <20230312092244.451465-9-ray.huang@amd.com>
- <68195782-0309-2f81-7f1f-84a7fe7bb05c@collabora.com>
- <ZA9HWRYxPUk1OeGe@amd.com>
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <ZA9HWRYxPUk1OeGe@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 3/13/23 18:55, Huang Rui wrote:
-> On Mon, Mar 13, 2023 at 01:51:03AM +0800, Dmitry Osipenko wrote:
->> On 3/12/23 12:22, Huang Rui wrote:
->>> From: Antonio Caggiano <antonio.caggiano@collabora.com>
->>>
->>> Request Venus when initializing VirGL.
->>>
->>> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
->>> ---
->>>  hw/display/virtio-gpu-virgl.c | 4 ++++
->>>  1 file changed, 4 insertions(+)
->>>
->>> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
->>> index fe03dc916f..f5ce206b93 100644
->>> --- a/hw/display/virtio-gpu-virgl.c
->>> +++ b/hw/display/virtio-gpu-virgl.c
->>> @@ -803,7 +803,11 @@ int virtio_gpu_virgl_init(VirtIOGPU *g)
->>>  {
->>>      int ret;
->>>  
->>> +#ifdef VIRGL_RENDERER_VENUS
->>> +    ret = virgl_renderer_init(g, VIRGL_RENDERER_VENUS, &virtio_gpu_3d_cbs);
->>> +#else
->>>      ret = virgl_renderer_init(g, 0, &virtio_gpu_3d_cbs);
->>> +#endif
->>
->> Note that Venus now requires VIRGL_RENDERER_RENDER_SERVER flag to be
->> set. Please test the patches with the latest virglrenderer and etc.
->>
->> The #ifdef also doesn't allow adding new flags, it should look like:
->>
->> #ifdef VIRGL_RENDERER_VENUS
->>     flags |= VIRGL_RENDERER_RENDER_SERVER;
->> #endif
->>
->>     ret = virgl_renderer_init(g, flags, &virtio_gpu_3d_cbs);
+On Wed, 15 Mar 2023, Jan Beulich wrote:
+> On 15.03.2023 01:52, Stefano Stabellini wrote:
+> > On Mon, 13 Mar 2023, Jan Beulich wrote:
+> >> On 12.03.2023 13:01, Huang Rui wrote:
+> >>> Xen PVH is the paravirtualized mode and takes advantage of hardware
+> >>> virtualization support when possible. It will using the hardware IOMMU
+> >>> support instead of xen-swiotlb, so disable swiotlb if current domain is
+> >>> Xen PVH.
+> >>
+> >> But the kernel has no way (yet) to drive the IOMMU, so how can it get
+> >> away without resorting to swiotlb in certain cases (like I/O to an
+> >> address-restricted device)?
+> > 
+> > I think Ray meant that, thanks to the IOMMU setup by Xen, there is no
+> > need for swiotlb-xen in Dom0. Address translations are done by the IOMMU
+> > so we can use guest physical addresses instead of machine addresses for
+> > DMA. This is a similar case to Dom0 on ARM when the IOMMU is available
+> > (see include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect, the corresponding
+> > case is XENFEAT_not_direct_mapped).
 > 
-> In fact, we have rebased to the latest virglrenderer:
-> 
-> We check both VIRGL_RENDERER_RENDER_SERVER or VIRGL_RENDERER_VENUS in
-> virglrenderer, alternative of them works.
-> 
-> https://gitlab.freedesktop.org/rui/virglrenderer/-/commit/c1322a8a84379b1ef7939f56c6761b0114716f45
+> But how does Xen using an IOMMU help with, as said, address-restricted
+> devices? They may still need e.g. a 32-bit address to be programmed in,
+> and if the kernel has memory beyond the 4G boundary not all I/O buffers
+> may fulfill this requirement.
 
-All the extra changes you made to virglrenderer that Qemu depends on
-need to go upstream. Please open all the relevant merge requests. Thanks!
+In short, it is going to work as long as Linux has guest physical
+addresses (not machine addresses, those could be anything) lower than
+4GB.
 
--- 
-Best regards,
-Dmitry
+If the address-restricted device does DMA via an IOMMU, then the device
+gets programmed by Linux using its guest physical addresses (not machine
+addresses).
 
+The 32-bit restriction would be applied by Linux to its choice of guest
+physical address to use to program the device, the same way it does on
+native. The device would be fine as it always uses Linux-provided <4GB
+addresses. After the IOMMU translation (pagetable setup by Xen), we
+could get any address, including >4GB addresses, and that is expected to
+work.
 
