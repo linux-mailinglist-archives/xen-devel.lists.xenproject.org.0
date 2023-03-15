@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AB146BBBFA
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 19:24:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510170.787424 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F08406BBC00
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 19:25:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510172.787435 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcVme-0007UY-8d; Wed, 15 Mar 2023 18:23:32 +0000
+	id 1pcVon-00083N-L1; Wed, 15 Mar 2023 18:25:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510170.787424; Wed, 15 Mar 2023 18:23:32 +0000
+Received: by outflank-mailman (output) from mailman id 510172.787435; Wed, 15 Mar 2023 18:25:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcVme-0007SQ-5f; Wed, 15 Mar 2023 18:23:32 +0000
-Received: by outflank-mailman (input) for mailman id 510170;
- Wed, 15 Mar 2023 18:23:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pcVon-00081g-Hp; Wed, 15 Mar 2023 18:25:45 +0000
+Received: by outflank-mailman (input) for mailman id 510172;
+ Wed, 15 Mar 2023 18:25:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ux93=7H=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pcVmc-0007SK-Dq
- for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 18:23:30 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79bb67a0-c35e-11ed-b464-930f4c7d94ae;
- Wed, 15 Mar 2023 19:23:26 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id h8so35274403ede.8
- for <xen-devel@lists.xenproject.org>; Wed, 15 Mar 2023 11:23:25 -0700 (PDT)
+ id 1pcVom-00081K-Dv
+ for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 18:25:44 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cba8e139-c35e-11ed-87f5-c1b5be75604c;
+ Wed, 15 Mar 2023 19:25:43 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id x13so31746399edd.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Mar 2023 11:25:43 -0700 (PDT)
 Received: from [192.168.8.114] (46.204.101.131.nat.umts.dynamic.t-mobile.pl.
  [46.204.101.131]) by smtp.gmail.com with ESMTPSA id
- kk1-20020a170907766100b0092b8c1f41ebsm2827543ejc.24.2023.03.15.11.23.24
+ zk6-20020a17090733c600b00927e0fb3e50sm2847209ejb.100.2023.03.15.11.25.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Mar 2023 11:23:24 -0700 (PDT)
+ Wed, 15 Mar 2023 11:25:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +44,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79bb67a0-c35e-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: cba8e139-c35e-11ed-87f5-c1b5be75604c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678904605;
+        d=gmail.com; s=20210112; t=1678904742;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=FdfnZppe0CIozqZQsvk6mx6ROijCjVTsdoIh6BbMsRc=;
-        b=HCY96oS06l4iCC+A68KE5L8ufz/bkvlF3azySSb6UEWgh8KZP+Om+WocQxjOYtuIeh
-         dBUQ2T7diEj+fre8n6MW4s9tsvcBcUnf3Fxk+pH85MafrY42UTv0eOYlIZpJXcJcxtNn
-         pW8SrroS0XzBSAxS0jPysHBcLZVxW7dhMJAG7vjTkcp6h5Lml/B9tciw0UIvm08jUnDI
-         TOmF3vAYtf0Ug9o3jci22JdRlnADlffDOAg8446y3AJKGBPwK/gjdqU0jWZgvMwwDbkO
-         Zzp3hfGRk1IlZcReQm95yqTSdV/N6Li8XG1nsECi4GpDrLNbma57DFYFOgvf0whwlbyt
-         J53A==
+        bh=EsfNJzGXFo+wfWbp9Tuz/H0Bn24OppdY5vSVwfN72E4=;
+        b=E/vZ25uC+ptFzWNFBxsDe7QqCROMthI/kn3jMx7wH+Qqi/8y2bgQqA4X9EhDAtkNnF
+         +dlEuRGvp/rbBfIIVCu/6c50pQBJ87mUDB2svzQHSWxyfQU4nSKSnIv1CaqMljGGMENh
+         KrCnAxQW0INV/z/iGTnVsIgpMEyrQ0r5jqW4gKT2mF4QECIhhzPTn4T579pZmZupWQke
+         JOXeurtaqEWLX6+vPPX+ZwkVLQ2c595J+7KdpFTbSJmegupnGfmhHfx/0uCl4vOqLQq9
+         V+19AKlSrrA4aNgQwjOpFLFNryDYKafeBF6qMIIXt+JEeJ0fo/MOGErK3qgeAQnO60Xh
+         vrCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678904605;
+        d=1e100.net; s=20210112; t=1678904742;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=FdfnZppe0CIozqZQsvk6mx6ROijCjVTsdoIh6BbMsRc=;
-        b=ZcUohSCG/SNMGRo5qptmhn3uvXfT6HFPQpH7/T04B2inkmnRWLxSjG12zVfrXCNM4M
-         aPunLqea2xoPJWQ3h5z+tfYTXPab9sF3ImYf45hsvVrr6NpJRyfgT83/TjjPzEEJc0hO
-         +7RiiY+7jmtE2cjLtmCddxF/8mX0EX6eZwbWzMd9DYqo/xKHocPyTRNisaZw4XGUnbyO
-         5vKWpV7jJ/pQ4GZpfkEfC0uqZ6yNyw5AW7GLdl3qcjddhKmsgebll0bR5GrX4zsYm3sD
-         +7e4JmNkKXua1EDDZPL8QobcZsBqh/DUxesMV8SJ1YvmFIGYESRbjn0xurZRFhsGW+Ko
-         qfIA==
-X-Gm-Message-State: AO0yUKVX9USBFUz2d+j3Fr2kjgAR9lDNhNF113NbJ7ywDMqj7GbL0a0y
-	xxnEGcWrpSpp6wQ+HqISY0Y=
-X-Google-Smtp-Source: AK7set9OWB0GuCGdT1RaiQ0XE/g2yToPhFa9PKD6vGu0/eVPm8bTJXNK2NP0sfQIGSA2H2tUBjrxSg==
-X-Received: by 2002:aa7:d943:0:b0:4ac:bd84:43d9 with SMTP id l3-20020aa7d943000000b004acbd8443d9mr3803723eds.2.1678904605091;
-        Wed, 15 Mar 2023 11:23:25 -0700 (PDT)
-Message-ID: <b81cddfce06628dc1e0cf373c323c74d1b256313.camel@gmail.com>
+        bh=EsfNJzGXFo+wfWbp9Tuz/H0Bn24OppdY5vSVwfN72E4=;
+        b=a8XHQeENdTgphl+c8i7xZ/JUXt3dVSdwOR4OaQUaGLq4Ie1oee1bgybjgJA+4lr2yU
+         1ln6PoqN9I84LG/nv5On6ikcSIueMRIZTHYVArcjlzMSZ15stecq3sUuXcLmGZygax04
+         fWV9kiQm4FdYTq2BjFc2uzIfH9ZAfloLkKhujkAHgDKwhaBu+/C7TosHKIMt92FDehBk
+         L/N71Mm8VaSzjzVdVXfH3DDtlvOPBI5v6FnQYkfzg8SXHY9b0b1EUtUnAthwqsZHIQ0y
+         sCp20sT1QDoxaA0wWWgYgCNUqRYqZbLzNWc4NY/dhwn9uf7AcGZChRWusgzvYQd8+rCr
+         nDBQ==
+X-Gm-Message-State: AO0yUKV0gqsU/R+IDcPvFNq/oNkJOLuS2jx/IIavQ5owrF15rrZSMErY
+	Pf6EUh/hyjIInJTJhtGxov8=
+X-Google-Smtp-Source: AK7set8GP727gEUbidUkB7iEgmVpmAp8iIhnMb4RbCWEPhVkqYYPSu0Jt2GF5D0Kenbu1PkF0aOHyQ==
+X-Received: by 2002:a17:906:743:b0:92b:4f8e:dddb with SMTP id z3-20020a170906074300b0092b4f8edddbmr8981648ejb.34.1678904742485;
+        Wed, 15 Mar 2023 11:25:42 -0700 (PDT)
+Message-ID: <2a7fbb0495833ad686f260091024966f8b003dcb.camel@gmail.com>
 Subject: Re: [PATCH v1] xen/riscv: make calculation of stack address
  PC-relative
 From: Oleksii <oleksii.kurochko@gmail.com>
@@ -83,20 +83,70 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida
  <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
  Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Date: Wed, 15 Mar 2023 20:23:23 +0200
-In-Reply-To: <966c19e3-d255-db73-9bb4-7abe0a745396@suse.com>
+Date: Wed, 15 Mar 2023 20:25:40 +0200
+In-Reply-To: <4a8d7292-38b3-1c32-4037-1c94b94b6f46@suse.com>
 References: 
 	<ad2249c1b5be01f99ef9c294a3264da0c9715bab.1678809641.git.oleksii.kurochko@gmail.com>
 	 <9c5ec3f3-c909-8f45-4460-1b29ce333d10@citrix.com>
 	 <e7c42fc7561b88b1a18463b9b28d0b09cd6553c4.camel@gmail.com>
-	 <966c19e3-d255-db73-9bb4-7abe0a745396@suse.com>
+	 <4a8d7292-38b3-1c32-4037-1c94b94b6f46@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
 MIME-Version: 1.0
 
-On Wed, 2023-03-15 at 08:59 +0100, Jan Beulich wrote:
+On Wed, 2023-03-15 at 08:35 +0100, Jan Beulich wrote:
 > On 14.03.2023 21:16, Oleksii wrote:
+> > On Tue, 2023-03-14 at 17:09 +0000, Andrew Cooper wrote:
+> > > On 14/03/2023 4:00 pm, Oleksii Kurochko wrote:
+> > > > The patch is needed to keep all addresses PC-relative.
+> > > >=20
+> > > > Pseudoinstruction 'la' can be transformed to 'auipc/addi' or
+> > > > 'auipc/l{w|d}'. It depends on the .option directive: nopic and
+> > > > pic.
+> > > >=20
+> > > > Right now, 'la' transforms to 'auipc/l{w|d}', which in case of
+> > > > cpu0_boot_stack[] will lead to the usage of
+> > > > _GLOBAL_OFFSET_TABLE_
+> > > > where all addresses will be without counting that it might
+> > > > happen
+> > > > that linker address !=3D load address.
+> > > >=20
+> > > > To be sure that SP is loaded always PC-relative address
+> > > > 'la' should be changed to 'lla', which always transforms to
+> > > > 'auipc/addi'.
+> > > >=20
+> > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > > > ---
+> > > > =C2=A0xen/arch/riscv/riscv64/head.S | 2 +-
+> > > > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+> > > >=20
+> > > > diff --git a/xen/arch/riscv/riscv64/head.S
+> > > > b/xen/arch/riscv/riscv64/head.S
+> > > > index 8887f0cbd4..e12d2a7cf3 100644
+> > > > --- a/xen/arch/riscv/riscv64/head.S
+> > > > +++ b/xen/arch/riscv/riscv64/head.S
+> > > > @@ -27,7 +27,7 @@ ENTRY(start)
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 add=C2=A0=C2=A0=C2=
+=A0=C2=A0 t3, t3, __SIZEOF_POINTER__
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bltu=C2=A0=C2=A0=
+=C2=A0 t3, t4, .L_clear_bss
+> > > > =C2=A0
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 la=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 sp, cpu0_boot_stack
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 lla=C2=A0=C2=A0=C2=A0=
+=C2=A0 sp, cpu0_boot_stack
+> > >=20
+> > > I don't think this is the appropriate way forward.=C2=A0 It's very
+> > > much
+> > > smells like duct tape hiding the real bug.
+> > >=20
+> > As an option, I thought to add in head.S '.option nopic' directive
+> > to
+> > make la translated to auipc/addi [1] pair.
+> > As an alternative option, adds to AFLAGS +=3D -fno-PIC... but
+> > still...
+> >=20
 > > I checked in Linux binary how 'la' instruction is transformed, and
 > > it
 > > looks like it is translated as I expect to auipc/addi pair:
@@ -132,73 +182,21 @@ On Wed, 2023-03-15 at 08:59 +0100, Jan Beulich wrote:
 > > I./include -I./arch/riscv/include -march=3Drv64gc -mstrict-align -
 > > mcmodel=3Dmedany - -c arch/riscv/riscv64/head.S -o
 > > arch/riscv/riscv64/head.o
+> >=20
+> > So can we update AFLAGS in xen/arch/riscv/arch.mk with -fno-PIE or
+> > will
+> > it still be an incorrect fix?
 >=20
-> Looking into why you see different code generated than I: Nothing in
-> here directs gcc to pass -fpic to gas; in upstream gcc (consistent
-> from gcc7 through gcc12, which are the versions I've checked; the
-> actual range may be wider) there is
->=20
-> #define ASM_SPEC "\
-> %(subtarget_asm_debugging_spec) \
-> %{" FPIE_OR_FPIC_SPEC ":-fpic} \
-> ...
->=20
-> Can you check whether your gcc passes -fpic to gas even when there's
-> no -fPIC / -fPIE (or alike) on the gcc command line?
-I am not sure that I know how to check specifically if -fpic flag
-passes to gas.
-Could you please tell me?
+> Leaving aside the question of why you and I see different code being
+> generated, isn't it simply a matter of RISC-V, unlike Arm and x86,
+> not presently consuming EMBEDDED_EXTRA_CFLAGS in its arch.mk?
+Why don't we should see different code?
 
->  Or whether your
-> gas (unlike upstream's) defaults to PIC mode? (For .S files ASM_SPEC
-> is all that counts. For .c files gcc is redundantly passing -fpic
-> along with also emitting ".option pic" or, in the opposite case, it
-> is omitting -fpic along with emitting ".option nopic".)
-it looks like it should be by default -fpic because if look at gcc spec
-file for the RISC-V architecture:
+Do you use CONTAINER=3Driscv64 to build RISC-V Xen?
+If yes, probably, we see different code because you have more up-to-
+date CONTAINER. I am using CONTAINER_NO_PULL=3D1 for a long time so it
+might happen that we have different gcc version.
 
-[user@49295ae49cbe build]$ riscv64-linux-gnu-gcc -dumpspecs | grep -i
-pic
---traditional-format %(subtarget_asm_debugging_spec) %{fno-pie|fno-
-PIE|fno-pic|fno-PIC:;:-fpic} %{march=3D*} %{mabi=3D*} %{mno-relax} %{mbig-
-endian} %{mlittle-endian} %(subtarget_asm_spec)%{misa-spec=3D*}
-
-which means that -fpic is enabled if none of the following options are
-present on the command line:
-    -fno-pie
-    -fno-PIE
-    -fno-pic
-    -fno-PIC
-
->=20
-> You gcc may have been configured with --enable-default-pie, while I
-> know mine hasn't been (simply because that's the default).
-You are right my gcc is configured with --enable-default-pie:
-
-[user@49295ae49cbe build]$ riscv64-linux-gnu-gcc -v=20
-Using built-in specs.
-COLLECT_GCC=3Driscv64-linux-gnu-gcc
-COLLECT_LTO_WRAPPER=3D/usr/lib/gcc/riscv64-linux-gnu/12.2.0/lto-wrapper
-Target: riscv64-linux-gnu
-Configured with: /build/riscv64-linux-gnu-gcc/src/gcc-12.2.0/configure
---prefix=3D/usr --program-prefix=3Driscv64-linux-gnu- --with-local-
-prefix=3D/usr/riscv64-linux-gnu --with-sysroot=3D/usr/riscv64-linux-gnu --
-with-build-sysroot=3D/usr/riscv64-linux-gnu --libdir=3D/usr/lib --
-libexecdir=3D/usr/lib --target=3Driscv64-linux-gnu --host=3Dx86_64-pc-linux=
--
-gnu --build=3Dx86_64-pc-linux-gnu --with-system-zlib --with-isl --with-
-linker-hash-style=3Dgnu --disable-nls --disable-libunwind-exceptions --
-disable-libstdcxx-pch --disable-libssp --disable-multilib --disable-
-werror --enable-languages=3Dc,c++ --enable-shared --enable-threads=3Dposix
---enable-__cxa_atexit --enable-clocale=3Dgnu --enable-gnu-unique-object -
--enable-linker-build-id --enable-lto --enable-plugin --enable-install-
-libiberty --enable-gnu-indirect-function --enable-default-pie --enable-
-checking=3Drelease
-Thread model: posix
-Supported LTO compression algorithms: zlib zstd
-gcc version 12.2.0 (GCC)
-
-So should we pass to CFLAGS and AFLAGS at least for RISC-V -fno-PIE?
 
 ~ Oleksii
 
