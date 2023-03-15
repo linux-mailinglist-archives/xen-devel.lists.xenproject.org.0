@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E64F76BB5F0
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 15:27:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510084.787151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFCCE6BB61C
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 15:33:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510093.787161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcS5a-0005OV-9T; Wed, 15 Mar 2023 14:26:50 +0000
+	id 1pcSC0-0007wO-2c; Wed, 15 Mar 2023 14:33:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510084.787151; Wed, 15 Mar 2023 14:26:50 +0000
+Received: by outflank-mailman (output) from mailman id 510093.787161; Wed, 15 Mar 2023 14:33:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcS5a-0005MF-5Y; Wed, 15 Mar 2023 14:26:50 +0000
-Received: by outflank-mailman (input) for mailman id 510084;
- Wed, 15 Mar 2023 14:26:48 +0000
+	id 1pcSBz-0007ua-Vx; Wed, 15 Mar 2023 14:33:27 +0000
+Received: by outflank-mailman (input) for mailman id 510093;
+ Wed, 15 Mar 2023 14:33:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=unbF=7H=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1pcS5Y-0004WZ-JU
- for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 14:26:48 +0000
-Received: from sonic314-19.consmr.mail.gq1.yahoo.com
- (sonic314-19.consmr.mail.gq1.yahoo.com [98.137.69.82])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sm4b=7H=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1pcSBy-0007uT-3j
+ for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 14:33:26 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6969c0bd-c33d-11ed-b464-930f4c7d94ae;
- Wed, 15 Mar 2023 15:26:46 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic314.consmr.mail.gq1.yahoo.com with HTTP; Wed, 15 Mar 2023 14:26:44 +0000
-Received: by hermes--production-bf1-777648578f-gg2qh (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 60044a03c62ff9d9db8c181d26f4f55f; 
- Wed, 15 Mar 2023 14:26:39 +0000 (UTC)
+ id 561230dd-c33e-11ed-b464-930f4c7d94ae;
+ Wed, 15 Mar 2023 15:33:22 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ m18-20020a05600c3b1200b003ed2a3d635eso1377976wms.4
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Mar 2023 07:33:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,329 +40,903 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6969c0bd-c33d-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1678890404; bh=Ca+KKFwJ0KdgZWsUXX/B0MDs5o4euAP6c75jaBfjDug=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=fPJoGa8rwvuRLtguFIDgH52v2n3xQVZyLN1+jEBNe96PlRJ7Ts5FJrDimJvpMrkAeCusnpEwP4YE4svXTAkvkPs+C3iCALBfE4QZFzy40YTxhqkMiYtgy/VHY6V+rukmMuPdwvl3IbChMIdGZFFXf8AFLkn+ZLgBhH134cBksd2U0iXUw+Er44JUAHsT0ZzTIfAUyEkFWu+1S2j4K0CF8e9V03gasoi5f0qKb2RbpArL3JCEgqbmEwF0lulzmQZKOd+saGOI8c/KaeH1RJ39on4KYF+LbsOI56Tauca6H/e5WAmzF6s+OWIY8SFNjSCCEDSuKNTLzo5kT4kR6WzxVQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1678890404; bh=/gC+Bih04/ukPqCG4N79CLQAsu8eUfDR2HTQLVkxP5j=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=KtCY/TEii8vRgNj6VKVc4DMq+/FqR6gpEF9OPNq8bBo00zcnSQtXP0W5fqEsEOmmse+kZmwxZZ18HYeiZ8Hp6h5cTjU1gp9s+ED5Z1N2EDeJPGkn2fHkOV60QivOG03XykoqxRKDFjNTLDD5f0KKwAGUT7+JLvrniFO6yOF9487lRMf06O/mlUC5LX64c4idW3RtCVLpFfVoILrA9kQi2KEomBcoMOn2mKUtO8/S+pEMRUR7WzXwG59sF+evubYPQtjRiXnGqpiJBx+X18gys8DsAFpWEVKZ5VEikH4iz+0XQgTbzSIIaJsLhfu44SSwNcRxjD0tqQrmnF9QhufGvQ==
-X-YMail-OSG: av6waTEVM1mM7u3FHKOq7bvHfs1oIFwOve.U2Om83wqFoIOfOyKSqPdXIRjAEZ8
- mJHqh8JblRTRbu9GnrmU1PZ2uli.MYwkz7Su.F3lmNrlti1ABr520.A72uuD9pq4Kd.R1R5VRTOX
- 8_IIzen3n7fy6tsM7QbUs9dqyJl089C753BJMPNo5S_xUEqTz..EE0ctmjMvPMCkED_1YisRQFSm
- usnVCU4R.7GkT4DjoWeokZYRDcysVeudlaPK7tjRUE0fV7bgs_2VuvCAnBlCJA0KFEhs9_JqC9NL
- u8AjJYX_dAfGC93jyh7nhrg3j6yNkR6f8S.0plEIPVWxz1QVQC5OUfhfknWVUABS6bZqsaXewcL3
- nFJ08_be9sKdzMP2Q6P5x80ucsYcl.kgNBYZAnlrWo1.8u2qWoQzJOvk9Yt85kEsdQ92eAhXd8cq
- .6mnbwwvwcoQucQydEUpv09jXqDwsKNV_GOm_XQq92BUi.N63XE1rPuX_ke3S3tX9agAmJH28HmC
- YVhGTiMhw06BE5cYX4er8Q77Bex2caPY9cI4Vjw0Vo2ae5QhY2LGt6x96mKJFpDSe3lyoJsldyRf
- aIBywhRlGYzFSS0dT5rJET1Xh5ykod5fkUs5KZX9HKHGMmcMxXj2Lq8gYSVNPDbUKxWEeNf7oNG1
- wcFNqW9QMhbAjhF64ZCCMU2m1iA3qrD4vZHCyt8zs2SYRME3UAdf9udvDrk4Tr..MQbQmiuKFtjo
- FQhFWF5R_HOMHahIeLxaNktwbNLbPhm0vbfrbQDY9ukV_C6YVvGIVrHZ.fB6k9jgVduCjcyI.iH.
- xhZeAWiI_mE7ARIBGMIficU0m3b1ov2_3t3L3tlxuB8gfgfpNHhXE1O4zpZGCqJu5Lv.McCfRVG2
- lu6uZTt2IlD0k9b5Pew8pwQN5Vu27T2Z7jE59JunXcClYu9GoGkPBhOh2zojRrfP_ysWz5Xwr2Vm
- GigXBi7gAr8JEM2ZBaI_4YX0Lbl3iZaLMBCGZqX.8m_a410YAWkeAM1f1bqxcHBloCGN3cziDj3r
- lvB6p0Lbu9QBwfLCBznS_wMM3DoH59.0NjCzn.LI7b8xG68ceu0i7Qj5jj.tSRKCpLVOWPNdtsb1
- x0KoA6Gz.KpZVt2dE2t0UnHQRJDuQslas8mBGwD4xWdVRvHdGug6DFmD26LvZBPMKBDShwDwGI4e
- MJiIyo.DdOeXrt7NT_dVYIVtjwZFoZTDMsTC9SCchkPNZxHoHm8S8zOjgf6MgGIsO8VbC.c7MPGl
- l8zd5h_0PGxUBYr4Lu.BPDisQEdQpVAaUS8WUpK8gr.zuGV68K7vDtpNz6V3d5t4bGellu7.CNve
- HN7gndbfnjE6uIMLAIXt1JrYaPc12eWF0XfiGK8cLDqPcPOCF41vHnjaItc935wLvfk63xX115a4
- 1jcXk13N9iHd7Lx2I7jj.iJh3mBnlkAs5kURe5.GVXBt5otjUBV5JFAeqaYUU4HFrk4x6MvH92eu
- Mm52LQ35dGTb2E98VorpcVCgpkcxIJ3jpx_wHTpTkpKBhE6eOqZMDzXQDVmZhfJpswUHZykxe2iP
- MLOOjp0vohBw_WlYCrS6ekdD5QU0AC0WITj22e971cU7Et1mo_p3OGuEipUdMkq40n5M_vw1JSIq
- 236bWq9cWgBhCE1K.N5p0K5HFo4FIGNJ9mSbRcVNja47jS1GCSRDLg2CUBdPnHwE4YRuhQIwWDwt
- d2EexOOC_30YO8e2vaZdND7obny1fz2uUlLmeIGNU8gxHM1xMDIfDvFjcxjEGZM_li8hdEI9.g_8
- mR14lkYdKWfT0gEvUGgcnH0dsefd08yDlQHL_0Xx7K8h3y9nRMM81QFtGIB8BnrX0hHSEL7EHhmL
- 0CYVfWyvj0ishPUsqM8UqiT575xBVKVyBN41r5SKKbfdUNCarZIsDam1kbI0t2jnIyEBkP.K05hz
- xxQeCGvYVFi6gbJub3FGPPGR_Zp9iJn9OnB5nelC6ul1AUbfwqIi_M7k7SbnsZmYLOWJNw0baUml
- hYmZJgYj2whhzvU1_ZYL8oP9P8mqbG4.DeimnVbexBXPb3wyKNQ576A82RwFIANk0caR3vOHJWEJ
- YgYEBCJIB.tLb162LBX5lNisv.bnPXRBP9qeP701hDUpa8.2_j6IyIpAF5QIJ8zXe8WdY__bMoIK
- 76gUdCHHoGhG1rvCrdl1b5Uqd2Px_7HddJ5kJEkr2cSAWhwUG.WgLDlp3kWeMcDuhPG3HLnweU1M
- iln37MWw-
-X-Sonic-MF: <brchuckz@aim.com>
-X-Sonic-ID: 747eaab4-cd4e-430a-955a-e1359176afc9
-From: Chuck Zmudzinski <brchuckz@aol.com>
-To: qemu-devel@nongnu.org
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Artyom Tarasenko <atar4qemu@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v4 2/2] pci: introduce slot_reserved_auto_mask and slot_reserved_manual_mask
-Date: Wed, 15 Mar 2023 10:26:20 -0400
-Message-Id: <c35f865c9bec15ad9da65c97696a7cc5a2949d99.1678888385.git.brchuckz@aol.com>
-X-Mailer: git-send-email 2.39.2
-In-Reply-To: <cover.1678888385.git.brchuckz@aol.com>
-References: <cover.1678888385.git.brchuckz@aol.com>
+X-Inumbo-ID: 561230dd-c33e-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1678890801;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mmjMcqgn3FYCAoeZ6lrz6/YNjPZkX/WYGTVNpDqi4Lk=;
+        b=iSKZSIQs3Tq5rpB2BszMm/bxxA1MuUMNRuiDLfIO0FeUmM3n7s1xmw5TOj7r8P6eVP
+         O7gSZ2xhSMMZ7nNA+yxZOYQlLbM/MwVAld4cPtfLTR8fbPdhcybN56cy5R82nFYldoHv
+         pF/IDEQN0lzcXCo6pWKBGNNYLws/xzYSeiAhdkfrH6lJBNkcSW8IYuBMP5tqfwmsZr/Q
+         PFdGlisrJRVYodMAtPz2gskDdtuobps3oWKugR+r88orUMhff/IabGPzhg99fscdEXXU
+         pjxSIvFtcwwSWoumiAJcdT/SYAzkg8OkH5MWe4tTEm8O8byCSt6R4wBJh0IlCiv6XUf0
+         9GLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678890801;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=mmjMcqgn3FYCAoeZ6lrz6/YNjPZkX/WYGTVNpDqi4Lk=;
+        b=ugDdyZlD744bo+avyRYm0LBnSMf58SkAYCELmiuP5UJfmgCad2RPeMmGJC9DzYNrE3
+         JX0+SSUhivzg2BqDyMq9DmqrBz/5QuT0qcpqsBY3tVshPgn0MK+f0vjIoBFvJde02kWd
+         ucKxTBeEY9TxCIYnolbzT2Ne/W5/Hs2HkYeXFWx/r+ux7/l6r6hOoJeDpWBU8Y7J1s/G
+         kZBl56MQz4A4tRhcmwwFiuCrDdOsvm+oirGlGKuO08+lr0tmGw6bUl/nFkkcXK9qr8C1
+         Osvmlin4Dgm08Hl2lc3DRhKeFXTSE//DY5QRFMZQyAc1/Ce47OBe9tItDDu1dD6V0wWa
+         3vaA==
+X-Gm-Message-State: AO0yUKUeuhQM5EOJqWnJb7lRPJa+sQjqGbJ6kCrwQOTqeQYIoItQKUE2
+	HXZwaEW5XrzW16tozdfoplcgZMad15462NGDlRZZSg==
+X-Google-Smtp-Source: AK7set/EIjff+tV12+ujW+dgARTgV2Zmx/NtYhKjDtF5z2w+kHGjKacUgd0pNhH+9HFQRk+E/1SDmmYNjs+IkL9vMZ8=
+X-Received: by 2002:a05:600c:512a:b0:3ed:26fa:6ee5 with SMTP id
+ o42-20020a05600c512a00b003ed26fa6ee5mr2844775wms.4.1678890801259; Wed, 15 Mar
+ 2023 07:33:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1677079671.git.jens.wiklander@linaro.org>
+ <fdca8effb1c2c209fd9d15c90360196fa67a845c.1677079672.git.jens.wiklander@linaro.org>
+ <CC630914-0816-40F9-B33C-86EC4E3B4BE6@arm.com> <CAHUa44FHh1d4+6dc2CW0Zpu+7uBaK0i=DRENQbtZwGoOR50aDw@mail.gmail.com>
+ <ABA67A6F-F0D4-413C-9FD1-C7E2FF8FAF16@arm.com>
+In-Reply-To: <ABA67A6F-F0D4-413C-9FD1-C7E2FF8FAF16@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 15 Mar 2023 15:33:09 +0100
+Message-ID: <CAHUa44Fu6G-xKesrXn8uWaOTW4ujf=S0XtOgPcnGvwHdZxLTJA@mail.gmail.com>
+Subject: Re: [XEN PATCH v7 18/20] xen/arm: ffa: support sharing memory
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
+	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit 4f67543bb8c5 ("xen/pt: reserve PCI slot 2 for Intel igd-passthru")
-uses slot_reserved_mask to reserve slot 2 for the Intel igd for the
-xenfv machine when the guest is configured for igd-passthru.
+Hi Bertrand,
 
-Prior to that commit, a single 32-bit mask was sufficient to meet the
-needs of the only machine that used the 32-bit slot_reserved_mask, the
-sun4u machine. However, the requirements of the xenfv machine with
-igd-passthru is somewhat different from the requirements of the sun4u
-machine.
-
-First, the sun4u machine reserves slots in such a way that no device
-can be assigned to a reserved slot, but the xenfv machine needs to
-reserve a single slot that is reserved for a particular device, the
-Intel igd. The necessary logic to ensure that the reserved slot is used
-by the Intel igd was recently added by the aforementioned commit.
-
-Second, it is useful to limit slot reservation in the case of the xenfv
-machine with the Intel igd to devices configured for automatic slot
-assignment so an administrator can assign a device to the reserved slot
-by manually specifying the reserved slot address on the command line,
-but the sun4u machine requires slot reservation for all devices, whether
-or not the device is configured for automatic slot assignment or
-configured manually by specifying a slot address on the command line. In
-other words, for the sun4u machine, the required behavior is that an
-attempt to assign a reserved slot to a device must always result in an
-error, but it is useful to allow manual assignment of a reserved slot to
-succeed for the xenfv machine with the Intel igd.
-
-The necessary logic to implement the desired behavior of reserving one
-or more slots only for the case of automatic slot allocation has not yet
-been implemented, and that is the purpose of this patch.
-
-The implementation is simple: the xenfv machine only sets
-slot_reserved_auto_mask and the sun4u machine sets both
-slot_reserved_manual_mask and slot_reserved_auto_mask. A single
-"set" accessor function allows xenfv and sun4u machines to set the
-value of the two masks appropriately for each use case.
-
-Since the xenfv machine needs to implement additional logic to detect
-the Intel igd and clear the bit in the mask to allow a particular device
-to use the reserved slot, there is a need for a "get" and "clear" accessor
-function for slot_reserved_auto_mask, but these accessor functions are
-not needed for slot_reserved_manual_mask because the sun4u machine has
-no need to get the value of the mask or clear bits in the mask.
-
-Link: https://lore.kernel.org/qemu-devel/20230106064838-mutt-send-email-mst@kernel.org/
-Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
----
-Changelog
-
-v4: Style corrections, 3 lines in v3 were too long:
-
-    1. In hw/pci/pci.c:
-
-void pci_bus_set_slot_reserved_masks(PCIBus *bus, uint32_t auto_mask, uint32_t manual_mask)
-
-is changed to
-
-void pci_bus_set_slot_reserved_masks(PCIBus *bus, uint32_t auto_mask,
-                                     uint32_t manual_mask)
-...
-    2. In hw/xen/xen_pt.c:
-
-    if (!(pci_bus_get_slot_reserved_auto_mask(pci_bus) & XEN_PCI_IGD_SLOT_MASK)) {
-
-is changed to
-
-    if (!(pci_bus_get_slot_reserved_auto_mask(pci_bus) &
-          XEN_PCI_IGD_SLOT_MASK)) {
-...
-    3. In include/hw/pci/pci.h:
-
-void pci_bus_set_slot_reserved_masks(PCIBus *bus, uint32_t auto_mask, uint32_t manual_mask);
-
-is changed to
-
-void pci_bus_set_slot_reserved_masks(PCIBus *, uint32_t, uint32_t);
-
-    No other changes since v3
-
-v3: Change Subject of patch from
-    "pci: allow slot_reserved_mask to be ignored with manual slot assignment" To
-    "pci: introduce slot_reserved_auto_mask and slot_reserved_manual_mask"
-    
-    Substantially reword the commit message to clearly explain the reasons
-    this patch is needed
-
-    Apply changes in response to comments on v2:
-       - slot_reserved_mask -> slot_reserved_auto_mask
-       - remove enforce_slot_reserved_mask_manual
-       - remove pci_bus_ignore_slot_reserved_mask_manual
-       - add slot_reserved_manual_mask
-       - pci_bus_devfn_reserved -> pci_bus_devfn_reserved_auto
-       - change code in pci_bus_devfn_reserved_manual appropriately
-       - pci_bus_set_slot_reserved_mask -> pci_bus_set_slot_reserved_masks
-           - use renamed "set" function to set value of both masks for sun4u and xenfv cases
-       - pci_bus_get_slot_reserved_mask -> pci_bus_get_slot_reserved_auto_mask
-       - pci_bus_clear_slot_reserved_mask -> pci_bus_clear_slot_reserved_auto_mask
-
-v2: Change Subject of patch from
-    "pci: add enforce_slot_reserved_mask_manual property" To
-    "pci: allow slot_reserved_mask to be ignored with manual slot assignment"
-
-    Add pci_bus_ignore_slot_reserved_mask_manual function
-
-    Call pci_bus_ignore_slot_reserved_mask_manual at appropriate place
-    in hw/pci-host/i440fx.c
-
- hw/pci/pci.c             | 30 +++++++++++++++++++-----------
- hw/sparc64/sun4u.c       |  6 +++---
- hw/xen/xen_pt.c          |  7 ++++---
- include/hw/pci/pci.h     |  6 +++---
- include/hw/pci/pci_bus.h |  3 ++-
- 5 files changed, 31 insertions(+), 21 deletions(-)
-
-diff --git a/hw/pci/pci.c b/hw/pci/pci.c
-index 8a87ccc8b0..606adda9da 100644
---- a/hw/pci/pci.c
-+++ b/hw/pci/pci.c
-@@ -500,7 +500,8 @@ static void pci_root_bus_internal_init(PCIBus *bus, DeviceState *parent,
- {
-     assert(PCI_FUNC(devfn_min) == 0);
-     bus->devfn_min = devfn_min;
--    bus->slot_reserved_mask = 0x0;
-+    bus->slot_reserved_auto_mask = 0x0;
-+    bus->slot_reserved_manual_mask = 0x0;
-     bus->address_space_mem = address_space_mem;
-     bus->address_space_io = address_space_io;
-     bus->flags |= PCI_BUS_IS_ROOT;
-@@ -1111,24 +1112,31 @@ static bool pci_bus_devfn_available(PCIBus *bus, int devfn)
-     return !(bus->devices[devfn]);
- }
- 
--static bool pci_bus_devfn_reserved(PCIBus *bus, int devfn)
-+static bool pci_bus_devfn_reserved_auto(PCIBus *bus, int devfn)
- {
--    return bus->slot_reserved_mask & (1UL << PCI_SLOT(devfn));
-+    return bus->slot_reserved_auto_mask & (1UL << PCI_SLOT(devfn));
- }
- 
--uint32_t pci_bus_get_slot_reserved_mask(PCIBus *bus)
-+static bool pci_bus_devfn_reserved_manual(PCIBus *bus, int devfn)
- {
--    return bus->slot_reserved_mask;
-+    return bus->slot_reserved_manual_mask & (1UL << PCI_SLOT(devfn));
- }
- 
--void pci_bus_set_slot_reserved_mask(PCIBus *bus, uint32_t mask)
-+void pci_bus_set_slot_reserved_masks(PCIBus *bus, uint32_t auto_mask,
-+                                     uint32_t manual_mask)
- {
--    bus->slot_reserved_mask |= mask;
-+    bus->slot_reserved_auto_mask |= auto_mask;
-+    bus->slot_reserved_manual_mask |= manual_mask;
- }
- 
--void pci_bus_clear_slot_reserved_mask(PCIBus *bus, uint32_t mask)
-+void pci_bus_clear_slot_reserved_auto_mask(PCIBus *bus, uint32_t mask)
- {
--    bus->slot_reserved_mask &= ~mask;
-+    bus->slot_reserved_auto_mask &= ~mask;
-+}
+On Wed, Mar 15, 2023 at 2:24=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 14 Mar 2023, at 18:56, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > Hi Bertrand,
+> >
+> > On Mon, Mar 13, 2023 at 9:49=E2=80=AFAM Bertrand Marquis
+> > <Bertrand.Marquis@arm.com> wrote:
+> >>
+> >> Hi Jens,
+> >>
+> >>> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> =
+wrote:
+> >>>
+> >>> Adds support for a guest to share memory with an SP using FFA_MEM_SHA=
+RE
+> >>> and FFA_MEM_RECLAIM. Only small memory regions can be shared using a
+> >>> single call to FFA_MEM_SHARE are supported.
+> >>
+> >> This sentence needs a bit of rephrasing and to add more details: what =
+is "small".
+> >
+> > OK, how about "Only memory regions small enough to be shared with a
+> > single call..."
+>
+> Ok
+>
+> >
+> >>
+> >>>
+> >>> A memory region that doesn't need to be shared any longer can be
+> >>> reclaimed with FFA_MEM_RECLAIM once the SP doesn't use it any longer.
+> >>> This is checked by the SPMC and not in control of the mediator.
+> >>
+> >> This explanation would make more sense in the following patch adding s=
+upport
+> >> for Reclaim.
+> >
+> > Quite right, I'll move it to the next patch.
+> >
+> >>
+> >>>
+> >>> With this commit we have a FF-A version 1.1 [1] mediator able to
+> >>> communicate with a Secure Partition in secure world using shared memo=
+ry.
+> >>> The secure world must use FF-A version 1.1, but the guest is free to =
+use
+> >>> version 1.0 or version 1.1.
+> >>
+> >> I do not see anything limiting that in the code.
+> >> During init we accept 1.0 or 1.1 versions of the secure world.
+> >
+> > Good catch, I'll update to only accept version 1.1 in the secure world.
+> >
+> >>
+> >>>
+> >>> Adds a check that the SP supports the needed FF-A features
+> >>> FFA_MEM_SHARE_64 or FFA_MEM_SHARE_32.
+> >>>
+> >>> [1] https://developer.arm.com/documentation/den0077/latest
+> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >>> ---
+> >>> xen/arch/arm/tee/ffa.c | 491 ++++++++++++++++++++++++++++++++++++++++=
 +
-+uint32_t pci_bus_get_slot_reserved_auto_mask(PCIBus *bus)
-+{
-+    return bus->slot_reserved_auto_mask;
- }
- 
- /* -1 for devfn means auto assign */
-@@ -1156,7 +1164,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
-         for(devfn = bus->devfn_min ; devfn < ARRAY_SIZE(bus->devices);
-             devfn += PCI_FUNC_MAX) {
-             if (pci_bus_devfn_available(bus, devfn) &&
--                   !pci_bus_devfn_reserved(bus, devfn)) {
-+                   !pci_bus_devfn_reserved_auto(bus, devfn)) {
-                 goto found;
-             }
-         }
-@@ -1164,7 +1172,7 @@ static PCIDevice *do_pci_register_device(PCIDevice *pci_dev,
-                    "or reserved", name);
-         return NULL;
-     found: ;
--    } else if (pci_bus_devfn_reserved(bus, devfn)) {
-+    } else if (pci_bus_devfn_reserved_manual(bus, devfn)) {
-         error_setg(errp, "PCI: slot %d function %d not available for %s,"
-                    " reserved",
-                    PCI_SLOT(devfn), PCI_FUNC(devfn), name);
-diff --git a/hw/sparc64/sun4u.c b/hw/sparc64/sun4u.c
-index eae7589462..21ab12f6f7 100644
---- a/hw/sparc64/sun4u.c
-+++ b/hw/sparc64/sun4u.c
-@@ -607,9 +607,9 @@ static void sun4uv_init(MemoryRegion *address_space_mem,
-     /* Only in-built Simba APBs can exist on the root bus, slot 0 on busA is
-        reserved (leaving no slots free after on-board devices) however slots
-        0-3 are free on busB */
--    pci_bus_set_slot_reserved_mask(pci_bus, 0xfffffffc);
--    pci_bus_set_slot_reserved_mask(pci_busA, 0xfffffff1);
--    pci_bus_set_slot_reserved_mask(pci_busB, 0xfffffff0);
-+    pci_bus_set_slot_reserved_masks(pci_bus, 0xfffffffc, 0xfffffffc);
-+    pci_bus_set_slot_reserved_masks(pci_busA, 0xfffffff1, 0xfffffff1);
-+    pci_bus_set_slot_reserved_masks(pci_busB, 0xfffffff0, 0xfffffff0);
- 
-     ebus = pci_new_multifunction(PCI_DEVFN(1, 0), true, TYPE_EBUS);
-     qdev_prop_set_uint64(DEVICE(ebus), "console-serial-base",
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index a540149639..106972647d 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -950,7 +950,7 @@ void xen_igd_reserve_slot(PCIBus *pci_bus)
-     }
- 
-     XEN_PT_LOG(0, "Reserving PCI slot 2 for IGD\n");
--    pci_bus_set_slot_reserved_mask(pci_bus, XEN_PCI_IGD_SLOT_MASK);
-+    pci_bus_set_slot_reserved_masks(pci_bus, XEN_PCI_IGD_SLOT_MASK, 0x0);
- }
- 
- static void xen_igd_clear_slot(DeviceState *qdev, Error **errp)
-@@ -970,7 +970,8 @@ static void xen_igd_clear_slot(DeviceState *qdev, Error **errp)
-         return;
-     }
- 
--    if (!(pci_bus_get_slot_reserved_mask(pci_bus) & XEN_PCI_IGD_SLOT_MASK)) {
-+    if (!(pci_bus_get_slot_reserved_auto_mask(pci_bus) &
-+          XEN_PCI_IGD_SLOT_MASK)) {
-         xpdc->pci_qdev_realize(qdev, errp);
-         return;
-     }
-@@ -981,7 +982,7 @@ static void xen_igd_clear_slot(DeviceState *qdev, Error **errp)
-         s->real_device.dev == XEN_PCI_IGD_DEV &&
-         s->real_device.func == XEN_PCI_IGD_FN &&
-         s->real_device.vendor_id == PCI_VENDOR_ID_INTEL) {
--        pci_bus_clear_slot_reserved_mask(pci_bus, XEN_PCI_IGD_SLOT_MASK);
-+        pci_bus_clear_slot_reserved_auto_mask(pci_bus, XEN_PCI_IGD_SLOT_MASK);
-         XEN_PT_LOG(pci_dev, "Intel IGD found, using slot 2\n");
-     }
-     xpdc->pci_qdev_realize(qdev, errp);
-diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
-index 935b4b91b4..226007407c 100644
---- a/include/hw/pci/pci.h
-+++ b/include/hw/pci/pci.h
-@@ -287,9 +287,9 @@ void pci_bus_irqs(PCIBus *bus, pci_set_irq_fn set_irq,
- void pci_bus_map_irqs(PCIBus *bus, pci_map_irq_fn map_irq);
- void pci_bus_irqs_cleanup(PCIBus *bus);
- int pci_bus_get_irq_level(PCIBus *bus, int irq_num);
--uint32_t pci_bus_get_slot_reserved_mask(PCIBus *bus);
--void pci_bus_set_slot_reserved_mask(PCIBus *bus, uint32_t mask);
--void pci_bus_clear_slot_reserved_mask(PCIBus *bus, uint32_t mask);
-+uint32_t pci_bus_get_slot_reserved_auto_mask(PCIBus *bus);
-+void pci_bus_set_slot_reserved_masks(PCIBus *, uint32_t, uint32_t);
-+void pci_bus_clear_slot_reserved_auto_mask(PCIBus *bus, uint32_t mask);
- /* 0 <= pin <= 3 0 = INTA, 1 = INTB, 2 = INTC, 3 = INTD */
- static inline int pci_swizzle(int slot, int pin)
- {
-diff --git a/include/hw/pci/pci_bus.h b/include/hw/pci/pci_bus.h
-index 5653175957..3c2b3b8e32 100644
---- a/include/hw/pci/pci_bus.h
-+++ b/include/hw/pci/pci_bus.h
-@@ -36,7 +36,8 @@ struct PCIBus {
-     PCIIOMMUFunc iommu_fn;
-     void *iommu_opaque;
-     uint8_t devfn_min;
--    uint32_t slot_reserved_mask;
-+    uint32_t slot_reserved_auto_mask;
-+    uint32_t slot_reserved_manual_mask;
-     pci_set_irq_fn set_irq;
-     pci_map_irq_fn map_irq;
-     pci_route_irq_fn route_intx_to_irq;
--- 
-2.39.2
+> >>> 1 file changed, 491 insertions(+)
+> >>>
+> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >>> index 94c90b252454..cdc286caf62c 100644
+> >>> --- a/xen/arch/arm/tee/ffa.c
+> >>> +++ b/xen/arch/arm/tee/ffa.c
+> >>> @@ -270,6 +270,38 @@ struct ffa_mem_transaction_1_1 {
+> >>>    uint8_t reserved[12];
+> >>> };
+> >>>
+> >>> +/* Calculate offset of struct ffa_mem_access from start of buffer */
+> >>> +#define MEM_ACCESS_OFFSET(access_idx) \
+> >>> +    ( sizeof(struct ffa_mem_transaction_1_1) + \
+> >>> +      ( access_idx ) * sizeof(struct ffa_mem_access) )
+> >>> +
+> >>> +/* Calculate offset of struct ffa_mem_region from start of buffer */
+> >>> +#define REGION_OFFSET(access_count, region_idx) \
+> >>> +    ( MEM_ACCESS_OFFSET(access_count) + \
+> >>> +      ( region_idx ) * sizeof(struct ffa_mem_region) )
+> >>> +
+> >>> +/* Calculate offset of struct ffa_address_range from start of buffer=
+ */
+> >>> +#define ADDR_RANGE_OFFSET(access_count, region_count, range_idx) \
+> >>> +    ( REGION_OFFSET(access_count, region_count) + \
+> >>> +      ( range_idx ) * sizeof(struct ffa_address_range) )
+> >>> +
+> >>> +/*
+> >>> + * The parts needed from struct ffa_mem_transaction_1_0 or struct
+> >>> + * ffa_mem_transaction_1_1, used to provide an abstraction of differ=
+ence in
+> >>> + * data structures between version 1.0 and 1.1. This is just an inte=
+rnal
+> >>> + * interface and can be changed without changing any ABI.
+> >>> + */
+> >>> +struct ffa_mem_transaction_x {
+> >>
+> >> I would suggest to s/_x/_int/ in the name here
+> >
+> > OK, I'll update
+> >
+> >>
+> >>> +    uint16_t sender_id;
+> >>> +    uint8_t mem_reg_attr;
+> >>> +    uint8_t flags;
+> >>> +    uint8_t mem_access_size;
+> >>> +    uint8_t mem_access_count;
+> >>> +    uint16_t mem_access_offs;
+> >>> +    uint64_t global_handle;
+> >>> +    uint64_t tag;
+> >>> +};
+> >>> +
+> >>> /* Endpoint RX/TX descriptor */
+> >>> struct ffa_endpoint_rxtx_descriptor_1_0 {
+> >>>    uint16_t sender_id;
+> >>> @@ -294,8 +326,20 @@ struct ffa_ctx {
+> >>>    uint32_t guest_vers;
+> >>>    bool tx_is_mine;
+> >>>    bool interrupted;
+> >>> +    struct list_head shm_list;
+> >>> +    unsigned int shm_count;
+> >>>    spinlock_t lock;
+> >>> };
+> >>> +
+> >>> +struct ffa_shm_mem {
+> >>> +    struct list_head list;
+> >>> +    uint16_t sender_id;
+> >>> +    uint16_t ep_id;     /* endpoint, the one lending */
+> >>> +    uint64_t handle;    /* FFA_HANDLE_INVALID if not set yet */
+> >>> +    unsigned int page_count;
+> >>> +    struct page_info *pages[];
+> >>> +};
+> >>> +
+> >>> /* Negotiated FF-A version to use with the SPMC */
+> >>> static uint32_t ffa_version __ro_after_init;
+> >>>
+> >>> @@ -310,6 +354,8 @@ static unsigned int subscr_vm_destroyed_count __r=
+ead_mostly;
+> >>> *
+> >>> * ffa_page_count is the number of pages used in each of these buffers=
+.
+> >>> *
+> >>> + * The TX buffer is protected from concurrent usage with ffa_tx_buff=
+er_lock.
+> >>> + *
+> >>> * The RX buffer is protected from concurrent usage with ffa_rx_buffer=
+_lock.
+> >>> * Note that the SPMC is also tracking the ownership of our RX buffer =
+so
+> >>> * for calls which uses our RX buffer to deliver a result we must call
+> >>> @@ -319,6 +365,7 @@ static void *ffa_rx __read_mostly;
+> >>> static void *ffa_tx __read_mostly;
+> >>> static unsigned int ffa_page_count __read_mostly;
+> >>> static DEFINE_SPINLOCK(ffa_rx_buffer_lock);
+> >>> +static DEFINE_SPINLOCK(ffa_tx_buffer_lock);
+> >>>
+> >>> static bool ffa_get_version(uint32_t *vers)
+> >>> {
+> >>> @@ -429,6 +476,42 @@ static int32_t ffa_rx_release(void)
+> >>>    return ffa_simple_call(FFA_RX_RELEASE, 0, 0, 0, 0);
+> >>> }
+> >>>
+> >>> +static int32_t ffa_mem_share(uint32_t tot_len, uint32_t frag_len,
+> >>> +                             register_t addr, uint32_t pg_count,
+> >>> +                             uint64_t *handle)
+> >>> +{
+> >>> +    struct arm_smccc_1_2_regs arg =3D {
+> >>> +        .a0 =3D FFA_MEM_SHARE_32,
+> >>> +        .a1 =3D tot_len,
+> >>> +        .a2 =3D frag_len,
+> >>> +        .a3 =3D addr,
+> >>> +        .a4 =3D pg_count,
+> >>> +    };
+> >>> +    struct arm_smccc_1_2_regs resp;
+> >>> +
+> >>> +    if ( IS_ENABLED(CONFIG_ARM_64) )
+> >>> +        arg.a0 =3D FFA_MEM_SHARE_64;
+> >>> +
+> >>> +    arm_smccc_1_2_smc(&arg, &resp);
+> >>> +
+> >>> +    switch ( resp.a0 )
+> >>> +    {
+> >>> +    case FFA_ERROR:
+> >>> +        if ( resp.a2 )
+> >>> +            return resp.a2;
+> >>> +        else
+> >>> +            return FFA_RET_NOT_SUPPORTED;
+> >>> +    case FFA_SUCCESS_32:
+> >>> +        *handle =3D regpair_to_uint64(resp.a3, resp.a2);
+> >>> +        return FFA_RET_OK;
+> >>> +    case FFA_MEM_FRAG_RX:
+> >>> +        *handle =3D regpair_to_uint64(resp.a2, resp.a1);
+> >>> +        return resp.a3;
+> >>
+> >> You are using an int32_t type to cast something that is uint32_t from =
+the spec
+> >> and here could in fact be a uint64_t.
+> >
+> > In practice only much smaller values can be valid, however, I
+> > understand that that's not your point. What's the best recovery if the
+> > SPMC gives an invalid value for FFA_MEM_FRAG_RX? The SPMC has
+> > allocated a memory-sharing state when it returns FFA_MEM_FRAG_RX. The
+> > specification doesn't say how to remove that state apart from either
+> > completing it successfully or if it's terminated earlier by the SPMC.
+> > One option is to do a FFA_MEM_FRAG_TX call with invalid arguments so
+> > that the SPMC can free up the memory-sharing state. Thoughts?
+>
+> I do not think it is Xen responsability to fix SPMC problems here.
+> If we detect something of an error we should just return back an error to=
+ the client.
+>
+> If the SPMC is returning an invalid value, we cannot really make much ass=
+umptions.
+>
+> An other solution here would just be to mask out to prevent the implicit =
+cast.
 
+OK, I'll do that.
+
+>
+> >
+> >>
+> >>
+> >>> +    default:
+> >>> +        return FFA_RET_NOT_SUPPORTED;
+> >>> +    }
+> >>> +}
+> >>> +
+> >>> static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
+> >>>                                      uint8_t msg)
+> >>> {
+> >>> @@ -757,6 +840,404 @@ out:
+> >>>             resp.a4 & mask, resp.a5 & mask, resp.a6 & mask, resp.a7 &=
+ mask);
+> >>> }
+> >>>
+> >>> +/*
+> >>> + * Gets all page and assigns them to the supplied shared memory obje=
+ct. If
+> >>> + * this function fails then the caller is still expected to call
+> >>> + * put_shm_pages() as a cleanup.
+> >>> + */
+> >>> +static int get_shm_pages(struct domain *d, struct ffa_shm_mem *shm,
+> >>> +                         const struct ffa_address_range *range,
+> >>> +                         uint32_t range_count, unsigned int start_pa=
+ge_idx,
+> >>> +                         unsigned int *last_page_idx)
+> >>> +{
+> >>> +    unsigned int pg_idx =3D start_page_idx;
+> >>> +    gfn_t gfn;
+> >>> +    unsigned int n;
+> >>> +    unsigned int m;
+> >>> +    p2m_type_t t;
+> >>> +    uint64_t addr;
+> >>> +
+> >>> +    for ( n =3D 0; n < range_count; n++ )
+> >>> +    {
+> >>> +        for ( m =3D 0; m < range[n].page_count; m++ )
+> >>> +        {
+> >>> +            if ( pg_idx >=3D shm->page_count )
+> >>> +                return FFA_RET_INVALID_PARAMETERS;
+> >>> +
+> >>> +            addr =3D read_atomic(&range[n].address);
+> >>> +            gfn =3D gaddr_to_gfn(addr + m * FFA_PAGE_SIZE);
+> >>> +            shm->pages[pg_idx] =3D get_page_from_gfn(d, gfn_x(gfn), =
+&t,
+> >>> +   P2M_ALLOC);
+> >>> +            if ( !shm->pages[pg_idx] )
+> >>> +                return FFA_RET_DENIED;
+> >>> +            pg_idx++;
+> >>
+> >> This increment could be done at the end, why here ?
+> >
+> > Do you mean after the p2m_is_ram() check? I'll move it there.
+>
+> yes that would be more natural i think.
+>
+> >
+> >>
+> >>> +            /* Only normal RAM for now */
+> >>> +            if ( !p2m_is_ram(t) )
+> >>> +                return FFA_RET_DENIED;
+> >>> +        }
+> >>> +    }
+> >>> +
+> >>> +    *last_page_idx =3D pg_idx;
+> >>> +
+> >>> +    return FFA_RET_OK;
+> >>> +}
+> >>> +
+> >>> +static void put_shm_pages(struct ffa_shm_mem *shm)
+> >>> +{
+> >>> +    unsigned int n;
+> >>> +
+> >>> +    for ( n =3D 0; n < shm->page_count && shm->pages[n]; n++ )
+> >>> +    {
+> >>> +        put_page(shm->pages[n]);
+> >>> +        shm->pages[n] =3D NULL;
+> >>
+> >> If an error occured during the generation you might have part
+> >> of the pages which are NULL already.
+> >>
+> >> So you should do a if (pages[n] !=3D NULL) here
+> >
+> > I'm doing that above in the head of the loop, the loop is terminated
+> > at the first pages[n] =3D=3D NULL.
+>
+> Right, sorry i missed that.
+>
+> >
+> >>
+> >>> +    }
+> >>> +}
+> >>> +
+> >>> +static struct ffa_shm_mem *alloc_ffa_shm_mem(struct ffa_ctx *ctx,
+> >>> +                                             unsigned int page_count=
+)
+> >>> +{
+> >>> +    struct ffa_shm_mem *shm;
+> >>> +
+> >>> +    if ( page_count >=3D FFA_MAX_SHM_PAGE_COUNT ||
+> >>> +         ctx->shm_count >=3D FFA_MAX_SHM_COUNT )
+> >>> +        return NULL;
+> >>
+> >> Shouldn't you also filter out for page_count =3D 0 ?
+> >
+> > Sure, 0 doesn't make sense. But I should probably do it before this
+> > function is called since I suppose we'd like to return something
+> > different from FFA_RET_NO_MEMORY.
+>
+> Very true.
+>
+> >
+> >>
+> >>> +
+> >>> +    shm =3D xzalloc_flex_struct(struct ffa_shm_mem, pages, page_coun=
+t);
+> >>> +    if ( shm )
+> >>> +    {
+> >>> +        ctx->shm_count++;
+> >>> +        shm->page_count =3D page_count;
+> >>> +    }
+> >>> +
+> >>> +    return shm;
+> >>> +}
+> >>> +
+> >>> +static void free_ffa_shm_mem(struct ffa_ctx *ctx, struct ffa_shm_mem=
+ *shm)
+> >>> +{
+> >>> +    if ( shm ) {
+> >>> +        ASSERT(ctx->shm_count > 0);
+> >>> +        ctx->shm_count--;
+> >>> +        put_shm_pages(shm);
+> >>> +        xfree(shm);
+> >>> +    }
+> >>> +}
+> >>> +
+> >>> +static void init_range(struct ffa_address_range *addr_range,
+> >>> +                       paddr_t pa)
+> >>> +{
+> >>> +    memset(addr_range, 0, sizeof(*addr_range));
+> >>> +    addr_range->address =3D pa;
+> >>> +    addr_range->page_count =3D 1;
+> >>> +}
+> >>> +
+> >>> +/*
+> >>> + * This function uses the ffa_tx buffer to transmit the memory trans=
+action
+> >>> + * descriptor. The function depends ffa_tx_buffer_lock to be used to=
+ guard
+> >>> + * the buffer from concurrent use.
+> >>> + */
+> >>> +static int share_shm(struct ffa_shm_mem *shm)
+> >>> +{
+> >>> +    const uint32_t max_frag_len =3D ffa_page_count * FFA_PAGE_SIZE;
+> >>> +    struct ffa_mem_access *mem_access_array;
+> >>> +    struct ffa_mem_transaction_1_1 *descr;
+> >>> +    struct ffa_address_range *addr_range;
+> >>> +    struct ffa_mem_region *region_descr;
+> >>> +    const unsigned int region_count =3D 1;
+> >>> +    void *buf =3D ffa_tx;
+> >>> +    uint32_t frag_len;
+> >>> +    uint32_t tot_len;
+> >>> +    paddr_t last_pa;
+> >>> +    unsigned int n;
+> >>> +    paddr_t pa;
+> >>> +
+> >>> +    ASSERT(spin_is_locked(&ffa_tx_buffer_lock));
+> >>> +    if ( !shm->page_count )
+> >>> +    {
+> >>> +        ASSERT_UNREACHABLE();
+> >>> +        return FFA_RET_INVALID_PARAMETERS;
+> >>
+> >> page_count =3D 0 should be filtered out before reaching this and this =
+should
+> >> only be an assert if you want but no unreachable with a return.
+> >
+> > I'm adding code to filter out page_count =3D 0. I'm not sure what you
+> > expect here, should I remove the entire check here or what do you
+> > want?
+>
+> As this is checked before, this could just be an assert and not something=
+ with a return.
+
+OK, I'll do that.
+
+>
+> >
+> >>
+> >>> +    }
+> >>> +
+> >>> +    descr =3D buf;
+> >>> +    memset(descr, 0, sizeof(*descr));
+> >>> +    descr->sender_id =3D shm->sender_id;
+> >>> +    descr->global_handle =3D shm->handle;
+> >>> +    descr->mem_reg_attr =3D FFA_NORMAL_MEM_REG_ATTR;
+> >>> +    descr->mem_access_count =3D 1;
+> >>> +    descr->mem_access_size =3D sizeof(*mem_access_array);
+> >>> +    descr->mem_access_offs =3D MEM_ACCESS_OFFSET(0);
+> >>> +
+> >>> +    mem_access_array =3D buf + descr->mem_access_offs;
+> >>> +    memset(mem_access_array, 0, sizeof(*mem_access_array));
+> >>> +    mem_access_array[0].access_perm.endpoint_id =3D shm->ep_id;
+> >>> +    mem_access_array[0].access_perm.perm =3D FFA_MEM_ACC_RW;
+> >>> +    mem_access_array[0].region_offs =3D REGION_OFFSET(descr->mem_acc=
+ess_count, 0);
+> >>> +
+> >>> +    region_descr =3D buf + mem_access_array[0].region_offs;
+> >>> +    memset(region_descr, 0, sizeof(*region_descr));
+> >>> +    region_descr->total_page_count =3D shm->page_count;
+> >>> +
+> >>> +    region_descr->address_range_count =3D 1;
+> >>> +    last_pa =3D page_to_maddr(shm->pages[0]);
+> >>> +    for ( n =3D 1; n < shm->page_count; last_pa =3D pa, n++ )
+> >>> +    {
+> >>> +        pa =3D page_to_maddr(shm->pages[n]);
+> >>> +        if ( last_pa + FFA_PAGE_SIZE =3D=3D pa )
+> >>> +            continue;
+> >>> +        region_descr->address_range_count++;
+> >>> +    }
+> >>> +
+> >>> +    tot_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_co=
+unt,
+> >>> +                                region_descr->address_range_count);
+> >>> +    if ( tot_len > max_frag_len )
+> >>> +        return FFA_RET_NOT_SUPPORTED;
+> >>> +
+> >>> +    addr_range =3D region_descr->address_range_array;
+> >>> +    frag_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_c=
+ount, 1);
+> >>> +    last_pa =3D page_to_maddr(shm->pages[0]);
+> >>> +    init_range(addr_range, last_pa);
+> >>> +    for ( n =3D 1; n < shm->page_count; last_pa =3D pa, n++ )
+> >>> +    {
+> >>> +        pa =3D page_to_maddr(shm->pages[n]);
+> >>> +        if ( last_pa + FFA_PAGE_SIZE =3D=3D pa )
+> >>> +        {
+> >>> +            addr_range->page_count++;
+> >>> +            continue;
+> >>> +        }
+> >>> +
+> >>> +        frag_len +=3D sizeof(*addr_range);
+> >>> +        addr_range++;
+> >>> +        init_range(addr_range, pa);
+> >>> +    }
+> >>> +
+> >>> +    return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
+> >>> +}
+> >>> +
+> >>> +static int read_mem_transaction(uint32_t ffa_vers, const void *buf, =
+size_t blen,
+> >>> +                                struct ffa_mem_transaction_x *trans)
+> >>> +{
+> >>> +    uint16_t mem_reg_attr;
+> >>> +    uint32_t flags;
+> >>> +    uint32_t count;
+> >>> +    uint32_t offs;
+> >>> +    uint32_t size;
+> >>> +
+> >>> +    if ( ffa_vers >=3D FFA_VERSION_1_1 )
+> >>> +    {
+> >>> +        const struct ffa_mem_transaction_1_1 *descr;
+> >>> +
+> >>> +        if ( blen < sizeof(*descr) )
+> >>> +            return FFA_RET_INVALID_PARAMETERS;
+> >>> +
+> >>> +        descr =3D buf;
+> >>> +        trans->sender_id =3D descr->sender_id;
+> >>> +        mem_reg_attr =3D descr->mem_reg_attr;
+> >>> +        flags =3D descr->flags;
+> >>> +        trans->global_handle =3D descr->global_handle;
+> >>> +        trans->tag =3D descr->tag;
+> >>> +
+> >>> +        count =3D descr->mem_access_count;
+> >>> +        size =3D descr->mem_access_size;
+> >>> +        offs =3D descr->mem_access_offs;
+> >>> +    }
+> >>> +    else
+> >>> +    {
+> >>> +        const struct ffa_mem_transaction_1_0 *descr;
+> >>> +
+> >>> +        if ( blen < sizeof(*descr) )
+> >>> +            return FFA_RET_INVALID_PARAMETERS;
+> >>> +
+> >>> +        descr =3D buf;
+> >>> +        trans->sender_id =3D descr->sender_id;
+> >>> +        mem_reg_attr =3D descr->mem_reg_attr;
+> >>> +        flags =3D descr->flags;
+> >>> +        trans->global_handle =3D descr->global_handle;
+> >>> +        trans->tag =3D descr->tag;
+> >>> +
+> >>> +        count =3D descr->mem_access_count;
+> >>> +        size =3D sizeof(struct ffa_mem_access);
+> >>> +        offs =3D offsetof(struct ffa_mem_transaction_1_0, mem_access=
+_array);
+> >>> +    }
+> >>> +    /*
+> >>> +     * Make sure that "descr" which is shared with the guest isn't a=
+ccessed
+> >>> +     * again after this point.
+> >>> +     */
+> >>> +    barrier();
+> >>
+> >> I am not really following the comment here. You accessed the content o=
+f descr
+> >> before and it is in the rxtx buffer so why is this needed ?
+> >
+> > I'm making sure that the compiler doesn't optimize and reorders the
+> > reads from memory in funny ways, for instance, reading again after the
+> > ifs just below. The RXTX buffer is shared with the guest so it can
+> > potentially be updated concurrently by another CPU.
+>
+> The client is not suppose to modify the buffer during the call, using ato=
+mic
+> operations here is not really solving any issue if this is modified while=
+ we use it right ?
+
+We are guarding against a TOCTOU (time-of-check to time-of-use) type
+of attack or bug.
+
+>
+> >
+> >>
+> >>> +
+> >>> +    /*
+> >>> +     * We're doing a rough check to see that no information is lost =
+when
+> >>> +     * tranfering the values into a struct ffa_mem_transaction_x bel=
+ow. The
+> >>> +     * fields in struct ffa_mem_transaction_x are wide enough to hol=
+d any
+> >>> +     * valid value so being out of range means that something is wro=
+ng.
+> >>> +     */
+> >>> +    if ( mem_reg_attr > UINT8_MAX || flags > UINT8_MAX || size > UIN=
+T8_MAX ||
+> >>> +        count > UINT8_MAX || offs > UINT16_MAX )
+> >>> +        return FFA_RET_INVALID_PARAMETERS;
+> >>> +
+> >>> +    /* Check that the endpoint memory access descriptor array fits *=
+/
+> >>> +    if ( size * count + offs > blen )
+> >>> +        return FFA_RET_INVALID_PARAMETERS;
+> >>> +
+> >>> +    trans->mem_reg_attr =3D mem_reg_attr;
+> >>> +    trans->flags =3D flags;
+> >>> +    trans->mem_access_size =3D size;
+> >>> +    trans->mem_access_count =3D count;
+> >>> +    trans->mem_access_offs =3D offs;
+> >>> +
+> >>> +    return 0;
+> >>> +}
+> >>> +
+> >>> +static void handle_mem_share(struct cpu_user_regs *regs)
+> >>> +{
+> >>> +    uint32_t tot_len =3D get_user_reg(regs, 1);
+> >>> +    uint32_t frag_len =3D get_user_reg(regs, 2);
+> >>> +    uint64_t addr =3D get_user_reg(regs, 3);
+> >>> +    uint32_t page_count =3D get_user_reg(regs, 4);
+> >>> +    const struct ffa_mem_region *region_descr;
+> >>> +    const struct ffa_mem_access *mem_access;
+> >>> +    struct ffa_mem_transaction_x trans;
+> >>> +    struct domain *d =3D current->domain;
+> >>> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> >>> +    struct ffa_shm_mem *shm =3D NULL;
+> >>> +    unsigned int last_page_idx =3D 0;
+> >>> +    register_t handle_hi =3D 0;
+> >>> +    register_t handle_lo =3D 0;
+> >>> +    int ret =3D FFA_RET_DENIED;
+> >>> +    uint32_t range_count;
+> >>> +    uint32_t region_offs;
+> >>> +
+> >>> +    /*
+> >>> +     * We're only accepting memory transaction descriptors via the r=
+x/tx
+> >>> +     * buffer.
+> >>
+> >> Is this a limitation coming fomr the spec or from the implementation ?
+> >
+> > This is just a limitation in the implementation.
+> >
+> >>
+> >>> +     */
+> >>> +    if ( addr )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_NOT_SUPPORTED;
+> >>> +        goto out_set_ret;
+> >>> +    }
+> >>> +
+> >>> +    /* Check that fragment length doesn't exceed total length */
+> >>> +    if ( frag_len > tot_len )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >>> +        goto out_set_ret;
+> >>> +    }
+> >>> +
+> >>> +    /* We currently only support a single fragment */
+> >>
+> >> It would make sense to add some text at the beginning of the files lis=
+ting
+> >> the current limitations of the implementation.
+> >
+> > That's quite a bit to keep track of, especially since it will change
+> > with each patch. If it's important perhaps we can summarize that in a
+> > final commit instead. By the way, this particular limitation is
+> > removed in a later patch.
+>
+> I am more thinking at the end of the serie to have one place with the cur=
+rent
+> state and limitations of the implementation.
+>
+> We cannot really expect someone to browse all comments to get what is
+>  supported or not.
+
+OK
+
+>
+> >
+> >>
+> >>> +    if ( frag_len !=3D tot_len )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_NOT_SUPPORTED;
+> >>> +        goto out_set_ret;
+> >>> +    }
+> >>> +
+> >>> +    spin_lock(&ctx->lock);
+> >>> +
+> >>> +    if ( frag_len > ctx->page_count * FFA_PAGE_SIZE )
+> >>> +        goto out_unlock;
+> >>> +
+> >>> +    if ( !ffa_page_count )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_NO_MEMORY;
+> >>> +        goto out_unlock;
+> >>> +    }
+> >>> +
+> >>> +    ret =3D read_mem_transaction(ctx->guest_vers, ctx->tx, frag_len,=
+ &trans);
+> >>> +    if ( ret )
+> >>> +        goto out_unlock;
+> >>> +
+> >>> +    if ( trans.mem_reg_attr !=3D FFA_NORMAL_MEM_REG_ATTR )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_NOT_SUPPORTED;
+> >>> +        goto out_unlock;
+> >>> +    }
+> >>> +
+> >>> +    /* Only supports sharing it with one SP for now */
+> >>
+> >> Also a limitation to list.
+> >
+> > OK
+> >
+> >>
+> >>> +    if ( trans.mem_access_count !=3D 1 )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_NOT_SUPPORTED;
+> >>> +        goto out_unlock;
+> >>> +    }
+> >>> +
+> >>> +    if ( trans.sender_id !=3D get_vm_id(d) )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >>> +        goto out_unlock;
+> >>> +    }
+> >>> +
+> >>> +    /* Check that it fits in the supplied data */
+> >>> +    if ( trans.mem_access_offs + trans.mem_access_size > frag_len )
+> >>> +        goto out_unlock;
+> >>> +
+> >>
+> >> Why are you using atomic operations to access rxtx buffer after here ?
+> >
+> > To limit how the compiler can reorder the reads from memory.
+>
+> As stated before, don't we assume that the buffer is not modified by the =
+client
+>  while we use it ?
+
+No, as I'm saying above we're guarding against it.
+
+Thanks,
+Jens
+
+>
+> >
+> >>
+> >>> +    mem_access =3D ctx->tx + trans.mem_access_offs;
+> >>> +    if ( read_atomic(&mem_access->access_perm.perm) !=3D FFA_MEM_ACC=
+_RW )
+> >>
+> >> Also a limitation to list.
+> >
+> > OK
+>
+> Cheers
+> Bertrand
+>
+> >
+> > Thanks,
+> > Jens
+> >
+> >>
+> >>> +    {
+> >>> +        ret =3D FFA_RET_NOT_SUPPORTED;
+> >>> +        goto out_unlock;
+> >>> +    }
+> >>> +
+> >>> +    region_offs =3D read_atomic(&mem_access->region_offs);
+> >>> +    if ( sizeof(*region_descr) + region_offs > frag_len )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_NOT_SUPPORTED;
+> >>> +        goto out_unlock;
+> >>> +    }
+> >>> +
+> >>> +    region_descr =3D ctx->tx + region_offs;
+> >>> +    range_count =3D read_atomic(&region_descr->address_range_count);
+> >>> +    page_count =3D read_atomic(&region_descr->total_page_count);
+> >>> +
+> >>> +    shm =3D alloc_ffa_shm_mem(ctx, page_count);
+> >>> +    if ( !shm )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_NO_MEMORY;
+> >>> +        goto out_unlock;
+> >>> +    }
+> >>> +    shm->sender_id =3D trans.sender_id;
+> >>> +    shm->ep_id =3D read_atomic(&mem_access->access_perm.endpoint_id)=
+;
+> >>> +
+> >>> +    /*
+> >>> +     * Check that the Composite memory region descriptor fits.
+> >>> +     */
+> >>> +    if ( sizeof(*region_descr) + region_offs +
+> >>> +         range_count * sizeof(struct ffa_address_range) > frag_len )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >>> +        goto out;
+> >>> +    }
+> >>> +
+> >>> +    ret =3D get_shm_pages(d, shm, region_descr->address_range_array,=
+ range_count,
+> >>> +                        0, &last_page_idx);
+> >>> +    if ( ret )
+> >>> +        goto out;
+> >>> +    if ( last_page_idx !=3D shm->page_count )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >>> +        goto out;
+> >>> +    }
+> >>> +
+> >>> +    /* Note that share_shm() uses our tx buffer */
+> >>> +    spin_lock(&ffa_tx_buffer_lock);
+> >>> +    ret =3D share_shm(shm);
+> >>> +    spin_unlock(&ffa_tx_buffer_lock);
+> >>> +    if ( ret )
+> >>> +        goto out;
+> >>> +
+> >>> +    list_add_tail(&shm->list, &ctx->shm_list);
+> >>> +
+> >>> +    uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
+> >>> +
+> >>> +out:
+> >>> +    if ( ret )
+> >>> +        free_ffa_shm_mem(ctx, shm);
+> >>> +out_unlock:
+> >>> +    spin_unlock(&ctx->lock);
+> >>> +
+> >>> +out_set_ret:
+> >>> +    if ( ret =3D=3D 0)
+> >>> +            set_regs_success(regs, handle_lo, handle_hi);
+> >>> +    else
+> >>> +            set_regs_error(regs, ret);
+> >>> +}
+> >>> +
+> >>> static bool ffa_handle_call(struct cpu_user_regs *regs)
+> >>> {
+> >>>    uint32_t fid =3D get_user_reg(regs, 0);
+> >>> @@ -818,6 +1299,12 @@ static bool ffa_handle_call(struct cpu_user_reg=
+s *regs)
+> >>> #endif
+> >>>        handle_msg_send_direct_req(regs, fid);
+> >>>        return true;
+> >>> +    case FFA_MEM_SHARE_32:
+> >>> +#ifdef CONFIG_ARM_64
+> >>> +    case FFA_MEM_SHARE_64:
+> >>> +#endif
+> >>> +        handle_mem_share(regs);
+> >>> +        return true;
+> >>>
+> >>>    default:
+> >>>        gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
+> >>> @@ -857,6 +1344,8 @@ static int ffa_domain_init(struct domain *d)
+> >>>        }
+> >>>    }
+> >>>
+> >>> +    INIT_LIST_HEAD(&ctx->shm_list);
+> >>> +
+> >>>    d->arch.tee =3D ctx;
+> >>>
+> >>>    return 0;
+> >>> @@ -1012,11 +1501,13 @@ static bool ffa_probe(void)
+> >>>         !check_mandatory_feature(FFA_RX_RELEASE) ||
+> >>> #ifdef CONFIG_ARM_64
+> >>>         !check_mandatory_feature(FFA_RXTX_MAP_64) ||
+> >>> +         !check_mandatory_feature(FFA_MEM_SHARE_64) ||
+> >>> #endif
+> >>> #ifdef CONFIG_ARM_32
+> >>>         !check_mandatory_feature(FFA_RXTX_MAP_32) ||
+> >>> #endif
+> >>>         !check_mandatory_feature(FFA_RXTX_UNMAP) ||
+> >>> +         !check_mandatory_feature(FFA_MEM_SHARE_32) ||
+> >>>         !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> >>>        return false;
+> >>>
+> >>> --
+> >>> 2.34.1
+> >>
+> >>
+> >> Cheers
+> >> Bertrand
+>
+>
 
