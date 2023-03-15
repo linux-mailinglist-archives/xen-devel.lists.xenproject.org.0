@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF3B6BA876
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 07:52:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509908.786636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B47546BA8CE
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 08:12:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509911.786648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcKzr-000302-IL; Wed, 15 Mar 2023 06:52:27 +0000
+	id 1pcLIf-0005ut-7L; Wed, 15 Mar 2023 07:11:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509908.786636; Wed, 15 Mar 2023 06:52:27 +0000
+Received: by outflank-mailman (output) from mailman id 509911.786648; Wed, 15 Mar 2023 07:11:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcKzr-0002xI-Fg; Wed, 15 Mar 2023 06:52:27 +0000
-Received: by outflank-mailman (input) for mailman id 509908;
- Wed, 15 Mar 2023 06:52:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pcLIf-0005s9-2Z; Wed, 15 Mar 2023 07:11:53 +0000
+Received: by outflank-mailman (input) for mailman id 509911;
+ Wed, 15 Mar 2023 07:11:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MLe6=7H=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pcKzq-0002xC-9f
- for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 06:52:26 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2061f.outbound.protection.outlook.com
- [2a01:111:f400:fe13::61f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f1783720-c2fd-11ed-87f5-c1b5be75604c;
- Wed, 15 Mar 2023 07:52:25 +0100 (CET)
+ id 1pcLId-0005s0-65
+ for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 07:11:51 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20605.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::605])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a6da52ae-c300-11ed-b464-930f4c7d94ae;
+ Wed, 15 Mar 2023 08:11:48 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DBAPR04MB7445.eurprd04.prod.outlook.com (2603:10a6:10:1a7::22)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DU0PR04MB9586.eurprd04.prod.outlook.com (2603:10a6:10:31e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.29; Wed, 15 Mar
- 2023 06:52:23 +0000
+ 2023 07:11:45 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Wed, 15 Mar 2023
- 06:52:23 +0000
+ 07:11:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,149 +47,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1783720-c2fd-11ed-87f5-c1b5be75604c
+X-Inumbo-ID: a6da52ae-c300-11ed-b464-930f4c7d94ae
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HnIGa4bkFquuXCrxE9+j1anhsQC1T3IhzNm12CL1d/B/jHPSDI+WPapCM8BoUt6XoGKCKvzzfevryT28+RInI3rU5kF2qo04iCaoi+Hpvu8ulWCeTVts/wNRdCzQBLCMe54efLTI63QgMJQkD+qOWXQUg831yqxGZAAuARIsCmVfnpKSGt3WKzaZnwtlWp8qbF2rHWj4YCBmB20t4czlVX5XCLGB3H1C31U5kHn6iy3PgyV73gzurpqsQDnmlf00oDabSSoii3zIf3RKnf4Hk31N7BsMGVBU3QZZWPKOZKmqlpD5FrUq7u9xRV9TdLTPc9zNHLGtRhXAXf7Hw+6qmg==
+ b=ESbbwOv/8r29tGecZZ4KukTJhXpZj+9ZjJwyKO6Y8wKOLBeYyRp2K0LqyZick19147Z+IMKoA09pxnLPw20Bmi1xksYHHrH7fg387cFUucf2jJPAUAqujcwi34MdPh0kNrLB1MGvSF7MRhok+eO3bNvheSNYPB81SqradnVzY5oATxSEDCSml9JgEAj6IrJAvO2uDpB1IkctYIKrKhjq9eRY1j5ziZTEas2NnEDW0AImgSnauuONcRZOg1JHZ6VVTGG9DTvdxMnIYHUp1XJT9fh3XAmiZ4pZ/Vk10GyOc6sebqNR+rBcRU4d1ZphdJaMNZlx8ne/cdXJIvWRBYWCVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CgJ/4y+3OdzOCLSAi9fZwcyeMn10s23vUP6pYpL7MAc=;
- b=ImUVv61nHY2pHMVtIhadU9+xT9XJCzt6HkHkDm9VQfslw/squVeUgfG1KePdO8LU+7w8DYhB+VMPjjXyy1zROv1bvf3iwK8iBmn+nn63DnckOnU0Qq+qGLRjP0KQDUleGpHPsWSNIWLBrHCPwN7i7BTrvYCY1tcv83W71Fs+K+x5bZ2vwOIKFPzUDGj49C6iZtcJtjSo5KJUVPu9fNvhm9atvQrNRve+QE+Da/YUdQPd4BQvJ4CuU8XUFPb8SjQcKrjyYDA4fxfkpy3bMRJpnrucbwiwnfzX4omUmDMj1rtPlku8Fyj47BLTHYvZU72Ch2t4RsaKfZkE5b4UWp5bPQ==
+ bh=umWaP3yPo1uMFAh8XNCRfHSYwRs2jY9LURlRc5AENiY=;
+ b=ZxU1Z2BNppJa667uXS29JppvgWsRMXW6trol3v+bE0TD3YTszVk6UNd2WZ1aOMGHg5fQxojoON/mVcKtB4A74znlhCwqSEO5yFRtD4yQA1FBSwtTej94X0U62PK78/g7cc2l2N6Bjpp+Y2p8ovzHi2c7yb/Ep9qQfaUaRKygD/7EDkZxx9lgfSNvCE4HRLu0emu5P6+UAyu1h6gifa/xF7XcMJD0w9KGkVvB3pNAgQhxgqP6FVRCWzfwSXYhxEY+Ht+WoRLmQu+i5kNsbblKoJaTnDZsxJDgysPXo3ozzalsIbpTXB+L6kuGsZtbSjP/t8gLfnZzAGaohW70MnY3jQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CgJ/4y+3OdzOCLSAi9fZwcyeMn10s23vUP6pYpL7MAc=;
- b=qatN1BYY9FSGqHsaFx+s2cKIQxO7tp51yot3GrHfM4JB9AePCjdCHJqTrmc5o2qmQx07+q3178WL0FGkSB+GYYGK9RlUYk3/LgndaZphixx+BCcsIXh3+MMS3rM3I8Mj0bDql35rzzcq49dJiE1cdWFCpoxlY+8EeObAOJcj1fMJK8lh1q2j9ot14WHvP0xJN+CfieltFwT9Jexr6vAJvglzm+ycCAav7ABdns+lVilK2SCCnSAlOKjjDHUOiln37JjSrTpEKESPXfArwq2DMHebd98m/tGAasj78L1zAR93IECqziFXHano5HI28N2jzib56oq069acRXc4uStHtQ==
+ bh=umWaP3yPo1uMFAh8XNCRfHSYwRs2jY9LURlRc5AENiY=;
+ b=mAmsign5a9PfUMt1uRfBhW37v2YPDMJW7zb8ndDLQZM2rRbbQ9wvNPZBzx2GB/odyMl0ipozzt2/FcpLJ31iPR8oZVc5loEyWrlBB9VgN8TwoilMmpFoaVuq/gVaUjwRgRF9UFwEOq8PTxa083S58+6LkR9DoEajgGOhG1PxfQmDgksU++RT747y7PnuXdvY1H7OZYBk7Ag/Ah+WrQ8heSuhFnN6oYShZJvPXUqUM/uebQ+okgCKvDCOqno6IOUrE6BcOq2NGhaEN0tws6seVxP7pZ0dFTYI0oUX1WCmR4y8rXHQoS2HVPYkSxg5KkG5F4ZBwP3mZ7CSmnRf8iwrxQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d7ce665c-8fd9-30b4-bf86-8d6907a2c17a@suse.com>
-Date: Wed, 15 Mar 2023 07:52:21 +0100
+Message-ID: <62999301-ee27-67e8-2bf5-c02c19ea2d76@suse.com>
+Date: Wed, 15 Mar 2023 08:11:43 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
+Subject: Re: [PATCH v7 1/5] xen: introduce CONFIG_GENERIC_BUG_FRAME
 Content-Language: en-US
-To: Huang Rui <ray.huang@amd.com>
-Cc: Juergen Gross <jgross@suse.com>, "Huang, Honglei1"
- <Honglei1.Huang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- "Chen, Jiqian" <Jiqian.Chen@amd.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- "Zhang, Julia" <Julia.Zhang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=ef=bf=bd?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-References: <20230312120157.452859-1-ray.huang@amd.com>
- <20230312120157.452859-2-ray.huang@amd.com>
- <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com>
- <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
- <ZBFGJUE0ahA4R9gr@amd.com>
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Jason Andryuk <jandryuk@gmail.com>, Julien Grall <julien@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1678368234.git.oleksii.kurochko@gmail.com>
+ <671cd744b92f14ddc0c47ca471e03e3229cb89ba.1678368234.git.oleksii.kurochko@gmail.com>
+ <3df43c25-6c06-0cbb-5452-c989511a7e15@suse.com>
+ <192fbcf22a6c6e16498cc208eeb37fc6e08ce56a.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZBFGJUE0ahA4R9gr@amd.com>
+In-Reply-To: <192fbcf22a6c6e16498cc208eeb37fc6e08ce56a.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0082.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0128.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBAPR04MB7445:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ab30859-5335-404a-e1e7-08db2521d48f
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU0PR04MB9586:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48ccb41f-3668-4566-524e-08db25248916
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	n+1ZWZD0Sb2Exclqn0QVvcLfOIxb2pLTBEeGlUnxDPzgdikS+yBII6WTM/0XRUPJc+gCShZDIo02xkeZEzANGOm1lo4beQRF821W98yKue1+mPl9y0bte97VCZrzs2tKaZgcXQV5Ztc3I8r5y4yVixPY7yCwn3lr5csiOifQ5RWohJFPByXO8HfqUJ7AAataIPP1nU1CF4hpauVs5c5GlY3+NdNBWhd0cOrXj7jt5vREkdKnbc1xgoknZrtAdha45foBZ2JsaqCqw6RSDvZmScmKZcY7UZ/cijivC2N+e4/2Lp/tDTHbBKkfubJtjxKA5rvwA9Gim8yHGHS7Y+v4h6ZyYngzexha5EdqbFNETd/I6hGxAohK2qB9jtz7xsTEYQugEaRcItkmYlUU3ETArWqWUT6NvyZ9+17fbGsfFEPnOXcR5YOTl1tvSYtQcYwRpivno+BQRmi9cqC1+gAHxMZzw/YKNJmmDWMh2mP/sss1a1uruFmYXDVW/1Nvivm9XP2yGzbiLxGkrN70THCr2muLwKwIoiKyuffKf1KfPOnaoUlf4mDeGBbJQm2e+F1ynyBy7mFtRDIlmUZkyr3TmBW12Sxg/fx4+jox15vM+x6AkiA9QxhkKT9YvRCT9loT7QMy9X6ldqOel1fS7s+lLV5xZjMUg4QOHGkfnwVwPNyyHax+90XDh8vdne/DQzhH2lDeQsjKv/D1cBnDzZzdzcVL755dV0pNsQiQTIHXg7Y=
+	rC/Qeg2LE4pViO+iPnlI/XNyy/3VAb/nIzCbnChQKU2rsF4z8w9SfbwsKnW81RVWRJnSAxmjlXi5mvSCcfBY/XJP5h/RTNnu8qduzxmMqngC3oZmzadQyLtJNZG1W6YabEgKKkNFav2VBSx5Cs/Yt+WR1mrYNPD20A8BiDjI+NVlJd8ogfxj6+ACCBX+UYaDYEu+4IQRpjFfT+USb28vLOGM5ggUZS9CBmE56NUsgjSHqYXjJMza/nUEdhj+bhFY6ZKeyxu1R2LrVjTWxF7iGLQ6wGGfpTtUOsOImFAd748SEQJwHvbK9hVUYELqsvO9k+p35dw/nHcYKAI1biGgh6PRopONMse3hEzGuaEKjujNCU6hnpgIBCt17le7hpZ78KQuhgPmytvsQTRPtdjUbxgyDAmg7yiC2dj1UzTtyR9VNH6nURVqgjz4kDOiPvQ/etCPE54hkqRHTdssT0mH+ZrTsOfMiGWjp2nOOo6YV6jsnmcKigCnMo4vw5yLuw98t22fSnAE+GGJJru3KlWvViYjRT/V9ex8icEx/cdwV9aPiAl9UhAIReQo426uT2PAj1Ny+b3zdu8+8N0S+X4GVQaRTQgotONT/c5T1487mECvVK2oLIMzHS7leEfZvDF4KnbMwEyGxFD0KFfQd/RTDgZozZBAFwXelYdXkbkGWAZ05thoZAr0IjVlBble3HPSYbdKtj8NKjnUMD0A3ka3Sq8ZQ3I7HZ7OvjZKXBJE+gj3LWB9jQ0U05l9P0FmVv2+
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(396003)(376002)(346002)(366004)(39850400004)(136003)(451199018)(36756003)(7416002)(5660300002)(83380400001)(478600001)(6486002)(6506007)(26005)(53546011)(6512007)(2616005)(186003)(66476007)(66556008)(66946007)(8676002)(6916009)(41300700001)(4326008)(8936002)(31696002)(86362001)(54906003)(316002)(38100700002)(2906002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(376002)(366004)(136003)(396003)(39860400002)(451199018)(8936002)(5660300002)(41300700001)(6916009)(4326008)(31696002)(86362001)(36756003)(38100700002)(2906002)(2616005)(31686004)(53546011)(478600001)(186003)(6486002)(83380400001)(26005)(6506007)(6512007)(8676002)(66946007)(66556008)(66476007)(316002)(54906003)(41533002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UFZxOElXbFVHMU5FOWlIcVBmdWJBK2dSKzl0TisvdFhZS2dUVXZpRnlMSktt?=
- =?utf-8?B?ZXJYRlZQSUo5OWhBS0ExQysyaXkxdHdWZmFCT1MrRXNwdm5ydHRSU2lkSC9O?=
- =?utf-8?B?cGxwNUNPNHpDajY0a1UwcTlFWkRvWk9taE92RStzK1RYT2ZSVDBreVhNK3ZX?=
- =?utf-8?B?aW5XWTNQYmFFaWNLcmkreEE4OVoyMFA1MnMvMy9LNnkxOVBTWndFd2tHckxm?=
- =?utf-8?B?RDhYQ0lRejh6cjNXVjNOYTF2VUwrbGhxQXUzVWxsN1F6ZDYrcUJMWm5TMjdx?=
- =?utf-8?B?YUE3Wko5MU5LUHF6TEg1UkxRemVZRDYzM01wU09Dc3VsTVlJODM5dS9pQUp3?=
- =?utf-8?B?Q1FIQUoxRUFHR05yUmpIeFdVWDJSaFFpc3A2SlYxZXNOTS85VUV2RE1DRmpr?=
- =?utf-8?B?TlVDWS9wcXFFKy9FalhMMjI4dWpFOXJ5elpPaHg2NDJ5U1BpdURldWtSRmNV?=
- =?utf-8?B?cmNuUHpvOEtCWmd5WEN4WXNjT2hkVStKRGtIUTV5a0xnTVBsZVhKMVJVU3N0?=
- =?utf-8?B?bksySmpVU2YrSkJHSzdFQVJuTVc1RlJ6VmtHVXJLcFovbVdOaGgwbElhdzlz?=
- =?utf-8?B?RWFoeWVsZ0RkakVIcjNNQlp0bllOZHdIek1nZVVNK1NhZnlRMEwxZUlISEpy?=
- =?utf-8?B?OXBaYThJaFp1bnVJQitMaklEb0htRHQ3dHBlbXR1OXdsUGVEY1BQUkMrRGpt?=
- =?utf-8?B?cm8renJudU9oOUttWWd1ZkZDMUpmdC9OSThFSzJaaW40YTVRQ1lKdzhVbDFz?=
- =?utf-8?B?QlNNcWxEcXByejFEUGJGb0sweFBjL2pHWEtTTzFSU3VTa1Rlc1RrUTNUS0k2?=
- =?utf-8?B?dnRkdDBKM2svcE9ieHIzUlBqbFMwdXBHWUhkenc5R2tnL2NyT1FhODV4TVlU?=
- =?utf-8?B?UzgrZHhvSy9DOGhoR0U3aGI4VXpJSW53ZWVKazRYNC9mcjhsWHJuTXorNjAv?=
- =?utf-8?B?TC9ndW1hZktmRXVIMmp2R0FTbTRSUEF3M09pei9HeExQZ1IvUEVCdzhZTkxD?=
- =?utf-8?B?REQ1dzMwRy80M2RsSzFpcndwMlZqeW95VFlRNE9BL1Vmd1d0S0lNWGRLNExB?=
- =?utf-8?B?MndjN1FXS2hkS0pjL1VXUldWOEp6ZGY5UUxxQ2g1bGthcTFvanBNdmJTaG85?=
- =?utf-8?B?S0JBc1JGVG9IeGozQUlNNkxmSXpxbVJxRUt0VjZKV2hCdmJKd21vTUgxRTIz?=
- =?utf-8?B?VHFYckhLQ3RkT0ZKN3N1YVRvaEVCN3lNSVFJL1dnTHVlYnNDeWJPNVdFanRT?=
- =?utf-8?B?TmVuTGU4a0tycGNMSDdpZE9IMnBTWjhQZXNqOCs4OFlZWjFyUTJLWldPQVA5?=
- =?utf-8?B?QUpST3pQQWVXNDBiUlVKUGdBWHFKcHJ5VFZHWldqOFNXL3BNcUN6SkpMUW9V?=
- =?utf-8?B?bmc3UzBhNjI3UFpWYlVaK1IwRUJISzhYcld0SzBqcGZpdGNzeHVKQUVoMTJ0?=
- =?utf-8?B?d1hEYjByNmFoR2w4T2VxdDlJd1NITWNyZHFKL2lNMjFZNTU5eDR5eExGSDJE?=
- =?utf-8?B?bmc1R3lGdEdTSDl6OEgvdHVUT0NNVEpUNDlsRzk3VGoxbWdUeGhiS3RRZzVv?=
- =?utf-8?B?SnhReWxHbzdybFg4b3BPNG00Nk9wSmRqbWNHNW1DeGhmdjZ1NEpoaE82QVJj?=
- =?utf-8?B?UDkvRk5qcGRiS0ExY1laemJLYmlBcStaK01JNFdRSkdxYmVPWG00bEZqa2tp?=
- =?utf-8?B?ZC9kRTdoL1JXVUw5dHI2ZFQ4dGdLeFZTZzNBSVFrREFHbUlGTjQ0U3VoaktK?=
- =?utf-8?B?VFBwUEZ3d0tQYmJFSkZiZzkvVmxUamtQRVBmY3pJeHJ5YTk1cy82RWkxcm9W?=
- =?utf-8?B?b2gxeE5ad1d3RGdnUnc0YytEMDh3eFRTVG91ckpwRVdTZXVubkg1ZCtBVERT?=
- =?utf-8?B?bTNqTUdrTjNzTVM1UFZrV2hCZnlDSEorcHA4UFZDUjZDRGpQbHVZSFlMZ1NQ?=
- =?utf-8?B?WThkdFRYM09hTW1zYXhxWTdBZVNPcENKMDQ5cG1NbUJwa3VjeDJ5SG9DSFB6?=
- =?utf-8?B?a3ZPbEt4U0U0ejFtZ1BLckNqQWxyVk4zaU5wUCtrdDB3VHVudithQWFKS25T?=
- =?utf-8?B?dmhVejZQcDdxaEhOdjZUZlZGdkYwTG15S1RFVE9NNXJCYnBaVnh3OTk4emQ3?=
- =?utf-8?Q?P2WZO67KXr6oqNfqShydK7MC7?=
+	=?utf-8?B?cGtmNGpKTVNOSWxPZ21DMkxtS1dodWFEMFh5bldnaE1wYm15WnpCK040Z1Z1?=
+ =?utf-8?B?ZWN0Wks0dW1iMWxkRWhSQTZEL0tJWDRwRVVwU0lqOHUwMHl5aVFpTjM0VllR?=
+ =?utf-8?B?VTVPUjhTNFdCVWlPV0x6NEdVYUx5ZVkrVkE4SEpiQVJibW1aS3FzVE5QSjVa?=
+ =?utf-8?B?cVl0aFkwaGFKVTBFQ3FGTFhBWXFKK1g2WGRkM2tHbXhwRFpFdUk3Ynk3R09R?=
+ =?utf-8?B?ZmtCeWNVZVpuU3pJeTVoY0RLc2hqSjhDODJrZGlXODM1dEJZZHdTRVptem5v?=
+ =?utf-8?B?L3M4aWdOYk1SVjdPMFBJTmIya0hobG51MklTWGpMSDV0WitzaW5nUFlZUUFE?=
+ =?utf-8?B?T0tuU1QxQ1huQnZ6WTIrZ01icW56c2JNaE5zRmcyZnhiNnByNWpkUTdYRFR5?=
+ =?utf-8?B?U1dQOGZraTA5clBiRVVLR3ZXZUNqamtGcyt6eUJLYmF4ckVPSmF0TW1yZDlB?=
+ =?utf-8?B?Z1Z3OHdqVlZmakNoYjloYlRsQ0FKVVFzVlBRSlFYcmJaOVNNN3lpVkc4cHo3?=
+ =?utf-8?B?ckpDcFdKd255clVhZVMxcU8ybW9WdVdqVEhHclM4MVZoMXV3aXNFZmFkYmhv?=
+ =?utf-8?B?OEV0ZHU0QTR2VkVtOEs2aVZRVUFzczd1RWtvaTBIb3FSZkRoUkJXc3BOcThG?=
+ =?utf-8?B?ZjhZOVRHNG1ZSkNwcXJrUGxsTTcwbzBxS3RrRWpwdjJ0WEJKbStqd0Yrb2Ro?=
+ =?utf-8?B?UWZaOWVwRUE0YURkdVhYZWcrakdqYjdiNkdpTWxpaGFldG1ZWXMwRUpzREpQ?=
+ =?utf-8?B?T1NiMThUY0hUdnFuSG0zMW5NVmVndFRKUSs3UFRoSVBVdWtNQnBEQmxEZXl1?=
+ =?utf-8?B?RVN5NU42REhZdWx3ZHBERk16elVPVzJMZmxsSTVoNEJ0ZWxsV2lveWJWRnQv?=
+ =?utf-8?B?YVdqdStPSXhackxHMkk5RVJzcXg1TmQvUjB3QThVbjlOV2lCS0pkWXg5bVlm?=
+ =?utf-8?B?SDlFL2JOQnZONFJRWkQ5VTV0N2VoT0lQVklFUldERTl2SXhTRnBMR2tuY2J6?=
+ =?utf-8?B?R0RqOGpiOGN6V0ZzZndNem0rSjV5cTdWZFpiSVRFUnNFUnZ3MGJNSy9HQnVN?=
+ =?utf-8?B?cFJrOXRkcHRkUXMxYWl1cmZHL0pNdWtZaEIyaU9QdDUwOUppbGppNjNORnJT?=
+ =?utf-8?B?NVhmcXNFKzVOTk5SVEp3NHA0VDI0WVNqeklMVkh5TVZiWUpPVmRydmlEUEJS?=
+ =?utf-8?B?Tk8xUGhFYklJNTdZd3R3d3F4cmlxQ0djTXBaV0xoaW5tcHpSVUIyR0htb2U3?=
+ =?utf-8?B?aHZSZWF2c0xhVktpVjhzbG0xcjdUdTdtRm9jcjBPWmllZ25XOCtTbXFTa1Vu?=
+ =?utf-8?B?TEM3d2QwMm53Rmh0STFVV3dhOWZjZ2hsSStKWmRrZ1pRWGJQS0xubE1XTmRX?=
+ =?utf-8?B?TzF2OEpJZ1FWRHpId0tlbVJBZGp0MUpQV2JWZ0p3QnZobUh1Y1I3VG5ZNHlT?=
+ =?utf-8?B?TWRRajhvcmVkcTd4RG9CWVI3QjQ0MUluUDZiRSs4OHdQNURZRnRuWnE5R0My?=
+ =?utf-8?B?ZSsyRWdmOVVqNUExejg2RWtINzc5NkcxQmRxM2RjY1pLNW9OY1BsV0xwN2dr?=
+ =?utf-8?B?eGFGM1M0ZkpPSWE3dkZEcENaYWlmOS9wMVFQZ0FrZXk4NkFYODRzWFoyZHVa?=
+ =?utf-8?B?QXg2U0FOMGcrcElxL0JJdFVZR2RNQjVrWjdLNlhHNjFNNlNtaUJyTFBTOFFn?=
+ =?utf-8?B?bTBnd05HMHF3OTFLUmRYTGljbkVoc2tDcWNWcnNUclZqRFNDa3VlTE1wM2R3?=
+ =?utf-8?B?MEFxRHRsdjdMYzk1VUxUbjIvZEhwMmZUOEVsQytlMjJ5UVgyM2taN3JnLzZw?=
+ =?utf-8?B?azRKNjl6ZytrWE5FOVB3R3RSc29TakVsMkFLK0lVaW1BaUg2Z2RadUl5ZkQz?=
+ =?utf-8?B?dXZZbjlXSUNOYU51UHZMK29MVjhTUzlmcEZNMk5pNXppNWcwUTdsR0NKQ0tk?=
+ =?utf-8?B?Qk5HaEtyWU9VdDBEeE16ckt2bEFWZ2x6cHM2WCt1ZzRiajRPSjFiZEx0akNR?=
+ =?utf-8?B?b3h5ajlOZ1lxU1Z5YlJWTkh0WXZaY2lSaUNEQVhPTVdVQitQei9aZFhpMW96?=
+ =?utf-8?B?VkdCOXY2aFpJME10ajFrYlJQT2V0WVNDZEtiRnpMRVNuekZCTlFnVFZFRGVw?=
+ =?utf-8?Q?z9DblkJYfS4s/FfK/wNb/HNdp?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ab30859-5335-404a-e1e7-08db2521d48f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48ccb41f-3668-4566-524e-08db25248916
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2023 06:52:23.6373
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2023 07:11:45.4236
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wr4FUz3W7QSC9tI9ic70Pzda7tkaVKP1LzrYWRXKqav1dVtehgFBqtJQDjjYRCAdjixh+btX8ceg8rXymBYJFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7445
+X-MS-Exchange-CrossTenant-UserPrincipalName: axwL8d6phj6gekVLQIBC7HNsNKmGHk9PpEsWwMWJOkSJ2p33GAQYOMyPvciBu9AmxgYBvStD3IGBHWXaO4lHcg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9586
 
-On 15.03.2023 05:14, Huang Rui wrote:
-> On Wed, Mar 15, 2023 at 08:52:30AM +0800, Stefano Stabellini wrote:
->> On Mon, 13 Mar 2023, Jan Beulich wrote:
->>> On 12.03.2023 13:01, Huang Rui wrote:
->>>> Xen PVH is the paravirtualized mode and takes advantage of hardware
->>>> virtualization support when possible. It will using the hardware IOMMU
->>>> support instead of xen-swiotlb, so disable swiotlb if current domain is
->>>> Xen PVH.
->>>
->>> But the kernel has no way (yet) to drive the IOMMU, so how can it get
->>> away without resorting to swiotlb in certain cases (like I/O to an
->>> address-restricted device)?
+On 14.03.2023 20:12, Oleksii wrote:
+> On Mon, 2023-03-13 at 17:26 +0100, Jan Beulich wrote:
+>> On 09.03.2023 14:33, Oleksii Kurochko wrote:
+>>> --- /dev/null
+>>> +++ b/xen/common/bug.c
+>>> @@ -0,0 +1,107 @@
+>>> +#include <xen/bug.h>
+>>> +#include <xen/errno.h>
+>>> +#include <xen/kernel.h>
+>>> +#include <xen/livepatch.h>
+>>> +#include <xen/string.h>
+>>> +#include <xen/types.h>
+>>> +#include <xen/virtual_region.h>
+>>> +
+>>> +#include <asm/processor.h>
+>>> +
+>>> +/*
+>>> + * Returns a negative value in case of an error otherwise
+>>> + * BUGFRAME_{run_fn, warn, bug, assert}
+>>> + */
+>>> +int do_bug_frame(struct cpu_user_regs *regs, unsigned long pc)
+>>> +{
+>>> +    const struct bug_frame *bug = NULL;
+>>> +    const struct virtual_region *region;
+>>> +    const char *prefix = "", *filename, *predicate;
+>>> +    unsigned long fixup;
+>>> +    unsigned int id = BUGFRAME_NR, lineno;
 >>
->> I think Ray meant that, thanks to the IOMMU setup by Xen, there is no
->> need for swiotlb-xen in Dom0. Address translations are done by the IOMMU
->> so we can use guest physical addresses instead of machine addresses for
->> DMA. This is a similar case to Dom0 on ARM when the IOMMU is available
->> (see include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect, the corresponding
->> case is XENFEAT_not_direct_mapped).
+>> Unnecessary initializer; "id" is set ...
+>>
+>>> +    region = find_text_region(pc);
+>>> +    if ( !region )
+>>> +        return -EINVAL;
+>>> +
+>>> +    for ( id = 0; id < BUGFRAME_NR; id++ )
+>>
+>> ... unconditionally here.
+>>
+>>> --- /dev/null
+>>> +++ b/xen/include/xen/bug.h
+>>> @@ -0,0 +1,162 @@
+>>> +#ifndef __XEN_BUG_H__
+>>> +#define __XEN_BUG_H__
+>>> +
+>>> +#define BUGFRAME_run_fn 0
+>>> +#define BUGFRAME_warn   1
+>>> +#define BUGFRAME_bug    2
+>>> +#define BUGFRAME_assert 3
+>>> +
+>>> +#define BUGFRAME_NR     4
+>>> +
+>>> +#define BUG_DISP_WIDTH    24
+>>> +#define BUG_LINE_LO_WIDTH (31 - BUG_DISP_WIDTH)
+>>> +#define BUG_LINE_HI_WIDTH (31 - BUG_DISP_WIDTH)
+>>> +
+>>> +#include <asm/bug.h>
+>>> +
+>>> +#ifndef __ASSEMBLY__
+>>> +
+>>> +#ifndef BUG_DEBUGGER_TRAP_FATAL
+>>> +#define BUG_DEBUGGER_TRAP_FATAL(regs) 0
+>>> +#endif
+>>> +
+>>> +#include <xen/lib.h>
+>>> +
+>>> +#ifndef BUG_FRAME_STRUCT
+>>> +
+>>> +struct bug_frame {
+>>> +    signed int loc_disp:BUG_DISP_WIDTH;
+>>> +    unsigned int line_hi:BUG_LINE_HI_WIDTH;
+>>> +    signed int ptr_disp:BUG_DISP_WIDTH;
+>>> +    unsigned int line_lo:BUG_LINE_LO_WIDTH;
+>>> +    signed int msg_disp[];
+>>> +};
+>>> +
+>>> +#define bug_loc(b) ((unsigned long)(b) + (b)->loc_disp)
+>>> +
+>>> +#define bug_ptr(b) ((const void *)(b) + (b)->ptr_disp)
+>>> +
+>>> +#define bug_line(b) (((((b)->line_hi + ((b)->loc_disp < 0))
+>>> &                \
+>>> +                       ((1 << BUG_LINE_HI_WIDTH) - 1))
+>>> <<                    \
+>>> +                      BUG_LINE_LO_WIDTH)
+>>> +                                   \
+>>> +                     (((b)->line_lo + ((b)->ptr_disp < 0))
+>>> &                 \
+>>> +                      ((1 << BUG_LINE_LO_WIDTH) - 1)))
+>>> +
+>>> +#define bug_msg(b) ((const char *)(b) + (b)->msg_disp[1])
+>>> +
+>>> +#ifndef BUILD_BUG_ON_LINE_WIDTH
+>>> +#define BUILD_BUG_ON_LINE_WIDTH(line) \
+>>> +    BUILD_BUG_ON((line) >> (BUG_LINE_LO_WIDTH +
+>>> BUG_LINE_HI_WIDTH))
+>>> +#endif
+>>
+>> I still don't see why you have #ifdef here. What I would expect is
+>> (as
+>> expressed before)
+>>
+>> #define BUILD_BUG_ON_LINE_WIDTH(line) \
+>>     BUILD_BUG_ON((line) >> (BUG_LINE_LO_WIDTH + BUG_LINE_HI_WIDTH))
+>>
+>> #else  /* BUG_FRAME_STRUCT */
+>>
+>> #ifndef BUILD_BUG_ON_LINE_WIDTH
+>> #define BUILD_BUG_ON_LINE_WIDTH(line) ((void)(line)
+>> #endif
+>>
+>> (perhaps shortened to
+>>
+>> #elif !defined(BUILD_BUG_ON_LINE_WIDTH)
+>> #define BUILD_BUG_ON_LINE_WIDTH(line) ((void)(line)
+>>
+>> )
+>>
+>>> +#endif /* BUG_FRAME_STRUCT */
+>>
+>> ... and then the separate conditional further down dropped. Have you
+>> found anything speaking against this approach?
+> Both options are fine from compilation point of view.
 > 
-> Hi Jan, sorry to late reply. We are using the native kernel amdgpu and ttm
-> driver on Dom0, amdgpu/ttm would like to use IOMMU to allocate coherent
-> buffers for userptr that map the user space memory to gpu access, however,
-> swiotlb doesn't support this. In other words, with swiotlb, we only can
-> handle the buffer page by page.
+> Lets change it to proposed by you option with '#elif !defined(...)...'
+> 
+> I'll prepare new patch series and sent it to the mailing list.
+> 
+> I would like to add the changes from the [PATCH] xen/cpufreq: Remove
+> <asm/bug.h> by Jason Andryuk <jandryuk@gmail.com> but I don't know how
+> correctly do that. I mean should I added one more Signed-off to the
+> patch?
 
-But how does outright disabling swiotlb help with this? There still wouldn't
-be an IOMMU that your kernel has control over. Looks like you want something
-like pvIOMMU, but that work was never completed. And even then the swiotlb
-may continue to be needed for other purposes.
+As said in my reply to Jason, I really view his patch as kind of an odd
+way to comment on your patch. So no, I don't think you'd need another
+S-o-b in this case.
 
 Jan
 
