@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F08406BBC00
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 19:25:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510172.787435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B178B6BBC1D
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 19:33:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510177.787448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcVon-00083N-L1; Wed, 15 Mar 2023 18:25:45 +0000
+	id 1pcVw5-0001Nj-Hf; Wed, 15 Mar 2023 18:33:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510172.787435; Wed, 15 Mar 2023 18:25:45 +0000
+Received: by outflank-mailman (output) from mailman id 510177.787448; Wed, 15 Mar 2023 18:33:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcVon-00081g-Hp; Wed, 15 Mar 2023 18:25:45 +0000
-Received: by outflank-mailman (input) for mailman id 510172;
- Wed, 15 Mar 2023 18:25:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pcVw5-0001LU-Eg; Wed, 15 Mar 2023 18:33:17 +0000
+Received: by outflank-mailman (input) for mailman id 510177;
+ Wed, 15 Mar 2023 18:33:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ux93=7H=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pcVom-00081K-Dv
- for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 18:25:44 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cba8e139-c35e-11ed-87f5-c1b5be75604c;
- Wed, 15 Mar 2023 19:25:43 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id x13so31746399edd.1
- for <xen-devel@lists.xenproject.org>; Wed, 15 Mar 2023 11:25:43 -0700 (PDT)
+ id 1pcVw4-0001LO-F6
+ for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 18:33:16 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d8a225b8-c35f-11ed-b464-930f4c7d94ae;
+ Wed, 15 Mar 2023 19:33:14 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id eg48so19933718edb.13
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Mar 2023 11:33:14 -0700 (PDT)
 Received: from [192.168.8.114] (46.204.101.131.nat.umts.dynamic.t-mobile.pl.
  [46.204.101.131]) by smtp.gmail.com with ESMTPSA id
- zk6-20020a17090733c600b00927e0fb3e50sm2847209ejb.100.2023.03.15.11.25.41
+ ja19-20020a170907989300b008cf8c6f5c43sm2832659ejc.83.2023.03.15.11.33.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Mar 2023 11:25:42 -0700 (PDT)
+ Wed, 15 Mar 2023 11:33:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +44,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cba8e139-c35e-11ed-87f5-c1b5be75604c
+X-Inumbo-ID: d8a225b8-c35f-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678904742;
+        d=gmail.com; s=20210112; t=1678905194;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=EsfNJzGXFo+wfWbp9Tuz/H0Bn24OppdY5vSVwfN72E4=;
-        b=E/vZ25uC+ptFzWNFBxsDe7QqCROMthI/kn3jMx7wH+Qqi/8y2bgQqA4X9EhDAtkNnF
-         +dlEuRGvp/rbBfIIVCu/6c50pQBJ87mUDB2svzQHSWxyfQU4nSKSnIv1CaqMljGGMENh
-         KrCnAxQW0INV/z/iGTnVsIgpMEyrQ0r5jqW4gKT2mF4QECIhhzPTn4T579pZmZupWQke
-         JOXeurtaqEWLX6+vPPX+ZwkVLQ2c595J+7KdpFTbSJmegupnGfmhHfx/0uCl4vOqLQq9
-         V+19AKlSrrA4aNgQwjOpFLFNryDYKafeBF6qMIIXt+JEeJ0fo/MOGErK3qgeAQnO60Xh
-         vrCw==
+        bh=zfxFJ6dZWvXaXmRqKhnE6CK1wnsP+2gVVJCnEq3zeq0=;
+        b=phnGZaqw0cmvTdktl11lqCpPQCK1HhYgZyZaaWNp9eFpTVQGdDJ8vV+xC8aZN7vrUo
+         sZz02wzgOcA3zA7QiSb+RbYofbl5oRWtPcFixlcKTRiAqIw+z3iXscKqpq/SGVUFyOBM
+         TRYEtZbJ7Pr8/gQEEwhOAgzfvCiKj7g/TYRB0HDhgRhN6GQKtKLYUuEl7PjzyOrl04KD
+         /LOl1PH4GtxfQ7VCq6hwvlfwc4CGcQ1VbfW3YTjtHapVfMX2itqld20UZVw1Ie9KThEt
+         Ir8f2X8U0FEeKb6Cp4J99ScecvY+oHtXAdCqVwQXjFX2uMHFa/Hu/RR50Nhp4vcd+yY2
+         rcNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678904742;
+        d=1e100.net; s=20210112; t=1678905194;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=EsfNJzGXFo+wfWbp9Tuz/H0Bn24OppdY5vSVwfN72E4=;
-        b=a8XHQeENdTgphl+c8i7xZ/JUXt3dVSdwOR4OaQUaGLq4Ie1oee1bgybjgJA+4lr2yU
-         1ln6PoqN9I84LG/nv5On6ikcSIueMRIZTHYVArcjlzMSZ15stecq3sUuXcLmGZygax04
-         fWV9kiQm4FdYTq2BjFc2uzIfH9ZAfloLkKhujkAHgDKwhaBu+/C7TosHKIMt92FDehBk
-         L/N71Mm8VaSzjzVdVXfH3DDtlvOPBI5v6FnQYkfzg8SXHY9b0b1EUtUnAthwqsZHIQ0y
-         sCp20sT1QDoxaA0wWWgYgCNUqRYqZbLzNWc4NY/dhwn9uf7AcGZChRWusgzvYQd8+rCr
-         nDBQ==
-X-Gm-Message-State: AO0yUKV0gqsU/R+IDcPvFNq/oNkJOLuS2jx/IIavQ5owrF15rrZSMErY
-	Pf6EUh/hyjIInJTJhtGxov8=
-X-Google-Smtp-Source: AK7set8GP727gEUbidUkB7iEgmVpmAp8iIhnMb4RbCWEPhVkqYYPSu0Jt2GF5D0Kenbu1PkF0aOHyQ==
-X-Received: by 2002:a17:906:743:b0:92b:4f8e:dddb with SMTP id z3-20020a170906074300b0092b4f8edddbmr8981648ejb.34.1678904742485;
-        Wed, 15 Mar 2023 11:25:42 -0700 (PDT)
-Message-ID: <2a7fbb0495833ad686f260091024966f8b003dcb.camel@gmail.com>
+        bh=zfxFJ6dZWvXaXmRqKhnE6CK1wnsP+2gVVJCnEq3zeq0=;
+        b=bNsZGEYXJ/ljZUTmcOYr3DyLzI3qFau9wLKFQ31eyLlnV9uYcPh1DfqwjLhRSfhtlc
+         FI5jlBoJH41S/L/jIKFlDJ0aVb6GRRDv5FnLiFraUkUVje5ChKUYiFwxidHKW1iH2HEJ
+         JkRnVzB8afTM+um44ZU7zlA2zWzvFzxyGsj1KrYTsG0QBCsog9hpF3UbD7f4n7NqHpHB
+         4lPppKyRmSzvk6VYabUQSxtPX/oCd1CEkbvbyWxLMr5HWp6bt1kpELIBNDPI4fkROuzO
+         XuaMqZfAvu9kYuapDS31vjwcjjCLrHK+LutTtaH3/OHNBaNtxRLQEpVY+6moNofZ66aS
+         bmXQ==
+X-Gm-Message-State: AO0yUKXNVB6xBJCptdPYpCKpW6Fr9xGiIAuLo2RZQgXZFCi5zGsFUwJf
+	pSY87y0h32PASSqzWvFQxu4=
+X-Google-Smtp-Source: AK7set/bfnSrJhBwV0Gn10XKGbJC+hGL6zNgSIJjx5PjI+PKUdDQkMVGCl5Q3oDzwJo8yDth1oJ0lw==
+X-Received: by 2002:a17:906:2e89:b0:91e:7063:f558 with SMTP id o9-20020a1709062e8900b0091e7063f558mr7315282eji.37.1678905193769;
+        Wed, 15 Mar 2023 11:33:13 -0700 (PDT)
+Message-ID: <009b20a71738e8a33fe4044be10a456c4fd37b68.camel@gmail.com>
 Subject: Re: [PATCH v1] xen/riscv: make calculation of stack address
  PC-relative
 From: Oleksii <oleksii.kurochko@gmail.com>
@@ -83,7 +83,7 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida
  <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
  Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Date: Wed, 15 Mar 2023 20:25:40 +0200
+Date: Wed, 15 Mar 2023 20:33:11 +0200
 In-Reply-To: <4a8d7292-38b3-1c32-4037-1c94b94b6f46@suse.com>
 References: 
 	<ad2249c1b5be01f99ef9c294a3264da0c9715bab.1678809641.git.oleksii.kurochko@gmail.com>
@@ -190,13 +190,9 @@ On Wed, 2023-03-15 at 08:35 +0100, Jan Beulich wrote:
 > Leaving aside the question of why you and I see different code being
 > generated, isn't it simply a matter of RISC-V, unlike Arm and x86,
 > not presently consuming EMBEDDED_EXTRA_CFLAGS in its arch.mk?
-Why don't we should see different code?
+No, it doesn't.
 
-Do you use CONTAINER=3Driscv64 to build RISC-V Xen?
-If yes, probably, we see different code because you have more up-to-
-date CONTAINER. I am using CONTAINER_NO_PULL=3D1 for a long time so it
-might happen that we have different gcc version.
-
+Could we consider cosuming EMBEDDED_EXTRA_CFALGS as a solution?
 
 ~ Oleksii
 
