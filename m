@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92B9D6BA6F2
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 06:18:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.509900.786607 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB17D6BA867
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 07:51:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.509906.786627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcJWW-0007oo-Hu; Wed, 15 Mar 2023 05:18:04 +0000
+	id 1pcKxb-0002P1-5i; Wed, 15 Mar 2023 06:50:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 509900.786607; Wed, 15 Mar 2023 05:18:04 +0000
+Received: by outflank-mailman (output) from mailman id 509906.786627; Wed, 15 Mar 2023 06:50:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcJWW-0007mj-EP; Wed, 15 Mar 2023 05:18:04 +0000
-Received: by outflank-mailman (input) for mailman id 509900;
- Wed, 15 Mar 2023 05:18:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dncz=7H=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1pcJWU-0007md-Ko
- for xen-devel@lists.xen.org; Wed, 15 Mar 2023 05:18:02 +0000
-Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
- [2607:f8b0:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be581796-c2f0-11ed-b464-930f4c7d94ae;
- Wed, 15 Mar 2023 06:17:58 +0100 (CET)
-Received: by mail-pl1-x62f.google.com with SMTP id ix20so12351625plb.3
- for <xen-devel@lists.xen.org>; Tue, 14 Mar 2023 22:17:56 -0700 (PDT)
-Received: from localhost ([122.172.83.155]) by smtp.gmail.com with ESMTPSA id
- bn9-20020a056a00324900b0062578514d6fsm1856054pfb.58.2023.03.14.22.17.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Mar 2023 22:17:54 -0700 (PDT)
+	id 1pcKxb-0002Ke-2O; Wed, 15 Mar 2023 06:50:07 +0000
+Received: by outflank-mailman (input) for mailman id 509906;
+ Wed, 15 Mar 2023 06:50:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MLe6=7H=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pcKxZ-0001yy-6h
+ for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 06:50:05 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on2062a.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9b313796-c2fd-11ed-87f5-c1b5be75604c;
+ Wed, 15 Mar 2023 07:50:03 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DBAPR04MB7445.eurprd04.prod.outlook.com (2603:10a6:10:1a7::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.29; Wed, 15 Mar
+ 2023 06:49:58 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Wed, 15 Mar 2023
+ 06:49:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,80 +47,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be581796-c2f0-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1678857475;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=y8QmKYcJg57HlzpunFUH9MGPifRoNDq8hXq0hFkxBNA=;
-        b=abtA9w7+N9PnFhqJMTS1vxekyB+/9TRZH757nvWjC02O4HuYQfEbGMmD6ICW7rMFjY
-         /VmGD+DSb6byIkc6ilrxJg1Z62GJqLpixlq583fSkrd9N8zzlEq+PUYLqbCjGsD6pZzr
-         lNMKud71kSuDbnS5pru+h7MQGeq3nXJGF1+5NYUsY0V54O243pKtc5WzZ0NVCCDd6+Rw
-         3bhP/Nawtapv3spmtMwhDzE3512ZNUdt9CaHz4T4WJge5hudYtFOTxOrQLUGqX4uXum5
-         MVBH2rVWKsGPVjryEipxT4zwgFRep8zhaSYlfOQGnMfpK3v0H9FUXboiFoC4LXZ5B6gr
-         0UYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678857475;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=y8QmKYcJg57HlzpunFUH9MGPifRoNDq8hXq0hFkxBNA=;
-        b=szIsT3n2C/JCn811+7gw/TL+lnQLxtbRy3gA9H7l+0tgkYZkrKMIYjg+6E74vqB/CQ
-         uaWhNLyyQ1GemHkIlbfHcNhPyt90hzSVBDe/EY9bnC1pypD7QummsPu0LgJd7/DzQiXa
-         5KmHlR846uuHM6Cq/kPh5AvHOm0lBCNMJ7MdLONCqcB2nouLZ3c2E3s+hVVMXQlu47MY
-         lB8TGy5+DRL8bb/mpcFGgz3U5A29s5yU5OdWc1cBfdICMiuIJwGoPm1jh1Qu0IKLQp10
-         9McmJz+AqCb32MWu0+6z9qqzIwAmOlG11UPcANe4hGnLJI5OeR1I3bZQOi4rAZtsDe0y
-         zURw==
-X-Gm-Message-State: AO0yUKVnyUe1CZxZHqbzeSZqHXJms936Ax2i+PzbZQD6QRw/Ny6+gF0C
-	MxlAEA+5jBSnW97myWp6XG2MNQ==
-X-Google-Smtp-Source: AK7set+v+08YLmgVZIkdUoqQNIHkvJTCWU5NZ9zfOm8OmZpJiNuz6CJzunAVmSRk/ShmWB32e+7zgw==
-X-Received: by 2002:a05:6a20:7a1f:b0:d6:f0:85a with SMTP id t31-20020a056a207a1f00b000d600f0085amr1351227pzh.17.1678857475344;
-        Tue, 14 Mar 2023 22:17:55 -0700 (PDT)
-Date: Wed, 15 Mar 2023 10:47:52 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: qemu-devel@nongnu.org, virtio-dev@lists.oasis-open.org,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xen.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Sebastien Boeuf <sebastien.boeuf@intel.com>,
-	Liu Jiang <gerry@linux.alibaba.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Subject: Re: [PATCH V3 0/2] qemu: vhost-user: Support Xen memory mapping
- quirks
-Message-ID: <20230315051752.2owlp26mq72dqel2@vireshk-i7>
-References: <cover.1678351495.git.viresh.kumar@linaro.org>
+X-Inumbo-ID: 9b313796-c2fd-11ed-87f5-c1b5be75604c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TtnsFPvRI+ZCQTi6LDD1S9e0ihawTzV3SkGeWaXLE09RhbU4u1yw84di+bAAk8gy5ju0SbJuulFX4UeRYoEP480kmhyH7J7ClO/j9MT2Xs+CWbuKyawAhO5Ly7GDFU5+hVlEEEgSwDZDrq52vmzGaIY7nn7X3eXO/gboSL8HpZLLqD3DmXUlfaScuSrJUv6zsivuqArig/NymP0oKHD+4cFsAsWzyu8AIIgsjLG6rIE0w78G/8FOeR9IX+3Wh5zlIiIne6ENG11V+CZRyRfmMJkN7JD0emcF3e1e6bVqApvJCidDiW9HSPxLepnijj4XoY3yzpuNrP5g29Gg6Zvf/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jzbVl/yx5DrEE6/AjikLXbhVVWbYOKgadlMTX5tIky0=;
+ b=ksFv/4W6hERb6StSGK7bjp+4ECt4bhwxLvPegIouq6JVrQcjpmE20Zd0SKHMUkyc9/4IMcvkxOj6SK5N+xIxmoC02jnhhW1LYf1YYgkV+eZirTsahTz2UfIosCln5ssYvyKn9xZQ8/W1AORqzFP+OhtcnUfgr1YWiT/2SQQ7Rrk5AERetAziwS43UVucMsjdIB1VjP7uIq+qf/SJpCq+NA9t89X7tVAq58NVxX/dFUk3NvDg+b7kEIJoyqPfh4tNJFNEAr1q3vvJs35Dt/aWjbQd/lKXk8ShF1GmC2XMWJcfiue9IHcdWIN/1tAF7GLBHMzrBQwWfKgdKncdgyzZNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jzbVl/yx5DrEE6/AjikLXbhVVWbYOKgadlMTX5tIky0=;
+ b=LY6XifRS1dF1S/xHyDHLsrcgUEe0OV8C9+jnJq7jRDQAKgVd/a/Tyc0tZXDzH+hkwIaXUgWGrNJT2SR5sMT2rCT7JflEZE3YVtBipOCsENYMpao27U9Zy1Wn581OkW4HolIFc+KGxu1pduoHcwyFayNazQDKNxYi/wF0sI6OFwjQrhyBlUv7zso1ZsEg1q8jPObMY9zF5apLWxX1cKnnwDLkgg8fzsoMy6AsLxVbEm3VKCwVAVa4KfkkAPuEg/OtM/WIIN17xKU0u7soIv9Zmi6WSFcAHPATWJrscdjuo2tLhbHhb8TKidyQX/12wvJKoposUPqXLXiLBr3gH3fE6A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f5e03f2a-8176-528f-e885-9a97940367c0@suse.com>
+Date: Wed, 15 Mar 2023 07:49:55 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Huang Rui <ray.huang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>, Juergen Gross <jgross@suse.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20230312120157.452859-1-ray.huang@amd.com>
+ <20230312120157.452859-2-ray.huang@amd.com>
+ <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com>
+ <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0139.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:96::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1678351495.git.viresh.kumar@linaro.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBAPR04MB7445:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06617256-5f83-46a7-42fd-08db25217d90
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	IlAfPmXT9aa1mtt7WVL4rK5C5Wte7MHYwjaiMSgEceraEJEhBjT2p5G8jIzc+5alZiVt/D7+XFhH3sJf7r5odUEpwf5A9+k+dwaXDv/T/dJ/UZiyjqEWTIxgZ28P3VE+7zVKL2wO+cxQGm8+1cG2gJF8lZkiZm0VSx9gsxBOFdj2Wze0+n9wy2KwI+g88tRsUNCkMvXzA8rmTxxME/gpP9xKEXrQedoC//jWi2AONgo9kQ2T5SdzzqUooXg4xUqy/51SMeJ5FXsw7djEpcLTRKIEOlZzckBQYSsAUvleTuScQ0CWzSMjMVPrb/tnQvgms96W4N3FzxAeGEHeazLUyjPtKTz7Oqt9bNIRPF1o8VmU7tq9YBv4QtfsNEtTH15tZEjRKIZ43t9iQtL8vdV0aZlECvCmtodtzlFl1siAN/G/SGmzoYOXcQ4BZ25ko4/GzLq3qXa1FubSNsmMaKuZnrvIZYLqMQh3N26f1xFRo0gILcfBI++zt2ztd9zP05vyiPkp1gb1JsbTc0OpD+yidT39tR6+3J0QoOZYvWUz40Z9pQFrReRZSNSELLKtbeIvXQ0LNaVT8jjTsarfpiewtJ9WAkCzaMmZk6vnaoerrdb6EdRZuMg6v+awQtIlw9kJG76l/9jVcQv4JJwo1O6Ymzd17CzJh2MtpXDzmNyRfASLIyH859+c1fx2ilm/uyh6gUfCjl8S1Dv4li83T8/64Y0vfpzcx7RFzmtmhUw86AY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(396003)(376002)(346002)(366004)(39850400004)(136003)(451199018)(36756003)(7416002)(5660300002)(83380400001)(478600001)(6666004)(6486002)(6506007)(26005)(53546011)(6512007)(2616005)(186003)(66476007)(66556008)(66946007)(8676002)(6916009)(41300700001)(4326008)(8936002)(31696002)(86362001)(54906003)(316002)(38100700002)(2906002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MjN5ZDhJY0huRTNMeGxNbEV0anM4RitmUnNTc1hDajJMc0plZklDT1pUQWNR?=
+ =?utf-8?B?cldvWlJqS3lLZ3JHdnhva2g4NEFPQjhZdURqVXM3Q1k2YW5PWS9YbGxOUzRt?=
+ =?utf-8?B?OUxIdmpFaFQ4bEdwaVRQSTZqTUhGaEo0WW9sRzRnOTUwYkx1VlR3K2dTVWwr?=
+ =?utf-8?B?YzNrVkd5OTcvMCtJRzBCckJENnpMS1NsMWo0UmZIL202NkMrQkl6V2lRb0Vj?=
+ =?utf-8?B?ZXBFdFZETE05Yk43MTVEWStpc0tNS0tGOXgxRUVJQXpMSEt0eXFnUDhJVGRp?=
+ =?utf-8?B?ZE0zYUliUzJSMEUzMk5UZHpTOE10dEhLR0l4YVJWTzBmNTBNY2NkcklMT0Ns?=
+ =?utf-8?B?VVA5TEhmM3RKditYS3hPalJ5UC9tcDBTVFNGVkVPVzhZSzZLWVFOZVA1OWFC?=
+ =?utf-8?B?L2ZDN1RkOXZ2K3NkRWdPeEVYWnAzUlJuSkVmQjdtNG1wSUlXeStsRGdTTkxj?=
+ =?utf-8?B?OTBTSmU3VjJzRWdrTnZza0VORE1Zd0h6VzNiQkc4NW1ocW4xbVFWQk9leUNq?=
+ =?utf-8?B?OXF6ejJGQW9kdUdnNGM2SjcwVzdzQkFHOCt6dm9JMnlFTG1PUzdxMzJ4SlF6?=
+ =?utf-8?B?Tzl1NjAxckk2cDl1ZGd5VmpnVWM0SjRuUkZrc0s0TVhkelhFN3hBN1UxZWpV?=
+ =?utf-8?B?RVVvN1V4ZzM3Rk5jczBLMTk1cXlXMWpQNEdOQlEwSVlObnc2MXNNMEhwRzVh?=
+ =?utf-8?B?WEp4d3RDMVo2QXBlMkV0Ui96SWJwbjFTZTdnelhVOFQzUlF1VEFEZVdiMy9j?=
+ =?utf-8?B?cm52czllN3M4amErck1MN2VOb09GNDhOVjh1anhTVnEzYXRibExUT05ZYkNP?=
+ =?utf-8?B?UlhLQzBNcUoxNGFnU0xCZjRiNjlQVjVhWlBnTW9JNWhTMGFHdGY3U2hDWkx5?=
+ =?utf-8?B?RTBnSXVmYXhRRGNzTEF3RlBYVU9WVmZBN1E1bjRTdG1DQmJXL0ZVNEdXS1hP?=
+ =?utf-8?B?WTJ3SE5pREdGYWNpQllHT2hvSE5QZTNvM01UOHcySWNpcTVRMzZNVmRhVDlG?=
+ =?utf-8?B?SlRBTW5PbGxvZ3F2cXZ0QVdObmY0dDZJa0E0cHVjeFh5enhqY254VFF3THF3?=
+ =?utf-8?B?WkY1Y2tzTjRjQzR3UDRlUXIzc0hoNS9ua2UyZFZrNzRBNFM5Qk8yZ2VwRGFB?=
+ =?utf-8?B?V1UxcENQNkdYbmJrRlozMHpnOXdrTXRWYVJNQk9JYUlkWlo4Q2RMTFgvOFFE?=
+ =?utf-8?B?dmNzV2M5YTc2aC9GMWJQNVl5dDl0UmV4VklNc3R4VlNXYW15Mkd0ZGc3WExD?=
+ =?utf-8?B?VDBEMms0WmpNVXczRlFJNnFLNjhBQVhtRVNrTGJ4RlRKOUNObG05WDdkeHBB?=
+ =?utf-8?B?b28yV2pMck00WG9Dcms3Mzh5ck5VUmhPWS9PUWtaTVczS2oybUpidnh6U29E?=
+ =?utf-8?B?bnAySlNxTkRBYVpBZHdpZ2U1M2JteWJRVTgyN2JoL0hVcmdWK08zMDYwVEF1?=
+ =?utf-8?B?RGdESnErM0s0VDgxWXkxa0I3TkJCNzZrN3JvaFo3T3NZZ3NsQnJCZkFnSVlm?=
+ =?utf-8?B?d1FWWUx3RXBZZ0FMaGRhQkF6UDN5dFJ1RVpPOU9lKzZsN3F0WTAybWI2SGVO?=
+ =?utf-8?B?YlF6UldYN2laNTlUVU1iOW8xV2ZhTThPczNLNk01VU1KRnJERnk5Uk0yYnU1?=
+ =?utf-8?B?YnQ3NlFQbHNZS0lpTGxpcWh1WFhUNVZUZTNta0lkZENzd2JKa0NKWTJwL1Jh?=
+ =?utf-8?B?QktvQ3lKN2o3MVNVMzU1UVFZM2hwLzdxbzd5OGxyMG41ek1lQ2NYMW8rMldN?=
+ =?utf-8?B?WjJQcXdrcmE3d0w1NDc3aElOeXBCVGYwQU42cjVUd3RoZ25HS2FQNE4yZkEz?=
+ =?utf-8?B?dlZMajZQNXlWT2xmaC9rQUY1VlpydFJCT1kwdTcxcWx3anFud3dxNXQ0RFE5?=
+ =?utf-8?B?VHVPSDUvbS9wcHNteGlsbVA0cTc1ayt2dTVSa1BGeVVHaXhUTGdWbXJEK3Y1?=
+ =?utf-8?B?Z0I0cy9uK2NoaXBEdk5pN0t2ZTJyQm1weHVJU1IwczZIeE1YT2U2TUJoMGNa?=
+ =?utf-8?B?cXBVbEQ2RXdlOXR6YzhSbmlmV2Q2KzhRWFZLdjN6V0VsYk1VRVhNVUUwN1ls?=
+ =?utf-8?B?Z0grMTJzS0IzTTBEUGJWcmVJcE1VcUFFakllZHhuSFhEcm1DTlhHU0N4RElS?=
+ =?utf-8?Q?RDC+kEvfm5GlxIdh/6CyiglsP?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06617256-5f83-46a7-42fd-08db25217d90
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2023 06:49:57.6936
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DnfelH2g0m+8jfsfZsnfdbaZEgAoSmTBn/mC+WznUvdWV9/BZovw7KTH+VGGL9SHdRx3YaWN8k/3I+gatVbDfg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7445
 
-On 09-03-23, 14:20, Viresh Kumar wrote:
-> Hello,
+On 15.03.2023 01:52, Stefano Stabellini wrote:
+> On Mon, 13 Mar 2023, Jan Beulich wrote:
+>> On 12.03.2023 13:01, Huang Rui wrote:
+>>> Xen PVH is the paravirtualized mode and takes advantage of hardware
+>>> virtualization support when possible. It will using the hardware IOMMU
+>>> support instead of xen-swiotlb, so disable swiotlb if current domain is
+>>> Xen PVH.
+>>
+>> But the kernel has no way (yet) to drive the IOMMU, so how can it get
+>> away without resorting to swiotlb in certain cases (like I/O to an
+>> address-restricted device)?
 > 
-> This patchset tries to update the vhost-user protocol to make it support special
-> memory mapping required in case of Xen hypervisor.
-> 
-> The first patch is mostly cleanup and second one introduces a new xen specific
-> feature.
-> 
-> V2->V3:
-> - Remove the extra message and instead update the memory regions to carry
->   additional data.
-> 
-> - Drop the one region one mmap relationship and allow back-end to map only parts
->   of a region at once, required for Xen grant mappings.
-> 
-> - Additional cleanup patch 1/2.
+> I think Ray meant that, thanks to the IOMMU setup by Xen, there is no
+> need for swiotlb-xen in Dom0. Address translations are done by the IOMMU
+> so we can use guest physical addresses instead of machine addresses for
+> DMA. This is a similar case to Dom0 on ARM when the IOMMU is available
+> (see include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect, the corresponding
+> case is XENFEAT_not_direct_mapped).
 
-Stefan,
+But how does Xen using an IOMMU help with, as said, address-restricted
+devices? They may still need e.g. a 32-bit address to be programmed in,
+and if the kernel has memory beyond the 4G boundary not all I/O buffers
+may fulfill this requirement.
 
-Does this version look better ?
-
--- 
-viresh
+Jan
 
