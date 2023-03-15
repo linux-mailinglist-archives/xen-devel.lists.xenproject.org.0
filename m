@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A6FA6BB645
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 15:38:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510100.787181 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 783616BB6BE
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 15:56:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510104.787190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcSGO-0000m6-Vz; Wed, 15 Mar 2023 14:38:00 +0000
+	id 1pcSYI-0003ft-Jj; Wed, 15 Mar 2023 14:56:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510100.787181; Wed, 15 Mar 2023 14:38:00 +0000
+Received: by outflank-mailman (output) from mailman id 510104.787190; Wed, 15 Mar 2023 14:56:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcSGO-0000kO-SQ; Wed, 15 Mar 2023 14:38:00 +0000
-Received: by outflank-mailman (input) for mailman id 510100;
- Wed, 15 Mar 2023 14:37:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sm4b=7H=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pcSGN-0000kI-MM
- for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 14:37:59 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fab3e202-c33e-11ed-87f5-c1b5be75604c;
- Wed, 15 Mar 2023 15:37:58 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id t15so17524670wrz.7
- for <xen-devel@lists.xenproject.org>; Wed, 15 Mar 2023 07:37:58 -0700 (PDT)
+	id 1pcSYI-0003cu-H0; Wed, 15 Mar 2023 14:56:30 +0000
+Received: by outflank-mailman (input) for mailman id 510104;
+ Wed, 15 Mar 2023 14:56:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=MLe6=7H=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pcSYG-0003co-Ux
+ for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 14:56:29 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0610.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::610])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8ec4ef8b-c341-11ed-b464-930f4c7d94ae;
+ Wed, 15 Mar 2023 15:56:26 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8387.eurprd04.prod.outlook.com (2603:10a6:20b:3f7::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.26; Wed, 15 Mar
+ 2023 14:56:24 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Wed, 15 Mar 2023
+ 14:56:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,555 +47,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fab3e202-c33e-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1678891077;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=oHG1VDbNRy1U8AaIRsgEXJmXqErIvzTIkCs3Dr5XmGQ=;
-        b=SHDN9/AgmN50JtA7fMVkJidWA0LqLNb5ddCoMAbrg7TyRje6jf8vUU3Th3BXBvTq1f
-         sG5nHlIx2CPbpnBNm6upVXBUOKuyiCOTLhNoieIKHM5G0JV7E/zl9UKq6iwmVncBq5fz
-         P91uZp/zdOUutyAySIlk/aY7d8B+UzJWiOmxDwKzFvxalkdXKR4fXC7U5y7RlTTdTysk
-         afVRsMQndcGmgqMYgEHViF/Q1FoI2DlftI1crd+fRS5QKnxpw8+Ju9PpbsdQiz6rwIuk
-         jkwRhEZmj4rMg9ubdjs4pawC0QFNCSyzCC2+RmmEfzRTwyqSLHmZYqqmqreluLumRv41
-         in6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678891077;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=oHG1VDbNRy1U8AaIRsgEXJmXqErIvzTIkCs3Dr5XmGQ=;
-        b=mGhflK9Fc5NsDuOrakL9d9HVbJ+B4rhyRJAm+aX3Fb2Ji7J4LcuFCJQ8TYG+p0pUGV
-         j9277sxQc/XncWFKTfyz2DYC8HlGlYwFMUU6Dq6eI40m9EWgnJAs0V3IECkCGgpSLutt
-         /Em3b+3GyrqjmygX6HS7RhJcG9BZHrOwBaKSZ/MZHlSbgYOdxdLxSVtNMw2xC0C3cVh8
-         whDnlXPuRrf7YYWxwQ3jqOGy8QwbepDXSIpQneEh9fOCX9jDHc8/pBWWNAOyZp+/DedK
-         gAzS/wm8HhZwQDBRGkTST4XGIcqZ9EevZgoD7SWbxUPJRSlOBOXFot8Y4L100dVCo9Dc
-         sIKw==
-X-Gm-Message-State: AO0yUKWJkKjMAzXogg7u20rHocjRA+PKyRSxWVwUsIWaHYhCxMTIAagj
-	jisPpl8daNERrIntjqauLbeT3MLFOkRstXGIO1kD2w==
-X-Google-Smtp-Source: AK7set83Kmb1dg+r7Nuby2D/8Hq6Us7TjdgxmgrB1CqcjEZtMwArg//Zrx2wwEDReLYRajQUFWSKkgI2Rwmc/NScdl4=
-X-Received: by 2002:a5d:5886:0:b0:2cf:e75a:eaf0 with SMTP id
- n6-20020a5d5886000000b002cfe75aeaf0mr822729wrf.0.1678891077543; Wed, 15 Mar
- 2023 07:37:57 -0700 (PDT)
+X-Inumbo-ID: 8ec4ef8b-c341-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Bb02jUtaHDrvuXBagkL4IiO6QocBiolOEziSzvdxAjQGvSOuESbaLjoJGIkl/hYlT9dTG0lTDqKvrmo5mtOzIQWzIfGqR1fueFl6xXSVfSJVhqL+N1NOyUJ4lVxUFF6jxj3/nHqEeOfL0d5bMQOXGQGRA9b6Letj9BU1VYsa6I/FUJqimjlj4EvQSRiPOxP0PxfoWav3eaSI3EwtXhkk8IZz+FgwXEB9t2ryLJZotMFI0yF2kb5aCLQs/6H3W3NL5s9IvLIgN4iYv2CgBODSNSRvSQp3219Gx/BI5t43OHqFcxlZ79caqC5NUG1M/J+fLJ4zeiwGUvc5ksNjcDezAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KDPy47sNC5VH+IRcfbbFuhuXJwhwTiwBQolUW2VF7I8=;
+ b=ZjMs4ApRqjC7kj0eTyVdA1B5/zObpX20xztCbIqQg1KBZlbYkrgaAxjIRbttK+MH0GfIAho6Q+J8P9bfQpcw0M+9sF7c9GNXb2IkhtOGDX2FIzb3AZGxO+zLTVARVC4TVjdOdaxe4HuaSh9UhcWA2xP0e9C9xayPIZntvJ3Aj+39Lq3r9jAj653k62Q3sT49EFe+LLcy9wYfyWSM1Eqv/pnraraYbNyloSkrYAtjs+jfub4zJ3VC+/g7pQVKVWLbvwzRPKLyaC+PHbEVD94acAfIgxD29V+IHnP3XRWwVf3S0uBgg19A+yw6q7Y0iGPPUo7YCRLdwta9hQz/PgsemQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KDPy47sNC5VH+IRcfbbFuhuXJwhwTiwBQolUW2VF7I8=;
+ b=we6jm8bLnN/vJ6l5YgdcrOXQ7CprUF9PeEP84d7iuSs8/3VsKkqm6QRUkd4YgqBH5kRxXqMPJQ618Lbq1lhwAbahnFG/cbZvPb5nvueDhNBhoXkJom4h1/5+cCD4jbIlBvrhihq/Zq8gD7u8a4hi/bTzilZ4bQsU3/I48ixoCzZK5YJhfdpm2JQGykfkPDRxlrtI8KmOYNBL+OWWnHoLQtRvH1iFhucAde0vl+iyS2AsiyR6ZeYhY0o6wM1MuJP1WfpPWLUqxj1/OQN2++TKXjkOXai0ad9neJzYa6ugfLTvA88/v9tJBgCaunBtgUFScZ8ZDTWyVwkOc5l+WQpW3Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <ca9930ee-e6bf-3cf3-633c-02d5f21760f5@suse.com>
+Date: Wed, 15 Mar 2023 15:56:21 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] build: omit "source" symlink when building hypervisor in-tree
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0146.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:96::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-References: <cover.1677079671.git.jens.wiklander@linaro.org>
- <5a48b7c7a56b83138932850eb7f94f90604168e4.1677079672.git.jens.wiklander@linaro.org>
- <D9FBF922-1941-401B-9794-45641A02FC19@arm.com> <CAHUa44FUHKqzSY1V0WV7-=LQEJTUuBFt_hLGsMbtgRsCtPuQTA@mail.gmail.com>
- <333E414C-CC5C-4217-B04F-D65A164D6802@arm.com>
-In-Reply-To: <333E414C-CC5C-4217-B04F-D65A164D6802@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 15 Mar 2023 15:37:46 +0100
-Message-ID: <CAHUa44HETt=Xt8eVYdWKdL5ZG3mqGqyEQ-v3xrV-2YjRFkaPgQ@mail.gmail.com>
-Subject: Re: [XEN PATCH v7 20/20] xen/arm: ffa: support sharing large memory ranges
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
-	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8387:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7f17a94-6724-4744-09f1-08db25657212
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Tarx3vht+jLZkVaR8QQ0YdICOip6Uy1e5iKWuY7rx8Kg3yEuljuZzrOQfAB6xMQPCe99VlzYi1lJ0pM7RyMIR8XKp8+36vd/MZu4wk373xDzvt1lKiEwQp4PnsdcPDTNYWcYlLFhdBTYoVW8ydM66QfhVWfWc9ZMXT0C1w5SSEZ+TMLPkwwJFvmi1qWvEn7EhewTp3aKWqb+Q7wWupCJswQOmW/gLGkQKmg9tPDbBSHKOVYaLQf3d6Ma5ww9nxVLdtmkYhiVn4EC41n1fm0sG4TxJSWCcwNiDXtEdNOgz2wWr56QXliT/C6lroYL8VgfmwtXdvc8NHH7NylT/71CttsnzECT9OBjKEJz+fURCC88X3f+0DXW4/xcShCen+LeLfao1//SgqIedEvXPhj64TQxUhOUgh8WbrO+WWKVI3lJsBjMVqHhAESBKw+Eg5MJi/+NVhGi6qn/kQLjbXd8WUpZL7ZofWjXJfJP5iTlB2gKgQrtHkyBS89EzHD8cx16mA7OlLenmzTiOMk0ig6LfK+EfBgahhii0kx/G0cAPLWydnvOpmW2izUo1S/l4FFEXX+9ajCdEd0ZlrmGeRCcy1khz6R30BtjGAlaQOsJwlwDo/eQZi+LCD+6D+sw25XRRhFi9kM5Rkpj+DfQJF3Vq2DsTOLvtNqobHxeLGsEoaIaOu4biNL4pf0vfBUO/av7zZP37xHAItfyAQxrw8B8I1Y3CYDSVCdOEupGnhmiOVw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(136003)(396003)(376002)(39860400002)(346002)(451199018)(31686004)(8936002)(36756003)(41300700001)(5660300002)(4326008)(2906002)(31696002)(86362001)(38100700002)(6666004)(66476007)(66556008)(8676002)(6486002)(478600001)(66946007)(6916009)(316002)(54906003)(2616005)(6512007)(26005)(186003)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WEt3UFIwczFPa1ZqWGdMblJnWWkyemhwNmdzczB5NGVyY005WXpuK0VwNXpE?=
+ =?utf-8?B?RWlzYlZ6dDdUbS9LQitFOUNjS2cwWFBYc2tRSGRvMjMwUXJIMllVUVlOM095?=
+ =?utf-8?B?M3RSc3FuMXBiNDlqNlc5TENJZUlVZGlWRU1xcE9vRlJLMm5IeVRid2h2MSty?=
+ =?utf-8?B?L21vcmxGWEY0eW5xdnFZWmtldDhSZXIwYS9wWDQ3ZUkzbEZRZ3JwOTNldnZ5?=
+ =?utf-8?B?WnpGQ254NWptUERnRnM2NG0zTGhNMTArdjRlelBMcEV0Tit2MFpORlB6ai9i?=
+ =?utf-8?B?czVWTmZLanIvZTFneGVrczV2NnNMTzZKZUZGRjZ4aWxjMWxwc3RtVzQzeXl6?=
+ =?utf-8?B?QjlkRDdrMlJKVlRZL0djUEhpdWZhQjUzU2Y1cFJQcXFkRTlud1dRa25MSjhh?=
+ =?utf-8?B?blFzSDRiODBxY09yVzV2aElNbmxHM2ZxRHcyVnkwZGRXaHlYSHRsVCtMUWp5?=
+ =?utf-8?B?NXduVjgyZXgvT0RlMmcyQm05SkF6RnZVdmhSTkZkUi92SCtOSGRQaEhrbGZw?=
+ =?utf-8?B?RUhLQ1oxT3FxRC9pNVBDSUpnQ0U5cHR0MjZ5KzgvMWhSYWRjVEtZSW1iVitS?=
+ =?utf-8?B?WkRwZlBTdDdHang2MnBkd0E3dWhhc2dKcUFWdUtQYW9HUjhUOFBWRDZEbkVU?=
+ =?utf-8?B?TXF3dEtieXFONXVCRmVwdWxESjNRSmx5dnBhSmpWV3RYUkg4SkdyWlRhcDYw?=
+ =?utf-8?B?NUlEWDJvbkJWMUxjZU96TTVMZnVaTnY1K0NaR3lDQ1h0ZkR6TUJQbGNvRGx2?=
+ =?utf-8?B?QmxDTjhnbUdvQjJhamRVdFY2Q25xY04yVXNORHdjUm1IRzVSU2ovUlNrd2NW?=
+ =?utf-8?B?NXNOWGZHbDM0dytNUStLRjhGcVRiazMvYkdOUzZOdzdsbFo3dkZJQWFIbnQ3?=
+ =?utf-8?B?U2ZuU1pCMllaOFk0bjRFM1J2TlRqbXBpallnQTBibHpIOUF6Y0hzSzBMSlB6?=
+ =?utf-8?B?MHdVMmVVWUs5TmhxZHZYd245SHJnK1JXcDVhSWhsQXVFS2xhMWcxV3JVbUZT?=
+ =?utf-8?B?dFBmKzJvWTRCNDYrbTJuNnBQZkV4OXdwUTBhWlkwM0YvOW1PKzk1ZG1kbVlv?=
+ =?utf-8?B?UitGZUNxeGR5bW5Ib2xwdVNlUS9TUDhNTXFjNEZHSjFId0VRMmNrV3pnWTdw?=
+ =?utf-8?B?ZHg2ajMva20vQU1NTngwTE1neWg5S3UzckRUNWloUGEyT2o2dmJrWFBZb3Mz?=
+ =?utf-8?B?OGUvUlRQOXdVRDZPbEN1NlFyUWowMklnWnQzMUM1WjJMY1lVeHppbmd0SFBE?=
+ =?utf-8?B?STk3RXJPS1l6cjZaOUVNQk5FVC9SSDdZVTVVOG9nRDk2QWZ0TExyTkNVd1RQ?=
+ =?utf-8?B?ZHFxSTVaL0hMM2t6YmVYSFJMQjN0SHNjcjVwY2JCUmFlL1Y0QTZzemtRQktJ?=
+ =?utf-8?B?OVNLczFtN2N5YTlPbnZjRkkwSU1JRm9iWSsvMWd0QzFKanFITzkyODBLVlVY?=
+ =?utf-8?B?amh5RGhld0IyeS9oWUIxN0J6WncxZXhZdkw1RUU0akhLbWVoaElkTjFhR2ln?=
+ =?utf-8?B?ajBSVmRNZ2FPV3V3VVZKYnNxdjlDRG9zMWk2dDAwcW5FLzhKclBWb0V2U0xU?=
+ =?utf-8?B?eDVFb2NTTzI5K0RUNWFnTVNnQUFXWUhVNWc5WEVIZXB0Mk8rVkwvL2p1ci9Y?=
+ =?utf-8?B?T2ZDWWMxWjdhNnc1VVhJamxiUmpZcHQ2OU1XN0NDVDBmSXB3R0xMNW94UmRB?=
+ =?utf-8?B?b3N3cVR0cENYLzFWRFBSZEJENTNQYkFpcGE0d0VRaGdwbkxtamFlazVpV3cy?=
+ =?utf-8?B?Y1haeUExYUpOYW55bVF6UmZ6QXRBSk1KUjFlS1Z6UnZJSkRZaWFNakl5azJv?=
+ =?utf-8?B?anExL3JGK2d2U1Yrb1U0NlE4QXpTdEhENUpldDVHSUNXYXpCeVlQZFBFMXJR?=
+ =?utf-8?B?WTRwTnZEc3FXU1FFdlBDeXNrV2FFcUFSTUc0Mm5HZ2JFYThCS1RNUFpsWUNv?=
+ =?utf-8?B?KzFUcnErc2xxK0pvRUpQZlFWT3BINEh1YnZaVXJyTDcwODVhUWxUUFNVM21q?=
+ =?utf-8?B?Y09tQVIrTGdLM3U1SVg3ZlpUVEVjZkFYemFVTzlMNVdOODZiSU5SZkNjRyt3?=
+ =?utf-8?B?YmQrVW15Nkt1ZmwzNVd6N3I3ZVRnazNnZVhXdlJybkQ3RUdjSmVOWjV5MEts?=
+ =?utf-8?Q?10+Co8qlTVOaegCHFmdFiLMcg?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7f17a94-6724-4744-09f1-08db25657212
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2023 14:56:24.0172
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hFE5tivNcqH6ny34gPtqzNUQ866KIdKuHaJTZR/VabpI41iUvPfivgA1nGABAFXsM2eExqEKkuOAlFbGDi0rPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8387
 
-Hi Bertrand,
+This symlink is getting in the way of using e.g. "find" on the xen/
+subtree, and it isn't really needed when not building out-of-tree:
+the one use that there was can easily be avoided.
 
-On Wed, Mar 15, 2023 at 2:35=E2=80=AFPM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jens,
->
-> > On 15 Mar 2023, at 12:47, Jens Wiklander <jens.wiklander@linaro.org> wr=
-ote:
-> >
-> > Hi Bertrand,
-> >
-> > On Wed, Mar 15, 2023 at 11:13=E2=80=AFAM Bertrand Marquis
-> > <Bertrand.Marquis@arm.com> wrote:
-> >>
-> >> Hi Jens,
-> >>
-> >>> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> =
-wrote:
-> >>>
-> >>> Adds support for sharing large memory ranges transmitted in fragments
-> >>> using FFA_MEM_FRAG_TX.
-> >>>
-> >>> The implementation is the bare minimum to be able to communicate with
-> >>> OP-TEE running as an SPMC at S-EL1.
-> >>>
-> >>> Adds a check that the SP supports the needed FF-A feature
-> >>> FFA_MEM_FRAG_TX.
-> >>>
-> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-> >>> ---
-> >>> xen/arch/arm/tee/ffa.c | 254 ++++++++++++++++++++++++++++++++++++++--=
--
-> >>> 1 file changed, 240 insertions(+), 14 deletions(-)
-> >>>
-> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> >>> index 3557edc455d0..72c0249d8cad 100644
-> >>> --- a/xen/arch/arm/tee/ffa.c
-> >>> +++ b/xen/arch/arm/tee/ffa.c
-> >>> @@ -326,6 +326,7 @@ struct ffa_ctx {
-> >>>    uint32_t guest_vers;
-> >>>    bool tx_is_mine;
-> >>>    bool interrupted;
-> >>> +    struct list_head frag_list;
-> >>>    struct list_head shm_list;
-> >>>    unsigned int shm_count;
-> >>>    spinlock_t lock;
-> >>> @@ -340,6 +341,18 @@ struct ffa_shm_mem {
-> >>>    struct page_info *pages[];
-> >>> };
-> >>
-> >> We start to have a lot of fields here.
-> >> It might be useful to have some quick documentation
-> >> in comment here as some names are a bit generic.
-> >> For example "frag_list" does not say much.
-> >
-> > I'll add some comments.
-> >
-> >>
-> >>>
-> >>> +struct mem_frag_state {
-> >>> +    struct list_head list;
-> >>> +    struct ffa_shm_mem *shm;
-> >>> +    uint32_t range_count;
-> >>> +    unsigned int current_page_idx;
-> >>> +    unsigned int frag_offset;
-> >>> +    unsigned int range_offset;
-> >>> +    const uint8_t *buf;
-> >>> +    unsigned int buf_size;
-> >>> +    struct ffa_address_range range;
-> >>> +};
-> >>
-> >> same here, at a first glance it is not quite clear why
-> >> a fragment needs that much info. Some seem to only
-> >> be needed during the transaction but do not need to be saved.
-> >
-> > This struct is only used during the transaction, so this is freed once
-> > the entire memory transaction descriptor has been processed.
-> >
-> >>
-> >>> +
-> >>> /* Negotiated FF-A version to use with the SPMC */
-> >>> static uint32_t ffa_version __ro_after_init;
-> >>>
-> >>> @@ -512,6 +525,36 @@ static int32_t ffa_mem_share(uint32_t tot_len, u=
-int32_t frag_len,
-> >>>    }
-> >>> }
-> >>>
-> >>> +static int32_t ffa_mem_frag_tx(uint64_t handle, uint32_t frag_len,
-> >>> +                               uint16_t sender_id)
-> >>> +{
-> >>> +    struct arm_smccc_1_2_regs arg =3D {
-> >>> +        .a0 =3D FFA_MEM_FRAG_TX,
-> >>> +        .a1 =3D handle & UINT32_MAX,
-> >>> +        .a2 =3D handle >> 32,
-> >>> +        .a3 =3D frag_len,
-> >>> +        .a4 =3D (uint32_t)sender_id << 16,
-> >>> +    };
-> >>> +    struct arm_smccc_1_2_regs resp;
-> >>> +
-> >>> +    arm_smccc_1_2_smc(&arg, &resp);
-> >>> +
-> >>> +    switch ( resp.a0 )
-> >>> +    {
-> >>> +    case FFA_ERROR:
-> >>> +        if ( resp.a2 )
-> >>> +            return resp.a2;
-> >>> +        else
-> >>> +            return FFA_RET_NOT_SUPPORTED;
-> >>> +    case FFA_SUCCESS_32:
-> >>> +        return FFA_RET_OK;
-> >>> +    case FFA_MEM_FRAG_RX:
-> >>> +        return resp.a3;
-> >>> +    default:
-> >>> +            return FFA_RET_NOT_SUPPORTED;
-> >>> +    }
-> >>> +}
-> >>> +
-> >>> static int32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_hi=
-,
-> >>>                               uint32_t flags)
-> >>> {
-> >>> @@ -586,6 +629,14 @@ static void set_regs_success(struct cpu_user_reg=
-s *regs, uint32_t w2,
-> >>>    set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, 0, 0, 0, 0);
-> >>> }
-> >>>
-> >>> +static void set_regs_frag_rx(struct cpu_user_regs *regs, uint32_t ha=
-ndle_lo,
-> >>> +                             uint32_t handle_hi, uint32_t frag_offse=
-t,
-> >>> +                             uint16_t sender_id)
-> >>> +{
-> >>> +    set_regs(regs, FFA_MEM_FRAG_RX, handle_lo, handle_hi, frag_offse=
-t,
-> >>> +             (uint32_t)sender_id << 16, 0, 0, 0);
-> >>> +}
-> >>> +
-> >>> static void handle_version(struct cpu_user_regs *regs)
-> >>> {
-> >>>    struct domain *d =3D current->domain;
-> >>> @@ -955,6 +1006,8 @@ static int share_shm(struct ffa_shm_mem *shm)
-> >>>    paddr_t last_pa;
-> >>>    unsigned int n;
-> >>>    paddr_t pa;
-> >>> +    bool first;
-> >>> +    int ret;
-> >>>
-> >>>    ASSERT(spin_is_locked(&ffa_tx_buffer_lock));
-> >>>    if ( !shm->page_count )
-> >>> @@ -994,13 +1047,23 @@ static int share_shm(struct ffa_shm_mem *shm)
-> >>>
-> >>>    tot_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_coun=
-t,
-> >>>                                region_descr->address_range_count);
-> >>> -    if ( tot_len > max_frag_len )
-> >>> -        return FFA_RET_NOT_SUPPORTED;
-> >>>
-> >>> +    /*
-> >>> +     * Sharing memory with secure world may have to be done with mul=
-tiple
-> >>> +     * calls depending on how many address ranges will be needed. If=
- we're
-> >>> +     * sharing physically contiguous memory we will only need one ra=
-nge but
-> >>> +     * we will also need to deal with the worst case where all physi=
-cal
-> >>> +     * pages are non-contiguous. For the first batch of address rang=
-es we
-> >>> +     * call ffa_mem_share() and for all that follows ffa_mem_frag_tx=
-().
-> >>> +     *
-> >>> +     * We use frag_len to keep track of how far into the transmit bu=
-ffer we
-> >>> +     * have gone.
-> >>> +     */
-> >>>    addr_range =3D region_descr->address_range_array;
-> >>>    frag_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_cou=
-nt, 1);
-> >>>    last_pa =3D page_to_maddr(shm->pages[0]);
-> >>>    init_range(addr_range, last_pa);
-> >>> +    first =3D true;
-> >>>    for ( n =3D 1; n < shm->page_count; last_pa =3D pa, n++ )
-> >>>    {
-> >>>        pa =3D page_to_maddr(shm->pages[n]);
-> >>> @@ -1010,12 +1073,34 @@ static int share_shm(struct ffa_shm_mem *shm)
-> >>>            continue;
-> >>>        }
-> >>>
-> >>> -        frag_len +=3D sizeof(*addr_range);
-> >>> -        addr_range++;
-> >>> +        if ( frag_len =3D=3D max_frag_len )
-> >>> +        {
-> >>> +            if ( first )
-> >>> +            {
-> >>> +                ret =3D ffa_mem_share(tot_len, frag_len, 0, 0, &shm-=
->handle);
-> >>> +                first =3D false;
-> >>> +            }
-> >>> +            else
-> >>> +            {
-> >>> +                ret =3D ffa_mem_frag_tx(shm->handle, frag_len, shm->=
-sender_id);
-> >>> +            }
-> >>> +            if ( ret <=3D 0 )
-> >>> +                return ret;
-> >>> +            frag_len =3D sizeof(*addr_range);
-> >>> +            addr_range =3D buf;
-> >>> +        }
-> >>> +        else
-> >>> +        {
-> >>> +            frag_len +=3D sizeof(*addr_range);
-> >>> +            addr_range++;
-> >>> +        }
-> >>>        init_range(addr_range, pa);
-> >>>    }
-> >>>
-> >>> -    return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
-> >>> +    if ( first )
-> >>> +        return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
-> >>> +    else
-> >>> +        return ffa_mem_frag_tx(shm->handle, frag_len, shm->sender_id=
-);
-> >>> }
-> >>>
-> >>> static int read_mem_transaction(uint32_t ffa_vers, const void *buf, s=
-ize_t blen,
-> >>> @@ -1092,8 +1177,53 @@ static int read_mem_transaction(uint32_t ffa_v=
-ers, const void *buf, size_t blen,
-> >>>    return 0;
-> >>> }
-> >>>
-> >>> +static int add_mem_share_frag(struct mem_frag_state *s, unsigned int=
- offs,
-> >>> +                              unsigned int frag_len)
-> >>> +{
-> >>> +    struct domain *d =3D current->domain;
-> >>> +    unsigned int o =3D offs;
-> >>> +    unsigned int l;
-> >>> +    int ret;
-> >>> +
-> >>> +    if ( frag_len < o )
-> >>> +        return FFA_RET_INVALID_PARAMETERS;
-> >>> +
-> >>> +    /* Fill up the first struct ffa_address_range */
-> >>> +    l =3D min_t(unsigned int, frag_len - o, sizeof(s->range) - s->ra=
-nge_offset);
-> >>> +    memcpy((uint8_t *)&s->range + s->range_offset, s->buf + o, l);
-> >>> +    s->range_offset +=3D l;
-> >>> +    o +=3D l;
-> >>> +    if ( s->range_offset !=3D sizeof(s->range) )
-> >>> +        goto out;
-> >>> +    s->range_offset =3D 0;
-> >>> +
-> >>> +    while ( true )
-> >>> +    {
-> >>> +        ret =3D get_shm_pages(d, s->shm, &s->range, 1, s->current_pa=
-ge_idx,
-> >>> +                            &s->current_page_idx);
-> >>> +        if ( ret )
-> >>> +            return ret;
-> >>> +        if ( s->range_count =3D=3D 1 )
-> >>> +            return 0;
-> >>> +        s->range_count--;
-> >>> +        if ( frag_len - o < sizeof(s->range) )
-> >>> +            break;
-> >>> +        memcpy(&s->range, s->buf + o, sizeof(s->range));
-> >>> +        o +=3D sizeof(s->range);
-> >>> +    }
-> >>> +
-> >>> +    /* Collect any remaining bytes for the next struct ffa_address_r=
-ange */
-> >>> +    s->range_offset =3D frag_len - o;
-> >>> +    memcpy(&s->range, s->buf + o, frag_len - o);
-> >>> +out:
-> >>> +    s->frag_offset +=3D frag_len;
-> >>> +
-> >>> +    return s->frag_offset;
-> >>> +}
-> >>> +
-> >>> static void handle_mem_share(struct cpu_user_regs *regs)
-> >>> {
-> >>> +    static uint64_t next_handle =3D FFA_HANDLE_HYP_FLAG;
-> >>>    uint32_t tot_len =3D get_user_reg(regs, 1);
-> >>>    uint32_t frag_len =3D get_user_reg(regs, 2);
-> >>>    uint64_t addr =3D get_user_reg(regs, 3);
-> >>> @@ -1128,13 +1258,6 @@ static void handle_mem_share(struct cpu_user_r=
-egs *regs)
-> >>>        goto out_set_ret;
-> >>>    }
-> >>>
-> >>> -    /* We currently only support a single fragment */
-> >>> -    if ( frag_len !=3D tot_len )
-> >>> -    {
-> >>> -        ret =3D FFA_RET_NOT_SUPPORTED;
-> >>> -        goto out_set_ret;
-> >>> -    }
-> >>> -
-> >>>    spin_lock(&ctx->lock);
-> >>>
-> >>>    if ( frag_len > ctx->page_count * FFA_PAGE_SIZE )
-> >>> @@ -1195,11 +1318,41 @@ static void handle_mem_share(struct cpu_user_=
-regs *regs)
-> >>>    if ( !shm )
-> >>>    {
-> >>>        ret =3D FFA_RET_NO_MEMORY;
-> >>> -        goto out_unlock;
-> >>> +        goto out;
-> >>
-> >> Why is this changed ?
-> >> You still have no shm here so call free_sha_shm does not make sense
-> >
-> > Good catch, I'll fix it.
-> >
-> >>
-> >>>    }
-> >>>    shm->sender_id =3D trans.sender_id;
-> >>>    shm->ep_id =3D read_atomic(&mem_access->access_perm.endpoint_id);
-> >>>
-> >>> +    if ( frag_len !=3D tot_len )
-> >>> +    {
-> >>> +        struct mem_frag_state *s =3D xzalloc(struct mem_frag_state);
-> >>> +
-> >>> +        if ( !s )
-> >>> +        {
-> >>> +            ret =3D FFA_RET_NO_MEMORY;
-> >>> +            goto out;
-> >>> +        }
-> >>> +        s->shm =3D shm;
-> >>> +        s->range_count =3D range_count;
-> >>> +        s->buf =3D ctx->tx;
-> >>> +        s->buf_size =3D ffa_page_count * FFA_PAGE_SIZE;
-> >>> +        ret =3D add_mem_share_frag(s, sizeof(*region_descr)  + regio=
-n_offs,
-> >>> +                                 frag_len);
-> >>> +        if ( ret <=3D 0 )
-> >>> +        {
-> >>> +            xfree(s);
-> >>> +            if ( ret < 0 )
-> >>> +                goto out;
-> >>> +        }
-> >>> +        else
-> >>> +        {
-> >>> +            shm->handle =3D next_handle++;
-> >>> +            uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
-> >>> +            list_add_tail(&s->list, &ctx->frag_list);
-> >>> +        }
-> >>> +        goto out_unlock;
-> >>> +    }
-> >>> +
-> >>>    /*
-> >>>     * Check that the Composite memory region descriptor fits.
-> >>>     */
-> >>> @@ -1238,7 +1391,75 @@ out_unlock:
-> >>>    spin_unlock(&ctx->lock);
-> >>>
-> >>> out_set_ret:
-> >>> -    if ( ret =3D=3D 0)
-> >>> +    if ( ret > 0 )
-> >>> +            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, trans.=
-sender_id);
-> >>> +    else if ( ret =3D=3D 0)
-> >>> +            set_regs_success(regs, handle_lo, handle_hi);
-> >>> +    else
-> >>> +            set_regs_error(regs, ret);
-> >>> +}
-> >>> +
-> >>> +static struct mem_frag_state *find_frag_state(struct ffa_ctx *ctx,
-> >>> +                                              uint64_t handle)
-> >>> +{
-> >>> +    struct mem_frag_state *s;
-> >>> +
-> >>> +    list_for_each_entry(s, &ctx->frag_list, list)
-> >>> +        if ( s->shm->handle =3D=3D handle )
-> >>> +            return s;
-> >>> +
-> >>> +    return NULL;
-> >>> +}
-> >>> +
-> >>> +static void handle_mem_frag_tx(struct cpu_user_regs *regs)
-> >>> +{
-> >>> +    struct domain *d =3D current->domain;
-> >>> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> >>> +    uint32_t frag_len =3D get_user_reg(regs, 3);
-> >>> +    uint32_t handle_lo =3D get_user_reg(regs, 1);
-> >>> +    uint32_t handle_hi =3D get_user_reg(regs, 2);
-> >>> +    uint64_t handle =3D regpair_to_uint64(handle_hi, handle_lo);
-> >>> +    struct mem_frag_state *s;
-> >>> +    uint16_t sender_id =3D 0;
-> >>> +    int ret;
-> >>> +
-> >>> +    spin_lock(&ctx->lock);
-> >>> +    s =3D find_frag_state(ctx, handle);
-> >>> +    if ( !s )
-> >>> +    {
-> >>> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> >>> +        goto out;
-> >>> +    }
-> >>> +    sender_id =3D s->shm->sender_id;
-> >>> +
-> >>> +    if ( frag_len > s->buf_size )
-> >>> +    {
-> >>> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> >>> +        goto out;
-> >>> +    }
-> >>> +
-> >>> +    ret =3D add_mem_share_frag(s, 0, frag_len);
-> >>> +    if ( ret =3D=3D 0 )
-> >>> +    {
-> >>> +        /* Note that share_shm() uses our tx buffer */
-> >>> +        spin_lock(&ffa_tx_buffer_lock);
-> >>> +        ret =3D share_shm(s->shm);
-> >>> +        spin_unlock(&ffa_tx_buffer_lock);
-> >>> +        if ( ret =3D=3D 0 )
-> >>> +            list_add_tail(&s->shm->list, &ctx->shm_list);
-> >>> +        else
-> >>> +            free_ffa_shm_mem(ctx, s->shm);
-> >>> +    }
-> >>> +    else if ( ret < 0 )
-> >>> +        free_ffa_shm_mem(ctx, s->shm);
-> >>
-> >>
-> >> If there is not error the stuff allocated are kept but i do not see
-> >> where/when they would be freed or used.
-> >> Could you explain why we need to save all those ?
-> >
-> > s->shm is the final shared memory object which is added to the list of
-> > shared memory objects when the transaction is completed successfully.
-> > The fragment state, s, is kept as long as the transaction is ongoing.
-> > Once the transaction is completed successfully or due to a failure
-> > it's freed.
-> >
-> > The specification doesn't say what to do if an invalid frag_len is
-> > detected, except that we should return FFA_RET_INVALID_PARAMETERS.
-> > Currently, we just return an error, but keep the state. Another option
-> > is to free the state instead since the caller might have lost track of
-> > the state.
->
-> There is no solution for the client to "continue" anyway so I think we sh=
-ould
-> properly cleanup in all exit conditions.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-OK, I'll do that.
-
-Thanks,
-Jens
-
->
-> Cheers
-> Bertrand
->
-> >
-> > Thanks,
-> > Jens
-> >
-> >>
-> >> Cheers
-> >> Bertrand
-> >>
-> >>> +    list_del(&s->list);
-> >>> +    xfree(s);
-> >>> +out:
-> >>> +    spin_unlock(&ctx->lock);
-> >>> +
-> >>> +    if ( ret > 0 )
-> >>> +            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, sender=
-_id);
-> >>> +    else if ( ret =3D=3D 0)
-> >>>            set_regs_success(regs, handle_lo, handle_hi);
-> >>>    else
-> >>>            set_regs_error(regs, ret);
-> >>> @@ -1357,6 +1578,9 @@ static bool ffa_handle_call(struct cpu_user_reg=
-s *regs)
-> >>>        else
-> >>>            set_regs_success(regs, 0, 0);
-> >>>        return true;
-> >>> +    case FFA_MEM_FRAG_TX:
-> >>> +        handle_mem_frag_tx(regs);
-> >>> +        return true;
-> >>>
-> >>>    default:
-> >>>        gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
-> >>> @@ -1396,6 +1620,7 @@ static int ffa_domain_init(struct domain *d)
-> >>>        }
-> >>>    }
-> >>>
-> >>> +    INIT_LIST_HEAD(&ctx->frag_list);
-> >>>    INIT_LIST_HEAD(&ctx->shm_list);
-> >>>
-> >>>    d->arch.tee =3D ctx;
-> >>> @@ -1560,6 +1785,7 @@ static bool ffa_probe(void)
-> >>> #endif
-> >>>         !check_mandatory_feature(FFA_RXTX_UNMAP) ||
-> >>>         !check_mandatory_feature(FFA_MEM_SHARE_32) ||
-> >>> +         !check_mandatory_feature(FFA_MEM_FRAG_TX) ||
-> >>>         !check_mandatory_feature(FFA_MEM_RECLAIM) ||
-> >>>         !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
-> >>>        return false;
-> >>> --
-> >>> 2.34.1
->
->
+--- a/.gitignore
++++ b/.gitignore
+@@ -295,7 +295,6 @@ xen/include/xen/*.new
+ xen/include/xen/compile.h
+ xen/include/xen/hypercall-defs.h
+ xen/include/xen/lib/x86/cpuid-autogen.h
+-xen/source
+ xen/test/livepatch/config.h
+ xen/test/livepatch/expect_config.h
+ xen/test/livepatch/*.livepatch
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -310,7 +310,6 @@ cmd_makefile = { \
+     } > Makefile
+ 
+ outputmakefile:
+-	$(Q)ln -fsn $(srctree) source
+ ifdef building_out_of_srctree
+ 	$(Q)if [ -f $(srctree)/.config -o \
+ 		 -d $(srctree)/include/config -o \
+@@ -321,6 +320,7 @@ ifdef building_out_of_srctree
+ 		echo >&2 "***"; \
+ 		false; \
+ 	fi
++	$(Q)ln -fsn $(srctree) source
+ 	$(call cmd,makefile)
+ 	$(Q)test -e .gitignore || \
+ 	{ echo "# this is build directory, ignore it"; echo "*"; } > .gitignore
+--- a/xen/common/efi/efi-common.mk
++++ b/xen/common/efi/efi-common.mk
+@@ -5,11 +5,16 @@ CFLAGS-y += -fshort-wchar
+ CFLAGS-y += -iquote $(srctree)/common/efi
+ CFLAGS-y += -iquote $(srcdir)
+ 
++source :=
++ifneq ($(abs_objtree),$(abs_srctree))
++source := source/
++endif
++
+ # Part of the command line transforms $(obj)
+ # e.g.: It transforms "dir/foo/bar" into successively
+ #       "dir foo bar", ".. .. ..", "../../.."
+ $(obj)/%.c: $(srctree)/common/efi/%.c FORCE
+-	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/source/common/efi/$(<F) $@
++	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/$(source)common/efi/$(<F) $@
+ 
+ clean-files += $(patsubst %.o, %.c, $(EFIOBJ-y:.init.o=.o) $(EFIOBJ-))
+ clean-files += common-stub.c
 
