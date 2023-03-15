@@ -2,42 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1370D6BB61D
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 15:34:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510095.787171 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A6FA6BB645
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Mar 2023 15:38:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510100.787181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcSCP-0008QO-FM; Wed, 15 Mar 2023 14:33:53 +0000
+	id 1pcSGO-0000m6-Vz; Wed, 15 Mar 2023 14:38:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510095.787171; Wed, 15 Mar 2023 14:33:53 +0000
+Received: by outflank-mailman (output) from mailman id 510100.787181; Wed, 15 Mar 2023 14:38:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcSCP-0008N5-CB; Wed, 15 Mar 2023 14:33:53 +0000
-Received: by outflank-mailman (input) for mailman id 510095;
- Wed, 15 Mar 2023 14:33:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pcSGO-0000kO-SQ; Wed, 15 Mar 2023 14:38:00 +0000
+Received: by outflank-mailman (input) for mailman id 510100;
+ Wed, 15 Mar 2023 14:37:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CVd2=7H=citrix.com=prvs=431d4e183=roger.pau@srs-se1.protection.inumbo.net>)
- id 1pcSCN-0007uT-H6
- for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 14:33:51 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 64043062-c33e-11ed-b464-930f4c7d94ae;
- Wed, 15 Mar 2023 15:33:48 +0100 (CET)
-Received: from mail-dm6nam11lp2168.outbound.protection.outlook.com (HELO
- NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.168])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 15 Mar 2023 10:33:35 -0400
-Received: from PH0PR03MB6368.namprd03.prod.outlook.com (2603:10b6:510:aa::21)
- by SA0PR03MB5644.namprd03.prod.outlook.com (2603:10b6:806:b7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.29; Wed, 15 Mar
- 2023 14:33:33 +0000
-Received: from PH0PR03MB6368.namprd03.prod.outlook.com
- ([fe80::4fdc:e60c:b790:d034]) by PH0PR03MB6368.namprd03.prod.outlook.com
- ([fe80::4fdc:e60c:b790:d034%5]) with mapi id 15.20.6178.019; Wed, 15 Mar 2023
- 14:33:33 +0000
+ <SRS0=sm4b=7H=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1pcSGN-0000kI-MM
+ for xen-devel@lists.xenproject.org; Wed, 15 Mar 2023 14:37:59 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fab3e202-c33e-11ed-87f5-c1b5be75604c;
+ Wed, 15 Mar 2023 15:37:58 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id t15so17524670wrz.7
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Mar 2023 07:37:58 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,278 +39,555 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64043062-c33e-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1678890828;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=EBbTrYjhN2Kr5AVtPGXMgm/fUG61JwkEEbYsSKN7wlY=;
-  b=Mc81iFME/ZkyjN05GFErlJami4UIz8C7+0zImgsTxaucy/zvUlcCE8fn
-   gZi1dz2YvQp67oMi87Wml+lANKNOItCtJIJc9CUanaQXVkpJtCoebUeZV
-   uvs66MEVJ9FdYA6NOh7Z+pCbryVoixPIUbaqZAkIyV7i61C3LBfgiFb0p
-   M=;
-X-IronPort-RemoteIP: 104.47.57.168
-X-IronPort-MID: 103382471
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:wnQHUajdrD9GjbBcu73xUS7NX161SxAKZh0ujC45NGQN5FlHY01je
- htvDGmEPa6Namr1eY12bozg8UlTscODydcxGVQ4pCAxRHkb9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsy+qWi0N8klgZmP6sT5waDzyB94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tRDeBNSMQqqutmT6++HcONmieEnB8b0adZ3VnFIlVk1DN4AaLWaGuDmwIEd2z09wMdTAfzZe
- swVLyJ1awjNaAFOPVFRD48imOCvhT/0dDgwRFC9/PJrpTSMilEuluGzYLI5efTTLSlRtlyfq
- W/cuXzwHzkRNcCFyCrD+XWp7gPKtXqjA9lCTuHnr5aGhnWd/VwqLEYQf2eJsNO9s3+DV+xCN
- Wgbr39GQa8asRbDosPGdx+3unmfpTYHRsFdVeY97WmlzqvS/hbcBWUeSDNFQMIpudVwRjEw0
- FKN2dTzClRHoLCTDH6Q6LqQhTezIjQOa38PYzceSgkI6MWlp5s85jrFScxiC+iylcHvHi/rw
- CGiqzI3jLEey8UM0s2T4V/Dkxqop57UUhQy4ATHGG6ohit8ZYiqYKSy5FTb5OoGJ4GcJnGLp
- FANn8mT6rBIAZzlvCCEXuhLHLiv/PuDGDndh0N/WZgn6zmpvXWkeOh48GEgDERkKMAJfXnue
- kC7kQNJ7bdBLWetd+l8ZIfZI94jw6HtEfzmW+rSY94IZYJ+HCeD8SdkTU2dxWbglA4ri65XE
- YmWd8WlEXsBCeJ/xT6yRv8U3b4DxyYiyGeVTpf+pzyu2rqfbXiaYbcddlCJa4gR6KKCvRWQ+
- t1HNuOUxBhFFu7zeC/a9cgUN19iEJQgLZX/qsgSeuvdJANjQTglE6WIn+NnfJF5laNIkOuO5
- mu6RkJT1Fv4gzvANBmObXdgLrjoWP6TsE4GAMDlBn7ws1BLXGplxPx3m0cfFVX/yNFe8A==
-IronPort-HdrOrdr: A9a23:5DBA1q4nmB6GjwJCSwPXwAzXdLJyesId70hD6qkQc3Fom62j5q
- WTdZEgvyMc5wx/ZJhNo7690cq7MBHhHPxOgbX5VI3KNGXbUQOTR72KhrGSoAEIdReeygZcv5
- 0QCZSXCrfLfCVHZRCR2njFLz4iquP3j5xBnY3lvhNQpZkBUdAZ0+9+YDzrdXFedU19KrcSMo
- GT3cZDryrIQwVtUizqbkN1OdQqvrfw5evbXSI=
-X-IronPort-AV: E=Sophos;i="5.98,262,1673931600"; 
-   d="scan'208";a="103382471"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bPtVbLfOXl8NLL5Yt6flw/lBKLWcwR9sOAAZfYOB29ZtjoBl7pS6Nc9ENQNQ8ucqgkPH6wHo7jZ/wzcTMdU6SdKfcRgm9t6Zw3xcuoBHuOYncdJGYWkGL3eI4M/Jnu+WD6tYLsMVWf9SXRaUZnDcS3ss4MbOw4Bfy7SSkCLX49RhyNAd+wn2tqZn1me6++ZrfIxvfxDstRI97nWOxrfuw3Md469ijPKLK+yr+DBc6gO9Nx3/72WSP73NuVQLsg27A1VzqDEdXDmC9CUI5MZ+id4Ud/BMB6zjIdTLiEpScrJtAH08DJidyRYM9/e0XsUfnpZFEInOCrMVQozQKri2ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rPb1dFw727l7l7t5cvQNUTxsDNS6+upcubb7EeQzli8=;
- b=hJlcBrCFW/JFLBRRru7WWfLYBwFqYN+Ttl7M358vmAciGCay/E5134lGmkd3P9tsYr0wfuGU4V1WeHJ0pW+0drbdG4XfaNLr4fMVL9fwA6Pmfa7dPFgwj9RiHzrzHXp7senxtD9Cy6nAWNXh1octsNHYKuQBADUBxVGq+kxKAHsQmawP8kc33GDns1jcbTDAS0+TyvViL/EYhl5xAOftOHlOjFYpaC8YKM+JcZ62iikPtQM3Pwxz6rzeEzkESoG9YbKPuTWPnT+zc2xd8ci4gH8Ehrvo/DsEWrx2qAyIuDZZYjcbkyBb9MU4GJE7MC6gEqwZFPISgLegJeZODaYBmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: fab3e202-c33e-11ed-87f5-c1b5be75604c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rPb1dFw727l7l7t5cvQNUTxsDNS6+upcubb7EeQzli8=;
- b=cKiyhAwklq5RVJRKTVbHaPgBNEaxwkT9JzHiOF6fm/bK2UvQ74XVpwXG8eMlOc0D1uGjq6U+8r6/UC+izUAF1iIN8wthPTYtG5vv+wMzw8qeJo1EI0zhtwOgcJgM1srgLpLNOpDc2wyaASJCZP4gmIhSXYkSKF8NJ4lb0/LWSTY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 15 Mar 2023 15:33:27 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
-	Alex Chiang <achiang@hp.com>, linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v2] acpi/processor: fix evaluating _PDC method when
- running as Xen dom0
-Message-ID: <ZBHXN/tgrQFghG4O@Air-de-Roger>
-References: <20230315121031.22450-1-roger.pau@citrix.com>
- <c9eec213-3c93-62ba-1f46-1e502f121eac@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <c9eec213-3c93-62ba-1f46-1e502f121eac@suse.com>
-X-ClientProxiedBy: LO4P265CA0273.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:37a::10) To PH0PR03MB6368.namprd03.prod.outlook.com
- (2603:10b6:510:aa::21)
+        d=linaro.org; s=google; t=1678891077;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oHG1VDbNRy1U8AaIRsgEXJmXqErIvzTIkCs3Dr5XmGQ=;
+        b=SHDN9/AgmN50JtA7fMVkJidWA0LqLNb5ddCoMAbrg7TyRje6jf8vUU3Th3BXBvTq1f
+         sG5nHlIx2CPbpnBNm6upVXBUOKuyiCOTLhNoieIKHM5G0JV7E/zl9UKq6iwmVncBq5fz
+         P91uZp/zdOUutyAySIlk/aY7d8B+UzJWiOmxDwKzFvxalkdXKR4fXC7U5y7RlTTdTysk
+         afVRsMQndcGmgqMYgEHViF/Q1FoI2DlftI1crd+fRS5QKnxpw8+Ju9PpbsdQiz6rwIuk
+         jkwRhEZmj4rMg9ubdjs4pawC0QFNCSyzCC2+RmmEfzRTwyqSLHmZYqqmqreluLumRv41
+         in6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678891077;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oHG1VDbNRy1U8AaIRsgEXJmXqErIvzTIkCs3Dr5XmGQ=;
+        b=mGhflK9Fc5NsDuOrakL9d9HVbJ+B4rhyRJAm+aX3Fb2Ji7J4LcuFCJQ8TYG+p0pUGV
+         j9277sxQc/XncWFKTfyz2DYC8HlGlYwFMUU6Dq6eI40m9EWgnJAs0V3IECkCGgpSLutt
+         /Em3b+3GyrqjmygX6HS7RhJcG9BZHrOwBaKSZ/MZHlSbgYOdxdLxSVtNMw2xC0C3cVh8
+         whDnlXPuRrf7YYWxwQ3jqOGy8QwbepDXSIpQneEh9fOCX9jDHc8/pBWWNAOyZp+/DedK
+         gAzS/wm8HhZwQDBRGkTST4XGIcqZ9EevZgoD7SWbxUPJRSlOBOXFot8Y4L100dVCo9Dc
+         sIKw==
+X-Gm-Message-State: AO0yUKWJkKjMAzXogg7u20rHocjRA+PKyRSxWVwUsIWaHYhCxMTIAagj
+	jisPpl8daNERrIntjqauLbeT3MLFOkRstXGIO1kD2w==
+X-Google-Smtp-Source: AK7set83Kmb1dg+r7Nuby2D/8Hq6Us7TjdgxmgrB1CqcjEZtMwArg//Zrx2wwEDReLYRajQUFWSKkgI2Rwmc/NScdl4=
+X-Received: by 2002:a5d:5886:0:b0:2cf:e75a:eaf0 with SMTP id
+ n6-20020a5d5886000000b002cfe75aeaf0mr822729wrf.0.1678891077543; Wed, 15 Mar
+ 2023 07:37:57 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR03MB6368:EE_|SA0PR03MB5644:EE_
-X-MS-Office365-Filtering-Correlation-Id: cda26bdb-f20a-4ea9-b118-08db25624103
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	6dCrtoh8YBSoL2vpROJGDIgQkbQD6zbULIUt+bExIni/Dv0A51IwnVnb9sK1HPgABO2YIUNtcYFxrrDrGxRIUqJy+LPSPR+73VZG/2NNqsSRM7LiHKtlChFHRtq8XFfpUXyD0IhnU+N0iFAP2kd4KAYVkvkgi4KlU4cyev8vAhy+DYkbcD5q5Yqe72Xig7psoCqo5pJbUijY0sbkbg4mZOPuju+jf6Q2KTmIs4/giuL6BDXYGspn33723vXDtl2IWy1jBsm2ZhPhqjNMaIyHL2cHGp6uYAkH84R6n2lrB9FXdYnjpF/qvdLHlGrxz6qDP9QCmWTv2usayu+OfH4ngnkkryTlPuWAZR/zp+iF+UJW7x0Zz+RsDZp15xghnltpNokC9SEo/mIRIXWtQeM7rIOFSTErMFypE0ubba+i/iSXPzVK7CNqWcQQldOlW8Ta6Ic8UOBWu8BFPhpB9T7FCDUJN94O4/k1L/cxaUeYjuClmmIQX5PxE8mO9ByR0M6+b6J8wQVY2DLaNY5q8M8ckqc/M6mCPdz05y8OUps4VhQpU/KmjSCleQlB6y+GQn2PGp41vq0V4RLQXx6jw9mZDtkSJPB3mYrhBXYE1lqliiGeSFn/MNIHsUdAKCgggeuWYMXWW4Q7Cq1SeBHo5u30GA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR03MB6368.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(7916004)(346002)(39860400002)(366004)(396003)(376002)(136003)(451199018)(478600001)(66476007)(66946007)(316002)(66556008)(8676002)(5660300002)(41300700001)(4326008)(7416002)(6916009)(8936002)(85182001)(86362001)(54906003)(6486002)(6506007)(6512007)(2906002)(82960400001)(53546011)(6666004)(186003)(26005)(9686003)(33716001)(38100700002)(83380400001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UDB6YWlVU2NGTTc1UndlSG9jczkxREUzL1p5QXkzS0tiMVowYkdBYUhPejhR?=
- =?utf-8?B?bi8vV1JRWGpVNnNST1pEUkRJS0dzRkNMSStvZVd5cmd4bmprbUpNZ1dnY24v?=
- =?utf-8?B?eTlJQ2sza2tBd3VyMk1kTWVyaWZlaGh3Q1JsTXFRWUVkbWlZcWtYWWgvOUJG?=
- =?utf-8?B?TEpodVBDVHpUdDFHRGhuWUR2VVVDVGc1akgvN0lIUEloYnlnZ0l2SERrcFRI?=
- =?utf-8?B?MnFaQ2JralFKQ2FtUFBReVdLclZLaUZwR2VzRitsaFl6V29ESjltandHOEJz?=
- =?utf-8?B?dmJSTDh4MzBWbmdLSDl0Vm0zdFkxd3hLV2F1SE9DNUtibkw3NGhYT0ttNEF1?=
- =?utf-8?B?TmQrbGV0bVJhMFNka3BRUWtlSjFwVkRjVnpwTFVUSWhXbHYvK1labVE4a0lU?=
- =?utf-8?B?bkxhNE9EK01nTlgrQXBleDBZWVhuQWluVEtoVVYwR2U2eTNES3VpU1JTdTZx?=
- =?utf-8?B?bmN3Tk9CMndHTmxDeFkrT1VwbWkxODdrZll0NXFUTDBMZUduUy92UzI1QjFk?=
- =?utf-8?B?S0ZkcmVVU2s2cjFNai9zYnA3VkZERHBscy9kMGpZaW4wN2NxbUhOT0pLalJ5?=
- =?utf-8?B?R1NSaEUwdTdoQmtndUZ5VlNxMnFkcjk5a1BwdThNcHcvdHZzdWo1ZmdUdE9h?=
- =?utf-8?B?anl5eDEyeURoYzFxY0kyWWV4YVdzUVFaR3pxSnRZcHJMWHZ6Wjl0REVrMXdQ?=
- =?utf-8?B?Z2I2bmhIMmRRQjZoaGxDL3VUTnFHbUpESWd6c1BGNThpcVcxdlhJYmlzTXRv?=
- =?utf-8?B?M3dGN1lmQmtNdWhpMXJKVkpNeWlkcnVucytwNlZHdTNTd2NXcXJGa2dFZzJR?=
- =?utf-8?B?WDEyQ1doalMzVFhpcGU3MzFMLzYvYjFMMklUQ1dFT013WEFXckJERWtXTHJz?=
- =?utf-8?B?WDJaZFdwOTBUazkvWmpCdG1GWEEwVDFYZXVtN296V0VxYWRncG5SM0hDTGdR?=
- =?utf-8?B?ZG85MHJqYVl0akt4REtXeHhnRVhwUzRKZUpqOURrNXpKMHVaS1d1bWpEY25n?=
- =?utf-8?B?RUtaekNGbjdoZDB0QjlHa2ovV21yNlhlQnBENHpEd1ROdzBTZDN6QkxUUytt?=
- =?utf-8?B?SERWRmx6azVaaGIxRXZFMG5XbDNIRkJKSGQxZ3hHNFFoSjVQWlB3QTR1L2I2?=
- =?utf-8?B?aFYySlF0b2NlaUNtTWF4V3VVSUtiRXVRb3k0S1d6YU9FT3M0OGk0TGRYa09w?=
- =?utf-8?B?MkpCOHBWNjl1SlFJcFFMNS8rVnlzclQyZkdhUnV1VGsyVzFhd1FUdFg1RkVJ?=
- =?utf-8?B?OXRxTGhnOXBpK1JmMVE3SWxIMGphTDFVY1pkZjVrRHZQTkFpYlJIaGxQRXcw?=
- =?utf-8?B?b3RNazlMUElDODBFVk9pRS82bldYUkdOZkJEU2pwZWRVMHNYeXUwbDlWc1hw?=
- =?utf-8?B?TGRiQ0hIUXVqVGt3NnM5M0t2bmdEM1p0ako1V1hoNTlsNE93U3lLKzY2ZW80?=
- =?utf-8?B?WDBYMUpYUERXM1RvTHZJQ3JNOFFyRXl0VHhmNUJIWWZUT3c3WjRNNGN0TUVq?=
- =?utf-8?B?VitrWGZEWk1scVN4RjNHMkFTQ2VhTWNCNGJxa3hnVWoreXZmcCtzb2xFeTZk?=
- =?utf-8?B?bGFESEZMTzg0dGxrR2Y5RUM5WTN6OHB2RnozYUNGWnNKZ0FLdGtsNzQ2ZzNG?=
- =?utf-8?B?UXlQTFpwV2xWTXVMTTZnT3d5ZVBUNXpqT3k5Rm12UUwwbW1wbTBDQWZUOGFJ?=
- =?utf-8?B?dGFBbytxVVNPRWlpcFRzWFhHRVBqczNsUTd0ZnZMc2kyZ29iQ2U0SXRTWGt3?=
- =?utf-8?B?ek9YelRXU1NEenZkVEJ1MlQ2UlgyWnhxSWVGSDRxK3ZIdUI5UkpvYXFxVER0?=
- =?utf-8?B?KzZyS2lmc1JTQ0RpL1ZQU0JHVXNKZUUvUy9lcGc5b2krT0IvSWtUazJDYndV?=
- =?utf-8?B?eUJ6U1RRdUNZb1JESlo1US9YVUt3ZndNc0pYS1d3ZjJDcjc4a29nMkorYmRx?=
- =?utf-8?B?c2lVU0l3UEFCSkF2bS9qNjdRSW1XTE56Rno1dk0xNzExVlJUQmxlSXQ4U2hG?=
- =?utf-8?B?SFpkTUdWSHowWDd5MnJkN0pIa3F6amdQcFR2bHhrZGdQamMybDU0cmpMSHBH?=
- =?utf-8?B?SVE5VW5LS0U0Q0E2VlVlOXVacWJxL21MUDZJb1ZEcWFZRWJ3R2NtaGV3TGIx?=
- =?utf-8?B?M0ZDeTFhNEtXYnBzZkNUaTRMQUVvVjIyR2toWDhCSWNETzJYYUtkTzNyenNi?=
- =?utf-8?B?Zmc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	=?utf-8?B?eU51M0VYSDZ0R0VJcFhjSi90ZmRiSDQrZDdaWmdjeE5vOFI1dWVUS2R3T0xY?=
- =?utf-8?B?WkFIcHdTalVMVHA1R0tDMG9Ec2FkU0tiUnkvR3JFNnZsdldWaENiQVdWNnZT?=
- =?utf-8?B?eXhrVEdWMDVEN3BYUDhvVkp1b1pjRlk2ZU5jcGdBRXJ0MDIwNDU1dThNbmkr?=
- =?utf-8?B?VVRHR0FkSTY1NngwL0pvNTh1Qzh1YUZFWVNROFNISzFnRE4raUFNZy9kVmJr?=
- =?utf-8?B?TzdjclJVTzA0N2lBOThtc0Z2c2NWZkVZTkpWS0lGNko2V3JqeHBrTUlBeHFT?=
- =?utf-8?B?UTVsR1hvZi9ONjJ0Z1ltc20vd3hOQ3g4YldZUWJkRUY4ZnA1UG9RTHBVVUtB?=
- =?utf-8?B?MFdBRENQWVVxU081bmg4cktGQ3Yvb28zU3RKYmQrcmZiMkxzbmNZanlUeW1G?=
- =?utf-8?B?bFFlb1FkOWZzT0ZVM2Q1NlpKb3NIaFZVaEYzMk0ycGlDLzVSZHNOTnJtaDAx?=
- =?utf-8?B?RHFWenZOMzJoTVFEWHVESkJqY1p4eUxxR2x1ZkFWY3lQNmZ1MWZBT2FLY3c3?=
- =?utf-8?B?d1p2RDgrdVBCR0NMcGREeXBGS255Y3RoSWp6eExHUGp2K2hHMDEwY0NqcUxT?=
- =?utf-8?B?Ym1HcWloU3c4VmhzblNZZ3hxUi85ZmJNNFlvUktObCtJQmdpd1U0aDBwUGU3?=
- =?utf-8?B?RUhFU0hCSHgrUDdpcVJ5K0Q2SVVPWXMySFNKa2pxQ3RkNkJGb0lFc1YxRG91?=
- =?utf-8?B?VWowWVRuZXVEd0xNZDFjZHNwYjc2azBtVHJsQ1JqODVqaHZWQUNsWHR6NmVr?=
- =?utf-8?B?L1ZOOE9GRlgwdzVqeVJMQmt0VlBYVjd3NlU5ZTlpSFF6ZG9ybk9zbHZDU3dO?=
- =?utf-8?B?L0lDMi9kTFVTZHJ5emtkall6WU9uQlZsaVBTQ2ZrQlNGbUR6VTlwMENVc1RX?=
- =?utf-8?B?czllRWN6eERnMmZkWEM1ZXJqZThnallFeXBFREU4QXpickcxenErTXRpbDdz?=
- =?utf-8?B?U0J6YTZFTktSU3FHRDBZcUZIQjdJV3lDN3ZzY01yakJlQjJxQXh6TVNJU3F0?=
- =?utf-8?B?NExmRmhSTGpnZkdEWWFCZG1wbWtWVFQ5MTk1eGFZWXJzWmVzK1pSUHJzTkhu?=
- =?utf-8?B?anBCaVJ5NXV1aGxDcTFCVVgxck0xQzFDQXBvMmJsNDZxM1FYQ3V6cGpxSDZ3?=
- =?utf-8?B?QTcrcFlHdkIxcHpFWVRmVTMzZVFHbTU3b2tORWg0eWpIWndaT29qOWxIOHlF?=
- =?utf-8?B?OHN4WU1FdTVQbmpSNlRVVkpnUzFVbnVpb2JTZkwvMVZvWVR4VERDMWxGaTJJ?=
- =?utf-8?B?MnpCTnh6QW52QkwzelZucSt1ZS92TVdUK0VaQUIvbEJkTy82dENIK3JNUFAy?=
- =?utf-8?B?UUVHbXY3NjllNk9XWlhDVUtUQzN3WU41eElDUzlTVENTeU5Md2lDOVBPYmNX?=
- =?utf-8?B?MkdheDk3c2xNbFlkK2tiY050M2ZVZ0xzazVudmxrVFg5aHY4UVFhSnoybXNP?=
- =?utf-8?B?S3ArMEFrS1VyQVRiNGZHakpSWEpvL3gwZXF4TjlZcm54SldCTHhpYkdzeDYz?=
- =?utf-8?Q?tdzvdA=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cda26bdb-f20a-4ea9-b118-08db25624103
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR03MB6368.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2023 14:33:33.3809
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o6wFZglq4zZuUHKDsUONYhVyH/qz+zLKENV2hu25mXwHdy8bsZqIZJJzL5LWV5JFkMPzeO4oqSe8OAfDqNB0fA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5644
+References: <cover.1677079671.git.jens.wiklander@linaro.org>
+ <5a48b7c7a56b83138932850eb7f94f90604168e4.1677079672.git.jens.wiklander@linaro.org>
+ <D9FBF922-1941-401B-9794-45641A02FC19@arm.com> <CAHUa44FUHKqzSY1V0WV7-=LQEJTUuBFt_hLGsMbtgRsCtPuQTA@mail.gmail.com>
+ <333E414C-CC5C-4217-B04F-D65A164D6802@arm.com>
+In-Reply-To: <333E414C-CC5C-4217-B04F-D65A164D6802@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 15 Mar 2023 15:37:46 +0100
+Message-ID: <CAHUa44HETt=Xt8eVYdWKdL5ZG3mqGqyEQ-v3xrV-2YjRFkaPgQ@mail.gmail.com>
+Subject: Re: [XEN PATCH v7 20/20] xen/arm: ffa: support sharing large memory ranges
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Marc Bonnici <Marc.Bonnici@arm.com>, 
+	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Mar 15, 2023 at 01:38:18PM +0100, Juergen Gross wrote:
-> On 15.03.23 13:10, Roger Pau Monne wrote:
-> > In ACPI systems, the OS can direct power management, as opposed to the
-> > firmware.  This OS-directed Power Management is called OSPM.  Part of
-> > telling the firmware that the OS going to direct power management is
-> > making ACPI "_PDC" (Processor Driver Capabilities) calls.  These _PDC
-> > methods must be evaluated for every processor object.  If these _PDC
-> > calls are not completed for every processor it can lead to
-> > inconsistency and later failures in things like the CPU frequency
-> > driver.
-> > 
-> > In a Xen system, the dom0 kernel is responsible for system-wide power
-> > management.  The dom0 kernel is in charge of OSPM.  However, the
-> > number of CPUs available to dom0 can be different than the number of
-> > CPUs physically present on the system.
-> > 
-> > This leads to a problem: the dom0 kernel needs to evaluate _PDC for
-> > all the processors, but it can't always see them.
-> > 
-> > In dom0 kernels, ignore the existing ACPI method for determining if a
-> > processor is physically present because it might not be accurate.
-> > Instead, ask the hypervisor for this information.
-> > 
-> > Fix this by introducing a custom function to use when running as Xen
-> > dom0 in order to check whether a processor object matches a CPU that's
-> > online.
-> > 
-> > This ensures that _PDC method gets evaluated for all physically online
-> > CPUs, regardless of the number of CPUs made available to dom0.
-> > 
-> > Fixes: 5d554a7bb064 ('ACPI: processor: add internal processor_physically_present()')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > Changes since v1:
-> >   - Reword commit message.
-> > ---
-> >   arch/x86/include/asm/xen/hypervisor.h | 10 ++++++++++
-> >   arch/x86/xen/enlighten.c              | 27 +++++++++++++++++++++++++++
-> >   drivers/acpi/processor_pdc.c          | 11 +++++++++++
-> >   3 files changed, 48 insertions(+)
-> > 
-> > diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
-> > index 5fc35f889cd1..f14e39bce2cb 100644
-> > --- a/arch/x86/include/asm/xen/hypervisor.h
-> > +++ b/arch/x86/include/asm/xen/hypervisor.h
-> > @@ -63,4 +63,14 @@ void __init xen_pvh_init(struct boot_params *boot_params);
-> >   void __init mem_map_via_hcall(struct boot_params *boot_params_p);
-> >   #endif
-> > +#ifdef CONFIG_XEN_DOM0
-> > +bool __init xen_processor_present(uint32_t acpi_id);
-> > +#else
-> > +static inline bool xen_processor_present(uint32_t acpi_id)
-> > +{
-> > +	BUG();
-> > +	return false;
-> > +}
-> > +#endif
-> > +
-> >   #endif /* _ASM_X86_XEN_HYPERVISOR_H */
-> > diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
-> > index b8db2148c07d..d4c44361a26c 100644
-> > --- a/arch/x86/xen/enlighten.c
-> > +++ b/arch/x86/xen/enlighten.c
-> > @@ -346,3 +346,30 @@ void xen_arch_unregister_cpu(int num)
-> >   }
-> >   EXPORT_SYMBOL(xen_arch_unregister_cpu);
-> >   #endif
-> > +
-> > +#ifdef CONFIG_XEN_DOM0
-> > +bool __init xen_processor_present(uint32_t acpi_id)
-> > +{
-> > +	unsigned int i, maxid;
-> > +	struct xen_platform_op op = {
-> > +		.cmd = XENPF_get_cpuinfo,
-> > +		.interface_version = XENPF_INTERFACE_VERSION,
-> > +	};
-> > +	int ret = HYPERVISOR_platform_op(&op);
-> > +
-> > +	if (ret)
-> > +		return false;
-> > +
-> > +	maxid = op.u.pcpu_info.max_present;
-> > +	for (i = 0; i <= maxid; i++) {
-> > +		op.u.pcpu_info.xen_cpuid = i;
-> > +		ret = HYPERVISOR_platform_op(&op);
-> > +		if (ret)
-> > +			continue;
-> > +		if (op.u.pcpu_info.acpi_id == acpi_id)
-> > +			return op.u.pcpu_info.flags & XEN_PCPU_FLAGS_ONLINE;
-> > +	}
-> > +
-> > +	return false;
-> > +}
-> > +#endif
-> 
-> Did you consider not to do the hypercall again and again, but to reuse the
-> pcpu list from drivers/xen/pcpu.c instead? You'd need to store the acpi_id
-> in this list, of course.
+Hi Bertrand,
 
-Oh, didn't know this was available.  Seems to be initialized before
-the _PDC evaluation, so I can give it a try.
+On Wed, Mar 15, 2023 at 2:35=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> > On 15 Mar 2023, at 12:47, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > Hi Bertrand,
+> >
+> > On Wed, Mar 15, 2023 at 11:13=E2=80=AFAM Bertrand Marquis
+> > <Bertrand.Marquis@arm.com> wrote:
+> >>
+> >> Hi Jens,
+> >>
+> >>> On 22 Feb 2023, at 16:33, Jens Wiklander <jens.wiklander@linaro.org> =
+wrote:
+> >>>
+> >>> Adds support for sharing large memory ranges transmitted in fragments
+> >>> using FFA_MEM_FRAG_TX.
+> >>>
+> >>> The implementation is the bare minimum to be able to communicate with
+> >>> OP-TEE running as an SPMC at S-EL1.
+> >>>
+> >>> Adds a check that the SP supports the needed FF-A feature
+> >>> FFA_MEM_FRAG_TX.
+> >>>
+> >>> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >>> ---
+> >>> xen/arch/arm/tee/ffa.c | 254 ++++++++++++++++++++++++++++++++++++++--=
+-
+> >>> 1 file changed, 240 insertions(+), 14 deletions(-)
+> >>>
+> >>> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >>> index 3557edc455d0..72c0249d8cad 100644
+> >>> --- a/xen/arch/arm/tee/ffa.c
+> >>> +++ b/xen/arch/arm/tee/ffa.c
+> >>> @@ -326,6 +326,7 @@ struct ffa_ctx {
+> >>>    uint32_t guest_vers;
+> >>>    bool tx_is_mine;
+> >>>    bool interrupted;
+> >>> +    struct list_head frag_list;
+> >>>    struct list_head shm_list;
+> >>>    unsigned int shm_count;
+> >>>    spinlock_t lock;
+> >>> @@ -340,6 +341,18 @@ struct ffa_shm_mem {
+> >>>    struct page_info *pages[];
+> >>> };
+> >>
+> >> We start to have a lot of fields here.
+> >> It might be useful to have some quick documentation
+> >> in comment here as some names are a bit generic.
+> >> For example "frag_list" does not say much.
+> >
+> > I'll add some comments.
+> >
+> >>
+> >>>
+> >>> +struct mem_frag_state {
+> >>> +    struct list_head list;
+> >>> +    struct ffa_shm_mem *shm;
+> >>> +    uint32_t range_count;
+> >>> +    unsigned int current_page_idx;
+> >>> +    unsigned int frag_offset;
+> >>> +    unsigned int range_offset;
+> >>> +    const uint8_t *buf;
+> >>> +    unsigned int buf_size;
+> >>> +    struct ffa_address_range range;
+> >>> +};
+> >>
+> >> same here, at a first glance it is not quite clear why
+> >> a fragment needs that much info. Some seem to only
+> >> be needed during the transaction but do not need to be saved.
+> >
+> > This struct is only used during the transaction, so this is freed once
+> > the entire memory transaction descriptor has been processed.
+> >
+> >>
+> >>> +
+> >>> /* Negotiated FF-A version to use with the SPMC */
+> >>> static uint32_t ffa_version __ro_after_init;
+> >>>
+> >>> @@ -512,6 +525,36 @@ static int32_t ffa_mem_share(uint32_t tot_len, u=
+int32_t frag_len,
+> >>>    }
+> >>> }
+> >>>
+> >>> +static int32_t ffa_mem_frag_tx(uint64_t handle, uint32_t frag_len,
+> >>> +                               uint16_t sender_id)
+> >>> +{
+> >>> +    struct arm_smccc_1_2_regs arg =3D {
+> >>> +        .a0 =3D FFA_MEM_FRAG_TX,
+> >>> +        .a1 =3D handle & UINT32_MAX,
+> >>> +        .a2 =3D handle >> 32,
+> >>> +        .a3 =3D frag_len,
+> >>> +        .a4 =3D (uint32_t)sender_id << 16,
+> >>> +    };
+> >>> +    struct arm_smccc_1_2_regs resp;
+> >>> +
+> >>> +    arm_smccc_1_2_smc(&arg, &resp);
+> >>> +
+> >>> +    switch ( resp.a0 )
+> >>> +    {
+> >>> +    case FFA_ERROR:
+> >>> +        if ( resp.a2 )
+> >>> +            return resp.a2;
+> >>> +        else
+> >>> +            return FFA_RET_NOT_SUPPORTED;
+> >>> +    case FFA_SUCCESS_32:
+> >>> +        return FFA_RET_OK;
+> >>> +    case FFA_MEM_FRAG_RX:
+> >>> +        return resp.a3;
+> >>> +    default:
+> >>> +            return FFA_RET_NOT_SUPPORTED;
+> >>> +    }
+> >>> +}
+> >>> +
+> >>> static int32_t ffa_mem_reclaim(uint32_t handle_lo, uint32_t handle_hi=
+,
+> >>>                               uint32_t flags)
+> >>> {
+> >>> @@ -586,6 +629,14 @@ static void set_regs_success(struct cpu_user_reg=
+s *regs, uint32_t w2,
+> >>>    set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, 0, 0, 0, 0);
+> >>> }
+> >>>
+> >>> +static void set_regs_frag_rx(struct cpu_user_regs *regs, uint32_t ha=
+ndle_lo,
+> >>> +                             uint32_t handle_hi, uint32_t frag_offse=
+t,
+> >>> +                             uint16_t sender_id)
+> >>> +{
+> >>> +    set_regs(regs, FFA_MEM_FRAG_RX, handle_lo, handle_hi, frag_offse=
+t,
+> >>> +             (uint32_t)sender_id << 16, 0, 0, 0);
+> >>> +}
+> >>> +
+> >>> static void handle_version(struct cpu_user_regs *regs)
+> >>> {
+> >>>    struct domain *d =3D current->domain;
+> >>> @@ -955,6 +1006,8 @@ static int share_shm(struct ffa_shm_mem *shm)
+> >>>    paddr_t last_pa;
+> >>>    unsigned int n;
+> >>>    paddr_t pa;
+> >>> +    bool first;
+> >>> +    int ret;
+> >>>
+> >>>    ASSERT(spin_is_locked(&ffa_tx_buffer_lock));
+> >>>    if ( !shm->page_count )
+> >>> @@ -994,13 +1047,23 @@ static int share_shm(struct ffa_shm_mem *shm)
+> >>>
+> >>>    tot_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_coun=
+t,
+> >>>                                region_descr->address_range_count);
+> >>> -    if ( tot_len > max_frag_len )
+> >>> -        return FFA_RET_NOT_SUPPORTED;
+> >>>
+> >>> +    /*
+> >>> +     * Sharing memory with secure world may have to be done with mul=
+tiple
+> >>> +     * calls depending on how many address ranges will be needed. If=
+ we're
+> >>> +     * sharing physically contiguous memory we will only need one ra=
+nge but
+> >>> +     * we will also need to deal with the worst case where all physi=
+cal
+> >>> +     * pages are non-contiguous. For the first batch of address rang=
+es we
+> >>> +     * call ffa_mem_share() and for all that follows ffa_mem_frag_tx=
+().
+> >>> +     *
+> >>> +     * We use frag_len to keep track of how far into the transmit bu=
+ffer we
+> >>> +     * have gone.
+> >>> +     */
+> >>>    addr_range =3D region_descr->address_range_array;
+> >>>    frag_len =3D ADDR_RANGE_OFFSET(descr->mem_access_count, region_cou=
+nt, 1);
+> >>>    last_pa =3D page_to_maddr(shm->pages[0]);
+> >>>    init_range(addr_range, last_pa);
+> >>> +    first =3D true;
+> >>>    for ( n =3D 1; n < shm->page_count; last_pa =3D pa, n++ )
+> >>>    {
+> >>>        pa =3D page_to_maddr(shm->pages[n]);
+> >>> @@ -1010,12 +1073,34 @@ static int share_shm(struct ffa_shm_mem *shm)
+> >>>            continue;
+> >>>        }
+> >>>
+> >>> -        frag_len +=3D sizeof(*addr_range);
+> >>> -        addr_range++;
+> >>> +        if ( frag_len =3D=3D max_frag_len )
+> >>> +        {
+> >>> +            if ( first )
+> >>> +            {
+> >>> +                ret =3D ffa_mem_share(tot_len, frag_len, 0, 0, &shm-=
+>handle);
+> >>> +                first =3D false;
+> >>> +            }
+> >>> +            else
+> >>> +            {
+> >>> +                ret =3D ffa_mem_frag_tx(shm->handle, frag_len, shm->=
+sender_id);
+> >>> +            }
+> >>> +            if ( ret <=3D 0 )
+> >>> +                return ret;
+> >>> +            frag_len =3D sizeof(*addr_range);
+> >>> +            addr_range =3D buf;
+> >>> +        }
+> >>> +        else
+> >>> +        {
+> >>> +            frag_len +=3D sizeof(*addr_range);
+> >>> +            addr_range++;
+> >>> +        }
+> >>>        init_range(addr_range, pa);
+> >>>    }
+> >>>
+> >>> -    return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
+> >>> +    if ( first )
+> >>> +        return ffa_mem_share(tot_len, frag_len, 0, 0, &shm->handle);
+> >>> +    else
+> >>> +        return ffa_mem_frag_tx(shm->handle, frag_len, shm->sender_id=
+);
+> >>> }
+> >>>
+> >>> static int read_mem_transaction(uint32_t ffa_vers, const void *buf, s=
+ize_t blen,
+> >>> @@ -1092,8 +1177,53 @@ static int read_mem_transaction(uint32_t ffa_v=
+ers, const void *buf, size_t blen,
+> >>>    return 0;
+> >>> }
+> >>>
+> >>> +static int add_mem_share_frag(struct mem_frag_state *s, unsigned int=
+ offs,
+> >>> +                              unsigned int frag_len)
+> >>> +{
+> >>> +    struct domain *d =3D current->domain;
+> >>> +    unsigned int o =3D offs;
+> >>> +    unsigned int l;
+> >>> +    int ret;
+> >>> +
+> >>> +    if ( frag_len < o )
+> >>> +        return FFA_RET_INVALID_PARAMETERS;
+> >>> +
+> >>> +    /* Fill up the first struct ffa_address_range */
+> >>> +    l =3D min_t(unsigned int, frag_len - o, sizeof(s->range) - s->ra=
+nge_offset);
+> >>> +    memcpy((uint8_t *)&s->range + s->range_offset, s->buf + o, l);
+> >>> +    s->range_offset +=3D l;
+> >>> +    o +=3D l;
+> >>> +    if ( s->range_offset !=3D sizeof(s->range) )
+> >>> +        goto out;
+> >>> +    s->range_offset =3D 0;
+> >>> +
+> >>> +    while ( true )
+> >>> +    {
+> >>> +        ret =3D get_shm_pages(d, s->shm, &s->range, 1, s->current_pa=
+ge_idx,
+> >>> +                            &s->current_page_idx);
+> >>> +        if ( ret )
+> >>> +            return ret;
+> >>> +        if ( s->range_count =3D=3D 1 )
+> >>> +            return 0;
+> >>> +        s->range_count--;
+> >>> +        if ( frag_len - o < sizeof(s->range) )
+> >>> +            break;
+> >>> +        memcpy(&s->range, s->buf + o, sizeof(s->range));
+> >>> +        o +=3D sizeof(s->range);
+> >>> +    }
+> >>> +
+> >>> +    /* Collect any remaining bytes for the next struct ffa_address_r=
+ange */
+> >>> +    s->range_offset =3D frag_len - o;
+> >>> +    memcpy(&s->range, s->buf + o, frag_len - o);
+> >>> +out:
+> >>> +    s->frag_offset +=3D frag_len;
+> >>> +
+> >>> +    return s->frag_offset;
+> >>> +}
+> >>> +
+> >>> static void handle_mem_share(struct cpu_user_regs *regs)
+> >>> {
+> >>> +    static uint64_t next_handle =3D FFA_HANDLE_HYP_FLAG;
+> >>>    uint32_t tot_len =3D get_user_reg(regs, 1);
+> >>>    uint32_t frag_len =3D get_user_reg(regs, 2);
+> >>>    uint64_t addr =3D get_user_reg(regs, 3);
+> >>> @@ -1128,13 +1258,6 @@ static void handle_mem_share(struct cpu_user_r=
+egs *regs)
+> >>>        goto out_set_ret;
+> >>>    }
+> >>>
+> >>> -    /* We currently only support a single fragment */
+> >>> -    if ( frag_len !=3D tot_len )
+> >>> -    {
+> >>> -        ret =3D FFA_RET_NOT_SUPPORTED;
+> >>> -        goto out_set_ret;
+> >>> -    }
+> >>> -
+> >>>    spin_lock(&ctx->lock);
+> >>>
+> >>>    if ( frag_len > ctx->page_count * FFA_PAGE_SIZE )
+> >>> @@ -1195,11 +1318,41 @@ static void handle_mem_share(struct cpu_user_=
+regs *regs)
+> >>>    if ( !shm )
+> >>>    {
+> >>>        ret =3D FFA_RET_NO_MEMORY;
+> >>> -        goto out_unlock;
+> >>> +        goto out;
+> >>
+> >> Why is this changed ?
+> >> You still have no shm here so call free_sha_shm does not make sense
+> >
+> > Good catch, I'll fix it.
+> >
+> >>
+> >>>    }
+> >>>    shm->sender_id =3D trans.sender_id;
+> >>>    shm->ep_id =3D read_atomic(&mem_access->access_perm.endpoint_id);
+> >>>
+> >>> +    if ( frag_len !=3D tot_len )
+> >>> +    {
+> >>> +        struct mem_frag_state *s =3D xzalloc(struct mem_frag_state);
+> >>> +
+> >>> +        if ( !s )
+> >>> +        {
+> >>> +            ret =3D FFA_RET_NO_MEMORY;
+> >>> +            goto out;
+> >>> +        }
+> >>> +        s->shm =3D shm;
+> >>> +        s->range_count =3D range_count;
+> >>> +        s->buf =3D ctx->tx;
+> >>> +        s->buf_size =3D ffa_page_count * FFA_PAGE_SIZE;
+> >>> +        ret =3D add_mem_share_frag(s, sizeof(*region_descr)  + regio=
+n_offs,
+> >>> +                                 frag_len);
+> >>> +        if ( ret <=3D 0 )
+> >>> +        {
+> >>> +            xfree(s);
+> >>> +            if ( ret < 0 )
+> >>> +                goto out;
+> >>> +        }
+> >>> +        else
+> >>> +        {
+> >>> +            shm->handle =3D next_handle++;
+> >>> +            uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
+> >>> +            list_add_tail(&s->list, &ctx->frag_list);
+> >>> +        }
+> >>> +        goto out_unlock;
+> >>> +    }
+> >>> +
+> >>>    /*
+> >>>     * Check that the Composite memory region descriptor fits.
+> >>>     */
+> >>> @@ -1238,7 +1391,75 @@ out_unlock:
+> >>>    spin_unlock(&ctx->lock);
+> >>>
+> >>> out_set_ret:
+> >>> -    if ( ret =3D=3D 0)
+> >>> +    if ( ret > 0 )
+> >>> +            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, trans.=
+sender_id);
+> >>> +    else if ( ret =3D=3D 0)
+> >>> +            set_regs_success(regs, handle_lo, handle_hi);
+> >>> +    else
+> >>> +            set_regs_error(regs, ret);
+> >>> +}
+> >>> +
+> >>> +static struct mem_frag_state *find_frag_state(struct ffa_ctx *ctx,
+> >>> +                                              uint64_t handle)
+> >>> +{
+> >>> +    struct mem_frag_state *s;
+> >>> +
+> >>> +    list_for_each_entry(s, &ctx->frag_list, list)
+> >>> +        if ( s->shm->handle =3D=3D handle )
+> >>> +            return s;
+> >>> +
+> >>> +    return NULL;
+> >>> +}
+> >>> +
+> >>> +static void handle_mem_frag_tx(struct cpu_user_regs *regs)
+> >>> +{
+> >>> +    struct domain *d =3D current->domain;
+> >>> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> >>> +    uint32_t frag_len =3D get_user_reg(regs, 3);
+> >>> +    uint32_t handle_lo =3D get_user_reg(regs, 1);
+> >>> +    uint32_t handle_hi =3D get_user_reg(regs, 2);
+> >>> +    uint64_t handle =3D regpair_to_uint64(handle_hi, handle_lo);
+> >>> +    struct mem_frag_state *s;
+> >>> +    uint16_t sender_id =3D 0;
+> >>> +    int ret;
+> >>> +
+> >>> +    spin_lock(&ctx->lock);
+> >>> +    s =3D find_frag_state(ctx, handle);
+> >>> +    if ( !s )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >>> +        goto out;
+> >>> +    }
+> >>> +    sender_id =3D s->shm->sender_id;
+> >>> +
+> >>> +    if ( frag_len > s->buf_size )
+> >>> +    {
+> >>> +        ret =3D FFA_RET_INVALID_PARAMETERS;
+> >>> +        goto out;
+> >>> +    }
+> >>> +
+> >>> +    ret =3D add_mem_share_frag(s, 0, frag_len);
+> >>> +    if ( ret =3D=3D 0 )
+> >>> +    {
+> >>> +        /* Note that share_shm() uses our tx buffer */
+> >>> +        spin_lock(&ffa_tx_buffer_lock);
+> >>> +        ret =3D share_shm(s->shm);
+> >>> +        spin_unlock(&ffa_tx_buffer_lock);
+> >>> +        if ( ret =3D=3D 0 )
+> >>> +            list_add_tail(&s->shm->list, &ctx->shm_list);
+> >>> +        else
+> >>> +            free_ffa_shm_mem(ctx, s->shm);
+> >>> +    }
+> >>> +    else if ( ret < 0 )
+> >>> +        free_ffa_shm_mem(ctx, s->shm);
+> >>
+> >>
+> >> If there is not error the stuff allocated are kept but i do not see
+> >> where/when they would be freed or used.
+> >> Could you explain why we need to save all those ?
+> >
+> > s->shm is the final shared memory object which is added to the list of
+> > shared memory objects when the transaction is completed successfully.
+> > The fragment state, s, is kept as long as the transaction is ongoing.
+> > Once the transaction is completed successfully or due to a failure
+> > it's freed.
+> >
+> > The specification doesn't say what to do if an invalid frag_len is
+> > detected, except that we should return FFA_RET_INVALID_PARAMETERS.
+> > Currently, we just return an error, but keep the state. Another option
+> > is to free the state instead since the caller might have lost track of
+> > the state.
+>
+> There is no solution for the client to "continue" anyway so I think we sh=
+ould
+> properly cleanup in all exit conditions.
 
-Thanks, Roger.
+OK, I'll do that.
+
+Thanks,
+Jens
+
+>
+> Cheers
+> Bertrand
+>
+> >
+> > Thanks,
+> > Jens
+> >
+> >>
+> >> Cheers
+> >> Bertrand
+> >>
+> >>> +    list_del(&s->list);
+> >>> +    xfree(s);
+> >>> +out:
+> >>> +    spin_unlock(&ctx->lock);
+> >>> +
+> >>> +    if ( ret > 0 )
+> >>> +            set_regs_frag_rx(regs, handle_lo, handle_hi, ret, sender=
+_id);
+> >>> +    else if ( ret =3D=3D 0)
+> >>>            set_regs_success(regs, handle_lo, handle_hi);
+> >>>    else
+> >>>            set_regs_error(regs, ret);
+> >>> @@ -1357,6 +1578,9 @@ static bool ffa_handle_call(struct cpu_user_reg=
+s *regs)
+> >>>        else
+> >>>            set_regs_success(regs, 0, 0);
+> >>>        return true;
+> >>> +    case FFA_MEM_FRAG_TX:
+> >>> +        handle_mem_frag_tx(regs);
+> >>> +        return true;
+> >>>
+> >>>    default:
+> >>>        gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
+> >>> @@ -1396,6 +1620,7 @@ static int ffa_domain_init(struct domain *d)
+> >>>        }
+> >>>    }
+> >>>
+> >>> +    INIT_LIST_HEAD(&ctx->frag_list);
+> >>>    INIT_LIST_HEAD(&ctx->shm_list);
+> >>>
+> >>>    d->arch.tee =3D ctx;
+> >>> @@ -1560,6 +1785,7 @@ static bool ffa_probe(void)
+> >>> #endif
+> >>>         !check_mandatory_feature(FFA_RXTX_UNMAP) ||
+> >>>         !check_mandatory_feature(FFA_MEM_SHARE_32) ||
+> >>> +         !check_mandatory_feature(FFA_MEM_FRAG_TX) ||
+> >>>         !check_mandatory_feature(FFA_MEM_RECLAIM) ||
+> >>>         !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> >>>        return false;
+> >>> --
+> >>> 2.34.1
+>
+>
 
