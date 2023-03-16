@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B651C6BC781
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 08:43:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510327.787802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 836496BC7B1
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 08:50:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510332.787816 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pciFZ-0001Mj-Dv; Thu, 16 Mar 2023 07:42:13 +0000
+	id 1pciNQ-00039k-Bi; Thu, 16 Mar 2023 07:50:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510327.787802; Thu, 16 Mar 2023 07:42:13 +0000
+Received: by outflank-mailman (output) from mailman id 510332.787816; Thu, 16 Mar 2023 07:50:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pciFZ-0001Kc-AU; Thu, 16 Mar 2023 07:42:13 +0000
-Received: by outflank-mailman (input) for mailman id 510327;
- Thu, 16 Mar 2023 07:42:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NB6E=7I=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pciFY-0001KT-7S
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 07:42:12 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0eec087d-c3ce-11ed-87f5-c1b5be75604c;
- Thu, 16 Mar 2023 08:42:10 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id eh3so3871801edb.11
- for <xen-devel@lists.xenproject.org>; Thu, 16 Mar 2023 00:42:10 -0700 (PDT)
-Received: from [192.168.8.114] (46.204.101.131.nat.umts.dynamic.t-mobile.pl.
- [46.204.101.131]) by smtp.gmail.com with ESMTPSA id
- v1-20020a170906488100b008d8f1b238fdsm3485397ejq.149.2023.03.16.00.42.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Mar 2023 00:42:09 -0700 (PDT)
+	id 1pciNQ-00036f-7S; Thu, 16 Mar 2023 07:50:20 +0000
+Received: by outflank-mailman (input) for mailman id 510332;
+ Thu, 16 Mar 2023 07:50:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ta6a=7I=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pciNP-00036X-63
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 07:50:19 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on20625.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::625])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30ee953d-c3cf-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 08:50:16 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8341.eurprd04.prod.outlook.com (2603:10a6:20b:3b0::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.29; Thu, 16 Mar
+ 2023 07:50:13 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Thu, 16 Mar 2023
+ 07:50:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,192 +47,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0eec087d-c3ce-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678952529;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=MrlBBYukRr3Nu/f0mpSH6rFGy6cqWFTE2hcrBiLlips=;
-        b=EdsohTY0FzXf70GRmUGqUiwDBtyA/BgBmTOn08BPWMZzqYMt5hUiqE+JnJt15AEIkR
-         oSVW+CnRA18DGVfEKvNRFoOIzymoXOWsFtBllTyO4ZzpcO7j7teF1NEtfu8/m8eTdIu2
-         zGik+UZY+EM+9dAUrfXP4UIyp57k9oLXlFCBWVTNUQJlH0AuKE9tPh+/fI/CsW4ktaaI
-         YUE0WgsOa3JILdbVJJmYcIt3/Jcf/BuZcg+Dxf8S8rZjJL/L96EZdRdxn5LVenVbOQ5/
-         LE5Z7KJ8UpTQWceFVroenstzfT1ZzL9MemoQGfgeVhslRdwoKXKSeF9t9BGdtrx1Hdt8
-         qu5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678952529;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=MrlBBYukRr3Nu/f0mpSH6rFGy6cqWFTE2hcrBiLlips=;
-        b=HSohxyMFtya1akKIHgvwJh22SAmketeEYD3Q89+R11nmdlyJPHp6xYtP19fUlCAVLw
-         RVJF6G0J/Gisvki0PWZ0euGdFQML+66m2FkjiQhoOVzweRo6hD5kREpm5AAZ3OFricCr
-         0hj/noyRs9/4s/yHL+l2i+wryX+hYjoWX3m1t/NeegfcaTBIDSgZPGS+q2UBqyorytjU
-         zGiMFG1OODMna86qdqUIYVcCzxH/WuRad92RRf98TV7DcGnkw42VgcNp+SLSStzYzt2q
-         jxWat/6Cncw8RkmVG5hNv5+d8JnsIhTtIkQ/nHfoO+zv6w9+I7ANyJsWp39ZtR0tbOxD
-         EZPg==
-X-Gm-Message-State: AO0yUKVW//pQNbEx0OyIQTmRPytKK7OzZCRTKHkg7lO1sl9dB1CiePGL
-	+6KLxC0APD1OrYvxmUbyXDE=
-X-Google-Smtp-Source: AK7set8sfEEOGynDz000LF95F/z/5EurZW+Ffa4400f2BRuX0ZE6BICZYLy1fRtMhv8mt3qPSG4cuA==
-X-Received: by 2002:a17:906:f914:b0:88c:6345:d0e7 with SMTP id lc20-20020a170906f91400b0088c6345d0e7mr8767790ejb.36.1678952529413;
-        Thu, 16 Mar 2023 00:42:09 -0700 (PDT)
-Message-ID: <00fc9016252e656be257671aa5c2c4e102df240a.camel@gmail.com>
-Subject: Re: [PATCH v1] xen/riscv: make calculation of stack address
- PC-relative
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida
-	 <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
-	Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>, 
-	xen-devel@lists.xenproject.org
-Date: Thu, 16 Mar 2023 09:42:07 +0200
-In-Reply-To: <ac357f76-653f-9dbd-dc54-6e31db28de9b@citrix.com>
-References: 
-	<ad2249c1b5be01f99ef9c294a3264da0c9715bab.1678809641.git.oleksii.kurochko@gmail.com>
-	 <9c5ec3f3-c909-8f45-4460-1b29ce333d10@citrix.com>
-	 <e7c42fc7561b88b1a18463b9b28d0b09cd6553c4.camel@gmail.com>
-	 <966c19e3-d255-db73-9bb4-7abe0a745396@suse.com>
-	 <ac357f76-653f-9dbd-dc54-6e31db28de9b@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
+X-Inumbo-ID: 30ee953d-c3cf-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=P7lLmvfD+dkWTLrOG1FSTHpOvx/R7v2ObuqOCx+Ckdhx8vIcYs1EKbo1ZQY+1ORFB0X+kzI0JaeMGjoXlUkBOs6TGAi/9W6Nf6Q0wDlWIMr87dHLW7VXe4PpeOCbCXOkEIf0cRJhxeZSGKpLZ+qfDlfyln3ob4CmbdzgfvsamnIWuEF5wDAzzdHj1CsMllW7kFTSboKah5xQNLzAMU6mMvubb8jJJni9lMGpnLRDEBMy7R9Ae9BCxU1mmZqZ8S5wxH8UrJ4vi1wSEiSfiF4C1ii3PHP+0JyJ0pWmoZMn/YvfGv/PnOWdQMosKQTPwhqEKvcuQRFNzjRjATZfNtaQ9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Og14EUITHXvbPrh4W/a1B77ZpP0NHk0P5pkLDv47/BY=;
+ b=WemiUV/ASNXTQgM2DMyifiJ53+ZwsXKErqTGFWlc3gV1r5amZSjq9yjesZIW5DNiP90JfO0n3Fkqnr0nPnskMkp+J5ok6wYIkuIBohErfGPWbfcoBhaQfyvRH8Kl1VZM8YMQwdF5stVnA4yzoZnS2PSWxJa5apfT2R9/tljvUh7ebdqOFWDFkY6c37aQABDfJblqg5U6WHHNIv7VY8aau8WucS13KOy9PwRxaQ+3yE2ZxJF4WdXypqZwU5xOHbBGabxU7m/9ILVpsNE0fWd46rzCJ3MQb6UOn6cMw2y+g8rcjIraXm8iVhVYH70yowt7Epn04V/0PjVRuBkG+8q7yg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Og14EUITHXvbPrh4W/a1B77ZpP0NHk0P5pkLDv47/BY=;
+ b=3sQF2tqUficQITP/yFXRgPsPiJJXg965Nf28nfav4KFPEkPi4w2Qb5SE0sAQlNlBRNg83LgFZWsVOsRkSCf4hDQJB0viK8gLAKjmNJFu82WVmm9Cu3+UYlMlxhl0UOCUZJztlFjGfyaB8i7BM8ottkZHPXrxFtj0+EiNPfMAEgTJFfiRZbtvcfesPAAv+gz6X7+evMYl0Q4hbZw8K5oYTczaygrnIuaOKG8LTzjnle9XYQXzj8KSvLy68gKcoK4Kr1beW43c7KhG7cwEDcPmBCKyLd5mBdVhNAZoST+IycYEA0QQYjF4EjQja6zLj2VkaO/2y3gfoYe+SgRnpenuoQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <5e22a45d-6f12-da9b-94f6-3112a30e8574@suse.com>
+Date: Thu, 16 Mar 2023 08:50:11 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Huang Rui <ray.huang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>, Juergen Gross <jgross@suse.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20230312120157.452859-1-ray.huang@amd.com>
+ <20230312120157.452859-2-ray.huang@amd.com>
+ <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com>
+ <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
+ <f5e03f2a-8176-528f-e885-9a97940367c0@suse.com>
+ <alpine.DEB.2.22.394.2303151616200.3462@ubuntu-linux-20-04-desktop>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <alpine.DEB.2.22.394.2303151616200.3462@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0075.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8341:EE_
+X-MS-Office365-Filtering-Correlation-Id: c70dcd48-1648-4c1e-196f-08db25f3135c
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	j//oK4L/bXGLAW5r5/FunPeuYcAT234CNuzAxmTk5w4e50Klsj2o/FABu/yhjw7kNIy1xRtSQ6tfmqCVwGmdicdjt6c8OkuUdC5kkgsporvDuMrsG9NRENH6q/qSx0XrGLx87kHMFzM/IC58aNBjVLg1c5Kh1hjnJk13bo1gFZWRhh/syATra6QC+KtafGZ46Xsxez5I+huwVdK/noiycVRlCcCSn3cE0T9hKg/k4ye1TPFG4n7Wqj6hKYJzwbFoO1KQRiCILh6GNAm6SpxawZRtHYJPC3Xpu8AZ8+pPjsuPw2Y8IhBhFc4H1vhc38lTBeBAwhkepSmt3cs/93IMhRcydH3JIvmcsDGZrvbkVGS0FwMAbsWqgZfDdYTDj2nI49OGAUgyYGraS+a1K2EpqqVToIr04LQWc1h/pnsm6FvDEZQoJ/+JlNNa1RtP3MilAqMpdDsKclFLw6POA4HWeK+25/9/HuNMBgbN8Gv1KF4Bam+I8aPSrSxO0Dml3YUs69xGci+qXcR5Aqyg/E5HMokh7e9hMpQTcCTgcm/b5gnVY+4HR3MqEhYZkZfun4J9qxHa7yT8Q55nNSKwNwMxQmh9j+9WHNePdj9D2XVfqdUoUr+d+FMRhF26B1Mo1smXvlfIlB6v0rHpq6ZuiNWhQkyXisbES8g4VQZHtWrgEgJdtF+nw5o1bXnKW8hxgOjLE5zYNDMSjBscuKTa/Qufw9hSPYtbi1hzz9acT/mlQlc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(396003)(39860400002)(366004)(346002)(136003)(451199018)(6486002)(83380400001)(478600001)(2616005)(186003)(53546011)(6512007)(6506007)(31686004)(66556008)(66946007)(54906003)(66476007)(316002)(26005)(4326008)(8676002)(41300700001)(6916009)(8936002)(5660300002)(7416002)(38100700002)(2906002)(31696002)(36756003)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a2VQMEF6WFppZDJKL3Y4MEtMdzFFNys3MjlzRVVQU1lzSTBISWFtR290RmtC?=
+ =?utf-8?B?RkZZMUxFa2hOcWhza0NpQ2NKREhKTzlLOU1nTFFuTCtaWHVyYTZTbldEOTk4?=
+ =?utf-8?B?YzZYWDNncWl4UXR2alVMZ0J4b3pSUWttbUU3UmRqMVJoemJkRVovcWJuVCtz?=
+ =?utf-8?B?eVVVejM2MVdKYmUvK2xRcHNpUmw2clhhTWtsQVdHTlIwNURNV1Rqd3cvL2Z0?=
+ =?utf-8?B?V2hNdVJzWGdTdEZUa3VPZnYvaVlJaFdJaThVaGkwbnM4SXgvQVdUdE0zeVVr?=
+ =?utf-8?B?YXRrcFRuQTFrMDcrTDhiUzY5a0FORFZFWlVWNDhYOWdpNGVsWWdVUDFDRXVa?=
+ =?utf-8?B?K2ZXSDVxMGRZUjVCZXBtTC9LSXJDeVFsZmxUV0lVSE1ZTVdlYXBHR1ZhSUYx?=
+ =?utf-8?B?bXlWTGU2UWJXSFprYVMvSTNWQXBQbFgzL0o4Q2F4K0x1V0lFdis5bG16VTly?=
+ =?utf-8?B?L1QwOHBYRFFQMG1VSTh6NE1Zby9va0VJME5ONEJZcjZLQVQwQytjY0NrejRi?=
+ =?utf-8?B?emFSZVNmbHN5d1p4QldOWkxLOU1mdXJnVVo3bDhlaGJ3TnpUWFQySDRPOUtS?=
+ =?utf-8?B?S0Rtb2xrK2tCYis0TDR5cDBXSVNua2Zwd0V0OUUwaytOdVlpMlpqMEFYSlNR?=
+ =?utf-8?B?RVNidXl6aUVpeFF0SWkxM1VreEE4QkQ1dnBoZVJLVjBrV3FQd3grRFZNaUUv?=
+ =?utf-8?B?VzBxZ0JGM05heFZhanBLU2l4VHF0YUovS1BONTVNbVJNOVdpbU5WN3F1bklI?=
+ =?utf-8?B?c0FSRWd4NWRiZGRBNnY4KzBtVzIvZVBPUUd6NnRsaEd4emQ0VVI0bS9pQ3JL?=
+ =?utf-8?B?Q0dUVXd1dnBMaUxjRWtyR0ovci94MTNoMVpWYTNxdWpHRCt0amRxV2IwSXZ5?=
+ =?utf-8?B?MFl2VjduVzA1NUtIbS9hWUFxdVk1OWNuK0xkdDd2TWQ0MEZEeVRMdmFSNk1D?=
+ =?utf-8?B?ck04Mk5ubHVET05BRjNwU25TRVJES1dyazFVZTFoR1F4cVBIZjF4cEFPbW5P?=
+ =?utf-8?B?c3NVT3FUYndMUGIwZWFiWXVERzVCQWJLeU9pSm5zSXJ4VHN1NFo0Qmp5OWNP?=
+ =?utf-8?B?V3lNRzg3NmUxRU9sc0xBc3lLa0ZITXdzY0FmY3NIc2J2emZzSi8reHc3Uzcx?=
+ =?utf-8?B?aXA1VFNLM2R5UTJ5eVlJMTc3NWVPZmMraUx3dG1xWHd1Snp1Q2VOTTYxaHhX?=
+ =?utf-8?B?UnJiV29XVlhNTUprWklPbWo4Wm5FZmdKR092S094aS9QRVh3QWY1ODRCTWc1?=
+ =?utf-8?B?N0pFM3hTMzRlVHhVRlZYRC9IYVVlV0lYdkpoUDhEeTkwRE9ZellMNERGOWhY?=
+ =?utf-8?B?SzNCb1R0emxWeDlLQjVQajc2bW5lTExmOEhyS29aS2htOFZGYjN5b1EwV2Jw?=
+ =?utf-8?B?cmZ0OVR0cFRzR3JwY3JsQ1h0QWdDQTl3RXdaZlNxa1gvM3ZRb0VlWVByWjNZ?=
+ =?utf-8?B?aWxGWWV3UnVhSnhhVXc1ZDBBekpXaXlORDBWRjQxcVEzQk5KRmtoWmYwMkc2?=
+ =?utf-8?B?ZytXVXh3N01hNmhXdnYxV0JPQ01mZ25kbDlwRFNzOWpkVkt5Tnp3Q2doZGZ3?=
+ =?utf-8?B?MjIxK1R2b2hKdnNZL3BRVHQ2eXpYWnRWSGtMamp3SElHM29TdXFEWFpLbE9J?=
+ =?utf-8?B?aVRsV2gwTXZKWklYam9NUnhPZTVTcU9rMHovQlA3Sks0SVZnVG85MDgrdWtX?=
+ =?utf-8?B?cUxJNFNNa3hHY0pVV2lac3IvYy9na2ZWMUN6RC9UWm41YUxJNzhtenhSSEY4?=
+ =?utf-8?B?bHV2a2JzN1EzTDhoRUxuQ216ckJqd1V5RE40bC90K3ErY241NG1nY2t5Q01H?=
+ =?utf-8?B?RFBmdkltN0ZXaWYyYjIyZlhuZkpJakU0WmNlSVlQVGNwU0xvenhXbXFzdWlU?=
+ =?utf-8?B?Rm9pM0oxeHkxRjdIRWhGamdTQTl2VEF3TlJZU1RGcUozYTh3aEpXQ3p4ZUp4?=
+ =?utf-8?B?Y0huN25qRlVnSWdSa04wLzhYOE1VOXEwK2JOUG9XOU1WR2dmdkJwc3lYMU9s?=
+ =?utf-8?B?QmdnZ1lBN0hUakJFYUhXODkzY0FHR0FOZTF4dXFLai9BamROWmV0aVpCbE1U?=
+ =?utf-8?B?MW9SbFVPMnRKeXU0SEdTOS9LZGdCUkhyWjcxNE5Pck1OWHFINyt2ZjVMOVRy?=
+ =?utf-8?Q?mf/cSfr6cC6h35ttcyEv6+UNO?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c70dcd48-1648-4c1e-196f-08db25f3135c
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 07:50:13.7015
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kVzglH9PIFd0ZVz/JCljg7wZ45aIbpShfJ4hjz534e3JtfFrgVmEs9l0sorxHf9GQ0NuMbkMUejzZ56aQ/RBlw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8341
 
-On Wed, 2023-03-15 at 21:12 +0000, Andrew Cooper wrote:
-> On 15/03/2023 7:59 am, Jan Beulich wrote:
-> > On 14.03.2023 21:16, Oleksii wrote:
-> > > I checked in Linux binary how 'la' instruction is transformed,
-> > > and it
-> > > looks like it is translated as I expect to auipc/addi pair:
-> > > ffffffe000001066: 00027517 auipc a0,0x27
-> > > ffffffe00000106a: f9a50513 addi a0,a0,-102 # ffffffe000028000
-> > > <early_pg_dir>
-> > >=20
-> > > I checked compiler flags between Xen and Linux. The difference is
-> > > in-
-> > > fno-PIE (Linux also adds -mabi and -march to AFLAGS):
-> > >=20
-> > > 1. Linux build command of head.S: riscv64-linux-gnu-gcc -Wp,-
-> > > MD,arch/riscv/kernel/.head.o.d -nostdinc -isystem /usr/lib/gcc-
-> > > cross/riscv64-linux-gnu/9/include -I./arch/riscv/include -
-> > > I./arch/riscv/include/generated -I./include -
-> > > I./arch/riscv/include/uapi
-> > > -I./arch/riscv/include/generated/uapi -I./include/uapi -
-> > > I./include/generated/uapi -include ./include/linux/kconfig.h -
-> > > D__KERNEL__ -D__ASSEMBLY__ -fno-PIE -mabi=3Dlp64 -march=3Drv64imafdc
-> > > -c -o
-> > > arch/riscv/kernel/head.o arch/riscv/kernel/head.S
-> > >=20
-> > > 2. Xen build command of head.S:riscv64-linux-gnu-gcc -MMD -MP -MF
-> > > arch/riscv/riscv64/.head.o.d -D__ASSEMBLY__ -Wa,--noexecstack -
-> > > DBUILD_ID -fno-strict-aliasing -Wall -Wstrict-prototypes -
-> > > Wdeclaration-
-> > > after-statement -Wno-unused-but-set-variable -Wno-unused-local-
-> > > typedefs
-> > > -O1 -fno-omit-frame-pointer -nostdinc -fno-builtin -fno-common -
-> > > Werror
-> > > -Wredundant-decls -Wno-pointer-arith -Wvla -pipe -D__XEN__ -
-> > > include
-> > > ./include/xen/config.h -Wa,--strip-local-absolute -g -mabi=3Dlp64 -
-> > > I./include -I./arch/riscv/include -march=3Drv64gc -mstrict-align -
-> > > mcmodel=3Dmedany - -c arch/riscv/riscv64/head.S -o
-> > > arch/riscv/riscv64/head.o
-> > Looking into why you see different code generated than I: Nothing
-> > in
-> > here directs gcc to pass -fpic to gas; in upstream gcc (consistent
-> > from gcc7 through gcc12, which are the versions I've checked; the
-> > actual range may be wider) there is
-> >=20
-> > #define ASM_SPEC "\
-> > %(subtarget_asm_debugging_spec) \
-> > %{" FPIE_OR_FPIC_SPEC ":-fpic} \
-> > ...
-> >=20
-> > Can you check whether your gcc passes -fpic to gas even when
-> > there's
-> > no -fPIC / -fPIE (or alike) on the gcc command line? Or whether
-> > your
-> > gas (unlike upstream's) defaults to PIC mode? (For .S files
-> > ASM_SPEC
-> > is all that counts. For .c files gcc is redundantly passing -fpic
-> > along with also emitting ".option pic" or, in the opposite case, it
-> > is omitting -fpic along with emitting ".option nopic".)
-> >=20
-> > You gcc may have been configured with --enable-default-pie, while I
-> > know mine hasn't been (simply because that's the default).
->=20
-> From the thread, the difference is clearly around the pie option, but
-> I
-> have to admit that I'm confused.
->=20
-> With GCC 10 from Debian repos and current staging (modulo the build
-> fix), we end up with:
->=20
-> 0000000080200000 <_start>:
-> =C2=A0=C2=A0=C2=A0 80200000:=C2=A0=C2=A0 10401073=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 csrw=C2=
-=A0=C2=A0=C2=A0 sie,zero
-> =C2=A0=C2=A0=C2=A0 80200004:=C2=A0=C2=A0 00002117=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 auipc=C2=
-=A0=C2=A0 sp,0x2
-> =C2=A0=C2=A0=C2=A0 80200008:=C2=A0=C2=A0 00413103=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ld=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 sp,4(sp) # 80202008
-> <_GLOBAL_OFFSET_TABLE_+0x8>
-> =C2=A0=C2=A0=C2=A0 8020000c:=C2=A0=C2=A0 6285=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 lui=C2=A0=C2=A0=C2=A0=C2=A0 t0,0x1
-> =C2=A0=C2=A0=C2=A0 8020000e:=C2=A0=C2=A0 9116=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 add=C2=A0=C2=A0=C2=A0=C2=A0 sp,sp,t0
-> =C2=A0=C2=A0=C2=A0 80200010:=C2=A0=C2=A0 7f10206f=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 j=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 80203000 <start_xen>
->=20
-> In this case, the auipc/ld pair makes a PC-relative reference into
-> the
-> GOT, but the pointer spilled into the GOT is the link time address of
-> cpu0_boot_stack.
->=20
-> For the executable as a whole, we've got:
->=20
-> [ 6] .got=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 PROGBITS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 00000000=
-80202000 003000 000010
-> 08=C2=A0 WA=C2=A0 0=C2=A0=C2=A0 0=C2=A0 8
-> [ 7] .got.plt=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PROGB=
-ITS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0000000080202010 003010 00001=
-0
-> 08=C2=A0 WA=C2=A0 0=C2=A0=C2=A0 0=C2=A0 8
->=20
-> i.e. both nonzero in size, so presumably with expectations of
-> something
-> else to fix up the references.
->=20
-> I suspect we want to extend the x86 section asserts into the other
-> architectures too, alongside figuring out how exactly to disable code
-> generation of this form.
->=20
-But AFAIU it is expected that it will use GOT sections with the link
-time address of cpu0_boot_stack inside them because of pie option.
+On 16.03.2023 00:25, Stefano Stabellini wrote:
+> On Wed, 15 Mar 2023, Jan Beulich wrote:
+>> On 15.03.2023 01:52, Stefano Stabellini wrote:
+>>> On Mon, 13 Mar 2023, Jan Beulich wrote:
+>>>> On 12.03.2023 13:01, Huang Rui wrote:
+>>>>> Xen PVH is the paravirtualized mode and takes advantage of hardware
+>>>>> virtualization support when possible. It will using the hardware IOMMU
+>>>>> support instead of xen-swiotlb, so disable swiotlb if current domain is
+>>>>> Xen PVH.
+>>>>
+>>>> But the kernel has no way (yet) to drive the IOMMU, so how can it get
+>>>> away without resorting to swiotlb in certain cases (like I/O to an
+>>>> address-restricted device)?
+>>>
+>>> I think Ray meant that, thanks to the IOMMU setup by Xen, there is no
+>>> need for swiotlb-xen in Dom0. Address translations are done by the IOMMU
+>>> so we can use guest physical addresses instead of machine addresses for
+>>> DMA. This is a similar case to Dom0 on ARM when the IOMMU is available
+>>> (see include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect, the corresponding
+>>> case is XENFEAT_not_direct_mapped).
+>>
+>> But how does Xen using an IOMMU help with, as said, address-restricted
+>> devices? They may still need e.g. a 32-bit address to be programmed in,
+>> and if the kernel has memory beyond the 4G boundary not all I/O buffers
+>> may fulfill this requirement.
+> 
+> In short, it is going to work as long as Linux has guest physical
+> addresses (not machine addresses, those could be anything) lower than
+> 4GB.
+> 
+> If the address-restricted device does DMA via an IOMMU, then the device
+> gets programmed by Linux using its guest physical addresses (not machine
+> addresses).
+> 
+> The 32-bit restriction would be applied by Linux to its choice of guest
+> physical address to use to program the device, the same way it does on
+> native. The device would be fine as it always uses Linux-provided <4GB
+> addresses. After the IOMMU translation (pagetable setup by Xen), we
+> could get any address, including >4GB addresses, and that is expected to
+> work.
 
-If we need to work with pie option that we can fix all address in
-.got{.plt} somewhere at the start of head.S but why we can't go with -
-fno-pie as it is done for other architectures:
-Config.mk:
-	EMBEDDED_EXTRA_CFLAGS :=3D -fno-pie -fno-stack-protector -fno-
-stack-protector-all
-EMBEDDED_EXTRA_CFLAGS +=3D -fno-exceptions -fno-asynchronous-unwind-
-tables
+I understand that's the "normal" way of working. But whatever the swiotlb
+is used for in baremetal Linux, that would similarly require its use in
+PVH (or HVM) aiui. So unconditionally disabling it in PVH would look to
+me like an incomplete attempt to disable its use altogether on x86. What
+difference of PVH vs baremetal am I missing here?
 
-arch.mk:
-    $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
-
-
-Could you please explain what is x86 section asserts?
-
-~ Oleksii
-
+Jan
 
