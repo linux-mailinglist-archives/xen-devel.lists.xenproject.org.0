@@ -2,52 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1068E6BC7BE
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 08:52:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510334.787826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 251346BC7C6
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 08:53:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510337.787839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pciOy-0003gz-La; Thu, 16 Mar 2023 07:51:56 +0000
+	id 1pciQX-0004FB-2f; Thu, 16 Mar 2023 07:53:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510334.787826; Thu, 16 Mar 2023 07:51:56 +0000
+Received: by outflank-mailman (output) from mailman id 510337.787839; Thu, 16 Mar 2023 07:53:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pciOy-0003e1-Hu; Thu, 16 Mar 2023 07:51:56 +0000
-Received: by outflank-mailman (input) for mailman id 510334;
- Thu, 16 Mar 2023 07:51:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zev1=7I=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1pciOw-0003dv-NW
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 07:51:54 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20615.outbound.protection.outlook.com
- [2a01:111:f400:7e88::615])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69bc70b8-c3cf-11ed-87f5-c1b5be75604c;
- Thu, 16 Mar 2023 08:51:53 +0100 (CET)
-Received: from BN9PR03CA0263.namprd03.prod.outlook.com (2603:10b6:408:ff::28)
- by MN2PR12MB4093.namprd12.prod.outlook.com (2603:10b6:208:198::11)
+	id 1pciQW-0004Cv-V7; Thu, 16 Mar 2023 07:53:32 +0000
+Received: by outflank-mailman (input) for mailman id 510337;
+ Thu, 16 Mar 2023 07:53:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ta6a=7I=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pciQV-0004Cp-8k
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 07:53:31 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on0620.outbound.protection.outlook.com
+ [2a01:111:f400:fe0d::620])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a38ee86a-c3cf-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 08:53:29 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8087.eurprd04.prod.outlook.com (2603:10a6:20b:3fb::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Thu, 16 Mar
- 2023 07:51:47 +0000
-Received: from BN8NAM11FT073.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ff:cafe::16) by BN9PR03CA0263.outlook.office365.com
- (2603:10b6:408:ff::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.29 via Frontend
- Transport; Thu, 16 Mar 2023 07:51:47 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT073.mail.protection.outlook.com (10.13.177.231) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6199.18 via Frontend Transport; Thu, 16 Mar 2023 07:51:47 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 16 Mar
- 2023 02:51:47 -0500
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 16 Mar 2023 02:51:45 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.31; Thu, 16 Mar
+ 2023 07:53:26 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Thu, 16 Mar 2023
+ 07:53:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,147 +47,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69bc70b8-c3cf-11ed-87f5-c1b5be75604c
+X-Inumbo-ID: a38ee86a-c3cf-11ed-b464-930f4c7d94ae
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jeXE/9RZcRWwv/A9fMaWzE7tfz1LroFx4AKfjhvFzrYrCztdSLbzCNzxRQizj7CnVwx11Ir2r+FNYyW145G79C1DodhKynzQjsy269nH7L2tIQ6QyRchyCqkevDoAHQNNcePhKhOJ2uhRxL98gNcWzqfyQgNVuZhdpOvY7JSwClWDjFrut2lSkprK5hFC9s/99LNft/ipEoGYCbIyG4OXWNkXmj9+ae2A0BD0xAOuVKcCNr/64hSjuXlT6gLdPyvVBMsi2AVV1ZLMba1J+aIrCJkx7L9hjd0K83K7nVF4G8tSeLpa431zE5FOeeMohW14c5pxy7yGEHix1k/+oWS/Q==
+ b=KcVJXrOij27CRM1Ma1ByYVdphZWiYuDZfmnTFlfT32vrTkS2Ttu5QJi8pQOQAj3jesZ77LzmGRUJISJl47BUzs53ipD14xPOuuIC4ved+2orrg9BOC7SLsuiUm28mW0fL/y7gvDKK/lmmBD+uHDR8Yw+EouVb56Paq3+CkEijgD1tztVA5kZC5/lfj31DVZ4hcyz4qQaUT443xiP2Ott6O9Whxe6VHELFCYPJP0gtShOIumxDdge2POE3p60roD7ux87lO3ZFQi340sz0hacZinrc0Z+YkzDnqy4bfcO8WcbD2qQRWAnSNCKY5ec17rhHh/0b75FuwedYo97kEYpsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ELscufVM9EW8QoBfrem0tErjpF/1oTjJ1GMk0fdLGsU=;
- b=ZuKiJxgaoWLPPBL2YBIa0IJFvuMQuA6RrodjYBOhsV2+xWSAHNbGPOTIlOMwjqW4kOukY04M9B3kOF69nIh0+wGNHwBT2zZMEZ69q7GXBKQT4/vQzPMD1m+2fc6CjRajcw3mbc5gyACBBT3f0P++YH7TNTbjC5g6f1LqnuUnPRy7shZ/ZMef99OfNvPJEGeVRJcB3e+6YlxKBhaZP8XxfVZzWCpN2bt3xGfbFrI9rQLZ8XLZu3hS5eYr7d8JSd8Dpe5N3VVwYdmOPy/Tt5KaYTJYEL7RJe6oz30S0GLsfCyJflabEH0sgtUxyGWnxcBqtye2OHz9KJjinq0U56z2Pg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=QgnTS2V/cnHcRV9gjGbY9SvpHC/75SaEU0mGvl3YWTk=;
+ b=FL1h7JwuQaUBVAZpwVWjqkRGzgkdbbsfws0pywCt/InkiadBFX96+pqzslAhylTnjHMBGLPRUxbR8EYGCeuBwv/5dsSRcyX7xuZw2rbWwb3nkDfnd6rXRLgxbiS1c8hijofRj5tosGGuE4G47nQFfZfzQkY068RSsKejRrbZfD98sHq40s7Sd3erSgfaVrS2sgD2xARrUdAsr2pB8AZbMl7m8wGXBU7xUgjmniNeW91Fg9nJb2DcTQO+Ve2ANLFGUJXcFMpXuX7B+9JHjlVW8G5XjX/VyOAWV7IZGovYk9ZSkdozWQ/vDTf6A0UuEt+MRVftJypGL4qqgWyZSxnbBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ELscufVM9EW8QoBfrem0tErjpF/1oTjJ1GMk0fdLGsU=;
- b=VMdqV22n/MVsSpHwTOepv9iS7WT1AfUQz6sDA11Wf/SnLzGL8aAafau2jeQ5JmOMFLpqmX5P8oFc+S5nJpAZDiydD6oqA6qLZximCrk1o+1uJV7pgemOBK3BksY0pDjBOZ9Ju2+t13+1WfejrQ+aFQh8qJKt7PboBuHwAh2GhaI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <848813fc-636f-ea9c-00a6-6b8b049f92d8@amd.com>
-Date: Thu, 16 Mar 2023 08:51:45 +0100
-MIME-Version: 1.0
+ bh=QgnTS2V/cnHcRV9gjGbY9SvpHC/75SaEU0mGvl3YWTk=;
+ b=mg/qQbVgRqtyTgITJYAjrlQljMQ41ZWEPVVWxIXwA2e0Qgx8lYXnp61jvA5NSIwhFirSMWb5JqZ+qWsZtvPs1A8MqqzXF7g/YpBZhACEFcv3pVMsEzflAj1Yr/ORd/QQ0n+qnr+mAXsIhKuFWH3lal3L0pjZK9C0TqrYV4m9+UdJYsCc47AkGooBtKlLmaFOKtJ1B+O/SdZ2RDv5HBGsjQ3KXcp2QKao69/csTkzgeaNL5YNu8Ba2z5bSWufCF0Ltkb7GtSkJZt+A58Fw76NMaXTpV4gjrh8f17hIgmozxjpFa35pUU2uXsKIWvygyeGZkfAqCos/De+zuWHUoK9Lg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <d3da0ece-a65a-89f7-85ba-5de31472bdcc@suse.com>
+Date: Thu, 16 Mar 2023 08:53:24 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH] xen/console: Handle true dom0less case when switching
- serial input
-To: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
-	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-References: <20230314142749.8845-1-michal.orzel@amd.com>
- <da7db77f-3ab8-edd1-bc69-460ca3e2ce25@suse.com>
- <7676cba9-6f92-0c97-dac3-372ca47be34b@amd.com>
- <737fec84-42da-3b9b-6cb5-d18406925403@suse.com>
- <d67aeb95-1631-74c0-cefa-a0cc88512b84@amd.com>
- <alpine.DEB.2.22.394.2303151844530.3462@ubuntu-linux-20-04-desktop>
- <1c174a17-0860-358b-5593-a7d45cdad00f@suse.com>
+Subject: Re: [PATCH v4 0/3] libxl smbios support
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <1c174a17-0860-358b-5593-a7d45cdad00f@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Jason Andryuk <jandryuk@gmail.com>, Henry Wang <Henry.Wang@arm.com>
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+References: <20230306204024.124882-1-jandryuk@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230306204024.124882-1-jandryuk@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR3P281CA0009.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT073:EE_|MN2PR12MB4093:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1972e59b-1694-4854-54cb-08db25f34b5c
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8087:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79cb8eef-e83b-440f-1581-08db25f38647
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	fT6RpoBYabcDyJsOaWPTm0W2LAmw5HPQuplaOpmZL5x7TXM8UWPqorn3IUbXkBS2zDF278ZLlz10d7OX3ISxzShZfFHWBenIxO/itVAc2rJ285EqNLIZrgz1Egvj90L4JRpgl4xWf2TDQ9HH93kD6Icpz2d6hcFCgY565sdtv6BiQlvfmtTFHLyFikTiTdtIRcbUF43rS3HUZfq/mta2iamJhMX4SXOk2pEaBi9y5dqaFWhCvJ1CT9XZCmlUimOF0rDrfmd+qmAfzZe3CE9n94fLNNJWriq3ZsLlZGY2lcyxotXw9z6Tukh/3u6b0vLnVmAybkLyIRwl1ki8dNvkXQ6rtsiwJxUUmYsinPz0wCUHL0T3X8MDoVUGHkYnx3Rc7UgKnk2OiQfunAQjenSyvNAD+W/dtRueh8fe0ukLTDFy1vuwt8eYsDg1vdvde+VM7rZwfJeF4YhlhRWe3faoyrs9/3Flo+8Wi2MRZV/HfQdna7WG/z9e/7/aCtVRta62CfMLJQunDPn90O4KecxiRQHMxj4/8gC1GEe/L1y0jYYqyhYm00kPksNxHGn+c8SQhrbPBmC4zCOzBB8cayPqHpaRR5rAMqRleptR9so7fSjwEam2HIyRPRv8WnI4bp5g5DHo7QscqrdSlfRELq2nkx8QAvZh87/dMOlFeVbtcWI/G+02sSMpqpX0/zrk1ngMBlCT5OQfK9u9zTMWLpwIr60h5ZVydp+ZvhDeakA8gZ6uIr1AznLvP++AbCtaVxI1Rulx7dAkmXDMtt53tuexsB8Q7jIY+66NQ7v76V0a86Q=
+	FWOyA/K6cEKiQElo51pbqUdTLad82W3E6ZW2N4BnQ1YI6i2Ib5T+B+TBKKJRoTyndjRJb6SBpvZuKFiw7c9FP4QIcLULaeTTDuO+l4U8O+Sb2pPuLRdyLJPg7xiK1Q++LvIoSVsXlj1iIGrEvWT6i+qZXELr7VmtxcnqtanMUXBM9BMqtwN6OQhCNvsnbkLPW5dO7+dFzOYQ0Ez/Kuq+fWkbXeC9skk71UehOT2E3WcHX0gzoCFn+JrSZt36Ng4dtC9P7uobhbSr/wJzHsm/c2Tv0T7GTZHrvQBXu23NGCw4xWw5awem5///7dHz82tvOdyMeV9NX3a+EqpJtaycT9zlaY2fedtHGadDDmElsOGiX4BhmlIBdOcKSrpXodtan9xdnNLkLjhIaLeToNU9m4ev2QnG0YsBurDNUGmKuNFB3WNbIa48f/dIoHhG6DaQ8Iua7qHh6TbkDvjggRroga2s9zsIFm5Qvk0OTFl2Lao4qbFTXbxeY+w4pQN52+TDCfrQ59qyYb8JVQH/shuLZO9QYgs8YewS2qq+IlKsyHwJxkTUBgEbHPJlgd0xw5QTByufGTVR0PpJFjDN4UzZqqU3smy3j/PjsknZVXWI4POcCRvQPnhBB5IpcA8q83MUNbea98ty4afhjyxhzrEcagCc6Gp2yxCna8eUwj2e5fT5bYPBa+TM73H6luqfqrrXvnQOjKc5ScRLcCLk22wo+WlRyszQXFBKEWVwbrAaESQ=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199018)(40470700004)(46966006)(36840700001)(2906002)(53546011)(31686004)(356005)(83380400001)(26005)(426003)(47076005)(44832011)(41300700001)(40480700001)(40460700003)(5660300002)(8936002)(86362001)(8676002)(336012)(31696002)(2616005)(70206006)(70586007)(4326008)(186003)(54906003)(478600001)(110136005)(36756003)(316002)(16576012)(82740400003)(81166007)(36860700001)(82310400005)(32563001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 07:51:47.4211
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(39860400002)(136003)(346002)(396003)(366004)(376002)(451199018)(86362001)(38100700002)(31696002)(36756003)(2906002)(41300700001)(5660300002)(8936002)(4326008)(6512007)(6506007)(2616005)(26005)(186003)(53546011)(83380400001)(316002)(54906003)(110136005)(66556008)(66476007)(478600001)(6486002)(66946007)(8676002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MDFYMWxaWWp5RHNDeno4WXRxbno4QlM0aS9zcGpOMk4xVWFHMHozbGJzcDNj?=
+ =?utf-8?B?R0JRSnJoMUNrOGQyUWF4S3A0NTRCMEVqendRTWRlUmFjOUErOHlkNldobVVk?=
+ =?utf-8?B?TUd0RTNIZFVyVGpHTEtvYkpXWUhzclBNaEtCUE5hTjlIMlZlV2l2OTRrYmVW?=
+ =?utf-8?B?bThqdmdNd1dqSHY2Si9DUUVxMjVBYXJvZFRqR0p6WWt0SmYvSlowMFNJUUVO?=
+ =?utf-8?B?TWNPMTFpUVZuMzk3VEZSSU5LSWYxN2ZLV1hXa1ZYcVNKSytyc2Vad3UxNWlG?=
+ =?utf-8?B?dE1NQlpsSS9UVGZ2TkZ0dWh3dktrL1ZIbHRTdU1EdC9WcFFYZ1lxMktvQkVH?=
+ =?utf-8?B?citScmJ6eXlpaFlqaGpROHVZK25iZTJXTlN2RlpPWXlUUE5yajJESklzQXZO?=
+ =?utf-8?B?OWczQmlCMy83cHJiYXhGbUhUNUcvUVBtWkdISmN3aW94K0NoT0VHN0ZoVSsw?=
+ =?utf-8?B?RTVVQzlTWHhRWlJ3ZDAvTlRrRmVzMmZsNVpoNG1qTmo4YlgzY1B6VmVKa2xD?=
+ =?utf-8?B?bGJka25kajdCV1VNTkFxN1Q3dXIrZVBjWkFtalJYbGY3L2lLVWZhS01KSWpD?=
+ =?utf-8?B?dTFGcW9GeTZVT3h6YjJYWnFhZk8vR3cwTVN4WktQeVI4aEt0RkFnNVBGNW1u?=
+ =?utf-8?B?MEY0TG1PNWsydzNRbG9GNVdEWWxrREw1ZkFFaEdoZFFlQTNFTkprVU5SRHZG?=
+ =?utf-8?B?cjJ0TDdJSTJIU0NKcElPMFB3NVVUSUNwTk82bHhzeXhBUEJmOHNqdG9pSnZ5?=
+ =?utf-8?B?VkhrNjlYSkNHZVdSZ2x5U0EzYlpKZkx6MjVxTk14OUNpa1RJUW84cmljd2ZK?=
+ =?utf-8?B?dlBxK3IybGpscVVjT1VFTVZkSm1aejZKczdPU3lPRDdRTFhhNHV2ekIzcVNz?=
+ =?utf-8?B?anJkbkYxV2w4VHAyaFErN1ZsNUZIeFZGdXhJcGd6RHlQZ3g3eEdVQ0I1RHRJ?=
+ =?utf-8?B?MUhyVXJ4Nk15WTVrVnYwUUNsY0hGc2FDcGdNalFxMjhUc0ZsaHVrRWx0RjhV?=
+ =?utf-8?B?bUowdklUa3lZakZ6eXQxR2tlS1lMY0d4NW00a1Nsangzck5LUzA0Rmt3SFhq?=
+ =?utf-8?B?aG5JQmh6OU9GMzd2cGllZWVZUnpRYVMrcFhyR05nbWJtbzFtK1hJeWF3M2tY?=
+ =?utf-8?B?T3gxTmdlbmIxcGNETUxvdG1LWS9QVTQ0ZTJ1cVJieHhBTmVySUwveGwydXdK?=
+ =?utf-8?B?N1hVL2ZXL0dXTkVvSHg3THptVzBqcGlLS0R1U3Nmc0JwWVlTdzVIM1JuaUtp?=
+ =?utf-8?B?cXhnM1RGYTVxTmMrRnIvbTV2WFN0Z3RWaGtKaVoyOU1JdFBDcEQyWEhsbmdh?=
+ =?utf-8?B?dGdvZlZicTFHaHJKRmhOUnIvQXBKK05tZ1p3R1JpVys3MUxpaFJsbmZuRTdl?=
+ =?utf-8?B?TnE0RENyRWJIS2ljMm8xR2NaNThCZ0FvWEdEdXdkNnA2azBNa3d3Y0kzTGpK?=
+ =?utf-8?B?V1FIVmNDdThCTXpWM3JyU3JsTzRwenlYV2JjL1B4MTdFb3RwQkc2ZWx4MHJL?=
+ =?utf-8?B?T3dTcERmWnFhSk52WmJqUXlGWEtwWTgvSjBqL2w3dXNXWGNsbStpQjJZTjhQ?=
+ =?utf-8?B?VWorbm1xR3c4VnJ0R3NBYUJVYkJrMGVrMlRRbnlYMEJrVUorQkluamRmQTRm?=
+ =?utf-8?B?N1MyQmVUTGVQVUZydUJselRhS0pmWU82M09iUDR3VmFVaFNMTjFOS0tTVFJw?=
+ =?utf-8?B?U2pQWnJZTEtWVkthOVZjK0VkREhBVDdSYVlsUHFuTERWVUtYWFIyNi9McTRK?=
+ =?utf-8?B?RHhkSXM1SHF0SlUrZnJLMURwc1J0VE5WRWpVdERvRm9DRXFyOWs1NDhTNElN?=
+ =?utf-8?B?alpNR2FKc3N5cEEzdW5iWjlkeDlpdW1Rb0Zod05sS0MwdDBWR1pJbkw4a1VP?=
+ =?utf-8?B?WHp2enhYYXVRSUx1NnZPTVVwZDk4Z3pQN0dQaWJ4eENXK2pNS1Joa3NtR3Bw?=
+ =?utf-8?B?dndBaWE2d3FXNlpxV0dKaUtiSzd5RWNvUExORkxCT3VnTEZQQXE1Y0Jwa0Qw?=
+ =?utf-8?B?SC82eklzZzJXQWtPOTE2ZE5BNjdJS1U0V0dJZnBtNHRXcjE0QnFLNUhOVmdo?=
+ =?utf-8?B?NE9YVnJKa3RPUDQzUm4rbXFGb2lkVlNueWxCaW9zMGtBZGpxTWFwV1JwRWxj?=
+ =?utf-8?Q?3QZg6ZG/CP2U/vRhdoSoMKrc4?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79cb8eef-e83b-440f-1581-08db25f38647
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 07:53:26.5330
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1972e59b-1694-4854-54cb-08db25f34b5c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT073.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4093
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BhLc6Iu1uPtI+hMxew+GIc3kd8gKvLhMCC4EsI78fGWjOf0Hq8KgIbO/H0BmYzsilvfr2SsX3lwg7/8GPQFAmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8087
 
-
-
-On 16/03/2023 08:24, Jan Beulich wrote:
+On 06.03.2023 21:40, Jason Andryuk wrote:
+> hvm_xs_strings.h specifies xenstore entries which can be used to set or
+> override smbios strings.  hvmloader has support for reading them, but
+> xl/libxl support is not wired up.  This patches adds a new xl.cfg option
+> and libxl support to write the xenstore strings.
 > 
+> The xl syntax looks like:
+> smbios=["bios_vendor=Xen Project","system_version=1.0"]
 > 
-> On 16.03.2023 02:49, Stefano Stabellini wrote:
->> On Wed, 15 Mar 2023, Michal Orzel wrote:
->>> On 15/03/2023 14:11, Jan Beulich wrote:
->>>> On 15.03.2023 13:34, Michal Orzel wrote:
->>>>> On 14/03/2023 16:17, Jan Beulich wrote:
->>>>>> On 14.03.2023 15:27, Michal Orzel wrote:
->>>>>>> --- a/xen/drivers/char/console.c
->>>>>>> +++ b/xen/drivers/char/console.c
->>>>>>> @@ -491,6 +491,14 @@ static void switch_serial_input(void)
->>>>>>>      else
->>>>>>>      {
->>>>>>>          console_rx++;
->>>>>>> +
->>>>>>> +        /*
->>>>>>> +         * Skip switching serial input to hardware domain if it does not exist
->>>>>>> +         * (i.e. true dom0less mode).
->>>>>>> +         */
->>>>>>> +        if ( !hardware_domain && (console_rx == 1) )
->>>>>>> +            console_rx++;
->>>>>>
->>>>>> The consumers of this variable aren't really serialized with this
->>>>>> updating. That's probably okay-ish prior to your change, but now
->>>>>> there can be two updates in rapid succession. I think it would be
->>>>>> better if the variable was written only once here.
->>>>> ok, makes sense.
->>>>>
->>>>>>
->>>>>>>          printk("*** Serial input to DOM%d", console_rx - 1);
->>>>>>
->>>>>> When invoked from console_endboot() this will now switch to Dom1,
->>>>>> i.e. that domain becomes kind of "preferred", which I think is
->>>>>> wrong. Instead I think in such a case we should direct input to
->>>>>> Xen by default.
->>>>> Switching serial input to the first usable domain is the major motivation behind this patch.
->>>>> The number of times I got pinged by users with *apparent* Xen issue on true dom0less
->>>>> just because input was directed to dom0 which was not there (not everyone seems to read the
->>>>> boot logs) forced me to create this patch and manifests that this is not the behavior user wants.
->>>>> Switching to Xen console would not help at all. Also, we already have a way to set switch code to 'x'
->>>>> to default serial input to Xen.
->>>>> So I think what I did (switching to the first existing domain) should be the default behavior (just like it was done for dom0).
->>>>
->>>> Well, I'm not going to stand in the way, but if one of several supposedly
->>>> equal domains is to be "preferred" in some way, then I for one would
->>>> expect justification for doing so. If that's the route to go, then the
->>>> patch snippet you provided looks good to me.
->>> Well, the explanation is that we are directing input to the first existing domain
->>> which also is the first domain created (this is what users expect at least by default).
->>> This for now creates simplest/cleanest solution that matches the current behavior
->>> with dom0 and solves the users inconveniences I mentioned earlier.
->>> There is no other real preference apart from being first domain created and to help keep the order simple.
->>
->> My two cents. Given the feedback we are getting from users, I think it
->> is important that the input goes to a real valid domain (not Xen, not
->> Dom0 that doesn't exist). "Which dom0less domain?" is a valid question,
->> and I don't know what would be the best answer. But any of those domains
->> would be better than what we have today.
+> The Go binding generation needed extending to support Arrays inside a
+> KeyedUnion, which is what the first patch does.  The generated go code
+> builds, but it is otherwise untested.
 > 
-> Could boot time configuration perhaps indicate which domain to "prefer"?
-> Otherwise I'm pretty inclined to suggest to make it actually random ...
-Random is not great because in a system with e.g. 20 domUs and directing to e.g. 10th domU
-user would have to go through a lot of domains executing CTRL-AAA several times. Also, for me
-it would be difficult to reason about as such approach is definitely not something users expect.
+> There are also oem strings, oem-1..oem-99, that HVM loader supports.
+> xl parse multiple oem strings like smbios=["oem=A,oem=B"], libxl then
+> iterates over them and assigned to the oem-%d entries.  Both xl and
+> libxl check that the 99 string limit isn't exceeded.
+> 
+> The rendered man page and html don't have a newline at the end of the
+> new section after patch 2.
+> """
+>            battery_device_name=STRING
+>        ms_vm_genid="OPTION"
+> """
+> 
+> however the txt format is correct:
+> """
+>         battery_device_name=STRING
+> 
+>     ms_vm_genid="OPTION"
+> """
+> 
+> It goes away after patch 3 is applied since it adds text about the "oem"
+> option in between the two lines above.  I'm at a loss as to why this is
+> happening.
+> 
+> v4 is a rebase and resend of v3.
+> 
+> Jason Andryuk (3):
+>   golang/xenlight: Extend KeyedUnion to support Arrays
+>   xl/libxl: Add ability to specify SMBIOS strings
+>   xl/libxl: Add OEM string support to smbios
+> 
+>  docs/man/xl.cfg.5.pod.in             | 49 +++++++++++++++++++
+>  tools/golang/xenlight/gengotypes.py  | 41 +++++++++-------
+>  tools/golang/xenlight/helpers.gen.go | 51 ++++++++++++++++++++
+>  tools/golang/xenlight/types.gen.go   | 28 +++++++++++
+>  tools/include/libxl.h                |  5 ++
+>  tools/libs/light/libxl_dom.c         | 33 +++++++++++++
+>  tools/libs/light/libxl_types.idl     | 27 +++++++++++
+>  tools/xl/xl_parse.c                  | 71 +++++++++++++++++++++++++++-
+>  8 files changed, 288 insertions(+), 17 deletions(-)
 
-May I ask so that we proceed with a patch I proposed to start from the first usable domain
-to match the current behavior and to help users?. In the meantime I will start working on
-a support for indicating which domain to prefer.
-All in all, the new patch would touch console_endboot() and not switch_serial_input().
+Is this work something that's worth mentioning in CHANGELOG.md?
 
-~Michal
+Jan
 
