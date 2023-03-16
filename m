@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4A4D6BD179
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 14:53:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510616.788605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1603A6BD188
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 14:54:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510618.788616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pco2s-00045u-Ea; Thu, 16 Mar 2023 13:53:30 +0000
+	id 1pco3i-0004bw-Oe; Thu, 16 Mar 2023 13:54:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510616.788605; Thu, 16 Mar 2023 13:53:30 +0000
+Received: by outflank-mailman (output) from mailman id 510618.788616; Thu, 16 Mar 2023 13:54:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pco2s-00043I-Bh; Thu, 16 Mar 2023 13:53:30 +0000
-Received: by outflank-mailman (input) for mailman id 510616;
- Thu, 16 Mar 2023 13:53:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hcJX=7I=gmail.com=alexdeucher@srs-se1.protection.inumbo.net>)
- id 1pco2q-00043C-Oo
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 13:53:28 +0000
-Received: from mail-oa1-x30.google.com (mail-oa1-x30.google.com
- [2001:4860:4864:20::30])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ed13af3f-c401-11ed-87f5-c1b5be75604c;
- Thu, 16 Mar 2023 14:53:27 +0100 (CET)
-Received: by mail-oa1-x30.google.com with SMTP id
- 586e51a60fabf-17671fb717cso2227436fac.8
- for <xen-devel@lists.xenproject.org>; Thu, 16 Mar 2023 06:53:27 -0700 (PDT)
+	id 1pco3i-0004Z2-L2; Thu, 16 Mar 2023 13:54:22 +0000
+Received: by outflank-mailman (input) for mailman id 510618;
+ Thu, 16 Mar 2023 13:54:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ta6a=7I=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pco3g-0004Yk-V2
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 13:54:20 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on0623.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::623])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b8178d8-c402-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 14:54:18 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by VI1PR04MB6862.eurprd04.prod.outlook.com (2603:10a6:803:130::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.31; Thu, 16 Mar
+ 2023 13:54:15 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Thu, 16 Mar 2023
+ 13:54:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,147 +47,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed13af3f-c401-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1678974806;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NT2+ny4p/vVYNzr7+EK2Lb0ixcwCh6elsP4Qy0BaT6o=;
-        b=epd5FV2Fr1C10Z/wxi9lYv0/neUD0acFnvSabLSTeExSFzq6FBR61NtOkPotXxqduE
-         brCR6NrGy0nAd/ZuhyIKajahPVWlyqLKTMcu3j3/sqDJ0y7fODXdqghObHQRhZ0sAl7/
-         ZnhPjY9r35Rq38NPvoRNjbxQWb3S+hxnmRL879TrtuNbeUNfmGvOwOY/0+Iotuys2qWe
-         1LzrE9z6D3OK6j0RYoTO+2S49ip5lo7CjgK/iSYsB+95/j6YZUTv1irUX4KELtY418GT
-         /BmDr2RP90VZB8Smm2fWftkXURgg+guml2VypqebETidlIzT3EMc6J33Jn9ApovvksTI
-         uHNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1678974806;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NT2+ny4p/vVYNzr7+EK2Lb0ixcwCh6elsP4Qy0BaT6o=;
-        b=xFRFmzw88PS4wEWOajCK3x5BiLPw+CugZn7kLnPOiCYt2EX7JlsIWJfUWXEkgDo1M6
-         0USlONh7zxXXBZVDB23eM1EfToPYyzZFszuuJVNudJtuSJNTnCWSeiunLsRvqlFHC73v
-         h/1TvXtByHT7pFk2tX9diDS3VKj53S10h5eNT9hmsZ2hTjVGUdXvWb/ufNCXO+vSN+Ij
-         ct3g1hfBz21/QIwQDynjW1ZwWOgDTgDH+tJQZh8doDyPdOPJJbelmfmCKC6qfHx5b6Y9
-         SHHe1/9PJPl3P8igCHlEI7FNHMawgmnr9rHzcjYnEptd9uXCk+sNTWuoagZGN2mqjLxU
-         Sp4w==
-X-Gm-Message-State: AO0yUKWMvsq1uiB2XVwKnBewQdKIDv8lPgMKlVVViqnYBaP3pjWxPS0X
-	pXGwwoHLjDY38YvHqpJGVzPqZUvw6990My3ycBc=
-X-Google-Smtp-Source: AK7set/x0uSpr4lrBp0ShQSg5kgvHD9bjWFd3R0T4/YE3AtaigBfKP2+ZizIOyaqzSaC6IVNg0nCI15OW1QygajqbX8=
-X-Received: by 2002:a05:6870:886:b0:177:aa31:79d6 with SMTP id
- fx6-20020a056870088600b00177aa3179d6mr7154168oab.4.1678974806677; Thu, 16 Mar
- 2023 06:53:26 -0700 (PDT)
+X-Inumbo-ID: 0b8178d8-c402-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=buCEHxvfxECAy9kY/uILWEQluXAVZiY8Q908G0GWTQcx1dAvLAixs5GnSjTfnAvnT1ZAm6RV1AG2P8AufO5FPGgHZ3oYuq7MCSG+p+BGDDkm3+8l/pNtdzuv9RjPH1GUqoq4MaFv5ySEhN+Cx/LGb95oRGNuhk7gKFnEn/UpnV5w69kIp0+YuNP3wVPTkCO6oIpY8RArFiWH3ZCB5aZhjHLqOYglVKomKxZOw2oJrqvfEt88MzDz1lrOQ24r8Hhvk2ucl3O6FtNTj5Z22TgFXR8BwfeX7/XlVyuRusyiottBmDuyX1iAHeqE6Q8ZLKkEYhgbHId68tkzkjpPQ/kWVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wb17+LzZElRJyCFvA7B6zLYsmWnVZwBMBmAEEr+v5zM=;
+ b=d4p4DlJloJ/b8MOdRZO5YbY/EkeDxf2Osmqy6EDokpaltue4TOBvGKtMCunAD86lIns8FqkcWv2EYL4bEotTcj1vJCvky9neFNW7lP21Ahc+WbpAOA99FDoI5jCAI3UUh1Kxr15rWqcnAVHDEQNoClMpm9oK22l8dDGxxPB3gOSvswaETh+xmA2jpmgOgY+8oICWaQQ37X1OMxEydIoNlIIfJXqhHv9i5GMk6rhPm4aMP+XeX9tjQmmgFIrQ6HF1wZ1VpHVjGCnm/9Y2QLX+sK95kUlVwXXWIi3X97xXLPjv087QP4Hta30TtuaQl9O6HLJhnXevO6IxR/DhaL/JkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wb17+LzZElRJyCFvA7B6zLYsmWnVZwBMBmAEEr+v5zM=;
+ b=ZUlNt7ePjzlm+7IplArVw5vvmBBVC9v/qAXOICYIxfXP2j/J0weJUq3V6KU5ELfyBOzDpGrM7fQIL/E5zl9jSJOC5NRcFGvAj9ov3S4Nwc9/BYY92LIR7xFuC9HNoLkKHOIaE6eSg5QbBMRtuuJ37zFZj2jh9SgbEddmp2M8y2gPMr1cZt9vbS+zQhQQ9a97vKyDNgjX6L4mgmcGJyTqVpKJiaQAn9wLaVfqwZyY8B2q7LjYp3tWP+jY0D/ZJLPXkJaOLPPLZ9AB1m5LnuXjknyxeBEiHgfwmbFoBmYZHGeh66F4mzX890EkBpgtTTrTuj4heDGknm4FQKpddPIBoQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <7cb02d15-05d3-ab40-845e-f124604c8843@suse.com>
+Date: Thu, 16 Mar 2023 14:54:13 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 1/2] xen/riscv: add EMBEDDED_EXTRA_CFLAGS to CFLAGS
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1678970065.git.oleksii.kurochko@gmail.com>
+ <2785518800dce64fafb3096480a5ae4c4e026bcb.1678970065.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <2785518800dce64fafb3096480a5ae4c4e026bcb.1678970065.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0063.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:93::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-References: <20230312120157.452859-1-ray.huang@amd.com> <20230312120157.452859-2-ray.huang@amd.com>
- <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com> <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
- <f5e03f2a-8176-528f-e885-9a97940367c0@suse.com> <alpine.DEB.2.22.394.2303151616200.3462@ubuntu-linux-20-04-desktop>
- <5e22a45d-6f12-da9b-94f6-3112a30e8574@suse.com> <CADnq5_PH9ZqDqpPES74V3fB3NVpaexDoGTyu_+-zoux5vgagyg@mail.gmail.com>
- <dcb54275-b21f-a837-76bb-e19e331a0666@suse.com>
-In-Reply-To: <dcb54275-b21f-a837-76bb-e19e331a0666@suse.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 16 Mar 2023 09:53:14 -0400
-Message-ID: <CADnq5_PpCWrZzQdE_X6ZnuNU3ktVeC6TbmE5vq3K6rCAdB8GTg@mail.gmail.com>
-Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
-To: Juergen Gross <jgross@suse.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Honglei Huang <honglei1.huang@amd.com>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Huang Rui <ray.huang@amd.com>, 
-	Chen Jiqian <Jiqian.Chen@amd.com>, Xenia Ragiadakou <burzalodowa@gmail.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, xen-devel@lists.xenproject.org, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julia Zhang <julia.zhang@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VI1PR04MB6862:EE_
+X-MS-Office365-Filtering-Correlation-Id: f4f79e62-25bf-41d7-81e0-08db2625ee2c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	SmitxhXytCWtKAel7DKPYXenSgVfxA1MPtVkfcLVmF8U8BjaboFkRVFyGNpt+Hpm7Fzf2UU+P756sdP2Eh7rvZcsn93Wv8+fIDLhIkrOuKR98SkVGPf//YQAzprMUjGma0vLdhLFj3gA3f+tX1wj6kXwB49FeIRvDglsD5j77VT2oJtMSKfz8XVQpZ7w02i1W9UiPtvpGJRj+wP+hDUM7O7peiCmt7lAOUE3inSU1KqNkiS2wx+0nrw5YV7Fm19f96thiEgaV2wh9iclzE+U+8EqAF/k5qLFdpa6d+pywk3eYtuLd1sM2NyzDppY0u8UvrtYTX0aRREwQfShZeeZndf44PCJQE51S67nQDCzzzhhPfg+yV2H+U6OGJ0/H7rWoQE63RxjRpNa4bfNMYNugElBPMDhNgJnwRt5WY7ZfUm/h++lCl+TGffYEQKRQMSj5+O27lJFyrBTocQwe3ec2R2s0MV0rzeT60DY0GKR8YPVEcOFQaCUgnH0947XyzQ3EnpnhgpDOPinNMPiNvlBYw/h6OBYUg7Nc4RIPss7wywy/qB0ZVTODkiW1SC39ogpOFCwv/m9+MPKe2hw5gF09RFwnMVJcj+BKUbkQa4Vf8O51S5aEFuSD1Ext1FmppYT7N4S8eAdWy+8MQ9nKLLaBhpEFdmpy+8lON9YcEdbsC+yq++Wa14RbdO+AiEWjIiiCvSfh3d5kZ3wJuUuLSn4TBa7eLHKicUNl0xifow9yjo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(39860400002)(136003)(346002)(396003)(366004)(451199018)(53546011)(31686004)(6486002)(36756003)(31696002)(86362001)(6506007)(186003)(38100700002)(26005)(6512007)(2616005)(478600001)(4326008)(316002)(54906003)(8676002)(66476007)(66946007)(6916009)(41300700001)(8936002)(2906002)(66556008)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bVFwbFRsRWQ4K1A1dnRlTnhUVTJsNTB4Zi9CblNJeGdTMmN3UENIVVNmaEkr?=
+ =?utf-8?B?WW9ZWTNEQUgrUWQ1d0Vmd0RRN3puaVhCZG0yL2JmaCt0K0l0dG9GWDN0R0pI?=
+ =?utf-8?B?aVJGRHJXMVpTYy94cXdOSkZYS3RWT0NQTk94KzFUQlhsVTVNSDNhcVFwQmtV?=
+ =?utf-8?B?RE1HVC8xd3NldVhYcUpkZ1A0dm8wMFhreW9oODhpbU9GV2t3NDdKZlRaYTlh?=
+ =?utf-8?B?M3dDckQxY3lYbGtiRS85MlJGM05OeiticmZDM0FDeHRwanBCNy9wYk4vRFpu?=
+ =?utf-8?B?NlNPa2pwY3c0Yk1kMHQxUWdQaEw3UXJEZ2JuK3czemJhZlpxYjlPa3ZsZU1E?=
+ =?utf-8?B?MEVZZUZSL2JBOFNPbkgvc2lvZ0Q1WHVoY2llb0RXZWw1YkQvTHo1ek9GN0pm?=
+ =?utf-8?B?UzhabzlURmVrV2tlT0VoR21yY1VUYmZXTnZLQ0UzVnhPTjFRRGZCMjVIV1N4?=
+ =?utf-8?B?a3JTVUsremF1SDZXSlZWZDBmeTBwenhGdXBSSFJsRmYrTVExSWtlNFBjM0V4?=
+ =?utf-8?B?WmtJTHVXTGNkbk1ib3Q4aWlkS0JVbFlGM1JnaWxZZ3ZPaC84MFNBNi9lRFp6?=
+ =?utf-8?B?N3gzbkxTZG5IOVFhQ21pb1Rua2Noai92bkEzMlNWNFFRRVZpNTZpcFNVZ0g1?=
+ =?utf-8?B?RExIc1FPWDk0K1RkOFZnSVJYYnluYzQwdUdIUi9reWJRNWFrSlNoWnZQanVs?=
+ =?utf-8?B?RitwWnRUWmc0dEhocUJlNldrQVc3OWVseXZRenFUWFJoZjc0QjBEbm5iL1Y5?=
+ =?utf-8?B?RWppcjEyU3ZQbFdQWU5GSG1tTzFTa084YXdpK2dNbUsybUtNZDlLbStkSUxJ?=
+ =?utf-8?B?U1dSTTQzWXZPS09ZUXg1eGNPN3I5Umd3L0daMk5HZzNsWDJrS3d5aGY0NDVH?=
+ =?utf-8?B?UmFaa29aTVIxdFFvYWJZSHNhZHQwa09yaUw5WWJjYjhicEh2NDluM0xBaE93?=
+ =?utf-8?B?SFJ0K3haSnlKNEF5WjIxMGc4dmpKQmp1WU05VW1BNzFJcHFDd0EwSGxFNm1M?=
+ =?utf-8?B?aDNrRzBRYzF2V244Q1VQaC9mS0hBbkExVUtKL2dHR1Y4Vzg4VjZlYk5oa2Jx?=
+ =?utf-8?B?SUovcENLTlVnTDZpeFVXazBnT1hKcVlhT2t1ZW1TNFpUMVRiQkZLSWNrUksx?=
+ =?utf-8?B?SHNQZ3VkK2dFb1F1VjlSYUJkb1N5cExDYmdISkhwaGRVR3lPMjRYRmd6anJQ?=
+ =?utf-8?B?S0xUWnhjazdxVVJxWUl4b1BTSkwrVW5tYWZjZk5uMWdYaGRBVGdZK1dsRHFy?=
+ =?utf-8?B?WXpscy9zTllIWFMrNXJwR1dleDQvTFdueGVMcU1iL1hweWRPZXk0QTdHRUNX?=
+ =?utf-8?B?TWQ4anViUGN6SjAwNFFFNVdkZCt1N0JEZnh5Y1BjWVgxSWZhSUwrcFlyNldF?=
+ =?utf-8?B?cmxLK3lwVFNpQTA1ekdVS0F6bEZIcEl2S09EWC9CbG1pcTN1QkRDNHZPMmZL?=
+ =?utf-8?B?S2NFTFdXNDJNS0dIc3pKZXIvclhzZ0Jac0k1K0o4ZitOYTFYT3AwVkVmQm9Y?=
+ =?utf-8?B?OVJKNTJDc1ZqRksydGRnWHFkY1VpbmhEejE1bDJVU3lmWWdNT0swNWhMRjAv?=
+ =?utf-8?B?eVdzQldaOWhIUkZMa1EzeUs1andMaktiMVVCdWQyTi9RNHJRZVN1UWU0di9X?=
+ =?utf-8?B?SzNtRVhEL0VoeTZFUyt2ZTd5aUFVdmJiV2cveEFCcnMrTUUzSkZiUUw2dU44?=
+ =?utf-8?B?ZTRKelJzRjMvR2NKUU9pYjIwR1M5U3EyT2phVzFEcHAxaVltRXlhWjk2REJK?=
+ =?utf-8?B?TVYySGNYc1ZSUjhCZHhGNW5jV3FXa1lrQTBqM0VKK2kvWkV5U05UUTZCN0to?=
+ =?utf-8?B?bU5PNVRrVmNWNmdObVcwaGRkb09uK21lTjRXMU1iZTJBNzk0cWZEVVcxUmxY?=
+ =?utf-8?B?WXRjSW5TbXZ2cFd6eHM3V3BZeXhydFhsZDNqVkZEOVlYUW1nRXVjRzlYZkpC?=
+ =?utf-8?B?dVhwYXhET3dxS2lzYzFJc3k1U2hlOFZiRzkyb2VBdWNCL0luOFcwS3o1UnFl?=
+ =?utf-8?B?RGJheUFzeFY2WXYvellwOE8xdWQ3OGZVV3ZkRWNIeU1PV1hWdGJmZVR5Qnc5?=
+ =?utf-8?B?RHl0WjBxc2hpR2VNd2c4ZXA0Ukord0ovYlFWREdMUFFLNVNpTVlGSUZMSHBJ?=
+ =?utf-8?Q?Zc5O0qMoz7eTNS32+/bHaQ1F+?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4f79e62-25bf-41d7-81e0-08db2625ee2c
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 13:54:15.6003
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DJKYMNZhSIwMKQyiIIw/rHSyfZ3LqimBBvDDi8BwJwP7x2iag2YoeK3XrFQ+2OZ2n492qaj1mCiVOXIa6JIkQg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6862
 
-On Thu, Mar 16, 2023 at 9:48=E2=80=AFAM Juergen Gross <jgross@suse.com> wro=
-te:
->
-> On 16.03.23 14:45, Alex Deucher wrote:
-> > On Thu, Mar 16, 2023 at 3:50=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >> On 16.03.2023 00:25, Stefano Stabellini wrote:
-> >>> On Wed, 15 Mar 2023, Jan Beulich wrote:
-> >>>> On 15.03.2023 01:52, Stefano Stabellini wrote:
-> >>>>> On Mon, 13 Mar 2023, Jan Beulich wrote:
-> >>>>>> On 12.03.2023 13:01, Huang Rui wrote:
-> >>>>>>> Xen PVH is the paravirtualized mode and takes advantage of hardwa=
-re
-> >>>>>>> virtualization support when possible. It will using the hardware =
-IOMMU
-> >>>>>>> support instead of xen-swiotlb, so disable swiotlb if current dom=
-ain is
-> >>>>>>> Xen PVH.
-> >>>>>>
-> >>>>>> But the kernel has no way (yet) to drive the IOMMU, so how can it =
-get
-> >>>>>> away without resorting to swiotlb in certain cases (like I/O to an
-> >>>>>> address-restricted device)?
-> >>>>>
-> >>>>> I think Ray meant that, thanks to the IOMMU setup by Xen, there is =
-no
-> >>>>> need for swiotlb-xen in Dom0. Address translations are done by the =
-IOMMU
-> >>>>> so we can use guest physical addresses instead of machine addresses=
- for
-> >>>>> DMA. This is a similar case to Dom0 on ARM when the IOMMU is availa=
-ble
-> >>>>> (see include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect, the correspo=
-nding
-> >>>>> case is XENFEAT_not_direct_mapped).
-> >>>>
-> >>>> But how does Xen using an IOMMU help with, as said, address-restrict=
-ed
-> >>>> devices? They may still need e.g. a 32-bit address to be programmed =
-in,
-> >>>> and if the kernel has memory beyond the 4G boundary not all I/O buff=
-ers
-> >>>> may fulfill this requirement.
-> >>>
-> >>> In short, it is going to work as long as Linux has guest physical
-> >>> addresses (not machine addresses, those could be anything) lower than
-> >>> 4GB.
-> >>>
-> >>> If the address-restricted device does DMA via an IOMMU, then the devi=
-ce
-> >>> gets programmed by Linux using its guest physical addresses (not mach=
-ine
-> >>> addresses).
-> >>>
-> >>> The 32-bit restriction would be applied by Linux to its choice of gue=
-st
-> >>> physical address to use to program the device, the same way it does o=
-n
-> >>> native. The device would be fine as it always uses Linux-provided <4G=
-B
-> >>> addresses. After the IOMMU translation (pagetable setup by Xen), we
-> >>> could get any address, including >4GB addresses, and that is expected=
- to
-> >>> work.
-> >>
-> >> I understand that's the "normal" way of working. But whatever the swio=
-tlb
-> >> is used for in baremetal Linux, that would similarly require its use i=
-n
-> >> PVH (or HVM) aiui. So unconditionally disabling it in PVH would look t=
-o
-> >> me like an incomplete attempt to disable its use altogether on x86. Wh=
-at
-> >> difference of PVH vs baremetal am I missing here?
-> >
-> > swiotlb is not usable for GPUs even on bare metal.  They often have
-> > hundreds or megs or even gigs of memory mapped on the device at any
-> > given time.  Also, AMD GPUs support 44-48 bit DMA masks (depending on
-> > the chip family).
->
-> But the swiotlb isn't per device, but system global.
+On 16.03.2023 14:22, Oleksii Kurochko wrote:
+> The patch is needed to keep all address of cpu0_boot_stack
+> PC-relative.
+> 
+> Pseudoinstruction 'la' can be transformed to 'auipc/addi' or
+> 'auipc/l{w|d}'. It depends on the .option directive: nopic and pic
+> or compiler flags.
+> 
+> Right now, 'la' transforms to 'auipc/l{w|d}', which in case of
+> cpu0_boot_stack[] will lead to the usage of _GLOBAL_OFFSET_TABLE_
+> where all addresses will be without counting that it might happen
+> that linker address != load address ( so addresses inside got
+> sections will be relative to linker time ).
+> 
+> It happens becuase the compiler from riscv64 docker compiled with
+> --enable-default-pie:
+>   [user@49295ae49cbe build]$ riscv64-linux-gnu-gcc -v
+>   Using built-in specs.
+>   COLLECT_GCC=riscv64-linux-gnu-gcc
+>   COLLECT_LTO_WRAPPER=/usr/lib/gcc/riscv64-linux-gnu/12.2.0/lto-wrapper
+>   Target: riscv64-linux-gnu
+>   Configured with: /build/riscv64-linux-gnu-gcc/src/gcc-12.2.0/configure
+>   --prefix=/usr --program-prefix=riscv64-linux-gnu- --with-local-
+>   prefix=/usr/riscv64-linux-gnu --with-sysroot=/usr/riscv64-linux-gnu --
+>   with-build-sysroot=/usr/riscv64-linux-gnu --libdir=/usr/lib --
+>   libexecdir=/usr/lib --target=riscv64-linux-gnu --host=x86_64-pc-linux-
+>   gnu --build=x86_64-pc-linux-gnu --with-system-zlib --with-isl --with-
+>   linker-hash-style=gnu --disable-nls --disable-libunwind-exceptions --
+>   disable-libstdcxx-pch --disable-libssp --disable-multilib --disable-
+>   werror --enable-languages=c,c++ --enable-shared --enable-threads=posix
+>   --enable-__cxa_atexit --enable-clocale=gnu --enable-gnu-unique-object -
+>   -enable-linker-build-id --enable-lto --enable-plugin --enable-install-
+>   libiberty --enable-gnu-indirect-function --enable-default-pie --enable-
+>   checking=release
+>   Thread model: posix
+>   Supported LTO compression algorithms: zlib zstd
+>   gcc version 12.2.0 (GCC)
+> 
+> Looking at gcc spec file for the RISC-V architecture:
+>   [user@49295ae49cbe build]$ riscv64-linux-gnu-gcc -dumpspecs | grep -i
+>   pic
+>   --traditional-format %(subtarget_asm_debugging_spec) %{fno-pie|fno-
+>   PIE|fno-pic|fno-PIC:;:-fpic} %{march=*} %{mabi=*} %{mno-relax} %{mbig-
+>   endian} %{mlittle-endian} %(subtarget_asm_spec)%{misa-spec=*}
+> which means that -fpic is enabled if none of the following options are
+> present on the command line:
+>     -fno-pie
+>     -fno-PIE
+>     -fno-pic
+>     -fno-PIC
+> 
+> That's the reasons why 'la' is transformed to 'aupic/l{w|d} GOT' and
+> not be dependent on the toolchain used.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Sure, but if the swiotlb is in use, then you can't really use the GPU.
-So you get to pick one.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Alex
+There may also want to be Suggested-by to both Andrew and me.
+
+Jan
 
