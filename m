@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCC766BCC03
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 11:07:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510469.788146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4F616BCC17
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 11:10:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510471.788157 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pckVV-0003CG-Vu; Thu, 16 Mar 2023 10:06:49 +0000
+	id 1pckYU-00040W-FA; Thu, 16 Mar 2023 10:09:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510469.788146; Thu, 16 Mar 2023 10:06:49 +0000
+Received: by outflank-mailman (output) from mailman id 510471.788157; Thu, 16 Mar 2023 10:09:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pckVV-00039E-Sp; Thu, 16 Mar 2023 10:06:49 +0000
-Received: by outflank-mailman (input) for mailman id 510469;
- Thu, 16 Mar 2023 10:06:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eQdT=7I=citrix.com=prvs=4326333c9=roger.pau@srs-se1.protection.inumbo.net>)
- id 1pckVU-000396-EQ
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 10:06:48 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 41065662-c3e2-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 11:06:45 +0100 (CET)
-Received: from mail-bn8nam12lp2175.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.175])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 16 Mar 2023 06:06:42 -0400
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
- by SJ0PR03MB5421.namprd03.prod.outlook.com (2603:10b6:a03:289::7)
+	id 1pckYU-0003xG-CH; Thu, 16 Mar 2023 10:09:54 +0000
+Received: by outflank-mailman (input) for mailman id 510471;
+ Thu, 16 Mar 2023 10:09:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ta6a=7I=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pckYT-0003xA-KZ
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 10:09:53 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2062c.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b15e118e-c3e2-11ed-87f5-c1b5be75604c;
+ Thu, 16 Mar 2023 11:09:52 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by VE1PR04MB7471.eurprd04.prod.outlook.com (2603:10a6:800:1a7::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.26; Thu, 16 Mar
- 2023 10:06:40 +0000
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.031; Thu, 16 Mar 2023
- 10:06:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.31; Thu, 16 Mar
+ 2023 10:09:49 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Thu, 16 Mar 2023
+ 10:09:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,357 +47,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41065662-c3e2-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1678961205;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=xPOSWM9uBris1Lv760ndKfYv/SsqyjSbzUtuVhe/l/A=;
-  b=dj5Iuvhdb3JLwvr9zH4mHH3alEXMgov37nQJ17ouj8eQBIO23gRMmoet
-   OzW4YJLrquWQnl2AyqEc5m9SSKnC3hpuOFLlbz3LZAa1R1kgjf0g1FJZj
-   gZ6LmZatdNuYadqQ0nI174/qB2An2l2EfmRdnCl5uXFD5KfRy5oNNtfcl
-   8=;
-X-IronPort-RemoteIP: 104.47.55.175
-X-IronPort-MID: 101501202
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:1XcnSq8NphhCvbKWZw8bDrUDQH+TJUtcMsCJ2f8bNWPcYEJGY0x3z
- WIaDTzVaP+IZzanLd4natvjpxgE7MLVzINlTwRt/yE8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ire7kI/1BjOkGlA5AdmPqkV5AG2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklI/
- 94AeCwLUSq9gt+5y5KFcNdguYc8eZyD0IM34hmMzBn/JNN/G9XpZfWP4tVVmjAtmspJAPDSI
- dIDbiZiZwjBZBsJPUoLDJU5n6GjgXyXnz9w8QrJ4/ZopTWOilUujdABM/KMEjCObd9SkUuC4
- HrP4kzyAw0ANczZwj2Amp6prraXxH6jAdhKTtVU8NZH2Ue+6XRUDyRMUGWjg9e3sxaTXtNAf
- hl8Fi0G6PJaGFaQZtv6RBC2iHmIswQYUtxcVfY3gCmJy6zJ80OaC3ICQzppdtMrrok1SCYs2
- 1vPmMnmbRR/vbvQRX+D+7O8qTKpJTNTPWIEfTUDTwYO/5/kuo5bpgKfEP5gHbSzg9mzHiv/q
- w1mtwA7jrQXyMQNh6Oy+Amdhyr2/8eUCAko+g/QQ2SpqBtjY5KobJCp7l6d6utcKIGeTR+Ku
- 31sd9Wi0d3ixKqlzESlKNjh1pnzjxpZGFUwWWJSIqQ=
-IronPort-HdrOrdr: A9a23:A77j0KlUY9dSNKIwDfw6m6TYRF/pDfI93DAbv31ZSRFFG/Fw9v
- rCoB1/73SftN9/YgBCpTn+AtjjfZqxz/BICOoqUYtKPjOHhILAFugL0WKI+VLd8kPFl9K13J
- 0QFpRDNA==
-X-IronPort-AV: E=Sophos;i="5.98,265,1673931600"; 
-   d="scan'208";a="101501202"
+X-Inumbo-ID: b15e118e-c3e2-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZBrj+5VX3IDjCXUAeUY1BRo9j+cL2X9Z+RWc10tVk82qqNKKYM3YEi6ekPS48z2UcJyDCZwkyVBsTdwwnxwTCXsqLQVcUAhH8MUsN3cLRvWelbnxOEGrObgXcfhOfCd6BcdhjlUd7Sn1XNsok04PQm0iYTAYlfwucYpbYtOaMBiCc+1hUW8lid3t49GMhAKikBBQyUnDlMASiLlePUg4UiwBJl8IJUhLBrXX6UqmJFTNXNC9EqmgzLkXZO2U9XHacfb4oeLep3QA2RF/KVQFGrlfhgVXfg+MuXgjaAilCbwN7LRxxOBJBdmh1VwoaU23Uj0sxG0kD+bsbYrQfBUT3A==
+ b=g3YezusTQ8bOl3QZd233UH7J2KKpJpKXTaTj1B0rvm/vSwhwI6AEpnxmrgn9bwLVbDFyIyz/SOdcmJVOfTx/dVLfjpv3/+L+4hAC4MZ2QqsEcgLVSmPvC1TUA6m+6Tx5AiPGrbvd+zDCvLrDb2SD9fBWasD488/he8cdUe5ITocCrfQD87Hk3l84dbEYvlM2iUhSynoBPWIpp8ePJgVX22UFpz54ftXVBZHOSNMPxv2kGNX+U9YHvP90emUjvJSBfbv6gUwxcdvN6veW1NJ4p96XL+QbqZOkeBA/AdMoa1kIGrLIlUn663Tj6w5aFcFPrDMwI+lH81uU4jKTsbCrFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x99VX79samaRS0BqFe2rbZd0M6NI81izBgME213FgG0=;
- b=FFOirRrEU5GNdkOcfvDP3gPUCfeL+6/s1alfH1uQ+Xb8ka/Wzg9W/3DMOM/9LV57bmzalS5Lzhcw+SdIExT/nsGHmZ+56cVt+QBp/FWP6mXeSzpp/4VPXooualSlo5g38+pJnLILYtuAgTIgP1libaqM0sbORduXBBSzcz7ZdlmbWl10MBWU5Jz290yJ+uB/NlMRSJsO7UQfzLbBdro8DvIKLId6nyklM7+ABs++AYHDCOBigu/iJSPBYB1kO5YIUIlwRvI0IMg7QLKJCkQG+sik49XWTUAmAMRGR8T3hU+fJcfgq7+l+kv9eLcgW5HrLGPADw0a4/UclFHV8gLXEg==
+ bh=F61rJ1VJqnbVyOmO0Vewtq+N4fnWO8vW7lTHIHqvJKk=;
+ b=DVPgBaA11qD6Nh3dJV1Aduavx6oNCDg7velrE4ENZ5MFPrfGnrdtitBkCFIWAvDWueaY5ORqqv/pS88pAQbvAzGEob5jLC5g+fiHeuUBVyoApk9tjHhcTd0j7mLGSV6C60nGsphwdxi0spRkF1+cK3qZ/SypbE0x2Uw9DDcX7sO/d1G3ca17NIxAMQPiLnCXn2su/yROrj6hkIqlwUVEci8CxC5PfCWScLupj4wck4QTEM1X5Oc7yioyaYkWikEBFV2/XvlxtLlBImzticNxlfymqL5I71GC6Ud0p+kgoa2EDpyi7QavKslH5Kj1hvl64jS7NCTuSfhQ/NCwvUay/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x99VX79samaRS0BqFe2rbZd0M6NI81izBgME213FgG0=;
- b=mDcPfdcze1BctPa6nwG4MfZvUqZ8Cfcvy36ky+X8SLxmoDDDi/JrE/xbIOyUYM9B2q8wDtYMWcqbWNS42cBb18edAEmNFmEiuVESQQf39JrdHDYb9AuFCHU6kWSxJy2LSpjfFOceWxnLyv9ESDXvgYuBui6OwXyA1DQC1zs5FUg=
+ bh=F61rJ1VJqnbVyOmO0Vewtq+N4fnWO8vW7lTHIHqvJKk=;
+ b=RX9yOjXHCPia2n6YnKgfQfKiYMQlcSD1n6v9eKExt7stP6HWuQRHZBorfP30ST/ro98ZXFjXXHe0W5P1W3F18hJOVwRYGrlwC/yRQJJ9lVahq2SZm6IJXdQIgfUXqPkGhaLvXTmrDsnkx32yTVQWZ6hPpvYKnTGW9I/RviuL25beGJX+/XMEtGr4ByUKhrMmhOtzLSZ21qyPEXExH6nyjY6kc+tuEVwmagWM3OZTMm9tzR/w3CbPdvYrFUV9Za8xjai9ZQWf6RRZdfk/NDeVnXUzAts5xGigvjri7/jOVRCxcoTbueAR8H4B/P1YUh2DNe+SJoag4Rwnc0CFKrN2Jg==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 16 Mar 2023 11:06:33 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Josef Johansson <josef@oderland.se>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	x86@kernel.org
-Subject: Re: [PATCH 3/3] xen/acpi: upload power and performance related data
- from a PVH dom0
-Message-ID: <ZBLqKWqkGawbbRo0@Air-de-Roger>
-References: <20221121102113.41893-1-roger.pau@citrix.com>
- <20221121102113.41893-4-roger.pau@citrix.com>
- <407b7c10-ad1f-b6d2-2976-2b297755b2b3@oderland.se>
- <ZBGuVjyDpuUZ3MnZ@Air-de-Roger>
- <2754848f-6c3c-5479-ea6f-1946c93f868e@oderland.se>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2754848f-6c3c-5479-ea6f-1946c93f868e@oderland.se>
-X-ClientProxiedBy: LO4P123CA0548.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:319::11) To SJ0PR03MB6360.namprd03.prod.outlook.com
- (2603:10b6:a03:395::11)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <4f605fa5-b763-bc8b-6bb0-b70e718eb585@suse.com>
+Date: Thu, 16 Mar 2023 11:09:46 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: don't include processor.h from system.h
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0014.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|SJ0PR03MB5421:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8e74b66-8430-4c77-627f-08db260622a9
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VE1PR04MB7471:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbc07265-303e-4614-a58b-08db260693d3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	maTGKo3NTcH5xgNl/paEI+I3Z5mQpDJ9pEAYrXAXtE7miUdfZRHz/ncDct3+vJj8564A5++8fl7GVwfZwR6XCXd3Olm5IpfKIHt5QamZicgyt6xeNN6OV2n2dtzAdiHKRIwtU8sb/LIfzCDwjSD5B14TUzoTiHxPNAreX7CwRYvnQxi5WDWHmq73RxoFWUIvzfKgUA4y5tH4NeRzedaeLd90301I7oV4RYWPfeQHmIhuu6s1HIHuLJiPjIWF6NDHGlqlawJqx7o5Gs/Lp87a+Z+QxgM3FQcxeWXv684NKGK7w5IkrmEm0aI2d937d4bTlkDIDcvdhPQuP2piMh+N76kCBTefCl9DtywRMpBUxzECm8yn3fEnMtfaEGCeoV2D6vnZm3ENgk5B30hrUjXOn3udDg9RNQCeYt9Avagciy18TiUD+NA0Y/h90B9KMkqyJEJ6O30LE09uqWEIGa49RO9lg5QHa8J+W7hj7wrXxpvTEAzSZGqhiBjC+/WjM04/8XH5nR0O9fxdtHeoo9x2QUgo5UfpyARLrU4RMoopYtGOxrmTW24pPu2Ib9MKfR+88IUHX4useyOiNu5s8vNVy4gPiVJ+OAASuOeDidl01t8X8qvTgTNqN50NcRb2Bvb14OcWR9nkSKs5JiULsZAqRg==
+	HnK2GoT6yHTz86JrN6s6kKEHCWme85NK0uh7JJ6CAdegHER3s4GbzfA9TD+K7Tf5GijNB2alpPCmrlzIst5oB+WM7kwxPIJzp1gpeHdB2QvVa74Fb/s9WW/T33jULqC6LEwPOE8oSZvkIKJxvrNn+HqS3wSxUjLQCOJ1NqeuvXQB5LejIZvhrLOdO4F0ZHmjbdk8YSqgCxlVyfp2KqnegzoeAgkYnhlnVek60SaDvSH0pNbDZq0Apqxh9Te7M2472i6nMCkOMIqRY0Lv9F0LGfuq2KUiK9+gCHj+X5BnwCahWduDYDJ1zc7zoiEr0qm8xu3h0qfz+GdrY762jJZ9h5mPow0uqqTynGLEESjd3k/ewDKLwGcJJ0MggnQGupjX12MNKdXffogKb/hqTyzUhrgxrt0wVQR/nxemIpD/r6/PsS+GqutJUivA1Hy9GfjtMSGC+BRxvljFj6Q/zEM4TqegubRmAUxJ+KwWy9z58xyjD8S6pcEjNV+EjdmQ1/IBpkeZLiIczvEePPFEpdDdVRH2pOWp56SWik4id8IwMNOoI1z6Bm6pgTkhb8wQRT4h1Mc62Kf1zVxmRv9MEZaHuCVHYvhuvxr5WT77EcxgTAMnbcX9t7g4uZSjqQRNeWhNvTklvzfMhXh3H3+5Lux4+INDm8vC0Cjt52k7EhXLO/xQu4fUABqHPryt0prvr5FSjr87J4wbk8kcajSQVjOZDjAFTLhTj7BsABhBfSHi97c=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(7916004)(376002)(346002)(39860400002)(396003)(366004)(136003)(451199018)(85182001)(316002)(86362001)(478600001)(6486002)(66556008)(66476007)(6916009)(2906002)(8676002)(8936002)(66946007)(41300700001)(4326008)(30864003)(5660300002)(82960400001)(38100700002)(9686003)(186003)(6512007)(6506007)(26005)(53546011)(83380400001)(33716001)(6666004);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(136003)(366004)(346002)(376002)(396003)(39850400004)(451199018)(38100700002)(31696002)(86362001)(36756003)(2906002)(4326008)(5660300002)(41300700001)(8936002)(6916009)(2616005)(26005)(6506007)(186003)(6512007)(316002)(54906003)(66476007)(66556008)(8676002)(66946007)(6666004)(6486002)(478600001)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z3lXTDc3VTVzU0RDM2daRGRXZU1zMXJ0azFXZU8xUERjMjNURFl1SVdzMTZQ?=
- =?utf-8?B?WENST2NxdklnQVlOVUNReWpIMVh5all2MndJR2dQMzk3dVFxUDVnL0x1ZEw0?=
- =?utf-8?B?bXVoa2RBMEJlWWdzUUJzU3pxWjQ2ZUczWEY4UWtEeHp6elVzd3Q4Mkl0Tngy?=
- =?utf-8?B?bGVwQzhtTXZnRDBRU29BTElzSHBHeGpYVzFQMWo4cmRDOXQwazVIVjE3ejFM?=
- =?utf-8?B?WElBclZVQUZVVGNNOUNjOVdRSlZJWkNUZkM5VHVua1hmRmpaaGtmYjgrWVZJ?=
- =?utf-8?B?RHNNWWphbytaK0tyNUZCeWpQcXhsV3MwNnlFNkdHRXh5T0VKOTlwQ0kxd25G?=
- =?utf-8?B?QlRGdXRpZzdJV0s2VUU3ZmV3ODJwNEoxU3ZLb0hodGd4MXRMZEpQa1Z2NUhl?=
- =?utf-8?B?eFhSS0FiWVFyT1RReEsyYlJuSVdyeXlhSGdkSHMvQU5hbWN1RTlJRUtDRFQx?=
- =?utf-8?B?bE9zb0hrSUZnR3FCM29sL1JKemFOUkxlQm9CUzl4bHdCTXV6YXpESW9OdlVQ?=
- =?utf-8?B?MmJNZm52U1ZlQmFVVnl2TERsVUFhQ0dvNzdpTFh3ZDZrMGNpYWtwQlFZQmsr?=
- =?utf-8?B?elEzS2d4SmlSaCt4d3ZHM3lpSkRaRTJQRzdNalAraVV2cVk1engyMGkxQ2g1?=
- =?utf-8?B?a1p2dEkwWHVRbFZxVUhZbEVndmxOMld1bHVwQ2lwVHhuME1OZVBGN1JqRUZQ?=
- =?utf-8?B?Vm52MTBMV2V1UDN0K1hvRDFrV2MzQS9tclBiRHM4aWdzQmc1eEF6UXRpSW1N?=
- =?utf-8?B?a2c3eGlGMXFLOU53RTVjVjVTRzZOZlRnQXdCL1RncnZpOTZHWlVudDdCcFg2?=
- =?utf-8?B?OHFTeTVuL3VWNmMvRTFPWndhbThKc1U4b2VyWkVJRE90T01xS2x2N2YvZGVJ?=
- =?utf-8?B?a1p5YTIwellteHAzMVdtNncwazFQWXdDU1NDd0N6UWFlNmR4amRlM1ZXM3Nv?=
- =?utf-8?B?QVlxc2NLcjgxYnlGdzN0OUVJRnoxY2pyTnFzVWxhZDNhc0dDQXo2emNTOHlD?=
- =?utf-8?B?NUlhZ21VajBEVDhNMkEvclNzSUIxSmZHc2d2Mkx0QzFlOW1HMHY1cFduMFds?=
- =?utf-8?B?b3dVVXVWcmdTZkFIajN0MDZEUXNOVSttNVVCN1JMM0d1Z0dtbUp0VzJUUEtJ?=
- =?utf-8?B?Z0xDSGdmd3RkTUtPWnhIUHBkVndVRWdQeWdJZUYySTBnWFBBd0NRMWlxbEpk?=
- =?utf-8?B?OGlTME5qL21nUlFGbzYraWtpV2x4Q0xBYWtvMXd4MWhucXZVTi92bmEzV0l4?=
- =?utf-8?B?SzVmTmVma0hXZFF1LzFuK2t0WG93bUhzbXNwRWkwaWNsSFoveFVSQjg5US94?=
- =?utf-8?B?ZmlPbGh3SytBMVRVM201WUtWb1N6cWRhcUZUdFdiRDY5WVorOVRKZHZheVBa?=
- =?utf-8?B?c3lBK0J6clRZc1BLbkw4V01vdDVJL1dYcDU4ekZvR3JZN0piTDU0ZWpFRWRx?=
- =?utf-8?B?bzV5Ny9LZUNMMWNRZjI5SEhoYUtYenNpRVFBbHJPdlBscTJ1c3lNWkRjdHlF?=
- =?utf-8?B?NHRhRTRIdDhPME9id2FJSVVueWZCY1RMZm1SUzlZcmpjV0RGclRJckNXTXVZ?=
- =?utf-8?B?ZFV3R1JxNzUyOUFyYTRxTjEzc1prM0R3Q2JSRlEzU2NzTDBWdFd5TDdsejNl?=
- =?utf-8?B?eExQaFl5NmFEZzNqVlE2ZWo4dFNDQ0JFK3IvM0x4YnBsazhaNFhaaWd2YVVr?=
- =?utf-8?B?YmpIbVdvcDhraWJDMFdNSHIwb0VBNnVHRm5rNUpCR1gyQW1DYVM0Zlk3Nm9W?=
- =?utf-8?B?NWsrOEloanRFWG1ydmtNbGgwSWVVZzM3NmRib2VmcmFJeXozU2ZSd2t2MFNX?=
- =?utf-8?B?MlR5N3hjaXlxQ3g2S01Cem9KUG1ZSlFKQ0dLekk0NGE4YjZVN3AxeHdvS05M?=
- =?utf-8?B?R2d6U09MTmlmUFF0U2NxSDNlSTRnem5yWDZIYVZjSDBWYkxWT1diQldZOEpx?=
- =?utf-8?B?Qm53aDRuMSt5K04wUWsxZlJYRFpGS3QzWVlnRG1ZTGZkZGF6RzhudXMrYzVH?=
- =?utf-8?B?elNKOUdTLyt1aGc2Y2wxbHpIU2lXMHRCM0tORWVEcmwyUW52VGN2R1RGdDM2?=
- =?utf-8?B?eWoxL2hVdkRwUkIrQVRVczVpZEkxTmMyTVdVc0laVXVheGZkOGFnZDFGTFVn?=
- =?utf-8?B?ZmNOS3ZncXdvMDJBaDlYYTl5RHdHSTVBM0dBTTRHaTZTMjErTzdhY1UyVnJw?=
- =?utf-8?B?RkE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	XSMHv2SwfHHc0e3oynkIR/iusLXYCbFRv0LZQfLBTI5sLWszJKzrs3ln4lK0r3qqJKJHXwvXbtW+iy2wD8GLdFL/S8U2D02ErsC6hTgYYooH4ShT5lw1+LCEObxIimihwf93dIBLOZvYOxMmq7S9x0B4YKcUQnqxR3sojn5a9FcbYsW3Wo4WTYt3sioJU4ITBqMoSIapkL39xmvXmTAqcCb67niMCSj3yKyeYYPA1dlmfGI5w9gUPpk9kpFm33MHJlUNzoE+bGudaI/OPW+CgwM9F1A/mWmjX5iAL6HEhm0xQPJL3aKA3yPrkv502p7aKSnP6sxngPRKfriObDlJE8HOeQLfwl/JY4VQbW1knKi+gXS5xlRnFsuXv/HJPO+282iyF+vblv1eUx64TMUrF+IcP+ALNopk/vAujN3v3Pmi3Cqo9SS8Djawfyr3gJmbAKe242MZtdVOEmELM8yLQk24b5/yK/CxO48zsxhMLbaqKycRT4L9YOowFj/bJCSH3dPsRrhOJ6dIjORIcwbUWeqxVGTGGEpQ/a8ruWVXBDgD0JVUR0ZLjfRgpvJmHU/Ath6h230hmahx7BHMlyo+c59j6iPHx1ScvsUv3gaq3BgYiwRZkPZwrTF9sZYGgBTYt+kJRghphjZDvd5ActXpK0FXipEOcN4ECB2W1F6LaH5qk6rDZM+GVksnGFLEJew87dwtcBhiSIgCbD/qVHCez8wQXimptrzpFJfpIO2MEOZS41zAtfxKk4Dgyd5Yc6YVILx7Sfc3y5qn85HEj0+jdhdIS5LZA3IGTr0x/E5GUDV1tQiAJhxjUH1zJpkuu7lEWsocaRZ/flvp3J/Y/qOJzyE5rWVTL6Jfr4wS0bVbzzE/1JqdzFU1sx60+k1bcpF1
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8e74b66-8430-4c77-627f-08db260622a9
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+	=?utf-8?B?UlQwcjFPR2c0WExUVE1rMVY0emV4ZTZGYUR4RExsQXdEK0EyWmN1S01UTkNp?=
+ =?utf-8?B?ODJ3QkU3SmQ4VHBWQWJldGZzYnUzVjM2aUhwYStLdGY4NXcwcndMTW1rV3c5?=
+ =?utf-8?B?cUdkSEVQcndxNHl2QWhIcmR2UGhCb2w0d2FMTlRUTW50b21kbGdVYXlDbkt5?=
+ =?utf-8?B?S0ljL2swZWVrREg1S1VFTVd1cnlCRks1clZCbE5oTDRtRXFZaFBSRjBtUFpE?=
+ =?utf-8?B?eUwvdDV6Wk1kcHhYU1NzSHhOUWZkMzJ0SlphWWZvL3VuTlZGNlFxbkRpam1Y?=
+ =?utf-8?B?SXFaNHVObVA2QkhaOW1XOHE3RW1STTJ3dGxGYncvdk5YRDhxaWpTaEd2OGlY?=
+ =?utf-8?B?ZXgwR2w1VWpiWVhvRGN2cTZTSVA4aEExalNYY0dSd1U3VGYyWXN6Q1B2NlRr?=
+ =?utf-8?B?d3FtL2c0K1J2dlF4SiszSzJnUkc3Z3BYR3dEclFMemZwL1RzWWtkMzdLMTgr?=
+ =?utf-8?B?TVRXdFBRZUovUnNFbnYzSFJFK2szWDlLZjhESTUwR2pFWWRWMGI0Nk5ubzl2?=
+ =?utf-8?B?RWUwR2MzSjlZOEFNbVFwcy9HQ0FnMCtKKzVFbHBnR2dOdDJOT25acS9lTGRo?=
+ =?utf-8?B?VWdteW9YcGUrRGtVdElQalRxMU9QZ29SSHlScmhsQlR4M0d3M0RvQnh6SXJm?=
+ =?utf-8?B?dzBuTXB1TGVtcllQam9ZVytLZGpyM2VPd1hyZ05sbjhYZ2hFdXF3Y1IwRmUy?=
+ =?utf-8?B?ck45WEJDMGFxUzEwTFVnOGMycmE3VEVQL3NVNEJrVVowMWRmaUNCQXRhZlRB?=
+ =?utf-8?B?SkZCRnRYTnM5L29mYjF0U3BHRWhqb2FCUFJvaFZQclhmWlN0TktodGF4NFRw?=
+ =?utf-8?B?UEdGVGpxM0doKzV0M3BKcGlVQnVGZ1dQZlEwUDl5aXYwVFNRMGN2R0RmWlZn?=
+ =?utf-8?B?aTRsNVMvaEh5N1BHVUJTMnJUQldMRXN6MjUyWXZ2RzBFeVJUeHNwQzhPdVpp?=
+ =?utf-8?B?djA2NUlxam84U1NhYk1UUXRNZ1hLekpydHJsVXFQRXRzcW1ZWCt4ZXd5Mi8z?=
+ =?utf-8?B?eFQ2bUVWL2NKWDdIWGdkai9lK0d1Nk1NeWRCQzQrbTk4N1ZVMytaUVVVM0xK?=
+ =?utf-8?B?bEJBRk44ZTJETGZpQ3FMMkJZcEpIWFFWOTBmL0ttQ1dWQkQ0ZWFCKzhWZzky?=
+ =?utf-8?B?bUk1QUpGYlhJbkhxajVTOGxuSnNQVjM4MEhweTUzNEhNZDRPR3ZYZExTUTZB?=
+ =?utf-8?B?dGlnUEhDaU1GbW5hUVQ2SDFMZkd5Q0NMZEF1Vkw2a21TU01RUmd1TTA2ODZS?=
+ =?utf-8?B?TzFqeGlhZGRQMUNrY0VpT0pueVFrTFQrMkFBekgzYzNpVTNmeTVRdXZBQkpO?=
+ =?utf-8?B?TzF4VDEzK3JSYlFDMG1selU3MWlwUldLRGZwdjkwSHBLNTlLNDFkWXlJdyty?=
+ =?utf-8?B?ekxhMnluR0Zka1FTRzJlZjZobGNaV3RLVVM4d0VBeXBrRy9sajVmWThZL3Ny?=
+ =?utf-8?B?bEl4bW1Kdzd2R1ZOb0MzNmJ4LzVvY09DT3hmNStUU0IzampaL25CekJFSzZT?=
+ =?utf-8?B?d1NJVm5TZTdjVU1LU1F1OXRyZXNhV0F1RlA1cW9UZTdaN2JKL3h3TnZhdkdV?=
+ =?utf-8?B?Ylp3YlZsanlLdkZZQnFFdVo0WnBGZ1BOaklTNFFNZWZHSytHZHlUMjdxd2Q5?=
+ =?utf-8?B?Z3JZMWpVUWNIa1VjOG1pTHRVTW9kOXZQSFVDb2RRRmkvd25kV00wSTM1cTgy?=
+ =?utf-8?B?cExtYXh3bFZ6NU52YUQrM3h3TnlEY1dlN3NkRXhoa1k5ek1EdlJwY3ZvQkJh?=
+ =?utf-8?B?NE5JZWsrK3hpbTRMY1pyYlNjVXRiL2FHRVdPd05FK1ZveEFsWnlmVS8xaVpL?=
+ =?utf-8?B?akhrcVR0Y0RvNXVGOWozVzR6OTNFVitvTUExVytSLzdSQkZPdTBvRjBZWTVD?=
+ =?utf-8?B?Z2lrVUtzSERLSzhzeWtkM1BxUGc1Q1FzQlAzRVE3ZlRBZ1hQWWhVRHl3MEl5?=
+ =?utf-8?B?Qjl6OC9VNkxqczZTU3d3bmRKK21ZN28rZG8yWXMvMWE2Y3hMalloMGpMWTFS?=
+ =?utf-8?B?TmxUR21uT0RqZUhEV0NIelU3TGtpT2tXc0xVMitKZERRTUJVZ2JSSDlUcEVp?=
+ =?utf-8?B?WDBrRnh1T2FJbVFEa2JoZXBMREQwM3lUeTNZcUVpSG0waFF3R3NiRzk0b044?=
+ =?utf-8?Q?mT2xZDLEc0gJBYrPRA2HLeFMn?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbc07265-303e-4614-a58b-08db260693d3
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 10:06:40.0929
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 10:09:49.5931
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LnFNPynkwdTTMqfIf+UU3CSQv1J4SRbPjxJtcdPf1hPFlT62oCHn5HZ3tPwXensZc72Gbh7Ah85srKAj8ciePg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5421
+X-MS-Exchange-CrossTenant-UserPrincipalName: NNQl43WX5gMU56uCYlsQEAY8LsOzBm4338VpHrSoXCHQvsz1d9nRMoLOC8ZWysyqHqyjizUpYvhbnnr33wWIjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7471
 
-On Thu, Mar 16, 2023 at 08:54:57AM +0100, Josef Johansson wrote:
-> On 3/15/23 12:39, Roger Pau Monné wrote:
-> > On Mon, Jan 30, 2023 at 10:10:05AM +0100, Josef Johansson wrote:
-> > > On 11/21/22 11:21, Roger Pau Monne wrote:
-> > > > When running as a PVH dom0 the ACPI MADT is crafted by Xen in order to
-> > > > report the correct numbers of vCPUs that dom0 has, so the host MADT is
-> > > > not provided to dom0.  This creates issues when parsing the power and
-> > > > performance related data from ACPI dynamic tables, as the ACPI
-> > > > Processor UIDs found on the dynamic code are likely to not match the
-> > > > ones crafted by Xen in the dom0 MADT.
-> > > > 
-> > > > Xen would rely on Linux having filled at least the power and
-> > > > performance related data of the vCPUs on the system, and would clone
-> > > > that information in order to setup the remaining pCPUs on the system
-> > > > if dom0 vCPUs < pCPUs.  However when running as PVH dom0 it's likely
-> > > > that none of dom0 CPUs will have the power and performance data
-> > > > filled, and hence the Xen ACPI Processor driver needs to fetch that
-> > > > information by itself.
-> > > > 
-> > > > In order to do so correctly, introduce a new helper to fetch the _CST
-> > > > data without taking into account the system capabilities from the
-> > > > CPUID output, as the capabilities reported to dom0 in CPUID might be
-> > > > different from the ones on the host.
-> > > > 
-> > > > 
-> > > Hi Roger,
-> > > 
-> > > First of all, thanks for doing the grunt work here to clear up the ACPI
-> > > situation.
-> > > 
-> > > A bit of background, I'm trying to get an AMD APU (CPUID 0x17 (23)) to work
-> > > properly
-> > > under Xen. It works fine otherwise but something is amiss under Xen.
-> > Hello,
-> > 
-> > Sorry for the delay, I've been on paternity leave and just caching up
-> > on emails.
-> Hi Roger,
-> 
-> Congratulations! I hope you had time to really connect. It's the most
-> important thing we can do here in life.
-> 
-> I came into this to understand each and every error in my boot-log, it turns
-> out that the latest
-> kernel+xen+firmware fixes suspend/resume for me, thus is this not related.
-> But as I pointed out,
-> the output does not make any sense (nor yours nor the upstream). I should
-> check the debug
-> output with suspend working fine now to see if there are any changes, that
-> would be quite
-> interesting.
-> 
-> Also, I should mention that your patch broke some things on my system and
-> made it
-> unstable. I don't remember exactly and I know you said that this is more of
-> a PoC. Just a
-> heads up.
+processor.h in particular pulls in xen/smp.h, which is overly heavy for
+a supposedly pretty fundamental header like system.h. To keep things
+building, move the declarations of struct cpuinfo_x86 and boot_cpu_data
+to asm/cpufeature.h (which arguably also is where they belong). In the
+course of the move switch away from using fixed-width types and convert
+plain "int" to "unsigned int" for the two x86_cache_* fields.
 
-Right, I don't plan to send the PVH part just now, and instead I'm
-focusing in the first patch that should fix _PDC evaluation for PV
-dom0.  I will Cc you on the last version so you can give it a try and
-assert is not regressing stuff for you.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> > > Just to make sure that the patch is working as intended, what I found when
-> > > trying it out
-> > > is that the first 8 CPUs have C-States, but 0, 2, 4, 6, 8, 10, 12, 14 have
-> > > P-States, out of
-> > > 16 CPUs. Xen tells Linux that there are 8 CPUs since it's running with
-> > > nosmt.
-> > > 
-> > > Regards
-> > > - Josef
-> > > 
-> > > xen_acpi_processor: Max ACPI ID: 30
-> > > xen_acpi_processor: Uploading Xen processor PM info
-> > > xen_acpi_processor: ACPI CPU0 - C-states uploaded.
-> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
-> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
-> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
-> > > xen_acpi_processor: ACPI CPU0 - P-states uploaded.
-> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
-> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
-> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
-> > > xen_acpi_processor: ACPI CPU1 - C-states uploaded.
-> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
-> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
-> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
-> > > xen_acpi_processor: ACPI CPU2 - C-states uploaded.
-> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
-> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
-> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
-> > > xen_acpi_processor: ACPI CPU2 - P-states uploaded.
-> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
-> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
-> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
-> > > xen_acpi_processor: ACPI CPU3 - C-states uploaded.
-> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
-> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
-> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
-> > > xen_acpi_processor: ACPI CPU4 - C-states uploaded.
-> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
-> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
-> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
-> > > xen_acpi_processor: ACPI CPU4 - P-states uploaded.
-> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
-> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
-> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
-> > > xen_acpi_processor: ACPI CPU5 - C-states uploaded.
-> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
-> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
-> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
-> > > xen_acpi_processor: ACPI CPU6 - C-states uploaded.
-> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
-> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
-> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
-> > > xen_acpi_processor: ACPI CPU6 - P-states uploaded.
-> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
-> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
-> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
-> > > xen_acpi_processor: ACPI CPU7 - C-states uploaded.
-> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
-> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
-> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
-> > > xen_acpi_processor: ACPI CPU0 w/ PBLK:0x0
-> > > xen_acpi_processor: ACPI CPU0 w/ PST:coord_type = 254 domain = 0
-> > > xen_acpi_processor: CPU with ACPI ID 1 is unavailable
-> > Hm, that's weird, do you think you could check why it reports the CPU
-> > is unavailable?
-> If you would give me a hint at how I could check?
-
-It likely requires you to add printk statements to the kernel in order
-to figure out which conditional fails when running as a PVH dom0.
-
-> Right now my guess is that C state and P state is not in sync, thus P state
-> are for every other
-> CPU and C state is for the first 8. AFAIK AMD only have performance-cores
-> (unlike Intel).
-
-Linux thinking the CPU is not online is more likely to be due to the
-ACPI ID differences when running as a PVH dom0.  Anyway, I will try to
-revisit this and figure out what's wrong.
-
-> > 
-> > Overall I don't like the situation of the ACPI handling when running
-> > as dom0. It's fragile to rely on the data for dom0 CPUs to be
-> > filled by the system (by adding some band aids here and there so that
-> > the PV vCPUs are matched against the MADT objects) and then cloning
-> > the data for any physical CPU exceeding the number of dom0 virtual
-> > CPUs.
-> That's my understanding from earlier implementation as well, nobody actually
-> like it,
-> But the current solution is something working in a bad environment.
-> > 
-> > IMO it would be much better to just do the handling of ACPI processor
-> > objects in a Xen specific driver (preventing the native driver from
-> > attaching) in order to fetch the data and upload it to Xen.  This is
-> > what I've attempted to do on FreeBSD, and resulted in a cleaner
-> > implementation:
-> > 
-> > <link>
-> > 
-> > I however don't have time to do this right now for Linux.
-> 
-> Maybe I can take a stab, I very much like the climate of the kernel but
-> everything
-> seem so scary :) I've been trying to understand things better, how they're
-> all
-> connected.
-> > 
-> > > xen_acpi_processor: ACPI CPU2 w/ PBLK:0x0
-> > > xen_acpi_processor: ACPI CPU2 w/ PST:coord_type = 254 domain = 1
-> > > xen_acpi_processor: CPU with ACPI ID 3 is unavailable
-> > > xen_acpi_processor: ACPI CPU4 w/ PBLK:0x0
-> > > xen_acpi_processor: ACPI CPU4 w/ PST:coord_type = 254 domain = 2
-> > > xen_acpi_processor: CPU with ACPI ID 5 is unavailable
-> > > xen_acpi_processor: ACPI CPU6 w/ PBLK:0x0
-> > > xen_acpi_processor: ACPI CPU6 w/ PST:coord_type = 254 domain = 3
-> > > xen_acpi_processor: CPU with ACPI ID 7 is unavailable
-> > > xen_acpi_processor: ACPI CPU8 w/ PBLK:0x0
-> > > xen_acpi_processor: ACPI CPU8 w/ PST:coord_type = 254 domain = 4
-> > > xen_acpi_processor: CPU with ACPI ID 9 is unavailable
-> > > xen_acpi_processor: ACPI CPU10 w/ PBLK:0x0
-> > > xen_acpi_processor: ACPI CPU10 w/ PST:coord_type = 254 domain = 5
-> > > xen_acpi_processor: CPU with ACPI ID 11 is unavailable
-> > > xen_acpi_processor: ACPI CPU12 w/ PBLK:0x0
-> > > xen_acpi_processor: ACPI CPU12 w/ PST:coord_type = 254 domain = 6
-> > > xen_acpi_processor: CPU with ACPI ID 13 is unavailable
-> > > xen_acpi_processor: ACPI CPU14 w/ PBLK:0x0
-> > > xen_acpi_processor: ACPI CPU14 w/ PST:coord_type = 254 domain = 7
-> > > xen_acpi_processor: CPU with ACPI ID 15 is unavailable
-> > > xen_acpi_processor: ACPI CPU8 - P-states uploaded.
-> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
-> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
-> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
-> > > xen_acpi_processor: ACPI CPU10 - P-states uploaded.
-> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
-> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
-> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
-> > > xen_acpi_processor: ACPI CPU12 - P-states uploaded.
-> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
-> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
-> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
-> > > xen_acpi_processor: ACPI CPU14 - P-states uploaded.
-> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
-> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
-> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
-> > > 
-> > > As a bonus, here are the previous debug output on the same machine.
-> > I think the output below is with dom0 running as plain PV rather than
-> > PVH?
-> This is the upstream ACPI implementation vs yours. What would plain PV vs
-> PVH be in dom0?
-
-But that's always with Linux running as a dom0, or just running bare
-metal?
-
-Thanks, Roger.
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -19,6 +19,30 @@
+ #ifndef __ASSEMBLY__
+ #include <xen/bitops.h>
+ 
++struct cpuinfo_x86 {
++    unsigned char x86;                 /* CPU family */
++    unsigned char x86_vendor;          /* CPU vendor */
++    unsigned char x86_model;
++    unsigned char x86_mask;
++    int cpuid_level;                   /* Maximum supported CPUID level, -1=no CPUID */
++    unsigned int extended_cpuid_level; /* Maximum supported CPUID extended level */
++    unsigned int x86_capability[NCAPINTS];
++    char x86_vendor_id[16];
++    char x86_model_id[64];
++    unsigned int x86_cache_size;       /* in KB - valid only when supported */
++    unsigned int x86_cache_alignment;  /* In bytes */
++    unsigned int x86_max_cores;        /* cpuid returned max cores value */
++    unsigned int booted_cores;         /* number of cores as seen by OS */
++    unsigned int x86_num_siblings;     /* cpuid logical cpus per chip value */
++    unsigned int apicid;
++    unsigned int phys_proc_id;         /* package ID of each logical CPU */
++    unsigned int cpu_core_id;          /* core ID of each logical CPU */
++    unsigned int compute_unit_id;      /* AMD compute unit ID of each logical CPU */
++    unsigned short x86_clflush_size;
++} __cacheline_aligned;
++
++extern struct cpuinfo_x86 boot_cpu_data;
++
+ #define cpu_has(c, bit)		test_bit(bit, (c)->x86_capability)
+ #define boot_cpu_has(bit)	test_bit(bit, boot_cpu_data.x86_capability)
+ 
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -118,34 +118,6 @@ struct x86_cpu_id {
+     const void *driver_data;
+ };
+ 
+-struct cpuinfo_x86 {
+-    uint8_t x86;            /* CPU family */
+-    uint8_t x86_vendor;     /* CPU vendor */
+-    uint8_t x86_model;
+-    uint8_t x86_mask;
+-    int  cpuid_level;    /* Maximum supported CPUID level, -1=no CPUID */
+-    uint32_t extended_cpuid_level; /* Maximum supported CPUID extended level */
+-    unsigned int x86_capability[NCAPINTS];
+-    char x86_vendor_id[16];
+-    char x86_model_id[64];
+-    int  x86_cache_size; /* in KB - valid for CPUS which support this call  */
+-    int  x86_cache_alignment;    /* In bytes */
+-    uint32_t x86_max_cores;   /* cpuid returned max cores value */
+-    uint32_t booted_cores;    /* number of cores as seen by OS */
+-    uint32_t x86_num_siblings; /* cpuid logical cpus per chip value */
+-    uint32_t apicid;
+-    uint32_t phys_proc_id;    /* package ID of each logical CPU */
+-    uint32_t cpu_core_id;     /* core ID of each logical CPU */
+-    uint32_t compute_unit_id; /* AMD compute unit ID of each logical CPU */
+-    unsigned short x86_clflush_size;
+-} __cacheline_aligned;
+-
+-/*
+- * capabilities of CPUs
+- */
+-
+-extern struct cpuinfo_x86 boot_cpu_data;
+-
+ extern struct cpuinfo_x86 cpu_data[];
+ #define current_cpu_data cpu_data[smp_processor_id()]
+ 
+--- a/xen/arch/x86/include/asm/system.h
++++ b/xen/arch/x86/include/asm/system.h
+@@ -3,7 +3,8 @@
+ 
+ #include <xen/lib.h>
+ #include <xen/bitops.h>
+-#include <asm/processor.h>
++#include <asm/cpufeature.h>
++#include <asm/x86-defns.h>
+ 
+ static inline void wbinvd(void)
+ {
 
