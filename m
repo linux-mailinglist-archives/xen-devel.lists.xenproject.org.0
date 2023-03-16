@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4610A6BC7D6
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 08:55:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510341.787849 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FF036BC7E2
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 08:56:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510353.787858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pciRz-0004rE-G1; Thu, 16 Mar 2023 07:55:03 +0000
+	id 1pciTT-0005SZ-Pj; Thu, 16 Mar 2023 07:56:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510341.787849; Thu, 16 Mar 2023 07:55:03 +0000
+Received: by outflank-mailman (output) from mailman id 510353.787858; Thu, 16 Mar 2023 07:56:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pciRz-0004pX-Cl; Thu, 16 Mar 2023 07:55:03 +0000
-Received: by outflank-mailman (input) for mailman id 510341;
- Thu, 16 Mar 2023 07:55:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pciTT-0005QK-Mt; Thu, 16 Mar 2023 07:56:35 +0000
+Received: by outflank-mailman (input) for mailman id 510353;
+ Thu, 16 Mar 2023 07:56:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=saQ2=7I=oderland.se=josef@srs-se1.protection.inumbo.net>)
- id 1pciRx-0004pL-OL
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 07:55:02 +0000
-Received: from vsp02-out.oderland.com (vsp02-out.oderland.com
- [2a02:28f0::26:1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id da3952e0-c3cf-11ed-87f5-c1b5be75604c;
- Thu, 16 Mar 2023 08:55:00 +0100 (CET)
-Received: from office.oderland.com (office.oderland.com [91.201.60.5])
- by vsp-out.oderland.com (Halon) with ESMTPSA
- id d930500f-c3cf-11ed-b0b1-953cc26b59f3;
- Thu, 16 Mar 2023 08:54:58 +0100 (CET)
-Received: from 160.193-180-18.r.oderland.com ([193.180.18.160]:37640
- helo=[10.137.0.14])
- by office.oderland.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.95) (envelope-from <josef@oderland.se>) id 1pciRx-000a00-9K;
- Thu, 16 Mar 2023 08:54:58 +0100
+ (envelope-from <SRS0=Ta6a=7I=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pciTR-0005QC-UC
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 07:56:33 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on0609.outbound.protection.outlook.com
+ [2a01:111:f400:fe1e::609])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 106b6d44-c3d0-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 08:56:31 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8087.eurprd04.prod.outlook.com (2603:10a6:20b:3fb::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.31; Thu, 16 Mar
+ 2023 07:56:30 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Thu, 16 Mar 2023
+ 07:56:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,240 +47,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da3952e0-c3cf-11ed-87f5-c1b5be75604c
-X-Scanned-Cookie: 0162612eaad5b0a05cb4a8d9b4dce14a4c5e9ffb
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=oderland.se
-	; s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=4sDqyLsKGwu6VCvEwuakJHaAxdK3Nq6qCvs+CWZkkiA=; b=rUwenm56+KATrWTxLJMffhz5rS
-	PnU8wnTUchVbcSNsKMDRjS/k7aBfbNegD5/Dk42mkk4TLFxMcgJD80XCScjZbM7nYMcBKDcBeeAVD
-	x9j28sY9BoUGw4F7En3mSilCjeS3QZYWnMl8brb+2kr6TFVovVyibHtjm7ohuKirmeCxov+joJgtM
-	35UKXqo6uPIxRSlifyhFbHAORtBMr3g9BJetgVqwtu+s/8KMJIgb2/1yjSWPWM/9X3a6IaSd+v/fM
-	Y5QpucKCAwJbNDw21EeAO8U8g1UJ1/e7rElUJEhefRifRQVxTsuCG0vF65hw4YzrXlOCcCqUk77Az
-	3U8fY/fw==;
-Message-ID: <2754848f-6c3c-5479-ea6f-1946c93f868e@oderland.se>
-Date: Thu, 16 Mar 2023 08:54:57 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:111.0) Gecko/20100101
- Thunderbird/111.0
-Subject: Re: [PATCH 3/3] xen/acpi: upload power and performance related data
- from a PVH dom0
+X-Inumbo-ID: 106b6d44-c3d0-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Y45Mjyu7/MttK4wJFsStn8dLQcuPxMEgUipTAh8Qb0KQehTBKl7MyXTja4grLRSitIbrbwzL1OZPyxxSXA/FW7p0lAMCuHto+M4YIngFqT2WeQHw/1Igo9Y28hKyHiyn4Tv7YTZVXrTlcJDK0EdwUl9KgVL1Gtm2mx6bQNf2AUwW6Hn5JMb2vMgF+d/QvFLRqSbBfDy/XoFwkz01YvFV7KgV2RGB0/XPiMtAshPQXaGqzRolnt8LatpVIwFnXaFUFSitV0NhSysmCOg3U12Ll72dLZxR9lrEz9WKSUcqk/csssTmYOYbMI2DoLD80iiwGYC2QO/Hn16pGrZ/yGwYwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lrN16zHUp/ca8TcEfY5cP+meQmD3ID3XGsOPU5W0AkY=;
+ b=U07R/JrD5waHBuNQBRHJjdesDdS9ZyGnyKHp+R+qrfcZQabwqw+XcQ5XWLtwUVwq493NriFXei8TtqVVaTGIqiuT5NYtJelpahczy8LiMbO5dJe9KM0F71gZACS+iDJqRTBf16rjInFIQEGJOPLFFn+GDgcO95QM566EQ/DIh7jjnz93jsO8NG4gL+BXBW4IMboDcOmc0yBBzbgQ5Meelivh8w55Czbas/+7vgsZXQPokWUe0hP7zmkSjNi0JlbXNEY+yrr1cYbIKLqtbcjFkw0DyU7X1WxcIMw6ULjpTr1A7sUXT7u6bJz/7GKDNfUUuwLM/ZiG/8uNjk62E7dDTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lrN16zHUp/ca8TcEfY5cP+meQmD3ID3XGsOPU5W0AkY=;
+ b=HsZVagiBaSk+Eq7Aw9HeA6cWjbqBoXT6S8YIaCctMcE+SfCiZd9vv6wjMkt5UqkabxWah02o9/nDWG8dP3yFkrcT2hPQ+DY9ppTYwFQhrywCh8/SSQutWXpNisR0Boqg3G+nL2s2yTcb8nInA+dyA/JizX3lHPHBf8OQrm3W0KrMIF2gAJCTK6LlCFo8yrf+SPUHXBApxlK/U6QFYcLj6hbMVu4avnSdoG7KwVKAIw2ZiJGdSJ8PuADT3xVb0kTlN79XKkT3LYyCHly+K2YVFUdQDtjHSULmJ5eo0R/S43Il+2feodl7HY7kTjPXx8bojEcv3mkTJmVP9+PQ+I97Pg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <429cbb0c-64a3-aee9-9693-0d6ed4990601@suse.com>
+Date: Thu, 16 Mar 2023 08:56:28 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] xen/console: Handle true dom0less case when switching
+ serial input
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
- x86@kernel.org
-References: <20221121102113.41893-1-roger.pau@citrix.com>
- <20221121102113.41893-4-roger.pau@citrix.com>
- <407b7c10-ad1f-b6d2-2976-2b297755b2b3@oderland.se>
- <ZBGuVjyDpuUZ3MnZ@Air-de-Roger>
-From: Josef Johansson <josef@oderland.se>
-In-Reply-To: <ZBGuVjyDpuUZ3MnZ@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-x-oderland-domain-valid: yes
+To: Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20230314142749.8845-1-michal.orzel@amd.com>
+ <da7db77f-3ab8-edd1-bc69-460ca3e2ce25@suse.com>
+ <7676cba9-6f92-0c97-dac3-372ca47be34b@amd.com>
+ <737fec84-42da-3b9b-6cb5-d18406925403@suse.com>
+ <d67aeb95-1631-74c0-cefa-a0cc88512b84@amd.com>
+ <alpine.DEB.2.22.394.2303151844530.3462@ubuntu-linux-20-04-desktop>
+ <1c174a17-0860-358b-5593-a7d45cdad00f@suse.com>
+ <848813fc-636f-ea9c-00a6-6b8b049f92d8@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <848813fc-636f-ea9c-00a6-6b8b049f92d8@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0092.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a1::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8087:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92ca788d-d8b1-4fad-dc6b-08db25f3f3d4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	3CLSUEa9ayYwiTFy1rvHDS9iWTiFk2Jz8KT/XZJ+YYKSc5YiJ+Oh0OwDGhFkmivOgmq9b8gtXLa7hYY9mJseh2oN9v07GQVqHUFAldkyQZrBUmb/K/Eq2eWVZkkxF9Wa5Jdt1QlsnZN3T/IXhVsgk3jBZPJt8V+RcYZVbsnnSjYsC7wsqydk+6263bJW6fUr9uu5OcqT3wEXlkXKk35k7LJS5am9vdpCGcHR55s+G8GFunGftHVeKt/ro3L/0R+qSQrbKZ5yHq+vgxGip+UFCxnZAAInW07aBujSPYcLQ08OaTCuqoQRmS1SFZAmvLpjxf8Sx+LC/hzfudLvvFymCNE5StYoflYpCLz4TMaY3XfjVWfuEK3hLtFzJA9VCeBsgHjPay/HW0tCX1kWmHZ/kOHyorklQkzOi3i+j9NkZ9plrOi+StCiR9e1lgjlPFBq9XDw+5O+LLCOPiOfrzEI5vrB/UC28/g09efxdLiY8+n1Cx4uRs8KM5jRrgKhmZ+eg9HHdTZI12riFq2qqsR6k+R4ZRDbGfzfp9I0sxA+LtebY7a3dco/FNf1p1AjJ51z05D/kXiULIX5Ba8ASAY9Qi2KBhAeNXNlH/66wnD0iJcs2/P6KBwor2vdUxiiRsqTJC6xfNDJLYWGLpqxKhFxSzUzIYOJKD3TnCYzmhfNiw0arUtbdX3vg6rhoUeOajpeY3kr3r05bGn84kxn74OpjqNIT/f4HO5yocm2YOnGTlmOhnc+d3z0vtZdeYdELC3b
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(39860400002)(136003)(346002)(396003)(366004)(376002)(451199018)(86362001)(38100700002)(31696002)(36756003)(2906002)(41300700001)(5660300002)(8936002)(4326008)(6512007)(6506007)(2616005)(26005)(186003)(53546011)(83380400001)(316002)(54906003)(110136005)(66556008)(66476007)(478600001)(6486002)(66946007)(8676002)(31686004)(32563001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MFZnUmNLLzNxWDBEUjZ1QmxsdHhxa3N1dU5qMllaWGU5WXNGZ1hPSkx0elNN?=
+ =?utf-8?B?aldnTEh1bDNrZWpFMHJJc1d0QkNnY1lud0FGa2RUcHQvZU9CN1RhU0JXaXhO?=
+ =?utf-8?B?SUcrdXRTREtGUnB6aStQYlR1Ymt1NlJHdWpvdndrMmFUdG1BcXpPSmJETVBJ?=
+ =?utf-8?B?VFA3MkhjajZuenJPVWY2dVN1U0k3c2FqSkhVK2dxOUk2OXFGQUVOc3hqOWd1?=
+ =?utf-8?B?OGltV3pyTVg2bU5wSUx6aTFVeGEzUW8xanJwWlpUSGFEUVZQSWNnVlhkUTA3?=
+ =?utf-8?B?RUNDa3E5S0xGcGlMd0hodXlXcDJNNXJKVXdUSHZWRE5hWEhYRWozNFFuSzhJ?=
+ =?utf-8?B?MWdWWXgxTGUxaCtSRE44akZFR3FwZytlbnc2aHYrOG91b054NmtBTldyemIr?=
+ =?utf-8?B?cHFNMU8rclRBZUVQMVF6RGYyOEpUbVpCbzRUM2RLdlp3OGg4RGJoMW1LbXVQ?=
+ =?utf-8?B?a0VTZVBqQkdyallXZDBqRjYwODRPbXE3ZnZONWQzVy9janM2enhEUEYwWEJO?=
+ =?utf-8?B?QlVnSmRBTGdWSFB0aUVSRWxzbWlpSGdqeE5XcUlmeUtDYWxkaS8wbXk3UStG?=
+ =?utf-8?B?QXJPWWtZeER1S0JsWEVGZ1RTWDl3Q0FDcXhxNnBMay9EZUtMMnF6c0t1YkVK?=
+ =?utf-8?B?bEFselBSRjkwT1E5UkFKMFF0SEJNTkZ1djZSY1BRYWM0dDRmQTJOU0NrV2pV?=
+ =?utf-8?B?L2Zmd2VrL3VGSmV6SVdwdjQxdTQ1dlVmbks5WmpvYzRWQlFtZkxGZjFZRGs4?=
+ =?utf-8?B?ZmJiRFQ0SGUxQUZiTzFZdDNWSHdWdU00ZS9xREJ6UlFzQVhDdVhucDEzZkIx?=
+ =?utf-8?B?a21CWklTYjRhVVIvSzRzS1F5RkdxVTFZeGs0VGV2dWNlc0d5b2JwWDQ5UjRT?=
+ =?utf-8?B?ZVM3SGpWTnpSTlBjcGs4cUVyRWVXN3ByQ3RYbGhGaWRsMjRZajZaZ3d5ZHhW?=
+ =?utf-8?B?Y1o3UUJnaWhJdWFqbkFsYjNIa3loajRtRFVoVVFTOVdKSkN0ek1FcTV1T1lS?=
+ =?utf-8?B?VDYzaFNLWkZUTVNUeTMyVkVPc2NKbGR0bFMrRkJ0K3NDaVRaY1c1cDdoUXJH?=
+ =?utf-8?B?RkZ6dEtnc04reUNNWmpEWEt3RFpxcVhtY3ozL0JWaUVPOGs5NzlITTBUNlNQ?=
+ =?utf-8?B?OWlHdnh5T0d6bHVUemVXQ3VTdkVQMW1YMGtGUlIrUjdpWWNaSXQydTFiU1dL?=
+ =?utf-8?B?MzBwMXFXMjEraDRqSFNjeXVSV3k4aDFaajYyL2c3TzFwY1hlb1lWalVyVUhh?=
+ =?utf-8?B?UWJ4RzBjazFQekpXdi9DYkFCLy9sb21NN29pZGV1YXB6WlBKVUk5WlJoRU52?=
+ =?utf-8?B?cVRmTHFpRnBWSjlHYTR3OTRRTFJUNG40UWhXZjZVVHhOdTlGWFc1Z0M0VGxk?=
+ =?utf-8?B?RUZBTk5DMjlCT1dZanRFNEhTTDJPVTB5UFJ2WUs1eElwTmdwM21HS2h3K1px?=
+ =?utf-8?B?Q3hJOC8xWW1PdFg0TGMwcndjTHdUb3ZCdTJ2bHRHR1ljejJmSXpPL3oyY1dh?=
+ =?utf-8?B?UHNlcjVsVStKTFRkaktwckJYaHFvdVcrWXdCb2pHR2RiOEtSVW4xK0hlODZV?=
+ =?utf-8?B?Nk5kL0xneHQ4NkFXTmNWYXl3ZnJaQnNqQU9LSW95bDVRSm45VSs2N1g3SXNJ?=
+ =?utf-8?B?RnN0b1ptekg2L1M5bkdzOHFXRkgxc0luZXhqRU9uOHhrdnhsNUM1TWJ5ckxh?=
+ =?utf-8?B?TXlzd0c0MWZHb1haRElRQlJ0bjFpNUNxWVMyNHUwMEQrVDBZZE9mN1d2RDl4?=
+ =?utf-8?B?NDdJRnE2MFc5N09LWkJQZWVvOE5WVFgwaG1FL00rdStJa08ydnlPNFBlMWFV?=
+ =?utf-8?B?RnJ4WmRrMUpkNXBaU2gxaHJUdUVKUDJCWjhIZDJxWm5NU29oWEU5YVVGSEdy?=
+ =?utf-8?B?aDRXWll3dm5EQ21ZRkxMVDRrL0J3cXRla1FuaFNjcm93c2FJREFqNnNCYXlM?=
+ =?utf-8?B?RWpiaFVBbmRHNjR6aXRRTUpIN2owNjd3TWdVbmN5ZEdIcCtXSUMraHNyQUZz?=
+ =?utf-8?B?RXp3bFBkcnBGcDdSUlBFTktLcGk1a0VpYU5sb0FmNXRqN1M3RXMwSUlldUY3?=
+ =?utf-8?B?Mnp2ZTJEbFNzR2xkcGVLWGozUExRTWM1dlFQTnY4b0YxejdhVFE3bDdoaXk5?=
+ =?utf-8?Q?vY0LgMvY/Nxeh+TdNTFPsB0ri?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92ca788d-d8b1-4fad-dc6b-08db25f3f3d4
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 07:56:30.2401
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HMmxSCdwkv9bdVJ+FOfZFJJGcw3tiRGHi06CUNbf6aOL+NGQITybjlztOaBwOv+sP6TilIacgUa4EmFEJhilTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8087
 
-On 3/15/23 12:39, Roger Pau Monné wrote:
-> On Mon, Jan 30, 2023 at 10:10:05AM +0100, Josef Johansson wrote:
->> On 11/21/22 11:21, Roger Pau Monne wrote:
->>> When running as a PVH dom0 the ACPI MADT is crafted by Xen in order to
->>> report the correct numbers of vCPUs that dom0 has, so the host MADT is
->>> not provided to dom0.  This creates issues when parsing the power and
->>> performance related data from ACPI dynamic tables, as the ACPI
->>> Processor UIDs found on the dynamic code are likely to not match the
->>> ones crafted by Xen in the dom0 MADT.
+On 16.03.2023 08:51, Michal Orzel wrote:
+> On 16/03/2023 08:24, Jan Beulich wrote:
+>> On 16.03.2023 02:49, Stefano Stabellini wrote:
+>>> On Wed, 15 Mar 2023, Michal Orzel wrote:
+>>>> On 15/03/2023 14:11, Jan Beulich wrote:
+>>>>> On 15.03.2023 13:34, Michal Orzel wrote:
+>>>>>> On 14/03/2023 16:17, Jan Beulich wrote:
+>>>>>>> On 14.03.2023 15:27, Michal Orzel wrote:
+>>>>>>>> --- a/xen/drivers/char/console.c
+>>>>>>>> +++ b/xen/drivers/char/console.c
+>>>>>>>> @@ -491,6 +491,14 @@ static void switch_serial_input(void)
+>>>>>>>>      else
+>>>>>>>>      {
+>>>>>>>>          console_rx++;
+>>>>>>>> +
+>>>>>>>> +        /*
+>>>>>>>> +         * Skip switching serial input to hardware domain if it does not exist
+>>>>>>>> +         * (i.e. true dom0less mode).
+>>>>>>>> +         */
+>>>>>>>> +        if ( !hardware_domain && (console_rx == 1) )
+>>>>>>>> +            console_rx++;
+>>>>>>>
+>>>>>>> The consumers of this variable aren't really serialized with this
+>>>>>>> updating. That's probably okay-ish prior to your change, but now
+>>>>>>> there can be two updates in rapid succession. I think it would be
+>>>>>>> better if the variable was written only once here.
+>>>>>> ok, makes sense.
+>>>>>>
+>>>>>>>
+>>>>>>>>          printk("*** Serial input to DOM%d", console_rx - 1);
+>>>>>>>
+>>>>>>> When invoked from console_endboot() this will now switch to Dom1,
+>>>>>>> i.e. that domain becomes kind of "preferred", which I think is
+>>>>>>> wrong. Instead I think in such a case we should direct input to
+>>>>>>> Xen by default.
+>>>>>> Switching serial input to the first usable domain is the major motivation behind this patch.
+>>>>>> The number of times I got pinged by users with *apparent* Xen issue on true dom0less
+>>>>>> just because input was directed to dom0 which was not there (not everyone seems to read the
+>>>>>> boot logs) forced me to create this patch and manifests that this is not the behavior user wants.
+>>>>>> Switching to Xen console would not help at all. Also, we already have a way to set switch code to 'x'
+>>>>>> to default serial input to Xen.
+>>>>>> So I think what I did (switching to the first existing domain) should be the default behavior (just like it was done for dom0).
+>>>>>
+>>>>> Well, I'm not going to stand in the way, but if one of several supposedly
+>>>>> equal domains is to be "preferred" in some way, then I for one would
+>>>>> expect justification for doing so. If that's the route to go, then the
+>>>>> patch snippet you provided looks good to me.
+>>>> Well, the explanation is that we are directing input to the first existing domain
+>>>> which also is the first domain created (this is what users expect at least by default).
+>>>> This for now creates simplest/cleanest solution that matches the current behavior
+>>>> with dom0 and solves the users inconveniences I mentioned earlier.
+>>>> There is no other real preference apart from being first domain created and to help keep the order simple.
 >>>
->>> Xen would rely on Linux having filled at least the power and
->>> performance related data of the vCPUs on the system, and would clone
->>> that information in order to setup the remaining pCPUs on the system
->>> if dom0 vCPUs < pCPUs.  However when running as PVH dom0 it's likely
->>> that none of dom0 CPUs will have the power and performance data
->>> filled, and hence the Xen ACPI Processor driver needs to fetch that
->>> information by itself.
->>>
->>> In order to do so correctly, introduce a new helper to fetch the _CST
->>> data without taking into account the system capabilities from the
->>> CPUID output, as the capabilities reported to dom0 in CPUID might be
->>> different from the ones on the host.
->>>
->>>
->> Hi Roger,
+>>> My two cents. Given the feedback we are getting from users, I think it
+>>> is important that the input goes to a real valid domain (not Xen, not
+>>> Dom0 that doesn't exist). "Which dom0less domain?" is a valid question,
+>>> and I don't know what would be the best answer. But any of those domains
+>>> would be better than what we have today.
 >>
->> First of all, thanks for doing the grunt work here to clear up the ACPI
->> situation.
->>
->> A bit of background, I'm trying to get an AMD APU (CPUID 0x17 (23)) to work
->> properly
->> under Xen. It works fine otherwise but something is amiss under Xen.
-> Hello,
->
-> Sorry for the delay, I've been on paternity leave and just caching up
-> on emails.
-Hi Roger,
+>> Could boot time configuration perhaps indicate which domain to "prefer"?
+>> Otherwise I'm pretty inclined to suggest to make it actually random ...
+> Random is not great because in a system with e.g. 20 domUs and directing to e.g. 10th domU
+> user would have to go through a lot of domains executing CTRL-AAA several times. Also, for me
+> it would be difficult to reason about as such approach is definitely not something users expect.
+> 
+> May I ask so that we proceed with a patch I proposed to start from the first usable domain
+> to match the current behavior and to help users?. In the meantime I will start working on
+> a support for indicating which domain to prefer.
 
-Congratulations! I hope you had time to really connect. It's the most 
-important thing we can do here in life.
+So long as the description states clearly that the choice is arbitrary, I
+wouldn't (further) object to such a change.
 
-I came into this to understand each and every error in my boot-log, it 
-turns out that the latest
-kernel+xen+firmware fixes suspend/resume for me, thus is this not 
-related. But as I pointed out,
-the output does not make any sense (nor yours nor the upstream). I 
-should check the debug
-output with suspend working fine now to see if there are any changes, 
-that would be quite
-interesting.
+> All in all, the new patch would touch console_endboot() and not switch_serial_input().
 
-Also, I should mention that your patch broke some things on my system 
-and made it
-unstable. I don't remember exactly and I know you said that this is more 
-of a PoC. Just a
-heads up.
->> Just to make sure that the patch is working as intended, what I found when
->> trying it out
->> is that the first 8 CPUs have C-States, but 0, 2, 4, 6, 8, 10, 12, 14 have
->> P-States, out of
->> 16 CPUs. Xen tells Linux that there are 8 CPUs since it's running with
->> nosmt.
->>
->> Regards
->> - Josef
->>
->> xen_acpi_processor: Max ACPI ID: 30
->> xen_acpi_processor: Uploading Xen processor PM info
->> xen_acpi_processor: ACPI CPU0 - C-states uploaded.
->> xen_acpi_processor:      C1: ACPI HLT 1 uS
->> xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
->> xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
->> xen_acpi_processor: ACPI CPU0 - P-states uploaded.
->> xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
->> xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
->> xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
->> xen_acpi_processor: ACPI CPU1 - C-states uploaded.
->> xen_acpi_processor:      C1: ACPI HLT 1 uS
->> xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
->> xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
->> xen_acpi_processor: ACPI CPU2 - C-states uploaded.
->> xen_acpi_processor:      C1: ACPI HLT 1 uS
->> xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
->> xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
->> xen_acpi_processor: ACPI CPU2 - P-states uploaded.
->> xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
->> xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
->> xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
->> xen_acpi_processor: ACPI CPU3 - C-states uploaded.
->> xen_acpi_processor:      C1: ACPI HLT 1 uS
->> xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
->> xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
->> xen_acpi_processor: ACPI CPU4 - C-states uploaded.
->> xen_acpi_processor:      C1: ACPI HLT 1 uS
->> xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
->> xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
->> xen_acpi_processor: ACPI CPU4 - P-states uploaded.
->> xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
->> xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
->> xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
->> xen_acpi_processor: ACPI CPU5 - C-states uploaded.
->> xen_acpi_processor:      C1: ACPI HLT 1 uS
->> xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
->> xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
->> xen_acpi_processor: ACPI CPU6 - C-states uploaded.
->> xen_acpi_processor:      C1: ACPI HLT 1 uS
->> xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
->> xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
->> xen_acpi_processor: ACPI CPU6 - P-states uploaded.
->> xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
->> xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
->> xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
->> xen_acpi_processor: ACPI CPU7 - C-states uploaded.
->> xen_acpi_processor:      C1: ACPI HLT 1 uS
->> xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
->> xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
->> xen_acpi_processor: ACPI CPU0 w/ PBLK:0x0
->> xen_acpi_processor: ACPI CPU0 w/ PST:coord_type = 254 domain = 0
->> xen_acpi_processor: CPU with ACPI ID 1 is unavailable
-> Hm, that's weird, do you think you could check why it reports the CPU
-> is unavailable?
-If you would give me a hint at how I could check?
-Right now my guess is that C state and P state is not in sync, thus P 
-state are for every other
-CPU and C state is for the first 8. AFAIK AMD only have 
-performance-cores (unlike Intel).
->
-> Overall I don't like the situation of the ACPI handling when running
-> as dom0. It's fragile to rely on the data for dom0 CPUs to be
-> filled by the system (by adding some band aids here and there so that
-> the PV vCPUs are matched against the MADT objects) and then cloning
-> the data for any physical CPU exceeding the number of dom0 virtual
-> CPUs.
-That's my understanding from earlier implementation as well, nobody 
-actually like it,
-But the current solution is something working in a bad environment.
->
-> IMO it would be much better to just do the handling of ACPI processor
-> objects in a Xen specific driver (preventing the native driver from
-> attaching) in order to fetch the data and upload it to Xen.  This is
-> what I've attempted to do on FreeBSD, and resulted in a cleaner
-> implementation:
->
-> <link>
->
-> I however don't have time to do this right now for Linux.
+Of course.
 
-Maybe I can take a stab, I very much like the climate of the kernel but 
-everything
-seem so scary :) I've been trying to understand things better, how 
-they're all
-connected.
->
->> xen_acpi_processor: ACPI CPU2 w/ PBLK:0x0
->> xen_acpi_processor: ACPI CPU2 w/ PST:coord_type = 254 domain = 1
->> xen_acpi_processor: CPU with ACPI ID 3 is unavailable
->> xen_acpi_processor: ACPI CPU4 w/ PBLK:0x0
->> xen_acpi_processor: ACPI CPU4 w/ PST:coord_type = 254 domain = 2
->> xen_acpi_processor: CPU with ACPI ID 5 is unavailable
->> xen_acpi_processor: ACPI CPU6 w/ PBLK:0x0
->> xen_acpi_processor: ACPI CPU6 w/ PST:coord_type = 254 domain = 3
->> xen_acpi_processor: CPU with ACPI ID 7 is unavailable
->> xen_acpi_processor: ACPI CPU8 w/ PBLK:0x0
->> xen_acpi_processor: ACPI CPU8 w/ PST:coord_type = 254 domain = 4
->> xen_acpi_processor: CPU with ACPI ID 9 is unavailable
->> xen_acpi_processor: ACPI CPU10 w/ PBLK:0x0
->> xen_acpi_processor: ACPI CPU10 w/ PST:coord_type = 254 domain = 5
->> xen_acpi_processor: CPU with ACPI ID 11 is unavailable
->> xen_acpi_processor: ACPI CPU12 w/ PBLK:0x0
->> xen_acpi_processor: ACPI CPU12 w/ PST:coord_type = 254 domain = 6
->> xen_acpi_processor: CPU with ACPI ID 13 is unavailable
->> xen_acpi_processor: ACPI CPU14 w/ PBLK:0x0
->> xen_acpi_processor: ACPI CPU14 w/ PST:coord_type = 254 domain = 7
->> xen_acpi_processor: CPU with ACPI ID 15 is unavailable
->> xen_acpi_processor: ACPI CPU8 - P-states uploaded.
->> xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
->> xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
->> xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
->> xen_acpi_processor: ACPI CPU10 - P-states uploaded.
->> xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
->> xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
->> xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
->> xen_acpi_processor: ACPI CPU12 - P-states uploaded.
->> xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
->> xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
->> xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
->> xen_acpi_processor: ACPI CPU14 - P-states uploaded.
->> xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
->> xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
->> xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
->>
->> As a bonus, here are the previous debug output on the same machine.
-> I think the output below is with dom0 running as plain PV rather than
-> PVH?
-This is the upstream ACPI implementation vs yours. What would plain PV 
-vs PVH be in dom0?
-
-Regards
-- Josef
-> Thanks, Roger.
-
+Jan
 
