@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D762B6BCBE4
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 11:04:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510464.788133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCC766BCC03
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 11:07:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510469.788146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pckSV-0002W7-Ak; Thu, 16 Mar 2023 10:03:43 +0000
+	id 1pckVV-0003CG-Vu; Thu, 16 Mar 2023 10:06:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510464.788133; Thu, 16 Mar 2023 10:03:43 +0000
+Received: by outflank-mailman (output) from mailman id 510469.788146; Thu, 16 Mar 2023 10:06:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pckSV-0002U0-7w; Thu, 16 Mar 2023 10:03:43 +0000
-Received: by outflank-mailman (input) for mailman id 510464;
- Thu, 16 Mar 2023 10:03:42 +0000
+	id 1pckVV-00039E-Sp; Thu, 16 Mar 2023 10:06:49 +0000
+Received: by outflank-mailman (input) for mailman id 510469;
+ Thu, 16 Mar 2023 10:06:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ta6a=7I=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pckSU-0002Tu-25
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 10:03:42 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0607.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::607])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d2ed5946-c3e1-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 11:03:39 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS5PR04MB9756.eurprd04.prod.outlook.com (2603:10a6:20b:677::17)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eQdT=7I=citrix.com=prvs=4326333c9=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1pckVU-000396-EQ
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 10:06:48 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 41065662-c3e2-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 11:06:45 +0100 (CET)
+Received: from mail-bn8nam12lp2175.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.175])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 16 Mar 2023 06:06:42 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by SJ0PR03MB5421.namprd03.prod.outlook.com (2603:10b6:a03:289::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.30; Thu, 16 Mar
- 2023 10:03:37 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Thu, 16 Mar 2023
- 10:03:37 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.26; Thu, 16 Mar
+ 2023 10:06:40 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.031; Thu, 16 Mar 2023
+ 10:06:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,242 +49,357 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2ed5946-c3e1-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 41065662-c3e2-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1678961205;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=xPOSWM9uBris1Lv760ndKfYv/SsqyjSbzUtuVhe/l/A=;
+  b=dj5Iuvhdb3JLwvr9zH4mHH3alEXMgov37nQJ17ouj8eQBIO23gRMmoet
+   OzW4YJLrquWQnl2AyqEc5m9SSKnC3hpuOFLlbz3LZAa1R1kgjf0g1FJZj
+   gZ6LmZatdNuYadqQ0nI174/qB2An2l2EfmRdnCl5uXFD5KfRy5oNNtfcl
+   8=;
+X-IronPort-RemoteIP: 104.47.55.175
+X-IronPort-MID: 101501202
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:1XcnSq8NphhCvbKWZw8bDrUDQH+TJUtcMsCJ2f8bNWPcYEJGY0x3z
+ WIaDTzVaP+IZzanLd4natvjpxgE7MLVzINlTwRt/yE8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kI/1BjOkGlA5AdmPqkV5AG2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklI/
+ 94AeCwLUSq9gt+5y5KFcNdguYc8eZyD0IM34hmMzBn/JNN/G9XpZfWP4tVVmjAtmspJAPDSI
+ dIDbiZiZwjBZBsJPUoLDJU5n6GjgXyXnz9w8QrJ4/ZopTWOilUujdABM/KMEjCObd9SkUuC4
+ HrP4kzyAw0ANczZwj2Amp6prraXxH6jAdhKTtVU8NZH2Ue+6XRUDyRMUGWjg9e3sxaTXtNAf
+ hl8Fi0G6PJaGFaQZtv6RBC2iHmIswQYUtxcVfY3gCmJy6zJ80OaC3ICQzppdtMrrok1SCYs2
+ 1vPmMnmbRR/vbvQRX+D+7O8qTKpJTNTPWIEfTUDTwYO/5/kuo5bpgKfEP5gHbSzg9mzHiv/q
+ w1mtwA7jrQXyMQNh6Oy+Amdhyr2/8eUCAko+g/QQ2SpqBtjY5KobJCp7l6d6utcKIGeTR+Ku
+ 31sd9Wi0d3ixKqlzESlKNjh1pnzjxpZGFUwWWJSIqQ=
+IronPort-HdrOrdr: A9a23:A77j0KlUY9dSNKIwDfw6m6TYRF/pDfI93DAbv31ZSRFFG/Fw9v
+ rCoB1/73SftN9/YgBCpTn+AtjjfZqxz/BICOoqUYtKPjOHhILAFugL0WKI+VLd8kPFl9K13J
+ 0QFpRDNA==
+X-IronPort-AV: E=Sophos;i="5.98,265,1673931600"; 
+   d="scan'208";a="101501202"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NQRNiPVfT9PCTjCwgEaeEuJNG8tkA7q6Hc6doHVfn3pMkAbg9eyCTKVhCzos3pOZEjHYNyWrG2FaWmyKWmKdflI+mMWAAc2hbGoVO/ewVAATxwwTld+wxxEWx0MceU9mxQWVLTo4hpQnvCPF4npuQJvArdcHNbPJG7QumdehZeWw1ZK7WZFi9Q0QKKbzBo/N8/9gEf+misVSPhH5wSuoZ2O4MTpZYSNKPmGZIPql6w9XRTZb3mA1Edfci9L/GEofobxY0d2tEO7sk8T5e5Rh4u+CY/LsuDFb5kRJGUzN576322c488yE1MnwS8W5QZww/cev2BYpAxKlQ56QdfQizg==
+ b=ZBrj+5VX3IDjCXUAeUY1BRo9j+cL2X9Z+RWc10tVk82qqNKKYM3YEi6ekPS48z2UcJyDCZwkyVBsTdwwnxwTCXsqLQVcUAhH8MUsN3cLRvWelbnxOEGrObgXcfhOfCd6BcdhjlUd7Sn1XNsok04PQm0iYTAYlfwucYpbYtOaMBiCc+1hUW8lid3t49GMhAKikBBQyUnDlMASiLlePUg4UiwBJl8IJUhLBrXX6UqmJFTNXNC9EqmgzLkXZO2U9XHacfb4oeLep3QA2RF/KVQFGrlfhgVXfg+MuXgjaAilCbwN7LRxxOBJBdmh1VwoaU23Uj0sxG0kD+bsbYrQfBUT3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MXTzzJUkCtDqqUlt7FxsYPan2Zwl34CHjO7PZ30Iutw=;
- b=Wwydl01/oRqNtWSy3YXkGOmB0HVGizIFUc+pIDg/1NJ1qlDdanM9pG6CH5T2SSZwv1L6gDWSp8JO7yIG25sGs8eTqv84UGs99oNCNzf52wZA8NLstQxAPQIs93xf+gEzxfiLlK9uLDu6/+N2piM0pnLsEbEgmVj/QfDfl3EF3p2OEZnidv1TwcbNCtmkzzGO+d8kl1gy/8Y8uOGJbalxfbRmLlOkUv6xlag8BST2AezkTrDX+VJ85OqLUPWcPyRerSHSoIWibf6WXrQqazRA4XXza/YV0M3jNVzueysrBAgqdAan7kqM4NA/r2orCnDZPyuVIkiz7zVha47P27rG4w==
+ bh=x99VX79samaRS0BqFe2rbZd0M6NI81izBgME213FgG0=;
+ b=FFOirRrEU5GNdkOcfvDP3gPUCfeL+6/s1alfH1uQ+Xb8ka/Wzg9W/3DMOM/9LV57bmzalS5Lzhcw+SdIExT/nsGHmZ+56cVt+QBp/FWP6mXeSzpp/4VPXooualSlo5g38+pJnLILYtuAgTIgP1libaqM0sbORduXBBSzcz7ZdlmbWl10MBWU5Jz290yJ+uB/NlMRSJsO7UQfzLbBdro8DvIKLId6nyklM7+ABs++AYHDCOBigu/iJSPBYB1kO5YIUIlwRvI0IMg7QLKJCkQG+sik49XWTUAmAMRGR8T3hU+fJcfgq7+l+kv9eLcgW5HrLGPADw0a4/UclFHV8gLXEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MXTzzJUkCtDqqUlt7FxsYPan2Zwl34CHjO7PZ30Iutw=;
- b=M0Ip0mJ101fnGmJCaenzgr5KQTh4Aeuu2eJT0BTnJPPlhtp/RhNt2T/g8oB/CTdxXKXw8UdkAAVaepZ+iaM1ZXHRszV8RzOMnCYXPLDnpR5ETcbhxStFFl8eMRjkbRnvzqrwB5BJjnNeJxZsWoJl/pO5VCVUPJxrlD3Klna/pqul2P6We8ZvCAGbGT8TF4HAQuCT8MCSj28TZQbmHBWVGgT6TUTVd6bDnfMF0OG6YtgWFUL0AXTEZTJ0wzx0h0/9AGQXHXw/1aEPGwXG9pBlXjqS56ENAcCvPKGJmyjYTXQoSwoR1mSqiM3yRf/wmPmkQEb5zFGwCH3+a1K7SBhDdQ==
+ bh=x99VX79samaRS0BqFe2rbZd0M6NI81izBgME213FgG0=;
+ b=mDcPfdcze1BctPa6nwG4MfZvUqZ8Cfcvy36ky+X8SLxmoDDDi/JrE/xbIOyUYM9B2q8wDtYMWcqbWNS42cBb18edAEmNFmEiuVESQQf39JrdHDYb9AuFCHU6kWSxJy2LSpjfFOceWxnLyv9ESDXvgYuBui6OwXyA1DQC1zs5FUg=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <02c454d9-e716-a571-2106-a8235c1adbee@suse.com>
-Date: Thu, 16 Mar 2023 11:03:35 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v8 1/5] xen: introduce CONFIG_GENERIC_BUG_FRAME
-Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1678900513.git.oleksii.kurochko@gmail.com>
- <2afad972cd8da98dcb0ba509ba29ff239dc47cd0.1678900513.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <2afad972cd8da98dcb0ba509ba29ff239dc47cd0.1678900513.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0181.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::17) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Thu, 16 Mar 2023 11:06:33 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Josef Johansson <josef@oderland.se>
+Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	x86@kernel.org
+Subject: Re: [PATCH 3/3] xen/acpi: upload power and performance related data
+ from a PVH dom0
+Message-ID: <ZBLqKWqkGawbbRo0@Air-de-Roger>
+References: <20221121102113.41893-1-roger.pau@citrix.com>
+ <20221121102113.41893-4-roger.pau@citrix.com>
+ <407b7c10-ad1f-b6d2-2976-2b297755b2b3@oderland.se>
+ <ZBGuVjyDpuUZ3MnZ@Air-de-Roger>
+ <2754848f-6c3c-5479-ea6f-1946c93f868e@oderland.se>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2754848f-6c3c-5479-ea6f-1946c93f868e@oderland.se>
+X-ClientProxiedBy: LO4P123CA0548.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:319::11) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS5PR04MB9756:EE_
-X-MS-Office365-Filtering-Correlation-Id: decdd239-8959-4b11-f35a-08db2605b5ff
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|SJ0PR03MB5421:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8e74b66-8430-4c77-627f-08db260622a9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	y4gdWapaIvBEaF1XJkKhfepjqzdtgOzaLKlKK0MXzdU5WwgWvfz/JSZGw3uvR/aPOEwisTxmmomHyP/88H8etxnAs6kI03MK5OzTploNwRb76xffktULIDvoC1dUThLs9Cc2fLX8ljsUF6e4rC8lG20u/GYR21xZifsLYeXc9QYNTxS/ZO9VrW3p8YtCW/EAbpmXwvxrAAYQ7IAnoeFww87zirZ3lHI/PNtLwAp8zVLlJWK3P1CSuOVXlw0fRJ51mWuM4N9coIEqWwPmTM1Z4lVBWpde5hf/djo/J++eT3jWaQX3TbuZjSOS1futCGME57rUBx+fP7WUUrd2k2PRQB7ix4soPX9ES8bRnm9CytrhK/WMeHeYS7Pd8pv4nWh2SuPscTPbY3k8e7wYv5a1MZn6nLA7krImN15Vb/VCqP0DOoLhOtexgRlyaN9hJTyAP4kwgN5gXf2IKfw+WLb+hK9fd1txkfIM2jLs+YZtQnSojjJiKLNS85RSH82Qs7fuZlmmHpCldTVF5xyczWQJ1RLUUXL/E9F1Uop9TB9ET3vkNGrG1aFELl89OmY6isrLIJXUt/gxh7zxMBs413ax9D8sbZR0lwaVH06HY/b4UEjPC1H4mj08B6Sx6zXZ7KFTSmv75+lc3Zy6ZsHrPHo0IDSsZk+TSWZxRz96K5UMSAPWuC26LCrliLOM/N9APoZpJmBOOPSeqFWocfN1N4BQby1KM3viguMPWPytgH9lInTGYclrpBN3NAZSXQ5KkXmc
+	maTGKo3NTcH5xgNl/paEI+I3Z5mQpDJ9pEAYrXAXtE7miUdfZRHz/ncDct3+vJj8564A5++8fl7GVwfZwR6XCXd3Olm5IpfKIHt5QamZicgyt6xeNN6OV2n2dtzAdiHKRIwtU8sb/LIfzCDwjSD5B14TUzoTiHxPNAreX7CwRYvnQxi5WDWHmq73RxoFWUIvzfKgUA4y5tH4NeRzedaeLd90301I7oV4RYWPfeQHmIhuu6s1HIHuLJiPjIWF6NDHGlqlawJqx7o5Gs/Lp87a+Z+QxgM3FQcxeWXv684NKGK7w5IkrmEm0aI2d937d4bTlkDIDcvdhPQuP2piMh+N76kCBTefCl9DtywRMpBUxzECm8yn3fEnMtfaEGCeoV2D6vnZm3ENgk5B30hrUjXOn3udDg9RNQCeYt9Avagciy18TiUD+NA0Y/h90B9KMkqyJEJ6O30LE09uqWEIGa49RO9lg5QHa8J+W7hj7wrXxpvTEAzSZGqhiBjC+/WjM04/8XH5nR0O9fxdtHeoo9x2QUgo5UfpyARLrU4RMoopYtGOxrmTW24pPu2Ib9MKfR+88IUHX4useyOiNu5s8vNVy4gPiVJ+OAASuOeDidl01t8X8qvTgTNqN50NcRb2Bvb14OcWR9nkSKs5JiULsZAqRg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(39860400002)(346002)(366004)(136003)(376002)(396003)(451199018)(36756003)(86362001)(31696002)(38100700002)(4326008)(2906002)(41300700001)(8936002)(5660300002)(6916009)(6506007)(2616005)(53546011)(186003)(26005)(6512007)(54906003)(316002)(8676002)(66556008)(66946007)(66476007)(6486002)(478600001)(66899018)(31686004)(41533002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(7916004)(376002)(346002)(39860400002)(396003)(366004)(136003)(451199018)(85182001)(316002)(86362001)(478600001)(6486002)(66556008)(66476007)(6916009)(2906002)(8676002)(8936002)(66946007)(41300700001)(4326008)(30864003)(5660300002)(82960400001)(38100700002)(9686003)(186003)(6512007)(6506007)(26005)(53546011)(83380400001)(33716001)(6666004);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QklRYklPVEZxSExuaWpMcWJrdGhvUVZucE5GMStOdWU2cXJMRzhHUll6QzBs?=
- =?utf-8?B?MEFHZjJqQU9Zck8zWFZnN2dWNnBrVGRpZzBnQW1tYmVvbnB3M25LTE1weExE?=
- =?utf-8?B?cnNtNG1taFlaejJJcEJkUU1qWksrWkh4bnpNS3NRZGVub29FdVkxaHZSRUgv?=
- =?utf-8?B?WC9qQVJiRHFUemtURklYNC9RWXZCLzg0ZnVCZ3ZITisrNGVoUWVXZVRlalhX?=
- =?utf-8?B?b3dWeVIzNUJlaWtPWldvellJVUEwTnc3VDZQd1E1ZnVCYnpzOUN3cU45bHBI?=
- =?utf-8?B?MFpaNDFwNGxDcE5MbWVFUUlFeTN4bEVqYVB0cllCMkdTUWJ1dmR5eUx3MWNq?=
- =?utf-8?B?ODIwTkdXK2tveXV2WDhWMDA1aUJZbVAvdVY4S2J3V3NkY0dRQktrSm1mUUpQ?=
- =?utf-8?B?RnFNQm9SZkhpTmJSSFhrMkd0ZisvTHJuNnBGMS9JOG5RRnlhTzhCN3ZWdlJ0?=
- =?utf-8?B?aHRkM1R4RStTZHArU1pTSDRNV3h0dXptVEJmaWlCajF3bENxWU8rK1Bmblhr?=
- =?utf-8?B?M0dGNy94Rjl5dldJVHVIRTh5bitpT1B1RlgxZEN2eWVXL2ZHZGFKc1hrMEtr?=
- =?utf-8?B?RDJXbzNWblZySDVhekp3Qmp1dHN3UTV2Q0wyVElKZ0xVcnd5OTZSSjVXR2FR?=
- =?utf-8?B?LzlrQ0dQVitDUHNjODBWVE95L2YzWVh3WWwyQjg3Mit4SlBGRE15Y2NGeWo2?=
- =?utf-8?B?NGRVT0lLUmREaS81dXIvelBjd2lTbFBhdG9uUTJXNlNDSWtlTkNkeGhQelQz?=
- =?utf-8?B?cCtEL3l5U3QzUjl4ejMzTUdGZDk3MzhEczFGNWlnMGI5eWJia3AvSG1DeXc4?=
- =?utf-8?B?S05YQzBVVUJydUU1cjVnVHhObnhTRHlQazZ6TFp4N0ExVFl3TENkbWMxeXRy?=
- =?utf-8?B?dExQb0FkNktyN1ZZYVlQSmNseGtlaklxeDhreXdOMzBlb3VrR3YvczcxbEpL?=
- =?utf-8?B?eWVINUM5enlQWloxUzliemJRcXM3L1BteHR2NTJ0MWoyMDFtVWhGV3YrazNC?=
- =?utf-8?B?dTFwODVTQVNCc1pCV011QWdPNmdLdzRXUCtWaCthYXBPdmhKOW5qMXY0OVBH?=
- =?utf-8?B?WHNWdVN1aE1nRDFmZkNiL3grTlBsL214Tm1VbUlEOXlnS3FvQW5DV2kvRW1M?=
- =?utf-8?B?eXloenFuRUxQd1dTK2hlN1pKTFFsZGN0cXVsRHhMMDhnVENYbmVDc1l0M3Jn?=
- =?utf-8?B?S1ZORklEVlN6YVVUR1hTSzRGeXBGTk1zRTQxZkh4SklTUzl4VlduT3d1R0Zq?=
- =?utf-8?B?bmN2dndIbklBOTRUcWZld3ZzckhrUzR1MGZaYVc2SnU2QWQycWdaaVRhR1Zs?=
- =?utf-8?B?YWV2U0Uva1I3T1Fxb3d2WVQyQ1ZEMDJpSFY0V1g5NTNkTXpRQmhZamdYbUZF?=
- =?utf-8?B?VGNURE81OHdDWVVrVkRWZG95dkh3MGVuTFBYd2hEcFhwMEFaeUdhMnk1R05O?=
- =?utf-8?B?ajhQMGVuMzRyV3ExRDN0L0t6NTI3WC90YnVMcHNOak1mMHhjREJsNDR5eXlW?=
- =?utf-8?B?RHIzTFJiRWVTaldFK2E0SWE0enB2U1hldjFESkU1bVM2am1RcVNEemE0cGUy?=
- =?utf-8?B?NnhGMVYwUTlQcmw0RmIxbTBuZk9ncGp5ZVVCZWtxQzE0Nzc1S1FrWkFwMlF2?=
- =?utf-8?B?cUtLMDJlaTZFRm00THdKTnh6c1NQNjdwQmw0SVBieTdYU1pNcm14QXdJaUlp?=
- =?utf-8?B?OUxXYklsKytHN2NFS1EwZmhEQU10akI1Z1VETUc1cWtQN0wrUWNtTEJ3bjIr?=
- =?utf-8?B?QzlIeTJaT3dqOHFqR2F3WVhtdDk5SWFybWpjaEY4UjVnM1RIdWlUWVRKODQ3?=
- =?utf-8?B?OXRxak5nczdFWmdlOCt1UzFEZW9BSWJCOUx0WWlhdDB6NHpqYXlGQ2dMZWZl?=
- =?utf-8?B?blpBMkJUc3EwdlBMaGpmRXNJYzNFTmtXNzJBTXJOTldrbUZIdXRBVFhUaHdz?=
- =?utf-8?B?V1NORDk0bnVLNlVsQ3FDc0xwcnA0NStJZ1JIRW4vWitzTVF6bm1IR2NNRXRh?=
- =?utf-8?B?Q0xzMERuakFOaXZEbDJ3VkkrYzFJeGZwSTdZZ3JhcnMzbVgyM2xDSXcrT095?=
- =?utf-8?B?NXJBZHRVOFFjanRSWW13K1V5RVZFSWNVSVpORU83SWVtdGlZM05Wekt5OWdZ?=
- =?utf-8?Q?FGAZbHUlwyuB3aV2P859p4/dH?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: decdd239-8959-4b11-f35a-08db2605b5ff
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?Z3lXTDc3VTVzU0RDM2daRGRXZU1zMXJ0azFXZU8xUERjMjNURFl1SVdzMTZQ?=
+ =?utf-8?B?WENST2NxdklnQVlOVUNReWpIMVh5all2MndJR2dQMzk3dVFxUDVnL0x1ZEw0?=
+ =?utf-8?B?bXVoa2RBMEJlWWdzUUJzU3pxWjQ2ZUczWEY4UWtEeHp6elVzd3Q4Mkl0Tngy?=
+ =?utf-8?B?bGVwQzhtTXZnRDBRU29BTElzSHBHeGpYVzFQMWo4cmRDOXQwazVIVjE3ejFM?=
+ =?utf-8?B?WElBclZVQUZVVGNNOUNjOVdRSlZJWkNUZkM5VHVua1hmRmpaaGtmYjgrWVZJ?=
+ =?utf-8?B?RHNNWWphbytaK0tyNUZCeWpQcXhsV3MwNnlFNkdHRXh5T0VKOTlwQ0kxd25G?=
+ =?utf-8?B?QlRGdXRpZzdJV0s2VUU3ZmV3ODJwNEoxU3ZLb0hodGd4MXRMZEpQa1Z2NUhl?=
+ =?utf-8?B?eFhSS0FiWVFyT1RReEsyYlJuSVdyeXlhSGdkSHMvQU5hbWN1RTlJRUtDRFQx?=
+ =?utf-8?B?bE9zb0hrSUZnR3FCM29sL1JKemFOUkxlQm9CUzl4bHdCTXV6YXpESW9OdlVQ?=
+ =?utf-8?B?MmJNZm52U1ZlQmFVVnl2TERsVUFhQ0dvNzdpTFh3ZDZrMGNpYWtwQlFZQmsr?=
+ =?utf-8?B?elEzS2d4SmlSaCt4d3ZHM3lpSkRaRTJQRzdNalAraVV2cVk1engyMGkxQ2g1?=
+ =?utf-8?B?a1p2dEkwWHVRbFZxVUhZbEVndmxOMld1bHVwQ2lwVHhuME1OZVBGN1JqRUZQ?=
+ =?utf-8?B?Vm52MTBMV2V1UDN0K1hvRDFrV2MzQS9tclBiRHM4aWdzQmc1eEF6UXRpSW1N?=
+ =?utf-8?B?a2c3eGlGMXFLOU53RTVjVjVTRzZOZlRnQXdCL1RncnZpOTZHWlVudDdCcFg2?=
+ =?utf-8?B?OHFTeTVuL3VWNmMvRTFPWndhbThKc1U4b2VyWkVJRE90T01xS2x2N2YvZGVJ?=
+ =?utf-8?B?a1p5YTIwellteHAzMVdtNncwazFQWXdDU1NDd0N6UWFlNmR4amRlM1ZXM3Nv?=
+ =?utf-8?B?QVlxc2NLcjgxYnlGdzN0OUVJRnoxY2pyTnFzVWxhZDNhc0dDQXo2emNTOHlD?=
+ =?utf-8?B?NUlhZ21VajBEVDhNMkEvclNzSUIxSmZHc2d2Mkx0QzFlOW1HMHY1cFduMFds?=
+ =?utf-8?B?b3dVVXVWcmdTZkFIajN0MDZEUXNOVSttNVVCN1JMM0d1Z0dtbUp0VzJUUEtJ?=
+ =?utf-8?B?Z0xDSGdmd3RkTUtPWnhIUHBkVndVRWdQeWdJZUYySTBnWFBBd0NRMWlxbEpk?=
+ =?utf-8?B?OGlTME5qL21nUlFGbzYraWtpV2x4Q0xBYWtvMXd4MWhucXZVTi92bmEzV0l4?=
+ =?utf-8?B?SzVmTmVma0hXZFF1LzFuK2t0WG93bUhzbXNwRWkwaWNsSFoveFVSQjg5US94?=
+ =?utf-8?B?ZmlPbGh3SytBMVRVM201WUtWb1N6cWRhcUZUdFdiRDY5WVorOVRKZHZheVBa?=
+ =?utf-8?B?c3lBK0J6clRZc1BLbkw4V01vdDVJL1dYcDU4ekZvR3JZN0piTDU0ZWpFRWRx?=
+ =?utf-8?B?bzV5Ny9LZUNMMWNRZjI5SEhoYUtYenNpRVFBbHJPdlBscTJ1c3lNWkRjdHlF?=
+ =?utf-8?B?NHRhRTRIdDhPME9id2FJSVVueWZCY1RMZm1SUzlZcmpjV0RGclRJckNXTXVZ?=
+ =?utf-8?B?ZFV3R1JxNzUyOUFyYTRxTjEzc1prM0R3Q2JSRlEzU2NzTDBWdFd5TDdsejNl?=
+ =?utf-8?B?eExQaFl5NmFEZzNqVlE2ZWo4dFNDQ0JFK3IvM0x4YnBsazhaNFhaaWd2YVVr?=
+ =?utf-8?B?YmpIbVdvcDhraWJDMFdNSHIwb0VBNnVHRm5rNUpCR1gyQW1DYVM0Zlk3Nm9W?=
+ =?utf-8?B?NWsrOEloanRFWG1ydmtNbGgwSWVVZzM3NmRib2VmcmFJeXozU2ZSd2t2MFNX?=
+ =?utf-8?B?MlR5N3hjaXlxQ3g2S01Cem9KUG1ZSlFKQ0dLekk0NGE4YjZVN3AxeHdvS05M?=
+ =?utf-8?B?R2d6U09MTmlmUFF0U2NxSDNlSTRnem5yWDZIYVZjSDBWYkxWT1diQldZOEpx?=
+ =?utf-8?B?Qm53aDRuMSt5K04wUWsxZlJYRFpGS3QzWVlnRG1ZTGZkZGF6RzhudXMrYzVH?=
+ =?utf-8?B?elNKOUdTLyt1aGc2Y2wxbHpIU2lXMHRCM0tORWVEcmwyUW52VGN2R1RGdDM2?=
+ =?utf-8?B?eWoxL2hVdkRwUkIrQVRVczVpZEkxTmMyTVdVc0laVXVheGZkOGFnZDFGTFVn?=
+ =?utf-8?B?ZmNOS3ZncXdvMDJBaDlYYTl5RHdHSTVBM0dBTTRHaTZTMjErTzdhY1UyVnJw?=
+ =?utf-8?B?RkE9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	XSMHv2SwfHHc0e3oynkIR/iusLXYCbFRv0LZQfLBTI5sLWszJKzrs3ln4lK0r3qqJKJHXwvXbtW+iy2wD8GLdFL/S8U2D02ErsC6hTgYYooH4ShT5lw1+LCEObxIimihwf93dIBLOZvYOxMmq7S9x0B4YKcUQnqxR3sojn5a9FcbYsW3Wo4WTYt3sioJU4ITBqMoSIapkL39xmvXmTAqcCb67niMCSj3yKyeYYPA1dlmfGI5w9gUPpk9kpFm33MHJlUNzoE+bGudaI/OPW+CgwM9F1A/mWmjX5iAL6HEhm0xQPJL3aKA3yPrkv502p7aKSnP6sxngPRKfriObDlJE8HOeQLfwl/JY4VQbW1knKi+gXS5xlRnFsuXv/HJPO+282iyF+vblv1eUx64TMUrF+IcP+ALNopk/vAujN3v3Pmi3Cqo9SS8Djawfyr3gJmbAKe242MZtdVOEmELM8yLQk24b5/yK/CxO48zsxhMLbaqKycRT4L9YOowFj/bJCSH3dPsRrhOJ6dIjORIcwbUWeqxVGTGGEpQ/a8ruWVXBDgD0JVUR0ZLjfRgpvJmHU/Ath6h230hmahx7BHMlyo+c59j6iPHx1ScvsUv3gaq3BgYiwRZkPZwrTF9sZYGgBTYt+kJRghphjZDvd5ActXpK0FXipEOcN4ECB2W1F6LaH5qk6rDZM+GVksnGFLEJew87dwtcBhiSIgCbD/qVHCez8wQXimptrzpFJfpIO2MEOZS41zAtfxKk4Dgyd5Yc6YVILx7Sfc3y5qn85HEj0+jdhdIS5LZA3IGTr0x/E5GUDV1tQiAJhxjUH1zJpkuu7lEWsocaRZ/flvp3J/Y/qOJzyE5rWVTL6Jfr4wS0bVbzzE/1JqdzFU1sx60+k1bcpF1
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8e74b66-8430-4c77-627f-08db260622a9
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 10:03:37.4761
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 10:06:40.0929
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pBe0bFOlneHDcQyogXknCcTpoUrXJEBQzcdx4Y2MJWmVvCnXAbmLViJ35tDsasDrlTZRGrsZV6S4FWDlweBuTw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9756
+X-MS-Exchange-CrossTenant-UserPrincipalName: LnFNPynkwdTTMqfIf+UU3CSQv1J4SRbPjxJtcdPf1hPFlT62oCHn5HZ3tPwXensZc72Gbh7Ah85srKAj8ciePg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5421
 
-On 15.03.2023 18:21, Oleksii Kurochko wrote:
-> A large part of the content of the bug.h is repeated among all
-> architectures, so it was decided to create a new config
-> CONFIG_GENERIC_BUG_FRAME.
+On Thu, Mar 16, 2023 at 08:54:57AM +0100, Josef Johansson wrote:
+> On 3/15/23 12:39, Roger Pau Monné wrote:
+> > On Mon, Jan 30, 2023 at 10:10:05AM +0100, Josef Johansson wrote:
+> > > On 11/21/22 11:21, Roger Pau Monne wrote:
+> > > > When running as a PVH dom0 the ACPI MADT is crafted by Xen in order to
+> > > > report the correct numbers of vCPUs that dom0 has, so the host MADT is
+> > > > not provided to dom0.  This creates issues when parsing the power and
+> > > > performance related data from ACPI dynamic tables, as the ACPI
+> > > > Processor UIDs found on the dynamic code are likely to not match the
+> > > > ones crafted by Xen in the dom0 MADT.
+> > > > 
+> > > > Xen would rely on Linux having filled at least the power and
+> > > > performance related data of the vCPUs on the system, and would clone
+> > > > that information in order to setup the remaining pCPUs on the system
+> > > > if dom0 vCPUs < pCPUs.  However when running as PVH dom0 it's likely
+> > > > that none of dom0 CPUs will have the power and performance data
+> > > > filled, and hence the Xen ACPI Processor driver needs to fetch that
+> > > > information by itself.
+> > > > 
+> > > > In order to do so correctly, introduce a new helper to fetch the _CST
+> > > > data without taking into account the system capabilities from the
+> > > > CPUID output, as the capabilities reported to dom0 in CPUID might be
+> > > > different from the ones on the host.
+> > > > 
+> > > > 
+> > > Hi Roger,
+> > > 
+> > > First of all, thanks for doing the grunt work here to clear up the ACPI
+> > > situation.
+> > > 
+> > > A bit of background, I'm trying to get an AMD APU (CPUID 0x17 (23)) to work
+> > > properly
+> > > under Xen. It works fine otherwise but something is amiss under Xen.
+> > Hello,
+> > 
+> > Sorry for the delay, I've been on paternity leave and just caching up
+> > on emails.
+> Hi Roger,
 > 
-> The version of <bug.h> from x86 was taken as the base version.
+> Congratulations! I hope you had time to really connect. It's the most
+> important thing we can do here in life.
 > 
-> The patch introduces the following stuff:
->   * common bug.h header
->   * generic implementation of do_bug_frame
->   * new config CONFIG_GENERIC_BUG_FRAME
+> I came into this to understand each and every error in my boot-log, it turns
+> out that the latest
+> kernel+xen+firmware fixes suspend/resume for me, thus is this not related.
+> But as I pointed out,
+> the output does not make any sense (nor yours nor the upstream). I should
+> check the debug
+> output with suspend working fine now to see if there are any changes, that
+> would be quite
+> interesting.
 > 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Also, I should mention that your patch broke some things on my system and
+> made it
+> unstable. I don't remember exactly and I know you said that this is more of
+> a PoC. Just a
+> heads up.
 
-The patch looks good to me now, but as said in reply to patch 5 I'd
-like to ...
+Right, I don't plan to send the PVH part just now, and instead I'm
+focusing in the first patch that should fix _PDC evaluation for PV
+dom0.  I will Cc you on the last version so you can give it a try and
+assert is not regressing stuff for you.
 
-> ---
-> Changes in V8:
->  * move  BUILD_BUG_ON_LINE_WIDTH(line) to "ifndef BUG_FRAME_STRUCT" and add #elif for
->    "ifndef BUG_FRAME_STRUCT" to define stub for BUILD_BUG_ON_LINE_WIDTH.
->  * move <xen/debuger.h> from <asm/bug.h> to <common/bug.c> to fix compilation issue
->    ( more details in the changes to the patch [xen/x86: switch x86 to use generic
->      implemetation of bug.h] ).
+> > > Just to make sure that the patch is working as intended, what I found when
+> > > trying it out
+> > > is that the first 8 CPUs have C-States, but 0, 2, 4, 6, 8, 10, 12, 14 have
+> > > P-States, out of
+> > > 16 CPUs. Xen tells Linux that there are 8 CPUs since it's running with
+> > > nosmt.
+> > > 
+> > > Regards
+> > > - Josef
+> > > 
+> > > xen_acpi_processor: Max ACPI ID: 30
+> > > xen_acpi_processor: Uploading Xen processor PM info
+> > > xen_acpi_processor: ACPI CPU0 - C-states uploaded.
+> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
+> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
+> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
+> > > xen_acpi_processor: ACPI CPU0 - P-states uploaded.
+> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
+> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
+> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
+> > > xen_acpi_processor: ACPI CPU1 - C-states uploaded.
+> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
+> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
+> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
+> > > xen_acpi_processor: ACPI CPU2 - C-states uploaded.
+> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
+> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
+> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
+> > > xen_acpi_processor: ACPI CPU2 - P-states uploaded.
+> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
+> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
+> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
+> > > xen_acpi_processor: ACPI CPU3 - C-states uploaded.
+> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
+> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
+> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
+> > > xen_acpi_processor: ACPI CPU4 - C-states uploaded.
+> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
+> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
+> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
+> > > xen_acpi_processor: ACPI CPU4 - P-states uploaded.
+> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
+> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
+> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
+> > > xen_acpi_processor: ACPI CPU5 - C-states uploaded.
+> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
+> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
+> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
+> > > xen_acpi_processor: ACPI CPU6 - C-states uploaded.
+> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
+> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
+> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
+> > > xen_acpi_processor: ACPI CPU6 - P-states uploaded.
+> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
+> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
+> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
+> > > xen_acpi_processor: ACPI CPU7 - C-states uploaded.
+> > > xen_acpi_processor:      C1: ACPI HLT 1 uS
+> > > xen_acpi_processor:      C2: ACPI IOPORT 0x414 18 uS
+> > > xen_acpi_processor:      C3: ACPI IOPORT 0x415 350 uS
+> > > xen_acpi_processor: ACPI CPU0 w/ PBLK:0x0
+> > > xen_acpi_processor: ACPI CPU0 w/ PST:coord_type = 254 domain = 0
+> > > xen_acpi_processor: CPU with ACPI ID 1 is unavailable
+> > Hm, that's weird, do you think you could check why it reports the CPU
+> > is unavailable?
+> If you would give me a hint at how I could check?
 
-... get away without this, so for the moment I won't offer R-b just yet.
+It likely requires you to add printk statements to the kernel in order
+to figure out which conditional fails when running as a PVH dom0.
 
-One further note on naming (sorry, could have occurred to me earlier):
+> Right now my guess is that C state and P state is not in sync, thus P state
+> are for every other
+> CPU and C state is for the first 8. AFAIK AMD only have performance-cores
+> (unlike Intel).
 
-> --- /dev/null
-> +++ b/xen/include/xen/bug.h
-> @@ -0,0 +1,161 @@
-> +#ifndef __XEN_BUG_H__
-> +#define __XEN_BUG_H__
-> +
-> +#define BUGFRAME_run_fn 0
-> +#define BUGFRAME_warn   1
-> +#define BUGFRAME_bug    2
-> +#define BUGFRAME_assert 3
-> +
-> +#define BUGFRAME_NR     4
-> +
-> +#define BUG_DISP_WIDTH    24
-> +#define BUG_LINE_LO_WIDTH (31 - BUG_DISP_WIDTH)
-> +#define BUG_LINE_HI_WIDTH (31 - BUG_DISP_WIDTH)
-> +
-> +#include <asm/bug.h>
-> +
-> +#ifndef __ASSEMBLY__
-> +
-> +#ifndef BUG_DEBUGGER_TRAP_FATAL
-> +#define BUG_DEBUGGER_TRAP_FATAL(regs) 0
-> +#endif
-> +
-> +#include <xen/lib.h>
-> +
-> +#ifndef BUG_FRAME_STRUCT
-> +
-> +struct bug_frame {
-> +    signed int loc_disp:BUG_DISP_WIDTH;
-> +    unsigned int line_hi:BUG_LINE_HI_WIDTH;
-> +    signed int ptr_disp:BUG_DISP_WIDTH;
-> +    unsigned int line_lo:BUG_LINE_LO_WIDTH;
-> +    signed int msg_disp[];
-> +};
-> +
-> +#define bug_loc(b) ((unsigned long)(b) + (b)->loc_disp)
-> +
-> +#define bug_ptr(b) ((const void *)(b) + (b)->ptr_disp)
-> +
-> +#define bug_line(b) (((((b)->line_hi + ((b)->loc_disp < 0)) &                \
-> +                       ((1 << BUG_LINE_HI_WIDTH) - 1)) <<                    \
-> +                      BUG_LINE_LO_WIDTH) +                                   \
-> +                     (((b)->line_lo + ((b)->ptr_disp < 0)) &                 \
-> +                      ((1 << BUG_LINE_LO_WIDTH) - 1)))
-> +
-> +#define bug_msg(b) ((const char *)(b) + (b)->msg_disp[1])
-> +
-> +#define BUILD_BUG_ON_LINE_WIDTH(line) \
-> +    BUILD_BUG_ON((line) >> (BUG_LINE_LO_WIDTH + BUG_LINE_HI_WIDTH))
+Linux thinking the CPU is not online is more likely to be due to the
+ACPI ID differences when running as a PVH dom0.  Anyway, I will try to
+revisit this and figure out what's wrong.
 
-While this and ...
+> > 
+> > Overall I don't like the situation of the ACPI handling when running
+> > as dom0. It's fragile to rely on the data for dom0 CPUs to be
+> > filled by the system (by adding some band aids here and there so that
+> > the PV vCPUs are matched against the MADT objects) and then cloning
+> > the data for any physical CPU exceeding the number of dom0 virtual
+> > CPUs.
+> That's my understanding from earlier implementation as well, nobody actually
+> like it,
+> But the current solution is something working in a bad environment.
+> > 
+> > IMO it would be much better to just do the handling of ACPI processor
+> > objects in a Xen specific driver (preventing the native driver from
+> > attaching) in order to fetch the data and upload it to Xen.  This is
+> > what I've attempted to do on FreeBSD, and resulted in a cleaner
+> > implementation:
+> > 
+> > <link>
+> > 
+> > I however don't have time to do this right now for Linux.
+> 
+> Maybe I can take a stab, I very much like the climate of the kernel but
+> everything
+> seem so scary :) I've been trying to understand things better, how they're
+> all
+> connected.
+> > 
+> > > xen_acpi_processor: ACPI CPU2 w/ PBLK:0x0
+> > > xen_acpi_processor: ACPI CPU2 w/ PST:coord_type = 254 domain = 1
+> > > xen_acpi_processor: CPU with ACPI ID 3 is unavailable
+> > > xen_acpi_processor: ACPI CPU4 w/ PBLK:0x0
+> > > xen_acpi_processor: ACPI CPU4 w/ PST:coord_type = 254 domain = 2
+> > > xen_acpi_processor: CPU with ACPI ID 5 is unavailable
+> > > xen_acpi_processor: ACPI CPU6 w/ PBLK:0x0
+> > > xen_acpi_processor: ACPI CPU6 w/ PST:coord_type = 254 domain = 3
+> > > xen_acpi_processor: CPU with ACPI ID 7 is unavailable
+> > > xen_acpi_processor: ACPI CPU8 w/ PBLK:0x0
+> > > xen_acpi_processor: ACPI CPU8 w/ PST:coord_type = 254 domain = 4
+> > > xen_acpi_processor: CPU with ACPI ID 9 is unavailable
+> > > xen_acpi_processor: ACPI CPU10 w/ PBLK:0x0
+> > > xen_acpi_processor: ACPI CPU10 w/ PST:coord_type = 254 domain = 5
+> > > xen_acpi_processor: CPU with ACPI ID 11 is unavailable
+> > > xen_acpi_processor: ACPI CPU12 w/ PBLK:0x0
+> > > xen_acpi_processor: ACPI CPU12 w/ PST:coord_type = 254 domain = 6
+> > > xen_acpi_processor: CPU with ACPI ID 13 is unavailable
+> > > xen_acpi_processor: ACPI CPU14 w/ PBLK:0x0
+> > > xen_acpi_processor: ACPI CPU14 w/ PST:coord_type = 254 domain = 7
+> > > xen_acpi_processor: CPU with ACPI ID 15 is unavailable
+> > > xen_acpi_processor: ACPI CPU8 - P-states uploaded.
+> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
+> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
+> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
+> > > xen_acpi_processor: ACPI CPU10 - P-states uploaded.
+> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
+> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
+> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
+> > > xen_acpi_processor: ACPI CPU12 - P-states uploaded.
+> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
+> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
+> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
+> > > xen_acpi_processor: ACPI CPU14 - P-states uploaded.
+> > > xen_acpi_processor:      *P0: 1700 MHz, 2071 mW, 0 uS
+> > > xen_acpi_processor:       P1: 1600 MHz, 1520 mW, 0 uS
+> > > xen_acpi_processor:       P2: 1400 MHz, 1277 mW, 0 uS
+> > > 
+> > > As a bonus, here are the previous debug output on the same machine.
+> > I think the output below is with dom0 running as plain PV rather than
+> > PVH?
+> This is the upstream ACPI implementation vs yours. What would plain PV vs
+> PVH be in dom0?
 
-> +#elif !defined(BUILD_BUG_ON_LINE_WIDTH)
-> +
-> +#define BUILD_BUG_ON_LINE_WIDTH(line) ((void)(line)
+But that's always with Linux running as a dom0, or just running bare
+metal?
 
-... this look okay-ish here, ...
-
-> +#endif /* BUG_FRAME_STRUCT */
-> +
-> +
-> +/*
-> + * Some architectures mark immediate instruction operands in a special way.
-> + * In such cases the special marking may need omitting when specifying
-> + * directive operands. Allow architectures to specify a suitable
-> + * modifier.
-> + */
-> +#ifndef BUG_ASM_CONST
-> +#define BUG_ASM_CONST ""
-> +#endif
-> +
-> +#ifndef _ASM_BUGFRAME_TEXT
-> +
-> +#define _ASM_BUGFRAME_TEXT(second_frame)                                            \
-> +    ".Lbug%=:"BUG_INSTR"\n"                                                         \
-> +    "   .pushsection .bug_frames.%"BUG_ASM_CONST"[bf_type], \"a\", %%progbits\n"    \
-> +    "   .p2align 2\n"                                                               \
-> +    ".Lfrm%=:\n"                                                                    \
-> +    "   .long (.Lbug%= - .Lfrm%=) + %"BUG_ASM_CONST"[bf_line_hi]\n"                 \
-> +    "   .long (%"BUG_ASM_CONST"[bf_ptr] - .Lfrm%=) + %"BUG_ASM_CONST"[bf_line_lo]\n"\
-> +    "   .if " #second_frame "\n"                                                    \
-> +    "   .long 0, %"BUG_ASM_CONST"[bf_msg] - .Lfrm%=\n"                              \
-> +    "   .endif\n"                                                                   \
-> +    "   .popsection\n"
-> +
-> +#define _ASM_BUGFRAME_INFO(type, line, ptr, msg)                             \
-> +    [bf_type]    "i" (type),                                                 \
-> +    [bf_ptr]     "i" (ptr),                                                  \
-> +    [bf_msg]     "i" (msg),                                                  \
-> +    [bf_line_lo] "i" ((line & ((1 << BUG_LINE_LO_WIDTH) - 1))                \
-> +                      << BUG_DISP_WIDTH),                                    \
-> +    [bf_line_hi] "i" (((line) >> BUG_LINE_LO_WIDTH) << BUG_DISP_WIDTH)
-> +
-> +#endif /* _ASM_BUGFRAME_TEXT */
-> +
-> +#ifndef BUG_FRAME
-> +
-> +#define BUG_FRAME(type, line, ptr, second_frame, msg) do {                   \
-> +    BUILD_BUG_ON_LINE_WIDTH(line);                                           \
-
-... the latest at the use site the naming is somewhat odd. I'm inclined
-to suggest something like BUG_CHECK_LINE_WIDTH() or BUG_CHECK_LINE().
-Aiui the use of the name is isolated to this header, in which case making
-such an adjustment while committing would be feasible. If, of course, as
-per above no other need for a change arises (i.e. if in particular the
-xen/debugger.h inclusion cannot be moved back where it was).
-
-Jan
+Thanks, Roger.
 
