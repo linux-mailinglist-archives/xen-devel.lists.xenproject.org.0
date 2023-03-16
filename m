@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5E4D6BD7E4
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 19:13:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510791.789164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D806BD890
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 20:05:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510800.789180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcs5s-00078E-9O; Thu, 16 Mar 2023 18:12:52 +0000
+	id 1pcstZ-0005Us-6d; Thu, 16 Mar 2023 19:04:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510791.789164; Thu, 16 Mar 2023 18:12:52 +0000
+Received: by outflank-mailman (output) from mailman id 510800.789180; Thu, 16 Mar 2023 19:04:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcs5s-000758-6a; Thu, 16 Mar 2023 18:12:52 +0000
-Received: by outflank-mailman (input) for mailman id 510791;
- Thu, 16 Mar 2023 18:12:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ItE1=7I=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pcs5r-000752-0g
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 18:12:51 +0000
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 278d65ee-c426-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 19:12:48 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 93BB832007F0;
- Thu, 16 Mar 2023 14:12:45 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Thu, 16 Mar 2023 14:12:46 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Mar 2023 14:12:44 -0400 (EDT)
+	id 1pcstZ-0005SB-3i; Thu, 16 Mar 2023 19:04:13 +0000
+Received: by outflank-mailman (input) for mailman id 510800;
+ Thu, 16 Mar 2023 19:04:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cxbr=7I=intel.com=lkp@srs-se1.protection.inumbo.net>)
+ id 1pcstX-0005S3-70
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 19:04:11 +0000
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 51df71c5-c42d-11ed-87f5-c1b5be75604c;
+ Thu, 16 Mar 2023 20:04:07 +0100 (CET)
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2023 12:03:47 -0700
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by fmsmga006.fm.intel.com with ESMTP; 16 Mar 2023 12:03:40 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pcst1-0008hW-1B;
+ Thu, 16 Mar 2023 19:03:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,202 +44,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 278d65ee-c426-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1678990365; x=1679076765; bh=Ab9R1HCydFujHJtOFpON+M3dVibwjpcCjV4
-	o4gMcFRE=; b=G6C3S4Y/N/jwMzG3MwZqi2QoDAei3ps6AZ1+w2OhCkz1nKGcEpH
-	k9EgvRCoSDFlD25bQ+S3TwbnRugbSbNVcxD++GPXNzEEfGfarHL3ED5JlyC4bHs6
-	qsSDBIE0x4Kfh1uLBS5QFiBD8doenNs9vIzQdV//7S0WcOsxgGsMRXvAnkYpXJmj
-	SBtrOjWuQdT4oqbDgKT9m10I4yaKlanVCYRUEncL18YV1cBG9fMG5PvGIgJTJnVD
-	oqXxaQEu9EA2s79zaRkEwFigeebddi4t3129ZQQLNoVgOZrQ3BGHJ8WXZLvqQQQx
-	4pDkFxMANOOYZPnwML3HTO9R0vdvv1o5ZJg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1678990365; x=1679076765; bh=Ab9R1HCydFujH
-	JtOFpON+M3dVibwjpcCjV4o4gMcFRE=; b=OEmIQHt+Oj1vIp8SJT4A+T/rEcy+R
-	+g3+bRo6Q53yS5vLv8vnIwwpphNkNqAL5Rooi4lHr5lKaGZmuocKB1n+4XupaDNZ
-	Jj+7hHtU+JMM51lMepBndaqLkiu2TvZUKC/I0eVGxCUBWPc8GXP9HAUOMEeGC52W
-	RcYdIloPV4b/byMLE2sEW5JFF7jQDslVK9DskJ92YI42EHDLv73vaZ/kFGpojpsa
-	GtfH++o2dqyaeca55wXhdxzVIEemOJZLvxdR0bnC5ozDoIRAttQSNQnRQAuUSLvQ
-	aNn54NcBTGoa6xSNzAHn4iGDAcu0rLGS6GMTYuf5x2dm3bv/N+/NcoYoQ==
-X-ME-Sender: <xms:HFwTZN-PSh27KQhxG8raAgd2Ie-5wC_Qt69ASBJZqHK6MiclYS-DiQ>
-    <xme:HFwTZBu4i8Fd3fdpfHUmRz6yf3PyEn-PmX7xVWV_7aCbx7YgENYoDlKbwEcwFC-e-
-    80r9wEHRFrN3g>
-X-ME-Received: <xmr:HFwTZLD9KQp4KSTnuX7BlX-ca_vd9A0ncXz2Zob0TMfFpJWsxU1M6U62aWtCFs1-fP8AglLNd2OAcq5XtWmcgnexSHcrBa6Ncvc>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdeftddgudduudcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
-    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
-    udelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlh
-    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
-    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:HFwTZBeQ8NCtKB3tqdilISk7ASCNuIeMigici_nme7iBNlnSlXZ4Ow>
-    <xmx:HFwTZCPIWRt9tiy8K85wC7JBTdISspIC_VS13s0U4bETTnG0bgHWiQ>
-    <xmx:HFwTZDlFNKrZpXxnTqHdPbNERBfKjIOTtRHm2_lqdVt01mQVJ5EcGA>
-    <xmx:HVwTZLaWurB8YE1crgCl3g_qnAB4Fh2ItkmniNQf2_yiHemQlvBLFA>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 16 Mar 2023 19:12:40 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Subject: Re: [PATCH 7/7] tools/python: Drop shebangs from library files
-Message-ID: <ZBNcGSJvOh0h3Den@mail-itl>
-References: <20230314141520.3652451-1-andrew.cooper3@citrix.com>
- <20230314141520.3652451-8-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 51df71c5-c42d-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1678993447; x=1710529447;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zUzkGxrqKDPR6SroJseKwSx7MVAGnpL/Grdhlw6b7UE=;
+  b=ko072JGDiGqhsmAtWDLLwYIcmq58EHOBPuqg+XpQeksRtfrQjEdipIIf
+   IOkiZGekqKjjfniCcfzT5wrU4hBGdKU+7SbRzF4RpD+g4J0UFbWEuoYxt
+   Sd43em6ugiaJY1n4LYHFjK+Jqsf4zxRVeICnTgeBQ/f51sCWRF059Qd6b
+   hLpSjHeAMc61XysB5niDrCuyGwdplRwhFf2Fxjmu//j3YuglpNZSlnSz8
+   OSNGVb2GhSLCIKOsuIZ/i9N0v2WBe8/nYNN86i594hsWNRZ1hMVpYOfwj
+   BELLBWoCRntS1f1bt6MamvqAaYSjRUG5+XZHTaJ9KFRYm3lacIoFi72dG
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="321944547"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; 
+   d="scan'208";a="321944547"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10651"; a="925864625"
+X-IronPort-AV: E=Sophos;i="5.98,265,1673942400"; 
+   d="scan'208";a="925864625"
+Date: Fri, 17 Mar 2023 03:03:04 +0800
+From: kernel test robot <lkp@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Randy Dunlap <rdunlap@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+	Niklas Schnelle <schnelle@linux.ibm.com>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Juergen Gross <jgross@suse.com>,
+	Dominik Brodowski <linux@dominikbrodowski.net>,
+	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org, linux-pci@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+	Matt Turner <mattst88@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>
+Subject: Re: [PATCH v5 1/4] PCI: Introduce pci_dev_for_each_resource()
+Message-ID: <202303170223.V0xQhs1V-lkp@intel.com>
+References: <20230314192634.63531-2-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="UGj6/sWBERrGyvzU"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230314141520.3652451-8-andrew.cooper3@citrix.com>
+In-Reply-To: <20230314192634.63531-2-andriy.shevchenko@linux.intel.com>
+
+Hi Andy,
+
+I love your patch! Yet something to improve:
+
+[auto build test ERROR on pci/next]
+[also build test ERROR on pci/for-linus powerpc/next powerpc/fixes linus/master v6.3-rc2 next-20230316]
+[cannot apply to soc/for-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Andy-Shevchenko/PCI-Introduce-pci_dev_for_each_resource/20230315-032821
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
+patch link:    https://lore.kernel.org/r/20230314192634.63531-2-andriy.shevchenko%40linux.intel.com
+patch subject: [PATCH v5 1/4] PCI: Introduce pci_dev_for_each_resource()
+config: powerpc-randconfig-r032-20230312 (https://download.01.org/0day-ci/archive/20230317/202303170223.V0xQhs1V-lkp@intel.com/config)
+compiler: clang version 17.0.0 (https://github.com/llvm/llvm-project 67409911353323ca5edf2049ef0df54132fa1ca7)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # install powerpc cross compiling tool for clang build
+        # apt-get install binutils-powerpc-linux-gnu
+        # https://github.com/intel-lab-lkp/linux/commit/85cdf4746b716f7b6c14d7dc5cd907c3c2a1fb0c
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Andy-Shevchenko/PCI-Introduce-pci_dev_for_each_resource/20230315-032821
+        git checkout 85cdf4746b716f7b6c14d7dc5cd907c3c2a1fb0c
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=powerpc olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=powerpc SHELL=/bin/bash
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303170223.V0xQhs1V-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> arch/powerpc/platforms/52xx/mpc52xx_pci.c:331:6: error: unused variable 'i' [-Werror,-Wunused-variable]
+           int i;
+               ^
+   1 error generated.
 
 
---UGj6/sWBERrGyvzU
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 16 Mar 2023 19:12:40 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Subject: Re: [PATCH 7/7] tools/python: Drop shebangs from library files
+vim +/i +331 arch/powerpc/platforms/52xx/mpc52xx_pci.c
 
-On Tue, Mar 14, 2023 at 02:15:20PM +0000, Andrew Cooper wrote:
-> These aren't runable scripts, so shouldn't have shebangs.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+f42963f8646540 Grant Likely    2006-12-12  326  
+f42963f8646540 Grant Likely    2006-12-12  327  static void
+f42963f8646540 Grant Likely    2006-12-12  328  mpc52xx_pci_fixup_resources(struct pci_dev *dev)
+f42963f8646540 Grant Likely    2006-12-12  329  {
+85cdf4746b716f Mika Westerberg 2023-03-14  330  	struct resource *res;
+f42963f8646540 Grant Likely    2006-12-12 @331  	int i;
+f42963f8646540 Grant Likely    2006-12-12  332  
+59510820fff76f Randy Dunlap    2021-04-28  333  	pr_debug("%s() %.4x:%.4x\n", __func__, dev->vendor, dev->device);
+f42963f8646540 Grant Likely    2006-12-12  334  
+f42963f8646540 Grant Likely    2006-12-12  335  	/* We don't rely on boot loader for PCI and resets all
+f42963f8646540 Grant Likely    2006-12-12  336  	   devices */
+85cdf4746b716f Mika Westerberg 2023-03-14  337  	pci_dev_for_each_resource_p(dev, res) {
+f42963f8646540 Grant Likely    2006-12-12  338  		if (res->end > res->start) {	/* Only valid resources */
+f42963f8646540 Grant Likely    2006-12-12  339  			res->end -= res->start;
+f42963f8646540 Grant Likely    2006-12-12  340  			res->start = 0;
+f42963f8646540 Grant Likely    2006-12-12  341  			res->flags |= IORESOURCE_UNSET;
+f42963f8646540 Grant Likely    2006-12-12  342  		}
+f42963f8646540 Grant Likely    2006-12-12  343  	}
+f42963f8646540 Grant Likely    2006-12-12  344  
+f42963f8646540 Grant Likely    2006-12-12  345  	/* The PCI Host bridge of MPC52xx has a prefetch memory resource
+f42963f8646540 Grant Likely    2006-12-12  346  	   fixed to 1Gb. Doesn't fit in the resource system so we remove it */
+f42963f8646540 Grant Likely    2006-12-12  347  	if ( (dev->vendor == PCI_VENDOR_ID_MOTOROLA) &&
+f42963f8646540 Grant Likely    2006-12-12  348  	     (   dev->device == PCI_DEVICE_ID_MOTOROLA_MPC5200
+f42963f8646540 Grant Likely    2006-12-12  349  	      || dev->device == PCI_DEVICE_ID_MOTOROLA_MPC5200B) ) {
+f42963f8646540 Grant Likely    2006-12-12  350  		struct resource *res = &dev->resource[1];
+f42963f8646540 Grant Likely    2006-12-12  351  		res->start = res->end = res->flags = 0;
+f42963f8646540 Grant Likely    2006-12-12  352  	}
+f42963f8646540 Grant Likely    2006-12-12  353  }
+f42963f8646540 Grant Likely    2006-12-12  354  
 
-Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-
-> ---
-> CC: Wei Liu <wl@xen.org>
-> CC: Anthony PERARD <anthony.perard@citrix.com>
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-> ---
->  tools/python/xen/migration/legacy.py | 1 -
->  tools/python/xen/migration/libxc.py  | 1 -
->  tools/python/xen/migration/libxl.py  | 1 -
->  tools/python/xen/migration/public.py | 1 -
->  tools/python/xen/migration/tests.py  | 1 -
->  tools/python/xen/migration/verify.py | 1 -
->  tools/python/xen/migration/xl.py     | 1 -
->  tools/python/xen/util.py             | 1 -
->  8 files changed, 8 deletions(-)
->=20
-> diff --git a/tools/python/xen/migration/legacy.py b/tools/python/xen/migr=
-ation/legacy.py
-> index 6456d6157ce3..e196ca876095 100644
-> --- a/tools/python/xen/migration/legacy.py
-> +++ b/tools/python/xen/migration/legacy.py
-> @@ -1,4 +1,3 @@
-> -#!/usr/bin/env python
->  # -*- coding: utf-8 -*-
-> =20
->  """
-> diff --git a/tools/python/xen/migration/libxc.py b/tools/python/xen/migra=
-tion/libxc.py
-> index 9881f5ced4ea..e52e632cb106 100644
-> --- a/tools/python/xen/migration/libxc.py
-> +++ b/tools/python/xen/migration/libxc.py
-> @@ -1,4 +1,3 @@
-> -#!/usr/bin/env python
->  # -*- coding: utf-8 -*-
-> =20
->  """
-> diff --git a/tools/python/xen/migration/libxl.py b/tools/python/xen/migra=
-tion/libxl.py
-> index 5c4d4fe0631b..5dcb50fe0207 100644
-> --- a/tools/python/xen/migration/libxl.py
-> +++ b/tools/python/xen/migration/libxl.py
-> @@ -1,4 +1,3 @@
-> -#!/usr/bin/env python
->  # -*- coding: utf-8 -*-
-> =20
->  """
-> diff --git a/tools/python/xen/migration/public.py b/tools/python/xen/migr=
-ation/public.py
-> index fab2f84587b7..23183ef67db8 100644
-> --- a/tools/python/xen/migration/public.py
-> +++ b/tools/python/xen/migration/public.py
-> @@ -1,4 +1,3 @@
-> -#!/usr/bin/env python
->  # -*- coding: utf-8 -*-
-> =20
->  """
-> diff --git a/tools/python/xen/migration/tests.py b/tools/python/xen/migra=
-tion/tests.py
-> index f22e2c2b7cf0..fcf94b0bb264 100644
-> --- a/tools/python/xen/migration/tests.py
-> +++ b/tools/python/xen/migration/tests.py
-> @@ -1,4 +1,3 @@
-> -#!/usr/bin/env python
->  # -*- coding: utf-8 -*-
-> =20
->  """
-> diff --git a/tools/python/xen/migration/verify.py b/tools/python/xen/migr=
-ation/verify.py
-> index 1e38f4a3c01e..b847c4bd220f 100644
-> --- a/tools/python/xen/migration/verify.py
-> +++ b/tools/python/xen/migration/verify.py
-> @@ -1,4 +1,3 @@
-> -#!/usr/bin/env python
->  # -*- coding: utf-8 -*-
-> =20
->  """
-> diff --git a/tools/python/xen/migration/xl.py b/tools/python/xen/migratio=
-n/xl.py
-> index 978e744dfd95..139d496654df 100644
-> --- a/tools/python/xen/migration/xl.py
-> +++ b/tools/python/xen/migration/xl.py
-> @@ -1,4 +1,3 @@
-> -#!/usr/bin/env python
->  # -*- coding: utf-8 -*-
-> =20
->  """
-> diff --git a/tools/python/xen/util.py b/tools/python/xen/util.py
-> index a11358eefa13..47ceb5bd21fe 100644
-> --- a/tools/python/xen/util.py
-> +++ b/tools/python/xen/util.py
-> @@ -1,4 +1,3 @@
-> -#!/usr/bin/env python
->  # -*- coding: utf-8 -*-
-> =20
->  import os
-> --=20
-> 2.30.2
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---UGj6/sWBERrGyvzU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQTXBkACgkQ24/THMrX
-1ywVyAf+N5FjzNJ/Y5DkQWD9kQKmtWwl1wdIhG6CHUeyLnvImRTlko90Hmjra5DC
-Ln8EXA9bDokcrkXQsA5VdWkGVu2lQ8absUqfWzCd3kxT2oIGXlvpyKh9WDVJ7GXS
-yQHIL1Q6qyBOE6nQ6xnbsw65Tighdn1pw/6wV3fNZe87sFSeBnQmbR1td7TDxW9z
-hQm+O/0VUpc8AIEVo/HI8CFzvGtX0xwNWZfzdXQK4rdW/vdMJd9P1QSYr7g8m8q9
-ZVN+2N2wgGpyN6dskpLqgfgyO3TDtvHgvQ/dNYqV39zNzE79EeQ1sBgL+0dVOa/a
-rtAGqrhRwPspAgQOtocuvchlulckAg==
-=5vEd
------END PGP SIGNATURE-----
-
---UGj6/sWBERrGyvzU--
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
 
