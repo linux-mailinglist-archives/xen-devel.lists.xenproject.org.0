@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A51E6BDB3E
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 23:04:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510833.789267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3DA86BDC80
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Mar 2023 00:00:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510836.789276 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcvhG-0005j3-8X; Thu, 16 Mar 2023 22:03:42 +0000
+	id 1pcwZW-0004DU-H1; Thu, 16 Mar 2023 22:59:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510833.789267; Thu, 16 Mar 2023 22:03:42 +0000
+Received: by outflank-mailman (output) from mailman id 510836.789276; Thu, 16 Mar 2023 22:59:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcvhG-0005gn-5H; Thu, 16 Mar 2023 22:03:42 +0000
-Received: by outflank-mailman (input) for mailman id 510833;
- Thu, 16 Mar 2023 22:03:40 +0000
+	id 1pcwZW-0004AL-Dx; Thu, 16 Mar 2023 22:59:46 +0000
+Received: by outflank-mailman (input) for mailman id 510836;
+ Thu, 16 Mar 2023 22:59:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3dKy=7I=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1pcvhE-0005gh-Ed
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 22:03:40 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oCnM=7I=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1pcwZV-0004AF-6Q
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 22:59:45 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 64c87b09-c446-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 23:03:35 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 32GM3Mdl057698
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Thu, 16 Mar 2023 18:03:28 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 32GM3MC0057697;
- Thu, 16 Mar 2023 15:03:22 -0700 (PDT) (envelope-from ehem)
+ id 3b9da5a3-c44e-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 23:59:42 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 8B65CCE1EB3;
+ Thu, 16 Mar 2023 22:59:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E019EC433EF;
+ Thu, 16 Mar 2023 22:59:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,114 +44,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64c87b09-c446-11ed-b464-930f4c7d94ae
-Date: Thu, 16 Mar 2023 15:03:22 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
+X-Inumbo-ID: 3b9da5a3-c44e-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1679007578;
+	bh=JyqaVOJoBQLZqRQvW8V5F5j9HdWRvMZcmtT7HGa2igU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Q4In6wDl9HwGvsr19AJL+F23rKFh4iTEakxOoD6JLjjfjcWJ8FRR3iDRcksMZwvdg
+	 sOK1SxhQiE2vuURbxw88dCopdpI01KBIOfrRjptmgHRTueLiBxqwjVTf3Dvrcs/yXy
+	 pQuS3CjRU8PvCkbp6VXsM98rTcNu7rvUkuMjbtyx5ck8+wvDG5J1DZ54qdRpZH0cv+
+	 hc8iicA2wZDFsydwyqViDAb/iB+yUqgmPlgIJj9l2JSUA6wGuTzKLvwCSNpsUGMAJz
+	 ho/NYEn2JI9QUpRzDpVKdKHucShmc1frR+aTbPTMufxVeGC2uovUlrJgZo5YtjQwBn
+	 EFzz5bBp9dqsQ==
+Date: Thu, 16 Mar 2023 15:59:31 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: [BUG] x2apic broken with current AMD hardware
-Message-ID: <ZBOSKo+sT/FtWY9C@mattapan.m5p.com>
-References: <ZAiobgH4L0OAS6XP@mattapan.m5p.com>
- <a2e5cb62-9aef-4f91-b5e9-35fee6739fc8@suse.com>
- <ZAkVVhIldUv/xQqt@mattapan.m5p.com>
- <21436010-8212-7b09-a577-09d3f57156bf@suse.com>
- <ZAvGvokloPf+ltr9@mattapan.m5p.com>
- <f33c9b8a-f25d-caab-659d-d34ba21ebc25@suse.com>
+cc: Michal Orzel <michal.orzel@amd.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] xen/console: Skip switching serial input to non
+ existing domains
+In-Reply-To: <d9654392-ce4b-07b6-9be0-7a6d4230c287@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2303161559250.3359@ubuntu-linux-20-04-desktop>
+References: <20230316102635.6497-1-michal.orzel@amd.com> <d9654392-ce4b-07b6-9be0-7a6d4230c287@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f33c9b8a-f25d-caab-659d-d34ba21ebc25@suse.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Mar 13, 2023 at 08:01:02AM +0100, Jan Beulich wrote:
-> On 11.03.2023 01:09, Elliott Mitchell wrote:
-> > On Thu, Mar 09, 2023 at 10:03:23AM +0100, Jan Beulich wrote:
-> >>
-> >> In any event you will want to collect a serial log at maximum verbosity.
-> >> It would also be of interest to know whether turning off the IOMMU avoids
-> >> the issue as well (on the assumption that your system has less than 255
-> >> CPUs).
-> > 
-> > I think I might have figured out the situation in a different fashion.
-> > 
-> > I was taking a look at the BIOS manual for this motherboard and noticed
-> > a mention of a "Local APIC Mode" setting.  Four values are listed
-> > "Compatibility", "xAPIC", "x2APIC", and "Auto".
-> > 
-> > That is the sort of setting I likely left at "Auto" and that may well
-> > result in x2 functionality being disabled.  Perhaps the x2APIC
-> > functionality on AMD is detecting whether the hardware is present, and
-> > failing to test whether it has been enabled?  (could be useful to output
-> > a message suggesting enabling the hardware feature)
+On Thu, 16 Mar 2023, Jan Beulich wrote:
+> On 16.03.2023 11:26, Michal Orzel wrote:
+> > --- a/xen/drivers/char/console.c
+> > +++ b/xen/drivers/char/console.c
+> > @@ -490,7 +490,24 @@ static void switch_serial_input(void)
+> >      }
+> >      else
+> >      {
+> > -        console_rx++;
+> > +        unsigned int next_rx = console_rx + 1;
+> > +
+> > +        /* Skip switching serial input to non existing domains */
+> > +        while ( next_rx < max_init_domid + 1 )
+> > +        {
+> > +            struct domain *d = rcu_lock_domain_by_id(next_rx - 1);
+> > +
+> > +            if ( d )
+> > +            {
+> > +                rcu_unlock_domain(d);
+> > +                break;
+> > +            }
+> > +
+> > +            next_rx++;
+> > +        }
+> > +
+> > +        console_rx = next_rx;
+> > +
+> >          printk("*** Serial input to DOM%d", console_rx - 1);
+> >      }
 > 
-> Can we please move to a little more technical terms here? What is "present"
-> and "enabled" in your view? I don't suppose you mean the CPUID bit (which
-> we check) and the x2APIC-mode-enable one (which we drive as needed). It's
-> also left unclear what the four modes of BIOS operation evaluate to. Even
-> if we knew that, overriding e.g. "Compatibility" (which likely means some
-> form of "disabled" / "hidden") isn't normally an appropriate thing to do.
-> In "Auto" mode Xen likely should work - the only way I could interpret the
-> the other modes are "xAPIC" meaning no x2APIC ACPI tables entries (and
-> presumably the CPUID bit also masked), "x2APIC" meaning x2APIC mode pre-
-> enabled by firmware, and "Auto" leaving it to the OS to select. Yet that's
-> speculation on my part ...
+> While at the first glance (when you sent it in reply to v1) it looked okay,
+> I'm afraid it really isn't: Please consider what happens when the last of
+> the DomU-s doesn't exist anymore. (You don't really check whether it still
+> exists, because the range check comes ahead of the existence one.) In that
+> case you want to move from second-to-last to Xen. I expect the entire
+> if/else construct wants to be inside the loop.
 
-I provided the information I had discovered.  There is a setting for this
-motherboard (likely present on some similar motherboards) which /may/
-effect the issue.  I doubt I've tried "compatibility", but none of the
-values I've tried have gotten the system to boot without "x2apic=false"
-on Xen's command-line.
-
-When setting to "x2APIC" just after "(XEN) AMD-Vi: IOMMU Extended Features:"
-I see the line "(XEN) - x2APIC".  Later is the line
-"(XEN) x2APIC mode is already enabled by BIOS."  I'll guess "Auto"
-leaves the x2APIC turned off since neither line is present.
-
-Both cases the line "(XEN) Switched to APIC driver x2apic_cluster" is
-present (so perhaps "Auto" merely doesn't activate it).
-
-Appears error_interrupt() needs locking or some concurrency handling
-mechanism since the last error is jumbled.  With the setting "x2APIC"
-I get a bunch of:
-"(XEN) APIC error on CPU#: 00(08)(XEN) APIC error on CPU#: 00(08)"
-(apparently one for each core)
-Followed by "Receive accept error, Receive accept error," (again,
-apparently one for each core).  Then a bunch of newlines (same pattern).
-
-With the setting "auto" the last message is a series of
-"(XEN) CPU#: No irq handler for vector ## (IRQ -2147483648, LAPIC)" on
-2 different cores.  Rather more of the lines were from one core, the
-vector value varied some.
-
-Notable both sets of final error messages appeared after the Domain 0
-kernel thought it had been operating for >30 seconds.  Lack of
-response to interrupt generating events (pressing keys on USB keyboard)
-suggests interrupts weren't getting through.
+I don't think we need another loop, just a check if we found a domain or
+not. E.g.:
 
 
-With "x2apic=false" error messages similar to the "Local APIC Mode"
-of "x2APIC" appear >45 seconds after Domain 0 kernel start.  Of note
-first "(XEN) APIC error on CPU#: 00(08)(XEN) APIC error on CPU#: 00(08)"
-appears for all cores with "Receive accept error,".
+    unsigned int next_rx = console_rx + 1;
 
-Yet later a variation on this message starts appearing:
-"(XEN) APIC error on CPU#: 08(08)(XEN) APIC error on CPU#: 08(08)"
-this one appears multiple times.
+    /* Skip switching serial input to non existing domains */
+    while ( next_rx < max_init_domid + 1 )
+    {
+        struct domain *d = rcu_lock_domain_by_id(next_rx - 1);
 
+        if ( d )
+        {
+            rcu_unlock_domain(d);
+            console_rx = next_rx;
+            printk("*** Serial input to DOM%d", console_rx - 1);
+            break;
+        }
 
-If one was to want full logs, the lack of secure communications channel
-would be an issue (since filtering out identifying data is difficult).
-DSA-3072 with SHA2-256 is now less than wonderful, but DSA-1024 and
-ElGamal 2048 are right out.
+        next_rx++;
+    }
 
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+    /* no domain found */
+    console_rx = 0;
+    printk("*** Serial input to Xen");
 
