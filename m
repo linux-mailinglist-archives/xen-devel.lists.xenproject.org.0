@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B1F66BD0D6
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 14:29:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510599.788547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17BE56BD0DB
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 14:30:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510601.788556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcnev-00066r-8I; Thu, 16 Mar 2023 13:28:45 +0000
+	id 1pcngH-0007hB-If; Thu, 16 Mar 2023 13:30:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510599.788547; Thu, 16 Mar 2023 13:28:45 +0000
+Received: by outflank-mailman (output) from mailman id 510601.788556; Thu, 16 Mar 2023 13:30:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcnev-00063v-4o; Thu, 16 Mar 2023 13:28:45 +0000
-Received: by outflank-mailman (input) for mailman id 510599;
- Thu, 16 Mar 2023 13:28:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eQdT=7I=citrix.com=prvs=4326333c9=roger.pau@srs-se1.protection.inumbo.net>)
- id 1pcnet-00063p-Hz
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 13:28:44 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 74a46862-c3fe-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 14:28:38 +0100 (CET)
-Received: from mail-mw2nam10lp2104.outbound.protection.outlook.com (HELO
- NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.104])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 16 Mar 2023 09:28:35 -0400
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
- by SA2PR03MB5770.namprd03.prod.outlook.com (2603:10b6:806:11f::8)
+	id 1pcngH-0007fS-FY; Thu, 16 Mar 2023 13:30:09 +0000
+Received: by outflank-mailman (input) for mailman id 510601;
+ Thu, 16 Mar 2023 13:30:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ta6a=7I=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pcngG-0007eQ-BL
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 13:30:08 +0000
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur02on20603.outbound.protection.outlook.com
+ [2a01:111:f400:fe12::603])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aa5898ca-c3fe-11ed-87f5-c1b5be75604c;
+ Thu, 16 Mar 2023 14:30:07 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PR3PR04MB7465.eurprd04.prod.outlook.com (2603:10a6:102:91::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.31; Thu, 16 Mar
- 2023 13:28:31 +0000
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.031; Thu, 16 Mar 2023
- 13:28:31 +0000
+ 2023 13:30:05 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Thu, 16 Mar 2023
+ 13:30:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,258 +47,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74a46862-c3fe-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1678973318;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=N3hrAAyx6EEvk7LPI7eI8FwU2JKhY9+c2J7EAK7La7k=;
-  b=e+ka28s4VGgf/2DHRARxVeS9ABCfywSwWKUQs28flDvD5cVTUYxH3iJN
-   K424l5m9Ht5sIio/Qbp107blmHhjbHGqXyfkGy6iI0YCeRr4hToVDRbcv
-   UniMNocyBsmL58cC8KxVhhaX9EqNOXYV1AJCrml75OnLgHPbFyn7lJ52h
-   Q=;
-X-IronPort-RemoteIP: 104.47.55.104
-X-IronPort-MID: 101117352
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:4trM4q5Gf5ZOaRq50JW7fQxRtA3GchMFZxGqfqrLsTDasY5as4F+v
- jROXGiDaanZZTSnKNokaI7j/RxX6MfQmtFjTwE9pS4zHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9VU+7JwehBtC5gZlPasS4geA/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m8
- /hFFwEpUja5meuZxbC7Sddmwek5BZy+VG8fkikIITDxK98DGMiGZpqQoNhS0XE3m9xEGuvYa
- 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6OkUooiOSF3Nn9I7RmQe1PmUmVv
- CTe9nnRCRAGLt2PjzGC9xpAg8eWxXqiAd1JSefQGvhCp2CCxy8eSyYqamSWkcSpm0u7RM4AA
- hlBksYphe1onKCxdfH/VRClpH+PvjYHRsFdVeY97Wml2qfSpgqUGGUAZjpAc8A98t87QyQw0
- V2ElM+vAiZg2JWKTVqN+7HSqim9UQAJLGoqdSICCwwf7LHeTJobixvOSpNmD/Szh9isQTXom
- WnS8G45mqkZitMN2+Oj51fbjjmwp5/PCAko+gHQWWHj5QR8DGK4W7GVBZHgxa4oBO6kopOp5
- hDoR+D2ADgyMKyw
-IronPort-HdrOrdr: A9a23:nNLBBavLzRaINzFh7P92Jys/7skDstV00zEX/kB9WHVpm6yj+v
- xG/c5rsCMc7Qx6ZJhOo7+90cW7L080lqQFg7X5X43DYOCOggLBQL2KhbGI/9SKIVycygcy78
- Zdm6gVMqyLMbB55/yKnTVRxbwbsaW6GKPDv5ag8590JzsaD52Jd21Ce36m+ksdfnggObMJUK
- Cyy+BgvDSadXEefq2AdwI4t7iqnaysqHr+CyR2fiIa1A==
-X-IronPort-AV: E=Sophos;i="5.98,265,1673931600"; 
-   d="scan'208";a="101117352"
+X-Inumbo-ID: aa5898ca-c3fe-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EGLeJyXvyny7tYddb+nycQko0fyHJhgW7TwhxCLC4UYiK4vXq9ryGURGn/7gATDeYPu+pXb7qZ0T82gh4Xk63IeSzBUGnLmk7RVV5yu1oEs+/v+Br69ZLym3lLahZGd+vhK/8Jk/RgRMz8kqhSOWd6olOCzxNQ6ky9AXOaME/zXZ2/AYNN3JBYf2AXMQfBkMjZj5Xmd30H48lVChIhl8CQpGiUMIN4XnqgIthj1IGHHR63pw0IpFCoEFEOgTufzwuDubBqeqk+yQrsqRgHytn5xg1zPzCwgU8mwbXohuwboWNg3XdIuFkDNwfaYMObsLeMe50iUy1QMXuZ9fkKajEg==
+ b=nEPxSbmLFcAFneXRXMuYT2VdUkkZvRhzG0Smrv9uTwVl7AwxrOJJoSiPvawC8Di7kIt1MJRcjKxk0sHB3JBJN31W6bzGO4bPS/XkO49lF6YuY+jKNWQ7ctp2RpSpFGNawx87Nekz8SF0OEdcjArGGKM2UTcxYwGnYMG0uFitQmuwGfFmBn1d/SPQNIeSglQCzA3amIfNFuPU+57OtGBaGbidjbwrIPtlcek8tJ6JvefZ4/0osL7PbC7JxABQEQJMZF5yDu+bxEjk3c1xc3EErqbVV9BjEU2hp2BgzgnA+KtY6sLYaTFFZ72BI+nXPNEQNw8jUM5xQ3qai9FDBl218A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GKcMv2fIGRp0BwlC7+WzQ0t6smEP2wsWIPqdiHGu/40=;
- b=RrsXX5xPog/K+SUWeIkVOWGHizdQs63ChikjnH0y6zI2utdACzzhaQIrwnS7/pMH4T3BNoNYFzCsY1Ur+Lvd8JoCdCA0f5sX4x4BG9dTufOt/9pt9yIf6dMDPjAr7Cg5DyX0OmOrwxHMIUNgdOwYzuGdcB76Twu/jcdoX1ByOAM1AWgHPHlcQFu6Pku/igXhfnM2Comod7mVNaMkoF9bKHyHomopUX/6YU0UjAr8mkL26Ziz5XO9vuoXVDNSZdyNxxtGJcycooUc7LlbrM+X9mO/7OvG4AiUVhEWmPhFN3Cfl2EVULcR11ejohucEOTz9gDFOoHwCgznQftiB04utg==
+ bh=eUPrYMX1oj9WbH6Z8NhWbGl+MxeAQXSqdKsLLe3AQgM=;
+ b=bf/0bEVJZ6AjG3uhPP8Wg/fCDghNOBeFcK0yodOcZ/atu1PZ7mZQTFMC+6AGKyLTvecwCHJoBV7VLrqofgK5F7DcfPdEoa19bHgsX/voOKHI1oo+Cm3KkXsIFkaG5Zfr7xhqWnWkGtGzyxmuSvdm0rtNPdvuRozQjKD2eu73cgn63PAZAuEC2e/oS5Rp6ERNjQDt24/iScpekqr7A9By66U7nq2/HlOjqmq7Xf+9sXkkVnPslIiDXbkiu3JbOucvHU/3cN7kF+H3wJ26pqBYrTuBwE1K1pofMn1eI3u7yTx7YnM9x+Ls0hLvmTa1B6POrkh95NfaIGEpRJfprj+8Fw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GKcMv2fIGRp0BwlC7+WzQ0t6smEP2wsWIPqdiHGu/40=;
- b=OkxDHdjTp4p3KX1ISv5ah1EzGlbtyQ/JLxEeEGHXu9mGg4ekpVYDIufIYD0Ttx8aPHTAjOQGoLQ25Q/SdizGQ4/gs0TKRv6GNh6W046vOOKYCFWopyDScGY/vqD9cjpoL9+3Nm7DlpnDMeAaYwk018Xy8itHQBz2iR0nrXEQ4d4=
+ bh=eUPrYMX1oj9WbH6Z8NhWbGl+MxeAQXSqdKsLLe3AQgM=;
+ b=xhTe1/d8CyiEoFPvemQdOvhfWMnx6LMA81aC24f2IB51quBEPd4yslCfScTvNY9cHpKiJr8BYNuLRYPGffDubQZMYdB7QEjQZC2u1mcoyC0YB4NplKk+7WiMoeSVAEBW0rxfJ19frE2Y1g6x8xnzLjr40qfRwxxpXjthluxk09olUFldLqhCTMdt3he5CqlbcPxokQibsVieow/GYBFkBFwg/kTMu9fWnTQvttD8Ov4bI1BMJ6a2JheGxUGrK2XsQWx+oQQJB/LyEkwcWcY/dwFe8oaVy5wHwNO5HllpH4XRn3DGB+Iyq0AqNN/wOr/WRnv4g/wnA3H0foJdT1g9cw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 16 Mar 2023 14:28:25 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <55c5d28f-8dd8-1d33-f275-93547b0bd94a@suse.com>
+Date: Thu, 16 Mar 2023 14:30:03 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] build: omit "source" symlink when building hypervisor
+ in-tree
+Content-Language: en-US
+To: Anthony PERARD <anthony.perard@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>
-Subject: Re: [PATCH v2 1/5] x86/paging: fold most HAP and shadow final
- teardown
-Message-ID: <ZBMZeXxqUsucQETt@Air-de-Roger>
-References: <882f700f-9d79-67d5-7e13-e42c3c79ba11@suse.com>
- <67b9378f-cf4a-f210-aa2d-85af51c51ab0@suse.com>
- <ZBMKhQWl1pZppgSj@Air-de-Roger>
- <91d3373a-2a50-f868-7471-08f9def8e6b8@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <91d3373a-2a50-f868-7471-08f9def8e6b8@suse.com>
-X-ClientProxiedBy: BN0PR04CA0007.namprd04.prod.outlook.com
- (2603:10b6:408:ee::12) To SJ0PR03MB6360.namprd03.prod.outlook.com
- (2603:10b6:a03:395::11)
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <ca9930ee-e6bf-3cf3-633c-02d5f21760f5@suse.com>
+ <6880d302-cc8d-4719-be15-5a0c6bf4c847@perard>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <6880d302-cc8d-4719-be15-5a0c6bf4c847@perard>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0064.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|SA2PR03MB5770:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ca2b79e-2215-4f7c-3069-08db26225561
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PR3PR04MB7465:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad38bb42-6b99-4a95-2846-08db26228dcb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	PhMVwmMYAXnPB1FtfIGN7ijnQUQR/FgqHFj3x/PiX+07Pe4gfRQayDUWL1DS70TIEUXtQxKoQdd985u8Scfr9y974qhL2oat52v21zG2bs2cwd1ftEEPKkyfLPRKJgxkYZgt8R3IwyIDe/Wv2rnUN1nu9aEYHs9Lhp+LjqT376fs5JAZWzrEmT/WpXqqTdYcZQs5cgQpZsTn3n6WCL7qACo/ars1rNh8isXkRBsNsnm+krpbFhulGHTUPM+eQpRH3uNBvoQs9pxjLQ61zaRoPzcapE4qHveFw82qhU0AXCbgZzcXZ1rDemIIgVeif0V/D1oyv7BJWXz5gqiCCPZCtEZCBIZdqyq4hScTG/J5gyoCwrGIEYiJsDmlXtV6m9YK16yi/1yEawdr6PLf+4A5W2jeOPtUHhBNV1aqCHN6aw3Pp9AuwWS3HxJonC3ge9D4IhZo+KqeS0l3+6jZrPLEornvDc8biYgS1gDqngWLzZRAKJ8m9qzJLBfs3PVKxHXBJv3VmNrpQhJhbxxdmFtm378jujQlainSlg/p92godd+kq8h9NC8G8S2m5+N0ZiPDWAxCluPvsYMCdaocL8ETrwS4ndP1sxvDeEtzN7+5ZBV1EC/fRWkqPO9Wpx09hDuC1bBiFr/uO+X5JA2YrJmcVg==
+	8i2ZQnda9pihclwnSNgVQuH9wAK/MeiQOpZv0UIWLL8gzHStxqKTNdc3QsL9tPAKmy6NeOKBlLyLC9j+P2DpPh1TuCs0Jt5RoW2IqxzNTDCjCf6VZYs8yGyHelS4KRXK/J6XLkKh+XO/NRUonG4dO5ljizikRYPTwYuOEQZVthqZEs1fNlJIYJth3CybFESPsIo3jQtwmJIuNOvxZ+kAdW5ynDIeMYGdACe71MtAAwxSGSy+YWiTfG2VsoqnPaGTu3FYH8jPqnkcvCG8h9aia7vUkrQjHEkUTr+4VAo6kHK7dLFhE9dVlJs2DNV6FyEFAac2g/UOtP8AfK8elFukHaMwp0ylpe8lJj2UYYuGWK5BtEkcDaztdR29W2RlBq+DfS9QvMqrZ8GvLo1l77nsRSrXMfU3mdb4EFkp7rgihHeQflNIXvrymJ2pePfc8R8n5WJlLCtpnHgClcWm3FQ/4n/SI17cpwXeCV0LhHJf5aCTb/woWB6Rq0Wjy3EkMbSQv0St4Ys38cCZ3QOfxd/pzNRS5b/UMQGOUsOI4o/2qq2ZWTX3j30Txj2nbX6UetsuBP0/jfTKb77jOOwkvif//K7aqSzcpccwzHU/8dk4RUXKi+ODxuS27guBEFZvp6TIBH/Luyz90Xd9DvYOU6Vbs1I1jtUVdS/+XaOYymm+FMUh5mQeku0YcTK4gHy4ReR1nzXlbEeZAo5BJP002s7AtOhV3th8UDUv1RgDiHjkL0U=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(7916004)(4636009)(396003)(39860400002)(136003)(376002)(346002)(366004)(451199018)(86362001)(85182001)(38100700002)(82960400001)(2906002)(41300700001)(5660300002)(8936002)(33716001)(4326008)(6512007)(26005)(186003)(9686003)(53546011)(6506007)(83380400001)(316002)(54906003)(66476007)(8676002)(6916009)(66946007)(6486002)(6666004)(478600001)(66556008);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(376002)(136003)(366004)(396003)(39860400002)(451199018)(31686004)(5660300002)(41300700001)(8936002)(2906002)(38100700002)(31696002)(86362001)(36756003)(66476007)(478600001)(6916009)(66946007)(66556008)(966005)(6486002)(8676002)(54906003)(2616005)(4326008)(316002)(186003)(6506007)(6512007)(26005)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NkhDcjkyeGNvNnZGbmg1V24zM0xOd2QyOERNMWVyNDlwcnNFQ0ZQM0ZRRU5J?=
- =?utf-8?B?UTY3Mmd6bHlxRjVxckpxclpjdGFnRDNsNTlmUzZRZFJabWJaMUMzVTJrcm1C?=
- =?utf-8?B?eFRZNFJJOEV1MS9XeDZ2dGcvZDVKdytrVCtaQUhpMXJybE1NcE1jRDluRkRv?=
- =?utf-8?B?S05YZWl0S21vWGNXc2NnVCt0VDMvUTBiTThCbnlnbHJnTVJldXZtbXdoVmVC?=
- =?utf-8?B?UjcxYS9jSXZoMnk5OG1ZYzhwUGZLSjlrTmpXSVU1L1dNQVEwaGpZVFJLQmFG?=
- =?utf-8?B?bXJ6Y2hPcFdsb0dEazFMZklTR3AyWU5Gd05zbmN0UDZ1bkZBTGF5OTZkTGNx?=
- =?utf-8?B?dzNvTXBKZm9yQ2QzWlhJbHJXbk0ycG90SWU0UVp1MURpWSt2WEVRcU5FSnl3?=
- =?utf-8?B?RGdOaHY5TUtsaklVMTRGL2VhMWVDSlEvdm1KZXVaSnRRTGVBQWlJUlVDQWRh?=
- =?utf-8?B?R1pVVC9DMDZibjNybUx4cVpsVGtSdUN4NWNzbnVKMjRZZ3JSNHRvczJrekp3?=
- =?utf-8?B?cnBKK1dadVI0bWxTVGpDOHlvS2gzWVhLckVncU9lTUJJZk8xSjdFeGNtYTRO?=
- =?utf-8?B?NmhrdDZuQmtDNlBZdG90cCt4NXF4Zm93cjlKcCtUOHA5MGREOTZOWFhkTU1v?=
- =?utf-8?B?NXpSbmlvTFRCWkIzaFlIYWNjZUdpZUtlM28vbjhPTlpUeS9pWEU4ZHBPZXBG?=
- =?utf-8?B?Y09LczlvQUtVWEsvVllvM3N2a2p1RnRtUlZ3QTc3c3dZR3FHbysrVzNKRmVU?=
- =?utf-8?B?dWNwNXpFVHpoTFp4NFQySXRHZ2dVYzZrbHRWTURTdWdiSkJENFdEd3N0d214?=
- =?utf-8?B?eDNUb3FRT0NWTkxTTzJHUjBxTGNTcmU1K2NEbFF1eVlobmF6MjNEbXZhb0g2?=
- =?utf-8?B?Q2dkYlNsMHZvS1VUaHBMSlNJN0RUOHJIYWk1TGtjekM0TUVtc0F3cHU1QW1J?=
- =?utf-8?B?b3RFVFVYR3UvRFcyR0dIR2pFRnY0c211RmZvYzlwSllPb2orVm5yR2tQNDY4?=
- =?utf-8?B?dnZDY1ZEUkdJSVE2emZXZ05ya3ZUbXc0UUZzOWdSMlZ5VE5zdGRZTFo5NCto?=
- =?utf-8?B?SytBdjBpQyt0cHRqallTM2ZKa29ydzlCV1JDcDJxSmlrUmhTai9ZODg1TUZW?=
- =?utf-8?B?YmcxNER5S0s0aTFUbXRHWE41bG5tKzc0SDNOc0NvZ2NrZTdZcytsN2k5b21t?=
- =?utf-8?B?ZnQ3amNSaTlMQTk2eGdrTTRVTWNhZ1loZXlFbkl4WjIwOGk3bUlIV0ZTRS95?=
- =?utf-8?B?cFFIWnI0MFZ5RnpWRkU3dy9pUzB1Z1RDNEt1aWtHamFLTWdFazBGZUNLSjZW?=
- =?utf-8?B?bHZsYnd1a3JkQlNzNlloL2laVHFhRCtsYzFybWYyNE1kSTlxOWFkanhYS3JO?=
- =?utf-8?B?MjcwTzQvSHpqbDRwNnN5aHFNUTJlcldZNXZrZmJDUWtlWWRkNElhMXpqR09j?=
- =?utf-8?B?Uko1U0Qwd1dZL0ZQTk5tNm83THpPMnEvc3R6cWhXNSsvZW90L2dsRy95RG4r?=
- =?utf-8?B?U2hRK1lQbUlqOEUzZ2Fnb2dBOUFMUkNCMDZjaUFHd2pFdkFPNGdQd1NRVXZJ?=
- =?utf-8?B?WTlQK2V5aWZOM29WemdCT0FzcU5hNGVWMkhRdHFjcUgyTEYrSm5qS2JiTER0?=
- =?utf-8?B?UVdpRDAxVVBGNTNvWnhwMjBRWDJJeVpQeml1UzlEODhqdFFtV1ZOMklLSnpO?=
- =?utf-8?B?ZXNHaHdxelJ4MUhIbXQ0S3N1YWJ3WStiTDZoWGc2NWIzbjFxSUY4bkl3SnpY?=
- =?utf-8?B?c25rZm1EVm80d29YWTBURWVBNkNpTWQyYTMvMGR6ZFp2SGg4VWZocldwcmN4?=
- =?utf-8?B?S1dZSm42K1dTMkdHaUFZMUZiNnczMGZ6bHZjNGlyYVBhK2ZSOExQeFR6OGVq?=
- =?utf-8?B?ZHFCa0lUR1RJUk1Vc1c4QWk0TmtQeFR5dXFqblRoQnZHOUZKak9mYWtsbXVM?=
- =?utf-8?B?S216Wno3djM2RVZ5T0dkLytYb0QyTnNQcEo0Vy9IMzJSYm1tRWptbURlSjhz?=
- =?utf-8?B?OElDZjh4RlVQMm9WNnVKTHZUd1R4bmVlTnBZcE5ZZkowNmhCWGdUZE1RUmFL?=
- =?utf-8?B?b1U1cStVWTBzdDhTNWhyWURpbi9lTnVXaTRtNk5RMFg4MjZpSUxQNWJ1Kzh4?=
- =?utf-8?B?Q0JyUjM4cEhIYVg4T0NvNEdWa0lOSHFDOThrNzNIZEorTHBCa0VZRGNSd2hn?=
- =?utf-8?B?RkE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	vdYlnDNzCg/dYkE4jX3EzUOJS50qwW8I9YrDMdxjamFRoKNHdOWx+pha88msduQHqTgEFOEiShL+acZwul4jvWAvbC6Cz2vSiTNd50TBNpSMh1ICINUg/IwN+JNqFOA4Ds3WpRf/cS4z8v9sFggIiVN9yNwSDmT+O52FAUrUP3/owi+MznUIYVO39HYlrfwzwzAZDtz1rmVRp8O/mA8Kduyxux9Us7dMt0FNu9uHFhZ6g0Kbn2m3+cWvsNqALleKbAeMKmhj3VGzpQfjtXj5buCUaEBVe06LEMql6qlvUJPYlwQj78ooQXDlxVL/q7x5rFAVsNMG4wRSXotC561d2WWJScjS3dbKe8rv7r5tH7WIhO2G98A1Uos4cYaxVrfN6FnE8ti+50Ot+xYr/jvEr3aHMt8JMoG3UVBWOG8rpHLY9boyjp2vBK3n8J2KyqzaW3z7wTFcG147I4/3x9bRX6aURE6iWM77NSF+co14UgFx8IuNcai8v6LZPWzDGKXZMPDbL9+QrTD+Zod9nHkvcrI2bpPYDgqsogfU+J+oDPKs8WsGdgF0CDjwbUOUg2HGtX5kmWALtAiWlrAr85BfueOhiKEkOmDjT7K5royvNQ79uPL1+A6iSNktYB57w0AxYmUfKxBxk2nfa7QIOmFWK66fIBTNQq123LmwD1xW23TNgj0Fo5B0K9Lr0MbaEwzAqIEcxUifjTlmMeQw9x1HiOo3MXpkJlKM9e6/UAttGQ5epyaNkgmGskZ9LcP12l6FKSZ75hmKCLfixc1BhV/G3/wSK7+fw1V293waQMX9SOr4Wo+lUTevi/2rh4jbJ/Jb
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ca2b79e-2215-4f7c-3069-08db26225561
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+	=?utf-8?B?cFpYWnk1eXNlZmV2WGIwWXFQcWpZZjA5L3BtZmthbnZKUEF1aUJ0QVJkZ1Z0?=
+ =?utf-8?B?Ry90Nk1aS2QzbjlRVW40L1FEZUJmVTJrUnJUNHYvUWFjQU82UWFZOXBnUmR3?=
+ =?utf-8?B?SHFMVEtYZUxJejV0aGIwMVFiVUZpWURXUTRSODlJYnNEODJGR1haNHZsY2xM?=
+ =?utf-8?B?a3UxNTJyZjk0T05OZFhFNk5NandTblFodlQ4WjEwTVhTN1FtTFF4dDRXc2Z1?=
+ =?utf-8?B?VVcwYWlqdjVSM0ZTRnJ3N2c5U1V0M2h6YzN5SkFKcFFGZHc3ZVpqSlo4ZFVk?=
+ =?utf-8?B?YUoyZkVXQllDUHJUQkVPR3ZzYTVYczlDL002ZisvU2wvZUM4bkNSZEV2a0xl?=
+ =?utf-8?B?RG45UVNxYVp6WFRQSnZneUZzK1VLdEpZYU1Cc3NYb1RUamVGZEIwL2hJNjc4?=
+ =?utf-8?B?UitpUzVhSjBZQ1FmeElQZ3lwZkJ5QmFqZ2NXV3dmQjNVZ2RjcDZQTVh5VUJh?=
+ =?utf-8?B?clNETEhYUjNZc01MaFdSUWFuNVN3ak9TSFh2di9URUlGVVczUVRCSWdtdTlS?=
+ =?utf-8?B?N29WU2o1cFRCWmtrNTFKeWZsc3M5aDB5cDZPb2MvRWJnVmg3b0QvcFdkUTRV?=
+ =?utf-8?B?OVhwUTVZOWpoRksvNjNiVG9nU1VmeDdueGdVTWQ1c2V5UzR3cmhGMG5LTFpD?=
+ =?utf-8?B?TzFXSk9MZk1oaUxXZ3pkR1c0a0FWYXlpUVJMdGlwQTN5VG9YclJEaHVKZWpO?=
+ =?utf-8?B?RUowakppK0hPdlBOcG9sSTdETEx0QVpTQmF4TW44eWEzak8rczRPbUJ5RWM5?=
+ =?utf-8?B?cENQMURLSkYwYkRYcFNKSDBjZjBndVJ0UU9aUGxqZ2pESEV2Q21YQUM1WTJp?=
+ =?utf-8?B?V1FvTkxac2d2SzFkbzlHakNjaUZVRndGVWN0MTN0R0xqczh2aFlwRGlka2Vu?=
+ =?utf-8?B?eDBVZEo0enpSMGxZY1RSd05ENDY1VUdiT3o2VjJBTDFuZzRRdjV4VDU0dHpT?=
+ =?utf-8?B?R3NSRVM4VDNmNXdHR2lEb0hERzFsSTBaWUdBU1YwNUpCZEY5R2ZaUmlNdk5F?=
+ =?utf-8?B?T0RZOHVhZFBNRHdkT1RHM2hwVHExVUFVMjljL2ZXTGVSSHh1LzhsVGtOb2FG?=
+ =?utf-8?B?VHl3aFFialdwQ1ZJSEc5bG51VmZQdVBkdFdUQ0VKSFh4bXZ5dHNHOVRoRC9i?=
+ =?utf-8?B?MVJHdmRIRFVEVGZLUFhTN041SUxreDI0VVFJM2xBWWZmMmpjVzJLQkg3bCtq?=
+ =?utf-8?B?L1ZwVDlEbXhJNFdSVmJ2cDdQdk9ybTBKSlJzbGhNVFRBdGp4QmVLT1lUWmNa?=
+ =?utf-8?B?VTdPcWxxUkY1N1Z6bDFHTlQ5QXBGeTBqbjFJTHNuM0lEWGZXT0lKRnQ2c0RG?=
+ =?utf-8?B?L2lUc2FhT3ZQZ0pta09xV1J0aHdUNlYya0hoVEJQNEl3Y0d5WVoyOHhPR21N?=
+ =?utf-8?B?bXVrNWpNOGxhTVBJVElJMmFzaDhTVC90eWtMd1RSTStNZFczMEQzeUhlMG9Y?=
+ =?utf-8?B?WGxWODMrck1jOUp2ZkxDUStneFJ1VVlBYk5BK1phTzBnczFEMlNZdXVuc0Z6?=
+ =?utf-8?B?ck1OZ2d4by9PRytHcE8rMXNVWGJka1IycWt4OXBmaXhxeEVlVzNnaEcwdUJw?=
+ =?utf-8?B?Z2crNy9qc2lqU3BHMU14WUYxZ1RpdTd6bnU0WHBaaDhyMXo3NEVxbnBIcXRF?=
+ =?utf-8?B?TGlDY3hXc3ljb1lRWW9JTytneEU3K0xVRUNYS1FFOGRPM28zb1hBc3JWTVgr?=
+ =?utf-8?B?bWF5ZVU0ajZ1cFEvS01GT1FpUzRxbDBRMlVYUUY5b0Rqa3VrUE5xOXhJcXVu?=
+ =?utf-8?B?a2h4NW5Wb2N6MlVFeW0wOWpuNnpjQzZzT1BOcllzMy9zdzJSeDg4MmFzWTV3?=
+ =?utf-8?B?NUNJYWJZck1uVVp0V1kwS3gzaUVyT1NxYWNWSHY5bUpVQkl0eVZrSjNXVVEr?=
+ =?utf-8?B?ZFdWSWUrZzJPYW1pczNaYXhYTS9nOTJCMFhnbGg2aU4ycXJndit6YTdNeWFN?=
+ =?utf-8?B?M2tqUmlYZnU0dldTcVRzamVpOW11RWpPWXh3VWRoVFdCQktzY0g5L05lRGt5?=
+ =?utf-8?B?LzB4bnJGVjF6cUpMSGl0bnVmakJhYkN5VHVOdDhKOUhtMnhwOTRsZE13R1Nn?=
+ =?utf-8?B?UllnZFhqZlVhSERrK0FNRFlJeDFhM3hXSktrUStwSXpCYVFCcnZQRC9tSXFO?=
+ =?utf-8?Q?xjh9Obgxi0/RvC5zMiuWh45ro?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad38bb42-6b99-4a95-2846-08db26228dcb
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 13:28:30.9045
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 13:30:05.4108
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z7EPllc54sDCUorf2HOBILaSUFskjYGsaLJvbkZznj7U1z1FTN7lVXuJv5eSvY9LajeFBYBWs9rG9YllulbVBw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5770
+X-MS-Exchange-CrossTenant-UserPrincipalName: QnVqQvwmSAEq1qu4J+t/Clvh+cCzDxs0Y9fkdH3epoCGe0noHQseBgLsv2K+AMCmSq6GYHsgZ7JKh/zn6l+3ow==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7465
 
-On Thu, Mar 16, 2023 at 01:57:45PM +0100, Jan Beulich wrote:
-> On 16.03.2023 13:24, Roger Pau Monné wrote:
-> > On Mon, Jan 09, 2023 at 02:39:19PM +0100, Jan Beulich wrote:
-> >> HAP does a few things beyond what's common, which are left there at
-> >> least for now. Common operations, however, are moved to
-> >> paging_final_teardown(), allowing shadow_final_teardown() to go away.
-> >>
-> >> While moving (and hence generalizing) the respective SHADOW_PRINTK()
-> >> drop the logging of total_pages from the 2nd instance - the value is
-> >> necessarily zero after {hap,shadow}_set_allocation() - and shorten the
-> >> messages, in part accounting for PAGING_PRINTK() logging __func__
-> >> already.
-> >>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >> ---
-> >> The remaining parts of hap_final_teardown() could be moved as well, at
-> >> the price of a CONFIG_HVM conditional. I wasn't sure whether that was
-> >> deemed reasonable.
-> >> ---
-> >> v2: Shorten PAGING_PRINTK() messages. Adjust comments while being
-> >>     moved.
-> >>
-> >> --- a/xen/arch/x86/include/asm/shadow.h
-> >> +++ b/xen/arch/x86/include/asm/shadow.h
-> >> @@ -78,9 +78,6 @@ int shadow_domctl(struct domain *d,
-> >>  void shadow_vcpu_teardown(struct vcpu *v);
-> >>  void shadow_teardown(struct domain *d, bool *preempted);
-> >>  
-> >> -/* Call once all of the references to the domain have gone away */
-> >> -void shadow_final_teardown(struct domain *d);
-> >> -
-> >>  void sh_remove_shadows(struct domain *d, mfn_t gmfn, int fast, int all);
-> >>  
-> >>  /* Adjust shadows ready for a guest page to change its type. */
-> >> --- a/xen/arch/x86/mm/hap/hap.c
-> >> +++ b/xen/arch/x86/mm/hap/hap.c
-> >> @@ -268,8 +268,8 @@ static void hap_free(struct domain *d, m
-> >>  
-> >>      /*
-> >>       * For dying domains, actually free the memory here. This way less work is
-> >> -     * left to hap_final_teardown(), which cannot easily have preemption checks
-> >> -     * added.
-> >> +     * left to paging_final_teardown(), which cannot easily have preemption
-> >> +     * checks added.
-> >>       */
-> >>      if ( unlikely(d->is_dying) )
-> >>      {
-> >> @@ -552,18 +552,6 @@ void hap_final_teardown(struct domain *d
-> >>      for (i = 0; i < MAX_NESTEDP2M; i++) {
-> >>          p2m_teardown(d->arch.nested_p2m[i], true, NULL);
-> >>      }
-> >> -
-> >> -    if ( d->arch.paging.total_pages != 0 )
-> >> -        hap_teardown(d, NULL);
-> >> -
-> >> -    p2m_teardown(p2m_get_hostp2m(d), true, NULL);
-> >> -    /* Free any memory that the p2m teardown released */
-> >> -    paging_lock(d);
-> >> -    hap_set_allocation(d, 0, NULL);
-> >> -    ASSERT(d->arch.paging.p2m_pages == 0);
-> >> -    ASSERT(d->arch.paging.free_pages == 0);
-> >> -    ASSERT(d->arch.paging.total_pages == 0);
-> >> -    paging_unlock(d);
-> >>  }
-> >>  
-> >>  void hap_vcpu_teardown(struct vcpu *v)
-> >> --- a/xen/arch/x86/mm/paging.c
-> >> +++ b/xen/arch/x86/mm/paging.c
-> >> @@ -842,10 +842,45 @@ int paging_teardown(struct domain *d)
-> >>  /* Call once all of the references to the domain have gone away */
-> >>  void paging_final_teardown(struct domain *d)
-> >>  {
-> >> -    if ( hap_enabled(d) )
-> >> +    bool hap = hap_enabled(d);
-> >> +
-> >> +    PAGING_PRINTK("%pd start: total = %u, free = %u, p2m = %u\n",
-> >> +                  d, d->arch.paging.total_pages,
-> >> +                  d->arch.paging.free_pages, d->arch.paging.p2m_pages);
-> >> +
-> >> +    if ( hap )
-> >>          hap_final_teardown(d);
-> >> +
-> >> +    /*
-> >> +     * Remove remaining paging memory.  This can be nonzero on certain error
-> >> +     * paths.
-> >> +     */
-> >> +    if ( d->arch.paging.total_pages )
-> >> +    {
-> >> +        if ( hap )
-> >> +            hap_teardown(d, NULL);
-> >> +        else
-> >> +            shadow_teardown(d, NULL);
-> > 
-> > For a logical PoV, shouldn't hap_teardown() be called before
-> > hap_final_teardown()?
+On 15.03.2023 16:20, Anthony PERARD wrote:
+> On Wed, Mar 15, 2023 at 03:56:21PM +0100, Jan Beulich wrote:
+>> This symlink is getting in the way of using e.g. "find" on the xen/
+>> subtree, and it isn't really needed when not building out-of-tree:
+>> the one use that there was can easily be avoided.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/common/efi/efi-common.mk
+>> +++ b/xen/common/efi/efi-common.mk
+>> @@ -5,11 +5,16 @@ CFLAGS-y += -fshort-wchar
+>>  CFLAGS-y += -iquote $(srctree)/common/efi
+>>  CFLAGS-y += -iquote $(srcdir)
+>>  
+>> +source :=
+>> +ifneq ($(abs_objtree),$(abs_srctree))
 > 
-> Yes and no: The meaning of "final" has changed - previously it meant "the
-> final parts of tearing down" while now it means "the parts of tearing
-> down which must be done during final cleanup". I can't think of a better
-> name, so I left "hap_final_teardown" as it was.
-> 
-> > Also hap_final_teardown() already contains a call to hap_teardown() if
-> > total_pages != 0, so this is just redundant in the HAP case?
-> 
-> Well, like in shadow_final_teardown() there was such a call prior to this
-> change, but there's none left now.
-> 
-> > Maybe we want to pull that hap_teardown() out of hap_final_teardown()
-> 
-> That's what I'm doing here.
+> Could you use "ifdef building_out_of_srctree" instead, or at least use
+> the variable $(building_out_of_srctree)? At least that mean there's a
+> single way in the tree to differentiate between both kind of build.
 
-Oh, sorry, I've missed that chunk.  Then:
+I should have added a remark, I realize. I am actually aware of that
+variable and also the fact that it is getting exported, but I was
+seriously wondering why we do that: It's redundant information, and imo
+a variable of this name shouldn't really be exported.
 
-Reviewed-by: Roger Pau Monné <roge.rpau@citrix.com>
+Furthermore I consider the conditional I'm presently using (matching
+the one controlling the definition of building_out_of_srctree) more
+descriptive: I had to go and convince myself that the variable really
+is set based on comparing the paths; I had suspected it might be some
+other conditional, not the least because of me not expecting that we'd
+carry (and even export) redundant information.
 
-Thanks, Roger.
+So yes, if you insist I will switch. My preferred route would be to
+ditch building_out_of_srctree, though.
+
+>> +source := source/
+>> +endif
+>> +
+>>  # Part of the command line transforms $(obj)
+>>  # e.g.: It transforms "dir/foo/bar" into successively
+>>  #       "dir foo bar", ".. .. ..", "../../.."
+>>  $(obj)/%.c: $(srctree)/common/efi/%.c FORCE
+>> -	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/source/common/efi/$(<F) $@
+>> +	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/$(source)common/efi/$(<F) $@
+> 
+> Instead of $(source), I did proposed initially
+> "$(if $(building_out_of_srctree),source/)" for here, or it that making
+> the command line too long?
+> https://lore.kernel.org/xen-devel/YebpHJk1JIArcdvW@perard/t/#u
+
+Oh, I'm sorry for driving you into adding that symlink, which is now
+getting in the way. But yes, putting it inline would imo make an already
+too long line yet worse. Otoh I could of course wrap the line, albeit
+some care may then be needed to not introduce whitespace in the wrong
+place.
+
+> Having "source := $(if $(building_out_of_srctree),source/)" might be an
+> ok alternative in place of the use if "ifneq/endif" which take 4 lines?
+
+As per above, if you're determined that building_out_of_srctree should
+stay around, then I could do so. Alternatively how about
+
+source := $(if $(patsubst $(abs_objtree),,$(abs_srctree)),,source/)
+
+or the same with $(subst ...) or yet shorter
+
+source := $(if $(abs_srctree:$(abs_objtree)=),,source/)
+
+if you're after cutting the number of lines?
+
+Jan
 
