@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF036BC7E2
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 08:56:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510353.787858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDDCA6BC90A
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 09:26:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510365.787875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pciTT-0005SZ-Pj; Thu, 16 Mar 2023 07:56:35 +0000
+	id 1pcivj-0001hU-De; Thu, 16 Mar 2023 08:25:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510353.787858; Thu, 16 Mar 2023 07:56:35 +0000
+Received: by outflank-mailman (output) from mailman id 510365.787875; Thu, 16 Mar 2023 08:25:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pciTT-0005QK-Mt; Thu, 16 Mar 2023 07:56:35 +0000
-Received: by outflank-mailman (input) for mailman id 510353;
- Thu, 16 Mar 2023 07:56:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ta6a=7I=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pciTR-0005QC-UC
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 07:56:33 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on0609.outbound.protection.outlook.com
- [2a01:111:f400:fe1e::609])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 106b6d44-c3d0-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 08:56:31 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8087.eurprd04.prod.outlook.com (2603:10a6:20b:3fb::24)
+	id 1pcivj-0001ek-AZ; Thu, 16 Mar 2023 08:25:47 +0000
+Received: by outflank-mailman (input) for mailman id 510365;
+ Thu, 16 Mar 2023 08:25:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=eQdT=7I=citrix.com=prvs=4326333c9=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1pcivh-0001ed-K4
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 08:25:45 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 231afaae-c3d4-11ed-87f5-c1b5be75604c;
+ Thu, 16 Mar 2023 09:25:43 +0100 (CET)
+Received: from mail-dm6nam10lp2108.outbound.protection.outlook.com (HELO
+ NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.108])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 16 Mar 2023 04:25:39 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by PH7PR03MB7091.namprd03.prod.outlook.com (2603:10b6:510:2a4::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.31; Thu, 16 Mar
- 2023 07:56:30 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.026; Thu, 16 Mar 2023
- 07:56:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Thu, 16 Mar
+ 2023 08:25:37 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.031; Thu, 16 Mar 2023
+ 08:25:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,186 +49,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 106b6d44-c3d0-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 231afaae-c3d4-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1678955143;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=OMLZkr4T5e5p4/CSjWY3EkPuWyKiWklxU/Cbpl9sYOI=;
+  b=ElCvVgLfF2dhko8N13Rg4ETAWEpz15eXs/Ppu+YdmNkshN4NR1OjTQTQ
+   4TIqyygD9ltSkVg7Tamgfu+k7pTgFGQfgPCG4YuicShawziRhgHLvGYGW
+   YMTYzlNDZDbjm9PkgOu7Jmcs/46KFt52+87KDZ9bvG4wwfb/2DFxACM1u
+   c=;
+X-IronPort-RemoteIP: 104.47.58.108
+X-IronPort-MID: 101488429
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:+KvLZKKhzhhNrEUnFE+RH5QlxSXFcZb7ZxGr2PjKsXjdYENShmBRz
+ WAZXTuHPayOYTfzKotybYm09E0F6sDcn9M2SlZlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpJrfPTwP9TlK6q4mhA5QVgPa4jUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c4mOkVi8
+ /07awkRVTGmhMmu/LGESsxV05FLwMnDZOvzu1lG5BSAVbMKZM6GRK/Ho9hFwD03m8ZCW+7EY
+ NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/dnpTGLnGSd05C0WDbRUsaNSshP2F6Ru
+ 0rN/njjAwFcP9uaodaA2iv037OfzX+hCer+EpWf0fpDh1u1xlYdGUdHEmCjuv+HoUGxDoc3x
+ 0s8v3BGQbIJ3E6hQ8T5Xha4iGWZpRNaUN1Ve8U49QWMx6z88wufQG8eQVZpc8c6vcU7QTgr0
+ F6hnN7zAzFr9rqPRhq16bO8vT60fy8PIgcqdSICCAcI/dTniIUylQ7UCMZuFravid/4Ei22x
+ CqFxBXSnJ0WhM8Pkqm+o1bOhmv0ooCTF1ZloALKQmii8wV1Ipa/YJCl4kTa6vAGK5uFSl6Gv
+ z4PnM32AP0yMKxhXRelGI0ldIxFLd7fWNEAqTaDx6Ucygk=
+IronPort-HdrOrdr: A9a23:MK12sKponEeWe/p7O7cgMu8aV5o6eYIsimQD101hICG9E/b0qy
+ nKpp9w6faaskdzZJheo6HjBEDtex3hHP1OjbX5X43DYOCOggLBEGgI1+TfKlPbehEW/9QtsJ
+ tdTw==
+X-IronPort-AV: E=Sophos;i="5.98,265,1673931600"; 
+   d="scan'208";a="101488429"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y45Mjyu7/MttK4wJFsStn8dLQcuPxMEgUipTAh8Qb0KQehTBKl7MyXTja4grLRSitIbrbwzL1OZPyxxSXA/FW7p0lAMCuHto+M4YIngFqT2WeQHw/1Igo9Y28hKyHiyn4Tv7YTZVXrTlcJDK0EdwUl9KgVL1Gtm2mx6bQNf2AUwW6Hn5JMb2vMgF+d/QvFLRqSbBfDy/XoFwkz01YvFV7KgV2RGB0/XPiMtAshPQXaGqzRolnt8LatpVIwFnXaFUFSitV0NhSysmCOg3U12Ll72dLZxR9lrEz9WKSUcqk/csssTmYOYbMI2DoLD80iiwGYC2QO/Hn16pGrZ/yGwYwg==
+ b=Tyk92O1DG4D9hPgQV9toVREOLuczWhfC1gZ0/zgWwvFN+RnPGO9eYpdnQBeR9mDXn+QM/sTuFWwltI0R0vsFinz1+buFs3nn150fnQo+S7vII5dm/5Rszul5Y/jnRtDYGrf0Y+TbCf98PzjMnjEq+DcTrKH8+Rm361q/jBl+FZ/chA+HAxAz826st08Zc+Uao1gnQIn/QuHProDPQBhGYyjG1WpkzJJBY0/R8zOwlRMsztNiNYKnstKH747Nh+JOltdsgfhWuyOyfiK3useQ6WnV1W0HFf1RAgZNlTamPFdgbpktb9Xr3a4ykYESd7Y2nrhhMJtdlcujoyNfRhSkRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lrN16zHUp/ca8TcEfY5cP+meQmD3ID3XGsOPU5W0AkY=;
- b=U07R/JrD5waHBuNQBRHJjdesDdS9ZyGnyKHp+R+qrfcZQabwqw+XcQ5XWLtwUVwq493NriFXei8TtqVVaTGIqiuT5NYtJelpahczy8LiMbO5dJe9KM0F71gZACS+iDJqRTBf16rjInFIQEGJOPLFFn+GDgcO95QM566EQ/DIh7jjnz93jsO8NG4gL+BXBW4IMboDcOmc0yBBzbgQ5Meelivh8w55Czbas/+7vgsZXQPokWUe0hP7zmkSjNi0JlbXNEY+yrr1cYbIKLqtbcjFkw0DyU7X1WxcIMw6ULjpTr1A7sUXT7u6bJz/7GKDNfUUuwLM/ZiG/8uNjk62E7dDTQ==
+ bh=Owxe1oMilNs25RrdMGTZ/EyqJtyt34d2tICWpI/7uj0=;
+ b=UCZfb+jbkuvBuqzbjNVT0ttmoFib+PWI3haMtiera5iblE4DxRDkY3do1aiY42WncRWo5BOFfilKDUVqiST7TsDDbsjbK3UYSaxYARBVt4yO5Lw1+PB0hV5c3z+ThNfk6DgRZNfMqu61kkXPlbayuAp0B9hHEB+GF7HZpFEACxDMqXwlTizOI5ichMwICWDU6ISWCiZcli+4KAmoXiW4Bp02jXDosDi0WEwHNrfbuutp7Nt0/2ZcagOwJMyX4Zs11in4xPZ8y06NjW7EwW8drabNd18uDerhHv7bWq6lWyba5zMg0W9hE+09icFfbK1vRXTe3UNGZXXkdQhZyLvAwQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lrN16zHUp/ca8TcEfY5cP+meQmD3ID3XGsOPU5W0AkY=;
- b=HsZVagiBaSk+Eq7Aw9HeA6cWjbqBoXT6S8YIaCctMcE+SfCiZd9vv6wjMkt5UqkabxWah02o9/nDWG8dP3yFkrcT2hPQ+DY9ppTYwFQhrywCh8/SSQutWXpNisR0Boqg3G+nL2s2yTcb8nInA+dyA/JizX3lHPHBf8OQrm3W0KrMIF2gAJCTK6LlCFo8yrf+SPUHXBApxlK/U6QFYcLj6hbMVu4avnSdoG7KwVKAIw2ZiJGdSJ8PuADT3xVb0kTlN79XKkT3LYyCHly+K2YVFUdQDtjHSULmJ5eo0R/S43Il+2feodl7HY7kTjPXx8bojEcv3mkTJmVP9+PQ+I97Pg==
+ bh=Owxe1oMilNs25RrdMGTZ/EyqJtyt34d2tICWpI/7uj0=;
+ b=B03PQzEF440JIT33kjsDb/8v44DKHp1z4zmW6dwYd7jNZNhGBMGSH/JqFFjSjQ0oGTiZdKkiVyg0cADlG1D+/1mWQOcfeZMLk2qoAHJpHWEbaxU91zUVI3wOisjyFx9TQNhkhMJ7q5jTtLqSiaR/MOhTl2vubw+vH6Gvj4m8g6c=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <429cbb0c-64a3-aee9-9693-0d6ed4990601@suse.com>
-Date: Thu, 16 Mar 2023 08:56:28 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH] xen/console: Handle true dom0less case when switching
- serial input
-Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20230314142749.8845-1-michal.orzel@amd.com>
- <da7db77f-3ab8-edd1-bc69-460ca3e2ce25@suse.com>
- <7676cba9-6f92-0c97-dac3-372ca47be34b@amd.com>
- <737fec84-42da-3b9b-6cb5-d18406925403@suse.com>
- <d67aeb95-1631-74c0-cefa-a0cc88512b84@amd.com>
- <alpine.DEB.2.22.394.2303151844530.3462@ubuntu-linux-20-04-desktop>
- <1c174a17-0860-358b-5593-a7d45cdad00f@suse.com>
- <848813fc-636f-ea9c-00a6-6b8b049f92d8@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <848813fc-636f-ea9c-00a6-6b8b049f92d8@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0092.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Thu, 16 Mar 2023 09:25:30 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] xen/grants: repurpose command line max options
+Message-ID: <ZBLSenQQGP9LlU+P@Air-de-Roger>
+References: <20230314144553.8248-1-roger.pau@citrix.com>
+ <7db90f7f-3344-75bf-120e-2113908adfb4@suse.com>
+ <ZBCV4Y6Cz91eypUN@Air-de-Roger>
+ <68302943-4d12-ff48-bc60-2c63781f67d9@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <68302943-4d12-ff48-bc60-2c63781f67d9@citrix.com>
+X-ClientProxiedBy: LO4P123CA0368.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18e::13) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8087:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92ca788d-d8b1-4fad-dc6b-08db25f3f3d4
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|PH7PR03MB7091:EE_
+X-MS-Office365-Filtering-Correlation-Id: c33358ca-6c14-4e5a-bb52-08db25f804c3
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3CLSUEa9ayYwiTFy1rvHDS9iWTiFk2Jz8KT/XZJ+YYKSc5YiJ+Oh0OwDGhFkmivOgmq9b8gtXLa7hYY9mJseh2oN9v07GQVqHUFAldkyQZrBUmb/K/Eq2eWVZkkxF9Wa5Jdt1QlsnZN3T/IXhVsgk3jBZPJt8V+RcYZVbsnnSjYsC7wsqydk+6263bJW6fUr9uu5OcqT3wEXlkXKk35k7LJS5am9vdpCGcHR55s+G8GFunGftHVeKt/ro3L/0R+qSQrbKZ5yHq+vgxGip+UFCxnZAAInW07aBujSPYcLQ08OaTCuqoQRmS1SFZAmvLpjxf8Sx+LC/hzfudLvvFymCNE5StYoflYpCLz4TMaY3XfjVWfuEK3hLtFzJA9VCeBsgHjPay/HW0tCX1kWmHZ/kOHyorklQkzOi3i+j9NkZ9plrOi+StCiR9e1lgjlPFBq9XDw+5O+LLCOPiOfrzEI5vrB/UC28/g09efxdLiY8+n1Cx4uRs8KM5jRrgKhmZ+eg9HHdTZI12riFq2qqsR6k+R4ZRDbGfzfp9I0sxA+LtebY7a3dco/FNf1p1AjJ51z05D/kXiULIX5Ba8ASAY9Qi2KBhAeNXNlH/66wnD0iJcs2/P6KBwor2vdUxiiRsqTJC6xfNDJLYWGLpqxKhFxSzUzIYOJKD3TnCYzmhfNiw0arUtbdX3vg6rhoUeOajpeY3kr3r05bGn84kxn74OpjqNIT/f4HO5yocm2YOnGTlmOhnc+d3z0vtZdeYdELC3b
+	5hJCZMNoa01XSDjHPUnQCjDovcydqi1iBzGngpkr5z3SVjuVCYMzT4Yw7Oc3pKor7kKNOyEtB7KqBfRvWeGT/zxMiv1ozK8eRPeOHH3c3sWxUA94TNrLqm2hWVDSFRn273tyGFaPqTj5yHpNN1CEP8LW0zjZCzu+qUM1NYgez9r0n1KdGXnGc4EvcBBEUQy4pByPtJ7zS1IrdHb4VSVacNw726KbODU9NCqOGuMqOacTgPU6GZUioDrTZXGUFwY68RneAlr/ie3XDzCM1ZZ/cObNgMCd83BmWAChxLlv6vH8aYL/5g8Ym8IMYLprHZKb58w3qiU+4g3oGzG1/8Jlme4qLC7vF2Wx5WgCVaIUm025EK8gV4RZ1szvKJQ+T3AL9KGMGIxNrkpQjO85AdceyAR8kWuwdvJB9eT6OwPVQVKtONHTKak9Qggo4Y08ZcS3l70Sx+Gu+25KWbBFVmeQ6cMet+FhOaFBft//FMiBz3BbaWSyNEYzPTvsb7nWB5le0Jlv9Qyltdkcck/EO8abeBd3vOc4YZlE1vDcaWj4SYTM1/dZJJT482gK7R3kj82mQCpHfow6hOoMNb1WpBgcvOykz4ABbglf4Co3qbKthvZgkg8X3yfpc5WmzvDLwwiLzglFbUFsGPsaR2sYNEjv/INZJM/zGkUA2S4PiRpXmYrFdEFTBx22EJhF/qR2JhI5
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(39860400002)(136003)(346002)(396003)(366004)(376002)(451199018)(86362001)(38100700002)(31696002)(36756003)(2906002)(41300700001)(5660300002)(8936002)(4326008)(6512007)(6506007)(2616005)(26005)(186003)(53546011)(83380400001)(316002)(54906003)(110136005)(66556008)(66476007)(478600001)(6486002)(66946007)(8676002)(31686004)(32563001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(7916004)(4636009)(396003)(376002)(346002)(39860400002)(366004)(136003)(451199018)(33716001)(2906002)(6486002)(26005)(83380400001)(6666004)(85182001)(82960400001)(53546011)(4326008)(8936002)(66556008)(86362001)(8676002)(6512007)(41300700001)(66476007)(186003)(66946007)(6862004)(5660300002)(9686003)(316002)(6506007)(38100700002)(6636002)(54906003)(478600001)(67856001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MFZnUmNLLzNxWDBEUjZ1QmxsdHhxa3N1dU5qMllaWGU5WXNGZ1hPSkx0elNN?=
- =?utf-8?B?aldnTEh1bDNrZWpFMHJJc1d0QkNnY1lud0FGa2RUcHQvZU9CN1RhU0JXaXhO?=
- =?utf-8?B?SUcrdXRTREtGUnB6aStQYlR1Ymt1NlJHdWpvdndrMmFUdG1BcXpPSmJETVBJ?=
- =?utf-8?B?VFA3MkhjajZuenJPVWY2dVN1U0k3c2FqSkhVK2dxOUk2OXFGQUVOc3hqOWd1?=
- =?utf-8?B?OGltV3pyTVg2bU5wSUx6aTFVeGEzUW8xanJwWlpUSGFEUVZQSWNnVlhkUTA3?=
- =?utf-8?B?RUNDa3E5S0xGcGlMd0hodXlXcDJNNXJKVXdUSHZWRE5hWEhYRWozNFFuSzhJ?=
- =?utf-8?B?MWdWWXgxTGUxaCtSRE44akZFR3FwZytlbnc2aHYrOG91b054NmtBTldyemIr?=
- =?utf-8?B?cHFNMU8rclRBZUVQMVF6RGYyOEpUbVpCbzRUM2RLdlp3OGg4RGJoMW1LbXVQ?=
- =?utf-8?B?a0VTZVBqQkdyallXZDBqRjYwODRPbXE3ZnZONWQzVy9janM2enhEUEYwWEJO?=
- =?utf-8?B?QlVnSmRBTGdWSFB0aUVSRWxzbWlpSGdqeE5XcUlmeUtDYWxkaS8wbXk3UStG?=
- =?utf-8?B?QXJPWWtZeER1S0JsWEVGZ1RTWDl3Q0FDcXhxNnBMay9EZUtMMnF6c0t1YkVK?=
- =?utf-8?B?bEFselBSRjkwT1E5UkFKMFF0SEJNTkZ1djZSY1BRYWM0dDRmQTJOU0NrV2pV?=
- =?utf-8?B?L2Zmd2VrL3VGSmV6SVdwdjQxdTQ1dlVmbks5WmpvYzRWQlFtZkxGZjFZRGs4?=
- =?utf-8?B?ZmJiRFQ0SGUxQUZiTzFZdDNWSHdWdU00ZS9xREJ6UlFzQVhDdVhucDEzZkIx?=
- =?utf-8?B?a21CWklTYjRhVVIvSzRzS1F5RkdxVTFZeGs0VGV2dWNlc0d5b2JwWDQ5UjRT?=
- =?utf-8?B?ZVM3SGpWTnpSTlBjcGs4cUVyRWVXN3ByQ3RYbGhGaWRsMjRZajZaZ3d5ZHhW?=
- =?utf-8?B?Y1o3UUJnaWhJdWFqbkFsYjNIa3loajRtRFVoVVFTOVdKSkN0ek1FcTV1T1lS?=
- =?utf-8?B?VDYzaFNLWkZUTVNUeTMyVkVPc2NKbGR0bFMrRkJ0K3NDaVRaY1c1cDdoUXJH?=
- =?utf-8?B?RkZ6dEtnc04reUNNWmpEWEt3RFpxcVhtY3ozL0JWaUVPOGs5NzlITTBUNlNQ?=
- =?utf-8?B?OWlHdnh5T0d6bHVUemVXQ3VTdkVQMW1YMGtGUlIrUjdpWWNaSXQydTFiU1dL?=
- =?utf-8?B?MzBwMXFXMjEraDRqSFNjeXVSV3k4aDFaajYyL2c3TzFwY1hlb1lWalVyVUhh?=
- =?utf-8?B?UWJ4RzBjazFQekpXdi9DYkFCLy9sb21NN29pZGV1YXB6WlBKVUk5WlJoRU52?=
- =?utf-8?B?cVRmTHFpRnBWSjlHYTR3OTRRTFJUNG40UWhXZjZVVHhOdTlGWFc1Z0M0VGxk?=
- =?utf-8?B?RUZBTk5DMjlCT1dZanRFNEhTTDJPVTB5UFJ2WUs1eElwTmdwM21HS2h3K1px?=
- =?utf-8?B?Q3hJOC8xWW1PdFg0TGMwcndjTHdUb3ZCdTJ2bHRHR1ljejJmSXpPL3oyY1dh?=
- =?utf-8?B?UHNlcjVsVStKTFRkaktwckJYaHFvdVcrWXdCb2pHR2RiOEtSVW4xK0hlODZV?=
- =?utf-8?B?Nk5kL0xneHQ4NkFXTmNWYXl3ZnJaQnNqQU9LSW95bDVRSm45VSs2N1g3SXNJ?=
- =?utf-8?B?RnN0b1ptekg2L1M5bkdzOHFXRkgxc0luZXhqRU9uOHhrdnhsNUM1TWJ5ckxh?=
- =?utf-8?B?TXlzd0c0MWZHb1haRElRQlJ0bjFpNUNxWVMyNHUwMEQrVDBZZE9mN1d2RDl4?=
- =?utf-8?B?NDdJRnE2MFc5N09LWkJQZWVvOE5WVFgwaG1FL00rdStJa08ydnlPNFBlMWFV?=
- =?utf-8?B?RnJ4WmRrMUpkNXBaU2gxaHJUdUVKUDJCWjhIZDJxWm5NU29oWEU5YVVGSEdy?=
- =?utf-8?B?aDRXWll3dm5EQ21ZRkxMVDRrL0J3cXRla1FuaFNjcm93c2FJREFqNnNCYXlM?=
- =?utf-8?B?RWpiaFVBbmRHNjR6aXRRTUpIN2owNjd3TWdVbmN5ZEdIcCtXSUMraHNyQUZz?=
- =?utf-8?B?RXp3bFBkcnBGcDdSUlBFTktLcGk1a0VpYU5sb0FmNXRqN1M3RXMwSUlldUY3?=
- =?utf-8?B?Mnp2ZTJEbFNzR2xkcGVLWGozUExRTWM1dlFQTnY4b0YxejdhVFE3bDdoaXk5?=
- =?utf-8?Q?vY0LgMvY/Nxeh+TdNTFPsB0ri?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92ca788d-d8b1-4fad-dc6b-08db25f3f3d4
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?OXh6T3RYUlhHa0xvWnR3eXh6SllJeU9kbm1VTUNmNUdjT3lIMXYycmlNMkVk?=
+ =?utf-8?B?Tld4RFVob0hxWWpsWnRsbVkveFRaTDNOZEFXY2lVRUVEY1o1MmNGbHFBN3Nx?=
+ =?utf-8?B?eVhDYkgxa3NGK3pWQ25qc3JOQnhqSWJaV2pHOWtGSzFFSjh0dDhFcmRBS0oz?=
+ =?utf-8?B?ODBuYUVxaXpoRUZYZnJTZkpqNzR5UGZycmhrRTZYdUVBcVowR1Q1aXZzdHR4?=
+ =?utf-8?B?cXdBTjhKZ0I0enMyMWtHMjlkNG9GT0lXRnBzazNoTldyb3hDTGVuMjg0Sml3?=
+ =?utf-8?B?Q3ZKQ202WXF6NU5vcHZXMXcwUmdsTTJpZ3B2QnBWZHZpL0k5QUlBTXNWV3ZT?=
+ =?utf-8?B?L0gyS05oaFpPZFNMUzB0VFZ1dDdMRHBsM1R1T01udHFyRkFXNTJQUWdGc1pv?=
+ =?utf-8?B?cHR5bGNRaVVBWnI4cjZLQzNvUldEL1RUQ3MvK3FodG8xSnROcHlNYjZKSzJZ?=
+ =?utf-8?B?VE1rQXgvQitkOU1zK2tTaHRxN2RqK0QxQmszcERhMWY0QTIxczdKQ0QwWXd2?=
+ =?utf-8?B?WjNMUnFPaE1ZWkQ5WlVaeTJVb2Q5V1o5aFZ3aUJqRHhzQnZpVFVxVEw2OTBI?=
+ =?utf-8?B?UFhNRVRJamFlLzMyK2VDQXdiTEx3cDhNb2VkVU8wYU0wWG80WUtRRnZuYUVk?=
+ =?utf-8?B?azdPazNWOHpzRTJSVGVUeFlSVmJNV2tLbXFUWnQzZ0prRGIxeWMzc0RYN2Y0?=
+ =?utf-8?B?UG1CS0UxUnU5bTFTYjJsOEZLK0xwWEJCRjBhVVFOV0Y1aXlBbEpyRkloaUdS?=
+ =?utf-8?B?NUhMelBpeGlaVXJCU3JWb25iYjJHQWtSbUNWWFV4MGx5RVlNcy9oQ0wzWHdM?=
+ =?utf-8?B?QmU1c2tsNklKLzRsUk1nODdOQlNQbk5vcWNFR0pKb2lIQ0lURXFtaE0rREEw?=
+ =?utf-8?B?YTlGUDFrQ0FFSmw2S1FsOHY4R0hXS0JzNTFXTlhHS1hsQkI1OTExU290L21x?=
+ =?utf-8?B?Y0lSeFdNb0IrUmo2aTNqbnRLRVNDdGZhY2lLSzFPdnQ4OHhDVVlGTGVVM3ZG?=
+ =?utf-8?B?ejdlOFduT0Q4S3kyMng0d0NNVHk1WjJCSnJBb0FOcWNRQW56SGs0WEkzV2xW?=
+ =?utf-8?B?OXNWTW1CT1BnTENOamJkMGZLOG0vUFBYNzdlTUcrY2NWSkoyc21VaDQyL2xk?=
+ =?utf-8?B?ZGZ6VkNxZGx4RW9UV3RsNFdzS3BJMHRvZ2FYZm1LVTVBaGRkeUkyWkdiZWNh?=
+ =?utf-8?B?VVpxZ0lJYWNYYzR6TVN1NmJKSGk3cC9hMUxEQXg1NTdYWWhYR0xXR2VSUGhZ?=
+ =?utf-8?B?c2p3YWE4TjZUQ1VWMGtIcm1mVG55cjRaQ2xqSXBKNlVRR2ZqdEl3aHhIcWNs?=
+ =?utf-8?B?Z3VyTHRHYXBRSVJkMktwc0hxb2Q1MDlOVDJoZnB6aUdpSnZUNGphTi96VlM4?=
+ =?utf-8?B?M1JHZHFpcHJydkFVMDdrRStwMFAyWVFtT3NQMjUxTmtOTFZCN0xOOE1ObzYx?=
+ =?utf-8?B?dlpiYzhPWnppc25RSU9xc0lyTzhIS2xzZ2VzbWt6RGVyOUlWMElKUkZaNnFL?=
+ =?utf-8?B?Rk1QNjdDNWVkQ2FKYnRzM2w1WDdnRThFWE1OZSt6VlFWcmdsTnNvMmdzYjRR?=
+ =?utf-8?B?YzRkbW5BWGVWc29sZ3l4c3hFaktCQWFUS01KQytCTTF0bWpENTVlZWcvOUpu?=
+ =?utf-8?B?cVN0Z2VzZGptRkI0dHFxTlZweDNkbmUwYThnL0hXT2FOVnpiNFRPQ2J6SWZr?=
+ =?utf-8?B?aHd5NGk3bHlrMFZ2SUo5bGVVdU1LRWEzdzdzTTFtaS8zQ2J2cm9aWGdFaEc5?=
+ =?utf-8?B?TUMvNVYwc1RTT2dYYnlWR3grSVRSTDFYVllQYmRsNE50RHdJWDNyQ1NCcVEz?=
+ =?utf-8?B?dmo5ZmJvTG1EWGw4blBSTDNvc1JTQ2NpUFNRb0plK0tHUzA0WHdEL0RSb1dm?=
+ =?utf-8?B?WW5FT3UrNk9GUElNTytWTmpkcDdXYmQrbTIrNC9rREk5NnJ5UG5HWVVXcndY?=
+ =?utf-8?B?Z25QN1JaK3lTeDNTZEN3WkU5c1pZc1luVEk4NnRnSDlrbnU2ZjI2OFRsZ2xu?=
+ =?utf-8?B?SU9ZNjcxSXFsMHlHbVhqaWNkeTREUE1tZzZYcm15am9IRVJBWkdBcEVVTUp4?=
+ =?utf-8?B?UEFiT1lDai9JL2hBQ2svWXNsNzVaQXBLWXdBQlNUM1hlWlJMdU5ZaGpkWHpw?=
+ =?utf-8?B?NUlCNEMweTNmbU5rcGpQbm8wQnNVQ0dMVjQ0TkZBRVkzRGlkT0FNaElkdUpo?=
+ =?utf-8?B?Q2c9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	WstshOfbA8f/+lDwYkWbgNKSlRYD4f7sTV8f9WqupYhy4qesGCYbSnvboJ5/uLAippgEpl1YPhhtesYwZddk0FEY2OYLtJ3ou8Zvgt04o2UgNfjG0Ho02Ni/GEfylM+0cL02QHrMPQiyZBvORIs9dCpzyUUXHYmNOZA3s5+JPkpPusDoQjetJTgDmpOU4zgxo5AUVehq94o8y187WBY+RA9n32ni7bZ4dgX1x3pZjMYsIfKwAQeE7tft1g1Ky0AV2vhiSbEhHl8KajDDlncqTqTURiJNDdMhoO7+jiIBZQrz/eci8SHeNBQIk4+sKPEJ1PWYkfPK1LRyVBVP3EJOCeayndXB4wsgFhIpR/hzXDBLqjaZw+wQUiMJLhC51ED1sRh7tAK+Tyl2vIBNnv7eDFJ9u8ctvvA3kF42ulhSmnpOH/21Tvz1dpxtprrEu2MDN1+ADW5Lwvrd+hDVanNvzfmfI+SDDrytsY/+MLCSb+m8BEuqHHzxyaXQmB+L15xleWn4qJz7szItMI2OF30y8X/QIK/xXMHYXLjrpJExQA7TDjsUYALb6QaftOn74SDnUGGl232kieH7Xp9BQ5vIg2rLuv/2H9O6YpBI3doA5px1Iu2r3UyS4v6dF2jHGi8MaeDGLZ3kzq7tSxUmHaD3iQObDvMqnycLhMnq5U1fNgSYUaTjzvs9d1ESDiWek1qGCn029Vq5hDVx98uhE1U0EVaIqahlrmDVz1UCxEwsHo2k05988DbRtwBeCJ6hCP9L44byfa+VX9mYyT6ZW5V3cybtvorTRSEP8aK/4yqNtwi0VvOUBXLc2tkQ5CbeVwlCh1rzlNHXuUiVSjfhSN0MHZUU3iz1JtUyTeqKObVdJjU=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c33358ca-6c14-4e5a-bb52-08db25f804c3
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 07:56:30.2401
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 08:25:36.8547
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HMmxSCdwkv9bdVJ+FOfZFJJGcw3tiRGHi06CUNbf6aOL+NGQITybjlztOaBwOv+sP6TilIacgUa4EmFEJhilTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8087
+X-MS-Exchange-CrossTenant-UserPrincipalName: XAzoPR5/mzaVxtXv4+h3Qy1FuCNi0qiIbIH1RpHlnUfSY0/hQ3NBDP8giQVn4/ZqkHyG6K2jJsouBt5qe9wlGg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7091
 
-On 16.03.2023 08:51, Michal Orzel wrote:
-> On 16/03/2023 08:24, Jan Beulich wrote:
->> On 16.03.2023 02:49, Stefano Stabellini wrote:
->>> On Wed, 15 Mar 2023, Michal Orzel wrote:
->>>> On 15/03/2023 14:11, Jan Beulich wrote:
->>>>> On 15.03.2023 13:34, Michal Orzel wrote:
->>>>>> On 14/03/2023 16:17, Jan Beulich wrote:
->>>>>>> On 14.03.2023 15:27, Michal Orzel wrote:
->>>>>>>> --- a/xen/drivers/char/console.c
->>>>>>>> +++ b/xen/drivers/char/console.c
->>>>>>>> @@ -491,6 +491,14 @@ static void switch_serial_input(void)
->>>>>>>>      else
->>>>>>>>      {
->>>>>>>>          console_rx++;
->>>>>>>> +
->>>>>>>> +        /*
->>>>>>>> +         * Skip switching serial input to hardware domain if it does not exist
->>>>>>>> +         * (i.e. true dom0less mode).
->>>>>>>> +         */
->>>>>>>> +        if ( !hardware_domain && (console_rx == 1) )
->>>>>>>> +            console_rx++;
->>>>>>>
->>>>>>> The consumers of this variable aren't really serialized with this
->>>>>>> updating. That's probably okay-ish prior to your change, but now
->>>>>>> there can be two updates in rapid succession. I think it would be
->>>>>>> better if the variable was written only once here.
->>>>>> ok, makes sense.
->>>>>>
->>>>>>>
->>>>>>>>          printk("*** Serial input to DOM%d", console_rx - 1);
->>>>>>>
->>>>>>> When invoked from console_endboot() this will now switch to Dom1,
->>>>>>> i.e. that domain becomes kind of "preferred", which I think is
->>>>>>> wrong. Instead I think in such a case we should direct input to
->>>>>>> Xen by default.
->>>>>> Switching serial input to the first usable domain is the major motivation behind this patch.
->>>>>> The number of times I got pinged by users with *apparent* Xen issue on true dom0less
->>>>>> just because input was directed to dom0 which was not there (not everyone seems to read the
->>>>>> boot logs) forced me to create this patch and manifests that this is not the behavior user wants.
->>>>>> Switching to Xen console would not help at all. Also, we already have a way to set switch code to 'x'
->>>>>> to default serial input to Xen.
->>>>>> So I think what I did (switching to the first existing domain) should be the default behavior (just like it was done for dom0).
->>>>>
->>>>> Well, I'm not going to stand in the way, but if one of several supposedly
->>>>> equal domains is to be "preferred" in some way, then I for one would
->>>>> expect justification for doing so. If that's the route to go, then the
->>>>> patch snippet you provided looks good to me.
->>>> Well, the explanation is that we are directing input to the first existing domain
->>>> which also is the first domain created (this is what users expect at least by default).
->>>> This for now creates simplest/cleanest solution that matches the current behavior
->>>> with dom0 and solves the users inconveniences I mentioned earlier.
->>>> There is no other real preference apart from being first domain created and to help keep the order simple.
->>>
->>> My two cents. Given the feedback we are getting from users, I think it
->>> is important that the input goes to a real valid domain (not Xen, not
->>> Dom0 that doesn't exist). "Which dom0less domain?" is a valid question,
->>> and I don't know what would be the best answer. But any of those domains
->>> would be better than what we have today.
->>
->> Could boot time configuration perhaps indicate which domain to "prefer"?
->> Otherwise I'm pretty inclined to suggest to make it actually random ...
-> Random is not great because in a system with e.g. 20 domUs and directing to e.g. 10th domU
-> user would have to go through a lot of domains executing CTRL-AAA several times. Also, for me
-> it would be difficult to reason about as such approach is definitely not something users expect.
+On Wed, Mar 15, 2023 at 06:40:57PM +0000, Andrew Cooper wrote:
+> On 14/03/2023 3:42 pm, Roger Pau Monné wrote:
+> > On Tue, Mar 14, 2023 at 03:59:22PM +0100, Jan Beulich wrote:
+> >> On 14.03.2023 15:45, Roger Pau Monne wrote:
+> >>> Slightly change the meaning of the command line
+> >>> gnttab_max_{maptrack_,}frames: do not use them as upper bounds for the
+> >>> passed values at domain creation, instead just use them as defaults
+> >>> in the absence of any provided value.
+> >>>
+> >>> It's not very useful for the options to be used both as defaults and
+> >>> as capping values for domain creation inputs.  The defaults passed on
+> >>> the command line are used by dom0 which has a very different grant
+> >>> requirements than a regular domU.  dom0 usually needs a bigger
+> >>> maptrack array, while domU usually require a bigger number of grant
+> >>> frames.
+> >>>
+> >>> The relaxation in the logic for the maximum size of the grant and
+> >>> maptrack table sizes doesn't change the fact that domain creation
+> >>> hypercall can cause resource exhausting, so disaggregated setups
+> >>> should take it into account.
+> >>>
+> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> >> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> >> albeit perhaps with yet one more wording change (which I'd be happy to
+> >> make while committing, provided you agree):
+> >>
+> >>> --- a/docs/misc/xen-command-line.pandoc
+> >>> +++ b/docs/misc/xen-command-line.pandoc
+> >>> @@ -1232,11 +1232,11 @@ The usage of gnttab v2 is not security supported on ARM platforms.
+> >>>  
+> >>>  > Can be modified at runtime
+> >>>  
+> >>> -Specify the maximum number of frames which any domain may use as part
+> >>> -of its grant table. This value is an upper boundary of the per-domain
+> >>> -value settable via Xen tools.
+> >>> +Specify the default upper bound on the number of frames which any domain may
+> >>> +use as part of its grant table unless a different value is specified at domain
+> >>> +creation.
+> >>>  
+> >>> -Dom0 is using this value for sizing its grant table.
+> >>> +Note this value is the effective upper bound for dom0.
+> >> DomU-s created during Xen boot are equally taking this as their effective
+> >> value, aiui. So I'd be inclined to amend this: "... for dom0, and for
+> >> any domU created in the course of Xen booting".
+> > Not really for domUs, as there's a way to pass a different value for
+> > both options in the dt, see create_domUs().
 > 
-> May I ask so that we proceed with a patch I proposed to start from the first usable domain
-> to match the current behavior and to help users?. In the meantime I will start working on
-> a support for indicating which domain to prefer.
+> Correct.  On the ARM side, this is configurable in the for all dom0less
+> VMs in the device tree.
+> 
+> I've committed the patch as is, seeing as it's fixing a real bug we
+> currently have.
+> 
+> 
+> But, I'd like to point out that there are still some issues which want
+> fixing.
+> 
+> The /* Apply defaults if no value was specified */ section is pointless
+> complication.  All callers pass a real number of frames, except for the
+> dom0 construction paths which pass in -1.
 
-So long as the description states clearly that the choice is arbitrary, I
-wouldn't (further) object to such a change.
+I'm afraid that's not accurate, xl still passes -1 if no value has been
+provided in the guest config file.  And the python bindings
+(pyxc_domain_create()) do seem to also hardcode -1.
 
-> All in all, the new patch would touch console_endboot() and not switch_serial_input().
+Which is not to say it can't be done, but we would need to move the
+default from being a command line option to a toolstack option (an
+additional patch).
 
-Of course.
+> The logic gets smaller and easier to follow if each of the dom0's
+> dom_cfg's default to the appropriate opt_* value.  Userspace which
+> really asks for -1 gets a large domain that actually honours the
+> uint32_t ABI presented.
+> 
+> With that, the writeable hypfs nodes become useless, and can be dropped,
+> and the opt_* variables become __initdata.
+> 
+> 
+> Next, we need to do something about the fact that the number of maptrack
+> frames has no relationship to the number of entries.  I don't know what,
+> but the status quo needs changing.
+> 
+> Next we need to confirm that running guests with no maptrack is safe and
+> security supportable option.  XSM_SILO + 0 maptrack blocks most of the
+> grant related XSAs we've had.
 
-Jan
+I've given this a quick try and it seemed to at least boot fine, but
+haven't done any in depth audit.
+
+> And in some copious free time, we still need to get to a point where we
+> can construct a VM without a grant table at all (but this still looks
+> like a lot of work).
+
+Yes, that's likely more work.  I did an attempt in the past by
+allowing to set grant table version = 0 (patch on the list somewhere).
+
+Thanks, Roger.
 
