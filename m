@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE8CD6BCF8F
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 13:33:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510561.788411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 081CB6BCF90
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 13:34:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510563.788420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcmnV-0001BA-My; Thu, 16 Mar 2023 12:33:33 +0000
+	id 1pcmoR-0001el-Vz; Thu, 16 Mar 2023 12:34:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510561.788411; Thu, 16 Mar 2023 12:33:33 +0000
+Received: by outflank-mailman (output) from mailman id 510563.788420; Thu, 16 Mar 2023 12:34:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcmnV-00017u-K5; Thu, 16 Mar 2023 12:33:33 +0000
-Received: by outflank-mailman (input) for mailman id 510561;
- Thu, 16 Mar 2023 12:33:32 +0000
+	id 1pcmoR-0001cV-Sv; Thu, 16 Mar 2023 12:34:31 +0000
+Received: by outflank-mailman (input) for mailman id 510563;
+ Thu, 16 Mar 2023 12:34:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AWu8=7I=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
- id 1pcmnU-00017o-6g
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 12:33:32 +0000
-Received: from rs227.mailgun.us (rs227.mailgun.us [209.61.151.227])
- by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
- id c16d6937-c3f6-11ed-87f5-c1b5be75604c;
- Thu, 16 Mar 2023 13:33:31 +0100 (CET)
-Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
- [209.85.219.173]) by
- 95303ccc4d02 with SMTP id 64130c984699828fae7672ed (version=TLS1.3,
- cipher=TLS_AES_128_GCM_SHA256); Thu, 16 Mar 2023 12:33:28 GMT
-Received: by mail-yb1-f173.google.com with SMTP id u32so1666131ybi.6
- for <xen-devel@lists.xenproject.org>; Thu, 16 Mar 2023 05:33:28 -0700 (PDT)
+ <SRS0=Zc16=7I=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1pcmoQ-0001cC-Od
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 12:34:30 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e58b021a-c3f6-11ed-87f5-c1b5be75604c;
+ Thu, 16 Mar 2023 13:34:30 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id x13so7088580edd.1
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Mar 2023 05:34:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,69 +38,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: c16d6937-c3f6-11ed-87f5-c1b5be75604c
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
- q=dns/txt; s=mailo; t=1678970008; x=1678977208; h=Content-Type: Cc: To: To:
- Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
- MIME-Version: Sender: Sender;
- bh=0bHaTbt3nUR1/J8GfDwTJUxbkQ9r+yXVy745SvVBSQE=;
- b=U8qIkq04TbwIQN0qe1EOQe+JCyWHh5SUtUWKhhnKeZxDCuqbchXQcVSMXAjYYfy85eXAV/PukF4qGXBJk/+Kt5gWNHf58J7JRroZKbrbJRCNYSjxY0Gkie25yKQh/SF5kGSf5NMjK6/IzEi9QNPlbRJ83RnTXvnT2RVLWHyJ50CwC7H2LBOw8OePtjT/uezTD7sc5FR3xBFD2/GgJf7UK/9OcIdgWLEJHTSqmjvqomaRLm01YsNcNJP0++ujRnvgeH0EKjd6I+pN1kNj4SlUkD0qHbvP/qcMlBzcBQcwmJdKwOvS7sMfRt+tRLdFm1Z23yrdKrJZqJQyF++Gcn+LyA==
-X-Mailgun-Sending-Ip: 209.61.151.227
-X-Mailgun-Sid: WyIyYTNmOCIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsImNkODQwIl0=
-Sender: tamas@tklengyel.com
-X-Gm-Message-State: AO0yUKXA0ET8qaNb6l6eUVzgg40nw++PuXKwdF+rmSfo0XxdedQe2xss
-	sl76KQ0SPcHhG/weiwe719OC153lJc/Pws880vs=
-X-Google-Smtp-Source: AK7set82+1wgfzNy9t5cGC1bAXFSmQmPmxfZXFggYMshbbnD5gkNPvtHezxRvcV7wrJqTl+9h045lMTtde/PAb2MSaU=
-X-Received: by 2002:a05:6902:1541:b0:b4c:9333:295 with SMTP id
- r1-20020a056902154100b00b4c93330295mr4567563ybu.6.1678970007860; Thu, 16 Mar
- 2023 05:33:27 -0700 (PDT)
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: e58b021a-c3f6-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1678970069;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1UV79hRGtfOqwdSblcZsDbNrI2TzOri+6dUST5JLaGQ=;
+        b=fd0LC6MRkZTdMvmE0ZbPqmsdBHNYDykKutDmnpgJP02+1vmYtlF2k3nVYpAarxDIKq
+         6xHOfV2VlkdyAIvjQmnLToG1gEoEzmG5+wJ9m+PxRkpbQLN8FsjriiOgSwurvwwEcVzI
+         LxXSKnkO2WXz1AxygPvoAKqn5LdEN5bycXfae8JcFYv/h1vLgxvbh5EREu6zXxt6Cs8g
+         bhGtuX6stJ6bYsy7bRZKsi6lo+UzLtMIB79c9OIgBj3VBoHNUN8pM9FbB5LsL+LG75Yg
+         EUEWM8WHHSJKRYUhwloPL1Y+nygPLZQD6g7Tm3Dx5qKyvq12+uPZz/U0A3pfQw4r1bDG
+         cr0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678970069;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=1UV79hRGtfOqwdSblcZsDbNrI2TzOri+6dUST5JLaGQ=;
+        b=FaRt4Vz8V+ma0kj+nlHLI8WwX5Zn+NUc6M4TG8kULnNO/0qi0ncfkSvRH0KA+EFzWA
+         VsvSdguzvDHE0mrgQHaQYgnQjHAsio+cErLX0ZqePaPIN0de3H8Fm4tOSXAax2nSwIAP
+         5UQ3u4TwW67DTHVHwj3c5Z236gUH6Ir5aZMQd2V4szQxDZKsgZBW2RIqPckzZLq/qQ5r
+         sCRKBrDNdiw46hhbjFeyIshVB3NRjiPvqartZulRUiA/A6HttHOdKK2lIspv/uvGebME
+         xOTgLvsKMCe4t7yqkqh2a7qOrLP9otUvmNyPFnBF0TCdq/zOa0kdU1LKH1/6skOpvth0
+         ezQw==
+X-Gm-Message-State: AO0yUKUbTwp26o01av6MUa+mu40GpRF/1orRx7FMYwtLHxvn6E4RItbW
+	lL9W+hpPrNwnKE4sEa+TMPeOaCPqVToASG1kEGo=
+X-Google-Smtp-Source: AK7set+hWtlFoRi1kpMvgBPTZTOxdIaffCXd9SU6LO4F4eCr0PhtpCCZAFisvXjmNSG39Pz8McPo1IzJG9kl6HQpUnY=
+X-Received: by 2002:a50:d08d:0:b0:4fb:80cf:898b with SMTP id
+ v13-20020a50d08d000000b004fb80cf898bmr3349102edd.7.1678970069454; Thu, 16 Mar
+ 2023 05:34:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <aab9c8ae059d5f584516d0b6466e57ce0981dadc.1678904818.git.isaikin-dmitry@yandex.ru>
-In-Reply-To: <aab9c8ae059d5f584516d0b6466e57ce0981dadc.1678904818.git.isaikin-dmitry@yandex.ru>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Thu, 16 Mar 2023 08:32:51 -0400
-X-Gmail-Original-Message-ID: <CABfawhmTsGmdaThwVwu7yhE2zB-VmdPei2FcZ1_UZH9EU9Cvbg@mail.gmail.com>
-Message-ID: <CABfawhmTsGmdaThwVwu7yhE2zB-VmdPei2FcZ1_UZH9EU9Cvbg@mail.gmail.com>
-Subject: Re: [XEN PATCH v2] x86/monitor: Add new monitor event to catch I/O instructions
-To: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+References: <20230306204024.124882-1-jandryuk@gmail.com> <d3da0ece-a65a-89f7-85ba-5de31472bdcc@suse.com>
+In-Reply-To: <d3da0ece-a65a-89f7-85ba-5de31472bdcc@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Thu, 16 Mar 2023 08:34:17 -0400
+Message-ID: <CAKf6xpv4byseyAqezUa++fV7XkAqwJowQ7JQhjX-fy-Ojix2bw@mail.gmail.com>
+Subject: Re: [PATCH v4 0/3] libxl smbios support
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Henry Wang <Henry.Wang@arm.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>, 
 	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Alexandru Isaila <aisaila@bitdefender.com>, 
-	Petre Pircalabu <ppircalabu@bitdefender.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Anton Belousov <abelousov@ptsecurity.com>
-Content-Type: multipart/alternative; boundary="000000000000e83b5405f703aa30"
-
---000000000000e83b5405f703aa30
+	xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Mar 15, 2023 at 2:55=E2=80=AFPM Dmitry Isaykin <isaikin-dmitry@yand=
-ex.ru>
-wrote:
->
-> Adds monitor support for I/O instructions.
->
-> Signed-off-by: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-> Signed-off-by: Anton Belousov <abelousov@ptsecurity.com>
+On Thu, Mar 16, 2023 at 3:53=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+> Is this work something that's worth mentioning in CHANGELOG.md?
 
-Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+Sure, I'll add an entry.
 
---000000000000e83b5405f703aa30
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><br>On Wed, Mar 15, 2023 at 2:55=E2=80=AFPM Dmitry Isa=
-ykin &lt;<a href=3D"mailto:isaikin-dmitry@yandex.ru">isaikin-dmitry@yandex.=
-ru</a>&gt; wrote:<br>&gt;<br>&gt; Adds monitor support for I/O instructions=
-.<br>&gt;<br>&gt; Signed-off-by: Dmitry Isaykin &lt;<a href=3D"mailto:isaik=
-in-dmitry@yandex.ru">isaikin-dmitry@yandex.ru</a>&gt;<br>&gt; Signed-off-by=
-: Anton Belousov &lt;<a href=3D"mailto:abelousov@ptsecurity.com">abelousov@=
-ptsecurity.com</a>&gt;<br><div><br></div><div>Acked-by: Tamas K Lengyel &lt=
-;<a href=3D"mailto:tamas@tklengyel.com">tamas@tklengyel.com</a>&gt;<br></di=
-v></div>
-
---000000000000e83b5405f703aa30--
+Thanks,
+Jason
 
