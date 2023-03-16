@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD9866BD23E
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 15:21:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510640.788689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EA876BD243
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 15:23:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510644.788699 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcoTS-0003p2-EK; Thu, 16 Mar 2023 14:20:58 +0000
+	id 1pcoVI-0004Qd-VT; Thu, 16 Mar 2023 14:22:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510640.788689; Thu, 16 Mar 2023 14:20:58 +0000
+Received: by outflank-mailman (output) from mailman id 510644.788699; Thu, 16 Mar 2023 14:22:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pcoTS-0003nL-B7; Thu, 16 Mar 2023 14:20:58 +0000
-Received: by outflank-mailman (input) for mailman id 510640;
- Thu, 16 Mar 2023 14:20:56 +0000
+	id 1pcoVI-0004OU-RF; Thu, 16 Mar 2023 14:22:52 +0000
+Received: by outflank-mailman (input) for mailman id 510644;
+ Thu, 16 Mar 2023 14:22:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3e+z=7I=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pcoTQ-0003mw-PC
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 14:20:56 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (envelope-from <SRS0=9DP6=7I=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
+ id 1pcoVH-0004OM-0p
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 14:22:51 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2d5e837-c405-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 15:20:54 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D8A071FE03;
- Thu, 16 Mar 2023 14:20:53 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 55BCA133E0;
- Thu, 16 Mar 2023 14:20:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KDQlE8UlE2SCZAAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 16 Mar 2023 14:20:53 +0000
+ id 0724fa1c-c406-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 15:22:48 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id b10so1906629ljr.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Mar 2023 07:22:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,239 +39,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2d5e837-c405-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1678976453; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7rqzkqoekOUFHTE5TG0JkRVzH2ov10W0GK0gS8eKwlw=;
-	b=Gv7jTC449UZeiVLbSbJ5VL8ibGpzRyS9Xftv+4ZMCeB4OxZvt4U+VEYdm9PjUH2ouFrdLK
-	0dUFcOtQYUKajc1M0ssbk/syB0/8uWnIlcab3dyweh9uzmAmrw6TF2gMXOJEVp1H47+ms0
-	o8DOWZlatURdA1FxEDGRY3ZEIwuhFxg=
-Message-ID: <d256a967-f50e-2e19-1985-aa9cfc0e8b18@suse.com>
-Date: Thu, 16 Mar 2023 15:20:52 +0100
+X-Inumbo-ID: 0724fa1c-c406-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1678976568;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=lKb/+pb9bjoimOuRe3ZtKUo81LKWT5Zgm2YSS91Y/ew=;
+        b=hTZDmjBjVdv18KU+EjAHPJpjBpofDafIZDlvzgJBEeZF1+x9UdWhlL3IuZ4SwguvJG
+         tJBnY9h3WCwNGFV8Lu/N7PHDml5dl1mFB/SB1/sU4F/PejFmZBCtXTF1VeQy4sUtWhbW
+         Co+25+xgn1zGcC+pxbBV5ivy8WenVKCB3oSFI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1678976568;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lKb/+pb9bjoimOuRe3ZtKUo81LKWT5Zgm2YSS91Y/ew=;
+        b=tSrSE5kQ/Zzco9h+bJnP28q5SIXWnisGkCgH0sg8ccpWraNwRG/q1dxTY0rV7hIl/F
+         6WVCDUa1+ZvedLbf7tV/VAqSa11M3/A9TLxOQf/FvjMqDdhb0P/S+W/sKqbV++4ujiU9
+         qKy0GzSqUxmcGvh5Y0t0CyygI8aR3KTiBlFWhQKbRXGf5DngN1CSXoERkOBcJPPbvyDd
+         FS+KeTOJPdEMcxzWiseLqrnc6EmqdhTde0as6mvkV+Rf0bZcvvo/kKlH+wf0XBnWPGSe
+         SDRt5P/YVCN4eDG1HUkerYcmHZOzPmyGnJ/JA+zwQZq+yuJXI3s3B4r0AcdIRzt73jMP
+         vi5Q==
+X-Gm-Message-State: AO0yUKXXt6zNvP42/kvGvq/VmA/KKa/6ea32KjYcRTskzC+YmWvlWQQv
+	kzYwdTm4L2xUVWuGAxZ6BaGAktR0QxNMlIrk/c6yrw==
+X-Google-Smtp-Source: AK7set80psIKX2xtSzam6vVB9ttwJQ6M6SIfxdiGPWykpN6yjykcn6tOz+8jMxiTNye680JB9znw4rQ6wBBkU/Grc8E=
+X-Received: by 2002:a2e:2419:0:b0:299:7665:7e61 with SMTP id
+ k25-20020a2e2419000000b0029976657e61mr933571ljk.6.1678976568328; Thu, 16 Mar
+ 2023 07:22:48 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Honglei Huang <honglei1.huang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Huang Rui <ray.huang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Julia Zhang <julia.zhang@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <20230312120157.452859-1-ray.huang@amd.com>
- <20230312120157.452859-2-ray.huang@amd.com>
- <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com>
- <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
- <f5e03f2a-8176-528f-e885-9a97940367c0@suse.com>
- <alpine.DEB.2.22.394.2303151616200.3462@ubuntu-linux-20-04-desktop>
- <5e22a45d-6f12-da9b-94f6-3112a30e8574@suse.com>
- <CADnq5_PH9ZqDqpPES74V3fB3NVpaexDoGTyu_+-zoux5vgagyg@mail.gmail.com>
- <dcb54275-b21f-a837-76bb-e19e331a0666@suse.com>
- <CADnq5_PpCWrZzQdE_X6ZnuNU3ktVeC6TbmE5vq3K6rCAdB8GTg@mail.gmail.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
-In-Reply-To: <CADnq5_PpCWrZzQdE_X6ZnuNU3ktVeC6TbmE5vq3K6rCAdB8GTg@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------snWYocCElH8aj08SzfxiNqji"
+References: <20230316102635.6497-1-michal.orzel@amd.com> <d9654392-ce4b-07b6-9be0-7a6d4230c287@suse.com>
+ <2cfc0751-4360-5899-c93a-56ef952a6b2b@amd.com>
+In-Reply-To: <2cfc0751-4360-5899-c93a-56ef952a6b2b@amd.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Thu, 16 Mar 2023 14:22:37 +0000
+Message-ID: <CA+zSX=ZPO6jknRVXgAreu65CHQA_3LvVc0FYbFues1==PV7mvA@mail.gmail.com>
+Subject: Re: [PATCH v2] xen/console: Skip switching serial input to non
+ existing domains
+To: Michal Orzel <michal.orzel@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000f117b005f70531cd"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------snWYocCElH8aj08SzfxiNqji
-Content-Type: multipart/mixed; boundary="------------Ehfs40kqb3RztTpecUkkpx7N";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Honglei Huang <honglei1.huang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Huang Rui <ray.huang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>, xen-devel@lists.xenproject.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Julia Zhang <julia.zhang@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-Message-ID: <d256a967-f50e-2e19-1985-aa9cfc0e8b18@suse.com>
-Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
-References: <20230312120157.452859-1-ray.huang@amd.com>
- <20230312120157.452859-2-ray.huang@amd.com>
- <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com>
- <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
- <f5e03f2a-8176-528f-e885-9a97940367c0@suse.com>
- <alpine.DEB.2.22.394.2303151616200.3462@ubuntu-linux-20-04-desktop>
- <5e22a45d-6f12-da9b-94f6-3112a30e8574@suse.com>
- <CADnq5_PH9ZqDqpPES74V3fB3NVpaexDoGTyu_+-zoux5vgagyg@mail.gmail.com>
- <dcb54275-b21f-a837-76bb-e19e331a0666@suse.com>
- <CADnq5_PpCWrZzQdE_X6ZnuNU3ktVeC6TbmE5vq3K6rCAdB8GTg@mail.gmail.com>
-In-Reply-To: <CADnq5_PpCWrZzQdE_X6ZnuNU3ktVeC6TbmE5vq3K6rCAdB8GTg@mail.gmail.com>
-
---------------Ehfs40kqb3RztTpecUkkpx7N
-Content-Type: multipart/mixed; boundary="------------1b41NgLaiQsjMb7RKLLGi4fU"
-
---------------1b41NgLaiQsjMb7RKLLGi4fU
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTYuMDMuMjMgMTQ6NTMsIEFsZXggRGV1Y2hlciB3cm90ZToNCj4gT24gVGh1LCBNYXIg
-MTYsIDIwMjMgYXQgOTo0OOKAr0FNIEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4g
-d3JvdGU6DQo+Pg0KPj4gT24gMTYuMDMuMjMgMTQ6NDUsIEFsZXggRGV1Y2hlciB3cm90ZToN
-Cj4+PiBPbiBUaHUsIE1hciAxNiwgMjAyMyBhdCAzOjUw4oCvQU0gSmFuIEJldWxpY2ggPGpi
-ZXVsaWNoQHN1c2UuY29tPiB3cm90ZToNCj4+Pj4NCj4+Pj4gT24gMTYuMDMuMjAyMyAwMDoy
-NSwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOg0KPj4+Pj4gT24gV2VkLCAxNSBNYXIgMjAy
-MywgSmFuIEJldWxpY2ggd3JvdGU6DQo+Pj4+Pj4gT24gMTUuMDMuMjAyMyAwMTo1MiwgU3Rl
-ZmFubyBTdGFiZWxsaW5pIHdyb3RlOg0KPj4+Pj4+PiBPbiBNb24sIDEzIE1hciAyMDIzLCBK
-YW4gQmV1bGljaCB3cm90ZToNCj4+Pj4+Pj4+IE9uIDEyLjAzLjIwMjMgMTM6MDEsIEh1YW5n
-IFJ1aSB3cm90ZToNCj4+Pj4+Pj4+PiBYZW4gUFZIIGlzIHRoZSBwYXJhdmlydHVhbGl6ZWQg
-bW9kZSBhbmQgdGFrZXMgYWR2YW50YWdlIG9mIGhhcmR3YXJlDQo+Pj4+Pj4+Pj4gdmlydHVh
-bGl6YXRpb24gc3VwcG9ydCB3aGVuIHBvc3NpYmxlLiBJdCB3aWxsIHVzaW5nIHRoZSBoYXJk
-d2FyZSBJT01NVQ0KPj4+Pj4+Pj4+IHN1cHBvcnQgaW5zdGVhZCBvZiB4ZW4tc3dpb3RsYiwg
-c28gZGlzYWJsZSBzd2lvdGxiIGlmIGN1cnJlbnQgZG9tYWluIGlzDQo+Pj4+Pj4+Pj4gWGVu
-IFBWSC4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiBCdXQgdGhlIGtlcm5lbCBoYXMgbm8gd2F5ICh5
-ZXQpIHRvIGRyaXZlIHRoZSBJT01NVSwgc28gaG93IGNhbiBpdCBnZXQNCj4+Pj4+Pj4+IGF3
-YXkgd2l0aG91dCByZXNvcnRpbmcgdG8gc3dpb3RsYiBpbiBjZXJ0YWluIGNhc2VzIChsaWtl
-IEkvTyB0byBhbg0KPj4+Pj4+Pj4gYWRkcmVzcy1yZXN0cmljdGVkIGRldmljZSk/DQo+Pj4+
-Pj4+DQo+Pj4+Pj4+IEkgdGhpbmsgUmF5IG1lYW50IHRoYXQsIHRoYW5rcyB0byB0aGUgSU9N
-TVUgc2V0dXAgYnkgWGVuLCB0aGVyZSBpcyBubw0KPj4+Pj4+PiBuZWVkIGZvciBzd2lvdGxi
-LXhlbiBpbiBEb20wLiBBZGRyZXNzIHRyYW5zbGF0aW9ucyBhcmUgZG9uZSBieSB0aGUgSU9N
-TVUNCj4+Pj4+Pj4gc28gd2UgY2FuIHVzZSBndWVzdCBwaHlzaWNhbCBhZGRyZXNzZXMgaW5z
-dGVhZCBvZiBtYWNoaW5lIGFkZHJlc3NlcyBmb3INCj4+Pj4+Pj4gRE1BLiBUaGlzIGlzIGEg
-c2ltaWxhciBjYXNlIHRvIERvbTAgb24gQVJNIHdoZW4gdGhlIElPTU1VIGlzIGF2YWlsYWJs
-ZQ0KPj4+Pj4+PiAoc2VlIGluY2x1ZGUveGVuL2FybS9zd2lvdGxiLXhlbi5oOnhlbl9zd2lv
-dGxiX2RldGVjdCwgdGhlIGNvcnJlc3BvbmRpbmcNCj4+Pj4+Pj4gY2FzZSBpcyBYRU5GRUFU
-X25vdF9kaXJlY3RfbWFwcGVkKS4NCj4+Pj4+Pg0KPj4+Pj4+IEJ1dCBob3cgZG9lcyBYZW4g
-dXNpbmcgYW4gSU9NTVUgaGVscCB3aXRoLCBhcyBzYWlkLCBhZGRyZXNzLXJlc3RyaWN0ZWQN
-Cj4+Pj4+PiBkZXZpY2VzPyBUaGV5IG1heSBzdGlsbCBuZWVkIGUuZy4gYSAzMi1iaXQgYWRk
-cmVzcyB0byBiZSBwcm9ncmFtbWVkIGluLA0KPj4+Pj4+IGFuZCBpZiB0aGUga2VybmVsIGhh
-cyBtZW1vcnkgYmV5b25kIHRoZSA0RyBib3VuZGFyeSBub3QgYWxsIEkvTyBidWZmZXJzDQo+
-Pj4+Pj4gbWF5IGZ1bGZpbGwgdGhpcyByZXF1aXJlbWVudC4NCj4+Pj4+DQo+Pj4+PiBJbiBz
-aG9ydCwgaXQgaXMgZ29pbmcgdG8gd29yayBhcyBsb25nIGFzIExpbnV4IGhhcyBndWVzdCBw
-aHlzaWNhbA0KPj4+Pj4gYWRkcmVzc2VzIChub3QgbWFjaGluZSBhZGRyZXNzZXMsIHRob3Nl
-IGNvdWxkIGJlIGFueXRoaW5nKSBsb3dlciB0aGFuDQo+Pj4+PiA0R0IuDQo+Pj4+Pg0KPj4+
-Pj4gSWYgdGhlIGFkZHJlc3MtcmVzdHJpY3RlZCBkZXZpY2UgZG9lcyBETUEgdmlhIGFuIElP
-TU1VLCB0aGVuIHRoZSBkZXZpY2UNCj4+Pj4+IGdldHMgcHJvZ3JhbW1lZCBieSBMaW51eCB1
-c2luZyBpdHMgZ3Vlc3QgcGh5c2ljYWwgYWRkcmVzc2VzIChub3QgbWFjaGluZQ0KPj4+Pj4g
-YWRkcmVzc2VzKS4NCj4+Pj4+DQo+Pj4+PiBUaGUgMzItYml0IHJlc3RyaWN0aW9uIHdvdWxk
-IGJlIGFwcGxpZWQgYnkgTGludXggdG8gaXRzIGNob2ljZSBvZiBndWVzdA0KPj4+Pj4gcGh5
-c2ljYWwgYWRkcmVzcyB0byB1c2UgdG8gcHJvZ3JhbSB0aGUgZGV2aWNlLCB0aGUgc2FtZSB3
-YXkgaXQgZG9lcyBvbg0KPj4+Pj4gbmF0aXZlLiBUaGUgZGV2aWNlIHdvdWxkIGJlIGZpbmUg
-YXMgaXQgYWx3YXlzIHVzZXMgTGludXgtcHJvdmlkZWQgPDRHQg0KPj4+Pj4gYWRkcmVzc2Vz
-LiBBZnRlciB0aGUgSU9NTVUgdHJhbnNsYXRpb24gKHBhZ2V0YWJsZSBzZXR1cCBieSBYZW4p
-LCB3ZQ0KPj4+Pj4gY291bGQgZ2V0IGFueSBhZGRyZXNzLCBpbmNsdWRpbmcgPjRHQiBhZGRy
-ZXNzZXMsIGFuZCB0aGF0IGlzIGV4cGVjdGVkIHRvDQo+Pj4+PiB3b3JrLg0KPj4+Pg0KPj4+
-PiBJIHVuZGVyc3RhbmQgdGhhdCdzIHRoZSAibm9ybWFsIiB3YXkgb2Ygd29ya2luZy4gQnV0
-IHdoYXRldmVyIHRoZSBzd2lvdGxiDQo+Pj4+IGlzIHVzZWQgZm9yIGluIGJhcmVtZXRhbCBM
-aW51eCwgdGhhdCB3b3VsZCBzaW1pbGFybHkgcmVxdWlyZSBpdHMgdXNlIGluDQo+Pj4+IFBW
-SCAob3IgSFZNKSBhaXVpLiBTbyB1bmNvbmRpdGlvbmFsbHkgZGlzYWJsaW5nIGl0IGluIFBW
-SCB3b3VsZCBsb29rIHRvDQo+Pj4+IG1lIGxpa2UgYW4gaW5jb21wbGV0ZSBhdHRlbXB0IHRv
-IGRpc2FibGUgaXRzIHVzZSBhbHRvZ2V0aGVyIG9uIHg4Ni4gV2hhdA0KPj4+PiBkaWZmZXJl
-bmNlIG9mIFBWSCB2cyBiYXJlbWV0YWwgYW0gSSBtaXNzaW5nIGhlcmU/DQo+Pj4NCj4+PiBz
-d2lvdGxiIGlzIG5vdCB1c2FibGUgZm9yIEdQVXMgZXZlbiBvbiBiYXJlIG1ldGFsLiAgVGhl
-eSBvZnRlbiBoYXZlDQo+Pj4gaHVuZHJlZHMgb3IgbWVncyBvciBldmVuIGdpZ3Mgb2YgbWVt
-b3J5IG1hcHBlZCBvbiB0aGUgZGV2aWNlIGF0IGFueQ0KPj4+IGdpdmVuIHRpbWUuICBBbHNv
-LCBBTUQgR1BVcyBzdXBwb3J0IDQ0LTQ4IGJpdCBETUEgbWFza3MgKGRlcGVuZGluZyBvbg0K
-Pj4+IHRoZSBjaGlwIGZhbWlseSkuDQo+Pg0KPj4gQnV0IHRoZSBzd2lvdGxiIGlzbid0IHBl
-ciBkZXZpY2UsIGJ1dCBzeXN0ZW0gZ2xvYmFsLg0KPiANCj4gU3VyZSwgYnV0IGlmIHRoZSBz
-d2lvdGxiIGlzIGluIHVzZSwgdGhlbiB5b3UgY2FuJ3QgcmVhbGx5IHVzZSB0aGUgR1BVLg0K
-PiBTbyB5b3UgZ2V0IHRvIHBpY2sgb25lLg0KDQpUaGUgc3dpb3RsYiBpcyB1c2VkIG9ubHkg
-Zm9yIGJ1ZmZlcnMgd2hpY2ggYXJlIG5vdCB3aXRoaW4gdGhlIERNQSBtYXNrIG9mIGENCmRl
-dmljZSAoc2VlIGRtYV9kaXJlY3RfbWFwX3BhZ2UoKSkuIFNvIGFuIEFNRCBHUFUgc3VwcG9y
-dGluZyBhIDQ0IGJpdCBETUEgbWFzaw0Kd29uJ3QgdXNlIHRoZSBzd2lvdGxiIHVubGVzcyB5
-b3UgaGF2ZSBhIGJ1ZmZlciBhYm92ZSBndWVzdCBwaHlzaWNhbCBhZGRyZXNzIG9mDQoxNlRC
-IChzbyBiYXNpY2FsbHkgbmV2ZXIpLg0KDQpEaXNhYmxpbmcgc3dpb3RsYiBpbiBzdWNoIGEg
-Z3Vlc3Qgd291bGQgT1RPSCBtZWFuLCB0aGF0IGEgZGV2aWNlIHdpdGggb25seQ0KMzIgYml0
-IERNQSBtYXNrIHBhc3NlZCB0aHJvdWdoIHRvIHRoaXMgZ3Vlc3QgY291bGRuJ3Qgd29yayB3
-aXRoIGJ1ZmZlcnMNCmFib3ZlIDRHQi4NCg0KSSBkb24ndCB0aGluayB0aGlzIGlzIGFjY2Vw
-dGFibGUuDQoNCg0KSnVlcmdlbg0K
---------------1b41NgLaiQsjMb7RKLLGi4fU
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+--000000000000f117b005f70531cd
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Thu, Mar 16, 2023 at 2:15=E2=80=AFPM Michal Orzel <michal.orzel@amd.com>=
+ wrote:
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+>
+>
+> On 16/03/2023 12:11, Jan Beulich wrote:
+> > Caution: This message originated from an External Source. Use proper
+> caution when opening attachments, clicking links, or responding.
+> >
+> >
+> > On 16.03.2023 11:26, Michal Orzel wrote:
+> >> --- a/xen/drivers/char/console.c
+> >> +++ b/xen/drivers/char/console.c
+> >> @@ -490,7 +490,24 @@ static void switch_serial_input(void)
+> >>      }
+> >>      else
+> >>      {
+> >> -        console_rx++;
+> >> +        unsigned int next_rx =3D console_rx + 1;
+> >> +
+> >> +        /* Skip switching serial input to non existing domains */
+> >> +        while ( next_rx < max_init_domid + 1 )
+> >> +        {
+> >> +            struct domain *d =3D rcu_lock_domain_by_id(next_rx - 1);
+> >> +
+> >> +            if ( d )
+> >> +            {
+> >> +                rcu_unlock_domain(d);
+> >> +                break;
+> >> +            }
+> >> +
+> >> +            next_rx++;
+> >> +        }
+> >> +
+> >> +        console_rx =3D next_rx;
+> >> +
+> >>          printk("*** Serial input to DOM%d", console_rx - 1);
+> >>      }
+> >
+> > While at the first glance (when you sent it in reply to v1) it looked
+> okay,
+> > I'm afraid it really isn't: Please consider what happens when the last =
+of
+> > the DomU-s doesn't exist anymore. (You don't really check whether it
+> still
+> > exists, because the range check comes ahead of the existence one.) In
+> that
+> > case you want to move from second-to-last to Xen. I expect the entire
+> > if/else construct wants to be inside the loop.
+> I did this deliberately because I do not think the situation you describe
+> is possible
+> (i.e. no domains at all - Xen still usable). With hardware domain in
+> place, we can e.g. destroy the domain
+> which would invoke domain_kill() -> domain_destroy() that would free
+> domain struct.
+> Without hwdom, the domain cannot kill/destroy itself. It can do the
+> shutdown but it will not
+> destroy it (at least this is what I tested). So I do not think there can
+> be a scenario where
+> there is not a single domain while Xen running and be usable.
 
---------------1b41NgLaiQsjMb7RKLLGi4fU--
 
---------------Ehfs40kqb3RztTpecUkkpx7N--
+We've actually been discussing something like this.  Consider if someone
+wanted to use Xen as part of a system architected like Amazon's Nitro: You
+could have a DPU that ran the "toolstack", and gave Xen commands to create
+or destroy domains.  It could dynamically create SRIOV PCI devices to be
+passed directly through to guests.  In this case, you might run into a
+situation where no VMs existed, and yet the system was not dead.
 
---------------snWYocCElH8aj08SzfxiNqji
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+ -George
 
------BEGIN PGP SIGNATURE-----
+--000000000000f117b005f70531cd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQTJcQFAwAAAAAACgkQsN6d1ii/Ey9a
-Cgf+NtMrsbKLxtEg0u5doZpUYGhlaT5lXs50IRjyg8b5KR1chByRTDNy3DQuyPbOz4AmeMgzsyT8
-eJjKsUIFolwv6VODsTxe3nXk38UIsUdgNgPaeHIXwfbq//tmBSpU/w1MA4qs/aj7rvOlEM5/7qVz
-scQK+B1R+FJqrCDr1RLniNcKgp1bAQHK8aYRTPpJhDpZEvV2p6YRhKjQdOXZjc3q2fnyySvuxG5J
-IP7QjnBiwCFPR+8EVjYMySUutFhx3ZlcQopmTrZ+SBSxRJAKyus0N7QW3OWu8AvKm5U+IgeKjV47
-sLmb7quNbt4h9jO8eqRhSD0reGeYvRhUNu+LBI3MNQ==
-=mE+n
------END PGP SIGNATURE-----
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Mar 16, 2023 at 2:15=E2=80=AF=
+PM Michal Orzel &lt;<a href=3D"mailto:michal.orzel@amd.com">michal.orzel@am=
+d.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex"><br>
+<br>
+On 16/03/2023 12:11, Jan Beulich wrote:<br>
+&gt; Caution: This message originated from an External Source. Use proper c=
+aution when opening attachments, clicking links, or responding.<br>
+&gt; <br>
+&gt; <br>
+&gt; On 16.03.2023 11:26, Michal Orzel wrote:<br>
+&gt;&gt; --- a/xen/drivers/char/console.c<br>
+&gt;&gt; +++ b/xen/drivers/char/console.c<br>
+&gt;&gt; @@ -490,7 +490,24 @@ static void switch_serial_input(void)<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 else<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 {<br>
+&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 console_rx++;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned int next_rx =3D console_rx +=
+ 1;<br>
+&gt;&gt; +<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Skip switching serial input to non=
+ existing domains */<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 while ( next_rx &lt; max_init_domid +=
+ 1 )<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct domain *d =3D rc=
+u_lock_domain_by_id(next_rx - 1);<br>
+&gt;&gt; +<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if ( d )<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rcu_unloc=
+k_domain(d);<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br=
+>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt; +<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 next_rx++;<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt; +<br>
+&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 console_rx =3D next_rx;<br>
+&gt;&gt; +<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 printk(&quot;*** Serial input to=
+ DOM%d&quot;, console_rx - 1);<br>
+&gt;&gt;=C2=A0 =C2=A0 =C2=A0 }<br>
+&gt; <br>
+&gt; While at the first glance (when you sent it in reply to v1) it looked =
+okay,<br>
+&gt; I&#39;m afraid it really isn&#39;t: Please consider what happens when =
+the last of<br>
+&gt; the DomU-s doesn&#39;t exist anymore. (You don&#39;t really check whet=
+her it still<br>
+&gt; exists, because the range check comes ahead of the existence one.) In =
+that<br>
+&gt; case you want to move from second-to-last to Xen. I expect the entire<=
+br>
+&gt; if/else construct wants to be inside the loop.<br>
+I did this deliberately because I do not think the situation you describe i=
+s possible<br>
+(i.e. no domains at all - Xen still usable). With hardware domain in place,=
+ we can e.g. destroy the domain<br>
+which would invoke domain_kill() -&gt; domain_destroy() that would free dom=
+ain struct.<br>
+Without hwdom, the domain cannot kill/destroy itself. It can do the shutdow=
+n but it will not<br>
+destroy it (at least this is what I tested). So I do not think there can be=
+ a scenario where<br>
+there is not a single domain while Xen running and be usable.</blockquote><=
+div><br></div><div>We&#39;ve actually been discussing something like this.=
+=C2=A0 Consider if someone wanted to use Xen as part of a system architecte=
+d like Amazon&#39;s Nitro: You could have a DPU that ran the &quot;toolstac=
+k&quot;, and gave Xen commands to create or destroy domains.=C2=A0 It could=
+ dynamically create SRIOV PCI devices to be passed directly through to gues=
+ts.=C2=A0 In this case, you might run into a situation where no VMs existed=
+, and yet the system was not dead.</div><div><br></div><div>=C2=A0-George</=
+div></div></div>
 
---------------snWYocCElH8aj08SzfxiNqji--
+--000000000000f117b005f70531cd--
 
