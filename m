@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 496386BD965
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 20:38:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510809.789197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4CC56BD9EC
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Mar 2023 21:11:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510813.789208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pctQO-0001Vu-W5; Thu, 16 Mar 2023 19:38:08 +0000
+	id 1pctvM-0006j9-Cp; Thu, 16 Mar 2023 20:10:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510809.789197; Thu, 16 Mar 2023 19:38:08 +0000
+Received: by outflank-mailman (output) from mailman id 510813.789208; Thu, 16 Mar 2023 20:10:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pctQO-0001Tp-Rt; Thu, 16 Mar 2023 19:38:08 +0000
-Received: by outflank-mailman (input) for mailman id 510809;
- Thu, 16 Mar 2023 19:38:07 +0000
+	id 1pctvM-0006gE-8W; Thu, 16 Mar 2023 20:10:08 +0000
+Received: by outflank-mailman (input) for mailman id 510813;
+ Thu, 16 Mar 2023 20:10:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lZp/=7I=citrix.com=prvs=432965e83=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pctQM-0001Th-KY
- for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 19:38:06 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0de374b6-c432-11ed-b464-930f4c7d94ae;
- Thu, 16 Mar 2023 20:38:01 +0100 (CET)
+ <SRS0=ItE1=7I=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1pctvK-0006bU-69
+ for xen-devel@lists.xenproject.org; Thu, 16 Mar 2023 20:10:06 +0000
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8832ce2a-c436-11ed-b464-930f4c7d94ae;
+ Thu, 16 Mar 2023 21:10:02 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 97B0032007F0;
+ Thu, 16 Mar 2023 16:09:59 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Thu, 16 Mar 2023 16:10:00 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 16 Mar 2023 16:09:57 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,131 +43,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0de374b6-c432-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1678995480;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=mTISRMWZr8ba7nnJbNCCzyiScF6I+/PfZRJYstrMh00=;
-  b=JPPk9zlJqhHVRyF9XoSf2+733gm37PPMj4RqCmyZ5uM8TbfizFXmMRlW
-   c8E75pGEYum+CCbIo7A9GVhGhPbkLcl38BmMbd0+G6VwzlSecLyvVn3br
-   8uxpKeoDTLjzZLxYnJ9aMiElgzn+wMg9KRs1D5rC4e9uBqwO3eZdfQd6s
-   4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 100541595
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:0xki3aj4kE6ef2wZiLHY8unzX161fxAKZh0ujC45NGQN5FlHY01je
- htvW2+DM/vbN2LyeYx/OYzgpx9VvMPXxt41TFRspX8xEiob9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsy+qWi0N8klgZmP6sT5waAzyZ94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQXBwI/f0iawNmp66n4TbRT1+0PAu/SadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
- pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27B/
- jqboz2kU0xy2Nq3lT2340jwnMb2o3npBN0ZDb26371YjwjGroAUIEJPDgbqyRWjsWauVtQaJ
- 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O/I+wBGAzOzT+QnxLm0NVDtIctElnM4wWz0x1
- 1WNks/pBDpgq7mcQzSW8bL8kN+pEXFLdylYP3ZCFFZbpYC5++nfky4jUP5sP5yHn4XsXgrv6
- CvJq3UB1pw/o+gygvDTEU/8vxqgoZ3ATwgQ7wrRX3644g4RWLNJd7BE+nCAs68ecd/xok2p+
- SFdxpPAtLxm4YSlznTlfQkbIF2+Cx9p2hX4iEUnIZQu/i/FF5WLLdEJu2EWyKuE3685ld7Vj
- K374185CHx7ZiHCgUpLj2WZWqwXIVDIT4iNaxwtRoMmjmJNXAGG5jpyQkWbwnrglkMh+YlmZ
- 8jLIJf1XC9AVfo4pNZTewv6+e5D+8zD7TmLGcCTI+qPiNJym0J5uZ9aaQDTP4jVHYuPoRnP8
- sY3CvZmPy53CbWkCgGOqN57ELz/BSRjbXwAg5ANJ7Hrz8sPMD1JNsI9Npt+JdY9w/wIyrmgE
- 7PUchYw9WcTTEbvcW2iAk2Popu2NXqjhRrX5RARAGs=
-IronPort-HdrOrdr: A9a23:F+Qf9K5yglcXnd791gPXwbOBI+orL9Y04lQ7vn2ZhyYlFvBw9v
- re6MjzsCWe5gr5N0tBpTn+Atj+fZqxz/9ICOoqTMWftXfdyQmVxehZhOOJ/9SKIVycygcy79
- YET0B0YOeAc2ST5azBjDVReLwbr+VuP8qT6Nv2/jNVaUVPVokl1gF+D2+gYzhLrMstP+tJKH
- JZjPA31AZJvB4sH7SG7wI+Lo/+juyOrovifRkFQzY/8WC1/EuVwY+/KQGcwhAdFxhSwbIumF
- K17zDR1+GYqvSmzR2Z8GfW4/1t6b3c4+oGPtWIls8WbhPzjQqyDb4RIoGqjXQOueSy71Rvqv
- ngyi1QRPhb2jfqZ2Sophmo4QX6zzo0zHfnxTaj8AHeiP28fis+F81Cwb1UaQHY7U1IhqAA7J
- 52
-X-IronPort-AV: E=Sophos;i="5.98,265,1673931600"; 
-   d="scan'208";a="100541595"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, "Anthony
- PERARD" <anthony.perard@citrix.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
-	<marmarek@invisiblethingslab.com>, Bernhard Kaindl
-	<bernhard.kaindl@citrix.com>
-Subject: [PATCH v2 5/7] tools: Use -s for python shebangs
-Date: Thu, 16 Mar 2023 19:37:44 +0000
-Message-ID: <20230316193744.1077012-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230314141520.3652451-6-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 8832ce2a-c436-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1678997399; x=1679083799; bh=hzgNRXzays8HvxzuC82pt71uH+GRCDcVkOp
+	+L80q5pE=; b=ihVK6fz/CT5vRdBFMFFtrNYM2rqXeezl79xT0eHjp5Emx+AHnsn
+	gWoTLZk7t3lVgp58UH1eFBVJsXcPbqjXsb7zOfuD5BlroxrJoNDxNbbAW+psAeds
+	LaC9leznag0EYSKYqfpOlnwhI9T2xRPdFfxqsTdQ+1RjImP4BjjG6CUMI7PxnrHT
+	jRRv/kXfsaUR9m757uwBPtygdTySDA9NV+cSElQ57GUckK4GGS9g730+p1s/yu+f
+	Dcr79tdWV6oKAa/gdYNaJ3GyJAumx7xMR+YYelZJBnEyQQAKdBPA5g5v5jAAmE0o
+	Ljn2zO7Bb+WhB/I9BI75uFGdQ3OA96hMvow==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1678997399; x=1679083799; bh=hzgNRXzays8Hv
+	xzuC82pt71uH+GRCDcVkOp+L80q5pE=; b=Q/JszpKzseDbxeFNH3armMHRN6u1Z
+	6adonN0HN65MU8iJKaTUeAEksu/K8UsPw9z0jomrvPDuZJG48uBPEk9lQiEFCohc
+	dtOGu/VolBrbgN8Wr6+b/MgZOCG9GBme/En0QdkJL/NVOYSKnH/HL/GsjemY7WRA
+	UMityXv51X4h4qTNkaEMGDovCQND8lY1gEDxJ7QB+TjbTynb2vMYMxL9Ccj9jxf8
+	+pMDBW2PC1pqX/RLlT8VokKBKP/7eqSVT4XT7IOUL8bzCqfQnp/FLySXvt/b2JvY
+	Ex2XuF688LBUyIA1qy9fSOjNiS4TmedjzIkvNzDfPBosJ0l1/qvw7C0Iw==
+X-ME-Sender: <xms:lncTZN_2Y-S02VJ9Vtl_jPMEYdoj2xHXOswCli1ZJPUWXC3SZ3UK5A>
+    <xme:lncTZBuT5k08CcsAgTJYJgFoFThkm1_GwkuzAF2-6foxC8EsOw4WYlj-8IlLEzrqO
+    1zUiJBtQi4bsA>
+X-ME-Received: <xmr:lncTZLA8m1FGyv5ryShheyGtQUBTkmk-5sTgTwQ7ib73XhfkOh285YwsdVnQgXEWKq4CKL3OHSsA_JEQM9nf0PCtFxsRsfwfNME>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdeftddgudefiecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
+    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
+    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
+    udelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlh
+    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
+    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:lncTZBdjwg6gQaZy7sRZ4GIQAnR9mS8B5tKNBKAVQdX1yt5rGyCWXQ>
+    <xmx:lncTZCOfQnWAuL_J3NsPf7vOh4VyhdaJepJwx8tSC78wd2EeQL6Cdw>
+    <xmx:lncTZDnQgVcLoqmzcNwU87Wf714WxDJ1cLmKBjrY_zkkOdHAXroTUw>
+    <xmx:l3cTZLZNR_jvrtbZwcW_qiHm1XEldpkZ6Tcyx4zd13t3mpWct-4lDQ>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 16 Mar 2023 21:09:54 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Subject: Re: [PATCH v2 5/7] tools: Use -s for python shebangs
+Message-ID: <ZBN3k6FvvHvfeWxi@mail-itl>
 References: <20230314141520.3652451-6-andrew.cooper3@citrix.com>
+ <20230316193744.1077012-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="yTo0yZdKwJ/gMcU5"
+Content-Disposition: inline
+In-Reply-To: <20230316193744.1077012-1-andrew.cooper3@citrix.com>
 
-This is mandated by the Fedora packaging guidelines because it is a security
-vulnerability otherwise in suid scripts.  While Xen doesn't have suid scripts,
-it's a very good idea generally, because it prevents the users local python
-environment interfering from system packaged scripts.
 
-pygrub is the odd-script-out, being installed by distutils rather than
-manually with INSTALL_PYTHON_PROG.  distutils has no nice way of editing the
-shebang, so arrange to use INSTALL_PYTHON_PROG on pygrub too.
+--yTo0yZdKwJ/gMcU5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 16 Mar 2023 21:09:54 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Subject: Re: [PATCH v2 5/7] tools: Use -s for python shebangs
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Wei Liu <wl@xen.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>
-CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-CC: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+On Thu, Mar 16, 2023 at 07:37:44PM +0000, Andrew Cooper wrote:
+> This is mandated by the Fedora packaging guidelines because it is a secur=
+ity
+> vulnerability otherwise in suid scripts.  While Xen doesn't have suid scr=
+ipts,
+> it's a very good idea generally, because it prevents the users local pyth=
+on
+> environment interfering from system packaged scripts.
+>=20
+> pygrub is the odd-script-out, being installed by distutils rather than
+> manually with INSTALL_PYTHON_PROG.  distutils has no nice way of editing =
+the
+> shebang, so arrange to use INSTALL_PYTHON_PROG on pygrub too.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Wei Liu <wl@xen.org>
+> CC: Anthony PERARD <anthony.perard@citrix.com>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+> CC: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+>=20
+> v2:
+>  * Remove accidental setuputils dependency.
 
-v2:
- * Remove accidental setuputils dependency.
----
- tools/Rules.mk        | 2 +-
- tools/pygrub/Makefile | 4 +++-
- tools/pygrub/setup.py | 1 -
- 3 files changed, 4 insertions(+), 3 deletions(-)
+=2E.. and tools/python/setup.py doesn't install any scripts, so it isn't
+relevant there.
 
-diff --git a/tools/Rules.mk b/tools/Rules.mk
-index 6e135387bd7e..18cf83f5be83 100644
---- a/tools/Rules.mk
-+++ b/tools/Rules.mk
-@@ -179,7 +179,7 @@ CFLAGS += $(CFLAGS-y)
- CFLAGS += $(EXTRA_CFLAGS_XEN_TOOLS)
- 
- INSTALL_PYTHON_PROG = \
--	$(XEN_ROOT)/tools/python/install-wrap "$(PYTHON_PATH)" $(INSTALL_PROG)
-+	$(XEN_ROOT)/tools/python/install-wrap "$(PYTHON_PATH) -s" $(INSTALL_PROG)
- 
- %.opic: %.c
- 	$(CC) $(CPPFLAGS) -DPIC $(CFLAGS) $(CFLAGS_$*.opic) -fPIC -c -o $@ $< $(APPEND_CFLAGS)
-diff --git a/tools/pygrub/Makefile b/tools/pygrub/Makefile
-index 29ad0513212f..4963bc89c6ed 100644
---- a/tools/pygrub/Makefile
-+++ b/tools/pygrub/Makefile
-@@ -18,8 +18,10 @@ build:
- .PHONY: install
- install: all
- 	$(INSTALL_DIR) $(DESTDIR)/$(bindir)
-+	$(INSTALL_DIR) $(DESTDIR)/$(LIBEXEC_BIN)
- 	$(setup.py) install --record $(INSTALL_LOG) $(PYTHON_PREFIX_ARG) \
--		--root="$(DESTDIR)" --install-scripts=$(LIBEXEC_BIN) --force
-+		--root="$(DESTDIR)" --force
-+	$(INSTALL_PYTHON_PROG) src/pygrub $(DESTDIR)/$(LIBEXEC_BIN)/pygrub
- 	set -e; if [ $(bindir) != $(LIBEXEC_BIN) -a \
- 	             "`readlink -f $(DESTDIR)/$(bindir)`" != \
- 	             "`readlink -f $(LIBEXEC_BIN)`" ]; then \
-diff --git a/tools/pygrub/setup.py b/tools/pygrub/setup.py
-index 0e4e3d02d372..502aa4df2dae 100644
---- a/tools/pygrub/setup.py
-+++ b/tools/pygrub/setup.py
-@@ -23,7 +23,6 @@ setup(name='pygrub',
-       author_email='katzj@redhat.com',
-       license='GPL',
-       package_dir={'grub': 'src', 'fsimage': 'src'},
--      scripts = ["src/pygrub"],
-       packages=pkgs,
-       ext_modules = [ xenfsimage ]
-       )
--- 
-2.30.2
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
+> ---
+>  tools/Rules.mk        | 2 +-
+>  tools/pygrub/Makefile | 4 +++-
+>  tools/pygrub/setup.py | 1 -
+>  3 files changed, 4 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/tools/Rules.mk b/tools/Rules.mk
+> index 6e135387bd7e..18cf83f5be83 100644
+> --- a/tools/Rules.mk
+> +++ b/tools/Rules.mk
+> @@ -179,7 +179,7 @@ CFLAGS +=3D $(CFLAGS-y)
+>  CFLAGS +=3D $(EXTRA_CFLAGS_XEN_TOOLS)
+> =20
+>  INSTALL_PYTHON_PROG =3D \
+> -	$(XEN_ROOT)/tools/python/install-wrap "$(PYTHON_PATH)" $(INSTALL_PROG)
+> +	$(XEN_ROOT)/tools/python/install-wrap "$(PYTHON_PATH) -s" $(INSTALL_PRO=
+G)
+> =20
+>  %.opic: %.c
+>  	$(CC) $(CPPFLAGS) -DPIC $(CFLAGS) $(CFLAGS_$*.opic) -fPIC -c -o $@ $< $=
+(APPEND_CFLAGS)
+> diff --git a/tools/pygrub/Makefile b/tools/pygrub/Makefile
+> index 29ad0513212f..4963bc89c6ed 100644
+> --- a/tools/pygrub/Makefile
+> +++ b/tools/pygrub/Makefile
+> @@ -18,8 +18,10 @@ build:
+>  .PHONY: install
+>  install: all
+>  	$(INSTALL_DIR) $(DESTDIR)/$(bindir)
+> +	$(INSTALL_DIR) $(DESTDIR)/$(LIBEXEC_BIN)
+>  	$(setup.py) install --record $(INSTALL_LOG) $(PYTHON_PREFIX_ARG) \
+> -		--root=3D"$(DESTDIR)" --install-scripts=3D$(LIBEXEC_BIN) --force
+> +		--root=3D"$(DESTDIR)" --force
+> +	$(INSTALL_PYTHON_PROG) src/pygrub $(DESTDIR)/$(LIBEXEC_BIN)/pygrub
+>  	set -e; if [ $(bindir) !=3D $(LIBEXEC_BIN) -a \
+>  	             "`readlink -f $(DESTDIR)/$(bindir)`" !=3D \
+>  	             "`readlink -f $(LIBEXEC_BIN)`" ]; then \
+> diff --git a/tools/pygrub/setup.py b/tools/pygrub/setup.py
+> index 0e4e3d02d372..502aa4df2dae 100644
+> --- a/tools/pygrub/setup.py
+> +++ b/tools/pygrub/setup.py
+> @@ -23,7 +23,6 @@ setup(name=3D'pygrub',
+>        author_email=3D'katzj@redhat.com',
+>        license=3D'GPL',
+>        package_dir=3D{'grub': 'src', 'fsimage': 'src'},
+> -      scripts =3D ["src/pygrub"],
+>        packages=3Dpkgs,
+>        ext_modules =3D [ xenfsimage ]
+>        )
+> --=20
+> 2.30.2
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--yTo0yZdKwJ/gMcU5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQTd5IACgkQ24/THMrX
+1ywuZwf+Mqr8JmKlewM3orz74wqFy79BJencQwPD7pjtvvbDii7sY/Pfjo59gPaR
+cKD+hgFJ946HJyk43OYoYUoXLIo2h3NIjHDrhNSD8MJ5ExNaZWcsc9E/5ZEj7jHz
+FYLwuEtEL/e53zOLfCiMkQOalX5EqfbCf3t0GXzwH8tES9UZOZfvyGDgsmjvVekP
+ZJ/SxUwReU062FPsSDIZUGfaPWhoeziDGO2dg/AP62c+Vlfu50PVPDjfMUQ+g3+Y
+MVzJeOA06Id7/QlhG2dmXnjzMnzNeCggDjDBOpfTXfRbKasb2Gm0SgWwIbzdiwIp
++9jZM9VizhcQQ5tio4JNcuu8BxGjzw==
+=p9Xh
+-----END PGP SIGNATURE-----
+
+--yTo0yZdKwJ/gMcU5--
 
