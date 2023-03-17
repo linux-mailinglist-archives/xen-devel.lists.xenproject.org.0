@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 027486BE8C3
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Mar 2023 13:04:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.511036.789778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8DFB6BE8C5
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Mar 2023 13:06:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.511039.789787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pd8p9-0001Nx-5a; Fri, 17 Mar 2023 12:04:43 +0000
+	id 1pd8qR-0001yI-H8; Fri, 17 Mar 2023 12:06:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 511036.789778; Fri, 17 Mar 2023 12:04:43 +0000
+Received: by outflank-mailman (output) from mailman id 511039.789787; Fri, 17 Mar 2023 12:06:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pd8p9-0001KY-2K; Fri, 17 Mar 2023 12:04:43 +0000
-Received: by outflank-mailman (input) for mailman id 511036;
- Fri, 17 Mar 2023 12:04:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2ZYU=7J=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pd8p8-0001KI-0i
- for xen-devel@lists.xenproject.org; Fri, 17 Mar 2023 12:04:42 +0000
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3ff9bbf-c4bb-11ed-87f5-c1b5be75604c;
- Fri, 17 Mar 2023 13:04:39 +0100 (CET)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 9906F320093A;
- Fri, 17 Mar 2023 08:04:36 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Fri, 17 Mar 2023 08:04:37 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 17 Mar 2023 08:04:34 -0400 (EDT)
+	id 1pd8qR-0001v2-Dh; Fri, 17 Mar 2023 12:06:03 +0000
+Received: by outflank-mailman (input) for mailman id 511039;
+ Fri, 17 Mar 2023 12:06:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pd8qQ-0001uq-Cr; Fri, 17 Mar 2023 12:06:02 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pd8qQ-00074X-BS; Fri, 17 Mar 2023 12:06:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pd8qP-0000iN-Qc; Fri, 17 Mar 2023 12:06:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pd8qP-0001Pr-Q5; Fri, 17 Mar 2023 12:06:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,120 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3ff9bbf-c4bb-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1679054676; x=1679141076; bh=Po5+on7NXPECAKbocmNv12iR+RujjiNu7pU
-	O2/fW8EA=; b=MvD2/kmGnvDgM/a30WfakUj/wackLMMVe7wSFWpafQlKo4C68pe
-	yA6ArdtZ0e/kBoNW7AWYmUr632V7jalR7YH6fNJNnbRfRQDd6pSqq2iP/93QZ3Qz
-	8JplpejI9zeI2RACrG2Holejea/He+W+UCZXElQTANHXXYZLHarYEBWXyfT8iY/Y
-	jnW1KNhl9/TexTLXlwTOuBsEPBhxrPkNU3dGovSD6xV77i19eJQryTqt8kxMQbFn
-	TSY180AjYQOoSITVVDrhrVgnaiHsYHgSePHY/kbBqttDRb75VZFEIW7DWcuRlbk2
-	s8t5vOzsYLLUNNccWBTH1VmZGiNp7l3y8IQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1679054676; x=1679141076; bh=Po5+on7NXPECA
-	KbocmNv12iR+RujjiNu7pUO2/fW8EA=; b=AEAzWKXwVUmtWAjDcx2psGwSY75hB
-	YUgX6tHvVOmwydaK0mbxYmSVITMGtObGzB/XcdEIpdALyYWtS7NjeUBVkPclWuAk
-	EVAfr9Cry44EtSxwaz1pe+/aG4ZLfDmDh0tJYvX4CgF5fSjZNVjcuoJmCeogpXZn
-	gtEudcPBm9V2hzbMLH8BSvzrAQINk+yKs3feVQnHvQa2wkkP+/qgBE7A8dt2nMKj
-	dm+93GUh0Ztk0A5zCFCo+ugEQnmXbjULncUFrdVC8Jbfpe/NRIw8txbJsXZcUpci
-	/7VMeGNJ+Ad35gk396ilr9dTAWg5x6GFtls+M9gJeAZNkS5FkwosE0zPw==
-X-ME-Sender: <xms:U1cUZGpvBo7Iw60kGhmGGHs9oZMnMEhlExi536huiHRYw3QdDY7AjQ>
-    <xme:U1cUZErIhCqE7zL6xU5tiLKs06PULZEAVi05z2bUZNav7J3UPbrWtnMYzTW-DgnVw
-    BW1b4VZmb06Fw>
-X-ME-Received: <xmr:U1cUZLMbFC5pqEo7qppQErZ1VhYHOvwM1u2DEkM4VxtLJIyzVMziZsqvQafExc25tQ9oFCiEskz4mvEmc9LpyxwedfhBSTruu6M>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdefvddgfeehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:VFcUZF4JWrfhYK6rn-Htt9Q708bApec01Wo8Uo_1JDmbs0oE1fIKSg>
-    <xmx:VFcUZF41rFh5lCHA-96NY6mSUgGT2D_M6aSOneVPE1KQ8Nz-SB6RzA>
-    <xmx:VFcUZFjJ07Aw6-hnyzs4pPX_5UcEf1lmIp5616vjQ8EFUYvK8Zk0kA>
-    <xmx:VFcUZI0shTdm8GqZCeIqmZ6naMIyw-7PilNXrJQDHnGozqaXbaDO1Q>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 17 Mar 2023 13:04:32 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 4/4] Update README to state Python3 requirement
-Message-ID: <ZBRXUOvzRQOk9NOA@mail-itl>
-References: <20230316171634.320626-1-marmarek@invisiblethingslab.com>
- <20230316171634.320626-4-marmarek@invisiblethingslab.com>
- <afe67927-0f62-511b-012f-2f2deedbf4e6@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=TtLV9qfgc0c3LiAmxD/MjCx4AqjI+pumTcyl4W0E2sI=; b=AHoxMzeM5roQN23M9GOOBmrF0H
+	BEyp2D0nm3eAOl6d7gxGTREWxibpz5/ZTC4tRZ1WqbqjNWWKbr0/svl5ivtUwx6LCCjA8++OcrXAN
+	dlLAA0tHELQEZ3b4pVdWK1B1Ysf/F37lLntwYHXG0Hv+hdmJQJNyhmo5IDVW8PPH054w=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-179713-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="FKwiqVnav0DqYLa+"
-Content-Disposition: inline
-In-Reply-To: <afe67927-0f62-511b-012f-2f2deedbf4e6@suse.com>
+Subject: [ovmf test] 179713: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=410ca0ff94a42ee541dd6ceab70ea974eeb7e500
+X-Osstest-Versions-That:
+    ovmf=0e5717009779ec6c1e35f979426a2cd407b3e73a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 17 Mar 2023 12:06:01 +0000
+
+flight 179713 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/179713/
+
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 410ca0ff94a42ee541dd6ceab70ea974eeb7e500
+baseline version:
+ ovmf                 0e5717009779ec6c1e35f979426a2cd407b3e73a
+
+Last test of basis   179705  2023-03-17 04:10:46 Z    0 days
+Testing same since   179713  2023-03-17 08:15:15 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gang Chen <gang.c.chen@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
---FKwiqVnav0DqYLa+
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 17 Mar 2023 13:04:32 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 4/4] Update README to state Python3 requirement
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Fri, Mar 17, 2023 at 09:46:33AM +0100, Jan Beulich wrote:
-> On 16.03.2023 18:16, Marek Marczykowski-G=C3=B3recki wrote:
-> > Python2 is not supported anymore.
->=20
-> There are two things here which concern me: For one, how come this is
-> at the end of a series? You want to keep in mind that any series may
-> be committed piecemeal (unless an indication to the contrary is in
-> the cover letter, but there's none here in the first place).
->=20
-> The other aspect is that there's no indication here of it being
-> consensus that we raise the baseline requirement for Python, and for
-> Python alone. A decision towards the wider topic of raising baseline
-> requirements is, as you may recall from the meeting in Cambridge,
-> still pending.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hmm, in fact the only part of this series that isn't python2 compatible
-anymore is "install-python-bindings" target in tools/libs/stat/Makefile.
-And it's enabled only with XENSTAT_PYTHON_BINDING=3Dy is explicitly set.
-So, maybe this readme change isn't relevant at all, at least not yet.
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---FKwiqVnav0DqYLa+
-Content-Type: application/pgp-signature; name="signature.asc"
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
------BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQUV1AACgkQ24/THMrX
-1yzrkgf/c7DXp2u+Q8pXkLEE2jWwCQocOaNIcym8LvQNFzeeUkceMj0Mn4+afYnq
-X8UJXUOs+mgQ1Uj7ou5/5q1PPz0t3r105n6KWh6fnmsmsn2bjIWD8tpXKy1kbsRa
-zu9gsM4GuGwAhZBuRZZlykiKrZ04VFe7PsXe+DzIYScjvq7Iz1cvQvw9MhAeOjGs
-KSC+Ea/Rnpxt2mAuSn7Rmu5JgbB/TbipfTHUXEel5NFV9Em37WiESg9hGmZh89Ok
-6QnOlXURQlACaCXQjusne/TlLM/xrmvOA8RoT6MwSd1yKxcCrcSkK4WGZ49RfXdR
-N4bMxfs4qKqWnFOR7fK86YucWO/oGw==
-=phtW
------END PGP SIGNATURE-----
+Pushing revision :
 
---FKwiqVnav0DqYLa+--
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   0e57170097..410ca0ff94  410ca0ff94a42ee541dd6ceab70ea974eeb7e500 -> xen-tested-master
 
