@@ -2,41 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9C286BE8C1
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Mar 2023 13:04:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.511034.789766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 027486BE8C3
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Mar 2023 13:04:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.511036.789778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pd8nx-0000qt-Pq; Fri, 17 Mar 2023 12:03:29 +0000
+	id 1pd8p9-0001Nx-5a; Fri, 17 Mar 2023 12:04:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 511034.789766; Fri, 17 Mar 2023 12:03:29 +0000
+Received: by outflank-mailman (output) from mailman id 511036.789778; Fri, 17 Mar 2023 12:04:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pd8nx-0000oC-Mu; Fri, 17 Mar 2023 12:03:29 +0000
-Received: by outflank-mailman (input) for mailman id 511034;
- Fri, 17 Mar 2023 12:03:29 +0000
+	id 1pd8p9-0001KY-2K; Fri, 17 Mar 2023 12:04:43 +0000
+Received: by outflank-mailman (input) for mailman id 511036;
+ Fri, 17 Mar 2023 12:04:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=01wX=7J=yandex.ru=isaikin-dmitry@srs-se1.protection.inumbo.net>)
- id 1pd8nw-0000o6-IQ
- for xen-devel@lists.xenproject.org; Fri, 17 Mar 2023 12:03:29 +0000
-Received: from forward103o.mail.yandex.net (forward103o.mail.yandex.net
- [37.140.190.177]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8e067cb-c4bb-11ed-87f5-c1b5be75604c;
- Fri, 17 Mar 2023 13:03:26 +0100 (CET)
-Received: from forward100q.mail.yandex.net (forward100q.mail.yandex.net
- [IPv6:2a02:6b8:c0e:4b:0:640:4012:bb97])
- by forward103o.mail.yandex.net (Yandex) with ESMTP id 7D5AF10ABD14;
- Fri, 17 Mar 2023 15:01:49 +0300 (MSK)
-Received: from mail-nwsmtp-smtp-production-main-68.vla.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-68.vla.yp-c.yandex.net
- [IPv6:2a02:6b8:c18:2a11:0:640:8dff:0])
- by forward100q.mail.yandex.net (Yandex) with ESMTP id 717616F40007;
- Fri, 17 Mar 2023 15:01:49 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-68.vla.yp-c.yandex.net
- (smtp/Yandex) with ESMTPSA id k1kIqv0RjOs0-uCwrgQaT; 
- Fri, 17 Mar 2023 15:01:48 +0300
+ <SRS0=2ZYU=7J=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1pd8p8-0001KI-0i
+ for xen-devel@lists.xenproject.org; Fri, 17 Mar 2023 12:04:42 +0000
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3ff9bbf-c4bb-11ed-87f5-c1b5be75604c;
+ Fri, 17 Mar 2023 13:04:39 +0100 (CET)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 9906F320093A;
+ Fri, 17 Mar 2023 08:04:36 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Fri, 17 Mar 2023 08:04:37 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 17 Mar 2023 08:04:34 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,315 +43,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8e067cb-c4bb-11ed-87f5-c1b5be75604c
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail; t=1679054508;
-	bh=a0ksIfh0LBuFqnwuWIJpCklosjlruYSEPdCkZglAy6I=;
-	h=Message-Id:Date:Cc:Subject:To:From;
-	b=QrtvLeNPRM0k+1jMzEmzkvvN5f4kQZKbB1knWiyeXJc+SdpLpwEzbGwyLH3Wleyjm
-	 77TKGyG65GQ5H7ONjlyjh5204drPRIZzaUD6EpfV7FnGUZPx/svRBBc8zOn+L4twL4
-	 IBf7hjLEZlXgPRqjlktR1G4hwYVX8zF7nBb8TcM4=
-Authentication-Results: mail-nwsmtp-smtp-production-main-68.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-From: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-To: xen-devel@lists.xenproject.org
-Cc: Dmitry Isaykin <isaikin-dmitry@yandex.ru>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
+X-Inumbo-ID: e3ff9bbf-c4bb-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1679054676; x=1679141076; bh=Po5+on7NXPECAKbocmNv12iR+RujjiNu7pU
+	O2/fW8EA=; b=MvD2/kmGnvDgM/a30WfakUj/wackLMMVe7wSFWpafQlKo4C68pe
+	yA6ArdtZ0e/kBoNW7AWYmUr632V7jalR7YH6fNJNnbRfRQDd6pSqq2iP/93QZ3Qz
+	8JplpejI9zeI2RACrG2Holejea/He+W+UCZXElQTANHXXYZLHarYEBWXyfT8iY/Y
+	jnW1KNhl9/TexTLXlwTOuBsEPBhxrPkNU3dGovSD6xV77i19eJQryTqt8kxMQbFn
+	TSY180AjYQOoSITVVDrhrVgnaiHsYHgSePHY/kbBqttDRb75VZFEIW7DWcuRlbk2
+	s8t5vOzsYLLUNNccWBTH1VmZGiNp7l3y8IQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1679054676; x=1679141076; bh=Po5+on7NXPECA
+	KbocmNv12iR+RujjiNu7pUO2/fW8EA=; b=AEAzWKXwVUmtWAjDcx2psGwSY75hB
+	YUgX6tHvVOmwydaK0mbxYmSVITMGtObGzB/XcdEIpdALyYWtS7NjeUBVkPclWuAk
+	EVAfr9Cry44EtSxwaz1pe+/aG4ZLfDmDh0tJYvX4CgF5fSjZNVjcuoJmCeogpXZn
+	gtEudcPBm9V2hzbMLH8BSvzrAQINk+yKs3feVQnHvQa2wkkP+/qgBE7A8dt2nMKj
+	dm+93GUh0Ztk0A5zCFCo+ugEQnmXbjULncUFrdVC8Jbfpe/NRIw8txbJsXZcUpci
+	/7VMeGNJ+Ad35gk396ilr9dTAWg5x6GFtls+M9gJeAZNkS5FkwosE0zPw==
+X-ME-Sender: <xms:U1cUZGpvBo7Iw60kGhmGGHs9oZMnMEhlExi536huiHRYw3QdDY7AjQ>
+    <xme:U1cUZErIhCqE7zL6xU5tiLKs06PULZEAVi05z2bUZNav7J3UPbrWtnMYzTW-DgnVw
+    BW1b4VZmb06Fw>
+X-ME-Received: <xmr:U1cUZLMbFC5pqEo7qppQErZ1VhYHOvwM1u2DEkM4VxtLJIyzVMziZsqvQafExc25tQ9oFCiEskz4mvEmc9LpyxwedfhBSTruu6M>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdefvddgfeehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:VFcUZF4JWrfhYK6rn-Htt9Q708bApec01Wo8Uo_1JDmbs0oE1fIKSg>
+    <xmx:VFcUZF41rFh5lCHA-96NY6mSUgGT2D_M6aSOneVPE1KQ8Nz-SB6RzA>
+    <xmx:VFcUZFjJ07Aw6-hnyzs4pPX_5UcEf1lmIp5616vjQ8EFUYvK8Zk0kA>
+    <xmx:VFcUZI0shTdm8GqZCeIqmZ6naMIyw-7PilNXrJQDHnGozqaXbaDO1Q>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 17 Mar 2023 13:04:32 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Anton Belousov <abelousov@ptsecurity.com>
-Subject: [XEN PATCH v3] x86/monitor: Add new monitor event to catch I/O instructions
-Date: Fri, 17 Mar 2023 15:01:44 +0300
-Message-Id: <858e4c67d14ec9d9c6737dd0b33056e3610c00f6.1679054228.git.isaikin-dmitry@yandex.ru>
-X-Mailer: git-send-email 2.39.2
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 4/4] Update README to state Python3 requirement
+Message-ID: <ZBRXUOvzRQOk9NOA@mail-itl>
+References: <20230316171634.320626-1-marmarek@invisiblethingslab.com>
+ <20230316171634.320626-4-marmarek@invisiblethingslab.com>
+ <afe67927-0f62-511b-012f-2f2deedbf4e6@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="FKwiqVnav0DqYLa+"
+Content-Disposition: inline
+In-Reply-To: <afe67927-0f62-511b-012f-2f2deedbf4e6@suse.com>
 
-Adds monitor support for I/O instructions.
 
-Signed-off-by: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-Signed-off-by: Anton Belousov <abelousov@ptsecurity.com>
-Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
----
-Changes in v3:
- * Rebase on staging
- * Refactor branch logic on monitor_traps response
+--FKwiqVnav0DqYLa+
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 17 Mar 2023 13:04:32 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 4/4] Update README to state Python3 requirement
 
-Changes in v2:
- * Handled INS and OUTS instructions too
- * Added I/O monitoring support for AMD
- * Rename functions and structures (remove "_instruction" part)
- * Reorder parameters of hvm_monitor_io to match handle_pio's order
- * Change type of string_ins parameter to bool
- * Change vm_event_io structure
- * Handle monitor_traps's return status
----
- tools/include/xenctrl.h                |  1 +
- tools/libs/ctrl/xc_monitor.c           | 13 +++++++++++++
- xen/arch/x86/hvm/monitor.c             | 21 +++++++++++++++++++++
- xen/arch/x86/hvm/svm/svm.c             |  8 ++++++++
- xen/arch/x86/hvm/vmx/vmx.c             | 21 ++++++++++++++++++---
- xen/arch/x86/include/asm/domain.h      |  1 +
- xen/arch/x86/include/asm/hvm/monitor.h |  3 +++
- xen/arch/x86/include/asm/monitor.h     |  3 ++-
- xen/arch/x86/monitor.c                 | 13 +++++++++++++
- xen/include/public/domctl.h            |  1 +
- xen/include/public/vm_event.h          | 10 ++++++++++
- 11 files changed, 91 insertions(+), 4 deletions(-)
+On Fri, Mar 17, 2023 at 09:46:33AM +0100, Jan Beulich wrote:
+> On 16.03.2023 18:16, Marek Marczykowski-G=C3=B3recki wrote:
+> > Python2 is not supported anymore.
+>=20
+> There are two things here which concern me: For one, how come this is
+> at the end of a series? You want to keep in mind that any series may
+> be committed piecemeal (unless an indication to the contrary is in
+> the cover letter, but there's none here in the first place).
+>=20
+> The other aspect is that there's no indication here of it being
+> consensus that we raise the baseline requirement for Python, and for
+> Python alone. A decision towards the wider topic of raising baseline
+> requirements is, as you may recall from the meeting in Cambridge,
+> still pending.
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 23037874d3..05967ecc92 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2102,6 +2102,7 @@ int xc_monitor_emul_unimplemented(xc_interface *xch, uint32_t domain_id,
-                                   bool enable);
- int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
-                       bool sync);
-+int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable);
- /**
-  * This function enables / disables emulation for each REP for a
-  * REP-compatible instruction.
-diff --git a/tools/libs/ctrl/xc_monitor.c b/tools/libs/ctrl/xc_monitor.c
-index c5fa62ff30..3cb96f444f 100644
---- a/tools/libs/ctrl/xc_monitor.c
-+++ b/tools/libs/ctrl/xc_monitor.c
-@@ -261,6 +261,19 @@ int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
-     return do_domctl(xch, &domctl);
- }
- 
-+int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable)
-+{
-+    DECLARE_DOMCTL;
-+
-+    domctl.cmd = XEN_DOMCTL_monitor_op;
-+    domctl.domain = domain_id;
-+    domctl.u.monitor_op.op = enable ? XEN_DOMCTL_MONITOR_OP_ENABLE
-+                                    : XEN_DOMCTL_MONITOR_OP_DISABLE;
-+    domctl.u.monitor_op.event = XEN_DOMCTL_MONITOR_EVENT_IO;
-+
-+    return do_domctl(xch, &domctl);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
-index a11cd76f4d..ff958b6c05 100644
---- a/xen/arch/x86/hvm/monitor.c
-+++ b/xen/arch/x86/hvm/monitor.c
-@@ -346,6 +346,27 @@ int hvm_monitor_vmexit(unsigned long exit_reason,
-     return monitor_traps(curr, ad->monitor.vmexit_sync, &req);
- }
- 
-+int hvm_monitor_io(uint16_t port, unsigned int bytes,
-+                   int dir, bool string_ins)
-+{
-+    struct vcpu *curr = current;
-+    struct arch_domain *ad = &curr->domain->arch;
-+    vm_event_request_t req = {};
-+
-+    if ( !ad->monitor.io_enabled )
-+        return 0;
-+
-+    req.reason = VM_EVENT_REASON_IO_INSTRUCTION;
-+    req.u.io.data_size = bytes;
-+    req.u.io.port = port;
-+    req.u.io.dir = dir;
-+    req.u.io.string_ins = string_ins;
-+
-+    set_npt_base(curr, &req);
-+
-+    return monitor_traps(curr, true, &req);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index bfe03316de..b55f825f5d 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -2939,6 +2939,14 @@ void svm_vmexit_handler(void)
-         break;
- 
-     case VMEXIT_IOIO:
-+        rc = hvm_monitor_io(vmcb->ei.io.port,
-+                            vmcb->ei.io.bytes,
-+                            vmcb->ei.io.in ? IOREQ_READ : IOREQ_WRITE,
-+                            vmcb->ei.io.str);
-+        if ( rc < 0 )
-+            goto unexpected_exit_type;
-+        if ( rc )
-+            break;
-         if ( !vmcb->ei.io.str )
-         {
-             if ( handle_pio(vmcb->ei.io.port,
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 00b531f76c..8a278f16c5 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -4560,7 +4560,24 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-         break;
- 
-     case EXIT_REASON_IO_INSTRUCTION:
-+    {
-+        uint16_t port;
-+        int bytes, dir;
-+        bool string_ins;
-+        int rc;
-+
-         __vmread(EXIT_QUALIFICATION, &exit_qualification);
-+
-+        port = (exit_qualification >> 16) & 0xFFFF;
-+        bytes = (exit_qualification & 0x07) + 1;
-+        dir = (exit_qualification & 0x08) ? IOREQ_READ : IOREQ_WRITE;
-+        string_ins = (exit_qualification & 0x10);
-+        rc = hvm_monitor_io(port, bytes, dir, string_ins);
-+        if ( rc < 0 )
-+            goto exit_and_crash;
-+        if ( rc )
-+            break;
-+
-         if ( exit_qualification & 0x10 )
-         {
-             /* INS, OUTS */
-@@ -4570,13 +4587,11 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-         else
-         {
-             /* IN, OUT */
--            uint16_t port = (exit_qualification >> 16) & 0xFFFF;
--            int bytes = (exit_qualification & 0x07) + 1;
--            int dir = (exit_qualification & 0x08) ? IOREQ_READ : IOREQ_WRITE;
-             if ( handle_pio(port, bytes, dir) )
-                 update_guest_eip(); /* Safe: IN, OUT */
-         }
-         break;
-+    }
- 
-     case EXIT_REASON_INVD:
-     case EXIT_REASON_WBINVD:
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index 7bc126587d..29027ffd29 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -435,6 +435,7 @@ struct arch_domain
-         unsigned int descriptor_access_enabled                             : 1;
-         unsigned int guest_request_userspace_enabled                       : 1;
-         unsigned int emul_unimplemented_enabled                            : 1;
-+        unsigned int io_enabled                                            : 1;
-         /*
-          * By default all events are sent.
-          * This is used to filter out pagefaults.
-diff --git a/xen/arch/x86/include/asm/hvm/monitor.h b/xen/arch/x86/include/asm/hvm/monitor.h
-index 639f6dfa37..fc35490a8d 100644
---- a/xen/arch/x86/include/asm/hvm/monitor.h
-+++ b/xen/arch/x86/include/asm/hvm/monitor.h
-@@ -54,6 +54,9 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
- int hvm_monitor_vmexit(unsigned long exit_reason,
-                        unsigned long exit_qualification);
- 
-+int hvm_monitor_io(uint16_t port, unsigned int bytes,
-+                   int dir, bool string_ins);
-+
- #endif /* __ASM_X86_HVM_MONITOR_H__ */
- 
- /*
-diff --git a/xen/arch/x86/include/asm/monitor.h b/xen/arch/x86/include/asm/monitor.h
-index d8d54c5f23..96e6a9d0d8 100644
---- a/xen/arch/x86/include/asm/monitor.h
-+++ b/xen/arch/x86/include/asm/monitor.h
-@@ -90,7 +90,8 @@ static inline uint32_t arch_monitor_get_capabilities(struct domain *d)
-                     (1U << XEN_DOMCTL_MONITOR_EVENT_WRITE_CTRLREG) |
-                     (1U << XEN_DOMCTL_MONITOR_EVENT_EMUL_UNIMPLEMENTED) |
-                     (1U << XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT) |
--                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT));
-+                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT) |
-+                    (1U << XEN_DOMCTL_MONITOR_EVENT_IO));
- 
-     if ( hvm_is_singlestep_supported() )
-         capabilities |= (1U << XEN_DOMCTL_MONITOR_EVENT_SINGLESTEP);
-diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
-index 30ca71432c..d4857faf8a 100644
---- a/xen/arch/x86/monitor.c
-+++ b/xen/arch/x86/monitor.c
-@@ -346,6 +346,19 @@ int arch_monitor_domctl_event(struct domain *d,
-         break;
-     }
- 
-+    case XEN_DOMCTL_MONITOR_EVENT_IO:
-+    {
-+        bool old_status = ad->monitor.io_enabled;
-+
-+        if ( unlikely(old_status == requested_status) )
-+            return -EEXIST;
-+
-+        domain_pause(d);
-+        ad->monitor.io_enabled = requested_status;
-+        domain_unpause(d);
-+        break;
-+    }
-+
-     default:
-         /*
-          * Should not be reached unless arch_monitor_get_capabilities() is
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 51be28c3de..7280e9f968 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1063,6 +1063,7 @@ struct xen_domctl_psr_cmt_op {
- /* Enabled by default */
- #define XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT     11
- #define XEN_DOMCTL_MONITOR_EVENT_VMEXIT                12
-+#define XEN_DOMCTL_MONITOR_EVENT_IO                    13
- 
- struct xen_domctl_monitor_op {
-     uint32_t op; /* XEN_DOMCTL_MONITOR_OP_* */
-diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
-index 0035c26e12..1e4b6063f5 100644
---- a/xen/include/public/vm_event.h
-+++ b/xen/include/public/vm_event.h
-@@ -160,6 +160,8 @@
- #define VM_EVENT_REASON_EMUL_UNIMPLEMENTED      14
- /* VMEXIT */
- #define VM_EVENT_REASON_VMEXIT                  15
-+/* IN/OUT Instruction executed */
-+#define VM_EVENT_REASON_IO_INSTRUCTION          16
- 
- /* Supported values for the vm_event_write_ctrlreg index. */
- #define VM_EVENT_X86_CR0    0
-@@ -388,6 +390,13 @@ struct vm_event_vmexit {
-     } arch;
- };
- 
-+struct vm_event_io {
-+    uint32_t data_size;
-+    uint16_t port;
-+    uint8_t  dir; /* IOREQ_READ or IOREQ_WRITE */
-+    uint8_t  string_ins;
-+};
-+
- typedef struct vm_event_st {
-     uint32_t version;   /* VM_EVENT_INTERFACE_VERSION */
-     uint32_t flags;     /* VM_EVENT_FLAG_* */
-@@ -409,6 +418,7 @@ typedef struct vm_event_st {
-         struct vm_event_debug                 debug_exception;
-         struct vm_event_cpuid                 cpuid;
-         struct vm_event_vmexit                vmexit;
-+        struct vm_event_io                    io;
-         union {
-             struct vm_event_interrupt_x86     x86;
-         } interrupt;
--- 
-2.39.2
+Hmm, in fact the only part of this series that isn't python2 compatible
+anymore is "install-python-bindings" target in tools/libs/stat/Makefile.
+And it's enabled only with XENSTAT_PYTHON_BINDING=3Dy is explicitly set.
+So, maybe this readme change isn't relevant at all, at least not yet.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
+--FKwiqVnav0DqYLa+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQUV1AACgkQ24/THMrX
+1yzrkgf/c7DXp2u+Q8pXkLEE2jWwCQocOaNIcym8LvQNFzeeUkceMj0Mn4+afYnq
+X8UJXUOs+mgQ1Uj7ou5/5q1PPz0t3r105n6KWh6fnmsmsn2bjIWD8tpXKy1kbsRa
+zu9gsM4GuGwAhZBuRZZlykiKrZ04VFe7PsXe+DzIYScjvq7Iz1cvQvw9MhAeOjGs
+KSC+Ea/Rnpxt2mAuSn7Rmu5JgbB/TbipfTHUXEel5NFV9Em37WiESg9hGmZh89Ok
+6QnOlXURQlACaCXQjusne/TlLM/xrmvOA8RoT6MwSd1yKxcCrcSkK4WGZ49RfXdR
+N4bMxfs4qKqWnFOR7fK86YucWO/oGw==
+=phtW
+-----END PGP SIGNATURE-----
+
+--FKwiqVnav0DqYLa+--
 
