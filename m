@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B1466BDFAD
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Mar 2023 04:35:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.510879.789414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36EF86BDFAF
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Mar 2023 04:35:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.510878.789407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pd0ra-0002lc-PH; Fri, 17 Mar 2023 03:34:42 +0000
+	id 1pd0ra-0002Xf-Bu; Fri, 17 Mar 2023 03:34:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 510879.789414; Fri, 17 Mar 2023 03:34:42 +0000
+Received: by outflank-mailman (output) from mailman id 510878.789407; Fri, 17 Mar 2023 03:34:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pd0ra-0002ct-Lu; Fri, 17 Mar 2023 03:34:42 +0000
-Received: by outflank-mailman (input) for mailman id 510879;
- Fri, 17 Mar 2023 03:34:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pd0ra-0002Tq-4E; Fri, 17 Mar 2023 03:34:42 +0000
+Received: by outflank-mailman (input) for mailman id 510878;
+ Fri, 17 Mar 2023 03:34:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2ZYU=7J=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pd0rZ-0002SR-9B
- for xen-devel@lists.xenproject.org; Fri, 17 Mar 2023 03:34:41 +0000
+ id 1pd0rY-0002SG-Hy
+ for xen-devel@lists.xenproject.org; Fri, 17 Mar 2023 03:34:40 +0000
 Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a3961e52-c474-11ed-b464-930f4c7d94ae;
- Fri, 17 Mar 2023 04:34:37 +0100 (CET)
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a4b9be9b-c474-11ed-87f5-c1b5be75604c;
+ Fri, 17 Mar 2023 04:34:38 +0100 (CET)
 Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 216F2320091E;
- Thu, 16 Mar 2023 23:34:35 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 261633200921;
+ Thu, 16 Mar 2023 23:34:37 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Thu, 16 Mar 2023 23:34:35 -0400
+ by compute6.internal (MEProxy); Thu, 16 Mar 2023 23:34:37 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 16 Mar 2023 23:34:33 -0400 (EDT)
+ 16 Mar 2023 23:34:35 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,59 +43,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3961e52-c474-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: a4b9be9b-c474-11ed-87f5-c1b5be75604c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm1; t=1679024074; x=1679110474; bh=LF
-	mqdDp6YXYTm72Vlia5HwQnvD1gMa7Se9NnalAyYU4=; b=DvAOn9BSW2wanxdHsY
-	6+qVP/GVPoNTTf1k/qL2lhOWnmYv3/v4q3D8txQWQruJ5cQyprcUMYN8QgdEErqU
-	ylmte6K+Lqud0k+aceI58xmWN6hMXMX3RR7BLbQMTpsF/dIqvjb/Jl/DUM+PGSr1
-	AfPPSjxM2AWfZfQCgNxnfO7L/jwI/NCmfDH809odGcv6IfvlyaG+Qt0KWR/L5118
-	KNjFCWus9/BAoO8AZaW5U1sTAXbVcZ4gFva6xqLx/QkENe93EpeJJXK3dRMqHtpU
-	A90NIejrt6q8nIxSjIT2wOVDhiToNXWU18deJsLePHoD07Uc3bNZ0P7NN1BKX3YC
-	NSfQ==
+	:subject:subject:to:to; s=fm1; t=1679024076; x=1679110476; bh=xb
+	B/jz5azTQX3pxqI3ZntZ1QaYPMvik4cyUKFCEvRnA=; b=InCVG88khnIeFJPFbk
+	Mu5xlzz9lgEVWEklaE5HaN5Ryw2ZgzUG+e0fH6dT/+fhO8mOmBrL4dSonN3/KBlT
+	ZXHYnYx/Xmd6EMEVtWV16EdxBbSbvgurLGGPQ9DZAgrAv5X4TlO4xVEaED+IJ2U4
+	+DOgWEXyrP4SbQLFSCwKm5I1vHuoUdP6t5TjnoxCFm7YRLD5GmbsUiMC8VWOqFW+
+	HxZNPMQjmAn+BN+8xBnlN69sCoVsF8zWM7FZ/M7z3OVMUpz9IS1ISaYAhj1XD98e
+	Beg43xUSWqDySx8iWyPMsi5bnOrsgVYHRXbX4yLSWYebSrs5Nk5ib0zMJOSGTtqp
+	1RKQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
 	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1679024074; x=1679110474; bh=LFmqdDp6YXYTm72Vlia5HwQnvD1gMa7Se9N
-	nalAyYU4=; b=UYrOVXczwaFw/1UGdYnR1DcOnPuYu9sLsrIL3uBILQYe9//855B
-	m0Btwl9qWMrTOdFszvIGfYnCX+mZWhFy6uVE+ErWllIHaWV4O9Z9d34naxc/NbdD
-	sq35djsEIbY8jBPet+PcbqhuKGRNHe9HfgfbopAFXqYYAs0xKCeTpvyzNWybNR4B
-	1KtAJp418V94wnUKvrgLTYqwkgCG82EEXOduYnI9VW6dcg06N8Lsm0ML5l/JV7b8
-	6AyjNCvgu289aD2p5lEtvNp20g+bzwRCES/QJay0RGQAKx20qwjaMIa6S4nickUt
-	oUrSYE03P2kdJrE4rBCDA3k5ushTnjq3m2w==
-X-ME-Sender: <xms:yt8TZBjpxxnF4G7vZB96BAMFYQRhFMyYoRWpkh-ntHhOXhwhQWQfwQ>
-    <xme:yt8TZGDrn4-PgB_HL3TZpbbuazYG7EQHZdIxxJhM5lFM4oYQeKRY77DJqIvXvEI46
-    UWsq75GqMps5g>
-X-ME-Received: <xmr:yt8TZBHQbwhfChe7vEj8eYKwHKTV_tsFdPYFwU0q1cThG8lr5-o48wLQDc8ApeoleAc3Q-TtdjhcrpnOPY-fQbK9-ync4Po6dg0TWLfQXLBuf8XKc90V>
+	1679024076; x=1679110476; bh=xbB/jz5azTQX3pxqI3ZntZ1QaYPMvik4cyU
+	KFCEvRnA=; b=C5ewfySeInYwD8DQ2z2/5s4Xf3G5LASJfyZQHKnvGWGL2HcvDYF
+	OU2AC6blMpBkvIpyh9+DvexD1vjTy568WnGil74a/BfQf1Dmsk4/lZMSvSwKCp6C
+	yP61SJZP1nvHUJjsTIJbb4y28N/vP7iZqdedaAp0uqysrzery3lF2kAHB2XKXnN6
+	zV3MF73GbgS9Np/h7/nULZSjCxij5BitgcBWuyxpP1AlQqx8qV7IZV8JwQ3yrFXL
+	edb7spqCDn0Iu0kzJjLyVXldFNF3khviNiCzvgGOoKhOdziCL5sLkROGeR0Peent
+	RwKFJww1zZQdY2IrRu65sdrMkmxcPM1s6Bg==
+X-ME-Sender: <xms:zN8TZNO3ebDYGnjQ50L6CO_Vl2_1mRWT9ppQPAwpVZaNcGTusxgQ7w>
+    <xme:zN8TZP_ydDf9MrjJ5cX732rFCSEvkasUs7yD-ibuXHFy6kdQ1UPZ7lJrnxyb1vr4-
+    nRoYiav9yfcSw>
+X-ME-Received: <xmr:zN8TZMTokMvpMFsyQtuQyYbvCZE3OacJMLsvzLBt6fHXokMwFHfao6IE9fIlPA4l23A18hpwtgUxMlLV3ukq3JF-NWhd1mpBSzP8KKsktKlH21Qny7nR>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdefuddgiedvucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
     cujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghr
     vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
-    lefggfeuffegjeduheeigeetueegfeekjeetgffhvdeiffeiieejgfduieekgeenucffoh
-    hmrghinhepghhithhlrggsrdgtohhmpdhkvghrnhgvlhdrohhrghenucevlhhushhtvghr
-    ufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:yt8TZGRJGt8z-ivgX08mqbeb_oAORo7JPRhkFQyDRqtHxGfJIXnlag>
-    <xmx:yt8TZOzblDhU_L_wgO_d0vw46iVyS-z9bl0Cy-c55zurH1ZNEXcosA>
-    <xmx:yt8TZM5HbruAVJpZ70mKDriif_zDA33o9uNXzNPEIt0qQnOclF291Q>
-    <xmx:yt8TZDqdw-iz9XhLa45TbaRwDDRPgfJO_b_hEMN8lh4hH10s_VWr0g>
+    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeef
+    iedvieejgefggefggfeihfekteeghfevkeduudegjeelgfeftedvledvuedvjeenucffoh
+    hmrghinhepqhhusggvshdqohhsrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfr
+    rghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhih
+    hnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:zN8TZJufZq_pihTwPh_vv89roERWmQYiZcogQaTJIlJ3cR9Rv0M7yw>
+    <xmx:zN8TZFf7Pqsa3OBf4dkhlBUxdawXxkzM-XcJa-Ymd-RQeLZi1-7q2Q>
+    <xmx:zN8TZF3KuybAvAOBXCnw4FI2L11jn0ZjJkfDPhoCu8y37GyQB6OXHQ>
+    <xmx:zN8TZFHjGcv7FJpXKoQCzpqUKoyCaFChtv1nR4SmVVK32TMdA9MrFA>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Doug Goldstein <cardoe@cardoe.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 1/2] automation: build 6.1.19 kernel for x86-64 dom0
-Date: Fri, 17 Mar 2023 04:34:17 +0100
-Message-Id: <59ced41c97daac93abe4a2794af289d59808f0ac.1679023966.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH 2/2] automation: add a suspend test on an Alder Lake system
+Date: Fri, 17 Mar 2023 04:34:18 +0100
+Message-Id: <aa4385f5291ebc06551414e4d8cbf7cdd3996eef.1679023966.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.5a69c1f96ff446a5872e9dbf6308be9ab278f9df.1679023966.git-series.marmarek@invisiblethingslab.com>
 References: <cover.5a69c1f96ff446a5872e9dbf6308be9ab278f9df.1679023966.git-series.marmarek@invisiblethingslab.com>
@@ -103,81 +103,256 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-It will be used in tests added in subsequent patches.
-Enable config options needed for those tests.
+This is a first test using Qubes OS CI infra. The gitlab-runner has
+access to ssh-based control interface (control@thor.testnet, ssh key
+exposed to the test via ssh-agent) and pre-configured HTTP dir for boot
+files (mapped under /scratch/gitlab-runner/tftp inside the container).
+Details about the setup are described on
+https://www.qubes-os.org/news/2022/05/05/automated-os-testing-on-physical-laptops/
+
+This test boots Xen, and try if S3 works. It runs on a ADL-based desktop
+system. The test script is based on the Xilinx one.
+
+The machine needs newer kernel than other x86 tests run, so use 6.1.x
+kernel added in previous commit.
+
+When building rootfs, use fakeroot to preserve device files when
+repacking rootfs archives in a non-privileged container.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
- automation/gitlab-ci/build.yaml                     | 11 ++++-
- automation/tests-artifacts/kernel/6.1.19.dockerfile | 40 ++++++++++++++-
- 2 files changed, 51 insertions(+)
- create mode 100644 automation/tests-artifacts/kernel/6.1.19.dockerfile
+I'm bad at naming things. Things that I could use naming suggestions:
+ - test script (qubes-x86-64-suspend.sh) - this might be okay?
+ - test template job name (.adl-x86-64)
+ - test job name (adl-suspend-x86-64-gcc)
+ - tag (qubes-hw2)
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 38bb22d8609b..e1799d454c76 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -790,3 +790,14 @@ kernel-5.10.74-export:
-       - binaries/bzImage
-   tags:
-     - x86_64
+For context, our CI has several machines, named test-X or hwX, each
+controlled with matching hal900X RPi (this is where gitlab-runner is).
+This test uses only one specific hw, but I plan adding few others too.
+---
+ automation/gitlab-ci/test.yaml             |  31 ++++-
+ automation/scripts/qubes-x86-64-suspend.sh | 155 ++++++++++++++++++++++-
+ 2 files changed, 186 insertions(+)
+ create mode 100755 automation/scripts/qubes-x86-64-suspend.sh
+
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 2e1a6886df7f..f5511dd6da70 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -15,6 +15,10 @@
+ .arm32-test-needs: &arm32-test-needs
+   - qemu-system-aarch64-6.0.0-arm32-export
+ 
++.x86-64-test-needs: &x86-64-test-needs
++  - alpine-3.12-rootfs-export
++  - kernel-6.1.19-export
 +
-+kernel-6.1.19-export:
-+  extends: .test-jobs-artifact-common
-+  image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:6.1.19
-+  script:
-+    - mkdir binaries && cp /bzImage binaries/bzImage
+ .qemu-arm64:
+   extends: .test-jobs-common
+   variables:
+@@ -84,6 +88,25 @@
+   tags:
+     - xilinx
+ 
++.adl-x86-64:
++  extends: .test-jobs-common
++  variables:
++    # the test controller runs on RPi4
++    CONTAINER: alpine:3.12-arm64v8
++    LOGFILE: smoke-test.log
 +  artifacts:
 +    paths:
-+      - binaries/bzImage
++      - smoke.serial
++      - '*.log'
++    when: always
++  only:
++    variables:
++      - $QUBES_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
++  before_script:
++    - apk --no-cache add openssh-client fakeroot
 +  tags:
-+    - x86_64
-diff --git a/automation/tests-artifacts/kernel/6.1.19.dockerfile b/automation/tests-artifacts/kernel/6.1.19.dockerfile
-new file mode 100644
-index 000000000000..c2171555a0a6
++    - qubes-hw2
++
+ # Test jobs
+ build-each-commit-gcc:
+   extends: .test-jobs-common
+@@ -110,6 +133,14 @@ xilinx-smoke-dom0less-arm64-gcc:
+     - *arm64-test-needs
+     - alpine-3.12-gcc-arm64
+ 
++adl-suspend-x86-64-gcc:
++  extends: .adl-x86-64
++  script:
++    - ./automation/scripts/qubes-x86-64-suspend.sh s3 2>&1 | tee ${LOGFILE}
++  needs:
++    - *x86-64-test-needs
++    - alpine-3.12-gcc
++
+ qemu-smoke-dom0-arm64-gcc:
+   extends: .qemu-arm64
+   script:
+diff --git a/automation/scripts/qubes-x86-64-suspend.sh b/automation/scripts/qubes-x86-64-suspend.sh
+new file mode 100755
+index 000000000000..fc479c9faaec
 --- /dev/null
-+++ b/automation/tests-artifacts/kernel/6.1.19.dockerfile
-@@ -0,0 +1,40 @@
-+FROM debian:unstable
-+LABEL maintainer.name="The Xen Project" \
-+      maintainer.email="xen-devel@lists.xenproject.org"
++++ b/automation/scripts/qubes-x86-64-suspend.sh
+@@ -0,0 +1,155 @@
++#!/bin/sh
 +
-+ENV DEBIAN_FRONTEND=noninteractive
-+ENV LINUX_VERSION=6.1.19
-+ENV USER root
++set -ex
 +
-+RUN mkdir /build
-+WORKDIR /build
++test_variant=$1
 +
-+# build depends
-+RUN apt-get update && \
-+    apt-get --quiet --yes install \
-+        build-essential \
-+        libssl-dev \
-+        bc \
-+        curl \
-+        flex \
-+        bison \
-+        libelf-dev \
-+        && \
-+    apt-get autoremove -y && \
-+    apt-get clean && \
-+    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
++wait_and_wakeup=
++if [ -z "${test_variant}" ]; then
++    passed="ping test passed"
++    domU_check="
++until ifconfig eth0 192.168.0.2 &> /dev/null && ping -c 10 192.168.0.1; do
++    sleep 30
++done
++echo \"${passed}\"
++"
++elif [ "${test_variant}" = "s3" ]; then
++    passed="suspend test passed"
++    wait_and_wakeup="started, suspending"
++    domU_check="
++ifconfig eth0 192.168.0.2
++echo domU started
++"
++    dom0_check="
++until grep 'domU started' /var/log/xen/console/guest-domU.log; do
++    sleep 1
++done
++echo \"${wait_and_wakeup}\"
++set -x
++echo deep > /sys/power/mem_sleep
++echo mem > /sys/power/state
++# now wait for resume
++sleep 5
++# get domU console content into test log
++tail -n 100 /var/log/xen/console/guest-domU.log
++xl list
++xl dmesg | grep 'Finishing wakeup from ACPI S3 state' || exit 1
++# check if domU is still alive
++ping -c 10 192.168.0.2 || exit 1
++echo \"${passed}\"
++"
++fi
 +
-+# Build the kernel
-+RUN curl -fsSLO https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-"$LINUX_VERSION".tar.xz && \
-+    tar xvJf linux-"$LINUX_VERSION".tar.xz && \
-+    cd linux-"$LINUX_VERSION" && \
-+    make defconfig && \
-+    make xen.config && \
-+    scripts/config --enable BRIDGE && \
-+    scripts/config --enable IGC && \
-+    cp .config .config.orig && \
-+    cat .config.orig | grep XEN | grep =m |sed 's/=m/=y/g' >> .config && \
-+    make -j$(nproc) bzImage && \
-+    cp arch/x86/boot/bzImage / && \
-+    cd /build && \
-+    rm -rf linux-"$LINUX_VERSION"*
++# DomU
++mkdir -p rootfs
++cd rootfs
++fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
++mkdir proc
++mkdir run
++mkdir srv
++mkdir sys
++rm var/run
++echo "#!/bin/sh
++
++${domU_check}
++/bin/sh" > etc/local.d/xen.start
++chmod +x etc/local.d/xen.start
++echo "rc_verbose=yes" >> etc/rc.conf
++find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/domU-rootfs.cpio.gz
++cd ..
++rm -rf rootfs
++
++# DOM0 rootfs
++mkdir -p rootfs
++cd rootfs
++fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
++mkdir boot
++mkdir proc
++mkdir run
++mkdir srv
++mkdir sys
++rm var/run
++cp -ar ../binaries/dist/install/* .
++
++echo "#!/bin/bash
++
++export LD_LIBRARY_PATH=/usr/local/lib
++bash /etc/init.d/xencommons start
++
++brctl addbr xenbr0
++brctl addif xenbr0 eth0
++ifconfig eth0 up
++ifconfig xenbr0 up
++ifconfig xenbr0 192.168.0.1
++
++xl create /etc/xen/domU.cfg
++${dom0_check}
++" > etc/local.d/xen.start
++chmod +x etc/local.d/xen.start
++# just PVH for now
++echo '
++type = "pvh"
++name = "domU"
++kernel = "/boot/vmlinuz"
++ramdisk = "/boot/initrd-domU"
++extra = "root=/dev/ram0 console=hvc0"
++memory = 512
++vif = [ "bridge=xenbr0", ]
++disk = [ ]
++' > etc/xen/domU.cfg
++
++echo "rc_verbose=yes" >> etc/rc.conf
++echo "XENCONSOLED_TRACE=all" >> etc/default/xencommons
++echo "QEMU_XEN=/bin/false" >> etc/default/xencommons
++mkdir -p var/log/xen/console
++cp ../binaries/bzImage boot/vmlinuz
++cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
++find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/dom0-rootfs.cpio.gz
++cd ..
++
++
++TFTP=/scratch/gitlab-runner/tftp
++
++echo '
++multiboot2 (http)/gitlab-ci/xen console=com1 com1=115200,8n1 loglvl=all guest_loglvl=all
++module2 (http)/gitlab-ci/vmlinuz console=hvc0 root=/dev/ram0
++module2 (http)/gitlab-ci/initrd-dom0
++' > $TFTP/grub.cfg
++
++cp -f binaries/xen $TFTP/xen
++cp -f binaries/bzImage $TFTP/vmlinuz
++cp -f binaries/dom0-rootfs.cpio.gz $TFTP/initrd-dom0
++
++# start logging the serial; this gives interactive console, don't close its
++# stdin to not close it; the 'cat' is important, plain redirection would hang
++# until somebody opens the pipe; opening and closing the pipe is used to close
++# the console
++mkfifo /tmp/console-stdin
++cat /tmp/console-stdin |\
++ssh control@thor.testnet console | tee smoke.serial &
++
++# start the system pointing at gitlab-ci predefined config
++ssh control@thor.testnet gitlabci poweron
++trap "ssh control@thor.testnet poweroff; : > /tmp/console-stdin" EXIT
++
++if [ -n "$wait_and_wakeup" ]; then
++    # wait for suspend or a timeout
++    timeout=120
++    until grep "$wait_and_wakeup" smoke.serial || [ $timeout -le 0 ]; do
++        sleep 1;
++        : $((--timeout))
++    done
++    if [ $timeout -le 0 ]; then
++        echo "ERROR: suspend timeout, aborting"
++        exit 1
++    fi
++    # keep it suspended a bit, then wakeup
++    sleep 30
++    ssh control@thor.testnet wake
++fi
++
++# give the test time to run a bit, and then check
++sleep 30
++
++(grep -q "^Welcome to Alpine Linux" smoke.serial && grep -q "${passed}" smoke.serial) || exit 1
++exit 0
 -- 
 git-series 0.9.1
 
