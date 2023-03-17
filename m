@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F1116BE9AF
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Mar 2023 13:54:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.511060.789833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70ADB6BE9F9
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Mar 2023 14:20:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.511065.789843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pd9ag-0002BB-3M; Fri, 17 Mar 2023 12:53:50 +0000
+	id 1pdA04-00068S-7T; Fri, 17 Mar 2023 13:20:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 511060.789833; Fri, 17 Mar 2023 12:53:50 +0000
+Received: by outflank-mailman (output) from mailman id 511065.789843; Fri, 17 Mar 2023 13:20:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pd9af-00028Q-W3; Fri, 17 Mar 2023 12:53:49 +0000
-Received: by outflank-mailman (input) for mailman id 511060;
- Fri, 17 Mar 2023 12:53:48 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pd9ae-00028G-M1; Fri, 17 Mar 2023 12:53:48 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pd9ae-00089p-K6; Fri, 17 Mar 2023 12:53:48 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pd9ae-0003YC-8c; Fri, 17 Mar 2023 12:53:48 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pd9ae-0004Fz-8A; Fri, 17 Mar 2023 12:53:48 +0000
+	id 1pdA04-00063K-4V; Fri, 17 Mar 2023 13:20:04 +0000
+Received: by outflank-mailman (input) for mailman id 511065;
+ Fri, 17 Mar 2023 13:20:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HfIU=7J=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1pdA03-0005tG-2h
+ for xen-devel@lists.xenproject.org; Fri, 17 Mar 2023 13:20:03 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 6b6e4029-c4c6-11ed-87f5-c1b5be75604c;
+ Fri, 17 Mar 2023 14:20:01 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 987AA1480;
+ Fri, 17 Mar 2023 06:20:43 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.195.25])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D542B3F64C;
+ Fri, 17 Mar 2023 06:19:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +42,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=KyKsYY6BLt/wHW4dR/D/YHmgapnnQKJRXsiGTjoiALE=; b=W3GrWVNQE5OMNidbWPqi65habS
-	4QUapqJ+oDPw+5m2T2ePPvIVMm0ZUQZBpG54IT+N+J5aBDQz5iU5pNq0+L24+wXeK+ApWnsy77pAM
-	YnxjLXQ7JrrOysunJYe6tySceXFI4gd5Z6R/ggOLrvsfLFOrogRxrW5H+ih3ZbhHw0TI=;
+X-Inumbo-ID: 6b6e4029-c4c6-11ed-87f5-c1b5be75604c
+From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-179716-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v3 00/10] SVE feature for arm guests
+Date: Fri, 17 Mar 2023 13:19:39 +0000
+Message-Id: <20230317131949.4031014-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 179716: tolerable trouble: pass/starved - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    xen=9c0061825143716c61622966e76983886ef59361
-X-Osstest-Versions-That:
-    xen=36e49fc8cbad21a4308b4701caaa685ef04e120b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 17 Mar 2023 12:53:48 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 179716 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/179716/
+This serie is introducing the possibility for Dom0 and DomU guests to use
+sve/sve2 instructions.
 
-Failures :-/ but no regressions.
+SVE feature introduces new instruction and registers to improve performances on
+floating point operations.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
+The SVE feature is advertised using the ID_AA64PFR0_EL1 register, SVE field, and
+when available the ID_AA64ZFR0_EL1 register provides additional information
+about the implemented version and other SVE feature.
 
-version targeted for testing:
- xen                  9c0061825143716c61622966e76983886ef59361
-baseline version:
- xen                  36e49fc8cbad21a4308b4701caaa685ef04e120b
+New registers added by the SVE feature are Z0-Z31, P0-P15, FFR, ZCR_ELx.
 
-Last test of basis   179687  2023-03-16 15:00:53 Z    0 days
-Testing same since   179716  2023-03-17 11:01:55 Z    0 days    1 attempts
+Z0-Z31 are scalable vector register whose size is implementation defined and
+goes from 128 bits to maximum 2048, the term vector length will be used to refer
+to this quantity.
+P0-P15 are predicate registers and the size is the vector length divided by 8,
+same size is the FFR (First Fault Register).
+ZCR_ELx is a register that can control and restrict the maximum vector length
+used by the <x> exception level and all the lower exception levels, so for
+example EL3 can restrict the vector length usable by EL3,2,1,0.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+The platform has a maximum implemented vector length, so for every value
+written in ZCR register, if this value is above the implemented length, then the
+lower value will be used. The RDVL instruction can be used to check what vector
+length is the HW using after setting ZCR.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  starved 
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          starved 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+For an SVE guest, the V0-V31 registers are part of the Z0-Z31, so there is no
+need to save them separately, saving Z0-Z31 will save implicitly also V0-V31.
 
+SVE usage can be trapped using a flag in CPTR_EL2, hence in this serie the
+register is added to the domain state, to be able to trap only the guests that
+are not allowed to use SVE.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+This serie is introducing a command line parameter to enable Dom0 to use SVE and
+to set its maximum vector length that by default is 0 which means the guest is
+not allowed to use SVE. Values from 128 to 2048 mean the guest can use SVE with
+the selected value used as maximum allowed vector length (which could be lower
+if the implemented one is lower).
+For DomUs, an XL parameter with the same way of use is introduced and a dom0less
+DTB binding is created.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+The context switch is the most critical part because there can be big registers
+to be saved, in this serie an easy approach is used and the context is
+saved/restored every time for the guests that are allowed to use SVE.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Luca Fancellu (10):
+  xen/arm: enable SVE extension for Xen
+  xen/arm: add SVE vector length field to the domain
+  xen/arm: Expose SVE feature to the guest
+  xen/arm: add SVE exception class handling
+  arm/sve: save/restore SVE context switch
+  xen/arm: enable Dom0 to use SVE feature
+  xen/physinfo: encode Arm SVE vector length in arch_capabilities
+  tools: add physinfo arch_capabilities handling for Arm
+  xen/tools: add sve parameter in XL configuration
+  xen/arm: add sve property for dom0less domUs
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+ docs/man/xl.cfg.5.pod.in                 |  11 ++
+ docs/misc/arm/device-tree/booting.txt    |   9 ++
+ docs/misc/xen-command-line.pandoc        |  13 ++
+ tools/golang/xenlight/helpers.gen.go     |   4 +
+ tools/golang/xenlight/types.gen.go       |   2 +
+ tools/include/arm-arch-capabilities.h    |  33 ++++
+ tools/include/libxl.h                    |   5 +
+ tools/include/xen-tools/libs.h           |   2 +
+ tools/libs/light/libxl.c                 |   1 +
+ tools/libs/light/libxl_arm.c             |   2 +
+ tools/libs/light/libxl_internal.h        |   1 -
+ tools/libs/light/libxl_types.idl         |   2 +
+ tools/ocaml/libs/xc/xenctrl.ml           |   4 +-
+ tools/ocaml/libs/xc/xenctrl.mli          |   4 +-
+ tools/ocaml/libs/xc/xenctrl_stubs.c      |   8 +-
+ tools/python/xen/lowlevel/xc/xc.c        |   8 +-
+ tools/xl/xl_info.c                       |   8 +
+ tools/xl/xl_parse.c                      |  26 +++-
+ xen/arch/arm/Kconfig                     |  10 +-
+ xen/arch/arm/arm64/Makefile              |   1 +
+ xen/arch/arm/arm64/cpufeature.c          |   7 +-
+ xen/arch/arm/arm64/sve-asm.S             | 189 +++++++++++++++++++++++
+ xen/arch/arm/arm64/sve.c                 | 131 ++++++++++++++++
+ xen/arch/arm/arm64/vfp.c                 |  79 ++++++----
+ xen/arch/arm/arm64/vsysreg.c             |  39 ++++-
+ xen/arch/arm/cpufeature.c                |   6 +-
+ xen/arch/arm/domain.c                    |  48 +++++-
+ xen/arch/arm/domain_build.c              |  11 ++
+ xen/arch/arm/include/asm/arm64/sve.h     |  85 ++++++++++
+ xen/arch/arm/include/asm/arm64/sysregs.h |   4 +
+ xen/arch/arm/include/asm/arm64/vfp.h     |  10 ++
+ xen/arch/arm/include/asm/cpufeature.h    |  14 ++
+ xen/arch/arm/include/asm/domain.h        |   8 +
+ xen/arch/arm/include/asm/processor.h     |   3 +
+ xen/arch/arm/setup.c                     |   5 +-
+ xen/arch/arm/sysctl.c                    |   3 +
+ xen/arch/arm/traps.c                     |  40 +++--
+ xen/include/public/arch-arm.h            |   2 +
+ xen/include/public/domctl.h              |   2 +-
+ xen/include/public/sysctl.h              |   4 +
+ 40 files changed, 769 insertions(+), 75 deletions(-)
+ create mode 100644 tools/include/arm-arch-capabilities.h
+ create mode 100644 xen/arch/arm/arm64/sve-asm.S
+ create mode 100644 xen/arch/arm/arm64/sve.c
+ create mode 100644 xen/arch/arm/include/asm/arm64/sve.h
 
+-- 
+2.34.1
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   36e49fc8cb..9c00618251  9c0061825143716c61622966e76983886ef59361 -> smoke
 
