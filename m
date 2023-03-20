@@ -2,40 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A0386C1B4E
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 17:24:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.511999.791529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C64C26C1BBA
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 17:32:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512003.791541 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peII3-0008JL-Oe; Mon, 20 Mar 2023 16:23:19 +0000
+	id 1peIQo-0001UB-Jq; Mon, 20 Mar 2023 16:32:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 511999.791529; Mon, 20 Mar 2023 16:23:19 +0000
+Received: by outflank-mailman (output) from mailman id 512003.791541; Mon, 20 Mar 2023 16:32:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peII3-0008Gx-Kx; Mon, 20 Mar 2023 16:23:19 +0000
-Received: by outflank-mailman (input) for mailman id 511999;
- Mon, 20 Mar 2023 16:23:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1peIQo-0001Rt-Go; Mon, 20 Mar 2023 16:32:22 +0000
+Received: by outflank-mailman (input) for mailman id 512003;
+ Mon, 20 Mar 2023 16:32:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2oBA=7M=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1peII2-0008Gr-Ej
- for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 16:23:18 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062b.outbound.protection.outlook.com
- [2a01:111:f400:fe59::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81ecf0d4-c73b-11ed-b464-930f4c7d94ae;
- Mon, 20 Mar 2023 17:23:13 +0100 (CET)
-Received: from DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) by
- BY5PR12MB4116.namprd12.prod.outlook.com (2603:10b6:a03:210::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
- 2023 16:23:09 +0000
-Received: from DM5PR12MB2504.namprd12.prod.outlook.com
- ([fe80::4f9:60f8:cb12:d022]) by DM5PR12MB2504.namprd12.prod.outlook.com
- ([fe80::4f9:60f8:cb12:d022%3]) with mapi id 15.20.6178.037; Mon, 20 Mar 2023
- 16:23:09 +0000
+ (envelope-from <SRS0=GPvh=7M=list.ru=valor@srs-se1.protection.inumbo.net>)
+ id 1peIQm-0001Rn-OM
+ for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 16:32:21 +0000
+Received: from smtp42.i.mail.ru (smtp42.i.mail.ru [95.163.41.65])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c7deb5f4-c73c-11ed-87f5-c1b5be75604c;
+ Mon, 20 Mar 2023 17:32:19 +0100 (CET)
+Received: by smtp42.i.mail.ru with esmtpa (envelope-from <valor@list.ru>)
+ id 1peIQj-007BOZ-2A; Mon, 20 Mar 2023 19:32:17 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,184 +38,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81ecf0d4-c73b-11ed-b464-930f4c7d94ae
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nKWmqUsXRj1XPEtckTQnVar6B87oOXhozNWYRICBTC+ElsVNOAIAyo9f1fg7IVgOfjyXtSjJrP4OeiCiqvNBjSVW75K/33t6f4lgzk8TsTLR0ji7JlK1KN3bcrDdiZ1UNvNjZHbXtepiFUXp7ltuAvsoaEGj403NQDJbRBdrlgKedVq/i/vpWfHXTqgR18uvqQYSdwouPCNEI0I7BSuFft2A62BPq0OGtR9MGWWq/BIY9VFcpvr2mXNJIxDHw0jlBC5W01h6xb7hN+3TKCWuSl4VqQRmx4UviRGDAYq2lgqBGbZH5N9n8DnOQxV4vThFzQSoKIVM2wTPF/svmopnwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u7IqRMdvdrS53E+qKt20gbWhWqK6nmmuGlmIxf1ECNo=;
- b=J3+ZAhmkH5/DopQmoBBKGyG90+XqHO9ArpMESOdOUgljC8MUPGLuWZuqXuE3XxWu/zQQKRX4Dfz4kT94RDl/tEhar8qmwrdQUUasOXfj+d6dL0J7sD52mLASfUfBO+BSMvIJ7lmxAJFfm5LHsLEfWvEP9/u1jQadEYxyxTFvWTbe6dqik3wUwrk3mUG7mwwTUMVD5vGQAwS4f9R0r/2PtgMWOw5igdTwLe8AKkPSH6v9WfL4IN6hChS7rfmCLe5JsahV508hTlBvaWkpXzHeTqNHasyTSgb8mI73C1OZpxLDmjagFli9edSjrtQg2c6bqGfrs6p9PH/TPQTLBRnoaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u7IqRMdvdrS53E+qKt20gbWhWqK6nmmuGlmIxf1ECNo=;
- b=ddO9ixaZJKOPUfJCK3xo7eUvT2VCmCPwQtvaNTlWCq9kAPdu9zeT7rU5nrnPSjvltDmyJ414JXSM2tCbowufKv/EUnclOKtykifGh27wfNVg24j38641fCili6I8gTeam1qrDqF75qWZnKTMisXgIiBhueLYYxcy4dveer/20d8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Date: Tue, 21 Mar 2023 00:22:39 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
-	"Koenig, Christian" <Christian.Koenig@amd.com>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	"Zhang, Julia" <Julia.Zhang@amd.com>,
-	"Chen, Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [RFC XEN PATCH 0/6] Introduce VirtIO GPU and Passthrough GPU
- support on Xen PVH dom0
-Message-ID: <ZBiIT+MLZtM6e4Dz@amd.com>
-References: <20230312075455.450187-1-ray.huang@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230312075455.450187-1-ray.huang@amd.com>
-X-ClientProxiedBy: SG2PR04CA0198.apcprd04.prod.outlook.com
- (2603:1096:4:14::36) To DM5PR12MB2504.namprd12.prod.outlook.com
- (2603:10b6:4:b5::19)
+X-Inumbo-ID: c7deb5f4-c73c-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=list.ru; s=mail4;
+	h=Content-Transfer-Encoding:Content-Type:Subject:Cc:To:From:MIME-Version:Date:Message-ID:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc; bh=xbcTXE0pjOZFNMucyDsOoThI2mQ4UaaP2AkkM/sHP04=;
+	t=1679329939;x=1679419939; 
+	b=AK/tJ41eQWzvTBDSe5b2lYr6ivhl0gn7o79xEAtE22V8isyitYuHfHqKuPG55bxVrgetQuDylE8VVO5/HjPi8Vm4yB+tC6SPPW2zQ/1to4f4Vf3zqTC1+mScV3wZyxQoLLDS6oi2G4jfLZG+SzvfOPYU+BYBt91paIuJiMJ1fbTN2+Q1Rnn+a0fgfOz//UVUZPlQYkkhcLBeVWHmr0F+HSSFFfuJo1ZQYfp/kTF1uzpG6dYPRLyAUo9+9wik9dosazyvl5KGjHSFJdJdh6LkEHAURWb87rcmvHxrbH6Yip6sq7y0snc7Ou621T0sSx5euYrMTsy7K/nqd2cQj5r41Q==;
+Message-ID: <e047a7a7-2e45-48de-2cb4-69001e95e1a8@list.ru>
+Date: Mon, 20 Mar 2023 19:32:14 +0300
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2504:EE_|BY5PR12MB4116:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67062da5-3483-4c66-0d9b-08db295f646b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	8ivZEaZ6mk9EWSpTP2exO0d94yC2iWRrizHTwp9yBADa9cnwyXwlfYAodXyGD4m0Ak3Pe3mxBIEFA2TMf8B1S/HPfWhxveGCIaG/LbuYn+8euJq46xTbjKpnjg65uDpuUUexe3cCwRmsnR8NJ0U48k06w5YkS/LuxyEV1Cif2wPxQAvroEIoJlrzefgbiqEjKotr3cjTnRAJmlw45WHrVhB/gObqEBGn7iaxRYMdc+oai9jZRqnCCcwaU9+IugoDW3n76uy+UyfywAg5ZomcOMPvFfkraafqvtJ9JkuDShMx6y5qB719ObAWY9eC5ju+fxD5E1T3FqgJqvxkuR27os1J8hbYtwsUDzli/xAISH4j/U6PkEV1LSfhP6toLxyIQSlAVgkeFzmAOg0F10iwAcgn+tpgPR/SsXuM/MZpsUnpXxZkylFa4pHMeJAotzyOoMAZhF5MX0CpfgKZlV1gQe34ztZ/AM1Q4tFU7djIRPp1LzgdssgZlSRjO3qbMeZbvaKD9MFnBwwfKwzQQk+BNrjUD3mYquKOJuNnQ68hMdAApjEuOa9TJKStGV+fLtS+s/+7v3zfqlke8TbrYRrEXU4P+Dytl/ffOzSThLtlv1jxSTo4kMxr1yaHLVnN9NbW4p6JermuwR+3SpOIlMJFaCknq7Qvzyja7Xv7Q4zXxFnt9eSPxIek+YZgsz8Z3QxU1cR+khERHrwfRUYiMJS6i3WcWWsDmL5QrNIh+L3Y2YtY2UyyV3pXMhj3nQR8i9Fd
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM5PR12MB2504.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(136003)(366004)(376002)(346002)(396003)(451199018)(38100700002)(66574015)(86362001)(54906003)(110136005)(316002)(5660300002)(36756003)(66946007)(66556008)(4326008)(8936002)(8676002)(41300700001)(66476007)(478600001)(2906002)(83380400001)(6666004)(2616005)(186003)(6506007)(6512007)(26005)(966005)(6486002)(5930299012)(67856001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?JNh1nHt1e3inuGKyeKUkkkBrcQOiDUx9ewIUT9rN4B8q2lZPiBPmZkmkLkEA?=
- =?us-ascii?Q?n2tD3KwvBM3BaNDCwFHuX2L1JyWs6B+hkywfVo9CPoQ9osPpOYVWL/1Lny7B?=
- =?us-ascii?Q?kTFoU2s3umLE64RsnJdXqkbJ6ph/tVDSRojOdX3EvOqem1Iscco7o0GwNkOX?=
- =?us-ascii?Q?TVmURacsgg3xWPfjH/30jryfu9T20vq5L9JbSSxLLn/2LWlW9ssgc0zSfdFj?=
- =?us-ascii?Q?KxroX3bBtdtHdeWtuflzzV9K+vrzXgjRYh7NpdLXRMTTl5PKJML0Hs9EMcgl?=
- =?us-ascii?Q?jAeFfXNu2/3yDttKIAlCHYZyAJQVVZ8kfF8Fc2Bm3rh40otCOZNattABSCmM?=
- =?us-ascii?Q?CQnMP8vscKIBt7yDkD9QWyaet6StvnxXmUPOb5uSIUaprHi8wtkN/Gv2kXbW?=
- =?us-ascii?Q?+xqW7p4g+LLrT38Cu3kfQgdrqNxB+5jY2pUcVLeF0yxUHRrzqU+BVvJdBJfA?=
- =?us-ascii?Q?q5xWJtGcIZd5NSmAjH56xZACArLHONOR+ELEbu9WAWkz+mIzmdcIs+BsB0Vu?=
- =?us-ascii?Q?hEqbYwf1E7/kC0ArcqxpYG0km3XT4L8AC9UU7KJQ/kuMQ3DmF1KxY49Jb6jo?=
- =?us-ascii?Q?MLmzGpzk78ZCPkgW0fpCPef4ztiAHXzr40mpevGw6bc0Rgmfv9xkHfmFykGr?=
- =?us-ascii?Q?ErHztvPxhoGHHf3JhOjL7C4m/xeJPNlMCJO4i57cNPPOxwJysMbMPBCmSZzT?=
- =?us-ascii?Q?YgaenpODdST9IwLKi8M7Hq5OQwL54VAMq4kMXOT/UMjS4rL9LU+1Nl/M8BoZ?=
- =?us-ascii?Q?0cZo38w6X5K6pvc5E7GVwsGHb+Cip77acPLcQJo6GwGNRHJqw6fpC4pReJh6?=
- =?us-ascii?Q?5hHtfCWSrr+43XFe8KXZCUxU6eIRAo92ld6BDiJKh0WZelF4Lxl8k0SZPIh4?=
- =?us-ascii?Q?oQwr67Mw6nYYYckegdNF4tToMnp9IGQdKJWXqyTWmlf1fC0MoH70UE+lwd4x?=
- =?us-ascii?Q?LyjhG+L3SchWCvdCZHwtwGPcDy/gXCxKajDKEcjRoXQTVzHP4dAHNzr4EUv8?=
- =?us-ascii?Q?RGb7ZqgAAL86rXYK9dq2Qz5uWdFLilrxqaQG4xqnjCQ7w8lYny/8xsYd23lA?=
- =?us-ascii?Q?B8rqzenqSItxptQAFIYaNn9FI/WdSKSfF6HOkZPShbXz0QpOgsN3kxXvLvT2?=
- =?us-ascii?Q?x8AybMEEFQxZamhkwyeEpibT+D87PNfjsNSeUqIlzdHj9ADLhpxUUqd73mXu?=
- =?us-ascii?Q?Xf9d9wV8x6fh0cmXtOGZ2Gaqz6DtGQ/NjxzHS6flyy++v509hlzMD/Q7h6WX?=
- =?us-ascii?Q?bM/11bkU5FiPKwlGGBIAMZ7Cn1zkFn2d+01llatiWF0ltdfJCCgkrIlSdtIJ?=
- =?us-ascii?Q?ysth2+LI7detTRZwLJ+E3wSJepFrudKHw7b4oJNZMS2Ba5psfhwfVHYJXkjm?=
- =?us-ascii?Q?MUfzwvY1db/bKrgGEhdU6zfZw09qY4APkpsRzK3GH94Ou4Zl5sqOkxPNhbpV?=
- =?us-ascii?Q?E0CKRMMUXZOmH9bEcONzewY0E1qCWebgB8fwAaF/ua7ASwKDupJnoGtQPw6J?=
- =?us-ascii?Q?mg+i0zsFhsfkWsAJsuWCPme7Pp+jRvSnSl9IWwPmQTX/7kRGh78rZkVePcQ9?=
- =?us-ascii?Q?EMs2dg9VNyDtLlihW+rMLabrjGdf/7JnOla0njas?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67062da5-3483-4c66-0d9b-08db295f646b
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2504.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 16:23:08.8457
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d1bntQwEggA8LB58QY3rbo4etMAY1IP3YTL+GLh8DSvTjGzEQZ6LW31zCr6BBi5OYVx6KO3heA/JD13hujAD+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4116
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Content-Language: ru, en-US
+From: =?UTF-8?B?0JrQvtCy0LDQu9GR0LIg0KHQtdGA0LPQtdC5?= <valor@list.ru>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Dmitry Isaykin <isaikin-dmitry@yandex.ru>
+Subject: [XEN PATCH v1 1/1] x86/domctl: add gva_to_gfn command
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp42.i.mail.ru; auth=pass smtp.auth=valor@list.ru smtp.mailfrom=valor@list.ru
+X-Mailru-Src: smtp
+X-7564579A: EEAE043A70213CC8
+X-77F55803: 4F1203BC0FB41BD995AAF696F102E30FEC96FAA707C7F0DB2A515A2F6889BA781867C24CE74E72BB5FE18E9CBFBE7C070CFF8D46FA89665632B1D9D2BC62A6DFA8DEB5A5B6346E81CEE4813122F9A0DF
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE709CF9AF650BAB6C1EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637539FDAA91738A5BD8638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D8F0687002353604AEF2168676750B165B6F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE74CF195F1528592878941B15DA834481FA18204E546F3947CAC824117EA787438117882F4460429724CE54428C33FAD30A8DF7F3B2552694AC26CFBAC0749D213D2E47CDBA5A9658378DA827A17800CE70BED4008E0EA3A469FA2833FD35BB23DF004C90652538430302FCEF25BFAB3454AD6D5ED66289B5278DA827A17800CE72006BFD5E60758D0D32BA5DBAC0009BE395957E7521B51C20BC6067A898B09E4090A508E0FED62991661749BA6B977358F9E841AEAEC4F2CCD04E86FAF290E2DB606B96278B59C421DD303D21008E29813377AFFFEAFD269A417C69337E82CC2E827F84554CEF50127C277FBC8AE2E8BA83251EDC214901ED5E8D9A59859A8B6936FEDF0B958011F089D37D7C0E48F6C5571747095F342E88FB05168BE4CE3AF
+X-B7AD71C0: 4965CFDFE0519134C1FE400A9E48C5401DD40DE57556AFB266D16FC5F53507A1816E0A2A8F779BBED8D40077074E805C66D16FC5F53507A117535B0CF9F6D0C3EE9D5CB6078CC77CC508C16425419F6C71B50B874F048A7C
+X-C1DE0DAB: 0D63561A33F958A59D2EB58E5D8A60CE1FF0A101C44190A85A203102514DED5DF87CCE6106E1FC07E67D4AC08A07B9B0FE4D9CDE3FF759CF9C5DF10A05D560A950611B66E3DA6D700B0A020F03D25A0997E3FB2386030E77
+X-C8649E89: 4E36BF7865823D7055A7F0CF078B5EC49A30900B95165D34B7CBFF60649FF266A548857E8CC46621F9A788114E5F7F11E3C20DE73D582431FF638E19F50703AE1D7E09C32AA3244CF53DB9EFEC813F95E6F722709734F021A90944CA99CF22E3ED98077840A144B9
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojbL9S8ysBdXhHeifJXYUkcH6MIPZIPUpX
+X-Mailru-Sender: 6C3E74F07C41AE944C83DF7F8E76CAD95376FBB362B0C406BEA0EE2103C1A06B5599D909BD042F55671A0538F0E0E4B8C77752E0C033A69E86F8B8EC1BECD1EECCC3E8BC0E932F7CB4A721A3011E896F
+X-Mras: Ok
 
-Hi Jan, Roger, Stefano, Andrew,
+gva_to_gfn command used for fast address translation in LibVMI project.
+With such a command it is possible to perform address translation in
+single call instead of series of queries to get every page table.
 
-Sorry to late response, I was fully occupied by another problem last week.
-And I will give the reply one by one in the mail tomorrow. Thanks for your
-patience. :-)
+Thanks to Dmitry Isaykin for involvement.
 
-Thanks,
-Ray
+Signed-off-by: Sergey Kovalev <valor@list.ru>
 
-On Sun, Mar 12, 2023 at 03:54:49PM +0800, Huang, Ray wrote:
-> Hi all,
-> 
-> In graphic world, the 3D applications/games are runing based on open
-> graphic libraries such as OpenGL and Vulkan. Mesa is the Linux
-> implemenatation of OpenGL and Vulkan for multiple hardware platforms.
-> Because the graphic libraries would like to have the GPU hardware
-> acceleration. In virtualization world, virtio-gpu and passthrough-gpu are
-> two of gpu virtualization technologies.
-> 
-> Current Xen only supports OpenGL (virgl:
-> https://docs.mesa3d.org/drivers/virgl.html) for virtio-gpu and passthrough
-> gpu based on PV dom0 for x86 platform. Today, we would like to introduce
-> Vulkan (venus: https://docs.mesa3d.org/drivers/venus.html) and another
-> OpenGL on Vulkan (zink: https://docs.mesa3d.org/drivers/zink.html) support
-> for VirtIO GPU on Xen. These functions are supported on KVM at this moment,
-> but so far, they are not supported on Xen. And we also introduce the PCIe
-> passthrough (GPU) function based on PVH dom0 for AMD x86 platform.
-> 
-> These supports required multiple repositories changes on kernel, xen, qemu,
-> mesa, and virglrenderer. Please check below branches:
-> 
-> Kernel: https://git.kernel.org/pub/scm/linux/kernel/git/rui/linux.git/log/?h=upstream-fox-xen
-> Xen: https://gitlab.com/huangrui123/xen/-/commits/upstream-for-xen
-> QEMU: https://gitlab.com/huangrui123/qemu/-/commits/upstream-for-xen
-> Mesa: https://gitlab.freedesktop.org/rui/mesa/-/commits/upstream-for-xen
-> Virglrenderer: https://gitlab.freedesktop.org/rui/virglrenderer/-/commits/upstream-for-xen
-> 
-> In xen part, we mainly add the PCIe passthrough support on PVH dom0. It's
-> using the QEMU to passthrough the GPU device into guest HVM domU. And
-> mainly work is to transfer the interrupt by using gsi, vector, and pirq.
-> 
-> Below are the screenshot of these functions, please take a look.
-> 
-> Venus:
-> https://drive.google.com/file/d/1_lPq6DMwHu1JQv7LUUVRx31dBj0HJYcL/view?usp=share_link
-> 
-> Zink:
-> https://drive.google.com/file/d/1FxLmKu6X7uJOxx1ZzwOm1yA6IL5WMGzd/view?usp=share_link
-> 
-> Passthrough GPU:
-> https://drive.google.com/file/d/17onr5gvDK8KM_LniHTSQEI2hGJZlI09L/view?usp=share_link
-> 
-> We are working to write the documentation that describe how to verify these
-> functions in the xen wiki page. And will update it in the future version.
-> 
-> Thanks,
-> Ray
-> 
-> Chen Jiqian (5):
->   vpci: accept BAR writes if dom0 is PVH
->   x86/pvh: shouldn't check pirq flag when map pirq in PVH
->   x86/pvh: PVH dom0 also need PHYSDEVOP_setup_gsi call
->   tools/libs/call: add linux os call to get gsi from irq
->   tools/libs/light: pci: translate irq to gsi
-> 
-> Roger Pau Monne (1):
->   x86/pvh: report ACPI VFCT table to dom0 if present
-> 
->  tools/include/xen-sys/Linux/privcmd.h |  7 +++++++
->  tools/include/xencall.h               |  2 ++
->  tools/include/xenctrl.h               |  2 ++
->  tools/libs/call/core.c                |  5 +++++
->  tools/libs/call/libxencall.map        |  2 ++
->  tools/libs/call/linux.c               | 14 ++++++++++++++
->  tools/libs/call/private.h             |  9 +++++++++
->  tools/libs/ctrl/xc_physdev.c          |  4 ++++
->  tools/libs/light/libxl_pci.c          |  1 +
->  xen/arch/x86/hvm/dom0_build.c         |  1 +
->  xen/arch/x86/hvm/hypercall.c          |  3 +--
->  xen/drivers/vpci/header.c             |  2 +-
->  xen/include/acpi/actbl3.h             |  1 +
->  13 files changed, 50 insertions(+), 3 deletions(-)
-> 
-> -- 
-> 2.25.1
-> 
+---
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>
+Cc: George Dunlap <george.dunlap@citrix.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: xen-devel@lists.xenproject.org
+---
+
+---
+  xen/arch/x86/domctl.c       | 17 +++++++++++++++++
+  xen/include/public/domctl.h | 13 +++++++++++++
+  2 files changed, 30 insertions(+)
+
+diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
+index 2118fcad5d..0c9706ea0a 100644
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -1364,6 +1364,23 @@ long arch_do_domctl(
+              copyback = true;
+          break;
+
++    case XEN_DOMCTL_gva_to_gfn:
++    {
++        uint64_t ga = domctl->u.gva_to_gfn.addr;
++        uint64_t cr3 = domctl->u.gva_to_gfn.cr3;
++        struct vcpu* v = d->vcpu[0];
++        uint32_t pfec = PFEC_page_present;
++        unsigned int page_order;
++
++        uint64_t gfn = paging_ga_to_gfn_cr3(v, cr3, ga, &pfec, 
+&page_order);
++        domctl->u.gva_to_gfn.addr = gfn;
++        domctl->u.gva_to_gfn.page_order = page_order;
++        if ( __copy_to_guest(u_domctl, domctl, 1) )
++            ret = -EFAULT;
++
++        break;
++    }
++
+      default:
+          ret = -ENOSYS;
+          break;
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index 51be28c3de..628dfc68fd 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -948,6 +948,17 @@ struct xen_domctl_paging_mempool {
+      uint64_aligned_t size; /* Size in bytes. */
+  };
+
++/*
++ * XEN_DOMCTL_gva_to_gfn.
++ *
++ * Get the guest virtual to guest physicall address translated.
++ */
++struct xen_domctl_gva_to_gfn {
++    uint64_aligned_t addr;
++    uint64_aligned_t cr3;
++    uint64_aligned_t page_order;
++};
++
+  #if defined(__i386__) || defined(__x86_64__)
+  struct xen_domctl_vcpu_msr {
+      uint32_t         index;
+@@ -1278,6 +1289,7 @@ struct xen_domctl {
+  #define XEN_DOMCTL_vmtrace_op                    84
+  #define XEN_DOMCTL_get_paging_mempool_size       85
+  #define XEN_DOMCTL_set_paging_mempool_size       86
++#define XEN_DOMCTL_gva_to_gfn                    87
+  #define XEN_DOMCTL_gdbsx_guestmemio            1000
+  #define XEN_DOMCTL_gdbsx_pausevcpu             1001
+  #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
+@@ -1340,6 +1352,7 @@ struct xen_domctl {
+          struct xen_domctl_vuart_op          vuart_op;
+          struct xen_domctl_vmtrace_op        vmtrace_op;
+          struct xen_domctl_paging_mempool    paging_mempool;
++        struct xen_domctl_gva_to_gfn        gva_to_gfn;
+          uint8_t                             pad[128];
+      } u;
+  };
+-- 
+2.38.1
+
 
