@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45DA46C0D31
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 10:24:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.511799.791050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF5FD6C0DAD
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 10:49:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.511804.791066 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peBkc-0004Ov-RF; Mon, 20 Mar 2023 09:24:22 +0000
+	id 1peC8H-00077N-SB; Mon, 20 Mar 2023 09:48:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 511799.791050; Mon, 20 Mar 2023 09:24:22 +0000
+Received: by outflank-mailman (output) from mailman id 511804.791066; Mon, 20 Mar 2023 09:48:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peBkc-0004Ly-Nh; Mon, 20 Mar 2023 09:24:22 +0000
-Received: by outflank-mailman (input) for mailman id 511799;
- Mon, 20 Mar 2023 09:24:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1peC8H-00075C-On; Mon, 20 Mar 2023 09:48:49 +0000
+Received: by outflank-mailman (input) for mailman id 511804;
+ Mon, 20 Mar 2023 09:48:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AUe7=7M=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1peBka-0004Ls-Hn
- for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 09:24:20 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on2060d.outbound.protection.outlook.com
- [2a01:111:f400:7eaf::60d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fccafcef-c700-11ed-b464-930f4c7d94ae;
- Mon, 20 Mar 2023 10:24:18 +0100 (CET)
+ id 1peC8H-000756-5b
+ for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 09:48:49 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20623.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::623])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 68f7662f-c704-11ed-87f5-c1b5be75604c;
+ Mon, 20 Mar 2023 10:48:47 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB8366.eurprd04.prod.outlook.com (2603:10a6:102:1be::12)
+ by PAXPR04MB8320.eurprd04.prod.outlook.com (2603:10a6:102:1cf::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
- 2023 09:24:15 +0000
+ 2023 09:48:41 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.037; Mon, 20 Mar 2023
- 09:24:11 +0000
+ 09:48:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,193 +47,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fccafcef-c700-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 68f7662f-c704-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dj65fbCYpTn1Van6VgalzVbCEkszEqkZHLxZYdEKxHvmLhXCetdNmSx63hamQGAI7B2RQSez/kfBDEWKVRj4ics1PKr0p0Du27VYOkBnscutrsszwJW6hjs98nshSlzEXIjMQQ0IbXjzevWhjzcd60SAwrhVUbzScJDzoIjvVBBGum/V2Kj6UUaAqgc20TvjT9lhOikrgHMdCN7MWGeZ55W+yDJ5IJ9qZweQxumc7TgpcUz42Zjfldyn9EpEFxEBPGDNdG1XfgWyAOeptYtjgb61HzQlmF1gPZOTDQvaGzgpHDp8b4Ej4eLXOJksKYk0L4Bp5zVKefv+AM4vwVlk1A==
+ b=Q2Ot3lkJIhnNDjsZjZWNkn5ExesCaU6jxYhNS1A4kQnkIDBeXD4/c66nald7TuiP3C7QX63q3+U4qgpcA/RGT/BgsG4QLhKlIDGitn10d0miYNcXk6h+0o2WofZ+DFS2hfIBqvWmvrHl9qf5KvYjtVCyihFiBT+iT9Q/UpHu4lLnKjaDJPJtywMmWL+E57R0TROnqLPXwrBJyV9DYDRaJxZXDkNXZRYn0Xpzyu006hzhdTTG5v5UKADqtXSAK1ZiAJCr129SMoAGE74XYTnEuRJDUgkzdQc/p3l+nabwLGW77JQUrgIDn6UR85k2qBNxNhdwPUF+FgoviBOQLDEZdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VqVTmnjHZXKZ7Fq15XdGFcWddqPM6ObnFZpubJkk2ew=;
- b=RoljEUTjaEmgJjOBx3x4Ce/WVZ+x3zkxxwRBCFc3e9IUnjTrTUpSmPa/XUwPpP1ntVW2sutLe/DIcRtVEsa9uXkJ6dtbT2xUqa353tWRdrsLompzO8O+p9GNEp+3FjXb0FzcsVSKJ1jnnDIEEHfmKUCp17YBRH9jb0PjAsP7ddcywjhPs8dRzkW2sc1j/ufw+1+zGyBjSZFF4Jmj317/sf6o3zOVqiwZ123XOlASx5+3yKxVI6E3tU5qXjqQEL2tVuxhP9NlEMv1ZDIY80mS1w84u8RvGCgMZL9ZLv9H4yDhoHVwAIItHxQLjKJd66K4IQ3QbZRcuvLKdaEiDx16Zw==
+ bh=G/Oi3f5aplyZFxzxgfBmIip96AOoH9kkRX7Hb04oFmI=;
+ b=EW5pKMK2Gk8gc9iCXjv7g9eG9AoTL1yZ/IeO0SvZK+Xu6bnz+M8JVlqlShBC0da2UjQ6quFamZv1nBsMH/t5UPQSzleatXXx3uijppW+NPu2f9njyqMSoDHg1pGcV5S2pWpbL9woVCENT7UZhBUgt+bXq+GuwjOSUdiGLnZLfadKrBo4IlqvtjIxW99Eh9PQCNyc0acSwGI7JZydbkcyyHLCyeArUEH2mOSug82LmSJEzblJ/6UIl7nN6iKHufGSE7Z2l60sOv/XJCDpeDEqQ+N3DWshMnlXhLTHgoJqjmOFN5imEOlumu0YK1TefcXVA6aVF5IZjSgtxaQvS4dICg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VqVTmnjHZXKZ7Fq15XdGFcWddqPM6ObnFZpubJkk2ew=;
- b=s3kPfkQUzotFlGLZ2KX9P+YJZU/WcAnvTYfoyUMQ6M8isz0ViJWnXdC6d4inw44nkAvZRO71NgnrPrQwytWFCHEMyRAoIuod9fRIjwbCmYZJmg38gKuWxrd3nuc0Kq3MmvirF+0Yla9/nR9ViL9ejV5MQzlNVk8epa3tTBH+kIe0NvLMpwiG5f0KmBrRvFTjdltHhw+5V8QGeXcL8ETRTZECzqFx/n/a2mRMYFtii2TJSDJKD8FzhH24GjIMc8FeP1j8D5EVZt9gb6NDjZdccgtLUK2yKrhydIadivNaQyiRq4PF5TkFfze496cnSqgeln8O3DRkpjLRxpUiLZ98QA==
+ bh=G/Oi3f5aplyZFxzxgfBmIip96AOoH9kkRX7Hb04oFmI=;
+ b=SPnp7GUtTTDIQWl7ZZ8IPX+baOvbAT+UZT/VhrKnLajNxt7wfwhbM21kzcsTYu6wb/BhDmP5VHTTzAzhap0NwV4wnG59N16BScjT27AZXeIX/thj1CnZK/a5smmbwU27GPjta3jiri1lTBazgwfu+MSzmQ6eTp7EV6hBcY1eprUwUfbOUJsyGF9dTHIbfv1o+si4dYuT14ok05xPksyias8Btzl84RXGc2zLXfZZ2UXBUAMA+EWgJvQBzCGwPTrPkIxp7qg8PZ7UeJ1yYNjPZSdfRXGKE1IQEoBERQeS5zcwWtNQM+O9iEBaZVQgRPo4kdrvRVJvNlPgJ/rmVzjhRA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <02cc1db2-90e6-a60e-4922-d88b4ca98b45@suse.com>
-Date: Mon, 20 Mar 2023 10:24:14 +0100
+Message-ID: <f1b0e3be-cf23-6471-7a59-c130380be0f8@suse.com>
+Date: Mon, 20 Mar 2023 10:48:45 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH] x86: extend coverage of HLE "bad page" workaround
+Subject: Re: [PATCH v2] x86: use POPCNT for hweight<N>() when available
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Wei Liu <wl@xen.org>
-References: <b238f66d-37a9-3080-4f2b-90225ea17102@suse.com>
- <424d1b72-5eb6-f2bc-20fe-e59bacda8dd9@citrix.com>
- <c27d838e-0331-3cab-25bf-dd16b4645152@suse.com>
- <2c0ff1f3-ee0c-6d14-a51c-d82b65338005@citrix.com>
- <0df22405-bda8-8f4d-63b4-e9c4d57843b1@suse.com>
- <ZBRRbnBjWHXAM1ug@Air-de-Roger>
+References: <55a4a24d-7fac-527c-6bcf-8d689136bac2@suse.com>
+ <ZBRNWhExetXH1OaS@Air-de-Roger>
+ <011cb7d8-fb32-74b1-2b06-f57be67f5c6a@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZBRRbnBjWHXAM1ug@Air-de-Roger>
+In-Reply-To: <011cb7d8-fb32-74b1-2b06-f57be67f5c6a@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0049.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0141.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:96::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8366:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96cb2ac8-01d0-4526-14ee-08db2924dd2b
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8320:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa02dd6d-6580-4428-ccf8-08db2928497c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	G1NMhBbGioQml6CrrhRq9f2lFcL8nGxbEsIyMNy58QgqsetybG5GakXeR8qS6jsHBFZg7XXcQDhuFnahnW3EssdvgRfPBa4oGHl6vV0Nspaj9B5RavWzzjhTZ2L4+XSsFXGmtFPXIeMHklIOyGX4QG8s4Oges8HjdB/wSRQtrbTWXtwXfhGxZ0ys2JVd2wC4Vh5FNjClE+jhAduHc9JuCt+Kg+LD55q00wNMOW990TicKte/em0qHEcuEuuIbuYf8ePRn/dqFI1R43J1D8p+9cmP6wzMOKDcJFfnbkyr4RH/T8b3tkOBJ4txJ+M68xK3N4aJfqsgU/iP2yViqL9d/Teb4x8c1ETW4+oFVxKtiDFSWsJp445v1/NQaPN60N7lW/L943rLw7qSplDO801AQR8qeo0DyMSRYqQf3hnARnQAzUGrUrvrZ1Cdg6BU3pNStoRodQmHeHRZ4m0L2cRZJNWJqMG+FEuSkmnmUlaDx/cLu8strhcN4DFEe+nEVc4GsWHcz72iS1JGsDDtXHBJEUSumULq18RwItdGy/CB9XwNhmQLmgHepDFG0IALMZj4Dq4s/LgDbU5gdjkCUzA+beW5iAnd+OmjLM6lA5xsFz+5HTyQHHZp1/ruFzGAWfa3h4kId4dkh/bydRAj7HlnjuNG7HmP0CAyVVfG127K3I/KQXqLfsqvJGOdQ4NjSHvZhtEIWvoc7TROkbPhzFTFEyVKqusRrtRRcy7iPWi/CcY=
+	UAJpuaes8yDb1R98mjuoUhXSVVuuxNdJFHtqLVlqyigvuWJQi4/Ub9j1ohs4ThYphbbpYuUSCNj83QxL1Q4lp2snEytQ5l5HQFoKhN+s79dRODIXaGPCeHaqJeSZ4feeHG99C4eMlBeZG1jF4uPyUZi7bkGGOIgIiV4pFWjbOl7v3GF8hGwcXwk15ukhUjccuKhpplEvldFQ6pLps+Rl6jhrAfSNVLUbTctOz73ygN5lEWNMm6+kSIV42HECvXdhAEBHqp64hk0q5NeNCRM0T/65yYQXZI925IwbRZFE8adawlZtifUNuazNxmRFVONKSEcWn5O0c6c52RbtB4HaLF0BUzKLX+uJFyzphH+Kd7CoHZXbc/ySuta+e76Dn3bHOvksldqeAMpeEs521jdlPfYWRE2huSJ9Mk/L2LUnNGsRr+Z8QW/Rc8qC4Pdvh2dLcVAjSUw66/LYst79uG8t1PF3efNt+X/Ts/+6DMB5CIVvIPKWSr4bR8C77aXyJPg6YmQWjEJPPfHFf1e5rdzqEEzSfoOFNIe9l/7xreIKlDy7lT4CJOh0hF6hjXMvAzV5vAXK4sApFRczZCcB7g47Bhgyg6nrFZGZyJBgA7cqGVb9hhD2/Di1drZFphTIhsKKzxdMiz0DzSTB+kmgwmVeW69cRbf54cOuNK3RsLJej29T6cLu9XH9y2eYwFdoEjBcdTyaQBmBiyoPXBJ7N3XMeJ8+vMNBw81Yl6Pkx7t6rhJpYQ+YK3e+pm+eqNkROYSUe+frp7Y7ycOJAeDRLnn61w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(346002)(39860400002)(376002)(136003)(396003)(451199018)(8936002)(41300700001)(5660300002)(4326008)(31696002)(86362001)(36756003)(38100700002)(2906002)(54906003)(83380400001)(6506007)(31686004)(53546011)(6512007)(478600001)(186003)(6486002)(26005)(66899018)(8676002)(66946007)(66556008)(66476007)(6916009)(2616005)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(136003)(366004)(39860400002)(376002)(396003)(451199018)(478600001)(83380400001)(2906002)(8936002)(38100700002)(5660300002)(86362001)(31696002)(4326008)(8676002)(66476007)(66556008)(66946007)(36756003)(41300700001)(316002)(110136005)(54906003)(26005)(2616005)(31686004)(53546011)(6506007)(6512007)(186003)(6486002)(16393002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SUd1V2JSaC9JNkNoNnd0emxsMFhsU2ZXNEMrT2Q1MWNubEhRLzV1c1MyRXBj?=
- =?utf-8?B?SjFTUURXZjNiZTRoOWpIZmlDSVZhUERvVW1PdXlGanFnMi83cldVUDMyTVdw?=
- =?utf-8?B?VG5GMHh3VDV0akRIRUFKSXlnMDk1Rk1PdERVQWJWaXdRdktIbXpvRW1wT3Z3?=
- =?utf-8?B?WlFhdDNRZlNaKzVRZVFMQm1FTTM1dW9SRit6VjQ5Wk5SZnJPVmFLZGVLa0I4?=
- =?utf-8?B?QjdJNklwYmJkM2hHdEZXbys3b3F5alpIM21ZS05MeFNqWjVxc0dQRFMweXNC?=
- =?utf-8?B?Tk92bmdJV2srY3FYTTVJeWJOa0VMOTA0MFY5YmROMXdWNHZXRE4vVHJNZkpI?=
- =?utf-8?B?YVQxbU1samVPbkk0ekFrNXZ5MkZ4ODJLTE5xRVFPZUNVOThlM2djVFpBKy9m?=
- =?utf-8?B?MEFwSmpkRGhCZUswVHlUbGlnRVpHUmpqaFk3a1k4aEt3amRtakdiLzNHRkky?=
- =?utf-8?B?OGw5UDRFRnhrYWNMbkVNVit0MzN1RGtlU1pmN0xkdHlEWTh3RnJrNWI1MTY4?=
- =?utf-8?B?NlBXUmxIcEVaZXNZTkJCL0ZhWms2UnkrYVlheXlRMVk2T2tLSlVvMjdRem56?=
- =?utf-8?B?ZHhpMW9ZTWtENGN4NEI3Rkl1aHIxR0dlMWFnNEdydC93VlpYNldmOVQzd041?=
- =?utf-8?B?Tk0rZHl6ZEdHR285am5oZkpndmV2dmNCSzlwQ1ZZKzc3MWpicEdHNnk1Z0Ny?=
- =?utf-8?B?c3Q3a3pRcmJieDlOU2EwZEM1V1ZBNnNvd0pzVkh1NmxCQ242WDJWUlk1ZTFV?=
- =?utf-8?B?M1JRTzlFMTZvU242Mm5QTnlQVEF2SXBvMG1mc3ZiZzZYN01jdlMxUDBNYVBK?=
- =?utf-8?B?TmowUkFvbm5RUWg5aGVYOS9ZN3M5WmNqbms5c3VBbXdTZHFNYzdMbG9LNGt4?=
- =?utf-8?B?d3J4UWpXSXhCQ0Vsa1RHOVJKMVh3WkNLdW5zQXVpRGhkWGkwTXh0ZW5wNzZl?=
- =?utf-8?B?M204SmZFc1BHTVlmSFhrOVBqQnp5NDJaOUhRN0NnZURzcXRrQmtqNlp4ZUdH?=
- =?utf-8?B?TEE1VlJ4SE5tS2hSNW9OVTBTZVNvVVIvbDVtRFJ0MTkzclpjSjdDSnk3SlVs?=
- =?utf-8?B?QW1BZ2VKcytHeTVId1hOSVBaeVZudGsxNlErS0FwSitsd2QrMWE1TW9RUXdw?=
- =?utf-8?B?amV3cW51aG03ZnUycUtyRGt5clY3Q2hDTXZjemNpTmFBUTkxbVBQemxvWHEy?=
- =?utf-8?B?SXBhbTlMbm12ZU82OVRvblo4TGNKR1FaOVVGeEp6OTkrWU5XMUpHWFg3bUhr?=
- =?utf-8?B?bnhDTWJ1cWdqRjFJOWg4enFFd2VZN1Y5bFQ1OTdWV0sxZENVcmhGS1VNTnNL?=
- =?utf-8?B?a1o3MGJVYzJ4aWM3YnZsemlLcTdrS3UzTTE2TkovN1N0U2lqYW1LcUxuNEg1?=
- =?utf-8?B?UERLaFJ4ZmtvTkdqOWNNOFlnQVVYdVBXQ2JBdXhhODhrS3p1YVUrLy92dHNq?=
- =?utf-8?B?dnNvMGNjc1ZwbThqaVM2aU92ZHIzZ3lLY0VkeEIwL0JIQ0VuNldMUjBGWG1u?=
- =?utf-8?B?Vlp5clZoc3RYWGdTa2R6ZmxoR0FkbFUyRWF2ZDl4d25HUUdwSGxnWjVTSkg0?=
- =?utf-8?B?Vi9URS9rZ0ltTUJ5VDh1OHRLUTBIam5IUmg0UnYvcEhKV2M5Ymt4YUtKV2RP?=
- =?utf-8?B?dWo3Q2JkU21tV2xVVGlxYmF2YURUYnY5bmRhS0x6bHpLR2VRQ1pLOEFBVnlN?=
- =?utf-8?B?MXdheXh1RG9MZmFpZzBsY2dkOUlQTkRRcU95WTBCbVpUTU1KZ0hyeXVTVDBa?=
- =?utf-8?B?MndteG9MZ3BjRndUZExtME55Q2l5RkZnVkw1UnhCNkJxYXVpdWZmLzlrM2VS?=
- =?utf-8?B?WVpabmxObnZld3cxSTRRL1lINTV1a0E4MThJQUMrTXpHbjZUdGpNVW84QXRC?=
- =?utf-8?B?T295dmxXd2xMR28vRGR6MXdTbWVlR1RVWTVrVFV1cUVoYlRIVGppL0xyZjla?=
- =?utf-8?B?aCtPVFdUT05wMWJGd2Q0ZkVWbGYyNE1uclFZSHpRWkR0WlBTOEpDZnA5T2pu?=
- =?utf-8?B?UzNjQTBETEk5ZlAvRU9qTkwwVE9jV1pCQkU4ZUJjWXpuKzViSjN4U1l3NndG?=
- =?utf-8?B?UXhNejdkWWEwaVFpWDAyVThNRkVPbGphSWNQNEpLaVZ0MnErTEFoMXRMOGVv?=
- =?utf-8?Q?50o/wpZUHH5OaklLEFt/SJTeT?=
+	=?utf-8?B?OCs2T1R2Y1lvZ2F2WHlXWUlPejkwaHBibUMrTm5rMXFncUIvVy9IUUhHVElJ?=
+ =?utf-8?B?N1l4MWM0TUtLcFlJU0RtZFdrSnpWQzJHdCt5bWhIeXRSNzNpYU9DVjVxVWNT?=
+ =?utf-8?B?L0k1TllsNHg4WGNHcTBUVHBoUFJDV0V4WTF1UnliVnAwWFEvK3dPRzdTRmJN?=
+ =?utf-8?B?WWpRdGlnd3NaUVlmdVRSVFBWaFlOWEM3eGIrbkZnT0toengvSWE4RC92Y0g0?=
+ =?utf-8?B?MUdhK0RWd256eFRPbEpxMDdtVkFSWGtoVTM0djRYNnZDTlpVR0pJdjlDek1w?=
+ =?utf-8?B?VEh6QllVYWd1MERMZnRpREk4S0xoaitlVjl3MWVOclg4a0FSNFh1NmZ3bll1?=
+ =?utf-8?B?QkZHTjhKL3V2NjZUNCszdTJBRm5lVG9yQ0dacUlsYWt2Q0xxQnduUHNoSlNu?=
+ =?utf-8?B?YllqYjkvYmZhVFhkUi9GSG55MkgvTklxZDNOYXE4d1pxQmZlZHFoUFJ6dUhj?=
+ =?utf-8?B?T2NZQWFuWEZhanlRUmlHalBsWE9IQTRRaVdMTGhjaDE2S0lLVkVNenRaRitB?=
+ =?utf-8?B?dWszWFd6aDIvRWgwZFAwclhHdVlyTVRsTmtrdG1ISGhOTU0yclpiTEEwSC9Y?=
+ =?utf-8?B?cEVxeWk0VDl2VDhZenVuZU5kekplZ0F6akFPc3VNZGdjV3FESFVkbHdNTjMw?=
+ =?utf-8?B?eGZuUGZUYk9rWVRQNWxEbHZSd3p6NkpZbW5MRFd5cDdhWDdzazVkenMxSlg0?=
+ =?utf-8?B?djMvNnBlVEt6UzZzV0NUeWdXM2FBSnUwZnlGLzJyRzJEYml2Tnl6alk1Wkhm?=
+ =?utf-8?B?U0VTRUpsMkJaVlp3dXkxM0hKL2FUcXJoVU5xYVA1TDBMSWE1anJyRFViMUdY?=
+ =?utf-8?B?V3d6NHR4clBWSjZyenRobWdQSG01bXQyK2FuU1VXRlE5c2ZsK1ArUkJ2dXlz?=
+ =?utf-8?B?eTBSQjZYa1p2RXJmRDlZN3ozamI4QTgzOVRyVFhsMmhFMTB0dVF0eHhnQW5V?=
+ =?utf-8?B?TFdJSkMvcGRDWEJqVTdNVnhjSVhNRGZwazd3cWl1MHBUWmhJK1R0NVBmdGRC?=
+ =?utf-8?B?dC9IcG1OWUtxMGJHMnRPT2M0UlJwcXpNMGM0eGIrMm5oOVpSVnQvemovanBU?=
+ =?utf-8?B?dTBBdFArU01hcjNrZklhNkd3ZWZ1SHhMaE5MVGRraTJpcEJEVGhTS1VSeTR0?=
+ =?utf-8?B?aG1URGEwbithdUtkWkY3NzE2YnQzN0ZQNk5UNEs3dDBLeTNlQUl5c1lJdmt2?=
+ =?utf-8?B?bTRiNlMvUkNJMkFjVlFSYjhIWlpUUCtkVWZ3UStkYXQvN0lFTXVoMzI0TWhI?=
+ =?utf-8?B?bjVLaDRzUUFCL0IrMHRSa1lUN0RJcE02OUVuRHpWZWFDOUlkTFpTd0QzZjJs?=
+ =?utf-8?B?ZE5JTFFGNStFSU9meTI0TGtmSldLRURmQmhlclRReWNSUUJzanN6SGl4WG0x?=
+ =?utf-8?B?RXVyM2tyTzJhdDRxbnlXdjZrSGNocDdUMjEwekd5ZXlVS0U3cFpPb1VQT096?=
+ =?utf-8?B?ZUF6SE1KVkRqVjFPYnRpZVdzUmZZeU5zNHJ1RWhhcVp6a3NQeUpFZlVUM1BH?=
+ =?utf-8?B?NC85MWlLaXd4OUpyWkxtZzQ3OC94V3diT1lxMFFXSUdzSmp2M295TTdMS1ND?=
+ =?utf-8?B?cExKSTJtWDgrOFpnajRTQTZKUytnQTZqTklNUFpPUEFjNTdlU2Uza3Q2UUp5?=
+ =?utf-8?B?emsxS08zRFFlM3gwOXdKOVNUR1ZyUHhKLzJlRXlQbi9FZVpGaEpiZkp3WjFK?=
+ =?utf-8?B?dFVwUHo4ckVrMGd3Nk5jYW05emVVRDhGZGtNT2ZWQzdtaGhwUE5OV2VJSklz?=
+ =?utf-8?B?dnRVVW11WCtSNWFiS1UxSEs4SlBlWmk1RVE0UGZodGxHVEZGalhEcmc3Ynp2?=
+ =?utf-8?B?aFNubEw3OXJuczBTUmcrM1F3dDVGa1R6bmZzSXJZRTh3NU5NV0lHRDZhK3Zm?=
+ =?utf-8?B?bnpweTJ1YUpVcDd1QTBBYW4zc3htVzdENitZUzU1aG41MFUxMjVJczFuRGJL?=
+ =?utf-8?B?RmhaZ2xEUUdpcVhUbyt3SWRPQzBlN3ppMk5NZWExbWhEaldCZlVUejloOTN2?=
+ =?utf-8?B?enMwdnhzSGgvSDM2eEEzUkVNbWw1eSs1eDY3NzRsRzU5WUV3LzlzamJpbzNL?=
+ =?utf-8?B?M1pIZ25ROTFQU0dWVDJoNGVjT01YTTJ4eUdIYVY5algwY3VDUDFFTUk4aWpt?=
+ =?utf-8?Q?g6V2UP7r2F4aW7JHLgVNyVFuD?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96cb2ac8-01d0-4526-14ee-08db2924dd2b
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa02dd6d-6580-4428-ccf8-08db2928497c
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 09:24:11.0769
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 09:48:41.2965
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l54XfAFFFmICBFiD1cWuT9hHLTvNrUHw7ARtbxLF9I7lCYSeUNXAHid05Ak6ENJPQzqlmJXKmBEy8dHgKGW7+Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8366
+X-MS-Exchange-CrossTenant-UserPrincipalName: Flj8PQUxcEyLvO2lzpig67vfEZFjyy/rEtj5MEl0dzJs14URH5FiKOMCsuaR/3rTBqBwATMAN/10MlfLg/DL7Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8320
 
-On 17.03.2023 12:39, Roger Pau Monné wrote:
-> On Tue, May 26, 2020 at 06:40:16PM +0200, Jan Beulich wrote:
->> On 26.05.2020 17:01, Andrew Cooper wrote:
->>> On 26/05/2020 14:35, Jan Beulich wrote:
->>>> On 26.05.2020 13:17, Andrew Cooper wrote:
->>>>> On 26/05/2020 07:49, Jan Beulich wrote:
->>>>>> Respective Core Gen10 processor lines are affected, too.
->>>>>>
->>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>
->>>>>> --- a/xen/arch/x86/mm.c
->>>>>> +++ b/xen/arch/x86/mm.c
->>>>>> @@ -6045,6 +6045,8 @@ const struct platform_bad_page *__init g
->>>>>>      case 0x000506e0: /* errata SKL167 / SKW159 */
->>>>>>      case 0x000806e0: /* erratum KBL??? */
->>>>>>      case 0x000906e0: /* errata KBL??? / KBW114 / CFW103 */
->>>>>> +    case 0x000a0650: /* erratum Core Gen10 U/H/S 101 */
->>>>>> +    case 0x000a0660: /* erratum Core Gen10 U/H/S 101 */
->>>>> This is marred in complexity.
->>>>>
->>>>> The enumeration of MSR_TSX_CTRL (from the TAA fix, but architectural
->>>>> moving forwards on any TSX-enabled CPU) includes a confirmation that HLE
->>>>> no longer exists/works.  This applies to IceLake systems, but possibly
->>>>> not their initial release configuration (hence, via a later microcode
->>>>> update).
->>>>>
->>>>> HLE is also disabled in microcode on all older parts for errata reasons,
->>>>> so in practice it doesn't exist anywhere now.
->>>>>
->>>>> I think it is safe to drop this workaround, and this does seem a more
->>>>> simple option than encoding which microcode turned HLE off (which sadly
->>>>> isn't covered by the spec updates, as even when turned off, HLE is still
->>>>> functioning according to its spec of "may speed things up, may do
->>>>> nothing"), or the interactions with the CPUID hiding capabilities of
->>>>> MSR_TSX_CTRL.
->>>> I'm afraid I don't fully follow: For one, does what you say imply HLE is
->>>> no longer enumerated in CPUID?
+On 17.03.2023 13:26, Andrew Cooper wrote:
+> On 17/03/2023 11:22 am, Roger Pau Monné wrote:
+>> On Mon, Jul 15, 2019 at 02:39:04PM +0000, Jan Beulich wrote:
+>>> This is faster than using the software implementation, and the insn is
+>>> available on all half-way recent hardware. Therefore convert
+>>> generic_hweight<N>() to out-of-line functions (without affecting Arm)
+>>> and use alternatives patching to replace the function calls.
 >>>
->>> No - sadly not.  For reasons of "not repeating the Haswell/Broadwell
->>> microcode fiasco", the HLE bit will continue to exist and be set. 
->>> (Although on CascadeLake and later, you can turn it off with MSR_TSX_CTRL.)
->>>
->>> It was always a weird CPUID bit.  You were supposed to put
->>> XACQUIRE/XRELEASE prefixes on your legacy locking, and it would be a nop
->>> on old hardware and go faster on newer hardware.
->>>
->>> There is nothing runtime code needs to look at the HLE bit for, except
->>> perhaps for UI reporting purposes.
->>
->> Do you know of some public Intel doc I could reference for all of this,
->> which I would kind of need in the description of a patch ...
->>
->>>> But then this
->>>> erratum does not have the usual text effectively meaning that an ucode
->>>> update is or will be available to address the issue; instead it says
->>>> that BIOS or VMM can reserve the respective address range.
->>>
->>> This is not surprising at all.  Turning off HLE was an unrelated
->>> activity, and I bet the link went unnoticed.
->>>
->>>> This - assuming the alternative you describe is indeed viable - then is surely
->>>> a much more intrusive workaround than needed. Which I wouldn't assume
->>>> they would suggest in such a case.
->>>
->>> My suggestion was to drop the workaround, not to complicated it with a
->>> microcode revision matrix.
->>
->> ... doing this? I don't think I've seen any of this in writing so far,
->> except by you. (I don't understand how this reply of yours relates to
->> what I was saying about the spec update. I understand what you are
->> suggesting. I merely tried to express that I'd have expected Intel to
->> point out the much easier workaround, rather than just a pretty involved
->> one.) Otherwise, may I suggest you make such a patch, to make sure it
->> has an adequate description?
+>>> Note that the approach doesn#t work for clang, due to it not recognizing
+>>> -ffixed-*.
+>> I've been giving this a look, and I wonder if it would be fine to
+>> simply push and pop the scratch registers in the 'call' path of the
+>> alternative, as that won't require any specific compiler option.
+
+Hmm, ...
+
+> It's been a long while, and in that time I've learnt a lot more about
+> performance, but my root objection to the approach taken here still
+> stands - it is penalising the common case to optimise some pointless
+> corner cases.
 > 
-> Seeing as there seems to be some data missing to justify the commit -
-> was has Linux done with those erratas?
+> Yes - on the call path, an extra push/pop pair (or few) to get temp
+> registers is basically free.
 
-While they deal with the SNB erratum in a similar way, I'm afraid I'm
-unaware of Linux having or having had a workaround for the errata here.
-Which, granted, is a little surprising when we did actually even issue
-an XSA for this.
+... what is "a few"? We'd need to push/pop all call-clobbered registers
+except %rax, i.e. a total of eight. I consider this too much. Unless,
+as you suggest further down, we wrote the fallback in assembly. Which I
+have to admit I'm surprised you propose when we strive to reduce the
+amount of assembly we have to maintain.
 
-In fact I find Andrew's request even more surprising with that fact (us
-having issued XSA-282 for it) in mind, which originally I don't think I
-had paid attention to (nor recalled).
+> Right now, the generic_hweight() helpers are static inline in
+> xen/bitops.h and this is nonsense.  The absolute best they should be is
+> extern inline in our new lib/ and I'll bet that the compilers stop
+> inlining them there and then.
+
+That would be an orthogonal move, wouldn't it? I'm also not really
+willing to go as far as calling the present way of it working "nonsense".
+I could be talked into doing such a transformation in a separate patch,
+but only if it is halfway certain that this won't again be effort
+invested just to then face further opposition (other maintainers may not
+agree with the movement, as we've seen for other remotely similar
+changes to "extern inline").
+
+> Given new abi's like x86_64-v2 (which guarantees POPCNT as an available
+> feature), it would be nice to arrange to use __builtin_popcnt() to let
+> the compiler optimise to its hearts content, but outside of this case,
+> it is actively damaging to try and optimise for memory operands or to
+> inline the 8/16 case.
+> 
+> So, for x86 specifically, we want:
+> 
+> if ( CONFIG_POPCNT )
+>     __builtin_popcnt()
+> else
+>     ALT( "popcnt D -> a",
+>          "call arch_popcnt$N" )
+> 
+> and we can write arch_popcnt* in x86's lib/ and in assembly, because
+> these are trivial enough and we do need to be careful with registers/etc.
+
+How does x86_64-v2 matter here? And how does using __builtin_popcnt()
+help, which would use the "popcnt" insn only if we passed -march=popcnt
+(or any wider option implying this one) to the compiler?
+
+As to the 8-/16-bit case - I've already accepted to drop that special
+casing. The main reason I had it separate was because the generic code
+also has them special cased. In any event I would like to make all
+agreed upon changes in one go, hence why I didn't submit a new version
+yet.
+
+> I'm not sure if a "+D" vs "D" will matter at the top level.  Probably
+> not, so it might be an easy way to get one tempt register.  Other temp
+> registers can come from push/pop.
+> 
+> 
+> While we're at it, we should split hweight out of bitops and write the
+> common header in such a way that it defaults to the generic
+> implementations in lib/, and that will subsume the ARM header and also
+> make this work on RISC-V for free.
+
+Yet another independent change you're asking for. I've taken note of
+both of these separate requests, but without any guarantee (yet) that
+I'm going to actually carry them out.
 
 Jan
 
