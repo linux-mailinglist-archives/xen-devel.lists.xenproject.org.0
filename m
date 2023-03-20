@@ -2,42 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 133216C21E0
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 20:47:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512112.791793 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 877C46C2243
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 21:09:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512116.791806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peLT0-00015H-0l; Mon, 20 Mar 2023 19:46:50 +0000
+	id 1peLoL-0003pU-Pp; Mon, 20 Mar 2023 20:08:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512112.791793; Mon, 20 Mar 2023 19:46:49 +0000
+Received: by outflank-mailman (output) from mailman id 512116.791806; Mon, 20 Mar 2023 20:08:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peLSz-00012R-Tw; Mon, 20 Mar 2023 19:46:49 +0000
-Received: by outflank-mailman (input) for mailman id 512112;
- Mon, 20 Mar 2023 19:46:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1peLoL-0003nL-MQ; Mon, 20 Mar 2023 20:08:53 +0000
+Received: by outflank-mailman (input) for mailman id 512116;
+ Mon, 20 Mar 2023 20:08:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xqGy=7M=citrix.com=prvs=436e66757=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1peLSy-00012L-5a
- for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 19:46:48 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f0d698d7-c757-11ed-87f5-c1b5be75604c;
- Mon, 20 Mar 2023 20:46:46 +0100 (CET)
-Received: from mail-bn8nam12lp2168.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.168])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 20 Mar 2023 15:46:41 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by DS7PR03MB5528.namprd03.prod.outlook.com (2603:10b6:5:2c5::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
- 2023 19:46:32 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6178.037; Mon, 20 Mar 2023
- 19:46:30 +0000
+ <SRS0=uSrZ=7M=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1peLoJ-0003nF-Pm
+ for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 20:08:52 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0598d0cf-c75b-11ed-b464-930f4c7d94ae;
+ Mon, 20 Mar 2023 21:08:47 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 26B23B810A7;
+ Mon, 20 Mar 2023 20:08:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C261C433D2;
+ Mon, 20 Mar 2023 20:08:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,252 +43,480 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0d698d7-c757-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1679341606;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=rRdq8SeMNqBhRW5k0lO2KCQHkrOHIO8uhBcHaFzTd8o=;
-  b=OIqHJ6Pgcp4uwVDHmBZ4UoJCkvvmfea9MlYhGi6BcCUZn/CVQ1G9NqC5
-   xF5uBdP5sFRxzJ+auShW5n0DcVXvibsNPi98VgrxEQ49SMiQ/5QCPmstn
-   HrTR3jr+/uCFIOAtgPsgNXObyr/+vXb5TwuO+fDvWrViOoUJbSs6ZeXL9
-   Q=;
-X-IronPort-RemoteIP: 104.47.55.168
-X-IronPort-MID: 101601411
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:6eMK6q4Tywywv8VjWYaRzgxRtLPGchMFZxGqfqrLsTDasY5as4F+v
- mYaDWiDbP+NM2Tyct52advi8EtSvZfdmNJgSAZrqnpmHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9VU+7JwehBtC5gZlPasR5AeH/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m1
- 8UzdikRaCm/q6H1+qDkQ+tvv8M6M5y+VG8fkikIITDxK98DGMqGaYOaoNhS0XE3m9xEGuvYa
- 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6OkUoojuiF3Nn9I7RmQe18mEqCq
- 32A1GP+GhwAb/SUyCaf82LqjejK9c/+cNtKTePgr6Iz2TV/wEQxJToUUlyis8W5i1+gRdFbL
- FIe9QAX+P1aGEuDC4OVsweDiGCNuhkGc95RCPF88hzl4rrZ5UOVC3YJShZFacc6r4kmSDoyz
- FiLktj1Qzt1v9W9S3iQ67OVpjOaIjUOICkJYipsZRQBy8nupsc0lB2nZtR+FK+4iPXlFDe2x
- CqFxAAlnKkah8MP06S9/HjEjiiqq5yPSRQ6ji3LV2es9StlZ4qoYYO55Fyd5vFFRK6YVVCAv
- 3kC3sSb7fwUHLmcnSqBTfVLBqzB2hqeGDjVgFoqFZ9x8T2ooiSnZdoJvmE4I1p1OMEZfzOve
- FXUpQ5a+J5UOj2tcLNzZIWyTc8tyMAMCOjYaxwdVfIWCrAZSeNN1H0GiZK4t4w1rHURrA==
-IronPort-HdrOrdr: A9a23:6ptGEKC2r0V1kgXlHelw55DYdb4zR+YMi2TDtnoBMiC9F/byqy
- nAppomPHPP5Qr5G0tQ/exoQZPgfZqEz/5ICOoqTNWftWvdyROVxehZhOOJ/9SHIVyaygc378
- hdmsZFZOEYQmIK6voSTTPIdeoI0Z2syojtr+Hb1nJsRQZhZ+Vb6RtjAArzKDwUeOADP+tBKK
- ah
-X-IronPort-AV: E=Sophos;i="5.98,276,1673931600"; 
-   d="scan'208";a="101601411"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f3JV3hRHJUXeJbfM+yFy2REeMHNaSJewK6H9vxnR/dgP49wOm2AfD0T91udN5x2RVniG6UHFy0fz9Gft9nHhNvARzbn4mnX/nhcsxScbP0nmZVyFrG8QSIRxfJY933AcJbRoBT20ROIpL1gFpi/JsKBB0qL/SLsH3y6FFcVTLtMOuFJr3TX6N+cI+OKYfPr4ks+50kBVBLy3ZePtrYmAs6xLTfH8wOVGSzdKDBd0ntob+1WRYjV0mK62L8iJC0uYf5/DVy3lDzzEqu5FgP1JOoXsEo9av7QtEYpZweVp/pda5uNyyJpYNSM49AaNOmTF3DHoqQ8/W/JuUzXxMs8I1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rRdq8SeMNqBhRW5k0lO2KCQHkrOHIO8uhBcHaFzTd8o=;
- b=LReuzUNYXIK6qtIn7hANwpq9FGwsIIWXPxVBmgYcVX21ZH42U12luJh9XTbJD+Z6wvs60sv1aIBxVxGfPyRgD7D+i7ElK0WxXzzEsxMP6+s7v/m8QKMvLBbUJ4YSO+soiR6dZDnnIxNvKf1j6JTNjwJVXrFlUCnSIoQd3trcoXCsJCHT3Jr/hGk0dBAMoRYg66vX8YMNu2crsacbUsulc6sYcS0GRjSf9Bem6yy4oiRriyn+jC2ZO1ljK0KcL+2s5IZ9Q4qkexlBejm+2mEXknjry3FSO5F5vugvxO0/TSB3imsqumDAszDG7WbvXY6M4i5gonKfhutpr3GtHCaWsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rRdq8SeMNqBhRW5k0lO2KCQHkrOHIO8uhBcHaFzTd8o=;
- b=vU+nGkh5QpZ9NliyZpPRRoGs+oYdzO9wX5L8X3he0E+89XtNIU3B6ZyKMdj3nWYhI5CFmUS0TEtWy0u3o/vpOagogqbSOskVeFifPJuXyszj1Ql5pE7qd02ABsBgblp+qhbksdl2W60mCfpBfgcYXspeC+RzyJo4cmmrBcbP99k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <22919956-a35f-1710-3fb7-6a8b37233a04@citrix.com>
-Date: Mon, 20 Mar 2023 19:46:27 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [XEN PATCH v1 1/1] x86/domctl: add gva_to_gfn command
-Content-Language: en-GB
-To: =?UTF-8?B?0JrQvtCy0LDQu9GR0LIg0KHQtdGA0LPQtdC5?= <valor@list.ru>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-References: <e047a7a7-2e45-48de-2cb4-69001e95e1a8@list.ru>
- <f2231607-b29c-b54b-874f-4e30ee84ae80@citrix.com>
- <3db374f7-4c87-f39f-dbad-a1a242d4914f@list.ru>
-In-Reply-To: <3db374f7-4c87-f39f-dbad-a1a242d4914f@list.ru>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0504.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13b::11) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-Inumbo-ID: 0598d0cf-c75b-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1679342924;
+	bh=DPP8AZIfqNebb5gjsJGLu2mkGF9Ql7aXErVeNmlYwJg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=T21miy+zL3OWegUllHcx4Yc7Q2AhTjGLTVKAUIStvdDkgVFW71kPceHhtBBFJc9mA
+	 eK5JoREfgWW/gnoL3Ng9C70rJEw2oG/FrWTdRxNM/KzTRyp1A3K0mtXVj9/N+KqPhf
+	 27i3UvNOLbtvEHtmuDRZRCq5+kDWyugrIR9KpCg9bcq15pJZcl3xvQbUO9djgUZtsA
+	 XvQ071eyCQ4VTQvcR7FRoh72ZpF0Jmrcnj+681yU/iGymcdop7pcV1hH8lCJkXSY3d
+	 jamknQNyHDyvIZJnkl5XWw+4SOBQWMgxCca6bnxOob15QeBcHU7w0KGY+/uMislJkd
+	 mfAluGUS5NG2w==
+Date: Mon, 20 Mar 2023 13:08:42 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH 2/2] automation: add a suspend test on an Alder Lake
+ system
+In-Reply-To: <ZBULiU0222GlcC1W@mail-itl>
+Message-ID: <alpine.DEB.2.22.394.2303201258140.3359@ubuntu-linux-20-04-desktop>
+References: <cover.5a69c1f96ff446a5872e9dbf6308be9ab278f9df.1679023966.git-series.marmarek@invisiblethingslab.com> <aa4385f5291ebc06551414e4d8cbf7cdd3996eef.1679023966.git-series.marmarek@invisiblethingslab.com> <alpine.DEB.2.22.394.2303171539520.3359@ubuntu-linux-20-04-desktop>
+ <ZBULiU0222GlcC1W@mail-itl>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|DS7PR03MB5528:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f0acf11-fe92-43c9-6772-08db297bcd34
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	mFlbnNYtUpqpAaL44pTVyEDv5etxIabLFEBqUaG/M26iqOBvt8yTupK2tVye5FtYA11hU6Sd1YtaFU9CkUIDfGw6ERt/oUG3/eVIB9EsAxhgORnIYonNtGdur2rtiUd4t2UU8CY66k94YAMAq6R1GwCoo3nJCfQgHXZpCX/ODeL+NbQL7PG8Q2TtTp/TKMGofUVCxWtVVXCDAFf97nMTiN+Qko5ZJwgHMfkeAKKQaXx7uWU+98KynHw1kz2UzIZfNTKRJQW0C8m2t24rXeSQ9XnknKV797I/dQW8a+dWzBIfN0LX79OWwKugcNWKSwqSFPlvYNFLssHjsEUBZUhUIAChBQIh4oQ2I6cmKV8nLhIHM/+v31S5q1fmnQF2eBo8SN5qlPbqZcXo2Len3dgApNXvlg2Xp6FcxH5CLNfSHxy2Kh4t4//xKtGdNhdIv4c9y5Lz8bqy3ACrW0cNZ7CgWnQ06bOlfnIDyuiyJTTXjSgwz2+DjxwwL+SPafI0dLzOj7akAR+s9JIIOD7s18aFmMzRmvmVmp2bJJOHyIO9Ct9W5RTfadETYKuUYdj0LnBzpifRHKtAXoEjVQOqJnCa9+3jAC3zR3VkYUP5G7o08br+zLtWPmKrvRdMt9YvOHBqdTX4ud608janJlI11HSll6QhtB4nvXbqs0JhBIdIF+lSRWAJqQrcSgyxVyE5VvdYrvzi9NOYRuVtX3Tk7BpOq0+LObD1+hy/tivj5Gq7ssorofJrHxDfAil65+OvdgDdzb+tXd8rgMYPDGvca0APTQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(136003)(376002)(39860400002)(346002)(396003)(451199018)(82960400001)(2906002)(83380400001)(6506007)(31696002)(6512007)(8936002)(7416002)(36756003)(53546011)(5660300002)(6486002)(966005)(41300700001)(2616005)(86362001)(26005)(6666004)(186003)(316002)(54906003)(478600001)(31686004)(66556008)(66476007)(66899018)(66946007)(38100700002)(4326008)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a1ZZb09zbVFNaS9qYXk5ZjVmSnhnZm0rSkFhVi9zckZRdEg5RWdDbGNaTnN0?=
- =?utf-8?B?aXQ4U0VDYWYzK3BLYWlaMnhRMmRYbXRreUN4UUFtOThQZURPLzBGRkRnM0xC?=
- =?utf-8?B?TjNVZ1NySTlLZHB1dFkwTFBDRXl3Rnlqc01pRWhNSWpWSVhjdTkzeUhCK0Zn?=
- =?utf-8?B?S0tEVmZ6SmJIeWZ2ajdCNlVPRDlVLzZlK1gwUzJ1S1F2OTJQRXREemREeEdx?=
- =?utf-8?B?VW5NTEtybU9BRVFIUlgvNFJpMjMxb0NsQXQ1cHJMMUxSaUNCWWxqMVZiSXpk?=
- =?utf-8?B?eFc2dys0V1Z5ekQ2UUFXNEpUc0srMzZQQjliaXFXYlhSR2NOdUlPS25YTkMv?=
- =?utf-8?B?YkRmckV1enlQSnpubmU4S1JFQSt5bThDK0dNVnM1YTFRMXQ5ejZDN2gxN1Q4?=
- =?utf-8?B?bVN1ZXF5SFJMcUgrU2xVOGt4aUJRSGZjV0wrZTBqYTZ1Nm9EWEVhaHdCMmVj?=
- =?utf-8?B?VU51K0gwdkt5cEE1UkI0bWRvWjZjMUJPT0UvWEs0UGg4NXg1c2Z4dlNwdGUr?=
- =?utf-8?B?S1NUL1hES0JkNm95TmpvV2ZkY29FZ0NMb1YvdDMreDJEUWRFRjN0RkcxZ1k3?=
- =?utf-8?B?cjJHM0VrSUFJUDV0UE50Q21qQmR2YjVaemdTY2dnejF4NCtrWlRoWGFOdWJZ?=
- =?utf-8?B?OSthcnBBM1pqUVlpbnZ6dWJGZlNrd1NiMkdhbVMwcjR4OGVzMUFPN21vMFha?=
- =?utf-8?B?azNCcDVDUWp3ZUY2TW1TWG45NFJ2UUkrczFLRUlxdng4aEN6aDE1eHk2aDNS?=
- =?utf-8?B?SENqV3hyZFlKaWtpU1NRYjI1ekRvNTgvSC9lam0wZC9vZXJIT3BJd0dQS0dq?=
- =?utf-8?B?dDk5MmlCWTlxQTZGTVo0TG1hNU95eFM2REoreGZlSmh4MmxwN1BvU1lxTnZk?=
- =?utf-8?B?cDVFWFphZlV6cFhIUWR2dmc5NnJkVXA3SGd0eXhqaWh6cFhBaWcrckozZEdG?=
- =?utf-8?B?NjBiVENKUlk4bnFMRlF3UFBvdjNDeVVXQ2Radmp2ZVQvZzViYnZKQ3JPM1lt?=
- =?utf-8?B?NEVUa3V5MkVKZ0JKU1o0Vk0rSmdHN296MVg3R056b3ZZeTh2bGd1MUFqcGxI?=
- =?utf-8?B?U0M2eTA0Zm13Zmdva1ByMlVJZmtqdXZOaG5ibVhNWHg5SVYyOHNHaWV2UGov?=
- =?utf-8?B?TUwvYVFta25QdXZWWnlRWGNjREdaMkFJcm5ISnp5Z2RaTzVKaXJaR2E0UmEv?=
- =?utf-8?B?bjhZcnBDdVp4alNRYkxFTGYrdDJDMjVlZ0JrNmlTcXI2TlF0MStuYXVZMGdy?=
- =?utf-8?B?b2hDaWtKR2JESFBNay90bHJYN1hDY2FkQ3JnYUVpVkJxWWx2bW1LMDBBRGJ6?=
- =?utf-8?B?UWFCMHdBR0hNeExnanFmWDNCbGhnK1Y5R0FhYktOYzFtU0dMRUxtbFpLamV4?=
- =?utf-8?B?TnVOek1xaFEzOWF1VE91Mk1RS2g2Q0t3eUtTZXdydlRXRGlYd1kvL1ppbWJI?=
- =?utf-8?B?VlpPc2tzSFhjWW9hVVdmdWJNdm1wZldNdlVUTHpabW5uUk1xbWxzQzkySzhT?=
- =?utf-8?B?OTg5M1gvT0laWXZEWEFUTlRuUWUzcVFVMnBIWWdtSExQNUI3QTN0V0kwWHhZ?=
- =?utf-8?B?UVNPdFdwQktuNUFRMFcvT3I2ditTYnJ0SjhPYTZkQWNRa2pOMENReTJjT2da?=
- =?utf-8?B?OFVPdUdXZ2RiK1hOVXpXMnNRdFpyeGhra2dWeFJPZm9IUU9oUjJqbUNrNmRq?=
- =?utf-8?B?UEp5MlMyTWNmeUY4elhTZmVON1dMWkIrRml6YTQ4WUM5WHhzRjd3eDhyZ0ly?=
- =?utf-8?B?RjVkRmlYZUZzQWJISkpGRU45SXp4Z3pSQkxWRDFRSXZPWTg5amE5d1U1MUJx?=
- =?utf-8?B?d1VBVzlnQ3VwZnlPTFhlUDF1OWFRTDV1dDZQQmtiU2lOU3AvdXowbkV2OXEv?=
- =?utf-8?B?T3o2MjZBK0FRVlhneVZ5SHl1Q2RwQ1A5d2hRWm0xVExRM1Z2bml1RW1pT01x?=
- =?utf-8?B?ZjFvZGhtYTBYSlhpYW8ySXNJMEJWaTNoMStORCtRUm5YQ0hRS3dFWFRrQnV3?=
- =?utf-8?B?emhMekJDNWdTNm8wS3pIZWQxWUtIWElueW93ZG8rdzI0YnovaWpLNUVUcFBF?=
- =?utf-8?B?V01hamxUeEJhSTNMcnhnUUhMWCtuMm1pSWVtSlBuRElNQTlrRW9GeU00ZVRF?=
- =?utf-8?B?RlRPeGZpOXhNQjd0WWoxUHpKdkczc0VaSEJ1NmNVN1dNamN5MTRoQVVwamU3?=
- =?utf-8?B?SFE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	=?utf-8?B?QUp1MDcrMUZaZUVFRUhSUVZCSGpCOEdwUFNBWVJKZm5RTGxCYm9OejZrQWMr?=
- =?utf-8?B?cUxOSTN2RElQYUdpWTZHdU42OVd1d0lrc29GYUE5ZjFOUzBqbm5PcDVjZmhF?=
- =?utf-8?B?Wmx0cElkWHVvOE5PazNkd052Qnd0cEdRV1k2Szh4b3paVXJrWDViR3g1Z0hP?=
- =?utf-8?B?OVpqWDRKdHV0ZnA0SGtTbGU0Z1pvcFlWMlZ2UVpYR3JBR2htRmdDM1VNaHV3?=
- =?utf-8?B?VTNrYk9jVVVYdUNkWm95WmRiNExQSGF2MmpEM0ZVazRteXczTGcrYVFSc0Vu?=
- =?utf-8?B?aUtaQ1dXaXlCb1JXS3FuRzBDSzVUSDl6SFFBbG9aQ3hWZ1A0NDdxVmNRQ0Nx?=
- =?utf-8?B?K1hvU1lQMW1RUDBCWTlxN1FtTTBoRzBLMmZUS295YTl5RFR3TXcyNk9DNkFI?=
- =?utf-8?B?RXE5Y0dlM3ZUV2JTSXVGZGVvOHp0UnZRT3IwZnBQc0lWK1kvUUl5UkZXQWlS?=
- =?utf-8?B?bHMwVUo3TUN0WE8yNUNLejJlczdhaytUK1Nad3VvSXF6RHVmVmUvTER4STc5?=
- =?utf-8?B?MlUxbUVSQWhQeEZPNXVKakJmSFN6dGgvTWFqNFg3aEZNakx3VDR2SkJCeFpl?=
- =?utf-8?B?cmhSemxQdnNNdEF5aFgxMlV3bHAwQTRoWDNWZ2h5cUJQYWE3bUxRcWhjOXBY?=
- =?utf-8?B?Qm16SG9ZSHgyZW0vYVFkdlE5S0h5a1U5QnY5RVdCQ2hpdW8yV1NuQk1sVjc5?=
- =?utf-8?B?M2c2T252U0Q3eFZIV0Zoc0VZVEZpRUZzWnRyQncxWXBWSHZ3QURuLzdZdE9Q?=
- =?utf-8?B?L2dEWjhEMHFGWm1PSFU5VVcrRU05eitpU2wxaUp2Ni8yRi83MTJpbldHZXly?=
- =?utf-8?B?WVNzdHhoQUNYUlIwbUJGekpFTXpVd1U0SHNxR2hFbDVXck1BbWZJbmV4eXk4?=
- =?utf-8?B?OVdDOFB6Um9JMU5VZUR3aDF1RzQrUTNsYVlsenNkamVVaVJReGs0SnFJaHB2?=
- =?utf-8?B?R3pYVzIra0pDNGVNRXhUbFNJZmgvbUVXcVkraENTR29UTFYyaks4em5BVlFz?=
- =?utf-8?B?eDFiZTUrUDg2YitjS2phQVk1eTBZdWJDRVdlU2ladUhyVGVub3BWcXF0RW9u?=
- =?utf-8?B?K2RaeFFEVW9taW5GMVdlUlNHOTlQNzhGUG8wd2g4WHlwQnVxblJ2SVdIeFdI?=
- =?utf-8?B?ZnNJOTNpengwMmwwOXFpOEZZV2FUc2RpSFdoeXpMTXE4bGRYQU1UbWlISGRW?=
- =?utf-8?B?Ykt6L3FNTEdQZS9zQWlpOFRsS3NydFg1R2lFbUZuUzZyN01hcTMzckwwY3NF?=
- =?utf-8?Q?vwl5B6rcSDnbL1Z?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f0acf11-fe92-43c9-6772-08db297bcd34
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 19:46:30.5880
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XTyi280uGTzkA+HcYu2Aw5qj/cx4H7jDMatyWOY/SGAluKW8obfAQFsXQW289Hjqi/SzPe40ebJknJobd7sOY3kBnh1sQBkhkMlzOt+HQWM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5528
+Content-Type: multipart/mixed; BOUNDARY="8323329-517235040-1679342692=:3359"
+Content-ID: <alpine.DEB.2.22.394.2303201304550.3359@ubuntu-linux-20-04-desktop>
 
-On 20/03/2023 7:35 pm, Ковалёв Сергей wrote:
-> 20.03.2023 22:07, Andrew Cooper пишет:
->>
->> More generally, issuing the hypercall under vcpu0 isn't necessarily
->> correct.  It is common for all vCPUs to have equivalent paging settings,
->> but e.g. Xen transiently disables CR4.CET and CR0.WP in order to make
->> self-modifying code changes.
->>
->> Furthermore, the setting of CR4.{PAE,PSE} determines reserved bits, so
->> you can't even ignore the access rights and hope that the translation
->> works out correctly.
->
-> Thanks! I didn't think about such things earlier. I should to think
-> this know carefully.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-If you haven't already, read
+--8323329-517235040-1679342692=:3359
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2303201304551.3359@ubuntu-linux-20-04-desktop>
 
-https://github.com/xen-project/xen/blob/master/xen/arch/x86/mm/guest_walk.c
+On Sat, 18 Mar 2023, Marek Marczykowski-Górecki wrote:
+> On Fri, Mar 17, 2023 at 04:10:22PM -0700, Stefano Stabellini wrote:
+> > On Fri, 17 Mar 2023, Marek Marczykowski-Górecki wrote:
+> > > This is a first test using Qubes OS CI infra. The gitlab-runner has
+> > > access to ssh-based control interface (control@thor.testnet, ssh key
+> > > exposed to the test via ssh-agent) and pre-configured HTTP dir for boot
+> > > files (mapped under /scratch/gitlab-runner/tftp inside the container).
+> > > Details about the setup are described on
+> > > https://www.qubes-os.org/news/2022/05/05/automated-os-testing-on-physical-laptops/
+> > > 
+> > > This test boots Xen, and try if S3 works. It runs on a ADL-based desktop
+> > > system. The test script is based on the Xilinx one.
+> > > 
+> > > The machine needs newer kernel than other x86 tests run, so use 6.1.x
+> > > kernel added in previous commit.
+> > > 
+> > > When building rootfs, use fakeroot to preserve device files when
+> > > repacking rootfs archives in a non-privileged container.
+> > > 
+> > > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> > 
+> > This is awesome!! Thanks Marek!
+> > 
+> > 
+> > > ---
+> > > I'm bad at naming things. Things that I could use naming suggestions:
+> > >  - test script (qubes-x86-64-suspend.sh) - this might be okay?
+> > >  - test template job name (.adl-x86-64)
+> > >  - test job name (adl-suspend-x86-64-gcc)
+> > >  - tag (qubes-hw2)
+> > 
+> > I think these names are OK. I would maybe rename the tag "qubes-hw2" to
+> > "qubes" because so far there is only one but I am fine with qubes-hw2
+> > also.
+> 
+> I have 10 of them (and growing), so I'd like to keep tag name at least
+> somehow referencing which runner it uses. For example, this one is
+> a desktop with Alder Lake, but some other tests I may want to use a laptop
+> with Tiger Lake, for example. The mapping name -> hw spec isn't publicly
+> written down (although our openQA publishes all kind of logs from them,
+> so it's possible to infer this info).
 
-and
+That's fine by me, use whatever naming scheme works for you :-)
 
-https://github.com/andyhhp/xtf/blob/pagetable-emulation/tests/pagetable-emulation/main.c
 
-These are various notes and tests I made last time I had to rewrite
-Xen's pagewalk from scratch.
+> > > For context, our CI has several machines, named test-X or hwX, each
+> > > controlled with matching hal900X RPi (this is where gitlab-runner is).
+> > > This test uses only one specific hw, but I plan adding few others too.
+> > > ---
+> > >  automation/gitlab-ci/test.yaml             |  31 ++++-
+> > >  automation/scripts/qubes-x86-64-suspend.sh | 155 ++++++++++++++++++++++-
+> > >  2 files changed, 186 insertions(+)
+> > >  create mode 100755 automation/scripts/qubes-x86-64-suspend.sh
+> > > 
+> > > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> > > index 2e1a6886df7f..f5511dd6da70 100644
+> > > --- a/automation/gitlab-ci/test.yaml
+> > > +++ b/automation/gitlab-ci/test.yaml
+> > > @@ -15,6 +15,10 @@
+> > >  .arm32-test-needs: &arm32-test-needs
+> > >    - qemu-system-aarch64-6.0.0-arm32-export
+> > >  
+> > > +.x86-64-test-needs: &x86-64-test-needs
+> > > +  - alpine-3.12-rootfs-export
+> > > +  - kernel-6.1.19-export
+> > 
+> > As you know, the jobs starting with a "." are template jobs to avoid
+> > repeating the same things over and over. .x86-64-test-needs could be
+> > used in qemu-alpine-x86_64-gcc also.
+> 
+> Right, when switching all of them to 6.1 kernel, that makes sense.
+> 
+> > >  .qemu-arm64:
+> > >    extends: .test-jobs-common
+> > >    variables:
+> > > @@ -84,6 +88,25 @@
+> > >    tags:
+> > >      - xilinx
+> > >  
+> > > +.adl-x86-64:
+> > > +  extends: .test-jobs-common
+> > > +  variables:
+> > > +    # the test controller runs on RPi4
+> > > +    CONTAINER: alpine:3.12-arm64v8
+> > > +    LOGFILE: smoke-test.log
+> > > +  artifacts:
+> > > +    paths:
+> > > +      - smoke.serial
+> > > +      - '*.log'
+> > > +    when: always
+> > > +  only:
+> > > +    variables:
+> > > +      - $QUBES_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
+> > 
+> > Let me know which trees should have QUBES_JOBS set to true (thus able to
+> > start Qubes jobs.) At a minimum, I think we would want
+> > https://gitlab.com/xen-project/xen to test "staging" and "master". I can
+> > set QUBES_JOBS to true to https://gitlab.com/xen-project/xen if you are
+> > OK with it.
+> 
+> Yes, that's perfectly okay. I'd like at least also staging-4.17, but
+> depending on push frequency other staging-* are probably fine too (I
+> very much doubt long queue would be an issue). Of course that assumes
+> those tests would be backported, which I'm not sure if is planned. I'm
+> also okay with allowing committers and/or other maintainers to use it on
+> demand, but preferably not all patchew branches.
 
->
->>
->> Ideally we'd have a pagewalk algorithm which didn't require taking a
->> vcpu, and instead just took a set of paging configuration, but it is all
->> chronically entangled right now.
->>
->
-> Do You mean to add new implementation of "paging_ga_to_gfn_cr3"?
+Yes that makes sense. Let's start with
+https://gitlab.com/xen-project/xen for now, then we'll figure out a way
+to implement more precisely what you wrote above, which also matches the
+requirements for the xilinx runner.
 
-Yes, but I didn't mean for this to be taken as a suggestion.  It's far
-more work than it sounds...
 
->
->> I think, at a minimum, you need to take a vcpu_id as an input, but I
->> suspect to make this a usable API you want an altp2m view id too.
->>
->
-> Why we should consider altp2m while translating guest virtual address to
-> guest physical one?
+> BTW, if you trigger job manually via a web interface or API, you can
+> specify variables for just a single pipeline. And if you use that
+> feature, you can also make gitlab present you a bit more convenient
+> interface with variables listed already. See example here:
+> https://gitlab.com/QubesOS/qubes-continuous-integration/-/blob/main/.gitlab-ci.yml#L15-26
+> This could be useful to start only a subset of tests.
 
-Because altp2m can change the gfn mappings, and therefore the contents
-of the pagetables.
+Good to know!
 
-A pagewalk from cr3 in one view can end up being totally different to a
-walk from the same cr3 in a different view.
 
->
->> Also, I'm pretty sure this is only safe for a paused vCPU.  If the vCPU
->> isn't paused, then there's a TOCTOU race in the pagewalk code when
->> inspecting control registers.
->>
->
-> Thanks! Should we pause the domain?
+> > > +  before_script:
+> > > +    - apk --no-cache add openssh-client fakeroot
+> > 
+> > This would work but we typically try to avoid installing more packages
+> > in the test jobs for speed and efficiency. 
+> 
+> Yes, I was being lazy and wanted to avoid rebuilding container (and
+> changing from where it's pulled) when developing the test. Sure, will
+> fold that into the dockerfile.
 
-Certainly the vCPU.  Chances are that if you're making this hypercall
-from a libvmi callback, the vCPU in question is already paused, at which
-point taking one extra pause ref on it is very quick.
+Thanks!
 
->
->>> +        uint32_t pfec = PFEC_page_present;
->>> +        unsigned int page_order;
->>> +
->>> +        uint64_t gfn = paging_ga_to_gfn_cr3(v, cr3, ga, &pfec,
->>> &page_order);
->>> +        domctl->u.gva_to_gfn.addr = gfn;
->>> +        domctl->u.gva_to_gfn.page_order = page_order;
->>
->> page_order is only not stack rubble if gfn is different to INVALID_GFN.
->>
->
-> Sorry but I don't understand "is only not stack rubble". Do you mean
-> that I should initialize "page_order" while defining it?
 
-page_order is only initialised when gfn returns != INVALID_GFN.
+> > Instead, add those packages
+> > directly to the build container dockerfile
+> > (automation/build/alpine/3.12-arm64v8.dockerfile), e.g.:
+> > 
+> > diff --git a/automation/build/alpine/3.12-arm64v8.dockerfile b/automation/build/alpine/3.12-arm64v8.dockerfile
+> > index 180c978964..3f1e6a3fc6 100644
+> > --- a/automation/build/alpine/3.12-arm64v8.dockerfile
+> > +++ b/automation/build/alpine/3.12-arm64v8.dockerfile
+> > @@ -41,3 +41,6 @@ RUN apk --no-cache add \
+> >    libattr \
+> >    libcap-ng-dev \
+> >    pixman-dev \
+> > +  # qubes test deps
+> > +  openssh-client \
+> > +  fakeroot \
+> > 
+> > But I am not sure why you need fakeroot, more questions below about it
+> > 
+> > 
+> > > +  tags:
+> > > +    - qubes-hw2
+> > > +
+> > >  # Test jobs
+> > >  build-each-commit-gcc:
+> > >    extends: .test-jobs-common
+> > > @@ -110,6 +133,14 @@ xilinx-smoke-dom0less-arm64-gcc:
+> > >      - *arm64-test-needs
+> > >      - alpine-3.12-gcc-arm64
+> > >  
+> > > +adl-suspend-x86-64-gcc:
+> > > +  extends: .adl-x86-64
+> > > +  script:
+> > > +    - ./automation/scripts/qubes-x86-64-suspend.sh s3 2>&1 | tee ${LOGFILE}
+> > > +  needs:
+> > > +    - *x86-64-test-needs
+> > > +    - alpine-3.12-gcc
+> > 
+> > This up to you, but qubes-x86-64-suspend.sh is very cool and
+> > sophisticated and I would use it to create at least 2 jobs:
+> > - a plain dom0 + domU boot (no suspend)
+> > - a suspend/resume job
+> 
+> Indeed both tests are implemented there already, just a matter of
+> creating another job with a different parameter.
+> 
+> But then, the script name isn't really accurate. qubes-x86-64.sh then?
 
-See the function description.
+Yes good idea to rename the script
 
-~Andrew
+
+> FWIW, next tests I'm planning to contribute:
+>  - PCI passthrough to HVM with qemu in dom0
+>  - linux stubdomain
+>  - PCI passthrough with linux stubdomain
+> 
+> And possibly some of the above exercising other systems, maybe something
+> on AMD (currently only one runner is on AMD, Ryzen 5 4500U specifically,
+> and is rather busy because of that, but we can try).
+
+That's very cool! I am looking forward to it.
+
+
+> I'm not sure yet if putting them all in a single script is a smart idea.
+> On the other hand, quite a bit of boilerplate would be duplicated
+> otherwise.
+
+There is no hard rule on this. I'd say try to put them on a single
+script because it tends to help with maintainability. But if one of the
+tests is sufficiently different and would make things complicated is
+also OK to move it to a new script.
+
+
+> > I am happy either way
+> > 
+> > 
+> > >  qemu-smoke-dom0-arm64-gcc:
+> > >    extends: .qemu-arm64
+> > >    script:
+> > > diff --git a/automation/scripts/qubes-x86-64-suspend.sh b/automation/scripts/qubes-x86-64-suspend.sh
+> > > new file mode 100755
+> > > index 000000000000..fc479c9faaec
+> > > --- /dev/null
+> > > +++ b/automation/scripts/qubes-x86-64-suspend.sh
+> > > @@ -0,0 +1,155 @@
+> > > +#!/bin/sh
+> > > +
+> > > +set -ex
+> > > +
+> > > +test_variant=$1
+> > > +
+> > > +wait_and_wakeup=
+> > > +if [ -z "${test_variant}" ]; then
+> > > +    passed="ping test passed"
+> > > +    domU_check="
+> > > +until ifconfig eth0 192.168.0.2 &> /dev/null && ping -c 10 192.168.0.1; do
+> > > +    sleep 30
+> > > +done
+> > > +echo \"${passed}\"
+> > > +"
+> > > +elif [ "${test_variant}" = "s3" ]; then
+> > > +    passed="suspend test passed"
+> > > +    wait_and_wakeup="started, suspending"
+> > > +    domU_check="
+> > > +ifconfig eth0 192.168.0.2
+> > > +echo domU started
+> > > +"
+> > > +    dom0_check="
+> > > +until grep 'domU started' /var/log/xen/console/guest-domU.log; do
+> > > +    sleep 1
+> > > +done
+> > > +echo \"${wait_and_wakeup}\"
+> > > +set -x
+> > > +echo deep > /sys/power/mem_sleep
+> > > +echo mem > /sys/power/state
+> > > +# now wait for resume
+> > > +sleep 5
+> > > +# get domU console content into test log
+> > > +tail -n 100 /var/log/xen/console/guest-domU.log
+> > > +xl list
+> > > +xl dmesg | grep 'Finishing wakeup from ACPI S3 state' || exit 1
+> > > +# check if domU is still alive
+> > > +ping -c 10 192.168.0.2 || exit 1
+> > > +echo \"${passed}\"
+> > > +"
+> > > +fi
+> > 
+> > Very nice!
+> > 
+> > 
+> > > +# DomU
+> > > +mkdir -p rootfs
+> > > +cd rootfs
+> > > +fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
+> > 
+> > I am a bit confused about it: are you sure you need fakeroot for this?
+> > This script is running inside a container as root already? Are you using
+> > Docker on the RPi4 to run this job?
+> 
+> This is running in a rootless podman container. But even with docker,
+> for device files to work (see commit message) it would need to run
+> privileged container, which I'd like to avoid.
+
+Are you sure? I can run a non-privileged container with device assigned
+just fine with Docker and
+ 
+  devices = ["/dev/ttyUSB0:/dev/ttyUSB0"]
+
+in the gitlab-runner config.toml.
+
+Maybe it is just a matter of access permissions on your devices?
+
+
+In any case, if your podman environment requires fakeroot, that is a
+good enough reason for me. Just please add a note about it in the
+commit message or as in-code comment in the script.
+
+
+> > > +mkdir proc
+> > > +mkdir run
+> > > +mkdir srv
+> > > +mkdir sys
+> > > +rm var/run
+> > > +echo "#!/bin/sh
+> > > +
+> > > +${domU_check}
+> > > +/bin/sh" > etc/local.d/xen.start
+> > > +chmod +x etc/local.d/xen.start
+> > > +echo "rc_verbose=yes" >> etc/rc.conf
+> > > +find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/domU-rootfs.cpio.gz
+> > 
+> > same here
+> 
+> Same answer :)
+> 
+> Specifically it's required to preserve dev/null, dev/console etc.
+> 
+> > > +cd ..
+> > > +rm -rf rootfs
+> > > +
+> > > +# DOM0 rootfs
+> > > +mkdir -p rootfs
+> > > +cd rootfs
+> > > +fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
+> > > +mkdir boot
+> > > +mkdir proc
+> > > +mkdir run
+> > > +mkdir srv
+> > > +mkdir sys
+> > > +rm var/run
+> > > +cp -ar ../binaries/dist/install/* .
+> > > +
+> > > +echo "#!/bin/bash
+> > > +
+> > > +export LD_LIBRARY_PATH=/usr/local/lib
+> > > +bash /etc/init.d/xencommons start
+> > > +
+> > > +brctl addbr xenbr0
+> > > +brctl addif xenbr0 eth0
+> > > +ifconfig eth0 up
+> > > +ifconfig xenbr0 up
+> > > +ifconfig xenbr0 192.168.0.1
+> > > +
+> > > +xl create /etc/xen/domU.cfg
+> > > +${dom0_check}
+> > > +" > etc/local.d/xen.start
+> > > +chmod +x etc/local.d/xen.start
+> > > +# just PVH for now
+> > > +echo '
+> > > +type = "pvh"
+> > > +name = "domU"
+> > > +kernel = "/boot/vmlinuz"
+> > > +ramdisk = "/boot/initrd-domU"
+> > > +extra = "root=/dev/ram0 console=hvc0"
+> > > +memory = 512
+> > > +vif = [ "bridge=xenbr0", ]
+> > > +disk = [ ]
+> > > +' > etc/xen/domU.cfg
+> > > +
+> > > +echo "rc_verbose=yes" >> etc/rc.conf
+> > > +echo "XENCONSOLED_TRACE=all" >> etc/default/xencommons
+> > > +echo "QEMU_XEN=/bin/false" >> etc/default/xencommons
+> > > +mkdir -p var/log/xen/console
+> > > +cp ../binaries/bzImage boot/vmlinuz
+> > > +cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
+> > > +find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/dom0-rootfs.cpio.gz
+> > > +cd ..
+> > > +
+> > > +
+> > > +TFTP=/scratch/gitlab-runner/tftp
+> > > +
+> > > +echo '
+> > > +multiboot2 (http)/gitlab-ci/xen console=com1 com1=115200,8n1 loglvl=all guest_loglvl=all
+> > > +module2 (http)/gitlab-ci/vmlinuz console=hvc0 root=/dev/ram0
+> > > +module2 (http)/gitlab-ci/initrd-dom0
+> > > +' > $TFTP/grub.cfg
+> > > +
+> > > +cp -f binaries/xen $TFTP/xen
+> > > +cp -f binaries/bzImage $TFTP/vmlinuz
+> > > +cp -f binaries/dom0-rootfs.cpio.gz $TFTP/initrd-dom0
+> > > +
+> > > +# start logging the serial; this gives interactive console, don't close its
+> > > +# stdin to not close it; the 'cat' is important, plain redirection would hang
+> > > +# until somebody opens the pipe; opening and closing the pipe is used to close
+> > > +# the console
+> > > +mkfifo /tmp/console-stdin
+> > > +cat /tmp/console-stdin |\
+> > > +ssh control@thor.testnet console | tee smoke.serial &
+> > 
+> > For clarity I would add a variable just below TFTP above to store the
+> > controller node. This will make it easier to change in the future and
+> > also makes it easier to see that it is runner-specific detail, e.g.:
+> > 
+> > TFTP=/scratch/gitlab-runner/tftp
+> > CONTROLLER=control@thor.testnet
+> > 
+> > then here:
+> > 
+> > ssh $CONTROLLER console | tee smoke.serial &
+> 
+> Ok.
+> 
+> > > +# start the system pointing at gitlab-ci predefined config
+> > > +ssh control@thor.testnet gitlabci poweron
+> > > +trap "ssh control@thor.testnet poweroff; : > /tmp/console-stdin" EXIT
+> > > +
+> > > +if [ -n "$wait_and_wakeup" ]; then
+> > > +    # wait for suspend or a timeout
+> > > +    timeout=120
+> > > +    until grep "$wait_and_wakeup" smoke.serial || [ $timeout -le 0 ]; do
+> > > +        sleep 1;
+> > > +        : $((--timeout))
+> > > +    done
+> > > +    if [ $timeout -le 0 ]; then
+> > > +        echo "ERROR: suspend timeout, aborting"
+> > > +        exit 1
+> > > +    fi
+> > > +    # keep it suspended a bit, then wakeup
+> > > +    sleep 30
+> > > +    ssh control@thor.testnet wake
+> > > +fi
+> > 
+> > I like this. It will shorten the duration of the test job. I am not
+> > asking you to do anything, but I think it would be a good idea to have
+> > all test scripts loop around like this if possible to poll for success
+> > every second rather than wait a pre-determined amount of time, which is
+> > usually several minutes longer than necessary.
+> > 
+> > 
+> > > +# give the test time to run a bit, and then check
+> > > +sleep 30
+> > > +
+> > > +(grep -q "^Welcome to Alpine Linux" smoke.serial && grep -q "${passed}" smoke.serial) || exit 1
+> > > +exit 0
+> > > -- 
+> > > git-series 0.9.1
+> > > 
+> 
+> 
+> -- 
+> Best Regards,
+> Marek Marczykowski-Górecki
+> Invisible Things Lab
+> 
+--8323329-517235040-1679342692=:3359--
 
