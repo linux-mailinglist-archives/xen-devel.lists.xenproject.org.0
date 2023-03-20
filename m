@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F5986C0BF4
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 09:15:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.511750.790949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAE746C0C0E
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 09:20:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.511754.790961 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peAev-00081h-4b; Mon, 20 Mar 2023 08:14:25 +0000
+	id 1peAkD-0000Qo-Rm; Mon, 20 Mar 2023 08:19:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 511750.790949; Mon, 20 Mar 2023 08:14:25 +0000
+Received: by outflank-mailman (output) from mailman id 511754.790961; Mon, 20 Mar 2023 08:19:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peAev-0007z3-0F; Mon, 20 Mar 2023 08:14:25 +0000
-Received: by outflank-mailman (input) for mailman id 511750;
- Mon, 20 Mar 2023 08:14:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=AUe7=7M=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1peAet-0007yx-LO
- for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 08:14:23 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0624.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::624])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36b9e0c8-c6f7-11ed-b464-930f4c7d94ae;
- Mon, 20 Mar 2023 09:14:20 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PA4PR04MB7614.eurprd04.prod.outlook.com (2603:10a6:102:ea::16)
- with Microsoft SMTP Server (version=TLS1_2,
+	id 1peAkD-0000NR-Of; Mon, 20 Mar 2023 08:19:53 +0000
+Received: by outflank-mailman (input) for mailman id 511754;
+ Mon, 20 Mar 2023 08:19:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K00X=7M=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1peAkC-0000NL-4H
+ for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 08:19:52 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2060f.outbound.protection.outlook.com
+ [2a01:111:f400:fe5a::60f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fb0d220a-c6f7-11ed-87f5-c1b5be75604c;
+ Mon, 20 Mar 2023 09:19:50 +0100 (CET)
+Received: from MW4PR04CA0201.namprd04.prod.outlook.com (2603:10b6:303:86::26)
+ by CY8PR12MB8409.namprd12.prod.outlook.com (2603:10b6:930:7f::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
- 2023 08:14:17 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.037; Mon, 20 Mar 2023
- 08:14:13 +0000
+ 2023 08:19:46 +0000
+Received: from CO1NAM11FT078.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:86:cafe::da) by MW4PR04CA0201.outlook.office365.com
+ (2603:10b6:303:86::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37 via Frontend
+ Transport; Mon, 20 Mar 2023 08:19:46 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT078.mail.protection.outlook.com (10.13.175.177) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6222.15 via Frontend Transport; Mon, 20 Mar 2023 08:19:46 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 20 Mar
+ 2023 03:19:44 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 20 Mar
+ 2023 01:19:44 -0700
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Mon, 20 Mar 2023 03:19:42 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,209 +63,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36b9e0c8-c6f7-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: fb0d220a-c6f7-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hw+QEUhACpj20NJwKTWakz6p+pahM27deBRKU14GPAZ6UHiyVZXpTx8/4YfJgm2p8834iJS4e/0pcO3j2JH5QFjct5L+BJ2jBaxfvZGOUQezhplcVCcM/H2pUJJvud5wjHiUeU6qhyrfqeIpfA9fksT1jhXTbK6UvqARskHUILm07CEMS+yGuwqdWRygJJGWP53bqrB+/ZPZZ3jLNXZvL9cqZln6f9QSE758ofZDRC6cEurYXQQnXwjqiiuMX/wXQsv+yyJ7R1o91XUPgUQNJObCCzHxo1mec99X/piwGjSD3sAiEBTR9M1JF12ee1Uq0tZSfw7s8ED8DNREhgXuYw==
+ b=kiKDEKQv/ulKI3mUiHLT7i97SDPtjCX9V0E0yot/9moseCFWPOFAoN3TpsRmy6l6zO85vEY0BXD/ZMVGAspAtc3628CESqiwUTE7qS5umd1xZtGDNWsSatsq16vsmPPWcmiXMMt0myVCjSsyasxzaQjnxkBio2+zQ0OVpwKm1RS5zsZmQzdD65oX2/vSOzr6NNpgNTSyBxFEDAKett1uPacryajQRMZdjEVqC1r4pdF0t0XeKwg04eUYmNA0uZC3bbn+WCYZLjttgy28UJJdrYJyoNU6/jcauFwcEHInkFv9GplafbhpBr+2QkuJVk8U+h032gJ/qklDtQAJCuiMhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fALf4sfZYXdGl8/blyrbl7A7VTR5ltLiuPxysFoLP5Q=;
- b=K8cZGfXz7zneUbpC0CF4YUOuUH2CsgnI2neecSO71JW8DOlo8GqiahhO2laxIBCKEEeG0LLZnH0x8WNZn+rkC7GlJt4X8HkPLSWkNzkfjuUsMfUOqdgZtQcRb/PbzLGMYnPp7JJhVe8h4w3SJnUAx2rdBWoefg9S6xdrnD8JgFz2iYNP6AXZzPXtNLee6bD2jP8zjwIxuAwK2PhAAoJm0pyr4GnCmCxrNZgWU0WqhgKBCOV0FerZ+IZEtIAokqgq5zmbEDDy7u85vozExXcq8ZRhYn4sQtYkahVJ7dTvYNpIfIAuGOxnL0NN2GAshjnwzoISXEB6j6SBh8PjAF8klQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=7ZOTRNIqIdCZRbpazo9TlwxUHFHXL2PslnbP3rEpGkc=;
+ b=JAleyPKIJ2e04vnQZQkRScnpl25NqFQ/q6E62pNtUbluuCLV5H4vPkSWRKDFeUcqFl70rSGuo58Y5j7fzf2sWzFXP1D9GVQtn8eFBvyJr4XWAUGfcG6pLKZcvG8o3MFOzwZIvvY78vngYjhXbCEwNWHgmuiN3ARJEOlvsxPmXS43vD23xRXZ92opCmj4EDHeIxzqSLTDL/Xg510seFiCzZjoFzcZg5pvKpMMcgEvQ3EnYCn+iHo8N0d0kWIuvXIOjJDdhXWXGZrj9azvDgtBEohWENgYFtPqN8MLKG9qsp4LdtffwjwD2e+lmJYG1TuP9T2HkgUwhignh+PpVnk0pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fALf4sfZYXdGl8/blyrbl7A7VTR5ltLiuPxysFoLP5Q=;
- b=gGy0Hho8QsOI95JZhxs7eksU5KeuGBP4l8/yyeNGjnb6SuaMT54dav376pzldDz9WJlMCd22BW2XuppzukGgtQg0M4S52MZIQzDqFm75UGsJ0Mr9WAJvLTZhKgLcwDWoil3SBvWdHMSdMqoYwKwHrupfSeETObFCXUnDIQQvIs2QVvsQUq/1CLLkYxStaKKndjMWn9eKOskCNaZRvCYt5ma+pJu0vXAxAEBu5KZPTJRtUFbqJjnS7ZvrK2+Vkuq+xmuUT+7uaSSRpqOAedW8hACbfFTrAw7L6USy+AnnBkLuOsTEA3fPv9VGgE8B2/cSwGfs2C/ALbcZ9eCXXupUDQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b2eaeacc-de5f-ebe9-a330-fbf9e20626b1@suse.com>
-Date: Mon, 20 Mar 2023 09:14:17 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [BUG] x2apic broken with current AMD hardware
-Content-Language: en-US
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: xen-devel@lists.xenproject.org
-References: <ZAiobgH4L0OAS6XP@mattapan.m5p.com>
- <a2e5cb62-9aef-4f91-b5e9-35fee6739fc8@suse.com>
- <ZAkVVhIldUv/xQqt@mattapan.m5p.com>
- <21436010-8212-7b09-a577-09d3f57156bf@suse.com>
- <ZAvGvokloPf+ltr9@mattapan.m5p.com>
- <f33c9b8a-f25d-caab-659d-d34ba21ebc25@suse.com>
- <ZBOSKo+sT/FtWY9C@mattapan.m5p.com>
- <e5b28dae-3699-cb0d-ab7e-42fdd42d3222@suse.com>
- <ZBSi2KfoQXo7hr6z@mattapan.m5p.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZBSi2KfoQXo7hr6z@mattapan.m5p.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0034.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ bh=7ZOTRNIqIdCZRbpazo9TlwxUHFHXL2PslnbP3rEpGkc=;
+ b=q6ND7bJCQDey43TWxyZuv3hNtWXZd5lYnQ0DqGELu2jDlinb+hTgzfMYFu8sxUHZp7m6WsFcw3Rx4nUc3sKieLq6KHP7T9x3k6t86cjfr5X5lgUSKxvkuMNXGrpUIkzjKj0vRVY9MwKMwkN+qHWFQvCB2VCYeiWRm2iOOsrSNf0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH v3] xen/console: Skip switching serial input to non existing domains
+Date: Mon, 20 Mar 2023 09:19:35 +0100
+Message-ID: <20230320081935.18367-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB7614:EE_
-X-MS-Office365-Filtering-Correlation-Id: 282884e9-2da2-4c70-70d8-08db291b1715
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT078:EE_|CY8PR12MB8409:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d14460a-c4fb-486e-270d-08db291bddc5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	BfuyPPTwikaNBrot3Ct0ZVAup4cTPc3hz9qbDmTs8xPVp7eIKAY+2kKMB5CcB71S3w0tnmhgKmO0ct6+4FCmcZhaBwaPHs/jnB9T7YGTKsdSfLfZ57MX1xn11YjT+m/LEhI36tbkpw2icpkkMt5XyLa9mT3YSC4t7lM21/Xn5IuiTTMRqJY8Mo17Do4leSk8M+mzkQW4fRwVk58IQoOIJ9xjh1eC5hxDo6OXfS3tW+XSdAZIqxqNiDFdZ51JLI//MYiGHQdKNGCiDFbni9HTlZpzDDNdMwGqNi0IkmgSeaiz0zYJO+wmlEG2WHbUjHzqXn4qCur6DLWzRW5LoIX9KOMJlI5zJo9SxAjjOI/rR/lIQnKkjnO82/baZysAHK50bjtkaqzkyVK6HYnW9O/RwgMhdCoJHTcL9MybGs4GeHKNFti2NhCJHb1lSYH3ymlJDP7aN5ggMoIuS1HvLXWA5/ttVBTj8G7czRLPEeprWCZ/X8em2E0OUIzJcXDoJp7wza4MpVwBu+XlEC827nfFNhgNmwdlQdQuB0vROHnDP3mhFaHpiOA57wy0Pr7EpeAO1wz499D4KuJjwafGT+qmZx96mjG+3itvfbsZZuPuRJkVwXcwLRoGEvcLeC8/tH92LiBZqJZQe9m6Ttqzt2mwhMZuItebTGu9hACPwHbqPbn9EZzzDdu4vhleN5/k/hzdiB/WeCaUYBNnEu9SNRvd35epJ4+QzcXAMTFQV+3aPfQ=
+	W6de0U+jKAbC71Av+6PXdk+Y7JC2NPqnmPT26KnmF8z1tsH5FaYUtFLSLQa4rx49HiSKUl7ua1BbvFKYesaGOlXFkIxmG1V+Me6sTVm4IoftcuhI3YNm4kguGziwmym08SI2XAWeK6hS1JPrrHOFP55AKJ7tWCoU4Pmw8Ze/DAYqaDIA4UZUaJsBw9y0oUs8OqH0G98PxVTTobXdJkVoYI9JRstt5BCKgpEAwjhj+Zzbv8OrFX8utVipgmXONuKsdqNlyBdEjOQtNa37G6PKh5dT3+d6+K2d5zXi7DYqkeW2nmF1ixttu3ZuyhPNgdO5go2w3oe+I+U0gYJVrVka7N/zQBU4lkkYkoLVnIQqpSiZtB5SgzloCDSxebJATxvKdX3EbQgqngfhn3rKryE8kjj+lQXjmBviPeO4ONKPRKlja6dzDTdzlN63vO4vAy8r2mJAjnHMeniPuzin1PHuIvtgJ52pnXlWjDNg7h8SWkWZk+wz+qLsSsMjmA9z/C91/dQFt31a41idVKycHF7eWQgR6ftedRWpynZ7+MmaOmN5LlWmT1rs3Kq9ULw2xKKQN8kqAkSwMV6fxsugahjCUTrgSgXDjAWQcujd6wB4Djkdv5PClNj8DWnGUKcJ5nahFvEEstFLqKGuyY0C+cSxYoZyGJqZKiqI2HqZH25eOvKNpHOevoppjhalLYlrSv0uh8cWPkT9hVMQx+awTiRsijbHA9fLsNemnRzBMfdNWsg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(136003)(396003)(376002)(366004)(39860400002)(346002)(451199018)(186003)(478600001)(26005)(6486002)(83380400001)(6506007)(6512007)(31686004)(53546011)(2616005)(316002)(66556008)(66476007)(8676002)(66946007)(4326008)(8936002)(41300700001)(5660300002)(38100700002)(2906002)(31696002)(86362001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K0FTMmlHVVRpV3pmWUd4L2kvejJOR0M1QzBRY2Q4OVNPckJwOXRWYS8rZFMw?=
- =?utf-8?B?VG9DQWlneFN2STlkSFFQb3g2ckZEWG9zM09qNzVoa3pGSVlpZjdqSE94VCtB?=
- =?utf-8?B?cmxwYVNuZXptVXdTVk9OSllOWDlDc0dKckJXV2tFQzVyT2ZqVkdZOUY1ckVR?=
- =?utf-8?B?b2dKbGliSldDMlFLN3BubmNENnMwQWhUOUxUcGgrMk05d1AwQVIzd21DeTVK?=
- =?utf-8?B?endRY0ZPTmd0QmpwaUVLQi9EVXFtamFha3hLc1ZhMllHLzhsMU15VGdudlYy?=
- =?utf-8?B?cDdVcUFZUUVocW0xL05hUEV1TEIyRjlxaStVdkxRMDc5WHFHUk1Fc29VWGJ4?=
- =?utf-8?B?emRCNm9KU1dNQzFuV1M1eDdGdTh5R0dQbW1IVFVzZVhwM2VGOWtaZWdQNCtW?=
- =?utf-8?B?a0RETU9iSDczM2hWSk9sUjJXSk5FMmUvNTBOL1FQUGQ0NTl4SlN3WEJVdmJy?=
- =?utf-8?B?ZitqSlgwT2lXTlBZNDFVdERWL2ppc0dkczJubjErbk92QTlXZSs5ZTRVMlR1?=
- =?utf-8?B?d2liVzlIaWVpYi80Z3hOc3U2RWFVd0VwampHRzdZRGlwSGh2QUlNS2Vubkxr?=
- =?utf-8?B?V2dJd2ZYVGxDZTFaNENYOW5VMEJaNlA1OTdYSURQd3cveEpJZ2F2UE95RU1F?=
- =?utf-8?B?ODl4TkxDSW1ESUxlaUhDdHBsMU5DbjdVcUgyWTgyMmErY1VMNUN5QkZoOUdi?=
- =?utf-8?B?aHJpeHpkTXlvR0hiMHI2MXdWYzJWdzNnc0RtSU5FUXc0eWloQkZTaHBZT3pD?=
- =?utf-8?B?UjRZUURINGt0VnRXeEJiU1k5RnRwcUtCNGt0RXQzZm5JNlZGY1pDUFZzb0xm?=
- =?utf-8?B?WXJCc3NLMDB5R3NMeGlkOXcydGVndlp0UjBlMXUxcG1hRENrSWg0MUFnVDk1?=
- =?utf-8?B?OTl5VGlOdDdhWVVtMHVkUDAvV1RZMzE0UDJPY0JqV0pkVzg4bk13L25KSWhG?=
- =?utf-8?B?TWRQODFMQUZZMTF6NTAwQVlPYVkvSE1lOWJLdXYxOWEranQzZml5NFIyRllo?=
- =?utf-8?B?WWsxVktMRzNpNkU2ZEY2QjF3Wjc0YlMwNVpQaWtvd09lL0NlMGNKTDQwbm52?=
- =?utf-8?B?NVBSL0J0YWRzSUwxMWp5YVg3RGJ4bDRvTnp6aUF1d1Q0Qit3RjdWQzlwZjZG?=
- =?utf-8?B?Qk8rL0w2bGJpVjZKMU15c0w5bGh0Wmxzd1Nta1VENDdYVWJnbjB1c2RFVDRk?=
- =?utf-8?B?TWdEMzRWdHVSQ2tTNUpiRG82cURUa05MYWd0ZW9Wanc2V2RjRVF4dy9VbnhC?=
- =?utf-8?B?TTQ0WmZHbFZ6N2xTYk41QTArZm1Bamd0aG5XallLOWNRbG5hMkoxSXhKTytR?=
- =?utf-8?B?WjRQY1FtRDFPQ055Q2ZFQW8rV1V1TkZCUGVQbUxrbk0xRTdTRVhLc0V3eFpk?=
- =?utf-8?B?OFNpcmY1OU1ueGRhNkNSQlRMVnVTem80dDk0VGV1YlBtOWVFeEN1S3RwbHZQ?=
- =?utf-8?B?L2o1UzF6ZUJDZWp0akhWVzR4NkJBNkxkT3NzV21uNzV5My9NcSs1bVRGbDZv?=
- =?utf-8?B?SUJBUmY0MmZ3MTdXMm1rY2VCKzYrSmxjNStNMXJ0Qm41dGFlSDZvbWhsMlVk?=
- =?utf-8?B?a25UYkk4dm0vSmpwMEpIekRFbjRpY1l1R3hXK2IwSU14K3hkeVJUamhDS1Qz?=
- =?utf-8?B?R2twRnozS3dIdUpaaERiTENiaDZWTmlEUTJmUUc1YS9DMUtvVUpvbTZGVUJq?=
- =?utf-8?B?dkVlc3dDbkEwNnJ5UjhvbFdIUnQzcVlkb1hidWlMazA3SVVWZDZxaGxSdGVj?=
- =?utf-8?B?bDNqUXlIblcwQnpxMXpCblJZRVdvNkZrcitvSzVFZ2sxZFRidGlTMy9DMUcr?=
- =?utf-8?B?NDJtSDdLRTl2U294VktRUmh4ZTJ2UDJEZStyNytGcUphNkhpd0pUVnVrZWRF?=
- =?utf-8?B?cXRmWHduTkJteDBvQzA1ZXAyaGtudjVycHZyRG0wQmxpQkpvRkFab1QyS25q?=
- =?utf-8?B?QnpJVVpKNThJTmFyMDh4R0hIcmFPWnZoZEZGeThSOGxQYzg2dUhYK0lXeWVE?=
- =?utf-8?B?ZFU5ZzhiRFdBYXZBYmNBZU1HcFBUenpHTyszaHU2QXgxNWdFYzdoVmtBSFly?=
- =?utf-8?B?b2JiL2hBb2xwL1pkSkR3TUU5ajR2QUxPYldxN2RhZzhDNGZwTXBONjMyNjEr?=
- =?utf-8?Q?RqOETMkRtywRrhzRik1DgFcN/?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 282884e9-2da2-4c70-70d8-08db291b1715
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 08:14:13.2600
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(396003)(376002)(39860400002)(346002)(451199018)(36840700001)(40470700004)(46966006)(426003)(186003)(6666004)(47076005)(478600001)(26005)(336012)(83380400001)(54906003)(1076003)(2616005)(316002)(8676002)(70586007)(70206006)(6916009)(4326008)(36860700001)(8936002)(44832011)(41300700001)(5660300002)(40460700003)(82740400003)(81166007)(2906002)(356005)(40480700001)(82310400005)(86362001)(36756003)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 08:19:46.3035
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FBjGBbkx4b+ZtZ2QQycVAL9IOTsazMq1petcDIueClGivsgq/AbxBAFSRdWm+gEQ1tJHA4bTserYLSz0lv41kw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7614
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d14460a-c4fb-486e-270d-08db291bddc5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT078.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8409
 
-On 17.03.2023 18:26, Elliott Mitchell wrote:
-> On Fri, Mar 17, 2023 at 09:22:09AM +0100, Jan Beulich wrote:
->> On 16.03.2023 23:03, Elliott Mitchell wrote:
->>> On Mon, Mar 13, 2023 at 08:01:02AM +0100, Jan Beulich wrote:
->>>> On 11.03.2023 01:09, Elliott Mitchell wrote:
->>>>> On Thu, Mar 09, 2023 at 10:03:23AM +0100, Jan Beulich wrote:
->>>>>>
->>>>>> In any event you will want to collect a serial log at maximum verbosity.
->>>>>> It would also be of interest to know whether turning off the IOMMU avoids
->>>>>> the issue as well (on the assumption that your system has less than 255
->>>>>> CPUs).
->>>>>
->>>>> I think I might have figured out the situation in a different fashion.
->>>>>
->>>>> I was taking a look at the BIOS manual for this motherboard and noticed
->>>>> a mention of a "Local APIC Mode" setting.  Four values are listed
->>>>> "Compatibility", "xAPIC", "x2APIC", and "Auto".
->>>>>
->>>>> That is the sort of setting I likely left at "Auto" and that may well
->>>>> result in x2 functionality being disabled.  Perhaps the x2APIC
->>>>> functionality on AMD is detecting whether the hardware is present, and
->>>>> failing to test whether it has been enabled?  (could be useful to output
->>>>> a message suggesting enabling the hardware feature)
->>>>
->>>> Can we please move to a little more technical terms here? What is "present"
->>>> and "enabled" in your view? I don't suppose you mean the CPUID bit (which
->>>> we check) and the x2APIC-mode-enable one (which we drive as needed). It's
->>>> also left unclear what the four modes of BIOS operation evaluate to. Even
->>>> if we knew that, overriding e.g. "Compatibility" (which likely means some
->>>> form of "disabled" / "hidden") isn't normally an appropriate thing to do.
->>>> In "Auto" mode Xen likely should work - the only way I could interpret the
->>>> the other modes are "xAPIC" meaning no x2APIC ACPI tables entries (and
->>>> presumably the CPUID bit also masked), "x2APIC" meaning x2APIC mode pre-
->>>> enabled by firmware, and "Auto" leaving it to the OS to select. Yet that's
->>>> speculation on my part ...
->>>
->>> I provided the information I had discovered.  There is a setting for this
->>> motherboard (likely present on some similar motherboards) which /may/
->>> effect the issue.  I doubt I've tried "compatibility", but none of the
->>> values I've tried have gotten the system to boot without "x2apic=false"
->>> on Xen's command-line.
->>>
->>> When setting to "x2APIC" just after "(XEN) AMD-Vi: IOMMU Extended Features:"
->>> I see the line "(XEN) - x2APIC".  Later is the line
->>> "(XEN) x2APIC mode is already enabled by BIOS."  I'll guess "Auto"
->>> leaves the x2APIC turned off since neither line is present.
->>
->> When "(XEN) - x2APIC" is absent the IOMMU can't be switched into x2APIC
->> mode. Are you sure that's the case when using "Auto"?
-> 
-> grep -eAPIC\ driver -e-\ x2APIC:
-> 
-> "Auto":
-> (XEN) Using APIC driver default
-> (XEN) Overriding APIC driver with bigsmp
-> (XEN) Switched to APIC driver x2apic_cluster
-> 
-> "x2APIC":
-> (XEN) Using APIC driver x2apic_cluster
-> (XEN) - x2APIC
-> 
-> Yes, I'm sure.
+At the moment, we direct serial input to hardware domain by default.
+This does not make any sense when running in true dom0less mode, since
+such domain does not exist. As a result, users wishing to write to
+an emulated UART of a domU are always forced to execute CTRL-AAA first.
+The same issue is when rotating among serial inputs, where we always
+have to go through hardware domain case. This problem can be elaborated
+further to all the domains that no longer exist.
 
-Okay, this then means we're running in a mode we don't mean to run
-in: When the IOMMU claims to not support x2APIC mode (which is odd in
-the first place when at the same time the CPU reports x2APIC mode as
-supported), amd_iommu_prepare() is intended to switch interrupt
-remapping mode to "restricted" (which in turn would force x2APIC mode
-to "physical", not "clustered"). I notice though that there are a
-number of error paths in the function which bypass this setting. Could
-you add a couple of printk()s to understand which path is taken (each
-time; the function can be called more than once)?
+Modify switch_serial_input() so that we skip switching serial input to
+non existing domains. Take the opportunity to define and make use of
+macro max_console_rx to make it clear what 'max_init_domid + 1' means
+in the console code context.
 
->>> Both cases the line "(XEN) Switched to APIC driver x2apic_cluster" is
->>> present (so perhaps "Auto" merely doesn't activate it).
->>
->> Did you also try "x2apic_phys" on the Xen command line (just to be sure
->> this isn't a clustered-mode only issue)?
-> 
-> No.  In fact x2apic_cluster is mentioned in all failure cases.
+For now, to minimize the required changes and to match the current
+behavior with hwdom, the default input goes to the first real domain.
+The choice is more or less arbitrary since dom0less domUs are supposedly
+equal. This will be handled in the future by adding support in boot time
+configuration for marking a specific domain preferred in terms of
+directing serial input to.
 
-Could you give physical mode a try, please?
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+Changes in v3:
+ - properly handle case where domain with highest ID no longer exists
+ - define max_console_rx
+Changes in v2:
+ - was: xen/console: Handle true dom0less case when switching serial input
+ - use a more generic approach to handle all non-existing domains
+---
+ xen/drivers/char/console.c | 39 +++++++++++++++++++++++++++++---------
+ 1 file changed, 30 insertions(+), 9 deletions(-)
 
->>> Appears error_interrupt() needs locking or some concurrency handling
->>> mechanism since the last error is jumbled.  With the setting "x2APIC"
->>> I get a bunch of:
->>> "(XEN) APIC error on CPU#: 00(08)(XEN) APIC error on CPU#: 00(08)"
->>> (apparently one for each core)
->>> Followed by "Receive accept error, Receive accept error," (again,
->>> apparently one for each core).  Then a bunch of newlines (same pattern).
->>
->> This is a known issue, but since the messages shouldn't appear in the
->> first place so far no-one has bothered to address this.
-> 
-> I won't claim it is the best solution, but see other message.
-> 
-> I'm tempted to propose allowing _Static_assert() since it is valuable
-> functionality for preventing issues.
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 51e5408f2114..86aa2b9c7165 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -473,6 +473,8 @@ static void cf_check dump_console_ring_key(unsigned char key)
+  */
+ static unsigned int __read_mostly console_rx = 0;
+ 
++#define max_console_rx (max_init_domid + 1)
++
+ /* Make sure to rcu_unlock_domain after use */
+ struct domain *console_input_domain(void)
+ {
+@@ -483,15 +485,34 @@ struct domain *console_input_domain(void)
+ 
+ static void switch_serial_input(void)
+ {
+-    if ( console_rx == max_init_domid + 1 )
+-    {
+-        console_rx = 0;
+-        printk("*** Serial input to Xen");
+-    }
+-    else
++    unsigned int next_rx = console_rx + 1;
++
++    /*
++     * Rotate among Xen, dom0 and boot-time created domUs while skipping
++     * switching serial input to non existing domains.
++     */
++    while ( next_rx <= max_console_rx + 1 )
+     {
+-        console_rx++;
+-        printk("*** Serial input to DOM%d", console_rx - 1);
++        if ( next_rx == max_console_rx + 1 )
++        {
++            console_rx = 0;
++            printk("*** Serial input to Xen");
++            break;
++        }
++        else
++        {
++            struct domain *d = rcu_lock_domain_by_id(next_rx - 1);
++
++            if ( d )
++            {
++                rcu_unlock_domain(d);
++                console_rx = next_rx;
++                printk("*** Serial input to DOM%d", console_rx - 1);
++                break;
++            }
++
++            next_rx++;
++        }
+     }
+ 
+     if ( switch_code )
+@@ -1089,7 +1110,7 @@ void __init console_endboot(void)
+      * a useful 'how to switch' message.
+      */
+     if ( opt_conswitch[1] == 'x' )
+-        console_rx = max_init_domid + 1;
++        console_rx = max_console_rx;
+ 
+     register_keyhandler('w', dump_console_ring_key,
+                         "synchronously dump console ring buffer (dmesg)", 0);
+-- 
+2.25.1
 
-How does _Static_assert() come into play here? Also note that we already
-use it when available ...
-
-Jan
 
