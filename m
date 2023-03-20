@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F50A6C2427
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 22:56:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512145.791882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D0396C25B0
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 00:36:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512150.791898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peNUP-0002bB-9K; Mon, 20 Mar 2023 21:56:25 +0000
+	id 1peP1w-0005VO-Fy; Mon, 20 Mar 2023 23:35:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512145.791882; Mon, 20 Mar 2023 21:56:25 +0000
+Received: by outflank-mailman (output) from mailman id 512150.791898; Mon, 20 Mar 2023 23:35:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peNUP-0002Z0-6N; Mon, 20 Mar 2023 21:56:25 +0000
-Received: by outflank-mailman (input) for mailman id 512145;
- Mon, 20 Mar 2023 21:56:23 +0000
+	id 1peP1w-0005Sq-DA; Mon, 20 Mar 2023 23:35:08 +0000
+Received: by outflank-mailman (input) for mailman id 512150;
+ Mon, 20 Mar 2023 23:35:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c5Rx=7M=yandex.ru=isaikin-dmitry@srs-se1.protection.inumbo.net>)
- id 1peNUN-0002Yu-A7
- for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 21:56:23 +0000
-Received: from forward200b.mail.yandex.net (forward200b.mail.yandex.net
- [178.154.239.157]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c3db831-c76a-11ed-87f5-c1b5be75604c;
- Mon, 20 Mar 2023 22:56:21 +0100 (CET)
-Received: from mail-nwsmtp-smtp-production-main-45.sas.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-45.sas.yp-c.yandex.net
- [IPv6:2a02:6b8:c08:6413:0:640:1bc4:0])
- by forward200b.mail.yandex.net (Yandex) with ESMTP id 8A920600C0;
- Tue, 21 Mar 2023 00:56:18 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-45.sas.yp-c.yandex.net
- (smtp/Yandex) with ESMTPSA id EuwiEDUWkuQ0-aa6KDLgg; 
- Tue, 21 Mar 2023 00:56:17 +0300
+ <SRS0=Z4LM=7M=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1peP1u-0005SU-PD
+ for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 23:35:07 +0000
+Received: from rs227.mailgun.us (rs227.mailgun.us [209.61.151.227])
+ by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
+ id d6926686-c777-11ed-87f5-c1b5be75604c;
+ Tue, 21 Mar 2023 00:35:04 +0100 (CET)
+Received: from mail-yb1-f173.google.com (mail-yb1-f173.google.com
+ [209.85.219.173]) by
+ 95303ccc4d02 with SMTP id 6418eda54699828fae8ef4b2 (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Mon, 20 Mar 2023 23:35:01 GMT
+Received: by mail-yb1-f173.google.com with SMTP id z83so15207013ybb.2
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Mar 2023 16:35:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,323 +41,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c3db831-c76a-11ed-87f5-c1b5be75604c
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail; t=1679349377;
-	bh=cPHulWu7xT33kLucFe1NjIiDqlIPl0UWOtkZ4jCoB7k=;
-	h=Message-Id:Date:Cc:Subject:To:From;
-	b=RtNcE1cm4wLdFk3oVuWqQ2Kc1+CjjCamkZ5Aa9+dCth+XKY1D63opTOWe80fNtMrg
-	 Qex1LVdn3b4rAyRkE0fXdJVaWr5JZoKwR1lEDmtxQZbm8tEcaWdB59cTVIo/YC8QQo
-	 j3Dso3h4GA3x/RLgpbXn/jk8I9jccWoCWlXYRGRw=
-Authentication-Results: mail-nwsmtp-smtp-production-main-45.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-From: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-To: xen-devel@lists.xenproject.org
-Cc: Dmitry Isaykin <isaikin-dmitry@yandex.ru>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Anton Belousov <abelousov@ptsecurity.com>
-Subject: [XEN PATCH v4] x86/monitor: Add new monitor event to catch I/O instructions
-Date: Tue, 21 Mar 2023 00:56:12 +0300
-Message-Id: <1d3e2081fba9a1ce07c3e2a28eddcd6f51d52854.1679348946.git.isaikin-dmitry@yandex.ru>
-X-Mailer: git-send-email 2.39.2
+X-Inumbo-ID: d6926686-c777-11ed-87f5-c1b5be75604c
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
+ q=dns/txt; s=mailo; t=1679355301; x=1679362501; h=Content-Type: Cc: To: To:
+ Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
+ MIME-Version: Sender: Sender;
+ bh=jDFVo1Kvy4xvlr3ArcU6O89+q/naVyly7oLes1oNCj4=;
+ b=Sozea4O88uvnW2fNZN/OGtnN1dhmjHm9rxTl61hwT3HA49VjQGLzV/0QBWKeiOnTzdw044Mpczyp9NjmXnfEKwOLLGySIAasxf1r0J2fytmt6Fyvy0A5BQvdhjf14JnuvCibl4t/LX1zGbejaEwkPlVn2QSmOGkoH4k9px219G3+kqFtyfcO+54QRgpYlqpqVfYTz4RFjKBzB30G4jSK4ek3eUX28p621vBV5cMaetcnu2X7+/JQMPGRSaVbIVO1VOaimNJPP8xfe8beC562syzk7GAPUtp/wyKRm8XS8fyuJ0sMHNafDhhrGlGRKRgLbJH7Euw918hLYuPm0LB0GA==
+X-Mailgun-Sending-Ip: 209.61.151.227
+X-Mailgun-Sid: WyIyYTNmOCIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsImNkODQwIl0=
+Sender: tamas@tklengyel.com
+X-Gm-Message-State: AAQBX9fa1Mu1RmljZ+bC4ITJ8hVfEj+SH/6p+4P8qxItUptgzuYD91PF
+	thuJtI5xuBFMTAEDMOJn029qKkc2Kk84L0DzOvw=
+X-Google-Smtp-Source: AKy350b9GPRARXyPIivWMZTR+1EUO3Uu+CpqMF6NZ/o7JhPykqzlTyTOVsxI/Anp+KHx6O/XCdBqjI5l7uyWagwsvhA=
+X-Received: by 2002:a5b:24e:0:b0:b69:f11b:690f with SMTP id
+ g14-20020a5b024e000000b00b69f11b690fmr147340ybp.6.1679355301739; Mon, 20 Mar
+ 2023 16:35:01 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <e047a7a7-2e45-48de-2cb4-69001e95e1a8@list.ru> <CABfawhncTLzRvHYF3SyhdidfobP9PB3YOZ9oTjRREjKs07KtXQ@mail.gmail.com>
+ <c5ea0f53-8cc9-509e-6c82-deea00f1ed74@list.ru>
+In-Reply-To: <c5ea0f53-8cc9-509e-6c82-deea00f1ed74@list.ru>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 20 Mar 2023 19:34:25 -0400
+X-Gmail-Original-Message-ID: <CABfawhnRmGwB4VTx2i9Wg2c8dfyKqU5zM6MnWsMHBOfXA43+qA@mail.gmail.com>
+Message-ID: <CABfawhnRmGwB4VTx2i9Wg2c8dfyKqU5zM6MnWsMHBOfXA43+qA@mail.gmail.com>
+Subject: Re: [XEN PATCH v1 1/1] x86/domctl: add gva_to_gfn command
+To: =?UTF-8?B?0JrQvtCy0LDQu9GR0LIg0KHQtdGA0LPQtdC5?= <valor@list.ru>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Dmitry Isaykin <isaikin-dmitry@yandex.ru>
+Content-Type: multipart/alternative; boundary="00000000000036429d05f75d601d"
 
-Adds monitor support for I/O instructions.
+--00000000000036429d05f75d601d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-Signed-off-by: Anton Belousov <abelousov@ptsecurity.com>
----
-Changes in v4:
- * Avoid the use of fixed-width types
- * Document vm_event_io structure fields
- * Untie vm-event interface from ioreq one
+On Mon, Mar 20, 2023 at 3:23=E2=80=AFPM =D0=9A=D0=BE=D0=B2=D0=B0=D0=BB=D1=
+=91=D0=B2 =D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=B9 <valor@list.ru> wrote:
+>
+>
+>
+> 21.03.2023 1:51, Tamas K Lengyel wrote:
+> >
+> >
+> > On Mon, Mar 20, 2023 at 12:32=E2=80=AFPM =D0=9A=D0=BE=D0=B2=D0=B0=D0=BB=
+=D1=91=D0=B2 =D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=B9 <valor@list.ru
+> > <mailto:valor@list.ru>> wrote:
+> >  >
+> >  > gva_to_gfn command used for fast address translation in LibVMI
+project.
+> >  > With such a command it is possible to perform address translation in
+> >  > single call instead of series of queries to get every page table.
+> >
+> > You have a couple assumptions here:
+> >   - Xen will always have a direct map of the entire guest memory - ther=
+e
+> > are already plans to move away from that. Without that this approach
+> > won't have any advantage over doing the same mapping by LibVMI
+>
+> Thanks! I didn't know about the plan. Though I use this patch
+> back ported into 4.16.
+>
+> >   - LibVMI has to map every page for each page table for every lookup -
+> > you have to do that only for the first, afterwards the pages on which
+> > the pagetable is are kept in a cache and subsequent lookups would be
+> > actually faster then having to do this domctl since you can keep being
+> > in the same process instead of having to jump to Xen.
+>
+> Yes. I know about the page cache. But I have faced with several issues
+> with cache like this one https://github.com/libvmi/libvmi/pull/1058 .
+> So I had to disable the cache.
 
-Changes in v3:
- * Rebase on staging
- * Refactor branch logic on monitor_traps response
+The issue you linked to is an issue with a stale v2p cache, which is a
+virtual TLB. The cache I talked about is the page cache, which is just
+maintaining a list of the pages that were accessed by LibVMI for future
+accesses. You can have one and not the other (ie. ./configure
+--disable-address-cache --enable-page-cache).
 
-Changes in v2:
- * Handled INS and OUTS instructions too
- * Added I/O monitoring support for AMD
- * Rename functions and structures (remove "_instruction" part)
- * Reorder parameters of hvm_monitor_io to match handle_pio's order
- * Change type of string_ins parameter to bool
- * Change vm_event_io structure
- * Handle monitor_traps's return status
----
- tools/include/xenctrl.h                |  1 +
- tools/libs/ctrl/xc_monitor.c           | 13 +++++++++++++
- xen/arch/x86/hvm/monitor.c             | 21 +++++++++++++++++++++
- xen/arch/x86/hvm/svm/svm.c             |  9 +++++++++
- xen/arch/x86/hvm/vmx/vmx.c             | 24 +++++++++++++++++++-----
- xen/arch/x86/include/asm/domain.h      |  1 +
- xen/arch/x86/include/asm/hvm/monitor.h |  3 +++
- xen/arch/x86/include/asm/monitor.h     |  3 ++-
- xen/arch/x86/monitor.c                 | 13 +++++++++++++
- xen/include/public/domctl.h            |  1 +
- xen/include/public/vm_event.h          | 10 ++++++++++
- 11 files changed, 93 insertions(+), 6 deletions(-)
+Tamas
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 23037874d3..05967ecc92 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2102,6 +2102,7 @@ int xc_monitor_emul_unimplemented(xc_interface *xch, uint32_t domain_id,
-                                   bool enable);
- int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
-                       bool sync);
-+int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable);
- /**
-  * This function enables / disables emulation for each REP for a
-  * REP-compatible instruction.
-diff --git a/tools/libs/ctrl/xc_monitor.c b/tools/libs/ctrl/xc_monitor.c
-index c5fa62ff30..3cb96f444f 100644
---- a/tools/libs/ctrl/xc_monitor.c
-+++ b/tools/libs/ctrl/xc_monitor.c
-@@ -261,6 +261,19 @@ int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
-     return do_domctl(xch, &domctl);
- }
- 
-+int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable)
-+{
-+    DECLARE_DOMCTL;
-+
-+    domctl.cmd = XEN_DOMCTL_monitor_op;
-+    domctl.domain = domain_id;
-+    domctl.u.monitor_op.op = enable ? XEN_DOMCTL_MONITOR_OP_ENABLE
-+                                    : XEN_DOMCTL_MONITOR_OP_DISABLE;
-+    domctl.u.monitor_op.event = XEN_DOMCTL_MONITOR_EVENT_IO;
-+
-+    return do_domctl(xch, &domctl);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
-index a11cd76f4d..4f500beaf5 100644
---- a/xen/arch/x86/hvm/monitor.c
-+++ b/xen/arch/x86/hvm/monitor.c
-@@ -346,6 +346,27 @@ int hvm_monitor_vmexit(unsigned long exit_reason,
-     return monitor_traps(curr, ad->monitor.vmexit_sync, &req);
- }
- 
-+int hvm_monitor_io(unsigned int port, unsigned int bytes,
-+                   bool in, bool str)
-+{
-+    struct vcpu *curr = current;
-+    struct arch_domain *ad = &curr->domain->arch;
-+    vm_event_request_t req = {
-+        .reason = VM_EVENT_REASON_IO_INSTRUCTION,
-+        .u.io.bytes = bytes,
-+        .u.io.port = port,
-+        .u.io.in = in,
-+        .u.io.str = str,
-+    };
-+
-+    if ( !ad->monitor.io_enabled )
-+        return 0;
-+
-+    set_npt_base(curr, &req);
-+
-+    return monitor_traps(curr, true, &req);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index bfe03316de..02563e4b70 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -2939,6 +2939,15 @@ void svm_vmexit_handler(void)
-         break;
- 
-     case VMEXIT_IOIO:
-+        rc = hvm_monitor_io(vmcb->ei.io.port,
-+                            vmcb->ei.io.bytes,
-+                            vmcb->ei.io.in,
-+                            vmcb->ei.io.str);
-+        if ( rc < 0 )
-+            goto unexpected_exit_type;
-+        if ( rc )
-+            break;
-+
-         if ( !vmcb->ei.io.str )
-         {
-             if ( handle_pio(vmcb->ei.io.port,
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 00b531f76c..0b7a302928 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -4560,8 +4560,24 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-         break;
- 
-     case EXIT_REASON_IO_INSTRUCTION:
-+    {
-+        unsigned int port, bytes;
-+        bool in, str;
-+        int rc;
-+
-         __vmread(EXIT_QUALIFICATION, &exit_qualification);
--        if ( exit_qualification & 0x10 )
-+
-+        port = (exit_qualification >> 16) & 0xFFFF;
-+        bytes = (exit_qualification & 0x07) + 1;
-+        in = (exit_qualification & 0x08);
-+        str = (exit_qualification & 0x10);
-+        rc = hvm_monitor_io(port, bytes, in, str);
-+        if ( rc < 0 )
-+            goto exit_and_crash;
-+        if ( rc )
-+            break;
-+
-+        if ( str )
-         {
-             /* INS, OUTS */
-             if ( !hvm_emulate_one_insn(x86_insn_is_portio, "port I/O") )
-@@ -4570,13 +4586,11 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-         else
-         {
-             /* IN, OUT */
--            uint16_t port = (exit_qualification >> 16) & 0xFFFF;
--            int bytes = (exit_qualification & 0x07) + 1;
--            int dir = (exit_qualification & 0x08) ? IOREQ_READ : IOREQ_WRITE;
--            if ( handle_pio(port, bytes, dir) )
-+            if ( handle_pio(port, bytes, in ? IOREQ_READ : IOREQ_WRITE) )
-                 update_guest_eip(); /* Safe: IN, OUT */
-         }
-         break;
-+    }
- 
-     case EXIT_REASON_INVD:
-     case EXIT_REASON_WBINVD:
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index 7bc126587d..29027ffd29 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -435,6 +435,7 @@ struct arch_domain
-         unsigned int descriptor_access_enabled                             : 1;
-         unsigned int guest_request_userspace_enabled                       : 1;
-         unsigned int emul_unimplemented_enabled                            : 1;
-+        unsigned int io_enabled                                            : 1;
-         /*
-          * By default all events are sent.
-          * This is used to filter out pagefaults.
-diff --git a/xen/arch/x86/include/asm/hvm/monitor.h b/xen/arch/x86/include/asm/hvm/monitor.h
-index 639f6dfa37..6884f38d73 100644
---- a/xen/arch/x86/include/asm/hvm/monitor.h
-+++ b/xen/arch/x86/include/asm/hvm/monitor.h
-@@ -54,6 +54,9 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
- int hvm_monitor_vmexit(unsigned long exit_reason,
-                        unsigned long exit_qualification);
- 
-+int hvm_monitor_io(unsigned int port, unsigned int bytes,
-+                   bool in, bool str);
-+
- #endif /* __ASM_X86_HVM_MONITOR_H__ */
- 
- /*
-diff --git a/xen/arch/x86/include/asm/monitor.h b/xen/arch/x86/include/asm/monitor.h
-index d8d54c5f23..96e6a9d0d8 100644
---- a/xen/arch/x86/include/asm/monitor.h
-+++ b/xen/arch/x86/include/asm/monitor.h
-@@ -90,7 +90,8 @@ static inline uint32_t arch_monitor_get_capabilities(struct domain *d)
-                     (1U << XEN_DOMCTL_MONITOR_EVENT_WRITE_CTRLREG) |
-                     (1U << XEN_DOMCTL_MONITOR_EVENT_EMUL_UNIMPLEMENTED) |
-                     (1U << XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT) |
--                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT));
-+                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT) |
-+                    (1U << XEN_DOMCTL_MONITOR_EVENT_IO));
- 
-     if ( hvm_is_singlestep_supported() )
-         capabilities |= (1U << XEN_DOMCTL_MONITOR_EVENT_SINGLESTEP);
-diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
-index 30ca71432c..d4857faf8a 100644
---- a/xen/arch/x86/monitor.c
-+++ b/xen/arch/x86/monitor.c
-@@ -346,6 +346,19 @@ int arch_monitor_domctl_event(struct domain *d,
-         break;
-     }
- 
-+    case XEN_DOMCTL_MONITOR_EVENT_IO:
-+    {
-+        bool old_status = ad->monitor.io_enabled;
-+
-+        if ( unlikely(old_status == requested_status) )
-+            return -EEXIST;
-+
-+        domain_pause(d);
-+        ad->monitor.io_enabled = requested_status;
-+        domain_unpause(d);
-+        break;
-+    }
-+
-     default:
-         /*
-          * Should not be reached unless arch_monitor_get_capabilities() is
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 51be28c3de..7280e9f968 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1063,6 +1063,7 @@ struct xen_domctl_psr_cmt_op {
- /* Enabled by default */
- #define XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT     11
- #define XEN_DOMCTL_MONITOR_EVENT_VMEXIT                12
-+#define XEN_DOMCTL_MONITOR_EVENT_IO                    13
- 
- struct xen_domctl_monitor_op {
-     uint32_t op; /* XEN_DOMCTL_MONITOR_OP_* */
-diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
-index 0035c26e12..3a86f0e208 100644
---- a/xen/include/public/vm_event.h
-+++ b/xen/include/public/vm_event.h
-@@ -160,6 +160,8 @@
- #define VM_EVENT_REASON_EMUL_UNIMPLEMENTED      14
- /* VMEXIT */
- #define VM_EVENT_REASON_VMEXIT                  15
-+/* IN/OUT Instruction executed */
-+#define VM_EVENT_REASON_IO_INSTRUCTION          16
- 
- /* Supported values for the vm_event_write_ctrlreg index. */
- #define VM_EVENT_X86_CR0    0
-@@ -388,6 +390,13 @@ struct vm_event_vmexit {
-     } arch;
- };
- 
-+struct vm_event_io {
-+    uint32_t bytes; /* size of access */
-+    uint16_t port;  /* port number */
-+    uint8_t  in;    /* direction (0 = OUT, 1 = IN) */
-+    uint8_t  str;   /* string instruction (0 = not string, 1 = string) */
-+};
-+
- typedef struct vm_event_st {
-     uint32_t version;   /* VM_EVENT_INTERFACE_VERSION */
-     uint32_t flags;     /* VM_EVENT_FLAG_* */
-@@ -409,6 +418,7 @@ typedef struct vm_event_st {
-         struct vm_event_debug                 debug_exception;
-         struct vm_event_cpuid                 cpuid;
-         struct vm_event_vmexit                vmexit;
-+        struct vm_event_io                    io;
-         union {
-             struct vm_event_interrupt_x86     x86;
-         } interrupt;
--- 
-2.39.2
+--00000000000036429d05f75d601d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"ltr"><div><br><br>On Mon, Mar 20, 2023 at 3:23=E2=80=AFPM =D0=
+=9A=D0=BE=D0=B2=D0=B0=D0=BB=D1=91=D0=B2 =D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=
+=B9 &lt;<a href=3D"mailto:valor@list.ru">valor@list.ru</a>&gt; wrote:<br>&g=
+t;<br>&gt;<br>&gt;<br>&gt; 21.03.2023 1:51, Tamas K Lengyel wrote:<br>&gt; =
+&gt;<br>&gt; &gt;<br>&gt; &gt; On Mon, Mar 20, 2023 at 12:32=E2=80=AFPM =D0=
+=9A=D0=BE=D0=B2=D0=B0=D0=BB=D1=91=D0=B2 =D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=
+=B9 &lt;<a href=3D"mailto:valor@list.ru">valor@list.ru</a><br>&gt; &gt; &lt=
+;mailto:<a href=3D"mailto:valor@list.ru">valor@list.ru</a>&gt;&gt; wrote:<b=
+r>&gt; &gt; =C2=A0&gt;<br>&gt; &gt; =C2=A0&gt; gva_to_gfn command used for =
+fast address translation in LibVMI project.<br>&gt; &gt; =C2=A0&gt; With su=
+ch a command it is possible to perform address translation in<br>&gt; &gt; =
+=C2=A0&gt; single call instead of series of queries to get every page table=
+.<br>&gt; &gt;<br>&gt; &gt; You have a couple assumptions here:<br>&gt; &gt=
+; =C2=A0 - Xen will always have a direct map of the entire guest memory - t=
+here<br>&gt; &gt; are already plans to move away from that. Without that th=
+is approach<br>&gt; &gt; won&#39;t have any advantage over doing the same m=
+apping by LibVMI<br>&gt;<br>&gt; Thanks! I didn&#39;t know about the plan. =
+Though I use this patch<br>&gt; back ported into 4.16.<br>&gt;<br>&gt; &gt;=
+ =C2=A0 - LibVMI has to map every page for each page table for every lookup=
+ -<br>&gt; &gt; you have to do that only for the first, afterwards the page=
+s on which<br>&gt; &gt; the pagetable is are kept in a cache and subsequent=
+ lookups would be<br>&gt; &gt; actually faster then having to do this domct=
+l since you can keep being<br>&gt; &gt; in the same process instead of havi=
+ng to jump to Xen.<br>&gt;<br>&gt; Yes. I know about the page cache. But I =
+have faced with several issues<br>&gt; with cache like this one <a href=3D"=
+https://github.com/libvmi/libvmi/pull/1058">https://github.com/libvmi/libvm=
+i/pull/1058</a> .<br>&gt; So I had to disable the cache.<br><br></div><div>=
+The issue you linked to is an issue with a stale v2p cache, which is a virt=
+ual TLB. The cache I talked about is the page cache, which is just maintain=
+ing a list of the pages that were accessed by LibVMI for future accesses. Y=
+ou can have one and not the other (ie. ./configure=C2=A0 --disable-address-=
+cache --enable-page-cache). <br></div><div><br></div><div>Tamas<br></div></=
+div>
+
+--00000000000036429d05f75d601d--
 
