@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C7B6C22A4
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 21:28:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512121.791816 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EC2C6C22E5
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 21:36:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512124.791826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peM73-0006XV-GP; Mon, 20 Mar 2023 20:28:13 +0000
+	id 1peMEz-00087C-B3; Mon, 20 Mar 2023 20:36:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512121.791816; Mon, 20 Mar 2023 20:28:13 +0000
+Received: by outflank-mailman (output) from mailman id 512124.791826; Mon, 20 Mar 2023 20:36:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peM73-0006VF-De; Mon, 20 Mar 2023 20:28:13 +0000
-Received: by outflank-mailman (input) for mailman id 512121;
- Mon, 20 Mar 2023 20:28:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1peMEz-00085N-6q; Mon, 20 Mar 2023 20:36:25 +0000
+Received: by outflank-mailman (input) for mailman id 512124;
+ Mon, 20 Mar 2023 20:36:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uSrZ=7M=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1peM72-0006V7-8P
- for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 20:28:12 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b9e5e325-c75d-11ed-b464-930f4c7d94ae;
- Mon, 20 Mar 2023 21:28:09 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D0DACB810C2;
- Mon, 20 Mar 2023 20:28:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E18AAC4339C;
- Mon, 20 Mar 2023 20:28:05 +0000 (UTC)
+ <SRS0=gj8w=7M=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1peMEx-00085H-D9
+ for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 20:36:23 +0000
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ddeb0598-c75e-11ed-87f5-c1b5be75604c;
+ Mon, 20 Mar 2023 21:36:20 +0100 (CET)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id C1ADB32007D7;
+ Mon, 20 Mar 2023 16:36:16 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Mon, 20 Mar 2023 16:36:17 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 20 Mar 2023 16:36:15 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,148 +43,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9e5e325-c75d-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679344086;
-	bh=t27e7lzzJdpdv3310dLYIhe+jtc06iWP2gDO8wMDM2k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=eYGSSgHVRgcSjs2DIGk4RdEoSfmbMiaO9kdrEoFbEawc1w8zovDJ3Ms5OrkUwZLuF
-	 1IlOmu0PMyTwrwS7Znfo20wTyqnmVtMiZOlaJr61IVufZy2noznpb5g1Na7bFHqB/G
-	 ti2x3l5Z5ejLKZ8V32WTxiCg0IBpl9ysefag5drtQN9oZ9b9gpnePr05ZqD6GsYoYz
-	 yZI2xgJTx2zcc7OOAyjnu38CeKpvVHUIFTMORSOQxP33Tc04+UycZ7MvX12JoxSymd
-	 jwBtsDaWAyIvxeWzhRYEIWLpfjgFcrx2/yXvnw8zVWTrMADsGM9fGrpdSwNcyCKyO9
-	 ICN1UCYrVGewA==
-Date: Mon, 20 Mar 2023 13:28:04 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: "jiamei.xie" <jiamei.xie@arm.com>
-cc: xen-devel@lists.xenproject.org, wei.chen@arm.com, sstabellini@kernel.org
-Subject: Re: [ImageBuilder][PATCH v3 2/2] uboot-script-gen: add support for
- static shared memory
-In-Reply-To: <20230320062718.365896-3-jiamei.xie@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2303201327200.3359@ubuntu-linux-20-04-desktop>
-References: <20230320062718.365896-1-jiamei.xie@arm.com> <20230320062718.365896-3-jiamei.xie@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: ddeb0598-c75e-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1679344576; x=1679430976; bh=hvuKvPCswA+4GGF4uZhCiMM3DTbXMxPWRVe
+	Fy5E0JSo=; b=ml2ogotx/A4/63gn0pDGaAcFAjvBvtNIiqTAdIanvEv4dBsO7Ha
+	ZoDeVuYpk6cvbouH2VbI4FjfHX7R9BX6+MG2tPMtcy3zONWqd/O18FHWXauEFxcf
+	qaNTr/cOOJ/unRWssx184NpBM+pQxXKm0oCPuBJv62FF27Vn+En0tg731RWVAEL8
+	7B9eo7WrmLhsn+F/t7l2rstgWDAknhlDkAUpIzYk7zNfDwIEB3AAyfXYkU6g1zV6
+	MDvHYDsC8ncfcx1X2r0AIQ6enbMhZGWSB57XIFKXpwMY9N2hy27Z14f39qIGmM25
+	MO3fw7QTx7uHGgv6eR99W3SL3UeJTgyHA8w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1679344576; x=1679430976; bh=hvuKvPCswA+4G
+	GF4uZhCiMM3DTbXMxPWRVeFy5E0JSo=; b=mq3/jqJbu7FtmYBmu24lmrNfs+eTN
+	k/1JIkWcuOt7LDlsMi5TgGIzsFWHGi/2g7ySe/tLEt/PZrkMUOObAGVBrxFc0QO6
+	Ht23rcmayiaZX2QDdQJBvBMaa/ooKHxduVCM4OnTVxD9V0WjC7P48K6SHqIPF4ey
+	X+56BclVOAMMV8Gs174CWEqTWyuwna25A4NKOqk61X7ZUQu8grpfnR9koZdHJ5bw
+	CswyWvE6puhI8RJMkhAxzgc7+6fpv9bsylg5XQEfLikEW26XNuEuOr7ysekqCDpQ
+	J4f+ZipVoDRoX6OkJL8zrUHUcnezzH3ZCX713BBKOYUP8k2hVJb1FvHrQ==
+X-ME-Sender: <xms:wMMYZAjaiFM52FqFVrq6Kno3OhZUDCGpa0eE4dGSGieYZtUwfUMfDg>
+    <xme:wMMYZJAhfrxbw5_paNmjsFF5S_dAkiQUIzFhSGyHEULivdLfxU-8_ONeyXU-ZkAuc
+    B0FG8Pd0Uf8mA>
+X-ME-Received: <xmr:wMMYZIEC_FuIUyOe_yYrRr9J2bxIG-RPUVP9a3s580Q8_6XuDVdQxkCeKzG_iuhjk4C1kiHOKNrpnnSMZRonVDg6GEaobUCniAs>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdefkedgudefjecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
+    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
+    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeh
+    gfeludfhieeihfdugfduheehgeeuvdeutefhleeugfduudfhtdetfeetvdfffeenucffoh
+    hmrghinhepthhomhhlrdhithenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
+    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhm
+X-ME-Proxy: <xmx:wMMYZBRjXAYV9z-C78p3-O4hfyJFBl_GxGILUaSaxoe8amooqrvA9Q>
+    <xmx:wMMYZNzrDaEiR-owgw6UNxZdzbF47wG2n3TJkCdfDFJmvaJRDvVbCg>
+    <xmx:wMMYZP6wi8ysRC_yFrMpheFitwnsbw5ihvaIj7QLhRQwbi8UheOvCw>
+    <xmx:wMMYZLaO_ASejkEsa4HVxKFvz4j5PQ5YEbS50v29L11KLcO9XGn2Ag>
+Feedback-ID: i1568416f:Fastmail
+Date: Mon, 20 Mar 2023 21:36:11 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH 2/2] automation: add a suspend test on an Alder Lake
+ system
+Message-ID: <ZBjDu+EEvQ51hWFU@mail-itl>
+References: <cover.5a69c1f96ff446a5872e9dbf6308be9ab278f9df.1679023966.git-series.marmarek@invisiblethingslab.com>
+ <aa4385f5291ebc06551414e4d8cbf7cdd3996eef.1679023966.git-series.marmarek@invisiblethingslab.com>
+ <alpine.DEB.2.22.394.2303171539520.3359@ubuntu-linux-20-04-desktop>
+ <ZBULiU0222GlcC1W@mail-itl>
+ <alpine.DEB.2.22.394.2303201258140.3359@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Mon, 20 Mar 2023, jiamei.xie wrote:
-> Introduce support for creating shared-mem node for dom0less domUs in
-> the device tree. Add the following option:
-> - DOMU_SHARED_MEM[number]="SHM-ID HPA GPA size"
->   if specified, indicate the unique identifier of the shared memory
->   region is SHM-ID, the host physical address HPA will get mapped at
->   guest address GPA in domU and the memory of size will be reserved to
->   be shared memory.
-> 
-> The static shared memory is used between two dom0less domUs.
-> 
-> Below is an example:
-> NUM_DOMUS=2
-> DOMU_SHARED_MEM[0]="my-shared-mem-0 0x50000000 0x6000000 0x10000000"
-> DOMU_SHARED_MEM[1]="my-shared-mem-0 0x50000000 0x6000000 0x10000000"
-> 
-> This static shared memory region is identified as "my-shared-mem-0",
-> host physical address starting at 0x50000000 of 256MB will be reserved
-> to be shared between two domUs. It will get mapped at 0x6000000 in both
-> guest physical address space. Both DomUs are the borrower domain, the
-> owner domain is the default owner domain DOMID_IO.
-> 
-> Signed-off-by: jiamei.xie <jiamei.xie@arm.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="M005QHqNLzh7gz7I"
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2303201258140.3359@ubuntu-linux-20-04-desktop>
 
 
-> ---
-> Changes from v2:
->  - Remove "domid" parameter
->  - Use lower capital letters for local variables
-> Changes from v1:
->  - Rather than two separate properties and just use one like follows:
->    Change
->      DOMU_SHARED_MEM[0]="0x50000000 0x6000000 0x10000000"
->      DOMU_SHARED_MEM_ID[0]="my-shared-mem-0"
->    to
->      DOMU_SHARED_MEM[0]="my-shared-mem-0 0x50000000 0x6000000 0x10000000"
->  - Use split_value function instead of opencoding it.
-> ---
->  README.md                | 17 +++++++++++++++++
->  scripts/uboot-script-gen | 26 ++++++++++++++++++++++++++
->  2 files changed, 43 insertions(+)
-> 
-> diff --git a/README.md b/README.md
-> index 78b83f1..fe5d205 100644
-> --- a/README.md
-> +++ b/README.md
-> @@ -196,6 +196,23 @@ Where:
->    if specified, indicates the host physical address regions
->    [baseaddr, baseaddr + size) to be reserved to the VM for static allocation.
->  
-> +- DOMU_SHARED_MEM[number]="SHM-ID HPA GPA size"
-> +  if specified, indicate SHM-ID represents the unique identifier of the shared
-> +  memory region, the host physical address HPA will get mapped at guest
-> +  address GPA in domU and the memory of size will be reserved to be shared
-> +  memory. The shared memory is used between two dom0less domUs.
-> +
-> +  Below is an example:
-> +  NUM_DOMUS=2
-> +  DOMU_SHARED_MEM[0]="my-shared-mem-0 0x50000000 0x6000000 0x10000000"
-> +  DOMU_SHARED_MEM[1]="my-shared-mem-0 0x50000000 0x6000000 0x10000000"
-> +
-> +  This static shared memory region is identified as "my-shared-mem-0", host
-> +  physical address starting at 0x50000000 of 256MB will be reserved to be
-> +  shared between two domUs. It will get mapped at 0x6000000 in both guest
-> +  physical address space. Both DomUs are the borrower domain, the owner
-> +  domain is the default owner domain DOMID_IO.
-> +
->  - DOMU_DIRECT_MAP[number] can be set to 1 or 0.
->    If set to 1, the VM is direct mapped. The default is 1.
->    This is only applicable when DOMU_STATIC_MEM is specified.
-> diff --git a/scripts/uboot-script-gen b/scripts/uboot-script-gen
-> index cca3e59..9656a45 100755
-> --- a/scripts/uboot-script-gen
-> +++ b/scripts/uboot-script-gen
-> @@ -204,6 +204,27 @@ function add_device_tree_xen_static_heap()
->      dt_set "$path" "xen,static-heap" "hex" "${cells[*]}"
->  }
->  
-> +function add_device_tree_static_shared_mem()
-> +{
-> +    local path=$1
-> +    local shared_mem=$2
-> +    local shared_mem_id=${shared_mem%% *}
-> +    local regions="${shared_mem#* }"
-> +    local cells=()
-> +    local shared_mem_host=${regions%% *}
-> +
-> +    dt_mknode "${path}" "shared-mem@${shared_mem_host}"
-> +
-> +    for val in ${regions[@]}
-> +    do
-> +        cells+=("$(split_value $val)")
-> +    done
-> +
-> +    dt_set "${path}/shared-mem@${shared_mem_host}" "compatible" "str" "xen,domain-shared-memory-v1"
-> +    dt_set "${path}/shared-mem@${shared_mem_host}" "xen,shm-id" "str" "${shared_mem_id}"
-> +    dt_set "${path}/shared-mem@${shared_mem_host}" "xen,shared-mem" "hex" "${cells[*]}"
-> +}
-> +
->  function add_device_tree_cpupools()
->  {
->      local cpu
-> @@ -329,6 +350,11 @@ function xen_device_tree_editing()
->              dt_set "/chosen/domU$i" "xen,enhanced" "str" "enabled"
->          fi
->  
-> +        if test -n "${DOMU_SHARED_MEM[i]}"
-> +        then
-> +            add_device_tree_static_shared_mem "/chosen/domU${i}" "${DOMU_SHARED_MEM[i]}"
-> +        fi
-> +
->          if test "${DOMU_COLORS[$i]}"
->          then
->              local startcolor=$(echo "${DOMU_COLORS[$i]}"  | cut -d "-" -f 1)
-> -- 
-> 2.25.1
-> 
+--M005QHqNLzh7gz7I
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 20 Mar 2023 21:36:11 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH 2/2] automation: add a suspend test on an Alder Lake
+ system
+
+On Mon, Mar 20, 2023 at 01:08:42PM -0700, Stefano Stabellini wrote:
+> On Sat, 18 Mar 2023, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Fri, Mar 17, 2023 at 04:10:22PM -0700, Stefano Stabellini wrote:
+> > > On Fri, 17 Mar 2023, Marek Marczykowski-G=C3=B3recki wrote:
+> > > > +fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
+> > >=20
+> > > I am a bit confused about it: are you sure you need fakeroot for this?
+> > > This script is running inside a container as root already? Are you us=
+ing
+> > > Docker on the RPi4 to run this job?
+> >=20
+> > This is running in a rootless podman container. But even with docker,
+> > for device files to work (see commit message) it would need to run
+> > privileged container, which I'd like to avoid.
+>=20
+> Are you sure? I can run a non-privileged container with device assigned
+> just fine with Docker and
+> =20
+>   devices =3D ["/dev/ttyUSB0:/dev/ttyUSB0"]
+>=20
+> in the gitlab-runner config.toml.
+
+It isn't about accessing existing devices, it's about creating them
+(unpacking rootfs which contains static /dev) and then packing it back
+still having those devices.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--M005QHqNLzh7gz7I
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQYw7sACgkQ24/THMrX
+1yzwQAgAk9aBEvEZhZxllxPgi6EUxj9ghdRiYO1ZXSi7obOvl+eFMAtXuqO0nviB
+FpQ/yFlyYEzUKWhFa27HJ6cuBl7wgWOSvdvLqPdtemlyYzO0dd4/M9ZoSLqaD3uE
+UWeitNcWy8cZ7I5r1LUsPFNHfr7aJGSLilGnvnL07nuddLEuFDodIbHw7RIzq7nO
+Fn/fWNTmkmTuW+XKqgbznungwlC9s7qQB3aEfJNFhQqOR6OkA00aHVL1XSG+oitY
+bJ8V9vZUy+Bf8z7bgXNmPFz/waYc+T1AVb1+N/3nCBppEdDZMhO/tzyTOw1cYRRq
+ie8LnTjSeg4WlkPd2JQHvo9MF9DXVQ==
+=LDwy
+-----END PGP SIGNATURE-----
+
+--M005QHqNLzh7gz7I--
 
