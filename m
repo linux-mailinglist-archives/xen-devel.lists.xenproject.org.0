@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 492456C0B8E
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 08:46:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.511740.790937 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F5986C0BF4
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 09:15:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.511750.790949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peADI-0003iY-FO; Mon, 20 Mar 2023 07:45:52 +0000
+	id 1peAev-00081h-4b; Mon, 20 Mar 2023 08:14:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 511740.790937; Mon, 20 Mar 2023 07:45:52 +0000
+Received: by outflank-mailman (output) from mailman id 511750.790949; Mon, 20 Mar 2023 08:14:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peADI-0003fD-CO; Mon, 20 Mar 2023 07:45:52 +0000
-Received: by outflank-mailman (input) for mailman id 511740;
- Mon, 20 Mar 2023 07:45:50 +0000
+	id 1peAev-0007z3-0F; Mon, 20 Mar 2023 08:14:25 +0000
+Received: by outflank-mailman (input) for mailman id 511750;
+ Mon, 20 Mar 2023 08:14:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AUe7=7M=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1peADG-0003f5-S7
- for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 07:45:50 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20616.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::616])
+ id 1peAet-0007yx-LO
+ for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 08:14:23 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0624.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::624])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3a0ff483-c6f3-11ed-b464-930f4c7d94ae;
- Mon, 20 Mar 2023 08:45:48 +0100 (CET)
+ id 36b9e0c8-c6f7-11ed-b464-930f4c7d94ae;
+ Mon, 20 Mar 2023 09:14:20 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB8985.eurprd04.prod.outlook.com (2603:10a6:20b:408::16)
+ by PA4PR04MB7614.eurprd04.prod.outlook.com (2603:10a6:102:ea::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
- 2023 07:45:45 +0000
+ 2023 08:14:17 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.037; Mon, 20 Mar 2023
- 07:45:41 +0000
+ 08:14:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,137 +47,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a0ff483-c6f3-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 36b9e0c8-c6f7-11ed-b464-930f4c7d94ae
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kSz/PFn3BGMjTkXDrLHqJ8wmdB6KxsQ+VW8XFnVOOmiTreFSL4tQW9YR2vZ1GmJr64Ijxk01vsnmbHJMRi6f5Rw/mwPgmQHcH0Pxb2ugY7fXXQ6n1wIMLtpPgsCndycAMnuNNwxUltFLlkkcl9fgzlX2N6pazdHNYC/5StgK29L0voZciqr5I7mqGEPfrdU+7/bOA/Gp7ATKg1R0vdZTsqs3VSihnrkpJ2RWN7zmKgTcdbN7EnJ9NxCRqYHWRYyb8CXUh6SDwsK3FFfBk1Q1YwxH+ZGChkiYf8z3sIE6GXoWq1QFnmU3YLUmrsWsQga5/4cR9fHdGIKZ3MW1paFTJA==
+ b=Hw+QEUhACpj20NJwKTWakz6p+pahM27deBRKU14GPAZ6UHiyVZXpTx8/4YfJgm2p8834iJS4e/0pcO3j2JH5QFjct5L+BJ2jBaxfvZGOUQezhplcVCcM/H2pUJJvud5wjHiUeU6qhyrfqeIpfA9fksT1jhXTbK6UvqARskHUILm07CEMS+yGuwqdWRygJJGWP53bqrB+/ZPZZ3jLNXZvL9cqZln6f9QSE758ofZDRC6cEurYXQQnXwjqiiuMX/wXQsv+yyJ7R1o91XUPgUQNJObCCzHxo1mec99X/piwGjSD3sAiEBTR9M1JF12ee1Uq0tZSfw7s8ED8DNREhgXuYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XXJIjDbR5xUJjs00RqVQVcWmI5CGmxY/bzTrxSuk4OU=;
- b=I0UNO4ql84pmXTPiERs413Uyjd4jHfbjOAlGT2g7cU/CWg+kxztHWhTf1Q/P4xApXok9hqINCIwFGjaRPkeQfpT/LBFwG0ui2PeT06Lxwnk0B6K7xZx9FF7wbV60KRRKtkN6ppqYpZFgTDcLM0UJ3lJ7vYYB4njQtam2v6Rj48Bt7NXrcoAdo1HVwPazVffGMMJg+26hNerfRBi1DsvRg0uSkBZWHleje0WjMRCpd5iRjHNZk5BvbQ6tc4nBv+B15NdQC3ry9yoM/Xq4TTlGFHWKKpWzwwAepWmZnjW/JQ3b0NvCOxGxVSDS5YPhkVMdhAj9xA71bQ9acxwXCaEtWQ==
+ bh=fALf4sfZYXdGl8/blyrbl7A7VTR5ltLiuPxysFoLP5Q=;
+ b=K8cZGfXz7zneUbpC0CF4YUOuUH2CsgnI2neecSO71JW8DOlo8GqiahhO2laxIBCKEEeG0LLZnH0x8WNZn+rkC7GlJt4X8HkPLSWkNzkfjuUsMfUOqdgZtQcRb/PbzLGMYnPp7JJhVe8h4w3SJnUAx2rdBWoefg9S6xdrnD8JgFz2iYNP6AXZzPXtNLee6bD2jP8zjwIxuAwK2PhAAoJm0pyr4GnCmCxrNZgWU0WqhgKBCOV0FerZ+IZEtIAokqgq5zmbEDDy7u85vozExXcq8ZRhYn4sQtYkahVJ7dTvYNpIfIAuGOxnL0NN2GAshjnwzoISXEB6j6SBh8PjAF8klQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XXJIjDbR5xUJjs00RqVQVcWmI5CGmxY/bzTrxSuk4OU=;
- b=OCsTHQGHugxMKoo6UQh0ExzU8nAVcO7gl7cgiPoOF6V4Tg2o3FeqbwtpNp5s+LNikL+HKofiNABMk+0+dpyrClssT/dObfd3PBxfnjrRwKI/OjcZFZ0K3b2SZXBPv5ismYfSD6wxzLIHAYD7MAbSf+ZbqT9o3ujTXjKxLOPjiiHr4rCUI2XbJwX2nD/bB5PERjkOg6EzmRGZb8h4wc2JEOyTkBYeqo38PagHxibRAWejldauMCaYNsfPqFQON9xDem5yBBe1BoDpbmEC0fAC1heAsRUXryG/8xWmnETYZi3NzEbZIFFAbmt+MCKhXeYINudJemMxRuFpLi1HxMkmqw==
+ bh=fALf4sfZYXdGl8/blyrbl7A7VTR5ltLiuPxysFoLP5Q=;
+ b=gGy0Hho8QsOI95JZhxs7eksU5KeuGBP4l8/yyeNGjnb6SuaMT54dav376pzldDz9WJlMCd22BW2XuppzukGgtQg0M4S52MZIQzDqFm75UGsJ0Mr9WAJvLTZhKgLcwDWoil3SBvWdHMSdMqoYwKwHrupfSeETObFCXUnDIQQvIs2QVvsQUq/1CLLkYxStaKKndjMWn9eKOskCNaZRvCYt5ma+pJu0vXAxAEBu5KZPTJRtUFbqJjnS7ZvrK2+Vkuq+xmuUT+7uaSSRpqOAedW8hACbfFTrAw7L6USy+AnnBkLuOsTEA3fPv9VGgE8B2/cSwGfs2C/ALbcZ9eCXXupUDQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <9419f4a5-845d-4761-bd35-ad0de306a561@suse.com>
-Date: Mon, 20 Mar 2023 08:45:45 +0100
+Message-ID: <b2eaeacc-de5f-ebe9-a330-fbf9e20626b1@suse.com>
+Date: Mon, 20 Mar 2023 09:14:17 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.8.0
-Subject: Re: [PATCH v4] x86/HVM: support emulated UMIP
+Subject: Re: [BUG] x2apic broken with current AMD hardware
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
-References: <581a90d5-a168-5445-6a6d-ab20cc43b944@suse.com>
- <ZBR5T57tSqs2o/Sl@Air-de-Roger>
- <a77ec0d5-0f97-409d-e954-0f28c30cf28b@suse.com>
- <ZBSQnFpf89uEwXif@Air-de-Roger>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: xen-devel@lists.xenproject.org
+References: <ZAiobgH4L0OAS6XP@mattapan.m5p.com>
+ <a2e5cb62-9aef-4f91-b5e9-35fee6739fc8@suse.com>
+ <ZAkVVhIldUv/xQqt@mattapan.m5p.com>
+ <21436010-8212-7b09-a577-09d3f57156bf@suse.com>
+ <ZAvGvokloPf+ltr9@mattapan.m5p.com>
+ <f33c9b8a-f25d-caab-659d-d34ba21ebc25@suse.com>
+ <ZBOSKo+sT/FtWY9C@mattapan.m5p.com>
+ <e5b28dae-3699-cb0d-ab7e-42fdd42d3222@suse.com>
+ <ZBSi2KfoQXo7hr6z@mattapan.m5p.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZBSQnFpf89uEwXif@Air-de-Roger>
+In-Reply-To: <ZBSi2KfoQXo7hr6z@mattapan.m5p.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0040.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0034.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8985:EE_
-X-MS-Office365-Filtering-Correlation-Id: e68c7492-238c-4d79-7e9e-08db29171ac4
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB7614:EE_
+X-MS-Office365-Filtering-Correlation-Id: 282884e9-2da2-4c70-70d8-08db291b1715
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	gwxbPoLyrZ/7cJcAkBBs5IfbDrIwStClmfy2Yr58qo/8cFyJusVMVbtRdNYyZ9kDb3TRBTCAURfKwXOa7O4M/miLtwAarj7j9OraA66njtjwgqQO63LRjGGBzAITeZRCJ4asmgMUznwHTkUpt50dbK9CMZSnei6/9OLKvEx47ULkl2IDCKXB7Tj980C+tpFBek29IT/NTFXQT6vzM7FYKN/szcalSmfDhIUYPGWyqvKJm+deGJCYRckJYIMupr2TuEnJUaA3vNpAwJxjojIvCkl/OIkpFfWrfZfWs84DgKdHYaYxJ6Czl/DPpnLg41PYTaATB2p8IVY6IF5I8GPhRzczOxBhiiVW3MsiwtbF1xqaFqeqVQImiaQysyScd4/LDCcyUxkBYyS2/Zra6RRdznk6+gkGxAF3eXtj5X4m7DVPnc6oOSOwh+CjY84LHhLdjC5hzEzHxTJF1liKuTBPvUMfNUisHmzRfW8K5AmC4u8pMPEY6ThYQBqTftUSQ+rsEyJFMRRAEdwggR4vMeYoF4HCAKXKXhRjDai11zYu6LA+wlzU3GK271DUKYBwCulJc9+2vMMLvOFt87tjXhzTfcpspI6NG+El/dgCxW1DFuUHoCpea9UuWJrE0njvDfhqI5vpD5PnNryveH7+wZ2siYOxxLi7zJuPMExPDuRP8c67DO1V4vqgOAmM5EuNXBiBloaE5p0K43Mn7zDmBWBBa4t8fGzPekMkQliFS/R+0KI=
+	BfuyPPTwikaNBrot3Ct0ZVAup4cTPc3hz9qbDmTs8xPVp7eIKAY+2kKMB5CcB71S3w0tnmhgKmO0ct6+4FCmcZhaBwaPHs/jnB9T7YGTKsdSfLfZ57MX1xn11YjT+m/LEhI36tbkpw2icpkkMt5XyLa9mT3YSC4t7lM21/Xn5IuiTTMRqJY8Mo17Do4leSk8M+mzkQW4fRwVk58IQoOIJ9xjh1eC5hxDo6OXfS3tW+XSdAZIqxqNiDFdZ51JLI//MYiGHQdKNGCiDFbni9HTlZpzDDNdMwGqNi0IkmgSeaiz0zYJO+wmlEG2WHbUjHzqXn4qCur6DLWzRW5LoIX9KOMJlI5zJo9SxAjjOI/rR/lIQnKkjnO82/baZysAHK50bjtkaqzkyVK6HYnW9O/RwgMhdCoJHTcL9MybGs4GeHKNFti2NhCJHb1lSYH3ymlJDP7aN5ggMoIuS1HvLXWA5/ttVBTj8G7czRLPEeprWCZ/X8em2E0OUIzJcXDoJp7wza4MpVwBu+XlEC827nfFNhgNmwdlQdQuB0vROHnDP3mhFaHpiOA57wy0Pr7EpeAO1wz499D4KuJjwafGT+qmZx96mjG+3itvfbsZZuPuRJkVwXcwLRoGEvcLeC8/tH92LiBZqJZQe9m6Ttqzt2mwhMZuItebTGu9hACPwHbqPbn9EZzzDdu4vhleN5/k/hzdiB/WeCaUYBNnEu9SNRvd35epJ4+QzcXAMTFQV+3aPfQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(136003)(396003)(376002)(366004)(39860400002)(346002)(451199018)(186003)(478600001)(26005)(6486002)(83380400001)(6506007)(54906003)(6512007)(31686004)(53546011)(2616005)(316002)(66899018)(66556008)(66476007)(8676002)(66946007)(6916009)(4326008)(8936002)(41300700001)(5660300002)(38100700002)(2906002)(31696002)(86362001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(136003)(396003)(376002)(366004)(39860400002)(346002)(451199018)(186003)(478600001)(26005)(6486002)(83380400001)(6506007)(6512007)(31686004)(53546011)(2616005)(316002)(66556008)(66476007)(8676002)(66946007)(4326008)(8936002)(41300700001)(5660300002)(38100700002)(2906002)(31696002)(86362001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OUZsa0lZTVM5Nm5tSGNQTE85RXFyMWx4WVE0eHluNkxCdmt6REp6SWJwUFJw?=
- =?utf-8?B?MlNBdFJaK2IyU1NQS2FkQjRoV2N2Q2NKdHBwSU5yb1hzWkxaTWQ5VEJ4aUZV?=
- =?utf-8?B?Z2Nxc21PTXRXTjNhamhnVTcraHlZbldDb2hGc3dDTzV5elpLRStPYTlvZVNB?=
- =?utf-8?B?a3Axb2xUcSs0THVkaVpjNVpqS29Semx4dlJDNjExQnNrZWNqZm5yeVNhclhZ?=
- =?utf-8?B?OFZOQ0lFYk1mZFBIL1M2dkMvc1JFVDJaNkZtc0hrczZ1M3ZRZUFHOTBGalBQ?=
- =?utf-8?B?SnN6UWZzNHhmWjhqdHZ6RmlFQWhMYUsrOEx2bG56N3lkb1VXWE1VcmZDMHE5?=
- =?utf-8?B?SGlzOHBqQTNDcjVkZDlDVVdUVktqcmJtd1VLbDZERnIxWTRjUUNUV0t2bUJJ?=
- =?utf-8?B?UE9HU21HVzZiVjhUVUlEWmlEdmR2L01Sem5keW03VFVpaUwrazNhbHlSRUYr?=
- =?utf-8?B?Umg5WFJHeHpiMkVoQ0RDZElyK1ZxQ3lEbjBuZzUxdkV6bCs2VkxUOGRvdXBP?=
- =?utf-8?B?MVA3ckVaY0hQZ09IcFdQVXU0UmV2TzZ4NDRmcWFDQ0QxY1RXdXFJVUpFUlhN?=
- =?utf-8?B?NW9ZMkkvNzBJYUxaSDVJeDFEN1pMYWQrc1RUR0dwQmlKbVBNK0szVlB3WWVY?=
- =?utf-8?B?T1pWSTN6TFhqcnp6eG9YTUpPL0JMWENrUHhFOHpqRXpoSS9EaU1ESWZDTmg5?=
- =?utf-8?B?cjloWFlCTmN3dFExQVR4NzMwWWs0MEZtR0tFSU5yaVFWbk5tYjNVTGc0RjNm?=
- =?utf-8?B?dmIwUGZVRnRLRGRQTm94ZTB5SHk4Y0psVjZKVk85aGRkS1F4bHZha2tKSjh3?=
- =?utf-8?B?aVBsNGczTWltZzNJeitKWHBIQ0JsVENlclNSUndJY2dBVzdxS1BEd0Z0bTZt?=
- =?utf-8?B?LzMzVGpNL0F2SE8yR1V2UEtDc0JzVHhqZzhIUWhzTjgweWVNelI4eWJRbkFQ?=
- =?utf-8?B?QU9YUnBNbnFBRy9UamQzY1RmTG9GTmZtbGxiS2VLdFYwdVJOdm5GK1duR2Vh?=
- =?utf-8?B?T1VPdExjRGNrekN4RlJIUk1jVXBUb3ZHTEk1aHZVdUxNRXc3M0lWM0xXQm54?=
- =?utf-8?B?eWl1Wm1ZRVBRTVhUaS81VmNJWTdqVjkvMnBmNmdnN0JENEZkbmJnSVM2MlA5?=
- =?utf-8?B?TFRwOEdiOW5YbnBEWWdaSERRS2UzUTBNanNlTzFmZkRJN3hpaVFVRVZrdWs2?=
- =?utf-8?B?N0JXbzNuaUhGamcycU5yejZad2ZKcnlwRHJNalR5NkFEMXY4WVgvYW8zWkJU?=
- =?utf-8?B?bndVMVZjTjMraWszcjhVeUZQdkM2VEVOajJYejgzNmFiVGUyeEM1a3Z2d3Mw?=
- =?utf-8?B?Q21mRXA3WW5vYUVEV1Bzc2YrQ3g2K3ozU05qaldaZFdHajNzemphYjJtNlNp?=
- =?utf-8?B?RVl0RnlVNXFEWFhFQVhJd3pjOUJUQkpYRXRmbTR2LzhoVHBVM3djYms0eGNn?=
- =?utf-8?B?THJvWkpoRmcyWjNvOG9MVjk0ZEpDNG5sNG1HMzEwYnlZYU1hZURVOUhVOTg3?=
- =?utf-8?B?S3BJOXZFZGhXOFNGQy83Z2hJUEo5dmxlWHhUZzliRWhTeTdudWdKMjF3emJw?=
- =?utf-8?B?WUh0K0FqRkQ1Y3cwTjZKWkljSU0vb1BsMWp4UE0zK0VSZjV3S1grelhXblgw?=
- =?utf-8?B?MkR1QW1PM2hRdUlNaDdCamRtSG1YT2FaeDNKTE8yTjRDaTkvZTlOOHFOckdD?=
- =?utf-8?B?Vzd4d3JxNStOUlNla2J6ZXZkVnBtd2VKOG00bmMrUTBwZGJmeXBsU3ZDdGI4?=
- =?utf-8?B?STdpcUU2aEl2M2E0OVRwS2RGSTFnRjBlcFlTT2hoT3hIaGFORncvWUdrNWlh?=
- =?utf-8?B?QnhCY1hudGVwM0trbjd1N04wd3FPbFhCMUxlQzY1UGFaVmZjNGtDZkRXdTB6?=
- =?utf-8?B?SEZ6eDI5bVhEejNVeVNPTDRpYW1TQXhTRkxVVmJzcHhqUEFkb1BkbWs4SGhr?=
- =?utf-8?B?cVhVOGFSdk5ySCtXcWlheGlpZGl0T29OVWZiWm9URW1ydVpxcndZeVNpRDcx?=
- =?utf-8?B?K3IxWGx5anlRcUloMTRkMFV3V2xZMjU4N1NrVis1d0F1a3IvdnRMY2RlVmY1?=
- =?utf-8?B?ZDVkbUNlM21OdnlXTmlrL2NPNnh0OEptVnBQOVZVSnZSTlFaTGtoZXRsaVBL?=
- =?utf-8?Q?1GSgfrmNlSi4zaRS/yz/5NRKP?=
+	=?utf-8?B?K0FTMmlHVVRpV3pmWUd4L2kvejJOR0M1QzBRY2Q4OVNPckJwOXRWYS8rZFMw?=
+ =?utf-8?B?VG9DQWlneFN2STlkSFFQb3g2ckZEWG9zM09qNzVoa3pGSVlpZjdqSE94VCtB?=
+ =?utf-8?B?cmxwYVNuZXptVXdTVk9OSllOWDlDc0dKckJXV2tFQzVyT2ZqVkdZOUY1ckVR?=
+ =?utf-8?B?b2dKbGliSldDMlFLN3BubmNENnMwQWhUOUxUcGgrMk05d1AwQVIzd21DeTVK?=
+ =?utf-8?B?endRY0ZPTmd0QmpwaUVLQi9EVXFtamFha3hLc1ZhMllHLzhsMU15VGdudlYy?=
+ =?utf-8?B?cDdVcUFZUUVocW0xL05hUEV1TEIyRjlxaStVdkxRMDc5WHFHUk1Fc29VWGJ4?=
+ =?utf-8?B?emRCNm9KU1dNQzFuV1M1eDdGdTh5R0dQbW1IVFVzZVhwM2VGOWtaZWdQNCtW?=
+ =?utf-8?B?a0RETU9iSDczM2hWSk9sUjJXSk5FMmUvNTBOL1FQUGQ0NTl4SlN3WEJVdmJy?=
+ =?utf-8?B?ZitqSlgwT2lXTlBZNDFVdERWL2ppc0dkczJubjErbk92QTlXZSs5ZTRVMlR1?=
+ =?utf-8?B?d2liVzlIaWVpYi80Z3hOc3U2RWFVd0VwampHRzdZRGlwSGh2QUlNS2Vubkxr?=
+ =?utf-8?B?V2dJd2ZYVGxDZTFaNENYOW5VMEJaNlA1OTdYSURQd3cveEpJZ2F2UE95RU1F?=
+ =?utf-8?B?ODl4TkxDSW1ESUxlaUhDdHBsMU5DbjdVcUgyWTgyMmErY1VMNUN5QkZoOUdi?=
+ =?utf-8?B?aHJpeHpkTXlvR0hiMHI2MXdWYzJWdzNnc0RtSU5FUXc0eWloQkZTaHBZT3pD?=
+ =?utf-8?B?UjRZUURINGt0VnRXeEJiU1k5RnRwcUtCNGt0RXQzZm5JNlZGY1pDUFZzb0xm?=
+ =?utf-8?B?WXJCc3NLMDB5R3NMeGlkOXcydGVndlp0UjBlMXUxcG1hRENrSWg0MUFnVDk1?=
+ =?utf-8?B?OTl5VGlOdDdhWVVtMHVkUDAvV1RZMzE0UDJPY0JqV0pkVzg4bk13L25KSWhG?=
+ =?utf-8?B?TWRQODFMQUZZMTF6NTAwQVlPYVkvSE1lOWJLdXYxOWEranQzZml5NFIyRllo?=
+ =?utf-8?B?WWsxVktMRzNpNkU2ZEY2QjF3Wjc0YlMwNVpQaWtvd09lL0NlMGNKTDQwbm52?=
+ =?utf-8?B?NVBSL0J0YWRzSUwxMWp5YVg3RGJ4bDRvTnp6aUF1d1Q0Qit3RjdWQzlwZjZG?=
+ =?utf-8?B?Qk8rL0w2bGJpVjZKMU15c0w5bGh0Wmxzd1Nta1VENDdYVWJnbjB1c2RFVDRk?=
+ =?utf-8?B?TWdEMzRWdHVSQ2tTNUpiRG82cURUa05MYWd0ZW9Wanc2V2RjRVF4dy9VbnhC?=
+ =?utf-8?B?TTQ0WmZHbFZ6N2xTYk41QTArZm1Bamd0aG5XallLOWNRbG5hMkoxSXhKTytR?=
+ =?utf-8?B?WjRQY1FtRDFPQ055Q2ZFQW8rV1V1TkZCUGVQbUxrbk0xRTdTRVhLc0V3eFpk?=
+ =?utf-8?B?OFNpcmY1OU1ueGRhNkNSQlRMVnVTem80dDk0VGV1YlBtOWVFeEN1S3RwbHZQ?=
+ =?utf-8?B?L2o1UzF6ZUJDZWp0akhWVzR4NkJBNkxkT3NzV21uNzV5My9NcSs1bVRGbDZv?=
+ =?utf-8?B?SUJBUmY0MmZ3MTdXMm1rY2VCKzYrSmxjNStNMXJ0Qm41dGFlSDZvbWhsMlVk?=
+ =?utf-8?B?a25UYkk4dm0vSmpwMEpIekRFbjRpY1l1R3hXK2IwSU14K3hkeVJUamhDS1Qz?=
+ =?utf-8?B?R2twRnozS3dIdUpaaERiTENiaDZWTmlEUTJmUUc1YS9DMUtvVUpvbTZGVUJq?=
+ =?utf-8?B?dkVlc3dDbkEwNnJ5UjhvbFdIUnQzcVlkb1hidWlMazA3SVVWZDZxaGxSdGVj?=
+ =?utf-8?B?bDNqUXlIblcwQnpxMXpCblJZRVdvNkZrcitvSzVFZ2sxZFRidGlTMy9DMUcr?=
+ =?utf-8?B?NDJtSDdLRTl2U294VktRUmh4ZTJ2UDJEZStyNytGcUphNkhpd0pUVnVrZWRF?=
+ =?utf-8?B?cXRmWHduTkJteDBvQzA1ZXAyaGtudjVycHZyRG0wQmxpQkpvRkFab1QyS25q?=
+ =?utf-8?B?QnpJVVpKNThJTmFyMDh4R0hIcmFPWnZoZEZGeThSOGxQYzg2dUhYK0lXeWVE?=
+ =?utf-8?B?ZFU5ZzhiRFdBYXZBYmNBZU1HcFBUenpHTyszaHU2QXgxNWdFYzdoVmtBSFly?=
+ =?utf-8?B?b2JiL2hBb2xwL1pkSkR3TUU5ajR2QUxPYldxN2RhZzhDNGZwTXBONjMyNjEr?=
+ =?utf-8?Q?RqOETMkRtywRrhzRik1DgFcN/?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e68c7492-238c-4d79-7e9e-08db29171ac4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 282884e9-2da2-4c70-70d8-08db291b1715
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 07:45:41.4691
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 08:14:13.2600
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rD+LQzF6d6NFyHBSvw88ebz+jpiIQ+8i4Xe5wf7wLGmp4AvmPw8FeVbQllA4gSg9d6vQwAHH5KeLIdLscjm5tQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8985
+X-MS-Exchange-CrossTenant-UserPrincipalName: FBjGBbkx4b+ZtZ2QQycVAL9IOTsazMq1petcDIueClGivsgq/AbxBAFSRdWm+gEQ1tJHA4bTserYLSz0lv41kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7614
 
-On 17.03.2023 17:09, Roger Pau Monné wrote:
-> On Fri, Mar 17, 2023 at 04:01:59PM +0100, Jan Beulich wrote:
->> On 17.03.2023 15:29, Roger Pau Monné wrote:
->>> On Thu, Apr 15, 2021 at 11:47:42AM +0200, Jan Beulich wrote:
->>>> There are three noteworthy drawbacks:
->>>> 1) The intercepts we need to enable here are CPL-independent, i.e. we
->>>>    now have to emulate certain instructions for ring 0.
->>>> 2) On VMX there's no intercept for SMSW, so the emulation isn't really
->>>>    complete there.
+On 17.03.2023 18:26, Elliott Mitchell wrote:
+> On Fri, Mar 17, 2023 at 09:22:09AM +0100, Jan Beulich wrote:
+>> On 16.03.2023 23:03, Elliott Mitchell wrote:
+>>> On Mon, Mar 13, 2023 at 08:01:02AM +0100, Jan Beulich wrote:
+>>>> On 11.03.2023 01:09, Elliott Mitchell wrote:
+>>>>> On Thu, Mar 09, 2023 at 10:03:23AM +0100, Jan Beulich wrote:
+>>>>>>
+>>>>>> In any event you will want to collect a serial log at maximum verbosity.
+>>>>>> It would also be of interest to know whether turning off the IOMMU avoids
+>>>>>> the issue as well (on the assumption that your system has less than 255
+>>>>>> CPUs).
+>>>>>
+>>>>> I think I might have figured out the situation in a different fashion.
+>>>>>
+>>>>> I was taking a look at the BIOS manual for this motherboard and noticed
+>>>>> a mention of a "Local APIC Mode" setting.  Four values are listed
+>>>>> "Compatibility", "xAPIC", "x2APIC", and "Auto".
+>>>>>
+>>>>> That is the sort of setting I likely left at "Auto" and that may well
+>>>>> result in x2 functionality being disabled.  Perhaps the x2APIC
+>>>>> functionality on AMD is detecting whether the hardware is present, and
+>>>>> failing to test whether it has been enabled?  (could be useful to output
+>>>>> a message suggesting enabling the hardware feature)
+>>>>
+>>>> Can we please move to a little more technical terms here? What is "present"
+>>>> and "enabled" in your view? I don't suppose you mean the CPUID bit (which
+>>>> we check) and the x2APIC-mode-enable one (which we drive as needed). It's
+>>>> also left unclear what the four modes of BIOS operation evaluate to. Even
+>>>> if we knew that, overriding e.g. "Compatibility" (which likely means some
+>>>> form of "disabled" / "hidden") isn't normally an appropriate thing to do.
+>>>> In "Auto" mode Xen likely should work - the only way I could interpret the
+>>>> the other modes are "xAPIC" meaning no x2APIC ACPI tables entries (and
+>>>> presumably the CPUID bit also masked), "x2APIC" meaning x2APIC mode pre-
+>>>> enabled by firmware, and "Auto" leaving it to the OS to select. Yet that's
+>>>> speculation on my part ...
 >>>
->>> Then I'm afraid we can't set the bit in the max CPUID policy.  What
->>> about domains being migrated from a host that has UMIP to an Intel
->>> host where UMIP is emulated?  They would see a change in behavior in
->>> SMSW, and the behavior won't match the ISA anymore.
+>>> I provided the information I had discovered.  There is a setting for this
+>>> motherboard (likely present on some similar motherboards) which /may/
+>>> effect the issue.  I doubt I've tried "compatibility", but none of the
+>>> values I've tried have gotten the system to boot without "x2apic=false"
+>>> on Xen's command-line.
+>>>
+>>> When setting to "x2APIC" just after "(XEN) AMD-Vi: IOMMU Extended Features:"
+>>> I see the line "(XEN) - x2APIC".  Later is the line
+>>> "(XEN) x2APIC mode is already enabled by BIOS."  I'll guess "Auto"
+>>> leaves the x2APIC turned off since neither line is present.
 >>
->> Right, but that's the price to pay if we want such emulation (which back
->> at the time did look at least desirable, because the other affected insns
->> are more important to deal with). Not setting the bit in the max policy
->> is as good as not having emulation on VMX at all then.
+>> When "(XEN) - x2APIC" is absent the IOMMU can't be switched into x2APIC
+>> mode. Are you sure that's the case when using "Auto"?
 > 
-> It would need some kind of justification at least on why it's deemed
-> worth exposing in the max policy (and thus made available to incoming
-> guests) even when not compliant to the specification.
+> grep -eAPIC\ driver -e-\ x2APIC:
 > 
-> Could the non-intercaption of CR0 reads and thus no #GP on SMSW on
-> Intel lead to software malfunctioning as a result?
+> "Auto":
+> (XEN) Using APIC driver default
+> (XEN) Overriding APIC driver with bigsmp
+> (XEN) Switched to APIC driver x2apic_cluster
+> 
+> "x2APIC":
+> (XEN) Using APIC driver x2apic_cluster
+> (XEN) - x2APIC
+> 
+> Yes, I'm sure.
 
-One can't exclude it of course, but I don't view this as very likely.
+Okay, this then means we're running in a mode we don't mean to run
+in: When the IOMMU claims to not support x2APIC mode (which is odd in
+the first place when at the same time the CPU reports x2APIC mode as
+supported), amd_iommu_prepare() is intended to switch interrupt
+remapping mode to "restricted" (which in turn would force x2APIC mode
+to "physical", not "clustered"). I notice though that there are a
+number of error paths in the function which bypass this setting. Could
+you add a couple of printk()s to understand which path is taken (each
+time; the function can be called more than once)?
 
-But as said in reply to Andrew - I guess I'll simply drop this patch
-then (which also eliminates your request for further justification,
-which I have to admit I don't really follow).
+>>> Both cases the line "(XEN) Switched to APIC driver x2apic_cluster" is
+>>> present (so perhaps "Auto" merely doesn't activate it).
+>>
+>> Did you also try "x2apic_phys" on the Xen command line (just to be sure
+>> this isn't a clustered-mode only issue)?
+> 
+> No.  In fact x2apic_cluster is mentioned in all failure cases.
+
+Could you give physical mode a try, please?
+
+>>> Appears error_interrupt() needs locking or some concurrency handling
+>>> mechanism since the last error is jumbled.  With the setting "x2APIC"
+>>> I get a bunch of:
+>>> "(XEN) APIC error on CPU#: 00(08)(XEN) APIC error on CPU#: 00(08)"
+>>> (apparently one for each core)
+>>> Followed by "Receive accept error, Receive accept error," (again,
+>>> apparently one for each core).  Then a bunch of newlines (same pattern).
+>>
+>> This is a known issue, but since the messages shouldn't appear in the
+>> first place so far no-one has bothered to address this.
+> 
+> I won't claim it is the best solution, but see other message.
+> 
+> I'm tempted to propose allowing _Static_assert() since it is valuable
+> functionality for preventing issues.
+
+How does _Static_assert() come into play here? Also note that we already
+use it when available ...
 
 Jan
 
