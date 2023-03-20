@@ -2,32 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 160356C111F
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 12:47:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.511858.791212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9740C6C1183
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 13:08:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.511866.791227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peDz3-0002an-7j; Mon, 20 Mar 2023 11:47:25 +0000
+	id 1peEJ1-0005Tb-3P; Mon, 20 Mar 2023 12:08:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 511858.791212; Mon, 20 Mar 2023 11:47:25 +0000
+Received: by outflank-mailman (output) from mailman id 511866.791227; Mon, 20 Mar 2023 12:08:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peDz3-0002YD-4a; Mon, 20 Mar 2023 11:47:25 +0000
-Received: by outflank-mailman (input) for mailman id 511858;
- Mon, 20 Mar 2023 11:47:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=noC+=7M=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1peDz1-0002Y5-O9
- for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 11:47:23 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9ee1b63-c714-11ed-87f5-c1b5be75604c;
- Mon, 20 Mar 2023 12:47:22 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id 20so4626122lju.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Mar 2023 04:47:22 -0700 (PDT)
+	id 1peEJ1-0005R8-0O; Mon, 20 Mar 2023 12:08:03 +0000
+Received: by outflank-mailman (input) for mailman id 511866;
+ Mon, 20 Mar 2023 12:08:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K00X=7M=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1peEJ0-0005R2-8S
+ for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 12:08:02 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20621.outbound.protection.outlook.com
+ [2a01:111:f400:7eb2::621])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id da54e2e6-c717-11ed-b464-930f4c7d94ae;
+ Mon, 20 Mar 2023 13:07:59 +0100 (CET)
+Received: from DS7PR03CA0225.namprd03.prod.outlook.com (2603:10b6:5:3ba::20)
+ by BL1PR12MB5803.namprd12.prod.outlook.com (2603:10b6:208:393::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Mon, 20 Mar
+ 2023 12:07:56 +0000
+Received: from DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3ba:cafe::cd) by DS7PR03CA0225.outlook.office365.com
+ (2603:10b6:5:3ba::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37 via Frontend
+ Transport; Mon, 20 Mar 2023 12:07:55 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT057.mail.protection.outlook.com (10.13.172.252) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6222.15 via Frontend Transport; Mon, 20 Mar 2023 12:07:55 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 20 Mar
+ 2023 07:07:55 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 20 Mar
+ 2023 05:07:16 -0700
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 20 Mar 2023 07:07:15 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,198 +63,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9ee1b63-c714-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1679312842;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=yblBtippYXTSVSq31INAX+4Px6D0HgA57v+Fc3Zbve0=;
-        b=b616dmlLorOwHh4Ds3OcaKZSsDSl5P1BBSVHkSO5/ywqfv5Lgo9Th4xd8+x3SCmgr9
-         zK+vTyt/cDxKD3iWRA4vlv7dA+bXyDkTqXR00AKUdxf7SbdkzfUhC6jU4b8uGbgw1JXA
-         amHUP7MiYl8UPi4mTGSYUl6oE61EKg+R73EwM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679312842;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yblBtippYXTSVSq31INAX+4Px6D0HgA57v+Fc3Zbve0=;
-        b=yh680CA/vVXNTKmZUsz5fFwWH4PQpoA1Hd47DM2O6kABu3TgkNaXXXQTgvscuf+R0B
-         xTgYMvMrK/wE+6o02sxWhiMbSqM2yeX4psqIIUbplYi7O1v2GgNV36C5ci3GAhiID96X
-         nDdVyz09hMMS/dH5B5KabegckKFmU4lKJaEzAgy+ztHUnDHg/nq0bH0bc/R8pzrHgeOQ
-         Uu8QXNVEhwNWZQojtthT8z+9Tc2TUbwoGRZaLgwNCTA/ufgvwwrYj1rv4fe29Jx9biMn
-         3cOT8seIySmGxuCFgmkpGa4iNRhwNgRh5R49x7K8+/+gpux4Ur/3kM33QU6e140RY2NJ
-         WdvA==
-X-Gm-Message-State: AO0yUKUHZ34Xge0MDMEVtL91sty5Rmr4neHKlzAwEyAD3aYae5bafxn9
-	/H8/yD2i2mkslnSOg+51Gj4tE1nuwDwb5Zel42x0Ng==
-X-Google-Smtp-Source: AK7set/aXw0GtMRGye5J+hi6R1Do4FNIxYvRyQfOcHkRDsOnb+mmqpGQr6BcMAfJ5GOEIPJ2hSYYMLicwDBqPCcPM1U=
-X-Received: by 2002:a2e:7219:0:b0:299:a9db:a4 with SMTP id n25-20020a2e7219000000b00299a9db00a4mr4586782ljc.6.1679312841968;
- Mon, 20 Mar 2023 04:47:21 -0700 (PDT)
+X-Inumbo-ID: da54e2e6-c717-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aKRHfmNwe/ShABzLw4YKDHoWFC4X0lGxdsTmpsJxx3cCratyaal9vTlndRfsw7DYB0Nr5k/8OuZJWZmO7tg5opn2v5z4fShYoKMpxVCIduujgR0AziWxcxrP/6pjVK+2H3XgkBOPYO67NW4M2r0ogSQalT31syBsyG4eH/xBsaPe2UIVPt+y8nWhFJDnaawQn/DbYXlimaAaRS9EvZQXH4ckJ1W9eRQg3HbtyKv7/ozdiElVWj5tMIJD+uPxUnfEdwYzX3iwWU01qQZXRT3uq6bLwXSGbPS0OteJaL3Ota3s0zs8Y6PshKzqSfjN9xu7bA2yPq4ZegPXo2lWErpxLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BcJfHW7V7WCx4Bghj5Ua12hi3VvRDijDqJLLw2enHlE=;
+ b=BknAOm16mkaedBkNVqG0dCPQCfKT6KjfKiwuSU/BJv+KBAuSq/19pbjsbgsOCsjhUPxnpyMwi4SK01PwFpOSbOBgVSmaofg59y72d4emH+Z+mA7Li91KwC5uId6AML9cO/grCccwCYjiNxeIdsUOJtCEp15vdH4c4zrsaVkycv3zoG97iObASBrLQYlfRsfybK+ncgtmkoNNMxvxdmy955a1M/7wV01v4RR01QacLWDv+c0PGWCyguckL9VsC5CRqNhL65bC/DGulwm2Nuec4oBexEut11Q2Gch44J4eNfCt6u8OzNOlxSTv/FQKWk8TzleT0ovyARsTcK0qkpTRLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BcJfHW7V7WCx4Bghj5Ua12hi3VvRDijDqJLLw2enHlE=;
+ b=2GLuAM/6Ee2TpIKPcoSoRqfEumpM8Xy1bUzNlQ2ubSsGKwmnh8Tujf9mrXzSFjjzp/zMDwzDXqK4PdHvxYDJEUOIcUb6RU6vvzyn4CnOk63do1joEejDCKISkaRbYBNoTxGO9XfJRKrBOa+pNLA1VBbTjOAANQARUepmhaZqrI4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <66a3b439-478c-64c9-c713-b3ce6d3b779b@amd.com>
+Date: Mon, 20 Mar 2023 13:07:14 +0100
 MIME-Version: 1.0
-References: <cover.1677356813.git.demi@invisiblethingslab.com>
- <e36a472b3e58ee81e8d61e7306f0ee2068eff62a.1677356813.git.demi@invisiblethingslab.com>
- <db7d6e42-2fd5-b7f0-ec84-ca7ffcf5d105@suse.com> <Y/z6blqd1+e22B3a@itl-email>
-In-Reply-To: <Y/z6blqd1+e22B3a@itl-email>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 20 Mar 2023 11:47:11 +0000
-Message-ID: <CA+zSX=ZbnZbG5RoZDVmLcpWym5jaRUDsjmfr0FsMmKzJrJK9yA@mail.gmail.com>
-Subject: Re: [PATCH v5 2/5] Change remaining xenbits.xen.org links to HTTPS
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Jan Beulich <jbeulich@suse.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000699f9905f7537d0e"
-
---000000000000699f9905f7537d0e
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v3] xen/console: Skip switching serial input to non
+ existing domains
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	<xen-devel@lists.xenproject.org>
+References: <20230320081935.18367-1-michal.orzel@amd.com>
+ <39426526-c576-e3e3-4cb2-d3741d447bdd@suse.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <39426526-c576-e3e3-4cb2-d3741d447bdd@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT057:EE_|BL1PR12MB5803:EE_
+X-MS-Office365-Filtering-Correlation-Id: 14b416e4-2169-4115-f7ff-08db293bbd45
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	h4/DHCgN3UIBFwLVmQ8JyjsO++dL3/KvcYUDRQOR2iJQxgo7BxSJnzIrMERW0x3CJiui0sYZVs0zO+z603bpj0/yTjIOOdV1AFZ+UbvmgX612jE54vBuOUXkm8Phcm89ax0EDZiveW1j2yYzsYInr/8nZn3NARlAWbFJV6f+lUzEMeNBMGToaCAPO7N7CkQnt0XBpeBXyUZme7Gci8Lw2Z8aqOf05o1eqnxud7UzX0nYc8n+58uLCiey7XsqMcFKvhHIwjjb4csSzatT6MOuuZB4oxke4+qQIQa9uR8ih3i/b7x8NmbiyzUAnCxV/VLcr5ITHHnXVbMbzjtJbYqASDA2l5S9NcUtmVSwd9DYHB3oQCyKkipwFSS18kHHqerT6HMdu0ECNpN9/wKaEbukVBhWUaUJS0uYY+1dC6YaqlUmLS5D5vtK2ogGW2oeBdbftHwXHSrlnmVlilC4YFPNCL8feByFoZ1vYjYHojQMnJOrg5IVzx1mCvLUUwjW8RxClE6n3MJ8lKvO6hq/mBIUnOz1xAYyldYvACkU7ctg8+clYYOZKaTZM5sia2fe1J7BB6ikf5LNC6LX2PUI+aqMLG3R9OXbfAmh8yuUR3/7psSwuLzj0vflrNABq7yO2eUR03JAWY4DQr5FWQS1JyWMrT6cvNYb6xqBOt8d164aqSIESzKFzLL/lSiVS9wKdMxu87cnbKobdtq7PMGVet1RxGL0CHrHynEfytd9ulLgvAMmPQrxJ0YN2BSqNRoNPycJCwWKNXMoXo7bFcTIabFblw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(346002)(39860400002)(136003)(376002)(396003)(451199018)(40470700004)(36840700001)(46966006)(8936002)(5660300002)(2906002)(426003)(47076005)(31696002)(86362001)(83380400001)(36756003)(40460700003)(53546011)(26005)(186003)(40480700001)(2616005)(336012)(44832011)(6916009)(8676002)(4326008)(316002)(16576012)(356005)(41300700001)(81166007)(31686004)(70586007)(70206006)(82740400003)(478600001)(36860700001)(54906003)(82310400005)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2023 12:07:55.7564
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14b416e4-2169-4115-f7ff-08db293bbd45
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT057.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5803
 
-On Mon, Feb 27, 2023 at 6:46=E2=80=AFPM Demi Marie Obenour <
-demi@invisiblethingslab.com> wrote:
 
-> On Mon, Feb 27, 2023 at 09:35:51AM +0100, Jan Beulich wrote:
-> > On 25.02.2023 21:37, Demi Marie Obenour wrote:
-> > > --- a/Config.mk
-> > > +++ b/Config.mk
-> > > @@ -191,7 +191,7 @@ APPEND_CFLAGS +=3D $(foreach i, $(APPEND_INCLUDES=
-),
-> -I$(i))
-> > >  EMBEDDED_EXTRA_CFLAGS :=3D -fno-pie -fno-stack-protector
-> -fno-stack-protector-all
-> > >  EMBEDDED_EXTRA_CFLAGS +=3D -fno-exceptions
-> -fno-asynchronous-unwind-tables
-> > >
-> > > -XEN_EXTFILES_URL ?=3D http://xenbits.xen.org/xen-extfiles
-> > > +XEN_EXTFILES_URL ?=3D https://xenbits.xen.org/xen-extfiles
-> > >  # All the files at that location were downloaded from elsewhere on
-> > >  # the internet.  The original download URL is preserved as a comment
-> > >  # near the place in the Xen Makefiles where the file is used.
-> > > diff --git a/tools/misc/mkrpm b/tools/misc/mkrpm
-> > > index
-> 68819b2d739cea5491b53f9b944ee2bd20d92c2b..548db4b5da2691547438df5d7d58e5b=
-4c3bd90d0
-> 100644
-> > > --- a/tools/misc/mkrpm
-> > > +++ b/tools/misc/mkrpm
-> > > @@ -34,7 +34,7 @@ Version: $version
-> > >  Release: $release
-> > >  License: GPL
-> > >  Group:   System/Hypervisor
-> > > -URL: http://xenbits.xenproject.org/xen.git
-> > > +URL: https://xenbits.xen.org/git-http/xen.git
-> >
-> > Please can you not lose "project" from the URL? That's the more modern
-> > form, after all. In fact, since you're touching the other URL above
-> > anyway, I wonder if it wouldn't be a good idea to insert "project"
-> > there as well. With at least the former adjustment (which I suppose
-> > can be done while committing, as long as you agree)
-> > Acked-by: Jan Beulich <jbeulich@suse.com>
->
-> I=E2=80=99m fine with either or both of those adjustments.  I was not awa=
-re that
-> https://xenbits.xen.org is an alias for https://xenbits.xenproject.org.
->
 
-"xen.org" is the original.  When Xen joined the Linux Foundation, there
-were some complications with the trademark: Citrix had renamed all their
-products to XenFoo (even those which had nothing to do with Xen), and so
-wanted to keep the trademark; but the LF felt they needed a trademark they
-could own & enforce.  The solution the lawyers came up with was for Citrix
-to allow the LF to own the trademark to "The Xen Project", while Citrix
-retained the trademark to "Xen".  Everything was meant to have shifted over
-to "xenproject.org", but of course "xen.org" was kept around to avoid
-breaking links; and here we are, 10 years later.
+On 20/03/2023 12:17, Jan Beulich wrote:
+> 
+> 
+> On 20.03.2023 09:19, Michal Orzel wrote:
+>> @@ -483,15 +485,34 @@ struct domain *console_input_domain(void)
+>>
+>>  static void switch_serial_input(void)
+>>  {
+>> -    if ( console_rx == max_init_domid + 1 )
+>> -    {
+>> -        console_rx = 0;
+>> -        printk("*** Serial input to Xen");
+>> -    }
+>> -    else
+>> +    unsigned int next_rx = console_rx + 1;
+>> +
+>> +    /*
+>> +     * Rotate among Xen, dom0 and boot-time created domUs while skipping
+>> +     * switching serial input to non existing domains.
+>> +     */
+>> +    while ( next_rx <= max_console_rx + 1 )
+>>      {
+>> -        console_rx++;
+>> -        printk("*** Serial input to DOM%d", console_rx - 1);
+>> +        if ( next_rx == max_console_rx + 1 )
+> 
+> Part of the earlier problems stemmed from the comparison being == here.
+> Could I talk you into using >= instead?
+With the loop condition unmodified it would not make sense as it would be impossible.
+However, because of what you wrote below, I will do this together with other modifications.
 
-Neither LF nor CSG are particularly trigger-happy with lawsuits, so it's
-not a huge deal, but all things being equal, it's better to use "
-xenproject.org"; and switching to "xen.org" is certainly a (small)
-regression.
+> 
+>> +        {
+>> +            console_rx = 0;
+>> +            printk("*** Serial input to Xen");
+>> +            break;
+>> +        }
+>> +        else
+> 
+> No need for "else" after "break" (or alike). Omitting it will not only
+> decrease indentation, but also make more visible that the earlier if()
+> won't "fall through".
+> 
+ok.
 
- -George
+>> +        {
+>> +            struct domain *d = rcu_lock_domain_by_id(next_rx - 1);
+>> +
+>> +            if ( d )
+>> +            {
+>> +                rcu_unlock_domain(d);
+>> +                console_rx = next_rx;
+>> +                printk("*** Serial input to DOM%d", console_rx - 1);
+> 
+> While I expect the compiler will transform this to using "next_rx"
+> here anyway, I think it would be nice if it was written like this
+> right away.
+ok.
 
---000000000000699f9905f7537d0e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> 
+> Since you touch the printk() anyway, please also switch to using the
+> more applicable %u.
+ok.
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Mon, Feb 27, 2023 at 6:46=E2=80=AF=
-PM Demi Marie Obenour &lt;<a href=3D"mailto:demi@invisiblethingslab.com">de=
-mi@invisiblethingslab.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
-l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
-4,204);padding-left:1ex">On Mon, Feb 27, 2023 at 09:35:51AM +0100, Jan Beul=
-ich wrote:<br>
-&gt; On 25.02.2023 21:37, Demi Marie Obenour wrote:<br>
-&gt; &gt; --- a/Config.mk<br>
-&gt; &gt; +++ b/Config.mk<br>
-&gt; &gt; @@ -191,7 +191,7 @@ APPEND_CFLAGS +=3D $(foreach i, $(APPEND_INCL=
-UDES), -I$(i))<br>
-&gt; &gt;=C2=A0 EMBEDDED_EXTRA_CFLAGS :=3D -fno-pie -fno-stack-protector -f=
-no-stack-protector-all<br>
-&gt; &gt;=C2=A0 EMBEDDED_EXTRA_CFLAGS +=3D -fno-exceptions -fno-asynchronou=
-s-unwind-tables<br>
-&gt; &gt;=C2=A0 <br>
-&gt; &gt; -XEN_EXTFILES_URL ?=3D <a href=3D"http://xenbits.xen.org/xen-extf=
-iles" rel=3D"noreferrer" target=3D"_blank">http://xenbits.xen.org/xen-extfi=
-les</a><br>
-&gt; &gt; +XEN_EXTFILES_URL ?=3D <a href=3D"https://xenbits.xen.org/xen-ext=
-files" rel=3D"noreferrer" target=3D"_blank">https://xenbits.xen.org/xen-ext=
-files</a><br>
-&gt; &gt;=C2=A0 # All the files at that location were downloaded from elsew=
-here on<br>
-&gt; &gt;=C2=A0 # the internet.=C2=A0 The original download URL is preserve=
-d as a comment<br>
-&gt; &gt;=C2=A0 # near the place in the Xen Makefiles where the file is use=
-d.<br>
-&gt; &gt; diff --git a/tools/misc/mkrpm b/tools/misc/mkrpm<br>
-&gt; &gt; index 68819b2d739cea5491b53f9b944ee2bd20d92c2b..548db4b5da2691547=
-438df5d7d58e5b4c3bd90d0 100644<br>
-&gt; &gt; --- a/tools/misc/mkrpm<br>
-&gt; &gt; +++ b/tools/misc/mkrpm<br>
-&gt; &gt; @@ -34,7 +34,7 @@ Version: $version<br>
-&gt; &gt;=C2=A0 Release: $release<br>
-&gt; &gt;=C2=A0 License: GPL<br>
-&gt; &gt;=C2=A0 Group:=C2=A0 =C2=A0System/Hypervisor<br>
-&gt; &gt; -URL: <a href=3D"http://xenbits.xenproject.org/xen.git" rel=3D"no=
-referrer" target=3D"_blank">http://xenbits.xenproject.org/xen.git</a><br>
-&gt; &gt; +URL: <a href=3D"https://xenbits.xen.org/git-http/xen.git" rel=3D=
-"noreferrer" target=3D"_blank">https://xenbits.xen.org/git-http/xen.git</a>=
-<br>
-&gt; <br>
-&gt; Please can you not lose &quot;project&quot; from the URL? That&#39;s t=
-he more modern<br>
-&gt; form, after all. In fact, since you&#39;re touching the other URL abov=
-e<br>
-&gt; anyway, I wonder if it wouldn&#39;t be a good idea to insert &quot;pro=
-ject&quot;<br>
-&gt; there as well. With at least the former adjustment (which I suppose<br=
->
-&gt; can be done while committing, as long as you agree)<br>
-&gt; Acked-by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" target=
-=3D"_blank">jbeulich@suse.com</a>&gt;<br>
-<br>
-I=E2=80=99m fine with either or both of those adjustments.=C2=A0 I was not =
-aware that<br>
-<a href=3D"https://xenbits.xen.org" rel=3D"noreferrer" target=3D"_blank">ht=
-tps://xenbits.xen.org</a> is an alias for <a href=3D"https://xenbits.xenpro=
-ject.org" rel=3D"noreferrer" target=3D"_blank">https://xenbits.xenproject.o=
-rg</a>.<br></blockquote><div><br></div><div>&quot;<a href=3D"http://xen.org=
-">xen.org</a>&quot; is the original.=C2=A0 When Xen joined the Linux Founda=
-tion, there were some complications with the trademark: Citrix had renamed =
-all their products to XenFoo=C2=A0(even those which had nothing to do with =
-Xen), and so wanted to keep the trademark; but the LF felt=C2=A0they needed=
- a trademark they could own &amp; enforce.=C2=A0 The solution the lawyers c=
-ame up with was for Citrix to allow the LF to own the trademark to &quot;Th=
-e Xen Project&quot;, while Citrix retained the trademark to &quot;Xen&quot;=
-.=C2=A0 Everything was meant to have shifted over to &quot;<a href=3D"http:=
-//xenproject.org">xenproject.org</a>&quot;, but of course &quot;<a href=3D"=
-http://xen.org">xen.org</a>&quot; was kept around to avoid breaking links; =
-and here we are, 10 years later.</div><div><br></div><div>Neither LF nor=C2=
-=A0CSG are particularly trigger-happy with lawsuits, so it&#39;s not a huge=
- deal, but all things being equal, it&#39;s better to use &quot;<a href=3D"=
-http://xenproject.org">xenproject.org</a>&quot;; and switching to &quot;<a =
-href=3D"http://xen.org">xen.org</a>&quot; is certainly a (small) regression=
-.</div><div><br></div><div>=C2=A0-George</div></div></div>
+> 
+> With the adjustments
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> One other transformation for you to consider is to switch to a base
+> layout like
+> 
+>     unsigned int next_rx = console_rx;
+>     while ( next_rx++ <= max_console_rx )
+>     {
+>         ...
+>     }
+> 
+> i.e. without a separate increment at the bottom of the loop. Which,
+> now that I've spelled it out, raises the question of why the outer
+> loop needs a condition in the first place (because as written above
+> it clearly is always true). So perhaps better (and more directly
+> showing what's going on)
+> 
+>     unsigned int next_rx = console_rx;
+>     for ( ; ; )
+>     {
+>         if ( next_rx++ >= max_console_rx )
+>         ...
+>     }
+Makes sense to me so I will do this assuming that you agree on adding your Rb tag also
+for this approach.
 
---000000000000699f9905f7537d0e--
+~Michal
 
