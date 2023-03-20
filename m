@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19DEB6C1ECA
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 19:00:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512049.791651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2AF46C1F2C
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Mar 2023 19:11:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512058.791663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peJnN-0007Qz-Ur; Mon, 20 Mar 2023 17:59:45 +0000
+	id 1peJyh-0001Xq-V8; Mon, 20 Mar 2023 18:11:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512049.791651; Mon, 20 Mar 2023 17:59:45 +0000
+Received: by outflank-mailman (output) from mailman id 512058.791663; Mon, 20 Mar 2023 18:11:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peJnN-0007Nk-RB; Mon, 20 Mar 2023 17:59:45 +0000
-Received: by outflank-mailman (input) for mailman id 512049;
- Mon, 20 Mar 2023 17:59:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UDcb=7M=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
- id 1peJnM-0007Ne-B8
- for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 17:59:44 +0000
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fd179840-c748-11ed-b464-930f4c7d94ae;
- Mon, 20 Mar 2023 18:59:41 +0100 (CET)
-Received: by mail-ed1-f43.google.com with SMTP id o12so50122717edb.9
- for <xen-devel@lists.xenproject.org>; Mon, 20 Mar 2023 10:59:41 -0700 (PDT)
+	id 1peJyh-0001VW-SF; Mon, 20 Mar 2023 18:11:27 +0000
+Received: by outflank-mailman (input) for mailman id 512058;
+ Mon, 20 Mar 2023 18:11:26 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1peJyg-0001VN-3n
+ for xen-devel@lists.xenproject.org; Mon, 20 Mar 2023 18:11:26 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1peJyc-0003Av-9K; Mon, 20 Mar 2023 18:11:22 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=[192.168.17.111]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1peJyc-000430-2A; Mon, 20 Mar 2023 18:11:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,84 +39,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd179840-c748-11ed-b464-930f4c7d94ae
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679335181;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=a7sGwAEHU4rAw3qBsGFuv5yZFvS6onzoI7msIxY22vg=;
-        b=NDXcFQrHCteELZJwWPHeicfk20QefuNBUqcrpUiDdTiF37j1S8QjR5rpr9bfDjyMrL
-         OCbUF8cdn4K2XPslt20+iLDZY8oDST9++0DhV/WRv1jzash1hE0vF0fLcIic04dq9nXL
-         qDknyDyHaNS4dzKb7P7RTgq7zJfMLdAsoMkzpR2Vq1DQ73VXiR5oPwPklQ0JUCCWpcfc
-         7Y5EgjalFwAcP0Wm8Hlipu8pCq93ePI5X/AAmIYU9kjdq4cf4x4CWfjFDJlvtKYPybDr
-         H/97ze3ZVkAb5IBWqBZUt5M2KrkrUG6CPwxFMhIHdyExBtGiQo/VVg5e5cfmnPr5M6W6
-         rjsQ==
-X-Gm-Message-State: AO0yUKXttYivAiNblWjLHy1V+Cr/u9JrJijy6P7LzyKwU+xST9X/ndRx
-	pi3lFzLdq5RKSyt9ChTuXnLeAhZkXnAbL5T0w+E=
-X-Google-Smtp-Source: AK7set/in7G2WHAmc6rnFdSqsx1ce37uXlEGwdE3zMTPqOaxqAVJfdLtNMLdGm8j32jUt5evhqvSJZnucvSipaxI6fw=
-X-Received: by 2002:a50:8d04:0:b0:4fc:ebe2:2fc9 with SMTP id
- s4-20020a508d04000000b004fcebe22fc9mr223808eds.3.1679335181185; Mon, 20 Mar
- 2023 10:59:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=UwjuBidChx0Z7MpRJ7V+++PDtlGWZdl8Riz1mFgubiM=; b=0xr2OvVtjJ+3IoDbAuFNG6WzDd
+	QdN/JBn+h4l4Gs2hBBJ26BSDT7m3mR/KFwC2IsXb42xj0p9FrAbCk6hI3in52cajvdR3INygZzkfi
+	aIKzKKcJYJPCJfvbhf/b/h1PiuVcs+3bUh9JwOIfJZoUb33SlSGxDWtL02pp9IsJOMzk=;
+Message-ID: <c870f9dd-797d-095d-9bd2-5869bc6193ad@xen.org>
+Date: Mon, 20 Mar 2023 18:11:18 +0000
 MIME-Version: 1.0
-References: <20230316164257.42590-1-roger.pau@citrix.com> <17ffe417-8ea0-df98-a8b7-8c370839134f@suse.com>
-In-Reply-To: <17ffe417-8ea0-df98-a8b7-8c370839134f@suse.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 20 Mar 2023 18:59:30 +0100
-Message-ID: <CAJZ5v0i-RGRQbkVFu0RUyhPrsbiJ1DpAM0rKU-xM4U3Yddvufg@mail.gmail.com>
-Subject: Re: [PATCH v4] acpi/processor: fix evaluating _PDC method when
- running as Xen dom0
-To: Juergen Gross <jgross@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	josef@oderland.se, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>, Alex Chiang <achiang@hp.com>, 
-	linux-acpi@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.8.0
+Subject: Re: [XEN PATCH v3] x86/monitor: Add new monitor event to catch I/O
+ instructions
+Content-Language: en-US
+To: Dmitry Isaykin <isaikin-dmitry@yandex.ru>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Anton Belousov <abelousov@ptsecurity.com>
+References: <858e4c67d14ec9d9c6737dd0b33056e3610c00f6.1679054228.git.isaikin-dmitry@yandex.ru>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <858e4c67d14ec9d9c6737dd0b33056e3610c00f6.1679054228.git.isaikin-dmitry@yandex.ru>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Mar 17, 2023 at 1:42=E2=80=AFPM Juergen Gross <jgross@suse.com> wro=
-te:
->
-> On 16.03.23 17:42, Roger Pau Monne wrote:
-> > In ACPI systems, the OS can direct power management, as opposed to the
-> > firmware.  This OS-directed Power Management is called OSPM.  Part of
-> > telling the firmware that the OS going to direct power management is
-> > making ACPI "_PDC" (Processor Driver Capabilities) calls.  These _PDC
-> > methods must be evaluated for every processor object.  If these _PDC
-> > calls are not completed for every processor it can lead to
-> > inconsistency and later failures in things like the CPU frequency
-> > driver.
-> >
-> > In a Xen system, the dom0 kernel is responsible for system-wide power
-> > management.  The dom0 kernel is in charge of OSPM.  However, the
-> > number of CPUs available to dom0 can be different than the number of
-> > CPUs physically present on the system.
-> >
-> > This leads to a problem: the dom0 kernel needs to evaluate _PDC for
-> > all the processors, but it can't always see them.
-> >
-> > In dom0 kernels, ignore the existing ACPI method for determining if a
-> > processor is physically present because it might not be accurate.
-> > Instead, ask the hypervisor for this information.
-> >
-> > Fix this by introducing a custom function to use when running as Xen
-> > dom0 in order to check whether a processor object matches a CPU that's
-> > online.  Such checking is done using the existing information fetched
-> > by the Xen pCPU subsystem, extending it to also store the ACPI ID.
-> >
-> > This ensures that _PDC method gets evaluated for all physically online
-> > CPUs, regardless of the number of CPUs made available to dom0.
-> >
-> > Fixes: 5d554a7bb064 ('ACPI: processor: add internal processor_physicall=
-y_present()')
-> > Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->
-> Reviewed-by: Juergen Gross <jgross@suse.com>
+Hi,
 
-Applied as 6.4 material under a slightly edited subject, thanks!
+On 17/03/2023 12:01, Dmitry Isaykin wrote:
+> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+> index 51be28c3de..7280e9f968 100644
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -1063,6 +1063,7 @@ struct xen_domctl_psr_cmt_op {
+>   /* Enabled by default */
+>   #define XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT     11
+>   #define XEN_DOMCTL_MONITOR_EVENT_VMEXIT                12
+> +#define XEN_DOMCTL_MONITOR_EVENT_IO                    13
+>   
+>   struct xen_domctl_monitor_op {
+>       uint32_t op; /* XEN_DOMCTL_MONITOR_OP_* */
+> diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
+> index 0035c26e12..1e4b6063f5 100644
+> --- a/xen/include/public/vm_event.h
+> +++ b/xen/include/public/vm_event.h
+> @@ -160,6 +160,8 @@
+>   #define VM_EVENT_REASON_EMUL_UNIMPLEMENTED      14
+>   /* VMEXIT */
+>   #define VM_EVENT_REASON_VMEXIT                  15
+> +/* IN/OUT Instruction executed */
+> +#define VM_EVENT_REASON_IO_INSTRUCTION          16
+>   
+>   /* Supported values for the vm_event_write_ctrlreg index. */
+>   #define VM_EVENT_X86_CR0    0
+> @@ -388,6 +390,13 @@ struct vm_event_vmexit {
+>       } arch;
+>   };
+>   
+> +struct vm_event_io {
+> +    uint32_t data_size;
+> +    uint16_t port;
+> +    uint8_t  dir; /* IOREQ_READ or IOREQ_WRITE */
+> +    uint8_t  string_ins;
+It would be good to comment what the value is meant to be? Is it 0 and 1 
+(extra meaning to be confirmed) with the other values reserved for 
+future purpose?
+
+Cheers,
+
+-- 
+Julien Grall
 
