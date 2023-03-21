@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 444B66C393D
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 19:34:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513015.793423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 599E46C39A0
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 19:56:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513020.793432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pegnx-00075s-R3; Tue, 21 Mar 2023 18:33:53 +0000
+	id 1peh90-0001Xo-NY; Tue, 21 Mar 2023 18:55:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513015.793423; Tue, 21 Mar 2023 18:33:53 +0000
+Received: by outflank-mailman (output) from mailman id 513020.793432; Tue, 21 Mar 2023 18:55:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pegnx-00073G-N5; Tue, 21 Mar 2023 18:33:53 +0000
-Received: by outflank-mailman (input) for mailman id 513015;
- Tue, 21 Mar 2023 18:33:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1peh90-0001Vf-Kq; Tue, 21 Mar 2023 18:55:38 +0000
+Received: by outflank-mailman (input) for mailman id 513020;
+ Tue, 21 Mar 2023 18:55:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CsWt=7N=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pegnv-00073A-Ul
- for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 18:33:52 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20613.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::613])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ea68a6c2-c816-11ed-b464-930f4c7d94ae;
- Tue, 21 Mar 2023 19:33:48 +0100 (CET)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by CH2PR12MB4101.namprd12.prod.outlook.com (2603:10b6:610:a8::22)
+ <SRS0=5e6f=7N=amd.com=Christian.Koenig@srs-se1.protection.inumbo.net>)
+ id 1peh8z-0001VZ-3S
+ for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 18:55:37 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20624.outbound.protection.outlook.com
+ [2a01:111:f400:7e89::624])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f4094a7e-c819-11ed-87f5-c1b5be75604c;
+ Tue, 21 Mar 2023 19:55:34 +0100 (CET)
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com (2603:10b6:408:43::13)
+ by BL1PR12MB5239.namprd12.prod.outlook.com (2603:10b6:208:315::24)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Tue, 21 Mar
- 2023 18:33:44 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::659f:af8f:6d3e:8242]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::659f:af8f:6d3e:8242%4]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
- 18:33:44 +0000
+ 2023 18:55:28 +0000
+Received: from BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d23f:bb1:df95:3918]) by BN8PR12MB3587.namprd12.prod.outlook.com
+ ([fe80::d23f:bb1:df95:3918%4]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
+ 18:55:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,281 +47,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea68a6c2-c816-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: f4094a7e-c819-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jg1TplbqW8pZWSQzLCj0lYm0OXWPRQUVB5utsA5ZlrfPBBroQQwvWEnPznnVXt8YRibVvw3AJ85U3V08JF1QW7h6osbPuAMID1UbD2oa8XyLFmGKdJY57H4kaElrkkv1HF8A8Jd8qZ5EcjncHyGyNEFVHG0c+TrWeIRBo/cizKks3abhlI3/B5R2vXbWZy4V+5fxHX+i2plWVJaqf1WHigCwmfD+seWBqCXmkxFR3YcSdAtSTYxyworuBon5qSww9ZW1cAzThkf8nnCfqyO2NCMYayNR/oJVgdEeeRsT9METErNOwfQlu+CsjF3Bsdu/kkkZllbfOc/vR9BgsJWn1A==
+ b=H7pkNXMgQqmaJ3UqpDNpQs4fkpF9LO7Ruuhq0uwujX+tyIgPRMZJKSAffXdrZQBhZuPz83awoExqoP9RMU22ATyYEHklrtEO3jdkZ27/75XxF0cLndSU4NGjlY6GJd4QrC/QOEnQ89vlcm2qU5YbnZhOaIm+qVGyBFzXLmUf3kJyznjXpczFF25BSFpwTQsgdApp3Sr7FOY3Z0jh0G58hEIEqpbUOfHeMFSpCRYDeW3xTn48QJdogoJHNAziSUNa6Iyj4wtkZcgTlgswx2CEtOocUXxkWFn8EXq6lG633B5avcpAzSs8smIGXm6sPAV5PWWGe5hYMpZSwL5L55482w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r3AWmQytbyq6lVxqpKpF05l0Xi9x/G2roTeBtxMBBdo=;
- b=Axv41nfJrleKRzGCN2gkuRbpZ5bPGDdV0uNxoOrV6ES64XavRu06i7mg/UE7osVN4vdrkd4W8jUAd32nyBMaOq+JIpK5cUEC/IBR+i6NaZuEqQweIL2dNRS/iJl0OKvRj1SkoV1EJwEfViBTkJaSrFpwpmfaG3gm1wMTrupjbk0rsJctfmKpYr3Ssdu5XFHi9o1xnXWAYZKJqYOC8vBd4mCpIKY/3EH0vb4o7KgG8dRGRY+d+LqMlOyYqXmVosAnMu5YrvGhXstIs8jYNBjFJjZ4FIZJ5Y5Yc3FqfS0lZ/vx3ARxuub5dvpbI+hSuGFZbQiuKJR+IC+iCevCRTWyeQ==
+ bh=HV5tAZkMTA86CnxwVywC1hyOWM5EHGs520IjmM0K8Gg=;
+ b=WbPs7ohsONHpWW1XVJssmHYCsjvPbFUAcqaJdUAZ6H8bkUO/Zja1O8NjRV4wNyWV32cYujmoHKQ+oDgxqoUA1rsLcomRIZt60RBmT/oTOrQzRhH3wk48pwR3BLKG0gVnoW7e0IY8abkN8S+aupkv9rY3Ts+xLRUXy8nbQmDeiohyuZoj0xyt/Ds5XlpKHcYrzCz14gWNJ6IwZjGJTo9esU5SNsSGzApOusUWGmqYI68wBt3LOHi0ha6VPcNZAqzp7UGkn5gYPVnmrrbXTqO7WBRgx+7jC2XvuLObnlNpXNZYCTWoCmJ+YNUOeadBRGgHtXEdzzysETHj5LvKyE883A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r3AWmQytbyq6lVxqpKpF05l0Xi9x/G2roTeBtxMBBdo=;
- b=VPGzmbEgnw0wMtxOqHvZwCXiN2iVwoXA1jB4uuGF34Tfs1adFjBGz3wgjeygXdFNxY3xLlf3iuLGP886iltp06x7xXLg+81VYau7t3PHVmR8jtxOoAZkFOkFc9kkEiPW3pzPPGlC200/569xBIc+yHegLLZln9Mj1xKkORPOev8=
+ bh=HV5tAZkMTA86CnxwVywC1hyOWM5EHGs520IjmM0K8Gg=;
+ b=Z1QGzfeQZwpR/cl8QSudiwCeWSHybMLVGPXCXk4v4yZFqPuodtOD/N05WVJ4cYTAkD+5k/YqAAODCbDlsLhlvwp3sAyehWjQD3PzYjxFBKjvWDBbd59NZAqgc5oGx/8RGhgcBnG44x6c+xw4akQ2J+1I0LnHL/3RDTF6rtW8Ab8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <01a800a5-1c0d-b9d4-05c7-c886b3e3009d@amd.com>
-Date: Tue, 21 Mar 2023 18:33:37 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.8.0
-Subject: Re: [XEN v4 07/11] xen/arm: Introduce choice to enable 64/32 bit
- physical addressing
-To: Jan Beulich <jbeulich@suse.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com, julien@xen.org,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, wl@xen.org,
- rahul.singh@arm.com, xen-devel@lists.xenproject.org
-References: <20230321140357.24094-1-ayan.kumar.halder@amd.com>
- <20230321140357.24094-8-ayan.kumar.halder@amd.com>
- <7d90ad7a-5daf-915c-2055-a27ca50d8581@suse.com>
- <e268e11b-8e93-c506-668b-c5c004b3aa06@amd.com>
- <1883c9a3-ad25-ac45-b1fa-d29e19b3cc14@suse.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <1883c9a3-ad25-ac45-b1fa-d29e19b3cc14@suse.com>
+Message-ID: <69f0ba3b-c7a7-a059-3cd4-181a9d474320@amd.com>
+Date: Tue, 21 Mar 2023 19:55:20 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [RFC PATCH 1/5] x86/xen: disable swiotlb for xen pvh
+Content-Language: en-US
+To: Alex Deucher <alexdeucher@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
+ Honglei Huang <honglei1.huang@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Huang Rui <ray.huang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>,
+ Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, xen-devel@lists.xenproject.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Julia Zhang <julia.zhang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <20230312120157.452859-1-ray.huang@amd.com>
+ <20230312120157.452859-2-ray.huang@amd.com>
+ <ea0e3852-87ba-984b-4010-5eeac3d6c507@suse.com>
+ <alpine.DEB.2.22.394.2303141747350.863724@ubuntu-linux-20-04-desktop>
+ <f5e03f2a-8176-528f-e885-9a97940367c0@suse.com>
+ <alpine.DEB.2.22.394.2303151616200.3462@ubuntu-linux-20-04-desktop>
+ <5e22a45d-6f12-da9b-94f6-3112a30e8574@suse.com>
+ <CADnq5_PH9ZqDqpPES74V3fB3NVpaexDoGTyu_+-zoux5vgagyg@mail.gmail.com>
+ <dcb54275-b21f-a837-76bb-e19e331a0666@suse.com>
+ <CADnq5_PpCWrZzQdE_X6ZnuNU3ktVeC6TbmE5vq3K6rCAdB8GTg@mail.gmail.com>
+ <d256a967-f50e-2e19-1985-aa9cfc0e8b18@suse.com>
+ <alpine.DEB.2.22.394.2303161603200.3359@ubuntu-linux-20-04-desktop>
+ <CADnq5_NnOApcpkKb3UqAKAcS9s_gG3Lq4ssJDgCjq5ZQty2rnw@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+In-Reply-To: <CADnq5_NnOApcpkKb3UqAKAcS9s_gG3Lq4ssJDgCjq5ZQty2rnw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0229.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:315::18) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-ClientProxiedBy: FR0P281CA0096.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::9) To BN8PR12MB3587.namprd12.prod.outlook.com
+ (2603:10b6:408:43::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|CH2PR12MB4101:EE_
-X-MS-Office365-Filtering-Correlation-Id: 399259d4-85c4-40de-39ee-08db2a3acd17
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3587:EE_|BL1PR12MB5239:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04968f21-c04e-4f23-876f-08db2a3dd654
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	k4fMiH4ZZsOH2omWkvMmyf8M7OGo2wKV+GMt8KIkTm3ovBznuk/94E7wePWZITzKw+qZXkWk35MCYMNXUmZQmdMgTHBidLRzPXBKbE5jBsz5oMtx4RCZdWy6mNoORYRBvG3gKg7n/TFIs3gyBk9p8+wqiXVsfBMIIvYlJt6p7BdcrwUihfrFWrUpivH7aeIfemakgLW470eps/R74aJkLBzAQmFtohQCJ6/4ZhsI+TafgyCWswUYf6I27NrI90brqnk0MZomjfPcdC9dxXOc41vq47e5ysoIFnEPlpyZqJoBagHzCR/jyNs6JJdZm9jwJ0BpcNedh9UX5Jf78OZAuber9Iy5vQQbKMZqwUj+x2BL75B8BMiJT5W2VlKIvvAJsecGIr8+CVZVB7ApHIXfOlIrRjsxsqMOM3ZoCMUJgGd8Yn1g5Xohrzbb5W2cpRus+OSaFG8OUQhJRbtRl7Xcxh25kxA6sw+WBOmIvQxaeCfAjeTJICAu7VxOu2TlxqtzMYimvISHR3DchSX1vM6e+O5aOYg4aYpiBYRZAA/KvTW56zUboduU2yFc3cHWgaxr/Ial5d3e4gGFoYXw7sP7Pmzk0J9xyFigMSgcSMUr4emCqiG+X1XSOxb65qah4X+cGK1RfCznV5Wiq4Q7a0AGBOTG1Dpbba110r+/PE/mcXeg2b8B3LZlj8CNUvc3mU8lbcsnV+Wk8RxMMoa4/o2Bkt23GxTmzlCsA5K388ehZuQJ50dKTxmhrRupMdHQy8FeYxS6CJsEnN4PYbrHhvF8jw==
+	upyAIgScAZ4yXuW85QaOIok1B3L97K3FKfrBnIKaNyye0XKPTHqW5h7NWB68IbY+kAf75mwzcIcBKj8r3d8Qyk1vt+iQ7sBrMGAVpUsujNsCYwElvJRhUE1ItS3GnTUL1G5tFJKHzHlhDp0LywgZJAe/jLABydSfgmKsFfQnHiRlOoUMJETYG786aSL2/ynwKUtblzAI3ot9XhaFxQLpw5t1LsW3iqXFrYcNTOqtmUJJyA8BKv3SmuPi12Jxg5F/8f/0RDpRs9rrQ4fVJv549O1lU1/i7JsAqJo6g5xA54GRdrhywZ+DamcKpFaXblgcjc3FA40JMUqmk8SovZHyIXUhXkKhIaIuID1XKYwPl7ceuAhXMSkEbUWTUEbr9Xb2MHgKx0Voz8OYBzm5mdIC6xicLiBVWVPbjUxuTnX0z20k6RBS1IstM031i6jpT41hQAWJcIZ4zmPU4siwQ+fPHLNPtqMbfDpMAkiTAGD++t3sPDVJgO8i4JWzeomluc5v49UaKI8CY1CakCgtvMr/ztA/Lg2JKZCsVkJRy4IKKeLsus6S4TLPKp5Wn1h+MxoPMv0DgJ0RBkwuy4JTLwkdLz+NXVzHDWYN+OevWvA2xj+UK01l1h0njHNk0ZFvaplsJPUaHjxRY1PM7Bn6PLAVj5mDhEymuAqywlA7gYV54gMXQTW64POi7AXbUs8BrALs1lVKjapzOIdx5e0S+Lt/QNWkcXc95f9DiXmAo1EMFw8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(376002)(366004)(39860400002)(346002)(136003)(396003)(451199018)(38100700002)(6636002)(31696002)(110136005)(7416002)(8676002)(316002)(66946007)(66476007)(36756003)(66556008)(8936002)(4326008)(5660300002)(41300700001)(2906002)(83380400001)(478600001)(6666004)(2616005)(31686004)(6506007)(26005)(186003)(53546011)(6512007)(6486002)(966005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN8PR12MB3587.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(136003)(376002)(396003)(366004)(39860400002)(451199018)(31686004)(66899018)(2616005)(54906003)(83380400001)(6512007)(7416002)(53546011)(6506007)(6486002)(478600001)(316002)(5660300002)(6666004)(186003)(31696002)(110136005)(86362001)(38100700002)(66946007)(41300700001)(2906002)(8936002)(66476007)(66556008)(8676002)(4326008)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NVNIZXN1M2d6ZHJDNGlBekRDUmFoRnFJR1FTY0tQZ2tISzBFMExPemFycmps?=
- =?utf-8?B?SitpLzlCZmpuakltbXNzVmZrMkgzd0VheC85aklPMG5pRXkyZTZsL1VIc0w3?=
- =?utf-8?B?dTJHMm5MZmpBM2tkMVlXTVg1aFN0cXlxdW1uRytnUnhhSWFReUVrbysyTTJx?=
- =?utf-8?B?NVlxRE5ON09aeGJqclFxK2VVL25UZjVXMVBNQ3c5cnBRa1RBZE5QZnI3Q2tH?=
- =?utf-8?B?a2ZwWFlhK2JVRDBOaTJoWndPUDdPTG5lZUZ2eXlpUXd5VWVQdTN4K01ieW9F?=
- =?utf-8?B?ZG1lMXIycERhMCtPcCtyay94NEdmUW93Q0pySzZGOFd1Z2Y2dUhieVNjKzhz?=
- =?utf-8?B?VVEzdHlXK1NvUU42aVFpTVVRWFpyY1ZtUG4xZExsMEpGc3BNMndjS3gvdWla?=
- =?utf-8?B?VFA4Ukk0SE9ZaFRGd0xrMUdhN2RwVVJQV1ZwTXZtTWd5R2M1ejR4ditBNFAz?=
- =?utf-8?B?bS84bFBwT2M5MHZOMHlHbkJoTzNaTUFHR295L2wvcXRtMmF0Qkp1QWxqRE1a?=
- =?utf-8?B?a09hTWhEMm1tbnBwYkRxOGZiamJWZFB0QW5oTDNaS1J3bHRQQUtsOCtZTUVR?=
- =?utf-8?B?OXcxS20yOVFkUnhzc0dCSW93cXdyWXFpeTQwZExZcUU5ZGNha3dMYlJWZHNa?=
- =?utf-8?B?d09VRTRUeXNVNFZZY1ozbDhDRUgyNkNPK1BZQzZYcDRQcEl3aGZBL3dabi9x?=
- =?utf-8?B?Y2ZXU3R4ZkRXNDdNUGZBd1NKOTRyWktuS1JkMksvdUQvRldvNEtpVmp3TEtC?=
- =?utf-8?B?U0NTcUdFZ202NDIvTnBsOU54ZTdoczFnRUVTcHJ3UEhhQjZhdWljZkdncHJT?=
- =?utf-8?B?SHVxZHJ1U1pmb0RHYlhHUmhBckJJdGp0aG1MTWE3STZtbEVDM1Z5bmpyUWw4?=
- =?utf-8?B?eTk2NmN2M0xxcGw4OFdKbHVzWkFLVTIyYVVuTS9TeWpoRmJqWHhpNjVONEZG?=
- =?utf-8?B?MDZSdVozNlpoUjBjUlNYY08reUsrMjNCWHFpczlEU3Jaa29HbHlMOVFzbTFz?=
- =?utf-8?B?YjJqSmVLV3E1TlpBMHV3eXdwL2hQR3ZpRkVyYThqTThCeWQvVU5KeVExYlRo?=
- =?utf-8?B?WnJjSlJCbW8yYWszU3ZkV0JZMjhqK1dDMTVUajJZaWNrbFFBUHNjOWtHcXIw?=
- =?utf-8?B?NGQ2akt6cDE2WHN5OHJLOWZxZkttb25Oc0Z2TXdVOXFxT2JlUDNHRFhyalZP?=
- =?utf-8?B?cUkzZnBvNGFWQ1RRYk42OVp2T3hreGFzNFNhbngxTFZ2dTZDL0tiSXc5V2tr?=
- =?utf-8?B?bmpxNWJ6WVd2eEd2TmdSUzRKV1ZoYWYrNnhNajV0ZzBrSmk5b0U4ajNXN3pk?=
- =?utf-8?B?RWFpbXVCVEFiRFlSYWNDZzBTV0pMZ3BxbmNrMjhLZjhwRmF2OVY1MU1yRnpv?=
- =?utf-8?B?dWc2djZkdVFEWXZ0NEM5NkhXUVRKRlcvWTFYYWNrRElZNUNlWnlPcUtjandz?=
- =?utf-8?B?c2hZTS9ZVExSRTQ5TFk4dllQVlJwbG9mSFg1ZDF0d2tRRXM4SlhPd2daWm1L?=
- =?utf-8?B?STRMTE9nVy9nNGhPTEZDZUQxc0FqNFdiTDFLNWVJRzNvZ0FKSzVMOHZLNmJr?=
- =?utf-8?B?VzVkUXdMdmZ0LzNuRE10NWxaazZYNnBkeVNMT21Gc0R0c2RBZ1BrSGVIWU9k?=
- =?utf-8?B?Zk9yMzhFclA0RjFGeFdndWJTUzNNWGhaZDVjVy8wanZKZm9jcnVTZ053NW5l?=
- =?utf-8?B?SUxKU2ZrU0RVVWdBVE5kNXFvL09ZUlZBaGZrS3BYU0xvYW9WbU5QYlBEMkhG?=
- =?utf-8?B?ME44UDVwOUN0ZkM4bUxZdFNpbTZFa1BLOFh0QURXaklOakVub095RFo3VkJq?=
- =?utf-8?B?bDROK1RWdGlDR0E0TnlNYnpVWnJVL2wxSlJiZis4NGcwNE9Bc0dVWXV1ZlRz?=
- =?utf-8?B?b05QODUzZEJUQzAyQ1hLRGd0VU8wbUkzWjNVaURsZXpFemMrUXJ3V2NOeEc5?=
- =?utf-8?B?UFFWQWcvZDVFSThjVGU1SXVmaXNod24zbkxhTnE2VHBlcEJ0WkFaMWcxUUFR?=
- =?utf-8?B?VlJibjA2K29UOHRmWWx4U3pLMG83RWJzRmtVT0Nuak5NWHQvRkxFM24wSC96?=
- =?utf-8?B?NCtVNG5MRTQwS0FKb2JiOHJ6NWVTRCtqSEQrcHEwRUFUWVQvUWRjM3RMUmI4?=
- =?utf-8?Q?MgJyaxq5ZNFydXYcHN2nGkqPn?=
+	=?utf-8?B?d0hCVlgyNUhjbm42NUtOdGx3cUhuQm1CQnBoYlplaFhmTFVibzM2TGthN1Zm?=
+ =?utf-8?B?ZkIwckFzV1g2MmRPNlRVR0RsYStnem5lT2VydFNKUWxpRTJWOS9UUEVrWWMr?=
+ =?utf-8?B?VFNpN3paektrMVJramJmNTVzSkticllndDVldnNXSUFJOTF5ZkhodkhTNVlt?=
+ =?utf-8?B?R0dRSjQrbzBWTVRIQUlMMlF6MWNaY2NrZUxuQkY1RGQ0dUI0TkZZa1JvSHRO?=
+ =?utf-8?B?NytsL2ljb29rczIyZWcvckJ4Wkp6a2REVUFkdU43VXpCdWVkKzFzZTdjR1lD?=
+ =?utf-8?B?WXNiRGZXdjVaMkFSV2kxRUVORDNJTElqMHFXZGhLTDlaZ1ZYb2JLb2txYlp5?=
+ =?utf-8?B?d1BKL3ZkcEZsN1BocDVWTjdlRW0zbko4OXpMN25BTkM2cUFGUW4xVzdPbnBT?=
+ =?utf-8?B?eS93aS9XTzhGZk1MWmtIb3ZhTVVvM3B6N1pLSzlJM0M1SDNoTHdrSlB2b0Z6?=
+ =?utf-8?B?RWRhT3JFVHNKSW80TUUzbm1kRnBLSzU3MEowaTBDemRpbCtVNHlJdHBCRU0z?=
+ =?utf-8?B?RXpMUXJ6M0t6Ukc0aEQrdUIwb1BjVFV2b3k5MmhkR2JDbDhTZFFhYy9RcjY1?=
+ =?utf-8?B?L0tkV1VoVHY1ZzRvUCtsZmVBTWRiR29KWm9oaHFwaG1JaUNObHNKbFlPdlpX?=
+ =?utf-8?B?cTd3OVB1VXlNUFpoMXBBblM2WkFRdzR3NE4xZ1lMM3lpV3lCYmdQU3NIMGcz?=
+ =?utf-8?B?bW0wU0xabEV6N01taVhnbHlTVXcxZXRHVGxJWm1OZ0lIQTVPa25JWTl5T0d0?=
+ =?utf-8?B?SmFUNklQN1huRzBEaXcwKytCWFJJM1ZmZFdkcWw5SW9uRFFoVzhmN3Y2aVhz?=
+ =?utf-8?B?UnBiSFc3TkxZZzUwTlFhOE05SVROMDFwNWlmTldFOXVhNGtVZXZJaEtyS0cw?=
+ =?utf-8?B?OXdrQnRTVFhENGdBZVlVWjR5c0ZLTlVtY3FpWTBYOWxROXRmTTRob2RIM2kr?=
+ =?utf-8?B?UFhHenFLYW1iME5LWVJKSVBnTHNLMlE4Wml3UW1FZ2xWR1VqeHY1NWh4UzQw?=
+ =?utf-8?B?V0NvZGlNV0hzVXBrUll4M3k0TkJwM0FhQUx2WDc1SHVFeGNnVmlXVzUzUm9z?=
+ =?utf-8?B?MFIvYkp6bEdCcjU4dkVYY0I1WjNJL2ZxNGVWK0JWREZLWDhEWlFOemlQbWd0?=
+ =?utf-8?B?aEpZNnpZcDc1cFRxTElsWExDK1BqR0xhVTBqU1IzdXV4L2hTSDF2NVJWRzZ1?=
+ =?utf-8?B?ZU8xb1NteVI3NGZLRmFLZ09NdjJ4TS9aMHZsNk1zTG9leFpkRXlCYUFja2VC?=
+ =?utf-8?B?SVZWTDgzcWozTERFRXhBVWEyWmFiWTZHTGI4WFA4a0UvM3lnMVQvNDR2UmYr?=
+ =?utf-8?B?RGlUMHIyUWw1REVtNDlLZWJiLzhoMjVxdTJ3WlhVUXRnZnpidGJGUldRRVd3?=
+ =?utf-8?B?NG1iV1lJU3Nzb2t4YWVVZDNhbWtQeE1wTitUM0JvcTI4U3h6OUN2dzhlMSt5?=
+ =?utf-8?B?dFpHMEE4OUhmNU03aFFHK25iZm5HSmhML1d2SHZ6dzd4b3BQdzFIbjhONUR6?=
+ =?utf-8?B?QVNYNlF4bjAvMHhsc0NsSEN2NHFPaDBvNHdsSU01SWgxMXBtTUxnL3ErU3dN?=
+ =?utf-8?B?TUhVN1cveFJleHVncVJmR3kzQ0pVd3JvZ1JFUG1KMGE3YVNqYU9MTDdUd0pW?=
+ =?utf-8?B?QkRPNWRVWnE2Ym5DSWhJRnBkamJ4NUhMM01rdWZzSWphNUJ3VllWTy9sTDha?=
+ =?utf-8?B?NEp2VGg3M1g1alJJcXVaak5SVGRKRklZUG5MSDgySXpiUzFxY0txd2NuZXkw?=
+ =?utf-8?B?cU5GY1hpRStDNDVIMVZDOW9PbWt2amN3R2pab1g2cGlIOG5qYityeG8vRlBV?=
+ =?utf-8?B?ZkRtL0FLTHpNVU8yWHU5bzc1UDY5dEV6V05NVjVxVHplNjFncE1pRjEvY2JZ?=
+ =?utf-8?B?My9Bd29meTNxNHgvWnBIM2Z2dFBUMnFVa3VSQXd4UGE0SnU4UStOcCt0SFZO?=
+ =?utf-8?B?bmhZODhMR2pHVmVXOFVPcTFYRlp1eXA5WDRXaXZXOWkyTXd0MEYrajFrbW10?=
+ =?utf-8?B?OUtDdEJ3UFhMVEVtY0tJeFhZa1NsQ28vUU5qeFp2bVVzV1FWVGsxdVRESnpo?=
+ =?utf-8?B?QmdVb1kvK3VScnNhMGh2Z1RQVXJFeU5CbldhY2MzNkhyeFNCcFJQSkcwMjlm?=
+ =?utf-8?B?ZFluWFNsTlY2anVWTE5nR0YveHpLT3BSNXErdXdTREVHa2FnMGdiWDZaTXZC?=
+ =?utf-8?Q?I4/LN4AFkDkiyX37jnGjFAg6x8C656fmxT996YZ62jsn?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 399259d4-85c4-40de-39ee-08db2a3acd17
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04968f21-c04e-4f23-876f-08db2a3dd654
+X-MS-Exchange-CrossTenant-AuthSource: BN8PR12MB3587.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 18:33:44.2409
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 18:55:28.2636
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fPnIXSxX6OCdQmbL6Xb4ma1SxKi4VFOKryIZltiLoXmJoRv+GJdhsk/PoOppWTJEL34858P/n+A6Pf+7nWStcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4101
+X-MS-Exchange-CrossTenant-UserPrincipalName: BVkc48WqdHlFqzYAggFI/RtiIAxjqxcaZ8aZLZwZcsYsaARJd84s519Jkb/62Sso
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5239
 
-Hi Jan,
-
-On 21/03/2023 16:53, Jan Beulich wrote:
-> On 21.03.2023 17:15, Ayan Kumar Halder wrote:
->> On 21/03/2023 14:22, Jan Beulich wrote:
->>> On 21.03.2023 15:03, Ayan Kumar Halder wrote:
->>>> --- a/xen/arch/Kconfig
->>>> +++ b/xen/arch/Kconfig
->>>> @@ -1,6 +1,12 @@
->>>>    config 64BIT
->>>>    	bool
->>>>    
->>>> +config PHYS_ADDR_T_32
->>>> +	bool
->>>> +
->>>> +config PHYS_ADDR_T_64
->>>> +	bool
->>> Do we really need both?
->> I was thinking the same. I am assuming that in future we may have
->>
->> PHYS_ADDR_T_16,
-> Really? What contemporary system would be able to run in just 64k?
-> Certainly not Xen, let alone any Dom0 on top of it.
->
->> PHYS_ADDR_T_128. So, I am hoping that defining them explicitly might help.
-> Yes, 128-bit addresses may appear at some point. Then (and only then)
-> we'll need two controls, and we can then think about how to represent
-> them properly without risking issues.
->
->> Also, the user cannot select these configs directly.
-> Sure, but at some point some strange combination of options might that
-> randconfig manages to construct.
->
->>> If so, what guards against both being selected
->>> at the same time?
->> At present, we rely on "select".
-> You mean 'we rely on there being only one "select"'?
-Yes, that was what I meant.
-> Else I'm afraid I
-> don't understand your reply.
->
->>> Them being put in common code I consider it an at least latent issue
->>> that you add "select"s ...
+Am 17.03.23 um 15:45 schrieb Alex Deucher:
+> On Thu, Mar 16, 2023 at 7:09 PM Stefano Stabellini
+> <sstabellini@kernel.org> wrote:
+>> On Thu, 16 Mar 2023, Juergen Gross wrote:
+>>> On 16.03.23 14:53, Alex Deucher wrote:
+>>>> On Thu, Mar 16, 2023 at 9:48 AM Juergen Gross <jgross@suse.com> wrote:
+>>>>> On 16.03.23 14:45, Alex Deucher wrote:
+>>>>>> On Thu, Mar 16, 2023 at 3:50 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>>> On 16.03.2023 00:25, Stefano Stabellini wrote:
+>>>>>>>> On Wed, 15 Mar 2023, Jan Beulich wrote:
+>>>>>>>>> On 15.03.2023 01:52, Stefano Stabellini wrote:
+>>>>>>>>>> On Mon, 13 Mar 2023, Jan Beulich wrote:
+>>>>>>>>>>> On 12.03.2023 13:01, Huang Rui wrote:
+>>>>>>>>>>>> Xen PVH is the paravirtualized mode and takes advantage of
+>>>>>>>>>>>> hardware
+>>>>>>>>>>>> virtualization support when possible. It will using the
+>>>>>>>>>>>> hardware IOMMU
+>>>>>>>>>>>> support instead of xen-swiotlb, so disable swiotlb if
+>>>>>>>>>>>> current domain is
+>>>>>>>>>>>> Xen PVH.
+>>>>>>>>>>> But the kernel has no way (yet) to drive the IOMMU, so how can
+>>>>>>>>>>> it get
+>>>>>>>>>>> away without resorting to swiotlb in certain cases (like I/O
+>>>>>>>>>>> to an
+>>>>>>>>>>> address-restricted device)?
+>>>>>>>>>> I think Ray meant that, thanks to the IOMMU setup by Xen, there
+>>>>>>>>>> is no
+>>>>>>>>>> need for swiotlb-xen in Dom0. Address translations are done by
+>>>>>>>>>> the IOMMU
+>>>>>>>>>> so we can use guest physical addresses instead of machine
+>>>>>>>>>> addresses for
+>>>>>>>>>> DMA. This is a similar case to Dom0 on ARM when the IOMMU is
+>>>>>>>>>> available
+>>>>>>>>>> (see include/xen/arm/swiotlb-xen.h:xen_swiotlb_detect, the
+>>>>>>>>>> corresponding
+>>>>>>>>>> case is XENFEAT_not_direct_mapped).
+>>>>>>>>> But how does Xen using an IOMMU help with, as said,
+>>>>>>>>> address-restricted
+>>>>>>>>> devices? They may still need e.g. a 32-bit address to be
+>>>>>>>>> programmed in,
+>>>>>>>>> and if the kernel has memory beyond the 4G boundary not all I/O
+>>>>>>>>> buffers
+>>>>>>>>> may fulfill this requirement.
+>>>>>>>> In short, it is going to work as long as Linux has guest physical
+>>>>>>>> addresses (not machine addresses, those could be anything) lower
+>>>>>>>> than
+>>>>>>>> 4GB.
+>>>>>>>>
+>>>>>>>> If the address-restricted device does DMA via an IOMMU, then the
+>>>>>>>> device
+>>>>>>>> gets programmed by Linux using its guest physical addresses (not
+>>>>>>>> machine
+>>>>>>>> addresses).
+>>>>>>>>
+>>>>>>>> The 32-bit restriction would be applied by Linux to its choice of
+>>>>>>>> guest
+>>>>>>>> physical address to use to program the device, the same way it does
+>>>>>>>> on
+>>>>>>>> native. The device would be fine as it always uses Linux-provided
+>>>>>>>> <4GB
+>>>>>>>> addresses. After the IOMMU translation (pagetable setup by Xen), we
+>>>>>>>> could get any address, including >4GB addresses, and that is
+>>>>>>>> expected to
+>>>>>>>> work.
+>>>>>>> I understand that's the "normal" way of working. But whatever the
+>>>>>>> swiotlb
+>>>>>>> is used for in baremetal Linux, that would similarly require its use
+>>>>>>> in
+>>>>>>> PVH (or HVM) aiui. So unconditionally disabling it in PVH would look
+>>>>>>> to
+>>>>>>> me like an incomplete attempt to disable its use altogether on x86.
+>>>>>>> What
+>>>>>>> difference of PVH vs baremetal am I missing here?
+>>>>>> swiotlb is not usable for GPUs even on bare metal.  They often have
+>>>>>> hundreds or megs or even gigs of memory mapped on the device at any
+>>>>>> given time.  Also, AMD GPUs support 44-48 bit DMA masks (depending on
+>>>>>> the chip family).
+>>>>> But the swiotlb isn't per device, but system global.
+>>>> Sure, but if the swiotlb is in use, then you can't really use the GPU.
+>>>> So you get to pick one.
+>>> The swiotlb is used only for buffers which are not within the DMA mask of a
+>>> device (see dma_direct_map_page()). So an AMD GPU supporting a 44 bit DMA mask
+>>> won't use the swiotlb unless you have a buffer above guest physical address of
+>>> 16TB (so basically never).
 >>>
->>>> --- a/xen/arch/arm/Kconfig
->>>> +++ b/xen/arch/arm/Kconfig
->>>> @@ -9,6 +9,7 @@ config ARM_64
->>>>    	select 64BIT
->>>>    	select ARM_EFI
->>>>    	select HAS_FAST_MULTIPLY
->>>> +	select PHYS_ADDR_T_64
->>>>    
->>>>    config ARM
->>>>    	def_bool y
->>>> @@ -19,13 +20,48 @@ config ARM
->>>>    	select HAS_PMAP
->>>>    	select IOMMU_FORCE_PT_SHARE
->>>>    
->>>> +menu "Architecture Features"
->>>> +
->>>> +choice
->>>> +	prompt "Physical address space size" if ARM_32
->>>> +	default ARM_PA_BITS_48 if ARM_64
->>>> +	default ARM_PA_BITS_40 if ARM_32
->>>> +	help
->>>> +	  User can choose to represent the width of physical address. This can
->>>> +	  sometimes help in optimizing the size of image when user chooses a
->>>> +	  smaller size to represent physical address.
->>>> +
->>>> +config ARM_PA_BITS_32
->>>> +	bool "32-bit"
->>>> +	help
->>>> +	  On platforms where any physical address can be represented within 32 bits
->>>> +	  , user should choose this option. This will help is reduced size of the
->>>> +	  binary.
->>>> +	select PHYS_ADDR_T_32
->>>> +	depends on ARM_32
->>>> +
->>>> +config ARM_PA_BITS_40
->>>> +	bool "40-bit"
->>>> +	select PHYS_ADDR_T_64
->>>> +	depends on ARM_32
->>>> +
->>>> +config ARM_PA_BITS_48
->>>> +	bool "40-bit"
->>>> +	select PHYS_ADDR_T_64
->>>> +	depends on ARM_48
->>>> +endchoice
->>> ... only for Arm. You get away with this only because ...
+>>> Disabling swiotlb in such a guest would OTOH mean, that a device with only
+>>> 32 bit DMA mask passed through to this guest couldn't work with buffers
+>>> above 4GB.
 >>>
->>>> --- a/xen/arch/arm/include/asm/types.h
->>>> +++ b/xen/arch/arm/include/asm/types.h
->>>> @@ -34,9 +34,15 @@ typedef signed long long s64;
->>>>    typedef unsigned long long u64;
->>>>    typedef u32 vaddr_t;
->>>>    #define PRIvaddr PRIx32in
->>>> +#if defined(CONFIG_PHYS_ADDR_T_32)
->>>> +typedef unsigned long paddr_t;
->>>> +#define INVALID_PADDR (~0UL)
->>>> +#define PRIpaddr "08lx"
->>>> +#else
->>>>    typedef u64 paddr_t;
->>>>    #define INVALID_PADDR (~0ULL)
->>>>    #define PRIpaddr "016llx"
->>>> +#endif
->>>>    typedef u32 register_t;
->>>>    #define PRIregister "08x"
->>>>    #elif defined (CONFIG_ARM_64)
->>> ... you tweak things here, when we're in the process of moving stuff
->>> out of asm/types.h.
->> Are you suggesting not to add anything to asm/types.h ? IOW, the above
->> snippet should
+>>> I don't think this is acceptable.
+>>  From the Xen subsystem in Linux point of view, the only thing we need to
+>> do is to make sure *not* to enable swiotlb_xen (yes "swiotlb_xen", not
+>> the global swiotlb) on PVH because it is not needed anyway.
 >>
->> be added to xen/include/xen/types.h.
-> It's not your snippet alone, but the definition of paddr_t in general
-> which should imo be moved (as a follow-on to "common: move standard C
-> fixed width type declarations to common header"). If your patch in its
-> present shape landed first, that movement would become more
-> complicated - first and foremost "select"ing the appropriate
-> PHYS_ADDR_T_* on x86 and RISC-V would then need to be done there, when
-> it really doesn't belong there.
+>> I think we should leave the global "swiotlb" setting alone. The global
+>> swiotlb is not relevant to Xen anyway, and surely baremetal Linux has to
+>> have a way to deal with swiotlb/GPU incompatibilities.
+>>
+>> We just have to avoid making things worse on Xen, and for that we just
+>> need to avoid unconditionally enabling swiotlb-xen. If the Xen subsystem
+>> doesn't enable swiotlb_xen/swiotlb, and no other subsystem enables
+>> swiotlb, then we have a good Linux configuration capable of handling the
+>> GPU properly.
+>>
+>> Alex, please correct me if I am wrong. How is x86_swiotlb_enable set to
+>> false on native (non-Xen) x86?
+> In most cases we have an IOMMU enabled and IIRC, TTM has slightly
+> different behavior for memory allocation depending on whether swiotlb
+> would be needed or not.
 
-I understand your point. I am assuming that as PHYS_ADDR_T_* is now 
-introduced at xen/arch/Kconfig, so x86 or RISC-V should be able to 
-select the option.
+Well "slightly different" is an understatement. We need to disable quite 
+a bunch of features to make swiotlb work with GPUs.
 
-As I see today, for :-
+Especially userptr and inter device sharing won't work any more.
 
-RISCV defines PADDR_BITS to 56. Thus, it will select PHYS_ADDR_T_64 only.
-
-X86 defines PADDR_BITS to 52. Thus, it will also select PHYS_ADDR_T_64 only.
-
-For Arm, there will be at least two configurations 1. which selects 
-PHYS_ADDR_T_64   2. not select PHYS_ADDR_T_64 (ie for 32 bit physical 
-address).
+Regards,
+Christian.
 
 >
->>> (Using "unsigned long" for a 32-bit paddr_t is of
->>> course suspicious as well - this ought to be uint32_t.)
->> The problem with using uint32_t for paddr_t is that there are instances
->> where the paddr_t is modified with PAGE_MASK or PAGE_ALIGN.
->>
->> For eg , handle_passthrough_prop()
->>
->>               printk(XENLOG_ERR "Unable to permit to dom%d access to"
->>                      " 0x%"PRIpaddr" - 0x%"PRIpaddr"\n",
->>                      kinfo->d->domain_id,
->>                      mstart & PAGE_MASK, PAGE_ALIGN(mstart + size) - 1);
->>
->> And in xen/include/xen/page-size.h,
->>
->> #define PAGE_SIZE           (_AC(1,L) << PAGE_SHIFT)
->> #define PAGE_MASK           (~(PAGE_SIZE-1))
->>
->> Thus, the resulting types are unsigned long. This cannot be printed
->> using %u for PRIpaddr.
-> Is there anything wrong with making PAGE_SIZE expand to (1 << PAGE_SHIFT)
-> when physical addresses are only 32 bits wide?
+> Alex
 
-I don't have a strong objection except that this is similar to what 
-linux is doing today.
-
-https://elixir.bootlin.com/linux/latest/source/arch/arm/include/asm/page.h#L12
-
->
->> I remember some discussion (or comment) that the physical addresses
->> should be represented using 'unsigned long'.
-> A reference would be helpful.
-
-https://lists.xenproject.org/archives/html/xen-devel/2023-02/msg00305.html
-
-- Ayan
-
->
-> Jan
 
