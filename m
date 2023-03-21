@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CBD46C301E
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 12:18:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512348.792323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A956C305B
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 12:27:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512354.792334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pea0h-0004jM-L2; Tue, 21 Mar 2023 11:18:35 +0000
+	id 1pea8Z-0006Ta-K1; Tue, 21 Mar 2023 11:26:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512348.792323; Tue, 21 Mar 2023 11:18:35 +0000
+Received: by outflank-mailman (output) from mailman id 512354.792334; Tue, 21 Mar 2023 11:26:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pea0h-0004gg-H4; Tue, 21 Mar 2023 11:18:35 +0000
-Received: by outflank-mailman (input) for mailman id 512348;
- Tue, 21 Mar 2023 11:18:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pea8Z-0006QU-G4; Tue, 21 Mar 2023 11:26:43 +0000
+Received: by outflank-mailman (input) for mailman id 512354;
+ Tue, 21 Mar 2023 11:26:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mk2b=7N=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pea0g-00047q-4h
- for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 11:18:34 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1ceb7eb7-c7da-11ed-b464-930f4c7d94ae;
- Tue, 21 Mar 2023 12:18:32 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id cy23so58066180edb.12
- for <xen-devel@lists.xenproject.org>; Tue, 21 Mar 2023 04:18:32 -0700 (PDT)
-Received: from [192.168.8.100] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
- [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
- by22-20020a170906a2d600b008cecb8f374asm5634295ejb.0.2023.03.21.04.18.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Mar 2023 04:18:31 -0700 (PDT)
+ <SRS0=oKE/=7N=citrix.com=prvs=437062dd9=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1pea8Y-0006QO-45
+ for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 11:26:42 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ef51d3d-c7db-11ed-87f5-c1b5be75604c;
+ Tue, 21 Mar 2023 12:26:40 +0100 (CET)
+Received: from mail-dm6nam12lp2168.outbound.protection.outlook.com (HELO
+ NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.168])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 21 Mar 2023 07:26:36 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by PH0PR03MB6955.namprd03.prod.outlook.com (2603:10b6:510:172::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Tue, 21 Mar
+ 2023 11:26:32 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
+ 11:26:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,246 +49,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ceb7eb7-c7da-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 3ef51d3d-c7db-11ed-87f5-c1b5be75604c
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1679398000;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=eYhdfcpS5FFs+7N4O42zvLiZRhVnXCQFa3Y53oTxeT4=;
+  b=N28M0nOX1FvJuVLKRwv2YV4TbGtnRWmkU0XML+cUGK5RdJ7zZFoG5LjV
+   aUySloUsUxXQxQHi1Vh5Fd3m1ZKTEXlGlkomM8Ck/xfKQojT6zO5mA/oa
+   2ASgPRW7Xeq8tosquf66lrjetGnfAvqwwdf+8nUmgic5zpOHB4cwMkxJY
+   A=;
+X-IronPort-RemoteIP: 104.47.59.168
+X-IronPort-MID: 101599409
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:tfGNGKujIeqd+CWH5yy/sIANRefnVEteMUV32f8akzHdYApBsoF/q
+ tZmKTuHPfmMZGejKY8gbYzi8B9Sv5GHzoRqSVE6/CE2F3sR+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
+ Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj6Fv0gnRkPaoQ5ASEziFMZH4iDfrZw0XQE9E88tGSH
+ 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
+ Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
+ fMwcyAtVzyKqMuN0K+LQMhgl8UjC8i2FdZK0p1g5Wmx4fcOZ7nmGv+PyfoGmTA6i4ZJAOrUY
+ NcfZXx3dhPcbhZTO1ARTpUjgOOvgXq5eDpdwL6XjfNvvy6Pk0osgf60boq9lt+iHK25mm6Co
+ W3L5SLhCwwyP92D0zuVtHmrg4cjmAuiANtPRezkrq8CbFu7z24xOD03DASBpNqQjGHjZdcGN
+ g870397xUQ13AnxJjXnZDW8oXiZrlsfVsBWHukS9g6A0OzX7hyfC2xCSSROAPQ2uclzSTE02
+ 1uhm9LyGScpoLCTUWia9LqfsXW1Iyd9BXULayYJSSMG7sPlrYV1iQjAJv5nE7adj9vpFDW2y
+ DePxAA8iK8UltUjzLig8BbMhDfEjpLOVA8uoALMQnii8Bh6daaifYWj7VWd5vFFRK6FQV2Rl
+ HwFndWC9ucIDIHLmCHlaOAMGr6uz+yIPD3VnRhkGJxJ3z6103enfI1WsHdyKS9BPs8adHnpa
+ UnItAV54J5VIWvsbKlrbob3AMMvpYDwRYrNVf3OaNdKJJ9re2ev/DlnTVyBw2f31kMrlMkXI
+ oyHeMyhCXIbD6VPzzesQeoZl7gxyUgWwmfeRovyyRi95qaPf36eSboDM1ymY/gw6eWPpwC9z
+ jpEH86DyhEaXOigZCDSqNQXNQpTcyh9Ao3qoctKcOLFOhBhBGwqF/7Wx/UmZpBhmKNW0OzP+
+ xlRR3Nl9bY2vlWfQS3iV5ypQOqHsUpXxZ7jARERAA==
+IronPort-HdrOrdr: A9a23:w6DEt6MWzAnRrcBcT0L255DYdb4zR+YMi2TDiHoBLiC9I/bo8/
+ xGws5rsCMc0AxhKE3IXOrwT5VpQRvnhORICPoqTMSftWjdySWVxeRZnKbfKlLbalPDH4JmpN
+ 9dmstFeZzN5DpB/LfHCWCDer5KrLbogcPY45am85p0d2FXgspbnnpE43OgYzJLrX59dOYE/f
+ Snl7F6T+bJQwV0Uu2LQlQIQuTIutvRtL+jWAUBDRI88gWC5AnYoIISJyLonSv2Hgk/mIvLPg
+ D+4kPEz5Tml8v+5g7X1mfV4ZgTsNz9yuFbDMjJptkJJi7qggOIYp0kf7GZpjg6rMym9V5vyb
+ D30kwdFvU2z0mUUnC+oBPr1QWl+DEy60X6wVvdrWr/rdf/TDcaDdMEoY5CaBPW52cpodk5+q
+ NW2GCysYZREHr77XzAzumNcysvulu/oHIkn+JWp3tDUbEGYLsUloAb9FM9KuZLIMqvgrpHLM
+ BeSOXnoNpGe1KTaH7U+kN1xsa3Y3g1FhCaBmAfp828yVFt7SBE5npd4PZasmYL9Zo7RZUBzf
+ /DKL5UmLZHSdJTRb5hBd0GXdC8BgX2MEPx2VqpUAfa/Zw8Si3wQt/MkekIDdiRCcE1JU4J6c
+ r8uFAxjx94R6uhM7zPrc92GtakehT+Yd2n8LAt23FDgMy0eFIwWRfzDGzGo/HQ5sn3SverLs
+ pbGKgmRMMLflGeX7qgKWXFKtVvwY53arxZhj98YSPVniqnQrea49DzQbLvAP7EHDslXSfWHm
+ YDNQKDD/lo3wSXfjvRjRXQXDfVYUrz4ZhsOq7W84EouaIwH7wJjyxQpFi95t6GMnl5sqIwdF
+ ZjO7+PqNKSmUCGuVvtq0FAGj8YNWp+zJXef14PmC8vHyrPG4oripGjXSR39FujYiNCb+6+Km
+ NiT5Eew9PgE3RVrRpSXO5O9Qqh/i8ujUPPcrM1oIHG1OnIXbkcKKoKMZYBPDkiG3FO6HJXQU
+ 94GXk5enM=
+X-IronPort-AV: E=Sophos;i="5.98,278,1673931600"; 
+   d="scan'208";a="101599409"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=USXbQxlXwsJ35PS6GoSN/RpmapSlqR7wFaGBYxXe4JktFa5OFH2Hnnnt1WhuUYIGI6OI0IJBlctCd/OqjSVixKO2CSvZJqR5Hbvm9koRVZtnpSdPWgg5+vuzJ6yHrup0IehcJNdouMn92VKQ6BnWmiPJbG7hletnkLEWHri3efeSM3g/d7/DM6IcvRn7oI1+Gput+S/OpAdJ4ENzD8WrQ7El67rIM9456bGWSxygslOh/8oGgDjPw4jbRhrqSFXejDOoIdoKuhLeJA5QsMxS2VZPJqoxo+kCS5e8lQaOg1/MH/cF6JV1t75GVdJD3zaEF5XPtLGIUUjFJt0FeP52Tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gMHe2DakAJR71lo6we96Oa53JRvpTPWRAJgRDRsBjjM=;
+ b=emnKWTZ2hAq4t4HXuxfJYM8lA2q53I6Ceg+Xsr3terbFZHNKhpqvCOeGHaTUsvxJBMFzzudd7d33QStlFvDURNZexS6qkbUPieg3dkv3uqRzVC0b64KTEjOXEqzzmbgYAJtVvb0lRE4u1vWTStMmCnWWj2iknigEqZkm4fih+htCYai4+ijPKxUIJIXUaUeFYAWEG18TrMeL6RHiHv61msnQ5xW1d/6K1xkXZh1ZBcs12gsjkVHaLY7kFDueMZj1JK+xnr/mBJ3AunJAjWJReOLgp4YCvCpalfiRGwl2BFJAawwxkTeVn+0xfvYSUEKlICtJ19ZLIhZOYju5bBFW4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679397511;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=eANDa77IRrpaj+pRw4c324GGJgMmDsa6GxlgKh791i8=;
-        b=O9sCvIBin8n+4MuFFuoclBoI93u8Y0wXDcm8b3tlNmn7Yl8vvKYBQJqw0EvECoAqyM
-         AyGjqx64XRcpgUzf+cRAeUGnjSMAjnr0rWzOPpox2+dQRFdDqm+BRSa7NB2Qoj3n/2DJ
-         ONZvWxp+I9IsA2nteL1aJbyGZRzzov0Lmd8e4uX0jkpGM4FSK/77v4Crjnfr7SJ4lzzY
-         Ao+uMC6I+7I3evUiTy8bkD9imY4sHYbPv61mcZZ/IpacQ5YhVNb2e3t6cR/vwZmidwwm
-         fw/U3JTVcV2MXBL90tSg1wkq6Z1GJG0yLqRH3V8POLhUhUmGP7SCt0F9deW90XocUrdC
-         cnGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679397511;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=eANDa77IRrpaj+pRw4c324GGJgMmDsa6GxlgKh791i8=;
-        b=mBEus0bY0hES4Utxn325wPWSVyWrI0JyMU028F7wLdNDblAzW+dCcgg8ZWYfQjYOL6
-         enEAMOJpL1n6gCX4iZD4tW+eWVUAzGTQ6mEb7kkCPa3VeHyzzPYv9oAqFMWplS/9SQLx
-         AjoV1Bs1LeD7c3x+/iiWUkXw00OF6TWxGbNIUBot7xwnYe/Fr9w1JApzut5sBkQ+yHyk
-         6Wakj07DEkES31qDdgua+La8tkxxOvuqs4e0SYA24vSEc62SyMkjRRpdJECzzO2LoZfC
-         bHdnw7muovEI3F7o2Qw4GYEY8aPvOurypiMQpBlk6e1HZxC+aMQdObGu5hAeLhVwaGLD
-         827A==
-X-Gm-Message-State: AO0yUKUQFR3E93uQCRgq17549lWQVstSFwfGGe9KtMEpOsyu+Gqdmyzu
-	JuH9DmrEWZYBIS94OOqx2xg=
-X-Google-Smtp-Source: AK7set9/Ib+nLdk6+HFwWeKHgFS843kSWpYoAxzHi9V1w76OVbgUHifVTFT60eYDgASvpncK/9YAGg==
-X-Received: by 2002:a17:906:d54f:b0:8e9:afb1:65c6 with SMTP id cr15-20020a170906d54f00b008e9afb165c6mr15281514ejc.13.1679397511557;
-        Tue, 21 Mar 2023 04:18:31 -0700 (PDT)
-Message-ID: <390dd04d369fad707fd786ed37992ec27a63b7cf.camel@gmail.com>
-Subject: Re: [PATCH v8 1/5] xen: introduce CONFIG_GENERIC_BUG_FRAME
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Tue, 21 Mar 2023 13:18:29 +0200
-In-Reply-To: <02a815ffe1d3839f6f82ab4d16ec8d124642617d.camel@gmail.com>
-References: <cover.1678900513.git.oleksii.kurochko@gmail.com>
-	 <2afad972cd8da98dcb0ba509ba29ff239dc47cd0.1678900513.git.oleksii.kurochko@gmail.com>
-	 <3bc211fa-a8f7-70ce-bfa9-5e4380776070@suse.com>
-	 <99354bbeabf11e86cbf3fd46019c08fb36bf0098.camel@gmail.com>
-	 <6af7a3ea-f454-7027-590d-f883e6c2a523@suse.com>
-	 <02a815ffe1d3839f6f82ab4d16ec8d124642617d.camel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gMHe2DakAJR71lo6we96Oa53JRvpTPWRAJgRDRsBjjM=;
+ b=EgHUN7hmlBxj41magmGbqyDsVFAmQxAyr4r4MAq415ZTDFgEZ2DiOTHAvsyyY3n2LAju4zcWrfFB/bg722CrIlYFSyScN4/MNLvfyCQT1dk73f3ABpjRS+MV0KjxrNc/wnAwUi3VXrq/E2zmK1xsvBh0vlUgq41PMbTZxxIl4jo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: linux-kernel@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org,
+	rafael@kernel.org,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	kernel test robot <lkp@intel.com>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH] x86/xen: move declaration/definition of xen_processor_present()
+Date: Tue, 21 Mar 2023 12:25:21 +0100
+Message-Id: <20230321112522.46806-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.40.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO6P123CA0033.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:2fe::6) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|PH0PR03MB6955:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae903580-a0e5-4a35-a426-08db29ff1eca
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ELEkkvTH7g6nD+VCJG0HdzuSjL47fZTOuu04hX01Za/jipDCzyY1awuYsE3k5GrhMRieI74vcYrujbEWO6alcrKGjgDBxdhDcnbJ+DZi7h2ECRB5phAwcIgAVxYA5gjh7ccJkCYH+xc51/dpylEEMLJUyU2R6NM02c6SlqKoFv8vogyYJku0TY7S6FYPA9L6kJuyI95yfoS+v7JYys5t/1Sc92rl5haft+Om+qwIqEH5bW1qcSp/Aw+njNHmM79NJWckFW/3Ma22rNGHzOdpqrz1Pv6sesp7WvKpKtRJfpgVdZYLSvpTlLaKf1t9JjNV0yuhFucg770TY+C6hsM9nHCL6ZOXjzAY6kyZH54B/HVBGpuH652RleK6kM5LSRuAsWrvqwKRG4ePj2gqkiSwrLd+qW4jQNKnbGl7pKsVxLZlbXfRNH112XNlSAE4f48BUbz0Z+ugJQMFG7FBeg/OHk0k6DIi2E3T79DVNyT1qtwMskpOV3YWRJFsgMui1nD+SL5Xu60LzcBDzkrJsKfaYCFdLAoiL9H2C3fqk1ZzQ1wFjpaMwrreACZKY0pbXw2Sfvdz8TgGRJBZtakBS12KS0rR8x6lka1rGlhnv2wIE2saW77mS6brz+NuqxxnBnVl
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(346002)(396003)(39860400002)(376002)(366004)(451199018)(86362001)(36756003)(83380400001)(66556008)(316002)(6916009)(4326008)(66946007)(478600001)(8676002)(186003)(66476007)(54906003)(966005)(6512007)(26005)(6506007)(2616005)(6666004)(6486002)(1076003)(38100700002)(8936002)(7416002)(5660300002)(41300700001)(2906002)(82960400001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?c1VGWGp6b3pQUXl0Ullrb2RsbjFSWkxUNjcwNlJ6ZFRVdlJOdDVwcDAxczVj?=
+ =?utf-8?B?VmhQNFJLMW9DSWExQVkxNFBMbWpzdmRKSE9NTmdiaFJnNHVQbEVKbE1mVGVo?=
+ =?utf-8?B?c3o5dk5td2Y1NkJPTUdlSEcxeGxiVHN0SmZLc004dnZ0ODdQdEpseFNFZHN3?=
+ =?utf-8?B?RTFpL1dvUFpEU3NZcXR5OEFUcDMwSWY0cTVpVFRnb1RERnlMb0xkVnl5d1A1?=
+ =?utf-8?B?QWZDdllNKzAySjdTamRxR1N1OVk0RDVxRFQveUJBQVRhRUd5S1VHZ1BLNlFB?=
+ =?utf-8?B?a1ZGWUNEbjFRZ1l2bVVNaGErRTY1MTkyNmRKTGFSUit1ZWU1bGlVdFRqcCtJ?=
+ =?utf-8?B?SFdCZC9hd1RXTVJmQ2VuRlNOWXAwNzRPS2haOHQ0TE1zVnBBZVF5eE9oR05P?=
+ =?utf-8?B?NE1kdWtreDE2amFpSURnZ2Z6SHpwVjBmU0tuaml6T1BXWVU5dUVpME5YU09i?=
+ =?utf-8?B?NFk3SzRyeGlPMERRRE02eTNFcCswMkJiNVhjZ0xhZFM2Q01Zczk5OEY5dmdN?=
+ =?utf-8?B?dkJ5RnFjSXpqNWdQV0o2bHBiSXVQUWE3dWc5M3N3V3FCK1pJNFlsVEkxNDdG?=
+ =?utf-8?B?RXB1dVZQNUppeDdTTUhuKzBDcEJDcFpwR3FXUGhWVzh5dkJhMjNuc0dON1Ru?=
+ =?utf-8?B?dnc4UFBXZGxmY3hOMnNLbjcvck9tN3hhbWFDbVYwa1JPdDk1cVZ6YjBIc0Zi?=
+ =?utf-8?B?NVVRSTRRQjkwZXYvcm9wYzd3b2pQbTQrRHNwS2MyUXhsdFhFYll5aXRIcHps?=
+ =?utf-8?B?emNRVUMzR1pmSHhoeFhzQTBtZEhCNFhCamNlMmJJSDRzTm9lVTF6VkdwK0Fi?=
+ =?utf-8?B?dkhIT0Y0Q255M3QwcUkxeUVmOC9WaGZTa24yMlRPMnJ5Nnd6b0hGYVZEV3Zv?=
+ =?utf-8?B?NEdDNVNKbWVsKytVUWc1c0QxWGNOejVQMytQYVNTVkROT2wwekxaTXJwZTRB?=
+ =?utf-8?B?NFVjUEFscUxwdnVoVlQwMVpXVjZ1dnNOakt6V0xQdXZRVEJHRlpqbFpzTlM3?=
+ =?utf-8?B?MUVDb3g3UFE4ajJTR2F2b1JwQU9iWnVJWkhaM3EyNHFLR0JtMzJCU2N2YjNv?=
+ =?utf-8?B?NmU3Zk9NMWd6ZFhEeU9zR3ZSZDJKR2lvNzV5V2hKeW1GaTlTTUlVTjBkZ2RL?=
+ =?utf-8?B?ZDBNK01WS1E5dXpOam5ZbWNVK21EMTJINkhtTmxmMkVZZUFnekZ4TTZyTDJU?=
+ =?utf-8?B?dVZwcWE1M0JiUStJbXhQS2tyL2RlYkpUYnJsREtRN29FME1OVzVNV0IyNU9J?=
+ =?utf-8?B?TE5HRjlPTC82TTdSWTNWTlhsSHdnd01PcGlXdjY3ekxyVkszK0tza0YrejN6?=
+ =?utf-8?B?UjVRWUE0NitxQUJpNGx0SitWUWNZNWIweHZFcHlVbUJPdnROTUpkYmorOWtW?=
+ =?utf-8?B?WXdsTmZrR0JJYnZ5RDdHKy96a3BxV1hkNjdvTytkV0lsOE96M1RwekRkVWl1?=
+ =?utf-8?B?eHV5SXJ6ekM4blJkMm1VaU1TbjhoVWZIeHo1bWJZeTZHbFR0QmJMTmFlNFNC?=
+ =?utf-8?B?Z0tEaGx3Y05hOGdReUhmYTcyTGRWekFDR3QxK3RLQ3kyOXJ0NE4rYzlRR3Zl?=
+ =?utf-8?B?YjJuNWdjVzNtR2M3V3NwNDBPZWFFQmU2dWc5YjJYV0ZBZ1F4NnptdGxvbHM2?=
+ =?utf-8?B?R3d3RG92eDQrVXhyQjhLUGNSbVpxL0hxL3h0eXJ4cjg1VWZDNGZCbTFZb09Z?=
+ =?utf-8?B?MmVDVWpOUzdrempTK3RWaDFuelRuZEdsaStqc1RHTkFHeURCQmhSSDdrRUNL?=
+ =?utf-8?B?Tk1VYUhGQ256K1BGOGVHZ2treGw3Ulg2TDZOUUVjUlRtN0ttVUhhUWRnakRK?=
+ =?utf-8?B?SEZGVFN5bXdCODFFUmVLbDFKNzliaDNwd21rRnRQQXd3cDI5emRjSzBHbVBU?=
+ =?utf-8?B?UmxHbWJqVEkrQjFoUGRxUWY2YmI2NW9kaktleEdrUUorOEh5ZGZuZTRYTzZ4?=
+ =?utf-8?B?M0Q2MG5yZUN2cEZVZjc0eWRIdGR4Z1k5d0EyWWVhUnljVitXZzZNd2tHZGNG?=
+ =?utf-8?B?Q3hObzJTbVdGaGZKbm5GamRWc20vRVg5OXFyY0RKd09aNzNkek5jWk0yN0lR?=
+ =?utf-8?B?Ynh2WS9ndi94WVdLNFlXUzdFaTk3dVpyblZrZzBVOFVtbmlXeWtTZ2F2SFNQ?=
+ =?utf-8?B?VkU3VzVFaXpaK1VGVmtHT3h5amNpZTFWRldUYm41b3NRVHpFc25kU1pTTUt0?=
+ =?utf-8?B?U1E9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	=?utf-8?B?ZDVEWUYzOWNRS0VScEZrTmRkRDY3dGJRc1k5K1g3ZmhXZ3BpZUVNZXc1T0tQ?=
+ =?utf-8?B?RDRxd0ppUkM3amJjNG5XdHRXcmFYSlY5L0VlNHFPKzYvT0x0b1p6bVpicDR6?=
+ =?utf-8?B?ZFJ5UG95aHZEWmRNVmZ1elBYOG1rMHB6UHZIYWUxTXdJU3k2TWFMRDVWc0Fa?=
+ =?utf-8?B?cU8va1E3NjQxbHE0ODV6eUp0SmdyRjRpck8yZWYydlJiNnhjZmkzdERyL29S?=
+ =?utf-8?B?eXlXQkxKWEV4T1dHMW54QXUyV2lKRzhZa2NZOHdtMWhscUxpZ0pEM295TWM5?=
+ =?utf-8?B?NzdrdC8vc2RNSkFtcENycXBkeDRORkE5eDRCZ3B2UVdlUlFoM3paQmZETS90?=
+ =?utf-8?B?dEplSnA0THlHdVQ4N1ZjL05qUHRTRGNIM2lTSVYybXNoVU1RZEJzSzR3ZXZ0?=
+ =?utf-8?B?LzJ6bVN2Vklid1d4YkZpRmM3U05WdTIzZEh4QzBsRzlMZVJ6NjhSdStJRitI?=
+ =?utf-8?B?YUkyUUNkY25qOXFmbzdzSCtuRmt4Z3I5empFQngwd29hNml3a0U4djFESVJK?=
+ =?utf-8?B?WFM3dmhmWkZSMmcxWjhGSCtNaWRJKy9lUUN5NUQzVVJTTVIySzdDTkFPT3FP?=
+ =?utf-8?B?QWI2YmhxOXhSak93NGVqRW9CYlhncDNKN1AyOENsUDY4ZmVJamRJREZwT2hD?=
+ =?utf-8?B?UGhGcnF2QUNBemh0QjlycmpmSGRZdVZSMTZVVWhwVVRNOG9ra1pMNThZZzUy?=
+ =?utf-8?B?aGMva3I0STNnWDg0YXo3OHNYYlBhU3dJVlQ5SzBkTUtCMzhEdjd1RVh0MmxN?=
+ =?utf-8?B?aEZLVkZSTVc0R2ovSXA4RUlRWUxqQy9kSXE5U1RaQklDUTJnalloekhCMWNN?=
+ =?utf-8?B?dlNQWXFETUlYMkJrTVYwSk1IOVBYNWJacDRZdysycmJUbXVqQnFYZmQrNUxx?=
+ =?utf-8?B?SnN5VDRHaDBjUE4xeUpkMzQxLzJyc3lXYWFaM2VYa0h1a1FVcDVKNDZsMSts?=
+ =?utf-8?B?OE5Ja1h4Y3laYkROZld6NThoTzNLc0ttbWNWa0NNVDFZMktZdnY1cEluemdj?=
+ =?utf-8?B?d1lMemIwTDVUS1EzRUkwS083WVd6QUJLd1F2alh3WklUT003c2d1Q2pSN29l?=
+ =?utf-8?B?aGRERTAzVXhBTmQ0bDRIcU1LeFNFZW82ZzBSbzJWMGUzNlZWSC96a2Y0YXBB?=
+ =?utf-8?B?YWF1bXhPTGlPUUtsL1VyeHZmZGhrWk5nS1M2UEZ6aFhoZXJtTmxNRFVOVTJI?=
+ =?utf-8?B?SzI3L2srQVhTbWppcVRzV2pRenRteElUMEtqNDBHckRMeERudy9tRXNLRFpw?=
+ =?utf-8?B?T3Y2b1NYSjhsQm0zYk1KaDhFRVZEbnlHMTR4RW0zczlLbnVQb3VIdUVvempQ?=
+ =?utf-8?B?UDJIdHQ4YnMyZi9UNlB2YlJlNjVPelE2aXYrUmFHeFhmM0NCY1NYMVN1SkNV?=
+ =?utf-8?B?b09ZOXJIV1p0WFRxWncyK1c0cGwxQ0JjNUFmYjM5TGJwSFgrWjdzaTdIUWdC?=
+ =?utf-8?B?eWlDSTllSHdkTkF5ZGQ3UTNoTGgwQ280eVJKL09DdGo2aFlhM3NLekxWc3BV?=
+ =?utf-8?Q?AvM7gA=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae903580-a0e5-4a35-a426-08db29ff1eca
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 11:26:31.6352
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nSENi+80jsuyj0W8Ct5d7gXSNCwDuO3JRDnUDK3e1KDYCadRVEjBxhwmJw1+M8zABk5k9uQlo3gPACkXcTQSGg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6955
 
-On Mon, 2023-03-20 at 13:36 +0200, Oleksii wrote:
-> On Fri, 2023-03-17 at 15:59 +0100, Jan Beulich wrote:
-> > On 17.03.2023 10:23, Oleksii wrote:
-> > > On Thu, 2023-03-16 at 12:26 +0100, Jan Beulich wrote:
-> > > > On 15.03.2023 18:21, Oleksii Kurochko wrote:
-> > > > > --- /dev/null
-> > > > > +++ b/xen/common/bug.c
-> > > > > @@ -0,0 +1,108 @@
-> > > > > +#include <xen/bug.h>
-> > > > > +#include <xen/debugger.h>
-> > > > > +#include <xen/errno.h>
-> > > > > +#include <xen/kernel.h>
-> > > > > +#include <xen/livepatch.h>
-> > > > > +#include <xen/string.h>
-> > > > > +#include <xen/types.h>
-> > > > > +#include <xen/virtual_region.h>
-> > > > > +
-> > > > > +#include <asm/processor.h>
-> > > >=20
-> > > > I actually meant to also ask: What is this needed for? Glancing
-> > > > over
-> > > > the
-> > > > code ...
-> > > >=20
-> > > > > +/*
-> > > > > + * Returns a negative value in case of an error otherwise
-> > > > > + * BUGFRAME_{run_fn, warn, bug, assert}
-> > > > > + */
-> > > > > +int do_bug_frame(struct cpu_user_regs *regs, unsigned long
-> > > > > pc)
-> > > > > +{
-> > > > > +=C2=A0=C2=A0=C2=A0 const struct bug_frame *bug =3D NULL;
-> > > > > +=C2=A0=C2=A0=C2=A0 const struct virtual_region *region;
-> > > > > +=C2=A0=C2=A0=C2=A0 const char *prefix =3D "", *filename, *predic=
-ate;
-> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long fixup;
-> > > > > +=C2=A0=C2=A0=C2=A0 unsigned int id, lineno;
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0 region =3D find_text_region(pc);
-> > > > > +=C2=A0=C2=A0=C2=A0 if ( !region )
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0 for ( id =3D 0; id < BUGFRAME_NR; id++ )
-> > > > > +=C2=A0=C2=A0=C2=A0 {
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct bug_fram=
-e *b;
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 size_t i;
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for ( i =3D 0, b =3D =
-region->frame[id].bugs;
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 i < region->frame[id].n_bugs; b++, i++ )
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 if ( bug_loc(b) =3D=3D pc )
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 {
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 bug =3D b;
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto found;
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 }
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > > > +=C2=A0=C2=A0=C2=A0 }
-> > > > > +
-> > > > > + found:
-> > > > > +=C2=A0=C2=A0=C2=A0 if ( !bug )
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -ENOENT;
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0 if ( id =3D=3D BUGFRAME_run_fn )
-> > > > > +=C2=A0=C2=A0=C2=A0 {
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void (*fn)(struct cpu=
-_user_regs *) =3D bug_ptr(bug);
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fn(regs);
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Re-enforce consist=
-ent types, because of the casts
-> > > > > involved. */
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( false )
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 run_in_exception_handler(fn);
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return id;
-> > > > > +=C2=A0=C2=A0=C2=A0 }
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0 /* WARN, BUG or ASSERT: decode the filename p=
-ointer and
-> > > > > line
-> > > > > number. */
-> > > > > +=C2=A0=C2=A0=C2=A0 filename =3D bug_ptr(bug);
-> > > > > +=C2=A0=C2=A0=C2=A0 if ( !is_kernel(filename) && !is_patch(filena=
-me) )
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
-> > > > > +=C2=A0=C2=A0=C2=A0 fixup =3D strlen(filename);
-> > > > > +=C2=A0=C2=A0=C2=A0 if ( fixup > 50 )
-> > > > > +=C2=A0=C2=A0=C2=A0 {
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 filename +=3D fixup -=
- 47;
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 prefix =3D "...";
-> > > > > +=C2=A0=C2=A0=C2=A0 }
-> > > > > +=C2=A0=C2=A0=C2=A0 lineno =3D bug_line(bug);
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0 switch ( id )
-> > > > > +=C2=A0=C2=A0=C2=A0 {
-> > > > > +=C2=A0=C2=A0=C2=A0 case BUGFRAME_warn:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk("Xen WARN at %=
-s%s:%d\n", prefix, filename,
-> > > > > lineno);
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 show_execution_state(=
-regs);
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0 case BUGFRAME_bug:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk("Xen BUG at %s=
-%s:%d\n", prefix, filename,
-> > > > > lineno);
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( BUG_DEBUGGER_TRA=
-P_FATAL(regs) )
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 break;
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 show_execution_state(=
-regs);
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 panic("Xen BUG at %s%=
-s:%d\n", prefix, filename,
-> > > > > lineno);
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0 case BUGFRAME_assert:
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* ASSERT: decode the=
- predicate string pointer. */
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 predicate =3D bug_msg=
-(bug);
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( !is_kernel(predi=
-cate) && !is_patch(predicate) )
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 predicate =3D "<unknown>";
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 printk("Assertion '%s=
-' failed at %s%s:%d\n",
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 predicate, prefix, filename, lineno);
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( BUG_DEBUGGER_TRA=
-P_FATAL(regs) )
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 break;
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 show_execution_state(=
-regs);
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 panic("Assertion '%s'=
- failed at %s%s:%d\n",
-> > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 predicate, prefix, filename, lineno);
-> > > > > +=C2=A0=C2=A0=C2=A0 }
-> > > > > +
-> > > > > +=C2=A0=C2=A0=C2=A0 return id;
-> > > > > +}
-> > > >=20
-> > > > ... I can't really spot what it might be that comes from that
-> > > > header.
-> > > > Oh, on the N+1st run I've spotted it - it's
-> > > > show_execution_state().
-> > > > The declaration of which, already being used from common code
-> > > > ahead
-> > > > of this series, should imo be moved to a common header. I guess
-> > > > I'll
-> > > > make yet another patch ...
-> > > As mentioned above. Not only show_execution_state() but also
-> > > cpu_user_regs structure. ( at lest, for ARM & RISCV )
-> >=20
-> > Do we deref "regs" anywhere? I can't seem to be able to spot an
-> > instance.
-> > Without a deref (or alike) a forward decl is all that's needed for
-> > this
-> > code to compile.
-> You are there is no a deref so let's swich to a forward decl.
->=20
-> I'll add it to a new version of the patch series.
-I just realized that show_execution_state() is declared in
-<asm/processor.h>.
+So that it doesn't break the build when CONFIG_XEN or CONFIG_XEN_DOM0
+are not enabled.
 
-So we have to leave an inclusion of the header or declare the function
-explicitly.
+The current header is only included when CONFIG_XEN_DOM0 is selected,
+so instead place it in the top level xen.h header, and also use the
+dummy helper when CONFIG_X86 is not selected, as the current
+implementation is x86 only.
 
-~ Oleksii
+Reported-by: kernel test robot <lkp@intel.com>
+Link: https://lore.kernel.org/oe-kbuild-all/202303210729.DvRvIUla-lkp@intel.com/
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ arch/x86/include/asm/xen/hypervisor.h | 10 ----------
+ include/xen/xen.h                     | 10 ++++++++++
+ 2 files changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
+index 990a1609677e..5fc35f889cd1 100644
+--- a/arch/x86/include/asm/xen/hypervisor.h
++++ b/arch/x86/include/asm/xen/hypervisor.h
+@@ -63,14 +63,4 @@ void __init xen_pvh_init(struct boot_params *boot_params);
+ void __init mem_map_via_hcall(struct boot_params *boot_params_p);
+ #endif
+ 
+-#if defined(CONFIG_XEN_DOM0) && defined(CONFIG_ACPI)
+-bool __init xen_processor_present(uint32_t acpi_id);
+-#else
+-static inline bool xen_processor_present(uint32_t acpi_id)
+-{
+-	BUG();
+-	return false;
+-}
+-#endif
+-
+ #endif /* _ASM_X86_XEN_HYPERVISOR_H */
+diff --git a/include/xen/xen.h b/include/xen/xen.h
+index 7adf59837c25..4410e74f3eb5 100644
+--- a/include/xen/xen.h
++++ b/include/xen/xen.h
+@@ -71,4 +71,14 @@ static inline void xen_free_unpopulated_pages(unsigned int nr_pages,
+ }
+ #endif
+ 
++#if defined(CONFIG_XEN_DOM0) && defined(CONFIG_ACPI) && defined(CONFIG_X86)
++bool __init xen_processor_present(uint32_t acpi_id);
++#else
++static inline bool xen_processor_present(uint32_t acpi_id)
++{
++	BUG();
++	return false;
++}
++#endif
++
+ #endif	/* _XEN_XEN_H */
+-- 
+2.40.0
 
 
