@@ -2,42 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A28216C3395
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 15:02:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512659.792721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAFA96C3398
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 15:04:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512662.792731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pecZR-0003tl-6q; Tue, 21 Mar 2023 14:02:37 +0000
+	id 1pecb1-0004RF-IU; Tue, 21 Mar 2023 14:04:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512659.792721; Tue, 21 Mar 2023 14:02:37 +0000
+Received: by outflank-mailman (output) from mailman id 512662.792731; Tue, 21 Mar 2023 14:04:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pecZR-0003rP-3q; Tue, 21 Mar 2023 14:02:37 +0000
-Received: by outflank-mailman (input) for mailman id 512659;
- Tue, 21 Mar 2023 14:02:36 +0000
+	id 1pecb1-0004P6-EN; Tue, 21 Mar 2023 14:04:15 +0000
+Received: by outflank-mailman (input) for mailman id 512662;
+ Tue, 21 Mar 2023 14:04:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oKE/=7N=citrix.com=prvs=437062dd9=roger.pau@srs-se1.protection.inumbo.net>)
- id 1pecZP-0003rE-SS
- for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 14:02:35 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 03e19926-c7f1-11ed-b464-930f4c7d94ae;
- Tue, 21 Mar 2023 15:02:31 +0100 (CET)
-Received: from mail-mw2nam04lp2169.outbound.protection.outlook.com (HELO
- NAM04-MW2-obe.outbound.protection.outlook.com) ([104.47.73.169])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 21 Mar 2023 10:02:14 -0400
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
- by BY1PR03MB7288.namprd03.prod.outlook.com (2603:10b6:a03:52a::11)
- with Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=CsWt=7N=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1pecb0-0004P0-Gz
+ for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 14:04:14 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062a.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3faba1ad-c7f1-11ed-b464-930f4c7d94ae;
+ Tue, 21 Mar 2023 15:04:10 +0100 (CET)
+Received: from DM6PR03CA0086.namprd03.prod.outlook.com (2603:10b6:5:333::19)
+ by PH0PR12MB7469.namprd12.prod.outlook.com (2603:10b6:510:1e9::10) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Tue, 21 Mar
- 2023 14:02:09 +0000
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
- 14:02:09 +0000
+ 2023 14:04:06 +0000
+Received: from DS1PEPF0000B079.namprd05.prod.outlook.com
+ (2603:10b6:5:333:cafe::fd) by DM6PR03CA0086.outlook.office365.com
+ (2603:10b6:5:333::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37 via Frontend
+ Transport; Tue, 21 Mar 2023 14:04:06 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS1PEPF0000B079.mail.protection.outlook.com (10.167.17.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6178.30 via Frontend Transport; Tue, 21 Mar 2023 14:04:05 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 21 Mar
+ 2023 09:04:05 -0500
+Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Tue, 21 Mar 2023 09:04:04 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,274 +59,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03e19926-c7f1-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1679407351;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=Hg8QiyNc0Vom899KCM+alR/CySnDjyKMfq/pvLmP2DI=;
-  b=Ns+8GtKF/PIUg8ZoJ6SvPBOMHvA72qcMZuYIyExlrHbtMiPzUlZqv+dY
-   OHM9CVLRdOhsPUQQjSWrv+ZASIVqBxKQejDiNGbchB84BnaZ4enBCpXFc
-   0N+5FlUUh7PSLjkNaRQE3WJI8fjZc68NeYTwoiOY7ujNfJMCuCRcd9uSD
-   o=;
-X-IronPort-RemoteIP: 104.47.73.169
-X-IronPort-MID: 100512262
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:802wmqIG5Z2bpZr+FE+RLJUlxSXFcZb7ZxGr2PjKsXjdYENS0GYFx
- mMfD2HUafyOMzajeNEkPI/n/UoCu8fQm95iG1NlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpJrfPTwP9TlK6q4mhA5QZnPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5IUU4Jp
- NEzCQkxZz66q9Kz/7GjFdJV05FLwMnDZOvzu1lG5BSBUbMDfsqGRK/Ho9hFwD03m8ZCW+7EY
- NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/VspTGNnWSd05C0WDbRUsaNSshP2F6Ru
- 0rN/njjAwFcP9uaodaA2iv03rKWx3mlAur+EpX7rMZsj32Om1UeERIdeVCasfSkmHSxDoc3x
- 0s8v3BGQbIJ3FaiQNDwWzW7rWSCsxpaXMBfe8Uk5QeOw7bZ+AbfHmEASj9ZYdAnnM4wWTEuk
- FSOmrvBAjhis6acT36HwauFtjO5OSUTLmgqaDcNSE0O5NyLiJookhvFQ9JnEai0pt74Azf9x
- 3aNtidWr7Eei8Qj1Kih+13DxTW2qfDhThY8zhfGQmW/qAh+YeaNd9z2wVvW9/BNKMCeVFbpl
- HQNhcXY7OkIFpyLvCiMRvgdWrCv+/uBdjbbhDZHFYEJ/jCs9njzO4xdiBl7JUFmNe4edDPpa
- VOVsgRUjLdPM3+6Rat2ZZ+tEcMszLimGdmNfvrTdNtVJJ9qaBWA4jptdGaXxWnmlEVqmqY6U
- b+ZftyrFm0yErl8wXy9QOJ1+b0s3S0w7WTfSIr/xhKrl6GTDFaFRLFAPFaQY+QR6KKfvB6T4
- 9tZL9GNyRhUTKv5eCa/2YoSK00aaHs2H5b7r+RJeeOZZAlrAmcsD7nW27xJU4Vun6VckOjg/
- mn7UUhdoHL7hHvaOUCDYWhiQK3gUIw5rn8hOyEoe1Gy1BAejZ2H6a4ec94yYuMh/ek7kfpsF
- aBbKoOHH+hFTSnB93IFd57hoYd+dROtwwWTIy6iZzt5dJllL+DUxuLZksLU3HFmJkKKWQEW+
- NVMCiuzrUI/ejlf
-IronPort-HdrOrdr: A9a23:JISsQ6txuMpoN/qiOX3s/5ew7skDstV00zEX/kB9WHVpm6yj+v
- xG/c5rsCMc7Qx6ZJhOo7+90cW7L080lqQFg7X5X43DYOCOggLBQL2KhbGI/9SKIVycygcy78
- Zdm6gVMqyLMbB55/yKnTVRxbwbsaW6GKPDv5ag8590JzsaD52Jd21Ce36m+ksdfnggObMJUK
- Cyy+BgvDSadXEefq2AdwI4t7iqnaysqHr+CyR2fiIa1A==
-X-IronPort-AV: E=Sophos;i="5.98,279,1673931600"; 
-   d="scan'208";a="100512262"
+X-Inumbo-ID: 3faba1ad-c7f1-11ed-b464-930f4c7d94ae
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZtKVRR0lR6Ro1CqYtAQ75HgBqhLDGkQXpOrdBl4QbfRihydMn7iU9AsLAzPXdrPqwZVWnaAI5yifJmYawPjgekliDrArpEy6m8ZMHmMmBB+6AT9Hxn/zBvGzPjsscIVKyrsjReT7TLFf9Imf0XZm/ZBdYpNlGR9r4RGwBJsMiEvCoTjNK9x4tS63KHC9jeYgKuIBDl80NhtrK/BMHad+Jj9QIFRko/YPqS7lv62mb+GgJz3RnT+Kl67jzRBypTe25sxPAOYgl7POCwvRspCFNj5JAwhF5b09MPD8wQoaemLWjAQNMoj6KCItpNhThTciTM/SACPayQJSJg03E4OMzA==
+ b=M8GdumUuqMLaF4IcpoM0qCgDaMtk7tzyMZ9dtcyhgdp7hGy2aisyKT2+qo2c9pE9g8gAehP5+JZtpuZ/Vj2mykOC27tf3gbY+daXAroRKFB/+Z+PSZrE2n0JqnG4vr9sCO8htEUV13BtxpfGojJbfvwDk1Fl3jT3hMCOuQ+zPkieIK+KgICCyUyVgMI/7xL6wso2RrUga4/XidEpgzqI+pFETzGhA/+i8SaBJjfQ7SOAK0O+bIwtir3rDTQpvpcPgf6wxfrhHQf2GHyH/dZXWmUZk9jfeQv29nTyma740pmBzgGqMRZGKc6ykJwbL7FfufW0yhmfPNgnwCHaJm+tLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=23A/TFIJGEo0EFuDgc/krWX2pmswq4Db1Ol0EjHKRbY=;
- b=FdSMH9vnfEYvxJxpv9oObjbOoooCLiC69ry2NqYwonkbmy3jafWykgYfNnJaJFUsbhv8CAtHvDpLJ4WKZsAEGPzzU1mB2q6mphGT5vdCqQPVpaODe6LbT1uegREEsfXzYZedoAh95zwBHHsotjPVpWe6RJey+1mP+LyNgVMZ3G4Y0KM5mxWvvpyYm4A/d3dCnV3cNix0paq4Rn+XnfUr+dagEPJ0u78yM/BAemesVLgs4R0J9olyAhPp0f5vCz+ScDcx2bJYegVo0E/KE65Pyclt8j+EoQ36XD7MMAfMwmlpB4LT5/pIQVlzc3dQj77kYDBf9oSaiOoB4upwG4NwIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ bh=6VMK1rMIsJo/CaQpJQaobl6RRkT3j8z9G+KL4/Hqqb0=;
+ b=EAeVwmhi9+MhiGGHQhrZYEVNGA1OBA3CGSZWESh1hUsv/v/xopngyftjAuNUAZVcdyX2kF0VnY/HJu1rB3O8HNnP55xXi8JMWlTbmX3ZOLG4I5BuBuA8drc4eS8Eb9PgWI77FTh9Tk0pqNQsp2ila+GYAkxoUoxFaVdNPxypwgTfgk9Z0+XWlc0+DrdaXfI4jOc2C6ENCRzZry0+eKOBpscrIV0kHHgLEVsULe02hT7QEV/SrOloyS3XwIwV3QaV9JFEydyI+oXHZXUs3fkNKGb+lyny7RZchXH4pGrZjQA7lYPcUeM/LS5yMtm8VtJkBUMKpbcfJ5qAkiIqlguylg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=23A/TFIJGEo0EFuDgc/krWX2pmswq4Db1Ol0EjHKRbY=;
- b=ZKmEuaPScZm/382hCsWsXb4zJr7PNH+xuTPfy8pbSaIyvAWkEjv5kjgkWx4AU3s66xKU3EOcPTU5AwmJF9kgiAEOP9MzslaI8eHZW2dxGG9afVT8C2PXoYkkxtUkU/Whqp8sTy2DeP+USESpkcgyvRyZLSV1f80aokSaA1BI3Xo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 21 Mar 2023 15:02:02 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	josef@oderland.se, Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Len Brown <lenb@kernel.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
-	Alex Chiang <achiang@hp.com>, linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v4] acpi/processor: fix evaluating _PDC method when
- running as Xen dom0
-Message-ID: <ZBm42pgVCvsv6dzK@Air-de-Roger>
-References: <20230316164257.42590-1-roger.pau@citrix.com>
- <CAJZ5v0jskeE8nJt04vyEkDO3rOwOHp36mcKcV=L9LGXD0HL6Mw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJZ5v0jskeE8nJt04vyEkDO3rOwOHp36mcKcV=L9LGXD0HL6Mw@mail.gmail.com>
-X-ClientProxiedBy: LO4P123CA0448.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a9::21) To SJ0PR03MB6360.namprd03.prod.outlook.com
- (2603:10b6:a03:395::11)
+ bh=6VMK1rMIsJo/CaQpJQaobl6RRkT3j8z9G+KL4/Hqqb0=;
+ b=IjmiFz/U4kYS9pAlcW4xOa4EKoKSH0gO5FyWleaR89O05p7ayByMyMwxFZ6wrOMGok50fgpsvvSdUtV2NOOIZ0K0/3YYaejPgflJe2C9ITs0BolLQeLKLkFEkiWSg7KH4Dwt79Wrc416T1rO9ve1ZSV5BQ7vlxeyIujId8hKQRw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
+	<wl@xen.org>, <rahul.singh@arm.com>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>
+Subject: [XEN v4 00/11] Add support for 32 bit physical address
+Date: Tue, 21 Mar 2023 14:03:46 +0000
+Message-ID: <20230321140357.24094-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|BY1PR03MB7288:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ddcf53b-3591-45d3-9bb3-08db2a14dc62
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000B079:EE_|PH0PR12MB7469:EE_
+X-MS-Office365-Filtering-Correlation-Id: 330283ae-2484-4c66-3728-08db2a152244
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	nMkrDfpD+WZqPvh3pH9z0o46/8a3sEAkjjwLCVYeyGyVWZpnfu2wT7APuDkMtuy2ZwtFMB3p+qXlP1Drz+cF8saOEaAxIukPOKdw5/dQVDZRkhPg4INmtKqL51AINKO+sHpsUwdyyjEnKB2ZHIbr3aSPNFrZ/78kOOOb0PbZtpI2VNXMybM8UCoMCg39tGYsQis4CKQAgECNQZfbPIMYbsx0E2ZULVKjPem4wRG0q/idtw9zPGAcGwz3lfOYZcH2dPMuf9nMYhVyk8yi7L5VJgJFtNGEs0Tutn4YZfR1nhw9dRwIi5lcZLs2sdKzoGXqBMJ2PlLvHAug7ZM3mQfcf655lWtGJa9qjLMV2oQaLBh7FI7G+Eu6ySHOdPtVuGc/DxjFhOrVhlhS464dQeF2jua4oF9hgEmslyipNZj/Bsu4/fY73xp3uesUeTujHBe9awbxDBtf1eAQ/hA6K7JlVaIl1ASLEQZiGqFuu13/D6kvu7QHZrpofG+moSyMF/NvAvqKeuJvlYMyqm7tjNndShLMdGOXRz0SUlDIrrvrtekk6wxVDrNbQ5nr0jFa4wFbngthWmqiCq7IDuosCk395Zl/Vf9Wnw1B4t8dV1DdNdBFMWOjP2RQQQQMQhhJxNF83aHSPTcvAYx3t2arRNI2TBsaF7+KIdhrF6Ds5RcLWRY=
+	y2Affj73BM01k34cz7xKysgPALLU3HrJYo5EL4an2B5S05DL7dwndnU84GGrSskbG6JY8wQ3oOrJ9MIk57BL6iTeQopcaKBZcQT6Mm45koNKQx3Du3lG4mIqE2fcr2AEKmAcEWEThMOLXAXYquGZ925r7you5kLusVjWI++fWf6gqA0Z7d7KUE7v2Gko6bwr2Ge4x5bCoY1zirHqsfen8Brc7G5c7UZkqxPXzfSbmZuUfXKLemc8QORvvi0/JM8Hi4BLBy22kXFTwiG6vq/zXEaFNSQYD+FFDT8tFJtLThxQPUNqhNpe2mEWRNYKcnueR3WV3mtVK4L0fIyp19DPJhJpcYeUArZB48v2BPs1t5GwJZTQkggDHavNBMQpkTD5sl2E+QKUaa6V4CK6/PsnMjYLZt/eZMcO1wZ6eF9Bh8o2Sq/2bfBmOWjBVXfv18QG2ybiHixUlVSSSqj6P/0kBw7NKuRPCxDrF1rRYqQGG1NhL2W5ReikPfC+MAoM+D29qdGaGDhg7hZHzwSEadDj7uNO6uqVRFNr/l9mSNNxWT0jU9udVG1kLlStYJMb9XlTCyG9Ro7WqRrssIu4c9EfjgWRuBrp062oMJde93SCTCG1h2h92UorRq0er/2btbGf9Uf+vYvr7dbBcrLDI3cPyk6YUKvsHA+8oDP21CHOlrM/LKakdJxZEYb0Y8LLB03DYvs9pC8zxO2ROPsbVvQoQ3tn7le4GTPHaptqRmJ4KHdZv0Oi53LIYSNPqZG/AZ/F/YSYsKSFfTVhVr7p8xRQFA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(7916004)(376002)(136003)(346002)(39860400002)(366004)(396003)(451199018)(316002)(54906003)(6666004)(478600001)(6916009)(38100700002)(66946007)(8676002)(4326008)(66556008)(66476007)(6486002)(2906002)(966005)(41300700001)(82960400001)(86362001)(26005)(186003)(6506007)(8936002)(6512007)(9686003)(83380400001)(53546011)(85182001)(33716001)(5660300002)(7416002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Tm5UQzl0dWF1N3YySitFbHVhb3VQSkJhTmlDTVpyRWVKQ1BFUXc2MlVaOFY3?=
- =?utf-8?B?MEh5bVNNMlJFdkRwVjl0S0lvaXYzUnZIaTN1YnhEdmgwMEZWK2wrL29WdkFK?=
- =?utf-8?B?dVZ6dysySmtYaUxyWGxWNklhMk8wTDljRUZ4Mk53Vk1XbW5vYXJpbGlzSG13?=
- =?utf-8?B?clh5d1F0amFkNVh2MWpFY2dWVGxKZHlZWmd3Q2dldHhSMEtNTURhQTZCbmdT?=
- =?utf-8?B?SjdkeFhjUzlvSHQ4Zy9xb3VITXlrUFBXT1NmNEd3TXZhMFkxaFBoWHRYMUpC?=
- =?utf-8?B?aXgxd1hnc092SFRFak9JZ01Vbkw2YW5selZCVzI2RjZxakY0MVFjb2J2WC9S?=
- =?utf-8?B?Wlk5aFVyVmk4RnBZVUFaQ3FaRWhVbEJ1MzREUjQwYm0wZy9tL1BhTElGVlM1?=
- =?utf-8?B?a2g0MGVPT2s1eldiZFl3TWxuZGJLc1IyUkMyM0Z0cmlYWTFXbTRZeXBYYjN0?=
- =?utf-8?B?VWhsZHQ5T3V5VWtDbEtlZFJXaXhSZWV5bCtHN3R3VGU2Z1lDaFRhVDJyM0x6?=
- =?utf-8?B?amMyQmZxUXM4NHBWT3lURnVZNDAwZFp2RkptRUpWaTRISXBHcjN4d2pmaVAr?=
- =?utf-8?B?ZWR6emRqMUZQbk9aYzdZL1NvUUxxUENKN2ZWT01tSHJ5VXVCU21va1N6c3R6?=
- =?utf-8?B?QnZ2QTM2NEVMZ2o2bzRJeUl1R2p0aS9VeERrZzhwNk5HUGZWV1dwRnhKVlhq?=
- =?utf-8?B?Y1RadXU0V0E3QzVTbFYvbjRCaENnY1ZhQXhSVHpvbGIxSDJwZERLN0p4Vzd6?=
- =?utf-8?B?MExNK2RhVWtDNmhaLzgxRlpET1JSQkdKMlBEV094V1huem5JVHZUNjFua3ky?=
- =?utf-8?B?OWJ4SXRUSU5OWmQwTWtZNUsvdXlsMnlHcUExRGpkczFlUmM2RGtidjB5S1BT?=
- =?utf-8?B?MU1iVXVlSjAzdGhmSzdaSEVzQlpONitiSTJEWDVKM0JVNnpzTlUxemJsaVBh?=
- =?utf-8?B?MzdBSmVTYlF2Q0lJZ2FmakhhY1VCNkJUMkNLc2R4STQvVjgzQSs0dWdJRUd2?=
- =?utf-8?B?UXZCU1ZQZmRlSzBWZzkrN2ZHMExHdWoxek4vU1A0dnlNK1V3UDZFUFAxYjJY?=
- =?utf-8?B?ZjA5ZFJudzZxNmVjK3g3TkFscjNTVjB1dzR1NTQwQndYVzk2Uk9CTWVXZWRw?=
- =?utf-8?B?YlFYa1FhbTVHdkd5dHdTdzl5UDRtVHk2OHhHNEowSWlKQVdPNlJ1VUYvdERn?=
- =?utf-8?B?TkQyRGozaGtyaDVIN2N6ZXFGYzkxZ3lHTnJqUUVQZ0QxRGViY2gxNzNQTWVF?=
- =?utf-8?B?L25QRzdpTHFCa1REbWtiL1FWTWk0eVR6bS9sWE9pNXJDeGtyQ1VDK25iK1NT?=
- =?utf-8?B?NzlndjdReDJtK2JSVDhPY1dQeEtNV21XZzJUZFBESENOWkN6MW1GVGJKYkx2?=
- =?utf-8?B?OHZ2UXdocTR4cUZVZG1WNitjbTFWUjM2Mkk2L0ZXYWpDTFZ3ZG9jNU1zbGhp?=
- =?utf-8?B?ZFY1T0FMcTNJdnVlV2RoTDkvb1pNN1YrbmFLeExpWkRZanlocHFsWThqQUNU?=
- =?utf-8?B?NWlKeG1leS9KVjcxalhVbFpzbzd5MnJ1RmpoMWI2RHYvdVdGSytETUdYQkxV?=
- =?utf-8?B?MmhIazBuaDEwN203MHFBc0lNQ2V5cDlTQllUK0tDeXFvajlBK3E5NDUzRmhk?=
- =?utf-8?B?S1lQdGVwL2F0Qk9EbUMvdnZqVHBySmVkWENGcG5KV3cyb3BQRzRCSkQ3SnFi?=
- =?utf-8?B?d2JkRmRLQS9QQ0ZzWEFkZXkvdWx6ZmtxSjFHYjY4M3V0QnVncW44RmkvVWRJ?=
- =?utf-8?B?R0R0Q2tHMCtudVIvb05JNngwbEVQMUphNllUNjRqWWtKS1NETXNXZXc0anlS?=
- =?utf-8?B?OGdRRjBvNUg5VHZQQ0JrYXlRa0RKTzUyOGx2VVJEVysxWUU0emNoNEl4M1dl?=
- =?utf-8?B?a0dCSzVhUVJreG0yZmYrK0ZTTHNUVW10b2VQSXVhZ2ppS2x4NXI1T1orTWE3?=
- =?utf-8?B?RG1CdDlLWVh4NmFJSDUzS1RPRTZoK0s2RXZMbnJXRThHelVqM3VFZm1FWDlB?=
- =?utf-8?B?TENnSE9UK1hreVJWL0V4VzBheDFHZXlXUXhxaGgzU1BDZFplc2tGTTBqQ2s3?=
- =?utf-8?B?ckFaaTM2VkI0ZlRJQ21HMzFUMSsvTGtHOEFTRkZSakZXV1hITjhkV0tzZTZv?=
- =?utf-8?B?b2s2clpnUjBySFJZVlVQWE1rZjY3Ti9YY1cveWwyNE1HQkpMb0J0dnA3NXdu?=
- =?utf-8?B?ZEE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	=?utf-8?B?aUtOZ1YzK2RKUEd1bDhjQm1GZjFZeXZWYXFSYWk1SHBIRXFSMC9EZEVaODFC?=
- =?utf-8?B?N0hyZk5DNlVyVmF3ZlRneTJROVZaTm1hcjRDOUVXZGtPVDVjY1p0K1p5Q2Zr?=
- =?utf-8?B?VmY5dXdWWDAxMkkwcGZ2TmFCRys1SUZQRjYvdVJ3QndYNFJnVHpIQ1FISTQv?=
- =?utf-8?B?d1JXSjhyeWRGTEllcmxBd0Q3MEU5K1RRNjI2dGJDMGVuaTRkeDJ2bG9jMGc3?=
- =?utf-8?B?U1d0d0RkaThCcVV1Wjd1cDBJMmF2WmU2YXhPaU5NYkRtajhxMXpLSG9KK003?=
- =?utf-8?B?bnF6UFIrd2UvNWdDcjJZb25VWDExRmhPclJIWFBoQVp3MmpUSnExRXdmWlBs?=
- =?utf-8?B?YU1ma3A4RjMyY0UxNnpsSERJOG9wNXlpU0duQjJiRk8zZnlCSXp4MWJxNHp0?=
- =?utf-8?B?cWpVQXNudTRVZ1RBK1JyOFNoZUJQSGV1THJMbGVHdUJROGRieDdvanpobFRa?=
- =?utf-8?B?RVdoZVdScXByTG5mT1NkeFk3dG5pOG9qQ3k5WWJaNzN0Zmxzdm5OcWFUS25h?=
- =?utf-8?B?Z2ZaUm1RU0Mwa3pydWpHQ1lDNERzc3RXaFJ4TUgxdnY4VU12ZUVweWlTUzBO?=
- =?utf-8?B?K1N6NXhIU3RQT2lNK0hEUFFZNGE2VmdxUC8reTlBU014aXJESzdCWk5oL1RB?=
- =?utf-8?B?Qm9LcHRIS2Flb0c5QkpBbEVpQ0JkM2JlajA1OHZrVFYrNitTSUN3eXhEVkdo?=
- =?utf-8?B?OXB2RE9lam53RFVLREF1Zk9DRGZjQnJ5VEg4U0tES0E4TkNKTGFLY0tmRkN5?=
- =?utf-8?B?WmhlZnVKcStGM3JCL0RycDRscGlEa2R3OUxDdXo1TGZ5UnVaSTF5OEFQUXM3?=
- =?utf-8?B?dEc4SlJhQmdnWXJ5Yk1LeEFKY3pOUWhXcmVtYVB4emlONi93N25zc0VoL0tZ?=
- =?utf-8?B?WFVmYnZuK09ScXcva2Jjb09tREJ2Q3orSlJnWTlGVnRaUFBMUlpZT0dpdkVm?=
- =?utf-8?B?SWt6OFRmempaUkhaL2VXMVhsb3ZFdnZXMGdlSDFvWkVOUjhTaHNDVUdqck9n?=
- =?utf-8?B?bitjSFRzUHpxTE50Ni9KcWlXUU5NVnNGRDNoek9NZSt2T3VKMWFQMkJPZjNT?=
- =?utf-8?B?Qlo3TTgvUUVYQUx0dUIzN3FNa2ExTjJDeXJ3RjdVRGpUNWgzQ2I0eEFLc2lY?=
- =?utf-8?B?VWh2T0VNSkp4eGlaS3RYa2krR250UzBGaXB1Q0ltRzR6Ylh1QmZOQi9JejRt?=
- =?utf-8?B?ajlUYjhidXJBaW9zSjRESU9NN2tGWUo3bmt1bDhVYWtZb1ZJTDJPTjQvTHNx?=
- =?utf-8?B?WTVhc2Erbzl1Qm1zVkVpZlZBL0Q2Y1ZLRjdEK2dVUjJETm4xY21OUlZnd3JJ?=
- =?utf-8?B?dUVIQWtleS9Xa1hFNUI5WnQwUGRaUG9DQitEcGVGc3pRV3BHRHJXcjZIVHZC?=
- =?utf-8?B?R2IrTzVtY3hwQ1FQWCtFR29Gb1JEbTZ6Qlh2R3JjNFQ4TUlmNW1PUlN3T3h4?=
- =?utf-8?B?dGFTbWdFOWFaN21JWWVybE1QTmFhSC9WbFFweE9QS0hIdnJ4Q01PRGgzeDZW?=
- =?utf-8?B?cnY5NExTMDR3eStiV05Wd2hRRGZaVFdMY3VhUDRNamN4ajBZcHBZWmxKZHdV?=
- =?utf-8?Q?gKWnhp/SJlX16/kgYiMzv6W0k=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ddcf53b-3591-45d3-9bb3-08db2a14dc62
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 14:02:09.1523
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(376002)(39860400002)(396003)(346002)(451199018)(40470700004)(46966006)(36840700001)(356005)(8936002)(2616005)(7416002)(5660300002)(36860700001)(82740400003)(81166007)(2906002)(186003)(41300700001)(26005)(1076003)(4326008)(6916009)(336012)(8676002)(40460700003)(40480700001)(47076005)(70206006)(70586007)(6666004)(478600001)(316002)(54906003)(36756003)(426003)(82310400005)(83380400001)(86362001)(966005)(103116003)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 14:04:05.9851
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mFFYSZTmgmA8feQV2h7ObcVv0jX4mVX8L5m4mrZW5hUZMA8PqfkUSvvBBoBqdUQ2Vsq0D6KjukU86WB/5mE02g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR03MB7288
+X-MS-Exchange-CrossTenant-Network-Message-Id: 330283ae-2484-4c66-3728-08db2a152244
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0000B079.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7469
 
-On Tue, Mar 21, 2023 at 02:47:46PM +0100, Rafael J. Wysocki wrote:
-> On Thu, Mar 16, 2023 at 5:43 PM Roger Pau Monne <roger.pau@citrix.com> wrote:
-> >
-> > In ACPI systems, the OS can direct power management, as opposed to the
-> > firmware.  This OS-directed Power Management is called OSPM.  Part of
-> > telling the firmware that the OS going to direct power management is
-> > making ACPI "_PDC" (Processor Driver Capabilities) calls.  These _PDC
-> > methods must be evaluated for every processor object.  If these _PDC
-> > calls are not completed for every processor it can lead to
-> > inconsistency and later failures in things like the CPU frequency
-> > driver.
-> >
-> > In a Xen system, the dom0 kernel is responsible for system-wide power
-> > management.  The dom0 kernel is in charge of OSPM.  However, the
-> > number of CPUs available to dom0 can be different than the number of
-> > CPUs physically present on the system.
-> >
-> > This leads to a problem: the dom0 kernel needs to evaluate _PDC for
-> > all the processors, but it can't always see them.
-> >
-> > In dom0 kernels, ignore the existing ACPI method for determining if a
-> > processor is physically present because it might not be accurate.
-> > Instead, ask the hypervisor for this information.
-> >
-> > Fix this by introducing a custom function to use when running as Xen
-> > dom0 in order to check whether a processor object matches a CPU that's
-> > online.  Such checking is done using the existing information fetched
-> > by the Xen pCPU subsystem, extending it to also store the ACPI ID.
-> >
-> > This ensures that _PDC method gets evaluated for all physically online
-> > CPUs, regardless of the number of CPUs made available to dom0.
-> >
-> > Fixes: 5d554a7bb064 ('ACPI: processor: add internal processor_physically_present()')
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > Changes since v3:
-> >  - Protect xen_processor_present() definition with CONFIG_ACPI.
-> >
-> > Changes since v2:
-> >  - Extend and use the existing pcpu functionality.
-> >
-> > Changes since v1:
-> >  - Reword commit message.
-> > ---
-> >  arch/x86/include/asm/xen/hypervisor.h | 10 ++++++++++
-> >  drivers/acpi/processor_pdc.c          | 11 +++++++++++
-> >  drivers/xen/pcpu.c                    | 21 +++++++++++++++++++++
-> >  3 files changed, 42 insertions(+)
-> >
-> > diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
-> > index 5fc35f889cd1..990a1609677e 100644
-> > --- a/arch/x86/include/asm/xen/hypervisor.h
-> > +++ b/arch/x86/include/asm/xen/hypervisor.h
-> > @@ -63,4 +63,14 @@ void __init xen_pvh_init(struct boot_params *boot_params);
-> >  void __init mem_map_via_hcall(struct boot_params *boot_params_p);
-> >  #endif
-> >
-> > +#if defined(CONFIG_XEN_DOM0) && defined(CONFIG_ACPI)
-> > +bool __init xen_processor_present(uint32_t acpi_id);
-> > +#else
-> > +static inline bool xen_processor_present(uint32_t acpi_id)
-> > +{
-> > +       BUG();
-> > +       return false;
-> > +}
-> > +#endif
-> > +
-> >  #endif /* _ASM_X86_XEN_HYPERVISOR_H */
-> > diff --git a/drivers/acpi/processor_pdc.c b/drivers/acpi/processor_pdc.c
-> > index 8c3f82c9fff3..18fb04523f93 100644
-> > --- a/drivers/acpi/processor_pdc.c
-> > +++ b/drivers/acpi/processor_pdc.c
-> > @@ -14,6 +14,8 @@
-> >  #include <linux/acpi.h>
-> >  #include <acpi/processor.h>
-> >
-> > +#include <xen/xen.h>
-> 
-> This along with the definition above is evidently insufficient for
-> xen_processor_present() to always be defined.  See
-> https://lore.kernel.org/linux-acpi/64198b60.bO+m9o5w+Hd8hcF3%25lkp@intel.com/T/#u
-> for example.
-> 
-> I'm dropping the patch now, please fix and resend.
+Hi All,
 
-Hello,
+Please have a look at https://lists.xenproject.org/archives/html/xen-devel/2022-11/msg01465.html
+for the context.
 
-Sorry.  I've sent a followup fix:
+The benefits of using 32 bit physical addresses are as follows :-
 
-https://lore.kernel.org/xen-devel/20230321112522.46806-1-roger.pau@citrix.com/T/#u
+1. It helps to use Xen on platforms (for eg R52) which supports 32 bit
+physical addresses and has no support for large physical address extension.
+On 32 bit MPU systems which supports flat-mapping (for eg R52), it helps
+to translate 32 bit VA into 32 bit PA.
 
-Would you be fine with taking such followup, or would rather prefer
-for me to send the original fixed patch as v5?
+2. It also helps in code optimization when the underlying platform does not
+use large physical address extension.
 
-Thanks, Roger.
+The current patch serie depends on :-
+"[XEN v5] xen/arm: Use the correct format specifier"
+https://lists.xenproject.org/archives/html/xen-devel/2023-01/msg01896.html
+I did not send out the patch again as it has already been reviewed and acked and
+is waiting to be committed to staging.
+
+The following points are to be noted :-
+1. Device tree always use u64 for address and size. The caller needs to
+translate between u64 and u32 (when 32 bit physical addressing is used).
+2. Currently, we have enabled this option for Arm_32 as the MMU for Arm_64
+uses 48 bit physical addressing.
+3. https://lists.xenproject.org/archives/html/xen-devel/2022-12/msg00117.html
+has been added to this series.
+
+Changes from :
+
+v1 - 1. Reordered the patches such that the first three patches fixes issues in
+the existing codebase. These can be applied independent of the remaining patches
+in this serie,
+
+2. Dropped translate_dt_address_size() for the address/size translation between
+paddr_t and u64 (as parsed from the device tree). Also, dropped the check for
+truncation (while converting u64 to paddr_t).
+Instead now we have modified device_tree_get_reg() and typecasted the return for
+dt_read_number(), to obtain paddr_t. Also, introduced wrappers for
+fdt_get_mem_rsv() and dt_device_get_address() for the same purpose. These can be
+found in patch 4/11 and patch 6/11.
+
+3. Split "Other adaptations required to support 32bit paddr" into the following
+individual patches for each adaptation :
+  xen/arm: smmu: Use writeq_relaxed_non_atomic() for writing to
+    SMMU_CBn_TTBR0
+  xen/arm: guest_walk: LPAE specific bits should be enclosed within
+    "ifndef CONFIG_ARM_PA_32"
+
+4. Introduced "xen/arm: p2m: Enable support for 32bit IPA".
+
+v2 - 1. Dropped patches 1/11, 2/11 and 3/11 from the v2 as it has already been
+committed (except 2/11 - "[XEN v5] xen/arm: Use the correct format specifier"
+which is waiting to be committed).
+
+2. Introduced a new patch "xen/drivers: ns16550: Use paddr_t for io_base/io_size".
+
+v3 - 1. Combined the patches from https://lists.xenproject.org/archives/html/xen-devel/2023-02/msg00656.html in this series.
+
+Ayan Kumar Halder (11):
+  xen/arm: Use the correct format specifier
+  xen/arm: domain_build: Track unallocated pages using the frame number
+  xen/arm: Typecast the DT values into paddr_t
+  xen/drivers: ns16550: Use paddr_t for io_base/io_size
+  xen/arm: Introduce a wrapper for dt_device_get_address() to handle
+    paddr_t
+  xen/arm: smmu: Use writeq_relaxed_non_atomic() for writing to
+    SMMU_CBn_TTBR0
+  xen/arm: Introduce choice to enable 64/32 bit physical addressing
+  xen/arm: guest_walk: LPAE specific bits should be enclosed within
+    "ifndef CONFIG_PHYS_ADDR_T_32"
+  xen/arm: Restrict zeroeth_table_offset for ARM_64
+  xen/arm: p2m: Use the pa_range_info table to support Arm_32 and Arm_64
+  xen/arm: p2m: Enable support for 32bit IPA for ARM_32
+
+ xen/arch/Kconfig                           |   6 ++
+ xen/arch/arm/Kconfig                       |  40 +++++++-
+ xen/arch/arm/bootfdt.c                     |  41 ++++++--
+ xen/arch/arm/domain_build.c                | 103 +++++++++++++--------
+ xen/arch/arm/gic-v2.c                      |  16 ++--
+ xen/arch/arm/gic-v3-its.c                  |   4 +-
+ xen/arch/arm/gic-v3.c                      |  10 +-
+ xen/arch/arm/guest_walk.c                  |   2 +
+ xen/arch/arm/include/asm/lpae.h            |   4 +
+ xen/arch/arm/include/asm/page-bits.h       |   6 +-
+ xen/arch/arm/include/asm/setup.h           |   4 +-
+ xen/arch/arm/include/asm/types.h           |   6 ++
+ xen/arch/arm/mm.c                          |  10 +-
+ xen/arch/arm/p2m.c                         |  29 +++---
+ xen/arch/arm/pci/pci-host-common.c         |   6 +-
+ xen/arch/arm/platforms/brcm-raspberry-pi.c |   2 +-
+ xen/arch/arm/platforms/brcm.c              |   4 +-
+ xen/arch/arm/platforms/exynos5.c           |  32 +++----
+ xen/arch/arm/platforms/sunxi.c             |   2 +-
+ xen/arch/arm/platforms/xgene-storm.c       |   2 +-
+ xen/arch/arm/setup.c                       |  14 +--
+ xen/arch/arm/smpboot.c                     |   2 +-
+ xen/common/device_tree.c                   |  40 +++++++-
+ xen/drivers/char/cadence-uart.c            |   4 +-
+ xen/drivers/char/exynos4210-uart.c         |   4 +-
+ xen/drivers/char/imx-lpuart.c              |   4 +-
+ xen/drivers/char/meson-uart.c              |   4 +-
+ xen/drivers/char/mvebu-uart.c              |   4 +-
+ xen/drivers/char/ns16550.c                 |  43 ++++++---
+ xen/drivers/char/omap-uart.c               |   4 +-
+ xen/drivers/char/pl011.c                   |   6 +-
+ xen/drivers/char/scif-uart.c               |   4 +-
+ xen/drivers/passthrough/arm/ipmmu-vmsa.c   |   8 +-
+ xen/drivers/passthrough/arm/smmu-v3.c      |   2 +-
+ xen/drivers/passthrough/arm/smmu.c         |  23 ++---
+ xen/include/xen/device_tree.h              |  27 +++++-
+ xen/include/xen/libfdt/libfdt-xen.h        |  52 +++++++++++
+ 37 files changed, 397 insertions(+), 177 deletions(-)
+ create mode 100644 xen/include/xen/libfdt/libfdt-xen.h
+
+-- 
+2.17.1
+
 
