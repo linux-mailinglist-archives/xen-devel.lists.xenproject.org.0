@@ -2,31 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 410756C2BB0
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 08:49:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512239.792090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F11E6C2BD1
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 08:59:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512242.792100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peWjt-0002v6-8J; Tue, 21 Mar 2023 07:49:01 +0000
+	id 1peWu9-0004di-7E; Tue, 21 Mar 2023 07:59:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512239.792090; Tue, 21 Mar 2023 07:49:01 +0000
+Received: by outflank-mailman (output) from mailman id 512242.792100; Tue, 21 Mar 2023 07:59:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peWjt-0002sw-5X; Tue, 21 Mar 2023 07:49:01 +0000
-Received: by outflank-mailman (input) for mailman id 512239;
- Tue, 21 Mar 2023 07:49:00 +0000
+	id 1peWu9-0004bm-4O; Tue, 21 Mar 2023 07:59:37 +0000
+Received: by outflank-mailman (input) for mailman id 512242;
+ Tue, 21 Mar 2023 07:59:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=03cH=7N=list.ru=valor@srs-se1.protection.inumbo.net>)
- id 1peWjs-0002rq-0C
- for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 07:49:00 +0000
-Received: from smtp58.i.mail.ru (smtp58.i.mail.ru [95.163.41.96])
+ (envelope-from <SRS0=NAJ/=7N=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1peWu7-0004bc-Fj
+ for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 07:59:35 +0000
+Received: from EUR02-AM0-obe.outbound.protection.outlook.com
+ (mail-am0eur02on20609.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::609])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d5c9ee2b-c7bc-11ed-87f5-c1b5be75604c;
- Tue, 21 Mar 2023 08:48:58 +0100 (CET)
-Received: by smtp58.i.mail.ru with esmtpa (envelope-from <valor@list.ru>)
- id 1peWjo-00Bbo8-4v; Tue, 21 Mar 2023 10:48:57 +0300
+ id 511d5cc1-c7be-11ed-87f5-c1b5be75604c;
+ Tue, 21 Mar 2023 08:59:34 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM9PR04MB8890.eurprd04.prod.outlook.com (2603:10a6:20b:409::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Tue, 21 Mar
+ 2023 07:59:33 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
+ 07:59:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,131 +47,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5c9ee2b-c7bc-11ed-87f5-c1b5be75604c
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=list.ru; s=mail4;
-	h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Subject:Content-Type:Content-Transfer-Encoding:To:Cc; bh=rm4lFmRhnhCtpFnCGdOmtaxQPpjHbE0PTOio5aX/mjg=;
-	t=1679384938;x=1679474938; 
-	b=KkBzjNnNIBdUutiDxbTZGgS7huk458cwkaeYwRc5f91jSFnqYUC+AoK8j/jjfD949a09gIoc3QkLkdYgMKQywI5QHh2Xo+2113iMtFCMumOXiQo7DJVbfBYyPDSmfc0IOaK7RPkFw/vPw5DdSpKkJOD4cFDJeh81VGeVsi6QITkeFyGsh2V90QDp4Xfz+0QaWRiHKqz4cJqCYspqeHuw7Js0MUDSup8khK2ZDZzmbgU23m9E3tpWYkXM+YRQF1TqwDy9zKpBqwTbBnfdzXU1qYnt/eG9NP+b+ttthYUNXWgHQrEiHBy54RZ6wdhwnqTJIlVuXvgK7uiVv3/Ebb0mTA==;
-Message-ID: <d6c137a1-4662-68ef-1ed4-8e9355e0290c@list.ru>
-Date: Tue, 21 Mar 2023 10:48:55 +0300
-MIME-Version: 1.0
+X-Inumbo-ID: 511d5cc1-c7be-11ed-87f5-c1b5be75604c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JZBvULcIMhto7xLHrq+sRo/lV0f2S6xiEXPTBCW3sZTTMWzbQVfbTn5Si9ydGuMb3yVz4QNJx3qSGyX64vY88INQDa3L9YC/9G8A6WS1b7l9mYfxtlrlc2CfRlz2PFcIpjQh8ftKKy3Gc2wGOx0WQoWjU4EHdWyTLU23cf84NUapARlenHHJPFcPI58BxN/90N/gLGOlldSJ9lFPiWxIWUKw98kTe6IFnAYviDd+7DEkno3gly1wbiZQg0wcWEriLhADhD+EdZZS2dRJ19ok7GDVIx/IR7mlybcNARqGIoKB+Q6bX1ETgHXkFIBnUX4EaY8k7SuPq/s0bUfhGQ7F3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vQYifz2OlWKxooXUkRR8VTHS7EPBZTPD+DSl5TxfZl8=;
+ b=nZghbGsaasHEZIxVT9CFPgRREuxv7UMCuSAStch0bUrD0SAZEdJiZXcSbU2t7ppy/1oYwJfULZbYqDdVaSXaXesixrX/K0gocQmAG82xf22px+VkYpAfhTiR81sHR44LlKdc20rXn5ibgX0jZoODytE2CR+DXPVAvislTTDJ6LBiIha8C1/GhDkiLSHW7MQ0Usyw8PN4gMNyEp0RY8Hs6rsvGOmx2dBMsl+VJy7RtEM7oKID3jQbRLpoZqhdHm005YKicaygPw9C616MvBCRgwqjniiKVzZKoGWnySBeK/7qzNHoiiSokNiMfSGg4dVUx1fympLb/0g3crgiXT3waw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vQYifz2OlWKxooXUkRR8VTHS7EPBZTPD+DSl5TxfZl8=;
+ b=oFX6EaBA7gbe9Rmbc50Ax8NrYjZma0vaMJIQthfKzt2bCCxj5Je37UhjqvJ356HgK1fteNEZSOOkRIxhKUoI7pVsMT6jJIsfWaPJ2uJeOuvLnBLxSFF21TRZG/bqdjJ6U1HRLVgKc671dpwCCXJUgTfC9khg4WVdhbZ41MAJcM2Ihu+80rhFwmFRqM5xxmgyj1iIO9bjtz11/EchrgDjvrAD8lZek1bGggyaic/YMz82ImCWJ8acGrtM/64ctEgjK5tkO41dp6qiPDB4lIIyjvr37m4pQsCY0dyUZ/o1aqbXrLZjE803sFFYcFIqE7skPGuD9su2KzLsbUDkzmFXiQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <8e247141-a210-64c5-3831-a39f252de1e5@suse.com>
+Date: Tue, 21 Mar 2023 08:59:30 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [XEN PATCH v1 1/1] x86/domctl: add gva_to_gfn command
-Content-Language: ru, en-US
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-References: <e047a7a7-2e45-48de-2cb4-69001e95e1a8@list.ru>
- <CABfawhncTLzRvHYF3SyhdidfobP9PB3YOZ9oTjRREjKs07KtXQ@mail.gmail.com>
- <c5ea0f53-8cc9-509e-6c82-deea00f1ed74@list.ru>
- <CABfawhnRmGwB4VTx2i9Wg2c8dfyKqU5zM6MnWsMHBOfXA43+qA@mail.gmail.com>
-From: =?UTF-8?B?0JrQvtCy0LDQu9GR0LIg0KHQtdGA0LPQtdC5?= <valor@list.ru>
-In-Reply-To: <CABfawhnRmGwB4VTx2i9Wg2c8dfyKqU5zM6MnWsMHBOfXA43+qA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp58.i.mail.ru; auth=pass smtp.auth=valor@list.ru smtp.mailfrom=valor@list.ru
-X-Mailru-Src: smtp
-X-4EC0790: 10
-X-7564579A: B8F34718100C35BD
-X-77F55803: 4F1203BC0FB41BD9303C7CA6F8B0D1AB35EB92D1D7235ABBB2D71FE7B71EFC36182A05F538085040B3B2A4491582B9D0B4409C5E98B4AA487321488680DBAA986769183B56D8482F
-X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE721AF84DC1D70954DEA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F79006372D850D7477D401F58638F802B75D45FF36EB9D2243A4F8B5A6FCA7DBDB1FC311F39EFFDF887939037866D6147AF826D8ABF722410259389B709A486A888324376F9789CCF6C18C3F8528715B7D10C86878DA827A17800CE7E4DF6D1C10F22F599FA2833FD35BB23D9E625A9149C048EE9647ADFADE5905B128451B159A507268D2E47CDBA5A96583BD4B6F7A4D31EC0BC014FD901B82EE079FA2833FD35BB23D27C277FBC8AE2E8BE1488AC3D4DED311A471835C12D1D977C4224003CC836476EB9C4185024447017B076A6E789B0E975F5C1EE8F4F765FC69C563AEBEC0BF273AA81AA40904B5D9CF19DD082D7633A078D18283394535A93AA81AA40904B5D98AA50765F790063792C1D1031C6F1331D81D268191BDAD3D3666184CF4C3C14F3FC91FA280E0CE3D1A620F70A64A45A98AA50765F79006372E808ACE2090B5E1725E5C173C3A84C3C5EA940A35A165FF2DBA43225CD8A89F9FFED5BD9FB417556D8C47C27EEC5E9FB5C8C57E37DE458BEDA766A37F9254B7
-X-C8649E89: 4E36BF7865823D7055A7F0CF078B5EC49A30900B95165D3416EA6E382A5BB176B748332226D92AABE31E2C7F6FA447C936C81C9F7B47CAB05B8AEC4CF85C180B1D7E09C32AA3244C2F761FAA2E72069B50725F6FDAF3CE9A60759606DA2E136AED98077840A144B9
-X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu530nj6fImhcD4MUrOEAnl0W826KZ9Q+tr5ycPtXkTV4k65bRjmOUUP8cvGozZ33TWg5HZplvhhXbhDGzqmQDTd6OAevLeAnq3Ra9uf7zvY2zzsIhlcp/Y7m53TZgf2aB4JOg4gkr2biojrPvsFeLNXrWN08JvUjIaRw==
-X-Mailru-Sender: 9422C5FC7C00AE69302EDEBB3FCEDF4FEC27E2FA55CDC1951FFD25A93A0411793AB249A19D58F90376E790B0992C7B54B52423DB74AF18EABD4DCABF7D1B4669C77752E0C033A69E3453F38A29522196
-X-Mras: Ok
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] x86/vmx: Provide named fields for IO exit qualification
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230320182052.1831486-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230320182052.1831486-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FRYP281CA0008.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::18)
+ To VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8890:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ef1cef8-c7c2-4c40-f51f-08db29e234bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	LXOIkTmGKEcYsfCoSNMGGJgc1NbNsEuXTqxf7iB3aFv+j883RZsVtHx8/CSInhSc0fo/aBPd9BINO3nb53eh2W56jzXBKXuEXdlmAv2OqQHygoBRfWgceh/WXsPVog/t+oa7j+4RXchTanJL6to93if++bWLxIIvTUkz325lM7JrFjeUw0mgeUDzx6L3q0gXKwc7WrJOb3yCsvOUIQq7UnjZrm1xyTp/0KEGUBhTKOmRMc9qX+/h3M+1X7MqPb1y4jHzXzXzoNHEjXy6ebmYxOjlqy1yCQQxzdUIotn3B13WGLS8kSH/rLQNWr3tSxrAb9Ae6S9dPnwP1uo9GkKSrAcw/6C0Fgfzrty3HX/isyfEU7F3hpB4j+K8WP/bcjH/Sht3xNeqM/xV/1iClWpA6vlK0WFqhR7KPbY1DITQfO9Qp3t7P0rtPMMY0VTC3cgvJQKCC2pkLVOL58wq8I+22oYT3/d0d4BmJJFSQqgv4yELS3hpqFR8Nm5mOYT8VpF9/wM3StBlKTlvB4RzXBgkDmv4CNWZpEIDRj0mMw3Ta5sAfGJqKCdNTRrjFlC0uZruxCYsx9FGxUmBFu4aX+5Va8Oht41LBxG/ZzSNy31Pc7OGzwkI/Ag0aidVFqBQOV11/x/cQ4j+luOF9EC0/Vl7n+gI3TxLNOnwNDp2Hhho5oBiJshYqahLjw9KCc4+1jx9/7npzuJ2/DijwVMJvBMkyQ7Z5CLvM2R13jptosm+i64=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(39860400002)(396003)(136003)(376002)(346002)(366004)(451199018)(31696002)(86362001)(36756003)(6506007)(66556008)(4326008)(41300700001)(8936002)(5660300002)(2906002)(66476007)(478600001)(6916009)(54906003)(8676002)(66946007)(316002)(38100700002)(53546011)(6512007)(6486002)(26005)(186003)(2616005)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K1JFS0g4VHByc1ExYmpIdDN6NU5IdExhaU9SS0xQUlY0Umlwc01acU9jREhF?=
+ =?utf-8?B?RDVjUkN5bzI4bHRvZ04vQUdCSEQ1aGhGUEVZMXl1QjVkZ1FIdTB3T1RrUUN1?=
+ =?utf-8?B?NElPZjZnaUFveEpKYmZRakpIb2VIcWhvbDlJTW43SFFRN0o2TS9UWTJUMThX?=
+ =?utf-8?B?emtUTnhiNkdYbCtDakd4UFVaOWd4NVcwUWQ5K3BlVTV1cTN3bjc0eGYzejFy?=
+ =?utf-8?B?SnZIc21UcjNhN1RkWDg2TEM2MkV2V1duaVlVZFZXaHdtY0IyeTlRc0x5NDBz?=
+ =?utf-8?B?MkZhNTA2SWdIbHUrK2JnWUNOS24xV0h1aHBhV2tmRHg0Z2hkdkRKWnlCTTJl?=
+ =?utf-8?B?L1E4ajRXZkVqNWtQNGtBZGhDQlFCdTNCaUJjTVJOd3RuOThpeFdsTUtNWHhX?=
+ =?utf-8?B?UWtIbWtpOTlXQU9Ia3p5bVhIbTZBTU1KcU1oVW13Z3JnTWZZUjZUNDE1MWRB?=
+ =?utf-8?B?cDIzWHhhNVphTUt4OE1CWVE2T0liQ0RnUjBHaWJPdVM0bE1PbmQyUjI4d25U?=
+ =?utf-8?B?ZmFyNUd6MHY3TmlzYmJPVjZHdUR1ZmNRSnpPZDBSL1ZFUnpJYmVxcGo1cHFk?=
+ =?utf-8?B?aGpPVTZLMWx0T0QxUSthdUVNaUt6ZytQWXJzSDBiajd2V3NDSFlmVW5xdXhM?=
+ =?utf-8?B?VGRybDc5UGRocTVhbndhNlNqSzdUSkp0Y0ZKV1ltd2RtSVRyd2dMcnRjdTB0?=
+ =?utf-8?B?WFZHSzRMemNZOEVtVDgyZ1B6cUtCK25xNnBoRXR0VGxscFpjdGd6bUEwQ3FF?=
+ =?utf-8?B?QVYwTko1N2o2RVhITS9NZlBmTFFzYng1WVJ0TGRjcGZycENTSGtKdmkyNGdT?=
+ =?utf-8?B?TGVjZHhzQ1RmczNjMzI3SmFRRUVUNUFXMW9EQWUzdUcwakdFWjVQdzNTWjl2?=
+ =?utf-8?B?Ny9iVEtCRmVFUEh2cHFBeVA2NU00OW9yWGtPejBLMDdkV0VTTnNZemgrQ1oy?=
+ =?utf-8?B?RGlTejd0Yit5TnhvRnhZaFZ2VUt0L2M3VUJ2c2pxNkRXL0NFMkpzdWVaUlpF?=
+ =?utf-8?B?S0E3SDdnM1NSNDE0WTRYTmp2UnRUWjczMjlRR1NBS2hQamhuUnd0Wm0rdU1n?=
+ =?utf-8?B?VUhuYzRQODB4cE5FY3JIU201Lzd1UlFJcTUxMDZvc1ZrU0ZpaXo2aWx2WVh3?=
+ =?utf-8?B?cTh4U2dMYVdhZzFHcTRVMXQzamEwYTVCc0drUjQ4WW9zWjFKblY3L3JMTk5n?=
+ =?utf-8?B?TWl2UFpyTXBJWnQzMk40ekhxYlorQ0RlaGs1d2Vac2oxMWpDZENUVmJOZGVr?=
+ =?utf-8?B?M1ZJdTBUZDk3RGRTbjdVbVRjc0lzYVVoamZWQllxMnl5WFZwNEphcWpNTEpi?=
+ =?utf-8?B?MmpCVlc1UXNmVmc4SFN4SHFiNTlTSUlnRFhZdHIzYXZWajBMdVVEcmhCMy9M?=
+ =?utf-8?B?bTdBb0ZOYlN2cmcxLzhwMndPVG5wdTRLVDlQVDNWRnIzVUhMY0h4Q2RJS3lM?=
+ =?utf-8?B?RG1OZGdENzZiT0p1TXpIcnQ0OWVlNEpITDRmNVllc01lajBuTGdKNklSc2pX?=
+ =?utf-8?B?QW5JczJRRk05bXRRQXFoVVNIWnY0K0hhVjQ3RGlHK21lTHVCcDNmT3g3N2xF?=
+ =?utf-8?B?aklxQkQ2YUptL1NoZHYwV0tMbFZCYVhpY254K2RaZ2hMMjZHNTA3cFQrNmp0?=
+ =?utf-8?B?NWtzdEZYT25jQTVCYjVqalB6OXk0Z3pHTktrWG5lc0Jhc0Jqdk1RdnBqOTY3?=
+ =?utf-8?B?VTh1Y09kUWJXMERTR1IxWW93KzltY3VaakQ4WitXM1hYUEh4eC9lZlB1MHBL?=
+ =?utf-8?B?V3VVY0RMdjV5VFJFU3FTUlNlT2pLdEJkc0QzYVQzcnF1cjFCWFFySFdEa1RX?=
+ =?utf-8?B?RDdKekVIajZKUGhHM3BuNmJNakhBQzN3QmllbnloaGN0YmZnYnF3UVJXU0Fh?=
+ =?utf-8?B?KzhoZW9PTGdZL3MvaFFBOE91VzU4RUVsU254ZnFYOUI4WVYvRnEySDFxTjU3?=
+ =?utf-8?B?YjZFOW9mVVh0RlhtL1dGd0NReXlUWnNQUTFLVVJnemlPZXRQKzMvOXhaZ3E0?=
+ =?utf-8?B?bDdYajNZalRTQnF3WGkrNkFKdmxaVTVCZWMwbTB6SHNLVkF6Z3lZMVJJTHpr?=
+ =?utf-8?B?eGxBbzhMK2NjdEF4ck9NN0ZCWGdrS0ZKQ3lpelpuS3hRSG91ZVpPZDdIWXZ2?=
+ =?utf-8?Q?LPbNfogAFFJ3ibudQ1R/64tUO?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ef1cef8-c7c2-4c40-f51f-08db29e234bf
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 07:59:32.8806
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: p2sbTTTAAPH1jUXt8/USCnvS/UOvf1xs81fQUNvRPZuqpZlyI1O4o6IjOoElavIXUWObsy+AzReafkK1abEoGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8890
 
-
-
-21.03.2023 2:34, Tamas K Lengyel пишет:
+On 20.03.2023 19:20, Andrew Cooper wrote:
+> This removes most of the opencoded bit logic on the exit qualification.
+> Unfortunately, size is 1-based not 0-based, so need adjusting in a separate
+> variable.
 > 
+> No functional change.
 > 
-> On Mon, Mar 20, 2023 at 3:23 PM Ковалёв Сергей <valor@list.ru 
-> <mailto:valor@list.ru>> wrote:
->  >
->  >
->  >
->  > 21.03.2023 1:51, Tamas K Lengyel wrote:
->  > >
->  > >
->  > > On Mon, Mar 20, 2023 at 12:32 PM Ковалёв Сергей <valor@list.ru 
-> <mailto:valor@list.ru>
->  > > <mailto:valor@list.ru <mailto:valor@list.ru>>> wrote:
->  > >  >
->  > >  > gva_to_gfn command used for fast address translation in LibVMI 
-> project.
->  > >  > With such a command it is possible to perform address translation in
->  > >  > single call instead of series of queries to get every page table.
->  > >
->  > > You have a couple assumptions here:
->  > >   - Xen will always have a direct map of the entire guest memory - 
-> there
->  > > are already plans to move away from that. Without that this approach
->  > > won't have any advantage over doing the same mapping by LibVMI
->  >
->  > Thanks! I didn't know about the plan. Though I use this patch
->  > back ported into 4.16.
->  >
->  > >   - LibVMI has to map every page for each page table for every lookup -
->  > > you have to do that only for the first, afterwards the pages on which
->  > > the pagetable is are kept in a cache and subsequent lookups would be
->  > > actually faster then having to do this domctl since you can keep being
->  > > in the same process instead of having to jump to Xen.
->  >
->  > Yes. I know about the page cache. But I have faced with several issues
->  > with cache like this one https://github.com/libvmi/libvmi/pull/1058 
-> <https://github.com/libvmi/libvmi/pull/1058> .
->  > So I had to disable the cache.
-> 
-> The issue you linked to is an issue with a stale v2p cache, which is a 
-> virtual TLB. The cache I talked about is the page cache, which is just 
-> maintaining a list of the pages that were accessed by LibVMI for future 
-> accesses. You can have one and not the other (ie. ./configure  
-> --disable-address-cache --enable-page-cache).
-> 
-> Tamas
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Thanks. I know about the page cache. Though I'm not familiar with
-it close enough.
+In principle
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+but ...
 
-As far as I understand at the time the page cache implementation in
-LibVMI looks like this:
-1. Call sequence: vmi_read > vmi_read_page > driver_read_page >
-    xen_read_page > memory_cache_insert ..> get_memory_data >
-    xen_get_memory > xen_get_memory_pfn > xc_map_foreign_range
-2. This is perfectly valid while guest OS keeps page there. And
-    physical pages are always there.
-3. To renew cache the "age_limit" counter is used.
-4. In Xen driver implementation in LibVMI the "age_limit" is
-    disabled.
-5. Also it is possible to invalidate cache with "xen_write" or
-    "vmi_pagecache_flush". But it is not used.
-6. Other way to avoid too big cache is cache size limit. So on
-    every insert half of the cache is dropped on size overflow.
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -4560,23 +4560,37 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+>          break;
+>  
+>      case EXIT_REASON_IO_INSTRUCTION:
+> -        __vmread(EXIT_QUALIFICATION, &exit_qualification);
+> -        if ( exit_qualification & 0x10 )
+> +    {
+> +        union {
+> +            unsigned long raw;
+> +            struct {
+> +                uint32_t size:3;
+> +                bool     in:1;
+> +                bool     str:1;
+> +                bool     rep:1;
+> +                bool     imm:1;
+> +                uint32_t :9;
+> +                uint16_t port;
 
-So the only thing we should know is valid mapping of guest
-virtual address to guest physical address.
+... I'm not sure this is sufficiently portable: Whether a bitfield of type
+uint32_t followed by a non-bitfield is padded to fill the rest of the
+containing 32-bit field is left unspecified by C99; this particular aspect
+isn't even "implementation defined" (afaics). Therefore I think it would
+be better if either uint32_t was replaced by uint16_t, or if port also was
+made a bit field (and then perhaps also of type uint32_t, or unsigned int).
 
-And the slow paths are:
-1. A first traversal of new page table set. E.g. for the new process.
-2. Or new subset of page tables for known process.
-3. Subsequent page access after cache clean on size overflow.
-
-Am I right?
-
-The main idea behind the patch:
-1. For the very first time it would be done faster with hypercall.
-2. For subsequent calls v2p translation cache could be used (used in
-    my current work in LibVMI).
-3. To avoid errors with stale cache v2p cache could be invalidated
-    on every event (VMI_FLUSH_RATE = 1).
-
--- 
-Best regards,
-Sergey Kovalev
-
+Jan
 
