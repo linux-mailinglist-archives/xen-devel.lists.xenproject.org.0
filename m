@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49CCA6C33A6
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 15:05:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512682.792801 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B93D56C33A9
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 15:05:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512683.792810 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peccD-0007j8-TA; Tue, 21 Mar 2023 14:05:29 +0000
+	id 1peccF-00080H-6w; Tue, 21 Mar 2023 14:05:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512682.792801; Tue, 21 Mar 2023 14:05:29 +0000
+Received: by outflank-mailman (output) from mailman id 512683.792810; Tue, 21 Mar 2023 14:05:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peccD-0007fc-PV; Tue, 21 Mar 2023 14:05:29 +0000
-Received: by outflank-mailman (input) for mailman id 512682;
- Tue, 21 Mar 2023 14:05:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1peccF-0007x3-32; Tue, 21 Mar 2023 14:05:31 +0000
+Received: by outflank-mailman (input) for mailman id 512683;
+ Tue, 21 Mar 2023 14:05:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CsWt=7N=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1peccC-0006ai-4t
- for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 14:05:28 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on2061b.outbound.protection.outlook.com
- [2a01:111:f400:7e8d::61b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d6146bd-c7f1-11ed-b464-930f4c7d94ae;
- Tue, 21 Mar 2023 15:05:25 +0100 (CET)
-Received: from DS7PR03CA0073.namprd03.prod.outlook.com (2603:10b6:5:3bb::18)
- by DS0PR12MB6415.namprd12.prod.outlook.com (2603:10b6:8:cc::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Tue, 21 Mar
- 2023 14:05:22 +0000
-Received: from DS1PEPF0000B079.namprd05.prod.outlook.com
- (2603:10b6:5:3bb:cafe::a8) by DS7PR03CA0073.outlook.office365.com
- (2603:10b6:5:3bb::18) with Microsoft SMTP Server (version=TLS1_2,
+ id 1peccD-0005Xe-Tk
+ for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 14:05:30 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20627.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::627])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6edae5c5-c7f1-11ed-87f5-c1b5be75604c;
+ Tue, 21 Mar 2023 15:05:29 +0100 (CET)
+Received: from DM6PR10CA0006.namprd10.prod.outlook.com (2603:10b6:5:60::19) by
+ BL3PR12MB6380.namprd12.prod.outlook.com (2603:10b6:208:3b3::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6178.37; Tue, 21 Mar 2023 14:05:25 +0000
+Received: from DS1PEPF0000B07A.namprd05.prod.outlook.com
+ (2603:10b6:5:60:cafe::77) by DM6PR10CA0006.outlook.office365.com
+ (2603:10b6:5:60::19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37 via Frontend
- Transport; Tue, 21 Mar 2023 14:05:22 +0000
+ Transport; Tue, 21 Mar 2023 14:05:25 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF0000B079.mail.protection.outlook.com (10.167.17.10) with Microsoft
+ DS1PEPF0000B07A.mail.protection.outlook.com (10.167.17.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6178.30 via Frontend Transport; Tue, 21 Mar 2023 14:05:22 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ 15.20.6178.30 via Frontend Transport; Tue, 21 Mar 2023 14:05:25 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 21 Mar
- 2023 09:05:21 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 09:05:24 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 21 Mar
- 2023 07:05:20 -0700
+ 2023 07:05:24 -0700
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 21 Mar 2023 09:05:18 -0500
+ via Frontend Transport; Tue, 21 Mar 2023 09:05:22 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,22 +63,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d6146bd-c7f1-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 6edae5c5-c7f1-11ed-87f5-c1b5be75604c
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TVuiIhp9xTP1TzDB7R0lPnM/Q94Sodd1w6h6itlfUL2BoeIbZGQ3Mrllbl8cdxFCsPHV6er9xvOqZnD6KAXbOGdcJoqVOVUjxCO4HZHK/4ztu/SxShz+YqSMI/Tn7l/qRxgnqCgaewjoI854kFgyKMibvmcAZPhHA6ONsoWeVk6Xvi/uDW4Nh+q1YJavBriI1yP0Lc5KPp6Zc3oh8wCBZGtlNa+9M6Dm0UaDiMKHgvnv8CyAuzSO8jgmiMCwm4H1cGRyjhQO2b6koofe+m7czNUEVv1njRdVanxXs4lmoNRFDEpbv8hEecXC/aSS9MkOXSTRBeWDi8mqaA0tdgtpww==
+ b=co2c2MdnaSN4B9I7b621o2t3zp1mDslw2Oe7GDwpXaH0BOCLFjDXdPaQSNZAyOF1q7d0gZfMBN5NgRQk58+n0swbwQTserFGcfmM16Utvg9JloqzoOLlGgPPwmsvrQMVVaNjlZz0gcEqZ4uNNEj+8BUa/Gn0Z9/DOr6NN3ZtJIYEId5N8Uq/Ox5mpTS+z4PkuzUCbEBkF7gb2tgEiQ8Oi/SSMGkTIL+jKBbJKcLfR9D6VoQnQPD/5IGF1vKbVzmAsDfsVUbGRBv4fGZ/n1DT7RIKvxLM2hqcPY980oQydfFDe1bSwnc+CPgqR6mCMLnAQ5jXwVDwqSRjT8nGaUJ/IA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MyaKuKEF+X/1Kr4Tl9QPLAvUvFva7QxbH99CVqus0xY=;
- b=ZlL5afim+rGFkX4/PtYQ7xqPVuvpLYXzAdbCw49UfwqnF7Zv6GTf9NMri6XL5GeBj3cWMpWFtJEAF8VxDpGiKjIHvwYdU2owC7WKUK+TEcLLu3Rh4Z3S5MR5fjOqERe2nbBB0WF2hRWwyeu37YnaPs53T8fbltiABkRoOqRiBpKmS1n9HPM6rnWAuCsCxFsVimHb5lNcIfmHBSrc9wNUH39n5iQw7DbKvOOuoQoZWiwyiWlDW6RPITsJabNIsaJ1Z/DeO+Igb+bPXfL9u5MIebffGDI8EhIMRPczFV59564mxGbhMFf8vekfzLWaERUey8iWLviwnCmwxvixe7/Wpw==
+ bh=YVw45C8rVy7+9H7135cJVOJglF13yYQFx7MyOjqge1Y=;
+ b=ANKGfAWOCZnnIvomCb4FmmmC1+k1JMU104BVqW5fP6xHjm1/ZjcUHCFP5gCqBjOQbVVnU98x6dPHIrl0B2ZfqdGhr7fr7ObU6t99TAs5XTjygsWDj/3Qvk3TNUEHhKrhCP2X8dSe4nw/6PR5znY1pe7vR14/CWtIGeHkFa1itPOe4OO/7SnS5C9vrxokRZR4N+ag/2ZXsEjZrgQzSgM1ueFijDupxQxznEEZK8EtrtmLaD4Wm15hdgUDwTg8gWr2sdnu34ee4GBVdBi0RuK4++KGwnYA1DzHxfeQKznT8yBPivbXmkZGk/sYE+kwInnyBtKraVHfUUVzJ8xZ/n3MPA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MyaKuKEF+X/1Kr4Tl9QPLAvUvFva7QxbH99CVqus0xY=;
- b=ReoJnGhJpRrTwTUGAOIN2plpdNSMUgqBLHz/wclSUQ7nybq9povoBYQOTWk7Y5QWOa6X0eamfVlkHrfpJZQD1S6Gr+ukc6PayDsyKf/xjLYhH3bScywAEF/fz74NE/uHEQu8WC/IbQmQFyOSH0lf6cKoBkR7cp1BhRa7wzIUVgw=
+ bh=YVw45C8rVy7+9H7135cJVOJglF13yYQFx7MyOjqge1Y=;
+ b=zslQaGiXD+CDP4M8Oi7oAE821Zttq5lhxLGn42H05pZb2hUT+GlNoEH25AcDT+OeisUR6I4W3Lf5u4JoZD7SXWJC0YPzsXWgfDASwl0kdcTwkRHGEI9IAZd5hg8p+6UxpX6pdQPDCrinMd1oIp8k88csfpfztGW1iJ2T+gJMHl8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -92,9 +92,9 @@ CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
 	<wl@xen.org>, <rahul.singh@arm.com>, Ayan Kumar Halder
 	<ayan.kumar.halder@amd.com>
-Subject: [XEN v4 06/11] xen/arm: smmu: Use writeq_relaxed_non_atomic() for writing to SMMU_CBn_TTBR0
-Date: Tue, 21 Mar 2023 14:03:52 +0000
-Message-ID: <20230321140357.24094-7-ayan.kumar.halder@amd.com>
+Subject: [XEN v4 07/11] xen/arm: Introduce choice to enable 64/32 bit physical addressing
+Date: Tue, 21 Mar 2023 14:03:53 +0000
+Message-ID: <20230321140357.24094-8-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230321140357.24094-1-ayan.kumar.halder@amd.com>
 References: <20230321140357.24094-1-ayan.kumar.halder@amd.com>
@@ -102,93 +102,195 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000B079:EE_|DS0PR12MB6415:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8f74f5e1-0f78-44d8-bd2f-08db2a154fc7
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000B07A:EE_|BL3PR12MB6380:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb5c4778-6cdd-495e-c86d-08db2a155175
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	DkQet4KD9tM/vlmph+nkGnsmiH9mWPc4NxUcqsJbMNmkEd4ZT3jjs932in0GNf4f//xGdlqGYgoZmWC11y06m7EIL5agmypUJ7bn8k6GYE8oMVOj622nmH86jKZmM+B4Brod+Pu8ArS5+b9b+V4GA5eua+x1XwGB/7fNKCKHWMUYNkXkqUvdYA1cntAOsUTlIVO87E+VFZDK3a5D0y+ErAr6/g52gwwKpX0DNthaGYkeTDcYCT7d+IVY2sZPbFs0ll1CWXRL8crFMDVuDkVqTXZzCBNncChESLom+06w4zVuTe+/HEn/nT1bC8yNBZCUPgYsMhexPW8miDDMglMaeoI0YWPk5sFva4/kvtF8EmfErRysKl83d8O7TGDE8TxQtPND7++WXMsn5DMDRC+Opo091LpPaQ2CJsKVoHnmhTxAPL7MbzRbyiYCbiXOxTRwL/IHNp6UPs+QS+9ujzxo9YCLaf8woPuI2nkGu08cLMLzAd3KSxd5mdkA7kofYMK6JxfSb1XOLcuEPKeGSeaqB23HkI/3CLAaxH/QqKQZCVvwfQyg4MXNhYu9L2WJpCyAvw0JAKza7ZZdhApeN8PAIzyAiG1StWhxQsK74UWvD4ogSOr5259LQ5iWT0ACssSJFFavoZj5q8I9nUEd1UjiKNN26BU85MC15V796o8LQN7ad6Hw3E+sojFnPuv1UiMg8Gopd4Nz1gihg1ctqqgylnZ3mX14srpfJYr8nwUsbpo=
+	KJ5BXV9+rUMDlzzgdxXTTPWX0fpUndJ4juSmMFoDEEQXQEeDr86rnmyzKnwl2zlYRQ/s9E4knsya8ZInEzF646RkY9+A3sx3wUsJPgj/nDE9SL/wMkrEE/qVhnbDS98QODAk3T35h5wy9uPzYdnQqc4bH2OqmdtGECajhnTEjzdywVE+wZvCdznELWj+EF+VACUehIMK8U5+C+D9HhU0hPNM7QGdw4NkKQBTgz75qgqUZDm/XxtLSEq6EtqIL0oG4J4woDmrHVJFqkA0d1LlCodhAFrvjeRm5LTXguwVkpaTMuCMVDdWSZ2x9pP3GiqJqEsgc0DLSiCNtccvBStyBpU0ecj+V1x6y+BsaE2X9sYlqwsxM3OMrZsiVVPMX3tS02BBGXFDFMmpR1mb1DGb80HXwfSEJhZcQkqDw8NlE+mzed2GvZQ9zlidOjolLd6g2ZqlUL2FRZAfxAhSx6MSc2q9l1E6FBAjuIV/s7dZAui/maPBQXzhT8bFbjwAUiY07krnk1LC2zl21dIhQHUQYk3XiqV+UkSSYvbPeEWCFblax2iMZB9o2vqPn0LcPjngWEgRtQwNQhB5dfTCey0kOoIzU8HuFigVsqL7FUICkvhmeKDuS+Q0MTFCC7yJo7uaBHAFupE2LxPqEhwvxNkLep4hcDSLAXFPfpQNb4gWo4EbDQSPT4tYjc+2YuVXA6cgwyPezaLvZ7zxQ+Uk00iJhIrR63YjstZOEj2E7YSxvVU=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(39860400002)(376002)(346002)(396003)(451199018)(46966006)(36840700001)(40470700004)(41300700001)(7416002)(8936002)(5660300002)(4326008)(36860700001)(40480700001)(82310400005)(356005)(103116003)(86362001)(36756003)(40460700003)(81166007)(82740400003)(2906002)(6666004)(336012)(83380400001)(426003)(47076005)(478600001)(2616005)(26005)(186003)(1076003)(54906003)(316002)(70586007)(6916009)(70206006)(8676002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(396003)(376002)(136003)(346002)(39860400002)(451199018)(36840700001)(40470700004)(46966006)(26005)(2906002)(4326008)(8936002)(8676002)(70206006)(6916009)(70586007)(5660300002)(7416002)(36756003)(86362001)(356005)(81166007)(36860700001)(82740400003)(103116003)(316002)(40480700001)(54906003)(6666004)(1076003)(478600001)(41300700001)(82310400005)(426003)(47076005)(336012)(83380400001)(2616005)(186003)(40460700003)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 14:05:22.3289
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 14:05:25.1629
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8f74f5e1-0f78-44d8-bd2f-08db2a154fc7
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb5c4778-6cdd-495e-c86d-08db2a155175
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF0000B079.namprd05.prod.outlook.com
+	DS1PEPF0000B07A.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6415
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6380
 
-Refer ARM IHI 0062D.c ID070116 (SMMU 2.0 spec), 17-360, 17.3.9,
-SMMU_CBn_TTBR0 is a 64 bit register. Thus, one can use
-writeq_relaxed_non_atomic() to write to it instead of invoking
-writel_relaxed() twice for lower half and upper half of the register.
+Some Arm based hardware platforms which does not support LPAE
+(eg Cortex-R52), uses 32 bit physical addresses.
+Also, users may choose to use 32 bits to represent physical addresses
+for optimization.
 
-This also helps us as p2maddr is 'paddr_t' (which may be u32 in future).
-Thus, one can assign p2maddr to a 64 bit register and do the bit
-manipulations on it, to generate the value for SMMU_CBn_TTBR0.
+To support the above use cases, we have introduced arch independent
+configs to choose if the physical address can be represented using
+32 bits (PHYS_ADDR_T_32) or 64 bits (PHYS_ADDR_T_64).
+For now only ARM_32 provides support to enable 32 bit physical
+addressing.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+When PHYS_ADDR_T_32 is defined, PADDR_BITS is set to 32.
+When PHYS_ADDR_T_64 is defined with ARM_32, PADDR_BITS is set to 40.
+When PHYS_ADDR_T_64 is defined with ARM_64, PADDR_BITS is set to 48.
+The last two are same as the current configuration used today on Xen.
+
+PADDR_BITS is also set to 48 when ARM_64 is defined. The reason being
+the choice to select ARM_PA_BITS_32/ARM_PA_BITS_40/ARM_PA_BITS_48 is
+currently allowed when ARM_32 is defined.
+
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 ---
 Changes from -
+v1 - 1. Extracted from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr".
 
-v1 - 1. Extracted the patch from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr".
-Use writeq_relaxed_non_atomic() to write u64 register in a non-atomic
-fashion.
+v2 - 1. Introduced Kconfig choice. ARM_64 can select PHYS_ADDR_64 only whereas
+ARM_32 can select PHYS_ADDR_32 or PHYS_ADDR_64.
+2. For CONFIG_ARM_PA_32, paddr_t is defined as 'unsigned long'. 
 
-v2 - 1. Added R-b.
+v3 - 1. Allow user to define PADDR_BITS by selecting different config options
+ARM_PA_BITS_32, ARM_PA_BITS_40 and ARM_PA_BITS_48.
+2. Add the choice under "Architecture Features".
 
-v3 - 1. No changes.
+ xen/arch/Kconfig                     |  6 +++++
+ xen/arch/arm/Kconfig                 | 40 ++++++++++++++++++++++++++--
+ xen/arch/arm/include/asm/page-bits.h |  6 +----
+ xen/arch/arm/include/asm/types.h     |  6 +++++
+ xen/arch/arm/mm.c                    |  1 +
+ 5 files changed, 52 insertions(+), 7 deletions(-)
 
- xen/drivers/passthrough/arm/smmu.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
-
-diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-index 79281075ba..c8ef2a925f 100644
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -499,8 +499,7 @@ enum arm_smmu_s2cr_privcfg {
- #define ARM_SMMU_CB_SCTLR		0x0
- #define ARM_SMMU_CB_RESUME		0x8
- #define ARM_SMMU_CB_TTBCR2		0x10
--#define ARM_SMMU_CB_TTBR0_LO		0x20
--#define ARM_SMMU_CB_TTBR0_HI		0x24
-+#define ARM_SMMU_CB_TTBR0		0x20
- #define ARM_SMMU_CB_TTBCR		0x30
- #define ARM_SMMU_CB_S1_MAIR0		0x38
- #define ARM_SMMU_CB_FSR			0x58
-@@ -1083,6 +1082,7 @@ static void arm_smmu_flush_pgtable(struct arm_smmu_device *smmu, void *addr,
- static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain)
- {
- 	u32 reg;
-+	u64 reg64;
- 	bool stage1;
- 	struct arm_smmu_cfg *cfg = &smmu_domain->cfg;
- 	struct arm_smmu_device *smmu = smmu_domain->smmu;
-@@ -1177,12 +1177,13 @@ static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain)
- 	dev_notice(smmu->dev, "d%u: p2maddr 0x%"PRIpaddr"\n",
- 		   smmu_domain->cfg.domain->domain_id, p2maddr);
+diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
+index 7028f7b74f..89096c77a4 100644
+--- a/xen/arch/Kconfig
++++ b/xen/arch/Kconfig
+@@ -1,6 +1,12 @@
+ config 64BIT
+ 	bool
  
--	reg = (p2maddr & ((1ULL << 32) - 1));
--	writel_relaxed(reg, cb_base + ARM_SMMU_CB_TTBR0_LO);
--	reg = (p2maddr >> 32);
-+	reg64 = p2maddr;
++config PHYS_ADDR_T_32
++	bool
 +
- 	if (stage1)
--		reg |= ARM_SMMU_CB_ASID(cfg) << TTBRn_HI_ASID_SHIFT;
--	writel_relaxed(reg, cb_base + ARM_SMMU_CB_TTBR0_HI);
-+		reg64 |= (((uint64_t) (ARM_SMMU_CB_ASID(cfg) << TTBRn_HI_ASID_SHIFT))
-+		         << 32);
++config PHYS_ADDR_T_64
++	bool
 +
-+	writeq_relaxed_non_atomic(reg64, cb_base + ARM_SMMU_CB_TTBR0);
+ config NR_CPUS
+ 	int "Maximum number of CPUs"
+ 	range 1 4095
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 239d3aed3c..13e3a23911 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -9,6 +9,7 @@ config ARM_64
+ 	select 64BIT
+ 	select ARM_EFI
+ 	select HAS_FAST_MULTIPLY
++	select PHYS_ADDR_T_64
  
- 	/*
- 	 * TTBCR
+ config ARM
+ 	def_bool y
+@@ -19,13 +20,48 @@ config ARM
+ 	select HAS_PMAP
+ 	select IOMMU_FORCE_PT_SHARE
+ 
++menu "Architecture Features"
++
++choice
++	prompt "Physical address space size" if ARM_32
++	default ARM_PA_BITS_48 if ARM_64
++	default ARM_PA_BITS_40 if ARM_32
++	help
++	  User can choose to represent the width of physical address. This can
++	  sometimes help in optimizing the size of image when user chooses a
++	  smaller size to represent physical address.
++
++config ARM_PA_BITS_32
++	bool "32-bit"
++	help
++	  On platforms where any physical address can be represented within 32 bits
++	  , user should choose this option. This will help is reduced size of the
++	  binary.
++	select PHYS_ADDR_T_32
++	depends on ARM_32
++
++config ARM_PA_BITS_40
++	bool "40-bit"
++	select PHYS_ADDR_T_64
++	depends on ARM_32
++
++config ARM_PA_BITS_48
++	bool "40-bit"
++	select PHYS_ADDR_T_64
++	depends on ARM_48
++endchoice
++
++config PADDR_BITS
++	int
++	default 32 if ARM_PA_BITS_32
++	default 40 if ARM_PA_BITS_40
++	default 48 if ARM_PA_BITS_48 || ARM_64
++
+ config ARCH_DEFCONFIG
+ 	string
+ 	default "arch/arm/configs/arm32_defconfig" if ARM_32
+ 	default "arch/arm/configs/arm64_defconfig" if ARM_64
+ 
+-menu "Architecture Features"
+-
+ source "arch/Kconfig"
+ 
+ config ACPI
+diff --git a/xen/arch/arm/include/asm/page-bits.h b/xen/arch/arm/include/asm/page-bits.h
+index 5d6477e599..deb381ceeb 100644
+--- a/xen/arch/arm/include/asm/page-bits.h
++++ b/xen/arch/arm/include/asm/page-bits.h
+@@ -3,10 +3,6 @@
+ 
+ #define PAGE_SHIFT              12
+ 
+-#ifdef CONFIG_ARM_64
+-#define PADDR_BITS              48
+-#else
+-#define PADDR_BITS              40
+-#endif
++#define PADDR_BITS              CONFIG_PADDR_BITS
+ 
+ #endif /* __ARM_PAGE_SHIFT_H__ */
+diff --git a/xen/arch/arm/include/asm/types.h b/xen/arch/arm/include/asm/types.h
+index e218ed77bd..e3cfbbb060 100644
+--- a/xen/arch/arm/include/asm/types.h
++++ b/xen/arch/arm/include/asm/types.h
+@@ -34,9 +34,15 @@ typedef signed long long s64;
+ typedef unsigned long long u64;
+ typedef u32 vaddr_t;
+ #define PRIvaddr PRIx32
++#if defined(CONFIG_PHYS_ADDR_T_32)
++typedef unsigned long paddr_t;
++#define INVALID_PADDR (~0UL)
++#define PRIpaddr "08lx"
++#else
+ typedef u64 paddr_t;
+ #define INVALID_PADDR (~0ULL)
+ #define PRIpaddr "016llx"
++#endif
+ typedef u32 register_t;
+ #define PRIregister "08x"
+ #elif defined (CONFIG_ARM_64)
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index b99806af99..d8b43ef38c 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -690,6 +690,7 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+     const unsigned long mapping_size = frametable_size < MB(32) ? MB(2) : MB(32);
+     int rc;
+ 
++    BUILD_BUG_ON((sizeof(paddr_t) * 8) < PADDR_BITS);
+     BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
+ 
+     if ( frametable_size > FRAMETABLE_SIZE )
 -- 
 2.17.1
 
