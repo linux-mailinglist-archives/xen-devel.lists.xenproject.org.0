@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D86E56C36B4
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 17:15:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512839.793130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73ACC6C36B2
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 17:15:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512840.793139 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peedi-0008Fk-B9; Tue, 21 Mar 2023 16:15:10 +0000
+	id 1peee6-00009v-KR; Tue, 21 Mar 2023 16:15:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512839.793130; Tue, 21 Mar 2023 16:15:10 +0000
+Received: by outflank-mailman (output) from mailman id 512840.793139; Tue, 21 Mar 2023 16:15:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peedi-0008E3-89; Tue, 21 Mar 2023 16:15:10 +0000
-Received: by outflank-mailman (input) for mailman id 512839;
- Tue, 21 Mar 2023 16:15:09 +0000
+	id 1peee6-00007N-Gs; Tue, 21 Mar 2023 16:15:34 +0000
+Received: by outflank-mailman (input) for mailman id 512840;
+ Tue, 21 Mar 2023 16:15:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gNSa=7N=citrix.com=prvs=4373eb648=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1peedg-0008Dx-Rk
- for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 16:15:09 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 87c76cd7-c803-11ed-b464-930f4c7d94ae;
- Tue, 21 Mar 2023 17:15:03 +0100 (CET)
-Received: from mail-bn8nam12lp2169.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.169])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 21 Mar 2023 12:14:57 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by BLAPR03MB5474.namprd03.prod.outlook.com (2603:10b6:208:285::20)
+ <SRS0=CsWt=7N=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1peee4-0008Dx-7G
+ for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 16:15:32 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 985af3d3-c803-11ed-b464-930f4c7d94ae;
+ Tue, 21 Mar 2023 17:15:29 +0100 (CET)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by MW6PR12MB8661.namprd12.prod.outlook.com (2603:10b6:303:23f::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Tue, 21 Mar
- 2023 16:14:55 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
- 16:14:54 +0000
+ 2023 16:15:25 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::659f:af8f:6d3e:8242]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::659f:af8f:6d3e:8242%4]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
+ 16:15:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,247 +47,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87c76cd7-c803-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1679415303;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=p3FiB33m67FA/cjm3th09kkNtNm/lCOAXoE8z32dsQc=;
-  b=IIzz40WrdGUfRu039NezBgFhz70S4AvcrrpL9E47Kmekb4oSPjNFrWzv
-   /fEL2kGmKbTKn2jZht3Bjcxz5YY2AqZIRiPWdL4LuB2T+jGqRxRC3IrWA
-   PfIv/EQj4h26ViwtbxiaexhC0kBgOhgEXQxFXcgiStJF8kNne9oSR/e1a
-   I=;
-X-IronPort-RemoteIP: 104.47.55.169
-X-IronPort-MID: 100538098
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:POPLa6uwr/stO92a/tgGNS4bKOfnVHtfMUV32f8akzHdYApBsoF/q
- tZmKW2GPvmIazOhethzb4iy8EoP6JLWzNU3TgA/qSAzRiJE+JbJXdiXEBz9bniYRiHhoOCLz
- O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
- Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj6Fv0gnRkPaoQ5ASEziFPZH4iDfrZw0XQE9E88tGSH
- 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
- Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
- fMwdBswfyqji+KM3JWkb8ZppM57KZDKM9ZK0p1g5Wmx4fcOZ7nmGv+Pz/kImTA6i4ZJAOrUY
- NcfZXx3dhPcbhZTO1ARTpUjgOOvgXq5eDpdwL6XjfNvvy6Pk0osjf60bou9lt+iHK25mm6xo
- G7c8nu/KRYdLNGFkhKO8262h/+JliT+MG4XPOTgrqMx0AXClgT/DjUYSlmHjOvhuHeaUv52d
- UlM6zg/8vQLoRnDot7VGkfQTGS/lhwWVsdUEuY6wBqQ0aeS6AGcbkAUQzgEZNE4ucseQT0xy
- kTPj97vHSZosrCeVTSa7Lj8hSy2ETgYKykFfyBscOcey9zqoYV2hBSfSN9mSfSxloesR2C2x
- C2Wpi8jgblVldQMy6iw4VHAhXSru4TNSQk2oA7QWwpJ8z9EWWJsXKTwgXCz0BqKBN/xooWp1
- JTcp/Wj0Q==
-IronPort-HdrOrdr: A9a23:khSp0q3OD89yqwJNnCZ5OgqjBLUkLtp133Aq2lEZdPU1SKylfq
- WV98jzuiWbtN98YgBDpTn/AtjnfZqsz/9ICOAqVN/PYODIggSVxepZnOjfKlPbakjDHqY078
- 1dm+IXMrDN5RYQt7ef3OFZe+xQp+W6zA==
-X-IronPort-AV: E=Sophos;i="5.98,279,1673931600"; 
-   d="scan'208";a="100538098"
+X-Inumbo-ID: 985af3d3-c803-11ed-b464-930f4c7d94ae
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UkxbT3EuhOoNFKcPDrKAZtKT6hFDkS/PFSN0akvZJhOLpWUDxd6/vAzgj9fSF5tahcCfSUczNxnYR8T2DGQoCM4cEQ+mmrTrLtB8PT3IlKIgSMo8kSzIhiu45GIexH87rAELBj/RnNs+Y9fepYx5YZxTP+69THpKUkMTujRDkyQZltO4Cv3kjjIIbioalZGG02dwqQKexEg/i7DVRw361q/CNoX1xPM5R4VR/s10z3I+yAdQmhl4PAhMGWRR4cMRUb1k+64H6RGxNneB+JyZhV4a2kdO9N9xAyoV1y3OycUBTatX5MMeV2QAWkz1Boo8EQr1UDc0CKDkAYIvRqexow==
+ b=k0/ITNYdkhTwfke+3LqWRsJtjkWyVy5EW9qt0wgu6/YSzRTxEA55AIu03xS5hR2YnunATN6Onv2qX1zXiIE350JDAyBsLgau5UqR0WZMqbHsPVxJmK5CwbdCmcEXqpLFFqA78NTtPbI8eUfWNJOp28RlJ6FTv7lxAFRQfDjmX+O+QCRvmvvu/PvfoPArQyKEMa09bCBhC3LrBi9S8gGZ+wQO0zwnQ+kAxy7cembP3nrgG7uqXKatESuJCPH1u6m2gDQtpKqxfft/NQrWFuPSCIjyh5mA/qoceS1B88SWcLG0rHrX6e2UfBeoEc7x/qiWQKCryp/Om2Pu6hv8Iv0trQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qgl1SNCikB0E3GRs8+5G0W5EN0ZRe6MsxwBXFxE8y4I=;
- b=Rg2Ta6OT9sN6zfS3ICCI7BznZZg1i+Vm3c+DLVy9hTZajjGOEmLrqSdqFhoQQAR3scl/UFnYdyiSqBaAUtBc12HmP3aNuXE/W6pyNqCIcE1Rq7SXQbj1ctDpdRdVO8nZAMGJJhgWuRWH9qfwPiz4t3gKgZh97HhrIouqM5S9Oe3jAUo2X5TkbU0xn9fCRusjnXVpO1n46UVAyBrPF03ynsLgjWMaf4/OhVlm4kIfr1mpg4I6X8Y5AFlCYJfRPlP6BfFr4iz/0V46eZGutKS7fq2w+s7mpVDEXJwtPrfFDi3R+helGbxTMxqotnEXWk6sKWIPeZI6SUkb6aVy3M+JFw==
+ bh=dHtSISLH68EpiASz9hiF8dzGhW5nKhvNYPavTHkzq9Y=;
+ b=kPHxI1zNY+g1wJb+tQucAMnEc1adv1s2lzhI8fr2sCsQ4A51mpURCu1A/IDqGlKQ96sZXo3SA/REsRSYkcNDctL5De/CTlgVwX3vCEU6lfmt6mtxb0QZ9ajDuIvgugv/s3Jfg1RxMKO7mYXaKquCzKDylL4MzKg1tXXkzWxOranMBexCKYTs3gROfLDGAfwG3G1FafpiJMv+fVyVuk3vaGXFRgpPqUo+T5E93pbrqX4FTlttY3ibgTuDGhG+Qtj7Lww89uwn2rt74G/o6UjLIW+cc+ZokJOmRHTSMY9uBmSXKaovt6XR8VwjonkbQNgBm7Tc2lzGX/ZmIzl096Z7+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qgl1SNCikB0E3GRs8+5G0W5EN0ZRe6MsxwBXFxE8y4I=;
- b=uriCVSh5W6dckoBfAa32JguRglq3Is/uuOJrFj5g5L6XpFySzMVx+NLQcTsav1IDubuE9sBYEarS4BrPqYmSJ7itUP1kZvppcXbHyZ/qtjcgo2dskWBx+jx31HIhy2xJzOSQEx80vxUeyQvC4OlCbnHzo1OSY0hYdsJT9lo7hWE=
+ bh=dHtSISLH68EpiASz9hiF8dzGhW5nKhvNYPavTHkzq9Y=;
+ b=05CR6GgsCWZeIR851uo+c4XZ7L/eRbeXuU5aq/my6gX2+0Hwo7VLo2Uck4AMesgH4AmcEUnp+4kD5tXSCHFDu2Xq4B9utMqE0WB8Tppaczlj2vNKUC84+TXhsKPpVa0be4rqloly91yj00oYAKO2HFbu5poKbyxRssOtEHiHZ+U=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <87803c26-2f0f-8153-4678-273e320ab19f@citrix.com>
-Date: Tue, 21 Mar 2023 16:14:48 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86: extend coverage of HLE "bad page" workaround
-Content-Language: en-GB
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <b238f66d-37a9-3080-4f2b-90225ea17102@suse.com>
- <424d1b72-5eb6-f2bc-20fe-e59bacda8dd9@citrix.com>
- <c27d838e-0331-3cab-25bf-dd16b4645152@suse.com>
- <2c0ff1f3-ee0c-6d14-a51c-d82b65338005@citrix.com>
- <0df22405-bda8-8f4d-63b4-e9c4d57843b1@suse.com>
- <ZBRRbnBjWHXAM1ug@Air-de-Roger>
- <02cc1db2-90e6-a60e-4922-d88b4ca98b45@suse.com>
- <70e49a82-f027-6315-e11d-b2e16bdfdcab@citrix.com>
- <ZBnUc5mBYg7QhSBn@Air-de-Roger>
-In-Reply-To: <ZBnUc5mBYg7QhSBn@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <e268e11b-8e93-c506-668b-c5c004b3aa06@amd.com>
+Date: Tue, 21 Mar 2023 16:15:18 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.8.0
+Subject: Re: [XEN v4 07/11] xen/arm: Introduce choice to enable 64/32 bit
+ physical addressing
+To: Jan Beulich <jbeulich@suse.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com, julien@xen.org,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, wl@xen.org,
+ rahul.singh@arm.com, xen-devel@lists.xenproject.org
+References: <20230321140357.24094-1-ayan.kumar.halder@amd.com>
+ <20230321140357.24094-8-ayan.kumar.halder@amd.com>
+ <7d90ad7a-5daf-915c-2055-a27ca50d8581@suse.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <7d90ad7a-5daf-915c-2055-a27ca50d8581@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P302CA0041.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:317::19) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-ClientProxiedBy: LO4P123CA0616.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:314::16) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|BLAPR03MB5474:EE_
-X-MS-Office365-Filtering-Correlation-Id: be6862c1-e7eb-4f25-8173-08db2a27682b
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MW6PR12MB8661:EE_
+X-MS-Office365-Filtering-Correlation-Id: 068f88f8-0fcd-4a54-ff8e-08db2a277acf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Lof6zXNJS5gxSOHmv/YZRDrAwYV3thfS/JepHUTdXIj0acigj8Cmm/0j1pluMslav4m1ijqEKKGafUg3yrF7E1Ch8wXz/C1SVZcMOyF0040EpchaBggB9vmaX7DTPULmkfzNoyebyporsTsdjcWR9LdCYHd11GgQIouCpCNBvu3BCdXUgfGtgJ9N22iG75u2EVpO2yp6YQwxijr9C266XQD+lHuN9VJTuMnT6hUk8ERiOIXouYWIZiZyBkC9SQc0mfTvKWWP2q3h+8pbBEMm/81VjmmmETGtYq2zVe55nrCIPxLAyQwxJmfpPjhtM5n2Rg1y5uW9Pc3gK4mVErQV9oRkZ87Jl/L+55qRCB7a08H6TptbKmpLRFGSPlW4vuHLGWupA7PcReG1+vOaSn3PYlff6qQnC9dnI5sOGjK+OnmxtRyY7hJBumYdPljbL59xPNqH50RNut5XKHAQti94ezm3n2g3IllEDz0yt+Vliz5lyZw+SxKQekaxtn7gDSD7/rUs/EXK386BVJSkBE9qkkXrUcGu7Ia3MuvpckzZZwqJmgIJ9WdzDMKQXUftC1U9zBw3/Yu3P22h05ZKW2s6Wa6OcNFOeuIE45hwftrIhrl5kGkJh7v7+a99T07tGyg08k7UQN3FBI/SrPCF0oc6YUmUNFkJizIXdLiEAHsDHSL1BlA83lop3dBd/UBprd5pz0p6i/CUlK8BIzASMHpYuzItaO8XrNGD/ixlX3m7TvY=
+	MQ3PNFepoW3IzKLYDBhYSka0Vtm5IRNp3PfbJB/TEXBDlI0380jjkwgbm4yghJNd8NCvZvv109NkfnIsGAfefp9vHOj9nws/VEf+37y4daiLsc/BYwx+a4PUaa92O9+kwnQYSrk7WA1dufhfWiqDipaYMsBWRZ/YhEoIFYMT4BBR38DfIGN9TOdhpQQUPrDBSHv+MTkpvmnXkXVori+lcTPsQ750AURHRdz1rllUs5Em+Rwu3BpKc508wyGSRb5mWaDqalnwMMBZnMZA+LdcwZbN4TU+al/ShHWyx+Uzfryuu8gH+NkN7YRbOy6LFKF1TCyCiTszajHmAoHKuE4IqPKqr9mptyaYC7hX09daeDhl3Cc2o8k7YpYCkDjqsdMhGcZGGnTSaolL+NNtlDZC3wgz6dbDG+CSSTgt1Jd2g/zXPFhQ3HWttBJXJQZ58yBdb2S68Wx3IIWudYLFXgbIoVRUaaAk/4WzifVrEaVRZNRkGZ9p51k2RqY22ugb4sVbMk2xvMAJgYOVkM3Q57RnG4Zq3K+cYQ9YEvECjl4YU01OLjfK7CynCNumQcm+sTcqPHN9v1Wu5o5jVCS2tRmXu9NdugziThrUY/c0cW2JjZHym7mOF5tseU/xm0jq2daXSUcBpjK+MOzo15Iv3L7SYObeiDkL45t2dfpXu82uf3gW1bGHlFxkc9CBfp26r6IAqwLfTS8/65Fepn1mG2584OvVlsx23K3DsSAtTAO6k08=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(366004)(136003)(346002)(396003)(376002)(451199018)(2616005)(6666004)(6506007)(186003)(966005)(6486002)(83380400001)(478600001)(316002)(6512007)(8676002)(66556008)(66946007)(66476007)(37006003)(31686004)(26005)(54906003)(66899018)(53546011)(6636002)(4326008)(8936002)(41300700001)(6862004)(5660300002)(82960400001)(38100700002)(2906002)(36756003)(31696002)(86362001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(396003)(39860400002)(376002)(346002)(136003)(451199018)(31686004)(83380400001)(6636002)(2616005)(316002)(110136005)(6512007)(6486002)(53546011)(26005)(5660300002)(186003)(6506007)(6666004)(478600001)(7416002)(66946007)(31696002)(4326008)(38100700002)(2906002)(66556008)(8936002)(66476007)(8676002)(36756003)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WEZ3REdiSjhPNGpmb0hqMktoU1dtNmhaTzNEK090d0xRai8yd1FGQ3dReXFx?=
- =?utf-8?B?WHZ2Zm4xd1g1K05teUU3RDhsK3ZnRkRrZDdIUUMwekd3RlE2Z2ZHTmJZK2pG?=
- =?utf-8?B?T0txNzZVNjdiV2luYml5WmkvNFQ3elBaSVY1dmNLUjNPM1daaWFkVEVncGVZ?=
- =?utf-8?B?RHZEZnJEOFAxZVJwOUExb2tPNFFCR2E0L0U2ZFM4d1hPRTlYdk1NM1RNK1VT?=
- =?utf-8?B?elNGcmdVWXZkeFo5UUdKVW5veGsvNjFSeGVVNGFCdlQ2K0s2bnZHcS84UTUy?=
- =?utf-8?B?UW9HNkgrS2xCdFQzMzVKWUpNWHF2Mmh0WVd0b05lTGtNYitHdlVGbStSYmJY?=
- =?utf-8?B?N0ovQk5lSHFuSERXTkprSXVGV0NuaFY1dUNieURuRzl3dDl2TTBiZ3kxWTho?=
- =?utf-8?B?MitWa3IxZnZ2MXpqVE0xczRpRC9PK1pHRnlnTS9TQldEcUxLOWR1MHJSb09l?=
- =?utf-8?B?b2xnZXdMeXlkTjVZYU56UktlSG5qZWQ2QXRrbzZZZy9MT2ErWXB6Z1YyMEtD?=
- =?utf-8?B?RUp2elp6Nk03SnpQWGNqaHlNSGRNR2wzakdOQkRBaUpodXdOWVRtaXJQekhp?=
- =?utf-8?B?SEN4bURFWEhvalZKejhnem1aQWZyeHdIUUI3MDdjVzNzYUpXNDJuREt3SHZK?=
- =?utf-8?B?TWVqT1dmY3RQREdUd0pzSlZBSzI0NjFBNTBWa0V1UnFZNFNkbCt4R1pOT2VP?=
- =?utf-8?B?NWJaTkg0VWtMOWdyazJ3WjdtZjR5RlBWRGFVejlyeklvaTgzRWx5Q0wwMkU4?=
- =?utf-8?B?ZnpHeE9MeG9LK1Vja1BZNHhJRm1TUlVBN3d2Q1dTaWc5OEhLb0tYYk1hUS9Q?=
- =?utf-8?B?WmhKRkxLQk55bkhyaUMzbWIzMU82eFZpdjVPWVNzSVBySVptaXdkMWdhci91?=
- =?utf-8?B?eDQvbHgzYWVIZ0pIY0d4UStoMkppTGlQcVAwR01zb2FhVU1KekpTYW9ZWlJm?=
- =?utf-8?B?Uk5wekFXVlpBNXBMclRzM2Q5b210WnV1aU5Dbjg0U3JxY2FKUTVtbDJjcVEz?=
- =?utf-8?B?S3BFUDBvQnZJRDh2STlBY3BvM0MzRkZzQmdaUlFwekdBUXlMc2U2cDI5ZWp3?=
- =?utf-8?B?cTkreFVFSmxwdDBRa3FSa2RPSU5pMjFveXNIWkRYZG9lZkhQTFVieGJmYW9T?=
- =?utf-8?B?RTc3dFdtdUFLMTFnWXhkUytOb3pKOXZ6LzBSQVNsU3lCaU00K3dYeG56QnNX?=
- =?utf-8?B?OUpDeTFwdWE3MnoycTFxSUovb2xBM0ltQjFGVzdiM2I4WU1qVUE2cjE2cjBH?=
- =?utf-8?B?b3FQOElYQ0VsQ0dkcGpqM0UvUXJSZkxDRG1TUGRrdU9aVmJBcExtZkVkMUwz?=
- =?utf-8?B?eHNDT0ttbW1sNXhlL2ozdWRJQlViUm9rcnV0NXdJcmozZVVzWmpKalF6elFF?=
- =?utf-8?B?bUt2MWlKQmcvZFhLSGlsajlvdWs4RlJjcGhNL0p2NUF2ZEJzbWxlRjROR3V5?=
- =?utf-8?B?VkdadVhDWkMrekc4eEZab2p6NU4xZU5CN0s0azNQOU9aUVpGVEZZckl1a0x0?=
- =?utf-8?B?MXFyTUM2VEFBNEZ3bUdyL2dJSGpVVURidU5weGJkQnB3WDNnUTloNHpENVpy?=
- =?utf-8?B?VlBzL0pBWGEzRXhTVUVReXNmc2dNaVNtc01MRTZIdGtOQ2dSbDFkdmREWVBS?=
- =?utf-8?B?NXk3N09YTkszRHNjUlFUK3Fxc0JXeVpIeXhzVjVncGVNbXQyZWlWQjNHZ1Z3?=
- =?utf-8?B?VnZkUmRKSDNZOTRES3pUcVdFSW1RdlJ4eXBGMWE2VlJFSWdydmpFV0lBTGxC?=
- =?utf-8?B?a2dSS0piYXBrUG1NZkxvQk5VSmdLdmhQUmRQdjFiUXFoSGQ4UGdVeXlpcUx3?=
- =?utf-8?B?SitocXhvY25FVDIxNzVFUkdHdEdQbHZWRGJ3WWhoNTY1YlRyTVR0UjI2VHdL?=
- =?utf-8?B?MXRSZTlDcld1MUltd1Q3ODVNdTlWbjlZRDRQZmxvdC9mWWIrNjNUOWZGUjdT?=
- =?utf-8?B?Y1NNVWhGK1N0UysrTnVjT1NzWGVmUkt3TU11MWxkMGN5RzRpeTVSdjdxZm85?=
- =?utf-8?B?aDFaK3JUUTVUeEFMcTFDYWlHSks5Y2E3WEVSdEFVanZZUkpqTVdkNi9hSjQy?=
- =?utf-8?B?ZmJ2YkpSSFROeG5UZFExcXhuNGVnTC9jSmFUVzJXS1lOWG9MMVNRYTRiZnJr?=
- =?utf-8?B?SCtDQkgwMHlqcXpDN09wSjhMTWJCVU5FQ1ptNzFBd0pGM2VhWlVZMkFCRGY4?=
- =?utf-8?B?aGc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	Jp8YxxYIHG7cwN/8qu6M2qYwugJ/9xBuCyFI0sxxCxrwn1yPtQHMMeufcX2GToYXWxdv75t5sNhmRvbVxUelRHQxWZSSlH/IGolt62KCsUy5NFKEDq4dwrWXtQUbMw/6aw3Rp9cNrM5L9NjecGO7foEWLZVBL45gDwFLTwBFX2byvjmnd8cSgFmbKn6RXvRW93BvsYzALJXzkX0RptgxtNLr671htYtkgyP03JcfZFk4UpNb1300s1cFAoH92E0rDV9q5H4uhcHQCY1L2T5Yx6JpdqsGZM74Q+NpRbRJu9UI4KhruOthYciFOHjMNq3D9eHS5N+/byEGqovBWaZBhW9zl9a80lh8CVuHeqL5O6+jDmscI8pUbK8mXKNNwa9m5dquF+KwNQ3tWDiOC10esOzm+vH9oNgBqCM8znnnVk9uS0PDUktNZuTMEgNSLkWDIFcPd78+v9T+bdiknkGyxzVATrN1aXdvVKwgXk0x2ib9vte/taZJWMJmOv/F4ooAfn2mve0AEDxN3VFU3TbJCyqrCUYYPy7sa6IX5McYw2d/mFwY13c+dEJRQe2rQM9EGJgnqtK2CtmIikGoGJUlbOCVhdw6063cmWlHnlA5HVok0xL3AbsDmFtsARc+IQGBoFPXbu4LS81gH9imnIWgHM4xvnwc9irSNSY4LIKnhJ4s+SJvmhZxik7a9wFXXR/K0qL+SFafh5xd5STS8SgY0n2L901hMka9TyY4Pdy96DjUZvSxK8+YTFWvhiG/ngh2ZFCizr44HcTWDpEQYpjlBQbqkEvdUYgOfxh2ps4xZyoSnJ1mB7INwn/ysZraCpyR
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be6862c1-e7eb-4f25-8173-08db2a27682b
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+	=?utf-8?B?eDA1S0hVS0VERm02S0taS3pjenNZenBhaE5OWkVtTy8vR0lzZTlMU3FNclhT?=
+ =?utf-8?B?RlRrellHYmkxcjVRZVp2QjY2K3V6YUpBWityeGJaWFZZTkhDSUU0N3NHU0NW?=
+ =?utf-8?B?cngvM21IZGM5U2VmakozTjdXL09WLzN2S1dRaE1mck9TUHhya09SY3BpVFV2?=
+ =?utf-8?B?VE1UUlFpbTRrZDV2WHdTNnZZU1RvWE1FZ1RSeTFMSHpTSEkyaVhRc2Y1MmFw?=
+ =?utf-8?B?QmUwYmF3YVhKVzhEN1Y2dzlvODNlYzd6cW5pMVJNUHZIWVhmUnJEZU9TWG1K?=
+ =?utf-8?B?NUZRRHgwSjBUR2dmL3k0OE1PRFBLWEFHaVpsOHdSWUxTNGJnRUxpQ2dLcjUy?=
+ =?utf-8?B?WGUrL04wMUN4eXg1b0pXK2xtdGJ6TWFrY3dHRyszU1VBMlJ0ZzZ0N0Z2TkxN?=
+ =?utf-8?B?eG9aRHVLRXBOTVh5bllvUHd4ZzRKYlFDUVVZMm5TZWpIRVFsZUhjeC85RG5P?=
+ =?utf-8?B?WEphYS9FY2owdUgzT2drd0RTMVU2QjZHL0l3NEJOOUkxVE9idGxQeS93eHJH?=
+ =?utf-8?B?UHExQVpodXd2U2JCdlZIdzRXL0RsVU1lUmExVDJYMElncjN3bzNHNDZHUXpE?=
+ =?utf-8?B?R1J3RlA1SmxyR3ZrYlU0dUJ3dFdlVU5ESG1tU1VIbVB5VnZNT09kdWdxRzVv?=
+ =?utf-8?B?amVBaWFWNDBDZU9QeURwVWNrcERSelZ2UHlSQVRadFZPR0pRUkVCb2l1MG8x?=
+ =?utf-8?B?WFg2WndmWlU4YzRRbXNwVW5YOTVURC82SG5meVZlMFc5WlBacVhQOVl5VGZr?=
+ =?utf-8?B?bVMvdEQvUjUxTmUvWC80Qm52d0F5c0o0TjhDOVNIQ3hqRVBjY29uZUR0S1Zz?=
+ =?utf-8?B?NTdNRGlJcFl6M05OL2x6a0kvMlc2L1dSZVRkbHNIcGdGeHpZNm9ZVmc3ZU8v?=
+ =?utf-8?B?NXlmR0NlM3lRa00zZGswRWZLYzhheXV3WGNndEJMNnlWWngrNWsyUVZnSE8v?=
+ =?utf-8?B?WGR2aEZkV0lLbXliT2JkeHAvQmZwRHYzQ2VWUTZXcnJhYUZaVnhDYmppbTlr?=
+ =?utf-8?B?aUFNS1gyN3laRlJTN2t6WlpHWDd5UzFkemdDN3pGcEo0dEd4THBTbnpKcWtR?=
+ =?utf-8?B?M3FIUE9rcWZ2TWtLMm12UEZHRXdDcnpnSGsvcUZmVnJhdU51aVUwWjlKcHhi?=
+ =?utf-8?B?bzBJL1lpbzFvUjdUcEtIYWJLK0I5Ym54bmw4RE5vUnhneVJHaEw5NHpMaDUv?=
+ =?utf-8?B?VGcwSW1waEtBdlQ2ZUNUYS9yckx5a095b2phM1N6dHdKa1l1NmhoeUt4T2Vs?=
+ =?utf-8?B?TlJpeTUxMkwwUGdDNWVCTFV5d0M4OC85VCtrc045TEppYlVUM3NEZHdZWlQ2?=
+ =?utf-8?B?c2YrOHcrNXNBbHcxanM3V3hEWDJWZHhONzhnWkN1VCs4U2o4b0hVc2FwQ0RW?=
+ =?utf-8?B?T3Z0elJOQ2l5T3lDbEJRWERIU09MTmcvaEVlNmZzRGZsTzY4c2lGRVNpbXc5?=
+ =?utf-8?B?ZFV2L0Y5eCt6UTY4VUZibno3RHBzek0rMVhHYmJGZUlrOTRKS0ZwRVh3aTlH?=
+ =?utf-8?B?ZjRsVTlpUWdEVzRLays0YitjM2x5MVh3QzErU05VRTRhRjJXUFBSdVk4elBl?=
+ =?utf-8?B?MlgyZk0xUFFlUUxYOCtTTUZWbnZqRTRyZHJTaXFaNER1MTZNUENvaHZoejZE?=
+ =?utf-8?B?VEhNL1BveHVhYlo4bzhBRk43THdoZmlJUnpLRDM3dE9UQzhMSGNnN1EyNU4y?=
+ =?utf-8?B?d01RZG1NV3VPYXp1d2EzQXBxNTI2VEFMV1dXN3VxL29tRVVxcUJlMUZVK3FB?=
+ =?utf-8?B?MjN4R29lb3NjRW1kUFBtNW9HRFlLR3l1OHVNZlZacjd1S005NXhxVUdqNzls?=
+ =?utf-8?B?ZFo2VjZGMVVxT3krZTFXcVh2RTV2WEkwSkF4M3NMT0JwSlNoY3FOZVZhRGRl?=
+ =?utf-8?B?aXpWaWxQc0N5ZUJLY0x4TS9FbUh4b2EzMjZWaTduMUtxb1NubjhXNmlQUDU2?=
+ =?utf-8?B?TDhMNWcwM3JpenpoWU05L3ErWXVrZjBycWs4TzJMUmx0OGl6UHZDeG4zOUxM?=
+ =?utf-8?B?ZDZoZVJGNW1DRlZHSGNKdnV4UmtUTm5MdDdkWXhURjVKWmJPaUk0dEN5SkZa?=
+ =?utf-8?B?Q3BIMTNIRS94Smd1b0NTRUtvTmVyOXZ1SmU3a0NoL29sb09tN29CTVBYYmIv?=
+ =?utf-8?Q?5/dcM46Kf9BZSBcYYbL5dhbJV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 068f88f8-0fcd-4a54-ff8e-08db2a277acf
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 16:14:54.6267
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 16:15:25.7943
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 32hLMa2CR4quzDh5eCiUvsoWi6HarLK4TMUTbn3XBZyQKf/ERkv9JHH3GImahKwx9Zd+ZfyYgNMBCS3A+VNbgQaOCi4Ljeaw6bZY2Bl4eBI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5474
+X-MS-Exchange-CrossTenant-UserPrincipalName: BTerexqoXW/hFaMaS1veLhrBNSgyE1u+aYIMuJa72+9wzbPVneuGFPVzkQWaDzFQzQWrlMlbkHNqHFNeRZxnZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8661
 
-On 21/03/2023 3:59 pm, Roger Pau Monné wrote:
-> On Tue, Mar 21, 2023 at 02:51:30PM +0000, Andrew Cooper wrote:
->> On 20/03/2023 9:24 am, Jan Beulich wrote:
->>> On 17.03.2023 12:39, Roger Pau Monné wrote:
->>>> On Tue, May 26, 2020 at 06:40:16PM +0200, Jan Beulich wrote:
->>>>> On 26.05.2020 17:01, Andrew Cooper wrote:
->>>>>> On 26/05/2020 14:35, Jan Beulich wrote:
->>>>>>> On 26.05.2020 13:17, Andrew Cooper wrote:
->>>>>>>> On 26/05/2020 07:49, Jan Beulich wrote:
->>>>>>>>> Respective Core Gen10 processor lines are affected, too.
->>>>>>>>>
->>>>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>>>>
->>>>>>>>> --- a/xen/arch/x86/mm.c
->>>>>>>>> +++ b/xen/arch/x86/mm.c
->>>>>>>>> @@ -6045,6 +6045,8 @@ const struct platform_bad_page *__init g
->>>>>>>>>      case 0x000506e0: /* errata SKL167 / SKW159 */
->>>>>>>>>      case 0x000806e0: /* erratum KBL??? */
->>>>>>>>>      case 0x000906e0: /* errata KBL??? / KBW114 / CFW103 */
->>>>>>>>> +    case 0x000a0650: /* erratum Core Gen10 U/H/S 101 */
->>>>>>>>> +    case 0x000a0660: /* erratum Core Gen10 U/H/S 101 */
->>>>>>>> This is marred in complexity.
->>>>>>>>
->>>>>>>> The enumeration of MSR_TSX_CTRL (from the TAA fix, but architectural
->>>>>>>> moving forwards on any TSX-enabled CPU) includes a confirmation that HLE
->>>>>>>> no longer exists/works.  This applies to IceLake systems, but possibly
->>>>>>>> not their initial release configuration (hence, via a later microcode
->>>>>>>> update).
->>>>>>>>
->>>>>>>> HLE is also disabled in microcode on all older parts for errata reasons,
->>>>>>>> so in practice it doesn't exist anywhere now.
->>>>>>>>
->>>>>>>> I think it is safe to drop this workaround, and this does seem a more
->>>>>>>> simple option than encoding which microcode turned HLE off (which sadly
->>>>>>>> isn't covered by the spec updates, as even when turned off, HLE is still
->>>>>>>> functioning according to its spec of "may speed things up, may do
->>>>>>>> nothing"), or the interactions with the CPUID hiding capabilities of
->>>>>>>> MSR_TSX_CTRL.
->>>>>>> I'm afraid I don't fully follow: For one, does what you say imply HLE is
->>>>>>> no longer enumerated in CPUID?
->>>>>> No - sadly not.  For reasons of "not repeating the Haswell/Broadwell
->>>>>> microcode fiasco", the HLE bit will continue to exist and be set. 
->>>>>> (Although on CascadeLake and later, you can turn it off with MSR_TSX_CTRL.)
->>>>>>
->>>>>> It was always a weird CPUID bit.  You were supposed to put
->>>>>> XACQUIRE/XRELEASE prefixes on your legacy locking, and it would be a nop
->>>>>> on old hardware and go faster on newer hardware.
->>>>>>
->>>>>> There is nothing runtime code needs to look at the HLE bit for, except
->>>>>> perhaps for UI reporting purposes.
->>>>> Do you know of some public Intel doc I could reference for all of this,
->>>>> which I would kind of need in the description of a patch ...
->>>>>
->>>>>>> But then this
->>>>>>> erratum does not have the usual text effectively meaning that an ucode
->>>>>>> update is or will be available to address the issue; instead it says
->>>>>>> that BIOS or VMM can reserve the respective address range.
->>>>>> This is not surprising at all.  Turning off HLE was an unrelated
->>>>>> activity, and I bet the link went unnoticed.
->>>>>>
->>>>>>> This - assuming the alternative you describe is indeed viable - then is surely
->>>>>>> a much more intrusive workaround than needed. Which I wouldn't assume
->>>>>>> they would suggest in such a case.
->>>>>> My suggestion was to drop the workaround, not to complicated it with a
->>>>>> microcode revision matrix.
->>>>> ... doing this? I don't think I've seen any of this in writing so far,
->>>>> except by you. (I don't understand how this reply of yours relates to
->>>>> what I was saying about the spec update. I understand what you are
->>>>> suggesting. I merely tried to express that I'd have expected Intel to
->>>>> point out the much easier workaround, rather than just a pretty involved
->>>>> one.) Otherwise, may I suggest you make such a patch, to make sure it
->>>>> has an adequate description?
->>>> Seeing as there seems to be some data missing to justify the commit -
->>>> was has Linux done with those erratas?
->>> While they deal with the SNB erratum in a similar way, I'm afraid I'm
->>> unaware of Linux having or having had a workaround for the errata here.
->>> Which, granted, is a little surprising when we did actually even issue
->>> an XSA for this.
->>>
->>> In fact I find Andrew's request even more surprising with that fact (us
->>> having issued XSA-282 for it) in mind, which originally I don't think I
->>> had paid attention to (nor recalled).
->> No - I'm aware of it.  It probably was the right move at the time.
->>
->> But, Intel have subsequently killed HLE in microcode updates update in
->> all CPUs it ever existed in (to fix a memory ordering erratum), and
->> removed it from the architecture moving forwards (the enumeration of
->> TSX_CTRL means HLE architecturally doesn't exist even if it is enumerated).
-> Should we then check for TSX_CTRL in order to check whether to engage
-> the workaround?
+Hi Jan,
 
-By the looks of the current model list, TSX_CTRL doesn't exist on any of
-those CPUs.
+On 21/03/2023 14:22, Jan Beulich wrote:
+> On 21.03.2023 15:03, Ayan Kumar Halder wrote:
+>> --- a/xen/arch/Kconfig
+>> +++ b/xen/arch/Kconfig
+>> @@ -1,6 +1,12 @@
+>>   config 64BIT
+>>   	bool
+>>   
+>> +config PHYS_ADDR_T_32
+>> +	bool
+>> +
+>> +config PHYS_ADDR_T_64
+>> +	bool
+> Do we really need both?
+I was thinking the same. I am assuming that in future we may have
 
-https://xenbits.xen.org/docs/unstable/misc/xen-command-line.html#tsx
+PHYS_ADDR_T_16, PHYS_ADDR_T_128. So, I am hoping that defining them explicitly might help.
+Also, the user cannot select these configs directly.
 
-It was the March 2019 ucode which turned off HLE everywhere, which was
-only shortly after we released XSA-282.
+However, I am open to defining only one of them if it makes sense.
 
-~Andrew
+> If so, what guards against both being selected
+> at the same time?
+At present, we rely on "select".
+>
+> Them being put in common code I consider it an at least latent issue
+> that you add "select"s ...
+>
+>> --- a/xen/arch/arm/Kconfig
+>> +++ b/xen/arch/arm/Kconfig
+>> @@ -9,6 +9,7 @@ config ARM_64
+>>   	select 64BIT
+>>   	select ARM_EFI
+>>   	select HAS_FAST_MULTIPLY
+>> +	select PHYS_ADDR_T_64
+>>   
+>>   config ARM
+>>   	def_bool y
+>> @@ -19,13 +20,48 @@ config ARM
+>>   	select HAS_PMAP
+>>   	select IOMMU_FORCE_PT_SHARE
+>>   
+>> +menu "Architecture Features"
+>> +
+>> +choice
+>> +	prompt "Physical address space size" if ARM_32
+>> +	default ARM_PA_BITS_48 if ARM_64
+>> +	default ARM_PA_BITS_40 if ARM_32
+>> +	help
+>> +	  User can choose to represent the width of physical address. This can
+>> +	  sometimes help in optimizing the size of image when user chooses a
+>> +	  smaller size to represent physical address.
+>> +
+>> +config ARM_PA_BITS_32
+>> +	bool "32-bit"
+>> +	help
+>> +	  On platforms where any physical address can be represented within 32 bits
+>> +	  , user should choose this option. This will help is reduced size of the
+>> +	  binary.
+>> +	select PHYS_ADDR_T_32
+>> +	depends on ARM_32
+>> +
+>> +config ARM_PA_BITS_40
+>> +	bool "40-bit"
+>> +	select PHYS_ADDR_T_64
+>> +	depends on ARM_32
+>> +
+>> +config ARM_PA_BITS_48
+>> +	bool "40-bit"
+>> +	select PHYS_ADDR_T_64
+>> +	depends on ARM_48
+>> +endchoice
+> ... only for Arm. You get away with this only because ...
+>
+>> --- a/xen/arch/arm/include/asm/types.h
+>> +++ b/xen/arch/arm/include/asm/types.h
+>> @@ -34,9 +34,15 @@ typedef signed long long s64;
+>>   typedef unsigned long long u64;
+>>   typedef u32 vaddr_t;
+>>   #define PRIvaddr PRIx32in
+>> +#if defined(CONFIG_PHYS_ADDR_T_32)
+>> +typedef unsigned long paddr_t;
+>> +#define INVALID_PADDR (~0UL)
+>> +#define PRIpaddr "08lx"
+>> +#else
+>>   typedef u64 paddr_t;
+>>   #define INVALID_PADDR (~0ULL)
+>>   #define PRIpaddr "016llx"
+>> +#endif
+>>   typedef u32 register_t;
+>>   #define PRIregister "08x"
+>>   #elif defined (CONFIG_ARM_64)
+> ... you tweak things here, when we're in the process of moving stuff
+> out of asm/types.h.
+
+Are you suggesting not to add anything to asm/types.h ? IOW, the above 
+snippet should
+
+be added to xen/include/xen/types.h.
+
+> (Using "unsigned long" for a 32-bit paddr_t is of
+> course suspicious as well - this ought to be uint32_t.)
+
+The problem with using uint32_t for paddr_t is that there are instances 
+where the paddr_t is modified with PAGE_MASK or PAGE_ALIGN.
+
+For eg , handle_passthrough_prop()
+
+             printk(XENLOG_ERR "Unable to permit to dom%d access to"
+                    " 0x%"PRIpaddr" - 0x%"PRIpaddr"\n",
+                    kinfo->d->domain_id,
+                    mstart & PAGE_MASK, PAGE_ALIGN(mstart + size) - 1);
+
+And in xen/include/xen/page-size.h,
+
+#define PAGE_SIZE           (_AC(1,L) << PAGE_SHIFT)
+#define PAGE_MASK           (~(PAGE_SIZE-1))
+
+Thus, the resulting types are unsigned long. This cannot be printed 
+using %u for PRIpaddr.
+
+I remember some discussion (or comment) that the physical addresses 
+should be represented using 'unsigned long'.
+
+- Ayan
+
+
+>
+> Jan
 
