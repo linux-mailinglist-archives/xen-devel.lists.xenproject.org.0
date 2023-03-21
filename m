@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8D966C3389
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 14:59:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512654.792710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A28216C3395
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 15:02:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512659.792721 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pecW6-0002Jn-K1; Tue, 21 Mar 2023 13:59:10 +0000
+	id 1pecZR-0003tl-6q; Tue, 21 Mar 2023 14:02:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512654.792710; Tue, 21 Mar 2023 13:59:10 +0000
+Received: by outflank-mailman (output) from mailman id 512659.792721; Tue, 21 Mar 2023 14:02:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pecW6-0002H4-Gk; Tue, 21 Mar 2023 13:59:10 +0000
-Received: by outflank-mailman (input) for mailman id 512654;
- Tue, 21 Mar 2023 13:59:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pecZR-0003rP-3q; Tue, 21 Mar 2023 14:02:37 +0000
+Received: by outflank-mailman (input) for mailman id 512659;
+ Tue, 21 Mar 2023 14:02:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xciR=7N=yandex.ru=isaikin-dmitry@srs-se1.protection.inumbo.net>)
- id 1pecW4-0002Ec-2G
- for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 13:59:08 +0000
-Received: from forward107j.mail.yandex.net (forward107j.mail.yandex.net
- [5.45.198.252]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8afe5b26-c7f0-11ed-87f5-c1b5be75604c;
- Tue, 21 Mar 2023 14:59:06 +0100 (CET)
-Received: from mail-nwsmtp-smtp-production-main-90.myt.yp-c.yandex.net
- (mail-nwsmtp-smtp-production-main-90.myt.yp-c.yandex.net
- [IPv6:2a02:6b8:c12:4584:0:640:afb7:0])
- by forward107j.mail.yandex.net (Yandex) with ESMTP id C41A5884B46;
- Tue, 21 Mar 2023 16:59:03 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-90.myt.yp-c.yandex.net
- (smtp/Yandex) with ESMTPSA id 0xpUErRRfSw0-6HwIeWGh; 
- Tue, 21 Mar 2023 16:59:02 +0300
+ <SRS0=oKE/=7N=citrix.com=prvs=437062dd9=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1pecZP-0003rE-SS
+ for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 14:02:35 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 03e19926-c7f1-11ed-b464-930f4c7d94ae;
+ Tue, 21 Mar 2023 15:02:31 +0100 (CET)
+Received: from mail-mw2nam04lp2169.outbound.protection.outlook.com (HELO
+ NAM04-MW2-obe.outbound.protection.outlook.com) ([104.47.73.169])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 21 Mar 2023 10:02:14 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by BY1PR03MB7288.namprd03.prod.outlook.com (2603:10b6:a03:52a::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Tue, 21 Mar
+ 2023 14:02:09 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.037; Tue, 21 Mar 2023
+ 14:02:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,301 +49,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8afe5b26-c7f0-11ed-87f5-c1b5be75604c
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail; t=1679407142;
-	bh=x4oFSUpFOoascCBkAa0+7rS1W1m1rJ362Mp4iq7EZzw=;
-	h=Message-Id:Date:Cc:Subject:To:From;
-	b=KwFynVWEPmX8zRj5DUuTr6CJEJCEFibz84ROoVKeD4/SuVKnH5wGbCUiGurW/zW8a
-	 0WIM3gVVXkDBeUsf0mrwEYWPEO9jjwm+SUv+rh7j6BRzSjPntpEfyJH3GPxhKFj8Nk
-	 biTsCZOCMLHFA7iYIIFZZo6jHCqQuq/3tt8uE/y8=
-Authentication-Results: mail-nwsmtp-smtp-production-main-90.myt.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-From: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-To: xen-devel@lists.xenproject.org
-Cc: Dmitry Isaykin <isaikin-dmitry@yandex.ru>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+X-Inumbo-ID: 03e19926-c7f1-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1679407351;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Hg8QiyNc0Vom899KCM+alR/CySnDjyKMfq/pvLmP2DI=;
+  b=Ns+8GtKF/PIUg8ZoJ6SvPBOMHvA72qcMZuYIyExlrHbtMiPzUlZqv+dY
+   OHM9CVLRdOhsPUQQjSWrv+ZASIVqBxKQejDiNGbchB84BnaZ4enBCpXFc
+   0N+5FlUUh7PSLjkNaRQE3WJI8fjZc68NeYTwoiOY7ujNfJMCuCRcd9uSD
+   o=;
+X-IronPort-RemoteIP: 104.47.73.169
+X-IronPort-MID: 100512262
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:802wmqIG5Z2bpZr+FE+RLJUlxSXFcZb7ZxGr2PjKsXjdYENS0GYFx
+ mMfD2HUafyOMzajeNEkPI/n/UoCu8fQm95iG1NlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpJrfPTwP9TlK6q4mhA5QZnPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5IUU4Jp
+ NEzCQkxZz66q9Kz/7GjFdJV05FLwMnDZOvzu1lG5BSBUbMDfsqGRK/Ho9hFwD03m8ZCW+7EY
+ NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/VspTGNnWSd05C0WDbRUsaNSshP2F6Ru
+ 0rN/njjAwFcP9uaodaA2iv03rKWx3mlAur+EpX7rMZsj32Om1UeERIdeVCasfSkmHSxDoc3x
+ 0s8v3BGQbIJ3FaiQNDwWzW7rWSCsxpaXMBfe8Uk5QeOw7bZ+AbfHmEASj9ZYdAnnM4wWTEuk
+ FSOmrvBAjhis6acT36HwauFtjO5OSUTLmgqaDcNSE0O5NyLiJookhvFQ9JnEai0pt74Azf9x
+ 3aNtidWr7Eei8Qj1Kih+13DxTW2qfDhThY8zhfGQmW/qAh+YeaNd9z2wVvW9/BNKMCeVFbpl
+ HQNhcXY7OkIFpyLvCiMRvgdWrCv+/uBdjbbhDZHFYEJ/jCs9njzO4xdiBl7JUFmNe4edDPpa
+ VOVsgRUjLdPM3+6Rat2ZZ+tEcMszLimGdmNfvrTdNtVJJ9qaBWA4jptdGaXxWnmlEVqmqY6U
+ b+ZftyrFm0yErl8wXy9QOJ1+b0s3S0w7WTfSIr/xhKrl6GTDFaFRLFAPFaQY+QR6KKfvB6T4
+ 9tZL9GNyRhUTKv5eCa/2YoSK00aaHs2H5b7r+RJeeOZZAlrAmcsD7nW27xJU4Vun6VckOjg/
+ mn7UUhdoHL7hHvaOUCDYWhiQK3gUIw5rn8hOyEoe1Gy1BAejZ2H6a4ec94yYuMh/ek7kfpsF
+ aBbKoOHH+hFTSnB93IFd57hoYd+dROtwwWTIy6iZzt5dJllL+DUxuLZksLU3HFmJkKKWQEW+
+ NVMCiuzrUI/ejlf
+IronPort-HdrOrdr: A9a23:JISsQ6txuMpoN/qiOX3s/5ew7skDstV00zEX/kB9WHVpm6yj+v
+ xG/c5rsCMc7Qx6ZJhOo7+90cW7L080lqQFg7X5X43DYOCOggLBQL2KhbGI/9SKIVycygcy78
+ Zdm6gVMqyLMbB55/yKnTVRxbwbsaW6GKPDv5ag8590JzsaD52Jd21Ce36m+ksdfnggObMJUK
+ Cyy+BgvDSadXEefq2AdwI4t7iqnaysqHr+CyR2fiIa1A==
+X-IronPort-AV: E=Sophos;i="5.98,279,1673931600"; 
+   d="scan'208";a="100512262"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZtKVRR0lR6Ro1CqYtAQ75HgBqhLDGkQXpOrdBl4QbfRihydMn7iU9AsLAzPXdrPqwZVWnaAI5yifJmYawPjgekliDrArpEy6m8ZMHmMmBB+6AT9Hxn/zBvGzPjsscIVKyrsjReT7TLFf9Imf0XZm/ZBdYpNlGR9r4RGwBJsMiEvCoTjNK9x4tS63KHC9jeYgKuIBDl80NhtrK/BMHad+Jj9QIFRko/YPqS7lv62mb+GgJz3RnT+Kl67jzRBypTe25sxPAOYgl7POCwvRspCFNj5JAwhF5b09MPD8wQoaemLWjAQNMoj6KCItpNhThTciTM/SACPayQJSJg03E4OMzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=23A/TFIJGEo0EFuDgc/krWX2pmswq4Db1Ol0EjHKRbY=;
+ b=FdSMH9vnfEYvxJxpv9oObjbOoooCLiC69ry2NqYwonkbmy3jafWykgYfNnJaJFUsbhv8CAtHvDpLJ4WKZsAEGPzzU1mB2q6mphGT5vdCqQPVpaODe6LbT1uegREEsfXzYZedoAh95zwBHHsotjPVpWe6RJey+1mP+LyNgVMZ3G4Y0KM5mxWvvpyYm4A/d3dCnV3cNix0paq4Rn+XnfUr+dagEPJ0u78yM/BAemesVLgs4R0J9olyAhPp0f5vCz+ScDcx2bJYegVo0E/KE65Pyclt8j+EoQ36XD7MMAfMwmlpB4LT5/pIQVlzc3dQj77kYDBf9oSaiOoB4upwG4NwIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=23A/TFIJGEo0EFuDgc/krWX2pmswq4Db1Ol0EjHKRbY=;
+ b=ZKmEuaPScZm/382hCsWsXb4zJr7PNH+xuTPfy8pbSaIyvAWkEjv5kjgkWx4AU3s66xKU3EOcPTU5AwmJF9kgiAEOP9MzslaI8eHZW2dxGG9afVT8C2PXoYkkxtUkU/Whqp8sTy2DeP+USESpkcgyvRyZLSV1f80aokSaA1BI3Xo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 21 Mar 2023 15:02:02 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	josef@oderland.se, Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Len Brown <lenb@kernel.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Tamas K Lengyel <tamas@tklengyel.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>,
-	Petre Pircalabu <ppircalabu@bitdefender.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Anton Belousov <abelousov@ptsecurity.com>
-Subject: [XEN PATCH v5] x86/monitor: Add new monitor event to catch I/O instructions
-Date: Tue, 21 Mar 2023 16:58:58 +0300
-Message-Id: <7bd5ec4ff75ea0157d782f8820db1d17b6ad1289.1679406554.git.isaikin-dmitry@yandex.ru>
-X-Mailer: git-send-email 2.39.2
-MIME-Version: 1.0
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
+	Alex Chiang <achiang@hp.com>, linux-acpi@vger.kernel.org
+Subject: Re: [PATCH v4] acpi/processor: fix evaluating _PDC method when
+ running as Xen dom0
+Message-ID: <ZBm42pgVCvsv6dzK@Air-de-Roger>
+References: <20230316164257.42590-1-roger.pau@citrix.com>
+ <CAJZ5v0jskeE8nJt04vyEkDO3rOwOHp36mcKcV=L9LGXD0HL6Mw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJZ5v0jskeE8nJt04vyEkDO3rOwOHp36mcKcV=L9LGXD0HL6Mw@mail.gmail.com>
+X-ClientProxiedBy: LO4P123CA0448.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a9::21) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|BY1PR03MB7288:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ddcf53b-3591-45d3-9bb3-08db2a14dc62
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	nMkrDfpD+WZqPvh3pH9z0o46/8a3sEAkjjwLCVYeyGyVWZpnfu2wT7APuDkMtuy2ZwtFMB3p+qXlP1Drz+cF8saOEaAxIukPOKdw5/dQVDZRkhPg4INmtKqL51AINKO+sHpsUwdyyjEnKB2ZHIbr3aSPNFrZ/78kOOOb0PbZtpI2VNXMybM8UCoMCg39tGYsQis4CKQAgECNQZfbPIMYbsx0E2ZULVKjPem4wRG0q/idtw9zPGAcGwz3lfOYZcH2dPMuf9nMYhVyk8yi7L5VJgJFtNGEs0Tutn4YZfR1nhw9dRwIi5lcZLs2sdKzoGXqBMJ2PlLvHAug7ZM3mQfcf655lWtGJa9qjLMV2oQaLBh7FI7G+Eu6ySHOdPtVuGc/DxjFhOrVhlhS464dQeF2jua4oF9hgEmslyipNZj/Bsu4/fY73xp3uesUeTujHBe9awbxDBtf1eAQ/hA6K7JlVaIl1ASLEQZiGqFuu13/D6kvu7QHZrpofG+moSyMF/NvAvqKeuJvlYMyqm7tjNndShLMdGOXRz0SUlDIrrvrtekk6wxVDrNbQ5nr0jFa4wFbngthWmqiCq7IDuosCk395Zl/Vf9Wnw1B4t8dV1DdNdBFMWOjP2RQQQQMQhhJxNF83aHSPTcvAYx3t2arRNI2TBsaF7+KIdhrF6Ds5RcLWRY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(7916004)(376002)(136003)(346002)(39860400002)(366004)(396003)(451199018)(316002)(54906003)(6666004)(478600001)(6916009)(38100700002)(66946007)(8676002)(4326008)(66556008)(66476007)(6486002)(2906002)(966005)(41300700001)(82960400001)(86362001)(26005)(186003)(6506007)(8936002)(6512007)(9686003)(83380400001)(53546011)(85182001)(33716001)(5660300002)(7416002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Tm5UQzl0dWF1N3YySitFbHVhb3VQSkJhTmlDTVpyRWVKQ1BFUXc2MlVaOFY3?=
+ =?utf-8?B?MEh5bVNNMlJFdkRwVjl0S0lvaXYzUnZIaTN1YnhEdmgwMEZWK2wrL29WdkFK?=
+ =?utf-8?B?dVZ6dysySmtYaUxyWGxWNklhMk8wTDljRUZ4Mk53Vk1XbW5vYXJpbGlzSG13?=
+ =?utf-8?B?clh5d1F0amFkNVh2MWpFY2dWVGxKZHlZWmd3Q2dldHhSMEtNTURhQTZCbmdT?=
+ =?utf-8?B?SjdkeFhjUzlvSHQ4Zy9xb3VITXlrUFBXT1NmNEd3TXZhMFkxaFBoWHRYMUpC?=
+ =?utf-8?B?aXgxd1hnc092SFRFak9JZ01Vbkw2YW5selZCVzI2RjZxakY0MVFjb2J2WC9S?=
+ =?utf-8?B?Wlk5aFVyVmk4RnBZVUFaQ3FaRWhVbEJ1MzREUjQwYm0wZy9tL1BhTElGVlM1?=
+ =?utf-8?B?a2g0MGVPT2s1eldiZFl3TWxuZGJLc1IyUkMyM0Z0cmlYWTFXbTRZeXBYYjN0?=
+ =?utf-8?B?VWhsZHQ5T3V5VWtDbEtlZFJXaXhSZWV5bCtHN3R3VGU2Z1lDaFRhVDJyM0x6?=
+ =?utf-8?B?amMyQmZxUXM4NHBWT3lURnVZNDAwZFp2RkptRUpWaTRISXBHcjN4d2pmaVAr?=
+ =?utf-8?B?ZWR6emRqMUZQbk9aYzdZL1NvUUxxUENKN2ZWT01tSHJ5VXVCU21va1N6c3R6?=
+ =?utf-8?B?QnZ2QTM2NEVMZ2o2bzRJeUl1R2p0aS9VeERrZzhwNk5HUGZWV1dwRnhKVlhq?=
+ =?utf-8?B?Y1RadXU0V0E3QzVTbFYvbjRCaENnY1ZhQXhSVHpvbGIxSDJwZERLN0p4Vzd6?=
+ =?utf-8?B?MExNK2RhVWtDNmhaLzgxRlpET1JSQkdKMlBEV094V1huem5JVHZUNjFua3ky?=
+ =?utf-8?B?OWJ4SXRUSU5OWmQwTWtZNUsvdXlsMnlHcUExRGpkczFlUmM2RGtidjB5S1BT?=
+ =?utf-8?B?MU1iVXVlSjAzdGhmSzdaSEVzQlpONitiSTJEWDVKM0JVNnpzTlUxemJsaVBh?=
+ =?utf-8?B?MzdBSmVTYlF2Q0lJZ2FmakhhY1VCNkJUMkNLc2R4STQvVjgzQSs0dWdJRUd2?=
+ =?utf-8?B?UXZCU1ZQZmRlSzBWZzkrN2ZHMExHdWoxek4vU1A0dnlNK1V3UDZFUFAxYjJY?=
+ =?utf-8?B?ZjA5ZFJudzZxNmVjK3g3TkFscjNTVjB1dzR1NTQwQndYVzk2Uk9CTWVXZWRw?=
+ =?utf-8?B?YlFYa1FhbTVHdkd5dHdTdzl5UDRtVHk2OHhHNEowSWlKQVdPNlJ1VUYvdERn?=
+ =?utf-8?B?TkQyRGozaGtyaDVIN2N6ZXFGYzkxZ3lHTnJqUUVQZ0QxRGViY2gxNzNQTWVF?=
+ =?utf-8?B?L25QRzdpTHFCa1REbWtiL1FWTWk0eVR6bS9sWE9pNXJDeGtyQ1VDK25iK1NT?=
+ =?utf-8?B?NzlndjdReDJtK2JSVDhPY1dQeEtNV21XZzJUZFBESENOWkN6MW1GVGJKYkx2?=
+ =?utf-8?B?OHZ2UXdocTR4cUZVZG1WNitjbTFWUjM2Mkk2L0ZXYWpDTFZ3ZG9jNU1zbGhp?=
+ =?utf-8?B?ZFY1T0FMcTNJdnVlV2RoTDkvb1pNN1YrbmFLeExpWkRZanlocHFsWThqQUNU?=
+ =?utf-8?B?NWlKeG1leS9KVjcxalhVbFpzbzd5MnJ1RmpoMWI2RHYvdVdGSytETUdYQkxV?=
+ =?utf-8?B?MmhIazBuaDEwN203MHFBc0lNQ2V5cDlTQllUK0tDeXFvajlBK3E5NDUzRmhk?=
+ =?utf-8?B?S1lQdGVwL2F0Qk9EbUMvdnZqVHBySmVkWENGcG5KV3cyb3BQRzRCSkQ3SnFi?=
+ =?utf-8?B?d2JkRmRLQS9QQ0ZzWEFkZXkvdWx6ZmtxSjFHYjY4M3V0QnVncW44RmkvVWRJ?=
+ =?utf-8?B?R0R0Q2tHMCtudVIvb05JNngwbEVQMUphNllUNjRqWWtKS1NETXNXZXc0anlS?=
+ =?utf-8?B?OGdRRjBvNUg5VHZQQ0JrYXlRa0RKTzUyOGx2VVJEVysxWUU0emNoNEl4M1dl?=
+ =?utf-8?B?a0dCSzVhUVJreG0yZmYrK0ZTTHNUVW10b2VQSXVhZ2ppS2x4NXI1T1orTWE3?=
+ =?utf-8?B?RG1CdDlLWVh4NmFJSDUzS1RPRTZoK0s2RXZMbnJXRThHelVqM3VFZm1FWDlB?=
+ =?utf-8?B?TENnSE9UK1hreVJWL0V4VzBheDFHZXlXUXhxaGgzU1BDZFplc2tGTTBqQ2s3?=
+ =?utf-8?B?ckFaaTM2VkI0ZlRJQ21HMzFUMSsvTGtHOEFTRkZSakZXV1hITjhkV0tzZTZv?=
+ =?utf-8?B?b2s2clpnUjBySFJZVlVQWE1rZjY3Ti9YY1cveWwyNE1HQkpMb0J0dnA3NXdu?=
+ =?utf-8?B?ZEE9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	=?utf-8?B?aUtOZ1YzK2RKUEd1bDhjQm1GZjFZeXZWYXFSYWk1SHBIRXFSMC9EZEVaODFC?=
+ =?utf-8?B?N0hyZk5DNlVyVmF3ZlRneTJROVZaTm1hcjRDOUVXZGtPVDVjY1p0K1p5Q2Zr?=
+ =?utf-8?B?VmY5dXdWWDAxMkkwcGZ2TmFCRys1SUZQRjYvdVJ3QndYNFJnVHpIQ1FISTQv?=
+ =?utf-8?B?d1JXSjhyeWRGTEllcmxBd0Q3MEU5K1RRNjI2dGJDMGVuaTRkeDJ2bG9jMGc3?=
+ =?utf-8?B?U1d0d0RkaThCcVV1Wjd1cDBJMmF2WmU2YXhPaU5NYkRtajhxMXpLSG9KK003?=
+ =?utf-8?B?bnF6UFIrd2UvNWdDcjJZb25VWDExRmhPclJIWFBoQVp3MmpUSnExRXdmWlBs?=
+ =?utf-8?B?YU1ma3A4RjMyY0UxNnpsSERJOG9wNXlpU0duQjJiRk8zZnlCSXp4MWJxNHp0?=
+ =?utf-8?B?cWpVQXNudTRVZ1RBK1JyOFNoZUJQSGV1THJMbGVHdUJROGRieDdvanpobFRa?=
+ =?utf-8?B?RVdoZVdScXByTG5mT1NkeFk3dG5pOG9qQ3k5WWJaNzN0Zmxzdm5OcWFUS25h?=
+ =?utf-8?B?Z2ZaUm1RU0Mwa3pydWpHQ1lDNERzc3RXaFJ4TUgxdnY4VU12ZUVweWlTUzBO?=
+ =?utf-8?B?K1N6NXhIU3RQT2lNK0hEUFFZNGE2VmdxUC8reTlBU014aXJESzdCWk5oL1RB?=
+ =?utf-8?B?Qm9LcHRIS2Flb0c5QkpBbEVpQ0JkM2JlajA1OHZrVFYrNitTSUN3eXhEVkdo?=
+ =?utf-8?B?OXB2RE9lam53RFVLREF1Zk9DRGZjQnJ5VEg4U0tES0E4TkNKTGFLY0tmRkN5?=
+ =?utf-8?B?WmhlZnVKcStGM3JCL0RycDRscGlEa2R3OUxDdXo1TGZ5UnVaSTF5OEFQUXM3?=
+ =?utf-8?B?dEc4SlJhQmdnWXJ5Yk1LeEFKY3pOUWhXcmVtYVB4emlONi93N25zc0VoL0tZ?=
+ =?utf-8?B?WFVmYnZuK09ScXcva2Jjb09tREJ2Q3orSlJnWTlGVnRaUFBMUlpZT0dpdkVm?=
+ =?utf-8?B?SWt6OFRmempaUkhaL2VXMVhsb3ZFdnZXMGdlSDFvWkVOUjhTaHNDVUdqck9n?=
+ =?utf-8?B?bitjSFRzUHpxTE50Ni9KcWlXUU5NVnNGRDNoek9NZSt2T3VKMWFQMkJPZjNT?=
+ =?utf-8?B?Qlo3TTgvUUVYQUx0dUIzN3FNa2ExTjJDeXJ3RjdVRGpUNWgzQ2I0eEFLc2lY?=
+ =?utf-8?B?VWh2T0VNSkp4eGlaS3RYa2krR250UzBGaXB1Q0ltRzR6Ylh1QmZOQi9JejRt?=
+ =?utf-8?B?ajlUYjhidXJBaW9zSjRESU9NN2tGWUo3bmt1bDhVYWtZb1ZJTDJPTjQvTHNx?=
+ =?utf-8?B?WTVhc2Erbzl1Qm1zVkVpZlZBL0Q2Y1ZLRjdEK2dVUjJETm4xY21OUlZnd3JJ?=
+ =?utf-8?B?dUVIQWtleS9Xa1hFNUI5WnQwUGRaUG9DQitEcGVGc3pRV3BHRHJXcjZIVHZC?=
+ =?utf-8?B?R2IrTzVtY3hwQ1FQWCtFR29Gb1JEbTZ6Qlh2R3JjNFQ4TUlmNW1PUlN3T3h4?=
+ =?utf-8?B?dGFTbWdFOWFaN21JWWVybE1QTmFhSC9WbFFweE9QS0hIdnJ4Q01PRGgzeDZW?=
+ =?utf-8?B?cnY5NExTMDR3eStiV05Wd2hRRGZaVFdMY3VhUDRNamN4ajBZcHBZWmxKZHdV?=
+ =?utf-8?Q?gKWnhp/SJlX16/kgYiMzv6W0k=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ddcf53b-3591-45d3-9bb3-08db2a14dc62
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Mar 2023 14:02:09.1523
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mFFYSZTmgmA8feQV2h7ObcVv0jX4mVX8L5m4mrZW5hUZMA8PqfkUSvvBBoBqdUQ2Vsq0D6KjukU86WB/5mE02g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR03MB7288
 
-Adds monitor support for I/O instructions.
+On Tue, Mar 21, 2023 at 02:47:46PM +0100, Rafael J. Wysocki wrote:
+> On Thu, Mar 16, 2023 at 5:43 PM Roger Pau Monne <roger.pau@citrix.com> wrote:
+> >
+> > In ACPI systems, the OS can direct power management, as opposed to the
+> > firmware.  This OS-directed Power Management is called OSPM.  Part of
+> > telling the firmware that the OS going to direct power management is
+> > making ACPI "_PDC" (Processor Driver Capabilities) calls.  These _PDC
+> > methods must be evaluated for every processor object.  If these _PDC
+> > calls are not completed for every processor it can lead to
+> > inconsistency and later failures in things like the CPU frequency
+> > driver.
+> >
+> > In a Xen system, the dom0 kernel is responsible for system-wide power
+> > management.  The dom0 kernel is in charge of OSPM.  However, the
+> > number of CPUs available to dom0 can be different than the number of
+> > CPUs physically present on the system.
+> >
+> > This leads to a problem: the dom0 kernel needs to evaluate _PDC for
+> > all the processors, but it can't always see them.
+> >
+> > In dom0 kernels, ignore the existing ACPI method for determining if a
+> > processor is physically present because it might not be accurate.
+> > Instead, ask the hypervisor for this information.
+> >
+> > Fix this by introducing a custom function to use when running as Xen
+> > dom0 in order to check whether a processor object matches a CPU that's
+> > online.  Such checking is done using the existing information fetched
+> > by the Xen pCPU subsystem, extending it to also store the ACPI ID.
+> >
+> > This ensures that _PDC method gets evaluated for all physically online
+> > CPUs, regardless of the number of CPUs made available to dom0.
+> >
+> > Fixes: 5d554a7bb064 ('ACPI: processor: add internal processor_physically_present()')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > Changes since v3:
+> >  - Protect xen_processor_present() definition with CONFIG_ACPI.
+> >
+> > Changes since v2:
+> >  - Extend and use the existing pcpu functionality.
+> >
+> > Changes since v1:
+> >  - Reword commit message.
+> > ---
+> >  arch/x86/include/asm/xen/hypervisor.h | 10 ++++++++++
+> >  drivers/acpi/processor_pdc.c          | 11 +++++++++++
+> >  drivers/xen/pcpu.c                    | 21 +++++++++++++++++++++
+> >  3 files changed, 42 insertions(+)
+> >
+> > diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
+> > index 5fc35f889cd1..990a1609677e 100644
+> > --- a/arch/x86/include/asm/xen/hypervisor.h
+> > +++ b/arch/x86/include/asm/xen/hypervisor.h
+> > @@ -63,4 +63,14 @@ void __init xen_pvh_init(struct boot_params *boot_params);
+> >  void __init mem_map_via_hcall(struct boot_params *boot_params_p);
+> >  #endif
+> >
+> > +#if defined(CONFIG_XEN_DOM0) && defined(CONFIG_ACPI)
+> > +bool __init xen_processor_present(uint32_t acpi_id);
+> > +#else
+> > +static inline bool xen_processor_present(uint32_t acpi_id)
+> > +{
+> > +       BUG();
+> > +       return false;
+> > +}
+> > +#endif
+> > +
+> >  #endif /* _ASM_X86_XEN_HYPERVISOR_H */
+> > diff --git a/drivers/acpi/processor_pdc.c b/drivers/acpi/processor_pdc.c
+> > index 8c3f82c9fff3..18fb04523f93 100644
+> > --- a/drivers/acpi/processor_pdc.c
+> > +++ b/drivers/acpi/processor_pdc.c
+> > @@ -14,6 +14,8 @@
+> >  #include <linux/acpi.h>
+> >  #include <acpi/processor.h>
+> >
+> > +#include <xen/xen.h>
+> 
+> This along with the definition above is evidently insufficient for
+> xen_processor_present() to always be defined.  See
+> https://lore.kernel.org/linux-acpi/64198b60.bO+m9o5w+Hd8hcF3%25lkp@intel.com/T/#u
+> for example.
+> 
+> I'm dropping the patch now, please fix and resend.
 
-Signed-off-by: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-Signed-off-by: Anton Belousov <abelousov@ptsecurity.com>
----
-Changes in v5:
- * Rebase on staging
+Hello,
 
-Changes in v4:
- * Avoid the use of fixed-width types
- * Document vm_event_io structure fields
- * Untie vm-event interface from ioreq one
+Sorry.  I've sent a followup fix:
 
-Changes in v3:
- * Rebase on staging
- * Refactor branch logic on monitor_traps response
+https://lore.kernel.org/xen-devel/20230321112522.46806-1-roger.pau@citrix.com/T/#u
 
-Changes in v2:
- * Handled INS and OUTS instructions too
- * Added I/O monitoring support for AMD
- * Rename functions and structures (remove "_instruction" part)
- * Reorder parameters of hvm_monitor_io to match handle_pio's order
- * Change type of string_ins parameter to bool
- * Change vm_event_io structure
- * Handle monitor_traps's return status
----
- tools/include/xenctrl.h                |  1 +
- tools/libs/ctrl/xc_monitor.c           | 13 +++++++++++++
- xen/arch/x86/hvm/monitor.c             | 21 +++++++++++++++++++++
- xen/arch/x86/hvm/svm/svm.c             |  9 +++++++++
- xen/arch/x86/hvm/vmx/vmx.c             |  7 +++++++
- xen/arch/x86/include/asm/domain.h      |  1 +
- xen/arch/x86/include/asm/hvm/monitor.h |  3 +++
- xen/arch/x86/include/asm/monitor.h     |  3 ++-
- xen/arch/x86/monitor.c                 | 13 +++++++++++++
- xen/include/public/domctl.h            |  1 +
- xen/include/public/vm_event.h          | 10 ++++++++++
- 11 files changed, 81 insertions(+), 1 deletion(-)
+Would you be fine with taking such followup, or would rather prefer
+for me to send the original fixed patch as v5?
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 23037874d3..05967ecc92 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2102,6 +2102,7 @@ int xc_monitor_emul_unimplemented(xc_interface *xch, uint32_t domain_id,
-                                   bool enable);
- int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
-                       bool sync);
-+int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable);
- /**
-  * This function enables / disables emulation for each REP for a
-  * REP-compatible instruction.
-diff --git a/tools/libs/ctrl/xc_monitor.c b/tools/libs/ctrl/xc_monitor.c
-index c5fa62ff30..3cb96f444f 100644
---- a/tools/libs/ctrl/xc_monitor.c
-+++ b/tools/libs/ctrl/xc_monitor.c
-@@ -261,6 +261,19 @@ int xc_monitor_vmexit(xc_interface *xch, uint32_t domain_id, bool enable,
-     return do_domctl(xch, &domctl);
- }
- 
-+int xc_monitor_io(xc_interface *xch, uint32_t domain_id, bool enable)
-+{
-+    DECLARE_DOMCTL;
-+
-+    domctl.cmd = XEN_DOMCTL_monitor_op;
-+    domctl.domain = domain_id;
-+    domctl.u.monitor_op.op = enable ? XEN_DOMCTL_MONITOR_OP_ENABLE
-+                                    : XEN_DOMCTL_MONITOR_OP_DISABLE;
-+    domctl.u.monitor_op.event = XEN_DOMCTL_MONITOR_EVENT_IO;
-+
-+    return do_domctl(xch, &domctl);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/hvm/monitor.c b/xen/arch/x86/hvm/monitor.c
-index a11cd76f4d..4f500beaf5 100644
---- a/xen/arch/x86/hvm/monitor.c
-+++ b/xen/arch/x86/hvm/monitor.c
-@@ -346,6 +346,27 @@ int hvm_monitor_vmexit(unsigned long exit_reason,
-     return monitor_traps(curr, ad->monitor.vmexit_sync, &req);
- }
- 
-+int hvm_monitor_io(unsigned int port, unsigned int bytes,
-+                   bool in, bool str)
-+{
-+    struct vcpu *curr = current;
-+    struct arch_domain *ad = &curr->domain->arch;
-+    vm_event_request_t req = {
-+        .reason = VM_EVENT_REASON_IO_INSTRUCTION,
-+        .u.io.bytes = bytes,
-+        .u.io.port = port,
-+        .u.io.in = in,
-+        .u.io.str = str,
-+    };
-+
-+    if ( !ad->monitor.io_enabled )
-+        return 0;
-+
-+    set_npt_base(curr, &req);
-+
-+    return monitor_traps(curr, true, &req);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index bfe03316de..02563e4b70 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -2939,6 +2939,15 @@ void svm_vmexit_handler(void)
-         break;
- 
-     case VMEXIT_IOIO:
-+        rc = hvm_monitor_io(vmcb->ei.io.port,
-+                            vmcb->ei.io.bytes,
-+                            vmcb->ei.io.in,
-+                            vmcb->ei.io.str);
-+        if ( rc < 0 )
-+            goto unexpected_exit_type;
-+        if ( rc )
-+            break;
-+
-         if ( !vmcb->ei.io.str )
-         {
-             if ( handle_pio(vmcb->ei.io.port,
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 78ac9ece6f..bc7d36aa03 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -4574,10 +4574,17 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-             };
-         } io_qual;
-         unsigned int bytes;
-+        int rc;
- 
-         __vmread(EXIT_QUALIFICATION, &io_qual.raw);
-         bytes = io_qual.size + 1;
- 
-+        rc = hvm_monitor_io(io_qual.port, bytes, io_qual.in, io_qual.str);
-+        if ( rc < 0 )
-+            goto exit_and_crash;
-+        if ( rc )
-+            break;
-+
-         if ( io_qual.str )
-         {
-             if ( !hvm_emulate_one_insn(x86_insn_is_portio, "port I/O") )
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index 7bc126587d..29027ffd29 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -435,6 +435,7 @@ struct arch_domain
-         unsigned int descriptor_access_enabled                             : 1;
-         unsigned int guest_request_userspace_enabled                       : 1;
-         unsigned int emul_unimplemented_enabled                            : 1;
-+        unsigned int io_enabled                                            : 1;
-         /*
-          * By default all events are sent.
-          * This is used to filter out pagefaults.
-diff --git a/xen/arch/x86/include/asm/hvm/monitor.h b/xen/arch/x86/include/asm/hvm/monitor.h
-index 639f6dfa37..6884f38d73 100644
---- a/xen/arch/x86/include/asm/hvm/monitor.h
-+++ b/xen/arch/x86/include/asm/hvm/monitor.h
-@@ -54,6 +54,9 @@ bool hvm_monitor_check_p2m(unsigned long gla, gfn_t gfn, uint32_t pfec,
- int hvm_monitor_vmexit(unsigned long exit_reason,
-                        unsigned long exit_qualification);
- 
-+int hvm_monitor_io(unsigned int port, unsigned int bytes,
-+                   bool in, bool str);
-+
- #endif /* __ASM_X86_HVM_MONITOR_H__ */
- 
- /*
-diff --git a/xen/arch/x86/include/asm/monitor.h b/xen/arch/x86/include/asm/monitor.h
-index d8d54c5f23..96e6a9d0d8 100644
---- a/xen/arch/x86/include/asm/monitor.h
-+++ b/xen/arch/x86/include/asm/monitor.h
-@@ -90,7 +90,8 @@ static inline uint32_t arch_monitor_get_capabilities(struct domain *d)
-                     (1U << XEN_DOMCTL_MONITOR_EVENT_WRITE_CTRLREG) |
-                     (1U << XEN_DOMCTL_MONITOR_EVENT_EMUL_UNIMPLEMENTED) |
-                     (1U << XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT) |
--                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT));
-+                    (1U << XEN_DOMCTL_MONITOR_EVENT_VMEXIT) |
-+                    (1U << XEN_DOMCTL_MONITOR_EVENT_IO));
- 
-     if ( hvm_is_singlestep_supported() )
-         capabilities |= (1U << XEN_DOMCTL_MONITOR_EVENT_SINGLESTEP);
-diff --git a/xen/arch/x86/monitor.c b/xen/arch/x86/monitor.c
-index 30ca71432c..d4857faf8a 100644
---- a/xen/arch/x86/monitor.c
-+++ b/xen/arch/x86/monitor.c
-@@ -346,6 +346,19 @@ int arch_monitor_domctl_event(struct domain *d,
-         break;
-     }
- 
-+    case XEN_DOMCTL_MONITOR_EVENT_IO:
-+    {
-+        bool old_status = ad->monitor.io_enabled;
-+
-+        if ( unlikely(old_status == requested_status) )
-+            return -EEXIST;
-+
-+        domain_pause(d);
-+        ad->monitor.io_enabled = requested_status;
-+        domain_unpause(d);
-+        break;
-+    }
-+
-     default:
-         /*
-          * Should not be reached unless arch_monitor_get_capabilities() is
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 51be28c3de..7280e9f968 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1063,6 +1063,7 @@ struct xen_domctl_psr_cmt_op {
- /* Enabled by default */
- #define XEN_DOMCTL_MONITOR_EVENT_INGUEST_PAGEFAULT     11
- #define XEN_DOMCTL_MONITOR_EVENT_VMEXIT                12
-+#define XEN_DOMCTL_MONITOR_EVENT_IO                    13
- 
- struct xen_domctl_monitor_op {
-     uint32_t op; /* XEN_DOMCTL_MONITOR_OP_* */
-diff --git a/xen/include/public/vm_event.h b/xen/include/public/vm_event.h
-index 0035c26e12..3a86f0e208 100644
---- a/xen/include/public/vm_event.h
-+++ b/xen/include/public/vm_event.h
-@@ -160,6 +160,8 @@
- #define VM_EVENT_REASON_EMUL_UNIMPLEMENTED      14
- /* VMEXIT */
- #define VM_EVENT_REASON_VMEXIT                  15
-+/* IN/OUT Instruction executed */
-+#define VM_EVENT_REASON_IO_INSTRUCTION          16
- 
- /* Supported values for the vm_event_write_ctrlreg index. */
- #define VM_EVENT_X86_CR0    0
-@@ -388,6 +390,13 @@ struct vm_event_vmexit {
-     } arch;
- };
- 
-+struct vm_event_io {
-+    uint32_t bytes; /* size of access */
-+    uint16_t port;  /* port number */
-+    uint8_t  in;    /* direction (0 = OUT, 1 = IN) */
-+    uint8_t  str;   /* string instruction (0 = not string, 1 = string) */
-+};
-+
- typedef struct vm_event_st {
-     uint32_t version;   /* VM_EVENT_INTERFACE_VERSION */
-     uint32_t flags;     /* VM_EVENT_FLAG_* */
-@@ -409,6 +418,7 @@ typedef struct vm_event_st {
-         struct vm_event_debug                 debug_exception;
-         struct vm_event_cpuid                 cpuid;
-         struct vm_event_vmexit                vmexit;
-+        struct vm_event_io                    io;
-         union {
-             struct vm_event_interrupt_x86     x86;
-         } interrupt;
--- 
-2.39.2
-
+Thanks, Roger.
 
