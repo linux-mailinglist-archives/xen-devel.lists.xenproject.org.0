@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D03AF6C37F0
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 18:13:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.512897.793272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1A996C3809
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 18:18:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.512902.793283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pefXe-00069k-7l; Tue, 21 Mar 2023 17:12:58 +0000
+	id 1pefcG-0006nz-Tm; Tue, 21 Mar 2023 17:17:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 512897.793272; Tue, 21 Mar 2023 17:12:58 +0000
+Received: by outflank-mailman (output) from mailman id 512902.793283; Tue, 21 Mar 2023 17:17:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pefXe-00066q-4b; Tue, 21 Mar 2023 17:12:58 +0000
-Received: by outflank-mailman (input) for mailman id 512897;
- Tue, 21 Mar 2023 17:12:56 +0000
+	id 1pefcG-0006mB-Q6; Tue, 21 Mar 2023 17:17:44 +0000
+Received: by outflank-mailman (input) for mailman id 512902;
+ Tue, 21 Mar 2023 17:17:42 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pefXc-00066k-RA
- for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 17:12:56 +0000
+ (envelope-from <julien@xen.org>) id 1pefcE-0006m5-HI
+ for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 17:17:42 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pefXc-0002hU-DT; Tue, 21 Mar 2023 17:12:56 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235] helo=[192.168.4.43])
+ id 1pefcE-0002o1-3m; Tue, 21 Mar 2023 17:17:42 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pefXc-0005EH-7K; Tue, 21 Mar 2023 17:12:56 +0000
+ id 1pefcD-0005KL-RD; Tue, 21 Mar 2023 17:17:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,124 +41,64 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=AiyGBRpXAIpWpwsb/8jvxqx3RSNKwWNRlHp0b4xxg7U=; b=tq64rLpRTvh33Qx7GcVjacR54k
-	+q5eufMJcwxTidX6ey+5boQeIC7Xbhr1toFRSAxCWnOxs2+E0WJnqU9Ez2N/to1aNqqHF0NkuzcBx
-	8qUbKYeclRr7JxFpk7NUwZfOAv5q9urBNde2XEHeDFtUyQ91WwDhGrGXRH1AbPRyA6zY=;
-Message-ID: <eb17b973-2e2b-d9aa-8e99-a1b28e874919@xen.org>
-Date: Tue, 21 Mar 2023 17:12:54 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.0
-Subject: Re: [PATCH v3 2/2] arch/arm: time: Add support for parsing interrupts
- by names
-Content-Language: en-US
-To: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>,
- xen-devel@lists.xenproject.org
-Cc: michal.orzel@amd.com, sstabellini@kernel.org, Bertrand.Marquis@arm.com,
- Volodymyr_Babchuk@epam.com, rahul.singh@arm.com,
- Andrei Cherechesu <andrei.cherechesu@nxp.com>
-References: <20230313130803.3499098-1-andrei.cherechesu@oss.nxp.com>
- <20230313130803.3499098-3-andrei.cherechesu@oss.nxp.com>
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=lg7n5v5ou7uw1fzn2Vt3F7Zl0Qr0cNq1qteLi9rcgOg=; b=3FbC+a
+	tuJjMnWqmou6r2wlh/zGMYhMOpFJPdaPuysf4zilRmhMpt8ogqFxoOGHjK+ogR3qYJ5CxfKTFWmfL
+	+BL9N8WENez8Pr4GfEpFDGYf0IpYdNnJZ+dch9stFemA3vuMjehXdqqX5fp3VVNdU7iSS4NMAhY5b
+	OcYdb6CeodI=;
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230313130803.3499098-3-andrei.cherechesu@oss.nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: xen-devel@lists.xenproject.org
+Cc: andrei.cherechesu@oss.nxp.com,
+	Julien Grall <jgrall@amazon.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: irq: Constify the first parameter of platform_get_irq_byname()
+Date: Tue, 21 Mar 2023 17:17:21 +0000
+Message-Id: <20230321171721.2502-1-julien@xen.org>
+X-Mailer: git-send-email 2.39.2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Julien Grall <jgrall@amazon.com>
 
-On 13/03/2023 13:08, Andrei Cherechesu (OSS) wrote:
-> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> 
-> Added support for parsing the ARM generic timer interrupts DT
-> node by the "interrupt-names" property, if it is available.
-> 
-> If not available, the usual parsing based on the expected
-> IRQ order is performed.
-> 
-> Also treated returning 0 as an error case for the
-> platform_get_irq() calls, since it is not a valid PPI ID and
-> treating it as a valid case would only cause Xen to BUG() later,
-> when trying to reserve vIRQ being SGI.
-> 
-> Added the "hyp-virt" PPI to the timer PPI list, even
-> though it's currently not in use. If the "hyp-virt" PPI is
-> not found, the hypervisor won't panic.
+platform_get_irq_byname() is not meant to modify the parameter 'np'. So
+constify it.
 
-I know this was already merged. But it would have been nice to explain 
-why this is added. As this stands, it looks unnecessary dead code which 
-would have been okay if ...
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+---
+ xen/arch/arm/include/asm/irq.h | 2 +-
+ xen/arch/arm/irq.c             | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-> 
-> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-> ---
->   xen/arch/arm/include/asm/time.h |  3 ++-
->   xen/arch/arm/time.c             | 26 ++++++++++++++++++++++----
->   2 files changed, 24 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/time.h b/xen/arch/arm/include/asm/time.h
-> index 4b401c1110..49ad8c1a6d 100644
-> --- a/xen/arch/arm/include/asm/time.h
-> +++ b/xen/arch/arm/include/asm/time.h
-> @@ -82,7 +82,8 @@ enum timer_ppi
->       TIMER_PHYS_NONSECURE_PPI = 1,
->       TIMER_VIRT_PPI = 2,
->       TIMER_HYP_PPI = 3,
-> -    MAX_TIMER_PPI = 4,
-> +    TIMER_HYP_VIRT_PPI = 4,
-> +    MAX_TIMER_PPI = 5,
->   };
->   
->   /*
-> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> index 433d7be909..0b482d7db3 100644
-> --- a/xen/arch/arm/time.c
-> +++ b/xen/arch/arm/time.c
-> @@ -149,15 +149,33 @@ static void __init init_dt_xen_time(void)
->   {
->       int res;
->       unsigned int i;
-> +    bool has_names;
-> +    static const char * const timer_irq_names[MAX_TIMER_PPI] __initconst = {
-> +        [TIMER_PHYS_SECURE_PPI] = "sec-phys",
-> +        [TIMER_PHYS_NONSECURE_PPI] = "phys",
-> +        [TIMER_VIRT_PPI] = "virt",
-> +        [TIMER_HYP_PPI] = "hyp-phys",
-> +        [TIMER_HYP_VIRT_PPI] = "hyp-virt",
-> +    };
-> +
-> +    has_names = dt_property_read_bool(timer, "interrupt-names");
->   
->       /* Retrieve all IRQs for the timer */
->       for ( i = TIMER_PHYS_SECURE_PPI; i < MAX_TIMER_PPI; i++ )
->       {
-> -        res = platform_get_irq(timer, i);
-> -
-> -        if ( res < 0 )
-> +        if ( has_names )
-> +            res = platform_get_irq_byname(timer, timer_irq_names[i]);
-> +        else
-> +            res = platform_get_irq(timer, i);
-> +
-> +        if ( res > 0 )
-> +            timer_irq[i] = res;
-> +        /*
-> +         * Do not panic if "hyp-virt" PPI is not found, since it's not
-> +         * currently used.
-> +         */
-> +        else if ( i != TIMER_HYP_VIRT_PPI )
->               panic("Timer: Unable to retrieve IRQ %u from the device tree\n", i);
-
-... this wasn't necessary.
-
-> -        timer_irq[i] = res;
->       }
->   }
->   
-
-Cheers,
-
+diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/irq.h
+index af94f41994f1..11bc85d1110c 100644
+--- a/xen/arch/arm/include/asm/irq.h
++++ b/xen/arch/arm/include/asm/irq.h
+@@ -89,7 +89,7 @@ int irq_set_type(unsigned int irq, unsigned int type);
+ 
+ int platform_get_irq(const struct dt_device_node *device, int index);
+ 
+-int platform_get_irq_byname(struct dt_device_node *np, const char *name);
++int platform_get_irq_byname(const struct dt_device_node *np, const char *name);
+ 
+ void irq_set_affinity(struct irq_desc *desc, const cpumask_t *cpu_mask);
+ 
+diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+index ded495792b7c..16e56f8945a8 100644
+--- a/xen/arch/arm/irq.c
++++ b/xen/arch/arm/irq.c
+@@ -718,7 +718,7 @@ int platform_get_irq(const struct dt_device_node *device, int index)
+     return irq;
+ }
+ 
+-int platform_get_irq_byname(struct dt_device_node *np, const char *name)
++int platform_get_irq_byname(const struct dt_device_node *np, const char *name)
+ {
+ 	int index;
+ 
 -- 
-Julien Grall
+2.39.2
+
 
