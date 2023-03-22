@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AD5B6C4A13
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 13:15:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513389.794290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B0F26C4A52
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 13:23:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513392.794301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pexMd-0004Oa-Iq; Wed, 22 Mar 2023 12:14:47 +0000
+	id 1pexUY-00068o-CU; Wed, 22 Mar 2023 12:22:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513389.794290; Wed, 22 Mar 2023 12:14:47 +0000
+Received: by outflank-mailman (output) from mailman id 513392.794301; Wed, 22 Mar 2023 12:22:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pexMd-0004ME-G6; Wed, 22 Mar 2023 12:14:47 +0000
-Received: by outflank-mailman (input) for mailman id 513389;
- Wed, 22 Mar 2023 12:14:46 +0000
+	id 1pexUY-00066E-9Q; Wed, 22 Mar 2023 12:22:58 +0000
+Received: by outflank-mailman (input) for mailman id 513392;
+ Wed, 22 Mar 2023 12:22:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pexMc-0004M8-K9
- for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 12:14:46 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pexUX-000664-3y; Wed, 22 Mar 2023 12:22:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pexMc-0004Tj-2u; Wed, 22 Mar 2023 12:14:46 +0000
-Received: from [15.248.2.159] (helo=[10.24.67.31])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pexMb-0005GC-Sg; Wed, 22 Mar 2023 12:14:46 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pexUX-0004eG-2A; Wed, 22 Mar 2023 12:22:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pexUW-0000D6-La; Wed, 22 Mar 2023 12:22:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pexUW-0005hG-L3; Wed, 22 Mar 2023 12:22:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,149 +42,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=WhP23oe7p1Ch1N0CUJmu0YVJI/ua8v0jij5yzdcx3Qc=; b=qxwL0cOqKI5+iIXStPojsyDJM0
-	9IrfFW5ENvSA9XGfPPmXBIHkBDKmkcw4/yTyVUGbdUOq9TpgadSo62Yu7npUqhYfgn2GIbGh+1gcl
-	wNy8A5Uk1uHPMDbLZa4faw88U2b0Lb/pHlIVha8HwLw/Mz/ynCKSvVnRS15zXPibEqVo=;
-Message-ID: <fb5632f9-d749-4396-930e-9f2a601720d8@xen.org>
-Date: Wed, 22 Mar 2023 12:14:43 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.0
-Subject: Re: [PATCH v5 5/7] xen/riscv: introduce trap_init()
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>
-References: <cover.1678976127.git.oleksii.kurochko@gmail.com>
- <91b0284d20f530f2795a119ccb7436ee0b800256.1678976127.git.oleksii.kurochko@gmail.com>
- <5a2c6f35-373a-de3c-1db2-aeeb1b39635f@xen.org>
- <520d64f0b6cd283416aa4fb7b9baa5f83454c4a8.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <520d64f0b6cd283416aa4fb7b9baa5f83454c4a8.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=WOruiIh8zR2tqkIhW+w3XmCou5N5kiqRJxytGU6/LjQ=; b=27aveA8WN/TDGA5tQYShYGDfWI
+	XYfM8Yi449MWECQkRuchPTDtFbFBwRbb2+G5hXkeusIeMuEhKXt4qEoKlPcUTZhCQsS+9B5mCSdDM
+	AyN06wwQAK8XcaWxD+MiPU4Uu/f31hThKVDUjmXZErsxoBMC7KCupjPWz4NsFl0+yn0Q=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-179867-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 179867: tolerable trouble: pass/starved - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=eee0d79134cffe605e49d240c985bc571d4bacca
+X-Osstest-Versions-That:
+    xen=245d030f4aa79f766e575684127f86748c63bb32
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 22 Mar 2023 12:22:56 +0000
+
+flight 179867 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/179867/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
+
+version targeted for testing:
+ xen                  eee0d79134cffe605e49d240c985bc571d4bacca
+baseline version:
+ xen                  245d030f4aa79f766e575684127f86748c63bb32
+
+Last test of basis   179845  2023-03-21 14:02:09 Z    0 days
+Testing same since   179867  2023-03-22 10:00:36 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Christian Lindig <christian.lindig@cloud.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com> # tools/python/xen/lowlevel/xc/xc.c
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  starved 
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 22/03/2023 11:33, Oleksii wrote:
-> Hi Julien,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hi Oleksii,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> 
-> On Tue, 2023-03-21 at 17:42 +0000, Julien Grall wrote:
->> Hi Oleksii,
->>
->> On 16/03/2023 14:39, Oleksii Kurochko wrote:
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
->>> ---
->>> Changes in V5:
->>>     - Nothing changed
->>> ---
->>> Changes in V4:
->>>     - Nothing changed
->>> ---
->>> Changes in V3:
->>>     - Nothing changed
->>> ---
->>> Changes in V2:
->>>     - Rename setup_trap_handler() to trap_init().
->>>     - Add Reviewed-by to the commit message.
->>> ---
->>>    xen/arch/riscv/include/asm/traps.h | 1 +
->>>    xen/arch/riscv/setup.c             | 5 +++++
->>>    xen/arch/riscv/traps.c             | 7 +++++++
->>>    3 files changed, 13 insertions(+)
->>>
->>> diff --git a/xen/arch/riscv/include/asm/traps.h
->>> b/xen/arch/riscv/include/asm/traps.h
->>> index f3fb6b25d1..f1879294ef 100644
->>> --- a/xen/arch/riscv/include/asm/traps.h
->>> +++ b/xen/arch/riscv/include/asm/traps.h
->>> @@ -7,6 +7,7 @@
->>>    
->>>    void do_trap(struct cpu_user_regs *cpu_regs);
->>>    void handle_trap(void);
->>> +void trap_init(void);
->>>    
->>>    #endif /* __ASSEMBLY__ */
->>>    
->>> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
->>> index 36556eb779..b44d105b5f 100644
->>> --- a/xen/arch/riscv/setup.c
->>> +++ b/xen/arch/riscv/setup.c
->>> @@ -3,7 +3,9 @@
->>>    #include <xen/kernel.h>
->>>    
->>>    #include <asm/boot-info.h>
->>> +#include <asm/csr.h>
->>>    #include <asm/early_printk.h>
->>> +#include <asm/traps.h>
->>>    
->>>    /* Xen stack for bringing up the first CPU. */
->>>    unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
->>> @@ -32,7 +34,10 @@ void __init noreturn start_xen(unsigned long
->>> bootcpu_id,
->>>    
->>>        fill_boot_info();
->>>    
->>> +    trap_init();
->>> +
->>>        early_printk("All set up\n");
->>> +
->>>        for ( ;; )
->>>            asm volatile ("wfi");
->>>    
->>> diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
->>> index 8a1529e0c5..581f34efbc 100644
->>> --- a/xen/arch/riscv/traps.c
->>> +++ b/xen/arch/riscv/traps.c
->>> @@ -13,6 +13,13 @@
->>>    #include <asm/processor.h>
->>>    #include <asm/traps.h>
->>>    
->>> +void trap_init(void)
->>> +{
->>> +    unsigned long addr = (unsigned long)&handle_trap;
->>
->> It is not super clear to me whether this is going to store the
->> virtual
->> or physical address.
-> Actually it is going to store both the virtual and physical address.
-> Depending on if MMU is enabled or not.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-I think some comment in the code would be really good because this is...
 
->>
->> Depending on the answer, the next would be whether the value would
->> still
->> be valid after the MMU is turned on?
-> It would still be valid because for addr will be generated PC-relative
-> address.
+Pushing revision :
 
-... not clear to me what would guarantee that Xen is compiled with 
--noPIE. Is the cmodel?
-
-A suggestion for the top of the function:
-
-"Initialize the trap handling. This is called twice (before and after 
-the MMU)."
-
-And for on top of 'addr', I would add:
-
-"When the MMU is off, this will be a physical address otherwise it would 
-be a virtual address. This is guarantee because [fill the blank]".
-
-Cheers,
-
--- 
-Julien Grall
+To xenbits.xen.org:/home/xen/git/xen.git
+   245d030f4a..eee0d79134  eee0d79134cffe605e49d240c985bc571d4bacca -> smoke
 
