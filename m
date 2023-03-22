@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2E666C3DA4
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Mar 2023 23:20:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513049.793486 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C63C6C403E
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 03:16:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513060.793508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pekKp-000217-Br; Tue, 21 Mar 2023 22:20:03 +0000
+	id 1peo0Z-00034N-17; Wed, 22 Mar 2023 02:15:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513049.793486; Tue, 21 Mar 2023 22:20:03 +0000
+Received: by outflank-mailman (output) from mailman id 513060.793508; Wed, 22 Mar 2023 02:15:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pekKp-0001y4-8g; Tue, 21 Mar 2023 22:20:03 +0000
-Received: by outflank-mailman (input) for mailman id 513049;
- Tue, 21 Mar 2023 22:20:01 +0000
+	id 1peo0Y-00031b-S8; Wed, 22 Mar 2023 02:15:22 +0000
+Received: by outflank-mailman (input) for mailman id 513060;
+ Wed, 22 Mar 2023 02:15:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rDWK=7N=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1pekKn-0001kx-Tb
- for xen-devel@lists.xenproject.org; Tue, 21 Mar 2023 22:20:01 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ (envelope-from <SRS0=Fm+Y=7O=intel.com=lkp@srs-se1.protection.inumbo.net>)
+ id 1peo0X-00031V-Mn
+ for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 02:15:22 +0000
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 82b05856-c836-11ed-85db-49a42c6b2330;
- Tue, 21 Mar 2023 23:19:59 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 32LMJjqo095927
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 21 Mar 2023 18:19:50 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 32LMJidg095926;
- Tue, 21 Mar 2023 15:19:44 -0700 (PDT) (envelope-from ehem)
+ id 61ba9056-c857-11ed-85db-49a42c6b2330;
+ Wed, 22 Mar 2023 03:15:17 +0100 (CET)
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2023 19:15:12 -0700
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by fmsmga008.fm.intel.com with ESMTP; 21 Mar 2023 19:15:09 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1peo0K-000Ch8-0k;
+ Wed, 22 Mar 2023 02:15:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,132 +44,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82b05856-c836-11ed-85db-49a42c6b2330
-Date: Tue, 21 Mar 2023 15:19:43 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Neowutran <xen@neowutran.ovh>
-Subject: Re: [BUG] x2apic broken with current AMD hardware
-Message-ID: <ZBotf4lkIog9HfJF@mattapan.m5p.com>
-References: <21436010-8212-7b09-a577-09d3f57156bf@suse.com>
- <ZAvGvokloPf+ltr9@mattapan.m5p.com>
- <f33c9b8a-f25d-caab-659d-d34ba21ebc25@suse.com>
- <ZBOSKo+sT/FtWY9C@mattapan.m5p.com>
- <e5b28dae-3699-cb0d-ab7e-42fdd42d3222@suse.com>
- <ZBSi2KfoQXo7hr6z@mattapan.m5p.com>
- <b2eaeacc-de5f-ebe9-a330-fbf9e20626b1@suse.com>
- <a2de5d87-ada8-46b9-090b-00dc43309362@suse.com>
- <ZBkwboNcQu6ooSRC@mattapan.m5p.com>
- <1c019d72-93d5-f820-7079-2a9c3fee8822@suse.com>
+X-Inumbo-ID: 61ba9056-c857-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1679451317; x=1710987317;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Zkutf1Yva2S5sDuaQ/5qW6PUkaAWInQ2qoCKwvKC4ms=;
+  b=B09rYJUrbJ5Klv/eBD3JgENNj3lMSVriOqOHofQ2BrJ1PGpIb4/3CU9A
+   bGilSM0IL8S92FLyvZoUZu+c9owCLAK0+VyFMz1SLgXDjXa5SB4ChLYBf
+   qeKuWbFHaF7uRbCE5+YxPRynWplWqBdAu47JbqCV/PkelsciY0O6Les/F
+   NLEdlsqIDU0i/fgKz4h1O1mHBlTIRUnIQNMucEekNADdgkZc+1+UgfU6R
+   MbDd7i9sueMxWw+G6hbPu12+oxWVbkCUeoZ+phox7MfFNNhuEqfi7FIZt
+   ITcoaKOZEiGT70yh7JuSLe8QsVZxaY3luQOc+wMc0A73jbH9xwSyKix1p
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="401677805"
+X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; 
+   d="scan'208";a="401677805"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10656"; a="746127578"
+X-IronPort-AV: E=Sophos;i="5.98,280,1673942400"; 
+   d="scan'208";a="746127578"
+Date: Wed, 22 Mar 2023 10:14:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	xen-devel@lists.xenproject.org,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
+	Alex Chiang <achiang@hp.com>, linux-acpi@vger.kernel.org
+Subject: Re: [PATCH v5] ACPI: processor: Fix evaluating _PDC method when
+ running as Xen dom0
+Message-ID: <202303221035.BFY5kyh1-lkp@intel.com>
+References: <20230321141904.49177-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1c019d72-93d5-f820-7079-2a9c3fee8822@suse.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
+In-Reply-To: <20230321141904.49177-1-roger.pau@citrix.com>
 
-On Tue, Mar 21, 2023 at 08:13:15AM +0100, Jan Beulich wrote:
-> On 21.03.2023 05:19, Elliott Mitchell wrote:
-> 
-> > The above appears about twice for each core, then I start seeing
-> > "(XEN) CPU#: No irq handler for vector ?? (IRQ -2147483648, LAPIC)"
-> > 
-> > The core doesn't vary too much with this, but the vector varies some.
-> > 
-> > Upon looking "(XEN) Using APIC driver x2apic_cluster".  Unfortunately
-> > I didn't try booting with x2apic_phys forced with this setting.
-> 
-> My guess is that this would also help. But the system should still work
-> correctly in clustered mode. As a first step I guess debug key 'i', 'z',
-> and 'M' output may provide some insight. But the request for a full log
-> at maximum verbosity also remains (ideally with a debug hypervisor).
+Hi Roger,
 
-Needs a secure channel (PGP most likely) for everything, since there is
-too much information in there.  Serial numbers and MAC addresses are a
-potential source of attack (or faking returns).  Smaller segments can be
-had more readily:
+Thank you for the patch! Yet something to improve:
 
-(XEN) SMBIOS 3.5 present.
-(XEN) x2APIC mode is already enabled by BIOS.
-(XEN) Using APIC driver x2apic_cluster
-(XEN) ACPI: PM-Timer IO Port: 0x808 (32 bits)
-(XEN) ACPI: v5 SLEEP INFO: control[0:0], status[0:0]
-(XEN) ACPI: SLEEP INFO: pm1x_cnt[1:804,1:0], pm1x_evt[1:800,1:0]
-(XEN) ACPI: 32/64X FACS address mismatch in FADT - 785a3000/0000000000000000, using 32
-(XEN) ACPI:             wakeup_vec[785a300c], vec_size[20]
-(XEN) ACPI: Local APIC address 0xfee00000
-(XEN) ACPI: IOAPIC (id[0x20] address[0xfec00000] gsi_base[0])
-(XEN) IOAPIC[0]: apic_id 32, version 33, address 0xfec00000, GSI 0-23
-(XEN) ACPI: IOAPIC (id[0x21] address[0xfec01000] gsi_base[24])
-(XEN) IOAPIC[1]: apic_id 33, version 33, address 0xfec01000, GSI 24-55
-(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
-(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 low level)
-(XEN) ACPI: HPET id: 0x######## base: 0xfed00000
-(XEN) Using ACPI (MADT) for SMP configuration information
-(XEN) IRQ limits: 56 GSI, 6600 MSI/MSI-X
-(XEN) AMD-Vi: IOMMU Extended Features:
-(XEN) - Peripheral Page Service Request
-(XEN) - x2APIC
-(XEN) - NX bit
-(XEN) - Guest APIC Physical Processor Interrupt
-(XEN) - Invalidate All Command
-(XEN) - Guest APIC
-(XEN) - Performance Counters
-(XEN) - Host Address Translation Size: 0x2
-(XEN) - Guest Address Translation Size: 0
-(XEN) - Guest CR3 Root Table Level: 0x1
-(XEN) - Maximum PASID: 0xf
-(XEN) - SMI Filter Register: 0x1
-(XEN) - SMI Filter Register Count: 0x1
-(XEN) - Guest Virtual APIC Modes: 0x1
-(XEN) - Dual PPR Log: 0x2
-(XEN) - Dual Event Log: 0x2
-(XEN) - Secure ATS
-(XEN) - User / Supervisor Page Protection
-(XEN) - Device Table Segmentation: 0x3
-(XEN) - PPR Log Overflow Early Warning
-(XEN) - PPR Automatic Response
-(XEN) - Memory Access Routing and Control: 0x1
-(XEN) - Block StopMark Message
-(XEN) - Performance Optimization
-(XEN) - MSI Capability MMIO Access
-(XEN) - Guest I/O Protection
-(XEN) - Enhanced PPR Handling
-(XEN) - Invalidate IOTLB Type
-(XEN) - VM Table Size: 0x2
-(XEN) - Guest Access Bit Update Disable
-(XEN) AMD-Vi: Disabled HAP memory map sharing with IOMMU
-(XEN) AMD-Vi: IOMMU 0 Enabled.
+[auto build test ERROR on xen-tip/linux-next]
+[also build test ERROR on rafael-pm/linux-next linus/master v6.3-rc3 next-20230321]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-I'm a bit concerned how all the reports so far are ASUS motherboards.
-This could mean people getting the latest, greatest and using Xen tend
-towards ASUS motherboards.  This could also mean ASUS's engineering team
-did something to their latest round.  Both are possible.
+url:    https://github.com/intel-lab-lkp/linux/commits/Roger-Pau-Monne/ACPI-processor-Fix-evaluating-_PDC-method-when-running-as-Xen-dom0/20230321-221950
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git linux-next
+patch link:    https://lore.kernel.org/r/20230321141904.49177-1-roger.pau%40citrix.com
+patch subject: [PATCH v5] ACPI: processor: Fix evaluating _PDC method when running as Xen dom0
+config: x86_64-randconfig-a005 (https://download.01.org/0day-ci/archive/20230322/202303221035.BFY5kyh1-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build):
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # https://github.com/intel-lab-lkp/linux/commit/4232c8b37a0415e1e828fef4ce522c93a0b925fc
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Roger-Pau-Monne/ACPI-processor-Fix-evaluating-_PDC-method-when-running-as-Xen-dom0/20230321-221950
+        git checkout 4232c8b37a0415e1e828fef4ce522c93a0b925fc
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
 
-Could well be the latest round from AMD include more pieces from their
-server processors, which trigger x2apic_cluster as default.  Yet didn't
-bring some extra portion(s) which are required by x2apic_cluster.
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303221035.BFY5kyh1-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from arch/x86/xen/suspend_hvm.c:4:
+>> include/xen/xen.h:79:2: error: implicit declaration of function 'BUG' is invalid in C99 [-Werror,-Wimplicit-function-declaration]
+           BUG();
+           ^
+   1 error generated.
 
 
-> > So x2apic_cluster is looking like a <ahem> on recent AMD processors.
-> > 
-> > 
-> > I'm unsure this qualifies as "Tested-by".  Certainly it IS an
-> > improvement, but the problem certainly isn't 100% solved.
-> 
-> There simply are multiple problems; one looks to be solved now.
+vim +/BUG +79 include/xen/xen.h
 
-I agree with that assessment.  Just I'm unsure whether this step is
-enough to include "Tested-by".  I'm concerned there could be a single
-deeper problem which solves everything at once.
-
+    73	
+    74	#if defined(CONFIG_XEN_DOM0) && defined(CONFIG_ACPI) && defined(CONFIG_X86)
+    75	bool __init xen_processor_present(uint32_t acpi_id);
+    76	#else
+    77	static inline bool xen_processor_present(uint32_t acpi_id)
+    78	{
+  > 79		BUG();
+    80		return false;
+    81	}
+    82	#endif
+    83	
 
 -- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
 
