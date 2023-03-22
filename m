@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6734F6C4ECA
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 16:01:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513506.794597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1022D6C4EFA
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 16:08:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513509.794607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pezxQ-00082P-V1; Wed, 22 Mar 2023 15:00:56 +0000
+	id 1pf042-0000Fm-LP; Wed, 22 Mar 2023 15:07:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513506.794597; Wed, 22 Mar 2023 15:00:56 +0000
+Received: by outflank-mailman (output) from mailman id 513509.794607; Wed, 22 Mar 2023 15:07:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pezxQ-0007zn-Qq; Wed, 22 Mar 2023 15:00:56 +0000
-Received: by outflank-mailman (input) for mailman id 513506;
- Wed, 22 Mar 2023 15:00:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ebb8=7O=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
- id 1pezxP-0007zf-KW
- for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 15:00:55 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on061c.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::61c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 57e61c10-c8c2-11ed-85db-49a42c6b2330;
- Wed, 22 Mar 2023 16:00:54 +0100 (CET)
-Received: from VI1PR04MB5056.eurprd04.prod.outlook.com (2603:10a6:803:5a::13)
- by VI1PR04MB6798.eurprd04.prod.outlook.com (2603:10a6:803:131::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Wed, 22 Mar
- 2023 15:00:51 +0000
-Received: from VI1PR04MB5056.eurprd04.prod.outlook.com
- ([fe80::f883:bd6d:18d4:c487]) by VI1PR04MB5056.eurprd04.prod.outlook.com
- ([fe80::f883:bd6d:18d4:c487%4]) with mapi id 15.20.6178.037; Wed, 22 Mar 2023
- 15:00:51 +0000
+	id 1pf042-0000CQ-Ih; Wed, 22 Mar 2023 15:07:46 +0000
+Received: by outflank-mailman (input) for mailman id 513509;
+ Wed, 22 Mar 2023 15:07:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+B1I=7O=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pf041-0000CK-EM
+ for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 15:07:45 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4b11bf7b-c8c3-11ed-b464-930f4c7d94ae;
+ Wed, 22 Mar 2023 16:07:42 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 52A0C20F08;
+ Wed, 22 Mar 2023 15:07:42 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3144D138E9;
+ Wed, 22 Mar 2023 15:07:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id rpQrCr4ZG2THQQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 22 Mar 2023 15:07:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,202 +51,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57e61c10-c8c2-11ed-85db-49a42c6b2330
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eD6dJMwnwljaQGvQmhdIukvXAeBC7o/Ip8YKTGNWMtyeLGEr0/FHJq8UOjSl5LmArWDNGErtaFMSIcR+t7/HeiM3LTIWZfZhjc6+2md6TOdf2/sXe6vOXWDzgqVqRol21pm6NDXQP6zNyZme7pJOnb4IyRbYNCx3kIyt5Qqaf4TcH0kWQR/VoXdsZyRRRJuJ8r+k0T1owJP21Q58tkP5rlRrKTIWsqt1d9/KlWQcJahiQiGjrA6WIbWv0PxVo/pBi0PbEq9su/EUIDOXzTUpnWESw8zcLF+zoVRCykeKqYJx+2JeuepKM9lNi612N11AmdW9dgZvQAoZSu6imTwB2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iCk+TvrW1VNq3EQ1RnOyiylEuzVv3sPxZOUDFM42nd0=;
- b=YOfY9zanvrysWP6iRftJlGm0zmTc4xGq7/gMz6UrjMIbRWY8eodnImRn/id4DWMlInofaYwlU6VMVSlAw3aeUAgnmmR3OI5lg2ELBrXbNE6/eyRti5QdWqpDB7/5Cem/JBkoTQWTvd/rFALAn6uG5Wy06xKhmQP3n2KG3dVDwnAwvR+1fVcw3Tk75Nio2cTBANg+nQ4nO43xJprENku9NJkQ/ZB09hhthn4TxV+hqHoqyGiF9Tg3tluT/5JnXL0jIoJEgqYVTVOMIfb0dqL/su9WIM/u/lRdbF9SUM6JUfFuyyGCWbPEPRLje8DJYXmW/Ujvncs6IOemD9MXvkX6rA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iCk+TvrW1VNq3EQ1RnOyiylEuzVv3sPxZOUDFM42nd0=;
- b=T/HoZDXg3agxLQgqnEO1aQRrvbByaPwtUuaV89tgZRa//aT+X7ILQn+OLHE6ffq4RQo0C+eA8xt442l574QatA9aUxteQ4P+KziJ+1dSWgfsG+LEmgF0NUa0StYoi+AyzVz2FbkEy8SuG0HGLFov39oCsiNxx8B5cG5k53naJm4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Message-ID: <1fae91d1-8b2f-b300-506f-99e7d64ac3c7@oss.nxp.com>
-Date: Wed, 22 Mar 2023 17:00:10 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v3 1/2] arch/arm: irq: Add platform_get_irq_byname()
- implementation
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: michal.orzel@amd.com, sstabellini@kernel.org, Bertrand.Marquis@arm.com,
- Volodymyr_Babchuk@epam.com, rahul.singh@arm.com,
- Andrei Cherechesu <andrei.cherechesu@nxp.com>
-References: <20230313130803.3499098-1-andrei.cherechesu@oss.nxp.com>
- <20230313130803.3499098-2-andrei.cherechesu@oss.nxp.com>
- <b0fe586a-1a55-dbc3-a673-2c3809b3c1d3@xen.org>
-From: Andrei Cherechesu <andrei.cherechesu@oss.nxp.com>
-In-Reply-To: <b0fe586a-1a55-dbc3-a673-2c3809b3c1d3@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: AS4P189CA0011.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d7::12) To VI1PR04MB5056.eurprd04.prod.outlook.com
- (2603:10a6:803:5a::13)
+X-Inumbo-ID: 4b11bf7b-c8c3-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1679497662; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aHeaSbwIhnAPeb/3d+8VI6ULyHDQIcf1GGT+LzqvhL8=;
+	b=SBtO9YZFRaaP0/kiT2j28c2ZCUQUl66oWjBoFCwKN02eqic7b8kEwwU4iJG4otNvWDb7oe
+	xaQg07XQ3tB1LC3TYAjMTsM/d/z+nmfpFOH1SNs5aoi9TkrCpRuz58FzYnfwMNIOGRcLxY
+	WmuqK/qA9/9LQXPHvGQPIpyBw1jznzg=
+Message-ID: <98a714ed-befb-ed4e-f5f4-61cc469495d5@suse.com>
+Date: Wed, 22 Mar 2023 16:07:41 +0100
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5056:EE_|VI1PR04MB6798:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee9cc1be-8078-44b2-8c4a-08db2ae63a4f
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Q8KloMoi07sNLsgo2LKcz2sGctEK0SEm60WO/1ABbP9SjTXkqITYhfACyaGeiaZfiYiSfks78gd6XYxGrZYudT6p5I+Y7OXE8SsQOdBsrINDdS9EqH3og5IgxGz+i4k6GnPZI+wVWnUU0Yy+rUAUbT10uA4pydwsfHW9A1TOWK+HPbXWSPAl45jpT6kwE7OZMbH/dutF0Rj90LN7HAQj9Dr6zBcrlpRL4Xn0kmi9zmhQ9ikMupUx+ds+FgEe9ARulwJtTlIsaBCJkv0mE+v4REjBxNOvDlH2SuAe+xrg7AGVFrhKkuak22fwCSnyZ5yHkL+rEfe9AltvpUHFkj2JT1+MsTpFDTRMQfF4uyM6IX4D+z8VdnYMnpWW9mSXvkaKXUU4fDWuav2ZQdt087G8Qed9eGFHng2gaQ+A1alTQE8H3aasJmp3D0aFq3cvByzllADfFC0x6Sm33PfnGKuIO4kI32QmH3AbJRAUOCQllaStasaIWt+JGuMLWxalF98w9SwtH21ClD4oL2pHtaFeXzCdz7koSm+h2n4wqiIISEzCkr/QTMGujeCjrHKLKn0HEC2C1GEIcg5ji6CQ3JlSYl8ml92YQLfK9LlCJeal9XoHQgVyfO2rsMXFCdZwlOSgANs07r7650Y4Q9Y1RZqdECU/qVsRasV1DTniT5+URJioBbvTr2vzRGC00qsw7E4GuzsctaJ4aOJou2HL5FVV2BLz+uSOy5+UdaJFepbeO88=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5056.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(396003)(136003)(39860400002)(346002)(376002)(451199018)(5660300002)(8936002)(44832011)(41300700001)(38100700002)(86362001)(31696002)(2906002)(6486002)(478600001)(83380400001)(6666004)(2616005)(186003)(55236004)(26005)(6512007)(6506007)(31686004)(4326008)(53546011)(66476007)(316002)(8676002)(66946007)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bkhQT01CV1FhTUNDRFY4YWpuNGRkN01Pb0M0Sm1vcCtyZmNTcHJQZDBKa3Iw?=
- =?utf-8?B?ejlNV2xpenN1cEdvMjNERm1hbjFId1RjTEVQSlg1UlMybE8wK1h3VnVPYmFJ?=
- =?utf-8?B?TVlsUkVmOFh3MjRaUkJMZzUzYThKeGgyUndBQmcreVlnQUlXNFB5V0c2dm9s?=
- =?utf-8?B?R0VPR1g2RkV0bVJDY25aeHptMll2MldkWmtaU1pRZllzYUYxZWhJbkljRGV3?=
- =?utf-8?B?S0ZlaWVXc2psT21PYkIremltYmxMT3BKL1I3S2N4ajM0eVVLMzhudnc0L3RO?=
- =?utf-8?B?SnB2UEZHdUpkbzNSZ0lnYU1HbFhic1hzazVJc1FlM1ZpeGZPbGw4dm5jTTA5?=
- =?utf-8?B?cG4yWnNXYUcxTHg5S0V5aGo1QTA5NzVEMXQ4U21hNW1sZDVjRkUzUFk2Vmt2?=
- =?utf-8?B?WG1Qb1ZveXJDR1ptN2FlcG15bnROLzFoa2lraDErbnhEcnlVQ1BkVEpqOFQ3?=
- =?utf-8?B?cUdCRG9DVVM3d3hLL3cvYUk4aW4yTXVzQnl4alZlOEhRWFBRajkxdy9QOW1J?=
- =?utf-8?B?THl5RzRTZHlwdHhWNm9sa1A5eEh2VVpMRTc3NmN5K0JMTmx2VjlXeFJwTytW?=
- =?utf-8?B?azdnR0xSOUVQeFA5bjdtZ0VTWXRSaGxRWWd0N1Y3d2R5NDQ3ZXIvMkk3TFMv?=
- =?utf-8?B?Wi9tdVhlT3pLbHBlNGZNbkNvTHZEaDQrN0plWWJoYlYwa2t6MzF2Nk15RkxI?=
- =?utf-8?B?NkREbWZnNmE2VXlKdnVIVUdkYTloSEtGclAwbUpHMFlwN1hYZXloblJIR0Fo?=
- =?utf-8?B?S3orbmtlcFFTV2NQbm5ZRW41Mk1UdkxSQ2J3S1l4dGtGVWNhSC9ZSFZ6c2pw?=
- =?utf-8?B?L3I3SXBrdEE5cjlFSnB0TUhrREU1czdaYmVKWXdCcGZ0WHRuaGFBUTNLd3Vp?=
- =?utf-8?B?Z2pxWEUwQ2Z1SE1lYno0YURQeU9kd1Rtb0VBcHBvU0NaeXVWRUtPbm1IWkNM?=
- =?utf-8?B?RDR4dSt4bkZIelFab3lYRkEvK3ZHWU5aTy94aFRtbzlxNTU2d1ZFYW44d3dL?=
- =?utf-8?B?SlpHOTBoS3RkSVJheTRjY2FDUlRWMlBFWmZUQmh5WW5qaEV1b1d0elZKRHFz?=
- =?utf-8?B?Ti9GQ1BnVnJOdnFkOFZuQnRwRG53aTlnSmQ0R1Uza0E0eDdNY1dlSTJuc3dX?=
- =?utf-8?B?WWxIRkRWWkJremJidEd5NXhjVFdZbGJPQzBhR0dpeEJxd0daSnVrUUVHUllF?=
- =?utf-8?B?YkdacDE4ZkE4UmdEWkRmdEFEZnEvZHFoQXkwenRIWjNQRnVqSTF2L2wrYVZ3?=
- =?utf-8?B?SDI5SXFZdWxrdFIyejRsdnYycm9HN1NDc2tvMFJGUDM0SVBrazM0cnRidFhL?=
- =?utf-8?B?V1RQU1k5cXBNUVV5L3lFU2IzZkdnTklTbjEwdHhaVWkxRzhWWEN3SCs5eW5P?=
- =?utf-8?B?V2V6cXdSUXIwdU9GSUxlcDlIa3IrUy9rUkdveWoyVTR2YkxSb2M2dE5jR0Ro?=
- =?utf-8?B?VlBpK3pJZnJ2WlQ1Q3pyN2hjakp2MUFPdVUvK2dBUHk0a3p3VWxvNHNrenlv?=
- =?utf-8?B?ekc0ZTRKQU9RU2t4MXYvcGo0Rnoyd2xmTGp6Nktpclk2aUNOOTNoOXJyRVps?=
- =?utf-8?B?bkFLcDhjN2lkTGFEUXFFdllQN2UzSE13c2dTdHUzNFFXd0pBdmZlUE16MXZC?=
- =?utf-8?B?NElJNXZjek83aHJRaXJLWWFhYlE0NWNLWW0xUmhVRFJpVnVqbm9aNkowbW9T?=
- =?utf-8?B?anNrOG1jN3RzVXhWS21UQWJTUGRkL3NBejErdFZ6MjE4SVlpekk2TUlhbnFz?=
- =?utf-8?B?TkpjNUpnMHNGVUwrdGIvd2tFUkR5OFFSVTNQMGU1b3NYWkxaSDlsZ3l2YVFw?=
- =?utf-8?B?RVY4bDNDdXRrS0RLaVFVSjdFSURaVkRvTzhnUWU4SzZUenhSQm1uWlVUKzh2?=
- =?utf-8?B?ZGVkWEY2cm9GN2lhWllNbUFwcm5LN0xqTmFBVEc1ekNiY1F2eUM4MldSQ3hj?=
- =?utf-8?B?ck9XeTROSWtHRURLVWRLbHlWNHlRZEtBdnJYSlQ0SW9jSXpuZEt6emg0MXhN?=
- =?utf-8?B?a2o3RXBWemVySjdnR0Q2TmhNUHpIYmdPNVRXUnFnTDE1SWNpZjBGRmN1U2hR?=
- =?utf-8?B?Zy8xK2tXenFNenkvbzZIUHgyZ2JVdHQ4WmMxWWdidW16ZExFeTlRYW9ZN01Y?=
- =?utf-8?B?SWFQb3JraEVHRWwyTVZaY2RzWElBM3hNSGovcVM5WER6QVY4cVErZ0tGL3NO?=
- =?utf-8?B?QXc9PQ==?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee9cc1be-8078-44b2-8c4a-08db2ae63a4f
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5056.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2023 15:00:51.5943
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0ejzMqDI5maRGWEnNZHmJYhsMEpuruknT2lnFgxABKwiHZhsRvPukvwMeyXx/HrBAMTdwvPazmdBxj19PixWkxQ524QM9J9DaxkUqUWHIcM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6798
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH] x86/PVH: avoid 32-bit build warning when obtaining VGA
+ console info
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <2d2193ff-670b-0a27-e12d-2c5c4c121c79@suse.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <2d2193ff-670b-0a27-e12d-2c5c4c121c79@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------2yyhjc13a7BmYmNVFvwSF3EX"
 
-Hi Julien,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------2yyhjc13a7BmYmNVFvwSF3EX
+Content-Type: multipart/mixed; boundary="------------phXdse7wD1Mn9gEPwPlwFJby";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <98a714ed-befb-ed4e-f5f4-61cc469495d5@suse.com>
+Subject: Re: [PATCH] x86/PVH: avoid 32-bit build warning when obtaining VGA
+ console info
+References: <2d2193ff-670b-0a27-e12d-2c5c4c121c79@suse.com>
+In-Reply-To: <2d2193ff-670b-0a27-e12d-2c5c4c121c79@suse.com>
 
-On 21/03/2023 18:56, Julien Grall wrote:
-> Hi Andrei,
-> 
-> I realized this has already been merged. But I would like to point out a
-> few things for future series.
-> 
-> On 13/03/2023 13:08, Andrei Cherechesu (OSS) wrote:
->> From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
->>
->> Moved implementation for the function which parses the IRQs of a DT
->> node by the "interrupt-names" property from the SMMU-v3 driver
->> to the IRQ core code and made it non-static to be used as helper.
->>
->> Also changed it to receive a "struct dt_device_node*" as parameter,
->> like its counterpart, platform_get_irq(). Updated its usage inside
->> the SMMU-v3 driver accordingly.
->>
->> Signed-off-by: Andrei Cherechesu <andrei.cherechesu@nxp.com>
->> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
->> ---
->>   xen/arch/arm/include/asm/irq.h        |  2 ++
->>   xen/arch/arm/irq.c                    | 14 +++++++++++
->>   xen/drivers/passthrough/arm/smmu-v3.c | 35 +++++----------------------
->>   3 files changed, 22 insertions(+), 29 deletions(-)
->>
->> diff --git a/xen/arch/arm/include/asm/irq.h
->> b/xen/arch/arm/include/asm/irq.h
->> index 245f49dcba..af94f41994 100644
->> --- a/xen/arch/arm/include/asm/irq.h
->> +++ b/xen/arch/arm/include/asm/irq.h
->> @@ -89,6 +89,8 @@ int irq_set_type(unsigned int irq, unsigned int type);
->>     int platform_get_irq(const struct dt_device_node *device, int index);
->>   +int platform_get_irq_byname(struct dt_device_node *np, const char
->> *name);
->> +
->>   void irq_set_affinity(struct irq_desc *desc, const cpumask_t
->> *cpu_mask);
->>     /*
->> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
->> index 79718f68e7..ded495792b 100644
->> --- a/xen/arch/arm/irq.c
->> +++ b/xen/arch/arm/irq.c
->> @@ -718,6 +718,20 @@ int platform_get_irq(const struct dt_device_node
->> *device, int index)
->>       return irq;
->>   }
->>   +int platform_get_irq_byname(struct dt_device_node *np, const char
->> *name)
-> 
-> You are changing the name but don't really explain why. "np" also ought
-> to be const as this is not meant to be modified.
-> 
+--------------phXdse7wD1Mn9gEPwPlwFJby
+Content-Type: multipart/mixed; boundary="------------H0z8szUqPAxsBe0JBgNNkCr0"
 
-I did not necessarily see it as a name change, but rather as adding a
-more generic helper to be used across the codebase, and the "_optional"
-suffix did not seem a good fit since it is an alternative to
-"platform_get_irq" functionally, and I tried to keep the naming
-convention. I will have it in mind for future series.
+--------------H0z8szUqPAxsBe0JBgNNkCr0
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-I agree with "np" being const, I saw you have already submitted a patch
-to change it.
+T24gMjEuMDMuMjMgMDk6MDMsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBJbiB0aGUgY29tbWl0
+IHJlZmVyZW5jZWQgYmVsb3cgSSBmYWlsZWQgdG8gcGF5IGF0dGVudGlvbiB0byB0aGlzIGNv
+ZGUNCj4gYWxzbyBiZWluZyBidWlsZGFibGUgYXMgMzItYml0LiBBZGp1c3QgdGhlIHR5cGUg
+b2YgInJldCIgLSB0aGVyZSdzIG5vDQo+IHJlYWwgbmVlZCBmb3IgaXQgdG8gYmUgd2lkZXIg
+dGhhbiAzMiBiaXRzLg0KPiANCj4gRml4ZXM6IDkzNGVmMzNlZTc1YyAoIng4Ni9QVkg6IG9i
+dGFpbiBWR0EgY29uc29sZSBpbmZvIGluIERvbTAiKQ0KPiBSZXBvcnRlZC1ieToga2VybmVs
+IHRlc3Qgcm9ib3QgPGxrcEBpbnRlbC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVs
+aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3Mg
+PGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoNCg==
+--------------H0z8szUqPAxsBe0JBgNNkCr0
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
->> +{
->> +    int index;
->> +
->> +    if ( unlikely(!name) )
->> +        return -EINVAL;
->> +
->> +    index = dt_property_match_string(np, "interrupt-names", name);
->> +    if ( index < 0 )
->> +        return index;
->> +
->> +    return platform_get_irq(np, index);
-> 
-> The existing helper was returning -ENODEV when there is an error. But
-> here, you went differently. This is the sort of thing that ought to be
-> explained in the commit message because it is not obvious why you
-> changed it *and* that you actually checked the callers are OK with that.
-> 
-> Thankfully they are all.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-The existing helper was only visible and used within the scope of
-smmu-v3.c, so changing it was not a big impact. I agree that it is not
-obvious, though, and I will mention something like that in future series.
+--------------H0z8szUqPAxsBe0JBgNNkCr0--
 
-Thank you for reviewing it.
+--------------phXdse7wD1Mn9gEPwPlwFJby--
 
-Andrei
+--------------2yyhjc13a7BmYmNVFvwSF3EX
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-> 
-> Cheers,
-> 
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQbGb0FAwAAAAAACgkQsN6d1ii/Ey/l
+dAf8DzHIji2CVQwJMPIdxNqXIP5ZTNiv5KMFeUO34MpYIFtezAy5tjZFiB7u+mHRZ6FPyar557xr
+OwQHwS5wdz4XP6CAtDvjz0GXLjYyNPff2HyW4DDvqE6u+YT3PvobM4RDj9aUkYGTRyEybDxGff2J
+lP73NgMI/Iw+rZFgsFXCh+UiqTBnDsAPWghArjG5o4WAu2OyEjVtwaz6Z/V0ab/UPwxjxNuaZZMy
+4WZt7IVGB84mW2/XdDm71U5FKCqjaGJClQ5T1WPZjNz6F1M/7U3V7NUDoFEIUT3+TpRWmUJlhSzF
+oi031oBe/fcAokNCl4vTKmizuZvyvY1IarxrfcbfRw==
+=LxvA
+-----END PGP SIGNATURE-----
+
+--------------2yyhjc13a7BmYmNVFvwSF3EX--
 
