@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 886B16C4419
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 08:30:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513115.793643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B82416C4418
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 08:30:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513116.793653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pesud-0002cA-2s; Wed, 22 Mar 2023 07:29:35 +0000
+	id 1pesun-0002tD-Fg; Wed, 22 Mar 2023 07:29:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513115.793643; Wed, 22 Mar 2023 07:29:35 +0000
+Received: by outflank-mailman (output) from mailman id 513116.793653; Wed, 22 Mar 2023 07:29:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pesuc-0002Ym-W9; Wed, 22 Mar 2023 07:29:34 +0000
-Received: by outflank-mailman (input) for mailman id 513115;
- Wed, 22 Mar 2023 07:29:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pesun-0002qQ-CD; Wed, 22 Mar 2023 07:29:45 +0000
+Received: by outflank-mailman (input) for mailman id 513116;
+ Wed, 22 Mar 2023 07:29:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=pl0Y=7O=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1pesua-0002YX-V3
- for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 07:29:33 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20616.outbound.protection.outlook.com
- [2a01:111:f400:7e83::616])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 475ea007-c883-11ed-b464-930f4c7d94ae;
- Wed, 22 Mar 2023 08:29:30 +0100 (CET)
-Received: from DM5PR12MB2504.namprd12.prod.outlook.com (2603:10b6:4:b5::19) by
- SA3PR12MB7879.namprd12.prod.outlook.com (2603:10b6:806:306::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6178.37; Wed, 22 Mar 2023 07:29:25 +0000
-Received: from DM5PR12MB2504.namprd12.prod.outlook.com
- ([fe80::4f9:60f8:cb12:d022]) by DM5PR12MB2504.namprd12.prod.outlook.com
- ([fe80::4f9:60f8:cb12:d022%3]) with mapi id 15.20.6178.037; Wed, 22 Mar 2023
- 07:29:25 +0000
+ (envelope-from <SRS0=+B1I=7O=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pesum-0002pm-29
+ for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 07:29:44 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4f7466e7-c883-11ed-85db-49a42c6b2330;
+ Wed, 22 Mar 2023 08:29:42 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 86F4420ACD;
+ Wed, 22 Mar 2023 07:29:41 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5DF0F13416;
+ Wed, 22 Mar 2023 07:29:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id TjV4FWWuGmS8BQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 22 Mar 2023 07:29:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,228 +51,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 475ea007-c883-11ed-b464-930f4c7d94ae
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kQcNTCvG4of6X23xWN+J/uXB5DKvgUzOAvSY8KiqStQXTy8zP3hlUQJedxb7q/PLuis03dB1ibuoWLBVo+/lE0xP1BAXWDF8bF4ovAp0+Gqwh470WhGZyB3D6ibErRdpW8BAgdWDHqAInzhAPy4E+a4ppqMwv1zgf1h7pYpoyqxt1ISJntgbe+efvSRHYKt2XylngCKKQNLMiKsGcitW6wCPN7qF1m014qwLOr7LDyfUTyU2GMVZF2LQXYdagd/XNv/C7C9S68UGkTBrvTVPEbQViairqURLjukyGhB1oaqU/QRTVEe2Gurfmw+Fx4G5YEo+W5pKuoPpfDgeHeKBLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6E98sY3omzEpwiKLXUq5L2DY1IcaLnLCIrWhwbWnvt8=;
- b=MDH8GPh0P0pwchE+BeQ/EkVFNT3w2EwyjNMWXTxCMTbm+hEpXYd5X+0UvrFKkqeeTpqMLRvCgktc8wsIfnkYkcFFCMU4G8VoIQE9q920zS6xZRqvb5V5gynTpuPygnk3MnwY3Q6dKvyDbPWlmbcrcqRKelUytVBS2Axr3DWhAxyjR2BurZcejiqnuwZTVkCBS9VbXeIYfe5hD5hdV+u4Jbs7vk9AWI/aj0eFQ5wbrfmdQ4PJnmatLWfFBFoS77Xj2BSk1CdfGznv9M0XmegRDUmQ9J8gaWUMzzxuOh23+EDAj7L9lQ4PEW23bgIqlTVSmi2x9I63iv4Xlhbi5UCjsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6E98sY3omzEpwiKLXUq5L2DY1IcaLnLCIrWhwbWnvt8=;
- b=J+7ch7r0dYI0HzfTuRnsda6I7Fusg1ezTxz9Mjoj+RMQRLTjcqI1DXL8UxlvufAw4yh+cWZaQuJLt1fHrDFKc45y0/JP0GBDf1l6JgrEbrEiLG3UHNte9JTBWU5ipnDShMmwTB54jwnwNIQ1aBQ5ANrjMdWwGmqsSoRi+gKmZxQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Date: Wed, 22 Mar 2023 15:28:58 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
-	"Koenig, Christian" <Christian.Koenig@amd.com>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
-	Xenia Ragiadakou <burzalodowa@gmail.com>,
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	"Zhang, Julia" <Julia.Zhang@amd.com>,
-	"Chen, Jiqian" <Jiqian.Chen@amd.com>,
-	Roger Pau =?utf-8?B?TW9ubu+/vQ==?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [RFC XEN PATCH 2/6] vpci: accept BAR writes if dom0 is PVH
-Message-ID: <ZBquOn8x7IyI33Pj@amd.com>
-References: <20230312075455.450187-1-ray.huang@amd.com>
- <20230312075455.450187-3-ray.huang@amd.com>
- <8adfeb57-1ddd-255d-6d93-24a74b463f59@suse.com>
- <ZBl6iU6T1CsWqVx9@amd.com>
- <ace92506-fd86-9da4-aeb2-37a80094d02a@suse.com>
- <ZBmDl8XjIos57EIy@amd.com>
- <cae4e673-65d8-273b-66b8-08d374797da2@suse.com>
- <ZBmZxnyZWrni57Ry@amd.com>
- <f5634fb6-fd41-6d42-603a-4df69adb929a@suse.com>
- <ZBmrI3wrrwsK5Q+0@amd.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZBmrI3wrrwsK5Q+0@amd.com>
-X-ClientProxiedBy: SI2PR02CA0042.apcprd02.prod.outlook.com
- (2603:1096:4:196::19) To DM5PR12MB2504.namprd12.prod.outlook.com
- (2603:10b6:4:b5::19)
+X-Inumbo-ID: 4f7466e7-c883-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1679470181; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=JOKOOvRMYBast+P2ovuw88gKbObE7cL5tW4oNrKJdGQ=;
+	b=UrF5XDI+jQfpduXz/iM0LcZ7/j04Q+Dz32XuuDhRYDJC/EKz8bi9np3tlNgbhR5PZRHQpY
+	pigPPHr8R6zodXUQUtnwooglCS8o8jmeQVTsZKu+LozZditzo+zagXjLdu4FiGiEoSKrdD
+	q6XyAziy6lWbXChehSwH31pOqTCOJG0=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2] tools: use libxenlight for writing xenstore-stubdom console nodes
+Date: Wed, 22 Mar 2023 08:29:39 +0100
+Message-Id: <20230322072939.7413-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2504:EE_|SA3PR12MB7879:EE_
-X-MS-Office365-Filtering-Correlation-Id: 26b7a22c-e824-47d4-d230-08db2aa729e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	sQutX75z2i6c3P/ywjVWPhHK35TjJZrwu/3BbFMu0njqIxV1mtMbnIudiPMKPk95bAeRvlarm3IqC3KM6OjUWodKZACQz6lrnL3RHgJBkvrKC5iTeJT8VjcaNLgRVTgfTZ7ak/2O4/iaC9KQjeFFRy6kYBTE3NWCuyPS5kg2g5E2nALEZlkHTDLwuuHqwIfpHs9Hn1owpOmHTfQrGhxlnmvxw8od/ZjWeD3S8XEVKTkWOlCe4M6NXa5ZdJCNh3bgt3mDNQo8BvwDPTrB7jrbpGqP3m6gwKTDVVE3O0vu6TCQGLwRPz5bFbk1Ig058nQsD+gfDSAH92KVqkrPTpZTmqIEPJ1GYgS1H3skY8H23PtDgsoo2Asq5ybLFowgvqiF1FFZB/nqc7fF82Q74nOp/Fr+a7nkAJPIBP9OLbDutIx+0FqEluFf70biDC+6QSHUBENJ/rqbTeuNCFjGi1qKmg3Hb3338vtj3fHcn466IXnVJVuDpWNr6fDDlWtCBiHI5xZz5MrQvvPWBlF/AXr+peqR1Jh7ljV0as8ku1KBngFK4PQXMqp82uACgTP7Jq1yqyzkOTEDMM9ZjUe+o1o9Jwdn0XOtbbI/02ivCQcbuE14c0PZAhHQps1YivSxTrcdPnmOHz1eQckymqWTmukWkw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM5PR12MB2504.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(376002)(39860400002)(136003)(366004)(346002)(451199018)(38100700002)(86362001)(26005)(36756003)(41300700001)(4326008)(66556008)(6512007)(6916009)(8676002)(5660300002)(8936002)(66476007)(2906002)(66946007)(478600001)(6486002)(186003)(2616005)(83380400001)(316002)(6666004)(54906003)(6506007)(53546011);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?dXC9i6WFPcOFW51pJiDwYRFsPwkrEjwSyfzoz78SRhMhHJmkQ440+ewghBhl?=
- =?us-ascii?Q?dXj+vkXWGxdKQEv74m3zO+EVzXgOWuPAWHepLje8LZP0o0ceMDjFmGnLB/lW?=
- =?us-ascii?Q?xprQq9ZALCq9QQglHWxL8W6o7jbVDwZppu+MUTuWCALLLYcGSKyjmrBKah9c?=
- =?us-ascii?Q?+bN1hRXuqVNsNEdv0mESovOz0s/hdvZAsv8uvN8/Epu2e1iQZgW1qBsBLrB1?=
- =?us-ascii?Q?3FXIi86jpmyyfaUIRkuFVjkTTUxUaNDMPXq/yor7455PUZA4+VK0TJbp1l1v?=
- =?us-ascii?Q?GY7Gl7E35N0ldexGigWq0cz1YF7c445ZJ+Z71nwT/Mbocs27X9UPzpWtyMpV?=
- =?us-ascii?Q?zV1tbWEeVljIyH7OXcPjiDzPO6JRpPikoMN+SaVTq4/jiglL4KgspNtfiSmE?=
- =?us-ascii?Q?inKMczEXN/Pnla/qklX2rSO28cQKB5dnLaFgh+hpjdSJJSriUKM1TTuq+39y?=
- =?us-ascii?Q?HdX/qlgD12Xvo+YTwfuSDdDNIlq7Itp24K6aP2LZ6OJblxb6zm8IG5ekS1iS?=
- =?us-ascii?Q?UWIEbyD8co4jvRJUIme3gbW5sa/P7kLCCh6vvaqcKSiv/4WGtrY+1HPhz70G?=
- =?us-ascii?Q?Ic1emjDhpFLI8h4OujFvTXiwoEUI3xEWkkIgU+YdqCkQLDLO9WLxvaUxMIvJ?=
- =?us-ascii?Q?BMR57KyCee4adkvJUxY6Bu8/hf8Xzou7yOYrnz6ZfmbAAQR0PWumINYAQfeB?=
- =?us-ascii?Q?mPGWpqUshfzmU5kxOh/RnNbEkRHST57RbB5qS7AnCVEp7f7RdTNm7AcPHSad?=
- =?us-ascii?Q?vTu80QH6GGtUZmSfSC7qFB5+zyybFNYz/ptp1gHancQ8DzFdyi3UwAly7jpC?=
- =?us-ascii?Q?W1Owp12vu3Aa2li7BuU+ux6h6Q489s6rmD/Wtu8fQTui6WXBUTftEfdp3hd0?=
- =?us-ascii?Q?HZ2cRBxrSM2oBq65bH16KeGYo++CRlXVOO/vTSUCvnus1yUb0IVtBxBYXMbh?=
- =?us-ascii?Q?sQqRFKrPtRUKSzCbIFD/+4zKDUJuYSgrjJ5g5y9YShCKJX9m9L3hjW0mf7d3?=
- =?us-ascii?Q?bw4yaXxzBPkXbk7+gsgXSbmQpUw02fJP7HJMO/yJa+VqW0afsPmg5OHP1PNy?=
- =?us-ascii?Q?l1OqXDHLQnmFyd7bjYh0WU39rKrHVO/YaKGh0D8Up5Il0fWrxCrZHIWbXl2B?=
- =?us-ascii?Q?f0Xgse8KEveu/H08jBNKPcL+N6PoV4fxtXbq9RQCU90tJEVlEgEfwSyperKp?=
- =?us-ascii?Q?cix0Mf5NgHLHQJ/g6HW137yckStKeDbH8BIop0Ixd+VDtYfmW0iprdx73W5l?=
- =?us-ascii?Q?+VOTanpfa8pany5rJA2d3qAl/ols6d9WnEBZqP2K7TCOC2tyIvtnIWt41aoD?=
- =?us-ascii?Q?owG0mZf8q3MjvVgHMpko9IFiZRReDO65RaQwQHk9Uklfz6T9V73Q1l1SbzLv?=
- =?us-ascii?Q?8eE7OtypW9QLahVfOoKzn6oRVI1LH7l2MEbfCqjaUubCs75dWU6qwe1CqTYv?=
- =?us-ascii?Q?4Ow4rbdMBDSrAV472u26fpsJuob1DZON5X3uf8YA384l2wSf6xtKYMD/BwEA?=
- =?us-ascii?Q?XIBLRPOQZbAcMbVwbYFF37aLlK1rk2egqwqNHPWbS3SCwsfeLn+ekDSmxUfv?=
- =?us-ascii?Q?xAESVDgadzVRkd0ryaj6lNorgYyS0EtCUBt1qZJr?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26b7a22c-e824-47d4-d230-08db2aa729e6
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR12MB2504.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2023 07:29:25.6142
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9frEEaxbIhXrJ/pOZtYqKnaqHcVlrrfaOwStcBMe8rrEj4Tn2kLr3ubTylVTlwejcsB6+R+G0UVXijG4PYn4Lw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7879
+Content-Transfer-Encoding: 8bit
 
-On Tue, Mar 21, 2023 at 09:03:58PM +0800, Huang Rui wrote:
-> On Tue, Mar 21, 2023 at 08:27:21PM +0800, Jan Beulich wrote:
-> > On 21.03.2023 12:49, Huang Rui wrote:
-> > > Thanks, but we found if dom0 is PV domain, the passthrough device will
-> > > access this function to write the real bar.
-> > 
-> > Can you please be quite a bit more detailed about this? The specific code
-> > paths taken (in upstream software) to result in such would of of interest.
-> > 
-> 
-> yes, please wait for a moment. let me capture a trace dump in my side.
-> 
+Instead of duplicating libxl__device_console_add() work in
+init-xenstore-domain.c, just use libxenlight.
 
-Sorry, we are wrong that if Xen PV dom0, bar_write() won't be called,
-please ignore above information.
+This requires to add a small wrapper function to libxenlight, as
+libxl__device_console_add() is an internal function.
 
-While xen is on initialization on PVH dom0, it will add all PCI devices in
-the real bus including 0000:03:00.0 (VGA device: GPU) and 0000:03:00.1
-(Audio device).
+This at once removes a theoretical race between starting xenconsoled
+and xenstore-stubdom, as the old code wasn't using a single
+transaction for writing all the entries, leading to the possibility
+that xenconsoled would see only some of the entries being written.
 
-Audio is another function in the pcie device, but we won't use it here. So
-we will remove it after that.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- make libxl_console_add_xenstore() async capable (Anthony Perard)
+- change function parameter types (Anthony Perard)
+---
+ tools/helpers/init-xenstore-domain.c | 42 +++++++++-------------------
+ tools/include/libxl.h                | 14 ++++++++++
+ tools/libs/light/libxl_console.c     | 23 +++++++++++++++
+ 3 files changed, 50 insertions(+), 29 deletions(-)
 
-Please see below xl dmesg:
+diff --git a/tools/helpers/init-xenstore-domain.c b/tools/helpers/init-xenstore-domain.c
+index 85cc9e8381..0950ba7dc5 100644
+--- a/tools/helpers/init-xenstore-domain.c
++++ b/tools/helpers/init-xenstore-domain.c
+@@ -11,6 +11,7 @@
+ #include <xenguest.h>
+ #include <xenstore.h>
+ #include <xentoollog.h>
++#include <libxl.h>
+ #include <xen/sys/xenbus_dev.h>
+ #include <xen-xsm/flask/flask.h>
+ #include <xen/io/xenbus.h>
+@@ -403,15 +404,6 @@ static void do_xs_write(struct xs_handle *xsh, char *path, char *val)
+         fprintf(stderr, "writing %s to xenstore failed.\n", path);
+ }
+ 
+-static void do_xs_write_dir_node(struct xs_handle *xsh, char *dir, char *node,
+-                                 char *val)
+-{
+-    char full_path[100];
+-
+-    snprintf(full_path, 100, "%s/%s", dir, node);
+-    do_xs_write(xsh, full_path, val);
+-}
+-
+ static void do_xs_write_dom(struct xs_handle *xsh, char *path, char *val)
+ {
+     char full_path[64];
+@@ -425,9 +417,10 @@ int main(int argc, char** argv)
+     int opt;
+     xc_interface *xch;
+     struct xs_handle *xsh;
+-    char buf[16], be_path[64], fe_path[64];
++    char buf[16];
+     int rv, fd;
+     char *maxmem_str = NULL;
++    libxl_ctx *ctx;
+ 
+     while ( (opt = getopt_long(argc, argv, "v", options, NULL)) != -1 )
+     {
+@@ -528,27 +521,18 @@ int main(int argc, char** argv)
+     if (maxmem)
+         snprintf(buf, 16, "%d", maxmem * 1024);
+     do_xs_write_dom(xsh, "memory/static-max", buf);
+-    snprintf(be_path, 64, "/local/domain/0/backend/console/%d/0", domid);
+-    snprintf(fe_path, 64, "/local/domain/%d/console", domid);
+-    snprintf(buf, 16, "%d", domid);
+-    do_xs_write_dir_node(xsh, be_path, "frontend-id", buf);
+-    do_xs_write_dir_node(xsh, be_path, "frontend", fe_path);
+-    do_xs_write_dir_node(xsh, be_path, "online", "1");
+-    snprintf(buf, 16, "%d", XenbusStateInitialising);
+-    do_xs_write_dir_node(xsh, be_path, "state", buf);
+-    do_xs_write_dir_node(xsh, be_path, "protocol", "vt100");
+-    do_xs_write_dir_node(xsh, fe_path, "backend", be_path);
+-    do_xs_write_dir_node(xsh, fe_path, "backend-id", "0");
+-    do_xs_write_dir_node(xsh, fe_path, "limit", "1048576");
+-    do_xs_write_dir_node(xsh, fe_path, "type", "xenconsoled");
+-    do_xs_write_dir_node(xsh, fe_path, "output", "pty");
+-    do_xs_write_dir_node(xsh, fe_path, "tty", "");
+-    snprintf(buf, 16, "%d", console_evtchn);
+-    do_xs_write_dir_node(xsh, fe_path, "port", buf);
+-    snprintf(buf, 16, "%ld", console_gfn);
+-    do_xs_write_dir_node(xsh, fe_path, "ring-ref", buf);
+     xs_close(xsh);
+ 
++    if ( libxl_ctx_alloc(&ctx, LIBXL_VERSION, 0, logger))
++    {
++        fprintf(stderr, "libxl_ctx_alloc() failed.\n");
++        rv = 3;
++        goto out;
++    }
++    libxl_console_add_xenstore(ctx, domid, 0, console_evtchn, console_gfn,
++                               NULL);
++    libxl_ctx_free(ctx);
++
+     fd = creat(XEN_RUN_DIR "/xenstored.pid", 0666);
+     if ( fd < 0 )
+     {
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index 5c65222f1e..cfa1a19131 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -547,6 +547,11 @@
+  */
+ #define LIBXL_HAVE_DEVICE_DISK_SPECIFICATION 1
+ 
++/*
++ * LIBXL_HAVE_CONSOLE_ADD_XENSTORE indicates presence of the function
++ * libxl_console_add_xenstore() in libxl.
++ */
++#define LIBXL_HAVE_CONSOLE_ADD_XENSTORE 1
+ /*
+  * libxl ABI compatibility
+  *
+@@ -1987,6 +1992,15 @@ int libxl_console_get_tty(libxl_ctx *ctx, uint32_t domid, int cons_num,
+  */
+ int libxl_primary_console_get_tty(libxl_ctx *ctx, uint32_t domid_vm, char **path);
+ 
++/* libxl_console_add_xenstore writes the Xenstore entries for a domain's
++ * primary console based on domid, event channel port and the guest frame
++ * number of the PV console's ring page.
++ */
++int libxl_console_add_xenstore(libxl_ctx *ctx, uint32_t domid, uint32_t backend,
++                               unsigned int evtch, unsigned long gfn,
++                               const libxl_asyncop_how *ao_how)
++                               LIBXL_EXTERNAL_CALLERS_ONLY;
++
+ /* May be called with info_r == NULL to check for domain's existence.
+  * Returns ERROR_DOMAIN_NOTFOUND if domain does not exist (used to return
+  * ERROR_INVAL for this scenario). */
+diff --git a/tools/libs/light/libxl_console.c b/tools/libs/light/libxl_console.c
+index d8b2bc5465..f497be141b 100644
+--- a/tools/libs/light/libxl_console.c
++++ b/tools/libs/light/libxl_console.c
+@@ -346,6 +346,29 @@ out:
+     return rc;
+ }
+ 
++int libxl_console_add_xenstore(libxl_ctx *ctx, uint32_t domid, uint32_t backend,
++                               unsigned int evtch, unsigned long gfn,
++                               const libxl_asyncop_how *ao_how)
++{
++    AO_CREATE(ctx, domid, ao_how);
++    int rc;
++    libxl__device_console console = { .backend_domid = backend,
++                                      .output = "pty",
++                                      .consback = LIBXL__CONSOLE_BACKEND_XENCONSOLED,
++                                    };
++    libxl__domain_build_state state = { .console_port = evtch,
++                                        .console_mfn = gfn,
++                                      };
++    libxl__device device = { };
++
++    rc = libxl__device_console_add(gc, domid, &console, &state, &device);
++    if (rc < 0)
++        LOGED(ERROR, domid, "Adding console Xenstore entries");
++
++    libxl__ao_complete(egc, ao, rc);
++    return AO_INPROGRESS;
++}
++
+ int libxl__device_vuart_add(libxl__gc *gc, uint32_t domid,
+                             libxl__device_console *console,
+                             libxl__domain_build_state *state)
+-- 
+2.35.3
 
-(XEN) PCI add device 0000:03:00.0
-(XEN) d0v0 bar_write Ray line 391 0000:03:00.1 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:03:00.1 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 391 0000:03:00.1 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:03:00.1 bar->enabled 0
-(XEN) PCI add device 0000:03:00.1
-(XEN) d0v0 bar_write Ray line 391 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 391 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 391 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 391 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 391 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 391 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 391 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 391 0000:04:00.0 bar->enabled 0
-(XEN) d0v0 bar_write Ray line 406 0000:04:00.0 bar->enabled 0
-(XEN) PCI add device 0000:04:00.0
-
-...
-
-(XEN) PCI add device 0000:07:00.7
-(XEN) arch/x86/hvm/svm/svm.c:2017:d0v0 RDMSR 0xc0010058 unimplemented
-(XEN) arch/x86/hvm/svm/svm.c:2017:d0v0 RDMSR 0xc0011020 unimplemented
-(XEN) PCI remove device 0000:03:00.1
-
-We run below script to remove audio
-
-echo -n "1" > /sys/bus/pci/devices/0000:03:00.1/remove
-
-(XEN) arch/x86/hvm/svm/svm.c:2017:d0v0 RDMSR 0xc001029b unimplemented
-(XEN) arch/x86/hvm/svm/svm.c:2017:d0v0 RDMSR 0xc001029a unimplemented
-
-Then we will run "xl pci-assignable-add 03:00.0" to assign GPU as
-passthrough. At this moment, the real bar is trying to be written.
-
-(XEN) d0v7 bar_write Ray line 391 0000:03:00.0 bar->enabled 1
-(XEN) d0v7 bar_write Ray line 406 0000:03:00.0 bar->enabled 1
-(XEN) Xen WARN at drivers/vpci/header.c:408
-(XEN) ----[ Xen-4.18-unstable  x86_64  debug=y  Not tainted ]----
-(XEN) CPU:    8
-(XEN) RIP:    e008:[<ffff82d040263cb9>] drivers/vpci/header.c#bar_write+0xc0/0x1ce
-(XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor (d0v7)
-(XEN) rax: ffff8303fc36d06c   rbx: ffff8303f90468b0   rcx: 0000000000000010
-(XEN) rdx: 0000000000000002   rsi: ffff8303fc36a020   rdi: ffff8303fc36a018
-(XEN) rbp: ffff8303fc367c18   rsp: ffff8303fc367be8   r8:  0000000000000001
-(XEN) r9:  ffff8303fc36a010   r10: 0000000000000001   r11: 0000000000000001
-(XEN) r12: 00000000d0700000   r13: ffff8303fc6d9230   r14: ffff8303fc6d9270
-(XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 00000000003506e0
-(XEN) cr3: 00000003fc3c4000   cr2: 00007f180f6371e8
-(XEN) fsb: 00007fce655edbc0   gsb: ffff88822f3c0000   gss: 0000000000000000
-(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-(XEN) Xen code around <ffff82d040263cb9> (drivers/vpci/header.c#bar_write+0xc0/0x1ce):
-(XEN)  b6 53 14 f6 c2 02 74 02 <0f> 0b 48 8b 03 45 84 ff 0f 85 ec 00 00 00 48 b9
-(XEN) Xen stack trace from rsp=ffff8303fc367be8:
-(XEN)    00000024fc367bf8 ffff8303f9046a50 0000000000000000 0000000000000004
-(XEN)    0000000000000004 0000000000000024 ffff8303fc367ca0 ffff82d040263683
-(XEN)    00000300fc367ca0 d070000003003501 00000024d0700000 ffff8303fc6d9230
-(XEN)    0000000000000000 0000000000000000 0000002400000004 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000004 00000000d0700000
-(XEN)    0000000000000024 0000000000000000 ffff82d040404bc0 ffff8303fc367cd0
-(XEN)    ffff82d0402c60a8 0000030000000001 ffff8303fc367d88 0000000000000000
-(XEN)    ffff8303fc610800 ffff8303fc367d30 ffff82d0402c54da ffff8303fc367ce0
-(XEN)    ffff8303fc367fff 0000000000000004 ffff830300000004 00000000d0700000
-(XEN)    ffff8303fc610800 ffff8303fc367d88 0000000000000001 0000000000000000
-(XEN)    0000000000000000 ffff8303fc367d58 ffff82d0402c5570 0000000000000004
-(XEN)    ffff8304065ea000 ffff8303fc367e28 ffff8303fc367dd0 ffff82d0402b5357
-(XEN)    0000000000000cfc ffff8303fc621000 0000000000000000 0000000000000000
-(XEN)    0000000000000cfc 00000000d0700000 0000000400000001 0001000000000000
-(XEN)    0000000000000004 0000000000000004 0000000000000000 ffff8303fc367e44
-(XEN)    ffff8304065ea000 ffff8303fc367e10 ffff82d0402b56d6 0000000000000000
-(XEN)    ffff8303fc367e44 0000000000000004 0000000000000cfc ffff8304065e6000
-(XEN)    0000000000000000 ffff8303fc367e30 ffff82d0402b6bcc ffff8303fc367e44
-(XEN)    0000000000000001 ffff8303fc367e70 ffff82d0402c5e80 d070000040203490
-(XEN)    000000000000007b ffff8303fc367ef8 ffff8304065e6000 ffff8304065ea000
-(XEN) Xen call trace:
-(XEN)    [<ffff82d040263cb9>] R drivers/vpci/header.c#bar_write+0xc0/0x1ce
-(XEN)    [<ffff82d040263683>] F vpci_write+0x123/0x26c
-(XEN)    [<ffff82d0402c60a8>] F arch/x86/hvm/io.c#vpci_portio_write+0xa0/0xa7
-(XEN)    [<ffff82d0402c54da>] F hvm_process_io_intercept+0x203/0x26f
-(XEN)    [<ffff82d0402c5570>] F hvm_io_intercept+0x2a/0x4c
-(XEN)    [<ffff82d0402b5357>] F arch/x86/hvm/emulate.c#hvmemul_do_io+0x29b/0x5eb
-(XEN)    [<ffff82d0402b56d6>] F arch/x86/hvm/emulate.c#hvmemul_do_io_buffer+0x2f/0x6a
-(XEN)    [<ffff82d0402b6bcc>] F hvmemul_do_pio_buffer+0x33/0x35
-(XEN)    [<ffff82d0402c5e80>] F handle_pio+0x70/0x1b7
-(XEN)    [<ffff82d04029dc7f>] F svm_vmexit_handler+0x10ba/0x18aa
-(XEN)    [<ffff82d0402034e5>] F svm_stgi_label+0x8/0x18
-(XEN)
-(XEN) d0v7 bar_write Ray line 391 0000:03:00.0 bar->enabled 1
-(XEN) d0v7 bar_write Ray line 406 0000:03:00.0 bar->enabled 1
-
-Thanks,
-Ray
 
