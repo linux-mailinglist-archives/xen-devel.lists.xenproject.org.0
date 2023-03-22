@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7EE96C4B6D
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 14:14:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513442.794430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 373846C4BB3
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 14:30:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513445.794441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peyIS-0002a1-P4; Wed, 22 Mar 2023 13:14:32 +0000
+	id 1peyWz-0004dA-2c; Wed, 22 Mar 2023 13:29:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513442.794430; Wed, 22 Mar 2023 13:14:32 +0000
+Received: by outflank-mailman (output) from mailman id 513445.794441; Wed, 22 Mar 2023 13:29:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peyIS-0002XJ-Ly; Wed, 22 Mar 2023 13:14:32 +0000
-Received: by outflank-mailman (input) for mailman id 513442;
- Wed, 22 Mar 2023 13:14:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dhKM=7O=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1peyIR-0002XB-H8
- for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 13:14:31 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7af62492-c8b3-11ed-85db-49a42c6b2330;
- Wed, 22 Mar 2023 14:14:30 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id m2so17033634wrh.6
- for <xen-devel@lists.xenproject.org>; Wed, 22 Mar 2023 06:14:30 -0700 (PDT)
-Received: from [192.168.8.100] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
- [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
- b15-20020adfe30f000000b002c706c754fesm13853046wrj.32.2023.03.22.06.14.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Mar 2023 06:14:30 -0700 (PDT)
+	id 1peyWy-0004bT-UX; Wed, 22 Mar 2023 13:29:32 +0000
+Received: by outflank-mailman (input) for mailman id 513445;
+ Wed, 22 Mar 2023 13:29:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1peyWx-0004b7-2G
+ for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 13:29:31 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1peyWq-0006FB-LR; Wed, 22 Mar 2023 13:29:24 +0000
+Received: from [15.248.2.159] (helo=[10.24.67.31])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1peyWq-00008B-D2; Wed, 22 Mar 2023 13:29:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,101 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7af62492-c8b3-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679490870;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=aO6Z15304pPW08TN7MQ9dUl1HEgKe9k7ySFzMRK0HIc=;
-        b=I5eLqtSL5iQ6W7n8RMISGDlDH91D560iwxbzry+XRWx9DAqSjdwETi0W25KQVCDEiH
-         w8FqZQyi+UfAx1wJEKzVGZEv2SxMf22O+5Lw/pwjum39QqIPtldhYfaksZ1/Rt8xUi1S
-         kIOFg7WxGMuvVaYXlPZCi6Tq+FhlgxN2ilVw+3LGxM7fQeKQZVA6z7+BElafMtAAbOVQ
-         tBDXmTaIvNNTmPILppGq7GqMVRNbOPSE4Z/Saet9+c7PtIc1+WpSY9VUJ8/afbOMvt2H
-         uzP2e5RHnrXLUNyteP6t2SCUkR9qzkInQsl1As9CX5FqjywQs6P3ltvy+mUiFKIJt8K8
-         decg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679490870;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=aO6Z15304pPW08TN7MQ9dUl1HEgKe9k7ySFzMRK0HIc=;
-        b=G0i8EdEvlalLsz3xYISQX4KWCmkDUCZUlCY8Csunzso+xX8Z2AELchdNkEinyPEDYa
-         WzI79Yc1XPDuQkmXYRzbdZqa3lwWM0iYuqAhLmG9FgkQwA+kPr4Z+2PUUyyveX+DbocZ
-         4DxRkaJNKxDFrs3QxGdt/0QyTicHh/u3TJ7NQkAvVQyqRpJfZU/kVQgAVEIQBS0Io+6z
-         qqr/Ado4Xznm7FCiVu7ZOTP3jadgoyaspXud9Y3I83BRAKae3NON99yQOQa1sgGiph7p
-         +3bwBNmj8Y8F21NxxPppOm4o/piBHbQkNwIYwfvROtRYR1IxLGjTloar25O/TS/OYx6p
-         zIAQ==
-X-Gm-Message-State: AO0yUKV0CAMXAYlTIPbVOZh+cxWzjmLP8MOUYdaJKip0lYshx1hCa9fp
-	YTDtiTnKEMWMr1k4KuHs6LQ=
-X-Google-Smtp-Source: AK7set+5JmPjtnQCKHt1yrSQfYcXAzKGgJVKQ6UHJLMQByevmfr9Qcjy1ffAf4UqcaaemxW5GS7BRA==
-X-Received: by 2002:adf:d4c5:0:b0:2cf:f3ea:533e with SMTP id w5-20020adfd4c5000000b002cff3ea533emr5749942wrk.63.1679490870241;
-        Wed, 22 Mar 2023 06:14:30 -0700 (PDT)
-Message-ID: <efbaf9104d63172470a8398e360b16fc9301c36a.camel@gmail.com>
-Subject: Re: [PATCH v5 3/7] xen/riscv: introduce dummy <asm/bug.h>
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>, Julien
- Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Date: Wed, 22 Mar 2023 15:14:27 +0200
-In-Reply-To: <95c763c4-034a-d478-fff9-55df1adbdc43@suse.com>
-References: <cover.1678976127.git.oleksii.kurochko@gmail.com>
-	 <82aa35ce27ca11076bbafbb565e9c85e1ce7624d.1678976127.git.oleksii.kurochko@gmail.com>
-	 <b28bc3fc-c38d-502b-409b-092e7398dd3a@xen.org>
-	 <071f2e0971ea53d37b9b645ebce6d169fcc642ff.camel@gmail.com>
-	 <95c763c4-034a-d478-fff9-55df1adbdc43@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=nMXOPjLyhSEzpHCxZ8vLvhkRgVg9InpHiBWRcnqFwVk=; b=iH/LqW3/QdI4bUVBRTaGi+pNzo
+	4bP0EkjJMkz0RlKcBSX0uW9yLMifhPA5VSFENXbAGrk6xw8RgsGfq75rqFkgbTlnEQpY3V6SyN14V
+	LsPgqfVNKIhIbU/dqlCKm4APay4V4w6WBvVZkyFTFj3Ga20c2rPYsYYZoQA+8B7Dm3ew=;
+Message-ID: <ac320354-454f-f6e6-d2b6-a470b66c7ec7@xen.org>
+Date: Wed, 22 Mar 2023 13:29:21 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.9.0
+Subject: Re: [XEN v4 07/11] xen/arm: Introduce choice to enable 64/32 bit
+ physical addressing
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, Ayan Kumar Halder <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, wl@xen.org,
+ rahul.singh@arm.com, xen-devel@lists.xenproject.org
+References: <20230321140357.24094-1-ayan.kumar.halder@amd.com>
+ <20230321140357.24094-8-ayan.kumar.halder@amd.com>
+ <7d90ad7a-5daf-915c-2055-a27ca50d8581@suse.com>
+ <e268e11b-8e93-c506-668b-c5c004b3aa06@amd.com>
+ <1883c9a3-ad25-ac45-b1fa-d29e19b3cc14@suse.com>
+ <01a800a5-1c0d-b9d4-05c7-c886b3e3009d@amd.com>
+ <205658ff-e0ac-1656-2d12-099abd891fcd@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <205658ff-e0ac-1656-2d12-099abd891fcd@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2023-03-22 at 11:27 +0100, Jan Beulich wrote:
-> On 22.03.2023 11:09, Oleksii wrote:
-> > On Tue, 2023-03-21 at 17:21 +0000, Julien Grall wrote:
-> > > On 16/03/2023 14:39, Oleksii Kurochko wrote:
-> > > > <xen/lib.h> will be used in the patch "xen/riscv: introduce
-> > > > decode_cause() stuff" and requires <asm/bug.h>
-> > > >=20
-> > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > > > ---
-> > > > Changes in V5:
-> > > > =C2=A0 * the patch was introduced in the current patch series (V5)
-> > > > ---
-> > > > =C2=A0 xen/arch/riscv/include/asm/bug.h | 10 ++++++++++
-> > > > =C2=A0 1 file changed, 10 insertions(+)
-> > > > =C2=A0 create mode 100644 xen/arch/riscv/include/asm/bug.h
-> > > >=20
-> > > > diff --git a/xen/arch/riscv/include/asm/bug.h
-> > > > b/xen/arch/riscv/include/asm/bug.h
-> > > > new file mode 100644
-> > > > index 0000000000..e8b1e40823
-> > > > --- /dev/null
-> > > > +++ b/xen/arch/riscv/include/asm/bug.h
-> > > > @@ -0,0 +1,10 @@
-> > > > +/* SPDX-License-Identifier: GPL-2.0 */
-> > > > +/*
-> > > > + * Copyright (C) 2012 Regents of the University of California
-> > > > + * Copyright (C) 2021-2023 Vates
-> > >=20
-> > > I am a bit puzzled with those copyright given the header is
-> > > empty.
-> > >=20
-> > > But is there any reason this can't be folded in #6 or part of #6
-> > > moved=20
-> > > forward?
-> > Initially it was folded in #6 but in this case a build will be
-> > failed
-> > after introduction of #5 as <asm/bug.h> is needed for <xen/lib.h>
->=20
-> But what about the other option Julien mentioned, moving ahead the
-> later "filling" of asm/bug.h, so it wouldn't be introduced empty and
-> then (almost immediately) touched again to actually populate it?
-I think I can move the content of <asm/bug.h> from #6 to the current
-patch.
+Hi Jan,
 
-~ Oleksii
+On 22/03/2023 06:59, Jan Beulich wrote:
+> On 21.03.2023 19:33, Ayan Kumar Halder wrote:
+>> On 21/03/2023 16:53, Jan Beulich wrote:
+>>> On 21.03.2023 17:15, Ayan Kumar Halder wrote:
+>>>> On 21/03/2023 14:22, Jan Beulich wrote:
+>>>>> (Using "unsigned long" for a 32-bit paddr_t is of
+>>>>> course suspicious as well - this ought to be uint32_t.)
+>>>> The problem with using uint32_t for paddr_t is that there are instances
+>>>> where the paddr_t is modified with PAGE_MASK or PAGE_ALIGN.
+>>>>
+>>>> For eg , handle_passthrough_prop()
+>>>>
+>>>>                printk(XENLOG_ERR "Unable to permit to dom%d access to"
+>>>>                       " 0x%"PRIpaddr" - 0x%"PRIpaddr"\n",
+>>>>                       kinfo->d->domain_id,
+>>>>                       mstart & PAGE_MASK, PAGE_ALIGN(mstart + size) - 1);
+>>>>
+>>>> And in xen/include/xen/page-size.h,
+>>>>
+>>>> #define PAGE_SIZE           (_AC(1,L) << PAGE_SHIFT)
+>>>> #define PAGE_MASK           (~(PAGE_SIZE-1))
+>>>>
+>>>> Thus, the resulting types are unsigned long. This cannot be printed
+>>>> using %u for PRIpaddr.
+>>> Is there anything wrong with making PAGE_SIZE expand to (1 << PAGE_SHIFT)
+>>> when physical addresses are only 32 bits wide?
+>>
+>> I don't have a strong objection except that this is similar to what
+>> linux is doing today.
+>>
+>> https://elixir.bootlin.com/linux/latest/source/arch/arm/include/asm/page.h#L12
+>>
+>>>
+>>>> I remember some discussion (or comment) that the physical addresses
+>>>> should be represented using 'unsigned long'.
+>>> A reference would be helpful.
+>>
+>> https://lists.xenproject.org/archives/html/xen-devel/2023-02/msg00305.html
+> 
+> I see. I guess this will be okay as long as only 32-bit arches elect to
+> use 32-bit physical addresses. Maybe there should be a BUILD_BUG_ON()
+> somewhere, accompanied by a suitable comment?
 
+Hmmm... We definitely have 40-bits physical address space on Arm32. In 
+fact, my suggestion was not to define paddr_t as unsigned long for 
+everyone but only when PHYS_ADDR_T_32 is selected (AFAICT this is what 
+is done in this patch).
+
+This is to avoid having to add cast everywhere we are using PAGE_* on 
+paddr_t and print it.
+
+That said, I realize this means that for 64-bit, we would still use 
+64-bit integer. I view it as a less a problem (at least on Arm) because 
+registers are always 64-bit. I am open to other suggestion.
+
+Cheers,
+
+-- 
+Julien Grall
 
