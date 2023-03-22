@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88E686C49F4
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 13:09:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513369.794241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F223D6C49F0
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 13:09:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513370.794251 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pexGz-0000F0-OW; Wed, 22 Mar 2023 12:08:57 +0000
+	id 1pexH4-0000bz-1F; Wed, 22 Mar 2023 12:09:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513369.794241; Wed, 22 Mar 2023 12:08:57 +0000
+Received: by outflank-mailman (output) from mailman id 513370.794251; Wed, 22 Mar 2023 12:09:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pexGz-0000Bg-LQ; Wed, 22 Mar 2023 12:08:57 +0000
-Received: by outflank-mailman (input) for mailman id 513369;
- Wed, 22 Mar 2023 12:08:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pexH3-0000Zh-Td; Wed, 22 Mar 2023 12:09:01 +0000
+Received: by outflank-mailman (input) for mailman id 513370;
+ Wed, 22 Mar 2023 12:09:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+B1I=7O=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pexGy-0008Jp-MQ
- for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 12:08:56 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5029a5c1-c8aa-11ed-b464-930f4c7d94ae;
- Wed, 22 Mar 2023 13:08:53 +0100 (CET)
+ id 1pexH2-0000Ws-Ue
+ for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 12:09:00 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5391c5e9-c8aa-11ed-85db-49a42c6b2330;
+ Wed, 22 Mar 2023 13:08:59 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3B9C433AA9;
- Wed, 22 Mar 2023 12:08:53 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F03FF20D4C;
+ Wed, 22 Mar 2023 12:08:58 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E1CD513416;
- Wed, 22 Mar 2023 12:08:52 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ADD0613416;
+ Wed, 22 Mar 2023 12:08:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id r4l8NdTvGmQITwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 22 Mar 2023 12:08:52 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id jHAFKdrvGmQVTwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 22 Mar 2023 12:08:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,134 +51,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5029a5c1-c8aa-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 5391c5e9-c8aa-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1679486933; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1679486938; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=P9SZJQ2l/SM9CqHAOm4kp4DfYnJzxAm8/FClRZGJjyA=;
-	b=kjvVR+o58cgjc2f86NVx3+wlIrZTByTz/BM4TxpCu7lSNps+Y3hasEPHDhQFrLF6sUYQVD
-	g352pkTHLRSSb8aqS68iUGoRliKyfnsAIaalS1r3dhUKmNqTPDY+6WJqdAwGxWMcyN0qmX
-	fREQWn2xJcRaQpeHUJ7MMAj+FS9H5+o=
+	bh=suOiz4udjcsmoILWLrFfDzQ1cyAZXnKkjPEFbgxcutI=;
+	b=Mgx0UeP5T6p24ilFp2nB8LPyQ5/rvGblISqIATSZTzIOv4Bl3RJhjP0CEGxBVW46Jnay/h
+	DUr1oe9+K3ynDLWDv4eFiwfMYd9+68PeKBfio3UvWl36lA0BBvhcX6J7ty65pWJei/B3Er
+	1QvBiGUNRjYZD7hYkdpEQB6t+mshR0c=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH v4 1/5] tools: add container_of() macro to xen-tools/common-macros.h
-Date: Wed, 22 Mar 2023 13:08:40 +0100
-Message-Id: <20230322120844.19657-2-jgross@suse.com>
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v4 2/5] tools: get rid of additional min() and max() definitions
+Date: Wed, 22 Mar 2023 13:08:41 +0100
+Message-Id: <20230322120844.19657-3-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230322120844.19657-1-jgross@suse.com>
 References: <20230322120844.19657-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of having 4 identical copies of the definition of a
-container_of() macro in different tools header files, add that macro
-to xen-tools/common-macros.h and use that instead.
+Defining min(), min_t(), max() and max_t() at other places than
+xen-tools/common-macros.h isn't needed, as the definitions in said
+header can be used instead.
 
-Delete the other copies of that macro.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-There is a similar macro CONTAINER_OF() defined in
-tools/include/xentoolcore_internal.h, which allows to not only use a
-type for the 2nd parameter, but a variable, too.
-I'd like to get rid of that macro as well, but there are lots of use
-cases especially in libxl. Any thoughts regarding that macro?
-I could either:
-- don't touch it at all
-- enhance container_of() like CONTAINER_OF() and replace all use cases
-  of CONTAINER_OF() with container_of()
-- replace the few CONTAINER_OF() users outside libxl with container_of()
-  and define CONTAINER_OF() in e.g. libxl_internal.h
-- replace all CONTAINER_OF() use cases with container_of(), including
-  the change from (.., var, ..) to (.., type, ...).
+Same applies to BUILD_BUG_ON() in hvmloader.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/include/xen-tools/common-macros.h | 4 ++++
- tools/tests/vpci/emul.h                 | 6 +-----
- tools/tests/x86_emulator/x86-emulate.h  | 5 -----
- tools/xenstore/list.h                   | 6 ++----
- 4 files changed, 7 insertions(+), 14 deletions(-)
+ tools/firmware/hvmloader/util.h |  8 ++------
+ tools/libs/vchan/init.c         |  3 +--
+ tools/tests/vpci/Makefile       |  2 +-
+ tools/tests/vpci/emul.h         | 16 ----------------
+ 4 files changed, 4 insertions(+), 25 deletions(-)
 
-diff --git a/tools/include/xen-tools/common-macros.h b/tools/include/xen-tools/common-macros.h
-index a372b9ecf2..b046ab48bf 100644
---- a/tools/include/xen-tools/common-macros.h
-+++ b/tools/include/xen-tools/common-macros.h
-@@ -76,4 +76,8 @@
- #define __must_check __attribute__((__warn_unused_result__))
+diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
+index 8d95eab28a..e04990ee97 100644
+--- a/tools/firmware/hvmloader/util.h
++++ b/tools/firmware/hvmloader/util.h
+@@ -9,6 +9,8 @@
+ #include <xen/hvm/hvm_info_table.h>
+ #include "e820.h"
+ 
++#include <xen-tools/common-macros.h>
++
+ /* Request un-prefixed values from errno.h. */
+ #define XEN_ERRNO(name, value) name = value,
+ enum {
+@@ -41,12 +43,6 @@ void __assert_failed(const char *assertion, const char *file, int line)
+ void __bug(const char *file, int line) __attribute__((noreturn));
+ #define BUG() __bug(__FILE__, __LINE__)
+ #define BUG_ON(p) do { if (p) BUG(); } while (0)
+-#define BUILD_BUG_ON(p) ((void)sizeof(char[1 - 2 * !!(p)]))
+-
+-#define min_t(type,x,y) \
+-        ({ type __x = (x); type __y = (y); __x < __y ? __x: __y; })
+-#define max_t(type,x,y) \
+-        ({ type __x = (x); type __y = (y); __x > __y ? __x: __y; })
+ 
+ #define MB(mb) (mb##ULL << 20)
+ #define GB(gb) (gb##ULL << 30)
+diff --git a/tools/libs/vchan/init.c b/tools/libs/vchan/init.c
+index 9195bd3b98..021e1f29e1 100644
+--- a/tools/libs/vchan/init.c
++++ b/tools/libs/vchan/init.c
+@@ -45,6 +45,7 @@
+ #include <xen/sys/gntalloc.h>
+ #include <xen/sys/gntdev.h>
+ #include <libxenvchan.h>
++#include <xen-tools/common-macros.h>
+ 
+ #include "vchan.h"
+ 
+@@ -72,8 +73,6 @@
+ #define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
  #endif
  
-+#define container_of(ptr, type, member) ({                \
-+    typeof( ((type *)0)->member ) *__mptr = (ptr);        \
-+    (type *)( (char *)__mptr - offsetof(type,member) );})
-+
- #endif	/* __XEN_TOOLS_COMMON_MACROS__ */
+-#define max(a,b) ((a > b) ? a : b)
+-
+ static int init_gnt_srv(struct libxenvchan *ctrl, int domain)
+ {
+ 	int pages_left = ctrl->read.order >= PAGE_SHIFT ? 1 << (ctrl->read.order - PAGE_SHIFT) : 0;
+diff --git a/tools/tests/vpci/Makefile b/tools/tests/vpci/Makefile
+index 5075bc2be2..62f21f341a 100644
+--- a/tools/tests/vpci/Makefile
++++ b/tools/tests/vpci/Makefile
+@@ -11,7 +11,7 @@ run: $(TARGET)
+ 	./$(TARGET)
+ 
+ $(TARGET): vpci.c vpci.h list.h main.c emul.h
+-	$(HOSTCC) -g -o $@ vpci.c main.c
++	$(HOSTCC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
+ 
+ .PHONY: clean
+ clean:
 diff --git a/tools/tests/vpci/emul.h b/tools/tests/vpci/emul.h
-index f03e3a56d1..7169a2ea02 100644
+index 7169a2ea02..8c5bcadd5f 100644
 --- a/tools/tests/vpci/emul.h
 +++ b/tools/tests/vpci/emul.h
-@@ -27,11 +27,7 @@
- #include <stdio.h>
- #include <stdlib.h>
+@@ -106,22 +106,6 @@ typedef union {
+ #define BUG() assert(0)
+ #define ASSERT_UNREACHABLE() assert(0)
  
--#define container_of(ptr, type, member) ({                      \
--        typeof(((type *)0)->member) *mptr = (ptr);              \
--                                                                \
--        (type *)((char *)mptr - offsetof(type, member));        \
--})
-+#include <xen-tools/common-macros.h>
- 
- #define smp_wmb()
- #define prefetch(x) __builtin_prefetch(x)
-diff --git a/tools/tests/x86_emulator/x86-emulate.h b/tools/tests/x86_emulator/x86-emulate.h
-index 46d4e43cea..1af986f78d 100644
---- a/tools/tests/x86_emulator/x86-emulate.h
-+++ b/tools/tests/x86_emulator/x86-emulate.h
-@@ -56,11 +56,6 @@
- 
- #define cf_check /* No Control Flow Integriy checking */
- 
--#define container_of(ptr, type, member) ({             \
--    typeof(((type *)0)->member) *mptr__ = (ptr);       \
--    (type *)((char *)mptr__ - offsetof(type, member)); \
+-#define min(x, y) ({                    \
+-        const typeof(x) tx = (x);       \
+-        const typeof(y) ty = (y);       \
+-                                        \
+-        (void) (&tx == &ty);            \
+-        tx < ty ? tx : ty;              \
 -})
 -
- #define AC_(n,t) (n##t)
- #define _AC(n,t) AC_(n,t)
- 
-diff --git a/tools/xenstore/list.h b/tools/xenstore/list.h
-index b17d13e0ec..a464a38b61 100644
---- a/tools/xenstore/list.h
-+++ b/tools/xenstore/list.h
-@@ -3,6 +3,8 @@
- /* Taken from Linux kernel code, but de-kernelized for userspace. */
- #include <stddef.h>
- 
-+#include <xen-tools/common-macros.h>
-+
- #undef LIST_HEAD_INIT
- #undef LIST_HEAD
- #undef INIT_LIST_HEAD
-@@ -15,10 +17,6 @@
- #define LIST_POISON1  ((void *) 0x00100100)
- #define LIST_POISON2  ((void *) 0x00200200)
- 
--#define container_of(ptr, type, member) ({			\
--        typeof( ((type *)0)->member ) *__mptr = (ptr);	\
--        (type *)( (char *)__mptr - offsetof(type,member) );})
+-#define max(x, y) ({                    \
+-        const typeof(x) tx = (x);       \
+-        const typeof(y) ty = (y);       \
+-                                        \
+-        (void) (&tx == &ty);            \
+-        tx > ty ? tx : ty;              \
+-})
 -
+ #endif
+ 
  /*
-  * Simple doubly linked list implementation.
-  *
 -- 
 2.35.3
 
