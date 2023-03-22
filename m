@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B9886C45F7
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 10:15:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513199.793861 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A97796C463D
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 10:22:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513202.793871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peuXr-0001r2-VW; Wed, 22 Mar 2023 09:14:11 +0000
+	id 1peufa-0003We-OT; Wed, 22 Mar 2023 09:22:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513199.793861; Wed, 22 Mar 2023 09:14:11 +0000
+Received: by outflank-mailman (output) from mailman id 513202.793871; Wed, 22 Mar 2023 09:22:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peuXr-0001om-SX; Wed, 22 Mar 2023 09:14:11 +0000
-Received: by outflank-mailman (input) for mailman id 513199;
- Wed, 22 Mar 2023 09:14:10 +0000
+	id 1peufa-0003Tp-Lb; Wed, 22 Mar 2023 09:22:10 +0000
+Received: by outflank-mailman (input) for mailman id 513202;
+ Wed, 22 Mar 2023 09:22:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dhKM=7O=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1peuXq-0001og-Bw
- for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 09:14:10 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1peufY-0003Tj-RU
+ for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 09:22:08 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e52ac10b-c891-11ed-b464-930f4c7d94ae;
- Wed, 22 Mar 2023 10:14:06 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id d17so7782837wrb.11
- for <xen-devel@lists.xenproject.org>; Wed, 22 Mar 2023 02:14:06 -0700 (PDT)
+ id 03b57ced-c893-11ed-b464-930f4c7d94ae;
+ Wed, 22 Mar 2023 10:22:06 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id h17so16228756wrt.8
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Mar 2023 02:22:06 -0700 (PDT)
 Received: from [192.168.8.100] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
  [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
- a6-20020a056000100600b002c8ed82c56csm13381170wrx.116.2023.03.22.02.14.01
+ f11-20020a5d4dcb000000b002cfe3f842c8sm13278782wru.56.2023.03.22.02.22.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Mar 2023 02:14:05 -0700 (PDT)
+ Wed, 22 Mar 2023 02:22:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,267 +44,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e52ac10b-c891-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 03b57ced-c893-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679476445;
+        d=gmail.com; s=20210112; t=1679476926;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=r0hejRiLXI+YUCS+m6+xaR+/dGB2HICt4bgjq4brH8k=;
-        b=mIMMfBb9rSvAusCNtkWGInAAOj6baEAyZdYJXFo7GxO9Lt+vXxzGoCmyqDgCkZw/Qk
-         JWFzXawjcdjIodD8ulAwOEmpf5sLZiaeq4aWXW5M0agcSLbyEvfQ1mQbw22+ETm/LJAC
-         IccwBz2kBk1l1wYr30y1UM0lfC102EXRBagaDJrrm68wDPBiCpSLOZ4MV2LJgWtk2mIG
-         fjO7+v+kGmOm0MpVy3OHWftDVysKlUXYdCy6e59Y9f3kTJeRMIYrDOgCztLG5GMjLtJ9
-         klgEUsQCzi08KhvZgmUPnyIPvoBU411K5IwHVYVWMQ9jaPtla4s49fizKeRc86Ylq0i7
-         /irA==
+        bh=QaQ3Bks+uUu+l2tEoMBUkW+ahXxFo7K3SAvP9M93PaA=;
+        b=h/LvyNWtndyjm1b2uppfUdYckxwnx357jh4/z45cR6PtP5gLikJ0fZRXZhQxztXW5q
+         zXH7B8F0pOsPl18kG2tW5OT1sRuqQY6uAGfDFuuPCDsgE98SWrXD4ef3g/Vh8jyJAEq2
+         tgzKiXHpP/N5d84obSd18FhwJl38Pf3fvugJD/w0IXUgX+JBM0Y9N3QP+RLNCZfJx3KL
+         tys6fsWM0PBywTa0KlUEkN4l+T66uPh2dm8Ca7s7dWnZAxzDLCiCOTIrE/U6QkObiLFJ
+         I5GB2TIdlzmFT36udTD6Q3IHaXdc8xOQDKRqrdK9dUhlIaPH9RQJOnj9QeTzKvVqT7Zn
+         +h4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679476445;
+        d=1e100.net; s=20210112; t=1679476926;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=r0hejRiLXI+YUCS+m6+xaR+/dGB2HICt4bgjq4brH8k=;
-        b=caqcJ8w8klho+uNKbH+1jHkfmQSCjdmW4AQb+1Ld8bGJ7JWt3mAWBX+4xCFJXLOJzc
-         6yOsaNpXKo8ZDcT1KkB6xEQGJ8HiLFjVjYN8MLRZ2ersEtkPaD63aXJa490wHAtgU3if
-         v52MA7qzI3vJA5dscVQwBi34MsXKrbAZOEhY2fNzhnb/6a/cJQ3L4WYiso/RNLStYj+H
-         GMDL60eJTGAVvxdkAhUpWglEQRCydyrIqS45vK17+UbZWhg+UrCyJNx25jJ5dB+2sA3c
-         5mNTGLTxrAshmVFvFbhRpo+7crHCERowM+gqzWvF2N2Vxg2Z7jVbJ/ud9V/NcfrKPfW1
-         w0mg==
-X-Gm-Message-State: AO0yUKVVkd5Hw73k8ok55jd1vOLIoef7J6uj29frnGJiQoKPf9BP0yFH
-	U61B8z9YOldhPWhgJ0kwOUc=
-X-Google-Smtp-Source: AK7set8IA0C689XNhczCRONguLJH4Jse3bsqmYbipFVr4C9HKiNrzyXhyALSSOK+R9HPXzA4O0n4UA==
-X-Received: by 2002:adf:e50e:0:b0:2d4:99f:6701 with SMTP id j14-20020adfe50e000000b002d4099f6701mr4599606wrm.58.1679476445395;
-        Wed, 22 Mar 2023 02:14:05 -0700 (PDT)
-Message-ID: <01180d39d049c55d24a16ec385e4c4733e5e64a9.camel@gmail.com>
-Subject: Re: [PATCH v1 1/3] xen/riscv: introduce setup_initial_pages
+        bh=QaQ3Bks+uUu+l2tEoMBUkW+ahXxFo7K3SAvP9M93PaA=;
+        b=Jbn3eyzL8THom9HsvesiAj0t/b/cBI8N+LevVVUBQ3UnP9oPlFStBpBQ/YmU5rV6R3
+         sTMkWXt51rlNthWKeuD2Q3x06LOgdz8Zjj5vu0yB6ojWifDJsxvFpiysBcaF1VqH2T/b
+         Obo2N9MZCIsz8oKY9k6ifyNQzRzn9JkguLp7FdONnv9+mDeVbIFkUROyPTq8cwL+8/Av
+         dkVtxAGEthsOpbTK0MO+UzjHXdqtRK2De+/9hhXErglfc77smYem5AariDWnlVhcLMS7
+         u5pYiPPhiUnQwHiH7oAHUkqX9qz30np6XZ//NNQg0TkRJ23yylU5AUE7+NvI0BMwXSxQ
+         85ew==
+X-Gm-Message-State: AO0yUKW9h88cnaobye56dhSmheClVY9hGIPG/CPr1JC0P7hAu1JxPT1E
+	7aLHbluAFlmuKiPqMTKgcIA=
+X-Google-Smtp-Source: AK7set/wRjfdQrhUpp8KXiKARSpuZiBKIYIoQ8Vc3fjdO67FMAGjzVeYoyQRVBvDho3ZGrZSp7SorA==
+X-Received: by 2002:adf:e583:0:b0:2d0:3584:27f with SMTP id l3-20020adfe583000000b002d03584027fmr4816630wrm.68.1679476926196;
+        Wed, 22 Mar 2023 02:22:06 -0700 (PDT)
+Message-ID: <9d01344703e6e96dc3de02fefa2203be52e1ca3b.camel@gmail.com>
+Subject: Re: [PATCH v2 1/3] xen/riscv: introduce setup_initial_pages
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>
-Date: Wed, 22 Mar 2023 11:14:00 +0200
-In-Reply-To: <07088184-3aa4-0e1f-2794-60219c358283@xen.org>
-References: <cover.1677250203.git.oleksii.kurochko@gmail.com>
-	 <a145fbbfb166d9f6bd4859b669d23a1f52004b2b.1677250203.git.oleksii.kurochko@gmail.com>
-	 <fca300ad-0fd1-70ed-4cd4-82e89f5c3351@xen.org>
-	 <a0f3f1ca4277c1f8aeeaf6531d90c5b04c244af9.camel@gmail.com>
-	 <98d45f93-b611-1016-45b5-3d7487af261f@xen.org>
-	 <e0722b2323c78478f8fd07b515bb607ef168ef1e.camel@gmail.com>
-	 <07088184-3aa4-0e1f-2794-60219c358283@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+ Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Date: Wed, 22 Mar 2023 11:22:04 +0200
+In-Reply-To: <0d6cc462-8df6-bb49-5e24-5fb61df40a49@suse.com>
+References: <cover.1678984041.git.oleksii.kurochko@gmail.com>
+	 <85a21ada5a0fc44bb9db1dcc1f6cf191a6e66bfb.1678984041.git.oleksii.kurochko@gmail.com>
+	 <27c2d76e-1f9e-01f2-846f-9f3bdddeefcf@suse.com>
+	 <d5e9a5750e7cd32337b98ad39b60d3e95321caed.camel@gmail.com>
+	 <0d6cc462-8df6-bb49-5e24-5fb61df40a49@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
 MIME-Version: 1.0
 
-Hi Julien,
-
-On Tue, 2023-03-21 at 16:25 +0000, Julien Grall wrote:
->=20
->=20
-> On 05/03/2023 16:25, Oleksii wrote:
-> > Hi Julien,
->=20
-> Hi,
->=20
-> Sorry for the late answer. I was away for the past couple of weeks.
->=20
-> > On Mon, 2023-02-27 at 17:36 +0000, Julien Grall wrote:
-> > > Hi Oleksii,
+On Wed, 2023-03-22 at 09:12 +0100, Jan Beulich wrote:
+> On 21.03.2023 18:08, Oleksii wrote:
+> > On Mon, 2023-03-20 at 17:41 +0100, Jan Beulich wrote:
+> > > On 16.03.2023 17:43, Oleksii Kurochko wrote:
+> > > > +#define LEVEL_ORDER(lvl)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 (lvl * PAGETABLE_ORDER)
+> > > > +#define LEVEL_SHIFT(lvl)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 (LEVEL_ORDER(lvl) +
+> > > > PAGE_ORDER)
+> > > > +#define LEVEL_SIZE(lvl)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (_AT(paddr_t, 1) <<
+> > > > LEVEL_SHIFT(lvl))
+> > > > +
+> > > > +#define XEN_PT_LEVEL_SHIFT(lvl)=C2=A0=C2=A0=C2=A0=C2=A0 LEVEL_SHIF=
+T(lvl)
+> > > > +#define XEN_PT_LEVEL_ORDER(lvl)=C2=A0=C2=A0=C2=A0=C2=A0 LEVEL_ORDE=
+R(lvl)
+> > > > +#define XEN_PT_LEVEL_SIZE(lvl)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 LEVEL=
+_SIZE(lvl)
 > > >=20
-> > > On 27/02/2023 16:52, Oleksii wrote:
-> > > > On Sat, 2023-02-25 at 17:53 +0000, Julien Grall wrote:
-> > > > > > +/*
-> > > > > > + * WARNING: load_addr() and linker_addr() are to be called
-> > > > > > only
-> > > > > > when the MMU is
-> > > > > > + * disabled and only when executed by the primary CPU.=C2=A0
-> > > > > > They
-> > > > > > cannot refer to
-> > > > > > + * any global variable or functions.
-> > > > >=20
-> > > > > I find interesting you are saying when
-> > > > > _setup_initial_pagetables() is
-> > > > > called from setup_initial_pagetables(). Would you be able to
-> > > > > explain
-> > > > > how
-> > > > > this is different?
-> > > > I am not sure that I understand your question correctly but
-> > > > _setup_initial_pagetables() was introduced to map some
-> > > > addresses
-> > > > with
-> > > > write/read flag. Probably I have to rename it to something that
-> > > > is
-> > > > more
-> > > > clear.
+> > > Mind me asking what these are good for? Doesn't one set of macros
+> > > suffice?
+> > Do you mean XEN_PT_LEVEL_{SHIFT...}? it can be used only one pair
+> > of
+> > macros. I'll check how they are used in ARM ( I copied that macros
+> > from
+> > there ).
+>=20
+> There's no similar duplication in Arm code: They have LEVEL_..._GS(),
+> but that takes a second parameter.
+>=20
+> > > > +#define XEN_PT_LEVEL_MAP_MASK(lvl)=C2=A0 (~(XEN_PT_LEVEL_SIZE(lvl)
+> > > > -
+> > > > 1))
+> > > > +#define XEN_PT_LEVEL_MASK(lvl)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (VPN_=
+MASK <<
+> > > > XEN_PT_LEVEL_SHIFT(lvl))
+> > > > +
+> > > > +#define PTE_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 10
 > > >=20
-> > > So the comment suggests that you code cannot refer to global
-> > > functions/variables when the MMU is off. So I have multiple
-> > > questions:
-> > > =C2=A0=C2=A0=C2=A0 * Why only global? IOW, why static would be OK?
-> > > =C2=A0=C2=A0=C2=A0 * setup_initial_pagetables() has a call to
-> > > _setup_initial_pagetables() (IOW referring to another function).
-> > > Why
-> > > is
-> > > it fine?
-> > > =C2=A0=C2=A0=C2=A0 * You have code in the next patch referring to glo=
-bal
-> > > variables
-> > > (mainly _start and _end). How is this different?
+> > > What does this describe? According to its single use here it may
+> > > simply require a better name.
+> > If look at Sv39 page table entry in riscv-priviliged.pdf. It has
+> > the
+> > following description:
+> > =C2=A0 63 62 61=C2=A0 60=C2=A0=C2=A0=C2=A0 54=C2=A0 53=C2=A0 28 27=C2=
+=A0 19 18=C2=A0 10 9 8 7 6 5 4 3 2 1 0
+> > =C2=A0 N=C2=A0 PBMT=C2=A0=C2=A0 Rererved=C2=A0 PPN[2] PPN[1] PPN[0] RSW=
+ D A G U X W R V
+> > So 10 it means the 0-9 bits.
+>=20
+> Right. As said, I think the name needs improving, so it becomes clear
+> what it refers to. Possibly PTE_PPN_SHIFT?
+It will be better so I'll update it in new version of the aptch series.
+>=20
+> Another question: Do you really mean to only support Sv39?
+At least for now yes, it looks like it is the most usable mode.
+>=20
+> > > > +/* Page Table entry */
+> > > > +typedef struct {
+> > > > +=C2=A0=C2=A0=C2=A0 uint64_t pte;
+> > > > +} pte_t;
 > > >=20
-> > > > >=20
-> > > > > > + */
-> > > > > > +
-> > > > > > +/*
-> > > > > > + * Convert an addressed layed out at link time to the
-> > > > > > address
-> > > > > > where it was loaded
-> > > > >=20
-> > > > > Typo: s/addressed/address/ ?
-> > > > Yes, it should be address. and 'layed out' should be changed to
-> > > > 'laid
-> > > > out'...
-> > > > >=20
-> > > > > > + * by the bootloader.
-> > > > > > + */
-> > > > >=20
-> > > > > Looking at the implementation, you seem to consider that any
-> > > > > address
-> > > > > not
-> > > > > in the range [linker_addr_start, linker_addr_end[ will have a
-> > > > > 1:1
-> > > > > mappings.
-> > > > >=20
-> > > > > I am not sure this is what you want. So I would consider to
-> > > > > throw
-> > > > > an
-> > > > > error if such address is passed.
-> > > > I thought that at this stage and if no relocation was done it
-> > > > is
-> > > > 1:1
-> > > > except the case when load_addr_start !=3D linker_addr_start.
-> > >=20
-> > > The problem is what you try to map one to one may clash with the
-> > > linked
-> > > region for Xen. So it is not always possible to map the region
-> > > 1:1.
-> > >=20
-> > > Therefore, I don't see any use for the else part here.
-> > Got it. Thanks.
+> > > Not having read the respective spec (yet) I'm wondering if this
+> > > really
+> > > is this way also for RV32 (despite the different
+> > > PAGETABLE_ORDER).
+> > RISC-V architecture support several MMU mode to translate VA to PA.
+> > The following mode can be: Sv32, Sv39, Sv48, Sv57 and PAGESIZE is
+> > equal
+> > to 8 in all cases except Sv32 ( it is equal to 4 ).
+>=20
+> I guess you mean PTESIZE.
+Yes, I mean PTESIZE.
+>=20
+> > but I looked at
+> > different big projects who have RISC-V support and no one supports
+> > Sv32.
 > >=20
-> > I am curious than what is the correct approach in general to handle
-> > this situation?
-> There are multiple approach to handle it and I don't know which one=20
-> would be best :). Relocation is one...
+> > So it will be correct for RV32 as it supports the same Sv32 and
+> > Sv39
+> > modes too.
 >=20
-> > I mean that throw an error it is one option but if I would like to
-> > do
-> > that w/o throwing an error. Should it done some relocation in that
-> > case?
-> ... solution. For Arm, I decided to avoid relocation it requires more
-> work in assembly.
->=20
-> Let me describe what we did and you can decide what you want to do in
-> RISC-V.
->=20
-> For Arm64, as we have plenty of virtual address space, I decided to=20
-> reshuffle the layout so Xen is running a very high address (so it is=20
-> unlikely to clash).
-I thought about running Xen very high address.
-Thanks. I think it is a nice option to do the same for RISC-V64.
+> Would you mind extending the comment then to mention that there's no
+> intention to support Sv32, even on RV32? (Alternatively, as per a
+> remark you had further down, some #ifdef-ary may be needed.)
+I re-read documentation and it gave you incorrect information:
 
->=20
-> For Arm32, we have a smaller address space (4GB) so instead we are
-> going=20
-> through a temporary area to enable the MMU when the load and runtime=20
-> region clash. The sequence is:
->=20
-> =C2=A0=C2=A0 1) Map Xen to a temporary area
-> =C2=A0=C2=A0 2) Enable the MMU and jump to the temporary area
-> =C2=A0=C2=A0 3) Map Xen to the runtime area
-> =C2=A0=C2=A0 4) Jump to the runtime area
-> =C2=A0=C2=A0 5) Remove the temporary area
->=20
-It is the same for RV32. As we don't support RV32 I will use:
-  #error "Add support of MMU for RV32"
-> [...]
->=20
-> > > > > Hmmm... I would actually expect the address to be properly
-> > > > > aligned
-> > > > > and
-> > > > > therefore not require an alignment here.
-> > > > >=20
-> > > > > Otherwise, this raise the question of what happen if you have
-> > > > > region
-> > > > > using the same page?
-> > > > That map_start &=3D=C2=A0 ZEROETH_MAP_MASK is needed to page number=
- of
-> > > > address
-> > > > w/o page offset.
-> > >=20
-> > > My point is why would the page offset be non-zero?
-> > I checked a linker script and addresses that passed to
-> > setup_initial_mapping() and they are really always aligned so there
-> > is
-> > no any sense in additional alignment.
->=20
-> Ok. I would suggest to add some ASSERT()/BUG_ON() in order to confirm
-> this is always the case.
->=20
-> [...]
->=20
-> > > > >=20
-> > > > > > +
-> > > > > > +=C2=A0=C2=A0=C2=A0 /*
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * Create a mapping of the load time a=
-ddress range
-> > > > > > to...
-> > > > > > the
-> > > > > > load time address range.
-> > > > >=20
-> > > > > Same about the line length here.
-> > > > >=20
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * This mapping is used at boot time o=
-nly.
-> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > > > > > +=C2=A0=C2=A0=C2=A0 _setup_initial_pagetables(second, first, ze=
-roeth,
-> > > > >=20
-> > > > > This can only work if Xen is loaded at its linked address. So
-> > > > > you
-> > > > > need a
-> > > > > separate set of L0, L1 tables for the identity mapping.
-> > > > >=20
-> > > > > That said, this would not be sufficient because:
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0 1) Xen may not be loaded at a 2M boundar=
-y (you can
-> > > > > control
-> > > > > with
-> > > > > U-boot, but not with EFI). So this may cross a boundary and
-> > > > > therefore
-> > > > > need multiple pages.
-> > > > > =C2=A0=C2=A0=C2=A0=C2=A0 2) The load region may overlap the link =
-address
-> > > > >=20
-> > > > > While I think it would be good to handle those cases from the
-> > > > > start,
-> > > > > I
-> > > > > would understand why are not easy to solve. So I think the
-> > > > > minimum is
-> > > > > to
-> > > > > throw some errors if you are in a case you can't support.
-> > > > Do you mean to throw some error in load_addr()/linkder_addr()?
-> > >=20
-> > > In this case, I meant to check if load_addr !=3D linker_addr, then
-> > > throw
-> > > an error.
-> > I am not sure that it is needed now and it is easier to throw an
-> > error
-> > but is option exist to handler situation when load_addr !=3D
-> > linker_addr
-> > except throwing an error? relocate?
->=20
-> I believe I answered this above.
-Yeah, you answered my question completely. Thank you very much.
+When SXLEN=3D32, the only other valid setting for MODE is Sv32, a paged
+virtual-memory scheme described in Section 4.3.
+When SXLEN=3D64, three paged virtual-memory schemes are defined: Sv39,
+Sv48, and Sv57, described in Sections 4.4, 4.5, and 4.6, respectively.
+One additional scheme, Sv64, will be defined in a later version of this
+specification. The remaining MODE settings are reserved for future use
+and may define different interpretations of the other fields in satp.
+
+But I'll add #ifdef with the message that RV32 isn't supported now.
 
 ~ Oleksii
 
