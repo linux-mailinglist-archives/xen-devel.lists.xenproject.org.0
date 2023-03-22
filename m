@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FF076C455D
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 09:51:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513194.793852 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B9886C45F7
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 10:15:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513199.793861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peuB8-0007Mo-Vj; Wed, 22 Mar 2023 08:50:42 +0000
+	id 1peuXr-0001r2-VW; Wed, 22 Mar 2023 09:14:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513194.793852; Wed, 22 Mar 2023 08:50:42 +0000
+Received: by outflank-mailman (output) from mailman id 513199.793861; Wed, 22 Mar 2023 09:14:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1peuB8-0007Jy-ST; Wed, 22 Mar 2023 08:50:42 +0000
-Received: by outflank-mailman (input) for mailman id 513194;
- Wed, 22 Mar 2023 08:50:40 +0000
+	id 1peuXr-0001om-SX; Wed, 22 Mar 2023 09:14:11 +0000
+Received: by outflank-mailman (input) for mailman id 513199;
+ Wed, 22 Mar 2023 09:14:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R7Yo=7O=citrix.com=prvs=438d02f35=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1peuB6-0007Jq-P9
- for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 08:50:40 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9b1eabda-c88e-11ed-b464-930f4c7d94ae;
- Wed, 22 Mar 2023 09:50:37 +0100 (CET)
-Received: from mail-co1nam11lp2176.outbound.protection.outlook.com (HELO
- NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.176])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 22 Mar 2023 04:50:28 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by SJ0PR03MB6440.namprd03.prod.outlook.com (2603:10b6:a03:397::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Wed, 22 Mar
- 2023 08:50:26 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6178.037; Wed, 22 Mar 2023
- 08:50:26 +0000
+ <SRS0=dhKM=7O=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1peuXq-0001og-Bw
+ for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 09:14:10 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e52ac10b-c891-11ed-b464-930f4c7d94ae;
+ Wed, 22 Mar 2023 10:14:06 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id d17so7782837wrb.11
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Mar 2023 02:14:06 -0700 (PDT)
+Received: from [192.168.8.100] (46.204.108.203.nat.umts.dynamic.t-mobile.pl.
+ [46.204.108.203]) by smtp.gmail.com with ESMTPSA id
+ a6-20020a056000100600b002c8ed82c56csm13381170wrx.116.2023.03.22.02.14.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Mar 2023 02:14:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,174 +44,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b1eabda-c88e-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1679475037;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=pY8exfx1IZjSKD7cLN9qpvZqQbbY4izfJf0/6noi6g0=;
-  b=ZCwOGbYkyG53Wv9pCc2PtNqvZF5oYJrlbVWv+dpe7E0A+JWsOLTroGZs
-   bqN7WBjL9zAlxVivPFjQTIm/d1yigdLkhEhqk4NawfXC4fXAYPtA92VLZ
-   /2w50jevA7vyXzGY2GAgKoH1eOPa4UOpN+GACjDsx3dSRyOhw1+h64jLd
-   E=;
-X-IronPort-RemoteIP: 104.47.56.176
-X-IronPort-MID: 102245043
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:2gFKMqhueWY5p6EUHMs75D2ZX161lxEKZh0ujC45NGQN5FlHY01je
- htvXW+CPqrcYmr0c9F+YYq2/B5Q65XXztAwGlQ/qSo2Qnwb9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsy+qWi0N8klgZmP6sT5wWEzyB94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQUNDchaS25pd7q7+KhYbA3iJQnLsbCadZ3VnFIlVk1DN4AaLWaGuDhwoYd2z09wMdTAfzZe
- swVLyJ1awjNaAFOPVFRD48imOCvhT/0dDgwRFC9/PJrpTSMilEvluGybrI5efTTLSlRtm+eq
- njL4CLSBRYCOcbE4TGE7mitlqnEmiaTtIc6TeXirKI32AHIroAVIDk4bQKrvfK1sVCdQd54C
- 14d5jEjj7dnoSRHSfG4BXVUukWsshMZWvJRFfM78wCHzqfI4wefCXMARzQHY9sj3OcmSDpv2
- lKXktfBAT10rKbTWX+b7q2Trz65JW4SN2BqTTQNSBYI55//oIA5hw/LUv5uFrXwiszyH3f32
- T/ihDc6r6Uei4gMzarT1VXOmTelvJXKZg8z+ATMX2ih4x95ZYiqfIih4x7Q6vMoEWqCZlyIv
- XxBkM/H6ukLVMiJjHbUH7tLG6y17fGYNjGamURoA5Qq6zWq/TikYJxU5zZ9YkxuN67oZAPUX
- aMagisJjLc7AZdgRfUvC25tI6zGFZTdKOk=
-IronPort-HdrOrdr: A9a23:HLTCXq4Z/zxNWfEISQPXwdWCI+orL9Y04lQ7vn2ZFiY5TiXIra
- qTdaogviMc6Ax/ZJjvo6HnBEDyewK5yXcT2/htAV7CZnidhILMFu1fBOTZsl7d8kHFh5ZgPO
- JbAtND4b7LfCZHZKTBgDVQeuxIqLfnzEnrv5am854Ed3AUV0gK1XYdNu/0KDwQeOALP+taKH
- LKjfA32wZINE5nJvhSQRI+Lpr+juyOsKijTQ8NBhYh5gXLpTS06ITiGxzd8gYCXyhJybIC93
- GAtwDi/K2sv9yy1xeZjgbonthrseqk7uEGKN2Hi8ATJDmpogG0ZL55U7nHkCEprPqp4FMKls
- CJhxs7Jcx8517YY2nwixrw3AvL1ioo9hbZuBKlqEqmhfa8aCMxCsJHi44cWhzF63A4tNU59K
- 5QxWqWu7deEBuFxU3GlpL1fiAvsnDxjWspkOYVgXAaeYwCaIVJpYha2E9OCp8PEA/z9YhiOu
- hzC8P34upQbDqhHjvkl1gq5ObpcmU4Hx+ATERHksuJ0wJOlHQ89EcczNx3pAZ2yLsND71/o8
- jUOKVhk79DCuUMa7hmOesHScyrTkTQXBPlKgupUBTaPZBCH0iIh4/84b0z6u3vUocP1oEOlJ
- PIV04dnXIuenjpFdaF0PRwg1HwqV2GLHbQI/xllt1EUuWWfsuuDcTDciFhryKYmYRdPiWBMM
- zDf66/AJfYXB/T8MhyrkvDsqJpWAojuf0uy6cGsm2107L2w63Rx5rmmaXoVfPQOAdhfF/DKV
- 0+exW2DPl8zymQKwrFaV7qKjzQRnA=
-X-IronPort-AV: E=Sophos;i="5.98,281,1673931600"; 
-   d="scan'208";a="102245043"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lwpmqBYxMUxVG7j19eXDsIRNVG5KAjjTjW7Onbr4YlVHA8RwuiVVSEITBKxcJ2REu73tyOX874Oq66rwjxuoe8yXpnRmhYrA54GaPT7BC7QPeITH5lPD/9OKUFSSj4C2zvFV3S/GMiR7HPK9ClQTvs2B8WI//BxJZxiU4sAL/4LiodeYesDg2unbxlpxi/CZtt4OzxK1yNNN/0lyccI238jq977kv7Ha5t2eXXV4jVIz3pFxG1f+vmZKECwXaSF3U68Iy6vfX7xHjSa7WnOfxXpPndHg50gHxbtY2aOfCwvoTXdQwYi2Hv60eCegqvbh2zJXSrR32rhjBah7+3Msfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0pnfW6tg+autIO/0KDNhKos0hxzEv5nQYLdeAXdUE4w=;
- b=CLdvC4AFbHqKK2paf7DAD5HcRwkR8ZGPJnldtTJJ8otz+2UcC0UlDQK5U20OUkFvVlI19SdfbUBU1kaiHAEEJtx79q6YDYvT+wMmtka/EQFD7UqIFISzlyTyINUkljQh4FCdsSXGvjY7K8nc3lHHQwQeFp/uDcUvFC6/Iwp9H6MiBFIU94+OUPDWxLcDQbEacsupRj7bZ1tfPryIR7S/vyGb6YyfnGVB4U5Jv2kQ0dhUidei2FgBE/l8a4dNJmErN9RDslt8hkb88YlKGimKUOHD/Ds9BHxtVksC0MVq4IARsH15622mdfxbk+u8oHJ+JQi8qSSHssu+HjevfTdtLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: e52ac10b-c891-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0pnfW6tg+autIO/0KDNhKos0hxzEv5nQYLdeAXdUE4w=;
- b=O82rBspQYPiomHWsUJ0FguSdzqGjNHVS2XK/9wCb2dMW/n5a5Cm3Y/8rUcxWHSENJL93evDicC7Y/ZrFGGuBYQMfOjzn7iYZv22/6zkShgmTPQcow/qMeDUReMi0PX+SwS32TIoYjwtDUP5w6hOuQOHyDgGr74xWGup88k5lrZs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <f8498416-ef2d-19a2-ca4a-521d93eb6be6@citrix.com>
-Date: Wed, 22 Mar 2023 08:50:19 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v6 4/5] Build system: Replace git:// and http:// with
- https://
-Content-Language: en-GB
-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
- xen-devel@lists.xenproject.org
-Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-References: <cover.1679412247.git.demi@invisiblethingslab.com>
- <cb23cf003905fa56119985a4ac9a84e9510ad235.1679412247.git.demi@invisiblethingslab.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <cb23cf003905fa56119985a4ac9a84e9510ad235.1679412247.git.demi@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0269.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a1::17) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+        d=gmail.com; s=20210112; t=1679476445;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=r0hejRiLXI+YUCS+m6+xaR+/dGB2HICt4bgjq4brH8k=;
+        b=mIMMfBb9rSvAusCNtkWGInAAOj6baEAyZdYJXFo7GxO9Lt+vXxzGoCmyqDgCkZw/Qk
+         JWFzXawjcdjIodD8ulAwOEmpf5sLZiaeq4aWXW5M0agcSLbyEvfQ1mQbw22+ETm/LJAC
+         IccwBz2kBk1l1wYr30y1UM0lfC102EXRBagaDJrrm68wDPBiCpSLOZ4MV2LJgWtk2mIG
+         fjO7+v+kGmOm0MpVy3OHWftDVysKlUXYdCy6e59Y9f3kTJeRMIYrDOgCztLG5GMjLtJ9
+         klgEUsQCzi08KhvZgmUPnyIPvoBU411K5IwHVYVWMQ9jaPtla4s49fizKeRc86Ylq0i7
+         /irA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679476445;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=r0hejRiLXI+YUCS+m6+xaR+/dGB2HICt4bgjq4brH8k=;
+        b=caqcJ8w8klho+uNKbH+1jHkfmQSCjdmW4AQb+1Ld8bGJ7JWt3mAWBX+4xCFJXLOJzc
+         6yOsaNpXKo8ZDcT1KkB6xEQGJ8HiLFjVjYN8MLRZ2ersEtkPaD63aXJa490wHAtgU3if
+         v52MA7qzI3vJA5dscVQwBi34MsXKrbAZOEhY2fNzhnb/6a/cJQ3L4WYiso/RNLStYj+H
+         GMDL60eJTGAVvxdkAhUpWglEQRCydyrIqS45vK17+UbZWhg+UrCyJNx25jJ5dB+2sA3c
+         5mNTGLTxrAshmVFvFbhRpo+7crHCERowM+gqzWvF2N2Vxg2Z7jVbJ/ud9V/NcfrKPfW1
+         w0mg==
+X-Gm-Message-State: AO0yUKVVkd5Hw73k8ok55jd1vOLIoef7J6uj29frnGJiQoKPf9BP0yFH
+	U61B8z9YOldhPWhgJ0kwOUc=
+X-Google-Smtp-Source: AK7set8IA0C689XNhczCRONguLJH4Jse3bsqmYbipFVr4C9HKiNrzyXhyALSSOK+R9HPXzA4O0n4UA==
+X-Received: by 2002:adf:e50e:0:b0:2d4:99f:6701 with SMTP id j14-20020adfe50e000000b002d4099f6701mr4599606wrm.58.1679476445395;
+        Wed, 22 Mar 2023 02:14:05 -0700 (PDT)
+Message-ID: <01180d39d049c55d24a16ec385e4c4733e5e64a9.camel@gmail.com>
+Subject: Re: [PATCH v1 1/3] xen/riscv: introduce setup_initial_pages
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bob
+ Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+ <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>
+Date: Wed, 22 Mar 2023 11:14:00 +0200
+In-Reply-To: <07088184-3aa4-0e1f-2794-60219c358283@xen.org>
+References: <cover.1677250203.git.oleksii.kurochko@gmail.com>
+	 <a145fbbfb166d9f6bd4859b669d23a1f52004b2b.1677250203.git.oleksii.kurochko@gmail.com>
+	 <fca300ad-0fd1-70ed-4cd4-82e89f5c3351@xen.org>
+	 <a0f3f1ca4277c1f8aeeaf6531d90c5b04c244af9.camel@gmail.com>
+	 <98d45f93-b611-1016-45b5-3d7487af261f@xen.org>
+	 <e0722b2323c78478f8fd07b515bb607ef168ef1e.camel@gmail.com>
+	 <07088184-3aa4-0e1f-2794-60219c358283@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|SJ0PR03MB6440:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49eabae1-903e-4e7a-1a87-08db2ab27b04
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	1LB/Q1pSIq3HeRPC+71+gXEBxqVKd/qMX57NVDgAboSS69OaXTHwIBO1yxpjopa8TLZoE/vV5TJ5xDC5TIFPJ0XdTVh+eYIrfhenDRA7i8CHfYO4F6uZ8ZonvWi1/NGbPbgIUGV50Cx4adS+k5ydloOxX6vCCcB4f2aG8z9vlfVC6tAfbR/yBLPq9fNp73uNlXCdJNf6UVVeK6DnHrPk0lee4Y7ETQ5bW5yayqaTKDE0h7E/7wklwTJIbW9BDTDMBksEUldhccLMEkVnuJSA8FjoTzhF3bk1jol7ZobJYCq6Cv6dwyaPYCCmMYTput7+ljSjugYS6JK+qemjRr0qSqlT+MQli5tEGCxmLZW8PVfAcS3Txx8aB4+r+1mCFEm4GSWNbcxWqjNBwOeGHSlFc4uX31rLLMuhYzIVrTw6IPS73VPn68jFJqskq4BTG472WEr3a9IHvBSRjSK6W5vLjA7zOiKSbvwaJqp6f40CC8joaJBPlmlA4AgA3W9wJzwG6BxQj2fdBggznohRcbUSEMMABzRWRCGE9QWWBKlMZk6HIm+9dWvMWdr1IU7mLtlk3FoPf+lp0R8zyHkRtZdq98TOwfBoANm0TKyFnI6eijAg3br8WDMMSYtdCP3Yap/diEth48LHVVkaWM2n7b1R+cjApADrDsJVag+Tx2ogWQ1DPDGF+Lnt3jJPXroHua9jxyN1qpPV1uK6qIv97GZ1s4aDWfV4t496M7dLKfbQP1w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(366004)(376002)(346002)(39860400002)(396003)(451199018)(31686004)(2616005)(6512007)(54906003)(316002)(6506007)(26005)(186003)(4744005)(6666004)(53546011)(478600001)(66556008)(6486002)(86362001)(31696002)(38100700002)(66946007)(2906002)(5660300002)(4326008)(8936002)(36756003)(41300700001)(8676002)(66476007)(82960400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ODU1WGZhbGNhMVorb0JINGFjUHVFSk1idDczamgyR2VQVDJzWlZ3Z3l2UExu?=
- =?utf-8?B?dFFjN2pmYWsyRzFRVHpOSkg3Q3UxY2ltY3hzZjVxZSt6dC9tTWpYbXF0Y3dW?=
- =?utf-8?B?eDVGbXVHemJEelZveWo0alR5OVNBVFQrSmdzYkFsdHpqeTRRVGp5RDVvaHlw?=
- =?utf-8?B?YXJpUzNUQzhMMkVYd05zQkcvTFk5ZWlyd2RoOEFGMk1FWDVqUTFaVkdQZFNv?=
- =?utf-8?B?YWJ1YjRBSmwxZzFwM1drU0dwL0NJOWM4cnNWTTk5b2xLdWVTaEJHeTRBcUxi?=
- =?utf-8?B?UmE4OGlmaEhITnIxRzBZUitJeHA0VzZaL2VUV3ZqcHFyMWZVcDlSa1ZpVVRJ?=
- =?utf-8?B?ekFiUk5DNkZRdCtXUFpWcGJPZ2NyWU5lTTl5cjBCK3JWSlAwSmlSWEQrY051?=
- =?utf-8?B?U2NOc0p0Q2NJaE4yMGIxRllSSkJTL2wyZnUzc2JEa3lHbmNHU2lCU1RzUVRz?=
- =?utf-8?B?YlNZc2pTa0JhM3BJVzAyaFc4dDd6M3FSZU9IVE5zNVdYeERyTy9zZGdiakx6?=
- =?utf-8?B?MnFpVW8wWDVuSFpxWEVPbVFsYWJkbjFpTUJsZnVjcEpoVHN6NlpYbndhSUdU?=
- =?utf-8?B?eW42K1Zoc0ZDaWEyd3VENE5Ra1dFbGJwSWl2cWhhc1FJV1FnUEkrcmgwdWpN?=
- =?utf-8?B?K3M5T2ZPZmdRMU1GUG1wZnNPb0FDVXVUaUdDOERRTGlYc0JxMlV2Z1pGMit6?=
- =?utf-8?B?NkNyT2QzS1VmM25HRWdUTUg5eTRIQ3I1anU4L2RPT2k3a1BHL3grQkhmbHl1?=
- =?utf-8?B?T0pFT1doRDRsV3kwUnprNHpJdFVzWnBpL2RxNWlEc1psWitmaTVQN3ZGU2pR?=
- =?utf-8?B?L2pnVkRkaklMZlB1aGpjdXh4aWhqZ0w4WXlJWk91ZGgvK0J3eUZrRnNmNllC?=
- =?utf-8?B?WVNEaVF1L2FsY1BlZ296Znk4ZERKNDY0Z2ZWdlptZXFMTXc0RkZ4NmlKOHlF?=
- =?utf-8?B?S08rM24rMUlTTzk3WWFXcFFZbGRXOWF1Z2F4S0FPaDdWTlZDNXVUaE16SUhE?=
- =?utf-8?B?dzlYdTJQWUVmdW5sRTRkVk9LbG00YkFLZjJKWTA1QXFJblZaRkQzTFNRQUJT?=
- =?utf-8?B?cXpGMkpRZXJRVWd3Q29GMGR4M1lpNFZaQjJZUmZwWTdVQ2NXWEsyM2pwanVZ?=
- =?utf-8?B?Qk8reGRTRjlKWDd0TldDeE1IQjdiNHVvYkl5Vkl3dXllL2lVcERXZ2JnVGVL?=
- =?utf-8?B?SkdiUk5OOXNVRlZOQi80dzFtWGtIWXIwYkhqd0hHU2J3cnZnVXBxdUthTFdS?=
- =?utf-8?B?VGdHUVVIUnpiZzBDVmtvbE9Gam9WcVpwNEkxcS8wd2U0WWwvNm1namtVKzN2?=
- =?utf-8?B?bFRiMWduKzlvQjhEY0RMaXFsOG1jT3hWRmRsWVo0bVBsQUU3RUxvWTJQZkpH?=
- =?utf-8?B?a2JEYXovQVIrQ2hDZFg3Zjd2YllxVnpnOGtZeFcrcW1JSFgrcCtOQktQRnBX?=
- =?utf-8?B?ZnVwejVkVS9EeEIrSlQ2YnpqeUpHMkhJK0ZudS9oSkJZWEROMXd5Z2Q4UTlV?=
- =?utf-8?B?TzY0RHl1UHNoenBpdU92bkpybkVTMVlzZmNCM3hhVVJJSnd2SER4djBzTlhB?=
- =?utf-8?B?Sko4QSsza2dRSWZIU0FyWTRnNXNIVDAvY0l5MWhjVnh0WmszaUxXS1dBVjNu?=
- =?utf-8?B?aHByUGp6aDZlN0JvVVhaa1p4YzNYUEJEeDJBZ1FUTVNjK2tKOEJUVXNlT0Va?=
- =?utf-8?B?YXRBTU1oSG1DRmpSQkRNUjRaK282Q1BMZ0lqMlFHRHhRbjdRNUpDVHhWbkEy?=
- =?utf-8?B?Ulp0YkRZRkFQdmNZSmtQMVN0Ty9QVWZ3UTVNeWtYNGtRSkdYcEhkY0c0MFJ2?=
- =?utf-8?B?eW9YMVBNUGdBRUxTOXdDd3BycFdrc1hRdzl1c3cvTm0zOGVBT25pSVhJLzdE?=
- =?utf-8?B?ellJNGJETnA3RUN3QjNnWXhsOUEyczIyK2dKbnM3RnM4V3NyQVU2bkc2Ni82?=
- =?utf-8?B?a2ZVNGpCbkxYL2FKVTByalF3YVpSU256Q3VuMmVibnorNjF1Qk53V1k4TUh5?=
- =?utf-8?B?UU5MYXZuUnhQS2dFOGZqWTBwa3RFMm5sc0FpemgxRnhqOGROM0ZFT2xOVUlZ?=
- =?utf-8?B?SmVBazBibS8vanVuY05NYXR0NjhQVU9uT0w1UFkvYU8yOG51ZlJ4bGZpMXN2?=
- =?utf-8?B?S1N0NnN6R0N2TVptTTU5OUUzbXRiVmdHOHF0Y1RncUxFek1ONDF0Mm1sRDhZ?=
- =?utf-8?B?TUE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	444LXPouWsC/auhb83HqEugmW1+5cCxZRtb495BSfRu7a87DEI4R/X7FkfZ/A4z0vGBKU8/+Vxes1Ql77o5C7CgXAwT+BAV+8pi72sGL7dLt70ze7oN5ghUgHIvNJi3k8vc4Qh9EaWvp77sjFC8XHh/BG68gGN4RjisUXykdY+aCcfiV68wvkHMTOqckpACsmoqmK1hUByjRQuc7IX/FXcpgnUVnvTsOdP/wFaE0OCDeSjwbVNxmDP9DQd2Zhe3Fg3hHaSnjV4IkQG0uyJXrQm63mJuLXAMSglw0E42G6gfCIzeTw1w1nHRK/lw+kPvG7pdhusfqM7B1HEKdEwX4YHH8ISOrca6qRJUg15Zu75nvxJMXUIEzG9rB45akBAv/VdccVpenBFwpXHRA+Q7QvpRiQyQkM4592yDGfZNHWSnyammwrGkzL1vQkSJIyqHlAsk7PLq89OA+T+B3fZemF72aABQxUmGwyIj4EAQVafnHo5rIQQo+JmrnxtowFPSJKoJ6KtIlQDsbqaXP+5nGPYQ8hwY4YhIBJQT4T8bn6gbQfXsBCcMPVG+ntH/XAq0iw9yiqZRQBtFxz9Lx/v/6BW+gzDzmym/2UUEQ/7yZi3Zg5igW1MbT3PSVoJR2o3mzfeB2eItXBmuAgzt1vExVl+YW00vt85qO0ICLD7JDyXHu7ozN4DFhfOKqSw1XmQzesCT9AF63TTKLfei6G8oUkMX1rP4BuUByHmFuSInyB5nY8+WJlMnEeaIxh/4sT5OBHHl2SkLQgTaW6OtIO7vJeKFmHd8uRr9w57Ko1KkwVswaBDV1nzkWWlvLuVcd7VP2usOKsD1klxilOIpFGGAvfJUWxr08fPwcoYGLnzNsZL3ZHzgsgH29239Mmod5LfN29rET+3/ormhMETMzMZ8DUA==
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49eabae1-903e-4e7a-1a87-08db2ab27b04
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2023 08:50:26.2593
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: //1mRoYcKfisG3IPPgx4tp9spdhGehfmlTlpSnGJBGc3/jGkIYA1fk3UP/6QDdgOAxcUyU5MViNvqLsZhOFmq4BYpxjPl3Oj1IEQffFLpe8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6440
 
-On 21/03/2023 5:33 pm, Demi Marie Obenour wrote:
-> Obtaining code over an insecure transport is a terrible idea for
-> blatently obvious reasons.  Even for non-executable data, insecure
-> transports are considered deprecated.
->
-> This patch enforces the use of secure transports in the build system.
-> Some URLs returned 301 or 302 redirects, so I replaced them with the
-> URLs that were redirected to.
->
-> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> ---
->  stubdom/configure                 | 12 ++++++------
->  stubdom/configure.ac              | 12 ++++++------
->  tools/firmware/etherboot/Makefile |  6 +-----
+Hi Julien,
 
-This drops the final reference to GIT_HTTP.  As you're modifying
-configure anyway, it would be preferable to drop this option too, for an
-even more negative diffstat.
+On Tue, 2023-03-21 at 16:25 +0000, Julien Grall wrote:
+>=20
+>=20
+> On 05/03/2023 16:25, Oleksii wrote:
+> > Hi Julien,
+>=20
+> Hi,
+>=20
+> Sorry for the late answer. I was away for the past couple of weeks.
+>=20
+> > On Mon, 2023-02-27 at 17:36 +0000, Julien Grall wrote:
+> > > Hi Oleksii,
+> > >=20
+> > > On 27/02/2023 16:52, Oleksii wrote:
+> > > > On Sat, 2023-02-25 at 17:53 +0000, Julien Grall wrote:
+> > > > > > +/*
+> > > > > > + * WARNING: load_addr() and linker_addr() are to be called
+> > > > > > only
+> > > > > > when the MMU is
+> > > > > > + * disabled and only when executed by the primary CPU.=C2=A0
+> > > > > > They
+> > > > > > cannot refer to
+> > > > > > + * any global variable or functions.
+> > > > >=20
+> > > > > I find interesting you are saying when
+> > > > > _setup_initial_pagetables() is
+> > > > > called from setup_initial_pagetables(). Would you be able to
+> > > > > explain
+> > > > > how
+> > > > > this is different?
+> > > > I am not sure that I understand your question correctly but
+> > > > _setup_initial_pagetables() was introduced to map some
+> > > > addresses
+> > > > with
+> > > > write/read flag. Probably I have to rename it to something that
+> > > > is
+> > > > more
+> > > > clear.
+> > >=20
+> > > So the comment suggests that you code cannot refer to global
+> > > functions/variables when the MMU is off. So I have multiple
+> > > questions:
+> > > =C2=A0=C2=A0=C2=A0 * Why only global? IOW, why static would be OK?
+> > > =C2=A0=C2=A0=C2=A0 * setup_initial_pagetables() has a call to
+> > > _setup_initial_pagetables() (IOW referring to another function).
+> > > Why
+> > > is
+> > > it fine?
+> > > =C2=A0=C2=A0=C2=A0 * You have code in the next patch referring to glo=
+bal
+> > > variables
+> > > (mainly _start and _end). How is this different?
+> > >=20
+> > > > >=20
+> > > > > > + */
+> > > > > > +
+> > > > > > +/*
+> > > > > > + * Convert an addressed layed out at link time to the
+> > > > > > address
+> > > > > > where it was loaded
+> > > > >=20
+> > > > > Typo: s/addressed/address/ ?
+> > > > Yes, it should be address. and 'layed out' should be changed to
+> > > > 'laid
+> > > > out'...
+> > > > >=20
+> > > > > > + * by the bootloader.
+> > > > > > + */
+> > > > >=20
+> > > > > Looking at the implementation, you seem to consider that any
+> > > > > address
+> > > > > not
+> > > > > in the range [linker_addr_start, linker_addr_end[ will have a
+> > > > > 1:1
+> > > > > mappings.
+> > > > >=20
+> > > > > I am not sure this is what you want. So I would consider to
+> > > > > throw
+> > > > > an
+> > > > > error if such address is passed.
+> > > > I thought that at this stage and if no relocation was done it
+> > > > is
+> > > > 1:1
+> > > > except the case when load_addr_start !=3D linker_addr_start.
+> > >=20
+> > > The problem is what you try to map one to one may clash with the
+> > > linked
+> > > region for Xen. So it is not always possible to map the region
+> > > 1:1.
+> > >=20
+> > > Therefore, I don't see any use for the else part here.
+> > Got it. Thanks.
+> >=20
+> > I am curious than what is the correct approach in general to handle
+> > this situation?
+> There are multiple approach to handle it and I don't know which one=20
+> would be best :). Relocation is one...
+>=20
+> > I mean that throw an error it is one option but if I would like to
+> > do
+> > that w/o throwing an error. Should it done some relocation in that
+> > case?
+> ... solution. For Arm, I decided to avoid relocation it requires more
+> work in assembly.
+>=20
+> Let me describe what we did and you can decide what you want to do in
+> RISC-V.
+>=20
+> For Arm64, as we have plenty of virtual address space, I decided to=20
+> reshuffle the layout so Xen is running a very high address (so it is=20
+> unlikely to clash).
+I thought about running Xen very high address.
+Thanks. I think it is a nice option to do the same for RISC-V64.
 
-(Probably ok to be folded in on commit.)
+>=20
+> For Arm32, we have a smaller address space (4GB) so instead we are
+> going=20
+> through a temporary area to enable the MMU when the load and runtime=20
+> region clash. The sequence is:
+>=20
+> =C2=A0=C2=A0 1) Map Xen to a temporary area
+> =C2=A0=C2=A0 2) Enable the MMU and jump to the temporary area
+> =C2=A0=C2=A0 3) Map Xen to the runtime area
+> =C2=A0=C2=A0 4) Jump to the runtime area
+> =C2=A0=C2=A0 5) Remove the temporary area
+>=20
+It is the same for RV32. As we don't support RV32 I will use:
+  #error "Add support of MMU for RV32"
+> [...]
+>=20
+> > > > > Hmmm... I would actually expect the address to be properly
+> > > > > aligned
+> > > > > and
+> > > > > therefore not require an alignment here.
+> > > > >=20
+> > > > > Otherwise, this raise the question of what happen if you have
+> > > > > region
+> > > > > using the same page?
+> > > > That map_start &=3D=C2=A0 ZEROETH_MAP_MASK is needed to page number=
+ of
+> > > > address
+> > > > w/o page offset.
+> > >=20
+> > > My point is why would the page offset be non-zero?
+> > I checked a linker script and addresses that passed to
+> > setup_initial_mapping() and they are really always aligned so there
+> > is
+> > no any sense in additional alignment.
+>=20
+> Ok. I would suggest to add some ASSERT()/BUG_ON() in order to confirm
+> this is always the case.
+>=20
+> [...]
+>=20
+> > > > >=20
+> > > > > > +
+> > > > > > +=C2=A0=C2=A0=C2=A0 /*
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * Create a mapping of the load time a=
+ddress range
+> > > > > > to...
+> > > > > > the
+> > > > > > load time address range.
+> > > > >=20
+> > > > > Same about the line length here.
+> > > > >=20
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * This mapping is used at boot time o=
+nly.
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > > > > > +=C2=A0=C2=A0=C2=A0 _setup_initial_pagetables(second, first, ze=
+roeth,
+> > > > >=20
+> > > > > This can only work if Xen is loaded at its linked address. So
+> > > > > you
+> > > > > need a
+> > > > > separate set of L0, L1 tables for the identity mapping.
+> > > > >=20
+> > > > > That said, this would not be sufficient because:
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0 1) Xen may not be loaded at a 2M boundar=
+y (you can
+> > > > > control
+> > > > > with
+> > > > > U-boot, but not with EFI). So this may cross a boundary and
+> > > > > therefore
+> > > > > need multiple pages.
+> > > > > =C2=A0=C2=A0=C2=A0=C2=A0 2) The load region may overlap the link =
+address
+> > > > >=20
+> > > > > While I think it would be good to handle those cases from the
+> > > > > start,
+> > > > > I
+> > > > > would understand why are not easy to solve. So I think the
+> > > > > minimum is
+> > > > > to
+> > > > > throw some errors if you are in a case you can't support.
+> > > > Do you mean to throw some error in load_addr()/linkder_addr()?
+> > >=20
+> > > In this case, I meant to check if load_addr !=3D linker_addr, then
+> > > throw
+> > > an error.
+> > I am not sure that it is needed now and it is easier to throw an
+> > error
+> > but is option exist to handler situation when load_addr !=3D
+> > linker_addr
+> > except throwing an error? relocate?
+>=20
+> I believe I answered this above.
+Yeah, you answered my question completely. Thank you very much.
 
-~Andrew
+~ Oleksii
 
