@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6ACC6C4D38
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 15:14:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513482.794541 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D259A6C4D6C
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 15:21:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513487.794554 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pezDp-0007fo-1U; Wed, 22 Mar 2023 14:13:49 +0000
+	id 1pezKx-0000xF-S9; Wed, 22 Mar 2023 14:21:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513482.794541; Wed, 22 Mar 2023 14:13:49 +0000
+Received: by outflank-mailman (output) from mailman id 513487.794554; Wed, 22 Mar 2023 14:21:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pezDo-0007d0-Ui; Wed, 22 Mar 2023 14:13:48 +0000
-Received: by outflank-mailman (input) for mailman id 513482;
- Wed, 22 Mar 2023 14:13:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pezKx-0000vN-OW; Wed, 22 Mar 2023 14:21:11 +0000
+Received: by outflank-mailman (input) for mailman id 513487;
+ Wed, 22 Mar 2023 14:21:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SGSf=7O=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pezDn-0007cu-EK
- for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 14:13:47 +0000
-Received: from EUR03-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur03on20603.outbound.protection.outlook.com
- [2a01:111:f400:fe1b::603])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1956cf9-c8bb-11ed-85db-49a42c6b2330;
- Wed, 22 Mar 2023 15:13:46 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8215.eurprd04.prod.outlook.com (2603:10a6:20b:3b3::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Wed, 22 Mar
- 2023 14:13:43 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.037; Wed, 22 Mar 2023
- 14:13:43 +0000
+ (envelope-from <julien@xen.org>) id 1pezKw-0000vH-IJ
+ for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 14:21:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pezKv-0007gr-BL; Wed, 22 Mar 2023 14:21:09 +0000
+Received: from [15.248.2.159] (helo=[10.24.67.31])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pezKv-0002cI-2M; Wed, 22 Mar 2023 14:21:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,124 +39,555 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1956cf9-c8bb-11ed-85db-49a42c6b2330
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mulVxBlkFjxCtByDrfD3jC8MjbJGn+ev1iOurJh8S15yNfycMvEe0YwF5kEEfsQ1ipbuMlo8SUEQ/hmj6P63tfdAHcjdWo+tqdWBhDDCRU1olAuN4c4SlgzCqWbOEg35SuWgLGZgzwztSv2xWw4IKvzr0QkyMrVbwsSPHNy8sARMNcEQrwRk+sLXEwdmmk1jl75mH85wuA2hks94q1g1b5tJe+7vYT4tH87Li0ZKR4MY6JQ3WBWpb8nqv4pP2jKumhv0RahvxJddybdeLrLhEjsFlleQx7ZqjQHjTwugDcEPIi+Fvq24Rs7m2xMQ+KVW2BMn6ok8ZeSHd4VLuQm3ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tk5dJmoYspXo1dpTSv3sSNfP/AX01SlK860/F1mFoNg=;
- b=UCMIjoma5Bah/OWU7V9h2Ru862Pd7zGNqca6sQoSeOc+AIHlxaOSQAWv0WoRIDq/LDWPM8wdhNgRzBFdFKDy5Y9tp4NthZCq0mh1wT1vfSKfcA8ErErNhyjC52b0bBc7f9I9v3VA64FttIU06LHFfXF+EQ+xnqOBWZkG91WcokJ9pRHdIC/3IMa/P6T7JfuNbSY51ocXTLzCXZIq/tfwAtsnUSBdKjMXshED6alsnkgdh9/4j/uRuVVQ4qBveZAjCJy0c5QWNJEnspV2Yvk/RT1iMWcXwOEiHMq3sCVFqDhPg42m+BQ/weGT7SFbZls+I0yKTEkVuVPgw7CeCt6KfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tk5dJmoYspXo1dpTSv3sSNfP/AX01SlK860/F1mFoNg=;
- b=5dBGgv5BsGyKE8K60/8waD19UMbtqnvILtj8rGsMLFhokWDlrsMQSvy9i+8r3lMJ8JFYre9YtyYYlKIemRelF0eTvElZ+E7rjNM4NSs+x7NPntOt/7G9nn6qicPdXxjOWhcCZ2u9y0RwUbFic9AbrJhBc9W2BKtRkE0K9ySsCgny825v0ezGKT6JgaolJH2BxI0cBr6A7xBRrD6AffBDBlAuKZRMKRlpWPJTQqspy5fITypE7eVQO1uTYnFNZZp/6uWjj1wLXSYk7wiNM80hzUrZb7Ttxn8/8XJiNCoku/I3UYgLQmGpWpLgRy5totZuWYqXe/j+6XnVrVKu33JvaQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a07f94d8-85cd-a73f-704c-761a04ec3b3b@suse.com>
-Date: Wed, 22 Mar 2023 15:13:42 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [XEN PATCH v2] build: detect compiler change to rerun kconfig
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20230320152836.43205-1-anthony.perard@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230320152836.43205-1-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0135.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=9cKoXziBhSsKdtKyNSQ7069aSRitwOlpgY9BbzwUhJY=; b=B7MPOUiJMhUmld+5kNAgTVDk4o
+	ZBT12Gq9EISCnKTdKDtZfnY/3MsXxFkZ7dVU6tVIwUsT8M44Yx9UC2qu1kONXs613b2C3iD/iHrlj
+	KdLarmhxrb2J+MX2xp4jBawI/afEUx3w1rb+Kxx+RVhyQgIPwkbwKQ6OTtU5S1j1Tmvs=;
+Message-ID: <60444252-80b6-230e-9090-2c96d5d6187d@xen.org>
+Date: Wed, 22 Mar 2023 14:21:06 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8215:EE_
-X-MS-Office365-Filtering-Correlation-Id: 282e6f99-5760-4776-5f46-08db2adfa4e0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	L3PMDCFneJxmI7pjtvEfVwNva52xbUxd+QsTV0/lt0PTZY4TLEgtRsMqSGrWSauaI8mh+y5ze6WS33EOiuYk0eTvOcvk9GZbioTcC/IpjNt8UahM1IUNE+ROQ/f2wL8mqqVyzPBqRMagSzqcjOJgGo0+ALBaHjDrmXo/vawMOL/UV4GYWqwmUyUrMj46jqpX9cDEU09yaVATDkgUOmQDSCDK39BnimDvV3JdeUx48rRJXQ28Hj9DPYV7MSyGh1nHrdCeEN2jZE7jISrHSvmXHIQBuo1eMDgzh4MKNU8casxU2UzWWjwHkKGDztWjyL/z/rzr1zEZU/PijQiT48nSe9ekGVkUbgl1aRetQCTd+K6ZJrJ1LYMef5SKA5R8NXoHj9ehl9cLWLuW00/PKn8wBFJRhXE3H8N5+LdYHJmMFdfJLwtU2yQJv2wowMjrs1fb863RUFEIhfubuxRxPdMAnhJMa1hsEfpu7UMw4Qo1Q0Y8gs4J6ej66e3tXMCbR4YsE/f48PxyHMr20/mfHgT3Nkj/7BeqNXNgsiPfu+bT5l/LfZ7O2iX1frq+CSnlar3V5YC/jubZZJT6SBTNxQ70pGt9+jLu0UV8K+X/HmNDtrOWBxu+ue8hIKNC1V1ny0rq4qjC/chbByefVsXuDQcxCV2J487qECdXXPmW7DZHDPg9iNg0/vWd4MEuyd5SE2D4W+oHKaAAiVPk2y2ANpLgxmRjxqjI3PzUL6YsfBLtUKU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(136003)(376002)(366004)(346002)(396003)(39860400002)(451199018)(31686004)(66476007)(316002)(54906003)(41300700001)(66946007)(66556008)(4326008)(8676002)(8936002)(36756003)(478600001)(6916009)(31696002)(86362001)(6512007)(186003)(53546011)(6486002)(2616005)(26005)(6506007)(5660300002)(2906002)(83380400001)(966005)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TXo2UVlrNWxGYnd3bVlGNGxyZmpXcWMvN2d3ZHZvOGFoSDEyMDY4YVJ1WTJH?=
- =?utf-8?B?SnhWemdyY0xpa0JiWWhsR0c0UldqeXI2Z1AvL0syMmJjTzJLUlFlaDIrS2pM?=
- =?utf-8?B?MGEyZm42SmtBWStCRG05aHYwUjFxZmdtaEd4eXlaY1ZVczNZYThQaDFPMElZ?=
- =?utf-8?B?RlF6eWdERnc3SWdEMHlvZjFmdUluMGFGYmhydjNiVlE1Z3BkSWtmam1TbEFY?=
- =?utf-8?B?czhzMUNFVFRPUXBURXR5by9DUE9KeURKdDBzRUpOQzZTT3hSL2FYU1I4T1Bu?=
- =?utf-8?B?aHZDcGdrbWtQL3lmampGYjZOelRISU1QcWlvaDZZZUZzOXl4dVZRTW8xWkpN?=
- =?utf-8?B?b2xqYWd4UjI1eSsycnpkY25IalVjQ21XTUxQN1lSRXNFVzl4UldmRFA5YXY5?=
- =?utf-8?B?OGNiV2h2YmVLcTlHQkpadzFsU0hoZHJlbWZvSlhJUFQ5U1pzOWFWa2JFaUpW?=
- =?utf-8?B?bmd4M2NpZXd5ckZ1bGhKakh1bDVnVk5ZWG93OXREQ3BtQ3l6Z2J6dXBFZExk?=
- =?utf-8?B?S1NyVi9oaFpKOXZUL0ZOUDBxUDFEYnBOWVVXR3FHa0tFRVF4QmovcW51alR5?=
- =?utf-8?B?US9xeW1FU05md0lCbnlxOUhRWDBOMWtYU2Q3dUpucVBVajdzdmJ3YzlWb0ZD?=
- =?utf-8?B?UFFjREViZ2tWNm4wR2FJQTRBZmZYUEpZTjZGeGY1RkVBd3l1SU9DR3dhaE1m?=
- =?utf-8?B?UklPZklNaGxJU3FzZlJUZk43SFJISVRxOFB5QmpWUGRzYllSbUZ5d2JpVmtO?=
- =?utf-8?B?MDlWRmpvSElibXpCeFRQRWJUckcwekVXUWoyZElWb2lSQ0t4TWx0ZkN5eW04?=
- =?utf-8?B?V0U5Wko4cFh1eVNVYktFd0lNSlFMWFQ2dGYyMGpoU0lIcGUvNElDeVNyTm1l?=
- =?utf-8?B?VnFGS2s5MzBkL29HMFRWNWVhRVRMVkpqME5uMDdKRGk1Ty95L2liNjVET0Z1?=
- =?utf-8?B?VENtS3lRYjlMVlJ6Yy9wSnVCd1YwMjFKajAwL21ZblpVYThUbmZXcWM2dllH?=
- =?utf-8?B?dXRlRDVvNEQwVUVRK29wVzhpekVxOTU4RnI0RGVsdEErNVVuV09BWUhiY0dz?=
- =?utf-8?B?VmtCbE82WnBmd09JeWhEZnZFT1J5eE1HZmd5NlpoM1ROWG9DZ2w4cHE3dXgy?=
- =?utf-8?B?RERrU3BvaVZ0bTNwREI0a0lieUdUOWxWMWtybFhLL0REdkpBNU8xQ3NnS3Qw?=
- =?utf-8?B?ZjRPSHUvSGhvcjJ4TWJYdFYzNEx0a3dqWGtybWlIQmZiRVNxeHRhdGVPQW5G?=
- =?utf-8?B?eVZVSHJNOThmOGV3VjJGZWNiVkQyRHJoYXg1cG5ETjMyaFBsa1NueDN2OUh3?=
- =?utf-8?B?V2dBTER5QVNuRnVzS2tqQWtZNDZyWm5tSzZ1NDZ5S0tJZXdsOW9yZmRzRE9F?=
- =?utf-8?B?ajRLTmFQQ2dDa09YQjYwYnBrZlNJc3dlcitDMXVhR1JoMjd2VllUNk5UcmE2?=
- =?utf-8?B?b3hqV3l0Qm51NER3S3lzeHdrUjl0NXR5SGpySGVYQTI3aVFrbzRWN3FoUTZo?=
- =?utf-8?B?LzNyeEJTbitITEQ5cjVKK0YxQ2tELzZLRG9qOXZuVXpIcVhiRytxWHJqMjV4?=
- =?utf-8?B?SHF5UlV1VVNqcVMzeEVuSlBwclF3dGRnYWhsSG1kcm5seEtIVGZ5OUIvaXdv?=
- =?utf-8?B?UURpbGJLdWFYWkZucEx4ZkY2Y2hkSDljalNiYm5RcFFUQXFpZGVvV0RpT05u?=
- =?utf-8?B?bm9WTmlCbzhxYlE4eU9seUhBRlN6WmI3dGg4TmYwY0dBcHpCRkJ3azRGdngy?=
- =?utf-8?B?VXhORU4vQk5IU1pJUTJETUs3Q0wvMWJyTlJCU0dhL0tKZUdsVmVQNGkvbFZa?=
- =?utf-8?B?T0FxbmFKbTRZK3laWmphM2xhNWxaZXdvVFRGakZoc3M2WnZzOFlSNkFJN0tn?=
- =?utf-8?B?dURrb1JhMkJRYUI0K0J3Y0dKUmRNeG82K0tMNkxLL3h6MHNPaTFqNXRTTTZl?=
- =?utf-8?B?WEN1MmhDb2QwRmpCQTlkQjUyajVyUDBtckpqMnFQUWVMUzlGTHJQcmtCL29y?=
- =?utf-8?B?d2JnVUN5alJrYkhEQk40dURLM0lQc2crNlh2SDVubHRGV1ppSG9FTjUxV2J0?=
- =?utf-8?B?QXhwUkFDQlVtTW1PUWZ4RzJzcnJ3V1pvUkd4c284Z09RcXNQcEpTYmVodThO?=
- =?utf-8?Q?WqN6tutdKXrSnfcw5iDBwRRBg?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 282e6f99-5760-4776-5f46-08db2adfa4e0
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2023 14:13:43.6392
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 77PIse0AJ3LTw7WIdue92GVv12PimNyLLIbaGHBBEcYbfBLZWskGZjx/GU0YQ32OkLtJrxFUVVOZp+9lpa9Vwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8215
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.9.0
+Subject: Re: [PATCH v2 1/3] xen/riscv: introduce setup_initial_pages
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>
+References: <cover.1678984041.git.oleksii.kurochko@gmail.com>
+ <85a21ada5a0fc44bb9db1dcc1f6cf191a6e66bfb.1678984041.git.oleksii.kurochko@gmail.com>
+ <9ff0e335-6cb2-be49-046d-745ce05f7086@xen.org>
+ <5169c6c8a0c4c90b56e3f525a55de464edf7181e.camel@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <5169c6c8a0c4c90b56e3f525a55de464edf7181e.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 20.03.2023 16:28, Anthony PERARD wrote:
-> This simple comment allows to detect when $(CC) changes version.
-> Kconfig will be rerun in this case. (Rerun is forced by
-> include/config/auto.conf.cmd which detects changes of CC_VERSION_TEXT
-> value).
+
+
+On 22/03/2023 09:55, Oleksii wrote:
+> Hi Jullien,
+
+Hi,
+
+> On Tue, 2023-03-21 at 17:58 +0000, Julien Grall wrote:
+>> Hi,
+>>
+>> I will try to not repeat the comment already made.
+>>
+>> On 16/03/2023 16:43, Oleksii Kurochko wrote:
+>>> Mostly the code for setup_initial_pages was taken from Bobby's
+>>> repo except for the following changes:
+>>> * Use only a minimal part of the code enough to enable MMU
+>>> * rename {_}setup_initial_pagetables functions
+>>> * add an argument for setup_initial_mapping to have
+>>>     an opportunity to make set PTE flags.
+>>> * update setup_initial_pagetables function to map sections
+>>>     with correct PTE flags.
+>>> * introduce separate enable_mmu() to be able for proper
+>>>     handling the case when load start address isn't equal to
+>>>     linker start address.
+>>> * map linker addresses range to load addresses range without
+>>>     1:1 mapping.
+>>> * add safety checks such as:
+>>>     * Xen size is less than page size
+>>>     * linker addresses range doesn't overlap load addresses
+>>>       range
+>>> * Rework macros {THIRD,SECOND,FIRST,ZEROETH}_{SHIFT,MASK}
+>>> * change PTE_LEAF_DEFAULT to RX instead of RWX.
+>>> * Remove phys_offset as it isn't used now.
+>>> * Remove alignment  of {map, pa}_start &= XEN_PT_LEVEL_MAP_MASK(0);
+>>> in
+>>>     setup_inital_mapping() as they should be already aligned.
+>>> * Remove clear_pagetables() as initial pagetables will be
+>>>     zeroed during bss initialization
+>>> * Remove __attribute__((section(".entry")) for
+>>> setup_initial_pagetables()
+>>>     as there is no such section in xen.lds.S
+>>> * Update the argument of pte_is_valid() to "const pte_t *p"
+>>>
+>>> Origin:
+>>> https://gitlab.com/xen-on-risc-v/xen/-/tree/riscv-rebase 4af165b468
+>>> af
+>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>> ---
+>>> Changes in V2:
+>>>    * update the commit message:
+>>>    * Remove {ZEROETH,FIRST,...}_{SHIFT,MASK, SIZE,...} and
+>>>      introduce instead of them XEN_PT_LEVEL_*() and LEVEL_*
+>>>    * Rework pt_linear_offset() and pt_index based on
+>>> XEN_PT_LEVEL_*()
+>>>    * Remove clear_pagetables() functions as pagetables were zeroed
+>>> during
+>>>      .bss initialization
+>>>    * Rename _setup_initial_pagetables() to setup_initial_mapping()
+>>>    * Make PTE_DEFAULT equal to RX.
+>>>    * Update prototype of setup_initial_mapping(..., bool writable) -
+>>>>
+>>>      setup_initial_mapping(..., UL flags)
+>>>    * Update calls of setup_initial_mapping according to new
+>>> prototype
+>>>    * Remove unnecessary call of:
+>>>      _setup_initial_pagetables(..., load_addr_start, load_addr_end,
+>>> load_addr_start, ...)
+>>>    * Define index* in the loop of setup_initial_mapping
+>>>    * Remove attribute "__attribute__((section(".entry")))" for
+>>> setup_initial_pagetables()
+>>>      as we don't have such section
+>>>    * make arguments of paddr_to_pte() and pte_is_valid() as const.
+>>>    * make xen_second_pagetable static.
+>>>    * use <xen/kernel.h> instead of declaring extern unsigned long
+>>> _stext, 0etext, _srodata, _erodata
+>>>    * update  'extern unsigned long __init_begin' to 'extern unsigned
+>>> long __init_begin[]'
+>>>    * use aligned() instead of
+>>> "__attribute__((__aligned__(PAGE_SIZE)))"
+>>>    * set __section(".bss.page_aligned") for page tables arrays
+>>>    * fix identatations
+>>>    * Change '__attribute__((section(".entry")))' to '__init'
+>>>    * Remove phys_offset as it isn't used now.
+>>>    * Remove alignment  of {map, pa}_start &=
+>>> XEN_PT_LEVEL_MAP_MASK(0); in
+>>>      setup_inital_mapping() as they should be already aligned.
+>>>    * Remove clear_pagetables() as initial pagetables will be
+>>>      zeroed during bss initialization
+>>>    * Remove __attribute__((section(".entry")) for
+>>> setup_initial_pagetables()
+>>>      as there is no such section in xen.lds.S
+>>>    * Update the argument of pte_is_valid() to "const pte_t *p"
+>>> ---
+>>>    xen/arch/riscv/Makefile           |   1 +
+>>>    xen/arch/riscv/include/asm/mm.h   |   8 ++
+>>>    xen/arch/riscv/include/asm/page.h |  67 +++++++++++++++++
+>>>    xen/arch/riscv/mm.c               | 121
+>>> ++++++++++++++++++++++++++++++
+>>>    xen/arch/riscv/riscv64/head.S     |  65 ++++++++++++++++
+>>>    xen/arch/riscv/xen.lds.S          |   2 +
+>>>    6 files changed, 264 insertions(+)
+>>>    create mode 100644 xen/arch/riscv/include/asm/mm.h
+>>>    create mode 100644 xen/arch/riscv/include/asm/page.h
+>>>    create mode 100644 xen/arch/riscv/mm.c
+>>>
+>>> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+>>> index 443f6bf15f..956ceb02df 100644
+>>> --- a/xen/arch/riscv/Makefile
+>>> +++ b/xen/arch/riscv/Makefile
+>>> @@ -1,5 +1,6 @@
+>>>    obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+>>>    obj-y += entry.o
+>>> +obj-y += mm.o
+>>>    obj-$(CONFIG_RISCV_64) += riscv64/
+>>>    obj-y += sbi.o
+>>>    obj-y += setup.o
+>>> diff --git a/xen/arch/riscv/include/asm/mm.h
+>>> b/xen/arch/riscv/include/asm/mm.h
+>>> new file mode 100644
+>>> index 0000000000..3cc98fe45b
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/include/asm/mm.h
+>>> @@ -0,0 +1,8 @@
+>>> +#ifndef _ASM_RISCV_MM_H
+>>> +#define _ASM_RISCV_MM_H
+>>> +
+>>> +void setup_initial_pagetables(void);
+>>> +
+>>> +extern void enable_mmu(void);
+>>> +
+>>> +#endif /* _ASM_RISCV_MM_H */
+>>> diff --git a/xen/arch/riscv/include/asm/page.h
+>>> b/xen/arch/riscv/include/asm/page.h
+>>> new file mode 100644
+>>> index 0000000000..fb8329a191
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/include/asm/page.h
+>>> @@ -0,0 +1,67 @@
+>>> +#ifndef _ASM_RISCV_PAGE_H
+>>> +#define _ASM_RISCV_PAGE_H
+>>> +
+>>> +#include <xen/const.h>
+>>> +#include <xen/types.h>
+>>> +
+>>> +#define PAGE_ENTRIES                (1 << PAGETABLE_ORDER)
+>>> +#define VPN_MASK                    ((unsigned long)(PAGE_ENTRIES
+>>> - 1))
+>>> +
+>>> +#define PAGE_ORDER                  (12)
+>>> +
+>>> +#ifdef CONFIG_RISCV_64
+>>> +#define PAGETABLE_ORDER             (9)
+>>> +#else /* CONFIG_RISCV_32 */
+>>> +#define PAGETABLE_ORDER             (10)
+>>> +#endif
+>>> +
+>>> +#define LEVEL_ORDER(lvl)            (lvl * PAGETABLE_ORDER)
+>>> +#define LEVEL_SHIFT(lvl)            (LEVEL_ORDER(lvl) +
+>>> PAGE_ORDER)
+>>> +#define LEVEL_SIZE(lvl)             (_AT(paddr_t, 1) <<
+>>> LEVEL_SHIFT(lvl))
+>>> +
+>>> +#define XEN_PT_LEVEL_SHIFT(lvl)     LEVEL_SHIFT(lvl)
+>>> +#define XEN_PT_LEVEL_ORDER(lvl)     LEVEL_ORDER(lvl)
+>>> +#define XEN_PT_LEVEL_SIZE(lvl)      LEVEL_SIZE(lvl)
+>>> +#define XEN_PT_LEVEL_MAP_MASK(lvl)  (~(XEN_PT_LEVEL_SIZE(lvl) -
+>>> 1))
+>>> +#define XEN_PT_LEVEL_MASK(lvl)      (VPN_MASK <<
+>>> XEN_PT_LEVEL_SHIFT(lvl))
+>>> +
+>>> +#define PTE_SHIFT                   10
+>>> +
+>>> +#define PTE_VALID                   BIT(0, UL)
+>>> +#define PTE_READABLE                BIT(1, UL)
+>>> +#define PTE_WRITABLE                BIT(2, UL)
+>>> +#define PTE_EXECUTABLE              BIT(3, UL)
+>>> +#define PTE_USER                    BIT(4, UL)
+>>> +#define PTE_GLOBAL                  BIT(5, UL)
+>>> +#define PTE_ACCESSED                BIT(6, UL)
+>>> +#define PTE_DIRTY                   BIT(7, UL)
+>>> +#define PTE_RSW                     (BIT(8, UL) | BIT(9, UL))
+>>> +
+>>> +#define PTE_LEAF_DEFAULT            (PTE_VALID | PTE_READABLE |
+>>> PTE_EXECUTABLE)
+>>> +#define PTE_TABLE                   (PTE_VALID)
+>>> +
+>>> +/* Calculate the offsets into the pagetables for a given VA */
+>>> +#define pt_linear_offset(lvl, va)   ((va) >>
+>>> XEN_PT_LEVEL_SHIFT(lvl))
+>>> +
+>>> +#define pt_index(lvl, va)   pt_linear_offset(lvl, (va) &
+>>> XEN_PT_LEVEL_MASK(lvl))
+>>> +
+>>> +/* Page Table entry */
+>>> +typedef struct {
+>>> +    uint64_t pte;
+>>> +} pte_t;
+>>> +
+>>> +/* Shift the VPN[x] or PPN[x] fields of a virtual or physical
+>>> address
+>>> + * to become the shifted PPN[x] fields of a page table entry */
+>>> +#define addr_to_ppn(x) (((x) >> PAGE_SHIFT) << PTE_SHIFT)
+>>> +
+>>> +static inline pte_t paddr_to_pte(const unsigned long paddr)
+>>> +{
+>>> +    return (pte_t) { .pte = addr_to_ppn(paddr) };
+>>> +}
+>>> +
+>>> +static inline bool pte_is_valid(const pte_t *p)
+>>> +{
+>>> +    return p->pte & PTE_VALID;
+>>> +}
+>>> +
+>>> +#endif /* _ASM_RISCV_PAGE_H */
+>>> diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+>>> new file mode 100644
+>>> index 0000000000..0df6b47441
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/mm.c
+>>> @@ -0,0 +1,121 @@
+>>> +#include <xen/compiler.h>
+>>> +#include <xen/init.h>
+>>> +#include <xen/kernel.h>
+>>> +#include <xen/lib.h>
+>>> +#include <xen/page-size.h>
+>>> +
+>>> +#include <asm/boot-info.h>
+>>> +#include <asm/config.h>
+>>> +#include <asm/csr.h>
+>>> +#include <asm/mm.h>
+>>> +#include <asm/page.h>
+>>> +#include <asm/traps.h>
+>>> +
+>>> +/*
+>>> + * xen_second_pagetable is indexed with the VPN[2] page table
+>>> entry field
+>>> + * xen_first_pagetable is accessed from the VPN[1] page table
+>>> entry field
+>>> + * xen_zeroeth_pagetable is accessed from the VPN[0] page table
+>>> entry field
+>>> + */
+>>> +pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+>>> +    xen_second_pagetable[PAGE_ENTRIES];
+>>> +static pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+>>> +    xen_first_pagetable[PAGE_ENTRIES];
+>>> +static pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+>>> +    xen_zeroeth_pagetable[PAGE_ENTRIES];
+>>> +
+>>> +extern unsigned long __init_begin[];
+>>> +extern unsigned long __init_end[];
+>>> +extern unsigned char cpu0_boot_stack[STACK_SIZE];
+>>> +
+>>> +static void __init
+>>> +setup_initial_mapping(pte_t *second, pte_t *first, pte_t *zeroeth,
+>>> +                      unsigned long map_start,
+>>> +                      unsigned long map_end,
+>>> +                      unsigned long pa_start,
+>>> +                      unsigned long flags)
+>>> +{
+>>> +    unsigned long page_addr;
+>>> +
+>>> +    // /* align start addresses */
+>>> +    // map_start &= XEN_PT_LEVEL_MAP_MASK(0);
+>>> +    // pa_start &= XEN_PT_LEVEL_MAP_MASK(0);
+>>
+>> They should be switched to ASSERT() or BUG_ON().
+> Sure. Thanks. I'll update.
+>>
+>>> +
+>>> +    page_addr = map_start;
+>>> +    while ( page_addr < map_end )
+>>
+>> This loop is continue to assume that only the mapping can first in
+>> 2MB
+>> section (or less if the start is not 2MB aligned).
+>>
+>> I am OK if you want to assume it, but I think this should be
+>> documented
+>> (with words and ASSERT()/BUG_ON()) to avoid any mistake.
+> I add a check in setup_initial_pagetables:
+>       BUG_ON(load_addr_start % (PAGE_ENTRIES * PAGE_SIZE) != 0);
+> Probably this is not a correct place and should be moved to
+> setup_initial_mapping() instead of setup_initial_pagetables()
+
+Yes it should be moved in setup_initial_mapping().
+
+>>
+>>> +    {
+>>> +        unsigned long index2 = pt_index(2, page_addr);
+>>> +        unsigned long index1 = pt_index(1, page_addr);
+>>> +        unsigned long index0 = pt_index(0, page_addr);
+>>> +
+>>> +        /* Setup level2 table */
+>>> +        second[index2] = paddr_to_pte((unsigned long)first);
+>>> +        second[index2].pte |= PTE_TABLE;
+>>> +
+>>> +        /* Setup level1 table */
+>>> +        first[index1] = paddr_to_pte((unsigned long)zeroeth);
+>>> +        first[index1].pte |= PTE_TABLE;
+>>> +
+>>> +
+>>
+>> NIT: Spurious line?
+> Yeah, should be removed. Thanks.
+>>
+>>> +        /* Setup level0 table */
+>>> +        if ( !pte_is_valid(&zeroeth[index0]) )
+>>
+>> On the previous version, you said it should be checked for each
+>> level.
+> I had a terrible internet connection, and my message wasn't sent.
+
+No worries.
+
 > 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
+> I decided not to check that l2 and l1 are used only for referring to
+> the next page table but not leaf PTE. So it is safe to overwrite it
+> each time (the addresses of page tables are the same all the time)
+
+You are letting the caller to decide which page-table to use for each 
+level. So you are at the mercy that caller will do the right thing.
+
+IHMO, this is a pretty bad idea because debugging page-tables error are 
+difficult. So it is better to have safety in place. This is not worth...
+
+  and
+> probably it will be better from optimization point of view to ignore if
+> clauses.
+
+... the optimization in particular when this is at boot time.
+
 > 
-> Technically, it was acked by Andrew:
->     https://lore.kernel.org/xen-devel/20200326135621.687685-1-anthony.perard@citrix.com/t/#ma1171775b9938bcdffc80b2fcb8d2a883cd3e32a
+> And it is needed in case of L0 because it is possible that some
+> addressed were marked with specific flag ( execution, read, write ) and
+> so not to overwrite the flags set before the check is needed.
+In which case you should really report an error because the caller may 
+have decide to set execution flag and you don't honor. So when the code 
+is executed, you will receive a fault and this may be hard to find out 
+what happen.
 
-And technically - comment visible under the same link - this still
-isn't what we would need to address one of the arguments around not
-storing tool chain capabilities in .config: The version string may
-not change, but an update may still have brought a new option the
-compiler understands (or a downgrade may have taken away one). In
-fact this change is working against the proposed direction of not
-making .config contents dependent upon tool chain properties. But
-of course that proposal wasn't adopted yet, so for the time being
-this still looks to be an improvement.
+> 
+>> the next page table but not leaf PTE.But here you still only check
+>> for a single level.
+>>
+>> Furthermore, I would strongly suggest to also check the valid PTE is
+>> the
+>> same as you intend to write to catch any override (they are a pain to
+>> debug).
+> but if load addresses and linker addresses don't overlap is it possible
+> situation that valid PTE will be overridden?
 
-Jan
+A bug in the code. In fact, if you add the check you would have notice 
+that your existing code is buggy (see below).
+
+>>
+>>> +        {
+>>> +            /* Update level0 table */
+>>> +            zeroeth[index0] = paddr_to_pte((page_addr - map_start)
+>>> + pa_start);
+>>> +            zeroeth[index0].pte |= flags;
+>>> +        }
+>>> +
+>>> +        /* Point to next page */
+>>> +        page_addr += XEN_PT_LEVEL_SIZE(0);
+>>> +    }
+>>> +}
+>>> +
+>>> +/*
+>>> + * setup_initial_pagetables:
+>>> + *
+>>> + * Build the page tables for Xen that map the following:
+>>> + *   load addresses to linker addresses
+
+I would suggest to expand because this is not entirely what you exactly 
+are doing. In fact...
+
+>>> + */
+>>> +void __init setup_initial_pagetables(void)
+>>> +{
+>>> +    pte_t *second;
+>>> +    pte_t *first;
+>>> +    pte_t *zeroeth;
+>>> +
+>>> +    unsigned long load_addr_start   = boot_info.load_start;
+>>> +    unsigned long load_addr_end     = boot_info.load_end;
+>>> +    unsigned long linker_addr_start = boot_info.linker_start;
+>>> +    unsigned long linker_addr_end   = boot_info.linker_end;
+>>> +
+>>> +    BUG_ON(load_addr_start % (PAGE_ENTRIES * PAGE_SIZE) != 0);
+>>> +    if (load_addr_start != linker_addr_start)
+>>> +        BUG_ON((linker_addr_end > load_addr_start && load_addr_end
+>>>> linker_addr_start));
+>>
+>> I would suggest to switch to a panic() with an error message as this
+>> would help the user understanding what this is breaking.
+>>
+>> Alternatively, you could document what this check is for.
+> I think I will document it for now as panic() isn't ready for use now.
+>>
+>>> +
+>>> +    /* Get the addresses where the page tables were loaded */
+>>> +    second  = (pte_t *)(&xen_second_pagetable);
+>>> +    first   = (pte_t *)(&xen_first_pagetable);
+>>> +    zeroeth = (pte_t *)(&xen_zeroeth_pagetable);
+>>> +
+>>> +    setup_initial_mapping(second, first, zeroeth,
+>>> +                          LOAD_TO_LINK((unsigned long)&_stext),
+>>> +                          LOAD_TO_LINK((unsigned long)&_etext),
+>>> +                          (unsigned long)&_stext,
+>>> +                          PTE_LEAF_DEFAULT);
+>>> +
+>>> +    setup_initial_mapping(second, first, zeroeth,
+>>> +                          LOAD_TO_LINK((unsigned
+>>> long)&__init_begin),
+>>> +                          LOAD_TO_LINK((unsigned
+>>> long)&__init_end),
+>>> +                          (unsigned long)&__init_begin,
+>>> +                          PTE_LEAF_DEFAULT | PTE_WRITABLE);
+>>> +
+>>> +    setup_initial_mapping(second, first, zeroeth,
+>>> +                          LOAD_TO_LINK((unsigned long)&_srodata),
+>>> +                          LOAD_TO_LINK((unsigned long)&_erodata),
+>>> +                          (unsigned long)(&_srodata),
+>>> +                          PTE_VALID | PTE_READABLE);
+>>> +
+>>> +    setup_initial_mapping(second, first, zeroeth,
+>>> +                          linker_addr_start,
+>>> +                          linker_addr_end,
+>>> +                          load_addr_start,
+>>> +                          PTE_LEAF_DEFAULT | PTE_READABLE);
+
+... this is not cover above. AFAIU, this is the one for the 1:1 mapping.
+
+>>
+>> As I said in v1, you need to use a different set of page-table here.
+> If I understand you correctly I have to use a different set of page-
+> table in case when it is possible that size of Xen will be larger then
+> PAGE_SIZE. So I added to xen.lds.S a check to be sure that the size
+> fits into PAGE_SIZE.
+
+This is not what I was referring to. I was pointing out that second, 
+first, zeroeth are exactly the same for all the callers. You want to 
+introduce a second set of zeroeth table. You will want to do the same 
+for first but it is not always used.
+
+Otherwise, this is not going to work if Xen is loaded at a different 
+address than the runtime.
+
+That said, when I spoke with Andrew yesterday, he mentioned that your 
+initial goal is to support the case where Xen is loaded at the runtime 
+address. I understand this simplifies a lot the code and I told him I 
+was OK with that. However, it would be good to document what are your 
+goals in each series (this is not always clear what you skip on purpose).
+
+> 
+>> Also, where do you guarantee that Xen will be loaded at a 2MB aligned
+>> address? (For a fact I know that UEFI is only guarantee 4KB
+>> alignment).
+> There is a check in setup_initial_pagetables:
+>       BUG_ON(load_addr_start % (PAGE_ENTRIES * PAGE_SIZE) != 0);
+
+This is not very obvious the check is to confirm that Xen is probably 
+aligned. I would suggest to add a comment.
+
+Also, you might want to use XEN_PT_LEVEL_SIZE(..) to make it more 
+obvious what sort of alignment you are trying to enforce.
+
+>>> +        la      sp, cpu0_boot_stack
+>>> +        li      t0, STACK_SIZE
+>>> +        add     sp, sp, t0
+>>> +
+>>> +        /*
+>>> +         * Re-init an address of exception handler as it was
+>>> overwritten  with
+>>> +         * the address of the .L_mmu_is_enabled label.
+>>> +         * Before jump to trap_init save return address of
+>>> enable_mmu() to
+>>> +         * know where we should back after enable_mmu() will be
+>>> finished.
+>>> +         */
+>>> +        mv      s0, ra
+>>> +        lla     t0, trap_init
+>>> +        jalr    ra, t0
+>>> +
+>>> +        /*
+>>> +         * Re-calculate the return address of enable_mmu()
+>>> function for case
+>>> +         * when linker start address isn't equal to load start
+>>> address
+>>> +         */
+>>> +        add     s0, s0, t1
+>>> +        mv      ra, s0
+>>> +
+>>> +        ret
+>>
+>> Missing ENDPROC?
+> I haven't seen the usage of ENDPROC for RISC-V so it looks like it is
+> not necessary.
+
+Ok. Would the objdump be able to report the function properly then? I 
+know that on Arm, it was necessary report assembly function properly.
+
+>>
+>>> diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
+>>> index eed457c492..e4ac4e84b6 100644
+>>> --- a/xen/arch/riscv/xen.lds.S
+>>> +++ b/xen/arch/riscv/xen.lds.S
+>>> @@ -179,3 +179,5 @@ SECTIONS
+>>>    
+>>>    ASSERT(!SIZEOF(.got),      ".got non-empty")
+>>>    ASSERT(!SIZEOF(.got.plt),  ".got.plt non-empty")
+>>> +
+>>> +ASSERT(_end - _start <= MB(2), "Xen too large for early-boot
+>>> assumptions")
+>>
+> ~ Oleksii
+> 
+
+Cheers,
+
+-- 
+Julien Grall
 
