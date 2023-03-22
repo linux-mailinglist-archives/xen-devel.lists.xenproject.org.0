@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD4356C550D
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 20:35:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513579.794785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E0A26C5598
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Mar 2023 20:59:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513582.794795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pf4FA-0000Br-QF; Wed, 22 Mar 2023 19:35:32 +0000
+	id 1pf4bR-0003DG-K0; Wed, 22 Mar 2023 19:58:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513579.794785; Wed, 22 Mar 2023 19:35:32 +0000
+Received: by outflank-mailman (output) from mailman id 513582.794795; Wed, 22 Mar 2023 19:58:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pf4FA-00009f-NL; Wed, 22 Mar 2023 19:35:32 +0000
-Received: by outflank-mailman (input) for mailman id 513579;
- Wed, 22 Mar 2023 19:35:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h6FB=7O=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1pf4FA-00009Z-1l
- for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 19:35:32 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b37c37b4-c8e8-11ed-b464-930f4c7d94ae;
- Wed, 22 Mar 2023 20:35:29 +0100 (CET)
+	id 1pf4bR-0003BY-Gz; Wed, 22 Mar 2023 19:58:33 +0000
+Received: by outflank-mailman (input) for mailman id 513582;
+ Wed, 22 Mar 2023 19:58:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ukyC=7O=kernel.org=sashal@srs-se1.protection.inumbo.net>)
+ id 1pf4bP-0003BS-Ow
+ for xen-devel@lists.xenproject.org; Wed, 22 Mar 2023 19:58:31 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eab4e52d-c8eb-11ed-85db-49a42c6b2330;
+ Wed, 22 Mar 2023 20:58:30 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7326A62276;
- Wed, 22 Mar 2023 19:35:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B3CC433D2;
- Wed, 22 Mar 2023 19:35:26 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 63164B81DE7;
+ Wed, 22 Mar 2023 19:58:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E961CC433D2;
+ Wed, 22 Mar 2023 19:58:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,84 +43,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b37c37b4-c8e8-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: eab4e52d-c8eb-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679513726;
-	bh=FhntRrT8ocoSuGXxtLHKzHWzymmkrlLBWHmrPDDVUUo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=TZXj21NeIUkUZZar7VNMqh3dVSuN3o8smKLoGeKlxFM4u9gfOpaC3kuIEPrC8theJ
-	 EjPJVc9oufTxzPD7G4Hc8hmuSNFg5ASYHNUqVWj4Pm/PAM0cm4Y0hL/TmGR1vF7cRJ
-	 ghHYAN2nzfJSugY4ZFFucSttfz82MaXOPTFpw736rSuhY7yG3U/x5krQWe30aNyfH3
-	 TpCuc9D3+sHvl4qsdpIcmDaIEydMxpzHx8G9wZuc/iInxcv8qZuNxXLKv+GJGD4EfH
-	 DaiPCrrrg2VbKAwdhc5c78r9UJzE633kYTaRwA7Xko4oXiDWsAIH0RPGJpwYNqkaDa
-	 lXTFXlUZ+LxhA==
-Date: Wed, 22 Mar 2023 14:35:25 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Randy Dunlap <rdunlap@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	s=k20201202; t=1679515108;
+	bh=U2nfdusHcmUfo5Dxeanu0y7DchbxUE5e7NRJhWSoTAs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=Y96lU6qQVehYEQLiHp6CrkcsZoShYLoEqmgkZROu2HTfiSBaPiDaluFx+ibhCrSIq
+	 fbCWjLbLnYeiDpAunHff6ixhE4KNq2hBZNHdRUMEul8PLDe72L2NmtljKH6tGn4Rln
+	 rRzBHQh8zReZ+95DT5ECNqgeHcoZpm4mvZlHkHw0pB4R9Ie63VZrK6TZyF+XBONYIX
+	 0TFFsS1TpXcsNQ4GA0ZaxAYNwr1vqZ6YBDUAkaVa+1OAivVp26g+vG2PclVjSFMTM7
+	 rDqH0ikLCMhPk3qAC7WiFYV+V+stZeQrPKkl38Rbm6kCjNWhYFTj4/jdWQ1gUMQEKo
+	 JahLDeSv+UnaA==
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Cc: Jan Beulich <jbeulich@suse.com>,
 	Juergen Gross <jgross@suse.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org, linux-pci@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	Matt Turner <mattst88@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	Anatolij Gustschin <agust@denx.de>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	"David S. Miller" <davem@davemloft.net>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH v6 2/4] PCI: Split pci_bus_for_each_resource_p() out of
- pci_bus_for_each_resource()
-Message-ID: <20230322193525.GA2487882@bhelgaas>
+	Sasha Levin <sashal@kernel.org>,
+	tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	sstabellini@kernel.org,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH AUTOSEL 6.2 23/45] x86/PVH: obtain VGA console info in Dom0
+Date: Wed, 22 Mar 2023 15:56:17 -0400
+Message-Id: <20230322195639.1995821-23-sashal@kernel.org>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <20230322195639.1995821-1-sashal@kernel.org>
+References: <20230322195639.1995821-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230320131633.61680-3-andriy.shevchenko@linux.intel.com>
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
 
-On Mon, Mar 20, 2023 at 03:16:31PM +0200, Andy Shevchenko wrote:
-> ...
+From: Jan Beulich <jbeulich@suse.com>
 
-> -#define pci_bus_for_each_resource(bus, res, i)				\
-> -	for (i = 0;							\
-> -	    (res = pci_bus_resource_n(bus, i)) || i < PCI_BRIDGE_RESOURCE_NUM; \
-> -	     i++)
-> +#define __pci_bus_for_each_resource(bus, res, __i, vartype)			\
-> +	for (vartype __i = 0;							\
-> +	     res = pci_bus_resource_n(bus, __i), __i < PCI_BRIDGE_RESOURCE_NUM;	\
-> +	     __i++)
-> +
-> +#define pci_bus_for_each_resource(bus, res, i)					\
-> +	__pci_bus_for_each_resource(bus, res, i, )
-> +
-> +#define pci_bus_for_each_resource_p(bus, res)					\
-> +	__pci_bus_for_each_resource(bus, res, __i, unsigned int)
+[ Upstream commit 934ef33ee75c3846f605f18b65048acd147e3918 ]
 
-I like these changes a lot, too!
+A new platform-op was added to Xen to allow obtaining the same VGA
+console information PV Dom0 is handed. Invoke the new function and have
+the output data processed by xen_init_vga().
 
-Same comments about _p vs _idx and __pci_bus_for_each_resource(...,
-vartype).
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-Also would prefer 80 char max instead of 81.
+Link: https://lore.kernel.org/r/8f315e92-7bda-c124-71cc-478ab9c5e610@suse.com
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/xen/Makefile            |  2 +-
+ arch/x86/xen/enlighten_pv.c      |  3 ++-
+ arch/x86/xen/enlighten_pvh.c     | 13 +++++++++++++
+ arch/x86/xen/vga.c               |  5 ++---
+ arch/x86/xen/xen-ops.h           |  7 ++++---
+ include/xen/interface/platform.h |  3 +++
+ 6 files changed, 25 insertions(+), 8 deletions(-)
+
+diff --git a/arch/x86/xen/Makefile b/arch/x86/xen/Makefile
+index 3c5b52fbe4a7f..a9ec8c9f5c5dd 100644
+--- a/arch/x86/xen/Makefile
++++ b/arch/x86/xen/Makefile
+@@ -45,6 +45,6 @@ obj-$(CONFIG_PARAVIRT_SPINLOCKS)+= spinlock.o
+ 
+ obj-$(CONFIG_XEN_DEBUG_FS)	+= debugfs.o
+ 
+-obj-$(CONFIG_XEN_PV_DOM0)	+= vga.o
++obj-$(CONFIG_XEN_DOM0)		+= vga.o
+ 
+ obj-$(CONFIG_XEN_EFI)		+= efi.o
+diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
+index 5b13796628770..68f5f5d209dfa 100644
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -1389,7 +1389,8 @@ asmlinkage __visible void __init xen_start_kernel(struct start_info *si)
+ 
+ 		x86_platform.set_legacy_features =
+ 				xen_dom0_set_legacy_features;
+-		xen_init_vga(info, xen_start_info->console.dom0.info_size);
++		xen_init_vga(info, xen_start_info->console.dom0.info_size,
++			     &boot_params.screen_info);
+ 		xen_start_info->console.domU.mfn = 0;
+ 		xen_start_info->console.domU.evtchn = 0;
+ 
+diff --git a/arch/x86/xen/enlighten_pvh.c b/arch/x86/xen/enlighten_pvh.c
+index bcae606bbc5cf..1da44aca896c6 100644
+--- a/arch/x86/xen/enlighten_pvh.c
++++ b/arch/x86/xen/enlighten_pvh.c
+@@ -43,6 +43,19 @@ void __init xen_pvh_init(struct boot_params *boot_params)
+ 	x86_init.oem.banner = xen_banner;
+ 
+ 	xen_efi_init(boot_params);
++
++	if (xen_initial_domain()) {
++		struct xen_platform_op op = {
++			.cmd = XENPF_get_dom0_console,
++		};
++		long ret = HYPERVISOR_platform_op(&op);
++
++		if (ret > 0)
++			xen_init_vga(&op.u.dom0_console,
++				     min(ret * sizeof(char),
++					 sizeof(op.u.dom0_console)),
++				     &boot_params->screen_info);
++	}
+ }
+ 
+ void __init mem_map_via_hcall(struct boot_params *boot_params_p)
+diff --git a/arch/x86/xen/vga.c b/arch/x86/xen/vga.c
+index 14ea32e734d59..d97adab8420f4 100644
+--- a/arch/x86/xen/vga.c
++++ b/arch/x86/xen/vga.c
+@@ -9,10 +9,9 @@
+ 
+ #include "xen-ops.h"
+ 
+-void __init xen_init_vga(const struct dom0_vga_console_info *info, size_t size)
++void __init xen_init_vga(const struct dom0_vga_console_info *info, size_t size,
++			 struct screen_info *screen_info)
+ {
+-	struct screen_info *screen_info = &boot_params.screen_info;
+-
+ 	/* This is drawn from a dump from vgacon:startup in
+ 	 * standard Linux. */
+ 	screen_info->orig_video_mode = 3;
+diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
+index 9a8bb972193d8..a10903785a338 100644
+--- a/arch/x86/xen/xen-ops.h
++++ b/arch/x86/xen/xen-ops.h
+@@ -108,11 +108,12 @@ static inline void xen_uninit_lock_cpu(int cpu)
+ 
+ struct dom0_vga_console_info;
+ 
+-#ifdef CONFIG_XEN_PV_DOM0
+-void __init xen_init_vga(const struct dom0_vga_console_info *, size_t size);
++#ifdef CONFIG_XEN_DOM0
++void __init xen_init_vga(const struct dom0_vga_console_info *, size_t size,
++			 struct screen_info *);
+ #else
+ static inline void __init xen_init_vga(const struct dom0_vga_console_info *info,
+-				       size_t size)
++				       size_t size, struct screen_info *si)
+ {
+ }
+ #endif
+diff --git a/include/xen/interface/platform.h b/include/xen/interface/platform.h
+index 655d92e803e14..79a443c65ea93 100644
+--- a/include/xen/interface/platform.h
++++ b/include/xen/interface/platform.h
+@@ -483,6 +483,8 @@ struct xenpf_symdata {
+ };
+ DEFINE_GUEST_HANDLE_STRUCT(xenpf_symdata);
+ 
++#define XENPF_get_dom0_console 64
++
+ struct xen_platform_op {
+ 	uint32_t cmd;
+ 	uint32_t interface_version; /* XENPF_INTERFACE_VERSION */
+@@ -506,6 +508,7 @@ struct xen_platform_op {
+ 		struct xenpf_mem_hotadd        mem_add;
+ 		struct xenpf_core_parking      core_parking;
+ 		struct xenpf_symdata           symdata;
++		struct dom0_vga_console_info   dom0_console;
+ 		uint8_t                        pad[128];
+ 	} u;
+ };
+-- 
+2.39.2
+
 
