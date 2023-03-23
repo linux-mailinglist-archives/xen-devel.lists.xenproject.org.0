@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99B6B6C6CB7
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 16:55:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513951.795745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5BE06C6CF3
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 17:09:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513956.795756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfNHW-00074p-64; Thu, 23 Mar 2023 15:55:14 +0000
+	id 1pfNUh-00014y-He; Thu, 23 Mar 2023 16:08:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513951.795745; Thu, 23 Mar 2023 15:55:14 +0000
+Received: by outflank-mailman (output) from mailman id 513956.795756; Thu, 23 Mar 2023 16:08:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfNHW-00072H-3G; Thu, 23 Mar 2023 15:55:14 +0000
-Received: by outflank-mailman (input) for mailman id 513951;
- Thu, 23 Mar 2023 15:55:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pfNUh-00011l-ES; Thu, 23 Mar 2023 16:08:51 +0000
+Received: by outflank-mailman (input) for mailman id 513956;
+ Thu, 23 Mar 2023 16:08:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d8pY=7P=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pfNHV-00071d-FG
- for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 15:55:13 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 18136dde-c993-11ed-85db-49a42c6b2330;
- Thu, 23 Mar 2023 16:55:12 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A48CA22964;
- Thu, 23 Mar 2023 15:55:11 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6FE8613596;
- Thu, 23 Mar 2023 15:55:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id TUcbGV92HGRDNQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 23 Mar 2023 15:55:11 +0000
+ (envelope-from <SRS0=fJyN=7P=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pfNUf-00011f-Q4
+ for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 16:08:49 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20612.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::612])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id faab491f-c994-11ed-b464-930f4c7d94ae;
+ Thu, 23 Mar 2023 17:08:42 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8785.eurprd04.prod.outlook.com (2603:10a6:20b:42c::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.38; Thu, 23 Mar
+ 2023 16:08:45 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.038; Thu, 23 Mar 2023
+ 16:08:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,218 +47,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18136dde-c993-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1679586911; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FasMwf/QcBP60aF/SHDe1xF2V6iJUqnXfpSReLQqZ2I=;
-	b=PMPxQtplo2jFaKDQ1Yl4lTI5ZxCEOTm1J4bztWKDjTJJZCJbTxI2iahGz1xAKUA79xPVqk
-	iWvWtU39a29IsfUlCsvZHceBrDwnZfn6EHzyB8gG7BuZmDP/NBbgIKor4zJmaJEvjn3Aws
-	S793aT6JDM89V75OMrKM4JcqG0Ly4tI=
-Message-ID: <41ab8c98-ee53-8a21-56cb-2c6d801af0b8@suse.com>
-Date: Thu, 23 Mar 2023 16:55:10 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [linux-linus test] 179607: regressions - trouble:
- fail/pass/starved
+X-Inumbo-ID: faab491f-c994-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BGwznpFIg1YS+KM6AfJT+NHMiWkcI/AGxrfDrJk0MHhartBEXgzg9zTmSxGeXgTf8T0VJRF8hgmF18NgkarIR8u6LUBYFUg5r8qkwBwjm1i1mQ5YSR0nmiHDJy+wFAz6kDGryPLar3OiBXoYng1XHscUnu0zuDOkEQO14XdZLUDrLaheM4dqYe/Jr8lYYIID3wq3Gkz7RTGv2NBosMXHfzWZgFZHMLnHcL33TuzKrpJamTGOUlQUkVyW8zM4qG7+fp/KAY/kSYuD/wADe+7+VRb0NBZAgk8b6LZTY1F4/z21YuW3LWp0umEhYaQhhCryiwG6FBIC+WCHfVVsp3hQRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Y5KGbWRMeXB/HEfnVy05olxDbyexB/RwBgQndtqSlIs=;
+ b=JQx5uGE1A5iAHigI00O52SP+5IOM5LJix2sTvZPjL1/4ucl548pihA5XbDBbENa1Tk2MAPPYu+ch4iWxZgQRJ36bLRfSpNcULo2Pcsnhc1yAc2PU4Uu4qvWpfuyhv/5geyj0gaMPE5aTIFDeS1c2I25aio3DRkXpx/cXZQ+zJUIb9t0fyoqvCTdIQ1l2nQlbF+UwWYpbRlQwFWtBjvW5PKzkGPTdIkYCgVPE0W1Vjen3W6Ozw1Hw9/b2TmW9bFTO624ws48tjw8VwDN16xjh1HsztgLHVjcdTP2g91QFcg20Dc1EZJwCDLME5sVGjoRymydu283hscCKktXkItAEtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Y5KGbWRMeXB/HEfnVy05olxDbyexB/RwBgQndtqSlIs=;
+ b=KboGGfiwTL92lXQ9xAhbeKy+ggd2mXHZoxxkCUWXyOX5Vnzmi4+OpF2gGVWLN0Ine6opa1hahF3BbMPQxgQCF4TCZ7LTNvKI5Bh/z45pyCPzGscq+d+zPE4h4DW8NvhGHqte15FO2TbFq3jur59Yj92swmtLMGb5eZjCkc4ZbmqTki4ewZJuVKA9cJMbUJ7Qeos5SN0+49yU4PtmjEmHSGqkMSafYncxThHIHsZ7Gap/ZCUK7hqiWwTqczA3IrRWNqfXxfa/RDVS/lwVhUmuON8P4nkerYdbTitQRFZKLhofKgm20NBFc1X5XxI1/csx29yJMHMFua2lVgjrQWOyFw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <62e5d8fe-df2e-eb95-bc8f-631dad4204f2@suse.com>
+Date: Thu, 23 Mar 2023 17:08:43 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v4] x86: detect CMOS aliasing on ports other than
+ 0x70/0x71
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-To: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@citrix.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
-References: <osstest-179607-mainreport@xen.org>
- <ea0532e0-12c4-674d-392f-216658071f77@suse.com>
-In-Reply-To: <ea0532e0-12c4-674d-392f-216658071f77@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------eT21vdPb2Tih4Op1OwBGPxGW"
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>
+References: <5426dd6f-50cd-dc23-5c6b-0ab631d98d38@suse.com>
+ <367d0223-d481-b7a3-3b79-a9bc6f00531e@suse.com>
+ <ZBxm+7/ldyHclXwc@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZBxm+7/ldyHclXwc@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0135.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8785:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71bb42c7-f31f-46aa-e823-08db2bb8e103
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	IbjuSlMEEzIUP5XnrPNO2JqG/oDFe8VPjzjqBF+D8CrzBcyPE3KfyMHqzlCVF5TCJY1SJB8ETrf6Ee2Y5UeZTe99ZU+eg3ApouGQQE45oszK4p+YykgbzsxbNNOS7pAnu8S1oHpr3EimTveY2r1Hphm1Cw4uC0Yj5JXdAVVtm2sd5hoErVQMTqvCz8p5BchSw2oxdHX8Tn25j6ubyFS5nVC5ubfVwIZXNhzf8yMzOcsCNrEnOsD3BXlGLUKHbL1L1ZRhSE8vdbE2Osc2aSs/IzjMwuYcqgqXVHYwTxm10OA2QTB0/t4oAUtBbY6IuTLyWeqiyQmTl2GrSlHu7QPh+yo/D6EjM9YdQ5IxoWSnNdLuneC4OwSLYYZEEwGMhLKX/kXMg2W2zAAI1q5PT9EbXOcjoQQtH5yrquxPlahMXoZTqQawcZVM/poAYmbt0aN3hv0ioZ4/T+6R/oA/kh4CrBoT9dcfyJv8tBxt3PkOCW6BGQC6cCo3PS4yqQibEC3taVcsXZ2rLlMPZS5Zzwe7DpRRpIWX1qmoBROOu1bhQbnd+KyuPMeZnSmsK1YBlVfgK+mgzrr4MohJx1+y/kJBaIWHc7FNs+NmsuM7dDLPETux+QolJtPwr5JL+hgNUpbkvk+P6cThA8t+ukgTJcOB5AOqVlRJpANnIIJYKXGV5WCbpCiUmXe+2H/i+kZvxaOHLyH6fKRpL/odo9dFw0OJ1JCRTvIUuxr+1qQ2ImvL4gk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(396003)(376002)(39860400002)(346002)(136003)(451199018)(31696002)(36756003)(86362001)(38100700002)(2906002)(66476007)(8676002)(6916009)(5660300002)(4326008)(41300700001)(66556008)(8936002)(2616005)(66946007)(6512007)(53546011)(186003)(83380400001)(6506007)(54906003)(478600001)(316002)(26005)(6486002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?em1Mc0srTUlpeGZrazBCK1NQYjdRMEFWeWdIa0w3UlNRNEdxSVRtQ1BUVG80?=
+ =?utf-8?B?bER2ekRlbWJUT05yM01yYlN5ZVdjekhzclAzaGJFRm44cHUwQitpc1RKSDUw?=
+ =?utf-8?B?NnR5aWJBOUNKbjlXZG5TNVoySHVDK0lDUk1UL2hKUGp5RTNiTVNuVlFDRzhm?=
+ =?utf-8?B?WWxLZEN6KzcrVTJzSVcwWG1SbUJtQ282N25XaXlOU3VGNUZnOGNnRnRHS2lG?=
+ =?utf-8?B?R0d2Y0FnZVQyL0hrWDJRY1pyNjJPMTlCMUxGUHRWd1plYkJ4K0JraUlhc2ZI?=
+ =?utf-8?B?SXdUdURHKzB3V0VDU0FLQzhYTzFYNXZVbjFVY1liWmpCdXBmckx6SlliNWRE?=
+ =?utf-8?B?TkdiQm9QbUMvU3BYTTJDMG5mbVlKRmZLaUtwQnR0ekttRENkL0RaeXN5djNK?=
+ =?utf-8?B?TmdXUFlkU1ZSZ0lVaW9yWlNSOXcxdDljRFNHZ1Vjd0d1UklzcjlkUTNtY2Qz?=
+ =?utf-8?B?bVEyRDBCSDNjaWJvUXBRcHUrZG95aHNhaWFiU0xyVnJtaFVCSXVGRkFZNW9N?=
+ =?utf-8?B?ODMvc0VhRnBBKzBTY2dCQXRMTFFVRnI2RHJLYzByVGFwTm9ZMU9MaWgwK0RS?=
+ =?utf-8?B?blNoV1FPUHVidDg0dTNPT09sc05xdjkwN2E0ZHJoRTFZZ21nRjY0RzJMeEh4?=
+ =?utf-8?B?bytjNk04UWVTTTkxbElVMnFHNk4xWXFtTWU1TG90RytHNUViSGtDeng2UzhD?=
+ =?utf-8?B?Z25hK3QrVXl1UWxlZmtrMkRaanYwd0NKcU55TmNzcFlwQkduM0xYZ09waWha?=
+ =?utf-8?B?VEhoTkkyeGtnTnByZ3pNV3V2T05ZVDhleFN3b2d0dmFVUzB5VmZFWkJuc3Rs?=
+ =?utf-8?B?U0l5bjdWV0VpQ2pTMk51RkZyQXJjZDI2VVI2Z05RRUhMY0RKY3RoOS9FdHRR?=
+ =?utf-8?B?TGR6Y1ZCZDVkWkQ3ajErZ0pYQnIxOHluU2x1dDNNazlTbmhJN0lNNmVJUFpx?=
+ =?utf-8?B?VERrMjE2RGdNL09uT3EyaUZtbFZKVDBNM0VoeW0xTEMyV0VPNlhwSWlKek53?=
+ =?utf-8?B?amZzNDAxN0l1bzFIaXBGZGozTFdzbGFvbURNYzNFTEl0cWxVVlBrTnpuRHBx?=
+ =?utf-8?B?LzdVeTZxcHNFNWx0U2Z1c2FVQU5MMTBNb01SeXk3SnNGTE9SNndoSW1vYXJP?=
+ =?utf-8?B?UDAxMzl4ZGJIcTRpWGFIWUozNXdxbkRxYmZxSVY2T09DL3pnT1Vab2hCL1hk?=
+ =?utf-8?B?dm5QZDhCZTJUanpjdERSSkU1eEs2dndpYUM3cG9oTHQxQ0orR1VpODJXT1U2?=
+ =?utf-8?B?azdNOVIzN1FUVXpNZXJuSjRJeEpXSituNWhrcUZ6cFlhSmlYNkdhbG5aRi9q?=
+ =?utf-8?B?VXFRYWtKekZUSXE3SmhoV2FOdWZQR0lMMHFraVlSQUV1OFRJZFZ3UjRFSmdD?=
+ =?utf-8?B?TUxIdjVuNWRnS1pacHdwdFE5Z2dXd2d1VUIxRlhoVmtBTTkrWFVadDJpRWZw?=
+ =?utf-8?B?RGdiUGMzYnpKTXNXOUdvM09XREk2YTdsVytRVmx2QTlQSTc2UlFyWnFBUnNq?=
+ =?utf-8?B?VVZrY0g0eFNWOERPWHdNRnZDM1VzL1FZWEVuS1NmajdCVjlyeE1sZTJ5cVZt?=
+ =?utf-8?B?cS9wa3c1Wi82WjNiZW9XbDBxUzFyaDA1Rm54NmNRVW94UVErY0wzU3lWZDc0?=
+ =?utf-8?B?UGVOTlpJMGVYeTltY3d3UXluVTRjc1hNRzlmbWhUVUQ5WU0xckRKZjBDSm9O?=
+ =?utf-8?B?cENzUGRuWWhyMVBNUVdFUTBFS050b0NoSk1ZYWFVS0M0Ynk5d0FyRW9KaHFE?=
+ =?utf-8?B?SDZ1Z2UvR0doWXRjK3A4MTZaY3NPMXU1MjJwZ0RGWUNMWDVLbWJYMGxhaGs2?=
+ =?utf-8?B?MVBPS25SU002QzlrMHBScW50RERMQXJCWHBVNWQvalZGYXd0UitHVVZGV01j?=
+ =?utf-8?B?dWZKOVVQemQ2b3d3VXJXTHBlRjUvaUxjOWtrQkdFbzQvK0tzdzZRQ2NnMkJy?=
+ =?utf-8?B?Q2ZRUzhpVFc4TjVjUnZaZHMyRlZFWXY1V01DSVZHTVlpUi9iaGd4ekg0WkZR?=
+ =?utf-8?B?a2EyQmVFK0JJVUlZMU5JbThDUWw3QTRUT1ZyeHJ0WmJvWWllUFVuRlVvSEMy?=
+ =?utf-8?B?U2puaTgvQWh1eTVldmRnY3Naam9pUE1Qc0JwZG84dzhqVEVnd0FTNnhyQWc4?=
+ =?utf-8?Q?3R8w4O0xp1+ZA6kbf8QCsFSpN?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71bb42c7-f31f-46aa-e823-08db2bb8e103
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2023 16:08:45.3569
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qz4jYAPtN3w8uawbRtHOCg5Whq0Pxgd32lCAl9ubwxmSwCiNkaaX4j3wMYIsVRNAScD86lLeKRSxY65tGFZc1A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8785
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------eT21vdPb2Tih4Op1OwBGPxGW
-Content-Type: multipart/mixed; boundary="------------rZ4YdWAE2V4hcl6j0r5a0pd9";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@citrix.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
-Message-ID: <41ab8c98-ee53-8a21-56cb-2c6d801af0b8@suse.com>
-Subject: Re: [linux-linus test] 179607: regressions - trouble:
- fail/pass/starved
-References: <osstest-179607-mainreport@xen.org>
- <ea0532e0-12c4-674d-392f-216658071f77@suse.com>
-In-Reply-To: <ea0532e0-12c4-674d-392f-216658071f77@suse.com>
+On 23.03.2023 15:49, Roger Pau Monné wrote:
+> On Mon, Mar 20, 2023 at 09:32:26AM +0100, Jan Beulich wrote:
+>> --- a/xen/arch/x86/include/asm/mc146818rtc.h
+>> +++ b/xen/arch/x86/include/asm/mc146818rtc.h
+>> @@ -9,6 +9,10 @@
+>>  
+>>  extern spinlock_t rtc_lock;             /* serialize CMOS RAM access */
+>>  
+>> +struct domain;
+>> +bool is_cmos_port(unsigned int port, unsigned int bytes,
+>> +                  const struct domain *d);
+> 
+> We seem to usually name this rtc rather than cmos, any reason to use
+> cmos for the helper naming rather than rtc?
+> 
+> If not I would rather use is_rtc_port(), so that we can keep it in
+> sync with the existing RTC_PORT() macros and the handler names
+> rtc_guest_{read,write}, hw_rtc_io.
 
---------------rZ4YdWAE2V4hcl6j0r5a0pd9
-Content-Type: multipart/mixed; boundary="------------0x6Cv05VhnwztwtE7jQjmySN"
+Already when talking about just ports 70 and 71 there's more CMOS
+behind them than RTC. With extended CMOS accesses the ratio further
+shifts. So I view using "rtc" here simply as increasingly
+inappropriate.
 
---------------0x6Cv05VhnwztwtE7jQjmySN
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -2072,37 +2072,36 @@ int __hwdom_init xen_in_range(unsigned l
+>>  static int __hwdom_init cf_check io_bitmap_cb(
+>>      unsigned long s, unsigned long e, void *ctx)
+>>  {
+>> -    struct domain *d = ctx;
+>> +    const struct domain *d = ctx;
+>>      unsigned int i;
+>>  
+>>      ASSERT(e <= INT_MAX);
+>>      for ( i = s; i <= e; i++ )
+>> -        __clear_bit(i, d->arch.hvm.io_bitmap);
+>> +        /*
+>> +         * Accesses to RTC ports also need to be trapped in order to keep
+>> +         * consistency with PV.
+>> +         */
+> 
+> More than to keep consistency with PV, don't we need to trap accesses
+> to that concurrent accesses between dom0 and Xen (when also using the
+> device) don't overlap, as the RTC/CMOS space uses indirect indexing.
 
-T24gMTQuMDMuMjMgMTQ6MjcsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IE9uIDE0LjAzLjIz
-IDEzOjUyLCBvc3N0ZXN0IHNlcnZpY2Ugb3duZXIgd3JvdGU6DQo+PiBmbGlnaHQgMTc5NjA3
-IGxpbnV4LWxpbnVzIHJlYWwgW3JlYWxdDQo+PiBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5w
-cm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTc5NjA3Lw0KPj4NCj4+IFJlZ3Jlc3Npb25zIDot
-KA0KPj4NCj4+IFRlc3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5n
-LA0KPj4gaW5jbHVkaW5nIHRlc3RzIHdoaWNoIGNvdWxkIG5vdCBiZSBydW46DQo+PiDCoCB0
-ZXN0LWFtZDY0LWFtZDY0LWZyZWVic2QxMi1hbWQ2NCAxMyBndWVzdC1zdGFydMKgwqDCoMKg
-wqDCoMKgwqDCoCBmYWlsIFJFR1IuIHZzLiAxNzgwNDINCj4+IMKgIHRlc3QtYW1kNjQtYW1k
-NjQteGwtY3JlZGl0McKgIDE5IGd1ZXN0LXNhdmVyZXN0b3JlLjLCoMKgwqDCoMKgIGZhaWwg
-UkVHUi4gdnMuIDE3ODA0Mg0KPj4gwqAgdGVzdC1hbWQ2NC1hbWQ2NC14bC1zaGFkb3fCoMKg
-IDE0IGd1ZXN0LXN0YXJ0wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZmFpbCBSRUdSLiB2
-cy4gMTc4MDQyDQo+IA0KPiAuLi4NCj4gDQo+IEluIHRoZSBsb2dzIFsxXSBJJ20gc2VlaW5n
-IGVycm9ycyBsaWtlOg0KPiANCj4gTWFyIDEzIDIzOjUxOjI2LjI3NTQyMSBbwqAgMjcxLjcx
-Mzc0MF0geGVuYnIwOiBwb3J0IDIodmlmMS4wKSBlbnRlcmVkIGZvcndhcmRpbmcgDQo+IHN0
-YXRlDQo+IE1hciAxMyAyMzo1MToyNi4yODczNDYgKFhFTikgY29tbW9uL2dyYW50X3RhYmxl
-LmM6Mjk4MjpkMHYzIGNvcHkgYmV5b25kIHBhZ2UgYXJlYQ0KPiBNYXIgMTMgMjM6NTE6NDgu
-MTE1MzgzIChYRU4pIGNvbW1vbi9ncmFudF90YWJsZS5jOjI5ODI6ZDB2MyBjb3B5IGJleW9u
-ZCBwYWdlIGFyZWENCj4gTWFyIDEzIDIzOjUxOjQ5LjEyMzM0NyAoWEVOKSBjb21tb24vZ3Jh
-bnRfdGFibGUuYzoyOTgyOmQwdjMgY29weSBiZXlvbmQgcGFnZSBhcmVhDQo+IE1hciAxMyAy
-Mzo1MTo0OS40NTkzNjcgKFhFTikgY29tbW9uL2dyYW50X3RhYmxlLmM6Mjk4MjpkMHYzIGNv
-cHkgYmV5b25kIHBhZ2UgYXJlYQ0KPiANCj4gR2l2ZW4gdGhlIHZpZiByZWxhdGVkIG1lc3Nh
-Z2UgZGlyZWN0bHkgYmVmb3JlIHRob3NlIGVycm9ycyB0aGUgY2hhbmNlIGlzIGhpZ2gNCj4g
-dGhpcyBwcm9ibGVtIGlzIHJlbGF0ZWQgdG8gbmV0YmFjay4NCj4gDQo+IFJvc3MsIHlvdXIg
-cGF0Y2ggInhlbi9uZXRiYWNrOiBFbnN1cmUgcHJvdG9jb2wgaGVhZGVycyBkb24ndCBmYWxs
-IGluIHRoZQ0KPiBub24tbGluZWFyIGFyZWEiICh1cHN0cmVhbSBjb21taXQgYWQ3ZjQwMmFl
-NGY0NjY2KSBkaWQgdGhlIG1vc3QgcmVjZW50IGNoYW5nZXMNCj4gaW4gbmV0YmFjayBhZmZl
-Y3RpbmcgR05UVEFCT1BfY29weSBvcGVyYXRpb25zLiBUaGVyZSBhcmUgcHJvYmFibHkgcGFn
-ZSBib3VuZGFyeQ0KPiBjaGVja3MgKHByb2JhYmx5IG9uIG5ldGJhY2sgc2lkZSkgbWlzc2lu
-Zy4gQ291bGQgeW91IHBsZWFzZSBoYXZlIGEgbG9vaz8NCg0KT2theSwgSSd2ZSBoYWQgYSB0
-cnkgKHNlZSBhdHRhY2hlZCBwYXRjaCkuDQoNCkFudGhvbnksIGFzIEkgY2FuJ3QgcmVwcm9k
-dWNlIHRoZSBvcmlnaW5hbCBwcm9ibGVtLCB3b3VsZCBpdCBiZSBwb3NzaWJsZSB0bw0Kc3Rh
-cnQgYW4gT1NTdGVzdCBydW4gb2YgdGhlIGxpbnV4LWxpbnVzIHRlc3Qgd2l0aCBteSBwYXRj
-aCBhcHBsaWVkIHRvIHRoZQ0KdXNlZCBrZXJuZWw/DQoNCg0KSnVlcmdlbg0K
---------------0x6Cv05VhnwztwtE7jQjmySN
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-xen-netback-don-t-do-grant-copy-across-page-boundary.patch"
-Content-Disposition: attachment;
- filename*0="0001-xen-netback-don-t-do-grant-copy-across-page-boundary.pa";
- filename*1="tch"
-Content-Transfer-Encoding: base64
+That's what I read "consistency" to mean.
 
-RnJvbSA4YWNlMDJlZGJhNzQwYmZkYjBmOWJkODhhZTM0YWNkZDljZTE4ZTU4IE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+
-CkRhdGU6IFRodSwgMjMgTWFyIDIwMjMgMDc6Mjk6NTYgKzAxMDAKU3ViamVjdDogW1BBVENI
-XSB4ZW4vbmV0YmFjazogZG9uJ3QgZG8gZ3JhbnQgY29weSBhY3Jvc3MgcGFnZSBib3VuZGFy
-eQoKRml4IHhlbnZpZl9nZXRfcmVxdWVzdHMoKSBub3QgdG8gZG8gZ3JhbnQgY29weSBvcGVy
-YXRpb25zIGFjcm9zcyBsb2NhbApwYWdlIGJvdW5kYXJpZXMuIFRoaXMgcmVxdWlyZXMgdG8g
-ZG91YmxlIHRoZSBtYXhpbXVtIG51bWJlciBvZiBjb3B5Cm9wZXJhdGlvbnMgcGVyIHF1ZXVl
-LCBhcyBlYWNoIGNvcHkgY291bGQgbm93IGJlIHNwbGl0IGludG8gMi4KCkNjOiBzdGFibGVA
-dmdlci5rZXJuZWwub3JnCkZpeGVzOiBhZDdmNDAyYWU0ZjQgKCJ4ZW4vbmV0YmFjazogRW5z
-dXJlIHByb3RvY29sIGhlYWRlcnMgZG9uJ3QgZmFsbCBpbiB0aGUgbm9uLWxpbmVhciBhcmVh
-IikKU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgotLS0K
-IGRyaXZlcnMvbmV0L3hlbi1uZXRiYWNrL2NvbW1vbi5oICB8IDIgKy0KIGRyaXZlcnMvbmV0
-L3hlbi1uZXRiYWNrL25ldGJhY2suYyB8IDcgKysrKysrLQogMiBmaWxlcyBjaGFuZ2VkLCA3
-IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9u
-ZXQveGVuLW5ldGJhY2svY29tbW9uLmggYi9kcml2ZXJzL25ldC94ZW4tbmV0YmFjay9jb21t
-b24uaAppbmRleCAzZGJmYzhhNjkyNGUuLjFmY2JkODNmN2ZmMiAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9uZXQveGVuLW5ldGJhY2svY29tbW9uLmgKKysrIGIvZHJpdmVycy9uZXQveGVuLW5l
-dGJhY2svY29tbW9uLmgKQEAgLTE2Niw3ICsxNjYsNyBAQCBzdHJ1Y3QgeGVudmlmX3F1ZXVl
-IHsgLyogUGVyLXF1ZXVlIGRhdGEgZm9yIHhlbnZpZiAqLwogCXN0cnVjdCBwZW5kaW5nX3R4
-X2luZm8gcGVuZGluZ190eF9pbmZvW01BWF9QRU5ESU5HX1JFUVNdOwogCWdyYW50X2hhbmRs
-ZV90IGdyYW50X3R4X2hhbmRsZVtNQVhfUEVORElOR19SRVFTXTsKIAotCXN0cnVjdCBnbnR0
-YWJfY29weSB0eF9jb3B5X29wc1tNQVhfUEVORElOR19SRVFTXTsKKwlzdHJ1Y3QgZ250dGFi
-X2NvcHkgdHhfY29weV9vcHNbMiAqIE1BWF9QRU5ESU5HX1JFUVNdOwogCXN0cnVjdCBnbnR0
-YWJfbWFwX2dyYW50X3JlZiB0eF9tYXBfb3BzW01BWF9QRU5ESU5HX1JFUVNdOwogCXN0cnVj
-dCBnbnR0YWJfdW5tYXBfZ3JhbnRfcmVmIHR4X3VubWFwX29wc1tNQVhfUEVORElOR19SRVFT
-XTsKIAkvKiBwYXNzZWQgdG8gZ250dGFiX1t1bl1tYXBfcmVmcyB3aXRoIHBhZ2VzIHVuZGVy
-ICh1biltYXBwaW5nICovCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC94ZW4tbmV0YmFjay9u
-ZXRiYWNrLmMgYi9kcml2ZXJzL25ldC94ZW4tbmV0YmFjay9uZXRiYWNrLmMKaW5kZXggMWI0
-MjY3NmNhMTQxLi4xYmM5MzZkZDU3OWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L3hlbi1u
-ZXRiYWNrL25ldGJhY2suYworKysgYi9kcml2ZXJzL25ldC94ZW4tbmV0YmFjay9uZXRiYWNr
-LmMKQEAgLTQxMyw2ICs0MTMsMTAgQEAgc3RhdGljIHZvaWQgeGVudmlmX2dldF9yZXF1ZXN0
-cyhzdHJ1Y3QgeGVudmlmX3F1ZXVlICpxdWV1ZSwKIAkJY29wLT5kZXN0LnUuZ21mbiA9IHZp
-cnRfdG9fZ2ZuKHNrYi0+ZGF0YSArIHNrYl9oZWFkbGVuKHNrYikKIAkJCQkgICAgICAgICAg
-ICAgICAtIGRhdGFfbGVuKTsKIAorCQkvKiBEb24ndCBjcm9zcyBsb2NhbCBwYWdlIGJvdW5k
-YXJ5ISAqLworCQlpZiAoY29wLT5kZXN0Lm9mZnNldCArIGFtb3VudCA+IFBBR0VfU0laRSkK
-KwkJCWFtb3VudCA9IFBBR0VfU0laRSAtIGNvcC0+ZGVzdC5vZmZzZXQ7CisKIAkJY29wLT5s
-ZW4gPSBhbW91bnQ7CiAJCWNvcC0+ZmxhZ3MgPSBHTlRDT1BZX3NvdXJjZV9ncmVmOwogCkBA
-IC00NDEsNyArNDQ1LDggQEAgc3RhdGljIHZvaWQgeGVudmlmX2dldF9yZXF1ZXN0cyhzdHJ1
-Y3QgeGVudmlmX3F1ZXVlICpxdWV1ZSwKIAkJCW5yX3Nsb3RzLS07CiAJCX0gZWxzZSB7CiAJ
-CQkvKiBUaGUgY29weSBvcCBwYXJ0aWFsbHkgY292ZXJlZCB0aGUgdHhfcmVxdWVzdC4KLQkJ
-CSAqIFRoZSByZW1haW5kZXIgd2lsbCBiZSBtYXBwZWQuCisJCQkgKiBUaGUgcmVtYWluZGVy
-IHdpbGwgYmUgbWFwcGVkIG9yIGNvcGllZCBpbiB0aGUgbmV4dAorCQkJICogaXRlcmF0aW9u
-LgogCQkJICovCiAJCQl0eHAtPm9mZnNldCArPSBhbW91bnQ7CiAJCQl0eHAtPnNpemUgLT0g
-YW1vdW50OwotLSAKMi4zNS4zCgo=
---------------0x6Cv05VhnwztwtE7jQjmySN
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> And likely to avoid dom0 from disabling NMIs.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+I can add that to the comment, but as you say ...
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> I see that you copied the existing comment, but not sure it's fully
+> accurate?
 
---------------0x6Cv05VhnwztwtE7jQjmySN--
+... I've merely moved it.
 
---------------rZ4YdWAE2V4hcl6j0r5a0pd9--
+>> @@ -1249,6 +1252,80 @@ static unsigned long get_cmos_time(void)
+>>      return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
+>>  }
+>>  
+>> +static unsigned int __ro_after_init cmos_alias_mask;
+>> +
+>> +static int __init cf_check probe_cmos_alias(void)
+>> +{
+>> +    unsigned int i, offs;
+>> +
+>> +    if ( acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC )
+>> +        return 0;
+>> +
+>> +    for ( offs = 2; offs < 8; offs <<= 1 )
+>> +    {
+>> +        bool read = true;
+> 
+> You can limit the scope of i to the inner for loop.
 
---------------eT21vdPb2Tih4Op1OwBGPxGW
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Sure. It has been long ago when I wrote this, so I guess I was after it
+being one line less of code.
 
------BEGIN PGP SIGNATURE-----
+>> +        for ( i = RTC_REG_D + 1; i < 0x80; ++i )
+>> +        {
+>> +            uint8_t normal, alt;
+>> +            unsigned long flags;
+>> +
+>> +            if ( i == acpi_gbl_FADT.century )
+>> +                continue;
+>> +
+>> +            spin_lock_irqsave(&rtc_lock, flags);
+>> +
+>> +            normal = CMOS_READ(i);
+>> +            if ( inb(RTC_PORT(offs)) != i )
+>> +                read = false;
+>> +
+>> +            alt = inb(RTC_PORT(offs + 1));
+>> +
+>> +            spin_unlock_irqrestore(&rtc_lock, flags);
+>> +
+>> +            if ( normal != alt )
+>> +                break;
+>> +
+>> +            process_pending_softirqs();
+> 
+> You adding a call to process pending softirqs for every loop
+> iteration makes me wonder how long is each of those accesses expected
+> to take, since we could be performing a lot of them (0x80 * 3).
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQcdl4FAwAAAAAACgkQsN6d1ii/Ey8n
-ZAf/Z4sR3tSr+TStBgsPALMLy/wzB78lrr+9Os/DCgFy5JqBQYZUV6g3b0ZFRIRrEx+432/iu8qO
-dno59YMGn3xlAXn1G0NW24YFj+kqUrH5oDSic0Vm4A0YWfs5AG02qsb8k1TeMQya9DHplcy7Xmaa
-W90uQsnLZrEYVMXYb37aBWLRHvoArANeNT/4Z0WWjgkNpGbNkz0KkbwmAMSRLse8hP5RNFzjpO9C
-D/xLFHc2fLLKA9TGYHfvfyIZ5u3S0Gzr4sQ3u6TJUNx13xyTH9rHOSUf214YttxV5+yjRfPqy7TJ
-0U4nm2JOY527khNdILKA0BEX8DrFyQU8PyLMk2LfFQ==
-=EK/A
------END PGP SIGNATURE-----
+It seemed best to me to keep things simple here, at the expense at a
+few too many calls.
 
---------------eT21vdPb2Tih4Op1OwBGPxGW--
+> I don't think so, but there can not be any side effects from reading
+> from the CMOS RAM I would assume, even for cases where the CMOS ports
+> are not aliases?
+
+Well, one of the fundamental assumptions is that these read attempts
+won't have side effects. Without that assumption we simply can't do
+such probing.
+
+> I would assume ports to be either aliased to the CMOS, or otherwise
+> reserved.  What makes me wonder if it wouldn't be simpler to just
+> passthough accesses to all the possible CMOS alias ports.
+
+But we need to intercept writes to 70 to track the index. IOW we
+cannot simply pass through all of them, and we also cannot simply
+intercept them all and treat them all the same.
+
+>> +bool is_cmos_port(unsigned int port, unsigned int bytes, const struct domain *d)
+>> +{
+>> +    if ( !is_hardware_domain(d) )
+>> +        return port <= RTC_PORT(1) && port + bytes > RTC_PORT(0);
+>> +
+>> +    if ( !(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC) &&
+>> +         port <= RTC_PORT(cmos_alias_mask | 1) && port + bytes > RTC_PORT(0) )
+>> +    {
+>> +        unsigned int cmos = RTC_PORT(0), nr = 2, step;
+>> +
+>> +        while ( cmos_alias_mask & nr )
+>> +            nr <<= 1;
+>> +        for ( step = nr << 1;
+>> +              step < cmos_alias_mask && !(cmos_alias_mask & step); )
+>> +            step <<= 1;
+>> +        do {
+>> +            if ( !(cmos & ~RTC_PORT(cmos_alias_mask)) &&
+>> +                 port <= cmos + 1 && port + bytes > cmos )
+>> +                return true;
+>> +            cmos += step;
+>> +        } while ( cmos <= RTC_PORT(cmos_alias_mask) );
+> 
+> I would use a for loop similar to the one used in probe_cmos_alias()
+> to check for aliased accesses?
+> 
+> if ( port <= RTC_PORT(1) && port + bytes > RTC_PORT(0) )
+>     return true;
+> 
+> for ( offs = 2; offs < 8; offs <<= 1 )
+> {
+>     if ( !(offs & cmos_alias_mask) )
+>         continue;
+>     if ( port <= RTC_PORT(1 + off) && port + bytes > RTC_PORT(off) )
+>         return true;
+> }
+> 
+> return false;
+> 
+> So that you can also optimize for the more common case RTC_PORT(0) and
+> RTC_PORT(1) are used?
+> 
+> Or there's something I'm missing?
+
+I'll have to check carefully, but to be honest I would prefer to not
+touch this code again unless there's clearly something wrong with it.
+
+>> @@ -1256,7 +1333,7 @@ unsigned int rtc_guest_read(unsigned int
+>>      unsigned long flags;
+>>      unsigned int data = ~0;
+>>  
+>> -    switch ( port )
+>> +    switch ( port & ~cmos_alias_mask )
+>>      {
+>>      case RTC_PORT(0):
+>>          /*
+>> @@ -1264,15 +1341,16 @@ unsigned int rtc_guest_read(unsigned int
+>>           * of the first RTC port, as there's no access to the physical IO
+>>           * ports.
+>>           */
+>> -        data = currd->arch.cmos_idx;
+>> +        data = currd->arch.cmos_idx & (0xff >> (port == RTC_PORT(0)));
+> 
+> We do allow read access to alias ports even when the underling
+> hardware does do so,
+
+I'm afraid I don't understand this, so ...
+
+> which I think is fine, but might be worth a
+> comment (since we already detect whether the RTC_PORT(0) alias is also
+> readable.
+
+... I can't really derive what kind of information you're after to put
+in a comment.
+
+Jan
 
