@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59A456C7181
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 21:04:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.514065.796007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FEFC6C72B5
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 23:02:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.514092.796040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfR9n-0001bL-M5; Thu, 23 Mar 2023 20:03:31 +0000
+	id 1pfT04-0000Xv-AV; Thu, 23 Mar 2023 22:01:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 514065.796007; Thu, 23 Mar 2023 20:03:31 +0000
+Received: by outflank-mailman (output) from mailman id 514092.796040; Thu, 23 Mar 2023 22:01:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfR9n-0001Zb-Ij; Thu, 23 Mar 2023 20:03:31 +0000
-Received: by outflank-mailman (input) for mailman id 514065;
- Thu, 23 Mar 2023 20:03:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pfR9m-0001ZR-5E; Thu, 23 Mar 2023 20:03:30 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pfR9m-0001yN-17; Thu, 23 Mar 2023 20:03:30 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pfR9l-00042U-Ii; Thu, 23 Mar 2023 20:03:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pfR9l-0006XR-II; Thu, 23 Mar 2023 20:03:29 +0000
+	id 1pfT04-0000WB-7Y; Thu, 23 Mar 2023 22:01:36 +0000
+Received: by outflank-mailman (input) for mailman id 514092;
+ Thu, 23 Mar 2023 22:01:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=k1NO=7P=citrix.com=prvs=439d27799=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pfT03-0000W5-Kg
+ for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 22:01:35 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 43dd07fd-c9c6-11ed-b464-930f4c7d94ae;
+ Thu, 23 Mar 2023 23:01:32 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,371 +36,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=2uW18dT+QMZLuuqDMp57XH6SGJAZEGq683MqMpO5nug=; b=1rLm/8V/hVksbaAdS3E7XOxApl
-	j3YwwkXmapCVIX/fIn/hYuJYBApkgF9Imz67UeIY3fKY2HF1i49mH7QzKe1pytlYf8LO/gQnYfRo+
-	MsHr9qERpqctajFWpLZyNoim1m8TJ6jiz6oHIXa4B74gFwlYxxYndmhOARmcAAOdjT0w=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-179870-mainreport@xen.org>
+X-Inumbo-ID: 43dd07fd-c9c6-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1679608891;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=KAtgOwS/P2wrgB5h4mPIFKyRQHmiQm30GVJXeDtRYjA=;
+  b=Ghw126+E6BBWiE08p3lvY6HifUhRjpKAtSEXphBEqmgmnRp/3CtOnCb+
+   CDDFCP+QrLYU+/3zeekqovsRcpdJmLD9ITR33uZWk1InLJDNRy+9FX3TE
+   N3H2Oo7fGPN2pIs40BaHXdMAxxj6UxpjbmfC1lhQSIW2JKkEEsleXOnsn
+   U=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 101460951
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Mh7PrqhU68JVgmzgUdRIo1skX161HBAKZh0ujC45NGQN5FlHY01je
+ htvDDjUPP2NajTyctp1PIu/80sP6pDVx4ViTFZqpSpmRS8b9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsy+qWi0N8klgZmP6sT5wWFzyJ94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQgERUWQR+RotuY65aBFfcri8UPEenkadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27B/
+ juaoTyoX0hy2Nq30Typ70OihKj0uTKmX7tOMoaqzcIyqQjGroAUIEJPDgbqyRWjsWauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O88Q5RyJy6HUyx2EHWVCRTlEAPQ5sOcmSDps0
+ UWG9+4FHhQ27ufTEyjEsO7J83XrY3N9wXI+iTEsdTIg+PbssqQKoDnrdIl9V6O0ouDVFmSlq
+ 9yVlxTSl4n/nOZSifrqpg6a02v3znTaZlVrv1uKBwpJ+is8Pdf4PNLwtDA3+N4adO6kok+9U
+ G/ociR0xMQHFtmzmSOEW43h95n5tq/eYFUwbbOCdqTNFghBGFb5J+i8GBkkeC9U3j8sIFcFm
+ nP7twJL/4N0N3C3d6JxaI/ZI510kvm9RIq4DqmKMIYmjn1NmOivoklTibO4hTixwCDAb4lmU
+ XtkTSpcJSlDUvk2pNZHb+wczaUq1kgD+I8nfriil07P+ePHNBaopUItbAPmghYRsPnV/204M
+ r93a6O39vmoeLSgM3mJrNRCfQBiwLpSLcmelvG7v9WremJOcFzNwdeLqV/9U+SJR5hoq9o=
+IronPort-HdrOrdr: A9a23:6d/uTq/6oARufhk2mW9uk+DzI+orL9Y04lQ7vn2ZKCYlF/Bw8v
+ rF8cjzuiWZtN98Yh4dcKm7SdC9qBDnhPxICOsqXYtKNTOO0FdASrsN0WKI+UyCJ8SRzI9gPJ
+ BbAsxD4Y3LZmSSVfyKmzVQyexQpuVvLZrY4ts2E00dNT2CtZsQlTtENg==
+X-IronPort-AV: E=Sophos;i="5.98,286,1673931600"; 
+   d="scan'208";a="101460951"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v3] x86/boot: Factor move_xen() out of __start_xen()
+Date: Thu, 23 Mar 2023 22:01:17 +0000
+Message-ID: <20230323220117.2406981-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [linux-5.4 test] 179870: tolerable trouble: fail/pass/starved - PUSHED
-X-Osstest-Failures:
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:build-armhf-libvirt:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-examine:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
-    linux-5.4:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    linux=6849d8c4a61a93bb3abf2f65c84ec1ebfa9a9fb6
-X-Osstest-Versions-That:
-    linux=e4b5c766f50525d84754cfdf0e4edef1db9622c0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 23 Mar 2023 20:03:29 +0000
 
-flight 179870 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/179870/
+Partly for clarity because there is a lot of subtle magic at work here.
+Expand the commentary of what's going on.
 
-Failures :-/ but no regressions.
+Also because there is no need to double copy the stack (32kB).  Spilled
+content does need accounting for, but this be sorted by only copying only a
+handful of words.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 179769
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 179769
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 179769
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 179769
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 179769
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 179769
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 179769
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 179769
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 179769
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- build-armhf-libvirt           1 build-check(1)               starved  n/a
- test-armhf-armhf-examine      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
+No practical change.
 
-version targeted for testing:
- linux                6849d8c4a61a93bb3abf2f65c84ec1ebfa9a9fb6
-baseline version:
- linux                e4b5c766f50525d84754cfdf0e4edef1db9622c0
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-Last test of basis   179769  2023-03-19 01:18:32 Z    4 days
-Testing same since   179870  2023-03-22 12:45:03 Z    1 days    1 attempts
+v3:
+ * Don't change the l2_xenmap[] logic.  X_FIXMAP uses 4k mappings in this
+   range.
+ * Resync the local stack frame, just in case the compiler spills something
+   important there.  This is is a 3-word copy in release builds, which is far
+   more reasonable than 32k.
+---
+ xen/arch/x86/setup.c | 189 +++++++++++++++++++++++++++----------------
+ 1 file changed, 119 insertions(+), 70 deletions(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alex Deucher <alexander.deucher@amd.com>
-  Alexandra Winter <wintera@linux.ibm.com>
-  Arpana Arland <arpanax.arland@intel.com> (A Contingent worker at Intel)
-  Baokun Li <libaokun1@huawei.com>
-  Bart Van Assche <bvanassche@acm.org>
-  Biju Das <biju.das.jz@bp.renesas.com>
-  Bjorn Helgaas <bhelgaas@google.com>
-  Borislav Petkov (AMD) <bp@alien8.de>
-  Breno Leitao <leitao@debian.org>
-  Chen Zhongjin <chenzhongjin@huawei.com>
-  Chris Paterson (CIP) <chris.paterson2@renesas.com>
-  Christian Hewitt <christianshewitt@gmail.com>
-  Christoph Hellwig <hch@lst.de>
-  Damien Le Moal <damien.lemoal@opensource.wdc.com>
-  Daniil Tatianin <d-tatianin@yandex-team.ru>
-  David S. Miller <davem@davemloft.net>
-  Dmitry Osipenko <dmitry.osipenko@collabora.com>
-  Erez Zadok <ezk@cs.stonybrook.edu>
-  Eric Biggers <ebiggers@google.com>
-  Eric Dumazet <edumazet@google.com>
-  Fedor Pchelkin <pchelkin@ispras.ru>
-  Felix Kuehling <Felix.Kuehling@amd.com>
-  Florian Fainelli <f.fainelli@gmail.com>
-  gaoxingwang <gaoxingwang1@huawei.com>
-  Georgi Djakov <djakov@kernel.org>
-  Glenn Washburn <development@efficientek.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-  Heiner Kallweit <hkallweit1@gmail.com>
-  Helge Deller <deller@gmx.de>
-  Herbert Xu <herbert@gondor.apana.org.au>
-  Ido Schimmel <idosch@nvidia.com>
-  Ivan Vecera <ivecera@redhat.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jani Nikula <jani.nikula@intel.com>
-  Jens Axboe <axboe@kernel.dk>
-  Jeremy Sowden <jeremy@azazel.net>
-  Jianguo Wu <wujianguo@chinatelecom.cn>
-  Jiri Kosina <jkosina@suse.cz>
-  Johan Hovold <johan+linaro@kernel.org>
-  John Garry <john.g.garry@oracle.com>
-  John Harrison <John.C.Harrison@Intel.com>
-  John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-  Jon Hunter <jonathanh@nvidia.com>
-  Jonathan Corbet <corbet@lwn.net>
-  Jouni Högander <jouni.hogander@intel.com>
-  Kai Vehmanen <kai.vehmanen@linux.intel.com>
-  Lee Jones <lee@kernel.org>
-  Liang He <windhl@126.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Luca Ceresoli <luca.ceresoli@bootlin.com> # i.MX8MP MSC SM2-MB-EP1 Board
-  Ludovic Desroches <ludovic.desroches@microchip.com>
-  Lukas Wunner <lukas@wunner.de>
-  Manish Adkar <madkar@cs.stonybrook.edu>
-  Marcus Folkesson <marcus.folkesson@gmail.com>
-  Mark Rutland <mark.rutland@arm.com>
-  Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Michael Karcher <kernel@mkarcher.dialup.fu-berlin.de>
-  Neil Armstrong <neil.armstrong@linaro.org>
-  Nikita Zhandarovich <n.zhandarovich@fintech.ru>
-  Pablo Neira Ayuso <pablo@netfilter.org>
-  Paolo Bonzini <pbonzini@redhat.com>
-  Paul E. McKenney <paulmck@kernel.org>
-  Peter Zijlstra (Intel) <peterz@infradead.org>
-  Qu Huang <qu.huang@linux.dev>
-  Randy Dunlap <rdunlap@infradead.org>
-  Randy Dunlap <rdunlap@infradead.org> # build-tested
-  Ravi Kishore Koppuravuri <ravi.kishore.koppuravuri@intel.com>
-  Richard Weinberger <richard@nod.at>
-  Sasha Levin <sashal@kernel.org>
-  Sathya Prakash Veerichetty <sathya.prakash@broadcom.com>
-  Sherry Sun <sherry.sun@nxp.com>
-  Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Slade Watkins <srw@sladewatkins.net>
-  Steffen Klassert <steffen.klassert@secunet.com>
-  Stephen Boyd <sboyd@kernel.org>
-  Steve French <stfrench@microsoft.com>
-  Steven Rostedt (Google) <rostedt@goodmis.org>
-  Sven Schnelle <svens@linux.ibm.com>
-  Szymon Heidrich <szymon.heidrich@gmail.com>
-  Takashi Iwai <tiwai@suse.de>
-  Tejun Heo <tj@kernel.org>
-  Theodore Ts'o <tytso@mit.edu>
-  Tobias Schramm <t.schramm@manjaro.org>
-  Tom Lendacky <thomas.lendacky@amd.com>
-  Tony Nguyen <anthony.l.nguyen@intel.com>
-  Tony O'Brien <tony.obrien@alliedtelesis.co.nz>
-  Ulf Hansson <ulf.hansson@linaro.org>
-  Vasily Gorbik <gor@linux.ibm.com>
-  Wenchao Hao <haowenchao2@huawei.com>
-  Xiang Chen <chenxiang66@hisilicon.com>
-  Yifei Liu <yifeliu@cs.stonybrook.edu>
-  Zhang Xiaoxu <zhangxiaoxu5@huawei.com>
-  Zheng Wang <zyytlz.wz@163.com>
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 38bf18b087af..a890e203831f 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -464,6 +464,124 @@ static void __init move_memory(
+     }
+ }
+ 
++static void __init noinline move_xen(void)
++{
++    l4_pgentry_t *pl4e;
++    l3_pgentry_t *pl3e;
++    l2_pgentry_t *pl2e;
++    unsigned long tmp;
++    unsigned int i, j, k;
++
++    /*
++     * The caller has selected xen_phys_start, ensuring that the old and new
++     * locations do not overlap, and mapped the new location into the
++     * directmap.
++     *
++     * Prevent the compiler from reordering anything across this point.  Such
++     * things will end badly.
++     */
++    barrier();
++
++    /*
++     * Copy out of the current alias, into the directmap at the new location.
++     * This includes a snapshot of the current stack.
++     */
++    memcpy(__va(__pa(_start)), _start, _end - _start);
++
++    /*
++     * We are now in a critical region.  Any write modifying global state
++     * inside the main Xen image via the current alias will get lost when we
++     * switch to the new pagetables.
++     *
++     * This puts printk()'s in a weird position.  Xen's record of the printk()
++     * will get lost (e.g. from the console ring), but messages which properly
++     * escape the system (e.g. through the UART) may be of some use for
++     * debugging purposes.
++     *
++     * Walk the soon-to-be-used pagetables in the new location, relocating all
++     * intermediate (non-leaf) entries to point to their new-location
++     * equivalents.  All writes are via the directmap alias.
++     */
++    pl4e = __va(__pa(idle_pg_table));
++    for ( i = 0 ; i < L4_PAGETABLE_ENTRIES; i++, pl4e++ )
++    {
++        if ( !(l4e_get_flags(*pl4e) & _PAGE_PRESENT) )
++            continue;
++
++        *pl4e = l4e_from_intpte(l4e_get_intpte(*pl4e) + xen_phys_start);
++        pl3e = __va(l4e_get_paddr(*pl4e));
++        for ( j = 0; j < L3_PAGETABLE_ENTRIES; j++, pl3e++ )
++        {
++            if ( !(l3e_get_flags(*pl3e) & _PAGE_PRESENT) ||
++                 (l3e_get_flags(*pl3e) & _PAGE_PSE) )
++                continue;
++
++            *pl3e = l3e_from_intpte(l3e_get_intpte(*pl3e) + xen_phys_start);
++            pl2e = __va(l3e_get_paddr(*pl3e));
++            for ( k = 0; k < L2_PAGETABLE_ENTRIES; k++, pl2e++ )
++            {
++                if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) ||
++                     (l2e_get_flags(*pl2e) & _PAGE_PSE) )
++                    continue;
++
++                *pl2e = l2e_from_intpte(l2e_get_intpte(*pl2e) + xen_phys_start);
++            }
++        }
++    }
++
++    /*
++     * Walk the soon-to-be-used l2_xenmap[], relocating all the leaf superpage
++     * mappings so text/data/bss etc refer to the new location in memory.
++     * Non-leaf mappings, e.g. X_FIXMAP, were relocated above.
++     */
++    pl2e = __va(__pa(l2_xenmap));
++    for ( i = 0; i < L2_PAGETABLE_ENTRIES; i++, pl2e++ )
++    {
++        if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) ||
++             !(l2e_get_flags(*pl2e) & _PAGE_PSE) )
++            continue;
++
++        *pl2e = l2e_from_intpte(l2e_get_intpte(*pl2e) + xen_phys_start);
++    }
++
++    asm volatile (
++        /*
++         * Resync the local stack frame.  The compiler expects any spilled
++         * expression to retain its value.  This is usually only a few words.
++         */
++        "mov    %%rsp, %%rsi\n\t"       /* SRC = %rsp */
++        "mov    %%esp, %k[tmp]\n\t"
++        "and    %[mask], %k[tmp]\n\t"
++        "add    %[tmp], %%rdi\n\t"      /* DST = cpu0_stack + (%rsp & 0x7fff) */
++        "sub    %%esp, %%ecx\n\t"       /* NR  = frame - %rsp */
++        "rep movsb\n\t"
++
++        /*
++         * Switch to the relocated pagetables, shooting down global mappings.
++         */
++        "mov    %%cr4, %[tmp]\n\t"
++        "andb   $~%c[pge], %b[tmp]\n\t"
++        "mov    %[tmp], %%cr4\n\t"     /* CR4.PGE = 0 */
++        "mov    %[cr3], %%cr3\n\t"     /* CR3 = new pagetables */
++        "orb    %[pge], %b[tmp]\n\t"
++        "mov    %[tmp], %%cr4\n\t"     /* CR4.PGE = 1 */
++        : [tmp]     "=&a" (tmp), /* Could be "r", but "a" makes better asm */
++          [dst]     "=&D" (tmp),
++          [frame]   "=&c" (tmp),
++                    "=&S" (tmp)
++        : [cr3]     "r"   (__pa(idle_pg_table)),
++          [pge]     "i"   (X86_CR4_PGE),
++          [mask]    "i"   (STACK_SIZE - 1),
++          "[dst]"         (__va(__pa(cpu0_stack))),
++          "[frame]"       (__builtin_frame_address(0))
++        : "memory" );
++
++    /*
++     * End of the critical region.  Updates to globals now work as expected.
++     */
++    printk("New Xen image base address: %#lx\n", xen_phys_start);
++}
++
+ #undef BOOTSTRAP_MAP_LIMIT
+ 
+ static uint64_t __init consider_modules(
+@@ -1292,81 +1410,12 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+          */
+         if ( (end > s) && (end - reloc_size + XEN_IMG_OFFSET >= __pa(_end)) )
+         {
+-            l4_pgentry_t *pl4e;
+-            l3_pgentry_t *pl3e;
+-            l2_pgentry_t *pl2e;
+-            int i, j, k;
+-
+             /* Select relocation address. */
+             xen_phys_start = end - reloc_size;
+             e = xen_phys_start + XEN_IMG_OFFSET;
+             bootsym(trampoline_xen_phys_start) = xen_phys_start;
+ 
+-            /*
+-             * Perform relocation to new physical address.
+-             * Before doing so we must sync static/global data with main memory
+-             * with a barrier(). After this we must *not* modify static/global
+-             * data until after we have switched to the relocated pagetables!
+-             */
+-            barrier();
+-            memcpy(__va(__pa(_start)), _start, _end - _start);
+-
+-            /* Walk idle_pg_table, relocating non-leaf entries. */
+-            pl4e = __va(__pa(idle_pg_table));
+-            for ( i = 0 ; i < L4_PAGETABLE_ENTRIES; i++, pl4e++ )
+-            {
+-                if ( !(l4e_get_flags(*pl4e) & _PAGE_PRESENT) )
+-                    continue;
+-                *pl4e = l4e_from_intpte(l4e_get_intpte(*pl4e) +
+-                                        xen_phys_start);
+-                pl3e = __va(l4e_get_paddr(*pl4e));
+-                for ( j = 0; j < L3_PAGETABLE_ENTRIES; j++, pl3e++ )
+-                {
+-                    /* Not present, 1GB mapping, or already relocated? */
+-                    if ( !(l3e_get_flags(*pl3e) & _PAGE_PRESENT) ||
+-                         (l3e_get_flags(*pl3e) & _PAGE_PSE) )
+-                        continue;
+-                    *pl3e = l3e_from_intpte(l3e_get_intpte(*pl3e) +
+-                                            xen_phys_start);
+-                    pl2e = __va(l3e_get_paddr(*pl3e));
+-                    for ( k = 0; k < L2_PAGETABLE_ENTRIES; k++, pl2e++ )
+-                    {
+-                        /* Not present, PSE, or already relocated? */
+-                        if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) ||
+-                             (l2e_get_flags(*pl2e) & _PAGE_PSE) )
+-                            continue;
+-                        *pl2e = l2e_from_intpte(l2e_get_intpte(*pl2e) +
+-                                                xen_phys_start);
+-                    }
+-                }
+-            }
+-
+-            /* Walk l2_xenmap[], relocating 2M superpage leaves. */
+-            pl2e = __va(__pa(l2_xenmap));
+-            for ( i = 0; i < L2_PAGETABLE_ENTRIES; i++, pl2e++ )
+-            {
+-                if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) ||
+-                     !(l2e_get_flags(*pl2e) & _PAGE_PSE) )
+-                    continue;
+-
+-                *pl2e = l2e_from_intpte(l2e_get_intpte(*pl2e) + xen_phys_start);
+-            }
+-
+-            /* Re-sync the stack and then switch to relocated pagetables. */
+-            asm volatile (
+-                "rep movsq        ; " /* re-sync the stack */
+-                "movq %%cr4,%%rsi ; "
+-                "andb $0x7f,%%sil ; "
+-                "movq %%rsi,%%cr4 ; " /* CR4.PGE == 0 */
+-                "movq %[pg],%%cr3 ; " /* CR3 == new pagetables */
+-                "orb $0x80,%%sil  ; "
+-                "movq %%rsi,%%cr4   " /* CR4.PGE == 1 */
+-                : "=&S" (i), "=&D" (i), "=&c" (i) /* All outputs discarded. */
+-                :  [pg] "r" (__pa(idle_pg_table)), "0" (cpu0_stack),
+-                   "1" (__va(__pa(cpu0_stack))), "2" (STACK_SIZE / 8)
+-                : "memory" );
+-
+-            printk("New Xen image base address: %#lx\n", xen_phys_start);
++            move_xen();
+         }
+ 
+         /* Is the region suitable for relocating the multiboot modules? */
+-- 
+2.30.2
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  starved 
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          starved 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          starved 
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  starved 
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  starved 
- test-armhf-armhf-xl-cubietruck                               starved 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     starved 
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     starved 
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                starved 
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               starved 
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 starved 
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     starved 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      starved 
- test-amd64-i386-xl-vhd                                       pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-hint: The 'hooks/update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
-hint: You can disable this warning with `git config advice.ignoredHook false`.
-To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   e4b5c766f505..6849d8c4a61a  6849d8c4a61a93bb3abf2f65c84ec1ebfa9a9fb6 -> tested/linux-5.4
 
