@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BACF56C6C71
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 16:42:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513943.795729 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99B6B6C6CB7
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 16:55:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513951.795745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfN3j-0005Cq-Rr; Thu, 23 Mar 2023 15:40:59 +0000
+	id 1pfNHW-00074p-64; Thu, 23 Mar 2023 15:55:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513943.795729; Thu, 23 Mar 2023 15:40:59 +0000
+Received: by outflank-mailman (output) from mailman id 513951.795745; Thu, 23 Mar 2023 15:55:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfN3j-0005Aq-Ov; Thu, 23 Mar 2023 15:40:59 +0000
-Received: by outflank-mailman (input) for mailman id 513943;
- Thu, 23 Mar 2023 15:40:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pfNHW-00072H-3G; Thu, 23 Mar 2023 15:55:14 +0000
+Received: by outflank-mailman (input) for mailman id 513951;
+ Thu, 23 Mar 2023 15:55:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fJyN=7P=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pfN3h-0005Ak-VS
- for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 15:40:58 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20615.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::615])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1611bafb-c991-11ed-b464-930f4c7d94ae;
- Thu, 23 Mar 2023 16:40:50 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB8257.eurprd04.prod.outlook.com (2603:10a6:20b:3b6::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.38; Thu, 23 Mar
- 2023 15:40:52 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%5]) with mapi id 15.20.6178.038; Thu, 23 Mar 2023
- 15:40:51 +0000
+ (envelope-from <SRS0=d8pY=7P=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pfNHV-00071d-FG
+ for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 15:55:13 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 18136dde-c993-11ed-85db-49a42c6b2330;
+ Thu, 23 Mar 2023 16:55:12 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A48CA22964;
+ Thu, 23 Mar 2023 15:55:11 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6FE8613596;
+ Thu, 23 Mar 2023 15:55:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id TUcbGV92HGRDNQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 23 Mar 2023 15:55:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,282 +51,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1611bafb-c991-11ed-b464-930f4c7d94ae
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c/IFomENoZjxhMgCe/QW2YEKOagjyP5V6NRguyou9Isy2HTT4bco7yWFDkVcquqQUzXnQWlqnwx/8rUscF6ckCZpV9iVEi9xLnpo9c5ZRzwGLsJFVZmb1fS5dmG2H6GTqYeCggeefV13hW4KWexZ9qVgDRLDsfAps7n/+nKur5cJ/FoIedT9VARNw/ZoBXqSvTNUGAcTDa8RMcNLzpfWBPtBH22lBAvx+Ze6TosZ42K7yHy5jzehf5tqVpK+3/wsjEQ7N5ISh2hlQGAqIx1Qy1IFJ5N/FbrqATNC10FiVMmLRHmMMsIbmTLfFBa6kBtuJbcTOhIbPp3vopbW6duHCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q1swhVX/o47uENkgSIFpTWemaVHBNgjE5l9fqR0FAe8=;
- b=gQyp3JHTYuWfWnJsS4y2lQzAgp+M76YgSJowiJQlrvGtz52paZ5FCJnl5g0diXvkUUlpWiZwf3kgGvzILVvBHZFX/u7ak6KKEcSzUvrJ2WQgEW/yqvy1AjJJpXgCmXGAiUQJ/O8JhCwUmiufMr9S6WH+Ncdeo64Wr5yBDwRAf+1i1hJgmqaBkPeBqkVqKrsRNQCQaoWp7XTeHj+aQhqe/dRtC5oRtRcNwpT5J878XFTEnTHsAYyfu5KpEX9v5C4kYfy0qK+yt1HqQgwxRNskAl4b18O2xEa2mezvstKEMzAzUfj1P/QSK5wu5egDlrrrOMEgnFy6TQEQ4wT3mIWrTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q1swhVX/o47uENkgSIFpTWemaVHBNgjE5l9fqR0FAe8=;
- b=sxtjmDwJiv/hOO0vPtcWMJrenOZTSC0N2A29aPk6sISXtCOdCIO2glzrvrwyH/64gSJqYJ207XlAZeWNGsRMrsm8npRqzaubz5JImHEvZQ748qkm9EQQpNjc6xJoDiqTXfJjxRR+AwmgiAKATFmESTlco03qOiNVCvyNNLwKwdx013L6EoHhfoDZVqOz3LQwSokiFkA1dWaTOiayUsM4FMBGW6OIy2dS3IbQZO9ZDN8NhK46fzeXbJnPVKJH9UTpwDCfjuokWvZKrXuuKqOobg1OhWQ4XjQfY2hZ/RWFqoDdqLwqBRbUulMS7T9RPbqek8dLy1AbSVGxJWzN1cIyfQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <dfc15fe8-aede-4e01-ecf3-c3457c95563f@suse.com>
-Date: Thu, 23 Mar 2023 16:40:50 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH 10/16] x86/shadow: move OOS functions to their own file
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Tim Deegan <tim@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <dd9205b8-63f0-b1bc-f2b8-50d5da2bf2a7@suse.com>
- <88be7d2e-325b-2a32-fe9f-ce762bb7b606@suse.com>
- <253e45ae-4b66-a618-6385-b0fa018e693a@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <253e45ae-4b66-a618-6385-b0fa018e693a@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0109.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 18136dde-c993-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1679586911; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FasMwf/QcBP60aF/SHDe1xF2V6iJUqnXfpSReLQqZ2I=;
+	b=PMPxQtplo2jFaKDQ1Yl4lTI5ZxCEOTm1J4bztWKDjTJJZCJbTxI2iahGz1xAKUA79xPVqk
+	iWvWtU39a29IsfUlCsvZHceBrDwnZfn6EHzyB8gG7BuZmDP/NBbgIKor4zJmaJEvjn3Aws
+	S793aT6JDM89V75OMrKM4JcqG0Ly4tI=
+Message-ID: <41ab8c98-ee53-8a21-56cb-2c6d801af0b8@suse.com>
+Date: Thu, 23 Mar 2023 16:55:10 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8257:EE_
-X-MS-Office365-Filtering-Correlation-Id: 622828c5-40fb-459a-539a-08db2bb4fb80
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	VrhMAiLexNbHpSUI+MVPWDso8m3+HiX0U8TPclvgYNLCVjaZ6d/MGaNl50j5ssjr/QYkwRxACGCCfPo76umjdtUMbm3B1sg+M2n8/GA8RX8GpyUrZF+FyTVBARKlO8R2wqedBHg7vPc7CPfPMuOhDtRHPCNhU92p44rEkCA948ahRLTxceT7EJAeNZPvXoLzqavfIhS+REWbiNRjbf6mAnLrliVpEIyVaAb2As+VZFKV2JnFHsY527WsKBuaJf0yL4uR8WhITYQRuI3KdQOkfrqYfszJkEzrH5knw3OmOYU/gDFUCsfmqDk1TcE5kgu82YqYu2byqS2cuXMCdwiSeL3CnPhBVgqK0OWCoMZDo36mIwB/NYZrHnjZSKmtQXhqWiMX2B1ENkx3n4D++As3ujNbEaUexMolcJMglT9osZR+D61hT+E9gnH0cViomY6Fg2SRAat84Wn6jl+spsvWHlkLAYxawKY2nIVM/UkymYQIKqR1KVLFtV3HIHAbhOct9bI76JuFN9pslUSmyYG6VX5uQC6LC7AgA6p7hngLs2FUboscsKQRlhz/2gGQR8vvTi12dDxQapzTI5MSOpyj0V2l6suNkm15U0vDkiavsogFaSjQHhaTs0qrL2zEqt5BYcSGAP1JLOx9eDcE5AGxN0SvnOxvdnvF8Z2fSpUpeUCJcJkPHsPZe5A9CqfQY7dFrx4UDOulThpB9oiQJLVqN2UFQUoAid6teOjd1Pfdbps=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(39860400002)(346002)(366004)(396003)(136003)(451199018)(31686004)(38100700002)(2906002)(66899018)(478600001)(83380400001)(6486002)(2616005)(36756003)(186003)(31696002)(86362001)(6916009)(66946007)(8676002)(66556008)(4326008)(66476007)(54906003)(316002)(6512007)(6506007)(26005)(53546011)(8936002)(5660300002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QStzSXdnNXpkQ05abkZGMi9zMHpUNTNoSTZnbVBUOWtpQlR4QUFnRWtHallz?=
- =?utf-8?B?eStXRERrVFlTQmE4ZzNXa04vTUd1WTRiSGQ5dU1wYjEzNzU0V0lLN1EwWmx1?=
- =?utf-8?B?ZkIwbmpJZTQ5bDhXaUVnVEppY1lCUGdEUG5wWjJlSVBLUnR5NitRVXZRYzJK?=
- =?utf-8?B?c3Uwd2tVR2xWTFBYbXRGV2ZaRWNHV2pCK1l4ekNsMlBYUHM0QWxINi91MXp6?=
- =?utf-8?B?d21FckJlbmcwSUYxOFpoOXZWYmJDZjZxWjFhZ1N5TVZ3ZWg4cmo3UnRtdDJK?=
- =?utf-8?B?QnZUOHNESzNuZHRYZVd0SXpSejV2TFYzTHFkVlhaQ1B1eDlVVlMwWkRBcTMr?=
- =?utf-8?B?ZHVva2dpamFDNEkrN0pOY0FKWWFoQnJsVFlQdEI3Q3ZFbm1TbElrU1F2NkJ4?=
- =?utf-8?B?Zm1UbStNUENXVTZnekEvcjlYekhWU3dSL2MyNW5pbmFOQWVLUlNmaDdMWWdm?=
- =?utf-8?B?Sk9wRnVXTWxLcll1UVpZNHZMTXdsZnJXSm42anRZRTJ3VnJ2R1NBSEhWSmVQ?=
- =?utf-8?B?cklLd0paT2ZzNUh3RlZXRDA2ckxSQ2QvMGtZSm9LRUxEN0lQRGVOWTVGYUww?=
- =?utf-8?B?YVJPdVVIQ0wwdktZajVhL0ZkRHFFY3c1KytvTmRIbk9BcSt5YjZTVy9rVjdT?=
- =?utf-8?B?cFRrNTF6c0ZuVGpHZVBOVDhKeU9aQnp4dW1NNzI1NGhqb1EwRWQ4aXdrTEdT?=
- =?utf-8?B?emM3MUQwUzNXMmdjdGR4WFZCWDNkcEp1R3hSb01oL2tIUUluKzNvbzIyQ3VO?=
- =?utf-8?B?NGNUQVE4dG44Nkh2SzhaOGJTWmo5VEhXWDNKNWxHMFA3cy9DNjRJSStJVC9r?=
- =?utf-8?B?SzFJeVJ5OVh1YXBZb0NJQjM5Mll6UlFBTmVrazdKeitkb0lmREI0b0xjYjFE?=
- =?utf-8?B?MFFHdVFDcllMRHNabjFQQnBSSVRoRlI5dUxtejR3dHFZRHhoK3U3STNSbEVa?=
- =?utf-8?B?dm05Q0ZkS2ROM05GWitWVitGTC9FYjhJaDlNRUkxRUlPL1oxVlQyb0NZRWJF?=
- =?utf-8?B?U3BabFhFcUI4K0xCY040SGVyVnhMamdwbERhWjFXRmp1M0pDdWxiREZkMWpZ?=
- =?utf-8?B?YndnVTZwQjVraTR4RytrK2toOEpKVUQyZTl2aTRsbU5DbEdvRkVFZlBIV3Ry?=
- =?utf-8?B?ZE5xWm1HYUtpMDJZL0pnbUJ4SDA4cHRNS0NFOC9HTDlXb29uQjdPSnNnMDNZ?=
- =?utf-8?B?Ni9EQ0V3bFNiYkxZYUFLQi9DYUx1MW1OdkJWa2xpemU4M1RwUWo4em5XRERK?=
- =?utf-8?B?WnpsVitSK0c1TGNma0dSeVRXbm9JajdvYVFBSHBuTXgvME5FakZiYmk1OEdZ?=
- =?utf-8?B?UEpjOWhTcDM1L1FMeWJFbHFJSmVTTXJwaE9kK25NcUs3amJRY2E4ZmpYdXMx?=
- =?utf-8?B?VE5QMTBRMkszbTFOR0luL2ZVK0FpVUxHUDVPZWUzRkJMVWg3V05zSDc5bkdI?=
- =?utf-8?B?Q1M0Kzdubm5SenozbWVZb2luSXdscHRrSHFwUXBHZVNJSm8vR05DQkJ5eDli?=
- =?utf-8?B?YjNvNmh5U1M5VmkrTVhFRW9zNGNHY0RJZGVpYXlQbFAxZWJvZW52bkdNMzhE?=
- =?utf-8?B?SUM4WHdYdkJsTkRuSTBLbnlDd0lZZjJjUG82SVhreXNlUmlTS1JEdEVIT1o0?=
- =?utf-8?B?TkoxcnJCY0p3U2lITkJKdjlOMG9ENnFmMWZDS1o5OUFjK3lGdHBhTlZsZ3po?=
- =?utf-8?B?QzhOSCtzSEJrSWgzT2hRS2luZnBPWC9KVDFDc3Jkd0pqTG5XTnh5M3l0NS94?=
- =?utf-8?B?eno1K0ZYYWtZWHorK203WEdIRXBFY2pjOEVZWFB3V0RGYkZGZlFndXI3bzFi?=
- =?utf-8?B?aFk2bXFsaFBjeU5YOTRhQVFNaUM3OGdjYjh5cXlhbldKR1dXb0dpUng5Y1R2?=
- =?utf-8?B?QTVyVS9sMHExdXlUanZVeDIxSXVpSnduWDhCSmVTeXlwTHMyYVpIT2Vqd2th?=
- =?utf-8?B?ZEp1M2lQRmtCOFNvMllsUmFWaXVnVG9nZ0o5OHdaSmJTN2htaEtLREFyVWcw?=
- =?utf-8?B?Lzh1bzJEOXJkZ25Na3dWM3Z2UXhibzZLUUxnY1AyaG9wcXpxTU85UE9JTTdh?=
- =?utf-8?B?eXhZaTNLSnBRb25JZHRzNDdBQk9QZzhGVmwyRWdkVWd0Zm4xRGRpRjNOSDNt?=
- =?utf-8?Q?0OJD6kKEIDAO7/OFeZztAfkgO?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 622828c5-40fb-459a-539a-08db2bb4fb80
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2023 15:40:51.7905
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A9ir01a4Kv9Kvb1AU4ek+5Z6H8cwSuZpONcW54xgqpZVyZ2d0Nsaa/DmAh1n9OasII/xbipSPVLkW0ZxabqbAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8257
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [linux-linus test] 179607: regressions - trouble:
+ fail/pass/starved
+Content-Language: en-US
+From: Juergen Gross <jgross@suse.com>
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
+References: <osstest-179607-mainreport@xen.org>
+ <ea0532e0-12c4-674d-392f-216658071f77@suse.com>
+In-Reply-To: <ea0532e0-12c4-674d-392f-216658071f77@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------eT21vdPb2Tih4Op1OwBGPxGW"
 
-On 23.03.2023 15:30, Andrew Cooper wrote:
-> On 22/03/2023 9:35 am, Jan Beulich wrote:
->> --- /dev/null
->> +++ b/xen/arch/x86/mm/shadow/oos.c
->> @@ -0,0 +1,603 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
-> 
-> GPL-2.0-only
-> 
-> The unqualified form in deprecated.
-> 
->> +/******************************************************************************
->> + * arch/x86/mm/shadow/oos.c
->> + *
->> + * Shadow code dealing with out-of-sync shadows.
->> + * Parts of this code are Copyright (c) 2006 by XenSource Inc.
->> + * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
->> + * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
->> + */
->> +
->> +#include "private.h"
->> +
->> +#if (SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC)
->> +
->> +#include <xen/trace.h>
->> +
->> +#include <asm/shadow.h>
->> +
->> +/*
->> + * From time to time, we let a shadowed pagetable page go out of sync
->> + * with its shadow: the guest is allowed to write directly to the page,
->> + * and those writes are not synchronously reflected in the shadow.
->> + * This lets us avoid many emulations if the guest is writing a lot to a
->> + * pagetable, but it relaxes a pretty important invariant in the shadow
->> + * pagetable design.  Therefore, some rules:
->> + *
->> + * 1. Only L1 pagetables may go out of sync: any page that is shadowed
->> + *    at at higher level must be synchronously updated.  This makes
->> + *    using linear shadow pagetables much less dangerous.
->> + *    That means that: (a) unsyncing code needs to check for higher-level
->> + *    shadows, and (b) promotion code needs to resync.
->> + *
->> + * 2. All shadow operations on a guest page require the page to be brought
->> + *    back into sync before proceeding.  This must be done under the
->> + *    paging lock so that the page is guaranteed to remain synced until
->> + *    the operation completes.
->> + *
->> + *    Exceptions to this rule: the pagefault and invlpg handlers may
->> + *    update only one entry on an out-of-sync page without resyncing it.
->> + *
->> + * 3. Operations on shadows that do not start from a guest page need to
->> + *    be aware that they may be handling an out-of-sync shadow.
->> + *
->> + * 4. Operations that do not normally take the paging lock (fast-path
->> + *    #PF handler, INVLPG) must fall back to a locking, syncing version
->> + *    if they see an out-of-sync table.
->> + *
->> + * 5. Operations corresponding to guest TLB flushes (MOV CR3, INVLPG)
->> + *    must explicitly resync all relevant pages or update their
->> + *    shadows.
->> + *
->> + * Currently out-of-sync pages are listed in a simple open-addressed
->> + * hash table with a second chance (must resist temptation to radically
->> + * over-engineer hash tables...)  The virtual address of the access
->> + * which caused us to unsync the page is also kept in the hash table, as
->> + * a hint for finding the writable mappings later.
->> + *
->> + * We keep a hash per vcpu, because we want as much as possible to do
->> + * the re-sync on the save vcpu we did the unsync on, so the VA hint
->> + * will be valid.
->> + */
->> +
->> +#if SHADOW_AUDIT & SHADOW_AUDIT_ENTRIES_FULL
->> +void sh_oos_audit(struct domain *d)
->> +{
->> +    unsigned int idx, expected_idx, expected_idx_alt;
->> +    struct page_info *pg;
->> +    struct vcpu *v;
->> +
->> +    for_each_vcpu(d, v)
->> +    {
->> +        for ( idx = 0; idx < SHADOW_OOS_PAGES; idx++ )
->> +        {
->> +            mfn_t *oos = v->arch.paging.shadow.oos;
-> 
-> Newline.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------eT21vdPb2Tih4Op1OwBGPxGW
+Content-Type: multipart/mixed; boundary="------------rZ4YdWAE2V4hcl6j0r5a0pd9";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
+Message-ID: <41ab8c98-ee53-8a21-56cb-2c6d801af0b8@suse.com>
+Subject: Re: [linux-linus test] 179607: regressions - trouble:
+ fail/pass/starved
+References: <osstest-179607-mainreport@xen.org>
+ <ea0532e0-12c4-674d-392f-216658071f77@suse.com>
+In-Reply-To: <ea0532e0-12c4-674d-392f-216658071f77@suse.com>
 
-I'm happy to add the newlines you're asking for (also below). But ...
+--------------rZ4YdWAE2V4hcl6j0r5a0pd9
+Content-Type: multipart/mixed; boundary="------------0x6Cv05VhnwztwtE7jQjmySN"
 
-> But the variable placement is weird.  oos ought to be one scope further
-> out to prevent recalculation in the for() loop, while pg and the two
-> expected could be at the inter-most scope.
+--------------0x6Cv05VhnwztwtE7jQjmySN
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-... I don't want to go farther than that - see "but leave the code
-otherwise untouched" in the description. This also goes for several
-of your requests further down.
+T24gMTQuMDMuMjMgMTQ6MjcsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IE9uIDE0LjAzLjIz
+IDEzOjUyLCBvc3N0ZXN0IHNlcnZpY2Ugb3duZXIgd3JvdGU6DQo+PiBmbGlnaHQgMTc5NjA3
+IGxpbnV4LWxpbnVzIHJlYWwgW3JlYWxdDQo+PiBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5w
+cm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTc5NjA3Lw0KPj4NCj4+IFJlZ3Jlc3Npb25zIDot
+KA0KPj4NCj4+IFRlc3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5n
+LA0KPj4gaW5jbHVkaW5nIHRlc3RzIHdoaWNoIGNvdWxkIG5vdCBiZSBydW46DQo+PiDCoCB0
+ZXN0LWFtZDY0LWFtZDY0LWZyZWVic2QxMi1hbWQ2NCAxMyBndWVzdC1zdGFydMKgwqDCoMKg
+wqDCoMKgwqDCoCBmYWlsIFJFR1IuIHZzLiAxNzgwNDINCj4+IMKgIHRlc3QtYW1kNjQtYW1k
+NjQteGwtY3JlZGl0McKgIDE5IGd1ZXN0LXNhdmVyZXN0b3JlLjLCoMKgwqDCoMKgIGZhaWwg
+UkVHUi4gdnMuIDE3ODA0Mg0KPj4gwqAgdGVzdC1hbWQ2NC1hbWQ2NC14bC1zaGFkb3fCoMKg
+IDE0IGd1ZXN0LXN0YXJ0wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZmFpbCBSRUdSLiB2
+cy4gMTc4MDQyDQo+IA0KPiAuLi4NCj4gDQo+IEluIHRoZSBsb2dzIFsxXSBJJ20gc2VlaW5n
+IGVycm9ycyBsaWtlOg0KPiANCj4gTWFyIDEzIDIzOjUxOjI2LjI3NTQyMSBbwqAgMjcxLjcx
+Mzc0MF0geGVuYnIwOiBwb3J0IDIodmlmMS4wKSBlbnRlcmVkIGZvcndhcmRpbmcgDQo+IHN0
+YXRlDQo+IE1hciAxMyAyMzo1MToyNi4yODczNDYgKFhFTikgY29tbW9uL2dyYW50X3RhYmxl
+LmM6Mjk4MjpkMHYzIGNvcHkgYmV5b25kIHBhZ2UgYXJlYQ0KPiBNYXIgMTMgMjM6NTE6NDgu
+MTE1MzgzIChYRU4pIGNvbW1vbi9ncmFudF90YWJsZS5jOjI5ODI6ZDB2MyBjb3B5IGJleW9u
+ZCBwYWdlIGFyZWENCj4gTWFyIDEzIDIzOjUxOjQ5LjEyMzM0NyAoWEVOKSBjb21tb24vZ3Jh
+bnRfdGFibGUuYzoyOTgyOmQwdjMgY29weSBiZXlvbmQgcGFnZSBhcmVhDQo+IE1hciAxMyAy
+Mzo1MTo0OS40NTkzNjcgKFhFTikgY29tbW9uL2dyYW50X3RhYmxlLmM6Mjk4MjpkMHYzIGNv
+cHkgYmV5b25kIHBhZ2UgYXJlYQ0KPiANCj4gR2l2ZW4gdGhlIHZpZiByZWxhdGVkIG1lc3Nh
+Z2UgZGlyZWN0bHkgYmVmb3JlIHRob3NlIGVycm9ycyB0aGUgY2hhbmNlIGlzIGhpZ2gNCj4g
+dGhpcyBwcm9ibGVtIGlzIHJlbGF0ZWQgdG8gbmV0YmFjay4NCj4gDQo+IFJvc3MsIHlvdXIg
+cGF0Y2ggInhlbi9uZXRiYWNrOiBFbnN1cmUgcHJvdG9jb2wgaGVhZGVycyBkb24ndCBmYWxs
+IGluIHRoZQ0KPiBub24tbGluZWFyIGFyZWEiICh1cHN0cmVhbSBjb21taXQgYWQ3ZjQwMmFl
+NGY0NjY2KSBkaWQgdGhlIG1vc3QgcmVjZW50IGNoYW5nZXMNCj4gaW4gbmV0YmFjayBhZmZl
+Y3RpbmcgR05UVEFCT1BfY29weSBvcGVyYXRpb25zLiBUaGVyZSBhcmUgcHJvYmFibHkgcGFn
+ZSBib3VuZGFyeQ0KPiBjaGVja3MgKHByb2JhYmx5IG9uIG5ldGJhY2sgc2lkZSkgbWlzc2lu
+Zy4gQ291bGQgeW91IHBsZWFzZSBoYXZlIGEgbG9vaz8NCg0KT2theSwgSSd2ZSBoYWQgYSB0
+cnkgKHNlZSBhdHRhY2hlZCBwYXRjaCkuDQoNCkFudGhvbnksIGFzIEkgY2FuJ3QgcmVwcm9k
+dWNlIHRoZSBvcmlnaW5hbCBwcm9ibGVtLCB3b3VsZCBpdCBiZSBwb3NzaWJsZSB0bw0Kc3Rh
+cnQgYW4gT1NTdGVzdCBydW4gb2YgdGhlIGxpbnV4LWxpbnVzIHRlc3Qgd2l0aCBteSBwYXRj
+aCBhcHBsaWVkIHRvIHRoZQ0KdXNlZCBrZXJuZWw/DQoNCg0KSnVlcmdlbg0K
+--------------0x6Cv05VhnwztwtE7jQjmySN
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-xen-netback-don-t-do-grant-copy-across-page-boundary.patch"
+Content-Disposition: attachment;
+ filename*0="0001-xen-netback-don-t-do-grant-copy-across-page-boundary.pa";
+ filename*1="tch"
+Content-Transfer-Encoding: base64
 
->> +#if SHADOW_AUDIT & SHADOW_AUDIT_ENTRIES
->> +void oos_audit_hash_is_present(struct domain *d, mfn_t gmfn)
->> +{
->> +    int idx;
->> +    struct vcpu *v;
->> +    mfn_t *oos;
->> +
->> +    ASSERT(mfn_is_out_of_sync(gmfn));
->> +
->> +    for_each_vcpu(d, v)
->> +    {
->> +        oos = v->arch.paging.shadow.oos;
->> +        idx = mfn_x(gmfn) % SHADOW_OOS_PAGES;
-> 
-> Same for oos and idx here, which would shrink this function overall.
-> 
-> As a tangent, do we really want all these modulo 3's all over the
-> place?  It's a lot of divide instructions in paths that are fast-ish for
-> shadow guests.
+RnJvbSA4YWNlMDJlZGJhNzQwYmZkYjBmOWJkODhhZTM0YWNkZDljZTE4ZTU4IE1vbiBTZXAg
+MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+
+CkRhdGU6IFRodSwgMjMgTWFyIDIwMjMgMDc6Mjk6NTYgKzAxMDAKU3ViamVjdDogW1BBVENI
+XSB4ZW4vbmV0YmFjazogZG9uJ3QgZG8gZ3JhbnQgY29weSBhY3Jvc3MgcGFnZSBib3VuZGFy
+eQoKRml4IHhlbnZpZl9nZXRfcmVxdWVzdHMoKSBub3QgdG8gZG8gZ3JhbnQgY29weSBvcGVy
+YXRpb25zIGFjcm9zcyBsb2NhbApwYWdlIGJvdW5kYXJpZXMuIFRoaXMgcmVxdWlyZXMgdG8g
+ZG91YmxlIHRoZSBtYXhpbXVtIG51bWJlciBvZiBjb3B5Cm9wZXJhdGlvbnMgcGVyIHF1ZXVl
+LCBhcyBlYWNoIGNvcHkgY291bGQgbm93IGJlIHNwbGl0IGludG8gMi4KCkNjOiBzdGFibGVA
+dmdlci5rZXJuZWwub3JnCkZpeGVzOiBhZDdmNDAyYWU0ZjQgKCJ4ZW4vbmV0YmFjazogRW5z
+dXJlIHByb3RvY29sIGhlYWRlcnMgZG9uJ3QgZmFsbCBpbiB0aGUgbm9uLWxpbmVhciBhcmVh
+IikKU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgotLS0K
+IGRyaXZlcnMvbmV0L3hlbi1uZXRiYWNrL2NvbW1vbi5oICB8IDIgKy0KIGRyaXZlcnMvbmV0
+L3hlbi1uZXRiYWNrL25ldGJhY2suYyB8IDcgKysrKysrLQogMiBmaWxlcyBjaGFuZ2VkLCA3
+IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9u
+ZXQveGVuLW5ldGJhY2svY29tbW9uLmggYi9kcml2ZXJzL25ldC94ZW4tbmV0YmFjay9jb21t
+b24uaAppbmRleCAzZGJmYzhhNjkyNGUuLjFmY2JkODNmN2ZmMiAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9uZXQveGVuLW5ldGJhY2svY29tbW9uLmgKKysrIGIvZHJpdmVycy9uZXQveGVuLW5l
+dGJhY2svY29tbW9uLmgKQEAgLTE2Niw3ICsxNjYsNyBAQCBzdHJ1Y3QgeGVudmlmX3F1ZXVl
+IHsgLyogUGVyLXF1ZXVlIGRhdGEgZm9yIHhlbnZpZiAqLwogCXN0cnVjdCBwZW5kaW5nX3R4
+X2luZm8gcGVuZGluZ190eF9pbmZvW01BWF9QRU5ESU5HX1JFUVNdOwogCWdyYW50X2hhbmRs
+ZV90IGdyYW50X3R4X2hhbmRsZVtNQVhfUEVORElOR19SRVFTXTsKIAotCXN0cnVjdCBnbnR0
+YWJfY29weSB0eF9jb3B5X29wc1tNQVhfUEVORElOR19SRVFTXTsKKwlzdHJ1Y3QgZ250dGFi
+X2NvcHkgdHhfY29weV9vcHNbMiAqIE1BWF9QRU5ESU5HX1JFUVNdOwogCXN0cnVjdCBnbnR0
+YWJfbWFwX2dyYW50X3JlZiB0eF9tYXBfb3BzW01BWF9QRU5ESU5HX1JFUVNdOwogCXN0cnVj
+dCBnbnR0YWJfdW5tYXBfZ3JhbnRfcmVmIHR4X3VubWFwX29wc1tNQVhfUEVORElOR19SRVFT
+XTsKIAkvKiBwYXNzZWQgdG8gZ250dGFiX1t1bl1tYXBfcmVmcyB3aXRoIHBhZ2VzIHVuZGVy
+ICh1biltYXBwaW5nICovCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC94ZW4tbmV0YmFjay9u
+ZXRiYWNrLmMgYi9kcml2ZXJzL25ldC94ZW4tbmV0YmFjay9uZXRiYWNrLmMKaW5kZXggMWI0
+MjY3NmNhMTQxLi4xYmM5MzZkZDU3OWQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L3hlbi1u
+ZXRiYWNrL25ldGJhY2suYworKysgYi9kcml2ZXJzL25ldC94ZW4tbmV0YmFjay9uZXRiYWNr
+LmMKQEAgLTQxMyw2ICs0MTMsMTAgQEAgc3RhdGljIHZvaWQgeGVudmlmX2dldF9yZXF1ZXN0
+cyhzdHJ1Y3QgeGVudmlmX3F1ZXVlICpxdWV1ZSwKIAkJY29wLT5kZXN0LnUuZ21mbiA9IHZp
+cnRfdG9fZ2ZuKHNrYi0+ZGF0YSArIHNrYl9oZWFkbGVuKHNrYikKIAkJCQkgICAgICAgICAg
+ICAgICAtIGRhdGFfbGVuKTsKIAorCQkvKiBEb24ndCBjcm9zcyBsb2NhbCBwYWdlIGJvdW5k
+YXJ5ISAqLworCQlpZiAoY29wLT5kZXN0Lm9mZnNldCArIGFtb3VudCA+IFBBR0VfU0laRSkK
+KwkJCWFtb3VudCA9IFBBR0VfU0laRSAtIGNvcC0+ZGVzdC5vZmZzZXQ7CisKIAkJY29wLT5s
+ZW4gPSBhbW91bnQ7CiAJCWNvcC0+ZmxhZ3MgPSBHTlRDT1BZX3NvdXJjZV9ncmVmOwogCkBA
+IC00NDEsNyArNDQ1LDggQEAgc3RhdGljIHZvaWQgeGVudmlmX2dldF9yZXF1ZXN0cyhzdHJ1
+Y3QgeGVudmlmX3F1ZXVlICpxdWV1ZSwKIAkJCW5yX3Nsb3RzLS07CiAJCX0gZWxzZSB7CiAJ
+CQkvKiBUaGUgY29weSBvcCBwYXJ0aWFsbHkgY292ZXJlZCB0aGUgdHhfcmVxdWVzdC4KLQkJ
+CSAqIFRoZSByZW1haW5kZXIgd2lsbCBiZSBtYXBwZWQuCisJCQkgKiBUaGUgcmVtYWluZGVy
+IHdpbGwgYmUgbWFwcGVkIG9yIGNvcGllZCBpbiB0aGUgbmV4dAorCQkJICogaXRlcmF0aW9u
+LgogCQkJICovCiAJCQl0eHAtPm9mZnNldCArPSBhbW91bnQ7CiAJCQl0eHAtPnNpemUgLT0g
+YW1vdW50OwotLSAKMi4zNS4zCgo=
+--------------0x6Cv05VhnwztwtE7jQjmySN
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-I don't think the compiler translates division by constant to DIV / IDIV.
-It's multiplication by suitable "inverse" and then using the top bits of
-the result iirc.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
->> +        if ( !mfn_eq(oos[idx], gmfn) )
->> +            idx = (idx + 1) % SHADOW_OOS_PAGES;
->> +
->> +        if ( mfn_eq(oos[idx], gmfn) )
->> +            return;
->> +    }
->> +
->> +    printk(XENLOG_ERR "gmfn %"PRI_mfn" marked OOS but not in hash table\n",
->> +           mfn_x(gmfn));
->> +    BUG();
->> +}
->> +#endif
->> +
->> +/* Update the shadow, but keep the page out of sync. */
->> +static inline void _sh_resync_l1(struct vcpu *v, mfn_t gmfn, mfn_t snpmfn)
-> 
-> inline can go.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-I'm feeling on the edge with "inline". I'd prefer to leave them to keep
-"untouched" reasonable true, but if you insist I'd be willing to include
-their dropping.
+--------------0x6Cv05VhnwztwtE7jQjmySN--
 
->> +void oos_fixup_add(struct domain *d, mfn_t gmfn,
->> +                   mfn_t smfn,  unsigned long off)
->> +{
->> +    int idx, next;
->> +    mfn_t *oos;
->> +    struct oos_fixup *oos_fixup;
->> +    struct vcpu *v;
->> +
->> +    perfc_incr(shadow_oos_fixup_add);
->> +
->> +    for_each_vcpu(d, v)
->> +    {
->> +        oos = v->arch.paging.shadow.oos;
->> +        oos_fixup = v->arch.paging.shadow.oos_fixup;
->> +        idx = mfn_x(gmfn) % SHADOW_OOS_PAGES;
->> +        if ( !mfn_eq(oos[idx], gmfn) )
->> +            idx = (idx + 1) % SHADOW_OOS_PAGES;
->> +        if ( mfn_eq(oos[idx], gmfn) )
->> +        {
->> +            int i;
->> +            for ( i = 0; i < SHADOW_OOS_FIXUPS; i++ )
-> 
-> This is a case where "for ( int i = ..." would definitely read better. 
-> Luckily, this example is simple enough that the compiler has already
-> optimised properly.
-> 
->> +            {
->> +                if ( mfn_eq(oos_fixup[idx].smfn[i], smfn)
->> +                     && (oos_fixup[idx].off[i] == off) )
-> 
-> Given that you mention style in the commit message, it would be nice to
-> move the && onto the previous line.
+--------------rZ4YdWAE2V4hcl6j0r5a0pd9--
 
-Sure, done (and there was a 2nd instance).
+--------------eT21vdPb2Tih4Op1OwBGPxGW
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Jan
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQcdl4FAwAAAAAACgkQsN6d1ii/Ey8n
+ZAf/Z4sR3tSr+TStBgsPALMLy/wzB78lrr+9Os/DCgFy5JqBQYZUV6g3b0ZFRIRrEx+432/iu8qO
+dno59YMGn3xlAXn1G0NW24YFj+kqUrH5oDSic0Vm4A0YWfs5AG02qsb8k1TeMQya9DHplcy7Xmaa
+W90uQsnLZrEYVMXYb37aBWLRHvoArANeNT/4Z0WWjgkNpGbNkz0KkbwmAMSRLse8hP5RNFzjpO9C
+D/xLFHc2fLLKA9TGYHfvfyIZ5u3S0Gzr4sQ3u6TJUNx13xyTH9rHOSUf214YttxV5+yjRfPqy7TJ
+0U4nm2JOY527khNdILKA0BEX8DrFyQU8PyLMk2LfFQ==
+=EK/A
+-----END PGP SIGNATURE-----
+
+--------------eT21vdPb2Tih4Op1OwBGPxGW--
 
