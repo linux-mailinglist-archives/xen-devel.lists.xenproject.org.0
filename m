@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BDD66C62DA
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 10:09:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513698.795120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 569F96C6388
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 10:28:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513710.795130 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfGwt-0006L4-S8; Thu, 23 Mar 2023 09:09:31 +0000
+	id 1pfHEV-0001rG-A0; Thu, 23 Mar 2023 09:27:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513698.795120; Thu, 23 Mar 2023 09:09:31 +0000
+Received: by outflank-mailman (output) from mailman id 513710.795130; Thu, 23 Mar 2023 09:27:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfGwt-0006Ig-Nh; Thu, 23 Mar 2023 09:09:31 +0000
-Received: by outflank-mailman (input) for mailman id 513698;
- Thu, 23 Mar 2023 09:09:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pfHEV-0001pX-6r; Thu, 23 Mar 2023 09:27:43 +0000
+Received: by outflank-mailman (input) for mailman id 513710;
+ Thu, 23 Mar 2023 09:27:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d8pY=7P=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pfGws-0004iI-J6
- for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 09:09:30 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b26617f-c95a-11ed-85db-49a42c6b2330;
- Thu, 23 Mar 2023 10:09:30 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EC9183421D;
- Thu, 23 Mar 2023 09:09:29 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C526413596;
- Thu, 23 Mar 2023 09:09:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 84OtLkkXHGRfPAAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 23 Mar 2023 09:09:29 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pfHEU-0001pN-4v; Thu, 23 Mar 2023 09:27:42 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pfHEU-0002mu-2e; Thu, 23 Mar 2023 09:27:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pfHET-0006aD-FK; Thu, 23 Mar 2023 09:27:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pfHET-0000vU-Et; Thu, 23 Mar 2023 09:27:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,65 +42,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b26617f-c95a-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1679562569; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=j3ZkLxPJUvo+zj64n5geObIPSNljnDCOHNBqeqoIUno=;
-	b=GELWIzEVwFp9cZyFOHWJwkCjahL80Y0FQcsCu0lFxihPoSnv2gkGlh94yKxI1sfsh18w9H
-	zscSzlmh81jKSi/Z9Z8Kfxv6ubzBJmymgZEj1qZqdHvEOc14rE0yfD9GrAg7bJIqZp14oO
-	jxpn2s3MfgE8oIDo1Fww6YvRmYhrGyw=
-From: Juergen Gross <jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=uk2YWHqBeIhFtV7m4VcAtopaO+UbGPuNCMfnrfuQ1n0=; b=L7bf/qOE+tMiES7Hc1KBLlwo/M
+	OrEpmo//o25IfDyZGAs+bsoReuDCnEmTXQ3+v+7jFgSlCnJG6IOZnZ4c7Qnr/p4sIeNwXK8ti4HDl
+	EEoR7t7KVbiqPPtJaQVEioflq2WUxDzQYKK6vJDe0HpPDT/oMMijBMnhu4IMzylNSJf0=;
 To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v5 5/5] tools/libs/vchan: remove private offsetof() definition
-Date: Thu, 23 Mar 2023 10:08:59 +0100
-Message-Id: <20230323090859.25240-6-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230323090859.25240-1-jgross@suse.com>
-References: <20230323090859.25240-1-jgross@suse.com>
-MIME-Version: 1.0
+Message-ID: <osstest-179861-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 179861: tolerable trouble: pass/starved - PUSHED
+X-Osstest-Failures:
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:build-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    libvirt:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    libvirt=743fdb97c81f38adc6e9b55f402244f7982352f4
+X-Osstest-Versions-That:
+    libvirt=4be3ba0226ec2816ba202e9aac1e4ad049c7e818
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 23 Mar 2023 09:27:41 +0000
 
-vchan/init.c is defining offsetof privately. Remove that definition
-and just use stddef.h instead.
+flight 179861 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/179861/
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V4:
-- new patch
----
- tools/libs/vchan/init.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Failures :-/ but no regressions.
 
-diff --git a/tools/libs/vchan/init.c b/tools/libs/vchan/init.c
-index 021e1f29e1..a081dd4c9a 100644
---- a/tools/libs/vchan/init.c
-+++ b/tools/libs/vchan/init.c
-@@ -32,6 +32,7 @@
- #include <sys/mman.h>
- #include <sys/ioctl.h>
- #include <sys/user.h>
-+#include <stddef.h>
- #include <stdlib.h>
- #include <stdio.h>
- #include <stdint.h>
-@@ -69,10 +70,6 @@
- #define MAX_RING_SHIFT 20
- #define MAX_RING_SIZE (1 << MAX_RING_SHIFT)
- 
--#ifndef offsetof
--#define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
--#endif
--
- static int init_gnt_srv(struct libxenvchan *ctrl, int domain)
- {
- 	int pages_left = ctrl->read.order >= PAGE_SHIFT ? 1 << (ctrl->read.order - PAGE_SHIFT) : 0;
--- 
-2.35.3
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
+version targeted for testing:
+ libvirt              743fdb97c81f38adc6e9b55f402244f7982352f4
+baseline version:
+ libvirt              4be3ba0226ec2816ba202e9aac1e4ad049c7e818
+
+Last test of basis   179829  2023-03-21 04:18:50 Z    2 days
+Testing same since   179861  2023-03-22 04:18:51 Z    1 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Michal Privoznik <mprivozn@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   4be3ba0226..743fdb97c8  743fdb97c81f38adc6e9b55f402244f7982352f4 -> xen-tested-master
 
