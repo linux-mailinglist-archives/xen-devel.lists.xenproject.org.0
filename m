@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C5D16C650C
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 11:30:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513745.795212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E5A96C656E
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 11:43:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513748.795222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfICw-0005qX-Rc; Thu, 23 Mar 2023 10:30:10 +0000
+	id 1pfIP8-0007eP-UJ; Thu, 23 Mar 2023 10:42:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513745.795212; Thu, 23 Mar 2023 10:30:10 +0000
+Received: by outflank-mailman (output) from mailman id 513748.795222; Thu, 23 Mar 2023 10:42:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfICw-0005ne-OR; Thu, 23 Mar 2023 10:30:10 +0000
-Received: by outflank-mailman (input) for mailman id 513745;
- Thu, 23 Mar 2023 10:30:10 +0000
+	id 1pfIP8-0007bw-RK; Thu, 23 Mar 2023 10:42:46 +0000
+Received: by outflank-mailman (input) for mailman id 513748;
+ Thu, 23 Mar 2023 10:42:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8edK=7P=citrix.com=prvs=439de8c1e=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pfICw-0005nW-5k
- for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 10:30:10 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ad2e693e-c965-11ed-b464-930f4c7d94ae;
- Thu, 23 Mar 2023 11:30:07 +0100 (CET)
+ <SRS0=2sJP=7P=casper.srs.infradead.org=BATV+ab089a62be6df7c8828c+7151+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1pfIP6-0007bX-0k
+ for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 10:42:45 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6cc68097-c967-11ed-b464-930f4c7d94ae;
+ Thu, 23 Mar 2023 11:42:37 +0100 (CET)
+Received: from [2001:8b0:10b:5:b3d4:e39d:531b:642a]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pfIOt-003sbZ-Uq; Thu, 23 Mar 2023 10:42:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,104 +41,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad2e693e-c965-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1679567407;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=E8F6wRr5iSbNAZFQckGgVmxQX0o0SKgl7mU+nuPfjHs=;
-  b=emy9iDZSOS7LKuhk99o10or/7KD2rHjgegY7Dk/xWCXvPI8gDpv2zd8R
-   RMWAH/NlYDIJUla0IoquNJ9ZCN0dnOtMMzKomIT6sJvakld7NwrVjEwLW
-   2VAXyKqFhdLEM0kkl5lDM4/D2btmxMlSzbu0aSWquOQfYztM95xXg85/f
-   8=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 5.1
-X-MesageID: 104414549
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:sk1DWK71k/ASEX4nGGMYawxRtFfAchMFZxGqfqrLsTDasY5as4F+v
- mYaWDqOOa2OMGHwLd0jOtvj9R5XusKEnNZnQQZkqXhkHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9VU+7JwehBtC5gZlPasR5weH/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m0
- cc3KxMXTiG4uueQ6pGJeuhivsocM5y+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
- YxDM2MpNUmeJUQVYT/7C7pn9AusrnD5bz1frkPTvact6nLf5AdwzKLsIJzefdniqcB9xx7E+
- juaojioav0cHOeFwiGh/UrwusPkmzGhA5lIOLK2p/E/1TV/wURMUUZLBDNXu8KRhlG7RIh3K
- koa4CMioKE+skuxQbHVRxSlpFaUsxhaXMBfe8Uj5QSQj6bZ/QudLm4DSDFHdZohrsBebSQg0
- VmbntXoLSZivL2cVTSW8bL8hTG1MC9TKCkHbDUYTA0ey975qYo3g1TESdMLOKezjcDvXzi2y
- iqNtiEWgK8ahsoGka68+DjvmCmwr5LESgo04AT/XW+/6A59Iom/aOSA91nY9/9FaomQVFmet
- Xwsks2SqusJCPmlhCGLBekAArytz/KEKyHHx05iGYE78Dag8GLleppfiBlnOUZvLssAcBfzb
- UPTsB8X75hWVFOmYq5zaY+rF+wwwKTgHMijXffRBvJWb4R8bkmC9TBiaEqU92TslkE2luc4I
- 5jzWc+0AGwTE6hP0Du8TOBb2rgurh3S3kuKG8q9lU7+l+PDOjjME+xt3Eaygv4RyJiroybP0
- +dkCs6s4TZtYOzwWifo7ttGRbwVFkTXFawauuQOKLHSeVQ7SDh6YxPC6eh/ItI4xsy5gs+Np
- yjgAREAlTITkFWdcW23hmZfhKQDtHqVhVYyJmQSMFmhwBDPiq7/vf5EJ/PbkVTKndGPLMKYr
- NFfIa1s+twVFlz6F801NPERVrBKehWxnh6pNCG4ejU5dJMIb1WXpY65J1O2rnNeUXHfWS4CT
- 1qIiGvmrWcrHVw+XK46ltr2p79OgZTtsL0rBBaZSjWiUE7t7JJrO0TMsxPDGOlVcU+r7mLDj
- 26+WE5IzdQhVqdoqbElc4jf9Nz3ewa/d2IHd1TmAUGebnSHozrykdQbD45lv1n1DQvJxUlrX
- s0Np9mUDRHNtAwiX1ZUe1qz8Z8D2g==
-IronPort-HdrOrdr: A9a23:6BnEEK0jqoc7g57AKSUPDgqjBLIkLtp133Aq2lEZdPRUGvb3qy
- mLpoV+6faUskd1ZJhOo7290cW7LU80sKQFhrX5Xo3SPjUO2lHJEGgK1+KLqFfd8m/Fh41gPM
- 9bAs5D4bbLbGSS4/yU3DWF
-X-IronPort-AV: E=Sophos;i="5.98,283,1673931600"; 
-   d="scan'208";a="104414549"
-Date: Thu, 23 Mar 2023 10:29:52 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: David Woodhouse <dwmw2@infradead.org>, Paul Durrant <paul@xen.org>
-CC: <qemu-devel@nongnu.org>, Paolo Bonzini <pbonzini@redhat.com>, Joao Martins
-	<joao.m.martins@oracle.com>, Ankur Arora <ankur.a.arora@oracle.com>, Stefano
- Stabellini <sstabellini@kernel.org>, <vikram.garhwal@amd.com>,
-	<xen-devel@lists.xenproject.org>, Juan Quintela <quintela@redhat.com>, "Dr .
- David Alan Gilbert" <dgilbert@redhat.com>, Peter Maydell
-	<peter.maydell@linaro.org>
+X-Inumbo-ID: 6cc68097-c967-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=xelcXx5ivH1DAf4sAFB7DXoxSJhNHez9TzLupM9JDsc=; b=Tnui8mNcH7xFSv2Lw8xfbxVLON
+	x5QANaFdSjkPx9An22u3FEwHN0LbvGiFeILhTqAvyiR9nhiXfBfGg2xbHpQqO9xgEDBD5Wqov0lZQ
+	/xPoxaVxFf23WqqMWvEmhKpDQgZTZlCQFiQpaxNZiqZy8ISIrNa1R4DjijvYH8IlZX9hTKht/TBft
+	V35Nb389qkbb7pGZS2iVpOA0EmF5g1bFWhI+2YNvZ+/k6lo++yAMAajBKUKrWgvhBTVAl7dxsb5ZQ
+	WiP6UM+5dYEI/Ho0JaoIt4T4x+X1gRmqQPlInKpRHswbseoiWEAuYTwCt6CKCOPKSume9vTOEcMxo
+	EaDbOMxQ==;
+Message-ID: <418a6d774d3dc78f7410de08976fcf2f9fe42ec9.camel@infradead.org>
 Subject: Re: [PATCH v2 09/27] hw/xen: Add evtchn operations to allow
  redirection to internal emulation
-Message-ID: <209fe980-7f9d-4d79-90fb-12e38f12b2bc@perard>
+From: David Woodhouse <dwmw2@infradead.org>
+To: Anthony PERARD <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, Joao Martins
+ <joao.m.martins@oracle.com>, Ankur Arora <ankur.a.arora@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, vikram.garhwal@amd.com,
+ xen-devel@lists.xenproject.org, Juan Quintela <quintela@redhat.com>, "Dr .
+ David Alan Gilbert" <dgilbert@redhat.com>, Peter Maydell
+ <peter.maydell@linaro.org>
+Date: Thu, 23 Mar 2023 10:42:30 +0000
+In-Reply-To: <209fe980-7f9d-4d79-90fb-12e38f12b2bc@perard>
 References: <20230307171750.2293175-1-dwmw2@infradead.org>
- <20230307171750.2293175-10-dwmw2@infradead.org>
+	 <20230307171750.2293175-10-dwmw2@infradead.org>
+	 <209fe980-7f9d-4d79-90fb-12e38f12b2bc@perard>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-Kshv6WTWRerk+BVPSzAB"
+User-Agent: Evolution 3.44.4-0ubuntu1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230307171750.2293175-10-dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Tue, Mar 07, 2023 at 05:17:32PM +0000, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
-> 
-> The existing implementation calling into the real libxenevtchn moves to
-> a new file hw/xen/xen-operations.c, and is called via a function table
-> which in a subsequent commit will also be able to invoke the emulated
-> event channel support.
-> 
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> Reviewed-by: Paul Durrant <paul@xen.org>
 
-Hi David, Paul,
+--=-Kshv6WTWRerk+BVPSzAB
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This patch prevents existing use case from booting, that is even with the
-state change notification fix. It seems that trying to create a PV guest
-with libvirt fails, with "xen be core: can't connect to xenstored" in
-QEMU's log but it doesn't says if that's the reason qemu failed to
-start. But it's probably not related to libvirt.
+On Thu, 2023-03-23 at 10:29 +0000, Anthony PERARD wrote:
+> On Tue, Mar 07, 2023 at 05:17:32PM +0000, David Woodhouse wrote:
+> > From: David Woodhouse <dwmw@amazon.co.uk>
+> >=20
+> > The existing implementation calling into the real libxenevtchn moves to
+> > a new file hw/xen/xen-operations.c, and is called via a function table
+> > which in a subsequent commit will also be able to invoke the emulated
+> > event channel support.
+> >=20
+> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> > Reviewed-by: Paul Durrant <paul@xen.org>
+>=20
+> Hi David, Paul,
+>=20
+> This patch prevents existing use case from booting, that is even with the
+> state change notification fix.
 
-Our bisector pointed out this patch, see details and logs:
-    https://lore.kernel.org/xen-devel/E1pdvdx-0006lh-Oe@osstest.test-lab.xenproject.org/
-    https://lore.kernel.org/xen-devel/E1pcg3G-0000NS-9x@osstest.test-lab.xenproject.org/
-    https://lore.kernel.org/xen-devel/E1pf9hf-0005EB-1r@osstest.test-lab.xenproject.org/
+Just checking... definitely the *event channel* patch in commit=C2=A0b6cacf=
+e
+and not the xenstore patch which comes later?
 
-I did run a test with patch "Fix DM state change notification in
-dm_restrict mode", but I think only the *dmrestict* tests have been
-fixed.
-    http://logs.test-lab.xenproject.org/osstest/logs/179868/
+The state change notification fix doesn't even apply yet, does it?
 
-Some failures of running PV guests without libvirt, from that flight:
-    http://logs.test-lab.xenproject.org/osstest/logs/179868/test-amd64-amd64-xl-qcow2/info.html
-    http://logs.test-lab.xenproject.org/osstest/logs/179868/test-amd64-i386-xl-vhd/info.html
+--=-Kshv6WTWRerk+BVPSzAB
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-Any idea of what's wrong?
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwMzIzMTA0MjMwWjAvBgkqhkiG9w0BCQQxIgQgUGWq4y8B
+tk6QwQIRrvCyN1vTNCLX24dgZcc2Q69qMCAwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCCpaGn3KybHoCuxJoiMA9M9VUDybcQ0bdt
+wBjglLqCH/GMw+J0WmZ4MCb79nzFgZy6FN4EoH2qNgxOXV+8dF5UIZuG/yiWWtQ9uJen5p3pEV6R
+NDxdrbSryhnBnuoIoeykGUoRdC+RR7omD0ifafb2hNm7CV6XGxAo4pB9dkXJEyYoUuIyOcUZ6F0W
+wiI55VNNzZ57cyqRFcNMcwgDLSAkPTG3ZvQMh5M9Nis3mTrDajFnonfkjAqezWB96VXQNjpMDOjk
+sdqvZCPRwF3cU2rOYkqKuHK1dAGGCIxhCn6q9RI/E7wrQFIggYSJ3Znz+S427HxRH4OVwOaV7PDQ
+uftOzSfG39aRNJmyR8zp1q5AXse0DYQdUdWQnW4kfpu70vb0cMh7Lnuv0ESzfmdv30qP9D11aXxs
+4M751XSr6RF8iwt9cWJrrxAkH8cHinWCG3Ka+HYfhP8mamHtz5I9B3hJlvL/I/rSxBlcpQQu9c7I
+2WUzDE7LlupNkSLAaDj1DECM1ox3HY5K6mNdBM4cMP7JyHBrJFembHPx0JELyFhtKa8SD18kCF5W
+2Yi4t8TgxXXCcTrKALGzVE2ap9uPssXVXVt0oT/VIXuUG59CYpLu+dEW8kqEP+KLvIB3OMw6hVbB
+59ab1vbIzNdlNShqTy1bjG/PEPWm/EZOY1cIKmT+fAAAAAAAAA==
 
-Thanks,
 
--- 
-Anthony PERARD
+--=-Kshv6WTWRerk+BVPSzAB--
 
