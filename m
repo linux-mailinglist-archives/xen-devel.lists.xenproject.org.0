@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D5DE6C68AE
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 13:44:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513849.795484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA5A06C68E5
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 13:54:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513853.795494 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfKId-0002jE-TU; Thu, 23 Mar 2023 12:44:11 +0000
+	id 1pfKS2-0004g3-QT; Thu, 23 Mar 2023 12:53:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513849.795484; Thu, 23 Mar 2023 12:44:11 +0000
+Received: by outflank-mailman (output) from mailman id 513853.795494; Thu, 23 Mar 2023 12:53:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfKId-0002gT-Q2; Thu, 23 Mar 2023 12:44:11 +0000
-Received: by outflank-mailman (input) for mailman id 513849;
- Thu, 23 Mar 2023 12:44:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pfKS2-0004dQ-NN; Thu, 23 Mar 2023 12:53:54 +0000
+Received: by outflank-mailman (input) for mailman id 513853;
+ Thu, 23 Mar 2023 12:53:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pfKIc-0002g8-86
- for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 12:44:10 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pfKIb-0007Rt-MT; Thu, 23 Mar 2023 12:44:09 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=[192.168.18.79]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pfKIb-0000IP-Fu; Thu, 23 Mar 2023 12:44:09 +0000
+ (envelope-from <SRS0=d8pY=7P=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pfKS1-0004dH-FF
+ for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 12:53:53 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c3078733-c979-11ed-85db-49a42c6b2330;
+ Thu, 23 Mar 2023 13:53:52 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A6C641FDD2;
+ Thu, 23 Mar 2023 12:53:51 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7A73A13596;
+ Thu, 23 Mar 2023 12:53:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id kF0+HN9LHGSmRAAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 23 Mar 2023 12:53:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,222 +51,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=JXNkX6mCQ12J6fWiSpxUNoETCP4ol34oY64CGQBSb1g=; b=XSJlleTM1XCHGTPUqV13OoNUOh
-	5V5xsfnRi/vQgO7nVsuFcuqtg2NlaYIdxMvUo73Ky5rR+pBlYBKxQT59m8KruE9Dj0IgHQ0448hcz
-	Mwe8X1qX9agTZXW1JsEY/BX28ktS/PR7qdnBdDk3oKbBytPUR1GX1w+mm2gVuE7feSpE=;
-Message-ID: <79e83610-5980-d9b5-7994-6b0cb2b9049a@xen.org>
-Date: Thu, 23 Mar 2023 12:44:07 +0000
+X-Inumbo-ID: c3078733-c979-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1679576031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3Tyd9ilcf6GW/IpbuAfrjlrqolrlpjOcZ94+pxePI6g=;
+	b=YKIybdn8kKsorJXYraLRRm9z0r0L+oGqJmVUo9pbhcf1qp+3xS0fyYovSiPO3FVCRkAe9Y
+	MbhumjWwBe8YGQNhsth92yIs+SWvUVUcpKiRaJawOPD8QFic6BwBSIJ9dEA23WhvuRh0cq
+	Vz/rF4Zsu+GyV7zYMad3z2/w6HQLVY8=
+Message-ID: <363e4526-6bc2-d961-88ac-93ba82e2e30c@suse.com>
+Date: Thu, 23 Mar 2023 13:53:51 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.0
-Subject: Re: [PATCH v2 1/3] xen/riscv: introduce setup_initial_pages
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>
-References: <cover.1678984041.git.oleksii.kurochko@gmail.com>
- <85a21ada5a0fc44bb9db1dcc1f6cf191a6e66bfb.1678984041.git.oleksii.kurochko@gmail.com>
- <9ff0e335-6cb2-be49-046d-745ce05f7086@xen.org>
- <5169c6c8a0c4c90b56e3f525a55de464edf7181e.camel@gmail.com>
- <60444252-80b6-230e-9090-2c96d5d6187d@xen.org>
- <c9f4b34c4aef31906e715c7ddce8e077e5eef52c.camel@gmail.com>
- <98194c59-6bd8-7b98-c94d-df0f4faf0c04@xen.org>
- <1da599963f20f84c84a9114e10776da3ed0d35e2.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <1da599963f20f84c84a9114e10776da3ed0d35e2.camel@gmail.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230224155848.31036-1-jgross@suse.com>
+ <a8e71268-6111-d4d5-5cba-ed141dba530d@xen.org>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] tools/xenstore: fix quota check in acc_fix_domains()
+In-Reply-To: <a8e71268-6111-d4d5-5cba-ed141dba530d@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------NQj1HR0sc4RuIFzKuOHXJQQh"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------NQj1HR0sc4RuIFzKuOHXJQQh
+Content-Type: multipart/mixed; boundary="------------t7T2GG9Q8DBGd6oCzEL8B6A4";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <363e4526-6bc2-d961-88ac-93ba82e2e30c@suse.com>
+Subject: Re: [PATCH] tools/xenstore: fix quota check in acc_fix_domains()
+References: <20230224155848.31036-1-jgross@suse.com>
+ <a8e71268-6111-d4d5-5cba-ed141dba530d@xen.org>
+In-Reply-To: <a8e71268-6111-d4d5-5cba-ed141dba530d@xen.org>
+
+--------------t7T2GG9Q8DBGd6oCzEL8B6A4
+Content-Type: multipart/mixed; boundary="------------izo0iVdLezFNnmJLutjb00k0"
+
+--------------izo0iVdLezFNnmJLutjb00k0
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
-Hi Oleksii,
+T24gMjMuMDMuMjMgMTM6MzgsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
+Cj4gDQo+IE9uIDI0LzAyLzIwMjMgMTU6NTgsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBU
+b2RheSB3aGVuIGZpbmFsaXppbmcgYSB0cmFuc2FjdGlvbiB0aGUgbnVtYmVyIG9mIG5vZGUg
+cXVvdGEgaXMgY2hlY2tlZA0KPj4gdG8gbm90IGJlaW5nIGV4Y2VlZGVkIGFmdGVyIHRoZSB0
+cmFuc2FjdGlvbi4gVGhpcyBjaGVjayBpcyBhbHdheXMgZG9uZSwNCj4+IGV2ZW4gaWYgdGhl
+IHRyYW5zYWN0aW9uIGlzIGJlaW5nIHBlcmZvcm1lZCBieSBhIHByaXZpbGVnZWQgY29ubmVj
+dGlvbiwNCj4+IG9yIGlmIHRoZXJlIHdlcmUgbm8gbm9kZXMgY3JlYXRlZCBpbiB0aGUgdHJh
+bnNhY3Rpb24uDQo+Pg0KPj4gQ29ycmVjdCB0aGF0IGJ5IGNoZWNraW5nIHF1b3RhIG9ubHkg
+aWY6DQo+PiAtIHRoZSB0cmFuc2FjdGlvbiBpcyBiZWluZyBwZXJmb3JtZWQgYnkgYW4gdW5w
+cml2aWxlZ2VkIGd1ZXN0LCBhbmQNCj4+IC0gYXQgbGVhc3Qgb25lIG5vZGUgd2FzIGNyZWF0
+ZWQgaW4gdGhlIHRyYW5zYWN0aW9uDQo+Pg0KPj4gUmVwb3J0ZWQtYnk6IEp1bGllbiBHcmFs
+bCA8anVsaWVuQHhlbi5vcmc+DQo+PiBGaXhlczogZjJiZWJmNzJjNGQ1ICgieGVuc3RvcmU6
+IHJld29yayBvZiB0cmFuc2FjdGlvbiBoYW5kbGluZyIpDQo+PiBTaWduZWQtb2ZmLWJ5OiBK
+dWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+PiAtLS0NCj4+IMKgIHRvb2xzL3hl
+bnN0b3JlL3hlbnN0b3JlZF9jb3JlLmPCoMKgwqDCoMKgwqDCoCB8wqAgMyArKysNCj4+IMKg
+IHRvb2xzL3hlbnN0b3JlL3hlbnN0b3JlZF9kb21haW4uY8KgwqDCoMKgwqAgfMKgIDQgKyst
+LQ0KPj4gwqAgdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2RvbWFpbi5owqDCoMKgwqDCoCB8
+wqAgMiArLQ0KPj4gwqAgdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX3RyYW5zYWN0aW9uLmMg
+fCAxNiArKysrKysrKysrKysrKy0tDQo+PiDCoCB0b29scy94ZW5zdG9yZS94ZW5zdG9yZWRf
+dHJhbnNhY3Rpb24uaCB8wqAgMyArKysNCj4+IMKgIDUgZmlsZXMgY2hhbmdlZCwgMjMgaW5z
+ZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvdG9vbHMv
+eGVuc3RvcmUveGVuc3RvcmVkX2NvcmUuYyBiL3Rvb2xzL3hlbnN0b3JlL3hlbnN0b3JlZF9j
+b3JlLmMNCj4+IGluZGV4IGE2MWRiMmRiMmQuLjNjYTY4NjgxZTMgMTAwNjQ0DQo+PiAtLS0g
+YS90b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfY29yZS5jDQo+PiArKysgYi90b29scy94ZW5z
+dG9yZS94ZW5zdG9yZWRfY29yZS5jDQo+PiBAQCAtMTQ3Miw2ICsxNDcyLDkgQEAgc3RhdGlj
+IHN0cnVjdCBub2RlICpjcmVhdGVfbm9kZShzdHJ1Y3QgY29ubmVjdGlvbiAqY29ubiwgDQo+
+PiBjb25zdCB2b2lkICpjdHgsDQo+PiDCoMKgwqDCoMKgIGlmICghbm9kZSkNCj4+IMKgwqDC
+oMKgwqDCoMKgwqDCoCByZXR1cm4gTlVMTDsNCj4+ICvCoMKgwqAgaWYgKGNvbm4gJiYgY29u
+bi0+dHJhbnNhY3Rpb24pDQo+PiArwqDCoMKgwqDCoMKgwqAgdGFfbm9kZV9jcmVhdGVkKGNv
+bm4tPnRyYW5zYWN0aW9uKTsNCj4+ICsNCj4+IMKgwqDCoMKgwqAgbm9kZS0+ZGF0YSA9IGRh
+dGE7DQo+PiDCoMKgwqDCoMKgIG5vZGUtPmRhdGFsZW4gPSBkYXRhbGVuOw0KPj4gZGlmZiAt
+LWdpdCBhL3Rvb2xzL3hlbnN0b3JlL3hlbnN0b3JlZF9kb21haW4uYyANCj4+IGIvdG9vbHMv
+eGVuc3RvcmUveGVuc3RvcmVkX2RvbWFpbi5jDQo+PiBpbmRleCBkN2ZjMmZhZmM3Li5mNjJi
+ZTIyNDVjIDEwMDY0NA0KPj4gLS0tIGEvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2RvbWFp
+bi5jDQo+PiArKysgYi90b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfZG9tYWluLmMNCj4+IEBA
+IC01NDQsNyArNTQ0LDcgQEAgc3RhdGljIHN0cnVjdCBkb21haW4gKmZpbmRfZG9tYWluX2J5
+X2RvbWlkKHVuc2lnbmVkIGludCANCj4+IGRvbWlkKQ0KPj4gwqDCoMKgwqDCoCByZXR1cm4g
+KGQgJiYgZC0+aW50cm9kdWNlZCkgPyBkIDogTlVMTDsNCj4+IMKgIH0NCj4+IC1pbnQgYWNj
+X2ZpeF9kb21haW5zKHN0cnVjdCBsaXN0X2hlYWQgKmhlYWQsIGJvb2wgdXBkYXRlKQ0KPj4g
+K2ludCBhY2NfZml4X2RvbWFpbnMoc3RydWN0IGxpc3RfaGVhZCAqaGVhZCwgYm9vbCBjaGtf
+cXVvdGEsIGJvb2wgdXBkYXRlKQ0KPj4gwqAgew0KPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgY2hh
+bmdlZF9kb21haW4gKmNkOw0KPj4gwqDCoMKgwqDCoCBpbnQgY250Ow0KPj4gQEAgLTU1Miw3
+ICs1NTIsNyBAQCBpbnQgYWNjX2ZpeF9kb21haW5zKHN0cnVjdCBsaXN0X2hlYWQgKmhlYWQs
+IGJvb2wgdXBkYXRlKQ0KPj4gwqDCoMKgwqDCoCBsaXN0X2Zvcl9lYWNoX2VudHJ5KGNkLCBo
+ZWFkLCBsaXN0KSB7DQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgY250ID0gZG9tYWluX25iZW50
+cnlfZml4KGNkLT5kb21pZCwgY2QtPm5iZW50cnksIHVwZGF0ZSk7DQo+PiDCoMKgwqDCoMKg
+wqDCoMKgwqAgaWYgKCF1cGRhdGUpIHsNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlm
+IChjbnQgPj0gcXVvdGFfbmJfZW50cnlfcGVyX2RvbWFpbikNCj4+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGlmIChjaGtfcXVvdGEgJiYgY250ID49IHF1b3RhX25iX2VudHJ5X3Blcl9k
+b21haW4pDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBF
+Tk9TUEM7DQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoY250IDwgMCkNCj4+
+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIEVOT01FTTsNCj4+
+IGRpZmYgLS1naXQgYS90b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfZG9tYWluLmggDQo+PiBi
+L3Rvb2xzL3hlbnN0b3JlL3hlbnN0b3JlZF9kb21haW4uaA0KPj4gaW5kZXggZGM0NjYwODYx
+ZS4uZWM2YWEwMGNjNyAxMDA2NDQNCj4+IC0tLSBhL3Rvb2xzL3hlbnN0b3JlL3hlbnN0b3Jl
+ZF9kb21haW4uaA0KPj4gKysrIGIvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2RvbWFpbi5o
+DQo+PiBAQCAtOTYsNyArOTYsNyBAQCB2b2lkIGRvbWFpbl9vdXRzdGFuZGluZ19kZWMoc3Ry
+dWN0IGNvbm5lY3Rpb24gKmNvbm4pOw0KPj4gwqAgdm9pZCBkb21haW5fb3V0c3RhbmRpbmdf
+ZG9taWRfZGVjKHVuc2lnbmVkIGludCBkb21pZCk7DQo+PiDCoCBpbnQgZG9tYWluX2dldF9x
+dW90YShjb25zdCB2b2lkICpjdHgsIHN0cnVjdCBjb25uZWN0aW9uICpjb25uLA0KPj4gwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgZG9taWQpOw0KPj4gLWlu
+dCBhY2NfZml4X2RvbWFpbnMoc3RydWN0IGxpc3RfaGVhZCAqaGVhZCwgYm9vbCB1cGRhdGUp
+Ow0KPj4gK2ludCBhY2NfZml4X2RvbWFpbnMoc3RydWN0IGxpc3RfaGVhZCAqaGVhZCwgYm9v
+bCBjaGtfcXVvdGEsIGJvb2wgdXBkYXRlKTsNCj4gDQo+IERlcGVuZGluZyBvbiB0aGUgYW5z
+d2VyIGJlbG93LCBJIHdvdWxkIHN1Z2dlc3QgdG8gd3JpdGUgdGhhdCAnY2hrX3F1b3RhJyBp
+cyANCj4gaWdub3JlZCB3aGVuIGBgdXBkYXRlYGAgaXMgdHJ1ZS4NCg0KV2l0aCB0aGUgYW5z
+d2VyIGJlbG93LCBkbyB5b3UgYWdyZWUgdGhhdCBubyBhZGRpdGlvbmFsIGNvbW1lbnQgaXMg
+bmVlZGVkPw0KSSdtIGZpbmUgZWl0aGVyIHdheS4NCg0KPiANCj4+IMKgIC8qIFdyaXRlIHJh
+dGUgbGltaXRpbmcgKi8NCj4+IGRpZmYgLS1naXQgYS90b29scy94ZW5zdG9yZS94ZW5zdG9y
+ZWRfdHJhbnNhY3Rpb24uYyANCj4+IGIvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX3RyYW5z
+YWN0aW9uLmMNCj4+IGluZGV4IDFhYTlkM2NiM2QuLjJiMTU1MDY5NTMgMTAwNjQ0DQo+PiAt
+LS0gYS90b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfdHJhbnNhY3Rpb24uYw0KPj4gKysrIGIv
+dG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX3RyYW5zYWN0aW9uLmMNCj4+IEBAIC0xNjAsMTIg
+KzE2MCwyMCBAQCBzdHJ1Y3QgdHJhbnNhY3Rpb24NCj4+IMKgwqDCoMKgwqAgLyogTGlzdCBv
+ZiBjaGFuZ2VkIGRvbWFpbnMgLSB0byByZWNvcmQgdGhlIGNoYW5nZWQgZG9tYWluIGVudHJ5
+IG51bWJlciAqLw0KPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgbGlzdF9oZWFkIGNoYW5nZWRfZG9t
+YWluczsNCj4+ICvCoMKgwqAgLyogVGhlcmUgd2FzIGF0IGxlYXN0IG9uZSBub2RlIGNyZWF0
+ZWQgaW4gdGhlIHRyYW5zYWN0aW9uLiAqLw0KPj4gK8KgwqDCoCBib29sIG5vZGVfY3JlYXRl
+ZDsNCj4+ICsNCj4+IMKgwqDCoMKgwqAgLyogRmxhZyBmb3IgbGV0dGluZyB0cmFuc2FjdGlv
+biBmYWlsLiAqLw0KPj4gwqDCoMKgwqDCoCBib29sIGZhaWw7DQo+PiDCoCB9Ow0KPj4gwqAg
+dWludDY0X3QgZ2VuZXJhdGlvbjsNCj4+ICt2b2lkIHRhX25vZGVfY3JlYXRlZChzdHJ1Y3Qg
+dHJhbnNhY3Rpb24gKnRyYW5zKQ0KPj4gK3sNCj4+ICvCoMKgwqAgdHJhbnMtPm5vZGVfY3Jl
+YXRlZCA9IHRydWU7DQo+PiArfQ0KPj4gKw0KPj4gwqAgc3RhdGljIHN0cnVjdCBhY2Nlc3Nl
+ZF9ub2RlICpmaW5kX2FjY2Vzc2VkX25vZGUoc3RydWN0IHRyYW5zYWN0aW9uICp0cmFucywN
+Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGNvbnN0IGNoYXIgKm5hbWUpDQo+PiDCoCB7DQo+PiBAQCAtNTA5LDYgKzUxNyw3IEBAIGlu
+dCBkb190cmFuc2FjdGlvbl9lbmQoY29uc3Qgdm9pZCAqY3R4LCBzdHJ1Y3QgY29ubmVjdGlv
+biANCj4+ICpjb25uLA0KPj4gwqDCoMKgwqDCoCBjb25zdCBjaGFyICphcmcgPSBvbmVhcmco
+aW4pOw0KPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgdHJhbnNhY3Rpb24gKnRyYW5zOw0KPj4gwqDC
+oMKgwqDCoCBib29sIGlzX2NvcnJ1cHQgPSBmYWxzZTsNCj4+ICvCoMKgwqAgYm9vbCBjaGtf
+cXVvdGE7DQo+PiDCoMKgwqDCoMKgIGludCByZXQ7DQo+PiDCoMKgwqDCoMKgIGlmICghYXJn
+IHx8ICghc3RyZXEoYXJnLCAiVCIpICYmICFzdHJlcShhcmcsICJGIikpKQ0KPj4gQEAgLTUy
+MywxMyArNTMyLDE2IEBAIGludCBkb190cmFuc2FjdGlvbl9lbmQoY29uc3Qgdm9pZCAqY3R4
+LCBzdHJ1Y3QgDQo+PiBjb25uZWN0aW9uICpjb25uLA0KPj4gwqDCoMKgwqDCoCBpZiAoIWNv
+bm4tPnRyYW5zYWN0aW9uX3N0YXJ0ZWQpDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgY29ubi0+
+dGFfc3RhcnRfdGltZSA9IDA7DQo+PiArwqDCoMKgIGNoa19xdW90YSA9IHRyYW5zLT5ub2Rl
+X2NyZWF0ZWQgJiYgZG9tYWluX2lzX3VucHJpdmlsZWdlZChjb25uKTsNCj4+ICsNCj4+IMKg
+wqDCoMKgwqAgLyogQXR0YWNoIHRyYW5zYWN0aW9uIHRvIGN0eCBmb3IgYXV0by1jbGVhbnVw
+ICovDQo+PiDCoMKgwqDCoMKgIHRhbGxvY19zdGVhbChjdHgsIHRyYW5zKTsNCj4+IMKgwqDC
+oMKgwqAgaWYgKHN0cmVxKGFyZywgIlQiKSkgew0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlm
+ICh0cmFucy0+ZmFpbCkNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBF
+Tk9NRU07DQo+PiAtwqDCoMKgwqDCoMKgwqAgcmV0ID0gYWNjX2ZpeF9kb21haW5zKCZ0cmFu
+cy0+Y2hhbmdlZF9kb21haW5zLCBmYWxzZSk7DQo+PiArwqDCoMKgwqDCoMKgwqAgcmV0ID0g
+YWNjX2ZpeF9kb21haW5zKCZ0cmFucy0+Y2hhbmdlZF9kb21haW5zLCBjaGtfcXVvdGEsDQo+
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZhbHNlKTsN
+Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAocmV0KQ0KPj4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgcmV0dXJuIHJldDsNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXQgPSBmaW5h
+bGl6ZV90cmFuc2FjdGlvbihjb25uLCB0cmFucywgJmlzX2NvcnJ1cHQpOw0KPj4gQEAgLTUz
+OSw3ICs1NTEsNyBAQCBpbnQgZG9fdHJhbnNhY3Rpb25fZW5kKGNvbnN0IHZvaWQgKmN0eCwg
+c3RydWN0IGNvbm5lY3Rpb24gDQo+PiAqY29ubiwNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCB3
+cmxfYXBwbHlfZGViaXRfdHJhbnNfY29tbWl0KGNvbm4pOw0KPj4gwqDCoMKgwqDCoMKgwqDC
+oMKgIC8qIGZpeCBkb21haW4gZW50cnkgZm9yIGVhY2ggY2hhbmdlZCBkb21haW4gKi8NCj4+
+IC3CoMKgwqDCoMKgwqDCoCBhY2NfZml4X2RvbWFpbnMoJnRyYW5zLT5jaGFuZ2VkX2RvbWFp
+bnMsIHRydWUpOw0KPj4gK8KgwqDCoMKgwqDCoMKgIGFjY19maXhfZG9tYWlucygmdHJhbnMt
+PmNoYW5nZWRfZG9tYWlucywgZmFsc2UsIHRydWUpOw0KPiANCj4gSW4gdGhlb3J5LCBzaG91
+bGRuJ3Qgd2UgcGFzcyAnY2hrX3F1b3RhJyByYXRoZXIgdGhhbiBmYWxzZT8gSW4gcHJhY3Rp
+Y2UsIEkga25vdyANCj4gaXQgZG9lc24ndCBtYWtlIGFueSBkaWZmZXJlbmNlIGJldHdlZW4g
+dGhpcyBpcyBhbiB1cGRhdGUuDQoNCldlIGV4cGxpY2l0bHkgZG9uJ3Qgd2FudCB0byBjaGVj
+ayBxdW90YSBpbiB0aGUgInVwZGF0ZSIgY2FzZS4gU28gc3BlY2lmeWluZw0KImZhbHNlIiBp
+cyB0aGUgY29ycmVjdCB0aGluZyB0byBkbyBJTUhPLg0KDQoNCkp1ZXJnZW4NCg==
+--------------izo0iVdLezFNnmJLutjb00k0
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-On 23/03/2023 12:30, Oleksii wrote:
-> On Thu, 2023-03-23 at 11:57 +0000, Julien Grall wrote:
->> On 23/03/2023 11:18, Oleksii wrote:
->>> Hi Julien,
->>
->> Hi Oleksii,
->>
->>> On Wed, 2023-03-22 at 14:21 +0000, Julien Grall wrote:
->>> ...
->>>>
->>>>>>> +    unsigned long page_addr;
->>>>>>> +
->>>>>>> +    // /* align start addresses */
->>>>>>> +    // map_start &= XEN_PT_LEVEL_MAP_MASK(0);
->>>>>>> +    // pa_start &= XEN_PT_LEVEL_MAP_MASK(0);
->>>>>>
->>>>>> They should be switched to ASSERT() or BUG_ON().
->>>>> Sure. Thanks. I'll update.
->>>>>>
->>>>>>> +
->>>>>>> +    page_addr = map_start;
->>>>>>> +    while ( page_addr < map_end )
->>>>>>
->>>>>> This loop is continue to assume that only the mapping can
->>>>>> first
->>>>>> in
->>>>>> 2MB
->>>>>> section (or less if the start is not 2MB aligned).
->>>>>>
->>>>>> I am OK if you want to assume it, but I think this should be
->>>>>> documented
->>>>>> (with words and ASSERT()/BUG_ON()) to avoid any mistake.
->>>>> I add a check in setup_initial_pagetables:
->>>>>         BUG_ON(load_addr_start % (PAGE_ENTRIES * PAGE_SIZE) !=
->>>>> 0);
->>>>> Probably this is not a correct place and should be moved to
->>>>> setup_initial_mapping() instead of setup_initial_pagetables()
->>>>
->>>> Yes it should be moved in setup_initial_mapping().
->>> Then I'll moved it to setup_initial_mapping()
->>>>
->>>>>>
->>>>>>> +    {
->>>>>>> +        unsigned long index2 = pt_index(2, page_addr);
->>>>>>> +        unsigned long index1 = pt_index(1, page_addr);
->>>>>>> +        unsigned long index0 = pt_index(0, page_addr);
->>>>>>> +
->>>>>>> +        /* Setup level2 table */
->>>>>>> +        second[index2] = paddr_to_pte((unsigned
->>>>>>> long)first);
->>>>>>> +        second[index2].pte |= PTE_TABLE;
->>>>>>> +
->>>>>>> +        /* Setup level1 table */
->>>>>>> +        first[index1] = paddr_to_pte((unsigned
->>>>>>> long)zeroeth);
->>>>>>> +        first[index1].pte |= PTE_TABLE;
->>>>>>> +
->>>>>>> +
->>>>>>
->>>>>> NIT: Spurious line?
->>>>> Yeah, should be removed. Thanks.
->>>>>>
->>>>>>> +        /* Setup level0 table */
->>>>>>> +        if ( !pte_is_valid(&zeroeth[index0]) )
->>>>>>
->>>>>> On the previous version, you said it should be checked for
->>>>>> each
->>>>>> level.
->>>>> I had a terrible internet connection, and my message wasn't
->>>>> sent.
->>>>
->>>> No worries.
->>>>
->>>>>
->>>>> I decided not to check that l2 and l1 are used only for
->>>>> referring
->>>>> to
->>>>> the next page table but not leaf PTE. So it is safe to
->>>>> overwrite it
->>>>> each time (the addresses of page tables are the same all the
->>>>> time)
->>>>
->>>> You are letting the caller to decide which page-table to use for
->>>> each
->>>> level. So you are at the mercy that caller will do the right
->>>> thing.
->>>>
->>>> IHMO, this is a pretty bad idea because debugging page-tables
->>>> error
->>>> are
->>>> difficult. So it is better to have safety in place. This is not
->>>> worth...
->>>>
->>>>     and
->>>>> probably it will be better from optimization point of view to
->>>>> ignore if
->>>>> clauses.
->>>>
->>>> ... the optimization in particular when this is at boot time.
->>> I didn't think about that caller will do always the right thing so
->>> I will add the check.
->>>>
->>>>>
->>>>> And it is needed in case of L0 because it is possible that some
->>>>> addressed were marked with specific flag ( execution, read,
->>>>> write )
->>>>> and
->>>>> so not to overwrite the flags set before the check is needed.
->>>> In which case you should really report an error because the
->>>> caller
->>>> may
->>>> have decide to set execution flag and you don't honor. So when
->>>> the
->>>> code
->>>> is executed, you will receive a fault and this may be hard to
->>>> find
->>>> out
->>>> what happen.
->>>
->>> Right now, it is expected situation that the caller will try to
->>> change
->>> execution flag during the setup of initial page tables. >
->>> It is possible in the currently implemented logic of the setup of
->>> initial page tables.
->>
->> This sounds like a bug in your caller implementation. You should not
->> try
->> to workaround this in your code updating the page-tables.
->>
->>> Let me explain what I mean.
->>>
->>> The first step of setup_initial_pagetables() is to map .text,
->>> .init,
->>> .rodata with necessary flags RX, RX, R.
->>> Remaining sections will have RW flags, and to map them,
->>> setup_initial_mapping() is called for the whole range of
->>> [linker_start,
->>> linker_end] not to map them one by one thereby during this step
->>> setup_initial_mapping() will try to remap addresses ranges which
->>> overlap with .text, .init, .rodata with RW flags but it should
->>> leave
->>> with the previously set flags.
->> Why do you need to call setup_init_mapping() with the whole range? In
->> fact the only reason I can think this is useful is when you when to
->> create a 1:1 mapping when the linker and load address is different.
-> It is needed to not map each section separately one by one as most of
-> the sections have the same PTE_FLAGS (Read, Write, eXectuable, etc )
-> 
-> So it was decided to map the following sections separately as they have
-> 'unique' flags:
->   - .text -> RX
->   - .rodata -> R
->   - .init.text -> RX
-> 
-> All other sections are RW and could be covered by one call of
-> setup_init_mapping() for the whole range:
->   - .data.ro_after_init
->   - .data.read_mostly
->   - .data
->   - .init.data
->   - .bss
-> So some ranges ( .text, .rodata, .init.text ) from the whole range will
-> be skipped as already mapped and the rest sections will be mapped
-> during one call of setup_init_mapping().
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-This approach is very fragile and not scalable because:
-  * You can't use setup_initial_mapping() to change the permission flags.
-  * You can't catch caller mistakes (e.g. imagine you end up to use a 
-different physical region).
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-I can see two solutions:
+--------------izo0iVdLezFNnmJLutjb00k0--
 
-   1) Loop through the region page and page and check within permission 
-you want (see the loop in setup_pagetables() for Arm).
-   2) Re-order the calls so you want first all Xen and then update the 
-permission flags as it fits.
+--------------t7T2GG9Q8DBGd6oCzEL8B6A4--
 
-I don't have a strong preference between the two options here.
+--------------NQj1HR0sc4RuIFzKuOHXJQQh
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Cheers,
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Julien Grall
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQcS98FAwAAAAAACgkQsN6d1ii/Ey8x
+Agf/fcnIZwSGLFJQG7i/SXSdX968876s8Su1IY0U0apuspjM/r5IU9F5Vp5HYxL+n9XBiFuL12HR
+pZdR+dt5kjWwiSDBpnqs6dxUhMx4dqRnL0d3gXRYBsInTWNevSF8Byyn+VLs16CJEzVloG23ymsq
+Swav/f3X4bI6o869jigzAAKLmaZMDYcAMeqTvmXJgE+xMZ0y0OEBo7eMjwyD9QWeeXhlTwQYWf7x
+KVBAHf0zyWqP5XCD5HNwG7C24JmETFXgjLOWvCLQabOAcAn5/d6G45i8F8I5uAWeP4btlUsZwWsf
+y0GqlI1vg/N0ASjrJ4JtLPUQEJLmBLEEDF0akHYg9A==
+=Tdb/
+-----END PGP SIGNATURE-----
+
+--------------NQj1HR0sc4RuIFzKuOHXJQQh--
 
