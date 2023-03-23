@@ -2,44 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C6366C647D
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 11:12:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.513731.795176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FA706C64AF
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Mar 2023 11:19:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.513735.795189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfHvr-0001ku-N1; Thu, 23 Mar 2023 10:12:31 +0000
+	id 1pfI2Q-0002fG-Da; Thu, 23 Mar 2023 10:19:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 513731.795176; Thu, 23 Mar 2023 10:12:31 +0000
+Received: by outflank-mailman (output) from mailman id 513735.795189; Thu, 23 Mar 2023 10:19:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfHvr-0001if-Iv; Thu, 23 Mar 2023 10:12:31 +0000
-Received: by outflank-mailman (input) for mailman id 513731;
- Thu, 23 Mar 2023 10:12:30 +0000
+	id 1pfI2Q-0002dS-AL; Thu, 23 Mar 2023 10:19:18 +0000
+Received: by outflank-mailman (input) for mailman id 513735;
+ Thu, 23 Mar 2023 10:19:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d8pY=7P=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pfHvp-0001iZ-Vv
- for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 10:12:30 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YvyI=7P=ilande.co.uk=mark.cave-ayland@srs-se1.protection.inumbo.net>)
+ id 1pfI2O-0002dK-Ki
+ for xen-devel@lists.xenproject.org; Thu, 23 Mar 2023 10:19:16 +0000
+Received: from mail.ilande.co.uk (mail.ilande.co.uk [2001:41c9:1:41f::167])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36350a8c-c963-11ed-b464-930f4c7d94ae;
- Thu, 23 Mar 2023 11:12:27 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 58F9A33AFE;
- Thu, 23 Mar 2023 10:12:26 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1D670132C2;
- Thu, 23 Mar 2023 10:12:26 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EUluBQomHGQ0YQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 23 Mar 2023 10:12:26 +0000
+ id 272a0367-c964-11ed-b464-930f4c7d94ae;
+ Thu, 23 Mar 2023 11:19:11 +0100 (CET)
+Received: from host86-163-239-161.range86-163.btcentralplus.com
+ ([86.163.239.161] helo=[10.8.0.6])
+ by mail.ilande.co.uk with esmtpsa (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.92) (envelope-from <mark.cave-ayland@ilande.co.uk>)
+ id 1pfI1N-0004eR-4l; Thu, 23 Mar 2023 10:18:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,155 +41,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36350a8c-c963-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1679566346; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ouqexAkSn6AKuLTLiOQWZF854CrJCw4ONqX8Vr+xK58=;
-	b=ssNa/VI18XKd4Q4UBWzwPIfOynidMZfM17AdG8+vzQ5oqjVfda7f1TDe6M+DH1BI/5Qhl3
-	5WLe//rY6LdwPOVpmqJyT9CMUYxWcRoU5SILl1iAXKOAHtGlTWx3xhGCgXKEbvFRyNG5a9
-	HCnCPUlCSMukQWQU9hgSGOcfMsYCCps=
-Message-ID: <7cc1318a-1b70-7c90-3c82-29e9716ac001@suse.com>
-Date: Thu, 23 Mar 2023 11:12:25 +0100
+X-Inumbo-ID: 272a0367-c964-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ilande.co.uk; s=20220518; h=Subject:Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:MIME-Version:Date:Message-ID:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=YYftXqcDBK/UTYD5UpwnfWzrAN8OUVEoUQ+WA+Q6dyw=; b=H5rDiEH21cqjEqZ+EDejQOQPaW
+	2ztyA6rudlaiNu/5a/Se9yXcbXFAqsamo/mCw1EUxJCFA1mcDhMrp5fHBMyZ+jWLeQgjNW0egfR+d
+	yTSbZ3IMs+r1mT9dvCEXkaDN9WpPTxYC0VzFKydPJMarNP39BYt7jODxm8UASn6sftk1RTDy/XbBR
+	b4C9F4G5NHtrKaHlfT5eLBVYWjFRkrx5bwZxFn7Jd/wPOqkavBtK3hkMVBRlwAI0b8WKeIGrAp+2U
+	RT2jbp4I7NgMhWV1Jk7dsFEpaIk1KMYszGMdCu2vd/23+0X0j3wcjfyGZtnK27XwbVEi55U1neK3K
+	1AVKcGdq1PVNRXVpXwzj5ONuHWsu65DKFWDZuNjhQE7MCNADqWCjvqUed5mbzyqcMQPx57tuKGJWB
+	/dth3xj92CEW6tvmzvuddOdb8F08iQh7wFYrbO1jZpkbm4wuVrddCLRoDq5zJ0+a7iwOhlFbJSd89
+	0Op6MCHRGMFVJLXfpCnyH2sFMIykdfei/9b9WkY3s186ZBhTBoOLsQOPxRLBNeJYLYY1KT3INj7eW
+	KgWTYfDVJ7U+P34cmo4rwoGDkDaYyhWftElNZiHhHwIzdG2CywBGRAMMjW7dlHha100whu4FiYsbn
+	b3P55T+OgZ95LSF+w7Yoy7KBNePCUSZj5YEo9ZPo4=;
+Message-ID: <7971a4c0-70b0-5dcd-4b0b-3fa41766ac41@ilande.co.uk>
+Date: Thu, 23 Mar 2023 10:18:51 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v5 3/5] tools/hvmloader: remove private offsetof()
- definition
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.0
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+To: Chuck Zmudzinski <brchuckz@aol.com>, qemu-devel@nongnu.org
+Cc: "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Artyom Tarasenko <atar4qemu@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20230323090859.25240-1-jgross@suse.com>
- <20230323090859.25240-4-jgross@suse.com>
- <3178a474-371c-2dbd-a9d8-f90a6fb4e13c@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <3178a474-371c-2dbd-a9d8-f90a6fb4e13c@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------9Oym9UzeBFf0vyWhvfnYMdFu"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------9Oym9UzeBFf0vyWhvfnYMdFu
-Content-Type: multipart/mixed; boundary="------------jORlYN0BhL6LPAxH09IyU4Ue";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org
-Message-ID: <7cc1318a-1b70-7c90-3c82-29e9716ac001@suse.com>
-Subject: Re: [PATCH v5 3/5] tools/hvmloader: remove private offsetof()
- definition
-References: <20230323090859.25240-1-jgross@suse.com>
- <20230323090859.25240-4-jgross@suse.com>
- <3178a474-371c-2dbd-a9d8-f90a6fb4e13c@suse.com>
-In-Reply-To: <3178a474-371c-2dbd-a9d8-f90a6fb4e13c@suse.com>
-
---------------jORlYN0BhL6LPAxH09IyU4Ue
-Content-Type: multipart/mixed; boundary="------------RZNWMCVOOzdIx4aEq1jwa122"
-
---------------RZNWMCVOOzdIx4aEq1jwa122
+References: <cover.1678888385.git.brchuckz.ref@aol.com>
+ <cover.1678888385.git.brchuckz@aol.com>
+From: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+In-Reply-To: <cover.1678888385.git.brchuckz@aol.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 86.163.239.161
+X-SA-Exim-Mail-From: mark.cave-ayland@ilande.co.uk
+X-Spam-Checker-Version: SpamAssassin 3.4.2 (2018-09-13) on
+	mail.default.ilande.bv.iomart.io
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.8 required=5.0 tests=ALL_TRUSTED,BAYES_00,
+	URIBL_BLOCKED,URIBL_SBL_A autolearn=no autolearn_force=no version=3.4.2
+Subject: Re: [PATCH v4 0/2] pci: slot_reserved_mask improvements
+X-SA-Exim-Version: 4.2.1 (built Wed, 08 May 2019 21:11:16 +0000)
+X-SA-Exim-Scanned: Yes (on mail.ilande.co.uk)
 
-T24gMjMuMDMuMjMgMTE6MDksIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyMy4wMy4yMDIz
-IDEwOjA4LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gdXRpbC5oIGNvbnRhaW5zIGEgZGVm
-aW5pdGlvbiBvZiBvZmZzZXRvZigpLCB3aGljaCBpc24ndCB1c2VkLg0KPiANCj4gQ29taW5n
-IGJhY2sgdG8gbXkgY29tbWVudCBvbiB0aGUgZWFybGllciB2ZXJzaW9uOiAibm90IHVzZWQi
-IGlzbid0IHRydWUsDQo+IGJ1dCB0aGUgZWFybGllciAibm90IG5lZWRlZCIgYWxzbyBkaWRu
-J3QgbWFrZSBjbGVhciB3aHkgaXQgd2FzIG5vdCBuZWVkZWQNCj4gKG1pc2xlYWRpbmcgbWUg
-aW50byBtYWtpbmcgdGhlIFt3cm9uZ10gc3VnZ2VzdGlvbik6IFRoZSBtYWNybyBpcyB1c2Vk
-LA0KPiBqdXN0IG5vdCBpbiBodm1sb2FkZXIvIGJ1dCBpbiBmaWxlcyBsaXZpbmcgaW4gbGli
-YWNwaS8gYW5kIGNvbXBpbGVkIGhlcmUNCj4gKGFzIHdlbGwgYXMgZWxzZXdoZXJlKS4NCg0K
-QWgsIG9rYXksIEkgb25seSBsb29rZWQgaW4gaHZtbG9hZGVyIGZvciB1c2Vycy4NCg0KPiBO
-ZXcgc3VnZ2VzdGlvbiAod2hpY2ggSSdtIGhhcHB5IHRvIGFwcGx5IHdoaWxlIGNvbW1pdHRp
-bmcpOiAiLi4uIHdoaWNoDQo+IGlzbid0IG5lZWRlZCwgYXMgZmlybXdhcmUvaW5jbHVkZS9z
-dGRkZWYuaCdzIGRvZXNuJ3QgcmVhbGx5IG5lZWQNCj4gb3ZlcnJpZGluZyIuIChUaGUgc2Ft
-ZSwgYnR3LCBpcyB0cnVlIGZvciBOVUxMLCBzbyBJIGd1ZXNzIEknbGwgbWFrZSBhDQo+IGZv
-bGxvdy11cCBwYXRjaCB0byByZW1vdmUgdGhhdCBvbmUgYXMgd2VsbC4pDQoNCkZpbmUgd2l0
-aCBtZS4NCg0KDQpKdWVyZ2VuDQo=
---------------RZNWMCVOOzdIx4aEq1jwa122
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+On 15/03/2023 14:26, Chuck Zmudzinski wrote:
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> This patch series consists of two patches. The first provides accessor
+> functions in pci.h to avoid direct access of slot_reserved_mask
+> according to the comment at the top of include/hw/pci/pci_bus.h. No
+> functional change is intended with this patch.
+> 
+> The second patch replaces slot_reserved_mask with two new masks,
+> slot_reserved_auto_mask and slot_reserved_manual_mask so the current
+> behavior of reserving slot 2 for the Intel IGD for the xenfv machine
+> will be ignored if an administrator manually configures a device to use
+> the reserved slot.
+> 
+> The current behavior of always reserving slots in the sun4u machine is
+> preserved by this patch series; the patch series only changes how
+> slot_reserved_mask works in the xenfv machine. Although the patch
+> series can affect xenfv machines configured for igd-passthru if an
+> administrator assigns some of the pci slot addresses manually, it
+> does not affect the libxl default configuration for igd-passthru because
+> libxl uses automatic slot assignment by default.
+> 
+> Testing:
+>     - Tested xenfv/igd with both manual and auto slot allocation - behaves as expected
+>     - Verified that qemu-system-sparc64 still compiles with the patches to sun4u.c
+>     - xen4u machine not tested -- Mark, can you do this?
+> 
+> Link: https://lore.kernel.org/qemu-devel/20230106064838-mutt-send-email-mst@kernel.org/
+> 
+> Chuck Zmudzinski (2):
+>    pci: avoid accessing slot_reserved_mask directly outside of pci.c
+>    pci: introduce slot_reserved_auto_mask and slot_reserved_manual_mask
+> 
+> Changelog
+> 
+> v4: I forgot to check the patches in v3 for style corrections (sorry about
+>      that), and the second patch had three lines that were too long. Other
+>      than correcting the style problems, no changes since v3.
+> 
+> v3: Re-work second patch in response to comments/discussion of v2
+> 
+> v2: Add first patch and cover letter to make this a 2-patch series
+>      Make changes to the second patch (see second patch for changelog)
+> 
+>   hw/pci/pci.c             | 33 ++++++++++++++++++++++++++++-----
+>   hw/sparc64/sun4u.c       |  7 +++----
+>   hw/xen/xen_pt.c          |  8 ++++----
+>   include/hw/pci/pci.h     |  3 +++
+>   include/hw/pci/pci_bus.h |  3 ++-
+>   5 files changed, 40 insertions(+), 14 deletions(-)
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+The v4 series looks good to me: I've also confirmed that sun4u still works as before, 
+so from my perspective:
 
---------------RZNWMCVOOzdIx4aEq1jwa122--
+Reviewed-by: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+Tested-by: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk> [sun4u]
 
---------------jORlYN0BhL6LPAxH09IyU4Ue--
+Michael, is this a candidate for 8.0 given that the existing patches for Xen making 
+use of slot_reserved_mask have already been merged?
 
---------------9Oym9UzeBFf0vyWhvfnYMdFu
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+ATB,
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQcJgkFAwAAAAAACgkQsN6d1ii/Ey96
-VQgAk1pF+cITeafbBPlvFIkwU0gbbAh2WkdaJCSG3sezCbjGarTbWkaz0iAzkRy4RP1VpTUjSdhP
-P1qoV+BlQ4SgTjlZdXut7ZZs7WSVNtVmoO8FkDtMbSXuPX0bsn9VVa0w2HbkBW9e7MDQSYXFakQL
-leshsqbJ/7pXNKFTIIGcWCEIBFssmj06ASjRbANmLk2fXiN93gHIqHiAt/XoksbH/ZgH6SSf3lGE
-9kemU2A4Ks/YPyWUV+g5YQSXIEujI+Hdr+wN13QFxOIx0ibtRcPUZMStYzmkX+dKY9ZAwKkqQ/dP
-CBRKf8s/0p06/NhYf0perIIuQhgFNzF/iHBB3W3INA==
-=dBks
------END PGP SIGNATURE-----
-
---------------9Oym9UzeBFf0vyWhvfnYMdFu--
+Mark.
 
