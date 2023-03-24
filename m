@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 051AE6C8742
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Mar 2023 22:07:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.514454.796701 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C70A6C879D
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Mar 2023 22:45:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.514462.796723 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfocu-0004mB-4i; Fri, 24 Mar 2023 21:07:08 +0000
+	id 1pfpDT-0001oj-2Z; Fri, 24 Mar 2023 21:44:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 514454.796701; Fri, 24 Mar 2023 21:07:08 +0000
+Received: by outflank-mailman (output) from mailman id 514462.796723; Fri, 24 Mar 2023 21:44:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfocu-0004jY-1j; Fri, 24 Mar 2023 21:07:08 +0000
-Received: by outflank-mailman (input) for mailman id 514454;
- Fri, 24 Mar 2023 21:07:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pfpDS-0001mf-Uo; Fri, 24 Mar 2023 21:44:54 +0000
+Received: by outflank-mailman (input) for mailman id 514462;
+ Fri, 24 Mar 2023 21:44:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0WRj=7Q=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pfocr-0004j3-Os
- for xen-devel@lists.xenproject.org; Fri, 24 Mar 2023 21:07:05 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d361a54f-ca87-11ed-85db-49a42c6b2330;
- Fri, 24 Mar 2023 22:07:04 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 1D76862CAD;
- Fri, 24 Mar 2023 21:07:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A36EEC433D2;
- Fri, 24 Mar 2023 21:07:01 +0000 (UTC)
+ <SRS0=GJ5Y=7Q=citrix.com=prvs=4404309fd=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pfpDR-0001mX-Co
+ for xen-devel@lists.xenproject.org; Fri, 24 Mar 2023 21:44:53 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1754ef46-ca8d-11ed-b464-930f4c7d94ae;
+ Fri, 24 Mar 2023 22:44:47 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,139 +36,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d361a54f-ca87-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679692022;
-	bh=zmAlsq15QDe38bGa1IAxDtMrEqNP8JRjAhO8DknmTaE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=r7R4mmaFV7iI2IIK2xuH0RKyGiPsDt2xr8FS9w3XwzGdGpkwvyCi1iNF4I2IFEBys
-	 KOJDKkYmhhFkCuNx7YUPkY62WxlBjznv7cj6OUKE75GqShX9Pdvm4W+YE8mJife4NU
-	 5OlQ1r/PZaF4Vsu4xY+ZMo25OfUGCF9ZGEMgMA2KN/juS40cjGftSazIWS/lUwtjbk
-	 HD3JgQDPjztaOjgATZOY1NmYRDPZVq2c50zjFQsNXSMih98PNOAKbrOemHBy/NDDtZ
-	 51v3dn7pEiLAX+SxyLjTNQh+vLFdBC9RR5nI54JFTJ8dtVTWEE39gSCKR/eKWsA/c6
-	 1KBH/cpquOzqQ==
-Date: Fri, 24 Mar 2023 14:07:00 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Anthony PERARD <anthony.perard@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH] CI: Remove llvm-8 from the Debian Stretch container
-In-Reply-To: <20230324200654.3245297-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2303241405020.4066@ubuntu-linux-20-04-desktop>
-References: <20230324200654.3245297-1-andrew.cooper3@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 1754ef46-ca8d-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1679694287;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=hwqhceVCgJAHDmKYPj//gEgTAp3CMZ020MxdnHTp51Y=;
+  b=XYqFRDstAgEU+ve7q3VUK/hUMkvqQ4qYbbIRnPNJVvMrgQoiw1HevLY/
+   yPOexod4f+xXPsZgLxC0eHazmjU4BXB1ZVsKwae+igLinicUXwCiOKS2W
+   TZVIOWbdBgRffEfgCNMhLP2tviL6V9zI9u91DnrpiNnnFph1L5XO1GWiF
+   0=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 102189981
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:7ZVrhq/KfH1qMY4GJjuTDrUD/H6TJUtcMsCJ2f8bNWPcYEJGY0x3m
+ mtLC2nQaKqDZTT8eY0nOdm19k5U7MDcmtVqT1E6pHg8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kI/1BjOkGlA5AdmPqoX5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklL2
+ a1BCAopZSy8gvm44qiKeMV0huAKeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGOkcUUrsUIMtWcOOAr3/zaTBH7nmSorI6+TP7xw1tyrn9dtHSf7RmQO0MxhzB9
+ jOXrz2R7hcyDv2DyT+50i2QherrvHriQtMVRZLn6as/6LGU7jNKU0BHPbehmtGph0j7V99BJ
+ kg8/is1sbN05EGtVsP6XRCzvDiDpBF0c/h6HvA+6QqN4rHJ+AvfDW8BJhZebPQ2uclwQiYlv
+ mJlhPuwW2Yp6ufMDyvAqPHN92ja1TUpwXEqYANVFCs/x9Lfn4QogDDVf+RPCK6Rp4igcd3v+
+ AxmvBTSlp1K05Faifvmpwuf696/jsOXF1Bov207Skrgt1okP9D9OuRE/HCBtZ59wJClok5tV
+ ZTus+yX96gwAJ6Ej0Rhq81dTejyt55p3NAx6GOD/qXNFBz3oRZPhagKvFlDyL5Ba67ogwPBb
+ k7Joh9275ROJnasZqIfS9vvVJV0nfO4TIW+D628gj9yjn9ZKme6ENxGPxbMjwgBbmB1+U3AB
+ XtrWZn1VitLYUiW5DG3W/0cwdcW+8zK/kuKHcqT503+gdKjiIu9Fe9t3K2mMrpos8tpYWz9r
+ 75iCid940oBC7KkMnGOq+b+7zkidBAGOHw/kOQPHsbrH+asMD1xYxMN6dvNo7BYopk=
+IronPort-HdrOrdr: A9a23:j5ehD64e89Enr83QPwPXwA/XdLJyesId70hD6qhwISYlFPBw9v
+ rPoB1/73TJYVkqOU3I9erwXZVoIkmsjKKdg7NhRYtKNTOO0ATHEGgL1/qY/9SKIVybygcy79
+ YGT4FOTPDLIBxdq+2S2mWF+tAbquWvweSTqd2b5VFLYiFFV5pJ0ideLUKgPnAefngkObMJUJ
+ Wd48ZcpymtYx0sA/iTDGUeQu7Gq8bqufvdEHw7OyI=
+X-IronPort-AV: E=Sophos;i="5.98,288,1673931600"; 
+   d="scan'208";a="102189981"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Sergey Dyasli
+	<sergey.dyasli@citrix.com>
+Subject: [PATCH] x86/ucode: Fix error paths control_thread_fn()
+Date: Fri, 24 Mar 2023 21:44:30 +0000
+Message-ID: <20230324214430.3277862-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, 24 Mar 2023, Andrew Cooper wrote:
-> For similar reasons to c/s a6b1e2b80fe20.  While this container is still
-> build-able, all the other problems with explicitly-versioned compilers remain.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+These two early exits skipped re-enabling the watchdog, and restoring the NMI
+callback.  Always execute the tail of the function on the way out.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Fixes: 8dd4dfa92d62 ("x86/microcode: Synchronize late microcode loading")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Sergey Dyasli <sergey.dyasli@citrix.com>
 
+Also, added in the same patch is:
 
-> ---
-> CC: Anthony PERARD <anthony.perard@citrix.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Michal Orzel <michal.orzel@amd.com>
-> CC: Doug Goldstein <cardoe@cardoe.com>
-> 
-> This will require backporting to older trees, but there's already a list it
-> can be added too.
-> ---
->  automation/build/debian/stretch-llvm-8.list |  3 ---
->  automation/build/debian/stretch.dockerfile  | 12 ---------
->  automation/gitlab-ci/build.yaml             | 27 ---------------------
->  3 files changed, 42 deletions(-)
->  delete mode 100644 automation/build/debian/stretch-llvm-8.list
-> 
-> diff --git a/automation/build/debian/stretch-llvm-8.list b/automation/build/debian/stretch-llvm-8.list
-> deleted file mode 100644
-> index 590001ca81e8..000000000000
-> --- a/automation/build/debian/stretch-llvm-8.list
-> +++ /dev/null
-> @@ -1,3 +0,0 @@
-> -# Strech LLVM 8 repos
-> -deb https://apt.llvm.org/stretch/ llvm-toolchain-stretch-8 main
-> -deb-src https://apt.llvm.org/stretch/ llvm-toolchain-stretch-8 main
-> diff --git a/automation/build/debian/stretch.dockerfile b/automation/build/debian/stretch.dockerfile
-> index 2c086b197cba..1af6c691f8f4 100644
-> --- a/automation/build/debian/stretch.dockerfile
-> +++ b/automation/build/debian/stretch.dockerfile
-> @@ -54,15 +54,3 @@ RUN apt-get update && \
->          apt-get autoremove -y && \
->          apt-get clean && \
->          rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
-> -
-> -RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
-> -COPY stretch-llvm-8.list /etc/apt/sources.list.d/
-> -
-> -RUN apt-get update && \
-> -    apt-get --quiet --yes install \
-> -        clang-8 \
-> -        lld-8 \
-> -        && \
-> -        apt-get autoremove -y && \
-> -        apt-get clean && \
-> -        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 820cc0af83bd..3547aa419097 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -28,13 +28,6 @@
->      CXX: clang++
->      clang: y
->  
-> -.clang-8-tmpl:
-> -  variables: &clang-8
-> -    CC: clang-8
-> -    CXX: clang++-8
-> -    LD: ld.lld-8
-> -    clang: y
-> -
->  .x86-64-build-tmpl:
->    <<: *build
->    variables:
-> @@ -99,16 +92,6 @@
->    variables:
->      <<: *clang
->  
-> -.clang-8-x86-64-build:
-> -  extends: .x86-64-build
-> -  variables:
-> -    <<: *clang-8
-> -
-> -.clang-8-x86-64-build-debug:
-> -  extends: .x86-64-build-debug
-> -  variables:
-> -    <<: *clang-8
-> -
->  .clang-x86-32-build:
->    extends: .x86-32-build
->    variables:
-> @@ -285,16 +268,6 @@ debian-stretch-clang-debug:
->    variables:
->      CONTAINER: debian:stretch
->  
-> -debian-stretch-clang-8:
-> -  extends: .clang-8-x86-64-build
-> -  variables:
-> -    CONTAINER: debian:stretch
-> -
-> -debian-stretch-clang-8-debug:
-> -  extends: .clang-8-x86-64-build-debug
-> -  variables:
-> -    CONTAINER: debian:stretch
-> -
->  debian-stretch-gcc:
->    extends: .gcc-x86-64-build
->    variables:
-> -- 
-> 2.30.2
-> 
+   * Note that RDTSC (in wait_for_condition()) is safe for threads to
+   * execute while waiting for completion of loading an update.
+
+which is absolutely not true in the slightest.  RDTSC is all microcode, and
+Intel's guidance on the matter right now is that LFENCE is about the only safe
+instruction to execute in a wait loop.  Even PAUSE is explcitily prohibited...
+---
+ xen/arch/x86/cpu/microcode/core.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index cfa2d5053a52..61cd36d601d6 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -492,10 +492,7 @@ static int control_thread_fn(const struct microcode_patch *patch)
+     ret = wait_for_condition(wait_cpu_callin, num_online_cpus(),
+                              MICROCODE_CALLIN_TIMEOUT_US);
+     if ( ret )
+-    {
+-        set_state(LOADING_EXIT);
+-        return ret;
+-    }
++        goto out;
+ 
+     /* Control thread loads ucode first while others are in NMI handler. */
+     ret = alternative_call(ucode_ops.apply_microcode, patch);
+@@ -507,8 +504,7 @@ static int control_thread_fn(const struct microcode_patch *patch)
+     {
+         printk(XENLOG_ERR
+                "Late loading aborted: CPU%u failed to update ucode\n", cpu);
+-        set_state(LOADING_EXIT);
+-        return ret;
++        goto out;
+     }
+ 
+     /* Let primary threads load the given ucode update */
+@@ -539,6 +535,7 @@ static int control_thread_fn(const struct microcode_patch *patch)
+         }
+     }
+ 
++ out:
+     /* Mark loading is done to unblock other threads */
+     set_state(LOADING_EXIT);
+ 
+-- 
+2.30.2
+
 
