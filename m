@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96B1D6C7B1C
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Mar 2023 10:21:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.514238.796301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEEA86C7B1D
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Mar 2023 10:21:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.514241.796312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfdaq-0007to-68; Fri, 24 Mar 2023 09:20:16 +0000
+	id 1pfdbp-0008PP-G0; Fri, 24 Mar 2023 09:21:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 514238.796301; Fri, 24 Mar 2023 09:20:16 +0000
+Received: by outflank-mailman (output) from mailman id 514241.796312; Fri, 24 Mar 2023 09:21:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfdaq-0007rB-31; Fri, 24 Mar 2023 09:20:16 +0000
-Received: by outflank-mailman (input) for mailman id 514238;
- Fri, 24 Mar 2023 09:20:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pfdbp-0008MQ-Cq; Fri, 24 Mar 2023 09:21:17 +0000
+Received: by outflank-mailman (input) for mailman id 514241;
+ Fri, 24 Mar 2023 09:21:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cJFJ=7Q=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
- id 1pfdan-0007qJ-L1
- for xen-devel@lists.xenproject.org; Fri, 24 Mar 2023 09:20:14 +0000
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 120d2855-ca25-11ed-85db-49a42c6b2330;
- Fri, 24 Mar 2023 10:20:10 +0100 (CET)
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2023 02:20:07 -0700
+ id 1pfdbn-0008Kv-Qo
+ for xen-devel@lists.xenproject.org; Fri, 24 Mar 2023 09:21:15 +0000
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 37044cba-ca25-11ed-b464-930f4c7d94ae;
+ Fri, 24 Mar 2023 10:21:12 +0100 (CET)
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Mar 2023 02:21:09 -0700
 Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga005.fm.intel.com with ESMTP; 24 Mar 2023 02:19:57 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 24 Mar 2023 02:20:59 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.96)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1pfdaS-007qVe-2O; Fri, 24 Mar 2023 11:19:52 +0200
+ id 1pfdbS-007qWb-1l; Fri, 24 Mar 2023 11:20:54 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,28 +44,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 120d2855-ca25-11ed-85db-49a42c6b2330
+X-Inumbo-ID: 37044cba-ca25-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1679649610; x=1711185610;
+  t=1679649672; x=1711185672;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:content-transfer-encoding:in-reply-to;
-  bh=vsNBrnwY/qFfdSufiaxoySiGuysdLC+OL9fxRmgKucY=;
-  b=fXX3x3s4yWJtN696H1/D1LyrHQJg6fDrm0Ka41przf4apKLa45pRdNeq
-   9JdYKbZzDD/SoiW5Efophn5PH9GudjPD8fbn7MXrXmlqYWrpkginE5Pa9
-   FXOmfkZJzK3RdFhyo4BhWHXFdyZSI4yqnHjMLUpD2lhFoacM9osMqH1En
-   YMk/jP3fEgV3RJ2AFF89kCLrPRUjzYiPDiSD9GzdNZFy+PKBZyGsAb/HK
-   O14+g2gd7N5A550WnLFrQFUT7Dwo1G5LlR+kV3GfW5PxsDwZNk3+1T5wZ
-   zHZ7BM0evxH0tFRKlpu3N/65DBsTQQznGVtVxNb0Vo4YOEhJssjmHth8G
+  bh=Zv6p5PxBUIwRGR/FQTKCtRGfcJDPVTzeoNo7mhbkHhY=;
+  b=kkS1m9xKVU2GnODj1/9mLnyNnexAw3CaqebsescHGUZuE5cWt/136+L9
+   jXG2lTOaIpuEJUzsFUqXr90uI8pR/c0PPXK1H9l+5h5dNBzi1LgYgST9h
+   +XYMYLBHkqIhZLKaOxdzgmz/Y8uCd1DOWoT2I7SvlncTK/iRZV33wEOaP
+   Oaj1Sxma9eVc4/JK1MK40f8PBN/5CgaWnv0Om6ijkiCURSOnOY1H5lt3h
+   yhbdqGD/uvaiLiCa5kzrI6souWLueOiH2PsAM/YmwxTLaemXjo5SMAq+3
+   7hPLWV7hohsZroJpO/ylDkxt9cDqtKE8ncqgSdIJ65zvYqt5Whnzlppbe
    Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="404652759"
+X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="320129729"
 X-IronPort-AV: E=Sophos;i="5.98,287,1673942400"; 
-   d="scan'208";a="404652759"
+   d="scan'208";a="320129729"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="1012189014"
+X-IronPort-AV: E=McAfee;i="6600,9927,10658"; a="771814725"
 X-IronPort-AV: E=Sophos;i="5.98,287,1673942400"; 
-   d="scan'208";a="1012189014"
-Date: Fri, 24 Mar 2023 11:19:52 +0200
+   d="scan'208";a="771814725"
+Date: Fri, 24 Mar 2023 11:20:54 +0200
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
 Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
@@ -103,42 +103,50 @@ Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: Re: [PATCH v7 4/6] EISA: Convert to use less arguments in
- pci_bus_for_each_resource()
-Message-ID: <ZB1rOHt8pG+9Ti2V@smile.fi.intel.com>
+Subject: Re: [PATCH v7 6/6] PCI: Make use of pci_resource_n()
+Message-ID: <ZB1rdkOgwwSC2Pxf@smile.fi.intel.com>
 References: <20230323173610.60442-1-andriy.shevchenko@linux.intel.com>
- <20230323173610.60442-5-andriy.shevchenko@linux.intel.com>
- <43e7ef6d-6248-4ee5-7144-70809e5c93e0@linaro.org>
+ <20230323173610.60442-7-andriy.shevchenko@linux.intel.com>
+ <1722e75c-bc06-4a34-5e12-fa3622ed86a3@linaro.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <43e7ef6d-6248-4ee5-7144-70809e5c93e0@linaro.org>
+In-Reply-To: <1722e75c-bc06-4a34-5e12-fa3622ed86a3@linaro.org>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-On Fri, Mar 24, 2023 at 10:02:15AM +0100, Philippe Mathieu-Daud√© wrote:
+On Fri, Mar 24, 2023 at 10:08:39AM +0100, Philippe Mathieu-DaudÈ wrote:
 > On 23/3/23 18:36, Andy Shevchenko wrote:
-> > The pci_bus_for_each_resource() can hide the iterator loop since
-> > it may be not used otherwise. With this, we may drop that iterator
-> > variable definition.
-> > 
-> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Reviewed-by: Krzysztof Wilczy≈Ñski <kw@linux.com>
-> > ---
-> >   drivers/eisa/pci_eisa.c | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/eisa/pci_eisa.c b/drivers/eisa/pci_eisa.c
+> > Replace open-coded implementations of pci_resource_n() in pci.h.
+
+...
+
+> >   #define pci_resource_n(dev, bar)	(&(dev)->resource[(bar)])
+> > -#define pci_resource_start(dev, bar)	((dev)->resource[(bar)].start)
+> > -#define pci_resource_end(dev, bar)	((dev)->resource[(bar)].end)
+> > -#define pci_resource_flags(dev, bar)	((dev)->resource[(bar)].flags)
+> > -#define pci_resource_len(dev,bar) \
+> > -	((pci_resource_end((dev), (bar)) == 0) ? 0 :	\
+> > -							\
+> > -	 (pci_resource_end((dev), (bar)) -		\
+> > -	  pci_resource_start((dev), (bar)) + 1))
+> > +#define pci_resource_start(dev, bar)	(pci_resource_n(dev, bar)->start)
+> > +#define pci_resource_end(dev, bar)	(pci_resource_n(dev, bar)->end)
+> > +#define pci_resource_flags(dev, bar)	(pci_resource_n(dev, bar)->flags)
+> > +#define pci_resource_len(dev,bar)					\
+> > +	(pci_resource_end((dev), (bar)) ? 				\
+> > +	 resource_size(pci_resource_n((dev), (bar))) : 0)
 > 
-> Since this is *PCI* EISA, could be squashed into previous patch.
+> Seems (to me) more logical to have this patch as "PCI: Introduce
+> pci_resource_n()" ordered before your patch #2 "PCI: Introduce
+> pci_dev_for_each_resource()".
 
-I believe it would be better to have them separated.
-But if maintainers want to squash, I can do that.
+Either way works for me. Bjorn, what do you like?
 
-> Reviewed-by: Philippe Mathieu-Daud√© <philmd@linaro.org>
+> Here as #6 or as #2:
+> Reviewed-by: Philippe Mathieu-DaudÈ <philmd@linaro.org>
 
 Thank you!
-
 
 -- 
 With Best Regards,
