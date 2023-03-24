@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5D9E6C884D
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Mar 2023 23:25:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.514474.796761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6BAC6C8851
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Mar 2023 23:28:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.514479.796770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfpqT-0007tG-IG; Fri, 24 Mar 2023 22:25:13 +0000
+	id 1pfptH-000065-3f; Fri, 24 Mar 2023 22:28:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 514474.796761; Fri, 24 Mar 2023 22:25:13 +0000
+Received: by outflank-mailman (output) from mailman id 514479.796770; Fri, 24 Mar 2023 22:28:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfpqT-0007sT-D9; Fri, 24 Mar 2023 22:25:13 +0000
-Received: by outflank-mailman (input) for mailman id 514474;
- Fri, 24 Mar 2023 22:25:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GJ5Y=7Q=citrix.com=prvs=4404309fd=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pfpqS-0007rc-8F
- for xen-devel@lists.xenproject.org; Fri, 24 Mar 2023 22:25:12 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb724ea8-ca92-11ed-85db-49a42c6b2330;
- Fri, 24 Mar 2023 23:25:09 +0100 (CET)
+	id 1pfptH-0008Vu-01; Fri, 24 Mar 2023 22:28:07 +0000
+Received: by outflank-mailman (input) for mailman id 514479;
+ Fri, 24 Mar 2023 22:28:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pfptG-0008Vk-Bc; Fri, 24 Mar 2023 22:28:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pfptG-00070x-73; Fri, 24 Mar 2023 22:28:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pfptF-0006Ra-UR; Fri, 24 Mar 2023 22:28:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pfptF-0004HF-Tz; Fri, 24 Mar 2023 22:28:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,138 +42,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb724ea8-ca92-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1679696709;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=JdsUPRyO9hKi+dT989li7QC+or0gXW+UxwEHUyBJBYs=;
-  b=GApi9uc8r2+Kc1FKvMwX74lrhmje+qQQBWB2csYEqT2CQNUZRT2OXkvc
-   Vtg353Ynt4jpsQWIaRhusj6LEr9Et6uZAugTCcCLg9hjiKHCd651BEjWC
-   6xkkOCr8XWsxiXLO3jRK7FNXntOa6Pl9gct1YAWPnJ4mslUtvcOqoPsMo
-   8=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 101652470
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:B12k5qxgCWmP91sgGLR6t+esxirEfRIJ4+MujC+fZmUNrF6WrkVRz
- DNLCGiDOPyJZTT1edgjbIy1oxsFu5OHnIIxTAY9/CAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw//F+UMHUMja4mtC5QRlP6wT5zcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KUNh8
- Pw3cSpVUhqe2rq92rueSsV128t2eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
- ZBAL2MyMlKZOUYn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZwNxxjF/
- D6ZpwwVBDknH+Caij2drU6P2N3MoxvpUa0XJp6Bo6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
- 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0QMFMGuc37AWMzKv84AuDAGUACDlbZ7QOttIyRDEs/
- k+EmZXuHzMHmIOSTXWR57KFtwSYMCIeLXIBTSIcRA5D6N7myKk5gwjTVN9lHOiwh8fsBDDr6
- zmQqW41gLB7pccP1r6n9FHdxTy2r57CTxUd+QncGGmi62tRbomvbZ2l8ljf4PNJKq6WS1CAu
- D4PnM32xOsJC5eKliCEXuQWNL6s7veBdjbbhDZHGJ0s9C+s+jigYJpX6zF9I29mN88FfXniZ
- 0q7hO9KzMYNZj3wN/YxOt/vTZ1wlsAMCOgJSNj2Qd9OTcFrLDON4Xw2blSZ+mDBiRUjxPRX1
- YigTSq8MZoLIf05k2voGbpHiudDKjMWnj2KG82ip/iz+f/HPSPOF+9YWLebRrphhJ5otjk55
- Dq22yGi7xxEGNPzbSDMmWL4BQBbdCNrbXwaRiE+SwJiHuaFMDt7YxMp6el9E7GJZowM/gsyw
- lmzW1VD1H30jmDdJAOBZxhLMe2wDMgv9ipibHd1YD5EPkTPhq7xhJrzirNtJeV3nACd5acco
- wY5lzWoXa0UF2WvF8U1Zpjhto1yHCmWafa1F3P9OlAXJscwLzElD/e4JmMDAgFSVHvo3Sb/y
- pX8vj7mrW0rHV4zV5eNMa/3kjtcfxE1wYpPYqcBGfELEG2EzWSgA3WZYiMfSy3UFSj++w==
-IronPort-HdrOrdr: A9a23:X9OYbqx76WCmu7oB35OLKrPwFL1zdoMgy1knxilNoEpuA6ilfq
- eV/MjztCWUtN9/YhkdcLy7U5VoIkmzyXcW2+Us1OyZLWzbUQKTRb2Ki7GJ/9SKIULDH4BmuJ
- uJ3MJFebrN5fQRt7eY3OEYeexQouW6zA==
-X-IronPort-AV: E=Sophos;i="5.98,289,1673931600"; 
-   d="scan'208";a="101652470"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
-	<alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>, "Oleksii
- Kurochko" <oleksii.kurochko@gmail.com>
-Subject: [PATCH] ARM+RISC-V: BSS handling improvements
-Date: Fri, 24 Mar 2023 22:24:51 +0000
-Message-ID: <20230324222451.3295023-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=fhpWf/3AUM9bIdjs+f36Jbo3UPDCjxHvm4JLEV6nSSw=; b=b1jTlUGE3OCTJ5dWwkR1SnhyxS
+	x01c4uMPmNy1fBFggUekYGAgMRx9Q1/Cocf1K44gUvR3ecam7azuC+e3zT7sVHsvHx6/qPpjwgkfy
+	6klraeeAZx7sQJtsxy8lAaGXyhRopM0aT41hWz9t3daJfULu2mDJaQXj5+99+40mj2ek=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-unstable-smoke bisection] complete build-amd64
+Message-Id: <E1pfptF-0004HF-Tz@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 24 Mar 2023 22:28:05 +0000
 
- * Correct comments in arm{32,64}/head.S
- * Provide Linker assertions to check the safety of the zeroing loops
+branch xen-unstable-smoke
+xenbranch xen-unstable-smoke
+job build-amd64
+testid xen-build
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Bob Eshleman <bobbyeshleman@gmail.com>
-CC: Alistair Francis <alistair.francis@wdc.com>
-CC: Connor Davis <connojdavis@gmail.com>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Pulled out of the very start of my work to try and unify the handling of
-xen_phys_addr across architectures.
----
- xen/arch/arm/arm32/head.S | 2 +-
- xen/arch/arm/arm64/head.S | 2 +-
- xen/arch/arm/xen.lds.S    | 2 ++
- xen/arch/riscv/xen.lds.S  | 4 ++++
- 4 files changed, 8 insertions(+), 2 deletions(-)
+*** Found and reproduced problem changeset ***
 
-diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-index df51550baa8a..f9f7be9588b1 100644
---- a/xen/arch/arm/arm32/head.S
-+++ b/xen/arch/arm/arm32/head.S
-@@ -301,7 +301,7 @@ ENDPROC(check_cpu_mode)
- zero_bss:
-         PRINT("- Zero BSS -\r\n")
-         mov_w r0, __bss_start        /* r0 := vaddr(__bss_start) */
--        mov_w r1, __bss_end          /* r1 := vaddr(__bss_start) */
-+        mov_w r1, __bss_end          /* r1 := vaddr(__bss_end)   */
- 
-         mov   r2, #0
- 1:      str   r2, [r0], #4
-diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-index 4a3f87117c83..8a4dd64c99ad 100644
---- a/xen/arch/arm/arm64/head.S
-+++ b/xen/arch/arm/arm64/head.S
-@@ -437,7 +437,7 @@ zero_bss:
- 
-         PRINT("- Zero BSS -\r\n")
-         ldr   x0, =__bss_start       /* x0 := vaddr(__bss_start) */
--        ldr   x1, =__bss_end         /* x1 := vaddr(__bss_start) */
-+        ldr   x1, =__bss_end         /* x1 := vaddr(__bss_end)   */
- 
- 1:      str   xzr, [x0], #8
-         cmp   x0, x1
-diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-index 1b392345bc3b..6ca3caefe607 100644
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -240,3 +240,5 @@ ASSERT(_idmap_end - _idmap_start <= PAGE_SIZE, "Identity mapped code is larger t
-  */
- ASSERT(IS_ALIGNED(__init_begin,     4), "__init_begin is misaligned")
- ASSERT(IS_ALIGNED(__init_end,       4), "__init_end is misaligned")
-+ASSERT(IS_ALIGNED(__bss_start,      POINTER_ALIGN), "__bss_start is misaligned")
-+ASSERT(IS_ALIGNED(__bss_end,        POINTER_ALIGN), "__bss_end is misaligned")
-diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
-index ca57cce75cba..2ed70eccc62a 100644
---- a/xen/arch/riscv/xen.lds.S
-+++ b/xen/arch/riscv/xen.lds.S
-@@ -1,3 +1,4 @@
-+#include <xen/lib.h>
- #include <xen/xen.lds.h>
- 
- #undef ENTRY
-@@ -156,3 +157,6 @@ SECTIONS
- 
-     ELF_DETAILS_SECTIONS
- }
-+
-+ASSERT(IS_ALIGNED(__bss_start,      POINTER_ALIGN), "__bss_start is misaligned")
-+ASSERT(IS_ALIGNED(__bss_end,        POINTER_ALIGN), "__bss_end is misaligned")
--- 
-2.30.2
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  e1d75084443f676be681fdaf47585cc9a5f5b820
+  Bug not present: eb23eef476bf44f933fcff42e55119473a1d6e19
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/179945/
+
+
+  commit e1d75084443f676be681fdaf47585cc9a5f5b820
+  Author: Demi Marie Obenour <demi@invisiblethingslab.com>
+  Date:   Tue Mar 21 13:33:36 2023 -0400
+  
+      build: Change remaining xenbits.xen.org link to HTTPS
+      
+      Obtaining code over an insecure transport is a terrible idea for
+      blatently obvious reasons.  Even for non-executable data, insecure
+      transports are considered deprecated.
+      
+      This patch enforces the use of secure transports for all xenbits.xen.org
+      URLs.  All altered links have been tested and are known to work.
+      
+      Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+      Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-amd64.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build --summary-out=tmp/179945.bisection-summary --basis-template=179926 --blessings=real,real-bisect,real-retry xen-unstable-smoke build-amd64 xen-build
+Searching for failure / basis pass:
+ 179931 fail [host=himrod2] / 179926 ok.
+Failure / basis pass flights: 179931 / 179926
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 054acfc4443cda51bc000c2e3ba08d9fd1bd77f1
+Basis pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 715b92ba30f792e326bdd37b5a4969da9c5d4a6c
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#625eb5e96dc96aa7fddef59a08edae215527f19c-625eb5e96dc96aa7fddef59a08edae215527f19c git://xenbits.xen.org/xen.git#715b92ba30f792e326bdd37b5a4969da9c5d4a6c-054acfc4443cda51bc000c2e3ba08d9fd1bd77f1
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 179926 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 715b92ba30f792e326bdd37b5a4969da9c5d4a6c
+ 179929 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 054acfc4443cda51bc000c2e3ba08d9fd1bd77f1
+ 179932 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 715b92ba30f792e326bdd37b5a4969da9c5d4a6c
+ 179934 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 054acfc4443cda51bc000c2e3ba08d9fd1bd77f1
+ 179935 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 79493f2b33eeeccc78db25435181a03f5c46b3e6
+ 179936 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c e1d75084443f676be681fdaf47585cc9a5f5b820
+ 179931 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 054acfc4443cda51bc000c2e3ba08d9fd1bd77f1
+ 179937 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c eb23eef476bf44f933fcff42e55119473a1d6e19
+ 179939 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c e1d75084443f676be681fdaf47585cc9a5f5b820
+ 179941 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c eb23eef476bf44f933fcff42e55119473a1d6e19
+ 179942 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c e1d75084443f676be681fdaf47585cc9a5f5b820
+ 179944 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c eb23eef476bf44f933fcff42e55119473a1d6e19
+ 179945 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c e1d75084443f676be681fdaf47585cc9a5f5b820
+Searching for interesting versions
+ Result found: flight 179926 (pass), for basis pass
+ For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c eb23eef476bf44f933fcff42e55119473a1d6e19, results HASH(0x55d01057b648) HASH(0x55d00f2f2d70) HASH(0x55d0105888c8) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 79493f2b33eeeccc78db25435181a03f5c46b3e6, results HASH(0x55d010082898) For basis failure, parent search stopping at 3d273dd05e51e5a1\
+ ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 715b92ba30f792e326bdd37b5a4969da9c5d4a6c, results HASH(0x55d01056e848) HASH(0x55d010577c38) Result found: flight 179929 (fail), for basis failure (at ancestor ~1253)
+ Repro found: flight 179932 (pass), for basis pass
+ Repro found: flight 179934 (fail), for basis failure
+ 0 revisions at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c eb23eef476bf44f933fcff42e55119473a1d6e19
+No revisions left to test, checking graph state.
+ Result found: flight 179937 (pass), for last pass
+ Result found: flight 179939 (fail), for first failure
+ Repro found: flight 179941 (pass), for last pass
+ Repro found: flight 179942 (fail), for first failure
+ Repro found: flight 179944 (pass), for last pass
+ Repro found: flight 179945 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  e1d75084443f676be681fdaf47585cc9a5f5b820
+  Bug not present: eb23eef476bf44f933fcff42e55119473a1d6e19
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/179945/
+
+
+  commit e1d75084443f676be681fdaf47585cc9a5f5b820
+  Author: Demi Marie Obenour <demi@invisiblethingslab.com>
+  Date:   Tue Mar 21 13:33:36 2023 -0400
+  
+      build: Change remaining xenbits.xen.org link to HTTPS
+      
+      Obtaining code over an insecure transport is a terrible idea for
+      blatently obvious reasons.  Even for non-executable data, insecure
+      transports are considered deprecated.
+      
+      This patch enforces the use of secure transports for all xenbits.xen.org
+      URLs.  All altered links have been tested and are known to work.
+      
+      Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+      Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+179945: tolerable ALL FAIL
+
+flight 179945 xen-unstable-smoke real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/179945/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-amd64                   6 xen-build               fail baseline untested
+
+
+jobs:
+ build-amd64                                                  fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
