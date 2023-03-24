@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 372566C85AC
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Mar 2023 20:14:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.514390.796558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A6646C8681
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Mar 2023 21:07:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.514403.796580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfmrL-00029O-57; Fri, 24 Mar 2023 19:13:55 +0000
+	id 1pfngm-0000fe-29; Fri, 24 Mar 2023 20:07:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 514390.796558; Fri, 24 Mar 2023 19:13:55 +0000
+Received: by outflank-mailman (output) from mailman id 514403.796580; Fri, 24 Mar 2023 20:07:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pfmrL-00027V-26; Fri, 24 Mar 2023 19:13:55 +0000
-Received: by outflank-mailman (input) for mailman id 514390;
- Fri, 24 Mar 2023 19:13:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <aperard@xenbits.xen.org>) id 1pfmrJ-00027P-NJ
- for xen-devel@lists.xenproject.org; Fri, 24 Mar 2023 19:13:53 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <aperard@xenbits.xen.org>)
- id 1pfmrI-000290-OI; Fri, 24 Mar 2023 19:13:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <aperard@xenbits.xen.org>)
- id 1pfmrI-0001xV-Dq; Fri, 24 Mar 2023 19:13:52 +0000
-Received: from aperard by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <aperard@xenbits.xen.org>)
- id 1pfmrI-0002EP-DR; Fri, 24 Mar 2023 19:13:52 +0000
+	id 1pfngl-0000dn-VJ; Fri, 24 Mar 2023 20:07:03 +0000
+Received: by outflank-mailman (input) for mailman id 514403;
+ Fri, 24 Mar 2023 20:07:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GJ5Y=7Q=citrix.com=prvs=4404309fd=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pfngk-0000dh-RP
+ for xen-devel@lists.xenproject.org; Fri, 24 Mar 2023 20:07:02 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6ec6d8ba-ca7f-11ed-85db-49a42c6b2330;
+ Fri, 24 Mar 2023 21:07:00 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,168 +36,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-To: anthony.perard@citrix.com,jgross@suse.com,xen-devel@lists.xenproject.org
-Subject: [adhoc test] 179924: trouble: blocked/broken/fail/pass
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 6ec6d8ba-ca7f-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1679688420;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=uUNdOr0iq5uq2KSc6DtNwrAIhxFGe0jPBBuBvAvxQ2k=;
+  b=TzRXSsEQ2fwW5omBJkE/oddLVN1CHG0CVjymopUTE/vjFf66Xg+BQO44
+   uRlGL3jeCUdenSJ1QEusoABwaS2NM7yhR2Cn8OmX9eCKEueWyeIwbWMAz
+   OgbGWcYqvEFSug6MhJUeWJXpBK9xPIBrhrMhYCRmMmlbOhoIs70dEg4ap
+   I=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 102273567
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:oXklR6klGuaVnK50UZIoxF7o5gyeJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJKCmGDPazZY2WkL9olPYji/UxV7JGHyIQySQZrqH03QSMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE4p7aSaVA8w5ARkPqgQ5gOGzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ c1EBWAzcg3Eu+G7yraEVu1JhdkSNvC+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
+ ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglHWdTFCpU3Tjq0w+2XJlyR60aT3McqTcduPLSlQth/A/
+ DiZpDmnXXn2MvSixCqH/FOegNTdkATcX7gZN+24y+VT1Qj7Kms7V0RNCArTTeOColWlR9tVJ
+ kgQ+ywvhas/7kqmSp/6RRLQiHuFtR4VX5xXCf837CmEz6aS6AGcbkAPRyRNb9EOv8YsSTsnk
+ FSOmrvBFTFp9bGYV3+Z3rOVti+pfzgYK3cYYi0JRhdD5MPsyLzflTqWEIwlSvTsyISoR3epm
+ WviQDUCa6s7vJImh5un4Bf7gD+moqfVSis2+zTNZzfwhu9mX7JJd7BE+HCCs6kRctjEFALZ1
+ JQXs5PAtb5TVPlhgATIGbxQR+/xup5pJRWG2TZS848dGyNBEpJJVaRZ+3lAKUhgKa7okhe5M
+ RaI6Wu9CHK+VUZGjJObgKrrUazGNYC6SbzYugn8N7KimKRZeg6d5z1JbkWNxW3rm0VEufhhZ
+ sbFIZ30VCdBUPkPIN+KqwA1j9cWKt0WnzuPFfgXMTz+uVZhWJJlYehcawbfBgzIxKiFvB/U4
+ 75iCid+8D0GCLeWSnCOoeYuwaUicSBT6Wbe95YGKYZu42NORAkcNhMm6ex/INM/z/wMzI8lP
+ BiVAydl9bY2vlWfQS3iV5ypQOqHsUpXxZ7jARERAA==
+IronPort-HdrOrdr: A9a23:zMOWcazvdlHt657PXv1lKrPwIr1zdoMgy1knxilNoH1uHvBw8v
+ rEoB1173DJYVoqNk3I++rhBEDwexLhHPdOiOF6UItKNzOW21dAQrsSiLfK8nnNHDD/6/4Y9Y
+ oISdkbNDQoNykZsfrH
+X-IronPort-AV: E=Sophos;i="5.98,288,1673931600"; 
+   d="scan'208";a="102273567"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH] CI: Remove llvm-8 from the Debian Stretch container
+Date: Fri, 24 Mar 2023 20:06:54 +0000
+Message-ID: <20230324200654.3245297-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Message-Id: <E1pfmrI-0002EP-DR@osstest.test-lab.xenproject.org>
-From: aperard@xenbits.xen.org
-Date: Fri, 24 Mar 2023 19:13:52 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-[adhoc play] <osstest master /dev/pts/16>
-harness ed1d8de4: PDU/IPMI: Be less aggressive with IPMI commands
-179924: trouble: blocked/broken/fail/pass
+For similar reasons to c/s a6b1e2b80fe20.  While this container is still
+build-able, all the other problems with explicitly-versioned compilers remain.
 
-flight 179924 linux-linus play [play]
-http://logs.test-lab.xenproject.org/osstest/logs/179924/
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Doug Goldstein <cardoe@cardoe.com>
 
-Failures and problems with tests :-(
+This will require backporting to older trees, but there's already a list it
+can be added too.
+---
+ automation/build/debian/stretch-llvm-8.list |  3 ---
+ automation/build/debian/stretch.dockerfile  | 12 ---------
+ automation/gitlab-ci/build.yaml             | 27 ---------------------
+ 3 files changed, 42 deletions(-)
+ delete mode 100644 automation/build/debian/stretch-llvm-8.list
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- build-armhf                   5 capture-logs           broken REGR. vs. 178042
- build-armhf                   3 syslog-server                running
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
- build-armhf                   4 host-install(4)       broken blocked in 178042
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check       fail like 178042
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail  like 178042
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail  like 178042
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail  like 178042
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail  like 178042
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail  like 178042
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 178042
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail  like 178042
- test-amd64-amd64-libvirt     15 migrate-support-check        fail  like 178042
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail like 178042
- test-arm64-arm64-xl          15 migrate-support-check        fail  like 178042
- test-arm64-arm64-xl          16 saverestore-support-check    fail  like 178042
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail  like 178042
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail  like 178042
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail  like 178042
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail  like 178042
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail  like 178042
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail  like 178042
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail  like 178042
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail  like 178042
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail  like 178042
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail  like 178042
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 178042
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 178042
-
-baseline version:
- flight               178042
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  broken  
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  blocked 
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  blocked 
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  blocked 
- test-armhf-armhf-xl-cubietruck                               blocked 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     blocked 
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                blocked 
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+diff --git a/automation/build/debian/stretch-llvm-8.list b/automation/build/debian/stretch-llvm-8.list
+deleted file mode 100644
+index 590001ca81e8..000000000000
+--- a/automation/build/debian/stretch-llvm-8.list
++++ /dev/null
+@@ -1,3 +0,0 @@
+-# Strech LLVM 8 repos
+-deb https://apt.llvm.org/stretch/ llvm-toolchain-stretch-8 main
+-deb-src https://apt.llvm.org/stretch/ llvm-toolchain-stretch-8 main
+diff --git a/automation/build/debian/stretch.dockerfile b/automation/build/debian/stretch.dockerfile
+index 2c086b197cba..1af6c691f8f4 100644
+--- a/automation/build/debian/stretch.dockerfile
++++ b/automation/build/debian/stretch.dockerfile
+@@ -54,15 +54,3 @@ RUN apt-get update && \
+         apt-get autoremove -y && \
+         apt-get clean && \
+         rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+-
+-RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+-COPY stretch-llvm-8.list /etc/apt/sources.list.d/
+-
+-RUN apt-get update && \
+-    apt-get --quiet --yes install \
+-        clang-8 \
+-        lld-8 \
+-        && \
+-        apt-get autoremove -y && \
+-        apt-get clean && \
+-        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index 820cc0af83bd..3547aa419097 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -28,13 +28,6 @@
+     CXX: clang++
+     clang: y
+ 
+-.clang-8-tmpl:
+-  variables: &clang-8
+-    CC: clang-8
+-    CXX: clang++-8
+-    LD: ld.lld-8
+-    clang: y
+-
+ .x86-64-build-tmpl:
+   <<: *build
+   variables:
+@@ -99,16 +92,6 @@
+   variables:
+     <<: *clang
+ 
+-.clang-8-x86-64-build:
+-  extends: .x86-64-build
+-  variables:
+-    <<: *clang-8
+-
+-.clang-8-x86-64-build-debug:
+-  extends: .x86-64-build-debug
+-  variables:
+-    <<: *clang-8
+-
+ .clang-x86-32-build:
+   extends: .x86-32-build
+   variables:
+@@ -285,16 +268,6 @@ debian-stretch-clang-debug:
+   variables:
+     CONTAINER: debian:stretch
+ 
+-debian-stretch-clang-8:
+-  extends: .clang-8-x86-64-build
+-  variables:
+-    CONTAINER: debian:stretch
+-
+-debian-stretch-clang-8-debug:
+-  extends: .clang-8-x86-64-build-debug
+-  variables:
+-    CONTAINER: debian:stretch
+-
+ debian-stretch-gcc:
+   extends: .gcc-x86-64-build
+   variables:
+-- 
+2.30.2
 
 
