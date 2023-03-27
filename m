@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01C216C9ED7
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Mar 2023 11:04:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515080.797617 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D0BD6C9EDD
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Mar 2023 11:04:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515082.797627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgilt-0003fQ-RO; Mon, 27 Mar 2023 09:04:09 +0000
+	id 1pgimN-00047y-4J; Mon, 27 Mar 2023 09:04:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515080.797617; Mon, 27 Mar 2023 09:04:09 +0000
+Received: by outflank-mailman (output) from mailman id 515082.797627; Mon, 27 Mar 2023 09:04:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgilt-0003cm-Ng; Mon, 27 Mar 2023 09:04:09 +0000
-Received: by outflank-mailman (input) for mailman id 515080;
- Mon, 27 Mar 2023 09:04:07 +0000
+	id 1pgimN-000456-0b; Mon, 27 Mar 2023 09:04:39 +0000
+Received: by outflank-mailman (input) for mailman id 515082;
+ Mon, 27 Mar 2023 09:04:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xFYs=7T=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1pgilr-0003cf-Ms
- for xen-devel@lists.xenproject.org; Mon, 27 Mar 2023 09:04:07 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1pgimL-0003cf-CK
+ for xen-devel@lists.xenproject.org; Mon, 27 Mar 2023 09:04:37 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 52db4a75-cc7e-11ed-b464-930f4c7d94ae;
- Mon, 27 Mar 2023 11:04:04 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id m2so7879249wrh.6
- for <xen-devel@lists.xenproject.org>; Mon, 27 Mar 2023 02:04:04 -0700 (PDT)
-Received: from [192.168.26.216] (54-240-197-238.amazon.com. [54.240.197.238])
+ id 6548ad1e-cc7e-11ed-b464-930f4c7d94ae;
+ Mon, 27 Mar 2023 11:04:35 +0200 (CEST)
+Received: by mail-wr1-x433.google.com with SMTP id y14so7885002wrq.4
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Mar 2023 02:04:35 -0700 (PDT)
+Received: from [192.168.26.216] (54-240-197-230.amazon.com. [54.240.197.230])
  by smtp.gmail.com with ESMTPSA id
- u13-20020adfdb8d000000b002d2b117a6a6sm24567852wri.41.2023.03.27.02.04.03
+ h13-20020a5d430d000000b002d75ef32032sm17594498wrq.68.2023.03.27.02.04.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Mar 2023 02:04:03 -0700 (PDT)
+ Mon, 27 Mar 2023 02:04:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,74 +44,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52db4a75-cc7e-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 6548ad1e-cc7e-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1679907844;
+        d=gmail.com; s=20210112; t=1679907875;
         h=content-transfer-encoding:in-reply-to:organization:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=PXHUgllCiE+YVplh4F0vC+TIMQgHYLAcdKhqqMncm+M=;
-        b=UjgOhIU/pavH2tlMiWKycQqAigQYIjgXPIu4oocRPGzCa6LiVMGOvqObrg/PRgkmVu
-         9Xnhg4WGVJjU3lOJoCVQ3UYykePZC+rJIGQhsMn5smPo/OHUQWgnk0LqVyle5s5lsPX9
-         ToiZQ+OZguuNokmfrIAl2lS9WK4Q4SvyYi+2GIqflDRN3t4HaR+m2AfzLnCmhcdjb9vl
-         p5o8JEG89pLh5h9zUx7yYvO8WMqBtMnjVx7B6Bhhv0/XcI8FcsMimYzxslgt9LrfgO6H
-         KJEquB69ob74KiHksS94yNZveY1kMYPS4TsXHra/0UD5uSQkXuOjOOe2Vh/wn+YamevJ
-         t5jQ==
+        bh=IeW3JOtl79P4h19QSrAjezOiQKqJvZ5XGjr/mFCgLF8=;
+        b=KdPgUcOUttb4VuwP3TS2j+HxDR6qoeXv8hDgEMHfF8nKVpUKGv6KLG6rxR8dexRe4x
+         bycDPB6vu67rXAgjz+Rt8/ovlklhiPBj6n4p+7iB2ERg1E/GFJsbuviHMjMAOLUR9EUf
+         5J8Sa+5MqE73EnBceXFGBfcxY5Xt/TgOD7f4vNyEhoxYn/J18O4Ssw7C9uOEQP4Z4JM8
+         IyRxsyOyr1iORBWFxDtRJf6UZeAJMz08DpzqaGK87bPVGsKq3lyzKsQ43IizJ36ERv2A
+         YRrAmNHrdXWZNBxdZVq0rsdCnhXAzQRUY2ZCPMw+VfT1K9QFr+9KMHPccvRbU/8zAQMV
+         9Q/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1679907844;
+        d=1e100.net; s=20210112; t=1679907875;
         h=content-transfer-encoding:in-reply-to:organization:references:cc:to
          :content-language:subject:reply-to:user-agent:mime-version:date
          :message-id:from:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PXHUgllCiE+YVplh4F0vC+TIMQgHYLAcdKhqqMncm+M=;
-        b=XNTLRQgqdgJyFHNz0LcKvbiQcn0ut2xNaaNQN6OFxLtAsr+mW54GwXr50xufFmnRvE
-         h7i6WJXKTwfQvW2kHLiJ5IC5chjiZN6T+s3oM98E35dsHlQzR6iQYWl2FOE+s6yC5gI4
-         BLYBuP/sRfJcR8kMqSh0dFDD/ZPTZVsdRr91ZkOH6dYIoPtRUBNY4xolo1Dv0YZWDGOX
-         tSUM8C+uTF2gLH2PYkO784RujESbAdQJEVw/PDQkMbhHZK5MtFwKld109TDB9C/lplIc
-         pDEJ1jG9c3HraTllGR1RLCOftjEXQGZ/hsvSCXvasadsE4EuRy8n3U8nymWSrP0Ox9c1
-         5zug==
-X-Gm-Message-State: AAQBX9dfySnaru1jfqSY3fSVfKWP8y4Uk4LIiOEjZk+Y+UzCuZBInGI0
-	V3tknd0kciqICIwo1DuqhAU=
-X-Google-Smtp-Source: AKy350ZCDxEOhvB06k/8nFr/OHWO5YAaSfzuL2Y8qzIAkmCg7c3/PINVfRoQvVapYrT+OqZlGSCrbw==
-X-Received: by 2002:a5d:63cb:0:b0:2d5:2436:b584 with SMTP id c11-20020a5d63cb000000b002d52436b584mr8944362wrw.42.1679907844064;
-        Mon, 27 Mar 2023 02:04:04 -0700 (PDT)
+        bh=IeW3JOtl79P4h19QSrAjezOiQKqJvZ5XGjr/mFCgLF8=;
+        b=BhF5VrRereAzH/gHvTL+HwsbFYOf53QcUqUss6Y0giMSD1r804b5+rAUDfJuWgi3+i
+         xS3hnCNDi0w7p9YbfvHEElTL7MQXfZB2YQZXl7Pmg8e+xAlVRKooqFYvvNliIohLNJGM
+         JhADEYfqz6AneL5OJvCynMv1eWDAdVYM1CLTySJlGvw+F7o5Tj6+7Mb7kQjObmeAz6/Y
+         D0NgaclGG6MVrE7sFEsyJw75uX8UqzgFoc66oJHD/wgo2pqnyksuJDdNJlG+812E4Hkf
+         kEajJLmrmzUeSduuZMgwp37jFme3mMZYx3sdgx2L+5RFFo/2rbrNac0Xyaz6zxPRPZGy
+         UcpQ==
+X-Gm-Message-State: AAQBX9eUxd/cbHPHTvIvw0qsiSrvVkzOEQgnyXjenlwhxxyGqRpiDQrp
+	vHgzvw0sXoBpimK0vwSzdgY=
+X-Google-Smtp-Source: AKy350YNxkfy6IOA56E0WFYwIMXU7I9spsD1DLtgWxU5JCd/dMGUPvsMws1K0rdvEqgYxVdDzVDW+g==
+X-Received: by 2002:adf:e484:0:b0:2ce:a938:ecc9 with SMTP id i4-20020adfe484000000b002cea938ecc9mr8877647wrm.69.1679907874447;
+        Mon, 27 Mar 2023 02:04:34 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <04f7b88c-a7dd-6d63-4938-06e71a194aa3@xen.org>
-Date: Mon, 27 Mar 2023 10:04:02 +0100
+Message-ID: <990111ae-d2ba-5bfc-457d-bacb2b6ffb43@xen.org>
+Date: Mon, 27 Mar 2023 10:04:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 Reply-To: paul@xen.org
-Subject: Re: [PATCH 1/2] xen/netback: don't do grant copy across page boundary
+Subject: Re: [PATCH 2/2] xen/netback: remove not needed test in
+ xenvif_tx_build_gops()
 Content-Language: en-US
 To: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
  netdev@vger.kernel.org
 Cc: Wei Liu <wei.liu@kernel.org>, "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, xen-devel@lists.xenproject.org,
- stable@vger.kernel.org
+ Jan Beulich <jbeulich@suse.com>
 References: <20230327083646.18690-1-jgross@suse.com>
- <20230327083646.18690-2-jgross@suse.com>
+ <20230327083646.18690-3-jgross@suse.com>
 Organization: Xen Project
-In-Reply-To: <20230327083646.18690-2-jgross@suse.com>
+In-Reply-To: <20230327083646.18690-3-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 27/03/2023 09:36, Juergen Gross wrote:
-> Fix xenvif_get_requests() not to do grant copy operations across local
-> page boundaries. This requires to double the maximum number of copy
-> operations per queue, as each copy could now be split into 2.
+> The tests for the number of grant mapping or copy operations reaching
+> the array size of the operations buffer at the end of the main loop in
+> xenvif_tx_build_gops() isn't needed.
 > 
-> Make sure that struct xenvif_tx_cb doesn't grow too large.
+> The loop can handle at maximum MAX_PENDING_REQS transfer requests, as
+> XEN_RING_NR_UNCONSUMED_REQUESTS() is taking unsent responses into
+> consideration, too.
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: ad7f402ae4f4 ("xen/netback: Ensure protocol headers don't fall in the non-linear area")
+> Remove the tests.
+> 
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 > ---
->   drivers/net/xen-netback/common.h  |  2 +-
->   drivers/net/xen-netback/netback.c | 25 +++++++++++++++++++++++--
->   2 files changed, 24 insertions(+), 3 deletions(-)
+>   drivers/net/xen-netback/netback.c | 4 ----
+>   1 file changed, 4 deletions(-)
 > 
 
 Reviewed-by: Paul Durrant <paul@xen.org>
