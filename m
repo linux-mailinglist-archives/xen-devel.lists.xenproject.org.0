@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2F236CA979
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Mar 2023 17:46:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515348.798117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94B7D6CA98D
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Mar 2023 17:49:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515353.798127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgp37-0006sN-B4; Mon, 27 Mar 2023 15:46:21 +0000
+	id 1pgp60-0007Yz-Pd; Mon, 27 Mar 2023 15:49:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515348.798117; Mon, 27 Mar 2023 15:46:21 +0000
+Received: by outflank-mailman (output) from mailman id 515353.798127; Mon, 27 Mar 2023 15:49:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgp37-0006pl-7Q; Mon, 27 Mar 2023 15:46:21 +0000
-Received: by outflank-mailman (input) for mailman id 515348;
- Mon, 27 Mar 2023 15:46:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=81wl=7T=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pgp36-0006pZ-7j
- for xen-devel@lists.xenproject.org; Mon, 27 Mar 2023 15:46:20 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2061a.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::61a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8376cd50-ccb6-11ed-b464-930f4c7d94ae;
- Mon, 27 Mar 2023 17:46:18 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB9PR04MB9940.eurprd04.prod.outlook.com (2603:10a6:10:4c1::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Mon, 27 Mar
- 2023 15:46:17 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6222.029; Mon, 27 Mar 2023
- 15:46:16 +0000
+	id 1pgp60-0007WD-Mq; Mon, 27 Mar 2023 15:49:20 +0000
+Received: by outflank-mailman (input) for mailman id 515353;
+ Mon, 27 Mar 2023 15:49:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d31z=7T=citrix.com=prvs=4435eb1af=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1pgp5z-0007Vv-37
+ for xen-devel@lists.xenproject.org; Mon, 27 Mar 2023 15:49:19 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eda2dbfb-ccb6-11ed-85db-49a42c6b2330;
+ Mon, 27 Mar 2023 17:49:17 +0200 (CEST)
+Received: from mail-co1nam11lp2176.outbound.protection.outlook.com (HELO
+ NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.176])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 27 Mar 2023 11:49:14 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by CH0PR03MB6018.namprd03.prod.outlook.com (2603:10b6:610:bd::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.28; Mon, 27 Mar
+ 2023 15:49:12 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.041; Mon, 27 Mar 2023
+ 15:49:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,244 +49,311 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8376cd50-ccb6-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: eda2dbfb-ccb6-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1679932157;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=QzJw79AnlrNANyl0hEbRbBBO1H1MYOhuiCxDTV/3mJA=;
+  b=EBAJXzrBEiYU8F8sUw2lZLTTngoSPuePu6pUCNLtoxDKDNMgzUBZa5G7
+   o4mc2F07+NHOl930qW/BuhIdeg94MpRIlAor6W1rU93bSCNiMyxe9lV16
+   gY0OK3wrzRmBZ/TDup7l8CwGFhyIe6CX6GTAIhvmyXgE0vII6tR79gQX1
+   w=;
+X-IronPort-RemoteIP: 104.47.56.176
+X-IronPort-MID: 103442823
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:3ZEera6nb6UmbSuyxR1/2gxRtGTHchMFZxGqfqrLsTDasY5as4F+v
+ jZNUDyFOKuJZWbzLo1yYIu+oU9Xv8LQyd41TAprpXs0Hi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9VU+7JwehBtC5gZlPasR4weE/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5my
+ qMldhcKYy+63sGL/aOhZ8V+o5QaFZy+VG8fkikIITDxK98DGMmGaIKToNhS0XE3m9xEGuvYa
+ 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6Okkooj+aF3Nn9I7RmQe1PmUmVv
+ CTe9nnRCRAGLt2PjzGC9xpAg8eWxXinBNhCTubQGvhCg1iYmjw+Mi0qVlanr6CBqH65fIxiN
+ BlBksYphe1onKCxdfH/UAe/u2WspQMHVpxbFOhSwAWMzLfEpgWUHG4JShZfZ9E88sw7Xzon0
+ hmOhdyBLSd0rLSfRHaZ97GVhTC/Iy4YKSkFfyBsZRsI5ZzvrZ8+ijrLT81/C+ilg9vtAzbyz
+ juW6i8kiN07l8cF3qi/1VPKmTShot7OVAFdzgHaWGiN7Q5jYoOhIYuy5jDz6vJNL52QSFWbi
+ 2QVgMiV7O0IDpalmTSERaMGG7TBz+iINj7VnVN0H985/jCp+maqcYF44TdiKUMvOcEBERfga
+ 0/SsAVezJ9LenCtaMdfZ4O3FtRvxKP4FPz7Wf3OKNlDeJ58cEmA5i4GWKKL92XkkUxpmqZmP
+ 56eKJ+oFSxDVvohyyeqTeAA17Nt3jo52W7YWZH8yVKgzKaaY3mWD7wCNTNic9wE0U9Nmy2Nm
+ /43CidA4043vDHWCsUPzbMuEA==
+IronPort-HdrOrdr: A9a23:+WkoOKGkL2hV385+pLqEL8eALOsnbusQ8zAXP0AYc20yTiX4ra
+ CTdZEgviMc5wxxZJhNo6HkBEDiewKkyXcW2/hoAV7KZmCP1wWVxelZnPDfKlbbaknDH4BmpM
+ BdWpk7JefcSX5dpq/BjDVQFexL/PC3tJqFv6P16VBDbS9XUIlczyFfTjy2LyRNNWp7LKt8G5
+ qY6tBGtDa7EE57Uu2wGmMZWezOvP3n/aiWAyI7Ow==
+X-IronPort-AV: E=Sophos;i="5.98,295,1673931600"; 
+   d="scan'208";a="103442823"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nIUUhQX37WtQRRK10qZRTYyNKL3fxIzxImSOzYTF0LmocDanhpWpUZrTtfSwkxFfl6naIr28AK2+kpiSlZSFD3cRRw9t7pbbRdsq4nju7d2p2/wBEjGJsAouKSfVOjyiyr9zMV2S7nOH3hPudEwPxup+viW49A3BPCXSGoeTSKpAjfxGetUTIClu52X9K7b41KVH3du81wonsG/IxYduAMWKKQqqBtb+wmvXrcEHEmDA6PFkzjl543Kber0iczCA/ZRaFJMxGzMC98+DM78NRQjM6bZIwwCEKrqR5eKqyX61xg0vVCHAwKVIaS1Bs1ggVB1Prov41Mw8066ZTF2cUA==
+ b=C4fTL2Crh+gGyHa9CfGe8gOvdGeYICouSJV9AUBYAtF7sDACjIl1SwfAuPrVGRC1I/0uHmQi6UGyP1UIPVkvPK9Wiy2mX65mBg0QNg76Pee4UvWxU11+EnXVelp9O2IORE4IQagStHmO68MkWzYMoP9FUjhcMGI2jLw4K+4eqvVnQVzO+pz91h6hIydJXGB/kEWtAMcI9K1yJYsjp+4R58KTu41FGd0PSxWUy06V2cqYPIJefgIg4cIA8MbLEaDcBbJq2COfFojJb7DIzjf9yLMJgoI5WtSpDVxwf3yB+yKuRN3LWiFiYVJHq3K3ISLJOJH7n2fJ7KwnHPA2+RXAnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oKCQV29iqi1PZw4lRIAffX81GSs4e6Hw0otRVjXUGc4=;
- b=abwoL6JCWiyXvA0IxmdHYmfgtWalkMFPP73Tba2jI2edYoWIgHL/bfEOTUIXZt4VFUY5ow46Tc412b0LqZRqxH0S97KoL2uREdoz6Ej5zTGh0LwYvD2C/IW/T6Xj55IGnhS1djN0CMPA+Kcm4166dLT7DX6kfdc0+QHuHtOWwJRkHzQCOuoYI/GJDDz54z376vtAvNxW7R/AHFyTSfGcUN+HJSaaDaqUOLxVl7dvJ6yCWzCVBfXnw6PnlVuyB/wZMSBZ6eKpXQ2fQlIck0bYbGS+ZPGvXDUT1oh9P1l8m4EDDIpuVWsOLMjggzUL4k3FpMkRuxbqB6esyxWP7zasdg==
+ bh=dFnXZhChO5CCthg+ZeSR3Ak6o6goOFLBpgEYERvumh0=;
+ b=N1NlSgoV3Hop6TH5ALVvu2iZuS8BJF7SgLSNHj1YnvwC8wF73X4IB7rnQN/nVGgiK/0rnown3rw+fxboRM0MsxdhJ0LC/ExBFcIIROvqRCJmryfCTE9955hTP+Vyku4sBvogicrQvnTd/SkAjjB/BqcjW2EKFL8hwB/d0sD24Ua9jyop7keABzz7z07B9vj1bMDgLTEaP/BZc018eYxyY/CRfBdJ0LNgG8z51R7SCybie2skGzjHRH3ozBn/FmBLQ/9cpzz/rgFg0HTCrrIuQP9djaOrtkfH2Ll8tRL0IXjcIO9u71BcT9fbMAwhfOZHFZs4qjZlydmFWzHjOJi6UQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oKCQV29iqi1PZw4lRIAffX81GSs4e6Hw0otRVjXUGc4=;
- b=Lp8+KNmeRF/IbXI+hJslXHW0ouXBODi34CKNllZRGVfkc0TMpO9mlPC8e2KN8hzahh5+6DfVq36lRDbMQpCi/tNo45Bfsa4Ggpl6iLq+P/1Lv808Bf3eq6mXpiv67nOiRzMDpPPJfiosT+8/Akot+LHKz/AWzt4dugTPL0BAi3BwfFv6514Pk983/x46px/srRknypz5FPy9QNzVdnVxM0fd80iRqbTm/jWphOKkRs7PCztK984F/iiRvZyzLQqSSv+0fvNqvRDsoIezAsWi/3dj6Z5b75Ht+IsUWj8zrCjDDmtsO4pkB/BfFNRSqVDsGAwD3iUnDtezeHG+yBE/NA==
+ bh=dFnXZhChO5CCthg+ZeSR3Ak6o6goOFLBpgEYERvumh0=;
+ b=hS2TQSNmyBUivavUC2fgouKpAs8FvL6+a2Wz33hJ8n0poEfhbBTFUVIQHtvmm012GN5lYeRFzKPV8wSKYpdVEI/D9o9ovXhAeU1/b794LfKdsDc2PjjavaaD5i/3Yd1hEGxcbpSG/egFnKS5QdErYCFGzgbD5ohy+Q6kz0ndEUE=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <73a85276-620a-c0e6-c0b6-79a4f6466826@suse.com>
-Date: Mon, 27 Mar 2023 17:46:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-From: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v4] x86: detect CMOS aliasing on ports other than
- 0x70/0x71
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
- Wei Liu <wl@xen.org>
-References: <5426dd6f-50cd-dc23-5c6b-0ab631d98d38@suse.com>
- <367d0223-d481-b7a3-3b79-a9bc6f00531e@suse.com>
- <ZBxm+7/ldyHclXwc@Air-de-Roger>
- <62e5d8fe-df2e-eb95-bc8f-631dad4204f2@suse.com>
- <ZByA88LU2YgEbcK9@Air-de-Roger>
-Content-Language: en-US
-In-Reply-To: <ZByA88LU2YgEbcK9@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 27 Mar 2023 17:49:07 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: linux-kernel@vger.kernel.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
+	Alex Chiang <achiang@hp.com>, linux-acpi@vger.kernel.org
+Subject: Re: [PATCH v5] ACPI: processor: Fix evaluating _PDC method when
+ running as Xen dom0
+Message-ID: <ZCG686t8tPDNPFbX@Air-de-Roger>
+References: <20230321141904.49177-1-roger.pau@citrix.com>
+ <2fa1f1ff-ce1d-447d-18ee-9b787e03f86a@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0105.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a9::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+In-Reply-To: <2fa1f1ff-ce1d-447d-18ee-9b787e03f86a@suse.com>
+X-ClientProxiedBy: LO4P123CA0542.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:319::7) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB9940:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99977686-9f7f-4168-e011-08db2eda66e8
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|CH0PR03MB6018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38686669-9a08-4389-e0bf-08db2edacf92
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	F/aLa+tVVWaISKOfeMxrcZZGron3/NxNkK8LkmdyjY+TmOuoFSN9TWK92634P0cJChVfDrXpRdADYetf1Px4pzodsEcDLdXCYZs44HUWwJOIv2kZ137J0XcO72pY5QTQ+XnQ45k+iBfn+s3O0imm2U4c1iYyQAZ1Zgn3DBw27dGZtWXOhGnzhlq6RS8S9BwpXWOMviDnVGlqxoWq7ciyMtOfqQL6ibDMexRm7LDycGX7XDTBSWSEOWxa5fbG3rXCgIlXWSSV7SO+FOSuimrr9RjmTCWNW9lyfFhwPK4PbV3VvUQsl0gp5fr35PwpGESEBJ18I2RQd1xC+FBo8Cc6g2g4kjjCSnrWCuFYrHiTQvo4hjQ8zXMhlAvvMhq+dI577YrzdaStBdAnHtbU9XjsOIxfqbXl5SJCrUUnE47sTaKu0piC1z+RluY2xk/HWOpT5EFZribC6+ISlZf8xBiMXBm4mkGhy4pwwV3h1ixfMe+b+UzyZJKKzv3y4Jl+Vx6YAT3wr6dro54fYu/pPXJsNtCkCnCAXOq1ujzbnsArMlvC6NY8XbLR0XFDRtLh1VKFlXgwZQ2erYFYGEwuu4fh7Frl3aXV1rTchkL0QUOzsT/sTZEW+R7vz4ThtVfgmh/dOw9q2ued8H6nYLCbwld9bw==
+	TuA2cO7qd8+f5ZGvKmrzwXVBNedjWZ2gqyCG5GeFGA/N/HftJyWV89GQtFoC/n1zAtGX05rLA7maVgz2odaHCsaenNYtsuoack8LSK/u0p9E30KNwFKMNUsp6fjZ11SGcFfrpI7CRziD5kMjM67lcHQA2XTLLw6iZwsSs3hFJQw7ZfWMD/9TWuYZMHFONHWNryiZPxFmghymHeP1Xu48e01H4Z6GhCwbeeQAOFxrg8ywitL4yGr8ieWGTjS8IOA0e6TbF7dljJyrHzhMBEDXKR/Ibv7nBHuUxOCEuMn4BzTh/NdpyYIRsVKaCzBY85bj7ITTb98rULNsgQ/MSQ9E8BLeula0s+eG6CaqOp7VhEsacR1YQmD7JBrn6cmNWJUH9BWDT1gCPhNUaungt1cBDUMZ8tYBs0kO3m5BspEachJ19kzpQzlFgooM2ghHDn5gRokq66GMvKDvGSHOa8tl3GPGlcmchyS3GyWivpEHHAU0pL54ssxPbhYosNbY2PT7kmWMACwODChglM6vhQb7p4w7fz3cprgcCdPiqDfJM0miHrc74USqWNKVLC7bSpAk
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(136003)(366004)(376002)(396003)(346002)(451199021)(31696002)(36756003)(86362001)(38100700002)(2906002)(31686004)(478600001)(6486002)(83380400001)(2616005)(26005)(6506007)(6512007)(6916009)(66556008)(66946007)(54906003)(4326008)(316002)(8676002)(66476007)(186003)(53546011)(5660300002)(41300700001)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(7916004)(4636009)(346002)(39860400002)(396003)(376002)(136003)(366004)(451199021)(83380400001)(41300700001)(33716001)(85182001)(86362001)(5660300002)(38100700002)(8936002)(82960400001)(54906003)(6486002)(478600001)(8676002)(66946007)(66556008)(4326008)(6916009)(2906002)(66476007)(53546011)(7416002)(6666004)(6506007)(26005)(186003)(9686003)(6512007)(316002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NTgzYXdZc0xpdWsxSXluUnlTN1VxanBGNCtLcS9iMWQyWS9GZldzNWZiYjJI?=
- =?utf-8?B?bW45WTAzRjBlWDhUU3hzVE1COVNoS0RVWWZDNVFwNUN6NGtDQkxKdkl3aEl2?=
- =?utf-8?B?ODlncEVHc1pQaGU2R1ZaRTNuMW5tcGtmVDM2ZjMrL0Nldy9tdzNpMWFkSzFS?=
- =?utf-8?B?R25CUGU4YTFRdDZGVmhTQ3NMaFAyWU9Ud2pzR2hRS1p4Z3FEVGFacmNqb0hI?=
- =?utf-8?B?QUIwazAvSFYySTlZUXc2cThqZlNSdE45YVNtcndtUHVnYlZENmowelR1U0po?=
- =?utf-8?B?bVpVcW1vOEtoOCtLVEZGQUgrdCtFcFkweThNNjRicDVVcUgxRzA5SDVhRWtB?=
- =?utf-8?B?Nmx5bUhpZGkvL2xjdVZiR2M0M3pmSU9yT0pxd3d3VnZNTitCYjNHcThKYkUx?=
- =?utf-8?B?cEhWT3g3d1o0RmNEaXU4TWRyZ3JqTklmdURteExNYktKRXFFTmF4MTRXZXJz?=
- =?utf-8?B?VWRkK2VpSGpGamtteGNxQ3JnT3hkT1dmbkptRzhPRDhPVVJXRUFBeG45SXov?=
- =?utf-8?B?MHpobFFRalZMSzJTdlRqUVczZ2xxNzAvd0tQRVRyYmtnM3dxUENHU3VXc1gy?=
- =?utf-8?B?SEdYRTU1TDR0SXBHMzhGdnRBa242cE1GUXlReHMzc3ROSGpRd2JUd1NSRUlX?=
- =?utf-8?B?eFllV3pTS0p1UEg0cVR4YjkxOXc4Q1U5aHRsak05T2YxejNGZWdSckFlM1ZG?=
- =?utf-8?B?cDRWZXh5ZktxVlRUeGdrZzFGWUtpVDBYcUFIclRiWE5wZ29LTjQvQzBCc2p6?=
- =?utf-8?B?bElpVE1qa3J3LzlhdHZDZEduMTJpaVkyc3NveFNJRUlJcmNlWXVOUmVMMys0?=
- =?utf-8?B?S3o5MCs0UyswMFJDV210UmJDSFhaRzJZY1pkNW41dGVsYnY1VEZLYjkzQW1a?=
- =?utf-8?B?dzg3NzZ3RFN0RjBlYUpwT3JYOGxyOG1MQWtOd0IyRDM1YVk2VzVSdmN0NEZR?=
- =?utf-8?B?TTl6SVIvNWowTEUxQW5wY0FqWVN3RXBuZVNZZXA3aXhBcElvZVlQV01jSXRM?=
- =?utf-8?B?K0xpSUtvOU5CN29NQW1xNDhIZ042anlkcTI5dS9Pc0RjM25PdE5oS0pxcjNa?=
- =?utf-8?B?WlJhVzlsWVNScnVxMmpkK3dZNmw1NkVkS0hUT3p2M1JERnJibGNKVmQ4dUti?=
- =?utf-8?B?Y0l4SEpMOEVMMDNBUmFoWUkwRC9nQ3NMS2N1RFlvVHlydVV4NzQ3MjFQV1pO?=
- =?utf-8?B?dE5vTG51dkt1MW43bGE0aHFMRy9YV3EveHJWNVA0Tm5RNHYrMFdjeDRKUDRW?=
- =?utf-8?B?VW5wTGc0QisxbHNSVkNrQXNKOHZZaUxkbGRyWHpRUTd3M29JK0ppVFIyaHFX?=
- =?utf-8?B?L1FrRnVtWDU1eURKNVJEeEcrWUNsTHVWTks3eEltVjRVZ3FIakJNeXN5V1NH?=
- =?utf-8?B?WDVNUytVNnc1RDc0UXVzdnNMckxFZG95UWVuN0RoRDJORjFhTjNNeVU2MTNo?=
- =?utf-8?B?cjMzMlJiTzY0UGp2eGQwempTbVN5aTVkQzhMdkpOSWN4cW1xblZrRnkyRTF5?=
- =?utf-8?B?TXBibHVQMUJLYlZIOXJLak4yZ3RBTGNnR09tUE01WFB3aU1pUU1ucWdCU3lw?=
- =?utf-8?B?OHlBbmNMWWI3ZkZ4ckkvMFVxMVYvN3pMRDNIaXAvc3p5YzNCM2JZL2wydDJC?=
- =?utf-8?B?Y0d2Yy9JUlJPYUhhb1NKRG5xdUJ6TUJ6cFJjZUcvS0RSZkJCWi9LTUJxWVV6?=
- =?utf-8?B?SU9vSU1wZ1J4L1JSaHN2dndFNGVKWGVWeFpSa0x3ZGhmcWdXT1hkWVRFSUJK?=
- =?utf-8?B?THFXWGFkMHVnbGFaMktZRkdqZWJhODBYYWNsc0FVSjM4TzI3bXF4VlB5T0ZC?=
- =?utf-8?B?eFdrYzBYVEhkeUNGTFQ5TnJ5bkF1Z2dlbmR5dFZEY1RQSUpFdHhveU5UZWIv?=
- =?utf-8?B?Qjg5ZFRmWEtsdjQvU0NkOWpkN3lmK095VUVSR1NmaENha21lSldrZlFRY2VM?=
- =?utf-8?B?d21RRjdZTFoxK3RodGlCZ0RxRzgwQkxtZkRlQWFrMU85dlZyZ015SXR3ZkVo?=
- =?utf-8?B?dmtTS3BQOTZ0MDNnR21HNlVJdDZQV0loaWdXeGlPaXpxcko4TVlsTExKZW1l?=
- =?utf-8?B?TFlnMThDY2NnemJzUitCTmM1WGh6dGxPYktFZXk0L0xxcEw0b01zNHpKeVEz?=
- =?utf-8?Q?I/QWNIp+yhbQb+wNNRQ1kwySn?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99977686-9f7f-4168-e011-08db2eda66e8
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?YklkVklTbG1pT25aWkIyTlBCZU5zMGhteEZmeXNGT1R0UUNZMWN0US8vRmRF?=
+ =?utf-8?B?VDFTTzFTNUhiMkV4NVIvYjBjQVBvUCtmRkZUT0xzSzJ1bVpvY2krekxMK0FJ?=
+ =?utf-8?B?N0t2YnlFUURmdlNOeHoxVmdmMHREVEE5YlQ3NVVZdUI0czRITjJzZ25scUVZ?=
+ =?utf-8?B?T1gvZHEvN2tuT2xDVHp6cG1RRFdQa0tyQ0hqb1FsNWc3NjErZmwyRmQ4SEVN?=
+ =?utf-8?B?VFQvVUpMWDRxMGNhSGRSYjFDbXJzOTlPdXFuSUZZQkpmdWVieWNyb0R0QXdY?=
+ =?utf-8?B?TVltYUVBZWk3eWdzdUwvSXBWa2tqVmI1bEcxcENJclpRR2s3ZG9hUytXcGd3?=
+ =?utf-8?B?UkpjaDRndEhmQk0ra1VkOGVHWk93R0FkVkRyMjl4bXF0VG8xS2w5cGtkZUNO?=
+ =?utf-8?B?YkErZFIxTlZxNHBTYXBnNkRGQWp4ZTJZd3BrM1lyY1YyL0tuVzVzSTJiSk44?=
+ =?utf-8?B?czd2Sm1aL1FvSFM4U2dnNWRkQkhERG11dFJzY21DckxuMTVMMWNOYVBob1da?=
+ =?utf-8?B?Y0VyM0V3NTNxMnBVMlpNVStYbFJIZTYvb1puTmhKei9ESmpWZFBkT3VvK1Z5?=
+ =?utf-8?B?ei95YTZ3bElxZUJ0SzV2enZWRUNVYmxNVnl4WEkrM2J2WGQ1aHVHcDVYamVX?=
+ =?utf-8?B?VFFzdXFOb1UrVld2d3pKTWRZYU1nTjlTZkEyQUNRS2tUYzZOeW8ybjR6a2xJ?=
+ =?utf-8?B?WGtjSUhZOTZEaFpNTkRLdHNmUVRVeUdZcEpuV3A5RnNEOEtUVllOUzZEZ0Jx?=
+ =?utf-8?B?SzVuSmZJNFVGL2RUWmhJLyt6dnVud001WjRScHhpOFBmUy9reW5YWFgxdVo0?=
+ =?utf-8?B?U3NsRE9CUTdlRk5KUUlvUGNpQXVIL3JUSzBHdllnRStUdWJoNnFmWDdMRHFp?=
+ =?utf-8?B?bUh3QkU3OGtkbW5qd2pmN2FGaW44UGg3c0FaM1dpRjdoNTc5VjkxcVdhd0Jh?=
+ =?utf-8?B?NCtoV0xuK1pyRjJweWkzMm4vNW9EeVNZeE15S2NpdDl6elBCRXNzczgyTWpQ?=
+ =?utf-8?B?Qjg2c00vL3lHTURDOEpPK3Z4ZDh4bldjNkNaMEJsaHc5NmVQVlJWcUN1ekZ5?=
+ =?utf-8?B?Z2FFN1BXcmFoTUc2VEp2N25Td3ZubkFrczIrMVlFTy9uODZVMHNvMW9nbm9D?=
+ =?utf-8?B?Z0dGOEQ2NkRPcWRRbm1Ib3NuYktnamVDTVdxcDdMaGF6aTNML21qbXpsb3g2?=
+ =?utf-8?B?dlFMY0VsNmN6Y25vZVZWMDIrT1E4TGovY01VWGJ4U0JkNUN6NUlDRjdia0lw?=
+ =?utf-8?B?MkxMTGxRK09zM0orUDZieGF2VWVVTWZFd3ZZL21XVzg2WnRyOGY2S21HL2ZM?=
+ =?utf-8?B?YVVlaDNuZTQvSkIrV1BROE10N1lNMDEvWk5EUGdyOThZM0xJUDdTUVRpdTNw?=
+ =?utf-8?B?MkxEZ09lUFNnTHZHOUdxZmpXcmJCRlVlOVRZMlNPd1J2N3BCNzd6QXpleEJL?=
+ =?utf-8?B?aWFZWEV2WU11VkVqS2xuYkp0OG9ZdVVJSW02SEZpYzVQQ20zd1FDOGNNWml0?=
+ =?utf-8?B?WWZqUEFmV2Q1bGZLYUhJMk0xUHZ3d0VURFdZY09yMjl3TG9ZMzRtazJHSFdP?=
+ =?utf-8?B?T2Vya01XclI4WWdmYTFVanJmL0tJWFFRaDNMWjlZU2VsZC91anlKWWdJUDRm?=
+ =?utf-8?B?WC9BUVBLa0lyMTZuTHR6aFkrMCtBdlRnTjZQUHZndzlQU3RKdDVIYWMveGUx?=
+ =?utf-8?B?ZWJ1K2NkalI3ZEJQVmtzQmRWNWUrdXV5TjhNQ2c2eU5WOTZHaXdnVldZeUFy?=
+ =?utf-8?B?VkhOeTZiYVIveHhydVZxYjcvN3pTZmVjclJDNm9lMUwrb2g1SlBEUnJ3YXQr?=
+ =?utf-8?B?TGZmQ2VHUnhzZ0xtOHpNTnVOZUlZalZYYnYxdXZkODJQUkdPMmNHbys1bUtu?=
+ =?utf-8?B?YVpwNnBqZFVIQWp0QW5zRXp6VWNXZitOMDBtblE0S0JZOXRDdm84dlk0TFhq?=
+ =?utf-8?B?aHR3bEZWWWtCbXpDSXg2NmdWcWVnV1ppY2ttZHVRYVlhS2pzZXFCNUgzeUlq?=
+ =?utf-8?B?OUhmak5kd00zSzdEM2RXYjFVUzBMRGZhR0liWGo5bFZMaUUzanBneE9qbm1V?=
+ =?utf-8?B?aWdYSHdwSEhGN1lKK3BneVRZdkV4RFE4ZmtuVGhaUk5oeFFTelh2MXkrdjBL?=
+ =?utf-8?Q?EqZqCXLdJlzEKEhkNzGQsC+8G?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	=?utf-8?B?dXJaUGFpTkEvWWlCREY3M085OHEyMDROTTJ4TXVRS211bUQ0OHhaUXpsUm5D?=
+ =?utf-8?B?c2MxM0NPTTFlc3NtaXlvMlhDOFZmeUNpeDZTZCt2cFpOaXFJck5tVHNkaFVm?=
+ =?utf-8?B?MjZnTC90bWxicGdWbTdtU1BpSUs1V1JpUkZkeDh1OFRqTUQ4dWZuY2w2alox?=
+ =?utf-8?B?eWlSb042RnBwaUQ1RHdZS3YwZFppdWlLWm1idnEyLzU0bzBUUy9ZYzRPaEpY?=
+ =?utf-8?B?QUhTMlI3TG9SQ1I0cUtyNFIwcU9RQ2dwYzhFMExMNXg2SHhQVHllcjhYcnV1?=
+ =?utf-8?B?ZW1ndkFGYlB1YUcrQUY2d3krQkRYL3dVT3d3ejVGUHlUSlBQSThGclhUYm9Q?=
+ =?utf-8?B?L1BmZ2RFdTh5ZTd4WW5JK2xnd1IrVzZwekREbTVsbys4ODJJam9LdGpGOU1y?=
+ =?utf-8?B?TGpRNC82ZktyMHdiVFYrTXVFUjFHNmZNc0hkYU1oejRqR3BIY2thNTNrOU01?=
+ =?utf-8?B?K1NDcGRNaTlIdkpnVHR3c1pJazRueU82R2dMNTNONk5WeWFVYjVPQmFzVGl1?=
+ =?utf-8?B?dXFrRHB0eXZJd2prSEk1bVo3K3BPeXVmU09LTytwbkpXRW5wcnFPYXkyNVJG?=
+ =?utf-8?B?MTM4dHgwTEZsRnF2SHFXSWg5RkFoNitWODJIcHJhWExDeU9GZlpWVk50V1gw?=
+ =?utf-8?B?dUloV0MzMWszM2F0UTNURklzMk94TDZJanh2VDN5R2NMTWplelVhRDduQ2Jl?=
+ =?utf-8?B?RXBYQndvb1BxM3EvV2ViOUU1SkF3QWxhdm1aZnZDbVdra0xDaElFUjFOZzJj?=
+ =?utf-8?B?RWpsUzd5bEltKzNCamNKUkcxRE5TR1QvTHUwNFl4MHgvdllMQUFyb1gvVEJI?=
+ =?utf-8?B?QkF5UU5leWV3bHVmNU5QeWY0R3JsL3gxdkVuNEN2TEszT29Qa2p6eWwvRGk0?=
+ =?utf-8?B?REVISHJQT0YveHpSVy9CVkxNb0F0L3pqTStmNENHOElvUTRienQ2UENEZTlj?=
+ =?utf-8?B?ZXNid3Y2WDhnRU1od3ZYUXFLMnYzbmQwRUh0czBEeXE3TUNybzBrK2xQVHhu?=
+ =?utf-8?B?WUs5NktWakhveExQdVoybE5sa09YMmtPQUZuNDdCU2JzWVI5QnRYbHU2UkM3?=
+ =?utf-8?B?S0haaG5kSkF5akcyQkloNkhBeEpRWDNvQlVRY0hXNmtPcGlOZk5JTHRwL3g4?=
+ =?utf-8?B?MWxHUmZnSVJKTVFieW5LUE9XZ2ZWL1ZLeUlqZitPZ3BDaXhjSHBzVFF3ejMz?=
+ =?utf-8?B?citYNDZVT3BUVHluMWtPZExyOEVQaStsZ2NldWZDS010U0o2aUJ4ZUxaWmxM?=
+ =?utf-8?Q?wX5ABQRxOwGr9pO?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38686669-9a08-4389-e0bf-08db2edacf92
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 15:46:16.8990
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2023 15:49:12.6595
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lP8+FrIFol7MyciEik58pPUunSRTn5UozkCq7h1Ld3OwuqEvcMDBAq4MtlGHvh+xRkz3WePKE+enHOCjdv7ZQA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9940
+X-MS-Exchange-CrossTenant-UserPrincipalName: llRPsWUl7+3KiOOeIV6qVW1naf0HoTU1I04BNwx10l2wA7iI1Q13RLCxpiXFfK47//m0+IArOr8OkfZa4zqssg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR03MB6018
 
-On 23.03.2023 17:40, Roger Pau Monné wrote:
-> On Thu, Mar 23, 2023 at 05:08:43PM +0100, Jan Beulich wrote:
->> On 23.03.2023 15:49, Roger Pau Monné wrote:
->>> On Mon, Mar 20, 2023 at 09:32:26AM +0100, Jan Beulich wrote:
->>>> --- a/xen/arch/x86/setup.c
->>>> +++ b/xen/arch/x86/setup.c
->>>> @@ -2072,37 +2072,36 @@ int __hwdom_init xen_in_range(unsigned l
->>>>  static int __hwdom_init cf_check io_bitmap_cb(
->>>>      unsigned long s, unsigned long e, void *ctx)
->>>>  {
->>>> -    struct domain *d = ctx;
->>>> +    const struct domain *d = ctx;
->>>>      unsigned int i;
->>>>  
->>>>      ASSERT(e <= INT_MAX);
->>>>      for ( i = s; i <= e; i++ )
->>>> -        __clear_bit(i, d->arch.hvm.io_bitmap);
->>>> +        /*
->>>> +         * Accesses to RTC ports also need to be trapped in order to keep
->>>> +         * consistency with PV.
->>>> +         */
->>>
->>> More than to keep consistency with PV, don't we need to trap accesses
->>> to that concurrent accesses between dom0 and Xen (when also using the
->>> device) don't overlap, as the RTC/CMOS space uses indirect indexing.
->>
->> That's what I read "consistency" to mean.
+On Mon, Mar 27, 2023 at 03:58:26PM +0200, Juergen Gross wrote:
+> On 21.03.23 15:19, Roger Pau Monne wrote:
+> > In ACPI systems, the OS can direct power management, as opposed to the
+> > firmware.  This OS-directed Power Management is called OSPM.  Part of
+> > telling the firmware that the OS going to direct power management is
+> > making ACPI "_PDC" (Processor Driver Capabilities) calls.  These _PDC
+> > methods must be evaluated for every processor object.  If these _PDC
+> > calls are not completed for every processor it can lead to
+> > inconsistency and later failures in things like the CPU frequency
+> > driver.
+> > 
+> > In a Xen system, the dom0 kernel is responsible for system-wide power
+> > management.  The dom0 kernel is in charge of OSPM.  However, the
+> > number of CPUs available to dom0 can be different than the number of
+> > CPUs physically present on the system.
+> > 
+> > This leads to a problem: the dom0 kernel needs to evaluate _PDC for
+> > all the processors, but it can't always see them.
+> > 
+> > In dom0 kernels, ignore the existing ACPI method for determining if a
+> > processor is physically present because it might not be accurate.
+> > Instead, ask the hypervisor for this information.
+> > 
+> > Fix this by introducing a custom function to use when running as Xen
+> > dom0 in order to check whether a processor object matches a CPU that's
+> > online.  Such checking is done using the existing information fetched
+> > by the Xen pCPU subsystem, extending it to also store the ACPI ID.
+> > 
+> > This ensures that _PDC method gets evaluated for all physically online
+> > CPUs, regardless of the number of CPUs made available to dom0.
+> > 
+> > Fixes: 5d554a7bb064 ('ACPI: processor: add internal processor_physically_present()')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > Changes since v4:
+> >   - Move definition/declaration of xen_processor_present() to different
+> >     header.
+> >   - Fold subject edit.
+> > 
+> > Changes since v3:
+> >   - Protect xen_processor_present() definition with CONFIG_ACPI.
+> > 
+> > Changes since v2:
+> >   - Extend and use the existing pcpu functionality.
+> > 
+> > Changes since v1:
+> >   - Reword commit message.
+> > ---
+> >   drivers/acpi/processor_pdc.c | 11 +++++++++++
+> >   drivers/xen/pcpu.c           | 20 ++++++++++++++++++++
+> >   include/xen/xen.h            | 10 ++++++++++
+> >   3 files changed, 41 insertions(+)
+> > 
+> > diff --git a/drivers/acpi/processor_pdc.c b/drivers/acpi/processor_pdc.c
+> > index 8c3f82c9fff3..18fb04523f93 100644
+> > --- a/drivers/acpi/processor_pdc.c
+> > +++ b/drivers/acpi/processor_pdc.c
+> > @@ -14,6 +14,8 @@
+> >   #include <linux/acpi.h>
+> >   #include <acpi/processor.h>
+> > +#include <xen/xen.h>
+> > +
+> >   #include "internal.h"
+> >   static bool __init processor_physically_present(acpi_handle handle)
+> > @@ -47,6 +49,15 @@ static bool __init processor_physically_present(acpi_handle handle)
+> >   		return false;
+> >   	}
+> > +	if (xen_initial_domain())
+> > +		/*
+> > +		 * When running as a Xen dom0 the number of processors Linux
+> > +		 * sees can be different from the real number of processors on
+> > +		 * the system, and we still need to execute _PDC for all of
+> > +		 * them.
+> > +		 */
+> > +		return xen_processor_present(acpi_id);
+> > +
+> >   	type = (acpi_type == ACPI_TYPE_DEVICE) ? 1 : 0;
+> >   	cpuid = acpi_get_cpuid(handle, type, acpi_id);
+> > diff --git a/drivers/xen/pcpu.c b/drivers/xen/pcpu.c
+> > index fd3a644b0855..1814f8762f54 100644
+> > --- a/drivers/xen/pcpu.c
+> > +++ b/drivers/xen/pcpu.c
+> > @@ -58,6 +58,7 @@ struct pcpu {
+> >   	struct list_head list;
+> >   	struct device dev;
+> >   	uint32_t cpu_id;
+> > +	uint32_t acpi_id;
+> >   	uint32_t flags;
+> >   };
+> > @@ -249,6 +250,7 @@ static struct pcpu *create_and_register_pcpu(struct xenpf_pcpuinfo *info)
+> >   	INIT_LIST_HEAD(&pcpu->list);
+> >   	pcpu->cpu_id = info->xen_cpuid;
+> > +	pcpu->acpi_id = info->acpi_id;
+> >   	pcpu->flags = info->flags;
+> >   	/* Need hold on xen_pcpu_lock before pcpu list manipulations */
+> > @@ -381,3 +383,21 @@ static int __init xen_pcpu_init(void)
+> >   	return ret;
+> >   }
+> >   arch_initcall(xen_pcpu_init);
+> > +
+> > +#ifdef CONFIG_ACPI
+> > +bool __init xen_processor_present(uint32_t acpi_id)
+> > +{
+> > +	struct pcpu *pcpu;
+> > +	bool online = false;
+> > +
+> > +	mutex_lock(&xen_pcpu_lock);
+> > +	list_for_each_entry(pcpu, &xen_pcpus, list)
+> > +		if (pcpu->acpi_id == acpi_id) {
+> > +			online = pcpu->flags & XEN_PCPU_FLAGS_ONLINE;
+> > +			break;
+> > +		}
+> > +	mutex_unlock(&xen_pcpu_lock);
+> > +
+> > +	return online;
+> > +}
+> > +#endif
+> > diff --git a/include/xen/xen.h b/include/xen/xen.h
+> > index 7adf59837c25..4410e74f3eb5 100644
+> > --- a/include/xen/xen.h
+> > +++ b/include/xen/xen.h
+> > @@ -71,4 +71,14 @@ static inline void xen_free_unpopulated_pages(unsigned int nr_pages,
+> >   }
+> >   #endif
+> > +#if defined(CONFIG_XEN_DOM0) && defined(CONFIG_ACPI) && defined(CONFIG_X86)
+> > +bool __init xen_processor_present(uint32_t acpi_id);
+> > +#else
+> > +static inline bool xen_processor_present(uint32_t acpi_id)
+> > +{
+> > +	BUG();
 > 
-> But consistency with PV?  We need to keep consistency with concurrent
-> Xen (hypervisor) accesses I would think.
+> Is this really a good idea?
 > 
-> I would s/PV/hypervisor accesses/ in the comment above while moving
-> it.
+> Arm64 supports ACPI, too, as well as XEN_DOM0. I think you either need to
+> provide a stub for that case, too, or you need make this stub non-fatal
+> for callers (I guess returning false is fine, as currently there are no
+> hypercalls on Arm which would allow to control physical CPUs based on
+> ACPI-Id).
 
-Hmm, yes, changed. (Still I'm not normally very happy about changing
-comments I don't really understand the way they're written.)
+Currently CONFIG_ARCH_MIGHT_HAVE_ACPI_PDC is only selected for x86 and
+ia64, so I assumed if we ever needed this for Arm someone would have
+to write a proper handler for it for Xen.
 
->>>> +bool is_cmos_port(unsigned int port, unsigned int bytes, const struct domain *d)
->>>> +{
->>>> +    if ( !is_hardware_domain(d) )
->>>> +        return port <= RTC_PORT(1) && port + bytes > RTC_PORT(0);
->>>> +
->>>> +    if ( !(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC) &&
->>>> +         port <= RTC_PORT(cmos_alias_mask | 1) && port + bytes > RTC_PORT(0) )
->>>> +    {
->>>> +        unsigned int cmos = RTC_PORT(0), nr = 2, step;
->>>> +
->>>> +        while ( cmos_alias_mask & nr )
->>>> +            nr <<= 1;
->>>> +        for ( step = nr << 1;
->>>> +              step < cmos_alias_mask && !(cmos_alias_mask & step); )
->>>> +            step <<= 1;
->>>> +        do {
->>>> +            if ( !(cmos & ~RTC_PORT(cmos_alias_mask)) &&
->>>> +                 port <= cmos + 1 && port + bytes > cmos )
->>>> +                return true;
->>>> +            cmos += step;
->>>> +        } while ( cmos <= RTC_PORT(cmos_alias_mask) );
->>>
->>> I would use a for loop similar to the one used in probe_cmos_alias()
->>> to check for aliased accesses?
->>>
->>> if ( port <= RTC_PORT(1) && port + bytes > RTC_PORT(0) )
->>>     return true;
->>>
->>> for ( offs = 2; offs < 8; offs <<= 1 )
->>> {
->>>     if ( !(offs & cmos_alias_mask) )
->>>         continue;
->>>     if ( port <= RTC_PORT(1 + off) && port + bytes > RTC_PORT(off) )
->>>         return true;
->>> }
->>>
->>> return false;
->>>
->>> So that you can also optimize for the more common case RTC_PORT(0) and
->>> RTC_PORT(1) are used?
->>>
->>> Or there's something I'm missing?
->>
->> I'll have to check carefully, but to be honest I would prefer to not
->> touch this code again unless there's clearly something wrong with it.
-> 
-> TBH, I think the proposed code is extremely difficult to follow, there
-> are 3 loops in a row which gives me a headache when thinking about all
-> the possible combinations.
-> 
-> I think my proposed alternative is much easier to follow because it
-> has a single loop, and it's using the same bounds used to fill the
-> cmos_alias_mask in the first place.  But maybe that's just my taste.
-
-Upon re-consideration I've adjusted the code. Iirc probe_cmos_alias()
-originally had something similar, so changing it in the other place as
-well is only logical.
-
->>>> @@ -1256,7 +1333,7 @@ unsigned int rtc_guest_read(unsigned int
->>>>      unsigned long flags;
->>>>      unsigned int data = ~0;
->>>>  
->>>> -    switch ( port )
->>>> +    switch ( port & ~cmos_alias_mask )
->>>>      {
->>>>      case RTC_PORT(0):
->>>>          /*
->>>> @@ -1264,15 +1341,16 @@ unsigned int rtc_guest_read(unsigned int
->>>>           * of the first RTC port, as there's no access to the physical IO
->>>>           * ports.
->>>>           */
->>>> -        data = currd->arch.cmos_idx;
->>>> +        data = currd->arch.cmos_idx & (0xff >> (port == RTC_PORT(0)));
->>>
->>> We do allow read access to alias ports even when the underling
->>> hardware does do so,
->>
->> I'm afraid I don't understand this, so ...
->>
->>> which I think is fine, but might be worth a
->>> comment (since we already detect whether the RTC_PORT(0) alias is also
->>> readable.
->>
->> ... I can't really derive what kind of information you're after to put
->> in a comment.
-> 
-> Reading from ports that alias RTC_PORT(0) might not always return the
-> value written to RTC_PORT(0) (you have a check for that in
-> probe_cmos_alias()).  Yet in rtc_guest_read() Xen does always return
-> the cached CMOS index.  Which is likely to be all fine, but needs a
-> comment to note this behavior might not match what the underlying
-> hardware would return.
-
-You do realize that this is pre-existing behavior? On many chipsets
-you cannot read the index value from port 70. Yet we've always
-returned it, presumably on the grounds of the value either being
-rubbish (often 0xff) or the index. And rather than trying to figure
-out whether to return rubbish (explicitly of via accessing the port)
-I guess it was deemed easier and more helpful to always return the
-index value. (I've amended the comment there nevertheless.)
-
-Jan
+Thanks, Roger.
 
