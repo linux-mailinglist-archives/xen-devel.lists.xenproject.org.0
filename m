@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E4546CAA78
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Mar 2023 18:22:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515378.798186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1E936CABB5
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Mar 2023 19:17:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515389.798196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgpbs-00073U-On; Mon, 27 Mar 2023 16:22:16 +0000
+	id 1pgqT2-0004Xg-WD; Mon, 27 Mar 2023 17:17:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515378.798186; Mon, 27 Mar 2023 16:22:16 +0000
+Received: by outflank-mailman (output) from mailman id 515389.798196; Mon, 27 Mar 2023 17:17:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgpbs-00071p-LS; Mon, 27 Mar 2023 16:22:16 +0000
-Received: by outflank-mailman (input) for mailman id 515378;
- Mon, 27 Mar 2023 16:22:15 +0000
+	id 1pgqT2-0004VJ-TA; Mon, 27 Mar 2023 17:17:12 +0000
+Received: by outflank-mailman (input) for mailman id 515389;
+ Mon, 27 Mar 2023 17:17:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J70X=7T=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pgpbr-00071j-98
- for xen-devel@lists.xenproject.org; Mon, 27 Mar 2023 16:22:15 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=16zh=7T=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pgqT1-0004V7-LB
+ for xen-devel@lists.xenproject.org; Mon, 27 Mar 2023 17:17:11 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88549bb9-ccbb-11ed-85db-49a42c6b2330;
- Mon, 27 Mar 2023 18:22:13 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 63FD31FDC2;
- Mon, 27 Mar 2023 16:22:13 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0935B13482;
- Mon, 27 Mar 2023 16:22:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QMiBALXCIWTKUgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 27 Mar 2023 16:22:13 +0000
+ id 3457a44a-ccc3-11ed-85db-49a42c6b2330;
+ Mon, 27 Mar 2023 19:17:09 +0200 (CEST)
+Received: by mail-lj1-x229.google.com with SMTP id e11so9804003lji.8
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Mar 2023 10:17:08 -0700 (PDT)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ a4-20020a2e9804000000b002a03f9ffecesm2463322ljj.89.2023.03.27.10.17.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Mar 2023 10:17:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,240 +43,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88549bb9-ccbb-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1679934133; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UcDPc/tgrynPUn5Yb3kFJbY/0rSBTe/WWm+ukByYBNM=;
-	b=TGkHjJu7sMYfpPegpiMz6r/zjinvf3kc+DGbnTIIXrwRnjZy4qwzqzzJVbsuwY/njyAZTN
-	Sq3EXI32nlHMl94cM5qFS5uvakOzeyFnyP/ErYr9k6tlZ4i/F5prP2PWPGmeLC9Cb/0PEI
-	Pd1jLl14rSQY2G/6Jp5pfwJF0nIIxoE=
-Message-ID: <f94dbfe9-f690-8c3e-c251-b0d5f93d32f9@suse.com>
-Date: Mon, 27 Mar 2023 18:22:12 +0200
+X-Inumbo-ID: 3457a44a-ccc3-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1679937428;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ls9nZ7WlKJ5lShAgqD+7Sylwd3APCPa2spkr26tAeoc=;
+        b=VwdMtPdlDl7YEBoMYsSrqNvWpTL1b7VqPiG7RHqMC2NTNgeLnEcN3T/T7o2NB85vDa
+         9svzDWlBHXFrLcBA8RWIzJkgqgT9XXxdYNhxQr6KslcTzUnf2qTtOKO9yemIRS7IgaQS
+         wlnCtdgqQoEwIX1LhCyJIAarXnKt5FGVPKU0vpeiaH+AjLNLnLYXQe7ErMyKQs9sazVo
+         KoPSkUNVtmMma2MZSa+zh5hpNlgM416dVXAxIXXfOpGZxjVyWiQxPOsJ1s9CmW0XvxSh
+         k89I8vIBh9d3iUzBTRxiGoLJECAMhBtorXsYPhlE0/8CPK3h5gYlyyb4MdYuE9K5uyQa
+         jkgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1679937428;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ls9nZ7WlKJ5lShAgqD+7Sylwd3APCPa2spkr26tAeoc=;
+        b=OxIwD3wJ1dHfyQrU+8MO8uFTLTGYWHySectylORPqGBGE8qbujI+41lYtJR/cQU3M6
+         0DspOo4Icaiw69NyMaf5bO0Ayn+gtjs2sTQiY74tbry7Fez7yQ4tlKiJNEeTUulCtTn5
+         OfVr339Tqys7YvOfrAJm0mxtDKOzJEsF1XdKJbCBSZbuhroElHvAF+uXzhFh80rwGLKH
+         +tF/waf/s6Sk+zee5sv7XspOSpqYsLkEKN2rRdvDhEHBsC42/IPwsrtolYkCOucDpdaQ
+         xJ0o7PwipFYn+8MYGywqnLgLb71A51N//q/XwmN1j6cVv5569xKIuNG9K1jmCKyJFtE0
+         MVXA==
+X-Gm-Message-State: AAQBX9eh5QBTNzmkybwDE7B1Z0vIlo+gbNnJb6fwXETtFsHfSaI7R7is
+	i+JNBIzaRLsGwXji3HJ6VcOTHHa+kuPxeQ==
+X-Google-Smtp-Source: AKy350aEcpiU6kruIGPJ2gqEiIpsR0PyOsjBWcpCBLaHqMrwtxdmGtM5Vlgtg/rPiX4fOupt4V1u7Q==
+X-Received: by 2002:a2e:8eda:0:b0:2a0:201d:4c32 with SMTP id e26-20020a2e8eda000000b002a0201d4c32mr3621597ljl.30.1679937427997;
+        Mon, 27 Mar 2023 10:17:07 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Julien Grall <julien@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Gianluca Guida <gianluca@rivosinc.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v3 0/3] enable MMU for RISC-V
+Date: Mon, 27 Mar 2023 20:17:02 +0300
+Message-Id: <cover.1679934166.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- xen-devel@lists.xenproject.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20230327083646.18690-1-jgross@suse.com>
- <20230327083646.18690-2-jgross@suse.com>
- <59d90811-bc68-83cd-b7e5-7a8c2e2370d9@suse.com>
- <f519a2d3-6662-35a2-b295-1825924affa8@suse.com>
- <89653286-f05e-1fc1-b6bf-265b7ecaad0d@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 1/2] xen/netback: don't do grant copy across page boundary
-In-Reply-To: <89653286-f05e-1fc1-b6bf-265b7ecaad0d@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------KOZ7ZtvRb62jdp8pvjMndc9b"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------KOZ7ZtvRb62jdp8pvjMndc9b
-Content-Type: multipart/mixed; boundary="------------0kqG5uzLZQlxMAQNhuEVe4xN";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- xen-devel@lists.xenproject.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Message-ID: <f94dbfe9-f690-8c3e-c251-b0d5f93d32f9@suse.com>
-Subject: Re: [PATCH 1/2] xen/netback: don't do grant copy across page boundary
-References: <20230327083646.18690-1-jgross@suse.com>
- <20230327083646.18690-2-jgross@suse.com>
- <59d90811-bc68-83cd-b7e5-7a8c2e2370d9@suse.com>
- <f519a2d3-6662-35a2-b295-1825924affa8@suse.com>
- <89653286-f05e-1fc1-b6bf-265b7ecaad0d@suse.com>
-In-Reply-To: <89653286-f05e-1fc1-b6bf-265b7ecaad0d@suse.com>
+The patch series is based on top patches [1] and [2]
 
---------------0kqG5uzLZQlxMAQNhuEVe4xN
-Content-Type: multipart/mixed; boundary="------------AK01Xsixlkeb0Sq0830RmZ1R"
+The patch series introduces the following things:
+1. Functionality to build the page tables for Xen that map
+   link-time to physical-time location.
+2. Check that Xen is less then page size.
+3. Check that load addresses don't overlap with linker addresses.
+4. Prepare things for proper switch to virtual memory world.
+5. Load the built page table into the SATP
+6. Enable MMU.
 
---------------AK01Xsixlkeb0Sq0830RmZ1R
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+[1] https://lore.kernel.org/xen-devel/2785518800dce64fafb3096480a5ae4c4e026bcb.1678970065.git.oleksii.kurochko@gmail.com/
+[2] https://lore.kernel.org/xen-devel/7c066d6dcc0618749df04785b34b93819148087d.1678970065.git.oleksii.kurochko@gmail.com/
 
-T24gMjcuMDMuMjMgMTc6MzgsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNy4wMy4yMDIz
-IDEyOjA3LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMjcuMDMuMjMgMTE6NDksIEph
-biBCZXVsaWNoIHdyb3RlOg0KPj4+IE9uIDI3LjAzLjIwMjMgMTA6MzYsIEp1ZXJnZW4gR3Jv
-c3Mgd3JvdGU6DQo+Pj4+IEBAIC00MTMsNiArNDE4LDEzIEBAIHN0YXRpYyB2b2lkIHhlbnZp
-Zl9nZXRfcmVxdWVzdHMoc3RydWN0IHhlbnZpZl9xdWV1ZSAqcXVldWUsDQo+Pj4+ICAgIAkJ
-Y29wLT5kZXN0LnUuZ21mbiA9IHZpcnRfdG9fZ2ZuKHNrYi0+ZGF0YSArIHNrYl9oZWFkbGVu
-KHNrYikNCj4+Pj4gICAgCQkJCSAgICAgICAgICAgICAgIC0gZGF0YV9sZW4pOw0KPj4+PiAg
-ICANCj4+Pj4gKwkJLyogRG9uJ3QgY3Jvc3MgbG9jYWwgcGFnZSBib3VuZGFyeSEgKi8NCj4+
-Pj4gKwkJaWYgKGNvcC0+ZGVzdC5vZmZzZXQgKyBhbW91bnQgPiBYRU5fUEFHRV9TSVpFKSB7
-DQo+Pj4+ICsJCQlhbW91bnQgPSBYRU5fUEFHRV9TSVpFIC0gY29wLT5kZXN0Lm9mZnNldDsN
-Cj4+Pj4gKwkJCVhFTlZJRl9UWF9DQihza2IpLT5zcGxpdF9tYXNrIHw9IDFVIDw8IGNvcHlf
-Y291bnQoc2tiKTsNCj4+Pg0KPj4+IE1heWJlIHdvcnRod2hpbGUgdG8gYWRkIGEgQlVJTERf
-QlVHX09OKCkgc29tZXdoZXJlIHRvIG1ha2Ugc3VyZSB0aGlzDQo+Pj4gc2hpZnQgd29uJ3Qg
-Z3JvdyB0b28gbGFyZ2UgYSBzaGlmdCBjb3VudC4gVGhlIG51bWJlciBvZiBzbG90cyBhY2Nl
-cHRlZA0KPj4+IGNvdWxkIGNvbmNlaXZhYmx5IGJlIGdyb3duIHBhc3QgWEVOX05FVEJLX0xF
-R0FDWV9TTE9UU19NQVggKGkuZS4NCj4+PiBYRU5fTkVUSUZfTlJfU0xPVFNfTUlOKSBhdCBz
-b21lIHBvaW50Lg0KPj4NCj4+IFRoaXMgaXMgYmFzaWNhbGx5IGltcG9zc2libGUgZHVlIHRv
-IHRoZSBzaXplIHJlc3RyaWN0aW9uIG9mIHN0cnVjdA0KPj4geGVudmlmX3R4X2NiLg0KPiAN
-Cj4gSWYgaXRzIHNpemUgYmVjYW1lIGEgcHJvYmxlbSwgaXQgbWlnaHQgc2ltcGx5IHRha2Ug
-YSBsZXZlbCBvZiBpbmRpcmVjdGlvbg0KPiB0byBvdmVyY29tZSB0aGUgbGltaXRhdGlvbi4N
-Cg0KTWF5YmUuDQoNCk9UT0ggdGhpcyB3b3VsZCByZXF1aXJlIHNvbWUgcmV3b3JrLCB3aGlj
-aCBzaG91bGQgdGFrZSBzdWNoIHByb2JsZW1zIGludG8NCmNvbnNpZGVyYXRpb24uDQoNCklu
-IHRoZSBlbmQgSSdkIGJlIGZpbmUgdG8gYWRkIHN1Y2ggYSBCVUlMRF9CVUdfT04oKSwgYXMg
-dGhlIGNvZGUgaXMNCmNvbXBsaWNhdGVkIGVub3VnaCBhbHJlYWR5Lg0KDQo+IA0KPj4+PiBA
-QCAtNDIwLDcgKzQzMiw4IEBAIHN0YXRpYyB2b2lkIHhlbnZpZl9nZXRfcmVxdWVzdHMoc3Ry
-dWN0IHhlbnZpZl9xdWV1ZSAqcXVldWUsDQo+Pj4+ICAgIAkJcGVuZGluZ19pZHggPSBxdWV1
-ZS0+cGVuZGluZ19yaW5nW2luZGV4XTsNCj4+Pj4gICAgCQljYWxsYmFja19wYXJhbShxdWV1
-ZSwgcGVuZGluZ19pZHgpLmN0eCA9IE5VTEw7DQo+Pj4+ICAgIAkJY29weV9wZW5kaW5nX2lk
-eChza2IsIGNvcHlfY291bnQoc2tiKSkgPSBwZW5kaW5nX2lkeDsNCj4+Pj4gLQkJY29weV9j
-b3VudChza2IpKys7DQo+Pj4+ICsJCWlmICghc3BsaXQpDQo+Pj4+ICsJCQljb3B5X2NvdW50
-KHNrYikrKzsNCj4+Pj4gICAgDQo+Pj4+ICAgIAkJY29wKys7DQo+Pj4+ICAgIAkJZGF0YV9s
-ZW4gLT0gYW1vdW50Ow0KPj4+PiBAQCAtNDQxLDcgKzQ1NCw4IEBAIHN0YXRpYyB2b2lkIHhl
-bnZpZl9nZXRfcmVxdWVzdHMoc3RydWN0IHhlbnZpZl9xdWV1ZSAqcXVldWUsDQo+Pj4+ICAg
-IAkJCW5yX3Nsb3RzLS07DQo+Pj4+ICAgIAkJfSBlbHNlIHsNCj4+Pj4gICAgCQkJLyogVGhl
-IGNvcHkgb3AgcGFydGlhbGx5IGNvdmVyZWQgdGhlIHR4X3JlcXVlc3QuDQo+Pj4+IC0JCQkg
-KiBUaGUgcmVtYWluZGVyIHdpbGwgYmUgbWFwcGVkLg0KPj4+PiArCQkJICogVGhlIHJlbWFp
-bmRlciB3aWxsIGJlIG1hcHBlZCBvciBjb3BpZWQgaW4gdGhlIG5leHQNCj4+Pj4gKwkJCSAq
-IGl0ZXJhdGlvbi4NCj4+Pj4gICAgCQkJICovDQo+Pj4+ICAgIAkJCXR4cC0+b2Zmc2V0ICs9
-IGFtb3VudDsNCj4+Pj4gICAgCQkJdHhwLT5zaXplIC09IGFtb3VudDsNCj4+Pj4gQEAgLTUz
-OSw2ICs1NTMsMTMgQEAgc3RhdGljIGludCB4ZW52aWZfdHhfY2hlY2tfZ29wKHN0cnVjdCB4
-ZW52aWZfcXVldWUgKnF1ZXVlLA0KPj4+PiAgICAJCXBlbmRpbmdfaWR4ID0gY29weV9wZW5k
-aW5nX2lkeChza2IsIGkpOw0KPj4+PiAgICANCj4+Pj4gICAgCQluZXdlcnIgPSAoKmdvcHBf
-Y29weSktPnN0YXR1czsNCj4+Pj4gKw0KPj4+PiArCQkvKiBTcGxpdCBjb3BpZXMgbmVlZCB0
-byBiZSBoYW5kbGVkIHRvZ2V0aGVyLiAqLw0KPj4+PiArCQlpZiAoWEVOVklGX1RYX0NCKHNr
-YiktPnNwbGl0X21hc2sgJiAoMVUgPDwgaSkpIHsNCj4+Pj4gKwkJCSgqZ29wcF9jb3B5KSsr
-Ow0KPj4+PiArCQkJaWYgKCFuZXdlcnIpDQo+Pj4+ICsJCQkJbmV3ZXJyID0gKCpnb3BwX2Nv
-cHkpLT5zdGF0dXM7DQo+Pj4+ICsJCX0NCj4+Pg0KPj4+IEl0IGlzbid0IGd1YXJhbnRlZWQg
-dGhhdCBhIHNsb3QgbWF5IGJlIHNwbGl0IG9ubHkgb25jZSwgaXMgaXQ/IEFzc3VtaW5nIGEN
-Cj4+DQo+PiBJIHRoaW5rIGl0IGlzIGd1YXJhbnRlZWQuDQo+Pg0KPj4gTm8gc2xvdCBjYW4g
-Y292ZXIgbW9yZSB0aGFuIFhFTl9QQUdFX1NJWkUgYnl0ZXMgZHVlIHRvIHRoZSBncmFudHMg
-YmVpbmcNCj4+IHJlc3RyaWN0ZWQgdG8gdGhhdCBzaXplLiBUaGVyZSBpcyBubyB3YXkgaG93
-IHN1Y2ggYSBkYXRhIHBhY2tldCBjb3VsZCBjcm9zcw0KPj4gMiBwYWdlIGJvdW5kYXJpZXMu
-DQo+Pg0KPj4gSW4gdGhlIGVuZCB0aGUgcHJvYmxlbSBpc24ndCB0aGUgY29waWVzIGZvciB0
-aGUgbGluZWFyIGFyZWEgbm90IGNyb3NzaW5nDQo+PiBtdWx0aXBsZSBwYWdlIGJvdW5kYXJp
-ZXMsIGJ1dCB0aGUgY29waWVzIGZvciBhIHNpbmdsZSByZXF1ZXN0IHNsb3Qgbm90DQo+PiBk
-b2luZyBzby4gQW5kIHRoaXMgY2FuJ3QgaGFwcGVuIElNTy4NCj4gDQo+IFlvdSdyZSB0aGlu
-a2luZyBvZiBvbmx5IHdlbGwtZm9ybWVkIHJlcXVlc3RzLiBXaGF0IGFib3V0IHNhaWQgcmVx
-dWVzdA0KPiBwcm92aWRpbmcgYSBsYXJnZSBzaXplIHdpdGggb25seSB0aW55IGZyYWdtZW50
-cz8geGVudmlmX2dldF9yZXF1ZXN0cygpDQo+IHdpbGwgaGFwcGlseSBwcm9jZXNzIHN1Y2gs
-IGNyZWF0aW5nIGJvZ3VzIGdyYW50LWNvcHkgb3BzLiBCdXQgdGhlbSBmYWlsaW5nDQo+IG9u
-Y2Ugc3VibWl0dGVkIHRvIFhlbiB3aWxsIGJlIG9ubHkgYWZ0ZXIgZGFtYWdlIG1heSBhbHJl
-YWR5IGhhdmUgb2NjdXJyZWQNCj4gKGZyb20gYm9ndXMgdXBkYXRlcyBvZiBpbnRlcm5hbCBz
-dGF0ZTsgdGhlIGxvZ2ljIGFsdG9nZXRoZXIgaXMgdG9vDQo+IGludm9sdmVkIGZvciBtZSB0
-byBiZSBjb252aW5jZWQgdGhhdCBub3RoaW5nIGJhZCBjYW4gaGFwcGVuKS4NCg0KVGhlcmUg
-YXJlIHNhbml0eSBjaGVja3MgYWZ0ZXIgZWFjaCByZWxldmFudCBSSU5HX0NPUFlfUkVRVUVT
-VCgpIGNhbGwsIHdoaWNoDQp3aWxsIGJhaWwgb3V0IGlmICIodHhwLT5vZmZzZXQgKyB0eHAt
-PnNpemUpID4gWEVOX1BBR0VfU0laRSIgKHRoZSBmaXJzdCBvbmUNCmlzIGFmdGVyIHRoZSBj
-YWxsIG9mIHhlbnZpZl9jb3VudF9yZXF1ZXN0cygpLCBhcyB0aGlzIGNhbGwgd2lsbCBkZWNy
-ZWFzZSB0aGUNCnNpemUgb2YgdGhlIHJlcXVlc3QsIHRoZSBvdGhlciBjaGVjayBpcyBpbiB4
-ZW52aWZfY291bnRfcmVxdWVzdHMoKSkuDQoNCj4gSW50ZXJlc3RpbmdseSAoYXMgSSByZWFs
-aXplIG5vdykgdGhlIHNoaWZ0cyB5b3UgYWRkIGFyZSBub3QgYmUgYXQgcmlzayBvZg0KPiB0
-dXJuaW5nIFVCIGluIHRoaXMgY2FzZSwgYXMgdGhlIHNoaWZ0IGNvdW50IHdvbid0IGdvIGJl
-eW9uZCAxNi4NCj4gDQo+Pj4gbmVhci02NGsgcGFja2V0IHdpdGggYWxsIHRpbnkgbm9uLXBy
-aW1hcnkgc2xvdHMsIHRoYXQnbGwgY2F1c2UgdGhvc2UgdGlueQ0KPj4+IHNsb3RzIHRvIGFs
-bCBiZSBtYXBwZWQsIGJ1dCBkdWUgdG8NCj4+Pg0KPj4+IAkJaWYgKHJldCA+PSBYRU5fTkVU
-QktfTEVHQUNZX1NMT1RTX01BWCAtIDEgJiYgZGF0YV9sZW4gPCB0eHJlcS5zaXplKQ0KPj4+
-IAkJCWRhdGFfbGVuID0gdHhyZXEuc2l6ZTsNCj4+Pg0KPj4+IHdpbGwsIGFmYWljdCwgY2F1
-c2UgYSBsb3Qgb2YgY29weWluZyBmb3IgdGhlIHByaW1hcnkgc2xvdC4gVGhlcmVmb3JlIEkN
-Cj4+PiB0aGluayB5b3UgbmVlZCBhIGxvb3AgaGVyZSwgbm90IGp1c3QgYW4gaWYoKS4gUGx1
-cyB0eF9jb3B5X29wc1tdJ2VzDQo+Pj4gZGltZW5zaW9uIGFsc28gbG9va3MgdG8gbmVlZCBm
-dXJ0aGVyIGdyb3dpbmcgdG8gYWNjb21tb2RhdGUgdGhpcy4gT3INCj4+PiBtYXliZSBub3Qg
-LSBhdCBsZWFzdCB0aGUgZXh0cmVtZSBleGFtcGxlIGdpdmVuIHdvdWxkIHN0aWxsIGJlIGZp
-bmU7IG1vcmUNCj4+PiBnZW5lcmFsbHkgcGFja2V0cyBiZWluZyBsaW1pdGVkIHRvIGJlbG93
-IDY0ayBtZWFucyAyKjE2IHNsb3RzIHdvdWxkDQo+Pj4gc3VmZmljZSBhdCBvbmUgZW5kIG9m
-IHRoZSBzY2FsZSwgd2hpbGUgMipNQVhfUEVORElOR19SRVFTIHdvdWxkIGF0IHRoZQ0KPj4+
-IG90aGVyIGVuZCAoYWxsIHRpbnksIGluY2x1ZGluZyB0aGUgcHJpbWFyeSBzbG90KS4gV2hh
-dCBJIGhhdmVuJ3QgZnVsbHkNCj4+PiBjb252aW5jZWQgbXlzZWxmIG9mIGlzIHdoZXRoZXIg
-dGhlcmUgbWlnaHQgYmUgY2FzZXMgaW4gdGhlIG1pZGRsZSB3aGljaA0KPj4+IGFyZSB5ZXQg
-d29yc2UuDQo+Pg0KPj4gU2VlIGFib3ZlIHJlYXNvbmluZy4gSSB0aGluayBpdCBpcyBva2F5
-LCBidXQgbWF5YmUgSSdtIG1pc3Npbmcgc29tZXRoaW5nLg0KPiANCj4gV2VsbCwgdGhlIG1h
-aW4gdGhpbmcgSSdtIG1pc3NpbmcgaXMgYSAicHJpbWFyeSByZXF1ZXN0IGZpdHMgaW4gYSBw
-YWdlIg0KPiBjaGVjaywgZXZlbiBtb3JlIHNvIHdpdGggdGhlIG5ldyBjb3B5aW5nIGxvZ2lj
-IHRoYXQgdGhlIGNvbW1pdCByZWZlcmVuY2VkDQo+IGJ5IEZpeGVzOiBpbnRyb2R1Y2VkIGlu
-dG8geGVudmlmX2dldF9yZXF1ZXN0cygpLg0KDQpXaGVuIHhlbnZpZl9nZXRfcmVxdWVzdHMo
-KSBnZXRzIGNhbGxlZCwgYWxsIHJlcXVlc3RzIGFyZSBzYW5pdHkgY2hlY2tlZA0KYWxyZWFk
-eSAobm90ZSB0aGF0IHhlbnZpZl9nZXRfcmVxdWVzdHMoKSBpcyB3b3JraW5nIG9uIHRoZSBs
-b2NhbCBjb3BpZXMgb2YNCnRoZSByZXF1ZXN0cykuDQoNCg0KSnVlcmdlbg0K
---------------AK01Xsixlkeb0Sq0830RmZ1R
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+---
+Changes in V3:
+  * Update the cover letter message: the patch series isn't depend on
+    [ RISC-V basic exception handling implementation ] as it was decied
+    to enable MMU before implementation of exception handling. Also MMU
+    patch series is based on two other patches which weren't merged [1]
+    and [2]
+  - Update the commit message for [ [PATCH v3 1/3]
+    xen/riscv: introduce setup_initial_pages ].
+  - update definition of pte_t structure to have a proper size of pte_t in case of RV32.
+  - update asm/mm.h with new functions and remove unnecessary 'extern'.
+  - remove LEVEL_* macros as only XEN_PT_LEVEL_* are enough.
+  - update paddr_to_pte() to receive permissions as an argument.
+  - add check that map_start & pa_start is properly aligned.
+  - move  defines PAGETABLE_ORDER, PAGETABLE_ENTRIES, PTE_PPN_SHIFT to <asm/page-bits.h>
+  - Rename PTE_SHIFT to PTE_PPN_SHIFT
+  - refactor setup_initial_pagetables: map all LINK addresses to LOAD addresses and after
+    setup PTEs permission for sections; update check that linker and load addresses don't
+    overlap.
+  - refactor setup_initial_mapping: allocate pagetable 'dynamically' if it is necessary.
+  - rewrite enable_mmu in C; add the check that map_start and pa_start are aligned on 4k
+    boundary.
+  - update the comment for setup_initial_pagetable funcion
+  - Add RV_STAGE1_MODE to support different MMU modes.
+  - update the commit message that MMU is also enabled here
+  - set XEN_VIRT_START very high to not overlap with load address range
+  - align bss section
+---
+Changes in V2:
+  * Remove {ZEROETH,FIRST,...}_{SHIFT,MASK, SIZE,...} and
+    introduce instead of them XEN_PT_LEVEL_*() and LEVEL_*
+  * Rework pt_linear_offset() and pt_index based on  XEN_PT_LEVEL_*()
+  * Remove clear_pagetables() functions as pagetables were zeroed during
+    .bss initialization
+  * Rename _setup_initial_pagetables() to setup_initial_mapping()
+  * Make PTE_DEFAULT equal to RX.
+  * Update prototype of setup_initial_mapping(..., bool writable) -> 
+    setup_initial_mapping(..., UL flags)  
+  * Update calls of setup_initial_mapping according to new prototype
+  * Remove unnecessary call of:
+    _setup_initial_pagetables(..., load_addr_start, load_addr_end, load_addr_start, ...)
+  * Define index* in the loop of setup_initial_mapping
+  * Remove attribute "__attribute__((section(".entry")))" for setup_initial_pagetables()
+    as we don't have such section
+  * make arguments of paddr_to_pte() and pte_is_valid() as const.
+  * use <xen/kernel.h> instead of declaring extern unsigned long _stext, 0etext, _srodata, _erodata
+  * update  'extern unsigned long __init_begin' to 'extern unsigned long __init_begin[]'
+  * use aligned() instead of "__attribute__((__aligned__(PAGE_SIZE)))"
+  * set __section(".bss.page_aligned") for page tables arrays
+  * fix identatations
+  * Change '__attribute__((section(".entry")))' to '__init'
+  * Remove alignment  of {map, pa}_start &= XEN_PT_LEVEL_MAP_MASK(0); in
+    setup_inital_mapping() as they should be already aligned.
+  * Remove clear_pagetables() as initial pagetables will be
+    zeroed during bss initialization
+  * Remove __attribute__((section(".entry")) for setup_initial_pagetables()
+    as there is no such section in xen.lds.S
+  * Update the argument of pte_is_valid() to "const pte_t *p"
+  * Remove patch "[PATCH v1 3/3] automation: update RISC-V smoke test" from the patch series
+    as it was introduced simplified approach for RISC-V smoke test by Andrew Cooper
+  * Add patch [[xen/riscv: remove dummy_bss variable] as there is no any sense in
+    dummy_bss variable after introduction of inittial page tables.
+---
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Oleksii Kurochko (3):
+  xen/riscv: introduce setup_initial_pages
+  xen/riscv: setup initial pagetables
+  xen/riscv: remove dummy_bss variable
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+ xen/arch/riscv/Makefile                |   1 +
+ xen/arch/riscv/include/asm/config.h    |  15 +-
+ xen/arch/riscv/include/asm/mm.h        |   9 +
+ xen/arch/riscv/include/asm/page-bits.h |  10 +
+ xen/arch/riscv/include/asm/page.h      |  62 ++++++
+ xen/arch/riscv/mm.c                    | 277 +++++++++++++++++++++++++
+ xen/arch/riscv/riscv64/head.S          |   2 +
+ xen/arch/riscv/setup.c                 |  22 +-
+ xen/arch/riscv/xen.lds.S               |   3 +
+ 9 files changed, 392 insertions(+), 9 deletions(-)
+ create mode 100644 xen/arch/riscv/include/asm/mm.h
+ create mode 100644 xen/arch/riscv/include/asm/page.h
+ create mode 100644 xen/arch/riscv/mm.c
 
---------------AK01Xsixlkeb0Sq0830RmZ1R--
+-- 
+2.39.2
 
---------------0kqG5uzLZQlxMAQNhuEVe4xN--
-
---------------KOZ7ZtvRb62jdp8pvjMndc9b
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQhwrQFAwAAAAAACgkQsN6d1ii/Ey8o
-7Qf/UNv6jyUJtB5UZE4sBvosfP6HG1LYaUFg5CY7KhDu74n8270KFyOj3G8TYc7aaobr3u8MvWOS
-5V6fKu+/6VtBTtaoNKeqyTSstlwYjr6Cmp3B3cPQph5Mtfmrq4qrcKuHtGM5knaYCHvQisRybCYf
-CnJ0CUGqns4XgqpJHLe0fNnp0CheYTkMujuVG/xhAlPiJnYcgwxYiTyQL4FqUFlRz5q11oYOR/iY
-vEThuwSI4Q5saiXCJLuHgU6hSJd0arwDiajoP+joFPI8XLBtL2VDZrirj6voPawPVeLIoUm6bypi
-YiK8rfr9H7qj1NGEwYZx40N4XLVflSnYot4A+MzmxA==
-=idtz
------END PGP SIGNATURE-----
-
---------------KOZ7ZtvRb62jdp8pvjMndc9b--
 
