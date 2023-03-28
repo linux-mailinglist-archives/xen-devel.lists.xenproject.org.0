@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99A566CC2C6
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 16:48:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515913.799273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CCE96CC2F5
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 16:50:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515919.799282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phAcT-0005i3-R0; Tue, 28 Mar 2023 14:48:17 +0000
+	id 1phAdv-0006Pc-9B; Tue, 28 Mar 2023 14:49:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515913.799273; Tue, 28 Mar 2023 14:48:17 +0000
+Received: by outflank-mailman (output) from mailman id 515919.799282; Tue, 28 Mar 2023 14:49:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phAcT-0005fb-Nd; Tue, 28 Mar 2023 14:48:17 +0000
-Received: by outflank-mailman (input) for mailman id 515913;
- Tue, 28 Mar 2023 14:48:15 +0000
+	id 1phAdv-0006MR-6R; Tue, 28 Mar 2023 14:49:47 +0000
+Received: by outflank-mailman (input) for mailman id 515919;
+ Tue, 28 Mar 2023 14:49:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6aKL=7U=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1phAcR-0005fV-Qq
- for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 14:48:15 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on0626.outbound.protection.outlook.com
- [2a01:111:f400:fe1e::626])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90f27e36-cd77-11ed-b464-930f4c7d94ae;
- Tue, 28 Mar 2023 16:48:13 +0200 (CEST)
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
- by DU2PR04MB8936.eurprd04.prod.outlook.com (2603:10a6:10:2e3::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Tue, 28 Mar
- 2023 14:48:12 +0000
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::4189:2d2a:eb83:5965]) by AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::4189:2d2a:eb83:5965%3]) with mapi id 15.20.6222.030; Tue, 28 Mar 2023
- 14:48:11 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=B75i=7U=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1phAdt-0006MJ-HD
+ for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 14:49:45 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c5133a99-cd77-11ed-b464-930f4c7d94ae;
+ Tue, 28 Mar 2023 16:49:41 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id A57435C012B;
+ Tue, 28 Mar 2023 10:49:40 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Tue, 28 Mar 2023 10:49:40 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 28 Mar 2023 10:49:39 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,119 +43,459 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90f27e36-cd77-11ed-b464-930f4c7d94ae
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mngg55R+igaRtMd9gTVp7PofMk39IdBtWH9aaPqnfpSkl+S9aXIyEjPmk5LWiXUQpDS0ERNJsVnho/W2u1WolAWtJaLl2EmSpzR8AbKNYVj4I1OA+cY6VbQi+gZpePHg8YlhOr/BKR2usdXdBd6kDrA3mMYxPfcLnyLMh8r0JoDFjsIFJPyXOS6BYWEGrc11tS11QzpSjSyDOw9pCibqD2kNZKNxsTw159cp+IrUrVlQm9sHQ0LIc6rEiPbUVSYt8qCPxXwSwHFhrgtP8J92tH2mmh1oM+Lo8tMysVgrOfc2lYK+ZoOPRhxUHXNWcy/UBYa5HobM/S9c+aN+jHKdyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5UIawk3+xYUwRZCBPDDulIciXc9qVGYaLjQgqgvF/qA=;
- b=QdjzNtLAcOGTf4fCMmoeosusNQY4k2ITT2kHofohnXcoc1XHGisro4vD7qNo+nEYFx2OqC9qHSkYdSmE91TUqyH1hfu8uwSgIUjMDFrOg6mO4Lhgm4kqMqOH4mma1tUbVNrueSUh9e193qUZQ4FNueWn6hPOZ5bv0PT/1WBBGkWy2cnCjI49UwCdVhc4Du/EhBaWDJpHzPgRRvVbmR2UhFqMS1I8VUzhhKtwv4wszssOzml55QoEZBl4kRK3FTbGFHj0ZRSHHLeD52IqWmIiNjvwI88iDTYVqx+2+u3zA69PLxovQt7kA10LVOzO3IzthC9yAeMvjRZNHb14AAnheQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5UIawk3+xYUwRZCBPDDulIciXc9qVGYaLjQgqgvF/qA=;
- b=rLvofGJKuKSpexyDScaGnPUISuKjveoAXbsB/ZLdzlr5mn0dW5McOi6FcZednjxJiliXB0u/PD3oRMe6PfFC1aYtHmNUAKm3gtMo58Gd+vXXZEyr0xX56xmAMlQ32B2EwnO8dNJ84e76/Mfb3lsEuWe/6VSoyv/dHFq/R+lkKERV4LlpU/j4LVPifOAtsz1+DiZ+2lXbDpV71lMtkHIRpnW8gA+3SF3IVPVQ5g0lJ7WgXDaLHHgJtB79wZaZMkIQvGx6/k76e3Abgv9ZIHUnQujcEP5r39x9RvfPLzAI9P6iC8ES3IEJABYu3aGEsSvrvkobWe52hDWFb0UJX45OFg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <40d58ac1-d0bb-afed-c0ae-c545c7bff30c@suse.com>
-Date: Tue, 28 Mar 2023 16:48:10 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH v2 0/8] x86emul: a few small steps towards disintegration
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <7f5287ad-8442-6c53-d513-f9a8345c4857@suse.com>
- <ZCL3W/HrwLANuE/0@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZCL3W/HrwLANuE/0@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0136.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:96::10) To AM6PR04MB6551.eurprd04.prod.outlook.com
- (2603:10a6:20b:fa::20)
+X-Inumbo-ID: c5133a99-cd77-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1680014980; x=1680101380; bh=wnn0gOpdKskpRCNkgRumtSecj850TAhpnzA
+	fX7/J51E=; b=E7/NqVVMsIkR2ynhI0NtM5+Rz1/OGIsvHihj4OB52DysIWzM+eA
+	E5DZ/ySmPWDubT+ZaFwIKdHArtx7HPoOhc/syOv7a+PedlfcZqp1MeRTsCBNy1uZ
+	5JANZwNXoqC47BJwk7nyGZeHGXhNJM3HIkn2JOtWa6mKIS0h92ymuSBAyuPc9fOa
+	wjJ4IOm9BHBWfHCl7xaVycQf7ZUvQs75mwp0iTnrwG4ch85w+lkLush+3BSZC2E/
+	2/EG+zlGM6TkWoLehPK7+N69DMAPycpf4+ohNhdaIq5STyuq7rIRhFQ7QdKD2cjd
+	4O7gjYlp+1d0sLMpOgKyhq4I3FuFTJoVMug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1680014980; x=1680101380; bh=wnn0gOpdKskpR
+	CNkgRumtSecj850TAhpnzAfX7/J51E=; b=C85Z/rVG3pMmeTA5Bubq80S3/sfZ5
+	fQbkQ1WhULjp9DDibRdjYMjImNeny6btMc8lVc8AuYNenfvlCwYsil346d6d6s8Z
+	LPeXD5vOH+zrMyLApn1UC3Yfund5Ppt5jjmm/7ctDuwoGNQU6H9EBzCS5BWR1Z0W
+	UhnTmoHzlCxdqO7hl5g2X8ycXfeT2ufNiPKHtlqTVolRU2FFeGyFlVueL1FCi1uV
+	1CldTJ0mY0hTpCno+2yJZ8dyZt1jSwRnNLMRP1kVvEUN+0cZPFDb9047kFGCawVM
+	5L9bODhdjjyMvfEwyiYuSvadXKMbXZiCTtBBwvzeckDYiLHMCfpQnrIYg==
+X-ME-Sender: <xms:hP4iZAgt16H6x_rGYVznY1Od0OXs7vK79FRWob4OP3nLe1YlbBXyGQ>
+    <xme:hP4iZJB4afbTLf4M7Abys65uHjS5jojeXKoXIpInm7Ol8WM17p1sFKpgA5UdpzCEP
+    zfergTvaFSNQg>
+X-ME-Received: <xmr:hP4iZIENWql89xBl7dX4rYBOMuV05Dv5KgtAQgQzWcW4boxG1rdLxM5ZTN81e4_i3RfqZPGaeO6wtp1a62laVhLCrviHg2CBa0k>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdehgedgkeduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:hP4iZBQSSZnlD-gmscNtAd3ARVZTM_hfku3T6uG3WntA7DLaAKFSsw>
+    <xmx:hP4iZNxuDilKpR7BOhs8TWJvWqmKaM_SIb1CmxjkF3htJJ2_JAv0cg>
+    <xmx:hP4iZP53de6sQsLEM23S5e029W_E6Z8Q0nCSFSmQfsiT3fK9E8yjCg>
+    <xmx:hP4iZF-fCbKt61rP4UkBuwWnO8Wa-lBZgtuobIR_jrU69lugdCPBXw>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 28 Mar 2023 16:49:36 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/2] x86/mm: add API for marking only part of a MMIO page
+ read only
+Message-ID: <ZCL+gCQrUc2lUf1A@mail-itl>
+References: <cover.0fffd3f3080b5eeb8d22126eda6088734bb0c926.1679911575.git-series.marmarek@invisiblethingslab.com>
+ <f5381e06d92cccf9756ad00fd77f82fba98a9d80.1679911575.git-series.marmarek@invisiblethingslab.com>
+ <ZCLz/2QeoMVyOej8@Air-de-Roger>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|DU2PR04MB8936:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6bb2683b-c230-4518-66a3-08db2f9b741c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	fR73QbNk0Mj9V/O5IwNgYc4ndcjA8nlxgn+fngI544Ghj5y+6rZL8xSptArQ2dLHY/5ERXt/Ri26kecbHMikDcJD/UYQ3DZRKXedq90RtgRF5mgBTGrBIfTkAxtIxLl2bEayU2WZMsJ3r048cmuPQnOwMeenZzZNEOOpRH0DricdtN1pNWtxJGDL2mhpTyab+DGp4RwHWP2jBafeQDE8A4bk5lAH2YcJaviS1Yk1ZAt4tlWL1hq5vM/iEoZ4KMk7HR9y3zYEJU3335Za3CX7T7e9P603cVlrsVuDu7vgnzMKRO7TXGtNB/wsWnpepg0MjPYYhEQGb82oV2BNaRDHeclU9RKIkU2/rhicwQbPDRrz3a0fXpMZrV2qqMDJpI0mnIssW5JO9rnaWMbYwQ76ykC3yCdMJUfpjXGU2PWe6K/bXbRM+QKSMZs4AN6H3c/gyzg+Tq5lzP6vXp+6feTbu+knlJyzYYPAAXGF9PqcWnkbi0dII0exctqEEJP8h+bH7FqitGis+VcDiLBcM9XHqNlZKBA56oCWwLLBMI60sHK+5Z5XFoMNT3C7G46AH9ps/6fowfV3OnJgRROszoQsBxFalkK2uwPVe7f7rAseDPDTNSwZu3NnQbDpNERzzXMTH4TB2QjNiyIWqr7UA+HQ0Q==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(366004)(376002)(39860400002)(396003)(346002)(451199021)(31686004)(36756003)(186003)(6512007)(53546011)(41300700001)(6506007)(26005)(83380400001)(2616005)(8676002)(4326008)(5660300002)(66556008)(66946007)(66476007)(6916009)(316002)(54906003)(8936002)(4744005)(478600001)(38100700002)(2906002)(6486002)(86362001)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cjB1OHhyUHFSc20xRWFWV3JxUTFSVUk0S3J2aTZsT201RzRSazhoSVFpRGNp?=
- =?utf-8?B?QkdCaVRRMlIyODg2ZHZwR1ZoY2wwb3pYY0RZcWlxRG5aMXlZdVdMWDhONTdo?=
- =?utf-8?B?RnFhSm1zQW5tWjNaRks0ZzZKZ0luZ3dpOFpTSFAySkJvVmF3RnJJSldxUGg4?=
- =?utf-8?B?T0puY0U2YTFWM1kwc1ZUc3VuRWlZaDNaQm1nRlQvRnVJSi9YcTArUzk4cXBD?=
- =?utf-8?B?c2tsQ1dpK2ZXbHYvUmltNS9sOHU0dDN3blpnL01Xdkt6VVhwaEs2UHlVM001?=
- =?utf-8?B?YndKS05NTFgrWlp4WXFnblZHSTBZU2dsQVBxalNwbnRWTXdrSHp6SHVOUjBy?=
- =?utf-8?B?RWVRbktLWDZOcjl0bUR4ejY3TmV6UTg2SkV3L0dvMDkwcy9MSUlpbis0bU9n?=
- =?utf-8?B?L01zL2pDOUhvYVc0c2tSemFlWTNlMHc1YWloQklPRndxU2ZYOTZ3SHpna2NU?=
- =?utf-8?B?TFNsS216MW5va2RqRmduUHNzVVA0RlJ3V3BiSysyU3VHS0NwNWxCbmxqWUxJ?=
- =?utf-8?B?MFZDaHNrOVJ2R1JNUFdTVkY3Y3ppeFdEcHBhYkxvd2NhNHJac2NPZTk3aUhv?=
- =?utf-8?B?Ly9SbzJ4NGs2TEU0R0JmdVE5QTBYWjJjT1JVV3dUWk5XclBZYU51NjJmTHIv?=
- =?utf-8?B?R2phek5jYUZFaXpORHkreENBVnRteUtUamlRcWdvbmh6QVFOS05XR001QVB1?=
- =?utf-8?B?N3ZWUFgxUk5YRlk2Unp2OE9wdVo5TC9qM0JaTmFFREc4eU91aTZtMWcxWUxM?=
- =?utf-8?B?bzVHZ1BYelF3TFRMb1pVMHp3MFNmK0NpQkc1ektnS1JkVmh3WElYMmUxUCtD?=
- =?utf-8?B?UUg0bVpaYlk5V3Zva3FsS3ZBOXBGc2xQVkphTGo1eGlRb0RpRm8wdEJHSHlY?=
- =?utf-8?B?aUI0RmFuSDBXakJrazh1TVBrcXJIUi9YTTRFTzVWeGJEMEdVaytKUmtObWk4?=
- =?utf-8?B?UDZJait2T1Q5N2p3M1QrTVdPZ3ZYcmRpWkNEdUlrRll5WTBCQ3YxVzNLa0Zy?=
- =?utf-8?B?SEdsSXZEM0VLNE5GN29TRWdYSUpvdFVpRXdKVk1LaW05RFViaVpNZ0JCQ2px?=
- =?utf-8?B?RnJsNjlWdWlSc3RGTzZqOFUveTA4Uk52dFhJTzVWbWFLMXhqdFRhckhzL09C?=
- =?utf-8?B?VFNXTDIyZ3AwRWp2STV4SGF3SEk0Z3ZCd0ZWNFdyVDBwbkNHbWZSQjJ2WXF6?=
- =?utf-8?B?ZkJWZEpmakJOQXFaMFpNaUZ5UXBhMDArUmRWUGFydGl6UG5sTVkwTHZOOXAz?=
- =?utf-8?B?RkJWaEV0bXBrbUxleWpzc0pzcVBNS0VyeVkrTTNONFZOTzlmdXlEQlpId2Ju?=
- =?utf-8?B?RXduSXo0T1JXK3A0SCtPQ0Z2OUhQNW9BNHo3YWd3bHFmVEF3ckdVRUYrRXJG?=
- =?utf-8?B?T1VzL1BKZlBYNFVtcmk0Mk5hVmdkM2xWZElCdTNDVlZzd1U1OFVFdGpaNlhF?=
- =?utf-8?B?ZWZGVVVKV0dhZW0rVlIzLzFXVUMvUXVOekgzNjQrMVU1YS8zZU8zTFlBRnZv?=
- =?utf-8?B?cEc3SWEyVkFWV3psTFNta2hVSzRjVTRtTzdDSzZFbTg3VmpySEpPaTYyOGJV?=
- =?utf-8?B?NzFjYXJ0cWpNaFRYaEhtY2FhSzBzZHprMTh3VnZ0eVF3TGFnTlZxM242czl0?=
- =?utf-8?B?WmVFTnMxd3VjVW1RSG1vSzZSOEplRXoyRTdacGFsRkhsQUZCRDhESDB1UENn?=
- =?utf-8?B?cms3Qmg0Z2hpVy9taUVKaXB4UWtGV051cTErM0UzazhmT1NidFQyWUJBZis3?=
- =?utf-8?B?cjJTN3BwekZEZjV6dWx1Um5aWDJGZUJJVEkvZ2NsVXNodThjMWRXRjVQV051?=
- =?utf-8?B?QlN1TlpFMkZrbS9WMU0zejlSSG5DQUNVRFU5TEY2SlMwQ0ErOWkzM05acWQ3?=
- =?utf-8?B?TnF4cGZvTzcyTGRRaHpJWjhOMGJpMkxLZ2hISGJuVEJmbU1YdFI1ZmFpVTlJ?=
- =?utf-8?B?SCtXVkxOVHBQUkJaZkgxUEFQOGFFYXpBeWlEaEFud2Zwb2xkUWMzaGZySUEy?=
- =?utf-8?B?bGlmc3ByRUI4UU5mb0ZIczJyeHBPVWJNVUxxNGJxQUp2QjV6MTZLelZEeHNB?=
- =?utf-8?B?NVRsT3loOTRWd3ZZUkNidlJkeDkxRGJpbmlvZGJ4WHRGcGN5ZzdBRzNzNnZK?=
- =?utf-8?Q?cvz76B0f6+hpnYfKEKZSCnwRk?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bb2683b-c230-4518-66a3-08db2f9b741c
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 14:48:11.8795
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e/mnkpGAJuRQ3/4CcLp7A84Gef6arPn1RdDMGAFbrdCcR6gndjtr1l2K0lHQmRMdKYIsNjfzIBxJTqPfgH0jPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8936
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="VITwGu5IVH8xZkDz"
+Content-Disposition: inline
+In-Reply-To: <ZCLz/2QeoMVyOej8@Air-de-Roger>
 
-On 28.03.2023 16:19, Roger Pau Monné wrote:
-> On Wed, Jun 15, 2022 at 11:57:54AM +0200, Jan Beulich wrote:
->> ... of the huge monolithic source file. The series is largely code
->> movement and hence has the intention of not incurring any functional
->> change.
-> 
-> I take the intention is to make code simpler and easier to follow by
-> splitting it up into smaller files?
 
-Well, I can't say yes or no to "simpler" or "easier to follow", but
-splitting is the goal, in the hope that these may end up as a side
-effects. There's always the risk that scattering things around may
-also make things less obvious. My main motivation, however, is the
-observation that this huge source file alone consumes a fair part
-of (non-parallelizable) build time. To the degree that with older
-gcc building this one file takes ten (or so) times as long as the
-entire rest of the hypervisor.
+--VITwGu5IVH8xZkDz
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Mar 2023 16:49:36 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/2] x86/mm: add API for marking only part of a MMIO page
+ read only
 
-Jan
+On Tue, Mar 28, 2023 at 04:04:47PM +0200, Roger Pau Monn=C3=A9 wrote:
+> On Mon, Mar 27, 2023 at 12:09:15PM +0200, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > In some cases, only few registers on a page needs to be write-protected.
+> > Examples include USB3 console (64 bytes worth of registers) or MSI-X's
+> > PBA table (which doesn't need to span the whole table either).
+> > Current API allows only marking whole pages pages read-only, which
+> > sometimes may cover other registers that guest may need to write into.
+> >=20
+> > Currently, when a guest tries to write to an MMIO page on the
+> > mmio_ro_ranges, it's either immediately crashed on EPT violation - if
+> > that's HVM, or if PV, it gets #PF. In case of Linux PV, if access was
+> > from userspace (like, /dev/mem), it will try to fixup by updating page
+> > tables (that Xen again will force to read-only) and will hit that #PF
+> > again (looping endlessly). Both behaviors are undesirable if guest could
+> > actually be allowed the write.
+> >=20
+> > Introduce an API that allows marking part of a page read-only. Since
+> > sub-page permissions are not a thing in page tables, do this via
+> > emulation (or simply page fault handler for PV) that handles writes that
+> > are supposed to be allowed. Those writes require the page to be mapped
+> > to Xen, so subpage_mmio_ro_add() function takes fixmap index of the
+> > page. The page needs to be added to mmio_ro_ranges, first anyway.
+> > Sub-page ranges are stored using rangeset for each added page, and those
+> > pages are stored on a plain list (as there isn't supposed to be many
+> > pages needing this precise r/o control).
+>=20
+> Since mmio_ro_ranges is x86 only, it is possible to mutate
+> it to track address ranges instead of page frames.  The current type
+> is unsigned long, so that should be fine, and would avoid having to
+> create a per-page rangeset to just track offsets.
+
+I was thinking about it, but rangeset doesn't allow attaching extra data
+(fixmap index, or mapped address as you propose with ioremap()).
+Changing all the places where mmio_ro_ranges is used will be a bit
+tedious, but that isn't really a problem.
+
+> > The mechanism this API is plugged in is slightly different for PV and
+> > HVM. For both paths, it's plugged into mmio_ro_emulated_write(). For PV,
+> > it's already called for #PF on read-only MMIO page. For HVM however, EPT
+> > violation on p2m_mmio_direct page results in a direct domain_crash().
+> > To reach mmio_ro_emulated_write(), change how write violations for
+> > p2m_mmio_direct are handled - specifically, treat them similar to
+> > p2m_ioreq_server. This makes relevant ioreq handler being called,
+> > that finally end up calling mmio_ro_emulated_write().
+> > Both of those paths need an MFN to which guest tried to write (to check
+> > which part of the page is supposed to be read-only, and where
+> > the page is mapped for writes). This information currently isn't
+> > available directly in mmio_ro_emulated_write(), but in both cases it is
+> > already resolved somewhere higher in the call tree. Pass it down to
+> > mmio_ro_emulated_write() via new mmio_ro_emulate_ctxt.mfn field.
+> >=20
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > ---
+> > Shadow mode is not tested, but I don't expect it to work differently th=
+an
+> > HAP in areas related to this patch.
+> > The used locking should make it safe to use similar to mmio_ro_ranges,
+> > but frankly the only use (introduced in the next patch) could go without
+> > locking at all, as subpage_mmio_ro_add() is called only before any
+> > domain is constructed and subpage_mmio_ro_remove() is never called.
+> > ---
+> >  xen/arch/x86/hvm/emulate.c      |   2 +-
+> >  xen/arch/x86/hvm/hvm.c          |   3 +-
+> >  xen/arch/x86/include/asm/mm.h   |  22 ++++-
+> >  xen/arch/x86/mm.c               | 181 ++++++++++++++++++++++++++++++++=
++-
+> >  xen/arch/x86/pv/ro-page-fault.c |   1 +-
+> >  5 files changed, 207 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
+> > index 95364deb1996..311102724dea 100644
+> > --- a/xen/arch/x86/hvm/emulate.c
+> > +++ b/xen/arch/x86/hvm/emulate.c
+> > @@ -2733,7 +2733,7 @@ int hvm_emulate_one_mmio(unsigned long mfn, unsig=
+ned long gla)
+> >          .write      =3D mmio_ro_emulated_write,
+> >          .validate   =3D hvmemul_validate,
+> >      };
+> > -    struct mmio_ro_emulate_ctxt mmio_ro_ctxt =3D { .cr2 =3D gla };
+> > +    struct mmio_ro_emulate_ctxt mmio_ro_ctxt =3D { .cr2 =3D gla, .mfn =
+=3D _mfn(mfn) };
+> >      struct hvm_emulate_ctxt ctxt;
+> >      const struct x86_emulate_ops *ops;
+> >      unsigned int seg, bdf;
+> > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> > index d326fa1c0136..f1c928e3e4ee 100644
+> > --- a/xen/arch/x86/hvm/hvm.c
+> > +++ b/xen/arch/x86/hvm/hvm.c
+> > @@ -1942,7 +1942,8 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsign=
+ed long gla,
+> >       */
+> >      if ( (p2mt =3D=3D p2m_mmio_dm) ||
+> >           (npfec.write_access &&
+> > -          (p2m_is_discard_write(p2mt) || (p2mt =3D=3D p2m_ioreq_server=
+))) )
+> > +          (p2m_is_discard_write(p2mt) || (p2mt =3D=3D p2m_ioreq_server=
+) ||
+> > +           p2mt =3D=3D p2m_mmio_direct)) )
+> >      {
+> >          if ( !handle_mmio_with_translation(gla, gpa >> PAGE_SHIFT, npf=
+ec) )
+> >              hvm_inject_hw_exception(TRAP_gp_fault, 0);
+> > diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/m=
+m.h
+> > index db29e3e2059f..91937d556bac 100644
+> > --- a/xen/arch/x86/include/asm/mm.h
+> > +++ b/xen/arch/x86/include/asm/mm.h
+> > @@ -522,9 +522,31 @@ extern struct rangeset *mmio_ro_ranges;
+> >  void memguard_guard_stack(void *p);
+> >  void memguard_unguard_stack(void *p);
+> > =20
+> > +/*
+> > + * Add more precise r/o marking for a MMIO page. Bytes range specified=
+ here
+> > + * will still be R/O, but the rest of the page (nor marked as R/O via =
+another
+> > + * call) will have writes passed through. The write passthrough requir=
+es
+> > + * providing fixmap entry by the caller.
+> > + * Since multiple callers can mark different areas of the same page, t=
+hey might
+> > + * provide different fixmap entries (although that's very unlikely in
+> > + * practice). Only the one provided by the first caller will be used. =
+Return value
+> > + * indicates whether this fixmap entry will be used, or a different one
+> > + * provided earlier (in which case the caller might decide to release =
+it).
+>=20
+> Why not use ioremap() to map the page instead of requiring a fixmap
+> entry?
+
+In all the cases this feature is used (for now), I do have a fixmap
+anyway. So, I don't need to worry if I can call ioremap() at that boot
+stage (I think it's okay in console_init_postirq(), but that may not
+be obvious in other places).
+
+> > + *
+> > + * Return values:
+> > + *  - negative: error
+> > + *  - 0: success, fixmap entry is claimed
+> > + *  - 1: success, fixmap entry set earlier will be used
+> > + */
+> > +int subpage_mmio_ro_add(mfn_t mfn, unsigned long offset_s,
+> > +                        unsigned long offset_e, int fixmap_idx);
+> > +int subpage_mmio_ro_remove(mfn_t mfn, unsigned long offset_s,
+> > +                           unsigned long offset_e);
+> > +
+> >  struct mmio_ro_emulate_ctxt {
+> >          unsigned long cr2;
+> >          unsigned int seg, bdf;
+> > +        mfn_t mfn;
+> >  };
+> > =20
+> >  int cf_check mmio_ro_emulated_write(
+> > diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+> > index 0fe14faa5fa7..b50bdee40b6b 100644
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -165,6 +165,19 @@ bool __read_mostly machine_to_phys_mapping_valid;
+> > =20
+> >  struct rangeset *__read_mostly mmio_ro_ranges;
+> > =20
+> > +/* Handling sub-page read-only MMIO regions */
+> > +struct subpage_ro_range {
+> > +    struct list_head list;
+> > +    mfn_t mfn;
+> > +    int fixmap_idx;
+> > +    struct rangeset *ro_bytes;
+> > +    struct rcu_head rcu;
+> > +};
+> > +
+> > +static LIST_HEAD(subpage_ro_ranges);
+> > +static DEFINE_RCU_READ_LOCK(subpage_ro_rcu);
+> > +static DEFINE_SPINLOCK(subpage_ro_lock);
+> > +
+> >  static uint32_t base_disallow_mask;
+> >  /* Global bit is allowed to be set on L1 PTEs. Intended for user mappi=
+ngs. */
+> >  #define L1_DISALLOW_MASK ((base_disallow_mask | _PAGE_GNTTAB) & ~_PAGE=
+_GLOBAL)
+> > @@ -4893,6 +4906,172 @@ long arch_memory_op(unsigned long cmd, XEN_GUES=
+T_HANDLE_PARAM(void) arg)
+> >      return 0;
+> >  }
+> > =20
+> > +int subpage_mmio_ro_add(
+> > +    mfn_t mfn,
+> > +    unsigned long offset_s,
+> > +    unsigned long offset_e,
+>=20
+> Since those are page offset, you can likely use unsigned int rather
+> than long?
+>=20
+> I also wonder why not use [paddr_t start, paddr_t end] (or start and
+> size) and drop the mfn parameter?  You can certainly get the mfn from
+> the full address, and it seems more natural that having the caller
+> pass an mfn and two offsets.
+
+That would work for the function parameters indeed, regardless of what's
+really stored.
+
+> > +    int fixmap_idx)
+> > +{
+> > +    struct subpage_ro_range *entry =3D NULL, *iter;
+> > +    int rc;
+> > +
+> > +    ASSERT(rangeset_contains_singleton(mmio_ro_ranges, mfn_x(mfn)));
+> > +    ASSERT(offset_s < PAGE_SIZE);
+> > +    ASSERT(offset_e < PAGE_SIZE);
+> > +
+> > +    spin_lock(&subpage_ro_lock);
+> > +
+> > +    list_for_each_entry( iter, &subpage_ro_ranges, list )
+> > +    {
+> > +        if ( mfn_eq(iter->mfn, mfn) )
+> > +        {
+> > +            entry =3D iter;
+> > +            break;
+> > +        }
+> > +    }
+> > +    if ( !entry )
+> > +    {
+> > +        /* iter=3D=3DNULL marks it was a newly allocated entry */
+> > +        iter =3D NULL;
+> > +        entry =3D xmalloc(struct subpage_ro_range);
+> > +        rc =3D -ENOMEM;
+> > +        if ( !entry )
+> > +            goto err_unlock;
+> > +        entry->mfn =3D mfn;
+> > +        entry->fixmap_idx =3D fixmap_idx;
+> > +        entry->ro_bytes =3D rangeset_new(NULL, "subpage r/o mmio",
+> > +                                       RANGESETF_prettyprint_hex);
+> > +        rc =3D -ENOMEM;
+>=20
+> rc will already be -ENOMEM, albeit doing error handling this way is
+> tricky...
+>=20
+> > +        if ( !entry->ro_bytes )
+> > +            goto err_unlock;
+> > +    }
+> > +
+> > +    rc =3D rangeset_add_range(entry->ro_bytes, offset_s, offset_e);
+> > +    if ( rc < 0 )
+> > +        goto err_unlock;
+> > +
+> > +    if ( !iter )
+> > +        list_add_rcu(&entry->list, &subpage_ro_ranges);
+> > +
+> > +    spin_unlock(&subpage_ro_lock);
+> > +
+> > +    if ( !iter || entry->fixmap_idx =3D=3D fixmap_idx )
+> > +        return 0;
+> > +    else
+> > +        return 1;
+> > +
+> > +err_unlock:
+> > +    spin_unlock(&subpage_ro_lock);
+> > +    if ( !iter )
+> > +    {
+> > +        if ( entry )
+> > +        {
+> > +            if ( entry->ro_bytes )
+> > +                rangeset_destroy(entry->ro_bytes);
+> > +            xfree(entry);
+> > +        }
+> > +    }
+> > +    return rc;
+> > +}
+> > +
+> > +static void subpage_mmio_ro_free(struct rcu_head *rcu)
+> > +{
+> > +    struct subpage_ro_range *entry =3D container_of(rcu, struct subpag=
+e_ro_range, rcu);
+> > +
+> > +    rangeset_destroy(entry->ro_bytes);
+> > +    xfree(entry);
+> > +}
+> > +
+> > +int subpage_mmio_ro_remove(
+> > +    mfn_t mfn,
+> > +    unsigned long offset_s,
+> > +    unsigned long offset_e)
+> > +{
+> > +    struct subpage_ro_range *entry =3D NULL, *iter;
+> > +    int rc;
+> > +
+> > +    ASSERT(offset_s < PAGE_SIZE);
+> > +    ASSERT(offset_e < PAGE_SIZE);
+> > +
+> > +    spin_lock(&subpage_ro_lock);
+> > +
+> > +    list_for_each_entry_rcu( iter, &subpage_ro_ranges, list )
+> > +    {
+> > +        if ( mfn_eq(iter->mfn, mfn) )
+> > +        {
+> > +            entry =3D iter;
+> > +            break;
+> > +        }
+> > +    }
+> > +    rc =3D -ENOENT;
+> > +    if ( !entry )
+> > +        goto out_unlock;
+> > +
+> > +    rc =3D rangeset_remove_range(entry->ro_bytes, offset_s, offset_e);
+> > +    if ( rc < 0 )
+> > +        goto out_unlock;
+> > +
+> > +    rc =3D 0;
+>=20
+> You can use `if ( rc ) goto out_unlock;` and that avoids having to
+> explicitly set rc to 0.
+>=20
+> > +
+> > +    if ( !rangeset_is_empty(entry->ro_bytes) )
+> > +        goto out_unlock;
+> > +
+> > +    list_del_rcu(&entry->list);
+> > +    call_rcu(&entry->rcu, subpage_mmio_ro_free);
+> > +
+> > +out_unlock:
+> > +    spin_unlock(&subpage_ro_lock);
+> > +    return rc;
+> > +}
+> > +
+> > +static void subpage_mmio_write_emulate(
+> > +    mfn_t mfn,
+> > +    unsigned long offset,
+> > +    void *data,
+> > +    unsigned int len)
+> > +{
+> > +    struct subpage_ro_range *entry;
+>=20
+> const.
+>=20
+> > +    void __iomem *addr;
+>=20
+> Do we care about the access being aligned?
+
+I don't think Xen cares about it when page is mapped R/W to the guest,
+so why should it care when it's partially R/W only?
+
+>=20
+> > +
+> > +    rcu_read_lock(&subpage_ro_rcu);
+> > +
+> > +    list_for_each_entry_rcu( entry, &subpage_ro_ranges, list )
+> > +    {
+> > +        if ( mfn_eq(entry->mfn, mfn) )
+> > +        {
+>=20
+> You need to take the spinlock at this point, since the contents of
+> entry->ro_bytes are not protected by the RCU.  The RCU only provides
+> safe iteration over the list, but not the content of the elements on
+> the list.
+
+mfn is not supposed to change ever on the specific list element, and
+IIUC, rangeset does locking itself. Am I missing something?
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--VITwGu5IVH8xZkDz
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQi/n8ACgkQ24/THMrX
+1ywMZgf/Rbm1xOs9cGq+cbc+ydJYcLLZBzSd1ME7ROeCEk/zHDLdTr5WzHYRyVK8
+VLllYhFoZ3TSL6YyZKuIK4L2bwHfobWDr9GY0FpFGFYeYwjbK6HiQM+Dzlds4Okl
+si95Q68NgVEfbKvzB+Q5bJ8t72wbOmwXW11xfgnq7irkvorOhA63zGVNq4uXj6uA
+5hBhtJlGRa68wcVeQNV1W1EdNyAF7KVE+GYGTtivqlk5BX1JGh33oghdb2dCQ+w9
+7reASicDwoZ6D0f/qOk8Yw8s65t+ouqTtrv7LFA1rROGUkwpKGQUtZmeabCvSeIz
+bGwgd8vi5pJ3xc2MYP6YJ9aOySfmiA==
+=Vh9f
+-----END PGP SIGNATURE-----
+
+--VITwGu5IVH8xZkDz--
 
