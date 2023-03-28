@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B5826CC255
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 16:43:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515910.799263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A566CC2C6
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 16:48:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515913.799273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phAXt-00054h-9r; Tue, 28 Mar 2023 14:43:33 +0000
+	id 1phAcT-0005i3-R0; Tue, 28 Mar 2023 14:48:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515910.799263; Tue, 28 Mar 2023 14:43:33 +0000
+Received: by outflank-mailman (output) from mailman id 515913.799273; Tue, 28 Mar 2023 14:48:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phAXt-00051h-71; Tue, 28 Mar 2023 14:43:33 +0000
-Received: by outflank-mailman (input) for mailman id 515910;
- Tue, 28 Mar 2023 14:43:32 +0000
+	id 1phAcT-0005fb-Nd; Tue, 28 Mar 2023 14:48:17 +0000
+Received: by outflank-mailman (input) for mailman id 515913;
+ Tue, 28 Mar 2023 14:48:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WLKu=7U=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1phAXr-00051b-VO
- for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 14:43:31 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (envelope-from <SRS0=6aKL=7U=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1phAcR-0005fV-Qq
+ for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 14:48:15 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on0626.outbound.protection.outlook.com
+ [2a01:111:f400:fe1e::626])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e78ee3cf-cd76-11ed-b464-930f4c7d94ae;
- Tue, 28 Mar 2023 16:43:29 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 063D221A2E;
- Tue, 28 Mar 2023 14:43:29 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CF4BB1390D;
- Tue, 28 Mar 2023 14:43:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fj9iMRD9ImRvfwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 28 Mar 2023 14:43:28 +0000
+ id 90f27e36-cd77-11ed-b464-930f4c7d94ae;
+ Tue, 28 Mar 2023 16:48:13 +0200 (CEST)
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
+ by DU2PR04MB8936.eurprd04.prod.outlook.com (2603:10a6:10:2e3::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Tue, 28 Mar
+ 2023 14:48:12 +0000
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::4189:2d2a:eb83:5965]) by AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::4189:2d2a:eb83:5965%3]) with mapi id 15.20.6222.030; Tue, 28 Mar 2023
+ 14:48:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,179 +47,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e78ee3cf-cd76-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1680014609; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=WJKej2F2T0liQUy5RrirY2PhZ84TxQV/5YAjMJ02gg0=;
-	b=bYA1m47rG+RYuvY1drnbx/Kj+vPAIp4ooiUX1AQfFpvXTPYiTFGxGfPW0t0CNR2LbaFh/P
-	Ga20qDsIxxvv12HeVBQ/H1Xd6Sbx9/a3otrdFnbsDJTP+Z0kevu2JR5WLUylg5v0qaSAi6
-	09FA3bVJrb5gGennYS75PqghfzfzORo=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v2] tools/xenstore: fix quota check in acc_fix_domains()
-Date: Tue, 28 Mar 2023 16:43:27 +0200
-Message-Id: <20230328144327.6562-1-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
+X-Inumbo-ID: 90f27e36-cd77-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Mngg55R+igaRtMd9gTVp7PofMk39IdBtWH9aaPqnfpSkl+S9aXIyEjPmk5LWiXUQpDS0ERNJsVnho/W2u1WolAWtJaLl2EmSpzR8AbKNYVj4I1OA+cY6VbQi+gZpePHg8YlhOr/BKR2usdXdBd6kDrA3mMYxPfcLnyLMh8r0JoDFjsIFJPyXOS6BYWEGrc11tS11QzpSjSyDOw9pCibqD2kNZKNxsTw159cp+IrUrVlQm9sHQ0LIc6rEiPbUVSYt8qCPxXwSwHFhrgtP8J92tH2mmh1oM+Lo8tMysVgrOfc2lYK+ZoOPRhxUHXNWcy/UBYa5HobM/S9c+aN+jHKdyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5UIawk3+xYUwRZCBPDDulIciXc9qVGYaLjQgqgvF/qA=;
+ b=QdjzNtLAcOGTf4fCMmoeosusNQY4k2ITT2kHofohnXcoc1XHGisro4vD7qNo+nEYFx2OqC9qHSkYdSmE91TUqyH1hfu8uwSgIUjMDFrOg6mO4Lhgm4kqMqOH4mma1tUbVNrueSUh9e193qUZQ4FNueWn6hPOZ5bv0PT/1WBBGkWy2cnCjI49UwCdVhc4Du/EhBaWDJpHzPgRRvVbmR2UhFqMS1I8VUzhhKtwv4wszssOzml55QoEZBl4kRK3FTbGFHj0ZRSHHLeD52IqWmIiNjvwI88iDTYVqx+2+u3zA69PLxovQt7kA10LVOzO3IzthC9yAeMvjRZNHb14AAnheQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5UIawk3+xYUwRZCBPDDulIciXc9qVGYaLjQgqgvF/qA=;
+ b=rLvofGJKuKSpexyDScaGnPUISuKjveoAXbsB/ZLdzlr5mn0dW5McOi6FcZednjxJiliXB0u/PD3oRMe6PfFC1aYtHmNUAKm3gtMo58Gd+vXXZEyr0xX56xmAMlQ32B2EwnO8dNJ84e76/Mfb3lsEuWe/6VSoyv/dHFq/R+lkKERV4LlpU/j4LVPifOAtsz1+DiZ+2lXbDpV71lMtkHIRpnW8gA+3SF3IVPVQ5g0lJ7WgXDaLHHgJtB79wZaZMkIQvGx6/k76e3Abgv9ZIHUnQujcEP5r39x9RvfPLzAI9P6iC8ES3IEJABYu3aGEsSvrvkobWe52hDWFb0UJX45OFg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <40d58ac1-d0bb-afed-c0ae-c545c7bff30c@suse.com>
+Date: Tue, 28 Mar 2023 16:48:10 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v2 0/8] x86emul: a few small steps towards disintegration
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <7f5287ad-8442-6c53-d513-f9a8345c4857@suse.com>
+ <ZCL3W/HrwLANuE/0@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZCL3W/HrwLANuE/0@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0136.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:96::10) To AM6PR04MB6551.eurprd04.prod.outlook.com
+ (2603:10a6:20b:fa::20)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|DU2PR04MB8936:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6bb2683b-c230-4518-66a3-08db2f9b741c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	fR73QbNk0Mj9V/O5IwNgYc4ndcjA8nlxgn+fngI544Ghj5y+6rZL8xSptArQ2dLHY/5ERXt/Ri26kecbHMikDcJD/UYQ3DZRKXedq90RtgRF5mgBTGrBIfTkAxtIxLl2bEayU2WZMsJ3r048cmuPQnOwMeenZzZNEOOpRH0DricdtN1pNWtxJGDL2mhpTyab+DGp4RwHWP2jBafeQDE8A4bk5lAH2YcJaviS1Yk1ZAt4tlWL1hq5vM/iEoZ4KMk7HR9y3zYEJU3335Za3CX7T7e9P603cVlrsVuDu7vgnzMKRO7TXGtNB/wsWnpepg0MjPYYhEQGb82oV2BNaRDHeclU9RKIkU2/rhicwQbPDRrz3a0fXpMZrV2qqMDJpI0mnIssW5JO9rnaWMbYwQ76ykC3yCdMJUfpjXGU2PWe6K/bXbRM+QKSMZs4AN6H3c/gyzg+Tq5lzP6vXp+6feTbu+knlJyzYYPAAXGF9PqcWnkbi0dII0exctqEEJP8h+bH7FqitGis+VcDiLBcM9XHqNlZKBA56oCWwLLBMI60sHK+5Z5XFoMNT3C7G46AH9ps/6fowfV3OnJgRROszoQsBxFalkK2uwPVe7f7rAseDPDTNSwZu3NnQbDpNERzzXMTH4TB2QjNiyIWqr7UA+HQ0Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(366004)(376002)(39860400002)(396003)(346002)(451199021)(31686004)(36756003)(186003)(6512007)(53546011)(41300700001)(6506007)(26005)(83380400001)(2616005)(8676002)(4326008)(5660300002)(66556008)(66946007)(66476007)(6916009)(316002)(54906003)(8936002)(4744005)(478600001)(38100700002)(2906002)(6486002)(86362001)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cjB1OHhyUHFSc20xRWFWV3JxUTFSVUk0S3J2aTZsT201RzRSazhoSVFpRGNp?=
+ =?utf-8?B?QkdCaVRRMlIyODg2ZHZwR1ZoY2wwb3pYY0RZcWlxRG5aMXlZdVdMWDhONTdo?=
+ =?utf-8?B?RnFhSm1zQW5tWjNaRks0ZzZKZ0luZ3dpOFpTSFAySkJvVmF3RnJJSldxUGg4?=
+ =?utf-8?B?T0puY0U2YTFWM1kwc1ZUc3VuRWlZaDNaQm1nRlQvRnVJSi9YcTArUzk4cXBD?=
+ =?utf-8?B?c2tsQ1dpK2ZXbHYvUmltNS9sOHU0dDN3blpnL01Xdkt6VVhwaEs2UHlVM001?=
+ =?utf-8?B?YndKS05NTFgrWlp4WXFnblZHSTBZU2dsQVBxalNwbnRWTXdrSHp6SHVOUjBy?=
+ =?utf-8?B?RWVRbktLWDZOcjl0bUR4ejY3TmV6UTg2SkV3L0dvMDkwcy9MSUlpbis0bU9n?=
+ =?utf-8?B?L01zL2pDOUhvYVc0c2tSemFlWTNlMHc1YWloQklPRndxU2ZYOTZ3SHpna2NU?=
+ =?utf-8?B?TFNsS216MW5va2RqRmduUHNzVVA0RlJ3V3BiSysyU3VHS0NwNWxCbmxqWUxJ?=
+ =?utf-8?B?MFZDaHNrOVJ2R1JNUFdTVkY3Y3ppeFdEcHBhYkxvd2NhNHJac2NPZTk3aUhv?=
+ =?utf-8?B?Ly9SbzJ4NGs2TEU0R0JmdVE5QTBYWjJjT1JVV3dUWk5XclBZYU51NjJmTHIv?=
+ =?utf-8?B?R2phek5jYUZFaXpORHkreENBVnRteUtUamlRcWdvbmh6QVFOS05XR001QVB1?=
+ =?utf-8?B?N3ZWUFgxUk5YRlk2Unp2OE9wdVo5TC9qM0JaTmFFREc4eU91aTZtMWcxWUxM?=
+ =?utf-8?B?bzVHZ1BYelF3TFRMb1pVMHp3MFNmK0NpQkc1ektnS1JkVmh3WElYMmUxUCtD?=
+ =?utf-8?B?UUg0bVpaYlk5V3Zva3FsS3ZBOXBGc2xQVkphTGo1eGlRb0RpRm8wdEJHSHlY?=
+ =?utf-8?B?aUI0RmFuSDBXakJrazh1TVBrcXJIUi9YTTRFTzVWeGJEMEdVaytKUmtObWk4?=
+ =?utf-8?B?UDZJait2T1Q5N2p3M1QrTVdPZ3ZYcmRpWkNEdUlrRll5WTBCQ3YxVzNLa0Zy?=
+ =?utf-8?B?SEdsSXZEM0VLNE5GN29TRWdYSUpvdFVpRXdKVk1LaW05RFViaVpNZ0JCQ2px?=
+ =?utf-8?B?RnJsNjlWdWlSc3RGTzZqOFUveTA4Uk52dFhJTzVWbWFLMXhqdFRhckhzL09C?=
+ =?utf-8?B?VFNXTDIyZ3AwRWp2STV4SGF3SEk0Z3ZCd0ZWNFdyVDBwbkNHbWZSQjJ2WXF6?=
+ =?utf-8?B?ZkJWZEpmakJOQXFaMFpNaUZ5UXBhMDArUmRWUGFydGl6UG5sTVkwTHZOOXAz?=
+ =?utf-8?B?RkJWaEV0bXBrbUxleWpzc0pzcVBNS0VyeVkrTTNONFZOTzlmdXlEQlpId2Ju?=
+ =?utf-8?B?RXduSXo0T1JXK3A0SCtPQ0Z2OUhQNW9BNHo3YWd3bHFmVEF3ckdVRUYrRXJG?=
+ =?utf-8?B?T1VzL1BKZlBYNFVtcmk0Mk5hVmdkM2xWZElCdTNDVlZzd1U1OFVFdGpaNlhF?=
+ =?utf-8?B?ZWZGVVVKV0dhZW0rVlIzLzFXVUMvUXVOekgzNjQrMVU1YS8zZU8zTFlBRnZv?=
+ =?utf-8?B?cEc3SWEyVkFWV3psTFNta2hVSzRjVTRtTzdDSzZFbTg3VmpySEpPaTYyOGJV?=
+ =?utf-8?B?NzFjYXJ0cWpNaFRYaEhtY2FhSzBzZHprMTh3VnZ0eVF3TGFnTlZxM242czl0?=
+ =?utf-8?B?WmVFTnMxd3VjVW1RSG1vSzZSOEplRXoyRTdacGFsRkhsQUZCRDhESDB1UENn?=
+ =?utf-8?B?cms3Qmg0Z2hpVy9taUVKaXB4UWtGV051cTErM0UzazhmT1NidFQyWUJBZis3?=
+ =?utf-8?B?cjJTN3BwekZEZjV6dWx1Um5aWDJGZUJJVEkvZ2NsVXNodThjMWRXRjVQV051?=
+ =?utf-8?B?QlN1TlpFMkZrbS9WMU0zejlSSG5DQUNVRFU5TEY2SlMwQ0ErOWkzM05acWQ3?=
+ =?utf-8?B?TnF4cGZvTzcyTGRRaHpJWjhOMGJpMkxLZ2hISGJuVEJmbU1YdFI1ZmFpVTlJ?=
+ =?utf-8?B?SCtXVkxOVHBQUkJaZkgxUEFQOGFFYXpBeWlEaEFud2Zwb2xkUWMzaGZySUEy?=
+ =?utf-8?B?bGlmc3ByRUI4UU5mb0ZIczJyeHBPVWJNVUxxNGJxQUp2QjV6MTZLelZEeHNB?=
+ =?utf-8?B?NVRsT3loOTRWd3ZZUkNidlJkeDkxRGJpbmlvZGJ4WHRGcGN5ZzdBRzNzNnZK?=
+ =?utf-8?Q?cvz76B0f6+hpnYfKEKZSCnwRk?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bb2683b-c230-4518-66a3-08db2f9b741c
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 14:48:11.8795
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e/mnkpGAJuRQ3/4CcLp7A84Gef6arPn1RdDMGAFbrdCcR6gndjtr1l2K0lHQmRMdKYIsNjfzIBxJTqPfgH0jPg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8936
 
-Today when finalizing a transaction the number of node quota is checked
-to not being exceeded after the transaction. This check is always done,
-even if the transaction is being performed by a privileged connection,
-or if there were no nodes created in the transaction.
+On 28.03.2023 16:19, Roger Pau Monné wrote:
+> On Wed, Jun 15, 2022 at 11:57:54AM +0200, Jan Beulich wrote:
+>> ... of the huge monolithic source file. The series is largely code
+>> movement and hence has the intention of not incurring any functional
+>> change.
+> 
+> I take the intention is to make code simpler and easier to follow by
+> splitting it up into smaller files?
 
-Correct that by checking quota only if:
-- the transaction is being performed by an unprivileged guest, and
-- at least one node was created in the transaction
+Well, I can't say yes or no to "simpler" or "easier to follow", but
+splitting is the goal, in the hope that these may end up as a side
+effects. There's always the risk that scattering things around may
+also make things less obvious. My main motivation, however, is the
+observation that this huge source file alone consumes a fair part
+of (non-parallelizable) build time. To the degree that with older
+gcc building this one file takes ten (or so) times as long as the
+entire rest of the hypervisor.
 
-Reported-by: Julien Grall <julien@xen.org>
-Fixes: f2bebf72c4d5 ("xenstore: rework of transaction handling")
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- add comment (Julien Grall)
----
- tools/xenstore/xenstored_core.c        |  3 +++
- tools/xenstore/xenstored_domain.c      |  4 ++--
- tools/xenstore/xenstored_domain.h      |  7 ++++++-
- tools/xenstore/xenstored_transaction.c | 16 ++++++++++++++--
- tools/xenstore/xenstored_transaction.h |  3 +++
- 5 files changed, 28 insertions(+), 5 deletions(-)
-
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index a61db2db2d..3ca68681e3 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -1472,6 +1472,9 @@ static struct node *create_node(struct connection *conn, const void *ctx,
- 	if (!node)
- 		return NULL;
- 
-+	if (conn && conn->transaction)
-+		ta_node_created(conn->transaction);
-+
- 	node->data = data;
- 	node->datalen = datalen;
- 
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index d7fc2fafc7..f62be2245c 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -544,7 +544,7 @@ static struct domain *find_domain_by_domid(unsigned int domid)
- 	return (d && d->introduced) ? d : NULL;
- }
- 
--int acc_fix_domains(struct list_head *head, bool update)
-+int acc_fix_domains(struct list_head *head, bool chk_quota, bool update)
- {
- 	struct changed_domain *cd;
- 	int cnt;
-@@ -552,7 +552,7 @@ int acc_fix_domains(struct list_head *head, bool update)
- 	list_for_each_entry(cd, head, list) {
- 		cnt = domain_nbentry_fix(cd->domid, cd->nbentry, update);
- 		if (!update) {
--			if (cnt >= quota_nb_entry_per_domain)
-+			if (chk_quota && cnt >= quota_nb_entry_per_domain)
- 				return ENOSPC;
- 			if (cnt < 0)
- 				return ENOMEM;
-diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
-index dc4660861e..279cccb3ad 100644
---- a/tools/xenstore/xenstored_domain.h
-+++ b/tools/xenstore/xenstored_domain.h
-@@ -96,7 +96,12 @@ void domain_outstanding_dec(struct connection *conn);
- void domain_outstanding_domid_dec(unsigned int domid);
- int domain_get_quota(const void *ctx, struct connection *conn,
- 		     unsigned int domid);
--int acc_fix_domains(struct list_head *head, bool update);
-+
-+/*
-+ * Update or check number of nodes per domain at the end of a transaction.
-+ * If "update" is true, "chk_quota" is ignored.
-+ */
-+int acc_fix_domains(struct list_head *head, bool chk_quota, bool update);
- 
- /* Write rate limiting */
- 
-diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
-index 1aa9d3cb3d..2b15506953 100644
---- a/tools/xenstore/xenstored_transaction.c
-+++ b/tools/xenstore/xenstored_transaction.c
-@@ -160,12 +160,20 @@ struct transaction
- 	/* List of changed domains - to record the changed domain entry number */
- 	struct list_head changed_domains;
- 
-+	/* There was at least one node created in the transaction. */
-+	bool node_created;
-+
- 	/* Flag for letting transaction fail. */
- 	bool fail;
- };
- 
- uint64_t generation;
- 
-+void ta_node_created(struct transaction *trans)
-+{
-+	trans->node_created = true;
-+}
-+
- static struct accessed_node *find_accessed_node(struct transaction *trans,
- 						const char *name)
- {
-@@ -509,6 +517,7 @@ int do_transaction_end(const void *ctx, struct connection *conn,
- 	const char *arg = onearg(in);
- 	struct transaction *trans;
- 	bool is_corrupt = false;
-+	bool chk_quota;
- 	int ret;
- 
- 	if (!arg || (!streq(arg, "T") && !streq(arg, "F")))
-@@ -523,13 +532,16 @@ int do_transaction_end(const void *ctx, struct connection *conn,
- 	if (!conn->transaction_started)
- 		conn->ta_start_time = 0;
- 
-+	chk_quota = trans->node_created && domain_is_unprivileged(conn);
-+
- 	/* Attach transaction to ctx for auto-cleanup */
- 	talloc_steal(ctx, trans);
- 
- 	if (streq(arg, "T")) {
- 		if (trans->fail)
- 			return ENOMEM;
--		ret = acc_fix_domains(&trans->changed_domains, false);
-+		ret = acc_fix_domains(&trans->changed_domains, chk_quota,
-+				      false);
- 		if (ret)
- 			return ret;
- 		ret = finalize_transaction(conn, trans, &is_corrupt);
-@@ -539,7 +551,7 @@ int do_transaction_end(const void *ctx, struct connection *conn,
- 		wrl_apply_debit_trans_commit(conn);
- 
- 		/* fix domain entry for each changed domain */
--		acc_fix_domains(&trans->changed_domains, true);
-+		acc_fix_domains(&trans->changed_domains, false, true);
- 
- 		if (is_corrupt)
- 			corrupt(conn, "transaction inconsistency");
-diff --git a/tools/xenstore/xenstored_transaction.h b/tools/xenstore/xenstored_transaction.h
-index b6f8cb7d0a..883145163f 100644
---- a/tools/xenstore/xenstored_transaction.h
-+++ b/tools/xenstore/xenstored_transaction.h
-@@ -36,6 +36,9 @@ int do_transaction_end(const void *ctx, struct connection *conn,
- 
- struct transaction *transaction_lookup(struct connection *conn, uint32_t id);
- 
-+/* Set flag for created node. */
-+void ta_node_created(struct transaction *trans);
-+
- /* This node was accessed. */
- int __must_check access_node(struct connection *conn, struct node *node,
-                              enum node_access_type type, TDB_DATA *key);
--- 
-2.35.3
-
+Jan
 
