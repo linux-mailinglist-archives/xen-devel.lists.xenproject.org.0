@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BCED6CBE5D
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 14:04:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515731.798854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 551896CBE81
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 14:05:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515734.798865 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ph83F-0007vT-CY; Tue, 28 Mar 2023 12:03:45 +0000
+	id 1ph84s-0008V1-OD; Tue, 28 Mar 2023 12:05:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515731.798854; Tue, 28 Mar 2023 12:03:45 +0000
+Received: by outflank-mailman (output) from mailman id 515734.798865; Tue, 28 Mar 2023 12:05:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ph83F-0007sr-9k; Tue, 28 Mar 2023 12:03:45 +0000
-Received: by outflank-mailman (input) for mailman id 515731;
- Tue, 28 Mar 2023 12:03:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6aKL=7U=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ph83E-0007sl-1z
- for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 12:03:44 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on0613.outbound.protection.outlook.com
- [2a01:111:f400:fe02::613])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 94e8f5d6-cd60-11ed-b464-930f4c7d94ae;
- Tue, 28 Mar 2023 14:03:42 +0200 (CEST)
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
- by PAXPR04MB9677.eurprd04.prod.outlook.com (2603:10a6:102:24f::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Tue, 28 Mar
- 2023 12:03:39 +0000
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::4189:2d2a:eb83:5965]) by AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::4189:2d2a:eb83:5965%3]) with mapi id 15.20.6222.030; Tue, 28 Mar 2023
- 12:03:38 +0000
+	id 1ph84s-0008S3-Kc; Tue, 28 Mar 2023 12:05:26 +0000
+Received: by outflank-mailman (input) for mailman id 515734;
+ Tue, 28 Mar 2023 12:05:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=B75i=7U=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ph84q-0008Rx-Sn
+ for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 12:05:25 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cfe639ef-cd60-11ed-85db-49a42c6b2330;
+ Tue, 28 Mar 2023 14:05:22 +0200 (CEST)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 5C2EE5C017E;
+ Tue, 28 Mar 2023 08:05:20 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Tue, 28 Mar 2023 08:05:20 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 28 Mar 2023 08:05:19 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,120 +43,502 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 94e8f5d6-cd60-11ed-b464-930f4c7d94ae
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hkZgVfb4pUJIFBYkaxiytcFjKOdlNyKHqbJ4nDeZBrY+Zq1m8ak6d6LGUfMVhAl6nXwgQ5M9GRWrJ3etI5GHHhcfphysT3TQ//VwLYgSVvW6NigCqcftUboQhTvIWlMLLR9tSaFMJ7Jg5hWelAI+K7xYKVx/IHwekRcBAx1KKk3jSXnmHQn4OMO8WpflkcFsMd2oEyaQJm5lDz29y0agWb0HmG01dsUFyOw4lNqmgmvQ9lEfrO3m0vhsmkzA1BqH1UknP5KmmeTM7K06r90eanWL9jj+MbmD6n+FJHBg+RXKzFPL/eHen0PUk9BNc6hIdRcdqUVQ99ZWb5Ij2ojEzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DTaPpCmDqesLSLqCWRt+vBFYz7YAwSIX21Wt7s5OZ90=;
- b=DBsmaOisDMcgeb2G47qy6rwmhIV4MfUZBrOKBsliQTq8yjG6nbcHDmLUnsB8jV34DPc6j0kgTCOMgPmjU4MXxF2Se3uyTdIleU6WXrlfaQ8GZs8LU+AcZqLthz3n2yFV+rj42GOYgUFnrTzjkm9MwuS2aOG+PBVeHtSA+Y6/ViaYsHUqCrcx+bCWnhNflQ86zBgVlSSRJ3llG5006rGWrboY+BCWq8yYp/A5mYeDymzNlMLRrxrPiVqFIonG8Nj+N6xnHI5YW66xi95LuZizzmi9LEcBaOYvNWyxXMcLA3c+i89JjTr/h77VxWLAePHIJBMEvWqw9hEzBevW7EqfvA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DTaPpCmDqesLSLqCWRt+vBFYz7YAwSIX21Wt7s5OZ90=;
- b=MB9eIvrQzeqcugpFZc4ACVqMAJzBu7SpFkcXjzm+rylvVrBkkHe6XfJk4rGPp64oQPlpZin61y/KtXEBnlZCS5HGMusiXpSlyI8p+/COnRHQG4D42MSIiUkGqYf/Emv5wbp7VnLOx920ec4Rm4s8YpW7xfDDNn0lSP9YinkixJz5DmmTlqgPX7ad4BqrXPMhbUPc2A+G1Gbfw02nNqmr/wTS6XjRaKmJLpZvjYMoshmLhP55LW6vF1ywxC/Hm3SRFe2mblfZcaLR4X0FkKi3r6u1FDrYDKtIWABMoCFUa2lZfYtTVgOz2dyHtYCCFDZzq/e+ZYVK/ZzlKWmciPi+Mg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e932269e-86b5-a62d-c936-d52ded3799aa@suse.com>
-Date: Tue, 28 Mar 2023 14:03:37 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] x86/boot: Restrict directmap permissions for
- .text/.rodata
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230324220824.3279825-1-andrew.cooper3@citrix.com>
- <d26961b0-0c13-83d8-9102-37e1e297fc4e@suse.com>
- <fe6627a6-067d-c3b0-f6f1-25d21bb6a530@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <fe6627a6-067d-c3b0-f6f1-25d21bb6a530@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0117.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::8) To AM6PR04MB6551.eurprd04.prod.outlook.com
- (2603:10a6:20b:fa::20)
+X-Inumbo-ID: cfe639ef-cd60-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1680005120; x=1680091520; bh=P+bC37AqWrmzlpXX+z6Jx69A2M8fHeNxeHl
+	Lq1yNjmE=; b=ltp7sQ8CnBFcVpp7vUmlAbZcLa7C5BAjv8DSGOjDZV8y66Qi0Md
+	C17j2uB2h47vBux4oQeSX0I1qEVafzOERzEqiNYicO/MCwPQ7SKLxPwSq/d5yPGR
+	iFfTpUs4lqym0IrOV3WioMvT2M6yyj4MowwI4fG4RnjtjAS38rEkMVIzMHA+bfwk
+	B5NOezShxByaYyYM37fT0Hrc+5ZOI6vZHcnrdKOkxva0wMnQienewIE6u6dhe1+W
+	D1aI9DG6xzNkacuh3ksp/5D4FmsGS1PYNJTKIjWvaI9YnX4OXREN7grGHcYFA5LW
+	fghhbOJfRqWOSZ+UsBS2i2XdizUQ9NU4CmA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1680005120; x=1680091520; bh=P+bC37AqWrmzl
+	pXX+z6Jx69A2M8fHeNxeHlLq1yNjmE=; b=FKqf8d+rjZ+8AASwWMVxWLM2A9Lxc
+	IUr7FNj5jn+Oz3bxF7P3/VnI9s6wl73r5m0rzVkjktDtPuEGoDUbv5NRDugdaivL
+	i8bQHLkNias29e8q23pVgBrCI/USq7ILhuDxgA8/angWVSCw6+hXYO0ICpckHB9s
+	RtXAtYK0X4H572OvgKSEukpDrNxhjQ6N0OWf2aCTHgX9QyISND6t1x32uZ3Wn6iA
+	DhKV7jZJC/3/Lgq3OQvgkDCJbevRVtBGWnWZwMz/Jx85k8x3TOwl8tQ1+T519Uzf
+	IHGmwdhpDDpey9jFyK6vvbOhSkewLzBSlW9WytvCNg80Prs3xseN9Jzbg==
+X-ME-Sender: <xms:ANgiZCx5lP9oFvqh5fgJ-ZBoFLkpjm-Zs-pU-u6EoIWjV0sgo8ELfg>
+    <xme:ANgiZOQ7m1uNI0pAUKrlCOYWbFB_yJYKhJYz4dEJo6uMhYqTsLGobMELxAM2ORLna
+    TGCEiEuJAjWqw>
+X-ME-Received: <xmr:ANgiZEWwd17Q699P1fMeon28eS6oujjMbZC5URQY6f9MjPfPQcu4m7q9Fh6f22YZXiiskhS3vnQZj8J4sKy8FfIkKEkEw5Mvw4A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdehgedggeejucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:ANgiZIh301vreivqZ1gAlUzNnaAoIDQbvei_cTaxIkq0EhGnnp9vZQ>
+    <xmx:ANgiZEDZEXQH24rT-Grp0aZkCtI2ysu5oG3VrPk0PFyeMfEvypduQw>
+    <xmx:ANgiZJKcr7wzZFDmt2y1nOXzHZkVU4mJTMikJQ7aWvcIU3VBnBaEHA>
+    <xmx:ANgiZHNCpJnKXyIzWWU59f0Qfgvt45Y5_6ujLJI0BsVAJPMLRanitg>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 28 Mar 2023 14:05:14 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2 2/3] x86/hvm: Allow writes to registers on the same
+ page as MSI-X table
+Message-ID: <ZCLX1qD/FmbF5ulu@mail-itl>
+References: <20230325024924.882883-1-marmarek@invisiblethingslab.com>
+ <20230325024924.882883-2-marmarek@invisiblethingslab.com>
+ <ZCLNQGXvUBxZbIGS@Air-de-Roger>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|PAXPR04MB9677:EE_
-X-MS-Office365-Filtering-Correlation-Id: 882aa99d-2538-4204-2f7c-08db2f847751
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	0czL5J8CmNHrD2chOyGduh31P1jOMbGfc80LKwnc95Gy2Y9b6U13xHkwCg90RQmYtePWBH9N3sxKvc5Qz5sIKrqXwbC58136acpWzoxUBRlHiCuuhyxMe3kvrXdYgIXWfFVuXXnG1frGdHqmo2cUww2/FLCVuVg74ZcT/y5bI7pnscbPHSqkOt2hpgBehrERx2xcdHvLaW4aNJMEPBcuAlNdZCfKg7XFi/9SjaPa0eLG4nW2vbQLqls/2fbKVHjTCvzMOpHQJ5UNVR+pac2BJJiYox4cJJV/H7D/l6T7D5tzTmaa75cuikkY1FgjR2/fRpys+gK/A/VvcmkDn2GuEcoAmpcvfYH1+qllazg5NDgYZW2YCeeqo8PDadx6VAFjas4zOcqzf88IASO6bLplKY5xSlJc4Klh4bG4IFZZiNkaNHNjgtRFqf6D6B0h/ZclfJGwsJewVdXrCVk/KXvgosffXY/YZcJtAX9Wsb7FSN1SYVqTs5AowR8JyIgjdm1dLlnYy6siRCUOhVGfxHLHapACvy6hD/e+IVHR1t/OIvAPGk7cwZDJUY9fOFD+Avbbk9oDEjoKkTanLK2Ad6db/Bd8dXjaOdnYz2ULn1ISUt8FeKPZP0HXa/x3ZxnqXJf6MH7TA7E6YdqvM8S9BSGS343zRbXUqXLoBTRXQmhsvno=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(376002)(39860400002)(396003)(366004)(136003)(451199021)(186003)(26005)(6512007)(53546011)(2906002)(38100700002)(86362001)(31696002)(36756003)(2616005)(6506007)(54906003)(66946007)(4744005)(66556008)(5660300002)(478600001)(6916009)(8936002)(66476007)(4326008)(41300700001)(8676002)(6486002)(316002)(31686004)(142923001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RXlOWC8yK3RFeWtmZmRrRGVPT0ZLTzNjL2czM1ZTZWUrdXI2K0ZHM2kwcm4x?=
- =?utf-8?B?RThqbEFoaVNzT29IemxKSW84VkJBTDdSSVBlbTlFa2hOQ2pFa25KVzJWVUkx?=
- =?utf-8?B?U3JpZlF3cHFMVTNTNGdWMnZsRmFMT0RURHo1Y0tpSUR5OHByNVFXNVB2cjFj?=
- =?utf-8?B?cU0rOWRydDRwekNhbWJrWFZvUVMxZWdCYjVUeXl5ekJieDZ0V3cwenZjNlRx?=
- =?utf-8?B?cGNDV3ZiYm1Dcjc0WmxqR0JIazE0dTk2WUFjdjU4aHJVcDRnY2VtVWtnSm5C?=
- =?utf-8?B?ZEFoTko0Qk1zVTBQeUdoQVZHOFFudUFwMWpFUHBsbmErMFhieXpjWmV4TW1R?=
- =?utf-8?B?dVZxWWZhb1JjMktoYkx3Qk1temJST1ZSZUp1ckpwRDJWNnRZM1NYV3ZPNjY3?=
- =?utf-8?B?VU1rOG54ZEFQRzFLajl4MnRZbU9ZRFZhSVBFRTJoOXoxVkovb2NFdzliOWph?=
- =?utf-8?B?Z3ZBa1YwdklLMXdsd0lwZTZhWVJYWkdvUXJteERCaGNkMk4wRlZlNzVxQTBG?=
- =?utf-8?B?Mi9lV2UrSk1XVDJ1Z0pUZ3VCNDJHTEp3WnJMUjJQbjdQbWcyQU5MeC9HV3hD?=
- =?utf-8?B?UzdEQnJDVUFXckNoaGh0dytJQjl0U3BvM2VIbmp3ck9nY05ZakpSdE9QbGQ5?=
- =?utf-8?B?aUlTR2g1RFJYcmo2dnBVUFkyNGZBMDd4RlVQUEo2b0l3VUVLeis2Vm5YeHZV?=
- =?utf-8?B?NUNuR0NyZVBMNUVoTzdNeFF0dTJTMlF4VDloRUdWQjlkMHAxUlY1blovTjVl?=
- =?utf-8?B?UDcrZ0l5QkJVWXFzWng0RlZlMGNiWmJYVzRON01IcEtkbndjL01nQndRSEJ3?=
- =?utf-8?B?QnFjRm5LaE12YTBFcnBmR3ZpTng5bWdsV0J5RE96V0JxZFFEZVJwWVloMEM2?=
- =?utf-8?B?QlBWZ0tkSXFHWTAxMHozekFMVlRJeFcxMzFuWjJXczkyd3FwQTFSUzVyM0tS?=
- =?utf-8?B?SlVGTllrS3lFTlpnS2NTdjJ6VzdLSHBCN3IzVXNQVXA4Y0VTRStrREN3TVVM?=
- =?utf-8?B?ODQzTXFHOTNIaUNKUnkvUWp1dEM5SzRXV2FmWTJIMzh3d1k1QVhHNGRiWWFT?=
- =?utf-8?B?eHhScFBvRDBYUmJTdm4zbWloY1pVQjNPM0lrRExUT3p6ME1zbFlESmUyZnNV?=
- =?utf-8?B?U3BKcnBOU1hiRC9ucjQyQ2JXZkZ6ZzVjLzVmaWxOZ2xINFRVU2F2TGgzYXNn?=
- =?utf-8?B?cStldk1KeTgwR3p5akZEWWpvaDgxK2NIdjRCcUNtbHZSekhxOHUvaFJkZkxM?=
- =?utf-8?B?MFJQMEFNZ1dBS05UZGhnNFdhNVlBNzZQZml5WTNOdXJUMzNGdmhrbTRWaUFL?=
- =?utf-8?B?ekhwWlFlaWd5V1B0MVU3UW91azM1dVgyaGhtc0R6N1VZQWF4bWU1eU93Ny9M?=
- =?utf-8?B?Rnh2OHlXRjljbGEybG5yN285aFppVmJDUmRoOGtubklOTTNSZkh2c1hRellC?=
- =?utf-8?B?cmo0Rnk5cnFnUE85OXE0a2k4K2lkQzVPUS9NUGo5WTh6c29VM1A0bnVlYVhr?=
- =?utf-8?B?TmpTVjI3UlBvNkpTVHFqdHF5WEkvQlA3cmZiNW9lbDlnZEZDNTdUd0w3WHlU?=
- =?utf-8?B?aDFoUXNscFlZdVFGN3hMY2ZwSzcwaU1SU0NvWWdyR1I4djRLOURvcjNTdHN1?=
- =?utf-8?B?ellCRERnOXZzdVd5OFFSLzVqMWZmVzRhYVc1bGhCR25TVi9VNllLNVhtOUZC?=
- =?utf-8?B?UXhTTjl3NlNVcU1MTW12NVQzaEZ1eE0rUVlpSFRrN3BqWm9UK1pWbFpjRmdt?=
- =?utf-8?B?MEZqRWo3UTVsTWFFaW1DaUVic1d1a240VjlXcC9jS29aS1o2WERuREZsM2NG?=
- =?utf-8?B?ekJSZ2lVZTlpSFY0cDFYZHQyRm1BUmRLWnRaTm03cm9VQ3pRaXAwS1lXRHBG?=
- =?utf-8?B?dUpVeERnSEVoaHpvdzBYWkVManR2VnV6ZWl3aXJlUm9PYm5idDJMRTYzQ0Ex?=
- =?utf-8?B?cG1QQmlZNjE2RTVjRkZFK0JjdUJTcjVueEk3SWZVN01ES05TTGFlWmdidC95?=
- =?utf-8?B?TWtKSVBvNVJVSWxjSCs2VmdKeSt0TWtpakZBRVg1bDZIdE14SGpYcndEMDJQ?=
- =?utf-8?B?cHpnbDRJV3oyN3J5aEwrVkt2VmVjN0NmRHpMNzY5R3lDY0gxbDFZTDF1ZHZq?=
- =?utf-8?Q?bes+QD35+/5Jw5/Vonp0Xgv/4?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 882aa99d-2538-4204-2f7c-08db2f847751
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 12:03:38.8496
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JIyvrC2JvmHBH4zONSJOnVqFGUz1h/Df9Jo6FlLLOKIey+jgLdiWDuy5V+r+nzQ5D6wubT+pjMZvKMCX1IcLIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9677
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="VavojxH82hISeCT6"
+Content-Disposition: inline
+In-Reply-To: <ZCLNQGXvUBxZbIGS@Air-de-Roger>
 
-On 28.03.2023 12:27, Andrew Cooper wrote:
-> On 27/03/2023 4:43 pm, Jan Beulich wrote:
->> On 24.03.2023 23:08, Andrew Cooper wrote:
->>>  * For backporting, this patch depends on c/s e7f147bf4ac7 ("x86/crash: Drop
->>>    manual hooking of exception_table[]") and c/s e7db635f4428 ("x86/pv-shim:
->>>    Don't modify the hypercall table").  No compile error will occur from
->>>    getting these dependencies wrong.
->> I suppose the latter isn't strictly a prereq, as the modification was done
->> from an __init function (i.e. before this new code runs).
-> 
-> This code here runs long before pv_shim_setup_dom().  This dependency
-> was found experimentally via testing IIRC.
 
-Oh, of course. I was mistakenly associating the new code with init_done().
-(Iirc this was because the only sensible search hit for ".rodata" was
-there, and I didn't pay enough attention to context.)
+--VavojxH82hISeCT6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Mar 2023 14:05:14 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v2 2/3] x86/hvm: Allow writes to registers on the same
+ page as MSI-X table
 
-Jan
+On Tue, Mar 28, 2023 at 01:28:44PM +0200, Roger Pau Monn=C3=A9 wrote:
+> On Sat, Mar 25, 2023 at 03:49:23AM +0100, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > Some devices (notably Intel Wifi 6 AX210 card) keep auxiliary registers
+> > on the same page as MSI-X table. Device model (especially one in
+> > stubdomain) cannot really handle those, as direct writes to that page is
+> > refused (page is on the mmio_ro_ranges list). Instead, add internal ior=
+eq
+> > server that handle those writes.
+> >=20
+> > Doing this, requires correlating write location with guest view
+> > of MSI-X table address. Since QEMU doesn't map MSI-X table to the guest,
+> > it requires msixtbl_entry->gtable, which is HVM-only. Similar feature
+> > for PV would need to be done separately.
+> >=20
+> > This can be also used to read Pending Bit Array, if it lives on the same
+> > page, making QEMU not needing /dev/mem access at all (especially helpful
+> > with lockdown enabled in dom0). If PBA lives on another page, QEMU will
+> > map it to the guest directly.
+> > If PBA lives on the same page, forbid writes and log a message.
+> > Technically, writes outside of PBA could be allowed, but at this moment
+> > the precise location of PBA isn't saved.
+> >=20
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > ---
+> > v2:
+> >  - adjust commit message
+> >  - pass struct domain to msixtbl_page_handler_get_hwaddr()
+> >  - reduce local variables used only once
+> >  - log a warning if write is forbidden if MSI-X and PBA lives on the sa=
+me
+> >    page
+> >  - do not passthrough unaligned accesses
+> >  - handle accesses both before and after MSI-X table
+> > ---
+> >  xen/arch/x86/hvm/vmsi.c        | 154 +++++++++++++++++++++++++++++++++
+> >  xen/arch/x86/include/asm/msi.h |   5 ++
+> >  xen/arch/x86/msi.c             |  38 ++++++++
+> >  3 files changed, 197 insertions(+)
+> >=20
+> > diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+> > index 9c82bf9b4ec2..9293009a4075 100644
+> > --- a/xen/arch/x86/hvm/vmsi.c
+> > +++ b/xen/arch/x86/hvm/vmsi.c
+> > @@ -438,6 +438,152 @@ static const struct hvm_io_ops msixtbl_mmio_ops =
+=3D {
+> >      .write =3D _msixtbl_write,
+> >  };
+> > =20
+> > +static void __iomem *msixtbl_page_handler_get_hwaddr(
+> > +    const struct domain *d,
+> > +    uint64_t address,
+> > +    bool write)
+> > +{
+> > +    const struct pci_dev *pdev =3D NULL;
+> > +    const struct msixtbl_entry *entry;
+> > +    int adj_type;
+>=20
+> unsigned AFAICT.
+
+Ok.
+
+> > +
+> > +    rcu_read_lock(&msixtbl_rcu_lock);
+> > +    /*
+> > +     * Check if it's on the same page as the end of the MSI-X table, b=
+ut
+> > +     * outside of the table itself.
+> > +     */
+> > +    list_for_each_entry( entry, &d->arch.hvm.msixtbl_list, list )
+> > +    {
+> > +        if ( PFN_DOWN(address) =3D=3D PFN_DOWN(entry->gtable) &&
+> > +             address < entry->gtable )
+> > +        {
+> > +            adj_type =3D ADJ_IDX_FIRST;
+> > +            pdev =3D entry->pdev;
+> > +            break;
+> > +        }
+> > +        if ( PFN_DOWN(address) =3D=3D PFN_DOWN(entry->gtable + entry->=
+table_len) &&
+>=20
+> Should be entry->gtable + entry->table_len - 1, or else you are
+> off-by-one.
+
+Ok.
+
+> > +             address >=3D entry->gtable + entry->table_len )
+> > +        {
+> > +            adj_type =3D ADJ_IDX_LAST;
+> > +            pdev =3D entry->pdev;
+> > +            break;
+> > +        }
+> > +    }
+> > +    rcu_read_unlock(&msixtbl_rcu_lock);
+> > +
+> > +    if ( !pdev )
+> > +        return NULL;
+> > +
+> > +    ASSERT(pdev->msix);
+> > +
+> > +    if ( !pdev->msix->adj_access_table_idx[adj_type] )
+> > +    {
+> > +        gdprintk(XENLOG_WARNING,
+> > +                 "Page for adjacent MSI-X table access not initialized=
+ for %pp\n",
+> > +                 pdev);
+> > +
+> > +        return NULL;
+> > +    }
+> > +
+> > +    /* If PBA lives on the same page too, forbid writes. */
+> > +    if ( write && (
+> > +        (adj_type =3D=3D ADJ_IDX_LAST &&
+> > +         pdev->msix->table.last =3D=3D pdev->msix->pba.first) ||
+> > +        (adj_type =3D=3D ADJ_IDX_FIRST &&
+> > +         pdev->msix->table.first =3D=3D pdev->msix->pba.last)) )
+> > +    {
+> > +        gdprintk(XENLOG_WARNING,
+> > +                 "MSI-X table and PBA of %pp live on the same page, "
+> > +                 "writing to other registers there is not implemented\=
+n",
+> > +                 pdev);
+>=20
+> Don't you actually need to check that the passed address falls into the
+> PBA array?  PBA can be sharing the same page as the MSI-X table, but
+> that doesn't imply there aren't holes also not used by either the PBA
+> or the MSI-X table in such page.
+
+I don't know exact location of PBA, so I'm rejecting writes just in case
+they do hit PBA (see commit message).
+
+> > +        return NULL;
+> > +    }
+> > +
+> > +    return fix_to_virt(pdev->msix->adj_access_table_idx[adj_type]) +
+> > +        (address & (PAGE_SIZE - 1));
+>=20
+> You can use PAGE_OFFSET().
+
+Ok.
+
+> > +
+> > +}
+> > +
+> > +static bool cf_check msixtbl_page_accept(
+> > +        const struct hvm_io_handler *handler, const ioreq_t *r)
+> > +{
+> > +    ASSERT(r->type =3D=3D IOREQ_TYPE_COPY);
+> > +
+> > +    return msixtbl_page_handler_get_hwaddr(
+> > +            current->domain, r->addr, r->dir =3D=3D IOREQ_WRITE);
+>=20
+> I think you want to accept it also if it's a write to the PBA, and
+> just drop it.  You should always pass write=3Dfalse and then drop it in
+> msixtbl_page_write() if it falls in the PBA region (but still return
+> X86EMUL_OKAY).
+
+I don't want to interfere with msixtbl_mmio_page_ops, this handler is
+only about accesses not hitting actual MSI-X structures.
+
+> > +}
+> > +
+> > +static int cf_check msixtbl_page_read(
+> > +        const struct hvm_io_handler *handler,
+> > +        uint64_t address, uint32_t len, uint64_t *pval)
+>=20
+> Why use hvm_io_ops and not hvm_mmio_ops?  You only care about MMIO
+> accesses here.
+
+I followed how msixtbl_mmio_ops are registered. Should that also be
+changed to hvm_mmio_ops?
+
+>=20
+> > +{
+> > +    void __iomem *hwaddr;
+>=20
+> const
+>=20
+> I would also initialize *pval =3D ~0ul for safety.
+
+When returning X86EMUL_OKAY, then I agree.
+
+> > +
+> > +    if ( address & (len - 1) )
+> > +        return X86EMUL_UNHANDLEABLE;
+>=20
+> You can use IS_ALIGNED for clarity.  In my fix for this for vPCI Jan
+> asked to split unaligned accesses into 1byte ones, but I think for
+> guests it's better to just drop them unless there's a specific case
+> that we need to handle.
+>=20
+> Also you should return X86EMUL_OKAY here, as the address is handled
+> here, but the current way to handle it is to drop the access.
+>=20
+> Printing a debug message can be helpful in case unaligned accesses
+> need to be implemented in order to support some device.
+>=20
+> > +
+> > +    hwaddr =3D msixtbl_page_handler_get_hwaddr(
+> > +            current->domain, address, false);
+> > +
+> > +    if ( !hwaddr )
+> > +        return X86EMUL_UNHANDLEABLE;
+>=20
+> Maybe X86EMUL_RETRY, since the page was there in the accept handler.
+
+How does X86EMUL_RETRY work? Is it trying to find the handler again?
+
+> > +
+> > +    switch ( len )
+> > +    {
+> > +    case 1:
+> > +        *pval =3D readb(hwaddr);
+> > +        break;
+> > +    case 2:
+> > +        *pval =3D readw(hwaddr);
+> > +        break;
+> > +    case 4:
+> > +        *pval =3D readl(hwaddr);
+> > +        break;
+> > +    case 8:
+> > +        *pval =3D readq(hwaddr);
+> > +        break;
+>=20
+> Nit: we usually add a newline after every break;
+
+Ok.
+
+> > +    default:
+> > +        return X86EMUL_UNHANDLEABLE;
+>=20
+> I would rather use ASSERT_UNREACHABLE() here and fallthrough to the
+> return below.  Seeing such size is likely an indication of something
+> else gone very wrong, better to just terminate the access at once.
+>=20
+> > +    }
+> > +    return X86EMUL_OKAY;
+> > +}
+> > +
+> > +static int cf_check msixtbl_page_write(
+> > +        const struct hvm_io_handler *handler,
+> > +        uint64_t address, uint32_t len, uint64_t val)
+> > +{
+> > +    void __iomem *hwaddr =3D msixtbl_page_handler_get_hwaddr(
+> > +            current->domain, address, true);
+> > +
+>=20
+> You don't seem to check whether the access is aligned here?
+>=20
+> Otherwise I have mostly the same comments as in msixtbl_page_read().
+
+Ok.
+
+> > +    if ( !hwaddr )
+> > +        return X86EMUL_UNHANDLEABLE;
+> > +
+> > +    switch ( len ) {
+> > +        case 1:
+> > +            writeb(val, hwaddr);
+> > +            break;
+> > +        case 2:
+> > +            writew(val, hwaddr);
+> > +            break;
+> > +        case 4:
+> > +            writel(val, hwaddr);
+> > +            break;
+> > +        case 8:
+> > +            writeq(val, hwaddr);
+> > +            break;
+> > +        default:
+> > +            return X86EMUL_UNHANDLEABLE;
+> > +    }
+> > +    return X86EMUL_OKAY;
+> > +
+> > +}
+> > +
+> > +static const struct hvm_io_ops msixtbl_mmio_page_ops =3D {
+> > +    .accept =3D msixtbl_page_accept,
+> > +    .read =3D msixtbl_page_read,
+> > +    .write =3D msixtbl_page_write,
+> > +};
+> > +
+> >  static void add_msixtbl_entry(struct domain *d,
+> >                                struct pci_dev *pdev,
+> >                                uint64_t gtable,
+> > @@ -593,6 +739,14 @@ void msixtbl_init(struct domain *d)
+> >          handler->type =3D IOREQ_TYPE_COPY;
+> >          handler->ops =3D &msixtbl_mmio_ops;
+> >      }
+> > +
+> > +    /* passthrough access to other registers on the same page */
+> > +    handler =3D hvm_next_io_handler(d);
+> > +    if ( handler )
+> > +    {
+> > +        handler->type =3D IOREQ_TYPE_COPY;
+> > +        handler->ops =3D &msixtbl_mmio_page_ops;
+> > +    }
+> >  }
+> > =20
+> >  void msixtbl_pt_cleanup(struct domain *d)
+> > diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/=
+msi.h
+> > index a53ade95c9ad..d13cf1c1f873 100644
+> > --- a/xen/arch/x86/include/asm/msi.h
+> > +++ b/xen/arch/x86/include/asm/msi.h
+> > @@ -207,6 +207,10 @@ struct msg_address {
+> >                                         PCI_MSIX_ENTRY_SIZE + \
+> >                                         (~PCI_MSIX_BIRMASK & (PAGE_SIZE=
+ - 1)))
+> > =20
+> > +/* indexes in adj_access_table_idx[] below */
+> > +#define ADJ_IDX_FIRST 0
+> > +#define ADJ_IDX_LAST  1
+> > +
+> >  struct arch_msix {
+> >      unsigned int nr_entries, used_entries;
+> >      struct {
+> > @@ -214,6 +218,7 @@ struct arch_msix {
+> >      } table, pba;
+> >      int table_refcnt[MAX_MSIX_TABLE_PAGES];
+> >      int table_idx[MAX_MSIX_TABLE_PAGES];
+> > +    int adj_access_table_idx[2];
+> >      spinlock_t table_lock;
+> >      bool host_maskall, guest_maskall;
+> >      domid_t warned;
+> > diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
+> > index d0bf63df1def..680853f84685 100644
+> > --- a/xen/arch/x86/msi.c
+> > +++ b/xen/arch/x86/msi.c
+> > @@ -961,6 +961,34 @@ static int msix_capability_init(struct pci_dev *de=
+v,
+> >                  domain_crash(d);
+> >              /* XXX How to deal with existing mappings? */
+> >          }
+> > +
+> > +        /*
+> > +         * If the MSI-X table doesn't start at the page boundary, map =
+the first page for
+> > +         * passthrough accesses.
+> > +         */
+>=20
+> I think you should initialize
+> msix->adj_access_table_idx[ADJ_IDX_{FIRST,LAST}] to -1?
+>=20
+> > +        if ( table_paddr & (PAGE_SIZE - 1) )
+> > +        {
+> > +            int idx =3D msix_get_fixmap(msix, table_paddr, table_paddr=
+);
+> > +
+> > +            if ( idx >=3D 0 )
+> > +                msix->adj_access_table_idx[ADJ_IDX_FIRST] =3D idx;
+> > +            else
+> > +                gprintk(XENLOG_ERR, "Failed to map first MSI-X table p=
+age: %d\n", idx);
+> > +        }
+> > +        /*
+> > +         * If the MSI-X table doesn't span full page(s), map the last =
+page for
+> > +         * passthrough accesses.
+> > +         */
+> > +        if ( (table_paddr + msix->nr_entries * PCI_MSIX_ENTRY_SIZE) & =
+(PAGE_SIZE - 1) )
+> > +        {
+> > +            uint64_t entry_paddr =3D table_paddr + msix->nr_entries * =
+PCI_MSIX_ENTRY_SIZE;
+> > +            int idx =3D msix_get_fixmap(msix, table_paddr, entry_paddr=
+);
+> > +
+> > +            if ( idx >=3D 0 )
+> > +                msix->adj_access_table_idx[ADJ_IDX_LAST] =3D idx;
+> > +            else
+> > +                gprintk(XENLOG_ERR, "Failed to map last MSI-X table pa=
+ge: %d\n", idx);
+> > +        }
+> >      }
+> >      WARN_ON(msix->table.first !=3D (table_paddr >> PAGE_SHIFT));
+> >      ++msix->used_entries;
+> > @@ -1090,6 +1118,16 @@ static void _pci_cleanup_msix(struct arch_msix *=
+msix)
+> >              WARN();
+> >          msix->table.first =3D 0;
+> >          msix->table.last =3D 0;
+> > +        if ( msix->adj_access_table_idx[ADJ_IDX_FIRST] )
+> > +        {
+> > +            msix_put_fixmap(msix, msix->adj_access_table_idx[ADJ_IDX_F=
+IRST]);
+> > +            msix->adj_access_table_idx[ADJ_IDX_FIRST] =3D 0;
+> > +        }
+> > +        if ( msix->adj_access_table_idx[ADJ_IDX_LAST] )
+> > +        {
+> > +            msix_put_fixmap(msix, msix->adj_access_table_idx[ADJ_IDX_L=
+AST]);
+> > +            msix->adj_access_table_idx[ADJ_IDX_LAST] =3D 0;
+>=20
+> Isn't 0 a valid idx?  You should check for >=3D 0 and also set
+> to -1 once the fixmap entry has been put.
+
+I rely here on msix using specific range of fixmap indexes
+(FIX_MSIX_TO_RESERV_BASE - FIX_MSIX_TO_RESERV_END), which isn't starting
+at 0. For this reason also, I keep unused entries at 0 (no need explicit
+initialization).
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--VavojxH82hISeCT6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQi1/kACgkQ24/THMrX
+1ywIdwf+JeXjo0IepTSQNBmMC7ncwswbDbDnOqxj/0VVIKTe60yhg9g694Il6H+J
+tBQV9UyaroRBLDrn+Q0K84igWGTnPfD3lWFXOt4On/oc9ZiB0O8DCGAT4c7bOsnw
+YiQF65jb320UgEH7vwXp5uCRhqBflwP3mLqIbB3xAHfjUCJahVoPxAzFwXlHbt5L
+JoLcXwV8T/uGdBaADa1L4J8+oHXZnJUMTANHromKWwsu6gHyhbF2EANUABwKwNPz
+xUFX3U3mnnN/t+B3sr+Jo5sovXwuEesbqBpXD2WO6Yj4/P7Zqh1VDDVLyMNrZ2lM
+Ta/3dZc6dsKoxxSSBBP5jflJFXKtgg==
+=yh2Q
+-----END PGP SIGNATURE-----
+
+--VavojxH82hISeCT6--
 
