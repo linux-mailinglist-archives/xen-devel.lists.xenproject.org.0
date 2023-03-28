@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01EC06CC0E1
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 15:30:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515836.799080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B116CC0FC
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 15:32:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515841.799093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ph9P7-000442-FI; Tue, 28 Mar 2023 13:30:25 +0000
+	id 1ph9RH-00054B-Rw; Tue, 28 Mar 2023 13:32:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515836.799080; Tue, 28 Mar 2023 13:30:25 +0000
+Received: by outflank-mailman (output) from mailman id 515841.799093; Tue, 28 Mar 2023 13:32:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ph9P7-0003yD-Br; Tue, 28 Mar 2023 13:30:25 +0000
-Received: by outflank-mailman (input) for mailman id 515836;
- Tue, 28 Mar 2023 13:30:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ph9RH-00051j-OY; Tue, 28 Mar 2023 13:32:39 +0000
+Received: by outflank-mailman (input) for mailman id 515841;
+ Tue, 28 Mar 2023 13:32:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z0Zt=7U=kernel.org=patchwork-bot+netdevbpf@srs-se1.protection.inumbo.net>)
- id 1ph9P6-0003uh-Dd
- for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 13:30:24 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b060ddba-cd6c-11ed-85db-49a42c6b2330;
- Tue, 28 Mar 2023 15:30:23 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id A5160CE1D37;
- Tue, 28 Mar 2023 13:30:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D6ACEC4339E;
- Tue, 28 Mar 2023 13:30:18 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- B33B6E4D01A; Tue, 28 Mar 2023 13:30:18 +0000 (UTC)
+ <SRS0=IY7/=7U=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1ph9RG-00051b-KX
+ for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 13:32:38 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 00ba43ff-cd6d-11ed-b464-930f4c7d94ae;
+ Tue, 28 Mar 2023 15:32:36 +0200 (CEST)
+Received: by mail-ed1-x533.google.com with SMTP id i5so50001192eda.0
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Mar 2023 06:32:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,60 +39,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b060ddba-cd6c-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680010218;
-	bh=e+sEc22DlWRxqg+rsXUSntwCJEqVWE0Lzu3VVQAVOlE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
-	b=JxUuyTD6iz2hgt6jWbY8X6dfypCFSKDuEv1BeBG7fatdm6LYXEziWvSEXEA22zuLt
-	 l1NnqeHVoI0DdXmlem7pU6Ale7Q65MvIQy4QbFd9XTaUfli4N/69HOF8eJkEByfy8c
-	 jzFws96gci0OWwa+tUEpWlMWfDIjVOACkZcTy6O1G5EyHKeJghlMlJE4G/CMhjy3C8
-	 q6HPgyOKI+O6CPSlXICgC+nF08nvLYHpyc6WACXSXatNGqCP3oZJDXu9/5iXLMDG2w
-	 r/cmnZ8gfgoUpkf/G/1QGejWmr/dcx2ErsiTBArxc8F3CR4SPUubvtacWj/4OZ3Eg6
-	 a9KHQvnw++WQQ==
-Content-Type: text/plain; charset="utf-8"
+X-Inumbo-ID: 00ba43ff-cd6d-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112; t=1680010356;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=avRdTBxIRXTiqbYNmx6BA/a4fa3mHTMXauIWBufhyO4=;
+        b=TfJs0zypfELqSJHvH9hleNj8oLr73pRrVYtYd3TjdHX31fwaNOb7UuOvhtkjTOW7yK
+         BKEnR/Qn7EUIMRcLRbvLx3OCqJWNMwX57lpy2z+0w2U7w0JXdTAXWiH/YlHBtlBQVk4D
+         Nb1GFsNe/rxVnVEwxuYrP+Lmd5Yf1D5ucYBP0ZDqoxX5j6oJs+wCb+r06+5XlcgH9tve
+         HxKmZX4FybklHh2CP01s7l6wXrgHcbBDya8dd/pGV7kjVYJ54AcMxdcYWDY8TK3894QF
+         ulbNNEH45LpHdt2Hvlj1NmADaA2LvcwxKlHfQy07ryQjfLqMjpMzCfSY/+A/nn1NWufX
+         TSSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680010356;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=avRdTBxIRXTiqbYNmx6BA/a4fa3mHTMXauIWBufhyO4=;
+        b=LQ6OQaYX6dNO6QM65o9yMJcttHIrPgSvnNsvURywS+d5HscP1Ue8TFE8ZNy5j99yp9
+         g+443YWgav36grVXUegJTjGMV5eiDz1l1J8sJthPh4+nI9RSzTDnnBBcGNSBY/VsuYSQ
+         jl3ych1Fc1TPs88ovaBD18dt8qb1bhevqDklzmwmj1BF5MEk/m093qQS7x2gFUtHnbvS
+         8+OZFRmDH9I367+cDK0uNVDnO33jp9VRsvRMmDTq9eoAkg/+gFlNwL0vGGaG/Ks46KTw
+         DXZ6DLpCEpbb0WIo6IoK1bAozPU1v51Ua7iHYnNawlivZWdeSTQbq0Kxe6ALhLM06Fxq
+         HtIA==
+X-Gm-Message-State: AAQBX9fnjJ0nxsyMI7Grj5XQQ1HutavAPtIMHdMAJ38iLeroqIRN5hF5
+	5IC6cbDwSNBo7UxKqTbNDbBpo90+6qw5ZPn12Y4=
+X-Google-Smtp-Source: AKy350bho/1fNnsajXNRLFQXT3x5+9j9GIVjkAti6HPujy3hz4TN4V9KaH/latPG7kIOcYv9T0Bzz6AGenY0SzP73sw=
+X-Received: by 2002:a17:907:b60b:b0:8ae:9f1e:a1c5 with SMTP id
+ vl11-20020a170907b60b00b008ae9f1ea1c5mr7618068ejc.3.1680010356177; Tue, 28
+ Mar 2023 06:32:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 0/2] xen/netback: fix issue introduced recently
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <168001021872.12098.12374211537916209882.git-patchwork-notify@kernel.org>
-Date: Tue, 28 Mar 2023 13:30:18 +0000
-References: <20230327083646.18690-1-jgross@suse.com>
-In-Reply-To: <20230327083646.18690-1-jgross@suse.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, wei.liu@kernel.org,
- paul@xen.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, xen-devel@lists.xenproject.org, stable@vger.kernel.org
+References: <20230325024924.882883-1-marmarek@invisiblethingslab.com>
+ <20230325024924.882883-3-marmarek@invisiblethingslab.com> <5cfcfb7a-df50-fbe4-89e6-611a83991790@suse.com>
+ <ZCLl3ePLgrmFTViV@mail-itl> <1b530e63-de12-f953-1fb5-4e3c3ea69fea@suse.com> <ZCLrX2TmYlg2kMxL@Air-de-Roger>
+In-Reply-To: <ZCLrX2TmYlg2kMxL@Air-de-Roger>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 28 Mar 2023 09:32:24 -0400
+Message-ID: <CAKf6xptXovH5-OwuuJ4cNz4JxG-mw3mcwRBJf4PuTwjBA12fSA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] x86/msi: clear initial MSI-X state on boot
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
+	Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Tue, Mar 28, 2023 at 9:28=E2=80=AFAM Roger Pau Monn=C3=A9 <roger.pau@cit=
+rix.com> wrote:
+>
+> On Tue, Mar 28, 2023 at 03:23:56PM +0200, Jan Beulich wrote:
+> > On 28.03.2023 15:04, Marek Marczykowski-G=C3=B3recki wrote:
+> > > On Tue, Mar 28, 2023 at 02:54:38PM +0200, Jan Beulich wrote:
+> > >> On 25.03.2023 03:49, Marek Marczykowski-G=C3=B3recki wrote:
+> > >>> Some firmware/devices are found to not reset MSI-X properly, leavin=
+g
+> > >>> MASKALL set. Xen relies on initial state being both disabled.
+> > >>> Especially, pci_reset_msix_state() assumes if MASKALL is set, it wa=
+s Xen
+> > >>> setting it due to msix->host_maskall or msix->guest_maskall. Cleari=
+ng
+> > >>> just MASKALL might be unsafe if ENABLE is set, so clear them both.
+> > >>
+> > >> But pci_reset_msix_state() comes into play only when assigning a dev=
+ice
+> > >> to a DomU. If the tool stack doing a reset doesn't properly clear th=
+e
+> > >> bit, how would it be cleared the next time round (i.e. after the gue=
+st
+> > >> stopped and then possibly was started again)? It feels like the issu=
+e
+> > >> wants dealing with elsewhere, possibly in the tool stack.
+> > >
+> > > I may be misremembering some details, but AFAIR Xen intercepts
+> > > toolstack's (or more generally: accesses from dom0) attempt to clean
+> > > this up and once it enters an inconsistent state (or rather: starts w=
+ith
+> > > such at the start of the day), there was no way to clean it up.
+> >
+> > Iirc Roger and you already discussed that there needs to be an
+> > indication of device reset having happened, so that Xen can resync
+> > from this "behind its back" operation. That would look to be the
+> > point/place where such inconsistencies should be eliminated.
+>
+> I think that was a different conversation with Huang Rui related to
+> the AMD GPU work, see:
+>
+> https://lore.kernel.org/xen-devel/ZBwtaceTNvCYksmR@Air-de-Roger/
+>
+> I understood the problem Marek was trying to solve was that some
+> devices where initialized with the MASKALL bit set (likely by the
+> firmware?) and that prevented Xen from using them.  But now seeing the
+> further replies on this patch I'm unsure whether that's the case.
 
-This series was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+In my case, Xen's setting of MASKALL persists through a warm reboot,
+so Xen sees it set when booting.  On a cold boot, MASKALL is not set.
 
-On Mon, 27 Mar 2023 10:36:44 +0200 you wrote:
-> The fix for XSA-423 introduced a bug which resulted in loss of network
-> connection in some configurations.
-> 
-> The first patch is fixing the issue, while the second one is removing
-> a test which isn't needed.
-> 
-> Juergen Gross (2):
->   xen/netback: don't do grant copy across page boundary
->   xen/netback: remove not needed test in xenvif_tx_build_gops()
-> 
-> [...]
-
-Here is the summary with links:
-  - [1/2] xen/netback: don't do grant copy across page boundary
-    https://git.kernel.org/netdev/net/c/05310f31ca74
-  - [2/2] xen/netback: remove not needed test in xenvif_tx_build_gops()
-    https://git.kernel.org/netdev/net/c/8fb8ebf94877
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Regards,
+Jason
 
