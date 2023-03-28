@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B23A6CBE9A
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 14:07:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515738.798874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B44CC6CBED6
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 14:17:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515746.798885 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ph86r-0000eQ-3q; Tue, 28 Mar 2023 12:07:29 +0000
+	id 1ph8Fu-0002JY-2v; Tue, 28 Mar 2023 12:16:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515738.798874; Tue, 28 Mar 2023 12:07:29 +0000
+Received: by outflank-mailman (output) from mailman id 515746.798885; Tue, 28 Mar 2023 12:16:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ph86r-0000bU-0n; Tue, 28 Mar 2023 12:07:29 +0000
-Received: by outflank-mailman (input) for mailman id 515738;
- Tue, 28 Mar 2023 12:07:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B75i=7U=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ph86p-0000bI-L5
- for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 12:07:27 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1aaaf452-cd61-11ed-85db-49a42c6b2330;
- Tue, 28 Mar 2023 14:07:26 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id EFFEE5C012A;
- Tue, 28 Mar 2023 08:07:25 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Tue, 28 Mar 2023 08:07:25 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 28 Mar 2023 08:07:24 -0400 (EDT)
+	id 1ph8Fu-0002H9-07; Tue, 28 Mar 2023 12:16:50 +0000
+Received: by outflank-mailman (input) for mailman id 515746;
+ Tue, 28 Mar 2023 12:16:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6aKL=7U=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1ph8Fs-0002H3-N9
+ for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 12:16:48 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2061b.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::61b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6823f663-cd62-11ed-b464-930f4c7d94ae;
+ Tue, 28 Mar 2023 14:16:46 +0200 (CEST)
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
+ by PAXPR04MB8174.eurprd04.prod.outlook.com (2603:10a6:102:1c4::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Tue, 28 Mar
+ 2023 12:16:43 +0000
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::4189:2d2a:eb83:5965]) by AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::4189:2d2a:eb83:5965%3]) with mapi id 15.20.6222.030; Tue, 28 Mar 2023
+ 12:16:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,152 +47,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1aaaf452-cd61-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1680005245; x=1680091645; bh=GwPQfU/1OdNZDH0514UzlX2nnEEw76zTzl7
-	0uQOSdcU=; b=HHenlbhd1k7rT1iN862qfCchuOQip+gQ6J4s1riad9DjEM7UmgR
-	MAyRokdVvRKg9iWwtwQcbAKNsRCFHesbC1JExT7eaCfS/fxIG7Kz5STGfxhJSnte
-	fcQ8CgbOlgQcAOEund5TiXMcCGgjpVHE+V9yTdlIlJiDSUYnCMHXswPTFduVUiLi
-	uWPyDQSSXt3gdp+OauudO2g5N+B4wP4zl0V3VlccYEZ/8KdfFMvrSn/SjwpFLozX
-	2EgyBfJ/G3WOkOKYk69imInARaE+WafN6NERr7PKe3hbntf5AeiHZAcini0u4EGr
-	oN7lGV2aRlqBP0mdpQtrUaU9PSW2vO9zMxw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1680005245; x=1680091645; bh=GwPQfU/1OdNZD
-	H0514UzlX2nnEEw76zTzl70uQOSdcU=; b=BWPTp9IEab5ci5DWYvOmkzBNkRZju
-	YysJ7XYmYd7Hia7lddpD7S4e8TIffgwGDlUu6OE6LOd0YS0qc0L7zg+D9SSIFpOj
-	sBZ2H1HZRdR//2gTkicxB4hrGwKpQNX9lKzPOzOf30EhY7QYv8LvXH3kfr0a05R8
-	bJ4Jmspk1mzmjwKjdm/1WMksybRWgVWxGx/vWOjhf8RNlED6Yr+eBLnhtiNEyVov
-	3X/2EJsM1x/qkYZgugsfyhIFZ8W9DNO9Tcdtl1PHC7qPsA4AySdhdBLHDSn8Bhh0
-	SrBXFZnhShBaMcQKn5USrh7aAUOWKSdAieESAyltYK9RUkCERMyv//gRQ==
-X-ME-Sender: <xms:fdgiZPetMCd9TDTXFftIh4-tK6MvYPsdxs9NAkI3WJj5UMJEbsFhAA>
-    <xme:fdgiZFMYsEX8DzKV_ckEsywMLTNp8C_Ou9Z5VYx2R4Ou8l8gGtP22R0BcoJwQ8oow
-    nn_HvjGEm4ilQ>
-X-ME-Received: <xmr:fdgiZIhFuT9dtbtOl3pl_XH--8HHoYoW8EcRUhusFpNgwaVaxCO6Ltx--MClVHlUjVrHu3ThRdUmF67wjvA5oCEnEX6vZF-SJtQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdehgedggeejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:fdgiZA83nuRTCFOLQ8bNqiEBr7pyL_DJopSxg9uH066jc34Nz9KN-w>
-    <xmx:fdgiZLuv7HywvOcvmBjK9_lL8D3QIOxWdgW5J-Xo-w9qpF49WyMafQ>
-    <xmx:fdgiZPFw84EGnVgY6gqZ2s3JlG1YMkPJbBvpnzCqbUDYY4UeNj6nxA>
-    <xmx:fdgiZE7ZeWMHIyNePDjLEcAHAi5jgwU3FjPwXMhEy18jkM5fqqF5nQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 28 Mar 2023 14:07:22 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>,
-	Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v2 3/3] x86/msi: clear initial MSI-X state on boot
-Message-ID: <ZCLYe94PE3WXYnU5@mail-itl>
-References: <20230325024924.882883-1-marmarek@invisiblethingslab.com>
- <20230325024924.882883-3-marmarek@invisiblethingslab.com>
- <ZCLRap2GJE0xwBCN@Air-de-Roger>
+X-Inumbo-ID: 6823f663-cd62-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Oa/PAlTOyaD2+pukA+xRy8QZN+lt3jf2G6bUHa5rfmqd/sRrz1/e8bsVtRxyZF8QeBqa6E5Z7odo8vlcGogQ3pMt2t1cfY40yuVdht4oTphaiBocQRsHNPDYRx/7iLRGNxzspA2Ij4iI0OYQhcm3aJ3udZeRCOKxBBV8myOTGpTi3Qsl8UXpeAq1ZjQt1JMETW09S0P4ENhdzuTccBf8njSLHrq5SC9yfHnPo9UmouWLl3LJJI6NLlk1n4NDPGRp+Oy42eHMUoCIsRCN2goAWLHqrViS3fx/ovBUAlc4ZixYWVDgTDW6JEi96SZHC+kyAdUJxltWmNtAxEtQO1as5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nRmXVPK24nPfY7pgIbbDlalW9xrFtKsQ5snuwt5GU44=;
+ b=OtPakWgbToTp4AD46tFcVhtTziPWfNTXHadNlGH2XcCBr++l85q9E54JMum6QXBh2HXSw2VPg3HNYkoHNmrcc7F9wNfNyp5VVjpvuTsILE7OsxYddebMavG4zK2ASsSV/nLbsODObjC6FKE1cvlQbkXtA7wTiSxqCmJVEjs8R9Qu71LDWSUV2s1UkMAtPa+M4cK1jLwxT0v9xVwMpV/dqZv40hVpkvqwy9CUQgpVMwAPa+LwR1Gd3Q4w6BmbS/cLkLhWFjoIDzmiGaqQlTjKF/Jj1fGTeSzoieTgIGTP8iJGrsIEOfja6XakLGqbmwTqiCW8fLgIdNUYbb9yzY4OKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nRmXVPK24nPfY7pgIbbDlalW9xrFtKsQ5snuwt5GU44=;
+ b=gBYcq7ZwYlxC0xZNDz9rvHq/nQQ7rxtHbYSagh65u7iVUC6610aUoC10usbFICPgCkinGjq42v2lQXmPkkQX3kPcKpU89IzKaP3fccDuqtK1t1oaSRkZB/t36aT+XEL+g1C+DjceRjOtlgd58Rmn8beutYoPUUecEnh33tgDu/yB81CGXmM3U/FEcZh11ckYfjmLa5LIsJ9KgAPwLGmQXDiQhu5sMoFgBTAXIunjw2+zYndBb+TpOId1QVZvrH3/mt44TruNZuw45Rir10CvJTYlAzd3JyrZAxq2qWfu+6Gv90Yh/5G6HwUPz8+EC6yoP/jfx+yIEz6C9qI0VCO15A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <857b9f24-437b-52e8-a195-5bb990a2b647@suse.com>
+Date: Tue, 28 Mar 2023 14:16:41 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v4] vpci/msix: handle accesses adjacent to the MSI-X table
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+References: <20230324121738.4920-1-roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230324121738.4920-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0036.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::18) To AM6PR04MB6551.eurprd04.prod.outlook.com
+ (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="HoIGlTicOpUPWFzV"
-Content-Disposition: inline
-In-Reply-To: <ZCLRap2GJE0xwBCN@Air-de-Roger>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|PAXPR04MB8174:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8f21998-9537-4ac8-af0b-08db2f864b0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	iImogDIusAz5mvT/P11WeRitbzhhvjUYr46UxTvozba5c9YCDpubH/BTwxvOBa0Mi0P+UGGDCH60OgQ/8uB4rhvTjDUsnzpe4/iYqPlddunI38DxdupNSoIcWUOL1pY4Z/N3VGOmY1Db/jz8wRAALXfsFURTLHgxNAbSVW4lWIz7xGyDrucCPHhvGJW8NsGyqZye4rps2ky6Jf+1nDJ0jMq0J1xVZrMkD9ibk5S7Tbu5KF0i2DNEXHhcbomXUVgqpAlaXCrY/unHYl5ccqQzcv+G2DZ16WQOnRtNlRvU6f1QoPdd1Ow+U+KFR+4UUJrIeO0qk6GhXiDIPuyeUYVE0zSzPXUle0IhOsL+iA5NFZHpv8anerZPzBL5Tmn92tRcMymvmb8cvkkIHhoEYC34OlBNHzGhkkkbxptr0GUgveCPTBzgjt7W2/GYCpTUcK1uNx1IQ7VMgbflxZHASATxyaMiiVXBWcFQ5LPR7hHocK4xGS4BPmXwoXSe4V4cUNaaABtWDjooU195ZP91e4nOyCtA8eti8cWjQVTmx+rGHwba9xKkeRHdLad9VRG48uY8COfNAnUCp0eMGhkktbN1xnad00AerZkmtYwOpZOFscSYBypslB3j8j7h7bVFarl/NngPBG3uq088Sfkchd3CPA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(136003)(366004)(346002)(376002)(39860400002)(451199021)(41300700001)(8676002)(6916009)(66476007)(66946007)(4326008)(66556008)(186003)(2906002)(36756003)(5660300002)(83380400001)(31696002)(38100700002)(86362001)(8936002)(2616005)(478600001)(6486002)(31686004)(53546011)(26005)(6512007)(6506007)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VE9DZmFKVzBneVpNNzV1TTdzbTF3ZlloUlo1R1BmanZhY3dDNEQvR0xZVWxE?=
+ =?utf-8?B?R2hUK0lSKzU0V3k3NG9hWVRaaVdMdlpPQUQzS1NIVzkvYU9nc0lLZDNxaDl1?=
+ =?utf-8?B?TGRyQUlqT0pnMEFIMWJGblJ0Wm9IRDI2VlVKQ3JUd3llblc4YnIyM0hyaTMz?=
+ =?utf-8?B?TDVrRzNhT0ZGVTVKZjJaMU5YR0ZPTEdZaHlSTmZGS2xBTWNjZk92a2g2L21J?=
+ =?utf-8?B?ZjhsS2tvMlgzS1JnbzlybloremxYSkV4WlhHQU5Md0lrNEQ3b2hqUzZhSGJI?=
+ =?utf-8?B?WEZQdEdNRy92UUE2NnlReVhYaFIrNzJkaVN3UytMOXFyRUNYZjhzRFl3TitG?=
+ =?utf-8?B?bVJTa2RJUFhxakpaVHdvT3BMWTc5VnRXRU5RWFFJK0JhRWpWR0ZaMXBmaWRJ?=
+ =?utf-8?B?S0JKOVpyY2dNWmU2bEtQbTFrRklBVnBBMmJWOWRBdXl1cFRDTTFJRXRSbWxm?=
+ =?utf-8?B?MzRaYXNiNktCK1VncHlhMGZudXRST3NNVFFUUUFHQmp1V0Y5RFFNa0NPV1No?=
+ =?utf-8?B?UFNxdERTKzB4Z1MyQWFYeU05ZkVhVlNDbTNvemJCZHYwSGZXZyt0U2VJTi9I?=
+ =?utf-8?B?WFRtNUdTcUEzRUs0WU9IWUlyYWF0cm1Qb1N5WTNhZEhKYW5Jbm9iUjI3WFZT?=
+ =?utf-8?B?ZVhKMHZveDlJdTlLZlVrR0ZQdHpiSHNyMCthcDVLd3ViemlhMU1JYkRNRlJx?=
+ =?utf-8?B?QUljMWxxbkhzb3RFRGxUOEtiU3YyOFN1b05hMDBYd1NGdFJvUmQzN3B5QVpE?=
+ =?utf-8?B?WDJXMHFBczU2TVM0bklpN01MeFNVZGJHNFVQVndxTnpRWE5CbEp3bStWUE5r?=
+ =?utf-8?B?WWRVUHFUajNTMUczYTU4Rm1LWHRFZUhjQVN5OThtMFhqaHhiM3FncEZRYmpp?=
+ =?utf-8?B?ME14RkhlYVdHZHpETDdBYnBzREhFSnpydkY2RTB0V3JCalNWWUc4Tzc0UE5u?=
+ =?utf-8?B?aHVkZWFYeTNaVHNJK1JBdEk1cUlHZXYvSjBxTEQ2RUlpNXIzenhobjVxcFRZ?=
+ =?utf-8?B?WS81dHRUbjJFa0tjMjJYbG1Ja20zaHIrZGJ3Y1gvbnp1RitFZ1hobXJ2Vlo1?=
+ =?utf-8?B?WnV5R1hGK2ZUQ2pVazdMSXkrQzBmZ0tOL2xaMHlRMG9xUTBiWCs0MU1aVjAx?=
+ =?utf-8?B?R1ltYlNuR0pyN24wQk85b2dEVzB6WWg2UVo3ME5GN3BsVFh4cC9IeHM0aCtp?=
+ =?utf-8?B?R1RFK1FqdjVrRWdyMlV1VXp2aFR5UnN3VFNYTlpqellvdDN0ZGRzcFpNcjJM?=
+ =?utf-8?B?Sys3ODJSS0docVZSYkpVdDRNNmpKdHBmSncySklVMXVXNXFvaDJhb1FVWWdD?=
+ =?utf-8?B?VUViRmQrZmxZaXczUUpyVmkrMFJuV3pYV25GZ0UrWEdQZ3NOVWdOTjhxODJs?=
+ =?utf-8?B?azZqMGd5Z2NVS0JPRzhTWlZNWDlLT24yYUtHN3ByVWlQL0lFV0REZVJFQzRY?=
+ =?utf-8?B?Vm15RCtWbG94M3hqUldrd1RvT0ZDRVRLM2l1R2FtcDNqd0s5MHZSbExQMlpD?=
+ =?utf-8?B?TmsrSzRuOUtyNXhQamFaeFNsOGRjWDlTc2tXdzZxOGNHTlNPL0FyTEcxZ3hl?=
+ =?utf-8?B?eDhZOGoyQzllRXhUclFTVkhVclBvOGNNUFNXMENmRE5SU05YcjhqeGVRcWZP?=
+ =?utf-8?B?bHdDM0I5LzBUMFJvRHozcjBGY1o3VmRMYmlOdStHTk1mS2JOQ2I3d2EyQmMz?=
+ =?utf-8?B?YldTdjVOekZ2WHcvM1FVK3AwZlNMQkMxd3NKR2xWcTU4bHY1aXB2bEx3Y3RP?=
+ =?utf-8?B?dU5DSGNXdmc5Vkd4SGhlSHBKc0FTeU81TTRRQjlHSmtvTWlPODdYd1JIZzZ4?=
+ =?utf-8?B?WFZMbEJRZ3BvaUhrK09jVjZ2cDdPWU5UOGY5OTlDUUZRdEEzVXMxRkhXUEZX?=
+ =?utf-8?B?REFkcHRQczZGTnpqUEZKNDA5NUlybHhWZ0l3MmNvQXZMeXFaVlZwR0doT3dx?=
+ =?utf-8?B?MVRnMmpPZTV6SkVlbXJNUDJURkFSQXQ3QnFOaWYvUlpLVFd6M0dFU2R2V2gx?=
+ =?utf-8?B?a0M2bnRGeGZ3aThXTzU4U2NYTllpZDFlSXZ4ZnU2c0F3Zk9HazVlc1FKb3lh?=
+ =?utf-8?B?amlsVUJtZXluTzRjTGhlRFEvVytVWWpXS3ZDTjY2RE5rV3dIOHFhWHZDV1dO?=
+ =?utf-8?Q?oBwzqMvx0W7W2SuiwKvVmzzt/?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8f21998-9537-4ac8-af0b-08db2f864b0d
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 12:16:43.5779
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VU4HycEDQY0ApE1rWT0QkO5LhQy1BOYenzh35CXw07r7EMlAOy9c2aTkUbLz7a6ar4ojrd1767ONZ/RnayK8Yw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8174
 
+On 24.03.2023 13:17, Roger Pau Monne wrote:
+> The handling of the MSI-X table accesses by Xen requires that any
+> pages part of the MSI-X related tables are not mapped into the domain
+> physmap.  As a result, any device registers in the same pages as the
+> start or the end of the MSIX or PBA tables is not currently
+> accessible, as the accesses are just dropped.
+> 
+> Note the spec forbids such placing of registers, as the MSIX and PBA
+> tables must be 4K isolated from any other registers:
+> 
+> "If a Base Address register that maps address space for the MSI-X
+> Table or MSI-X PBA also maps other usable address space that is not
+> associated with MSI-X structures, locations (e.g., for CSRs) used in
+> the other address space must not share any naturally aligned 4-KB
+> address range with one where either MSI-X structure resides."
+> 
+> Yet the 'Intel Wi-Fi 6 AX201' device on one of my boxes has registers
+> in the same page as the MSIX tables, and thus won't work on a PVH dom0
+> without this fix.
+> 
+> In order to cope with the behavior passthrough any accesses that fall
+> on the same page as the MSIX tables (but don't fall in between) to the
+> underlying hardware.  Such forwarding also takes care of the PBA
+> accesses, so it allows to remove the code doing this handling in
+> msix_{read,write}.  Note that as a result accesses to the PBA array
+> are no longer limited to 4 and 8 byte sizes, there's no access size
+> restriction for PBA accesses documented in the specification.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
---HoIGlTicOpUPWFzV
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Mar 2023 14:07:22 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>,
-	Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v2 3/3] x86/msi: clear initial MSI-X state on boot
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On Tue, Mar 28, 2023 at 01:37:14PM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Sat, Mar 25, 2023 at 03:49:24AM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > Some firmware/devices are found to not reset MSI-X properly, leaving
-> > MASKALL set. Xen relies on initial state being both disabled.
->=20
-> The 'both' in this sentence seems out of context, as you just mention
-> MASKALL in the previous sentence.
->=20
-> > Especially, pci_reset_msix_state() assumes if MASKALL is set, it was Xen
-> > setting it due to msix->host_maskall or msix->guest_maskall. Clearing
-> > just MASKALL might be unsafe if ENABLE is set, so clear them both.
-> >=20
-> > Reported-by: Jason Andryuk <jandryuk@gmail.com>
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
-> > v2:
-> >  - new patch
-> > ---
-> >  xen/drivers/passthrough/msi.c | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> >=20
-> > diff --git a/xen/drivers/passthrough/msi.c b/xen/drivers/passthrough/ms=
-i.c
-> > index ce1a450f6f4a..60adad47e379 100644
-> > --- a/xen/drivers/passthrough/msi.c
-> > +++ b/xen/drivers/passthrough/msi.c
-> > @@ -48,6 +48,13 @@ int pdev_msi_init(struct pci_dev *pdev)
-> >          ctrl =3D pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
-> >          msix->nr_entries =3D msix_table_size(ctrl);
-> > =20
-> > +        /*
-> > +         * Clear both ENABLE and MASKALL, pci_reset_msix_state() relie=
-s on this
-> > +         * initial state.
-> > +         */
-> > +        ctrl &=3D ~(PCI_MSIX_FLAGS_ENABLE|PCI_MSIX_FLAGS_MASKALL);
-> > +        pci_conf_write16(pdev->sbdf, msix_control_reg(pos), ctrl);
->=20
-> Should you make this conditional to them being set in the first place:
->=20
-> if ( ctrl & (PCI_MSIX_FLAGS_ENABLE | PCI_MSIX_FLAGS_MASKALL) )
-> {
->     ...
->=20
-> We should avoid the extra access if possible (specially if it's to
-> write the same value that has been read).
->=20
-> I would even move this before the msix_table_size() call, so the
-> handling of ctrl is closer together.
->=20
-> Would it also be worth to print a debug message that the initial
-> device state seems inconsistent?
+> Changes since v3:
+>  - Keep the vpci lock taken for the duration of the access to the
+>    mapped region.
+>  - Move back the handling of unaligned accesses before getting the
+>    table map.
 
-That may make sense. XENLOG_WARNING? XENLOG_DEBUG?
+I can see why you've done this; let's hope the excessive logging won't
+trigger in reality.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---HoIGlTicOpUPWFzV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQi2HoACgkQ24/THMrX
-1ywkKAf/cohYwgU975KIK3B73OnhFRF+E9GOexJJYm/Ru41ClX2AimK2lS69S12T
-M51Jf5x/ZEPkUC/o5VjlkpymXneQNXQA2f8W2pVZwGdb0BUJ+h0xCZapAYG6ZyKI
-1V9STOydzZXJBm+xlH5NBbjbsjJwrzeid2F/HAwfTaXFq9Yz30MmuSym4UBW4zgg
-/V6kSS+Q1zp8HLiIRTGyqCtvj+AnjXCNr47qSwNrWaiVbbeKYaAFhM3Z81FQdqJj
-HSnHGI56c/WKxRHbb8cMB7dKgTbifvPkdMCl6A3SlknPRSZSs9aXtHzsjJxWpYkw
-W0qa52ujrcIqheyALVCbiIj2LvDYiQ==
-=2pX+
------END PGP SIGNATURE-----
-
---HoIGlTicOpUPWFzV--
+Jan
 
