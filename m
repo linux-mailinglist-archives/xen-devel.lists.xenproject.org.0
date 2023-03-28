@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B13E6CB2F0
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 03:00:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515515.798481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C1426CB2F1
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 03:01:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515519.798491 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgxgk-0001yC-AH; Tue, 28 Mar 2023 00:59:50 +0000
+	id 1pgxhm-0005n9-Pt; Tue, 28 Mar 2023 01:00:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515515.798481; Tue, 28 Mar 2023 00:59:50 +0000
+Received: by outflank-mailman (output) from mailman id 515519.798491; Tue, 28 Mar 2023 01:00:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgxgk-0001wR-6z; Tue, 28 Mar 2023 00:59:50 +0000
-Received: by outflank-mailman (input) for mailman id 515515;
- Tue, 28 Mar 2023 00:59:49 +0000
+	id 1pgxhm-0005iZ-MM; Tue, 28 Mar 2023 01:00:54 +0000
+Received: by outflank-mailman (input) for mailman id 515519;
+ Tue, 28 Mar 2023 01:00:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=by25=7U=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pgxgi-0001wL-Ng
- for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 00:59:49 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
+ id 1pgxhl-0005LF-UE
+ for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 01:00:54 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d32c4ee7-cd03-11ed-b464-930f4c7d94ae;
- Tue, 28 Mar 2023 02:59:44 +0200 (CEST)
+ id fafb1aaa-cd03-11ed-b464-930f4c7d94ae;
+ Tue, 28 Mar 2023 03:00:50 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 93F2BCE19E8;
- Tue, 28 Mar 2023 00:59:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 130EFC433EF;
- Tue, 28 Mar 2023 00:59:37 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2F4886155A;
+ Tue, 28 Mar 2023 01:00:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D583C433EF;
+ Tue, 28 Mar 2023 01:00:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,18 +43,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d32c4ee7-cd03-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: fafb1aaa-cd03-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679965179;
-	bh=Me9B1plvTRmZyjyFUlxYSHzW/9+Q/Rbwszgf+0nYMOQ=;
+	s=k20201202; t=1679965248;
+	bh=jCxTDhm9TAFzm7JwYkQQm2z2yCQlgbqt8kdQKgFvqNU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=u5hFJEm80OU0e8s0X0NHK9fKl4wicJh0d6+8Op2xGe70htFDT2b8Cmi/yq6EXiZYC
-	 /ajtAkF/xM9aHR7BzbF5dXVYzOi+pvltt9QGm90x36iD0/7RxwES5j008oc2CzBxnR
-	 3vtX0i8iP/q5CRzNCs4PVq0o+99Y2pqV5/oj67DzZZfeRCKx/KbcY9aqjuLwg1Fyuh
-	 jUQOnGE1FHgxIGB8YazfypTSZno4JgLAFqvmc8dl8RDJ83wDuUGecp6ooAcI55Ibqq
-	 Fm32r3jmBSQbKo3iuwHblhd112fqgDZkbqOVhpp5fKFKuPZAhueYAJnPind5Ua4LzJ
-	 WhYxb2Sd58DpQ==
-Date: Mon, 27 Mar 2023 17:59:36 -0700 (PDT)
+	b=CbemYh62W6F5mh2JWlFWc1xb7OyF7CBskF//hDJu4/1N1BxTR99JkN5+TnfeXBTOR
+	 AwmtVK40SraRnvqMlV6OpEfaAss0NUDo8uq5LmP6Q0+kg1KwB8wkXYsdD5mHOV8akC
+	 RAjUsLCYIlHWTmVrxJCgc+GTkY1f3S8ofBZKbzcnwkdvRCSiAQUl8uYCIYayu6uzWX
+	 ifst8ORjlNJZCes/naktxJjyWFgfywgb+AOZ2d6VQi6nSzASbVNngQXwcqrJwfnFOL
+	 TmAomSn+ZqdPNq+70l5yaa9UEyoVL1y2DaqZ+iF+a06z2NqGoXcFYGQFK0QEH6vOqL
+	 PD4P8uY2yeumQ==
+Date: Mon, 27 Mar 2023 18:00:45 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
@@ -63,15 +62,12 @@ cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
     Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>, 
-    George Dunlap <george.dunlap@citrix.com>, 
-    Tamas K Lengyel <tamas@tklengyel.com>, 
-    Alexandru Isaila <aisaila@bitdefender.com>, 
-    Petre Pircalabu <ppircalabu@bitdefender.com>, Tim Deegan <tim@xen.org>
-Subject: Re: [PATCH v2 6/7] xen/x86: Replace GPL v2.0+ license boilerplate
- with an SPDX tag in *.c
-In-Reply-To: <20230327184520.81828-7-julien@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2303271759200.4066@ubuntu-linux-20-04-desktop>
-References: <20230327184520.81828-1-julien@xen.org> <20230327184520.81828-7-julien@xen.org>
+    George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>
+Subject: Re: [PATCH v2 7/7] xen/x86: Replace GPL v2.0+ license boilerplate
+ with an SPDX tag in *.h
+In-Reply-To: <20230327184520.81828-8-julien@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2303271800280.4066@ubuntu-linux-20-04-desktop>
+References: <20230327184520.81828-1-julien@xen.org> <20230327184520.81828-8-julien@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -82,7 +78,7 @@ On Mon, 27 Mar 2023, Julien Grall wrote:
 > It is easier to understand the license of a file when using SPDX.
 > 
 > This is replacing the below pattern with the SPDX tag GPL-2.0-or-later
-> in xen/arch/x86/*.c:
+> in xen/arch/x86/*.h:
 > 
 >  * This program is free software; you can redistribute it and/or modify
 >  * it under the terms of the GNU General Public License as published by
@@ -100,8 +96,6 @@ On Mon, 27 Mar 2023, Julien Grall wrote:
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
 > ---
->     Changes in v2:
->         - The license is GPLv2.0+ rather than GPLv2.0
 > 
 > 42sh> cat gpl-2.0+-pattern-1.txt
 >  * This program is free software; you can redistribute it and/or modify
@@ -116,7 +110,7 @@ On Mon, 27 Mar 2023, Julien Grall wrote:
 >  *
 >  * You should have received a copy of the GNU General Public License
 >  * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> 42sh> find xen/arch/x86/ -name '*.c' -exec replace_license.py gpl-2.0+-pattern-1.txt GPL-2.0-or-later {} \;
+> 42sh> find xen/arch/x86/ -name '*.h' -exec replace_license.py gpl-2.0+-pattern-1.txt GPL-2.0-or-later {} \;
 
 I ran the same commands on my system leading to the same results
 
@@ -124,87 +118,38 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  xen/arch/x86/alternative.c             | 14 +-------------
->  xen/arch/x86/cpu/mcheck/amd_nonfatal.c | 14 +-------------
->  xen/arch/x86/cpu/mcheck/mce_amd.c      | 14 +-------------
->  xen/arch/x86/cpu/mcheck/vmce.c         | 14 +-------------
->  xen/arch/x86/guest/hyperv/hyperv.c     | 14 +-------------
->  xen/arch/x86/guest/hyperv/tlb.c        | 14 +-------------
->  xen/arch/x86/guest/hyperv/util.c       | 14 +-------------
->  xen/arch/x86/guest/hypervisor.c        | 14 +-------------
->  xen/arch/x86/guest/xen/pvh-boot.c      | 14 +-------------
->  xen/arch/x86/guest/xen/xen.c           | 14 +-------------
->  xen/arch/x86/hvm/grant_table.c         | 14 +-------------
->  xen/arch/x86/hvm/hypercall.c           | 14 +-------------
->  xen/arch/x86/hypercall.c               | 14 +-------------
->  xen/arch/x86/mm.c                      | 14 +-------------
->  xen/arch/x86/mm/guest_walk.c           | 14 +-------------
->  xen/arch/x86/mm/hap/hap.c              | 14 +-------------
->  xen/arch/x86/mm/hap/nested_hap.c       | 14 +-------------
->  xen/arch/x86/mm/mem_access.c           | 14 +-------------
->  xen/arch/x86/mm/mem_paging.c           | 14 +-------------
->  xen/arch/x86/mm/mem_sharing.c          | 14 +-------------
->  xen/arch/x86/mm/nested.c               | 14 +-------------
->  xen/arch/x86/mm/p2m-basic.c            | 14 +-------------
->  xen/arch/x86/mm/p2m-pod.c              | 14 +-------------
->  xen/arch/x86/mm/p2m-pt.c               | 14 +-------------
->  xen/arch/x86/mm/p2m.c                  | 14 +-------------
->  xen/arch/x86/mm/paging.c               | 14 +-------------
->  xen/arch/x86/mm/physmap.c              | 14 +-------------
->  xen/arch/x86/mm/shadow/common.c        | 14 +-------------
->  xen/arch/x86/mm/shadow/hvm.c           | 14 +-------------
->  xen/arch/x86/mm/shadow/multi.c         | 14 +-------------
->  xen/arch/x86/mm/shadow/pv.c            | 14 +-------------
->  xen/arch/x86/mm/shadow/set.c           | 14 +-------------
->  xen/arch/x86/msr.c                     | 14 +-------------
->  xen/arch/x86/pv/emul-gate-op.c         | 14 +-------------
->  xen/arch/x86/pv/emul-inv-op.c          | 14 +-------------
->  xen/arch/x86/pv/emul-priv-op.c         | 14 +-------------
->  xen/arch/x86/pv/emulate.c              | 14 +-------------
->  xen/arch/x86/pv/hypercall.c            | 14 +-------------
->  xen/arch/x86/pv/misc-hypercalls.c      | 14 +-------------
->  xen/arch/x86/pv/ro-page-fault.c        | 14 +-------------
->  xen/arch/x86/pv/shim.c                 | 14 +-------------
->  xen/arch/x86/pv/traps.c                | 14 +-------------
->  xen/arch/x86/smpboot.c                 | 14 +-------------
->  xen/arch/x86/spec_ctrl.c               | 14 +-------------
->  xen/arch/x86/traps.c                   | 14 +-------------
->  xen/arch/x86/x86_emulate/x86_emulate.c | 14 +-------------
->  46 files changed, 46 insertions(+), 598 deletions(-)
+>  xen/arch/x86/cpu/mcheck/x86_mca.h        | 14 +-------------
+>  xen/arch/x86/guest/hyperv/private.h      | 14 +-------------
+>  xen/arch/x86/include/asm/endbr.h         | 14 +-------------
+>  xen/arch/x86/include/asm/guest_pt.h      | 14 +-------------
+>  xen/arch/x86/include/asm/hap.h           | 14 +-------------
+>  xen/arch/x86/include/asm/mem_access.h    | 14 +-------------
+>  xen/arch/x86/include/asm/mem_paging.h    | 14 +-------------
+>  xen/arch/x86/include/asm/mem_sharing.h   | 14 +-------------
+>  xen/arch/x86/include/asm/p2m.h           | 14 +-------------
+>  xen/arch/x86/include/asm/paging.h        | 14 +-------------
+>  xen/arch/x86/include/asm/shstk.h         | 14 +-------------
+>  xen/arch/x86/include/asm/spec_ctrl.h     | 14 +-------------
+>  xen/arch/x86/include/asm/spec_ctrl_asm.h | 14 +-------------
+>  xen/arch/x86/include/asm/traps.h         | 14 +-------------
+>  xen/arch/x86/include/asm/xenoprof.h      | 14 +-------------
+>  xen/arch/x86/mm/mm-locks.h               | 14 +-------------
+>  xen/arch/x86/mm/p2m.h                    | 14 +-------------
+>  xen/arch/x86/mm/shadow/multi.h           | 14 +-------------
+>  xen/arch/x86/mm/shadow/private.h         | 14 +-------------
+>  xen/arch/x86/mm/shadow/types.h           | 14 +-------------
+>  xen/arch/x86/x86_emulate/x86_emulate.h   | 14 +-------------
+>  21 files changed, 21 insertions(+), 273 deletions(-)
 > 
-> diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
-> index 0c6fc7b4fb0c..2383fa66294c 100644
-> --- a/xen/arch/x86/alternative.c
-> +++ b/xen/arch/x86/alternative.c
-> @@ -1,18 +1,6 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * alternative.c
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/delay.h>
-> diff --git a/xen/arch/x86/cpu/mcheck/amd_nonfatal.c b/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
-> index efb45c931e1f..7d48c9ab5f7a 100644
-> --- a/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
-> +++ b/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
+> diff --git a/xen/arch/x86/cpu/mcheck/x86_mca.h b/xen/arch/x86/cpu/mcheck/x86_mca.h
+> index 8f7fced0fee0..18116737af29 100644
+> --- a/xen/arch/x86/cpu/mcheck/x86_mca.h
+> +++ b/xen/arch/x86/cpu/mcheck/x86_mca.h
 > @@ -1,19 +1,7 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /*
 >   * MCA implementation for AMD CPUs
->   * Copyright (c) 2007 Advanced Micro Devices, Inc.
+>   * Copyright (c) 2007-2012 Advanced Micro Devices, Inc. 
 > - *
 > - * This program is free software; you can redistribute it and/or modify
 > - * it under the terms of the GNU General Public License as published by
@@ -220,96 +165,17 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 >   */
 >  
->  
-> diff --git a/xen/arch/x86/cpu/mcheck/mce_amd.c b/xen/arch/x86/cpu/mcheck/mce_amd.c
-> index d7ae8919df77..3c374fd4e4e9 100644
-> --- a/xen/arch/x86/cpu/mcheck/mce_amd.c
-> +++ b/xen/arch/x86/cpu/mcheck/mce_amd.c
-> @@ -1,19 +1,7 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /*
->   * common MCA implementation for AMD CPUs.
->   * Copyright (c) 2012-2014 Advanced Micro Devices, Inc.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  /* K8 common MCA documentation published at
-> diff --git a/xen/arch/x86/cpu/mcheck/vmce.c b/xen/arch/x86/cpu/mcheck/vmce.c
-> index af30811afd44..40cc2c5230d7 100644
-> --- a/xen/arch/x86/cpu/mcheck/vmce.c
-> +++ b/xen/arch/x86/cpu/mcheck/vmce.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /*
->   * vmce.c - provide software emulated vMCE support to guest
->   *
->   * Copyright (C) 2010, 2011 Jiang, Yunhong <yunhong.jiang@intel.com>
->   * Copyright (C) 2012, 2013 Liu, Jinsong <jinsong.liu@intel.com>
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/init.h>
-> diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
-> index b101ba3080b4..aacc7a61670b 100644
-> --- a/xen/arch/x86/guest/hyperv/hyperv.c
-> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
+>  #ifndef X86_MCA_H
+> diff --git a/xen/arch/x86/guest/hyperv/private.h b/xen/arch/x86/guest/hyperv/private.h
+> index fea3e291e944..0277e8314c54 100644
+> --- a/xen/arch/x86/guest/hyperv/private.h
+> +++ b/xen/arch/x86/guest/hyperv/private.h
 > @@ -1,21 +1,9 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/guest/hyperv/hyperv.c
+>   * arch/x86/guest/hyperv/private.h
 >   *
->   * Support for detecting and running under Hyper-V.
->   *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> - *
->   * Copyright (c) 2019 Microsoft.
->   */
->  #include <xen/init.h>
-> diff --git a/xen/arch/x86/guest/hyperv/tlb.c b/xen/arch/x86/guest/hyperv/tlb.c
-> index f249b259253d..ef930efa954b 100644
-> --- a/xen/arch/x86/guest/hyperv/tlb.c
-> +++ b/xen/arch/x86/guest/hyperv/tlb.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/guest/hyperv/tlb.c
->   *
->   * Support for TLB management using hypercalls
+>   * Definitions / declarations only useful to Hyper-V code.
 >   *
 > - * This program is free software; you can redistribute it and/or modify
 > - * it under the terms of the GNU General Public License as published by
@@ -327,17 +193,13 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 >   * Copyright (c) 2020 Microsoft.
 >   */
 >  
-> diff --git a/xen/arch/x86/guest/hyperv/util.c b/xen/arch/x86/guest/hyperv/util.c
-> index 2c5f421b7bd9..a88699e818b7 100644
-> --- a/xen/arch/x86/guest/hyperv/util.c
-> +++ b/xen/arch/x86/guest/hyperv/util.c
-> @@ -1,21 +1,9 @@
+> diff --git a/xen/arch/x86/include/asm/endbr.h b/xen/arch/x86/include/asm/endbr.h
+> index d946fac13130..3033e40d29a8 100644
+> --- a/xen/arch/x86/include/asm/endbr.h
+> +++ b/xen/arch/x86/include/asm/endbr.h
+> @@ -1,17 +1,5 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/guest/hyperv/util.c
->   *
->   * Hyper-V utility functions
->   *
 > - * This program is free software; you can redistribute it and/or modify
 > - * it under the terms of the GNU General Public License as published by
 > - * the Free Software Foundation; either version 2 of the License, or
@@ -351,209 +213,19 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * You should have received a copy of the GNU General Public License
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 > - *
->   * Copyright (c) 2020 Microsoft.
+>   * Copyright (c) 2021-2022 Citrix Systems Ltd.
 >   */
->  
-> diff --git a/xen/arch/x86/guest/hypervisor.c b/xen/arch/x86/guest/hypervisor.c
-> index 366af1d65001..b8549a131a5a 100644
-> --- a/xen/arch/x86/guest/hypervisor.c
-> +++ b/xen/arch/x86/guest/hypervisor.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/guest/hypervisor.c
->   *
->   * Support for detecting and running under a hypervisor.
->   *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> - *
->   * Copyright (c) 2019 Microsoft.
->   */
->  #include <xen/cpumask.h>
-> diff --git a/xen/arch/x86/guest/xen/pvh-boot.c b/xen/arch/x86/guest/xen/pvh-boot.c
-> index 498625eae0a3..9cbe87b61bdd 100644
-> --- a/xen/arch/x86/guest/xen/pvh-boot.c
-> +++ b/xen/arch/x86/guest/xen/pvh-boot.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/guest/pvh-boot.c
->   *
->   * PVH boot time support
->   *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> - *
->   * Copyright (c) 2017 Citrix Systems Ltd.
->   */
->  #include <xen/init.h>
-> diff --git a/xen/arch/x86/guest/xen/xen.c b/xen/arch/x86/guest/xen/xen.c
-> index 9c2defaa6621..f93dfc89f724 100644
-> --- a/xen/arch/x86/guest/xen/xen.c
-> +++ b/xen/arch/x86/guest/xen/xen.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/guest/xen.c
->   *
->   * Support for detecting and running under Xen.
->   *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> - *
->   * Copyright (c) 2017 Citrix Systems Ltd.
->   */
->  #include <xen/event.h>
-> diff --git a/xen/arch/x86/hvm/grant_table.c b/xen/arch/x86/hvm/grant_table.c
-> index b7a896ea5855..30d51d54a949 100644
-> --- a/xen/arch/x86/hvm/grant_table.c
-> +++ b/xen/arch/x86/hvm/grant_table.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/hvm/grant_table.c
->   *
->   * Grant table interfaces for HVM guests
->   *
->   * Copyright (C) 2017 Wei Liu <wei.liu2@citrix.com>
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/types.h>
-> diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
-> index 405d0a95afd8..20d266ffd53a 100644
-> --- a/xen/arch/x86/hvm/hypercall.c
-> +++ b/xen/arch/x86/hvm/hypercall.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/hvm/hypercall.c
->   *
->   * HVM hypercall dispatching routines
->   *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> - *
->   * Copyright (c) 2017 Citrix Systems Ltd.
->   */
->  #include <xen/lib.h>
-> diff --git a/xen/arch/x86/hypercall.c b/xen/arch/x86/hypercall.c
-> index 6b73cff9b9ff..cc9a6a9d59a0 100644
-> --- a/xen/arch/x86/hypercall.c
-> +++ b/xen/arch/x86/hypercall.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/hypercall.c
->   *
->   * Common x86 hypercall infrastructure.
->   *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> - *
->   * Copyright (c) 2015,2016 Citrix Systems Ltd.
->   */
->  
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index 0fe14faa5fa7..daa5fa78d1ac 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm.c
->   *
->   * Copyright (c) 2002-2005 K A Fraser
->   * Copyright (c) 2004 Christian Limpach
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  /*
-> diff --git a/xen/arch/x86/mm/guest_walk.c b/xen/arch/x86/mm/guest_walk.c
-> index 76b4e0425887..fe7393334fcb 100644
-> --- a/xen/arch/x86/mm/guest_walk.c
-> +++ b/xen/arch/x86/mm/guest_walk.c
+>  #ifndef XEN_ASM_ENDBR_H
+> diff --git a/xen/arch/x86/include/asm/guest_pt.h b/xen/arch/x86/include/asm/guest_pt.h
+> index 6802db2a415a..bde758834238 100644
+> --- a/xen/arch/x86/include/asm/guest_pt.h
+> +++ b/xen/arch/x86/include/asm/guest_pt.h
 > @@ -1,3 +1,4 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/mm/guest_walk.c
+>   * xen/asm-x86/guest_pt.h
 >   *
-> @@ -6,19 +7,6 @@
+> @@ -10,19 +11,6 @@
 >   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
 >   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
 >   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
@@ -572,72 +244,46 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 >   */
 >  
->  #include <xen/types.h>
-> diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
-> index 16e9c3325f9b..de1b8189d924 100644
-> --- a/xen/arch/x86/mm/hap/hap.c
-> +++ b/xen/arch/x86/mm/hap/hap.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm/hap/hap.c
->   *
->   * hardware assisted paging
->   * Copyright (c) 2007 Advanced Micro Devices (Wei Huang)
->   * Parts of this code are Copyright (c) 2007 by XenSource Inc.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/types.h>
-> diff --git a/xen/arch/x86/mm/hap/nested_hap.c b/xen/arch/x86/mm/hap/nested_hap.c
-> index 098e8e5d4ca9..ee78a797d1a4 100644
-> --- a/xen/arch/x86/mm/hap/nested_hap.c
-> +++ b/xen/arch/x86/mm/hap/nested_hap.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm/hap/nested_hap.c
->   *
->   * Code for Nested Virtualization
->   * Copyright (c) 2011 Advanced Micro Devices
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/vm_event.h>
-> diff --git a/xen/arch/x86/mm/mem_access.c b/xen/arch/x86/mm/mem_access.c
-> index f3aed9fcc966..4b03effaaae7 100644
-> --- a/xen/arch/x86/mm/mem_access.c
-> +++ b/xen/arch/x86/mm/mem_access.c
+>  #ifndef _XEN_ASM_GUEST_PT_H
+> diff --git a/xen/arch/x86/include/asm/hap.h b/xen/arch/x86/include/asm/hap.h
+> index 90dece29deca..9d12327b120d 100644
+> --- a/xen/arch/x86/include/asm/hap.h
+> +++ b/xen/arch/x86/include/asm/hap.h
 > @@ -1,3 +1,4 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/mm/mem_access.c
+>   * include/asm-x86/hap.h
 >   *
-> @@ -6,19 +7,6 @@
+> @@ -7,19 +8,6 @@
+>   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
+>   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
+>   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
+> - *
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #ifndef _XEN_HAP_H
+> diff --git a/xen/arch/x86/include/asm/mem_access.h b/xen/arch/x86/include/asm/mem_access.h
+> index 18091610aea0..8957e1181cc3 100644
+> --- a/xen/arch/x86/include/asm/mem_access.h
+> +++ b/xen/arch/x86/include/asm/mem_access.h
+> @@ -1,3 +1,4 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>  /******************************************************************************
+>   * include/asm-x86/mem_access.h
+>   *
+> @@ -8,19 +9,6 @@
 >   * Parts of this code are Copyright (c) 2006-2007 by XenSource Inc.
 >   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
 >   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
@@ -656,15 +302,15 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 >   */
 >  
->  #include <xen/guest_access.h> /* copy_from_guest() */
-> diff --git a/xen/arch/x86/mm/mem_paging.c b/xen/arch/x86/mm/mem_paging.c
-> index 01281f786ee0..2c2b34ccf60a 100644
-> --- a/xen/arch/x86/mm/mem_paging.c
-> +++ b/xen/arch/x86/mm/mem_paging.c
+>  #ifndef __ASM_X86_MEM_ACCESS_H__
+> diff --git a/xen/arch/x86/include/asm/mem_paging.h b/xen/arch/x86/include/asm/mem_paging.h
+> index d3635e96cffc..5ae86669fb40 100644
+> --- a/xen/arch/x86/include/asm/mem_paging.h
+> +++ b/xen/arch/x86/include/asm/mem_paging.h
 > @@ -1,22 +1,10 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/mm/mem_paging.c
+>   * include/asm-x86/mem_paging.h
 >   *
 >   * Memory paging support.
 >   *
@@ -684,19 +330,18 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 >   */
 >  
->  
-> diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-> index 649d93dc5444..a7f94bced46c 100644
-> --- a/xen/arch/x86/mm/mem_sharing.c
-> +++ b/xen/arch/x86/mm/mem_sharing.c
-> @@ -1,3 +1,4 @@
+>  #ifndef __ASM_X86_MEM_PAGING_H__
+> diff --git a/xen/arch/x86/include/asm/mem_sharing.h b/xen/arch/x86/include/asm/mem_sharing.h
+> index 2c00069bc91c..040962f690d2 100644
+> --- a/xen/arch/x86/include/asm/mem_sharing.h
+> +++ b/xen/arch/x86/include/asm/mem_sharing.h
+> @@ -1,22 +1,10 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/mm/mem_sharing.c
+>   * include/asm-x86/mem_sharing.h
 >   *
-> @@ -5,19 +6,6 @@
+>   * Memory sharing support.
 >   *
->   * Copyright (c) 2011 GridCentric, Inc. (Adin Scannell & Andres Lagar-Cavilla)
 >   * Copyright (c) 2009 Citrix Systems, Inc. (Grzegorz Milos)
 > - *
 > - * This program is free software; you can redistribute it and/or modify
@@ -712,45 +357,16 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * You should have received a copy of the GNU General Public License
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 >   */
->  
->  #include <xen/types.h>
-> diff --git a/xen/arch/x86/mm/nested.c b/xen/arch/x86/mm/nested.c
-> index fab62b2b2dc1..03741ffae441 100644
-> --- a/xen/arch/x86/mm/nested.c
-> +++ b/xen/arch/x86/mm/nested.c
+>  #ifndef __MEM_SHARING_H__
+>  #define __MEM_SHARING_H__
+> diff --git a/xen/arch/x86/include/asm/p2m.h b/xen/arch/x86/include/asm/p2m.h
+> index cd43d8621ad2..40545f5fa84f 100644
+> --- a/xen/arch/x86/include/asm/p2m.h
+> +++ b/xen/arch/x86/include/asm/p2m.h
 > @@ -1,3 +1,4 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/mm/nested.c
->   *
-> @@ -6,19 +7,6 @@
->   * Parts of this code are Copyright (c) 2006-2007 by XenSource Inc.
->   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
->   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/sched.h>
-> diff --git a/xen/arch/x86/mm/p2m-basic.c b/xen/arch/x86/mm/p2m-basic.c
-> index 47b780d6d63a..8599bd15c61a 100644
-> --- a/xen/arch/x86/mm/p2m-basic.c
-> +++ b/xen/arch/x86/mm/p2m-basic.c
-> @@ -1,3 +1,4 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm/p2m-basic.c
+>   * include/asm-x86/paging.h
 >   *
 > @@ -8,19 +9,6 @@
 >   * Parts of this code are Copyright (c) 2006-2007 by XenSource Inc.
@@ -771,188 +387,16 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 >   */
 >  
->  #include <xen/event.h>
-> diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
-> index c75a60c19fba..9969eb45fa8c 100644
-> --- a/xen/arch/x86/mm/p2m-pod.c
-> +++ b/xen/arch/x86/mm/p2m-pod.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm/p2m-pod.c
->   *
->   * Populate-on-demand p2m entries.
->   *
->   * Copyright (c) 2009-2011 Citrix Systems, Inc.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/event.h>
-> diff --git a/xen/arch/x86/mm/p2m-pt.c b/xen/arch/x86/mm/p2m-pt.c
-> index cd1af33b6772..6d1bb5daadb9 100644
-> --- a/xen/arch/x86/mm/p2m-pt.c
-> +++ b/xen/arch/x86/mm/p2m-pt.c
+>  #ifndef _XEN_ASM_X86_P2M_H
+> diff --git a/xen/arch/x86/include/asm/paging.h b/xen/arch/x86/include/asm/paging.h
+> index 2647b95e67a7..403243bfbde1 100644
+> --- a/xen/arch/x86/include/asm/paging.h
+> +++ b/xen/arch/x86/include/asm/paging.h
 > @@ -1,3 +1,4 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/mm/p2m-pt.c
+>   * include/asm-x86/paging.h
 >   *
-> @@ -9,19 +10,6 @@
->   * Parts of this code are Copyright (c) 2006-2007 by XenSource Inc.
->   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
->   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/vm_event.h>
-> diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-> index 7e481aec380a..714358f953f2 100644
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -1,3 +1,4 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm/p2m.c
->   *
-> @@ -8,19 +9,6 @@
->   * Parts of this code are Copyright (c) 2006-2007 by XenSource Inc.
->   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
->   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/iommu.h>
-> diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
-> index ff5b480677ca..9ec305730a6d 100644
-> --- a/xen/arch/x86/mm/paging.c
-> +++ b/xen/arch/x86/mm/paging.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/paging.c
->   *
->   * x86 specific paging support
->   * Copyright (c) 2007 Advanced Micro Devices (Wei Huang)
->   * Copyright (c) 2007 XenSource Inc.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/init.h>
-> diff --git a/xen/arch/x86/mm/physmap.c b/xen/arch/x86/mm/physmap.c
-> index 2d267b42f73b..f1695e456e85 100644
-> --- a/xen/arch/x86/mm/physmap.c
-> +++ b/xen/arch/x86/mm/physmap.c
-> @@ -1,3 +1,4 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm/physmap.c
->   *
-> @@ -6,19 +7,6 @@
->   * Parts of this code are Copyright (c) 2006-2007 by XenSource Inc.
->   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
->   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/iommu.h>
-> diff --git a/xen/arch/x86/mm/shadow/common.c b/xen/arch/x86/mm/shadow/common.c
-> index 1c1b0ad0d827..0f3a369d89c3 100644
-> --- a/xen/arch/x86/mm/shadow/common.c
-> +++ b/xen/arch/x86/mm/shadow/common.c
-> @@ -1,3 +1,4 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm/shadow/common.c
->   *
-> @@ -5,19 +6,6 @@
->   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
->   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
->   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/ioreq.h>
-> diff --git a/xen/arch/x86/mm/shadow/hvm.c b/xen/arch/x86/mm/shadow/hvm.c
-> index e2ee1c77056f..0bb341c13e0b 100644
-> --- a/xen/arch/x86/mm/shadow/hvm.c
-> +++ b/xen/arch/x86/mm/shadow/hvm.c
-> @@ -1,3 +1,4 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  
->  /******************************************************************************
->   * arch/x86/mm/shadow/hvm.c
 > @@ -6,19 +7,6 @@
 >   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
 >   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
@@ -972,105 +416,14 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 >   */
 >  
->  #include <xen/domain_page.h>
-> diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
-> index 8699de050127..6fd70cf3f280 100644
-> --- a/xen/arch/x86/mm/shadow/multi.c
-> +++ b/xen/arch/x86/mm/shadow/multi.c
-> @@ -1,3 +1,4 @@
+>  #ifndef _XEN_PAGING_H
+> diff --git a/xen/arch/x86/include/asm/shstk.h b/xen/arch/x86/include/asm/shstk.h
+> index fdc9cc65a3fa..9160fe9f0e99 100644
+> --- a/xen/arch/x86/include/asm/shstk.h
+> +++ b/xen/arch/x86/include/asm/shstk.h
+> @@ -1,17 +1,5 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/mm/shadow/multi.c
->   *
-> @@ -5,19 +6,6 @@
->   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
->   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
->   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/types.h>
-> diff --git a/xen/arch/x86/mm/shadow/pv.c b/xen/arch/x86/mm/shadow/pv.c
-> index 0ef8e53d1279..345fd5419a13 100644
-> --- a/xen/arch/x86/mm/shadow/pv.c
-> +++ b/xen/arch/x86/mm/shadow/pv.c
-> @@ -1,3 +1,4 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm/shadow/pv.c
->   *
-> @@ -5,19 +6,6 @@
->   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
->   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
->   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/types.h>
-> diff --git a/xen/arch/x86/mm/shadow/set.c b/xen/arch/x86/mm/shadow/set.c
-> index bd6c68b547c9..8b670b6bb555 100644
-> --- a/xen/arch/x86/mm/shadow/set.c
-> +++ b/xen/arch/x86/mm/shadow/set.c
-> @@ -1,3 +1,4 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/mm/shadow/set.c
->   *
-> @@ -5,19 +6,6 @@
->   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
->   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
->   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #define GUEST_PAGING_LEVELS 0
-> diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-> index 7ddf0078c3a2..639d13992c52 100644
-> --- a/xen/arch/x86/msr.c
-> +++ b/xen/arch/x86/msr.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/msr.c
->   *
->   * Policy objects for Model-Specific Registers.
->   *
 > - * This program is free software; you can redistribute it and/or modify
 > - * it under the terms of the GNU General Public License as published by
 > - * the Free Software Foundation; either version 2 of the License, or
@@ -1084,295 +437,17 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * You should have received a copy of the GNU General Public License
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 > - *
->   * Copyright (c) 2017 Citrix Systems Ltd.
+>   * Copyright (c) 2022 Citrix Systems Ltd.
 >   */
->  
-> diff --git a/xen/arch/x86/pv/emul-gate-op.c b/xen/arch/x86/pv/emul-gate-op.c
-> index 758a20ad9df4..107c58b3485c 100644
-> --- a/xen/arch/x86/pv/emul-gate-op.c
-> +++ b/xen/arch/x86/pv/emul-gate-op.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/pv/emul-gate-op.c
->   *
->   * Emulate gate op for PV guests
->   *
->   * Modifications to Linux original are copyright (c) 2002-2004, K A Fraser
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/err.h>
-> diff --git a/xen/arch/x86/pv/emul-inv-op.c b/xen/arch/x86/pv/emul-inv-op.c
-> index 2c07eed9a092..d89708afe94b 100644
-> --- a/xen/arch/x86/pv/emul-inv-op.c
-> +++ b/xen/arch/x86/pv/emul-inv-op.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/pv/emul-inv-op.c
->   *
->   * Emulate invalid op for PV guests
->   *
->   * Modifications to Linux original are copyright (c) 2002-2004, K A Fraser
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <asm/pv/trace.h>
-> diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-> index 5da00e24e4ff..4242456165e9 100644
-> --- a/xen/arch/x86/pv/emul-priv-op.c
-> +++ b/xen/arch/x86/pv/emul-priv-op.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/pv/emul-priv-op.c
->   *
->   * Emulate privileged instructions for PV guests
->   *
->   * Modifications to Linux original are copyright (c) 2002-2004, K A Fraser
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/domain_page.h>
-> diff --git a/xen/arch/x86/pv/emulate.c b/xen/arch/x86/pv/emulate.c
-> index 0a7907ec5e84..e763571b38fc 100644
-> --- a/xen/arch/x86/pv/emulate.c
-> +++ b/xen/arch/x86/pv/emulate.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/pv/emulate.c
->   *
->   * Common PV emulation code
->   *
->   * Modifications to Linux original are copyright (c) 2002-2004, K A Fraser
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/guest_access.h>
-> diff --git a/xen/arch/x86/pv/hypercall.c b/xen/arch/x86/pv/hypercall.c
-> index 2eedfbfae864..4294e930128b 100644
-> --- a/xen/arch/x86/pv/hypercall.c
-> +++ b/xen/arch/x86/pv/hypercall.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/pv/hypercall.c
->   *
->   * PV hypercall dispatching routines
->   *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> - *
->   * Copyright (c) 2017 Citrix Systems Ltd.
->   */
->  
-> diff --git a/xen/arch/x86/pv/misc-hypercalls.c b/xen/arch/x86/pv/misc-hypercalls.c
-> index aaaf70eb6330..b11bd718b7de 100644
-> --- a/xen/arch/x86/pv/misc-hypercalls.c
-> +++ b/xen/arch/x86/pv/misc-hypercalls.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/pv/misc-hypercalls.c
->   *
->   * Misc hypercall handlers
->   *
->   * Modifications to Linux original are copyright (c) 2002-2004, K A Fraser
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/hypercall.h>
-> diff --git a/xen/arch/x86/pv/ro-page-fault.c b/xen/arch/x86/pv/ro-page-fault.c
-> index 5963f5ee2d51..c15e5971a27c 100644
-> --- a/xen/arch/x86/pv/ro-page-fault.c
-> +++ b/xen/arch/x86/pv/ro-page-fault.c
-> @@ -1,3 +1,4 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/pv/ro-page-fault.c
->   *
-> @@ -5,19 +6,6 @@
->   *
->   * Copyright (c) 2002-2005 K A Fraser
->   * Copyright (c) 2004 Christian Limpach
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <asm/pv/trace.h>
-> diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-> index ae1a0e6e65af..404408711972 100644
-> --- a/xen/arch/x86/pv/shim.c
-> +++ b/xen/arch/x86/pv/shim.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/pv/shim.c
->   *
->   * Functionaltiy for PV Shim mode
->   *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> - *
->   * Copyright (c) 2017 Citrix Systems Ltd.
->   */
->  #include <xen/event.h>
-> diff --git a/xen/arch/x86/pv/traps.c b/xen/arch/x86/pv/traps.c
-> index 97fe54b5ee5a..6d330dfe2d1c 100644
-> --- a/xen/arch/x86/pv/traps.c
-> +++ b/xen/arch/x86/pv/traps.c
-> @@ -1,21 +1,9 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /******************************************************************************
->   * arch/x86/pv/traps.c
->   *
->   * PV low level entry points.
->   *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
-> - *
->   * Copyright (c) 2017 Citrix Systems Ltd.
->   */
->  
-> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-> index b26758c2c89f..cf9bb220f90d 100644
-> --- a/xen/arch/x86/smpboot.c
-> +++ b/xen/arch/x86/smpboot.c
-> @@ -1,22 +1,10 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->  /*
->   * x86 SMP booting functions
->   *
->   * This inherits a great deal from Linux's SMP boot code:
->   *  (c) 1995 Alan Cox, Building #3 <alan@redhat.com>
->   *  (c) 1998, 1999, 2000 Ingo Molnar <mingo@redhat.com>
-> - *
-> - * This program is free software; you can redistribute it and/or modify
-> - * it under the terms of the GNU General Public License as published by
-> - * the Free Software Foundation; either version 2 of the License, or
-> - * (at your option) any later version.
-> - *
-> - * This program is distributed in the hope that it will be useful,
-> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> - * GNU General Public License for more details.
-> - *
-> - * You should have received a copy of the GNU General Public License
-> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
->   */
->  
->  #include <xen/init.h>
-> diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-> index e80e2a5ed1a9..f81db2143328 100644
-> --- a/xen/arch/x86/spec_ctrl.c
-> +++ b/xen/arch/x86/spec_ctrl.c
+>  #ifndef XEN_ASM_SHSTK_H
+> diff --git a/xen/arch/x86/include/asm/spec_ctrl.h b/xen/arch/x86/include/asm/spec_ctrl.h
+> index f718f94088a1..011ab1db2709 100644
+> --- a/xen/arch/x86/include/asm/spec_ctrl.h
+> +++ b/xen/arch/x86/include/asm/spec_ctrl.h
 > @@ -1,19 +1,7 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/spec_ctrl.c
+>   * include/asm-x86/spec_ctrl.h
 >   *
 > - * This program is free software; you can redistribute it and/or modify
 > - * it under the terms of the GNU General Public License as published by
@@ -1389,17 +464,41 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - *
 >   * Copyright (c) 2017-2018 Citrix Systems Ltd.
 >   */
->  #include <xen/errno.h>
-> diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-> index cade9e12f8fa..2397ae299552 100644
-> --- a/xen/arch/x86/traps.c
-> +++ b/xen/arch/x86/traps.c
-> @@ -1,20 +1,8 @@
+>  
+> diff --git a/xen/arch/x86/include/asm/spec_ctrl_asm.h b/xen/arch/x86/include/asm/spec_ctrl_asm.h
+> index f23bb105c51e..f48f9e75e8dc 100644
+> --- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
+> +++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
+> @@ -1,19 +1,7 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * arch/x86/traps.c
+>   * include/asm-x86/spec_ctrl.h
 >   *
->   * Modifications to Linux original are copyright (c) 2002-2004, K A Fraser
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
+> - *
+>   * Copyright (c) 2017-2018 Citrix Systems Ltd.
+>   */
+>  
+> diff --git a/xen/arch/x86/include/asm/traps.h b/xen/arch/x86/include/asm/traps.h
+> index b0dd2d24614d..01ef362edc8c 100644
+> --- a/xen/arch/x86/include/asm/traps.h
+> +++ b/xen/arch/x86/include/asm/traps.h
+> @@ -1,19 +1,7 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>  /*
+>   * Copyright (c) 2007, 2008 Advanced Micro Devices, Inc.
+>   * Author: Christoph Egger <Christoph.Egger@amd.com>
 > - *
 > - * This program is free software; you can redistribute it and/or modify
 > - * it under the terms of the GNU General Public License as published by
@@ -1415,15 +514,182 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 >   */
 >  
->  /*
-> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
-> index e38f98b54726..66c0395d1beb 100644
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>  #ifndef ASM_TRAP_H
+> diff --git a/xen/arch/x86/include/asm/xenoprof.h b/xen/arch/x86/include/asm/xenoprof.h
+> index cf6af8c5df52..dc6f822d3220 100644
+> --- a/xen/arch/x86/include/asm/xenoprof.h
+> +++ b/xen/arch/x86/include/asm/xenoprof.h
+> @@ -1,22 +1,10 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>  /******************************************************************************
+>   * asm-x86/xenoprof.h
+>   * xenoprof x86 arch specific header file
+>   *
+>   * Copyright (c) 2006 Isaku Yamahata <yamahata at valinux co jp>
+>   *                    VA Linux Systems Japan K.K.
+> - *
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #ifndef __ASM_X86_XENOPROF_H__
+> diff --git a/xen/arch/x86/mm/mm-locks.h b/xen/arch/x86/mm/mm-locks.h
+> index c1523aeccf99..5a3f96fbaadd 100644
+> --- a/xen/arch/x86/mm/mm-locks.h
+> +++ b/xen/arch/x86/mm/mm-locks.h
 > @@ -1,3 +1,4 @@
 > +/* SPDX-License-Identifier: GPL-2.0-or-later */
 >  /******************************************************************************
->   * x86_emulate.c
+>   * arch/x86/mm/mm-locks.h
+>   *
+> @@ -7,19 +8,6 @@
+>   * Copyright (c) 2007 Advanced Micro Devices (Wei Huang)
+>   * Copyright (c) 2006-2007 XenSource Inc.
+>   * Copyright (c) 2006 Michael A Fetterman
+> - *
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #ifndef _MM_LOCKS_H
+> diff --git a/xen/arch/x86/mm/p2m.h b/xen/arch/x86/mm/p2m.h
+> index cc0f6766e4df..11e63b8fe42a 100644
+> --- a/xen/arch/x86/mm/p2m.h
+> +++ b/xen/arch/x86/mm/p2m.h
+> @@ -1,18 +1,6 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>  /******************************************************************************
+>   * arch/x86/mm/p2m.h
+> - *
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  struct p2m_domain *p2m_init_one(struct domain *d);
+> diff --git a/xen/arch/x86/mm/shadow/multi.h b/xen/arch/x86/mm/shadow/multi.h
+> index 222c31bd1001..0e938594345a 100644
+> --- a/xen/arch/x86/mm/shadow/multi.h
+> +++ b/xen/arch/x86/mm/shadow/multi.h
+> @@ -1,3 +1,4 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>  /******************************************************************************
+>   * arch/x86/mm/shadow/multi.h
+>   *
+> @@ -5,19 +6,6 @@
+>   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
+>   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
+>   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
+> - *
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  extern int
+> diff --git a/xen/arch/x86/mm/shadow/private.h b/xen/arch/x86/mm/shadow/private.h
+> index d9a127e15d8f..93a443ee5974 100644
+> --- a/xen/arch/x86/mm/shadow/private.h
+> +++ b/xen/arch/x86/mm/shadow/private.h
+> @@ -1,3 +1,4 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>  /******************************************************************************
+>   * arch/x86/mm/shadow/private.h
+>   *
+> @@ -5,19 +6,6 @@
+>   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
+>   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
+>   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
+> - *
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #ifndef _XEN_SHADOW_PRIVATE_H
+> diff --git a/xen/arch/x86/mm/shadow/types.h b/xen/arch/x86/mm/shadow/types.h
+> index e81a3c2c5c27..d700d8d64c8a 100644
+> --- a/xen/arch/x86/mm/shadow/types.h
+> +++ b/xen/arch/x86/mm/shadow/types.h
+> @@ -1,22 +1,10 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>  /******************************************************************************
+>   * arch/x86/mm/shadow/types.h
+>   *
+>   * Parts of this code are Copyright (c) 2006 by XenSource Inc.
+>   * Parts of this code are Copyright (c) 2006 by Michael A Fetterman
+>   * Parts based on earlier work by Michael A Fetterman, Ian Pratt et al.
+> - *
+> - * This program is free software; you can redistribute it and/or modify
+> - * it under the terms of the GNU General Public License as published by
+> - * the Free Software Foundation; either version 2 of the License, or
+> - * (at your option) any later version.
+> - *
+> - * This program is distributed in the hope that it will be useful,
+> - * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> - * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> - * GNU General Public License for more details.
+> - *
+> - * You should have received a copy of the GNU General Public License
+> - * along with this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #ifndef _XEN_SHADOW_TYPES_H
+> diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
+> index bb7af967ffee..0ace27f34ca5 100644
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+> @@ -1,3 +1,4 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>  /******************************************************************************
+>   * x86_emulate.h
 >   *
 > @@ -5,19 +6,6 @@
 >   *
@@ -1444,7 +710,7 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > - * along with this program; If not, see <http://www.gnu.org/licenses/>.
 >   */
 >  
->  /* Operand sizes: 8-bit operands or specified/overridden size. */
+>  #ifndef __X86_EMULATE_H__
 > -- 
 > 2.39.2
 > 
