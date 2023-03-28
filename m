@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDE376CB2D0
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 02:33:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515493.798430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A8726CB2E6
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 02:54:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515499.798441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgxH7-00054J-2t; Tue, 28 Mar 2023 00:33:21 +0000
+	id 1pgxak-0007vi-O5; Tue, 28 Mar 2023 00:53:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515493.798430; Tue, 28 Mar 2023 00:33:21 +0000
+Received: by outflank-mailman (output) from mailman id 515499.798441; Tue, 28 Mar 2023 00:53:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pgxH6-00051e-Vs; Tue, 28 Mar 2023 00:33:20 +0000
-Received: by outflank-mailman (input) for mailman id 515493;
- Tue, 28 Mar 2023 00:33:19 +0000
+	id 1pgxak-0007tD-Jr; Tue, 28 Mar 2023 00:53:38 +0000
+Received: by outflank-mailman (input) for mailman id 515499;
+ Tue, 28 Mar 2023 00:53:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=by25=7U=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pgxH5-0004wX-75
- for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 00:33:19 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1pgxaj-0007t5-5a
+ for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 00:53:37 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2040026f-cd00-11ed-b464-930f4c7d94ae;
- Tue, 28 Mar 2023 02:33:14 +0200 (CEST)
+ id f5ee4107-cd02-11ed-b464-930f4c7d94ae;
+ Tue, 28 Mar 2023 02:53:32 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 20B41B819ED;
- Tue, 28 Mar 2023 00:33:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D435C433D2;
- Tue, 28 Mar 2023 00:33:12 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1108561501;
+ Tue, 28 Mar 2023 00:53:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C26C433D2;
+ Tue, 28 Mar 2023 00:53:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,327 +43,1014 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2040026f-cd00-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: f5ee4107-cd02-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1679963592;
-	bh=opwjYMsdzJrfCxAV1946I525eYfji2K0ASbYsJ5T2hA=;
+	s=k20201202; t=1679964810;
+	bh=J7eJtl9i15BzokmwKBS5RFiT9X6UKNG7Gm8uqPruCTQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jrY3K9R6GaouRI2hN3U+j5klydxRFvQO4KKyRknluhmRxGJooZLTfpNo3XOfCAQD4
-	 GLTIt+iTvqTqagt8fPzGn/WFOl7Kf0YiB1DNmosdSPVJ9WfM/zdaxqlz0fpdgZU5Fk
-	 YjircnnJ4ijcMe21UuKLfpjknRqRR89hUScb4ouIbH34JMeRVJFQwuDqkkFWQhRCxW
-	 3cxuHHA17ZSvv/SoGB4KyA+EgZBFdcki2UrLGjOf1YKjp6NCqMKhVrTbK33cvGatU/
-	 23oTdbU6jUAL3GgsXI61PbLdJRrxqTVNWB19NVps7+WRD5lHjc+5pVwZDeI6wxICEw
-	 pNwOWitRahHbQ==
-Date: Mon, 27 Mar 2023 17:33:10 -0700 (PDT)
+	b=DTfuQ0TPNQlwlqyQTnOoD1ArqC4TanO4JyW/XcbwOFzRX6kD/PH422Q1UqiMwapp9
+	 bFC5v0wWRAlucCVCHB3/6tVfM7Cyu8oSpgkxmnHtSUGDxbEwKZQFgTzZ20lEfRdZty
+	 fBKupMi0fw3ULx7pL0ZNNWFj5sS1E8X9SyWvVFB1NKFeWjIiGMw2zqH/BiwmMIrhP+
+	 Ewn86n7ktMWlLEsqMLgfaoTUOU+ATt4qjwXuouYD0W8d0xUPbjRSjW777PrglET5RO
+	 cD1tQpq6yPRNh5oASlbLr1HrXJxy7bJIoSUBC/jBipH8CmLVdQ85Lj6syp8MnAHgxQ
+	 V+u240HZwiNZA==
+Date: Mon, 27 Mar 2023 17:53:27 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <stefano.stabellini@amd.com>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 2/2] automation: add a smoke and suspend test on an
- Alder Lake system
-In-Reply-To: <6997fb7c3a40da23683bb0ca1961de40376e71a8.1679778534.git-series.marmarek@invisiblethingslab.com>
-Message-ID: <alpine.DEB.2.22.394.2303271733030.4066@ubuntu-linux-20-04-desktop>
-References: <cover.21e1254a0c5cb3256afbc6b7bd44e8f347d7c08f.1679778534.git-series.marmarek@invisiblethingslab.com> <6997fb7c3a40da23683bb0ca1961de40376e71a8.1679778534.git-series.marmarek@invisiblethingslab.com>
+To: Julien Grall <julien@xen.org>
+cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, 
+    Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>, 
+    George Dunlap <george.dunlap@citrix.com>
+Subject: Re: [PATCH v2 2/7] xen/x86: Replace GPL v2.0 license boilerplate
+ with an SPDX tag in *.c
+In-Reply-To: <20230327184520.81828-3-julien@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2303271752210.4066@ubuntu-linux-20-04-desktop>
+References: <20230327184520.81828-1-julien@xen.org> <20230327184520.81828-3-julien@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-924388815-1679963592=:4066"
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Mon, 27 Mar 2023, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> It is easier to understand the license of a file when using SPDX.
+> 
+> This is replacing the below pattern with the SPDX tag GPL-2.0-only
+> in xen/arch/x86/*.c:
+> 
+>  * This program is free software; you can redistribute it and/or modify it
+>  * under the terms and conditions of the GNU General Public License,
+>  * version 2, as published by the Free Software Foundation.
+>  *
+>  * This program is distributed in the hope it will be useful, but WITHOUT
+>  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+>  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+>  * more details.
+>  *
+>  * You should have received a copy of the GNU General Public License along with
+>  * this program; If not, see <http://www.gnu.org/licenses/>.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+> 
+>     Changes in v2:
+>         * Switch to GPL-2.0-only
+>         * Rebase
+> 
+> 42sh> cat gpl-2.0.txt
+>  * This program is free software; you can redistribute it and/or modify it
+>  * under the terms and conditions of the GNU General Public License,
+>  * version 2, as published by the Free Software Foundation.
+>  *
+>  * This program is distributed in the hope it will be useful, but WITHOUT
+>  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+>  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+>  * more details.
+>  *
+>  * You should have received a copy of the GNU General Public License along with
+>  * this program; If not, see <http://www.gnu.org/licenses/>.
+> 42sh> find xen/arch/x86/ -name '*.c' -exec replace_license.py gpl-2.0.txt GPL-2.0-only {} \;
 
---8323329-924388815-1679963592=:4066
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+I confirm that the commands above lead to this exact patch. I ran them
+on my system and checked that the resulting changes are the same.
 
-On Sat, 25 Mar 2023, Marek Marczykowski-Górecki wrote:
-> This is a first test using Qubes OS CI infra. The gitlab-runner has
-> access to ssh-based control interface (control@thor.testnet, ssh key
-> exposed to the test via ssh-agent) and pre-configured HTTP dir for boot
-> files (mapped under /scratch/gitlab-runner/tftp inside the container).
-> Details about the setup are described on
-> https://www.qubes-os.org/news/2022/05/05/automated-os-testing-on-physical-laptops/
-> 
-> There are two test. First is a simple dom0+domU boot smoke test, similar
-> to other existing tests. The second is one boots Xen, and try if S3
-> works. It runs on a ADL-based desktop system. The test script is based
-> on the Xilinx one.
-> 
-> The machine needs newer kernel than other x86 tests run, so use 6.1.x
-> kernel added in previous commit.
-> 
-> The usage of fakeroot is necessary to preserve device nodes (/dev/null
-> etc) when repacking rootfs. The test runs in a rootless podman
-> container, which doesn't have full root permissions. BTW the same
-> applies to docker with user namespaces enabled (but it's only opt-in
-> feature there).
-> 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> v2:
->  - install test deps in dockerfile
->  - rename test script
->  - add smoke test too (reusing the same script with different argument)
->  - use CONTROLLER variable for ssh target
->  - explain fakeroot usage
->  - replace final "sleep 30" with polling + timeout
-> ---
->  automation/build/alpine/3.12-arm64v8.dockerfile |   3 +-
->  automation/gitlab-ci/test.yaml                  |  33 +++-
->  automation/scripts/qubes-x86-64.sh              | 174 +++++++++++++++++-
->  3 files changed, 210 insertions(+)
->  create mode 100755 automation/scripts/qubes-x86-64.sh
+>  xen/arch/x86/cpu/mwait-idle.c    | 13 +------------
+>  xen/arch/x86/cpu/vpmu.c          | 13 +------------
+>  xen/arch/x86/cpu/vpmu_amd.c      | 13 +------------
+>  xen/arch/x86/cpu/vpmu_intel.c    | 13 +------------
+>  xen/arch/x86/genapic/x2apic.c    | 13 +------------
+>  xen/arch/x86/hvm/asid.c          | 13 +------------
+>  xen/arch/x86/hvm/dm.c            | 13 +------------
+>  xen/arch/x86/hvm/hpet.c          | 13 +------------
+>  xen/arch/x86/hvm/hvm.c           | 13 +------------
+>  xen/arch/x86/hvm/intercept.c     | 13 +------------
+>  xen/arch/x86/hvm/io.c            | 13 +------------
+>  xen/arch/x86/hvm/ioreq.c         | 13 +------------
+>  xen/arch/x86/hvm/irq.c           | 13 +------------
+>  xen/arch/x86/hvm/mtrr.c          | 13 +------------
+>  xen/arch/x86/hvm/nestedhvm.c     | 13 +------------
+>  xen/arch/x86/hvm/pmtimer.c       | 13 +------------
+>  xen/arch/x86/hvm/quirks.c        | 13 +------------
+>  xen/arch/x86/hvm/save.c          | 13 +------------
+>  xen/arch/x86/hvm/svm/asid.c      | 13 +------------
+>  xen/arch/x86/hvm/svm/emulate.c   | 13 +------------
+>  xen/arch/x86/hvm/svm/intr.c      | 13 +------------
+>  xen/arch/x86/hvm/svm/nestedsvm.c | 13 +------------
+>  xen/arch/x86/hvm/svm/svm.c       | 13 +------------
+>  xen/arch/x86/hvm/svm/svmdebug.c  | 13 +------------
+>  xen/arch/x86/hvm/svm/vmcb.c      | 13 +------------
+>  xen/arch/x86/hvm/vlapic.c        | 13 +------------
+>  xen/arch/x86/hvm/vmx/intr.c      | 13 +------------
+>  xen/arch/x86/hvm/vmx/vmcs.c      | 13 +------------
+>  xen/arch/x86/hvm/vmx/vmx.c       | 13 +------------
+>  xen/arch/x86/hvm/vmx/vvmx.c      | 13 +------------
+>  xen/arch/x86/hvm/vpt.c           | 13 +------------
+>  xen/arch/x86/mm/altp2m.c         | 13 +------------
+>  xen/arch/x86/mm/hap/guest_walk.c | 13 +------------
+>  xen/arch/x86/mm/hap/nested_ept.c | 13 +------------
+>  xen/arch/x86/mm/p2m-ept.c        | 13 +------------
+>  35 files changed, 35 insertions(+), 420 deletions(-)
 > 
-> diff --git a/automation/build/alpine/3.12-arm64v8.dockerfile b/automation/build/alpine/3.12-arm64v8.dockerfile
-> index 180c978964aa..3f1e6a3fc6df 100644
-> --- a/automation/build/alpine/3.12-arm64v8.dockerfile
-> +++ b/automation/build/alpine/3.12-arm64v8.dockerfile
-> @@ -41,3 +41,6 @@ RUN apk --no-cache add \
->    libattr \
->    libcap-ng-dev \
->    pixman-dev \
-> +  # qubes test deps
-> +  openssh-client \
-> +  fakeroot \
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index ee9e3210772b..0916b367ea90 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -88,6 +88,23 @@
->    tags:
->      - xilinx
+> diff --git a/xen/arch/x86/cpu/mwait-idle.c b/xen/arch/x86/cpu/mwait-idle.c
+> index 9e981e7e26dc..ff5c808bc952 100644
+> --- a/xen/arch/x86/cpu/mwait-idle.c
+> +++ b/xen/arch/x86/cpu/mwait-idle.c
+> @@ -1,20 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * mwait_idle.c - native hardware idle loop for modern processors
+>   *
+>   * Copyright (c) 2013, Intel Corporation.
+>   * Len Brown <len.brown@intel.com>
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
 >  
-> +.adl-x86-64:
-> +  extends: .test-jobs-common
-> +  variables:
-> +    # the test controller runs on RPi4
-> +    CONTAINER: alpine:3.12-arm64v8
-> +    LOGFILE: smoke-test.log
-> +  artifacts:
-> +    paths:
-> +      - smoke.serial
-> +      - '*.log'
-> +    when: always
-> +  only:
-> +    variables:
-> +      - $QUBES_JOBS == "true" && $CI_COMMIT_REF_PROTECTED == "true"
-> +  tags:
-> +    - qubes-hw2
-> +
->  # Test jobs
->  build-each-commit-gcc:
->    extends: .test-jobs-common
-> @@ -114,6 +131,22 @@ xilinx-smoke-dom0less-arm64-gcc:
->      - *arm64-test-needs
->      - alpine-3.12-gcc-arm64
+>  /*
+> diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
+> index b6b7342fb466..f31c32bcf3a6 100644
+> --- a/xen/arch/x86/cpu/vpmu.c
+> +++ b/xen/arch/x86/cpu/vpmu.c
+> @@ -1,20 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * vpmu.c: PMU virtualization for HVM domain.
+>   *
+>   * Copyright (c) 2007, Intel Corporation.
+>   *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+> - *
+>   * Author: Haitao Shan <haitao.shan@intel.com>
+>   */
+>  #include <xen/cpu.h>
+> diff --git a/xen/arch/x86/cpu/vpmu_amd.c b/xen/arch/x86/cpu/vpmu_amd.c
+> index 9df739aa3f03..18266b9521a9 100644
+> --- a/xen/arch/x86/cpu/vpmu_amd.c
+> +++ b/xen/arch/x86/cpu/vpmu_amd.c
+> @@ -1,3 +1,4 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * vpmu_amd.c: AMD specific PMU virtualization.
+>   *
+> @@ -7,18 +8,6 @@
+>   * Author: Wei Wang <wei.wang2@amd.com>
+>   * Tested by: Suravee Suthikulpanit <Suravee.Suthikulpanit@amd.com>
+>   *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+> - *
+>   */
 >  
-> +adl-smoke-x86-64-gcc:
-> +  extends: .adl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.12-gcc
-> +
-> +adl-suspend-x86-64-gcc:
-> +  extends: .adl-x86-64
-> +  script:
-> +    - ./automation/scripts/qubes-x86-64.sh s3 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *x86-64-test-needs
-> +    - alpine-3.12-gcc
-> +
->  qemu-smoke-dom0-arm64-gcc:
->    extends: .qemu-arm64
->    script:
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
-> new file mode 100755
-> index 000000000000..2d4cf2e2268c
-> --- /dev/null
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -0,0 +1,174 @@
-> +#!/bin/sh
-> +
-> +set -ex
-> +
-> +test_variant=$1
-> +
-> +wait_and_wakeup=
-> +timeout=120
-> +if [ -z "${test_variant}" ]; then
-> +    passed="ping test passed"
-> +    domU_check="
-> +ifconfig eth0 192.168.0.2
-> +until ping -c 10 192.168.0.1; do
-> +    sleep 1
-> +done
-> +echo \"${passed}\"
-> +"
-> +    dom0_check="
-> +until grep -q \"${passed}\" /var/log/xen/console/guest-domU.log; do
-> +    sleep 1
-> +done
-> +# get domU console content into test log
-> +tail -n 100 /var/log/xen/console/guest-domU.log
-> +echo \"${passed}\"
-> +"
-> +elif [ "${test_variant}" = "s3" ]; then
-> +    passed="suspend test passed"
-> +    wait_and_wakeup="started, suspending"
-> +    domU_check="
-> +ifconfig eth0 192.168.0.2
-> +echo domU started
-> +"
-> +    dom0_check="
-> +until grep 'domU started' /var/log/xen/console/guest-domU.log; do
-> +    sleep 1
-> +done
-> +echo \"${wait_and_wakeup}\"
-> +set -x
-> +echo deep > /sys/power/mem_sleep
-> +echo mem > /sys/power/state
-> +# now wait for resume
-> +sleep 5
-> +# get domU console content into test log
-> +tail -n 100 /var/log/xen/console/guest-domU.log
-> +xl list
-> +xl dmesg | grep 'Finishing wakeup from ACPI S3 state' || exit 1
-> +# check if domU is still alive
-> +ping -c 10 192.168.0.2 || exit 1
-> +echo \"${passed}\"
-> +"
-> +fi
-> +
-> +# DomU
-> +mkdir -p rootfs
-> +cd rootfs
-> +# fakeroot is needed to preserve device nodes in rootless podman container
-> +fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
-> +mkdir proc
-> +mkdir run
-> +mkdir srv
-> +mkdir sys
-> +rm var/run
-> +echo "#!/bin/sh
-> +
-> +${domU_check}
-> +/bin/sh" > etc/local.d/xen.start
-> +chmod +x etc/local.d/xen.start
-> +echo "rc_verbose=yes" >> etc/rc.conf
-> +find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/domU-rootfs.cpio.gz
-> +cd ..
-> +rm -rf rootfs
-> +
-> +# DOM0 rootfs
-> +mkdir -p rootfs
-> +cd rootfs
-> +fakeroot -s ../fakeroot-save tar xzf ../binaries/initrd.tar.gz
-> +mkdir boot
-> +mkdir proc
-> +mkdir run
-> +mkdir srv
-> +mkdir sys
-> +rm var/run
-> +cp -ar ../binaries/dist/install/* .
-> +
-> +echo "#!/bin/bash
-> +
-> +export LD_LIBRARY_PATH=/usr/local/lib
-> +bash /etc/init.d/xencommons start
-> +
-> +brctl addbr xenbr0
-> +brctl addif xenbr0 eth0
-> +ifconfig eth0 up
-> +ifconfig xenbr0 up
-> +ifconfig xenbr0 192.168.0.1
-> +
-> +xl create /etc/xen/domU.cfg
-> +${dom0_check}
-> +" > etc/local.d/xen.start
-> +chmod +x etc/local.d/xen.start
-> +# just PVH for now
-> +echo '
-> +type = "pvh"
-> +name = "domU"
-> +kernel = "/boot/vmlinuz"
-> +ramdisk = "/boot/initrd-domU"
-> +extra = "root=/dev/ram0 console=hvc0"
-> +memory = 512
-> +vif = [ "bridge=xenbr0", ]
-> +disk = [ ]
-> +' > etc/xen/domU.cfg
-> +
-> +echo "rc_verbose=yes" >> etc/rc.conf
-> +echo "XENCONSOLED_TRACE=all" >> etc/default/xencommons
-> +echo "QEMU_XEN=/bin/false" >> etc/default/xencommons
-> +mkdir -p var/log/xen/console
-> +cp ../binaries/bzImage boot/vmlinuz
-> +cp ../binaries/domU-rootfs.cpio.gz boot/initrd-domU
-> +find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/dom0-rootfs.cpio.gz
-> +cd ..
-> +
-> +
-> +TFTP=/scratch/gitlab-runner/tftp
-> +CONTROLLER=control@thor.testnet
-> +
-> +echo '
-> +multiboot2 (http)/gitlab-ci/xen console=com1 com1=115200,8n1 loglvl=all guest_loglvl=all
-> +module2 (http)/gitlab-ci/vmlinuz console=hvc0 root=/dev/ram0
-> +module2 (http)/gitlab-ci/initrd-dom0
-> +' > $TFTP/grub.cfg
-> +
-> +cp -f binaries/xen $TFTP/xen
-> +cp -f binaries/bzImage $TFTP/vmlinuz
-> +cp -f binaries/dom0-rootfs.cpio.gz $TFTP/initrd-dom0
-> +
-> +# start logging the serial; this gives interactive console, don't close its
-> +# stdin to not close it; the 'cat' is important, plain redirection would hang
-> +# until somebody opens the pipe; opening and closing the pipe is used to close
-> +# the console
-> +mkfifo /tmp/console-stdin
-> +cat /tmp/console-stdin |\
-> +ssh $CONTROLLER console | tee smoke.serial &
-> +
-> +# start the system pointing at gitlab-ci predefined config
-> +ssh $CONTROLLER gitlabci poweron
-> +trap "ssh $CONTROLLER poweroff; : > /tmp/console-stdin" EXIT
-> +
-> +if [ -n "$wait_and_wakeup" ]; then
-> +    # wait for suspend or a timeout
-> +    until grep "$wait_and_wakeup" smoke.serial || [ $timeout -le 0 ]; do
-> +        sleep 1;
-> +        : $((--timeout))
-> +    done
-> +    if [ $timeout -le 0 ]; then
-> +        echo "ERROR: suspend timeout, aborting"
-> +        exit 1
-> +    fi
-> +    # keep it suspended a bit, then wakeup
-> +    sleep 30
-> +    ssh $CONTROLLER wake
-> +fi
-> +
-> +until grep "$passed" smoke.serial || [ $timeout -le 0 ]; do
-> +    sleep 1;
-> +    : $((--timeout))
-> +done
-> +if [ $timeout -le 0 ]; then
-> +    echo "ERROR: test timeout, aborting"
-> +    exit 1
-> +fi
-> +
-> +sleep 1
-> +
-> +(grep -q "^Welcome to Alpine Linux" smoke.serial && grep -q "${passed}" smoke.serial) || exit 1
-> +exit 0
+>  #include <xen/err.h>
+> diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
+> index bcfa187a14b6..35e350578b84 100644
+> --- a/xen/arch/x86/cpu/vpmu_intel.c
+> +++ b/xen/arch/x86/cpu/vpmu_intel.c
+> @@ -1,20 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * vpmu_intel.c: CORE 2 specific PMU virtualization.
+>   *
+>   * Copyright (c) 2007, Intel Corporation.
+>   *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+> - *
+>   * Author: Haitao Shan <haitao.shan@intel.com>
+>   */
+>  
+> diff --git a/xen/arch/x86/genapic/x2apic.c b/xen/arch/x86/genapic/x2apic.c
+> index 0a7ee820f578..ca1db27157e2 100644
+> --- a/xen/arch/x86/genapic/x2apic.c
+> +++ b/xen/arch/x86/genapic/x2apic.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * x2APIC driver.
+>   *
+>   * Copyright (c) 2008, Intel Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/init.h>
+> diff --git a/xen/arch/x86/hvm/asid.c b/xen/arch/x86/hvm/asid.c
+> index 1fd2770a3ae0..0faaa24a8f6e 100644
+> --- a/xen/arch/x86/hvm/asid.c
+> +++ b/xen/arch/x86/hvm/asid.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * asid.c: ASID management
+>   * Copyright (c) 2007, Advanced Micro Devices, Inc.
+>   * Copyright (c) 2009, Citrix Systems, Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/init.h>
+> diff --git a/xen/arch/x86/hvm/dm.c b/xen/arch/x86/hvm/dm.c
+> index f8e6089870b0..462691f91d3c 100644
+> --- a/xen/arch/x86/hvm/dm.c
+> +++ b/xen/arch/x86/hvm/dm.c
+> @@ -1,17 +1,6 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * Copyright (c) 2016 Citrix Systems Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/event.h>
+> diff --git a/xen/arch/x86/hvm/hpet.c b/xen/arch/x86/hvm/hpet.c
+> index c65e1b27d09e..dff27b760eb6 100644
+> --- a/xen/arch/x86/hvm/hpet.c
+> +++ b/xen/arch/x86/hvm/hpet.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * hpet.c: HPET emulation for HVM guests.
+>   * Copyright (c) 2006, Intel Corporation.
+>   * Copyright (c) 2006, Keir Fraser <keir@xensource.com>
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <asm/hvm/vpt.h>
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index d326fa1c0136..5733829e4db4 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -1,21 +1,10 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * hvm.c: Common hardware virtual machine abstractions.
+>   *
+>   * Copyright (c) 2004, Intel Corporation.
+>   * Copyright (c) 2005, International Business Machines Corporation.
+>   * Copyright (c) 2008, Citrix Systems, Inc.
+> - * 
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/ctype.h>
+> diff --git a/xen/arch/x86/hvm/intercept.c b/xen/arch/x86/hvm/intercept.c
+> index ffa31b746716..61664c0ad13f 100644
+> --- a/xen/arch/x86/hvm/intercept.c
+> +++ b/xen/arch/x86/hvm/intercept.c
+> @@ -1,20 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * intercept.c: Handle performance critical I/O packets in hypervisor space
+>   *
+>   * Copyright (c) 2004, Intel Corporation.
+>   * Copyright (c) 2008, Citrix Systems, Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/ioreq.h>
+> diff --git a/xen/arch/x86/hvm/io.c b/xen/arch/x86/hvm/io.c
+> index 5ae209d3b6b3..c6fca689ba78 100644
+> --- a/xen/arch/x86/hvm/io.c
+> +++ b/xen/arch/x86/hvm/io.c
+> @@ -1,21 +1,10 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * io.c: Handling I/O and interrupts.
+>   *
+>   * Copyright (c) 2004, Intel Corporation.
+>   * Copyright (c) 2005, International Business Machines Corporation.
+>   * Copyright (c) 2008, Citrix Systems, Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/init.h>
+> diff --git a/xen/arch/x86/hvm/ioreq.c b/xen/arch/x86/hvm/ioreq.c
+> index 0bdcca1e1a5f..20dbb4c8cfb4 100644
+> --- a/xen/arch/x86/hvm/ioreq.c
+> +++ b/xen/arch/x86/hvm/ioreq.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * hvm/io.c: hardware virtual machine I/O emulation
+>   *
+>   * Copyright (c) 2016 Citrix Systems Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/domain.h>
+> diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
+> index 4fe87a71c12b..1258371eb029 100644
+> --- a/xen/arch/x86/hvm/irq.c
+> +++ b/xen/arch/x86/hvm/irq.c
+> @@ -1,21 +1,10 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /******************************************************************************
+>   * irq.c
+>   * 
+>   * Interrupt distribution and delivery logic.
+>   * 
+>   * Copyright (c) 2006, K A Fraser, XenSource Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/types.h>
+> diff --git a/xen/arch/x86/hvm/mtrr.c b/xen/arch/x86/hvm/mtrr.c
+> index f1a88d761635..29f3fb160776 100644
+> --- a/xen/arch/x86/hvm/mtrr.c
+> +++ b/xen/arch/x86/hvm/mtrr.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * mtrr.c: MTRR/PAT virtualization
+>   *
+>   * Copyright (c) 2007, Intel Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/domain_page.h>
+> diff --git a/xen/arch/x86/hvm/nestedhvm.c b/xen/arch/x86/hvm/nestedhvm.c
+> index 58370190ffc9..ec68551127b7 100644
+> --- a/xen/arch/x86/hvm/nestedhvm.c
+> +++ b/xen/arch/x86/hvm/nestedhvm.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * Nested HVM
+>   * Copyright (c) 2011, Advanced Micro Devices, Inc.
+>   * Author: Christoph Egger <Christoph.Egger@amd.com>
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <asm/msr.h>
+> diff --git a/xen/arch/x86/hvm/pmtimer.c b/xen/arch/x86/hvm/pmtimer.c
+> index b89d0fd53ba1..2145c531b62f 100644
+> --- a/xen/arch/x86/hvm/pmtimer.c
+> +++ b/xen/arch/x86/hvm/pmtimer.c
+> @@ -1,20 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * hvm/pmtimer.c: emulation of the ACPI PM timer 
+>   *
+>   * Copyright (c) 2007, XenSource inc.
+>   * Copyright (c) 2006, Intel Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/sched.h>
+> diff --git a/xen/arch/x86/hvm/quirks.c b/xen/arch/x86/hvm/quirks.c
+> index 2adab1f4b84b..bd30b0f881cb 100644
+> --- a/xen/arch/x86/hvm/quirks.c
+> +++ b/xen/arch/x86/hvm/quirks.c
+> @@ -1,17 +1,6 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /******************************************************************************
+>   * x86/hvm/quirks.c
+> - * 
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/types.h>
+> diff --git a/xen/arch/x86/hvm/save.c b/xen/arch/x86/hvm/save.c
+> index c1675e3d9fb0..79713cd6cad0 100644
+> --- a/xen/arch/x86/hvm/save.c
+> +++ b/xen/arch/x86/hvm/save.c
+> @@ -1,3 +1,4 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * hvm/save.c: Save and restore HVM guest's emulated hardware state.
+>   *
+> @@ -6,18 +7,6 @@
+>   * Copyright (c) 2007, Isaku Yamahata <yamahata at valinux co jp>
+>   *                     VA Linux Systems Japan K.K.
+>   *                     split x86 specific part
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/guest_access.h>
+> diff --git a/xen/arch/x86/hvm/svm/asid.c b/xen/arch/x86/hvm/svm/asid.c
+> index 150d8dfc8178..09f8c23fd99a 100644
+> --- a/xen/arch/x86/hvm/svm/asid.c
+> +++ b/xen/arch/x86/hvm/svm/asid.c
+> @@ -1,18 +1,7 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * asid.c: handling ASIDs in SVM.
+>   * Copyright (c) 2007, Advanced Micro Devices, Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <asm/amd.h>
+> diff --git a/xen/arch/x86/hvm/svm/emulate.c b/xen/arch/x86/hvm/svm/emulate.c
+> index 391f0255162e..a5977aa6a61f 100644
+> --- a/xen/arch/x86/hvm/svm/emulate.c
+> +++ b/xen/arch/x86/hvm/svm/emulate.c
+> @@ -1,18 +1,7 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * emulate.c: handling SVM emulate instructions help.
+>   * Copyright (c) 2005 AMD Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/err.h>
+> diff --git a/xen/arch/x86/hvm/svm/intr.c b/xen/arch/x86/hvm/svm/intr.c
+> index dbb0022190a8..0d2c0a86fdb3 100644
+> --- a/xen/arch/x86/hvm/svm/intr.c
+> +++ b/xen/arch/x86/hvm/svm/intr.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * intr.c: Interrupt handling for SVM.
+>   * Copyright (c) 2005, AMD Inc.
+>   * Copyright (c) 2004, Intel Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/init.h>
+> diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
+> index 63ed9fc248e1..36e458d665fe 100644
+> --- a/xen/arch/x86/hvm/svm/nestedsvm.c
+> +++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * nestedsvm.c: Nested Virtualization
+>   * Copyright (c) 2011, Advanced Micro Devices, Inc
+>   *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+> - *
+>   */
+>  
+>  #include <asm/hvm/support.h>
+> diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+> index bfe03316def6..f3cd4db306fd 100644
+> --- a/xen/arch/x86/hvm/svm/svm.c
+> +++ b/xen/arch/x86/hvm/svm/svm.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * svm.c: handling SVM architecture-related VM exits
+>   * Copyright (c) 2004, Intel Corporation.
+>   * Copyright (c) 2005-2007, Advanced Micro Devices, Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/domain_page.h>
+> diff --git a/xen/arch/x86/hvm/svm/svmdebug.c b/xen/arch/x86/hvm/svm/svmdebug.c
+> index bce86f0ef706..7d6dc9ef47db 100644
+> --- a/xen/arch/x86/hvm/svm/svmdebug.c
+> +++ b/xen/arch/x86/hvm/svm/svmdebug.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * svmdebug.c: debug functions
+>   * Copyright (c) 2011, Advanced Micro Devices, Inc.
+>   *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+> - *
+>   */
+>  
+>  #include <xen/sched.h>
+> diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
+> index ba93375e87d2..314e1fab419e 100644
+> --- a/xen/arch/x86/hvm/svm/vmcb.c
+> +++ b/xen/arch/x86/hvm/svm/vmcb.c
+> @@ -1,20 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * vmcb.c: VMCB management
+>   * Copyright (c) 2005-2007, Advanced Micro Devices, Inc.
+>   * Copyright (c) 2004, Intel Corporation.
+>   *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+> - *
+>   */
+>  
+>  #include <xen/init.h>
+> diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+> index dc93b5e930b1..faa07db03d06 100644
+> --- a/xen/arch/x86/hvm/vlapic.c
+> +++ b/xen/arch/x86/hvm/vlapic.c
+> @@ -1,20 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * vlapic.c: virtualize LAPIC for HVM vcpus.
+>   *
+>   * Copyright (c) 2004, Intel Corporation.
+>   * Copyright (c) 2006 Keir Fraser, XenSource Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/types.h>
+> diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
+> index 6a8316de0e25..3b6fa1519a1d 100644
+> --- a/xen/arch/x86/hvm/vmx/intr.c
+> +++ b/xen/arch/x86/hvm/vmx/intr.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * intr.c: handling I/O, interrupts related VMX entry/exit
+>   * Copyright (c) 2004, Intel Corporation.
+>   * Copyright (c) 2004-2007, XenSource Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/init.h>
+> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+> index d3c75b380381..92b833f3f890 100644
+> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> @@ -1,18 +1,7 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * vmcs.c: VMCS management
+>   * Copyright (c) 2004, Intel Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/init.h>
+> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+> index 7d5ed8d470e1..7fa72c162a2a 100644
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -1,18 +1,7 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * vmx.c: handling VMX architecture-related VM exits
+>   * Copyright (c) 2004, Intel Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/guest_access.h>
+> diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+> index 674cdabb0736..b8c92d643780 100644
+> --- a/xen/arch/x86/hvm/vmx/vvmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vvmx.c
+> @@ -1,3 +1,4 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * vvmx.c: Support virtual VMX for nested virtualization.
+>   *
+> @@ -5,18 +6,6 @@
+>   * Author: Qing He <qing.he@intel.com>
+>   *         Eddie Dong <eddie.dong@intel.com>
+>   *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+> - *
+>   */
+>  
+>  #include <xen/ioreq.h>
+> diff --git a/xen/arch/x86/hvm/vpt.c b/xen/arch/x86/hvm/vpt.c
+> index 621f5bb88b63..8f53e88d6706 100644
+> --- a/xen/arch/x86/hvm/vpt.c
+> +++ b/xen/arch/x86/hvm/vpt.c
+> @@ -1,19 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * vpt.c: Virtual Platform Timer
+>   *
+>   * Copyright (c) 2006, Xiaowei Yang, Intel Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/sched.h>
+> diff --git a/xen/arch/x86/mm/altp2m.c b/xen/arch/x86/mm/altp2m.c
+> index 07393befeeed..a04297b646ff 100644
+> --- a/xen/arch/x86/mm/altp2m.c
+> +++ b/xen/arch/x86/mm/altp2m.c
+> @@ -1,18 +1,7 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * Alternate p2m HVM
+>   * Copyright (c) 2014, Intel Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <asm/hvm/hvm.h>
+> diff --git a/xen/arch/x86/mm/hap/guest_walk.c b/xen/arch/x86/mm/hap/guest_walk.c
+> index 1da8d3b99edc..d1b7c5762c9e 100644
+> --- a/xen/arch/x86/mm/hap/guest_walk.c
+> +++ b/xen/arch/x86/mm/hap/guest_walk.c
+> @@ -1,21 +1,10 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * arch/x86/mm/hap/guest_walk.c
+>   *
+>   * Guest page table walker
+>   * Copyright (c) 2007, AMD Corporation (Wei Huang)
+>   * Copyright (c) 2007, XenSource Inc.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/domain_page.h>
+> diff --git a/xen/arch/x86/mm/hap/nested_ept.c b/xen/arch/x86/mm/hap/nested_ept.c
+> index 605e47c16cd5..d6df48af5427 100644
+> --- a/xen/arch/x86/mm/hap/nested_ept.c
+> +++ b/xen/arch/x86/mm/hap/nested_ept.c
+> @@ -1,20 +1,9 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * nested_ept.c: Handling virtulized EPT for guest in nested case.
+>   *
+>   * Copyright (c) 2012, Intel Corporation
+>   *  Xiantao Zhang <xiantao.zhang@intel.com>
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  #include <xen/vm_event.h>
+>  #include <xen/event.h>
+> diff --git a/xen/arch/x86/mm/p2m-ept.c b/xen/arch/x86/mm/p2m-ept.c
+> index bb143c6c42c6..ffd34a1cc65f 100644
+> --- a/xen/arch/x86/mm/p2m-ept.c
+> +++ b/xen/arch/x86/mm/p2m-ept.c
+> @@ -1,18 +1,7 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+>  /*
+>   * ept-p2m.c: use the EPT page table as p2m
+>   * Copyright (c) 2007, Intel Corporation.
+> - *
+> - * This program is free software; you can redistribute it and/or modify it
+> - * under the terms and conditions of the GNU General Public License,
+> - * version 2, as published by the Free Software Foundation.
+> - *
+> - * This program is distributed in the hope it will be useful, but WITHOUT
+> - * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+> - * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+> - * more details.
+> - *
+> - * You should have received a copy of the GNU General Public License along with
+> - * this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+>  #include <xen/domain_page.h>
 > -- 
-> git-series 0.9.1
+> 2.39.2
 > 
---8323329-924388815-1679963592=:4066--
+> 
 
