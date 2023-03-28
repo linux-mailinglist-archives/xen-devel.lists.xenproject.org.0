@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE706CC665
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 17:32:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515949.799353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7D56CC674
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 17:35:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515954.799362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phBIL-00075W-5F; Tue, 28 Mar 2023 15:31:33 +0000
+	id 1phBLZ-0007iT-OV; Tue, 28 Mar 2023 15:34:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515949.799353; Tue, 28 Mar 2023 15:31:33 +0000
+Received: by outflank-mailman (output) from mailman id 515954.799362; Tue, 28 Mar 2023 15:34:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phBIL-00072q-24; Tue, 28 Mar 2023 15:31:33 +0000
-Received: by outflank-mailman (input) for mailman id 515949;
- Tue, 28 Mar 2023 15:31:32 +0000
+	id 1phBLZ-0007gj-LS; Tue, 28 Mar 2023 15:34:53 +0000
+Received: by outflank-mailman (input) for mailman id 515954;
+ Tue, 28 Mar 2023 15:34:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0K3v=7U=citrix.com=prvs=4442f050c=roger.pau@srs-se1.protection.inumbo.net>)
- id 1phBIJ-00072k-UA
- for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 15:31:32 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ad5047e-cd7d-11ed-85db-49a42c6b2330;
- Tue, 28 Mar 2023 17:31:28 +0200 (CEST)
-Received: from mail-dm3nam02lp2045.outbound.protection.outlook.com (HELO
- NAM02-DM3-obe.outbound.protection.outlook.com) ([104.47.56.45])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 28 Mar 2023 11:31:24 -0400
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
- by SA2PR03MB5945.namprd03.prod.outlook.com (2603:10b6:806:11c::18)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6aKL=7U=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1phBLX-0007gd-J5
+ for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 15:34:51 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on061f.outbound.protection.outlook.com
+ [2a01:111:f400:fe0d::61f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 13782917-cd7e-11ed-85db-49a42c6b2330;
+ Tue, 28 Mar 2023 17:34:50 +0200 (CEST)
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
+ by AM0PR04MB7108.eurprd04.prod.outlook.com (2603:10a6:208:19e::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.33; Tue, 28 Mar
- 2023 15:31:13 +0000
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.041; Tue, 28 Mar 2023
- 15:31:12 +0000
+ 2023 15:34:46 +0000
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::4189:2d2a:eb83:5965]) by AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::4189:2d2a:eb83:5965%3]) with mapi id 15.20.6222.030; Tue, 28 Mar 2023
+ 15:34:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,381 +47,551 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ad5047e-cd7d-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1680017488;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=vVYYGMLZcNN3Bya6NFBdPpH1O24UqryU53E10iJDBww=;
-  b=NLsIr031I63rT8XzqP3/Whe3LMaJy1aVYU5/3CKnDDgNk/OQxjiVYFsv
-   9M3cSs019H6t6SNczs9/st9Li4IGJ9kZulAjW6qtwU86XiudOyhDtz40X
-   Wtw0lerGw9m2pf5jeNnux3BAu3B68MoyJ4bzOXVD9Hv2E3jgWKdDYPZ2Y
-   M=;
-X-IronPort-RemoteIP: 104.47.56.45
-X-IronPort-MID: 103291472
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:IhpuF61+UZKeNVrvLfbD5QRwkn2cJEfYwER7XKvMYLTBsI5bpzFUx
- mFNXD2Haa6NM2TxLo0lbduz8UME6p/WzIQ1QVQ+pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8tuTS+HuDgNyo4GlD5gdkNagR1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfG1lj0
- dk9C2A0YTum28KS5IiHTOxBiZF2RCXrFNt3VnBI6xj8VaxjbbWYBqLA6JlfwSs6gd1IEbDGf
- c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqvS6PkWSd05C0WDbRUsaNSshP2F6Ru
- 0rN/njjAwFcP9uaodaA2iv03bWexH+kAur+EpXg3N5Omn2J7FdCJz1RUljqufeZl0uxDoc3x
- 0s8v3BGQbIJ3EmiVNz0RRC7iH+CoB8HWtBUHvE66QeC0a7d6UCSAW1sZi5MbpkqudE7QRQu1
- 0SVhJX5CDp3qrqXRHmBsLCOoluaISEIKUcSaClCShEKi/HhqowuihPETv54DbW4yNbyHFnY3
- DSivCU4wbIJgqY2O76T+FnGh3ego8PPRwttvAHPBDr5s0V+eZKvYJGu5R7D9/FcIY2FT16H+
- n8Zh8yZ6+NIBpaI/MCQfNgw8HiSz67tGFXhbZRHRcBJG+iFk5J7Qb1t3Q==
-IronPort-HdrOrdr: A9a23:0wvQeaDbLMLCO4PlHehWsseALOsnbusQ8zAXPhhKOG9omwmj5r
- eTdPRy726OtN9jYgB1pTngAtjWfZq4z/VICOYqTMiftWXdyRKVxcRZnPvfKl7bamLDH4xmpN
- ldmsFFYbWbYTca7beckW+F+pQbsai6GciT9KbjJhxWPHtXgtRbnntE43GgYzBLrWd9dOIE/a
- 6nl4p6jgvlVWUca8y6AnUffu7YutHHrpLpZhYaGwUq8k2rgSmz4LD3KgOf1BsFST9DqI1Skl
- TtokjU96+nu/G+xgT903bJ75NKsNH9yt1Fbfb87vQ9G3HBmwysbIRkV6ajuCkvoOazzV42nN
- 7Hs34bTqFOwkKUUnC+pBPs3wX66S0p+m/GwUKVhnHyyPaJJg7SRvAxw76wvXPimgYdVHwW6s
- 929lPck6ASIQLLnSz76dSNfxZ2lnCsqX5nvf8Pg2dZWY4+bqYUiYAE5ktaHLoJASq/sekcYb
- FTJfCZwMwTXUKRbnjfsGUq6NuwXk4rFhPDblketteT2z12mmk860cD3sQQkloJ6Zp4YZhZ4O
- bvNLhuidh1P5YrRJM4IN1Ebdq8C2TLTx6JGGWOIW7/HKVCAH7Jo46f2sR/2An/EqZn8LIC3L
- D6FH9Iv287fEzjTeeU2odQzxzLSGKhGRzw18B3/fFCy+zBbYuuFRfGZEElksOmrflaKNbcQe
- yPNJVfBOKmBXfyGLxOwxb1V/BpWCcjufUuy4YGsm+10572w8zRx7Hmmc/oVeDQ+OMfKzzC6n
- hqZkm6GCwP1DHkKyzFaN64YQKvRqW1x+MDLEHgxZlb9GDWXrc89zT9uW7JpP1jYQcyx5DeXH
- EOZI8PwZnL4lVfCw7znihU0u00NDce3F1mOEk68DPj5yjPAOQ+UpOkCDtvNHfrHG4Kcyr/Kn
- 8om2hK
-X-IronPort-AV: E=Sophos;i="5.98,297,1673931600"; 
-   d="scan'208";a="103291472"
+X-Inumbo-ID: 13782917-cd7e-11ed-85db-49a42c6b2330
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MyIqLqwtoB8gaHF15YHzXFSCzohs4Cf12LbIgP1ajBs8mrhV4ugLMqK+zaccbnlnvjJk8WBeSZW99RgIRDX9VHDtUprmxkscbDWFDOKNbGBzhVhzbZsDv56QIB5HtiMcq1W/fTPIUrWtRZlLK7B9iqL3PvrV1mRz1za0ThCliaGygeh4pELQZo/ACyvBw7VP5W5Tk5I/HUM3G5nI3HMAoXGCE1Z0D/p1qHhMuE9JZ/hqsjlEz0OMlQj198jt/TMVVuTnLEPjVysvF6qFL+zbWX+IzJlyDpG86aN5Frr6Dh+/BUrX2bjifcukYw55Jz1uSpyU9XI4h6e29FPHUmsOcA==
+ b=Y2SSe1V+NQAlXNcNOTFDzMkSfzeBDqD+Tm2FrI8oDbQYycesrYLabH2Mwvlp2hSNbLEbqgsSqdObqEMuAiApajLR0Awk59NJsPK8rEEfeU2DAUjjKtbbqI5xOpWeqQQGsrOJL+QFYaWaKSF/jG8iZUcgBgjSUJJ/GmR6Ogc9fuqGRuZHNpv63VVvNovl7QMfJ+QKJyHvw9cMtXPu0QHjiFg/hoM/nHeCGD/01aFsdGC/jXK58fZZazbWCy7XTymg6Wolq3yM4yZ067OuvMpGb0Ne8ojjgjGj4sOKX3EoJfsC0RPQ6AAFxeP0pPGRWdy7CxiQMszGObvefXcRjiI/Vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fZlafUHjvj0NetsmAe4XBuVz19+xsy3QF5zg+Tv72Cw=;
- b=X3gDk6Yq9Ugea7CSRubYrZGPAsZEGTBxijg+lRq/HjDXAtQjr84cCkCNzx2WEKTCvnlS2NZkvAE1JiVmFCqSMogyYMe/KaS1yt3dj/m8EcCmieLICO2nECEcn/cLzaf3Kd4QhF0C6Oof7vJTvIRtMH5HtJfLyC5Y8DPc9XZGqfdE6e0hw2S9+jcXQ1LBE7M83sYgfDXHQG0/sO3d3BEZIfvWtd//znU7YQgYCN337u+ncoEqrjekpzV9c57W3fJ897iZ0KENThqwI6X+vwMKjMHi8BIPXxTqwQzA2Ucr2JzCc/5DONkqOgdA51WlKvSjIVwm/K1w3I42CAjpa4RigA==
+ bh=sAjNoidCv6+NrE51YETuS9refmykrqxDPyRgNKFbHsU=;
+ b=WS2niqD2vCUCZ68e459tfiGv90ijr3NE+LQ44F9tgiC7O5stIHRCWvs6K/U2MPSNndwPIqeyHoKLyJ4VNOujnjRI/tnDv7wGx3R3SQzcKMIxMmyaOGKz9YoHwKH9Fh/8rJ+qfmfYjztmrWETkFZ7ZNkwQfuh25iOOYJa4Z35mq7nZnueGhgORXMMbHoPDjCJDWMte6VdlBOAVWDXelBCLlRAaKdySvi/kHC+LO9Nx2MAq4+fKSZnoK/eYLaZwfdS3eVan6fCENdSqfTQGnyzc42RXe5912tdf5pPQ0SzxJ1H7YB4mVdnQGRf68GGbxUNtyPvokAer8f1dyI9jTmpSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fZlafUHjvj0NetsmAe4XBuVz19+xsy3QF5zg+Tv72Cw=;
- b=rLSyP4geBw7JtzSpnQ2qcTCTeuTXP+8Tt+YDzqxNHpMuQSz3lORcqpINnk59YP6zb80RZ0WybpK9d9Rr2est3JtjfP6HsKhD2a2Dpu1cJbbVXkmPIONhEKoO1XzEgkKMvqzl+f8sMb9zcz7iB8bCCI/WlFGskkEzQgl9gk6s2kQ=
+ bh=sAjNoidCv6+NrE51YETuS9refmykrqxDPyRgNKFbHsU=;
+ b=q++WwExwsieK3n7pxzboeCsLxxHcFC05WTSPoUfg8kkgWf5sE7mhb69uHeROO7pGVz3naDOXS4EnLzfYMLA7XHTd+2MtGiSnrMkN9UVjLyRG2pvqFrL9ksVPU2RRFyd1QDjtzTOngNbMMavzfuFbBrBsxYUl6NShW1lthAHePsy71AC2fBm7mNLaSALS9/2bHLxq3DXjJT9yVhAXy7Qd/7j9iO57fm+Mz0+Zc/iQxR3XzySEa8JzkbG2BDyaaKJizQ1d9v9fH4J4pYcuBwk7gqOX84X6h9B47wAi7SPvGsKeBGKFouvEHXD9UXwUU9awqg+H5KfSOe6gFWFJa8QK8g==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 28 Mar 2023 17:31:07 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/2] x86/mm: add API for marking only part of a MMIO page
- read only
-Message-ID: <ZCMIO7cv4CBRXffs@Air-de-Roger>
-References: <cover.0fffd3f3080b5eeb8d22126eda6088734bb0c926.1679911575.git-series.marmarek@invisiblethingslab.com>
- <f5381e06d92cccf9756ad00fd77f82fba98a9d80.1679911575.git-series.marmarek@invisiblethingslab.com>
- <ZCLz/2QeoMVyOej8@Air-de-Roger>
- <ZCL+gCQrUc2lUf1A@mail-itl>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZCL+gCQrUc2lUf1A@mail-itl>
-X-ClientProxiedBy: LO4P265CA0050.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ac::16) To SJ0PR03MB6360.namprd03.prod.outlook.com
- (2603:10b6:a03:395::11)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <0a16b79e-8292-6947-24d4-dd027113943f@suse.com>
+Date: Tue, 28 Mar 2023 17:34:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [PATCH v3 1/3] xen/riscv: introduce setup_initial_pages
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1679934166.git.oleksii.kurochko@gmail.com>
+ <93da6ba381604748e2c71e2ebd35e80798ec4bb2.1679934166.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <93da6ba381604748e2c71e2ebd35e80798ec4bb2.1679934166.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0192.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::16) To AM6PR04MB6551.eurprd04.prod.outlook.com
+ (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|SA2PR03MB5945:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2afc9c8d-ff48-4ee8-a64b-08db2fa17648
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|AM0PR04MB7108:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38fac045-2c9b-4d3a-d006-08db2fa1f535
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	UC2arYLCkabo7BA0TOPI1TbCfemnOvO+edywv0DVKyg9Nir2GRTn0kpaqV0f2lqmYg0+S5T9zoEfrtnIyoYNa5DKngNUZn15+ryzgFrXmNKvpQSX8f/Aim55OzBZfQQ/grUtxrJxr3lKm7JCIfBlrRlCITlO7N4AWYZa9alYVhdAvecdU7MQFz7K1xRBvzYq4cbIRgrz1unWFNPY89wlgdlR60GxYOvMfTc256ZmpqaJSY/QxP3HnxY7wNnRvXm91EKmbfBx3VBh8khr2H4CyEGpWrR3ltgBrWFqUgEMFn/frccrUBZl/vtoZZRQvhuoRPxJb/ZreMmJiRhGrEMcthpuKMBzlI10j9BSJ16hhRIcPPeQBOJx65xGPLRPdfHd587B6UYUoXM4e0Fvm6qNDzmX0zO4ZNIFITIOxJ9aHuZdHvA8Nk2XUxPZ0h3gNKlExUsU5aXwpXgT4A+0/eZpptSWTYWVCNBdYuwvx8EzyxgRvyb/xfHH/4Vsq3/hBgmj8m99cVSVDwzfdcAMv7BHnVUlj7qWq42R+LRzjcVoZHTVmX8HD49PbIslR+j5smHn
+	OAswwHUOEWhjfdR8V0WYFRMcjU6Bz8Jlo8L3yJeO3AEYpQ243ddioX4FTIvYygfUH711Ltv1FHz1VNjAc+Y0rqWRqUWt+50HuuZ9dZkgwlWlgB+S6PhPO8CQVonrcm3aJvRsGw5D/SmaRgB6TLPd+izMOvePtEk+y+6Bv/mMJOuRpjiJVRfStluqWTaPt6zRPzj6nPMM7yI9X3VbWyPyGQtlGk19oGoXEEH4prEnQnAbEZFb8nzKGFULFvXwGzOrezxHne5sc7FynIPREjKmCWX1GYadOCeKz+T/ShyeGtn8eK6dplbMdfnuCeo2me7fFQ7a44YWiP0giqhFAuv5cLJmPNsMTy/Okr1GPuDMYQp1+loO+s9rMMSXncK22j2/rePgBblrIYINrliBPw+0xORJ9JQSilCD/qc05RkMUaQUvQqOuNchGoLiPj7LSIv4pj9m+/Hf8seWM2+CNiLLG0iVW20DL2nJ0EzoxQJz2xUotC0jybParYM/OsxuRcePx+SPodJX1ZRzakb3b4RGaEuhfjL4QuUgC3wHVTg60wRluPKK2Vc7/+yWhJJAtuCiPKBvF9BNKr5wx533m7THcg2tWnTmGbQXDRHoq019C9rVh5W47Tm3w1pwCSoJIWCb3B2bpzr0phWwMnCe73YoRw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(346002)(366004)(39860400002)(396003)(136003)(376002)(451199021)(54906003)(6486002)(6666004)(478600001)(8936002)(6506007)(9686003)(316002)(6512007)(26005)(66476007)(66946007)(6916009)(8676002)(4326008)(186003)(66556008)(41300700001)(82960400001)(5660300002)(2906002)(85182001)(33716001)(38100700002)(86362001)(83380400001)(30864003)(66574015);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(396003)(376002)(39860400002)(366004)(136003)(451199021)(5660300002)(38100700002)(8936002)(54906003)(316002)(86362001)(6916009)(66946007)(66476007)(8676002)(66556008)(41300700001)(30864003)(4326008)(2906002)(478600001)(31686004)(83380400001)(6486002)(2616005)(31696002)(6512007)(6506007)(186003)(26005)(53546011)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b25UTmg5YlprWGRXejV0cXI5M09nMWRTc29NMkk5WGlGd0x1dmpYVFQ3NXFM?=
- =?utf-8?B?OFBaQ0J6Z0M3cWRjZkRXRWk3TGg5cktkL0pHa2pDZGVtRTdwb2p6U2w3OUJw?=
- =?utf-8?B?T3AwSHVHZnlLdVNzdXpXK01TMlVyTE94TnNrTm5qaVgrY2pRdlRvblFWYm5J?=
- =?utf-8?B?NnU2SVBSbTZZT0dQUmNZNnlOeFhxeEI1K3ZjdjZUN01QaXMySFVNK3grRHhS?=
- =?utf-8?B?OGUrNndyR2daczBiQ1h5ejBDQW50RkR3RnJJQjNDK25UUHZEUGZwRU85VXJT?=
- =?utf-8?B?b3UwTE1abVZoMDFvNVYrc2RUTFhlaExjRnFBbklxc0pEdW8rVVdhUFZvUkhv?=
- =?utf-8?B?QzVlRDJ1OWRRTEl2aEVtTWNPQ2ROOVk0R1FiWHBnc2NteTFHNWpmVndGUzhs?=
- =?utf-8?B?eEdGME9yY1lJZmNDcUV1dmljdHpjanJWUU01bk54SW40c1d4d3RYOHhSSjFC?=
- =?utf-8?B?UGptRnEyc0JSNllMeThmcWtvWm01QmZSQWU0VERvbURQZ0tsS201UUNRWUln?=
- =?utf-8?B?aGNxTWpzMlFxMU9zUUVBUklDTXRGWTJzalFWMmxUeC96ZnQ0UEtTaXRjOXpI?=
- =?utf-8?B?N2pleXFNL0gwdE9XbSt0dEZpZldzeVV2ZnRyTWlJRFNOZFZ1eU9ycE90VGla?=
- =?utf-8?B?YmZ6VmUwSC9TTzV2U0labzdHNExmNzhIOFcvS0NIcThkK0l1TndRV2NxNCtD?=
- =?utf-8?B?Sk13YVhmUzl4alJHcWZ2V2dpRFVuY2w2OGY1aG1VclZEblFYT3QwdzFlMWtO?=
- =?utf-8?B?M3FQeFdsdkJkbG9WWUlwZlVpK2kwRFNmVExKa2crak8zZ2ZIUW94dVlheTdT?=
- =?utf-8?B?dlJkTzVFTGJOMkRpUnV2MFFzNmp5ZjNKRUdtZlI2R1p0TzM4S3NhNEFYWkhp?=
- =?utf-8?B?ZzFHSmRsSnQvSmxEU2JRdUh4UGlNdEZuMkozbzRwZ2t1MExhYWxWcmpCdUJq?=
- =?utf-8?B?Z2FzWk5FYWdOaWVTQ2IyaVZ2Tkh5RUZ1dGozM1c4Y3gzRG9za0xUbGNRdlQy?=
- =?utf-8?B?cGdsOFowNzl3S1FZMXNueEpIdDhUczJJVVFhU003U2VXSjQwd212S0VQdjN6?=
- =?utf-8?B?eU9iMSsxQTVxVGk1SVJMdlRoaW5OcG1FUnFaRUpkZnZHVWdCTkdlanQzWWNi?=
- =?utf-8?B?dUFJdWJjc0poZmp2TFhkZ0JkOVFveVhkMGREcGFDNW42SExXMkJwQllacGpv?=
- =?utf-8?B?TWhodG5vVjlVeEpUTEViR2VzK2hxOHJ6a3FOTFB4MGZCZ1RGejlkVmdrRWxK?=
- =?utf-8?B?V0JsTmRKVktVcG4vdjBaNGFQSU5uOGt6UTI0Z09oR3ZIWndSOGtoTjk2MXlh?=
- =?utf-8?B?UURNNjJVN0JnRExkOUhEU1BnK2gwQjVHQXNRZlRBbzBySGdLVi9MY0l2Mjdj?=
- =?utf-8?B?TmN5dVBGRHA2T0NOU3hVWktBZWs5TCtqZFpiNTFYaDgxdDByaWFwdDlQYXZp?=
- =?utf-8?B?UjdhUTRpWXlrSTBkQ2hYMlEzM0tneW01U0NGTFN1NFJwYmVqcVhVN0lTWVRB?=
- =?utf-8?B?V2R3cy9sQzdwT0RWcnFUZ0ZrOGVBRG9ibW1wVDlZTVBQaElLOHoveWNXaUJz?=
- =?utf-8?B?dHFKalVSdUgvQUlrSjhWdXhFS0cxaFBPbVdHU0RqdzEyRHVWWDBrMTBUZWg0?=
- =?utf-8?B?NDhpL0FMd0M1QkEzQklwbHd5c1ZDelFQS2E3S09BbDArMVdVUVJOMHA5NTBy?=
- =?utf-8?B?ZXhiM0NLcWZBNE5uUjYwaTdRemhRUGJHUS9QUkIrb2Q0NUEzNmdzNm5GVHVW?=
- =?utf-8?B?WFRYTGZqZGR3OUJZZU5waVB0VEFEcUs1NHNpTzh5YTI4WEdRQWdxK0t2d0tU?=
- =?utf-8?B?VExlNmd0RTkxditUblVOWHM2Ui9IT2RqTjZuTFV3bTNiWktRenhoc29GR0RJ?=
- =?utf-8?B?cXNPeDVudVJCdjNVbzd5TWkwVjBCSE4vR3U5NkF6RzdmRkw3THBaaXFTNitv?=
- =?utf-8?B?cEdGQ0VyWHJqK0R5NE5EcTg3UTJ6WFVRRDVnQzU4YnIvbzJHVElwWWNOaG5r?=
- =?utf-8?B?aWw3TG0wL3QzZ1dlejdKZS9KaGJFR1RCeUhRaURiclRaWGlMaHkzdXdXR1ox?=
- =?utf-8?B?VGtLK2hDZWtsbGR3akgyclF2b1k1dnJWZy9Oc3Z4VytKa3NWVmY0Z2d4MXd4?=
- =?utf-8?Q?wHc+Jh27o5gi7UxopQZcZZQQV?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	Ys5kMAeEuwn3bFLiNjI9my2bWhakdCOR09la8J/VEf1rcY6KbS43VVKbrWzDndwG5ktB0S4i860HrMlJ1BG/y6yHS5T6vKNN2e8BhjKcdvefAXocgMW3cHPN1PbucQDjbpG0jnatEXtsZNUDyvyYClX4GP+KAFJRIAeQyg1tDimssBFuGfytZ2iLH9Zj4lZiA9uOoXBPizuejg/LHmIaxrlB8Ucn0qvULTPsSKdeW5pnw/fUw8XbNxgPFUnvu36iwVFo1G5fO7nEf+oCG48Kw4DT0ywbZPnWg6gPLV5jvfupz36IaEJOx//UuemxpgbRyRPArbOSpxZSnlX7kiy007lKNv6ELnJJa4PPboZLQalgEMGiVWB0M/6T07THrj/Rmx2zFiyhVDG9G2diUBIV5pOBlXZN5FD1sQiUxq2aNfYh7rpsKp0bb94IP1qxMQJL4LlFuOs72GpHKBLKePzbSrRAJiCCkfCfV5wLunjCbzxxFGypWXRtCz8jWEsCc8DsS91GAReFGrz5sBPtWuUFxkoVqBnegozgt45FlX+G/Oisrrj/YXL+VMMkWqerWfJjTDufipJbXHDVNPydlztiNrl9KLzDbefnvdYKTTT1DDM2ZpChdZlkef/j0MZYNXE7oFnYD9/jPqBx0tuuLVj1SaDFLutXMSD3k7XwtjjN7zE8W0xS8NJ/tn7C9UiNedk8VYk/C+jT/uAvoU+jE+PhxJv2WMoXO0Lt9K9wm9PBnINxHG6EIfcM8c0hMErrMYFUmWfhRu1Wi+9y0s8LYfcFtmLqB2AthttIM5YFZug9bEF7AiGZ9/rnTErXxT7dt/fbVpZEbhgYLkF8n31tZtauByFYprwQ0svxwzi7iOPJvDDc7jUifAbkGC9I7ukp2SH1
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2afc9c8d-ff48-4ee8-a64b-08db2fa17648
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+	=?utf-8?B?VXF3UGRpZm1GbHEzNFpPYVNlTDE2MThMOXNxR29tMkowM2RGdmk3RzhmZmdm?=
+ =?utf-8?B?Yk9SV3Y2djBWbGNGWXNldmJGdzR4clArTWRkdVg0VjVNcUZDRkRhOFVqOFk0?=
+ =?utf-8?B?Wjc0QlRualRKRTBSTm9XRnJiMFlhMVFLdjllSmlGYndlSkxvYVp0VGhSTTNU?=
+ =?utf-8?B?UVY5S3FXK2JrLzlQbzVLOFQ5dzBrZlpvNU84R3IwbVZCRzZ2LzJNb2dxbU96?=
+ =?utf-8?B?TWR0TmNqUGpWNkhUd243QXZCS1E0bEpjVFR6eU5MNHZIN0dZNTFZMVUrOGdN?=
+ =?utf-8?B?NWV4amxxTkFhbDJwY3JsY1VobnNpY0xXcnQ3c25nekdBdTlXbm4xZHVrTUlJ?=
+ =?utf-8?B?amp4cW9aZ28vN3ozWGh1Tk8yemdLbGJyZWNFQ0Fld1BsZERmVUxJNzZTRDR6?=
+ =?utf-8?B?K050TFhLWXEyQVFrcVBhUzZOVzlZeVh4TUtwa05YSWpTcnN4TnU5Wmw0ZGRl?=
+ =?utf-8?B?RCsvZUZrZHE3STlrT0E4ZnlSODROdU9iNTVvaVhsVXFMQVJDMHc1M0o3NHN5?=
+ =?utf-8?B?UlJ2SUFjbzFVTndncHc2dU5TMTg0Z29EUHpMQmZHY2NLOWpWYXNBYnlWTUJ2?=
+ =?utf-8?B?YXE5RXR0RmhMVkxjU3VHL3ZyQXZuQWZ0cG5iU2J3N0gzNmVVaGN1eGJqNmpJ?=
+ =?utf-8?B?b014SExsYjAweWdEU05MWDVDNXhRY1o4S1Y0TS84S1JITUwvK1VPdEFGS0tP?=
+ =?utf-8?B?TGRVajlEbmp6eVljNS9lQVk4Q0Q3M1ZmRmRuUWJRVW9XSjVUdkxxNmlDNHZn?=
+ =?utf-8?B?eThuQUMwK2VWOHhaVFRBaExIRFl0SXNicXlHZ1lUYW5YbHBhV3JIZk9Od3F5?=
+ =?utf-8?B?VHo3UjNLbjYwYWpoRU1lQVhIaXV4QVdPSG1uMVZEaExpSk9wU2xJTk0xcUZL?=
+ =?utf-8?B?b2Q2UGpiVU5XRWFjL1FUQm9na0tnN1FmbUoyUC9Id3hLaXdMb2hlYVUwajdR?=
+ =?utf-8?B?cDBiVmVsd0VPRmVVdkJjZjVTUFVwODhDdHovVjFnU0hYUnlZcE9ZWDhtaTJ4?=
+ =?utf-8?B?R1BXdEdkY3dPazVIa01DL2tQSzdRR3RZdGEwVlkvR0pla1Joa245MktPWlpJ?=
+ =?utf-8?B?YVBxVlAzekw0VE9yZDcvV0N6Q1RkYU13WFc0ZElPNElNeFBxM3FQV1lWNDhE?=
+ =?utf-8?B?THo5SUlPTEtwcUhaWGhWTmx3aXRpT2lldnlIRTk1bmF4QWtrSGQxZm5ZaVBM?=
+ =?utf-8?B?ZkFHcit0SVBmT1o4MXArQjQ1WjN2enVqV1NhekdvaCtTUC9Uam5WYXJ2cStN?=
+ =?utf-8?B?Tjc1TU1YQnU1R2cyNG1rTjdSdXZsVHJQS2lvQi9nNTNrbCt6YUxjVTI4K0lJ?=
+ =?utf-8?B?Wmwxd2dvd3RodDhXaXpUTkVVQWl1WlJhZDZ5QWJmcWg1V2lmL2JjOW5PWCtr?=
+ =?utf-8?B?MDMwY1Qrak44RjR0VTlzSy9oZ3IrY2lqV3VobHNYaCtCZ09TWkZWYXVGMTUz?=
+ =?utf-8?B?WGJhZGxKbnZUdDg4UGN0Slc0SmV1Z0FHNEhtaE5Sc2QzcmFxTXhQSU03YmhU?=
+ =?utf-8?B?RkVmWWFkQjJLN0lBa3JXSzU4c0ZUMmpXTHBIUTJpQkk2Y2Q3d3Y2MU9NYUJh?=
+ =?utf-8?B?Qzc0dHFkWENjYVhvNzE2Y2hUeGVTR0k5TGJjSC9BS3dlYWRjNHU3MmF1M2tu?=
+ =?utf-8?B?Y3dTbFg0bFN3Z0hDb0RPcGRsOGZ6R1VmSEdyaVZTMjM1dzlPNzQ5ZS9sdmhq?=
+ =?utf-8?B?MERuWklHVXoyWTAwa2ZOb2hjdHNtOVFxSjdNZzR5RHlNaEk3ZnljMlIvNEVW?=
+ =?utf-8?B?TjE2NFhrUXJJcEp1Qnh3OTV6RmY2K09kMVRlNUtRdkU4MVoxWk1NZTF2UWJJ?=
+ =?utf-8?B?d3hLRmtJR2VHUGlzVWFBbUVLdmdYc21RWWNFcU1XU1JGcjZlcC9nZHdvWTgw?=
+ =?utf-8?B?cno3TUpoa3U5d2s3Ny9HTTIzNnRna040VWNoWFNGVldUQmNzN3BCeklReG1M?=
+ =?utf-8?B?MS9kS20rdC9RVFFXQjhFMm5HdFFQWEFERXRqckFpSFJzS2U1WG0vTGlCL1pm?=
+ =?utf-8?B?K2pjZ3dNUjJpbVljZi8vZGNIbFhNM1VNV2tsdVBCYXVKZE9HdWxqL0lraXQ2?=
+ =?utf-8?B?ZVdmanpiaWZ1cVFacWlXUndHSERqblUxOGYrVVN1cURFWkt3bGNQRnA2cUUr?=
+ =?utf-8?Q?0yR4I/KN0HoF8myKhyQxsXFMw?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38fac045-2c9b-4d3a-d006-08db2fa1f535
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 15:31:12.7050
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 15:34:45.4593
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DspoYBMnRWWLFRTB7FElvMDmUDBTlfw3D5hrcn5ghZbxPb2Pz2aPmO/Q39cHAH/dUk8H69Mn4FGhOe7v7XJXsg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5945
+X-MS-Exchange-CrossTenant-UserPrincipalName: HQALHL2YKizcMyDtBYd72T65i3oFf8N2v3Ncqcouis6GameQ7/SAiJix95J5SKTRiMBZQMQfE+6H9HDkLCfJSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7108
 
-On Tue, Mar 28, 2023 at 04:49:36PM +0200, Marek Marczykowski-Górecki wrote:
-> On Tue, Mar 28, 2023 at 04:04:47PM +0200, Roger Pau Monné wrote:
-> > On Mon, Mar 27, 2023 at 12:09:15PM +0200, Marek Marczykowski-Górecki wrote:
-> > > In some cases, only few registers on a page needs to be write-protected.
-> > > Examples include USB3 console (64 bytes worth of registers) or MSI-X's
-> > > PBA table (which doesn't need to span the whole table either).
-> > > Current API allows only marking whole pages pages read-only, which
-> > > sometimes may cover other registers that guest may need to write into.
-> > > 
-> > > Currently, when a guest tries to write to an MMIO page on the
-> > > mmio_ro_ranges, it's either immediately crashed on EPT violation - if
-> > > that's HVM, or if PV, it gets #PF. In case of Linux PV, if access was
-> > > from userspace (like, /dev/mem), it will try to fixup by updating page
-> > > tables (that Xen again will force to read-only) and will hit that #PF
-> > > again (looping endlessly). Both behaviors are undesirable if guest could
-> > > actually be allowed the write.
-> > > 
-> > > Introduce an API that allows marking part of a page read-only. Since
-> > > sub-page permissions are not a thing in page tables, do this via
-> > > emulation (or simply page fault handler for PV) that handles writes that
-> > > are supposed to be allowed. Those writes require the page to be mapped
-> > > to Xen, so subpage_mmio_ro_add() function takes fixmap index of the
-> > > page. The page needs to be added to mmio_ro_ranges, first anyway.
-> > > Sub-page ranges are stored using rangeset for each added page, and those
-> > > pages are stored on a plain list (as there isn't supposed to be many
-> > > pages needing this precise r/o control).
-> > 
-> > Since mmio_ro_ranges is x86 only, it is possible to mutate
-> > it to track address ranges instead of page frames.  The current type
-> > is unsigned long, so that should be fine, and would avoid having to
-> > create a per-page rangeset to just track offsets.
-> 
-> I was thinking about it, but rangeset doesn't allow attaching extra data
-> (fixmap index, or mapped address as you propose with ioremap()).
-> Changing all the places where mmio_ro_ranges is used will be a bit
-> tedious, but that isn't really a problem.
+On 27.03.2023 19:17, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/include/asm/config.h
+> +++ b/xen/arch/riscv/include/asm/config.h
+> @@ -39,12 +39,25 @@
+>    name:
+>  #endif
+>  
+> -#define XEN_VIRT_START  _AT(UL, 0x80200000)
+> +#define ADDRESS_SPACE_END (_AC(-1, UL))
+> +#define SZ_1G             0x40000000
 
-Yes, you would still need to keep a separate structure in order to
-store the maps, a simple list that contains the physical mfn and the
-virtual address where it's mapped would suffice I think.  That would
-avoid creating a separate rangeset for each mfn that you need to
-track.
+No need for this - please use GB(1) (see xen/config.h) in its stead.
 
-> > > The mechanism this API is plugged in is slightly different for PV and
-> > > HVM. For both paths, it's plugged into mmio_ro_emulated_write(). For PV,
-> > > it's already called for #PF on read-only MMIO page. For HVM however, EPT
-> > > violation on p2m_mmio_direct page results in a direct domain_crash().
-> > > To reach mmio_ro_emulated_write(), change how write violations for
-> > > p2m_mmio_direct are handled - specifically, treat them similar to
-> > > p2m_ioreq_server. This makes relevant ioreq handler being called,
-> > > that finally end up calling mmio_ro_emulated_write().
-> > > Both of those paths need an MFN to which guest tried to write (to check
-> > > which part of the page is supposed to be read-only, and where
-> > > the page is mapped for writes). This information currently isn't
-> > > available directly in mmio_ro_emulated_write(), but in both cases it is
-> > > already resolved somewhere higher in the call tree. Pass it down to
-> > > mmio_ro_emulated_write() via new mmio_ro_emulate_ctxt.mfn field.
-> > > 
-> > > Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> > > ---
-> > > Shadow mode is not tested, but I don't expect it to work differently than
-> > > HAP in areas related to this patch.
-> > > The used locking should make it safe to use similar to mmio_ro_ranges,
-> > > but frankly the only use (introduced in the next patch) could go without
-> > > locking at all, as subpage_mmio_ro_add() is called only before any
-> > > domain is constructed and subpage_mmio_ro_remove() is never called.
-> > > ---
-> > >  xen/arch/x86/hvm/emulate.c      |   2 +-
-> > >  xen/arch/x86/hvm/hvm.c          |   3 +-
-> > >  xen/arch/x86/include/asm/mm.h   |  22 ++++-
-> > >  xen/arch/x86/mm.c               | 181 +++++++++++++++++++++++++++++++++-
-> > >  xen/arch/x86/pv/ro-page-fault.c |   1 +-
-> > >  5 files changed, 207 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-> > > index 95364deb1996..311102724dea 100644
-> > > --- a/xen/arch/x86/hvm/emulate.c
-> > > +++ b/xen/arch/x86/hvm/emulate.c
-> > > @@ -2733,7 +2733,7 @@ int hvm_emulate_one_mmio(unsigned long mfn, unsigned long gla)
-> > >          .write      = mmio_ro_emulated_write,
-> > >          .validate   = hvmemul_validate,
-> > >      };
-> > > -    struct mmio_ro_emulate_ctxt mmio_ro_ctxt = { .cr2 = gla };
-> > > +    struct mmio_ro_emulate_ctxt mmio_ro_ctxt = { .cr2 = gla, .mfn = _mfn(mfn) };
-> > >      struct hvm_emulate_ctxt ctxt;
-> > >      const struct x86_emulate_ops *ops;
-> > >      unsigned int seg, bdf;
-> > > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> > > index d326fa1c0136..f1c928e3e4ee 100644
-> > > --- a/xen/arch/x86/hvm/hvm.c
-> > > +++ b/xen/arch/x86/hvm/hvm.c
-> > > @@ -1942,7 +1942,8 @@ int hvm_hap_nested_page_fault(paddr_t gpa, unsigned long gla,
-> > >       */
-> > >      if ( (p2mt == p2m_mmio_dm) ||
-> > >           (npfec.write_access &&
-> > > -          (p2m_is_discard_write(p2mt) || (p2mt == p2m_ioreq_server))) )
-> > > +          (p2m_is_discard_write(p2mt) || (p2mt == p2m_ioreq_server) ||
-> > > +           p2mt == p2m_mmio_direct)) )
-> > >      {
-> > >          if ( !handle_mmio_with_translation(gla, gpa >> PAGE_SHIFT, npfec) )
-> > >              hvm_inject_hw_exception(TRAP_gp_fault, 0);
-> > > diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
-> > > index db29e3e2059f..91937d556bac 100644
-> > > --- a/xen/arch/x86/include/asm/mm.h
-> > > +++ b/xen/arch/x86/include/asm/mm.h
-> > > @@ -522,9 +522,31 @@ extern struct rangeset *mmio_ro_ranges;
-> > >  void memguard_guard_stack(void *p);
-> > >  void memguard_unguard_stack(void *p);
-> > >  
-> > > +/*
-> > > + * Add more precise r/o marking for a MMIO page. Bytes range specified here
-> > > + * will still be R/O, but the rest of the page (nor marked as R/O via another
-> > > + * call) will have writes passed through. The write passthrough requires
-> > > + * providing fixmap entry by the caller.
-> > > + * Since multiple callers can mark different areas of the same page, they might
-> > > + * provide different fixmap entries (although that's very unlikely in
-> > > + * practice). Only the one provided by the first caller will be used. Return value
-> > > + * indicates whether this fixmap entry will be used, or a different one
-> > > + * provided earlier (in which case the caller might decide to release it).
-> > 
-> > Why not use ioremap() to map the page instead of requiring a fixmap
-> > entry?
-> 
-> In all the cases this feature is used (for now), I do have a fixmap
-> anyway. So, I don't need to worry if I can call ioremap() at that boot
-> stage (I think it's okay in console_init_postirq(), but that may not
-> be obvious in other places).
+> +#ifdef CONFIG_RISCV_64
+> +#define XEN_VIRT_START    (ADDRESS_SPACE_END - SZ_1G + 1)
 
-If we moved for a model where mmio_ro_ranges tracks at address
-granularity I would suggest that the underlying addresses are only
-mapped when there's a guest access to handle, so that we don't waste
-fixmap entries for no reason.
+I first thought the " + 1" would be rendering the address misaligned.
+May I suggest (ADDRESS_SPACE_END + 1 - SZ_1G) to help avoiding this
+impression?
 
-> > > +        if ( !entry->ro_bytes )
-> > > +            goto err_unlock;
-> > > +    }
-> > > +
-> > > +    rc = rangeset_add_range(entry->ro_bytes, offset_s, offset_e);
-> > > +    if ( rc < 0 )
-> > > +        goto err_unlock;
-> > > +
-> > > +    if ( !iter )
-> > > +        list_add_rcu(&entry->list, &subpage_ro_ranges);
-> > > +
-> > > +    spin_unlock(&subpage_ro_lock);
-> > > +
-> > > +    if ( !iter || entry->fixmap_idx == fixmap_idx )
-> > > +        return 0;
-> > > +    else
-> > > +        return 1;
-> > > +
-> > > +err_unlock:
-> > > +    spin_unlock(&subpage_ro_lock);
-> > > +    if ( !iter )
-> > > +    {
-> > > +        if ( entry )
-> > > +        {
-> > > +            if ( entry->ro_bytes )
-> > > +                rangeset_destroy(entry->ro_bytes);
-> > > +            xfree(entry);
-> > > +        }
-> > > +    }
-> > > +    return rc;
-> > > +}
-> > > +
-> > > +static void subpage_mmio_ro_free(struct rcu_head *rcu)
-> > > +{
-> > > +    struct subpage_ro_range *entry = container_of(rcu, struct subpage_ro_range, rcu);
+> +#else
+> +#error "RV32 isn't supported"asm
 
-Overly long line.
+Stray "asm" at the end of the line.
 
-Out of precaution I would also add an extra
-ASSERT(rangeset_is_empty(entry->ro_bytes)) here.
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/page.h
+> @@ -0,0 +1,62 @@
+> +#ifndef _ASM_RISCV_PAGE_H
+> +#define _ASM_RISCV_PAGE_H
+> +
+> +#include <xen/const.h>
+> +#include <xen/types.h>
+> +
+> +#define VPN_MASK                    ((unsigned long)(PAGETABLE_ENTRIES - 1))
+> +
+> +#define XEN_PT_LEVEL_ORDER(lvl)     ((lvl) * PAGETABLE_ORDER)
+> +#define XEN_PT_LEVEL_SHIFT(lvl)     (XEN_PT_LEVEL_ORDER(lvl) + PAGE_SHIFT)
+> +#define XEN_PT_LEVEL_SIZE(lvl)      (_AT(paddr_t, 1) << XEN_PT_LEVEL_SHIFT(lvl))
+> +#define XEN_PT_LEVEL_MAP_MASK(lvl)  (~(XEN_PT_LEVEL_SIZE(lvl) - 1))
+> +#define XEN_PT_LEVEL_MASK(lvl)      (VPN_MASK << XEN_PT_LEVEL_SHIFT(lvl))
+> +
+> +#define PTE_VALID                   BIT(0, UL)
+> +#define PTE_READABLE                BIT(1, UL)
+> +#define PTE_WRITABLE                BIT(2, UL)
+> +#define PTE_EXECUTABLE              BIT(3, UL)
+> +#define PTE_USER                    BIT(4, UL)
+> +#define PTE_GLOBAL                  BIT(5, UL)
+> +#define PTE_ACCESSED                BIT(6, UL)
+> +#define PTE_DIRTY                   BIT(7, UL)
+> +#define PTE_RSW                     (BIT(8, UL) | BIT(9, UL))
+> +
+> +#define PTE_LEAF_DEFAULT            (PTE_VALID | PTE_READABLE | PTE_WRITABLE)
+> +#define PTE_TABLE                   (PTE_VALID)
+> +
+> +/* Calculate the offsets into the pagetables for a given VA */
+> +#define pt_linear_offset(lvl, va)   ((va) >> XEN_PT_LEVEL_SHIFT(lvl))
+> +
+> +#define pt_index(lvl, va) pt_linear_offset(lvl, (va) & XEN_PT_LEVEL_MASK(lvl))
+> +
+> +#ifdef CONFIG_RISCV_64
+> +typedef uint64_t pte_t;
+> +#else
+> +typedef uint32_t pte_t;
+> +#endif
 
-> > > +
-> > > +    if ( !rangeset_is_empty(entry->ro_bytes) )
-> > > +        goto out_unlock;
-> > > +
-> > > +    list_del_rcu(&entry->list);
-> > > +    call_rcu(&entry->rcu, subpage_mmio_ro_free);
-> > > +
-> > > +out_unlock:
-> > > +    spin_unlock(&subpage_ro_lock);
-> > > +    return rc;
-> > > +}
-> > > +
-> > > +static void subpage_mmio_write_emulate(
-> > > +    mfn_t mfn,
-> > > +    unsigned long offset,
-> > > +    void *data,
-> > > +    unsigned int len)
-> > > +{
-> > > +    struct subpage_ro_range *entry;
-> > 
-> > const.
-> > 
-> > > +    void __iomem *addr;
-> > 
-> > Do we care about the access being aligned?
-> 
-> I don't think Xen cares about it when page is mapped R/W to the guest,
-> so why should it care when it's partially R/W only?
+Are you sure you don't want to encapsulate these in a struct, for type
+safety purposes?
 
-It's kind of the same issue we have with adjacent MSIX accesses: we
-don't really know whether the device might choke on unaligned accesses
-and generate some kind of exception that results in a NMI to the CPU.
-Handling those it's likely more feasible if they happen in guest
-context, rather than Xen context.
+> +#define addr_to_pte(x) (((x) >> PTE_PPN_SHIFT) << PAGE_SHIFT)
 
-> > 
-> > > +
-> > > +    rcu_read_lock(&subpage_ro_rcu);
-> > > +
-> > > +    list_for_each_entry_rcu( entry, &subpage_ro_ranges, list )
-> > > +    {
-> > > +        if ( mfn_eq(entry->mfn, mfn) )
-> > > +        {
-> > 
-> > You need to take the spinlock at this point, since the contents of
-> > entry->ro_bytes are not protected by the RCU.  The RCU only provides
-> > safe iteration over the list, but not the content of the elements on
-> > the list.
-> 
-> mfn is not supposed to change ever on the specific list element, and
-> IIUC, rangeset does locking itself. Am I missing something?
+This looking like the inverse of ...
 
-Oh, sorry, it was me being wrong, I didn't recall and didn't check that
-rangesets do have internal locking.
+> +/* Shift the VPN[x] or PPN[x] fields of a virtual or physical address
+> + * to become the shifted PPN[x] fields of a page table entry */
+> +#define addr_to_ppn(x) (((x) >> PAGE_SHIFT) << PTE_PPN_SHIFT)
 
-Thanks, Roger.
+... this, does that one want to be called "ppn_to_addr()"? Otherwise I
+can't see how name an operation fit together.
+
+> +static inline pte_t paddr_to_pte(const unsigned long paddr,
+
+paddr_t?
+
+> +                                 const unsigned long permissions)
+> +{
+> +    pte_t tmp = (pte_t)addr_to_ppn(paddr);
+> +    return tmp | permissions;
+> +}
+> +
+> +static inline pte_t pte_to_paddr(const unsigned long paddr)
+
+A function of this name wants to take pte_t as parameter and return
+paddr_t (note the type safety remark higher up, as it becomes relevant
+right here). It also hardly can be implemented ...
+
+> +{
+> +    return (pte_t)addr_to_pte(paddr);
+
+... in terms of a function/macro with effectively the opposite name.
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/mm.c
+> @@ -0,0 +1,277 @@
+> +#include <xen/init.h>
+> +#include <xen/kernel.h>
+> +
+> +#include <asm/early_printk.h>
+> +#include <asm/config.h>
+> +#include <asm/csr.h>
+> +#include <asm/mm.h>
+> +#include <asm/page.h>
+> +#include <asm/processor.h>
+> +
+> +#define PGTBL_INITIAL_COUNT 8
+
+What does this magic number derive from? (A comment may help.)
+
+> +#define PGTBL_ENTRY_AMOUNT  (PAGE_SIZE/sizeof(pte_t))
+
+Nit: Style (blanks around binary operators).
+
+> +struct mmu_desc {
+> +    unsigned long num_levels;
+> +    uint32_t pgtbl_count;
+
+Nit: Style (as before please avoid fixed width types when their use
+isn't really warranted; afaics unsigned int will do fine here and
+elsewhere below).
+
+> +    pte_t *next_pgtbl;
+> +    pte_t *pgtbl_base;
+> +};
+> +
+> +extern unsigned long __bss_start[];
+> +extern unsigned long __bss_end[];
+
+Why are these being added here? They aren't being used afaics.
+
+> +extern unsigned char cpu0_boot_stack[STACK_SIZE];
+> +
+> +#define PHYS_OFFSET ((unsigned long)_start - XEN_VIRT_START)
+> +#define LOAD_TO_LINK(addr) ((addr) - PHYS_OFFSET)
+> +#define LINK_TO_LOAD(addr) ((addr) + PHYS_OFFSET)
+> +
+> +pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+> +stage1_pgtbl_root[PGTBL_ENTRY_AMOUNT];
+> +
+> +pte_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+> +stage1_pgtbl_nonroot[PGTBL_INITIAL_COUNT * PGTBL_ENTRY_AMOUNT];
+> +
+> +#define HANDLE_PGTBL()                                                      \
+> +    index =  pt_index(curr_lvl_num, page_addr);                             \
+
+Nit: Style (stray double blanks).
+
+> +    if ( pte_is_valid(pgtbl[index]) ) {                                     \
+
+Nit: Style (brace placement throughout the macro - in really small
+macros the way you have it may be okay as an exception, but this macro
+isn't small).
+
+> +        /* Find L{ 0-3 } table */                                           \
+> +        pgtbl = (pte_t *)pte_to_paddr(pgtbl[index]);                        \
+> +    } else {                                                                \
+> +        /* Allocate new L{0-3} page table */                                \
+> +        if ( mmu_desc->pgtbl_count == PGTBL_INITIAL_COUNT ) {               \
+> +            early_printk("(XEN) No initial table available\n");             \
+> +            /* panic(), BUG() or ASSERT() aren't ready now. */              \
+> +            die();                                                          \
+> +        }                                                                   \
+> +        mmu_desc->pgtbl_count++;                                            \
+> +        pgtbl[index] = paddr_to_pte((unsigned long)mmu_desc->next_pgtbl,    \
+> +                                    PTE_VALID);                             \
+> +        pgtbl = mmu_desc->next_pgtbl;                                       \
+> +        mmu_desc->next_pgtbl += PGTBL_ENTRY_AMOUNT;                         \
+> +    }
+> +
+> +static void __init setup_initial_mapping(struct mmu_desc *mmu_desc,
+> +                                  unsigned long map_start,
+> +                                  unsigned long map_end,
+> +                                  unsigned long pa_start,
+> +                                  unsigned long permission)
+
+Nit: Style (indentation, and it feels like I commented on this before).
+
+> +{
+> +    uint32_t index;
+> +    pte_t *pgtbl;
+> +    unsigned long page_addr;
+> +    unsigned int curr_lvl_num;
+> +    pte_t pte_to_be_written;
+> +    unsigned long paddr;
+> +
+> +    if ( (unsigned long)_start % XEN_PT_LEVEL_SIZE(0) ) {
+
+Nit: Style (brace placement).
+
+> +        early_printk("(XEN) Xen should be loaded at 4k boundary\n");
+> +        die();
+> +    }
+> +
+> +    if ( map_start & ~XEN_PT_LEVEL_MAP_MASK(0) ||
+> +        pa_start & ~XEN_PT_LEVEL_MAP_MASK(0) ) {
+
+Nit: Style (indentation and brace placement; more below).
+
+> +        early_printk("(XEN) map and pa start addresses should be aligned\n");
+> +        /* panic(), BUG() or ASSERT() aren't ready now. */
+> +        die();
+> +    }
+> +
+> +    page_addr = map_start;
+> +    while ( page_addr < map_end ) {
+> +        pgtbl = mmu_desc->pgtbl_base;
+> +
+> +        switch (mmu_desc->num_levels)
+> +        {
+> +        case 4: /* Level 3 */
+> +            curr_lvl_num = 3;
+> +            HANDLE_PGTBL();
+> +        case 3: /* Level 2 */
+> +            curr_lvl_num = 2;
+> +            HANDLE_PGTBL();
+> +        case 2: /* Level 1 */
+> +            curr_lvl_num = 1;
+> +            HANDLE_PGTBL();
+
+Am I getting it right that curr_lvl_num solely exists to pass a parameter
+to the macro? If so, why doesn't the macro take an appropriate parameter
+instead?
+
+> +        case 1: /* Level 0 */
+> +            index = pt_index(0, page_addr);
+> +            paddr = (page_addr - map_start) + pa_start;
+> +            pte_to_be_written = paddr_to_pte(paddr, permission);
+> +
+> +            if ( !pte_is_valid(pgtbl[index]) )
+> +                pgtbl[index] = pte_to_be_written;
+> +            else {
+> +                /*
+> +                 * get an adresses of current pte and that one to
+> +                 * be written without permission flags
+> +                 */
+> +                unsigned long curr_pte =
+> +                    (unsigned long)&pgtbl[index] & (PTE_PPN_SHIFT - 1);
+> +                pte_to_be_written &= (PTE_PPN_SHIFT - 1);
+> +
+> +                if ( curr_pte != pte_to_be_written ) {
+> +                    early_printk("PTE that is intended to write isn't the \
+> +                                 same that the once are overwriting\n");
+
+Iirc there are compilers which warn about line continuation characters
+inside a string literal. Since adjacent string literals are concatenated
+by the compiler anyway, you'll find elsewhere we have the equivalent of
+
+                    early_printk("PTE that is intended to write isn't the"
+                                 " same that the once are overwriting\n");
+
+This will also avoid an excessive number of blanks in the middle of the
+string.
+
+> +                    /* panic(), <asm/bug.h> aren't ready now. */
+> +                    die();
+> +                }
+> +            }
+> +        }
+> +
+> +        /* Point to next page */
+> +        page_addr += XEN_PT_LEVEL_SIZE(0);
+> +    }
+> +}
+> +
+> +static void __init calc_pgtbl_lvls_num(struct  mmu_desc *mmu_desc)
+> +{
+> +    unsigned long satp_mode = RV_STAGE1_MODE;
+> +
+> +    /* Number of page table levels */
+> +    switch (satp_mode) {
+
+Nit: Style (missing blanks and brace placement).
+
+> +    case SATP_MODE_SV32:
+> +        mmu_desc->num_levels = 2;
+> +        break;
+> +    case SATP_MODE_SV39:
+> +        mmu_desc->num_levels = 3;
+> +        break;
+> +    case SATP_MODE_SV48:
+> +        mmu_desc->num_levels = 4;
+> +        break;
+> +    default:
+> +        early_printk("(XEN) Unsupported SATP_MODE\n");
+> +        while (1);
+
+die() (until you have panic()) like above?
+
+> +    }
+> +}
+> +
+> +static void __init setup_ptes_permission(struct mmu_desc *mmu_desc)
+> +{
+> +    pte_t *pgtbl;
+> +    uint32_t index;
+> +    uint32_t permissions = PTE_VALID;
+> +    unsigned long start = LOAD_TO_LINK((unsigned long)_start);
+> +    unsigned long end   = LOAD_TO_LINK((unsigned long)_end);
+> +
+> +    while ( start < end )
+> +    {
+> +        pgtbl = (pte_t *) mmu_desc->pgtbl_base;
+
+Nit: Style (extra blank after closing parenthesis). But afaict you don't
+need a case here in the first place; as said before, please avoid casts
+whenever possible.
+
+> +        switch (mmu_desc->num_levels)
+
+Nit: Style (Missing blanks).
+
+> +        {
+> +        case 4: /* find Level 3 page table*/
+> +            index = pt_index(3, start);
+> +            pgtbl = (pte_t *)pte_to_paddr(pgtbl[index]);
+> +        case 3: /* find level 2 page table */
+> +            index = pt_index(2, start);
+> +            pgtbl = (pte_t *)pte_to_paddr(pgtbl[index]);
+> +        case 2: /* find level 1 page table */
+> +            index = pt_index(1, start);
+> +            pgtbl = (pte_t *)pte_to_paddr(pgtbl[index]);
+> +        case 1: /* find level 0 page table */
+> +            index = pt_index(0, start);
+> +
+> +            if ( is_kernel_text(LINK_TO_LOAD(start)) ||
+> +                 is_kernel_inittext(LINK_TO_LOAD(start)) )
+> +                permissions |= PTE_EXECUTABLE | PTE_READABLE;
+> +
+> +            if ( is_kernel_rodata(LINK_TO_LOAD(start)) )
+> +                permissions |= PTE_READABLE;
+> +
+> +            pgtbl[index] |= permissions;
+
+setup_initial_mapping() has installed R/W mappings. Hence ORing in
+PTE_READABLE is meaningless here, and neither .text nor .rodata
+will end up write-protected. The question is ...
+
+> +        }
+> +
+> +        start += PAGE_SIZE;
+> +    }
+> +}
+> +
+> +/*
+> + * setup_initial_pagetables:
+> + *
+> + * Build the page tables for Xen that map the following:
+> + *  1. Calculate page table's level numbers.
+> + *  2. Init mmu description structure.
+> + *  3. Check that linker addresses range doesn't overlap
+> + *     with load addresses range
+> + *  4. Map all linker addresses and load addresses ( it shouldn't
+> + *     be 1:1 mapped and will be 1:1 mapped only in case if
+> + *     linker address is equal to load address ) with
+> + *     RW permissions by default.
+> + *  5. Setup proper PTE permissions for each section.
+> + */
+> +void __init setup_initial_pagetables(void)
+> +{
+> +    struct mmu_desc mmu_desc = { 0, 0, NULL, 0 };
+> +
+> +    /*
+> +     * Access to _{stard, end } is always PC-relative
+> +     * thereby when access them we will get load adresses
+> +     * of start and end of Xen
+> +     * To get linker addresses LOAD_TO_LINK() is required
+> +     * to use
+> +     */
+> +    unsigned long load_start    = (unsigned long)_start;
+> +    unsigned long load_end      = (unsigned long)_end;
+> +    unsigned long linker_start  = LOAD_TO_LINK(load_start);
+> +    unsigned long linker_end    = LOAD_TO_LINK(load_end);
+> +
+> +    if ( (linker_start != load_start) &&
+> +         (linker_start <= load_end) && (load_start <= linker_end) ) {
+> +        early_printk("(XEN) linker and load address ranges overlap\n");
+> +        die();
+> +    }
+> +
+> +    calc_pgtbl_lvls_num(&mmu_desc);
+> +
+> +    mmu_desc.pgtbl_base = stage1_pgtbl_root;
+> +    mmu_desc.next_pgtbl = stage1_pgtbl_nonroot;
+> +
+> +    setup_initial_mapping(&mmu_desc,
+> +                          linker_start,
+> +                          linker_end,
+> +                          load_start,
+> +                          PTE_LEAF_DEFAULT);
+> +
+> +    setup_ptes_permission(&mmu_desc);
+
+...: Why does this require a 2nd pass / function in the first place?
+
+> +}
+> +
+> +void __init enable_mmu()
+> +{
+> +    /*
+> +     * Calculate a linker time address of the mmu_is_enabled
+> +     * label and update CSR_STVEC with it.
+> +     * MMU is configured in a way where linker addresses are mapped
+> +     * on load addresses so in a case when linker addresses are not equal
+> +     * to load addresses, after MMU is enabled, it will cause
+> +     * an exception and jump to linker time addresses.
+> +     * Otherwise if load addresses are equal to linker addresses the code
+> +     * after mmu_is_enabled label will be executed without exception.
+> +     */
+> +    csr_write(CSR_STVEC, LOAD_TO_LINK((unsigned long)&&mmu_is_enabled));
+
+That looks like a pretty unusual way of moving from physical to virtual
+addresses. But if it works ...
+
+> +    /* Ensure page table writes precede loading the SATP */
+> +    asm volatile("sfence.vma");
+> +
+> +    /* Enable the MMU and load the new pagetable for Xen */
+> +    csr_write(CSR_SATP,
+> +              ((unsigned long)stage1_pgtbl_root >> PAGE_SHIFT) | RV_STAGE1_MODE << SATP_MODE_SHIFT);
+
+Nit: Style (excessively long line).
+
+> +    asm volatile(".align 2");
+> +mmu_is_enabled:
+
+Nit: Style (labels want indenting by at least one blank).
+
+> @@ -26,3 +27,13 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+>  
+>      unreachable();
+>  }
+> +
+> +void __init noreturn cont_after_mmu_is_enabled(void)
+
+To prevent undue link-time optimization such a function also wants to
+be noinline.
+
+Jan
 
