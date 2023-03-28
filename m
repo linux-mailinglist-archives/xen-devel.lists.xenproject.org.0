@@ -2,36 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 123036CBD2F
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 13:13:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.515662.798770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 102516CBD8B
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Mar 2023 13:27:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.515668.798780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ph7Fw-0007HX-Og; Tue, 28 Mar 2023 11:12:48 +0000
+	id 1ph7U0-0000VU-0I; Tue, 28 Mar 2023 11:27:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 515662.798770; Tue, 28 Mar 2023 11:12:48 +0000
+Received: by outflank-mailman (output) from mailman id 515668.798780; Tue, 28 Mar 2023 11:27:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ph7Fw-0007F5-Ly; Tue, 28 Mar 2023 11:12:48 +0000
-Received: by outflank-mailman (input) for mailman id 515662;
- Tue, 28 Mar 2023 11:12:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ph7Tz-0000TE-Tf; Tue, 28 Mar 2023 11:27:19 +0000
+Received: by outflank-mailman (input) for mailman id 515668;
+ Tue, 28 Mar 2023 11:27:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HyHB=7U=tklengyel.com=bounce+v2+e181d6.cd840.1680001961.BAABAAWg_Frc9p6JxGBL7ZUexnUQBwSqZA==~xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
- id 1ph7Fu-0007Ex-Gp
- for xen-devel@lists.xenproject.org; Tue, 28 Mar 2023 11:12:46 +0000
-Received: from so254-35.mailgun.net (so254-35.mailgun.net [198.61.254.35])
- by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
- id 75561bd4-cd59-11ed-b464-930f4c7d94ae;
- Tue, 28 Mar 2023 13:12:43 +0200 (CEST)
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170]) by
- 6aa516786f5e with SMTP id 6422cba9eb301e4528ed4ec0 (version=TLS1.3,
- cipher=TLS_AES_128_GCM_SHA256); Tue, 28 Mar 2023 11:12:41 GMT
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-545e907790fso106817747b3.3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Mar 2023 04:12:41 -0700 (PDT)
+ <SRS0=HbbH=7U=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
+ id 1ph7Tx-0000T8-Oj
+ for xen-devel@lists.xen.org; Tue, 28 Mar 2023 11:27:17 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7dbe7cd2-cd5b-11ed-85db-49a42c6b2330;
+ Tue, 28 Mar 2023 13:27:16 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ d11-20020a05600c3acb00b003ef6e6754c5so3736347wms.5
+ for <xen-devel@lists.xen.org>; Tue, 28 Mar 2023 04:27:15 -0700 (PDT)
+Received: from zen.linaroharston ([85.9.250.243])
+ by smtp.gmail.com with ESMTPSA id
+ b3-20020a5d4d83000000b002dfca33ba36sm5932061wru.8.2023.03.28.04.27.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Mar 2023 04:27:14 -0700 (PDT)
+Received: from zen (localhost [127.0.0.1])
+ by zen.linaroharston (Postfix) with ESMTP id 4841F1FFB7;
+ Tue, 28 Mar 2023 12:27:14 +0100 (BST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,76 +47,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 75561bd4-cd59-11ed-b464-930f4c7d94ae
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
- q=dns/txt; s=mailo; t=1680001961; x=1680009161; h=Content-Type: Cc: To: To:
- Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
- MIME-Version: Sender: Sender;
- bh=3WZBG9TLPspWHZDsLArweosNPiAFJFpnR91857ID/Qg=;
- b=jn9x5H2eycb4NaJXxkCAH2tVZaI/UtrSmztil320GAmsd8lShYoWzNcJfQEcX+C/gKcSAY3h/XonQCJsoQlLAESdO+de6BHthZ4d0lLyMaRg0GvQifXxwZebMaRGZ3tEtgXV067u2LjOtLukgHXT3COuDnNFkzdmSTuU5dejBDSZeTml5ChOXlR9+zOiHY41N/f8mwNXCIVJZTPe6LaT1k4v6MkjfwEkJ4WTqkg8Q3NFKXkjrAwbTmAQZt1fRxuqrSWIwDmPPjypvXp13NwHh2FfMsdno5IgB9Qn/yKh+VWouOOpIA//K5XpG8txU3SRH0lzenNWQzqJHwZkLIHvpA==
-X-Mailgun-Sending-Ip: 198.61.254.35
-X-Mailgun-Sid: WyIyYTNmOCIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsImNkODQwIl0=
-Sender: tamas@tklengyel.com
-X-Gm-Message-State: AAQBX9etTXJegcLVNdQ56PdM8thXmEtpgGZ1yVVjoaVNtfSMBRRwhYNS
-	6j57XcL85KzqErihNInoXJKsQnrLTXoYLjrtBcU=
-X-Google-Smtp-Source: AKy350ZXiRmNTJ18hlDi07yMcjhgDV03/bQBH4JJbAeTAQVYe9v46y02fkpgI8/sq/gMz4kyEc0cYXgBTblwjXSf8KI=
-X-Received: by 2002:a81:b617:0:b0:544:b864:5532 with SMTP id
- u23-20020a81b617000000b00544b8645532mr6614883ywh.3.1680001961002; Tue, 28 Mar
- 2023 04:12:41 -0700 (PDT)
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 7dbe7cd2-cd5b-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1680002835;
+        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
+         :subject:cc:to:from:user-agent:references:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mmLVWRHv9Mce/1Gxtf/hiKt4uOFJk025+sXNL5BqVhI=;
+        b=YbTyLOPmPySapMP2QBhlVXPUCcCkd6KpTjdJOInijHZXQvUz9MLJDoti6nyk+3EuYF
+         iMAaopafZHrwY7fXxRGIjeIOXQUJEfuLOjdioqxSS07SI/yzrlw8OPLON59sdXBlAl24
+         VJeDRAxmEfB4fgWLOqI+ct4Cu2eQ9d08cB3Yvdc9bNrhy/pBly83H6Gtj8bCUmdfU7LR
+         pvuFwYCiBc2dJpeAXZwdoowyWSJsmZ6Fir9a6c7JOTQuEl0NcXUKo1Ch0ieJGcK++fu+
+         jpflbace6M0fFT8n+Rs1pd3CIMF+chP0c0Cy9rXxbHFTy1j9QDUghSZOZmw8APT9Y/SO
+         FKVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680002835;
+        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
+         :subject:cc:to:from:user-agent:references:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=mmLVWRHv9Mce/1Gxtf/hiKt4uOFJk025+sXNL5BqVhI=;
+        b=i7YviKzA1CTj+n0ThlRqbBfK93tK2qq8INpc1raHEwYYiR8FbzxxZlrnxJgNYeBOep
+         tM2wOmhynpL7htLHGJrOl+ZQ89JP+UcZ7HUcuiLmbRNTC9ByVQblqOACKej/x0ljRROD
+         XDj6dkFRBJCgC9LJBBiOLyto0P0XxTDVZ1Z2DU/aT2x/xHR18syAuWQjNvEMkuJqTskL
+         H4UL4AcUNjpk3Pkelg+BhJ8R0DKo+2yr3mJWcdyjLx0/lV7/oz/uudNVXU6q0gbOPf2x
+         u1tv8/DaZcH8PU5CKP5iwlz8qd/p0zQ2Y9w14RaMHrRFXIEYEkehySrI3c5bluUDbUmW
+         Qbjw==
+X-Gm-Message-State: AO0yUKU/fCmcZ5NNvASnCM3xeKn8APm1Qx5QJPZ8Nlp+9JP11uYeI7E0
+	gp76huZItQyVd0/VJ3UnLfSR8w==
+X-Google-Smtp-Source: AK7set/rKuJeCLEfn8iMwesAs+RUH7DbxCveNvjd+59wlqYXnKCIHEaAUVqNtzWdJIjs2hdckl2YNw==
+X-Received: by 2002:a7b:cd88:0:b0:3ee:7061:1bdd with SMTP id y8-20020a7bcd88000000b003ee70611bddmr11925479wmj.4.1680002834958;
+        Tue, 28 Mar 2023 04:27:14 -0700 (PDT)
+References: <cover.1678351495.git.viresh.kumar@linaro.org>
+ <7c3718e5eb99178b22696682ae73aca6df1899c7.1678351495.git.viresh.kumar@linaro.org>
+User-agent: mu4e 1.10.0; emacs 29.0.60
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Cc: qemu-devel@nongnu.org, virtio-dev@lists.oasis-open.org, Stefan Hajnoczi
+ <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, Vincent
+ Guittot <vincent.guittot@linaro.org>, stratos-dev@op-lists.linaro.org,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xen.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross
+ <jgross@suse.com>, Sebastien Boeuf <sebastien.boeuf@intel.com>, Liu Jiang
+ <gerry@linux.alibaba.com>, Mathieu Poirier <mathieu.poirier@linaro.org>
+Subject: Re: [PATCH V3 1/2] docs: vhost-user: Define memory region separately
+Date: Tue, 28 Mar 2023 12:27:09 +0100
+In-reply-to: <7c3718e5eb99178b22696682ae73aca6df1899c7.1678351495.git.viresh.kumar@linaro.org>
+Message-ID: <871ql9ru99.fsf@linaro.org>
 MIME-Version: 1.0
-References: <7bd5ec4ff75ea0157d782f8820db1d17b6ad1289.1679406554.git.isaikin-dmitry@yandex.ru>
- <77245440-079f-50bd-7237-a44317642b3f@suse.com>
-In-Reply-To: <77245440-079f-50bd-7237-a44317642b3f@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Tue, 28 Mar 2023 07:12:04 -0400
-X-Gmail-Original-Message-ID: <CABfawhku1rH336Lrxji816vZ1hjdgtXjkPHvhPCVKFEovQ=mqg@mail.gmail.com>
-Message-ID: <CABfawhku1rH336Lrxji816vZ1hjdgtXjkPHvhPCVKFEovQ=mqg@mail.gmail.com>
-Subject: Re: [XEN PATCH v5] x86/monitor: Add new monitor event to catch I/O instructions
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Dmitry Isaykin <isaikin-dmitry@yandex.ru>, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Anton Belousov <abelousov@ptsecurity.com>, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000001b8ca905f7f3f0e3"
-
---0000000000001b8ca905f7f3f0e3
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 28, 2023 at 4:59=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
+
+Viresh Kumar <viresh.kumar@linaro.org> writes:
+
+> The same layout is defined twice, once in "single memory region
+> description" and then in "memory regions description".
 >
-> On 21.03.2023 14:58, Dmitry Isaykin wrote:
-> > Adds monitor support for I/O instructions.
-> >
-> > Signed-off-by: Dmitry Isaykin <isaikin-dmitry@yandex.ru>
-> > Signed-off-by: Anton Belousov <abelousov@ptsecurity.com>
+> Separate out details of memory region from these two and reuse the same
+> definition later on.
 >
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+> While at it, also rename "memory regions description" to "multiple
+> memory regions description", to avoid potential confusion around similar
+> names. And define single region before multiple ones.
+>
+> This is just a documentation optimization, the protocol remains the same.
+>
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
 
---0000000000001b8ca905f7f3f0e3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><br>On Tue, Mar 28, 2023 at 4:59=E2=80=AFAM Jan Beulic=
-h &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:=
-<br>&gt;<br>&gt; On 21.03.2023 14:58, Dmitry Isaykin wrote:<br>&gt; &gt; Ad=
-ds monitor support for I/O instructions.<br>&gt; &gt;<br>&gt; &gt; Signed-o=
-ff-by: Dmitry Isaykin &lt;<a href=3D"mailto:isaikin-dmitry@yandex.ru">isaik=
-in-dmitry@yandex.ru</a>&gt;<br>&gt; &gt; Signed-off-by: Anton Belousov &lt;=
-<a href=3D"mailto:abelousov@ptsecurity.com">abelousov@ptsecurity.com</a>&gt=
-;<br>&gt;<br>&gt; Acked-by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse=
-.com">jbeulich@suse.com</a>&gt;<br><div><br></div><div>
-Acked-by: Tamas K Lengyel &lt;<a href=3D"mailto:tamas@tklengyel.com" target=
-=3D"_blank">tamas@tklengyel.com</a>&gt;
-
-</div></div>
-
---0000000000001b8ca905f7f3f0e3--
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
 
