@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9DBC6CDCBA
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 16:36:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516299.800213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED0F6CEBA7
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 16:38:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516303.800223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phWuN-00042q-KM; Wed, 29 Mar 2023 14:36:15 +0000
+	id 1phWwN-0004g4-3m; Wed, 29 Mar 2023 14:38:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516299.800213; Wed, 29 Mar 2023 14:36:15 +0000
+Received: by outflank-mailman (output) from mailman id 516303.800223; Wed, 29 Mar 2023 14:38:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phWuN-0003zZ-Gv; Wed, 29 Mar 2023 14:36:15 +0000
-Received: by outflank-mailman (input) for mailman id 516299;
- Wed, 29 Mar 2023 14:36:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1phWwN-0004dF-0s; Wed, 29 Mar 2023 14:38:19 +0000
+Received: by outflank-mailman (input) for mailman id 516303;
+ Wed, 29 Mar 2023 14:38:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2RLl=7V=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1phWuL-0003zT-UD
- for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 14:36:14 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20613.outbound.protection.outlook.com
- [2a01:111:f400:7e88::613])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a46c1df-ce3f-11ed-b464-930f4c7d94ae;
- Wed, 29 Mar 2023 16:36:08 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by MN2PR12MB4223.namprd12.prod.outlook.com (2603:10b6:208:1d3::18)
+ <SRS0=WOlf=7V=citrix.com=prvs=445effd08=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1phWwM-0004d6-15
+ for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 14:38:18 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 54d119c6-ce3f-11ed-85db-49a42c6b2330;
+ Wed, 29 Mar 2023 16:38:15 +0200 (CEST)
+Received: from mail-bn8nam11lp2169.outbound.protection.outlook.com (HELO
+ NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.169])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 29 Mar 2023 10:38:10 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by SJ0PR03MB6375.namprd03.prod.outlook.com (2603:10b6:a03:399::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.35; Wed, 29 Mar
- 2023 14:36:04 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::659f:af8f:6d3e:8242]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::659f:af8f:6d3e:8242%4]) with mapi id 15.20.6178.041; Wed, 29 Mar 2023
- 14:36:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.37; Wed, 29 Mar
+ 2023 14:38:08 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6178.041; Wed, 29 Mar 2023
+ 14:38:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,304 +49,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a46c1df-ce3f-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 54d119c6-ce3f-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1680100694;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=r9R669TM5cYwzzypIODXW8RNpEiSdQxFoV4avACRF38=;
+  b=fPOsSlIXhKdUdji0ms6A95wSh+c99piTcODombxklvGNzrQuLxysUXCb
+   gMpWddmkDMbTpbKUqTamzLqtgwbpPnev2R6oKpvpfkKN0BiYp7bhiAkq8
+   /kaLePkj0Y34t8XA34YVdZcYsjCn+FCMmq7+3+nVbusJ0swf+JcAkQTT5
+   E=;
+X-IronPort-RemoteIP: 104.47.58.169
+X-IronPort-MID: 103446127
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:QIyT66wUPEFo40mZprF6t+cQxyrEfRIJ4+MujC+fZmUNrF6WrkVUz
+ zAbXmmHaPmMN2GnctF0bIS+oRgBupCDz4c1QQE6pSAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw//F+UMHUMja4mtC5QRlP6ET5jcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KWdD2
+ aJbOhczVEGens6/m4zqSPM3t9t2eaEHPKtH0p1h5RfwKK9/BLrlE+DN79Ie2yosjMdTG/qYf
+ 9AedTdkcBXHZVtIJ0sTD5U92uyvgxETcRUB8A7T+fVxvjiVlVIguFTuGIO9ltiiX8Jak1zev
+ mvb12/4HgsbJJqUzj/tHneE37eUwX+lAdhNfFG+3vc7mWXDyk4xMgRIVwWms+u7t3++A80Kf
+ iT4/QJr98De7neDVdj4WBuQoXiavwUdUd5dD+077g6WzqPepQ2eAwAsXjNHLdArqsIybTgrz
+ UOS2cPkAyR1t7+YQm7b8a2bxQ5eIgAQJG4GICUCHQ0M5oC6pJlp10yeCNF+DKSyk9v5Xynqx
+ CyHpzQ/gLNVitMX06K8/hbMhDfESoX1czPZLz7/BgqNhj6Vrqb+D2B0wTA3Ncp9Ebs=
+IronPort-HdrOrdr: A9a23:KH8Etq/dVigruBzbnZNuk+DWI+orL9Y04lQ7vn2ZKCY4TiX8ra
+ uTdZsguiMc5Ax+ZJhDo7C90di7IE80nKQdieN9AV7IZniEhILHFvAG0aLShxHmBi3i5qp8+M
+ 5bAsxD4QTLfDpHsfo=
+X-IronPort-AV: E=Sophos;i="5.98,301,1673931600"; 
+   d="scan'208";a="103446127"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pg/bjFNgrV8OL4Li2ITtn8GVsxAkCnNHjCHRojYNTT+Uv9VKRg5az+bLlyLasRq1MzL6UJnAq0Pev0+rS0VilWR7C7cm3LHcAMFJW0f5OZUIoZUI+z6SNrrHel3fwy4YWkun0VsE1L7oi2plTTvR7BBmVqgRx/S6sS3j+A0FTlqtkS5JmdIIXtYU5kcWLYC5JvFm8AYVfPLSOKMoUVBi5PymNVrjXMNfCelH6nSl0qU/yI9rhs+VneWtuCxgMIdYuLsnwNb+oLEdg/9k785b56lQ9X8gEi7QUx0nTkQtSzHQgm1WDqbrQQitIT31BWwApqv9KO7pVUfZFGRK17cIEg==
+ b=WHWDeFPDcgCPPqmK2Ux8B2L46EZ9Wfypg+7Hcc6uw/34+pUlfx5znkhqvuWZSMwPIYJUZPzy0L6ao96raOyXWIEOM6wjvaRq9hnDL+qVsmoM3ENyTeKos24DfIJMPNxwtwo4yWTYu2sXdH6kY8zWyDrDYtSWiKYJX18/C2pHWZ7qKPWBaUD4zlhIoh3KT/7rmANqOwVhTEnCSMABmn+/Wr8E6VbvqsrwfkKtgEqEtGh96pAioypHNDrCNJfwvPzwZMvNMDrLElBlNUSY7nb3iUJkl7vRnQpxUzFoTW4Smwmr3KP81E6HOStD+6xOgTl/647/NAKSul8V5UgBxhUblA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kW3qzO+AR7edhE9Q2mf6SOEqSEyUJ4Af6YeInrJtDno=;
- b=Li8kS9uaqSnti3v496TN/eBprA82pcPm8DriMk6sJPmfHff1/aEqcfodj+t3CEyvAOsRxtTRr19YHcvLVPL4KCcR2c9ddE9KmAssLS2Vxg+UZJofvsGK6LQf9sefazbGVk4UIDoHiNLvcgl1LyW0RE9WHgIcIuxhBxhB7lyko4R5eI9vl9YCKNfAmX4Gy1Gfq7s4bE1YGkMGhyJIyjoXMjx1UTnIFDvYNjd/WBJyJYEH3Jfg8y8R2gRY7C1RlYsmK5D8P2dbj76nQc4lzBzJDDXaWMgv2kbPOg9iMFNf6im9QldxataXl8RjG+T7KRJrKL6LX9A9rcGe0FNRozTYvw==
+ bh=HkfeY+F2wGcHsJ1OmBQV1K3YmSGvL5DFvk9/rD+vxSw=;
+ b=Q7ZM71ZfAihvFnzpegJYzRYDz8vWIC/X55VPdVgN107lqtQxgn6ML53ObzvqqlvscwPa+B/JLvpCq4SnfxgqHMqMlJUjBMie9pGbJA3FA/9QZWDPR3YeonuW+Gd5dNiO/G/6AWJScWEXEIed0sR7EW9EqAGcyohweOSygsCQitg9YJYkFqU1mES9n8U6r20nbmjp527zLeRfBx+O0nLex+d1iQnwdTEcOfKMhSgU7XSgg3SSil0WLZsTtr7Cb+nrWaMUfXbyGEra8v1XOooA+6P3u4Th+l5yJi1PuDaI8BDuuLWynlE652X6K0iMjbGAeKYKXdlVQGtSTTqnVRuC7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kW3qzO+AR7edhE9Q2mf6SOEqSEyUJ4Af6YeInrJtDno=;
- b=2t63GUqdanpo+tl3ejEJUiPM3NlN9qP6vqKejOov1jN/Q/MpZUcro8QK6zI7FPJdDo/tObe58TlQMRjDxqN4r3THD5PTkqknjczbIuKIp/kbsORakr5ZTDO67x+OdVRjCfsV6qTTxVaQqn2hm22j8laU+om980w8PXX2Vlwwjo4=
+ bh=HkfeY+F2wGcHsJ1OmBQV1K3YmSGvL5DFvk9/rD+vxSw=;
+ b=eZG243xXKb8yet5pnp33Fdbc2UE30qekdyzCww5xVg4SyMHf5BZ5mNCP6CoVq1L6EzteldxSpZ0oT6IjMs2wSLn18UIxQafAD1yFKLNG3hSKGQMOIg/w+tqq7cM4Umi8NtNwSYvoChKMGi0lRXz2jwZP+wsGsjs5Yr1ytMncWYY=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <3e403b20-fa1a-5e0c-8e14-b89afbb10a0f@amd.com>
-Date: Wed, 29 Mar 2023 15:35:57 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.0
-Subject: Re: [XEN v4 04/11] xen/drivers: ns16550: Use paddr_t for
- io_base/io_size
-To: Jan Beulich <jbeulich@suse.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com, julien@xen.org,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, wl@xen.org,
- rahul.singh@arm.com, xen-devel@lists.xenproject.org
-References: <20230321140357.24094-1-ayan.kumar.halder@amd.com>
- <20230321140357.24094-5-ayan.kumar.halder@amd.com>
- <197973ce-2361-f3e4-fd38-40b4ad802acf@suse.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <197973ce-2361-f3e4-fd38-40b4ad802acf@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0487.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13a::12) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 29 Mar 2023 16:38:01 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Simon Gaiser <simon@invisiblethingslab.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: S0ix support in Xen
+Message-ID: <ZCRNSeQzfYikJMmG@Air-de-Roger>
+References: <9051e484-b128-715a-9253-48af8e47bb9d@invisiblethingslab.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <9051e484-b128-715a-9253-48af8e47bb9d@invisiblethingslab.com>
+X-ClientProxiedBy: MR2P264CA0022.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:1::34) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MN2PR12MB4223:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1370e3f-14b0-4b0e-6598-08db3062ecf6
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|SJ0PR03MB6375:EE_
+X-MS-Office365-Filtering-Correlation-Id: baf0a0ae-617d-491a-6278-08db306336a9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	2+3xQ5tDrnjNb3MWO8hucpH2LfDuEIfj86qoGKIgLVgonGimlij7TBPKvBRjS22vhE2HGF7R2AZgXZXJVHDbxbJ+GCCYRLK5b3wF+t3aa0Ax80MDbCAJzdt6RpniR+qv78+CRYJ8KIRPgVruZOw9bvpUgVemNS4Pn/eFckqzO7bVCLHmAsvl70kNDR54rYSBmU6GLm3ZVVcInWIrXfPwk10jhWFrgwVqkV2ABrKgfA9ARjE7kZ6AZl2UUv4kjXSGHhTcNDkDFzlM1cgukVZCpYGoDkhW+VmR/TN3fl0hBpftD8FSyvUsF8rEKKUcUPpsCWAHQqcVJA4CCBT9nFvLsAFkqsynWDI1k7IJEIh5odwcTvUhApwFgVAVrs4+dKt5uuVABxKq2MPZFu2kGQURBAWw5TUetobXNSiLXxFgBeVvsDDWt4rO9jblfQJYdzLQMx+mjoWOx0mrKoJZbcFxD7Fz/TxP4GySDu51SG8Ti7B7w8228hOSqUXeHuVfwqOmBknIelMUyF5UYB9KvUS2QUFaVNgoEW6zGcVG0cGMDzumhxsYdkDiz89eLViuq2TSw9jTu00NqwPEu9q6bpU4Ew+rVWBvRrqF9XYfYbP/ynCA1EJ0fI6qy5TNYNa2Io3rHukwGwAhJTzbGOecoZEQ9Q==
+	2Xi43IbGgcsYdsAt2May3f0l2E6oEPhytPpd/GrvWb3D8T24CXE3Nse3yDuWZHR8rZxXSxh68twELHRFftSqeMDnBAoWur0mFGMeOX3Rh5pX7+/z8OFmO4v33Z9tZyhue2CkvLTfKE1S6OKYh5+skFNDa8UmOLFvKT7kdZVpdqbeiSz0ZkRk9ZEr4vjnyN0g8AZh83oDhagWhrrvmSVj3+dK1xMkIw16/UNsDIQZDRf5Q6qBE2rszm26CF/J/kpKql3/dlQtqqJnNIp8oeS5fubwq6Wdzf4kZGbVBxeeaXsNlkintaaSbpRltmLCJOeqanGjEEKolRou0BcXJO7sk6n6oxnndi3xgU72xY0dUNTVDsXcv1fjFFJ2diJz0C6AsE3rT4qEipFlInXWSGhB3TjmRXWGuypFiaBeRPRnogL69spHufP38x1SV6nRr+R8ZAfYKAAU7OFoqevZE2z/05AmHO8wuyLIqocZOOoNkp1exeEat79E2jQgH7bEY70eF8aX9qrPMxI1sb8wCwb4Hk9O9PSKzom+R1AWjopTZoK2oqUUgSQGWViJ0EfMjG+O0Ax+de8495TqCEDPEUdr8ewsgZQXVapuoY84jb+zzEjlnmzMTJGj4eJjdM6IVTB023rD46WGyeAGu36OjEjZRSxcmxMW0uJwv608zonnD7E=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(346002)(396003)(366004)(376002)(451199021)(6666004)(53546011)(26005)(6486002)(38100700002)(6512007)(186003)(2616005)(2906002)(8936002)(5660300002)(36756003)(7416002)(6506007)(478600001)(110136005)(316002)(6636002)(41300700001)(31696002)(66946007)(8676002)(66556008)(66476007)(4326008)(83380400001)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(366004)(396003)(346002)(376002)(39860400002)(136003)(451199021)(66556008)(85182001)(26005)(6506007)(83380400001)(478600001)(186003)(8936002)(86362001)(9686003)(33716001)(316002)(6512007)(6486002)(66946007)(5660300002)(66476007)(6916009)(38100700002)(4326008)(2906002)(6666004)(8676002)(41300700001)(82960400001)(32563001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WEYzNm14dzl1a2ZmM21pUElVSXdwN1VRQy9qZ2lCQ1MrUjJEWHhNb3VKRjFh?=
- =?utf-8?B?NTFwMVV5RG9iK2lHdmZnNlZLcEE0Ukp1ekNlTjRYcXp0bUdyN1AzMDViUDN1?=
- =?utf-8?B?SVR0VFlaV2dNNitSMmx5VzB6MnVEV1h2c0xPVkhGbFhZTk5DUUdtb0xVdWI5?=
- =?utf-8?B?SElPRlhvOWxJQUVzTkMyYVovNEpud3REdFJiWmROZnNpRnRUenpnUmpkbHg4?=
- =?utf-8?B?bFpYZmRhVXdjaDRSUWQ1UVJtVWtGTTBPQ1VjcS8za3dTVkhzY0h1UXFSbXcw?=
- =?utf-8?B?eFFxWkluaHBqbzUzY21GMi9HWnlvbHR2MnA1bTRHMHFYTXBFMXVoWEpBOVA5?=
- =?utf-8?B?THVoSHBybzllM2lJdGsyeHFNdlJTcytNbUdXSGp4TC9UTm1mMDVtaGYzQ0Y4?=
- =?utf-8?B?bUU3SWV5aUxUYnI4SjVMZloweEVjOWlpQ0dUVTJTT0VmUnN3bVJsTW11S3ZP?=
- =?utf-8?B?T0cranYrVko2dVNZbEFHZWtZVGMyb0pUaHVaT1JBZU5TUXJWYTJ4SEs3cGZH?=
- =?utf-8?B?UzRabCthSDRMa2xFbEdRU3pyajFaanJNTHVnWnNjV0tXc2VEKzYvNElBUjVq?=
- =?utf-8?B?aVNVcW9aajNhL2IrekNYbm5NRUpXQWVRN3Z0RVkwSWFUN0VNTWtPc080WkNH?=
- =?utf-8?B?U2hIblg5MmpvU3dnV1hrazJUR2pEZy9UR1lKWEwxUUhWMWphMDlzaUdtUTlH?=
- =?utf-8?B?SEhkejlvdW9VWTZEYzVLRlJFeVRwWjZ0R01WV3hKU2IvOEJNMWlwNnNOQkxI?=
- =?utf-8?B?Mm1aditxOEh2dHU4VG1abjdKL0JENGphbkR5UWxmdThVY3U3SzhHYVBZRmFq?=
- =?utf-8?B?bW9lLzVsQTFaM2FZZHFNc0w4eUFvMUxzT2lkZmZGaEpsVC9RZ0UzZ2N0Ukt1?=
- =?utf-8?B?a1JpY1R5Z1hYQkJMdlBrRXJKL3hXRW8xQUREQkt1QkhzRzhsZ2pnMm5YS1Qx?=
- =?utf-8?B?WDd5YXJFNWtaSThlQmhGdmZoclkwYU5nbGhDdFJMbTRqVDFLbldmZmthSUF2?=
- =?utf-8?B?S2MxbW51aUk0ZjBZTEJiRjdjblNqSVcrdUFlc1ozdjlVU0NDNUVBZVhuejdR?=
- =?utf-8?B?bjFWRHJMRlFKYUpIQ0JsRHZHV3ZNSWJjd1A0ZkwxdXVnU01UWW45UE5yTUkx?=
- =?utf-8?B?cUI4QzRzcG5HMTJHSHBzSTlZbllxVGNzL3M4b2FWYTF4dk9aa0JWOGN2K1Rm?=
- =?utf-8?B?THQ0cGZ3UDRNblp2N0dMdTMyaHlnWUJnK29MQUtjNWJNMnFsMTRJTjhmZU5Q?=
- =?utf-8?B?WGhpS0lHbCtuOGlDVXB3UUtKSmo5QmZOMFhiamVTaHdhWWhNL0sxTlV3cG9R?=
- =?utf-8?B?Y3FrVUQwL2k4MHFrOTUvckx1QXJ3LzdaVC9oWko4UzBsa1dQSTRYdkRpeWRa?=
- =?utf-8?B?WXR0WFQ0aFFuYjZBTCt3Yi9aV3RpdWRVMk9YQ2xJU1hCUlpoaDZmYWgvbTRN?=
- =?utf-8?B?MXhTc1ZvNDV3TUh5UytYNkJLU3FjeitmRURUTkRrdHAxckNHYnNPbGtXSnNY?=
- =?utf-8?B?M1RLNlhhVU5BVWNYRHBmZWh4UEZlVzFsVUwvWElZcy8xaitMSjVveXZHc0lO?=
- =?utf-8?B?T1I1SzJjTGpRNnE4Ulc1cy9kN2xLdmtsSk1FZUFBKzVBbWhtcnlkR1hkY2k0?=
- =?utf-8?B?MnlBbWdQYXF5MGhMTTNxaHFtNHpGQmtrL2FsTGlPTkJFQWRTUVJkOGNYYzVy?=
- =?utf-8?B?OTFtaGwvNmdpSnBsSzBCcSthaUZEbU5UclBjeXpQK2ZnSndCOXVZMk5iV0VS?=
- =?utf-8?B?MWF2Q2dIcElueWpaY1RBQTNlTHg5WWJuVmJxL2hKUnFIZFRRek8zWmlncHNG?=
- =?utf-8?B?NFFWOHYyWTJiVGpQN3NwUnlJdjVWWm5UZTRnVTNwQzNhbVpXZENIQ0I3SnZo?=
- =?utf-8?B?VDlGeTQxY3NHeWc3bkxoY3hqWm5IYzRTMk94SGtvekRTa2pZeUVzb1FIYWlW?=
- =?utf-8?B?bFo1eExVQkxvVXRGTEJGUWoyQUI1d3cxVGdrOHlaOE5qUm1yT3MyK0s1Z3A2?=
- =?utf-8?B?eExDZXJUSVRMZk5VT2JndWZtc2o4ZC9ML3IwdjRocWZ3ZlJpbU1BMEMwOWNm?=
- =?utf-8?B?dFhLcnRYYWFYUHhDYlpyUG5sMWg5bGpoeVA2NXZTMHJxM2srdVJhbkd1SUp0?=
- =?utf-8?Q?qTiY1cAl+4f7Lf6Cpvt/44Cpx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1370e3f-14b0-4b0e-6598-08db3062ecf6
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+	=?utf-8?B?OUg3Y05lKzlocHVBM0h6WVJINVFRdVBZa2hPZ0RXSXhpMlNZakZ0TCszRVF5?=
+ =?utf-8?B?b2hLTXZmZ1l4WWYvcVh5RXRtK1h6eW81cWhZdFpwdXB3TlJVL2djeFNlRHVB?=
+ =?utf-8?B?MVVxTFY3aTNybEhyVnVyeloyVHkrZnlOcFVpVXhnK2lUdkNkR2FMT2U0MVVP?=
+ =?utf-8?B?SHlndHRwTUVkcldzbFBtNTRTbEJYVmREMnRiK1FSU29NbDhwajA4MXBKcmFJ?=
+ =?utf-8?B?VWc4TjFyRzRXdjhVNFk4UzVGSG1GTHF3aXZlRkkxM1JVWjlta1VDUmR2blJu?=
+ =?utf-8?B?aklud3R3WnltM1lKR2tQaXVURFNyNEwvcklrY00ydFZhWWFUbHJmWnN3bEtI?=
+ =?utf-8?B?TUE1ZFhIUmkyUDNOU05VZWU3Y1BROUZrUjlSREJNbHZnYVd6OGhhNWpzRmZC?=
+ =?utf-8?B?eFZqb3BvZ3VITTFaTC93R1ExVUlYcUloWUkxRDZGd2tXeHYyQWpVeWZHMUpt?=
+ =?utf-8?B?ZmNVeUVLQVdDSHBndGxrbGVXeG1TOE5RV1hTdWQrRVBpeVQzK0lsMzJ1aFdR?=
+ =?utf-8?B?TFR0Slo4WTIrS2t2dkJ0bksvdXJXSEJyWTNaVDc2TXBlZ0VKd0xvdzZTcFhC?=
+ =?utf-8?B?STVCT2MydCtaalkvZlZnMkJrVHEwaDczck5IdXpGZEVLam1GSGRZSUxqTFNh?=
+ =?utf-8?B?WUNDVHNBL1l5aEJsYkZxSng1NTNXUXcvdjIwTEJqcE9YRTFrY2NzN2x4djNr?=
+ =?utf-8?B?R29WNlpCb0s5Mlkyd1ZlZXlOQ2Q3TWxkcnhidVF2UlhWZTBWbWZWV3hXM3Rh?=
+ =?utf-8?B?YXY4cVZ6TWkrc3gvSEhvQkhISm8yQjgxUm92WUUyT2J2K0JjbGdqMExpa2lV?=
+ =?utf-8?B?T0RZOGNHb1dKWVJ1MkNNVlZrbHpybEZJdHJjRS9hVkdrcHozMUx4UzhuNmt5?=
+ =?utf-8?B?UXJoV05tK2RBbUEwaHV0Vm5hR1I4ZFFSQkh4ZnNSZjlIWk1HSTZVS1NBZFFl?=
+ =?utf-8?B?MzJVQmUyYVVxSTJ5SGpCUVNyYnVkdWVLOUkzby83Uno2VS94YXpIMUNzZHIr?=
+ =?utf-8?B?K3Y4ZTZ5UEgwRE1DMDFBQkpiOS9ZSEFmREVsWi9GTFR5RU5jOU5jUWt6bjU4?=
+ =?utf-8?B?aldBMXJsQnZMR2tnRlZFcHJsZTJZckxTa2pqOGY2dkk4NFJOZVZQRmdoMURG?=
+ =?utf-8?B?ek9ldWtEbHhTNFQ4OGY5VXNHMzBQanhnRExoVUZxTWhvUzlNL2syUTlIbWhi?=
+ =?utf-8?B?TzBqOVhVUlhLWDZXNVdGSkJpRlhiRkNWUUdZWmtSYnRrZlkzMkhkV3RteEFG?=
+ =?utf-8?B?MGFzWlloeUNjR1NWaDY4bmtBRVg0TWJNZitoS1k0VG84cDJvMDZneis1UmRm?=
+ =?utf-8?B?bmd0UmRoZ1RxUXV6N21yUHFkMXhTT0VaNGZyMmdLM2hxWGRuYm1rbmsrWW03?=
+ =?utf-8?B?LzNRQjRkWTdReHpCcjRRcC9HbWoxUWJoSmM2MFBaNWFCS3ZrYy9XOWtMUDNP?=
+ =?utf-8?B?TXU4TlUyc3lKTmQ2LzVCWkZLeENMQzVLYVV1blhWWmlFa3ZBcVk0em9XQ01H?=
+ =?utf-8?B?Vm1jaFljaHRqUFRlVDkxMVFOMFN4MnN4OWQvQ1BBMVBuWEpCYWNkeE9BMnFJ?=
+ =?utf-8?B?bkpSK1VkVTZDNXM0aEFrUWdDUlhiNXJFcEJkbWFHQm01bkhWQW42Q05sN2F6?=
+ =?utf-8?B?OTIzL2Y1dlpQZFdmK3ZUcnBDVnU4elEyVTBUZnM4Z2p3Q1ZvOVYzY3Y5bDkr?=
+ =?utf-8?B?NTJ2bC8vT3dDVDM1THE4d1dOczN5N08reXdJQUZFSjZUd09pQ2srMVpXUE5L?=
+ =?utf-8?B?UGpLUFl3Sjh0WXlWWG1keXNyaFdEbW45dWx2d05pODhtbWI4S05acDk3dWhU?=
+ =?utf-8?B?K29IRndrYWFqeCtod2RLUTBFdlV4dDNxSlhNUlE3TW82V2ZDYTVuc2FqQmJJ?=
+ =?utf-8?B?Ym1hTFNidnlCWE1Eb09DNEVmYVAzOGhUdUJqcGhnS0Rwb2czOTU5bEEwaFh0?=
+ =?utf-8?B?cks2bGV6dXlic2hBeFBMR0NhaDAxNzlnMGxoSmV1c1ZwRmVkMTlaVEViUmpz?=
+ =?utf-8?B?eUlza24yOWo0WktnOFpkd0RRbG50bjVONmtROEhBdTZRWGpWVnBIRFFEVG1W?=
+ =?utf-8?B?VTJLKzQrNkFoOG9iMm9JQ0Mrcm92NGZoSmMrWUpiOUZ6WDhyaHRKUlQxdjlr?=
+ =?utf-8?Q?Lu1uIXuxykItFwyeyLknb8jlO?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	8OTOJLhJt3q327eAIl0VxLBuQzLf7abqyfHQ+X0WH0YYk/Kfr9aVb5XbI9yuLL3HtuBxJ9JJj9MWXC2b9dDaakTGNAouCUdDEpBZl1RMwhtlfptPAWtlzQjCFegteiJ/sV77QmIVMLDbHO9WD0q0QbZVrkwJ+4YpEt2uASPAxQ9QxwtLv3bV4dgu2zMeq5PhIVMeAnjT+Sb711QhgQGqM4MmlfO4ZjKxEw1WiJ7ruhsw4x9TFRthnRCxR8nWNVH0iZKCYkONqohn/BahrNrYSeqbF7+XJcs6VYg43lRsVB5KJfXCL2y2rftsIUk4wyMYpL4rg1uNlkStUpWWeukhRE99+T5yfhQK4/tvqwst4RRhJpNgcCpEZmVtQa3544kgGp+Oak6Pahe4BNAr1XCaD1OIAWNYp7fO71fsQcJNIVLgnv25qZp9oaJt7O2xYfSutbMlYqKgpnZR7yK2pRekqgWcfscPf3JSaOF9ZrebTyJK8YCVhRKUzVJb/Fvlh5V1eLsKfl7lh5SL32WFkybJ8HDbnkyw7OMVF7ReHmUlHVVXZ9gEqlUgcj1Lv7s6FOoyst/wxjsAz5km9tnlXqJNCC9ISf/bgFydFAeBEhucGBfYj4K+OR1mZhODKeZsnyBTblqilcZ0xHaOcOqcfDqD+HKOwPw5Y3HuqanaVXg8YYAgrZgAf3aEn+1bygl6XQbBS/19qFxW99kscMp4OYhTNnaADsIFyn/VcOXRnnoUhKHfMSZTjZSwagusUxxWVBm1uLZWmLLrwsmP0FIBTN1Wd9n6KGdKVPY2JaYJqL37zNFeA0lgReCEuCXfSX4AdZi5U513738uBtBfrbJ7w4jpXg==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: baf0a0ae-617d-491a-6278-08db306336a9
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 14:36:04.5431
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 14:38:08.1429
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rwfmf3dSFE3DT3BypluCbH6YpJOY6lKb4cHIiH3aGXYe5W9JV7eZDGEJTFPqNBRZkRxuiX85uT7rO6U5O7+pzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4223
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4svUbNGeW4TLrtSBBfxyJUSBN1ytUCc6t1HQvaMWZdEiwUXLYVeULRy6dI9irZx01vYbznsJE3SV0GARDsftwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6375
 
-Hi Jan,
+On Mon, Feb 27, 2023 at 12:48:03PM +0100, Simon Gaiser wrote:
+> Hi,
+> 
+> I have been looking into using S0ix with Xen. On systems with with 11th
+> gen (Tiger Lake) Intel mobile CPUs or newer this is often the only
+> supported suspend method, thus we want to support it in Qubes OS.
+> 
+> Below a summary of my current understanding of what's needed (and known
+> unknowns). I would appreciate some feedback (what's missing, preferred
+> solutions, etc.).
+> 
+> Note this topic is much above my previous experience with Xen and x86
+> power management internals, so sorry if I'm missing things that are
+> obvious to you.
+> 
+> PIT timer: During some previous private discussion it was mentioned that
+> the PIT timer that Xen initializes for IO-APIC testing prevents S0ix
+> residency and therefore that part needs to be reworked. But if I'm
+> reading the current code correctly Xen can already use the HPET timer
+> instead, either with an automatic fallback if PIT is unavailable or by
+> forcing it via hpet=legacy-replacement=1. Looking at the rest I think
+> the PIT isn't used if Xen finds another clocksource. Did I miss
+> something?
 
-On 21/03/2023 14:16, Jan Beulich wrote:
-> On 21.03.2023 15:03, Ayan Kumar Halder wrote:
->> @@ -1163,10 +1163,16 @@ static const struct ns16550_config __initconst uart_config[] =
->>       },
->>   };
->>   
->> +#define PARSE_ERR_RET(_f, _a...)             \
->> +    do {                                     \
->> +        printk( "ERROR: " _f "\n" , ## _a ); \
->> +        return false;                        \
->> +    } while ( 0 )
-> You can't really re-use this construct unchanged (and perhaps it's also
-> not worth changing for this single use that you need): Note the "return
-> false", which ...
->
->>   static int __init
->>   pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
-> ... for a function returning "int" is equivalent to "return 0", which
-> is kind of a success indicator here. Whatever adjustment you make
-> needs to be in line with (at least) the two callers checking the
-> return value (the other two not doing so is suspicious, but then the
-> way the return values are used is somewhat odd, too).
->
->> @@ -1235,6 +1241,8 @@ pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
->>                   /* MMIO based */
->>                   if ( param->mmio && !(bar & PCI_BASE_ADDRESS_SPACE_IO) )
->>                   {
->> +                    uint64_t pci_uart_io_base;
->> +
->>                       pci_conf_write32(PCI_SBDF(0, b, d, f),
->>                                        PCI_BASE_ADDRESS_0 + bar_idx*4, ~0u);
->>                       len = pci_conf_read32(PCI_SBDF(0, b, d, f),
->> @@ -1259,8 +1267,14 @@ pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
->>                       else
->>                           size = len & PCI_BASE_ADDRESS_MEM_MASK;
->>   
->> -                    uart->io_base = ((u64)bar_64 << 32) |
->> -                                    (bar & PCI_BASE_ADDRESS_MEM_MASK);
->> +                    pci_uart_io_base = ((u64)bar_64 << 32) |
-> As you touch this code, please be so kind and also switch to using
-> uint64_t here.
->
-> Also why do you change parse_positional() but not (also)
-> parse_namevalue_pairs()?
->
-> Jan
+Do you have some reference to documentation related to the S0ix
+states?
 
-Please let me know if the below patch looks fine.
+I would like to understand exactly what's required in terms of
+hardware devices the OS can use and still be able to enter such
+states.
 
-     xen/drivers: ns16550: Use paddr_t for io_base/io_size
-
-     io_base and io_size represent physical addresses. So they should use
-     paddr_t (instead of u64).
-
-     However in future, paddr_t may be defined as u32. So when typecasting
-     values from u64 to paddr_t, one should always check for any possible
-     truncation. If any truncation is discovered, Xen needs to return an
-     appropriate an error message for this.
-
-     Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index 092f6b9c4b..5c52e7e642 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -42,8 +42,8 @@
-
-  static struct ns16550 {
-      int baud, clock_hz, data_bits, parity, stop_bits, fifo_size, irq;
--    u64 io_base;   /* I/O port or memory-mapped I/O address. */
--    u64 io_size;
-+    paddr_t io_base;   /* I/O port or memory-mapped I/O address. */
-+    paddr_t io_size;
-      int reg_shift; /* Bits to shift register offset by */
-      int reg_width; /* Size of access to use, the registers
-                      * themselves are still bytes */
-@@ -1166,7 +1166,7 @@ static const struct ns16550_config __initconst 
-uart_config[] =
-  static int __init
-  pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int idx)
-  {
--    u64 orig_base = uart->io_base;
-+    paddr_t orig_base = uart->io_base;
-      unsigned int b, d, f, nextf, i;
-
-      /* NB. Start at bus 1 to avoid AMT: a plug-in card cannot be on 
-bus 0. */
-@@ -1235,6 +1235,8 @@ pci_uart_config(struct ns16550 *uart, bool_t 
-skip_amt, unsigned int idx)
-                  /* MMIO based */
-                  if ( param->mmio && !(bar & PCI_BASE_ADDRESS_SPACE_IO) )
-                  {
-+                    uint64_t pci_uart_io_base;
-+
-                      pci_conf_write32(PCI_SBDF(0, b, d, f),
-                                       PCI_BASE_ADDRESS_0 + bar_idx*4, ~0u);
-                      len = pci_conf_read32(PCI_SBDF(0, b, d, f),
-@@ -1259,8 +1261,17 @@ pci_uart_config(struct ns16550 *uart, bool_t 
-skip_amt, unsigned int idx)
-                      else
-                          size = len & PCI_BASE_ADDRESS_MEM_MASK;
-
--                    uart->io_base = ((u64)bar_64 << 32) |
--                                    (bar & PCI_BASE_ADDRESS_MEM_MASK);
-+                    pci_uart_io_base = ((uint64_t)bar_64 << 32) |
-+                                        (bar & PCI_BASE_ADDRESS_MEM_MASK);
-+
-+                    /* Truncation detected while converting to paddr_t */
-+                    if ( pci_uart_io_base != (paddr_t)pci_uart_io_base )
-+                    {
-+                        printk("ERROR: Truncation detected for io_base 
-address");
-+                        return -EINVAL;
-+                    }
-+
-+                    uart->io_base = pci_uart_io_base;
-                  }
-                  /* IO based */
-                  else if ( !param->mmio && (bar & 
-PCI_BASE_ADDRESS_SPACE_IO) )
-@@ -1519,20 +1530,40 @@ static bool __init parse_positional(struct 
-ns16550 *uart, char **str)
-  #ifdef CONFIG_HAS_PCI
-          if ( strncmp(conf, "pci", 3) == 0 )
-          {
--            if ( pci_uart_config(uart, 1/* skip AMT */, uart - 
-ns16550_com) )
-+            int ret;
-+
-+            ret = pci_uart_config(uart, 1/* skip AMT */, uart - 
-ns16550_com);
-+
-+            if ( ret == -EINVAL )
-+                return false;
-+            else if ( ret )
-                  return true;
-+
-              conf += 3;
-          }
-          else if ( strncmp(conf, "amt", 3) == 0 )
-          {
--            if ( pci_uart_config(uart, 0, uart - ns16550_com) )
-+            int ret = pci_uart_config(uart, 0, uart - ns16550_com);
-+
-+            if ( ret == -EINVAL )
-+                return false;
-+            else if ( ret )
-                  return true;
-+
-              conf += 3;
-          }
-          else
-  #endif
-          {
--            uart->io_base = simple_strtoull(conf, &conf, 0);
-+            uint64_t uart_io_base;
-+
-+            uart_io_base = simple_strtoull(conf, &conf, 0);
-+
-+            /* Truncation detected while converting to paddr_t */
-+            if ( uart_io_base != (paddr_t)uart_io_base )
-+                PARSE_ERR_RET("Truncation detected for uart_io_base 
-address");
-+
-+            uart->io_base = uart_io_base;
-          }
-      }
-
-@@ -1577,6 +1608,7 @@ static bool __init parse_namevalue_pairs(char 
-*str, struct ns16550 *uart)
-      char *token, *start = str;
-      char *param_value = NULL;
-      bool dev_set = false;
-+    uint64_t uart_io_base;
-
-      if ( (str == NULL) || (*str == '\0') )
-          return true;
-@@ -1603,7 +1635,14 @@ static bool __init parse_namevalue_pairs(char 
-*str, struct ns16550 *uart)
-                         "Can't use io_base with dev=pci or dev=amt 
-options\n");
-                  break;
-              }
--            uart->io_base = simple_strtoull(param_value, NULL, 0);
-+
-
-+            uart_io_base = simple_strtoull(param_value, NULL, 0);
-
-+            uart->io_base = uart_io_base;
-+            if ( uart_io_base != uart->io_base )
-+                PARSE_ERR_RET("Truncation detected for io_base address");
-+
-              break;
-
-          case irq:
-
-
-- Ayan
+Thanks, Roger.
 
