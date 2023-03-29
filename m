@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64E246CDAA3
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 15:23:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516273.800142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 534716CDAC9
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 15:27:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516276.800153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phVlC-0001Om-J7; Wed, 29 Mar 2023 13:22:42 +0000
+	id 1phVpx-00021N-6L; Wed, 29 Mar 2023 13:27:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516273.800142; Wed, 29 Mar 2023 13:22:42 +0000
+Received: by outflank-mailman (output) from mailman id 516276.800153; Wed, 29 Mar 2023 13:27:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phVlC-0001Mx-GK; Wed, 29 Mar 2023 13:22:42 +0000
-Received: by outflank-mailman (input) for mailman id 516273;
- Wed, 29 Mar 2023 13:22:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Nc1T=7V=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1phVlB-0001Mr-6q
- for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 13:22:41 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2061c.outbound.protection.outlook.com
- [2a01:111:f400:fe13::61c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c709bc5b-ce34-11ed-85db-49a42c6b2330;
- Wed, 29 Mar 2023 15:22:39 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DU2PR04MB8952.eurprd04.prod.outlook.com (2603:10a6:10:2e3::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.35; Wed, 29 Mar
- 2023 13:22:36 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6222.033; Wed, 29 Mar 2023
- 13:22:36 +0000
+	id 1phVpx-0001yR-3G; Wed, 29 Mar 2023 13:27:37 +0000
+Received: by outflank-mailman (input) for mailman id 516276;
+ Wed, 29 Mar 2023 13:27:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Nen3=7V=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1phVpv-0001yL-HS
+ for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 13:27:35 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 753e1221-ce35-11ed-b464-930f4c7d94ae;
+ Wed, 29 Mar 2023 15:27:32 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 219EA5C00D5;
+ Wed, 29 Mar 2023 09:27:31 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Wed, 29 Mar 2023 09:27:31 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 29 Mar 2023 09:27:29 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,118 +43,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c709bc5b-ce34-11ed-85db-49a42c6b2330
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MafniogVHMpePVVmGqvDNP33JSi/q7bDlvQ/Q//dKKukHsLQBNQTmtRYB7q0c9vCUQdxvutc56v3U5P6/E0bYq1Hd+MhTLFSRtW93csO/NYyRTvnwNUCkl6CTn4JbQZiCgvy3g5jOP51BDLdrsQlETPsiY9VF3bYLGth1FczQN7MB61Q0ZnG37shF2GST7WTZZFj9GyXOu4S4gqeBTz+iJdpWgEMQaLlat+hqn0XDwSenLiUrzOtTQIGQAZcU67F7AIGJ+UDOi0dYV+tY4N/TRyyGZH1wYZ3IqWr46EMCRmsMbwFL7xH/N8vQQdtyPsuG9sjW/jYjZaw8GpfUnRwGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7FNYIWSXSyfAcJlYVXVlF6LufMrN+XtaTunTNge7Cic=;
- b=UwBAfoFVvDv1o5SfdyosWG8Kf9zxinckSdungK53mqt5rEKvBP4OhhTsjNGUjN3dHGpFRaiTwaEwYeuJGwLv2TzKwHgXY5jufDvqjm7bj7z5UuCHkYKKaIuzEZd+WnTVfrfyJHRtwY1q1t2mXD30fRfzEyr3cxLUr62ES1b3nHxx1V+M85z51Q4+D0Bd7ur5NS+6avx6au9UwhlrCIshIeT0ZWdgRM1zO1Ygf0w/Wt/dgGJ4XrMb/ca32kGzQjtSCb0ucohSKwsueHJFME2FPTGus/cdLT+qUJVPbaEUD2sJlOWajpARFJ98UDhWTIPiRyuVTynVygRik7kWgn855g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7FNYIWSXSyfAcJlYVXVlF6LufMrN+XtaTunTNge7Cic=;
- b=Sgm+Kx4nm4ThWcIEBGmGXTDlptNpwTKyUMfx2D7CiG306H6WAQdgg6722Tptu5CrEjNy3qvStzXfoYuvAveqauSJy6g3PgBDpZN+OF2fP64e9udmOsJ09Ef57vZlw2dOQ9Sr5Ez8PwAHf/XQ3UAQQKFBvhwu8UAupfaxKrUFBuBpahNk1ACEiROnagO0XsqhcE5l3pBm0gpizkEB1AM9tCOl1CZCxA8CM8+POehX3BZEE2+fXqBGDLT75gCwk48MP7pB9vj+YLQ+G54iGt91n+q7OZL1Z58ymiKKI2bjNQUsLvLExOJMbXDI1IhRQ4WmlPWtkMf1F4R8hCeNQqGWPg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <77d0a652-89f1-af15-0a45-0bf28a826b15@suse.com>
-Date: Wed, 29 Mar 2023 15:22:34 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] vpci/msix: restore PBA access length and alignment
- restrictions
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-References: <20230329101810.84726-1-roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230329101810.84726-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0104.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 753e1221-ce35-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1680096451; x=1680182851; bh=/+MRYRsaQkmdXXHGULqnK17tx9iLlBePVV5
+	Mq4zZ5ZY=; b=aa8l+QzM05SJOfSX6w/xbEUdVg15gUFDU7y+lKlBp97/546FlBP
+	0X7RBjrWGuqzcdXFK/s9TThuL13M20fO+BshwS4Ybssn67Lvf+PQSgwEng6h0pqf
+	y+nqzVDpnKb1N3d1BBPXw/jpW/Mukv9fEn2GsHYgweCXIhBK9YsLEYX6pBBfLTi6
+	Ld8PHV9uZ2qV12qy6Wp9uHunh4w3DcbHlfkwgGEKtdaaKB3Uw8CGACT9WS9Y8nfD
+	r+mCyH8phKrzVUCH9azg51poDCNOVIk6RN0ocp+FcRNptjrLo1S/TpLJxh0+cz1N
+	r3YdRNrUqcdwrhY4IbxK4X5BCgulsyLj40Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1680096451; x=1680182851; bh=/+MRYRsaQkmdX
+	XHGULqnK17tx9iLlBePVV5Mq4zZ5ZY=; b=eG6veM0G2+VvSdqvLhxO4UwgnH+jp
+	W7b0BjbLKqh3JltprLQc+ZIuzTCpQvha+Ezz6WtGM8iWsPcgGIAPmSVxJtb77AKV
+	lTljdF2G+UEkzoT0DvTgG9T/zQI9Avkcw8o05htyjHROyfUk+tyJA2ijZugIzjT+
+	ld+0IdA52vdmKvQfy3a8ar9+Vp/7+nm6EoNvjUko9rje7YTSY2zr6BoCdtejhZh/
+	wXVk9DBWoQKE4HJEUXMG8kKDjEy3xhNosp3iyAnVIyc/X0P7iR4kJYxg2ppXxqg8
+	zAvYrcJi2O0aOD81yIZcC2t5xZguEBk6Fmsw/AU1F2TCzy0MNK5M1V9yA==
+X-ME-Sender: <xms:wjwkZO4xzQesmKWQ3jzpUR90UUsgKdQNP7E5Qf478ylO8ImHNaUVTg>
+    <xme:wjwkZH4ymGAKiFRM44WE2KYtlWkN9hzy-c5btKJ_zRvh_neKonB-5Nm3JZXMkrlJu
+    xiK0qmQOpsNlg>
+X-ME-Received: <xmr:wjwkZNcLs6X1vMq3SutxHTYiMlrZAeBBeKuTtSAf1proWSyUvgY7brqU3CTu8qObyV8LYlmA4OGt7FgYsk4nXypzMnmqsj5QvE4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdehiedgieehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:wjwkZLKg9gphRS6MH0Uienv4FY2YSvVRQp63FgrHfFt-dEON1Pxw0g>
+    <xmx:wjwkZCIcvvsfmzsYNueNK4EF8xt-8LAsqwQ6M7BbGKEZmbPnyQW92g>
+    <xmx:wjwkZMwid-mD_wd1N9rgIr2T4vCQsVP4s73uocyNL1Oe0Ux4FcMMiQ>
+    <xmx:wzwkZO2VHLhU_G1W2Lp1hbSM4Ac753h-T0QUhHu2d6cuLaKKIlBCpw>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 29 Mar 2023 15:27:26 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 1/2] x86/mm: add API for marking only part of a MMIO page
+ read only
+Message-ID: <ZCQ8vmkqvyH/KJEX@mail-itl>
+References: <cover.0fffd3f3080b5eeb8d22126eda6088734bb0c926.1679911575.git-series.marmarek@invisiblethingslab.com>
+ <f5381e06d92cccf9756ad00fd77f82fba98a9d80.1679911575.git-series.marmarek@invisiblethingslab.com>
+ <e238bffa-5eba-b18f-ed73-1c5c9730cf70@suse.com>
+ <ZCQYLkoSfZ7klmNC@mail-itl>
+ <2c689aeb-db4a-f2a4-d1b2-31f1283c0de7@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU2PR04MB8952:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8d3b7ce-bda0-410d-053b-08db3058a985
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	YiOEPTws6LaKT1OQAA+Ik2wvj5eKy/VfmgiXw66WVXjcUykWmfEXxypc3aq5MAfjweodc3BgCNAozy+z3xnJPTa35/NjZqAFt8uBgCBgkoJo3Bdz1bbnYn6KW/1d5hw4MR1tK8gJXLFMUrEVcFgIckBVfssDmyUveUdsTVPLFFBDVZy/xg1speAmSK9u8TeKOwj2j4HxH888X3kYIi4r3y1CH1gK191vfz4L0X7/X9g+Qj3LW55qg8N1aiZIe2W9aBazbNpAvKbRc62ZQFjtywkCSVpgnSyHZqzWDBmg/u7wFr6amILz+UxnGOBhmBRiZzIbs2bpjFdkD/aQ61prjsgVZerN4KmsGqwP5QWI3WSqh1J0wvVRo65dcmLjV1USzJF+nesWsnL8qDrQjlKMrjOnoxAi7AdJnZmKPKk198XFYARsZoLsLjLNhLo1R/5zi+FVcaWt4Th5isNAhe2uxncXsIPVIqrpceWfgXcJA+NfvrMNBmgOvZXQ+p5LUfm128tSrqN05W0R9keGYKJS6wLp1g62wC2o6jqi/esVCeFaL0aZxMpAl6SfY0bBfhI3SjBiguAfEKIm6/q2G9N1yhSCJ61bRGAT36hL7wSaVRrF0l1idb7oF7gd5CYOw5AoPlx/qjhkOnZC3pgvh5+lKg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(366004)(396003)(376002)(346002)(136003)(451199021)(6916009)(4326008)(66476007)(66946007)(8676002)(41300700001)(316002)(66556008)(186003)(26005)(53546011)(6506007)(6512007)(83380400001)(2616005)(478600001)(31686004)(6486002)(31696002)(86362001)(36756003)(2906002)(4744005)(8936002)(5660300002)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aGtxaFdoSXdXVjNha3BqbUZ1QXZOL3hZLzV2WmZHVTRYSWdHc1VqamhGMGJG?=
- =?utf-8?B?ZS80TjBKc3V1ZHB6U2JCbjhLb2RnUmJib0hEakNxZjczMkRxanczclUwcW5h?=
- =?utf-8?B?eGRTYTJzdHBjd1djb1V0RDhVKzlTeGtlNUQ2allENmpBQXA0SW1MYVFqZzIr?=
- =?utf-8?B?bTZwTG0vY1B4ckxYeU4zMkIycUhaMkJCK21haFBiQWtKV3B5V012UFJRR2Q5?=
- =?utf-8?B?R1BFZnhDRFJISnpvYXpuaXJBeVVxTVJtaXB5WjNzeWx5WlBIZzAvY29PbXFl?=
- =?utf-8?B?TkNJYmxwMXN1dTRqb0FiWE05UlBkSmJlNm1UUlpZWUR5WGtURlhuSTJmVHZY?=
- =?utf-8?B?UkRpcVJ1eU11NTB4dHJTdFNDTTl3bk5ndkpBV28zNzFXL0lMaTNyQWp2N2d1?=
- =?utf-8?B?UTNLUDd4THVyOGdBRUxjVGJGNDJLQ3hFcG9IK1dPWnplRkUzdU9KUEd0Zkdm?=
- =?utf-8?B?SjNCTWo1dlpLYmVCSFBkWnUzUTVUV0QzWVh3OWdGZ2syMGQ3eHhvZE9qVCtH?=
- =?utf-8?B?L1NtelFGQVdsNHhxWkhreTdLYlQ4UHQyQi9xQ0dVM3NyaVppT1FFUFZSdzcv?=
- =?utf-8?B?SEpVTm80dEdtam13MFMyVFVydHpkN05JWGZMOFVRVjR6b0lEaTVWY0xPdDAw?=
- =?utf-8?B?MHZGWHdycUFCc1cvMkplVEd5cDVmSkQ2RFMwMmpXbnhRandkZGdRVGxxS0I5?=
- =?utf-8?B?dVdLZ041M3dXOXlSZVpPaGhObEs5dVE2WCswTWNWeHBOOVJEWGljQnBQclJ2?=
- =?utf-8?B?eXlJRnZQUC9rTnZLcUNyaXVLNnVMZnUzWk9tV0dXSUR3SEkrSkhoNFFxUHlt?=
- =?utf-8?B?eTIrbGxsUDdVVm1BUDd6TmtOYlNXaTBVRTUvVTJZcUw2VUp3RmJjMkphV3I2?=
- =?utf-8?B?KzF6cUsrbUlabFV4ZDVwRWJJZ0FMN3M3VEgwQUxFQ0d1UHVXcHdvaHhZZUg2?=
- =?utf-8?B?K1pxeTNsUndkREtKaUZ4VENBbzZrTnVVeW1QSlJqdU1iWUVPZE5reUxTeWgz?=
- =?utf-8?B?Y3JhZm45c3FyNnFNT1lkbGoxN0xKeTdzLy9UWDVKa2IzdDhodlJySHpmY0dk?=
- =?utf-8?B?c3BIWDQwcldidnNUVnp3R2Ywalo0eVNyYjh5aXJBSGZ5QTd6dUZYcWJOZUR0?=
- =?utf-8?B?WnhjUmZySk95R3hhREQxMk9BR1MweUxXZ3k1TitSVWMrakIzWFdoMlBzTDJs?=
- =?utf-8?B?WEJId09SRWh3OWJRUmRETWxjVlVhYmtYNFJ6bzJGVjZQNTZCUTI2VGphemIw?=
- =?utf-8?B?blBrWEpBTHExWEQ0UzQ5bklKcE9QUHU2M1hWa3pkaGdKUU1WS1Q4V1VoR25w?=
- =?utf-8?B?ekpBKzd2b0JYaWRKQ3FtbC9jYVU5WVZTakV0ZUROaWsxdVd4d2VDeWlQNEpx?=
- =?utf-8?B?L0N1S1IvaGMyREdiN1VoMDlLb3NwalZxWkJvWEVtQnErMGJuSy83cHd2UnBM?=
- =?utf-8?B?aGNRTlphM2lNUXMyS3BpMDl5QitOMmVRZDk3K0tKZktrcE5wNnRVYjl5ODNr?=
- =?utf-8?B?V2pYTERIOEJiUXF1NUhtaWNiUUdnM0JqSnErNDkya2dlMXBKMFYxVVF0SXl4?=
- =?utf-8?B?UUF4dTE1eUJvTStWdHFlSDFNWEpMSWIrUmcvaTNDd2hIZ0ZraVk5RUVMeUUv?=
- =?utf-8?B?eGk3L2hKOTNld3dEd2VZTVdCNmZWWFVseEZkMmxxY2VxenlnUG5xbXhUaXZt?=
- =?utf-8?B?Q3B3b0tzaEdyVmRaaVpMdi9kWlMvNmdvSVFDZHBwQ2k1TkNyNFMxUmZjMWhj?=
- =?utf-8?B?dnBZWHArTzgwNkVZc0dsTU53UDdqUC96OGdtNFJxcDR5MTR0Z0JVZVdpcHRF?=
- =?utf-8?B?SlE0azMvR0tZTXZLNk9tdlFUTWJYTnFOdTJ1K0xXcEtZU3FyM3ErdTFZdlFW?=
- =?utf-8?B?NnR4bXVnczQ5QnRpSVUvRXBmaTVxOGtkMTBVbVgvd3JIOFUzQ3dOYzFTdzdq?=
- =?utf-8?B?ZUJNMmhhLzNHdm5VbWVQTmw0RThJbVNscmxkUEpoeXlJVkRTOVBvYmMyeVdN?=
- =?utf-8?B?elQvMjd2SjdQeTRVN2czbHBMdHQzN3ZSQjZHbzZmU29OYnRPcWcyMVJLM1BV?=
- =?utf-8?B?WDhqTnFScENiVnZ3Mkd0RnFBMHJlbURHU2poZTRRQm0wdjBpYVNkdUlGODVv?=
- =?utf-8?Q?P6U3I92QgZmsqTMxWqZ5HPjDg?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8d3b7ce-bda0-410d-053b-08db3058a985
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 13:22:36.4588
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ht1apU/EMNEWODIH+29JsABAiF6TrFKAjpjgIa+W8m8pubKkRm57JiPu8vTy/5kiQGLtu9YxFSyaAi/haSlrXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8952
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="4D6BWUFxZyIsaY8h"
+Content-Disposition: inline
+In-Reply-To: <2c689aeb-db4a-f2a4-d1b2-31f1283c0de7@suse.com>
 
-On 29.03.2023 12:18, Roger Pau Monne wrote:
-> @@ -419,9 +424,8 @@ static int adjacent_write(const struct domain *d, const struct vpci_msix *msix,
->       * assumed to be equal or bigger (8 bytes) than the length of any access
->       * handled here.
->       */
-> -    if ( (VMSIX_ADDR_IN_RANGE(addr, vpci, VPCI_MSIX_PBA) ||
-> -          VMSIX_ADDR_IN_RANGE(addr + len - 1, vpci, VPCI_MSIX_PBA)) &&
-> -         !is_hardware_domain(d) )
-> +    if ( VMSIX_ADDR_IN_RANGE(addr, vpci, VPCI_MSIX_PBA) &&
-> +         (!access_allowed(msix->pdev, addr, len) || !is_hardware_domain(d)) )
->          /* Ignore writes to PBA for DomUs, it's undefined behavior. */
->          return X86EMUL_OKAY;
 
-While preparing the backport, where I'm folding this into the earlier
-patch, I've noticed that this change has now left the comment stale
-(the problematic part if just out of context). Not sure though whether
-that's worth yet another fixup patch.
+--4D6BWUFxZyIsaY8h
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Mar 2023 15:27:26 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 1/2] x86/mm: add API for marking only part of a MMIO page
+ read only
 
-Jan
+On Wed, Mar 29, 2023 at 02:39:22PM +0200, Jan Beulich wrote:
+> On 29.03.2023 12:51, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Wed, Mar 29, 2023 at 10:50:20AM +0200, Jan Beulich wrote:
+> >> On 27.03.2023 12:09, Marek Marczykowski-G=C3=B3recki wrote:
+> >>> In some cases, only few registers on a page needs to be write-protect=
+ed.
+> >>> Examples include USB3 console (64 bytes worth of registers) or MSI-X's
+> >>> PBA table (which doesn't need to span the whole table either).
+> >>
+> >> Yet like the MSI-X table the PBA is not permitted to share a page with
+> >> other registers (the table itself excluded). So a need there would
+> >> (again) only arise for devices violating the spec.
+> >=20
+> > For PBA, indeed (and due to not seeing device needing such hack, I don't
+> > do that for PBA yet). But the XHCI spec doesn't include such limitation=
+, so
+> > this case is perfectly valid.
+>=20
+> My remark was merely because you mention PBA in the description.
+> Mentioning it is okay, but you would want to further qualify it, I
+> think.
+
+Ah, ok.
+
+> >> Taking both remarks together, limiting granularity to 16(?) bytes
+> >> would allow using the advanced EPT functionality down the road, and
+> >> would at the same time limit the suggested bitmap to just 256 bits /
+> >> 32 bytes, which I think gets us below what even an empty rangeset
+> >> would require. Plus lookup would also be quite a bit more lightweight.
+> >=20
+> > Indeed, in that case it makes sense.
+>=20
+> Hmm, I've checked the SDM, and I was misremembering: Granularity is
+> 128 bytes, which might be too large for the purposes here.
+
+Indeed, it seems so. In case of USB3 console, I want to protect 64 bytes
+of registers...
+
+I guess 16 bytes granularity would work, but it feels kinda arbitrary
+without any good reason to choose this specific number. More logical
+would be 4 bytes (as common register size), but it means 128 bytes for
+the bitmask.
+
+> >>> @@ -4893,6 +4906,172 @@ long arch_memory_op(unsigned long cmd, XEN_GU=
+EST_HANDLE_PARAM(void) arg)
+> >>>      return 0;
+> >>>  }
+> >>> =20
+> >>> +int subpage_mmio_ro_add(
+> >>
+> >> As long as patch 2 is going to add the only users, __init please, and
+> >> there's no need for a "remove" counterpart.
+> >=20
+> > __init makes sense. But as for removing "remove" part, I'm not sure. I
+> > realize it is a dead code now, but it's easier to introduce it now to
+> > provide complete API, than later by somebody else who would want to use
+> > it in other places. Is there some trick to make compiler/linker optimize
+> > it out?
+>=20
+> At the very least you could also mark it __init. There are also the .disc=
+ard
+> and .discard.* sections we handle specially in the linker script. But no
+> matter what you do to retain the code without impacting the resulting bin=
+ary,
+> iirc Misra tells us that there shouldn't be dead code.
+
+Well, if dropping remove, then I guess I could leave a comment
+describing what it would need to do. Or maybe just hint in the
+description that earlier version of the patch had remove implemented -
+so if anybody needs it in the future, can do some mailing list
+archaeology and have something to start with.
+
+> >>> +    if ( !iter || entry->fixmap_idx =3D=3D fixmap_idx )
+> >>> +        return 0;
+> >>> +    else
+> >>> +        return 1;
+> >>
+> >> If this case is really needed, this special return value (as documented
+> >> in the header) probably needs specially handling in the callers - it's
+> >> not necessarily an error after all. But I wonder whether it wouldn't be
+> >> easier to check earlier on and fail right away (with e.g. -EBUSY),=20
+> >=20
+> > The idea is to allow multiple sub-ranges in a single page. Again, if
+> > using ioremap() internally, instead of fixmap provided externally, this
+> > case will go away.
+> >=20
+> >> rather
+> >> than adding the range and _then_ (kind of, as per patch 2) failing.
+> >=20
+> > Right, I missed "!=3D 0" there.
+>=20
+> Hmm, adding "!=3D 0" won't make a difference, will it? Adding "< 0" would.
+
+Right.
+
+> >>> +        }
+> >>> +    }
+> >>> +    gdprintk(XENLOG_WARNING,
+> >>> +             "ignoring write to R/O MMIO mfn %" PRI_mfn " offset %lx=
+ len %u\n",
+> >>> +             mfn_x(mfn), offset, len);
+> >>
+> >> ... make it here. (By implication: I'm not convinced this wants to be a
+> >> gdprintk(), as I think at least one such warning would better surface =
+in
+> >> release builds as well.)
+> >=20
+> > Right, gprintk() would make more sense indeed.
+> >=20
+> >> At the same time I don't think any message should be issued for write
+> >> attempts to pages which don't have part of it marked writable. We deal
+> >> with such silently right now, and this shouldn't change.
+> >=20
+> > At least for HVM domains, it isn't really silent. It's domain_crash()
+> > (before my change, not reaching this function at all).
+>=20
+> Well, yes, but that's one instance in the lifetime of a domain.
+
+What I mean is that it isn't a common or normal case that HVM domain
+would exercise in normal operation. It's abnormal situation and as such
+it should IMO get a log message.
+And even for PV domain, such message would save me quite some time
+debugging related issues...
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--4D6BWUFxZyIsaY8h
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQkPL4ACgkQ24/THMrX
+1yxEuwf/UnBotmJ67KZMJ3dusAxrKs9n8+TYiCXYK+FrZvwA1kg6T9rCot/11Ku/
+cslp91MKZHjQ/LibX/XA1pdKc7JOjtMTW8UUXwRk7cQy8GoqUD7mvfSPJt2H3GHc
+kquz6jFH0Y19Ekh+3EbFx2K5RXebrHoNJ+itZVxq7Cd4H696rtroo5pZPHmdSSTW
+RXumA03+0eI5SPeciSzGkjp6MbHlfNX96uPzPK7MBuydnmwybQv+OYuZ4ZMu7ONe
+fE49TG8ENOJx2wuI6ChnD2TxYc/5vlP4rzY6VM2iaxzNlPysYqqBL9hKtwcBaWzh
+2bonenrANPGJaE7Di2oyZPje7p3LHw==
+=Q55b
+-----END PGP SIGNATURE-----
+
+--4D6BWUFxZyIsaY8h--
 
