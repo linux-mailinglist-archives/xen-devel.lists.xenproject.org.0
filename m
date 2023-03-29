@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C98D6CD78B
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 12:21:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516153.799821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2236B6CD78F
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 12:22:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516161.799841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phSw7-0000E1-DE; Wed, 29 Mar 2023 10:21:47 +0000
+	id 1phSwj-0001J7-0i; Wed, 29 Mar 2023 10:22:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516153.799821; Wed, 29 Mar 2023 10:21:47 +0000
+Received: by outflank-mailman (output) from mailman id 516161.799841; Wed, 29 Mar 2023 10:22:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phSw7-0000BE-9t; Wed, 29 Mar 2023 10:21:47 +0000
-Received: by outflank-mailman (input) for mailman id 516153;
- Wed, 29 Mar 2023 10:21:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nen3=7V=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1phSw5-0000Ax-A4
- for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 10:21:45 +0000
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7edb853b-ce1b-11ed-b464-930f4c7d94ae;
- Wed, 29 Mar 2023 12:21:41 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 5A2615C0061;
- Wed, 29 Mar 2023 06:21:40 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Wed, 29 Mar 2023 06:21:40 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 29 Mar 2023 06:21:38 -0400 (EDT)
+	id 1phSwi-0001Gh-TI; Wed, 29 Mar 2023 10:22:24 +0000
+Received: by outflank-mailman (input) for mailman id 516161;
+ Wed, 29 Mar 2023 10:22:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Nc1T=7V=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1phSwi-0000AN-6m
+ for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 10:22:24 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2062f.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9724d3e3-ce1b-11ed-85db-49a42c6b2330;
+ Wed, 29 Mar 2023 12:22:23 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DU2PR04MB8646.eurprd04.prod.outlook.com (2603:10a6:10:2dd::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.35; Wed, 29 Mar
+ 2023 10:22:18 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6222.033; Wed, 29 Mar 2023
+ 10:22:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,224 +47,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7edb853b-ce1b-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1680085300; x=1680171700; bh=KfquH4sfpRUM3ASZWY2tWbSYgabYb4sCOmF
-	F71dxQ3I=; b=ZGjktOg8M2ePuXKdoZ0zAREAJEb2l3Cv3J42rQcVxl6mOGFRJuy
-	X+d4ZTyBIa7lFlOvalL08lVVkNV2NwZPIl4WCJuxemgxnLO9Y56bSSpj7I7yjS1p
-	Vb+p2nR9Bmw56IF+S/QSuf2xPtBOHfPHfdZGI74Rr/8l9FwJcPoIbm8dmIo4UbHH
-	7sMLJGt5BpGnstdbID8wlPIiCR3sj9XDxaV/fDYu3V8CxjjV4cXHqYbulx38plbm
-	gtf1H9F4LqU50OlDb32HP/p3Q5JaCajbIO6UGDcTq9wkKn81fJGI0h5PXZDsfPim
-	WCTofDJfLn2e9rTsU55TU0On2D9Ty/iwKpg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1680085300; x=1680171700; bh=KfquH4sfpRUM3
-	ASZWY2tWbSYgabYb4sCOmFF71dxQ3I=; b=jNTCSLPDey86fQQlzO3OSLgVFGey/
-	eRg+nGzR8GKkrtgtTUZuXd3Rqbk7fDr1+ZJrsFIQmUkOX+oxUF6s1z3ZL7rcDtom
-	tHRMv2xLmkag75WpfvjLxH7pZYvbEmOpTYXt9iX86NXjxVNwHkz67eVSpWuTXs3p
-	T3E9xsHt+KuJbwS8aFrx7KvVb6LYEAJ3auO2zTD4Vp+CrZuczgCKfzzZM8qRpa5u
-	qxbq4vNPCegSP0i8Setec2zJ3sHm6jpIgg0rlcfzifcA0S98S+NUukrSYhRw3Gr6
-	n7s28yILCuulgKIVb8xN3+xiKN+9PndTGsMMTn+4QBmBHN/oK0swqzwSg==
-X-ME-Sender: <xms:NBEkZHqiPzLo1ND1gQwXM78UfNWnD7FQsHq6nFde0a2zhdwDS14Ukg>
-    <xme:NBEkZBrmf23O40WCKfaNtw8J9jVcOq5AigEArMsDMvGzfIxpjFs7PVCh_rQ1TAIRZ
-    Ck8o4NeBOCdYA>
-X-ME-Received: <xmr:NBEkZEOtiCsAjyGiij5Uu9l-CWtS1OL6fauVjlWOqMA20e-8khsa4-GhlKwlDeDra5aScr_hUu2ZCP1GZUpD3Mskvz1YSkvFdXw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdehiedgvdejucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:NBEkZK5jg217hqWI-BxswLrO9Ge66d1xGycAe8sQmzTrf-5KTayVAg>
-    <xmx:NBEkZG6JK7FwZ-7Ri3s3IyWKg7vFW5NUg1aaexGjdwXq9ShdukWPxA>
-    <xmx:NBEkZCj0UCOwQrnN4hykopRfX0YMc5qKj8OJC-XGMwUS3RicaWFWtw>
-    <xmx:NBEkZB0JmsgJVgH0pVPG5zoO7zuhFpoT6mRG3js1y-7vJM7Cf0PB2A>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 29 Mar 2023 12:21:36 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
+X-Inumbo-ID: 9724d3e3-ce1b-11ed-85db-49a42c6b2330
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=A5K+KTgbZKxr5BFROl5peoFRwGa2g277T6soGF8cjDZ8Ih+aVFhU2+Xw9zkpbMWCjyz4Et4Q7cpt4LUhzZhFO98zxeKHoUI+twS0MPHwWDU4WHAIa0zEUbb73lvB6Nhn6XZph7aDjfskLFBFTGj3BNC7+XaoM8aq+d7BfJtYIOxFqZqiemAqcXcDgvbrUFezUbNInmeqDGo+ozNEHuIauXl5L/Qec1eaxyvnObtf+Fzv4nF4hc6RggDpbgpXPdVxSONCxzp+ZlODvUF0xRNMu1iMqtwo1jsNwKpwySBDUJDMuJlNpBppqPxYBZRbmrynn/yZUVVEnlJ7NCCM7htFVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WP/pn7PcqitYNzksceXHyWQ8WFxxaZJTAXiWHpt903Y=;
+ b=V/xdUZSNQXhLa5UqPESrzT5SwHeZuFrMdCLtGVMj2RDCHAPvfvIEU6UMgeiDG9Td3wRXh/+ywCNJmrzspEE8bNY+CyXAn0ASq35uEwF2+WZbOEGAj9+B8TTN9GvjSSQex1ihp5i/l6O+XMgTsQ8L6VQUEUiTk9iDB1UnLsFqbRI4WZaPj/h3a14vpeHc1ntjC4WU9hPCk0RDhqXBG4cLvpG9oZa1CJaOl9yJ6WmVToa0K7Y15TFhp5Nk5E9AT4V2w0dkOuKSYsrAX1/bP/IVTQMxHUxuvtofOWtaYiKF55GY5rBXSeQuBsrD+RyUiaEltovrhZFCfn92lB2Qd2neBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WP/pn7PcqitYNzksceXHyWQ8WFxxaZJTAXiWHpt903Y=;
+ b=xlYISuAgarliBTf5gW9z/Cm+SFyydo25P0pilG8OhtDJFpEZo7q5QvhIz3JiBrDdIFnwinPgwFYdBJl2RLetWEhTzZ18NHZnvV+h7OB8KKFinCWr9jxeYxDRuWYXETfB2DyDX6I4tDbmDtkhBOWq23qiIW0Yor9K/ikGeCjtbIXAXrNPYNkxKlUW5SMenMLnzdaxJ6E+SeXFqupF2z2EGUIWgYzrdg40ulECe0qOnRLakShyof+gpqvSvFqVHy83QeZInmD/aPjNqi4uJwtwpOwVl3L6jnT7eQvEPvRvmoHU+suEXtWYHOwqZNvpsoSGXmUpcMERV31BRvg+D533hw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <9e63c6e5-11cb-9f0e-b33e-0247b17e3785@suse.com>
+Date: Wed, 29 Mar 2023 12:22:16 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: [PATCH v2 1/2] build: don't export building_out_of_srctree
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] drivers/char: Use sub-page ro API to make just xhci
- dbc cap RO
-Message-ID: <ZCQRMAoch+oq+2/e@mail-itl>
-References: <cover.0fffd3f3080b5eeb8d22126eda6088734bb0c926.1679911575.git-series.marmarek@invisiblethingslab.com>
- <befefa60ea42a41543bc6dad70a559816cda8b7c.1679911575.git-series.marmarek@invisiblethingslab.com>
- <5cc58e5b-ba23-e7ae-c575-fe8cd713f515@suse.com>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <2e3c8f9d-8007-638a-c88b-21ad2783d8d3@suse.com>
+In-Reply-To: <2e3c8f9d-8007-638a-c88b-21ad2783d8d3@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0123.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="oFYokrQPuEpgDQOi"
-Content-Disposition: inline
-In-Reply-To: <5cc58e5b-ba23-e7ae-c575-fe8cd713f515@suse.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU2PR04MB8646:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8909c3f-54e9-4178-e14e-08db303f7988
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	N8DOJfQ7Sl6jT6pKJSKrvqzbgg9OP6wbghkH7olWoMbfLjRcUElTfX07We54Y6KOwOaxS9djNLZBQqSV4RTXLWWIkh/xecl+INLjbMRSCGvKwv3VFl7kFABcKIuyv8iifLlSoPUpDLIDq0ZHZJT2taOU0GKIqEtJ11PfnVHPQjA/Q+EFcQOjSpu/0bwzeWBSN6rFSfFCKNKYkynLBNoCqe8mAKNh76HX+0cjSFoXbFKdLi6L5grxEcIEegZEWsZEjA+zYPHa/++Jzc/P5pTb+RHNwJsBKaXtUEeMcGUDzgaShZcbidxTdmdHvN3QyPMgOh694Pn8jhEBVu1YBPQ1lKn1WpFkIkEYIRZ1UPbNssrwvFVvV5sdwecX1DtTxAmNPvTY9DonUGlizBNlqfQ+wZmAer2U6OgoV9TzuaQ+jpgg1XwrlKt9X48Gl37+fswCU79mkO9QAKAhNCwe9JgxewOTcREwZqOEIW60QKWL01N15V+sJy+NbqzamjlJmVp9oHBVVVBd+14XCGoeFLnkZBTJG4lZD1AAWKJmTWco0bUKAKabVxbiv5K/DYyKovgXgtKfV6WmtrcJ9vBp6uonLbNkv10OoCeZgYVTvRM29E2NTXl28RnRj+ahrK1tCgqMoSJ/QJ1trl5RcSpJPkblOQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(366004)(39860400002)(346002)(136003)(396003)(451199021)(6512007)(26005)(38100700002)(6486002)(2616005)(5660300002)(186003)(2906002)(8936002)(36756003)(54906003)(478600001)(6506007)(316002)(6916009)(4326008)(41300700001)(86362001)(31696002)(8676002)(66556008)(66476007)(66946007)(83380400001)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R0dBTUtRM1lFeGJpaXF6T3JmQUJrenpMYlVKcWRRV3RVZzk4ZVhkUnlTN0hJ?=
+ =?utf-8?B?NWJRWTJoeEU0YUUxeFpuYTg2Y0hGSWkrNUg2RjdTNU8zQUJ0RVNPZTF4dHF4?=
+ =?utf-8?B?YkUwQWtCTjNSdy9nWDNvS2FTY1pkYVJvWmxQNUtiZzRKMVZ4eXlsWk12NDF3?=
+ =?utf-8?B?YWNWM1FDalQ1RlZYTmFocFNTYmVCaE4vQ0IvY0JwUHJnd0RBTG1HMFc2d1BT?=
+ =?utf-8?B?YjFXWFRkR2VqVzRHM0Z3bktpb3JZMlF0azJPcXYybzBqa0RnZVFnWG5qWU45?=
+ =?utf-8?B?Zmp3YUQvQ2FITFlYOThXS0lKOCtLWTRZMTZEdTJEdG1FelJsMTJGcVc2Mi9p?=
+ =?utf-8?B?ZzlWYmUyOW54Zm1CZUtyNlEzVWlWSCtLYTRaeGFpQWtWbnpNTWw0c0FXZW1L?=
+ =?utf-8?B?bWo5cno5SzFTckhMN0RaYzE3d1JZdFgyTGFNUHNKMkhiTzJYZW1KMmZlZ1I1?=
+ =?utf-8?B?V2JvdXBOZkUrenZ1UjYxOHc1ZjM1c1RpRWZZYlZhUjBwc2VId3BSNTI4MzRH?=
+ =?utf-8?B?MTZPUDQ2SW45aGdwOTZPaWZibTgxL21Eaytoc3VaeGRDV1hMVjc5RG9XeTk1?=
+ =?utf-8?B?bzBDRGxzaWtCaTRiNFQzS2xobkhmRTJMUEEwQzBkaFgxOHNrMENxVWp3ZHc3?=
+ =?utf-8?B?UVlqZTFkVUlZK1NXRVZ0czI2QVorc0VJWXR0NVpnRGl6TzRmWWNYa2NNQU42?=
+ =?utf-8?B?SlI1blNkVkt6bStwNW53Y1draTVVUTVmSFhDQjhoMEszRjJ6ano2M2FYVDIr?=
+ =?utf-8?B?VEF4dW1ucGYwakJrMEh6dkNaNStHZjA4RHdmaHVORjBRUUZucWtNQlk5eGZO?=
+ =?utf-8?B?NzgwYTdIL3FpZjhxcm84V2RPQllJekdaeXVRdzE1Qi9yN0VQVG50aURWZUM4?=
+ =?utf-8?B?emkzUGhaZlYreVRFRWxFQnl5bEpIVjZQRjVmakFNR0VSVW4yMkYzZGdsZktD?=
+ =?utf-8?B?ZkpndXFLOTdjK3FWOVVna1Ewd01HUGtLZUhtNkh0c2ExUHhrNEpEMGR6MmtC?=
+ =?utf-8?B?ZE10N2ZkanhOVTNLK3JHVnNhSHJPUU5jTndJNjM2QlA0bU9rU3lhUlJ1VUpp?=
+ =?utf-8?B?enJjUTdlUHhsN2lrbWtoNEVhZWNIbjJiSjFjWnhySWtOSmF1OGEwcWZuZ2xQ?=
+ =?utf-8?B?R1BMaWYwL2pLVHk3SXVVelRoL1ZlK3p5UXUvQkl5SHVGeUIweWxCWWJndzdH?=
+ =?utf-8?B?NTNpY05OK21xSm03N1dCZHZxMWJVZ05NdUwxWC9LSldYWEdaTzE0b3UyeTQ0?=
+ =?utf-8?B?S3paMVdXb215Z1ZmN1BSaUkvTGdBMGk0eGxVdG5yNTZ5R3F3OVB1cnpjWmJp?=
+ =?utf-8?B?eXNxRmJOUGVqREhmY2E1RHV4alB4c2dXYUFDNVgvRXZyR0xIY1dDaEF6WkpB?=
+ =?utf-8?B?RE00OUZhWXh5TkFnQjkzbEtubVFwM015dFJycEtLYWxGeVpMaFNTZXl3Snox?=
+ =?utf-8?B?NW9pWEhTbGxvZUsrcU9ucGJZNCs2NTFGOU5UbnpRT3BGNERSZElVWkZkdXRi?=
+ =?utf-8?B?M21rc21tVFg3cS83a0tNTW1lR1F3Q2xxVnBRamZOQjV1Q0NTRnRMb3IvRkh0?=
+ =?utf-8?B?UDIxZlJ3ZytEdVgxcDhtT2RFM2EvMG5VaHZHclRDYlYvRUU0ZE9LNkdVTDVR?=
+ =?utf-8?B?TS8zTHBKcnpOcldmOU5xZHNKSGk3ZlJxMGRMVWUrT05Ha0U0UjhJL1NVQitY?=
+ =?utf-8?B?S0RqeGlqU2RtNFpJR0Q5L2k0TTBFWm1WVExBQ1lxRjBaSjl3bnNLeWdyUWJy?=
+ =?utf-8?B?UUtaL3ZkSEtXTUdvbWgrdnFNUk9nYUNJZnE0N0tlZUJUZTUxOVB5UDJxZitZ?=
+ =?utf-8?B?eE5IZk1qWXdUN3dRaC9qN3lGelpMaG5Hekx3dGdMdVhZUlQyZncveUJmeStC?=
+ =?utf-8?B?REQzaVZFYmh1ZS93dmNFa2R5emZkRVJLTitVTVRhRThMOTFzbFpPN0ZFbnRB?=
+ =?utf-8?B?emRCNjhVUzByVTUwNUlJMUgzZUV5YTlWTjhGa3VFdXFyU2NoczlpZDZ6VitG?=
+ =?utf-8?B?NHlIZ2RsSXJCa1Q3ZzZnUWM4LzJXSFVyWFlUY0R2OXlnZE1nQ1BVR25vbWZj?=
+ =?utf-8?B?akgzVnRvcjVkeG5DKzJCR1loMHo5cDRpWU5icnVpQkYyZmpUd1kvTW5hZVZl?=
+ =?utf-8?Q?vn1xrVHDEWvA6ctOSN8I5l9Ea?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8909c3f-54e9-4178-e14e-08db303f7988
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 10:22:18.4862
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vB+T58nMWgh0BdqqJ2wngRqlEXmYxgE0FBEzhDp5XblOJ6Z+07w505fcJsObKKHcpOPKdzs9Jy1nMZtm/50pzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8646
 
+I don't view a variable of this name as suitable for exporting, the more
+that it carries entirely redundant information. The reasons for its
+introduction in Linux commit 051f278e9d81 ("kbuild: replace
+KBUILD_SRCTREE with boolean building_out_of_srctree") also don't apply
+to us. Ditch exporting of the variable, replacing uses suitably.
 
---oFYokrQPuEpgDQOi
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Mar 2023 12:21:36 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] drivers/char: Use sub-page ro API to make just xhci
- dbc cap RO
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: New.
+---
+For further reasons (besides the similar redundancy aspect) exporting
+VPATH looks also suspicious: Its name being all uppercase makes it a
+"non application private" variable, i.e. it or its (pre-existing) value
+may have a purpose/use elsewhere. And exporting it looks to be easily
+avoidable: Instead of setting it in xen/Makefile, it looks like it could
+be set in xen/scripts/Kbuild.include. Thoughts?
 
-On Wed, Mar 29, 2023 at 11:14:52AM +0200, Jan Beulich wrote:
-> On 27.03.2023 12:09, Marek Marczykowski-G=C3=B3recki wrote:
-> > ... not the whole page, which may contain other registers too. In fact
-> > on Tiger Lake and newer (at least), this page do contain other registers
-> > that Linux tries to use. And with share=3Dyes, a domU would use them to=
-o.
-> > Without this patch, PV dom0 would fail to initialize the controller,
-> > while HVM would be killed on EPT violation.
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
-> >  xen/drivers/char/xhci-dbc.c | 38 ++++++++++++++++++++++++++++++++++++--
-> >  1 file changed, 36 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/xen/drivers/char/xhci-dbc.c b/xen/drivers/char/xhci-dbc.c
-> > index 60b781f87202..df2524b0ca18 100644
-> > --- a/xen/drivers/char/xhci-dbc.c
-> > +++ b/xen/drivers/char/xhci-dbc.c
-> > @@ -1226,9 +1226,43 @@ static void __init cf_check dbc_uart_init_postir=
-q(struct serial_port *port)
-> >                           uart->dbc.xhc_dbc_offset),
-> >                  PFN_UP((uart->dbc.bar_val & PCI_BASE_ADDRESS_MEM_MASK)=
- +
-> >                         uart->dbc.xhc_dbc_offset +
-> > -                sizeof(*uart->dbc.dbc_reg)) - 1) )
-> > -        printk(XENLOG_INFO
-> > +                sizeof(*uart->dbc.dbc_reg)) - 1) ) {
->=20
-> Nit: No need for a brace here (and certainly not a misplaced one).
->=20
-> > +        printk(XENLOG_WARNING
->=20
-> This log level change looks kind of unrelated.
->=20
-> >                 "Error while adding MMIO range of device to mmio_ro_ran=
-ges\n");
-> > +    }
-> > +    else
-> > +    {
-> > +        unsigned long dbc_regs_start =3D (uart->dbc.bar_val &
-> > +                PCI_BASE_ADDRESS_MEM_MASK) + uart->dbc.xhc_dbc_offset;
-> > +        unsigned long dbc_regs_end =3D dbc_regs_start + sizeof(*uart->=
-dbc.dbc_reg);
-> > +
-> > +        /* This being smaller than a page simplifies conditions below =
-*/
-> > +        BUILD_BUG_ON(sizeof(*uart->dbc.dbc_reg) >=3D PAGE_SIZE - 1);
->=20
-> Why PAGE_SIZE - 1 (or why >=3D instead of > )? If there is a reason, then
-> the comment wants to be in sync.
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -208,7 +208,7 @@ endif
+ objtree := .
+ VPATH := $(srctree)
+ 
+-export building_out_of_srctree srctree objtree VPATH
++export srctree objtree VPATH
+ 
+ export XEN_ROOT := $(abs_srctree)/..
+ 
+--- a/xen/arch/x86/boot/Makefile
++++ b/xen/arch/x86/boot/Makefile
+@@ -14,7 +14,7 @@ $(obj)/head.o: $(head-bin-objs:.o=.bin)
+ CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
+ $(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float
+-ifdef building_out_of_srctree
++ifneq ($(abs_objtree),$(abs_srctree))
+ CFLAGS_x86_32 += -I$(objtree)/include
+ endif
+ CFLAGS_x86_32 += -I$(srctree)/include
+--- a/xen/scripts/Makefile.host
++++ b/xen/scripts/Makefile.host
+@@ -88,7 +88,7 @@ _hostcxx_flags = $(HOSTCXXFLAGS) $(HOST_
+                  $(HOSTCXXFLAGS_$(target-stem).o)
+ 
+ # $(objtree)/$(obj) for including generated headers from checkin source files
+-ifdef building_out_of_srctree
++ifneq ($(abs_objtree),$(abs_srctree))
+ _hostc_flags   += -I $(objtree)/$(obj)
+ _hostcxx_flags += -I $(objtree)/$(obj)
+ endif
 
-Indeed looks like off-by-one.
-
-> > +        if ( dbc_regs_start & (PAGE_SIZE - 1) ||
->=20
-> Nit: Please parenthesize the & against the || (similarly again below).
->=20
-> Like asked by Roger for patch 1 (iirc), here and below please use
-> PAGE_OFFSET() in favor of (kind of) open-coding it.
->=20
-> > +                PFN_DOWN(dbc_regs_start) =3D=3D PFN_DOWN(dbc_regs_end)=
- )
->=20
-> Nit: Style (indentation).
->=20
-> > +        {
-> > +            if ( subpage_mmio_ro_add(
-> > +                        _mfn(PFN_DOWN(dbc_regs_start)),
-> > +                        dbc_regs_start & (PAGE_SIZE - 1),
-> > +                        PFN_DOWN(dbc_regs_start) =3D=3D PFN_DOWN(dbc_r=
-egs_end)
-> > +                        ? dbc_regs_end & (PAGE_SIZE - 1)
-> > +                        : PAGE_SIZE - 1,
-> > +                        FIX_XHCI_END) )
->=20
-> Nit: I think this is too deep a level of indentation; it should be a
-> single level (4 blanks) from the start of the function name (also
-> again another time below).
->=20
-> > +                printk(XENLOG_WARNING
-> > +                        "Error while adding MMIO range of device to su=
-bpage_mmio_ro\n");
->=20
-> Nit: Style (indentation).
->=20
-> > +        }
-> > +        if ( dbc_regs_end & (PAGE_SIZE - 1) &&
-> > +                PFN_DOWN(dbc_regs_start) !=3D PFN_DOWN(dbc_regs_end) )
-> > +        {
-> > +            if ( subpage_mmio_ro_add(
-> > +                        _mfn(PFN_DOWN(dbc_regs_end)),
-> > +                        0,
-> > +                        dbc_regs_end & (PAGE_SIZE - 1),
-> > +                        FIX_XHCI_END + PFN_DOWN(sizeof(*uart->dbc.dbc_=
-reg))) )
-> > +                printk(XENLOG_WARNING
-> > +                        "Error while adding MMIO range of device to su=
-bpage_mmio_ro\n");
-> > +        }
-> > +    }
->=20
-> Seeing the uses it occurs to me that the interface is somewhat odd: It
-> adds a r/o range to a page that is already recorded to be r/o. It would
-> imo be more logical the other way around: To add an exception (writable)
-> range. The only alternative would be to include the call to
-> rangeset_add_range(mmio_ro_ranges, ...) as part of the new function, and
-> reduce accordingly the range passed earlier in the function. But I think
-> this would needlessly complicate the code there.
-
-I'm trying to make the interface safe against multiple calls making
-different parts of the page R/O. If it would mark an exception, then
-handling a page where multiple regions need to be protected would be
-rather cumbersome. It isn't the case for XHCI driver, but for example it
-could be in MSI-X (if I'd actually use this API there).
-
-Making subpage_mmio_ro_add() to call mmio_ro_ranges() on its own,
-together with Roger's suggestion of using ioremap() internally instead
-of using fixmap would make it a bit nicer (if mapping the same page with
-ioremap() in addition to fixmap isn't a problem).
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---oFYokrQPuEpgDQOi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmQkETAACgkQ24/THMrX
-1yw5Rgf6AwqEcnmXLtIEPNdBPC3YPwhQtXnzRVzU6y9Gvp8enlVcMNYzlpt+3rCF
-ccbPL2oR2g8wyENdxZ5p0Z84fe86x3W9hVwI4dNadTT3RTXdhgw/CpV7RbHfl3u3
-JCVTwrw97Vq1waptdzIrjwRPJPW/OwgESefJxXb42h8nliO0wqwT/U/8VnsD7H/U
-jiEIswH3pBId9NkKFrScE0iai5+BVgW4S7B2vNsNsLVzcW+4foHNtU++3hZD1fBr
-svjLHx7UwMfEA+r+I9S0sp5HVuZOXwLyKMx/4S9TsxF00/ND1tOyOfaeQqOMpPQj
-fQR/euc/FEsiRKrWnuhmhV9S/7XijA==
-=iav7
------END PGP SIGNATURE-----
-
---oFYokrQPuEpgDQOi--
 
