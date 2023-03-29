@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F0A66CD24E
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 08:51:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516063.799581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F4AD6CD2BF
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 09:15:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516075.799611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phPe1-00079x-M4; Wed, 29 Mar 2023 06:50:53 +0000
+	id 1phQ1g-0002Z3-9v; Wed, 29 Mar 2023 07:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516063.799581; Wed, 29 Mar 2023 06:50:53 +0000
+Received: by outflank-mailman (output) from mailman id 516075.799611; Wed, 29 Mar 2023 07:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phPe1-00077O-I7; Wed, 29 Mar 2023 06:50:53 +0000
-Received: by outflank-mailman (input) for mailman id 516063;
- Wed, 29 Mar 2023 06:50:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1phQ1g-0002XM-78; Wed, 29 Mar 2023 07:15:20 +0000
+Received: by outflank-mailman (input) for mailman id 516075;
+ Wed, 29 Mar 2023 07:15:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Nc1T=7V=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1phPe0-00077I-EZ
- for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 06:50:52 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2061a.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::61a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 09520038-cdfe-11ed-b464-930f4c7d94ae;
- Wed, 29 Mar 2023 08:50:49 +0200 (CEST)
+ id 1phQ1e-0002X9-O5
+ for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 07:15:18 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20614.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::614])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 74759c2b-ce01-11ed-85db-49a42c6b2330;
+ Wed, 29 Mar 2023 09:15:17 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB7651.eurprd04.prod.outlook.com (2603:10a6:20b:280::13)
+ by PAXPR04MB8767.eurprd04.prod.outlook.com (2603:10a6:102:20e::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.35; Wed, 29 Mar
- 2023 06:50:47 +0000
+ 2023 07:15:14 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6222.033; Wed, 29 Mar 2023
- 06:50:46 +0000
+ 07:15:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,154 +47,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09520038-cdfe-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 74759c2b-ce01-11ed-85db-49a42c6b2330
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g0nYBF8Y7ZxO88hnGgZV+GYYppJcP0ey9mWHIZpCd+HRIjs3JRQOpBKac4oX6Lvai1vnZ+y5P8P4kp9PVDzi5I6TtH5AEbxFYRZKyRuvQjAzhSMtlOOuYvYzy/weKRdYYdHVS1Kqf85mjhZlVSKCq/9m5FzgdVtve3uCiekuURKtxxzPaUcAUAmMPwk3+xmAdEJPP+cALloJsiMat8XDm/pVmYYq/GCUeQkARkwLj0OrePvFzmpHC56hz7hqVAP2H+L88qSJevarvp8NKwXfIhwjHAianzNoUDG44hkIHDo0vUDmOnjy1GiyK6HWyH9sNLfFSDi0qIR0UvnWxW9/UQ==
+ b=KlgUdrLaPOw+5Quw3MUy7UwIUwxq3D6vbvVQKZp1EkO8SCxIsCaKDJKpdwwULIpKSqK9qwQ0gTRh+pHA9qhpLGUywxHSiyEDfbRjsq8N5RXOGYkgc3BR2SZP3BQq1zrRmQ8ALaV8JHVUGqZBG2k81HLOE72EovddhnR+v2aZd6n5ySPgTYZux10bpHVqBVcue0+WfLmzQdWrWn5eXdqetMcvaKDJs35CQhcvf4mOL3ZOBhQ0tcuPN+MBjcDtBjYrC14k+fJDZ43YEM+HjRSwG03nShUKtkBg0bq2eJCSunlJEb38PBdYQxtYh4N8Swt+Tp9G0Mki5x3m9gWYCYRI3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SC8JjrPz6uqOyyhMgMFiAFkMiLXWPS32xD/kCYDQ6Us=;
- b=GcZ+2cXrbqawfheG5FfdglutgEDxA2MLrpQabo4iff8oqr/bolQTTu084lakZSv1FsbRJJDiMUuzbQ2PcnLvfLhzLCS9xoUO1pymqCxzut5PtB6lZmhAHajZsb0T2ngCqCK6tx1+B2TJn3T/Vz5fH17G8JeVqT7o3RhRRFfEmet5B0DmjoXsC0SD9VHJpwTNPTzyf59wTLjVIg4wwl2eZmq7z7yEidL7autCqIaRLXKHpVGdcFbaxEfq4ssfJ6rtIr3cWHqoZc87IgGynsn6N8KybOAVrZJpC0Xz8lQ6k+WkI8ihRG6KVuPHZ8xDeSDBVYRumHaob8aGKdeRzVbfKQ==
+ bh=RLUm2dX2Z5EJl8PrVBg6l86Q535A0KvN1z5s0boiVVw=;
+ b=KvxvUxOpv3QVS20zzyJuOomg4rsJbjPAAb6i3e/qecI+RsegkyGuAjNSvxlmjHruqI0hgwQ72crqLs4rsb/uwmdMyD+nUys60NzvHhfv6tmd7AzVaQFfbCbjaTCYZZij9kiGNuyRyzij6ovULJNEMBmv4h4jWfM6/eCkjoEdX6rr0Y0Qvz4O+22qv+9x67hicgqaKA5AhV4C/loQeeE57LbzJsThrcyVcXKKpdNCRA5kQrGO0OzJ0CR07DzkyHjpNUw4sqGhWimyD5Nf3wjK+VHohx9zj1oOGS8duGXVGx0wilrRNT9aZ7fac1dvskR5RIFv2mKzCfcUTKsH6/lUFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SC8JjrPz6uqOyyhMgMFiAFkMiLXWPS32xD/kCYDQ6Us=;
- b=T48QqwBx6XBWyMndpIiM0jMOkO4WfiWlJEMV80pEnKQasTG91fNHSAkUUj3nB6DCb+6pfhXiktd2IDPX24moPyMUl1IhcQLSRIBv75dXdySliB+lrA0I6iMCv5TWX9RB17g40dBV9lbd+s8Mk1mGQnR7vpkmrWebSn4LPS1rOJO4e0PZGECwYiwwYUiG0lJyyuBa5WU3rESOung5+1Kb1ajB3DbJtht1V0aaOE2XvT/AacSJ+RD5w12yEtU4IjKL7dN/U6vZtNf9IvnmEkcjjcc21ieLQdMwO78iio947PFRuLyuXO7zQyl9URZ3jSDsoXe9rXTEYhMBV548xZc/pg==
+ bh=RLUm2dX2Z5EJl8PrVBg6l86Q535A0KvN1z5s0boiVVw=;
+ b=UgkS7CASwNmmZfh9iG6GmL3tmWZuI0o1PO6cJnrW9Ox69YLfOYAYFQgseF6hoO5mnKekwSWy/a/wx0HQf5GaY3HmGRrOE3R7t58t8H0oj8ZLE43TMVmu+xAEwbfCWqSwSOKstBCG8riyo1oBOazOpx3/HBEkEIwU0yKNAnJrUPawGJ8BcXuXbDmzqGxmuz85qOSofqSzgQtP5WO+8mYyQq/6tmjtE4MpC3MhB9Gh2xovj2aMISVOuJPrOQM6bJ4+1m+gsUYw89zPa6lXPd7Krplz58bsF3TLCA4JL9IaetvktlExB13s3FmWXZAeR0glpPNy45pJftX9T6h3QfdW0Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8e96dec5-1575-3561-c61f-ee188c884b9a@suse.com>
-Date: Wed, 29 Mar 2023 08:50:44 +0200
+Message-ID: <736f512f-858a-214b-bdd5-aadc183d2cb8@suse.com>
+Date: Wed, 29 Mar 2023 09:15:11 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
+Subject: Re: [PATCH v8 5/5] xen/x86: switch x86 to use generic implemetation
+ of bug.h
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1678900513.git.oleksii.kurochko@gmail.com>
+ <5e252e8dacea5c4f2fdbb4f7970e34a862987639.1678900513.git.oleksii.kurochko@gmail.com>
+ <9af94e49-ff66-5e7f-bf5f-ba4095cfed13@suse.com>
+ <883d29a6bc888b4f78d5f20af4c2cf4b1b64e7c7.camel@gmail.com>
+ <20063ebfc717b8281aaad4314213f26545f28273.camel@gmail.com>
+ <4d0565dbc1711c2ebd122af2f6da69006be02ee5.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] ns16550: correct name/value pair parsing for PCI port/bridge
+In-Reply-To: <4d0565dbc1711c2ebd122af2f6da69006be02ee5.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0192.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ab::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DB6PR07CA0175.eurprd07.prod.outlook.com
+ (2603:10a6:6:43::29) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB7651:EE_
-X-MS-Office365-Filtering-Correlation-Id: afc99936-8446-46c5-d4bc-08db3021ec6e
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8767:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f0b7e65-86b3-48fa-3fdf-08db3025577c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	nhMY8KW7+I7MXFzt/Un5DIS7Mcr5nYlLvu4B2w4Zx/jhCLfEolJ3KkP947HHkfiQ39Ksjgjo0O6EzsAQfMBGxfdNi24lG4qWrhrL7WcuICWh9cz8seYR5/jPI830cvUB1RfW2gjti3QDrV+TzNUofXR9tpZH6sVNZxgq2SeoaX3MkRKUyaHc3MSGAjeZtIMF9GP+the/+B8axWc0tw/+BuTKf6CWT3/tMmJbpBDVY9LmYBicoRfayZizjyz2YdYrpRSTTFKEbGcQfdixwJfdyMEyQlbPe7GjTVen0hCojsd96DsbH5+ClkycNNgtPrSM5xCRXGrnCZU5WospP9ruFHTBUWHzWgjiApMKCpt6HOz/W3SCMSKWAhb/kPfW/ndKYSdh8CEOB14u6ylNlFCe9B1Mijo1TPxfaMJceI+T3K1DF1kSW4ZSsCwFKnEUEZGZJxVI40NT0WBYTlIdsWgWzyKnmjo5QAbX0dLCrXQ/3IyeuFu5tHOB805g3egjX7Wb3xjane6/mLenjcaFeKojizWassyIdxr6zh5A9lnrWXN01YTg0qcIK3oATePWEhkAKHKWZzZ4JBoN128qUxZXJfWkZul4jnx69WFY+wu9XMXEd5j6199sPVgq3HkHorkbXwhAg5XhtMFjLZ9S1sD9iQ==
+	hgGGKttXVmEDVtUQWhpbZTJRc0W7uqoNuk9QKSxKCAllgJUszeubOERqT+rf+HBjUQ2sGq18/FZsnv9o9aXL61wodcVSluH+NoIkpY8JpyI4+WlxQoPto+gBwt4iK2uH+lgOaXshhbWGd84Yy/kpYDbcH9+aqmIzjcI5xzjNo9FmgV3P2DdsdluaZWvMY5r9ejUQ7sNkhM6KhjyTos1PvQJDAVBVw5ztUtTXFCeG3YKowgaAi8WonCniA1xti4IdoibaxuVcAIqKvWBb4A0HWSVrRdRXhrgnQCf6NeZ2KQzIIWstu8mZg8i7gTl5GX+UZHEpwr6BeUdZo9imlMInxXnwo32BYiSaAul2akd6EKt2UPnGkffUqVm+Zo4i0D04a/anufy2b3+QAH7lAfZNzgVurO+L8tep7D+4VxM/L+QARfoEWs5MYq8+KROjBi2ENL+uRq8Lmlv28imOwfQDRxEdBBzDpX+C1zbCrm5r6YkYUbX3cniHkbon9QGKX/fBbdpNbkq2pJ93mcW8EyfF8/Ig/Sq33MMdEXlgvqU/2dVlFTZCYPVXf5/sHyTZ9x14elttLcxq74q25R/61nhU/bonV+JetSRTh4RtGcf8AgncU6lzXu3v7Hlw58MeRx6m3TdlMe0U+X7oI7CLRdi6/TrF3h5z8FoXHskcAOYZntY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(346002)(396003)(376002)(366004)(39860400002)(451199021)(26005)(6486002)(38100700002)(2616005)(186003)(2906002)(5660300002)(8936002)(6512007)(6506007)(36756003)(54906003)(478600001)(316002)(86362001)(41300700001)(4326008)(31696002)(6916009)(66476007)(66556008)(66946007)(8676002)(83380400001)(31686004)(66899021)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(396003)(366004)(39860400002)(346002)(136003)(451199021)(6666004)(53546011)(26005)(6486002)(38100700002)(2616005)(186003)(2906002)(5660300002)(8936002)(6506007)(36756003)(6512007)(54906003)(478600001)(316002)(86362001)(41300700001)(31696002)(6916009)(4326008)(66946007)(8676002)(66556008)(66476007)(83380400001)(31686004)(66899021)(41533002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cEZLcDltY1N3YkUyYU1YZWZKejZrdjFEMHlydm93NS9nYzZ0OWR4dmFFc3o1?=
- =?utf-8?B?c0RJbjdnemJNNXRUeTFmUnUxeTFqTWJHMU0wVmZjTmgvQTlEOG1XMzgxVEww?=
- =?utf-8?B?UEZvUnAzemR5SHdmTXFHVmk3Qzk1eGNMOWJGdUd3T0h2b1Fsdk5BZGtETVVK?=
- =?utf-8?B?OU9ERG91KzJ6V29zajRVWlFFR096S1p2ZXBtWUVnRE1FMlFMM3VkWVRqOStz?=
- =?utf-8?B?bXBIWi9Vb3k1M0VGb2VZTkJxZUYvZG9VR1MyVXNCTFNUb0hFMVU3Vi9Id3Ji?=
- =?utf-8?B?Nm9udVVCVTVNZ21LTXpBRTZhQlVjQUh6cmlHWjZzUWpZMmpFVDZEenpNMG15?=
- =?utf-8?B?UmdESk5CaE1qczJYNWlDQmVCbFpEVU1FdkhGS3ZGZlVaSmZxSXdRZnhFaUdm?=
- =?utf-8?B?OE11MjZRUWR3NGdGNXpXN1lld1c4TlN1UXBHbmZveHkvZnpzdjlhT09aVTdp?=
- =?utf-8?B?STZONUlYUTY3b3kwVFJvYXdLTHoyQzNwMUp1T29NaFZTS0l4dlRpVEczTVdG?=
- =?utf-8?B?VVhkcVBFaDBHaTRMbEQzYUIxNjdZZTJJT1ovVnpQWmRGTmNmUk5wRk5XQ2NK?=
- =?utf-8?B?cGx5YTViM1c1YTUrdU11RXdKTjJ5MTNsQ0VrMGJjcGhOQ1dTdFJ4YmJ6TjVo?=
- =?utf-8?B?N0JaZExuT1dGUVZHU216RzB4U1ZhMlZPd0NGNGpFbkNxeDM3bm9WRXVJU1Iy?=
- =?utf-8?B?NXoyYUU5ZkRPYVhhdVV1anM0QUI0WXduT2piRVBlU2o3UGVsWThNbjdKVzhN?=
- =?utf-8?B?ZkJtd3VUWWNFNW5NM2dmWHdNQXBhSWV6TXRUcWFWQk9POVV4NGdQNkRkNVp6?=
- =?utf-8?B?OVBIT05RaXFUY1ZBRDB4a2pxYWdkRUVBc3ZnRmNidlBDWGlCU09FVGpzS3Ja?=
- =?utf-8?B?MUZOQUJuWnBaSXc2TTFvUFpIbGVjUnJrMEdaMm9BSUk0ZlJ3KzY2Q2JPMUc1?=
- =?utf-8?B?ak9SaHQwRDFzZzJDNnJ1S3d3SnNmOVFlYkJjMHZJUDlIbDF2SW92SnZuUkRv?=
- =?utf-8?B?SVgrSkZFWUh3eFB2dFFRdGtjMElnQ2lDSzhlRkFxcHJUcmlVSGtTTTVob3pV?=
- =?utf-8?B?WkZpdXhhV3hHa1ZUcHIyOWJWS25LWVFWcWpLeVBNTnhmb2FxTXM0MzYzd3hM?=
- =?utf-8?B?bFhiUVRqc1ZrYzNmNmJqUlFQMkFzS2dKQlZHQmdFb2xDVFBuTktXc2pRQjY0?=
- =?utf-8?B?Ny9pL29UcWlYR0tzREFPQm90cWd4Y29nYm9KY3duVDBsZEFSbStCSHdnallh?=
- =?utf-8?B?S0xib0Y1cFJHVVpUdWk4V0h1aTEyZDdCMVdMajc5RGtqM1JSY0xPQVpxOEMz?=
- =?utf-8?B?QlR2S2lzSlZXMjZYbmRWV29pMTQ3NzdGRnE0aHhYRCtvUmF0bzlyckMwVW5O?=
- =?utf-8?B?R0VvOGxKWjh2QmFidlZEa3VOM3EyYWxoemNpWXQvdGVtaHVhaTRpNkZXZGl4?=
- =?utf-8?B?SllrRFlxS3NqSS9DUHZDcnhSU3pzby9TQUZ0YmpmUUpsYkRGbkZ6dXo4OE84?=
- =?utf-8?B?WDhDWVVycmVqOHBsbzNGbEduUC9uRDVGQUIxYWM3ek1wYUllMUpnYm5LU0pQ?=
- =?utf-8?B?TFpRc3oyY2NaM28xVThGVlkrY2FFNkM4OGd6di9hRjU5VWRxbUxVdHQ0U1FZ?=
- =?utf-8?B?Rzcwc3NVeXNPMW5hRW44VzAvaGptczBnYnNqeCtKWkJzMFlXSVRySzNzWFl6?=
- =?utf-8?B?M2xSS0JiZjlUVHFLYzhpMGgvMVpDWWdhUWZpV2ZwTWtiQjhaazdkSmVReWNN?=
- =?utf-8?B?VTg4QmZRb2F0dStUY2Q2YWQrK0JuWk1QR3dwaHY4bVVORFYrcWpFMkRZNGRG?=
- =?utf-8?B?MGpucjlSQ0hOOFRyL2ZvMlN5Uklra3hXb1J0MGd2T1c4Y2k5dTNXd01Vbkox?=
- =?utf-8?B?VUNCVlowakVUWmg4MmhYT21HL01zaXVRMUlzNVF6VnVJMGJqUFF3RG80NFJQ?=
- =?utf-8?B?ZXJGT3BLVHgvZ2I5L2JJTXN0emJxMmN2b253UFY5YmRGWEZoRDk1VFhjRnRx?=
- =?utf-8?B?dnE4bUpqME14R1l6eXRaeFlhVnQ5bnNPUnFxMFNEczFISE90S09DKy84TnA5?=
- =?utf-8?B?MjlkMHRZZ0hacmV3VG5ENnB6ZmJKUXBvZ2NncFBZTXMyVnhyOXM1Vzk5WFpn?=
- =?utf-8?Q?DkkUcCrEW/C6nu0+JRxm6rmwh?=
+	=?utf-8?B?OVM0Z3FlR3VLY2pMSndzeGF0Rm91M0ZiSDBiUEIvRk9HOXJUK1FMNmdGamY4?=
+ =?utf-8?B?b0o2TmdHYzRWV3FXb0sxU2pxc0lGZDNkVFZmTVl1QnhydkUyV0d4dmUwc0hi?=
+ =?utf-8?B?S3lhYnFNUEc3K2dkd3JUTkx5cFJsWlV3RUlSN0s5TGhOdHlHd2hlTG83Q0ZZ?=
+ =?utf-8?B?TGVEOUJxbTU5ay9YcGRNRVN3QXZvdkw2RjRQV2dlN250L0tJeityTkFuaElh?=
+ =?utf-8?B?MG1aZjhFdWhXTktITmlocjJxNzg2b21kMHJQa3NSUGd5SktSNzNJWG1GMVBQ?=
+ =?utf-8?B?dUNiQ0dLdzRmY2ViNHN5NjJHaTc2ajVwZ3VQaitLK21sZUQ5ZG1zeExnY0VP?=
+ =?utf-8?B?MFdWd0g0c215VGFEUStUK0tDTUJTOVBWL0dhZ0tiTUZ6b0tkZzlOTmgwZzc1?=
+ =?utf-8?B?MWRPV0x1Vk96S2xpRTgxbnBxTW16K3ptVmxUaHNYVE5reE8zQUFBbzVEMFYy?=
+ =?utf-8?B?S1NtT1poZVFGYU1zS0h5OXBtQmdVWDdJTmt0UTBiSUgvVTkrc2YxK2loeFlo?=
+ =?utf-8?B?dzM5aVhod0pxUW1rby9rMU81R3ZYOFpTY0laekVrankrbnZyNE9kRzhrTzNL?=
+ =?utf-8?B?T21XaHc3WDFQcDk3bUtkMHE4SHA2Qm1Dd2xWZUhOdkk2NGVCeGRYc2hBK1pS?=
+ =?utf-8?B?TlRqU2MzU2hJVzVtbWxiam1mL0lsakR1YUdTMW9rTmpEaDVPYTVEUG5WMWFr?=
+ =?utf-8?B?Y0hjVCtRbFFiYUZzbjJCeDM0b3I1QnFTOEZVY2dHaGJnNDRqNUZDK25sdzdR?=
+ =?utf-8?B?L09zcjJWYjJ2K0E4VGNhc2FSVkplaEtvZkZIZHhOS1NTQUxwR3dBcEN6eVU1?=
+ =?utf-8?B?d3FMd2FOUnBzYkhiRlV4OTlGaFNLNmxhMWh3TVdUNm52K3p1TGRSOVJvaGNX?=
+ =?utf-8?B?Z1cxY3hzMzhqOW5tVlUzcUhZTkwzV2h2U0t4aFhvb2VaRjFWeDdienFJenFY?=
+ =?utf-8?B?VmliRG43SlI0WFNwR0pBNitTcUhaeGIwL3VscmpxY2wxQ0ZqNVErUFBvWm5I?=
+ =?utf-8?B?U1pvRHJtTWdFMTZRbUR4NVJ3RzVKeDViV3B1R1pUOWNtRnhkZkF6MVR1NmU2?=
+ =?utf-8?B?RnFCRTBndElzYVN1Q0U4RlRuVVhuelUrK2VCa2ljNThSOE91SDNnNGFqbHlM?=
+ =?utf-8?B?NFhsVFVJSU55S2NlYm1zK0ZybW9WQ25wczJrQld4T0lqVjJHa2NQYjhTSms5?=
+ =?utf-8?B?L1NRam5MYXZEYWhoMy9QWHJoN3NBZDRQR2dpWU1jU0M2NWR3UGpNdUdma3JM?=
+ =?utf-8?B?ZWlRODRib2xqTUwrLzMxWjM5clVjcTlSVzh0U1E5c3hMaGpqaFRZaCs5T0hD?=
+ =?utf-8?B?WUxMTFRRNDVpSkh6ZllQQld2MktUYlArWElycHdUc3B3RkxHSzJCc210QU1m?=
+ =?utf-8?B?NmxaNStXRkw5VmU2MXdrem5iUjB6ejFnamN5TDhhK1JXUjBRVWwweGlPSWk3?=
+ =?utf-8?B?ckRVbG9aMFArR2RwcWVGbWpMcXJxWC91OHdkTTdJZHJGc1pyWXBSWTNjU3VV?=
+ =?utf-8?B?TXNwSi92a1NGQWRzVkdMbEtrVEJ2NjRBMHpkQWJlZ01TVERTYXhyVU1LR1c2?=
+ =?utf-8?B?bnV3UUpoYXdqaDM0NnRFMkR0SExSWno2MCtJdGQzb1ZvOGI2eEhrcDhobGtv?=
+ =?utf-8?B?M08rUWh2clhmWnZlc1ozY3ZqZ0Y1dU03VWNIUUlpYkZwcVd5M2Q1RGg1QUhU?=
+ =?utf-8?B?TTNtZ2toa2JiTkZoUzJ4VG42SUlTSDhXNnhUQWVKRUJlL1lDN2NUOVRhcytL?=
+ =?utf-8?B?REJzd1JTeXN0SXowRVVrL2lWR2dLYmJDWFZNaVVKd2RJVVgrQVZjdldxTzNX?=
+ =?utf-8?B?cWZsMHF1d2VtK0lxT3RUR0dkWlZRd0s4WUFFd0JGQjh4UXdXazVkY28zRmMx?=
+ =?utf-8?B?UGVrOTYwU3pMY0VBTVhPMWg2b2Y4dVlMTlhZOUxGdDVwS1pmQ29GQkxrV05U?=
+ =?utf-8?B?UU1BdUVSaWRpa3BQaFg0dTJpUmc0TGVyRGtrTVNDdFJSNnFnbzlhdi9vcXQw?=
+ =?utf-8?B?VWdzV0dESE8rdnZiRE83TFRvWk82dmFad1FnckhLSVJNTk9EQXZCMHdxcXhl?=
+ =?utf-8?B?dGpDMnJIc25LT3FiNHh1dERMWkV5OEFqT21OT1V0VHZjaUdzSGpXdFdBUHNM?=
+ =?utf-8?Q?bOTNLz1b8fVgsN8cHUSxaA9J3?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afc99936-8446-46c5-d4bc-08db3021ec6e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f0b7e65-86b3-48fa-3fdf-08db3025577c
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 06:50:46.4148
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 07:15:14.4632
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4pQPVMTifLyunzUHCmKrM8BoKJ2zjm905d7CqAe6v2UZAloL0yOBD/Dgts43mpg2BgmhUcZQ2iWcQPJKKawQ6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7651
+X-MS-Exchange-CrossTenant-UserPrincipalName: ToBLUemr0i+O6IqO6mcqDQu4QmSC9SNlMdeMo0ui3VZwmoM0WIo8Fer2cEti7+DbkfmTPHQVIvi2Y6vAOQ3CmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8767
 
-First of all these were inverted: "bridge=" caused the port coordinates
-to be established, while "port=" controlled the bridge coordinates. And
-then the error messages being identical also wasn't helpful. While
-correcting this also move both case blocks close together.
+On 28.03.2023 18:55, Oleksii wrote:
+> On Tue, 2023-03-28 at 19:38 +0300, Oleksii wrote:
+>> On Tue, 2023-03-28 at 18:38 +0300, Oleksii wrote:
+>>> offsets.s arch/x86/x86_64/asm-offsets.c
+>>> In file included from ./include/public/domctl.h:21,
+>>>                  from ./include/public/sysctl.h:18,
+>>>                  from ./arch/x86/include/asm/cpuid.h:14,
+>>>                  from ./arch/x86/include/asm/cpufeature.h:10,
+>>>                  from ./arch/x86/include/asm/system.h:7,
+>>>                  from ./arch/x86/include/asm/atomic.h:5,
+>>>                  from ./include/xen/gdbstub.h:24,
+>>>                  from ./arch/x86/include/asm/debugger.h:10,
+>>>                  from ./include/xen/debugger.h:24,
+>>>                  from ./arch/x86/include/asm/bug.h:6,
+>>>                  from ./include/xen/bug.h:15,
+>>>                  from ./arch/x86/include/asm/alternative.h:7,
+>>>                  from ./arch/x86/include/asm/bitops.h:8,
+>>>                  from ./include/xen/bitops.h:106,
+>>>                  from ./arch/x86/include/asm/smp.h:8,
+>>>                  from ./include/xen/smp.h:4,
+>>>                  from ./include/xen/perfc.h:7,
+>>>                  from arch/x86/x86_64/asm-offsets.c:9:
+>> And again the problem is that x86's <asm/bug.h> includes
+>> <xen/debugger.h> which somewhere inside uses BUG() which will be
+>> defined after we will back for x86's <asm/bug.h> to <xen/bug.h> where
+>> BUG() is defined.
+>>
+>> So it looks like we can't include to <asm/bug.h> something that will
+>> use functionality defined in <xen/bug.h>...
+>>
+>> Thereby I don't see better option that include <xen/debugger.h> in
+>> <common/bug.c> instead of <asm/bug.h>
 
-Fixes: 97fd49a7e074 ("ns16550: add support for UART parameters to be specifed with name-value pairs")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-pci_serial_early_init() only dealing with I/O port variants is also
-bogus, but that's a separate topic (which arguably would better be taken
-care of by someone actually in the position of testing it). Additionally
-I think it would be a good idea if the function left the bridge windows
-alone if they're already configured suitably (perhaps with a wider
-range).
+Well, to deal with this specific issue we could re-arrange xen/perfc.h
+a little (to skip part of it when COMPILE_OFFSETS is defined), but it
+seems quite likely that then the same issue would surface yet again
+elsewhere. So yes, for the time being I guess we need to go with what
+you have. Until we can sort the xen/lib.h vs xen/bug.h aspect.
 
-_ns16550_resume() also doesn't care about configuring the bridge
-correctly.
+> Or as an option we can include <xen/bug.h> in <asm/bug.h> instead of
+> include <asm/bug.h> in <xen/bug.h> it will allow us to resolve an
+> issue...
+> 
+> Do you think this option will be better?
 
-It further looks to be a shortcoming that pci_uart_config() doesn't
-determine the bridge behind which the selected device may be located
-(let alone a hierarchy of bridges).
+No, imo that arrangement should remain as is.
 
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -1631,13 +1631,6 @@ static bool __init parse_namevalue_pairs
-             break;
- 
- #ifdef CONFIG_HAS_PCI
--        case bridge_bdf:
--            if ( !parse_pci(param_value, NULL, &uart->ps_bdf[0],
--                            &uart->ps_bdf[1], &uart->ps_bdf[2]) )
--                PARSE_ERR_RET("Bad port PCI coordinates\n");
--            uart->ps_bdf_enable = true;
--            break;
--
-         case device:
-             if ( strncmp(param_value, "pci", 3) == 0 )
-             {
-@@ -1652,9 +1645,16 @@ static bool __init parse_namevalue_pairs
-             break;
- 
-         case port_bdf:
-+            if ( !parse_pci(param_value, NULL, &uart->ps_bdf[0],
-+                            &uart->ps_bdf[1], &uart->ps_bdf[2]) )
-+                PARSE_ERR_RET("Bad port PCI coordinates\n");
-+            uart->ps_bdf_enable = true;
-+            break;
-+
-+        case bridge_bdf:
-             if ( !parse_pci(param_value, NULL, &uart->pb_bdf[0],
-                             &uart->pb_bdf[1], &uart->pb_bdf[2]) )
--                PARSE_ERR_RET("Bad port PCI coordinates\n");
-+                PARSE_ERR_RET("Bad bridge PCI coordinates\n");
-             uart->pb_bdf_enable = true;
-             break;
- #endif
+Jan
 
