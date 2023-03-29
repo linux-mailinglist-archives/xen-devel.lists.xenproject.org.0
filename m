@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B51516CF4C6
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 22:52:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516346.800303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97D4D6CF4C4
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 22:52:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516349.800333 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phclp-0005N7-Bs; Wed, 29 Mar 2023 20:51:49 +0000
+	id 1phcls-00068R-Ez; Wed, 29 Mar 2023 20:51:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516346.800303; Wed, 29 Mar 2023 20:51:49 +0000
+Received: by outflank-mailman (output) from mailman id 516349.800333; Wed, 29 Mar 2023 20:51:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phclp-0005K8-74; Wed, 29 Mar 2023 20:51:49 +0000
-Received: by outflank-mailman (input) for mailman id 516346;
- Wed, 29 Mar 2023 20:51:47 +0000
+	id 1phcls-00065G-BF; Wed, 29 Mar 2023 20:51:52 +0000
+Received: by outflank-mailman (input) for mailman id 516349;
+ Wed, 29 Mar 2023 20:51:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PU7e=7V=citrix.com=prvs=445237bd4=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1phcln-0005Jv-Op
- for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 20:51:47 +0000
+ id 1phclq-0005Jv-FS
+ for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 20:51:50 +0000
 Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
  [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8225ea21-ce73-11ed-b464-930f4c7d94ae;
- Wed, 29 Mar 2023 22:51:44 +0200 (CEST)
+ id 857fb6f4-ce73-11ed-b464-930f4c7d94ae;
+ Wed, 29 Mar 2023 22:51:47 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,53 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8225ea21-ce73-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 857fb6f4-ce73-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1680123103;
+  d=citrix.com; s=securemail; t=1680123106;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=4jHKbo6xgSHAMA7ALHtrpQqN19VeWD23wmDu4cdtUVQ=;
-  b=TnCv5FbhPpQeP6nAoBekNEvPo5yHjSI5pIJ+ncmLAH0WVHeQh1i8Bipx
-   p7ARm+UDDe/WIuZM3g9+gqDM4SuqY8zISaWTwCKN+guYydzYHA5nbd6QB
-   L//4dk5UuHwRE+Nu3nwGfCs3nX4g6ZAxMpsc7PLe3kvABQWCARoMerD4X
-   8=;
+  bh=NckHj1O1Qja849d/pT2PCkOTAN3iToXm4XGv0xmEyS8=;
+  b=HFN8tIsJytnxUayhDlBj3vW+4/qFhPiKG9+36XlvaPcLjGvAeBqrj1md
+   MdOy0Nt/BImSjm0OoV9qZw6eWR9zleF6b2L48JEe3hGqcfz+JftR8qjkK
+   xq/5ZbvE74+ttjVjre5ZfGw+YJLa0nQibx+l7MYe7DrBh6qigNhjNbkp7
+   0=;
 Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 103989103
+X-MesageID: 103989104
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:bH+HRahTLdSy6IRtFQ0Exck6X161GhAKZh0ujC45NGQN5FlHY01je
- htvD2mOOvzeNmamedEnaNzipk8O7J+GndEyHgNq+C42EX4b9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsy+qWi0N8klgZmP6sT5wWPzyN94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQ1OTkuViiOttuGnp28a+tMn/t5dNjSadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
- pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27B/
- jmXrzWgWkpy2Nq32Aih8nmS2PL1vDrfe909K7rp7bljjwjGroAUIEJPDgbqyRWjsWauVtQaJ
- 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O88Q5RyJy6HUyx2EHWVCRTlEAPQ5sOcmSDps0
- UWG9+4FHhQ27ufTEyjEsO7J83XrY3N9wXI+iTEsYBoMwOHbrbAKvkzgSfdhMLeK1IXkIGSlq
- 9yVlxTSl4n/nOZSifrqrACX3278znTaZlVrv1uKBwpJ+is8Pdf4PNLwtDA3+N4adO6kok+9U
- G/ociR0xMQHFtmzmSOEW43h95n5tq/eYFUwbbOCdqTNFghBGFb5J+i8GBkkeC9U3j8sIFcFm
- nP7twJL/4N0N3C3d6JxaI/ZI510nfC5TIi7Ca6EMIQmjn1NmOmvpnkGiam4gQjQfLUEy/lja
- f93j+73ZZrlNUiX5GXvHLpMuVPa7is/2XnSVfjG8vhT6pLHPCT9Ye5cYDOzghURsPvsTPP9r
- 4wOaKNnCnx3DIXDX8Ug2dVNfQ1VcSBiXcmeRg4+XrfrHzeK0VoJU5f5qY7NsaQ890iJvo8kJ
- k2AZ3I=
-IronPort-HdrOrdr: A9a23:RHNwGKig4LUc/D1tCgwXrCBKpHBQXh4ji2hC6mlwRA09TyX5ra
- 2TdZUgpHrJYVMqMk3I9uruBEDtex3hHP1OkOss1NWZPDUO0VHARO1fBOPZqAEIcBeOldK1u5
- 0AT0B/YueAd2STj6zBkXSF+wBL+qj6zEiq792usEuEVWtRGsVdB58SMHfiLqVxLjM2YqYRJd
- 6nyedsgSGvQngTZtTTPAh/YwCSz+e78q4PeHQ9dmca1DU=
+IronPort-Data: A9a23:TZsNV6o8SvieYHrMeBzHW+6GGmFeBmJiZRIvgKrLsJaIsI4StFCzt
+ garIBnUPf7bYGqgKt4iPIu//UkH6pXXm9E1Gwo9/i9gFitB+ZuZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WNwUmAWP6gR5weFzShNVvrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXAB0cZzO7v++H+YLlZe5NhOQ6E5OzLbpK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVxrl6PqLVxyG/U1AFri5DmMcbPe8zMTsJQ9qqdj
+ juepDWpU0hCaLRzzxKf60+Tt+qMtxijBoQ/D+Sx7/VnvmCckzl75Bo+CgLg/KjRZlSFc8JSL
+ QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUSyiuA167V6AaxHXUfQ3hKb9lOnNAybSwn0
+ BmOhdyBONB0mOTLEzTHrO7S9G7sf3FPdgfueBPoUyMo8tDAmLk+vyv/EPlkMayVl+KvQSDJl
+ mXiQDcFu1kDsSIa//zlogGW02Lw+sihoh0dvVuOAD/8hu9tTMv8PtHztwCGhRpVBNzBJmRtq
+ kTojCR3AAomKZiW3BKAT+wWdF1Cz6bUaWaM6bKD8nRIythMx5JAVdoKiN2GDB01WvvogBewC
+ KMphStf5YVIIFyhZrJtboS6BqwClPawTY28Cq6LMIoQPPCdkTNrGgk0PSZ8OEiz+HXAbIllY
+ cvLGSpSJS1y5VtbIMqeGL5GjO5DKtEWzmLPX5HrpymaPU6lTCfNE98taQLeBt3VGYvY+G05B
+ f4DbZrVo/ieOcWiChTqHXk7dg5acCdnXcmu8qS6tIere2JbJY3oMNeJqZtJRmCvt/09ejvgl
+ p1lZnJl9Q==
+IronPort-HdrOrdr: A9a23:K7L9SKAYyv0KMVflHelo55DYdb4zR+YMi2TDt3oddfU1SL38qy
+ nKpp4mPHDP5wr5NEtPpTniAtjjfZq/z/5ICOAqVN/PYOCPggCVxepZnOjfKlPbehEX9oRmpN
+ 1dm6oVMqyMMbCt5/yKnDVRELwbsaa6GLjDv5a785/0JzsaE52J6W1Ce2GmO3wzfiZqL7wjGq
+ GR48JWzgDQAkj+PqyAdx84t/GonayzqK7b
 X-IronPort-AV: E=Sophos;i="5.98,301,1673931600"; 
-   d="scan'208";a="103989103"
+   d="scan'208";a="103989104"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 1/9] x86: Rename struct cpu_policy to struct old_cpuid_policy
-Date: Wed, 29 Mar 2023 21:51:29 +0100
-Message-ID: <20230329205137.323253-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/9] x86: Rename {domctl,sysctl}.cpu_policy.{cpuid,msr_policy} fields
+Date: Wed, 29 Mar 2023 21:51:30 +0100
+Message-ID: <20230329205137.323253-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230329205137.323253-1-andrew.cooper3@citrix.com>
 References: <20230329205137.323253-1-andrew.cooper3@citrix.com>
@@ -90,12 +90,12 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-We want to merge struct cpuid_policy and struct msr_policy together, and the
-result wants to be called struct cpu_policy.
+These weren't great names to begin with, and using {leaves,msrs} matches up
+better with the existing nr_{leaves,msr} parameters anyway.
 
-The current struct cpu_policy, being a pair of pointers, isn't terribly
-useful.  Rename the type to struct old_cpu_policy, but it will disappear
-entirely once the merge is complete.
+Furthermore,by renaming these fields we can get away with using some #define
+trickary to avoid the struct {cpuid,msr}_policy merge needing to happen in a
+single changeset.
 
 No functional change.
 
@@ -105,141 +105,157 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 ---
- tools/libs/guest/xg_cpuid_x86.c          | 4 ++--
- tools/tests/cpu-policy/test-cpu-policy.c | 4 ++--
- xen/arch/x86/domctl.c                    | 4 ++--
- xen/arch/x86/include/asm/cpuid.h         | 2 +-
- xen/arch/x86/sysctl.c                    | 4 ++--
- xen/include/xen/lib/x86/cpu-policy.h     | 6 +++---
- xen/lib/x86/policy.c                     | 4 ++--
- 7 files changed, 14 insertions(+), 14 deletions(-)
+ tools/libs/guest/xg_cpuid_x86.c | 12 ++++++------
+ xen/arch/x86/domctl.c           | 12 ++++++------
+ xen/arch/x86/sysctl.c           |  8 ++++----
+ xen/include/public/domctl.h     |  4 ++--
+ xen/include/public/sysctl.h     |  4 ++--
+ 5 files changed, 20 insertions(+), 20 deletions(-)
 
 diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
-index 4542878bbe88..1b02bc987af7 100644
+index 1b02bc987af7..5fae06e77804 100644
 --- a/tools/libs/guest/xg_cpuid_x86.c
 +++ b/tools/libs/guest/xg_cpuid_x86.c
-@@ -868,8 +868,8 @@ bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
-                                  xc_cpu_policy_t *guest)
- {
-     struct cpu_policy_errors err = INIT_CPU_POLICY_ERRORS;
--    struct cpu_policy h = { &host->cpuid, &host->msr };
--    struct cpu_policy g = { &guest->cpuid, &guest->msr };
-+    struct old_cpu_policy h = { &host->cpuid, &host->msr };
-+    struct old_cpu_policy g = { &guest->cpuid, &guest->msr };
-     int rc = x86_cpu_policies_are_compatible(&h, &g, &err);
+@@ -145,9 +145,9 @@ static int get_system_cpu_policy(xc_interface *xch, uint32_t index,
+     sysctl.cmd = XEN_SYSCTL_get_cpu_policy;
+     sysctl.u.cpu_policy.index = index;
+     sysctl.u.cpu_policy.nr_leaves = *nr_leaves;
+-    set_xen_guest_handle(sysctl.u.cpu_policy.cpuid_policy, leaves);
++    set_xen_guest_handle(sysctl.u.cpu_policy.leaves, leaves);
+     sysctl.u.cpu_policy.nr_msrs = *nr_msrs;
+-    set_xen_guest_handle(sysctl.u.cpu_policy.msr_policy, msrs);
++    set_xen_guest_handle(sysctl.u.cpu_policy.msrs, msrs);
  
-     if ( !rc )
-diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
-index d3f24fd6d274..909d6272f875 100644
---- a/tools/tests/cpu-policy/test-cpu-policy.c
-+++ b/tools/tests/cpu-policy/test-cpu-policy.c
-@@ -602,7 +602,7 @@ static void test_is_compatible_success(void)
-     for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
-     {
-         struct test *t = &tests[i];
--        struct cpu_policy sys = {
-+        struct old_cpu_policy sys = {
-             &t->host_cpuid,
-             &t->host_msr,
-         }, new = {
-@@ -654,7 +654,7 @@ static void test_is_compatible_failure(void)
-     for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
-     {
-         struct test *t = &tests[i];
--        struct cpu_policy sys = {
-+        struct old_cpu_policy sys = {
-             &t->host_cpuid,
-             &t->host_msr,
-         }, new = {
+     ret = do_sysctl(xch, &sysctl);
+ 
+@@ -183,9 +183,9 @@ static int get_domain_cpu_policy(xc_interface *xch, uint32_t domid,
+     domctl.cmd = XEN_DOMCTL_get_cpu_policy;
+     domctl.domain = domid;
+     domctl.u.cpu_policy.nr_leaves = *nr_leaves;
+-    set_xen_guest_handle(domctl.u.cpu_policy.cpuid_policy, leaves);
++    set_xen_guest_handle(domctl.u.cpu_policy.leaves, leaves);
+     domctl.u.cpu_policy.nr_msrs = *nr_msrs;
+-    set_xen_guest_handle(domctl.u.cpu_policy.msr_policy, msrs);
++    set_xen_guest_handle(domctl.u.cpu_policy.msrs, msrs);
+ 
+     ret = do_domctl(xch, &domctl);
+ 
+@@ -232,9 +232,9 @@ int xc_set_domain_cpu_policy(xc_interface *xch, uint32_t domid,
+     domctl.cmd = XEN_DOMCTL_set_cpu_policy;
+     domctl.domain = domid;
+     domctl.u.cpu_policy.nr_leaves = nr_leaves;
+-    set_xen_guest_handle(domctl.u.cpu_policy.cpuid_policy, leaves);
++    set_xen_guest_handle(domctl.u.cpu_policy.leaves, leaves);
+     domctl.u.cpu_policy.nr_msrs = nr_msrs;
+-    set_xen_guest_handle(domctl.u.cpu_policy.msr_policy, msrs);
++    set_xen_guest_handle(domctl.u.cpu_policy.msrs, msrs);
+     domctl.u.cpu_policy.err_leaf = -1;
+     domctl.u.cpu_policy.err_subleaf = -1;
+     domctl.u.cpu_policy.err_msr = -1;
 diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-index 2118fcad5dfe..0b41b279507e 100644
+index 0b41b279507e..944af63e68d0 100644
 --- a/xen/arch/x86/domctl.c
 +++ b/xen/arch/x86/domctl.c
-@@ -40,8 +40,8 @@
- static int update_domain_cpu_policy(struct domain *d,
-                                     xen_domctl_cpu_policy_t *xdpc)
- {
--    struct cpu_policy new = {};
--    const struct cpu_policy *sys = is_pv_domain(d)
-+    struct old_cpu_policy new = {};
-+    const struct old_cpu_policy *sys = is_pv_domain(d)
-         ? &system_policies[XEN_SYSCTL_cpu_policy_pv_max]
-         : &system_policies[XEN_SYSCTL_cpu_policy_hvm_max];
-     struct cpu_policy_errors err = INIT_CPU_POLICY_ERRORS;
-diff --git a/xen/arch/x86/include/asm/cpuid.h b/xen/arch/x86/include/asm/cpuid.h
-index 9c3637549a10..49b3128f06f9 100644
---- a/xen/arch/x86/include/asm/cpuid.h
-+++ b/xen/arch/x86/include/asm/cpuid.h
-@@ -51,7 +51,7 @@ extern struct cpuid_policy raw_cpuid_policy, host_cpuid_policy,
-     pv_max_cpuid_policy, pv_def_cpuid_policy,
-     hvm_max_cpuid_policy, hvm_def_cpuid_policy;
+@@ -54,10 +54,10 @@ static int update_domain_cpu_policy(struct domain *d,
  
--extern const struct cpu_policy system_policies[];
-+extern const struct old_cpu_policy system_policies[];
+     /* Merge the toolstack provided data. */
+     if ( (ret = x86_cpuid_copy_from_buffer(
+-              new.cpuid, xdpc->cpuid_policy, xdpc->nr_leaves,
++              new.cpuid, xdpc->leaves, xdpc->nr_leaves,
+               &err.leaf, &err.subleaf)) ||
+          (ret = x86_msr_copy_from_buffer(
+-              new.msr, xdpc->msr_policy, xdpc->nr_msrs, &err.msr)) )
++              new.msr, xdpc->msrs, xdpc->nr_msrs, &err.msr)) )
+         goto out;
  
- /* Check that all previously present features are still available. */
- bool recheck_cpu_features(unsigned int cpu);
+     /* Trim any newly-stale out-of-range leaves. */
+@@ -1317,20 +1317,20 @@ long arch_do_domctl(
+ 
+     case XEN_DOMCTL_get_cpu_policy:
+         /* Process the CPUID leaves. */
+-        if ( guest_handle_is_null(domctl->u.cpu_policy.cpuid_policy) )
++        if ( guest_handle_is_null(domctl->u.cpu_policy.leaves) )
+             domctl->u.cpu_policy.nr_leaves = CPUID_MAX_SERIALISED_LEAVES;
+         else if ( (ret = x86_cpuid_copy_to_buffer(
+                        d->arch.cpuid,
+-                       domctl->u.cpu_policy.cpuid_policy,
++                       domctl->u.cpu_policy.leaves,
+                        &domctl->u.cpu_policy.nr_leaves)) )
+             break;
+ 
+         /* Process the MSR entries. */
+-        if ( guest_handle_is_null(domctl->u.cpu_policy.msr_policy) )
++        if ( guest_handle_is_null(domctl->u.cpu_policy.msrs) )
+             domctl->u.cpu_policy.nr_msrs = MSR_MAX_SERIALISED_ENTRIES;
+         else if ( (ret = x86_msr_copy_to_buffer(
+                        d->arch.msr,
+-                       domctl->u.cpu_policy.msr_policy,
++                       domctl->u.cpu_policy.msrs,
+                        &domctl->u.cpu_policy.nr_msrs)) )
+             break;
+ 
 diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
-index 16625b57f01f..3f5b092df16a 100644
+index 3f5b092df16a..3ed7c69f4315 100644
 --- a/xen/arch/x86/sysctl.c
 +++ b/xen/arch/x86/sysctl.c
-@@ -32,7 +32,7 @@
- #include <asm/psr.h>
- #include <asm/cpuid.h>
+@@ -411,11 +411,11 @@ long arch_do_sysctl(
+         }
  
--const struct cpu_policy system_policies[6] = {
-+const struct old_cpu_policy system_policies[6] = {
-     [ XEN_SYSCTL_cpu_policy_raw ] = {
-         &raw_cpuid_policy,
-         &raw_msr_policy,
-@@ -391,7 +391,7 @@ long arch_do_sysctl(
+         /* Process the CPUID leaves. */
+-        if ( guest_handle_is_null(sysctl->u.cpu_policy.cpuid_policy) )
++        if ( guest_handle_is_null(sysctl->u.cpu_policy.leaves) )
+             sysctl->u.cpu_policy.nr_leaves = CPUID_MAX_SERIALISED_LEAVES;
+         else if ( (ret = x86_cpuid_copy_to_buffer(
+                        policy->cpuid,
+-                       sysctl->u.cpu_policy.cpuid_policy,
++                       sysctl->u.cpu_policy.leaves,
+                        &sysctl->u.cpu_policy.nr_leaves)) )
+             break;
  
-     case XEN_SYSCTL_get_cpu_policy:
-     {
--        const struct cpu_policy *policy;
-+        const struct old_cpu_policy *policy;
+@@ -427,11 +427,11 @@ long arch_do_sysctl(
+         }
  
-         /* Reserved field set, or bad policy index? */
-         if ( sysctl->u.cpu_policy._rsvd ||
-diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-index 5a2c4c7b2d90..3a5300d1078c 100644
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -5,7 +5,7 @@
- #include <xen/lib/x86/cpuid.h>
- #include <xen/lib/x86/msr.h>
+         /* Process the MSR entries. */
+-        if ( guest_handle_is_null(sysctl->u.cpu_policy.msr_policy) )
++        if ( guest_handle_is_null(sysctl->u.cpu_policy.msrs) )
+             sysctl->u.cpu_policy.nr_msrs = MSR_MAX_SERIALISED_ENTRIES;
+         else if ( (ret = x86_msr_copy_to_buffer(
+                        policy->msr,
+-                       sysctl->u.cpu_policy.msr_policy,
++                       sysctl->u.cpu_policy.msrs,
+                        &sysctl->u.cpu_policy.nr_msrs)) )
+             break;
  
--struct cpu_policy
-+struct old_cpu_policy
- {
-     struct cpuid_policy *cpuid;
-     struct msr_policy *msr;
-@@ -33,8 +33,8 @@ struct cpu_policy_errors
-  * incompatibility is detected, the optional err pointer may identify the
-  * problematic leaf/subleaf and/or MSR.
-  */
--int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
--                                    const struct cpu_policy *guest,
-+int x86_cpu_policies_are_compatible(const struct old_cpu_policy *host,
-+                                    const struct old_cpu_policy *guest,
-                                     struct cpu_policy_errors *err);
+diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
+index 7280e9f96816..529801c89ba3 100644
+--- a/xen/include/public/domctl.h
++++ b/xen/include/public/domctl.h
+@@ -683,8 +683,8 @@ struct xen_domctl_cpu_policy {
+                          * 'cpuid_policy'. */
+     uint32_t nr_msrs;   /* IN/OUT: Number of MSRs in/written to
+                          * 'msr_policy' */
+-    XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_policy; /* IN/OUT */
+-    XEN_GUEST_HANDLE_64(xen_msr_entry_t) msr_policy;    /* IN/OUT */
++    XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) leaves; /* IN/OUT */
++    XEN_GUEST_HANDLE_64(xen_msr_entry_t)  msrs;   /* IN/OUT */
  
- #endif /* !XEN_LIB_X86_POLICIES_H */
-diff --git a/xen/lib/x86/policy.c b/xen/lib/x86/policy.c
-index f6cea4e2f9bd..2975711d7c6c 100644
---- a/xen/lib/x86/policy.c
-+++ b/xen/lib/x86/policy.c
-@@ -2,8 +2,8 @@
- 
- #include <xen/lib/x86/cpu-policy.h>
- 
--int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
--                                    const struct cpu_policy *guest,
-+int x86_cpu_policies_are_compatible(const struct old_cpu_policy *host,
-+                                    const struct old_cpu_policy *guest,
-                                     struct cpu_policy_errors *err)
- {
-     struct cpu_policy_errors e = INIT_CPU_POLICY_ERRORS;
+     /*
+      * OUT, set_policy only.  Written in some (but not all) error cases to
+diff --git a/xen/include/public/sysctl.h b/xen/include/public/sysctl.h
+index e8dded9fb94a..2b24d6bfd00e 100644
+--- a/xen/include/public/sysctl.h
++++ b/xen/include/public/sysctl.h
+@@ -1050,8 +1050,8 @@ struct xen_sysctl_cpu_policy {
+                            * 'msr_policy', or the maximum number of MSRs if
+                            * the guest handle is NULL. */
+     uint32_t _rsvd;       /* Must be zero. */
+-    XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_policy; /* OUT */
+-    XEN_GUEST_HANDLE_64(xen_msr_entry_t) msr_policy;    /* OUT */
++    XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) leaves; /* OUT */
++    XEN_GUEST_HANDLE_64(xen_msr_entry_t)  msrs;   /* OUT */
+ };
+ typedef struct xen_sysctl_cpu_policy xen_sysctl_cpu_policy_t;
+ DEFINE_XEN_GUEST_HANDLE(xen_sysctl_cpu_policy_t);
 -- 
 2.30.2
 
