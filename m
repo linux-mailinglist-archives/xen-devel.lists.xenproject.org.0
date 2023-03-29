@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5B8F6CD549
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 10:53:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516121.799730 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4926A6CD61C
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Mar 2023 11:13:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516125.799741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phRYl-0002y9-MV; Wed, 29 Mar 2023 08:53:35 +0000
+	id 1phRs4-0005c6-Bv; Wed, 29 Mar 2023 09:13:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516121.799730; Wed, 29 Mar 2023 08:53:35 +0000
+Received: by outflank-mailman (output) from mailman id 516125.799741; Wed, 29 Mar 2023 09:13:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phRYl-0002w7-Jf; Wed, 29 Mar 2023 08:53:35 +0000
-Received: by outflank-mailman (input) for mailman id 516121;
- Wed, 29 Mar 2023 08:53:34 +0000
+	id 1phRs4-0005Z7-8v; Wed, 29 Mar 2023 09:13:32 +0000
+Received: by outflank-mailman (input) for mailman id 516125;
+ Wed, 29 Mar 2023 09:13:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Nc1T=7V=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1phRYk-0002vu-Ex
- for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 08:53:34 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on0607.outbound.protection.outlook.com
- [2a01:111:f400:fe1e::607])
+ (envelope-from <SRS0=BI9Y=7V=gmail.com=dunlapg@srs-se1.protection.inumbo.net>)
+ id 1phRs2-0005Z1-Sq
+ for xen-devel@lists.xenproject.org; Wed, 29 Mar 2023 09:13:30 +0000
+Received: from mail-ua1-x92e.google.com (mail-ua1-x92e.google.com
+ [2607:f8b0:4864:20::92e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f6c5ccc-ce0f-11ed-85db-49a42c6b2330;
- Wed, 29 Mar 2023 10:53:33 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DU0PR04MB9669.eurprd04.prod.outlook.com (2603:10a6:10:316::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6222.30; Wed, 29 Mar
- 2023 08:53:31 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6222.033; Wed, 29 Mar 2023
- 08:53:31 +0000
+ id f7e75e41-ce11-11ed-85db-49a42c6b2330;
+ Wed, 29 Mar 2023 11:13:29 +0200 (CEST)
+Received: by mail-ua1-x92e.google.com with SMTP id q8so3170701uas.7
+ for <xen-devel@lists.xenproject.org>; Wed, 29 Mar 2023 02:13:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,113 +39,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f6c5ccc-ce0f-11ed-85db-49a42c6b2330
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZIZlr9fLtco/CfGEnx45R891zqmhO7QW3rYgB4ysuykjCsvbeQz+WunzfMyBryHKlLM0l94eGLaFwOIDQOOLQV9/Gu/tfKounKhPB+NHRJFX33K2MQJWMuW60vgnc3BEgO9MSUwwuW4HhATty0e0Ue61HoolrIbl+6vZm2J6O52Yn8LxevJpI0co3WUs5ax7O3JClj2vt4KwTigkLzESRJXwJ6TUPQVtyjdD7iah/w3QLkzy4zlzDcF3rGwIOi7F2Ici4LiYvq6X7HxTrhy4Qoc62PuUlpr3LybR4sl40RCObs4S2JFml5b/VHNGZlNAezuwAm/orVQVf89nsxIGDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QvSd7dcVqEtXl8d7+Tp/X5T6833dC7VLQ2+OEGCALc4=;
- b=ISr/4pI/LM/fAySvUK+7D1X15yfXYwBwzGVvurvJAxYeYzOJemuM/0m4wQmfyChFjw9UdA3MG7R0q/5KUHHliY8tqCelKGaBOPWjvTWIrxVjQNEphaZkCEjwWYhd3f84WVODJJj5N/ZxFEVzrTgFX3u/wbBdm5H0JGPrOjweHPtQaduH/kvcF5P0JaGyQs2L6w5wr6LlDmwrii291/+opxy7JQh0e0g5kQqOu2GnRKyhtn4yrjCC2RXYfcNWkJCqCCKtCMJFtKVZ2Eri07sjoXk3yHaUeOBl4Wz8xSaNZ6pQkWd9lmEipjASVDX030wZAR6hlQK121/YbIJ7CGKWUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QvSd7dcVqEtXl8d7+Tp/X5T6833dC7VLQ2+OEGCALc4=;
- b=kmtzEDh4uToYu7UtoFQrKxFUPj+LFRKn+JLGIN09BTdjLZU4DrHeSJazA48ijAZw+QOrv57oqByKz96nunBhKGod9NwJ0p0GjjExJa4o7Ob5usm9SLhWPbKlqnGhQwcimY/XffOoRbbLtNq9SW4C6LTvxGixlWskPGAhoOMtJglFfoKO6h6RLOd9vXArjoA0QIPpFuzXEflOesoEW17d3+jePwv3a+NiPCZWqiJOljiJ48/FiHkEJbxZgIuwraMIyvgRQjjBlzQw8SJb9wTlUYUdZ912GT/418vCc4HnFyRUdsGXgQ2Cp/KAEeZQ8EXf0KCTJlhPAxYs4Z3/23c1Fw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f8795f25-718f-9336-266c-ca26c86b0e73@suse.com>
-Date: Wed, 29 Mar 2023 10:53:30 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH v3] xen/netback: use same error messages for same errors
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-References: <20230329080259.14823-1-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230329080259.14823-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0093.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a9::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: f7e75e41-ce11-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=umich.edu; s=google-2016-06-03; t=1680081208;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=O11jjMmM5RLColZIiysSNrOXRVv7fG3Cd/+0hEg2fCY=;
+        b=sgIh60IzSHMtVkUn64VjdYhEyT0IBWmDEMB+lhcCsHSVWawQ6LJvkxJLHJBIEEZ0Fn
+         On1l2VomWGn3OfsQHovhpehdQlkSA/F0y/2+1rf9A7x1AVfAlxt7IDO2zbUsUECj5GAw
+         ukiafRWFionrLeohzDZQ5X/gkCO47RZp6uaTxS58b+ldPtFIqbuUvPzCDD2rP9oxtxjO
+         1DYLpjxtfeyQnx4UesOXzChvokdY3bvngFQKI7oUk4NwyHKxvDymG1t6s1MFcJGpAN56
+         owtYqUWhPFuPbhOYxAUeJAcW3SezkfEbKi0QaIOQST+bDbeHVy/c8A2ntFFvdIvIfxTZ
+         NkoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680081208;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=O11jjMmM5RLColZIiysSNrOXRVv7fG3Cd/+0hEg2fCY=;
+        b=ulRkb9JlOwbxVnaDn0pNjhNE7CWv3jNprxUB3gp+hFuZ+hvYMKLcPwufE19GEH5rdQ
+         xp5bGgZTHImbthOv2U3v8G0xtVDeHKnw20IWZl37Np1YWXQfeOIRTz7YnMgiT9BqusZT
+         Svib7OTzUqDi5mlvha3BNPT6/wHnWpjbRtNX0ICiFCoFctixISqyGhXY25+kTCBUvpd1
+         5qsNcp7RWpBKU0qBNQn0IG4XJS2aE4EyScnnq9DZFn4/6wcpNZ/pA0bkKF30aXytSOZQ
+         qPPIa1mlf4UvxvLi/QzbOo4Gay4HyKGPZRNUl+mT668r8Mcpdn3tCll1VsS0y+B9US42
+         efhA==
+X-Gm-Message-State: AAQBX9ehWBT32Sygwg1uCPwSl4ui916F1gY1dCo5Uxgzyt+PkXK/bm6y
+	6r1T6BrttQ7N3nTdGaxt3CYtBatDtJtKBNQUvMI=
+X-Google-Smtp-Source: AKy350Y+oV4uEBGLPfz/3zUb9eosD3oeTvgrABqiDhKCgUQdD9vFzINfPJ83dYh1U0DVKBBmuTsLQ6K+m01atBJc0a0=
+X-Received: by 2002:a1f:2997:0:b0:432:8b30:81b7 with SMTP id
+ p145-20020a1f2997000000b004328b3081b7mr10179762vkp.2.1680081208255; Wed, 29
+ Mar 2023 02:13:28 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU0PR04MB9669:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a1978ac-6632-4666-b801-08db3033125a
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	efFBkTqaAKFwfGrnXogBWzhMps+7pJ/MCF20Sar5rBZPIgLYrB+S1+7kZub8G1PLQUNTBbMTSbiI4SCDb8gI1TaiRz4g1tHHUYR87nHdk3ycyTSHVvc3d7M0j4UcS08VfO+VSp8UtaZGIu/wAFgATlUgOBoj/cLnsxkOr7AAS0osS0Y+7uCb8C4AvUVwYzwdDwD5rw/n3HaHS1Wj//8x7uSmljtKYK9NlutO74+yB/nmOfeUP8IK5oWKq5wJeAwAM+D/r7M1T2GeULXdScJg6uaZ/h7kHwjc3wg/YLwrOFavIgrTDJZucbrgAuJ1uSW+igdgEcTovYdF6CtQw7lWhrTj7TiMBBTP7dWx99RB6K0VuEJ7AFLmLXtv3+lSWLEi886IdsihbazNwSyHGKJIh8H/44vn75sXEZRIxVmG0WCkCos3GNeuXh8r9QaByfTTeVX1gulmvvc8kKwCsPleZOop9PRsPbcobD8ETV6Xg409nfH+kutIKI1IqO2nKU0RqssxwYKjlxIlYtuWP16mZNkTp/JzgYa6BnFUczI2cj3lJ4JWu/bGzo5B7YznhsdI++o7mRs1dteBc2O+O/wDvFi6QCs4fe+Jx7+PMFmAMzsa9RJtoc8tXyi6nkoNFrVjHeDpMrvICW14s7MoWp2psQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(136003)(346002)(366004)(396003)(376002)(451199021)(53546011)(6512007)(26005)(6506007)(41300700001)(186003)(6486002)(83380400001)(2616005)(31686004)(478600001)(54906003)(37006003)(6636002)(316002)(4326008)(15650500001)(66476007)(38100700002)(66556008)(4744005)(2906002)(8676002)(66946007)(31696002)(86362001)(5660300002)(36756003)(8936002)(6862004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TS9xYmRheW5VWEp5Nzh3aHZxVFFSZkhYR3dOWEZCdGdXQkVqWEtoOWlwSWlp?=
- =?utf-8?B?eldZaWhiK0l0UHRTTWNmazVHd0tMY2VVSEkyMTRiLy9Vc09LSEJPQjVxWlVx?=
- =?utf-8?B?Qm5WaTd6NjRUVFlGbHIvZkRUMUt4NGFIL2l0QkFXYWpJdUZ5V3BMeFRCVmFh?=
- =?utf-8?B?WWcyaG9HL0VWZE8zUjZXOUdRUzBURzlVNmJiNzVMMjBqSThxUFFkV2dQV3F2?=
- =?utf-8?B?Zml0bG41OGFMOW5ydDcyeTN3K2FiQ2UzRjdtQjRoZkVPUWJqald0UktEc1h4?=
- =?utf-8?B?S3N2c1NPcEFEVzBqRkluUW00NmY4RmxWZUZjTTcwZE9KODdxYmtCc2xGaFdw?=
- =?utf-8?B?ZFBLckVXc3hCZDBDbFEvUWJjUG1lY0R5RjczU04wa3RzWmtBZFRrV0pyUTh6?=
- =?utf-8?B?WEwzbWo4TGM3d3ZmR0t4ZnZaRytSWUVtbVZ0TGJOM3dPQUhOeFVRZGUxMHl2?=
- =?utf-8?B?S3JUUVNkNVJFWkx3VEl5YW5GNXg4bS9FUzBBQ2ZBby8yUkxsQkZjSTRMZGVl?=
- =?utf-8?B?bDFvalBJcjBlMDhrb2hPODZjbGFSMkY4WDNIZ0lxQWhHSUFuNGlSYnQrZnBF?=
- =?utf-8?B?ZnlyUE9haThkTWg3UmJTaXFpaXU1eFgwZzEzOE5DcE9vREsvN09oc2drcVlp?=
- =?utf-8?B?d0xEZ3JKRWpvc0d1OEN4TkhqZmkyckVBNy9oZ0c2c1g4clVheUp1TUdLQmdP?=
- =?utf-8?B?K29rc2o0UVM2KzBjTnM1NXlBQ1JWR3lGUmlqNGtCRm8yaWRLdE0yK05oK3Vh?=
- =?utf-8?B?VW9vS21RMml1M3daV2E1SmQxZHQ3YUFaa2hud1JHcjFDREI1QlNpeHpZMHRa?=
- =?utf-8?B?SkZkVnpiWWU4cnU1RU1Md3d2a0xGZzVZemZOaXU0d2FvdEsva0llSlJHS05l?=
- =?utf-8?B?RWczd3Z0Y0l5SjNnZG56T2JCOXdXczJYMXcxNHpTWVhsaXRvam9jd2QxTzdN?=
- =?utf-8?B?M2lrTjBzZGlSQlczQUhZV2VGdUtpamJreEtVb3ZjQkF1d3ZWZy94d2VYTGFh?=
- =?utf-8?B?eWFSSW1ZZ1Rwb3AydGFieUdacWlwOHVuN0JSYzJKeWVGQmRWOUlXRXVCYmIy?=
- =?utf-8?B?R3MxMkZDTXRCWEUzeXo3ZnRaT0NwL214RDFmaHc3Q0NTTlN4V005K3luYTYw?=
- =?utf-8?B?OE5rOVF6WDhidGlQMEpvZGRhSkRkT3d6ZnNtb1BmSENISHQyeG85MjJvRU9I?=
- =?utf-8?B?UUhQM2JodTVtQjdxSHVLdjNQRlpJdGlyemFpdjJEdXZxQno2OUtxWjQrRG9J?=
- =?utf-8?B?TTlXTjkyUDJsSzM0UWtFdTNzUlpOTGRTc0hPeUN4aVdhU1pKNHpMZEhZU21Q?=
- =?utf-8?B?SkFpQUs3Qm5pMUI4SUdjbktVNnA0UXkrKzVrRDVJU1kyNVM3alQ2M0RPeXpK?=
- =?utf-8?B?eExyVEtEU1UvUmRlcjhFaU83WHNSUjQvekt5ZWRnaklodVFra3k4NEhERmNw?=
- =?utf-8?B?Qk5aUElPaTBrTHZmYnZ5T1k0T3lpYWtoTk1xbXZHdFY4NW1jaElBT3FXSzFp?=
- =?utf-8?B?VWN5Y3BVTXJ3SE9NVkx6YWdBTGlFcnJJc0NzUkpzcUw5Z1VkTTdTSmlMazVS?=
- =?utf-8?B?REhnWDFsZDdjWERhTE1kTjdBWGNwNDdrZzEyV2FRcGFDQUNQS3lqdno1ZVVX?=
- =?utf-8?B?UDIrQ0JWUnZPdG1wYmEyb096Um5CVkFMdmNBcXQ3ZHBtLzlSOWpCcUdkZGo1?=
- =?utf-8?B?Z01SRllaSXlRNUhLYmYzSG5uVWYrcDRVeE9XdkRpUi9LUFdkOWFIMzN5NEYw?=
- =?utf-8?B?Uk41NHFmWExQc0xGRkMrbzNCY1oyNmdJVE4zVmRIM1dGOHhuOGlJVkE2SkI5?=
- =?utf-8?B?UEU0MTgwOHBrcVdGM0hEZXc4aUdKQVJsZlB1S2xtODBiSHZ6blFCNkJ6bGsx?=
- =?utf-8?B?cXR4S1pYalQwbnpZQWVJaUlCYVpKOExucGRSc3lJTzVkQUNZSXhma0V3V0lT?=
- =?utf-8?B?cmN2TWk2eFpXR3hhRDV2KzdhUW1oOUFJOFkvTXlNSWZsRkV0UFUvODgvTkhR?=
- =?utf-8?B?SkxiZWZ1RzFrMWRJbXZGSzlZVXU1RGNLVWw0MEtlYkJGeXlrakNqT3M4dWhJ?=
- =?utf-8?B?MlVMWm1aRkpvVmpWT251S1I2YnV4YkJlbzJGNDRpNnBJdTdia3U1QjVJMzB4?=
- =?utf-8?Q?Tkv68dxnZiReuctMWfU4o/XWS?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a1978ac-6632-4666-b801-08db3033125a
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Mar 2023 08:53:31.4089
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E7QVC5OQ146+3Y8GEjRZ7j3YPPOOY+eFL9qt6rO0fNrUXDoKQ+xSFB7yBUfu8TW8U36AsWUB2xHK8NZoP2l/NA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9669
+References: <20230327194126.3573997-1-andrew.cooper3@citrix.com>
+ <20230327194126.3573997-3-andrew.cooper3@citrix.com> <6b6b7da5-dd1a-1b17-b1ce-1b1adb687807@suse.com>
+ <c6661fc2-bdc2-b953-88fb-7250eb2fce1b@citrix.com> <8ca9ddb1-d94a-7010-ab42-e6d0f0670aa3@suse.com>
+In-Reply-To: <8ca9ddb1-d94a-7010-ab42-e6d0f0670aa3@suse.com>
+From: George Dunlap <dunlapg@umich.edu>
+Date: Wed, 29 Mar 2023 09:13:16 +0000
+Message-ID: <CAFLBxZY98QO99+EAURNeDU+tNrLRGot0w2=ybfRWvFEq7XH9dg@mail.gmail.com>
+Subject: Re: [PATCH 2/5] x86/ucode: Fold early_update_cache() into microcode_init_cache()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Wei Liu <wl@xen.org>, Sergey Dyasli <sergey.dyasli@citrix.com>, 
+	Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="0000000000009caac005f8066312"
 
-On 29.03.2023 10:02, Juergen Gross wrote:
-> Issue the same error message in case an illegal page boundary crossing
-> has been detected in both cases where this is tested.
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+--0000000000009caac005f8066312
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On Tue, Mar 28, 2023 at 4:58=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
+te:
 
+> On 28.03.2023 17:07, Andrew Cooper wrote:
+> > On 28/03/2023 2:51 pm, Jan Beulich wrote:
+> >> On 27.03.2023 21:41, Andrew Cooper wrote:
+> >>> It is not valid to retain a bootstrap_map() across returning back to
+> >>> __start_xen(), but various pointers get stashed across calls.
+> >> It's error prone, yes, but "not valid" isn't really true imo: As long =
+as
+> >> nothing calls bootstrap_map(NULL) all mappings will remain as they are=
+.
+> >
+> > And how is this code supposed to know whether it's stashed pointer is
+> > any good or not?
+> >
+> > This is precisely "not valid" means.  It doesn't mean "it definitely
+> > doesn't work", but very much does mean "can't rely on it working".
+>
+> Hmm, not my understanding of "not valid".
+>
 
+A "valid" approach or algorithm is one which can be relied on.  If an
+approach or algorithm may sometimes work or may sometimes not work, it's
+not valid.
+
+That said:
+
+* "Not valid" is kind of vague: it tells you think it's "bad", but not
+how.  (Even "racy" or "risky" or "error-prone" are more descriptive,
+because it prompts you for the types of problems to think about.) It's
+usually better to state exactly what problems might happen if you do X,
+rather than simply saying X is "not valid".
+
+* It's usually better to propose specific alternate wording, rather than
+arguing about whether a given wording is... er, valid or not.
+
+ -George
+
+--0000000000009caac005f8066312
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 28, 2023 at 4:58=E2=80=AF=
+PM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</=
+a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On=
+ 28.03.2023 17:07, Andrew Cooper wrote:<br>
+&gt; On 28/03/2023 2:51 pm, Jan Beulich wrote:<br>
+&gt;&gt; On 27.03.2023 21:41, Andrew Cooper wrote:<br>
+&gt;&gt;&gt; It is not valid to retain a bootstrap_map() across returning b=
+ack to<br>
+&gt;&gt;&gt; __start_xen(), but various pointers get stashed across calls.<=
+br>
+&gt;&gt; It&#39;s error prone, yes, but &quot;not valid&quot; isn&#39;t rea=
+lly true imo: As long as<br>
+&gt;&gt; nothing calls bootstrap_map(NULL) all mappings will remain as they=
+ are.<br>
+&gt; <br>
+&gt; And how is this code supposed to know whether it&#39;s stashed pointer=
+ is<br>
+&gt; any good or not?<br>
+&gt; <br>
+&gt; This is precisely &quot;not valid&quot; means.=C2=A0 It doesn&#39;t me=
+an &quot;it definitely<br>
+&gt; doesn&#39;t work&quot;, but very much does mean &quot;can&#39;t rely o=
+n it working&quot;.<br>
+<br>
+Hmm, not my understanding of &quot;not valid&quot;.<br></blockquote><div><b=
+r></div><div>A &quot;valid&quot; approach or algorithm is one which can be =
+relied on.=C2=A0 If an approach or algorithm may sometimes work or may some=
+times not work, it&#39;s not valid.</div><div><br></div><div>That said:</di=
+v><div><br></div><div>* &quot;Not valid&quot; is kind of vague: it tells yo=
+u think it&#39;s &quot;bad&quot;, but not how.=C2=A0 (Even &quot;racy&quot;=
+ or &quot;risky&quot; or &quot;error-prone&quot; are more descriptive, beca=
+use it prompts you for the types of problems to think about.) It&#39;s usua=
+lly better to state exactly what problems might happen if you do X, rather =
+than simply saying X is &quot;not valid&quot;.</div><div><br></div><div>* I=
+t&#39;s usually better to propose specific alternate wording, rather than a=
+rguing about whether a given wording is... er, valid or not.=C2=A0</div><di=
+v><br></div><div>=C2=A0-George</div></div></div>
+
+--0000000000009caac005f8066312--
 
