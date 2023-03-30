@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD3D06D0B24
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Mar 2023 18:28:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516805.801548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FA246D0B3C
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Mar 2023 18:28:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516812.801579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phv8f-0004v7-6C; Thu, 30 Mar 2023 16:28:37 +0000
+	id 1phv8s-0006S1-4x; Thu, 30 Mar 2023 16:28:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516805.801548; Thu, 30 Mar 2023 16:28:37 +0000
+Received: by outflank-mailman (output) from mailman id 516812.801579; Thu, 30 Mar 2023 16:28:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phv8f-0004tG-2c; Thu, 30 Mar 2023 16:28:37 +0000
-Received: by outflank-mailman (input) for mailman id 516805;
- Thu, 30 Mar 2023 16:28:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1phv8s-0006P3-0E; Thu, 30 Mar 2023 16:28:50 +0000
+Received: by outflank-mailman (input) for mailman id 516812;
+ Thu, 30 Mar 2023 16:28:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=y3PO=7W=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
- id 1phv8d-0003qA-9k
- for xen-devel@lists.xenproject.org; Thu, 30 Mar 2023 16:28:35 +0000
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ea40b6d3-cf17-11ed-85db-49a42c6b2330;
- Thu, 30 Mar 2023 18:28:34 +0200 (CEST)
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2023 09:28:32 -0700
+ id 1phv8q-0004tu-LQ
+ for xen-devel@lists.xenproject.org; Thu, 30 Mar 2023 16:28:48 +0000
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0b8694e-cf17-11ed-b464-930f4c7d94ae;
+ Thu, 30 Mar 2023 18:28:46 +0200 (CEST)
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2023 09:28:39 -0700
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga005.jf.intel.com with ESMTP; 30 Mar 2023 09:28:22 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 30 Mar 2023 09:28:29 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 85CC62BE; Thu, 30 Mar 2023 19:24:52 +0300 (EEST)
+ id 4A5522E9; Thu, 30 Mar 2023 19:24:53 +0300 (EEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,27 +43,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea40b6d3-cf17-11ed-85db-49a42c6b2330
+X-Inumbo-ID: f0b8694e-cf17-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1680193714; x=1711729714;
+  t=1680193726; x=1711729726;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=xbQWUNZRhMDKSfWq+Wm+hoCdoGH5KZ6pm5K/n+XSSwM=;
-  b=HT85l5NYyZLNzawnUtxbMAOFjsxDUmwxdiOu9NPsFbr3jTarqFqrumeb
-   ADFomDuksf0r16xVkhXHTJtMi82ssKSmNZVJm1IueNDOuEQEnMsuWdwpV
-   k5On/KlKTBy4Qv4YbZUQJakA7oFY7c0Mq8GyeD1CsnlHxSNF1WSa0TM+D
-   XGlYiPil0mPNDQCh2gVTQw+xJD8WDYczG5X0SxONWIt9k6yPns26oWl5b
-   nF/gzBfSKEdbt0TBLd9Xjr7N6aF30BQ82lhXJ0cs9P8giPP/J249Xkvzx
-   nYLM3TZfjZ+uz1sQ2h93CPQuhtNYLmUWeBaFSvqW1dM68/NjirmKPZ10v
-   A==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="427496089"
+  bh=CylzEgRAmJXOphwnxg3IbL2UXwW6z4Wch9KnUOezzDg=;
+  b=KWdy3V8PuSK/O9+XoiZNNnunwlnaY0F5BUg2OmimFGnUp1wZTl/5exrd
+   n+Y4U9UnzKB6Z9GKmhDGSNR2o2dH3Q7NpSAAyCguS5g2e352hfvqPvTZY
+   Oe3T/kdo859DwvyFStL/tlET33PdcZReDeYUjwW+THHn9NJt/EgzB5iFu
+   m3n6ZV9BdGCKM1zXnx9IMgiG5fzIDnLiy3qHNH0XARN5GBQ6zmGnaRVQy
+   51sAhUOcMNf8gqAciCcgBZ0cZkJUHaoWMgaAAUN+YaZO5Qn66i+J4sk5y
+   LFNYcI8Y6c7fa8VQu7ZjaTOxplNoa/sh2M5to+Y3BJGGMBC9szhGUuc98
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="321607014"
 X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; 
-   d="scan'208";a="427496089"
+   d="scan'208";a="321607014"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="858971554"
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="687307670"
 X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; 
-   d="scan'208";a="858971554"
+   d="scan'208";a="687307670"
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
@@ -109,9 +109,9 @@ Cc: Miguel Ojeda <ojeda@kernel.org>,
 	Bjorn Helgaas <bhelgaas@google.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH v8 6/7] EISA: Convert to use less arguments in pci_bus_for_each_resource()
-Date: Thu, 30 Mar 2023 19:24:33 +0300
-Message-Id: <20230330162434.35055-7-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v8 7/7] pcmcia: Convert to use less arguments in pci_bus_for_each_resource()
+Date: Thu, 30 Mar 2023 19:24:34 +0300
+Message-Id: <20230330162434.35055-8-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 In-Reply-To: <20230330162434.35055-1-andriy.shevchenko@linux.intel.com>
 References: <20230330162434.35055-1-andriy.shevchenko@linux.intel.com>
@@ -125,34 +125,55 @@ variable definition.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Reviewed-by: Krzysztof Wilczyński <kw@linux.com>
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Acked-by: Dominik Brodowski <linux@dominikbrodowski.net>
 ---
- drivers/eisa/pci_eisa.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/pcmcia/rsrc_nonstatic.c | 9 +++------
+ drivers/pcmcia/yenta_socket.c   | 3 +--
+ 2 files changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/eisa/pci_eisa.c b/drivers/eisa/pci_eisa.c
-index 930c2332c3c4..8173e60bb808 100644
---- a/drivers/eisa/pci_eisa.c
-+++ b/drivers/eisa/pci_eisa.c
-@@ -20,8 +20,8 @@ static struct eisa_root_device pci_eisa_root;
- 
- static int __init pci_eisa_init(struct pci_dev *pdev)
+diff --git a/drivers/pcmcia/rsrc_nonstatic.c b/drivers/pcmcia/rsrc_nonstatic.c
+index ad1141fddb4c..96264ebee46a 100644
+--- a/drivers/pcmcia/rsrc_nonstatic.c
++++ b/drivers/pcmcia/rsrc_nonstatic.c
+@@ -934,7 +934,7 @@ static int adjust_io(struct pcmcia_socket *s, unsigned int action, unsigned long
+ static int nonstatic_autoadd_resources(struct pcmcia_socket *s)
  {
--	int rc, i;
- 	struct resource *res, *bus_res = NULL;
-+	int rc;
+ 	struct resource *res;
+-	int i, done = 0;
++	int done = 0;
  
- 	if ((rc = pci_enable_device (pdev))) {
- 		dev_err(&pdev->dev, "Could not enable device\n");
-@@ -38,7 +38,7 @@ static int __init pci_eisa_init(struct pci_dev *pdev)
- 	 * eisa_root_register() can only deal with a single io port resource,
- 	*  so we use the first valid io port resource.
+ 	if (!s->cb_dev || !s->cb_dev->bus)
+ 		return -ENODEV;
+@@ -960,12 +960,9 @@ static int nonstatic_autoadd_resources(struct pcmcia_socket *s)
  	 */
--	pci_bus_for_each_resource(pdev->bus, res, i)
-+	pci_bus_for_each_resource(pdev->bus, res)
- 		if (res && (res->flags & IORESOURCE_IO)) {
- 			bus_res = res;
- 			break;
+ 	if (s->cb_dev->bus->number == 0)
+ 		return -EINVAL;
+-
+-	for (i = 0; i < PCI_BRIDGE_RESOURCE_NUM; i++) {
+-		res = s->cb_dev->bus->resource[i];
+-#else
+-	pci_bus_for_each_resource(s->cb_dev->bus, res, i) {
+ #endif
++
++	pci_bus_for_each_resource(s->cb_dev->bus, res) {
+ 		if (!res)
+ 			continue;
+ 
+diff --git a/drivers/pcmcia/yenta_socket.c b/drivers/pcmcia/yenta_socket.c
+index 1365eaa20ff4..fd18ab571ce8 100644
+--- a/drivers/pcmcia/yenta_socket.c
++++ b/drivers/pcmcia/yenta_socket.c
+@@ -673,9 +673,8 @@ static int yenta_search_res(struct yenta_socket *socket, struct resource *res,
+ 			    u32 min)
+ {
+ 	struct resource *root;
+-	int i;
+ 
+-	pci_bus_for_each_resource(socket->dev->bus, root, i) {
++	pci_bus_for_each_resource(socket->dev->bus, root) {
+ 		if (!root)
+ 			continue;
+ 
 -- 
 2.40.0.1.gaa8946217a0b
 
