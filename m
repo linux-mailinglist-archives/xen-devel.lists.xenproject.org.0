@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6826D081B
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Mar 2023 16:23:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516754.801389 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AD046D0831
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Mar 2023 16:25:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516759.801399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phtBW-0001kR-0G; Thu, 30 Mar 2023 14:23:26 +0000
+	id 1phtDP-0002KX-Dt; Thu, 30 Mar 2023 14:25:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516754.801389; Thu, 30 Mar 2023 14:23:25 +0000
+Received: by outflank-mailman (output) from mailman id 516759.801399; Thu, 30 Mar 2023 14:25:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phtBV-0001hP-TC; Thu, 30 Mar 2023 14:23:25 +0000
-Received: by outflank-mailman (input) for mailman id 516754;
- Thu, 30 Mar 2023 14:23:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wurm=7W=bounce.vates.fr=bounce-md_30504962.64259b58.v1-7038c390049c4f2fa21330f42d38cb72@srs-se1.protection.inumbo.net>)
- id 1phtBU-0001h1-HB
- for xen-devel@lists.xenproject.org; Thu, 30 Mar 2023 14:23:24 +0000
-Received: from mail180-17.suw31.mandrillapp.com
- (mail180-17.suw31.mandrillapp.com [198.2.180.17])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6bf7a4a0-cf06-11ed-b464-930f4c7d94ae;
- Thu, 30 Mar 2023 16:23:22 +0200 (CEST)
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-17.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4PnQd42RGLzRKM5Zf
- for <xen-devel@lists.xenproject.org>; Thu, 30 Mar 2023 14:23:20 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 7038c390049c4f2fa21330f42d38cb72; Thu, 30 Mar 2023 14:23:20 +0000
+	id 1phtDP-0002Hy-A6; Thu, 30 Mar 2023 14:25:23 +0000
+Received: by outflank-mailman (input) for mailman id 516759;
+ Thu, 30 Mar 2023 14:25:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1phtDN-0002Ho-Cp; Thu, 30 Mar 2023 14:25:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1phtDN-0005ic-Ay; Thu, 30 Mar 2023 14:25:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1phtDN-0003BG-1Q; Thu, 30 Mar 2023 14:25:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1phtDN-0007ae-0x; Thu, 30 Mar 2023 14:25:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,68 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bf7a4a0-cf06-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr;
-	s=mandrill; t=1680186200; x=1680243800; i=charles.schulz@vates.fr;
-	bh=v03fKeJ1Dtzq5D3mOSYPhf696AKYLmjzEpsJ4srESXY=;
-	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
-	b=KNB8kLnDhW2MvPnVTZmIKvfwAgmqcDOtN2wvqOFrAT2p+8oIb5uAicUINhAeMXpbl
-	 hV/ikwRrCtdqb8NQ3XVmfuDDIPA/BG+/V3cPSyIbsqt4pYEOcp92Zo/9202PT+VSZ7
-	 YF9lh0BuNpDwOTwd5uGod8sDF/T14t1gueR8XtXg=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
- i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1680186200; h=From : 
- Subject : To : Cc : Message-Id : Date : MIME-Version : Content-Type : 
- Content-Transfer-Encoding : From : Subject : Date : X-Mandrill-User : 
- List-Unsubscribe; bh=v03fKeJ1Dtzq5D3mOSYPhf696AKYLmjzEpsJ4srESXY=; 
- b=fVdSzXiK0p3IHqvcLGl73IWn9a0ejZYuHFMR/1YTyrNT+47gEs0ZhqH1OfYOWBGNUTHFHL
- zJUwdgNwOrgo0Uqz1AQSzxij7ZJbB32zviw3cw2lncEP5OxEhpqGOYJOoWZqkqa3Ggcd4kg4
- MG6jvb69RyrBRSnmhcrIyGOPY6LYI=
-From: "Charles-H. Schulz" <charles.schulz@vates.fr>
-Subject: Improving website content and an introduction
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4924235f-784d-43da-a6b3-ae27d44c951c
-X-Bm-Transport-Timestamp: 1680186199186
-To: advisory-board@lists.xenproject.org
-Cc: xen-devel@lists.xenproject.org
-Message-Id: <874jq2tj1l.fsf@vates.fr>
-X-Native-Encoded: 0
-X-Report-Abuse: Please forward a copy of this message, including all headers, to abuse@mandrill.com
-X-Report-Abuse: You can also report abuse here: http://mandrillapp.com/contact/abuse?id=30504962.7038c390049c4f2fa21330f42d38cb72
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20230330:md
-Date: Thu, 30 Mar 2023 14:23:20 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=U4hdrR7/6hTGRqEOY5SCrHP2kEFAtXX33hn5PWl2niM=; b=ZJpWnCBttiMMi83nNiT7c2oct1
+	5iw4xPKr5ky6iT9We6tGQtU4GEHeIVmbd7Hv11dRKbmLHzo52rMWkjXUpqQcetqWSvcW5kQMM3pkc
+	cPj2C4Pua2vy2k2KoAta9xZ+Y1k4m/KnIjiBJ0x15bVuILFMwwg5a4rhpe1laVMP5sVA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180065-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 180065: tolerable trouble: pass/starved - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=f41c88a6fca59f99a2eb5e7ed3d90ab7bca08b1b
+X-Osstest-Versions-That:
+    xen=eef4608fe71feddb5fea86678cf3acaf84d10fd2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 30 Mar 2023 14:25:21 +0000
 
-Hello everyone,
+flight 180065 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180065/
 
-I've recently joined the Xen Project and I'm working at Vates on strategy and
-innovation. I will also be formally representing the company at the Advisory
-Board. First: I'm very excited to join and do what I can to help Xen, it's an
-amazing project!
+Failures :-/ but no regressions.
 
-Second, and on to more concrete things: I'd like to work on improve our
-website, both on the content - in fact both the website and the wiki could be
-improved- and on the style and looks.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
-If anyone would like to help and join me in this task I'll be happy to share
-the work and the creative side of things as well :)
+version targeted for testing:
+ xen                  f41c88a6fca59f99a2eb5e7ed3d90ab7bca08b1b
+baseline version:
+ xen                  eef4608fe71feddb5fea86678cf3acaf84d10fd2
 
-Please let me know off or on list if you're interested.
+Last test of basis   180058  2023-03-29 22:01:58 Z    0 days
+Testing same since   180065  2023-03-30 12:00:25 Z    0 days    1 attempts
 
-All the best,
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  starved 
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
--- 
-Charles-H. Schulz
-Chief Strategy Officer - CSO
-XCP-ng & Xen Orchestra - Vates solutions
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Charles Schulz | Vates Chief Strategy Officer
-Mobile: +33 698 655 424
-XCP-ng & Xen Orchestra - Vates solutions
-w: vates.fr | xcp-ng.org | xen-orchestra.com
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   eef4608fe7..f41c88a6fc  f41c88a6fca59f99a2eb5e7ed3d90ab7bca08b1b -> smoke
 
