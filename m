@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F9676D0AE4
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Mar 2023 18:20:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516797.801499 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23D516D0B26
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Mar 2023 18:28:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516801.801508 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phv0L-0002KC-5p; Thu, 30 Mar 2023 16:20:01 +0000
+	id 1phv8X-0003sb-2T; Thu, 30 Mar 2023 16:28:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516797.801499; Thu, 30 Mar 2023 16:20:01 +0000
+Received: by outflank-mailman (output) from mailman id 516801.801508; Thu, 30 Mar 2023 16:28:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1phv0L-0002HU-2W; Thu, 30 Mar 2023 16:20:01 +0000
-Received: by outflank-mailman (input) for mailman id 516797;
- Thu, 30 Mar 2023 16:19:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1phv0J-0002HO-9O
- for xen-devel@lists.xenproject.org; Thu, 30 Mar 2023 16:19:59 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1phv0I-0001a1-Tv; Thu, 30 Mar 2023 16:19:58 +0000
-Received: from [15.248.2.61] (helo=[10.24.67.13])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1phv0I-0001f8-LE; Thu, 30 Mar 2023 16:19:58 +0000
+	id 1phv8W-0003qG-Vr; Thu, 30 Mar 2023 16:28:28 +0000
+Received: by outflank-mailman (input) for mailman id 516801;
+ Thu, 30 Mar 2023 16:28:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=y3PO=7W=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
+ id 1phv8V-0003qA-AP
+ for xen-devel@lists.xenproject.org; Thu, 30 Mar 2023 16:28:27 +0000
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e343b9e2-cf17-11ed-85db-49a42c6b2330;
+ Thu, 30 Mar 2023 18:28:24 +0200 (CEST)
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2023 09:28:21 -0700
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orsmga005.jf.intel.com with ESMTP; 30 Mar 2023 09:28:11 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 9DDDB13A; Thu, 30 Mar 2023 19:24:42 +0300 (EEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,151 +43,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=fFay2VQGBFo8b+MWU800+V6xqHR5dczPyfrocxzUJ5E=; b=VvCTXwQOw8Kp9wyCMC8F+huW43
-	i/niujTAPDpmhLWC8hY+tpX0wbI1rXPBcGy5LSYExiwxrbe8P0BNHmlFKKLJMhQEa2CwxT6u38JAk
-	HaJSLwFbShVIEaJAMalqeha1sKpeaULaRn1VWY8uqktHYrnB6ae11XB3iqR1TOaEUVNM=;
-Message-ID: <e556f895-2b3f-92eb-a6be-e51f04fc869d@xen.org>
-Date: Thu, 30 Mar 2023 17:19:54 +0100
+X-Inumbo-ID: e343b9e2-cf17-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1680193704; x=1711729704;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=+jsYsz3z4S0KxQURpz+5dUW16i3yUqiq6XHaWQFPwWw=;
+  b=mivwcMf9HOkCM7eXDBH8b6cc89f4ST2N1Ame/dD36aFowxQeQhlKlXC6
+   Zj7vJ7BNaweDmG1J+2oLvtje0RkLJWis7CRZtUV0Ua0gAs252pa39tIHb
+   SEIgiOAF9VwGeh7VMu6m1CqwOxl93lLi+O+HO0GjZ0H2dnxW7EigkdgzW
+   bvaSkloC2KP6XXnOT0qsfs/Xsqf62vHaSR2gqfictN35IBek/e49gYXQw
+   dHUiJRgimxKDUuoLxmHS58IB9b94ocgWy4mze+l0OpVbYzDgBh7QrHSCU
+   iSrZlqTndD9aa8SJZLUo8qjI5Me343+7OxeBB+YFoxk4UGTboxNPAJto0
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="427495924"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; 
+   d="scan'208";a="427495924"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10665"; a="858971536"
+X-IronPort-AV: E=Sophos;i="5.98,305,1673942400"; 
+   d="scan'208";a="858971536"
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Niklas Schnelle <schnelle@linux.ibm.com>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Juergen Gross <jgross@suse.com>,
+	Dominik Brodowski <linux@dominikbrodowski.net>,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mips@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-acpi@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+	Matt Turner <mattst88@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Anatolij Gustschin <agust@denx.de>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	"David S. Miller" <davem@davemloft.net>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH v8 0/7] Add pci_dev_for_each_resource() helper and update users
+Date: Thu, 30 Mar 2023 19:24:27 +0300
+Message-Id: <20230330162434.35055-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.40.0.1.gaa8946217a0b
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.0
-Subject: Re: Need help on a issue (Unable to schedule guest for Xen on Arm)
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "Garhwal, Vikram" <vikram.garhwal@amd.com>,
- "Stabellini, Stefano" <stefano.stabellini@amd.com>
-References: <b4badb12-8887-d8d8-138e-8b4536ad95a4@amd.com>
- <2f7a00eb-50c9-bee7-231e-9285ffa4c9a9@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <2f7a00eb-50c9-bee7-231e-9285ffa4c9a9@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Provide two new helper macros to iterate over PCI device resources and
+convert users.
 
+Looking at it, refactor existing pci_bus_for_each_resource() and convert
+users accordingly.
 
-On 30/03/2023 16:57, Ayan Kumar Halder wrote:
-> (Apologies, fixed the formatting issue)
+Note, the amount of lines grew due to the documentation update.
 
-Hi,
+Changelog v8:
+- fixed issue with pci_bus_for_each_resource() macro (LKP)
+- due to above added a new patch to document how it works
+- moved the last patch to be #2 (Philippe)
+- added tags (Philippe)
 
-> 
-> On 30/03/2023 16:50, Ayan Kumar Halder wrote:
->> Hi Xen experts,
->>
->> I need some pointers on an issue I am facing.
->>
->> I am running my downstream port of Xen on Cortex-R52 hardware. The 
->> hardware consist of two R52 cores (the second core is in lockstep 
->> mode). So, currently the hardware does not support SMP.
->>
->> The issue is that Xen is unable to schedule a guest.
+Changelog v7:
+- made both macros to share same name (Bjorn)
+- split out the pci_resource_n() conversion (Bjorn)
 
-Are you sure about this? Because...
+Changelog v6:
+- dropped unused variable in PPC code (LKP)
 
-> So 
->> leave_hypervisor_to_guest() ---> check_for_pcpu_work() and this does 
->> not return.
+Changelog v5:
+- renamed loop variable to minimize the clash (Keith)
+- addressed smatch warning (Dan)
+- addressed 0-day bot findings (LKP)
 
-... leave_hypervisor_to_guest() indicates that a guest vCPU was 
-scheduled. Before we return to the guest we always check if there is 
-some softirq that need to be handled. So...
+Changelog v4:
+- rebased on top of v6.3-rc1
+- added tag (Krzysztof)
 
->>
->> Debugging this, I see  check_for_pcpu_work() --> do_softirq() --> 
->> __do_softirq() --> timer_softirq_action().
+Changelog v3:
+- rebased on top of v2 by Mika, see above
+- added tag to pcmcia patch (Dominik)
 
-.. the fact that check_for_pcpu_work() doesn't return seems to indicate 
-that there is a softirq that is always pending. Can you look which one 
-it is?
+Changelog v2:
+- refactor to have two macros
+- refactor existing pci_bus_for_each_resource() in the same way and
+  convert users
 
->>
->> In timer_softirq_action(), the problem I see is that for all the 
->> timers, "((t = heap[1])->expires < now)" is true.
->>
->>     while ( (heap_metadata(heap)->size != 0) &&
->>             ((t = heap[1])->expires < now) )
->>     {
->>         remove_from_heap(heap, t); <<<<------ So, this gets invoked 
->> for all the timers.
->>         execute_timer(ts, t);
->>     }
->>
->> So, further below reprogram_timer() gets invoked with timeout = 0 and 
->> it disables the timer. So, timer_interrupt() is never invoked.
+Andy Shevchenko (6):
+  kernel.h: Split out COUNT_ARGS() and CONCATENATE()
+  PCI: Introduce pci_resource_n()
+  PCI: Document pci_bus_for_each_resource() to avoid confusion
+  PCI: Allow pci_bus_for_each_resource() to take less arguments
+  EISA: Convert to use less arguments in pci_bus_for_each_resource()
+  pcmcia: Convert to use less arguments in pci_bus_for_each_resource()
 
-Which is expected because there is no timer armed, so there is no need 
-to configure the physical timer.
+Mika Westerberg (1):
+  PCI: Introduce pci_dev_for_each_resource()
 
->>
->> Can someone give any pointers on what the underlying issue could be 
->> and how to debug further ?
-
-See above. You could also look why there is no softtimer pending and/or 
-where Xen is stuck (e.g. the PC).
-
->>
->> I do not observe this behavior while running on R52 FVP. The 
->> difference is that for most of the timers "((t = heap[1])->expires < 
->> now)" is false, so reprogram_timer() gets invoked with non zero 
->> timeout and subsequently, the timer_interrupt() get invoked.
-This reads as one of the following:
-   1) There is a missing barrier
-   2) You didn't properly configure some registers
-   3) There is an HW errata (I know that some of the Cortex-A had an 
-issue in when reading the Timer counter but seems unlikely here)
-
->>
->> Also, looking at the following from xen/arch/arm/time.c.
-> 
-> /* Set the timer to wake us up at a particular time.
->   * Timeout is a Xen system time (nanoseconds since boot); 0 disables 
-> the timer.
->   * Returns 1 on success; 0 if the timeout is too soon or is in the 
-> past. */
-> int reprogram_timer(s_time_t timeout)
-> {
->      uint64_t deadline;
-> 
->      if ( timeout == 0 )
->      {
->          WRITE_SYSREG(0, CNTHP_CTL_EL2);
->          return 1; <<<<<<<<<<<<<<<<<<<<<<-------------- Shouldn't this 
-> be 0 as the comment suggets ?
-
-I think 1 is correct because we want to disable the timer so this is a 
-success. 0 should be return if this was effectively a timeout.
-
-FWIW, x86 also seems to return 1 when the timeout is 0.
-
->      }
-> 
->      deadline = ns_to_ticks(timeout) + boot_count;
->      WRITE_SYSREG64(deadline, CNTHP_CVAL_EL2);
->      WRITE_SYSREG(CNTx_CTL_ENABLE, CNTHP_CTL_EL2);
->      isb();
-> 
->      /* No need to check for timers in the past; the Generic Timer fires
->       * on a signed 63-bit comparison. */
->      return 1;
-> }
-> 
->> Kind regards,
->>
->> Ayan
->>
->>
->>
->>
+ .clang-format                             |  1 +
+ arch/alpha/kernel/pci.c                   |  5 +-
+ arch/arm/kernel/bios32.c                  | 16 +++--
+ arch/arm/mach-dove/pcie.c                 | 10 ++--
+ arch/arm/mach-mv78xx0/pcie.c              | 10 ++--
+ arch/arm/mach-orion5x/pci.c               | 10 ++--
+ arch/mips/pci/ops-bcm63xx.c               |  8 +--
+ arch/mips/pci/pci-legacy.c                |  3 +-
+ arch/powerpc/kernel/pci-common.c          | 21 +++----
+ arch/powerpc/platforms/4xx/pci.c          |  8 +--
+ arch/powerpc/platforms/52xx/mpc52xx_pci.c |  5 +-
+ arch/powerpc/platforms/pseries/pci.c      | 16 ++---
+ arch/sh/drivers/pci/pcie-sh7786.c         | 10 ++--
+ arch/sparc/kernel/leon_pci.c              |  5 +-
+ arch/sparc/kernel/pci.c                   | 10 ++--
+ arch/sparc/kernel/pcic.c                  |  5 +-
+ drivers/eisa/pci_eisa.c                   |  4 +-
+ drivers/pci/bus.c                         |  7 +--
+ drivers/pci/hotplug/shpchp_sysfs.c        |  8 +--
+ drivers/pci/pci.c                         |  3 +-
+ drivers/pci/probe.c                       |  2 +-
+ drivers/pci/remove.c                      |  5 +-
+ drivers/pci/setup-bus.c                   | 37 +++++-------
+ drivers/pci/setup-res.c                   |  4 +-
+ drivers/pci/vgaarb.c                      | 17 ++----
+ drivers/pci/xen-pcifront.c                |  4 +-
+ drivers/pcmcia/rsrc_nonstatic.c           |  9 +--
+ drivers/pcmcia/yenta_socket.c             |  3 +-
+ drivers/pnp/quirks.c                      | 29 ++++-----
+ include/linux/args.h                      | 13 ++++
+ include/linux/kernel.h                    |  8 +--
+ include/linux/pci.h                       | 72 +++++++++++++++++++----
+ 32 files changed, 190 insertions(+), 178 deletions(-)
+ create mode 100644 include/linux/args.h
 
 -- 
-Julien Grall
+2.40.0.1.gaa8946217a0b
+
 
