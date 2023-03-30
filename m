@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C5746CFF5A
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Mar 2023 10:59:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.516535.800817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D2F86CFF58
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Mar 2023 10:59:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.516533.800806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pho7e-0004BL-A4; Thu, 30 Mar 2023 08:59:06 +0000
+	id 1pho7c-0003uw-Vt; Thu, 30 Mar 2023 08:59:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 516535.800817; Thu, 30 Mar 2023 08:59:06 +0000
+Received: by outflank-mailman (output) from mailman id 516533.800806; Thu, 30 Mar 2023 08:59:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pho7e-000485-4I; Thu, 30 Mar 2023 08:59:06 +0000
-Received: by outflank-mailman (input) for mailman id 516535;
+	id 1pho7c-0003tG-SO; Thu, 30 Mar 2023 08:59:04 +0000
+Received: by outflank-mailman (input) for mailman id 516533;
  Thu, 30 Mar 2023 08:59:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QMey=7W=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1phnzz-0005fr-S0
- for xen-devel@lists.xenproject.org; Thu, 30 Mar 2023 08:51:12 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ id 1pho05-0005fr-KE
+ for xen-devel@lists.xenproject.org; Thu, 30 Mar 2023 08:51:17 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04dd9234-ced8-11ed-85db-49a42c6b2330;
- Thu, 30 Mar 2023 10:51:11 +0200 (CEST)
+ id 083a5d76-ced8-11ed-85db-49a42c6b2330;
+ Thu, 30 Mar 2023 10:51:16 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B79661FEAA;
- Thu, 30 Mar 2023 08:51:10 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 623061FEAA;
+ Thu, 30 Mar 2023 08:51:16 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 80343138FF;
- Thu, 30 Mar 2023 08:51:10 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 24403138FF;
+ Thu, 30 Mar 2023 08:51:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LiHdHX5NJWRkIwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 30 Mar 2023 08:51:10 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id QGV/B4RNJWRuIwAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 30 Mar 2023 08:51:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,498 +51,667 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04dd9234-ced8-11ed-85db-49a42c6b2330
+X-Inumbo-ID: 083a5d76-ced8-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1680166270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1680166276; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=n+LXWDKrHnNBBBh+eqFebI/xwup+/rnEIgqudl+aDTI=;
-	b=FW0lERnQI2c8NY81FGNYOqXsmd0iwh6gSC9Xv99qHsYMKX1vrftkz/gLbfOP75s3fXj+La
-	+Z7iiketYiYQiDrAm11gEDmC2W15aRlTDCGylChbjMGu9nw0pxfWeloycFVJdzg+PBtSPx
-	gKTFk+IxrZDZ6HNuweV9QfiemNzco2c=
+	bh=zAR+D5IOBUizI647Da3RaQFwZvOMED7CwgvKNtyoeSU=;
+	b=sf2j7Au+KNRhktSpIulbaSKhECES2Hr5Xvea+ykuaZAFq/W6WkHHiKkwi9Iqh3bo3Tsl/c
+	BtvGku66ic9pZYB84M4rPk4vjSlsI5PlpeMHDa5snWbwYEXpTFtMTw9j1AJhPskM/NBR74
+	NV2wMjKiuf4LwBJ3u3+6qDC252SBTJI=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Julien Grall <julien@xen.org>
-Subject: [PATCH v2 10/13] tools/xenstore: remove no longer needed functions from xs_lib.c
-Date: Thu, 30 Mar 2023 10:50:08 +0200
-Message-Id: <20230330085011.9170-11-jgross@suse.com>
+	Julien Grall <julien@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 11/13] tools/xenstore: split out environment specific live update code
+Date: Thu, 30 Mar 2023 10:50:09 +0200
+Message-Id: <20230330085011.9170-12-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230330085011.9170-1-jgross@suse.com>
 References: <20230330085011.9170-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xs_daemon_tdb() in xs_lib.c is no longer used at all, so it can be
-removed. xs_domain_dev() and xs_write_all() are not used by xenstored,
-so they can be moved to tools/libs/store/xs.c.
-
-Move functions used by xenstore-client only to xenstore_client.c.
+Instead of using #ifdef in xenstored_control.c split out the code of
+environment specific functions (daemon or Mini-OS) to dedicated source
+files.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-V2:
-- move xs_write_all(), too
----
- tools/include/xenstore.h         |   3 +
- tools/include/xenstore_lib.h     |   3 -
- tools/libs/store/xs.c            |  38 ++++++++
- tools/xenstore/xenstore_client.c | 129 +++++++++++++++++++++++++
- tools/xenstore/xs_lib.c          | 156 -------------------------------
- tools/xenstore/xs_lib.h          |  17 ----
- 6 files changed, 170 insertions(+), 176 deletions(-)
+ tools/xenstore/Makefile.common       |   8 +-
+ tools/xenstore/xenstored_control.c   | 252 +--------------------------
+ tools/xenstore/xenstored_lu.h        |  56 ++++++
+ tools/xenstore/xenstored_lu_daemon.c | 132 ++++++++++++++
+ tools/xenstore/xenstored_lu_minios.c | 121 +++++++++++++
+ 5 files changed, 316 insertions(+), 253 deletions(-)
+ create mode 100644 tools/xenstore/xenstored_lu.h
+ create mode 100644 tools/xenstore/xenstored_lu_daemon.c
+ create mode 100644 tools/xenstore/xenstored_lu_minios.c
 
-diff --git a/tools/include/xenstore.h b/tools/include/xenstore.h
-index 2b3f69fb61..a442252849 100644
---- a/tools/include/xenstore.h
-+++ b/tools/include/xenstore.h
-@@ -113,6 +113,9 @@ void *xs_read(struct xs_handle *h, xs_transaction_t t,
- bool xs_write(struct xs_handle *h, xs_transaction_t t,
- 	      const char *path, const void *data, unsigned int len);
+diff --git a/tools/xenstore/Makefile.common b/tools/xenstore/Makefile.common
+index b18f95c103..dffab34603 100644
+--- a/tools/xenstore/Makefile.common
++++ b/tools/xenstore/Makefile.common
+@@ -4,10 +4,10 @@ XENSTORED_OBJS-y := xenstored_core.o xenstored_watch.o xenstored_domain.o
+ XENSTORED_OBJS-y += xenstored_transaction.o xenstored_control.o
+ XENSTORED_OBJS-y += xs_lib.o talloc.o utils.o tdb.o hashtable.o
  
-+/* Simple write function: loops for you. */
-+bool xs_write_all(int fd, const void *data, unsigned int len);
-+
- /* Create a new directory.
-  * Returns false on failure, or success if it already exists.
-  */
-diff --git a/tools/include/xenstore_lib.h b/tools/include/xenstore_lib.h
-index 2266009ec1..43eec87379 100644
---- a/tools/include/xenstore_lib.h
-+++ b/tools/include/xenstore_lib.h
-@@ -47,9 +47,6 @@ const char *xs_daemon_rundir(void);
- const char *xs_daemon_socket(void);
- const char *xs_daemon_socket_ro(void);
+-XENSTORED_OBJS-$(CONFIG_Linux) += xenstored_posix.o
+-XENSTORED_OBJS-$(CONFIG_NetBSD) += xenstored_posix.o
+-XENSTORED_OBJS-$(CONFIG_FreeBSD) += xenstored_posix.o
+-XENSTORED_OBJS-$(CONFIG_MiniOS) += xenstored_minios.o
++XENSTORED_OBJS-$(CONFIG_Linux) += xenstored_posix.o xenstored_lu_daemon.o
++XENSTORED_OBJS-$(CONFIG_NetBSD) += xenstored_posix.o xenstored_lu_daemon.o
++XENSTORED_OBJS-$(CONFIG_FreeBSD) += xenstored_posix.o xenstored_lu_daemon.o
++XENSTORED_OBJS-$(CONFIG_MiniOS) += xenstored_minios.o xenstored_lu_minios.o
  
--/* Simple write function: loops for you. */
--bool xs_write_all(int fd, const void *data, unsigned int len);
--
- /* Convert strings to permissions.  False if a problem. */
- bool xs_strings_to_perms(struct xs_permissions *perms, unsigned int num,
- 			 const char *strings);
-diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
-index 7a9a8b1656..48b0e917be 100644
---- a/tools/libs/store/xs.c
-+++ b/tools/libs/store/xs.c
-@@ -311,6 +311,26 @@ struct xs_handle *xs_domain_open(void)
- 	return xs_open(0);
- }
+ # Include configure output (config.h)
+ CFLAGS += -include $(XEN_ROOT)/tools/config.h
+diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
+index 75f51a80db..c9e5766954 100644
+--- a/tools/xenstore/xenstored_control.c
++++ b/tools/xenstore/xenstored_control.c
+@@ -38,63 +38,13 @@
+ #include "xenstored_core.h"
+ #include "xenstored_control.h"
+ #include "xenstored_domain.h"
++#include "xenstored_lu.h"
+ #include "xenstored_watch.h"
  
-+static const char *xs_domain_dev(void)
-+{
-+	char *s = getenv("XENSTORED_PATH");
-+	if (s)
-+		return s;
-+#if defined(__RUMPUSER_XEN__) || defined(__RUMPRUN__)
-+	return "/dev/xen/xenbus";
-+#elif defined(__linux__)
-+	if (access("/dev/xen/xenbus", F_OK) == 0)
-+		return "/dev/xen/xenbus";
-+	return "/proc/xen/xenbus";
-+#elif defined(__NetBSD__)
-+	return "/kern/xen/xenbus";
-+#elif defined(__FreeBSD__)
-+	return "/dev/xen/xenstore";
-+#else
-+	return "/dev/xen/xenbus";
-+#endif
-+}
-+
- struct xs_handle *xs_open(unsigned long flags)
- {
- 	struct xs_handle *xsh = NULL;
-@@ -431,6 +451,24 @@ out_false:
- #ifdef XSTEST
- #define read_all read_all_choice
- #define xs_write_all write_all_choice
-+#else
-+/* Simple routine for writing to sockets, etc. */
-+bool xs_write_all(int fd, const void *data, unsigned int len)
-+{
-+	while (len) {
-+		int done;
-+
-+		done = write(fd, data, len);
-+		if (done < 0 && errno == EINTR)
-+			continue;
-+		if (done <= 0)
-+			return false;
-+		data += done;
-+		len -= done;
-+	}
-+
-+	return true;
-+}
- #endif
- 
- static int get_error(const char *errorstring)
-diff --git a/tools/xenstore/xenstore_client.c b/tools/xenstore/xenstore_client.c
-index 0628ba275e..8ff8abf12a 100644
---- a/tools/xenstore/xenstore_client.c
-+++ b/tools/xenstore/xenstore_client.c
-@@ -8,6 +8,7 @@
-  *
-  */
- 
-+#include <assert.h>
- #include <err.h>
- #include <errno.h>
- #include <fcntl.h>
-@@ -40,12 +41,140 @@ enum mode {
-     MODE_watch,
- };
- 
-+/* Sanitising (quoting) possibly-binary strings. */
-+struct expanding_buffer {
-+    char *buf;
-+    int avail;
-+};
-+
- static char *output_buf = NULL;
- static int output_pos = 0;
- static struct expanding_buffer ebuf;
- 
- static int output_size = 0;
- 
-+/* Ensure that given expanding buffer has at least min_avail characters. */
-+static char *expanding_buffer_ensure(struct expanding_buffer *ebuf,
-+                                     int min_avail)
-+{
-+    int want;
-+    char *got;
-+
-+    if ( ebuf->avail >= min_avail )
-+        return ebuf->buf;
-+
-+    if ( min_avail >= INT_MAX/3 )
-+        return 0;
-+
-+    want = ebuf->avail + min_avail + 10;
-+    got = realloc(ebuf->buf, want);
-+    if ( !got )
-+        return 0;
-+
-+    ebuf->buf = got;
-+    ebuf->avail = want;
-+    return ebuf->buf;
-+}
-+
-+/* sanitise_value() may return NULL if malloc fails. */
-+static char *sanitise_value(struct expanding_buffer *ebuf,
-+                            const char *val, unsigned len)
-+{
-+    int used, remain, c;
-+    unsigned char *ip;
-+
-+#define ADD(c) (ebuf->buf[used++] = (c))
-+#define ADDF(f,c) (used += sprintf(ebuf->buf+used, (f), (c)))
-+
-+    assert(len < INT_MAX/5);
-+
-+    ip = (unsigned char *)val;
-+    used = 0;
-+    remain = len;
-+
-+    if ( !expanding_buffer_ensure(ebuf, remain + 1) )
-+        return NULL;
-+
-+    while ( remain-- > 0 )
-+    {
-+        c= *ip++;
-+
-+        if ( c >= ' ' && c <= '~' && c != '\\' )
-+        {
-+            ADD(c);
-+            continue;
-+        }
-+
-+        if ( !expanding_buffer_ensure(ebuf, used + remain + 5) )
-+            /* for "<used>\\nnn<remain>\0" */
-+            return 0;
-+
-+        ADD('\\');
-+        switch (c)
-+        {
-+        case '\t':  ADD('t');   break;
-+        case '\n':  ADD('n');   break;
-+        case '\r':  ADD('r');   break;
-+        case '\\':  ADD('\\');  break;
-+        default:
-+            if ( c < 010 ) ADDF("%03o", c);
-+            else           ADDF("x%02x", c);
-+        }
-+    }
-+
-+    ADD(0);
-+    assert(used <= ebuf->avail);
-+    return ebuf->buf;
-+
-+#undef ADD
-+#undef ADDF
-+}
-+
-+/* *out_len_r on entry is ignored; out must be at least strlen(in)+1 bytes. */
-+static void unsanitise_value(char *out, unsigned *out_len_r, const char *in)
-+{
-+    const char *ip;
-+    char *op;
-+    unsigned c;
-+    int n;
-+
-+    for ( ip = in, op = out; (c = *ip++); *op++ = c )
-+    {
-+        if ( c == '\\' )
-+        {
-+            c = *ip++;
-+
-+#define GETF(f) do                   \
-+{                                    \
-+     n = 0;                          \
-+     sscanf(ip, f "%n", &c, &n);     \
-+     ip += n;                        \
-+} while ( 0 )
-+
-+            switch ( c )
-+            {
-+            case 't':           c= '\t';           break;
-+            case 'n':           c= '\n';           break;
-+            case 'r':           c= '\r';           break;
-+            case '\\':          c= '\\';           break;
-+            case 'x':           GETF("%2x");       break;
-+            case '0': case '4':
-+            case '1': case '5':
-+            case '2': case '6':
-+            case '3': case '7': --ip; GETF("%3o"); break;
-+            case 0:             --ip;              break;
-+            default:;
-+            }
-+#undef GETF
-+        }
-+    }
-+
-+    *op = 0;
-+
-+    if ( out_len_r )
-+        *out_len_r = op - out;
-+}
-+
- /* make sure there is at least 'len' more space in output_buf */
- static void expand_buffer(size_t len)
- {
-diff --git a/tools/xenstore/xs_lib.c b/tools/xenstore/xs_lib.c
-index b9941c567c..37e2a272ca 100644
---- a/tools/xenstore/xs_lib.c
-+++ b/tools/xenstore/xs_lib.c
-@@ -49,13 +49,6 @@ static const char *xs_daemon_path(void)
- 	return buf;
- }
- 
--const char *xs_daemon_tdb(void)
--{
--	static char buf[PATH_MAX];
--	snprintf(buf, sizeof(buf), "%s/tdb", xs_daemon_rootdir());
--	return buf;
--}
--
- const char *xs_daemon_socket(void)
- {
- 	return xs_daemon_path();
-@@ -66,44 +59,6 @@ const char *xs_daemon_socket_ro(void)
- 	return xs_daemon_path();
- }
- 
--const char *xs_domain_dev(void)
--{
--	char *s = getenv("XENSTORED_PATH");
--	if (s)
--		return s;
--#if defined(__RUMPUSER_XEN__) || defined(__RUMPRUN__)
--	return "/dev/xen/xenbus";
--#elif defined(__linux__)
--	if (access("/dev/xen/xenbus", F_OK) == 0)
--		return "/dev/xen/xenbus";
--	return "/proc/xen/xenbus";
--#elif defined(__NetBSD__)
--	return "/kern/xen/xenbus";
--#elif defined(__FreeBSD__)
--	return "/dev/xen/xenstore";
--#else
--	return "/dev/xen/xenbus";
+-/* Mini-OS only knows about MAP_ANON. */
+-#ifndef MAP_ANONYMOUS
+-#define MAP_ANONYMOUS MAP_ANON
 -#endif
--}
 -
--/* Simple routines for writing to sockets, etc. */
--bool xs_write_all(int fd, const void *data, unsigned int len)
--{
--	while (len) {
--		int done;
+ #ifndef NO_LIVE_UPDATE
+-struct live_update {
+-	/* For verification the correct connection is acting. */
+-	struct connection *conn;
 -
--		done = write(fd, data, len);
--		if (done < 0 && errno == EINTR)
--			continue;
--		if (done <= 0)
--			return false;
--		data += done;
--		len -= done;
--	}
--
--	return true;
--}
--
- /* Convert strings to permissions.  False if a problem. */
- bool xs_strings_to_perms(struct xs_permissions *perms, unsigned int num,
- 			 const char *strings)
-@@ -179,114 +134,3 @@ unsigned int xs_count_strings(const char *strings, unsigned int len)
+-	/* Pointer to the command used to request LU */
+-	struct buffered_data *in;
++struct live_update *lu_status;
  
- 	return num;
- }
+-#ifdef __MINIOS__
+-	void *kernel;
+-	unsigned int kernel_size;
+-	unsigned int kernel_off;
 -
--char *expanding_buffer_ensure(struct expanding_buffer *ebuf, int min_avail)
--{
--	int want;
--	char *got;
+-	void *dump_state;
+-	unsigned long dump_size;
+-#else
+-	char *filename;
+-#endif
 -
--	if (ebuf->avail >= min_avail)
--		return ebuf->buf;
+-	char *cmdline;
 -
--	if (min_avail >= INT_MAX/3)
--		return 0;
--
--	want = ebuf->avail + min_avail + 10;
--	got = realloc(ebuf->buf, want);
--	if (!got)
--		return 0;
--
--	ebuf->buf = got;
--	ebuf->avail = want;
--	return ebuf->buf;
--}
--
--char *sanitise_value(struct expanding_buffer *ebuf,
--		     const char *val, unsigned len)
--{
--	int used, remain, c;
--	unsigned char *ip;
--
--#define ADD(c) (ebuf->buf[used++] = (c))
--#define ADDF(f,c) (used += sprintf(ebuf->buf+used, (f), (c)))
--
--	assert(len < INT_MAX/5);
--
--	ip = (unsigned char *)val;
--	used = 0;
--	remain = len;
--
--	if (!expanding_buffer_ensure(ebuf, remain + 1))
--		return NULL;
--
--	while (remain-- > 0) {
--		c= *ip++;
--
--		if (c >= ' ' && c <= '~' && c != '\\') {
--			ADD(c);
--			continue;
--		}
--
--		if (!expanding_buffer_ensure(ebuf, used + remain + 5))
--			/* for "<used>\\nnn<remain>\0" */
--			return 0;
--
--		ADD('\\');
--		switch (c) {
--		case '\t':  ADD('t');   break;
--		case '\n':  ADD('n');   break;
--		case '\r':  ADD('r');   break;
--		case '\\':  ADD('\\');  break;
--		default:
--			if (c < 010) ADDF("%03o", c);
--			else         ADDF("x%02x", c);
--		}
--	}
--
--	ADD(0);
--	assert(used <= ebuf->avail);
--	return ebuf->buf;
--
--#undef ADD
--#undef ADDF
--}
--
--void unsanitise_value(char *out, unsigned *out_len_r, const char *in)
--{
--	const char *ip;
--	char *op;
--	unsigned c;
--	int n;
--
--	for (ip = in, op = out; (c = *ip++); *op++ = c) {
--		if (c == '\\') {
--			c = *ip++;
--
--#define GETF(f) do {					\
--			n = 0;				\
--			sscanf(ip, f "%n", &c, &n);	\
--			ip += n;			\
--		} while (0)
--
--			switch (c) {
--			case 't':		c= '\t';		break;
--			case 'n':		c= '\n';		break;
--			case 'r':		c= '\r';		break;
--			case '\\':		c= '\\';		break;
--			case 'x':		GETF("%2x");		break;
--			case '0': case '4':
--			case '1': case '5':
--			case '2': case '6':
--			case '3': case '7':	--ip; GETF("%3o");	break;
--			case 0:			--ip;			break;
--			default:;
--			}
--#undef GETF
--		}
--	}
--
--	*op = 0;
--
--	if (out_len_r)
--		*out_len_r = op - out;
--}
-diff --git a/tools/xenstore/xs_lib.h b/tools/xenstore/xs_lib.h
-index efa05997d6..61229aa435 100644
---- a/tools/xenstore/xs_lib.h
-+++ b/tools/xenstore/xs_lib.h
-@@ -22,8 +22,6 @@
- #include "xenstore_lib.h"
- 
- const char *xs_daemon_rootdir(void);
--const char *xs_domain_dev(void);
--const char *xs_daemon_tdb(void);
- 
- /* Convert permissions to a string (up to len MAX_STRLEN(unsigned int)+1). */
- bool xs_perm_to_string(const struct xs_permissions *perm,
-@@ -32,19 +30,4 @@ bool xs_perm_to_string(const struct xs_permissions *perm,
- /* Given a string and a length, count how many strings (nul terms). */
- unsigned int xs_count_strings(const char *strings, unsigned int len);
- 
--/* Sanitising (quoting) possibly-binary strings. */
--struct expanding_buffer {
--	char *buf;
--	int avail;
+-	/* Start parameters. */
+-	bool force;
+-	unsigned int timeout;
+-	time_t started_at;
 -};
 -
--/* Ensure that given expanding buffer has at least min_avail characters. */
--char *expanding_buffer_ensure(struct expanding_buffer *, int min_avail);
+-static struct live_update *lu_status;
 -
--/* sanitise_value() may return NULL if malloc fails. */
--char *sanitise_value(struct expanding_buffer *, const char *val, unsigned len);
+-struct lu_dump_state {
+-	void *buf;
+-	unsigned int size;
+-#ifndef __MINIOS__
+-	int fd;
+-	char *filename;
+-#endif
+-};
 -
--/* *out_len_r on entry is ignored; out must be at least strlen(in)+1 bytes. */
--void unsanitise_value(char *out, unsigned *out_len_r, const char *in);
+-static int lu_destroy(void *data)
+-{
+-#ifdef __MINIOS__
+-	if (lu_status->dump_state)
+-		munmap(lu_status->dump_state, lu_status->dump_size);
+-#endif
+-	lu_status = NULL;
 -
- #endif /* XS_LIB_H */
+-	return 0;
+-}
+-
+-static const char *lu_begin(struct connection *conn)
++const char *lu_begin(struct connection *conn)
+ {
+ 	if (lu_status)
+ 		return "live-update session already active.";
+@@ -431,202 +381,6 @@ static const char *lu_cmdline(const void *ctx, struct connection *conn,
+ 	return NULL;
+ }
+ 
+-#ifdef __MINIOS__
+-static const char *lu_binary_alloc(const void *ctx, struct connection *conn,
+-				   unsigned long size)
+-{
+-	const char *ret;
+-
+-	syslog(LOG_INFO, "live-update: binary size %lu\n", size);
+-
+-	ret = lu_begin(conn);
+-	if (ret)
+-		return ret;
+-
+-	lu_status->kernel = talloc_size(lu_status, size);
+-	if (!lu_status->kernel)
+-		return "Allocation failure.";
+-
+-	lu_status->kernel_size = size;
+-	lu_status->kernel_off = 0;
+-
+-	errno = 0;
+-	return NULL;
+-}
+-
+-static const char *lu_binary_save(const void *ctx, struct connection *conn,
+-				  unsigned int size, const char *data)
+-{
+-	if (!lu_status || lu_status->conn != conn)
+-		return "Not in live-update session.";
+-
+-	if (lu_status->kernel_off + size > lu_status->kernel_size)
+-		return "Too much kernel data.";
+-
+-	memcpy(lu_status->kernel + lu_status->kernel_off, data, size);
+-	lu_status->kernel_off += size;
+-
+-	errno = 0;
+-	return NULL;
+-}
+-
+-static const char *lu_arch(const void *ctx, struct connection *conn,
+-			   char **vec, int num)
+-{
+-	if (num == 2 && !strcmp(vec[0], "-b"))
+-		return lu_binary_alloc(ctx, conn, atol(vec[1]));
+-	if (num > 2 && !strcmp(vec[0], "-d"))
+-		return lu_binary_save(ctx, conn, atoi(vec[1]), vec[2]);
+-
+-	errno = EINVAL;
+-	return NULL;
+-}
+-
+-static FILE *lu_dump_open(const void *ctx)
+-{
+-	lu_status->dump_size = ROUNDUP(talloc_total_size(NULL) * 2,
+-				       XC_PAGE_SHIFT);
+-	lu_status->dump_state = mmap(NULL, lu_status->dump_size,
+-				     PROT_READ | PROT_WRITE,
+-				     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+-	if (lu_status->dump_state == MAP_FAILED)
+-		return NULL;
+-
+-	return fmemopen(lu_status->dump_state, lu_status->dump_size, "w");
+-}
+-
+-static void lu_dump_close(FILE *fp)
+-{
+-	size_t size;
+-
+-	size = ftell(fp);
+-	size = ROUNDUP(size, XC_PAGE_SHIFT);
+-	munmap(lu_status->dump_state + size, lu_status->dump_size - size);
+-	lu_status->dump_size = size;
+-
+-	fclose(fp);
+-}
+-
+-static void lu_get_dump_state(struct lu_dump_state *state)
+-{
+-}
+-
+-static void lu_close_dump_state(struct lu_dump_state *state)
+-{
+-}
+-
+-static char *lu_exec(const void *ctx, int argc, char **argv)
+-{
+-	return "NYI";
+-}
+-#else
+-static const char *lu_binary(const void *ctx, struct connection *conn,
+-			     const char *filename)
+-{
+-	const char *ret;
+-	struct stat statbuf;
+-
+-	syslog(LOG_INFO, "live-update: binary %s\n", filename);
+-
+-	if (stat(filename, &statbuf))
+-		return "File not accessible.";
+-	if (!(statbuf.st_mode & (S_IXOTH | S_IXGRP | S_IXUSR)))
+-		return "File not executable.";
+-
+-	ret = lu_begin(conn);
+-	if (ret)
+-		return ret;
+-
+-	lu_status->filename = talloc_strdup(lu_status, filename);
+-	if (!lu_status->filename)
+-		return "Allocation failure.";
+-
+-	errno = 0;
+-	return NULL;
+-}
+-
+-static const char *lu_arch(const void *ctx, struct connection *conn,
+-			   char **vec, int num)
+-{
+-	if (num == 2 && !strcmp(vec[0], "-f"))
+-		return lu_binary(ctx, conn, vec[1]);
+-
+-	errno = EINVAL;
+-	return NULL;
+-}
+-
+-static FILE *lu_dump_open(const void *ctx)
+-{
+-	char *filename;
+-	int fd;
+-
+-	filename = talloc_asprintf(ctx, "%s/state_dump", xs_daemon_rootdir());
+-	if (!filename)
+-		return NULL;
+-
+-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+-	if (fd < 0)
+-		return NULL;
+-
+-	return fdopen(fd, "w");
+-}
+-
+-static void lu_dump_close(FILE *fp)
+-{
+-	fclose(fp);
+-}
+-
+-static void lu_get_dump_state(struct lu_dump_state *state)
+-{
+-	struct stat statbuf;
+-
+-	state->size = 0;
+-
+-	state->filename = talloc_asprintf(NULL, "%s/state_dump",
+-					  xs_daemon_rootdir());
+-	if (!state->filename)
+-		barf("Allocation failure");
+-
+-	state->fd = open(state->filename, O_RDONLY);
+-	if (state->fd < 0)
+-		return;
+-	if (fstat(state->fd, &statbuf) != 0)
+-		goto out_close;
+-	state->size = statbuf.st_size;
+-
+-	state->buf = mmap(NULL, state->size, PROT_READ, MAP_PRIVATE,
+-			  state->fd, 0);
+-	if (state->buf == MAP_FAILED) {
+-		state->size = 0;
+-		goto out_close;
+-	}
+-
+-	return;
+-
+- out_close:
+-	close(state->fd);
+-}
+-
+-static void lu_close_dump_state(struct lu_dump_state *state)
+-{
+-	assert(state->filename != NULL);
+-
+-	munmap(state->buf, state->size);
+-	close(state->fd);
+-
+-	unlink(state->filename);
+-	talloc_free(state->filename);
+-}
+-
+-static char *lu_exec(const void *ctx, int argc, char **argv)
+-{
+-	argv[0] = lu_status->filename;
+-	execvp(argv[0], argv);
+-
+-	return "Error activating new binary.";
+-}
+-#endif
+-
+ static bool lu_check_lu_allowed(void)
+ {
+ 	struct connection *conn;
+diff --git a/tools/xenstore/xenstored_lu.h b/tools/xenstore/xenstored_lu.h
+new file mode 100644
+index 0000000000..d2f8e4e57c
+--- /dev/null
++++ b/tools/xenstore/xenstored_lu.h
+@@ -0,0 +1,56 @@
++/* SPDX-License-Identifier: MIT */
++
++/*
++ * Live Update interfaces for Xen Store Daemon.
++ * Copyright (C) 2022 Juergen Gross, SUSE LLC
++ */
++
++#ifndef NO_LIVE_UPDATE
++struct live_update {
++	/* For verification the correct connection is acting. */
++	struct connection *conn;
++
++	/* Pointer to the command used to request LU */
++	struct buffered_data *in;
++
++#ifdef __MINIOS__
++	void *kernel;
++	unsigned int kernel_size;
++	unsigned int kernel_off;
++
++	void *dump_state;
++	unsigned long dump_size;
++#else
++	char *filename;
++#endif
++
++	char *cmdline;
++
++	/* Start parameters. */
++	bool force;
++	unsigned int timeout;
++	time_t started_at;
++};
++
++struct lu_dump_state {
++	void *buf;
++	unsigned int size;
++#ifndef __MINIOS__
++	int fd;
++	char *filename;
++#endif
++};
++
++extern struct live_update *lu_status;
++
++/* Live update private interfaces. */
++void lu_get_dump_state(struct lu_dump_state *state);
++void lu_close_dump_state(struct lu_dump_state *state);
++FILE *lu_dump_open(const void *ctx);
++void lu_dump_close(FILE *fp);
++char *lu_exec(const void *ctx, int argc, char **argv);
++const char *lu_arch(const void *ctx, struct connection *conn, char **vec,
++		    int num);
++const char *lu_begin(struct connection *conn);
++int lu_destroy(void *data);
++#endif
+diff --git a/tools/xenstore/xenstored_lu_daemon.c b/tools/xenstore/xenstored_lu_daemon.c
+new file mode 100644
+index 0000000000..bda543e492
+--- /dev/null
++++ b/tools/xenstore/xenstored_lu_daemon.c
+@@ -0,0 +1,132 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++/*
++ * Live Update for Xen Store Daemon.
++ * Copyright (C) 2022 Juergen Gross, SUSE LLC
++ */
++
++#include <assert.h>
++#include <stdio.h>
++#include <syslog.h>
++#include <sys/stat.h>
++#include <sys/mman.h>
++
++#include "talloc.h"
++#include "xs_lib.h"
++#include "xenstored_core.h"
++#include "xenstored_lu.h"
++
++#ifndef NO_LIVE_UPDATE
++void lu_get_dump_state(struct lu_dump_state *state)
++{
++	struct stat statbuf;
++
++	state->size = 0;
++
++	state->filename = talloc_asprintf(NULL, "%s/state_dump",
++					  xs_daemon_rootdir());
++	if (!state->filename)
++		barf("Allocation failure");
++
++	state->fd = open(state->filename, O_RDONLY);
++	if (state->fd < 0)
++		return;
++	if (fstat(state->fd, &statbuf) != 0)
++		goto out_close;
++	state->size = statbuf.st_size;
++
++	state->buf = mmap(NULL, state->size, PROT_READ, MAP_PRIVATE,
++			  state->fd, 0);
++	if (state->buf == MAP_FAILED) {
++		state->size = 0;
++		goto out_close;
++	}
++
++	return;
++
++ out_close:
++	close(state->fd);
++}
++
++void lu_close_dump_state(struct lu_dump_state *state)
++{
++	assert(state->filename != NULL);
++
++	munmap(state->buf, state->size);
++	close(state->fd);
++
++	unlink(state->filename);
++	talloc_free(state->filename);
++}
++
++FILE *lu_dump_open(const void *ctx)
++{
++	char *filename;
++	int fd;
++
++	filename = talloc_asprintf(ctx, "%s/state_dump", xs_daemon_rootdir());
++	if (!filename)
++		return NULL;
++
++	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
++	if (fd < 0)
++		return NULL;
++
++	return fdopen(fd, "w");
++}
++
++void lu_dump_close(FILE *fp)
++{
++	fclose(fp);
++}
++
++char *lu_exec(const void *ctx, int argc, char **argv)
++{
++	argv[0] = lu_status->filename;
++	execvp(argv[0], argv);
++
++	return "Error activating new binary.";
++}
++
++int lu_destroy(void *data)
++{
++	lu_status = NULL;
++
++	return 0;
++}
++
++static const char *lu_binary(const void *ctx, struct connection *conn,
++			     const char *filename)
++{
++	const char *ret;
++	struct stat statbuf;
++
++	syslog(LOG_INFO, "live-update: binary %s\n", filename);
++
++	if (stat(filename, &statbuf))
++		return "File not accessible.";
++	if (!(statbuf.st_mode & (S_IXOTH | S_IXGRP | S_IXUSR)))
++		return "File not executable.";
++
++	ret = lu_begin(conn);
++	if (ret)
++		return ret;
++
++	lu_status->filename = talloc_strdup(lu_status, filename);
++	if (!lu_status->filename)
++		return "Allocation failure.";
++
++	errno = 0;
++	return NULL;
++}
++
++const char *lu_arch(const void *ctx, struct connection *conn, char **vec,
++		    int num)
++{
++	if (num == 2 && !strcmp(vec[0], "-f"))
++		return lu_binary(ctx, conn, vec[1]);
++
++	errno = EINVAL;
++	return NULL;
++}
++#endif
+diff --git a/tools/xenstore/xenstored_lu_minios.c b/tools/xenstore/xenstored_lu_minios.c
+new file mode 100644
+index 0000000000..0bec8a0037
+--- /dev/null
++++ b/tools/xenstore/xenstored_lu_minios.c
+@@ -0,0 +1,121 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++
++/*
++ * Live Update for Xen Store Daemon.
++ * Copyright (C) 2022 Juergen Gross, SUSE LLC
++ */
++
++#include <stdbool.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <syslog.h>
++#include <sys/mman.h>
++#include <xenctrl.h>
++#include <xen-tools/common-macros.h>
++
++#include "talloc.h"
++#include "xenstored_lu.h"
++
++/* Mini-OS only knows about MAP_ANON. */
++#ifndef MAP_ANONYMOUS
++#define MAP_ANONYMOUS MAP_ANON
++#endif
++
++#ifndef NO_LIVE_UPDATE
++void lu_get_dump_state(struct lu_dump_state *state)
++{
++}
++
++void lu_close_dump_state(struct lu_dump_state *state)
++{
++}
++
++FILE *lu_dump_open(const void *ctx)
++{
++	lu_status->dump_size = ROUNDUP(talloc_total_size(NULL) * 2,
++				       XC_PAGE_SHIFT);
++	lu_status->dump_state = mmap(NULL, lu_status->dump_size,
++				     PROT_READ | PROT_WRITE,
++				     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	if (lu_status->dump_state == MAP_FAILED)
++		return NULL;
++
++	return fmemopen(lu_status->dump_state, lu_status->dump_size, "w");
++}
++
++void lu_dump_close(FILE *fp)
++{
++	size_t size;
++
++	size = ftell(fp);
++	size = ROUNDUP(size, XC_PAGE_SHIFT);
++	munmap(lu_status->dump_state + size, lu_status->dump_size - size);
++	lu_status->dump_size = size;
++
++	fclose(fp);
++}
++
++char *lu_exec(const void *ctx, int argc, char **argv)
++{
++	return "NYI";
++}
++
++int lu_destroy(void *data)
++{
++	if (lu_status->dump_state)
++		munmap(lu_status->dump_state, lu_status->dump_size);
++	lu_status = NULL;
++
++	return 0;
++}
++
++static const char *lu_binary_alloc(const void *ctx, struct connection *conn,
++				   unsigned long size)
++{
++	const char *ret;
++
++	syslog(LOG_INFO, "live-update: binary size %lu\n", size);
++
++	ret = lu_begin(conn);
++	if (ret)
++		return ret;
++
++	lu_status->kernel = talloc_size(lu_status, size);
++	if (!lu_status->kernel)
++		return "Allocation failure.";
++
++	lu_status->kernel_size = size;
++	lu_status->kernel_off = 0;
++
++	errno = 0;
++	return NULL;
++}
++
++static const char *lu_binary_save(const void *ctx, struct connection *conn,
++				  unsigned int size, const char *data)
++{
++	if (!lu_status || lu_status->conn != conn)
++		return "Not in live-update session.";
++
++	if (lu_status->kernel_off + size > lu_status->kernel_size)
++		return "Too much kernel data.";
++
++	memcpy(lu_status->kernel + lu_status->kernel_off, data, size);
++	lu_status->kernel_off += size;
++
++	errno = 0;
++	return NULL;
++}
++
++const char *lu_arch(const void *ctx, struct connection *conn, char **vec,
++		    int num)
++{
++	if (num == 2 && !strcmp(vec[0], "-b"))
++		return lu_binary_alloc(ctx, conn, atol(vec[1]));
++	if (num > 2 && !strcmp(vec[0], "-d"))
++		return lu_binary_save(ctx, conn, atoi(vec[1]), vec[2]);
++
++	errno = EINVAL;
++	return NULL;
++}
++#endif
 -- 
 2.35.3
 
