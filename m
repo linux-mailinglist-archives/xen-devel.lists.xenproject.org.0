@@ -2,32 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9C4F6D45FC
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 15:42:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517456.802791 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCF916D4879
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 16:29:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517465.802818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjKQh-0005aC-FX; Mon, 03 Apr 2023 13:41:03 +0000
+	id 1pjLAI-0001eR-5P; Mon, 03 Apr 2023 14:28:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517456.802791; Mon, 03 Apr 2023 13:41:03 +0000
+Received: by outflank-mailman (output) from mailman id 517465.802818; Mon, 03 Apr 2023 14:28:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjKQh-0005Xj-CD; Mon, 03 Apr 2023 13:41:03 +0000
-Received: by outflank-mailman (input) for mailman id 517456;
- Mon, 03 Apr 2023 13:41:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pjLAI-0001cP-2Y; Mon, 03 Apr 2023 14:28:10 +0000
+Received: by outflank-mailman (input) for mailman id 517465;
+ Mon, 03 Apr 2023 14:28:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+Dtn=72=gmail.com=tamas.k.lengyel@srs-se1.protection.inumbo.net>)
- id 1pjKQf-0005Xd-PG
- for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 13:41:01 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b01bb91-d225-11ed-85db-49a42c6b2330;
- Mon, 03 Apr 2023 15:40:59 +0200 (CEST)
-Received: by mail-wr1-x435.google.com with SMTP id v1so29397987wrv.1
- for <xen-devel@lists.xenproject.org>; Mon, 03 Apr 2023 06:40:59 -0700 (PDT)
+ <SRS0=W/KQ=72=citrix.com=prvs=450b71a79=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1pjLAF-0001cJ-LF
+ for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 14:28:08 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bbe73976-d22b-11ed-b464-930f4c7d94ae;
+ Mon, 03 Apr 2023 16:28:01 +0200 (CEST)
+Received: from mail-dm6nam10lp2102.outbound.protection.outlook.com (HELO
+ NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.102])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 03 Apr 2023 10:27:52 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by DM6PR03MB5241.namprd03.prod.outlook.com (2603:10b6:5:24c::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.34; Mon, 3 Apr
+ 2023 14:27:50 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::48a7:d1ab:897:acda%6]) with mapi id 15.20.6254.026; Mon, 3 Apr 2023
+ 14:27:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,499 +49,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b01bb91-d225-11ed-85db-49a42c6b2330
+X-Inumbo-ID: bbe73976-d22b-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1680532081;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=W48LfNmEx10sdamQf9Z+l8xZx5nNUTgaMAo86JMl588=;
+  b=PrdTD8WIjJ7w4fbwdHL6s1IfS28R5Sj+X3OUnKq6OFkZynda8Bm9LWvE
+   OkcIy2bQRybB0IDWgRg8RUONezmCgx3Dkth38IHWsHfhjTOofXfW894y0
+   lXUgiUmwN6xHEZ8vNOeZdagvyJAedJElKRqQBMrIddHiV/y9eHtnXIjT6
+   c=;
+X-IronPort-RemoteIP: 104.47.58.102
+X-IronPort-MID: 103501731
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:W0OpQ6liXCLCJColnsL7jnro5gynJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJKWG6HaKuNYDCkfNp+b9m39BtXvMPRyNRqHlFu+yoyFCMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE4p7aSaVA8w5ARkPqgX5ASGzhH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ eM+eWtONA2pu8C/yraBd/g3tJotJvC+aevzulk4pd3YJdAPZMmbBonvu5pf1jp2gd1SF/HDY
+ cZfcSBocBnLfxxIPBEQFY46m+CrwHL4dlW0qnrM/fZxvzeVkVw3ieC3WDbWUoXiqcF9hEGXq
+ 3iA523kKhobKMae2XyO9XfEaurnxHugBdpLS+bhnhJsqACJ/2AwBjZJb2GyhPWhukesae1xA
+ kNBr0LCqoB3riRHVOLVXRe1vXqFtR40QMdLHqsx7wTl4rXQyxaUAC4DVDEpQMwrsoo6SCIn0
+ neNnsj1Hnp/vbuNU3Wf+7yI6zSoNkAowXQqYCYFSU4J5oflqYRq1hbXFI87Suiyk8H/Hiz2z
+ 3aSti8iir4PjMkNkaKm4VTAhDHqrZ/MJuIo2jjqsquexlsRTOaYi0aAsDA3Md4owF6lc2S8
+IronPort-HdrOrdr: A9a23:Wgm9aqBUpm9+gGflHemV55DYdb4zR+YMi2TDtnoBMCC9F/bzqy
+ nApoV/6faZskdyZJhko6HiBEDiexLhHPxOkO0s1N6ZNWGMhILrFuFfBODZslrd8kPFh4hgPG
+ RbH5SWyuecMbG3t6nHCcCDfeod/A==
+X-IronPort-AV: E=Sophos;i="5.98,314,1673931600"; 
+   d="scan'208";a="103501731"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YWu362jbBNliunOyuAp3h3gdwvNH/X19HuMKSGO0atc0oGVimOcA8ph/O1pm7mDP8ml+jmJsgydSIgBOmaxEAPE1/d7K3+0V1CQlZufiTTGfLlL4RmAgCYXQQppeWtBAiEZGPOsO2Yygfz2IDSnyzE7/cYVJHYbU5CczvZD0i//V/uV6W4Chy95/UPUwurd5KP7JsaFyj6/RRcGNAIUycsCe05rXmOJxF1MECwNhx3Cd3wTjXSx0bdxDGL5fvBUjN/zNfr8RdUEuB7tzmp8i1NJ+WlNeeol2qT/EHeywuohzaaECIRT3SxafSTw/WLQiGkRzoB8RjATP43T4jnXPhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IAfwAS67uPv82PW8HQEBVpAbw93Rh6M0Lh2mOQ5+z9k=;
+ b=bXsUw9zjHuDG2HSDd8wCzEAeZeGUHYpq++tz0tYcvFmd++auWVhyKJNtLLifl6AV88jXskCdMUJ5uRM3C6k3pHXgJvzNbqQ4ToOjS88AGocnSjSmg0Cp1o0Q/5g1dyOHlBZ+EJGI83udAIqG8bWhAiQKJMKW1k0OzjKgOe3+E6L7b+CgNTPdKO7+g2Vts//2fxM14WnPkHXdD8mEka73rB2bCkglAyo9TshovP05NXZNS7YsJ8iSH2QHKZErmGttVY+cMsCMC6llBFMUZsafL9/q1dVsvAYm6t2TxCygD2sURiWtogY+dMqCDuandO6aFo7F48wVi6UGATuCI2puGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680529259;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=pJFLvj+kzgAAuR4I2/Wel89bouBKjG12WhBkLGSFURQ=;
-        b=WHSRr8THUJaSUtEklr0o/86/+GjCz1jnc8gSlIKp88U5RvaDwKA84e/h9WXAM9LcSx
-         Bf3unCTzlPfSWHfIvfYn7KrNnuBRtxse4398WVHT8YZjF0hvq91YFJdzDESZM7HWYx4f
-         iVQBdNulbpw4yonCU2ok6LfYZvS/MdyBZwNpq7LaumfqCoWaFqGhUODfy6Ge+2b/uIG3
-         0937Eo3rQPJnVm5jENJqn4NK81h1iT59aZod7IhZUt/FcQ4ULX8xq5P/qv2anetDp+8J
-         DQjJYwdkt5l23hGbfA3CfFcRuvVoX6k69b1rxxiUjKBbfq39mpWi69ramoCNyLMaz31Q
-         lh4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680529259;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=pJFLvj+kzgAAuR4I2/Wel89bouBKjG12WhBkLGSFURQ=;
-        b=QuRgrTObXiRVSryDh/7E35i36EuvqFQ5sw4WZ5mfbX00fj5HkSBPC2JcRmCkeAa7G+
-         WD6bX6yRQMx/LX/GS281m2ASnGRhPDjPaaWkVD763Z/mhAeP/tkORhKfNq/KEZ4qsBUS
-         W9dhWF9d9AuJJRt/iurB1eXijQ5ospf2U9ohb2IgvFkub8o4mwcnscFhNo8DgFSnU3jp
-         7kdWK142PpewD7UrZt39eJn/iZgJ1pMLxEV2lSWRl8dx/EEODYi/HGHxYGjUf0B5MS48
-         t98ZzDu7mCmKKYkGQCllSxgCk67NPBduXR3c4CYrqpUhwHfvRvj/tJXs2C+M/wT4d1IK
-         A8lw==
-X-Gm-Message-State: AAQBX9f7nvusqwoa+0E/HB9NIwJebMbaa4l1tTJvn+9mtKGA4h8QXKGb
-	uYLaqooKCSLSyerflAvad+vC3lRPf+Qtn6wrf1bffpO3OqE=
-X-Google-Smtp-Source: AKy350aDobyDVG9z/7nOQ+1yOitdFN3I0fdvQgDKY5Cs8cNF/SeNwb6g5B4WY2Q9UJxleNqCuvKRjxmjXSPmDVAk7eE=
-X-Received: by 2002:adf:e98d:0:b0:2c5:7eb5:97a6 with SMTP id
- h13-20020adfe98d000000b002c57eb597a6mr7693051wrm.12.1680529258904; Mon, 03
- Apr 2023 06:40:58 -0700 (PDT)
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IAfwAS67uPv82PW8HQEBVpAbw93Rh6M0Lh2mOQ5+z9k=;
+ b=Z8Ch6u1IzzGH1C+wjElwH7e0V5ftQxVQvbxaQjevAD/DKXJNmYuCfa7eIVHHMqA7JGyCsIwSRE4noKbInsD1GGsZElOpXuUCok2m5HrxVPM81hiU+Dyf2PF0hSCyiaBorYsT4WszXcDOoQTBKXea230rrEjOC4NsbMxRi521zM0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 3 Apr 2023 16:27:46 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [RFC PATCH] x86/p2m-pt: do type recalculations with p2m read lock
+Message-ID: <ZCriYs9y6JU1gat9@Air-de-Roger>
+References: <20230403101449.93323-1-roger.pau@citrix.com>
+ <8d976d34-8a1e-95ad-3bc9-3cb704c1fae7@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <8d976d34-8a1e-95ad-3bc9-3cb704c1fae7@suse.com>
+X-ClientProxiedBy: BN9PR03CA0325.namprd03.prod.outlook.com
+ (2603:10b6:408:112::30) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
-References: <MN2PR07MB6045100322F58085DD6B1488E4BF9@MN2PR07MB6045.namprd07.prod.outlook.com>
- <c12ff321-e1ad-1377-2158-195594fdbe04@citrix.com> <MN2PR07MB6045B965DD2DA308C55905F9E4BF9@MN2PR07MB6045.namprd07.prod.outlook.com>
- <a1a814cd-9a76-9828-ffab-5590fcd5925f@citrix.com> <BYAPR07MB6040EB2AEC1567C5982FBD51E48E9@BYAPR07MB6040.namprd07.prod.outlook.com>
-In-Reply-To: <BYAPR07MB6040EB2AEC1567C5982FBD51E48E9@BYAPR07MB6040.namprd07.prod.outlook.com>
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Date: Mon, 3 Apr 2023 09:40:22 -0400
-Message-ID: <CABfawhnOvSGeAQPxdm8Yrm8iRswiZ=r4g+B6ZhLVx4bYV5y7GA@mail.gmail.com>
-Subject: Re: Best way to use altp2m to support VMFUNC EPT-switching?
-To: "Johnson, Ethan" <ejohns48@cs.rochester.edu>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="00000000000082fece05f86eb58f"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|DM6PR03MB5241:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbc82857-6909-4183-2529-08db344f9a66
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	CMTS+V5ALtoPTYzCDgDBdeInc9OyLTqbZ0fc33ySvPmpqjJqFGPMkL0I+gcBk9vRIEmeAa8THkphAiw2GIo4Egos1Ti50eXSyco9Hh3TQ5Lh0S/fLXZmGgc9SoDgPL7OF9n19DuDmWoP/kOV6EQKqWq7Enr18nM6ZlMv3U/UTI5lFQhTUo1lE0dteo9BU7bA7rxeFrD+xkzDSITkg152h2cH5cPl2XkClMKoSET2o1w2UG0yQYmbEti+mMMHFQp1HJ1gAIxKrtFQe1uJ9kQLp8ZmhU98nKGD/QbTc/EBXDgfINXPeRSWee/gYLalT4YX6e43oLG6HfAt62wUy8e/OgCgRA1svLSs1OCIwnRC56rQ8xzHtJloyKkZA1Pvgw6eC0zC7iXSJAI5dZxgZhB7VfFQm0uyBzga6mt+eiKbeMEmxf+PwGfUnLlD6peq1A1HIfugaak8ni9tUvdIU0ne6l+MFVChMjcq69VOnkE7g7DYKO3w+lgEgkgCSag+0fiGar8I4NywzP0JVE1/gKDFqlh0MWzJX59+AflyY39T6CPLNWWD1rlhVY/aaWwV3nVA
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(7916004)(4636009)(366004)(396003)(346002)(376002)(136003)(39860400002)(451199021)(6486002)(83380400001)(5660300002)(6916009)(8676002)(66556008)(66476007)(2906002)(66946007)(38100700002)(41300700001)(54906003)(4326008)(82960400001)(316002)(8936002)(86362001)(478600001)(6666004)(6512007)(26005)(6506007)(9686003)(85182001)(33716001)(186003)(53546011);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aktwaFhnOWZGdWVJeGVNR2dWN3VWdXR3aW9CNHIrTTR1endPRDVKcDJ6UnRH?=
+ =?utf-8?B?ZzZxMFlkK3lMRmlMZXNoaUdCQklkSzlpclhDeWRCdjZ3S3JUVTBlVVozNVV2?=
+ =?utf-8?B?ZU51cEV5cGNGOUowVUtTQ1R0VGdHTHdZa3d2NXV3cEZJYmtUaGIzbEpmTHRZ?=
+ =?utf-8?B?RndSRHFDaGU2YjdTT0hSYTJMN0cyZy9vUGlIUXJDVFBOeFBjWk5TeDcrUi91?=
+ =?utf-8?B?UkNWMjl3eEFDbjRxTnBFUDBNN3BOYWx0clNUOTg4VEUvVDJaZEZhclUzZXp3?=
+ =?utf-8?B?bzRXb2lwSlJUVmp0SWxxbG04TGZzK29XcXg5TWJVZVl1Tnk3eG5WMDk1dTRk?=
+ =?utf-8?B?UHJjUzY0RXdzUEpMV3VpbURDMVB0YlFFcUhWM3FpeTZiaUdxNTBJSmkwNllD?=
+ =?utf-8?B?TTlYdlRqT2c2NnNNQ0Y1bEoyOFVZWS9rRGRxNlg3VjFaRytLbjhkUHhtMzQv?=
+ =?utf-8?B?RHBQNS9aeDhKMUY0aWYySFArbm9XTGpZMElvUHF2aTlTbFhBM1NNbWduTlhX?=
+ =?utf-8?B?dmZYbzN1NUVPTzRLQTNoN0lSbFFMeFZ3cVdXcGhxamR4b1d3bnhiN0J0SVpy?=
+ =?utf-8?B?TVlrd010SFRXS0J0dDMwT21xUUxmZjU3Wmg4VWJkQU5MQUFacEdMd0pNUTVm?=
+ =?utf-8?B?UkZpY0FueFYzRi9wTVhnVFQzT3c2MTVmQ29leHdRU0VKMllBZDQxMUc1cDdu?=
+ =?utf-8?B?LzQyM0c4MUlkdFZmbVEzTmFKVS94bW84QzI0czEydkd0RXJ6cll5bzlINUlX?=
+ =?utf-8?B?blhJbVNuV1Z6SDNzWjh3OUlLT1FlbTUyQ3dkZmhoNjR3b1FEaDRJRnF2VTlz?=
+ =?utf-8?B?ZlN5SjdZb21GMElOYW1VOVc2M1ZTVEFtTUVpZjdIVG81bDc1ZUpQMkUvWG9O?=
+ =?utf-8?B?cFhscFdzS3M2NHRtRmZXSktSempubXd4SnEyVmhPd3cwWHBSSno0UXl1WVZY?=
+ =?utf-8?B?SjhWby9HeGNDOTd3VXk0QUpjaEE0NXV6OXBFa0hVaDZCN25WR0xwcVdiWW5P?=
+ =?utf-8?B?WWdzV3lOZzNnUXpEdTFNciszcjJMYTF4dUYyekU1QmxONTlLM0tqZnkyUHkr?=
+ =?utf-8?B?ZXAwYjQ5b3JGZkhvWjl3TlljTWlZMDhEUC80QjhUK0hudHdMWkx3YmFGYXM5?=
+ =?utf-8?B?eStqMEROZDdWZ2tteXpvSFpBUHNoS2M2SCtEZTdwOU9wRno3ZmJKQkpLNVgw?=
+ =?utf-8?B?L1NRN1d0VFJuTktQcFF3SlpzWXE2dTJRc2RBbzNGdzcxTFRQQ204SUZabE5q?=
+ =?utf-8?B?YUNSVFFIUEhuMmFhRjVDazBXejBmdDd5YWF1b09vQjRKR2dzRm9iQWROREFP?=
+ =?utf-8?B?WDkvaWpXQnhLV0gydWJXeVE3bTFzODVXSFNVZlEzTHFHaC9mcGVPaXluLzB0?=
+ =?utf-8?B?cWl0enJlV0tzeEU5WDF4UkRGdXRQOE9mb2hQWDBSMjY4SFZJTlZKTzBQM2hi?=
+ =?utf-8?B?NW5NU09HeExhU1F2clNpaFdWcXJJUURYSHRsb0MybTU5VEtobDc4QVVIZjNM?=
+ =?utf-8?B?aDB2OHRlY0c4ejJsT0F3bzNEQzR6LzVpbkVBVDQ1cVpReFF4RUZ4d0cxY0FI?=
+ =?utf-8?B?MTdtejdWVDZrUFBiRzlZQS9NOTBreDBmbmR0NERPZVhFbWJScjdSdVRPVVhq?=
+ =?utf-8?B?SCtnc29aaHpUTFo4RlJEQlJTOURoTjNNbUZrMDV6cWhtOUhtNW9kcE5OSTdi?=
+ =?utf-8?B?Q0ZDNDA3NXlHTjd4VjdLbmVocDNRZlZOZGJkZjY3WXZFbGNwYytBMDRTalRX?=
+ =?utf-8?B?QnZHSlBGTFZzVUc2QXc0RHJRRGx0NG1VT2dMUk9iUzBIOVJvLzZ2ay9CeDdT?=
+ =?utf-8?B?WlBkQVp2QXczVkRBWmhlc3lremhGT2J1Z2RTZUFnTXFPczNGZ0hNcWRMclY0?=
+ =?utf-8?B?U005REJMSmpsaEYrRkgxcTNwbUZKNkxtU0JMalNXem4ybmc4Y3JmSjNGNlc3?=
+ =?utf-8?B?U0E2OWREajlSdlM5UGphWG8zNktIVGpxK0hOUW9TVUF4bVA5MG9mOGsxczlt?=
+ =?utf-8?B?Q3F5dGZ5VXVRNkZFOWRNbWZtd1pHbG51QzQvVDRUQWpSVERlM0NPT2dIOW5Z?=
+ =?utf-8?B?NW1lV3VyU1ZpeHdhbjRqKzhXOG51OUdVOGsyckZIV3hYV1kvOU4zd1JVTVAy?=
+ =?utf-8?Q?dQn4msdkz6lSCF1TllD/aNkGC?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	K8q+NIF1BxydUNFf60C3GgpCEup+KnhHZxUYiotpMVLtYT4xVkR5ouuvjFlsFOx1mGdNuPmbGLdnL57V+65kD09YXZflELEr4Jc8Ihyjv5fiVm02BJ/UHhfVmlX2vQel6IfV9tYvDpa/x9cehU/ixumGso4yPQH1FMTVTayMG2Q4bnOnTR4i7ewjk1eqh/pDv4ACrAZw44sMLXNPUrKre5WFBx+IL3OKwU0kBelNIdlthBk61NeXrBeElbropDns0KGlKWTNt7rYAZlhXZwWYAUTEi3011oxOwXbHd5989J9d+Uc9Q3xhiLcv+FKYmHq7It1FkEHT9XtL50jiJ/rf4lA21l1hkziNyXAvxU7QiPTCgTIDDrPLYU9j6YT0PvAz1h3e2W6sLDCYQIgVfsdtJkqEtY1eH+zGLdvZViVagUTgc2vexPAvfEiQFCJ9V9OJgjzn5AfUWA15Aaf7335dxN+cIP9kvCpwnIFg9CKu355jMqNvNoFwIWBtJygQQL0tasRoQFVuIudNxZBch/N11d9ojo79rfD8Kbvdn0Rydrqs6AvXnaPhrvkwBdWZopf5GWNxhyB5+OmZOISQySyhuNbL9tUQpTtNE78LwdAc6EFI6TOArtwJeAw/wXjV1KkELAqAFhf8MqGQSFZu7/UYmOGpa1tY9bhr9bErzFQAwYEd929CgvuZrXN0ryU5BZoXfNSU0Y52PX623Dd7QRGO5ZOw92zsNlWZucn1tX8t4AoxWrB87SvGlYKSvcYEtH+DHEyO+WEm7LkAgm30qCXL/GaiXjb74J7oGK1fWdPc7eISQnL5JKOiaexiEtdWFeR
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbc82857-6909-4183-2529-08db344f9a66
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 14:27:50.5791
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YZgaDS1TRPjCreLTNaPC3eS346DtHhHxyXwfFKkscOJT49QEC3JNJzq772aW6mJKLaxL8AItCIWYtDLn7hqJVA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5241
 
---00000000000082fece05f86eb58f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Mon, Apr 03, 2023 at 02:39:08PM +0200, Jan Beulich wrote:
+> On 03.04.2023 12:14, Roger Pau Monne wrote:
+> > --- a/xen/arch/x86/mm/p2m-pt.c
+> > +++ b/xen/arch/x86/mm/p2m-pt.c
+> > @@ -486,9 +486,6 @@ static int cf_check do_recalc(struct p2m_domain *p2m, unsigned long gfn)
+> >          p2m_type_t ot, nt;
+> >          unsigned long mask = ~0UL << (level * PAGETABLE_ORDER);
+> >  
+> > -        if ( !valid_recalc(l1, e) )
+> > -            P2M_DEBUG("bogus recalc leaf at d%d:%lx:%u\n",
+> > -                      p2m->domain->domain_id, gfn, level);
+> >          ot = p2m_flags_to_type(l1e_get_flags(e));
+> >          nt = p2m_recalc_type_range(true, ot, p2m, gfn & mask, gfn | ~mask);
+> >          if ( nt != ot )
+> 
+> I'm afraid I neither understand why you make this change, nor why you
+> then leave the other use of valid_recalc() in place.
 
-On Wed, Mar 29, 2023 at 10:29=E2=80=AFPM Johnson, Ethan <ejohns48@cs.roches=
-ter.edu>
-wrote:
->
-> On 2023-03-16 02:14:18 +0000, Andrew Cooper wrote:
-> > Ok, so there is a lot here.  Apologies in advance for the overly long
-> > answer.
-> >
-> > First, while altp2m was developed in parallel with EPTP-switching, we
-> > took care to split the vendor neutral parts from the vendor specific
-> > bits.  So while we do have VMFUNC support, that's considered "just" a
-> > hardware optimisation to speed up the HVMOP_altp2m_switch_p2m hypercall=
-.
-> >
-> > But before you start, it is important to understand your security
-> > boundaries.  You've found external mode, and this is all about
-> > controlling which aspects of altp2m the guest can invoke itself, and
-> > modes other than external let the guest issue HVMOP_altp2m ops itself.
-> >
-> > If you permit the guest to change views itself, either with VMFUNC, or
-> > HVMOP_altp2m_switch_p2m, you have to realise that these are just
-> > "regular" CPL0 actions, and can be invoked by any kernel code, not just
-> > your driver.  i.e. the union of all primary and alternative views is on=
-e
-> > single security domain.
-> >
-> > For some usecases this is fine, but yours doesn't look like it fits in
-> > this category.  In particular, no amount of protection on the trampolin=
-e
-> > pages stops someone writing a VMFUNC instruction elsewhere in kernel
-> > space and executing it.
-> >
-> > (I have seen plenty of research papers try to construct a security
-> > boundary around VMFUNC.  I have yet see one that does so robustly, but =
-I
-> > do enjoy being surprised on occasion...)
-> >
-> > The first production use this technology I'm aware of was Bitdefender's
-> > HVMI, where the guest had no control at all, and was subject to the
-> > permission restrictions imposed on it by the agent in dom0.  The agent
-> > trapped everything it considered sensitive, including writes to
-> > sensitive areas of memory using reduced EPT permissions, and either
-> > permitted execution to continue, or took other preventative action.
-> >
-> > This highlights another key point.  Some entity in the system needs to
-> > deal with faults that occur when the guest accidentally (or otherwise)
-> > violates the reduced EPT permissions.  #VE is, again, an optimisation t=
-o
-> > let violations be handled in guest context, rather than taking a VMExit=
-,
-> > but even with #VE the complicated corner cases are left to the external
-> > agent.
-> >
-> > With HVMI, #VE (but not VMFUNC IIRC) did get used as an optimisation to
-> > mitigate the perf hit from Window's Meltdown mitigation electing to use
-> > LOCK'd BTS/BTC operations on pagetables (which were write protected
-> > behind the scenes), but I'm reliably informed that the hoops required t=
-o
-> > jump through to make that work, and in particular avoid the notice of
-> > PatchGuard, were substantial.
-> >
-> > Perhaps a more accessible example is
-> > https://github.com/intel/kernel-fuzzer-for-xen-project and the
-> > underlying libvmi.  There is also a very basic example in
-> > tools/misc/xen-access.c in the Xen tree.
-> >
-> > For your question specifically about mapping other frames, we do have
-> > hypercalls to map other frames (its necessary for e.g. mapping BARs of
-> > passed-through PCI devices), but for obvious reasons, it's restricted t=
-o
-> > control software (Qemu) in dom0.  I suspect we don't actually have a
-> > hypercall to map MMIO into an alternative view, but it shouldn't be har=
-d
-> > to add (if you still decide you want it by the end of this email).
-> >
-> >
-> > But on to the specifics of mapping the xAPIC page.  Sorry, but
-> > irrespective of altp2m, that is a non-starter, for reasons that date
-> > back to ~1997 or thereabouts.
-> >
-> > It's worth saying that AMD can fully virtualise IPI delivery from one
-> > vCPU to another without either taking a VMExit in the common case, sinc=
-e
-> > Zen1 (IIRC).  Intel has a similar capability since Sapphire Rapids
-> > (IIRC).  Xen doesn't support either yet, because there are only so many
-> > hours in the day...
-> >
-> > It is technically possible to map the xAPIC window into a guest, and
-> > such a guest could interact the real interrupt controller.  But now
-> > you've got the problem that two bits of software (Xen, and your magic
-> > piece of guest kernel) are trying to driver the same single interrupt
-> > controller.
-> >
-> > Even if you were to say that the guest would only use ICR to send
-> > interrupts, that still doesn't work.  In xAPIC, ICR is formed of two
-> > half registers, as it dates from the days of 32bit processors, with a
-> > large stride between the two half registers.
-> >
-> > Therefore, it is a minimum of two separate instructions (set destinatio=
-n
-> > in ICR_HI, set type/mode/etc in ICR_LO) to send an interrupt.
-> >
-> > A common bug in kernels is to try and send IPIs when interrupts are
-> > enabled, or in NMI context, both of which could interrupt an IPI
-> > sequence.  This results in a sequence of writes (from the LAPIC's point
-> > of view) of ICR_HI, ICR_HI, ICR_LO, ICR_LO, which causes the outer IPI
-> > to be sent with the wrong destination.
-> >
-> > Guests always execute with IRQs enabled, but can take a VMExit on any
-> > arbitrary instruction boundary for other reasons, so the guest kernel
-> > can never be sure that ICR_HI hasn't been modified by Xen in the
-> > background, even if it used two adjacent instructions to send the IPI.
-> >
-> > Now, if you were to swap xAPIC for x2APIC, one of the bigger changes wa=
-s
-> > making ICR a single register, so it could be written atomically.  But
-> > now you have an MSR based interface, not an MMIO based interface.
-> >
-> > It's also worth noting that any system with >254 CPUs is necessarily
-> > operating in x2APIC mode (so there isn't an xAPIC window to map, even i=
-f
-> > you wanted to try), and because of the =C3=86PIC Leak vulnerability, Ic=
-eLake
-> > and later CPUs are locked into x2APIC mode by firmware, with no option
-> > to revert back into xAPIC mode even on smaller systems.
-> >
-> > On top of that, you've still got the problem of determining the
-> > destination.  Even if the guest could send an IPI, it still has to know
-> > the physical APIC ID of the CPU the target vCPU is currently scheduled
-> > on.  And you'd have to ignore things like the logical mode or
-> > destination shorthands, because multi/broadcast IPIs will hit incorrect
-> > targets.
-> >
-> > On top of that, even if you can determine the right destination, how
-> > does the target receive the interrupt?  There can only be one entity in
-> > the system receiving INTR, and that's Xen.  So you've got to pick some
-> > vector that Xen knows what to do with, but isn't otherwise using.
-> >
-> > Not to mention there's a(nother) giant security hole... A guest able to
-> > issue interrupts could just send INIT-SIPI-SIPI and reset the target CP=
-U
-> > back into real mode behind Xen's back.  Xen will not take kindly to
-this.
-> >
-> >
-> > So while I expect there's plenty of room to innovate on the realm switc=
-h
-> > aspect of EPTP-switching, trying to send IPIs from within guest context
-> > is something that I will firmly suggest you avoid.  There are good
-> > reasons why it is so complicated to get VMExit-less guest IPIs working.
-> >
-> > ~Andrew
->
-> Thank you for the detailed answers and context. I am somewhat encouraged
-to
-> note that most of the roadblocks you mentioned are issues we've
-specifically
-> considered (and think we have solutions for) in our design. :-) We're
-using
-> some rather exotic compiler-based instrumentation on the guest kernel
-(plus
-> some tricks with putting the "secure realm"'s page tables in a
-nonoverlapping
-> guest-physical address range that isn't present in the primary p2m used b=
-y
-> untrusted code) to prevent the guest from doing things it isn't supposed
-to
-> with VMFUNC and (x2)APIC access, despite running in ring 0 within non-roo=
-t
-> mode.
->
-> On a more concrete level, I am looking to do the following from within th=
-e
-> hypervisor (specifically, from within a new hypercall I've added):
->
-> 1) Get some (host-)physical memory frames from the domain heap and "pin"
-them
-> to make sure they won't be swapped out.
->
-> 2) Create an altp2m for the calling (current) domain.
->
-> 3) Map some of the newly-allocated physical frames into both the domain's
-> primary p2m and its altp2m, with R/X permissions.
->
-> 4) Map the rest of the physical frames into only the altp2m (as R/W), at =
-a
-> guest-physical address higher than the end of the main p2m's mapped range
-> (such that when the primary p2m is active, the guest cannot access these
-> pages without taking a hard VM-exit fault).
->
-> I've been poring through Xen's p2m code (e.g. xen/arch/x86/mm/p2m.c) to
-try
-> to understand how to achieve these goals, but with little success.
-Comments
-> in the p2m code seem to be rather sparse, and mostly unhelpful for
-> understanding (without pre-understood context) what many of the functions
-do
-> and what is the intended workflow for using them. For instance,
-> similarly-named functions like guest_remove_page() and
-> guest_physmap_remove_page() seem to operate at different levels of
-> abstraction (in terms of memory management, refcount bookkeeping, etc.)
-but
-> it isn't externally obvious how they're meant to all fit together and be
-used
-> by client code.
->
-> Any suggestions on which p2m (or other) APIs I should be focusing on, and
-how
-> they're meant to be used, would be greatly appreciated. I suppose in
-theory I
-> could just bypass p2m entirely, and populate one of the VMCS's
-EPTP-switching
-> array's slots directly with my own manually constructed paging hierarchy
-> (since I'm envisioning the memory layout of our "secure realm" as being
-quite
-> simple - it only needs a handful of pages). But I'd rather "color within
-the
-> lines" of the existing APIs if possible, especially since some of the
-pages
-> will need to be mapped into the existing primary p2m (for the "insecure
-> realm") as well.
+The message can be bogus if we allow concurrent do_recalc(), and I
+did miss the previous one.
 
-You can find an example work-flow here to create altp2m's and change memory
-permissions in the different views:
-https://github.com/xen-project/xen/blob/master/tools/misc/xen-access.c#L517=
-.
-To add a new page to the VM you can use xc_domain_populate_physmap_exact.
-If you add the page after the VM has already booted the main kernel is
-unaware of these extra pages that were added but that doesn't mean it can't
-try to poke them. Similarly, using any type of memory map to avoid the
-kernel accessing these pages is just wishful thinking, the memory map is
-after all just a hint to the OS what to look for, not an access-control
-mechanism.
+I missed the one at the top.  Originally I wanted to send the RFC with
+just changing the lock to read mode, but then I though I might as
+well fix that (now bogus) print message.
 
-Also keep in mind that altp2m's get CoW populated from the hostp2m. You can
-still get your altp2m to be "only a couple pages" by either 1) ensuring no
-other pages ever get touched while running the vCPU with the altp2m as to
-not trigger the CoW mechanism; or 2) manually map change the memaccess
-permissions to n on every page you want to be in-accessible in the altp2m.
+> > @@ -538,9 +535,9 @@ int p2m_pt_handle_deferred_changes(uint64_t gpa)
+> >       */
+> >      ASSERT(!altp2m_active(current->domain));
+> >  
+> > -    p2m_lock(p2m);
+> > +    p2m_read_lock(p2m);
+> >      rc = do_recalc(p2m, PFN_DOWN(gpa));
+> > -    p2m_unlock(p2m);
+> > +    p2m_read_unlock(p2m);
+> >  
+> >      return rc;
+> >  }
+> 
+> How can this be safe, when do_recalc() involves p2m_next_level(), which
+> may install new (intermediate) page tables?
 
-You'll likely want to have pages like where the IDT and GDT is mapped into
-the altp2m, alongside the pagetable pages. An easy way to check what pages
-are needed for execution in a given code context is use the VM forking
-mechanism, create a fork at the point your code is that you want to run in
-the altp2m, singlestep the fork a single instruction, then examine the
-fork's EPT using xl debug-keys D. Anything you see that got mapped into the
-fork's memory would be similarly needed to be accessible in the altp2m.
+Oh, great, didn't realize it was capable of doing so, it's more hidden
+than in the EPT case.  Seems like this will only happen if a superpage
+needs to be split because a lower order frame is being used as an
+ioreq server page.
 
-Cheers,
-Tamas
+Do you think it would be safe to try to attempt to perform the recalc
+with the read lock only and fallback to the write lock if there's a
+need to call p2m_next_level()?
 
---00000000000082fece05f86eb58f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Do you agree it might be possible to do the recalc with just the read
+lock if it's updating of PTE type / recalc flags only?
 
-<div dir=3D"ltr"><br><br>On Wed, Mar 29, 2023 at 10:29=E2=80=AFPM Johnson, =
-Ethan &lt;<a href=3D"mailto:ejohns48@cs.rochester.edu">ejohns48@cs.rocheste=
-r.edu</a>&gt; wrote:<br>&gt;<br>&gt; On 2023-03-16 02:14:18 +0000, Andrew C=
-ooper wrote:<br>&gt; &gt; Ok, so there is a lot here.=C2=A0 Apologies in ad=
-vance for the overly long<br>&gt; &gt; answer.<br>&gt; &gt;<br>&gt; &gt; Fi=
-rst, while altp2m was developed in parallel with EPTP-switching, we<br>&gt;=
- &gt; took care to split the vendor neutral parts from the vendor specific<=
-br>&gt; &gt; bits.=C2=A0 So while we do have VMFUNC support, that&#39;s con=
-sidered &quot;just&quot; a<br>&gt; &gt; hardware optimisation to speed up t=
-he HVMOP_altp2m_switch_p2m hypercall.<br>&gt; &gt;<br>&gt; &gt; But before =
-you start, it is important to understand your security<br>&gt; &gt; boundar=
-ies.=C2=A0 You&#39;ve found external mode, and this is all about<br>&gt; &g=
-t; controlling which aspects of altp2m the guest can invoke itself, and<br>=
-&gt; &gt; modes other than external let the guest issue HVMOP_altp2m ops it=
-self.<br>&gt; &gt;<br>&gt; &gt; If you permit the guest to change views its=
-elf, either with VMFUNC, or<br>&gt; &gt; HVMOP_altp2m_switch_p2m, you have =
-to realise that these are just<br>&gt; &gt; &quot;regular&quot; CPL0 action=
-s, and can be invoked by any kernel code, not just<br>&gt; &gt; your driver=
-. =C2=A0i.e. the union of all primary and alternative views is one<br>&gt; =
-&gt; single security domain.<br>&gt; &gt;<br>&gt; &gt; For some usecases th=
-is is fine, but yours doesn&#39;t look like it fits in<br>&gt; &gt; this ca=
-tegory.=C2=A0 In particular, no amount of protection on the trampoline<br>&=
-gt; &gt; pages stops someone writing a VMFUNC instruction elsewhere in kern=
-el<br>&gt; &gt; space and executing it.<br>&gt; &gt;<br>&gt; &gt; (I have s=
-een plenty of research papers try to construct a security<br>&gt; &gt; boun=
-dary around VMFUNC.=C2=A0 I have yet see one that does so robustly, but I<b=
-r>&gt; &gt; do enjoy being surprised on occasion...)<br>&gt; &gt;<br>&gt; &=
-gt; The first production use this technology I&#39;m aware of was Bitdefend=
-er&#39;s<br>&gt; &gt; HVMI, where the guest had no control at all, and was =
-subject to the<br>&gt; &gt; permission restrictions imposed on it by the ag=
-ent in dom0.=C2=A0 The agent<br>&gt; &gt; trapped everything it considered =
-sensitive, including writes to<br>&gt; &gt; sensitive areas of memory using=
- reduced EPT permissions, and either<br>&gt; &gt; permitted execution to co=
-ntinue, or took other preventative action.<br>&gt; &gt;<br>&gt; &gt; This h=
-ighlights another key point.=C2=A0 Some entity in the system needs to<br>&g=
-t; &gt; deal with faults that occur when the guest accidentally (or otherwi=
-se)<br>&gt; &gt; violates the reduced EPT permissions. =C2=A0#VE is, again,=
- an optimisation to<br>&gt; &gt; let violations be handled in guest context=
-, rather than taking a VMExit,<br>&gt; &gt; but even with #VE the complicat=
-ed corner cases are left to the external<br>&gt; &gt; agent.<br>&gt; &gt;<b=
-r>&gt; &gt; With HVMI, #VE (but not VMFUNC IIRC) did get used as an optimis=
-ation to<br>&gt; &gt; mitigate the perf hit from Window&#39;s Meltdown miti=
-gation electing to use<br>&gt; &gt; LOCK&#39;d BTS/BTC operations on pageta=
-bles (which were write protected<br>&gt; &gt; behind the scenes), but I&#39=
-;m reliably informed that the hoops required to<br>&gt; &gt; jump through t=
-o make that work, and in particular avoid the notice of<br>&gt; &gt; PatchG=
-uard, were substantial.<br>&gt; &gt;<br>&gt; &gt; Perhaps a more accessible=
- example is<br>&gt; &gt; <a href=3D"https://github.com/intel/kernel-fuzzer-=
-for-xen-project">https://github.com/intel/kernel-fuzzer-for-xen-project</a>=
- and the<br>&gt; &gt; underlying libvmi.=C2=A0 There is also a very basic e=
-xample in<br>&gt; &gt; tools/misc/xen-access.c in the Xen tree.<br>&gt; &gt=
-;<br>&gt; &gt; For your question specifically about mapping other frames, w=
-e do have<br>&gt; &gt; hypercalls to map other frames (its necessary for e.=
-g. mapping BARs of<br>&gt; &gt; passed-through PCI devices), but for obviou=
-s reasons, it&#39;s restricted to<br>&gt; &gt; control software (Qemu) in d=
-om0.=C2=A0 I suspect we don&#39;t actually have a<br>&gt; &gt; hypercall to=
- map MMIO into an alternative view, but it shouldn&#39;t be hard<br>&gt; &g=
-t; to add (if you still decide you want it by the end of this email).<br>&g=
-t; &gt;<br>&gt; &gt;<br>&gt; &gt; But on to the specifics of mapping the xA=
-PIC page.=C2=A0 Sorry, but<br>&gt; &gt; irrespective of altp2m, that is a n=
-on-starter, for reasons that date<br>&gt; &gt; back to ~1997 or thereabouts=
-.<br>&gt; &gt;<br>&gt; &gt; It&#39;s worth saying that AMD can fully virtua=
-lise IPI delivery from one<br>&gt; &gt; vCPU to another without either taki=
-ng a VMExit in the common case, since<br>&gt; &gt; Zen1 (IIRC).=C2=A0 Intel=
- has a similar capability since Sapphire Rapids<br>&gt; &gt; (IIRC).=C2=A0 =
-Xen doesn&#39;t support either yet, because there are only so many<br>&gt; =
-&gt; hours in the day...<br>&gt; &gt;<br>&gt; &gt; It is technically possib=
-le to map the xAPIC window into a guest, and<br>&gt; &gt; such a guest coul=
-d interact the real interrupt controller.=C2=A0 But now<br>&gt; &gt; you&#3=
-9;ve got the problem that two bits of software (Xen, and your magic<br>&gt;=
- &gt; piece of guest kernel) are trying to driver the same single interrupt=
-<br>&gt; &gt; controller.<br>&gt; &gt;<br>&gt; &gt; Even if you were to say=
- that the guest would only use ICR to send<br>&gt; &gt; interrupts, that st=
-ill doesn&#39;t work.=C2=A0 In xAPIC, ICR is formed of two<br>&gt; &gt; hal=
-f registers, as it dates from the days of 32bit processors, with a<br>&gt; =
-&gt; large stride between the two half registers.<br>&gt; &gt;<br>&gt; &gt;=
- Therefore, it is a minimum of two separate instructions (set destination<b=
-r>&gt; &gt; in ICR_HI, set type/mode/etc in ICR_LO) to send an interrupt.<b=
-r>&gt; &gt;<br>&gt; &gt; A common bug in kernels is to try and send IPIs wh=
-en interrupts are<br>&gt; &gt; enabled, or in NMI context, both of which co=
-uld interrupt an IPI<br>&gt; &gt; sequence.=C2=A0 This results in a sequenc=
-e of writes (from the LAPIC&#39;s point<br>&gt; &gt; of view) of ICR_HI, IC=
-R_HI, ICR_LO, ICR_LO, which causes the outer IPI<br>&gt; &gt; to be sent wi=
-th the wrong destination.<br>&gt; &gt;<br>&gt; &gt; Guests always execute w=
-ith IRQs enabled, but can take a VMExit on any<br>&gt; &gt; arbitrary instr=
-uction boundary for other reasons, so the guest kernel<br>&gt; &gt; can nev=
-er be sure that ICR_HI hasn&#39;t been modified by Xen in the<br>&gt; &gt; =
-background, even if it used two adjacent instructions to send the IPI.<br>&=
-gt; &gt;<br>&gt; &gt; Now, if you were to swap xAPIC for x2APIC, one of the=
- bigger changes was<br>&gt; &gt; making ICR a single register, so it could =
-be written atomically.=C2=A0 But<br>&gt; &gt; now you have an MSR based int=
-erface, not an MMIO based interface.<br>&gt; &gt;<br>&gt; &gt; It&#39;s als=
-o worth noting that any system with &gt;254 CPUs is necessarily<br>&gt; &gt=
-; operating in x2APIC mode (so there isn&#39;t an xAPIC window to map, even=
- if<br>&gt; &gt; you wanted to try), and because of the =C3=86PIC Leak vuln=
-erability, IceLake<br>&gt; &gt; and later CPUs are locked into x2APIC mode =
-by firmware, with no option<br>&gt; &gt; to revert back into xAPIC mode eve=
-n on smaller systems.<br>&gt; &gt;<br>&gt; &gt; On top of that, you&#39;ve =
-still got the problem of determining the<br>&gt; &gt; destination.=C2=A0 Ev=
-en if the guest could send an IPI, it still has to know<br>&gt; &gt; the ph=
-ysical APIC ID of the CPU the target vCPU is currently scheduled<br>&gt; &g=
-t; on.=C2=A0 And you&#39;d have to ignore things like the logical mode or<b=
-r>&gt; &gt; destination shorthands, because multi/broadcast IPIs will hit i=
-ncorrect<br>&gt; &gt; targets.<br>&gt; &gt;<br>&gt; &gt; On top of that, ev=
-en if you can determine the right destination, how<br>&gt; &gt; does the ta=
-rget receive the interrupt?=C2=A0 There can only be one entity in<br>&gt; &=
-gt; the system receiving INTR, and that&#39;s Xen.=C2=A0 So you&#39;ve got =
-to pick some<br>&gt; &gt; vector that Xen knows what to do with, but isn&#3=
-9;t otherwise using.<br>&gt; &gt;<br>&gt; &gt; Not to mention there&#39;s a=
-(nother) giant security hole... A guest able to<br>&gt; &gt; issue interrup=
-ts could just send INIT-SIPI-SIPI and reset the target CPU<br>&gt; &gt; bac=
-k into real mode behind Xen&#39;s back.=C2=A0 Xen will not take kindly to t=
-his.<br>&gt; &gt;<br>&gt; &gt;<br>&gt; &gt; So while I expect there&#39;s p=
-lenty of room to innovate on the realm switch<br>&gt; &gt; aspect of EPTP-s=
-witching, trying to send IPIs from within guest context<br>&gt; &gt; is som=
-ething that I will firmly suggest you avoid.=C2=A0 There are good<br>&gt; &=
-gt; reasons why it is so complicated to get VMExit-less guest IPIs working.=
-<br>&gt; &gt;<br>&gt; &gt; ~Andrew<br>&gt;<br>&gt; Thank you for the detail=
-ed answers and context. I am somewhat encouraged to<br>&gt; note that most =
-of the roadblocks you mentioned are issues we&#39;ve specifically<br>&gt; c=
-onsidered (and think we have solutions for) in our design. :-) We&#39;re us=
-ing<br>&gt; some rather exotic compiler-based instrumentation on the guest =
-kernel (plus<br>&gt; some tricks with putting the &quot;secure realm&quot;&=
-#39;s page tables in a nonoverlapping<br>&gt; guest-physical address range =
-that isn&#39;t present in the primary p2m used by<br>&gt; untrusted code) t=
-o prevent the guest from doing things it isn&#39;t supposed to<br>&gt; with=
- VMFUNC and (x2)APIC access, despite running in ring 0 within non-root<br>&=
-gt; mode.<br>&gt;<br>&gt; On a more concrete level, I am looking to do the =
-following from within the<br>&gt; hypervisor (specifically, from within a n=
-ew hypercall I&#39;ve added):<br>&gt;<br>&gt; 1) Get some (host-)physical m=
-emory frames from the domain heap and &quot;pin&quot; them<br>&gt; to make =
-sure they won&#39;t be swapped out.<br>&gt;<br>&gt; 2) Create an altp2m for=
- the calling (current) domain.<br>&gt;<br>&gt; 3) Map some of the newly-all=
-ocated physical frames into both the domain&#39;s<br>&gt; primary p2m and i=
-ts altp2m, with R/X permissions.<br>&gt;<br>&gt; 4) Map the rest of the phy=
-sical frames into only the altp2m (as R/W), at a<br>&gt; guest-physical add=
-ress higher than the end of the main p2m&#39;s mapped range<br>&gt; (such t=
-hat when the primary p2m is active, the guest cannot access these<br>&gt; p=
-ages without taking a hard VM-exit fault).<br>&gt;<br>&gt; I&#39;ve been po=
-ring through Xen&#39;s p2m code (e.g. xen/arch/x86/mm/p2m.c) to try<br>&gt;=
- to understand how to achieve these goals, but with little success. Comment=
-s<br>&gt; in the p2m code seem to be rather sparse, and mostly unhelpful fo=
-r<br>&gt; understanding (without pre-understood context) what many of the f=
-unctions do<br>&gt; and what is the intended workflow for using them. For i=
-nstance,<br>&gt; similarly-named functions like guest_remove_page() and<br>=
-&gt; guest_physmap_remove_page() seem to operate at different levels of<br>=
-&gt; abstraction (in terms of memory management, refcount bookkeeping, etc.=
-) but<br>&gt; it isn&#39;t externally obvious how they&#39;re meant to all =
-fit together and be used<br>&gt; by client code.<br>&gt;<br>&gt; Any sugges=
-tions on which p2m (or other) APIs I should be focusing on, and how<br>&gt;=
- they&#39;re meant to be used, would be greatly appreciated. I suppose in t=
-heory I<br>&gt; could just bypass p2m entirely, and populate one of the VMC=
-S&#39;s EPTP-switching<br>&gt; array&#39;s slots directly with my own manua=
-lly constructed paging hierarchy<br>&gt; (since I&#39;m envisioning the mem=
-ory layout of our &quot;secure realm&quot; as being quite<br>&gt; simple - =
-it only needs a handful of pages). But I&#39;d rather &quot;color within th=
-e<br>&gt; lines&quot; of the existing APIs if possible, especially since so=
-me of the pages<br>&gt; will need to be mapped into the existing primary p2=
-m (for the &quot;insecure<br>&gt; realm&quot;) as well.<br><div><br></div><=
-div>You can find an example work-flow here to create altp2m&#39;s and chang=
-e memory permissions in the different views: <a href=3D"https://github.com/=
-xen-project/xen/blob/master/tools/misc/xen-access.c#L517">https://github.co=
-m/xen-project/xen/blob/master/tools/misc/xen-access.c#L517</a>. To add a ne=
-w page to the VM you can use <span class=3D"gmail-pl-c1 gmail-pl-token">xc_=
-domain_populate_physmap_exact. If you add the page after the VM has already=
- booted the main kernel is unaware of these extra pages that were added but=
- that doesn&#39;t mean it can&#39;t try to poke them. Similarly, using any =
-type of memory map to avoid the kernel accessing these pages is just wishfu=
-l thinking, the memory map is after all just a hint to the OS what to look =
-for, not an access-control mechanism.<br></span></div><div><span class=3D"g=
-mail-pl-c1 gmail-pl-token"><br></span></div><div><span class=3D"gmail-pl-c1=
- gmail-pl-token">Also keep in mind that altp2m&#39;s get CoW populated from=
- the hostp2m. You can still get your altp2m to be &quot;only a couple pages=
-&quot; by either 1) ensuring no other pages ever get touched while running =
-the vCPU with the altp2m as to not trigger the CoW mechanism; or 2) manuall=
-y map change the memaccess permissions to n on every page you want to be in=
--accessible in the altp2m.</span></div><div><span class=3D"gmail-pl-c1 gmai=
-l-pl-token"><br></span></div><div><span class=3D"gmail-pl-c1 gmail-pl-token=
-">You&#39;ll likely want to have pages like where the IDT and GDT is mapped=
- into the altp2m, alongside the pagetable pages. An easy way to check what =
-pages are needed for execution in a given code context is use the VM forkin=
-g mechanism, create a fork at the point your code is that you want to run i=
-n the altp2m, singlestep the fork a single instruction, then examine the fo=
-rk&#39;s EPT using xl debug-keys D. Anything you see that got mapped into t=
-he fork&#39;s memory would be similarly needed to be accessible in the altp=
-2m.<br></span></div><div><span class=3D"gmail-pl-c1 gmail-pl-token"><br></s=
-pan></div><div><span class=3D"gmail-pl-c1 gmail-pl-token">Cheers,</span></d=
-iv><div><span class=3D"gmail-pl-c1 gmail-pl-token">Tamas<br></span>
-
-</div><div><br></div><div><br></div></div>
-
---00000000000082fece05f86eb58f--
+Thanks, Roger.
 
