@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C16606D3E45
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 09:42:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517310.802458 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F4D6D3E39
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 09:42:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517311.802465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjEou-0000iz-Md; Mon, 03 Apr 2023 07:41:40 +0000
+	id 1pjEov-0000pr-1B; Mon, 03 Apr 2023 07:41:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517310.802458; Mon, 03 Apr 2023 07:41:40 +0000
+Received: by outflank-mailman (output) from mailman id 517311.802465; Mon, 03 Apr 2023 07:41:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjEou-0000Xy-G9; Mon, 03 Apr 2023 07:41:40 +0000
-Received: by outflank-mailman (input) for mailman id 517310;
+	id 1pjEou-0000ie-S8; Mon, 03 Apr 2023 07:41:40 +0000
+Received: by outflank-mailman (input) for mailman id 517311;
  Mon, 03 Apr 2023 07:41:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=qzQh=72=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1pjEos-0000Sg-Jq
+ id 1pjEos-0000Sf-IM
  for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 07:41:38 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f686a8af-d1f2-11ed-b464-930f4c7d94ae;
- Mon, 03 Apr 2023 09:41:36 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id m2so28256759wrh.6
- for <xen-devel@lists.xenproject.org>; Mon, 03 Apr 2023 00:41:36 -0700 (PDT)
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f7281ec2-d1f2-11ed-85db-49a42c6b2330;
+ Mon, 03 Apr 2023 09:41:37 +0200 (CEST)
+Received: by mail-wr1-x432.google.com with SMTP id t4so23024662wra.7
+ for <xen-devel@lists.xenproject.org>; Mon, 03 Apr 2023 00:41:38 -0700 (PDT)
 Received: from Provence.localdomain
  (dynamic-078-055-162-106.78.55.pool.telefonica.de. [78.55.162.106])
  by smtp.gmail.com with ESMTPSA id
- s11-20020a5d424b000000b002e5f6f8fc4fsm8414960wrr.100.2023.04.03.00.41.34
+ s11-20020a5d424b000000b002e5f6f8fc4fsm8414960wrr.100.2023.04.03.00.41.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Apr 2023 00:41:35 -0700 (PDT)
+ Mon, 03 Apr 2023 00:41:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f686a8af-d1f2-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: f7281ec2-d1f2-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680507696;
+        d=gmail.com; s=20210112; t=1680507697;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+2bxbqf6j4QPQJIwH9ivxbi0oLjhsXkO+rq7lp2Eh9U=;
-        b=WC5szrsbsTKCY9H3NIUWRSbAOse9TsOnH1X01M7jJFEyCnqYih84GDL/KdBhBXgvfZ
-         cxx71VQpcKF9zWdzMnSbkpc1hfesym5CJWKDjgWmFqmwEAZxtxhq8nOHsCyYPynIYrS9
-         BaLfK4jsrhCeSuXHGsXYL7fNzlE5hnc0hfC+2XsB/zKpBEIWgD6sfzdiEyxE4zaNCnEv
-         162tllbbB0sUjNuop5fu0nl/n19meZoUfNaKBn50XCNcWvdCal884QeT/q0SEepuboYT
-         CVmM6NveJXfoFPYDUH3UGFCSnAI2AjW/EN4i3xu23N5hvy6np1jlESM9iiQdcFx39cPw
-         K01w==
+        bh=YTX5AlYG9H9wezF7Huuxzz/nE/nKnDO8ny1qnuzLZhc=;
+        b=mtSXWDOaZ+SoOSRY+/QyXRKvT4i+55X7WZtDYWMATiHisig086+0JsHukwNdiJId7A
+         tFqxCAoC4RwIQJM009Vk+jfFfOFlaKQrlmk2bTXjnhvW4+CF9lMXfKv1wHR3ukRMZW6Y
+         CQyFaG+VXbo7bsLaY3JNaZ0O5jKXrhP2qIEG72Vjgf8MVH9BIMi5d+VGm5MfsEvzCudI
+         GyrjyuNPJZrO+zweLhjAv7NojvLIUzr0fIDB8FyORUM/z/yAaS2dYmbZmQwIZzFXhz4c
+         p7LFtBj/nJrdJSF6L2IGVCFNtgwR5DHDosc59QA+1G+LMTWWcV3o/frA6tmQ3zvYZ538
+         VF4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680507696;
+        d=1e100.net; s=20210112; t=1680507697;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=+2bxbqf6j4QPQJIwH9ivxbi0oLjhsXkO+rq7lp2Eh9U=;
-        b=LhOJ1lrSYnxj9MUFQKCgjRAj4wr02EKrwj0qKL4X0Q1KJ6nnICaPdUCcN83T8IibM5
-         OC+Rw7sovmPOurnDKhNCYvMU4jGl7C1z6N+813c3+bREstJvF5T4cp+bgw9ox981fj9F
-         SXkmRGdJpvr6F638m5Wh20ROF4bUF0uI/81/DWJsko4WOQtBbVoQUNJvUFBivV23gTE9
-         ImdwRgEo08kqM7gi+PZ2lGDJNj1ugsutJ1PFgbENyHeGyam153ZwxgFwPcL3Jr4r/MnP
-         8n+JBC9zZL2jZO73i8j/15Cl2yzn0+LljrmWM1Rm70tYL1LCC+MGkNimz4Suc7ctOtPN
-         rMyw==
-X-Gm-Message-State: AAQBX9e6sQsde7vVErMC/G6l2yhvuNy3gBcdboCWV/dCPuzxYhE7UP8k
-	OBb4IvexUDRVN5Qg/BfLn5E=
-X-Google-Smtp-Source: AKy350a8w/UjVGBXm/IvW1eiUEjt7WBOj3GvSpZIn/V9+4KAg1DkfQwNZGfsneF3GohAYNphgxwWGA==
-X-Received: by 2002:a05:6000:ca:b0:2d6:5afe:7b91 with SMTP id q10-20020a05600000ca00b002d65afe7b91mr11692241wrx.30.1680507696091;
-        Mon, 03 Apr 2023 00:41:36 -0700 (PDT)
+        bh=YTX5AlYG9H9wezF7Huuxzz/nE/nKnDO8ny1qnuzLZhc=;
+        b=AaGVptg30OZFuThAwmbjtugwjA87nIW8QbuDTEHAzXmyftRhPKHE3q7M1ZaJomU6m8
+         t/G6SZmG66qvyPNbGXlJdkm4Iw9WZfkDGTfPJWSvYwOvJpalESOk3t/xLJkTseM25M7J
+         fWyK21RCy0VQ4VQwSGdSMN2vYvEogq0mpxhJujwotDzk1namkTN8YbAtG+KZp8kKA1MF
+         XPxa/Yk/LcZuZAiMsSGZQkOAUKghYMa3BJbD5K8p1Y/KUCWYXRdRzi5fNXj2+ECJQc07
+         bdM647XOqleZUkHQY1gBvV2gZG6JTyH7d1X9w7kvLG+FQUdkpWqZr5fyDCdWx4o1Yroe
+         gq2g==
+X-Gm-Message-State: AAQBX9caUHF64emzsEUrgQvyZk1mPrV+Munuk6rVUwq9r8nXpbbj9s6s
+	TGVs+5GrHExRL8kI8c46Afw=
+X-Google-Smtp-Source: AKy350aggVxi8ptGEF+kz7DCXq42gtEfYkUb6ffP2AHigP6K835TVXtAlFx6fFv21AA1vyoQLxAQyA==
+X-Received: by 2002:adf:f388:0:b0:2db:46ad:7e82 with SMTP id m8-20020adff388000000b002db46ad7e82mr25915768wro.47.1680507697657;
+        Mon, 03 Apr 2023 00:41:37 -0700 (PDT)
 From: Bernhard Beschow <shentey@gmail.com>
 To: qemu-devel@nongnu.org
 Cc: "Michael S. Tsirkin" <mst@redhat.com>,
@@ -92,48 +92,45 @@ Cc: "Michael S. Tsirkin" <mst@redhat.com>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	xen-devel@lists.xenproject.org,
 	Bernhard Beschow <shentey@gmail.com>
-Subject: [PATCH v4 2/7] hw/pci/pci.c: Don't leak PCIBus::irq_count[] in pci_bus_irqs()
-Date: Mon,  3 Apr 2023 09:41:19 +0200
-Message-Id: <20230403074124.3925-3-shentey@gmail.com>
+Subject: [PATCH v4 3/7] hw/isa/piix3: Reuse piix3_realize() in piix3_xen_realize()
+Date: Mon,  3 Apr 2023 09:41:20 +0200
+Message-Id: <20230403074124.3925-4-shentey@gmail.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230403074124.3925-1-shentey@gmail.com>
 References: <20230403074124.3925-1-shentey@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When calling pci_bus_irqs() multiple times on the same object without calling
-pci_bus_irqs_cleanup() in between PCIBus::irq_count[] is currently leaked.
-Let's fix this because Xen will do just that in a few commits, and because
-calling pci_bus_irqs_cleanup() in between seems fragile and cumbersome.
+This is a preparational patch for the next one to make the following
+more obvious:
 
-Note that pci_bus_irqs_cleanup() now has to NULL irq_count such that
-pci_bus_irqs() doesn't do a double free.
+First, pci_bus_irqs() is now called twice in case of Xen where the
+second call overrides the pci_set_irq_fn with the Xen variant.
+
+Second, pci_bus_set_route_irq_fn() is now also called in Xen mode.
 
 Signed-off-by: Bernhard Beschow <shentey@gmail.com>
+Reviewed-by: Michael S. Tsirkin <mst@redhat.com>
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Tested-by: Chuck Zmudzinski <brchuckz@aol.com>
+Message-Id: <20230312120221.99183-3-shentey@gmail.com>
 ---
- hw/pci/pci.c | 2 ++
- 1 file changed, 2 insertions(+)
+ hw/isa/piix3.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/hw/pci/pci.c b/hw/pci/pci.c
-index def5000e7b..be1c5d16ec 100644
---- a/hw/pci/pci.c
-+++ b/hw/pci/pci.c
-@@ -558,6 +558,7 @@ void pci_bus_irqs(PCIBus *bus, pci_set_irq_fn set_irq,
-     bus->set_irq = set_irq;
-     bus->irq_opaque = irq_opaque;
-     bus->nirq = nirq;
-+    g_free(bus->irq_count);
-     bus->irq_count = g_malloc0(nirq * sizeof(bus->irq_count[0]));
- }
+diff --git a/hw/isa/piix3.c b/hw/isa/piix3.c
+index 1b3e23f0d7..a86cd23ef4 100644
+--- a/hw/isa/piix3.c
++++ b/hw/isa/piix3.c
+@@ -394,7 +394,7 @@ static void piix3_xen_realize(PCIDevice *dev, Error **errp)
+     PIIX3State *piix3 = PIIX3_PCI_DEVICE(dev);
+     PCIBus *pci_bus = pci_get_bus(dev);
  
-@@ -573,6 +574,7 @@ void pci_bus_irqs_cleanup(PCIBus *bus)
-     bus->irq_opaque = NULL;
-     bus->nirq = 0;
-     g_free(bus->irq_count);
-+    bus->irq_count = NULL;
- }
- 
- PCIBus *pci_register_root_bus(DeviceState *parent, const char *name,
+-    pci_piix3_realize(dev, errp);
++    piix3_realize(dev, errp);
+     if (*errp) {
+         return;
+     }
 -- 
 2.40.0
 
