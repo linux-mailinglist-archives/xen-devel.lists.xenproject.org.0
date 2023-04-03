@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 851E96D4DAF
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 18:28:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517536.803012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15DC96D4DAE
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 18:28:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517537.803021 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjN2o-0007cz-V5; Mon, 03 Apr 2023 16:28:34 +0000
+	id 1pjN2t-0007uT-7X; Mon, 03 Apr 2023 16:28:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517536.803012; Mon, 03 Apr 2023 16:28:34 +0000
+Received: by outflank-mailman (output) from mailman id 517537.803021; Mon, 03 Apr 2023 16:28:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjN2o-0007Zz-Rz; Mon, 03 Apr 2023 16:28:34 +0000
-Received: by outflank-mailman (input) for mailman id 517536;
- Mon, 03 Apr 2023 16:28:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pjN2t-0007rY-4B; Mon, 03 Apr 2023 16:28:39 +0000
+Received: by outflank-mailman (input) for mailman id 517537;
+ Mon, 03 Apr 2023 16:28:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=L93W=72=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pjN2o-0007Zc-6r
- for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 16:28:34 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9272d6a0-d23c-11ed-b464-930f4c7d94ae;
- Mon, 03 Apr 2023 18:28:31 +0200 (CEST)
+ id 1pjN2r-0007KG-So
+ for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 16:28:37 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 95cbb07e-d23c-11ed-85db-49a42c6b2330;
+ Mon, 03 Apr 2023 18:28:37 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 64B821FE73;
- Mon,  3 Apr 2023 16:28:31 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 163CF21EEC;
+ Mon,  3 Apr 2023 16:28:37 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2652A13416;
- Mon,  3 Apr 2023 16:28:31 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C8A5B13416;
+ Mon,  3 Apr 2023 16:28:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id S5DsB6/+KmS7XgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 03 Apr 2023 16:28:31 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id SzKZL7T+KmTtXgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 03 Apr 2023 16:28:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,16 +51,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9272d6a0-d23c-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 95cbb07e-d23c-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1680539311; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1680539317; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=51wZc2vktLAGkJYuxQvGjNEZLX6vduj0/qi4N/4LX8o=;
-	b=sRrt0UANSYHctURzJeHSOgf3dlCzRjDQ92tgQODJD6alTJAPtn1UxexgDFEfzy2T8gmn/8
-	ruCf7Gnuto4HknA4fzPaDAGuYOlM4fTyuYT728oRKQCTumjkruhJW9/pnLKwjVbmv0iSKY
-	d5TR+k960biF2bUT+SQZOsQmWyrAR6s=
+	bh=221NmFTRmK1PFAHtiBP2d1/nR5dmCSk7Sk74pCThNJQ=;
+	b=YegnYhORMyDnRciHjmFHW0hridB1GwSWIr7sp9x6vZe6gEmxyWp/09cWdROCKDz5gIFDQf
+	xhWiKsrzneX7RzVcXgd3jMji8mHElRvxRsHn4ub8UYk6asn2WwrY+hSCRibOX5+iFi1SPg
+	mDwiWinrWYxP6pURfCjjz8hvGe+aFwk=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -70,74 +70,48 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 1/2] xen: move CONFIG_DEBUG_INFO out of EXPERT section
-Date: Mon,  3 Apr 2023 18:28:22 +0200
-Message-Id: <20230403162823.30681-2-jgross@suse.com>
+Subject: [PATCH v2 2/2] xen: update CONFIG_DEBUG_INFO help text
+Date: Mon,  3 Apr 2023 18:28:23 +0200
+Message-Id: <20230403162823.30681-3-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230403162823.30681-1-jgross@suse.com>
 References: <20230403162823.30681-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In order to support hypervisor analysis of crash dumps, xen-syms needs
-to contain debug_info. It should be allowed to configure the hypervisor
-to be built with CONFIG_DEBUG_INFO in non-debug builds without having
-to enable EXPERT.
-
-Using a rather oldish gcc (7.5) it was verified that code generation
-doesn't really differ between CONFIG_DEBUG_INFO on or off without
-CONFIG_DEBUG being set (only observed differences were slightly
-different symbol addresses, verified via "objdump -d", resulting from
-the different config.gz in the binary). The old gcc version selection
-was based on the assumption, that newer gcc won't regress in this
-regard.
-
-So move CONFIG_DEBUG_INFO out of the section guarded by EXPERT.
-
-It should be mentioned that there have been reports that the linking
-of the xen.efi might take considerably longer with CONFIG_DEBUG_INFO
-selected when using newer binutils.
+Update the help text of the CONFIG_DEBUG_INFO option to be a little
+bit more specific.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
 V2:
-- expanded commit message (Jan Beulich)
+- expand help text, especially mentioning INSTALL_EFI_STRIP
+  (Jan Beulich)
 ---
- xen/Kconfig.debug | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ xen/Kconfig.debug | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/xen/Kconfig.debug b/xen/Kconfig.debug
-index fad3050d4f..e0d773d347 100644
+index e0d773d347..e6e609f813 100644
 --- a/xen/Kconfig.debug
 +++ b/xen/Kconfig.debug
-@@ -11,6 +11,13 @@ config DEBUG
- 
- 	  You probably want to say 'N' here.
- 
-+config DEBUG_INFO
-+	bool "Compile Xen with debug info"
-+	default DEBUG
-+	help
-+	  If you say Y here the resulting Xen will include debugging info
-+	  resulting in a larger binary image.
-+
- if DEBUG || EXPERT
- 
- config CRASH_DEBUG
-@@ -28,13 +35,6 @@ config GDBSX
- 	  If you want to enable support for debugging guests from dom0 via
- 	  gdbsx then say Y.
- 
--config DEBUG_INFO
--	bool "Compile Xen with debug info"
--	default y
--	---help---
+@@ -15,8 +15,14 @@ config DEBUG_INFO
+ 	bool "Compile Xen with debug info"
+ 	default DEBUG
+ 	help
 -	  If you say Y here the resulting Xen will include debugging info
 -	  resulting in a larger binary image.
--
- config FRAME_POINTER
- 	bool "Compile Xen with frame pointers"
- 	default DEBUG
++	  Say Y here if you want to build Xen with debug information. This
++	  information is needed e.g. for doing crash dump analysis of the
++	  hypervisor via the "crash" tool.
++	  Saying Y will increase the size of the xen-syms and xen.efi
++	  binaries. In case the space on the EFI boot partition is rather
++	  limited, you may want to make use of the INSTALL_EFI_STRIP make
++	  variable when building the hypervisor, in order to strip xen.efi
++	  before installing it to the EFI partition.
+ 
+ if DEBUG || EXPERT
+ 
 -- 
 2.35.3
 
