@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0173E6D44E1
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 14:51:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517432.802736 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08F3F6D4500
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 14:57:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517438.802746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjJes-0006q2-K8; Mon, 03 Apr 2023 12:51:38 +0000
+	id 1pjJkV-0007Z8-B8; Mon, 03 Apr 2023 12:57:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517432.802736; Mon, 03 Apr 2023 12:51:38 +0000
+Received: by outflank-mailman (output) from mailman id 517438.802746; Mon, 03 Apr 2023 12:57:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjJes-0006o9-Eo; Mon, 03 Apr 2023 12:51:38 +0000
-Received: by outflank-mailman (input) for mailman id 517432;
- Mon, 03 Apr 2023 12:51:37 +0000
+	id 1pjJkV-0007W9-8J; Mon, 03 Apr 2023 12:57:27 +0000
+Received: by outflank-mailman (input) for mailman id 517438;
+ Mon, 03 Apr 2023 12:57:26 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1pjJeq-0006nz-Uf; Mon, 03 Apr 2023 12:51:36 +0000
+ id 1pjJkU-0007Vz-6B; Mon, 03 Apr 2023 12:57:26 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1pjJeq-0000Kh-RG; Mon, 03 Apr 2023 12:51:36 +0000
+ id 1pjJkU-0000Qv-0g; Mon, 03 Apr 2023 12:57:26 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1pjJeq-0006Wy-Ac; Mon, 03 Apr 2023 12:51:36 +0000
+ id 1pjJkT-0006eA-Ee; Mon, 03 Apr 2023 12:57:25 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pjJeq-0000zg-AA; Mon, 03 Apr 2023 12:51:36 +0000
+ id 1pjJkT-0004Um-EB; Mon, 03 Apr 2023 12:57:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,73 +45,197 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dpMlPzhdn2xiggfFd3IuEvqdtUJGVsKIy+S3+BQTpqs=; b=R3KRY6zRMW+GO/FkAfxsvodHlb
-	CQDzmh4/U5tEe7+jZ/WGnsytTcuKs2Pht/CfKOEUfpJwLgWOyOJmWE9unnY1x17ppxJiBBr+viWpj
-	2HaXaXpD8UcdpFxHqQQlVK6NIryRfGqyBI7aKYUG88MnpxKCaAQaxEYBB+VIU6BeIaRo=;
+	bh=c4BQUKfw/IhXa4GW4aJy10c/+1PyMTSGePVS06txcuo=; b=QBRInCoJJuJWz/C9Rtf1fkvUT5
+	YtUg8FQFfpx21IBFi5+vDdsCxXgE09LabOZ4LqfDLS3f7QeilcuMRYlpAgSLHBZbSZ2SwITAToknw
+	RdPL5j+Uh1UrMnopMEdYnQYElzA2qiesWBpD9TIplLqC+wXYoE0XR7Ye2J1IA9GtKBiM=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180117-mainreport@xen.org>
+Message-ID: <osstest-180116-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 180117: regressions - trouble: blocked/fail/pass/starved
+Subject: [linux-linus test] 180116: tolerable trouble: fail/pass/starved - PUSHED
 X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    linux-linus:build-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:build-armhf:hosts-allocate:starved:nonblocking
 X-Osstest-Versions-This:
-    xen=720ebfbad3e3bee8aa18e37e08ef597f493f8bf8
+    linux=7e364e56293bb98cae1b55fd835f5991c4e96e7d
 X-Osstest-Versions-That:
-    xen=d6e0b4c41a38655ade7ecb566e8b2961282769fb
+    linux=6ab608fe852b50fe809b22cdf7db6cbe006d7cb3
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 03 Apr 2023 12:51:36 +0000
+Date: Mon, 03 Apr 2023 12:57:25 +0000
 
-flight 180117 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180117/
+flight 180116 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180116/
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 180085
+Failures :-/ but no regressions.
 
 Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180113
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180113
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180113
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180113
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180113
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-examine      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
  test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
  build-armhf                   2 hosts-allocate               starved  n/a
 
 version targeted for testing:
- xen                  720ebfbad3e3bee8aa18e37e08ef597f493f8bf8
+ linux                7e364e56293bb98cae1b55fd835f5991c4e96e7d
 baseline version:
- xen                  d6e0b4c41a38655ade7ecb566e8b2961282769fb
+ linux                6ab608fe852b50fe809b22cdf7db6cbe006d7cb3
 
-Last test of basis   180085  2023-03-31 07:01:54 Z    3 days
-Testing same since   180117  2023-04-03 11:03:28 Z    0 days    1 attempts
+Last test of basis   180113  2023-04-02 18:13:46 Z    0 days
+Testing same since   180116  2023-04-03 02:26:51 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-  Roger Pau Monné <roger.pau@citrix.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
 
 jobs:
+ build-amd64-xsm                                              pass    
  build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
  build-armhf                                                  starved 
- build-amd64-libvirt                                          blocked 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
  test-armhf-armhf-xl                                          starved 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
  test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     starved 
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      starved 
 
 
 ------------------------------------------------------------
@@ -130,205 +254,14 @@ Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Not pushing.
+Pushing revision :
 
-------------------------------------------------------------
-commit 720ebfbad3e3bee8aa18e37e08ef597f493f8bf8
-Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Date:   Mon Apr 3 12:53:29 2023 +0200
-
-    xen/x86: switch to use generic implemetation of bug.h
-    
-    The following changes were made:
-    * Make GENERIC_BUG_FRAME mandatory for X86
-    * Update asm/bug.h using generic implementation in <xen/bug.h>
-    * Update do_invalid_op using generic do_bug_frame()
-    * Define BUG_DEBUGGER_TRAP_FATAL to debugger_trap_fatal(X86_EXC_GP,regs)
-    * type of eip variable was changed to 'const void *'
-    
-    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 71efa7b868e64d29b2a0488e015e80798f1fde8a
-Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Date:   Mon Apr 3 12:52:02 2023 +0200
-
-    xen: change <asm/bug.h> to <xen/bug.h>
-    
-    The idea of the patch is to change all <asm/bug.h> to <xen/bug.h> and
-    keep Xen compilable with adding only minimal amount of changes:
-    1. It was added "#include <xen/types.h>" to ARM's "<asm/bug.h>" as it
-      uses uint_{16,32}t in 'struct bug_frame'.
-    2. It was added '#define BUG_FRAME_STRUCT' which means that ARM hasn't
-      been switched to generic implementation yet.
-    3. It was added '#define BUG_FRAME_STRUCT' which means that x86 hasn't
-      been switched to generic implementation yet.
-    4. BUGFRAME_* and _start_bug_frame[], _stop_bug_frame_*[] were removed
-      for ARM & x86 to deal with compilation errors such as:
-          redundant redeclaration of ...
-    5. Remove BUG_DISP_WIDTH, BUG_LINE_LO_WIDTH, BUG_LINE_HI_WIDTH from
-      x86's <asm.bug.h> to not to produce #undef for them and #define again
-      with the same values as in <xen/bug.h>. These #undef and #define will
-      be anyway removed in the patch [2]
-    6. Remove <asm/bug.h> from <x86/acpi/cpufreq/cpufreq.c> and
-      <drivers/cpufreq/cpufreq.c> as nothing from <xen/bug.h> are used in
-      <*/cpufreq.c>
-    
-    In the following two patches x86 and ARM archictectures will be
-    switched fully:
-    [1] xen/arm: switch ARM to use generic implementation of bug.h
-    [2] xen/x86: switch x86 to use generic implemetation of bug.h
-    
-    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit faafb5cb736db67a5790854c63bf3c76dd4df7e0
-Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Date:   Mon Apr 3 12:50:56 2023 +0200
-
-    xen/arm: remove unused defines in <asm/bug.h>
-    
-    The following defines BUG_DISP_WIDTH, BUG_LINE_LO_WIDTH,
-    BUG_LINE_HI_WIDTH aren't used in ARM so could be purged
-    as unused.
-    
-    Requested-by: Jan Beulich <jbeulich@suse.com>
-    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 60a9b07150558b212918aa8fedd532be246b03d7
-Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Date:   Mon Apr 3 12:50:06 2023 +0200
-
-    xen: introduce CONFIG_GENERIC_BUG_FRAME
-    
-    A large part of the content of the bug.h is repeated among all
-    architectures, so it was decided to create a new config
-    CONFIG_GENERIC_BUG_FRAME.
-    
-    The version of <bug.h> from x86 was taken as the base version.
-    
-    The patch introduces the following stuff:
-      * common bug.h header
-      * generic implementation of do_bug_frame
-      * new config CONFIG_GENERIC_BUG_FRAME
-    
-    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Tested-by: Julien Grall <jgrall@amazon.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit de7d113212b0e28423b6d0e983aa164e76b415b7
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Apr 3 12:48:12 2023 +0200
-
-    x86emul: move various utility functions to separate source files
-    
-    Many are needed by the hypervisor only - have one file for this purpose.
-    Some are also needed by the harness (but not the fuzzer) - have another
-    file for these.
-    
-    Code moved gets slightly adjusted in a few places, e.g. replacing
-    "state" by "s" (like was done for other that has been split off).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit c80243f94386f64f85c5d92ef0bb19dc406eefc2
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Apr 3 12:47:08 2023 +0200
-
-    x86emul: move x86_emul_blk() to separate source file
-    
-    The function is already non-trivial and is expected to further grow.
-    
-    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
-    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
-    to be phased out anyway).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit 1939403104965b091feb7712430ec5d7645a8d30
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Apr 3 12:46:08 2023 +0200
-
-    x86emul: split off insn decoding
-    
-    This is a fair chunk of code and data and can easily live separate from
-    the main emulation function.
-    
-    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
-    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
-    to be phased out anyway).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit 8f196c12eec7f90bcf31f86312b8fe5ee12b41be
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Apr 3 12:44:59 2023 +0200
-
-    x86emul: split off FPU opcode handling
-    
-    Some of the helper functions/macros are needed only for this, and the
-    code is otherwise relatively independent of other parts of the emulator.
-    
-    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
-    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
-    to be phased out anyway).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit 0bae69c96b32963b535bb569d6b41f96a7d72617
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Apr 3 12:43:51 2023 +0200
-
-    x86emul: split off opcode 0fc7 handling
-    
-    There's a fair amount of sub-cases (with some yet to be implemented), so
-    a separate function seems warranted.
-    
-    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
-    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
-    to be phased out anyway).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit 3e957de632532dc287ae4cd356fd8d7882d4f233
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Apr 3 12:42:44 2023 +0200
-
-    x86emul: split off opcode 0fae handling
-    
-    There's a fair amount of sub-cases (with some yet to be implemented), so
-    a separate function seems warranted.
-    
-    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
-    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
-    to be phased out anyway).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit 9ace97ab9b87924477bbaea0a5a1378e106951cb
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Apr 3 12:41:08 2023 +0200
-
-    x86emul: split off opcode 0f01 handling
-    
-    There's a fair amount of sub-cases (with some yet to be implemented), so
-    a separate function seems warranted.
-    
-    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
-    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
-    to be phased out anyway).
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-(qemu changes not included)
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   6ab608fe852b..7e364e56293b  7e364e56293bb98cae1b55fd835f5991c4e96e7d -> tested/linux-linus
 
