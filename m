@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A38CC6D44D5
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 14:50:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517429.802726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0173E6D44E1
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 14:51:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517432.802736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjJdF-0005TN-6t; Mon, 03 Apr 2023 12:49:57 +0000
+	id 1pjJes-0006q2-K8; Mon, 03 Apr 2023 12:51:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517429.802726; Mon, 03 Apr 2023 12:49:57 +0000
+Received: by outflank-mailman (output) from mailman id 517432.802736; Mon, 03 Apr 2023 12:51:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjJdF-0005RR-3S; Mon, 03 Apr 2023 12:49:57 +0000
-Received: by outflank-mailman (input) for mailman id 517429;
- Mon, 03 Apr 2023 12:49:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UzYg=72=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pjJdE-0005RL-4H
- for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 12:49:56 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062d.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 07444ab3-d21e-11ed-85db-49a42c6b2330;
- Mon, 03 Apr 2023 14:49:54 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by DM4PR12MB6063.namprd12.prod.outlook.com (2603:10b6:8:b1::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Mon, 3 Apr
- 2023 12:49:51 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::659f:af8f:6d3e:8242]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::659f:af8f:6d3e:8242%4]) with mapi id 15.20.6254.030; Mon, 3 Apr 2023
- 12:49:50 +0000
+	id 1pjJes-0006o9-Eo; Mon, 03 Apr 2023 12:51:38 +0000
+Received: by outflank-mailman (input) for mailman id 517432;
+ Mon, 03 Apr 2023 12:51:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pjJeq-0006nz-Uf; Mon, 03 Apr 2023 12:51:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pjJeq-0000Kh-RG; Mon, 03 Apr 2023 12:51:36 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pjJeq-0006Wy-Ac; Mon, 03 Apr 2023 12:51:36 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pjJeq-0000zg-AA; Mon, 03 Apr 2023 12:51:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,144 +42,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07444ab3-d21e-11ed-85db-49a42c6b2330
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SoyMUN8lkB4TWJczrrnC+webiCjV0i3IcQSOHW8nq+ZhmaW/OP9RCfYYY+rbE6aJjm+SxcVlnrWZGdu6RuZ2gNC2B7HW8EQvS8ApRu1zTT1D7BzI84HZ6Hxl8Ka2r6yDSh4wIbdULKi2AVfUQbAT7dQi2EVmlfJ+k65XRwz99RFIF6jeK38UzcG0gMB3FuqOjbzDckBHkCEp7H8WQEGVpvTL7d1inTWG9kK5iOdLdz37KPE0BnfqBQP78z9NlQ3vv6PRr9rHJh7/lnGlchfCHfmSP6IWs7vEQ11sGLgzCjHk/9QXz6KbqeuuWnkIK9vX9wRnTFzJ0sD4EWQIhIUiQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0ulHxYGxKal1Hs+seRR7jT18eEPRUjrcMb+GtA8Atv4=;
- b=YCCk+OSU9li5Wc/nNrAYmffOEHb8tirpsk8gA8UnrCA/O20cRK/EtsuKVxHGXO3wVN/qDXBRxVJmSR9U/JUbnM4p5ckaansoE3Ws5wXdoTRh1+alkUooltZJ55OmKoKQjJ9wxs245H3YyYSLMhEV22MTNqrMA+E8BVLreyMu48xK+iVSCNcxvpyxwkGDiZ2FboPaMRPYd1+FAX7RQAmgPFKtXxG9VUbJNxJK5WeAUAQuZ8nX07GkaeNxCG8YbdrUKzvv18sF6FzWeQ4Dj6tFXazF8WJoel4M7cCKVyHyO21jCLHPVO4iqiXs+vfMCWJKjYSvNqwoe7cn+gN7bAw4/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0ulHxYGxKal1Hs+seRR7jT18eEPRUjrcMb+GtA8Atv4=;
- b=rJVZcICm9E8Y9WhzweWI1oAc1+dk7enAelJgJQW1M9KlSaFmNRYZyNRDkn7Tw2TSMRdnPkpR/qlOcDCMDPpio7FL7IG72a0epePfqDPEnPfoPw0La31GNzI5XT0z9xBdhmb5HaLCtZQJZ1eLPTuNR/NfbW5K7HR6Z5xR+EAOJyA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <049cc80b-9fe3-1b01-67a6-112bd5e46443@amd.com>
-Date: Mon, 3 Apr 2023 13:49:44 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.1
-Subject: Re: [XEN v4 06/11] xen/arm: smmu: Use writeq_relaxed_non_atomic() for
- writing to SMMU_CBn_TTBR0
-To: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- wl@xen.org, rahul.singh@arm.com
-References: <20230321140357.24094-1-ayan.kumar.halder@amd.com>
- <20230321140357.24094-7-ayan.kumar.halder@amd.com>
- <f1e638f2-28c8-fcee-bfb4-a7d459281420@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <f1e638f2-28c8-fcee-bfb4-a7d459281420@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0450.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a9::23) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=dpMlPzhdn2xiggfFd3IuEvqdtUJGVsKIy+S3+BQTpqs=; b=R3KRY6zRMW+GO/FkAfxsvodHlb
+	CQDzmh4/U5tEe7+jZ/WGnsytTcuKs2Pht/CfKOEUfpJwLgWOyOJmWE9unnY1x17ppxJiBBr+viWpj
+	2HaXaXpD8UcdpFxHqQQlVK6NIryRfGqyBI7aKYUG88MnpxKCaAQaxEYBB+VIU6BeIaRo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180117-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DM4PR12MB6063:EE_
-X-MS-Office365-Filtering-Correlation-Id: c15ac467-100a-41e8-1b0b-08db3441ea04
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	lnkDqbon/RKPst/EN01pi4SOxk2ooXqNrL/jeH1V0X/2bBRJcIiYIGM7Qm7KYQXHIYoLQKkjkmw+bVrXygVUDyOwsx1kAGj9sIl+ZL/nYV+H72p3jMkOIVsJ4nMhvL5s07SfaRb5WjQumGxbUZ12gHyHd2xOBy14Qs0iVKpzsOWhyStvHTfcXAhokVjB5gxUsuORrlDLfrVRxwmfi3vEAwieocbbnvgWX8RS+Vg25oZd0iiqxZtv8+f46EVJPq3t3vkyVvuIM2IMiYo67wS3zqYob6G1auEbyj80Ox9bzjg9lGG5ySCuM52oz6mGXPAqq3nXTk6DeGgsAgC12WRFXFyasNHH5myR+UrZI3LHlA3wdPNUsTkOY9X86EIpcaVU46/vMhAGvYbzqNq45AmsU43EcsqsoevUx1Lxq/6K/Bhi/GpeLMmAs4+n/DqlHroQ7pPQ2GvsL+/3c8Qkeo9kXRIhGIArTP2LPI9oTDsR1EiY6FK4ZPYNRUrEKYgCknYM0Zc4OGSaBqRF/ABMPAB0lEE/Njsl+/q5Kwb8gVWX1BdxmbfKq37r0uRz2vNEq+7GzPqFNljt8vWbIyD1fbnNOXcsCMW/MqvV4XcZ44UGJXTeEPEfzAJjVYHbGewiJfdUMlQNsPWD+b/UOhEYJ6qMZg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(136003)(376002)(396003)(39860400002)(346002)(451199021)(8676002)(7416002)(8936002)(66556008)(2616005)(31696002)(186003)(26005)(6506007)(6512007)(38100700002)(83380400001)(53546011)(110136005)(316002)(478600001)(6486002)(6666004)(5660300002)(66476007)(41300700001)(4326008)(36756003)(66946007)(2906002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WVFUcTJEVVM5MEZiMUo1SWxoWUcycUt1ZUtheUcrcUU4eng4RTVjUDE0ZS8y?=
- =?utf-8?B?TlFyNFBNOFFVM05EdVp2S01MSUVpc3JtVTlST2svT2VFblV1cXd6SWlHMFpm?=
- =?utf-8?B?Smpqc1VIbkJCTUNLL0UxL2xnQkc1UDdIM0o4bTJ4V0hmVjlmaFpNV1NkQTZV?=
- =?utf-8?B?MUs1Y0s3QWUwU1lIMDREWjNVVmJoZ3pmc0FSM29RdEtENi85OTRNVkxEWlRx?=
- =?utf-8?B?L0VNR0tmTW53dTF3ck93MFBudHY0VERSdWd2WjNrRTZhay80QkJFYlQxUG1D?=
- =?utf-8?B?ZGY5YkdIRWhlRFM2NUdqamg0NE0rSTlsa2ZReCszSURvZ2JRSmx0ZGpsWC9E?=
- =?utf-8?B?OFNMaHMyaFY3aHBIVTUvT1B6enJwZkc2Y3dWZUZBUmZGWllUQzVOQXVsS25l?=
- =?utf-8?B?d3pWVXNwc0VKaG1SK24zY2JBRkU1TEJjWE9oWFN4TDV2OWhVVG54NE5McitJ?=
- =?utf-8?B?bnpTM3p0WXdmRjY1MXlmZzUraUcrelp4L3VGaVd3L2U1RFVnS3haRXFBMlha?=
- =?utf-8?B?SFhtdVg4N0dNTE04WXhoSkVuRVV2TWExZUhnNEVQbzZGQ3lJeUdnMDFYN0VT?=
- =?utf-8?B?S1RqMm5JMU5RYzlEQnlnUW9XbG5oUzgvNitNMlozR0VHMVpGWUViSnJEVXJR?=
- =?utf-8?B?blRibWtjeTd1R2xFaXB0d1RERnB2ZCtxc0k0NEo1SXdITWV2eE4xcWV5cTg5?=
- =?utf-8?B?YzNZR3lrNTVoQ2RBUUdxTk1aa0xTUSthbjhYdXBOWFRSVUZhdk5LbnR2Vm5m?=
- =?utf-8?B?ckcyUUpYdmRNQXpxZit4cXhzVEJTRFMwaVRvejhzOUNGNzdLOTAzSmQ4eWpl?=
- =?utf-8?B?NUYrYjlBNHp4NzdjbzVNVUN1SEZNOFdMcmJuaDgwQkRvT1lCSEpKYitDMytD?=
- =?utf-8?B?OSt1aVJ4empTOTlvN3BiYVIrSVU1OU1Lc05RdnJXb0xJOE1ibHZHV3R1djBQ?=
- =?utf-8?B?MitqVXU2a1Q3bE5CeVMwaytIamN1RkZhdlV0R1JNZDc5dWRVNWRUUnh1bEM4?=
- =?utf-8?B?TFpzNWp3eEdpZ3FBZXhsQUovM0djbncvWmV3VFFKMVR4VkVYNnRnaTlzc056?=
- =?utf-8?B?cDhpS0hKQ1hITFBZRGJ1RWdyeXlGTzNDSXJsUlIva2Fvdnh0dzNJemN5Y3dV?=
- =?utf-8?B?L0VPazdtZkZRRk5aV0pvMjNTNEI0K21MN0VSQlJnMXY4WXhMU0xSc2VzbExO?=
- =?utf-8?B?VXBUVzBRcWw5S0MwSEs3MkhRODZLUjRCYmNvTDIwbE9HVHA3aUtrNUxHWDVT?=
- =?utf-8?B?Smw1K0VjSExhdjZTSEdoaXRQZW9rbkovcXBUZlRYUk5MaDc5QkJ6SFlGNUE2?=
- =?utf-8?B?T2UyYlJkK3VUVkZUKzI4Sy9DSHdaVG15TkRDczlvUkV2S2kweUEyRTZlRi84?=
- =?utf-8?B?U3Z0Y1Y4K1o0STgzeXpNdEhRVW5PSXl2ODNqMzBpYTRxSVFKcFppUUlLM3BN?=
- =?utf-8?B?OUlZbHJWdXFQQkVtT0pnWHVYTDZEN05NUlNCaHRDcXhJMDlKWVg4KzdoSnE4?=
- =?utf-8?B?ZGhBd1Y2ZWRiVS8xKzJrTnpHbmJNV3YwckZISGsvOGFKS2lqbjk0N0lIUmQ5?=
- =?utf-8?B?enNhaVdyN1JkMDJ6SEdDQlBKb2dGdUtjWVBUdVhCWDdGZG5WSW8ydGF6clNU?=
- =?utf-8?B?WnMvOG8rc0xybmEvckZ5M1VKY3JUcWM1cnNKbGdkUGRIWlNyQ3FQVzZiNDJm?=
- =?utf-8?B?aWJsdVFZbmtZWjRYenBEM0N0aTZRRXlMQTRVVFl0VXU2SGtZWmRvT1V1Wnhp?=
- =?utf-8?B?ZXVhaE9PaXJyanVHOTBCWlI4L3ZqUC9RVVlUQWs3TXdEWlk2c1dSTEdQWkJU?=
- =?utf-8?B?VDFkMm0yQ25YV2t4OXJKR29MNzVmQlpldjhmci9wMDFNSFFOZmpVVjZPY0Zu?=
- =?utf-8?B?VzlCRm5MWS9iSkZ6MlB2bCs2alhYakN4ell2UEExbWM5S3BuNUhhSC9PTkxV?=
- =?utf-8?B?YXdZOGdZS282ZS81MGhMcG1lRjhNZHdtOUtoQ3FNT1JUUm1yOEV0enA4bUMy?=
- =?utf-8?B?VzhNMnFGL2dMcFJJSHNEdzJHT3g5TmQrRmhrMVYwekhIVVRUUFpYUS9lKzFu?=
- =?utf-8?B?ZGlVOGNxRDJxNFU4WHJkTVkrc3ZrMTRhb0hWWTFNb0g4cVU5dVJTN2hkakh6?=
- =?utf-8?Q?uIUPQ6c9/3zcHS+B90E+Cgh7b?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c15ac467-100a-41e8-1b0b-08db3441ea04
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 12:49:50.9217
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OUEqTcO+joF1U4qTClxAY7vT18IHh1gzwx4Uu0jn7OwC0pnGbCB2jn7JJKzkCG+skkYHQxF97G+fPKewuqcSSQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6063
+Subject: [xen-unstable-smoke test] 180117: regressions - trouble: blocked/fail/pass/starved
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=720ebfbad3e3bee8aa18e37e08ef597f493f8bf8
+X-Osstest-Versions-That:
+    xen=d6e0b4c41a38655ade7ecb566e8b2961282769fb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 03 Apr 2023 12:51:36 +0000
+
+flight 180117 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180117/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 180085
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
+
+version targeted for testing:
+ xen                  720ebfbad3e3bee8aa18e37e08ef597f493f8bf8
+baseline version:
+ xen                  d6e0b4c41a38655ade7ecb566e8b2961282769fb
+
+Last test of basis   180085  2023-03-31 07:01:54 Z    3 days
+Testing same since   180117  2023-04-03 11:03:28 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  starved 
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          starved 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-On 30/03/2023 22:27, Julien Grall wrote:
-> CAUTION: This message has originated from an External Source. Please 
-> use proper judgment and caution when opening attachments, clicking 
-> links, or responding to this email.
->
->
-> Hi Ayan,
-Hi Julien,
->
-> On 21/03/2023 14:03, Ayan Kumar Halder wrote:
->> Refer ARM IHI 0062D.c ID070116 (SMMU 2.0 spec), 17-360, 17.3.9,
->> SMMU_CBn_TTBR0 is a 64 bit register. Thus, one can use
->> writeq_relaxed_non_atomic() to write to it instead of invoking
->> writel_relaxed() twice for lower half and upper half of the register.
->>
->> This also helps us as p2maddr is 'paddr_t' (which may be u32 in future).
->> Thus, one can assign p2maddr to a 64 bit register and do the bit
->> manipulations on it, to generate the value for SMMU_CBn_TTBR0.
->>
->> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->
-> The tags should be ordered in a timeline. So Signed-off-by should be 
-> first.
-Ack. I will take care henceforth.
->
-> I am happy to do it on commit if you can confirm that this patch doesn't
-> dependent on the patches before.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Yes, please commit this patch as it is independent of the patch series.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-- Ayan
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->
-> Cheers,
->
-> -- 
-> Julien Grall
->
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 720ebfbad3e3bee8aa18e37e08ef597f493f8bf8
+Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date:   Mon Apr 3 12:53:29 2023 +0200
+
+    xen/x86: switch to use generic implemetation of bug.h
+    
+    The following changes were made:
+    * Make GENERIC_BUG_FRAME mandatory for X86
+    * Update asm/bug.h using generic implementation in <xen/bug.h>
+    * Update do_invalid_op using generic do_bug_frame()
+    * Define BUG_DEBUGGER_TRAP_FATAL to debugger_trap_fatal(X86_EXC_GP,regs)
+    * type of eip variable was changed to 'const void *'
+    
+    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 71efa7b868e64d29b2a0488e015e80798f1fde8a
+Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date:   Mon Apr 3 12:52:02 2023 +0200
+
+    xen: change <asm/bug.h> to <xen/bug.h>
+    
+    The idea of the patch is to change all <asm/bug.h> to <xen/bug.h> and
+    keep Xen compilable with adding only minimal amount of changes:
+    1. It was added "#include <xen/types.h>" to ARM's "<asm/bug.h>" as it
+      uses uint_{16,32}t in 'struct bug_frame'.
+    2. It was added '#define BUG_FRAME_STRUCT' which means that ARM hasn't
+      been switched to generic implementation yet.
+    3. It was added '#define BUG_FRAME_STRUCT' which means that x86 hasn't
+      been switched to generic implementation yet.
+    4. BUGFRAME_* and _start_bug_frame[], _stop_bug_frame_*[] were removed
+      for ARM & x86 to deal with compilation errors such as:
+          redundant redeclaration of ...
+    5. Remove BUG_DISP_WIDTH, BUG_LINE_LO_WIDTH, BUG_LINE_HI_WIDTH from
+      x86's <asm.bug.h> to not to produce #undef for them and #define again
+      with the same values as in <xen/bug.h>. These #undef and #define will
+      be anyway removed in the patch [2]
+    6. Remove <asm/bug.h> from <x86/acpi/cpufreq/cpufreq.c> and
+      <drivers/cpufreq/cpufreq.c> as nothing from <xen/bug.h> are used in
+      <*/cpufreq.c>
+    
+    In the following two patches x86 and ARM archictectures will be
+    switched fully:
+    [1] xen/arm: switch ARM to use generic implementation of bug.h
+    [2] xen/x86: switch x86 to use generic implemetation of bug.h
+    
+    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit faafb5cb736db67a5790854c63bf3c76dd4df7e0
+Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date:   Mon Apr 3 12:50:56 2023 +0200
+
+    xen/arm: remove unused defines in <asm/bug.h>
+    
+    The following defines BUG_DISP_WIDTH, BUG_LINE_LO_WIDTH,
+    BUG_LINE_HI_WIDTH aren't used in ARM so could be purged
+    as unused.
+    
+    Requested-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 60a9b07150558b212918aa8fedd532be246b03d7
+Author: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Date:   Mon Apr 3 12:50:06 2023 +0200
+
+    xen: introduce CONFIG_GENERIC_BUG_FRAME
+    
+    A large part of the content of the bug.h is repeated among all
+    architectures, so it was decided to create a new config
+    CONFIG_GENERIC_BUG_FRAME.
+    
+    The version of <bug.h> from x86 was taken as the base version.
+    
+    The patch introduces the following stuff:
+      * common bug.h header
+      * generic implementation of do_bug_frame
+      * new config CONFIG_GENERIC_BUG_FRAME
+    
+    Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Tested-by: Julien Grall <jgrall@amazon.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit de7d113212b0e28423b6d0e983aa164e76b415b7
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Apr 3 12:48:12 2023 +0200
+
+    x86emul: move various utility functions to separate source files
+    
+    Many are needed by the hypervisor only - have one file for this purpose.
+    Some are also needed by the harness (but not the fuzzer) - have another
+    file for these.
+    
+    Code moved gets slightly adjusted in a few places, e.g. replacing
+    "state" by "s" (like was done for other that has been split off).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit c80243f94386f64f85c5d92ef0bb19dc406eefc2
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Apr 3 12:47:08 2023 +0200
+
+    x86emul: move x86_emul_blk() to separate source file
+    
+    The function is already non-trivial and is expected to further grow.
+    
+    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
+    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
+    to be phased out anyway).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit 1939403104965b091feb7712430ec5d7645a8d30
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Apr 3 12:46:08 2023 +0200
+
+    x86emul: split off insn decoding
+    
+    This is a fair chunk of code and data and can easily live separate from
+    the main emulation function.
+    
+    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
+    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
+    to be phased out anyway).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit 8f196c12eec7f90bcf31f86312b8fe5ee12b41be
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Apr 3 12:44:59 2023 +0200
+
+    x86emul: split off FPU opcode handling
+    
+    Some of the helper functions/macros are needed only for this, and the
+    code is otherwise relatively independent of other parts of the emulator.
+    
+    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
+    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
+    to be phased out anyway).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit 0bae69c96b32963b535bb569d6b41f96a7d72617
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Apr 3 12:43:51 2023 +0200
+
+    x86emul: split off opcode 0fc7 handling
+    
+    There's a fair amount of sub-cases (with some yet to be implemented), so
+    a separate function seems warranted.
+    
+    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
+    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
+    to be phased out anyway).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit 3e957de632532dc287ae4cd356fd8d7882d4f233
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Apr 3 12:42:44 2023 +0200
+
+    x86emul: split off opcode 0fae handling
+    
+    There's a fair amount of sub-cases (with some yet to be implemented), so
+    a separate function seems warranted.
+    
+    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
+    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
+    to be phased out anyway).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit 9ace97ab9b87924477bbaea0a5a1378e106951cb
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Apr 3 12:41:08 2023 +0200
+
+    x86emul: split off opcode 0f01 handling
+    
+    There's a fair amount of sub-cases (with some yet to be implemented), so
+    a separate function seems warranted.
+    
+    Code moved gets slightly adjusted in a few places, e.g. replacing EXC_*
+    by X86_EXC_* (such that EXC_* don't need to move as well; we want these
+    to be phased out anyway).
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+(qemu changes not included)
 
