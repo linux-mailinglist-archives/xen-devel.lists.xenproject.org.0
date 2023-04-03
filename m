@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 720F86D4463
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 14:28:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517418.802695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37E0D6D4474
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 14:32:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517422.802705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjJHW-0001pn-Sh; Mon, 03 Apr 2023 12:27:30 +0000
+	id 1pjJMB-0003Iy-El; Mon, 03 Apr 2023 12:32:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517418.802695; Mon, 03 Apr 2023 12:27:30 +0000
+Received: by outflank-mailman (output) from mailman id 517422.802705; Mon, 03 Apr 2023 12:32:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjJHW-0001o6-Pl; Mon, 03 Apr 2023 12:27:30 +0000
-Received: by outflank-mailman (input) for mailman id 517418;
- Mon, 03 Apr 2023 12:27:29 +0000
+	id 1pjJMB-0003Fq-BW; Mon, 03 Apr 2023 12:32:19 +0000
+Received: by outflank-mailman (input) for mailman id 517422;
+ Mon, 03 Apr 2023 12:32:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jmin=72=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1pjJHV-0001nw-3Q
- for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 12:27:29 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dypz=72=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pjJM9-0003Fk-IY
+ for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 12:32:17 +0000
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur02on2062f.outbound.protection.outlook.com
+ [2a01:111:f400:fe12::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e56cc482-d21a-11ed-85db-49a42c6b2330;
- Mon, 03 Apr 2023 14:27:28 +0200 (CEST)
-Received: by mail-ed1-x52d.google.com with SMTP id r11so116629126edd.5
- for <xen-devel@lists.xenproject.org>; Mon, 03 Apr 2023 05:27:27 -0700 (PDT)
+ id 90bfa3f6-d21b-11ed-85db-49a42c6b2330;
+ Mon, 03 Apr 2023 14:32:16 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM9PR04MB8241.eurprd04.prod.outlook.com (2603:10a6:20b:3e4::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.23; Mon, 3 Apr
+ 2023 12:32:14 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6254.033; Mon, 3 Apr 2023
+ 12:32:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,105 +47,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e56cc482-d21a-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112; t=1680524847;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tiE7fi8L9R9ZN6JJC1ebw86MnpKbIthjLM1TAQ6wdds=;
-        b=SLWKoRIjJSc15Z3iJSvUSE+xWKgnWLllIi48RMO+zJuuH7Zh+wfu6mQWj4g/CMbfvm
-         LWfIFDCmD3now078RwoRVxGcd8QMPVa+yEXuGB84+ZsddkMy2ELo100vpXSifKl7azhg
-         G71yRxDmgpp1CcWAbCQh56I92k7s7x2wSPsH3y0Dt5YrQvWc+cFhTfnwthmTY/O6uIAv
-         ISyhl5lRlzuTNHuNdBi+JjIHUTb8vHrXTyHW4xoJCTvMXX1xftq912OTVPjEAFu5wsXj
-         l7W7wkKhz8g9ZI8NY7YozGaSM3disnulAoQVpVCB88s5dMMeJb6JWKiQ5BugpfwBvtvR
-         jGZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680524847;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=tiE7fi8L9R9ZN6JJC1ebw86MnpKbIthjLM1TAQ6wdds=;
-        b=aKMCnrmbzJqodlJB1K5kGbrvjSDS2c7Xblt37z5/bitJp6AoVKfPYR5gIKaVQ1B//S
-         RjxNtkej100WOGd2zNNukHnD2yoYr53PCq0woROJD6u0WuF6oGqscIJLdKCzfh9huFb1
-         x/oLWz7IuLnIMA7nPIjA4czrKp92yV/obhE9WZl399ias3S/sl9OmfiF/CPwPkrS3eEd
-         2AlZ2LMc+0VTA/zUVUhaauZCSksKPbfkngAMo5KfrcHxWwbR64HtvnKZKVjSqkQ3VZnB
-         Dps9w8GRlVFQVhUYrD5Pjdw0hXeB4mtdtpThRm4erbFqv47trBiob3iQptb04tz3Jw+K
-         Xk2g==
-X-Gm-Message-State: AAQBX9cVmqtMNPlQtAX/KvD7cSzSkNtduqoOV2GJtsM0sCKk0GLt2Wao
-	HjZcfhwWdPgVcVsuGIhGJH+crohUSG4KQnHjPN0=
-X-Google-Smtp-Source: AKy350bvj5HIZOXxODdl9HmyUeSupI0oslUbBLSEUl1HB1gkoU4xmW0A4xcnaidpOajdABK2WAs4EAaIQ4xHo6NgWLI=
-X-Received: by 2002:a17:907:20bc:b0:92a:581:ac49 with SMTP id
- pw28-20020a17090720bc00b0092a0581ac49mr15671469ejb.3.1680524847399; Mon, 03
- Apr 2023 05:27:27 -0700 (PDT)
+X-Inumbo-ID: 90bfa3f6-d21b-11ed-85db-49a42c6b2330
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OhK0du4NTETNhaiN/TwaYdavWbFHxsw9tKVF8toKz/I8u9V/YiUhhvjmm3oQHlj+Sz3XsLhQ1ZCZ7MhiftzotZ3ueRwHkakoUpwjL+aNTtekj0p9MtLjNFrLLHqV4XQuMDiZ1Ee3NGU9SqhlL4r9AgOIeMUtiwqG13kTEiYcBQVwbJjT3/r1MqPLB9DYpHNl4fL9ipOVXkdWo+SCKIXaNT0DZAnpsUtVZ2SiUdxEJ335oiYjjKnCGL1onXiQjij2xjec0uVaT6HJn24S8FYa3DeiIeQqbSqZaUMY7PO0z7kyzXClJNYDKfcmJc3R+47Ka1y8qnftSfOgL8u8fxAi9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T85vDg5TUrhPHf2JrkJQCK2w9XzTQ/j04O5QemxmJV8=;
+ b=C7xnCkHfZJJ96+a26QG3zWITD/wL8KM9sGutj7YrjnGDNmj3L2RhI0gwr/j9vwZFZxQ2ybTR18wyexJusYMDsjbYdO6v41Z621bnxAjn93R3ubnPtxCJPtoxIl7NlHfdmF+feXnl3oQCLz42dzBJgA7u1EX+oKHMOVnAZ4vKktOkX2WAZGsa1yJxuE6w8MmUdU5fi12v2+h3ryF7J0oSVmP5EY2wGo7hQz1TSHgpToEFPcUdZmx0vzvRgA+j2Z/46E3kCeem2vHg8qf9fs/3oZ81k8dELu/rW18mUaU1ufgD/y3uFQjrvOg5FwjnbX8t3ICK3n6wgMnZiJzNB5QzPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T85vDg5TUrhPHf2JrkJQCK2w9XzTQ/j04O5QemxmJV8=;
+ b=zWPNfIBFs5t1L8n19gz5XapdI1mIOaVCGyuBqh1fVofD+8k8pogW1O6SSWobBjBRpst4xClYOfmo5pcl6ThbmH4ng0b0CBraONZP4ssbbsmlscxJTSfwhLLekosGcQ+OmTux2qpTGIfdgJnzdde8hw9VJ0tHjVwRKjRpxSaMLHXUrJruVAWhkPK+x62H/i+PmAFf4uQGTOX8Q0A/DpKe61pR/drwwTdyIRTFdKhSrU9KaI8Cm4eeqKdtC5In49jWfAHAt9e1jq5F1xP7KAQxq2gzDrnOSVlpsPBkFxAKEvrS3xT6AzF7kE08vsWcQkDzlXk9uuAtSFTCXqhf/cyTQg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <efe42c36-8f5a-8600-dcc7-fc1dc8980775@suse.com>
+Date: Mon, 3 Apr 2023 14:32:09 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH] x86/emul: Fix test harness build with blk.c moved out of
+ x86_emulate.c
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230403122535.724250-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230403122535.724250-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0178.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a0::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-References: <20230312120221.99183-1-shentey@gmail.com> <20230312120221.99183-3-shentey@gmail.com>
- <f52c41f7-e662-4afd-8ac9-ce2c0da2b1be@perard> <7F45B51F-F1E3-4F04-A46F-4C80509C7195@gmail.com>
- <622b9674-fffd-4634-ac30-d0db3230478e@perard>
-In-Reply-To: <622b9674-fffd-4634-ac30-d0db3230478e@perard>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 3 Apr 2023 08:27:14 -0400
-Message-ID: <CAKf6xpvxf=F52etJ8o3eLQV4JVD5WM57znGoP3ctONRf7uPisA@mail.gmail.com>
-Subject: Re: [PATCH v3 2/6] hw/isa/piix3: Reuse piix3_realize() in piix3_xen_realize()
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org, 
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	David Woodhouse <dwmw@amazon.co.uk>, =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>, 
-	Aurelien Jarno <aurelien@aurel32.net>, Eduardo Habkost <eduardo@habkost.net>, Paul Durrant <paul@xen.org>, 
-	xen-devel@lists.xenproject.org, "Michael S. Tsirkin" <mst@redhat.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Richard Henderson <richard.henderson@linaro.org>, 
-	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
-	Chuck Zmudzinski <brchuckz@aol.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8241:EE_
+X-MS-Office365-Filtering-Correlation-Id: 729229be-f0d1-4914-e799-08db343f742c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	7dOPxVcOMXHPaO4ZObhVfOLrJT9V5rehAiwRJCyd0y5TbCtnz0MSLGE/rW2ymvl99oAGBESsKxb/k4h3yvpULMIgzzFxJ1jFhZsiHuUYOOdYAc7Se97rzSZyiUJXvPxOzW3CptCwDlAMnPPR3+Fvh2U/laIh5UpmDk6CsoWp2OxXnZzXuAJutw2hm+bW1ndjjLJgDIyv3K97WOuSx3o6fLJV/+mIsb1kK3z+VheKxKBH0Wl0fy9t80i+J4fj0T7MYPYIhkAC+TkHg3/aOMQC+V6Ma2Fibty/3kaFQjiVagyieswq6qmUuoWdqYgFjW3BSbrQsbyqTkxfIyOvpmsKPtmmCp4Hzo5EuCWOy5rF1eWW0v04jRIiz2SDme107TM68zfY8mRhdYL9OjnVz4f5eqKyI8PMh0mKKDS2VrO4sz94e9sSNFDbKqpO2ZJ2BEp725+6qek4m0UhqyTppz2uQ+LEnvRdrEQLhqYExUC2/SmOHyUzvB4osRUHyFgkH5QqUMZqm3cj/mRDHF7x9LAb2/3Tt6bZw3PRK6+UNQvBUk9vBAqY3CbCDE91ESBseTHK6GdaHCKprLTlLRgJcdAn96U1VsNkdV/AEPPZoK+HhFM4rE+i7QlcgvhpPgWMD03Ub/jHlT52wIXz0GGePVV+qA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(396003)(366004)(136003)(346002)(376002)(451199021)(31686004)(6486002)(26005)(8676002)(66476007)(6916009)(66946007)(54906003)(4326008)(66556008)(6512007)(316002)(36756003)(53546011)(6506007)(6666004)(38100700002)(2616005)(186003)(2906002)(8936002)(5660300002)(478600001)(41300700001)(31696002)(86362001)(4744005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U09nVFI1bEJNRzhaTDlWV1lzYmdRWUgzcFdDYStoOGVpNzhaTWsySTcrVGZR?=
+ =?utf-8?B?V3dGRHl2MEZyNGxDNStTbTd1OStINkpPNTk3dlNmOFpSa0ZPQ2JNOVZlS3hl?=
+ =?utf-8?B?TkpPRlBjRUJZZ3ZaS2lZdmNSUk9JU1I4VEs2a2RoUlAwTmk1WUtiVHU4RmZJ?=
+ =?utf-8?B?SXpRRTl5d0lLQ1VWNkg1bmQxVVRPeXJ2SUw0dkdSOGY5RzVaSzFRKzZuQjhC?=
+ =?utf-8?B?cTlFaUNiYWlrN0RTTW0wRFIxMWM3UkRIaWdmVzErUU5DS2ZCUTVLamM5bTZs?=
+ =?utf-8?B?SlRINmxwNGNHeVYvZ1JLdXNCOFErNCtnc3Ztb3FpUytNeHE5dEY1ZE9LZGJD?=
+ =?utf-8?B?bEltcHFObFRhUWxhQmR4K3ZVV1RpcVpEMHo4Y0hhQUlXcU5MSm9vTjNFNGZM?=
+ =?utf-8?B?TS9YQ0RMZWhCZktjVk1rWjMzN05iZzJTWXNsc0dLNjZDbDFtZ05FYytQZjk1?=
+ =?utf-8?B?NnhlTm5QSjdYWTBaUHdhbWE3akdVbFlkVzJMTFkwSmZRcUs3QUVMT2tOQWZH?=
+ =?utf-8?B?citmdVFvZi9iNGtXMHhSc3R5SFJ4bUtzSTFRbEJuSWhFdk9jRWJOZkNUejR6?=
+ =?utf-8?B?SE5EekcwSnV6ODFTMVc5QU5vQVRSaUVDVlFZOFM3RUwwNElwQ2RyUkhhYlVp?=
+ =?utf-8?B?c1J3cVNmWVhVNTh5RnRWUmlhaXhUdXZsK095N2kzSUNzTW5vVEo5cy9YZE43?=
+ =?utf-8?B?T1lwRUtxS2tpTGlneXRibVRDR3g5ZFJrRFhjc1h3YXJ0U3NTN3R5aDhpTktN?=
+ =?utf-8?B?TWN1U3FSTmhNTTVQVGNHMy9OVVQzZExhVGZNMjg3ajg3ZmV6TGdHSE5hL3Nj?=
+ =?utf-8?B?RHlMQncwNW9GOGVSVWJOY3kyZmFobVcxSzd6RGkzVnpKQkFiTkYzS3RTZlRv?=
+ =?utf-8?B?dVBybmI5UkV5YTZEelQ4cG82WDZXYnlyL1Q4d3V2dGxOSjZEcG5tQ0lkUjlp?=
+ =?utf-8?B?ZnVXbXh5ZGVoWW1ZUmY1eExYbTYwbG1qWUhKMFlLSDFpek9NMHM4dkdUN3Jw?=
+ =?utf-8?B?cTFQeWRkRnFhV29zbUVVUWIwUHo5M0s2R2FXZWQxVUFabHRIUEZyR2krb05q?=
+ =?utf-8?B?VnAweDU4L0dxVGNhMFR6UktqSDFEMGl5Qm5qZjJPZHc3QjlhVDBYK1JYZktF?=
+ =?utf-8?B?M3pDZlpYM1krYU52UUJhcUM1YTB4MEs2SnZSVkJPVlkwU2R3THBFMlNqZmRs?=
+ =?utf-8?B?eHdLbS9jQVV2UW5VZWllOFhkWDUxUnMrWjFKczJrTEdxOVZ1V01IYUx0K2NC?=
+ =?utf-8?B?SllVaTJkVGNQTXQ0SXhETmhGY0krSkNLWnc4SjlsQmVOMS9PcFNpZi9oRmNM?=
+ =?utf-8?B?cTh2UVdac3RVS01vd0R1dWFIQTA3VHJZU1pVNFpmZ0MyUFgrSEJob1E1RExh?=
+ =?utf-8?B?TnJ5WWZYNitDTzRud3JLTkp5VWVnMFJtQ3dQdFVnblBLUDNaODlFVUJqYVRo?=
+ =?utf-8?B?bEV5QzZ4UnVvNDBkbjE1aURlVXZ2c2pCNzI0STB5VW1JQTc2ZHdhTVBlRnhs?=
+ =?utf-8?B?VXowTEN3c0xKSHphcmF3b2JTT2RrVFJVV1JpSVduZW43TUtMKzV6SEVKZHFO?=
+ =?utf-8?B?cklpbjNzWlMxZ1NmNWoxRURGOG9SQXZPaGx6aVJJakttaDlqM2s1S2RteXNn?=
+ =?utf-8?B?QXMxSXE3SVQvODh1L1R3NG91MW5XWENLWEsybitsU3FHcmJQMG84b1lCVFZH?=
+ =?utf-8?B?YkM5YkN6VDh5ZkU0dlRCMkRFS3hPRk41ZXFNUW5mZmpndzl1SE9nRGZIMkVm?=
+ =?utf-8?B?Q2ZzNW1HY1BMSldtRnRnaTRlV2oyNFNNQVlLVzdBcTlZNXAxVzQxcVRMOU9I?=
+ =?utf-8?B?UFQwRGlMS1kyV2JVTkJSeGt3UFdmNytCUVBOQkhNeU5mOFdiZE8raHkzVUs2?=
+ =?utf-8?B?S3lRQzFCZDhpbzAyWFZua0VXNHIvNXp3S2hneFpRaDVRMWplNnpDTndGL21x?=
+ =?utf-8?B?Uncxcm95eTVRZGMzWDZ0dmN6cUJIN3FPSTYwY2lOMjVzbU1ERnBoeTVSOHJL?=
+ =?utf-8?B?am9JZFdZb0xHWGRwUlVwWTNSOFZHeFNIZmF5dWU5bjhpZlJRbFh5UFRYTUJ3?=
+ =?utf-8?B?OHUxN0xGa000K1lpa1kvdkZsRy9IZTV5ODUydDhEYm5ZbUloVk9mU0VJWFNB?=
+ =?utf-8?Q?rMKUwt/g4YdiISEPWO+Hf9JlE?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 729229be-f0d1-4914-e799-08db343f742c
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 12:32:14.0724
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PILZt4P8qTgiY8fRyso//prdafEPV17MYrqV3dRrBnRGd7uadUsSEFqsjLHWU1iDWieB6IVhfdK0aBMuq07Vzw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8241
 
-On Mon, Apr 3, 2023 at 5:33=E2=80=AFAM Anthony PERARD <anthony.perard@citri=
-x.com> wrote:
->
-> On Sat, Apr 01, 2023 at 10:36:45PM +0000, Bernhard Beschow wrote:
-> >
-> >
-> > Am 30. M=C3=A4rz 2023 13:00:25 UTC schrieb Anthony PERARD <anthony.pera=
-rd@citrix.com>:
-> > >On Sun, Mar 12, 2023 at 01:02:17PM +0100, Bernhard Beschow wrote:
-> > >> This is a preparational patch for the next one to make the following
-> > >> more obvious:
-> > >>
-> > >> First, pci_bus_irqs() is now called twice in case of Xen where the
-> > >> second call overrides the pci_set_irq_fn with the Xen variant.
-> > >
-> > >pci_bus_irqs() does allocates pci_bus->irq_count, so the second call i=
-n
-> > >piix3_xen_realize() will leak `pci_bus->irq_count`. Could you look if
-> > >pci_bus_irqs_cleanup() can be called before the second pci_bus_irqs()
-> > >call, or maybe some other way to avoid the leak?
-> >
-> > Thanks for catching this! I'll post a v4.
-> >
-> > I think the most fool-proof way to fix this is to free irq_count just b=
-efore the assignment. pci_bus_irqs_cleanup() would then have to NULL the at=
-tribute such that pci_bus_irqs() can be called afterwards.
-> >
-> > BTW: I tried running qemu-system-x86_64 with PIIX4 rather than PIIX3 as=
- Xen guest with my pc-piix4 branch without success. This branch essentially=
- just provides slightly different PCI IDs for PIIX. Does xl or something el=
-se in Xen check these? If not then this means I'm still missing something. =
-Under KVM this branch works just fine. Any idea?
->
-> Maybe the ACPI tables provided by libxl needs to be updated.
-> Or maybe something in the firmware (SeaBIOS or OVMF/OvmfXen) check the
-> id (I know that the PCI id of the root bus is checked, but I don't know
-> if that's the one that's been changed).
+On 03.04.2023 14:25, Andrew Cooper wrote:
+> Trying to build the test harness fails with:
+> 
+>   x86_emulate/blk.c: In function 'x86_emul_blk':
+>   x86_emulate/blk.c:74:15: error: expected ':' or ')' before 'ASM_FLAG_OUT'
+>      74 |               ASM_FLAG_OUT(, "; setz %[zf]")
+>         |               ^~~~~~~~~~~~
+> 
+> This is because ASM_FLAG_OUT() is still local to x86_emulate.c.  Move it into
+> x86-emulate.h instead so it ends up in all files including private.h.  The
+> main Xen build gets this macro from compiler.h.
+> 
+> Fixes: c80243f94386 ("x86emul: move x86_emul_blk() to separate source file")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Xen also has hvmloader, which runs before SeaBIOS/OVMF.  Looking at
-tools/firmware/hvmloader/pci.c, it has
-        ASSERT((devfn !=3D PCI_ISA_DEVFN) ||
-               ((vendor_id =3D=3D 0x8086) && (device_id =3D=3D 0x7000)));
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-From QEMU, it looks like 0x7000 is PCI_DEVICE_ID_INTEL_82371SB_0, but
-PIIX4 uses 0x7110 (PCI_DEVICE_ID_INTEL_82371AB_0).  Maybe try removing
-that check?
+Locally I actually have this exact same change, but in the MCOMMIT patch
+(which predates the splitting work by quite a bit).
 
-Regards,
-Jason
+Jan
 
