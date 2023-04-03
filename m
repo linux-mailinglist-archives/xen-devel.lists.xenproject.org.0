@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8912B6D4302
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 13:09:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517384.802625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F3D6D4378
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Apr 2023 13:27:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517391.802636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjI48-0006z4-GT; Mon, 03 Apr 2023 11:09:36 +0000
+	id 1pjIKo-0001GF-TI; Mon, 03 Apr 2023 11:26:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517384.802625; Mon, 03 Apr 2023 11:09:36 +0000
+Received: by outflank-mailman (output) from mailman id 517391.802636; Mon, 03 Apr 2023 11:26:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjI48-0006wD-Cl; Mon, 03 Apr 2023 11:09:36 +0000
-Received: by outflank-mailman (input) for mailman id 517384;
- Mon, 03 Apr 2023 11:09:34 +0000
+	id 1pjIKo-0001DD-Q3; Mon, 03 Apr 2023 11:26:50 +0000
+Received: by outflank-mailman (input) for mailman id 517391;
+ Mon, 03 Apr 2023 11:26:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=dypz=72=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pjI46-0006dQ-NP
- for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 11:09:34 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2062d.outbound.protection.outlook.com
- [2a01:111:f400:fe16::62d])
+ id 1pjIKn-0001D7-4O
+ for xen-devel@lists.xenproject.org; Mon, 03 Apr 2023 11:26:49 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on20631.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02c24cf1-d210-11ed-b464-930f4c7d94ae;
- Mon, 03 Apr 2023 13:09:33 +0200 (CEST)
+ id 6a376de6-d212-11ed-b464-930f4c7d94ae;
+ Mon, 03 Apr 2023 13:26:46 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB9PR04MB8138.eurprd04.prod.outlook.com (2603:10a6:10:25c::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ by AS8PR04MB8199.eurprd04.prod.outlook.com (2603:10a6:20b:3f6::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Mon, 3 Apr
- 2023 11:09:31 +0000
+ 2023 11:26:43 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6254.033; Mon, 3 Apr 2023
- 11:09:31 +0000
+ 11:26:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,135 +47,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02c24cf1-d210-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 6a376de6-d212-11ed-b464-930f4c7d94ae
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ljSShnzZ3IkJ0ax+6+k560RKBq9aS5R/zl1756FzVn67gASBQETSN3J7r2e+zFBxCd+wxnYkIglWd2OThtXynLq7UYnrV1rY8775syZYQ+aS/i8hzLBXJNNWp95rIg39vrO8JPaEUAdRryHapFka8YFabs1rPeA0cpxlnYLW/9jyE7AxI8vMjnAhYBqYeoTG/mATEovuAX+IUclidYAdcLq/ANU3OpQd3JRqWruugAY8TVGd7HUoaFkEom3hd0MvtPIGnx/SYxidbig5ZPxilZobIaExKKEG4ItF629K+xbIHNSSDs1HCo6CQaFe9lSt0Q9k0xaKmpUt8tpgLEf8Wg==
+ b=d+hdoDww5qWu7/IpzNtygOSq9A5/NQ1j0WN3va4/nUtqo+qscEVXYo/l5MkAqg9mAq2tlp0ABwyn7g+k5OOgilMTXD9mHvf0hC6e6YJFLTyriFEY87MxvReUexsowPb2ON7RgCuVxrnPDHGOpPhQqlXgz3h10Du5yFcWRv9Yv3Yr13L75zXyl+UX1oJIkLSQI8F40QliD06/nTHB2jnHYVF0eLszK5LiZIXtexdxMRb8T8h2AUp7RqRhwMVj77kdNsYgfQfuUREskXUJcYIBxNVPf3SGQ9dbpqvyEsc9jcM/eTbr7qBtLCk+sVspm/LyVEFlPvyr6Tb3mQJlSeuXJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lh3DidjN6ele/jYXeFN/8iuMc38l5BJIsPtFgZxHUNk=;
- b=SWmsI1ck1hdMvxKjKoxdQvC5X6Tg9ZVpzgqkep0bCW0vvgmSdVDWRFoRlMpvfSBg3/z5euJVsH4YvwTF9jQshlMQS+8Z3Y0/DAJLTXcskgZh7ye/nHO9vZR9Y/kxqP/1ZE4tjdamL/z1NBlCbyJSn0N31Vg1GnRlYP/v1xJTKFZqSm7SDoEI0r8aO1pmaKth3b2cbeSc5Dx0UF2SEPJd1RIEI2dNKzgufEMnmTmwT86vFWIA3tWRpUDVjjLL7eQ4MVJknG6f0AchakX5wuY1c+Qkl+C72gOMkn50KTvgIEOrYEa7D7QrGAYmNFwlXdkeB649kzUsq4s3vFydtAvgVg==
+ bh=L8q0afLa22hTjaRnK3m9EodQhb1yTAjxZx4IUbIHkaM=;
+ b=GZZLp0wclcMIbZpiCGr00m8ELQES7QzUVvGnPkA/f7/ORbO2eahMJkTnazvPYBBPjhVdrQ19Ux7gRjwfR5FBVK490brdhqbZ73tOiPCYjDf48Ji7aNWtfTlQYcdw9uGU7JZHXgKOrxzcU3kpK2E/N+YJyqsOVvjLlXkksiHy/BZ1JkaGEN03ekhcm92pvB+KMZJeUdkO9Or8CZ+9NByBRg1/wUCAEqWnx8dCHUHiqJA8k5UQK+7ZdwRzW1j6NBjk4GAbF3b70FDsHCXcT2Rewy0tIe6vSeuyaqmZQXOJRCTT+itjCgdMA5YDJ6zC9W2xlCUqcW/3Wkq8K5PLklY65A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lh3DidjN6ele/jYXeFN/8iuMc38l5BJIsPtFgZxHUNk=;
- b=PZG4a3XwCqHLcxXBY553XoTiCUgxN4C0r+2zBigjPE831erZH5pR4+sbuh3KBKQaMTAoA/E+Cnaimq8Dmx6yX9cl63Q8wfOZrB7B0t1tLg1smYth4icrutfa7Luhd/dOyHFbyYYODiyChgWIyfGvUHER3qUpG2V8+pxqjbRZ5kHATcDVgTcYYCKa9VBQ1hR88Da5ur6vAaaVuYs9lMzz2TvlDYnJ2g6GAGcHGqaIK7nqCSj3FUzrRxkJzJ6a9nP7QvVZGsXBxExufZol/0waDemXAP55FtloWK7pP5iEVj4OgvS1iic3ZuZyCB+zGtGp0tcRTinaB3+AuTpzKON2jw==
+ bh=L8q0afLa22hTjaRnK3m9EodQhb1yTAjxZx4IUbIHkaM=;
+ b=IZxR0y3YHXIJpSLbODqGMcs4WvelFlgm1crboySZnhSlV2I/zZC8Xh3os2bfxkKSiHMTDuF6M4FHHMyQ2OOA4GAWei/cA5iKmbNaQe/44aE4HTVepqA40PRZEGF1t0dF+plgtLrtAvacgYpVi5ZFERHhpF0IDCO6qrcT4u7I/DmsxGCU1IEokBTnubVHwcdnD5DCkUrl3OtD5aEhOEaE4lZ34vWr5GkkysA21OI7yjTn6c18jAmrq8tOKBJTVwcVS1j4YMgHAwPe3+so4Znx82BRWjA6vprN5WeVvZH9BbjVzBpZOiLekFoxi6+ziwMz67zO/26Fxop49cD3Xs3vrQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <245d1a4d-3bdc-21e3-8ee8-2909d6fe7b60@suse.com>
-Date: Mon, 3 Apr 2023 13:09:29 +0200
+Message-ID: <be49b5d2-f4a0-44f7-0f6e-56c0e63e9da0@suse.com>
+Date: Mon, 3 Apr 2023 13:26:41 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH v2 2/3] x86/hvm: Allow writes to registers on the same
- page as MSI-X table
+Subject: Re: [PATCH v5] x86: detect CMOS aliasing on ports other than
+ 0x70/0x71
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20230325024924.882883-1-marmarek@invisiblethingslab.com>
- <20230325024924.882883-2-marmarek@invisiblethingslab.com>
- <ZCLNQGXvUBxZbIGS@Air-de-Roger> <ZCLX1qD/FmbF5ulu@mail-itl>
- <540906f7-4543-9d01-2b2b-a3bd70eda74b@suse.com> <ZCLjGhbzGD2jykT9@mail-itl>
- <9eb7b538-4074-4b15-4ea2-67d9cc0bf85d@suse.com> <ZCpUZI6HmzYKDhAz@mail-itl>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>
+References: <5426dd6f-50cd-dc23-5c6b-0ab631d98d38@suse.com>
+ <8f2fa47d-89b7-b39c-e60f-edee1de5ca82@suse.com>
+ <ZCqz0YCFUifIlthC@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZCpUZI6HmzYKDhAz@mail-itl>
+In-Reply-To: <ZCqz0YCFUifIlthC@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0152.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0155.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8138:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6181ff65-045b-4173-8cbc-08db3433e5fa
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8199:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d89e8ec-6986-410e-9c1c-08db34364d1d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	H1aHl4xkdWyX0+OhLb4OWAbIvhV8yZgq9IVd7OfwGTjNiJ6FmTIGK13kNdyE6QsnGxQ0fDjabnRcy3VNICeTtcENmGhbyTaEE9NeDn76mwWAMnbK51SDqS0lAqasR8IyuouSgOA7RyxfM1wXo4cAKK0/Y8oNTngFOI/LomHbsCcBBURKbyOscdcTTw1cHVRNa5RjxugeX1fy5QDv5Wv6u9xGiQwwkfwQQ0QRwTa/5JTqSgUIxM/HWI3zwz6OP4ksLh9do1Wjcs7HWD6sllTdWvFID8lJJKw1Ox2fHNelWj4h4lrDBKi2FM60/8poFhCxG1qukr75Uo/EZXxqxbnTAiqTu0e8WOY46GGQLbEqf53q3pN7ZmDJ1iUES7SRvB8YKk6z9DZ/W8/WpXXyYJsjtvWBa4odGZ0MpMu2w983BjlOcXFzey8eFWCEktE5MBxo+nzueCWkSXL+oy33tVhOSF4KGRYN+bA2hjQpq2OnUdhzBxPm4exe4dz8D61XpYYqP7jAwYnZKAADpoeJVgimbPjtIm/ru0wU6211v5IhZWLaUglP3/wEFpIq3YpxOsRHkJPf8u9enVqkXudepxCntkML29j8mA/fb9VNq93UxySDqyyQiRSlHJ3e11+evXpy2d4KbhZrIFY5x6tRcQWpfw==
+	iGa+gFBuan6KwoxqIjLD07BUMtvuyypTCL3f28CUB9ZH1u4m+BMNsN+xJYlO5tDSmli+ZsAkdRFT5b1hpzeKq8toHJXSFSmRmmMpfJFDxW3hnehR4pIn3lcs/FPhtp106/4HeNUNvM0wlBCoBLU54Y+t/rfYXmVlgHIsNT75i4Tz0WqZyKTW4mi0q0BlKCMBCYrcFbyc7lu6QjYIhQMM5R7KyOy+yt8IAvqLInyrbnfCaopLYfKtBMwO4O02uiMGCu4yEyc03XrnGguRIahqkvUzqpZpcCbjIpCj7eSvoCKFDvdSiO6KVvqwqChWngbna9d1m1O+G7P9/tT75RaV9NGDPVPHvr2ZUoDMg8lK5HI1aWMwPkApzXVOZeW+/MgKyppbzR3a8jnmJnQUDiWkqe6c5P8XPLoZwbkCtanD8QcS3uZ+YDQUBOfpoVF8vXuXTd5gSGn1WTddK/4I8RVT8yOxCL+Pt7q3RZ3R/sitL8FrbFuDDsbHhOnmHwhuTH1I/jHlG9h1LZjc83WZH3cj4XLeIoYZQHCWD9JcQlXHpcB5Vsq+yW1w811xIQmshJpnm3mt2s0V0AW2RpINYn3GQeKNItj5UA5bifkhEFQQ8XBF8uQ93BBW5/lN58sgSH/31FrSjupehoRE6YqH8ssbCA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(366004)(136003)(396003)(39860400002)(376002)(451199021)(38100700002)(5660300002)(66574015)(31696002)(2616005)(83380400001)(54906003)(316002)(6486002)(186003)(478600001)(53546011)(86362001)(6512007)(6506007)(26005)(41300700001)(36756003)(4326008)(8676002)(6916009)(66476007)(8936002)(66556008)(66946007)(31686004)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(136003)(39860400002)(376002)(346002)(366004)(451199021)(8676002)(6916009)(66556008)(66476007)(66946007)(54906003)(316002)(478600001)(8936002)(41300700001)(5660300002)(38100700002)(4326008)(53546011)(186003)(83380400001)(2616005)(6486002)(26005)(6506007)(6512007)(86362001)(31696002)(36756003)(2906002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Yll5SjBuZFE5aHduaTR1OS9ObUF1OTlaUVJUWmJuV0ZseGVOaTIwZU94NjJG?=
- =?utf-8?B?eEFqelVxd0lmOEhId2Iwb25JaHVQYW5VM3NhcERQZTZOUHZtRzdPeVlzNDlM?=
- =?utf-8?B?ZWFIbFo2QWFEZWJ3ZktYQjNpTCs3T2dtWks2aHlYeGYxd1dTWENvaGNLZlN3?=
- =?utf-8?B?dkpXeVNLbWVhKzk2dHR4T1BsOGl0Y0JHam5zVWFRQS9pcThkK2RieG5QQmlh?=
- =?utf-8?B?VVQ3VFIxNlh0ekJyczhhcVVSSUtDK21ZSE1NNEUxREhYK2gxMXBpZ3ZWcHBy?=
- =?utf-8?B?MUNRU0NuYnJtMmluRFNvdmZKU1RUcCtIOTZNTUFRTk43TVBTcFo3UWNLV3NI?=
- =?utf-8?B?SS91UzhuSlRaSGlFU1ppaDRqZ0MvQW5hZVp2Nmk2a05tVjJiZkJCRU5nTVRI?=
- =?utf-8?B?a1ozckVRMnpSMVlQL3BrcVE5T3VpQkdHbWNJZ0ZQNHVMTnZKOWZOT3k1T2ZX?=
- =?utf-8?B?NHRHTjhaeThobVRFVUQvNEJkRHNidUFqemxWekpRZ1g4akw1OXlsYWE3M3lu?=
- =?utf-8?B?L2RKQTU1ZjRIa2NqMlRjbk9PZWlQc3BoNDF5RzMwalZsZE14Zi9PdUt0N0pi?=
- =?utf-8?B?SjVpME9xZHpmejVxU3hjbkdjQXB3aVdXTFMzbm9iempVYjQ5Tm5LSHJFTjB3?=
- =?utf-8?B?QU96WEhvSEo1aC9XbTlvQU9WTXUrbmN5NURKbUVJditrWTRKaVc3Y1RPUnVz?=
- =?utf-8?B?Q1ZLVm5zMUV1eFZiK2RzRWRMNnZkSnZlVy9LUTdpbWt4bDZrMjZ3NHBJaCt0?=
- =?utf-8?B?T1lpYnZlUWd4VHJuaGtPQjR6VWtxcU95azlPUjNMOUVQcGVuelhQSG95bThT?=
- =?utf-8?B?eDArUkVqei9iWlNSWmxzZkc4Mk5abEJBSnFVemFhcjhhdktTNGFHSnZyUkpT?=
- =?utf-8?B?eXIyMWhSTGpaMURZdlNaTUlKQ0ZnRDRPMUR4bHVKUklzSVRpUUJxWlhTbmFD?=
- =?utf-8?B?K2xha1hMUzlxSGNROGVXVlN1REpjem1GSFU3VllSRFdESkRJd3QwQzZuN3B4?=
- =?utf-8?B?LzdhSVVzc2poT1htTmtRNzVORTdrUTlyNFp3ZE0vM2tiRVppYkJKY210WmNY?=
- =?utf-8?B?eWJoRThPY2ZBVzlDeHF6NzVsRUdtQ1ZyZWFqeGlNYlFWNnNxUFZqcFVqc2pB?=
- =?utf-8?B?UlVxbisyTGxueGxiMGZHeDRQcjh5ZVVPc3RjbCtpQ2RFYy83bmxtSWtCaHUz?=
- =?utf-8?B?YjI0NWwyZVF3NTM3aGNWSGowdmFvTHBrRktZVkVDejczUEUwcFA2MFVoL2Nw?=
- =?utf-8?B?MVJoa2lFVlBCczR6Q2RrTGpkbWIrcjFWSHc5RjFpZklrUWt6MFBKTlNud2FR?=
- =?utf-8?B?LzVSS0RORGxsYzdaK3VQbGZiSTdHWmFIV0JnZWVyUDVwZ1U1TkdMT2hoTGJT?=
- =?utf-8?B?TDRPYlVIL2plbnQ0OGozTVZyZ2ZNdGMwWmpoRUpwL2pxcjFIZzhCbktaZ3NU?=
- =?utf-8?B?blduVk5vSTlWbEZHdXZnN1FKdWJxM1NSc29OUkJJRE9qazJHR2NaK3IrZFZV?=
- =?utf-8?B?elF3WDkzTVNPOVdrTWIwbldiVG5qcDMvQ3VvMzNWOE1udmsrcU5VU2ljSmVh?=
- =?utf-8?B?dHlKWlJaTFVZU1l6SkRoUGNadmVha1NYYkpCZjVleVJMZW8wN0Z2cjlNRVow?=
- =?utf-8?B?SW96UHhCQjAvblNnSmpGQklMKzZsR1JScDdxN1pMaEZ0dnN0cUg1ckN5b2FM?=
- =?utf-8?B?MTNVT0ZiZTg4MDJKUE5Yc0w3c3pvdVkrR2MyWTRYekd6SlRzS3p3RGpjSnpP?=
- =?utf-8?B?bnpNMG9WSFhKZ25MU2wraDRmWXR0Q0MxUmhlcDNjWFk5cVg4SW1RamFmSXA0?=
- =?utf-8?B?ZHNCZGJzYW5kTFpJWmxsVGZaNVZST3J6MDBJRjZ6enRZWldrQURWSTNYOExP?=
- =?utf-8?B?SXV2NHU4c3hSZmZtYVRRNGRpL2MvYm5qalluZG5zSTk3Tk9BdDR1aGRJYy92?=
- =?utf-8?B?VWoveUZpc3lvZnJMbGh1ckdWSmplNGljUVlYSnVjSlZwTlZoMTVKMmlFV05W?=
- =?utf-8?B?YXpDc1dDcVNBNFRFdVZJQnRMN2ZEZitXMktLUHhPR1gvU09MU2JhcjF3VVZR?=
- =?utf-8?B?VmpPd2VqQlhuUkdLK2s5RWRqZDBaNkFzTkduU0VUWHJvaFg1bVlpY1Y4Nm1a?=
- =?utf-8?Q?FKxjDwUFQaHqi1yie8dmYngBZ?=
+	=?utf-8?B?eUtQKzlXVUZEb3hVTUtCUTVVTE4rcmhxWnVxR3FFQjR2bHRBemxmVmxiQWRx?=
+ =?utf-8?B?TFlGRGlYSTZwN0U4RkhuZWRKSzhCM2pnWTdUdFo5bCtlaWtrbWdzUlAwdkhy?=
+ =?utf-8?B?M29nWXM2WnorMVdTWXRqUW9wbE1PNFRVTWgwdmRZZ0Y0V2preWdSdmFLczJY?=
+ =?utf-8?B?aW9mR210V0p4V1ZLTkhsTTlxQW9OdHJTQ1ZrUWFmbFB5Mk1JQXBVdExqdmRK?=
+ =?utf-8?B?Nlo5ZVYwcHBLa2ZMTXFYR3JFR3hYTTFPUHY2cjEyQmMwRWxZMTJFL3QzS05D?=
+ =?utf-8?B?U2hJWmxlZVV4UHJkUnVsZmZUWSs2ZG9CcHljbXVZT3B1RGtKTFE1ZlJ2dlV0?=
+ =?utf-8?B?dEFBZ1F3eHFIRm41V2RBTTgxQlozaXdTZ0NHbXhveStNdGQvWUtvT29pVXoz?=
+ =?utf-8?B?bU95UXdxUnNBZU9sa0M3bmtpU2R0bHMzdDkxNUlPajVBRldSSy9pV1JaZ2V0?=
+ =?utf-8?B?b0dtaTFYUU5ablFtbURMVUNGL3VDUGpZNE44WGh0ODFzaC9JVE8xWVFvQWg3?=
+ =?utf-8?B?MkNocmRHQTM0STJQOVF2VGUvOEM0T3JrdHllMDJOVy8yT3IrRWEveXgzQWxC?=
+ =?utf-8?B?R3crTVlUSmp0ZEdDNEd5ZDZoUTdma2tqMVpsSGhvKzVBZDhqZG9OWFpJcFU4?=
+ =?utf-8?B?TTRvOWxDSUl4STdLVUlTbXpkc0c4Qk51V01Mc1FVYWl5TmluRkVuNWIxRDhE?=
+ =?utf-8?B?Z2ZiN3I1R1BiblhyOUxKeU96M3RGalZZWnhhS2FLdzduOXI3QnBLUDV5dGJ2?=
+ =?utf-8?B?S3Z4c0xZL2NFcWpCa243RUJWSmdDcWxGNlJTZEE1WEM1cm9RalhzMnBwTDBB?=
+ =?utf-8?B?Wk8wRC9UWjFUQnVJZWs0SkM5d0tHNG5TWTBFZjBRd2N5d0VDTEdaeFFmNXds?=
+ =?utf-8?B?U1pKTitHYWVDcWxtbTVXMVhTZ1pEcjV2bEwySms5NG9EL2d2RDRsbSt5cDB1?=
+ =?utf-8?B?M05UM1RPd0RoRmRqNXNWdXY2M3pBRk11SS9GaUdIaGZQTjR5MkZyTklISzhn?=
+ =?utf-8?B?UHpoOHpjQmRmQjZGNUdhTHJFT2VWSWl4ZVZzbTlldGhsd1JOV0Q4TjFENG9K?=
+ =?utf-8?B?RHFCdTNEaUMzU1pSZElJQkZzdTJhRDRWVHRmbXl3VndnT0ZlZ3ZBbVBSL1kv?=
+ =?utf-8?B?U3JhNXM4d0k2RThiL3VhM05lb1RVOXprSy85bE40OThPTXV6ZnRMKzBNNlp1?=
+ =?utf-8?B?ZlZOWXZBRzlKWktUVU54aVh0L0FSV1B4L3cvc1E4M1daaWJ1bEs1eExuNGhU?=
+ =?utf-8?B?NUZxK2x1ZERaQ1ZvbHY4TUdFOWdFOFJiWGo3NXJWeVVqT0grdnBNSEs3QkVW?=
+ =?utf-8?B?RjQ3c2ZNeXZ3aG05QUxSVEVxaUtsWWJaR2JJaHFjbXp1TzlYbVNFOHBVR1kv?=
+ =?utf-8?B?V0hta2M5U3VYbnFZMFBrcFJpK1BhbTVJTFFNK2U0R2hveDhIVUwya0FpektC?=
+ =?utf-8?B?cWlDYXdvclgyakp3WnE0SmhXcU5nK3NTcml1LzF0OUk1Uzl0OE43MWQ1YjVh?=
+ =?utf-8?B?V1hLdGFKSXVTMVh1cEdXME4wdGlmZHJBUUVsbldta3dHUTh2R3Vtczg1VVJh?=
+ =?utf-8?B?NlgwRXBHcEhnSi9maUhydHZDbFUrcERqS21tbmo0WXlHZmVTSC83SURCWWlv?=
+ =?utf-8?B?aWFrenFLTm5ZQ3QwME9jVnhvVkU2RzNxZk81cWRIUHJINEg3bzdWM1JXWkJO?=
+ =?utf-8?B?dm9LVmJmdllxUXIwTGxtRzRQM2VxSldlMTdzOXBHMy84d1B3YkVsWFVjU1RL?=
+ =?utf-8?B?aTFFdU5Fa1ppTHdOT2FnU1FpMkEwOUZHMW92VkxLVk1vcVVZZjNlT2s1dTVO?=
+ =?utf-8?B?VWJlenpzbTlEWW9ZTVBwVVNQQ2JQcktObU1iUTAzbWxiSEJwdXFDZ1A4N09q?=
+ =?utf-8?B?YXI0ZTU4Nlo2Ym9Gd0lOSU1VOTlpZ0k1QnhGb2dWWVVlWktVWGQ4Q1hRb2dQ?=
+ =?utf-8?B?MnJRQ29vdi9lbXlIcWg0R00wb2ZESFFUZTIyd1JtVGloM3R6QmxKMWdJNDQz?=
+ =?utf-8?B?M1BPM0FFSngvSU8vR3ZET0NtWVI1aW5tZk9kSER1RlhKSXJQaEVMTWd1ejNk?=
+ =?utf-8?B?aDUxTTdTTW5xbFlRMjJmMEw5R1lEQ0ZKSk56Z1k3MnNJbFNKNVo4Q0Z1WGY3?=
+ =?utf-8?Q?mI6eHeHor+E2V67KVEXhLSmak?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6181ff65-045b-4173-8cbc-08db3433e5fa
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d89e8ec-6986-410e-9c1c-08db34364d1d
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 11:09:31.0652
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2023 11:26:43.1181
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m2Rj1ktJftMK6t7ODOcttf7WEBzgi5PHJ/SXgorruGiZI+qkNXH+sz6F0Ak2pyIgVb4rZSZzDrLKjk4gxrsdnQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8138
+X-MS-Exchange-CrossTenant-UserPrincipalName: LOECWLr8hShqeiNXC7KvpCn9/n/lqF44JenNROx9YJ/XcvM4XgaQ0T9r9D3ZdLr0rUwfdoDZm4o1aYeEu75crQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8199
 
-On 03.04.2023 06:21, Marek Marczykowski-Górecki wrote:
-> On Tue, Mar 28, 2023 at 03:03:17PM +0200, Jan Beulich wrote:
->> On 28.03.2023 14:52, Marek Marczykowski-Górecki wrote:
->>> I mean, technically I can probably merge those two handlers together,
->>> but I don't think it will result in nicer code. Especially since the
->>> general direction is to abandon split of MSI-X table access handling
->>> between Xen and QEMU and go with just QEMU doing it, hopefully at some
->>> point not needing msixtbl_mmio_ops anymore (but still needing the one
->>> for adjacent accesses).
+On 03.04.2023 13:09, Roger Pau Monné wrote:
+> On Thu, Mar 30, 2023 at 12:40:38PM +0200, Jan Beulich wrote:
+>> ... in order to also intercept Dom0 accesses through the alias ports.
 >>
->> Hmm, at this point I'm not convinced of this plan. Instead I was hoping
->> that once vPCI properly supports PVH DomU-s, we may also be able to make
->> use of it for HVM, delegating less to qemu rather than more.
+>> Also stop intercepting accesses to the CMOS ports if we won't ourselves
+>> use the CMOS RTC, because of there being none.
 > 
-> In that case, this code won't be needed anymore, which will also make
-> this handler unnecessary.
-> 
-> Anyway, I tried to merge this handling into existing handlers and the
-> resulting patch is slightly bigger, so it doesn't seem to avoid any
-> duplication. The only benefit I can think of is avoiding iterating
-> msixtbl_list twice (for respective accept callbacks) on each access. Is
-> it worth a bit more complicated handlers?
+> So it's fine for dom0 to switch off NMIs if Xen isn't using the RTC?
+> Seems like a weird side-effect of Xen not using the RTC (seeing as we
+> would otherwise mask bit 8 from dom0 RTC accesses).
 
-Well, limiting duplication (if possible) is only one aspect. Again
-referring to Roger's functionally similar vPCI work, an important (from
-my pov) aspect is to avoid consuming another handler slot (via a new
-call to hvm_next_io_handler()).
+I haven't been able to find documentation on this single bit in the
+absence of RTC / CMOS.
+
+> Also I'm worried that when Xen doesn't intercept RTC ports accesses
+> from dom0 could be interrupted for example by the vCPU being scheduled
+> out, so a vCPU might perform a write to the index port, and be
+> scheduled out, leaving the RTC in an undefined state.
+
+I did specifically add "because of there being none" to the sentence
+to clarify in which case we avoid intercepting.
+
+> I've read claims online that the RTC is not reset by the firmware, and
+> since it has a battery the state is kept across reboots, so
+> interrupting an access like that cold leave the RTC in a broken state
+> across reboots.
+
+I can easily imagine such firmware exists.
+
+>> @@ -836,10 +836,18 @@ void rtc_init(struct domain *d)
+>>  
+>>      if ( !has_vrtc(d) )
+>>      {
+>> -        if ( is_hardware_domain(d) )
+>> -            /* Hardware domain gets mediated access to the physical RTC. */
+>> -            register_portio_handler(d, RTC_PORT(0), 2, hw_rtc_io);
+>> -        return;
+>> +        unsigned int port;
+>> +
+>> +        if ( !is_hardware_domain(d) )
+>> +            return;
+>> +
+>> +        /*
+>> +         * Hardware domain gets mediated access to the physical RTC/CMOS (of
+>> +         * course unless we don't use it ourselves, for there being none).
+>> +         */
+>> +        for ( port = RTC_PORT(0); port < RTC_PORT(0) + 0x10; port += 2 )
+>> +            if ( is_cmos_port(port, 2, d) )
+>> +                register_portio_handler(d, port, 2, hw_rtc_io);
+> 
+> You seem to have dropped a return from here, as for PVH dom0 the
+> initialization below shouldn't be done.
+
+Oh, indeed, thanks for spotting. (The excess init is benign afaict, but
+I still shouldn't have dropped that "return".)
+
+>> @@ -1249,6 +1252,77 @@ static unsigned long get_cmos_time(void)
+>>      return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
+>>  }
+>>  
+>> +static unsigned int __ro_after_init cmos_alias_mask;
+>> +
+>> +static int __init cf_check probe_cmos_alias(void)
+>> +{
+>> +    unsigned int offs;
+>> +
+>> +    if ( acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC )
+>> +        return 0;
+>> +
+>> +    for ( offs = 2; offs < 8; offs <<= 1 )
+>> +    {
+>> +        unsigned int i;
+>> +        bool read = true;
+>> +
+>> +        for ( i = RTC_REG_D + 1; i < 0x80; ++i )
+>> +        {
+>> +            uint8_t normal, alt;
+>> +            unsigned long flags;
+>> +
+>> +            if ( i == acpi_gbl_FADT.century )
+>> +                continue;
+>> +
+>> +            spin_lock_irqsave(&rtc_lock, flags);
+>> +
+>> +            normal = CMOS_READ(i);
+>> +            if ( inb(RTC_PORT(offs)) != i )
+>> +                read = false;
+>> +
+>> +            alt = inb(RTC_PORT(offs + 1));
+>> +
+>> +            spin_unlock_irqrestore(&rtc_lock, flags);
+>> +
+>> +            if ( normal != alt )
+>> +                break;
+>> +
+>> +            process_pending_softirqs();
+>> +        }
+>> +        if ( i == 0x80 )
+>> +        {
+>> +            cmos_alias_mask |= offs;
+>> +            printk(XENLOG_INFO "CMOS aliased at %02x, index %s\n",
+>> +                   RTC_PORT(offs), read ? "r/w" : "w/o");
+> 
+> I would consider making this a DEBUG message, not sure it's that
+> useful for a normal end user, and printing to the console can be slow.
+
+Can do, sure.
+
+>> +bool is_cmos_port(unsigned int port, unsigned int bytes, const struct domain *d)
+>> +{
+>> +    unsigned int offs;
+>> +
+>> +    if ( !is_hardware_domain(d) ||
+>> +         !(acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC) )
+>> +        return port <= RTC_PORT(1) && port + bytes > RTC_PORT(0);
+>> +
+>> +    if ( acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC )
+>> +        return false;
+>> +
+>> +    for ( offs = 2; offs <= cmos_alias_mask; offs <<= 1 )
+>> +    {
+>> +        if ( !(offs & cmos_alias_mask) )
+>> +            continue;
+>> +        if ( port <= RTC_PORT(offs | 1) && port + bytes > RTC_PORT(offs) )
+>> +            return true;
+>> +    }
+> 
+> Maybe I'm confused, but doesn't this loop start at RTC_PORT(2), and
+> hence you need to check for the RTC_PORT(0,1) pair outside of the
+> loop?
+
+The loop starts at offset 2, yes, but see the initial if() in the
+function. Or at least I thought I got that right, but it looks like
+I didn't (failed attempt to try to address a specific request of
+yours, iirc).
+
+>> @@ -1256,23 +1330,25 @@ unsigned int rtc_guest_read(unsigned int
+>>      unsigned long flags;
+>>      unsigned int data = ~0;
+>>  
+>> -    switch ( port )
+>> +    switch ( port & ~cmos_alias_mask )
+> 
+> Given that the call is gated with is_cmos_port() it would be clearer
+> to just use RTC_PORT(1) as the mask here IMO.
+
+Hmm, personally I wouldn't consider RTC_PORT(1) to be reasonable to
+use as a mask (even if technically it would be okay).
 
 Jan
 
