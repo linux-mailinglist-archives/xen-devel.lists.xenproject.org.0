@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBAF36D6670
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 16:58:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517944.803972 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88F266D66A7
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 17:01:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517948.803982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pji6a-0004Yt-8M; Tue, 04 Apr 2023 14:57:52 +0000
+	id 1pjiA9-00061x-P9; Tue, 04 Apr 2023 15:01:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517944.803972; Tue, 04 Apr 2023 14:57:52 +0000
+Received: by outflank-mailman (output) from mailman id 517948.803982; Tue, 04 Apr 2023 15:01:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pji6a-0004X0-5M; Tue, 04 Apr 2023 14:57:52 +0000
-Received: by outflank-mailman (input) for mailman id 517944;
- Tue, 04 Apr 2023 14:57:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pjiA9-00060G-LG; Tue, 04 Apr 2023 15:01:33 +0000
+Received: by outflank-mailman (input) for mailman id 517948;
+ Tue, 04 Apr 2023 15:01:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Jsu=73=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pji6Y-0004Wr-Jx
- for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 14:57:50 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0630.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 104f1fcb-d2f9-11ed-b464-930f4c7d94ae;
- Tue, 04 Apr 2023 16:57:48 +0200 (CEST)
+ id 1pjiA7-00060A-VA
+ for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 15:01:31 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on061f.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::61f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 94eecb06-d2f9-11ed-85db-49a42c6b2330;
+ Tue, 04 Apr 2023 17:01:31 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PR3PR04MB7387.eurprd04.prod.outlook.com (2603:10a6:102:91::10)
+ by DUZPR04MB9982.eurprd04.prod.outlook.com (2603:10a6:10:4db::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.35; Tue, 4 Apr
- 2023 14:57:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Tue, 4 Apr
+ 2023 15:01:29 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6254.035; Tue, 4 Apr 2023
- 14:57:46 +0000
+ 15:01:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,496 +47,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 104f1fcb-d2f9-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 94eecb06-d2f9-11ed-85db-49a42c6b2330
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MkqA52HTGsGEPM35miugkVaUCcy2ru4hCst91XMg6yVjJk+YOkh3F7YNfIv8qIA7ssiiHZUpkCbZch159eXVdSAq5zkABZ44TzhTS/C5MD+cbVq6Zk7Z4b6pE1v2EVERKzTxFDp7muBdQxH4xYef+sUSHL583eRAExUxMq+tV4xH21iMPmPkAfNTJeg73UoyNnOSPQllKwdQhEplRTSxNHxgQ1SRjRyrO3n/lSLGsW5yDofgh2Pe0KrDmGvIDIWKgYrMvRvj083kg8bd1jQA1PNiSAd2R6TJSngCyOxEVmfrhTQwBvvgcp9EE1tf5wFd1TfD0DnL6q9BQZzXHJD6Fw==
+ b=cnu0U4TuQngHdyNyTYVEFbBFhsVXEe9GL/nuyWVZ7SVtt5JfGi3nT3iFPZA9AZTkPVWkb6YPXmwgP6IqB9UvyUdI6t9CDjVO/aNGylNc6P6ySy4UrYH4z6VUugAr4DvDeXH7d4wl6FUjT7lb14YVr98gXVKpm89qsgwZ7drAcUKucWkq0T6/ftdQ8NotCdMqV0YBbEBZnUJ9p2fLX3nmELWMU31kaudTT1PZxbbKQsx/XuPZy6ApAPzHHxms4Lx96e4mz634KTWbHHJSCLMSTQouRDK0cbyKbZ5Ck9YZIJF22oTZJlGbwLEZogvCWSOIlWBMdU/GgB7cNbpYaM/r4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AsDrIOoJ4XkstJMEfZwJev2okvsusmdA6pBNEPh/60E=;
- b=eGIvZ07gW4tEn/ePHr6nzsksQKoVyNY++RB3Axt1CRkVGloYJpvvr7PuSMEIj/IAYr8Mxo4DHo/ITD+6hK7eb/0ujFK6SClgyJKK0sQ1LY2FNriEFH6XrDCm6PE943CO6I4wiI7VSVKuyOuTor/l58HRZn3jS/44kId3+Kw1pQc0sWDyPebMUUoMlZQSIYmNYjKCwdRhJ5hm3rdrW0bzseeN8Wn+cNfGnkAwlk8Mu+nNAY0SEXELNL4gCljYe2TNZyCCHjHjtiOw3Fbi1kjC+aPKDDsQw/e/l9ueyRJmuAJrvSf5hv+jpLMA/mrg87qvEBiCdPNVbLT0sxHm2YEw4Q==
+ bh=aaynlAKGKmHgycZ7qG6oJUclcTjJpuYDyEq4fa/d5Qw=;
+ b=SnXL8GYPzKQZWYU1emHWNgm0NgZmj4qZXM9v7gSgS41IOcUQNKBx6BaDA+hrwSSdCN06hdC+ITKfQW/auuSXnm0VmZx2wjx9d/ZlN0yF6ZBXMdN/PzdW+YUdFLbIVozsRC9q0NkFwzP5b4oysrsCkFC+qTmIXxuB8sh2bNA93zGkot1BYly7alUGQt1bdnoxtJ8mQ6aXxSoUjHjI02X9gkUZMm3Gy14lzelZRoGCU/RBk9ottjHD9NXBe5P8fHd44HyGTp3YVTgRoTPPy9gQAsyoFMkGh6fYWbdZG/RfATTM4wCKsqEkZiN7mSJQsIheH0OgwwHKHc6+WYqQ5X9lBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AsDrIOoJ4XkstJMEfZwJev2okvsusmdA6pBNEPh/60E=;
- b=V0H63stCf+XcTSPlqe45Uh8sLOv/pEl13b3f7lNZNSLADEmuSAzyHox9CGpeC0VjzHcZVdqcnUbJN/f6xGaGDuW7NcjrhVibdPi701tYigkSeNAPwN5jcvHDdM9OxuocCCMxh/8kKgPwcZvY4DtXsPQ3ywXtGmr7o5Uhj8Wnsc3ezsgNeOwss9ApAC46UC7O5Tqo4Hbo8Mb/OlOl2aL2mSUYS0c3RJK+N36SQd92gtYYplwp1phCQglvjzq0vWCdO55Tapts05oF7dhrLzlW3rNj0QVsEeCFP3xJHcfTCG/McTUeIkyp9LQWr8CJjAbCNgC9UBvEVqD6wpnk2vxODg==
+ bh=aaynlAKGKmHgycZ7qG6oJUclcTjJpuYDyEq4fa/d5Qw=;
+ b=iF2E/VlPPMHb454CWi/ToaUff67RmZb/Ck0CyYuTX7f7yA6w/ioHTBdPIs1NmUhsklG5FyCuQiqpwxdCx5e+t2SMxDmg4lPHuf5uT7crO/WvT/gn5Bn1soapC7pyEcKG90F2vQ0lJc+/f/Dv/VEiCy0FtZT6yKxtH+NR8usl56MoQXMzbqYtze/p2MtCkF5fXVI9DtDH0RfVtWRNjYbcZJje8Wt8Thl4QB2IRbS4/SjK+x9EfLv3bAQD65j+uDy/OsHSm9rxXfXcrxB8Zin8aeCuyJoxnX8/Vuqka7PlYCOsSEeA+ZNJtbEYGUDOIG5qqLj7m2ozyWXLrRvIhcyJBg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <31d27d25-f576-d605-d3d1-b56b543df568@suse.com>
-Date: Tue, 4 Apr 2023 16:57:44 +0200
+Message-ID: <63395f4e-2272-5537-190e-27318d4057ea@suse.com>
+Date: Tue, 4 Apr 2023 17:01:27 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH 9/9] x86emul+VMX: support {RD,WR}MSRLIST
+Subject: Re: [PATCH v2 09/15] x86: Out-of-inline the policy<->featureset
+ convertors
 Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230404095222.1373721-1-andrew.cooper3@citrix.com>
+ <20230404095222.1373721-10-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
-References: <c7f748fe-f062-c2fc-4cc4-b2f888633abe@suse.com>
- <b567e068-dcab-b294-9706-ffbecb36de3c@suse.com>
-In-Reply-To: <b567e068-dcab-b294-9706-ffbecb36de3c@suse.com>
+In-Reply-To: <20230404095222.1373721-10-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0152.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b3::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0067.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PR3PR04MB7387:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a2e1e52-5555-4953-2544-08db351cf324
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DUZPR04MB9982:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8351e5e8-42ff-46a2-e71e-08db351d783c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	j71GX9BV6knxN1YyWwgQ1jD5Rld8A6hmBbKYZEUs5kbopOO4IgvmLRO2I0kB9iZkhoH8H8zKKLuBGtGFY0Pepcw5AbqJ7CuhofmFjnK2IUqrqYJCcgoc+xxygT2VsbC8EdFhApaFkilK94GowVT/E7LvpbE9g+ypjw3iHxns8jztGmdCfaPc8kg5tMP5/fgDK+SNZBeiTjV5N+QY6lEdHDiAylljjWuqCBICR7VZ+DU2lKbxKiqkjYddxSqGiJ3P/9CZSHleYLi92otTbxtFEEg32n/rSj8WrfNQBah9jdUZRIU0B9xK7Akt/K+kzf2cEaaqT3r9RJEad/Ip2qv12fCxWGDaoCoBOzR1Ar+oNGQkfjdEsNvvEmVENn8Fk5zqmOn1nCjgg9MhVLjJpAS1rSES6z4sYRcH3NE81FS106Z2tJdb5TI7vw49VTEIeGdBERS7YvjrmRjH2aD7Ilko6UjrdKEIgK/UoNlbvf42HBolFW9sRlfWIPGHP2knl7dAE6V4xPAQrUq6EzznTIJu1ELCRBggG3Fpf8YMGo7WPYQqQxydD3I0cwkVXEpI++EM55zwSmgIJwpyswCrhpgRl6fS2aSVmcS0zcPhQD8wnPh+0co+7/CfKp6yoZMdr7xD9qQAGKstbxzxPy8tzrOCBg==
+	4DjTsWhZTzvrZz7tcTW9xefyFb7DMdjekkej6IrrrhsHj+uBFNgz6D2leFEH+XGRbwPFVfsCzeWvzZ2dVgv3RlVy9Drvlygbxs2ZNXq1J3kerGrCI3joplLvKbV+joxvXlfqOK0T1XNAKSrf4fnyy86lE8sZh+UoA2P6h3/7fT8s44cbKprTmg4o8VU4KvHK3LRZW/C/Cn0uc40lBI0JFAnIE0mSwgT4YmQFWpjG3NAvnbUkXlow5dew0g2NucxaHBC3yRrKVK/IZbomyU6ileJuMfPih2XP3PYiLXPOrs5u2YvT7scYxrznHpFGKu4poRU52lonA0vKaEkVx6bt+TkrBSndzqLAjiz3EjmFNDK8lAVUrD5BAyyPW+lABEuU3Q5O0WHWqSCp+uCpf5ndAzsP3j38FVZuNUjCdKfK1TZIgPuGz5K2tJgHufJ3/gUNJLZDlaREUtrWz1MCPq/0JbySxNY8OPk4N2mkSJpcUuC870dV5/UycPZTrPVRFTF6X6yR0MdlfvpGDm3b1ten2Shev/4HGzs0IOGW8cm9sY+iuJ3gvy85lq9HYa1pgxPBcKIycfuJfIChnR++KLfJSzYDNtKs0zT6BuVUEl1utU/W6LttLKJkuxTw823j5VP6cTIsagmhvZ0iDV65wv5A1Q==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(376002)(396003)(136003)(39860400002)(366004)(451199021)(83380400001)(2616005)(6486002)(6506007)(316002)(6512007)(478600001)(54906003)(53546011)(2906002)(26005)(186003)(30864003)(5660300002)(38100700002)(66946007)(66556008)(66476007)(41300700001)(86362001)(8676002)(31696002)(8936002)(6916009)(4326008)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(136003)(396003)(376002)(346002)(366004)(451199021)(2616005)(86362001)(31696002)(36756003)(2906002)(31686004)(53546011)(6486002)(186003)(83380400001)(6512007)(6506007)(26005)(4326008)(478600001)(66556008)(66946007)(8676002)(6916009)(66476007)(54906003)(41300700001)(5660300002)(38100700002)(8936002)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YW9uOEEzaVRPUjFEcWZDeDJabFo3Q1hPdEdWb3VxZVE4NUU0dlB1N3RXWlVr?=
- =?utf-8?B?OGNNYmNTb2RtSVdkSXN2NzQ2Q1BKcWZkMDVqTE1rWTcwNzJ0UWt4cUw1bGlG?=
- =?utf-8?B?WW1CKy8xWFc4bkFpMXpuL1FnQnh4d1lHcVkwc09DTGJoWHpBYmdpTjl6RHBy?=
- =?utf-8?B?KzNDaG5GQ3Y2NnlrMWdmeEtkSFhkeGppaC80c1dEZU83MkFJU2EyWnRuTDV3?=
- =?utf-8?B?ak1weVNqMkN0VlJKaEFCYWFNM29SNjRZR1UzSTdvNSsra1RaWi9TdWpOak1x?=
- =?utf-8?B?ZmcvVzMwMjg1MHdqdWVaRWYzWnNDeUQzdkJOQUdUSnd4dEhzaFhkVnZMRGpO?=
- =?utf-8?B?TUEyaXFmVDN4RFh3YStUSDJUc0FxZUhEak1jOVhSbzk1bnN5b3hpbHhuWElG?=
- =?utf-8?B?TVU0enRBTVorR0k3RWRjNXFkUUhVQnZlK0hSSFpmUXduZlRFVnQxL1NPcEdt?=
- =?utf-8?B?K1p1TVZYeFJrODZld0ZCZ0p6UmQvUlFDK0pNa3B3c0Y5QU8xZVNZTDBLMXlS?=
- =?utf-8?B?c1h3QnJVdVhrZHdPOTNBVXpVMXVYbVZmL1dsQjlLV1FWV1JsT3NDT0E0dnln?=
- =?utf-8?B?dURUeDdwWk9OYUR3em0zMktiZFc1eTJoVGpiaHhlaXJpRjRkOFMyN2xjdjdH?=
- =?utf-8?B?RFVMVmoyTTJ2TTlKMEU3bGZGNTduYmMxclUrWDF2dkRUZ1NQNnBuR1oweElE?=
- =?utf-8?B?TnlWb0p1bVNBTzMxY0FrdytjWWtGcWYyU3ZaWGI4KzlCNk9GWWZ1MEFHZ0hZ?=
- =?utf-8?B?OG5ZOUszbWxIYUVsN1B3UjZiM3doZTRXUlEvQUNVR2hhUzcwMHJaYkR6TWZM?=
- =?utf-8?B?aFRWL1NEejJ1bG9IaHFnNUd6aEZSN2dXTEdsUEp0UGE2ZWxwZ2hUVGF4U21n?=
- =?utf-8?B?U3gyRkRXMFpTcTNyUDV5OElhVmdXRmo0T1J1cmo4eW9RdHJudlVDR2piTU02?=
- =?utf-8?B?K2xpazVDeGY4R25Pa09kc2dyNmx3eTBhSm9vUjdxWno1TWY1RnNtVmYxeTlF?=
- =?utf-8?B?K0R3N043VDNlS3pXWU9mZDYya3I1bk43TmZMWHBleWFCMWZDWmZqMXl2cy9w?=
- =?utf-8?B?UTlobTl5K0VsTWs5QktzUnp0NGlkdjlFNm5UQnlCSE41cnU2dDczR3hPMmpU?=
- =?utf-8?B?UXhtcnV3bFV3UGQ1czZhbCtRaXR6eVFEVmViN1N3djJ5ZE1RMjhzc09WV0ph?=
- =?utf-8?B?M2lmeWQva1gyMTFLZXRCZUhZM3VVVHE3ODlYUE9WeUEzM012Z09UZnBHZzNw?=
- =?utf-8?B?bGE5Z2RlU2hhMGJaYjFzQUJIbEFxbmJsZlcrUlBwdHYwUC9qRDY3SEx6WDVn?=
- =?utf-8?B?OTI3YXhPV1Y0UGVrUTBpMVlWeWJ1dTJRWjFWcS9FUXRoR2IvbUJXYTN2NDQx?=
- =?utf-8?B?M2VHcDYvd0IzWUFEUGVpc2V0aGplVVU4Qk0wcnRUQ3FFZEFWM05MRE5IRyto?=
- =?utf-8?B?dWFIZVBjUGppQTdJNEx3amhMdVF1d21uYU9GTmR2YkhacTNteWRob1VXY2Jk?=
- =?utf-8?B?NVNQWnQ0VndzTG0vQWkvc21DTlc3ZHZYQXYzb1E3U09KZVlyN0d0RmQ0K1g3?=
- =?utf-8?B?bHAzR0hmSjI3UGQyalk4MHJnczhuNVRLU2plMHhETndTbXZaNnMxS1NSL0x3?=
- =?utf-8?B?N0hHMFNLMnVwU1VXZ2RKMEdVR0dhRklwU0NqK2NTT1lYMlJiZ0NpM2VNeUEv?=
- =?utf-8?B?b0t5U3hsZjhYWko2cjJtZGJ4SnpIYkN3V0Y1dGJTUytBVjhiQnhYSFJwT0ZX?=
- =?utf-8?B?dkFlcC82OHVaYkRTSUhoY2M1N1l2ZUlzZXdCZVJhS2pRUFhQeWE4ZDZYUm5y?=
- =?utf-8?B?dDNtRXFaMWZCMzJUalNIWE9wdytwWjlBT2tpUGJxb1daVEptTXVOQmNVa2Ji?=
- =?utf-8?B?N2NMVlQ2SUU3LzgvbktETkVIZnZ5UElQcE5lVFJnZzh3RG4wYWxGenhMd09L?=
- =?utf-8?B?M0c3NkxnM0Zwanh4RXMzc2puZzNuMFFScVhTUkE2V1o5ZmdHandkMXVXQjZF?=
- =?utf-8?B?R29XQWVSR0F0ZWc4dHBsRjlaVkFzckh5ZFNmcXRZYVBtQ25GU3FGaFM1R0Fo?=
- =?utf-8?B?UWxvV2xGYnd0dU8zRXA5NFFZem9hcEJZdzEvQW5QNll2eTlSODdqQmozMGp5?=
- =?utf-8?Q?iQeOPa4Bk/ka4LCWlEE9nVMTp?=
+	=?utf-8?B?YVpaR3NnS1gwbjdRcFZQeGUvSW9HdkVEVDh0UVZuYTBsV2YwYzgraUsrS3Nn?=
+ =?utf-8?B?SnB5OHJmUjRqVVlGam9mdWlpTWFaSWlzSFlGNXY3SVgyamdQMTdIV2ZmV3JL?=
+ =?utf-8?B?NGdxa2JnaFNRT1lQWDl3QThFTE5ZejBlaDl5L2IyMmcxUm1BTzNmSHg1dlZG?=
+ =?utf-8?B?QUZCVmJIYVRRRHUwTHV0dVZkSnQ3cURqMVRCQkZVRWhMYmJGRFVCRFJva2NY?=
+ =?utf-8?B?dUVMMlBLTUI3UldCS3ZEeUpqTmMxT3JXREtrMGdjazIyV3NNd1FBakE5TjZO?=
+ =?utf-8?B?VnhHOWdTSzhSc3FYcmxnejF3RUdIb0Z0RkRPaE9OQVMxY0gwQ213VHV3bml5?=
+ =?utf-8?B?OXV5c3RXNG5UUHkrNzR5d3AyVWFlVmI1N2JtSDE1bkRqeC9qcXNmUXduOFd6?=
+ =?utf-8?B?bUxxdHIyTUhIdENPK2pmTHJaa3NkVFlLcTJGUGFjY3UvVUgzaHB2WHAyTVc5?=
+ =?utf-8?B?ZGxkREpoZlEvUVc0VzV6SGJJY1NVWVBvaWFGcHRqRmVrdkJtOVVMZkxyK3BV?=
+ =?utf-8?B?TmtNbVl5YkhETVIxTlNmaVJvaDBGV1g4dERjbXNpTnlDTDNwRDlwTzBMcGlC?=
+ =?utf-8?B?a080a2RvR3ZtRytmcE5FVCtKalhRR1E1YTVKZ2h1NmFhYWxWd2hWNFAweUVv?=
+ =?utf-8?B?SUtZV2U1MHJpL3h0MTlpMmIvQU5FZjloZzcwOWdESkU2Mi9FMnIwaDIwOENy?=
+ =?utf-8?B?ZnN5MXFEcFV0TmtmdlZkdUpURUtBcEszMDh0V3lsTVpLa1ZCaDYybWRSRUZH?=
+ =?utf-8?B?T1dQVE4xbThrWVlkNUo5TVIzRzFOSVJFTC9UbTREK1p3cW5zeldDQmNMdmhJ?=
+ =?utf-8?B?MFRLaStYcUE1NVdGUGRSb3ZYaUd4TUtiek1uTFNGVTl0Y3EyRGhVY2R5ZkFT?=
+ =?utf-8?B?aWFhV1dsbUEvdkdwTi9YQm5iVEVteXU0R05PRkVIeVdhUXp4SnNiY1ZzdUM0?=
+ =?utf-8?B?cVFYa0tzVWgwWTZEdnoxQVRHK1FPaWRnRTdqcWpuMEdWM2R6QW8wQVQrckZn?=
+ =?utf-8?B?WkFwbVJlLzB6WW1iSUhBRVFxKzhqdDlLcHZZUFFVZldCeGF1M3VUWjhUemhi?=
+ =?utf-8?B?VjVPYlhWL1c4a1FYVHNMeVRiVnJPRTIvM1FuWk9OSXEwR0lmTzYrNXFVQ0dT?=
+ =?utf-8?B?dlJHajJtbWhJcERyQXBIOTArdUwzSEpNYjhMYnQ2Z2NxZnp5UzNOcFVqd1pP?=
+ =?utf-8?B?K0laMG5EaUl4MVUyWjR1eU9tdG1TOUR3SC9VeG4vbnZvUktNbnZpRGFRS0lQ?=
+ =?utf-8?B?OEJvV1k3UEdLcU5sTHFKREpPR0dTRmNjUnRvcGx2cnJKKzlSUmdlTHdEYTVM?=
+ =?utf-8?B?TU9aeHBGSlR4bVY0VHE5Z3VlRzBJMU9Fd3NXbXB1TUtSSG50Yk9oaUo2bkFy?=
+ =?utf-8?B?SjlVZnlaOEYrWU8wTVlQUzJKcjZ0NmlIa29sb1N2WEU4VUp2K25KSWl4VCtx?=
+ =?utf-8?B?a1hZREM0dHg3em5PbWF5QTc4c2tSMURuS1dCUHk5QXo2VmJpTjRtb1l5WE94?=
+ =?utf-8?B?aldoa1k5SGd1SmlvdFNFcENnMUFUajVFYWw3c3Znd1ZoTmV6RnpJNG1tc0o5?=
+ =?utf-8?B?RjYrUExVVG1JK2J6UzYydUZmeDBUbllxTW9YRFhSL1hZay9Nb3dISktJVFp1?=
+ =?utf-8?B?MUZGVCtwdzVUK2g0TkVCakZtcHkvd0VvVWxVcEdiNXhCaEtpM2RrNExQdDB0?=
+ =?utf-8?B?MUhRZU9wdUFUNUluNTdvUUVVZ2pWRnYzZmJUQ0wvTGRSanQ0WjlDOG92eTRm?=
+ =?utf-8?B?dWdoUTdLVS9HaGRSbmlzUEJkeDE4Rm52QTZsOHhxYnpXdFB1TGRmU2xKQjR3?=
+ =?utf-8?B?R21VNnFRbElMWlRIRkQ5RS9HYmUzRTVwU0dsWFAwOEswTGs2Z2tjellDbEc1?=
+ =?utf-8?B?NnRKNDVzZUt5ZXRpeTRxVzVOMXNPaGsvT2tnL3VlTkRMMi9oWjNFUDJjTFhR?=
+ =?utf-8?B?QUErdDYvd05vWWJaVlRlWG12TUdGK01ZUG4yK1ZlbStWdE9HZFpEMWplT3pl?=
+ =?utf-8?B?REFsdjdKUE5kb2xIWHJENEJUZEtLVWRDdjJMT0hJNnlOQUl1M1lRY2RtWVVF?=
+ =?utf-8?B?ZEVmc2hRdDdPQzZPK3lPQVZtNDBjZVlkaE5IQk9UcklRY3BZSktuTnhLdjdm?=
+ =?utf-8?Q?W7o2cKO41XY25zBLFBGjqvJDO?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a2e1e52-5555-4953-2544-08db351cf324
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8351e5e8-42ff-46a2-e71e-08db351d783c
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2023 14:57:45.9412
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2023 15:01:29.2058
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uRvVk0AgHxp0pnLXpPA/RfyurjTWRctGCFrtPTCSLSibt2rcjzrLSbp25fQKK7F1SGfWEbwtwU34Os1RitGxzQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7387
+X-MS-Exchange-CrossTenant-UserPrincipalName: e/NU6duYQSxdd9syxVQdwJ1YPaYZrg7ALX7yQq0Bc/9MQok2smjrcEs4wBp/KG8KoK8ulfRsNEWtK5JPeuH1oA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9982
 
-On 04.04.2023 16:55, Jan Beulich wrote:
-> These are "compound" instructions to issue a series of RDMSR / WRMSR
-> respectively. In the emulator we can therefore implement them by using
-> the existing msr_{read,write}() hooks. The memory accesses utilize that
-> the HVM ->read() / ->write() hooks are already linear-address
-> (x86_seg_none) aware (by way of hvmemul_virtual_to_linear() handling
-> this case).
+On 04.04.2023 11:52, Andrew Cooper wrote:
+> These are already getting over-large for being inline functions, and are only
+> going to grow more over time.  Out of line them, yielding the following net
+> delta from bloat-o-meter:
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> TODO: Use VMX tertiary execution control (once bit is known; see
->       //todo-s) and then further adjust cpufeatureset.h.
+>   add/remove: 2/0 grow/shrink: 0/4 up/down: 276/-1877 (-1601)
+> 
+> Switch to the newer cpu_policy terminology while doing so.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Argh, should have Cc-ed Kevin and Jun, even if there weren't this issue.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+I take it you have a reason to ...
 
-> RFC: In vmx_vmexit_handler() handling is forwarded to the emulator
->      blindly. Alternatively we could consult the exit qualification and
->      process just a single MSR at a time (without involving the
->      emulator), exiting back to the guest after every iteration. (I
->      don't think a mix of both models makes a lot of sense.)
-> 
-> RFC: For PV priv_op_ops would need to gain proper read/write hooks,
->      which doesn't look desirable (albeit there we could refuse to
->      handle anything else than x86_seg_none); we may want to consider to
->      instead not support the feature for PV guests, requiring e.g. Linux
->      to process the lists in new pvops hooks.
-> 
-> RFC: I wasn't sure whether to add preemption checks to the loops -
->      thoughts?
-> 
-> With the VMX side of the spec still unclear (tertiary execution control
-> bit unspecified in ISE 046) we can't enable the insn yet for (HVM) guest
-> use. The precise behavior of MSR_BARRIER is also not spelled out, so the
-> (minimal) implementation is a guess for now.
-> 
-> --- a/tools/libs/light/libxl_cpuid.c
-> +++ b/tools/libs/light/libxl_cpuid.c
-> @@ -240,6 +240,7 @@ int libxl_cpuid_parse_config(libxl_cpuid
->          {"lkgs",         0x00000007,  1, CPUID_REG_EAX, 18,  1},
->          {"wrmsrns",      0x00000007,  1, CPUID_REG_EAX, 19,  1},
->          {"avx-ifma",     0x00000007,  1, CPUID_REG_EAX, 23,  1},
-> +        {"msrlist",      0x00000007,  1, CPUID_REG_EAX, 27,  1},
->  
->          {"avx-vnni-int8",0x00000007,  1, CPUID_REG_EDX,  4,  1},
->          {"avx-ne-convert",0x00000007, 1, CPUID_REG_EDX,  5,  1},
-> --- a/tools/misc/xen-cpuid.c
-> +++ b/tools/misc/xen-cpuid.c
-> @@ -195,6 +195,8 @@ static const char *const str_7a1[32] =
->      [18] = "lkgs",          [19] = "wrmsrns",
->  
->      /* 22 */                [23] = "avx-ifma",
-> +
-> +    /* 26 */                [27] = "msrlist",
->  };
->  
->  static const char *const str_e21a[32] =
-> --- a/tools/tests/x86_emulator/predicates.c
-> +++ b/tools/tests/x86_emulator/predicates.c
-> @@ -342,6 +342,8 @@ static const struct {
->      { { 0x01, 0xc4 }, { 2, 2 }, F, N }, /* vmxoff */
->      { { 0x01, 0xc5 }, { 2, 2 }, F, N }, /* pconfig */
->      { { 0x01, 0xc6 }, { 2, 2 }, F, N }, /* wrmsrns */
-> +    { { 0x01, 0xc6 }, { 0, 2 }, F, W, pfx_f2 }, /* rdmsrlist */
-> +    { { 0x01, 0xc6 }, { 0, 2 }, F, R, pfx_f3 }, /* wrmsrlist */
->      { { 0x01, 0xc8 }, { 2, 2 }, F, N }, /* monitor */
->      { { 0x01, 0xc9 }, { 2, 2 }, F, N }, /* mwait */
->      { { 0x01, 0xca }, { 2, 2 }, F, N }, /* clac */
-> --- a/tools/tests/x86_emulator/test_x86_emulator.c
-> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
-> @@ -589,6 +589,7 @@ static int read(
->      default:
->          if ( !is_x86_user_segment(seg) )
->              return X86EMUL_UNHANDLEABLE;
-> +    case x86_seg_none:
->          bytes_read += bytes;
->          break;
+> --- a/xen/lib/x86/cpuid.c
+> +++ b/xen/lib/x86/cpuid.c
+> @@ -60,6 +60,48 @@ const char *x86_cpuid_vendor_to_str(unsigned int vendor)
 >      }
-> @@ -619,7 +620,7 @@ static int write(
->      if ( verbose )
->          printf("** %s(%u, %p,, %u,)\n", __func__, seg, (void *)offset, bytes);
->  
-> -    if ( !is_x86_user_segment(seg) )
-> +    if ( !is_x86_user_segment(seg) && seg != x86_seg_none )
->          return X86EMUL_UNHANDLEABLE;
->      memcpy((void *)offset, p_data, bytes);
->      return X86EMUL_OKAY;
-> @@ -711,6 +712,10 @@ static int read_msr(
->  {
->      switch ( reg )
->      {
-> +    case 0x0000002f: /* BARRIER */
-> +        *val = 0;
-> +        return X86EMUL_OKAY;
-> +
->      case 0xc0000080: /* EFER */
->          *val = ctxt->addr_size > 32 ? 0x500 /* LME|LMA */ : 0;
->          return X86EMUL_OKAY;
-> @@ -1499,9 +1504,53 @@ int main(int argc, char **argv)
->           (gs_base != 0x0000111122224444UL) ||
->           gs_base_shadow )
->          goto fail;
-> +    printf("okay\n");
->  
->      cp.extd.nscb = i;
->      emulops.write_segment = NULL;
-> +
-> +    printf("%-40s", "Testing rdmsrlist...");
-> +    instr[0] = 0xf2; instr[1] = 0x0f; instr[2] = 0x01; instr[3] = 0xc6;
-> +    regs.rip = (unsigned long)&instr[0];
-> +    regs.rsi = (unsigned long)(res + 0x80);
-> +    regs.rdi = (unsigned long)(res + 0x80 + 0x40 * 2);
-> +    regs.rcx = 0x0002000100008000UL;
-> +    gs_base_shadow = 0x0000222244446666UL;
-> +    memset(res + 0x80, ~0, 0x40 * 8 * 2);
-> +    res[0x80 + 0x0f * 2] = 0xc0000101; /* GS_BASE */
-> +    res[0x80 + 0x0f * 2 + 1] = 0;
-> +    res[0x80 + 0x20 * 2] = 0xc0000102; /* SHADOW_GS_BASE */
-> +    res[0x80 + 0x20 * 2 + 1] = 0;
-> +    res[0x80 + 0x31 * 2] = 0x2f; /* BARRIER */
-> +    res[0x80 + 0x31 * 2 + 1] = 0;
-> +    rc = x86_emulate(&ctxt, &emulops);
-> +    if ( (rc != X86EMUL_OKAY) ||
-> +         (regs.rip != (unsigned long)&instr[4]) ||
-> +         regs.rcx ||
-> +         (res[0x80 + (0x40 + 0x0f) * 2] != (unsigned int)gs_base) ||
-> +         (res[0x80 + (0x40 + 0x0f) * 2 + 1] != (gs_base >> (8 * sizeof(int)))) ||
-> +         (res[0x80 + (0x40 + 0x20) * 2] != (unsigned int)gs_base_shadow) ||
-> +         (res[0x80 + (0x40 + 0x20) * 2 + 1] != (gs_base_shadow >> (8 * sizeof(int)))) ||
-> +         res[0x80 + (0x40 + 0x31) * 2] || res[0x80 + (0x40 + 0x31) * 2 + 1] )
-> +        goto fail;
-> +    printf("okay\n");
-> +
-> +    printf("%-40s", "Testing wrmsrlist...");
-> +    instr[0] = 0xf3; instr[1] = 0x0f; instr[2] = 0x01; instr[3] = 0xc6;
-> +    regs.eip = (unsigned long)&instr[0];
-> +    regs.rsi -= 0x11 * 8;
-> +    regs.rdi -= 0x11 * 8;
-> +    regs.rcx = 0x0002000100000000UL;
-> +    res[0x80 + 0x0f * 2] = 0xc0000102; /* SHADOW_GS_BASE */
-> +    res[0x80 + 0x20 * 2] = 0xc0000101; /* GS_BASE */
-> +    rc = x86_emulate(&ctxt, &emulops);
-> +    if ( (rc != X86EMUL_OKAY) ||
-> +         (regs.rip != (unsigned long)&instr[4]) ||
-> +         regs.rcx ||
-> +         (gs_base != 0x0000222244446666UL) ||
-> +         (gs_base_shadow != 0x0000111122224444UL) )
-> +        goto fail;
-> +
->      emulops.write_msr     = NULL;
->  #endif
->      printf("okay\n");
-> --- a/tools/tests/x86_emulator/x86-emulate.c
-> +++ b/tools/tests/x86_emulator/x86-emulate.c
-> @@ -88,6 +88,7 @@ bool emul_test_init(void)
->      cp.feat.rdpid = true;
->      cp.feat.lkgs = true;
->      cp.feat.wrmsrns = true;
-> +    cp.feat.msrlist = true;
->      cp.extd.clzero = true;
->  
->      if ( cpu_has_xsave )
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -835,6 +835,17 @@ static void cf_check vmx_cpuid_policy_ch
->      else
->          vmx_set_msr_intercept(v, MSR_PKRS, VMX_MSR_RW);
->  
-> +    if ( cp->feat.msrlist )
-> +    {
-> +        vmx_clear_msr_intercept(v, MSR_BARRIER, VMX_MSR_RW);
-> +        //todo enable MSRLIST tertiary execution control
-> +    }
-> +    else
-> +    {
-> +        vmx_set_msr_intercept(v, MSR_BARRIER, VMX_MSR_RW);
-> +        //todo disable MSRLIST tertiary execution control
-> +    }
-> +
->   out:
->      vmx_vmcs_exit(v);
->  
-> @@ -3705,6 +3716,22 @@ gp_fault:
->      return X86EMUL_EXCEPTION;
 >  }
 >  
-> +static bool cf_check is_msrlist(
-> +    const struct x86_emulate_state *state, const struct x86_emulate_ctxt *ctxt)
+> +void x86_cpu_policy_to_featureset(
+> +    const struct cpu_policy *p, uint32_t fs[FEATURESET_NR_ENTRIES])
 > +{
-> +
-> +    if ( ctxt->opcode == X86EMUL_OPC(0x0f, 0x01) )
-> +    {
-> +        unsigned int rm, reg;
-> +        int mode = x86_insn_modrm(state, &rm, &reg);
-> +
-> +        /* This also includes WRMSRNS; should be okay. */
-> +        return mode == 3 && rm == 6 && !reg;
-> +    }
-> +
-> +    return false;
+> +    fs[FEATURESET_1d]        = p->basic._1d;
+> +    fs[FEATURESET_1c]        = p->basic._1c;
+> +    fs[FEATURESET_e1d]       = p->extd.e1d;
+> +    fs[FEATURESET_e1c]       = p->extd.e1c;
+> +    fs[FEATURESET_Da1]       = p->xstate.Da1;
+> +    fs[FEATURESET_7b0]       = p->feat._7b0;
+> +    fs[FEATURESET_7c0]       = p->feat._7c0;
+> +    fs[FEATURESET_e7d]       = p->extd.e7d;
+> +    fs[FEATURESET_e8b]       = p->extd.e8b;
+> +    fs[FEATURESET_7d0]       = p->feat._7d0;
+> +    fs[FEATURESET_7a1]       = p->feat._7a1;
+> +    fs[FEATURESET_e21a]      = p->extd.e21a;
+> +    fs[FEATURESET_7b1]       = p->feat._7b1;
+> +    fs[FEATURESET_7d2]       = p->feat._7d2;
+> +    fs[FEATURESET_7c1]       = p->feat._7c1;
+> +    fs[FEATURESET_7d1]       = p->feat._7d1;
 > +}
 > +
->  static void vmx_do_extint(struct cpu_user_regs *regs)
->  {
->      unsigned long vector;
-> @@ -4513,6 +4540,17 @@ void vmx_vmexit_handler(struct cpu_user_
->          }
->          break;
->  
-> +    case EXIT_REASON_RDMSRLIST:
-> +    case EXIT_REASON_WRMSRLIST:
-> +        if ( vmx_guest_x86_mode(v) != 8 || !currd->arch.cpuid->feat.msrlist )
-> +        {
-> +            ASSERT_UNREACHABLE();
-> +            hvm_inject_hw_exception(TRAP_invalid_op, X86_EVENT_NO_EC);
-> +        }
-> +        else if ( !hvm_emulate_one_insn(is_msrlist, "MSR list") )
-> +            hvm_inject_hw_exception(TRAP_gp_fault, 0);
-> +        break;
-> +
->      case EXIT_REASON_VMXOFF:
->      case EXIT_REASON_VMXON:
->      case EXIT_REASON_VMCLEAR:
-> --- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-> +++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-> @@ -211,6 +211,8 @@ static inline void pi_clear_sn(struct pi
->  #define EXIT_REASON_XRSTORS             64
->  #define EXIT_REASON_BUS_LOCK            74
->  #define EXIT_REASON_NOTIFY              75
-> +#define EXIT_REASON_RDMSRLIST           78
-> +#define EXIT_REASON_WRMSRLIST           79
->  /* Remember to also update VMX_PERF_EXIT_REASON_SIZE! */
->  
->  /*
-> --- a/xen/arch/x86/include/asm/msr-index.h
-> +++ b/xen/arch/x86/include/asm/msr-index.h
-> @@ -24,6 +24,8 @@
->  #define  APIC_BASE_ENABLE                   (_AC(1, ULL) << 11)
->  #define  APIC_BASE_ADDR_MASK                0x000ffffffffff000ULL
->  
-> +#define MSR_BARRIER                         0x0000002f
-> +
->  #define MSR_TEST_CTRL                       0x00000033
->  #define  TEST_CTRL_SPLITLOCK_DETECT         (_AC(1, ULL) << 29)
->  #define  TEST_CTRL_SPLITLOCK_DISABLE        (_AC(1, ULL) << 31)
-> --- a/xen/arch/x86/include/asm/perfc_defn.h
-> +++ b/xen/arch/x86/include/asm/perfc_defn.h
-> @@ -6,7 +6,7 @@ PERFCOUNTER_ARRAY(exceptions,
->  
->  #ifdef CONFIG_HVM
->  
-> -#define VMX_PERF_EXIT_REASON_SIZE 76
-> +#define VMX_PERF_EXIT_REASON_SIZE 80
->  #define VMEXIT_NPF_PERFC 143
->  #define SVM_PERF_EXIT_REASON_SIZE (VMEXIT_NPF_PERFC + 1)
->  PERFCOUNTER_ARRAY(vmexits,              "vmexits",
-> --- a/xen/arch/x86/msr.c
-> +++ b/xen/arch/x86/msr.c
-> @@ -223,6 +223,12 @@ int guest_rdmsr(struct vcpu *v, uint32_t
->      case MSR_AMD_PPIN:
->          goto gp_fault;
->  
-> +    case MSR_BARRIER:
-> +        if ( !cp->feat.msrlist )
-> +            goto gp_fault;
-> +        *val = 0;
-> +        break;
-> +
->      case MSR_IA32_FEATURE_CONTROL:
->          /*
->           * Architecturally, availability of this MSR is enumerated by the
-> @@ -493,6 +499,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t
->          uint64_t rsvd;
->  
->          /* Read-only */
-> +    case MSR_BARRIER:
->      case MSR_IA32_PLATFORM_ID:
->      case MSR_CORE_CAPABILITIES:
->      case MSR_INTEL_CORE_THREAD_COUNT:
-> --- a/xen/arch/x86/x86_emulate/0f01.c
-> +++ b/xen/arch/x86/x86_emulate/0f01.c
-> @@ -40,6 +40,7 @@ int x86emul_0f01(struct x86_emulate_stat
->      switch ( s->modrm )
->      {
->          unsigned long base, limit, cr0, cr0w, cr4;
-> +        unsigned int n;
->          struct segment_register sreg;
->          uint64_t msr_val;
->  
-> @@ -54,6 +55,56 @@ int x86emul_0f01(struct x86_emulate_stat
->                                  ((uint64_t)regs->r(dx) << 32) | regs->eax,
->                                  ctxt);
->              goto done;
-> +
-> +        case vex_f3: /* wrmsrlist */
-> +            vcpu_must_have(msrlist);
-> +            generate_exception_if(!mode_64bit(), X86_EXC_UD);
-> +            generate_exception_if(!mode_ring0() || (regs->r(si) & 7) ||
-> +                                  (regs->r(di) & 7),
-> +                                  X86_EXC_GP, 0);
-> +            fail_if(!ops->write_msr);
-> +            while ( regs->r(cx) )
-> +            {
-> +                n = __builtin_ffsl(regs->r(cx)) - 1;
-> +                if ( (rc = ops->read(x86_seg_none, regs->r(si) + n * 8,
-> +                                     &msr_val, 8, ctxt)) != X86EMUL_OKAY )
-> +                    break;
-> +                generate_exception_if(msr_val != (uint32_t)msr_val,
-> +                                      X86_EXC_GP, 0);
-> +                base = msr_val;
-> +                if ( (rc = ops->read(x86_seg_none, regs->r(di) + n * 8,
-> +                                     &msr_val, 8, ctxt)) != X86EMUL_OKAY ||
-> +                     (rc = ops->write_msr(base, msr_val, ctxt)) != X86EMUL_OKAY )
-> +                    break;
-> +                regs->r(cx) &= ~(1UL << n);
-> +            }
-> +            goto done;
-> +
-> +        case vex_f2: /* rdmsrlist */
-> +            vcpu_must_have(msrlist);
-> +            generate_exception_if(!mode_64bit(), X86_EXC_UD);
-> +            generate_exception_if(!mode_ring0() || (regs->r(si) & 7) ||
-> +                                  (regs->r(di) & 7),
-> +                                  X86_EXC_GP, 0);
-> +            fail_if(!ops->read_msr || !ops->write);
-> +            while ( regs->r(cx) )
-> +            {
-> +                n = __builtin_ffsl(regs->r(cx)) - 1;
-> +                if ( (rc = ops->read(x86_seg_none, regs->r(si) + n * 8,
-> +                                     &msr_val, 8, ctxt)) != X86EMUL_OKAY )
-> +                    break;
-> +                generate_exception_if(msr_val != (uint32_t)msr_val,
-> +                                      X86_EXC_GP, 0);
-> +                if ( (rc = ops->read_msr(msr_val, &msr_val,
-> +                                         ctxt)) != X86EMUL_OKAY ||
-> +                     (rc = ops->write(x86_seg_none, regs->r(di) + n * 8,
-> +                                      &msr_val, 8, ctxt)) != X86EMUL_OKAY )
-> +                    break;
-> +                regs->r(cx) &= ~(1UL << n);
-> +            }
-> +            if ( rc != X86EMUL_OKAY )
-> +                ctxt->regs->r(cx) = regs->r(cx);
-> +            goto done;
->          }
->          generate_exception(X86_EXC_UD);
->  
-> --- a/xen/arch/x86/x86_emulate/private.h
-> +++ b/xen/arch/x86/x86_emulate/private.h
-> @@ -600,6 +600,7 @@ amd_like(const struct x86_emulate_ctxt *
->  #define vcpu_has_lkgs()        (ctxt->cpuid->feat.lkgs)
->  #define vcpu_has_wrmsrns()     (ctxt->cpuid->feat.wrmsrns)
->  #define vcpu_has_avx_ifma()    (ctxt->cpuid->feat.avx_ifma)
-> +#define vcpu_has_msrlist()     (ctxt->cpuid->feat.msrlist)
->  #define vcpu_has_avx_vnni_int8() (ctxt->cpuid->feat.avx_vnni_int8)
->  #define vcpu_has_avx_ne_convert() (ctxt->cpuid->feat.avx_ne_convert)
->  
-> --- a/xen/arch/x86/x86_emulate/util.c
-> +++ b/xen/arch/x86/x86_emulate/util.c
-> @@ -112,6 +112,9 @@ bool cf_check x86_insn_is_mem_access(con
->          break;
->  
->      case X86EMUL_OPC(0x0f, 0x01):
-> +        /* {RD,WR}MSRLIST */
-> +        if ( mode_64bit() && s->modrm == 0xc6 )
-> +            return s->vex.pfx >= vex_f3;
->          /* Cover CLZERO. */
->          return (s->modrm_rm & 7) == 4 && (s->modrm_reg & 7) == 7;
->      }
-> @@ -172,7 +175,11 @@ bool cf_check x86_insn_is_mem_write(cons
->          case 0xff: /* Grp5 */
->              break;
->  
-> -        case X86EMUL_OPC(0x0f, 0x01): /* CLZERO is the odd one. */
-> +        case X86EMUL_OPC(0x0f, 0x01):
-> +            /* RDMSRLIST */
-> +            if ( mode_64bit() && s->modrm == 0xc6 )
-> +                return s->vex.pfx == vex_f2;
-> +            /* CLZERO is another odd one. */
->              return (s->modrm_rm & 7) == 4 && (s->modrm_reg & 7) == 7;
->  
->          default:
-> --- a/xen/include/public/arch-x86/cpufeatureset.h
-> +++ b/xen/include/public/arch-x86/cpufeatureset.h
-> @@ -286,6 +286,7 @@ XEN_CPUFEATURE(FRED,         10*32+17) /
->  XEN_CPUFEATURE(LKGS,         10*32+18) /*S  Load Kernel GS Base */
->  XEN_CPUFEATURE(WRMSRNS,      10*32+19) /*A  WRMSR Non-Serialising */
->  XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /*A  AVX-IFMA Instructions */
-> +XEN_CPUFEATURE(MSRLIST,      10*32+27) /*   MSR list instructions */
->  
->  /* AMD-defined CPU features, CPUID level 0x80000021.eax, word 11 */
->  XEN_CPUFEATURE(LFENCE_DISPATCH,    11*32+ 2) /*A  LFENCE always serializing */
-> 
-> 
+> +void x86_cpu_featureset_to_policy(
+> +    const uint32_t fs[FEATURESET_NR_ENTRIES], struct cpu_policy *p)
+> +{
+> +    p->basic._1d             = fs[FEATURESET_1d];
+> +    p->basic._1c             = fs[FEATURESET_1c];
+> +    p->extd.e1d              = fs[FEATURESET_e1d];
+> +    p->extd.e1c              = fs[FEATURESET_e1c];
+> +    p->xstate.Da1            = fs[FEATURESET_Da1];
+> +    p->feat._7b0             = fs[FEATURESET_7b0];
+> +    p->feat._7c0             = fs[FEATURESET_7c0];
+> +    p->extd.e7d              = fs[FEATURESET_e7d];
+> +    p->extd.e8b              = fs[FEATURESET_e8b];
+> +    p->feat._7d0             = fs[FEATURESET_7d0];
+> +    p->feat._7a1             = fs[FEATURESET_7a1];
+> +    p->extd.e21a             = fs[FEATURESET_e21a];
+> +    p->feat._7b1             = fs[FEATURESET_7b1];
+> +    p->feat._7d2             = fs[FEATURESET_7d2];
+> +    p->feat._7c1             = fs[FEATURESET_7c1];
+> +    p->feat._7d1             = fs[FEATURESET_7d1];
+> +}
 
+... add quite a few padding blanks in here, unlike in the originals?
+
+Jan
 
