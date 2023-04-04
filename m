@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D1F36D6379
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 15:39:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517866.803783 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADA626D6389
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 15:43:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517870.803792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjgsu-0002uJ-F0; Tue, 04 Apr 2023 13:39:40 +0000
+	id 1pjgwc-0004Qp-2X; Tue, 04 Apr 2023 13:43:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517866.803783; Tue, 04 Apr 2023 13:39:40 +0000
+Received: by outflank-mailman (output) from mailman id 517870.803792; Tue, 04 Apr 2023 13:43:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjgsu-0002rl-Bg; Tue, 04 Apr 2023 13:39:40 +0000
-Received: by outflank-mailman (input) for mailman id 517866;
- Tue, 04 Apr 2023 13:39:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pjgwb-0004P5-W2; Tue, 04 Apr 2023 13:43:29 +0000
+Received: by outflank-mailman (input) for mailman id 517870;
+ Tue, 04 Apr 2023 13:43:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8slJ=73=redhat.com=pbonzini@srs-se1.protection.inumbo.net>)
- id 1pjgst-0002po-9E
- for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 13:39:39 +0000
+ id 1pjgwa-0004Oz-2D
+ for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 13:43:28 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23f4759e-d2ee-11ed-b464-930f4c7d94ae;
- Tue, 04 Apr 2023 15:39:37 +0200 (CEST)
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
- [209.85.208.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ac7d1973-d2ee-11ed-85db-49a42c6b2330;
+ Tue, 04 Apr 2023 15:43:26 +0200 (CEST)
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
+ [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-205-6Lp5ym6kPTCntbQ4WZMqJg-1; Tue, 04 Apr 2023 09:39:34 -0400
-Received: by mail-ed1-f71.google.com with SMTP id
- n6-20020a5099c6000000b00502c2f26133so1037639edb.12
- for <xen-devel@lists.xenproject.org>; Tue, 04 Apr 2023 06:39:34 -0700 (PDT)
+ us-mta-401-sOwozmLYNka3ioryJDhGRA-1; Tue, 04 Apr 2023 09:43:24 -0400
+Received: by mail-ed1-f72.google.com with SMTP id
+ s30-20020a508d1e000000b005005cf48a93so45831605eds.8
+ for <xen-devel@lists.xenproject.org>; Tue, 04 Apr 2023 06:43:23 -0700 (PDT)
 Received: from ?IPV6:2001:b07:6468:f312:9af8:e5f5:7516:fa89?
  ([2001:b07:6468:f312:9af8:e5f5:7516:fa89])
  by smtp.googlemail.com with ESMTPSA id
- gv19-20020a1709072bd300b00931db712768sm5987531ejc.4.2023.04.04.06.39.31
+ tp24-20020a170907c49800b00948c320fcfdsm2099432ejc.202.2023.04.04.06.43.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Apr 2023 06:39:32 -0700 (PDT)
+ Tue, 04 Apr 2023 06:43:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,45 +50,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23f4759e-d2ee-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: ac7d1973-d2ee-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680615576;
+	s=mimecast20190719; t=1680615805;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+fw7/8SirqBr4X2qtQdxLuMPR3GvOcViyBmOU340OWg=;
-	b=abfSQhgaYtzYpsQ6Rnh+lCpLuRkHbswRSzvuRSvhDXXxvi4ca8/57IokU611F8OvMTEHdt
-	ndEIEJLfAVib4Zc2VIjRYQZ3COnR830XjvAxZVYqEegXHTr7CxqWXkAGOImlaaZGUx7ofy
-	XtDFVsigw4y8zV2Jpnsw38pU7snn5yk=
-X-MC-Unique: 6Lp5ym6kPTCntbQ4WZMqJg-1
+	bh=banha77N8+B6dxSVSxrCs92gu1rjIC58TeHKkpj1HpY=;
+	b=EhtOVeFUA+/eJpC5yUkkyuanpN2dGoPHlXpaEhKQ++x02jdlobL4TbEMdL2o+Tzf2AkIHT
+	Z1p+waU+cYdo9f9hkMScwjxGXa/NTPftL2GUEiJAOk2F3rXD5tzUL0/WmNbkzL304Dg7Am
+	nKydMtZCcY44tC4vVPVYQL57SykOgm8=
+X-MC-Unique: sOwozmLYNka3ioryJDhGRA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680615574; x=1683207574;
+        d=1e100.net; s=20210112; t=1680615803; x=1683207803;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+fw7/8SirqBr4X2qtQdxLuMPR3GvOcViyBmOU340OWg=;
-        b=LB+SM2z/jixszcC4S+kU/T+5kPythdG193JJuhyjXTFlk5xHQCw7+BJpagOMTeoUrh
-         CCi9YUMB1lPkte5FoCYtvXUQP4/pAAtSfQQPWq2mGANRP+pruJbSD88tkUqcqLD5BnEt
-         Y6iszod9UKM7AHL71sojZfNlWuOaD2UEUNNgnp/WE3CdGtP1NCd3KqmNI0KlJS7HY29I
-         XFabsI3IfeAZ8BYelHjVUPAm8ogLbzreXfJHWycckaBwWv4Vp5hzubPRpKj9Fie7H/tH
-         2k9IsS9apxXcRZA/z5dY2HCYQKbFpc++T3OHpiwZnCDK+zdxsdKM8IHJE+1ccv0fnh4M
-         9HGA==
-X-Gm-Message-State: AAQBX9euaW3OLVE3BFrbnRj85lEq+Cld+jkG6qDNvryEUb2sYyBgXvVz
-	jzuEJTTurKMdq+1rufFwpLuXPPb/0pSjfzWyhaWkl7LQnmex39ISZmgkrl13TWB4fyU8vGi1yoc
-	Q3uDzUJrvygqsGdnqbUDIZoopW1o=
-X-Received: by 2002:a17:906:aad3:b0:921:5cce:6599 with SMTP id kt19-20020a170906aad300b009215cce6599mr2419094ejb.41.1680615573825;
-        Tue, 04 Apr 2023 06:39:33 -0700 (PDT)
-X-Google-Smtp-Source: AKy350aaCkFAzW7d1iA6E5boAcJaqOBPLxKcd5Wvt9uXai5VAMRolWR6H8rwuM6Bp4D7FgjG04Wj5g==
-X-Received: by 2002:a17:906:aad3:b0:921:5cce:6599 with SMTP id kt19-20020a170906aad300b009215cce6599mr2419071ejb.41.1680615573528;
-        Tue, 04 Apr 2023 06:39:33 -0700 (PDT)
-Message-ID: <c6ba263d-25e5-fde4-e46d-12929b2cd080@redhat.com>
-Date: Tue, 4 Apr 2023 15:39:31 +0200
+        bh=banha77N8+B6dxSVSxrCs92gu1rjIC58TeHKkpj1HpY=;
+        b=dxGkdqudtTO4x5Asj2HNhA34vnvbGlZ7DLyRbk4L4yfhOVImESaCkyMN7Hqn4BVHmh
+         DfhhY4Z3qT8tFIUUzpOyHhs86R2Ct+XNCYDcMcCsRAhfelYsib0DOhyHKqWt8Nlx0knQ
+         8sKr482fIogH7YS3n5P2Uhd0gGDQY7/F/IViLZKPnCrp6O4TRCUYJ6L2vmGDtHmZDvGj
+         PtQoEdX99U9gNrVNucskcY6hefxPrrrLqUu+x87Y+wBJfWEG412Sb4ARIJke95JYQSOP
+         DivZapQO7Vjv/7i7KlBT8otkvqk6r1GOK6Z4IN+RSw97fAOdcwQtKtNL0jaar1pw9OrF
+         QlUA==
+X-Gm-Message-State: AAQBX9dEwKl3sD9K4+TwL80eECOh8uXbu97OYtxQ0DX9Xb+DsxLxVfWl
+	kLExiaDIUbzHcacJyb7d2Eqhi8SMaYwlSJAIuUDd9QP9Gti1fBTK03RZzATH7Q/348YUOhmhAGO
+	9nbHGirbAlDIKGfR0QV1Zx59qQ0U=
+X-Received: by 2002:a17:907:6b87:b0:93c:efaf:ba75 with SMTP id rg7-20020a1709076b8700b0093cefafba75mr2282159ejc.37.1680615802912;
+        Tue, 04 Apr 2023 06:43:22 -0700 (PDT)
+X-Google-Smtp-Source: AKy350ZNWNaNuwDkGHAuaeEc6X1s7r9xa0mDxtFhP32ZOx76xJcO7cMfakVgb34HP4JHYtrJgHQzvw==
+X-Received: by 2002:a17:907:6b87:b0:93c:efaf:ba75 with SMTP id rg7-20020a1709076b8700b0093cefafba75mr2282128ejc.37.1680615802626;
+        Tue, 04 Apr 2023 06:43:22 -0700 (PDT)
+Message-ID: <261efade-683e-84dc-d402-7143be7199c3@redhat.com>
+Date: Tue, 4 Apr 2023 15:43:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH 04/13] util/vhost-user-server: rename refcount to
- in_flight counter
+Subject: Re: [PATCH 00/13] block: remove aio_disable_external() API
 To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
 Cc: Julia Suvorova <jusual@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
  Peter Lieven <pl@kamp.de>, Coiby Xu <Coiby.Xu@gmail.com>,
@@ -109,9 +108,8 @@ Cc: Julia Suvorova <jusual@redhat.com>, Kevin Wolf <kwolf@redhat.com>,
  =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
  Anthony Perard <anthony.perard@citrix.com>
 References: <20230403183004.347205-1-stefanha@redhat.com>
- <20230403183004.347205-5-stefanha@redhat.com>
 From: Paolo Bonzini <pbonzini@redhat.com>
-In-Reply-To: <20230403183004.347205-5-stefanha@redhat.com>
+In-Reply-To: <20230403183004.347205-1-stefanha@redhat.com>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -119,131 +117,68 @@ Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 4/3/23 20:29, Stefan Hajnoczi wrote:
-> The VuServer object has a refcount field and ref/unref APIs. The name is
-> confusing because it's actually an in-flight request counter instead of
-> a refcount.
+> The aio_disable_external() API temporarily suspends file descriptor monitoring
+> in the event loop. The block layer uses this to prevent new I/O requests being
+> submitted from the guest and elsewhere between bdrv_drained_begin() and
+> bdrv_drained_end().
 > 
-> Normally a refcount destroys the object upon reaching zero. The VuServer
-> counter is used to wake up the vhost-user coroutine when there are no
-> more requests.
+> While the block layer still needs to prevent new I/O requests in drained
+> sections, the aio_disable_external() API can be replaced with
+> .drained_begin/end/poll() callbacks that have been added to BdrvChildClass and
+> BlockDevOps.
 > 
-> Avoid confusing by renaming refcount and ref/unref to in_flight and
-> inc/dec.
+> This newer .bdrained_begin/end/poll() approach is attractive because it works
+> without specifying a specific AioContext. The block layer is moving towards
+> multi-queue and that means multiple AioContexts may be processing I/O
+> simultaneously.
 > 
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> ---
->   include/qemu/vhost-user-server.h     |  6 +++---
->   block/export/vhost-user-blk-server.c | 11 +++++++----
->   util/vhost-user-server.c             | 14 +++++++-------
->   3 files changed, 17 insertions(+), 14 deletions(-)
+> The aio_disable_external() was always somewhat hacky. It suspends all file
+> descriptors that were registered with is_external=true, even if they have
+> nothing to do with the BlockDriverState graph nodes that are being drained.
+> It's better to solve a block layer problem in the block layer than to have an
+> odd event loop API solution.
 > 
-> diff --git a/include/qemu/vhost-user-server.h b/include/qemu/vhost-user-server.h
-> index 25c72433ca..bc0ac9ddb6 100644
-> --- a/include/qemu/vhost-user-server.h
-> +++ b/include/qemu/vhost-user-server.h
-> @@ -41,7 +41,7 @@ typedef struct {
->       const VuDevIface *vu_iface;
->   
->       /* Protected by ctx lock */
-> -    unsigned int refcount;
-> +    unsigned int in_flight;
->       bool wait_idle;
->       VuDev vu_dev;
->       QIOChannel *ioc; /* The I/O channel with the client */
-> @@ -60,8 +60,8 @@ bool vhost_user_server_start(VuServer *server,
->   
->   void vhost_user_server_stop(VuServer *server);
->   
-> -void vhost_user_server_ref(VuServer *server);
-> -void vhost_user_server_unref(VuServer *server);
-> +void vhost_user_server_inc_in_flight(VuServer *server);
-> +void vhost_user_server_dec_in_flight(VuServer *server);
->   
->   void vhost_user_server_attach_aio_context(VuServer *server, AioContext *ctx);
->   void vhost_user_server_detach_aio_context(VuServer *server);
-> diff --git a/block/export/vhost-user-blk-server.c b/block/export/vhost-user-blk-server.c
-> index 3409d9e02e..e93f2ed6b4 100644
-> --- a/block/export/vhost-user-blk-server.c
-> +++ b/block/export/vhost-user-blk-server.c
-> @@ -49,7 +49,10 @@ static void vu_blk_req_complete(VuBlkReq *req, size_t in_len)
->       free(req);
->   }
->   
-> -/* Called with server refcount increased, must decrease before returning */
-> +/*
-> + * Called with server in_flight counter increased, must decrease before
-> + * returning.
-> + */
->   static void coroutine_fn vu_blk_virtio_process_req(void *opaque)
->   {
->       VuBlkReq *req = opaque;
-> @@ -67,12 +70,12 @@ static void coroutine_fn vu_blk_virtio_process_req(void *opaque)
->                                       in_num, out_num);
->       if (in_len < 0) {
->           free(req);
-> -        vhost_user_server_unref(server);
-> +        vhost_user_server_dec_in_flight(server);
->           return;
->       }
->   
->       vu_blk_req_complete(req, in_len);
-> -    vhost_user_server_unref(server);
-> +    vhost_user_server_dec_in_flight(server);
->   }
->   
->   static void vu_blk_process_vq(VuDev *vu_dev, int idx)
-> @@ -94,7 +97,7 @@ static void vu_blk_process_vq(VuDev *vu_dev, int idx)
->           Coroutine *co =
->               qemu_coroutine_create(vu_blk_virtio_process_req, req);
->   
-> -        vhost_user_server_ref(server);
-> +        vhost_user_server_inc_in_flight(server);
->           qemu_coroutine_enter(co);
->       }
->   }
-> diff --git a/util/vhost-user-server.c b/util/vhost-user-server.c
-> index 5b6216069c..1622f8cfb3 100644
-> --- a/util/vhost-user-server.c
-> +++ b/util/vhost-user-server.c
-> @@ -75,16 +75,16 @@ static void panic_cb(VuDev *vu_dev, const char *buf)
->       error_report("vu_panic: %s", buf);
->   }
->   
-> -void vhost_user_server_ref(VuServer *server)
-> +void vhost_user_server_inc_in_flight(VuServer *server)
->   {
->       assert(!server->wait_idle);
-> -    server->refcount++;
-> +    server->in_flight++;
->   }
->   
-> -void vhost_user_server_unref(VuServer *server)
-> +void vhost_user_server_dec_in_flight(VuServer *server)
->   {
-> -    server->refcount--;
-> -    if (server->wait_idle && !server->refcount) {
-> +    server->in_flight--;
-> +    if (server->wait_idle && !server->in_flight) {
->           aio_co_wake(server->co_trip);
->       }
->   }
-> @@ -192,13 +192,13 @@ static coroutine_fn void vu_client_trip(void *opaque)
->           /* Keep running */
->       }
->   
-> -    if (server->refcount) {
-> +    if (server->in_flight) {
->           /* Wait for requests to complete before we can unmap the memory */
->           server->wait_idle = true;
->           qemu_coroutine_yield();
->           server->wait_idle = false;
->       }
-> -    assert(server->refcount == 0);
-> +    assert(server->in_flight == 0);
->   
->       vu_deinit(vu_dev);
->   
+> That covers the motivation for this change, now on to the specifics of this
+> series:
+> 
+> While it would be nice if a single conceptual approach could be applied to all
+> is_external=true file descriptors, I ended up looking at callers on a
+> case-by-case basis. There are two general ways I migrated code away from
+> is_external=true:
+> 
+> 1. Block exports are typically best off unregistering fds in .drained_begin()
+>     and registering them again in .drained_end(). The .drained_poll() function
+>     waits for in-flight requests to finish using a reference counter.
+> 
+> 2. Emulated storage controllers like virtio-blk and virtio-scsi are a little
+>     simpler. They can rely on BlockBackend's request queuing during drain
+>     feature. Guest I/O request coroutines are suspended in a drained section and
+>     resume upon the end of the drained section.
 
-Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
+Sorry, I disagree with this.
+
+Request queuing was shown to cause deadlocks; Hanna's latest patch is 
+piling another hack upon it, instead in my opinion we should go in the 
+direction of relying _less_ (or not at all) on request queuing.
+
+I am strongly convinced that request queuing must apply only after 
+bdrv_drained_begin has returned, which would also fix the IDE TRIM bug 
+reported by Fiona Ebner.  The possible livelock scenario is generally 
+not a problem because 1) outside an iothread you have anyway the BQL 
+that prevents a vCPU from issuing more I/O operations during 
+bdrv_drained_begin 2) in iothreads you have aio_disable_external() 
+instead of .drained_begin().
+
+It is also less tidy to start a request during the drained_begin phase, 
+because a request that has been submitted has to be completed (cancel 
+doesn't really work).
+
+So in an ideal world, request queuing would not only apply only after 
+bdrv_drained_begin has returned, it would log a warning and 
+.drained_begin() should set up things so that there are no such warnings.
+
+Thanks,
+
+Paolo
 
 
