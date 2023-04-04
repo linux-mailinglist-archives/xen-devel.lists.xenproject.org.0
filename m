@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CF376D5DAF
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 12:39:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517821.803683 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 385976D5DB5
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 12:40:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517824.803693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pje4E-0005Xx-BH; Tue, 04 Apr 2023 10:39:10 +0000
+	id 1pje5Y-0006uO-Kx; Tue, 04 Apr 2023 10:40:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517821.803683; Tue, 04 Apr 2023 10:39:10 +0000
+Received: by outflank-mailman (output) from mailman id 517824.803693; Tue, 04 Apr 2023 10:40:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pje4E-0005V0-7R; Tue, 04 Apr 2023 10:39:10 +0000
-Received: by outflank-mailman (input) for mailman id 517821;
- Tue, 04 Apr 2023 10:39:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gREj=73=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pje4D-0005Uu-HW
- for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 10:39:09 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20608.outbound.protection.outlook.com
- [2a01:111:f400:7e88::608])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ecc90741-d2d4-11ed-85db-49a42c6b2330;
- Tue, 04 Apr 2023 12:39:08 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by IA0PR12MB7577.namprd12.prod.outlook.com (2603:10b6:208:43e::20)
+	id 1pje5Y-0006rq-Gn; Tue, 04 Apr 2023 10:40:32 +0000
+Received: by outflank-mailman (input) for mailman id 517824;
+ Tue, 04 Apr 2023 10:40:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7Jsu=73=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pje5W-0006rk-VW
+ for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 10:40:30 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0617.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::617])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1dad2538-d2d5-11ed-b464-930f4c7d94ae;
+ Tue, 04 Apr 2023 12:40:29 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by GVXPR04MB9925.eurprd04.prod.outlook.com (2603:10a6:150:112::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.33; Tue, 4 Apr
- 2023 10:39:03 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::659f:af8f:6d3e:8242]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::659f:af8f:6d3e:8242%4]) with mapi id 15.20.6254.035; Tue, 4 Apr 2023
- 10:39:03 +0000
+ 2023 10:40:26 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6254.035; Tue, 4 Apr 2023
+ 10:40:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,204 +47,214 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecc90741-d2d4-11ed-85db-49a42c6b2330
+X-Inumbo-ID: 1dad2538-d2d5-11ed-b464-930f4c7d94ae
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NXqgMz10bGgqY66STra7jb2YSy1QRnFJf5ND73tU/fZnwwmUK2yFwgdliZwYHi2r3uuYoohm9hfyDJPrgAyS53lkD4ApdTePlcXVn6ZpnKad2DB9XRcF9RIcH+/SgQOjalbHYaPcdLHrzsHZaJx9Go4vd8JRgU8gzKvp0yePkiJg2TacslqwblncNwAaIJCUy2PgXiC3eXjnx2m8SkD9S6W/QHk/il/dA/NVamkX7ld02fxvLMQgywx12JnYYpb1Ph11vTZ8hgUrnm3lNZMdGuH7kI/P3RWdhxk+KuOqqzonqjFQ5vAvZAoJwgTiopWtBcSiz9RS3s2ZIFYTx3ILWA==
+ b=fI7x1J62ojqi97gy4+fTaJUsgb2OhfGDGOWxGAdMiXhREY4SgsbRMbgY01Ea+i5xTwPdJJvdzlw+X66rcEZK8rShpa0/S8P4R4jJf+knpEvkmGtzyqZKnG5n8NSNNabTO35FSthhaIM7/DtZSLRU0DN1fK/oIqskBXQRKQcLPaFhNM39zH3t27WC1v78V3ET402J5kxlCsRUnu7Cz8AWwuTJ43uoPnDxKsIuZg70ayKV0xkEyCKIWAHfXR345WpBeoPBCYDQuWfeIkDFKup8QTmcIJ5Zq/VtmO4PggPNZYKd/2GXArdDjcJua8XPwFwy3jDVP3SGM5faF3JFn3oPSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mn9NBNAoabzJLeGf/m8W6pLeV0k6QC8ZkTvUpnBKvq8=;
- b=K8+yFpC4hhBR/yCCnHbIfGySPaUmXZB+ffbK9984YecKI6cOakh18kFba9oNb5VBdbhC0UyPWMKVqEaWOTvOOdyNn1TkTHwVuwMG/8l9oZmHjUiAU3f43w7FKO+BkMhemRWjQqwiupQGsZxPGgqSS6bSsJTNc28g9CzW5ic6kYyUlakEiZvcgGgssfQQAacju97bHBDbOCOyAXbBel9jLXDbaKDimZO4zqJscGR2GLI8rTwA7nRI63K6u6sJucJkHw7lm6gXrZPqKtdSvhrpgaDe3dIGIqWaPWIRSeYEI8t6BJKgmv2BV6ack67nQfBu3FBXCgp0IqD1Ss0Ci+l0Nw==
+ bh=xBCXfjvZiFQaKwerBMfqcds06QVNrK3ird1Ze6TJ1/4=;
+ b=UwvzoLctm8iTZuLOqpTQgD4RH2FxNbqHK90nA9mVZWP5Z09/D3q/a3Exuj85Z0ZklgOy6EyVQ6e82LuihipArU1ifguVCG7sI0hQGDg8Ef0lfBTxZOBFLs0CTkt5TeH+8l7nNxjWeeozo0P31oqf2ayFPsVD8IO894xqVZ2Dao7677feYzgEEJQEARB3mdmiYa7CRZQR9DzdhNgv7quYLJKlxnc3AiqOTzW2Y+1fde2nWpGetX372PL1VcABlYsCZ8tLGO80tNQGNxl5mznRWXnFwoPCftv9VFGnQuHfASlfEp2GEnO7cR5G76oDcTsLPrWWgG75diVRINzWBC4rBQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mn9NBNAoabzJLeGf/m8W6pLeV0k6QC8ZkTvUpnBKvq8=;
- b=S24BMfdfkUmh2aVNAg8LHimJ6vPxPQrMLehG34knLFtYSHqrahcJopoR6wFjNRivZuTZ9E3M/be60mLuTdABN3OUGSrHekzzI3kX/I9zleRuJhnWqQgKJe6G20EOHmxwge4tvBh4visCSiZia8MXCthVHBG9UFvisVhCoGBTh6U=
+ bh=xBCXfjvZiFQaKwerBMfqcds06QVNrK3ird1Ze6TJ1/4=;
+ b=azU5ruHzngtFAL0aS4DLPWES+gcoS2IAWfNLmrxscYSJK1xFaWGM6TydS7R5rn/0k5olgpOJrz773jaJTPOuCQmvnt6zlAaEekm3NZJSyuDw58cHTn9XsJndgymVflMHRAYpOoc7bSy3OPakr4901txg9+xE1Lv83ypugh5+lnjvhXn5KHe3BJorLqsurs8+Id65P97NL/0SBMLnIjbYPL4iZma/aEEXmKX+k0VMFEeosVqU+tqhWWQGYkMOFprb4ecKz+4290NbzEJCrYQx7WZqusBlsBkYwl/1frmwm7OZngZIS5JJw+RAYphuvMzC23oeBY9y/ma8zTb21JakUw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <c080cabc-0d69-3c32-213b-06261b2f5899@amd.com>
-Date: Tue, 4 Apr 2023 11:38:56 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.1
-Subject: Re: [XEN v4 11/11] xen/arm: p2m: Enable support for 32bit IPA for
- ARM_32
-To: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- wl@xen.org, rahul.singh@arm.com
-References: <20230321140357.24094-1-ayan.kumar.halder@amd.com>
- <20230321140357.24094-12-ayan.kumar.halder@amd.com>
- <22ce7663-e63c-a3b8-9444-8f43cc4620c4@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <22ce7663-e63c-a3b8-9444-8f43cc4620c4@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0632.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:294::22) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f3a11fa7-6e39-f7a9-7705-17c3af34273e@suse.com>
+Date: Tue, 4 Apr 2023 12:40:24 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH] cmdline: document and enforce "extra_guest_irqs" upper
+ bounds
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <54e126fc-484b-92fa-ce66-f901f92ec19c@suse.com>
+ <6c5cdffa-f3fb-8f40-c44f-ad7431451929@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <6c5cdffa-f3fb-8f40-c44f-ad7431451929@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0158.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|IA0PR12MB7577:EE_
-X-MS-Office365-Filtering-Correlation-Id: 732c742c-cc52-423b-3e5a-08db34f8cecc
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|GVXPR04MB9925:EE_
+X-MS-Office365-Filtering-Correlation-Id: 10380eb0-29a9-4bba-3abe-08db34f9006e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	s5iY7twI3ihaBx5iJGrRFUUg06tnKNi9S18DOLoBJmBeWlP12maxb9WoorEiF/YX6zDazGgGS3S7qGQLABRqBCpQ/aBIciMYdFoxOe30FMRP4y8y6sAi/pSej5CED5URDZ/L1A4MZikkQVMrSqh34I4ylHQGVq/KP6394MAkrjSJKjLoBvmPT5H6p+r+83Z3UX4QV0fAhY1jLWKoqzpim/2ID75vgVBxX75StWCV3X2EYXkNs/+n/8UxxmRBbGCFsvcItnocakRahxRCTNf30yf/vT1Jk5kGIqCzTizhzyyUKmsHtqKQSYhhtBLPXw0pc/TJ5HbjaD+/gY5F4Kd0yQ8MIhWOQ0iT+6E6DPQ4VgdFNFdNs97tY7/I9Q7vmYGuXVNZh1a+QRGATrMgBPC0eeY40zmf4Z8WML7hstY7IMc4kAW3vFzfvQ7VqGqMF4+FvNvKKRmgaic+CvS/aAl3jz+c81F7KlzG9BYJcSRmO7eWrygZ05AKY3e1nKo78MSC+tskIJjdq1Hi5GRTXGN+4P16Ur1QvtejF4Qip8ycoOMNu5jmi1v+MJn/waQDdqeCfzZrPCpzNPHEUwcxl4De5C2suYP4r47G/iB1LBJCHRgLfZPgMYWIMyY6CleQF7NXlB3IgQSA+ryExpHl6kyCDsZcGGazcHa69c6sQqwuqgDnfP8O7bUbtiI9zL82ItW4/ctlQRvgZGbg8fIAvvOlmg==
+	jblOSUFyrjy2NsmsZV9PpHFxrDUf8fIf9H9GdUO+RgdksrtyMcBzvyAzY8oB7mvyO9bdQMdgnsfGuE6o+X3p4Rr1Ahlrv+2dtQ2NXw5lJFtKM9lMMa6DWlNpx1h7LJ7t+8dA+pkSVeKBvBGUqhr5rp573EjDI+ivLHU1I/Qv9hMaUIW+rSjg9f+Tg7dRxa8vB1GhGLPwoJVV5NPKENJPQIXJYaiwcsn8rd0pUEC05kGXaCGuYKt/D3N489534/NsUJlcARx/l4OHT79GZCxSYxrDMxRDri+tlWzuyXfMDfWUwxD6MCtOpXeEsuuFrLdX7IOJt4ELvKHmIZVnAxfZe/KdIplphgASmp593aPt9cezPnO+crVqxezxBRrGwHF0QjMPVGqboj1xkKAduPzj6jSbWXMptl1WZjqMuQsB/ocqCY3ZhLCyeCUf31BFJTM4/jfJQGxrpa78hTuS8/ZtnTLR7M9ykg9rDckqF9GIR/YeuJbBtF1wF+uCdhkz4hv6Qc+6nRNAZ7dklyyEQr9fM0JDaL1cQXlvMh9skCZpY4nc+gabDTMY6889V4l4MjnAVtZ26PlwXuVrz3zME+/Z6/zx9rUqNknWHezMtzyLdNCKAGnGTG2otunwHtZxRJwS9z/0XiQUNDyHlpIK2Hyp/Q==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(346002)(136003)(366004)(396003)(451199021)(478600001)(4326008)(66476007)(66946007)(66556008)(8676002)(110136005)(316002)(8936002)(7416002)(38100700002)(41300700001)(5660300002)(53546011)(83380400001)(186003)(6666004)(26005)(6506007)(6512007)(6486002)(31696002)(36756003)(2906002)(2616005)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(376002)(346002)(136003)(366004)(396003)(451199021)(31686004)(38100700002)(2906002)(86362001)(5660300002)(66946007)(8936002)(66476007)(8676002)(36756003)(54906003)(41300700001)(66556008)(316002)(6916009)(4326008)(478600001)(6486002)(2616005)(53546011)(6506007)(26005)(6512007)(31696002)(186003)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z0NEbmpZSC9Jc2N6aElsYm1FdWVWL2FaZmZManpiMDNFUmJieE9UUHkrS3dk?=
- =?utf-8?B?OXdDYjVKQklsMjAyRFJPWFZCWGpoN21jQkNJOXhURDRGakU4Zm12UnRacXBi?=
- =?utf-8?B?bEFsVTMrVy90Q21NSU1DNVV3VnZlbEluc29lY3FCcndlTms5VnAwU1lEcmtZ?=
- =?utf-8?B?UUZIWWRxRjh3T0Q3VWdHUm1BbFJkTzYzRlBnYWJGd1hyU3pncCtkVy92dkRv?=
- =?utf-8?B?WkJHNXVhSWJuQmszN2JkRllqMVNPV2JqRFk4TjZ3cmpNT1NwZ1hoNmJTb3Vp?=
- =?utf-8?B?cXpaTG03RlRObzUvVUtndHhhV0REL3hrQ0FOMk1TdERMV0JUTWxrY3o2dmcr?=
- =?utf-8?B?NmNpRUIzK2NWeXhYV3JQYTdqNE8zTDgzZy9aVkZxTmxCR3F3M3h0MVdhUUpx?=
- =?utf-8?B?ZXhhQUlDbEtGbGlLN241emJ1enJCVHlXR3RRMnJCc01Ld2VCdHV3b2Vyck1P?=
- =?utf-8?B?d0V2bFlLWEphdVlJckU4WjFGMDlJZ0xLMnA1ejczK0pKRnpaT0tDUlp1a0hK?=
- =?utf-8?B?MWFtMGFndzA0aTNZZXNocXNBRndReVM1WlJTS1pMYkdRUXBEN21NeDNCV1g4?=
- =?utf-8?B?alhNN3ZQYW94R0Z1RlhsMXByb01EZUJ1a1kxL2prUkpQTjRqeTQyRys2M25r?=
- =?utf-8?B?b2c2TzMxeG4rVjA3cWM2SGg1MEx3UlhmNjczV0xpa00wczMxb0lPTG4wZ1BQ?=
- =?utf-8?B?TGFQUHh4Q0FrS3czNFdMdUVoenIxK2U4SGMvc0RvTW9BOWQ3STdqTmhvSjkv?=
- =?utf-8?B?VHRlcHBaWWhLbTViTFFrZFhyemFtL0o4dXNVUHpIZDFWbUxnR1lyYUMvaksz?=
- =?utf-8?B?VWFWdHhWWXBqdGQwTWpoZTFlRG1QVzUzcGR1SEllZ25HbjVWYVRVNDRMRmJM?=
- =?utf-8?B?SktEb3NVY29rY0VYSXNuSk5tbWpFK0NVcjFtaG05OUFvSEpPMjJjRk5PV0ZL?=
- =?utf-8?B?VVNLWHc3MzJ1YkFUVHptQ2REN3c0TWdpV2dGTXNBcWFXT2NMWSs4Y29hSHd4?=
- =?utf-8?B?ZzB5d0hRNHVOaFViWUxNN1ZxMnhqSVZCZ2dwVG83eUZLU3p3SUdIMFYrTXVw?=
- =?utf-8?B?M3lsZ0pMRWlwYXNieGVWandOODlaby9LSUt0aUJSRDFlcDFCbFp2emVtYkpO?=
- =?utf-8?B?ckRxSTJhdDRLNWlhbFpyWGdKME84QllBZXFVM1NGWlczcmQ3OWJIZmEybXRF?=
- =?utf-8?B?M2tVRXdReG4xamxNbzNrVE14YWs5bXJKeENSUzFyZG91OHQ2ZzhVT0h0dk1t?=
- =?utf-8?B?eWt3MVdaTGdjNXFCUThVSXJDSzZ6SjVaRXcwN3hFM1pEK0xGMmJyakd4dGxW?=
- =?utf-8?B?cjF3Mk12UzVHZWNnczlFZVM2emF4V2FvM2dvajFqYzVWOEQwMFloVnFVbEUr?=
- =?utf-8?B?eS90THgvY3lVTWVYTkUvNGRxTlRzTGN0Zm1JUVZIaENVYWtSRzN5NVkzb2JB?=
- =?utf-8?B?ZVF4ZS9jSE1QY3lRdkE5dFovQ1BUcWdjRE1tNkNHRWhTdkhmRWh2dmVsOHZt?=
- =?utf-8?B?THBHdHBGaUowVmxEY0t5N25CbnVUU21aS0p2dnlMenlSbnpoSGtxVlpPNTJ4?=
- =?utf-8?B?bzNmNE0xQ09uNlJjZzF0ZEVoUUVmOEdLYzdrMnFQK2Vmd3Q3bkVKRFF1Ymxo?=
- =?utf-8?B?WUtGRHMyMGpQSnVzV2IzeTdqeDM5Wkp4Z1pFL2I0b1JqazhpMjg2Q1ozQnBK?=
- =?utf-8?B?ckg2a3ZtYkh5OGdYNG54eG8vV1pmVWFZQlcwVGZ3Q3FVaCszTlR2dTN5SVBM?=
- =?utf-8?B?NklmSjNkS2xlQW9hZUltWi9lTDR1TGNyS3Q2Yk4rVUZIeEZXdk9qQWVRdWww?=
- =?utf-8?B?SVdwalFYNlBmNlFCYmFsSG5XdVNZT0NKc09HY1dmallOeWVvM1BSNWpSNDdZ?=
- =?utf-8?B?Y01VWEh1ZG04OFhiSTBRV2tReHpFdzlEaFc4RGgzLzNVWXdUOTdxU2hkMTZG?=
- =?utf-8?B?Y3ZUaVRyWklVem44bjNxeUxneEN1eUFCcHBaU1RucS9odVJBQ3hmSWhpaS9o?=
- =?utf-8?B?TFA3Uko4bktVZ1J6VTY5d2k5R0YzU0cxa0tmcTY5ekNGRHN2Q0grWW1qd1FJ?=
- =?utf-8?B?aE54c2hSWHhPaVh5K2xlZFI0Z0VDdzZyWkRyM2pYU3NsWHZwa3hWNCs3OW5i?=
- =?utf-8?Q?dSzKblbzK0MPQ+PH+/ln/W02q?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 732c742c-cc52-423b-3e5a-08db34f8cecc
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+	=?utf-8?B?cTZYTGJacGVQeEtHaWoxR3ZFaEoxemFWWlN1cjNtU2p5Tm5nR2JyRWUxNFF0?=
+ =?utf-8?B?bUpGMTZIK00yVW4zTDVxREJPaU5WOEdoUTVvSWk5RmV3bHhVMjdxQ1hFTVRp?=
+ =?utf-8?B?SStUUDhBUEFKODVDcGozRGVNeVY5eG8vaVZuc0NjLzNYdXZXb1RyOTA0TXdP?=
+ =?utf-8?B?WUxzTEZabWdsN01RcVd4QzNQbHBMMVd2NnlVZlNpYzRBMnJHVFYwcnBhS1A1?=
+ =?utf-8?B?Qzc4Zi9vWHBXdm5ERFhWSll6ZitabkFVZXYrNVd0aFdjWnhvbVJ0T2RveUZZ?=
+ =?utf-8?B?MnlqNy9NcG1LRlNMSkZ4Y25wbTlmeDBXNlZrS1pSWWs4dzZCRThxWTRiczV3?=
+ =?utf-8?B?VlBGQjFQWEdwaVdQR0FBeVppVGZaM3R1MFZXM1lTdGJpc3cvRkJWTVhmbTc0?=
+ =?utf-8?B?bWlxd1VSMWpWMm52dWpDZ3pMTVBROUIvS0lSYjZVSXJTVEU5U2lpZS9jYkdk?=
+ =?utf-8?B?bUc1Skc5MG44MHZTZThqcm56eUZwZ2pvRHJOdVJzUnI3eUhJTVZjYmwxZjZm?=
+ =?utf-8?B?cCtaUFdrbjVrbm9uUGM3a3cycStmOVF4bWZpZ0tBWVpZK3AzQ3B4NTRITHlZ?=
+ =?utf-8?B?cmdaMDdvYzQ2VHlFZmVTS1EyQ1NmWklrZ1hsOGREbFN0cTQyejU0NmJHV1Js?=
+ =?utf-8?B?bzJncFRHcDd4TVRFUHRuRnVYR2kxeWlGOVZJS3FaYms2dlYwZUR0aG1XeklQ?=
+ =?utf-8?B?U0ErZkhra3dZWDJ2ZHN0dUxENmxIRmhvQ2FyQWpIRVNDT1BZcEY1Sm5GendV?=
+ =?utf-8?B?MExXd0RmQW1xSS8veU1mWC91R1ZCTkVDS3dUWEVQZlAwR0htWmMrU0d1Und6?=
+ =?utf-8?B?UWtUL0tGNko5c0JtRms2UzZHbjJRSFRIa3hHM2FDMXBaRFRIYytOWWlJOTVR?=
+ =?utf-8?B?ZU5rQ2krSXdkMXl5cTVNREQrc2pucjU1RkxwTVBOVmZZWkQ1cDRxdzNYajF1?=
+ =?utf-8?B?c1dkMTBtcHJicjBBZGsyOWZubXA2Zjh4eS9hQWFzNE5DRm43L3FBcHVsTlpJ?=
+ =?utf-8?B?ckVVTDhsNVdVa0ZYZkd1dFJSa1dvdTAzRW5wM2p5d0tONmRxUW5GNVNPQkJD?=
+ =?utf-8?B?bWxkY1BpZmduWDY2Rkc1Nk94a1cxVytqY3V3MXQ5NTBZQ0ErMXJkQlpnL201?=
+ =?utf-8?B?NCsyMEdBRFBSNWpIQXJQL0t4dkF4WVB3a2QvKzVYclVLeTg5WWwrNzllVmls?=
+ =?utf-8?B?SUJQdkpZdVRmTEhUNnEySlo1ZmZ6WGxlY3VvSUdJamQ4dkI0dGl4MFhpSXFE?=
+ =?utf-8?B?U3o4QXdaRk5nd01hT01XdlJUL1EwM0pmaXFObG5jM2hrQmNJWHA4RmF4cURQ?=
+ =?utf-8?B?b1dWN3pyVHVDY05TeEQ5MDFEYW54cldUY3ZRczZTV3R5Q3VsNVBxc0JHbEhh?=
+ =?utf-8?B?K0ZZNkV5VmZKR2RtS2FsWXkxSUU0NklReUlLUWVRanZxQ2NCQkdCUDlLeUFl?=
+ =?utf-8?B?QWQ1NkZUajBYVnovRWFpTU01dEJVZ00zS0NvWTVlb2NSM2wrOWlGT2E1R2Z1?=
+ =?utf-8?B?L0ZrTUxNUnhEZGo5b3liNFVJaU1nZ2NVMjVUMTY4WlA4SG9qM2ZWbkovT1lt?=
+ =?utf-8?B?UGUrbFk2Qnh6L0xOM2VzM0dzdzltZUFaZWF6RXU3Q2psVVd5cDlZV0NRRHc2?=
+ =?utf-8?B?ZnRaaU4vb1NLTEJmWngraitZaC9pbGJ2ZW8wZy9zR2NLWnFEN3FGZVA5cmNn?=
+ =?utf-8?B?a1dka3cvYUNwZFZuYVU2T3hLMGVlRjBLRFZxaDNqZzRaMU5EQ0s5a1BZOEtw?=
+ =?utf-8?B?dThiTlUrSHNIeGZlZ0V5RWRSM3BMeHRwRDBCQkVhZTYzdzcwQmI3ejVOMGs0?=
+ =?utf-8?B?SVhycUxKVjZWU0J2Kzkwa1BPUkNYaXRFNXVtU29Kb2c3YWZ6WEw2Qys0V0Fi?=
+ =?utf-8?B?OXpMR1JydnI3TU9mSHZhbXlVZlFLbCtYQ04zREZRaHR0VktHaXI1SENyRWIr?=
+ =?utf-8?B?dU8yNDdlNWRhM0tUaXUwYW4yNTdFOHhCQmRRYmpvWTVFSVBQNDNSZHQ0cHlN?=
+ =?utf-8?B?MTJ6RnExQ2lUYmJBNEdDTlVkeGdWT0hPcGFSck1TZEdnZkZNSVFWQ3VWcm14?=
+ =?utf-8?B?ZlVoTFdKVStRQlZCV3ExRTVsT3lyZUswcnljZ3pQNXR3WDZBakNUOFpMdFNu?=
+ =?utf-8?Q?gdmJ5pZfp98odzMkz3beugtsB?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10380eb0-29a9-4bba-3abe-08db34f9006e
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2023 10:39:03.0467
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2023 10:40:26.3271
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: psfq0utQ4sQWygfKvxwz+lEWG4o9l3qx++WR5hhIHwjSKpSZjDR0qkXl9e2thUpP8jqlGFzvQ//DsnxBomSfbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7577
+X-MS-Exchange-CrossTenant-UserPrincipalName: r90aoUXFqKACHTjsDBCXu1sPq+5ihh2O0jjvqGlxJDBcjcz/+VtHJh1HlaHhw1aOQbk3jE+Nthe7EY42j7Na0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9925
 
+On 04.04.2023 12:34, Andrew Cooper wrote:
+> On 04/04/2023 10:20 am, Jan Beulich wrote:
+>> --- a/xen/arch/arm/include/asm/irq.h
+>> +++ b/xen/arch/arm/include/asm/irq.h
+>> @@ -52,7 +52,7 @@ struct arch_irq_desc {
+>>  
+>>  extern const unsigned int nr_irqs;
+>>  #define nr_static_irqs NR_IRQS
+>> -#define arch_hwdom_irqs(domid) NR_IRQS
+>> +#define arch_hwdom_irqs(d) NR_IRQS
+> 
+> I know it's not your bug, but this ought to be (d, NR_IRQS) as you're
+> changing it.
 
-On 30/03/2023 22:45, Julien Grall wrote:
-> CAUTION: This message has originated from an External Source. Please 
-> use proper judgment and caution when opening attachments, clicking 
-> links, or responding to this email.
->
->
-> Hi Ayan,
+I can add this (with a cast to void), but I'll leave the final say to
+Arm maintainers.
 
-Hi Julien,
+>> --- a/xen/arch/x86/io_apic.c
+>> +++ b/xen/arch/x86/io_apic.c
+>> @@ -2665,18 +2665,21 @@ void __init ioapic_init(void)
+>>             nr_irqs_gsi, nr_irqs - nr_irqs_gsi);
+>>  }
+>>  
+>> -unsigned int arch_hwdom_irqs(domid_t domid)
+>> +unsigned int arch_hwdom_irqs(const struct domain *d)
+>>  {
+>>      unsigned int n = fls(num_present_cpus());
+>>  
+>> -    if ( !domid )
+>> +    if ( is_system_domain(d) )
+>> +        return PAGE_SIZE * BITS_PER_BYTE;
+> 
+> System domains never reach here, because ...
+> 
+>> +
+>> +    if ( !d->domain_id )
+>>          n = min(n, dom0_max_vcpus());
+>>      n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, nr_irqs);
+>>  
+>>      /* Bounded by the domain pirq eoi bitmap gfn. */
+>>      n = min_t(unsigned int, n, PAGE_SIZE * BITS_PER_BYTE);
+>>  
+>> -    printk("Dom%d has maximum %u PIRQs\n", domid, n);
+>> +    printk("%pd has maximum %u PIRQs\n", d, n);
+>>  
+>>      return n;
+>>  }
+>> --- a/xen/common/domain.c
+>> +++ b/xen/common/domain.c
+> 
+> ... just out of context here is the system domain early exit from
+> domain_create().
 
-I need some clarifications.
+Of course. But that's not the path I care about; this ...
 
->
-> On 21/03/2023 14:03, Ayan Kumar Halder wrote:
->> The pabits, t0sz, root_order and sl0 values are the same as those for
->> ARM_64.
->
-> To me this read as the line should be common. But you still duplicate it.
->
-> In any case, you should justify this change with a pointer to the Arm
-> Arm. Not just saying they are common.
+>> @@ -659,7 +659,7 @@ struct domain *domain_create(domid_t dom
+>>              d->nr_pirqs = nr_static_irqs + extra_domU_irqs;
+>>          else
+>>              d->nr_pirqs = extra_hwdom_irqs ? nr_static_irqs + extra_hwdom_irqs
+>> -                                           : arch_hwdom_irqs(domid);
+>> +                                           : arch_hwdom_irqs(d);
+>>          d->nr_pirqs = min(d->nr_pirqs, nr_irqs);
+>>  
+>>          radix_tree_init(&d->pirq_tree);
+>> @@ -771,6 +771,8 @@ struct domain *domain_create(domid_t dom
+>>  
+>>  void __init setup_system_domains(void)
+>>  {
+>> +    unsigned int n;
+>> +
+>>      /*
+>>       * Initialise our DOMID_XEN domain.
+>>       * Any Xen-heap pages that we will allow to be mapped will have
+>> @@ -782,6 +784,19 @@ void __init setup_system_domains(void)
+>>      if ( IS_ERR(dom_xen) )
+>>          panic("Failed to create d[XEN]: %ld\n", PTR_ERR(dom_xen));
+>>  
+>> +    /* Bound-check values passed via "extra_guest_irqs=". */
+>> +    n = max(arch_hwdom_irqs(dom_xen), nr_static_irqs);
 
-Does the following commit message read fine ?
+... is the one.
 
-Refer ARM DDI 0406C.d ID040418, B3-1345,
+>> +    if ( extra_hwdom_irqs > n - nr_static_irqs )
+>> +    {
+>> +        extra_hwdom_irqs = n - nr_static_irqs;
+>> +        printk(XENLOG_WARNING "hwdom IRQs bounded to %u\n", n);
+>> +    }
+>> +    if ( extra_domU_irqs > max(32U, n - nr_static_irqs) )
+>> +    {
+>> +        extra_domU_irqs = n - nr_static_irqs;
+> 
+> Why the extra 32 here?
 
- 0.
+On Arm we would warn even if the command line option wasn't used. Plus
+I view it as bogus to warn for any value up to the default.
 
-    "Use of concatenated second-level translation tables
+>> --- a/xen/include/xen/irq.h
+>> +++ b/xen/include/xen/irq.h
+>> @@ -173,8 +173,9 @@ extern irq_desc_t *pirq_spin_lock_irq_de
+>>  
+>>  unsigned int set_desc_affinity(struct irq_desc *, const cpumask_t *);
+>>  
+>> +/* When passed a system domain, this returns the maximum permissible value. */
+> 
+> This comment is technically true, but it probably doesn't want to stay.
 
-    A stage 2 translation with an input address range of 31-34 bits can
-    start the translation either:
+Why not? We (now) depend on this property.
 
-      *
-
-        With a first-level lookup, accessing a first-level translation
-        table with 2-16 entries.
-
-      *
-
-        With a second-level lookup, accessing a set of concatenated
-        second-level translation tables"
-
-
-Thus, for 32 bit IPA, there will be only one root level translation 
-tables. This is because as the paragraph explains above,  35 bit IPA is 
-the minimum required to support two root level translation tables.
-
-The root order for 32 bit IPA will be 0. (Refer xen/arch/arm/p2m.c 
-"#define P2M_ROOT_PAGES (1<<P2M_ROOT_ORDER)")
-
-Please clarify if I misunderstood something.
-
-- Ayan
-
->
->>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
->>
->> Changes from -
->>
->> v1 - New patch.
->>
->> v2 - 1. Added Ack.
->>
->> v3 - 1. Dropped Ack.
->> 2. Rebased the patch based on the previous change.
->>
->>   xen/arch/arm/p2m.c | 5 +++--
->>   1 file changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->> index f34b6e6f11..20beecc6e8 100644
->> --- a/xen/arch/arm/p2m.c
->> +++ b/xen/arch/arm/p2m.c
->> @@ -2272,8 +2272,9 @@ void __init setup_virt_paging(void)
->>           unsigned int sl0;    /* Desired SL0, maximum in comment */
->>       } pa_range_info[] __initconst = {
->>   #ifdef CONFIG_ARM_32
->> -        [0] = { 40,      24/*24*/,  1,          1 },
->> -        [1] = { 0 } /* Invalid */
->> +        [0] = { 32,      32/*32*/,  0,          1 },
->
-> As I pointed out in one of the previous version, the root order is
-> different than ...
->
->> +        [1] = { 40,      24/*24*/, 1,          1 },
->
-> ... here. Yet, you still keep P2M_ROOT_ORDER and P2M_ROOT_LEVEL
-> hardcoded. Your previous patch wants to define p2M_root_order and
-> p2m_root_level (lower-case intended). IOW making more code common
-> between arm64 and arm32.
->
-> Cheers,
->
-> -- 
-> Julien Grall
->
+Jan
 
