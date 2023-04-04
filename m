@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B8FE6D5C89
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 11:59:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517772.803614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 959C36D5C85
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 11:59:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517752.803590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjdRn-0005De-KU; Tue, 04 Apr 2023 09:59:27 +0000
+	id 1pjdRZ-0003qt-Qo; Tue, 04 Apr 2023 09:59:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517772.803614; Tue, 04 Apr 2023 09:59:27 +0000
+Received: by outflank-mailman (output) from mailman id 517752.803590; Tue, 04 Apr 2023 09:59:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjdRn-000582-EH; Tue, 04 Apr 2023 09:59:27 +0000
-Received: by outflank-mailman (input) for mailman id 517772;
- Tue, 04 Apr 2023 09:59:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pjdRZ-0003mO-Jn; Tue, 04 Apr 2023 09:59:13 +0000
+Received: by outflank-mailman (input) for mailman id 517752;
+ Tue, 04 Apr 2023 09:59:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Oy2y=73=citrix.com=prvs=4518c43dc=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pjdM5-0005bo-SB
- for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 09:53:34 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8dd3c787-d2ce-11ed-85db-49a42c6b2330;
- Tue, 04 Apr 2023 11:53:32 +0200 (CEST)
+ id 1pjdMK-00056d-2X
+ for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 09:53:48 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 962f50e3-d2ce-11ed-b464-930f4c7d94ae;
+ Tue, 04 Apr 2023 11:53:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,52 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8dd3c787-d2ce-11ed-85db-49a42c6b2330
+X-Inumbo-ID: 962f50e3-d2ce-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1680602012;
+  d=citrix.com; s=securemail; t=1680602025;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=S9rrbCEYs4IT9bqKPV/iJx2K9DkXe5RcZyCTKB2nQ9U=;
-  b=OYDADpeDP5cEnFRW6GUiK3sGMYpY8eqSwL2Ynnejkj/FXDgApxclEytm
-   slgEqR2VE/GZsSnLewg1GrazG8oitkZVgC++JrgWoc2OW8rb82hn+vaTb
-   WsTsSRHvgd0DlV0iSeHuyMjBSFZOr+tHHR4GfzzfnkRkwCs99iGWT8EWr
-   I=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=BD8/V6HTXPI8zjfRwIUp+LKbifOL/pPEYn5jnL6tGjU=;
+  b=aEhT89AkO8KrOFxlJwGFdsHqSg/+e2oJSGcN+/+4ebY3pOECirJTasTI
+   NJJW2kRRMv4SSesCIJgTczQdOJ1FVlZKpkVyg9387ZRhlEgNqiFgc7JS7
+   UNO4QXgeunyYt0obMr3+kHTO9kb+XUujwqDpGY3MDaNprTswMPVREsXIh
+   E=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 104656599
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 103612437
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Fsg6SaOJIj2cUo7vrR3al8FynXyQoLVcMsEvi/4bfWQNrUolhT1Ty
- 2JMX2yGbvjZNGX1edklbYq0pksH65LRndQ2GQto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGj9SuvLrRC9H5qyo42tE5gBmPJingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0ut4C0Bc/
- qETEzkIdA6fuNir4by7cuY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w2Nk+ojx5nYz/7DLoXmuuyi2a5WDpfsF+P/oI84nTJzRw327/oWDbQUoXSGZsIwBvJ9
- woq+UymDD0CCs2P1wamzWj1rOv0jSH7fpIdQejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
- lcI4Ww+oK4q7kupQ9LhGRqirxasnDQRRt5RGO0S8xyWx+zf5APxLncAZi5MbpohrsBeeNAx/
- gbXxZWzX2Up6eDLDyvHrd94sA9eJwAYImUjdyRZRjAM5sP9vL4JkzPBTu5sRfvdYsLOJd3g/
- 9ybhHFg1+1O0pBRiPzTEUPv2Gz1+MWQJuIhzkCOBz/+sFskDGKwT9bwgWU3+8qsO2pworOpm
- HEf0/aT4+kVZX1mvHzcGb5ddF1FChvsDdE9vbKMN8N7n9hV0yT/Fb28GRknTKuTDu4KeCXyf
- GjYsh5L6ZlYMROCNPEnO9/tVZVwlvK+RbwJs8w4ifIXOvBMmPKvpnkyNSZ8IUi2+KTTrU3PE
- cjCKpv9ZZrrIa9m0CC3V48g7FPf/QhnnTm7bcmin3yaPU+2OCb9pUEtbAHfMYjULcqs/G3oz
- jqoH5DVlEkFCbGhO3m/HEx6BQliEEXXzKve86R/HtNv6CI/cI39I5c9GY8cRrE=
-IronPort-HdrOrdr: A9a23:ujXFI61ilrIcMTIDVr7uEwqjBHYkLtp133Aq2lEZdPU0SKGlfq
- GV7ZEmPHrP4gr5N0tOpTntAse9qBDnhPxICOsqXYtKNTOO0AeVxelZhrcKqAeQeBEWmNQ96U
- 9hGZIOcuEZDzJB/LvHCN/TKadd/DGFmprY+ts31x1WPGVXgzkL1XYANu6ceHcGIzVuNN4CO7
- e3wNFInDakcWR/VLXBOpFUN9KzweEijfjdEGc7OyI=
+IronPort-Data: A9a23:KGRsUKqQKYmTq8pX0IbW2gF8deReBmJnZRIvgKrLsJaIsI4StFCzt
+ garIBmFPPyKZGb0KY0iOd61oRsDvpDXm4VhSwo5pSgxHy4ao5uZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WNwUmAWP6gR5weCzyVNVfrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXAGxUbhuAm6WU+7m2d8Q9tu4mEMX6A6pK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVxrl6PqLVxyG/U1AFri5DmMcbPe8zMTsJQ9qqdj
+ juepDqgWE1Ba7RzzxKD/lb0q+qSkBj6G4YOO5eU8cN2sgeMkzl75Bo+CgLg/KjRZlSFc8JSL
+ QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUSyiuA167V6AaxHXUfQ3hKb9lOnNAybSwn0
+ BmOhdyBONB0mOTLEzTHrO7S9G7sf3FPdgfueBPoUyNZutnoo510rCnEQ+tOQZ6fi+H5CA7Zl
+ mXiQDcFu1kDsSIa//zlrQia3Gz2+cGhoh0dvVuOAD/8hu9tTMv8PtHztwCGhRpVBNzBJmRtq
+ kTojCR3AAomKZiW3BKAT+wWdF1Cz6bUaWaM6bKD8nRIythMx5JAVdoKiN2GDB01WvvogBewC
+ KMphStf5YVIIFyhZrJtboS6BqwClPawTYm5CKGONYAQMvCdkTNrGwk3PSatM53FyhBwwcnTx
+ 7/AGSpTMZrqIfs+l2fnLwvs+bQq2jo/1QvueHwP9Dz+ieD2TCfMGd843K6mMrhRAFWs/F+Er
+ L6y9qKil31ibQEJSnKIrtJJdAxVdChT6FKfg5U/S9Nv6zFOQAkJY8I9C5t4E2C5t8y5Ttv1w
+ 0w=
+IronPort-HdrOrdr: A9a23:XbA7vaCUYNajGozlHelo55DYdb4zR+YMi2TDt3oddfU1SL38qy
+ nKpp4mPHDP5wr5NEtPpTniAtjjfZq/z/5ICOAqVN/PYOCPggCVxepZnOjfKlPbehEX9oRmpN
+ 1dm6oVMqyMMbCt5/yKnDVRELwbsaa6GLjDv5a785/0JzsaE52J6W1Ce2GmO3wzfiZqL7wjGq
+ GR48JWzgDQAkj+PqyAdx84t/GonayzqK7b
 X-IronPort-AV: E=Sophos;i="5.98,317,1673931600"; 
-   d="scan'208";a="104656599"
+   d="scan'208";a="103612437"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 14/15] libx86: Update library API for cpu_policy
-Date: Tue, 4 Apr 2023 10:52:21 +0100
-Message-ID: <20230404095222.1373721-15-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 15/15] x86: Remove temporary {cpuid,msr}_policy defines
+Date: Tue, 4 Apr 2023 10:52:22 +0100
+Message-ID: <20230404095222.1373721-16-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230404095222.1373721-1-andrew.cooper3@citrix.com>
 References: <20230404095222.1373721-1-andrew.cooper3@citrix.com>
@@ -89,10 +90,8 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Adjust the API and comments appropriately.
-
-x86_cpu_policy_fill_native() will eventually contain MSR reads, but leave a
-TODO in the short term.
+With all code areas updated, drop the temporary defines and adjust all
+remaining users.
 
 No practical change.
 
@@ -103,371 +102,325 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
 v2:
- * New
+ * Split out of RFC patch
 ---
- tools/fuzz/cpu-policy/afl-policy-fuzzer.c |  4 +--
- tools/tests/cpu-policy/test-cpu-policy.c  |  4 +--
- tools/tests/x86_emulator/x86-emulate.c    |  2 +-
- xen/arch/x86/cpu-policy.c                 |  2 +-
- xen/arch/x86/domctl.c                     |  2 +-
- xen/arch/x86/xstate.c                     |  4 +--
- xen/include/xen/lib/x86/cpu-policy.h      | 42 ++++++++++++-----------
- xen/lib/x86/cpuid.c                       | 24 +++++++------
- xen/lib/x86/msr.c                         |  4 +--
- 9 files changed, 46 insertions(+), 42 deletions(-)
+ xen/arch/x86/cpu/mcheck/mce_intel.c    |  2 +-
+ xen/arch/x86/cpuid.c                   |  2 +-
+ xen/arch/x86/domain.c                  |  2 +-
+ xen/arch/x86/hvm/hvm.c                 |  4 ++--
+ xen/arch/x86/hvm/svm/svm.c             |  2 +-
+ xen/arch/x86/hvm/vlapic.c              |  2 +-
+ xen/arch/x86/hvm/vmx/vmx.c             |  8 ++++----
+ xen/arch/x86/include/asm/msr.h         |  2 +-
+ xen/arch/x86/msr.c                     | 20 +++++++++-----------
+ xen/arch/x86/pv/domain.c               |  2 +-
+ xen/arch/x86/pv/emul-priv-op.c         |  4 ++--
+ xen/arch/x86/traps.c                   |  2 +-
+ xen/arch/x86/x86_emulate/x86_emulate.c |  2 +-
+ xen/include/xen/lib/x86/cpu-policy.h   |  4 ----
+ 14 files changed, 26 insertions(+), 32 deletions(-)
 
-diff --git a/tools/fuzz/cpu-policy/afl-policy-fuzzer.c b/tools/fuzz/cpu-policy/afl-policy-fuzzer.c
-index 466bdbb1d91a..7d8467b4b258 100644
---- a/tools/fuzz/cpu-policy/afl-policy-fuzzer.c
-+++ b/tools/fuzz/cpu-policy/afl-policy-fuzzer.c
-@@ -48,8 +48,8 @@ static void check_policy(struct cpu_policy *cp)
-      * Fix up the data in the source policy which isn't expected to survive
-      * serialisation.
-      */
--    x86_cpuid_policy_clear_out_of_range_leaves(cp);
--    x86_cpuid_policy_recalc_synth(cp);
-+    x86_cpu_policy_clear_out_of_range_leaves(cp);
-+    x86_cpu_policy_recalc_synth(cp);
+diff --git a/xen/arch/x86/cpu/mcheck/mce_intel.c b/xen/arch/x86/cpu/mcheck/mce_intel.c
+index 301533722d1a..2f23f02923d2 100644
+--- a/xen/arch/x86/cpu/mcheck/mce_intel.c
++++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
+@@ -1008,7 +1008,7 @@ int vmce_intel_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
  
-     /* Serialise... */
-     rc = x86_cpuid_copy_to_buffer(cp, leaves, &nr_leaves);
-diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
-index a4ca07f33973..f1d968adfc39 100644
---- a/tools/tests/cpu-policy/test-cpu-policy.c
-+++ b/tools/tests/cpu-policy/test-cpu-policy.c
-@@ -105,7 +105,7 @@ static void test_cpuid_current(void)
+ int vmce_intel_rdmsr(const struct vcpu *v, uint32_t msr, uint64_t *val)
+ {
+-    const struct cpuid_policy *cp = v->domain->arch.cpuid;
++    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+     unsigned int bank = msr - MSR_IA32_MC0_CTL2;
  
-     printf("Testing CPUID on current CPU\n");
+     switch ( msr )
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index 3f20c342fde8..f311372cdf1f 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -36,7 +36,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+                  uint32_t subleaf, struct cpuid_leaf *res)
+ {
+     const struct domain *d = v->domain;
+-    const struct cpuid_policy *p = d->arch.cpuid;
++    const struct cpu_policy *p = d->arch.cpu_policy;
  
--    x86_cpuid_policy_fill_native(&p);
-+    x86_cpu_policy_fill_native(&p);
+     *res = EMPTY_LEAF;
  
-     rc = x86_cpuid_copy_to_buffer(&p, leaves, &nr);
-     if ( rc != 0 )
-@@ -554,7 +554,7 @@ static void test_cpuid_out_of_range_clearing(void)
-         void *ptr;
-         unsigned int nr_markers;
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index b23e5014d1d3..91f57e3a3b17 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -283,7 +283,7 @@ void update_guest_memory_policy(struct vcpu *v,
  
--        x86_cpuid_policy_clear_out_of_range_leaves(p);
-+        x86_cpu_policy_clear_out_of_range_leaves(p);
+ void domain_cpu_policy_changed(struct domain *d)
+ {
+-    const struct cpuid_policy *p = d->arch.cpuid;
++    const struct cpu_policy *p = d->arch.cpu_policy;
+     struct vcpu *v;
  
-         /* Count the number of 0xc2's still remaining. */
-         for ( ptr = p, nr_markers = 0;
-diff --git a/tools/tests/x86_emulator/x86-emulate.c b/tools/tests/x86_emulator/x86-emulate.c
-index 2692404df906..7d2d57f7591a 100644
---- a/tools/tests/x86_emulator/x86-emulate.c
-+++ b/tools/tests/x86_emulator/x86-emulate.c
-@@ -75,7 +75,7 @@ bool emul_test_init(void)
+     if ( is_pv_domain(d) )
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 675c523d9909..7020fdce995c 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -924,7 +924,7 @@ const char *hvm_efer_valid(const struct vcpu *v, uint64_t value,
+                            signed int cr0_pg)
+ {
+     const struct domain *d = v->domain;
+-    const struct cpuid_policy *p = d->arch.cpuid;
++    const struct cpu_policy *p = d->arch.cpu_policy;
  
-     unsigned long sp;
+     if ( value & ~EFER_KNOWN_MASK )
+         return "Unknown bits set";
+@@ -961,7 +961,7 @@ const char *hvm_efer_valid(const struct vcpu *v, uint64_t value,
+ /* These bits in CR4 can be set by the guest. */
+ unsigned long hvm_cr4_guest_valid_bits(const struct domain *d)
+ {
+-    const struct cpuid_policy *p = d->arch.cpuid;
++    const struct cpu_policy *p = d->arch.cpu_policy;
+     bool mce, vmxe, cet;
  
--    x86_cpuid_policy_fill_native(&cp);
-+    x86_cpu_policy_fill_native(&cp);
+     /* Logic broken out simply to aid readability below. */
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 02563e4b7027..b8fe759db456 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -583,7 +583,7 @@ static void cf_check svm_cpuid_policy_changed(struct vcpu *v)
+ {
+     struct svm_vcpu *svm = &v->arch.hvm.svm;
+     struct vmcb_struct *vmcb = svm->vmcb;
+-    const struct cpuid_policy *cp = v->domain->arch.cpuid;
++    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+     u32 bitmap = vmcb_get_exception_intercepts(vmcb);
+ 
+     if ( opt_hvm_fep ||
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index dc93b5e930b1..f4f5ffc673e5 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -1083,7 +1083,7 @@ static void set_x2apic_id(struct vlapic *vlapic)
+ 
+ int guest_wrmsr_apic_base(struct vcpu *v, uint64_t value)
+ {
+-    const struct cpuid_policy *cp = v->domain->arch.cpuid;
++    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+     struct vlapic *vlapic = vcpu_vlapic(v);
+ 
+     if ( !has_vlapic(v->domain) )
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index e05588505871..ee4c41628cc3 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -710,7 +710,7 @@ static void vmx_restore_host_msrs(void)
+ 
+ static void vmx_save_guest_msrs(struct vcpu *v)
+ {
+-    const struct cpuid_policy *cp = v->domain->arch.cpuid;
++    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+     struct vcpu_msrs *msrs = v->arch.msrs;
  
      /*
-      * The emulator doesn't use these instructions, so can always emulate
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index 83186e940ca7..1140f0b365cd 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -347,7 +347,7 @@ static void __init calculate_raw_policy(void)
+@@ -731,7 +731,7 @@ static void vmx_save_guest_msrs(struct vcpu *v)
+ 
+ static void vmx_restore_guest_msrs(struct vcpu *v)
  {
-     struct cpu_policy *p = &raw_cpu_policy;
+-    const struct cpuid_policy *cp = v->domain->arch.cpuid;
++    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+     const struct vcpu_msrs *msrs = v->arch.msrs;
  
--    x86_cpuid_policy_fill_native(p);
-+    x86_cpu_policy_fill_native(p);
+     write_gs_shadow(v->arch.hvm.vmx.shadow_gs);
+@@ -784,7 +784,7 @@ void vmx_update_exception_bitmap(struct vcpu *v)
  
-     /* Nothing good will come from Xen and libx86 disagreeing on vendor. */
-     ASSERT(p->x86_vendor == boot_cpu_data.x86_vendor);
-diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-index c02528594102..1a8b4cff48ee 100644
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -66,7 +66,7 @@ static int update_domain_cpu_policy(struct domain *d,
-         goto out;
- 
-     /* Trim any newly-stale out-of-range leaves. */
--    x86_cpuid_policy_clear_out_of_range_leaves(new);
-+    x86_cpu_policy_clear_out_of_range_leaves(new);
- 
-     /* Audit the combined dataset. */
-     ret = x86_cpu_policies_are_compatible(sys, new, &err);
-diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
-index d481e1db3e7e..92496f379546 100644
---- a/xen/arch/x86/xstate.c
-+++ b/xen/arch/x86/xstate.c
-@@ -684,7 +684,7 @@ void xstate_init(struct cpuinfo_x86 *c)
- int validate_xstate(const struct domain *d, uint64_t xcr0, uint64_t xcr0_accum,
-                     const struct xsave_hdr *hdr)
+ static void cf_check vmx_cpuid_policy_changed(struct vcpu *v)
  {
--    uint64_t xcr0_max = cpuid_policy_xcr0_max(d->arch.cpuid);
-+    uint64_t xcr0_max = cpu_policy_xcr0_max(d->arch.cpuid);
-     unsigned int i;
+-    const struct cpuid_policy *cp = v->domain->arch.cpuid;
++    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+     int rc = 0;
  
-     if ( (hdr->xstate_bv & ~xcr0_accum) ||
-@@ -708,7 +708,7 @@ int validate_xstate(const struct domain *d, uint64_t xcr0, uint64_t xcr0_accum,
- int handle_xsetbv(u32 index, u64 new_bv)
+     if ( opt_hvm_fep ||
+@@ -3521,7 +3521,7 @@ static int cf_check vmx_msr_write_intercept(
+     unsigned int msr, uint64_t msr_content)
+ {
+     struct vcpu *v = current;
+-    const struct cpuid_policy *cp = v->domain->arch.cpuid;
++    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
+ 
+     HVM_DBG_LOG(DBG_LEVEL_MSR, "ecx=%#x, msr_value=%#"PRIx64, msr, msr_content);
+ 
+diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
+index 458841733e18..1d8ea9f26faa 100644
+--- a/xen/arch/x86/include/asm/msr.h
++++ b/xen/arch/x86/include/asm/msr.h
+@@ -290,7 +290,7 @@ static inline void wrmsr_tsc_aux(uint32_t val)
+     }
+ }
+ 
+-uint64_t msr_spec_ctrl_valid_bits(const struct cpuid_policy *cp);
++uint64_t msr_spec_ctrl_valid_bits(const struct cpu_policy *cp);
+ 
+ /* Container object for per-vCPU MSRs */
+ struct vcpu_msrs
+diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+index 802fc60baf81..2e16818bf509 100644
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -54,8 +54,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+ {
+     const struct vcpu *curr = current;
+     const struct domain *d = v->domain;
+-    const struct cpuid_policy *cp = d->arch.cpuid;
+-    const struct msr_policy *mp = d->arch.msr;
++    const struct cpu_policy *cp = d->arch.cpu_policy;
+     const struct vcpu_msrs *msrs = v->arch.msrs;
+     int ret = X86EMUL_OKAY;
+ 
+@@ -139,13 +138,13 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+         goto get_reg;
+ 
+     case MSR_INTEL_PLATFORM_INFO:
+-        *val = mp->platform_info.raw;
++        *val = cp->platform_info.raw;
+         break;
+ 
+     case MSR_ARCH_CAPABILITIES:
+         if ( !cp->feat.arch_caps )
+             goto gp_fault;
+-        *val = mp->arch_caps.raw;
++        *val = cp->arch_caps.raw;
+         break;
+ 
+     case MSR_INTEL_MISC_FEATURES_ENABLES:
+@@ -326,7 +325,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
+  * separate CPUID features for this functionality, but only set will be
+  * active.
+  */
+-uint64_t msr_spec_ctrl_valid_bits(const struct cpuid_policy *cp)
++uint64_t msr_spec_ctrl_valid_bits(const struct cpu_policy *cp)
+ {
+     bool ssbd = cp->feat.ssbd || cp->extd.amd_ssbd;
+     bool psfd = cp->feat.intel_psfd || cp->extd.psfd;
+@@ -345,8 +344,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+ {
+     const struct vcpu *curr = current;
+     struct domain *d = v->domain;
+-    const struct cpuid_policy *cp = d->arch.cpuid;
+-    const struct msr_policy *mp = d->arch.msr;
++    const struct cpu_policy *cp = d->arch.cpu_policy;
+     struct vcpu_msrs *msrs = v->arch.msrs;
+     int ret = X86EMUL_OKAY;
+ 
+@@ -387,7 +385,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+          * for backwards compatiblity, the OS should write 0 to it before
+          * trying to access the current microcode version.
+          */
+-        if ( d->arch.cpuid->x86_vendor != X86_VENDOR_INTEL || val != 0 )
++        if ( cp->x86_vendor != X86_VENDOR_INTEL || val != 0 )
+             goto gp_fault;
+         break;
+ 
+@@ -397,7 +395,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+          * to AMD CPUs as well (at least the architectural/CPUID part does).
+          */
+         if ( is_pv_domain(d) ||
+-             d->arch.cpuid->x86_vendor != X86_VENDOR_AMD )
++             cp->x86_vendor != X86_VENDOR_AMD )
+             goto gp_fault;
+         break;
+ 
+@@ -409,7 +407,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+          * by any CPUID bit.
+          */
+         if ( is_pv_domain(d) ||
+-             d->arch.cpuid->x86_vendor != X86_VENDOR_INTEL )
++             cp->x86_vendor != X86_VENDOR_INTEL )
+             goto gp_fault;
+         break;
+ 
+@@ -446,7 +444,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+         bool old_cpuid_faulting = msrs->misc_features_enables.cpuid_faulting;
+ 
+         rsvd = ~0ull;
+-        if ( mp->platform_info.cpuid_faulting )
++        if ( cp->platform_info.cpuid_faulting )
+             rsvd &= ~MSR_MISC_FEATURES_CPUID_FAULTING;
+ 
+         if ( val & rsvd )
+diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+index 95492715d8ad..5c92812dc67a 100644
+--- a/xen/arch/x86/pv/domain.c
++++ b/xen/arch/x86/pv/domain.c
+@@ -146,7 +146,7 @@ static void release_compat_l4(struct vcpu *v)
+ 
+ unsigned long pv_fixup_guest_cr4(const struct vcpu *v, unsigned long cr4)
+ {
+-    const struct cpuid_policy *p = v->domain->arch.cpuid;
++    const struct cpu_policy *p = v->domain->arch.cpu_policy;
+ 
+     /* Discard attempts to set guest controllable bits outside of the policy. */
+     cr4 &= ~((p->basic.tsc     ? 0 : X86_CR4_TSD)      |
+diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
+index ab52768271c5..04416f197951 100644
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -885,7 +885,7 @@ static int cf_check read_msr(
  {
      struct vcpu *curr = current;
--    uint64_t xcr0_max = cpuid_policy_xcr0_max(curr->domain->arch.cpuid);
-+    uint64_t xcr0_max = cpu_policy_xcr0_max(curr->domain->arch.cpuid);
-     u64 mask;
+     const struct domain *currd = curr->domain;
+-    const struct cpuid_policy *cp = currd->arch.cpuid;
++    const struct cpu_policy *cp = currd->arch.cpu_policy;
+     bool vpmu_msr = false, warn = false;
+     uint64_t tmp;
+     int ret;
+@@ -1034,7 +1034,7 @@ static int cf_check write_msr(
+ {
+     struct vcpu *curr = current;
+     const struct domain *currd = curr->domain;
+-    const struct cpuid_policy *cp = currd->arch.cpuid;
++    const struct cpu_policy *cp = currd->arch.cpu_policy;
+     bool vpmu_msr = false;
+     int ret;
  
-     if ( index != XCR_XFEATURE_ENABLED_MASK )
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index c36e3f855bd9..e4f8b158e1ed 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -1036,7 +1036,7 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
+                              uint32_t subleaf, struct cpuid_leaf *res)
+ {
+     const struct domain *d = v->domain;
+-    const struct cpuid_policy *p = d->arch.cpuid;
++    const struct cpu_policy *p = d->arch.cpu_policy;
+     uint32_t base = is_viridian_domain(d) ? 0x40000100 : 0x40000000;
+     uint32_t idx  = leaf - base;
+     unsigned int limit = is_viridian_domain(d) ? p->hv2_limit : p->hv_limit;
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
+index 5a0ec5900a93..c69f7c65f526 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -848,7 +848,7 @@ protmode_load_seg(
+     struct x86_emulate_ctxt *ctxt,
+     const struct x86_emulate_ops *ops)
+ {
+-    const struct cpuid_policy *cp = ctxt->cpuid;
++    const struct cpu_policy *cp = ctxt->cpu_policy;
+     enum x86_segment sel_seg = (sel & 4) ? x86_seg_ldtr : x86_seg_gdtr;
+     struct { uint32_t a, b; } desc, desc_hi = {};
+     uint8_t dpl, rpl;
 diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-index 57b4633c861e..dee46adeff17 100644
+index dee46adeff17..182cf77cffaf 100644
 --- a/xen/include/xen/lib/x86/cpu-policy.h
 +++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -399,12 +399,12 @@ void x86_cpu_policy_to_featureset(const struct cpu_policy *p,
- void x86_cpu_featureset_to_policy(const uint32_t fs[FEATURESET_NR_ENTRIES],
-                                   struct cpu_policy *p);
+@@ -375,10 +375,6 @@ struct cpu_policy
+     uint8_t x86_vendor;
+ };
  
--static inline uint64_t cpuid_policy_xcr0_max(const struct cpuid_policy *p)
-+static inline uint64_t cpu_policy_xcr0_max(const struct cpu_policy *p)
+-/* Temporary */
+-#define cpuid_policy cpu_policy
+-#define msr_policy cpu_policy
+-
+ struct cpu_policy_errors
  {
-     return ((uint64_t)p->xstate.xcr0_high << 32) | p->xstate.xcr0_low;
- }
- 
--static inline uint64_t cpuid_policy_xstates(const struct cpuid_policy *p)
-+static inline uint64_t cpu_policy_xstates(const struct cpu_policy *p)
- {
-     uint64_t val = p->xstate.xcr0_high | p->xstate.xss_high;
- 
-@@ -414,18 +414,18 @@ static inline uint64_t cpuid_policy_xstates(const struct cpuid_policy *p)
- const uint32_t *x86_cpuid_lookup_deep_deps(uint32_t feature);
- 
- /**
-- * Recalculate the content in a CPUID policy which is derived from raw data.
-+ * Recalculate the content in a CPU policy which is derived from raw data.
-  */
--void x86_cpuid_policy_recalc_synth(struct cpuid_policy *p);
-+void x86_cpu_policy_recalc_synth(struct cpu_policy *p);
- 
- /**
-- * Fill a CPUID policy using the native CPUID instruction.
-+ * Fill CPU policy using the native CPUID/RDMSR instruction.
-  *
-  * No sanitisation is performed, but synthesised values are calculated.
-  * Values may be influenced by a hypervisor or from masking/faulting
-  * configuration.
-  */
--void x86_cpuid_policy_fill_native(struct cpuid_policy *p);
-+void x86_cpu_policy_fill_native(struct cpu_policy *p);
- 
- /**
-  * Clear leaf data beyond the policies max leaf/subleaf settings.
-@@ -436,7 +436,7 @@ void x86_cpuid_policy_fill_native(struct cpuid_policy *p);
-  * with out-of-range leaves with stale content in them.  This helper clears
-  * them.
-  */
--void x86_cpuid_policy_clear_out_of_range_leaves(struct cpuid_policy *p);
-+void x86_cpu_policy_clear_out_of_range_leaves(struct cpu_policy *p);
- 
- #ifdef __XEN__
- #include <public/arch-x86/xen.h>
-@@ -449,9 +449,10 @@ typedef xen_msr_entry_t msr_entry_buffer_t[];
- #endif
- 
- /**
-- * Serialise a cpuid_policy object into an array of cpuid leaves.
-+ * Serialise the CPUID leaves of a cpu_policy object into an array of cpuid
-+ * leaves.
-  *
-- * @param policy     The cpuid_policy to serialise.
-+ * @param policy     The cpu_policy to serialise.
-  * @param leaves     The array of leaves to serialise into.
-  * @param nr_entries The number of entries in 'leaves'.
-  * @returns -errno
-@@ -460,13 +461,14 @@ typedef xen_msr_entry_t msr_entry_buffer_t[];
-  * leaves array is too short.  On success, nr_entries is updated with the
-  * actual number of leaves written.
-  */
--int x86_cpuid_copy_to_buffer(const struct cpuid_policy *policy,
-+int x86_cpuid_copy_to_buffer(const struct cpu_policy *policy,
-                              cpuid_leaf_buffer_t leaves, uint32_t *nr_entries);
- 
- /**
-- * Unserialise a cpuid_policy object from an array of cpuid leaves.
-+ * Unserialise the CPUID leaves of a cpu_policy object into an array of cpuid
-+ * leaves.
-  *
-- * @param policy      The cpuid_policy to unserialise into.
-+ * @param policy      The cpu_policy to unserialise into.
-  * @param leaves      The array of leaves to unserialise from.
-  * @param nr_entries  The number of entries in 'leaves'.
-  * @param err_leaf    Optional hint for error diagnostics.
-@@ -474,21 +476,21 @@ int x86_cpuid_copy_to_buffer(const struct cpuid_policy *policy,
-  * @returns -errno
-  *
-  * Reads at most CPUID_MAX_SERIALISED_LEAVES.  May return -ERANGE if an
-- * incoming leaf is out of range of cpuid_policy, in which case the optional
-+ * incoming leaf is out of range of cpu_policy, in which case the optional
-  * err_* pointers will identify the out-of-range indicies.
-  *
-  * No content validation of in-range leaves is performed.  Synthesised data is
-  * recalculated.
-  */
--int x86_cpuid_copy_from_buffer(struct cpuid_policy *policy,
-+int x86_cpuid_copy_from_buffer(struct cpu_policy *policy,
-                                const cpuid_leaf_buffer_t leaves,
-                                uint32_t nr_entries, uint32_t *err_leaf,
-                                uint32_t *err_subleaf);
- 
- /**
-- * Serialise an msr_policy object into an array.
-+ * Serialise the MSRs of a cpu_policy object into an array.
-  *
-- * @param policy     The msr_policy to serialise.
-+ * @param policy     The cpu_policy to serialise.
-  * @param msrs       The array of msrs to serialise into.
-  * @param nr_entries The number of entries in 'msrs'.
-  * @returns -errno
-@@ -497,13 +499,13 @@ int x86_cpuid_copy_from_buffer(struct cpuid_policy *policy,
-  * buffer array is too short.  On success, nr_entries is updated with the
-  * actual number of msrs written.
-  */
--int x86_msr_copy_to_buffer(const struct msr_policy *policy,
-+int x86_msr_copy_to_buffer(const struct cpu_policy *policy,
-                            msr_entry_buffer_t msrs, uint32_t *nr_entries);
- 
- /**
-- * Unserialise an msr_policy object from an array of msrs.
-+ * Unserialise the MSRs of a cpu_policy object from an array of msrs.
-  *
-- * @param policy     The msr_policy object to unserialise into.
-+ * @param policy     The cpu_policy object to unserialise into.
-  * @param msrs       The array of msrs to unserialise from.
-  * @param nr_entries The number of entries in 'msrs'.
-  * @param err_msr    Optional hint for error diagnostics.
-@@ -517,7 +519,7 @@ int x86_msr_copy_to_buffer(const struct msr_policy *policy,
-  *
-  * No content validation is performed on the data stored in the policy object.
-  */
--int x86_msr_copy_from_buffer(struct msr_policy *policy,
-+int x86_msr_copy_from_buffer(struct cpu_policy *policy,
-                              const msr_entry_buffer_t msrs, uint32_t nr_entries,
-                              uint32_t *err_msr);
- 
-diff --git a/xen/lib/x86/cpuid.c b/xen/lib/x86/cpuid.c
-index 734e90823a63..7c7b092736ff 100644
---- a/xen/lib/x86/cpuid.c
-+++ b/xen/lib/x86/cpuid.c
-@@ -102,13 +102,13 @@ void x86_cpu_featureset_to_policy(
-     p->feat._7d1             = fs[FEATURESET_7d1];
- }
- 
--void x86_cpuid_policy_recalc_synth(struct cpuid_policy *p)
-+void x86_cpu_policy_recalc_synth(struct cpu_policy *p)
- {
-     p->x86_vendor = x86_cpuid_lookup_vendor(
-         p->basic.vendor_ebx, p->basic.vendor_ecx, p->basic.vendor_edx);
- }
- 
--void x86_cpuid_policy_fill_native(struct cpuid_policy *p)
-+void x86_cpu_policy_fill_native(struct cpu_policy *p)
- {
-     unsigned int i;
- 
-@@ -199,7 +199,7 @@ void x86_cpuid_policy_fill_native(struct cpuid_policy *p)
-         cpuid_count_leaf(0xd, 0, &p->xstate.raw[0]);
-         cpuid_count_leaf(0xd, 1, &p->xstate.raw[1]);
- 
--        xstates = cpuid_policy_xstates(p);
-+        xstates = cpu_policy_xstates(p);
- 
-         /* This logic will probably need adjusting when XCR0[63] gets used. */
-         BUILD_BUG_ON(ARRAY_SIZE(p->xstate.raw) > 63);
-@@ -222,10 +222,12 @@ void x86_cpuid_policy_fill_native(struct cpuid_policy *p)
-     p->hv_limit = 0;
-     p->hv2_limit = 0;
- 
--    x86_cpuid_policy_recalc_synth(p);
-+    /* TODO MSRs */
-+
-+    x86_cpu_policy_recalc_synth(p);
- }
- 
--void x86_cpuid_policy_clear_out_of_range_leaves(struct cpuid_policy *p)
-+void x86_cpu_policy_clear_out_of_range_leaves(struct cpu_policy *p)
- {
-     unsigned int i;
- 
-@@ -260,7 +262,7 @@ void x86_cpuid_policy_clear_out_of_range_leaves(struct cpuid_policy *p)
-         zero_leaves(p->topo.raw, i, ARRAY_SIZE(p->topo.raw) - 1);
-     }
- 
--    if ( p->basic.max_leaf < 0xd || !cpuid_policy_xstates(p) )
-+    if ( p->basic.max_leaf < 0xd || !cpu_policy_xstates(p) )
-         memset(p->xstate.raw, 0, sizeof(p->xstate.raw));
-     else
-     {
-@@ -268,7 +270,7 @@ void x86_cpuid_policy_clear_out_of_range_leaves(struct cpuid_policy *p)
-         BUILD_BUG_ON(ARRAY_SIZE(p->xstate.raw) > 63);
- 
-         /* First two leaves always valid.  Rest depend on xstates. */
--        i = max(2, 64 - __builtin_clzll(cpuid_policy_xstates(p)));
-+        i = max(2, 64 - __builtin_clzll(cpu_policy_xstates(p)));
- 
-         zero_leaves(p->xstate.raw, i,
-                     ARRAY_SIZE(p->xstate.raw) - 1);
-@@ -333,7 +335,7 @@ static int copy_leaf_to_buffer(uint32_t leaf, uint32_t subleaf,
-     return 0;
- }
- 
--int x86_cpuid_copy_to_buffer(const struct cpuid_policy *p,
-+int x86_cpuid_copy_to_buffer(const struct cpu_policy *p,
-                              cpuid_leaf_buffer_t leaves, uint32_t *nr_entries_p)
- {
-     const uint32_t nr_entries = *nr_entries_p;
-@@ -383,7 +385,7 @@ int x86_cpuid_copy_to_buffer(const struct cpuid_policy *p,
- 
-         case 0xd:
-         {
--            uint64_t xstates = cpuid_policy_xstates(p);
-+            uint64_t xstates = cpu_policy_xstates(p);
- 
-             COPY_LEAF(leaf, 0, &p->xstate.raw[0]);
-             COPY_LEAF(leaf, 1, &p->xstate.raw[1]);
-@@ -419,7 +421,7 @@ int x86_cpuid_copy_to_buffer(const struct cpuid_policy *p,
-     return 0;
- }
- 
--int x86_cpuid_copy_from_buffer(struct cpuid_policy *p,
-+int x86_cpuid_copy_from_buffer(struct cpu_policy *p,
-                                const cpuid_leaf_buffer_t leaves,
-                                uint32_t nr_entries, uint32_t *err_leaf,
-                                uint32_t *err_subleaf)
-@@ -522,7 +524,7 @@ int x86_cpuid_copy_from_buffer(struct cpuid_policy *p,
-         }
-     }
- 
--    x86_cpuid_policy_recalc_synth(p);
-+    x86_cpu_policy_recalc_synth(p);
- 
-     return 0;
- 
-diff --git a/xen/lib/x86/msr.c b/xen/lib/x86/msr.c
-index c4d885e7b568..e04b9ca01302 100644
---- a/xen/lib/x86/msr.c
-+++ b/xen/lib/x86/msr.c
-@@ -23,7 +23,7 @@ static int copy_msr_to_buffer(uint32_t idx, uint64_t val,
-     return 0;
- }
- 
--int x86_msr_copy_to_buffer(const struct msr_policy *p,
-+int x86_msr_copy_to_buffer(const struct cpu_policy *p,
-                            msr_entry_buffer_t msrs, uint32_t *nr_entries_p)
- {
-     const uint32_t nr_entries = *nr_entries_p;
-@@ -48,7 +48,7 @@ int x86_msr_copy_to_buffer(const struct msr_policy *p,
-     return 0;
- }
- 
--int x86_msr_copy_from_buffer(struct msr_policy *p,
-+int x86_msr_copy_from_buffer(struct cpu_policy *p,
-                              const msr_entry_buffer_t msrs, uint32_t nr_entries,
-                              uint32_t *err_msr)
- {
+     uint32_t leaf, subleaf;
 -- 
 2.30.2
 
