@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD0006D5C64
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 11:53:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517718.803540 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A23B6D5C60
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 11:52:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517714.803499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjdLR-0007Yi-NF; Tue, 04 Apr 2023 09:52:53 +0000
+	id 1pjdLM-0006IR-IK; Tue, 04 Apr 2023 09:52:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517718.803540; Tue, 04 Apr 2023 09:52:53 +0000
+Received: by outflank-mailman (output) from mailman id 517714.803499; Tue, 04 Apr 2023 09:52:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjdLR-0007Ur-F0; Tue, 04 Apr 2023 09:52:53 +0000
-Received: by outflank-mailman (input) for mailman id 517718;
- Tue, 04 Apr 2023 09:52:51 +0000
+	id 1pjdLM-0006Ds-BO; Tue, 04 Apr 2023 09:52:48 +0000
+Received: by outflank-mailman (input) for mailman id 517714;
+ Tue, 04 Apr 2023 09:52:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Oy2y=73=citrix.com=prvs=4518c43dc=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pjdLP-0005bo-36
- for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 09:52:51 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7485f6e7-d2ce-11ed-85db-49a42c6b2330;
- Tue, 04 Apr 2023 11:52:48 +0200 (CEST)
+ id 1pjdLK-0005bo-MN
+ for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 09:52:46 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 71dfcd27-d2ce-11ed-85db-49a42c6b2330;
+ Tue, 04 Apr 2023 11:52:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,53 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7485f6e7-d2ce-11ed-85db-49a42c6b2330
+X-Inumbo-ID: 71dfcd27-d2ce-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1680601968;
+  d=citrix.com; s=securemail; t=1680601964;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=UWOWvkRFhQtN58lpWN5uMWSpgTK9p/X4W2+Z700adBA=;
-  b=Q+DNi5ozG4MyQG1HGxr14UHhfAKEFcdbdV8wNqQWJDTuy2Jc7xzuHROJ
-   oMSiAaHWFmdWB0a6fX+dMFHuk7zOTmDsrjOR8IX/P80sErBqHAVntacbA
-   ukdUOfwTiqCzFRrm9IKTz6J8t8FirFDwZyAbJ1VokRo5bEyuQE70aMZ4F
-   w=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=lvleilS5BRDLhyzG1k+YQ1TdfDraad9QCp1ZsHyb0Xk=;
+  b=WunbCIuEUdHCEfvZ4bFM7QNzud+F87X+JbejyrRmxpS2SqPUiPLvnKcW
+   th6/wWn72x1OdW5pTTLauqQZI+Eus8pu50njyMdyQH6CqpcZmdHFiYsXx
+   +GliXG8kQQgPqMUQCK0PpWy0zbmos0WPl4+rm7nkcGE7G7v3XLVU5mAIc
+   8=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 104275106
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 106670669
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:8puiia01dD2dX2jz//bD5axxkn2cJEfYwER7XKvMYLTBsI5bpzAHx
- 2UXDW/Sb/yMZ2KhetxxboSyoUNX7MfSnNJhQQpqpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8tuTS+HuDgNyo4GlD5gBmOagS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfDGFyr
- eYECTk2RAmqqNKpxeyjY7FAr5F2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
- ZNfMGcxKk2aOHWjOX9OYH46tM6uimPybHtzr1WNqLBsy2PS0BZwwP7mN9+9ltmiHJ0JxBnF/
- zqYl4j/Ki4FGY3EzCCmzn2HuPHIh3PnfYgrLqLto5aGh3XMnzdOWXX6T2CTvv2RmkO4HdVFJ
- CQ86ico6KQ/6kGvZt38RAGj5m6JuAYGXNhdGPF87xuCooLW6QuEAmkPThZadccr8sQxQFQXO
- kShxo2zQ2Y16fvMFCzbr+3Pxd+vBcQLBWICWXceUSoM2PP6ia4DkReRVv87PIfg27UZBgrML
- yC2QDkW3utD1ZNUif/kpDgrkBr3+MGXE1ddChH/Gzv8s1gnPNPNi5mAswCz0BpWEGqOorBtV
- lAgktPW0u0BBIrleMelELRUR+HBCxpo3VThbb9T83oJrW7FF4aLJ9w43d2HDB4B3jw4UTHoe
- lTPngha+YVeOnCnBYcuPdLpVph0nPK7T4q1PhwxUjapSsEpHDJrAQk0PRLAt4wTuBNEfV4D1
- WezLp/3UCdy5VVPxzuqXeYNuYIWKtQF7TqLH/jTlk33uYdykVbJEd/pxnPSNLFmhE5FyS2Jm
- +ti2zyikEoADLenPnaOoeb+7zkidBAGOHw/kOQPHsbrH+asMDhJ5yP5qV/5R7FYog==
-IronPort-HdrOrdr: A9a23:+TC7BajZnnUAz5em4pebKylZdHBQXh4ji2hC6mlwRA09TyX5ra
- 2TdZUgpHrJYVMqMk3I9uruBEDtex3hHP1OkOss1NWZPDUO0VHARO1fBOPZqAEIcBeOldK1u5
- 0AT0B/YueAd2STj6zBkXSF+wBL+qj6zEiq792usEuEVWtRGsVdB58SMHfiLqVxLjM2YqYRJd
- 6nyedsgSGvQngTZtTTPAh/YwCSz+e78q4PeHQ9dmca1DU=
+IronPort-Data: A9a23:j7CdmqBPer0whRVW/1bjw5YqxClBgxIJ4kV8jS/XYbTApDMl12FWy
+ jYWUWmEbPyKZjOkc9txbt/l9E4EsJOAy9M2QQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbyRFu8pvlDs15K6p4G9A4gRnDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw171LJ0Fj6
+ vUhM3NXZBSgjsm376Kbc7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2M1N3wsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9I4TUG5oNwBjJz
+ o7A1z6lEz8mC9Xc8wbftULrhajxpAWjdqtHQdVU8dY12QbOlwT/EiY+Sl+TsfS/zEmkVLp3O
+ 0ESvyYjs6U23EiqVcXmGQ21pmaeuRwRUMYWFPc1gCmPwKfJ5weSBkAfUyVMLtchsacLqScCj
+ wHT2YmzXHo27ePTECjGnluJkd+sEQVOEUkiSDANdBBGudPng4gYjz3fbu82RcZZkebJ9SHML
+ yGi9XZu3+hM05RUjs1X7nic3Wvy+8Ghohodo1yOAzn7tl4RiJuNPdTA1LTN0RpXwG91pHGlt
+ WNMpcWR5ftm4XqlxH3UG7Vl8F1ECp+43Nzgbb1HRcNJG8yFoSLLQGypyGgWyL1VGsgFYyT1R
+ 0TYpBlc4pReVFPzM/8vPt7vWp5xl/awfTgAahwzRoMWCqWdiSfdpH0+DaJu9zuFfLcQfVEXZ
+ s7ALJfE4YcyAqV71jumL9ogPUsQ7nlmnwv7HMmrpylLJJLCPBZ5v59ZagrRBg34hYvYyDjoH
+ yF3bJTVl08GDLKnMkE6M+c7dDg3EJTyPriuw+Q/SwJJClMO9L0JYxMJ/Y4cRg==
+IronPort-HdrOrdr: A9a23:3Hy5EK55FGsbrdfn5wPXwAzXdLJyesId70hD6qkQc3Fom62j5q
+ WTdZEgvyMc5wx/ZJhNo7690cq7MBHhHPxOgbX5VI3KNGXbUQOTR72KhrGSoAEIdReeygZcv5
+ 0QCZSXCrfLfCVHZRCR2njFLz4iquP3j5xBnY3lvhNQpZkBUdAZ0+9+YDzrdXFedU19KrcSMo
+ GT3cZDryrIQwVtUizqbkN1OdQqvrfw5evbXSI=
 X-IronPort-AV: E=Sophos;i="5.98,317,1673931600"; 
-   d="scan'208";a="104275106"
+   d="scan'208";a="106670669"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<jbeulich@suse.com>, Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
 	<wl@xen.org>
-Subject: [PATCH v2 03/15] x86: Rename struct cpuid_policy to struct cpu_policy
-Date: Tue, 4 Apr 2023 10:52:10 +0100
-Message-ID: <20230404095222.1373721-4-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 04/15] x86: Merge struct msr_policy into struct cpu_policy
+Date: Tue, 4 Apr 2023 10:52:11 +0100
+Message-ID: <20230404095222.1373721-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230404095222.1373721-1-andrew.cooper3@citrix.com>
 References: <20230404095222.1373721-1-andrew.cooper3@citrix.com>
@@ -90,15 +90,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Also merge lib/x86/cpuid.h entirely into lib/x86/cpu-policy.h
+As with the cpuid side, use a temporary define to make struct msr_policy still
+work.
 
-Use a temporary define to make struct cpuid_policy still work.
-
-There's one forward declaration of struct cpuid_policy in
-tools/tests/x86_emulator/x86-emulate.h that isn't covered by the define, and
-it's easier to rename that now than to rearrange the includes.
-
-No functional change.
+Note, this means that domains now have two separate struct cpu_policy
+allocations with disjoint information, and system policies are in a similar
+position, as well as xc_cpu_policy objects in libxenguest.  All of these
+duplications will be addressed in the following patches.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
@@ -108,1038 +106,273 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
 v2:
- * Retain test/x86_emulator handcoded dependency on cpuid-autogen.h
- * Rebase over x86_emulate() split
+ * Alter msr_policy -> cpu_policy in comments.
 ---
- tools/fuzz/cpu-policy/afl-policy-fuzzer.c |   2 +-
- tools/tests/x86_emulator/Makefile         |   2 +-
- tools/tests/x86_emulator/x86-emulate.h    |   2 +-
- xen/arch/x86/include/asm/cpuid.h          |   1 -
- xen/arch/x86/x86_emulate/x86_emulate.h    |   2 +-
- xen/include/xen/lib/x86/cpu-policy.h      | 463 ++++++++++++++++++++-
- xen/include/xen/lib/x86/cpuid.h           | 475 ----------------------
- xen/lib/x86/cpuid.c                       |   2 +-
- 8 files changed, 467 insertions(+), 482 deletions(-)
- delete mode 100644 xen/include/xen/lib/x86/cpuid.h
+ tools/fuzz/cpu-policy/afl-policy-fuzzer.c |   1 -
+ xen/arch/x86/include/asm/msr.h            |   3 +-
+ xen/include/xen/lib/x86/cpu-policy.h      |  81 ++++++++++++++++-
+ xen/include/xen/lib/x86/msr.h             | 104 ----------------------
+ xen/lib/x86/msr.c                         |   2 +-
+ 5 files changed, 83 insertions(+), 108 deletions(-)
+ delete mode 100644 xen/include/xen/lib/x86/msr.h
 
 diff --git a/tools/fuzz/cpu-policy/afl-policy-fuzzer.c b/tools/fuzz/cpu-policy/afl-policy-fuzzer.c
-index 7d0f274c6cdd..79e42e8bfd04 100644
+index 79e42e8bfd04..0ce3d8e16626 100644
 --- a/tools/fuzz/cpu-policy/afl-policy-fuzzer.c
 +++ b/tools/fuzz/cpu-policy/afl-policy-fuzzer.c
-@@ -9,7 +9,7 @@
- #include <getopt.h>
+@@ -10,7 +10,6 @@
  
  #include <xen-tools/common-macros.h>
--#include <xen/lib/x86/cpuid.h>
-+#include <xen/lib/x86/cpu-policy.h>
- #include <xen/lib/x86/msr.h>
+ #include <xen/lib/x86/cpu-policy.h>
+-#include <xen/lib/x86/msr.h>
  #include <xen/domctl.h>
  
-diff --git a/tools/tests/x86_emulator/Makefile b/tools/tests/x86_emulator/Makefile
-index f5d88fb9f681..4b1f75de052e 100644
---- a/tools/tests/x86_emulator/Makefile
-+++ b/tools/tests/x86_emulator/Makefile
-@@ -292,7 +292,7 @@ HOSTCFLAGS += $(CFLAGS_xeninclude) -I. $(HOSTCFLAGS-$(XEN_COMPILE_ARCH))
- x86.h := $(addprefix $(XEN_ROOT)/tools/include/xen/asm/,\
-                      x86-vendors.h x86-defns.h msr-index.h) \
-          $(addprefix $(XEN_ROOT)/tools/include/xen/lib/x86/, \
--                     cpuid.h cpuid-autogen.h)
-+                     cpu-policy.h cpuid-autogen.h)
- x86_emulate.h := x86-emulate.h x86_emulate/x86_emulate.h x86_emulate/private.h $(x86.h)
- 
- $(OBJS): %.o: %.c $(x86_emulate.h)
-diff --git a/tools/tests/x86_emulator/x86-emulate.h b/tools/tests/x86_emulator/x86-emulate.h
-index 942b4cdd47d1..02922d0c5a19 100644
---- a/tools/tests/x86_emulator/x86-emulate.h
-+++ b/tools/tests/x86_emulator/x86-emulate.h
-@@ -77,7 +77,7 @@
- #define is_canonical_address(x) (((int64_t)(x) >> 47) == ((int64_t)(x) >> 63))
- 
- extern uint32_t mxcsr_mask;
--extern struct cpuid_policy cp;
-+extern struct cpu_policy cp;
- 
- #define MMAP_SZ 16384
- bool emul_test_init(void);
-diff --git a/xen/arch/x86/include/asm/cpuid.h b/xen/arch/x86/include/asm/cpuid.h
-index 49b3128f06f9..d418e8100dde 100644
---- a/xen/arch/x86/include/asm/cpuid.h
-+++ b/xen/arch/x86/include/asm/cpuid.h
-@@ -9,7 +9,6 @@
+ static bool debug;
+diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
+index 7946b6b24c11..02eddd919c27 100644
+--- a/xen/arch/x86/include/asm/msr.h
++++ b/xen/arch/x86/include/asm/msr.h
+@@ -6,8 +6,9 @@
+ #include <xen/types.h>
  #include <xen/percpu.h>
+ #include <xen/errno.h>
++#include <xen/kernel.h>
  
- #include <xen/lib/x86/cpu-policy.h>
--#include <xen/lib/x86/cpuid.h>
- 
- #include <public/sysctl.h>
- 
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
-index bb7af967ffee..75015104fbdb 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.h
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.h
-@@ -23,7 +23,7 @@
- #ifndef __X86_EMULATE_H__
- #define __X86_EMULATE_H__
- 
--#include <xen/lib/x86/cpuid.h>
+-#include <xen/lib/x86/msr.h>
 +#include <xen/lib/x86/cpu-policy.h>
  
- #define MAX_INST_LEN 15
- 
+ #include <asm/asm_defns.h>
+ #include <asm/cpufeature.h>
 diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-index 3a5300d1078c..666505964d00 100644
+index 666505964d00..53fffca55211 100644
 --- a/xen/include/xen/lib/x86/cpu-policy.h
 +++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -2,9 +2,342 @@
- #ifndef XEN_LIB_X86_POLICIES_H
+@@ -3,7 +3,6 @@
  #define XEN_LIB_X86_POLICIES_H
  
--#include <xen/lib/x86/cpuid.h>
-+#include <xen/lib/x86/cpuid-autogen.h>
- #include <xen/lib/x86/msr.h>
+ #include <xen/lib/x86/cpuid-autogen.h>
+-#include <xen/lib/x86/msr.h>
  
-+#define FEATURESET_1d     0 /* 0x00000001.edx      */
-+#define FEATURESET_1c     1 /* 0x00000001.ecx      */
-+#define FEATURESET_e1d    2 /* 0x80000001.edx      */
-+#define FEATURESET_e1c    3 /* 0x80000001.ecx      */
-+#define FEATURESET_Da1    4 /* 0x0000000d:1.eax    */
-+#define FEATURESET_7b0    5 /* 0x00000007:0.ebx    */
-+#define FEATURESET_7c0    6 /* 0x00000007:0.ecx    */
-+#define FEATURESET_e7d    7 /* 0x80000007.edx      */
-+#define FEATURESET_e8b    8 /* 0x80000008.ebx      */
-+#define FEATURESET_7d0    9 /* 0x00000007:0.edx    */
-+#define FEATURESET_7a1   10 /* 0x00000007:1.eax    */
-+#define FEATURESET_e21a  11 /* 0x80000021.eax      */
-+#define FEATURESET_7b1   12 /* 0x00000007:1.ebx    */
-+#define FEATURESET_7d2   13 /* 0x00000007:2.edx    */
-+#define FEATURESET_7c1   14 /* 0x00000007:1.ecx    */
-+#define FEATURESET_7d1   15 /* 0x00000007:1.edx    */
+ #define FEATURESET_1d     0 /* 0x00000001.edx      */
+ #define FEATURESET_1c     1 /* 0x00000001.ecx      */
+@@ -107,6 +106,9 @@ const char *x86_cpuid_vendor_to_str(unsigned int vendor);
+      CPUID_GUEST_NR_XSTATE - !!CPUID_GUEST_NR_XSTATE +  \
+      CPUID_GUEST_NR_EXTD + 2 /* hv_limit and hv2_limit */ )
+ 
++/* Maximum number of MSRs written when serialising a cpu_policy. */
++#define MSR_MAX_SERIALISED_ENTRIES 2
 +
-+struct cpuid_leaf
-+{
-+    uint32_t a, b, c, d;
-+};
-+
-+/*
-+ * Versions of GCC before 5 unconditionally reserve %rBX as the PIC hard
-+ * register, and are unable to cope with spilling it.  This results in a
-+ * rather cryptic error:
-+ *    error: inconsistent operand constraints in an ‘asm’
-+ *
-+ * In affected situations, work around the issue by using a separate register
-+ * to hold the the %rBX output, and xchg twice to leave %rBX preserved around
-+ * the asm() statement.
-+ */
-+#if defined(__PIC__) && __GNUC__ < 5 && !defined(__clang__) && defined(__i386__)
-+# define XCHG_BX "xchg %%ebx, %[bx];"
-+# define BX_CON [bx] "=&r"
-+#elif defined(__PIC__) && __GNUC__ < 5 && !defined(__clang__) && \
-+    defined(__x86_64__) && (defined(__code_model_medium__) || \
-+                            defined(__code_model_large__))
-+# define XCHG_BX "xchg %%rbx, %q[bx];"
-+# define BX_CON [bx] "=&r"
-+#else
-+# define XCHG_BX ""
-+# define BX_CON "=&b"
-+#endif
-+
-+static inline void cpuid_leaf(uint32_t leaf, struct cpuid_leaf *l)
-+{
-+    asm ( XCHG_BX
-+          "cpuid;"
-+          XCHG_BX
-+          : "=a" (l->a), BX_CON (l->b), "=&c" (l->c), "=&d" (l->d)
-+          : "a" (leaf) );
-+}
-+
-+static inline void cpuid_count_leaf(
-+    uint32_t leaf, uint32_t subleaf, struct cpuid_leaf *l)
-+{
-+    asm ( XCHG_BX
-+          "cpuid;"
-+          XCHG_BX
-+          : "=a" (l->a), BX_CON (l->b), "=c" (l->c), "=&d" (l->d)
-+          : "a" (leaf), "c" (subleaf) );
-+}
-+
-+#undef BX_CON
-+#undef XCHG
-+
-+/**
-+ * Given the vendor id from CPUID leaf 0, look up Xen's internal integer
-+ * vendor ID.  Returns X86_VENDOR_UNKNOWN for any unknown vendor.
-+ */
-+unsigned int x86_cpuid_lookup_vendor(uint32_t ebx, uint32_t ecx, uint32_t edx);
-+
-+/**
-+ * Given Xen's internal vendor ID, return a string suitable for printing.
-+ * Returns "Unknown" for any unrecognised ID.
-+ */
-+const char *x86_cpuid_vendor_to_str(unsigned int vendor);
-+
-+#define CPUID_GUEST_NR_BASIC      (0xdu + 1)
-+#define CPUID_GUEST_NR_CACHE      (5u + 1)
-+#define CPUID_GUEST_NR_FEAT       (2u + 1)
-+#define CPUID_GUEST_NR_TOPO       (1u + 1)
-+#define CPUID_GUEST_NR_XSTATE     (62u + 1)
-+#define CPUID_GUEST_NR_EXTD_INTEL (0x8u + 1)
-+#define CPUID_GUEST_NR_EXTD_AMD   (0x21u + 1)
-+#define CPUID_GUEST_NR_EXTD       MAX(CPUID_GUEST_NR_EXTD_INTEL, \
-+                                      CPUID_GUEST_NR_EXTD_AMD)
-+
-+/*
-+ * Maximum number of leaves a struct cpu_policy turns into when serialised for
-+ * interaction with the toolstack.  (Sum of all leaves in each union, less the
-+ * entries in basic which sub-unions hang off of.)
-+ */
-+#define CPUID_MAX_SERIALISED_LEAVES                     \
-+    (CPUID_GUEST_NR_BASIC +                             \
-+     CPUID_GUEST_NR_FEAT   - !!CPUID_GUEST_NR_FEAT +    \
-+     CPUID_GUEST_NR_CACHE  - !!CPUID_GUEST_NR_CACHE +   \
-+     CPUID_GUEST_NR_TOPO   - !!CPUID_GUEST_NR_TOPO +    \
-+     CPUID_GUEST_NR_XSTATE - !!CPUID_GUEST_NR_XSTATE +  \
-+     CPUID_GUEST_NR_EXTD + 2 /* hv_limit and hv2_limit */ )
-+
-+struct cpu_policy
-+{
-+#define DECL_BITFIELD(word) _DECL_BITFIELD(FEATURESET_ ## word)
-+#define _DECL_BITFIELD(x)   __DECL_BITFIELD(x)
-+#define __DECL_BITFIELD(x)  CPUID_BITFIELD_ ## x
-+
-+    /* Basic leaves: 0x000000xx */
+ struct cpu_policy
+ {
+ #define DECL_BITFIELD(word) _DECL_BITFIELD(FEATURESET_ ## word)
+@@ -324,6 +326,44 @@ struct cpu_policy
+         };
+     } extd;
+ 
++    /*
++     * 0x000000ce - MSR_INTEL_PLATFORM_INFO
++     *
++     * This MSR is non-architectural, but for simplicy we allow it to be read
++     * unconditionally.  CPUID Faulting support can be fully emulated for HVM
++     * guests so can be offered unconditionally, while support for PV guests
++     * is dependent on real hardware support.
++     */
 +    union {
-+        struct cpuid_leaf raw[CPUID_GUEST_NR_BASIC];
++        uint32_t raw;
 +        struct {
-+            /* Leaf 0x0 - Max and vendor. */
-+            uint32_t max_leaf, vendor_ebx, vendor_ecx, vendor_edx;
-+
-+            /* Leaf 0x1 - Family/model/stepping and features. */
-+            uint32_t raw_fms;
-+            uint8_t :8,       /* Brand ID. */
-+                clflush_size, /* Number of 8-byte blocks per cache line. */
-+                lppp,         /* Logical processors per package. */
-+                apic_id;      /* Initial APIC ID. */
-+            union {
-+                uint32_t _1c;
-+                struct { DECL_BITFIELD(1c); };
-+            };
-+            union {
-+                uint32_t _1d;
-+                struct { DECL_BITFIELD(1d); };
-+            };
-+
-+            /* Leaf 0x2 - TLB/Cache/Prefetch. */
-+            uint8_t l2_nr_queries; /* Documented as fixed to 1. */
-+            uint8_t l2_desc[15];
-+
-+            uint64_t :64, :64; /* Leaf 0x3 - PSN. */
-+            uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
-+            uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
-+            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
-+            uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
-+            uint64_t :64, :64; /* Leaf 0x8 - rsvd */
-+            uint64_t :64, :64; /* Leaf 0x9 - DCA */
-+
-+            /* Leaf 0xa - Intel PMU. */
-+            uint8_t pmu_version, _pmu[15];
-+
-+            uint64_t :64, :64; /* Leaf 0xb - Topology. */
-+            uint64_t :64, :64; /* Leaf 0xc - rsvd */
-+            uint64_t :64, :64; /* Leaf 0xd - XSTATE. */
++            uint32_t :31;
++            bool cpuid_faulting:1;
 +        };
-+    } basic;
++    } platform_info;
 +
-+    /* Structured cache leaf: 0x00000004[xx] */
++    /*
++     * 0x0000010a - MSR_ARCH_CAPABILITIES
++     *
++     * This is an Intel-only MSR, which provides miscellaneous enumeration,
++     * including those which indicate that microarchitectrual sidechannels are
++     * fixed in hardware.
++     */
 +    union {
-+        struct cpuid_leaf raw[CPUID_GUEST_NR_CACHE];
-+        struct cpuid_cache_leaf {
-+            uint32_t /* a */ type:5, level:3;
-+            bool self_init:1, fully_assoc:1;
-+            uint32_t :4, threads_per_cache:12, cores_per_package:6;
-+            uint32_t /* b */ line_size:12, partitions:10, ways:10;
-+            uint32_t /* c */ sets;
-+            bool /* d */ wbinvd:1, inclusive:1, complex:1;
-+        } subleaf[CPUID_GUEST_NR_CACHE];
-+    } cache;
-+
-+    /* Structured feature leaf: 0x00000007[xx] */
-+    union {
-+        struct cpuid_leaf raw[CPUID_GUEST_NR_FEAT];
++        uint32_t raw;
 +        struct {
-+            /* Subleaf 0. */
-+            uint32_t max_subleaf;
-+            union {
-+                uint32_t _7b0;
-+                struct { DECL_BITFIELD(7b0); };
-+            };
-+            union {
-+                uint32_t _7c0;
-+                struct { DECL_BITFIELD(7c0); };
-+            };
-+            union {
-+                uint32_t _7d0;
-+                struct { DECL_BITFIELD(7d0); };
-+            };
-+
-+            /* Subleaf 1. */
-+            union {
-+                uint32_t _7a1;
-+                struct { DECL_BITFIELD(7a1); };
-+            };
-+            union {
-+                uint32_t _7b1;
-+                struct { DECL_BITFIELD(7b1); };
-+            };
-+            union {
-+                uint32_t _7c1;
-+                struct { DECL_BITFIELD(7c1); };
-+            };
-+            union {
-+                uint32_t _7d1;
-+                struct { DECL_BITFIELD(7d1); };
-+            };
-+
-+            /* Subleaf 2. */
-+            uint32_t /* a */:32, /* b */:32, /* c */:32;
-+            union {
-+                uint32_t _7d2;
-+                struct { DECL_BITFIELD(7d2); };
-+            };
++            bool rdcl_no:1;
++            bool ibrs_all:1;
++            bool rsba:1;
++            bool skip_l1dfl:1;
++            bool ssb_no:1;
++            bool mds_no:1;
++            bool if_pschange_mc_no:1;
++            bool tsx_ctrl:1;
++            bool taa_no:1;
 +        };
-+    } feat;
++    } arch_caps;
 +
-+    /* Extended topology enumeration: 0x0000000B[xx] */
-+    union {
-+        struct cpuid_leaf raw[CPUID_GUEST_NR_TOPO];
-+        struct cpuid_topo_leaf {
-+            uint32_t id_shift:5, :27;
-+            uint16_t nr_logical, :16;
-+            uint8_t level, type, :8, :8;
-+            uint32_t x2apic_id;
-+        } subleaf[CPUID_GUEST_NR_TOPO];
-+    } topo;
-+
-+    /* Xstate feature leaf: 0x0000000D[xx] */
-+    union {
-+        struct cpuid_leaf raw[CPUID_GUEST_NR_XSTATE];
-+
-+        struct {
-+            /* Subleaf 0. */
-+            uint32_t xcr0_low, /* b */:32, max_size, xcr0_high;
-+
-+            /* Subleaf 1. */
-+            union {
-+                uint32_t Da1;
-+                struct { DECL_BITFIELD(Da1); };
-+            };
-+            uint32_t /* b */:32, xss_low, xss_high;
-+        };
-+
-+        /* Per-component common state.  Valid for i >= 2. */
-+        struct {
-+            uint32_t size, offset;
-+            bool xss:1, align:1;
-+            uint32_t _res_d;
-+        } comp[CPUID_GUEST_NR_XSTATE];
-+    } xstate;
-+
-+    /* Extended leaves: 0x800000xx */
-+    union {
-+        struct cpuid_leaf raw[CPUID_GUEST_NR_EXTD];
-+        struct {
-+            /* Leaf 0x80000000 - Max and vendor. */
-+            uint32_t max_leaf, vendor_ebx, vendor_ecx, vendor_edx;
-+
-+            /* Leaf 0x80000001 - Family/model/stepping and features. */
-+            uint32_t raw_fms, /* b */:32;
-+            union {
-+                uint32_t e1c;
-+                struct { DECL_BITFIELD(e1c); };
-+            };
-+            union {
-+                uint32_t e1d;
-+                struct { DECL_BITFIELD(e1d); };
-+            };
-+
-+            uint64_t :64, :64; /* Brand string. */
-+            uint64_t :64, :64; /* Brand string. */
-+            uint64_t :64, :64; /* Brand string. */
-+            uint64_t :64, :64; /* L1 cache/TLB. */
-+            uint64_t :64, :64; /* L2/3 cache/TLB. */
-+
-+            /* Leaf 0x80000007 - Advanced Power Management. */
-+            uint32_t /* a */:32, /* b */:32, /* c */:32;
-+            union {
-+                uint32_t e7d;
-+                struct { DECL_BITFIELD(e7d); };
-+            };
-+
-+            /* Leaf 0x80000008 - Misc addr/feature info. */
-+            uint8_t maxphysaddr, maxlinaddr, :8, :8;
-+            union {
-+                uint32_t e8b;
-+                struct { DECL_BITFIELD(e8b); };
-+            };
-+            uint32_t nc:8, :4, apic_id_size:4, :16;
-+            uint32_t /* d */:32;
-+
-+            uint64_t :64, :64; /* Leaf 0x80000009. */
-+            uint64_t :64, :64; /* Leaf 0x8000000a - SVM rev and features. */
-+            uint64_t :64, :64; /* Leaf 0x8000000b. */
-+            uint64_t :64, :64; /* Leaf 0x8000000c. */
-+            uint64_t :64, :64; /* Leaf 0x8000000d. */
-+            uint64_t :64, :64; /* Leaf 0x8000000e. */
-+            uint64_t :64, :64; /* Leaf 0x8000000f. */
-+            uint64_t :64, :64; /* Leaf 0x80000010. */
-+            uint64_t :64, :64; /* Leaf 0x80000011. */
-+            uint64_t :64, :64; /* Leaf 0x80000012. */
-+            uint64_t :64, :64; /* Leaf 0x80000013. */
-+            uint64_t :64, :64; /* Leaf 0x80000014. */
-+            uint64_t :64, :64; /* Leaf 0x80000015. */
-+            uint64_t :64, :64; /* Leaf 0x80000016. */
-+            uint64_t :64, :64; /* Leaf 0x80000017. */
-+            uint64_t :64, :64; /* Leaf 0x80000018. */
-+            uint64_t :64, :64; /* Leaf 0x80000019 - TLB 1GB Identifiers. */
-+            uint64_t :64, :64; /* Leaf 0x8000001a - Performance related info. */
-+            uint64_t :64, :64; /* Leaf 0x8000001b - IBS feature information. */
-+            uint64_t :64, :64; /* Leaf 0x8000001c. */
-+            uint64_t :64, :64; /* Leaf 0x8000001d - Cache properties. */
-+            uint64_t :64, :64; /* Leaf 0x8000001e - Extd APIC/Core/Node IDs. */
-+            uint64_t :64, :64; /* Leaf 0x8000001f - AMD Secure Encryption. */
-+            uint64_t :64, :64; /* Leaf 0x80000020 - Platform QoS. */
-+
-+            /* Leaf 0x80000021 - Extended Feature 2 */
-+            union {
-+                uint32_t e21a;
-+                struct { DECL_BITFIELD(e21a); };
-+            };
-+            uint32_t /* b */:32, /* c */:32, /* d */:32;
-+        };
-+    } extd;
-+
-+#undef __DECL_BITFIELD
-+#undef _DECL_BITFIELD
-+#undef DECL_BITFIELD
-+
-+    /* Toolstack selected Hypervisor max_leaf (if non-zero). */
-+    uint8_t hv_limit, hv2_limit;
-+
-+    /* Value calculated from raw data above. */
-+    uint8_t x86_vendor;
-+};
-+
-+/* Temporary */
-+#define cpuid_policy cpu_policy
-+
+ #undef __DECL_BITFIELD
+ #undef _DECL_BITFIELD
+ #undef DECL_BITFIELD
+@@ -337,6 +377,7 @@ struct cpu_policy
+ 
+ /* Temporary */
+ #define cpuid_policy cpu_policy
++#define msr_policy cpu_policy
+ 
  struct old_cpu_policy
  {
-     struct cpuid_policy *cpuid;
-@@ -19,6 +352,134 @@ struct cpu_policy_errors
+@@ -438,9 +479,11 @@ void x86_cpuid_policy_clear_out_of_range_leaves(struct cpuid_policy *p);
+ #ifdef __XEN__
+ #include <public/arch-x86/xen.h>
+ typedef XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_leaf_buffer_t;
++typedef XEN_GUEST_HANDLE_64(xen_msr_entry_t) msr_entry_buffer_t;
+ #else
+ #include <xen/arch-x86/xen.h>
+ typedef xen_cpuid_leaf_t cpuid_leaf_buffer_t[];
++typedef xen_msr_entry_t msr_entry_buffer_t[];
+ #endif
  
- #define INIT_CPU_POLICY_ERRORS { -1, -1, -1 }
+ /**
+@@ -480,6 +523,42 @@ int x86_cpuid_copy_from_buffer(struct cpuid_policy *policy,
+                                uint32_t nr_entries, uint32_t *err_leaf,
+                                uint32_t *err_subleaf);
  
-+/* Fill in a featureset bitmap from a CPUID policy. */
-+static inline void cpuid_policy_to_featureset(
-+    const struct cpuid_policy *p, uint32_t fs[FEATURESET_NR_ENTRIES])
-+{
-+    fs[FEATURESET_1d]  = p->basic._1d;
-+    fs[FEATURESET_1c]  = p->basic._1c;
-+    fs[FEATURESET_e1d] = p->extd.e1d;
-+    fs[FEATURESET_e1c] = p->extd.e1c;
-+    fs[FEATURESET_Da1] = p->xstate.Da1;
-+    fs[FEATURESET_7b0] = p->feat._7b0;
-+    fs[FEATURESET_7c0] = p->feat._7c0;
-+    fs[FEATURESET_e7d] = p->extd.e7d;
-+    fs[FEATURESET_e8b] = p->extd.e8b;
-+    fs[FEATURESET_7d0] = p->feat._7d0;
-+    fs[FEATURESET_7a1] = p->feat._7a1;
-+    fs[FEATURESET_e21a] = p->extd.e21a;
-+    fs[FEATURESET_7b1] = p->feat._7b1;
-+    fs[FEATURESET_7d2] = p->feat._7d2;
-+    fs[FEATURESET_7c1] = p->feat._7c1;
-+    fs[FEATURESET_7d1] = p->feat._7d1;
-+}
-+
-+/* Fill in a CPUID policy from a featureset bitmap. */
-+static inline void cpuid_featureset_to_policy(
-+    const uint32_t fs[FEATURESET_NR_ENTRIES], struct cpuid_policy *p)
-+{
-+    p->basic._1d  = fs[FEATURESET_1d];
-+    p->basic._1c  = fs[FEATURESET_1c];
-+    p->extd.e1d   = fs[FEATURESET_e1d];
-+    p->extd.e1c   = fs[FEATURESET_e1c];
-+    p->xstate.Da1 = fs[FEATURESET_Da1];
-+    p->feat._7b0  = fs[FEATURESET_7b0];
-+    p->feat._7c0  = fs[FEATURESET_7c0];
-+    p->extd.e7d   = fs[FEATURESET_e7d];
-+    p->extd.e8b   = fs[FEATURESET_e8b];
-+    p->feat._7d0  = fs[FEATURESET_7d0];
-+    p->feat._7a1  = fs[FEATURESET_7a1];
-+    p->extd.e21a  = fs[FEATURESET_e21a];
-+    p->feat._7b1  = fs[FEATURESET_7b1];
-+    p->feat._7d2  = fs[FEATURESET_7d2];
-+    p->feat._7c1  = fs[FEATURESET_7c1];
-+    p->feat._7d1  = fs[FEATURESET_7d1];
-+}
-+
-+static inline uint64_t cpuid_policy_xcr0_max(const struct cpuid_policy *p)
-+{
-+    return ((uint64_t)p->xstate.xcr0_high << 32) | p->xstate.xcr0_low;
-+}
-+
-+static inline uint64_t cpuid_policy_xstates(const struct cpuid_policy *p)
-+{
-+    uint64_t val = p->xstate.xcr0_high | p->xstate.xss_high;
-+
-+    return (val << 32) | p->xstate.xcr0_low | p->xstate.xss_low;
-+}
-+
-+const uint32_t *x86_cpuid_lookup_deep_deps(uint32_t feature);
-+
 +/**
-+ * Recalculate the content in a CPUID policy which is derived from raw data.
-+ */
-+void x86_cpuid_policy_recalc_synth(struct cpuid_policy *p);
-+
-+/**
-+ * Fill a CPUID policy using the native CPUID instruction.
++ * Serialise an msr_policy object into an array.
 + *
-+ * No sanitisation is performed, but synthesised values are calculated.
-+ * Values may be influenced by a hypervisor or from masking/faulting
-+ * configuration.
-+ */
-+void x86_cpuid_policy_fill_native(struct cpuid_policy *p);
-+
-+/**
-+ * Clear leaf data beyond the policies max leaf/subleaf settings.
-+ *
-+ * Policy serialisation purposefully omits out-of-range leaves, because there
-+ * are a large number of them due to vendor differences.  However, when
-+ * constructing new policies (e.g. levelling down), it is possible to end up
-+ * with out-of-range leaves with stale content in them.  This helper clears
-+ * them.
-+ */
-+void x86_cpuid_policy_clear_out_of_range_leaves(struct cpuid_policy *p);
-+
-+#ifdef __XEN__
-+#include <public/arch-x86/xen.h>
-+typedef XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_leaf_buffer_t;
-+#else
-+#include <xen/arch-x86/xen.h>
-+typedef xen_cpuid_leaf_t cpuid_leaf_buffer_t[];
-+#endif
-+
-+/**
-+ * Serialise a cpuid_policy object into an array of cpuid leaves.
-+ *
-+ * @param policy     The cpuid_policy to serialise.
-+ * @param leaves     The array of leaves to serialise into.
-+ * @param nr_entries The number of entries in 'leaves'.
++ * @param policy     The msr_policy to serialise.
++ * @param msrs       The array of msrs to serialise into.
++ * @param nr_entries The number of entries in 'msrs'.
 + * @returns -errno
 + *
-+ * Writes at most CPUID_MAX_SERIALISED_LEAVES.  May fail with -ENOBUFS if the
-+ * leaves array is too short.  On success, nr_entries is updated with the
-+ * actual number of leaves written.
++ * Writes at most MSR_MAX_SERIALISED_ENTRIES.  May fail with -ENOBUFS if the
++ * buffer array is too short.  On success, nr_entries is updated with the
++ * actual number of msrs written.
 + */
-+int x86_cpuid_copy_to_buffer(const struct cpuid_policy *policy,
-+                             cpuid_leaf_buffer_t leaves, uint32_t *nr_entries);
++int x86_msr_copy_to_buffer(const struct msr_policy *policy,
++                           msr_entry_buffer_t msrs, uint32_t *nr_entries);
 +
 +/**
-+ * Unserialise a cpuid_policy object from an array of cpuid leaves.
++ * Unserialise an msr_policy object from an array of msrs.
 + *
-+ * @param policy      The cpuid_policy to unserialise into.
-+ * @param leaves      The array of leaves to unserialise from.
-+ * @param nr_entries  The number of entries in 'leaves'.
-+ * @param err_leaf    Optional hint for error diagnostics.
-+ * @param err_subleaf Optional hint for error diagnostics.
++ * @param policy     The msr_policy object to unserialise into.
++ * @param msrs       The array of msrs to unserialise from.
++ * @param nr_entries The number of entries in 'msrs'.
++ * @param err_msr    Optional hint for error diagnostics.
 + * @returns -errno
 + *
-+ * Reads at most CPUID_MAX_SERIALISED_LEAVES.  May return -ERANGE if an
-+ * incoming leaf is out of range of cpuid_policy, in which case the optional
-+ * err_* pointers will identify the out-of-range indicies.
++ * Reads at most MSR_MAX_SERIALISED_ENTRIES.  May fail for a number of reasons
++ * based on the content in an individual 'msrs' entry, including the MSR index
++ * not being valid in the policy, the flags field being nonzero, or if the
++ * value provided would truncate when stored in the policy.  In such cases,
++ * the optional err_* pointer will identify the problematic MSR.
 + *
-+ * No content validation of in-range leaves is performed.  Synthesised data is
-+ * recalculated.
++ * No content validation is performed on the data stored in the policy object.
 + */
-+int x86_cpuid_copy_from_buffer(struct cpuid_policy *policy,
-+                               const cpuid_leaf_buffer_t leaves,
-+                               uint32_t nr_entries, uint32_t *err_leaf,
-+                               uint32_t *err_subleaf);
++int x86_msr_copy_from_buffer(struct msr_policy *policy,
++                             const msr_entry_buffer_t msrs, uint32_t nr_entries,
++                             uint32_t *err_msr);
 +
  /*
   * Calculate whether two policies are compatible.
   *
-diff --git a/xen/include/xen/lib/x86/cpuid.h b/xen/include/xen/lib/x86/cpuid.h
+diff --git a/xen/include/xen/lib/x86/msr.h b/xen/include/xen/lib/x86/msr.h
 deleted file mode 100644
-index fa98b371eef4..000000000000
---- a/xen/include/xen/lib/x86/cpuid.h
+index 48ba4a59c036..000000000000
+--- a/xen/include/xen/lib/x86/msr.h
 +++ /dev/null
-@@ -1,475 +0,0 @@
+@@ -1,104 +0,0 @@
 -/* Common data structures and functions consumed by hypervisor and toolstack */
--#ifndef XEN_LIB_X86_CPUID_H
--#define XEN_LIB_X86_CPUID_H
+-#ifndef XEN_LIB_X86_MSR_H
+-#define XEN_LIB_X86_MSR_H
 -
--#include <xen/lib/x86/cpuid-autogen.h>
+-/* Maximum number of MSRs written when serialising msr_policy. */
+-#define MSR_MAX_SERIALISED_ENTRIES 2
 -
--#define FEATURESET_1d     0 /* 0x00000001.edx      */
--#define FEATURESET_1c     1 /* 0x00000001.ecx      */
--#define FEATURESET_e1d    2 /* 0x80000001.edx      */
--#define FEATURESET_e1c    3 /* 0x80000001.ecx      */
--#define FEATURESET_Da1    4 /* 0x0000000d:1.eax    */
--#define FEATURESET_7b0    5 /* 0x00000007:0.ebx    */
--#define FEATURESET_7c0    6 /* 0x00000007:0.ecx    */
--#define FEATURESET_e7d    7 /* 0x80000007.edx      */
--#define FEATURESET_e8b    8 /* 0x80000008.ebx      */
--#define FEATURESET_7d0    9 /* 0x00000007:0.edx    */
--#define FEATURESET_7a1   10 /* 0x00000007:1.eax    */
--#define FEATURESET_e21a  11 /* 0x80000021.eax      */
--#define FEATURESET_7b1   12 /* 0x00000007:1.ebx    */
--#define FEATURESET_7d2   13 /* 0x00000007:2.edx    */
--#define FEATURESET_7c1   14 /* 0x00000007:1.ecx    */
--#define FEATURESET_7d1   15 /* 0x00000007:1.edx    */
--
--struct cpuid_leaf
+-/* MSR policy object for shared per-domain MSRs */
+-struct msr_policy
 -{
--    uint32_t a, b, c, d;
+-    /*
+-     * 0x000000ce - MSR_INTEL_PLATFORM_INFO
+-     *
+-     * This MSR is non-architectural, but for simplicy we allow it to be read
+-     * unconditionally.  CPUID Faulting support can be fully emulated for HVM
+-     * guests so can be offered unconditionally, while support for PV guests
+-     * is dependent on real hardware support.
+-     */
+-    union {
+-        uint32_t raw;
+-        struct {
+-            uint32_t :31;
+-            bool cpuid_faulting:1;
+-        };
+-    } platform_info;
+-
+-    /*
+-     * 0x0000010a - MSR_ARCH_CAPABILITIES
+-     *
+-     * This is an Intel-only MSR, which provides miscellaneous enumeration,
+-     * including those which indicate that microarchitectrual sidechannels are
+-     * fixed in hardware.
+-     */
+-    union {
+-        uint32_t raw;
+-        struct {
+-            bool rdcl_no:1;
+-            bool ibrs_all:1;
+-            bool rsba:1;
+-            bool skip_l1dfl:1;
+-            bool ssb_no:1;
+-            bool mds_no:1;
+-            bool if_pschange_mc_no:1;
+-            bool tsx_ctrl:1;
+-            bool taa_no:1;
+-        };
+-    } arch_caps;
 -};
--
--/*
-- * Versions of GCC before 5 unconditionally reserve %rBX as the PIC hard
-- * register, and are unable to cope with spilling it.  This results in a
-- * rather cryptic error:
-- *    error: inconsistent operand constraints in an ‘asm’
-- *
-- * In affected situations, work around the issue by using a separate register
-- * to hold the the %rBX output, and xchg twice to leave %rBX preserved around
-- * the asm() statement.
-- */
--#if defined(__PIC__) && __GNUC__ < 5 && !defined(__clang__) && defined(__i386__)
--# define XCHG_BX "xchg %%ebx, %[bx];"
--# define BX_CON [bx] "=&r"
--#elif defined(__PIC__) && __GNUC__ < 5 && !defined(__clang__) && \
--    defined(__x86_64__) && (defined(__code_model_medium__) || \
--                            defined(__code_model_large__))
--# define XCHG_BX "xchg %%rbx, %q[bx];"
--# define BX_CON [bx] "=&r"
--#else
--# define XCHG_BX ""
--# define BX_CON "=&b"
--#endif
--
--static inline void cpuid_leaf(uint32_t leaf, struct cpuid_leaf *l)
--{
--    asm ( XCHG_BX
--          "cpuid;"
--          XCHG_BX
--          : "=a" (l->a), BX_CON (l->b), "=&c" (l->c), "=&d" (l->d)
--          : "a" (leaf) );
--}
--
--static inline void cpuid_count_leaf(
--    uint32_t leaf, uint32_t subleaf, struct cpuid_leaf *l)
--{
--    asm ( XCHG_BX
--          "cpuid;"
--          XCHG_BX
--          : "=a" (l->a), BX_CON (l->b), "=c" (l->c), "=&d" (l->d)
--          : "a" (leaf), "c" (subleaf) );
--}
--
--#undef BX_CON
--#undef XCHG
--
--/**
-- * Given the vendor id from CPUID leaf 0, look up Xen's internal integer
-- * vendor ID.  Returns X86_VENDOR_UNKNOWN for any unknown vendor.
-- */
--unsigned int x86_cpuid_lookup_vendor(uint32_t ebx, uint32_t ecx, uint32_t edx);
--
--/**
-- * Given Xen's internal vendor ID, return a string suitable for printing.
-- * Returns "Unknown" for any unrecognised ID.
-- */
--const char *x86_cpuid_vendor_to_str(unsigned int vendor);
--
--#define CPUID_GUEST_NR_BASIC      (0xdu + 1)
--#define CPUID_GUEST_NR_CACHE      (5u + 1)
--#define CPUID_GUEST_NR_FEAT       (2u + 1)
--#define CPUID_GUEST_NR_TOPO       (1u + 1)
--#define CPUID_GUEST_NR_XSTATE     (62u + 1)
--#define CPUID_GUEST_NR_EXTD_INTEL (0x8u + 1)
--#define CPUID_GUEST_NR_EXTD_AMD   (0x21u + 1)
--#define CPUID_GUEST_NR_EXTD       MAX(CPUID_GUEST_NR_EXTD_INTEL, \
--                                      CPUID_GUEST_NR_EXTD_AMD)
--
--/*
-- * Maximum number of leaves a struct cpuid_policy turns into when serialised
-- * for interaction with the toolstack.  (Sum of all leaves in each union, less
-- * the entries in basic which sub-unions hang off of.)
-- */
--#define CPUID_MAX_SERIALISED_LEAVES                     \
--    (CPUID_GUEST_NR_BASIC +                             \
--     CPUID_GUEST_NR_FEAT   - !!CPUID_GUEST_NR_FEAT +    \
--     CPUID_GUEST_NR_CACHE  - !!CPUID_GUEST_NR_CACHE +   \
--     CPUID_GUEST_NR_TOPO   - !!CPUID_GUEST_NR_TOPO +    \
--     CPUID_GUEST_NR_XSTATE - !!CPUID_GUEST_NR_XSTATE +  \
--     CPUID_GUEST_NR_EXTD + 2 /* hv_limit and hv2_limit */ )
--
--struct cpuid_policy
--{
--#define DECL_BITFIELD(word) _DECL_BITFIELD(FEATURESET_ ## word)
--#define _DECL_BITFIELD(x)   __DECL_BITFIELD(x)
--#define __DECL_BITFIELD(x)  CPUID_BITFIELD_ ## x
--
--    /* Basic leaves: 0x000000xx */
--    union {
--        struct cpuid_leaf raw[CPUID_GUEST_NR_BASIC];
--        struct {
--            /* Leaf 0x0 - Max and vendor. */
--            uint32_t max_leaf, vendor_ebx, vendor_ecx, vendor_edx;
--
--            /* Leaf 0x1 - Family/model/stepping and features. */
--            uint32_t raw_fms;
--            uint8_t :8,       /* Brand ID. */
--                clflush_size, /* Number of 8-byte blocks per cache line. */
--                lppp,         /* Logical processors per package. */
--                apic_id;      /* Initial APIC ID. */
--            union {
--                uint32_t _1c;
--                struct { DECL_BITFIELD(1c); };
--            };
--            union {
--                uint32_t _1d;
--                struct { DECL_BITFIELD(1d); };
--            };
--
--            /* Leaf 0x2 - TLB/Cache/Prefetch. */
--            uint8_t l2_nr_queries; /* Documented as fixed to 1. */
--            uint8_t l2_desc[15];
--
--            uint64_t :64, :64; /* Leaf 0x3 - PSN. */
--            uint64_t :64, :64; /* Leaf 0x4 - Structured Cache. */
--            uint64_t :64, :64; /* Leaf 0x5 - MONITOR. */
--            uint64_t :64, :64; /* Leaf 0x6 - Therm/Perf. */
--            uint64_t :64, :64; /* Leaf 0x7 - Structured Features. */
--            uint64_t :64, :64; /* Leaf 0x8 - rsvd */
--            uint64_t :64, :64; /* Leaf 0x9 - DCA */
--
--            /* Leaf 0xa - Intel PMU. */
--            uint8_t pmu_version, _pmu[15];
--
--            uint64_t :64, :64; /* Leaf 0xb - Topology. */
--            uint64_t :64, :64; /* Leaf 0xc - rsvd */
--            uint64_t :64, :64; /* Leaf 0xd - XSTATE. */
--        };
--    } basic;
--
--    /* Structured cache leaf: 0x00000004[xx] */
--    union {
--        struct cpuid_leaf raw[CPUID_GUEST_NR_CACHE];
--        struct cpuid_cache_leaf {
--            uint32_t /* a */ type:5, level:3;
--            bool self_init:1, fully_assoc:1;
--            uint32_t :4, threads_per_cache:12, cores_per_package:6;
--            uint32_t /* b */ line_size:12, partitions:10, ways:10;
--            uint32_t /* c */ sets;
--            bool /* d */ wbinvd:1, inclusive:1, complex:1;
--        } subleaf[CPUID_GUEST_NR_CACHE];
--    } cache;
--
--    /* Structured feature leaf: 0x00000007[xx] */
--    union {
--        struct cpuid_leaf raw[CPUID_GUEST_NR_FEAT];
--        struct {
--            /* Subleaf 0. */
--            uint32_t max_subleaf;
--            union {
--                uint32_t _7b0;
--                struct { DECL_BITFIELD(7b0); };
--            };
--            union {
--                uint32_t _7c0;
--                struct { DECL_BITFIELD(7c0); };
--            };
--            union {
--                uint32_t _7d0;
--                struct { DECL_BITFIELD(7d0); };
--            };
--
--            /* Subleaf 1. */
--            union {
--                uint32_t _7a1;
--                struct { DECL_BITFIELD(7a1); };
--            };
--            union {
--                uint32_t _7b1;
--                struct { DECL_BITFIELD(7b1); };
--            };
--            union {
--                uint32_t _7c1;
--                struct { DECL_BITFIELD(7c1); };
--            };
--            union {
--                uint32_t _7d1;
--                struct { DECL_BITFIELD(7d1); };
--            };
--
--            /* Subleaf 2. */
--            uint32_t /* a */:32, /* b */:32, /* c */:32;
--            union {
--                uint32_t _7d2;
--                struct { DECL_BITFIELD(7d2); };
--            };
--        };
--    } feat;
--
--    /* Extended topology enumeration: 0x0000000B[xx] */
--    union {
--        struct cpuid_leaf raw[CPUID_GUEST_NR_TOPO];
--        struct cpuid_topo_leaf {
--            uint32_t id_shift:5, :27;
--            uint16_t nr_logical, :16;
--            uint8_t level, type, :8, :8;
--            uint32_t x2apic_id;
--        } subleaf[CPUID_GUEST_NR_TOPO];
--    } topo;
--
--    /* Xstate feature leaf: 0x0000000D[xx] */
--    union {
--        struct cpuid_leaf raw[CPUID_GUEST_NR_XSTATE];
--
--        struct {
--            /* Subleaf 0. */
--            uint32_t xcr0_low, /* b */:32, max_size, xcr0_high;
--
--            /* Subleaf 1. */
--            union {
--                uint32_t Da1;
--                struct { DECL_BITFIELD(Da1); };
--            };
--            uint32_t /* b */:32, xss_low, xss_high;
--        };
--
--        /* Per-component common state.  Valid for i >= 2. */
--        struct {
--            uint32_t size, offset;
--            bool xss:1, align:1;
--            uint32_t _res_d;
--        } comp[CPUID_GUEST_NR_XSTATE];
--    } xstate;
--
--    /* Extended leaves: 0x800000xx */
--    union {
--        struct cpuid_leaf raw[CPUID_GUEST_NR_EXTD];
--        struct {
--            /* Leaf 0x80000000 - Max and vendor. */
--            uint32_t max_leaf, vendor_ebx, vendor_ecx, vendor_edx;
--
--            /* Leaf 0x80000001 - Family/model/stepping and features. */
--            uint32_t raw_fms, /* b */:32;
--            union {
--                uint32_t e1c;
--                struct { DECL_BITFIELD(e1c); };
--            };
--            union {
--                uint32_t e1d;
--                struct { DECL_BITFIELD(e1d); };
--            };
--
--            uint64_t :64, :64; /* Brand string. */
--            uint64_t :64, :64; /* Brand string. */
--            uint64_t :64, :64; /* Brand string. */
--            uint64_t :64, :64; /* L1 cache/TLB. */
--            uint64_t :64, :64; /* L2/3 cache/TLB. */
--
--            /* Leaf 0x80000007 - Advanced Power Management. */
--            uint32_t /* a */:32, /* b */:32, /* c */:32;
--            union {
--                uint32_t e7d;
--                struct { DECL_BITFIELD(e7d); };
--            };
--
--            /* Leaf 0x80000008 - Misc addr/feature info. */
--            uint8_t maxphysaddr, maxlinaddr, :8, :8;
--            union {
--                uint32_t e8b;
--                struct { DECL_BITFIELD(e8b); };
--            };
--            uint32_t nc:8, :4, apic_id_size:4, :16;
--            uint32_t /* d */:32;
--
--            uint64_t :64, :64; /* Leaf 0x80000009. */
--            uint64_t :64, :64; /* Leaf 0x8000000a - SVM rev and features. */
--            uint64_t :64, :64; /* Leaf 0x8000000b. */
--            uint64_t :64, :64; /* Leaf 0x8000000c. */
--            uint64_t :64, :64; /* Leaf 0x8000000d. */
--            uint64_t :64, :64; /* Leaf 0x8000000e. */
--            uint64_t :64, :64; /* Leaf 0x8000000f. */
--            uint64_t :64, :64; /* Leaf 0x80000010. */
--            uint64_t :64, :64; /* Leaf 0x80000011. */
--            uint64_t :64, :64; /* Leaf 0x80000012. */
--            uint64_t :64, :64; /* Leaf 0x80000013. */
--            uint64_t :64, :64; /* Leaf 0x80000014. */
--            uint64_t :64, :64; /* Leaf 0x80000015. */
--            uint64_t :64, :64; /* Leaf 0x80000016. */
--            uint64_t :64, :64; /* Leaf 0x80000017. */
--            uint64_t :64, :64; /* Leaf 0x80000018. */
--            uint64_t :64, :64; /* Leaf 0x80000019 - TLB 1GB Identifiers. */
--            uint64_t :64, :64; /* Leaf 0x8000001a - Performance related info. */
--            uint64_t :64, :64; /* Leaf 0x8000001b - IBS feature information. */
--            uint64_t :64, :64; /* Leaf 0x8000001c. */
--            uint64_t :64, :64; /* Leaf 0x8000001d - Cache properties. */
--            uint64_t :64, :64; /* Leaf 0x8000001e - Extd APIC/Core/Node IDs. */
--            uint64_t :64, :64; /* Leaf 0x8000001f - AMD Secure Encryption. */
--            uint64_t :64, :64; /* Leaf 0x80000020 - Platform QoS. */
--
--            /* Leaf 0x80000021 - Extended Feature 2 */
--            union {
--                uint32_t e21a;
--                struct { DECL_BITFIELD(e21a); };
--            };
--            uint32_t /* b */:32, /* c */:32, /* d */:32;
--        };
--    } extd;
--
--#undef __DECL_BITFIELD
--#undef _DECL_BITFIELD
--#undef DECL_BITFIELD
--
--    /* Toolstack selected Hypervisor max_leaf (if non-zero). */
--    uint8_t hv_limit, hv2_limit;
--
--    /* Value calculated from raw data above. */
--    uint8_t x86_vendor;
--};
--
--/* Fill in a featureset bitmap from a CPUID policy. */
--static inline void cpuid_policy_to_featureset(
--    const struct cpuid_policy *p, uint32_t fs[FEATURESET_NR_ENTRIES])
--{
--    fs[FEATURESET_1d]  = p->basic._1d;
--    fs[FEATURESET_1c]  = p->basic._1c;
--    fs[FEATURESET_e1d] = p->extd.e1d;
--    fs[FEATURESET_e1c] = p->extd.e1c;
--    fs[FEATURESET_Da1] = p->xstate.Da1;
--    fs[FEATURESET_7b0] = p->feat._7b0;
--    fs[FEATURESET_7c0] = p->feat._7c0;
--    fs[FEATURESET_e7d] = p->extd.e7d;
--    fs[FEATURESET_e8b] = p->extd.e8b;
--    fs[FEATURESET_7d0] = p->feat._7d0;
--    fs[FEATURESET_7a1] = p->feat._7a1;
--    fs[FEATURESET_e21a] = p->extd.e21a;
--    fs[FEATURESET_7b1] = p->feat._7b1;
--    fs[FEATURESET_7d2] = p->feat._7d2;
--    fs[FEATURESET_7c1] = p->feat._7c1;
--    fs[FEATURESET_7d1] = p->feat._7d1;
--}
--
--/* Fill in a CPUID policy from a featureset bitmap. */
--static inline void cpuid_featureset_to_policy(
--    const uint32_t fs[FEATURESET_NR_ENTRIES], struct cpuid_policy *p)
--{
--    p->basic._1d  = fs[FEATURESET_1d];
--    p->basic._1c  = fs[FEATURESET_1c];
--    p->extd.e1d   = fs[FEATURESET_e1d];
--    p->extd.e1c   = fs[FEATURESET_e1c];
--    p->xstate.Da1 = fs[FEATURESET_Da1];
--    p->feat._7b0  = fs[FEATURESET_7b0];
--    p->feat._7c0  = fs[FEATURESET_7c0];
--    p->extd.e7d   = fs[FEATURESET_e7d];
--    p->extd.e8b   = fs[FEATURESET_e8b];
--    p->feat._7d0  = fs[FEATURESET_7d0];
--    p->feat._7a1  = fs[FEATURESET_7a1];
--    p->extd.e21a  = fs[FEATURESET_e21a];
--    p->feat._7b1  = fs[FEATURESET_7b1];
--    p->feat._7d2  = fs[FEATURESET_7d2];
--    p->feat._7c1  = fs[FEATURESET_7c1];
--    p->feat._7d1  = fs[FEATURESET_7d1];
--}
--
--static inline uint64_t cpuid_policy_xcr0_max(const struct cpuid_policy *p)
--{
--    return ((uint64_t)p->xstate.xcr0_high << 32) | p->xstate.xcr0_low;
--}
--
--static inline uint64_t cpuid_policy_xstates(const struct cpuid_policy *p)
--{
--    uint64_t val = p->xstate.xcr0_high | p->xstate.xss_high;
--
--    return (val << 32) | p->xstate.xcr0_low | p->xstate.xss_low;
--}
--
--const uint32_t *x86_cpuid_lookup_deep_deps(uint32_t feature);
--
--/**
-- * Recalculate the content in a CPUID policy which is derived from raw data.
-- */
--void x86_cpuid_policy_recalc_synth(struct cpuid_policy *p);
--
--/**
-- * Fill a CPUID policy using the native CPUID instruction.
-- *
-- * No sanitisation is performed, but synthesised values are calculated.
-- * Values may be influenced by a hypervisor or from masking/faulting
-- * configuration.
-- */
--void x86_cpuid_policy_fill_native(struct cpuid_policy *p);
--
--/**
-- * Clear leaf data beyond the policies max leaf/subleaf settings.
-- *
-- * Policy serialisation purposefully omits out-of-range leaves, because there
-- * are a large number of them due to vendor differences.  However, when
-- * constructing new policies (e.g. levelling down), it is possible to end up
-- * with out-of-range leaves with stale content in them.  This helper clears
-- * them.
-- */
--void x86_cpuid_policy_clear_out_of_range_leaves(struct cpuid_policy *p);
 -
 -#ifdef __XEN__
 -#include <public/arch-x86/xen.h>
--typedef XEN_GUEST_HANDLE_64(xen_cpuid_leaf_t) cpuid_leaf_buffer_t;
+-typedef XEN_GUEST_HANDLE_64(xen_msr_entry_t) msr_entry_buffer_t;
 -#else
 -#include <xen/arch-x86/xen.h>
--typedef xen_cpuid_leaf_t cpuid_leaf_buffer_t[];
+-typedef xen_msr_entry_t msr_entry_buffer_t[];
 -#endif
 -
 -/**
-- * Serialise a cpuid_policy object into an array of cpuid leaves.
+- * Serialise an msr_policy object into an array.
 - *
-- * @param policy     The cpuid_policy to serialise.
-- * @param leaves     The array of leaves to serialise into.
-- * @param nr_entries The number of entries in 'leaves'.
+- * @param policy     The msr_policy to serialise.
+- * @param msrs       The array of msrs to serialise into.
+- * @param nr_entries The number of entries in 'msrs'.
 - * @returns -errno
 - *
-- * Writes at most CPUID_MAX_SERIALISED_LEAVES.  May fail with -ENOBUFS if the
-- * leaves array is too short.  On success, nr_entries is updated with the
-- * actual number of leaves written.
+- * Writes at most MSR_MAX_SERIALISED_ENTRIES.  May fail with -ENOBUFS if the
+- * buffer array is too short.  On success, nr_entries is updated with the
+- * actual number of msrs written.
 - */
--int x86_cpuid_copy_to_buffer(const struct cpuid_policy *policy,
--                             cpuid_leaf_buffer_t leaves, uint32_t *nr_entries);
+-int x86_msr_copy_to_buffer(const struct msr_policy *policy,
+-                           msr_entry_buffer_t msrs, uint32_t *nr_entries);
 -
 -/**
-- * Unserialise a cpuid_policy object from an array of cpuid leaves.
+- * Unserialise an msr_policy object from an array of msrs.
 - *
-- * @param policy      The cpuid_policy to unserialise into.
-- * @param leaves      The array of leaves to unserialise from.
-- * @param nr_entries  The number of entries in 'leaves'.
-- * @param err_leaf    Optional hint for error diagnostics.
-- * @param err_subleaf Optional hint for error diagnostics.
+- * @param policy     The msr_policy object to unserialise into.
+- * @param msrs       The array of msrs to unserialise from.
+- * @param nr_entries The number of entries in 'msrs'.
+- * @param err_msr    Optional hint for error diagnostics.
 - * @returns -errno
 - *
-- * Reads at most CPUID_MAX_SERIALISED_LEAVES.  May return -ERANGE if an
-- * incoming leaf is out of range of cpuid_policy, in which case the optional
-- * err_* pointers will identify the out-of-range indicies.
+- * Reads at most MSR_MAX_SERIALISED_ENTRIES.  May fail for a number of reasons
+- * based on the content in an individual 'msrs' entry, including the MSR index
+- * not being valid in the policy, the flags field being nonzero, or if the
+- * value provided would truncate when stored in the policy.  In such cases,
+- * the optional err_* pointer will identify the problematic MSR.
 - *
-- * No content validation of in-range leaves is performed.  Synthesised data is
-- * recalculated.
+- * No content validation is performed on the data stored in the policy object.
 - */
--int x86_cpuid_copy_from_buffer(struct cpuid_policy *policy,
--                               const cpuid_leaf_buffer_t leaves,
--                               uint32_t nr_entries, uint32_t *err_leaf,
--                               uint32_t *err_subleaf);
+-int x86_msr_copy_from_buffer(struct msr_policy *policy,
+-                             const msr_entry_buffer_t msrs, uint32_t nr_entries,
+-                             uint32_t *err_msr);
 -
--#endif /* !XEN_LIB_X86_CPUID_H */
+-#endif /* !XEN_LIB_X86_MSR_H */
 -
 -/*
 - * Local variables:
@@ -1150,18 +383,18 @@ index fa98b371eef4..000000000000
 - * indent-tabs-mode: nil
 - * End:
 - */
-diff --git a/xen/lib/x86/cpuid.c b/xen/lib/x86/cpuid.c
-index 8eb88314f53c..e81f76c779c0 100644
---- a/xen/lib/x86/cpuid.c
-+++ b/xen/lib/x86/cpuid.c
+diff --git a/xen/lib/x86/msr.c b/xen/lib/x86/msr.c
+index 7d71e92a380a..c4d885e7b568 100644
+--- a/xen/lib/x86/msr.c
++++ b/xen/lib/x86/msr.c
 @@ -1,6 +1,6 @@
  #include "private.h"
  
--#include <xen/lib/x86/cpuid.h>
+-#include <xen/lib/x86/msr.h>
 +#include <xen/lib/x86/cpu-policy.h>
  
- static void zero_leaves(struct cpuid_leaf *l,
-                         unsigned int first, unsigned int last)
+ /*
+  * Copy a single MSR into the provided msr_entry_buffer_t buffer, performing a
 -- 
 2.30.2
 
