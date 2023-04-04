@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 959C36D5C85
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 11:59:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517752.803590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AC706D5C66
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 11:53:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517735.803553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjdRZ-0003qt-Qo; Tue, 04 Apr 2023 09:59:13 +0000
+	id 1pjdLh-0001J2-5J; Tue, 04 Apr 2023 09:53:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517752.803590; Tue, 04 Apr 2023 09:59:13 +0000
+Received: by outflank-mailman (output) from mailman id 517735.803553; Tue, 04 Apr 2023 09:53:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjdRZ-0003mO-Jn; Tue, 04 Apr 2023 09:59:13 +0000
-Received: by outflank-mailman (input) for mailman id 517752;
- Tue, 04 Apr 2023 09:59:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pjdLh-0001D2-0X; Tue, 04 Apr 2023 09:53:09 +0000
+Received: by outflank-mailman (input) for mailman id 517735;
+ Tue, 04 Apr 2023 09:53:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Oy2y=73=citrix.com=prvs=4518c43dc=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pjdMK-00056d-2X
- for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 09:53:48 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 962f50e3-d2ce-11ed-b464-930f4c7d94ae;
- Tue, 04 Apr 2023 11:53:45 +0200 (CEST)
+ <SRS0=8u37=73=casper.srs.infradead.org=BATV+8e7372aa539f26de88ef+7163+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1pjdLe-0005bo-Du
+ for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 09:53:07 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7e112011-d2ce-11ed-85db-49a42c6b2330;
+ Tue, 04 Apr 2023 11:53:05 +0200 (CEST)
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=freeip.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pjdL9-00FEvo-3m; Tue, 04 Apr 2023 09:52:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,392 +41,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 962f50e3-d2ce-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1680602025;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=BD8/V6HTXPI8zjfRwIUp+LKbifOL/pPEYn5jnL6tGjU=;
-  b=aEhT89AkO8KrOFxlJwGFdsHqSg/+e2oJSGcN+/+4ebY3pOECirJTasTI
-   NJJW2kRRMv4SSesCIJgTczQdOJ1FVlZKpkVyg9387ZRhlEgNqiFgc7JS7
-   UNO4QXgeunyYt0obMr3+kHTO9kb+XUujwqDpGY3MDaNprTswMPVREsXIh
-   E=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 103612437
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:KGRsUKqQKYmTq8pX0IbW2gF8deReBmJnZRIvgKrLsJaIsI4StFCzt
- garIBmFPPyKZGb0KY0iOd61oRsDvpDXm4VhSwo5pSgxHy4ao5uZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WNwUmAWP6gR5weCzyVNVfrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXAGxUbhuAm6WU+7m2d8Q9tu4mEMX6A6pK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVxrl6PqLVxyG/U1AFri5DmMcbPe8zMTsJQ9qqdj
- juepDqgWE1Ba7RzzxKD/lb0q+qSkBj6G4YOO5eU8cN2sgeMkzl75Bo+CgLg/KjRZlSFc8JSL
- QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUSyiuA167V6AaxHXUfQ3hKb9lOnNAybSwn0
- BmOhdyBONB0mOTLEzTHrO7S9G7sf3FPdgfueBPoUyNZutnoo510rCnEQ+tOQZ6fi+H5CA7Zl
- mXiQDcFu1kDsSIa//zlrQia3Gz2+cGhoh0dvVuOAD/8hu9tTMv8PtHztwCGhRpVBNzBJmRtq
- kTojCR3AAomKZiW3BKAT+wWdF1Cz6bUaWaM6bKD8nRIythMx5JAVdoKiN2GDB01WvvogBewC
- KMphStf5YVIIFyhZrJtboS6BqwClPawTYm5CKGONYAQMvCdkTNrGwk3PSatM53FyhBwwcnTx
- 7/AGSpTMZrqIfs+l2fnLwvs+bQq2jo/1QvueHwP9Dz+ieD2TCfMGd843K6mMrhRAFWs/F+Er
- L6y9qKil31ibQEJSnKIrtJJdAxVdChT6FKfg5U/S9Nv6zFOQAkJY8I9C5t4E2C5t8y5Ttv1w
- 0w=
-IronPort-HdrOrdr: A9a23:XbA7vaCUYNajGozlHelo55DYdb4zR+YMi2TDt3oddfU1SL38qy
- nKpp4mPHDP5wr5NEtPpTniAtjjfZq/z/5ICOAqVN/PYOCPggCVxepZnOjfKlPbehEX9oRmpN
- 1dm6oVMqyMMbCt5/yKnDVRELwbsaa6GLjDv5a785/0JzsaE52J6W1Ce2GmO3wzfiZqL7wjGq
- GR48JWzgDQAkj+PqyAdx84t/GonayzqK7b
-X-IronPort-AV: E=Sophos;i="5.98,317,1673931600"; 
-   d="scan'208";a="103612437"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 15/15] x86: Remove temporary {cpuid,msr}_policy defines
-Date: Tue, 4 Apr 2023 10:52:22 +0100
-Message-ID: <20230404095222.1373721-16-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230404095222.1373721-1-andrew.cooper3@citrix.com>
-References: <20230404095222.1373721-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 7e112011-d2ce-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=wvgoJQ9Lm0ccWU181xaSUlae1PKiLsa2k6MVbJjeNtE=; b=YUP5VxUUDjN7PoRvhJ1Z/6AqgN
+	7yoyEVN2XqXQTuYI69bJS2qGUdan3oCjnkR12UKpNSlPUNTUdzpk5DY/xbugywWlO6LHyyXlzhRbI
+	K2Ywx250HO65Ts7l7gE4H1aQbHnCpljV8c58aS4k6DHBdPMLQmOVkoRorlscUWkSdPLboEUeK6DPB
+	OiMDf9gevMIN5nmYLglpR/Erhx9f7yjXIm8kaAmocRrPc0s03A8mUs0e/00r9k3pYmxuyFakN/IxA
+	6AYcj54rWR37VJZarjItBstYW5YjQFIRie+IY8z2DEDap3aV0Guw7YGhSeXGk6I1dAc1AyFwAinCp
+	5FVxq6Iw==;
+Message-ID: <d5c612131f3e47cb08c090bae00b8b0dba58f11e.camel@infradead.org>
+Subject: Re: [PATCH 08/13] hw/xen: do not use
+ aio_set_fd_handler(is_external=true) in xen_xenstore
+From: David Woodhouse <dwmw2@infradead.org>
+To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Julia Suvorova <jusual@redhat.com>,
+  Kevin Wolf <kwolf@redhat.com>, Peter Lieven <pl@kamp.de>, Coiby Xu
+ <Coiby.Xu@gmail.com>,  xen-devel@lists.xenproject.org, Richard Henderson
+ <richard.henderson@linaro.org>,  Stefano Garzarella <sgarzare@redhat.com>,
+ qemu-block@nongnu.org, Eduardo Habkost <eduardo@habkost.net>, Philippe
+ =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, Paul Durrant
+ <paul@xen.org>, "Richard W.M. Jones" <rjones@redhat.com>, "Dr. David Alan
+ Gilbert" <dgilbert@redhat.com>, Marcel Apfelbaum
+ <marcel.apfelbaum@gmail.com>, Aarushi Mehta <mehta.aaru20@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Fam Zheng <fam@euphon.net>,
+ Stefan Weil <sw@weilnetz.de>,  Juan Quintela <quintela@redhat.com>, Xie
+ Yongji <xieyongji@bytedance.com>, Hanna Reitz <hreitz@redhat.com>,  Ronnie
+ Sahlberg <ronniesahlberg@gmail.com>, eesposit@redhat.com, "Michael S.
+ Tsirkin" <mst@redhat.com>, "Daniel P." =?ISO-8859-1?Q?Berrang=E9?=
+ <berrange@redhat.com>, Anthony Perard <anthony.perard@citrix.com>
+Date: Tue, 04 Apr 2023 10:52:32 +0100
+In-Reply-To: <20230403183004.347205-9-stefanha@redhat.com>
+References: <20230403183004.347205-1-stefanha@redhat.com>
+	 <20230403183004.347205-9-stefanha@redhat.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-7s6HEpTuj3u8ifXuNfwk"
+User-Agent: Evolution 3.44.4-0ubuntu1 
 MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+
+
+--=-7s6HEpTuj3u8ifXuNfwk
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-With all code areas updated, drop the temporary defines and adjust all
-remaining users.
+On Mon, 2023-04-03 at 14:29 -0400, Stefan Hajnoczi wrote:
+> There is no need to suspend activity between aio_disable_external() and
+> aio_enable_external(), which is mainly used for the block layer's drain
+> operation.
+>=20
+> This is part of ongoing work to remove the aio_disable_external() API.
+>=20
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 
-No practical change.
+Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+Thanks.
 
-v2:
- * Split out of RFC patch
----
- xen/arch/x86/cpu/mcheck/mce_intel.c    |  2 +-
- xen/arch/x86/cpuid.c                   |  2 +-
- xen/arch/x86/domain.c                  |  2 +-
- xen/arch/x86/hvm/hvm.c                 |  4 ++--
- xen/arch/x86/hvm/svm/svm.c             |  2 +-
- xen/arch/x86/hvm/vlapic.c              |  2 +-
- xen/arch/x86/hvm/vmx/vmx.c             |  8 ++++----
- xen/arch/x86/include/asm/msr.h         |  2 +-
- xen/arch/x86/msr.c                     | 20 +++++++++-----------
- xen/arch/x86/pv/domain.c               |  2 +-
- xen/arch/x86/pv/emul-priv-op.c         |  4 ++--
- xen/arch/x86/traps.c                   |  2 +-
- xen/arch/x86/x86_emulate/x86_emulate.c |  2 +-
- xen/include/xen/lib/x86/cpu-policy.h   |  4 ----
- 14 files changed, 26 insertions(+), 32 deletions(-)
+> ---
+> =C2=A0hw/i386/kvm/xen_xenstore.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/hw/i386/kvm/xen_xenstore.c b/hw/i386/kvm/xen_xenstore.c
+> index 900679af8a..6e81bc8791 100644
+> --- a/hw/i386/kvm/xen_xenstore.c
+> +++ b/hw/i386/kvm/xen_xenstore.c
+> @@ -133,7 +133,7 @@ static void xen_xenstore_realize(DeviceState *dev, Er=
+ror **errp)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 error_setg(errp, "Xensto=
+re evtchn port init failed");
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+> =C2=A0=C2=A0=C2=A0=C2=A0 }
+> -=C2=A0=C2=A0=C2=A0 aio_set_fd_handler(qemu_get_aio_context(), xen_be_evt=
+chn_fd(s->eh), true,
+> +=C2=A0=C2=A0=C2=A0 aio_set_fd_handler(qemu_get_aio_context(), xen_be_evt=
+chn_fd(s->eh), false,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen_xens=
+tore_event, NULL, NULL, NULL, s);
+> =C2=A0
+> =C2=A0=C2=A0=C2=A0=C2=A0 s->impl =3D xs_impl_create(xen_domid);
 
-diff --git a/xen/arch/x86/cpu/mcheck/mce_intel.c b/xen/arch/x86/cpu/mcheck/mce_intel.c
-index 301533722d1a..2f23f02923d2 100644
---- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -1008,7 +1008,7 @@ int vmce_intel_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
- 
- int vmce_intel_rdmsr(const struct vcpu *v, uint32_t msr, uint64_t *val)
- {
--    const struct cpuid_policy *cp = v->domain->arch.cpuid;
-+    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
-     unsigned int bank = msr - MSR_IA32_MC0_CTL2;
- 
-     switch ( msr )
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index 3f20c342fde8..f311372cdf1f 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -36,7 +36,7 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-                  uint32_t subleaf, struct cpuid_leaf *res)
- {
-     const struct domain *d = v->domain;
--    const struct cpuid_policy *p = d->arch.cpuid;
-+    const struct cpu_policy *p = d->arch.cpu_policy;
- 
-     *res = EMPTY_LEAF;
- 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index b23e5014d1d3..91f57e3a3b17 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -283,7 +283,7 @@ void update_guest_memory_policy(struct vcpu *v,
- 
- void domain_cpu_policy_changed(struct domain *d)
- {
--    const struct cpuid_policy *p = d->arch.cpuid;
-+    const struct cpu_policy *p = d->arch.cpu_policy;
-     struct vcpu *v;
- 
-     if ( is_pv_domain(d) )
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 675c523d9909..7020fdce995c 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -924,7 +924,7 @@ const char *hvm_efer_valid(const struct vcpu *v, uint64_t value,
-                            signed int cr0_pg)
- {
-     const struct domain *d = v->domain;
--    const struct cpuid_policy *p = d->arch.cpuid;
-+    const struct cpu_policy *p = d->arch.cpu_policy;
- 
-     if ( value & ~EFER_KNOWN_MASK )
-         return "Unknown bits set";
-@@ -961,7 +961,7 @@ const char *hvm_efer_valid(const struct vcpu *v, uint64_t value,
- /* These bits in CR4 can be set by the guest. */
- unsigned long hvm_cr4_guest_valid_bits(const struct domain *d)
- {
--    const struct cpuid_policy *p = d->arch.cpuid;
-+    const struct cpu_policy *p = d->arch.cpu_policy;
-     bool mce, vmxe, cet;
- 
-     /* Logic broken out simply to aid readability below. */
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 02563e4b7027..b8fe759db456 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -583,7 +583,7 @@ static void cf_check svm_cpuid_policy_changed(struct vcpu *v)
- {
-     struct svm_vcpu *svm = &v->arch.hvm.svm;
-     struct vmcb_struct *vmcb = svm->vmcb;
--    const struct cpuid_policy *cp = v->domain->arch.cpuid;
-+    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
-     u32 bitmap = vmcb_get_exception_intercepts(vmcb);
- 
-     if ( opt_hvm_fep ||
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index dc93b5e930b1..f4f5ffc673e5 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -1083,7 +1083,7 @@ static void set_x2apic_id(struct vlapic *vlapic)
- 
- int guest_wrmsr_apic_base(struct vcpu *v, uint64_t value)
- {
--    const struct cpuid_policy *cp = v->domain->arch.cpuid;
-+    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
-     struct vlapic *vlapic = vcpu_vlapic(v);
- 
-     if ( !has_vlapic(v->domain) )
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index e05588505871..ee4c41628cc3 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -710,7 +710,7 @@ static void vmx_restore_host_msrs(void)
- 
- static void vmx_save_guest_msrs(struct vcpu *v)
- {
--    const struct cpuid_policy *cp = v->domain->arch.cpuid;
-+    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
-     struct vcpu_msrs *msrs = v->arch.msrs;
- 
-     /*
-@@ -731,7 +731,7 @@ static void vmx_save_guest_msrs(struct vcpu *v)
- 
- static void vmx_restore_guest_msrs(struct vcpu *v)
- {
--    const struct cpuid_policy *cp = v->domain->arch.cpuid;
-+    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
-     const struct vcpu_msrs *msrs = v->arch.msrs;
- 
-     write_gs_shadow(v->arch.hvm.vmx.shadow_gs);
-@@ -784,7 +784,7 @@ void vmx_update_exception_bitmap(struct vcpu *v)
- 
- static void cf_check vmx_cpuid_policy_changed(struct vcpu *v)
- {
--    const struct cpuid_policy *cp = v->domain->arch.cpuid;
-+    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
-     int rc = 0;
- 
-     if ( opt_hvm_fep ||
-@@ -3521,7 +3521,7 @@ static int cf_check vmx_msr_write_intercept(
-     unsigned int msr, uint64_t msr_content)
- {
-     struct vcpu *v = current;
--    const struct cpuid_policy *cp = v->domain->arch.cpuid;
-+    const struct cpu_policy *cp = v->domain->arch.cpu_policy;
- 
-     HVM_DBG_LOG(DBG_LEVEL_MSR, "ecx=%#x, msr_value=%#"PRIx64, msr, msr_content);
- 
-diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
-index 458841733e18..1d8ea9f26faa 100644
---- a/xen/arch/x86/include/asm/msr.h
-+++ b/xen/arch/x86/include/asm/msr.h
-@@ -290,7 +290,7 @@ static inline void wrmsr_tsc_aux(uint32_t val)
-     }
- }
- 
--uint64_t msr_spec_ctrl_valid_bits(const struct cpuid_policy *cp);
-+uint64_t msr_spec_ctrl_valid_bits(const struct cpu_policy *cp);
- 
- /* Container object for per-vCPU MSRs */
- struct vcpu_msrs
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index 802fc60baf81..2e16818bf509 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -54,8 +54,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
- {
-     const struct vcpu *curr = current;
-     const struct domain *d = v->domain;
--    const struct cpuid_policy *cp = d->arch.cpuid;
--    const struct msr_policy *mp = d->arch.msr;
-+    const struct cpu_policy *cp = d->arch.cpu_policy;
-     const struct vcpu_msrs *msrs = v->arch.msrs;
-     int ret = X86EMUL_OKAY;
- 
-@@ -139,13 +138,13 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-         goto get_reg;
- 
-     case MSR_INTEL_PLATFORM_INFO:
--        *val = mp->platform_info.raw;
-+        *val = cp->platform_info.raw;
-         break;
- 
-     case MSR_ARCH_CAPABILITIES:
-         if ( !cp->feat.arch_caps )
-             goto gp_fault;
--        *val = mp->arch_caps.raw;
-+        *val = cp->arch_caps.raw;
-         break;
- 
-     case MSR_INTEL_MISC_FEATURES_ENABLES:
-@@ -326,7 +325,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-  * separate CPUID features for this functionality, but only set will be
-  * active.
-  */
--uint64_t msr_spec_ctrl_valid_bits(const struct cpuid_policy *cp)
-+uint64_t msr_spec_ctrl_valid_bits(const struct cpu_policy *cp)
- {
-     bool ssbd = cp->feat.ssbd || cp->extd.amd_ssbd;
-     bool psfd = cp->feat.intel_psfd || cp->extd.psfd;
-@@ -345,8 +344,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
- {
-     const struct vcpu *curr = current;
-     struct domain *d = v->domain;
--    const struct cpuid_policy *cp = d->arch.cpuid;
--    const struct msr_policy *mp = d->arch.msr;
-+    const struct cpu_policy *cp = d->arch.cpu_policy;
-     struct vcpu_msrs *msrs = v->arch.msrs;
-     int ret = X86EMUL_OKAY;
- 
-@@ -387,7 +385,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-          * for backwards compatiblity, the OS should write 0 to it before
-          * trying to access the current microcode version.
-          */
--        if ( d->arch.cpuid->x86_vendor != X86_VENDOR_INTEL || val != 0 )
-+        if ( cp->x86_vendor != X86_VENDOR_INTEL || val != 0 )
-             goto gp_fault;
-         break;
- 
-@@ -397,7 +395,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-          * to AMD CPUs as well (at least the architectural/CPUID part does).
-          */
-         if ( is_pv_domain(d) ||
--             d->arch.cpuid->x86_vendor != X86_VENDOR_AMD )
-+             cp->x86_vendor != X86_VENDOR_AMD )
-             goto gp_fault;
-         break;
- 
-@@ -409,7 +407,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-          * by any CPUID bit.
-          */
-         if ( is_pv_domain(d) ||
--             d->arch.cpuid->x86_vendor != X86_VENDOR_INTEL )
-+             cp->x86_vendor != X86_VENDOR_INTEL )
-             goto gp_fault;
-         break;
- 
-@@ -446,7 +444,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-         bool old_cpuid_faulting = msrs->misc_features_enables.cpuid_faulting;
- 
-         rsvd = ~0ull;
--        if ( mp->platform_info.cpuid_faulting )
-+        if ( cp->platform_info.cpuid_faulting )
-             rsvd &= ~MSR_MISC_FEATURES_CPUID_FAULTING;
- 
-         if ( val & rsvd )
-diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
-index 95492715d8ad..5c92812dc67a 100644
---- a/xen/arch/x86/pv/domain.c
-+++ b/xen/arch/x86/pv/domain.c
-@@ -146,7 +146,7 @@ static void release_compat_l4(struct vcpu *v)
- 
- unsigned long pv_fixup_guest_cr4(const struct vcpu *v, unsigned long cr4)
- {
--    const struct cpuid_policy *p = v->domain->arch.cpuid;
-+    const struct cpu_policy *p = v->domain->arch.cpu_policy;
- 
-     /* Discard attempts to set guest controllable bits outside of the policy. */
-     cr4 &= ~((p->basic.tsc     ? 0 : X86_CR4_TSD)      |
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index ab52768271c5..04416f197951 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -885,7 +885,7 @@ static int cf_check read_msr(
- {
-     struct vcpu *curr = current;
-     const struct domain *currd = curr->domain;
--    const struct cpuid_policy *cp = currd->arch.cpuid;
-+    const struct cpu_policy *cp = currd->arch.cpu_policy;
-     bool vpmu_msr = false, warn = false;
-     uint64_t tmp;
-     int ret;
-@@ -1034,7 +1034,7 @@ static int cf_check write_msr(
- {
-     struct vcpu *curr = current;
-     const struct domain *currd = curr->domain;
--    const struct cpuid_policy *cp = currd->arch.cpuid;
-+    const struct cpu_policy *cp = currd->arch.cpu_policy;
-     bool vpmu_msr = false;
-     int ret;
- 
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index c36e3f855bd9..e4f8b158e1ed 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1036,7 +1036,7 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
-                              uint32_t subleaf, struct cpuid_leaf *res)
- {
-     const struct domain *d = v->domain;
--    const struct cpuid_policy *p = d->arch.cpuid;
-+    const struct cpu_policy *p = d->arch.cpu_policy;
-     uint32_t base = is_viridian_domain(d) ? 0x40000100 : 0x40000000;
-     uint32_t idx  = leaf - base;
-     unsigned int limit = is_viridian_domain(d) ? p->hv2_limit : p->hv_limit;
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
-index 5a0ec5900a93..c69f7c65f526 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -848,7 +848,7 @@ protmode_load_seg(
-     struct x86_emulate_ctxt *ctxt,
-     const struct x86_emulate_ops *ops)
- {
--    const struct cpuid_policy *cp = ctxt->cpuid;
-+    const struct cpu_policy *cp = ctxt->cpu_policy;
-     enum x86_segment sel_seg = (sel & 4) ? x86_seg_ldtr : x86_seg_gdtr;
-     struct { uint32_t a, b; } desc, desc_hi = {};
-     uint8_t dpl, rpl;
-diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-index dee46adeff17..182cf77cffaf 100644
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -375,10 +375,6 @@ struct cpu_policy
-     uint8_t x86_vendor;
- };
- 
--/* Temporary */
--#define cpuid_policy cpu_policy
--#define msr_policy cpu_policy
--
- struct cpu_policy_errors
- {
-     uint32_t leaf, subleaf;
--- 
-2.30.2
 
+--=-7s6HEpTuj3u8ifXuNfwk
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
+ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
+EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
+FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
+aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
+EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
+VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
+ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
+QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
+rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
+ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
+U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
+BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
+dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
+BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
+QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
+CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
+xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
+IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
+kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
+eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
+KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
+1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
+OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
+x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
+5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
+DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
+VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
+UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
+MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
+ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
+oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
+SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
+xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
+RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
+bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
+NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
+KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
+5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
+C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
+gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
+VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
+by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
+b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
+BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
+QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
+c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
+AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
+qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
+v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
+Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
+tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
+Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
+YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
+ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
+IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
+ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
+GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
+h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
+9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
+P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
+2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
+BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
+7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
+lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
+lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
+AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
+Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
+FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
+BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
+cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
+aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
+LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
+BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
+Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
+lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
+WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
+hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
+IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
+dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
+NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
+xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwNDA0MDk1MjMyWjAvBgkqhkiG9w0BCQQxIgQgrsepn9Vl
+DdKC1BeQEBFEi/a6RbJbt8TXN1jmHO7GNJ0wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
+A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
+dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
+DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
+MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
+Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAVZ1qfTa9Nxee1RiBcOJYy3wtZjMAiU4eW
+9bj9KacxKWNjZGupFHiljaK3GCNNbfQX0SaycrtzkHxnnGpBSnMy1uluAbCx/4Pxkw5tEO3s2oMl
+HJS70RRWDS9q3d26tgu6znZFl/JoVdNI9CljOw6adKOgDY4QL5TLEbGW4/CQJmDmLgnROIoiId9k
+l+EWUDZZEofAxneyZP1GpSV3f5945HxOxl5FlLlP2GmuEzpBZlIWsocyozX2FeKFSTR0BNIPssD0
+eS1fK3j9IEthkl3t1IlpGQPmkG8aYeRgNvpZc41eA2iVzFKGar5ILukzrCwc2Pp8sHC4bQSR7oB2
+xejzhzdBAYvMzu1FYLKqYvAmqT/xqXjxIjbucwT68yyLh8pp7NE5uIBl2L4acjmMfmFRJQAYSezP
+t/VWPxuZunQhzDzo4a0unsZP9I6KLfrnPggVbASb9oAfxCC8Hu4wPjbbyhuOs36+pHqLPcHKSVno
+sP4Z6mQnGOT8ng6LTCiYkq7LQkEHqgHFHIn5ScqYIY1x4VUQ4lUVkw2PE/MNacZ+hIsj7GYry2C7
+9o+aa1qw2f5NCns8ITlcqC3vdDks86MvETwP4V0tnRES+P91GPB0KnWhFUwSCIHLRFOni0GGggtj
+O6rNb9HAbDhwXn12vYtafW+933ruJSCaFbig3SeFsQAAAAAAAA==
+
+
+--=-7s6HEpTuj3u8ifXuNfwk--
 
