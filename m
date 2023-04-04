@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F17F26D5CDE
-	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 12:16:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.517802.803642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE18B6D5D8E
+	for <lists+xen-devel@lfdr.de>; Tue,  4 Apr 2023 12:32:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.517808.803652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjdiI-0001LX-Jm; Tue, 04 Apr 2023 10:16:30 +0000
+	id 1pjdwy-0003jc-03; Tue, 04 Apr 2023 10:31:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 517802.803642; Tue, 04 Apr 2023 10:16:30 +0000
+Received: by outflank-mailman (output) from mailman id 517808.803652; Tue, 04 Apr 2023 10:31:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjdiI-0001Id-Gc; Tue, 04 Apr 2023 10:16:30 +0000
-Received: by outflank-mailman (input) for mailman id 517802;
- Tue, 04 Apr 2023 10:16:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pjdwx-0003hS-TU; Tue, 04 Apr 2023 10:31:39 +0000
+Received: by outflank-mailman (input) for mailman id 517808;
+ Tue, 04 Apr 2023 10:31:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pjdiH-0001IT-3v; Tue, 04 Apr 2023 10:16:29 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pjdiG-0007rv-T3; Tue, 04 Apr 2023 10:16:28 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pjdiG-0004X2-FX; Tue, 04 Apr 2023 10:16:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pjdiG-0004ZC-F7; Tue, 04 Apr 2023 10:16:28 +0000
+ (envelope-from <SRS0=7Jsu=73=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pjdww-0003hM-LU
+ for xen-devel@lists.xenproject.org; Tue, 04 Apr 2023 10:31:38 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on062e.outbound.protection.outlook.com
+ [2a01:111:f400:fe1e::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dfa9873c-d2d3-11ed-b464-930f4c7d94ae;
+ Tue, 04 Apr 2023 12:31:35 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8788.eurprd04.prod.outlook.com (2603:10a6:20b:42f::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.35; Tue, 4 Apr
+ 2023 10:31:33 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6254.035; Tue, 4 Apr 2023
+ 10:31:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,355 +47,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=HKzArlN5QH0A1KTS3kZmDBsTTF+uGBcxCr2nRB7swiY=; b=x+lSi87K4rpG8lS0W2fjNVapOH
-	N/yDRih2lRPCV6K5BG6K1vKXL6FlMJCP9Ly+AHBH8JrxnOEhiwwGbrpU2EGzdHDA1QRHw1KtqvOQZ
-	20mbMxWh9tA5FNwzLrikvUJ9GMJe1vKtWGom5guPpsywlnvmbcC0k88jrEYshNcCWYfQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180131-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: dfa9873c-d2d3-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RPs6cxSRpxJ0evezqtVW3GhqqpF9JGlPRnTVvwbE5C1EmYgJfz51qB0WNAF2D/ztlv6pHuNsdxxoRmwvILwIoJFG1TtOXtrnQqrS7k5Vnvv9JhPTqvVhUsNm/3yngqifFXEbCowGYFJJvkhLpiHj71/8TFasf//gC8sh7FnFwecicQ7qGYKk0CbVJleLbgCdxizgYr/tq9/QL+NtfLXsJRR7XpVjl0u3iHsqVAy6nNzg1pKDrP6DAj35qBAMaAnOjxemCAzoDYn+Bo3fnGeUEOkVOiJ6VEoXdXFUTPDc8eXX0laobm8uT8LsdkTXGUXvECUqiUzCGJcPXL0864C9Wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SK5yEcXmvmF9LNfOBdI39ph6figLkQWOz0P31QY8dBg=;
+ b=odvfKTC28lKLHP5xiLycaN/exVvFShAjRlrNj5mQBB6hKk5a5lY24Bd7iJm2l4PNELNE4StN1AlQ8HuY/iJZdZGBUyW8w/lOMEln7ENs08eDpZvXZFWNjf+6aZC/zgAtfzH0e9Q3N8SrQQWbIOJjfZ/P6j8Eb1bJgk8ONmXorArF4b/+eKuAiPwt1bX0N6EmCYdR11SJ79NHH5CiWJtDt03QvPzjn7279v7ylkzKeh0+9LH3OTKV+fva//Qs6l298BKnO8RdCXpCax10kMCzTqyU6MhJ5plYZ3+MVHsyQd6MpLGJ9r6lAA/ADkRiRcmpZDwoz3LUmO0i8z1SjdkeVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SK5yEcXmvmF9LNfOBdI39ph6figLkQWOz0P31QY8dBg=;
+ b=wGgAHSVk/JYQwMgEp3Ix/GB4DLlV1TpQWU7B3HsrW81olMSQxHLEH4ONWg12QnDRRcYGm8YnABebysymwl9c7CCNvvm+nIBPL2Y00jjgNkUDMB3F5klgzLf8YxirANpADwtm7OH0y6NB+oct3uwzPbuwQs49ATgw0WDjsFYaHal7pWZ4uwyayu+0SNlD51fclYs3g8RYjmbDPvLCgXTN0r/0veXauoOhHW5xkYPWHgOaIITptJUdqCXyIRudNlzcdlTHcfwzYdGZ/6C6aUv438mg8nM850mHIdi0xTEhXipgi5RSCkSWO7n8RAx0Smz2+BsXQXneizDIirZn9/WVkg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <3752672b-f4a0-5ffb-9759-dd315ce31079@suse.com>
+Date: Tue, 4 Apr 2023 12:31:31 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH] x86/PV32: restore PAE-extended-CR3 logic
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <47ab9000-68f6-8925-d814-a3a955b7f6cc@suse.com>
+ <ZCv3+cpzJ52Y679G@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZCv3+cpzJ52Y679G@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0078.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Subject: [linux-linus test] 180131: regressions - trouble: fail/pass/starved
-X-Osstest-Failures:
-    linux-linus:build-arm64-pvops:kernel-build:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-localmigrate:fail:heisenbug
-    linux-linus:test-amd64-amd64-libvirt-qcow2:guest-start/debian.repeat:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-pvshim:guest-start/debian.repeat:fail:heisenbug
-    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-examine:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
-    linux-linus:build-armhf-libvirt:build-check(1):starved:nonblocking
-    linux-linus:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    linux=148341f0a2f53b5e8808d093333d85170586a15d
-X-Osstest-Versions-That:
-    linux=7e364e56293bb98cae1b55fd835f5991c4e96e7d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 04 Apr 2023 10:16:28 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8788:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98b9e487-f8fa-4488-56f5-08db34f7c2c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	tS5fpPz/AxFt8LgcxRun1J4alZjrGRctKpx3efuBKBxvI71aAMP/NUlCIRQcYufUMh1rkgzXq1rsuxhbgND94FpuPkx85Xm6XJBs6uRvAeJ3BLnvA7jG0xWPSlIxDOToETLChN3QCD8kDOFQLhI/mr/csGkegnF4eTkpUF/Qy99P5Fk87OAGCym+4wcDYaMvLFnaHUsa9Y1WtncYjfakc0ng5UQI3cJnxmZ8Qp58iYqNWrMpSlZulhTCX9RqSlcxe1Jhv6hsn0Xz2huLeSsxA0yPGJdfDNKfvQzEdzYm/cotFWQapg4S/fa9LcnfKXttHERLF2mEEX3KBppLXXYUPNZgH1/yuanUPqIGrC96FMAMiFOQNjaJTEBvXcxkHrR7rd9W5BDKA90oAvh5huS43X8qUciaiPceQ9+392/wLuhB/sgQoXXqG4YX2cy2WlVIEC3+r8jXfpz6i5Drkn41ty0XYi8l/e2EnVa/2P5+ar1T7CT65I4F5nL1Ti2bwdA8HouK9AOQnM3aYdMPTPP6tHuXrJfiL6w1G+DGaWmIHW7rjvy36rHVa9ZlDTIgzIEeUXlb/R7SkdK6T9ht1j64yFR3zBhIakMOC6Rs1EQYHJ4a0j97Oyn3kcz0OUFK2fshPwhGYjB5jPSg9nMYjjgoZw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(396003)(366004)(346002)(136003)(39860400002)(451199021)(66946007)(31686004)(478600001)(6512007)(6506007)(26005)(66556008)(41300700001)(6916009)(6486002)(2616005)(66476007)(4326008)(53546011)(54906003)(316002)(186003)(66899021)(5660300002)(83380400001)(8936002)(8676002)(2906002)(38100700002)(31696002)(86362001)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a29TWWw0eHdESHRBZUUvODBBZEM0WlkyVzRQUTkrbGFQclpIcWt0NzNEMHpt?=
+ =?utf-8?B?L1BISGxsalZZcUs2KzFxSFZvekdiUTEva0poTU8yb2VXSG1iR1dvamFTQS82?=
+ =?utf-8?B?aEdKZFR2U3V2a1d0YXBHZ2lRZXBZeVRvVThGbEpnTTk2dERLTG1BK0JWTjc5?=
+ =?utf-8?B?dDFFbmpySko1amwvL2NlYWNLelJnRjNCbVVWd0MzcnR4a3pGYXh3eWRiVXR3?=
+ =?utf-8?B?OHFER3RHeXhabkgwMzNBZjZ0ZGxyeS9XMXIzMEJmYnk5K0w1ZGdGeXVCd3NZ?=
+ =?utf-8?B?V1VCZ2ZUSGdBcHJpMFhmMUpNcUg5K0ZXQlRpeTQ2dkFHZnhrWVYxN1BicFgx?=
+ =?utf-8?B?Qm9CZVRCZHNGY0JUVXE5WUJoZXBUWnN4MVFJTFlWVVJPd3FLVW03OTFjcWU3?=
+ =?utf-8?B?akh6V3FMandnbUFsVk9Qd29URjZGcVByaFoxeWN0WDllU2FXbzZtSlMrN3hH?=
+ =?utf-8?B?NStIYVVINFBuZXBkdkpheXVxV1FTbWh2UlhiVGk1bVRPWHZwK1h0VW16NVFN?=
+ =?utf-8?B?OUFOWjBLUFlEOThQdktZSnY5Wk9GLzNyMDFGOGUzWEhReisrRWNnUGpaY2N5?=
+ =?utf-8?B?bmJMMFNGcFo5UWh2d1VidGw5K21peTlkcUkyQmF0bjQ2UERDRkpRcTBuZkhP?=
+ =?utf-8?B?VGRMdXBzYTdoNTROL25hZlVORExwaXVCRmtZMkRoclpQZHlLU2ZwMjljUmx2?=
+ =?utf-8?B?SWpxY1JyQSt2Rk0xUGM3RmlNRDIwM3dhUzNUZDN2OHRMTUpJTWtzcjc5cFBD?=
+ =?utf-8?B?SDd3TTlJSkNzbFI4enFqUmhFUlpsb0hIOHpqZzVZQlNvK0t1bzB4WGpMVEgr?=
+ =?utf-8?B?OXVBVlBVZDVVZm45cERha0FFcmxxTmIwdGFJQWtmQ1RSRHVzbVFUWEd5TVV0?=
+ =?utf-8?B?SXBGaGNLaDJEbDNJdmtqVlloZzBmckJrVHp0RXAyNFJkb3hTUkNtMzdkSDF6?=
+ =?utf-8?B?NGFiZWJRZFI5M2tUeFRySkk1aWZjTkVBOU9wbVVXSFFoVDdaQVczaFhDRnFv?=
+ =?utf-8?B?OSsrNytoRGkrVFNNSk40UlE2dlhvN1I4SWl2WFJxN0tkaFNsQ1RYY2JWMDJ6?=
+ =?utf-8?B?U0oySFNtTmFwVlE1RFdBR0xsWWxSWS9Ibm14MHZIbW9QeVpkRlF3NFllWmpC?=
+ =?utf-8?B?cndHQkY5eHUvUExSMHkzdTIwKzlPY0dRcTdBRDhnVXBqdlVYOXppeFJ3NDlT?=
+ =?utf-8?B?TDR2MlZLdjR5akJHYXZMTkR4QTZuREJ6MDErZ3NjNGxrbDdISkRJeGRnUDNJ?=
+ =?utf-8?B?TjBhZmNycCtIQ0NKTmNhV1ZDN0laNUtJcERUNFhiZ04zTUZLSTd6N3V0M0FH?=
+ =?utf-8?B?RnYzZ0NUSlBmcm5scVVrY2VjQnB6QTUzODVZc2d6MGp3RjcyWU92ZFFtVElZ?=
+ =?utf-8?B?Si9RRm9rZSs0anJPN0NhSDVqZWV0ZEZUNjN5a1Jod0FMc0RBa0pueWZxYUJy?=
+ =?utf-8?B?VFo1NDRIcFFuSG1pNUJ1MnpFMW1WSVRWWlFYb2RLUnRUWnVoSUNvRWJjWXV3?=
+ =?utf-8?B?ZjdEU0pRQUhrVFBSbGtMaWFXNkJBdGUxZHhUMHM4enVFQmJvZEtVZGFaYXVa?=
+ =?utf-8?B?KyswclVDVUR0YmtWMTRsMksreDJkaVlYVnBsZkVUL1BYUWU0VW45M2lKeWJC?=
+ =?utf-8?B?cjdPU1RyS25MSVJzNU5jb3pEL09FcVFFQW4wWlUzaHB6Y1lJTzAyeWhOaVNp?=
+ =?utf-8?B?TmNIRDlnbVNKbG1HOGxZRGxRdHQzOG1ZMlJiV3gzTW0rNDZTSVltYjZuaXJa?=
+ =?utf-8?B?S1hRNjlpa0lMcEhUR2JTTUhrUlRVSndXYUVHQmUyTk5IbnJ4TVlkVTVMNGxI?=
+ =?utf-8?B?NFJDMEtGaVpJOGkvVGdQcTVxQTVkb0owckk3Sk0xRzBMR1owelNkN0dPSXMv?=
+ =?utf-8?B?S21YZE1YTjlpTWpnM1phWDloQnJueGtxV0M1cVNNVFd1MFdRenNEcFVtTCtr?=
+ =?utf-8?B?WGhkR1JnNUlKWWNnNlFiWkNyNjlZTWhXTTJHTDRTMzVQek1hQThseTFwOFFm?=
+ =?utf-8?B?RjJ1UERRbUhSM2VuckV1UUU0eHNNUXBIeklpSmtMbXlCd2xYSXRlbzFLcGFQ?=
+ =?utf-8?B?RkU4MTFvQjFOaVh3RDI4amllcmZnVDVoS1BWZE9LUzQwZzJiNkN1dkNOU1du?=
+ =?utf-8?Q?bYlQv6f93bZe7IvZXXjfgpOjm?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98b9e487-f8fa-4488-56f5-08db34f7c2c9
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Apr 2023 10:31:33.4765
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XJO4R/GTiOt8Qw9jsVRL5bbQeiVFCrBy9TfaLmwX6/hVsqsTKTaDBuKNuQofuGaNIDxIzzzwOAtCrDb33jdhJA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8788
 
-flight 180131 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180131/
+On 04.04.2023 12:12, Roger Pau Monné wrote:
+> On Wed, Feb 15, 2023 at 03:54:11PM +0100, Jan Beulich wrote:
+>> While the PAE-extended-CR3 VM assist is a 32-bit only concept, it still
+>> applies to guests also when run on a 64-bit hypervisor: The "extended
+>> CR3" format has to be used there as well, to fit the address in the only
+>> 32-bit wide register there. As a result it was a mistake that the check
+>> was never enabled for that case, and was then mistakenly deleted in the
+>> course of removal of 32-bit-Xen code (218adf199e68 ["x86: We can assume
+>> CONFIG_PAGING_LEVELS==4"]).
+>>
+>> Similarly during Dom0 construction kernel awareness needs to be taken
+>> into account, and respective code was again mistakenly never enabled for
+>> 32-bit Dom0 when running on 64-bit Xen (and thus wrongly deleted by
+>> 5d1181a5ea5e ["xen: Remove x86_32 build target"]).
+>>
+>> At the same time restrict enabling of the assist for Dom0 to just the
+>> 32-bit case. Furthermore there's no need for an atomic update there.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> I was uncertain whether to add a check to the CR3 guest read path,
+>> raising e.g. #GP(0) when the value read wouldn't fit but also may not
+>> be converted to "extended" format (overflow is possible there in
+>> principle because of the control tools "slack" in promote_l3_table()).
+>>
+>> In that context I was puzzled to find no check on the CR3 guest write
+>> path even in 4.2: A guest (bogusly) setting the PCD or PWT bits (or any
+>> of the low reserved ones) could observe anomalous behavior rather than
+>> plain failure.
+>>
+>> As to a Fixes: tag - it's pretty unclear which of the many original
+>> 32-on-64 changes to blame. I don't think the two cited commits should
+>> be referenced there, as they didn't break anything that wasn't already
+>> broken.
+>>
+>> --- a/xen/arch/x86/mm.c
+>> +++ b/xen/arch/x86/mm.c
+>> @@ -1520,6 +1520,23 @@ static int promote_l3_table(struct page_
+>>      unsigned int   partial_flags = page->partial_flags;
+>>      l3_pgentry_t   l3e = l3e_empty();
+>>  
+>> +    /*
+>> +     * PAE pgdirs above 4GB are unacceptable if a 32-bit guest does not
+>> +     * understand the weird 'extended cr3' format for dealing with high-order
+>> +     * address bits. We cut some slack for control tools (before vcpu0 is
+>> +     * initialised).
+> 
+> Don't we then need some check in the vCPU init path to assure that the
+> cr3 is < 32bits if we allow those to initially be set?
+> 
+> Or will the initialization unconditionally overwrite any previous cr3
+> value?
 
-Regressions :-(
+That's not the way I understand this "cut some slack". Instead I read it
+to be meant to cover for the VM-assist bit not being set, yet. Beyond
+that it is assumed to be tool stack's responsibility to constrain
+addresses suitably. If it doesn't, it'll simply break the guest. (There
+is some guessing on my part involved here, as the original introduction
+of that code didn't further explain things.)
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-pvops             6 kernel-build   fail in 180130 REGR. vs. 180116
+Nevertheless going beyond what was there originally might be desirable.
+Yet it's not really clear to me when / how to carry out such further
+checking. For example I don't fancy walking all of the domain's pages
+when it's about to be unpaused for the first time.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-freebsd12-amd64 17 guest-localmigrate fail in 180130 pass in 180131
- test-amd64-amd64-libvirt-qcow2 19 guest-start/debian.repeat fail in 180130 pass in 180131
- test-amd64-amd64-xl-pvshim   22 guest-start/debian.repeat  fail pass in 180130
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-credit2   1 build-check(1)           blocked in 180130 n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)           blocked in 180130 n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)           blocked in 180130 n/a
- test-arm64-arm64-xl-credit1   1 build-check(1)           blocked in 180130 n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)           blocked in 180130 n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)           blocked in 180130 n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)           blocked in 180130 n/a
- test-arm64-arm64-examine      1 build-check(1)           blocked in 180130 n/a
- test-arm64-arm64-xl           1 build-check(1)           blocked in 180130 n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180116
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180116
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180116
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180116
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180116
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-examine      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
- build-armhf-libvirt           1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
-
-version targeted for testing:
- linux                148341f0a2f53b5e8808d093333d85170586a15d
-baseline version:
- linux                7e364e56293bb98cae1b55fd835f5991c4e96e7d
-
-Last test of basis   180116  2023-04-03 02:26:51 Z    1 days
-Testing same since   180130  2023-04-03 17:12:08 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Christian Brauner <brauner@kernel.org>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Michael Kelley <mikelley@microsoft.com>
-  Mohammed Gamal <mgamal@redhat.com>
-  Wei Liu <wei.liu@kernel.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  starved 
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          starved 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          starved 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  starved 
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  starved 
- test-armhf-armhf-xl-cubietruck                               starved 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     starved 
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     starved 
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                starved 
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               starved 
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 starved 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     starved 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      starved 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 148341f0a2f53b5e8808d093333d85170586a15d
-Merge: 2d72ab2449fa cb2239c198ad
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Mon Apr 3 09:41:24 2023 -0700
-
-    Merge tag 'vfs.misc.fixes.v6.3-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/vfs/idmapping
-    
-    Pull vfs fix from Christian Brauner:
-     "When a mount or mount tree is made shared the vfs allocates new peer
-      group ids for all mounts that have no peer group id set. Only mounts
-      that aren't marked with MNT_SHARED are relevant here as MNT_SHARED
-      indicates that the mount has fully transitioned to a shared mount. The
-      peer group id handling is done with namespace lock held.
-    
-      On failure, the peer group id settings of mounts for which a new peer
-      group id was allocated need to be reverted and the allocated peer
-      group id freed. The cleanup_group_ids() helper can identify the mounts
-      to cleanup by checking whether a given mount has a peer group id set
-      but isn't marked MNT_SHARED. The deallocation always needs to happen
-      with namespace lock held to protect against concurrent modifications
-      of the propagation settings.
-    
-      This fixes the one place where the namespace lock was dropped before
-      calling cleanup_group_ids()"
-    
-    * tag 'vfs.misc.fixes.v6.3-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/vfs/idmapping:
-      fs: drop peer group ids under namespace lock
-
-commit 2d72ab2449fa9fce8f6898fd5adda10497f7c111
-Merge: 7e364e56293b f8acb24aaf89
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Mon Apr 3 09:34:08 2023 -0700
-
-    Merge tag 'hyperv-fixes-signed-20230402' of git://git.kernel.org/pub/scm/linux/kernel/git/hyperv/linux
-    
-    Pull hyperv fixes from Wei Liu:
-    
-     - Fix a bug in channel allocation for VMbus (Mohammed Gamal)
-    
-     - Do not allow root partition functionality in CVM (Michael Kelley)
-    
-    * tag 'hyperv-fixes-signed-20230402' of git://git.kernel.org/pub/scm/linux/kernel/git/hyperv/linux:
-      x86/hyperv: Block root partition functionality in a Confidential VM
-      Drivers: vmbus: Check for channel allocation before looking up relids
-
-commit cb2239c198ad9fbd5aced22cf93e45562da781eb
-Author: Christian Brauner <brauner@kernel.org>
-Date:   Thu Mar 30 09:13:16 2023 +0200
-
-    fs: drop peer group ids under namespace lock
-    
-    When cleaning up peer group ids in the failure path we need to make sure
-    to hold on to the namespace lock. Otherwise another thread might just
-    turn the mount from a shared into a non-shared mount concurrently.
-    
-    Link: https://lore.kernel.org/lkml/00000000000088694505f8132d77@google.com
-    Fixes: 2a1867219c7b ("fs: add mount_setattr()")
-    Reported-by: syzbot+8ac3859139c685c4f597@syzkaller.appspotmail.com
-    Cc: stable@vger.kernel.org # 5.12+
-    Message-Id: <20230330-vfs-mount_setattr-propagation-fix-v1-1-37548d91533b@kernel.org>
-    Signed-off-by: Christian Brauner <brauner@kernel.org>
-
-commit f8acb24aaf89fc46cd953229462ea8abe31b395f
-Author: Michael Kelley <mikelley@microsoft.com>
-Date:   Wed Mar 15 08:34:13 2023 -0700
-
-    x86/hyperv: Block root partition functionality in a Confidential VM
-    
-    Hyper-V should never specify a VM that is a Confidential VM and also
-    running in the root partition.  Nonetheless, explicitly block such a
-    combination to guard against a compromised Hyper-V maliciously trying to
-    exploit root partition functionality in a Confidential VM to expose
-    Confidential VM secrets. No known bug is being fixed, but the attack
-    surface for Confidential VMs on Hyper-V is reduced.
-    
-    Signed-off-by: Michael Kelley <mikelley@microsoft.com>
-    Link: https://lore.kernel.org/r/1678894453-95392-1-git-send-email-mikelley@microsoft.com
-    Signed-off-by: Wei Liu <wei.liu@kernel.org>
-
-commit 1eb65c8687316c65140b48fad27133d583178e15
-Author: Mohammed Gamal <mgamal@redhat.com>
-Date:   Fri Feb 17 22:44:11 2023 +0200
-
-    Drivers: vmbus: Check for channel allocation before looking up relids
-    
-    relid2channel() assumes vmbus channel array to be allocated when called.
-    However, in cases such as kdump/kexec, not all relids will be reset by the host.
-    When the second kernel boots and if the guest receives a vmbus interrupt during
-    vmbus driver initialization before vmbus_connect() is called, before it finishes,
-    or if it fails, the vmbus interrupt service routine is called which in turn calls
-    relid2channel() and can cause a null pointer dereference.
-    
-    Print a warning and error out in relid2channel() for a channel id that's invalid
-    in the second kernel.
-    
-    Fixes: 8b6a877c060e ("Drivers: hv: vmbus: Replace the per-CPU channel lists with a global array of channels")
-    
-    Signed-off-by: Mohammed Gamal <mgamal@redhat.com>
-    Reviewed-by: Dexuan Cui <decui@microsoft.com>
-    Link: https://lore.kernel.org/r/20230217204411.212709-1-mgamal@redhat.com
-    Signed-off-by: Wei Liu <wei.liu@kernel.org>
+Jan
 
