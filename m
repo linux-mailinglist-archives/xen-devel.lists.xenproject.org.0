@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60C326D7976
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 12:18:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518393.804900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 310426D7979
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 12:18:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518395.804911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk0Ds-00038r-Kh; Wed, 05 Apr 2023 10:18:36 +0000
+	id 1pk0Dx-0003cT-UW; Wed, 05 Apr 2023 10:18:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518393.804900; Wed, 05 Apr 2023 10:18:36 +0000
+Received: by outflank-mailman (output) from mailman id 518395.804911; Wed, 05 Apr 2023 10:18:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk0Ds-000365-H4; Wed, 05 Apr 2023 10:18:36 +0000
-Received: by outflank-mailman (input) for mailman id 518393;
- Wed, 05 Apr 2023 10:18:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pk0Dx-0003Ym-Qt; Wed, 05 Apr 2023 10:18:41 +0000
+Received: by outflank-mailman (input) for mailman id 518395;
+ Wed, 05 Apr 2023 10:18:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gFET=74=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1pk0Dr-0002Na-Sm
- for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 10:18:35 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3893df93-d39b-11ed-b464-930f4c7d94ae;
- Wed, 05 Apr 2023 12:18:34 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id y14so35677419wrq.4
- for <xen-devel@lists.xenproject.org>; Wed, 05 Apr 2023 03:18:34 -0700 (PDT)
+ id 1pk0Dw-00024X-Nv
+ for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 10:18:40 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3c165dc3-d39b-11ed-85db-49a42c6b2330;
+ Wed, 05 Apr 2023 12:18:40 +0200 (CEST)
+Received: by mail-wm1-x329.google.com with SMTP id
+ m6-20020a05600c3b0600b003ee6e324b19so21676991wms.1
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Apr 2023 03:18:40 -0700 (PDT)
 Received: from localhost.localdomain
  (4ab54-h01-176-184-52-81.dsl.sta.abo.bbox.fr. [176.184.52.81])
  by smtp.gmail.com with ESMTPSA id
- d9-20020adff849000000b002c56af32e8csm14637033wrq.35.2023.04.05.03.18.32
+ l6-20020a1c7906000000b003ee4e99a8f6sm1696262wme.33.2023.04.05.03.18.38
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 05 Apr 2023 03:18:33 -0700 (PDT)
+ Wed, 05 Apr 2023 03:18:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +46,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3893df93-d39b-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 3c165dc3-d39b-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680689914;
+        d=linaro.org; s=google; t=1680689919;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=E6NW9VhhS5fLeVwZeTyWWyTbAHfvPOC/r0zI8X/AYhw=;
-        b=FrtFKE2hFxCwSIOxwL7fJNJgclFtRZYFCKSwPQeumlgt6bklL8ZJLOhaxRanBaGmBN
-         sSSdwoBuo0PWQIPC5aVYpH3V4lrlZrxSnF6ec08aPzNngc+4NCJth/v+YEXjEI5hAYZ7
-         deplHkaFXLIdswcAyfQjoGU7HHGPGzJHJzztDL7n6LAkZeMYnyvPoi+3fXYTgBgP5XWs
-         cPr7wmMyCDh4HsAHrXF/xlBABJq7EFQwNi0Rj4haWnYMHlXIAYY+Lsa8OGwO4Mt6ZR/d
-         e7uyZyaesG4XjKKufoRM2SpXpgdAnFrSp25xtnMkjXzs/M6Ow7DNjd1C6Ovjn8q1Umho
-         74DQ==
+        bh=IGm3E04zIWsYk05zgucyUicl5+3W8OYlCuN37xDTmqU=;
+        b=rTu1tRZPqV4LFx/UoOZi2WLzS6khixq6d/WYxFS7eNNn/OYGeFnv0qc3Qcr02VSKxy
+         rb660oY/fmNu7J89tEYsSKeFFMuIPWe0bwl6jY9zC3o3nLjl9EKCdNxVkCbBuJ6lm5CH
+         gjTz1i3s9XYei/E+itmN9I/+2jlgOY1BBVZJB9fjEYyywfgateusSwusPqpu7NrWhMR0
+         GMl837ggRVzo1kt3Z33apYrhv71R+7WptfZnBSbUKuQc75ogJNF4kCG2j8Ggv1YnBRCy
+         yVn/ZgcJgjoRbF4Cbyz/wswjzVjQZxiYa1fX9y35/BD8s5WDn2b95Nx3tL6XSawRO0qk
+         iJOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680689914;
+        d=1e100.net; s=20210112; t=1680689919;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=E6NW9VhhS5fLeVwZeTyWWyTbAHfvPOC/r0zI8X/AYhw=;
-        b=QlO71eGYcc4/A839ZcUOtT1xhGgo6p6sBc0/SoL0yHAzIMQ2534YlBNBp/v1Tr4fai
-         s3vVURIQcv4z0XHckrG+VVXXPGJ3guwo0ZYGtzdlP/F9OslCrk7a6uBWuLwPH3IFiRca
-         Qmq3DXvB57qGFi/61LUjorru7kUl/50Y/OMz8j8tOf4MJIk8el54lkBT8Rv+aCPNuNu/
-         sXErcQeE+Chm3WRn/e1NHkM6aGfufph5Ci7HvR1BFJAEIp+ApEOifPcEB52ZxOt7NFjP
-         O5KaYAgTE8DzLW/6tkpvcuiZ41x4EPYz59oomc7JclN1ipEOlpkpR83VtMQfuRIHYnGn
-         3O2g==
-X-Gm-Message-State: AAQBX9fEhyJijfAKsl7+kEZRdXE2m0VA9xBYCVwsI0j8AW0RQfIUgtT9
-	OxitiO7hgJWadZg4vPhur9TgRQ==
-X-Google-Smtp-Source: AKy350YkinPPwbt/c64vUzk9lM4SXacH8xjrAIzv8V1BeCK80tQHniLUzIE+5w/+4XbN335yprpGWw==
-X-Received: by 2002:a5d:4d11:0:b0:2ce:9819:1c1e with SMTP id z17-20020a5d4d11000000b002ce98191c1emr3913343wrt.30.1680689913858;
-        Wed, 05 Apr 2023 03:18:33 -0700 (PDT)
+        bh=IGm3E04zIWsYk05zgucyUicl5+3W8OYlCuN37xDTmqU=;
+        b=48W1T2IaEf288nn7yfly3SGwmytE2z05UcIbVEjvOhBS0U/It01nMMQxkNiLXdRXRn
+         X6HieE5DWVJ0ug2s2PqgAK6QzXz1fJarjAqOuj5WOUYf9ASbNMUEuy2NasnmfVTYy0f1
+         42Rs0JXpeMyxtkrixDPuspTI6Ezayv68VfYgUa795y/W9Ahflxs2b5cm963dPvSOEyg+
+         dJqnGZPQNEqOwy/DuzZ8wPCRhQ2CaqCLwKXOySKq23Gft5zhc39k7M3vCLTPVGudiz1l
+         WHVPDzfZzx+AqHEIMZyu/WXi6eFTLEg+3lBIQFJNasK0OOpI7vV6awsti9S99Ud755qy
+         A6Xw==
+X-Gm-Message-State: AAQBX9fG1/zDNeZ119JRmWPGiH/38FJMyANdCrMbAzULANK4oLfjfBOb
+	Xi2X8hwSreW61CXkMm9OSoRWmg==
+X-Google-Smtp-Source: AKy350ZDfAFPi7DjfgX/oekuSK5IMwY5EAU6LrxLx1bImlo8Bj5BMxd5ZdtWz6ZThOU3rdF/7XqStA==
+X-Received: by 2002:a1c:770e:0:b0:3ed:8780:f27b with SMTP id t14-20020a1c770e000000b003ed8780f27bmr4338493wmi.16.1680689919738;
+        Wed, 05 Apr 2023 03:18:39 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
@@ -82,9 +83,9 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	xen-devel@lists.xenproject.org,
 	kvm@vger.kernel.org,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH 03/14] accel: Fix a leak on Windows HAX
-Date: Wed,  5 Apr 2023 12:18:00 +0200
-Message-Id: <20230405101811.76663-4-philmd@linaro.org>
+Subject: [PATCH 04/14] accel: Destroy HAX vCPU threads once done
+Date: Wed,  5 Apr 2023 12:18:01 +0200
+Message-Id: <20230405101811.76663-5-philmd@linaro.org>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20230405101811.76663-1-philmd@linaro.org>
 References: <20230405101811.76663-1-philmd@linaro.org>
@@ -92,28 +93,51 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-hThread is only used on the error path in hax_kick_vcpu_thread().
+When the vCPU thread finished its processing, destroy
+it and signal its destruction to generic vCPU management
+layer.
 
-Fixes: b0cb0a66d6 ("Plumb the HAXM-based hardware acceleration support")
+Add a sanity check for the vCPU accelerator context.
+
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- target/i386/hax/hax-all.c | 3 +++
- 1 file changed, 3 insertions(+)
+ target/i386/hax/hax-accel-ops.c | 3 +++
+ target/i386/hax/hax-all.c       | 1 +
+ 2 files changed, 4 insertions(+)
 
+diff --git a/target/i386/hax/hax-accel-ops.c b/target/i386/hax/hax-accel-ops.c
+index 18114fe34d..0157a628a3 100644
+--- a/target/i386/hax/hax-accel-ops.c
++++ b/target/i386/hax/hax-accel-ops.c
+@@ -53,6 +53,8 @@ static void *hax_cpu_thread_fn(void *arg)
+ 
+         qemu_wait_io_event(cpu);
+     } while (!cpu->unplug || cpu_can_run(cpu));
++    hax_vcpu_destroy(cpu);
++    cpu_thread_signal_destroyed(cpu);
+     rcu_unregister_thread();
+     return NULL;
+ }
+@@ -69,6 +71,7 @@ static void hax_start_vcpu_thread(CPUState *cpu)
+              cpu->cpu_index);
+     qemu_thread_create(cpu->thread, thread_name, hax_cpu_thread_fn,
+                        cpu, QEMU_THREAD_JOINABLE);
++    assert(cpu->hax_vcpu);
+ #ifdef _WIN32
+     cpu->hThread = qemu_thread_get_handle(cpu->thread);
+ #endif
 diff --git a/target/i386/hax/hax-all.c b/target/i386/hax/hax-all.c
-index 3e5992a63b..a2321a1eff 100644
+index a2321a1eff..38a4323a3c 100644
 --- a/target/i386/hax/hax-all.c
 +++ b/target/i386/hax/hax-all.c
-@@ -205,6 +205,9 @@ int hax_vcpu_destroy(CPUState *cpu)
-      */
-     hax_close_fd(vcpu->fd);
-     hax_global.vm->vcpus[vcpu->vcpu_id] = NULL;
-+#ifdef _WIN32
-+    CloseHandle(cpu->hThread);
-+#endif
+@@ -209,6 +209,7 @@ int hax_vcpu_destroy(CPUState *cpu)
+     CloseHandle(cpu->hThread);
+ #endif
      g_free(vcpu);
++    cpu->hax_vcpu = NULL;
      return 0;
  }
+ 
 -- 
 2.38.1
 
