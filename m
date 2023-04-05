@@ -2,44 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F08F6D74FE
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 09:09:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518268.804657 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C698D6D75E6
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 09:53:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518289.804671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjxGP-0008K9-TP; Wed, 05 Apr 2023 07:09:01 +0000
+	id 1pjxw1-0006ob-T2; Wed, 05 Apr 2023 07:52:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518268.804657; Wed, 05 Apr 2023 07:09:01 +0000
+Received: by outflank-mailman (output) from mailman id 518289.804671; Wed, 05 Apr 2023 07:52:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjxGP-0008Dn-Ja; Wed, 05 Apr 2023 07:09:01 +0000
-Received: by outflank-mailman (input) for mailman id 518268;
- Wed, 05 Apr 2023 07:09:00 +0000
+	id 1pjxw1-0006mJ-OW; Wed, 05 Apr 2023 07:52:01 +0000
+Received: by outflank-mailman (input) for mailman id 518289;
+ Wed, 05 Apr 2023 07:52:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5wAG=74=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pjxCd-0002Et-6Z
- for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 07:05:07 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (envelope-from <SRS0=gw2r=74=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pjxw0-0006mB-9h
+ for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 07:52:00 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on0623.outbound.protection.outlook.com
+ [2a01:111:f400:fe1e::623])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30dd4850-d380-11ed-b464-930f4c7d94ae;
- Wed, 05 Apr 2023 09:05:04 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9FAA1201AE;
- Wed,  5 Apr 2023 07:05:04 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6FFED13A31;
- Wed,  5 Apr 2023 07:05:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sUUcGqAdLWQYFAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 05 Apr 2023 07:05:04 +0000
+ id bd524ea5-d386-11ed-b464-930f4c7d94ae;
+ Wed, 05 Apr 2023 09:51:57 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB9PR04MB9940.eurprd04.prod.outlook.com (2603:10a6:10:4c1::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.35; Wed, 5 Apr
+ 2023 07:51:53 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6254.035; Wed, 5 Apr 2023
+ 07:51:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,644 +47,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30dd4850-d380-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1680678304; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WlsEUwLyrbuDwUKcPe0rdVJuR+fsh5G5MKrTkqmSsAU=;
-	b=nuCyErAeaJms2nibOGMxAA1WYVt61sEpsQAOH+dBoxFDz3+jeklDHw4Wp+bbUxdmDyiZmk
-	H4Qi8RYtT+TRz6nGLb0OcbywNqGLor5XSv80LKOmzU/0XzzhiNw6JI52TaFas4p+uqF8EU
-	bpKKxSVcybscwIDkiW4DzfawgVwEszo=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v4 13/13] tools/xenstore: switch quota management to be table based
-Date: Wed,  5 Apr 2023 09:03:49 +0200
-Message-Id: <20230405070349.25293-14-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230405070349.25293-1-jgross@suse.com>
-References: <20230405070349.25293-1-jgross@suse.com>
-MIME-Version: 1.0
+X-Inumbo-ID: bd524ea5-d386-11ed-b464-930f4c7d94ae
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=gS2k3VFRwdUd2gf441Igmw/8E+ASuzlKPyItbkr+TJlI1jGNKyDZMxEff6JJM6sB8XqAkJnDeWcWaCgEIhY39ZSZXNrQ7VIv6BmZz5dqvjIqpmue986YH7JpZIal7qCmSubv0AN/6txgXYovuqCwUJcLziBVHFZ483Ykyhd8A7kQCH1bKkI1pYCNUEsN/rjc9rXD4ZZTg0f5eWsgRhI+u6I0Y8tbjGMCS6SSkm8GPFfxPfsw8tJ2RHIbrrKbycgMeq4MQd9W5hsbsWxotabbntqVO6olMI8I00xMHUFCSzEccElRIwzLwZJScu2yJ+qPo9je/Tc4RFLNY9re6HrQ9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0x0+0wJ8Q4w/H40y6THXQJcjdg6Sf3VzaqPj3AYPlHU=;
+ b=Qp7eM7wHo+9fF0GNesJqiFirLpsjArm97y8NYt9nzab5V0QS1oIyMRFwLz3QdkCEWSEGD63jL4IyHefgEJenNn95d7WeCoEUjNQm39NxIgPdGichGazBhfvHL0MT+PRmc5/CTbZk7c6bItcera0HVpPZwBa2YEzMyINrYcSkWOGv8/RKOFOeZ+UvaLEr8HvNdeQQcUdgckRz9g/m8u4jlg6apYaNsSRNcIFtAFF79WVeNxPaw8lx3s4RElP4ngKmQ2mh+S8rwkNG8dPB7KxNXVTlMtusa0jdcfEUaVh4MOyR5dAR8EIwW36ZnVXxlz0a4uTz8HYCHzO4rtY9ekmgBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0x0+0wJ8Q4w/H40y6THXQJcjdg6Sf3VzaqPj3AYPlHU=;
+ b=sZVXquaSgZ4fiEqIa9EvfqM3WADdNiCNYjprrgujvV4Gt2xWZ5QVGiphbz6zzIluzNDw9afpzfuJCGQZ22xegW0vQsRBuOpARrtxr/2Yc/3S/X3irhbY/J4J1e9ULgf9TPVUB0E6DLjLueYtgkZSJutMEH3hH+itdKIxDMKYIcs4zHPEDyTTj6UkFiZO53bWKMiXy0XbRhU9TYfvWe0E1Q7Qz/S18X6ktv3kFKoV9tqk/qQc8uGhu7Te5AvVfZ1j0hIS3K1CpXo2wQDBahFN9dfJXG7C2xRMumUScOS4Fs5EFWE6511R+vsic8tJQ6Y1v2a+LWdoTLOzBjv1fFDDfQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <400b70cd-d2a9-60ce-0acc-a429f3f5a958@suse.com>
+Date: Wed, 5 Apr 2023 09:51:51 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH 1/9] x86emul: support LKGS
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <c7f748fe-f062-c2fc-4cc4-b2f888633abe@suse.com>
+ <1eb21ece-9d33-d8e1-1c2b-c682dbb1cda1@suse.com>
+ <d8d72cc8-f477-abb1-f6fb-5aa1909b36aa@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <d8d72cc8-f477-abb1-f6fb-5aa1909b36aa@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0122.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB9940:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc273405-6910-4852-3995-08db35aa9f23
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	SIqlHaJ7CCYZnxiN14QlocvY7yqtXYEURDaMX5MnXnup6NTmoZbjtHAukxX12gyi7lpGFWLVV/bGDtRLDj65PotAfLJovJ9w6CSNrl+y6rWs0PPjXdAjVUgLH0hsB6JnsSyzYXeOALYJ/f11ks8QmSni8Js5hmRiux84xO7srlxPU0mClyvfp8G4Juug87I1MtYWk+75HAyFzLbyZz/1D33VBnWqHtW6NAFcvdl6B2ET9XaL+tWuYxWwyTrDzZw/T/UYVCIPwFcrflaREi3jw/0iB49s7gT1gFujqJaGTGiVO27uYkqevhI3/jx1UgGBLJnCGIoeO6H/exVOCB/Ek+M+PpsgGOzCMxZXConIvejOrh3p+kHx+mccohEsOVvNNimfyUXgnBnuYOW2xWBBdW5qYXfRVbnumCoaGE3o5jPRa8kyVAj3fanjTOfjuVmiZmFbEpuLhGfyJaV+QTt3ymvtnB8VQvBktgMJk94oATCGuyezLSeZ6jviM4IFB+WKZmXlpA3GbEEoNBkDKriJuDPRzNqwR6aAubxvByhk8xrRlruaF8yYTGnbfTNtNtj244nUvHjRWFAnNq48WCqBSibyWgeoMIEEYbj7LGqn8e6pavOM1cl/rFtWdBdngxMUEvLZgHRDgo6rI0Qq7Cw/vg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(366004)(136003)(396003)(39860400002)(376002)(451199021)(6486002)(5660300002)(478600001)(36756003)(38100700002)(31696002)(66556008)(66476007)(4326008)(6916009)(8676002)(66946007)(86362001)(41300700001)(316002)(54906003)(8936002)(2616005)(186003)(31686004)(26005)(6512007)(6506007)(2906002)(53546011)(66899021)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S0tsNis3MGlubE1GcDZDdCtXK05adHN3MjlhcWFhTmR0ZWVMQnNrS0hqQ0Jw?=
+ =?utf-8?B?bUFmeE5ZWUxIRGJHRzY5VmRBelpvS0lNMWdYTjFqUW1zdVgxWkNIVzV5OVRa?=
+ =?utf-8?B?d3RWYjhVcFRiN0RWc2hLcU5Ham1QS3ZtTFYrZ25YenlJMmM2TXFBSXl6QU0z?=
+ =?utf-8?B?eTR1azNxZThwVlBzSEpZU1FudTZsSzJybjh4TXBSSkIrc2xIUWZRR1JLTXBu?=
+ =?utf-8?B?bEprRjVGNUJxM0FTY2pYZzFYM3VNRXMvREVOTzBKZG0vamROYldJNGw5N3Vz?=
+ =?utf-8?B?bi8vd0JoWVV0c1BZUVpuanVjRkRJR0N2STBtN25UcTNJcGpJQ0lWVDZPRGlv?=
+ =?utf-8?B?ZEp3a0JhMFVveVdsbDhQRld2cElCL29YdTcyRjNyRWxYNEtjS3ExajVWSVFs?=
+ =?utf-8?B?UnE1djJNVWc5dlJWeU1ibXVsTTM1K05VMVRiYzR6RlAycVhPeERtOW9DSXJO?=
+ =?utf-8?B?SnVESnNWa1VUWGNCK2UyaU5OWS9pMUFhK3JVdXNNa3M3dmVtMk5JZUNWQzhm?=
+ =?utf-8?B?Q0pJdEpHS2ZNNERzZTYrQkxjUXJyV1g2TUVQYlF3cG52U01hQWg0eHhjVDAr?=
+ =?utf-8?B?UFV3Rmp6TnhSMFJsQ25GaVJqRlpYcldUcEFIWVBTVG9tSnI5MytsejBCOUlD?=
+ =?utf-8?B?V1R6OWc5NEVXeVVsN1VqcXBob21DYzU4WEpKbkpGaDc1cHkvRnY3T0FvNHo3?=
+ =?utf-8?B?dFpNQm1rTXRxZFdwOGtyOWJWdml0QW5nYnFhSENSMXhHMlc3RHBKcUUxLytl?=
+ =?utf-8?B?NS9OcEE1KzU5Y2pnREd3RHNwYnFvaUNlejJYNXA4LzdNWWpZUm4wbytnQUl3?=
+ =?utf-8?B?QjhkcEltRDZyZEZ5VkVaNWR1NnRpSEdlMWJEOXpIQkcrc2NMQmlxbFBWUGNp?=
+ =?utf-8?B?a1FUN3VHVTQ0aVpYSVE2T25zMWIzVFBLdnZaRjNTVEppY3hOTG5ESC9uZVJm?=
+ =?utf-8?B?VmZVRWgwY2NHRU1Bem9ldm9qcTJjN1dqcSsyL0tjbGZvNDhaQkttNWdXUFd2?=
+ =?utf-8?B?NElUaXNXbXJROUJkcEJvak5GNFVQcjlaWnBOOHg2cnp3SUNibFhjY3o1UUtV?=
+ =?utf-8?B?Y3hIa25JVTFuMWI0bk9EUjFWckpoZVJzd2pEeHdmcXYvMkZRUWdrQzBrUkdk?=
+ =?utf-8?B?Y01rNWlia2xPVzh1cThQbHQyS0Y3RDdXbEIxa3pPRitkT0FObExLL2tuUU9K?=
+ =?utf-8?B?RUdqTk53R3lzVk1OL2FJT0k5dTQ5RDdmeWdNYldrYXcrcFVaQTNCOUptNVBn?=
+ =?utf-8?B?V1ZTaWNHd2FwTkFyWEJWQ3Z5YlNsN0xoL25yc0xlczF6WDJqSE0rcndDcUZk?=
+ =?utf-8?B?VUozNDIyUHlXUDZaODZmR1Azc1BtREIyRm96SHhPa3l1czdpRHgyRWJVam9w?=
+ =?utf-8?B?UTBFVXN5bTVXUUp5ellQaTczNEFVVTNqNVVmanVtN2owd2RmbUhZTzNEcDVY?=
+ =?utf-8?B?QlhMVGdBSm1UZEN2RTlVa05wWERJMXFtbll4Wllvdy9HNmhuR0hHSXI3VzYw?=
+ =?utf-8?B?Rmk5SndLNk5OQWZUZG1hYlhCemhiZXd0ZnVLM2p5UmxnVXdCOFZQdTYwRjg2?=
+ =?utf-8?B?cXVVclI4Wk16cHd5c1FDM1JnVXZENEw2WExXSlhiL1p2SHV2aFZVb0FyVkUy?=
+ =?utf-8?B?OTBLSjlSYmpBeFRUdVVTOUhrMlN3ZzlwUFdHS2JNM0EzT0pYV29FWlIzamZX?=
+ =?utf-8?B?WXR2dURIenpDNXFwWkE0Qkh2SHE2eStrQlRodW5hVnRmWHd5bmN3SHAyaGhN?=
+ =?utf-8?B?MVBSMFJQVUdDbzI1bTE3Q09sZ1I0bmxKcW5PaThSd0IwVlFVVTVCWmxnUzhZ?=
+ =?utf-8?B?T0JzNWZSdWE4VkdKblVUSkxrSjdPeE1ERCtieFNDOTNNWDN3M29QWjdPZnln?=
+ =?utf-8?B?MTgzdDdzQ3hoWWVjZ0RkRVZjTmwrNUF3N3J0Tk0rVDNub3crb3lrdTJCUGtP?=
+ =?utf-8?B?NHprNjY5SlpaZllqaU1mS1RtNjNkNTFpZVRsRmZYUlgwZWpZQXRuSHNoRHB2?=
+ =?utf-8?B?RnlrZVRKbnlqSlQrcXd5Mk05WEFrdTZhZ1M0ZkxQa0JKWVRnYTExdzA1UGpP?=
+ =?utf-8?B?T0ZBVzFUTER1SlFodm9TOFg1aGt6d09rMlU0MFJTOGtzamVEbXB0RGFyR1Fm?=
+ =?utf-8?Q?pjxhO3jw48EUhwNDAVEX0BGpy?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc273405-6910-4852-3995-08db35aa9f23
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2023 07:51:53.5830
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L+3YYYCOWQuonUCVN25+m4p0YeBxlD/vtv9Nf6wleOUKspmXxu3S+0mymrqAIIxuJQAWCxwX16NvvCaJzLx5AQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9940
 
-Instead of having individual quota variables switch to a table based
-approach like the generic accounting. Include all the related data in
-the same table and add accessor functions.
+On 04.04.2023 23:54, Andrew Cooper wrote:
+> On 04/04/2023 3:49 pm, Jan Beulich wrote:
+>> Provide support for this insn, which is a prereq to FRED. CPUID-wise
+>> introduce both its and FRED's bit at this occasion, thus allowing to
+>> also express the dependency right away.
+>>
+>> While adding a testcase, also add a SWAPGS one. In order to not affect
+>> the behavior of pre-existing tests, install write_{segment,msr} hooks
+>> only transiently.
+> 
+> IMO, the emulator is already complicated enough without us having
+> fallback logic to cope with callers that don't set up all the hooks.
+> 
+> Nor do I think making these hooks transient in the test harness is a
+> clever idea.
 
-This enables to use the command line --quota parameter for setting all
-possible quota values, keeping the previous parameters for
-compatibility.
+Are you suggesting we start to _require_ all hooks to be set? That'll
+mean many useless stubs in particular in PV emulation. Furthermore
+absent hooks sometimes cause default behavior to apply rather than
+outright failure, so altering what hooks are present can affect
+overall behavior. Hence the transient establishing of the two hooks
+here.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- new patch
-One further remark: it would be rather easy to add soft-quota for all
-the other quotas (similar to the memory one). This could be used as
-an early warning for the need to raise global quota.
----
- tools/xenstore/xenstored_control.c     |  43 ++------
- tools/xenstore/xenstored_core.c        |  85 ++++++++--------
- tools/xenstore/xenstored_core.h        |  10 --
- tools/xenstore/xenstored_domain.c      | 132 +++++++++++++++++--------
- tools/xenstore/xenstored_domain.h      |  12 ++-
- tools/xenstore/xenstored_transaction.c |   5 +-
- tools/xenstore/xenstored_watch.c       |   2 +-
- 7 files changed, 155 insertions(+), 134 deletions(-)
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Instead of ->read_segment() we could of course also use ->read_msr() to
+>> fetch the original GS base. I don't think I can see a clear advantage of
+>> either approach; the way it's done it matches how we handle SWAPGS.
+> 
+> read_segment() is a much shorter logic chain under the hood, so will be
+> marginally faster, but it will be a couple of unnecessary VMREADs (on
+> Intel at least).
 
-diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
-index a2ba64a15c..75f51a80db 100644
---- a/tools/xenstore/xenstored_control.c
-+++ b/tools/xenstore/xenstored_control.c
-@@ -221,35 +221,6 @@ static int do_control_log(const void *ctx, struct connection *conn,
- 	return 0;
- }
- 
--struct quota {
--	const char *name;
--	int *quota;
--	const char *descr;
--};
--
--static const struct quota hard_quotas[] = {
--	{ "nodes", &quota_nb_entry_per_domain, "Nodes per domain" },
--	{ "watches", &quota_nb_watch_per_domain, "Watches per domain" },
--	{ "transactions", &quota_max_transaction, "Transactions per domain" },
--	{ "outstanding", &quota_req_outstanding,
--		"Outstanding requests per domain" },
--	{ "transaction-nodes", &quota_trans_nodes,
--		"Max. number of accessed nodes per transaction" },
--	{ "memory", &quota_memory_per_domain_hard,
--		"Total Xenstore memory per domain (error level)" },
--	{ "node-size", &quota_max_entry_size, "Max. size of a node" },
--	{ "path-max", &quota_max_path_len, "Max. length of a node path" },
--	{ "permissions", &quota_nb_perms_per_node,
--		"Max. number of permissions per node" },
--	{ NULL, NULL, NULL }
--};
--
--static const struct quota soft_quotas[] = {
--	{ "memory", &quota_memory_per_domain_soft,
--		"Total Xenstore memory per domain (warning level)" },
--	{ NULL, NULL, NULL }
--};
--
- static int quota_show_current(const void *ctx, struct connection *conn,
- 			      const struct quota *quotas)
- {
-@@ -260,9 +231,11 @@ static int quota_show_current(const void *ctx, struct connection *conn,
- 	if (!resp)
- 		return ENOMEM;
- 
--	for (i = 0; quotas[i].quota; i++) {
-+	for (i = 0; i < ACC_N; i++) {
-+		if (!quotas[i].name)
-+			continue;
- 		resp = talloc_asprintf_append(resp, "%-17s: %8d %s\n",
--					      quotas[i].name, *quotas[i].quota,
-+					      quotas[i].name, quotas[i].val,
- 					      quotas[i].descr);
- 		if (!resp)
- 			return ENOMEM;
-@@ -274,7 +247,7 @@ static int quota_show_current(const void *ctx, struct connection *conn,
- }
- 
- static int quota_set(const void *ctx, struct connection *conn,
--		     char **vec, int num, const struct quota *quotas)
-+		     char **vec, int num, struct quota *quotas)
- {
- 	unsigned int i;
- 	int val;
-@@ -286,9 +259,9 @@ static int quota_set(const void *ctx, struct connection *conn,
- 	if (val < 1)
- 		return EINVAL;
- 
--	for (i = 0; quotas[i].quota; i++) {
--		if (!strcmp(vec[0], quotas[i].name)) {
--			*quotas[i].quota = val;
-+	for (i = 0; i < ACC_N; i++) {
-+		if (quotas[i].name && !strcmp(vec[0], quotas[i].name)) {
-+			quotas[i].val = val;
- 			send_ack(conn, XS_CONTROL);
- 			return 0;
- 		}
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 65df2866bf..6e2fc06840 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -89,17 +89,6 @@ unsigned int trace_flags = TRACE_OBJ | TRACE_IO;
- 
- static const char *sockmsg_string(enum xsd_sockmsg_type type);
- 
--int quota_nb_entry_per_domain = 1000;
--int quota_nb_watch_per_domain = 128;
--int quota_max_entry_size = 2048; /* 2K */
--int quota_max_transaction = 10;
--int quota_nb_perms_per_node = 5;
--int quota_trans_nodes = 1024;
--int quota_max_path_len = XENSTORE_REL_PATH_MAX;
--int quota_req_outstanding = 20;
--int quota_memory_per_domain_soft = 2 * 1024 * 1024; /* 2 MB */
--int quota_memory_per_domain_hard = 2 * 1024 * 1024 + 512 * 1024; /* 2.5 MB */
--
- unsigned int timeout_watch_event_msec = 20000;
- 
- void trace(const char *fmt, ...)
-@@ -799,7 +788,7 @@ int write_node_raw(struct connection *conn, TDB_DATA *key, struct node *node,
- 		+ node->perms.num * sizeof(node->perms.p[0])
- 		+ node->datalen + node->childlen;
- 
--	if (domain_max_chk(conn, ACC_NODESZ, data.dsize, quota_max_entry_size)
-+	if (domain_max_chk(conn, ACC_NODESZ, data.dsize)
- 	    && !no_quota_check) {
- 		errno = ENOSPC;
- 		return errno;
-@@ -1188,8 +1177,7 @@ bool is_valid_nodename(const struct connection *conn, const char *node)
- 	if (sscanf(node, "/local/domain/%5u/%n", &domid, &local_off) != 1)
- 		local_off = 0;
- 
--	if (domain_max_chk(conn, ACC_PATHLEN, strlen(node) - local_off,
--			   quota_max_path_len))
-+	if (domain_max_chk(conn, ACC_PATHLEN, strlen(node) - local_off))
- 		return false;
- 
- 	return valid_chars(node);
-@@ -1501,7 +1489,7 @@ static struct node *create_node(struct connection *conn, const void *ctx,
- 	for (i = node; i; i = i->parent) {
- 		/* i->parent is set for each new node, so check quota. */
- 		if (i->parent &&
--		    domain_nbentry(conn) >= quota_nb_entry_per_domain) {
-+		    domain_nbentry(conn) >= hard_quotas[ACC_NODES].val) {
- 			ret = ENOSPC;
- 			goto err;
- 		}
-@@ -1776,7 +1764,7 @@ static int do_set_perms(const void *ctx, struct connection *conn,
- 		return EINVAL;
- 
- 	perms.num--;
--	if (domain_max_chk(conn, ACC_NPERM, perms.num, quota_nb_perms_per_node))
-+	if (domain_max_chk(conn, ACC_NPERM, perms.num))
- 		return ENOSPC;
- 
- 	permstr = in->buffer + strlen(in->buffer) + 1;
-@@ -2644,7 +2632,16 @@ static void usage(void)
- "                          memory: total used memory per domain for nodes,\n"
- "                                  transactions, watches and requests, above\n"
- "                                  which Xenstore will stop talking to domain\n"
-+"                          nodes: number nodes owned by a domain\n"
-+"                          node-permissions: number of access permissions per\n"
-+"                                            node\n"
-+"                          node-size: total size of a node (permissions +\n"
-+"                                     children names + content)\n"
- "                          outstanding: number of outstanding requests\n"
-+"                          path-length: length of a node path\n"
-+"                          transactions: number of concurrent transactions\n"
-+"                                        per domain\n"
-+"                          watches: number of watches per domain"
- "  -q, --quota-soft <what>=<nb> set a soft quota <what> to the value <nb>,\n"
- "                          causing a warning to be issued via syslog() if the\n"
- "                          limit is violated, allowed quotas are:\n"
-@@ -2695,12 +2692,12 @@ int dom0_domid = 0;
- int dom0_event = 0;
- int priv_domid = 0;
- 
--static int get_optval_int(const char *arg)
-+static unsigned int get_optval_int(const char *arg)
- {
- 	char *end;
--	long val;
-+	unsigned long val;
- 
--	val = strtol(arg, &end, 10);
-+	val = strtoul(arg, &end, 10);
- 	if (!*arg || *end || val < 0 || val > INT_MAX)
- 		barf("invalid parameter value \"%s\"\n", arg);
- 
-@@ -2709,15 +2706,19 @@ static int get_optval_int(const char *arg)
- 
- static bool what_matches(const char *arg, const char *what)
- {
--	unsigned int what_len = strlen(what);
-+	unsigned int what_len;
-+
-+	if (!what)
-+		false;
- 
-+	what_len = strlen(what);
- 	return !strncmp(arg, what, what_len) && arg[what_len] == '=';
- }
- 
- static void set_timeout(const char *arg)
- {
- 	const char *eq = strchr(arg, '=');
--	int val;
-+	unsigned int val;
- 
- 	if (!eq)
- 		barf("quotas must be specified via <what>=<seconds>\n");
-@@ -2731,22 +2732,22 @@ static void set_timeout(const char *arg)
- static void set_quota(const char *arg, bool soft)
- {
- 	const char *eq = strchr(arg, '=');
--	int val;
-+	struct quota *q = soft ? soft_quotas : hard_quotas;
-+	unsigned int val;
-+	unsigned int i;
- 
- 	if (!eq)
- 		barf("quotas must be specified via <what>=<nb>\n");
- 	val = get_optval_int(eq + 1);
--	if (what_matches(arg, "outstanding") && !soft)
--		quota_req_outstanding = val;
--	else if (what_matches(arg, "transaction-nodes") && !soft)
--		quota_trans_nodes = val;
--	else if (what_matches(arg, "memory")) {
--		if (soft)
--			quota_memory_per_domain_soft = val;
--		else
--			quota_memory_per_domain_hard = val;
--	} else
--		barf("unknown quota \"%s\"\n", arg);
-+
-+	for (i = 0; i < ACC_N; i++) {
-+		if (what_matches(arg, q[i].name)) {
-+			q[i].val = val;
-+			return;
-+		}
-+	}
-+
-+	barf("unknown quota \"%s\"\n", arg);
- }
- 
- /* Sorted by bit values of TRACE_* flags. Flag is (1u << index). */
-@@ -2808,7 +2809,7 @@ int main(int argc, char *argv[])
- 			no_domain_init = true;
- 			break;
- 		case 'E':
--			quota_nb_entry_per_domain = strtol(optarg, NULL, 10);
-+			hard_quotas[ACC_NODES].val = strtoul(optarg, NULL, 10);
- 			break;
- 		case 'F':
- 			pidfile = optarg;
-@@ -2826,10 +2827,10 @@ int main(int argc, char *argv[])
- 			recovery = false;
- 			break;
- 		case 'S':
--			quota_max_entry_size = strtol(optarg, NULL, 10);
-+			hard_quotas[ACC_NODESZ].val = strtoul(optarg, NULL, 10);
- 			break;
- 		case 't':
--			quota_max_transaction = strtol(optarg, NULL, 10);
-+			hard_quotas[ACC_TRANS].val = strtoul(optarg, NULL, 10);
- 			break;
- 		case 'T':
- 			tracefile = optarg;
-@@ -2849,15 +2850,17 @@ int main(int argc, char *argv[])
- 			verbose = true;
- 			break;
- 		case 'W':
--			quota_nb_watch_per_domain = strtol(optarg, NULL, 10);
-+			hard_quotas[ACC_WATCH].val = strtoul(optarg, NULL, 10);
- 			break;
- 		case 'A':
--			quota_nb_perms_per_node = strtol(optarg, NULL, 10);
-+			hard_quotas[ACC_NPERM].val = strtoul(optarg, NULL, 10);
- 			break;
- 		case 'M':
--			quota_max_path_len = strtol(optarg, NULL, 10);
--			quota_max_path_len = min(XENSTORE_REL_PATH_MAX,
--						 quota_max_path_len);
-+			hard_quotas[ACC_PATHLEN].val =
-+				strtoul(optarg, NULL, 10);
-+			hard_quotas[ACC_PATHLEN].val =
-+				 min((unsigned int)XENSTORE_REL_PATH_MAX,
-+				     hard_quotas[ACC_PATHLEN].val);
- 			break;
- 		case 'Q':
- 			set_quota(optarg, false);
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index 9339820156..92d5b50f3c 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -316,16 +316,6 @@ extern TDB_CONTEXT *tdb_ctx;
- extern int dom0_domid;
- extern int dom0_event;
- extern int priv_domid;
--extern int quota_nb_watch_per_domain;
--extern int quota_max_transaction;
--extern int quota_max_entry_size;
--extern int quota_nb_perms_per_node;
--extern int quota_max_path_len;
--extern int quota_nb_entry_per_domain;
--extern int quota_req_outstanding;
--extern int quota_trans_nodes;
--extern int quota_memory_per_domain_soft;
--extern int quota_memory_per_domain_hard;
- extern bool keep_orphans;
- 
- extern unsigned int timeout_watch_event_msec;
-diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 49e2c5c82a..9f6b17cca3 100644
---- a/tools/xenstore/xenstored_domain.c
-+++ b/tools/xenstore/xenstored_domain.c
-@@ -43,7 +43,61 @@ static evtchn_port_t virq_port;
- 
- xenevtchn_handle *xce_handle = NULL;
- 
--static unsigned int acc_global_max[ACC_N];
-+struct quota hard_quotas[ACC_N] = {
-+	[ACC_NODES] = {
-+		.name = "nodes",
-+		.descr = "Nodes per domain",
-+		.val = 1000,
-+	},
-+	[ACC_WATCH] = {
-+		.name = "watches",
-+		.descr = "Watches per domain",
-+		.val = 128,
-+	},
-+	[ACC_OUTST] = {
-+		.name = "outstanding",
-+		.descr = "Outstanding requests per domain",
-+		.val = 20,
-+	},
-+	[ACC_MEM] = {
-+		.name = "memory",
-+		.descr = "Total Xenstore memory per domain (error level)",
-+		.val = 2 * 1024 * 1024 + 512 * 1024,	/* 2.5 MB */
-+	},
-+	[ACC_TRANS] = {
-+		.name = "transactions",
-+		.descr = "Active transactions per domain",
-+		.val = 10,
-+	},
-+	[ACC_TRANSNODES] = {
-+		.name = "transaction-nodes",
-+		.descr = "Max. number of accessed nodes per transaction",
-+		.val = 1024,
-+	},
-+	[ACC_NPERM] = {
-+		.name = "node-permissions",
-+		.descr = "Max. number of permissions per node",
-+		.val = 5,
-+	},
-+	[ACC_PATHLEN] = {
-+		.name = "path-max",
-+		.descr = "Max. length of a node path",
-+		.val = XENSTORE_REL_PATH_MAX,
-+	},
-+	[ACC_NODESZ] = {
-+		.name = "node-size",
-+		.descr = "Max. size of a node",
-+		.val = 2048,
-+	},
-+};
-+
-+struct quota soft_quotas[ACC_N] = {
-+	[ACC_MEM] = {
-+		.name = "memory",
-+		.descr = "Total Xenstore memory per domain (warning level)",
-+		.val = 2 * 1024 * 1024,			/* 2.0 MB */
-+	},
-+};
- 
- struct domain
- {
-@@ -206,10 +260,10 @@ static bool domain_can_read(struct connection *conn)
- 	if (domain_is_unprivileged(conn)) {
- 		if (domain->wrl_credit < 0)
- 			return false;
--		if (domain->acc[ACC_OUTST].val >= quota_req_outstanding)
-+		if (domain->acc[ACC_OUTST].val >= hard_quotas[ACC_OUTST].val)
- 			return false;
--		if (domain->acc[ACC_MEM].val >= quota_memory_per_domain_hard &&
--		    quota_memory_per_domain_hard)
-+		if (domain->acc[ACC_MEM].val >= hard_quotas[ACC_MEM].val &&
-+		    hard_quotas[ACC_MEM].val)
- 			return false;
- 	}
- 
-@@ -424,6 +478,7 @@ int domain_get_quota(const void *ctx, struct connection *conn,
- {
- 	struct domain *d = find_domain_struct(domid);
- 	char *resp;
-+	unsigned int i;
- 
- 	if (!d)
- 		return ENOENT;
-@@ -432,19 +487,15 @@ int domain_get_quota(const void *ctx, struct connection *conn,
- 	if (!resp)
- 		return ENOMEM;
- 
--#define ent(t, e) \
--	resp = talloc_asprintf_append(resp, "%-17s: %8u (max: %8u\n", #t, \
--				      d->acc[e].val, d->acc[e].max); \
--	if (!resp) return ENOMEM
--
--	ent(nodes, ACC_NODES);
--	ent(watches, ACC_WATCH);
--	ent(transactions, ACC_TRANS);
--	ent(outstanding, ACC_OUTST);
--	ent(memory, ACC_MEM);
--	ent(transaction-nodes, ACC_TRANSNODES);
--
--#undef ent
-+	for (i = 0; i < ACC_N; i++) {
-+		if (!hard_quotas[i].name)
-+			continue;
-+		resp = talloc_asprintf_append(resp, "%-17s: %8u (max %8u)\n",
-+					      hard_quotas[i].name,
-+					      d->acc[i].val, d->acc[i].max);
-+		if (!resp)
-+			return ENOMEM;
-+	}
- 
- 	send_reply(conn, XS_CONTROL, resp, strlen(resp) + 1);
- 
-@@ -454,24 +505,21 @@ int domain_get_quota(const void *ctx, struct connection *conn,
- int domain_max_global_acc(const void *ctx, struct connection *conn)
- {
- 	char *resp;
-+	unsigned int i;
- 
- 	resp = talloc_asprintf(ctx, "Max. seen accounting values:\n");
- 	if (!resp)
- 		return ENOMEM;
- 
--#define ent(t, e) \
--	resp = talloc_asprintf_append(resp, "%-17s: %8u\n", #t,   \
--				      acc_global_max[e]);         \
--	if (!resp) return ENOMEM
--
--	ent(nodes, ACC_NODES);
--	ent(watches, ACC_WATCH);
--	ent(transactions, ACC_TRANS);
--	ent(outstanding, ACC_OUTST);
--	ent(memory, ACC_MEM);
--	ent(transaction-nodes, ACC_TRANSNODES);
--
--#undef ent
-+	for (i = 0; i < ACC_N; i++) {
-+		if (!hard_quotas[i].name)
-+			continue;
-+		resp = talloc_asprintf_append(resp, "%-17s: %8u\n",
-+					      hard_quotas[i].name,
-+					      hard_quotas[i].max);
-+		if (!resp)
-+			return ENOMEM;
-+	}
- 
- 	send_reply(conn, XS_CONTROL, resp, strlen(resp) + 1);
- 
-@@ -586,7 +634,7 @@ int acc_fix_domains(struct list_head *head, bool chk_quota, bool update)
- 	list_for_each_entry(cd, head, list) {
- 		cnt = domain_nbentry_fix(cd->domid, cd->acc[ACC_NODES], update);
- 		if (!update) {
--			if (chk_quota && cnt >= quota_nb_entry_per_domain)
-+			if (chk_quota && cnt >= hard_quotas[ACC_NODES].val)
- 				return ENOSPC;
- 			if (cnt < 0)
- 				return ENOMEM;
-@@ -1087,12 +1135,12 @@ static void domain_acc_valid_max(struct domain *d, enum accitem what,
- 				 unsigned int val)
- {
- 	assert(what < ARRAY_SIZE(d->acc));
--	assert(what < ARRAY_SIZE(acc_global_max));
-+	assert(what < ARRAY_SIZE(hard_quotas));
- 
- 	if (val > d->acc[what].max)
- 		d->acc[what].max = val;
--	if (val > acc_global_max[what] && domid_is_unprivileged(d->domid))
--		acc_global_max[what] = val;
-+	if (val > hard_quotas[what].max && domid_is_unprivileged(d->domid))
-+		hard_quotas[what].max = val;
- }
- 
- static int domain_acc_add_valid(struct domain *d, enum accitem what, int add)
-@@ -1224,19 +1272,19 @@ void domain_reset_global_acc(void)
- 	unsigned int i;
- 
- 	for (i = 0; i < ACC_N; i++)
--		acc_global_max[i] = 0;
-+		hard_quotas[i].max = 0;
- 
- 	/* Set current max values seen. */
- 	hashtable_iterate(domhash, domain_reset_global_acc_sub, NULL);
- }
- 
- bool domain_max_chk(const struct connection *conn, enum accitem what,
--		    unsigned int val, unsigned int quota)
-+		    unsigned int val)
- {
- 	if (!conn || !conn->domain)
- 		return false;
- 
--	if (domain_is_unprivileged(conn) && val > quota)
-+	if (domain_is_unprivileged(conn) && val > hard_quotas[what].val)
- 		return true;
- 
- 	domain_acc_valid_max(conn->domain, what, val);
-@@ -1285,8 +1333,7 @@ static bool domain_chk_quota(struct connection *conn, unsigned int mem)
- 	domain = conn->domain;
- 	now = time(NULL);
- 
--	if (mem >= quota_memory_per_domain_hard &&
--	    quota_memory_per_domain_hard) {
-+	if (mem >= hard_quotas[ACC_MEM].val && hard_quotas[ACC_MEM].val) {
- 		if (domain->hard_quota_reported)
- 			return true;
- 		syslog(LOG_ERR, "Domain %u exceeds hard memory quota, Xenstore interface to domain stalled\n",
-@@ -1303,15 +1350,14 @@ static bool domain_chk_quota(struct connection *conn, unsigned int mem)
- 			syslog(LOG_INFO, "Domain %u below hard memory quota again\n",
- 			       domain->domid);
- 		}
--		if (mem >= quota_memory_per_domain_soft &&
--		    quota_memory_per_domain_soft &&
--		    !domain->soft_quota_reported) {
-+		if (mem >= soft_quotas[ACC_MEM].val &&
-+		    soft_quotas[ACC_MEM].val && !domain->soft_quota_reported) {
- 			domain->mem_last_msg = now;
- 			domain->soft_quota_reported = true;
- 			syslog(LOG_WARNING, "Domain %u exceeds soft memory quota\n",
- 			       domain->domid);
- 		}
--		if (mem < quota_memory_per_domain_soft &&
-+		if (mem < soft_quotas[ACC_MEM].val &&
- 		    domain->soft_quota_reported) {
- 			domain->mem_last_msg = now;
- 			domain->soft_quota_reported = false;
-diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
-index 3e17b63659..b9e38abff5 100644
---- a/tools/xenstore/xenstored_domain.h
-+++ b/tools/xenstore/xenstored_domain.h
-@@ -39,6 +39,16 @@ enum accitem {
- 	ACC_N,			/* Number of elements per domain. */
- };
- 
-+struct quota {
-+	const char *name;
-+	const char *descr;
-+	unsigned int val;
-+	unsigned int max;
-+};
-+
-+extern struct quota hard_quotas[ACC_N];
-+extern struct quota soft_quotas[ACC_N];
-+
- void handle_event(void);
- 
- void check_domains(void);
-@@ -133,7 +143,7 @@ void acc_commit(struct connection *conn);
- int domain_max_global_acc(const void *ctx, struct connection *conn);
- void domain_reset_global_acc(void);
- bool domain_max_chk(const struct connection *conn, unsigned int what,
--		    unsigned int val, unsigned int quota);
-+		    unsigned int val);
- 
- /* Write rate limiting */
- 
-diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
-index 0b256f9b18..e8968d7a1d 100644
---- a/tools/xenstore/xenstored_transaction.c
-+++ b/tools/xenstore/xenstored_transaction.c
-@@ -252,8 +252,7 @@ int access_node(struct connection *conn, struct node *node,
- 
- 	i = find_accessed_node(trans, node->name);
- 	if (!i) {
--		if (domain_max_chk(conn, ACC_TRANSNODES, trans->nodes + 1,
--				   quota_trans_nodes)) {
-+		if (domain_max_chk(conn, ACC_TRANSNODES, trans->nodes + 1)) {
- 			ret = ENOSPC;
- 			goto err;
- 		}
-@@ -479,7 +478,7 @@ int do_transaction_start(const void *ctx, struct connection *conn,
- 	if (conn->transaction)
- 		return EBUSY;
- 
--	if (domain_transaction_get(conn) > quota_max_transaction)
-+	if (domain_transaction_get(conn) > hard_quotas[ACC_TRANS].val)
- 		return ENOSPC;
- 
- 	/* Attach transaction to ctx for autofree until it's complete */
-diff --git a/tools/xenstore/xenstored_watch.c b/tools/xenstore/xenstored_watch.c
-index 61b1e3421e..e8eb35de02 100644
---- a/tools/xenstore/xenstored_watch.c
-+++ b/tools/xenstore/xenstored_watch.c
-@@ -239,7 +239,7 @@ int do_watch(const void *ctx, struct connection *conn, struct buffered_data *in)
- 			return EEXIST;
- 	}
- 
--	if (domain_watch(conn) > quota_nb_watch_per_domain)
-+	if (domain_watch(conn) > hard_quotas[ACC_WATCH].val)
- 		return E2BIG;
- 
- 	watch = add_watch(conn, vec[0], vec[1], relative, false);
--- 
-2.35.3
+And this is precisely why I think it's not entirely clear. Anyway,
+the remark is here just in case you (or Roger) thought doing it the
+other way might be better.
 
+> We could expose the get/set reg paths for cases where we know we're not
+> going to need sanity checks, but I'm not sure it's worth it in this case.
+
+Probably not.
+
+>> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+>> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+>> @@ -2886,8 +2886,31 @@ x86_emulate(
+>>                  break;
+>>              }
+>>              break;
+>> -        default:
+>> -            generate_exception_if(true, EXC_UD);
+>> +        case 6: /* lkgs */
+>> +            generate_exception_if((modrm_reg & 1) || vex.pfx != vex_f2, EXC_UD);
+>> +            generate_exception_if(!mode_64bit() || !mode_ring0(), EXC_UD);
+> 
+> Can we switch to X86_* please.  Alternatively, I've got such a patch
+> which I've just rebased over all your emulator changes anyway, if we're
+> happy to fix this in one fell swoop.
+
+Of course, and I've applied this transformation to all the emulator
+patches I have pending (i.e. no need to re-request this elsewhere).
+
+> (Sadly, you did move some TRAP_* names into util-xen.c which I fixed up
+> in my other tree-wide exception constant patch.)
+
+Hmm, yes, I changed EXC_* -> X86_EXC_* but failed to pay attention to
+TRAP_* (because there no build issue arose).
+
+>> +            vcpu_must_have(lkgs);
+>> +            fail_if(!ops->read_segment || !ops->read_msr ||
+>> +                    !ops->write_segment || !ops->write_msr);
+>> +            if ( (rc = ops->read_msr(MSR_SHADOW_GS_BASE, &msr_val,
+>> +                                     ctxt)) != X86EMUL_OKAY ||
+>> +                 (rc = ops->read_segment(x86_seg_gs, &sreg,
+>> +                                         ctxt)) != X86EMUL_OKAY )
+>> +                goto done;
+>> +            dst.orig_val = sreg.base;
+>> +            if ( (rc = protmode_load_seg(x86_seg_gs, src.val, false, &sreg,
+>> +                                         ctxt, ops)) != X86EMUL_OKAY ||
+>> +                 (rc = ops->write_msr(MSR_SHADOW_GS_BASE, sreg.base,
+>> +                                      ctxt)) != X86EMUL_OKAY )
+>> +                goto done;
+>> +            sreg.base = dst.orig_val;
+> 
+> Honestly, I think a comment is needed here, because I'm struggling to
+> work out if this is correct or not.
+> 
+> There is a 64->32 bit truncation of base with LGKS, just as there is
+> with MOV GS.
+> 
+> Which I think does happen as a side effect of protmode_load_seg() only
+> filling in the lower half of sreg.base,
+
+I thought that's obvious, as protmode_load_seg() can't possibly have
+any other behavior. But ...
+
+> but I think it would be nicer to
+> have:
+> 
+> +            dst.orig_val = sreg.base; /* Preserve full GS Base */
+> +            if ( (rc = protmode_load_seg(x86_seg_gs, src.val, false, &sreg,
+> +                                         ctxt, ops)) != X86EMUL_OKAY ||
+> +                 /* Write truncated base into GS_SHADOW */
+> +                 (rc = ops->write_msr(MSR_SHADOW_GS_BASE, sreg.base,
+> +                                      ctxt)) != X86EMUL_OKAY )
+> +                goto done;
+> +            sreg.base = dst.orig_val; /* Reinstate full GS Base */
+> 
+> Or so, because it's weird not to see a (uint32_t) somewhere in this logic.
+
+... sure, I've added comments. I don't think "truncated" is correct,
+as there's no truncation - there's no more than 32 bits we can read
+out of the GDT/LDT. I've used "32-bit" instead.
+
+>> +            if ( (rc = ops->write_segment(x86_seg_gs, &sreg,
+>> +                                          ctxt)) != X86EMUL_OKAY )
+>> +            {
+>> +                /* Best effort unwind (i.e. no error checking). */
+>> +                ops->write_msr(MSR_SHADOW_GS_BASE, msr_val, ctxt);
+> 
+> write_segment() can't fail.  (The sanity checks are actually deferred
+> until after emulation is complete, and I'm not sure if that's behaviour
+> we want...)
+
+Irrespective we shouldn't start omitting error checks. If we truly
+mean write_segment() to always be successful, we should make it
+return "void". Yet I wouldn't view such as a good move.
+
+> However, more importantly, if we actually take this error path (for some
+> future reason) then we've created a security vulnerability in the guest.
+
+You mean in case additionally the write_msr() also fails? In any
+event, ...
+
+> It will be strictly better to crash the domain in this case, than to try
+> and let it continue in this state.
+
+... we don't return OKAY in this case, so in most cases the guest
+will already be crashed, won't it? Otherwise it's not really clear
+to me what action you propose to take to "crash the domain": Right
+here we better wouldn't call domain_crash() (or else we'd need yet
+another #ifdef __XEN__ around it).
+
+Furthermore - what does what you say here mean for the (existing)
+similar code path in SWAPGS handling?
+
+>> --- a/xen/tools/gen-cpuid.py
+>> +++ b/xen/tools/gen-cpuid.py
+>> @@ -295,6 +295,9 @@ def crunch_numbers(state):
+>>  
+>>          # In principle the TSXLDTRK insns could also be considered independent.
+>>          RTM: [TSXLDTRK],
+>> +
+>> +        # FRED builds on the LKGS instruction.
+>> +        LKGS: [FRED],
+> 
+> Hmm...  This is the first case (I think) we've got where a dependency
+> that goes back numerically in terms of feature number.
+> 
+> Obviously we need to support it, but I'm not sure if the deep_deps loop
+> will cope in its current form.
+
+As you know my Python isn't overly good, but looking at the loop
+makes me think it deals with this fine; I can't see an ordering
+dependency. Looking at the generated INIT_DEEP_DEPS appears to
+confirm this - there is an entry for LKGS, and while I haven't
+counted elements, the set bit there looks to be in a plausible
+position. The only thing I'm not entirely certain about is whether
+a further (hypothetical) transitive dependency would also be dealt
+with correctly.
+
+If there was an issue here, I'd really like to leave addressing it
+to you, as your Python is surely much better than mine.
+
+Jan
 
