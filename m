@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFDC06D8157
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 17:15:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518571.805268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BA8D6D817F
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 17:18:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518575.805277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk4qk-0004Ip-2r; Wed, 05 Apr 2023 15:15:02 +0000
+	id 1pk4tp-00050e-IW; Wed, 05 Apr 2023 15:18:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518571.805268; Wed, 05 Apr 2023 15:15:02 +0000
+Received: by outflank-mailman (output) from mailman id 518575.805277; Wed, 05 Apr 2023 15:18:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk4qj-0004FS-W0; Wed, 05 Apr 2023 15:15:01 +0000
-Received: by outflank-mailman (input) for mailman id 518571;
- Wed, 05 Apr 2023 15:15:00 +0000
+	id 1pk4tp-0004xR-FZ; Wed, 05 Apr 2023 15:18:13 +0000
+Received: by outflank-mailman (input) for mailman id 518575;
+ Wed, 05 Apr 2023 15:18:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4lP2=74=citrix.com=prvs=452340087=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pk4qi-0004FH-Dq
- for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 15:15:00 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9f4a7723-d3c4-11ed-b464-930f4c7d94ae;
- Wed, 05 Apr 2023 17:14:57 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gFET=74=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1pk4to-0004wx-1S
+ for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 15:18:12 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 12e2c4e1-d3c5-11ed-b464-930f4c7d94ae;
+ Wed, 05 Apr 2023 17:18:09 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ v14-20020a05600c470e00b003f06520825fso1304728wmo.0
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Apr 2023 08:18:09 -0700 (PDT)
+Received: from [192.168.69.115] (4ab54-h01-176-184-52-81.dsl.sta.abo.bbox.fr.
+ [176.184.52.81]) by smtp.gmail.com with ESMTPSA id
+ i42-20020a05600c4b2a00b003f0321c22basm2461375wmp.12.2023.04.05.08.18.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Apr 2023 08:18:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,166 +45,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f4a7723-d3c4-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1680707697;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=EJ3ev2JBehdWtPeyrAnBZaPmtmxUVr18gM35xQh8XrI=;
-  b=ZWjvMY9iypUv4t4Edm2mCdtYVPyqaAWjY64mOgjepXB9T06ulkeCjym5
-   mjOoChhX3AmkTj/fe7WVhFwrEilCpXiZAq733V7I60elfxptr0tknE+MN
-   TM+sRY8wEhEIQ7VahznJ235p0O0PaIo9Ta3zsTboKqODYJC7bO/JOEQnC
-   g=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 104465613
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:LVFSxqlOxkdm7OGEc2OAvhvo5gxnJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIdX2CHaPqCNGTzetEkOY+28ENS75LSndA3T1Fk+Xg2QyMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE4p7aSaVA8w5ARkPqgX5AKGzRH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- fgpDzsXKTWYvOSrmLS0Dc5WvOJ8Dsa+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglH2dSFYr1SE47I6+WHJwCR60aT3McqTcduPLSlQth/A+
- j6YojqgWXn2MvSkihXd/WKdntTpph3lfaIJOaaEqKVT1Qj7Kms7V0RNCArTTeOComqjUNsZB
- UUS8ScqqbUa/VauCNL6WnWQsHOC+xIRRddUO+k78x2WjLrZ5R6DAWoJRSIHb8Yp3OccSCY2z
- FaPk5XMDCZ2rbyOYXuH8/GfqjbaERcYLCkpZSICZQIf5p/op4Rbpg3LZsZuFuiylNKdMSv32
- DqQqy89gZ0ciMcK0+Ow+lWvqzCjvJ/SVSYu+x7aGGmi62tRbZaofYWy5XDH7PxLK8CSSVzpg
- ZQfs5HAtqZUV8jLzXHTBrxXR9lF+sppLhXYsHlkBd4E7A+r5ialcsd32gtYe2VmZ5NslSDSX
- KPDhe9AzMYNbCP0PPcmPd3Z59cClva5S4m8PhzARp8XO8UqKlfalM17TRTIt10BhnTAhk3W1
- X2zVc+3RUgXBq18pNZdb7dMiOR7rszSKI66eHwa8/hE+eDEDJJtYe1ZWGZil8hghE9+nC3b8
- sxEK+yBwAhFXev1b0H/qNBDdQ5RdiJqXsCn86S7k9JvxSI/QQkc5wL5m+t9K+SJYYwO/gs3w
- p1NchABkweu7ZE2AQ6LdmpieNvSYHqLllpiZXZEFQ/xixAejXOHsP93m20fIeN2q4SODJdcE
- 5E4Ril3Kq8VEGiWoGhAMMKVQU4LXE3DuD9i9hGNOFAXF6OMjSSQkjM4VmMDLBUzMxc=
-IronPort-HdrOrdr: A9a23:1tJHzKj6rj9X9XshvrlI23ODQ3BQXvgji2hC6mlwRA09TyX4rb
- HKoB1/73WYtN9/Yh0dcLy7V5VoOEmskqKdgrNhX4tKPjOHhILAFugL0WKF+VPd8kbFh41gPM
- lbEpSWP+eAaWSS3fyQ3OBhKadb/DBcytHRuQ4C9QYKcei3UdAa0+6mMHfnLqUYLDM2fKYEKA
- ==
-X-IronPort-AV: E=Sophos;i="5.98,321,1673931600"; 
-   d="scan'208";a="104465613"
-Date: Wed, 5 Apr 2023 16:14:45 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
-	<rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>, George Dunlap
-	<george.dunlap@cloud.com>
-Subject: Re: [PATCH v4 10/12] xen/tools: add sve parameter in XL configuration
-Message-ID: <8921a9ca-7284-44ce-8ce5-bc631b0980d6@perard>
-References: <20230327105944.1360856-1-luca.fancellu@arm.com>
- <20230327105944.1360856-11-luca.fancellu@arm.com>
- <9bd2924b-bb4a-440d-ae31-0253e66c56e5@perard>
- <328A9CBD-5FCE-481B-93AF-D139963488D5@arm.com>
+X-Inumbo-ID: 12e2c4e1-d3c5-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1680707889;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=idFXVwnEQw2AeckpahKfXswn5+/Jk4JVx854v+ndXlM=;
+        b=P5FRw1Bg8gByNSRzaVrWUJucc+Ia4IMT8SBajxnMMvSH0nmkPoBKvzzOp8cPpm0043
+         W55c3pCluAC9R0flUGbEbU7/UOi25PsdH6FiniT+JvE7ldpWa3l6uPy/ngUjkHb2R1nI
+         lDct8ip3jjWb9ZROycFg+zRRunyCOZEJtqUtxAV7aEzkeuiimDkDVTD8s1N/T9AVVfcu
+         ZKoBR5zXSIvJZ2JIo/R2+DR5oTvV0/L9XzKUlEb5jX9SCauc267Ovw8quhwNhbHCnBZ1
+         8EWK7u4/h6p/P9crBvmOAbjQYbSrYrxaz/Jn0hJ/1Wx9uKiQKBukAv/SHkV2N833Rknz
+         lSnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680707889;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=idFXVwnEQw2AeckpahKfXswn5+/Jk4JVx854v+ndXlM=;
+        b=dp2/D3O2Z9XxHmDHopLfCTW1NXEJOP3QVxP33zNnk95UAhe9LA6UX9Tj5Vn+/yr2xu
+         /wYG08idl9acv6J7vwH+52a2lt8gFF1PcxrnGncqZ3M6l4S3VgwpiE+MWukMQa8nQGXV
+         tAioX7lpcKr9IPDds7qZOxaoRvFK0ZRxCRGuJ4ysunfugtscXE7/ZxvBCftXDoVR7Say
+         w3IJVtTyrXb45p/ONXyPNzYonf5690mtUiV3nULcaZinknzCfQPYdQHfTk+2oNB3R4a1
+         m18m6mFXAHEroRSvbB9sA77ZjvYaZsMhqMwky6905lSiOxu8IOy9fjVqK77ZUrMiJCLg
+         Uodw==
+X-Gm-Message-State: AAQBX9fJkVekEjq+oAPUgp9albvS0cYku54CDxob6jmI2H+Dwa6aUZlt
+	v6jF6OHKIuDPQcRQ9JNa5C4RwQ==
+X-Google-Smtp-Source: AKy350Z6S5WSad5iHIzjt49TqgYs41yzdYlN/8d2eI12bwZ9Xb+YKGePa0vAg6iMH5JR4Z/F8GyAAQ==
+X-Received: by 2002:a7b:c38b:0:b0:3ed:8bef:6a04 with SMTP id s11-20020a7bc38b000000b003ed8bef6a04mr5244487wmj.27.1680707889387;
+        Wed, 05 Apr 2023 08:18:09 -0700 (PDT)
+Message-ID: <b84ecc42-4201-d714-364a-6a55682cbce7@linaro.org>
+Date: Wed, 5 Apr 2023 17:18:07 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.9.1
+Subject: Re: [PATCH 09/14] accel: Allocate NVMM vCPU using g_try_FOO()
+Content-Language: en-US
+To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
+ Reinoud Zandijk <reinoud@netbsd.org>
+References: <20230405101811.76663-1-philmd@linaro.org>
+ <20230405101811.76663-10-philmd@linaro.org> <874jpul9d1.fsf@linaro.org>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <874jpul9d1.fsf@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <328A9CBD-5FCE-481B-93AF-D139963488D5@arm.com>
 
-On Tue, Apr 04, 2023 at 01:48:34PM +0000, Luca Fancellu wrote:
-> > On 31 Mar 2023, at 15:23, Anthony PERARD <anthony.perard@citrix.com> wrote:
-> > 
-> > On Mon, Mar 27, 2023 at 11:59:42AM +0100, Luca Fancellu wrote:
-> >> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> >> index 10f37990be57..adf48fe8ac1d 100644
-> >> --- a/docs/man/xl.cfg.5.pod.in
-> >> +++ b/docs/man/xl.cfg.5.pod.in
-> >> @@ -2952,6 +2952,17 @@ Currently, only the "sbsa_uart" model is supported for ARM.
-> >> 
-> >> =back
-> >> 
-> >> +=item B<sve="NUMBER">
-> >> +
-> >> +To enable SVE, user must specify a number different from zero, maximum 2048 and
-> >> +multiple of 128. That value will be the maximum number of SVE registers bits
-> >> +that the hypervisor will impose to this guest. If the platform has a lower
-> > 
-> > Maybe start by describing what the "sve" value is before imposing
-> > limits. Maybe something like:
-> > 
-> >    Set the maximum vector length that a guest's Scalable Vector
-> >    Extension (SVE) can use. Or disable it by specifying 0, the default.
-> > 
-> >    Value needs to be a multiple of 128, with a maximum of 2048 or the
-> >    maximum supported by the platform.
-> > 
-> > Would this, or something like that be a good explanation of the "sve"
-> > configuration option?
+On 5/4/23 15:55, Alex Bennée wrote:
 > 
-> Yes I can change it, a need to do it anyway because I think also here, the suggestion
-> From Jan can apply and we could pass a negative value that means “max VL supported
-> by the platform"
-
-Well, it's a config file, not a C ABI, so max allowed here doesn't have to be
-spelled "-1", it could also be "max", "max-allowed",
-"max-size-supported", ... So fill free deviate from the restricted C
-ABI. But "-1" works as long as it's the only allowed negative number.
-
-> > 
-> >> +supported bits value, then the domain creation will fail.
-> >> +A value equal to zero is the default and it means this guest is not allowed to
-> >> +use SVE.
-> >> +
-> >> +=back
-> >> +
-> >> =head3 x86
-> >> 
-> >> =over 4
-> >> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> >> index ddc7b2a15975..16a49031fd51 100644
-> >> --- a/tools/libs/light/libxl_arm.c
-> >> +++ b/tools/libs/light/libxl_arm.c
-> >> @@ -211,6 +211,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-> >>         return ERROR_FAIL;
-> >>     }
-> >> 
-> >> +    config->arch.sve_vl = d_config->b_info.arch_arm.sve;
-> > 
-> > This truncate a 16bit value into an 8bit value, I think you should check
-> > that the value can actually fit.
-> > 
-> > And maybe check `d_config->b_info.arch_arm.sve` value here instead of
-> > `xl` as commented later.
+> Philippe Mathieu-Daudé <philmd@linaro.org> writes:
 > 
-> Yes I can do it, one question, can I use here xc_physinfo to retrieve the maximum
-> Vector length from arch_capabilities?
-> I mean, is there a better way or I can go for that?
+>> g_malloc0() can not fail. Use g_try_malloc0() instead.
+>>
+>> https://developer-old.gnome.org/glib/stable/glib-Memory-Allocation.html#glib-Memory-Allocation.description
+>>
+>> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+>> ---
+>>   target/i386/nvmm/nvmm-all.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/target/i386/nvmm/nvmm-all.c b/target/i386/nvmm/nvmm-all.c
+>> index 3c7bdd560f..45fd318d23 100644
+>> --- a/target/i386/nvmm/nvmm-all.c
+>> +++ b/target/i386/nvmm/nvmm-all.c
+>> @@ -942,7 +942,7 @@ nvmm_init_vcpu(CPUState *cpu)
+>>           }
+>>       }
+>>   
+>> -    qcpu = g_malloc0(sizeof(*qcpu));
+>> +    qcpu = g_try_malloc0(sizeof(*qcpu));
+>>       if (qcpu == NULL) {
+>>           error_report("NVMM: Failed to allocate VCPU context.");
+>>           return -ENOMEM;
+> 
+> Why - if we fail to allocate the vCPU context its game over anyway any
+> established QEMU practice is its ok to assert fail on a malloc when
+> there isn't enough memory. IOW keep the g_malloc0 and remove the error
+> handling case.
 
-Yeah, there might be a "better" way. I think me suggestion to check the
-sve value here was wrong. I still want to have it checked in libxl, but
-it might be better to do that in the previous step, that is
-"libxl__domain_config_setdefault". libxl__arch_domain_build_info_setdefault()
-will have `physinfo` so you won't have to call xc_physinfo().
+This was my first approach but then I realized the author took care
+to warn / return ENOMEM, so I went for _try_; but you are right,
+since this is "game over" let's simply remove the check.
 
-
-Regarding the default, libxl is capable of selecting a good set of
-option, depending on the underling hardware. So is it possible that in
-the future we would want to enable SVE by default? If that's even a
-remote possibility, the current API wouldn't allow it because we have
-"default" and "disable" been the same.
-
-Since we want to add a max VL supported option, maybe we want to
-separate the default and disable options. So we could keep the
-single field `libxl_domain_build_info.arch_arm.sve` and have for example
-"-1" for max-supported and "-2" for disabled, while "0" mean default.
-Or alternatively, add an extra field libxl_defbool (can be
-default/true/false) and keep the second one for VL. (That extra
-"disabled" option would only be for libxl, for xl we can keep "sve=0"
-mean disable, and the missing option just mean default.)
-
-In any case, libxl__arch_domain_build_info_setdefault() will check
-`b_info.arch_arm.sve` and set it to the value that can given to Xen. And
-as of now, libxl__arch_domain_prepare_config() will just copy the value
-from `b_info` to `config`. (I guess that last step _prepare_config()
-could still do the division by 128.)
-
-
-Thanks,
-
--- 
-Anthony PERARD
 
