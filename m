@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BA8D6D817F
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 17:18:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518575.805277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F27026D8289
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 17:49:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518579.805287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk4tp-00050e-IW; Wed, 05 Apr 2023 15:18:13 +0000
+	id 1pk5Na-0000cg-Ni; Wed, 05 Apr 2023 15:48:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518575.805277; Wed, 05 Apr 2023 15:18:13 +0000
+Received: by outflank-mailman (output) from mailman id 518579.805287; Wed, 05 Apr 2023 15:48:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk4tp-0004xR-FZ; Wed, 05 Apr 2023 15:18:13 +0000
-Received: by outflank-mailman (input) for mailman id 518575;
- Wed, 05 Apr 2023 15:18:12 +0000
+	id 1pk5Na-0000a1-Ki; Wed, 05 Apr 2023 15:48:58 +0000
+Received: by outflank-mailman (input) for mailman id 518579;
+ Wed, 05 Apr 2023 15:48:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gFET=74=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1pk4to-0004wx-1S
- for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 15:18:12 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 12e2c4e1-d3c5-11ed-b464-930f4c7d94ae;
- Wed, 05 Apr 2023 17:18:09 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- v14-20020a05600c470e00b003f06520825fso1304728wmo.0
- for <xen-devel@lists.xenproject.org>; Wed, 05 Apr 2023 08:18:09 -0700 (PDT)
-Received: from [192.168.69.115] (4ab54-h01-176-184-52-81.dsl.sta.abo.bbox.fr.
- [176.184.52.81]) by smtp.gmail.com with ESMTPSA id
- i42-20020a05600c4b2a00b003f0321c22basm2461375wmp.12.2023.04.05.08.18.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 05 Apr 2023 08:18:09 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4lP2=74=citrix.com=prvs=452340087=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pk5NZ-0000Zu-Be
+ for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 15:48:57 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c6bc2cc-d3c9-11ed-b464-930f4c7d94ae;
+ Wed, 05 Apr 2023 17:48:54 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +36,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12e2c4e1-d3c5-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680707889;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=idFXVwnEQw2AeckpahKfXswn5+/Jk4JVx854v+ndXlM=;
-        b=P5FRw1Bg8gByNSRzaVrWUJucc+Ia4IMT8SBajxnMMvSH0nmkPoBKvzzOp8cPpm0043
-         W55c3pCluAC9R0flUGbEbU7/UOi25PsdH6FiniT+JvE7ldpWa3l6uPy/ngUjkHb2R1nI
-         lDct8ip3jjWb9ZROycFg+zRRunyCOZEJtqUtxAV7aEzkeuiimDkDVTD8s1N/T9AVVfcu
-         ZKoBR5zXSIvJZ2JIo/R2+DR5oTvV0/L9XzKUlEb5jX9SCauc267Ovw8quhwNhbHCnBZ1
-         8EWK7u4/h6p/P9crBvmOAbjQYbSrYrxaz/Jn0hJ/1Wx9uKiQKBukAv/SHkV2N833Rknz
-         lSnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680707889;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=idFXVwnEQw2AeckpahKfXswn5+/Jk4JVx854v+ndXlM=;
-        b=dp2/D3O2Z9XxHmDHopLfCTW1NXEJOP3QVxP33zNnk95UAhe9LA6UX9Tj5Vn+/yr2xu
-         /wYG08idl9acv6J7vwH+52a2lt8gFF1PcxrnGncqZ3M6l4S3VgwpiE+MWukMQa8nQGXV
-         tAioX7lpcKr9IPDds7qZOxaoRvFK0ZRxCRGuJ4ysunfugtscXE7/ZxvBCftXDoVR7Say
-         w3IJVtTyrXb45p/ONXyPNzYonf5690mtUiV3nULcaZinknzCfQPYdQHfTk+2oNB3R4a1
-         m18m6mFXAHEroRSvbB9sA77ZjvYaZsMhqMwky6905lSiOxu8IOy9fjVqK77ZUrMiJCLg
-         Uodw==
-X-Gm-Message-State: AAQBX9fJkVekEjq+oAPUgp9albvS0cYku54CDxob6jmI2H+Dwa6aUZlt
-	v6jF6OHKIuDPQcRQ9JNa5C4RwQ==
-X-Google-Smtp-Source: AKy350Z6S5WSad5iHIzjt49TqgYs41yzdYlN/8d2eI12bwZ9Xb+YKGePa0vAg6iMH5JR4Z/F8GyAAQ==
-X-Received: by 2002:a7b:c38b:0:b0:3ed:8bef:6a04 with SMTP id s11-20020a7bc38b000000b003ed8bef6a04mr5244487wmj.27.1680707889387;
-        Wed, 05 Apr 2023 08:18:09 -0700 (PDT)
-Message-ID: <b84ecc42-4201-d714-364a-6a55682cbce7@linaro.org>
-Date: Wed, 5 Apr 2023 17:18:07 +0200
+X-Inumbo-ID: 5c6bc2cc-d3c9-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1680709734;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8vWpWya0wN4rZ3x0AJ/glU6yInfi2NjKtrZResNFdMc=;
+  b=WMhKbBk1POGvT8MOwMgTSPHwTIXjzZVTHhmacbMbkORU4dTA4Rfcs3mF
+   l3W3Uq8H0tD9EisJYojgU+CEozK/ZpwSgQ4DzWWQN+MH3NOa8c80nIYcS
+   PfrV1llygfSlljBjxHgB+iW/FX53ajL6PyYnq3I5J6nluHloFN2vuj6ZR
+   s=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 103233005
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:GsIbL6CCPiJTIRVW/yHjw5YqxClBgxIJ4kV8jS/XYbTApGwghGBSz
+ mRMWTjVOazYZmT3KN9xPN6w8UwO6JOEyoJkQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbyRFu8pvlDs15K6p4G9A4wRkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw5+JeKmZu2
+ tokISlVUzCD2eOanrm6Vbw57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2M1N3wsYDUWUrsTIJs4gOevgGi5azBCoUiZjaE2/3LS3Ep6172F3N/9I4TRH54Oxh7Fz
+ o7A1zm6OU8eacOm8zSUrW+iurDFwCnUG6tHQdVU8dY12QbOlwT/EiY+V1G2vP24gU6WQM9EJ
+ gof/S9Ghbg/8gmnQ8fwWzW8oWWYpVgMVtxICeo45QqRjK3O7G6xGWwsXjNHLts8u6ceTCQnz
+ FaTk/v1BDZkt/ueTnf1y1uPhWrsY25PdzZEPHJaC1JfuLEPvb3fkDrSSv9IF46aqOH8AGnN4
+ zDUrQRgjLQM2JtjO7qAwbzXv969jsGXHlZrt12GAD3NAhBRP9D8OdHxgbTPxbMZddvCEAHc1
+ JQRs5LGhN3iG61hg8BkrA8lOLiyr8iIPzTH6bKEN8lwrm/9k5JPkG053d2fGKuKGpxeEdMRS
+ BWP0T69HbcKVJdQUYd5YpiqF+MhxrX6GNLuW5j8N4QeOsYqL1XWp3E/PSZ8OlwBd2B1yMkC1
+ WqzK57wXR7294w8pNZJewvt+eBynX1vrY8ibZv60w6mwdKjWZJhcp9caAHmRrlgvMu5TPD9r
+ 4432z2il08OD4UTo0D/reYuELz9BSNhX8yn8JAKK7Xrz8gPMDhJNsI9CIgJI+RN95m5XM+Sl
+ p1hcie0EGbCuEA=
+IronPort-HdrOrdr: A9a23:ihJHs6Gzj/JunA9MpLqEHseALOsnbusQ8zAXPiBKJCC9vPb5qy
+ nOpoV86faQslwssR4b9uxoVJPvfZqYz+8W3WBzB8bEYOCFghrKEGgK1+KLrwEIWReOk9K1vZ
+ 0KT0EUMqyVMbEVt6fHCAnTKade/DGEmprY+9s3GR1WPHBXg6IL1XYINu6CeHcGPTWvnfACZe
+ ehDswsnUvZRV0nKv6VK1MiROb5q9jChPvdEGI7705O0nj0sduwgoSKaSSl4g==
+X-IronPort-AV: E=Sophos;i="5.98,321,1673931600"; 
+   d="scan'208";a="103233005"
+Date: Wed, 5 Apr 2023 16:48:38 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Roger Pau
+ =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] x86emul/test: drop bogus .PHONY
+Message-ID: <3d0c36f9-a715-4971-9031-04848bcd2d0d@perard>
+References: <515bbf07-91fa-1932-1be1-1411f7814e6e@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.1
-Subject: Re: [PATCH 09/14] accel: Allocate NVMM vCPU using g_try_FOO()
-Content-Language: en-US
-To: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>
-Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
- Reinoud Zandijk <reinoud@netbsd.org>
-References: <20230405101811.76663-1-philmd@linaro.org>
- <20230405101811.76663-10-philmd@linaro.org> <874jpul9d1.fsf@linaro.org>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
-In-Reply-To: <874jpul9d1.fsf@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <515bbf07-91fa-1932-1be1-1411f7814e6e@suse.com>
 
-On 5/4/23 15:55, Alex Bennée wrote:
-> 
-> Philippe Mathieu-Daudé <philmd@linaro.org> writes:
-> 
->> g_malloc0() can not fail. Use g_try_malloc0() instead.
->>
->> https://developer-old.gnome.org/glib/stable/glib-Memory-Allocation.html#glib-Memory-Allocation.description
->>
->> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
->> ---
->>   target/i386/nvmm/nvmm-all.c | 2 +-
->>   1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/target/i386/nvmm/nvmm-all.c b/target/i386/nvmm/nvmm-all.c
->> index 3c7bdd560f..45fd318d23 100644
->> --- a/target/i386/nvmm/nvmm-all.c
->> +++ b/target/i386/nvmm/nvmm-all.c
->> @@ -942,7 +942,7 @@ nvmm_init_vcpu(CPUState *cpu)
->>           }
->>       }
->>   
->> -    qcpu = g_malloc0(sizeof(*qcpu));
->> +    qcpu = g_try_malloc0(sizeof(*qcpu));
->>       if (qcpu == NULL) {
->>           error_report("NVMM: Failed to allocate VCPU context.");
->>           return -ENOMEM;
-> 
-> Why - if we fail to allocate the vCPU context its game over anyway any
-> established QEMU practice is its ok to assert fail on a malloc when
-> there isn't enough memory. IOW keep the g_malloc0 and remove the error
-> handling case.
+On Tue, Apr 04, 2023 at 08:37:55AM +0200, Jan Beulich wrote:
+> x86_emulate is a real (directory) target.
 
-This was my first approach but then I realized the author took care
-to warn / return ENOMEM, so I went for _try_; but you are right,
-since this is "game over" let's simply remove the check.
+Indeed, x86_emulate is a directory, so having the target in .PHONY
+isn't bogus, but kind of expected in most cases.
 
+Here, the recipe is written with .PHONY been used, as suggest the used
+option "-p" from `mkdir` and "-f" from `ln`.
+
+Without .PHONY, the recipe will never be executed if the directory
+exist. And, if the content of the original x86_emulate directory
+change, the linked directory will never be updated.
+
+So, this patch description needs a reason for removing x86_emulate from
+.PHONY. Is there some kind of bug?
+
+> --- a/tools/tests/x86_emulator/Makefile
+> +++ b/tools/tests/x86_emulator/Makefile
+> @@ -278,7 +278,6 @@ else
+>  run32 clean32: %32: %
+>  endif
+>  
+> -.PHONY: x86_emulate
+>  x86_emulate:
+>  	mkdir -p $@
+>  	ln -sf $(XEN_ROOT)/xen/arch/x86/$@/*.[ch] $@/
+
+Cheers,
+
+-- 
+Anthony PERARD
 
