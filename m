@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DBE76D74F7
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 09:04:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518241.804590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A12806D74F9
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 09:04:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518244.804601 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjxC0-0004n8-Ux; Wed, 05 Apr 2023 07:04:28 +0000
+	id 1pjxC6-0005Ip-8p; Wed, 05 Apr 2023 07:04:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518241.804590; Wed, 05 Apr 2023 07:04:28 +0000
+Received: by outflank-mailman (output) from mailman id 518244.804601; Wed, 05 Apr 2023 07:04:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pjxC0-0004l9-SD; Wed, 05 Apr 2023 07:04:28 +0000
-Received: by outflank-mailman (input) for mailman id 518241;
- Wed, 05 Apr 2023 07:04:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pjxC6-0005F8-4q; Wed, 05 Apr 2023 07:04:34 +0000
+Received: by outflank-mailman (input) for mailman id 518244;
+ Wed, 05 Apr 2023 07:04:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=5wAG=74=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pjxBz-0002Et-6Z
- for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 07:04:27 +0000
+ id 1pjxC3-0002UC-Rz
+ for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 07:04:31 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 195505f4-d380-11ed-b464-930f4c7d94ae;
- Wed, 05 Apr 2023 09:04:25 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1cacb26e-d380-11ed-85db-49a42c6b2330;
+ Wed, 05 Apr 2023 09:04:31 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2D16D229ED;
- Wed,  5 Apr 2023 07:04:25 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BCE9D229FF;
+ Wed,  5 Apr 2023 07:04:30 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0042613A31;
- Wed,  5 Apr 2023 07:04:24 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8F10E13A31;
+ Wed,  5 Apr 2023 07:04:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id rYEsOngdLWS3EwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 05 Apr 2023 07:04:24 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id whOiIX4dLWTHEwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 05 Apr 2023 07:04:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,223 +51,297 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 195505f4-d380-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 1cacb26e-d380-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1680678265; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1680678270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KyUsGkw8xvAHU6kBBf8lvAgf5AlXfalzLddBzhYP/rg=;
-	b=hS7Q1J2iA2PuHiGjs8dolF9hQLFzMKmnotf6iaAmoucNaCMbjfrmJqVN10kvlHLumpgt/M
-	ncomGyud1nlnq0qh91uVHCijkS+y45dNDfUPzKrtysap+3mypWr4/sKPFJyz/WwzMvg+RY
-	6XxHAUO7n0xo+N+DCuNtj6ZUlhAq89M=
+	bh=yXnL6y0xe3ujnGIrpffgz9CI+U2tC4w1dZmiNxkMXsw=;
+	b=W7D+JLybanPWNvnVDx6eoSXB/U3WJR6A7WZ9HEE3UUKI5O26jvf9gW0MfxlUvBkM7mydAw
+	llKH5a7EwZZXjTgpPQxN7NF4APfwC9TjembZO5rkzqIuoTkLjxb6ghyYN2iBRTzH/hlIyU
+	os3novb/1onmO6ME64axrSDcIZqN0po=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v4 06/13] tools/xenstore: add current connection to domain_memory_add() parameters
-Date: Wed,  5 Apr 2023 09:03:42 +0200
-Message-Id: <20230405070349.25293-7-jgross@suse.com>
+Subject: [PATCH v4 07/13] tools/xenstore: use accounting data array for per-domain values
+Date: Wed,  5 Apr 2023 09:03:43 +0200
+Message-Id: <20230405070349.25293-8-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230405070349.25293-1-jgross@suse.com>
 References: <20230405070349.25293-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In order to enable switching memory accounting to the generic array
-based accounting, add the current connection to the parameters of
-domain_memory_add().
-
-This requires to add the connection to some other functions, too.
+Add the accounting of per-domain usage of Xenstore memory, watches, and
+outstanding requests to the array based mechanism.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenstore/xenstored_core.c   | 28 ++++++++++++++++------------
- tools/xenstore/xenstored_domain.c |  3 ++-
- tools/xenstore/xenstored_domain.h | 14 +++++++++-----
- tools/xenstore/xenstored_watch.c  | 11 ++++++-----
- 4 files changed, 33 insertions(+), 23 deletions(-)
+ tools/xenstore/xenstored_core.c   |   8 +--
+ tools/xenstore/xenstored_domain.c | 111 +++++++++++-------------------
+ tools/xenstore/xenstored_domain.h |  10 +--
+ 3 files changed, 52 insertions(+), 77 deletions(-)
 
 diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 92a40ccf3f..88ae674523 100644
+index 88ae674523..67aa7c1578 100644
 --- a/tools/xenstore/xenstored_core.c
 +++ b/tools/xenstore/xenstored_core.c
-@@ -246,7 +246,8 @@ static void free_buffered_data(struct buffered_data *out,
- 		}
- 	}
- 
--	domain_memory_add_nochk(conn->id, -out->hdr.msg.len - sizeof(out->hdr));
-+	domain_memory_add_nochk(conn, conn->id,
-+				-out->hdr.msg.len - sizeof(out->hdr));
- 
- 	if (out->hdr.msg.type == XS_WATCH_EVENT) {
- 		req = out->pend.req;
-@@ -631,24 +632,25 @@ int do_tdb_write(struct connection *conn, TDB_DATA *key, TDB_DATA *data,
- 	 * nodes to new owners.
- 	 */
- 	if (old_acc.memory)
--		domain_memory_add_nochk(old_domid,
-+		domain_memory_add_nochk(conn, old_domid,
- 					-old_acc.memory - key->dsize);
--	ret = domain_memory_add(new_domid, data->dsize + key->dsize,
--				no_quota_check);
-+	ret = domain_memory_add(conn, new_domid,
-+				data->dsize + key->dsize, no_quota_check);
- 	if (ret) {
- 		/* Error path, so no quota check. */
- 		if (old_acc.memory)
--			domain_memory_add_nochk(old_domid,
-+			domain_memory_add_nochk(conn, old_domid,
- 						old_acc.memory + key->dsize);
- 		return ret;
- 	}
- 
- 	/* TDB should set errno, but doesn't even set ecode AFAICT. */
- 	if (tdb_store(tdb_ctx, *key, *data, TDB_REPLACE) != 0) {
--		domain_memory_add_nochk(new_domid, -data->dsize - key->dsize);
-+		domain_memory_add_nochk(conn, new_domid,
-+					-data->dsize - key->dsize);
- 		/* Error path, so no quota check. */
- 		if (old_acc.memory)
--			domain_memory_add_nochk(old_domid,
-+			domain_memory_add_nochk(conn, old_domid,
- 						old_acc.memory + key->dsize);
- 		errno = EIO;
- 		return errno;
-@@ -683,7 +685,7 @@ int do_tdb_delete(struct connection *conn, TDB_DATA *key,
- 
- 	if (acc->memory) {
- 		domid = get_acc_domid(conn, key, acc->domid);
--		domain_memory_add_nochk(domid, -acc->memory - key->dsize);
-+		domain_memory_add_nochk(conn, domid, -acc->memory - key->dsize);
- 	}
- 
- 	return 0;
-@@ -1055,11 +1057,13 @@ void send_reply(struct connection *conn, enum xsd_sockmsg_type type,
- 	if (len <= DEFAULT_BUFFER_SIZE) {
- 		bdata->buffer = bdata->default_buffer;
- 		/* Don't check quota, path might be used for returning error. */
--		domain_memory_add_nochk(conn->id, len + sizeof(bdata->hdr));
-+		domain_memory_add_nochk(conn, conn->id,
-+					len + sizeof(bdata->hdr));
- 	} else {
- 		bdata->buffer = talloc_array(bdata, char, len);
- 		if (!bdata->buffer ||
--		    domain_memory_add_chk(conn->id, len + sizeof(bdata->hdr))) {
-+		    domain_memory_add_chk(conn, conn->id,
-+					  len + sizeof(bdata->hdr))) {
- 			send_error(conn, ENOMEM);
- 			return;
- 		}
-@@ -1122,7 +1126,7 @@ void send_event(struct buffered_data *req, struct connection *conn,
- 		}
- 	}
- 
--	if (domain_memory_add_chk(conn->id, len + sizeof(bdata->hdr))) {
-+	if (domain_memory_add_chk(conn, conn->id, len + sizeof(bdata->hdr))) {
- 		talloc_free(bdata);
+@@ -255,7 +255,7 @@ static void free_buffered_data(struct buffered_data *out,
+ 			req->pend.ref.event_cnt--;
+ 			if (!req->pend.ref.event_cnt && !req->on_out_list) {
+ 				if (req->on_ref_list) {
+-					domain_outstanding_domid_dec(
++					domain_outstanding_dec(conn,
+ 						req->pend.ref.domid);
+ 					list_del(&req->list);
+ 				}
+@@ -271,7 +271,7 @@ static void free_buffered_data(struct buffered_data *out,
+ 		out->on_ref_list = true;
  		return;
- 	}
-@@ -3322,7 +3326,7 @@ static void add_buffered_data(struct buffered_data *bdata,
- 	 * be smaller. So ignore it. The limit will be applied for any resource
- 	 * after the state has been fully restored.
- 	 */
--	domain_memory_add_nochk(conn->id, len + sizeof(bdata->hdr));
-+	domain_memory_add_nochk(conn, conn->id, len + sizeof(bdata->hdr));
+ 	} else
+-		domain_outstanding_dec(conn);
++		domain_outstanding_dec(conn, conn->id);
+ 
+ 	talloc_free(out);
+ }
+@@ -1077,7 +1077,7 @@ void send_reply(struct connection *conn, enum xsd_sockmsg_type type,
+ 	/* Queue for later transmission. */
+ 	list_add_tail(&bdata->list, &conn->out_list);
+ 	bdata->on_out_list = true;
+-	domain_outstanding_inc(conn);
++	domain_outstanding_inc(conn, conn->id);
  }
  
- void read_state_buffered_data(const void *ctx, struct connection *conn,
+ /*
+@@ -3320,7 +3320,7 @@ static void add_buffered_data(struct buffered_data *bdata,
+ 	 * request have been delivered.
+ 	 */
+ 	if (bdata->hdr.msg.type != XS_WATCH_EVENT)
+-		domain_outstanding_inc(conn);
++		domain_outstanding_inc(conn, conn->id);
+ 	/*
+ 	 * We are restoring the state after Live-Update and the new quota may
+ 	 * be smaller. So ignore it. The limit will be applied for any resource
 diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 144cbafb73..f94812610a 100644
+index f94812610a..22836ae881 100644
 --- a/tools/xenstore/xenstored_domain.c
 +++ b/tools/xenstore/xenstored_domain.c
-@@ -1235,7 +1235,8 @@ static bool domain_chk_quota(struct domain *domain, int mem)
- 	return false;
+@@ -72,19 +72,12 @@ struct domain
+ 	/* Accounting data for this domain. */
+ 	unsigned int acc[ACC_N];
+ 
+-	/* Amount of memory allocated for this domain. */
+-	int memory;
++	/* Memory quota data for this domain. */
+ 	bool soft_quota_reported;
+ 	bool hard_quota_reported;
+ 	time_t mem_last_msg;
+ #define MEM_WARN_MINTIME_SEC 10
+ 
+-	/* number of watch for this domain */
+-	int nbwatch;
+-
+-	/* Number of outstanding requests. */
+-	int nboutstanding;
+-
+ 	/* write rate limit */
+ 	wrl_creditt wrl_credit; /* [ -wrl_config_writecost, +_dburst ] */
+ 	struct wrl_timestampt wrl_timestamp;
+@@ -202,14 +195,15 @@ static bool domain_can_write(struct connection *conn)
+ 
+ static bool domain_can_read(struct connection *conn)
+ {
+-	struct xenstore_domain_interface *intf = conn->domain->interface;
++	struct domain *domain = conn->domain;
++	struct xenstore_domain_interface *intf = domain->interface;
+ 
+ 	if (domain_is_unprivileged(conn)) {
+-		if (conn->domain->wrl_credit < 0)
++		if (domain->wrl_credit < 0)
+ 			return false;
+-		if (conn->domain->nboutstanding >= quota_req_outstanding)
++		if (domain->acc[ACC_OUTST] >= quota_req_outstanding)
+ 			return false;
+-		if (conn->domain->memory >= quota_memory_per_domain_hard &&
++		if (domain->acc[ACC_MEM] >= quota_memory_per_domain_hard &&
+ 		    quota_memory_per_domain_hard)
+ 			return false;
+ 	}
+@@ -440,10 +434,10 @@ int domain_get_quota(const void *ctx, struct connection *conn,
+ 	if (!resp) return ENOMEM
+ 
+ 	ent(nodes, d->acc[ACC_NODES]);
+-	ent(watches, d->nbwatch);
++	ent(watches, d->acc[ACC_WATCH]);
+ 	ent(transactions, ta);
+-	ent(outstanding, d->nboutstanding);
+-	ent(memory, d->memory);
++	ent(outstanding, d->acc[ACC_OUTST]);
++	ent(memory, d->acc[ACC_MEM]);
+ 
+ #undef ent
+ 
+@@ -1186,14 +1180,16 @@ unsigned int domain_nbentry(struct connection *conn)
+ 	       ? domain_acc_add(conn, conn->id, ACC_NODES, 0, true) : 0;
  }
  
--int domain_memory_add(unsigned int domid, int mem, bool no_quota_check)
-+int domain_memory_add(struct connection *conn, unsigned int domid, int mem,
-+		      bool no_quota_check)
+-static bool domain_chk_quota(struct domain *domain, int mem)
++static bool domain_chk_quota(struct connection *conn, unsigned int mem)
  {
- 	struct domain *domain;
+ 	time_t now;
++	struct domain *domain;
  
+-	if (!domain || !domid_is_unprivileged(domain->domid) ||
+-	    (domain->conn && domain->conn->is_ignored))
++	if (!conn || !domid_is_unprivileged(conn->id) ||
++	    conn->is_ignored)
+ 		return false;
+ 
++	domain = conn->domain;
+ 	now = time(NULL);
+ 
+ 	if (mem >= quota_memory_per_domain_hard &&
+@@ -1238,80 +1234,57 @@ static bool domain_chk_quota(struct domain *domain, int mem)
+ int domain_memory_add(struct connection *conn, unsigned int domid, int mem,
+ 		      bool no_quota_check)
+ {
+-	struct domain *domain;
++	int ret;
+ 
+-	domain = find_domain_struct(domid);
+-	if (domain) {
+-		/*
+-		 * domain_chk_quota() will print warning and also store whether
+-		 * the soft/hard quota has been hit. So check no_quota_check
+-		 * *after*.
+-		 */
+-		if (domain_chk_quota(domain, domain->memory + mem) &&
+-		    !no_quota_check)
+-			return ENOMEM;
+-		domain->memory += mem;
+-	} else {
+-		/*
+-		 * The domain the memory is to be accounted for should always
+-		 * exist, as accounting is done either for a domain related to
+-		 * the current connection, or for the domain owning a node
+-		 * (which is always existing, as the owner of the node is
+-		 * tested to exist and deleted or replaced by domid 0 if not).
+-		 * So not finding the related domain MUST be an error in the
+-		 * data base.
+-		 */
+-		errno = ENOENT;
+-		corrupt(NULL, "Accounting called for non-existing domain %u\n",
+-			domid);
+-		return ENOENT;
+-	}
++	ret = domain_acc_add(conn, domid, ACC_MEM, 0, true);
++	if (ret < 0)
++		return -ret;
++
++	/*
++	 * domain_chk_quota() will print warning and also store whether the
++	 * soft/hard quota has been hit. So check no_quota_check *after*.
++	 */
++	if (domain_chk_quota(conn, ret + mem) && !no_quota_check)
++		return ENOMEM;
++
++	/*
++	 * The domain the memory is to be accounted for should always exist,
++	 * as accounting is done either for a domain related to the current
++	 * connection, or for the domain owning a node (which is always
++	 * existing, as the owner of the node is tested to exist and deleted
++	 * or replaced by domid 0 if not).
++	 * So not finding the related domain MUST be an error in the data base.
++	 */
++	domain_acc_add(conn, domid, ACC_MEM, mem, true);
+ 
+ 	return 0;
+ }
+ 
+ void domain_watch_inc(struct connection *conn)
+ {
+-	if (!conn || !conn->domain)
+-		return;
+-	conn->domain->nbwatch++;
++	domain_acc_add(conn, conn->id, ACC_WATCH, 1, true);
+ }
+ 
+ void domain_watch_dec(struct connection *conn)
+ {
+-	if (!conn || !conn->domain)
+-		return;
+-	if (conn->domain->nbwatch)
+-		conn->domain->nbwatch--;
++	domain_acc_add(conn, conn->id, ACC_WATCH, -1, true);
+ }
+ 
+ int domain_watch(struct connection *conn)
+ {
+ 	return (domain_is_unprivileged(conn))
+-		? conn->domain->nbwatch
++		? domain_acc_add(conn, conn->id, ACC_WATCH, 0, true)
+ 		: 0;
+ }
+ 
+-void domain_outstanding_inc(struct connection *conn)
++void domain_outstanding_inc(struct connection *conn, unsigned int domid)
+ {
+-	if (!conn || !conn->domain)
+-		return;
+-	conn->domain->nboutstanding++;
++	domain_acc_add(conn, domid, ACC_OUTST, 1, true);
+ }
+ 
+-void domain_outstanding_dec(struct connection *conn)
++void domain_outstanding_dec(struct connection *conn, unsigned int domid)
+ {
+-	if (!conn || !conn->domain)
+-		return;
+-	conn->domain->nboutstanding--;
+-}
+-
+-void domain_outstanding_domid_dec(unsigned int domid)
+-{
+-	struct domain *d = find_domain_by_domid(domid);
+-
+-	if (d)
+-		d->nboutstanding--;
++	domain_acc_add(conn, domid, ACC_OUTST, -1, true);
+ }
+ 
+ static wrl_creditt wrl_config_writecost      = WRL_FACTOR;
 diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
-index e669f57b80..5cfd730cf6 100644
+index 5cfd730cf6..0d61bf4344 100644
 --- a/tools/xenstore/xenstored_domain.h
 +++ b/tools/xenstore/xenstored_domain.h
-@@ -80,25 +80,29 @@ int domain_nbentry_inc(struct connection *conn, unsigned int domid);
- int domain_nbentry_dec(struct connection *conn, unsigned int domid);
- int domain_nbentry_fix(unsigned int domid, int num, bool update);
- unsigned int domain_nbentry(struct connection *conn);
--int domain_memory_add(unsigned int domid, int mem, bool no_quota_check);
-+int domain_memory_add(struct connection *conn, unsigned int domid, int mem,
-+		      bool no_quota_check);
+@@ -28,7 +28,10 @@ enum accitem {
+ 	ACC_NODES,
+ 	ACC_REQ_N,		/* Number of elements per request. */
+ 	ACC_TR_N = ACC_REQ_N,	/* Number of elements per transaction. */
+-	ACC_N = ACC_TR_N,	/* Number of elements per domain. */
++	ACC_WATCH = ACC_TR_N,
++	ACC_OUTST,
++	ACC_MEM,
++	ACC_N,			/* Number of elements per domain. */
+ };
  
- /*
-  * domain_memory_add_chk(): to be used when memory quota should be checked.
-  * Not to be used when specifying a negative mem value, as lowering the used
-  * memory should always be allowed.
-  */
--static inline int domain_memory_add_chk(unsigned int domid, int mem)
-+static inline int domain_memory_add_chk(struct connection *conn,
-+					unsigned int domid, int mem)
- {
--	return domain_memory_add(domid, mem, false);
-+	return domain_memory_add(conn, domid, mem, false);
- }
-+
- /*
-  * domain_memory_add_nochk(): to be used when memory quota should not be
-  * checked, e.g. when lowering memory usage, or in an error case for undoing
-  * a previous memory adjustment.
-  */
--static inline void domain_memory_add_nochk(unsigned int domid, int mem)
-+static inline void domain_memory_add_nochk(struct connection *conn,
-+					   unsigned int domid, int mem)
- {
--	domain_memory_add(domid, mem, true);
-+	domain_memory_add(conn, domid, mem, true);
- }
+ void handle_event(void);
+@@ -107,9 +110,8 @@ static inline void domain_memory_add_nochk(struct connection *conn,
  void domain_watch_inc(struct connection *conn);
  void domain_watch_dec(struct connection *conn);
-diff --git a/tools/xenstore/xenstored_watch.c b/tools/xenstore/xenstored_watch.c
-index 8ad0229df6..e30cd89be3 100644
---- a/tools/xenstore/xenstored_watch.c
-+++ b/tools/xenstore/xenstored_watch.c
-@@ -199,7 +199,7 @@ static struct watch *add_watch(struct connection *conn, char *path, char *token,
- 	watch->token = talloc_strdup(watch, token);
- 	if (!watch->node || !watch->token)
- 		goto nomem;
--	if (domain_memory_add(conn->id, strlen(path) + strlen(token),
-+	if (domain_memory_add(conn, conn->id, strlen(path) + strlen(token),
- 			      no_quota_check))
- 		goto nomem;
+ int domain_watch(struct connection *conn);
+-void domain_outstanding_inc(struct connection *conn);
+-void domain_outstanding_dec(struct connection *conn);
+-void domain_outstanding_domid_dec(unsigned int domid);
++void domain_outstanding_inc(struct connection *conn, unsigned int domid);
++void domain_outstanding_dec(struct connection *conn, unsigned int domid);
+ int domain_get_quota(const void *ctx, struct connection *conn,
+ 		     unsigned int domid);
  
-@@ -274,8 +274,9 @@ int do_unwatch(const void *ctx, struct connection *conn,
- 	list_for_each_entry(watch, &conn->watches, list) {
- 		if (streq(watch->node, node) && streq(watch->token, vec[1])) {
- 			list_del(&watch->list);
--			domain_memory_add_nochk(conn->id, -strlen(watch->node) -
--							  strlen(watch->token));
-+			domain_memory_add_nochk(conn, conn->id,
-+						-strlen(watch->node) -
-+						strlen(watch->token));
- 			talloc_free(watch);
- 			domain_watch_dec(conn);
- 			send_ack(conn, XS_UNWATCH);
-@@ -291,8 +292,8 @@ void conn_delete_all_watches(struct connection *conn)
- 
- 	while ((watch = list_top(&conn->watches, struct watch, list))) {
- 		list_del(&watch->list);
--		domain_memory_add_nochk(conn->id, -strlen(watch->node) -
--						  strlen(watch->token));
-+		domain_memory_add_nochk(conn, conn->id, -strlen(watch->node) -
-+							strlen(watch->token));
- 		talloc_free(watch);
- 		domain_watch_dec(conn);
- 	}
 -- 
 2.35.3
 
