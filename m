@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38556D87E8
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 22:12:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518621.805366 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2428D6D8817
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 22:18:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518626.805376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk9U1-0000Nn-1h; Wed, 05 Apr 2023 20:11:53 +0000
+	id 1pk9ab-00012Y-Oe; Wed, 05 Apr 2023 20:18:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518621.805366; Wed, 05 Apr 2023 20:11:53 +0000
+Received: by outflank-mailman (output) from mailman id 518626.805376; Wed, 05 Apr 2023 20:18:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk9U0-0000Lh-VE; Wed, 05 Apr 2023 20:11:52 +0000
-Received: by outflank-mailman (input) for mailman id 518621;
- Wed, 05 Apr 2023 20:11:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pk9ab-00010i-Lk; Wed, 05 Apr 2023 20:18:41 +0000
+Received: by outflank-mailman (input) for mailman id 518626;
+ Wed, 05 Apr 2023 20:18:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=S8B2=74=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1pk9U0-0000Lb-9B
- for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 20:11:52 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19985bcf-d3ee-11ed-85db-49a42c6b2330;
- Wed, 05 Apr 2023 22:11:51 +0200 (CEST)
+ id 1pk9aa-00010c-05
+ for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 20:18:40 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0b1f14d8-d3ef-11ed-b464-930f4c7d94ae;
+ Wed, 05 Apr 2023 22:18:37 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 9660962810;
- Wed,  5 Apr 2023 20:11:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADAFAC433EF;
- Wed,  5 Apr 2023 20:11:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B8C1A62A31;
+ Wed,  5 Apr 2023 20:18:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF579C433EF;
+ Wed,  5 Apr 2023 20:18:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,18 +44,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19985bcf-d3ee-11ed-85db-49a42c6b2330
+X-Inumbo-ID: 0b1f14d8-d3ef-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680725509;
-	bh=RtwX6KJxYQmKc5eE6Ge2DG54ynisAFNybPH8hjW2Myw=;
+	s=k20201202; t=1680725914;
+	bh=nzqjLaTJey3sRM+1TqQcKEYWams7IVp4kAG1Ou4QbaQ=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=dHKfeTPAenu64KkcwFR/WKz+RNZhtj4dMwwpBM3wvHCNU/ZTyHF9/pkW9hknVc0cZ
-	 w7fp/t1tuFEZE/K5DTqgSzyGrz1qcWh7zusMfq4giOpy8g4OyLvojp9PCs9I6WB4rK
-	 clFPb/fo8eu8ihkbsVTM4o62kBSyBDbIXU0jPgtBXm9exOFcJgVYeiMbQUYkfN6EK9
-	 XV0ezMaCDooYBPeJf/A5iyTsnCn5G67bVixFgikYhvxBzUA3VpHE5+iVnBVoFC2sqe
-	 xqiRjZGTB6oUN9IMzacEfdZ6ZznSh88QQVnCkDLmIu9+eOrCekx5YQQmw2U3RHRDgl
-	 zr5da0P/R5hug==
-Date: Wed, 5 Apr 2023 15:11:47 -0500
+	b=qSIFfK6lOkdOAB5LY9zLp6kglpMt1j7LNegofExp0NbD3DdGJu2FIQSd9fKDakYSF
+	 8EdaJODqwbg6kctJMgL0riv0zeo2GlzJNTyce/xBoaGt5wkbyslXtmEQr79jETD5VN
+	 JkGR/SuDh0S5XNaO9WvVcUE8aLyF+fq2KHagkNoYCPN/ufYZsMFzIEL8TOwxz22rru
+	 dTfc7KYc7iXQfdVOTiFqncjiOZ6vNACqFFlXmfZkUJ6vh6opIHeXG2F88mLt2+N1/j
+	 qSW8PkxMlDLNSe4zXOh05GwayXmUNnmLRiK0jPqk3fXDd1WbPKGLoR9/9OHb8FIaNI
+	 uOrsrDeBHNVGg==
+Date: Wed, 5 Apr 2023 15:18:32 -0500
 From: Bjorn Helgaas <helgaas@kernel.org>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
@@ -74,43 +75,63 @@ Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
 	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org,
 	sparclinux@vger.kernel.org, linux-pci@vger.kernel.org,
 	xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
-	Andrew Lunn <andrew@lunn.ch>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Gregory Clement <gregory.clement@bootlin.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
 	Richard Henderson <richard.henderson@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, Rich Felker <dalias@libc.org>,
 	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Miguel Ojeda <ojeda@kernel.org>, Matt Turner <mattst88@gmail.com>,
+	Matt Turner <mattst88@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
 	Anatolij Gustschin <agust@denx.de>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
 	"David S. Miller" <davem@davemloft.net>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
-Subject: Re: [PATCH v8 5/7] PCI: Allow pci_bus_for_each_resource() to take
- less arguments
-Message-ID: <20230405201147.GA3637852@bhelgaas>
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: Re: [PATCH v8 0/7] Add pci_dev_for_each_resource() helper and update
+ users
+Message-ID: <20230405201832.GA3638070@bhelgaas>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ZC1glzw4F9F8zCK+@smile.fi.intel.com>
+In-Reply-To: <ZC0xK4YJrKga7akk@smile.fi.intel.com>
 
-On Wed, Apr 05, 2023 at 02:50:47PM +0300, Andy Shevchenko wrote:
-> On Thu, Mar 30, 2023 at 07:24:32PM +0300, Andy Shevchenko wrote:
-> > Refactor pci_bus_for_each_resource() in the same way as it's done in
-> > pci_dev_for_each_resource() case. This will allow to hide iterator
-> > inside the loop, where it's not used otherwise.
+On Wed, Apr 05, 2023 at 11:28:27AM +0300, Andy Shevchenko wrote:
+> On Tue, Apr 04, 2023 at 11:11:01AM -0500, Bjorn Helgaas wrote:
+> > On Thu, Mar 30, 2023 at 07:24:27PM +0300, Andy Shevchenko wrote:
+> > > Provide two new helper macros to iterate over PCI device resources and
+> > > convert users.
+> > > 
+> > > Looking at it, refactor existing pci_bus_for_each_resource() and convert
+> > > users accordingly.
+
+> > Applied 2-7 to pci/resource for v6.4, thanks, I really like this!
+> 
+> Btw, can you actually drop patch 7, please?
+
+Done.
+
+> > I omitted
 > > 
-> > No functional changes intended.
+> >   [1/7] kernel.h: Split out COUNT_ARGS() and CONCATENATE()"
+> > 
+> > only because it's not essential to this series and has only a trivial
+> > one-line impact on include/linux/pci.h.
 > 
-> Bjorn, this has wrong author in your tree:
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git/commit/?h=resource&id=46dbad19a59e0dd8f1e7065e5281345797fbb365
+> I'm not sure I understood what exactly "essentiality" means to you, but
+> I included that because it makes the split which can be used later by
+> others and not including kernel.h in the header is the objective I want
+> to achieve. Without this patch the achievement is going to be deferred.
+> Yet, this, as you have noticed, allows to compile and use the macros in
+> the rest of the patches.
 
-I botched it, sorry, should be fixed now.
-
-Bjorn
+I haven't followed the kernel.h splitting, and I try to avoid
+incidental changes outside of the files I maintain, so I just wanted
+to keep this series purely PCI and avoid any possible objections to a
+new include file or discussion about how it should be done.
 
