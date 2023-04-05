@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D67E6D89CB
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 23:49:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518654.805416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D59916D89D3
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 23:53:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518660.805427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkAzn-0003pp-AI; Wed, 05 Apr 2023 21:48:47 +0000
+	id 1pkB3n-0005G5-RT; Wed, 05 Apr 2023 21:52:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518654.805416; Wed, 05 Apr 2023 21:48:47 +0000
+Received: by outflank-mailman (output) from mailman id 518660.805427; Wed, 05 Apr 2023 21:52:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkAzn-0003nB-7D; Wed, 05 Apr 2023 21:48:47 +0000
-Received: by outflank-mailman (input) for mailman id 518654;
- Wed, 05 Apr 2023 21:48:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pkAzl-0003n1-Jw; Wed, 05 Apr 2023 21:48:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pkAzl-0005Gx-Ex; Wed, 05 Apr 2023 21:48:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pkAzk-0002ce-SJ; Wed, 05 Apr 2023 21:48:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pkAzk-0002Ux-Rk; Wed, 05 Apr 2023 21:48:44 +0000
+	id 1pkB3n-0005DF-Ob; Wed, 05 Apr 2023 21:52:55 +0000
+Received: by outflank-mailman (input) for mailman id 518660;
+ Wed, 05 Apr 2023 21:52:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gV66=74=citrix.com=prvs=45279ec78=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pkB3m-0005D9-5k
+ for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 21:52:54 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 35bc4799-d3fc-11ed-85db-49a42c6b2330;
+ Wed, 05 Apr 2023 23:52:52 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +36,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=PcJXMowNo58duxaMRrj5LVwF7Mv3Qq52bpVZWNfsVH8=; b=hw9qIL/s74dn4Uu3yj+/dQKJh9
-	ieGi5m4zBAPD+55HP9HLrUPpwStZvCjxFt91wy1SJeH2n6eBRgD4qPWJ7zKgWpe5fExI3dsvW92iv
-	d14qvrS5d79/FB42IFJL78Mf0mGXy/5phBPmVYDfVWTn7N9XIJ3c7bp8ZMIFr5jj9vGw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180160-mainreport@xen.org>
+X-Inumbo-ID: 35bc4799-d3fc-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1680731572;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=YG+tqcOrXnWWW86uHDi9/SgPfWk33wf/QiRsN0bkKP4=;
+  b=GvdV6e6Oun+xMb2swa0tfxNE7IRA52enQkyBq9vZdLMkZQo0O/wMXCaI
+   1efchE+wz3LUtVY1DigPynNgQH64LAvWwveB4cDkfhrS3/Bojzz99+SOv
+   MaIKvyf1gjC2voZC8aXpYOqG+LA6Ekdy1onC+wWixu1wQu2FCNdE9Jlm2
+   s=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 104889208
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:xuGNDKLYiAZ3uZYMFE+R85UlxSXFcZb7ZxGr2PjKsXjdYENS1TNSx
+ jEaDGiCOf/camuge9pwPtjj9k0EupbRm95lSVBlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpJrfPTwP9TlK6q4mhA4gRjPasjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5MEUBQ0
+ 9AHeAwodz2pjt2b6/WBTe5j05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTHZkFzhfC/
+ jKuE2LRPEoQE8zG4zS+yH+xncyImyarG75DLejtnhJtqALKnTFCYPEMbnOkpdGph0j4XMhQQ
+ 2QW5yxoq6Ex/U6qS9DVXhukrXrCtRkZM/JTHvM77keRy6PSywefGmUACDVGbbQOpMIwADAny
+ FKNt9foHiB09q2YT2qH8bWZpi/0PjIaRUcgTyIZSQoO4/H4vZo+yBnIS75e/LWd14OvX2uqm
+ nbT8XZ43u9I5SIW60ml1WvXoiyKioeZcissyy/eYU+OqTl+Y4HwMuRE9mPnAeZ8wJexFwfR5
+ CdexpLDt4jiHrnWynXTHbxl8KWBoq/cbWaC2QMH84wJrWzFxpK1QWxHDNiSzm9NO91MRzLma
+ VS7Veh5tM4KZyvCgUOajuuM5yUWIUvIT46Nugj8NIYmX3SIXFbvENtSTUCRxXvxt0MnjLsyP
+ 5yWGe71UyZCVv02kmvpGr5BuVPO+szZ7TqKLa0XMjz9iebODJJrYext3KSyghARs/rf/VS9H
+ yd3PMqW0RRPONDDjt3s2ddLdzgidCFrba0aXuQLLoZv1CI6QjB+YxIQqJt9E7FYc1N9x7eXr
+ y3hBxcBoLc97FWeQTi3hrlYQOuHdf5CQbgTZETA4X7AN6AfXLuS
+IronPort-HdrOrdr: A9a23:PJwOfqlkYwYdFWNDTD6Mz+s5kl/pDfIo3DAbv31ZSRFFG/Fw9v
+ re5cjzsCWetN9/YgBCpTntAse9qBDnhPtICOsqTNWftWDd0QPDQO5fBOPZslnd8kbFltK1u5
+ 0AT0DSY+ecMbD85vyKhjVRx70bsb66zJw=
+X-IronPort-AV: E=Sophos;i="5.98,322,1673931600"; 
+   d="scan'208";a="104889208"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Jun Nakajima
+	<jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
+Subject: [PATCH] x86/vmx: Revert "x86/VMX: sanitize rIP before re-entering guest"
+Date: Wed, 5 Apr 2023 22:52:45 +0100
+Message-ID: <20230405215245.2137356-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 180160: tolerable trouble: pass/starved - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    xen=881ba20eb0222305a9d2cd090c9345992794f4f5
-X-Osstest-Versions-That:
-    xen=55c6d4e2257ca8aabb15232f696ede49642efa3c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 05 Apr 2023 21:48:44 +0000
 
-flight 180160 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180160/
+At the time of XSA-170, the x86 instruction emulator was genuinely broken.  It
+would load arbitrary values into %rip and putting a check here probably was
+the best stopgap security fix.  It should have been reverted following c/s
+81d3a0b26c1 "x86emul: limit-check branch targets" which corrected the emulator
+behaviour.
 
-Failures :-/ but no regressions.
+However, everyone involved in XSA-170, myself included, failed to read the SDM
+correctly.  On the subject of %rip consistency checks, the SDM stated:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
+  If the processor supports N < 64 linear-address bits, bits 63:N must be
+  identical
 
-version targeted for testing:
- xen                  881ba20eb0222305a9d2cd090c9345992794f4f5
-baseline version:
- xen                  55c6d4e2257ca8aabb15232f696ede49642efa3c
+A non-canonical %rip (and SSP more recently) is an explicitly legal state in
+x86, and the VMEntry consistency checks are intentionally off-by-one from a
+regular canonical check.
 
-Last test of basis   180157  2023-04-05 17:01:51 Z    0 days
-Testing same since   180160  2023-04-05 20:01:54 Z    0 days    1 attempts
+The consequence of this bug is that Xen will currently take a legal x86 state
+which would successfully VMEnter, and corrupt it into having non-architectural
+behaviour.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
+Furthermore, in the time this bugfix has been pending in public, I
+successfully persuaded Intel to clarify the SDM, adding the following
+clarification:
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  starved 
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          starved 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+  The guest RIP value is not required to be canonical; the value of bit N-1
+  may differ from that of bit N.
 
+Fixes: ffbbfda377 ("x86/VMX: sanitize rIP before re-entering guest")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Jun Nakajima <jun.nakajima@intel.com>
+CC: Kevin Tian <kevin.tian@intel.com>
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Rewrite the commit message, but no change to the fix.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Fun fact... LAM almost required this to be reverted in order to support, but
+the penultimate draft of the spec backed down and made LAM only apply to data
+accesses, not instruction fetches.
+---
+ xen/arch/x86/hvm/vmx/vmx.c | 34 +---------------------------------
+ 1 file changed, 1 insertion(+), 33 deletions(-)
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index bfc9693f7e43..79ff59b11c6b 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -4035,7 +4035,7 @@ static void undo_nmis_unblocked_by_iret(void)
+ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+ {
+     unsigned long exit_qualification, exit_reason, idtv_info, intr_info = 0;
+-    unsigned int vector = 0, mode;
++    unsigned int vector = 0;
+     struct vcpu *v = current;
+     struct domain *currd = v->domain;
+ 
+@@ -4730,38 +4730,6 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
+ out:
+     if ( nestedhvm_vcpu_in_guestmode(v) )
+         nvmx_idtv_handling();
+-
+-    /*
+-     * VM entry will fail (causing the guest to get crashed) if rIP (and
+-     * rFLAGS, but we don't have an issue there) doesn't meet certain
+-     * criteria. As we must not allow less than fully privileged mode to have
+-     * such an effect on the domain, we correct rIP in that case (accepting
+-     * this not being architecturally correct behavior, as the injected #GP
+-     * fault will then not see the correct [invalid] return address).
+-     * And since we know the guest will crash, we crash it right away if it
+-     * already is in most privileged mode.
+-     */
+-    mode = vmx_guest_x86_mode(v);
+-    if ( mode == 8 ? !is_canonical_address(regs->rip)
+-                   : regs->rip != regs->eip )
+-    {
+-        gprintk(XENLOG_WARNING, "Bad rIP %lx for mode %u\n", regs->rip, mode);
+-
+-        if ( vmx_get_cpl() )
+-        {
+-            __vmread(VM_ENTRY_INTR_INFO, &intr_info);
+-            if ( !(intr_info & INTR_INFO_VALID_MASK) )
+-                hvm_inject_hw_exception(X86_EXC_GP, 0);
+-            /* Need to fix rIP nevertheless. */
+-            if ( mode == 8 )
+-                regs->rip = (long)(regs->rip << (64 - VADDR_BITS)) >>
+-                            (64 - VADDR_BITS);
+-            else
+-                regs->rip = regs->eip;
+-        }
+-        else
+-            domain_crash(v->domain);
+-    }
+ }
+ 
+ static void lbr_tsx_fixup(void)
+-- 
+2.30.2
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   55c6d4e225..881ba20eb0  881ba20eb0222305a9d2cd090c9345992794f4f5 -> smoke
 
