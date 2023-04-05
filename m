@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA5AD6D796F
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 12:18:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518391.804890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60C326D7976
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 12:18:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518393.804900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk0Dm-0002ii-BW; Wed, 05 Apr 2023 10:18:30 +0000
+	id 1pk0Ds-00038r-Kh; Wed, 05 Apr 2023 10:18:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518391.804890; Wed, 05 Apr 2023 10:18:30 +0000
+Received: by outflank-mailman (output) from mailman id 518393.804900; Wed, 05 Apr 2023 10:18:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk0Dm-0002ge-8H; Wed, 05 Apr 2023 10:18:30 +0000
-Received: by outflank-mailman (input) for mailman id 518391;
- Wed, 05 Apr 2023 10:18:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pk0Ds-000365-H4; Wed, 05 Apr 2023 10:18:36 +0000
+Received: by outflank-mailman (input) for mailman id 518393;
+ Wed, 05 Apr 2023 10:18:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gFET=74=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1pk0Dk-00024X-Nw
- for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 10:18:28 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34ea1565-d39b-11ed-85db-49a42c6b2330;
- Wed, 05 Apr 2023 12:18:28 +0200 (CEST)
-Received: by mail-wm1-x330.google.com with SMTP id m8so9666674wmq.5
- for <xen-devel@lists.xenproject.org>; Wed, 05 Apr 2023 03:18:28 -0700 (PDT)
+ id 1pk0Dr-0002Na-Sm
+ for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 10:18:35 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3893df93-d39b-11ed-b464-930f4c7d94ae;
+ Wed, 05 Apr 2023 12:18:34 +0200 (CEST)
+Received: by mail-wr1-x42b.google.com with SMTP id y14so35677419wrq.4
+ for <xen-devel@lists.xenproject.org>; Wed, 05 Apr 2023 03:18:34 -0700 (PDT)
 Received: from localhost.localdomain
  (4ab54-h01-176-184-52-81.dsl.sta.abo.bbox.fr. [176.184.52.81])
  by smtp.gmail.com with ESMTPSA id
- ay8-20020a05600c1e0800b003edddae1068sm1744815wmb.9.2023.04.05.03.18.26
+ d9-20020adff849000000b002c56af32e8csm14637033wrq.35.2023.04.05.03.18.32
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 05 Apr 2023 03:18:27 -0700 (PDT)
+ Wed, 05 Apr 2023 03:18:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34ea1565-d39b-11ed-85db-49a42c6b2330
+X-Inumbo-ID: 3893df93-d39b-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680689907;
+        d=linaro.org; s=google; t=1680689914;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Z3PbVXrARru//womsk1QFTfUC/jT1xFpRBIRhWzNLeg=;
-        b=c4FFRXSdAKN2IWwtiqV7Ffzer7xJF5apMUkKlQiTaxUK2YipBsMKVqtP9PC9OjOLHc
-         rMq0iWLrZJBM6oJj3ZcxNuV1npeN62fnwpOyTCL/NyjHhKWn4eE/PATJuuf/ffKK2NvR
-         l5O6MKTRN5ifGk9nigJmitObdfRL5i9btUsj2E5xzt7sy+nX/kRuir/iAaexJdDqUFJg
-         4racwp2lla6NgRk1CkowemsGQ25lhbtxKUZ69OG2cP31L9IIwSsFNGT7+hn7ucd+REZe
-         bpReBOAvbbifyVLiPMUCDSGVvfBSE6MFot4sUTf8DSomPdPCaRK9s3qVOS+XAggbGFny
-         j31A==
+        bh=E6NW9VhhS5fLeVwZeTyWWyTbAHfvPOC/r0zI8X/AYhw=;
+        b=FrtFKE2hFxCwSIOxwL7fJNJgclFtRZYFCKSwPQeumlgt6bklL8ZJLOhaxRanBaGmBN
+         sSSdwoBuo0PWQIPC5aVYpH3V4lrlZrxSnF6ec08aPzNngc+4NCJth/v+YEXjEI5hAYZ7
+         deplHkaFXLIdswcAyfQjoGU7HHGPGzJHJzztDL7n6LAkZeMYnyvPoi+3fXYTgBgP5XWs
+         cPr7wmMyCDh4HsAHrXF/xlBABJq7EFQwNi0Rj4haWnYMHlXIAYY+Lsa8OGwO4Mt6ZR/d
+         e7uyZyaesG4XjKKufoRM2SpXpgdAnFrSp25xtnMkjXzs/M6Ow7DNjd1C6Ovjn8q1Umho
+         74DQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680689907;
+        d=1e100.net; s=20210112; t=1680689914;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Z3PbVXrARru//womsk1QFTfUC/jT1xFpRBIRhWzNLeg=;
-        b=VB59JqOIqaDXPClAXUimm8p7iDootZNKVZg2JAL1vWCxo34vMwlvKU2Km/j4M+XAc+
-         dSjcvErBoeALjA53npzx0q7IYUD9X76zQel7XFigb5JIl0scoBUQ3fFg5DOQaJRQgIn9
-         W6FYkBezEGfrXDSyN6v+MqKVdnr68xojRPPhpVg80K5fzgJOXbqfJa0cCVzfDt//kEwG
-         7LzTclcd73syOm4486bI1WzinO4Exh/TCnG5lMCIKnhxNfHEKcpft+n95Y20e+HeMJCd
-         IWqpMjPyCQZGTPiLd+I4HzrS7SgeV+HBZdJiRqPUHH4mbwVhCniBjH66TL1JNeZwnuai
-         aqVg==
-X-Gm-Message-State: AAQBX9cOObw1G6AfPvNJu1tLR8n+krWwC7zrw4+y67mVYYmoRQ95MCuX
-	TgsILXMnCNpTzpqzY35MYBh82g==
-X-Google-Smtp-Source: AKy350brt1TNZ7pG57+pZfUAcAl5eE1plZdTvYqjEnxz0kMrxGEeLijqmQ0ROub7VB7ZqCDrKQfQFA==
-X-Received: by 2002:a05:600c:2942:b0:3ee:4ee:bf73 with SMTP id n2-20020a05600c294200b003ee04eebf73mr4220330wmd.24.1680689907651;
-        Wed, 05 Apr 2023 03:18:27 -0700 (PDT)
+        bh=E6NW9VhhS5fLeVwZeTyWWyTbAHfvPOC/r0zI8X/AYhw=;
+        b=QlO71eGYcc4/A839ZcUOtT1xhGgo6p6sBc0/SoL0yHAzIMQ2534YlBNBp/v1Tr4fai
+         s3vVURIQcv4z0XHckrG+VVXXPGJ3guwo0ZYGtzdlP/F9OslCrk7a6uBWuLwPH3IFiRca
+         Qmq3DXvB57qGFi/61LUjorru7kUl/50Y/OMz8j8tOf4MJIk8el54lkBT8Rv+aCPNuNu/
+         sXErcQeE+Chm3WRn/e1NHkM6aGfufph5Ci7HvR1BFJAEIp+ApEOifPcEB52ZxOt7NFjP
+         O5KaYAgTE8DzLW/6tkpvcuiZ41x4EPYz59oomc7JclN1ipEOlpkpR83VtMQfuRIHYnGn
+         3O2g==
+X-Gm-Message-State: AAQBX9fEhyJijfAKsl7+kEZRdXE2m0VA9xBYCVwsI0j8AW0RQfIUgtT9
+	OxitiO7hgJWadZg4vPhur9TgRQ==
+X-Google-Smtp-Source: AKy350YkinPPwbt/c64vUzk9lM4SXacH8xjrAIzv8V1BeCK80tQHniLUzIE+5w/+4XbN335yprpGWw==
+X-Received: by 2002:a5d:4d11:0:b0:2ce:9819:1c1e with SMTP id z17-20020a5d4d11000000b002ce98191c1emr3913343wrt.30.1680689913858;
+        Wed, 05 Apr 2023 03:18:33 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
 	xen-devel@lists.xenproject.org,
 	kvm@vger.kernel.org,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Sunil Muthuswamy <sunilmut@microsoft.com>
-Subject: [PATCH 02/14] accel: Remove unused hThread variable on TCG/WHPX
-Date: Wed,  5 Apr 2023 12:17:59 +0200
-Message-Id: <20230405101811.76663-3-philmd@linaro.org>
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Subject: [PATCH 03/14] accel: Fix a leak on Windows HAX
+Date: Wed,  5 Apr 2023 12:18:00 +0200
+Message-Id: <20230405101811.76663-4-philmd@linaro.org>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20230405101811.76663-1-philmd@linaro.org>
 References: <20230405101811.76663-1-philmd@linaro.org>
@@ -94,57 +92,28 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Windows hosts, cpu->hThread is assigned but never accessed:
-remove it.
+hThread is only used on the error path in hax_kick_vcpu_thread().
 
+Fixes: b0cb0a66d6 ("Plumb the HAXM-based hardware acceleration support")
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 ---
- accel/tcg/tcg-accel-ops-mttcg.c   | 4 ----
- accel/tcg/tcg-accel-ops-rr.c      | 3 ---
- target/i386/whpx/whpx-accel-ops.c | 3 ---
- 3 files changed, 10 deletions(-)
+ target/i386/hax/hax-all.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/accel/tcg/tcg-accel-ops-mttcg.c b/accel/tcg/tcg-accel-ops-mttcg.c
-index d50239e0e2..19cfb26c02 100644
---- a/accel/tcg/tcg-accel-ops-mttcg.c
-+++ b/accel/tcg/tcg-accel-ops-mttcg.c
-@@ -152,8 +152,4 @@ void mttcg_start_vcpu_thread(CPUState *cpu)
- 
-     qemu_thread_create(cpu->thread, thread_name, mttcg_cpu_thread_fn,
-                        cpu, QEMU_THREAD_JOINABLE);
--
--#ifdef _WIN32
--    cpu->hThread = qemu_thread_get_handle(cpu->thread);
--#endif
+diff --git a/target/i386/hax/hax-all.c b/target/i386/hax/hax-all.c
+index 3e5992a63b..a2321a1eff 100644
+--- a/target/i386/hax/hax-all.c
++++ b/target/i386/hax/hax-all.c
+@@ -205,6 +205,9 @@ int hax_vcpu_destroy(CPUState *cpu)
+      */
+     hax_close_fd(vcpu->fd);
+     hax_global.vm->vcpus[vcpu->vcpu_id] = NULL;
++#ifdef _WIN32
++    CloseHandle(cpu->hThread);
++#endif
+     g_free(vcpu);
+     return 0;
  }
-diff --git a/accel/tcg/tcg-accel-ops-rr.c b/accel/tcg/tcg-accel-ops-rr.c
-index 290833a37f..dafff71530 100644
---- a/accel/tcg/tcg-accel-ops-rr.c
-+++ b/accel/tcg/tcg-accel-ops-rr.c
-@@ -291,9 +291,6 @@ void rr_start_vcpu_thread(CPUState *cpu)
- 
-         single_tcg_halt_cond = cpu->halt_cond;
-         single_tcg_cpu_thread = cpu->thread;
--#ifdef _WIN32
--        cpu->hThread = qemu_thread_get_handle(cpu->thread);
--#endif
-     } else {
-         /* we share the thread */
-         cpu->thread = single_tcg_cpu_thread;
-diff --git a/target/i386/whpx/whpx-accel-ops.c b/target/i386/whpx/whpx-accel-ops.c
-index e8dc4b3a47..67cad86720 100644
---- a/target/i386/whpx/whpx-accel-ops.c
-+++ b/target/i386/whpx/whpx-accel-ops.c
-@@ -71,9 +71,6 @@ static void whpx_start_vcpu_thread(CPUState *cpu)
-              cpu->cpu_index);
-     qemu_thread_create(cpu->thread, thread_name, whpx_cpu_thread_fn,
-                        cpu, QEMU_THREAD_JOINABLE);
--#ifdef _WIN32
--    cpu->hThread = qemu_thread_get_handle(cpu->thread);
--#endif
- }
- 
- static void whpx_kick_vcpu_thread(CPUState *cpu)
 -- 
 2.38.1
 
