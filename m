@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7C156D836D
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 18:17:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518583.805296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E0596D83C5
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Apr 2023 18:34:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518588.805307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk5oZ-0004za-Tw; Wed, 05 Apr 2023 16:16:51 +0000
+	id 1pk65M-0007jn-Ez; Wed, 05 Apr 2023 16:34:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518583.805296; Wed, 05 Apr 2023 16:16:51 +0000
+Received: by outflank-mailman (output) from mailman id 518588.805307; Wed, 05 Apr 2023 16:34:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pk5oZ-0004x6-RA; Wed, 05 Apr 2023 16:16:51 +0000
-Received: by outflank-mailman (input) for mailman id 518583;
- Wed, 05 Apr 2023 16:16:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pk65M-0007gz-Bj; Wed, 05 Apr 2023 16:34:12 +0000
+Received: by outflank-mailman (input) for mailman id 518588;
+ Wed, 05 Apr 2023 16:34:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gw2r=74=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pk5oY-0004wP-MT
- for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 16:16:50 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20625.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::625])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 43a4874c-d3cd-11ed-85db-49a42c6b2330;
- Wed, 05 Apr 2023 18:16:48 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PR3PR04MB7209.eurprd04.prod.outlook.com (2603:10a6:102:92::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6254.35; Wed, 5 Apr
- 2023 16:16:46 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::154e:166d:ec25:531b%6]) with mapi id 15.20.6254.035; Wed, 5 Apr 2023
- 16:16:45 +0000
+ (envelope-from <julien@xen.org>) id 1pk65K-0007gq-Ho
+ for xen-devel@lists.xenproject.org; Wed, 05 Apr 2023 16:34:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pk65I-0008Jr-Tl; Wed, 05 Apr 2023 16:34:08 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.27.242]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pk65I-0000S4-KD; Wed, 05 Apr 2023 16:34:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,139 +39,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43a4874c-d3cd-11ed-85db-49a42c6b2330
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G51r360AJlTIkzmctJlQi5uTONjZ23w2RzfWg1JTOFp2blJGsYMICvGKY2ZsClzGrsggO/ara3CCk7jKC1owO1iRrXIdZNEBqWkp+/Cpj8clc2XeeCERBrOY5l8JUbMGujzsMWrDolQp2xMouNY9nBBrkUbYwZ0d/qoqMBUKA3ywEAnOWGp0aZ0LHDPUHN+zqE7jyOYUIJE5hQkX5ans0NW6nzSScqq69hNc3A0LESlxmYXa50P15wzs8M9LfSTPPVY8mM0vmrQYkCK8maNDk2q23d9k7B2Tj5jnkFhe4OhfH/FkYACz5j/tqrwY8k0Pu4lfzO9yhr9n5OujtNih7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ED/pJhg31bjLlSP3HBT0D3rUkA+rwZgqc+paNaMixrg=;
- b=NYLlIQ9/1naOK2VdPAIDzUSt1sq7EoBnWB5XjiaqfNMuYNe7CMy5IbQZCjqzFak63WZKU9g+yP75Rz29eSfFwNImoVpeWSNwx7svXn/ZdMbaGoTwcnIfVRhnXBfBkXxSgaAWQ96XNw/yq+fPh7t3bdF/R2/I1W/9g7JEPbR6pv1RvRcpFLLZSrZMHzkkGtd5QnKUQTCYZMzWEskyU9TBSOaKLHMSF9okZkhpbKa/YnNi7uCERW/MgX0gYnh3/5T5xrlUt6a9mpWq7sQJDmopGHcKPp0sJbdszZ0AsuJcYoYdyNwGCd35qGjC+es51/WnhUzi+ghQjlP6UugBb/4Jow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ED/pJhg31bjLlSP3HBT0D3rUkA+rwZgqc+paNaMixrg=;
- b=mZNGfpiYZhmLFOJvEJcaXtg0pJFMjEjBHRTXNevU1jOosto2obndKIL51/2anZMxSsW9YCyG4je40Xg5VhCYIj91cU7mmWU09M8PNZeVL+spNQE9KY5S/pICGGrAWBUHzV/n9j3jZl1lHUUHle8RHVO9mKX3ugSg/YZU4M1kvQ/FTGUOAaweGgu73TGuONYdmxvXxCuPrjoo/MSQ4JP02uCqCMaaJp+bVI7vVCcBiTOo4nNqioKQBiDHGSMzZr9iFhMZQdEBUNNUi9ksR4a3rG2Se8Ichjg80keqy2WweOBY02bBIQaepoCmFEmg1n3XA1Sd2O2ozxo15qMQXk0mfA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a665b967-3554-4d26-e2d7-e48ffd7b384f@suse.com>
-Date: Wed, 5 Apr 2023 18:16:43 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-Subject: Re: [PATCH] x86emul/test: drop bogus .PHONY
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <515bbf07-91fa-1932-1be1-1411f7814e6e@suse.com>
- <3d0c36f9-a715-4971-9031-04848bcd2d0d@perard>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <3d0c36f9-a715-4971-9031-04848bcd2d0d@perard>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0090.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=LmgBJib0da20mCASfh4kXw+n8JSxgCsO6eclj0adSe0=; b=FVXkGZQB0TLLEayJf5xZme/TcM
+	kyoVaI+PRfMPnuopsqpWBWEZpbZN6cJgjabat8SNyNntVm91JC4wOae/PXs8jZyBbuH70bua3gmSN
+	c82jdLukxKyH0/AeyNEbzpSXxTyMIsBWHpZ2+5jaQvrkrD2s09I5DhBSdOnuInExx36c=;
+Message-ID: <cce5e277-8692-d339-0283-55620c349fcf@xen.org>
+Date: Wed, 5 Apr 2023 17:34:05 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PR3PR04MB7209:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65f408ce-d6fd-4014-eceb-08db35f1265a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	VoUg+C1X0ETwSPJ+WM6IWBpLL4EodNswdejUlHFSCoiyLckJMAy58mN1svF7MG2Nc7i573oa9grWPqcQ8Bbq6SxyoAZ3Lw2lLsZIcu52HIo5fdovhdVkVC5wQqeWvynS30Rf0rr0Ma9VXn1A0wk61SndClqL9amarWV4/ykBJS27HScRPnQw/m2vn3bRmejpFCQqBIij4yyxhDq85dANU9JQWty2+U1ITdAtc7SbvMFV1khb6y6vGA7cmVR+tjuDEVltWmgIUegHQubMYrnl+68K42CB2HTMHdtQDcn+A4eo4Q6DD0OSX6hFzJYDALJ6/r4WNpEPfHS1NaxPG2LM6CKzj+Dux37AtOFdlvam3k5XBrFmuvNa14hKBPJbTVosUyNpe5koKI3V6/Co4eJ8ZCWVYGsMxhpdsjrBnEiiCfVHYWrkqq5SJrNvEG7kB9+0+Fm4NFG03nXjRdW6tC6K+tk0xctSmxTzfvLOOFtM/HlwSuLnXna7joCnU8St5sr7PIXNXlltl/NOkRmpuR7dHKPvH2rkq1Zl+Cd+KJyjfOI5vwIa/wzc575V87oxSgEa8U+Qd7yBqPBVZo7wDiznfPDffVbKa/Wf3OSUI4gr4gjdMW7w9h7z8EkkO+rYVvveHJTqP4GrV+niRCGvSpHROWW9KfxwceIxbSUcjP94Z5i0umZPRb81H1vZWSOMJRJp
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(346002)(366004)(396003)(39860400002)(376002)(451199021)(6486002)(83380400001)(2616005)(53546011)(6512007)(6506007)(186003)(38100700002)(26005)(8936002)(2906002)(5660300002)(478600001)(36756003)(41300700001)(6916009)(66476007)(66946007)(66556008)(54906003)(8676002)(4326008)(31696002)(86362001)(316002)(31686004)(142923001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?elhVRmozMGtaeFZSd01EbmZaaXFLR1paSE8xVm12UENrelJuWVJXM0tySUhs?=
- =?utf-8?B?bmljK0JLQ1FBVVdTVlJ0VzZobGlnS0JrWDdTN3I0TWRPNDhnYXVSMEoxNEpu?=
- =?utf-8?B?MkhyMjAzVWNXWHB3SXphU3VqRVU1T0ZxME12TG01RUZRM0FyWksraUdXMVZw?=
- =?utf-8?B?bkJ4Q204Yk1Nclg1YXJEcVNoMFJOMFF2OVgwVitTdGUzOWN1OFFCblUrYU9t?=
- =?utf-8?B?a3d6QzBKR0FnOENhbWt2Ni9wNUZTaEtqTDNybzB3NEFvMStCZExQcW9CNEFt?=
- =?utf-8?B?eER6Ni91SDhkWXZGUHYzcFkwakhIbEc0RnBzZEEremp5Z3FYbUh5ZzI0Zi9I?=
- =?utf-8?B?WHJEcVE5QWJJQUJEc2liYU8xcFdRZ1IzZ1VjdG16Qi9FZ0ltSWF2elpPYmJx?=
- =?utf-8?B?c3Y4NmNqejJoRUpNM1lKaWZMa3pyNEQxcXdaKzNqaEcvZ2MzUVBTZjFaMFFO?=
- =?utf-8?B?RTM2OE9hKzQ0ME9McTFOV3pQZE9NeVdhVzRWeUtqYTlpeTRnNFRIUEc4ZGRJ?=
- =?utf-8?B?TmFrQmhyNmxkdkZkVFpaK2pBYVdIS2daTUU3Ui9sT1l3WWJUTERTREZmSmt2?=
- =?utf-8?B?VTV2OUd1akQ1NzZMNzNrY1RKbzB0c205ZjVKMXdyODhxeE1PTHJwOEFTUSsv?=
- =?utf-8?B?OWFiZWwyK1lvSURncEsrT3h1RHZPdTg4bmw3QjJCWnp2TXRFZEFJcC9Pcmo1?=
- =?utf-8?B?cm9mZHBjYjB6QXJSMmlWM3Faa0QzNHI5V2l3U0VqK3VYRFJHSkpRZkJqZDcw?=
- =?utf-8?B?dlVSVWlWb0UyR2VwMFJleGZlbkZsclR0R0YwQU9IcWdhOGs5djB3UGUzaEdP?=
- =?utf-8?B?V2pHN2h2UFJ0YSt6bFB6czB2b3B6bUUzYS9zRldhS2hGN1d2aFFiTnpZaVNS?=
- =?utf-8?B?MjlWalR2NDI0cllEaFRMSFc0V004OEIraElDMUNNbVJjT1o2S0VNOGhWRE5X?=
- =?utf-8?B?eVdORnJhSEgzdkNKTndQSTJDNXRXQkNkMG0rRlA4OGZjY3BYQ3VtQVM1MDhF?=
- =?utf-8?B?YjhTWTh6RlhOUzZ5NEFZSTVvbGttOFg1aVNYODBUNDF3bEdCaGtpMHdOZWRF?=
- =?utf-8?B?ZDhnOTZYRWFqWFl6QUVHZVFiRWJ3TDRzMWxXVFVwVW41ZlJHMC9sT1ZYaVl2?=
- =?utf-8?B?NkVsclN0M1IxbFNxdzkxUUdUaUZ6ZWY5L3JUM0J2U0NuOTlhb1RseGQyWGsy?=
- =?utf-8?B?cU1lQ09KdWFSMnl3OVNuSU5lUWJtMGZoVkJrRC9IWWF3aXh1Y2FiMXhMclFH?=
- =?utf-8?B?L1lSd2M2cllBc3pLdmVlK2pseCs3aFMzQStZMzVmRmEvU3VBTmxzb0VZMjZi?=
- =?utf-8?B?ekx1VEFBaWlPOEFHM0FNeXVaZjJ6WkdZWDhueG90SzRsdjlGeFk4S0paSG9s?=
- =?utf-8?B?a1A0RGJXVXEvbDErTkFicG9KeklNMmZUVzBMT0JWNHUwdS9FTEZkdHZWNmg3?=
- =?utf-8?B?bm1Wd2NYYlFkUUZ6TFovekdyejZFbzRtNzlTcVVwY0ZUWGwvWnNSUERuYVQ5?=
- =?utf-8?B?cSt6UDBjZW45Q3k2VlhSN2pVVjczeGJYbENoVVJEMDVpZHY5U2htZ2VGWWFa?=
- =?utf-8?B?OTAvSUZNZ3R0c1pmOWgvL3cxWU5IR2FrNjhobTkyeDBFSFV0NDJvcUdhQmtx?=
- =?utf-8?B?RFdQb2ZrUm52bldUZllITkR6WDEya0NYYzFyVWZUeWUrYjdFaXVoRU1QTm5B?=
- =?utf-8?B?NitXVUFjSUVTTjdDa2Q2TmROZUlHVkRxVWhMUXpQd3FNeG9IRmdLNS8xenZD?=
- =?utf-8?B?cG5qb0pLSjZ5MzZUNjcxZXp3M3hUa3JPTkhxQm10ak5USzd6d2JxQktKRU9P?=
- =?utf-8?B?ZUxoN3BwS212YVRJR29hMXB1Z1N2WERCYjVzV0l2MHJCTGt0YWR3ZHFWSjha?=
- =?utf-8?B?Zzc0RW5sZmgyc1dkcEQrMXR1VGtzaWpyc1FweGIxRVFzSC9CQVR1UXBmZElB?=
- =?utf-8?B?QTdjaURqY2Z3UVJxUUhYTTBQR05tNklTTjBpcnNodGIyWThFUExVQTVyUm9x?=
- =?utf-8?B?NktQSVFLWlZMUzRPR1JWMkZ5N1dzNGI5N1V2WHk2cDVUWGU0bWU3VlA5eUl0?=
- =?utf-8?B?NmdCcm40dVVZeExQTDZncTh2OUdYdlh0WGx1T0pIYUpFMXBHTFBqdEx2N29V?=
- =?utf-8?Q?dDVP/ux759MFd0lggR7tSXmPT?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65f408ce-d6fd-4014-eceb-08db35f1265a
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2023 16:16:45.3713
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /hkqCkxhLiFzUQuOdQ/FnH2qB0YKzXT+Mb9IqHxYVDv/QDHrxcPUCrGBh2BsCAszCgEZeQElyltkw2WiR/SoFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7209
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.9.1
+Subject: Re: [PATCH v9 4/5] xen/arm: switch ARM to use generic implementation
+ of bug.h
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1680086655.git.oleksii.kurochko@gmail.com>
+ <8fdb98350ae4fc6029738d0aabe13a57e1945a50.1680086655.git.oleksii.kurochko@gmail.com>
+ <3a94ad32-159d-d06f-cba6-3bb40f9f2085@xen.org>
+ <alpine.DEB.2.22.394.2304021557140.4566@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2304021557140.4566@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 05.04.2023 17:48, Anthony PERARD wrote:
-> On Tue, Apr 04, 2023 at 08:37:55AM +0200, Jan Beulich wrote:
->> x86_emulate is a real (directory) target.
-> 
-> Indeed, x86_emulate is a directory, so having the target in .PHONY
-> isn't bogus, but kind of expected in most cases.
-> 
-> Here, the recipe is written with .PHONY been used, as suggest the used
-> option "-p" from `mkdir` and "-f" from `ln`.
-> 
-> Without .PHONY, the recipe will never be executed if the directory
-> exist. And, if the content of the original x86_emulate directory
-> change, the linked directory will never be updated.
-> 
-> So, this patch description needs a reason for removing x86_emulate from
-> .PHONY. Is there some kind of bug?
+Hi,
 
-Yes, but it was my brain that was buggy. I deliberately added that
-line long ago when converting the symlink to a real dir, and then for
-whatever reason thought recently that it was bogus. Right you are,
-and I'll revert this change.
-
-Jan
-
->> --- a/tools/tests/x86_emulator/Makefile
->> +++ b/tools/tests/x86_emulator/Makefile
->> @@ -278,7 +278,6 @@ else
->>  run32 clean32: %32: %
->>  endif
->>  
->> -.PHONY: x86_emulate
->>  x86_emulate:
->>  	mkdir -p $@
->>  	ln -sf $(XEN_ROOT)/xen/arch/x86/$@/*.[ch] $@/
+On 03/04/2023 00:15, Stefano Stabellini wrote:
+> On Fri, 31 Mar 2023, Julien Grall wrote:
+>> Hi Oleksii,
+>>
+>> I was going to ack the patch but then I spotted something that would want some
+>> clarification.
+>>
+>> On 29/03/2023 11:50, Oleksii Kurochko wrote:
+>>> diff --git a/xen/arch/arm/include/asm/bug.h b/xen/arch/arm/include/asm/bug.h
+>>> index cacaf014ab..3fb0471a9b 100644
+>>> --- a/xen/arch/arm/include/asm/bug.h
+>>> +++ b/xen/arch/arm/include/asm/bug.h
+>>> @@ -1,6 +1,24 @@
+>>>    #ifndef __ARM_BUG_H__
+>>>    #define __ARM_BUG_H__
+>>>    +/*
+>>> + * Please do not include in the header any header that might
+>>> + * use BUG/ASSERT/etc maros asthey will be defined later after
+>>> + * the return to <xen/bug.h> from the current header:
+>>> + *
+>>> + * <xen/bug.h>:
+>>> + *  ...
+>>> + *   <asm/bug.h>:
+>>> + *     ...
+>>> + *     <any_header_which_uses_BUG/ASSERT/etc macros.h>
+>>> + *     ...
+>>> + *  ...
+>>> + *  #define BUG() ...
+>>> + *  ...
+>>> + *  #define ASSERT() ...
+>>> + *  ...
+>>> + */
+>>> +
+>>>    #include <xen/types.h>
+>>>      #if defined(CONFIG_ARM_32)
+>>> @@ -11,76 +29,7 @@
+>>>    # error "unknown ARM variant"
+>>>    #endif
+>>>    -#define BUG_FRAME_STRUCT
+>>> -
+>>> -struct bug_frame {
+>>> -    signed int loc_disp;    /* Relative address to the bug address */
+>>> -    signed int file_disp;   /* Relative address to the filename */
+>>> -    signed int msg_disp;    /* Relative address to the predicate (for
+>>> ASSERT) */
+>>> -    uint16_t line;          /* Line number */
+>>> -    uint32_t pad0:16;       /* Padding for 8-bytes align */
+>>> -};
+>>> -
+>>> -#define bug_loc(b) ((const void *)(b) + (b)->loc_disp)
+>>> -#define bug_file(b) ((const void *)(b) + (b)->file_disp);
+>>> -#define bug_line(b) ((b)->line)
+>>> -#define bug_msg(b) ((const char *)(b) + (b)->msg_disp)
+>>> -
+>>> -/* Many versions of GCC doesn't support the asm %c parameter which would
+>>> - * be preferable to this unpleasantness. We use mergeable string
+>>> - * sections to avoid multiple copies of the string appearing in the
+>>> - * Xen image. BUGFRAME_run_fn needs to be handled separately.
+>>> - */
+>>
+>> Given this comment ...
+>>
+>>> -#define BUG_FRAME(type, line, file, has_msg, msg) do {
+>>> \
+>>> -    BUILD_BUG_ON((line) >> 16);
+>>> \
+>>> -    BUILD_BUG_ON((type) >= BUGFRAME_NR);
+>>> \
+>>> -    asm ("1:"BUG_INSTR"\n"
+>>> \
+>>> -         ".pushsection .rodata.str, \"aMS\", %progbits, 1\n"
+>>> \
+>>> -         "2:\t.asciz " __stringify(file) "\n"
+>>> \
+>>> -         "3:\n"
+>>> \
+>>> -         ".if " #has_msg "\n"
+>>> \
+>>> -         "\t.asciz " #msg "\n"
+>>> \
+>>> -         ".endif\n"
+>>> \
+>>> -         ".popsection\n"
+>>> \
+>>> -         ".pushsection .bug_frames." __stringify(type) ", \"a\",
+>>> %progbits\n"\
+>>> -         "4:\n"
+>>> \
+>>> -         ".p2align 2\n"
+>>> \
+>>> -         ".long (1b - 4b)\n"
+>>> \
+>>> -         ".long (2b - 4b)\n"
+>>> \
+>>> -         ".long (3b - 4b)\n"
+>>> \
+>>> -         ".hword " __stringify(line) ", 0\n"
+>>> \
+>>> -         ".popsection");
+>>> \
+>>> -} while (0)
+>>> -
+>>> -/*
+>>> - * GCC will not allow to use "i"  when PIE is enabled (Xen doesn't set the
+>>> - * flag but instead rely on the default value from the compiler). So the
+>>> - * easiest way to implement run_in_exception_handler() is to pass the to
+>>> - * be called function in a fixed register.
+>>> - */
+>>> -#define  run_in_exception_handler(fn) do {
+>>> \
+>>> -    asm ("mov " __stringify(BUG_FN_REG) ", %0\n"
+>>> \
+>>> -         "1:"BUG_INSTR"\n"
+>>> \
+>>> -         ".pushsection .bug_frames." __stringify(BUGFRAME_run_fn) ","
+>>> \
+>>> -         "             \"a\", %%progbits\n"
+>>> \
+>>> -         "2:\n"
+>>> \
+>>> -         ".p2align 2\n"
+>>> \
+>>> -         ".long (1b - 2b)\n"
+>>> \
+>>> -         ".long 0, 0, 0\n"
+>>> \
+>>> -         ".popsection" :: "r" (fn) : __stringify(BUG_FN_REG) );
+>>> \
+>>> -} while (0)
+>>> -
+>>> -#define WARN() BUG_FRAME(BUGFRAME_warn, __LINE__, __FILE__, 0, "")
+>>> -
+>>> -#define BUG() do {                                              \
+>>> -    BUG_FRAME(BUGFRAME_bug,  __LINE__, __FILE__, 0, "");        \
+>>> -    unreachable();                                              \
+>>> -} while (0)
+>>> -
+>>> -#define assert_failed(msg) do {                                 \
+>>> -    BUG_FRAME(BUGFRAME_assert, __LINE__, __FILE__, 1, msg);     \
+>>> -    unreachable();                                              \
+>>> -} while (0)
+>>> +#define BUG_ASM_CONST   "c"
+>>
+>> ... you should explain in the commit message why this is needed and the
+>> problem described above is not a problem anymore.
+>>
+>> For instance, I managed to build it without 'c' on arm64 [1]. But it does
+>> break on arm32 [2]. I know that Arm is also where '%c' was an issue.
+>>
+>> Skimming through linux, the reason seems to be that GCC may add '#' when it
+>> should not. That said, I haven't look at the impact on the generic
+>> implementation. Neither I looked at which version may be affected (the
+>> original message was from 2011).
+>>
+>> However, without an explanation, I am afraid this can't go in because I am
+>> worry we may break some users (thankfully that might just be a compilation
+>> issues rather than weird behavior).
+>>
+>> Bertrand, Stefano, do you know if this is still an issue?
 > 
-> Cheers,
+> I don't know, but I confirm your observation.
 > 
+> In my system, both ARM64 and ARM32 compile without problems with "c".
+> Without "c', only ARM64 compiles without problems, while ARM32 breaks.
+> 
+> My ARM32 compiler is:
+> arm-linux-gnueabihf-gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+> 
+> Additing a meaningful explanation to the commit message might be
+> difficult in this case.
 
+Agree. One would need to look at the compiler code to confirm. We should 
+at least acknowledge the change in the commit message and also...
+
+> 
+> Maybe instead we could run a few tests with different versions of arm64
+> and arm32 gcc to check that everything still works? If everything checks
+> out, given that the issue has been unchanged for 10+ years we could just
+> keep "c" and move forward with it?
+
+... confirm that we are still able to compile with GCC 4.9 (arm32) and 
+GCC 5.1 (arm64).
+
+Do we have those compiler in the CI? (I couldn't easily confirm from the 
+automation directory).
+
+Cheers,
+
+-- 
+Julien Grall
 
