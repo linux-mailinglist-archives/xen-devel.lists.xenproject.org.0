@@ -2,42 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1AE66DA450
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 23:02:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518996.806113 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 866416DA455
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 23:03:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.519000.806122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkWjy-0006SF-Fa; Thu, 06 Apr 2023 21:01:54 +0000
+	id 1pkWla-00073M-Sd; Thu, 06 Apr 2023 21:03:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518996.806113; Thu, 06 Apr 2023 21:01:54 +0000
+Received: by outflank-mailman (output) from mailman id 519000.806122; Thu, 06 Apr 2023 21:03:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkWjy-0006Pm-Br; Thu, 06 Apr 2023 21:01:54 +0000
-Received: by outflank-mailman (input) for mailman id 518996;
- Thu, 06 Apr 2023 21:01:53 +0000
+	id 1pkWla-000715-Pr; Thu, 06 Apr 2023 21:03:34 +0000
+Received: by outflank-mailman (input) for mailman id 519000;
+ Thu, 06 Apr 2023 21:03:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=w3yY=75=citrix.com=prvs=453e3c94d=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pkWjx-0006Pg-CZ
- for xen-devel@lists.xenproject.org; Thu, 06 Apr 2023 21:01:53 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f41457f-d4be-11ed-b464-930f4c7d94ae;
- Thu, 06 Apr 2023 23:01:50 +0200 (CEST)
-Received: from mail-bn8nam12lp2173.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.173])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 06 Apr 2023 17:01:44 -0400
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by BN9PR03MB6092.namprd03.prod.outlook.com (2603:10b6:408:11d::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.31; Thu, 6 Apr
- 2023 21:01:42 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::a5a1:8cae:d45b:2030]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::a5a1:8cae:d45b:2030%3]) with mapi id 15.20.6254.035; Thu, 6 Apr 2023
- 21:01:42 +0000
+ <SRS0=S/rR=75=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1pkWlZ-00070z-Fw
+ for xen-devel@lists.xenproject.org; Thu, 06 Apr 2023 21:03:33 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b75b6c1-d4be-11ed-b464-930f4c7d94ae;
+ Thu, 06 Apr 2023 23:03:30 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4ABD860F8A;
+ Thu,  6 Apr 2023 21:03:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77CD6C433EF;
+ Thu,  6 Apr 2023 21:03:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,153 +43,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f41457f-d4be-11ed-b464-930f4c7d94ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1680814910;
-  h=message-id:date:from:subject:to:cc:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=gKurutHoy7sve8V5n2Kf1VRnA+63mQqgavH5Fq7Cw7k=;
-  b=KobH7JOid6QEoj4NIcAvqvXEaPZzttZZjLsGlTc1KorORFEwAruajQ+v
-   B9B4Jg1BGpSMEeh0GBA2TqdODtj7sQtK6EiBMPJoXOGs+HZFj7KOi3H93
-   eCo+qGtMWErssYCRBgUWdPLZszVXHxlYHVwCEqhaV5Ji9Yyv8S/ipVWBT
-   M=;
-X-IronPort-RemoteIP: 104.47.55.173
-X-IronPort-MID: 103415141
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:xvM0m6AVZfHyShVW/wTiw5YqxClBgxIJ4kV8jS/XYbTApGl00WNVx
- mMZCmuCaP+LYGH3fdpwb9yy9k1V6pTcxtY3QQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbyRFu8pvlDs15K6p4G9A4ARkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIwy8IqD2wR6
- eEhORtUX02lg+6535z4Rbw57igjBJGD0II3nFhFlGucJ9B2BJfJTuPN+MNS2yo2ioZWB/HCa
- sEFaD1pKhPdfxlIPVRRA5U79AuqriCnL3sE9xTI+OxuvDO7IA9ZidABNPL8fNCQSNoTtUGfv
- m/cpEzyAw0ANczZwj2Amp6prraXxn+iBdtOTdVU8NY33EOpxnAyMCESFn+in6HnoWq8Q8BAf
- hl8Fi0G6PJaGFaQZtv3UgC8oXWElgUBQNcWGOo/gCmdx6yR7wuHC2wsSj9adMdgpMIwXSYt1
- FKCg5XuHzMHmKKRYWKQ8PGTtzzaBMQOBWoLZCtBRw1V5dDm+ds3lkiWEY0lF7OphNroHz222
- yqNsCU1m7QUi4gMyrm/+lfExTmro/AlUzII2+keZUr9hisRWWJvT9XABYTzhRqYELukcw==
-IronPort-HdrOrdr: A9a23:unloGqxDLcKhz1Mi3/xoKrPwD71zdoMgy1knxilNoG9uA7Clfq
- GV7Y8mPHrP4gr5N0tQ/+xoVJPwIk80sKQFhbX5Xo3SJDUO2lHYVb2KhLGKq1aBJ8S9zJ856U
- 4JSclD4bbLfD9HZLPBkXSF+rgbsbu6GWOT6ds2DU0BceinUc5dBn9Ce3ym+4RNKjV7OQ==
-X-IronPort-AV: E=Sophos;i="5.98,323,1673931600"; 
-   d="scan'208";a="103415141"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bre8/qXhJC0qbJtELOf99I+xO1BBwwdpOIsI6DCKplbBfpb/rmG6QuTs8hJJ7QcytJZ7fF/dQgy1jVZKwB10MCz/1iyGVbL6WKnuEzD+89FX5Sr+LSMRDC+OOkUGyk6WSdBD13tQg0JcXOa3TefxUDxTUSi45SG15nTbwfqrROEreAfl32gHXVQJHIk0HUVsGdqN24H56z6EoMhCwS9vkR1+svWmIfvZkI43Ijdnu2gkU6nrr2vPGykzY6fNBGVR3X/b9TziFn/z2plMIz/XREPrvcK7gUKfIIGzMJuI3DfAcY2Xuc3tA2tCSK9NTCVR1SzmLYEadmh/gHwQPLQqWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gKurutHoy7sve8V5n2Kf1VRnA+63mQqgavH5Fq7Cw7k=;
- b=EYBtzpkANAR3PqpvJJhRwEqsjEyol7K+V2gAVfwgXcBFTj1FiWUdeyPsN2Gndd5dxvGFtklcwrh8KxnDW6xttFZKnHAp2UuP3X1IeN6cG6BK0WmO6GlyZa6z8Vr151bw0EESk5dlRGpR2JPCyD5DRLzKItn6msL7qnG+OIPmMAHnZd6LUWxzl2F7ml5Ad/Ams89XsZ9T5MKZdHwTJ+ZsxB6sGo0nfN2e5A+bq2xtdE5pN2bTNi0J9PuYwCzmPDshnR/n+2teSnwnEyIyExNtiVmGgborm+63z1giB96YiunfPdK+l/GATIBEnXXg35bbQgyCSMvgcWHIThE9GWG6fA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gKurutHoy7sve8V5n2Kf1VRnA+63mQqgavH5Fq7Cw7k=;
- b=Ma5iNDs2VraVm27liMEXNKZyY9n+/8EBAU61SrOnzsFr14WaUF68bbm60Y8rQ+1jahrIJMZ8msUh+bRnaZcXW/q+lhNd2XCwlQDnWDGyXGAkPIaqUaRll1XlfIk5veOjZrmtkvxvv6+fyeabjckNSa8z6HuhP0KT7kSP7U01M6A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <1fa826b6-7d85-9f1b-037d-7d6f3d35461a@citrix.com>
-Date: Thu, 6 Apr 2023 22:01:36 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 7/9] x86emul: support AVX-VNNI-INT8
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <c7f748fe-f062-c2fc-4cc4-b2f888633abe@suse.com>
- <e5c21de7-8802-9226-82f6-505c8f4d6ac8@suse.com>
-In-Reply-To: <e5c21de7-8802-9226-82f6-505c8f4d6ac8@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0017.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:150::22) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-Inumbo-ID: 7b75b6c1-d4be-11ed-b464-930f4c7d94ae
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1680815008;
+	bh=baSuc3BibvB3PyiGiOM2HhWxK6GVI9IxnZZWwuwsNt0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=mM5y2v9V0XrBUWuQ+oK7Za92/KG4pQawUlDfs4D9f8p5l5p/db+J1EMs+aK00T4ah
+	 TNhy/0UbJhvvOo+EhrgsHRcFRfqDu6uuWiB2u0FDhll7tBlcXbCwQpnt4C2SzgAQ5o
+	 FkCVHvmzLW+3qL3A1MSZWJwiwKaJ7E8ZT9d1S+DXYjxnWmLPMqoGUJ2wfkC3Z5Usds
+	 7kJnUOW47MvF/Er4O8flIxqzXfN78Mx1/jzeHG49Hgp1xcTIUgdOHxb1t/8/CJhZB5
+	 KHNnBB9G5Q0AUzTTNVxjNxFsmWRxy55a1VsqG89cdVCusrafau1kzkiVuTtiv4CFa4
+	 9CjUpyzp5YwVw==
+Date: Thu, 6 Apr 2023 14:03:25 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Gianluca Guida <gianluca@rivosinc.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v9 4/5] xen/arm: switch ARM to use generic implementation
+ of bug.h
+In-Reply-To: <cce5e277-8692-d339-0283-55620c349fcf@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2304061403190.111906@ubuntu-linux-20-04-desktop>
+References: <cover.1680086655.git.oleksii.kurochko@gmail.com> <8fdb98350ae4fc6029738d0aabe13a57e1945a50.1680086655.git.oleksii.kurochko@gmail.com> <3a94ad32-159d-d06f-cba6-3bb40f9f2085@xen.org> <alpine.DEB.2.22.394.2304021557140.4566@ubuntu-linux-20-04-desktop>
+ <cce5e277-8692-d339-0283-55620c349fcf@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|BN9PR03MB6092:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27cd20b8-7707-4c6d-5132-08db36e21f53
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	E4feq0gnkNZJrDfy/17kgUlqR2/zxnIrnmCU4A0AZN6D+OpH5WTmpKueUuc1iUwokKq16N2yMnjl5tOlKfsbWy3cIjm3s5JPQJFWTrj7YUVRtUdsx4onGC54c4GKndu+xavsojTgwFdpV7NGhBv8UKoI+Quxum1VWMqrsF+KswQCSQIV0dRQIkb+4GJPyU9BsPeUj9J61Y/qNxOF8hdQPHXO0MxdbcF990pHTWytyawVJ1CrNMYbd8sFWHg6Bn1XjYQcL+B1WMGVvSaSdw+phUd8sdgF5QkJ7v68PweQT0JLNf0lhKvTV+DgRO/bVOB36lVVcoVGUyRQ0bfdsvwZ4/DHCoV2c/Coik9qZdPkxN2i+7+DKdBy9cKv3SjjUuA9HEpui0IK9gVDAJs31BzCgnsN11f9cGd3DWEyXz9n7cVLq3lh9SNi9eVU5S1nVPNx63P8ZTD/+IvyMA6OnICZwjbQRc+4rUuKwqXOsr5JwEJkAdX16jPDH+fsSD/o+0WUqXGW4rNlty41hWiL08H9jgkANkEyCDX3K1q01uxGAttF5elCXcJ4TvGvGo70687f/U2RpjwMybLnwQswI7jsNi685yEawNe+rLSfZ21OSTg74sjXXyBnH+gZB31R3CRKvHg/OJ+0PsSKG6nGz0sRAg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(376002)(346002)(39860400002)(366004)(451199021)(31686004)(66946007)(6486002)(66556008)(66476007)(8676002)(4326008)(54906003)(478600001)(41300700001)(316002)(110136005)(36756003)(31696002)(86362001)(83380400001)(2616005)(107886003)(6512007)(6506007)(26005)(53546011)(6666004)(2906002)(5660300002)(8936002)(4744005)(82960400001)(38100700002)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?amcxeTdxSVBocTZ6c21PN21vYk5lVThqdW5hQjNnVm5aUElaUTkxSXI0aW1T?=
- =?utf-8?B?NGw1amZ2NEN5ekR3V0IyWDdnSmZqbGpLeWxYU0wrblZEQjhvcHdnbFFiNEVw?=
- =?utf-8?B?YVB6bHZ2UEI4YW1aUE1CZUFHZHRTV3pEQUJ0OVVXOU03b2FCbFNNY1NHNW15?=
- =?utf-8?B?MXRQME00clQvNUd4dTEzYUg0Rm55YTZyT1Y3OGV1M1VSOGJKNU1FRTBlc0M3?=
- =?utf-8?B?UmhPemJtcmVzOTVKaXFqQUpEQjlWNHVnaUxMYXc0blVKS3BSNFR1TUJEWDRT?=
- =?utf-8?B?ODZsZnloSTVzUzFuenlSYzlUd1BmUDYrMTZJZElPN1VWK1BLc29HSXRQSWg4?=
- =?utf-8?B?UFFIOVliaW5Cd1h6TU1GRmkrL1JVRkxVcHFhUk9uWFdmeVZKWU9rV2RxUlkz?=
- =?utf-8?B?akRzcXE5TjZHUksxY0dFZDRJazBBUjBseWpmcXhxd201ZkQvM3hDSHJaOEhy?=
- =?utf-8?B?MjRoVlJtUkdnOVZOTXE4Y2xmNk5tVmUwTVh6RGFsUDI0bHNxQUpBWUY2Y3Vh?=
- =?utf-8?B?TzU5QThZT0tFMDBITXUxRXpGeUYyamRRTDc0RExpUXlOQzJyakJhbTRMV2Y1?=
- =?utf-8?B?VjY5Y0VtdXluKzZqSlZBYU1hdWVDRmtYSWo4WGFhdkNMYlliaE1YczcwYW9O?=
- =?utf-8?B?Y3FCaytnYmpnRVFFNzR6U3c2ZVNWVytqdVFwSXlrT1grNVkzZjY4ZmU5S1Mw?=
- =?utf-8?B?VmxMc0R4RVp4SGQrdTZWTXhzRHEzOGtOWm4rKzlnWjh3THZISG42MkdGaWtS?=
- =?utf-8?B?azNWWEJQZzhYcEU5ZCs4NmMrd1A3S3l5V21xeFFjOUtCYWJFeEZaQ293Y21h?=
- =?utf-8?B?ZXZXYUVrRW5BUzdkTlNhbDZaT3BzV1Izb3lBdGF4L3dzZloyL1JlNDNsT0ZZ?=
- =?utf-8?B?MGpxUVNtaENWc2tWVThlVFZSWFgzRmZZcjlRb3NQaVR6UmtRbmZnUUJDZWdT?=
- =?utf-8?B?VXhSMzFnNXEyYmFjT0MrWGtxY0l6cjBnbUJkcG5vTVBUVm5ZTTE3OUUxclhD?=
- =?utf-8?B?ZHB1UVU2QnpmUEpmNWZKSkxHRXFWQU1uVi8yMm9YNUxnV0lqTmpvMFJtMEpD?=
- =?utf-8?B?Tk9EU1ZyOTRyZWpNL0x5UisxL0V1VFpWczRDdFROYm90R0xYV29MY04zeStq?=
- =?utf-8?B?WlZ4QjFOZDdJekZ3elFNR1hVZDhhKzRYRldBbFJDb3k2cWJyQ3JKQllwMVVK?=
- =?utf-8?B?RmMvN3RDM1dTNnlpbTVPRElDbkxYOHF4UGpkNWtPdjlsNW4xZEkwSTJPSS9R?=
- =?utf-8?B?QXhpWG1ESzhJWE5Ha2FscGpVWmJjeVcycmxONGpjTFEvbllwS3RSeTl1SDR1?=
- =?utf-8?B?ODFNR3l0OEpGT1JtYi9TZ1dHZUpjTCttZ2lSNGovUHVDRWVCaGRWeUZiYkVZ?=
- =?utf-8?B?dXNxZlpZSTFBQjVEUUU5Tm9Ycmw0M2x3U0JHSUtJSDR0WDlzT1o2T2hXRlpD?=
- =?utf-8?B?RDEwb0gzUnNoUlJtd2RkMWJSWkJiakZUMmxPTjVuSDgrRW9HbWQyYkovMWRq?=
- =?utf-8?B?QUVVMkM5SHc5MG96dXg0VW1TODBrN09lQ3djOSs5OTNoR0RZZ2prK3pqV3ZI?=
- =?utf-8?B?RCtCR01NVWQzYUlhNEcyMzBIT0RBRTdDOTE5TkRwU0VHQlpUU1Z4cm9wTkhV?=
- =?utf-8?B?Tml2RFZ0Q3N6blMrZk9RNVhxQi9lZDB5a2VUc0xML0llY1puNEcwNHNHNWlj?=
- =?utf-8?B?bjY3bDlYaHI1TW45eFpnWlN1ZHpkUktXcFFyamloTEVrQS9qZk5FSHpnSkV2?=
- =?utf-8?B?RTEvc0NtWkFrV3NTTnZXbFJXdmpoZGIvTVVmODBBVDdqQlNmRHBZZ0l0UzMr?=
- =?utf-8?B?aUhQTW1NcU1LSEJJZGlEd3Iwa2ptTWR5eURHMHpNaWZ4bUFsRUZ3VU1EekdI?=
- =?utf-8?B?cEZ1ajUrdzlESjgxV0dwSVdKYUJoaVBzd09nSDNDa0NLSCtjL3RDQ2cxSWRB?=
- =?utf-8?B?ODdhM0ZZNU16a1BjM05hS2doMnVmNzdYZzdtT2RaZzVwYkxvckFDc0F6OERt?=
- =?utf-8?B?Uk1VN0FTZHdMZ2FKVVJkTXFLZ28rRitlS3VZajNhUzFoN1VQNisyalVxV2tP?=
- =?utf-8?B?ODcweXFHWERiTFlZK3NzendLMjFJemY2WTNHN3ZlTXI1QU82YjNORkg1dTc2?=
- =?utf-8?B?blN2cm5jMjJsZEZ3S09jWW1ndXUyWkZuUTNoVUpkT3piZXg5bDdzRlpLTzMy?=
- =?utf-8?B?WVE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	HYIZfeqB36tCFoLop5sMPDAEiSegS0gNuQJ8WYrnS1/Gf73ASpaQLi+OiOexkfUmUn9GaszIJfjfcy6mMoH+5/+hgBrZytytk+BrPuRKaACP8BJ4BMIaXI3AoPFoq8CyDGhQ7wNFGj+Vdc3cC/KloZMi1NM9ZwrMUPZU5q0RgB0z0Vsys94zqAq1d0XMPxct3M3a+xXf3ZA9cdBoXMb6m2aZK0vYaJu8Sx/yzI0TP/PKtFGyQWNgfeNzIb7OoQrl505A9POjvnlAI3jdCkAhJSguOsZZzutpNlwVf14zhWQPGP90qz9umyoP98+kbRnjLiD+xeyrKLQ6T7GSGhIICwbWq98fWvWSMNiqUwCh3jV9f1UMJsDCyvuaq3Rn3IRunyfNynORyCTL8sot9DtTiuXyEQY5CEUsL1MUgjIld4nehb0N83sZBFxEVM/+NDtKbbKvhtHpxrLBsJhkLUTsUItsw/FnZVQvCk0ub2B3a72e12tDJrItujEjjXQpN9XQAh+Ca0IOUjOLrjumCV28vbJCESQEmygI8A3nAR+WXNym616un1v4peqe4SkuwKgWxfH18KasIXkz/qj3rqLp0Mr6B8TqCGdOhDd0RXq7phj7Syk7b9WE0BhIzYJS8x+m0kttNGgM6+CNzptEGUdGn79plvzHSqKr46oHPgOXKTdGMdHncZ9wbpFef4YYBIPz/f/OLUNrKNYX3FIzOBsKTBecWFMGYDQl/xuunaC45Ghhihx+8azCkBObcR/ugaHPCRRdORKC+7W/lSLkcMMBzHOy5ZHAWZpoaom/yXe/AacZFbR9tGMik9rjqxQFblhA
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27cd20b8-7707-4c6d-5132-08db36e21f53
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2023 21:01:42.2335
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vaWyGbhYNq3gRyFdKcxAHbDT2ytys4wtGwr6uwEUBl7x6/8lzvtXYR57g6sAjEPinxys37wHm+1kWzKNsHO11AukG4OsS6q5MDaEcwDE7YU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR03MB6092
+Content-Type: text/plain; charset=US-ASCII
 
-On 04/04/2023 3:54 pm, Jan Beulich wrote:
-> These are close relatives of the AVX-VNNI ISA extension. Since the insns
-> here and in particular their memory access patterns follow the usual
-> scheme (and especially the byte variants of AVX-VNNI), I didn't think it
-> was necessary to add a contrived test specifically for them.
->
-> While making the addition also re-wire AVX-VNNI's handling to
-> simd_0f_ymm: There's no reason to check the AVX feature alongside the
-> one actually of interest (there are a few features where two checks are
-> actually necessary, e.g. GFNI+AVX, but this isn't the case here).
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Wed, 5 Apr 2023, Julien Grall wrote:
+> On 03/04/2023 00:15, Stefano Stabellini wrote:
+> > On Fri, 31 Mar 2023, Julien Grall wrote:
+> > > Hi Oleksii,
+> > > 
+> > > I was going to ack the patch but then I spotted something that would want
+> > > some
+> > > clarification.
+> > > 
+> > > On 29/03/2023 11:50, Oleksii Kurochko wrote:
+> > > > diff --git a/xen/arch/arm/include/asm/bug.h
+> > > > b/xen/arch/arm/include/asm/bug.h
+> > > > index cacaf014ab..3fb0471a9b 100644
+> > > > --- a/xen/arch/arm/include/asm/bug.h
+> > > > +++ b/xen/arch/arm/include/asm/bug.h
+> > > > @@ -1,6 +1,24 @@
+> > > >    #ifndef __ARM_BUG_H__
+> > > >    #define __ARM_BUG_H__
+> > > >    +/*
+> > > > + * Please do not include in the header any header that might
+> > > > + * use BUG/ASSERT/etc maros asthey will be defined later after
+> > > > + * the return to <xen/bug.h> from the current header:
+> > > > + *
+> > > > + * <xen/bug.h>:
+> > > > + *  ...
+> > > > + *   <asm/bug.h>:
+> > > > + *     ...
+> > > > + *     <any_header_which_uses_BUG/ASSERT/etc macros.h>
+> > > > + *     ...
+> > > > + *  ...
+> > > > + *  #define BUG() ...
+> > > > + *  ...
+> > > > + *  #define ASSERT() ...
+> > > > + *  ...
+> > > > + */
+> > > > +
+> > > >    #include <xen/types.h>
+> > > >      #if defined(CONFIG_ARM_32)
+> > > > @@ -11,76 +29,7 @@
+> > > >    # error "unknown ARM variant"
+> > > >    #endif
+> > > >    -#define BUG_FRAME_STRUCT
+> > > > -
+> > > > -struct bug_frame {
+> > > > -    signed int loc_disp;    /* Relative address to the bug address */
+> > > > -    signed int file_disp;   /* Relative address to the filename */
+> > > > -    signed int msg_disp;    /* Relative address to the predicate (for
+> > > > ASSERT) */
+> > > > -    uint16_t line;          /* Line number */
+> > > > -    uint32_t pad0:16;       /* Padding for 8-bytes align */
+> > > > -};
+> > > > -
+> > > > -#define bug_loc(b) ((const void *)(b) + (b)->loc_disp)
+> > > > -#define bug_file(b) ((const void *)(b) + (b)->file_disp);
+> > > > -#define bug_line(b) ((b)->line)
+> > > > -#define bug_msg(b) ((const char *)(b) + (b)->msg_disp)
+> > > > -
+> > > > -/* Many versions of GCC doesn't support the asm %c parameter which
+> > > > would
+> > > > - * be preferable to this unpleasantness. We use mergeable string
+> > > > - * sections to avoid multiple copies of the string appearing in the
+> > > > - * Xen image. BUGFRAME_run_fn needs to be handled separately.
+> > > > - */
+> > > 
+> > > Given this comment ...
+> > > 
+> > > > -#define BUG_FRAME(type, line, file, has_msg, msg) do {
+> > > > \
+> > > > -    BUILD_BUG_ON((line) >> 16);
+> > > > \
+> > > > -    BUILD_BUG_ON((type) >= BUGFRAME_NR);
+> > > > \
+> > > > -    asm ("1:"BUG_INSTR"\n"
+> > > > \
+> > > > -         ".pushsection .rodata.str, \"aMS\", %progbits, 1\n"
+> > > > \
+> > > > -         "2:\t.asciz " __stringify(file) "\n"
+> > > > \
+> > > > -         "3:\n"
+> > > > \
+> > > > -         ".if " #has_msg "\n"
+> > > > \
+> > > > -         "\t.asciz " #msg "\n"
+> > > > \
+> > > > -         ".endif\n"
+> > > > \
+> > > > -         ".popsection\n"
+> > > > \
+> > > > -         ".pushsection .bug_frames." __stringify(type) ", \"a\",
+> > > > %progbits\n"\
+> > > > -         "4:\n"
+> > > > \
+> > > > -         ".p2align 2\n"
+> > > > \
+> > > > -         ".long (1b - 4b)\n"
+> > > > \
+> > > > -         ".long (2b - 4b)\n"
+> > > > \
+> > > > -         ".long (3b - 4b)\n"
+> > > > \
+> > > > -         ".hword " __stringify(line) ", 0\n"
+> > > > \
+> > > > -         ".popsection");
+> > > > \
+> > > > -} while (0)
+> > > > -
+> > > > -/*
+> > > > - * GCC will not allow to use "i"  when PIE is enabled (Xen doesn't set
+> > > > the
+> > > > - * flag but instead rely on the default value from the compiler). So
+> > > > the
+> > > > - * easiest way to implement run_in_exception_handler() is to pass the
+> > > > to
+> > > > - * be called function in a fixed register.
+> > > > - */
+> > > > -#define  run_in_exception_handler(fn) do {
+> > > > \
+> > > > -    asm ("mov " __stringify(BUG_FN_REG) ", %0\n"
+> > > > \
+> > > > -         "1:"BUG_INSTR"\n"
+> > > > \
+> > > > -         ".pushsection .bug_frames." __stringify(BUGFRAME_run_fn) ","
+> > > > \
+> > > > -         "             \"a\", %%progbits\n"
+> > > > \
+> > > > -         "2:\n"
+> > > > \
+> > > > -         ".p2align 2\n"
+> > > > \
+> > > > -         ".long (1b - 2b)\n"
+> > > > \
+> > > > -         ".long 0, 0, 0\n"
+> > > > \
+> > > > -         ".popsection" :: "r" (fn) : __stringify(BUG_FN_REG) );
+> > > > \
+> > > > -} while (0)
+> > > > -
+> > > > -#define WARN() BUG_FRAME(BUGFRAME_warn, __LINE__, __FILE__, 0, "")
+> > > > -
+> > > > -#define BUG() do {                                              \
+> > > > -    BUG_FRAME(BUGFRAME_bug,  __LINE__, __FILE__, 0, "");        \
+> > > > -    unreachable();                                              \
+> > > > -} while (0)
+> > > > -
+> > > > -#define assert_failed(msg) do {                                 \
+> > > > -    BUG_FRAME(BUGFRAME_assert, __LINE__, __FILE__, 1, msg);     \
+> > > > -    unreachable();                                              \
+> > > > -} while (0)
+> > > > +#define BUG_ASM_CONST   "c"
+> > > 
+> > > ... you should explain in the commit message why this is needed and the
+> > > problem described above is not a problem anymore.
+> > > 
+> > > For instance, I managed to build it without 'c' on arm64 [1]. But it does
+> > > break on arm32 [2]. I know that Arm is also where '%c' was an issue.
+> > > 
+> > > Skimming through linux, the reason seems to be that GCC may add '#' when
+> > > it
+> > > should not. That said, I haven't look at the impact on the generic
+> > > implementation. Neither I looked at which version may be affected (the
+> > > original message was from 2011).
+> > > 
+> > > However, without an explanation, I am afraid this can't go in because I am
+> > > worry we may break some users (thankfully that might just be a compilation
+> > > issues rather than weird behavior).
+> > > 
+> > > Bertrand, Stefano, do you know if this is still an issue?
+> > 
+> > I don't know, but I confirm your observation.
+> > 
+> > In my system, both ARM64 and ARM32 compile without problems with "c".
+> > Without "c', only ARM64 compiles without problems, while ARM32 breaks.
+> > 
+> > My ARM32 compiler is:
+> > arm-linux-gnueabihf-gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+> > 
+> > Additing a meaningful explanation to the commit message might be
+> > difficult in this case.
+> 
+> Agree. One would need to look at the compiler code to confirm. We should at
+> least acknowledge the change in the commit message and also...
+> 
+> > 
+> > Maybe instead we could run a few tests with different versions of arm64
+> > and arm32 gcc to check that everything still works? If everything checks
+> > out, given that the issue has been unchanged for 10+ years we could just
+> > keep "c" and move forward with it?
+> 
+> ... confirm that we are still able to compile with GCC 4.9 (arm32) and GCC 5.1
+> (arm64).
+> 
+> Do we have those compiler in the CI? (I couldn't easily confirm from the
+> automation directory).
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+In the CI we have:
+- arm64v8/alpine:3.12, gcc 9.3.0
+- arm64v8/debian:unstable, gcc 12.2.0
+- arm64v8/debian:unstable cross arm32, gcc 12.2.0
+- yocto, not sure exactly but it is going to be 9.x or newer
 
