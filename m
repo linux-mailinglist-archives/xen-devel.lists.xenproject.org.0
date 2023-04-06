@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30ED16D9B60
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 16:58:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518918.805930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DF696D9C09
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 17:19:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518925.805940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkR3G-0005Dd-4Y; Thu, 06 Apr 2023 14:57:26 +0000
+	id 1pkRNc-0007hf-Sm; Thu, 06 Apr 2023 15:18:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518918.805930; Thu, 06 Apr 2023 14:57:26 +0000
+Received: by outflank-mailman (output) from mailman id 518925.805940; Thu, 06 Apr 2023 15:18:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkR3G-0005Bz-0x; Thu, 06 Apr 2023 14:57:26 +0000
-Received: by outflank-mailman (input) for mailman id 518918;
- Thu, 06 Apr 2023 14:57:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pkRNc-0007eV-Q0; Thu, 06 Apr 2023 15:18:28 +0000
+Received: by outflank-mailman (input) for mailman id 518925;
+ Thu, 06 Apr 2023 15:18:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kFOP=75=arm.com=Peter.Hoyes@srs-se1.protection.inumbo.net>)
- id 1pkR3E-0005Bt-MH
- for xen-devel@lists.xenproject.org; Thu, 06 Apr 2023 14:57:24 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 549f176e-d48b-11ed-b464-930f4c7d94ae;
- Thu, 06 Apr 2023 16:57:21 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 34AABFEC;
- Thu,  6 Apr 2023 07:58:04 -0700 (PDT)
-Received: from [10.1.199.64] (unknown [10.1.199.64])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5584D3F762;
- Thu,  6 Apr 2023 07:57:19 -0700 (PDT)
+ <SRS0=hdop=75=linaro.org=peter.maydell@srs-se1.protection.inumbo.net>)
+ id 1pkRNa-0007e6-Qn
+ for xen-devel@lists.xenproject.org; Thu, 06 Apr 2023 15:18:26 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 46a36581-d48e-11ed-85db-49a42c6b2330;
+ Thu, 06 Apr 2023 17:18:25 +0200 (CEST)
+Received: by mail-ej1-x62e.google.com with SMTP id l17so2238007ejp.8
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Apr 2023 08:18:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,55 +39,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 549f176e-d48b-11ed-b464-930f4c7d94ae
-Message-ID: <6b98b95d-d737-5495-9c03-7857886cb1ce@arm.com>
-Date: Thu, 6 Apr 2023 15:57:12 +0100
+X-Inumbo-ID: 46a36581-d48e-11ed-85db-49a42c6b2330
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1680794305; x=1683386305;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=DTYmK8YkPVhMeVdQAleCZ/tAcp1XekiLSY2jWJ8OVn0=;
+        b=o3sXOGaTy35TBrWdA/ZCTjDHsafZroabmM7isj5bmvtyQzYNf8w0e6W2k5tDIZJOT5
+         ZtB6SjqdlNsiTLK5jMTOa65QbxUKFL1QtdRlcLTCok/3waNhaSOTzSZm+sRQY+yAK0lW
+         Gi4So07q5CVUbS2L9HUiwJvvYHUB6Q4vj3e6EhKcFFbiC8jMzEAQh9aTrDG3uGQUY/U5
+         kzzUHFzg/wt6ZN4jsviiQ2NQraL5cbmbtq4S1ATmJ48Y0P7bFi3K5BWWuFpKUGrOiNDC
+         NEYh2UGteXEvs2orgNeNIg/6c4ya/viPWQqtTpBOFtAM6nVYAKwullSbt+p47ZKT1Mhp
+         zyZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1680794305; x=1683386305;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DTYmK8YkPVhMeVdQAleCZ/tAcp1XekiLSY2jWJ8OVn0=;
+        b=4Ee/iMwUBLxGRpHM8AWdlZ4CxS1Wd+3HS+nCR6h8DMDNF1S1MepzTUE/5hyc7stnrz
+         jN/0AUADjg7cfVnEUQRWXcqgV3aYDP1wdAr9yYPHddk8XVVOwwQu4ZN3fShbe9so+9zi
+         AYblrZmzjYpsqAJmPJUqEiUGmeoQ3BTkdNjzezYaF5/WsD6eJOAhIlJhliqKdFp2ksq0
+         GABv5x8vY4Mwtjz0qMX90TsaXr87V2zoqxX90kAfUrzXbOBNPBmCMdVDMfqvrfnx6dQ2
+         WMBjsaHD/Kbb7FXu2mUJX+iypgFFkOgGG+OJVR90io9/VAlNimzWeOED7PTDYXXdEXbI
+         31Eg==
+X-Gm-Message-State: AAQBX9dWnTew+ohena3S8meRRwgwonfMGHTezPCaiWWMr2Y73hUr2gYq
+	TChSzWBXFQHx9ET2B0974fvDW9Y+rkrvzJTBHG4MCQ==
+X-Google-Smtp-Source: AKy350Zs8ZnFOSDFZhmrHpJmPBzmdZ0OVPINfkHmM71Js2ejfgFIiy9ZLXoyIwUqzPcpT94JVtx18iJ0Fh+BaFTYbQU=
+X-Received: by 2002:a17:906:73d8:b0:939:a51a:dc30 with SMTP id
+ n24-20020a17090673d800b00939a51adc30mr4786343ejl.2.1680794305057; Thu, 06 Apr
+ 2023 08:18:25 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [PATCH] tools/xendomains: Only save/restore/migrate if supported
- by xenlight
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, wei.chen@arm.com,
- bertrand.marquis@arm.com, Wei Liu <wl@xen.org>
-References: <20230322135800.3869458-1-peter.hoyes@arm.com>
- <fa320fd7-31fa-4e96-a804-172e70ef1c80@perard>
-Content-Language: en-US
-From: Peter Hoyes <Peter.Hoyes@arm.com>
-In-Reply-To: <fa320fd7-31fa-4e96-a804-172e70ef1c80@perard>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20230307182707.2298618-1-dwmw2@infradead.org> <20230307182707.2298618-15-dwmw2@infradead.org>
+In-Reply-To: <20230307182707.2298618-15-dwmw2@infradead.org>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Thu, 6 Apr 2023 16:18:14 +0100
+Message-ID: <CAFEAcA-9GDCa8ZrxjZJBq7wx=pVDAdvvDvTQs_oVyhD-HNSsrA@mail.gmail.com>
+Subject: Re: [PULL 14/27] hw/xen: Move xenstore_store_pv_console_info to xen_console.c
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, Paul Durrant <paul@xen.org>, 
+	Joao Martins <joao.m.martins@oracle.com>, Ankur Arora <ankur.a.arora@oracle.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, vikram.garhwal@amd.com, 
+	Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org, 
+	Juan Quintela <quintela@redhat.com>, "Dr . David Alan Gilbert" <dgilbert@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 04/04/2023 17:28, Anthony PERARD wrote:
-> On Wed, Mar 22, 2023 at 01:58:00PM +0000, Peter Hoyes wrote:
->> From: Peter Hoyes <Peter.Hoyes@arm.com>
->>
->> Saving, restoring and migrating domains are not currently supported on
->> arm and arm64 platforms, so xendomains prints the warning:
->>
->>    An error occurred while saving domain:
->>    command not implemented
->>
->> when attempting to run `xendomains stop`. It otherwise continues to shut
->> down the domains cleanly, with the unsupported steps skipped.
-> The patch looks kind of ok, but shouldn't $XENDOMAINS_SAVE be set to an
-> empty string in the config by the admin instead?
+On Tue, 7 Mar 2023 at 18:28, David Woodhouse <dwmw2@infradead.org> wrote:
 >
-> Or is the issue that $XENDOMAINS_SAVE is set by default, even on arm* ?
-Yea the default is the issue. We are building for embedded, using Yocto, 
-so there isn't really an admin.
+> From: David Woodhouse <dwmw@amazon.co.uk>
 >
-> Maybe it's easier to check that the command is implemented at run time
-> rather than trying to have a good default value for XENDOMAINS_SAVE at
-> install/package time.
+> There's no need for this to be in the Xen accel code, and as we want to
+> use the Xen console support with KVM-emulated Xen we'll want to have a
+> platform-agnostic version of it. Make it use GString to build up the
+> path while we're at it.
+>
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> Reviewed-by: Paul Durrant <paul@xen.org>
 
-It would be cleaner to do this at build time for sure, but I'm not sure 
-the autotools config file approach for sysconfig.xendomains.in can 
-handle the logic for this?
+Hi; Coverity points out a double-free here (CID 1508254):
 
-Thanks,
+> +static int store_con_info(struct XenConsole *con)
+> +{
+> +    Chardev *cs = qemu_chr_fe_get_driver(&con->chr);
+> +    char *pts = NULL;
+> +    char *dom_path;
+> +    GString *path;
+> +    int ret = -1;
+> +
+> +    /* Only continue if we're talking to a pty. */
+> +    if (!CHARDEV_IS_PTY(cs)) {
+> +        return 0;
+> +    }
+> +    pts = cs->filename + 4;
+> +
+> +    dom_path = qemu_xen_xs_get_domain_path(xenstore, xen_domid);
+> +    if (!dom_path) {
+> +        return 0;
+> +    }
+> +
+> +    path = g_string_new(dom_path);
+> +    free(dom_path);
+> +
+> +    if (con->xendev.dev) {
+> +        g_string_append_printf(path, "/device/console/%d", con->xendev.dev);
+> +    } else {
+> +        g_string_append(path, "/console");
+> +    }
+> +    g_string_append(path, "/tty");
+> +
+> +    if (xenstore_write_str(con->console, path->str, pts)) {
+> +        fprintf(stderr, "xenstore_write_str for '%s' fail", path->str);
+> +        goto out;
+> +    }
+> +    ret = 0;
+> +
+> +out:
+> +    g_string_free(path, true);
+> +    free(path);
 
-Peter
+g_string_free frees the GString, but then we call free() on it
+as well. Presumably the free() should just be deleted ?
 
+> +
+> +    return ret;
+> +}
 
+thanks
+-- PMM
 
