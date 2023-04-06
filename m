@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EFF06D954D
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 13:33:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518843.805770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D84A6D9559
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 13:33:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518847.805781 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkNrF-0002Mh-Cb; Thu, 06 Apr 2023 11:32:49 +0000
+	id 1pkNrg-0002rm-Ng; Thu, 06 Apr 2023 11:33:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518843.805770; Thu, 06 Apr 2023 11:32:49 +0000
+Received: by outflank-mailman (output) from mailman id 518847.805781; Thu, 06 Apr 2023 11:33:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkNrF-0002Jy-9f; Thu, 06 Apr 2023 11:32:49 +0000
-Received: by outflank-mailman (input) for mailman id 518843;
- Thu, 06 Apr 2023 11:32:47 +0000
+	id 1pkNrg-0002nI-Jh; Thu, 06 Apr 2023 11:33:16 +0000
+Received: by outflank-mailman (input) for mailman id 518847;
+ Thu, 06 Apr 2023 11:33:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=15Bo=75=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1pkNrD-0001qa-N3
- for xen-devel@lists.xenproject.org; Thu, 06 Apr 2023 11:32:47 +0000
+ id 1pkNrf-0001qa-CJ
+ for xen-devel@lists.xenproject.org; Thu, 06 Apr 2023 11:33:15 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c0bfc78e-d46e-11ed-85db-49a42c6b2330;
- Thu, 06 Apr 2023 13:32:47 +0200 (CEST)
+ id d13ff762-d46e-11ed-85db-49a42c6b2330;
+ Thu, 06 Apr 2023 13:33:14 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E10B66459D;
- Thu,  6 Apr 2023 11:32:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A6CC4339B;
- Thu,  6 Apr 2023 11:32:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BC7A4645A1;
+ Thu,  6 Apr 2023 11:33:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61EE2C433A1;
+ Thu,  6 Apr 2023 11:33:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0bfc78e-d46e-11ed-85db-49a42c6b2330
+X-Inumbo-ID: d13ff762-d46e-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680780765;
-	bh=JYv8anrELkRS2InyKfowv6LTjAw5NsWku3VF0hOAG1c=;
+	s=k20201202; t=1680780793;
+	bh=92M1GKdP/0zGE9SErJaH+kBPncxID6AmAyQ6G+mp5Gk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TlhXg6GL5mf5rV0n3VwXmCe9PulH8a8MtoXyFv6OONrS0HyqnnsaUhkG+tnx+i6FS
-	 hMzSiofU9zHbmdEeAgUwJa9tuO8xehyJ3ftsoCqe89JcT9bVyrwFkc4DJ7KvnfFQ1d
-	 7S2h1mZ62MyPSdt9F4WDrpuD4fWI1QVLi/rjQYN9enSxrd6eddA7pXAeDyOs1G4+ZD
-	 tPGNPiivyC7pQgnZFdLVFBb6B7cHKFSyhn+fFKK9OoVcvWvoSkMT9z8QA25keq1oJY
-	 AEh/LKzK5g2/5vkxiOysqp5YTp1eQhxV4QuNkuzw0xeY/SUVx7uFBgsCQyDtYcSuEK
-	 siLcWKzzJ1m8g==
+	b=TGGRLJnk8qjic7eN7c12nElKyNd5bXmMCjG7/bjB3PqqoN+SbVBlfKzalzvLQIReV
+	 tyHgF0TW5nnzvp8CWHRO4EaeJATBDVEDxFWA392f+CJK3udrAgiShc9sjRBvpGK98w
+	 Ikza+T29g9Yv3i7hYwz7694Oje2lYmQ5nb9hggHiBk8wFQ8OUCg+RV2z+WbjtDEi/p
+	 0yomVtcyjlIngUdgNwxW8JuUFqmJ7R4JNLwFVGLyLHmWcLeI/8NUVpNaYJaWRrCg1z
+	 E3fK0pol1vJ/MZ5i1ENnKUYgfVacwAkF3TcmYFGX66k3yYNhUpTiYTfZpzz5ym6ogO
+	 giGGe/45zFh6g==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -68,12 +68,12 @@ Cc: Juergen Gross <jgross@suse.com>,
 	kuba@kernel.org,
 	xen-devel@lists.xenproject.org,
 	netdev@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.1 14/17] xen/netback: use same error messages for same errors
-Date: Thu,  6 Apr 2023 07:32:08 -0400
-Message-Id: <20230406113211.648424-14-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 10/11] xen/netback: use same error messages for same errors
+Date: Thu,  6 Apr 2023 07:32:49 -0400
+Message-Id: <20230406113250.648634-10-sashal@kernel.org>
 X-Mailer: git-send-email 2.39.2
-In-Reply-To: <20230406113211.648424-1-sashal@kernel.org>
-References: <20230406113211.648424-1-sashal@kernel.org>
+In-Reply-To: <20230406113250.648634-1-sashal@kernel.org>
+References: <20230406113250.648634-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -97,7 +97,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/xen-netback/netback.c b/drivers/net/xen-netback/netback.c
-index 5c266062c08f0..c35c085dbc877 100644
+index 303d8ebbaafc4..63118b56c5289 100644
 --- a/drivers/net/xen-netback/netback.c
 +++ b/drivers/net/xen-netback/netback.c
 @@ -996,10 +996,8 @@ static void xenvif_tx_build_gops(struct xenvif_queue *queue,
