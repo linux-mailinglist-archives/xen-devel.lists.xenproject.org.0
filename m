@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D01646D8E23
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 05:58:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518702.805491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F646D8E26
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 05:58:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518704.805511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkGkz-0008WM-3s; Thu, 06 Apr 2023 03:57:53 +0000
+	id 1pkGl5-0000dS-Js; Thu, 06 Apr 2023 03:57:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518702.805491; Thu, 06 Apr 2023 03:57:53 +0000
+Received: by outflank-mailman (output) from mailman id 518704.805511; Thu, 06 Apr 2023 03:57:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkGky-0008TX-W8; Thu, 06 Apr 2023 03:57:52 +0000
-Received: by outflank-mailman (input) for mailman id 518702;
- Thu, 06 Apr 2023 03:57:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pkGl5-0000am-F9; Thu, 06 Apr 2023 03:57:59 +0000
+Received: by outflank-mailman (input) for mailman id 518704;
+ Thu, 06 Apr 2023 03:57:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EHTq=75=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pkGkx-0008TM-OO
- for xen-devel@lists.xenproject.org; Thu, 06 Apr 2023 03:57:52 +0000
+ id 1pkGl4-0000Z1-Dt
+ for xen-devel@lists.xenproject.org; Thu, 06 Apr 2023 03:57:58 +0000
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3244fcb9-d42f-11ed-85db-49a42c6b2330;
- Thu, 06 Apr 2023 05:57:49 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id D583A5C016C;
- Wed,  5 Apr 2023 23:57:48 -0400 (EDT)
+ [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3328af7d-d42f-11ed-b464-930f4c7d94ae;
+ Thu, 06 Apr 2023 05:57:52 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 5D6E55C0176;
+ Wed,  5 Apr 2023 23:57:50 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Wed, 05 Apr 2023 23:57:48 -0400
+ by compute4.internal (MEProxy); Wed, 05 Apr 2023 23:57:50 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Apr 2023 23:57:46 -0400 (EDT)
+ 5 Apr 2023 23:57:49 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,36 +43,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3244fcb9-d42f-11ed-85db-49a42c6b2330
+X-Inumbo-ID: 3328af7d-d42f-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:sender
-	:subject:subject:to:to; s=fm2; t=1680753468; x=1680839868; bh=Fv
-	CSUD7PDGeiswNRgMg7zZom3rqpEr1RXA0kWfFNpvs=; b=IRBTl0BZo62ArcDldO
-	x5wTInwPltu0N3kqFHPdwIr4rnKyHDkUHIoZsFCs1JoZbbnNdcERcr/YpwchvPRm
-	ByRBlIHB32C0sspNmaoMEbN56XIOQ3i9aITpYQCvwqtWCExxvzS58TNapl/wrx8R
-	JlL6z1op0nqFBlPhBfrO3ea7pUp4J5sCL13lAR2hrHXmXYO3sSyG/xoZds59CFpl
-	GhUeiXLMKM1XHpe58mSAuAKS1DXelBO4Y1+rBMciD4TQHJ8PkJx5QBAgWhDurx84
-	ABvSzBULj8RGLoMdsBTs5QtFssgrHS3g8tBVqdtXuYdqvOHro9kYDknMnt5lTN3L
-	AOtw==
+	:subject:subject:to:to; s=fm2; t=1680753470; x=1680839870; bh=D/
+	T8tgnYwHUEAgL2AzdECT/ODhwEEHPrmRQMVyr6mbY=; b=hs/M75R9CPozgbKmPG
+	ZW08qrDVQJHKNs+NsRXrC1+vytZM6C+uNBHlzFOiJzbRZcqkAUHkOubllB0BMo6J
+	YDhRjpmig6EYPzKKpIpx084EJM1bj4LWL2YqwqZwIK67jcZKZkc51kOuPBBxnOnE
+	kk4WjXG8cOeAg5aWO48M7w8TN6UVi8uQBwUeK8v/uXOXP1WoMOPq4spa04Zyi0PH
+	S8gnP/f9UBIZx9Ryu25UD5ocXPi5rbALRYgFokBstGm5S4KvjriSpztjeBAo/MzI
+	XO4rP2Pc00B0wpTx35O5DVf5/eIB3UMbDKmPr6KsCBSfQef6wexgdM2xRh+qptiE
+	hKUQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to:x-me-proxy
 	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1680753468; x=1680839868; bh=FvCSUD7PDGeiswNRgMg7zZom3rqpEr1RXA0
-	kWfFNpvs=; b=YYVk8sH4fMz6Huu3gzMg7puPpyyK0TDy0doCcaG+0OeGjI5O2BI
-	HZtmjOT5fLWlfxIfFTK5DeUVDljFlaNts38BYk5T4ToxgLQvh85iETLm5L9jbcWf
-	Sf4lcPOiH24srqsVZinLiIfYXvopyqiCh16eqZIelbMd+HtuonoSu3QgKSzGMv1p
-	f2f/gKvZNguuMn80W0F5Uwsh2HbuxbilI33fZJb1LnhepLH9oTcPJxkcLCGJS2x4
-	w1a3A2DezelWLI4nX7qmIDX5IopCH3o6I4gcB816eB2B1oUsZeuXFdyR+tFalPPQ
-	o1DXE1ScJi8chnueuNYJoOmpMavDbpr3ADw==
-X-ME-Sender: <xms:PEMuZLRdPwMbgum2Mv-s6JiXwL9qSlbmbZ0iYskCT03m1BfUKRO-Zg>
-    <xme:PEMuZMy5EBJnjGtF70KG9zaB-883pXNLjTTv5AUHl48MKA5YH_32TlfJYHjmVj-Xg
-    GCCxO05mVc5kQ>
-X-ME-Received: <xmr:PEMuZA28fN-0D25-aGXs3p55YYyOEwLGQhVyInW4TXO74kIdT4G7wihzBKZnNHFEE5iMfO5fmfDWxad6jjjXQkqiu_lXlriLHXcloyy0gvcl7lE6BbAl>
+	1680753470; x=1680839870; bh=D/T8tgnYwHUEAgL2AzdECT/ODhwEEHPrmRQ
+	MVyr6mbY=; b=ktX93hm1t6Ke6dLk4j4QQ76cGOlhDm/ItUtXhq7etEB9b4c5AOQ
+	TuzxDZceQlk6Qwcgn5hMJxR/pL1BpZnwpwDXKe1dJVFsUnanWwJ470j5fLoVijC0
+	ZIfFFPoZHXDy7Uy8H2YpDGYRmC4dktVGxdRTUYaSPAgsH42ljyKI3L7hpe/dzGv4
+	+pZNkNp+rAAPtGnp4BJU4mJrBCS4lRraZ37LBWNcQ0YOmGI0p0gWnyX6zAutbveo
+	g7uH2l+31w9ldDheps02nXVGIgT+StN53MyXl5F5+Q7gpyp8M5CaTnlQzK25FZgF
+	Lq0HCIUZiFVcPQr8Mk7H46u8DXBJEb7XHvg==
+X-ME-Sender: <xms:PkMuZAYtOKAIHg127yE15lZ5qoINBKEJJkjjMaA1Bda8-OEXWYZqdw>
+    <xme:PkMuZLar3K01E0RDg0mxBi7q0ZzPfAQds4VN1Oqj6tWfxC1-oqLuzQ0P0NNO0I-VA
+    ZspoPWU2OY9NQ>
+X-ME-Received: <xmr:PkMuZK_4YmBHmMvuchkNsCHDhLOMy4ITytwzXfVpnMjWZor_RdvQe3L0_JAmC1cMI29_VEjZ8Y6b07uFGvFgktKZ-DJ0UeCNK3bled5slXwK3arRAjhn>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdejvddgjeekucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
@@ -82,25 +82,20 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdejvddgjeekucetufdoteggod
     ueduhefgvdefheehudejheefudevueeghfekhfehleegveduteeuiedugffgffenucevlh
     hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
     khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:PEMuZLAr7x-Nnn_BfEt9xxU_2wPg7rCfxHbqkbp1mGYisQz6GUlJlw>
-    <xmx:PEMuZEh-mZykwBXKSwBmrAMds_nTCkVgxxZIyD9JkRLTABkvhJ6vnw>
-    <xmx:PEMuZPoQFvAri7jHMSiPsD2NNSHHAhsyRkHx_V8F4bNQvoTbCP-39Q>
-    <xmx:PEMuZAhPjFrw3e4azr7bsWOiKlKgrKLnErIsFm_uUHfuyeYRwKbDNg>
+X-ME-Proxy: <xmx:PkMuZKqIyD3xhLlfx0KqlOiO-PO65wOjCU85-yVCnDO3K4wNEfM77w>
+    <xmx:PkMuZLqwJh7QsTH3bcNlA4e8DDfHPl0aTds_xwyfSLM8ZHmrjYoxvw>
+    <xmx:PkMuZIT3nlEetB0dx4UA32dFKq5uG_WaY6q7ula3aZN85vO6jCaIbQ>
+    <xmx:PkMuZC1bbbiqRNfh-rKy74iGLkJLcCDJR1C59ldEqgNRhF82cYqEDg>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Paul Durrant <paul@xen.org>
-Subject: [PATCH v3 1/4] x86/msi: passthrough all MSI-X vector ctrl writes to device model
-Date: Thu,  6 Apr 2023 05:57:23 +0200
-Message-Id: <f799fdc6b6899fa65a07eae0d6401753f7d61ef2.1680752649.git-series.marmarek@invisiblethingslab.com>
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v3 2/4] tools/xendevicemodel: Introduce ..._get_ioreq_server_info_ext
+Date: Thu,  6 Apr 2023 05:57:24 +0200
+Message-Id: <1f6dc87eebe5d1c27ae15ec8f5d8006e5aa1c36d.1680752649.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.c12fc399ea0151818e48ac5179ad554c00c9386d.1680752649.git-series.marmarek@invisiblethingslab.com>
 References: <cover.c12fc399ea0151818e48ac5179ad554c00c9386d.1680752649.git-series.marmarek@invisiblethingslab.com>
@@ -108,161 +103,100 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-QEMU needs to know whether clearing maskbit of a vector is really
-clearing, or was already cleared before. Currently Xen sends only
-clearing that bit to the device model, but not setting it, so QEMU
-cannot detect it. Because of that, QEMU is working this around by
-checking via /dev/mem, but that isn't the proper approach. It's just a
-workaround which in fact is racy.
+Add xendevicemodel_get_ioreq_server_info_ext() which additionally
+returns output flags that XEN_DMOP_get_ioreq_server_info can now return.
+Do not change signature of existing
+xendevicemodel_get_ioreq_server_info() so existing users will not need
+to be changed.
 
-Give all necessary information to QEMU by passing all ctrl writes,
-including masking a vector.
-
-While this commit doesn't move the whole maskbit handling to QEMU (as
-discussed on xen-devel as one of the possibilities), it is a necessary
-first step anyway. Including telling QEMU it will get all the required
-information to do so. The actual implementation would need to include:
- - a hypercall for QEMU to control just maskbit (without (re)binding the
-   interrupt again
- - a methor for QEMU to tell Xen it will actually do the work
-Those are not part of this series.
+This advertises behavior change of "x86/msi: passthrough all MSI-X
+vector ctrl writes to device model" patch.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
 v3:
- - advertise changed behavior in XEN_DMOP_get_ioreq_server_info - make
-   "flags" parameter IN/OUT
- - move len check back to msixtbl_write() - will be needed there anyway
-   in a later patch
-v2:
- - passthrough quad writes to emulator too (Jan)
- - (ab)use len==0 for write len=4 completion (Jan), but add descriptive
-   #define for this magic value
+ - new patch
 
-Should flags on output include only "out" values (current version), or
-also include those passed in by the caller unchanged?
+Should there be some HAVE_* #define in the header? Does this change
+require soname bump (I hope it doesn't...).
 ---
- xen/arch/x86/hvm/vmsi.c        | 18 ++++++++++++++----
- xen/common/ioreq.c             |  9 +++++++--
- xen/include/public/hvm/dm_op.h | 12 ++++++++----
- 3 files changed, 29 insertions(+), 10 deletions(-)
+ tools/include/xendevicemodel.h | 23 +++++++++++++++++++++++
+ tools/libs/devicemodel/core.c  | 16 ++++++++++++++--
+ 2 files changed, 37 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-index 3cd4923060c8..231253a2cbd4 100644
---- a/xen/arch/x86/hvm/vmsi.c
-+++ b/xen/arch/x86/hvm/vmsi.c
-@@ -272,6 +272,15 @@ out:
-     return r;
- }
+diff --git a/tools/include/xendevicemodel.h b/tools/include/xendevicemodel.h
+index 797e0c6b2961..77a99e670551 100644
+--- a/tools/include/xendevicemodel.h
++++ b/tools/include/xendevicemodel.h
+@@ -72,6 +72,29 @@ int xendevicemodel_get_ioreq_server_info(
+     evtchn_port_t *bufioreq_port);
  
-+/*
-+ * This function returns X86EMUL_UNHANDLEABLE even if write is properly
-+ * handled, to propagate it to the device model (so it can keep its internal
-+ * state in sync).
-+ * len==0 means really len==4, but as a write completion that will return
-+ * X86EMUL_OKAY on successful processing. Use WRITE_LEN4_COMPLETION to make it
-+ * less confusing.
+ /**
++ * This function retrieves the necessary information to allow an
++ * emulator to use an IOREQ Server, including feature flags.
++ *
++ * @parm dmod a handle to an open devicemodel interface.
++ * @parm domid the domain id to be serviced
++ * @parm id the IOREQ Server id.
++ * @parm ioreq_gfn pointer to a xen_pfn_t to receive the synchronous ioreq
++ *                  gfn. (May be NULL if not required)
++ * @parm bufioreq_gfn pointer to a xen_pfn_t to receive the buffered ioreq
++ *                    gfn. (May be NULL if not required)
++ * @parm bufioreq_port pointer to a evtchn_port_t to receive the buffered
++ *                     ioreq event channel. (May be NULL if not required)
++ * @parm flags pointer to receive flags bitmask, see hvm/dm_op.h for details.
++ *             (May be NULL if not required)
++ * @return 0 on success, -1 on failure.
 + */
-+#define WRITE_LEN4_COMPLETION 0
- static int msixtbl_write(struct vcpu *v, unsigned long address,
-                          unsigned int len, unsigned long val)
- {
-@@ -283,8 +292,9 @@ static int msixtbl_write(struct vcpu *v, unsigned long address,
-     unsigned long flags;
-     struct irq_desc *desc;
- 
--    if ( (len != 4 && len != 8) || (address & (len - 1)) )
--        return r;
-+    if ( (len != 4 && len != 8 && len != WRITE_LEN4_COMPLETION) ||
-+         (len && (address & (len - 1))) )
-+        return X86EMUL_UNHANDLEABLE;
- 
-     rcu_read_lock(&msixtbl_rcu_lock);
- 
-@@ -345,7 +355,7 @@ static int msixtbl_write(struct vcpu *v, unsigned long address,
- 
- unlock:
-     spin_unlock_irqrestore(&desc->lock, flags);
--    if ( len == 4 )
-+    if ( len == WRITE_LEN4_COMPLETION )
-         r = X86EMUL_OKAY;
- 
- out:
-@@ -635,7 +645,7 @@ void msix_write_completion(struct vcpu *v)
-         return;
- 
-     v->arch.hvm.hvm_io.msix_unmask_address = 0;
--    if ( msixtbl_write(v, ctrl_address, 4, 0) != X86EMUL_OKAY )
-+    if ( msixtbl_write(v, ctrl_address, WRITE_LEN4_COMPLETION, 0) != X86EMUL_OKAY )
-         gdprintk(XENLOG_WARNING, "MSI-X write completion failure\n");
++int xendevicemodel_get_ioreq_server_info_ext(
++    xendevicemodel_handle *dmod, domid_t domid, ioservid_t id,
++    xen_pfn_t *ioreq_gfn, xen_pfn_t *bufioreq_gfn,
++    evtchn_port_t *bufioreq_port,
++    unsigned int *flags);
++
++/**
+  * This function registers a range of memory or I/O ports for emulation.
+  *
+  * @parm dmod a handle to an open devicemodel interface.
+diff --git a/tools/libs/devicemodel/core.c b/tools/libs/devicemodel/core.c
+index 8e619eeb0a1f..337622e608c2 100644
+--- a/tools/libs/devicemodel/core.c
++++ b/tools/libs/devicemodel/core.c
+@@ -189,10 +189,10 @@ int xendevicemodel_create_ioreq_server(
+     return 0;
  }
  
-diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
-index ecb8f545e1c4..bd6f074c1e85 100644
---- a/xen/common/ioreq.c
-+++ b/xen/common/ioreq.c
-@@ -743,7 +743,8 @@ static int ioreq_server_destroy(struct domain *d, ioservid_t id)
- static int ioreq_server_get_info(struct domain *d, ioservid_t id,
-                                  unsigned long *ioreq_gfn,
-                                  unsigned long *bufioreq_gfn,
--                                 evtchn_port_t *bufioreq_port)
-+                                 evtchn_port_t *bufioreq_port,
-+                                 uint16_t *flags)
+-int xendevicemodel_get_ioreq_server_info(
++int xendevicemodel_get_ioreq_server_info_ext(
+     xendevicemodel_handle *dmod, domid_t domid, ioservid_t id,
+     xen_pfn_t *ioreq_gfn, xen_pfn_t *bufioreq_gfn,
+-    evtchn_port_t *bufioreq_port)
++    evtchn_port_t *bufioreq_port, unsigned int *flags)
  {
-     struct ioreq_server *s;
-     int rc;
-@@ -779,6 +780,9 @@ static int ioreq_server_get_info(struct domain *d, ioservid_t id,
-             *bufioreq_port = s->bufioreq_evtchn;
-     }
+     struct xen_dm_op op;
+     struct xen_dm_op_get_ioreq_server_info *data;
+@@ -226,9 +226,21 @@ int xendevicemodel_get_ioreq_server_info(
+     if (bufioreq_port)
+         *bufioreq_port = data->bufioreq_port;
  
-+    /* Advertise supported features/behaviors. */
-+    *flags = XEN_DMOP_all_msix_writes;
++    if (flags)
++        *flags = data->flags;
 +
-     rc = 0;
+     return 0;
+ }
  
-  out:
-@@ -1374,7 +1378,8 @@ int ioreq_server_dm_op(struct xen_dm_op *op, struct domain *d, bool *const_op)
-                                    NULL : (unsigned long *)&data->ioreq_gfn,
-                                    (data->flags & XEN_DMOP_no_gfns) ?
-                                    NULL : (unsigned long *)&data->bufioreq_gfn,
--                                   &data->bufioreq_port);
-+                                   &data->bufioreq_port, &data->flags);
++int xendevicemodel_get_ioreq_server_info(
++    xendevicemodel_handle *dmod, domid_t domid, ioservid_t id,
++    xen_pfn_t *ioreq_gfn, xen_pfn_t *bufioreq_gfn,
++    evtchn_port_t *bufioreq_port)
++{
++    return xendevicemodel_get_ioreq_server_info_ext(
++        dmod, domid, id, ioreq_gfn, bufioreq_gfn, bufioreq_port, NULL);
++}
 +
-         break;
-     }
- 
-diff --git a/xen/include/public/hvm/dm_op.h b/xen/include/public/hvm/dm_op.h
-index acdf91693d0b..490b151c5dd7 100644
---- a/xen/include/public/hvm/dm_op.h
-+++ b/xen/include/public/hvm/dm_op.h
-@@ -70,7 +70,9 @@ typedef struct xen_dm_op_create_ioreq_server xen_dm_op_create_ioreq_server_t;
-  * not contain XEN_DMOP_no_gfns then these pages will be made available and
-  * the frame numbers passed back in gfns <ioreq_gfn> and <bufioreq_gfn>
-  * respectively. (If the IOREQ Server is not handling buffered emulation
-- * only <ioreq_gfn> will be valid).
-+ * only <ioreq_gfn> will be valid). When Xen returns XEN_DMOP_all_msix_writes
-+ * flag set, it will notify the IOREQ server about all writes to MSI-X table
-+ * (if it's handled by this IOREQ server), not only those clearing a mask bit.
-  *
-  * NOTE: To access the synchronous ioreq structures and buffered ioreq
-  *       ring, it is preferable to use the XENMEM_acquire_resource memory
-@@ -81,11 +83,13 @@ typedef struct xen_dm_op_create_ioreq_server xen_dm_op_create_ioreq_server_t;
- struct xen_dm_op_get_ioreq_server_info {
-     /* IN - server id */
-     ioservid_t id;
--    /* IN - flags */
-+    /* IN/OUT - flags */
-     uint16_t flags;
- 
--#define _XEN_DMOP_no_gfns 0
--#define XEN_DMOP_no_gfns (1u << _XEN_DMOP_no_gfns)
-+#define _XEN_DMOP_no_gfns         0  /* IN */
-+#define _XEN_DMOP_all_msix_writes 1  /* OUT */
-+#define XEN_DMOP_no_gfns         (1u << _XEN_DMOP_no_gfns)
-+#define XEN_DMOP_all_msix_writes (1u << _XEN_DMOP_all_msix_writes)
- 
-     /* OUT - buffered ioreq port */
-     evtchn_port_t bufioreq_port;
+ int xendevicemodel_map_io_range_to_ioreq_server(
+     xendevicemodel_handle *dmod, domid_t domid, ioservid_t id, int is_mmio,
+     uint64_t start, uint64_t end)
 -- 
 git-series 0.9.1
 
