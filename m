@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C18A6D9228
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 10:58:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518776.805630 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4DE46D9246
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 11:08:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518783.805641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkLRw-00046N-SW; Thu, 06 Apr 2023 08:58:32 +0000
+	id 1pkLbQ-0005xd-OY; Thu, 06 Apr 2023 09:08:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518776.805630; Thu, 06 Apr 2023 08:58:32 +0000
+Received: by outflank-mailman (output) from mailman id 518783.805641; Thu, 06 Apr 2023 09:08:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkLRw-00043z-PR; Thu, 06 Apr 2023 08:58:32 +0000
-Received: by outflank-mailman (input) for mailman id 518776;
- Thu, 06 Apr 2023 08:58:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ozA9=75=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1pkLRv-0003pI-NJ
- for xen-devel@lists.xen.org; Thu, 06 Apr 2023 08:58:31 +0000
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [2607:f8b0:4864:20::102a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32127944-d459-11ed-85db-49a42c6b2330;
- Thu, 06 Apr 2023 10:58:30 +0200 (CEST)
-Received: by mail-pj1-x102a.google.com with SMTP id x15so36653780pjk.2
- for <xen-devel@lists.xen.org>; Thu, 06 Apr 2023 01:58:28 -0700 (PDT)
-Received: from localhost ([122.172.85.8]) by smtp.gmail.com with ESMTPSA id
- x22-20020aa793b6000000b0062d85a1df56sm837151pff.178.2023.04.06.01.58.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Apr 2023 01:58:26 -0700 (PDT)
+	id 1pkLbQ-0005uh-LU; Thu, 06 Apr 2023 09:08:20 +0000
+Received: by outflank-mailman (input) for mailman id 518783;
+ Thu, 06 Apr 2023 09:08:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pkLbP-0005uX-65; Thu, 06 Apr 2023 09:08:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pkLbP-0005HC-3Y; Thu, 06 Apr 2023 09:08:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pkLbO-0001MB-KJ; Thu, 06 Apr 2023 09:08:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pkLbO-0006w7-Jr; Thu, 06 Apr 2023 09:08:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,96 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32127944-d459-11ed-85db-49a42c6b2330
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680771507;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wJIrzTwFQA01WlKUp5gnPqmqgvFFVnJLpG/b7bte7e8=;
-        b=fYj9IhtspZTO1c45rT5cqb2UnaJWejpmy/I7Jb3yPwkHvmLkvAK3m4181eanFeguwO
-         SeDbDT7dPWprn5RlScKWm3FaPgdvFky7QhW80ffdPOLiGzm6WXwdxWZ5U6S3Bb+e9l/C
-         Yi9H5wbFVxuyI7f7PvJiQ53X9ftCPgmsswvAfuG7TrwuGfHnbsaQdLLhq64h8suekOuZ
-         xFYPfQMLzF64xH5EDGcAkqzG9axCSQa/U81f3qPm1ffOGvWlAJDiOl7wbH+xqAPVDvmH
-         Sk+CfT78gQcLg9hXyuQ6pdRjvJuz12Ukytnr2gkEZYB8s4Wxf3qOK9F5AyqYTgzgfoI0
-         DYjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680771507;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wJIrzTwFQA01WlKUp5gnPqmqgvFFVnJLpG/b7bte7e8=;
-        b=TzD7GvWb5wFXdWAICq7MDrGRuVOX163coNn3cs4vWx6+xDoSnJnqVDo2oYV3B+TdeM
-         M6QIYJt0uLeDPqVfa1qRg+hoTNi+bEx/jCAYqaV1JXwdkPuaqlnJ/VNKW+0w4QPJZwx+
-         +CCdh+R0+BDOWwoiqnt7zzAtax0bdFPfnX9aAFmzebKT+AcvoVFBdL7miw/vKJvDgxvP
-         eWxVaNyNHemVtcZXWqqCQw/aNcYcRv31yfFv37/u5yJsFganXFRCW2YhGztVqQiTu1gR
-         rCvHTRHh4BRXRNCKxhiwhfM8WRfcOaDVYvO0FLv5YKWw+53LZAqYx9alOtLstEJrjK/K
-         ZILw==
-X-Gm-Message-State: AAQBX9cO677LMLjxtf9H/ch+OtZ5HkZ1Z4Nm0UsGdP9BvLmg2BRfs0yi
-	eCQWw2qGLVhiFlJTOEzMcwrYDAGFf7mR9vGKkQw=
-X-Google-Smtp-Source: AKy350aan+Rv6En7fZ329g/XSQU5SCipZqx70PrdyPW+xTyx5BJ0yf8Nh3iuU7/nwLuqljfErs6vsw==
-X-Received: by 2002:a05:6a20:ba9c:b0:d9:4d77:643e with SMTP id fb28-20020a056a20ba9c00b000d94d77643emr2166510pzb.4.1680771506861;
-        Thu, 06 Apr 2023 01:58:26 -0700 (PDT)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: xen-devel@lists.xen.org,
-	Juergen Gross <jgross@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>,
-	Erik Schilling <erik.schilling@linaro.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH V3 2/2] libxl: fix matching of generic virtio device
-Date: Thu,  6 Apr 2023 14:28:18 +0530
-Message-Id: <888e60d2ec49f53230bc82df393b6bed4180cb8a.1680771422.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
-In-Reply-To: <18458fa39433ce4ac950a0a20cc64da93db0b03a.1680771422.git.viresh.kumar@linaro.org>
-References: <18458fa39433ce4ac950a0a20cc64da93db0b03a.1680771422.git.viresh.kumar@linaro.org>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=EnX4CyUyIlLVd/OPkcT7LpM7eS6oFPZK49HT/hv48gc=; b=VhHd+yKtHh7/uMgxLaj/88lmA4
+	L/Wbjadli4j3miqIQ7ev2XOovUH3e260o03+XF/4ERal06MhMGsUf/3TSOYIogP2jaIt84qlVLYcr
+	JA4L2vg3kOS7mxHTpTO6/44suuTYUxge/w8vxdPStwcoRMONsqGo7wIPcku3yGQAOVkY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180166-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 180166: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=3e3be2cbc286e773ed5bd3afd5942440546888de
+X-Osstest-Versions-That:
+    ovmf=8d185dfb66700e65035d51f149570aeab728c665
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 06 Apr 2023 09:08:18 +0000
 
-The strings won't be an exact match, as we are only looking to match the
-prefix here, i.e. "virtio,device". This is already done properly in
-libxl_virtio.c file, lets do the same here too.
+flight 180166 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180166/
 
-Fixes: 43ba5202e2ee ("libxl: add support for generic virtio device")
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-V2->V3:
-- Tag from Oleksandr.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 3e3be2cbc286e773ed5bd3afd5942440546888de
+baseline version:
+ ovmf                 8d185dfb66700e65035d51f149570aeab728c665
 
- tools/libs/light/libxl_arm.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+Last test of basis   180164  2023-04-06 01:42:38 Z    0 days
+Testing same since   180166  2023-04-06 07:10:40 Z    0 days    1 attempts
 
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index ddc7b2a15975..97c80d7ed0fa 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -1033,10 +1033,14 @@ static int make_virtio_mmio_node_device(libxl__gc *gc, void *fdt, uint64_t base,
-     } else if (!strcmp(type, VIRTIO_DEVICE_TYPE_GPIO)) {
-         res = make_virtio_mmio_node_gpio(gc, fdt);
-         if (res) return res;
--    } else if (strcmp(type, VIRTIO_DEVICE_TYPE_GENERIC)) {
--        /* Doesn't match generic virtio device */
--        LOG(ERROR, "Invalid type for virtio device: %s", type);
--        return -EINVAL;
-+    } else {
-+        int len = sizeof(VIRTIO_DEVICE_TYPE_GENERIC) - 1;
-+
-+        if (strncmp(type, VIRTIO_DEVICE_TYPE_GENERIC, len)) {
-+            /* Doesn't match generic virtio device */
-+            LOG(ERROR, "Invalid type for virtio device: %s", type);
-+            return -EINVAL;
-+        }
-     }
- 
-     return fdt_end_node(fdt);
--- 
-2.31.1.272.g89b43f80a514
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  Jiewen Yao <jiewen.yao@intel.com>
 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   8d185dfb66..3e3be2cbc2  3e3be2cbc286e773ed5bd3afd5942440546888de -> xen-tested-master
 
