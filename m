@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B09E16D9227
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 10:58:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.518775.805620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C18A6D9228
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Apr 2023 10:58:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.518776.805630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkLRv-0003sJ-Kb; Thu, 06 Apr 2023 08:58:31 +0000
+	id 1pkLRw-00046N-SW; Thu, 06 Apr 2023 08:58:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 518775.805620; Thu, 06 Apr 2023 08:58:31 +0000
+Received: by outflank-mailman (output) from mailman id 518776.805630; Thu, 06 Apr 2023 08:58:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkLRv-0003p9-Hl; Thu, 06 Apr 2023 08:58:31 +0000
-Received: by outflank-mailman (input) for mailman id 518775;
- Thu, 06 Apr 2023 08:58:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pkLRw-00043z-PR; Thu, 06 Apr 2023 08:58:32 +0000
+Received: by outflank-mailman (input) for mailman id 518776;
+ Thu, 06 Apr 2023 08:58:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ozA9=75=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1pkLRu-0003p3-7w
- for xen-devel@lists.xen.org; Thu, 06 Apr 2023 08:58:30 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 304a2780-d459-11ed-b464-930f4c7d94ae;
- Thu, 06 Apr 2023 10:58:26 +0200 (CEST)
-Received: by mail-pl1-x62d.google.com with SMTP id ix20so36940117plb.3
- for <xen-devel@lists.xen.org>; Thu, 06 Apr 2023 01:58:25 -0700 (PDT)
+ id 1pkLRv-0003pI-NJ
+ for xen-devel@lists.xen.org; Thu, 06 Apr 2023 08:58:31 +0000
+Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
+ [2607:f8b0:4864:20::102a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 32127944-d459-11ed-85db-49a42c6b2330;
+ Thu, 06 Apr 2023 10:58:30 +0200 (CEST)
+Received: by mail-pj1-x102a.google.com with SMTP id x15so36653780pjk.2
+ for <xen-devel@lists.xen.org>; Thu, 06 Apr 2023 01:58:28 -0700 (PDT)
 Received: from localhost ([122.172.85.8]) by smtp.gmail.com with ESMTPSA id
- f8-20020a170902860800b001a1adbe215asm904655plo.142.2023.04.06.01.58.22
+ x22-20020aa793b6000000b0062d85a1df56sm837151pff.178.2023.04.06.01.58.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Apr 2023 01:58:22 -0700 (PDT)
+ Thu, 06 Apr 2023 01:58:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 304a2780-d459-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: 32127944-d459-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680771504;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=DEQiq5V6EhExtdzg7l+GGgGWzMI4MYV9sltCbuia9S8=;
-        b=DqZf+45MshOs1nlVyinOhqFrKCuzw0gQlsLOP0ABgx6laBf7Pg+beSuaze8QVVfghR
-         awdDutM8sqXBsgP+BXTWzNrINKIlxL9iBKaOC6FIfHodelL7FbNSBDgVYjhwvLKOgE5m
-         MdjjBz40SWhgR+pdZt5+jIRFtwB9GjMGosHqmqyaRwzYl/f1JBuTl1aMIqxNxdBI9KHf
-         zicgU3cKtHZbiUWCVP2oqG6BYFOJGaCiOczU/tO9FR/zPQr/Xvr7opcZkYDOOoS4h7PS
-         iQfhUMh6M2zx9Qn2jzsUzYLyunaEwrK0rd1FhMpQJRTeuVUHLGXqkeJrdlGtH/t/RBDy
-         5U7Q==
+        d=linaro.org; s=google; t=1680771507;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wJIrzTwFQA01WlKUp5gnPqmqgvFFVnJLpG/b7bte7e8=;
+        b=fYj9IhtspZTO1c45rT5cqb2UnaJWejpmy/I7Jb3yPwkHvmLkvAK3m4181eanFeguwO
+         SeDbDT7dPWprn5RlScKWm3FaPgdvFky7QhW80ffdPOLiGzm6WXwdxWZ5U6S3Bb+e9l/C
+         Yi9H5wbFVxuyI7f7PvJiQ53X9ftCPgmsswvAfuG7TrwuGfHnbsaQdLLhq64h8suekOuZ
+         xFYPfQMLzF64xH5EDGcAkqzG9axCSQa/U81f3qPm1ffOGvWlAJDiOl7wbH+xqAPVDvmH
+         Sk+CfT78gQcLg9hXyuQ6pdRjvJuz12Ukytnr2gkEZYB8s4Wxf3qOK9F5AyqYTgzgfoI0
+         DYjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680771504;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DEQiq5V6EhExtdzg7l+GGgGWzMI4MYV9sltCbuia9S8=;
-        b=VnPy/njpmlu+i3yzYGBra32JD7STFd7O+TZPEwsAD91nD84kQB3vuNVkx929KUxpYB
-         bG3cbUt53eDvw1JmQ5rFFTWRS0aoNPBPTTJ1TxerJn5LVKYT7JSRpJYlDLakdIj/KqIb
-         YAqwF30DS1qPucvs0A61m/tRiKb4zLHkEZMsL4/lhptcR4ygQHQsnLfmc9rEiIguGCVa
-         TqapjUmyTqHJ7DH6q/dRAqTsORxSlMQ4viKwjP+gu54ASlQFUIu+FwbqJaxkgBZvsVdN
-         nzsj9lYPRvIw4Q6ZBjpj6KeMUQh3TXrS+zVwB5dSIJxYxOy8AnWMJFuWPBzxxGIuCD2y
-         XMVg==
-X-Gm-Message-State: AAQBX9d1iJ5bnqB/FBUhJ77brRGKdW0E/Sru9nzIZhiUhPxWoJuamnc0
-	rILMSPNqqjIiz+8iAqE/aJLFQaK7ONAXOf45zFc=
-X-Google-Smtp-Source: AKy350YftpXWO2PU4R2xgveFOOV/hWCgUBa/eRONakgCC5lW+aSPlmCOp88OEaOYp2Sq6SUnduQGYA==
-X-Received: by 2002:a17:902:f986:b0:1a2:85f0:e73d with SMTP id ky6-20020a170902f98600b001a285f0e73dmr8431947plb.33.1680771503940;
-        Thu, 06 Apr 2023 01:58:23 -0700 (PDT)
+        d=1e100.net; s=20210112; t=1680771507;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=wJIrzTwFQA01WlKUp5gnPqmqgvFFVnJLpG/b7bte7e8=;
+        b=TzD7GvWb5wFXdWAICq7MDrGRuVOX163coNn3cs4vWx6+xDoSnJnqVDo2oYV3B+TdeM
+         M6QIYJt0uLeDPqVfa1qRg+hoTNi+bEx/jCAYqaV1JXwdkPuaqlnJ/VNKW+0w4QPJZwx+
+         +CCdh+R0+BDOWwoiqnt7zzAtax0bdFPfnX9aAFmzebKT+AcvoVFBdL7miw/vKJvDgxvP
+         eWxVaNyNHemVtcZXWqqCQw/aNcYcRv31yfFv37/u5yJsFganXFRCW2YhGztVqQiTu1gR
+         rCvHTRHh4BRXRNCKxhiwhfM8WRfcOaDVYvO0FLv5YKWw+53LZAqYx9alOtLstEJrjK/K
+         ZILw==
+X-Gm-Message-State: AAQBX9cO677LMLjxtf9H/ch+OtZ5HkZ1Z4Nm0UsGdP9BvLmg2BRfs0yi
+	eCQWw2qGLVhiFlJTOEzMcwrYDAGFf7mR9vGKkQw=
+X-Google-Smtp-Source: AKy350aan+Rv6En7fZ329g/XSQU5SCipZqx70PrdyPW+xTyx5BJ0yf8Nh3iuU7/nwLuqljfErs6vsw==
+X-Received: by 2002:a05:6a20:ba9c:b0:d9:4d77:643e with SMTP id fb28-20020a056a20ba9c00b000d94d77643emr2166510pzb.4.1680771506861;
+        Thu, 06 Apr 2023 01:58:26 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: xen-devel@lists.xen.org,
 	Juergen Gross <jgross@suse.com>,
@@ -85,53 +86,52 @@ Cc: Viresh Kumar <viresh.kumar@linaro.org>,
 	Oleksandr Tyshchenko <olekstysh@gmail.com>,
 	Erik Schilling <erik.schilling@linaro.org>,
 	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Subject: [PATCH V3 1/2] docs: Allow generic virtio device types to contain device-id
-Date: Thu,  6 Apr 2023 14:28:17 +0530
-Message-Id: <18458fa39433ce4ac950a0a20cc64da93db0b03a.1680771422.git.viresh.kumar@linaro.org>
+Subject: [PATCH V3 2/2] libxl: fix matching of generic virtio device
+Date: Thu,  6 Apr 2023 14:28:18 +0530
+Message-Id: <888e60d2ec49f53230bc82df393b6bed4180cb8a.1680771422.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
+In-Reply-To: <18458fa39433ce4ac950a0a20cc64da93db0b03a.1680771422.git.viresh.kumar@linaro.org>
+References: <18458fa39433ce4ac950a0a20cc64da93db0b03a.1680771422.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For generic virtio devices, where we don't need to add compatible or
-other special DT properties, the type field is set to "virtio,device".
+The strings won't be an exact match, as we are only looking to match the
+prefix here, i.e. "virtio,device". This is already done properly in
+libxl_virtio.c file, lets do the same here too.
 
-But this misses the case where the user sets the type with a valid
-virtio device id as well, like "virtio,device1a" for file system device.
-The complete list of virtio device ids is mentioned here:
-
-https://docs.oasis-open.org/virtio/virtio/v1.2/cs01/virtio-v1.2-cs01.html#x1-2160005
-
-Update documentation to support that as well.
-
-Fixes: dd54ea500be8 ("docs: add documentation for generic virtio devices")
+Fixes: 43ba5202e2ee ("libxl: add support for generic virtio device")
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
 V2->V3:
-- Updated commit log and clarified / fixed doc.
 - Tag from Oleksandr.
 
- docs/man/xl.cfg.5.pod.in | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ tools/libs/light/libxl_arm.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 10f37990be57..24ac92718288 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -1608,8 +1608,11 @@ example, "type=virtio,device22" for the I2C device, whose device-tree binding is
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index ddc7b2a15975..97c80d7ed0fa 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -1033,10 +1033,14 @@ static int make_virtio_mmio_node_device(libxl__gc *gc, void *fdt, uint64_t base,
+     } else if (!strcmp(type, VIRTIO_DEVICE_TYPE_GPIO)) {
+         res = make_virtio_mmio_node_gpio(gc, fdt);
+         if (res) return res;
+-    } else if (strcmp(type, VIRTIO_DEVICE_TYPE_GENERIC)) {
+-        /* Doesn't match generic virtio device */
+-        LOG(ERROR, "Invalid type for virtio device: %s", type);
+-        return -EINVAL;
++    } else {
++        int len = sizeof(VIRTIO_DEVICE_TYPE_GENERIC) - 1;
++
++        if (strncmp(type, VIRTIO_DEVICE_TYPE_GENERIC, len)) {
++            /* Doesn't match generic virtio device */
++            LOG(ERROR, "Invalid type for virtio device: %s", type);
++            return -EINVAL;
++        }
+     }
  
- L<https://www.kernel.org/doc/Documentation/devicetree/bindings/i2c/i2c-virtio.yaml>
- 
--For generic virtio devices, where we don't need to set special or compatible
--properties in the Device Tree, the type field must be set to "virtio,device".
-+For other generic virtio devices, where we don't need to set special or
-+compatible properties in the Device Tree, the type field must be set to
-+"virtio,device" or "virtio,device<N>", where "N" is the virtio device id in
-+hexadecimal format, without the "0x" prefix and all in lower case, like
-+"virtio,device1a" for the file system device.
- 
- =item B<transport=STRING>
- 
+     return fdt_end_node(fdt);
 -- 
 2.31.1.272.g89b43f80a514
 
