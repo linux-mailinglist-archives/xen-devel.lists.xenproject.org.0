@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 630AB6DB6C4
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Apr 2023 01:04:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.519126.806343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E67C46DB6D5
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Apr 2023 01:07:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.519131.806354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkv7c-0000fb-Gd; Fri, 07 Apr 2023 23:03:56 +0000
+	id 1pkvAv-0001KI-02; Fri, 07 Apr 2023 23:07:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 519126.806343; Fri, 07 Apr 2023 23:03:56 +0000
+Received: by outflank-mailman (output) from mailman id 519131.806354; Fri, 07 Apr 2023 23:07:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkv7c-0000ca-Dw; Fri, 07 Apr 2023 23:03:56 +0000
-Received: by outflank-mailman (input) for mailman id 519126;
- Fri, 07 Apr 2023 23:03:55 +0000
+	id 1pkvAu-0001HW-T8; Fri, 07 Apr 2023 23:07:20 +0000
+Received: by outflank-mailman (input) for mailman id 519131;
+ Fri, 07 Apr 2023 23:07:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2dUW=76=linaro.org=richard.henderson@srs-se1.protection.inumbo.net>)
- id 1pkv7b-0000cU-Eu
- for xen-devel@lists.xenproject.org; Fri, 07 Apr 2023 23:03:55 +0000
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [2607:f8b0:4864:20::42f])
+ id 1pkvAt-0001HQ-LZ
+ for xen-devel@lists.xenproject.org; Fri, 07 Apr 2023 23:07:19 +0000
+Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
+ [2607:f8b0:4864:20::634])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76e36e35-d598-11ed-b464-930f4c7d94ae;
- Sat, 08 Apr 2023 01:03:53 +0200 (CEST)
-Received: by mail-pf1-x42f.google.com with SMTP id
- d2e1a72fcca58-63255e756bfso12345b3a.2
- for <xen-devel@lists.xenproject.org>; Fri, 07 Apr 2023 16:03:53 -0700 (PDT)
+ id f0989c9b-d598-11ed-b464-930f4c7d94ae;
+ Sat, 08 Apr 2023 01:07:17 +0200 (CEST)
+Received: by mail-pl1-x634.google.com with SMTP id m18so64689plx.5
+ for <xen-devel@lists.xenproject.org>; Fri, 07 Apr 2023 16:07:17 -0700 (PDT)
 Received: from ?IPV6:2602:ae:1541:f901:8bb4:5a9d:7ab7:b4b8?
  ([2602:ae:1541:f901:8bb4:5a9d:7ab7:b4b8])
  by smtp.gmail.com with ESMTPSA id
- b13-20020aa7870d000000b0062e26487e7esm3525658pfo.155.2023.04.07.16.03.51
+ w8-20020a63c108000000b005141e2c733dsm3117978pgf.11.2023.04.07.16.07.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 07 Apr 2023 16:03:51 -0700 (PDT)
+ Fri, 07 Apr 2023 16:07:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76e36e35-d598-11ed-b464-930f4c7d94ae
+X-Inumbo-ID: f0989c9b-d598-11ed-b464-930f4c7d94ae
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1680908632;
+        d=linaro.org; s=google; t=1680908836;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=hZqP/mMtrcpUQSJ0MIEuq6L7i9BJbItpoxQhlUdV2j0=;
-        b=OScsKdJq+aKS4EMfnsQDF1A4ZpE9lHLC3dBugCWoYJ+T+zxfKuy7Bcfowv1Z4sMNGt
-         5Tvqtj2tiQHF/cjx4hdeKJ6bZl9Y/HxUihnLOA+u6o+0o8KEhFMiBHXApK9qw2CCJXQY
-         B/O1pBojgVNojn4tHZwtZ9Gj8964Bhc4vqVPOXtmkWUbZHDB/khpku9T9hNbVRaYpnKf
-         6WkmzIgkqbHy5Lu85TuUalah4TTDdXAr+WRzB+W03rr+p/gGfvJi+W66/flHhGLrSK6a
-         w5iWxWFxH44qZpC/JwuKPFVtQLmfZeKHX2acjMCobg3Mcp8TCtZQwPxUU3D6tMzl+TdP
-         a4Tg==
+        bh=JAx0qx3C6KbkeA3/DQYQ7BheR/mOc8zbOwn50MI/ySU=;
+        b=mbYbKfx8mUmFoekiQdkNphSpXLmmbqH8glL3AwV4W3HVWtDJAciucY0lPbRfBpEDFq
+         gLlOvNgZ1aLfgvbPXG+Qx/8/igjS3HTbQe0TOOhogHHLu6CsdelnF0yAQM3P4NvkeUlZ
+         /xxR7Zdqi7rV2zCgA4fHc1MzHVBEyEVNb2vgXSmk+/mwYBQWFUuxDl3NGR/k474i1eEt
+         GapH/ZtfQMmDXQlxBXlVSl3mvt6+PQYPigGuP+NMhSb2Yk4I8i4WH+/5bJi5N0/JyBg7
+         qvyMaJ5KjlSKrhsg0GppELpMFE4U4M6ddit4DbdCD0iuZxi2OYxIn/vTltNF+s2Tq4mQ
+         uM6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112; t=1680908632;
+        d=1e100.net; s=20210112; t=1680908836;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hZqP/mMtrcpUQSJ0MIEuq6L7i9BJbItpoxQhlUdV2j0=;
-        b=cVKd6ApFSDrvpps4mp1Z1h9LxXqqMZr+SFFMZ7Jdwi+vZZP+uNCLWuTIw7RVPeiEcf
-         T8cbxN7C9ekuMM2/ZeZb0W/9YY6Q/Sp5PyAQVUfQO8saKDGZSU8mRh4y73a8a9RitXe5
-         7KbAYr+n0XcbsMjLGCOcETx+4h1lsTR4coWSwkZTr6iGHuYntW2iyomqAbkwX7RAuWXj
-         JlkRJprgQ/hkFjGeLW3oGtqmI/rnHP+jbbF1/gdOe3FooLNAQ6nKYswxHR+KqZB4GUoY
-         bUElkvLtPE1Y4cmiwMZQ8mEELIJru2r5fNI5tWQnSCffqxPtrOU0ngFAmZbtOcuV+6NF
-         K88w==
-X-Gm-Message-State: AAQBX9cTFy3HiAbv/vP6eSQZyxVbzhlKP7h8JHuFewCFTCtgnBeUDWIp
-	tFFoFpWLmyp5Mx7cZZfZehEmjQ==
-X-Google-Smtp-Source: AKy350an52aELf6hlPTEwYKQg2oGfdoio44PzUivo7lHIUSuO2HA+GtnFtvlc2ICRNAVAvj8q2M6tQ==
-X-Received: by 2002:a62:5e41:0:b0:626:2ae6:31f6 with SMTP id s62-20020a625e41000000b006262ae631f6mr3993369pfb.7.1680908631953;
-        Fri, 07 Apr 2023 16:03:51 -0700 (PDT)
-Message-ID: <f28d2337-37c0-5a93-438f-7ce0ea7fc565@linaro.org>
-Date: Fri, 7 Apr 2023 16:03:49 -0700
+        bh=JAx0qx3C6KbkeA3/DQYQ7BheR/mOc8zbOwn50MI/ySU=;
+        b=xzX81L5bM0BKKevQDGg89IiHg8hwZ31qiy3DHjC4XsaSyHRNayCJzh41GxLdXbP8fU
+         UK5timuTba37tgsIRU3roOZC/qUezamZ3MhByWctbbA9XdRgy3+S+uuGTbwzzlP2MYe/
+         wNTjkF88G22frSqnb3g/rbGOd827ysb4jtulPivqnPDa4sQXeyCv0YS1AK/ctOM/C9oL
+         NmGIYmrc8VE6alTTi4tC64KiIkz2ERtW+9PVsfEQNBhNtwRqVZtGwtUhHrQa633cVic3
+         qb8GGJ961CT9nPPSFiaYS/I/dWAu8wgZQtj+kN98VzovLkXk62rZB/Ut2rKYuP4023zx
+         TAgA==
+X-Gm-Message-State: AAQBX9fPZlHKA7KCt3uvXmUCyJPp2QQS/Ju/GnhXuVv+IQD4aTvagxsc
+	3Lk63sUK07vXABx4vCzujhmw6Q==
+X-Google-Smtp-Source: AKy350ZaLWvNZM1+jRdEw1wsK7EItizE9LE7fAUvdw6zSKnESjRPfP7KFdel4FWtCgR78LROUj0RRA==
+X-Received: by 2002:a05:6a20:ca4e:b0:d7:34a1:85b9 with SMTP id hg14-20020a056a20ca4e00b000d734a185b9mr108846pzb.7.1680908836058;
+        Fri, 07 Apr 2023 16:07:16 -0700 (PDT)
+Message-ID: <7f1385f0-b0bc-090a-4437-434cb72a7cc6@linaro.org>
+Date: Fri, 7 Apr 2023 16:07:13 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-Subject: Re: [PATCH 05/14] accel: Rename 'hax_vcpu' as 'accel' in CPUState
+Subject: Re: [PATCH 07/14] accel: Rename struct hax_vcpu_state -> struct
+ AccelvCPUState
 Content-Language: en-US
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>,
  qemu-devel@nongnu.org
@@ -92,19 +92,33 @@ Cc: Paolo Bonzini <pbonzini@redhat.com>, =?UTF-8?Q?Alex_Benn=c3=a9e?=
  Yanan Wang <wangyanan55@huawei.com>, Reinoud Zandijk <reinoud@netbsd.org>,
  Sunil Muthuswamy <sunilmut@microsoft.com>
 References: <20230405101811.76663-1-philmd@linaro.org>
- <20230405101811.76663-6-philmd@linaro.org>
+ <20230405101811.76663-8-philmd@linaro.org>
 From: Richard Henderson <richard.henderson@linaro.org>
-In-Reply-To: <20230405101811.76663-6-philmd@linaro.org>
+In-Reply-To: <20230405101811.76663-8-philmd@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 On 4/5/23 03:18, Philippe Mathieu-Daudé wrote:
-> All accelerators will share a single opaque context
-> in CPUState. Start by renaming 'hax_vcpu' as 'accelCPUState'.
+> We want all accelerators to share the same opaque pointer in
+> CPUState. Start with the HAX context, renaming its forward
+> declarated structure 'hax_vcpu_state' as 'AccelvCPUState'.
+> 
+> Signed-off-by: Philippe Mathieu-Daudé<philmd@linaro.org>
+> ---
+>   include/hw/core/cpu.h       | 7 +++----
+>   target/i386/hax/hax-i386.h  | 3 ++-
+>   target/i386/nvmm/nvmm-all.c | 2 +-
+>   target/i386/whpx/whpx-all.c | 2 +-
+>   4 files changed, 7 insertions(+), 7 deletions(-)
 
-Pasto in 'accel' here.
+Can this be squashed with previous?  It seems odd to change the name twice in a row.
+Is the "v" in AccelvCPUState helpful?
 
-Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+> +    struct AccelvCPUState *accel;
+>      /* shared by kvm, hax and hvf */
+>      bool vcpu_dirty;
+
+Move below the comment?  Or is that later?
 
 
 r~
