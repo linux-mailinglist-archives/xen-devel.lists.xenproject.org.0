@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8E676DB5DD
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Apr 2023 23:45:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.519099.806291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33F806DB64E
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Apr 2023 00:09:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.519105.806304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkttk-00076V-Ja; Fri, 07 Apr 2023 21:45:32 +0000
+	id 1pkuGV-0001Fm-Hj; Fri, 07 Apr 2023 22:09:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 519099.806291; Fri, 07 Apr 2023 21:45:32 +0000
+Received: by outflank-mailman (output) from mailman id 519105.806304; Fri, 07 Apr 2023 22:09:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pkttk-00074Z-G9; Fri, 07 Apr 2023 21:45:32 +0000
-Received: by outflank-mailman (input) for mailman id 519099;
- Fri, 07 Apr 2023 21:45:30 +0000
+	id 1pkuGV-0001DE-E4; Fri, 07 Apr 2023 22:09:03 +0000
+Received: by outflank-mailman (input) for mailman id 519105;
+ Fri, 07 Apr 2023 22:09:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wEkE=76=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pktti-00074P-Nl
- for xen-devel@lists.xenproject.org; Fri, 07 Apr 2023 21:45:30 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1pkuGU-0001D8-Oc
+ for xen-devel@lists.xenproject.org; Fri, 07 Apr 2023 22:09:02 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83004f4b-d58d-11ed-85db-49a42c6b2330;
- Fri, 07 Apr 2023 23:45:29 +0200 (CEST)
+ id cc414c02-d590-11ed-85db-49a42c6b2330;
+ Sat, 08 Apr 2023 00:09:01 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 041B6654D8;
- Fri,  7 Apr 2023 21:45:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 725BAC4339B;
- Fri,  7 Apr 2023 21:45:26 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5DF2A64F3C;
+ Fri,  7 Apr 2023 22:08:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9A69C433EF;
+ Fri,  7 Apr 2023 22:08:57 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,85 +43,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83004f4b-d58d-11ed-85db-49a42c6b2330
+X-Inumbo-ID: cc414c02-d590-11ed-85db-49a42c6b2330
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1680903927;
-	bh=eBSbdsqfNNt6f8OYUMdxJVCz21US87S40JrcPEDoLQA=;
+	s=k20201202; t=1680905338;
+	bh=BShoxTWx4HlNjbO6Scv7dYkopvwzFqmn1E8X+A2sdI0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=MLZKZBmudlRnVWoZB4Uwz0xTgAFEZ+RyjUrsS8h+3RaUn0O0fPoczVmlmtrWjHoQX
-	 8PnG/E5E4Ejw3i3yl6aDslCywXyDAe1Q9ciHSIyky0KIxxsmEc311ka5AVerlzRrQ5
-	 QO6fQvM8enrWMyPa/DfSWOxPOdWlDzXsuFQpQON8MwIfGMiORjHHvzef4OCGp/09YX
-	 4eBdCtQWosz0b2N4cFY3zuIyqCBMioH8UG14tilQu+T77lWHHxdYleG6ekeBufirSk
-	 ZkBjQuCN1l9+MM5470jpe8m7FvNG9iKRpz6mOSUg+t0lFP2cjzGJtAuH67+qwS+mUt
-	 SR1LMxa/Hwmpg==
-Date: Fri, 7 Apr 2023 14:45:24 -0700 (PDT)
+	b=kx76WgITtpOTf5Oj8/rBT7WSkFWZXSM8UTVCTXKjXva63R6gQzvk6w+oDGL/MxYtL
+	 pMcPNC9lKEGoyorJ87ePmxgZ62sN5ifaC9ee9Ccd0oZIW8+hg9TZBpJ48O7xy/XW1n
+	 aFhiovcvXtDqP6jDIGorEjiK1cJ8ZflXiWldjsKgUxhYDCBOpaA/tz9Xva3w27OWxf
+	 Bts6jkI72ebLZC+MXyBUqwL1I37R16QQxvHJ0zmqayZyeHTIsZzK1rZG1L/cI+yEWs
+	 8SnvU07q+9K3pDqDHPMNqW6jK5lV6N5Ccl1ymsWQtRCdKpPRL3IXmmz6ugIEKhwM03
+	 K4H3ft/HkAtng==
+Date: Fri, 7 Apr 2023 15:08:55 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 3/3] xen/arm: vpl011: Do not try to handle TX FIFO status
- when backend in Xen
-In-Reply-To: <20230405111750.12491-4-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2304071445111.111906@ubuntu-linux-20-04-desktop>
-References: <20230405111750.12491-1-michal.orzel@amd.com> <20230405111750.12491-4-michal.orzel@amd.com>
+To: Juergen Gross <jgross@suse.com>
+cc: linux-kernel@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    xen-devel@lists.xenproject.org, Dan Carpenter <error27@gmail.com>
+Subject: Re: [PATCH v2] xen/pvcalls: don't call bind_evtchn_to_irqhandler()
+ under lock
+In-Reply-To: <20230403092711.15285-1-jgross@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2304071508480.111906@ubuntu-linux-20-04-desktop>
+References: <20230403092711.15285-1-jgross@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Wed, 5 Apr 2023, Michal Orzel wrote:
-> >From vpl011_rx_char_xen(), we call vpl011_data_avail() that handles both
-> RX and TX state. Because we are passing 0 as out_fifo_level and
-> SBSA_UART_FIFO_SIZE as out_size, we end up calling a function
-> vpl011_update_tx_fifo_status() which performs TXI bit handling
-> depending on the FIFO trigger level. This does not make sense when backend
-> is in Xen, as we maintain a single TX state where data can always be
-> written and as such there is no TX FIFO handling. Furthermore, this
-> function assumes that the backend is in domain by making use of struct
-> xencons_interface unconditionally. Fix it by calling this function only
-> when backend is in domain. Also add an assert for sanity.
+On Mon, 3 Apr 2023, Juergen Gross wrote:
+> bind_evtchn_to_irqhandler() shouldn't be called under spinlock, as it
+> can sleep.
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> This requires to move the calls of create_active() out of the locked
+> regions. This is no problem, as the worst which could happen would be
+> a spurious call of the interrupt handler, causing a spurious wake_up().
+> 
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Link: https://lore.kernel.org/lkml/Y+JUIl64UDmdkboh@kadam/
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
->  xen/arch/arm/vpl011.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
+> V2:
+> - remove stale spin_unlock() (Oleksandr Tyshchenko)
+> ---
+>  drivers/xen/pvcalls-front.c | 46 +++++++++++++++++++++----------------
+>  1 file changed, 26 insertions(+), 20 deletions(-)
 > 
-> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-> index ff06deeb645c..7856b4b5f5a3 100644
-> --- a/xen/arch/arm/vpl011.c
-> +++ b/xen/arch/arm/vpl011.c
-> @@ -261,6 +261,9 @@ static void vpl011_update_tx_fifo_status(struct vpl011 *vpl011,
->      struct xencons_interface *intf = vpl011->backend.dom.ring_buf;
->      unsigned int fifo_threshold = sizeof(intf->out) - SBSA_UART_FIFO_LEVEL;
+> diff --git a/drivers/xen/pvcalls-front.c b/drivers/xen/pvcalls-front.c
+> index d5d589bda243..b72ee9379d77 100644
+> --- a/drivers/xen/pvcalls-front.c
+> +++ b/drivers/xen/pvcalls-front.c
+> @@ -227,22 +227,30 @@ static irqreturn_t pvcalls_front_event_handler(int irq, void *dev_id)
 >  
-> +    /* No TX FIFO handling when backend is in Xen */
-> +    ASSERT(vpl011->backend_in_domain);
+>  static void free_active_ring(struct sock_mapping *map);
+>  
+> -static void pvcalls_front_free_map(struct pvcalls_bedata *bedata,
+> -				   struct sock_mapping *map)
+> +static void pvcalls_front_destroy_active(struct pvcalls_bedata *bedata,
+> +					 struct sock_mapping *map)
+>  {
+>  	int i;
+>  
+>  	unbind_from_irqhandler(map->active.irq, map);
+>  
+> -	spin_lock(&bedata->socket_lock);
+> -	if (!list_empty(&map->list))
+> -		list_del_init(&map->list);
+> -	spin_unlock(&bedata->socket_lock);
+> +	if (bedata) {
+> +		spin_lock(&bedata->socket_lock);
+> +		if (!list_empty(&map->list))
+> +			list_del_init(&map->list);
+> +		spin_unlock(&bedata->socket_lock);
+> +	}
+>  
+>  	for (i = 0; i < (1 << PVCALLS_RING_ORDER); i++)
+>  		gnttab_end_foreign_access(map->active.ring->ref[i], NULL);
+>  	gnttab_end_foreign_access(map->active.ref, NULL);
+>  	free_active_ring(map);
+> +}
 > +
->      BUILD_BUG_ON(sizeof(intf->out) < SBSA_UART_FIFO_SIZE);
+> +static void pvcalls_front_free_map(struct pvcalls_bedata *bedata,
+> +				   struct sock_mapping *map)
+> +{
+> +	pvcalls_front_destroy_active(bedata, map);
 >  
->      /*
-> @@ -547,7 +550,13 @@ static void vpl011_data_avail(struct domain *d,
->           */
->          vpl011->uartfr &= ~BUSY;
+>  	kfree(map);
+>  }
+> @@ -433,19 +441,18 @@ int pvcalls_front_connect(struct socket *sock, struct sockaddr *addr,
+>  		pvcalls_exit_sock(sock);
+>  		return ret;
+>  	}
+> -
+> -	spin_lock(&bedata->socket_lock);
+> -	ret = get_request(bedata, &req_id);
+> +	ret = create_active(map, &evtchn);
+>  	if (ret < 0) {
+> -		spin_unlock(&bedata->socket_lock);
+>  		free_active_ring(map);
+>  		pvcalls_exit_sock(sock);
+>  		return ret;
+>  	}
+> -	ret = create_active(map, &evtchn);
+> +
+> +	spin_lock(&bedata->socket_lock);
+> +	ret = get_request(bedata, &req_id);
+>  	if (ret < 0) {
+>  		spin_unlock(&bedata->socket_lock);
+> -		free_active_ring(map);
+> +		pvcalls_front_destroy_active(NULL, map);
+>  		pvcalls_exit_sock(sock);
+>  		return ret;
+>  	}
+> @@ -821,28 +828,27 @@ int pvcalls_front_accept(struct socket *sock, struct socket *newsock, int flags)
+>  		pvcalls_exit_sock(sock);
+>  		return ret;
+>  	}
+> -	spin_lock(&bedata->socket_lock);
+> -	ret = get_request(bedata, &req_id);
+> +	ret = create_active(map2, &evtchn);
+>  	if (ret < 0) {
+> -		clear_bit(PVCALLS_FLAG_ACCEPT_INFLIGHT,
+> -			  (void *)&map->passive.flags);
+> -		spin_unlock(&bedata->socket_lock);
+>  		free_active_ring(map2);
+>  		kfree(map2);
+> +		clear_bit(PVCALLS_FLAG_ACCEPT_INFLIGHT,
+> +			  (void *)&map->passive.flags);
+>  		pvcalls_exit_sock(sock);
+>  		return ret;
+>  	}
 >  
-> -        vpl011_update_tx_fifo_status(vpl011, out_fifo_level);
-> +        /*
-> +         * When backend is in Xen, we are always ready for new data to be
-> +         * written (i.e. no TX FIFO handling), therefore we do not want
-> +         * to change the TX FIFO status in such case.
-> +         */
-> +        if ( vpl011->backend_in_domain )
-> +            vpl011_update_tx_fifo_status(vpl011, out_fifo_level);
->      }
+> -	ret = create_active(map2, &evtchn);
+> +	spin_lock(&bedata->socket_lock);
+> +	ret = get_request(bedata, &req_id);
+>  	if (ret < 0) {
+> -		free_active_ring(map2);
+> -		kfree(map2);
+>  		clear_bit(PVCALLS_FLAG_ACCEPT_INFLIGHT,
+>  			  (void *)&map->passive.flags);
+>  		spin_unlock(&bedata->socket_lock);
+> +		pvcalls_front_free_map(bedata, map2);
+>  		pvcalls_exit_sock(sock);
+>  		return ret;
+>  	}
+> +
+>  	list_add_tail(&map2->list, &bedata->socket_mappings);
 >  
->      vpl011_update_interrupt_status(d);
+>  	req = RING_GET_REQUEST(&bedata->ring, req_id);
 > -- 
-> 2.25.1
+> 2.35.3
 > 
 
