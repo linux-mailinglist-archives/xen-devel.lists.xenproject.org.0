@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E6E16DC051
-	for <lists+xen-devel@lfdr.de>; Sun,  9 Apr 2023 16:22:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.519363.806488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A93896DC229
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Apr 2023 02:25:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.519430.806498 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1plVuJ-0006G2-KH; Sun, 09 Apr 2023 14:20:39 +0000
+	id 1plfK2-00063z-CN; Mon, 10 Apr 2023 00:23:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 519363.806488; Sun, 09 Apr 2023 14:20:39 +0000
+Received: by outflank-mailman (output) from mailman id 519430.806498; Mon, 10 Apr 2023 00:23:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1plVuJ-0006DA-HS; Sun, 09 Apr 2023 14:20:39 +0000
-Received: by outflank-mailman (input) for mailman id 519363;
- Sun, 09 Apr 2023 14:20:38 +0000
+	id 1plfK2-00060b-7u; Mon, 10 Apr 2023 00:23:50 +0000
+Received: by outflank-mailman (input) for mailman id 519430;
+ Mon, 10 Apr 2023 00:23:48 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1plVuI-0006D0-51; Sun, 09 Apr 2023 14:20:38 +0000
+ id 1plfK0-00060R-Mk; Mon, 10 Apr 2023 00:23:48 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1plVuI-0006hs-0z; Sun, 09 Apr 2023 14:20:38 +0000
+ id 1plfK0-0004uX-JX; Mon, 10 Apr 2023 00:23:48 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1plVuH-0007VC-HE; Sun, 09 Apr 2023 14:20:37 +0000
+ id 1plfK0-0007Tm-2l; Mon, 10 Apr 2023 00:23:48 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1plVuH-0005Ih-Gp; Sun, 09 Apr 2023 14:20:37 +0000
+ id 1plfK0-0006io-2C; Mon, 10 Apr 2023 00:23:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,22 +45,21 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=qRKBS9wYy29ngsH/xxR4oW0rnZ3RhvasB0bX3I7iegI=; b=LTpX3h8nhh1UDMf/3SFg+B+q3t
-	Lgxz4Tlpebw/QwL/YmOTU780jUk17TnnBkDyJpTkgCWNDqfkHWoxUUZKYcSwSli0nrtNPl316qlqM
-	6dkjynoZAFNqnnoel+fKCtFZwGxHerR4LfuukJjsjPV0tt2dH9JQg7HyLJSx/Uk6MuSo=;
+	bh=rxTbtFR6M4X3MyhMwnvdYHD1x4laf0t2NbiwMzo84FQ=; b=TDxLM/SDDO6FFefQB0pD0j5ULB
+	5zOU8Qg4X/zJy0D0fvyvpPbHzxpYgZV8Y54zsyIK1aJ8XszZmEVsyawOchMbJMBFW0Z5Ts4qUWFX2
+	5/0N1rO0p8yyYUOUxUvOGVzT1gNs1UlEVyPK6LwX4lFzrGO/YxjlOnZnDEW/C8Z+XPcw=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180188-mainreport@xen.org>
+Message-ID: <osstest-180190-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [linux-linus test] 180188: tolerable trouble: fail/pass/starved - PUSHED
+Subject: [linux-linus test] 180190: tolerable trouble: fail/pass/starved - PUSHED
 X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    linux-linus:test-amd64-amd64-xl-vhd:guest-start.2:fail:nonblocking
     linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
     linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
     linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
     linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-vhd:guest-start/debian.repeat:fail:nonblocking
     linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
     linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
     linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
@@ -74,9 +73,9 @@ X-Osstest-Failures:
     linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
     linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
     linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
@@ -97,29 +96,24 @@ X-Osstest-Failures:
     linux-linus:build-armhf-libvirt:build-check(1):starved:nonblocking
     linux-linus:build-armhf:hosts-allocate:starved:nonblocking
 X-Osstest-Versions-This:
-    linux=cdc9718d5e590d6905361800b938b93f2b66818e
+    linux=faf8f41858e2792925b2c526e16d2f539a53a730
 X-Osstest-Versions-That:
-    linux=a79d5c76f705de81cb6b55ad279dde9759da06d2
+    linux=cdc9718d5e590d6905361800b938b93f2b66818e
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 09 Apr 2023 14:20:37 +0000
+Date: Mon, 10 Apr 2023 00:23:48 +0000
 
-flight 180188 linux-linus real [real]
-flight 180189 linux-linus real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180188/
-http://logs.test-lab.xenproject.org/osstest/logs/180189/
+flight 180190 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180190/
 
 Failures :-/ but no regressions.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 180189-retest
-
 Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180185
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180185
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180185
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180185
- test-amd64-amd64-xl-vhd      21 guest-start/debian.repeat    fail  like 180185
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180185
+ test-amd64-amd64-xl-vhd      22 guest-start.2           fail blocked in 180188
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180188
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180188
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180188
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180188
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180188
  test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
  test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
@@ -132,9 +126,9 @@ Tests which did not succeed, but are not blocking:
  test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
  test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
  test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
  test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
  test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
@@ -156,56 +150,32 @@ Tests which did not succeed, but are not blocking:
  build-armhf                   2 hosts-allocate               starved  n/a
 
 version targeted for testing:
- linux                cdc9718d5e590d6905361800b938b93f2b66818e
+ linux                faf8f41858e2792925b2c526e16d2f539a53a730
 baseline version:
- linux                a79d5c76f705de81cb6b55ad279dde9759da06d2
+ linux                cdc9718d5e590d6905361800b938b93f2b66818e
 
-Last test of basis   180185  2023-04-08 19:13:27 Z    0 days
-Testing same since   180188  2023-04-09 03:13:59 Z    0 days    1 attempts
+Last test of basis   180188  2023-04-09 03:13:59 Z    0 days
+Testing same since   180190  2023-04-09 17:41:25 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Biju Das <biju.das.jz@bp.renesas.com>
-  Bjørn Mork <bjorn@mork.no>
-  D Scott Phillips <scott@os.amperecomputing.com>
-  Dan Carpenter <error27@gmail.com>
-  David Lechner <david@lechnology.com>
-  Enrico Sau <enrico.sau@gmail.com>
-  Geert Uytterhoeven <geert+renesas@glider.be>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Hans de Goede <hdegoede@redhat.com>
-  Haotien Hsu <haotienh@nvidia.com>
-  Heikki Krogerus <heikki.krogerus@linux.intel.com>
-  Ian Ray <ian.ray@ge.com>
-  Ibrahim Tilki <Ibrahim.Tilki@analog.com>
-  Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-  Jens Axboe <axboe@kernel.dk>
-  Johan Hovold <johan@kernel.org>
+  Bjorn Helgaas <bhelgaas@google.com>
+  Borislav Petkov (AMD) <bp@alien8.de>
+  Dan Williams <dan.j.williams@intel.com>
+  Dave Jiang <dave.jiang@intel.com>
+  David R <david@unsolicited.net>
+  Eric DeVolder <eric.devolder@oracle.com>
+  Gregory Price <gregory.price@memverge.com>
+  Ira Weiny <ira.weiny@intel.com>
   Jonathan Cameron <Jonathan.Cameron@huawei.com>
-  Kai-Heng Feng <kai.heng.feng@canonical.com>
-  Kees Jan Koster <kjkoster@kjkoster.org>
-  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-  Lars-Peter Clausen <lars@metafoo.de>
+  Kan Liang <kan.liang@linux.intel.com>
   Linus Torvalds <torvalds@linux-foundation.org>
-  Marc Zyngier <maz@kernel.org>
-  Mathias Nyman <mathias.nyman@linux.intel.com>
-  Mehdi Djait <mehdi.djait.k@gmail.com>
-  Mirsad Goran Todorovac <mirsad.todorovac@alu.unizg.hr>
-  Mårten Lindahl <marten.lindahl@axis.com>
-  Nuno Sá <nuno.sa@analog.com>
-  Patrik Dahlström <risca@dalakolonin.se>
-  Pawel Laszczak <pawell@cadence.com>
-  RD Babiera <rdbabiera@google.com>
-  Sandeep Dhavale <dhavale@google.com>
-  Sherry Sun <sherry.sun@nxp.com>
-  Steve Clevenger <scclevenger@os.amperecomputing.com>
-  Steve French <stfrench@microsoft.com>
-  Suzuki K Poulose <suzuki.poulose@arm.com>
-  Thiago Rafael Becker <tbecker@redhat.com>
-  Wayne Chang <waynec@nvidia.com>
-  William Breathitt Gray <william.gray@linaro.org>
+  Lukas Wunner <lukas@wunner.de>
+  Mario Limonciello <mario.limonciello@amd.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Peter Zijlstra <peterz@infradead.org>
+  Thomas Gleixner <tglx@linutronix.de>
+  Tony Luck <tony.luck@intel.com>
 
 jobs:
  build-amd64-xsm                                              pass    
@@ -229,7 +199,7 @@ jobs:
  test-armhf-armhf-xl                                          starved 
  test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
  test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
  test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
  test-amd64-amd64-libvirt-xsm                                 pass    
  test-arm64-arm64-libvirt-xsm                                 pass    
@@ -311,5 +281,5 @@ hint: You can disable this warning with `git config advice.ignoredHook false`.
 hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
 hint: You can disable this warning with `git config advice.ignoredHook false`.
 To xenbits.xen.org:/home/xen/git/linux-pvops.git
-   a79d5c76f705..cdc9718d5e59  cdc9718d5e590d6905361800b938b93f2b66818e -> tested/linux-linus
+   cdc9718d5e59..faf8f41858e2  faf8f41858e2792925b2c526e16d2f539a53a730 -> tested/linux-linus
 
