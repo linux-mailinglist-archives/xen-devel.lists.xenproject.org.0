@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 789456DCC47
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Apr 2023 22:48:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.519558.806547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 933696DD252
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Apr 2023 08:00:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.519581.806557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1plyPb-0008BA-Gs; Mon, 10 Apr 2023 20:46:51 +0000
+	id 1pm72O-0001cu-63; Tue, 11 Apr 2023 05:59:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 519558.806547; Mon, 10 Apr 2023 20:46:51 +0000
+Received: by outflank-mailman (output) from mailman id 519581.806557; Tue, 11 Apr 2023 05:59:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1plyPb-00089H-E6; Mon, 10 Apr 2023 20:46:51 +0000
-Received: by outflank-mailman (input) for mailman id 519558;
- Mon, 10 Apr 2023 20:46:50 +0000
+	id 1pm72N-0001Zs-VQ; Tue, 11 Apr 2023 05:59:27 +0000
+Received: by outflank-mailman (input) for mailman id 519581;
+ Tue, 11 Apr 2023 05:59:26 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1plyPa-000896-KH; Mon, 10 Apr 2023 20:46:50 +0000
+ id 1pm72M-0001Zi-6K; Tue, 11 Apr 2023 05:59:26 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1plyPa-0000Mu-DF; Mon, 10 Apr 2023 20:46:50 +0000
+ id 1pm72M-0004U3-3o; Tue, 11 Apr 2023 05:59:26 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1plyPZ-0000pn-Vi; Mon, 10 Apr 2023 20:46:50 +0000
+ id 1pm72L-00022j-LT; Tue, 11 Apr 2023 05:59:25 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1plyPZ-0001L0-VF; Mon, 10 Apr 2023 20:46:49 +0000
+ id 1pm72L-0008D8-Kg; Tue, 11 Apr 2023 05:59:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,20 +45,17 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=EPF9VAc5EtJ5H7fVFrLJnYoesRL+m7pjnVnsj9CoN9Y=; b=xENq8GQMab2xlrMV4iuXLfcHaR
-	DQsvkwMylpH8UsPe29P5s7k9RzzaYpxpC1l7EemyuHtb/jinaM0PMaJG9xCB2O7IM9luV58p40yEJ
-	wVm24/chcQjbSw6Tj2yRkFMeLkwaawTBlmwIS9IKaThpP81bPrVml/fops6r9aRbNYG4=;
+	bh=UEQ4XIEi+F4a7HOzfrNhoD8BNy8nW7nRLP12fi23a3A=; b=FNtbrqeh8kSoPG5QOeqhDAGACc
+	wa2X881yVsa6BQKRTn+qE5t0aUg0a7nLSMHOQ1irETLujkhIb1kvnnlnOXpF+iXpX/2dB5QWOSDtx
+	6l9j8W5tGQRh4brveOzVEzS6NaXqWUuAD04AcFfSCrzV7QqjQv9NGQs2GnhYxorPllNE=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180195-mainreport@xen.org>
+Message-ID: <osstest-180198-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 180195: tolerable trouble: fail/pass/starved - PUSHED
+Subject: [qemu-mainline test] 180198: tolerable trouble: fail/pass/starved - PUSHED
 X-Osstest-Failures:
-    qemu-mainline:test-amd64-i386-freebsd10-i386:xen-install:fail:heisenbug
-    qemu-mainline:test-amd64-i386-freebsd10-amd64:xen-install:fail:heisenbug
-    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start.2:fail:heisenbug
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:heisenbug
+    qemu-mainline:test-amd64-i386-xl-vhd:guest-start/debian.repeat:fail:heisenbug
     qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
     qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
     qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
@@ -70,13 +67,13 @@ X-Osstest-Failures:
     qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
     qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
     qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
     qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
     qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
     qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
     qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
     qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
     qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
     qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
     qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
@@ -102,44 +99,41 @@ X-Osstest-Failures:
     qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
     qemu-mainline:build-armhf:hosts-allocate:starved:nonblocking
 X-Osstest-Versions-This:
-    qemuu=08dede07030973c1053868bc64de7e10bfa02ad6
+    qemuu=26aeb3b5894e0f3d17354e306002c59fa060e1c5
 X-Osstest-Versions-That:
-    qemuu=c6f3cbca32bde9ee94d9949aa63e8a7ef2d7bc5b
+    qemuu=08dede07030973c1053868bc64de7e10bfa02ad6
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 10 Apr 2023 20:46:49 +0000
+Date: Tue, 11 Apr 2023 05:59:25 +0000
 
-flight 180195 qemu-mainline real [real]
-flight 180197 qemu-mainline real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180195/
-http://logs.test-lab.xenproject.org/osstest/logs/180197/
+flight 180198 qemu-mainline real [real]
+flight 180201 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180198/
+http://logs.test-lab.xenproject.org/osstest/logs/180201/
 
 Failures :-/ but no regressions.
 
 Tests which are failing intermittently (not blocking):
- test-amd64-i386-freebsd10-i386  7 xen-install       fail pass in 180197-retest
- test-amd64-i386-freebsd10-amd64  7 xen-install      fail pass in 180197-retest
- test-amd64-amd64-xl-qcow2    22 guest-start.2       fail pass in 180197-retest
- test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail pass in 180197-retest
+ test-amd64-i386-xl-vhd 21 guest-start/debian.repeat fail pass in 180201-retest
 
 Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180168
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180168
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 180168
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180168
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 180168
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180195
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180195
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 180195
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180195
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 180195
  test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
  test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
  test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
  test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
  test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
  test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
  test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
@@ -166,19 +160,17 @@ Tests which did not succeed, but are not blocking:
  build-armhf                   2 hosts-allocate               starved  n/a
 
 version targeted for testing:
- qemuu                08dede07030973c1053868bc64de7e10bfa02ad6
+ qemuu                26aeb3b5894e0f3d17354e306002c59fa060e1c5
 baseline version:
- qemuu                c6f3cbca32bde9ee94d9949aa63e8a7ef2d7bc5b
+ qemuu                08dede07030973c1053868bc64de7e10bfa02ad6
 
-Last test of basis   180168  2023-04-06 10:37:17 Z    4 days
-Testing same since   180195  2023-04-10 13:39:02 Z    0 days    1 attempts
+Last test of basis   180195  2023-04-10 13:39:02 Z    0 days
+Testing same since   180198  2023-04-10 21:08:28 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Cédric Le Goater <clg@kaod.org>
   Peter Maydell <peter.maydell@linaro.org>
   Richard Henderson <richard.henderson@linaro.org>
-  Stefan Berger <stefanb@linux.ibm.com>
 
 jobs:
  build-amd64-xsm                                              pass    
@@ -218,7 +210,7 @@ jobs:
  test-amd64-amd64-dom0pvh-xl-amd                              pass    
  test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
  test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              fail    
+ test-amd64-i386-freebsd10-amd64                              pass    
  test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
  test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
  test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
@@ -236,7 +228,7 @@ jobs:
  test-armhf-armhf-xl-cubietruck                               starved 
  test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
  test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               fail    
+ test-amd64-i386-freebsd10-i386                               pass    
  test-amd64-amd64-qemuu-nested-intel                          pass    
  test-amd64-amd64-xl-pvhv2-intel                              pass    
  test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
@@ -254,7 +246,7 @@ jobs:
  test-amd64-i386-xl-pvshim                                    fail    
  test-amd64-amd64-pygrub                                      pass    
  test-armhf-armhf-libvirt-qcow2                               starved 
- test-amd64-amd64-xl-qcow2                                    fail    
+ test-amd64-amd64-xl-qcow2                                    pass    
  test-arm64-arm64-libvirt-raw                                 pass    
  test-armhf-armhf-libvirt-raw                                 starved 
  test-amd64-i386-libvirt-raw                                  pass    
@@ -265,10 +257,10 @@ jobs:
  test-amd64-amd64-xl-shadow                                   pass    
  test-amd64-i386-xl-shadow                                    pass    
  test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
+ test-amd64-amd64-libvirt-vhd                                 pass    
  test-arm64-arm64-xl-vhd                                      pass    
  test-armhf-armhf-xl-vhd                                      starved 
- test-amd64-i386-xl-vhd                                       pass    
+ test-amd64-i386-xl-vhd                                       fail    
 
 
 ------------------------------------------------------------
@@ -290,5 +282,5 @@ Test harness code can be found at
 Pushing revision :
 
 To xenbits.xen.org:/home/xen/git/qemu-xen.git
-   c6f3cbca32..08dede0703  08dede07030973c1053868bc64de7e10bfa02ad6 -> upstream-tested
+   08dede0703..26aeb3b589  26aeb3b5894e0f3d17354e306002c59fa060e1c5 -> upstream-tested
 
