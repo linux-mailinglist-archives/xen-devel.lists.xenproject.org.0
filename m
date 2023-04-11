@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C72976DDD9F
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Apr 2023 16:22:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.519663.806634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 180266DE315
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Apr 2023 19:49:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.519752.806683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmEro-0004N9-KZ; Tue, 11 Apr 2023 14:21:04 +0000
+	id 1pmI5k-000219-EK; Tue, 11 Apr 2023 17:47:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 519663.806634; Tue, 11 Apr 2023 14:21:04 +0000
+Received: by outflank-mailman (output) from mailman id 519752.806683; Tue, 11 Apr 2023 17:47:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmEro-0004LQ-Go; Tue, 11 Apr 2023 14:21:04 +0000
-Received: by outflank-mailman (input) for mailman id 519663;
- Tue, 11 Apr 2023 14:21:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pmErn-0004LG-3Z; Tue, 11 Apr 2023 14:21:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pmErn-0007i6-14; Tue, 11 Apr 2023 14:21:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pmErm-0003TS-HY; Tue, 11 Apr 2023 14:21:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pmErm-0006yP-HA; Tue, 11 Apr 2023 14:21:02 +0000
+	id 1pmI5k-0001zO-B7; Tue, 11 Apr 2023 17:47:40 +0000
+Received: by outflank-mailman (input) for mailman id 519752;
+ Tue, 11 Apr 2023 17:47:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MqSW=AC=linaro.org=peter.maydell@srs-se1.protection.inumbo.net>)
+ id 1pmI5i-0001zI-P1
+ for xen-devel@lists.xenproject.org; Tue, 11 Apr 2023 17:47:39 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0cae525-d890-11ed-8611-37d641c3527e;
+ Tue, 11 Apr 2023 19:47:35 +0200 (CEST)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-94a356c7419so213604466b.2
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Apr 2023 10:47:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +40,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=oViWm03fcP/JOWc+IsE7owOrN8Cx8w79BBCUGqgy9lg=; b=03tu7jy4i8HBMNXouMAfKMYqPG
-	TQejnX4HoZp3b+dht7kgn6/EbBiCjFMcVNwyh3+0Om7XYc2kW0wvAFO1GKjBOzhvl/wyWSDoyM2L+
-	mnOz/bj8jkTNsfwYFMfidMYBejRuIwB7BvGO8hbtmmxXXLXQFpc/AkfE4rWgcrhbyQI8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180205-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f0cae525-d890-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1681235254; x=1683827254;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=89D/U2/ABD8Hnu1Y3Qqw4jqD4G1xSecynmnwgvqJh1E=;
+        b=YnBxk/BjOwvAHI0NJ7QNqauiFlUOEHqqJtYcO4wshZ5d4biGRT67xd+gtKmL2yTAG1
+         /spFeX1cHhQgfRHw3qLE5gFE7DRVJIMjMwU0DKeOPP0up7qHE+6ksN0ALNPK6hDQfnEC
+         1sV/LtYwA/6V9r7/ZEqPfrGe5yyGQXOSKvcaxXB4v6K6z1xRdLMUuK2JPIv3XQ3tgxtX
+         p3Ltf49Z5yLqWpbA8sgb666/3Gc2TXDl8ibXyTw+niQhw+3KVsqdSceIVC0Vi+7rN3c8
+         cmNFc/doZli6PfAphk5aF7x2UCDJ1v0sdXqMpgHst/1sSiaUnbaNpir21qrErLs7O43a
+         94+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1681235254; x=1683827254;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=89D/U2/ABD8Hnu1Y3Qqw4jqD4G1xSecynmnwgvqJh1E=;
+        b=D+Kug/RWbwvJ/XkWufEbRly7eH5prDZT/oO/GaR0pzBQy1zbH0q75GaZcdg6M8zSFS
+         OZgfHVcKIrnx1bhYAo9W7FT5IYnzSNFZzEYBec1uUS8ndNlLc14L2X/wC2WoxTq3BRG+
+         MlfYcXRanUoeN/ANTWj7hZQhUtQHQaXSmNhAmpFbLwWdHSVhxtJmST0hoGpPvtecvABe
+         IJbwKsFnw9p65/sqbf/d9FqSJ+phPGMlqLh/MdfQLUNXRKgj6EHW608IFdPHhDGo/QFJ
+         7E9mSmZu74NnKznqeMBGd6fH22bHBP6d9JL1JZfqVzo64Yk4GMGn1r2YWD3o50cBEYd3
+         1/CA==
+X-Gm-Message-State: AAQBX9ejJMVs+nsq7XSqtFwcyb+GP87xVkq51m+QglLAukywmDcY9AKO
+	ZVVMBOIYWmiWwue4Az6E0k6nRPogCCDgZ0TC0qT8xg==
+X-Google-Smtp-Source: AKy350ahP395VbSvIx11nYGRgeo6TcVvzT9+ov1e9nkBImUEMlhVDS3j04fcNMoH4CH/1w9Xg8+N3piLIX+Q3hmx3y4=
+X-Received: by 2002:a50:baea:0:b0:4fc:fc86:5f76 with SMTP id
+ x97-20020a50baea000000b004fcfc865f76mr5594114ede.6.1681235254106; Tue, 11 Apr
+ 2023 10:47:34 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 180205: tolerable trouble: pass/starved - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    xen=5ea03c570c8610d4359f8bbf5f093d215344ce3f
-X-Osstest-Versions-That:
-    xen=ddaf7bb0cfd27369252de52e4b03410c4065bad2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 11 Apr 2023 14:21:02 +0000
+References: <20230307182707.2298618-1-dwmw2@infradead.org> <20230307182707.2298618-23-dwmw2@infradead.org>
+In-Reply-To: <20230307182707.2298618-23-dwmw2@infradead.org>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Tue, 11 Apr 2023 18:47:23 +0100
+Message-ID: <CAFEAcA-uebHqs=53w62BiKQGhXZedA5ijAoOefd2pcOFPF_Rpw@mail.gmail.com>
+Subject: Re: [PULL 22/27] hw/xen: Add emulated implementation of XenStore operations
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, Paul Durrant <paul@xen.org>, 
+	Joao Martins <joao.m.martins@oracle.com>, Ankur Arora <ankur.a.arora@oracle.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, vikram.garhwal@amd.com, 
+	Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org, 
+	Juan Quintela <quintela@redhat.com>, "Dr . David Alan Gilbert" <dgilbert@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 180205 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180205/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
-
-version targeted for testing:
- xen                  5ea03c570c8610d4359f8bbf5f093d215344ce3f
-baseline version:
- xen                  ddaf7bb0cfd27369252de52e4b03410c4065bad2
-
-Last test of basis   180171  2023-04-06 19:00:24 Z    4 days
-Testing same since   180205  2023-04-11 13:03:27 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  starved 
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          starved 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+On Tue, 7 Mar 2023 at 18:27, David Woodhouse <dwmw2@infradead.org> wrote:
+>
+> From: David Woodhouse <dwmw@amazon.co.uk>
+>
+> Now that we have an internal implementation of XenStore, we can populate
+> the xenstore_backend_ops to allow PV backends to talk to it.
+>
+> Watches can't be processed with immediate callbacks because that would
+> call back into XenBus code recursively. Defer them to a QEMUBH to be run
+> as appropriate from the main loop. We use a QEMUBH per XS handle, and it
+> walks all the watches (there shouldn't be many per handle) to fire any
+> which have pending events. We *could* have done it differently but this
+> allows us to use the same struct watch_event as we have for the guest
+> side, and keeps things relatively simple.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> +static struct qemu_xs_handle *xs_be_open(void)
+> +{
+> +    XenXenstoreState *s = xen_xenstore_singleton;
+> +    struct qemu_xs_handle *h;
+> +
+> +    if (!s && !s->impl) {
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Coverity points out that this will dereference a NULL pointer
+if you hand it one, and will happily let through a XenXenstoreState
+where s->impl is NULL.
+Should be "!s || !s->impl" I guess ?
+CID 1508131.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> +        errno = -ENOSYS;
+> +        return NULL;
+> +    }
+> +
+> +    h = g_new0(struct qemu_xs_handle, 1);
+> +    h->impl = s->impl;
+> +
+> +    h->watch_bh = aio_bh_new(qemu_get_aio_context(), be_watch_bh, h);
+> +
+> +    return h;
+> +}
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   ddaf7bb0cf..5ea03c570c  5ea03c570c8610d4359f8bbf5f093d215344ce3f -> smoke
+thanks
+-- PMM
 
