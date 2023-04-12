@@ -2,65 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B5B6DF123
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Apr 2023 11:54:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.520114.807465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 384D36DF19E
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Apr 2023 12:07:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.520156.807475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmXAl-0004a1-HY; Wed, 12 Apr 2023 09:53:51 +0000
+	id 1pmXNA-0006Hw-Kb; Wed, 12 Apr 2023 10:06:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 520114.807465; Wed, 12 Apr 2023 09:53:51 +0000
+Received: by outflank-mailman (output) from mailman id 520156.807475; Wed, 12 Apr 2023 10:06:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmXAl-0004Wp-DL; Wed, 12 Apr 2023 09:53:51 +0000
-Received: by outflank-mailman (input) for mailman id 520114;
- Wed, 12 Apr 2023 09:53:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QpzN=AD=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1pmXAj-0004Wj-Td
- for xen-devel@lists.xenproject.org; Wed, 12 Apr 2023 09:53:50 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20631.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ebf629ff-d917-11ed-b21e-6b7b168915f2;
- Wed, 12 Apr 2023 11:53:48 +0200 (CEST)
-Received: from AM6PR0502CA0072.eurprd05.prod.outlook.com
- (2603:10a6:20b:56::49) by AS2PR08MB9197.eurprd08.prod.outlook.com
- (2603:10a6:20b:57b::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Wed, 12 Apr
- 2023 09:53:45 +0000
-Received: from AM7EUR03FT018.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:56:cafe::aa) by AM6PR0502CA0072.outlook.office365.com
- (2603:10a6:20b:56::49) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.40 via Frontend
- Transport; Wed, 12 Apr 2023 09:53:44 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT018.mail.protection.outlook.com (100.127.140.97) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6298.28 via Frontend Transport; Wed, 12 Apr 2023 09:53:44 +0000
-Received: ("Tessian outbound 945aec65ec65:v136");
- Wed, 12 Apr 2023 09:53:44 +0000
-Received: from 67a50924a495.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 36914FB2-8A4A-4FA4-B5DB-DE8B80D3CC03.1; 
- Wed, 12 Apr 2023 09:53:37 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 67a50924a495.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 12 Apr 2023 09:53:37 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by PAVPR08MB9259.eurprd08.prod.outlook.com (2603:10a6:102:307::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.34; Wed, 12 Apr
- 2023 09:53:31 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::2db3:aa30:7be0:10a6]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::2db3:aa30:7be0:10a6%7]) with mapi id 15.20.6277.034; Wed, 12 Apr 2023
- 09:53:31 +0000
+	id 1pmXNA-0006F7-H2; Wed, 12 Apr 2023 10:06:40 +0000
+Received: by outflank-mailman (input) for mailman id 520156;
+ Wed, 12 Apr 2023 10:06:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=In0L=AD=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1pmXN9-0006F1-1b
+ for xen-devel@lists.xenproject.org; Wed, 12 Apr 2023 10:06:39 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b3fc7726-d919-11ed-8611-37d641c3527e;
+ Wed, 12 Apr 2023 12:06:33 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ he11-20020a05600c540b00b003ef6d684102so4018103wmb.3
+ for <xen-devel@lists.xenproject.org>; Wed, 12 Apr 2023 03:06:34 -0700 (PDT)
+Received: from [192.168.69.115] ([176.187.216.226])
+ by smtp.gmail.com with ESMTPSA id
+ m2-20020a05600c3b0200b003f0652084b8sm1865060wms.20.2023.04.12.03.06.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 12 Apr 2023 03:06:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,119 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebf629ff-d917-11ed-b21e-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QO87h/B4tZJozq0ApWzW4uhvl9hVnbZ2lFC/3noO028=;
- b=C/L9risaHhZUG3Dmu3fQ/dmwj6LvlLersWBeU5ksbHuZic/ZT1VeXYvD+pB8c7rkwkfyJw6+HvBnG4bsemmzt+eT0gmGwKziqFrC04GQFgn25DbYoFZiLrgouhqwLFvNwFqZ2Eedae9BSp6BSZR98HLaIHBJRFmNDL53pbL6BYo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UoNwsXgjmy1EAIdyurOWW6n4leyLPEljdROlzYVGG1fEWlSBd16IbBvYxtQmaf6k65JDU4Dtod+dEkCM+V+Dpb/fIWEOKlEUnYO9uEv59v3CRFempIu+gzIUnMwGRlxID47ql732cMr3mFetdavvMZ2Cr4BjafZLu+abQZIcg1uFM9v/OF5fRdnJqIgq1M1JbzWDiFb66oghgmHxvEylT5DPwhyv7seWdAuyxGQMBuIzS8z4GGR0LAmwXNFBa90fG+ikf70KHCYcfHbOhk1eOgoMQ8VyEc326lnXYVEhbj0n1rYwhpvTfy8Cfmt9Y4c5JhtdaRMG6vxcPS14Jm6YZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QO87h/B4tZJozq0ApWzW4uhvl9hVnbZ2lFC/3noO028=;
- b=Jf/TFL+SkzxTP/iP6jeW5IKycRdLzQPmN5A4Omd6FG4Y7m0GVp2xy5dcjcEKfjmEa0JiJI3e5XDoMjqWzP6Lz1Ddij3xnQGpL15mDM3fP8fGPo5ffGLvyzTyEGYebkFPxENGvr4wcx4HxW4xt/SRVHJUPtDFFr0Pzv5YIUBQlPbi8Lw+SMagOfNur2CwYObubQ7qjzM6JQT/Av+EnBLcDAUhdpEmOUSGk52qvEy6eFwFYcaM14JinT9xctbTMV1+UY4xQZ2jHLIt058i4GOczUhYYSojsamBW799f+GdLvl8obdwLxEZh10zgrB+jO0cGOrWvZEzgA9G2R6UGoGXvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QO87h/B4tZJozq0ApWzW4uhvl9hVnbZ2lFC/3noO028=;
- b=C/L9risaHhZUG3Dmu3fQ/dmwj6LvlLersWBeU5ksbHuZic/ZT1VeXYvD+pB8c7rkwkfyJw6+HvBnG4bsemmzt+eT0gmGwKziqFrC04GQFgn25DbYoFZiLrgouhqwLFvNwFqZ2Eedae9BSp6BSZR98HLaIHBJRFmNDL53pbL6BYo=
-From: Henry Wang <Henry.Wang@arm.com>
-To: Luca Fancellu <Luca.Fancellu@arm.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
-	Community Manager <community.manager@xenproject.org>
-Subject: RE: [PATCH v5 12/12] xen/changelog: Add SVE and "dom0" options to the
- changelog for Arm
-Thread-Topic: [PATCH v5 12/12] xen/changelog: Add SVE and "dom0" options to
- the changelog for Arm
-Thread-Index: AQHZbSQvpEqMQcYfY0uxDJPB32sRQK8nbmLA
-Date: Wed, 12 Apr 2023 09:53:30 +0000
-Message-ID:
- <AS8PR08MB79917190E2A5730AD295026C929B9@AS8PR08MB7991.eurprd08.prod.outlook.com>
-References: <20230412094938.2693890-1-luca.fancellu@arm.com>
- <20230412094938.2693890-13-luca.fancellu@arm.com>
-In-Reply-To: <20230412094938.2693890-13-luca.fancellu@arm.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: 5324AD9204C32D4C878C8D9CCB826009.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|PAVPR08MB9259:EE_|AM7EUR03FT018:EE_|AS2PR08MB9197:EE_
-X-MS-Office365-Filtering-Correlation-Id: 341cf477-8d53-49c5-99c7-08db3b3bcdef
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- xN8aDDBN3fuygun8SjjIegaQaie0tu5S5wPUnHvxN6plyoeBl8eHGVP3B/lwDCuvIkCOy8GBdBt/HfiJV3m6QXC9bIo8IuaShasVWlPypnNjhMQKdYnAIcqPRXBeXKvkDWz4w+E22qfbdcxE9ATzYQkpHbDGFNgT1M6vyAEbD3vbURKCe/cqRUPUQcujyighDxjhOKqhuelb3mBQd/GhW//oi4pPy4eBvBwwu22LhLMUcPXhkfSKPtxXa1YcXrFUGUVMB+pHFmSg8a4Xbh5rSco0N2p9dn2dvFEGA/9Jvnexfo/UbE0zE+xNIgEaPKZN81fbK18Psh51px+x9FcC7BXD8uG/TNQHfXxN/kQcJeyiKymljThFqS5z2SG3wrqY0+Xa2ZHQU0qOqhsJWFBEeJMGRLVsRwLYIjSeeP+HmmDiUaE4ofamlb/qfqgH6MLlWcdGOOgZP44k6+0J8gGiwLCX3pxKl9uRVKcOqWeuAHZnWinZ9kOGD1M/kzefGl711U7U18xJCmLI+7pkY9UxS+8Y91DyfYJyrZfyW+zT9dCt7GAJKLhqqKdcNYv+BDuItYQdC3dIlbbabdWLRk8nKb1z6aJ/ROPx2ocefBLXiZwDyJmkFbHfKkJlCFaXXzL4EUW3iA/YIt9AnmqKAkKfeiGPzvObC2KWetx21Eea6Wn9lk1cY0BLckbvlFYxdIaeiLj/XmVO5I60SEAx53M88A==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(366004)(396003)(136003)(376002)(346002)(451199021)(38070700005)(110136005)(38100700002)(54906003)(122000001)(76116006)(66446008)(66476007)(66946007)(316002)(8676002)(64756008)(86362001)(66556008)(83380400001)(33656002)(478600001)(4326008)(186003)(26005)(41300700001)(9686003)(6506007)(71200400001)(2906002)(7696005)(4744005)(8936002)(52536014)(55016003)(5660300002)(59356011)(207903002)(219803003);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: b3fc7726-d919-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1681293994; x=1683885994;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=nodu07HKidxKPxvOg7xbv/1Polhi/238wioQUMdq6YU=;
+        b=Xk3y6DXBeCFFzJr+vithiTz5Beg0CXzofhffIWROJNMLkIZ7q26zdzFL4KJtA4YxyU
+         Il4dRd58xoKO29XLYhdAiWdEM4huVsdPW7tera/P7GyqMzKKr5sQFUsTfalIJ40UoLt5
+         RZNqZzfSgstPdGFJ4R0YX5dBPr8yhN791OWpFaBmqSRZApEh4jrE+bwym33YTPmGkOEI
+         7gr68QxBAS8wdpi6KH/Bcx+0ZH++esjWqvsINZI9qV3ixkUf50FIyXp6LuCXItCKkmpu
+         w95X1V7K9gFRCUDsJeIqJJ4IrgOgZWYJ5NN9Uve6hEwbGvxbD9cVhTlpHNiW7ruAt4Ob
+         FUaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112; t=1681293994; x=1683885994;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nodu07HKidxKPxvOg7xbv/1Polhi/238wioQUMdq6YU=;
+        b=iYUBTFRUGLg1Zku10Ubx8cR5LhqjvanBrad2vEJyOaDsdyLbEOntJqBEUipfxTEMjo
+         00HOu36Jit3yE9XLGfKfhJeWCrd7VUPkMN/MNmzVaVFhOKa4YYu0NVsJ3bS67oBQYR8r
+         koDm6R+50iHggqptaLn0oLMVaHHvgWd4wc3MHwiG0CxlIl+eBh7KL82YrFR5eLb1XpRl
+         eKTLwAu4MpSW7CC8n409IuhwmGqcGqHCPddG/WJWDiysame2jt/A5MMn2Zv0tO96MmiX
+         IHkrF49ph9IaruKLkIxwBPKPq5XYYF2+SpObGWXzOwo6muuLeMiapWHi0ddkeZGh86vz
+         /0FA==
+X-Gm-Message-State: AAQBX9fr+qnLy6o7XooFpAnhj5NGi+D5t9JaIRdDrEqfQdYLmfQXRfZO
+	PtqvNNY3oTGH5ZangPdTG4T/gA==
+X-Google-Smtp-Source: AKy350a38QzxrOG40N/FCLtmNOZJ6NWu2hOiFQSQbZsWgPAmb1mo1As6jLt15bkoB1132d1qV+yodA==
+X-Received: by 2002:a05:600c:b56:b0:3ee:7e12:f50 with SMTP id k22-20020a05600c0b5600b003ee7e120f50mr1516825wmr.8.1681293994158;
+        Wed, 12 Apr 2023 03:06:34 -0700 (PDT)
+Message-ID: <72ee7e72-5ec1-d53b-94fa-e88f68880c2f@linaro.org>
+Date: Wed, 12 Apr 2023 12:06:32 +0200
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9259
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT018.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	78b7cde3-9b4f-4587-f4d6-08db3b3bc5be
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	pn/9IaGY6XTNLgidpgRzDNPZ29+uVXLwCmAMP+DzzDurhaDEVDZNlHtSIjpQ+il9lTm2+0EwMZPmIgCiYr7nSogQuAd5zbOTl2UwSstk7qfBs5UwqHRuNi55nesZZgyOgSoeJSnVvktlvQTVQZQ1eQVJyGnWeQhiLVQxOtzo+v4bQxwlGxjagOdGNQEBmYeaDmAWIigqbNA5DwMoYjrsELMmRTLnpBZDSxO59aA0w6q4cewmyaNXHAQ1WiPeK2st2f6OSy+2hsJg0YLC+eIjwCeePglMC0eMf1/5dMqj4Ju3jjUdIofHpucF1dPuLGl4oX4ZGdOpVfW6/E6vpDJxM/slnxRBI4GvyjGWXmuCFkxduk4z0c494xVAa6Xv1nnN3dlFV8JacGinmy1vP12k1HjwRv8+ENKvPKtpPAa9zusejdSQGa4UYgr1Gmt6c/djRpMxfurKVNGawzCNeNUaalhmmEzfpiAfA4n0IkLUWo7UC9yDBpscNY40paprsCx1ocKVL25A0JfBGoI19S7rDDR2cke0Ay/HnW5ZJUl5y3ZvHt4vGIx0Vc7z4aqBM4d1DN5ZgfVS+YLLcEshYffyVD5G93p3MCZ+k4kkShzslDh2JUYwJU6OEN10VqXsS8DWTLJVcagAsePQecMBJV09gO/Giz8p5bnBNpsiphXhZebXDO96+shggM3hd7ifCSc1nEP8bEvPwc/2Kx0p+/H67QQGKAFU/ExRFmSMTx5UtaONJx0rxebjy+d+jSgcb7mJDk61wVnM2ZfDwcIAbTbUGWa04bGjUzdWDT8Xgqnrni4=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199021)(46966006)(40470700004)(36840700001)(36860700001)(336012)(47076005)(83380400001)(478600001)(7696005)(54906003)(26005)(186003)(6506007)(110136005)(9686003)(41300700001)(2906002)(52536014)(4744005)(33656002)(82740400003)(40460700003)(5660300002)(70206006)(4326008)(81166007)(356005)(82310400005)(70586007)(8936002)(316002)(55016003)(86362001)(8676002)(40480700001)(59356011)(207903002)(219803003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Apr 2023 09:53:44.6729
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 341cf477-8d53-49c5-99c7-08db3b3bcdef
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT018.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9197
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.9.1
+Subject: Re: [QEMU][PATCH] gitlab-ci.d/crossbuilds: Drop the '--disable-tcg'
+ configuration for xen
+Content-Language: en-US
+To: Thomas Huth <thuth@redhat.com>, Vikram Garhwal <vikram.garhwal@amd.com>,
+ qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org, stefano.stabellini@amd.com,
+ =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
+ Wainer dos Santos Moschetta <wainersm@redhat.com>,
+ Beraldo Leal <bleal@redhat.com>
+References: <20230411210422.24255-1-vikram.garhwal@amd.com>
+ <895bcdd3-350d-38e7-1982-899948072b93@redhat.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <895bcdd3-350d-38e7-1982-899948072b93@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Luca,
+On 12/4/23 07:39, Thomas Huth wrote:
+> On 11/04/2023 23.04, Vikram Garhwal wrote:
+>> Xen is supported for aarch64 via xenpvh machine. disable-tcg option 
+>> fails the
+>> build for aarch64 target.
+>>
+>> Link for xen on arm patch series: 
+>> https://mail.gnu.org/archive/html/qemu-devel/2023-02/msg03979.html
+>>
+>> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+>> ---
+>>   .gitlab-ci.d/crossbuilds.yml | 4 ++--
+>>   1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/.gitlab-ci.d/crossbuilds.yml b/.gitlab-ci.d/crossbuilds.yml
+>> index 61b8ac86ee..6867839248 100644
+>> --- a/.gitlab-ci.d/crossbuilds.yml
+>> +++ b/.gitlab-ci.d/crossbuilds.yml
+>> @@ -186,7 +186,7 @@ cross-amd64-xen-only:
+>>     variables:
+>>       IMAGE: debian-amd64-cross
+>>       ACCEL: xen
+>> -    EXTRA_CONFIGURE_OPTS: --disable-tcg --disable-kvm
+>> +    EXTRA_CONFIGURE_OPTS: --disable-kvm
+>>   cross-arm64-xen-only:
+>>     extends: .cross_accel_build_job
+>> @@ -195,4 +195,4 @@ cross-arm64-xen-only:
+>>     variables:
+>>       IMAGE: debian-arm64-cross
+>>       ACCEL: xen
+>> -    EXTRA_CONFIGURE_OPTS: --disable-tcg --disable-kvm
+>> +    EXTRA_CONFIGURE_OPTS: --disable-kvm
+> 
+> This patch looks wrong. I'm pretty sure we wanted to test the build 
+> without TCG here. Building with TCG enabled is already done in other 
+> jobs. So instead of removing "--disable-tcg" here the question is 
+> rather: Why does it not build with this flag anymore? Can those problems 
+> be fixed instead?
 
-> -----Original Message-----
-> Subject: [PATCH v5 12/12] xen/changelog: Add SVE and "dom0" options to th=
-e
-> changelog for Arm
->=20
-> Arm now can use the "dom0=3D" Xen command line option and the support
-> for guests running SVE instructions is added, put entries in the
-> changelog.
->=20
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-
-If Arm maintainers don't have any other comments, you can keep my:
-Acked-by: Henry Wang <Henry.Wang@arm.com>
-
-If they do have some comments about the wording, please respect their
-comments, thanks!
-
-Kind regards,
-Henry
+I concur, this used to work. Did this config bit-rotted?
+The latest /master job succeeded:
+https://gitlab.com/qemu-project/qemu/-/jobs/4094506462
 
