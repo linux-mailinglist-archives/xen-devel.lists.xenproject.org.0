@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 776936DFE44
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Apr 2023 21:02:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.520354.807857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CE9E6DFE5F
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Apr 2023 21:08:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.520360.807869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmfj2-0008Vb-FG; Wed, 12 Apr 2023 19:01:48 +0000
+	id 1pmfpV-0000qR-AK; Wed, 12 Apr 2023 19:08:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 520354.807857; Wed, 12 Apr 2023 19:01:48 +0000
+Received: by outflank-mailman (output) from mailman id 520360.807869; Wed, 12 Apr 2023 19:08:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmfj2-0008Sz-CG; Wed, 12 Apr 2023 19:01:48 +0000
-Received: by outflank-mailman (input) for mailman id 520354;
- Wed, 12 Apr 2023 19:01:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pmfpV-0000nM-6G; Wed, 12 Apr 2023 19:08:29 +0000
+Received: by outflank-mailman (input) for mailman id 520360;
+ Wed, 12 Apr 2023 19:08:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3LfV=AD=casper.srs.infradead.org=BATV+9719990f4703cc1bc73b+7171+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1pmfj0-0008St-Gs
- for xen-devel@lists.xenproject.org; Wed, 12 Apr 2023 19:01:46 +0000
+ id 1pmfpT-0000nE-Fe
+ for xen-devel@lists.xenproject.org; Wed, 12 Apr 2023 19:08:27 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76bf6d42-d964-11ed-8611-37d641c3527e;
- Wed, 12 Apr 2023 21:01:43 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 66e8884c-d965-11ed-b21e-6b7b168915f2;
+ Wed, 12 Apr 2023 21:08:26 +0200 (CEST)
 Received: from [2001:8b0:10b:5:bf9d:c0ec:e079:876a]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pmfik-00789I-P3; Wed, 12 Apr 2023 19:01:30 +0000
+ id 1pmfpI-0078TD-37; Wed, 12 Apr 2023 19:08:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,18 +41,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76bf6d42-d964-11ed-8611-37d641c3527e
+X-Inumbo-ID: 66e8884c-d965-11ed-b21e-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=IPYtVkA5Vq0tNDE8dtZeWC5ZqapWHQVzVZtmTBnL1ZQ=; b=XepvWdNzPbSLUlexNxvVOu2U4m
-	Tm0WKDGqScwiYlWMsZeeuXfPlrUT0kBVASk6XfXH0As4vYiNvucpCT6JQvD62Y3IDXKGr8D1Wjulj
-	itbYwWJDWr+3ehhmLqDgTndJ0caf8HZ55qry3MIl/2Z1DhVF7cSQEYud6H3KHsFAzkgK+LUcoq3M6
-	91dfUjr3LGcsVyXZIU+RYCv+fW223GLJ6cqAWdmbq0WWVDWNgPS3ilW41Jt8vl+iAC/N3NmPAdEZo
-	yWdhsQofAotmzmNnDa2Vv1YEEjYCjjJffc19BBZce/v6SMChVOlUO+Xzv9VJU/cQXs59WVjVOlpTJ
-	XM22Jc9w==;
-Message-ID: <ac9417c017a2f1bda399d831b100e9b009f8d4c2.camel@infradead.org>
+	bh=mZoMi8L2CGkeUh70HowUzZy76uyvh1EHPMDqyJF+jSQ=; b=pt6tJNuxqio0xIzwCenSsPnkc0
+	mc2gGVIY72qbHxUQiSAlE3IolAcJZuJmDTFc/dJ64o0iveGkZamZ0noeuC02vRVc2S2bMREAD/tHP
+	Swy58UEct7DWbpa6630gteGOTcDZXFYC/XjTq854kj2xgEMRNY56hg3Ke800BfbwDqeQTRvrIpbMv
+	UPawFscf2h+n70N8Aak+3nH5aGHpZT3Rd462ovkAXUrpBLvTGd2bklcFidTOleabp2Fw70gWMABOC
+	GD+3rVwwGA4OArTl4xe7mLEi2qWVja4DX3OXoPpx/YPUHXitz0mzdt0IlrGaXPGx7OTK0kOPjgpco
+	LjEtet3g==;
+Message-ID: <43bd491a139a2dd8ade04927ba318b8988dda4e4.camel@infradead.org>
 Subject: Re: [PATCH for-8.0 0/5] Xen emulation build/Coverity fixes
 From: David Woodhouse <dwmw2@infradead.org>
 To: Peter Maydell <peter.maydell@linaro.org>
@@ -66,63 +66,68 @@ Cc: qemu-devel@nongnu.org, no Stabellini <sstabellini@kernel.org>, Anthony
  <berrange@redhat.com>, Thomas Huth <thuth@redhat.com>, Philippe
  =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
  xen-devel@lists.xenproject.org
-Date: Wed, 12 Apr 2023 20:01:29 +0100
-In-Reply-To: <CAFEAcA9G0KpkOivD8fBvEQwGcTsUQz53z5W53YcjcHmZGPHkmQ@mail.gmail.com>
+Date: Wed, 12 Apr 2023 20:08:14 +0100
+In-Reply-To: <ac9417c017a2f1bda399d831b100e9b009f8d4c2.camel@infradead.org>
 References: <20230412185102.441523-1-dwmw2@infradead.org>
 	 <CAFEAcA9G0KpkOivD8fBvEQwGcTsUQz53z5W53YcjcHmZGPHkmQ@mail.gmail.com>
+	 <ac9417c017a2f1bda399d831b100e9b009f8d4c2.camel@infradead.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-hAPWpF3HBMdZEXQCQF5D"
+	boundary="=-xWkwo3ffcuylPKwCMhTB"
 User-Agent: Evolution 3.44.4-0ubuntu1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-hAPWpF3HBMdZEXQCQF5D
+--=-xWkwo3ffcuylPKwCMhTB
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2023-04-12 at 19:55 +0100, Peter Maydell wrote:
-> On Wed, 12 Apr 2023 at 19:52, David Woodhouse <dwmw2@infradead.org> wrote=
-:
+On Wed, 2023-04-12 at 20:01 +0100, David Woodhouse wrote:
+> On Wed, 2023-04-12 at 19:55 +0100, Peter Maydell wrote:
+> > On Wed, 12 Apr 2023 at 19:52, David Woodhouse <dwmw2@infradead.org> wro=
+te:
+> > >=20
+> > > Some Coverity fixes and minor cleanups. And most notably, dropping
+> > > support for Xen libraries older than 4.7.1.
+> > >=20
+> > > I believe there are two issues that remain to be fixed. The x32 build
+> > > fails, and I've seen patches which attempt to detect x32 and disable
+> > > the Xen emulation. Along with assertions that we just shouldn't care.
+> > > I don't have a strong opinion either way but it seems to be in hand.
+> > >=20
+> > > The other is the question of what Xen *actually* does if you try to
+> > > unmap an IRQ_MSI_EMU PIRQ. I don't think Linux guests try that, and
+> > > I'm fairly sure Windows doesn't even use MSI=E2=86=92PIRQ mappings in=
+ the
+> > > first place, and I doubt any other guests care either. I'd like to
+> > > establish the 'correct' behaviour and implement it, ideally before
+> > > the 8.0 release, but it's going to take me a few days more.
+> > >=20
+> > > David Woodhouse (5):
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw/xen: Simplify emulated Xen platform=
+ init
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw/xen: Fix memory leak in libxenstore=
+_open() for Xen
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen: Drop support for Xen versions bel=
+ow 4.7.1
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw/xen: Fix double-free in xen_console=
+ store_con_info()
+> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw/xen: Fix broken check for invalid s=
+tate in xs_be_open()
+> > >=20
 > >=20
-> > Some Coverity fixes and minor cleanups. And most notably, dropping
-> > support for Xen libraries older than 4.7.1.
-> >=20
-> > I believe there are two issues that remain to be fixed. The x32 build
-> > fails, and I've seen patches which attempt to detect x32 and disable
-> > the Xen emulation. Along with assertions that we just shouldn't care.
-> > I don't have a strong opinion either way but it seems to be in hand.
-> >=20
-> > The other is the question of what Xen *actually* does if you try to
-> > unmap an IRQ_MSI_EMU PIRQ. I don't think Linux guests try that, and
-> > I'm fairly sure Windows doesn't even use MSI=E2=86=92PIRQ mappings in t=
-he
-> > first place, and I doubt any other guests care either. I'd like to
-> > establish the 'correct' behaviour and implement it, ideally before
-> > the 8.0 release, but it's going to take me a few days more.
-> >=20
-> > David Woodhouse (5):
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw/xen: Simplify emulated Xen platform i=
-nit
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw/xen: Fix memory leak in libxenstore_o=
-pen() for Xen
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen: Drop support for Xen versions below=
- 4.7.1
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw/xen: Fix double-free in xen_console s=
-tore_con_info()
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hw/xen: Fix broken check for invalid sta=
-te in xs_be_open()
-> >=20
+> > This is highly unlikely to make 8.0 at this point, FYI.
+> > If there's anything in this you think is super-critical we
+> > might be able to sneak it in.
 >=20
-> This is highly unlikely to make 8.0 at this point, FYI.
-> If there's anything in this you think is super-critical we
-> might be able to sneak it in.
+> Nothing is super-critical except maybe the double-free in
+> store_con_info(). That could lead to a crash on startup if the QEMU Xen
+> console is being used.
 
-Nothing is super-critical except maybe the double-free in
-store_con_info(). That could lead to a crash on startup if the QEMU Xen
-console is being used.
+Although we could just do the one-liner that drops the extra 'free'
+instead of converting to g_autoptr.
 
---=-hAPWpF3HBMdZEXQCQF5D
+--=-xWkwo3ffcuylPKwCMhTB
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -214,25 +219,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwNDEyMTkwMTI5WjAvBgkqhkiG9w0BCQQxIgQgmCpRZJqf
-5qtPDua4xjlAYzxr8V2F4/r+0GhSfRSQgv0wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwNDEyMTkwODE0WjAvBgkqhkiG9w0BCQQxIgQgfyx9B51J
+Unl3bvNoUg9ozMJomlOgSsZyFejr9gfIKHIwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAjDxyV8ymhUJRPPtLfucBwphBSYPC+XRaB
-Zf7Rzwa1OcB43p2gsFmEz8SmLlI2x7H1Q3cKxc/aExqWpL/KbRpfzya0DS+EEdcTRoPofl7E3JDv
-nMmzXCqhpj1BgN821wkEPuUzUDL7mXn/UxmzVKA7RE3hQG0BniXmcv9LNHfqdaMFiTyFRWnu3AiD
-E34qskQW5LqG1ggKo0Zgrf0e7ZgsYPj9XNihX6OUa/R7NDWspsqEZ0lLfAL+gSt4x1QmRLwsMWeN
-pVr+mC5olbu53Y/3vslknx3YvorAbY032JAdXR985PsGv/6TkMFLGS66sSLcVyQOiuxlwV1kBSbu
-owDVqBB8SRp0DztFvgnhztphrsEjdERd6zIctEkdebb3xedVdDIEgQ/DDXdVQ0+uCCqttHoc2H+E
-BBqeESkScIQpM3kccmy5Rp+xDQHGwuPWTUhcGS/h3Ej3V98hgzTHHsr/EJ6qnOwQpoefQYL8jtvR
-RpZWfdWpfOw47vx/4RjFFOEmjnvnyOSjZQuDnjZ8pRuN87A/dRRw/YHdY/NUX7Fz+3Vg+kv33knn
-6qFcX0GsOJ1hbs6ajGcLYMFT0kDOlF9UQn54CU9dbPfCjsAiH66CLpVEp86hs8RjHXuGQ+j613RD
-VqaGfy7Gw+fUvPddqfsS+PBhFRn9zBYabjw3opAJXAAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAF6H//9WMzgcw9g6Je+Lkmf6ddLx9+hM7S
+LsZlyyirMYEF4mlTfqxeDeUxFiz8ebjoW2PZZPcRJvLS/JLDveJf0v0s+/VqRrzCcXVH7PbzEb1D
+K47XmqL19c09GdAI9j/RFHkl83kREbZg2hubi+hs9dnPogsZoljm5N9jMfIJYw6fL04AaGdQEKlr
+vxn6P2bve+zUX6AYde54COGEjfHt0BRagjPICCqCVhEt+/jcxczHVus2wO90BYTW/cOf+q4tjd96
+M4QxeE8c4g+mxGF/fIg0RYJzXkv2vjsMTuc3Y2rziKyo7J7BwFr4jaHg5AICdiyMboYfxerYpx6A
+Hnlz+oFH0bDFf0N3uXDOhqRFHKLLiOkNcDNLGMWqFgzanJ/Z9yQc3AAlMwUytuXVjnEUDxlBtNbD
+T4xNFyF7Nt2hS5/xmjEaSZINahJ1fdR1VifxSX1RAkXRY+8+JNLKrLcW1qeK/d9faYisCUzb56uv
+ShOK2YoOIeA2nSm7bQUCFiMCWhmBJIvWBSQsG1qDzGF+0+UXIsptAGeOo7GrtgxmpsVbX3pmOHGN
+SSAYCu4PVN60Ih+sb0mSqWsdjb8yqnlYxSKBPK+gbUBqwSWaK9WvMZBHpPnVJ5mXVa+64fpiX9l3
+pFJdxdGbslx32eV7MWE3aNfos4l/FOt8iJ09UJTyoQAAAAAAAA==
 
 
---=-hAPWpF3HBMdZEXQCQF5D--
+--=-xWkwo3ffcuylPKwCMhTB--
 
