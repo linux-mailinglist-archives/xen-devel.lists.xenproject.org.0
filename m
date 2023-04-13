@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 026596E0779
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 09:16:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.520472.808153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41DBF6E0787
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 09:16:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.520473.808159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmrBW-0004a6-Fb; Thu, 13 Apr 2023 07:15:58 +0000
+	id 1pmrBX-0004oK-Ga; Thu, 13 Apr 2023 07:15:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 520472.808153; Thu, 13 Apr 2023 07:15:58 +0000
+Received: by outflank-mailman (output) from mailman id 520473.808159; Thu, 13 Apr 2023 07:15:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmrBV-0004QD-Ug; Thu, 13 Apr 2023 07:15:57 +0000
-Received: by outflank-mailman (input) for mailman id 520472;
- Thu, 13 Apr 2023 07:15:54 +0000
+	id 1pmrBX-0004eX-3j; Thu, 13 Apr 2023 07:15:59 +0000
+Received: by outflank-mailman (input) for mailman id 520473;
+ Thu, 13 Apr 2023 07:15:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UVxt=AE=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pmrBR-0001gq-QI
- for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 07:15:53 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ id 1pmrBS-0001gq-QV
+ for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 07:15:54 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 06a81776-d9cb-11ed-b21e-6b7b168915f2;
- Thu, 13 Apr 2023 09:15:53 +0200 (CEST)
-Received: by mail-lf1-x135.google.com with SMTP id h37so1074263lfv.0
- for <xen-devel@lists.xenproject.org>; Thu, 13 Apr 2023 00:15:53 -0700 (PDT)
+ id 072bf309-d9cb-11ed-b21e-6b7b168915f2;
+ Thu, 13 Apr 2023 09:15:54 +0200 (CEST)
+Received: by mail-lf1-x12a.google.com with SMTP id q26so5660539lfe.9
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Apr 2023 00:15:54 -0700 (PDT)
 Received: from rayden.urgonet (h-46-59-78-111.A175.priv.bahnhof.se.
  [46.59.78.111]) by smtp.gmail.com with ESMTPSA id
  n12-20020ac2490c000000b004dc83d04840sm181354lfi.79.2023.04.13.00.15.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Apr 2023 00:15:52 -0700 (PDT)
+ Thu, 13 Apr 2023 00:15:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06a81776-d9cb-11ed-b21e-6b7b168915f2
+X-Inumbo-ID: 072bf309-d9cb-11ed-b21e-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1681370152; x=1683962152;
+        d=linaro.org; s=google; t=1681370153; x=1683962153;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xuOrFGzp3bQy6WF/rcEt04FHwlM3ACHxMEsVNb5k43M=;
-        b=C2cwYx0xgzJnKg9vDH7Al2RhRIpKXc3PMJ5q7dtFkoiIX62/R95NCUz5GZpPvj1xzn
-         adjqcbajRJ6eh5vX/MJGIVljuc6wwbmhgBvSjx7eytIIGCI/llssQDclboM0bSTVcUZg
-         S2YPoqxUDRRkqVNYrGqa9JmA++d10SF0WEb3XJyBtyIzJePnRBMmTIrS8qmOL5WAl8mK
-         Rd9jID2u9u52+AZ7SQOxvvY4pLlB1eHf73RauurMg/aa0Cr+QasTS+t4s0HS1QzhAH7W
-         0EqLMngiZl7G8Ka8lyngFzW1F8ZNBnl6mkQcwj7bFEVZGy/t1+4CQZRQfb80YzWX3tlt
-         PnvQ==
+        bh=GR2XQOhN0lHMXLb5++oGf9JMuFsfS462ejdMhNzV4DY=;
+        b=gGIRIObi89IrBahA6+sVARSNDH2wnEHfLGa2RrKoJNoix8BkRVP8wMKo1zIy0o4O6l
+         riib/Kkt/TVJF0iHt9qdoHRCHHQ6QZqTR1RwRz+p1X6Vd16TYaCiSjlnDd3gvQXOAXeD
+         oEMqSC6wOoZeobzdx9OVckFDx07TSkKlVG05BXl8g0HSzGz4iHjlfkLQY+ZNvak5s0dB
+         fJrjUeZQNW/ZSphGIXV+xuNlLq/NZdkg6DaTG+ER8PNiVWiwngan7uN1w8GCM4Y+383/
+         E6lHRWyN2GPZ6CSET4S6lCJuBcPby9+uzJifTetCAM/4ns/7cRBrozAOIfINtn5wQ5Fy
+         r81Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681370152; x=1683962152;
+        d=1e100.net; s=20221208; t=1681370153; x=1683962153;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=xuOrFGzp3bQy6WF/rcEt04FHwlM3ACHxMEsVNb5k43M=;
-        b=JbMRp/BzQ1sWS7MvN0Oxwiz84O7GwNjByqjOMRuJabfZavMHL9Fk1vhj/hTurCknc6
-         CpdG9NVmtFAhNGzkNsByWr5fo+BYfJb+3ouoi54KqjD/JA4qCezBYYwQtuk4o26ato7D
-         VIMEjDvN/kNuzeoM0VPYZC+BENWQpAOZV6Y2zWF7I+VEhuK5mkKf8N+Lqd0GFGnco3ex
-         LaVqaP+B79foiHFrVBaqGyMXHMMjPajdwITZvnXN16BpmxthyAUfDvPV4+sAV90ivmKc
-         vdg4DbeT+nWbIXpLXDpE5VhG46o3kDRGGy+Phm0Ic5ruYKEty8oz57gg7eAOHFSwmrpm
-         LuBQ==
-X-Gm-Message-State: AAQBX9cNYdGmeYNct9IqY1Ng7Se7qhCBYYHjMB5GnnVwZWzAf1tO2eLi
-	EMiaZzroLWsjFGOE7f+ULiMwc/cECrJ0N90kLLU=
-X-Google-Smtp-Source: AKy350ZTVFbXDHijwkV8Xa+5i4VYHTf+Be6BMZHtsfXpiolxEsUHP1ZKdCCeiS99RxfioLYUbsjClQ==
-X-Received: by 2002:ac2:50ca:0:b0:4eb:40d4:e0d3 with SMTP id h10-20020ac250ca000000b004eb40d4e0d3mr563100lfm.35.1681370152689;
-        Thu, 13 Apr 2023 00:15:52 -0700 (PDT)
+        bh=GR2XQOhN0lHMXLb5++oGf9JMuFsfS462ejdMhNzV4DY=;
+        b=eopmVtXhuFc8qJchad0YJGfpyNTt31b4EYqh+pTONNJBsuOQrmLhVx3rklNWC+gPIk
+         TrlBCZ3QfZU2jSdtYTdNIsD2Kbo9l38N+5kUr1ho8cGiNGi2eUvZdW12xMCfODlbTG3O
+         LNHC66Mh3lVuzKiYoxi555Y7tip1UM4MV7yEvBUNGjNE26bbtBb8tzyfWYIpmS6kJleg
+         4KUQGkKgbBbUwV4v6n7EZCxLboAFaiV8WLBg3Wa3O6uU9qJXp26/8dNCCozu1mAf7yIL
+         ahRoa69JMjMlYx0J1hKlIhJ0jf8Qc8xhIAQs2dcB7mo4w6/YlBSgOGpxwQuhf/Rd1DA2
+         HRfg==
+X-Gm-Message-State: AAQBX9cHzVHEt1LaRdL9cbdslY9DMfKn//EzA29j8/6oFnVVIIs3a0gA
+	XrVqoXVzgpy4X0WdTvWWNj0xUMhjm/rcgmZ7jvM=
+X-Google-Smtp-Source: AKy350ab5t5FQhmU9qvLXFWPGFpKyD3JH7lTCDpinTADeMzIc498fZhRGX4cr3+LeonWPEkBuIqvng==
+X-Received: by 2002:ac2:515a:0:b0:4ed:5c73:79cb with SMTP id q26-20020ac2515a000000b004ed5c7379cbmr20947lfd.21.1681370153558;
+        Thu, 13 Apr 2023 00:15:53 -0700 (PDT)
 From: Jens Wiklander <jens.wiklander@linaro.org>
 To: xen-devel@lists.xenproject.org
 Cc: Bertrand.Marquis@arm.com,
@@ -84,201 +84,221 @@ Cc: Bertrand.Marquis@arm.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [XEN PATCH v8 12/22] xen/arm: ffa: support mapping guest RX/TX buffers
-Date: Thu, 13 Apr 2023 09:14:14 +0200
-Message-Id: <20230413071424.3273490-13-jens.wiklander@linaro.org>
+Subject: [XEN PATCH v8 13/22] xen/arm: ffa: support guest FFA_PARTITION_INFO_GET
+Date: Thu, 13 Apr 2023 09:14:15 +0200
+Message-Id: <20230413071424.3273490-14-jens.wiklander@linaro.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230413071424.3273490-1-jens.wiklander@linaro.org>
 References: <20230413071424.3273490-1-jens.wiklander@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Adds support in the mediator to map and unmap the RX and TX buffers
-provided by the guest using the two FF-A functions FFA_RXTX_MAP and
-FFA_RXTX_UNMAP.
+Adds support in the mediator to handle FFA_PARTITION_INFO_GET requests
+from a guest. The requests are forwarded to the SPMC and the response is
+translated according to the FF-A version in use by the guest.
 
-These buffer are later used to transmit data that cannot be passed in
-registers only.
+Using FFA_PARTITION_INFO_GET changes the owner of the RX buffer to the
+caller (the guest in this case), so once it is done with the buffer it
+must be released using FFA_RX_RELEASE before another call can be made.
 
 Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
 ---
- xen/arch/arm/tee/ffa.c | 137 +++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 137 insertions(+)
+ xen/arch/arm/tee/ffa.c | 137 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 134 insertions(+), 3 deletions(-)
 
 diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index b4fea65ce31d..127397d8e448 100644
+index 127397d8e448..74b8c517afb8 100644
 --- a/xen/arch/arm/tee/ffa.c
 +++ b/xen/arch/arm/tee/ffa.c
-@@ -74,6 +74,12 @@
-  */
- #define FFA_RXTX_PAGE_COUNT             1
+@@ -166,7 +166,18 @@
+ #define FFA_MSG_SEND                    0x8400006EU
+ #define FFA_MSG_POLL                    0x8400006AU
  
 +/*
-+ * Limits the number of pages RX/TX buffers guests can map. This value has
-+ * been chosen arbitrary.
++ * Structs below ending with _1_0 are defined in FF-A-1.0-REL and
++ * struct ending with _1_1 are defined in FF-A-1.1-REL0.
 + */
-+#define FFA_MAX_RXTX_PAGE_COUNT         32
 +
- /*
-  * Flags and field values used for the MSG_SEND_DIRECT_REQ/RESP:
-  * BIT(31): Framework or partition message
-@@ -169,8 +175,15 @@ struct ffa_partition_info_1_1 {
- };
- 
- struct ffa_ctx {
-+    void *rx;
-+    const void *tx;
-+    struct page_info *rx_pg;
-+    struct page_info *tx_pg;
-+    /* Number of 4kB pages in each of rx/rx_pg and tx/tx_pg */
-+    unsigned int page_count;
+ /* Partition information descriptor */
++struct ffa_partition_info_1_0 {
++    uint16_t id;
++    uint16_t execution_context;
++    uint32_t partition_properties;
++};
++
+ struct ffa_partition_info_1_1 {
+     uint16_t id;
+     uint16_t execution_context;
+@@ -183,7 +194,8 @@ struct ffa_ctx {
+     unsigned int page_count;
      /* FF-A version used by the guest */
      uint32_t guest_vers;
-+    bool tx_is_free;
+-    bool tx_is_free;
++    bool rx_is_free;
++    spinlock_t lock;
  };
  
  /* Negotiated FF-A version to use with the SPMC */
-@@ -351,6 +364,11 @@ static void set_regs(struct cpu_user_regs *regs, register_t v0, register_t v1,
-         set_user_reg(regs, 7, v7);
- }
+@@ -198,9 +210,15 @@ static uint16_t subscr_vm_destroyed_count __read_mostly;
+ /*
+  * Our rx/tx buffers shared with the SPMC. FFA_RXTX_PAGE_COUNT is the
+  * number of pages used in each of these buffers.
++ *
++ * The RX buffer is protected from concurrent usage with ffa_rx_buffer_lock.
++ * Note that the SPMC is also tracking the ownership of our RX buffer so
++ * for calls which uses our RX buffer to deliver a result we must call
++ * ffa_rx_release() to let the SPMC know that we're done with the buffer.
+  */
+ static void *ffa_rx __read_mostly;
+ static void *ffa_tx __read_mostly;
++static DEFINE_SPINLOCK(ffa_rx_buffer_lock);
  
-+static void set_regs_error(struct cpu_user_regs *regs, uint32_t error_code)
-+{
-+    set_regs(regs, FFA_ERROR, 0, error_code, 0, 0, 0, 0, 0);
-+}
-+
- static void set_regs_success(struct cpu_user_regs *regs, uint32_t w2,
-                              uint32_t w3)
+ static bool ffa_get_version(uint32_t *vers)
  {
-@@ -372,6 +390,105 @@ static void handle_version(struct cpu_user_regs *regs)
-     set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
+@@ -449,7 +467,7 @@ static uint32_t handle_rxtx_map(uint32_t fid, register_t tx_addr,
+     ctx->rx_pg = rx_pg;
+     ctx->tx_pg = tx_pg;
+     ctx->page_count = page_count;
+-    ctx->tx_is_free = true;
++    ctx->rx_is_free = true;
+     return FFA_RET_OK;
+ 
+ err_unmap_tx:
+@@ -473,7 +491,7 @@ static void rxtx_unmap(struct ffa_ctx *ctx)
+     ctx->rx_pg = NULL;
+     ctx->tx_pg = NULL;
+     ctx->page_count = 0;
+-    ctx->tx_is_free = false;
++    ctx->rx_is_free = false;
  }
  
-+static uint32_t handle_rxtx_map(uint32_t fid, register_t tx_addr,
-+                                register_t rx_addr, uint32_t page_count)
+ static uint32_t handle_rxtx_unmap(void)
+@@ -489,6 +507,100 @@ static uint32_t handle_rxtx_unmap(void)
+     return FFA_RET_OK;
+ }
+ 
++static int32_t handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
++                                         uint32_t w4, uint32_t w5,
++                                         uint32_t *count)
 +{
-+    uint32_t ret = FFA_RET_INVALID_PARAMETERS;
++    int32_t ret = FFA_RET_DENIED;
 +    struct domain *d = current->domain;
 +    struct ffa_ctx *ctx = d->arch.tee;
-+    struct page_info *tx_pg;
-+    struct page_info *rx_pg;
-+    p2m_type_t t;
-+    void *rx;
-+    void *tx;
 +
-+    if ( !smccc_is_conv_64(fid) )
-+    {
-+        /*
-+         * Calls using the 32-bit calling convention must ignore the upper
-+         * 32 bits in the argument registers.
-+         */
-+        tx_addr &= UINT32_MAX;
-+        rx_addr &= UINT32_MAX;
-+    }
++    /*
++     * FF-A v1.0 has w5 MBZ while v1.1 allows
++     * FFA_PARTITION_INFO_GET_COUNT_FLAG to be non-zero.
++     */
++    if ( w5 == FFA_PARTITION_INFO_GET_COUNT_FLAG &&
++         ctx->guest_vers == FFA_VERSION_1_1 )
++        return ffa_partition_info_get(w1, w2, w3, w4, w5, count);
++    if ( w5 )
++        return FFA_RET_INVALID_PARAMETERS;
 +
-+    if ( page_count > FFA_MAX_RXTX_PAGE_COUNT ) {
-+        printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (limit %u)\n",
-+               page_count, FFA_MAX_RXTX_PAGE_COUNT);
-+        return FFA_RET_NOT_SUPPORTED;
-+    }
-+
-+    /* Already mapped */
-+    if ( ctx->rx )
++    if ( !ffa_rx )
 +        return FFA_RET_DENIED;
 +
-+    tx_pg = get_page_from_gfn(d, gfn_x(gaddr_to_gfn(tx_addr)), &t, P2M_ALLOC);
-+    if ( !tx_pg )
-+        return FFA_RET_INVALID_PARAMETERS;
-+    /* Only normal RAM for now */
-+    if ( !p2m_is_ram(t) )
-+        goto err_put_tx_pg;
++    spin_lock(&ctx->lock);
++    if ( !ctx->page_count || !ctx->rx_is_free )
++        goto out;
++    spin_lock(&ffa_rx_buffer_lock);
++    ret = ffa_partition_info_get(w1, w2, w3, w4, w5, count);
++    if ( ret )
++        goto out_rx_buf_unlock;
++    /*
++     * ffa_partition_info_get() succeeded so we now own the RX buffer we
++     * share with the SPMC. We must give it back using ffa_rx_release()
++     * once we've copied the content.
++     */
 +
-+    rx_pg = get_page_from_gfn(d, gfn_x(gaddr_to_gfn(rx_addr)), &t, P2M_ALLOC);
-+    if ( !tx_pg )
-+        goto err_put_tx_pg;
-+    /* Only normal RAM for now */
-+    if ( !p2m_is_ram(t) )
-+        goto err_put_rx_pg;
++    if ( ctx->guest_vers == FFA_VERSION_1_0 )
++    {
++        size_t n;
++        struct ffa_partition_info_1_1 *src = ffa_rx;
++        struct ffa_partition_info_1_0 *dst = ctx->rx;
 +
-+    tx = __map_domain_page_global(tx_pg);
-+    if ( !tx )
-+        goto err_put_rx_pg;
++        if ( ctx->page_count * FFA_PAGE_SIZE < *count * sizeof(*dst) )
++        {
++            ret = FFA_RET_NO_MEMORY;
++            goto out_rx_release;
++        }
 +
-+    rx = __map_domain_page_global(rx_pg);
-+    if ( !rx )
-+        goto err_unmap_tx;
++        for ( n = 0; n < *count; n++ )
++        {
++            dst[n].id = src[n].id;
++            dst[n].execution_context = src[n].execution_context;
++            dst[n].partition_properties = src[n].partition_properties;
++        }
++    }
++    else
++    {
++        size_t sz = *count * sizeof(struct ffa_partition_info_1_1);
 +
-+    ctx->rx = rx;
-+    ctx->tx = tx;
-+    ctx->rx_pg = rx_pg;
-+    ctx->tx_pg = tx_pg;
-+    ctx->page_count = page_count;
-+    ctx->tx_is_free = true;
-+    return FFA_RET_OK;
++        if ( ctx->page_count * FFA_PAGE_SIZE < sz )
++        {
++            ret = FFA_RET_NO_MEMORY;
++            goto out_rx_release;
++        }
 +
-+err_unmap_tx:
-+    unmap_domain_page_global(tx);
-+err_put_rx_pg:
-+    put_page(rx_pg);
-+err_put_tx_pg:
-+    put_page(tx_pg);
++
++        memcpy(ctx->rx, ffa_rx, sz);
++    }
++    ctx->rx_is_free = false;
++out_rx_release:
++    ffa_rx_release();
++out_rx_buf_unlock:
++    spin_unlock(&ffa_rx_buffer_lock);
++out:
++    spin_unlock(&ctx->lock);
 +
 +    return ret;
 +}
 +
-+static void rxtx_unmap(struct ffa_ctx *ctx)
++static int32_t handle_rx_release(void)
 +{
-+    unmap_domain_page_global(ctx->rx);
-+    unmap_domain_page_global(ctx->tx);
-+    put_page(ctx->rx_pg);
-+    put_page(ctx->tx_pg);
-+    ctx->rx = NULL;
-+    ctx->tx = NULL;
-+    ctx->rx_pg = NULL;
-+    ctx->tx_pg = NULL;
-+    ctx->page_count = 0;
-+    ctx->tx_is_free = false;
-+}
-+
-+static uint32_t handle_rxtx_unmap(void)
-+{
++    int32_t ret = FFA_RET_DENIED;
 +    struct domain *d = current->domain;
 +    struct ffa_ctx *ctx = d->arch.tee;
 +
-+    if ( !ctx->rx )
-+        return FFA_RET_INVALID_PARAMETERS;
++    spin_lock(&ctx->lock);
++    if ( !ctx->page_count || ctx->rx_is_free )
++        goto out;
++    ret = FFA_RET_OK;
++    ctx->rx_is_free = true;
++out:
++    spin_unlock(&ctx->lock);
 +
-+    rxtx_unmap(ctx);
-+
-+    return FFA_RET_OK;
++    return ret;
 +}
 +
  static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
  {
      struct arm_smccc_1_2_regs arg = { .a0 = fid, };
-@@ -428,6 +545,7 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+@@ -545,6 +657,7 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
      uint32_t fid = get_user_reg(regs, 0);
      struct domain *d = current->domain;
      struct ffa_ctx *ctx = d->arch.tee;
-+    int e;
++    uint32_t count;
+     int e;
  
      if ( !ctx )
-         return false;
-@@ -440,6 +558,22 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
-     case FFA_ID_GET:
-         set_regs_success(regs, get_vm_id(d), 0);
+@@ -574,6 +687,24 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+         else
+             set_regs_success(regs, 0, 0);
          return true;
-+    case FFA_RXTX_MAP_32:
-+    case FFA_RXTX_MAP_64:
-+        e = handle_rxtx_map(fid, get_user_reg(regs, 1), get_user_reg(regs, 2),
-+                            get_user_reg(regs, 3));
++    case FFA_PARTITION_INFO_GET:
++        e = handle_partition_info_get(get_user_reg(regs, 1),
++                                      get_user_reg(regs, 2),
++                                      get_user_reg(regs, 3),
++                                      get_user_reg(regs, 4),
++                                      get_user_reg(regs, 5), &count);
 +        if ( e )
 +            set_regs_error(regs, e);
 +        else
-+            set_regs_success(regs, 0, 0);
++            set_regs_success(regs, count, 0);
 +        return true;
-+    case FFA_RXTX_UNMAP:
-+        e = handle_rxtx_unmap();
++    case FFA_RX_RELEASE:
++        e = handle_rx_release();
 +        if ( e )
 +            set_regs_error(regs, e);
 +        else
@@ -287,16 +307,6 @@ index b4fea65ce31d..127397d8e448 100644
      case FFA_MSG_SEND_DIRECT_REQ_32:
      case FFA_MSG_SEND_DIRECT_REQ_64:
          handle_msg_send_direct_req(regs, fid);
-@@ -520,6 +654,9 @@ static int ffa_relinquish_resources(struct domain *d)
-                    get_vm_id(d), subscr_vm_destroyed[n], res);
-     }
- 
-+    if ( ctx->rx )
-+        rxtx_unmap(ctx);
-+
-     XFREE(d->arch.tee);
- 
-     return 0;
 -- 
 2.34.1
 
