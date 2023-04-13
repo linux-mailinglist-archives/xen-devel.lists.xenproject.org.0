@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F89B6E0E2E
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 15:12:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.520719.808614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 039636E0E42
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 15:15:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.520726.808633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmwjt-0001EJ-EJ; Thu, 13 Apr 2023 13:11:49 +0000
+	id 1pmwnD-0002QW-85; Thu, 13 Apr 2023 13:15:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 520719.808614; Thu, 13 Apr 2023 13:11:49 +0000
+Received: by outflank-mailman (output) from mailman id 520726.808633; Thu, 13 Apr 2023 13:15:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmwjt-0001Av-BY; Thu, 13 Apr 2023 13:11:49 +0000
-Received: by outflank-mailman (input) for mailman id 520719;
- Thu, 13 Apr 2023 13:11:47 +0000
+	id 1pmwnD-0002NX-4k; Thu, 13 Apr 2023 13:15:15 +0000
+Received: by outflank-mailman (input) for mailman id 520726;
+ Thu, 13 Apr 2023 13:15:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pmwjr-0001Al-Jp
- for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 13:11:47 +0000
+ (envelope-from <julien@xen.org>) id 1pmwnB-0002Me-GP
+ for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 13:15:13 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pmwjr-0002wV-9t; Thu, 13 Apr 2023 13:11:47 +0000
+ id 1pmwnB-000314-3S; Thu, 13 Apr 2023 13:15:13 +0000
 Received: from 54-240-197-238.amazon.com ([54.240.197.238]
  helo=[192.168.20.117]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pmwjr-0006lZ-2G; Thu, 13 Apr 2023 13:11:47 +0000
+ id 1pmwnA-0006qO-TD; Thu, 13 Apr 2023 13:15:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,118 +42,188 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=cB0gGg5I8BEmRP1ArCMDNiP+A+rPj1v4EFP5w+9h0Ag=; b=NOCJdMWRKxQvB1M3A+YCfXQXle
-	CdjRmnSswtmSpUGuO6gjgVFOieDVNsyHCp4I9L7QfifT5P85vtia+FvbJjM04vzyyNBhBVemU0LF2
-	Jhwwvj5JFrv45+scamQYgya016BvJfvc+SU9itteOZdqXubltOTY9e6n/3K7ImXvVtfk=;
-Message-ID: <b1c77bdf-6979-83b6-f5e4-ac5b3e751a3d@xen.org>
-Date: Thu, 13 Apr 2023 14:11:44 +0100
+	bh=XyEECiqCsWYUcu8zF9/Wwizrl1PUl1S/MULOV7hgBww=; b=v3x4K+RG9NNucUjIEChgxj90Iz
+	j8V9idAWeLZoCoiDPN6zVIjI3CMgyCfuBqqsBj8CPQ1Wb1gLsPyvCewb7HQueClSINQx4e9DZsS+6
+	QqY93LWXfHbI9djQ+7GxVRlYIBlnzQMup7EW8aP9I3FifVz7Cq9BqsIrTWaQ3S9FtqpU=;
+Message-ID: <2359695e-f8f8-cf51-27f9-5f0c776feca5@xen.org>
+Date: Thu, 13 Apr 2023 14:15:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.9.1
-Subject: Re: [PATCH v5 05/12] arm/sve: save/restore SVE context switch
+Subject: Re: [XEN PATCH v8 09/22] xen/arm: ffa: add direct request support
 Content-Language: en-US
-To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230412094938.2693890-1-luca.fancellu@arm.com>
- <20230412094938.2693890-6-luca.fancellu@arm.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>, xen-devel@lists.xenproject.org
+Cc: Bertrand.Marquis@arm.com, Marc Bonnici <marc.bonnici@arm.com>,
+ Achin Gupta <achin.gupta@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20230413071424.3273490-1-jens.wiklander@linaro.org>
+ <20230413071424.3273490-10-jens.wiklander@linaro.org>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230412094938.2693890-6-luca.fancellu@arm.com>
+In-Reply-To: <20230413071424.3273490-10-jens.wiklander@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+Hi,
 
-
-On 12/04/2023 10:49, Luca Fancellu wrote:
-> Save/restore context switch for SVE, allocate memory to contain
-> the Z0-31 registers whose length is maximum 2048 bits each and
-> FFR who can be maximum 256 bits, the allocated memory depends on
-> how many bits is the vector length for the domain and how many bits
-> are supported by the platform.
+On 13/04/2023 08:14, Jens Wiklander wrote:
+> Adds support for sending a FF-A direct request. Checks that the SP also
+> supports handling a 32-bit direct request. 64-bit direct requests are
+> not used by the mediator itself so there is not need to check for that.
 > 
-> Save P0-15 whose length is maximum 256 bits each, in this case the
-> memory used is from the fpregs field in struct vfp_state,
-> because V0-31 are part of Z0-31 and this space would have been
-> unused for SVE domain otherwise.
+> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> ---
+>   xen/arch/arm/tee/ffa.c | 112 +++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 112 insertions(+)
 > 
-> Create zcr_el{1,2} fields in arch_vcpu, initialise zcr_el2 on vcpu
-> creation given the requested vector length and restore it on
-> context switch, save/restore ZCR_EL1 value as well.
-> 
-> Remove headers from sve.c that are already included using
-> xen/sched.h.
-I dislike this because ...
-
-> diff --git a/xen/arch/arm/arm64/sve.c b/xen/arch/arm/arm64/sve.c
-> index 78f7482619da..5485648850a0 100644
-> --- a/xen/arch/arm/arm64/sve.c
-> +++ b/xen/arch/arm/arm64/sve.c
-> @@ -5,14 +5,29 @@
->    * Copyright (C) 2022 ARM Ltd.
->    */
->   
-> -#include <xen/types.h>
-> -#include <asm/cpufeature.h>
-
-... it is not entirely obvious that sched.h will import 
-asm/cpufeatures.h. This could easily change in the future and would only 
-require us to re-add those includes.
-
-> +#include <xen/sched.h>
-> +#include <xen/sizes.h> >   #include <asm/arm64/sve.h>
-> -#include <asm/arm64/sysregs.h>
-> -#include <asm/processor.h>
-> -#include <asm/system.h>
->   
->   extern unsigned int sve_get_hw_vl(void);
-> +extern void sve_save_ctx(uint64_t *sve_ctx, uint64_t *pregs, int save_ffr);
-> +extern void sve_load_ctx(uint64_t const *sve_ctx, uint64_t const *pregs,
-> +                         int restore_ffr);
-> +
-> +static inline unsigned int sve_zreg_ctx_size(unsigned int vl)
-> +{
-> +    /*
-> +     * Z0-31 registers size in bytes is computed from VL that is in bits, so VL
-> +     * in bytes is VL/8.
-> +     */
-> +    return (vl / 8U) * 32U;
-> +}
-> +
-> +static inline unsigned int sve_ffrreg_ctx_size(unsigned int vl)
-> +{
-> +    /* FFR register size is VL/8, which is in bytes (VL/8)/8 */
-> +    return (vl / 64U);
-> +}
->   
->   register_t compute_max_zcr(void)
->   {
-> @@ -60,3 +75,46 @@ unsigned int get_sys_vl_len(void)
->       return ((system_cpuinfo.zcr64.bits[0] & ZCR_ELx_LEN_MASK) + 1U) *
->               SVE_VL_MULTIPLE_VAL;
+> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> index f129879c5b81..f2cce955d981 100644
+> --- a/xen/arch/arm/tee/ffa.c
+> +++ b/xen/arch/arm/tee/ffa.c
+> @@ -181,6 +181,56 @@ static bool ffa_get_version(uint32_t *vers)
+>       return true;
 >   }
-> +
-> +int sve_context_init(struct vcpu *v)
+>   
+> +static int32_t get_ffa_ret_code(const struct arm_smccc_1_2_regs *resp)
 > +{
-> +    unsigned int sve_vl_bits = sve_decode_vl(v->domain->arch.sve_vl);
-> +    uint64_t *ctx = _xzalloc(sve_zreg_ctx_size(sve_vl_bits) +
-> +                             sve_ffrreg_ctx_size(sve_vl_bits),
-> +                             L1_CACHE_BYTES);
-> +
-> +    if ( !ctx )
-> +        return -ENOMEM;
-> +
-> +    v->arch.vfp.sve_context = ctx;
-> +
-> +    return 0;
+> +    switch ( resp->a0 )
+> +    {
+> +    case FFA_ERROR:
+> +        if ( resp->a2 )
+> +            return resp->a2;
+> +        else
+> +            return FFA_RET_NOT_SUPPORTED;
+> +    case FFA_SUCCESS_32:
+> +    case FFA_SUCCESS_64:
+> +        return FFA_RET_OK;
+> +    default:
+> +        return FFA_RET_NOT_SUPPORTED;
+> +    }
 > +}
 > +
-> +void sve_context_free(struct vcpu *v)
+> +static int32_t ffa_simple_call(uint32_t fid, register_t a1, register_t a2,
+> +                               register_t a3, register_t a4)
 > +{
-> +    xfree(v->arch.vfp.sve_context);
+> +    const struct arm_smccc_1_2_regs arg = {
+> +        .a0 = fid,
+> +        .a1 = a1,
+> +        .a2 = a2,
+> +        .a3 = a3,
+> +        .a4 = a4,
+> +    };
+> +    struct arm_smccc_1_2_regs resp;
+> +
+> +    arm_smccc_1_2_smc(&arg, &resp);
+> +
+> +    return get_ffa_ret_code(&resp);
 > +}
+> +
+> +static int32_t ffa_features(uint32_t id)
+> +{
+> +    return ffa_simple_call(FFA_FEATURES, id, 0, 0, 0);
+> +}
+> +
+> +static bool check_mandatory_feature(uint32_t id)
+> +{
+> +    int32_t ret = ffa_features(id);
+> +
+> +    if (ret)
+> +        printk(XENLOG_ERR "ffa: mandatory feature id %#x missing: error %d\n",
+> +               id, ret);
+> +
+> +    return !ret;
+> +}
+> +
+>   static uint16_t get_vm_id(const struct domain *d)
+>   {
+>       /* +1 since 0 is reserved for the hypervisor in FF-A */
+> @@ -222,6 +272,57 @@ static void handle_version(struct cpu_user_regs *regs)
+>       set_regs(regs, vers, 0, 0, 0, 0, 0, 0, 0);
+>   }
+>   
+> +static void handle_msg_send_direct_req(struct cpu_user_regs *regs, uint32_t fid)
+> +{
+> +    struct arm_smccc_1_2_regs arg = { .a0 = fid, };
+> +    struct arm_smccc_1_2_regs resp = { };
+> +    struct domain *d = current->domain;
+> +    uint32_t src_dst;
+> +    uint64_t mask;
+> +
+> +    if ( smccc_is_conv_64(fid) )
+> +        mask = GENMASK_ULL(63, 0);
+> +    else
+> +        mask = GENMASK_ULL(31, 0);
+> +
+> +    src_dst = get_user_reg(regs, 1);
+> +    if ( (src_dst >> 16) != get_vm_id(d) )
+> +    {
+> +        resp.a0 = FFA_ERROR;
+> +        resp.a2 = FFA_RET_INVALID_PARAMETERS;
+> +        goto out;
+> +    }
+> +
+> +    arg.a1 = src_dst;
+> +    arg.a2 = get_user_reg(regs, 2) & mask;
+> +    arg.a3 = get_user_reg(regs, 3) & mask;
+> +    arg.a4 = get_user_reg(regs, 4) & mask;
+> +    arg.a5 = get_user_reg(regs, 5) & mask;
+> +    arg.a6 = get_user_reg(regs, 6) & mask;
+> +    arg.a7 = get_user_reg(regs, 7) & mask;
+> +
+> +    arm_smccc_1_2_smc(&arg, &resp);
+> +    switch ( resp.a0 )
+> +    {
+> +    case FFA_ERROR:
+> +    case FFA_SUCCESS_32:
+> +    case FFA_SUCCESS_64:
+> +    case FFA_MSG_SEND_DIRECT_RESP_32:
+> +    case FFA_MSG_SEND_DIRECT_RESP_64:
+> +        break;
+> +    default:
+> +        /* Bad fid, report back. */
+> +        memset(&arg, 0, sizeof(arg));
+> +        arg.a0 = FFA_ERROR;
+> +        arg.a1 = src_dst;
+> +        arg.a2 = FFA_RET_ABORTED;
+> +    }
+> +
+> +out:
+> +    set_regs(regs, resp.a0, resp.a1 & mask, resp.a2 & mask, resp.a3 & mask,
+> +             resp.a4 & mask, resp.a5 & mask, resp.a6 & mask, resp.a7 & mask);
+> +}
+> +
+>   static bool ffa_handle_call(struct cpu_user_regs *regs)
+>   {
+>       uint32_t fid = get_user_reg(regs, 0);
+> @@ -239,6 +340,10 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+>       case FFA_ID_GET:
+>           set_regs_success(regs, get_vm_id(d), 0);
+>           return true;
+> +    case FFA_MSG_SEND_DIRECT_REQ_32:
+> +    case FFA_MSG_SEND_DIRECT_REQ_64:
+> +        handle_msg_send_direct_req(regs, fid);
+> +        return true;
+>   
+>       default:
+>           gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
+> @@ -326,6 +431,13 @@ static bool ffa_probe(void)
+>       printk(XENLOG_INFO "ARM FF-A Firmware version %u.%u\n",
+>              major_vers, minor_vers);
+>   
+> +    /*
+> +     * TODO save result of checked features and use that information to
+> +     * accept or reject requests from guests.
+> +     */
 
-Please use XFREE().
+I am not entirely sure I understand this TODO. Does it mean a guest can 
+currently use a request that is not supported by FFA?
+
+> +    if ( !check_mandatory_feature(FFA_MSG_SEND_DIRECT_REQ_32) )
+> +        return false;
+> +
+>       ffa_version = vers;
+>   
+>       return true;
 
 Cheers,
 
