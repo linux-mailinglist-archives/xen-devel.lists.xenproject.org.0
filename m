@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D28F16E15AE
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 22:14:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.520953.809128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D0436E15E1
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 22:32:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.520959.809138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pn3K4-00038t-2Z; Thu, 13 Apr 2023 20:13:36 +0000
+	id 1pn3bi-0005bD-LN; Thu, 13 Apr 2023 20:31:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 520953.809128; Thu, 13 Apr 2023 20:13:36 +0000
+Received: by outflank-mailman (output) from mailman id 520959.809138; Thu, 13 Apr 2023 20:31:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pn3K3-000366-VS; Thu, 13 Apr 2023 20:13:35 +0000
-Received: by outflank-mailman (input) for mailman id 520953;
- Thu, 13 Apr 2023 20:13:35 +0000
+	id 1pn3bi-0005Yb-Ie; Thu, 13 Apr 2023 20:31:50 +0000
+Received: by outflank-mailman (input) for mailman id 520959;
+ Thu, 13 Apr 2023 20:31:49 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pn3K3-000360-9B
- for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 20:13:35 +0000
+ (envelope-from <julien@xen.org>) id 1pn3bh-0005YV-Ih
+ for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 20:31:49 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pn3K3-0004i0-10; Thu, 13 Apr 2023 20:13:35 +0000
+ id 1pn3bh-0005Bo-6d; Thu, 13 Apr 2023 20:31:49 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pn3K2-0004pH-S4; Thu, 13 Apr 2023 20:13:34 +0000
+ id 1pn3bg-0005Be-Vj; Thu, 13 Apr 2023 20:31:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,91 +42,114 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
 	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=oSq02aCdIW2vhjwtNEB7aKRGk3ADSa7uIvd++Ul2Ca4=; b=UBkUOsckgh80kXjV3FIZLezLfT
-	ak+xyeWNfR9lE0f/zSF8E2nJiNl2vGZEs7d60E5jzvlQ/LzyYoK/OlEriQ6M/3gqR5JkGI78z3Byo
-	y7AN2zVNbeGkGJAFnKb8LjgYu6dkPHP7lCK8GOFEksrRHjM3Slbn1WGmpZI0Ar46nVfo=;
-Message-ID: <bd8f0ed2-586f-02f6-1f16-dc3b3b9c82a8@xen.org>
-Date: Thu, 13 Apr 2023 21:13:32 +0100
+	bh=TyxIEsaM6b1l/hR5s5xSX0h5w0Zjr2PVNfKqKVoiay0=; b=UU0yZ6CQNOv687RN68enSt5ATZ
+	34w0CDqDJlt9904+eDqMsPKJYLsHkUURnywVbBvmZB3jrxO4aeXh0Ym1QwEnFjI+j3vmfMgzXgADN
+	qTNjV1hO89jZa87e6ExihV4fy9drZbAEPa+tzMRBrpva2gPjejdoDdZdAR3YD7R1lHgs=;
+Message-ID: <6d1b8904-374c-4392-6945-2746f97c31f6@xen.org>
+Date: Thu, 13 Apr 2023 21:31:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.9.0
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>,
+To: Jens Wiklander <jens.wiklander@linaro.org>, xen-devel@lists.xenproject.org
+Cc: Bertrand.Marquis@arm.com, Marc Bonnici <marc.bonnici@arm.com>,
+ Achin Gupta <achin.gupta@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>
-References: <20230413192201.3255984-1-andrew.cooper3@citrix.com>
+References: <20230413071424.3273490-1-jens.wiklander@linaro.org>
+ <20230413071424.3273490-13-jens.wiklander@linaro.org>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH] xen: Fold exit paths in find_text_region()
-In-Reply-To: <20230413192201.3255984-1-andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH v8 12/22] xen/arm: ffa: support mapping guest RX/TX
+ buffers
+In-Reply-To: <20230413071424.3273490-13-jens.wiklander@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Andrew,
+Hi Jens,
 
-You may want to update your runes to find the maintainers as you are 
-CCing the x86 folks but not the REST (the patch modifies common/ after all).
+On 13/04/2023 08:14, Jens Wiklander wrote:
+> +static uint32_t handle_rxtx_map(uint32_t fid, register_t tx_addr,
+> +                                register_t rx_addr, uint32_t page_count)
+> +{
+> +    uint32_t ret = FFA_RET_INVALID_PARAMETERS;
+> +    struct domain *d = current->domain;
+> +    struct ffa_ctx *ctx = d->arch.tee;
+> +    struct page_info *tx_pg;
+> +    struct page_info *rx_pg;
+> +    p2m_type_t t;
+> +    void *rx;
+> +    void *tx;
+> +
+> +    if ( !smccc_is_conv_64(fid) )
+> +    {
+> +        /*
+> +         * Calls using the 32-bit calling convention must ignore the upper
+> +         * 32 bits in the argument registers.
+> +         */
+> +        tx_addr &= UINT32_MAX;
+> +        rx_addr &= UINT32_MAX;
+> +    }
+> +
+> +    if ( page_count > FFA_MAX_RXTX_PAGE_COUNT ) {
 
-On 13/04/2023 20:22, Andrew Cooper wrote:
-> Despite rcu_read_unlock() being fully inlineable, the optimiser cannot fold
-> these exit paths, because of the various compiler barriers providing RCU
-> safety.  Help the compiler out.
+Coding style:
 
-Please mention which compiler(s) (including version) you used.
+if ( ... )
+{
 
-> 
-> This compiles to marginally better code in all cases.
-So the code itself is fine with me. But this raises a few questions. If 
-this is marginal, then why are you doing it? What's your end goal?
+> +        printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (limit %u)\n",
+> +               page_count, FFA_MAX_RXTX_PAGE_COUNT);
+> +        return FFA_RET_NOT_SUPPORTED;
+> +    }
+> +
+> +    /* Already mapped */
+> +    if ( ctx->rx )
+> +        return FFA_RET_DENIED;
+> +
+> +    tx_pg = get_page_from_gfn(d, gfn_x(gaddr_to_gfn(tx_addr)), &t, P2M_ALLOC);
 
-Lastly what do you mean by "all cases"? Is it all arch? All compilers?
+I might be missing something. Here you only get the reference on one 
+page. Per the value of FFA_MAX_RXTX_PAGE_COUNT, it looks like the buffer 
+can be up to 32 pages.
 
-Anyway, if this pattern is important (TBD why), then I think we should 
-update the CODING_STYLE with some guidance. Otherwise, we may introduce 
-similar patterns (we already have some).
+Can you clarify?
 
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> ---
->   xen/common/virtual_region.c | 12 ++++++------
->   1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/common/virtual_region.c b/xen/common/virtual_region.c
-> index 30b0b4ab9c85..5ecdba9c08ed 100644
-> --- a/xen/common/virtual_region.c
-> +++ b/xen/common/virtual_region.c
-> @@ -40,20 +40,20 @@ static DEFINE_RCU_READ_LOCK(rcu_virtual_region_lock);
->   
->   const struct virtual_region *find_text_region(unsigned long addr)
->   {
-> -    const struct virtual_region *region;
-> +    const struct virtual_region *iter, *region = NULL;
->   
->       rcu_read_lock(&rcu_virtual_region_lock);
-> -    list_for_each_entry_rcu( region, &virtual_region_list, list )
-> +    list_for_each_entry_rcu ( iter, &virtual_region_list, list )
->       {
-> -        if ( (void *)addr >= region->start && (void *)addr < region->end )
-> +        if ( (void *)addr >= iter->start && (void *)addr < iter->end )
->           {
-> -            rcu_read_unlock(&rcu_virtual_region_lock);
-> -            return region;
-> +            region = iter;
-> +            break;
->           }
->       }
->       rcu_read_unlock(&rcu_virtual_region_lock);
->   
-> -    return NULL;
-> +    return region;
->   }
->   
->   void register_virtual_region(struct virtual_region *r)
+> +    if ( !tx_pg )
+> +        return FFA_RET_INVALID_PARAMETERS;
+> +    /* Only normal RAM for now */
+> +    if ( !p2m_is_ram(t) )
+
+p2m_is_ram() would allow RAM page marked read-only in stage-2. Is it 
+intended?
+
+If not, then I think you want to use t != p2m_ram_rw.
+
+> +        goto err_put_tx_pg;
+> +
+> +    rx_pg = get_page_from_gfn(d, gfn_x(gaddr_to_gfn(rx_addr)), &t, P2M_ALLOC);
+> +    if ( !tx_pg )
+> +        goto err_put_tx_pg;
+> +    /* Only normal RAM for now */
+> +    if ( !p2m_is_ram(t) )
+
+Same here.
+
+> +        goto err_put_rx_pg;
+> +
+> +    tx = __map_domain_page_global(tx_pg);
+> +    if ( !tx )
+> +        goto err_put_rx_pg;
+> +
+> +    rx = __map_domain_page_global(rx_pg);
+> +    if ( !rx )
+> +        goto err_unmap_tx;
+> +
+> +    ctx->rx = rx;
+> +    ctx->tx = tx;
+> +    ctx->rx_pg = rx_pg;
+> +    ctx->tx_pg = tx_pg;
+> +    ctx->page_count = page_count;
+> +    ctx->tx_is_free = true;
+> +    return FFA_RET_OK;
 
 Cheers,
 
