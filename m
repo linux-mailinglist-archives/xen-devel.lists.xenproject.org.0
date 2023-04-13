@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BA8F6E0E9F
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 15:30:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.520754.808709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5DA66E0EB8
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 15:33:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.520758.808719 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmx1d-0008Ac-C8; Thu, 13 Apr 2023 13:30:09 +0000
+	id 1pmx4T-0000NZ-Pw; Thu, 13 Apr 2023 13:33:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 520754.808709; Thu, 13 Apr 2023 13:30:09 +0000
+Received: by outflank-mailman (output) from mailman id 520758.808719; Thu, 13 Apr 2023 13:33:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pmx1d-000881-8u; Thu, 13 Apr 2023 13:30:09 +0000
-Received: by outflank-mailman (input) for mailman id 520754;
- Thu, 13 Apr 2023 13:30:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pmx1b-00087q-Ob
- for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 13:30:07 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pmx1b-0003Hy-EN; Thu, 13 Apr 2023 13:30:07 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=[192.168.20.117]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pmx1b-0007Ed-5L; Thu, 13 Apr 2023 13:30:07 +0000
+	id 1pmx4T-0000KR-N2; Thu, 13 Apr 2023 13:33:05 +0000
+Received: by outflank-mailman (input) for mailman id 520758;
+ Thu, 13 Apr 2023 13:33:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UVxt=AE=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1pmx4S-0000KH-9R
+ for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 13:33:04 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b719632f-d9ff-11ed-b21e-6b7b168915f2;
+ Thu, 13 Apr 2023 15:33:03 +0200 (CEST)
+Received: by mail-wm1-x332.google.com with SMTP id
+ n9-20020a05600c4f8900b003f05f617f3cso14767826wmq.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Apr 2023 06:33:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +40,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=v7H1LFc+RZzX3FjhIKOTo0D/cMmXgeAh9UuYM+IlyqE=; b=BP3GZR88T5E5p09n7NJusPAn80
-	uwp9rmi4J0Hy8c/yuvdgK968/tSY1Yzdk1NtuY00apOp0by/DcFmzjUGTOI0TONbFaz9R6R3aT0Vz
-	LX/HCaiJzWJrNBv/BSZU8p4JiUy8HJNWa3YAxpOU2qe9HDg+fDbzNfxeWDeP+NPSH15s=;
-Message-ID: <e8075849-8bd5-7fd4-efaa-81e48c867635@xen.org>
-Date: Thu, 13 Apr 2023 14:30:04 +0100
+X-Inumbo-ID: b719632f-d9ff-11ed-b21e-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1681392782; x=1683984782;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4K1UoNLB5Wh1WQWKgQkyNekfW4Vh91Orm3gyoXK+OJI=;
+        b=hTXsYSWz5Dn9kvDBeZ0XboBhjt7uqGu2jk483osiWXjOtVRqk/5dT+U1eS71bIcjR0
+         UMlJQ8B1GlyFrqpDr4NUdHNiBV65MYiwnS9rO941CfebCd+NZDyWSM+WOg/nC41xynmW
+         +fpE/uitj2GPKKMpUYW8Q1ZIOgHb9fTOK4XdZsYLHBzx5+DBwCOKx5ZxMQEbqE+b+rwU
+         MFFBOjg38BdJ8a+XiTIg1xp9euR1wXMFUGc1hWsjNOGTiN7Xg7eIMe1lEkhLCW2sP25E
+         E1AnGys5R7T/C1n5V+WXMNhe1zk5yd7KSezlWrEHGl+e1jV9MAqllKNIzTIyP1XF6EFa
+         6Ajg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681392782; x=1683984782;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=4K1UoNLB5Wh1WQWKgQkyNekfW4Vh91Orm3gyoXK+OJI=;
+        b=Hj40aOlhZ6I/qZSNDVjGYZrTdA694MwhaGH9zfUjwH82M8W+k69QJk5K2aNTBoeV8J
+         RNAoeyv6zTWhEKNCVoHuJDrOHvWyq5je9DBuDygrjkuY0OSCKNRqxErhZ/cSmcCTppTn
+         vWRYDKwhptCx9zp23I7bp0OdkZuf4Jh4/keZpazmq6BMAx1MqQBTGyig5Xfjuaq6Ynm/
+         UI1KeTSIaxg7M1wOZABJgJ+u9uFoZ3Bkzt27pDlIOiDAa3AL4/1yIuGkyIkV3W6YtX6K
+         sQhJ/3dIfVL2Wbha5hY4PVc8wtwZRnNQb3nYy2Hubjr1H0vmQ9Mndh6S6XgdizNUpIx9
+         ps0Q==
+X-Gm-Message-State: AAQBX9cuAXA2cLq40p5Q4hGFxxLD10RQDkeZcmfOyKkrnhV7zYyXgTTz
+	W49xAzKk2tW/AkwahpRVaTjqj8KWDcvMlKpoqiUi0Q==
+X-Google-Smtp-Source: AKy350Yj2W0pP0IaXaltscmIrZBLEU5xTRF8xqKcfSByIv/x+OFAODxCo8j1+sHOjWAx5c4VWIs382d/bMIGCD9Dijs=
+X-Received: by 2002:a1c:f302:0:b0:3df:97de:8bab with SMTP id
+ q2-20020a1cf302000000b003df97de8babmr574193wmq.4.1681392782610; Thu, 13 Apr
+ 2023 06:33:02 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.1
-Subject: Re: [PATCH v5 02/12] xen/arm: add SVE vector length field to the
- domain
-Content-Language: en-US
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20230412094938.2693890-1-luca.fancellu@arm.com>
- <20230412094938.2693890-3-luca.fancellu@arm.com>
- <72f38b2b-a391-fb7c-f8c0-cf3561470875@xen.org>
- <B3A82639-6D61-4DA2-B918-A92A421C75D3@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <B3A82639-6D61-4DA2-B918-A92A421C75D3@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20230413071424.3273490-1-jens.wiklander@linaro.org>
+ <20230413071424.3273490-5-jens.wiklander@linaro.org> <AS8PR08MB7991150DD65CAB61C276A21892989@AS8PR08MB7991.eurprd08.prod.outlook.com>
+In-Reply-To: <AS8PR08MB7991150DD65CAB61C276A21892989@AS8PR08MB7991.eurprd08.prod.outlook.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Thu, 13 Apr 2023 15:32:51 +0200
+Message-ID: <CAHUa44HWND3BHE8X2_iYcEyXH6mOcv-WwCFXizxZijD8g3y62Q@mail.gmail.com>
+Subject: Re: [XEN PATCH v8 04/22] xen/arm: ffa: add remaining SMC function IDs
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Marc Bonnici <Marc.Bonnici@arm.com>, 
+	Achin Gupta <Achin.Gupta@arm.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Henry,
 
+On Thu, Apr 13, 2023 at 12:18=E2=80=AFPM Henry Wang <Henry.Wang@arm.com> wr=
+ote:
+>
+> Hi Jens,
+>
+> > -----Original Message-----
+> > Subject: [XEN PATCH v8 04/22] xen/arm: ffa: add remaining SMC function =
+IDs
+> >
+> > Adds the remaining SMC function IDs from FF-A 1.1 specification.
+>
+> Nit: I would suggest that in commit message you can mention the documenta=
+tion
+> number you used. During my review of this patch I am using
+> DEN0077A version 1.1 REL0.
 
-On 13/04/2023 14:24, Luca Fancellu wrote:
-> Hi Julien,
+OK, I'll add that.
 
-Hi Luca,
+>
+> >
+> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> > Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>
+> I also confirm that the macro values introduced by this patch is consiste=
+nt with
+> the spec in commit message, hence:
+>
+> Reviewed-by: Henry Wang <Henry.Wang@arm.com>
 
->>>   @@ -594,6 +597,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>>       unsigned int max_vcpus;
->>>       unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
->>>       unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu);
->>> +    unsigned int sve_vl_bits = sve_decode_vl(config->arch.sve_vl);
->>>         if ( (config->flags & ~flags_optional) != flags_required )
->>>       {
->>> @@ -602,6 +606,26 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>>           return -EINVAL;
->>>       }
->>>   +    /* Check feature flags */
->>> +    if ( sve_vl_bits > 0 )
->>> +    {
->>> +        unsigned int zcr_max_bits = get_sys_vl_len();
->>> +
->>> +        if ( !zcr_max_bits )
->>> +        {
->>> +            dprintk(XENLOG_INFO, "SVE is unsupported on this machine.\n");
->>> +            return -EINVAL;
->>> +        }
->>> +
->>> +        if ( sve_vl_bits > zcr_max_bits )
->>> +        {
->>> +            dprintk(XENLOG_INFO,
->>> +                    "Requested SVE vector length (%u) > supported length (%u)\n",
->>> +                    sve_vl_bits, zcr_max_bits);
->>> +            return -EINVAL;
->>> +        }
->>
->> Is SVE supported for 32-bit guest? If not, then you should had a check here to prevent the creation of the domain if sve_vl_bits is set.
-> 
-> No SVE is not supported for 32 bit guests, here I think we will get “SVE is unsupported on this machine” because get_sys_vl_len() will return 0.
+Thanks,
+Jens
 
- From my understanding, get_sys_vl_len() will return the len supported 
-by the hosts. So if you run a 32-bit guest on top of a 64-bit hosts, 
-then I believe get_sys_vl_len() will be non-zero.
-
->> Can we move this somewhere else to avoid adding extra padding? Also shouldn't this be protected with #ifdef CONFIG_ARM_64 to make clear this is not supported on Xen 32-bit?
-> 
-> Yes, I’ll move it and protect with CONFIG_ARM_64, is it ok for you if I move it after:
-> 
-> /* Monitor options */
-> struct {
->      uint8_t privileged_call_enabled : 1;
-> } monitor;
-
-Please check the padding with "pahole". If possible, it would be better 
-to re-use an existing one.
-
-Cheers,
-
--- 
-Julien Grall
+>
+> Kind regards,
+> Henry
 
