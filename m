@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E1826E157E
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 21:56:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.520937.809099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E1786E157F
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Apr 2023 21:56:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.520943.809108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pn32s-0007mr-UR; Thu, 13 Apr 2023 19:55:50 +0000
+	id 1pn33I-0008OA-BY; Thu, 13 Apr 2023 19:56:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 520937.809099; Thu, 13 Apr 2023 19:55:50 +0000
+Received: by outflank-mailman (output) from mailman id 520943.809108; Thu, 13 Apr 2023 19:56:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pn32s-0007jO-PY; Thu, 13 Apr 2023 19:55:50 +0000
-Received: by outflank-mailman (input) for mailman id 520937;
- Thu, 13 Apr 2023 19:55:49 +0000
+	id 1pn33I-0008LF-8d; Thu, 13 Apr 2023 19:56:16 +0000
+Received: by outflank-mailman (input) for mailman id 520943;
+ Thu, 13 Apr 2023 19:56:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XbVr=AE=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1pn32r-00078B-1J
- for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 19:55:49 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20616.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::616])
+ id 1pn33G-00078B-AH
+ for xen-devel@lists.xenproject.org; Thu, 13 Apr 2023 19:56:14 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20631.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2e1cf23e-da35-11ed-b21e-6b7b168915f2;
- Thu, 13 Apr 2023 21:55:48 +0200 (CEST)
-Received: from DM6PR06CA0074.namprd06.prod.outlook.com (2603:10b6:5:336::7) by
- BN9PR12MB5228.namprd12.prod.outlook.com (2603:10b6:408:101::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6298.30; Thu, 13 Apr 2023 19:55:43 +0000
-Received: from DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:336:cafe::86) by DM6PR06CA0074.outlook.office365.com
- (2603:10b6:5:336::7) with Microsoft SMTP Server (version=TLS1_2,
+ id 3d549394-da35-11ed-b21e-6b7b168915f2;
+ Thu, 13 Apr 2023 21:56:12 +0200 (CEST)
+Received: from BN0PR03CA0048.namprd03.prod.outlook.com (2603:10b6:408:e7::23)
+ by BL1PR12MB5046.namprd12.prod.outlook.com (2603:10b6:208:313::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Thu, 13 Apr
+ 2023 19:56:09 +0000
+Received: from BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e7:cafe::79) by BN0PR03CA0048.outlook.office365.com
+ (2603:10b6:408:e7::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.32 via Frontend
- Transport; Thu, 13 Apr 2023 19:55:43 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT054.mail.protection.outlook.com (10.13.173.95) with Microsoft SMTP
+ Transport; Thu, 13 Apr 2023 19:56:09 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BN8NAM11FT017.mail.protection.outlook.com (10.13.177.93) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6298.32 via Frontend Transport; Thu, 13 Apr 2023 19:55:43 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6298.32 via Frontend Transport; Thu, 13 Apr 2023 19:56:09 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 13 Apr
- 2023 14:55:43 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 14:56:09 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 13 Apr
- 2023 12:55:42 -0700
+ 2023 14:56:08 -0500
 Received: from [192.168.137.15] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 13 Apr 2023 14:55:41 -0500
+ Transport; Thu, 13 Apr 2023 14:56:07 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,448 +63,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e1cf23e-da35-11ed-b21e-6b7b168915f2
+X-Inumbo-ID: 3d549394-da35-11ed-b21e-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L1RumNiDMJmG1hM1kZQr0d4OTr4PfEOdC5AHLO9hw1ReWAj7YL81K26iwHiojYIn/N4RAIjY3I2MJsrqwVVBYJtE3Aj1+xQhme/uqAyAbUNtaH3E/axOptF18F9fKmBnevVNZxBSjiTOcDMM8KrYaJ7z+P8to2BZsRYxFLzymSnbdtLr20kf5DLXHbFKZz1lU8DsWVcZ1MrXQWgZxhU4R6SyaPEOLj7pl8etuvFusyKoBCGhy4DJ9sEkaJjxqkBhic2kXAWEMOIvN9RydWU1tJ452JiORA+Fnnn78XGNhAUUzD/Ny4+CEdWnEfIHojq6VhvOTdWj6lbVTJ4DX01ftQ==
+ b=YKvKgSveCPYfmptBtizcv0+TImHvFUaC3+4DNvXAJHMAOlcJkIOtZq+moW0RcPDIJXW42cMd/2c/bHI+zTmv63NpsVrhmYLyYRQ403iZV80aF+1DNKlPtZgUAsCVhuXLppziDZogOyzy/JNn9UMLWBOR8PP6XSy1/DMb/bRta7nNdAlh7XGs6TkOGcsIfnSGIb4QK41dZe//my3OsOaevxdSXJ4K3QSEBRICcON+jKnl+9ro43T/b44iQsdNeP2nid9R+DKZYAbFwOTXFL20F3oYFC5lJaFs+ruoJIDtu8OCrFnyHqt2ZhzybS376zjuCzb5XBGo9moSrO9ab8JONA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/18PWwB/WDEzRgk5tqv7qd4aPS6M0W9Cu4ti6yz3Lfo=;
- b=hAbMo//v3mMHziciVHh5Y7530YWttAzOzNPZfkzpF3yNzH3IbOE/0sQmOz6Kxv+BmH2E2It+Qtz3EhLEhc3GdlOfTkrXXbpsL49/A6BPP2Gki+G9ryGxdzIgRcgerm2gMTBIwiTh0cafmaX0vSNld4e4PSoCSdUuLO3M03KuvejRz/9+qiGnBz38XfsaDKW8eHxEeABfviLAOKWGplzjEXdGHW8Cv817ctSY1F+39HddrJKZdUX/hz8EEA+jFvKgGqvTTTZV6tTSyk0uFHQPHb4vLafS51QaJX0suB1eoor1Yc7H7M626u8x1GQAi7sEYvCblVKe4N16IhWi+wwUIA==
+ bh=iXg/prYLx5EALCUgzFznssa0CZnjCJteDGfMgsf99ZQ=;
+ b=ORGV0J4x6cWye8nLtorjcK4G9eEAIntvY9tMg2MeVU2pzkgmvtXFygRUCsWWdZgKJjNSKhR5GWvZdd2pg4iRnbsD2euq/igAgBn601l2+btAUauSFqyo1gdZO+pU6Bt/7OeUGMZpKNVMdg5BmdQYk3vOi0tVSne6CpkdHdwkiKAwPL23DR+Cvus+kih+E6pteZQkULCMzeLM8Sl0dbFzDfW1RgFk6n6H4rARQTlbPdSFI2sl+qrCIGgPWFIepvSPdhh6Nz+2fGtBkY94DWx/hgmkPIOBn+hhrWihjFnojTwGa1NMRX5bbHkaGAPAAiH0okJ43RiPC5NcJlqGIqA1Iw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/18PWwB/WDEzRgk5tqv7qd4aPS6M0W9Cu4ti6yz3Lfo=;
- b=4FkaS2PfIbRuoZqv+2k60RXGkkSUoHbzzroS3WMZmszwrqGA98zxyQKOVt7s2IsgNIdVg27tc93+viBF1MuFQHcdOHJDToeEygtu0637SwMBEBYHysml05sKP40xjokL2Yw9/JA+Yy2s7b6RVE/Dt4/R0eP4Sbn/s7pm7/1qHIU=
+ bh=iXg/prYLx5EALCUgzFznssa0CZnjCJteDGfMgsf99ZQ=;
+ b=z5nW4dgCeAW+XqcEeNlGq2Jq/9p7bvRazwtvtGvI+PPwMJLD6PpDDFUgve2QDUH07hgtt0rmJXe5cBXKlSN95k+KUt5VCYoNyX8j9Oxa11w1VGaQEwiOU4efHII5ah4WCMdE8/rF5E4giITcwlSvetUuN95YTbZIKlF/nQXwMSA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <abbd3be3-be30-58a9-74e8-17aa5b2a8e84@amd.com>
-Date: Thu, 13 Apr 2023 15:55:41 -0400
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <8acf5625-a60e-0357-6ba0-96af35930c17@amd.com>
+Date: Thu, 13 Apr 2023 15:56:07 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Subject: Re: [PATCH v2 5/8] xen/arm: support static shared memory when host
- address not provided
+Subject: Re: [PATCH v2 6/8] xen/arm: remove shm holes for extended regions
+Content-Language: en-US
 To: Penny Zheng <Penny.Zheng@arm.com>, <xen-devel@lists.xenproject.org>
 CC: <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
  Grall" <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20230223054105.2357217-1-Penny.Zheng@arm.com>
- <20230223054105.2357217-6-Penny.Zheng@arm.com>
-Content-Language: en-US
+ <20230223054105.2357217-7-Penny.Zheng@arm.com>
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <20230223054105.2357217-6-Penny.Zheng@arm.com>
+In-Reply-To: <20230223054105.2357217-7-Penny.Zheng@arm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT054:EE_|BN9PR12MB5228:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2891d8cd-9fc8-44e0-7c45-08db3c5910fe
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT017:EE_|BL1PR12MB5046:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3afb3ce7-df12-4448-8161-08db3c59204f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	+btdOB3tVf1KrCcTvt4szeT2vlKwzr17aB44/LLJZE+iHp4pov4PLadHkQLus+G3FR0WpEz+z7OHLQ9VkDzhg/imOYtSxIsxQigcWJ4eOO8ZBgUHG1bkifDXsCKVgO31FLaAuIDp3gs+/hI3BHb4NJA4u/ZTK98oqq0usXuJHwifturc+1ngdfUjVJN1wcfd8eVMAtKpdX8TeRSSkX3xUOt6UHJz9/E1zxrLgALhUtOrT9cOgkhDqC9IlY61keH9ZFp/bTe7YcPrP8o5KTXd3O4b5YzH1vRU2ZBZ3EyJEl4U/0C3EUzKOPGrvkGnXvZ1VrG0z/aB6hGwMNwV0LEH5OXunAOGv0RRRXUjZZZi2vBuPNpZF7VYtwy+H1iP7vMiEPTmtUe9dU8ic6jD6mm3x/1IKzF9bSw9GExCuxS6BpImZ48x+WhB24fUMRSgvU/qmRlpqORtcJVyzwUiMCWG0F+Qqkc9bo5gzT25Bvz6un24js7BYm/hn2D2Hn522uho/f9NTivpF1nABFmV7IbZX7AP4fN3NegE/lt/1FLCGsZ5IXxQt82f6JYBBH1j9PUB85+R/zTAUyLLITtkeSpHPWr1HpVHKJdedoj/a6FBLFIpLgbC2w3uWNW6D6Iiy4kYnWfVapEBV1ar6eHQPPKjjCiMZG0L0srN8wsLnbRAE/me4B6dR4EHDPfjBAQNj8aX+YW+znZNZBAUV8QjXu8zzA5eW/BcGS3+QAUTdhsBQJyeNAAPflg010z2lGxKX+y0S6LDIncCezVMIpw5D5vAZA==
+	+sDDAf96tcihFXdlvmuq81wW/cEbMtSBl04tDuA/qK6iKYMgmmZFU9ebWTLz/YCnyNGwlwuYNoUqgcwDZRQ4aWtMSzoMmHBWUGGtZ14j8Gprq2k+JuhgaiIP6NgVPEKKfUkDemhte8d/0Ll5eFh7vAVP7r/YNbfM9y/3TU592Twb8a4uTswKCCy08YuFQzXzJFdij1h1+otXb2EkyocMuF0n57NVPzVHbl6zGqqFgZipoTxvFHV4XaubRR5PJmQR4/zN11b2dacWlkSJ/Rb13S5rs3wnEz69tP2xW1wJ/duCHizhhN+apNsB7IxLqiMRO3/KHzCxKMbuQzzCrnK+fN1iQRRYCo4dAfP2UVWjlLX0v4NekcvH4aRqz6wXms0aNnjDAzD7gqG/8o0vLezEZTaOD3S6TQwzZgKC4SKwC4/PKkDfb2H22G3y39akQIVu0BObh8+7c/iHIKeHR0WLx+QJwericvTribVsoQCVUw5Ox4LIYsJAnpxcmA/dk0kULcUsSlWLC7W6bz2jz7/rJcj8d8a+UWs5HxSvBXmMvq6OQH+9nm5VjZ3x/j+uEumlMQ7lZgumuaIG5qku2zbpLTIXokz+vxAVeqwIU/5HzisNi9ZvY0lxb4Ma3DJxsaDbi6pz1xHs8X5nbODJdTjZKe0bKVCg8hzu9WnppOpx8NRGgt+Zu8YhZqZlVHpQEhL9pM58qn81k+rpHBmVRM6+AkwMIh6ZqTpLFWZiP6HIqR12GXhrX62c8kb4pvQOK8p+eGqWxB9P4t09AEbG0gLPRw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(39860400002)(136003)(396003)(451199021)(40470700004)(36840700001)(46966006)(336012)(426003)(26005)(31686004)(40480700001)(70586007)(70206006)(53546011)(36756003)(31696002)(2906002)(30864003)(83380400001)(82310400005)(47076005)(2616005)(186003)(36860700001)(4326008)(40460700003)(44832011)(110136005)(54906003)(86362001)(16576012)(5660300002)(8676002)(8936002)(81166007)(478600001)(316002)(356005)(41300700001)(82740400003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(396003)(39860400002)(346002)(451199021)(40470700004)(36840700001)(46966006)(336012)(36860700001)(70586007)(426003)(70206006)(47076005)(83380400001)(2616005)(54906003)(26005)(110136005)(16576012)(478600001)(186003)(53546011)(44832011)(2906002)(36756003)(5660300002)(81166007)(356005)(41300700001)(4326008)(82740400003)(40460700003)(82310400005)(40480700001)(316002)(31696002)(8676002)(86362001)(8936002)(31686004)(36900700001)(43740500002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2023 19:55:43.7301
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2023 19:56:09.4425
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2891d8cd-9fc8-44e0-7c45-08db3c5910fe
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3afb3ce7-df12-4448-8161-08db3c59204f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT054.eop-nam11.prod.protection.outlook.com
+	BN8NAM11FT017.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5228
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5046
 
 Hi Penny
 
 On 2/23/23 00:41, Penny Zheng wrote:
-> In order to support static shared memory when host address not provided,
-> we shall do the following modification:
-> - we shall let Xen allocate memory from heap for static shared memory
-> at first domain, no matter it is owner or borrower.
-> - In acquire_shared_memory_bank, as static shared memory has already
-> been allocated from heap, we shall assign them to the owner domain
-> using function "assign_pages".
-> - Function get_shm_pages_reference is created to add as many
-> additional reference as the number of borrowers.
-> - We implement a new helper "add_foreign_mapping_for_borrower" to set
-> up foreign memory mapping for borrower.
+> Static shared memory acts as reserved memory in guest, so it shall be
+> excluded from extended regions.
 > 
-> Instead of using multiple function parameters to deliver various shm-related
-> info, like host physical address, SHMID, etc, and with the introduction
-> of new struct "shm_memnode" to include banked host memory info, we switch to
-> use "shm_memnode" as function parameter to replace them all, to make codes more
-> clear and tidy.
+> Extended regions are taken care of under three different scenarios:
+> normal DomU, direct-map domain with iommu on, and direct-map domain
+> with iommu off.
+> 
+> For normal DomU, we create a new function "remove_shm_holes_for_domU", to
+> firstly transfer original outputs into the format of "struct rangeset",
+> then use "remove_shm_from_rangeset" to remove static shm from them.
+> 
+> For direct-map domain with iommu on, after we get guest shm info from "kinfo",
+> we use "remove_shm_from_rangeset" to remove static shm.
+> 
+> For direct-map domain with iommu off, as static shm has already been taken
+> care of through reserved memory banks, we do nothing.
 > 
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 > ---
 > v1 -> v2:
-> - combine commits 4 - 6 in Serie 1
-> - Adapt to changes of introducing "struct shm_memnode"
+> - new commit
 > ---
->  xen/arch/arm/domain_build.c | 222 +++++++++++++++++++++++++-----------
->  1 file changed, 155 insertions(+), 67 deletions(-)
+>  xen/arch/arm/domain_build.c | 94 ++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 93 insertions(+), 1 deletion(-)
 > 
 > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 91feb8f37c..9b4aabaf22 100644
+> index 9b4aabaf22..4cd1e3d433 100644
 > --- a/xen/arch/arm/domain_build.c
 > +++ b/xen/arch/arm/domain_build.c
-> @@ -869,6 +869,11 @@ static void __init assign_static_memory_11(struct domain *d,
+> @@ -1914,6 +1914,32 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
+>      return 0;
 >  }
 > 
->  #ifdef CONFIG_STATIC_SHM
-> +static bool __init is_shm_allocated_from_heap(struct shm_memnode *node)
+> +static int __init remove_shm_from_rangeset(const struct kernel_info *kinfo,
+> +                                           struct rangeset *rangeset)
 > +{
-> +    return (node->meminfo.nr_banks != 0);
-> +}
+> +    unsigned int i;
 > +
->  static int __init acquire_nr_borrower_domain(const char *shm_id,
->                                               unsigned long *nr_borrowers)
->  {
-> @@ -912,12 +917,12 @@ static struct shm_memnode * __init find_shm_memnode(const char *shm_id)
->   * This function checks whether the static shared memory region is
->   * already allocated to dom_io.
->   */
-> -static bool __init is_shm_allocated_to_domio(paddr_t pbase)
-> +static bool __init is_shm_allocated_to_domio(struct shm_memnode *node)
->  {
->      struct page_info *page;
->      struct domain *d;
-> 
-> -    page = maddr_to_page(pbase);
-> +    page = maddr_to_page(node->meminfo.bank[0].start);
->      d = page_get_owner_and_reference(page);
->      if ( d == NULL )
->          return false;
-> @@ -935,67 +940,129 @@ static bool __init is_shm_allocated_to_domio(paddr_t pbase)
->  }
-> 
->  static mfn_t __init acquire_shared_memory_bank(struct domain *d,
-> -                                               paddr_t pbase, paddr_t psize)
-> +                                               struct shm_meminfo *meminfo,
-> +                                               bool paddr_assigned)
->  {
-> -    mfn_t smfn;
-> -    unsigned long nr_pfns;
->      int res;
-> +    unsigned int i = 0;
-> 
-> -    /*
-> -     * Pages of statically shared memory shall be included
-> -     * into domain_tot_pages().
-> -     */
-> -    nr_pfns = PFN_DOWN(psize);
-> -    if ( (UINT_MAX - d->max_pages) < nr_pfns )
-> +    for ( ; i < meminfo->nr_banks; i++ )
->      {
-> -        printk(XENLOG_ERR "%pd: Over-allocation for d->max_pages: %lu.\n",
-> -               d, nr_pfns);
-> +        paddr_t pbase = meminfo->bank[i].start, psize = meminfo->bank[i].size;
-> +        unsigned long nr_pfns;
+> +    /* Remove static shared memory regions */
+> +    for ( i = 0; i < kinfo->shminfo.nr_banks; i++ )
+> +    {
+> +        struct membank membank = kinfo->shminfo.bank[i].membank;
+> +        paddr_t start, end;
+> +        int res;
 > +
-> +        /*
-> +         * Pages of statically shared memory shall be included
-> +         * into domain_tot_pages().
-> +         */
-> +        nr_pfns = PFN_DOWN(psize);
-> +        if ( (UINT_MAX - d->max_pages) < nr_pfns )
+> +        start = membank.start;
+> +        end = membank.start + membank.size - 1;
+> +        res = rangeset_remove_range(rangeset, start, end);
+> +        if ( res )
 > +        {
-> +            printk(XENLOG_ERR "%pd: Over-allocation for d->max_pages: %lu.\n",
-> +                   d, nr_pfns);
-> +            return INVALID_MFN;
+> +            printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+> +                   start, end);
+> +            return -EINVAL;
 > +        }
-> +        d->max_pages += nr_pfns;
-> +
-> +        if ( paddr_assigned )
-> +        {
-> +            res = acquire_domstatic_pages(d, maddr_to_mfn(pbase), nr_pfns, 0);
-> +            if ( res )
-> +            {
-> +                printk(XENLOG_ERR
-> +                       "%pd: failed to acquire static memory: %d.\n", d, res);
-> +                goto fail;
-> +            }
-> +        }
-> +        else
-> +            /*
-> +             * When host address is not provided, static shared memory is
-> +             * allocated from heap and shall be assigned to owner domain.
-> +             */
-> +            if ( assign_pages(maddr_to_page(pbase), nr_pfns, d, 0) )
-> +                goto fail;
 > +    }
 > +
-> +    return maddr_to_mfn(meminfo->bank[0].start);
-> +
-> + fail:
-> +        while( --i >= 0 )
-
-This is an infinite loop. When building with EXTRA_CFLAGS_XEN_CORE="-Wtype-limits -Wno-error=type-limits", we see:
-
-arch/arm/domain_build.c: In function ‘acquire_shared_memory_bank’:
-arch/arm/domain_build.c:989:20: warning: comparison of unsigned expression in ‘>= 0’ is always true [-Wtype-limits]
-  989 |         while( --i >= 0 )
-      |                    ^~
-
-
-Also, the indentation seems off here.
-
-> +            d->max_pages -= PFN_DOWN(meminfo->bank[i].size);
->          return INVALID_MFN;
-> +}
-> +
-> +static int __init get_shm_pages_reference(struct domain *d,
-> +                                          struct shm_meminfo *meminfo,
-> +                                          unsigned long count)
-> +{
-> +    struct page_info *page;
-> +    unsigned int i = 0, j;
-> +
-> +    for ( ; i < meminfo->nr_banks; i++ )
-> +    {
-> +        paddr_t pbase = meminfo->bank[i].start, psize = meminfo->bank[i].size;
-> +        unsigned long nr_pages = PFN_DOWN(psize);
-> +
-> +        page = maddr_to_page(pbase);
-> +        for ( j = 0; j < nr_pages; j++ )
-> +        {
-> +            if ( !get_page_nr(page + j, d, count) )
-> +            {
-> +                printk(XENLOG_ERR
-> +                       "Failed to add %lu references to page %"PRI_mfn".\n",
-> +                       count, mfn_x(page_to_mfn(page + j)));
-> +                goto fail;
-> +            }
-> +        }
->      }
-> -    d->max_pages += nr_pfns;
-> 
-> -    smfn = maddr_to_mfn(pbase);
-> -    res = acquire_domstatic_pages(d, smfn, nr_pfns, 0);
-> -    if ( res )
 > +    return 0;
-> +
-> + fail:
-> +    while ( --j >= 0 )
-
-Infinite loop [-Wtype-limits]
-
-> +        put_page_nr(page + j, count);
-> +    while ( --i >= 0 )
-
-Infinite loop [-Wtype-limits]
-
->      {
-> -        printk(XENLOG_ERR
-> -               "%pd: failed to acquire static memory: %d.\n", d, res);
-> -        d->max_pages -= nr_pfns;
-> -        return INVALID_MFN;
-> +        page = maddr_to_page(meminfo->bank[i].start);
-> +        j = PFN_DOWN(meminfo->bank[i].size);
-> +        while ( --j >= 0 )
-
-Infinite loop [-Wtype-limits]
-
-> +            put_page_nr(page + j, count);
->      }
-> +    return -EINVAL;
-> 
-> -    return smfn;
->  }
-> -
->  static int __init assign_shared_memory(struct domain *d,
-> -                                       paddr_t pbase, paddr_t psize,
-> -                                       paddr_t gbase, const char *shm_id)
-> +                                       struct shm_memnode *node, paddr_t gbase,
-> +                                       bool paddr_assigned)
->  {
->      mfn_t smfn;
-> -    int ret = 0;
-> -    unsigned long nr_pages, nr_borrowers, i;
-> -    struct page_info *page;
-> -
-> -    printk("%pd: allocate static shared memory BANK %#"PRIpaddr"-%#"PRIpaddr".\n",
-> -           d, pbase, pbase + psize);
-> +    int ret;
-> +    unsigned long nr_borrowers, i;
-> +    struct shm_meminfo *meminfo = &node->meminfo;
-> 
-> -    smfn = acquire_shared_memory_bank(d, pbase, psize);
-> +    smfn = acquire_shared_memory_bank(d, meminfo, paddr_assigned);
->      if ( mfn_eq(smfn, INVALID_MFN) )
->          return -EINVAL;
-> 
-> -    /*
-> -     * DOMID_IO is not auto-translated (i.e. it sees RAM 1:1). So we do not need
-> -     * to create mapping in the P2M.
-> -     */
-> -    nr_pages = PFN_DOWN(psize);
-> -    if ( d != dom_io )
-> +    for ( i = 0; i < meminfo->nr_banks; i++ )
->      {
-> -        ret = guest_physmap_add_pages(d, gaddr_to_gfn(gbase), smfn,
-> -                                      PFN_DOWN(psize));
-> -        if ( ret )
-> +        paddr_t pbase = meminfo->bank[i].start, psize = meminfo->bank[i].size;
-> +
-> +        /*
-> +         * DOMID_IO is not auto-translated (i.e. it sees RAM 1:1). So we do
-> +         * not need to create mapping in the P2M.
-> +         */
-> +        if ( d != dom_io )
->          {
-> -            printk(XENLOG_ERR "Failed to map shared memory to %pd.\n", d);
-> -            return ret;
-> +            ret = guest_physmap_add_pages(d, gaddr_to_gfn(gbase),
-> +                                          maddr_to_mfn(pbase),
-> +                                          PFN_DOWN(psize));
-> +            if ( ret )
-> +            {
-> +                printk(XENLOG_ERR "Failed to map shared memory to %pd.\n", d);
-> +                return ret;
-> +            }
-> +            gbase += psize;
->          }
->      }
-> 
-> @@ -1003,7 +1070,7 @@ static int __init assign_shared_memory(struct domain *d,
->       * Get the right amount of references per page, which is the number of
->       * borrower domains.
->       */
-> -    ret = acquire_nr_borrower_domain(shm_id, &nr_borrowers);
-> +    ret = acquire_nr_borrower_domain(node->shm_id, &nr_borrowers);
->      if ( ret )
->          return ret;
-> 
-> @@ -1015,24 +1082,30 @@ static int __init assign_shared_memory(struct domain *d,
->       * So if the borrower is created first, it will cause adding pages
->       * in the P2M without reference.
->       */
-> -    page = mfn_to_page(smfn);
-> -    for ( i = 0; i < nr_pages; i++ )
-> +    return get_shm_pages_reference(d, meminfo, nr_borrowers);
 > +}
 > +
-> +static int __init add_foreign_mapping_for_borrower(struct domain *d,
-> +                                                   struct shm_memnode *node,
-> +                                                   paddr_t gbase)
-> +{
-> +    unsigned int i = 0;
-> +    struct shm_meminfo *meminfo = &node->meminfo;
-> +
-> +    for ( ; i < meminfo->nr_banks; i++ )
->      {
-> -        if ( !get_page_nr(page + i, d, nr_borrowers) )
-> -        {
-> -            printk(XENLOG_ERR
-> -                   "Failed to add %lu references to page %"PRI_mfn".\n",
-> -                   nr_borrowers, mfn_x(smfn) + i);
-> -            goto fail;
-> -        }
-> +        paddr_t pbase = meminfo->bank[i].start, psize = meminfo->bank[i].size;
-> +        int ret;
-> +
-> +        /* Set up P2M foreign mapping for borrower domain. */
-> +        ret = map_regions_p2mt(d, _gfn(PFN_UP(gbase)), PFN_DOWN(psize),
-> +                               _mfn(PFN_UP(pbase)), p2m_map_foreign_rw);
-> +        if ( ret )
-> +            return ret;
-> +        gbase += psize;
+>  /*
+>   * Find the holes in the Host DT which can be exposed to Dom0 as extended
+>   * regions for the special memory mappings. In order to calculate regions
+> @@ -1922,6 +1948,8 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
+>   * - MMIO
+>   * - Host RAM
+>   * - PCI aperture
+> + * - Static shared memory regions, which are described by special property
+> + *   "xen,static-shm"
+>   */
+>  static int __init find_memory_holes(const struct kernel_info *kinfo,
+>                                      struct meminfo *ext_regions)
+> @@ -1997,6 +2025,14 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
+>          }
 >      }
 > 
->      return 0;
-> -
-> - fail:
-> -    while ( --i >= 0 )
-> -        put_page_nr(page + i, nr_borrowers);
-> -    return ret;
+> +    /* Remove static shared memory regions */
+> +    if ( kinfo->shminfo.nr_banks != 0 )
+> +    {
+> +        res = remove_shm_from_rangeset(kinfo, mem_holes);
+> +        if ( res )
+> +            goto out;
+> +    }
+> +
+>      start = 0;
+>      end = (1ULL << p2m_ipa_bits) - 1;
+>      res = rangeset_report_ranges(mem_holes, start, end,
+> @@ -2012,6 +2048,62 @@ out:
+>      return res;
 >  }
 > 
->  static int __init append_shm_bank_to_domain(struct kernel_info *kinfo,
-> @@ -1156,7 +1229,7 @@ static int __init process_shm(struct domain *d, struct kernel_info *kinfo,
-> 
->      dt_for_each_child_node(node, shm_node)
->      {
-> -        paddr_t gbase, pbase, psize;
-> +        paddr_t gbase;
->          int ret = 0;
->          const char *role_str;
->          const char *shm_id;
-> @@ -1185,15 +1258,30 @@ static int __init process_shm(struct domain *d, struct kernel_info *kinfo,
->                                           shm_id);
->          if ( !shm_memnode )
->              return -EINVAL;
-> -        pbase = shm_memnode->meminfo.bank[0].start;
-> -        psize = shm_memnode->meminfo.bank[0].size;
+> +static int __init remove_shm_holes_for_domU(const struct kernel_info *kinfo,
+> +                                            struct meminfo *orig_ext)
+> +{
+> +    struct rangeset *guest_holes;
+> +    unsigned int i = 0, tail;
+> +    int res;
+> +    paddr_t start, end;
 > +
-> +        /*
-> +         * When host address is not provided in "xen,shared-mem",
-> +         * we let Xen allocate memory from heap at first domain.
-> +         */
-> +        if ( !paddr_assigned && !is_shm_allocated_from_heap(shm_memnode) )
+> +    /* No static shared memory region. */
+> +    if ( kinfo->shminfo.nr_banks == 0 )
+> +        return 0;
+> +
+> +    dt_dprintk("Remove static shared memory holes for extended regions of DomU\n");
+> +
+> +    guest_holes = rangeset_new(NULL, NULL, 0);
+> +    if ( !guest_holes )
+> +        return -ENOMEM;
+> +
+> +    for ( ; i < orig_ext->nr_banks; i++ )
+> +    {
+> +        start = orig_ext->bank[i].start;
+> +        end = start + orig_ext->bank[i].size - 1;
+> +
+> +        res = rangeset_add_range(guest_holes, start, end);
+> +        if ( res )
 > +        {
-> +            if ( !allocate_domheap_memory(NULL, shm_memnode->meminfo.tot_size,
-> +                                          (void *)&shm_memnode->meminfo,
-> +                                          SHM_MEMINFO) )
-> +            {
-> +                printk(XENLOG_ERR
-> +                       "Failed to allocate (%"PRIpaddr"MB) pages as static shared memory from heap\n",
-> +                       shm_memnode->meminfo.tot_size >> 20);
-> +                return -EINVAL;
-> +            }
+> +            printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
+> +                   start, end);
+> +            goto out;
 > +        }
-> 
->          /*
->           * DOMID_IO is a fake domain and is not described in the Device-Tree.
->           * Therefore when the owner of the shared region is DOMID_IO, we will
->           * only find the borrowers.
->           */
-> -        if ( (owner_dom_io && !is_shm_allocated_to_domio(pbase)) ||
-> +        if ( (owner_dom_io && !is_shm_allocated_to_domio(shm_memnode)) ||
->               (!owner_dom_io && strcmp(role_str, "owner") == 0) )
->          {
->              /*
-> @@ -1201,16 +1289,14 @@ static int __init process_shm(struct domain *d, struct kernel_info *kinfo,
->               * specified, so they should be assigned to dom_io.
->               */
->              ret = assign_shared_memory(owner_dom_io ? dom_io : d,
-> -                                       pbase, psize, gbase, shm_id);
-> +                                       shm_memnode, gbase, paddr_assigned);
->              if ( ret )
->                  return ret;
->          }
-> 
->          if ( owner_dom_io || (strcmp(role_str, "borrower") == 0) )
->          {
-> -            /* Set up P2M foreign mapping for borrower domain. */
-> -            ret = map_regions_p2mt(d, _gfn(PFN_UP(gbase)), PFN_DOWN(psize),
-> -                                   _mfn(PFN_UP(pbase)), p2m_map_foreign_rw);
-> +            ret = add_foreign_mapping_for_borrower(d, shm_memnode, gbase);
->              if ( ret )
->                  return ret;
->          }
-> @@ -1219,7 +1305,9 @@ static int __init process_shm(struct domain *d, struct kernel_info *kinfo,
->           * Record static shared memory region info for later setting
->           * up shm-node in guest device tree.
->           */
-> -        ret = append_shm_bank_to_domain(kinfo, gbase, psize, shm_id);
-> +        ret = append_shm_bank_to_domain(kinfo, gbase,
-> +                                        shm_memnode->meminfo.tot_size,
-> +                                        shm_memnode->shm_id);
->          if ( ret )
->              return ret;
+> +    }
+> +
+> +    /* Remove static shared memory regions */
+> +    res = remove_shm_from_rangeset(kinfo, guest_holes);
+> +    if ( res )
+> +        goto out;
+> +
+> +    tail = orig_ext->nr_banks - 1;
+> +    start = orig_ext->bank[0].start;
+> +    end = orig_ext->bank[tail].start + orig_ext->bank[tail].size - 1;
+> +
+> +    /* Reset original extended regions to hold new value */
+> +    orig_ext->nr_banks = 0;
+> +    res = rangeset_report_ranges(guest_holes, start, end,
+> +                                 add_ext_regions, orig_ext);
+> +    if ( res )
+> +        orig_ext->nr_banks = 0;
+> +    else if ( !orig_ext->nr_banks )
+> +        res = -ENOENT;
+> +
+> +out:
+> +    rangeset_destroy(guest_holes);
+> +
+> +    return res;
+> +}
+> +
+>  static int __init find_domU_holes(const struct kernel_info *kinfo,
+>                                    struct meminfo *ext_regions)
+>  {
+> @@ -2039,7 +2131,7 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
+>          res = 0;
 >      }
+> 
+> -    return res;
+> +    return remove_shm_holes_for_domU(kinfo, ext_regions);
+
+We are no longer using "res" anywhere in this function, so the variable may be removed.
+
+arch/arm/domain_build.c: In function ‘find_domU_holes’:
+
+arch/arm/domain_build.c:2114:9: warning: variable ‘res’ set but not used [-Wunused-but-set-variable]
+
+ 2114 |     int res = -ENOENT;
+
+      |         ^~~
+
+>  }
+> 
+>  static int __init make_hypervisor_node(struct domain *d,
 > --
 > 2.25.1
 > 
