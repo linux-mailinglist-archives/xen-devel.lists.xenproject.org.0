@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67D866E2DA5
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Apr 2023 01:49:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521332.810013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 544E96E2DA7
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Apr 2023 01:49:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521347.810032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnTAT-0006sQ-PF; Fri, 14 Apr 2023 23:49:25 +0000
+	id 1pnTAe-0008Sr-8v; Fri, 14 Apr 2023 23:49:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521332.810013; Fri, 14 Apr 2023 23:49:25 +0000
+Received: by outflank-mailman (output) from mailman id 521347.810032; Fri, 14 Apr 2023 23:49:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnTAT-0006eU-EH; Fri, 14 Apr 2023 23:49:25 +0000
-Received: by outflank-mailman (input) for mailman id 521332;
- Fri, 14 Apr 2023 23:49:23 +0000
+	id 1pnTAe-0008Qb-2G; Fri, 14 Apr 2023 23:49:36 +0000
+Received: by outflank-mailman (input) for mailman id 521347;
+ Fri, 14 Apr 2023 23:49:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZCOw=AF=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pnT6M-0000zb-9S
- for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 23:45:10 +0000
+ id 1pnT6N-0000zb-9T
+ for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 23:45:11 +0000
 Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 635bc938-db1e-11ed-8611-37d641c3527e;
- Sat, 15 Apr 2023 01:45:08 +0200 (CEST)
+ id 6448a52f-db1e-11ed-8611-37d641c3527e;
+ Sat, 15 Apr 2023 01:45:09 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 635bc938-db1e-11ed-8611-37d641c3527e
-Message-ID: <20230414232311.254849089@linutronix.de>
+X-Inumbo-ID: 6448a52f-db1e-11ed-8611-37d641c3527e
+Message-ID: <20230414232311.316352541@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1681515907;
+	s=2020; t=1681515909;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=qlj4H3ejL+vBUDG3NY1lMMcGFIiTzrSNA2aqLKlihDE=;
-	b=1GQ0vgasLWqRcJWgIXPbXDmKUvXohkJnXHYow4+Gk18ZVkMCsGTyrDjPv1CmK6RbyQU3xy
-	sZOnCBi1gUZHMhyRrfBhTMtqyNFDPJ6vIKz6V9GUUqs40cNvVEv7vD+CBHvRT0wd1gUl1d
-	6b2tSiphU+RGH9LMrzC1SBAlXe4ncrHHHmvCSojPNfdfYrCZOS3cqdN5dvg1mrwkF+zHKS
-	ZggDxsStwqH0PgeAnVkNUSmrn0NxE/MFHr8xTSF8rH/8cE10sWA0KKqw6/zjLrvWcuBEms
-	WRc4LjINHUoNtUJjSQE1O0a6vHatkwkifR+Lal+9Qf7z5SXlNpUbZu7h4WPnRg==
+	 references:references; bh=2PTnDdSuwes/9NjD8Pm7hXlACOxFTN9vJCNjWOfgGXM=;
+	b=Jh6ZM0Us9GGh285BMnb5fEm77rslh++J6j/QuRkHBnu0IJ3u2WPmnGe/3gdgkhs+Itn6YC
+	EYm2JHM+HCoiKXud+mnLR3pzE3sn62xS6OTtxoSRYTybybUo7HLhqrcnKqV1RwxPAi5wc5
+	OBp150tG8AHyoMw6+86zMyjFChURpnILiUkhTuUlpHCRtOIbCa3VMT62a8kcqkB8R+gKQ4
+	U9tfXpB5IVu1MhpvFCVN68arP6yea+vniJ2RVD3n3fNQwQKszlDZIcpnpbeZf4M7nBLa8W
+	ZFeGomntJTFI5LAn96fL2tniH8jRiNy2rM7ZxO27HO46gpoe/qq365pH/j/4pA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1681515907;
+	s=2020e; t=1681515909;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=qlj4H3ejL+vBUDG3NY1lMMcGFIiTzrSNA2aqLKlihDE=;
-	b=QX/aw2ZRTXXvpaXqpLyn2DL7d4KHZGqZGPQ3AUK084YoY4i+oS2d15EjnpvV8yHLp9Q5Sc
-	902bNwcd/YuBSyBA==
+	 references:references; bh=2PTnDdSuwes/9NjD8Pm7hXlACOxFTN9vJCNjWOfgGXM=;
+	b=JDEmTRQRnlWI2RxVIaPHzb6Y3x+BSeHE+/1j/fasD5aAeXT8ZfKeZ96xHuB6wXG5qxyGWZ
+	eqmeypWBVFC7DyAA==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org,
@@ -92,49 +92,31 @@ Cc: x86@kernel.org,
  linux-riscv@lists.infradead.org,
  Mark Rutland <mark.rutland@arm.com>,
  Sabin Rapan <sabrapan@amazon.com>
-Subject: [patch 33/37] x86/topology: Store extended topology leaf information
+Subject: [patch 34/37] x86/cpu/amd; Invoke detect_extended_topology_early() on
+ boot CPU
 References: <20230414225551.858160935@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Sat, 15 Apr 2023 01:45:07 +0200 (CEST)
+Date: Sat, 15 Apr 2023 01:45:08 +0200 (CEST)
 
-Save the extended topology leaf number if it exists and is valid in
-preparation of parallel CPU bringup.
+The early detection stores the extended topology leaf number which is
+required for parallel hotplug.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
- arch/x86/include/asm/topology.h |    1 +
- arch/x86/kernel/cpu/topology.c  |    3 +++
- 2 files changed, 4 insertions(+)
+ arch/x86/kernel/cpu/amd.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
---- a/arch/x86/include/asm/topology.h
-+++ b/arch/x86/include/asm/topology.h
-@@ -121,6 +121,7 @@ extern unsigned int __max_die_per_packag
- #define topology_core_cpumask(cpu)		(per_cpu(cpu_core_map, cpu))
- #define topology_sibling_cpumask(cpu)		(per_cpu(cpu_sibling_map, cpu))
+--- a/arch/x86/kernel/cpu/amd.c
++++ b/arch/x86/kernel/cpu/amd.c
+@@ -692,6 +692,8 @@ static void early_init_amd(struct cpuinf
+ 		}
+ 	}
  
-+extern unsigned int topology_extended_leaf;
- extern unsigned int __max_logical_packages;
- #define topology_max_packages()			(__max_logical_packages)
- 
---- a/arch/x86/kernel/cpu/topology.c
-+++ b/arch/x86/kernel/cpu/topology.c
-@@ -29,6 +29,8 @@ unsigned int __max_die_per_package __rea
- EXPORT_SYMBOL(__max_die_per_package);
- 
- #ifdef CONFIG_SMP
-+unsigned int topology_extended_leaf __read_mostly;
++	detect_extended_topology_early(c);
 +
- /*
-  * Check if given CPUID extended topology "leaf" is implemented
-  */
-@@ -72,6 +74,7 @@ int detect_extended_topology_early(struc
- 	if (leaf < 0)
- 		return -1;
- 
-+	topology_extended_leaf = leaf;
- 	set_cpu_cap(c, X86_FEATURE_XTOPOLOGY);
- 
- 	cpuid_count(leaf, SMT_LEVEL, &eax, &ebx, &ecx, &edx);
+ 	if (cpu_has(c, X86_FEATURE_TOPOEXT))
+ 		smp_num_siblings = ((cpuid_ebx(0x8000001e) >> 8) & 0xff) + 1;
+ }
 
 
