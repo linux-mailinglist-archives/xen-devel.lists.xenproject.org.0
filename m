@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 620076E2D9E
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Apr 2023 01:49:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521301.809937 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0570A6E2DAA
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Apr 2023 01:49:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521346.810027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnTAF-0003ob-UK; Fri, 14 Apr 2023 23:49:11 +0000
+	id 1pnTAd-0008Qg-Vs; Fri, 14 Apr 2023 23:49:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521301.809937; Fri, 14 Apr 2023 23:49:11 +0000
+Received: by outflank-mailman (output) from mailman id 521346.810027; Fri, 14 Apr 2023 23:49:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnTAF-0003je-P3; Fri, 14 Apr 2023 23:49:11 +0000
-Received: by outflank-mailman (input) for mailman id 521301;
- Fri, 14 Apr 2023 23:49:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pnTAd-0008Lr-RF; Fri, 14 Apr 2023 23:49:35 +0000
+Received: by outflank-mailman (input) for mailman id 521346;
+ Fri, 14 Apr 2023 23:49:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZCOw=AF=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pnT69-0000zb-8C
- for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 23:44:57 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 588ebefc-db1e-11ed-8611-37d641c3527e;
- Sat, 15 Apr 2023 01:44:50 +0200 (CEST)
+ id 1pnT64-0001Th-In
+ for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 23:44:52 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 599e35f4-db1e-11ed-b21e-6b7b168915f2;
+ Sat, 15 Apr 2023 01:44:52 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +37,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 588ebefc-db1e-11ed-8611-37d641c3527e
-Message-ID: <20230414232310.569498144@linutronix.de>
+X-Inumbo-ID: 599e35f4-db1e-11ed-b21e-6b7b168915f2
+Message-ID: <20230414232310.631170657@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1681515889;
+	s=2020; t=1681515891;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=dAqk1yNFRcZF7qilzpcfVR/70NZ8+F/SNrVuS7Hd0dk=;
-	b=AU6aWn3llfgN87vGRPuEWQIrjtTFwK3yn2f2vw94yybrTzt5H4LRbc91tm1Xw3BwSnq5hP
-	rQmL01eHYwGuD/tJ0f+L2+Oe406bYjAoY3D+heXxkuTKO7KuUfo+Vs6B1IlkwX6ZMSgfKv
-	MeC7l/ITcGbKIYw5eRyObkCJegLxrMXZzPk/rNGf+zutst2sEf6AX47fGrPZphUN9CnuIP
-	6Hqq0/37hmlZ5Bbfm3XWsFI3yH4n+lXK8uvrCVgYW4m/9hcfQmz9XLNpsQ2ZNbshSo8dWB
-	0ORFcD1Xi54QY+d+vfpgXIdhI1e6dB7Jux3a2oBfTKMsXcUuUQI04NVVQTd0zA==
+	 references:references; bh=y6SldvuVXq/pw8ptav6ZzZhZk50vNE0+ALorGdATBvE=;
+	b=j7ir4M38uyCqNd0WpGFhlMbHqqP22sIUkP6lTXCI4ZoMelPAhB0ZW3jUKq/qNg7dgtIPyr
+	wAgHvssp340UT3vn/QZsaFN0BbxJz/50Bk2j/ViCY7pmbdjJltpv6UUhTwyesp5uV/hH5R
+	rn30yImLh2MbCenzGtlPdqYodmJQsWXgthmyh3VDgg8IsWfSP8TgZqODKQUJwz+InU8in3
+	FyxZW7Fp+CUcayGzDXYKM02cvf34xnDKNWTxsXl+QFRwELU5xV0mCQa2KjOMor4Q501Rct
+	0HVatbGD4qEO2xAAV9X3ZovODF8RAMi5ZzvUu9hOjJPsLeNkmpDExwTMMJ6FBg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1681515889;
+	s=2020e; t=1681515891;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=dAqk1yNFRcZF7qilzpcfVR/70NZ8+F/SNrVuS7Hd0dk=;
-	b=9EnFpcJNs8EwCrNKZip93QB/LFNFkvbQArfrS6NvwMyIg/IEdfp5AE2HOIUr5Sp+QKyDnB
-	/vmf1BkRatgvPdDA==
+	 references:references; bh=y6SldvuVXq/pw8ptav6ZzZhZk50vNE0+ALorGdATBvE=;
+	b=Qg+tSuukciCk/31JBTMbNipFvroQgicaNOn31ON18qthuCRxjFkOmjqqsu/6PGW7nvHreJ
+	GQLRpem8ebEejbCw==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org,
@@ -70,9 +71,8 @@ Cc: x86@kernel.org,
  Paul Menzel <pmenzel@molgen.mpg.de>,
  "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
  Piotr Gorski <lucjan.lucjanov@gmail.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
+ Guo Ren <guoren@kernel.org>,
+ linux-csky@vger.kernel.org,
  David Woodhouse <dwmw@amazon.co.uk>,
  Usama Arif <usama.arif@bytedance.com>,
  Juergen Gross <jgross@suse.com>,
@@ -80,8 +80,9 @@ Cc: x86@kernel.org,
  xen-devel@lists.xenproject.org,
  Russell King <linux@armlinux.org.uk>,
  Arnd Bergmann <arnd@arndb.de>,
- Guo Ren <guoren@kernel.org>,
- linux-csky@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
  Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
  linux-mips@vger.kernel.org,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
@@ -92,80 +93,69 @@ Cc: x86@kernel.org,
  linux-riscv@lists.infradead.org,
  Mark Rutland <mark.rutland@arm.com>,
  Sabin Rapan <sabrapan@amazon.com>
-Subject:
- [patch 22/37] arm64: smp: Switch to hotplug core state synchronization
+Subject: [patch 23/37] csky/smp: Switch to hotplug core state synchronization
 References: <20230414225551.858160935@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Sat, 15 Apr 2023 01:44:49 +0200 (CEST)
+Date: Sat, 15 Apr 2023 01:44:50 +0200 (CEST)
 
 Switch to the CPU hotplug core state tracking and synchronization
 mechanim. No functional change intended.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org
+Cc: Guo Ren <guoren@kernel.org>
+Cc: linux-csky@vger.kernel.org
 ---
- arch/arm64/Kconfig           |    1 +
- arch/arm64/include/asm/smp.h |    2 +-
- arch/arm64/kernel/smp.c      |   14 +++++---------
- 3 files changed, 7 insertions(+), 10 deletions(-)
+ arch/csky/Kconfig           |    1 +
+ arch/csky/include/asm/smp.h |    2 +-
+ arch/csky/kernel/smp.c      |    8 ++------
+ 3 files changed, 4 insertions(+), 7 deletions(-)
 
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -216,6 +216,7 @@ config ARM64
- 	select HAVE_KPROBES
- 	select HAVE_KRETPROBES
- 	select HAVE_GENERIC_VDSO
+--- a/arch/csky/Kconfig
++++ b/arch/csky/Kconfig
+@@ -96,6 +96,7 @@ config CSKY
+ 	select HAVE_REGS_AND_STACK_ACCESS_API
+ 	select HAVE_STACKPROTECTOR
+ 	select HAVE_SYSCALL_TRACEPOINTS
 +	select HOTPLUG_CORE_SYNC_DEAD if HOTPLUG_CPU
- 	select IRQ_DOMAIN
- 	select IRQ_FORCED_THREADING
- 	select KASAN_VMALLOC if KASAN
---- a/arch/arm64/include/asm/smp.h
-+++ b/arch/arm64/include/asm/smp.h
-@@ -99,7 +99,7 @@ static inline void arch_send_wakeup_ipi_
+ 	select MAY_HAVE_SPARSE_IRQ
+ 	select MODULES_USE_ELF_RELA if MODULES
+ 	select OF
+--- a/arch/csky/include/asm/smp.h
++++ b/arch/csky/include/asm/smp.h
+@@ -23,7 +23,7 @@ void __init set_send_ipi(void (*func)(co
  
- extern int __cpu_disable(void);
+ int __cpu_disable(void);
  
--extern void __cpu_die(unsigned int cpu);
+-void __cpu_die(unsigned int cpu);
 +static inline void __cpu_die(unsigned int cpu) { }
- extern void cpu_die(void);
- extern void cpu_die_early(void);
  
---- a/arch/arm64/kernel/smp.c
-+++ b/arch/arm64/kernel/smp.c
-@@ -333,17 +333,13 @@ static int op_cpu_kill(unsigned int cpu)
+ #endif /* CONFIG_SMP */
+ 
+--- a/arch/csky/kernel/smp.c
++++ b/arch/csky/kernel/smp.c
+@@ -291,12 +291,8 @@ int __cpu_disable(void)
+ 	return 0;
  }
  
- /*
-- * called on the thread which is asking for a CPU to be shutdown -
-- * waits until shutdown has completed, or it is timed out.
-+ * Called on the thread which is asking for a CPU to be shutdown after the
-+ * shutdown completed.
-  */
 -void __cpu_die(unsigned int cpu)
 +void arch_cpuhp_cleanup_dead_cpu(unsigned int cpu)
  {
- 	int err;
- 
 -	if (!cpu_wait_death(cpu, 5)) {
--		pr_crit("CPU%u: cpu didn't die\n", cpu);
+-		pr_crit("CPU%u: shutdown failed\n", cpu);
 -		return;
 -	}
- 	pr_debug("CPU%u: shutdown\n", cpu);
+ 	pr_notice("CPU%u: shutdown\n", cpu);
+ }
  
- 	/*
-@@ -370,8 +366,8 @@ void cpu_die(void)
+@@ -304,7 +300,7 @@ void arch_cpu_idle_dead(void)
+ {
+ 	idle_task_exit();
  
- 	local_daif_mask();
- 
--	/* Tell __cpu_die() that this CPU is now safe to dispose of */
--	(void)cpu_report_death();
-+	/* Tell cpuhp_bp_sync_dead() that this CPU is now safe to dispose of */
+-	cpu_report_death();
 +	cpuhp_ap_report_dead();
  
- 	/*
- 	 * Actually shutdown the CPU. This must never fail. The specific hotplug
+ 	while (!secondary_stack)
+ 		arch_cpu_idle();
 
 
