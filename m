@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3E3B6E2338
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Apr 2023 14:28:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521122.809452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 348926E23B7
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Apr 2023 14:55:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521126.809462 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnIWm-0003xt-AR; Fri, 14 Apr 2023 12:27:44 +0000
+	id 1pnIwW-0007M0-G4; Fri, 14 Apr 2023 12:54:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521122.809452; Fri, 14 Apr 2023 12:27:44 +0000
+Received: by outflank-mailman (output) from mailman id 521126.809462; Fri, 14 Apr 2023 12:54:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnIWm-0003ub-7Y; Fri, 14 Apr 2023 12:27:44 +0000
-Received: by outflank-mailman (input) for mailman id 521122;
- Fri, 14 Apr 2023 12:27:42 +0000
+	id 1pnIwW-0007J6-Cf; Fri, 14 Apr 2023 12:54:20 +0000
+Received: by outflank-mailman (input) for mailman id 521126;
+ Fri, 14 Apr 2023 12:54:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZM4c=AF=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1pnIWk-0003uV-MT
- for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 12:27:42 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1pnIwU-0007J0-9w
+ for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 12:54:18 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c027a1bd-dabf-11ed-b21e-6b7b168915f2;
- Fri, 14 Apr 2023 14:27:41 +0200 (CEST)
-Received: by mail-wm1-x32f.google.com with SMTP id
- bd13-20020a05600c1f0d00b003f14c42cc99so489112wmb.2
- for <xen-devel@lists.xenproject.org>; Fri, 14 Apr 2023 05:27:41 -0700 (PDT)
+ id 77265b7a-dac3-11ed-b21e-6b7b168915f2;
+ Fri, 14 Apr 2023 14:54:17 +0200 (CEST)
+Received: by mail-wr1-x429.google.com with SMTP id j12so1143964wrd.2
+ for <xen-devel@lists.xenproject.org>; Fri, 14 Apr 2023 05:54:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,143 +39,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c027a1bd-dabf-11ed-b21e-6b7b168915f2
+X-Inumbo-ID: 77265b7a-dac3-11ed-b21e-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1681475261; x=1684067261;
+        d=linaro.org; s=google; t=1681476857; x=1684068857;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=J3Y/hSydieebmmYwPSKCbO29GxMGDiyoGiZ+b5e5hUA=;
-        b=tUnNWGpl9bhWPrFRwBk9shXRxXgqi12/g5dzdpqNsg57/NpcXvg+ymRCLPbz/yA4S1
-         u3MW4gqORASqR3ETAaG7btQvxrn8DMJvEDVLiOJDIoFrikE15WbYQ4Z4Fl0NFQ9YxYdL
-         Mn46qIVmMxLRxICvu0pJrxcsdgIvn4ch41g3OYDbyZ7xzm5QgSLQAl53+uWQeHo6ybo7
-         gqFHmKoTBau3KSEeKT6VQ4swDPeALbEKsXNFMsroSYG2D3w+dhXaZt4BBifUrcgRmnym
-         oE/8NK+R9hrA52Ll0Ku4HNibYXUozuaaQX+Rpp9glqCj19/7oX0FD2Nbr0DtbHpHEo/Y
-         blIQ==
+        bh=QItX4kx36BzpBSoyjOqYoLsNvoaJtFnUqdCC7RP/lNI=;
+        b=v3Bg82ZImQ85yF/zvQQywf+xe/LxE6fcNLtLBfXkEFkt+slxSyw0AYQnY4xLiJ7WST
+         OWHoZ6uYNcDTI5setzhlVl5E7F4cryv3v67nPwdEBVNwZcg47ouKUTdGmAe3vBYtzxee
+         F9YpgJaXmNFYUqWNHei0UIpfRrDxmPX+O1gJrIQ9mNWqJPG3357jesn5VoYEodN6kmJx
+         uOxx3bieA0qw5iy9LGgZkjMm7/NjU2wx77Rb4dKhlgsdCwuoKER94kiRLXG4cNWbHxea
+         klMUEEXG5xy2bw8tf6qp5ODrhWX597LmRu4BHYIIAkSlzUwEdJlfqTDQu1B/trYxDEyA
+         KK6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681475261; x=1684067261;
+        d=1e100.net; s=20221208; t=1681476857; x=1684068857;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=J3Y/hSydieebmmYwPSKCbO29GxMGDiyoGiZ+b5e5hUA=;
-        b=c4qGbfhj7WGEa/XCQRx5Eo7Dehp7QeFWnbHoYjsd2Jf3jfq3Ofw5f1MjEkouWc5Bmk
-         zMzoaUnHAgTOBb59kPOUPWNb6uTH7FV6bOl7uXlDk2g43PLCSOcO4KBy/wzQO/CeOPfv
-         h15fev+CFNKxZw6TrQrNvtEqVKTctRBKzs3QzoK0jFoiYKvuGSG8MR4YsKUrwX4ymAwo
-         Q18JZ14J35kLywIukv9hsnmGqe8Dzpt+u9/EMhTflDpkEwiUeOg3JRmhGQTPZToPkTUY
-         lHBL1LFKXQlZtyKLWkO71txiCE+WkfteGiS/WVvlhGLDSuwnbinYkMl+FdTJVkDyT+iE
-         x+Ag==
-X-Gm-Message-State: AAQBX9dNhzEdqdOm0uP1oflR1L+I0qymXzGVmkzp8l5qV9hoTNgPdMwL
-	3H1IWrlZm20wWuSvn1qdZL/XUMudL1JHse9GgMjrbw==
-X-Google-Smtp-Source: AKy350Zdm3yiMt9d+tmL4qHGNzKFgE2QaAKiri18GvmV7MGXhIEwDTKKTgN1FZtNQdKaMeR0BvsAnrA4GdKrezCFqBw=
-X-Received: by 2002:a05:600c:1d1b:b0:3f0:34c5:7350 with SMTP id
- l27-20020a05600c1d1b00b003f034c57350mr1808079wms.4.1681475261169; Fri, 14 Apr
- 2023 05:27:41 -0700 (PDT)
+        bh=QItX4kx36BzpBSoyjOqYoLsNvoaJtFnUqdCC7RP/lNI=;
+        b=L8MkJ/DESRMV9dyTw2uCTVL90Lp+p1ZG6l/7Sm8iqhohlE/xX/WD/ecC1z7vvM+s57
+         Yvb0ufQK1zSdHSKiCRW52+8lem9ME00PaQUTSTOCh3cJLakLKsWbaMjlAi6inGgJHAfg
+         IlKW22iAbC68vW6zYulNZIzuN6ODy2UPhp1YkCWL6ONN8cO8/AqaH0eUX4STAl/KsggT
+         gutUD/Qs/huqjz1oaAnhjKdcuUIkuEhP3UWUMJAe1tt9gVCOx4EXOFWYg1/bGDwAxsqi
+         8Qkz2YrU4Rw05K4UffPLyyff88MHIwROhsQiFWOktKsz+G6rZdVBKu4VGtcPCX8ryDU0
+         6YPg==
+X-Gm-Message-State: AAQBX9ewyVBeZJxqXF24iOS/MC9R9Mz5bz/owowncGYjfS0kGXDkHp/T
+	mXNdoLwC+GyCRxnlc2QtaxUxvPZiaBbx+7NsFVxPhw==
+X-Google-Smtp-Source: AKy350ayl0OXgBaZesP3BYAgSJQPytVASLtqXN7bM9l2pkthiM5eJbwvddimiJgzQOEjbx7BRVkFi2ni0E1JtF44erQ=
+X-Received: by 2002:adf:df83:0:b0:2f4:1214:d5b4 with SMTP id
+ z3-20020adfdf83000000b002f41214d5b4mr1062374wrl.3.1681476856678; Fri, 14 Apr
+ 2023 05:54:16 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230413071424.3273490-1-jens.wiklander@linaro.org>
- <20230413071424.3273490-23-jens.wiklander@linaro.org> <7a29bc06-61b5-51e6-4625-bf19e530b975@xen.org>
-In-Reply-To: <7a29bc06-61b5-51e6-4625-bf19e530b975@xen.org>
+ <20230413071424.3273490-22-jens.wiklander@linaro.org> <c2ef841e-fe3a-a283-2c83-225e02d588d2@xen.org>
+In-Reply-To: <c2ef841e-fe3a-a283-2c83-225e02d588d2@xen.org>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Fri, 14 Apr 2023 14:27:28 +0200
-Message-ID: <CAHUa44FVQamkBWiwh8pwNmUP3KaVhbg9Vn_z4P6miYt+sBMByA@mail.gmail.com>
-Subject: Re: [XEN PATCH v8 22/22] docs: add Arm FF-A mediator
+Date: Fri, 14 Apr 2023 14:54:05 +0200
+Message-ID: <CAHUa44EFqNW_SJcWb=Lbjz1g41TA4Y2f+h8a+xdVG-5yCLpusg@mail.gmail.com>
+Subject: Re: [XEN PATCH v8 21/22] xen/arm: ffa: list current limitations
 To: Julien Grall <julien@xen.org>
 Cc: xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
 	Marc Bonnici <marc.bonnici@arm.com>, Achin Gupta <achin.gupta@arm.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi Julien,
 
-On Thu, Apr 13, 2023 at 11:00=E2=80=AFPM Julien Grall <julien@xen.org> wrot=
+On Thu, Apr 13, 2023 at 10:57=E2=80=AFPM Julien Grall <julien@xen.org> wrot=
 e:
 >
 > Hi Jens,
 >
 > On 13/04/2023 08:14, Jens Wiklander wrote:
-> > Describes a FF-A version 1.1 [1] mediator to communicate with a Secure
-> > Partition in secure world.
+> > Adds a comments with a list of unsupported FF-A interfaces and
+> > limitations in the implemented FF-A interfaces.
 > >
-> > [1] https://developer.arm.com/documentation/den0077/latest
 > > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
 > > ---
-> >   SUPPORT.md               |  8 ++++++++
-> >   docs/man/xl.cfg.5.pod.in | 15 +++++++++++++++
-> >   2 files changed, 23 insertions(+)
+> >   xen/arch/arm/tee/ffa.c | 32 ++++++++++++++++++++++++++++++++
+> >   1 file changed, 32 insertions(+)
 > >
-> > diff --git a/SUPPORT.md b/SUPPORT.md
-> > index aa1940e55f09..1fd746f7f7f2 100644
-> > --- a/SUPPORT.md
-> > +++ b/SUPPORT.md
-> > @@ -818,6 +818,14 @@ that covers the DMA of the device to be passed thr=
-ough.
-> >
-> >   No support for QEMU backends in a 16K or 64K domain.
-> >
-> > +### ARM: Firmware Framework for Arm A-profile (FF-A) Mediator
-> > +
-> > +    Status, Arm64: Tech Preview
-> > +
-> > +There are still some code paths where a vCPU may hog a pCPU longer tha=
-n
-> > +necessary. The FF-A mediator is not yet implemented for Arm32. Part of=
- the
-> > +FF-A specification is not supported.
+> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> > index 0948cc636871..6424c222c885 100644
+> > --- a/xen/arch/arm/tee/ffa.c
+> > +++ b/xen/arch/arm/tee/ffa.c
+> > @@ -13,6 +13,38 @@
+> >    *                https://developer.arm.com/documentation/den0077/e
+> >    * TEEC-1.0C: TEE Client API Specification version 1.0c available at
+> >    *            https://globalplatform.org/specs-library/tee-client-api=
+-specification/
+> > + *
+> > + * Notes on the the current implementstion.
+> > + *
+> > + * Unsupported FF-A interfaces:
+> > + * o FFA_MSG_POLL and FFA_MSG_SEND - deprecated in FF-A-1.1-REL0
+> > + * o FFA_MEM_RETRIEVE_* - Used when sharing memory from an SP to a VM
+> > + * o FFA_MEM_DONATE_* and FFA_MEM_LEND_* - Used when tranferring owner=
+ship
+> > + *   or access of a memory readion
+> > + * o FFA_MSG_SEND2 and FFA_MSG_WAIT - Used for indirect messaging
+> > + * o FFA_MSG_YIELD
+> > + * o FFA_INTERRUPT - Used to report preemption
+> > + * o FFA_RUN
+> > + *
+> > + * Limitations in the implemented FF-A interfaces:
+> > + * o FFA_RXTX_MAP_*:
+> > + *   - Maps at most 32 4k pages large RX and TX buffers
+> > + *   - RT/TX buffers must be normal RAM
 >
-> NIT: You would suggest to add: "(See the top comment in ...)". So one
-> can easily find the limitation.
+> Can you explain why this is a problem?
 
-Good point, I'll fix that.
-
->
-> > +
-> >   ### ARM: Guest Device Tree support
-> >
-> >       Status: Supported
-> > diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> > index 10f37990be57..bba99c576b48 100644
-> > --- a/docs/man/xl.cfg.5.pod.in
-> > +++ b/docs/man/xl.cfg.5.pod.in
-> > @@ -1645,6 +1645,21 @@ in OP-TEE.
-> >
-> >   This feature is a B<technology preview>.
-> >
-> > +=3Ditem B<ffa>
-> > +
-> > +B<Arm only.> Allow a guest to communicate via FF-A with Secure Partiti=
-ons
-> > +(SP), default false.
-> > +
-> > +Currently is only a small subset of the FF-A specification supported. =
-Just
-> > +enough to communicate with OP-TEE. In general only direct messaging an=
-d
-> > +sharing memory with one SP. More advanced use cases where memory might=
- be
-> > +shared or donated to multple SPs are not supported.
->
-> Typo: s/multple/multiple/
->
-> > +
-> > +See L<https://developer.arm.com/documentation/den0077/latest> for more
-> > +informantion about FF-A.
->
-> Typo: s/informantion/information/
-
-I'll fix the typos.
+Good catch, I can't. I must have added it by mistake. I'll remove it.
 
 Thanks,
 Jens
 
 >
-> > +
-> > +This feature is a B<technology preview>.
-> > +
-> >   =3Dback
+> > + *   - Doesn't support forwarding this call on behalf of an endpoint
+> > + * o FFA_MEM_SHARE_*: only supports sharing
+> > + *   - from a VM to an SP
+> > + *   - with one borrower
+> > + *   - with the memory transaction descriptor in the RX/TX buffer
+> > + *   - normal memory
+> > + *   - at most 512 kB large memory regions
+> > + *   - at most 32 shared memory regions per guest
+> > + * o FFA_MSG_SEND_DIRECT_REQ:
+> > + *   - only supported from a VM to an SP
+> > + *
+> > + * There are some large locked sections with ffa_tx_buffer_lock and
+> > + * ffa_rx_buffer_lock. Especially the ffa_tx_buffer_lock spinlock used
+> > + * around share_shm() is a very large locked section which can let one=
+ VM
+> > + * affect another VM.
+> >    */
 > >
-> >   =3Dback
+> >   #include <xen/bitops.h>
+>
+> Cheers,
 >
 > --
 > Julien Grall
