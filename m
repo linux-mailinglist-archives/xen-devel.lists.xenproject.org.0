@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C52A16E2C3A
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Apr 2023 00:02:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521255.809718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 865446E2D2A
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Apr 2023 01:45:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521262.809732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnRUH-0007im-Dm; Fri, 14 Apr 2023 22:01:45 +0000
+	id 1pnT5X-000152-Vh; Fri, 14 Apr 2023 23:44:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521255.809718; Fri, 14 Apr 2023 22:01:45 +0000
+Received: by outflank-mailman (output) from mailman id 521262.809732; Fri, 14 Apr 2023 23:44:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnRUH-0007hG-Aq; Fri, 14 Apr 2023 22:01:45 +0000
-Received: by outflank-mailman (input) for mailman id 521255;
- Fri, 14 Apr 2023 22:01:44 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pnRUG-0007h6-33; Fri, 14 Apr 2023 22:01:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pnRUF-0007Ul-SX; Fri, 14 Apr 2023 22:01:43 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pnRUF-0002UP-F8; Fri, 14 Apr 2023 22:01:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pnRUF-00038K-Eg; Fri, 14 Apr 2023 22:01:43 +0000
+	id 1pnT5X-00012H-SU; Fri, 14 Apr 2023 23:44:19 +0000
+Received: by outflank-mailman (input) for mailman id 521262;
+ Fri, 14 Apr 2023 23:44:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZCOw=AF=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1pnT5W-0000zb-RX
+ for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 23:44:18 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 436b1c71-db1e-11ed-8611-37d641c3527e;
+ Sat, 15 Apr 2023 01:44:15 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,321 +36,749 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=VHXDYLTcSQDE8A6Lh+XdZld3+QNz2rUMTZV+8oBkVOI=; b=wIybqqAPJ2jY6Qvj0CL5p2GFKp
-	3786VHmuyTG1fCrdreDihvT0wBoCAz8byF2P2z42AvUDjBvOcu0bWwFFwlMhCtJu+F/3MjYskhWWf
-	S5D+yApenDkajuw0FqyzYIQYtkFqPKAX4QJYc5/y1XBop+ncYwOcEb51cEgDazob0xjs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180256-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable test] 180256: regressions - trouble: broken/fail/pass
-X-Osstest-Failures:
-    xen-unstable:test-armhf-armhf-libvirt:<job status>:broken:regression
-    xen-unstable:test-armhf-armhf-xl-multivcpu:<job status>:broken:regression
-    xen-unstable:test-armhf-armhf-xl-rtds:<job status>:broken:regression
-    xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:regression
-    xen-unstable:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:regression
-    xen-unstable:test-armhf-armhf-xl-multivcpu:host-install(5):broken:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:host-install(5):broken:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:host-install(5):broken:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=8363b1f62e561cfb73073b4b094516fcbbd7020e
-X-Osstest-Versions-That:
-    xen=f872a624cbf92de9944483eea7674ef80ced1380
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 14 Apr 2023 22:01:43 +0000
+X-Inumbo-ID: 436b1c71-db1e-11ed-8611-37d641c3527e
+Message-ID: <20230414225551.858160935@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1681515853;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc; bh=2FBNXDCOjdNXMioUNtpnUEdjyh1DRJi8Y1Kqgx20DOM=;
+	b=i+svBH7O/oaj7aunuMsHcDS2onKFuoOeQ13uBn0i2EZBlR0v4LMikX50FeDA9uuKtpCCb4
+	z/ZWJt0/vTUZz6mY9zE5iv3BQkst/GrxSi6Ihj+kSlASau5HRJFfQmM6o+Ezs2LFefuihB
+	OfOybKBgg03vWHVVy+lwwdcxJzNP2Mj4ptIvtRem3TShasnYo0WGCg3BGy7G1RTXjq6H0Q
+	McFUN7aC8YHh6CBsi49Ue6HNDjvXBu1uwc2ekdjKi/zkZtzpv+eFnW/uvjlxZJOJf9q5K0
+	HXiWxG4BHUsSjcGVIe0d8f1X+Bi3gXR6qL+GYAhvxOO7XxPoj1jAoHFb0nd3bw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1681515853;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc; bh=2FBNXDCOjdNXMioUNtpnUEdjyh1DRJi8Y1Kqgx20DOM=;
+	b=CjkzjdOXpz0mr1oMcda6Lg3ZiGC4HBFA8/eiJ3o7o6axQMA6SR74jLA8yo7Mg0AL4WrPGY
+	YXxTfH/3ZF/ENPBg==
+From: Thomas Gleixner <tglx@linutronix.de>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: x86@kernel.org,
+ David Woodhouse <dwmw@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Brian Gerst <brgerst@gmail.com>,
+ "Arjan van de Veen" <arjan@linux.intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Paul McKenney <paulmck@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Oleksandr Natalenko <oleksandr@natalenko.name>,
+ Paul Menzel <pmenzel@molgen.mpg.de>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Piotr Gorski <lucjan.lucjanov@gmail.com>,
+ David Woodhouse <dwmw@amazon.co.uk>,
+ Usama Arif <usama.arif@bytedance.com>,
+ Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org,
+ Russell King <linux@armlinux.org.uk>,
+ Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Guo Ren <guoren@kernel.org>,
+ linux-csky@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ linux-mips@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>,
+ linux-parisc@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-riscv@lists.infradead.org,
+ Mark Rutland <mark.rutland@arm.com>,
+ Sabin Rapan <sabrapan@amazon.com>
+Subject: [patch 00/37] cpu/hotplug, x86: Reworked parallel CPU bringup
+Date: Sat, 15 Apr 2023 01:44:13 +0200 (CEST)
 
-flight 180256 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180256/
+Hi!
 
-Regressions :-(
+This is a complete rework of the parallel bringup patch series (V17)
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-libvirt        <job status>                 broken
- test-armhf-armhf-xl-multivcpu    <job status>                 broken
- test-armhf-armhf-xl-rtds        <job status>                 broken
- test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install        fail REGR. vs. 180238
- test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install        fail REGR. vs. 180238
+    https://lore.kernel.org/lkml/20230328195758.1049469-1-usama.arif@bytedance.com
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-multivcpu  5 host-install(5)      broken starved in 180238
- test-armhf-armhf-xl-rtds      5 host-install(5)       broken starved in 180238
- test-armhf-armhf-libvirt      5 host-install(5)       broken starved in 180238
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180238
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 180238
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180238
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 180238
- test-amd64-amd64-xl-qcow2    21 guest-start/debian.repeat    fail  like 180238
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 180238
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180238
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180238
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 180238
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180238
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail starved in 180238
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check fail starved in 180238
+to address the issues which were discovered in review:
 
-version targeted for testing:
- xen                  8363b1f62e561cfb73073b4b094516fcbbd7020e
-baseline version:
- xen                  f872a624cbf92de9944483eea7674ef80ced1380
+ 1) The X86 microcode loader serialization requirement
 
-Last test of basis   180238  2023-04-13 14:38:34 Z    1 days
-Testing same since   180256  2023-04-14 05:34:08 Z    0 days    1 attempts
+    https://lore.kernel.org/lkml/87v8iirxun.ffs@tglx
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Microcode loading on HT enabled X86 CPUs requires that the microcode is
+    loaded on the primary thread. The sibling thread(s) must be in
+    quiescent state; either looping in a place which is aware of potential
+    changes by the microcode update (see late loading) or in fully quiescent
+    state, i.e. waiting for INIT/SIPI.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     broken  
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                broken  
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    fail    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     broken  
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+    This is required by hardware/firmware on Intel. Aside of that it's a
+    vendor independent software correctness issue. Assume the following
+    sequence:
+
+    CPU1.0	  	      CPU1.1
+    			      CPUID($A)
+    Load microcode.
+    Changes CPUID($A, $B)
+    			      CPUID($B)
+
+    CPU1.1 makes a decision on $A and $B which might be inconsistent due
+    to the microcode update.
+
+    The solution for this is to bringup the primary threads first and after
+    that the siblings. Loading microcode on the siblings is a NOOP on Intel
+    and on AMD it is guaranteed to only modify thread local state.
+
+    This ensures that the APs can load microcode before reaching the alive
+    synchronization point w/o doing any further x86 specific
+    synchronization between the core siblings.
+
+ 2) The general design issues discussed in V16
+
+    https://lore.kernel.org/lkml/87pm8y6yme.ffs@tglx
+
+    The previous parallel bringup patches just glued this mechanism into
+    the existing code without a deeper analysis of the synchronization
+    mechanisms and without generalizing it so that the control logic is
+    mostly in the core code and not made an architecture specific tinker
+    space.
+
+    Much of that had been pointed out 2 years ago in the discussions about
+    the early versions of parallel bringup already.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+The series is based on:
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+  git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip x86/apic
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+and also available from git:
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+  git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git hotplug
 
-broken-job test-armhf-armhf-libvirt broken
-broken-job test-armhf-armhf-xl-multivcpu broken
-broken-job test-armhf-armhf-xl-rtds broken
-broken-step test-armhf-armhf-xl-multivcpu host-install(5)
-broken-step test-armhf-armhf-xl-rtds host-install(5)
-broken-step test-armhf-armhf-libvirt host-install(5)
 
-Not pushing.
+Background
+----------
 
-------------------------------------------------------------
-commit 8363b1f62e561cfb73073b4b094516fcbbd7020e
-Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Date:   Thu Apr 13 14:23:40 2023 +0200
+The reason why people are interested in parallel bringup is to shorten
+the (kexec) reboot time of cloud servers to reduce the downtime of the
+VM tenants. There are obviously other interesting use cases for this
+like VM startup time, embedded devices...
 
-    automation: switch ADL hw tests to debug build
+The current fully serialized bringup does the following per AP:
+
+    1) Prepare callbacks (allocate, intialize, create threads)
+    2) Kick the AP alive (e.g. INIT/SIPI on x86)
+    3) Wait for the AP to report alive state
+    4) Let the AP continue through the atomic bringup
+    5) Let the AP run the threaded bringup to full online state
+
+There are two significant delays:
+
+    #3 The time for an AP to report alive state in start_secondary() on x86
+       has been measured in the range between 350us and 3.5ms depending on
+       vendor and CPU type, BIOS microcode size etc.
+
+    #4 The atomic bringup does the microcode update. This has been measured
+       to take up to ~8ms on the primary threads depending on the microcode
+       patch size to apply.
+
+On a two socket SKL server with 56 cores (112 threads) the boot CPU spends
+on current mainline about 800ms busy waiting for the APs to come up and
+apply microcode. That's more than 80% of the actual onlining procedure.
+
+By splitting the actual bringup mechanism into two parts this can be
+reduced to waiting for the first AP to report alive or if the system is
+large enough the first AP is already waiting when the boot CPU finished the
+wake-up of the last AP.
+
+
+The actual solution comes in several parts
+------------------------------------------
+
+ 1) [P 1-2] General cleanups (init annotations, kernel doc...)
+
+ 2) [P 3] The obvious
+
+    Avoid pointless delay calibration when TSC is synchronized across
+    sockets. That removes a whopping 100ms delay for the first CPU of a
+    socket. This is an improvement independent of parallel bringup and had
+    been discussed two years ago already.
+
+ 2) [P 3-6] Removal of the CPU0 hotplug hack.
+
+    This was added 11 years ago with the promise to make this a real
+    hardware mechanism, but that never materialized. As physical CPU
+    hotplug is not really supported and the physical unplugging of CPU0
+    never materialized there is no reason to keep this cruft around. It's
+    just maintenance ballast for no value and the removal makes
+    implementing the parallel bringup feature way simpler.
+
+ 3) [P 7-16] Cleanup of the existing bringup mechanism:
+
+     a) Code reorganisation so that the general hotplug specific code is
+        in smpboot.c and not sprinkled all over the place
+
+     b) Decouple MTRR/PAT initialization from smp_callout_mask to prepare
+        for replacing that mask with a hotplug core code synchronization
+        mechanism.
+
+     c) Make TSC synchronization function call based so that the control CPU
+        does not have to busy wait for nothing if synchronization is not
+        required.
+
+     d) Remove the smp_callin_mask synchronization point as its not longer
+        required due to #3c.
+
+     e) Rework the sparse_irq_lock held region in the core code so that the
+        next polling synchronization point in the x86 code can be removed to.
+
+     f) Due to #3e it's not longer required to spin wait for the AP to set
+        it's online bit.  Remove wait_cpu_online() and the XENPV
+        counterpart. So the control CPU can directly wait for the online
+        idle completion by the AP and free the control CPU up for other
+        work.
+
+     This reduces the synchronization points in the x86 code to one, which
+     is the AP alive one. This synchronization will be moved to core
+     infrastructure in the next section.
+
+ 4) [P 17-27] Replace the disconnected CPU state tracking
+
+    The extra CPU state tracking which is used by a few architectures is
+    completely separate from the CPU hotplug core code.
+
+    Replacing it by a variant integrated in the core hotplug machinery
+    allows to reduce architecture specific code and provides a generic
+    synchronization mechanism for (parallel) CPU bringup/teardown.
+
+    - Convert x86 over and replace the AP alive synchronization on x86 with
+      the core variant which removes the remaining x86 hotplug
+      synchronization masks.
+
+    - Convert the other architectures usage and remove the old interface
+      and code.
+
+ 5) [P 28-30] Split the bringup into two steps
+
+    First step invokes the wakeup function on the BP, e.g. SIPI/STARTUP on
+    x86. The second one waits on the BP for the AP to report alive and
+    releases it for the complete onlining.
+
+    As the hotplug state machine allows partial bringup this allows later
+    to kick all APs alive in a first iteration and then bring them up
+    completely one by one afterwards.
+
+ 6) [P 31] Switch the primary thread detection to a cpumask
+
+    This makes the parallel bringup a simple cpumask based mechanism
+    without tons of conditionals and checks for primary threads.
+
+ 7) [P 32] Implement the parallel bringup core code
+
+    The parallel bringup looks like this:
     
-    This should give a lot more useful information in case of a failure, and
-    also enable some asserts for extra checks.
-    
-    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-(qemu changes not included)
+      1) Bring up the primary SMT threads to the CPUHP_KICK_AP_ALIVE step
+      	 one by one
+
+      2) Bring up the primary SMT threads to the CPUHP_ONLINE step one by
+      	 one
+
+      3) Bring up the secondary SMT threads to the CPUHP_KICK_AP_ALIVE
+      	 step one by one
+
+      4) Bring up the secondary SMT threads to the CPUHP_ONLINE
+      	 step one by one
+
+    In case that SMT is not supported this is obviously reduced to step #1
+    and #2.
+
+ 8) [P 33-37] Prepare X86 for parallel bringup and enable it
+
+
+Caveats
+-------
+
+The non X86 changes have been all compile tested. Boot and runtime
+testing has only be done on a few real hardware platforms and qemu as
+available. That definitely needs some help from the people who have
+these systems at their fingertips.
+
+
+Results and analysis
+--------------------
+
+Here are numbers for a dual socket SKL 56 cores/ 112 threads machine.  All
+numbers in milliseconds. The time measured is the time which the cpu_up()
+call takes for each CPU and phase. It's not exact as the system is already
+scheduling, handling interrupts and soft interrupts, which is obviously
+skewing the picture slightly.
+
+Baseline tip tree x86/apic branch.
+
+		total      avg/CPU          min          max
+total  :      912.081        8.217        3.720      113.271
+
+The max of 100ms is due to the silly delay calibration for the second
+socket which takes 100ms and was eliminated first. Also the other initial
+cleanups and improvements take some time away.
+
+So the real baseline becomes:
+
+		total      avg/CPU          min          max
+total  :      785.960        7.081        3.752       36.098
+
+The max here is on the first CPU of the second socket. 20ms of that is due
+to TSC synchronization and an extra 2ms to react on the SIPI.
+
+With parallel bootup enabled this becomes:
+
+		total      avg/CPU          min          max
+prepare:       39.108        0.352        0.238        0.883
+online :       45.166        0.407        0.170       20.357
+total  :       84.274        0.759        0.408       21.240
+
+That's a factor ~9.3 reduction on average.
+
+Looking at the 27 primary threads of socket 0 then this becomes even more
+interesting:
+
+		total      avg/CPU          min          max
+total  :      325.764       12.065       11.981       14.125
+
+versus:
+		total      avg/CPU          min          max
+prepare:        8.945        0.331        0.238        0.834
+online :        4.830        0.179        0.170        0.212
+total  :       13.775        0.510        0.408        1.046
+
+So the reduction factor is ~23.5 here. That's mostly because the 20ms TSC
+sync is not skewing the picture.
+
+For all 55 primaries, i.e with the 20ms TSC sync extra for socket 1 this
+becomes:
+
+                total      avg/CPU          min          max
+total  :      685.489       12.463       11.975       36.098
+
+versus:
+
+                total      avg/CPU          min          max
+prepare:       19.080        0.353        0.238        0.883
+online :       30.283        0.561        0.170       20.357
+total  :       49.363        0.914        0.408       21.240
+
+The TSC sync reduces the win to a factor of ~13.8
+
+With 'tsc=reliable' on the command line the socket sync is disabled which
+brings it back to the socket 0 numbers:
+
+                total      avg/CPU          min          max
+prepare:       18.970        0.351        0.231        0.874
+online :       10.328        0.191        0.169        0.358
+total  :       29.298        0.543        0.400        1.232
+
+Now looking at the secondary threads only:
+
+                total      avg/CPU          min          max
+total  :      100.471        1.794        0.375        4.745
+
+versus:
+                total      avg/CPU          min          max
+prepare:       19.753        0.353        0.257        0.512
+online :       14.671        0.262        0.179        3.461
+total  :       34.424        0.615        0.436        3.973
+
+Still a factor of ~3.
+
+The average on the secondaries for the serialized bringup is significantly
+lower than for the primaries because the SIPI response time is shorter and
+the microcode update takes no time.
+
+This varies wildly with the system, whether microcode in BIOS is already up
+to date, how big the microcode patch is and how long the INIT/SIPI response
+time is. On an AMD Zen3 machine INIT/SIPI response time is amazingly fast
+(350us), but then it lacks TSC_ADJUST and does a two millisecond TSC sync
+test for _every_ AP. All of this sucks...
+
+
+Possible further enhancements
+-----------------------------
+
+It's definitely worthwhile to look into reducing the cross socket TSC sync
+test time. It's probably safe enough to use 5ms or even 2ms instead of 20ms
+on systems with TSC_ADJUST and a few other 'TSC is sane' indicators. Moving
+it out of the hotplug path is eventually possible, but that needs some deep
+thoughts.
+
+Let's take the TSC sync out of the picture by adding 'tsc=reliable" to the
+kernel command line. So the bringup of 111 APs takes:
+
+                total      avg/CPU          min          max
+prepare:       38.936        0.351        0.231        0.874
+online :       25.231        0.227        0.169        3.465
+total  :       64.167        0.578        0.400        4.339
+
+Some of the outliers are not necessarily in the state callbacks as the
+system is already scheduling and handles interrupts and soft
+interrupts. Haven't analyzed that yet in detail.
+
+In the prepare stage which runs on the control CPU the larger steps are:
+
+  smpcfd:prepare           16us  avg/CPU
+  threads:prepare          98us  avg/CPU
+  workqueue:prepare        43us  avg/CPU
+  trace/RB:prepare	  135us	 avg/CPU
+
+The trace ringbuffer initialization allocates 354 pages and 354 control
+structures one by one. That probably should allocate a large page and an
+array of control structures and work from there. I'm sure that would reduce
+this significantly. Steven?
+
+smpcfd does just a percpu allocation. No idea why that takes that long.
+
+Vs. threads and workqueues. David thought about spreading out the
+preparation work and do it really in parallel. That's a nice idea, but the
+threads and workqueue prepare steps are self serializing. The workqueue one
+has a global mutex and aside of that both steps create kernel threads which
+implicitely serialize on kthreadd. alloc_percpu(), which is used by
+smpcfd:prepare is also globally serialized.
+
+The rest of the prepare steps is pretty much in the single digit
+microseconds range.
+
+On the AP side it should be possible to move some of the initialization
+steps before the alive synchronization point, but that really needs a lot
+of analysis whether the functions are safe to invoke that early and outside
+of the cpu_hotplug_lock held region for the case of two stage parallel
+bringup; see below.
+
+The largest part is:
+
+    identify_secondary_cpu()	99us avg/CPU
+   
+    Inside of identify_secondary_cpu() the largest offender:
+
+      mcheck_init()		73us avg/CPU
+
+    This part is definitly worth to be looked at whether it can be at least
+    partially moved to the early startup code before the alive
+    synchronization point. There's a lot of deep analysis required and
+    ideally we just rewrite the whole CPUID evaluation trainwreck
+    completely.
+
+The rest of the AP side is low single digit microseconds except of:
+
+    perf/x86:starting		14us avg/CPU
+
+    smpboot/threads:online	13us avg/CPU
+    workqueue:online		17us avg/CPU
+    mm/vmstat:online		17us avg/CPU
+    sched:active		30us avg/CPU
+
+sched:active is special. Onlining the first secondary HT thread on the
+second socket creates a 3.2ms outlier which skews the whole picture. That's
+caused by enabling the static key sched_smt_present which patches the world
+and some more. For all other APs this is really in the 1us range. This
+definitely could be postponed during bootup like the scheduler domain
+rebuild is done after the bringup. But that's still fully serialized and
+single threaded and obviously could be done later in the context of async
+parallel init. It's unclear why this is different with the fully serialized
+bringup where it takes significantly less time, but that's something which
+needs to be investigated.
+
+
+Is truly parallel bringup feasible?
+-----------------------------------
+
+In theory yes, realistically no. Why?
+
+   1) The preparation phase
+
+      Allocating memory, creating threads for the to be brought up CPU must
+      obviously happen on an already online CPU.
+
+      While it would be possible to bring up a subset of CPUs first and let
+      them do the preparation steps for groups of still offline CPUs
+      concurrently, the actual benefit of doing so is dubious.
+
+      The prime example is kernel thread creation, which is implicitely
+      serialized on kthreadd.
+
+      A simple experiment shows that 4 concurrent workers on 4 different
+      CPUs where each is creating 14 * 5 = 70 kernel threads are 5% slower
+      than a single worker creating 4 * 14 * 5 = 280 threads.
+
+      So we'd need to have multiple kthreadd instances to handle that,
+      which would then serialize on tasklist lock and other things.
+
+      That aside the preparation phase is also affected by the problem
+      below.
+
+   2) Assumptions about hotplug serialization
+
+      a) There are quite some assumptions about CPU bringup being fully
+         serialized across state transitions.  A lot of state callbacks rely
+         on that and would require local locking.
+
+	 Adding that local locking is surely possible, but that has several
+	 downsides:
+
+          - It adds complexity and makes it harder for developers to get
+	    this correct. The subtle bugs resulting out of that are going
+	    to be interesting
+
+          - Fine grained locking has a charm, but only if the time spent
+	    for the actual work is larger than the time required for
+	    serialization and synchronization.
+
+	    Serializing a callback which takes less than a microsecond and
+	    then having a large number of CPUs contending on the lock will
+	    not make it any faster at all. That's a well known issue of
+	    parallelizing and neither made up nor kernel specific.
+
+      b) Some operations definitely require to be protected by the
+         cpu_hotplug_lock, especially those which affect cpumasks as the
+         masks are guaranteed to be stable in a cpus_read_lock()'ed region.
+
+       	 As this lock cannot be taken in atomic contexts, it's required
+       	 that the control CPU holds the lock write locked across these
+       	 state transitions. And no, we are not making this a spinlock just
+       	 for that and we even can't.
+
+       	 Just slapping a lock into the x86 specific part of the cpumask
+       	 update function does not solve anything. The relevant patch in V17
+       	 is completely useless as it only serializes the actual cpumask/map
+       	 modifications, but all read side users are hosed if the update
+       	 would be moved before the alive synchronization point, i.e. into a
+       	 non hotplug lock protected region.
+
+       	 Even if the hotplug lock would be held accross the whole parallel
+       	 bringup operation then this would still expose all usage of these
+       	 masks and maps in the actual hotplug state callbacks to concurrent
+       	 modifications.
+
+       	 And no, we are not going to expose an architecture specific raw
+       	 spinlock to the hotplug state callbacks, especially not to those
+       	 in generic code.
+
+      c) Some cpu_read_lock()'ed regions also expect that there is no CPU
+      	 state transition happening which would modify their local
+      	 state. This would again require local serialization.
+
+    3) The amount of work and churn:
+
+       - Analyze the per architecture low level startup functions plus their
+         descendant functions and make them ready for concurrency if
+       	 necessary.
+
+       - Analyze ~300 hotplug state callbacks and their descendant functions
+         and make them ready for concurrency if necessary.
+
+       - Analyze all cpus_read_lock()'ed regions and address their
+         requirements.
+      
+       - Rewrite the core code to handle the cpu_hotplug_lock requirements
+         only in distinct phases of the state machine.
+
+       - Rewrite the core code to handle state callback failure and the
+         related rollback in the context of the new rules.
+
+      - ...
+
+   Even if some people are dedicated enough to do that, it's very
+   questionable whether the resulting complexity is justified.
+
+   We've spent a serious amount of time to sanitize hotplug and bring it
+   into a state where it is correct. This also made it reasonably simple
+   for developers to implement hotplug state callbacks without having to
+   become hotplug experts.
+
+   Breaking this completely up will result in a flood of hard to diagnose
+   subtle issues for sure. Who is going to deal with them?
+
+   The experience with this series so far does not make me comfortable
+   about that thought in any way.
+
+
+Summary
+-------
+
+The obvious and low hanging fruits have to be solved first:
+
+  - The CPUID evaluation and related setup mechanisms
+
+  - The trace/ringbuffer oddity
+
+  - The sched:active oddity for the first sibling on the second socket
+  
+  - Some other expensive things which I'm not seeing in my test setup due
+    to lack of hardware or configuration.
+
+Anything else is pretty much wishful thinking in my opinion.
+
+  To be clear. I'm not standing in the way if there is a proper solution,
+  but that requires to respect the basic engineering rules:
+
+    1) Correctness first
+    2) Keep it maintainable
+    3) Keep it simple
+
+  So far this stuff failed already at #1.
+
+I completely understand why this is important for cloud people, but
+the real question to ask here is what are the actual requirements.
+
+  As far as I understand the main goal is to make a (kexec) reboot
+  almost invisible to VM tenants.
+
+  Now lets look at how this works:
+
+     A) Freeze VMs and persist state
+     B) kexec into the new kernel
+     C) Restore VMs from persistant memory
+     D) Thaw VMs
+
+  So the key problem is how long it takes to get from #B to #C and finally
+  to #D.
+
+  As far as I understand #C takes a serious amount of time and cannot be
+  parallelized for whatever reasons.
+
+  At the same time the number of online CPUs required to restore the VMs
+  state is less than the number of online CPUs required to actually
+  operate them in #D.
+
+  That means it would be good enough to return to userspace with a
+  limited number of online CPUs as fast as possible. A certain amount of
+  CPUs are going to be busy with restoring the VMs state, i.e. one CPU
+  per VM. Some remaining non-busy CPU can bringup the rest of the system
+  and the APs in order to be functional for #D, i.e the restore of VM
+  operation.
+
+  Trying to optimize this purely in kernel space by adding complexity of
+  dubious value is simply bogus in my opinion.
+
+  It's already possible today to limit the number of CPUs which are
+  initially onlined and online the rest later from user space.
+
+  There are two issue there:
+
+    a) The death by MCE broadcast problem
+
+       Quite some (contemporary) x86 CPU generations are affected by
+       this:
+
+         - MCE can be broadcasted to all CPUs and not only issued locally
+           to the CPU which triggered it.
+
+         - Any CPU which has CR4.MCE == 0, even if it sits in a wait
+           for INIT/SIPI state, will cause an immediate shutdown of the
+           machine if a broadcasted MCE is delivered.
+
+    b) Do the parallel bringup via sysfs control knob
+
+       The per CPU target state interface allows to do that today one
+       by one, but it's akward and has quite some overhead.
+
+       A knob to online the rest of the not yet onlined present CPUs
+       with the benefit of the parallel bringup mechanism is
+       missing.
+
+    #a) That's a risk to take by the operator.
+
+        Even the regular serialized bringup does not protect against this
+     	issue up to the point where all present CPUs have at least
+     	initialized CR4.
+
+	Limiting the number of APs to online early via the kernel command
+	line widens that window and increases the risk further by
+	executing user space before all APs have CR4 initialized.
+
+	But the same applies to a deferred online mechanism implemented in
+	the kernel where some worker brings up the not yet online APs while
+	the early online CPUs are already executing user space code.
+
+    #b) Is a no brainer to implement on top of this.
+
+
+Conclusion
+----------
+
+Adding the basic parallel bringup mechanism as provided by this series
+makes a lot of sense. Improving particular issues as pointed out in the
+analysis makes sense too.
+
+But trying to solve an application specific problem fully in the kernel
+with tons of complexity, without exploring straight forward and simple
+approaches first, does not make any sense at all.
+
+Thanks,
+
+	tglx
+
+---
+ Documentation/admin-guide/kernel-parameters.txt |   20 
+ Documentation/core-api/cpu_hotplug.rst          |   13 
+ arch/Kconfig                                    |   23 +
+ arch/arm/Kconfig                                |    1 
+ arch/arm/include/asm/smp.h                      |    2 
+ arch/arm/kernel/smp.c                           |   18 
+ arch/arm64/Kconfig                              |    1 
+ arch/arm64/include/asm/smp.h                    |    2 
+ arch/arm64/kernel/smp.c                         |   14 
+ arch/csky/Kconfig                               |    1 
+ arch/csky/include/asm/smp.h                     |    2 
+ arch/csky/kernel/smp.c                          |    8 
+ arch/mips/Kconfig                               |    1 
+ arch/mips/cavium-octeon/smp.c                   |    1 
+ arch/mips/include/asm/smp-ops.h                 |    1 
+ arch/mips/kernel/smp-bmips.c                    |    1 
+ arch/mips/kernel/smp-cps.c                      |   14 
+ arch/mips/kernel/smp.c                          |    8 
+ arch/mips/loongson64/smp.c                      |    1 
+ arch/parisc/Kconfig                             |    1 
+ arch/parisc/kernel/process.c                    |    4 
+ arch/parisc/kernel/smp.c                        |    7 
+ arch/riscv/Kconfig                              |    1 
+ arch/riscv/include/asm/smp.h                    |    2 
+ arch/riscv/kernel/cpu-hotplug.c                 |   14 
+ arch/x86/Kconfig                                |   45 --
+ arch/x86/include/asm/apic.h                     |    5 
+ arch/x86/include/asm/cpu.h                      |    5 
+ arch/x86/include/asm/cpumask.h                  |    5 
+ arch/x86/include/asm/processor.h                |    1 
+ arch/x86/include/asm/realmode.h                 |    3 
+ arch/x86/include/asm/sev-common.h               |    3 
+ arch/x86/include/asm/smp.h                      |   26 -
+ arch/x86/include/asm/topology.h                 |   23 -
+ arch/x86/include/asm/tsc.h                      |    2 
+ arch/x86/kernel/acpi/sleep.c                    |    9 
+ arch/x86/kernel/apic/apic.c                     |   22 -
+ arch/x86/kernel/callthunks.c                    |    4 
+ arch/x86/kernel/cpu/amd.c                       |    2 
+ arch/x86/kernel/cpu/cacheinfo.c                 |   21 
+ arch/x86/kernel/cpu/common.c                    |   50 --
+ arch/x86/kernel/cpu/topology.c                  |    3 
+ arch/x86/kernel/head_32.S                       |   14 
+ arch/x86/kernel/head_64.S                       |  121 +++++
+ arch/x86/kernel/sev.c                           |    2 
+ arch/x86/kernel/smp.c                           |    3 
+ arch/x86/kernel/smpboot.c                       |  508 ++++++++----------------
+ arch/x86/kernel/topology.c                      |   98 ----
+ arch/x86/kernel/tsc.c                           |   20 
+ arch/x86/kernel/tsc_sync.c                      |   36 -
+ arch/x86/power/cpu.c                            |   37 -
+ arch/x86/realmode/init.c                        |    3 
+ arch/x86/realmode/rm/trampoline_64.S            |   27 +
+ arch/x86/xen/enlighten_hvm.c                    |   11 
+ arch/x86/xen/smp_hvm.c                          |   16 
+ arch/x86/xen/smp_pv.c                           |   56 +-
+ drivers/acpi/processor_idle.c                   |    4 
+ include/linux/cpu.h                             |    4 
+ include/linux/cpuhotplug.h                      |   17 
+ kernel/cpu.c                                    |  397 +++++++++++++++++-
+ kernel/smp.c                                    |    2 
+ kernel/smpboot.c                                |  163 -------
+ 62 files changed, 953 insertions(+), 976 deletions(-)
+
+
 
