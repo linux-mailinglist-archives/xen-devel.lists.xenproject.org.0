@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B8016E2922
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Apr 2023 19:17:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521168.809535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 739BC6E293A
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Apr 2023 19:24:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521173.809544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnN2d-00033O-Gj; Fri, 14 Apr 2023 17:16:55 +0000
+	id 1pnN93-0004Xd-Au; Fri, 14 Apr 2023 17:23:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521168.809535; Fri, 14 Apr 2023 17:16:55 +0000
+Received: by outflank-mailman (output) from mailman id 521173.809544; Fri, 14 Apr 2023 17:23:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnN2d-00030M-D9; Fri, 14 Apr 2023 17:16:55 +0000
-Received: by outflank-mailman (input) for mailman id 521168;
- Fri, 14 Apr 2023 17:16:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pnN2b-00030G-AK
- for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 17:16:53 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pnN2a-0000a7-Ph; Fri, 14 Apr 2023 17:16:52 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227] helo=[10.95.152.63])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pnN2a-00020B-Fx; Fri, 14 Apr 2023 17:16:52 +0000
+	id 1pnN93-0004Uq-80; Fri, 14 Apr 2023 17:23:33 +0000
+Received: by outflank-mailman (input) for mailman id 521173;
+ Fri, 14 Apr 2023 17:23:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YiN8=AF=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
+ id 1pnN91-0004Uk-G5
+ for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 17:23:31 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 11d5e261-dae9-11ed-b21e-6b7b168915f2;
+ Fri, 14 Apr 2023 19:23:28 +0200 (CEST)
+Received: from MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
+ by CO6PR12MB5442.namprd12.prod.outlook.com (2603:10b6:5:35b::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Fri, 14 Apr
+ 2023 17:23:25 +0000
+Received: from MW3PR12MB4409.namprd12.prod.outlook.com
+ ([fe80::f6c3:91ae:9bd8:edea]) by MW3PR12MB4409.namprd12.prod.outlook.com
+ ([fe80::f6c3:91ae:9bd8:edea%6]) with mapi id 15.20.6298.030; Fri, 14 Apr 2023
+ 17:23:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,146 +47,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=soYcFvgEQFsjuqxT9VN1Dq0AYPOfz8uaTI8vt+176Ng=; b=Lr2eBqd0ktz1F/4eWxShbwRZbD
-	ukHm3UogSPwyXfSpxWm78vTkpP9+81elqf//qzhkCPMK+BbO/WkTUJTL8bLzFW3sDRlcmvWxn6Ttm
-	QbKYz2h1U5HYNkBE4i05z4ff7BtLw5B7BRgiOvxFmm72YwPpeWErvHQ6WuOtcIw7BPvM=;
-Message-ID: <7fba60ed-d159-f1bd-7edd-6e5a0c60340f@xen.org>
-Date: Fri, 14 Apr 2023 18:16:49 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 11d5e261-dae9-11ed-b21e-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OobbYPp7E/tUwaL0H/DvMcsv2VP9RYcUJvVDsFl1lY5ehOXPjgTeGQ82zjy2Gr6qO34FcDutP+P0hfC/FIghfAXkUKUAelh8oK42SRMUKA8n7xxk8SGR+OlbelUlHa92B5psxhcgzl+k4cS3bODVnrRwMoEt21qvwZzsXZdZnD4vS1+7VsiSL00FSdfy1SAL3UFf3qeLPgehG4eiJv//eaMOQfC2E4f/1IKTANXsNkp3cnskgDbLSEfoK1QgOVTJK9rDIAEpbY8Khm3B+UzDcF+i0mZfzIHEt13dzv/vaoHP5MTL75+CVtE0YHuYiCTPMgrKZCh+zgFQmJbQx1nn5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ej5SWGuUgb6hps2pgI4GwpP608Nluv+8+jfvaBUuYXI=;
+ b=Veyc6rjldKlPLkv2VXtAIN9+eJQHiE6BehYFTAXgBLiAaF0S6oOcC0XmviiQ/1NsvgpAyhcQw4Pu5+icodoviiX0dph4l1VIuJopfZfdvm5d80KUEKtRV0ox5xj47MVPxPeMvYheg/+Sxc/cDP0BlaGL5mp5LQFntJozgBSoSzgjvMc3ZV5hcd0HqwpgGO6brzq33eLend/aM6L0gLFuGrWT1OzERxWntvhvNt9RCrVhq9mNbjSTkdqWByAStMu3n8L3nMuD2PL9/f31E1MPRgF6vf1QATVRed3bqgiFdr3K02plwyHOJQ6FqD+SBMdTA45ie0mi3t/vIVZ78we6Rw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ej5SWGuUgb6hps2pgI4GwpP608Nluv+8+jfvaBUuYXI=;
+ b=5ILnij7Kx8AxWQsD7JT8qGoQ6eRtqCKrJ211NNAaAciWScaFtksRYEh3c3/j+Z+Z7ajqbuTVz8EvCiRFF89pRTEWoWa8jj2Rrmo9Sh46ddcU8SOVsIoIhTUp2P9dSbVwDjRDf2qGDtTxTkdHWGqiRFULK6mULgFvRK8fsvpdVQ8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <a93baa6c-2b9d-315d-304a-956804b2731b@amd.com>
+Date: Fri, 14 Apr 2023 10:23:22 -0700
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.10.0
-Subject: Re: [PATCH v5 02/12] xen/arm: add SVE vector length field to the
- domain
+Subject: Re: [XEN][PATCH v5 12/17] common/device_tree: Add rwlock for dt_host
 Content-Language: en-US
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-References: <20230412094938.2693890-1-luca.fancellu@arm.com>
- <20230412094938.2693890-3-luca.fancellu@arm.com>
- <72f38b2b-a391-fb7c-f8c0-cf3561470875@xen.org>
- <B3A82639-6D61-4DA2-B918-A92A421C75D3@arm.com>
- <e8075849-8bd5-7fd4-efaa-81e48c867635@xen.org>
- <4F5DC5EC-F538-42CE-A93F-2B5E3FAC13BB@arm.com>
- <03cc0c98-c5ef-16f1-ed24-6a39320b08e5@xen.org>
- <D32A74F6-8BBB-4965-A720-B3133ECC77BA@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <D32A74F6-8BBB-4965-A720-B3133ECC77BA@arm.com>
+To: Henry Wang <Henry.Wang@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>
+References: <20230411191636.26926-1-vikram.garhwal@amd.com>
+ <20230411191636.26926-13-vikram.garhwal@amd.com>
+ <AS8PR08MB7991D4C1352B785D505AE63892999@AS8PR08MB7991.eurprd08.prod.outlook.com>
+From: Vikram Garhwal <vikram.garhwal@amd.com>
+In-Reply-To: <AS8PR08MB7991D4C1352B785D505AE63892999@AS8PR08MB7991.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0201.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::26) To MW3PR12MB4409.namprd12.prod.outlook.com
+ (2603:10b6:303:2d::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4409:EE_|CO6PR12MB5442:EE_
+X-MS-Office365-Filtering-Correlation-Id: 630d318b-25ee-4ed6-13d9-08db3d0cf448
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	/rdxoWmQGvXsw1gtkowbXup1MuKId+vzOySCZAA1G7OoRAV3C9l00bgPy/We/nqoK7GPL/z4WriHZUjBtBGw24P/JyLnRQOv+Dm03iTVTxbj3xhQ5ZKcAo0sLgF5Yenm5wRSX2iR1YnHMBFSWAFYpbCgkubchZ4sbPxdemdmr+mhjJ9PsjKnciHtMeq6wdsQKGWbPuSfYQlk67Vu1h/QfLd2LJegA03Qf4GSS9oEnaLdZq9/SFs8s1WGaYn3M+0SOySynGk+BaXD8nyNzfjjDr4j3es3yQJjTDPHzKfM0p62OaQb+RoxkBZod3y0rVKxsRfHk9cBY/w/MAoehNA/QAgpbjSu6C6JDtecByHkXB1HpcrQzRMGPWnuhlD0HtUSXTKBA84hxMc0JfA3Bg0b0c8heIfHroTWBUpDqdwV9g3IMovp+I+dtrMlTiziUjwhxDk30iO70XydMZuRey3DIHLe79BV7xYt7cwd6IrCOWg3qyRRYme5/WWmJW1kd2qIn3EPoCf2i5BUfQS3gicvHhQpnbHkjXcFMalpuG39q+WXGqUQ5h518RtHkz0I/R6bDmpRy50RuM/1qYk1Uz2c/tpNqQFvwdfnNc3/GuHyN5B+kXrOZMy9+Fm3PQwbPuuNLVp1+Pc6nsH/9POwjkrU/w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR12MB4409.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(346002)(366004)(396003)(39860400002)(451199021)(316002)(41300700001)(53546011)(6512007)(26005)(6506007)(6486002)(6666004)(38100700002)(186003)(86362001)(31696002)(2616005)(36756003)(83380400001)(66476007)(66556008)(66946007)(110136005)(4326008)(54906003)(478600001)(8676002)(8936002)(5660300002)(2906002)(31686004)(44832011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Y3BhQWQwWHhZQW9sUlF2NFF5Z1JGc3Q4cmh0bmd2QTNjY0o0bFRLSUVYRFdn?=
+ =?utf-8?B?dUdQZUVqSnZLa0ZDdUkxdmpWUDd1cU9sVG1wblpNdzNHTExuNm14VlVyNHk0?=
+ =?utf-8?B?OG5NMXhNbUljTDhsZjgvSVd0TXdkYTFYQlM4aGpVVnlNV0RDWHdpbXVZWnRN?=
+ =?utf-8?B?aXZwb2JPVEk1NzczV0pZYmNUYUw4bC9INHhZaTJaV2lnaWVRSXlDM2p4RWVP?=
+ =?utf-8?B?L3RkVUtmRDRnV1VlUSs0S1ZLa01ORWk4cHVUNS9iM3VMZ0xCSVFCMmhHOGxZ?=
+ =?utf-8?B?VWdSOGN6cWhlZ1ovSzA1WXV6UFNJSGZNS0w4UVA5eVhMQWJ6NlQvaDdTeUR5?=
+ =?utf-8?B?OFJjbnFlVk1tRWtkRnc0eFhDdGcwanJtT3BLYzIxVmxhcWg1LzM4OTZqSUlz?=
+ =?utf-8?B?QmtTUG5UVjZyOFRPOVZQZ3N2NWw1NGh1MGkxU3gzT0dQckkvaWpYUS9zb05n?=
+ =?utf-8?B?TzVrbHR3eWZiWUNJU3E2WXFOUmJEWU0vQnVXZSs5a3QzK0lMR2tnVzdRMFJp?=
+ =?utf-8?B?cVRzYWVabnpkdHljMHBjQldoZWxmcFo2eGNMeS9PdmVCelBHd21wRm5lYng2?=
+ =?utf-8?B?ei84QnF3RitRZjRBSjJZd0IrMWdjR3NGVG9VLzZSbGk3eThRM2VTZG9aRjlt?=
+ =?utf-8?B?dDdOZTFOajUyMldxbGhFRVlLTkVMTmxhajFHUTdEejVsazJpQ3R5ZXk2cFFT?=
+ =?utf-8?B?SkxXbFVCSG5uQ29uY0FUN2k3VXJCcHlrNkZ6S2lpcmR2dHpiUWtsdk9rdDZF?=
+ =?utf-8?B?dWRpTkE0VGNES29QcnFCdWFTRjFhaHd5UUUremRtaFNNU2xmUzJTRlk2ZmpY?=
+ =?utf-8?B?VkFKdVZhZmkrUFpOcWwyV1VQQUZBNThsRmhOUjE5VVlqQVN2TUkvN1ZkempD?=
+ =?utf-8?B?Q285UW1sZHV5d3hiZ1pmU0E1QmhvaVBnNjdXeloxU3IrY1VaZFVrVC82eW9P?=
+ =?utf-8?B?Skk2MFRSdFpNT3RKbDBPUDRrb2hiVVlIRXJFSFpKSWVFa01SWDBWTEdYMW02?=
+ =?utf-8?B?N2JPUVdPYmxOM1Z0ZjRITDM0VkQ2MTFqT3dNS0FVUUhrMmtoVE9ucXZWR2Jw?=
+ =?utf-8?B?TW44QXBubjc3SitsaXJoeTBjQTFlWTZScmpYdkdJdzljbmxzVis0SUVReG90?=
+ =?utf-8?B?TTRJUS9yeXMwTFZTdWozNStzNDlpUXJRV0RZZU5jZ1ZhOERtUWg3UFdsVlV1?=
+ =?utf-8?B?Qk9TT0J2dzBKdmhDcFprdHJnM3J6NE95ZzVuVVhMQzNWaHB1aUs4QzAzOC9F?=
+ =?utf-8?B?c1ZYa3lheDQ2MThYdTZ3amxVUWZoOWg0VGJ4Q05SaDFTSFVOWGI1cUV4OVpK?=
+ =?utf-8?B?dGhxWFkzTUdiV1ByNDNTYU1uZUZhby9YOXhMTU1ESlRNa0hKSklRRlFlM2Zz?=
+ =?utf-8?B?TzRrdHJub3R3dzBTTlJGWVNUMWtJd3l0YlUydVNnV01VME1sRkJaVUdqQ3E5?=
+ =?utf-8?B?UmwyTVovUEtTZWtPNlZ3Ylg0dmlnWHJPbEx3aGFhMnNmdVZXSng5T0dGeHd5?=
+ =?utf-8?B?WjRwa1FDeUFiY2NNeThmWU45emwxQWNWaHFwNVNDdnFMYzNRZktteXV1cS9N?=
+ =?utf-8?B?RDBzd2RudGJXdzRCdGl5T2xrR2hibFBEaW5KU0JXSVRraFk5R1Y5VkovSmsr?=
+ =?utf-8?B?QlVWQWE3VlRWQkI1SDlCVFA4S29uOGJldmJHdkhGcjBmU3BXMGRENytYZG0x?=
+ =?utf-8?B?em9RNFZxYjBOQTR3RmxTa2UyNWVPT050SUQvczJiRUxVQTJmVW9pU1JPcU9S?=
+ =?utf-8?B?c05PZjZDeVlVUHdZdVFEU0RSSG1tRm9YRTJSbURINjB0VDIvajQvRjVYTUhh?=
+ =?utf-8?B?ZzBMZW00UlRHOU1Ud1BzdzFFTndadS9PYUh5ZnJGbGhGV0RlUHYvelRTdlZ5?=
+ =?utf-8?B?aVBYZS9YY2tJQndqdVJIbDQvcU84UkxxT0thdGoxOW5mSmFBWXdnT3NvK1ZK?=
+ =?utf-8?B?MEhLMnFzbmpNYTY5OHN5QVFUa1lLNEY2LzZKSUJQWUpPZHFpVUtXeUNYbEpq?=
+ =?utf-8?B?dzVkK1NzVWdiRlhyTVJ1VmpQQWw4V0cwVGgrMUJoZG80VFQxTjdIaEVsK0cz?=
+ =?utf-8?B?UVVUc2plcDh1RmVYRmViK3lZcVVHWloreXU2UHFyaXg5LzEwWjEzQmFlVUJM?=
+ =?utf-8?Q?RkNphRRsUeQ46YAxHqCEgMPre?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 630d318b-25ee-4ed6-13d9-08db3d0cf448
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4409.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2023 17:23:25.2225
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kAArDci8ntS20m5aQNh+rArKUdN3/I2MPysXEX76yzbpILQ6jXPIHTvTcokDwy1t7YQ8w2OV/0V5xoQv7mlwRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR12MB5442
 
-Hi Luca,
+Hi Henry,
 
-On 14/04/2023 12:07, Luca Fancellu wrote:
-> 
-> 
->> On 13 Apr 2023, at 20:52, Julien Grall <julien@xen.org> wrote:
+On 4/13/23 7:09 PM, Henry Wang wrote:
+> Hi Vikram,
+>
+>> -----Original Message-----
+>> Subject: [XEN][PATCH v5 12/17] common/device_tree: Add rwlock for dt_host
 >>
->> Hi Luca,
->>
->> On 13/04/2023 15:05, Luca Fancellu wrote:
->>>> On 13 Apr 2023, at 14:30, Julien Grall <julien@xen.org> wrote:
->>>>
->>>>
->>>>
->>>> On 13/04/2023 14:24, Luca Fancellu wrote:
->>>>> Hi Julien,
->>>>
->>>> Hi Luca,
->>>>
->>>>>>>   @@ -594,6 +597,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>>>>>>       unsigned int max_vcpus;
->>>>>>>       unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
->>>>>>>       unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu);
->>>>>>> +    unsigned int sve_vl_bits = sve_decode_vl(config->arch.sve_vl);
->>>>>>>         if ( (config->flags & ~flags_optional) != flags_required )
->>>>>>>       {
->>>>>>> @@ -602,6 +606,26 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
->>>>>>>           return -EINVAL;
->>>>>>>       }
->>>>>>>   +    /* Check feature flags */
->>>>>>> +    if ( sve_vl_bits > 0 )
->>>>>>> +    {
->>>>>>> +        unsigned int zcr_max_bits = get_sys_vl_len();
->>>>>>> +
->>>>>>> +        if ( !zcr_max_bits )
->>>>>>> +        {
->>>>>>> +            dprintk(XENLOG_INFO, "SVE is unsupported on this machine.\n");
->>>>>>> +            return -EINVAL;
->>>>>>> +        }
->>>>>>> +
->>>>>>> +        if ( sve_vl_bits > zcr_max_bits )
->>>>>>> +        {
->>>>>>> +            dprintk(XENLOG_INFO,
->>>>>>> +                    "Requested SVE vector length (%u) > supported length (%u)\n",
->>>>>>> +                    sve_vl_bits, zcr_max_bits);
->>>>>>> +            return -EINVAL;
->>>>>>> +        }
->>>>>>
->>>>>> Is SVE supported for 32-bit guest? If not, then you should had a check here to prevent the creation of the domain if sve_vl_bits is set.
->>>>> No SVE is not supported for 32 bit guests, here I think we will get “SVE is unsupported on this machine” because get_sys_vl_len() will return 0.
->>>>
->>>>  From my understanding, get_sys_vl_len() will return the len supported by the hosts. So if you run a 32-bit guest on top of a 64-bit hosts, then I believe get_sys_vl_len() will be non-zero.
->>> Yes you are right, I realise that I need the domain type information and I can’t have it in arch_sanitise_domain_config, however they might have sense there, and I can do a check
->>> like this afterwards:
->>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>> index c1f0d1d78431..ce1235c25769 100644
->>> --- a/xen/arch/arm/domain_build.c
->>> +++ b/xen/arch/arm/domain_build.c
->>> @@ -3694,6 +3694,12 @@ static int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
->>>           return -EINVAL;
->>>       }
->>>   +    if ( d->arch.sve_vl && (kinfo->type == DOMAIN_32BIT) )
->>> +    {
->>> +        printk("SVE is not available for 32-bit domain\n");
->>> +        return -EINVAL;
->>> +    }
->>> +
->>>       if ( is_64bit_domain(d) )
->>>           vcpu_switch_to_aarch64_mode(v);
->>> Would it be ok for you?
->>
->> construct_domain() is only going to be used for domains created by Xen. You would need the same check for the ones created by the toolstack.
->>
->> Do you need to know the SVE length when the domain is created? If not, then I would suggest to create a new domctl that would be called after we switch the domain to 32-bit.
-> 
-> Hi Julien,
-> 
-> Yes that’s true, we would like to prevent who is using hyper calls to have guests with SVE but 32 bits, I think that with this check it’s possible to avoid them:
-> 
-> diff --git a/xen/arch/arm/arm64/domctl.c b/xen/arch/arm/arm64/domctl.c
-> index 0de89b42c448..b7189e8dbbb5 100644
-> --- a/xen/arch/arm/arm64/domctl.c
-> +++ b/xen/arch/arm/arm64/domctl.c
-> @@ -43,6 +43,9 @@ long subarch_do_domctl(struct xen_domctl *domctl, struct domain *d,
->           case 32:
->               if ( !cpu_has_el1_32 )
->                   return -EINVAL;
-> +            /* SVE is not supported for 32 bit domain */
-> +            if ( is_sve_domain(d) )
-> +                return -EOPNOTSUPP;
->               return switch_mode(d, DOMAIN_32BIT);
->           case 64:
->               return switch_mode(d, DOMAIN_64BIT);
-> 
-> It’s a bit late in the guest creation, but we don’t have the domain type information before, this check together with the check above in construct_domain would
-> be enough.
-> 
-> What do you think?
+>>   Dynamic programming ops will modify the dt_host and there might be other
+>>   function which are browsing the dt_host at the same time. To avoid the race
+>>   conditions, adding rwlock for browsing the dt_host during runtime.
+> For clarity, could you please add a little bit more details to explain why you chose
+> rwlock instead of normal spinlock?
+rwlock is just to protect someone reading the dt_host while dynamic 
+programming is modifying the dt_host.
+Initial suggestion was from Julien about adding rwlock here.
+For now, dynamic programming is the dt_host writer in Xen during run 
+time. All other iommu passthrough function was just readers during 
+run-time. So, it was better to go for r/w locks here as spinlock won't 
+be able to difference between read and r/w access.
 
-I would be OK with this approach for now. In the longer term, we 
-probably want to consider to set the mode when the domain is created 
-because this can't change at runtime.
+For next version, I will add a comment in commit message.
+>> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+>> ---
+>>   xen/common/device_tree.c              |  3 +++
+>>   xen/drivers/passthrough/device_tree.c | 39 +++++++++++++++++++++++++++
+>>   xen/include/xen/device_tree.h         |  6 +++++
+>>   3 files changed, 48 insertions(+)
+>>
+>>           if ( ret )
+>> +        {
+>>               printk(XENLOG_G_ERR "XEN_DOMCTL_assign_dt_device: assign
+>> \"%s\""
+>>                      " to dom%u failed (%d)\n",
+>>                      dt_node_full_name(dev), d->domain_id, ret);
+>> +        }
+> I am not sure if it is necessary to add "{" and "}" here.
+You are right. Will remove it in next version.
+>
+>> +
+>> +        read_unlock(&dt_host->lock);
+>>           break;
+>>
+>>       case XEN_DOMCTL_deassign_device:
+>> @@ -322,25 +345,41 @@ int iommu_do_dt_domctl(struct xen_domctl
+>> *domctl, struct domain *d,
+>>           if ( domctl->u.assign_device.flags )
+>>               break;
+>>
+>> +        read_lock(&dt_host->lock);
+>> +
+>>           ret = dt_find_node_by_gpath(domctl->u.assign_device.u.dt.path,
+>>                                       domctl->u.assign_device.u.dt.size,
+>>                                       &dev);
+>>           if ( ret )
+>> +        {
+>> +            read_unlock(&dt_host->lock);
+> I think instead of adding "read_unlock" in every break and return path,
+> you can...
+>
+>>               break;
+>> +        }
+>>
+>>           ret = xsm_deassign_dtdevice(XSM_HOOK, d, dt_node_full_name(dev));
+>> +
+>>           if ( ret )
+>> +        {
+>> +            read_unlock(&dt_host->lock);
+>>               break;
+>> +        }
+>>
+>>           if ( d == dom_io )
+>> +        {
+>> +            read_unlock(&dt_host->lock);
+>>               return -EINVAL;
+> ...do something like:
+>
+> ret = -EINVAL;
+> break;
+>
+> here, and then add one single "read_unlock" before the "return ret;"
+> in the bottom of the function?
+Will do.
+>
+>> +        }
+>>
+>>           ret = iommu_deassign_dt_device(d, dev);
+>>
+>>           if ( ret )
+>> +        {
+>>               printk(XENLOG_G_ERR "XEN_DOMCTL_assign_dt_device: assign
+>> \"%s\""
+>>                      " to dom%u failed (%d)\n",
+>>                      dt_node_full_name(dev), d->domain_id, ret);
+>> +        }
+> Same here. I am not sure if it is necessary to add "{" and "}".
+> Kind regards,
+> Henry
 
-Cheers,
-
--- 
-Julien Grall
 
