@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AD726E29D6
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Apr 2023 20:09:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521193.809595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 980FA6E2A0B
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Apr 2023 20:29:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521199.809604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnNrC-0002qR-Oj; Fri, 14 Apr 2023 18:09:10 +0000
+	id 1pnO9p-0005Mn-Cy; Fri, 14 Apr 2023 18:28:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521193.809595; Fri, 14 Apr 2023 18:09:10 +0000
+Received: by outflank-mailman (output) from mailman id 521199.809604; Fri, 14 Apr 2023 18:28:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnNrC-0002oH-M0; Fri, 14 Apr 2023 18:09:10 +0000
-Received: by outflank-mailman (input) for mailman id 521193;
- Fri, 14 Apr 2023 18:09:09 +0000
+	id 1pnO9p-0005KL-A5; Fri, 14 Apr 2023 18:28:25 +0000
+Received: by outflank-mailman (input) for mailman id 521199;
+ Fri, 14 Apr 2023 18:28:23 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pnNrB-0002oB-DM
- for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 18:09:09 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pnO9n-0005K9-J5; Fri, 14 Apr 2023 18:28:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pnNrB-0001vX-9J; Fri, 14 Apr 2023 18:09:09 +0000
-Received: from 54-240-197-227.amazon.com ([54.240.197.227] helo=[10.95.152.63])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pnNrB-0004G0-31; Fri, 14 Apr 2023 18:09:09 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pnO9n-0002H2-Fl; Fri, 14 Apr 2023 18:28:23 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pnO9n-00027a-1h; Fri, 14 Apr 2023 18:28:23 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pnO9n-0000QL-1C; Fri, 14 Apr 2023 18:28:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,139 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=tnkLueb8MbcDuwKISZhvDbBJkG7Eu680dhtJ0tO48i0=; b=Oe/1RZpheYpNyVOx19OjkZq/3S
-	XMEJheDEB68R21iC5Fuejj0JXlfs7/Xst0HxwfO16+3II4O3BqkYCksnqRmTd4wuf9hTlR33yDH9J
-	B9Gjsm489cgVOy9oA085++/CG0jPKNepSyRiW6yiTnHYLHMgDYL+lXQkb6deQqSHVoxQ=;
-Message-ID: <1198aebe-caa7-fefe-8c09-db7a14ec7c34@xen.org>
-Date: Fri, 14 Apr 2023 19:09:07 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.0
-Subject: Re: [XEN][PATCH v5 02/17] common/device_tree: change
- __unflatten_device_tree()
-Content-Language: en-US
-To: Vikram Garhwal <vikram.garhwal@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org
-References: <20230411191636.26926-1-vikram.garhwal@amd.com>
- <20230411191636.26926-3-vikram.garhwal@amd.com>
- <869d014a-d325-6592-d51e-e3638ba04076@xen.org>
- <e8405b8d-40a9-3df4-90e7-89ec7195449c@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <e8405b8d-40a9-3df4-90e7-89ec7195449c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=QrJn6+JnF4EuEdXZYQHgGWBWO3b665cEZalgOdhtzsU=; b=B7X1OKN8iO7DGwGg4DBOfL6+Nz
+	5T6cOE6kmyFRKsuzNArTdwiExSqMRxGKNYQgsa6yf1BaJbyOzVRwMyzNI5X8wuaoz3/lWHOhs1M2h
+	Lyp0BLcg/kL9Z30gDQPYhKx0ubfRgnM1+DU6mrrK5/KUbxn6WP9elzroKCSxUQBao50U=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180262-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 180262: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=797f526ae2a83811b0ccbde0138c65a9f137eba5
+X-Osstest-Versions-That:
+    ovmf=c9fb11f92f52e06bcb1279b467a3b2667757be44
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 14 Apr 2023 18:28:23 +0000
 
-Hi,
+flight 180262 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180262/
 
-On 14/04/2023 18:51, Vikram Garhwal wrote:
-> On 4/13/23 3:03 AM, Julien Grall wrote:
->> Hi,
->>
->> On 11/04/2023 20:16, Vikram Garhwal wrote:
->>> Following changes are done to __unflatten_device_tree():
->>>      1. __unflatten_device_tree() is renamed to unflatten_device_tree().
->>>      2. Remove static function type.
->>>      3. Add handling of memory allocation. This will be useful in 
->>> dynamic node
->>>          programming when we unflatten the dt during runtime memory 
->>> allocation
->>>          can fail.
->>>
->>> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
->>> ---
->>>   xen/common/device_tree.c      | 10 ++++++----
->>>   xen/include/xen/device_tree.h |  5 +++++
->>>   2 files changed, 11 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
->>> index aed38ff63c..bf847b2584 100644
->>> --- a/xen/common/device_tree.c
->>> +++ b/xen/common/device_tree.c
->>> @@ -2047,7 +2047,7 @@ static unsigned long unflatten_dt_node(const 
->>> void *fdt,
->>>   }
->>>     /**
->>> - * __unflatten_device_tree - create tree of device_nodes from flat blob
->>> + * unflatten_device_tree - create tree of device_nodes from flat blob
->>>    *
->>>    * unflattens a device-tree, creating the
->>>    * tree of struct device_node. It also fills the "name" and "type"
->>> @@ -2056,8 +2056,7 @@ static unsigned long unflatten_dt_node(const 
->>> void *fdt,
->>>    * @fdt: The fdt to expand
->>>    * @mynodes: The device_node tree created by the call
->>>    */
->>> -static void __unflatten_device_tree(const void *fdt,
->>> -                                    struct dt_device_node **mynodes)
->>> +void unflatten_device_tree(const void *fdt, struct dt_device_node 
->>> **mynodes)
->>>   {
->>>       unsigned long start, mem, size;
->>>       struct dt_device_node **allnextp = mynodes;
->>> @@ -2079,6 +2078,9 @@ static void __unflatten_device_tree(const void 
->>> *fdt,
->>>       /* Allocate memory for the expanded device tree */
->>>       mem = (unsigned long)_xmalloc (size + 4, __alignof__(struct 
->>> dt_device_node));
->>>   +    if ( !mem )
->>> +        panic("Cannot allocate memory for unflatten device tree\n");
->>
->> After your series, unflatten_device_tree() will be called after boot, 
->> so we should not unconditionally called panic(). Instead, 
->> unflatten_device_tree() should return an error and let the caller 
->> decide what to do.
-> Looks like i misunderstood v4 comments. Will change it to propagate an 
-> error in case of failure here to the handle_add_overlay_nodes() caller 
-> and that will further forward to error to toolstack.
->>
->> I suggest to read misc/xen-error-handling.txt to understand when to 
->> use panic()/BUG() & co. For...
->>
->>
->>> +
->>>       ((__be32 *)mem)[size / 4] = cpu_to_be32(0xdeadbeef);
->>>         dt_dprintk("  unflattening %lx...\n", mem);
->>> @@ -2179,7 +2181,7 @@ dt_find_interrupt_controller(const struct 
->>> dt_device_match *matches)
->>>     void __init dt_unflatten_host_device_tree(void)
->>>   {
->>> -    __unflatten_device_tree(device_tree_flattened, &dt_host);
->>> +    unflatten_device_tree(device_tree_flattened, &dt_host);
->>
->> ... this caller this should be a panic() (this is OK here because it 
->> is boot code).
->>
->> But for your new caller, you should properly report the error back the 
->> toolstack.
-> Understood, will change it in next version.
->>
->> Also, unflatten_dt_node() (called by __unflatten_device_tree()) seems 
->> to have some failure cases. Can you explain why they are not properly 
->> propagated in your case? Are you trusting the device-tree to always be 
->> valid?
-> for dynamic_programming, while adding node(check patch: [XEN][PATCH v5 
-> 14/17] xen/arm: Implement device tree node addition functionalities), 
-> fdt_overlay_apply() is called before unflatten_device_tree() is called. 
-> fdt_overlay_apply() will catch the invalid device-tree overlay nodes.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 797f526ae2a83811b0ccbde0138c65a9f137eba5
+baseline version:
+ ovmf                 c9fb11f92f52e06bcb1279b467a3b2667757be44
 
-I agree that in theory fdt_overlay_apply() will catch invalid 
-device-tree. However, neither of the functions are exempts of bugs and 
-there is no code shared between the two (they are not even coming from 
-the same project).
+Last test of basis   180261  2023-04-14 13:43:27 Z    0 days
+Testing same since   180262  2023-04-14 16:12:08 Z    0 days    1 attempts
 
-So we could end up in a situation where fdt_overlay_apply() works but 
-not unflatten_device_tree(). Therefore, I would rather prefer if the 
-latter function properly handle any errors.
+------------------------------------------------------------
+People who touched revisions under test:
+  Rebecca Cran <rebecca@bsdio.com>
 
-Note that unflatten_dt_node() already have check the validity of the DT 
-and will return. We just need to make sure they are treated as error 
-rather than been ignored.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   c9fb11f92f..797f526ae2  797f526ae2a83811b0ccbde0138c65a9f137eba5 -> xen-tested-master
 
