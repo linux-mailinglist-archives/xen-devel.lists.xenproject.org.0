@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 625626E2DAD
-	for <lists+xen-devel@lfdr.de>; Sat, 15 Apr 2023 01:49:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521371.810092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 526E46E2E93
+	for <lists+xen-devel@lfdr.de>; Sat, 15 Apr 2023 04:24:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521423.810107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnTAn-0002Wt-Kz; Fri, 14 Apr 2023 23:49:45 +0000
+	id 1pnVZ5-00041Y-KM; Sat, 15 Apr 2023 02:22:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521371.810092; Fri, 14 Apr 2023 23:49:45 +0000
+Received: by outflank-mailman (output) from mailman id 521423.810107; Sat, 15 Apr 2023 02:22:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pnTAn-0002QR-BZ; Fri, 14 Apr 2023 23:49:45 +0000
-Received: by outflank-mailman (input) for mailman id 521371;
- Fri, 14 Apr 2023 23:49:43 +0000
+	id 1pnVZ5-0003zt-Ct; Sat, 15 Apr 2023 02:22:59 +0000
+Received: by outflank-mailman (input) for mailman id 521423;
+ Sat, 15 Apr 2023 02:22:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZCOw=AF=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pnT6S-0000zb-CK
- for xen-devel@lists.xenproject.org; Fri, 14 Apr 2023 23:45:16 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 673e1bc9-db1e-11ed-8611-37d641c3527e;
- Sat, 15 Apr 2023 01:45:14 +0200 (CEST)
+ <SRS0=hXtF=AG=citrix.com=prvs=462c9d09f=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pnVZ2-0003zn-Ny
+ for xen-devel@lists.xenproject.org; Sat, 15 Apr 2023 02:22:57 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6b832a43-db34-11ed-8611-37d641c3527e;
+ Sat, 15 Apr 2023 04:22:52 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,210 +36,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 673e1bc9-db1e-11ed-8611-37d641c3527e
-Message-ID: <20230414232311.505152290@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1681515914;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=nUZSh5064m2aKoxr+KQn5JPMu6mMKtsaGAC9NSZVNms=;
-	b=tXdZ+JNXwmoFAj/D4wiLzLK3B9Tdjf372IqdJt5Tv46gv42xMEL/Nl0g5kdyiZHT7x9AOz
-	mlFylzsIhnrXORGzmbDeoOd0v4PWWxn8r5JfaFvKB5y4Myd0UBCMyCyRl33Zi088uSB2Ir
-	SvONUInWoGIX09mANT0wqHnMa8plhV/+A02oVVT5ueBVnLW3psXBgZVX1wGuoSRuwDa/iV
-	WCxZeGiReQ8KfEt87/havCjKqbuogL4jZdqFqdulIebLR5I3xNrYIQ3tyIgS/ypjvwLm3u
-	ZY0rsKukGMk7diouGwNhACQ22cLpXT7hOtDVbk+HLvlFHbrtTgmHuHYua/2ZDA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1681515914;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=nUZSh5064m2aKoxr+KQn5JPMu6mMKtsaGAC9NSZVNms=;
-	b=pkIQhDhWjPpGLy6aH5XoCk5G1NoyA94urqDixfl4xi4JgoGh52mUmdlWbRdLMez3lvqnCR
-	cNwc4JXhAqWj08Aw==
-From: Thomas Gleixner <tglx@linutronix.de>
-To: LKML <linux-kernel@vger.kernel.org>
-Cc: x86@kernel.org,
- David Woodhouse <dwmw@infradead.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Brian Gerst <brgerst@gmail.com>,
- "Arjan van de Veen" <arjan@linux.intel.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Paul McKenney <paulmck@kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>,
- Sean Christopherson <seanjc@google.com>,
- Oleksandr Natalenko <oleksandr@natalenko.name>,
- Paul Menzel <pmenzel@molgen.mpg.de>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Piotr Gorski <lucjan.lucjanov@gmail.com>,
- Sabin Rapan <sabrapan@amazon.com>,
- David Woodhouse <dwmw@amazon.co.uk>,
- Usama Arif <usama.arif@bytedance.com>,
- Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org,
- Russell King <linux@armlinux.org.uk>,
- Arnd Bergmann <arnd@arndb.de>,
- linux-arm-kernel@lists.infradead.org,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>,
- Guo Ren <guoren@kernel.org>,
- linux-csky@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- linux-mips@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>,
- linux-parisc@vger.kernel.org,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- linux-riscv@lists.infradead.org,
- Mark Rutland <mark.rutland@arm.com>
-Subject: [patch 37/37] x86/smpboot: Allow parallel bringup for SEV-ES
-References: <20230414225551.858160935@linutronix.de>
+X-Inumbo-ID: 6b832a43-db34-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1681525372;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=QJ+3HwfGXzkynQSqiJEwjODBvnbypPPunqE44a4eZqg=;
+  b=CxPzn36aSeSYE3Jhy7rnlQYNu535953G4exGqRZal1aOPbd41w1Cj9zM
+   Q6GZSb/dAlON+mZP0j7zYN+uu7gCS0ooX4fh5MGYJQZcd4sD2d/xz8ioT
+   ZfX8/bqvN6FnV/s5F1yRKnBSXb0ab+AmPx6ceBQLDPMYipIL8hQ6x2yfa
+   Q=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 105999310
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:XjWoIqBjFW9+hRVW/1/jw5YqxClBgxIJ4kV8jS/XYbTApD0q1mYHx
+ zEfXmiBP/eNNDH0fox/Pd+w9UoH7Z7RztFgQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbyRFuspvlDs15K6p4G9B4gRlDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw0956B3kVr
+ cckCQtdUD/AruOa5amec7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2M1N3wsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9I4TXFJQExR/Az
+ o7A11/yWTErG+aC83mAqiyBodfPxAirdp1HQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFaHuRgGUtYWDOw+6ymK0KPf5wvfDW8BJgOtc/R/6pVwH2Zzk
+ AbUwZWwX2cHXKCppWy134+ZqyvpYRMpDFRSWwBHZAopxsLGmdRm5v7QdeqPAJJZn/WsR2Gpn
+ 2vb8Xli71kApZVVjvvmpDgrlxrp/8GUFVBtu207S0r/tmtEiJiZi5tEALQxxdJJN86nQ1aIp
+ xDocODOvblVXflheMFgKdjh/Y1FBN7falUweXY1Q/EcG82FohZPh7x47jBkP1tOOc0ZYzLva
+ 0K7kVoPtMYPbSTxNPUtPt/Z5yEWIU/ITI2NaxwpRoAWPsgZmPGvp0mCmnJ8L0iyyRNxwMnTy
+ L+QcNq2DGZyNJmLOAGeHr9HuZdyn3BW+I8mbcyjp/hR+ebENSH9pHZsGAfmU93VG4ve8ViEq
+ 44Ca5rao/idOcWnChTqHUcoBQhiBRAG6Vre8KS7qsbrztJaJVwc
+IronPort-HdrOrdr: A9a23:XXd1qqoY9/73zW/6R1Wxb+gaV5oneYIsimQD101hICG8cqSj+f
+ xG+85rsSMc6QxhPk3I9urhBEDtex/hHP1OkOws1NWZLWrbUQKTRekIh+bfKlXbakrDH4VmtJ
+ uIHZIQNDSJNykZsfrH
+X-Talos-CUID: =?us-ascii?q?9a23=3A5i10mWmgHQehAcGSk2hIWMj2++fXOVTlwXHIeBe?=
+ =?us-ascii?q?DNUdSGIO6CnaR1IZ/tvM7zg=3D=3D?=
+X-Talos-MUID: =?us-ascii?q?9a23=3AZnZwgQ1Blvc+NF+cnxSUFpyQHzUj2K/1KHEiq4g?=
+ =?us-ascii?q?8+MzcawFXAzfEp2SZXdpy?=
+X-IronPort-AV: E=Sophos;i="5.99,198,1677560400"; 
+   d="scan'208";a="105999310"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: [PATCH] xen/livepatch: Fix .altinstructions safety checks
+Date: Sat, 15 Apr 2023 03:22:29 +0100
+Message-ID: <20230415022229.3475033-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 15 Apr 2023 01:45:13 +0200 (CEST)
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+The prior check has && vs || mixups, making it tautologically false and thus
+providing no safety at all.  There are boundary errors too.
 
-Enable parallel bringup for SEV-ES guests. The APs can't actually execute
-the CPUID instruction directly during early startup, but they can make the
-GHCB call directly instead, just as the #VC trap handler would do.
+First start with a comment describing how the .altinstructions and
+.altinstr_replacement sections interact, and perform suitable cross-checking.
 
-Thanks to Sabin for talking me through the way this works.
+Second, rewrite the alt_instr loop entirely from scratch.  Origin sites have
+non-zero size, and must be fully contained within .text.  Any non-zero sized
+replacements must be fully contained within .altinstr_replacement.
 
-Suggested-by: Sabin Rapan <sabrapan@amazon.com>
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Signed-off-by: Usama Arif <usama.arif@bytedance.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-
+Fixes: f8a10174e8b1 ("xsplice: Add support for alternatives")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- arch/x86/include/asm/sev-common.h |    3 +++
- arch/x86/include/asm/smp.h        |    1 +
- arch/x86/kernel/head_64.S         |   30 ++++++++++++++++++++++++++++++
- arch/x86/kernel/smpboot.c         |   14 ++++++++++++--
- 4 files changed, 46 insertions(+), 2 deletions(-)
+CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+CC: Ross Lagerwall <ross.lagerwall@citrix.com>
 
---- a/arch/x86/include/asm/sev-common.h
-+++ b/arch/x86/include/asm/sev-common.h
-@@ -70,6 +70,7 @@
- 	/* GHCBData[63:12] */				\
- 	(((u64)(v) & GENMASK_ULL(63, 12)) >> 12)
+As a further observation, .altinstr_replacement shouldn't survive beyond its
+use in apply_alternatives(), but the disp32 relative references (for x86 at
+least) in alt_instr force .altinstr_replacement to be close to the payload
+while being applied.
+---
+ xen/common/livepatch.c | 66 ++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 60 insertions(+), 6 deletions(-)
+
+diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+index 784fbd92e913..020a9648d5ba 100644
+--- a/xen/common/livepatch.c
++++ b/xen/common/livepatch.c
+@@ -803,28 +803,82 @@ static int prepare_payload(struct payload *payload,
+     if ( sec )
+     {
+ #ifdef CONFIG_HAS_ALTERNATIVE
++        /*
++         * (As of April 2023), Alternatives are formed of:
++         * - An .altinstructions section with an array of struct alt_instr's.
++         * - An .altinstr_replacement section containing instructions bytes.
++         *
++         * An individual alt_instr contains:
++         * - An orig reference, pointing into .text with a nonzero length
++         * - A repl reference, pointing into .altinstr_replacement
++         *
++         * It is legal to have zero-length replacements, meaning it is legal
++         * for the .altinstr_replacement section to be empty too.  An
++         * implementation detail means that a zero-length replacement's repl
++         * reference will be the start of the .altinstr_replacement section.
++         */
++        const struct livepatch_elf_sec *repl_sec;
+         struct alt_instr *a, *start, *end;
  
-+#ifndef __ASSEMBLY__
- /*
-  * SNP Page State Change Operation
-  *
-@@ -161,6 +162,8 @@ struct snp_psc_desc {
+         if ( !section_ok(elf, sec, sizeof(*a)) )
+             return -EINVAL;
  
- #define GHCB_RESP_CODE(v)		((v) & GHCB_MSR_INFO_MASK)
- 
-+#endif /* __ASSEMBLY__ */
++        /* Tolerate an empty .altinstructions section... */
++        if ( sec->sec->sh_size == 0 )
++            goto alt_done;
 +
- /*
-  * Error codes related to GHCB input that can be communicated back to the guest
-  * by setting the lower 32-bits of the GHCB SW_EXITINFO1 field to 2.
---- a/arch/x86/include/asm/smp.h
-+++ b/arch/x86/include/asm/smp.h
-@@ -202,6 +202,7 @@ extern unsigned int smpboot_control;
- #define STARTUP_APICID_CPUID_1F 0x80000000
- #define STARTUP_APICID_CPUID_0B 0x40000000
- #define STARTUP_APICID_CPUID_01 0x20000000
-+#define STARTUP_APICID_SEV_ES	0x10000000
- 
- /* Top 8 bits are reserved for control */
- #define STARTUP_PARALLEL_MASK	0xFF000000
---- a/arch/x86/kernel/head_64.S
-+++ b/arch/x86/kernel/head_64.S
-@@ -26,6 +26,7 @@
- #include <asm/nospec-branch.h>
- #include <asm/fixmap.h>
- #include <asm/smp.h>
-+#include <asm/sev-common.h>
- 
- /*
-  * We are not able to switch in one step to the final KERNEL ADDRESS SPACE
-@@ -243,9 +244,14 @@ SYM_INNER_LABEL(secondary_startup_64_no_
- 	 * Bit 31	STARTUP_APICID_CPUID_1F flag (use CPUID 0x1f)
- 	 * Bit 30	STARTUP_APICID_CPUID_0B flag (use CPUID 0x0b)
- 	 * Bit 29	STARTUP_APICID_CPUID_01 flag (use CPUID 0x01)
-+	 * Bit 28	STARTUP_APICID_SEV_ES flag (CPUID 0x0b via GHCB MSR)
- 	 * Bit 0-23	CPU# if STARTUP_APICID_CPUID_xx flags are not set
- 	 */
- 	movl	smpboot_control(%rip), %ecx
-+#ifdef CONFIG_AMD_MEM_ENCRYPT
-+	testl	$STARTUP_APICID_SEV_ES, %ecx
-+	jnz	.Luse_sev_cpuid_0b
-+#endif
- 	testl	$STARTUP_APICID_CPUID_1F, %ecx
- 	jnz	.Luse_cpuid_1f
- 	testl	$STARTUP_APICID_CPUID_0B, %ecx
-@@ -262,6 +268,30 @@ SYM_INNER_LABEL(secondary_startup_64_no_
- 	shr	$24, %edx
- 	jmp	.Lsetup_AP
- 
-+#ifdef CONFIG_AMD_MEM_ENCRYPT
-+.Luse_sev_cpuid_0b:
-+	/* Set the GHCB MSR to request CPUID 0x0B_EDX */
-+	movl	$MSR_AMD64_SEV_ES_GHCB, %ecx
-+	movl	$(GHCB_CPUID_REQ_EDX << 30) | GHCB_MSR_CPUID_REQ, %eax
-+	movl	$0x0b, %edx
-+	wrmsr
++        /* ... but otherwise, there needs to be something to alter... */
++        if ( payload->text_size == 0 )
++        {
++            printk(XENLOG_ERR LIVEPATCH "%s Alternatives provided, but no .text\n",
++                   elf->name);
++            return -EINVAL;
++        }
 +
-+	/* Perform GHCB MSR protocol */
-+	rep; vmmcall		/* vmgexit */
++        /* ... and something to be altered to. */
++        repl_sec = livepatch_elf_sec_by_name(elf, ".altinstr_replacement");
++        if ( !repl_sec )
++        {
++            printk(XENLOG_ERR LIVEPATCH "%s .altinstructions provided, but no .altinstr_replacement\n",
++                   elf->name);
++            return -EINVAL;
++        }
 +
-+	/*
-+	 * Get the result. After the RDMSR:
-+	 *   EAX should be 0xc0000005
-+	 *   EDX should have the CPUID register value and since EDX
-+	 *   is the target register, no need to move the result.
-+	 */
-+	rdmsr
-+	andl	$GHCB_MSR_INFO_MASK, %eax
-+	cmpl	$GHCB_MSR_CPUID_RESP, %eax
-+	jne	1f
-+	jmp	.Lsetup_AP
-+#endif
+         start = sec->load_addr;
+         end = sec->load_addr + sec->sec->sh_size;
+ 
+         for ( a = start; a < end; a++ )
+         {
+-            const void *instr = ALT_ORIG_PTR(a);
+-            const void *replacement = ALT_REPL_PTR(a);
++            const void *orig = ALT_ORIG_PTR(a);
++            const void *repl = ALT_REPL_PTR(a);
 +
- .Luse_cpuid_0b:
- 	mov	$0x0B, %eax
- 	xorl	%ecx, %ecx
---- a/arch/x86/kernel/smpboot.c
-+++ b/arch/x86/kernel/smpboot.c
-@@ -86,6 +86,7 @@
- #include <asm/hw_irq.h>
- #include <asm/stackprotector.h>
- #include <asm/sev.h>
-+#include <asm/coco.h>
++            /* orig must be fully within .text. */
++            if ( orig               < payload->text_addr ||
++                 a->orig_len        > payload->text_size ||
++                 orig + a->orig_len > payload->text_addr + payload->text_size )
++            {
++                printk(XENLOG_ERR LIVEPATCH
++                       "%s Alternative orig %p+%#x outside payload text %p+%#lx\n",
++                       elf->name, orig, a->orig_len, payload->text_addr, payload->text_size);
++                return -EINVAL;
++            }
  
- /* representing HT siblings of each logical CPU */
- DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_map);
-@@ -1266,8 +1267,16 @@ bool __init arch_cpuhp_init_parallel_bri
- 
- 	/* Encrypted guests require special CPUID handling. */
- 	if (cc_platform_has(CC_ATTR_GUEST_STATE_ENCRYPT)) {
--		pr_info("Parallel CPU startup disabled due to guest state encryption\n");
--		return false;
-+		switch (cc_get_vendor()) {
-+		case CC_VENDOR_AMD:
-+			ctrl = STARTUP_APICID_SEV_ES;
-+			if (topology_extended_leaf == 0x0b)
-+				goto setup;
-+			fallthrough;
-+		default:
-+			pr_info("Parallel CPU startup disabled due to guest state encryption\n");
-+			return false;
-+		}
- 	}
- 
- 	switch (topology_extended_leaf) {
-@@ -1290,6 +1299,7 @@ bool __init arch_cpuhp_init_parallel_bri
- 		return false;
- 	}
- 
-+setup:
- 	pr_debug("Parallel CPU startup enabled: 0x%08x\n", ctrl);
- 	smpboot_control = ctrl;
- 	return true;
+-            if ( (instr < region->start && instr >= region->end) ||
+-                 (replacement < region->start && replacement >= region->end) )
++            /*
++             * repl must be fully within .altinstr_replacement, even if they
++             * happen to both have zero length.
++             */
++            if ( repl               < repl_sec->load_addr ||
++                 a->repl_len        > repl_sec->sec->sh_size ||
++                 repl + a->repl_len > repl_sec->load_addr + repl_sec->sec->sh_size )
+             {
+-                printk(XENLOG_ERR LIVEPATCH "%s Alt patching outside payload: %p\n",
+-                       elf->name, instr);
++                printk(XENLOG_ERR LIVEPATCH
++                       "%s Alternative repl %p+%#x outside .altinstr_replacement %p+%#lx\n",
++                       elf->name, repl, a->repl_len, repl_sec->load_addr, repl_sec->sec->sh_size);
+                 return -EINVAL;
+             }
+         }
+         apply_alternatives(start, end);
++    alt_done:;
+ #else
+         printk(XENLOG_ERR LIVEPATCH "%s: We don't support alternative patching\n",
+                elf->name);
+-- 
+2.30.2
 
 
