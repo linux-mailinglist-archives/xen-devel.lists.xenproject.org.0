@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 112D96E3870
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Apr 2023 14:53:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521548.810288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A62C56E3871
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Apr 2023 14:58:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521553.810297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1po1sd-00029z-Ty; Sun, 16 Apr 2023 12:53:19 +0000
+	id 1po1xI-0002mz-EF; Sun, 16 Apr 2023 12:58:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521548.810288; Sun, 16 Apr 2023 12:53:19 +0000
+Received: by outflank-mailman (output) from mailman id 521553.810297; Sun, 16 Apr 2023 12:58:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1po1sd-00027i-Q3; Sun, 16 Apr 2023 12:53:19 +0000
-Received: by outflank-mailman (input) for mailman id 521548;
- Sun, 16 Apr 2023 12:53:18 +0000
+	id 1po1xI-0002kj-BY; Sun, 16 Apr 2023 12:58:08 +0000
+Received: by outflank-mailman (input) for mailman id 521553;
+ Sun, 16 Apr 2023 12:58:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1po1sc-00027c-F6
- for xen-devel@lists.xenproject.org; Sun, 16 Apr 2023 12:53:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1po1xG-0002kZ-TX; Sun, 16 Apr 2023 12:58:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1po1sc-0002ZA-5w; Sun, 16 Apr 2023 12:53:18 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1po1sc-0004Xq-1A; Sun, 16 Apr 2023 12:53:18 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1po1xG-0002eJ-Qf; Sun, 16 Apr 2023 12:58:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1po1xG-00020T-Cu; Sun, 16 Apr 2023 12:58:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1po1xG-0002Ty-CM; Sun, 16 Apr 2023 12:58:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,75 +42,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=GVZZ0J9TiOyDXbYJOrOwpCrGuXjgqWxUp/y97wdmlfY=; b=S4fbaSXbv2NLoqEod64MC0OO4h
-	BssaHvLgdRzT7CZsK97ladi6bheqH5kOiolQhKlLKEksxmh+mYsDMzrDBkxIxQg/J/oPLhU2oNq4T
-	348WwdvEh6rWS8bhXSppI6PsBnOYYqQ9aHbVppU5vO/xZO7U7WQGdpdWJmG47lLELV7w=;
-Message-ID: <5fb567c5-1e82-a048-1cfe-f6f69e0b5ebc@xen.org>
-Date: Sun, 16 Apr 2023 13:53:16 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.9.0
-Subject: Re: [PATCH 3/3] xen/arm: fix unitialized use warning
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230414185714.292881-1-stewart.hildebrand@amd.com>
- <20230414185714.292881-4-stewart.hildebrand@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230414185714.292881-4-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Rp9UZqRU4Yn8+j1dNfSgu/F7/75/bVc0HaWE4qynx2Q=; b=jIW6WbHMqsVH5zQ27gjbVoRFcp
+	rC0Khvsz1XX3e+ThAEFJLEywMy7f2Sqs0dqKXOYzyCvMqkFMuruZj/GrC0VP6glLpAjnuO5ED0ys7
+	6E9ImwHyAet1ihtUuXITIm8Tpn28mUXvu4rj/qTxOXte1fhKgst8DMXOJmWsLlXV+MMU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180272-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 180272: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=7cbbd45af115c24dba1b1be9631a32d6215ff0cc
+X-Osstest-Versions-That:
+    libvirt=ebd004a03dbddc52dd1b47bd6bc4607f553d5e70
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 16 Apr 2023 12:58:06 +0000
 
-Hi Stewart,
+flight 180272 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180272/
 
-On 14/04/2023 19:57, Stewart Hildebrand wrote:
-> When building the hypervisor with -Og, we encounter the following error:
+Failures :-/ but no regressions.
 
-Is this with GCC 12 as well?
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt   16 saverestore-support-check fail starved in 180255
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail starved in 180255
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check fail starved in 180255
 
-> arch/arm/domain_build.c: In function ‘make_cpus_node’:
-> arch/arm/domain_build.c:2040:12: error: ‘clock_valid’ may be used uninitialized [-Werror=maybe-uninitialized]
->   2040 |         if ( clock_valid )
->        |            ^
-> arch/arm/domain_build.c:1947:10: note: ‘clock_valid’ was declared here
->   1947 |     bool clock_valid;
->        |          ^~~~~~~~~~~
-> cc1: all warnings being treated as errors
-> 
-> Fix it by initializing the variable.
-> 
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> ---
-> See previous discussion here
-> https://lists.xenproject.org/archives/html/xen-devel/2022-10/msg00741.html
-> ---
->   xen/arch/arm/domain_build.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 4f9d4f9d8867..18b350734a8e 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1944,7 +1944,7 @@ static int __init make_cpus_node(const struct domain *d, void *fdt)
->       /* Placeholder for cpu@ + a 32-bit hexadecimal number + \0 */
->       char buf[13];
->       u32 clock_frequency;
-> -    bool clock_valid;
-> +    bool clock_valid = false;
+version targeted for testing:
+ libvirt              7cbbd45af115c24dba1b1be9631a32d6215ff0cc
+baseline version:
+ libvirt              ebd004a03dbddc52dd1b47bd6bc4607f553d5e70
 
-NIT: I would add "Keep the compiler happy with -Og"
+Last test of basis   180255  2023-04-14 04:18:49 Z    2 days
+Testing same since   180267  2023-04-15 04:20:21 Z    1 days    2 attempts
 
-I am happy to add it while committing if you agree.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
 
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   ebd004a03d..7cbbd45af1  7cbbd45af115c24dba1b1be9631a32d6215ff0cc -> xen-tested-master
 
