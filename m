@@ -2,56 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950AF6E442B
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Apr 2023 11:42:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521893.810888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39DA76E4480
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Apr 2023 11:58:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521898.810898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1poLNG-0004jK-JC; Mon, 17 Apr 2023 09:42:14 +0000
+	id 1poLcv-0006Ni-QN; Mon, 17 Apr 2023 09:58:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521893.810888; Mon, 17 Apr 2023 09:42:14 +0000
+Received: by outflank-mailman (output) from mailman id 521898.810898; Mon, 17 Apr 2023 09:58:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1poLNG-0004gk-GL; Mon, 17 Apr 2023 09:42:14 +0000
-Received: by outflank-mailman (input) for mailman id 521893;
- Mon, 17 Apr 2023 09:42:12 +0000
+	id 1poLcv-0006LZ-NO; Mon, 17 Apr 2023 09:58:25 +0000
+Received: by outflank-mailman (input) for mailman id 521898;
+ Mon, 17 Apr 2023 09:58:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ncOi=AI=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1poLNE-0004gc-Hn
- for xen-devel@lists.xenproject.org; Mon, 17 Apr 2023 09:42:12 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20623.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::623])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1fc76888-dd04-11ed-b21e-6b7b168915f2;
- Mon, 17 Apr 2023 11:42:11 +0200 (CEST)
-Received: from MW4PR04CA0050.namprd04.prod.outlook.com (2603:10b6:303:6a::25)
- by IA0PR12MB7628.namprd12.prod.outlook.com (2603:10b6:208:436::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.38; Mon, 17 Apr
- 2023 09:42:07 +0000
-Received: from CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6a:cafe::de) by MW4PR04CA0050.outlook.office365.com
- (2603:10b6:303:6a::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.46 via Frontend
- Transport; Mon, 17 Apr 2023 09:42:07 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT035.mail.protection.outlook.com (10.13.175.36) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.19 via Frontend Transport; Mon, 17 Apr 2023 09:42:07 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 17 Apr
- 2023 04:42:06 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 17 Apr
- 2023 04:42:06 -0500
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Mon, 17 Apr 2023 04:42:04 -0500
+ <SRS0=696H=AI=citrix.com=prvs=464f2b76b=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1poLcu-0006LT-IT
+ for xen-devel@lists.xenproject.org; Mon, 17 Apr 2023 09:58:24 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 623d5702-dd06-11ed-b21e-6b7b168915f2;
+ Mon, 17 Apr 2023 11:58:22 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,121 +36,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fc76888-dd04-11ed-b21e-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JEi8DUJjviYeEcDBk3mkvqlkEtQA9Sxt+CuiJhCyQtopQutGoRTcLXa+nFl89XBfjwK1FMjG0AF8H8l5FZzKXavRAVM+C1iKV9n1Fj6997New7XKMxsFv1lwMgDPtWTZePDJnJC1fAbIOuS6L7Ut7zxcc4uZbLN0I+eqAfZa1bnEVU3RBxOfAe0zdHvqqxgrPX2UJOEYailALXfqPn3HeHA9ZiRdibDuO812Nz9LVjnqWX7AnSkZqeO3NywljibBt02/YURt/uZEFGry8Z06Ior36FVWIR/bIldD+FMbIdWl7ed5JjSneAJc9rUuvdyZJxNMqbAMGRqSs1nMoYNmqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jwxDBkwwAOkhG7T9g8ihpMC8ekDPONtAy2podrYq4lA=;
- b=ZXBSUpWHOEtHhrf7Q01jx6J5XqIvSXr1Qvxw4mWHECTKyTnOZ7+TBoskA3TES/awPJmQieqtXcWFMtuMTDfTi+xu6mCAx51Hk6hWg/h6vnERqbjJQ0PB2Fl21jFPyIS+Rj6owL+BeADJdlH4SaTTgVO7l9np9OQQGpRn2cQ5dQG0mxMHctJJnT7jxGYu324kbuPBUi5j5MfdARqjfHsBkM57ThDVhx85Jk5XWFZ1FZwHegO0luIRujYMn9uOf3m8Ah6jXLoAjZF3VzSJVeCOkA89oFYBHnr90+LdFxe/tXKkHjo5HAV7IiYp8nfCQnR6W2BhDc42AbjmL3ORvfAlcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jwxDBkwwAOkhG7T9g8ihpMC8ekDPONtAy2podrYq4lA=;
- b=YfeM1460YhiObjo/TbuXYi4xFA+yrdwLZLZTQ6kOjfeGYuNQ6U4UI5PKFllHlUKJf2Vk4Zkivw0TnWR+pEDigSKc0FOlfN7PkBKrjyeOiQk3q3XDZHxkYRFSFKNouN6KPOLtU016abGNkIuMKUZWuIe19tsrDJRG7rhyfl5JObo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <70a79d55-3f16-d371-23e9-e3650e47b00d@amd.com>
-Date: Mon, 17 Apr 2023 11:41:59 +0200
+X-Inumbo-ID: 623d5702-dd06-11ed-b21e-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1681725502;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=83FgYJEDQqw0aagJvbVPk/UjZa2pVWCfrH0XPjUsAL0=;
+  b=ardyeLF7c8BajflSRoCvWhKCZc3p6eEm6C2x428f8gXAC/3jg9vc2kLZ
+   4xDFU7+5t6snIx0pZJujc0kbZA0efqyNwu7DKUyS6cyouhaYUqcMuoXjy
+   Nsoo3urrsUI3LS2jE5s/IJO8muB79QlN1f3keTt7mhFkH6vzv3vEAEvRr
+   0=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 104565129
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:aDRYa6gmYDsG0OduAYAKIzocX161FhAKZh0ujC45NGQN5FlHY01je
+ htvXG7Ub6mDYzegftt/bYq380pXsZPXmtAwSQpvpXo9Hykb9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsy+qWj0N8klgZmP6sT4AaAzyN94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQxFhQzZx6S3Nuw/67lWrBu2cMHE5LSadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27B/
+ j6boTmgWEBy2Nq35SvYyVnvmcj2wWDEQYgoBYaXrPdAuQjGroAUIEJPDgbqyRWjsWauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O+497huExuzL4gKaLm8eRzVFZZots8peeNAx/
+ gbXxZWzX2Up6eDLDyvHrd94sA9eJwA8E0s8bCEVFjID3MW9sNgx0RXrcY1aRfvdYsLOJd3g/
+ 9ybhHFg1+xP1p9WhvnTEUPv2Gz1+MWQJuIhzkCOBz/+sFskDGKwT9bwgWU3+8qsO2pworOpm
+ HEf0/aT4+kVZX1mvHzcGb5ddF1FChvsDdE9vbKMN8N7n9hV0yT/Fb28GRknTKuTDu4KeCXyf
+ GjYsh5L6ZlYMROCNPEnOtzuU5x3kPe4SbwJs8w4ifIXO/BMmPKvpnkyNSZ8IUi2+KTTrU3PE
+ cjCKpv9ZZrrIa9m0CC3V48g7FPf/QhnnTm7bcmin3yaPU+2OCb9pUEtbAHfMYjULcqs/G3oz
+ jqoH5fTkEgAALWjOHG/HEx6BQliEEXXzKve86R/HtNv6CI8cI39I5c9GY8cRrE=
+IronPort-HdrOrdr: A9a23:8mFkC6wrZSAnQ1SntbnEKrPw871zdoMgy1knxilNoHxuH/Bw8P
+ re+MjztCWE7Qr5PUtLpTnuAsa9qB/nm6KdgrNhX4tKPjOHhILAFugLgbcKqweKJ8SUzJ8/6U
+ 4PSclD4N2bNykBsS75ijPIburJw7O8gdyVbf+19QYLcenzAZsQlDuQDGygYytLrFkvP+tBKH
+ KEjPA33wadRQ==
+X-Talos-CUID: 9a23:rx39Q2GZzsaB6m6oqmJOymoqE840KUTb82uOMxa6VmFNd+asHAo=
+X-Talos-MUID: 9a23:jpannwq059LNjv/m38Yezx1zafxDoLuJMRxOrowMgdi/GnZ5EQ7I2Q==
+X-IronPort-AV: E=Sophos;i="5.99,203,1677560400"; 
+   d="scan'208";a="104565129"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>
+Subject: [PATCH] xen/livepatch: Fix secure_payload() in non-debug builds
+Date: Mon, 17 Apr 2023 10:58:15 +0100
+Message-ID: <20230417095815.3734434-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [XEN][PATCH v5 11/17] asm/smp.h: Fix circular dependency for
- device_tree.h and rwlock.h
-Content-Language: en-US
-To: Vikram Garhwal <vikram.garhwal@amd.com>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230411191636.26926-1-vikram.garhwal@amd.com>
- <20230411191636.26926-12-vikram.garhwal@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20230411191636.26926-12-vikram.garhwal@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT035:EE_|IA0PR12MB7628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9034ea9f-76d7-4a54-dc55-08db3f280247
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	WkBPvT910YlzhLPopo3ylZMOvWsIipjVApDdeuLc1Omvp+1oaPpFoxGKUfo6TrpoMg2OGw5gRVZNyFQ1EaidIJ1d8kdEyuQQIq+rWiBLZtJsDJ+oBiyw98wXR4A7YfNsQmhDYDKaPAjFE6shLf3ZV0fRlY18yBRd9hTcbzYSeDQMs9Dpau9MhFRHtV9pkG+r/Qvm2mhwlFHFT2LlflRCiwXS9k6WOq/S7N/YGc136BYYEw5nEWGKa0ZitTx7zohxt6sV+KzqQbrBHQAHt06uciRO9ZN00E7u198DbvRkz0ZHgL4h1lmpvfCY1SghJgAQEdYd728p2UOr1uJ0t/+hOQYeA1wowUM49ylBDCY1Iltv2YaPRUVNyXrY/5yU1oDpX/qaPv45AQVJscIUhL9KvBxnLC3t3tflOFxpu/7D46MMzXG5GLayjFAWJlAeuWg8H46Vru1konosAPFLnxZSD283V8ltp7jRhUr0WgxJK6ql2Fpex14d2hbScLfK1/Fp0ybaaL1fu2Hg6NGzl5o6byBGp12cUFGez//v11ePnbPqMbcM4MGgtoM8b1Qkc0x/oSe4sU70pCa3kUdRUTqv+OhCg1/nU2taHHt+uJQ06oAlx0FvwET2A2V29vTIYHo19q9bE0Nhlfg+RvuOe63N0F/eaAtg6wfHTNdFrnzlLNnGVfEnyrjIuv//UMXgH9ZF2lpVcBN2tkZ/6P6Xxt2uA+TKzfZ+Ka061ggXrwL8FyQdDYzZwYBBcYwZMFw4/6KS7e4bnFY16mYH5zs/OrIdJA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(39860400002)(346002)(376002)(451199021)(36840700001)(40470700004)(46966006)(31686004)(8676002)(4326008)(54906003)(70206006)(70586007)(5660300002)(8936002)(40480700001)(110136005)(16576012)(316002)(478600001)(40460700003)(41300700001)(86362001)(47076005)(426003)(31696002)(83380400001)(2616005)(82310400005)(336012)(82740400003)(36860700001)(81166007)(356005)(6666004)(36756003)(44832011)(53546011)(26005)(186003)(2906002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2023 09:42:07.0844
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9034ea9f-76d7-4a54-dc55-08db3f280247
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT035.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7628
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi Vikram,
+The ro_pages + rw_pages + text_pages != payload->pages check is not something
+which is reasonable to skip at runtime.  Rewrite it to not be an ASSERT().
 
-On 11/04/2023 21:16, Vikram Garhwal wrote:
-> 
-> 
-> Dynamic programming ops will modify the dt_host and there might be other
-> function which are browsing the dt_host at the same time. To avoid the race
-> conditions, adding rwlock for browsing the dt_host. But adding rwlock in
-> device_tree.h causes following circular dependency:
->     device_tree.h->rwlock.h->smp.h->asm/smp.h->device_tree.h
-> 
-> To fix this, removed the "#include <xen/device_tree.h> and forward declared
-> "struct dt_device_node".
-> 
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> ---
->  xen/arch/arm/include/asm/smp.h | 3 ++-
->  xen/arch/arm/smpboot.c         | 1 +
->  2 files changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/smp.h b/xen/arch/arm/include/asm/smp.h
-> index 8133d5c295..afe6129276 100644
-> --- a/xen/arch/arm/include/asm/smp.h
-> +++ b/xen/arch/arm/include/asm/smp.h
-> @@ -3,13 +3,14 @@
-> 
->  #ifndef __ASSEMBLY__
->  #include <xen/cpumask.h>
-> -#include <xen/device_tree.h>
->  #include <asm/current.h>
->  #endif
-> 
->  DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
->  DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
-> 
-> +struct dt_device_node;
-> +
->  #define cpu_is_offline(cpu) unlikely(!cpu_online(cpu))
-> 
->  #define smp_processor_id() get_processor_id()
-> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-> index 412ae22869..336a7d418b 100644
-> --- a/xen/arch/arm/smpboot.c
-> +++ b/xen/arch/arm/smpboot.c
-> @@ -11,6 +11,7 @@
->  #include <xen/cpumask.h>
->  #include <xen/delay.h>
->  #include <xen/domain_page.h>
-> +#include <xen/device_tree.h>
-Headers should be listed in alphabetical order, so device_tree.h goes before domain_page.h
+As the code is being shuffled anyway, rework the logic calling
+arch_livepatch_secure() to reduce its verbosity.
 
-Other than that:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+CC: Ross Lagerwall <ross.lagerwall@citrix.com>
+---
+ xen/common/livepatch.c | 37 ++++++++++++++++---------------------
+ 1 file changed, 16 insertions(+), 21 deletions(-)
 
-~Michal
+diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+index d385f882c65c..c10ab1f374e0 100644
+--- a/xen/common/livepatch.c
++++ b/xen/common/livepatch.c
+@@ -405,32 +405,27 @@ static int move_payload(struct payload *payload, struct livepatch_elf *elf)
+ 
+ static int secure_payload(struct payload *payload, struct livepatch_elf *elf)
+ {
+-    int rc = 0;
+-    unsigned int text_pages, rw_pages, ro_pages;
++    unsigned int text_pages = PFN_UP(payload->text_size);
++    unsigned int rw_pages   = PFN_UP(payload->rw_size);
++    unsigned int ro_pages   = PFN_UP(payload->ro_size);
++    int rc;
+ 
+-    text_pages = PFN_UP(payload->text_size);
++    if ( ro_pages + rw_pages + text_pages != payload->pages )
++        return -EINVAL;
+ 
+-    if ( text_pages )
+-    {
+-        rc = arch_livepatch_secure(payload->text_addr, text_pages, LIVEPATCH_VA_RX);
+-        if ( rc )
+-            return rc;
+-    }
+-    rw_pages = PFN_UP(payload->rw_size);
+-    if ( rw_pages )
+-    {
+-        rc = arch_livepatch_secure(payload->rw_addr, rw_pages, LIVEPATCH_VA_RW);
+-        if ( rc )
+-            return rc;
+-    }
++    if ( text_pages &&
++         (rc = arch_livepatch_secure(payload->text_addr, text_pages, LIVEPATCH_VA_RX)) )
++        return rc;
+ 
+-    ro_pages = PFN_UP(payload->ro_size);
+-    if ( ro_pages )
+-        rc = arch_livepatch_secure(payload->ro_addr, ro_pages, LIVEPATCH_VA_RO);
++    if ( rw_pages &&
++         (rc = arch_livepatch_secure(payload->rw_addr, rw_pages, LIVEPATCH_VA_RW)) )
++        return rc;
+ 
+-    ASSERT(ro_pages + rw_pages + text_pages == payload->pages);
++    if ( ro_pages &&
++         (rc = arch_livepatch_secure(payload->ro_addr, ro_pages, LIVEPATCH_VA_RO)) )
++        return rc;
+ 
+-    return rc;
++    return 0;
+ }
+ 
+ static bool section_ok(const struct livepatch_elf *elf,
+-- 
+2.30.2
+
 
