@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6FFE6E3FCB
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Apr 2023 08:28:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521748.810578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B6EC6E3FDB
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Apr 2023 08:36:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521752.810588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1poILb-0001Ma-Fa; Mon, 17 Apr 2023 06:28:19 +0000
+	id 1poISg-0002sV-6J; Mon, 17 Apr 2023 06:35:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521748.810578; Mon, 17 Apr 2023 06:28:19 +0000
+Received: by outflank-mailman (output) from mailman id 521752.810588; Mon, 17 Apr 2023 06:35:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1poILb-0001Kr-Bi; Mon, 17 Apr 2023 06:28:19 +0000
-Received: by outflank-mailman (input) for mailman id 521748;
- Mon, 17 Apr 2023 06:28:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5U/i=AI=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1poILa-0001Ki-7z
- for xen-devel@lists.xenproject.org; Mon, 17 Apr 2023 06:28:18 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09caec83-dce9-11ed-b21e-6b7b168915f2;
- Mon, 17 Apr 2023 08:28:17 +0200 (CEST)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-2f9b9aa9d75so380484f8f.0
- for <xen-devel@lists.xenproject.org>; Sun, 16 Apr 2023 23:28:16 -0700 (PDT)
+	id 1poISg-0002qB-2h; Mon, 17 Apr 2023 06:35:38 +0000
+Received: by outflank-mailman (input) for mailman id 521752;
+ Mon, 17 Apr 2023 06:35:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yHEP=AI=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1poISe-0002q5-6L
+ for xen-devel@lists.xenproject.org; Mon, 17 Apr 2023 06:35:36 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0e315093-dcea-11ed-8611-37d641c3527e;
+ Mon, 17 Apr 2023 08:35:34 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 702BB1F38D;
+ Mon, 17 Apr 2023 06:35:33 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 441E013319;
+ Mon, 17 Apr 2023 06:35:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id WB4nD7XoPGTJBwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 17 Apr 2023 06:35:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,168 +51,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09caec83-dce9-11ed-b21e-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1681712896; x=1684304896;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6tQQU4zJUs1IaMa5esJ+nKNalf4Avzhr/SufnUx+NCw=;
-        b=cqzTcONMfhf0RcHZqKcTVBQJN0AItWw4f94hORDEuT6ZleTKHHrHdyU16QVoI/gDvx
-         xyKkWtmAbhOXwsXAdl5BcqH9b162apqmFWtWFgB+MP1+WbWCmLW8v2QSzs71kKc8LFPl
-         pR4sX7AuKzZQA8Hntd6tN7sgEi0T+NuTKur0MJyTIDlFvA2CG58cU8h7mnGbRuFIVfbg
-         BX2zNprTWnEpYoWy2WsAAmyPN25OKHimkYoKYwfiJl8GKPvcWNa7hQ2PGAvKc0tzK0L0
-         uzePbQlIu4aWfmVO36U7NQ8Wt1XRm18cATrRSTfz2KNhoTLr4Y4bCooLxIMuCcBLxnqT
-         gLlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681712896; x=1684304896;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6tQQU4zJUs1IaMa5esJ+nKNalf4Avzhr/SufnUx+NCw=;
-        b=DrGklLCcnk/vGx4OGel+zS5Qcd98ODOsvoeaQeMk6gtjJW9m1fCuNa4HHnWPQ7NYZW
-         kOinBe9sr7BUmQFQsQUNp53dukAIWnhnWhjy3/t+jubMHCZCHmDl/u2CZ8OlNChPNiP+
-         J0o/gF61gpUQmO6TGs2iAB5XnCPshcFv0Vic9xqQLs2853oHdtvjPbQn6OgDz1Zk2k+4
-         o1j+2iA+w1A4jl3XQRZNQ0XvApFySwBV2wUx/EPIkWwXxi0lIWI9tRhCi/QTX8Iy0TFC
-         iJFlt7NvLDGZvxDKXYocxgjEqOQDCalgSZmFzhMiDKGrQuHVOtDgzb16LGsqKoybfR8Z
-         usCw==
-X-Gm-Message-State: AAQBX9fOzZWBbQ2ZaltuU3S333JabhkkAouN4DFuIRP/J46Ifkvw9Vuz
-	Zoj4uy2BWAYZ1j66+kiWUBvpIudPyndZifqu7AOwPg==
-X-Google-Smtp-Source: AKy350ajAuC1xjTVg5v5AturCDM83O5kaI0/c/FQjeKQVMfKROSCEqOeYV+8pG7SLj+9HqFNthaYCLGzTLNWkz3K5t0=
-X-Received: by 2002:a05:6000:1049:b0:2f5:6a2f:660f with SMTP id
- c9-20020a056000104900b002f56a2f660fmr1059730wrx.3.1681712896384; Sun, 16 Apr
- 2023 23:28:16 -0700 (PDT)
+X-Inumbo-ID: 0e315093-dcea-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1681713333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gfi+IABHGpYlqP7Ea7r8GTDv04KE6VV7UiF+gCL1X3o=;
+	b=sUT2V1Rm0ZGnZp38E8Y9ll4NYNO8hseIlBYh4TB+QAylwWq2UahTFkkEKGgFEcfr1a7wPW
+	JXDSGtZdjD8S85TH85ZrCKD/V4qk0WJun7ZJENt5NzA3NVei0P/0BHjUHGuGuhLptBtSnd
+	zKAR/L9fkXTfKzgTXVpS2oaiKts8MAQ=
+Message-ID: <fda641f1-e87e-3dc0-85a5-acf91d6f39ff@suse.com>
+Date: Mon, 17 Apr 2023 08:35:32 +0200
 MIME-Version: 1.0
-References: <20230413071424.3273490-1-jens.wiklander@linaro.org>
- <20230413071424.3273490-13-jens.wiklander@linaro.org> <6d1b8904-374c-4392-6945-2746f97c31f6@xen.org>
-In-Reply-To: <6d1b8904-374c-4392-6945-2746f97c31f6@xen.org>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Mon, 17 Apr 2023 08:28:05 +0200
-Message-ID: <CAHUa44HHHycgzsYhArkgVncbFP+GE1qEU7mOcUcp7TYgon8tWA@mail.gmail.com>
-Subject: Re: [XEN PATCH v8 12/22] xen/arm: ffa: support mapping guest RX/TX buffers
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
-	Marc Bonnici <marc.bonnici@arm.com>, Achin Gupta <achin.gupta@arm.com>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Content-Language: en-US
+To: Alexander Kanavin <alex@linutronix.de>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <20230412090104.3794213-1-alex@linutronix.de>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] tools/xenstore/xenstored_control.c: correctly print
+ time_t
+In-Reply-To: <20230412090104.3794213-1-alex@linutronix.de>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------e8RkAns0TqfJFeVgiQRV8lNg"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------e8RkAns0TqfJFeVgiQRV8lNg
+Content-Type: multipart/mixed; boundary="------------2PINZutKOFs6uaGlQkIzQ4ZC";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Alexander Kanavin <alex@linutronix.de>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <fda641f1-e87e-3dc0-85a5-acf91d6f39ff@suse.com>
+Subject: Re: [PATCH] tools/xenstore/xenstored_control.c: correctly print
+ time_t
+References: <20230412090104.3794213-1-alex@linutronix.de>
+In-Reply-To: <20230412090104.3794213-1-alex@linutronix.de>
+
+--------------2PINZutKOFs6uaGlQkIzQ4ZC
+Content-Type: multipart/mixed; boundary="------------xPXyoIDaEOCo32SxzBFdH5zG"
+
+--------------xPXyoIDaEOCo32SxzBFdH5zG
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMTIuMDQuMjMgMTE6MDEsIEFsZXhhbmRlciBLYW5hdmluIHdyb3RlOg0KPiBPbiAzMiBi
+aXQgc3lzdGVtcyB3aXRoIDY0IGJpdCB0aW1lX3QgKGhlbGxvLCBZMjAzOCBwcm9ibGVtKSwN
+Cj4gdGhlIGZvbGxvd2luZyBlcnJvciBvY2N1cnMgb3RoZXJ3aXNlOg0KPiANCj4gfCB4ZW5z
+dG9yZWRfY29udHJvbC5jOiBJbiBmdW5jdGlvbiAnbHVfcmVqZWN0X3JlYXNvbic6DQo+IHwg
+eGVuc3RvcmVkX2NvbnRyb2wuYzo2NDY6NzA6IGVycm9yOiBmb3JtYXQgJyVsZCcgZXhwZWN0
+cyBhcmd1bWVudCBvZiB0eXBlICdsb25nIGludCcsIGJ1dCBhcmd1bWVudCA1IGhhcyB0eXBl
+ICd0aW1lX3QnIHtha2EgJ2xvbmcgbG9uZyBpbnQnfSBbLVdlcnJvcj1mb3JtYXQ9XQ0KPiAN
+Cj4gU2lnbmVkLW9mZi1ieTogQWxleGFuZGVyIEthbmF2aW4gPGFsZXhAbGludXRyb25peC5k
+ZT4NCj4gLS0tDQo+ICAgdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2NvbnRyb2wuYyB8IDQg
+KystLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
+KC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2NvbnRy
+b2wuYyBiL3Rvb2xzL3hlbnN0b3JlL3hlbnN0b3JlZF9jb250cm9sLmMNCj4gaW5kZXggY2Jk
+NjI1NTZjMy4uODY4Mzk0N2QyNSAxMDA2NDQNCj4gLS0tIGEvdG9vbHMveGVuc3RvcmUveGVu
+c3RvcmVkX2NvbnRyb2wuYw0KPiArKysgYi90b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfY29u
+dHJvbC5jDQo+IEBAIC02NjgsMTAgKzY2OCwxMCBAQCBzdGF0aWMgY29uc3QgY2hhciAqbHVf
+cmVqZWN0X3JlYXNvbihjb25zdCB2b2lkICpjdHgpDQo+ICAgCWxpc3RfZm9yX2VhY2hfZW50
+cnkoY29ubiwgJmNvbm5lY3Rpb25zLCBsaXN0KSB7DQo+ICAgCQlpZiAoY29ubi0+dGFfc3Rh
+cnRfdGltZSAmJg0KPiAgIAkJICAgIChub3cgLSBjb25uLT50YV9zdGFydF90aW1lID49IGx1
+X3N0YXR1cy0+dGltZW91dCkpIHsNCj4gLQkJCXJldCA9IHRhbGxvY19hc3ByaW50ZihjdHgs
+ICIlc1xuRG9tYWluICV1OiAlbGQgcyIsDQo+ICsJCQlyZXQgPSB0YWxsb2NfYXNwcmludGYo
+Y3R4LCAiJXNcbkRvbWFpbiAldTogJWpkIHMiLA0KPiAgIAkJCQkJICAgICAgcmV0ID8gOiAi
+RG9tYWlucyB3aXRoIGxvbmcgcnVubmluZyB0cmFuc2FjdGlvbnM6IiwNCj4gICAJCQkJCSAg
+ICAgIGNvbm4tPmlkLA0KPiAtCQkJCQkgICAgICBub3cgLSBjb25uLT50YV9zdGFydF90aW1l
+KTsNCj4gKwkJCQkJICAgICAgKGludG1heF90KW5vdyAtIGNvbm4tPnRhX3N0YXJ0X3RpbWUp
+Ow0KPiAgIAkJfQ0KPiAgIAl9DQo+ICAgDQoNCkknZCByYXRoZXIgaGF2ZSBzb21ldGhpbmcg
+bGlrZToNCg0KZGlmZiAtLWdpdCBhL3Rvb2xzL3hlbnN0b3JlL3hlbnN0b3JlZF9jb250cm9s
+LmMgYi90b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfY29udHJvbC5jDQppbmRleCBjYmQ2MjU1
+NmMzLi5mOTQ1MmQ2M2I0IDEwMDY0NA0KLS0tIGEvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVk
+X2NvbnRyb2wuYw0KKysrIGIvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2NvbnRyb2wuYw0K
+QEAgLTY2NiwxMiArNjY2LDEyIEBAIHN0YXRpYyBjb25zdCBjaGFyICpsdV9yZWplY3RfcmVh
+c29uKGNvbnN0IHZvaWQgKmN0eCkNCiAgICAgICAgIHRpbWVfdCBub3cgPSB0aW1lKE5VTEwp
+Ow0KDQogICAgICAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5KGNvbm4sICZjb25uZWN0aW9ucywg
+bGlzdCkgew0KLSAgICAgICAgICAgICAgIGlmIChjb25uLT50YV9zdGFydF90aW1lICYmDQot
+ICAgICAgICAgICAgICAgICAgIChub3cgLSBjb25uLT50YV9zdGFydF90aW1lID49IGx1X3N0
+YXR1cy0+dGltZW91dCkpIHsNCisgICAgICAgICAgICAgICB1bnNpZ25lZCBsb25nIHRkaWZm
+ID0gbm93IC0gY29ubi0+dGFfc3RhcnRfdGltZTsNCisNCisgICAgICAgICAgICAgICBpZiAo
+Y29ubi0+dGFfc3RhcnRfdGltZSAmJiB0ZGlmZiA+PSBsdV9zdGF0dXMtPnRpbWVvdXQpIHsN
+CiAgICAgICAgICAgICAgICAgICAgICAgICByZXQgPSB0YWxsb2NfYXNwcmludGYoY3R4LCAi
+JXNcbkRvbWFpbiAldTogJWxkIHMiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICByZXQgPyA6ICJEb21haW5zIHdpdGggbG9uZyANCnJ1bm5pbmcg
+dHJhbnNhY3Rpb25zOiIsDQotICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgY29ubi0+aWQsDQotICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgbm93IC0gY29ubi0+dGFfc3RhcnRfdGltZSk7DQorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29ubi0+aWQsIHRkaWZmKTsNCiAg
+ICAgICAgICAgICAgICAgfQ0KICAgICAgICAgfQ0KDQoNCkp1ZXJnZW4NCg==
+--------------xPXyoIDaEOCo32SxzBFdH5zG
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-Hi Julien,
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-On Thu, Apr 13, 2023 at 10:31=E2=80=AFPM Julien Grall <julien@xen.org> wrot=
-e:
->
-> Hi Jens,
->
-> On 13/04/2023 08:14, Jens Wiklander wrote:
-> > +static uint32_t handle_rxtx_map(uint32_t fid, register_t tx_addr,
-> > +                                register_t rx_addr, uint32_t page_coun=
-t)
-> > +{
-> > +    uint32_t ret =3D FFA_RET_INVALID_PARAMETERS;
-> > +    struct domain *d =3D current->domain;
-> > +    struct ffa_ctx *ctx =3D d->arch.tee;
-> > +    struct page_info *tx_pg;
-> > +    struct page_info *rx_pg;
-> > +    p2m_type_t t;
-> > +    void *rx;
-> > +    void *tx;
-> > +
-> > +    if ( !smccc_is_conv_64(fid) )
-> > +    {
-> > +        /*
-> > +         * Calls using the 32-bit calling convention must ignore the u=
-pper
-> > +         * 32 bits in the argument registers.
-> > +         */
-> > +        tx_addr &=3D UINT32_MAX;
-> > +        rx_addr &=3D UINT32_MAX;
-> > +    }
-> > +
-> > +    if ( page_count > FFA_MAX_RXTX_PAGE_COUNT ) {
->
-> Coding style:
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-OK
+--------------xPXyoIDaEOCo32SxzBFdH5zG--
 
->
-> if ( ... )
-> {
->
-> > +        printk(XENLOG_ERR "ffa: RXTX_MAP: error: %u pages requested (l=
-imit %u)\n",
-> > +               page_count, FFA_MAX_RXTX_PAGE_COUNT);
-> > +        return FFA_RET_NOT_SUPPORTED;
-> > +    }
-> > +
-> > +    /* Already mapped */
-> > +    if ( ctx->rx )
-> > +        return FFA_RET_DENIED;
-> > +
-> > +    tx_pg =3D get_page_from_gfn(d, gfn_x(gaddr_to_gfn(tx_addr)), &t, P=
-2M_ALLOC);
->
-> I might be missing something. Here you only get the reference on one
-> page. Per the value of FFA_MAX_RXTX_PAGE_COUNT, it looks like the buffer
-> can be up to 32 pages.
->
-> Can you clarify?
+--------------2PINZutKOFs6uaGlQkIzQ4ZC--
 
-Good catch. I'll reduce FFA_MAX_RXTX_PAGE_COUNT to 1 since that's what
-I've been testing with. I'll add a TODO for supporting a larger
-number.
+--------------e8RkAns0TqfJFeVgiQRV8lNg
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
->
-> > +    if ( !tx_pg )
-> > +        return FFA_RET_INVALID_PARAMETERS;
-> > +    /* Only normal RAM for now */
-> > +    if ( !p2m_is_ram(t) )
->
-> p2m_is_ram() would allow RAM page marked read-only in stage-2. Is it
-> intended?
->
-> If not, then I think you want to use t !=3D p2m_ram_rw.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks, I'll update it.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQ86LQFAwAAAAAACgkQsN6d1ii/Ey9o
+/wf/WaxV1xrZRmgp+3aTIMV9RguxozXwIBaLeHzkAH9AxdPCwmJsg3qzyE20Sf5oyf7mzyZ5aqqH
+XZhD09BybqFiQlu+1HIhBGMdqh9avOIwBeU2jahIiWXzGw/Wni7777ib1eSgWWHPgp64gbnxLymd
+V2aFAIYU9TZnRhoYiXca00NjMwYChnZN/joHfbxhM6Cvq8QSgAcpqoIi7nA5ZGH8eloMB+u/NAI3
+Gglc/toyFctFhFPPse4d0R36gc1jhSq7z6XP07tzWEPObJiXcoqqFIhDntWSJ277xxGYQlvFYh9K
+5JbPMJTUhYR/IFMO32ABKYZQcY2eGQSA0C4ltFooYw==
+=TJ0w
+-----END PGP SIGNATURE-----
 
->
-> > +        goto err_put_tx_pg;
-> > +
-> > +    rx_pg =3D get_page_from_gfn(d, gfn_x(gaddr_to_gfn(rx_addr)), &t, P=
-2M_ALLOC);
-> > +    if ( !tx_pg )
-> > +        goto err_put_tx_pg;
-> > +    /* Only normal RAM for now */
-> > +    if ( !p2m_is_ram(t) )
->
-> Same here.
-
-OK
-
-Thanks,
-Jens
-
->
-> > +        goto err_put_rx_pg;
-> > +
-> > +    tx =3D __map_domain_page_global(tx_pg);
-> > +    if ( !tx )
-> > +        goto err_put_rx_pg;
-> > +
-> > +    rx =3D __map_domain_page_global(rx_pg);
-> > +    if ( !rx )
-> > +        goto err_unmap_tx;
-> > +
-> > +    ctx->rx =3D rx;
-> > +    ctx->tx =3D tx;
-> > +    ctx->rx_pg =3D rx_pg;
-> > +    ctx->tx_pg =3D tx_pg;
-> > +    ctx->page_count =3D page_count;
-> > +    ctx->tx_is_free =3D true;
-> > +    return FFA_RET_OK;
->
-> Cheers,
->
-> --
-> Julien Grall
+--------------e8RkAns0TqfJFeVgiQRV8lNg--
 
