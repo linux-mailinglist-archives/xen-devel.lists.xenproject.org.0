@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D3E16E41C7
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Apr 2023 09:57:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.521810.810707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B32676E420E
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Apr 2023 10:06:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.521816.810718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1poJjS-0000Qu-5J; Mon, 17 Apr 2023 07:57:02 +0000
+	id 1poJsX-0002YR-A1; Mon, 17 Apr 2023 08:06:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 521810.810707; Mon, 17 Apr 2023 07:57:02 +0000
+Received: by outflank-mailman (output) from mailman id 521816.810718; Mon, 17 Apr 2023 08:06:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1poJjS-0000P9-2O; Mon, 17 Apr 2023 07:57:02 +0000
-Received: by outflank-mailman (input) for mailman id 521810;
- Mon, 17 Apr 2023 07:57:00 +0000
+	id 1poJsX-0002WN-76; Mon, 17 Apr 2023 08:06:25 +0000
+Received: by outflank-mailman (input) for mailman id 521816;
+ Mon, 17 Apr 2023 08:06:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S5Vl=AI=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1poJjQ-0000OA-H4
- for xen-devel@lists.xenproject.org; Mon, 17 Apr 2023 07:57:00 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20600.outbound.protection.outlook.com
- [2a01:111:f400:7d00::600])
+ id 1poJsV-0002WH-OZ
+ for xen-devel@lists.xenproject.org; Mon, 17 Apr 2023 08:06:23 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on2051.outbound.protection.outlook.com [40.107.6.51])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d16db00-dcf5-11ed-8611-37d641c3527e;
- Mon, 17 Apr 2023 09:56:57 +0200 (CEST)
+ id bcb97601-dcf6-11ed-8611-37d641c3527e;
+ Mon, 17 Apr 2023 10:06:20 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB9302.eurprd04.prod.outlook.com (2603:10a6:102:2b8::7)
+ by PAWPR04MB10055.eurprd04.prod.outlook.com (2603:10a6:102:380::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Mon, 17 Apr
- 2023 07:56:56 +0000
+ 2023 08:05:51 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6298.045; Mon, 17 Apr 2023
- 07:56:56 +0000
+ 08:05:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,335 +46,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d16db00-dcf5-11ed-8611-37d641c3527e
+X-Inumbo-ID: bcb97601-dcf6-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ldd4As3KEiTK+m4eagL9fG10B7sPRkWSQYmtbNTsT83m7yRGXFXZumKdBDEWAOIfXk6FBP+g19oVPNruOrIrPIxRm5EaahRPIe12Jn6v2Kilj6w7M51+DRwJwVyRAfj8T+rWvQyvDMYMvv+ZUVD2tRJnPJM5BXJbUTmyhufHfZFofGrfZ877GjGuEUN1q18hCY29GOGL3ZwwV6OJpRq95/OTQkFcpRRiqbVgZzPGRBiUdGv+QIcpTBUy0dlL+DC0LijswAQ21Bi9jNrRY1K8bPkJlv1VbeBrflsI5RUYDuKEl7e58KX2ciTJGKocM40Ww29aDTf9sSs8QUIidBw5Zg==
+ b=AEvsNM3CCIiOpxaes4zA9P3dGeExGNJv2llEGfU5Dpl+vHgPnYAj1lk43SSpK4CFkswvEGT1hk7Pv/rCclCVWIbm9yPqa0IMrqHeO73a+DksxOWjRvMLkRQusSB7iSTWCPuUCBTS1h/wDEUUqxNDb6t18ib0C1WSukcB0VXzdv6Emo+XmURByJ4BFQ1JC4RDWNm4wuZH1M+qerMEaoWriGtrNiAf6IbRYNMMzWl9KXcBjg2Sg00tj6Uws1zqfo5BSwKShA4w7vSKR0gX9+exTP4zfKgL/bLRIqOnmrljymSx1JT7+dTYP1G+kfw8YA/qZbJ4+xa/YrF1H7+th6VSfA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4hTLNFxuSW+sx0jVTw/3lYVZEc+ZiEssDDfFuBdiE90=;
- b=nhO/08kgprDvGYnH9xu6Lnp8JqAfNxTo7U6WvfeIWBPww8dfz1+Sjv1rcDQ/1PO9Y4vEDDls1thxoChHW8+QKR18l4GJ4ZWOR3xcHSHmDWeoodyn7O09Zo+eLLLyFaXHAATp35ZYG1OY4yu9o/zeIR9jprpqbofSF8N20WlhHEQJ4H/UP0ijwNUios9mKb5lp9DWQ2kkxkcs5c933FJJ+BPkNYAxblNlG/Q4zvrnWqlu1M8E6uXuY8MNbXoJPjAdQRhwB2tyyEz3I2A0RNeDVp54URQLwqDvLnv9u0/zoLZjqTf3/vNFVVQfl4+iV+aQmnI2qWA+sa3WpDUcmSLJfA==
+ bh=o/X4BUZEw9PGWHmf8kbHNWsoPJEyrQ8Kr2jYHU5jiag=;
+ b=MPEVJb/OkykpnF6Rb/O4uDDBDlMcVcWCjySH2whm+zPe6U1bFWCpx+j3/NC3I0+KG1BSsT8uJDMC621rlLj2mCRnFKMbxbkw4OPPbIAHeoGwqcIAKZAF/3CGEJrA7QS4fBG2L7UuP8uXF1S7R77sshBNFkq9qxDAHyh7kPFJ569bTaqrnmpZOmt+0MLcw8MJq6nR1Od8KDB/eduaL9Rg0cQF4CwqBqzCauB/mQKVeZUp1vp4IK2I/cd2hLkOwujV9HpJLQRep9QPNr5UP0MxKs+8QzM8NERJ2r85YM3h7SpCYnUCCZEWGHXjJEvkKezGdLCxW1NRu6m0bZGvkiAfJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4hTLNFxuSW+sx0jVTw/3lYVZEc+ZiEssDDfFuBdiE90=;
- b=uMcMymeimRqZMDLQ3csTEaP1CTDX41d6MI8XGdMZS7OQk3PRvY41juLwFGp2Jh69dMqDNHUUviyDiCzsfV9wcCwSBuF2OC9nOIkLLD+QWjDNxQbaNq5ieq+lXtjZGIKSUzs8il71HiYMefkluQz8C+gbqRUE8D0i+WVPv0tVKWF8Gols4894wWYZ55fGJ5xZ56w68wvRE9ztbSRvpYa2qHPlgp7wrmo34h7pEQ+Nl8EfTPZ1AYmcVYXeodr01m0iUE3kGr3ztOTR3vXZWDQW5t/sWS5o+njrR3evWNYHe4KJOsSNAM3WzQvt5dJzmn7HSW5pU2dvzZ/4GakNTVtAsA==
+ bh=o/X4BUZEw9PGWHmf8kbHNWsoPJEyrQ8Kr2jYHU5jiag=;
+ b=DW8ehCX4ZyMQCo0gdA4KUDEewvq5iHOZaDHInKdwuQ3bGT4ahVFE0g8kv8pSTD1Pkt+bvoAugVp5QsU2ClMGvkA81jnSkdt89BRZINbaeXlfQ3H8HGvbxoz0qT5aUZuPNMEoBxoo+hsjdf0ccPEnzvf/38IgEFwKHxJ1l37u03cR+91njTlYl+vF05HSFoECG+yC69+MBnh4LuqkeHgjhICTLdYzYWSX+RSHWkdOOtTB0NRxmVNLfTHs5Fu+l4EwCfByFgAwnVIIfUSsYHtqeEAJu5/8amEwG0LRE8ehCOgybMC6umb/tYoC3Wq1xTRHTmOpe6wwaYSnXDcWpZJ9XQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b7f3c088-2b80-b965-f307-4a31d72eb89c@suse.com>
-Date: Mon, 17 Apr 2023 09:56:54 +0200
+Message-ID: <3a554475-9e74-39be-e03a-aaca2c22b857@suse.com>
+Date: Mon, 17 Apr 2023 10:05:49 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
+Subject: Re: [PATCH v2] x86/hvm: Disallow CR0.PG 1->0 transitions when CS.L=1
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230412183519.2996902-1-andrew.cooper3@citrix.com>
+ <20230413150009.3145462-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86emul: switch split-off files to SPDX
+In-Reply-To: <20230413150009.3145462-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0065.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0049.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4a::22) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB9302:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ff73370-2723-42cf-e132-08db3f195083
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAWPR04MB10055:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8cdeeca-f02d-426c-a7ca-08db3f1a8f95
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	E6jr8k1NOi1tsmwKEwaQK9dCUBv9OCPFOpSp7iXdqx0C3fLzYhHcZQlrBA9qiqfC65LvmSHBD5gouUTC8InT6KPG1AQVyF9RSg/WT99S1tPt1S9TyNggFErw6vCkMJcUX93NIH9FqfXrHpn8rANQ4JAg6Ieh2+NjFqiwIK5qFSBwYcnLKhE3haEmWlXT+cJzCXanyUOZV0J00QFUhpNuByj5yJDiGAzGglVis5G+qj0Saym4W14Zvp3OXHZzvlyHMzZ0io++W6tviLgNKZhQY59g9Kmbi1l/bb+5/A2n8dF4ic+e7by1JyId4yzMqC1ILiiSL1b48GB/og7zcYKaTH28R+AIlGiv6D9bJS8TshxkWHSh2H+9+QX0+Ier11aWUXW2zN8MD8zXk+DneekKk6qS8TGUSyVVDurtiDLtoRMGv/TP/SzHGsW7+tXmiNL+TX0cU/WARQFSYQpiTZEJCsyGwps64wDNRhSpwdvkPF/wVJPN+YhiOuUir9yWZXDa2c1XuCnY+ts6BNFPLAQT3utvEmpENGy49tkyxby7QZqThzXKrhpd4fLrO5/KNUM0a3evKnr9Cyw/KoDfC5wCsguNBqhinBbZqikSaWXKNxOk9uOZxOxdxm8mU/Z0F7k560s7jzby96SdQpnpkHYg0PXm1jKYINYfPGYsDUALYI8=
+	ez/+hcM5O4reCB3HsbVTdYSnTTcJnC7QbpLPaufUvHEh7H1Z57QNGagpmIHkPagS0MoggqB0qpwetqz6SGIriGw+SGkHjRDatf5zQnjoCYgHKirD3F8iJ97+Tc3vdEfo8BIgLO/Da++YcN9vVCDZ9Y4B+ViQrg1lLUs2WxiuNEPBgfO+1F2eX8GvSVT8jXZxsGTfNYoao3UChzxJzmEg5praDLoz/wTCVGk58oUDTJJDxTWF8ig6v2yylyr2kknE7+gCTGmGIYJyNIyub4pgppSKwikqVa1yhOk7ljhHTZGBj9xYXcjNVZ31/ZN9BBdsbnSr3oNRwRsRnK98Hxe/ZzyD75HGBYwUkKXZV74UDsSeHDQJtyfjFFHypMV+CRCR5sxgFGzk/rhRiD/eLyzmGK2MrGY3IPvnLmyDxqH5Fw6aFRuKJIOWkoZUoqjNzCsW5CLreZwJqrxIkb19p4ooSw8pPlLyXFAddZr0JxXTXm6k539h3brAZGCBNrDJqYeDCNwUeIP/upO141d19h6hWBqm1x7hSYJiUAG8zXEDQ6RpRLd953ocgwlMe0vP5IjdUmS/mN3Cm6YHQfpqvtgGOo05QmNV63JwSGcIpmpJ6sIHygwy9SQF3/SuUqKUM6BRdl3DZCW1oI2kGNw7NpbQzQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(376002)(346002)(136003)(366004)(39860400002)(451199021)(5660300002)(6486002)(6916009)(66476007)(66556008)(2906002)(4326008)(66946007)(36756003)(86362001)(8936002)(38100700002)(41300700001)(478600001)(8676002)(316002)(31696002)(54906003)(6506007)(6512007)(26005)(31686004)(2616005)(186003)(2004002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(396003)(39860400002)(346002)(376002)(136003)(451199021)(2906002)(31686004)(8676002)(8936002)(5660300002)(478600001)(41300700001)(316002)(66946007)(66556008)(66476007)(36756003)(54906003)(4326008)(86362001)(38100700002)(6506007)(53546011)(26005)(6512007)(31696002)(6486002)(2616005)(186003)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aGpVV3MyK05pc25ZNDVGL1Bsb0pQbkx1RDlzU3V1Zm1razFRVlB0SDRzUmZz?=
- =?utf-8?B?c05ERmNPMFZpWk4vR1NxdnN5a0NvdFozdityL2s1NGNocWp3aE5saXIwUnEr?=
- =?utf-8?B?TFFGMkdXNmk0VHBUejRBcDdvbVpGWlBydW8xSzNsUVQ1bzBYQ3h5bE5aUDl6?=
- =?utf-8?B?SXRWRmRRNW5wU2JXaTRoQ0dFVVZaTE9QOXpBWXB2bnIwa1lxeUFxS2p6Ymhr?=
- =?utf-8?B?OXI3dVNRR3ZSUlEvMTBlNlBZV0JNb2dTcGFyN290YW5ZLytMVGtOQ21VTVFO?=
- =?utf-8?B?RGZudkMyZXl5SThOUDI1bWFOR2ZhcDhPbUdDUU1CVksxSVUrbzkvUnp6ZTQy?=
- =?utf-8?B?cGVMNlgxT1FTYUNqZUVaSTZqRWdoZkZQVCtIRTZNbDZtNjR5Vm5GNmJPQjJp?=
- =?utf-8?B?ZE5iVFR4VzFjc2Z0OW5ZckNZZVFQV0lqOFRnWWpJaWZIMGZyTlpDK1pJeXIr?=
- =?utf-8?B?NUowbmtZWDZycVlReVJJNkhnL251WEJyeks5N3VJSDBPZmp5M2ptSHRKS1Zi?=
- =?utf-8?B?RDdLK0s0SGxYQStlZklFVm9iNHMyeWQ0UzdWRmtnTVZDM2U2dGhQdWZ2RWUr?=
- =?utf-8?B?ZC9mSDRUTFE2aXMza3pTVjhRQ0dMYVVISnhGa3pid01rVnJzeUliMmRnR1NB?=
- =?utf-8?B?aGs3RkoyNU5sU0tnbzVVOEc0SVp0ejdNVjFaQXhlMXErdzNqdkZreGVqMUw0?=
- =?utf-8?B?N1FaZXpFbmF6SkVFK1h0MnBoQ0FzcGNvaEhTR3NXbUkrYmRHTHB6Wm9YbWFr?=
- =?utf-8?B?V2h6ajlUY2J3VnorMzlGYWtpb3hWV0x4M2FjSWYyQXoxcE5rWTIrSi9taE1V?=
- =?utf-8?B?L1pQRUsvVjVQWTdVZjRNUkFSS1BuNGJyMy9GUVRWc0oxTzNvMkJrUllSeDNS?=
- =?utf-8?B?KzVaZDM0S1JoSXN4VzdJREZzVkhUOERMSFAwZENpdFdtNlJGbk9nd1pkMSs5?=
- =?utf-8?B?Y0p0QmZGcDBYRkJ3QkZBUFlSNG1ZRUUyWGRBWTFDanQyUmF5VG5DY3EraUkr?=
- =?utf-8?B?UXZ0bUdsR0hEcGVEdElFbENwdE1sa041Uk8xWXg5ajdsYnNVRmJjZy9hcmhi?=
- =?utf-8?B?SGhGUDBVaDY1YlZFNXRvNklHaXNxL0ZiNDgrMGczNVlUbmZyeW1YaXB4UDMv?=
- =?utf-8?B?WGtEdGt6NGxQeTR3blBhR1ZpTEw1Nk5vOWhnM0hhbTUwS1J4TUJpNnZRaWdG?=
- =?utf-8?B?cldYOFA1dStGdDJtMjdaK1NqZ1V3ZlNyZ1pMRUo2bWtqU3U4ZnpkV2hQa3l2?=
- =?utf-8?B?amN3MWNwcHYyVURHcVB6QkNDN3pkWExCRkRyVVhuZEQ5b01DY1R5SXNLZit4?=
- =?utf-8?B?dG1tbkd0MWxJVkhvcWZjUHQzMk43NGZQNE56ZVYyWWFlbG5jQkY2QjduaUNE?=
- =?utf-8?B?TitqTDBxRW4ySkVhVWhLMllOdTgyWnVyeFhMM3o4ZVpCaXVKZ0E3L1gvZGFy?=
- =?utf-8?B?dGJjdk9UTjQyS01oZjVXdXZPUTRrb29mVGI5Nk1md25Fbk9mSlNwTG1DMDkz?=
- =?utf-8?B?QVk4MTlFc3MvOTZ1bTVCdUI0R3Vha20zMGFwMjdCSXlJMS9ETVJ5enVXWXhr?=
- =?utf-8?B?R3B4VHRWS3I2L1dDQ0NpVVZRQUVyc21tUzB3cGd5cnpkYVRpUzQ5bFlzTWl6?=
- =?utf-8?B?azlYUDJDaFRBWXpZL1pldzQxSG9PYTdwdGl2amJYMG8yWnNmNjFLdFRxRkNn?=
- =?utf-8?B?K0p6R0t5WDdpZEZpQStoQnRYa0VHbDJ2QWc5dU50V29QT0ZmYUV1a25KZ05v?=
- =?utf-8?B?d1RIQzhnOFJPY1ovdFkrWUhTVENxLzEwaVJLNis2dnFrSnE4WHVPZWI2L3V1?=
- =?utf-8?B?K2tGZytqUURLWmVVanlkc2FzOU9RZDZkWXAyVkUvRms1bnh3MjVhL24wWFpE?=
- =?utf-8?B?M0JqNVlTbmlaM29wRnRJdjBwM282WkVKV1NYUGhDK2xLMHBMWi8reGgyREtH?=
- =?utf-8?B?WXpuQ1VoTXZRSVE3OEl2dzU5aUV0bDRKdm5WMEVUSTRjSHNnOUZMR1ZUQkdG?=
- =?utf-8?B?K1RhQ0M4N3p3NUdrb3l2SVlMYzdFVjZwcGtCNW9xTkdFUDQzODJCc2RwQTcy?=
- =?utf-8?B?YSt0SkFsR2dyQ3ZQcWZsRkJUZUhCVnNIeWJlN3Q0NjZsWDNNZ1VOMlJ4eUNK?=
- =?utf-8?Q?w+XvfRQk9U91TDAosyEy0+bf5?=
+	=?utf-8?B?SFljNWtpaUZqQ3AyY1R0MU5CK2MxT201R0JwYXhUT2RLNFVGd1RJVkx4eTBz?=
+ =?utf-8?B?d1BvYW1uaUw2T0huSVBnZDZEZmhxRFFycEVTRlY1MWZXeFgrblpITFRZQUh0?=
+ =?utf-8?B?emhMS0VwNkhrRVNJdjc5dmJBTUtBZklqVG8zcGFpeUpDbHpwaW1YQ0xReERl?=
+ =?utf-8?B?Y3Jabytvak0va1pwemhKYnBFNVRpM0F2bndiZDlrRUx4Mjh2WVFVTTVBMFVB?=
+ =?utf-8?B?RTByUzQwS00xaU9WWThnVGphUFM5MTdzU1pYNE5VeW1rYUtTWGFhK2pJRWlU?=
+ =?utf-8?B?eG1PNTd4dzhVQVZaLzBoVy8yT0dRZ3p6aHpGQzREUmxDUnVScTFSQ1ozdnhi?=
+ =?utf-8?B?TjN3VjU0Y0JVVXNDR3d6NEFGU291eDVFYTZyaWlQeEM4dkxFL082ZmRTNkMx?=
+ =?utf-8?B?c0RqSVJVcHBKTisyV3R6Z1RtaEV6QzUrbDlRVVVtUUtLQ1loQTVaYXJsQzlL?=
+ =?utf-8?B?aDB0UVV5c0xSVkpEcmE4dVBqU1V0S1ZOc1hDODNadERleFMvWFdtWjBHMVZH?=
+ =?utf-8?B?M3g2TEpZdVJRbEpLTnlwR3l6bHFDSWswbGFEWm9aWktHckNLY2ZBRmxZM2xV?=
+ =?utf-8?B?S2VoNHRReFJMQkxEdURXVTE4aFlzajk2bktkUXZTYVVCb0VZVWQwYmZsNDBD?=
+ =?utf-8?B?czczblpKc0ZITklpellUcnpKc1VwdkwyeFZVRU80ZnQvZ1ZpVGx0RzVHMkVL?=
+ =?utf-8?B?anRZc0FVdm8rWWtBSW5qdm14Und4bW5oVU4ralhBd1FXaytZZGFwNGNCWUcx?=
+ =?utf-8?B?dEJDaXFxQXk1aHVWMDI4dERoMmgwTU82cUtERkh1TElhVXBQeFJ1UjRvbmNS?=
+ =?utf-8?B?T1djbjFyYmZReDBwTkE2SUxoNnkyL2dMYUhHc1k1TzZrY2ZqeG9Hb2RaU2Y0?=
+ =?utf-8?B?a2R4bnNRTy9SMkVHbGh3ekFNNEY2akpDOG9mZ2lBNUtEY1hZV1BydERNaElK?=
+ =?utf-8?B?cDREb2E2U0V5RGFvMTljSXBKR2tDZGkxK1IvV2NTbjBnZXVsSVFqcU4rbEZO?=
+ =?utf-8?B?K1c0QkNWWUhqWnVzZEdtUE5UVjFOc2hsMGRyZm9UTHM1NzhSWmRvQlp2K1M0?=
+ =?utf-8?B?U0Ywenh1UlBTaE5zNEJNNE02bEV2ZVY2aG5lVS9ZOXJyNjJLWnBUV2RwY1g1?=
+ =?utf-8?B?ZnBSODZiZnE5a1BrSmsvM0RPYndta2VyaHVuVXlSdUdlVUw2cFluUkdrOGJU?=
+ =?utf-8?B?Ti8rMkJYYVkzOEVNVFl5ZXljS1NVZG5GVFJSYWNBVG9ZOUc0QnBNZ2RHdWVF?=
+ =?utf-8?B?enJVVWVrZEdJL2JsczBlRlE1Q0JSaTNuS0IvRnVnZWNNL1hUaWUyeHlLcENa?=
+ =?utf-8?B?OFE1TWRid0psVHlJZzBrQ0lzRTduSzFVcVlXQ3ZzeGV4MHlKNEZpUjUxUG5X?=
+ =?utf-8?B?U3NuVXJ5QTFMUmFJbncxR2k2Zll0N2N2eC8vUEdjY2NVUnhTeXVTQ3QvR1Rr?=
+ =?utf-8?B?UnBMeTZleEVBR253YiswZEZBRU8wbFRnSXU2UnRpNC90dUZKT3o0ZGFKVVoy?=
+ =?utf-8?B?Z0NEb05YektMOUtBbGw3cmZlck50bkxyVXduN3VEUWhEVEh5Ym81WitKZ0xC?=
+ =?utf-8?B?dkxJdFVhRVdXWHNhOUdZWExCaG1tL2hJRFlVZDRYdnV4bHZETW0wajRxbUtj?=
+ =?utf-8?B?SjRkMjlUTWxNdEFIVlRkRG9xUzZ4VkJkWVhuOHZ1SWQ0ZTE0eGRrYnhQMk96?=
+ =?utf-8?B?UmRMWnJzd2Zkd2g0L213dzVMa29wOVh4MnFHOVFsR1NRaWZ0NWVGeDN1K2RG?=
+ =?utf-8?B?aG5CZHdkeXZneC9Nb1JISDJBbVhJcDZFb1l1UUEyczZNcDhkeG1sYk05QjNS?=
+ =?utf-8?B?MHhnRXpTWmdaRlVDQmh5OUNEQ0FMSUg1TG5rNkY2azNZVEJTT2NYQnpyeEpy?=
+ =?utf-8?B?VmVxaDNrNHhPK0lsaE5zM2JLY2ZreFJyS0p2VkRjUWEzSmFBN3IrM2xEc1p2?=
+ =?utf-8?B?bDJOQlRNbERVRjk0RFhFZzgxeU1xZjRCRkpYYTNOeUR0V2JsVUwxQ2JlRklx?=
+ =?utf-8?B?VUIxS01UVmJ4T1ZpcmdLM1ZsSEpRZE5Od0ZiOGk2eTQzYjFuNENjMzVsL01J?=
+ =?utf-8?B?SXl5VzZwUnNXWmQwYjkxMTdhVGxJZlJsWmNpRlFTTWdkeXZZQW1nOXVlWXFv?=
+ =?utf-8?Q?Vn9c9alEgRS+Usbxl7BjMIHRY?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ff73370-2723-42cf-e132-08db3f195083
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8cdeeca-f02d-426c-a7ca-08db3f1a8f95
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2023 07:56:56.1884
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2023 08:05:51.5809
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: asVGXdh6Rx9lsxjBadCpBcsD5vqTUNukJk5+65KkvekaV2QQcbOBAQ6rLZa/CZ52nJmV1wrnMiXI+no7Q+sFDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9302
+X-MS-Exchange-CrossTenant-UserPrincipalName: WL8r8F+iGUegiDXpXYOZynlfSY6ML3u6O63uVHtw00k0vIT5L6a3WigwmdoUKn8HqV4SatacwekexeDD+xkYFQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB10055
 
-I should have remembered to adjust the splitting patches accordingly,
-but I forgot. While making the adjustment also correct fpu.c's first
-comment line.
+On 13.04.2023 17:00, Andrew Cooper wrote:
+> The Long Mode consistency checks exist to "ensure that the processor does not
+> enter an undefined mode or state that results in unpredictable behavior".  APM
+> Vol2 Table 14-5 "Long-Mode Consistency Checks" lists them, but there is no row
+> preventing the OS from trying to exit Long mode while in 64bit mode.  This
+> could leave the CPU in Protected Mode with an %rip above the 4G boundary.
+> 
+> Experimentally, AMD CPUs really do permit this state transition.  An OS which
+> tries it hits an instant SHUTDOWN, even in cases where the truncation I expect
+> to be going on behind the scenes ought to result in sane continued execution.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+For my own understanding, which truncation are you referring to here?
+As you're in 1:1 mapped code, %rip can't really be meant. Clearly IDT
+and GDT would need to be (re)loaded to point to 32-bit-style tables, so
+the only thing left would seem to be %rsp. It's not clear to me whether
+after such an illegal mode switch its upper bits would be cleared or
+ignored ...
 
---- a/xen/arch/x86/x86_emulate/0f01.c
-+++ b/xen/arch/x86/x86_emulate/0f01.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /******************************************************************************
-  * 0f01.c - helper for x86_emulate.c
-  *
-@@ -5,19 +6,6 @@
-  *
-  * Copyright (c) 2005-2007 Keir Fraser
-  * Copyright (c) 2005-2007 XenSource Inc.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include "private.h"
---- a/xen/arch/x86/x86_emulate/0fae.c
-+++ b/xen/arch/x86/x86_emulate/0fae.c
-@@ -1,20 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /******************************************************************************
-  * 0fae.c - helper for x86_emulate.c
-  *
-  * Generic x86 (32-bit and 64-bit) instruction decoder and emulator.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include "private.h"
---- a/xen/arch/x86/x86_emulate/0fc7.c
-+++ b/xen/arch/x86/x86_emulate/0fc7.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /******************************************************************************
-  * 0fc7.c - helper for x86_emulate.c
-  *
-@@ -5,19 +6,6 @@
-  *
-  * Copyright (c) 2005-2007 Keir Fraser
-  * Copyright (c) 2005-2007 XenSource Inc.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include "private.h"
---- a/xen/arch/x86/x86_emulate/blk.c
-+++ b/xen/arch/x86/x86_emulate/blk.c
-@@ -1,20 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /******************************************************************************
-  * blk.c - helper for x86_emulate.c
-  *
-  * Generic x86 (32-bit and 64-bit) instruction decoder and emulator.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include "private.h"
---- a/xen/arch/x86/x86_emulate/decode.c
-+++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -1,3 +1,4 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /******************************************************************************
-  * decode.c - helper for x86_emulate.c
-  *
-@@ -5,19 +6,6 @@
-  *
-  * Copyright (c) 2005-2007 Keir Fraser
-  * Copyright (c) 2005-2007 XenSource Inc.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include "private.h"
---- a/xen/arch/x86/x86_emulate/fpu.c
-+++ b/xen/arch/x86/x86_emulate/fpu.c
-@@ -1,23 +1,11 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /******************************************************************************
-- * x86_emulate.c
-+ * fpu.c
-  *
-  * Generic x86 (32-bit and 64-bit) instruction decoder and emulator.
-  *
-  * Copyright (c) 2005-2007 Keir Fraser
-  * Copyright (c) 2005-2007 XenSource Inc.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include "private.h"
---- a/xen/arch/x86/x86_emulate/private.h
-+++ b/xen/arch/x86/x86_emulate/private.h
-@@ -1,21 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /******************************************************************************
-  * private.h - interface between x86_emulate.c and its helpers
-  *
-  * Copyright (c) 2005-2007 Keir Fraser
-  * Copyright (c) 2005-2007 XenSource Inc.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #ifdef __XEN__
---- a/xen/arch/x86/x86_emulate/util-xen.c
-+++ b/xen/arch/x86/x86_emulate/util-xen.c
-@@ -1,21 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /******************************************************************************
-  * util-xen.c
-  *
-  * Generic x86 (32-bit and 64-bit) instruction decoder and emulator hypervisor-
-  * only utility functions.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include "private.h"
---- a/xen/arch/x86/x86_emulate/util.c
-+++ b/xen/arch/x86/x86_emulate/util.c
-@@ -1,21 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
- /******************************************************************************
-  * util.c
-  *
-  * Generic x86 (32-bit and 64-bit) instruction decoder and emulator utility
-  * functions.
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-- * GNU General Public License for more details.
-- *
-- * You should have received a copy of the GNU General Public License
-- * along with this program; If not, see <http://www.gnu.org/licenses/>.
-  */
- 
- #include "private.h"
+Jan
 
