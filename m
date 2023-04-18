@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B6BF6E5D42
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Apr 2023 11:25:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.522678.812186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DAA76E5D4C
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Apr 2023 11:26:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.522682.812196 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pohZc-000212-0y; Tue, 18 Apr 2023 09:24:28 +0000
+	id 1pohbt-0002cd-Gj; Tue, 18 Apr 2023 09:26:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 522678.812186; Tue, 18 Apr 2023 09:24:28 +0000
+Received: by outflank-mailman (output) from mailman id 522682.812196; Tue, 18 Apr 2023 09:26:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pohZb-0001yJ-UY; Tue, 18 Apr 2023 09:24:27 +0000
-Received: by outflank-mailman (input) for mailman id 522678;
- Tue, 18 Apr 2023 09:24:26 +0000
+	id 1pohbt-0002ZM-C7; Tue, 18 Apr 2023 09:26:49 +0000
+Received: by outflank-mailman (input) for mailman id 522682;
+ Tue, 18 Apr 2023 09:26:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DyEx=AJ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pohZa-0001yD-Am
- for xen-devel@lists.xenproject.org; Tue, 18 Apr 2023 09:24:26 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on062d.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce43d655-ddca-11ed-8611-37d641c3527e;
- Tue, 18 Apr 2023 11:24:23 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM7PR04MB7189.eurprd04.prod.outlook.com (2603:10a6:20b:116::23)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=EUq5=AJ=citrix.com=prvs=465f4c9e2=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1pohbr-0002ZE-Bm
+ for xen-devel@lists.xenproject.org; Tue, 18 Apr 2023 09:26:47 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 21aab0ac-ddcb-11ed-8611-37d641c3527e;
+ Tue, 18 Apr 2023 11:26:44 +0200 (CEST)
+Received: from mail-bn7nam10lp2103.outbound.protection.outlook.com (HELO
+ NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.103])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 18 Apr 2023 05:26:34 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by SJ0PR03MB6359.namprd03.prod.outlook.com (2603:10b6:a03:399::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.20; Tue, 18 Apr
- 2023 09:24:21 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6298.045; Tue, 18 Apr 2023
- 09:24:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
+ 2023 09:26:32 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::48bb:fedd:a394:9f39]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::48bb:fedd:a394:9f39%5]) with mapi id 15.20.6298.045; Tue, 18 Apr 2023
+ 09:26:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,420 +49,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce43d655-ddca-11ed-8611-37d641c3527e
+X-Inumbo-ID: 21aab0ac-ddcb-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1681810004;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=38/TOdP7cjPvYIhZu7auUVXZSEH33UEk0E6f9XltzPo=;
+  b=TuhnnlToZL4KDLtRizrehd36BvrKq1Qo/rLn+DrOcmZ+uQq6WaLAwZpW
+   W2oI4mgj5N8LeFHW2rBWegYkRk5BhicbQTnnjdJbrlY5AxKmtCexzFVUu
+   tiOKRul1bVR9BLgchLb9CvzpfRXE3TUEg8CX1jAKCivgHQjoy1mV4VSvW
+   w=;
+X-IronPort-RemoteIP: 104.47.70.103
+X-IronPort-MID: 105272815
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:GL7+iK4A3O/068idr1DcawxRtB7GchMFZxGqfqrLsTDasY5as4F+v
+ mEZXTiPPKuCYWPxetF2OoXk8kgP7MLVyddlHFE5r31nHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9VU+7ZwehBtC5gZlPawS7AeH/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m2
+ qYWdysPKTO4heOT2Jm8SbFtrdg/M5y+VG8fkikIITDxK98DGMiGaYOVoNhS0XE3m9xEGuvYa
+ 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6MlEooiOOF3Nn9I7RmQe1PmUmVv
+ CTe9nnRCRAGLt2PjzGC9xpAg8eWxX6hB9hCTeDQGvhCgEOBl2oUNFoseGCXoaa3lBGze/VNJ
+ BlBksYphe1onKCxdfHtUhv9rHOasxo0X9tLD/Z8+AyL0rDT4QuSGi4DVDEpQN4sudIyRDcq/
+ kSUhN6vDjtq2JWKTVqN+7HSqim9URX5NkcHbC4ACAEDvN/qpdhrigqVF444VqmoktfyBDf8h
+ SiQqzQzjKkSishN0Lin+VfAgHSnoZ2hohMJ2zg7l1mNtmtRDLNJraTxgbQHxZ6s9Lqkc2Q=
+IronPort-HdrOrdr: A9a23:OkOMEKDwqgt82yXlHem955DYdb4zR+YMi2TDtnoddfUxSKfzqy
+ nApoV56faKskdyZJhNo7690cq7LU80l6QU3WB5B97LYOCMggSVxe9ZjLcKygeQfhHDyg==
+X-Talos-CUID: 9a23:3mSh7GNkxF7tyO5Dd3Npq1UWXeMecHz41FzXIBe5Inp1V+jA
+X-Talos-MUID: 9a23:kna87AgjQkUIWEIDAiINg8MpNNl6sqKpNAc3vK4qu5aKK3N9GxCPg2Hi
+X-IronPort-AV: E=Sophos;i="5.99,206,1677560400"; 
+   d="scan'208";a="105272815"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ct2ZB9yNtnG/eCNJ2G3d13A2mKG7Uv7CANvQz2MiL5unDGLOowiSbJagU+4lXlqkluiiJg9rtCxQmV1MDIAYdlyM493SwTk5n9CjyQQ8lSX6TLD6i8bjGgMhhShpDuZzreiHpibJfa1tXZ/wg6mT4qqBY6q7X7prg4cGW5zsYPI3saGxgB28aiAnkaAvO7ChyB3Cm99QzE9XCKt1PBVgJtbS9RmPWuFqi3awNjuUwSW0GL9D47YIe1APWlLFZ5v4pBzZfYGapioeOWyfFR35pt5lkX/uKWa4Z0KDMGuloKXmEq8SDQWrW1ifXozc4Ei1BI9LfkALVpFFC0RdEw/Isw==
+ b=UPxN/VlsrkVDizig8NkZHCU+DqBHB6afTwYM/4ojxbwdY9BP2MMss8GmzO2Kfz2k6ZrLCeWoVNX019ul5iwjXdZZCvPXLBMbiTTk2nNSnEfnFsZX7BM0Rf3HFkvyO44j2QTDwHzIvhJ4hmT6CYLW5q28hCp0UtlaAq6QhCiU9S/AJ0hUghkw7jyjVwzTLPUI/lgWUn/rM14X3Yb3RvNuUm7zw5W8pRZVMgJwqAc4rOWr48STrIWfczzsPqguSKBssCvozMGXCPWg1WrVEPyQVAsgs6Ew3C5FeAaw2yqZPyd0P1qG4Ot4TMsBDwlRhkDUWm3Kl7S5yEXEnVwNfWFboQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=055egUZjzSFCS8fr7d/bRVeiYickat/ngXv8tNqa6ZY=;
- b=Dg/63OXyRkImB5h6ATrBZc4lkQMARvajCApe0kT/SPkMLaYvPbnqc3Fw8UtTXCbcbw2WRpYsOPeDrFNC+iDCKbE+L+VmgQ9f5MSApVxWk7V9tc/yDG3KpNYR+fm/7zopUA183v+T8YCNKI0uxVAIwOA27wumzINhezMkrt2sRMv2yMPf7pHXAk9ZOewccpKTSUj1kOsSzBiTncQgWGUaJcCWSdsHfzeTlydEpBrWWYChcEyMtzhWQ3pkIVWWOaXZyJd2z+tDGQpNKxvFaog1DRh7hYqFfYSv/1aCzCcAejxC6eqcSehhI22o+NYPnYNy/AcJYaZSRrt+SSVGc2vKkw==
+ bh=Ei+0nFlGCYdhhVyjG/s6LbreYKNTgFC6GaPlv3pfuMI=;
+ b=kLyWSSxqyBTcN1F2bKTdVCg2uaCsLhTsl+w9UAmiVSzjPGPYa8zLv2+kDsID35EUI6ga4oy3Z7yTYVVH0Fr1puCNtgP65AU0D0//MVx98qUkdURi5tomWlKTqDweAnWyDAdJqUuGbG7JW+vpee6s4z+CzHxJk9AL/akMJkUhg5vWYxpVokc9WwjLKWw9zyluevnYgfffwEekDDzA7oidgrQEuEPNq+phNRl/7U5+6z1IBbqCjYh/6P/IUnbXkO5zrtp4sHilaeHF1fl/kwz4cYWQA7hNLN1Xa0rXeFuq2SCCR5C95OdZvTBb+EaV73bSRJbGnYGle102sB2VYVPNqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=055egUZjzSFCS8fr7d/bRVeiYickat/ngXv8tNqa6ZY=;
- b=n0LTAF91Z5E31qRuvbi3bM/BqSBx4iyWKwk7bsM1TnvS718r36FghqRB11nWt0AChWSbIBoEm/43f7PxZmuN9IqVQFMgVvtxsJkB2oqlWSvdD/PD+MOyHTlFuBS9XSgq8qP38fJKMYlIKioZztSA+U6hzput7wxYGbtvF1A5AoHIKQBphAKpPqNbHIJ2Ck2duJAJQYMw7tCLXJtWDKO0SyxQFOjx7+2nf8GhHvc40vtLO2NGWQEpNLo41y8NLiVATVZWj65Bur1dHcRLJ5KkKQvigTaV9s8lsALeQck0rygOP1UgAhwL6JdiqqVHzH8ORs3z5ajCMBLEJwFnbU3QvQ==
+ bh=Ei+0nFlGCYdhhVyjG/s6LbreYKNTgFC6GaPlv3pfuMI=;
+ b=m8TiCREyRbP5owH0JVMQzF7RFrOKZY4eE97sC3NL12jr0YVIklWYHbFdvcDBYeVThwPr/1SMMA00SoZsSB1HRy88cwKHC2Cc4n8a6zAJW54afSZN1sq1/bddZ39LhyPbWtrymHh3Wr125bii5UFXOed0lbRCGpcb5mAteGNrmTo=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <116bb94f-955c-4c46-f16a-d7a5e1cc72b5@suse.com>
-Date: Tue, 18 Apr 2023 11:24:19 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.1
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v6] x86: detect CMOS aliasing on ports other than 0x70/0x71
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <5426dd6f-50cd-dc23-5c6b-0ab631d98d38@suse.com>
-Content-Language: en-US
-In-Reply-To: <5426dd6f-50cd-dc23-5c6b-0ab631d98d38@suse.com>
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/livepatch: enable livepatching assembly source files
+Date: Tue, 18 Apr 2023 11:24:58 +0200
+Message-Id: <20230418092458.15253-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.40.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0003.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::13)
- To VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0214.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:33a::9) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM7PR04MB7189:EE_
-X-MS-Office365-Filtering-Correlation-Id: a887c8ee-cec8-40e4-09ea-08db3feeb126
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ0PR03MB6359:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15abcf2d-30cd-4459-62ea-08db3feeff20
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9bCZpffYh8vutX5neDnvtkK91h1DnNx3+C167IIvm+wmBGuUau0exkSk9dME7cyfuQbLdOb/WwlN7b3V/Yf72XO2vo0hL/vi+BGBsMS0TnYP25GC9b9UUAzkfV+V0osqiwCJJC8Q2+J8EJ7p3wohU/qFLmo78NwLDUyL6ntAWhl08Lig+9o6+9czdTUKQIPyzt504OvGfGWdsTh9Xi/DjEksBr4dVKguDEpWocfFixkoQgd5RvTN+BUhSoDFWOyCaAeAToFNNkcBDJ6IHHBcEBCydFYGpbLb8FHPNIwTtBqXHL+FyacyJ1vtHzFa/EI1niR+u2bNUbgg2Z0oXZ2Gvo7cpGupik+MmqcPLzX2id/6yvZ20SObLo4/02JcM+57FkIs6RzOHKergKzyTeUz8CzhhNf5V0Rbb7va7Tx23qbQh923YZl6PBCNWiPzn396lIbbfh0zPFqgsS68pNAYO0sgrCzx8Wvhu+SONWjs/WVfGMb9aC8mL1n60u77S5zzaYb+FVN/EMsQ50TjWUtEOuq1XPh/rzhzsBAIGCPujMKJ+zsLj3oZ6o5d5oskOJgKcuvxUHInuYh2zfJnuIjuDR+EIUlE9IRFm6uSIuXdh9b8SNTHgYGGped+diRGBI8FlNbiyf5BsqXzToVR/gHxOA==
+	dDpZT2wKPBG6R/gGFKfHVccNlVUSpcuR1P9F8w1RDh0zJNyuFO7jZkRCQNLY3dbCes4jmcbvZwmRrzbbikw6Gsw+75SKORMpLwFJ7dI+ltAMebA3oQddgMiPw/a1vWQ0fNH+/D9+r2mRpsb2kAzZLS7fljR6NJOFcXxIIklYmruObMdgG5r+ut6i4od6kGSRuZEVj4mICuvFP42TPK8sE33fsyvCTktq47lLX8VYgSMHCX04i61mxq7eAFCt0vhJL+BHYw9ootkM7ZEecORxyKMuIAqhQNB0CzRuc7aEY8GNyYJ1A+L9X3z7jlJUUX185IhPNXhCEWjYuhzQuBU8SUu7ALPp4yHoclZ4sIu5Nv++VuYT1VAPl5Me+KnR6KgQSK4OSZVUmWIAIAi7SxRhzVFHtx1rdZXQxmRRP2tdx9ETldbj01/waNBerGCrcOZDip7XjA8Ty3v20zSYsTKrmARFjvFb097LRW/3Ow+5XMFnn220SCiGkp6GbvTXnCQHUTe1jR8RxLCxoRxHaxqfNwjovyjlYF8NP1GPmflQIenhN6PSz2hG86YldyCuYX15
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(39850400004)(366004)(346002)(396003)(376002)(451199021)(6486002)(478600001)(31696002)(86362001)(36756003)(2616005)(83380400001)(186003)(6506007)(6512007)(26005)(38100700002)(6916009)(316002)(4326008)(66476007)(66556008)(66946007)(2906002)(8676002)(8936002)(5660300002)(31686004)(41300700001)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(366004)(396003)(136003)(39860400002)(346002)(451199021)(36756003)(4326008)(6916009)(54906003)(316002)(66946007)(66556008)(66476007)(478600001)(6666004)(41300700001)(5660300002)(6486002)(8676002)(8936002)(2906002)(86362001)(82960400001)(38100700002)(2616005)(6506007)(1076003)(26005)(186003)(6512007)(83380400001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bXNTOVZJclIrT2trd0NjempLRU9NSTRnWHVNZkhqVXkvZ1hjeDFiRU5ncU9B?=
- =?utf-8?B?aFRJUkprb3VSbTM0UWszY05VK1dsZG5xZnFQbUtXWS9EVGVxc1hPWmtyWjh2?=
- =?utf-8?B?UVhNWmw3RkMyUkJzRHlVTDlVemtETVJ3Uzd0QU9uUXRzRUpkMkRaSFdyNHBU?=
- =?utf-8?B?M3ZIaFlLSE94WTdhV2ZxK3hqSEFsSXc3WFBiR3kxQ20yOXVxYzg5bVZxOUdP?=
- =?utf-8?B?enNtclJVaDZKMG9IaGZTNnU5aDZTdEdraC9IQ3YrV1lQazdIZ0p4OTVtaVBL?=
- =?utf-8?B?QlRpSG9MeThaTXpnQjY3S1c1bG05OG1DNnVIMUM3MDJlVFFOY09lTCtIMHpu?=
- =?utf-8?B?UDFqb3ZkeWNLZElZMkYySm9FaGJVKzJmRE8yYk1MRzB0aEZ0TmpNS1pzeDVL?=
- =?utf-8?B?bE05WFkrSnBUUE5HWTBDNnpuNkdpMVliQXhoUFNCTURYOHZrTEFMZ2xZYUE2?=
- =?utf-8?B?WDVSL3BEdU1WSWptS0xoVzJXdng3U09Nc0wwdFFTRW90Ymh6eU5nSDhkbHVo?=
- =?utf-8?B?K1hMT2laYmwyY3d1M1JTNnFibVJqNWh6cEpaVjdZVnJsM3hUVENxZGFtNTV4?=
- =?utf-8?B?UXBzNjJPZzFQN25JMHdIU2ZoWHR1VlljSXZBQXZNdVltM09Icis3TXhhR2lm?=
- =?utf-8?B?TVprVW1RODNKaVJzTmQ0YlFLeXZ2cHpVSGRDaFF4aU1zZFlIdFFpQVFvZFhl?=
- =?utf-8?B?dnRlaHRIRDNBQTMyZk8ySUVUbnF6MEVBMXFRVEcvOTRDaXZUS21qN1RKQTJy?=
- =?utf-8?B?NzRxN2FUUHBHR0tMNFNZU3BGREFRekIrd3FaUzNsVzJod2hNUUMwdEY2SzVo?=
- =?utf-8?B?SittZk5lVm1IdzVCTmhIYXpEUDVHLzhFYWsyaEs5Rk9jcDB5UE45RS9CVmVu?=
- =?utf-8?B?V3FHNytZS1lFSEViek5yWk1NYk13RVhtbW5OYnJDUXB6WGV4YUNWK01naHhO?=
- =?utf-8?B?Smg3QlpzbHlCZXZMZmV3NVpkbGV2TDU3eFFVY0VoellydjV3VnUyc2hsWmpZ?=
- =?utf-8?B?WUxUdWkwRlZURHN5VVlZSG1IV0pseGVrNjhYTFMrRElBNTcyZ1R0LzhLdFZo?=
- =?utf-8?B?c3kyWVY4eUNoUWQrZ21KQ2dFM09XTjlEMjB2QWJCbzNNTnZrcTRJRnlRakJV?=
- =?utf-8?B?Wk8vZW0zYTFWVW5UWkttYjJhSHZHZjIxZlNKcTB6UnVoMm5TUzdYR0l2K2sx?=
- =?utf-8?B?NWM4a1NrczJ6Y1QvZnlHT0VRUnhZTDlyRFNoeEphUWcvSmROcmRXUEdvZDI4?=
- =?utf-8?B?TjN0cFgwRWJKbS9BQ0Y1eUF0VmtwL3BVa21pLzJKVEpidjEreG5hcXdGckZz?=
- =?utf-8?B?Nk1vYU5PUTE1emttNmRXTytrNG05RXc5Y2JlNmhqc3k2SHFtbkVpWjdCdHhR?=
- =?utf-8?B?clZUZFMzUmRaaU9wdmM2aFRRS2NZeDFXYk1GUjdodTBvT3RxYlB6NG5YZEVW?=
- =?utf-8?B?MGdPNU5BV05ZT3drVFhDY2VHV2R6QmFSUXBPS25JY21TMi9vSjZUT1poWEpG?=
- =?utf-8?B?ek1VTlhDK0M0QzBDOWJHa1lrdTR5NXVOY0N5NzFicnJFejhjWlFKZTVKcEZt?=
- =?utf-8?B?M1RGRUFoVEZ3L09hNzlGYkFIOERURC9jVzhzMXVrbStFYzZrcWRjTkRLK1U3?=
- =?utf-8?B?d1NkQkQ2dHpoY2NQNzBMSktnS0VYeEhmTzlxb3hyMUt6bXkyay9vL290WWwv?=
- =?utf-8?B?VTlYMXIrNlNmTjdrY1Uwa1preDdveEFWZ25HbVdRNjVqeFlJWTFnV0VyNGVw?=
- =?utf-8?B?MjIzOHRIeE4walZ0UFdrVDdXMlVVYXh2cTJBOVFxMEl0YTRPay9NUVRXN3VD?=
- =?utf-8?B?K0ZNRGorWUI2WW9CY3lVYVpCSmtxK3RTdXpyM1JONm9CSW9sdE04UCtkc2tu?=
- =?utf-8?B?WTAyZU05T1FMcHJtWXpVNXoxUUhGVDMvK2V6QlEzeDVDNVlRUTVpeGI1OEZU?=
- =?utf-8?B?UFFBMW11QjBub0VtZks3b250bUdCdG53SXpUbVBYZFVHdlFRWmJ1OXFWcnZY?=
- =?utf-8?B?TG15ekhNbk9NYTEzeG1TKy9EUUkwMXBhTGwwZy94dDJGSm0rV0duT3ZpRE91?=
- =?utf-8?B?ZnA4cmxjRi96NHYrampXT1ptMHpTd0E2OGM5WFdsTDJIc29oVmo2Mys4TXRH?=
- =?utf-8?Q?2EKB2+4nCdNj8LqiT2S/P2Omv?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a887c8ee-cec8-40e4-09ea-08db3feeb126
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?dmZXVCtTTEpzVW5pdG1qSXVSVzdlaDArZ1RwajQ1ajRUT0pjSGxSYngyUmcv?=
+ =?utf-8?B?SjRwZVZWN1FYd2Y3dmY5VXJRSzVMQVJoSEZsaEJQY3NLMThzOHNBaW9ic0lU?=
+ =?utf-8?B?MnFyMzNDcTJEQjB5RlJYbGxpY1NoS1BiUnF5T3ZQNjVMUGNVSVFKYmk0aHBU?=
+ =?utf-8?B?OXN0SU1ZZWNRdmQ3K2NoalM3a0VHUVdoWlJWZlZ0aFcvRjMxQWxETU44SjFD?=
+ =?utf-8?B?dE52RnV5QkZFeitnamR6b1QxeG1kWlZtcWo5T3lNbnRHakU4bFdUNGxISC9T?=
+ =?utf-8?B?MnlqY2gyQjZGaDBsVjQ3ckNwYUlqVDU4aVdHZElQTEZiNkp3UzdINmJMMERp?=
+ =?utf-8?B?MEh1Qkc0SW0vSlAxaStVYlg5VDRVL2FRUXRXM2dvTDNiNHZ0Vm9RSVh3Qmp0?=
+ =?utf-8?B?Mk83Q2lQL3F4NTBZMjdsMXJ5UzRlK0ZaS3BEbnpJRlB5citseFM5U2FndlBo?=
+ =?utf-8?B?MjN2a0lHQm12ZE10N1Jsa2RJK2t4RUZ1K0tCNEhxTVRncCtya1poWTlUOW5M?=
+ =?utf-8?B?QVEwUlhUQnpuQmlGVWlEdXRNTG1QaDF3OUlYRUxLZ092MzM3VnJUUkpSeTdH?=
+ =?utf-8?B?TFBMZnNpZnpJQTF4SGp6dUNCdzRZMm9uckkwalNRNTY2U3ZZSlVoQnJabzNw?=
+ =?utf-8?B?OWZycFJDdThqeks5MkUwa084M1QrUy80bWp4U3NQTU5iOHhtSGYvQnRLMFNZ?=
+ =?utf-8?B?SUd6R1plWjh3QXdBOFJzYU0xN25zamVIZkxkYzE3RnNPdXdkTzBsdmppZUpY?=
+ =?utf-8?B?Ni9SUDByRENsUXJQNnFVbklDZHc0cTgwMUlsK1VacU1GYjlEWnlTb3huVG1p?=
+ =?utf-8?B?R3liTE9laVRuc3EwcWU0MXN3dFl2cjFmTDNleTlqTkFSTzZGRzQ1a2FwYXVY?=
+ =?utf-8?B?OHc4dXduQ2JGcW5HM0xMYkJBWENSMHB2T1MrdGxXdzNUVk42RUtYakxDa0dt?=
+ =?utf-8?B?VnZLd1VTNHVoUnU2S0JuTkVEc3FyV3U5MkF3Zi94Mmd1Y3hnLzF6VVgza2JK?=
+ =?utf-8?B?YUhHNU0xK1AvNXd4VU81TjZYOTlQQ2p5eVE3Yk5OVlBJd215cm9qb0lFZUEv?=
+ =?utf-8?B?bi84WVo4RmtkSktlWGlrdloxRHpoQWN6NTZBOVpKbER6U2tRczQ4Tlo4NlBr?=
+ =?utf-8?B?OXB5YWk3dlRrbmMweCt5M1hkOFlFcFA2RS81NVVkdUFvVXlCR3JIcXZBRm1r?=
+ =?utf-8?B?d0F2dVBMdk1YSXkraS9DdTh1UVdsNGFRaFkzSnVGQXNmYkE1TThHckMvbVd0?=
+ =?utf-8?B?azYvYXNjbUVqSjJQWXlidTVHQ0Rwb3ppNjJDU0FCcjhadGdNakxncjZRVWdX?=
+ =?utf-8?B?d001eUdDSjJOanZJSTNpY2RaNWJrZ3NmSGJHVTd0Q1ZibWpVT1RBbXpXYWl0?=
+ =?utf-8?B?dDR0RlhlSEVxZHF2dmZYOXBnMlZUY2x4THR6TUdMTkVlTVhDRWFJdWRhWlZz?=
+ =?utf-8?B?ZTZFQkRwUld6NzUyMk1NcDVScEE5bEdLeDY4Q2k0Zks4dVZ2aDJmaVRGNFBy?=
+ =?utf-8?B?N3RGQkt2L3cvSmtRSWdUUG5CSmhmSmxRc2JJcFNmZ3NrRG11R2JrNFlOQnFN?=
+ =?utf-8?B?VVRvVVliZ05EL0FzNVhQUFZtcTRNN0lVSWwzaUl4UU5CM3FLL1M4N080SzZF?=
+ =?utf-8?B?WVl5cEVjYWVWcjJyQWlIVERuUnUxOXVGdzg3eCtQeHZFQ3JxYllZK09uTTRx?=
+ =?utf-8?B?US9OVDlkQzhjYkFaSVlwMnYvZnRZWWR5TVNuQjlhYnpBQ3Q1dy9hK3p6aU8y?=
+ =?utf-8?B?RnBOdTdJTnUrV0I0cGttamlFMmdUOGRSMTEweVlmWS81TjdlR1BCdnUvV0tO?=
+ =?utf-8?B?cWdWNlk1V0FNVW9yb3VoZFpLZFZ6Mm0rRlc2WC8vdlN1K2pSdFVINzNYRGdP?=
+ =?utf-8?B?ZWk0WTdZZlo3djFpTTNQM0F1dEhQWjg4U1M4VFpqRGlydEl0bmFFMlNudmgw?=
+ =?utf-8?B?dG1KY2xMVGN0cXUrMmpxNFJYcU1UN01ySkorek93elhVTXRNYmV4eERhcU1o?=
+ =?utf-8?B?bXNheTZkQTREQldWVDZWVkZGZjNqbHppby9nWHBvOHJNK1p1cFZwbk1GZHRu?=
+ =?utf-8?B?SFh3WDIrbFVWWVBXVEh0RWxkc1Y0dTlSSFAzMStDNDViY1BWYkVLdHRjSlZY?=
+ =?utf-8?Q?P6U9NIzcdSm3FKRDRqD4TF4nJ?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	EyH9WXY0uG7e45Jtp8duU6HXYqIo9XLM+o/BxciRuleLsdS0wzzfq/cln6ySZlqR1KJMCE9bUbJXf3J/jumG9/yFRsmn4q/fB4a876J+9CA6Lw4I/jtWug7SnCJDIcYRMUBpHICF19hrJaaC4Jr68G37nK7h4WTLcJGfoCqVIXMXY23BvgxcwcFoGhTuis4b818T7C8MZQCPkEWNwdR2DH+YjkCtLjpW36VBmMwULYUe68Pb2FZSoBGTn/7R+SHlqXkIKwosqq53WOO4AItdd40kZFPs8O+SPRrxLvHWVwMaWVX0JRWjT+0gE463CogKftg1Zbukk9HS+uN8F+q4+8gOKPEFngCIM6wkoJyyQ64Rwv/AHFsDt4qt6Cvv/VI//mH1mwonZwx/W9tI5WMbK4/5CYtlsUWSVPHBVUGEmbT6pzuTEIra/csCGSVaWDNAd+BT3t4vbLVKM3lkO8H5qhTb+RA0CLq2eCg2O3BqUIWax3SHDrvMkoO5BAQCKfylrd9qi9jTyjduuT8SMvaQhmM9yiQMXw74P5mxuIuXgYJ9jDJj3d3FNZk/I4KMRYU40o191clonFFHEaLQw6AVJVtgTrgGEo4aVR+21HMlLSUoAU1csOvMF4DxoGGs1eM8Z0k5GT2/3CN5PAL0J9CoRqOcMFVFX9GEG+YGBrT4IZ13o35wMRHSrNLksrWQ2npRwUzU1XLENk7wfWwOhRsMh+AXy51nOLGrfEu/hU/fcS45nK12j1085FzYHSgi2EqF6En70OIoEPYEpkd8ao5roqn655UPAQlsBb1uCXNPFUIlglyJYysT99drfK0V5ZwW
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15abcf2d-30cd-4459-62ea-08db3feeff20
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 09:24:21.2169
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 09:26:32.0821
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Jij+uMjj7F9SHa6OcnLpeNkzvHS0hgufqPGzWWvQMI+Om7n5MPb5NCANz889mANF5FfeVyB1B3cmHLjp6R65hg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7189
+X-MS-Exchange-CrossTenant-UserPrincipalName: hMpyK94AYa6gwx2VNt9Z/9hFDd23bTAy2lUq6KvtEnDtvLEQe1Nay+52KkDhYDBUYiVkTM5N8Ka0RqbCbJSw7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6359
 
-... in order to also intercept Dom0 accesses through the alias ports.
+In order to be able to livepatch code from assembly files we need:
 
-Also stop intercepting accesses to the CMOS ports if we won't ourselves
-use the CMOS RTC, because of there being none.
+ * Proper function symbols from assembly code, including the size.
+ * Separate sections for each function.
 
-Note that rtc_init() deliberately uses 16 as the upper loop bound,
-despite probe_cmos_alias() using 8: The higher bound is benign now, but
-would save us touching the code (or, worse, missing to touch it) in case
-the lower one was doubled.
+However assembly code doesn't really have the concept of a function,
+and hence the code tends to chain different labels that can also be
+entry points.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+In order to be able to livepatch such code we need to enclose the
+assembly code into isolated function-like blocks, so they can be
+handled by livepatch.  Introduce two new macros to do so,
+{START,END}_LP() that take a unique function like name, create the
+function symbol and put the code into a separate text section.  Note
+that START_LP() requires a preceding jump before the section change,
+so that any preceding code that fallthrough correctly continues
+execution, as sections can be reordered.  Chaining of consecutive
+livepatchable blocks will also require that the previous section
+jumps into the next one if required.
+
+A couple of shortcomings:
+
+ * We don't check that the size of the section is enough to fit a jump
+   instruction (ARCH_PATCH_INSN_SIZE).  Some logic from the
+   alternatives framework should be used to pad sections if required.
+ * Any labels inside of a {START,END}_LP() section must not be
+   referenced from another section, as the patching would break those.
+   I haven't figured out a way to detect such references.  We
+   already use .L to denote local labels, but we would have to be
+   careful.
+
+Some of the assembly entry points cannot be safely patched until it's
+safe to use jmp, as livepatch can replace a whole block with a jmp to
+a new address, and that won't be safe until speculative mitigations
+have been applied.
+
+I could also look into allowing livepatch of sections where jmp
+replacement is not safe by requesting in-place code replacement only,
+we could then maybe allow adding some nop padding to those sections in
+order to cope with the size increasing in further livepatches.
+
+So far this patch only contains two switched functions:
+restore_all_xen and common_interrupt.  I don't really want to switch
+more code until we agree on the approach, so take this as a kind of
+RFC patch.  Obviously conversion doesn't need to be done in one go,
+neither all assembly code need to be 'transformed' in this way.
+
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-v6: Restore lost "return" in rtc_init(). Convert printk() to dprintk()
-    in probe_cmos_alias(). Correct is_cmos_port() for hwdom.
-v5: Simplify logic in is_cmos_port(). Limit the scope of a local
-    variable. Adjust a comment that's being moved.
-v4: Also conditionally mask top bit for guest index port accesses. Add
-    missing adjustments to rtc_init(). Re-work to avoid recursive
-    read_lock(). Also adjust guest_io_{read,write}(). Re-base.
-v3: Re-base over change to earlier patch.
-v2: Re-base.
+ xen/arch/x86/include/asm/config.h | 14 ++++++++++++++
+ xen/arch/x86/x86_64/entry.S       |  5 ++++-
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
---- a/xen/arch/x86/hvm/rtc.c
-+++ b/xen/arch/x86/hvm/rtc.c
-@@ -27,7 +27,7 @@
- #include <asm/hvm/vpt.h>
- #include <asm/hvm/io.h>
- #include <asm/hvm/save.h>
--#include <asm/current.h>
-+#include <asm/iocap.h>
- #include <xen/trace.h>
- #include <public/hvm/params.h>
+diff --git a/xen/arch/x86/include/asm/config.h b/xen/arch/x86/include/asm/config.h
+index fbc4bb3416bd..68e7fdfe3517 100644
+--- a/xen/arch/x86/include/asm/config.h
++++ b/xen/arch/x86/include/asm/config.h
+@@ -44,6 +44,20 @@
+ /* Linkage for x86 */
+ #ifdef __ASSEMBLY__
+ #define ALIGN .align 16,0x90
++#ifdef CONFIG_LIVEPATCH
++#define START_LP(name)                          \
++  jmp name;                                     \
++  .pushsection .text.name, "ax", @progbits;     \
++  name:
++#define END_LP(name)                            \
++  .size name, . - name;                         \
++  .type name, @function;                        \
++  .popsection
++#else
++#define START_LP(name)                          \
++  name:
++#define END_LP(name)
++#endif
+ #define ENTRY(name)                             \
+   .globl name;                                  \
+   ALIGN;                                        \
+diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+index 7675a59ff057..c204634910c4 100644
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -660,7 +660,7 @@ ENTRY(early_page_fault)
  
-@@ -836,9 +836,19 @@ void rtc_init(struct domain *d)
- 
-     if ( !has_vrtc(d) )
-     {
--        if ( is_hardware_domain(d) )
--            /* Hardware domain gets mediated access to the physical RTC. */
--            register_portio_handler(d, RTC_PORT(0), 2, hw_rtc_io);
-+        unsigned int port;
-+
-+        if ( !is_hardware_domain(d) )
-+            return;
-+
-+        /*
-+         * Hardware domain gets mediated access to the physical RTC/CMOS (of
-+         * course unless we don't use it ourselves, for there being none).
-+         */
-+        for ( port = RTC_PORT(0); port < RTC_PORT(0) + 0x10; port += 2 )
-+            if ( is_cmos_port(port, 2, d) )
-+                register_portio_handler(d, port, 2, hw_rtc_io);
-+
-         return;
-     }
- 
---- a/xen/arch/x86/include/asm/mc146818rtc.h
-+++ b/xen/arch/x86/include/asm/mc146818rtc.h
-@@ -9,6 +9,10 @@
- 
- extern spinlock_t rtc_lock;             /* serialize CMOS RAM access */
- 
-+struct domain;
-+bool is_cmos_port(unsigned int port, unsigned int bytes,
-+                  const struct domain *d);
-+
- /**********************************************************************
-  * register summary
-  **********************************************************************/
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -208,7 +208,7 @@ static bool admin_io_okay(unsigned int p
-         return false;
- 
-     /* We also never permit direct access to the RTC/CMOS registers. */
--    if ( port <= RTC_PORT(1) && port + bytes > RTC_PORT(0) )
-+    if ( is_cmos_port(port, bytes, d) )
-         return false;
- 
-     return ioports_access_permitted(d, port, port + bytes - 1);
-@@ -278,7 +278,7 @@ static uint32_t guest_io_read(unsigned i
-         {
-             sub_data = pv_pit_handler(port, 0, 0);
-         }
--        else if ( port == RTC_PORT(0) || port == RTC_PORT(1) )
-+        else if ( is_cmos_port(port, 1, currd) )
-         {
-             sub_data = rtc_guest_read(port);
-         }
-@@ -424,7 +424,7 @@ static void guest_io_write(unsigned int
-         {
-             pv_pit_handler(port, (uint8_t)data, 1);
-         }
--        else if ( port == RTC_PORT(0) || port == RTC_PORT(1) )
-+        else if ( is_cmos_port(port, 1, currd) )
-         {
-             rtc_guest_write(port, data);
-         }
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -2130,37 +2130,36 @@ int __hwdom_init xen_in_range(unsigned l
- static int __hwdom_init cf_check io_bitmap_cb(
-     unsigned long s, unsigned long e, void *ctx)
- {
--    struct domain *d = ctx;
-+    const struct domain *d = ctx;
-     unsigned int i;
- 
-     ASSERT(e <= INT_MAX);
-     for ( i = s; i <= e; i++ )
--        __clear_bit(i, d->arch.hvm.io_bitmap);
-+        /*
-+         * Accesses to RTC ports also need to be trapped in order to keep
-+         * consistency with hypervisor accesses.
-+         */
-+        if ( !is_cmos_port(i, 1, d) )
-+            __clear_bit(i, d->arch.hvm.io_bitmap);
- 
-     return 0;
- }
- 
- void __hwdom_init setup_io_bitmap(struct domain *d)
- {
--    int rc;
-+    if ( !is_hvm_domain(d) )
-+        return;
- 
--    if ( is_hvm_domain(d) )
--    {
--        bitmap_fill(d->arch.hvm.io_bitmap, 0x10000);
--        rc = rangeset_report_ranges(d->arch.ioport_caps, 0, 0x10000,
--                                    io_bitmap_cb, d);
--        BUG_ON(rc);
--        /*
--         * NB: we need to trap accesses to 0xcf8 in order to intercept
--         * 4 byte accesses, that need to be handled by Xen in order to
--         * keep consistency.
--         * Access to 1 byte RTC ports also needs to be trapped in order
--         * to keep consistency with PV.
--         */
--        __set_bit(0xcf8, d->arch.hvm.io_bitmap);
--        __set_bit(RTC_PORT(0), d->arch.hvm.io_bitmap);
--        __set_bit(RTC_PORT(1), d->arch.hvm.io_bitmap);
--    }
-+    bitmap_fill(d->arch.hvm.io_bitmap, 0x10000);
-+    if ( rangeset_report_ranges(d->arch.ioport_caps, 0, 0x10000,
-+                                io_bitmap_cb, d) )
-+        BUG();
-+
-+    /*
-+     * We need to trap 4-byte accesses to 0xcf8 (see admin_io_okay(),
-+     * guest_io_read(), and guest_io_write()).
-+     */
-+    __set_bit(0xcf8, d->arch.hvm.io_bitmap);
- }
- 
- /*
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -1234,7 +1234,10 @@ static unsigned long get_cmos_time(void)
-         if ( seconds < 60 )
-         {
-             if ( rtc.sec != seconds )
-+            {
-                 cmos_rtc_probe = false;
-+                acpi_gbl_FADT.boot_flags &= ~ACPI_FADT_NO_CMOS_RTC;
-+            }
-             break;
-         }
- 
-@@ -1249,6 +1252,79 @@ static unsigned long get_cmos_time(void)
-     return mktime(rtc.year, rtc.mon, rtc.day, rtc.hour, rtc.min, rtc.sec);
- }
- 
-+static unsigned int __ro_after_init cmos_alias_mask;
-+
-+static int __init cf_check probe_cmos_alias(void)
-+{
-+    unsigned int offs;
-+
-+    if ( acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC )
-+        return 0;
-+
-+    for ( offs = 2; offs < 8; offs <<= 1 )
-+    {
-+        unsigned int i;
-+        bool read = true;
-+
-+        for ( i = RTC_REG_D + 1; i < 0x80; ++i )
-+        {
-+            uint8_t normal, alt;
-+            unsigned long flags;
-+
-+            if ( i == acpi_gbl_FADT.century )
-+                continue;
-+
-+            spin_lock_irqsave(&rtc_lock, flags);
-+
-+            normal = CMOS_READ(i);
-+            if ( inb(RTC_PORT(offs)) != i )
-+                read = false;
-+
-+            alt = inb(RTC_PORT(offs + 1));
-+
-+            spin_unlock_irqrestore(&rtc_lock, flags);
-+
-+            if ( normal != alt )
-+                break;
-+
-+            process_pending_softirqs();
-+        }
-+        if ( i == 0x80 )
-+        {
-+            cmos_alias_mask |= offs;
-+            dprintk(XENLOG_INFO, "CMOS aliased at %02x, index %s\n",
-+                    RTC_PORT(offs), read ? "r/w" : "w/o");
-+        }
-+    }
-+
-+    return 0;
-+}
-+__initcall(probe_cmos_alias);
-+
-+bool is_cmos_port(unsigned int port, unsigned int bytes, const struct domain *d)
-+{
-+    unsigned int offs;
-+
-+    if ( !is_hardware_domain(d) )
-+        return port <= RTC_PORT(1) && port + bytes > RTC_PORT(0);
-+
-+    if ( acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC )
-+        return false;
-+
-+    if ( port <= RTC_PORT(1) && port + bytes > RTC_PORT(0) )
-+        return true;
-+
-+    for ( offs = 2; offs <= cmos_alias_mask; offs <<= 1 )
-+    {
-+        if ( !(offs & cmos_alias_mask) )
-+            continue;
-+        if ( port <= RTC_PORT(offs | 1) && port + bytes > RTC_PORT(offs) )
-+            return true;
-+    }
-+
-+    return false;
-+}
-+
- /* Helpers for guest accesses to the physical RTC. */
- unsigned int rtc_guest_read(unsigned int port)
- {
-@@ -1256,23 +1332,25 @@ unsigned int rtc_guest_read(unsigned int
-     unsigned long flags;
-     unsigned int data = ~0;
- 
--    switch ( port )
-+    switch ( port & ~cmos_alias_mask )
-     {
-     case RTC_PORT(0):
+         ALIGN
+ /* No special register assumptions. */
+-restore_all_xen:
++START_LP(restore_all_xen)
          /*
-          * All PV domains (and PVH dom0) are allowed to read the latched value
-          * of the first RTC port, as there's no access to the physical IO
--         * ports.
-+         * ports.  Note that we return the index value regardless of whether
-+         * underlying hardware would permit doing so.
-          */
--        data = currd->arch.cmos_idx;
-+        data = currd->arch.cmos_idx & (0xff >> (port == RTC_PORT(0)));
-         break;
+          * Check whether we need to switch to the per-CPU page tables, in
+          * case we return to late PV exit code (from an NMI or #MC).
+@@ -677,6 +677,7 @@ UNLIKELY_END(exit_cr3)
  
-     case RTC_PORT(1):
--        if ( !ioports_access_permitted(currd, RTC_PORT(0), RTC_PORT(1)) )
-+        if ( !ioports_access_permitted(currd, port - 1, port) )
-             break;
-         spin_lock_irqsave(&rtc_lock, flags);
--        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
--        data = inb(RTC_PORT(1));
-+        outb(currd->arch.cmos_idx & (0xff >> (port == RTC_PORT(1))),
-+             port - 1);
-+        data = inb(port);
-         spin_unlock_irqrestore(&rtc_lock, flags);
-         break;
+         RESTORE_ALL adj=8
+         iretq
++END_LP(restore_all_xen)
  
-@@ -1288,9 +1366,10 @@ void rtc_guest_write(unsigned int port,
-     struct domain *currd = current->domain;
-     unsigned long flags;
+ ENTRY(common_interrupt)
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+@@ -687,6 +688,7 @@ ENTRY(common_interrupt)
+         SPEC_CTRL_ENTRY_FROM_INTR /* Req: %rsp=regs, %r14=end, %rdx=0, Clob: acd */
+         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
  
--    switch ( port )
-+    switch ( port & ~cmos_alias_mask )
-     {
-         typeof(pv_rtc_handler) hook;
-+        unsigned int idx;
++START_LP(common_interrupt_lp)
+         mov   STACK_CPUINFO_FIELD(xen_cr3)(%r14), %rcx
+         mov   STACK_CPUINFO_FIELD(use_pv_cr3)(%r14), %bl
+         mov   %rcx, %r15
+@@ -707,6 +709,7 @@ ENTRY(common_interrupt)
+         mov   %r15, STACK_CPUINFO_FIELD(xen_cr3)(%r14)
+         mov   %bl, STACK_CPUINFO_FIELD(use_pv_cr3)(%r14)
+         jmp ret_from_intr
++END_LP(common_interrupt_lp)
  
-     case RTC_PORT(0):
-         /*
-@@ -1298,20 +1377,22 @@ void rtc_guest_write(unsigned int port,
-          * value of the first RTC port, as there's no access to the physical IO
-          * ports.
-          */
--        currd->arch.cmos_idx = data;
-+        currd->arch.cmos_idx = data & (0xff >> (port == RTC_PORT(0)));
-         break;
- 
-     case RTC_PORT(1):
--        if ( !ioports_access_permitted(currd, RTC_PORT(0), RTC_PORT(1)) )
-+        if ( !ioports_access_permitted(currd, port - 1, port) )
-             break;
- 
-+        idx = currd->arch.cmos_idx & (0xff >> (port == RTC_PORT(1)));
-+
-         hook = ACCESS_ONCE(pv_rtc_handler);
-         if ( hook )
--            hook(currd->arch.cmos_idx & 0x7f, data);
-+            hook(idx, data);
- 
-         spin_lock_irqsave(&rtc_lock, flags);
--        outb(currd->arch.cmos_idx & 0x7f, RTC_PORT(0));
--        outb(data, RTC_PORT(1));
-+        outb(idx, port - 1);
-+        outb(data, port);
-         spin_unlock_irqrestore(&rtc_lock, flags);
-         break;
- 
+ ENTRY(page_fault)
+         ENDBR64
+-- 
+2.40.0
+
 
