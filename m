@@ -2,65 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 303746E639C
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Apr 2023 14:42:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.522812.812416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC9BB6E6453
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Apr 2023 14:48:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.522820.812426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pokdu-0000Pb-9w; Tue, 18 Apr 2023 12:41:06 +0000
+	id 1pokkf-00010g-0g; Tue, 18 Apr 2023 12:48:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 522812.812416; Tue, 18 Apr 2023 12:41:06 +0000
+Received: by outflank-mailman (output) from mailman id 522820.812426; Tue, 18 Apr 2023 12:48:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pokdu-0000MD-6Q; Tue, 18 Apr 2023 12:41:06 +0000
-Received: by outflank-mailman (input) for mailman id 522812;
- Tue, 18 Apr 2023 12:41:05 +0000
+	id 1pokke-0000yy-TI; Tue, 18 Apr 2023 12:48:04 +0000
+Received: by outflank-mailman (input) for mailman id 522820;
+ Tue, 18 Apr 2023 12:48:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BdQL=AJ=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1pokdt-0000M7-09
- for xen-devel@lists.xenproject.org; Tue, 18 Apr 2023 12:41:05 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20615.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::615])
+ id 1pokkd-0000ys-R4
+ for xen-devel@lists.xenproject.org; Tue, 18 Apr 2023 12:48:03 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on061f.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::61f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47a9a16f-dde6-11ed-b21f-6b7b168915f2;
- Tue, 18 Apr 2023 14:41:03 +0200 (CEST)
-Received: from DUZPR01CA0228.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b4::23) by PA4PR08MB6237.eurprd08.prod.outlook.com
- (2603:10a6:102:f3::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
- 2023 12:40:56 +0000
-Received: from DBAEUR03FT053.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:4b4:cafe::96) by DUZPR01CA0228.outlook.office365.com
- (2603:10a6:10:4b4::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.47 via Frontend
- Transport; Tue, 18 Apr 2023 12:40:56 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT053.mail.protection.outlook.com (100.127.142.121) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6319.20 via Frontend Transport; Tue, 18 Apr 2023 12:40:56 +0000
-Received: ("Tessian outbound 3a01b65b5aad:v136");
- Tue, 18 Apr 2023 12:40:56 +0000
-Received: from a6842cc5434d.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 9BE524D5-DDFF-4263-8789-15D8B149079E.1; 
- Tue, 18 Apr 2023 12:40:44 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id a6842cc5434d.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 18 Apr 2023 12:40:44 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by DB9PR08MB7675.eurprd08.prod.outlook.com (2603:10a6:10:37e::12)
+ id 41b49239-dde7-11ed-b21f-6b7b168915f2;
+ Tue, 18 Apr 2023 14:48:03 +0200 (CEST)
+Received: from DB9PR06CA0010.eurprd06.prod.outlook.com (2603:10a6:10:1db::15)
+ by AS8PR08MB7744.eurprd08.prod.outlook.com (2603:10a6:20b:508::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
- 2023 12:40:42 +0000
+ 2023 12:47:55 +0000
+Received: from DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:1db:cafe::44) by DB9PR06CA0010.outlook.office365.com
+ (2603:10a6:10:1db::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.47 via Frontend
+ Transport; Tue, 18 Apr 2023 12:47:55 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT028.mail.protection.outlook.com (100.127.142.236) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6319.20 via Frontend Transport; Tue, 18 Apr 2023 12:47:55 +0000
+Received: ("Tessian outbound 99a3040377ca:v136");
+ Tue, 18 Apr 2023 12:47:55 +0000
+Received: from b6a0658ec7c5.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 472F295A-AFBE-408D-B33F-63627DE530B6.1; 
+ Tue, 18 Apr 2023 12:47:43 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b6a0658ec7c5.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 18 Apr 2023 12:47:43 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by PAVPR08MB9578.eurprd08.prod.outlook.com (2603:10a6:102:310::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
+ 2023 12:47:36 +0000
 Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
  ([fe80::8e01:7058:6f40:90e1]) by AM6PR08MB3784.eurprd08.prod.outlook.com
  ([fe80::8e01:7058:6f40:90e1%7]) with mapi id 15.20.6298.045; Tue, 18 Apr 2023
- 12:40:42 +0000
+ 12:47:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,12 +72,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47a9a16f-dde6-11ed-b21f-6b7b168915f2
+X-Inumbo-ID: 41b49239-dde7-11ed-b21f-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KuBqlIVqw3weVo48w1CdKjXEop0iDtlBi0UM7Hgax94=;
- b=w4QLKCmF8gA6bw1NGrAmU90fr2U/yiaqIyHtVNeTdlNqJU2P3dFfQxtl2jR9w4rYdou1rRttMYlt25xU+TQmUXmp4XXWAX0ZNySDB4upRcN3wKRrwZGc4LB0axxaRM/SLxibygbwODUUAUCDD62QGjX6W2XCA/Ly0+ibdBy3ck0=
+ bh=U9ZKDk0iLgLKg/KqLgosILTuSTfBe1xK7PMUC6wjftA=;
+ b=AyiQIStFaaBOQI4DQ+Qk39Jze1AK6gxb96biVZxzxSZyOtGFW1aj8tSfgkc6sxlDzQgWXX9c85sU79/wVrEUmWWW1dMplPpxryqmftyZ5iI7pnYXnyN+aNRR5ATarWrHFTeUrfX3w4JDmqNaUP4Hv7e4lU39Jjs9/myaH/WNbJs=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -86,36 +86,38 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
  pr=C
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: ce5cbdeb159a52f7
+X-CR-MTA-CID: a802e5ffdf604c77
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PquUTDtQtnrt5IM2HageNjSgPxCXcL3+uM4R30lxUyBZCyJbnq8qEdtFuFcyBwsYv6cNoQE1whKvjSOlvFZtS6gxf18lv0a3YTIDKHurxNj/enmxBM5yXHNgb5+q2TRJ3/AT6zrxtQtpYlOulPxJxh8xRgPfArtRLRA08njnBvDuYtCMg4UZioOIxpgawQFZ/OGWXzXX9EuyZ0rh6ZIMsXrDuXVWAtgITjjGnDXVVsNX9GZ0s6t86RUfESMP24+6M4nkNeCtxZUFDayr12GViFkN2tm+P8Jm/5NhHpgZ5LCTH8T7AkXgBFjrTBhoCLpiFx87pnQq2cMM+SI5/AXndA==
+ b=HnO58N0vtztA9ksh2OaaEFRjk+nrkkZOg5/vahdGyZeuuo5wHZC4bI/vlTsuvMxqCzdZ3WlQ5aVzIwynTkJO6Cpt5exfSAQ0d4O3f5L8PNBbCPkw0q3K+NBNdkN4j7YR46jmIhvN0c4SwYXj2JlU5HdsRJv51gi4CMy/tezZUmR2JTZdzr4+d4g0HlPhxVJ0aHAcDqVum2XshK69P06U+ly+PfUJZLMwEVIMEsrgNpfRJCSKNkC3XpIsjy3AUM5micy8JBUi69x6egQ5/zkJGzKBCgOmF/11+JdAYm5NX9sTZa/eHbgR5fh3IVpcm16PCepvpSCrud/BgbOQ5Devkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KuBqlIVqw3weVo48w1CdKjXEop0iDtlBi0UM7Hgax94=;
- b=E7mkRzEKQc+U7yT1suU8+Tpqe06l0eTNrWTALxjeMhcg+SD2WF1411+51e959qHi+2I7WfhVeg3wmmmpHGlzR6+96W7qEUmv1l+Z2T29Igqgh1jWQQVt17oi6ENtlsvmsj64vltbFgMSuemLAVM9OYz4gl7alApzu17IsRlVnMdd90V7Z6dBdKK4Ses/UpT+QvzLwNLzSuxhkQjkraLa+U5Ik0sQmK0Ar5hJPhT6OwiGIMJQOGu7P3fljYGUYoR7o5UNt4+dWPmJBxFh/LBRuu/ZLCBoFTkInUnqprDxKDwqlVTfyFKI6pBiBFlx0ZxLVmwtBoFup5MRG5ZNjkF1ag==
+ bh=U9ZKDk0iLgLKg/KqLgosILTuSTfBe1xK7PMUC6wjftA=;
+ b=hd/U3dfE1LasOEQIIQ0NfohOLPMMGdVPDPcCP6h+LA3ZazHNYw6WufXNYSjjAR11MwzyPpxC35+cUaim4LcpnDt9kDpzpwWGkqOnkAcaAEbnPa3QdlZEO/NzFXNXKTzgIu2bAszf7Ue/o0OrnlPvvNAXL15kqDm4eNt0s8vlHSM9n+djadWKAbZY0FX8L3C55/Mnyc1jQm8lA24BQd+iQMvHIu/ast1s3Pz1fvtetprA/UWNWp7kJTQYf4w04S1N5ecsSUgMjEgBN7YA3q5UcYkBRT2XnwwXx2YKppXBMgn1nEuaMTs12ESiF43sqwf1TEk2QbSktFzAy6F+If5SEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KuBqlIVqw3weVo48w1CdKjXEop0iDtlBi0UM7Hgax94=;
- b=w4QLKCmF8gA6bw1NGrAmU90fr2U/yiaqIyHtVNeTdlNqJU2P3dFfQxtl2jR9w4rYdou1rRttMYlt25xU+TQmUXmp4XXWAX0ZNySDB4upRcN3wKRrwZGc4LB0axxaRM/SLxibygbwODUUAUCDD62QGjX6W2XCA/Ly0+ibdBy3ck0=
+ bh=U9ZKDk0iLgLKg/KqLgosILTuSTfBe1xK7PMUC6wjftA=;
+ b=AyiQIStFaaBOQI4DQ+Qk39Jze1AK6gxb96biVZxzxSZyOtGFW1aj8tSfgkc6sxlDzQgWXX9c85sU79/wVrEUmWWW1dMplPpxryqmftyZ5iI7pnYXnyN+aNRR5ATarWrHFTeUrfX3w4JDmqNaUP4Hv7e4lU39Jjs9/myaH/WNbJs=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Luca Fancellu <Luca.Fancellu@arm.com>
 CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v5 05/12] arm/sve: save/restore SVE context switch
-Thread-Topic: [PATCH v5 05/12] arm/sve: save/restore SVE context switch
-Thread-Index: AQHZbSQq1oowf9vRd0a2ZPNGYXQmqK8xC64A
-Date: Tue, 18 Apr 2023 12:40:41 +0000
-Message-ID: <109F3491-6845-4A5F-9F77-F24D8970B1BE@arm.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v5 07/12] xen: enable Dom0 to use SVE feature
+Thread-Topic: [PATCH v5 07/12] xen: enable Dom0 to use SVE feature
+Thread-Index: AQHZbSQxHdlbNP/OhU+SnBXlOek6la8xDZGA
+Date: Tue, 18 Apr 2023 12:47:35 +0000
+Message-ID: <2833DC4A-95F0-482A-AD0F-3E942D1DA223@arm.com>
 References: <20230412094938.2693890-1-luca.fancellu@arm.com>
- <20230412094938.2693890-6-luca.fancellu@arm.com>
-In-Reply-To: <20230412094938.2693890-6-luca.fancellu@arm.com>
+ <20230412094938.2693890-8-luca.fancellu@arm.com>
+In-Reply-To: <20230412094938.2693890-8-luca.fancellu@arm.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -124,592 +126,357 @@ x-mailer: Apple Mail (2.3731.500.231)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|DB9PR08MB7675:EE_|DBAEUR03FT053:EE_|PA4PR08MB6237:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1d737754-dc53-427b-4421-08db400a27bf
+	AM6PR08MB3784:EE_|PAVPR08MB9578:EE_|DBAEUR03FT028:EE_|AS8PR08MB7744:EE_
+X-MS-Office365-Filtering-Correlation-Id: 81829f7c-e8b6-48a1-8d98-08db400b215d
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- Gb8u6m7/XlYSQgFRMH2qrdSFSZBTS0bqjG9Kf4amhqfF9bM1kT0YX+UOlPbzl73PbWKWyLweyacuWfRBMkBJqzuqThD1RiG4xXjn4C82pj3GE06agEr8oi17WhW/1ZYq54/APLs+jXw5pdcEmZMlPoxLH01Vxp+aZSruoCeV5mSJPvQKs2nCXQI++459hgMBs0yyedHvjGnwESbZ//AuOEyk8C31TKme4SPierDHSEUhE2d+4YGaJINajpBE9VWxwAeSDfSMdSlQTWS8lkSunIlztxYZiZecEMTxt6+YTV1rL9uig5iG5htx17g68Cn//iv5Dm6eC/Aj7MM2HYjzsKPYoIvlifFNjYyJKENeLlcblFhpNAagAfftgtZxfRKYSaBba3eI9QWEf3HfyXitb/+EWpEU80ql7uz51gjhMRuflkunhyH765gfdCZmK6oHPK8N2Yh1H0rkqe36fYVTDtc3crFObUhSBBHEuTGjtaamvVtjYCj+SG5SEQEXciOh6/xab8eKO+YYug2m8sNFzdJOsskrjk0/jWEVFiosdIyHTA8EhWhRiqEICZRtjyewlmo/aFllriT3FqHQheo8IPExuVXTrjO4nOUST43R2n6HR97jgc6YEv1esN43Mt+ccOy70CISuajIvbEyME5sow==
+ IWAvAOtTOmSOUgWFJ4I7/6E8UhNEy5xP8tkOeFuWlG46fF2FSOYzpFSBZMh5sDtjgziHzL+fzGtTRy8nQdEf0pdnEj51Om1GO57IYC8eT6zTvW5YRyi8Ke+NfCjfoBJktwBO3Tdkg5MyOt4Fja7NDEEm4xDuYfO390azFtqfI/wkGqFAyF9/3OIoBlBKsxFbI2JtBY+1vPdbeDSttZzyD3UdfPE+8AfbImVT8eGpARiHoIh//E1in0C5ynXa3t6Qdy53h82AeHTie3OQUBaNv92f8bRgrPVdfcxnB4bYQk9qdO6g+5sBYSKN6CMwPHJTPavk65NZefJdnTNf9ysoyt4TWDQNLM5x/61yXYwP76J/NIJtZAso5vNuBG0Zc7/JoHj0BpXxeRmSEH6AN7nYjT0PjzjiccW9swXQWgBRXcc7qSNtzzhEw/0Fk5VkbLwYYHU5C3X4XfKQvWxSUrEnMQVOMK10OA8IvR3o1c5N8E9QtCev3A9c/69irAha3jTNqnq0xQhNRSlikwjzIh1w4S3ya5m3IHgnxM+qL1FG3ysTaB7m6RwVZzNgnf+9mF0GQpcjNiSNPfn9GtbTcGWxHloUXD1SiF8BTPCCpqhNGS1L2lF3dGYlH2Hv7LhmzDChur2dxyBr9/5vCgQkQixSBw==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(366004)(346002)(39860400002)(396003)(451199021)(6862004)(5660300002)(4326008)(76116006)(30864003)(2906002)(66946007)(41300700001)(91956017)(8936002)(8676002)(6636002)(316002)(478600001)(6486002)(71200400001)(53546011)(6506007)(6512007)(186003)(64756008)(66446008)(66476007)(66556008)(37006003)(2616005)(83380400001)(122000001)(54906003)(38100700002)(38070700005)(36756003)(33656002)(86362001)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(366004)(136003)(376002)(346002)(451199021)(37006003)(478600001)(71200400001)(38100700002)(8936002)(6862004)(8676002)(316002)(41300700001)(91956017)(4326008)(6636002)(76116006)(66446008)(66556008)(66946007)(54906003)(122000001)(66476007)(186003)(2906002)(53546011)(38070700005)(6512007)(64756008)(6506007)(86362001)(83380400001)(36756003)(33656002)(2616005)(5660300002)(6486002)(45980500001);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <5B339A795A41A64295EC7B9DFA4FF1A4@eurprd08.prod.outlook.com>
+Content-ID: <DBEBA3C24B097545A6F96461A8C96E97@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7675
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9578
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT053.eop-EUR03.prod.protection.outlook.com
+ DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	f7740d9b-76aa-4c57-1cf1-08db400a1f2e
+	5db6804d-0d61-43dd-0dea-08db400b15ea
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3UpkKZsUMlVvH59/Z8rR+A1SK/wof7OOZCwDxl2+jrS8/We2Tai5fXd5ZS0TrlgE3xBqgAxxFu0VrPTtU6I/kTzxVXdhf+hWoMYM51vpDaO5GjLwJXUkpPZuvNAdCdPOVyM6Fur/swqWFw1eMFSgtj7c/d9WotUC8ImDdx4soXhITeTHKPpL4E4pOj8Kgc3/7pDOQNx4q+46jZpzK8raD7ribJFNlwHD+UGNNcL5gIvxGW8WdGYzosLTJg3sCV4x6LZrC90upU7oCJrIXSOKsnO+YHITd0k/KzlGXAr4M1WiDNSbyp6BmJzY1S8fzasqq8Q87xRqG9Jyyd7AIttzP4WOUrH3HRSS+hP5uKTuZ5TENF6KQ4Lzk4qoZ3pjTRZ+9ikI0+TN/pKx0iz2QEzYVcLvb/WlJTO99urwMGSwk5KR9PNjrd3eKTkNtgMAhW9cUlNd9fqKzW1D2LqpmNLV7a5qem8uBLj3Kp9uaPBGiZyLtYI56oOop1PBlDt+OVwe798BXyo6SDkygRGmrZS/P8n2imXDDFhd8o8XP+bDwqCyzmEHodfPxQqljCKDLMhaw5FL6WFQF2OvvBx4FjBvAfQg91WR79u+seou84mtJaSE2tKEGAglbofLWGa0x/V17hg8NUkbgtCMHNcpwqcj+XuCrIFjkS4ymG8SsxLITSyrgayxw+hCOWxJpgBMMHAyCCqFYEb5qL/9WQcxdET0gA==
+	FBIEPV7LNrH6g/NTSRciCZc7VHd+psGWpw+IZ5rPuIl93oKvjUb8hk2OziAU2MmXDxnX7lrlYId1QmdgCMlaN63QRaQO+4Jk20ztf+fM4l1n+ZZ4kY6oigtiAC6apaq8jb+pmjYsh0eCcPvhW6JhooAQUhiVREdMPcwY7AqgMO34va5dGSb8C4JHoXZ1wPKMAlvO3bgTQaFUtt5/02y10NfU7DFPCAoMi5lV+dIkPtIW0WwU9bwMGyp6VP9mHFc2rgSaT6w7Q14/mq7SViT9L7cG0tN0UZR2gqlTrv476IyzJcNyJ3RGVXtZKTn+OmDoHkb5EU4WjX8luehBOnfBwML4+C6XyaeopkS/KgHrvuW1KBrZBWBrZqJeQzbDP66hc8rOSAapgAVVoYnHqhUeiuV3mEsnKMdZIc+3qjWFFPcH/q+PaGEd3MgYTqTin0nGtutgI73gQ1+3aN+WlDEG6D2r7oqQeuKWJVSyshp2KlYd2jd7ka6Dsl2jZbHtbm/m37LOpnJpsJX6cwHIjnfAh8HN+67FAtF5nXbO4EK9T1dtt7SuL89622Deu6181WWypOmpAKAfchjNQnkPUS/mtCv2WkmZ9QrD196cATi3wXsoDdr1Bdzy8kGrovr2FkrXIc9P769urmQelvZmV34HkDh/SyOhHvoA+UK5HT/qy68xBtyb/rY0bAUvIJCxVn9k5XWLz2nwd5UyE/ojIV/rzQ==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(376002)(39860400002)(396003)(451199021)(36840700001)(40470700004)(46966006)(36756003)(8936002)(6862004)(8676002)(40460700003)(5660300002)(2906002)(30864003)(82310400005)(33656002)(86362001)(40480700001)(478600001)(6486002)(54906003)(6636002)(37006003)(186003)(107886003)(2616005)(36860700001)(6512007)(53546011)(6506007)(70586007)(70206006)(26005)(41300700001)(356005)(82740400003)(316002)(83380400001)(81166007)(4326008)(47076005)(336012);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(346002)(39860400002)(136003)(376002)(451199021)(40470700004)(46966006)(36840700001)(6506007)(336012)(83380400001)(6512007)(26005)(36756003)(86362001)(47076005)(82310400005)(186003)(356005)(40460700003)(2906002)(53546011)(107886003)(33656002)(2616005)(5660300002)(36860700001)(6486002)(8676002)(6862004)(8936002)(478600001)(81166007)(54906003)(37006003)(41300700001)(82740400003)(316002)(70586007)(40480700001)(70206006)(4326008)(6636002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 12:40:56.3597
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 12:47:55.1654
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d737754-dc53-427b-4421-08db400a27bf
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81829f7c-e8b6-48a1-8d98-08db400b215d
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT053.eop-EUR03.prod.protection.outlook.com
+	DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6237
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7744
 
 Hi Luca,
 
 > On 12 Apr 2023, at 11:49, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
 >=20
-> Save/restore context switch for SVE, allocate memory to contain
-> the Z0-31 registers whose length is maximum 2048 bits each and
-> FFR who can be maximum 256 bits, the allocated memory depends on
-> how many bits is the vector length for the domain and how many bits
-> are supported by the platform.
+> Add a command line parameter to allow Dom0 the use of SVE resources,
+> the command line parameter sve=3D<integer>, sub argument of dom0=3D,
+> controls the feature on this domain and sets the maximum SVE vector
+> length for Dom0.
 >=20
-> Save P0-15 whose length is maximum 256 bits each, in this case the
-> memory used is from the fpregs field in struct vfp_state,
-> because V0-31 are part of Z0-31 and this space would have been
-> unused for SVE domain otherwise.
->=20
-> Create zcr_el{1,2} fields in arch_vcpu, initialise zcr_el2 on vcpu
-> creation given the requested vector length and restore it on
-> context switch, save/restore ZCR_EL1 value as well.
->=20
-> Remove headers from sve.c that are already included using
-> xen/sched.h.
+> Add a new function, parse_signed_integer(), to parse an integer
+> command line argument.
 >=20
 > Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 > ---
 > Changes from v4:
-> - No changes
+> - Negative values as user param means max supported HW VL (Jan)
+> - update documentation, make use of no_config_param(), rename
+>   parse_integer into parse_signed_integer and take long long *,
+>   also put a comment on the -2 return condition, update
+>   declaration comment to reflect the modifications (Jan)
 > Changes from v3:
-> - don't use fixed len types when not needed (Jan)
-> - now VL is an encoded value, decode it before using.
+> - Don't use fixed len types when not needed (Jan)
+> - renamed domainconfig_encode_vl to sve_encode_vl
+> - Use a sub argument of dom0=3D to enable the feature (Jan)
+> - Add parse_integer() function
 > Changes from v2:
-> - No changes
+> - xen_domctl_createdomain field has changed into sve_vl and its
+>   value now is the VL / 128, create an helper function for that.
 > Changes from v1:
 > - No changes
 > Changes from RFC:
-> - Moved zcr_el2 field introduction in this patch, restore its
->   content inside sve_restore_state function. (Julien)
+> - Changed docs to explain that the domain won't be created if the
+>   requested vector length is above the supported one from the
+>   platform.
 > ---
-> xen/arch/arm/arm64/sve-asm.S             | 141 +++++++++++++++++++++++
-> xen/arch/arm/arm64/sve.c                 |  68 ++++++++++-
-> xen/arch/arm/arm64/vfp.c                 |  79 +++++++------
-> xen/arch/arm/domain.c                    |   7 ++
-> xen/arch/arm/include/asm/arm64/sve.h     |  13 +++
-> xen/arch/arm/include/asm/arm64/sysregs.h |   3 +
-> xen/arch/arm/include/asm/arm64/vfp.h     |  10 ++
-> xen/arch/arm/include/asm/domain.h        |   2 +
-> 8 files changed, 284 insertions(+), 39 deletions(-)
+> docs/misc/xen-command-line.pandoc    | 18 ++++++++++++++++--
+> xen/arch/arm/arm64/sve.c             | 21 +++++++++++++++++++++
+> xen/arch/arm/domain_build.c          | 27 +++++++++++++++++++++++++++
+> xen/arch/arm/include/asm/arm64/sve.h | 15 +++++++++++++++
+> xen/common/kernel.c                  | 25 +++++++++++++++++++++++++
+> xen/include/xen/lib.h                | 10 ++++++++++
+> 6 files changed, 114 insertions(+), 2 deletions(-)
 >=20
-> diff --git a/xen/arch/arm/arm64/sve-asm.S b/xen/arch/arm/arm64/sve-asm.S
-> index 4d1549344733..8c37d7bc95d5 100644
-> --- a/xen/arch/arm/arm64/sve-asm.S
-> +++ b/xen/arch/arm/arm64/sve-asm.S
-> @@ -17,6 +17,18 @@
->     .endif
-> .endm
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-li=
+ne.pandoc
+> index e0b89b7d3319..9c0790ce6c7c 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -777,9 +777,9 @@ Specify the bit width of the DMA heap.
 >=20
-> +.macro _sve_check_zreg znr
-> +    .if (\znr) < 0 || (\znr) > 31
-> +        .error "Bad Scalable Vector Extension vector register number \zn=
-r."
-> +    .endif
-> +.endm
-> +
-> +.macro _sve_check_preg pnr
-> +    .if (\pnr) < 0 || (\pnr) > 15
-> +        .error "Bad Scalable Vector Extension predicate register number =
-\pnr."
-> +    .endif
-> +.endm
-> +
-> .macro _check_num n, min, max
->     .if (\n) < (\min) || (\n) > (\max)
->         .error "Number \n out of range [\min,\max]"
-> @@ -26,6 +38,54 @@
-> /* SVE instruction encodings for non-SVE-capable assemblers */
-> /* (pre binutils 2.28, all kernel capable clang versions support SVE) */
+> ### dom0
+>     =3D List of [ pv | pvh, shadow=3D<bool>, verbose=3D<bool>,
+> -                cpuid-faulting=3D<bool>, msr-relaxed=3D<bool> ]
+> +                cpuid-faulting=3D<bool>, msr-relaxed=3D<bool> ] (x86)
 >=20
-> +/* STR (vector): STR Z\nz, [X\nxbase, #\offset, MUL VL] */
-> +.macro _sve_str_v nz, nxbase, offset=3D0
-> +    _sve_check_zreg \nz
-> +    _check_general_reg \nxbase
-> +    _check_num (\offset), -0x100, 0xff
-> +    .inst 0xe5804000                \
-> +        | (\nz)                     \
-> +        | ((\nxbase) << 5)          \
-> +        | (((\offset) & 7) << 10)   \
-> +        | (((\offset) & 0x1f8) << 13)
-> +.endm
-> +
-> +/* LDR (vector): LDR Z\nz, [X\nxbase, #\offset, MUL VL] */
-> +.macro _sve_ldr_v nz, nxbase, offset=3D0
-> +    _sve_check_zreg \nz
-> +    _check_general_reg \nxbase
-> +    _check_num (\offset), -0x100, 0xff
-> +    .inst 0x85804000                \
-> +        | (\nz)                     \
-> +        | ((\nxbase) << 5)          \
-> +        | (((\offset) & 7) << 10)   \
-> +        | (((\offset) & 0x1f8) << 13)
-> +.endm
-> +
-> +/* STR (predicate): STR P\np, [X\nxbase, #\offset, MUL VL] */
-> +.macro _sve_str_p np, nxbase, offset=3D0
-> +    _sve_check_preg \np
-> +    _check_general_reg \nxbase
-> +    _check_num (\offset), -0x100, 0xff
-> +    .inst 0xe5800000                \
-> +        | (\np)                     \
-> +        | ((\nxbase) << 5)          \
-> +        | (((\offset) & 7) << 10)   \
-> +        | (((\offset) & 0x1f8) << 13)
-> +.endm
-> +
-> +/* LDR (predicate): LDR P\np, [X\nxbase, #\offset, MUL VL] */
-> +.macro _sve_ldr_p np, nxbase, offset=3D0
-> +    _sve_check_preg \np
-> +    _check_general_reg \nxbase
-> +    _check_num (\offset), -0x100, 0xff
-> +    .inst 0x85800000                \
-> +        | (\np)                     \
-> +        | ((\nxbase) << 5)          \
-> +        | (((\offset) & 7) << 10)   \
-> +        | (((\offset) & 0x1f8) << 13)
-> +.endm
-> +
-> /* RDVL X\nx, #\imm */
-> .macro _sve_rdvl nx, imm
->     _check_general_reg \nx
-> @@ -35,11 +95,92 @@
->         | (((\imm) & 0x3f) << 5)
-> .endm
+> -    Applicability: x86
+> +    =3D List of [ sve=3D<integer> ] (Arm)
 >=20
-> +/* RDFFR (unpredicated): RDFFR P\np.B */
-> +.macro _sve_rdffr np
-> +    _sve_check_preg \np
-> +    .inst 0x2519f000                \
-> +        | (\np)
-> +.endm
-> +
-> +/* WRFFR P\np.B */
-> +.macro _sve_wrffr np
-> +    _sve_check_preg \np
-> +    .inst 0x25289000                \
-> +        | ((\np) << 5)
-> +.endm
-> +
-> +.macro __for from:req, to:req
-> +    .if (\from) =3D=3D (\to)
-> +        _for__body %\from
-> +    .else
-> +        __for %\from, %((\from) + ((\to) - (\from)) / 2)
-> +        __for %((\from) + ((\to) - (\from)) / 2 + 1), %\to
-> +    .endif
-> +.endm
-> +
-> +.macro _for var:req, from:req, to:req, insn:vararg
-> +    .macro _for__body \var:req
-> +        .noaltmacro
-> +        \insn
-> +        .altmacro
-> +    .endm
-> +
-> +    .altmacro
-> +    __for \from, \to
-> +    .noaltmacro
-> +
-> +    .purgem _for__body
-> +.endm
-> +
-> +.macro sve_save nxzffrctx, nxpctx, save_ffr
-> +    _for n, 0, 31, _sve_str_v \n, \nxzffrctx, \n - 32
-> +    _for n, 0, 15, _sve_str_p \n, \nxpctx, \n
-> +        cbz \save_ffr, 1f
-> +        _sve_rdffr 0
-> +        _sve_str_p 0, \nxzffrctx
-> +        _sve_ldr_p 0, \nxpctx
-> +        b 2f
-> +1:
-> +        str xzr, [x\nxzffrctx]      // Zero out FFR
-> +2:
-> +.endm
-> +
-> +.macro sve_load nxzffrctx, nxpctx, restore_ffr
-> +    _for n, 0, 31, _sve_ldr_v \n, \nxzffrctx, \n - 32
-> +        cbz \restore_ffr, 1f
-> +        _sve_ldr_p 0, \nxzffrctx
-> +        _sve_wrffr 0
-> +1:
-> +    _for n, 0, 15, _sve_ldr_p \n, \nxpctx, \n
-> +.endm
-> +
-> /* Gets the current vector register size in bytes */
-> GLOBAL(sve_get_hw_vl)
->     _sve_rdvl 0, 1
->     ret
+> Controls for how dom0 is constructed on x86 systems.
 >=20
-> +/*
-> + * Save the SVE context
-> + *
-> + * x0 - pointer to buffer for Z0-31 + FFR
-> + * x1 - pointer to buffer for P0-15
-> + * x2 - Save FFR if non-zero
-> + */
-> +GLOBAL(sve_save_ctx)
-> +    sve_save 0, 1, x2
-> +    ret
+> @@ -838,6 +838,20 @@ Controls for how dom0 is constructed on x86 systems.
+>=20
+>     If using this option is necessary to fix an issue, please report a bu=
+g.
+>=20
+> +Enables features on dom0 on Arm systems.
 > +
-> +/*
-> + * Load the SVE context
-> + *
-> + * x0 - pointer to buffer for Z0-31 + FFR
-> + * x1 - pointer to buffer for P0-15
-> + * x2 - Restore FFR if non-zero
-> + */
-> +GLOBAL(sve_load_ctx)
-> +    sve_load 0, 1, x2
-> +    ret
+> +*   The `sve` integer parameter enables Arm SVE usage for Dom0 domain an=
+d sets
+> +    the maximum SVE vector length.
+> +    A value equal to 0 disables the feature, this is the default value.
+> +    Values below 0 means the feature uses the maximum SVE vector length
+> +    supported by hardware, please be aware that if the hardware doesn't =
+supports
+> +    SVE, the feature remains disabled.
+> +    Values above 0 explicitly set the maximum SVE vector length for Dom0=
+,
+> +    allowed values are from 128 to maximum 2048, being multiple of 128.
+> +    Please note that when the user explicitly specify the value, if that=
+ value
+> +    is above the hardware supported maximum SVE vector length, the domai=
+n
+> +    creation will fail and the system will stop.
 > +
-> /*
->  * Local variables:
->  * mode: ASM
+> ### dom0-cpuid
+>     =3D List of comma separated booleans
+>=20
 > diff --git a/xen/arch/arm/arm64/sve.c b/xen/arch/arm/arm64/sve.c
-> index 78f7482619da..5485648850a0 100644
+> index 5485648850a0..ad5db62e1805 100644
 > --- a/xen/arch/arm/arm64/sve.c
 > +++ b/xen/arch/arm/arm64/sve.c
-> @@ -5,14 +5,29 @@
->  * Copyright (C) 2022 ARM Ltd.
->  */
->=20
-> -#include <xen/types.h>
-> -#include <asm/cpufeature.h>
-> +#include <xen/sched.h>
-> +#include <xen/sizes.h>
+> @@ -9,6 +9,9 @@
+> #include <xen/sizes.h>
 > #include <asm/arm64/sve.h>
-> -#include <asm/arm64/sysregs.h>
-> -#include <asm/processor.h>
-> -#include <asm/system.h>
 >=20
+> +/* opt_dom0_sve: allow Dom0 to use SVE and set maximum vector length. */
+> +int __initdata opt_dom0_sve;
+> +
 > extern unsigned int sve_get_hw_vl(void);
-> +extern void sve_save_ctx(uint64_t *sve_ctx, uint64_t *pregs, int save_ff=
-r);
-> +extern void sve_load_ctx(uint64_t const *sve_ctx, uint64_t const *pregs,
-> +                         int restore_ffr);
-> +
-> +static inline unsigned int sve_zreg_ctx_size(unsigned int vl)
-> +{
-> +    /*
-> +     * Z0-31 registers size in bytes is computed from VL that is in bits=
-, so VL
-> +     * in bytes is VL/8.
-> +     */
-> +    return (vl / 8U) * 32U;
-> +}
-> +
-> +static inline unsigned int sve_ffrreg_ctx_size(unsigned int vl)
-> +{
-> +    /* FFR register size is VL/8, which is in bytes (VL/8)/8 */
-> +    return (vl / 64U);
-> +}
+> extern void sve_save_ctx(uint64_t *sve_ctx, uint64_t *pregs, int save_ffr=
+);
+> extern void sve_load_ctx(uint64_t const *sve_ctx, uint64_t const *pregs,
+> @@ -118,3 +121,21 @@ void sve_restore_state(struct vcpu *v)
 >=20
-> register_t compute_max_zcr(void)
-> {
-> @@ -60,3 +75,46 @@ unsigned int get_sys_vl_len(void)
->     return ((system_cpuinfo.zcr64.bits[0] & ZCR_ELx_LEN_MASK) + 1U) *
->             SVE_VL_MULTIPLE_VAL;
+>     sve_load_ctx(sve_ctx_zreg_end, v->arch.vfp.fpregs, 1);
 > }
 > +
-> +int sve_context_init(struct vcpu *v)
+> +int __init sve_sanitize_vl_param(int val, unsigned int *out)
 > +{
-> +    unsigned int sve_vl_bits =3D sve_decode_vl(v->domain->arch.sve_vl);
-> +    uint64_t *ctx =3D _xzalloc(sve_zreg_ctx_size(sve_vl_bits) +
-> +                             sve_ffrreg_ctx_size(sve_vl_bits),
-> +                             L1_CACHE_BYTES);
-> +
-> +    if ( !ctx )
-> +        return -ENOMEM;
-> +
-> +    v->arch.vfp.sve_context =3D ctx;
+> +    /*
+> +     * Negative SVE parameter value means to use the maximum supported
+> +     * vector length, otherwise if a positive value is provided, check i=
+f the
+> +     * vector length is a multiple of 128 and not bigger than the maximu=
+m value
+> +     * 2048
+> +     */
+> +    if ( val < 0 )
+> +        *out =3D get_sys_vl_len();
+> +    else if ( ((val % SVE_VL_MULTIPLE_VAL) =3D=3D 0) && (val <=3D SVE_VL=
+_MAX_BITS) )
+> +        *out =3D val;
+
+Shouldn't you also check if it is not greater than the maximum vector lengt=
+h ?
+
+> +    else
+> +        return -1;
 > +
 > +    return 0;
 > +}
-> +
-> +void sve_context_free(struct vcpu *v)
-> +{
-> +    xfree(v->arch.vfp.sve_context);
-> +}
-> +
-> +void sve_save_state(struct vcpu *v)
-> +{
-> +    unsigned int sve_vl_bits =3D sve_decode_vl(v->domain->arch.sve_vl);
-> +    uint64_t *sve_ctx_zreg_end =3D v->arch.vfp.sve_context +
-> +            (sve_zreg_ctx_size(sve_vl_bits) / sizeof(uint64_t));
-
-You do quite some computation here for something which does not change
-during the life of the VM.
-Could we save the context_end in the vcpu instead and just do this=20
-computation on init and free only ?
-
-> +
-> +    v->arch.zcr_el1 =3D READ_SYSREG(ZCR_EL1);
-> +
-> +    sve_save_ctx(sve_ctx_zreg_end, v->arch.vfp.fpregs, 1);
-> +}
-> +
-> +void sve_restore_state(struct vcpu *v)
-> +{
-> +    unsigned int sve_vl_bits =3D sve_decode_vl(v->domain->arch.sve_vl);
-> +    uint64_t *sve_ctx_zreg_end =3D v->arch.vfp.sve_context +
-> +            (sve_zreg_ctx_size(sve_vl_bits) / sizeof(uint64_t));
-
-Same as before.
-
-> +
-> +    WRITE_SYSREG(v->arch.zcr_el1, ZCR_EL1);
-> +    WRITE_SYSREG(v->arch.zcr_el2, ZCR_EL2);
-> +
-> +    sve_load_ctx(sve_ctx_zreg_end, v->arch.vfp.fpregs, 1);
-> +}
-> diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
-> index 47885e76baae..2d0d7c2e6ddb 100644
-> --- a/xen/arch/arm/arm64/vfp.c
-> +++ b/xen/arch/arm/arm64/vfp.c
-> @@ -2,29 +2,35 @@
-> #include <asm/processor.h>
-> #include <asm/cpufeature.h>
-> #include <asm/vfp.h>
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index eeb4662f0eee..3f30ef5c37b6 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -26,6 +26,7 @@
+> #include <asm/platform.h>
+> #include <asm/psci.h>
+> #include <asm/setup.h>
 > +#include <asm/arm64/sve.h>
+> #include <asm/cpufeature.h>
+> #include <asm/domain_build.h>
+> #include <xen/event.h>
+> @@ -61,6 +62,21 @@ custom_param("dom0_mem", parse_dom0_mem);
 >=20
-> void vfp_save_state(struct vcpu *v)
+> int __init parse_arch_dom0_param(const char *s, const char *e)
 > {
->     if ( !cpu_has_fp )
->         return;
->=20
-> -    asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
-> -                 "stp q2, q3, [%1, #16 * 2]\n\t"
-> -                 "stp q4, q5, [%1, #16 * 4]\n\t"
-> -                 "stp q6, q7, [%1, #16 * 6]\n\t"
-> -                 "stp q8, q9, [%1, #16 * 8]\n\t"
-> -                 "stp q10, q11, [%1, #16 * 10]\n\t"
-> -                 "stp q12, q13, [%1, #16 * 12]\n\t"
-> -                 "stp q14, q15, [%1, #16 * 14]\n\t"
-> -                 "stp q16, q17, [%1, #16 * 16]\n\t"
-> -                 "stp q18, q19, [%1, #16 * 18]\n\t"
-> -                 "stp q20, q21, [%1, #16 * 20]\n\t"
-> -                 "stp q22, q23, [%1, #16 * 22]\n\t"
-> -                 "stp q24, q25, [%1, #16 * 24]\n\t"
-> -                 "stp q26, q27, [%1, #16 * 26]\n\t"
-> -                 "stp q28, q29, [%1, #16 * 28]\n\t"
-> -                 "stp q30, q31, [%1, #16 * 30]\n\t"
-> -                 : "=3DQ" (*v->arch.vfp.fpregs) : "r" (v->arch.vfp.fpreg=
-s));
-> +    if ( is_sve_domain(v->domain) )
-> +        sve_save_state(v);
-> +    else
+> +    long long val;
+> +
+> +    if ( !parse_signed_integer("sve", s, e, &val) )
 > +    {
-> +        asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
-> +                     "stp q2, q3, [%1, #16 * 2]\n\t"
-> +                     "stp q4, q5, [%1, #16 * 4]\n\t"
-> +                     "stp q6, q7, [%1, #16 * 6]\n\t"
-> +                     "stp q8, q9, [%1, #16 * 8]\n\t"
-> +                     "stp q10, q11, [%1, #16 * 10]\n\t"
-> +                     "stp q12, q13, [%1, #16 * 12]\n\t"
-> +                     "stp q14, q15, [%1, #16 * 14]\n\t"
-> +                     "stp q16, q17, [%1, #16 * 16]\n\t"
-> +                     "stp q18, q19, [%1, #16 * 18]\n\t"
-> +                     "stp q20, q21, [%1, #16 * 20]\n\t"
-> +                     "stp q22, q23, [%1, #16 * 22]\n\t"
-> +                     "stp q24, q25, [%1, #16 * 24]\n\t"
-> +                     "stp q26, q27, [%1, #16 * 26]\n\t"
-> +                     "stp q28, q29, [%1, #16 * 28]\n\t"
-> +                     "stp q30, q31, [%1, #16 * 30]\n\t"
-> +                     : "=3DQ" (*v->arch.vfp.fpregs) : "r" (v->arch.vfp.f=
-pregs));
-> +    }
->=20
->     v->arch.vfp.fpsr =3D READ_SYSREG(FPSR);
->     v->arch.vfp.fpcr =3D READ_SYSREG(FPCR);
-> @@ -37,23 +43,28 @@ void vfp_restore_state(struct vcpu *v)
->     if ( !cpu_has_fp )
->         return;
->=20
-> -    asm volatile("ldp q0, q1, [%1, #16 * 0]\n\t"
-> -                 "ldp q2, q3, [%1, #16 * 2]\n\t"
-> -                 "ldp q4, q5, [%1, #16 * 4]\n\t"
-> -                 "ldp q6, q7, [%1, #16 * 6]\n\t"
-> -                 "ldp q8, q9, [%1, #16 * 8]\n\t"
-> -                 "ldp q10, q11, [%1, #16 * 10]\n\t"
-> -                 "ldp q12, q13, [%1, #16 * 12]\n\t"
-> -                 "ldp q14, q15, [%1, #16 * 14]\n\t"
-> -                 "ldp q16, q17, [%1, #16 * 16]\n\t"
-> -                 "ldp q18, q19, [%1, #16 * 18]\n\t"
-> -                 "ldp q20, q21, [%1, #16 * 20]\n\t"
-> -                 "ldp q22, q23, [%1, #16 * 22]\n\t"
-> -                 "ldp q24, q25, [%1, #16 * 24]\n\t"
-> -                 "ldp q26, q27, [%1, #16 * 26]\n\t"
-> -                 "ldp q28, q29, [%1, #16 * 28]\n\t"
-> -                 "ldp q30, q31, [%1, #16 * 30]\n\t"
-> -                 : : "Q" (*v->arch.vfp.fpregs), "r" (v->arch.vfp.fpregs)=
+> +#ifdef CONFIG_ARM64_SVE
+> +        if ( (val >=3D INT_MIN) && (val <=3D INT_MAX) )
+> +            opt_dom0_sve =3D val;
+> +        else
+> +            printk(XENLOG_INFO "'sve=3D%lld' value out of range!\n", val=
 );
-> +    if ( is_sve_domain(v->domain) )
-> +        sve_restore_state(v);
-> +    else
-> +    {
-> +        asm volatile("ldp q0, q1, [%1, #16 * 0]\n\t"
-> +                     "ldp q2, q3, [%1, #16 * 2]\n\t"
-> +                     "ldp q4, q5, [%1, #16 * 4]\n\t"
-> +                     "ldp q6, q7, [%1, #16 * 6]\n\t"
-> +                     "ldp q8, q9, [%1, #16 * 8]\n\t"
-> +                     "ldp q10, q11, [%1, #16 * 10]\n\t"
-> +                     "ldp q12, q13, [%1, #16 * 12]\n\t"
-> +                     "ldp q14, q15, [%1, #16 * 14]\n\t"
-> +                     "ldp q16, q17, [%1, #16 * 16]\n\t"
-> +                     "ldp q18, q19, [%1, #16 * 18]\n\t"
-> +                     "ldp q20, q21, [%1, #16 * 20]\n\t"
-> +                     "ldp q22, q23, [%1, #16 * 22]\n\t"
-> +                     "ldp q24, q25, [%1, #16 * 24]\n\t"
-> +                     "ldp q26, q27, [%1, #16 * 26]\n\t"
-> +                     "ldp q28, q29, [%1, #16 * 28]\n\t"
-> +                     "ldp q30, q31, [%1, #16 * 30]\n\t"
-> +                     : : "Q" (*v->arch.vfp.fpregs), "r" (v->arch.vfp.fpr=
-egs));
+> +#else
+> +        no_config_param("ARM64_SVE", "sve", s, e);
+> +#endif
+
+Correct me if my understanding is wrong but here you just ignore the sve
+parameter if SVE is not supported by Xen ?
+
+I am a bit wondering if we should not just refuse it here as the user might
+wrongly think that his parameter had some effect.
+
+Or is it a usual way to handle this case ?
+
+> +        return 0;
 > +    }
+> +
+>     return -EINVAL;
+> }
 >=20
->     WRITE_SYSREG(v->arch.vfp.fpsr, FPSR);
->     WRITE_SYSREG(v->arch.vfp.fpcr, FPCR);
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index 769fae8fe25e..060fc30bbb5d 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -552,7 +552,12 @@ int arch_vcpu_create(struct vcpu *v)
+> @@ -4109,6 +4125,17 @@ void __init create_dom0(void)
+>     if ( iommu_enabled )
+>         dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
 >=20
->     v->arch.cptr_el2 =3D get_default_cptr_flags();
->     if ( is_sve_domain(v->domain) )
+> +    if ( opt_dom0_sve )
 > +    {
-> +        if ( (rc =3D sve_context_init(v)) !=3D 0 )
-> +            goto fail;
->         v->arch.cptr_el2 &=3D ~HCPTR_CP(8);
-> +        v->arch.zcr_el2 =3D vl_to_zcr(sve_decode_vl(v->domain->arch.sve_=
-vl));
+> +        unsigned int vl;
+> +
+> +        if ( !sve_sanitize_vl_param(opt_dom0_sve, &vl) )
+> +            dom0_cfg.arch.sve_vl =3D sve_encode_vl(vl);
+> +        else
+> +            printk(XENLOG_WARNING
+> +                   "SVE vector length error, disable feature for Dom0\n"=
+);
 > +    }
->=20
->     v->arch.hcr_el2 =3D get_default_hcr_flags();
->=20
-> @@ -582,6 +587,8 @@ fail:
->=20
-> void arch_vcpu_destroy(struct vcpu *v)
-> {
-> +    if ( is_sve_domain(v->domain) )
-> +        sve_context_free(v);
->     vcpu_timer_destroy(v);
->     vcpu_vgic_free(v);
->     free_xenheap_pages(v->arch.stack, STACK_ORDER);
+> +
+>     dom0 =3D domain_create(0, &dom0_cfg, CDF_privileged | CDF_directmap);
+>     if ( IS_ERR(dom0) )
+>         panic("Error creating domain 0 (rc =3D %ld)\n", PTR_ERR(dom0));
 > diff --git a/xen/arch/arm/include/asm/arm64/sve.h b/xen/arch/arm/include/=
 asm/arm64/sve.h
-> index a4c53e3e8e2e..fc162c9d2cf7 100644
+> index fc162c9d2cf7..f1801876b5de 100644
 > --- a/xen/arch/arm/include/asm/arm64/sve.h
 > +++ b/xen/arch/arm/include/asm/arm64/sve.h
-> @@ -24,6 +24,10 @@ static inline unsigned int sve_decode_vl(unsigned int =
+> @@ -19,8 +19,15 @@ static inline unsigned int sve_decode_vl(unsigned int =
 sve_vl)
+>     return sve_vl * SVE_VL_MULTIPLE_VAL;
+> }
+>=20
+> +static inline unsigned int sve_encode_vl(unsigned int sve_vl_bits)
+> +{
+> +    return sve_vl_bits / SVE_VL_MULTIPLE_VAL;
+> +}
+> +
+> #ifdef CONFIG_ARM64_SVE
+>=20
+> +extern int opt_dom0_sve;
+> +
 > register_t compute_max_zcr(void);
 > register_t vl_to_zcr(unsigned int vl);
 > unsigned int get_sys_vl_len(void);
-> +int sve_context_init(struct vcpu *v);
-> +void sve_context_free(struct vcpu *v);
-> +void sve_save_state(struct vcpu *v);
-> +void sve_restore_state(struct vcpu *v);
+> @@ -28,9 +35,12 @@ int sve_context_init(struct vcpu *v);
+> void sve_context_free(struct vcpu *v);
+> void sve_save_state(struct vcpu *v);
+> void sve_restore_state(struct vcpu *v);
+> +int sve_sanitize_vl_param(int val, unsigned int *out);
 >=20
 > #else /* !CONFIG_ARM64_SVE */
 >=20
-> @@ -42,6 +46,15 @@ static inline unsigned int get_sys_vl_len(void)
->     return 0;
-> }
->=20
-> +static inline int sve_context_init(struct vcpu *v)
-> +{
-> +    return 0;
-> +}
+> +#define opt_dom0_sve (0)
 > +
-> +static inline void sve_context_free(struct vcpu *v) {}
-> +static inline void sve_save_state(struct vcpu *v) {}
-> +static inline void sve_restore_state(struct vcpu *v) {}
+> static inline register_t compute_max_zcr(void)
+> {
+>     return 0;
+> @@ -55,6 +65,11 @@ static inline void sve_context_free(struct vcpu *v) {}
+> static inline void sve_save_state(struct vcpu *v) {}
+> static inline void sve_restore_state(struct vcpu *v) {}
+>=20
+> +static inline int sve_sanitize_vl_param(int val, unsigned int *out)
+> +{
+> +    return -1;
+> +}
 > +
 > #endif /* CONFIG_ARM64_SVE */
 >=20
 > #endif /* _ARM_ARM64_SVE_H */
-> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/incl=
-ude/asm/arm64/sysregs.h
-> index 4cabb9eb4d5e..3fdeb9d8cdef 100644
-> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
-> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
-> @@ -88,6 +88,9 @@
-> #ifndef ID_AA64ISAR2_EL1
-> #define ID_AA64ISAR2_EL1            S3_0_C0_C6_2
-> #endif
-> +#ifndef ZCR_EL1
-> +#define ZCR_EL1                     S3_0_C1_C2_0
-> +#endif
+> diff --git a/xen/common/kernel.c b/xen/common/kernel.c
+> index f7b1f65f373c..29d05282c8bb 100644
+> --- a/xen/common/kernel.c
+> +++ b/xen/common/kernel.c
+> @@ -314,6 +314,31 @@ int parse_boolean(const char *name, const char *s, c=
+onst char *e)
+>     return -1;
+> }
 >=20
-
-What about ZCR_EL2 ?
-
-> /* ID registers (imported from arm64/include/asm/sysreg.h in Linux) */
->=20
-> diff --git a/xen/arch/arm/include/asm/arm64/vfp.h b/xen/arch/arm/include/=
-asm/arm64/vfp.h
-> index e6e8c363bc16..8af714cb8ecc 100644
-> --- a/xen/arch/arm/include/asm/arm64/vfp.h
-> +++ b/xen/arch/arm/include/asm/arm64/vfp.h
-> @@ -6,7 +6,17 @@
->=20
-> struct vfp_state
+> +int __init parse_signed_integer(const char *name, const char *s, const c=
+har *e,
+> +                                long long *val)
+> +{
+> +    size_t slen, nlen;
+> +    const char *str;
+> +    long long pval;
+> +
+> +    slen =3D e ? ({ ASSERT(e >=3D s); e - s; }) : strlen(s);
+> +    nlen =3D strlen(name);
+> +
+> +    /* Does s start with name or contains only the name? */
+> +    if ( (slen <=3D nlen) || strncmp(s, name, nlen) || (s[nlen] !=3D '=
+=3D') )
+> +        return -1;
+> +
+> +    pval =3D simple_strtoll(&s[nlen + 1], &str, 0);
+> +
+> +    /* Number not recognised */
+> +    if ( str !=3D e )
+> +        return -2;
+> +
+> +    *val =3D pval;
+> +
+> +    return 0;
+> +}
+> +
+> int cmdline_strcmp(const char *frag, const char *name)
 > {
-> +    /*
-> +     * When SVE is enabled for the guest, fpregs memory will be used to
-> +     * save/restore P0-P15 registers, otherwise it will be used for the =
-V0-V31
-> +     * registers.
-> +     */
->     uint64_t fpregs[64] __vfp_aligned;
-> +    /*
-> +     * When SVE is enabled for the guest, sve_context contains memory to
-> +     * save/restore Z0-Z31 registers and FFR.
-> +     */
-> +    uint64_t *sve_context;
->     register_t fpcr;
->     register_t fpexc32_el2;
->     register_t fpsr;
-> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm=
-/domain.h
-> index 78cc2da3d4e5..6b5ec3bd0680 100644
-> --- a/xen/arch/arm/include/asm/domain.h
-> +++ b/xen/arch/arm/include/asm/domain.h
-> @@ -195,6 +195,8 @@ struct arch_vcpu
->     register_t tpidrro_el0;
+>     for ( ; ; frag++, name++ )
+> diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
+> index e914ccade095..5343ee7a944a 100644
+> --- a/xen/include/xen/lib.h
+> +++ b/xen/include/xen/lib.h
+> @@ -94,6 +94,16 @@ int parse_bool(const char *s, const char *e);
+>  */
+> int parse_boolean(const char *name, const char *s, const char *e);
 >=20
->     /* HYP configuration */
-> +    register_t zcr_el1;
-> +    register_t zcr_el2;
->     register_t cptr_el2;
->     register_t hcr_el2;
->     register_t mdcr_el2;
+> +/**
+> + * Given a specific name, parses a string of the form:
+> + *   $NAME=3D<integer number>
+> + * returning 0 and a value in val, for a recognised integer.
+> + * Returns -1 for name not found, general errors, or -2 if name is found=
+ but
+> + * not recognised number.
+> + */
+> +int parse_signed_integer(const char *name, const char *s, const char *e,
+> +                         long long *val);
+> +
+> /**
+>  * Very similar to strcmp(), but will declare a match if the NUL in 'name=
+'
+>  * lines up with comma, colon, semicolon or equals in 'frag'.  Designed f=
+or
 > --=20
 > 2.34.1
 >=20
 
 Cheers
 Bertrand
+
 
 
