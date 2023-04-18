@@ -2,65 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38F66E6664
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Apr 2023 15:52:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.522892.812536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E3196E6665
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Apr 2023 15:52:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.522896.812547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1polk3-0005S6-IS; Tue, 18 Apr 2023 13:51:31 +0000
+	id 1polkb-0005vX-2P; Tue, 18 Apr 2023 13:52:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 522892.812536; Tue, 18 Apr 2023 13:51:31 +0000
+Received: by outflank-mailman (output) from mailman id 522896.812547; Tue, 18 Apr 2023 13:52:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1polk3-0005P7-FR; Tue, 18 Apr 2023 13:51:31 +0000
-Received: by outflank-mailman (input) for mailman id 522892;
- Tue, 18 Apr 2023 13:51:29 +0000
+	id 1polka-0005s7-Us; Tue, 18 Apr 2023 13:52:04 +0000
+Received: by outflank-mailman (input) for mailman id 522896;
+ Tue, 18 Apr 2023 13:52:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BdQL=AJ=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1polk1-0005P1-6I
- for xen-devel@lists.xenproject.org; Tue, 18 Apr 2023 13:51:29 +0000
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on2060a.outbound.protection.outlook.com
- [2a01:111:f400:fe12::60a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1d4dfdd0-ddf0-11ed-b21f-6b7b168915f2;
- Tue, 18 Apr 2023 15:51:27 +0200 (CEST)
-Received: from AS9PR06CA0250.eurprd06.prod.outlook.com (2603:10a6:20b:45f::8)
- by DB9PR08MB6746.eurprd08.prod.outlook.com (2603:10a6:10:2a0::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ <SRS0=bqrX=AJ=citrix.com=prvs=465e465d1=ross.lagerwall@srs-se1.protection.inumbo.net>)
+ id 1polkZ-0005P1-JG
+ for xen-devel@lists.xenproject.org; Tue, 18 Apr 2023 13:52:03 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3124a44f-ddf0-11ed-b21f-6b7b168915f2;
+ Tue, 18 Apr 2023 15:52:02 +0200 (CEST)
+Received: from mail-dm6nam11lp2176.outbound.protection.outlook.com (HELO
+ NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.176])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 18 Apr 2023 09:51:59 -0400
+Received: from DM6PR03MB5372.namprd03.prod.outlook.com (2603:10b6:5:24f::15)
+ by BN8PR03MB5059.namprd03.prod.outlook.com (2603:10b6:408:d9::21) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Tue, 18 Apr
- 2023 13:51:25 +0000
-Received: from AM7EUR03FT003.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:45f:cafe::2d) by AS9PR06CA0250.outlook.office365.com
- (2603:10a6:20b:45f::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.47 via Frontend
- Transport; Tue, 18 Apr 2023 13:51:24 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT003.mail.protection.outlook.com (100.127.140.227) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6319.21 via Frontend Transport; Tue, 18 Apr 2023 13:51:24 +0000
-Received: ("Tessian outbound 5154e9d36775:v136");
- Tue, 18 Apr 2023 13:51:24 +0000
-Received: from 1b2537ff0838.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 507DFE23-106B-4ED2-9730-14D6C5327966.1; 
- Tue, 18 Apr 2023 13:51:18 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 1b2537ff0838.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 18 Apr 2023 13:51:18 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by GVXPR08MB7749.eurprd08.prod.outlook.com (2603:10a6:150:69::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Tue, 18 Apr
- 2023 13:51:15 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::8e01:7058:6f40:90e1]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::8e01:7058:6f40:90e1%7]) with mapi id 15.20.6298.045; Tue, 18 Apr 2023
- 13:51:14 +0000
+ 2023 13:51:53 +0000
+Received: from DM6PR03MB5372.namprd03.prod.outlook.com
+ ([fe80::f4f8:2c53:17cd:f3cb]) by DM6PR03MB5372.namprd03.prod.outlook.com
+ ([fe80::f4f8:2c53:17cd:f3cb%4]) with mapi id 15.20.6298.045; Tue, 18 Apr 2023
+ 13:51:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,302 +49,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d4dfdd0-ddf0-11ed-b21f-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DuyqEWRAZsnQzZLqYDtLoGjpSahmTRSrOVECSbWYQq8=;
- b=NrH9WSH9wSd8vzN25QkatWmN9OOmZ6ANYRKuAtnmvdvs4emNHiIkylnMN5bGI83AtObGgeLsArEpfOic+2qBKop9EkmqcRQbYqUphlQU8NTzYO2OWZZLzVveW/JjBahcXAFOQfZPslycvTqaGdEGmTjVgEfFhGhgIH+vE2QAxDg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 4ad9fe6f39e9026b
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 3124a44f-ddf0-11ed-b21f-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1681825922;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=m3r19hQM1WDXFiw+A77e9FObRqsL+dJACDbBC/vUIN8=;
+  b=A+wtdOaxnNExLT8FXvgb0V6Bck/e1tgKZmUkRHsEQnaETQU84MkFiMMA
+   UR6dty/f/HOALd/PUiw+0Jl02Nnrwyr++PTC/DhNfoxEBL331j6Lwup/v
+   l6kygorcSFwB4SJKo1FYKBrvs/+adlRM6VSNXu6SbntHqOEkO/xzrdRhZ
+   s=;
+X-IronPort-RemoteIP: 104.47.57.176
+X-IronPort-MID: 105995734
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:KK4R0K2LYozNIOVsUvbD5eBwkn2cJEfYwER7XKvMYLTBsI5bpzcHz
+ GdKCG/XOvjYYGb9eN0iOdi180MPvsfQyoBrTFZupC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8tuTS+XuDgNyo4GlD5gBnNagR1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfEWdT1
+ u4fdBk0fgm+gMPnw52LQbMvv5F2RCXrFNt3VnBI6xj8VK9jbbWdBqLA6JlfwSs6gd1IEbDGf
+ c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqvC6Kk1IZPLvFabI5fvSQQt5O2EKRq
+ W/c4G39BjkRNcCFyCrD+XWp7gPKtXqjBdNDSeLjqpaGhnWplmYQDT0NWGLgrNyEtlGbXdJnB
+ Eo9r39GQa8asRbDosPGdw21pjuIswARX/JUEvYm80edx6zM+QGbC2MYCDlbZ7QOttcxRDkg0
+ VKhhd7lBTVz9raSTBq19bCStzq+fzcUKWwqYjUNRg8IpdLkpekOYgnnS99iFOu5i4PzEDSpm
+ jSS9nFh2fMUkNIB0Li98RbfmTWwq5PVTwkzoALKQmai6QA/b4mgD2C11WXmAT97BN7xZjG8U
+ LIswqByMMhm4UmxqRGw
+IronPort-HdrOrdr: A9a23:Mc2Td668sSJifYuRMQPXwNnXdLJyesId70hD6qkRc3Fom6mj/K
+ qTdZsgpHzJYUkqKRMdcLy7VpVoIkmxyXcW2+ks1N6ZNWHbUQCTQ72Kg7GC/9ToIVyaytJg
+X-Talos-CUID: 9a23:+OmlX2PjKZKfOO5DSC9611wTRukcYmTgy1aBIGCIAjwqcejA
+X-Talos-MUID: =?us-ascii?q?9a23=3Auy/UqQ1wjU40LUxTp1IWTwM2eDUj2fSkC0Utipg?=
+ =?us-ascii?q?/4MShCBBvHjGdtBuxa9py?=
+X-IronPort-AV: E=Sophos;i="5.99,207,1677560400"; 
+   d="scan'208";a="105995734"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nMKwQnykp1943zmngx4dvliRbnVl6wWY4q+cpfBxxYA4cDHBiQeR7SMfEk6pTFGa46hZ/R/BM2zyaFK3QmyULq5sow5ET1s2Os8ZP11vEaxBxcqAcPEW9SYFnQot2aS2dxGDD6Q4pNRUW5ev6h31T6BF/Vl5fyO363ybElOtE2CNEeDwwNKPOd1vMs6toAZnxHZt1ZfdHuL8sd0b0MeElDbNoa18gB2DCsB9HWEGYR62SHc5DP39kQAQxsUxkMv0rrQ+Q6PdnXdrqjm28oQ/4OUakkRApTA52Wo6Kc32YjLJ4hBYdyxkKR9vKIRORP71YMW3XeW4oqAvpUPZMRYR3Q==
+ b=bKIls7F+d0piLKgOZVFheSOtOMWJK2GRGV85L1Rt+oPOa9DQKQxMCpASLDvgHdUDnb0PuFHQC4ed4xEII9hEuAhxt27X7HIYWUuddRa6nxeLE2CjQQ+ZV/Krz2Id1RRoOco1djjCX5EnYb2z8NJYQX+oHqPD8xDd8JkZ0jCfxRh9R5C3tYX4umx5zTKiQATk8VOm1TbT1zIPl/GXKzhq0ICfhSmV2nxt/VhsB8UgkNAA6dNADdFC2kR+l2h7UZ7tnalw4+CvwcmCAOBBmXGB78H0mMh8fj9VEn4BP2qF2HVa5z3CUZT9RbIwu1L6/pgSQbley824tZY436/86xRucg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DuyqEWRAZsnQzZLqYDtLoGjpSahmTRSrOVECSbWYQq8=;
- b=l08STyj5i9kvnUS+aq0xAroiYMRGYna7Rz5/1kqdhbFknq09yZUSS+YoTYac2NW7QUHNQStpQFs0+w59eQS/JmshjAlFmy82Ij32R2W8d3odBwJTkNQ+or63sBkdlhP3qSaK3GrXv/qYKw1oEDpB5RDAlALuk0XhtLd3bTFqK9FKEiNfzMmgdoZzZ6nOBQto0B5nVs7kuhUPcYxk5cv6JXgiUZ+kFjl9zNZ4i3vSGOTd9BJXaPG5YRopJA+1PLGla98IsBmiTd9jBqQIFkB3jm49KvTVL5A3ELgisRCLGy/4HEPfL09GPDeU83FeVmvA/XADT95nEAb2pm+oZIB5FA==
+ bh=m3r19hQM1WDXFiw+A77e9FObRqsL+dJACDbBC/vUIN8=;
+ b=Rd93/vikXcqM5PuFDbhKDSwy77Fpdk0kswNCIiE6wFPfkzaAefMjhegvYy+BbhqGMbwOJk86wXEy0rJAo0eNjyo/EdXCxsB8N43h5CggXEqL2JEDFiovQsWh2RqkxlbQGYjeP9dQpL8me95QGA0kIuOdfo1Dz8kxrQxcVQt+6QDlBzFl1oxkOKHcaEKaZfJolRUM+LxrLhdEzNlNIkZPHVFGinut61+VwcpUNDe5GFna7RF/oWq63dup8qA5bpdN9zL9KX6cEnPwHmReNoy84bBCdkWmEw33DveSCi2x75m1nDaEm0IaUg0HC35Gkc4JhNerOfUyJl5NQi0VgEltBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DuyqEWRAZsnQzZLqYDtLoGjpSahmTRSrOVECSbWYQq8=;
- b=NrH9WSH9wSd8vzN25QkatWmN9OOmZ6ANYRKuAtnmvdvs4emNHiIkylnMN5bGI83AtObGgeLsArEpfOic+2qBKop9EkmqcRQbYqUphlQU8NTzYO2OWZZLzVveW/JjBahcXAFOQfZPslycvTqaGdEGmTjVgEfFhGhgIH+vE2QAxDg=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Luca Fancellu
-	<Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>, Julien Grall
-	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH v7 1/5] xen/arm32: head: Widen the use of the temporary
- mapping
-Thread-Topic: [PATCH v7 1/5] xen/arm32: head: Widen the use of the temporary
- mapping
-Thread-Index: AQHZcHBN/ascjg9fJEuBeoKcDpUO0a8xGMCA
-Date: Tue, 18 Apr 2023 13:51:14 +0000
-Message-ID: <358316D9-5665-44C7-8BCE-9FB98A0ADDF8@arm.com>
-References: <20230416143211.72227-1-julien@xen.org>
- <20230416143211.72227-2-julien@xen.org>
-In-Reply-To: <20230416143211.72227-2-julien@xen.org>
-Accept-Language: en-GB, en-US
+ bh=m3r19hQM1WDXFiw+A77e9FObRqsL+dJACDbBC/vUIN8=;
+ b=LI/KjDpX20PiyQKbY4JrVa9/9GHyngl7I7Jgtq7V89I+jyyJZ9UJDn1m4u1TV38J8vsHSjkbnMCfwAU06GQBFcp7W1BUAntwHAxyN2GX9S78h//aYEa1H9GavkfQKwOL/vkGxLk69a4helzcC6ksy0oJZn1gvwgC8Gz68DKb5AY=
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Josh Poimboeuf <jpoimboe@redhat.com>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>
+Subject: Re: [PATCH] create-diff-object: handle missing padding at end of
+ special section
+Thread-Topic: [PATCH] create-diff-object: handle missing padding at end of
+ special section
+Thread-Index: AQHZbuSTaQYCrBXOqU2gniRwRe4uLa8xG8Ih
+Date: Tue, 18 Apr 2023 13:51:52 +0000
+Message-ID:
+ <DM6PR03MB53726ABC80D3687499672BA5F09D9@DM6PR03MB5372.namprd03.prod.outlook.com>
+References: <20230414151933.53851-1-roger.pau@citrix.com>
+In-Reply-To: <20230414151933.53851-1-roger.pau@citrix.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.500.231)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|GVXPR08MB7749:EE_|AM7EUR03FT003:EE_|DB9PR08MB6746:EE_
-X-MS-Office365-Filtering-Correlation-Id: ce9e75d5-982f-419e-a283-08db4013ffcd
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- Ty7/isdfPVVnLHN/Ifqa0FdT+byaRjoBrxghCJP7Rh0IvGjSVtX1WRxqXj2snIqMDxgBV82T8MGn9kioVIkKpGif2mFbzGdBW6qjjcKcXo5Opy6cccbq8lZ9oUOa+1F/gL3TuZ5jVuoC+JuxVo2WnsNG1SZaW7qcnrgr1QubQqlWTKRcpLjU0PMgmHPgowRnub6lVQ5N1HzW69eDTrbimcgOYzPfNzCpcqCRvX9R/SLCX+0BBZxXNtjVhkoqdXDI9T1s9T7eFPw3OROvRixY8/ghs6EU0ff6qkavy9DmZ0Uq7AAxZpUNORGc1U9iSb33Gep29T/nOzNdzshgoYBkpePRCIEWH2EskdwmkbPeiEblOoMtTGT2g8eNylAUJjhi40Yjk+nJfUluDW+kaDRqbsrOxZfaQpr7Ve6V1kEfwA0Dp424ta90lSd+RD42T5N3Jltcn17ObZwGjUcn301bdqnu3jHLLxd7VTRZN02hR13u2e5xz7zz9IaUL3u72zBMMEntrqmshv1BHHqnvHibhwSR8SMk1CXpkpHA8RwWG9KOi3zrlSAdBVXtq/BFULYpq2KocsZzUlIMIAwOVMw3LBINVpUD1iyFiHWrjIXu1mUajM3syRiVSTFJXFqFyg+IY52yfR/Y2GpRMhmGDlHhIQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(396003)(346002)(136003)(39860400002)(376002)(451199021)(2906002)(8676002)(76116006)(33656002)(8936002)(5660300002)(478600001)(41300700001)(91956017)(186003)(316002)(64756008)(66946007)(66556008)(66476007)(36756003)(83380400001)(66446008)(54906003)(4326008)(71200400001)(122000001)(86362001)(38100700002)(38070700005)(6506007)(53546011)(6512007)(6486002)(2616005)(6916009)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <6875D22D89EBDB449D4822EA3600B650@eurprd08.prod.outlook.com>
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR03MB5372:EE_|BN8PR03MB5059:EE_
+x-ms-office365-filtering-correlation-id: 38328439-a2e7-48ab-34b7-08db401410aa
+x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ ZX02geIr/iuesYRP7VYH4IU2ZSKbv5Yni1+Sn0RZwnLpBGgLbvyG8yq31BeaATVh4O4mymiO6G2HiqssG7+YwR6KOOMLrXAyLILDw+SfWdxs5tjhBDTaZyR7QsXDDjKTJadW2tLUuaAfzYTiCwPKdeQt4k+5Hi+fjjgbUI/om8E5WMkuxm/WUhasqqyAZuujTWYumNbVx5/RDwIqVhm0Q5GQJUoSP1OvQYNBQD/Eo+wBUgm17iQccJdN6TmGM7ZM7V2B5JYFSXKjLUcuUCs1hwBGalAGLI+mB7iIUXGU1lhJAQHNY33NNJdn9pnoxXcQpKr7EWSiWrG0lEsiPoUE/RHziQI4z4JAtfya04TcWkloT3yrs1jMHA9i5xeZNu6BeiTCYIqrmJwZ/igGd9x+VDk8g9dxYlU+e6h2tKdichZfY9sId9dcqj5v4LaraH4YnIPMH1J4hi0KDRUYOJ0OnlBkCZpMydPK3Vm3PNMjFl0koktNbfcxNgot2h0TwtOVsRPkVz2gV8t6Xg+duMwXRQEOczQ7Ze/1GnoT+DRvQnR5uAIlWdxa93ZAXU0pMSiuakOABE+Pn78jJ802wWNad1nsgn8dc8q1rHreGyAebI9//p7CG9sofBf+h96XVJxV
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5372.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(366004)(376002)(39860400002)(396003)(451199021)(38100700002)(8936002)(8676002)(122000001)(38070700005)(44832011)(5660300002)(2906002)(33656002)(86362001)(52536014)(55016003)(478600001)(7696005)(71200400001)(54906003)(110136005)(186003)(9686003)(66946007)(53546011)(6506007)(76116006)(66476007)(66446008)(26005)(41300700001)(82960400001)(91956017)(316002)(4326008)(64756008)(66556008);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?nq0pIF1Q2ii6uP1w7Syn3wGDN6XYxFoAHsCxKl96724LNGQWrodenQnFmV?=
+ =?iso-8859-1?Q?jyTJQ+5udj360FfiL9gtdy5QxS3+2PTXx4+xFfJui+S7G9XHc99pjiBRlc?=
+ =?iso-8859-1?Q?qljvOQK0BJBumRK3DKCHsoxW03ZmsTdQlwdWxGsZTRFAUzSSklfmOjgnO2?=
+ =?iso-8859-1?Q?glv6FG3B+ls3xhOV79E3rmGzGn4gU6i/IujFOWctT044vjTExQuK9H/5jc?=
+ =?iso-8859-1?Q?QAr+HpIYqcFTcS+hhWWRVgvgdylvTOeokK8B5HqTLx/tiUsri6+CXi7qGU?=
+ =?iso-8859-1?Q?aXJrdM9g6BYd8gg795M0qK++tKI1uk/CT4VMdw8iWncOhtMiIg6QGt8vMq?=
+ =?iso-8859-1?Q?RRIaaFGs/xzi+bSjoKcTiImD4dBIb9K/ccOQgz5CvXz9LwR/hNCShS9hzG?=
+ =?iso-8859-1?Q?g8YHzl19yNWNo7lXoiOt70kG9CWnqglUtdqAK6Y6HlvBBZOd8OTqQ9cGLP?=
+ =?iso-8859-1?Q?pXJ2cFj7AQqd1oiNZ4NTYNqp+CNs5UKPSx26qlqyK98QOKD55OtODrPxDn?=
+ =?iso-8859-1?Q?hQwlnSeyc5ty7wilN7kWwb/u8JdUNvNpAYymAiK1Zk2x8XFE0ptFDsBmrm?=
+ =?iso-8859-1?Q?99fUhxBXkkJW6RInZS+jQkNJhIDqpkLzPsetCgXvgmcQEY1lTNAfmjgXJ9?=
+ =?iso-8859-1?Q?RbtnxU809SkbIUapZWNMI8yqo/zaldDcbbKm2RYz8Vx3GEVAlEmC1lNtc6?=
+ =?iso-8859-1?Q?3zkI8OQigq422wN2AhatEr5tyxKIs4aKdrMpEcE+JTJyjsKoAQEceYnC6A?=
+ =?iso-8859-1?Q?N4m+MkS+n4T0pePgZKdAGzbckuXwVRFw0Ej/Pf6JlXQum0AfPl08SjBXmZ?=
+ =?iso-8859-1?Q?HTYAaGueaooUGEYfyin8rfiNXnuvDTocNAjCXUzbO2UFhsjAhqCgal/lOq?=
+ =?iso-8859-1?Q?BtD6Hwa8OSN+x//flgiPDQTw4DXmHMO0iaYcn5FJeK9lyjhaTC2B0RQKvu?=
+ =?iso-8859-1?Q?H7vOCD8wocKArwteEO/DoPWablb4DqadTfneFajzEP4vbgc50aiRFWNcJp?=
+ =?iso-8859-1?Q?J8j36/69IbvzZsExY5G20ueJBleGPmwgtktjU114xEtBMpcTEo62CYU8/4?=
+ =?iso-8859-1?Q?xKTFB3SMZF4IP9ezWGfUIz/vMtP/GkariGdhopKJiDm8pqZvQDDk+dlbuA?=
+ =?iso-8859-1?Q?BlC6OYnexL3AMpFMDmcuBMq54uhYphdZXj/WiPl4DUgjQl3Ku8fo3qVeoY?=
+ =?iso-8859-1?Q?WMhw//GElsyksmjgld6JaD+M2lx6aW2+42+MkmaeymeBe786iJf/JauObv?=
+ =?iso-8859-1?Q?zhXKEoIqoPGDU/gdbYOzhAt11zHX0LqzYLHIxmuAqcvdWz7oXPuuEmKjgM?=
+ =?iso-8859-1?Q?fiCZmBSPVhgY9GJ4bQBKLYaO5WxZeZF+20XBvUNSITiZ9ljXy0GiBx87hF?=
+ =?iso-8859-1?Q?f0U3wN5sFGt24oIa7jBEPJ55ZXJvTbKkikGLn7X/mkycWl1WTbVeOchNns?=
+ =?iso-8859-1?Q?7XHXp79nlTWbghz74Is4UiIianvTGRfOzLVi40rfjNFyX0lix6nAtbUzkC?=
+ =?iso-8859-1?Q?aF2T2HzrUKfPlWEooDteOwBbOuD0FwvyElNwoYhTp/sFzOBh20thSaImNk?=
+ =?iso-8859-1?Q?GXvlU88iYBMUCW7OnXF/tPqDqYd272DRY6bLyhExb39gLGW0w3V4FB0xkn?=
+ =?iso-8859-1?Q?O0/fdY1mDhGNRSy4bmQJHHclYkInCGQIde?=
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB7749
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT003.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	bba3e2f5-2da8-4b96-dc48-08db4013f9e8
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Vw0ANQlxd4QTTQJ0N+014QuQXQ67Iq2p5yEwkJxvWwDbd85HUBO0HJ/hA5NDtOy129Zoyl1P6XblVkHwGIUrjBkcAkcBsMnW+b9/wK1LpvPx/I8HY+wSUZcEjlF2t5V0PGDLMORlT3l80lMdQMR+TlCjOPkxA9MvqPRuHBGn5a1jyerNI9Yhgicokaf5SPj7TmZsxUPLYGxKsNMiu7sXIJT8iLqdA/XSPBNmTMkCqGfWIk6AENUbI0oe2XwYY9SnxkBV5uB0GWlU+UCA0UYsKOAKQ90+nkcBhD3GEC9BpnVmUBDCVOyqufF6HQRR2Rolm6X8rLVz0nR+P+AG2/srw0kPkhN/now/yPrWolRp5d0WB0RS4CVnCGDCB0dLlvwGwjpnONnNHpAYRfuOHqK7BHYQsAOegqEgjZ1IPqqrEN57+HwnKV0MChYSprD5yVZoFZT/nOdIJJx0CZ1vTlF0zIX0u8W78mxv4F/HzbcoI6pvcfK7/WedyHJvvCdi99qpAfGPZ5dvPYhPWykkSK+vspOv5x0vDOFUFlHFjwg/bOWRjWuCSMIvG3q1qHrQizXvCMmCzBmd8eT6QZsLat0Wnhfdg/NLWJY1NR3vg3EBDQOG23oLebAAKzDkyyeKYBKrOPhN8zYCNxoZJDpuC5IriimtnNG1ZBgRpZCT6518z/iZ9AKp7d34fyPCMB9BComDjFHCVdC71WuNuE2xzeKb9w==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(336012)(6486002)(478600001)(86362001)(2616005)(47076005)(36756003)(36860700001)(40480700001)(26005)(83380400001)(33656002)(6512007)(6506007)(53546011)(186003)(40460700003)(82740400003)(356005)(70586007)(70206006)(81166007)(316002)(2906002)(4326008)(8936002)(5660300002)(8676002)(6862004)(41300700001)(82310400005)(54906003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Apr 2023 13:51:24.2342
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	xq5NZ0cmICe6cps6gFMcn4qSdaF1VjhVl68kpsr/vMsvOaDsNuA7Hfqb90Cj5dVbZG77w3FjaY2oJ68rGAQwHcPWyOCqzvl2DA+wYZETZLChhOF7FqPo+n5Kk7rrTiTgtM39YZS0H2cgHyin+v6qcQuE9XXRKJH9oZjCpD3kKF/6CAqtVEh2/DCq7HNMWRBsGUVV2Uc8rYxfOigEUWUFjLjglpuG39eOdKw940QkCbj2oSsDIFAw0MBpZEO0RntvjRbLfOdTgYhE1HQ5zCnxReGLkCXYdskvVC7usgNgcCuXqKDuIdgaFZpkrsafuQLpqfU6xdO5x/xkZgdyOj76/SB6XQIYK0ZzzbFn5A7K1F8zQKIyOZnVEDUPZ6/8zUwDeTc0actXhFac09Ij7JMi2GXvmXLsBAVO6KM14YUc3vJdarO0OjrSyVNQIkMBHEd4bWaujj4eJOOhNdK1bzSKiQYOrYB++CYyhWnV74q82i7+WDkZ8DZIEq9hDQmEcX7TW8Ddt1fMt/00L2HE63Z1pj9vctK9qpo/+HyvloJWl5dlBkn7lDZOg2kHOALrqKYJXCH4ABQgFEGjJj7rufXgOl+UShWaUkR9AxajJNcxroay8XEahvjsJCUIE8Q9BcEPHtDqBTKp54APhL2p5f2YdQYbJjwu3wnoNULhpID4oaZ8OuuTkfTLhpswXRMtUtcOVpzxxwXeK51eX4SKMw0JE97UMGlpciBOvGRMoaAV+5pweszkmAtZmucu2s7B5umhmFGjC/7IQyawolBQ/Niutsf1445zPzErF4KEDpJy3j9e6GC59BQlQkXZ3nQHTG4P/yAIOPTnJmhqYZ+FKN7rIA==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5372.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38328439-a2e7-48ab-34b7-08db401410aa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Apr 2023 13:51:52.5752
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce9e75d5-982f-419e-a283-08db4013ffcd
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT003.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6746
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6ZRJovDOeY1nk/C8GoKoL73pYMDdzNM+z99AiJBlovhnU7lGJaWp5Dz767RzUqOyXOfyMG3aPc5SMIkjVykgbzzgeM9ZvWGenDVbfNKt2NU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB5059
 
-Hi Julien,
-
-> On 16 Apr 2023, at 16:32, Julien Grall <julien@xen.org> wrote:
->=20
-> From: Julien Grall <jgrall@amazon.com>
->=20
-> At the moment, the temporary mapping is only used when the virtual
-> runtime region of Xen is clashing with the physical region.
->=20
-> In follow-up patches, we will rework how secondary CPU bring-up works
-> and it will be convenient to use the fixmap area for accessing
-> the root page-table (it is per-cpu).
->=20
-> Rework the code to use temporary mapping when the Xen physical address
-> is not overlapping with the temporary mapping.
->=20
-> This also has the advantage to simplify the logic to identity map
-> Xen.
->=20
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> Reviewed-by: Henry Wang <Henry.Wang@arm.com>
-> Tested-by: Henry Wang <Henry.Wang@arm.com>
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Cheers
-Bertrand
-
->=20
-> ----
->=20
-> Even if this patch is rewriting part of the previous patch, I decided
-> to keep them separated to help the review.
->=20
-> The "follow-up patches" are still in draft at the moment. I still haven't
-> find a way to split them nicely and not require too much more work
-> in the coloring side.
->=20
-> I have provided some medium-term goal in the cover letter.
->=20
->    Changes in v6:
->        - Add Henry's reviewed-by and tested-by tag
->        - Add Michal's reviewed-by
->        - Add newline in remove_identity_mapping for clarity
->=20
->    Changes in v5:
->        - Fix typo in a comment
->        - No need to link boot_{second, third}_id again if we need to
->          create a temporary area.
->=20
->    Changes in v3:
->        - Resolve conflicts after switching from "ldr rX, <label>" to
->          "mov_w rX, <label>" in a previous patch
->=20
->    Changes in v2:
->        - Patch added
-> ---
-> xen/arch/arm/arm32/head.S | 86 ++++++++-------------------------------
-> 1 file changed, 16 insertions(+), 70 deletions(-)
->=20
-> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-> index df51550baa8a..9befffd85079 100644
-> --- a/xen/arch/arm/arm32/head.S
-> +++ b/xen/arch/arm/arm32/head.S
-> @@ -459,7 +459,6 @@ ENDPROC(cpu_init)
-> create_page_tables:
->         /* Prepare the page-tables for mapping Xen */
->         mov_w r0, XEN_VIRT_START
-> -        create_table_entry boot_pgtable, boot_second, r0, 1
->         create_table_entry boot_second, boot_third, r0, 2
->=20
->         /* Setup boot_third: */
-> @@ -479,70 +478,37 @@ create_page_tables:
->         cmp   r1, #(XEN_PT_LPAE_ENTRIES<<3) /* 512*8-byte entries per pag=
-e */
->         blo   1b
->=20
-> -        /*
-> -         * If Xen is loaded at exactly XEN_VIRT_START then we don't
-> -         * need an additional 1:1 mapping, the virtual mapping will
-> -         * suffice.
-> -         */
-> -        cmp   r9, #XEN_VIRT_START
-> -        moveq pc, lr
-> -
->         /*
->          * Setup the 1:1 mapping so we can turn the MMU on. Note that
->          * only the first page of Xen will be part of the 1:1 mapping.
-> -         *
-> -         * In all the cases, we will link boot_third_id. So create the
-> -         * mapping in advance.
->          */
-> +        create_table_entry boot_pgtable, boot_second_id, r9, 1
-> +        create_table_entry boot_second_id, boot_third_id, r9, 2
->         create_mapping_entry boot_third_id, r9, r9
->=20
->         /*
-> -         * Find the first slot used. If the slot is not XEN_FIRST_SLOT,
-> -         * then the 1:1 mapping will use its own set of page-tables from
-> -         * the second level.
-> +         * Find the first slot used. If the slot is not the same
-> +         * as TEMPORARY_AREA_FIRST_SLOT, then we will want to switch
-> +         * to the temporary mapping before jumping to the runtime
-> +         * virtual mapping.
->          */
->         get_table_slot r1, r9, 1     /* r1 :=3D first slot */
-> -        cmp   r1, #XEN_FIRST_SLOT
-> -        beq   1f
-> -        create_table_entry boot_pgtable, boot_second_id, r9, 1
-> -        b     link_from_second_id
-> -
-> -1:
-> -        /*
-> -         * Find the second slot used. If the slot is XEN_SECOND_SLOT, th=
-en the
-> -         * 1:1 mapping will use its own set of page-tables from the
-> -         * third level.
-> -         */
-> -        get_table_slot r1, r9, 2     /* r1 :=3D second slot */
-> -        cmp   r1, #XEN_SECOND_SLOT
-> -        beq   virtphys_clash
-> -        create_table_entry boot_second, boot_third_id, r9, 2
-> -        b     link_from_third_id
-> +        cmp   r1, #TEMPORARY_AREA_FIRST_SLOT
-> +        bne   use_temporary_mapping
->=20
-> -link_from_second_id:
-> -        create_table_entry boot_second_id, boot_third_id, r9, 2
-> -link_from_third_id:
-> -        /* Good news, we are not clashing with Xen virtual mapping */
-> +        mov_w r0, XEN_VIRT_START
-> +        create_table_entry boot_pgtable, boot_second, r0, 1
->         mov   r12, #0                /* r12 :=3D temporary mapping not cr=
-eated */
->         mov   pc, lr
->=20
-> -virtphys_clash:
-> +use_temporary_mapping:
->         /*
-> -         * The identity map clashes with boot_third. Link boot_first_id =
-and
-> -         * map Xen to a temporary mapping. See switch_to_runtime_mapping
-> -         * for more details.
-> +         * The identity mapping is not using the first slot
-> +         * TEMPORARY_AREA_FIRST_SLOT. Create a temporary mapping.
-> +         * See switch_to_runtime_mapping for more details.
->          */
-> -        PRINT("- Virt and Phys addresses clash  -\r\n")
->         PRINT("- Create temporary mapping -\r\n")
->=20
-> -        /*
-> -         * This will override the link to boot_second in XEN_FIRST_SLOT.
-> -         * The page-tables are not live yet. So no need to use
-> -         * break-before-make.
-> -         */
-> -        create_table_entry boot_pgtable, boot_second_id, r9, 1
-> -        create_table_entry boot_second_id, boot_third_id, r9, 2
-> -
->         /* Map boot_second (cover Xen mappings) to the temporary 1st slot=
- */
->         mov_w r0, TEMPORARY_XEN_VIRT_START
->         create_table_entry boot_pgtable, boot_second, r0, 1
-> @@ -675,33 +641,13 @@ remove_identity_mapping:
->         /* r2:r3 :=3D invalid page-table entry */
->         mov   r2, #0x0
->         mov   r3, #0x0
-> -        /*
-> -         * Find the first slot used. Remove the entry for the first
-> -         * table if the slot is not XEN_FIRST_SLOT.
-> -         */
-> +
-> +        /* Find the first slot used and remove it */
->         get_table_slot r1, r9, 1     /* r1 :=3D first slot */
-> -        cmp   r1, #XEN_FIRST_SLOT
-> -        beq   1f
-> -        /* It is not in slot 0, remove the entry */
->         mov_w r0, boot_pgtable       /* r0 :=3D root table */
->         lsl   r1, r1, #3             /* r1 :=3D Slot offset */
->         strd  r2, r3, [r0, r1]
-> -        b     identity_mapping_removed
-> -
-> -1:
-> -        /*
-> -         * Find the second slot used. Remove the entry for the first
-> -         * table if the slot is not XEN_SECOND_SLOT.
-> -         */
-> -        get_table_slot r1, r9, 2     /* r1 :=3D second slot */
-> -        cmp   r1, #XEN_SECOND_SLOT
-> -        beq   identity_mapping_removed
-> -        /* It is not in slot 1, remove the entry */
-> -        mov_w r0, boot_second        /* r0 :=3D second table */
-> -        lsl   r1, r1, #3             /* r1 :=3D Slot offset */
-> -        strd  r2, r3, [r0, r1]
->=20
-> -identity_mapping_removed:
->         flush_xen_tlb_local r0
->         mov   pc, lr
-> ENDPROC(remove_identity_mapping)
-> --=20
-> 2.39.2
->=20
-
+> From: Roger Pau Monne <roger.pau@citrix.com>=0A=
+> Sent: Friday, April 14, 2023 4:19 PM=0A=
+> To: xen-devel@lists.xenproject.org <xen-devel@lists.xenproject.org>=0A=
+> Cc: Josh Poimboeuf <jpoimboe@redhat.com>; Roger Pau Monne <roger.pau@citr=
+ix.com>; Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>; Ross Lagerwall <ro=
+ss.lagerwall@citrix.com>=0A=
+> Subject: [PATCH] create-diff-object: handle missing padding at end of spe=
+cial section =0A=
+> =A0=0A=
+> From: Josh Poimboeuf <jpoimboe@redhat.com>=0A=
+> =0A=
+> The paravirt_patch_site struct has 12 bytes of data and 4 bytes of=0A=
+> padding, for a total of 16 bytes.=A0 However, when laying out the structs=
+=0A=
+> in the .parainstructions section, the vmlinux script only aligns before=
+=0A=
+> each struct's data, not after.=A0 So the last entry doesn't have the=0A=
+> 4-byte padding, which breaks kpatch_regenerate_special_section()'s=0A=
+> assumption of a 16-byte struct, resulting in a memcpy past the end of=0A=
+> the section.=0A=
+> =0A=
+> Fixes #747.=0A=
+> =0A=
+> Signed-off-by: Josh Poimboeuf <jpoimboe@redhat.com>=0A=
+> =0A=
+> This is commit:=0A=
+> =0A=
+> c2dc3836e862 create-diff-object: handle missing padding at end of special=
+ section=0A=
+> =0A=
+> In kpatch repository.=0A=
+> =0A=
+> I've seen the .fixup section get an alignment of 16 but a size of 81,=0A=
+> which makes the error removed in this patch trigger.=A0 Overall I'm not=
+=0A=
+> sure why the original alignment check was done against the size of the=0A=
+> section, the alignment applies to the address of the section, not its=0A=
+> size.=0A=
+> =0A=
+> Signed-off-by: Roger Pau Monn=E9 <roger.pau@citrix.com>=0A=
+> ---=0A=
+=0A=
+Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>=
 
