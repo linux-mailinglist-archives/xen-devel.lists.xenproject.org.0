@@ -2,43 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADCB36E817D
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 20:52:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.523751.814102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED6616E81EE
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 21:32:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.523763.814111 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppCuT-0005yZ-1I; Wed, 19 Apr 2023 18:52:05 +0000
+	id 1ppDWs-0001tE-4I; Wed, 19 Apr 2023 19:31:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 523751.814102; Wed, 19 Apr 2023 18:52:05 +0000
+Received: by outflank-mailman (output) from mailman id 523763.814111; Wed, 19 Apr 2023 19:31:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppCuS-0005vp-Tz; Wed, 19 Apr 2023 18:52:04 +0000
-Received: by outflank-mailman (input) for mailman id 523751;
- Wed, 19 Apr 2023 18:52:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ppDWs-0001qI-0s; Wed, 19 Apr 2023 19:31:46 +0000
+Received: by outflank-mailman (input) for mailman id 523763;
+ Wed, 19 Apr 2023 19:31:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=v8Um=AK=redhat.com=eblake@srs-se1.protection.inumbo.net>)
- id 1ppCuR-0005vj-M7
- for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 18:52:03 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4401538b-dee3-11ed-8611-37d641c3527e;
- Wed, 19 Apr 2023 20:52:00 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-615-ozoFPFQuMuWMzNh6HcmPCA-1; Wed, 19 Apr 2023 14:51:56 -0400
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DF4F3C0E464;
- Wed, 19 Apr 2023 18:51:55 +0000 (UTC)
-Received: from redhat.com (unknown [10.2.16.177])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EEF8F492B04;
- Wed, 19 Apr 2023 18:51:49 +0000 (UTC)
+ (envelope-from <SRS0=BGcS=AK=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1ppDWq-0001qC-As
+ for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 19:31:44 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d07953ae-dee8-11ed-b21f-6b7b168915f2;
+ Wed, 19 Apr 2023 21:31:43 +0200 (CEST)
+Received: by mail-ej1-x633.google.com with SMTP id b16so1098771ejz.3
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Apr 2023 12:31:43 -0700 (PDT)
+Received: from [127.0.0.1] (dynamic-077-183-003-214.77.183.pool.telefonica.de.
+ [77.183.3.214]) by smtp.gmail.com with ESMTPSA id
+ hr33-20020a1709073fa100b0094f71c73d35sm4932629ejc.145.2023.04.19.12.31.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Apr 2023 12:31:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,74 +44,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4401538b-dee3-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681930319;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hS4DWN2qmeP36WD9ZHX7mMIPBRS78Jiokpqf6BGkG+4=;
-	b=dXRxY4Yi13jI6j59NoYgQPW1RJ68o0DGcD64mqkHH+UrvZhSoB0VX41gwTFfHlSJ+/iaBY
-	ISAXbpuuAQPChLzYv1FVCCOy+9FhWm/xqoTTOf8++Vky0tPBwSjttiGLj4CYl8/NMxxu6+
-	m8K/hEvynw7CbeIIQDiL9+MYeCztmF4=
-X-MC-Unique: ozoFPFQuMuWMzNh6HcmPCA-1
-Date: Wed, 19 Apr 2023 13:51:48 -0500
-From: Eric Blake <eblake@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, 
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Fam Zheng <fam@euphon.net>, Julia Suvorova <jusual@redhat.com>, 
-	Hanna Reitz <hreitz@redhat.com>, Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Coiby Xu <Coiby.Xu@gmail.com>, Paul Durrant <paul@xen.org>, 
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Eduardo Habkost <eduardo@habkost.net>, 
-	Juan Quintela <quintela@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>, Anthony Perard <anthony.perard@citrix.com>, 
-	Kevin Wolf <kwolf@redhat.com>, "Richard W.M. Jones" <rjones@redhat.com>, 
-	Richard Henderson <richard.henderson@linaro.org>, xen-devel@lists.xenproject.org, qemu-block@nongnu.org, 
-	"Dr. David Alan Gilbert" <dgilbert@redhat.com>, Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>, 
-	Peter Lieven <pl@kamp.de>, eesposit@redhat.com, Aarushi Mehta <mehta.aaru20@gmail.com>, 
-	Stefan Weil <sw@weilnetz.de>, Xie Yongji <xieyongji@bytedance.com>, 
-	David Woodhouse <dwmw2@infradead.org>
-Subject: Re: [PATCH v2 16/16] virtio: make it possible to detach host
- notifier from any thread
-Message-ID: <msjl3ep44f2dxpno7xw3zxjrkuh5iegyieszertt6ppkhpk62q@xxi7a5shhkc2>
-References: <20230419172817.272758-1-stefanha@redhat.com>
- <20230419172817.272758-17-stefanha@redhat.com>
+X-Inumbo-ID: d07953ae-dee8-11ed-b21f-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1681932702; x=1684524702;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cX+LAQk2HqYVss/aZUAQt/9OzhHNeQrU+BnfsGMovN4=;
+        b=HxeWSwrMem+6qghIookMXWlSJMAxjoDLmGG2GFJ4sX2M70DvIpn9jZjQPx4ptIIxHy
+         JmQgrxda+zuIdlWSFeW5CzUy+AEh4V+rhqBW6fXk0Ng94j5qHSe7nHwfidHQ+4Z+K3k4
+         LcHCpVHBTgZ9fWdaCPnzJSw54v3OHnr/KAp3iY1M3WCY42W84ajtX9HnvdSBqUQXUUr2
+         qOihFZtssVs8/nIkAbpvur0rhT3qdLSq5NeiiA2UHZtQ6oi/+/o8rlDUADUlGV3nIEu5
+         xeBr2DAJYPj5MsXct4m79D2ehSRFukE0URKHnXzYUy94z0FVMXd0bii8/grxLFp7YkPo
+         LlQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681932702; x=1684524702;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=cX+LAQk2HqYVss/aZUAQt/9OzhHNeQrU+BnfsGMovN4=;
+        b=guXRyFGRMtWUhxPrsjnhj7tcACuqOBP9++7bpix6qa2JyHylx2p7J6kQ7kPlo9WUy6
+         2kZYbJvSY+ji5rhNiY3os80RPoxNEkh2jNVngxKkpc4F3LPMXQkaTgzuTUZN9d4QNlIp
+         7yJTBogM0s8PofYoIBc4CRkFLAQuFsa6HLtYKtl22Qm/X1UmpyszbgivI1uR+kwpw1kq
+         vTgwXi4SxZSc7iaesDHkL5w1qk/ItsNpUUblW6PwMHur9ErF+/eYrRaOfKjbrTVq8a92
+         WLhulMUqpkYRuJNTmqgYcv3GAgqZ58mRYFMiPyY29HmiSCHXZ2iXABAzV1Onxo3wzWVo
+         J6aQ==
+X-Gm-Message-State: AAQBX9cnAxY8upGvUirmjIbxHocRdkPzlgyZXNBdIZcfKR5B4Yzw8lw6
+	1oVaeSoEOrMceJ25cbIbJ9U=
+X-Google-Smtp-Source: AKy350aKGpFJubkKktMayOWdACPXwfPdtTZaagCkoJdP4zKiUQ+blYrEZa3km7cNMrFTvwaUujLZMA==
+X-Received: by 2002:a17:906:82c1:b0:953:8322:a99f with SMTP id a1-20020a17090682c100b009538322a99fmr293399ejy.0.1681932702210;
+        Wed, 19 Apr 2023 12:31:42 -0700 (PDT)
+Date: Wed, 19 Apr 2023 19:31:31 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: qemu-devel@nongnu.org
+CC: "Michael S. Tsirkin" <mst@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Eduardo Habkost <eduardo@habkost.net>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Chuck Zmudzinski <brchuckz@aol.com>, Aurelien Jarno <aurelien@aurel32.net>,
+ =?ISO-8859-1?Q?Herv=E9_Poussineau?= <hpoussin@reactos.org>,
+ Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v4_2/7=5D_hw/pci/pci=2Ec=3A_Don=27t_l?= =?US-ASCII?Q?eak_PCIBus=3A=3Airq=5Fcount=5B=5D_in_pci=5Fbus=5Firqs=28=29?=
+In-Reply-To: <20230403074124.3925-3-shentey@gmail.com>
+References: <20230403074124.3925-1-shentey@gmail.com> <20230403074124.3925-3-shentey@gmail.com>
+Message-ID: <C82C3BC0-E328-4AE8-B182-ADACF3E34A45@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230419172817.272758-17-stefanha@redhat.com>
-User-Agent: NeoMutt/20230407
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Apr 19, 2023 at 01:28:17PM -0400, Stefan Hajnoczi wrote:
-> virtio_queue_aio_detach_host_notifier() does two things:
-> 1. It removes the fd handler from the event loop.
-> 2. It processes the virtqueue one last time.
-> 
-> The first step can be peformed by any thread and without taking the
-> AioContext lock.
-> 
-> The second step may need the AioContext lock (depending on the device
-> implementation) and runs in the thread where request processing takes
-> place. virtio-blk and virtio-scsi therefore call
-> virtio_queue_aio_detach_host_notifier() from a BH that is scheduled in
-> AioContext
-> 
-> Scheduling a BH is undesirable for .drained_begin() functions. The next
-> patch will introduce a .drained_begin() function that needs to call
-> virtio_queue_aio_detach_host_notifier().
-> 
-> Move the virtqueue processing out to the callers of
-> virtio_queue_aio_detach_host_notifier() so that the function can be
-> called from any thread. This is in preparation for the next patch.
+
+
+Am 3=2E April 2023 07:41:19 UTC schrieb Bernhard Beschow <shentey@gmail=2E=
+com>:
+>When calling pci_bus_irqs() multiple times on the same object without cal=
+ling
+>pci_bus_irqs_cleanup() in between PCIBus::irq_count[] is currently leaked=
+=2E
+>Let's fix this because Xen will do just that in a few commits, and becaus=
+e
+>calling pci_bus_irqs_cleanup() in between seems fragile and cumbersome=2E
 >
+>Note that pci_bus_irqs_cleanup() now has to NULL irq_count such that
+>pci_bus_irqs() doesn't do a double free=2E
+>
+>Signed-off-by: Bernhard Beschow <shentey@gmail=2Ecom>
 
-This mentions a next patch, but is 16/16 in the series.  Am I missing
-something?
+Ping PCI maintainers
 
--- 
-Eric Blake, Principal Software Engineer
-Red Hat, Inc.           +1-919-301-3266
-Virtualization:  qemu.org | libvirt.org
-
+>---
+> hw/pci/pci=2Ec | 2 ++
+> 1 file changed, 2 insertions(+)
+>
+>diff --git a/hw/pci/pci=2Ec b/hw/pci/pci=2Ec
+>index def5000e7b=2E=2Ebe1c5d16ec 100644
+>--- a/hw/pci/pci=2Ec
+>+++ b/hw/pci/pci=2Ec
+>@@ -558,6 +558,7 @@ void pci_bus_irqs(PCIBus *bus, pci_set_irq_fn set_irq=
+,
+>     bus->set_irq =3D set_irq;
+>     bus->irq_opaque =3D irq_opaque;
+>     bus->nirq =3D nirq;
+>+    g_free(bus->irq_count);
+>     bus->irq_count =3D g_malloc0(nirq * sizeof(bus->irq_count[0]));
+> }
+>=20
+>@@ -573,6 +574,7 @@ void pci_bus_irqs_cleanup(PCIBus *bus)
+>     bus->irq_opaque =3D NULL;
+>     bus->nirq =3D 0;
+>     g_free(bus->irq_count);
+>+    bus->irq_count =3D NULL;
+> }
+>=20
+> PCIBus *pci_register_root_bus(DeviceState *parent, const char *name,
 
