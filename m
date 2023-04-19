@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 122C86E79D9
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 14:38:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.523416.813440 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F8246E79E3
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 14:42:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.523421.813451 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp74p-000051-Nw; Wed, 19 Apr 2023 12:38:23 +0000
+	id 1pp78w-0001ZZ-DV; Wed, 19 Apr 2023 12:42:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 523416.813440; Wed, 19 Apr 2023 12:38:23 +0000
+Received: by outflank-mailman (output) from mailman id 523421.813451; Wed, 19 Apr 2023 12:42:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp74p-0008U0-LA; Wed, 19 Apr 2023 12:38:23 +0000
-Received: by outflank-mailman (input) for mailman id 523416;
- Wed, 19 Apr 2023 12:38:22 +0000
+	id 1pp78w-0001Ws-9b; Wed, 19 Apr 2023 12:42:38 +0000
+Received: by outflank-mailman (input) for mailman id 523421;
+ Wed, 19 Apr 2023 12:42:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dNGQ=AK=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pp74o-0008Tu-Ls
- for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 12:38:22 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=K18G=AK=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pp78v-0001Wm-5V
+ for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 12:42:37 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10f979a1-deaf-11ed-8611-37d641c3527e;
- Wed, 19 Apr 2023 14:38:20 +0200 (CEST)
+ id a8bfadd7-deaf-11ed-8611-37d641c3527e;
+ Wed, 19 Apr 2023 14:42:35 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C5EF221986;
+ Wed, 19 Apr 2023 12:42:34 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 96AF71390E;
+ Wed, 19 Apr 2023 12:42:34 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id /whYI7rhP2TMEAAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 19 Apr 2023 12:42:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,102 +51,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10f979a1-deaf-11ed-8611-37d641c3527e
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1681907899;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: a8bfadd7-deaf-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1681908154; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TzrbFJX0mLRnVyg6gK50wjW8gAdRTyt3eKsS6bO2Ho8=;
-	b=UQOJzBaZIKBAqIIp2iqE9MqaQt4o5jf4X54iENF8PIgb3XVSKHeAToYhSAetn/VDc3XDSc
-	vbXK6VM/E7725N29s2FSKaatj7nI1wyCTjA86cgr2JkrX8DxeEun3hjlUqogLtb5s5zfSa
-	SywUUUueeIYsZNv4w36kFnEjVOxY/DSPPwkyq+kebzFI7z2gYg0r9CnlmtgFv9TqDyfAlD
-	YKid0ziPPcge9cOBT8GWWTc95C+prcMhIbymQfHwn03mi0EsBFOddKVOKY2XMi3tesk7+V
-	TiCAx54bzs6ELiLXkmKcxWv4fFnjWSoKaHB0PW1kBv0yCnbUWTFXcy/RdtQ2bA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1681907899;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TzrbFJX0mLRnVyg6gK50wjW8gAdRTyt3eKsS6bO2Ho8=;
-	b=G/PDlG02+awXAj/Znv2ir94TrCNuE4soVJYG72z/i6F9KUyMxTR0qJUk/z9cfxNZH98BUp
-	FAdnV9eglXscn1DA==
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, David Woodhouse
- <dwmw2@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Brian
- Gerst <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>, Paolo
- Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>, Tom
- Lendacky <thomas.lendacky@amd.com>, Sean Christopherson
- <seanjc@google.com>, Oleksandr Natalenko <oleksandr@natalenko.name>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Piotr Gorski
- <lucjan.lucjanov@gmail.com>, David Woodhouse <dwmw@amazon.co.uk>, Usama
- Arif <usama.arif@bytedance.com>, =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
- Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-kernel@lists.infradead.org, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
- <guoren@kernel.org>, linux-csky@vger.kernel.org, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, "James E. J.
- Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller
- <deller@gmx.de>, linux-parisc@vger.kernel.org, Paul Walmsley
- <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- linux-riscv@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
- Sabin Rapan <sabrapan@amazon.com>
-Subject: Re: [patch 00/37] cpu/hotplug, x86: Reworked parallel CPU bringup
-In-Reply-To: <87a5z443g2.ffs@tglx>
-References: <20230414225551.858160935@linutronix.de>
- <8247ce4d-15b7-03b2-0c9b-74f8cd6cad50@molgen.mpg.de> <87wn2a4la5.ffs@tglx>
- <bd5a6a93-def1-9248-2258-c3d3b40071ef@molgen.mpg.de> <87ttxd4qxz.ffs@tglx>
- <87r0sh4m7a.ffs@tglx> <8592a301-9933-1cad-bd61-8d97e7c7493b@molgen.mpg.de>
- <87a5z443g2.ffs@tglx>
-Date: Wed, 19 Apr 2023 14:38:18 +0200
-Message-ID: <877cu83v45.ffs@tglx>
+	bh=5+NYry55bNWgpBMPW2QTjRl5RzMdlcbH8Fpx7gA6h+E=;
+	b=S7cL/Zv6O7o/O5YvaY7zPFnZHN5czWMiUYbSqVHjpUMTpgUn6QL/mEN8LsH/c/VV9YLnly
+	FMl+q2OxNdlXZL4PAkheMZInKTcGLd8siomNAruEcdWviqDSQ1BIrMZSaWQGtO2tIFjMYk
+	nxEdvxcXaohUr/u4Vj6tQYxanPrVzvU=
+Message-ID: <99abd9a7-87cd-2f37-05bd-f4cdffd47a9c@suse.com>
+Date: Wed, 19 Apr 2023 14:42:34 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH v2] tools/xenstore/xenstored_control.c: correctly print
+ time_t
+Content-Language: en-US
+To: Alexander Kanavin <alex@linutronix.de>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <20230419120710.855128-1-alex@linutronix.de>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20230419120710.855128-1-alex@linutronix.de>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------08iSab8KZaYOdHQsdzRTyQAc"
 
-On Wed, Apr 19 2023 at 11:38, Thomas Gleixner wrote:
-> On Tue, Apr 18 2023 at 22:10, Paul Menzel wrote:
->> Am 18.04.23 um 10:40 schrieb Thomas Gleixner:
->>> Can you please provide the output of cpuid?
->>
->> Of course. Here the top, and the whole output is attached.
->
-> Thanks for the data. Can you please apply the debug patch below and
-> provide the dmesg output? Just the line which is added by the patch is
-> enough. You can boot with cpuhp.parallel=off so you don't have wait for
-> 10 seconds.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------08iSab8KZaYOdHQsdzRTyQAc
+Content-Type: multipart/mixed; boundary="------------Kv070jtSObHpcN0gkewur5bV";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Alexander Kanavin <alex@linutronix.de>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <99abd9a7-87cd-2f37-05bd-f4cdffd47a9c@suse.com>
+Subject: Re: [PATCH v2] tools/xenstore/xenstored_control.c: correctly print
+ time_t
+References: <20230419120710.855128-1-alex@linutronix.de>
+In-Reply-To: <20230419120710.855128-1-alex@linutronix.de>
 
-Borislav found some a machine which also refuses to boot. It turns of
-the debug patch was spot on:
+--------------Kv070jtSObHpcN0gkewur5bV
+Content-Type: multipart/mixed; boundary="------------97XNhJeuIboOGXtWz7fcczD4"
 
-[    0.462724] .... node  #0, CPUs:      #1
-[    0.462731] smpboot: Kicking AP alive: 17
-[    0.465723]  #2
-[    0.465732] smpboot: Kicking AP alive: 18
-[    0.467641]  #3
-[    0.467641] smpboot: Kicking AP alive: 19
+--------------97XNhJeuIboOGXtWz7fcczD4
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-So the kernel gets APICID 17, 18, 19 from ACPI but CPUID leaf 0x1
-ebx[31:24], which is the initial APICID has:
+T24gMTkuMDQuMjMgMTQ6MDcsIEFsZXhhbmRlciBLYW5hdmluIHdyb3RlOg0KPiBPbiAzMiBi
+aXQgc3lzdGVtcyB3aXRoIDY0IGJpdCB0aW1lX3QgKGhlbGxvLCBZMjAzOCBwcm9ibGVtKSwN
+Cj4gdGhlIGZvbGxvd2luZyBlcnJvciBvY2N1cnMgb3RoZXJ3aXNlOg0KPiANCj4gfCB4ZW5z
+dG9yZWRfY29udHJvbC5jOiBJbiBmdW5jdGlvbiAnbHVfcmVqZWN0X3JlYXNvbic6DQo+IHwg
+eGVuc3RvcmVkX2NvbnRyb2wuYzo2NDY6NzA6IGVycm9yOiBmb3JtYXQgJyVsZCcgZXhwZWN0
+cyBhcmd1bWVudCBvZiB0eXBlICdsb25nIGludCcsIGJ1dCBhcmd1bWVudCA1IGhhcyB0eXBl
+ICd0aW1lX3QnIHtha2EgJ2xvbmcgbG9uZyBpbnQnfSBbLVdlcnJvcj1mb3JtYXQ9XQ0KPiAN
+Cj4gU2lnbmVkLW9mZi1ieTogQWxleGFuZGVyIEthbmF2aW4gPGFsZXhAbGludXRyb25peC5k
+ZT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0K
+DQpKdWVyZ2VuDQoNCg==
+--------------97XNhJeuIboOGXtWz7fcczD4
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-CPU1		0x01
-CPU2		0x02
-CPU3		0x03
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Which means the APICID to Linux CPU number lookup based on CPUID 0x01
-fails for all of them and stops them dead in the low level startup code.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-IOW, the BIOS assignes random numbers to the AP APICs for whatever
-raisins, which leaves the parallel startup low level code up a creek
-without a paddle, except for actually reading the APICID back from the
-APIC. *SHUDDER*
+--------------97XNhJeuIboOGXtWz7fcczD4--
 
-I'm leaning towards disabling the CPUID lead 0x01 based discovery and be
-done with it.
+--------------Kv070jtSObHpcN0gkewur5bV--
 
-Thanks,
+--------------08iSab8KZaYOdHQsdzRTyQAc
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-        tglx
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmQ/4boFAwAAAAAACgkQsN6d1ii/Ey9E
+CQf+MNqY8qwH7szIksdPBiWVxwjdG+Rll6WKITATZMu/DFtsz4pD/TbQgyspoHyOscrdO+qS1Oh1
+rJUhwF//Unp5FuQGRyytwIF0VargnDtuua7U9J9pDBhJ08L/PyqIDTi+180T+/t5ZH15wk38SNV4
+xHfbAClSl1CRVKYcflnnzCBpxxUvnlGqRJ8rvvuudvHnNcUTF3mxd+0asO+wAwyP3NORH8rqbGyu
+z0qr7yLzZDPntiRrtwsjKRLt4KOtCDiPOUg8slwM17BocndfhKDkAw0TkG5n6zBbZkCdNZUsYeW5
+9GZ5UHGaehOBioT4E1AsLrBHtGrL1qbTngQMtK6kbg==
+=DBx9
+-----END PGP SIGNATURE-----
+
+--------------08iSab8KZaYOdHQsdzRTyQAc--
 
