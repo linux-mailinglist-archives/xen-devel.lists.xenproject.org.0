@@ -2,42 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFBD26E7B04
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 15:36:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.523475.813554 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5AB46E7B0F
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 15:39:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.523480.813564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp7zK-0003iO-0A; Wed, 19 Apr 2023 13:36:46 +0000
+	id 1pp81l-0004Ls-CO; Wed, 19 Apr 2023 13:39:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 523475.813554; Wed, 19 Apr 2023 13:36:45 +0000
+Received: by outflank-mailman (output) from mailman id 523480.813564; Wed, 19 Apr 2023 13:39:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp7zJ-0003fm-T9; Wed, 19 Apr 2023 13:36:45 +0000
-Received: by outflank-mailman (input) for mailman id 523475;
- Wed, 19 Apr 2023 13:36:44 +0000
+	id 1pp81l-0004J9-8c; Wed, 19 Apr 2023 13:39:17 +0000
+Received: by outflank-mailman (input) for mailman id 523480;
+ Wed, 19 Apr 2023 13:39:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WAk3=AK=citrix.com=prvs=46623c849=roger.pau@srs-se1.protection.inumbo.net>)
- id 1pp7zI-0003fS-LK
- for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 13:36:44 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 37dbae19-deb7-11ed-b21f-6b7b168915f2;
- Wed, 19 Apr 2023 15:36:43 +0200 (CEST)
-Received: from mail-dm6nam10lp2109.outbound.protection.outlook.com (HELO
- NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.109])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 19 Apr 2023 09:36:40 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by SA1PR03MB7146.namprd03.prod.outlook.com (2603:10b6:806:335::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.20; Wed, 19 Apr
- 2023 13:36:37 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::48bb:fedd:a394:9f39]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::48bb:fedd:a394:9f39%5]) with mapi id 15.20.6298.045; Wed, 19 Apr 2023
- 13:36:37 +0000
+ <SRS0=RA+/=AK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pp81j-0004J1-Cy
+ for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 13:39:15 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 929858f8-deb7-11ed-b21f-6b7b168915f2;
+ Wed, 19 Apr 2023 15:39:14 +0200 (CEST)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2a8b766322bso27992341fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Apr 2023 06:39:13 -0700 (PDT)
+Received: from [192.168.202.197] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ j25-20020a19f519000000b004edc6067affsm950399lfb.8.2023.04.19.06.39.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Apr 2023 06:39:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,266 +45,432 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37dbae19-deb7-11ed-b21f-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1681911402;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=oiujBh1zgNY4u3WSkT/hwx1Y74HixuxpZDiSlSutRuw=;
-  b=U2bMztMOL/QPBlb14MUA6UktsDhRoY///ioUrDHS1lPLsuGO/J7oxAL+
-   LpUpMrrtBQGLQ2UTe82yYh/nrbvqDN3fpQQYX7oAIUebNs8NTE0RWRl8I
-   BHgtNN5c8SBdruRa8ZIx4Okb26LjTr5xe8dZd0rg0ExQ3ppEMZhOqGvzR
-   8=;
-X-IronPort-RemoteIP: 104.47.58.109
-X-IronPort-MID: 105447036
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:GcBLKazn6/Bh13z9R/h6t+cRxyrEfRIJ4+MujC+fZmUNrF6WrkVSx
- 2YYW2yHO//ZMWb0L9x0YIjg/E5UvsWDm4I1HgA9+yAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw//F+UIHUMja4mtC5QRiPKET5TcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KXAN2
- 9sRaxIBVxSGvfuEmJe1VNZGve12eaEHPKtH0p1h5RfwKK9+BLzmHeDN79Ie2yosjMdTG/qYf
- 9AedTdkcBXHZVtIJ0sTD5U92uyvgxETcRUB8A7T+fVxvjiVlVQguFTuGIO9ltiiX8Jak1zev
- mvb12/4HgsbJJqUzj/tHneE37eSwX+kANlMfFG+3tpOrU+VwVciMicPfmq9n8G8sWuEZOsKf
- iT4/QJr98De7neDTNPwQhm5q36spQMHVpxbFOhSwB6J4rrZ5UCeHGdsZi5MbpkqudE7QRQu1
- 0SVhJX5CDp3qrqXRHmBsLCOoluP1TM9KGYDYWoISFUD6ty6+IUr1EuXH5BkDbK/icDzFXfo2
- TeWoSMihrIVy8kWy6G8+lOBiDWpznTUcjMICszsdjrNxmtEiESNPuRENXCzAS58Ebuk
-IronPort-HdrOrdr: A9a23:kZvFmqwTrxSWoPoKoNKJKrPw6L1zdoMgy1knxilNoHxuH/Bw9v
- re+cjzsCWftN9/Yh4dcLy7VpVoIkmsl6Kdg7NwAV7KZmCP1FdARLsI0WKI+UyCJ8SRzI9gPa
- cLSdkFNDXzZ2IK8PoTNmODYqodKNrsytHWuQ/HpU0dKT2D88tbnn9E4gDwKDwQeCB2QaAXOb
- C7/cR9qz+paR0sH7+G7ilsZZmkmzXT/qiWGCI7Ow==
-X-Talos-CUID: =?us-ascii?q?9a23=3AC5bKDGpgac00Cx8bannOyaTmUdFmXFrUj1XcGku?=
- =?us-ascii?q?9M39bEJibV2C6w4oxxg=3D=3D?=
-X-Talos-MUID: 9a23:pt4p9AaLuWaYruBTkxvBljdlD/ZS2b2FOUYzqZA9nvO7DHkl
-X-IronPort-AV: E=Sophos;i="5.99,208,1677560400"; 
-   d="scan'208";a="105447036"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OkiwOZdh02YO6zwREs11PNCIe8tQui7KMLaz0WZdUnR/sD6iwiiDx/ZTEd4hRal/9gl7IBLScb1HeABAmwZJxjAeY+GknrucmmzJUbxzsJw1HCRJbYf0hI+Llb9fmx/oCVEfboTL+R2s79U76u7K4csD0e1ddEP9zdxhJ9PZqXfZ3J5YsmGn1kW4602Ry9DqarBAI8V2uCUyytKD0LY4/zFtSlI+VuXEfN4qRhYdV1ng65DE5nVj8S50rZO0MFVfbhMZRv9PoIaqgpCKg5Kg+Ber+W9GHIM/zEo/7HJ7MfRxUBl4lM3mMOR+Me1sTQNHGijQUkedxXsqHas6tJnEow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HdGuTUn1srRQHQZM4vrpK/BDUTN31bZMdHTs2ip2RBo=;
- b=CIcpB9WogqlJP+kpipCdwMgtkekz0jkfWRraLTmeO7IFQDUPjSwAHVxsNvby2gnZ+oOya3h9lYcFSq4hef5msDtKnrXFpSn0JQIKCXo0YyuW0hBdmXpPx9sj1gAQc6DjPK2XU/yx/+aoPX+F7RdHMsAeIrtS/vkgdZfAqCpT78Mt9C2j8mGArcaib0GbCr1zVMnSNWkfymM+7t30bW0ZMQX1bEIwOPFlZXGCqXkJmydfRrRKorojo5r+35K0c876fZ+wglfDa4Jot1EvwW76C2eOrkwXOBfkUD5fBW7pAUctsl0rkVYedv50SCpOxR0AvlmH3o9JqiVd7zuaOXZhFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: 929858f8-deb7-11ed-b21f-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HdGuTUn1srRQHQZM4vrpK/BDUTN31bZMdHTs2ip2RBo=;
- b=ptkdRrm2x75ygOndzIpml0iN7pu3Q0pS/KFENjKiVUK5R5UjzRGReht0ZKcdEGPvEnaSLbABeLhkOQOG4L/N1obNPOWUFLnsE3tT5GTTE3jpmtR4FpwRn5GQ4q0SIX+Fq1415C7iFdhLSF6ApzwEbnaWUu29sHR+EZbJLCGt7Ps=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 19 Apr 2023 15:36:31 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+        d=gmail.com; s=20221208; t=1681911553; x=1684503553;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=QX0N3D0hQrUbD4jeZe1Gbsve/yRImx9bQlJw/URsiQg=;
+        b=o+4sqYUO2JQ/IA15VCmMSNc5qQsfRh2ipHK+953vItL4eBgPgzhVeH0hF7Z5CKFJzF
+         OkidxC1b8ULHJkwD5Qr06U9KVUUYIGyFuNx0Qkr/XLuJQHel8xZQzXQtncb7leeFJmna
+         KuRukHTVRoAHMQgoqV3Qi+IuQVGMdVw5zdo1VK6DpgNmt7Mpj2d991Doa4ceaUsbCibm
+         UotF86LnSmuuaupWwgAd0p8ZRZWQPaz5xln9FKImbDSdSHFv74ED1LSXod6JH7TFWuSO
+         CfisceeARYxYludS8AJnTZWU8wYIEKyHi+zlSY4LUs4ryKwZwnxhVvRqJz0YONWjYTpp
+         hZTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681911553; x=1684503553;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QX0N3D0hQrUbD4jeZe1Gbsve/yRImx9bQlJw/URsiQg=;
+        b=He2CJO7UVbzDAKX7Z44d8sTk+0WaAo7IhGdIBCHU/AiwbzNkZT4m90KUhNt4G4/VLB
+         Htn9PqgBiX8Jk/MMB0RcLwsGu2xvMyUEiZCABMzrbY237kUP2+8SHaNidpirazczrFhA
+         7id38x6aF0JY/NEDTwBI2jFCt8MiJCF3YBfxmmMbRN1c6dVrsgys45LsC6PVSrKjws4Z
+         ogCMatDqWj5Q1N+yVsrXgjbfU6kwFjI1AfU0uKlCDAX5dRXdcu9Ybe6ivCOgP931BpG2
+         Wkt3CoJzz7j1iN9Q/wy6Mwc2bFj0u8lb0NRl5GkevSEjBERS1xzqDpw/Ul/MQMaUrAMV
+         Yi4g==
+X-Gm-Message-State: AAQBX9eYnkdcF3l6iouHSnHMicEud2krYFvEAbYmtKzV0BnCP0bnkJQg
+	CxWQL05Du6a/NSQa24/o6og=
+X-Google-Smtp-Source: AKy350aPeBtJqKa95LeXOxot5gZMEtPdZ/2PMrQULjnztZGIWWEaLCDOIqY8snx0oTIMQT8W/tUG5Q==
+X-Received: by 2002:ac2:5147:0:b0:4ec:8cad:3c39 with SMTP id q7-20020ac25147000000b004ec8cad3c39mr4028033lfd.61.1681911553119;
+        Wed, 19 Apr 2023 06:39:13 -0700 (PDT)
+Message-ID: <7934f6b1545f161f876755ed1ab7ce5364220a83.camel@gmail.com>
+Subject: Re: [PATCH v4 1/3] xen/riscv: introduce setup_initial_pages
+From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/livepatch: enable livepatching assembly source files
-Message-ID: <ZD/uX1VqYchQ4GgT@Air-de-Roger>
-References: <20230418092458.15253-1-roger.pau@citrix.com>
- <ab604666-e9a4-3656-73a6-c09b2ae9d3bd@suse.com>
- <ZD6V0wzw/VS/MMw/@Air-de-Roger>
- <d301e110-f840-a032-c406-2f7404752783@suse.com>
- <ZD+ljXSEPCmPMAtN@Air-de-Roger>
- <5c476b65-0340-2a0e-e436-46368d3236b7@suse.com>
- <ZD/UMyeckvCq0ivf@Air-de-Roger>
- <86823b76-6be1-da65-7608-af391ff48978@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <86823b76-6be1-da65-7608-af391ff48978@suse.com>
-X-ClientProxiedBy: LO0P265CA0013.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:355::8) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+ Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Date: Wed, 19 Apr 2023 16:39:12 +0300
+In-Reply-To: <1cd40a12-7030-ec0d-dae7-e60132c2989c@suse.com>
+References: <cover.1680882176.git.oleksii.kurochko@gmail.com>
+	 <50ed83073ccb440fb651070de8b0abebd3888b43.1680882176.git.oleksii.kurochko@gmail.com>
+	 <1cd40a12-7030-ec0d-dae7-e60132c2989c@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.4 (3.46.4-1.fc37) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SA1PR03MB7146:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5dcdebaf-ae8c-4fa2-84ff-08db40db1927
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	46nxhnqJU7XCJ4Mj3HcEhZEPua/96qxD+MssvT5h8mS9M8Hq5KBgg7GMfwur+BA7gJa83/ITOv45wdKy1CtlqR1uds9axdnDDXjzDWGzLEDEAdOy9f+x7rJHAjwa8KSE46BnsN8LYZH+N0aOeUaJXr/b40+hNkeUJVr81VZRJWjZ0BILOwaqmp9s8+4nOvJuoAYNCOW/N5IrkVlmPlJWnDJ3p2VbbkzY9XtLS5P3gRxpuntyyJohvh3Em6k0jCPlxS9Sa+9PpKOk5PJCLQPrdJgZQXMq4+NgM8ASDQHn8WeVH1NCWvM/tUlyaBGYYJuuU9KkUH8hrSdP1rUTMvuBxIvjSRhWOQUZB3y3CrH/8Jwq0Xbf/LSPaPntSvj4Ae3pRd4SufAvSI9uJ7F3xcFpLE7VFYu50AxY4R88QnM2kz0Omd36RjWNjENq88TG5UztH3YqxtZidGszGSrl41Y2iuTAMGBSCfS97Ttoz1k+9I7g1IzKYB4YDpXmHHSZ7kavOSFLp6hnts+4wosT587MEQcJdOqgun8vxqw6oi/kslo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(7916004)(4636009)(396003)(376002)(366004)(39860400002)(346002)(136003)(451199021)(2906002)(478600001)(6666004)(86362001)(966005)(26005)(53546011)(6512007)(6506007)(33716001)(9686003)(6486002)(186003)(85182001)(82960400001)(41300700001)(54906003)(38100700002)(8676002)(8936002)(4326008)(66556008)(66476007)(83380400001)(66946007)(316002)(6916009)(5660300002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Vmt3VDJIeE5zL2cxbUFHTkphTjhSSFZmdVhTNXVNTU5ZZDY5c2hsbldicldn?=
- =?utf-8?B?UG1uL00yUlZUeTR4MC9ZeU1raWFrRnFUSUpXLzdjSkZsN1R6c29ZTUJJZ1h6?=
- =?utf-8?B?OTZHV2lDanZyZFNXbVNxemYvTmp2RlhySG04R1lGTmRVVndiNW1uTHZxUnht?=
- =?utf-8?B?YUs2TXVwUWRnUTB5eVQ3VUFEMUI2aW4wQUYrWUJTL1RRRUJYaEhaWGpZNHkz?=
- =?utf-8?B?eFcwZUNMdFFEcTdZUmdJQ0VVak83UjFIdllETTgwMDRQa0h3WkZ0V3F1TnRP?=
- =?utf-8?B?V3pCTlk2RTVDWVRud1ZuNWZOR1hLSFI1eUJRbkEwcVJNZjA1c2VPUmFxVzZu?=
- =?utf-8?B?RmRGaFVnYlRUYUhDL2NNZkJ0YjBhcHBiRWp1cjB1SzV5S0grSC91dzN4YzhE?=
- =?utf-8?B?bkJBYnhNYzNjbHlXeFk1dWdvOHZ4eForYXN6dVpOQnpzN0hBcjRzK1MrVStQ?=
- =?utf-8?B?dTB2aVIyTFFxbE82VUF3V0p1bUI1a0s2RkpIOVljbHJxZzUycnN1SklGc05C?=
- =?utf-8?B?ZVF2cDhRUG8vcTEvMDFDUFZ5NWVlTzkxYWFpa3NxdXVZR1VSUmlBeUVDQjlJ?=
- =?utf-8?B?WUthNndMY0d2MUJSK0daTkFHdWJoeVBxVlQwSXRwbTduSlQ5MzhBWGNOUFV3?=
- =?utf-8?B?WVh4NUFtRHNudURaM1h5L3FoREM2dWp2NG1CUVFJK1YrRjBqcVV1U3R2OEUv?=
- =?utf-8?B?UDNJS0dzci9EKzM0MUZQcU81SjdEenJHRmpUTlpzVUUvR1JlSkhTNlNxcUhu?=
- =?utf-8?B?MlQ0c1MwQ3NEWlhZd0NhbUpGMHhYV09seFlScnpFeU1ZdC9HS0ZOdHJ6N3lX?=
- =?utf-8?B?QjJMb2p2QmRMQ1Q0d1NGNzgvbnU0bC9ITkVraUJzZ21qUkYvZVlveG53SlVm?=
- =?utf-8?B?Uit5YVdLRVJwa1ROaU9ZK3MzbkIzZUhMTFdpa3FHZmRKVUVPd0k3RExobkNk?=
- =?utf-8?B?Vnl6emV4N3VMUW9EZlNrYUJDejJzWDE0N1o2bzZ4RWJISU1lSmNDeGFNZ3BK?=
- =?utf-8?B?NkJnUzN0OXFxV0MrdDhiYnhzSGs5cmJ0RjRWemlYNHNqc2RNc3BBZW80MkF2?=
- =?utf-8?B?aXFPNmx5SjBTWXBDdnpMT3gweGJQRkxCRUZqd3BnK3E3Z2xoZDJ5ZC9zRzJN?=
- =?utf-8?B?WUNaVkF3a3prMnBlZ3F0clloMThQRzdsa3ZyNXByZnRYWGVuUXVveC9MYUlM?=
- =?utf-8?B?SytFVUNscDhET21ldzBQKzZpejhFYk8xOU0vQ2QrYVoxM29rZitZTGRxcmtT?=
- =?utf-8?B?eVVrODBvTU1NaTlnc1V5SVhoRXdQbDhYbmhIVVRkNCthdTNBVVMyK1h1VldR?=
- =?utf-8?B?eFBRSnlzT1ozb05LQnUyUG5FdWhmSDRmQno2T0lUQ0JYaUxkOEE1b1NFZStz?=
- =?utf-8?B?VjhGdWxnNHNRb1lJcWljMjc2YWF0RkxtdmtGVlp2R2piazhSVllwVTRSUnZl?=
- =?utf-8?B?SG01OFZQdy8wbUVwYkJIQ1Q1K2RsYklEZDJXYWlDOHczWHlPUGhVZkRHK05C?=
- =?utf-8?B?a09pYWltSGhrWm5QYWJpRlBiWlVLS2tOamp3TFNoQnBqWHN1YURIOTh4YlMv?=
- =?utf-8?B?bHA4TnV5ZGtUU21tUEhVVTNObFA0Q2xieWp6WHBLWVd1OFNpcGRaWlNJTnFl?=
- =?utf-8?B?ZzZXUEt0MzVOYk9MVVcwS0lUdGpzU1R2R1ZkZFEwV2NKeXVQV21CeWNrUUhi?=
- =?utf-8?B?Z0ZnZEtqN1lmV0huVTNvcTlIdTNmSFRvQzJGaExSYThqSFprZVFuS3hhNHVP?=
- =?utf-8?B?YVF5TUN2ZmdieFFHWW1WSFp0YmdIcnkwUnlhRkdhaDJ5cFhKK0l0cnA1UUta?=
- =?utf-8?B?eWUycUozM1ozc0NId2RxZE1wYTY2RjM3VVVaZG1Nd1FPNW4rUCtFaloxd2pk?=
- =?utf-8?B?TTk0QTVqSXUwN3dtOTc4bmNxNGFJZS9CRFBwOHRqK3BvbWFCVE1BYlFFYUFi?=
- =?utf-8?B?UVBabnd0b09GL216bng4SXpKSmU4Mk02OUlqWjBHdzNQVDJMYkx3WUY4RDZK?=
- =?utf-8?B?OU1aRkxwM2hWZUsvZHFVTjJYODZsWWZwb0l6NFkxeWIybFNlYktTYVlYUFp1?=
- =?utf-8?B?a1MxY0ZrWnhtK0JDOHdhZDZrMzZYanRhUXl6WHQ5WHduYlltdXFNSUFaSWxC?=
- =?utf-8?B?Q2hFVS9ZWjN1M0JCNHNycGxBZ1NBK0VxU3B3dGJlY1lRUjl6eXF2US9vMUVp?=
- =?utf-8?B?UXc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	nDyUG99uy03lvhAlwk/4dmiaXlMEXFHv5mft10mSNpJ1H3q+/th4ZyzL7DaOXb1iUYtoUDudiebZ9yh7y+PF06ILcSGc1n9M/kMRRagh9D30Oeb9RIFKJ90kdQSRep5xeiM0y8LS5rKAQEtGVpYfawjmuWyN9z2kiehPHG+4IfHPWxwIacDtvtuUhI+JdhIdyx99CaW6vPiFbHOColItyiYD+gK9hIiGYtFMNfF+aWxAZktks4ofJNkY6JZ3owsO8OvDzGuIWCFSskAJy/nxDFT0Uw/t3TA24nm+cMfLMf7H5DDfHRuLDT5KtowbgplyOC8x5ymGZQxj6XTF4u8xXSne8Ed3NqX3q3EnmTCUQlKVkUEAYk82AhIK5m2smZ+IiqqoxwSyBbPs8W3LfoaNF906HQCDR/LzNNB7mksPqzXoMbeSIYfjVp9s5dC5BR35xJQLDl65zDDxLUfYs+6S0skaQFXnCTKJFittkC1NEMsym9MCk7NLNCZQPtfP+5ja3V2VWnbefPLsBsm0DGV5k9qCrGdG9LGxg4clUwlO9RDlRx5+K8f2czNFasgNrT7uCW3rxolGfvTRVrPBwPOHM0ZilOXfm81tj+eCN9bpb/ELA5xrdlja49+rifpYE7OD74hFuFz/IoRSJLB6BEGxYnTZNCAYVq1OTEUBPO1HeJjK9YAGgryUFZ481piNzO7MIBuJJMJVbqzmZuPMEuflbtslrocUYgWeenSNyS8fhvBOh/hHNc0V19BfyLt+tTu0RoANpktcflukUXN8/a1/Luh2WdajgoR+BdIWWHNKdFplCFGyOtgSE9mJpwUXKNlG
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5dcdebaf-ae8c-4fa2-84ff-08db40db1927
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 13:36:36.9583
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NedbuoDKVbKAh3Mb4hj2uir/CYBY8+KWlSmP9bZQpQaoaFDfuBLfpVT3iZAueijNoG5XqsovMDM+TwyvnAbGTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB7146
 
-On Wed, Apr 19, 2023 at 02:00:38PM +0200, Jan Beulich wrote:
-> On 19.04.2023 13:44, Roger Pau Monné wrote:
-> > On Wed, Apr 19, 2023 at 10:43:22AM +0200, Jan Beulich wrote:
-> >> On 19.04.2023 10:25, Roger Pau Monné wrote:
-> >>> On Wed, Apr 19, 2023 at 08:17:45AM +0200, Jan Beulich wrote:
-> >>>> On 18.04.2023 15:06, Roger Pau Monné wrote:
-> >>>>> On Tue, Apr 18, 2023 at 01:00:53PM +0200, Jan Beulich wrote:
-> >>>>>> On 18.04.2023 11:24, Roger Pau Monne wrote:
-> >>>>>>> --- a/xen/arch/x86/include/asm/config.h
-> >>>>>>> +++ b/xen/arch/x86/include/asm/config.h
-> >>>>>>> @@ -44,6 +44,20 @@
-> >>>>>>>  /* Linkage for x86 */
-> >>>>>>>  #ifdef __ASSEMBLY__
-> >>>>>>>  #define ALIGN .align 16,0x90
-> >>>>>>> +#ifdef CONFIG_LIVEPATCH
-> >>>>>>> +#define START_LP(name)                          \
-> >>>>>>> +  jmp name;                                     \
-> >>>>>>> +  .pushsection .text.name, "ax", @progbits;     \
-> >>>>>>> +  name:
-> >>>>>>> +#define END_LP(name)                            \
-> >>>>>>> +  .size name, . - name;                         \
-> >>>>>>> +  .type name, @function;                        \
-> >>>>>>> +  .popsection
-> >>>>>>> +#else
-> >>>>>>> +#define START_LP(name)                          \
-> >>>>>>> +  name:
-> >>>>>>> +#define END_LP(name)
-> >>>>>>> +#endif
-> >>>>>>>  #define ENTRY(name)                             \
-> >>>>>>>    .globl name;                                  \
-> >>>>>>>    ALIGN;                                        \
-> >>>>>>
-> >>>>>> Couldn't END_LP() set type and size unconditionally? (But see also
-> >>>>>> below.)
-> >>>>>
-> >>>>> I see, so that we could also use it for debug purposes.  I guess at
-> >>>>> that point it might be better to use {START,END}_FUNC() to note that
-> >>>>> the macros also have an effect beyond that of livepatching.
-> >>>>>
-> >>>>> Maybe also introduce a START_ENTRY() that replaces ENTRY()?  Albeit I
-> >>>>> find START_ENTRY a weird name.
-> >>>>
-> >>>> So do I. {START,END}_FUNC() or whatever else are in principle fine, but
-> >>>> I take it that you're aware that we meanwhile have two or even three
-> >>>> concurring proposals on a general scheme of such annotations, and we
-> >>>> don't seem to be able to agree on one. (I guess I'll make a design
-> >>>> session proposal on this topic for Prague.)
-> >>>
-> >>> Oh, I wasn't aware we had other proposals, I've been away on an off
-> >>> quite a lot recently, and haven't been able to keep up with all
-> >>> xen-devel email.  Do you have any references at hand?
-> >>
-> >> Andrew said he had posted something long ago, but I didn't recall and
-> >> hence have no reference. My posting from about a year ago is
-> >> https://lists.xen.org/archives/html/xen-devel/2022-04/msg00876.html
-> >> Subsequently Jane went kind of the Linux route:
-> >> https://lists.xen.org/archives/html/xen-devel/2022-08/msg00236.html
-> >>
-> >>>> One thing needs to be clear though: Macros doing things solely needed
-> >>>> for LP need to not have extra effects with it disabled, and such
-> >>>> macros also better wouldn't e.g. insert stray JMP when not really
-> >>>> needed. Hence I expect we still want (some) LP-specific macros besides
-> >>>> whatever we settle on as the generic ones.
-> >>>
-> >>> The stray jmp can be inserted only in the livepatch case, if we end up
-> >>> having to add it.
-> >>>
-> >>> Maybe we should just go with Linux names, so initially I would like to
-> >>> use:
-> >>>
-> >>> SYM_FUNC_START{_NOALIGN}(name)
-> >>> SYM_FUNC_START_LOCAL{_NOALIGN}(name)
-> >>> SYM_FUNC_END(name)
-> >>
-> >> As said in replies on the earlier threads, I think these are overly
-> >> verbose and come in overly many variations.
-> > 
-> > Right, I would only introduce the ones above and as lonog as I have at
-> > least one user for them. I don't think there's much value in importing
-> > the file wholesale if we have no use case for a lot of the imported
-> > macros.
-> > 
-> > The main issue with ENTRY() and ENDPROC() / ENDDATA() is that we still
-> > need a tag for local function-like entry point labels, would you then
-> > use PROC() for those? ENTRY_LOCAL()?
-> > 
-> > I have to admit I prefer the FUNC_START{_LOCAL} for that purpose as I
-> > think it's clearer.  I would agree on dropping the SYM_ prefix from
-> > the Linux ones if there's consensus.
-> 
-> Okay, I'm glad we can agree on no SYM_. But what value does START have?
-> And why would the type be (re)specified via ..._END()? FUNC(), DATA(),
-> and END() ought to be all we need.
+Hi Jan,
 
-Does it imply that we would then drop ENTRY()? (seems so, would just
-like to confirm).
+On Mon, 2023-04-17 at 13:50 +0200, Jan Beulich wrote:
+> On 07.04.2023 17:48, Oleksii Kurochko wrote:
+> > The idea was taken from xvisor but the following changes
+> > were done:
+> > * Use only a minimal part of the code enough to enable MMU
+> > * rename {_}setup_initial_pagetables functions
+> > * add an argument for setup_initial_mapping to have
+> > =C2=A0 an opportunity to make set PTE flags.
+> > * update setup_initial_pagetables function to map sections
+> > =C2=A0 with correct PTE flags.
+> > * Rewrite enable_mmu() to C.
+> > * map linker addresses range to load addresses range without
+> > =C2=A0 1:1 mapping. It will be 1:1 only in case when
+> > =C2=A0 load_start_addr is equal to linker_start_addr.
+> > * add safety checks such as:
+> > =C2=A0 * Xen size is less than page size
+> > =C2=A0 * linker addresses range doesn't overlap load addresses
+> > =C2=A0=C2=A0=C2=A0 range
+> > * Rework macros {THIRD,SECOND,FIRST,ZEROETH}_{SHIFT,MASK}
+> > * change PTE_LEAF_DEFAULT to RW instead of RWX.
+> > * Remove phys_offset as it is not used now
+> > * Remove alignment=C2=A0 of {map, pa}_start &=3D XEN_PT_LEVEL_MAP_MASK(=
+0);
+> > =C2=A0 in=C2=A0 setup_inital_mapping() as they should be already aligne=
+d.
+> > =C2=A0 Make a check that {map_pa}_start are aligned.
+> > * Remove clear_pagetables() as initial pagetables will be
+> > =C2=A0 zeroed during bss initialization
+> > * Remove __attribute__((section(".entry")) for
+> > setup_initial_pagetables()
+> > =C2=A0 as there is no such section in xen.lds.S
+> > * Update the argument of pte_is_valid() to "const pte_t *p"
+> > * Add check that Xen's load address is aligned at 4k boundary
+> > * Refactor setup_initial_pagetables() so it is mapping linker
+> > =C2=A0 address range to load address range. After setup needed
+> > =C2=A0 permissions for specific section ( such as .text, .rodata, etc )
+> > =C2=A0 otherwise RW permission will be set by default.
+> > * Add function to check that requested SATP_MODE is supported
+> >=20
+> > Origin: git@github.com:xvisor/xvisor.git 9be2fdd7
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > Changes in V4:
+> > =C2=A0 * use GB() macros instead of defining SZ_1G
+> > =C2=A0 * hardcode XEN_VIRT_START and add comment (ADDRESS_SPACE_END + 1
+> > - GB(1))
+>=20
+> Perhaps in a separate patch, may I ask that you add - like x86 and
+> Arm
+> have it - a block comment to config.h laying out virtual address
+> space
+> use? Knowing what is planned to be put where (even if just vaguely,
+> i.e.
+> keeping open the option of changing the layout) is likely going to
+> help
+> with figuring whether this is a good placement.
+>=20
+> Such a comment could then also be accompanied by mentioning that
+> virtual address space really "wraps" at certain boundaries (due to
+> the
+> upper address bits simply being ignored). For an x86 person like me
+> this is certainly unexpected / unusual behavior.
+>=20
+Sure, it makes sense. I'll add that to new version of the patch series.
 
-> The type would be set by the entry
-> point macros, and the size by END(). To cover local vs global I could
-> live with _LOCAL suffixes, but personally would prefer e.g. LFUNC()
-> and GFUNC(). We could also limit ourselves to FUNC() plus DATA(), and
-> have (non-)global expressed by END() and e.g. LEND() or END_LOCAL().
-> One less macro, but maybe slightly odd to have the .global directives
-> then at the end rather than at the beginning.
+> > =C2=A0 * remove unnecessary 'asm' word at the end of #error
+> > =C2=A0 * encapsulate pte_t definition in a struct
+> > =C2=A0 * rename addr_to_ppn() to ppn_to_paddr().
+> > =C2=A0 * change type of paddr argument from const unsigned long to
+> > paddr_t
+> > =C2=A0 * pte_to_paddr() update prototype.
+> > =C2=A0 * calculate size of Xen binary based on an amount of page tables
+> > =C2=A0 * use unsgined int instead of 'uint32_t' instead of uint32_t as
+> > =C2=A0=C2=A0=C2=A0 their use isn't warranted.
+> > =C2=A0 * remove extern of bss_{start,end} as they aren't used in mm.c
+> > anymore
+> > =C2=A0 * fix code style
+> > =C2=A0 * add argument for HANDLE_PGTBL macros instead of curr_lvl_num
+> > variable
+> > =C2=A0 * make enable_mmu() as noinline to prevent under link-time
+> > optimization
+> > =C2=A0=C2=A0=C2=A0 because of the nature of enable_mmu()
+> > =C2=A0 * add function to check that SATP_MODE is supported.
+> > =C2=A0 * update the commit message
+> > =C2=A0 * update setup_initial_pagetables to set correct PTE flags in on=
+e
+> > pass
+> > =C2=A0=C2=A0=C2=A0 instead of calling setup_pte_permissions after
+> > setup_initial_pagetables()
+> > =C2=A0=C2=A0=C2=A0 as setup_initial_pagetables() isn't used to change p=
+ermission
+> > flags.
+> > ---
+> > Changes in V3:
+> > =C2=A0- update definition of pte_t structure to have a proper size of
+> > pte_t
+> > =C2=A0=C2=A0 in case of RV32.
+> > =C2=A0- update asm/mm.h with new functions and remove unnecessary
+> > 'extern'.
+> > =C2=A0- remove LEVEL_* macros as only XEN_PT_LEVEL_* are enough.
+> > =C2=A0- update paddr_to_pte() to receive permissions as an argument.
+> > =C2=A0- add check that map_start & pa_start is properly aligned.
+> > =C2=A0- move=C2=A0 defines PAGETABLE_ORDER, PAGETABLE_ENTRIES, PTE_PPN_=
+SHIFT
+> > to
+> > =C2=A0=C2=A0 <asm/page-bits.h>
+> > =C2=A0- Rename PTE_SHIFT to PTE_PPN_SHIFT
+> > =C2=A0- refactor setup_initial_pagetables: map all LINK addresses to
+> > LOAD addresses
+> > =C2=A0=C2=A0 and after setup PTEs permission for sections; update check=
+ that
+> > linker
+> > =C2=A0=C2=A0 and load addresses don't overlap.
+> > =C2=A0- refactor setup_initial_mapping: allocate pagetable 'dynamically=
+'
+> > if it is
+> > =C2=A0=C2=A0 necessary.
+> > =C2=A0- rewrite enable_mmu in C; add the check that map_start and
+> > pa_start are
+> > =C2=A0=C2=A0 aligned on 4k boundary.
+> > =C2=A0- update the comment for setup_initial_pagetable funcion
+> > =C2=A0- Add RV_STAGE1_MODE to support different MMU modes
+> > =C2=A0- set XEN_VIRT_START very high to not overlap with load address
+> > range
+> > =C2=A0- align bss section
+> > ---
+> > Changes in V2:
+> > =C2=A0* update the commit message:
+> > =C2=A0* Remove {ZEROETH,FIRST,...}_{SHIFT,MASK, SIZE,...} and
+> > =C2=A0=C2=A0 introduce instead of them XEN_PT_LEVEL_*() and LEVEL_*
+> > =C2=A0* Rework pt_linear_offset() and pt_index based on=C2=A0
+> > XEN_PT_LEVEL_*()
+> > =C2=A0* Remove clear_pagetables() functions as pagetables were zeroed
+> > during
+> > =C2=A0=C2=A0 .bss initialization
+> > =C2=A0* Rename _setup_initial_pagetables() to setup_initial_mapping()
+> > =C2=A0* Make PTE_DEFAULT equal to RX.
+> > =C2=A0* Update prototype of setup_initial_mapping(..., bool writable) -=
+>
+> > =C2=A0=C2=A0 setup_initial_mapping(..., UL flags)=C2=A0=20
+> > =C2=A0* Update calls of setup_initial_mapping according to new prototyp=
+e
+> > =C2=A0* Remove unnecessary call of:
+> > =C2=A0=C2=A0 _setup_initial_pagetables(..., load_addr_start, load_addr_=
+end,
+> > load_addr_start, ...)
+> > =C2=A0* Define index* in the loop of setup_initial_mapping
+> > =C2=A0* Remove attribute "__attribute__((section(".entry")))" for
+> > setup_initial_pagetables()
+> > =C2=A0=C2=A0 as we don't have such section
+> > =C2=A0* make arguments of paddr_to_pte() and pte_is_valid() as const.
+> > =C2=A0* make xen_second_pagetable static.
+> > =C2=A0* use <xen/kernel.h> instead of declaring extern unsigned long
+> > _stext, 0etext, _srodata, _erodata
+> > =C2=A0* update=C2=A0 'extern unsigned long __init_begin' to 'extern uns=
+igned
+> > long __init_begin[]'
+> > =C2=A0* use aligned() instead of
+> > "__attribute__((__aligned__(PAGE_SIZE)))"
+> > =C2=A0* set __section(".bss.page_aligned") for page tables arrays
+> > =C2=A0* fix identatations
+> > =C2=A0* Change '__attribute__((section(".entry")))' to '__init'
+> > =C2=A0* Remove phys_offset as it isn't used now.
+> > =C2=A0* Remove alignment=C2=A0 of {map, pa}_start &=3D
+> > XEN_PT_LEVEL_MAP_MASK(0); in
+> > =C2=A0=C2=A0 setup_inital_mapping() as they should be already aligned.
+> > =C2=A0* Remove clear_pagetables() as initial pagetables will be
+> > =C2=A0=C2=A0 zeroed during bss initialization
+> > =C2=A0* Remove __attribute__((section(".entry")) for
+> > setup_initial_pagetables()
+> > =C2=A0=C2=A0 as there is no such section in xen.lds.S
+> > =C2=A0* Update the argument of pte_is_valid() to "const pte_t *p"
+> > ---
+> >=20
+> > =C2=A0xen/arch/riscv/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> > =C2=A0xen/arch/riscv/include/asm/config.h=C2=A0=C2=A0=C2=A0 |=C2=A0 12 =
++-
+> > =C2=A0xen/arch/riscv/include/asm/mm.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0=C2=A0 9 +
+> > =C2=A0xen/arch/riscv/include/asm/page-bits.h |=C2=A0 10 +
+> > =C2=A0xen/arch/riscv/include/asm/page.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 65 +++++
+> > =C2=A0xen/arch/riscv/mm.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 319
+> > +++++++++++++++++++++++++
+> > =C2=A0xen/arch/riscv/riscv64/head.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 2 +
+> > =C2=A0xen/arch/riscv/setup.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 11 +
+> > =C2=A0xen/arch/riscv/xen.lds.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +
+> > =C2=A09 files changed, 432 insertions(+), 1 deletion(-)
+> > =C2=A0create mode 100644 xen/arch/riscv/include/asm/mm.h
+> > =C2=A0create mode 100644 xen/arch/riscv/include/asm/page.h
+> > =C2=A0create mode 100644 xen/arch/riscv/mm.c
+> >=20
+> > diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+> > index 443f6bf15f..956ceb02df 100644
+> > --- a/xen/arch/riscv/Makefile
+> > +++ b/xen/arch/riscv/Makefile
+> > @@ -1,5 +1,6 @@
+> > =C2=A0obj-$(CONFIG_EARLY_PRINTK) +=3D early_printk.o
+> > =C2=A0obj-y +=3D entry.o
+> > +obj-y +=3D mm.o
+> > =C2=A0obj-$(CONFIG_RISCV_64) +=3D riscv64/
+> > =C2=A0obj-y +=3D sbi.o
+> > =C2=A0obj-y +=3D setup.o
+> > diff --git a/xen/arch/riscv/include/asm/config.h
+> > b/xen/arch/riscv/include/asm/config.h
+> > index 763a922a04..0cf9673558 100644
+> > --- a/xen/arch/riscv/include/asm/config.h
+> > +++ b/xen/arch/riscv/include/asm/config.h
+> > @@ -39,12 +39,22 @@
+> > =C2=A0=C2=A0 name:
+> > =C2=A0#endif
+> > =C2=A0
+> > -#define XEN_VIRT_START=C2=A0 _AT(UL, 0x80200000)
+> > +#ifdef CONFIG_RISCV_64
+> > +#define XEN_VIRT_START 0xFFFFFFFFC0000000 /* (_AC(-1, UL) + 1 -
+> > GB(1)) */
+> > +#else
+> > +#error "RV32 isn't supported"
+> > +#endif
+> > =C2=A0
+> > =C2=A0#define SMP_CACHE_BYTES (1 << 6)
+> > =C2=A0
+> > =C2=A0#define STACK_SIZE PAGE_SIZE
+> > =C2=A0
+> > +#ifdef CONFIG_RISCV_64
+> > +#define RV_STAGE1_MODE SATP_MODE_SV39
+> > +#else
+> > +#define RV_STAGE1_MODE SATP_MODE_SV32
+> > +#endif
+> > +
+> > =C2=A0#endif /* __RISCV_CONFIG_H__ */
+> > =C2=A0/*
+> > =C2=A0 * Local variables:
+> > diff --git a/xen/arch/riscv/include/asm/mm.h
+> > b/xen/arch/riscv/include/asm/mm.h
+> > new file mode 100644
+> > index 0000000000..e16ce66fae
+> > --- /dev/null
+> > +++ b/xen/arch/riscv/include/asm/mm.h
+> > @@ -0,0 +1,9 @@
+> > +#ifndef _ASM_RISCV_MM_H
+> > +#define _ASM_RISCV_MM_H
+> > +
+> > +void setup_initial_pagetables(void);
+> > +
+> > +void enable_mmu(void);
+> > +void cont_after_mmu_is_enabled(void);
+> > +
+> > +#endif /* _ASM_RISCV_MM_H */
+> > diff --git a/xen/arch/riscv/include/asm/page-bits.h
+> > b/xen/arch/riscv/include/asm/page-bits.h
+> > index 1801820294..0879a527f2 100644
+> > --- a/xen/arch/riscv/include/asm/page-bits.h
+> > +++ b/xen/arch/riscv/include/asm/page-bits.h
+> > @@ -1,6 +1,16 @@
+> > =C2=A0#ifndef __RISCV_PAGE_BITS_H__
+> > =C2=A0#define __RISCV_PAGE_BITS_H__
+> > =C2=A0
+> > +#ifdef CONFIG_RISCV_64
+> > +#define PAGETABLE_ORDER=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 (9)
+> > +#else /* CONFIG_RISCV_32 */
+> > +#define PAGETABLE_ORDER=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 (10)
+> > +#endif
+> > +
+> > +#define PAGETABLE_ENTRIES=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1 << PA=
+GETABLE_ORDER)
+> > +
+> > +#define PTE_PPN_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 10
+> > +
+> > =C2=A0#define PAGE_SHIFT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 12 /* 4 KiB Pages */
+> > =C2=A0#define PADDR_BITS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 56 /* 44-bit PPN */
+> > =C2=A0
+> > diff --git a/xen/arch/riscv/include/asm/page.h
+> > b/xen/arch/riscv/include/asm/page.h
+> > new file mode 100644
+> > index 0000000000..30406aa614
+> > --- /dev/null
+> > +++ b/xen/arch/riscv/include/asm/page.h
+> > @@ -0,0 +1,65 @@
+> > +#ifndef _ASM_RISCV_PAGE_H
+> > +#define _ASM_RISCV_PAGE_H
+> > +
+> > +#include <xen/const.h>
+> > +#include <xen/types.h>
+> > +
+> > +#define VPN_MASK=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((unsigned
+> > long)(PAGETABLE_ENTRIES - 1))
+> > +
+> > +#define XEN_PT_LEVEL_ORDER(lvl)=C2=A0=C2=A0=C2=A0=C2=A0 ((lvl) * PAGET=
+ABLE_ORDER)
+> > +#define XEN_PT_LEVEL_SHIFT(lvl)=C2=A0=C2=A0=C2=A0=C2=A0 (XEN_PT_LEVEL_=
+ORDER(lvl) +
+> > PAGE_SHIFT)
+> > +#define XEN_PT_LEVEL_SIZE(lvl)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (_AT(padd=
+r_t, 1) <<
+> > XEN_PT_LEVEL_SHIFT(lvl))
+> > +#define XEN_PT_LEVEL_MAP_MASK(lvl)=C2=A0 (~(XEN_PT_LEVEL_SIZE(lvl) -
+> > 1))
+> > +#define XEN_PT_LEVEL_MASK(lvl)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (VPN_MASK=
+ <<
+> > XEN_PT_LEVEL_SHIFT(lvl))
+> > +
+> > +#define PTE_VALID=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(0, UL)
+> > +#define PTE_READABLE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(1, UL)
+> > +#define PTE_WRITABLE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(2, UL)
+> > +#define PTE_EXECUTABLE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(3, UL)
+> > +#define PTE_USER=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(4, UL)
+> > +#define PTE_GLOBAL=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(5, UL)
+> > +#define PTE_ACCESSED=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(6, UL)
+> > +#define PTE_DIRTY=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 BIT(7, UL)
+> > +#define PTE_RSW=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (BIT(8, =
+UL) | BIT(9, UL))
+> > +
+> > +#define PTE_LEAF_DEFAULT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 (PTE_VALID | PTE_READABLE |
+> > PTE_WRITABLE)
+> > +#define PTE_TABLE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (PTE_VALID)
+> > +
+> > +/* Calculate the offsets into the pagetables for a given VA */
+> > +#define pt_linear_offset(lvl, va)=C2=A0=C2=A0 ((va) >>
+> > XEN_PT_LEVEL_SHIFT(lvl))
+> > +
+> > +#define pt_index(lvl, va) pt_linear_offset(lvl, (va) &
+> > XEN_PT_LEVEL_MASK(lvl))
+> > +
+> > +/* Page Table entry */
+> > +typedef struct {
+> > +#ifdef CONFIG_RISCV_64
+> > +uint64_t pte;
+> > +#else
+> > +uint32_t pte;
+> > +#endif
+> > +} pte_t;
+>=20
+> Please indent both field declarations accordingly.
+>=20
+> > +#define addr_to_pte(x) (((x) >> PTE_PPN_SHIFT) << PAGE_SHIFT)
+>=20
+> This still looks to be converting _to_ an address, not to PTE layout,
+> ...
+>=20
+> > +/* Shift the VPN[x] or PPN[x] fields of a virtual or physical
+> > address
+> > + * to become the shifted PPN[x] fields of a page table entry */
+> > +#define ppn_to_paddr(x) (((x) >> PAGE_SHIFT) << PTE_PPN_SHIFT)
+>=20
+> ... while this converts an address (not a ppn) to PTE layout (not a
+> paddr). Getting the names of these helpers right is crucial for easy
+> following of any code using them. To be honest, I'll stop reviewing
+> here, because the names being wrong is just going to be too
+> confusing.
+You are right the names are confusing and should be renamed.
+Thanks.
 
-Hm, yes, I do find it odd to have the .global at the end.  FUNC and
-FUNC_LOCAL would be my preference, I do find {L,G}FUNC a bit
-confusing.
+~ Oleksii
 
-> 
-> Note that this is different from my proposed patch, where I aimed at
-> the change being unintrusive. This includes that this was matching
-> what Arm has (and hence required no change there at all). I think it
-> would certainly be nice if these constructs were as similar as
-> possible between arch-es; some may even be possible to share.
-
-Well, yes, that would seem desirable as long as we can agree on a set
-of helper names.
-
-Thanks, Roger.
 
