@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5466B6E779F
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 12:44:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.523319.813261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79A416E77A9
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 12:45:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.523323.813272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp5Ij-00054C-QZ; Wed, 19 Apr 2023 10:44:37 +0000
+	id 1pp5JT-0005gq-7E; Wed, 19 Apr 2023 10:45:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 523319.813261; Wed, 19 Apr 2023 10:44:37 +0000
+Received: by outflank-mailman (output) from mailman id 523323.813272; Wed, 19 Apr 2023 10:45:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp5Ij-00051i-Nl; Wed, 19 Apr 2023 10:44:37 +0000
-Received: by outflank-mailman (input) for mailman id 523319;
- Wed, 19 Apr 2023 10:44:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pp5JT-0005eh-4L; Wed, 19 Apr 2023 10:45:23 +0000
+Received: by outflank-mailman (input) for mailman id 523323;
+ Wed, 19 Apr 2023 10:45:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8hvW=AK=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pp5Ii-0003M4-Bn
- for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 10:44:36 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2060d.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::60d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2c56b75d-de9f-11ed-8611-37d641c3527e;
- Wed, 19 Apr 2023 12:44:34 +0200 (CEST)
+ id 1pp5JS-0005YA-FM
+ for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 10:45:22 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0611.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::611])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 487bdbbf-de9f-11ed-b21f-6b7b168915f2;
+ Wed, 19 Apr 2023 12:45:21 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB7671.eurprd04.prod.outlook.com (2603:10a6:20b:299::6)
+ by AM7PR04MB7013.eurprd04.prod.outlook.com (2603:10a6:20b:116::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Wed, 19 Apr
- 2023 10:44:33 +0000
+ 2023 10:45:19 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6298.045; Wed, 19 Apr 2023
- 10:44:33 +0000
+ 10:45:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,165 +47,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c56b75d-de9f-11ed-8611-37d641c3527e
+X-Inumbo-ID: 487bdbbf-de9f-11ed-b21f-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SF3nigEobWvO4lZQvPg+fseXc0vqkXnOzT7Y66cbs3o4KzggUqnRa4N3ul0pGawJ/WYCByJSMDe1o8iVXV2yLUYJ29hFAQjE089vYsVQyHZ3VO8ZNQfdcd+Q/F+CjzHVPIZsvjnd5Y+U1Hf7/A1rFOcYiuRdv/L8o3ULnG/r9VnwJVntYWC9t740XAT+oMZFWT9gEMxNUiO2W1yUys1xvgIHpo8ahF38cbInlrCtlLGCdcpIKPGT9NplwxzwOrKcglxGoZpH8Ow+LDGpK4YKeY0IUlNvr9qRP3QuVV/N33mdmcXPjfvr82F3O3aPqhmnWXFTDsjR0Py22k2+yAolNw==
+ b=N1M6CcxgYf2nBnLDT8Bl4VTGt/j/hf7cbiDpKE7i3HdlVhhwPhePaaHybCTt5Gkjz1NntW3Mshbvvu/ZgpynAQrVRKN/R396+c2deX65pfX7Of1zJF9Af9RiPaTo3js1C9ki0wdIQRyXfG740pncavtHrRACJezJRc+f/8AHiqLuF7w9JoTwjziMAQBG5DnJz97YtbaHyG/sFl6vaIPaMpSoJ5enJaAkrr1oWJOWlh0co6DF3msLy1BKUfJEW+VLLnOMKOXSv55qovm6SXK5Bts8UseP+5OCfVgTyKx0S4q0VSPZ+Xn6OPypQxOz5f8R5mziefJpn0GJGPkGcg1TCw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XejQV07T8V2gYiQel4lhjkXlJAuuZk41L4stliIWs7I=;
- b=Hk/G0cOXWuIFoXbBkcN+W/iNWM3OXPMjIpOxtcV3WtkN+wxQkOnV7hXsPcdUEIAAZSrnekgEWYuy9CGkAj8GKgYS+xAAs/2ye8SQaQ5tuwNwuhDEydlRHP+jdD0C/BBdP0QVxOizuEV7VKcGo+nbrndyD1GLOqkJEEdx2HvN0CpowfGfsbSk69hnrovWWDhaHnvDzROFS1Q0IU7QhtaYNyXiKldRbgdaoRgvx5gUIl7N0NO5gQhvdggUUIC+Akfm2McqzxF0yrh2RfrC/AYewtjzY2n1aRsTmHeq1MXkZhGBuZ/8MurSonYsLU+8jOYXoGjVwtKgizXi88HjEyvX2g==
+ bh=4aXdXTyOcO8LUb03EjxFppTt+3a/uazHmqVhanxapU8=;
+ b=hXeIYrCYHsKEgQylQ6MxH/bQHs/KMtYlp4FCjhAQk5XP9JvWizQnPkw7GEdMN8lYjTuhb0mtGC1JbBO8MHH7sU7FCQypAbrR6u+bAb7ZrdIb8ZshV4/weVfqgHhM2MFXl3IKzUUqLC9YpkGMEBaFjJLysJyKpceyfp35UlgZcj4gZ/BezqhUS9n4NFzjjgGPocR2ZvgG+2pjTbkEldEj1AkQGj8hsNMKAgcZm9j8pzMXF9GmzEqBTqZSzDI/VWQpGIZ8S11plIWnZMpAjdDon1zQ4aP7gWX7pEuXFvasCSiZ9vEWC+dX2wZRjQIjWxYl8vhvWiNSVkSXjWtVlWMVsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XejQV07T8V2gYiQel4lhjkXlJAuuZk41L4stliIWs7I=;
- b=51Nud44WJbSocPCFTtFgaf3+mGifwESn3rwb4M+PSahBQ6txqCeMNrTilwhzZZR+Y8kan9v4vnvCHtyN0uhls2eg1+24J6m6BENVb3peVb+UwKibZ48Y4IXa95239xM6jO7bLGIMC28zFgEpz6xCFy9BixftRhWIeXZ5X7gHnRwmbuarp5SKmM8iet+vA8P9hy7xUtpzuloNjMBhktPmHD7kdAv9Jio8DmcfJzAglwksW848ZKziizLQM2P0mPCSjCZtlV1r6C17/dDh+TFTiKvAVvS3Gopo8N2UHwBf8U41qwW/icfjf1xcn2IjxvZI5kFM3pMmsaCbUr8SXf3qBA==
+ bh=4aXdXTyOcO8LUb03EjxFppTt+3a/uazHmqVhanxapU8=;
+ b=1E+oRGNTHTkqsodGsAw3Qs9R+WTGN8snrVKr5xmC18eozKoYpe1KfBWvpuyWJfnTYjQ6r1dcwf2KLs7h3IGaNMRHIhkzc1dXnXa6KiIR8mks065G2FuCHp/FuLRNwFpnlnNmvgm92l9pdnmlS8ChNxTFuuw9MkFSPxmR6JkezWObGJd21qU/bT6/hyZvia1Z09rz473MV8KHzrvp7NEB9buMg2LmcG3QweJTfRxCv11h8lagrCdAv2vJis7uPQDz/P/yX0zN1hYFu+daBHsww+9FG9Z7sXczUru9ByGn0OZ5+kPsMPPSfYhRsxMm0t+EMknviaYDtAUpOFMZ/D7eow==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ee33ad20-ef6e-504d-6987-59ccb166f8e4@suse.com>
-Date: Wed, 19 Apr 2023 12:44:31 +0200
+Message-ID: <78858961-9c8c-af8d-286d-f90981f85e07@suse.com>
+Date: Wed, 19 Apr 2023 12:45:17 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: [PATCH 1/5] x86: support cache-writeback in flush_area_local() et al
+Subject: [PATCH 2/5] x86/HVM: restrict guest-induced WBINVD to cache writeback
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
 References: <4b42e920-f007-186c-d838-a0294bfa86b5@suse.com>
 In-Reply-To: <4b42e920-f007-186c-d838-a0294bfa86b5@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0014.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::24) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0017.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::27) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB7671:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba16c0b1-374f-4801-4c25-08db40c30fc4
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM7PR04MB7013:EE_
+X-MS-Office365-Filtering-Correlation-Id: 24010689-b390-419c-f5fa-08db40c32b60
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Ciu6ZyWfasZVyJmuWnkVBQJiPDT5DjlRSVPs+SQaHrhoSd05ScrROU7/77mCiHF1HyyTKjdkMChRQS63R2EAJBT7Wm71JUdC/iQnqyR7hutfBOUfdxKQbn31DKVSQgicdSUwsUOR3aQr5zdRsAOiIPfOQBn5Bjfoqpxch3WVveJXZEj8XXIgbDIto87TUaVfFPZhjBsGdzns86gsbCx6vLubFxSG0nhwAJBTcp8gNwmwTRPfyh4d4tRBD9ZWLu7scknYpb+YibJRzDzMl/BwcvS64zYbyIWs19Tg/wXAouNjibssiKDoFIM7pYVbtcKb+/ZZK350PUAB5y1BbYN0ZvwflEhUMlyaJyK6cpnJPwQ0nZ3V4NWOL2Qf4CrxJ6KWu+uC/bnzmn8z7cxN/LpbvXaoegKOZbHSk5qip7lak11cTpL6kt7dP+yh0Peqiwax8FaT6rh1V5RdeHtAFelLFsqjnngQ8Q4CLrPUGgWu4V5/nC9cUjxgJgkPzVVOZXpOnEPcMsuJtZTBXX7kPUqLT706+g6iAztFBoDod4Epvk+KYo79ckD6dsaEqm6YA+vW8Di2sNywGw+EirojtsCuat2bb1zj2HQkz12OXB9vbT32IUxIjS8zgFNQg9/lO7fv1USM2IRbKtgp2DnMY1XOIg==
+	WjOd2uMuEeDuagaAURUeHgfUZHWpAQrPusNvXmlOUKd3Iep3i+j7VsySTEc3LVhGSvA6/QC+hlC99lqIkx46pZ5B2I8Uf8dHJERuJ1GjYraEF4CDoObm7ZmOpjnL9S9qq5aqWQkRgeKcdFchOoTZFi4xaHOKcjIq46ib1Ppi51HRaauNFEuFAsulHSzUozRH2xz/zPzBSn0tXzp+t8O50uN23Q0lasGAIPPNWN46pqWkhwNwHC0PNVHhTUzF+FbKw3JjMORsXl7+l7hR/yyrU6X/QsPJ7oTYBl41IbTw4mI2svW+mJp/RlqbM76aB8x/TNygscytd8kOQfJjngtDa8n7+aJ4Arn7PpzicEIW0p3mR9r3sPeYLszda7kPnt024a6aUTbOeqvZ1S3yhgbWJ4yt09M2E3CUpzHZwKfuKGd+XPrytNddKpYAAPHln/UeOMcFFBLGmN2GpBn1SnMzadVxPaUY8CwDxYmQGDW7dZnv7s6tmtaHbmCN7wmc/4YcDNqgj98isU2YD/n38qBOo+pE/ZWne98cCdt4PDsvCcD3ZZIQu8Gtzs50tFjS+gUiwk7dxhEoYBvWAK544KH3yMKLRt7JdbPaJGOCD5BaJmgc6YHn85bCSDwmgFLu8YtEJnTGxrn5JbEvHc960Xa21Q==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(396003)(346002)(39860400002)(376002)(366004)(451199021)(5660300002)(86362001)(2616005)(83380400001)(31696002)(6512007)(186003)(6506007)(26005)(38100700002)(8676002)(8936002)(54906003)(478600001)(6486002)(316002)(41300700001)(36756003)(4326008)(6916009)(66946007)(66556008)(31686004)(66476007)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(39850400004)(396003)(346002)(376002)(366004)(451199021)(5660300002)(86362001)(2616005)(83380400001)(31696002)(6512007)(186003)(6506007)(26005)(38100700002)(8676002)(8936002)(54906003)(478600001)(6486002)(316002)(41300700001)(36756003)(4326008)(6916009)(66946007)(66556008)(31686004)(66476007)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QnJseGdFZHhsSlRRM051WTJZb0YrYU91MlNnQmhKUTdtb0dMRE51Wmpkc3hm?=
- =?utf-8?B?R2gwS1AyNllLQVd5azNiZDIvdlZnVms5ZllTWTFvQmRaSjF6RzZJWmM5eHZ2?=
- =?utf-8?B?d3ArdTdxMHZ4L2RxZkhuSjNtYlVEbFMyRWkwRGhLc3ora3gzM0d2Q21veGNV?=
- =?utf-8?B?Z00raTNrVm50TEt3QmdiMjBidnJ3MWhPd1R3MlhDU3ppVlhITnZpeHEyNHU2?=
- =?utf-8?B?enZDbVQ0L0xLUTFyQlh6TFBWbDg3MU8vb3BmczMzWGNOMUVmclRacGltOU5M?=
- =?utf-8?B?M0RxbFhwZEdJMXdub1F5RFZ2NFRZb2Uwc1pMSUwwT3JaUXk3NmV5TS9nM3g1?=
- =?utf-8?B?NVZNZWNEVTNkVFl1a09VWVk0T3V4cDVjeXNsZDZyTGVuRVg5d0E3R1FpelNP?=
- =?utf-8?B?Tzd3Y3l0ek03aWYzR09KeTVxUnBuQkl4VGErZDArYVloN1YrTDF1aTk3RkF2?=
- =?utf-8?B?cXllZW9Ja2NkVGlWaElvL1pyZmZTWmdWZ28vYjFZVUdTOThXbXJXdWJhR0hs?=
- =?utf-8?B?VHg4WERMcmtLQ0FIc0MwTWFSdDFJWkNCTFdFY2xMeGdTcDN6eEVkVzFESm1M?=
- =?utf-8?B?ODgwUi9zK0NDNXYrU1p0eGcvNVMzQkJ3dmFBWDNIcEx1bkJwRU5ZSTZGZUFE?=
- =?utf-8?B?UzZEOENNQTkyOUgzQTd4MHErS3JuNHR3MW53dktBajBIN0J6RHJnZjVHSHov?=
- =?utf-8?B?bUcvQkJqSllGY3dzNkg2RUNwaEczdGhnUkw0SnVldjNjbzcyK3h1citMYWN2?=
- =?utf-8?B?WENMTkpwM0dBcDVDaVVPNitoeGdVOTRjVVpYdVFRL3FXWWFySmhKeWNibFpV?=
- =?utf-8?B?dHRaa3hyZWhjc3hyRGVBRVRwZXNpZDVHcmtZZVdZa2FvYWJKVG4rTE1kUTd2?=
- =?utf-8?B?c0t2VDN2VFhTVzhwSStOaU1jeFRUckczNnBHZSt2YjNaVkZQL2cvUi92b1Fx?=
- =?utf-8?B?RzhHc296elgvblE5dGtnclRsMEFIQWVyVTRINW1kbkVhT1gxMHdEd05UY2p5?=
- =?utf-8?B?T25wcmFhUUhKWExYSUhtam1FbmNtRStOUnpqajlwRGsvdjViWmJBTGliWThl?=
- =?utf-8?B?dEZNMWNCNGRueSt1UzRYcXJzaHhsQjlXbmZFeWdSRzNYRU9FNTQ3SjM1Q1lL?=
- =?utf-8?B?VndEM1dGdXRZMkp6N2tYSkV0bGpqeDRmS2NVT1lyL3dEaURmYVFBNTBHN0Nq?=
- =?utf-8?B?cERxUXQvMHREeERLUlRlVlpVekQ0NGdzc281MkFBcUNrQW5UREdxdmI5L1hz?=
- =?utf-8?B?bGRFTzVtaCtZUDJDdzhZNjJya0JVV2RJYm5YM3JNSWtFM2tITk5mNFl6Yk9O?=
- =?utf-8?B?MEF2am83YmpnTDgvK2dtMW51MDVhK0YyOXphTFNkNTI0NGluYzdja0FabERD?=
- =?utf-8?B?ZUw0Zk12WXY2ZjRtbTA5UXdEOVV6NUJXVnBrREQwZldRQ0F6ZzNJR1ZRai9q?=
- =?utf-8?B?NjVPVHJCZXpRZlJ2NlhtRkt1ekxaeGZGMDVYc0JuSndRamVkQWtIVjAzSkMx?=
- =?utf-8?B?YjFwNFFqdVhodU90WFdlVjkzejRaYkpRUVZTS0ZrTGlRSDdGOXc0RVBoVHgz?=
- =?utf-8?B?ZEo4VFp1UkV4ZkwvUGg4bG1HOG1BY2p0VHlFdHQxZGphQzZvQVpTZjJ5SDQ2?=
- =?utf-8?B?TzMvdHlPNkREUVh1clFHS1ZFSGN6cjBhQjBuMGNCM2JGMW4zWnJKZHhqaUFE?=
- =?utf-8?B?YkVlZUxYbUl3ZitKbEl2WGdHSEt3UHl3NUdCTFpTRWkvS1dYcS9KS3Y0SUxi?=
- =?utf-8?B?b1dyalBQWDZSVlBHU09FV3Y2cHl6c29kNXMwbk9DMEV3bmh5WFZrMElPRTha?=
- =?utf-8?B?RXlaT05YRy8xMnZjdXUyM0RCSFdjRmZOelJCc3h4bzJ4YWtqbklqYUVUY0F3?=
- =?utf-8?B?M1BwcU11VGNrSEZ1RElFdUgzb1N6QTF5djFlL0NjRDcvZlQzV1cwSmJiRlcv?=
- =?utf-8?B?cHgzMUZ2Yk5MV0o2RnBUak1FeFZ4NnNSYXdsYmFpOGlldTZ6SmxYcDNuT3Fs?=
- =?utf-8?B?SDZxSXNPNCtsaEtKVHRUWnhVbzhFUTBmNXoxMHpUU01HUTJIbGIzOFVaeCtx?=
- =?utf-8?B?dGtsV2hQN216b2lJK3Bpc3oyMmU4ZlVjbjBqdjNQZXFhLzZXcGdJZnU5dWNz?=
- =?utf-8?Q?B2abphhd2rkYn4IF2iyWWqzxn?=
+	=?utf-8?B?QVcvdDcxTHZrbUQ2enNwSGttM3AraWUwWUtMTzN2cmhkei9RTnBNd0hUcHRa?=
+ =?utf-8?B?MkZ6Uk4wNHRlMERmL2M5VDZSUm1iUXhweFRPTTRtNHEzZ0RvbHhkb2tUM1cz?=
+ =?utf-8?B?S1B1OXBZZFVWaEU3K29VZkFYQUlSRW9aT3AzbzV3ZURHNmhOQXVNUEQzUkZS?=
+ =?utf-8?B?YzE0T012Qit6eElrV0FXMFo5OVVEMFJTY3FWUXhRTnlaclNDZUhLMGVLVGpX?=
+ =?utf-8?B?U1dacy9NOVVyOHFPRmFqNUw0cFZTcDJVV0ErcE5RbVBmbWlxUVBDTFJhd0pW?=
+ =?utf-8?B?SmVNLzN1MlNuNUpvdlU4bisvaE1vdmNxcXora0ovZGVXZ1FSc0JCc1cyN1VK?=
+ =?utf-8?B?dDlkUmJkTUNkMGVhQUFkLzNxSEVYem5JN3h4dDAvQ0xpN2Z0enh3aGV6TklR?=
+ =?utf-8?B?eGNxY3YwQmc5UWNRaWIyR01BZVRPZzRLLzl4SUxRaFVDMmFPcE1KSnNXaTh5?=
+ =?utf-8?B?c3daR2k1aEJPQTAzeU1YN0gxRFd2dDNoeGRrUVRwOFIzcU5KODJjRDhNazhq?=
+ =?utf-8?B?eE5PU3RWK1NUVVM4TjNsa0ZLNzRpS2ZZeitHNVhvcFh4b3FzdXpjZm5Fd2VL?=
+ =?utf-8?B?Ylo4OGtVdXdtMGhETGJRZkM1Q3Q2TGtHWnJkQmw0Z1NpWjJOYzlHM3FwZzI3?=
+ =?utf-8?B?aXQva28xdVM2dGdURUdQUjR3aWZUQUxFczVwWVl5bjA4OTl2SEh3VFZ0RXU4?=
+ =?utf-8?B?Z2ZCdDBYbFJLNUtvZXNqakpPdW1kVCtnL1FORkNNSCtUeU9zUDFkTDFaa2Fz?=
+ =?utf-8?B?eVdBSzIydWFDZ3k4MFhUYnU0MHBwZ2NOcVNYUDVEeDV1RGtzK2VnM2tkNlFU?=
+ =?utf-8?B?enE0cHd0K2hKTFVsTW93NHZrakM4OExMYTljOWNTM283MlYrcDQrUzFhdVl4?=
+ =?utf-8?B?ZVRFWlVwWVRydU1iWitONjk3dnN4eklHRWU0cW5UME0vTXRPSmdhQUwycG5w?=
+ =?utf-8?B?b0tZbVpKanZ0QmczenZ1ajNZd2FTR3JWWXlkRlFyUVVQL2dkaEFmTnVVTWZP?=
+ =?utf-8?B?YXRVYzF4Q21ESFV6aUczb09lN1Jra3JsTm9EV0E2TFp4aXUzODhkZTc4c2Mr?=
+ =?utf-8?B?NGN4bjRxTVpxZ2lobkEyN3JBU3Y1RHErbUt5ZDhOaGpKSWhtZFJvV0E1V0dl?=
+ =?utf-8?B?a1dpcmErZkhKb0gyU0ZOSm9DRVg4RXZ2YjZGc0w5U3ppNGw2UWdRQ2ZzWnRU?=
+ =?utf-8?B?SWJnYjBGMnMrNEYzQ0MyRHJOYXhlNno0dWJXNzU3OEg5c2E5eVRjeE1tS1hT?=
+ =?utf-8?B?RTRENkFYUEFUVEIvbVpJZWNhQ2d6NGc4RCtQZDFDQlBBblRqMVAycnh6ZVVB?=
+ =?utf-8?B?OG54eGt0MGYrN1BNV2wrcG16NVUyZHRYTys1QTdXcnlHdTk1RDFGSktZeXky?=
+ =?utf-8?B?dFlRc0pURVpQM2txektLRzdyNTdXY1Jzc2RoS2xLdkxmRnZMQlZCZEZGak9P?=
+ =?utf-8?B?cis1SDFtYzFoTmZPR1BiNTdaZFB5dFJFVEdHRmhUak1YRTdwZ1E0b2YzZURp?=
+ =?utf-8?B?NC9uVnI2UWFVdkk5QzZNaGpJOTd5N3c0WjBOQTRNTUhwK0FrMmJrTWR3NnI5?=
+ =?utf-8?B?cUZyNk9LRXJ6RDhLaUk1WGh0R3ptRWtLR29jbmtlSzVsRHJ4RWFUSWRrOEZ0?=
+ =?utf-8?B?Zi9DeDVDMWRrYnA3ZG9pR3FHdWZMT3l3MXFKTXZYdDhhY3plYjROa09uanRt?=
+ =?utf-8?B?SkEyaVdCd0MxbExLZTRKNHQ3eWlJUzMvMnJCK1NSQ0xXOFVqMGFLVE5aTHVv?=
+ =?utf-8?B?VWdQb3RqbzVLbXV2RWxyOVJQU1lZcU1TZGlDRk9PVVJ3cUU1S3d0RGJqbzhK?=
+ =?utf-8?B?b3BGeVlLWUtBQU5QQnpHMHBzNmlkVHovc0NZSVVWOG8rb05DZmVpa2Rqcjdk?=
+ =?utf-8?B?NnRVaW5KSnBPSWlwV2dyOUtVWExIcXNXci9aL3RKZ2I1UkF3WjBVZll3MFJy?=
+ =?utf-8?B?Nmo4ejdGR3VGT3JOaFVvWjZ4Y2djYnRHaTlBTmNXVEFNdytWNlg5Zkk4b3Jv?=
+ =?utf-8?B?SEJJOW9jSnkvb0tTZ0FqRnJsOFF5V3d3dmNOQUVRNGR2T0FMZUZUSFRzbTEr?=
+ =?utf-8?B?RXp1WXZlajBlVzlGTEtDWFhqWURha2o4b3BpajlLdHV1QjY0bk0wSmczMXNG?=
+ =?utf-8?Q?R9QH7Ayhh59meXszAdTpYIpGC?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba16c0b1-374f-4801-4c25-08db40c30fc4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24010689-b390-419c-f5fa-08db40c32b60
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 10:44:33.1687
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 10:45:19.7709
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IRRue+sUY+I8P8BDp0byCHD8lvAkP0uzAogYwwyxJk/V677Intc9VjfQo5iG+AOburzZslRtz7ERuHj3a1j56g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7671
+X-MS-Exchange-CrossTenant-UserPrincipalName: woSSJO5IQrDxjEhbK8FqYNOrKO3DAW0eTQv+TxYLJfqLVSAyziidfWQ0QKABtXZYR4cdW3sTCVz+F+HbTi+Xgg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7013
 
-The majority of the present callers really aren't after invalidating
-cache contents, but only after writeback. Make this available by simply
-extending the FLUSH_CACHE handling accordingly. No feature checks are
-required here: cache_writeback() falls back to cache_flush() as
-necessary, while WBNOINVD degenerates to WBINVD on older hardware.
+We allow its use for writeback purposes only anyway, so let's also carry
+these out that way on capable hardware.
+
+With it now known that WBNOINVD uses the same VM exit code as WBINVD for
+both SVM and VT-x, we can now also expose the feature that way without
+further distinguishing the specific cases of those VM exits. Note that
+on SVM this builds upon INSTR_WBINVD also covering WBNOINVD, as the
+decoder won't set prefix related bits for this encoding in the resulting
+canonicalized opcode.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/flushtlb.c
-+++ b/xen/arch/x86/flushtlb.c
-@@ -232,7 +232,7 @@ unsigned int flush_area_local(const void
-     if ( flags & FLUSH_HVM_ASID_CORE )
-         hvm_flush_guest_tlbs();
- 
--    if ( flags & FLUSH_CACHE )
-+    if ( flags & (FLUSH_CACHE | FLUSH_WRITEBACK) )
-     {
-         const struct cpuinfo_x86 *c = &current_cpu_data;
-         unsigned long sz = 0;
-@@ -245,13 +245,16 @@ unsigned int flush_area_local(const void
-              c->x86_clflush_size && c->x86_cache_size && sz &&
-              ((sz >> 10) < c->x86_cache_size) )
-         {
--            cache_flush(va, sz);
--            flags &= ~FLUSH_CACHE;
-+            if ( flags & FLUSH_CACHE )
-+                cache_flush(va, sz);
-+            else
-+                cache_writeback(va, sz);
-+            flags &= ~(FLUSH_CACHE | FLUSH_WRITEBACK);
-         }
--        else
--        {
-+        else if ( flags & FLUSH_CACHE )
-             wbinvd();
--        }
-+        else
-+            wbnoinvd();
-     }
- 
-     if ( flags & FLUSH_ROOT_PGTBL )
---- a/xen/arch/x86/include/asm/flushtlb.h
-+++ b/xen/arch/x86/include/asm/flushtlb.h
-@@ -135,6 +135,8 @@ void switch_cr3_cr4(unsigned long cr3, u
- #else
- # define FLUSH_NO_ASSIST 0
- #endif
-+ /* Write back data cache contents */
-+#define FLUSH_WRITEBACK  0x10000
- 
- /* Flush local TLBs/caches. */
- unsigned int flush_area_local(const void *va, unsigned int flags);
-@@ -194,7 +196,11 @@ static inline int clean_and_invalidate_d
- }
- static inline int clean_dcache_va_range(const void *p, unsigned long size)
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -2364,7 +2364,7 @@ static void svm_vmexit_mce_intercept(
+ static void cf_check svm_wbinvd_intercept(void)
  {
--    return clean_and_invalidate_dcache_va_range(p, size);
-+    unsigned int order = get_order_from_bytes(size);
-+
-+    /* sub-page granularity support needs to be added if necessary */
-+    flush_area_local(p, FLUSH_WRITEBACK | FLUSH_ORDER(order));
-+    return 0;
+     if ( cache_flush_permitted(current->domain) )
+-        flush_all(FLUSH_CACHE);
++        flush_all(FLUSH_WRITEBACK);
  }
  
- unsigned int guest_flush_tlb_flags(const struct domain *d);
+ static void svm_vmexit_do_invalidate_cache(struct cpu_user_regs *regs,
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -1881,12 +1881,12 @@ void cf_check vmx_do_resume(void)
+     {
+         /*
+          * For pass-through domain, guest PCI-E device driver may leverage the
+-         * "Non-Snoop" I/O, and explicitly WBINVD or CLFLUSH to a RAM space.
+-         * Since migration may occur before WBINVD or CLFLUSH, we need to
+-         * maintain data consistency either by:
+-         *  1: flushing cache (wbinvd) when the guest is scheduled out if
++         * "Non-Snoop" I/O, and explicitly WB{NO,}INVD or CL{WB,FLUSH} RAM space.
++         * Since migration may occur before WB{NO,}INVD or CL{WB,FLUSH}, we need
++         * to maintain data consistency either by:
++         *  1: flushing cache (wbnoinvd) when the guest is scheduled out if
+          *     there is no wbinvd exit, or
+-         *  2: execute wbinvd on all dirty pCPUs when guest wbinvd exits.
++         *  2: execute wbnoinvd on all dirty pCPUs when guest wbinvd exits.
+          * If VT-d engine can force snooping, we don't need to do these.
+          */
+         if ( has_arch_pdevs(v->domain) && !iommu_snoop
+@@ -1894,7 +1894,7 @@ void cf_check vmx_do_resume(void)
+         {
+             int cpu = v->arch.hvm.vmx.active_cpu;
+             if ( cpu != -1 )
+-                flush_mask(cpumask_of(cpu), FLUSH_CACHE);
++                flush_mask(cpumask_of(cpu), FLUSH_WRITEBACK);
+         }
+ 
+         vmx_clear_vmcs(v);
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -3714,9 +3714,9 @@ static void cf_check vmx_wbinvd_intercep
+         return;
+ 
+     if ( cpu_has_wbinvd_exiting )
+-        flush_all(FLUSH_CACHE);
++        flush_all(FLUSH_WRITEBACK);
+     else
+-        wbinvd();
++        wbnoinvd();
+ }
+ 
+ static void ept_handle_violation(ept_qual_t q, paddr_t gpa)
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -238,7 +238,7 @@ XEN_CPUFEATURE(EFRO,          7*32+10) /
+ /* AMD-defined CPU features, CPUID level 0x80000008.ebx, word 8 */
+ XEN_CPUFEATURE(CLZERO,        8*32+ 0) /*A  CLZERO instruction */
+ XEN_CPUFEATURE(RSTR_FP_ERR_PTRS, 8*32+ 2) /*A  (F)X{SAVE,RSTOR} always saves/restores FPU Error pointers */
+-XEN_CPUFEATURE(WBNOINVD,      8*32+ 9) /*   WBNOINVD instruction */
++XEN_CPUFEATURE(WBNOINVD,      8*32+ 9) /*S  WBNOINVD instruction */
+ XEN_CPUFEATURE(IBPB,          8*32+12) /*A  IBPB support only (no IBRS, used by AMD) */
+ XEN_CPUFEATURE(IBRS,          8*32+14) /*S  MSR_SPEC_CTRL.IBRS */
+ XEN_CPUFEATURE(AMD_STIBP,     8*32+15) /*S  MSR_SPEC_CTRL.STIBP */
 
 
