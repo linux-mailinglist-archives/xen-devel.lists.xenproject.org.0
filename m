@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B2CC6E746F
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 09:54:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.523226.813087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08C336E7483
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 09:57:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.523230.813096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp2du-00041v-OR; Wed, 19 Apr 2023 07:54:18 +0000
+	id 1pp2gf-0004eI-6Y; Wed, 19 Apr 2023 07:57:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 523226.813087; Wed, 19 Apr 2023 07:54:18 +0000
+Received: by outflank-mailman (output) from mailman id 523230.813096; Wed, 19 Apr 2023 07:57:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp2du-0003xl-L6; Wed, 19 Apr 2023 07:54:18 +0000
-Received: by outflank-mailman (input) for mailman id 523226;
- Wed, 19 Apr 2023 07:54:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pp2gf-0004bK-2C; Wed, 19 Apr 2023 07:57:09 +0000
+Received: by outflank-mailman (input) for mailman id 523230;
+ Wed, 19 Apr 2023 07:57:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tfww=AK=redhat.com=david@srs-se1.protection.inumbo.net>)
- id 1pp2ds-0003xS-MS
- for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 07:54:17 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 601949d2-de87-11ed-8611-37d641c3527e;
- Wed, 19 Apr 2023 09:54:14 +0200 (CEST)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-620-4G2n1ZMvMEOjIN49LYlOtA-1; Wed, 19 Apr 2023 03:54:10 -0400
-Received: by mail-wm1-f69.google.com with SMTP id
- fl8-20020a05600c0b8800b003f16fe94249so817242wmb.9
- for <xen-devel@lists.xenproject.org>; Wed, 19 Apr 2023 00:54:09 -0700 (PDT)
-Received: from ?IPV6:2003:cb:c70b:7b00:7c52:a5fa:8004:96fd?
- (p200300cbc70b7b007c52a5fa800496fd.dip0.t-ipconnect.de.
- [2003:cb:c70b:7b00:7c52:a5fa:8004:96fd])
- by smtp.gmail.com with ESMTPSA id
- l26-20020a1ced1a000000b003eeb1d6a470sm1327085wmh.13.2023.04.19.00.54.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Apr 2023 00:54:08 -0700 (PDT)
+ (envelope-from <SRS0=8hvW=AK=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pp2gd-0004bE-Dj
+ for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 07:57:07 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2085.outbound.protection.outlook.com [40.107.7.85])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c7415788-de87-11ed-b21f-6b7b168915f2;
+ Wed, 19 Apr 2023 09:57:06 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB9176.eurprd04.prod.outlook.com (2603:10a6:20b:44b::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.21; Wed, 19 Apr
+ 2023 07:56:37 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6298.045; Wed, 19 Apr 2023
+ 07:56:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,143 +46,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 601949d2-de87-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681890853;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ku4/Si8D6xrlYmDkiBxBM7QW/Zhm4h1GUH6h0hqbhBo=;
-	b=Cla5vpMiSIZ5MOM+7UGd9nWVvOXptu0l43jeZGrATas6+8FjMyfn14Fgp7gvTt+0hIes+w
-	QwdHtUYCx8CYOVcExcScBGm2t3vI3VvievgQXPz05kwqAR2Czo4iMDt3qZlIugSxHfVorL
-	lvG0B2ZsjbTX60EegYqc9foEfZM6B10=
-X-MC-Unique: 4G2n1ZMvMEOjIN49LYlOtA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681890849; x=1684482849;
-        h=content-transfer-encoding:in-reply-to:subject:organization:from
-         :references:cc:to:content-language:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ku4/Si8D6xrlYmDkiBxBM7QW/Zhm4h1GUH6h0hqbhBo=;
-        b=QK38gXdyzzusVsd0SdblsivFkX22cTGioPBYI/5RW1Xwr7HK5zxUkfpXj4ZQYiTgik
-         nMJg+Pn/8w5k+1aLg1zxKKQqYtIFyx8J8SzIZJTAbEgQy/bPo+eVoQ7Ls2jlWm+C9poY
-         C7W2gJO6hl131Geeuovuj4aRkCRsWvJpWtZG8gKFzq0tt9/HN/DP9itYn9eiCE3jzCae
-         /AIcdyniMlx/zLtvEEBSa4l+Trqp38G5bAC+h73yAHMqplEhnsEBBioy/J47PwoWz8Aj
-         /O1MEsnfleSxz5NLNPy9uL6NJ8yiknyhnZc/xQvjk/CEaWlfXbI1L2wF2lJpgVdqOTFb
-         wZOQ==
-X-Gm-Message-State: AAQBX9csi76ZKqEmlqApUwR5sbr7xevfzCF40XiyXjtq3gDsH07DIrQC
-	FTKHYJ68U+JrIDamRPdDplwtT7bixA4CkGl4Hyvs8oKFvEbB6+GjqkIGU3K2ly51zMVtnHMwxc/
-	tBiwSQILds6WJVLdJdaL1X9/+ncQ=
-X-Received: by 2002:a05:600c:2305:b0:3f1:728a:1881 with SMTP id 5-20020a05600c230500b003f1728a1881mr7565072wmo.31.1681890848809;
-        Wed, 19 Apr 2023 00:54:08 -0700 (PDT)
-X-Google-Smtp-Source: AKy350ZGeCzv8hHHPCLoBp3+kn6wkQN0cMnv6OhMvvwsxXxMwENw712YUrmrVhvIskYHJBvgTLUksw==
-X-Received: by 2002:a05:600c:2305:b0:3f1:728a:1881 with SMTP id 5-20020a05600c230500b003f1728a1881mr7565048wmo.31.1681890848428;
-        Wed, 19 Apr 2023 00:54:08 -0700 (PDT)
-Message-ID: <e0c0ad67-f23f-ff35-80bf-841dcfd43d99@redhat.com>
-Date: Wed, 19 Apr 2023 09:54:06 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-To: Vishal Moola <vishal.moola@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
- loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
- linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
- xen-devel@lists.xenproject.org, kvm@vger.kernel.org
-References: <20230417205048.15870-1-vishal.moola@gmail.com>
- <20230417205048.15870-2-vishal.moola@gmail.com>
- <da600570-51c7-8088-b46b-7524c9e66e5d@redhat.com>
- <CAOzc2pwpRhNoFbdzdzuvrqbZdf2OsrTvBGs40QCZJjA5fS_q1A@mail.gmail.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat
-Subject: Re: [PATCH 01/33] s390: Use _pt_s390_gaddr for gmap address tracking
-In-Reply-To: <CAOzc2pwpRhNoFbdzdzuvrqbZdf2OsrTvBGs40QCZJjA5fS_q1A@mail.gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Inumbo-ID: c7415788-de87-11ed-b21f-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lQ/XD3n50rBijmZ2H/ZHNbUpgTe4lrp0THLTa8DZCZQfWpUf0L0lS20wtArxF0GqVP4UyHNUI+GunovvHQawTIJhB0d7YdAM8nUBVoljMMVKrQr9KKywDBqmiziloIqYkbgOlICKeRoP2TmaKTPHty/1ZDOVCM1jzdb8nmrfL1Voq271TptWNhkveJ2ujxMK+zJ4rJfr2BYED8WSqiPfyJ2IbfFT9PS/Gp/S/paSMTsqb9GLrXFOfSJloJYbN83bv8mL1sOkn5avXCfeECfFEjWXnCiOTemu6NGER+Ajt9Nxk4AP7hoPNGuBfzC1tH61rRItS6dE3gZnB4A9NMY1Dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PmCLQJlBYbn6dcif6atux0FPC8qBpDdBLSryj0Xailc=;
+ b=ZOKyZ/CxCHJcU9sxX7Z6BhEo5ol38+6t0ZqA359gTCqZBSUT3yyp1haDTyhTm42LlHN4yyLlpglHv5+HCx0R6nIsO0cCpXjN4kkDuGHYLze6qhxc1o3dUrmLtBt4qu71/2h0FC3pu9t+wuQrvVaok28x/NMftvW+hadL8x1+ehnP7a9Z2bAtUWawW3NH9ttmEui4Q/ROfuQrK+V27+4uE1FMC8cy/TVVvs5yePckIrgSfdjvAAn3HiPjw0P7d9nDN2yz6sX8sYtfkhcahRPOdz9gKLxZAQC8G0DDSr93k9r5zaz1kGiUGFJJXeBUS6xp4Soj2XarDjjPsSlaBF68mw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PmCLQJlBYbn6dcif6atux0FPC8qBpDdBLSryj0Xailc=;
+ b=MH9smZw0znmbPr9wzBoArx+0OoFtXWdSlOJrg45b3FTUssnnMcdrc5LrErhR8qZdJsYtjYNFkzgEdJKGFZESZEvy+qY8XiIi1AKfJPxPpffT+R293sIEWDhXLnaLGyjwr8CN1RISNc93lVU9ITlgOt9J1r1J8xJHyKelOcQBEsCw9XfpsLHLd3WvDRJnR73bRTmLCJwhFnkRvPAbb1Bx1DJhZ+yrE2Avwmjz9LF9rhrx+vpVLvs1u+9mq+1qq30rqeTCCZ+Jba1l5g7EQjVhIU9hTN/0UJ/hxUxzaOFK/xHx8wAKHH53fbfVoyZViQiQfq3JKgekThUM2nCjBhp55g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <5e90e951-20bc-3ff5-30b3-da17cb14d260@suse.com>
+Date: Wed, 19 Apr 2023 09:56:35 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Subject: Re: [PATCH v6] x86: detect CMOS aliasing on ports other than
+ 0x70/0x71
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>
+References: <5426dd6f-50cd-dc23-5c6b-0ab631d98d38@suse.com>
+ <116bb94f-955c-4c46-f16a-d7a5e1cc72b5@suse.com>
+ <ZD6AejXJxQxAyrx1@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZD6AejXJxQxAyrx1@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0059.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB9176:EE_
+X-MS-Office365-Filtering-Correlation-Id: caedbfb8-d930-4288-8e64-08db40ab9a1a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	zZucu/ScN74BeigQ4Pa0Y6/IsWOaLMicpz15gbupuqkg00VpLXVJz8zZJ+EdBJ5CHpflCTlKL3E2kZLBYqNGCka87MPPCCB8OPyeCNPduhjN8giZRhvPM3WRCVR1Hcm/0CttUA8eIJl5eh6cHGjN3kSxqZnoo1YdujQ62IHkQrpM3iHJKsOxDR9+IYv8iDqV5FXQJmst7eO/R7yX1syRw5Oop2vNSXDEWS4yqinczz6IU+jEZeMQFEV1G+M2X20pdOv9aAY4m+5OIOKbot6ZOz0YRbOkz3jVtbLxyRkQ+iIC4RGHEkORF0iyVu+yD9AlShnEvdK33gc07f7XbxOxtW2nZAOkN4RxjZo5bjaNg7yiQTn1zXwkrS4BZf1vAUFMW0oAFNHXlGK8h95QT8i9JdXrAjTX4yVBMfTn5aQlkSvq9nUf65zOQqkLwHh/4C8hOUgf1/VaV94675sNBLwDWJSW/JB7MWxQ18dVlZ7eYZSH70cH5wtkjugy9zC8dPx+6afSQClzQbM7nuqdbjCdVhT+7DC57h1qqNUYbqbqTy2IBJaDzr5tQGS0tQZEOEnG5EVexJ9zy81haJYk5DEc3awdtlE5C8rGxriilGthW0o4krVlaSoWXR/2u4lzkRcshJsJln57GqIFMMRJWhIMhQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(136003)(376002)(366004)(396003)(39860400002)(451199021)(31686004)(26005)(6512007)(6916009)(186003)(4326008)(53546011)(6506007)(316002)(8676002)(8936002)(36756003)(86362001)(31696002)(2906002)(5660300002)(478600001)(54906003)(41300700001)(83380400001)(2616005)(38100700002)(66556008)(66476007)(6486002)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U1QzRjdmeWtmdG9Gbm1WMG1XRlduMzEwNTR1MnBpQUEvTlZ5ZGRQSUVLZEhB?=
+ =?utf-8?B?TnhYTDlpTnhhRDZ3dzF0c21LM2M0THZiTzhiSEtOYWp1bTN6czhsSmtzYXh0?=
+ =?utf-8?B?RjROMWZsQjhERFhrSnhGREZIdzhJM3dCTnk2QXZISDJ4S0pZdFFEZHZGN1M0?=
+ =?utf-8?B?cUtKVW1pU1BNbEFsaGNWTXRaQXBMZVhiZEJlL0M4ZGFXb3RmZzZnODJFeFZO?=
+ =?utf-8?B?UGFlK2VPTWFaQUc1czFNU1RST0ZuQ0FGb1JQbnJLZ0NGZFNxMnJsRmZzUlRO?=
+ =?utf-8?B?TWQ4NjJuU3l4WkZhZTlsZS9ZbUdVOVhzTG5aeWlJVDdRYXA5ajByWTJ6WUJL?=
+ =?utf-8?B?ZkF4UmxBN3l0SHBIeVVNcVRkbVNNN21yalY4MFBoTHViRHJRY3lJY1NjNDVT?=
+ =?utf-8?B?ZWxXaExpL0hzMTJCRmM3cWpNNEl2VDZRVi9WNFh3cUJ2b2p4NWdPdHQ4WVBE?=
+ =?utf-8?B?N1BrVEEyKy9SWjNSZ3VMMlhsbXZCQ3lqamdaOXg2TVJJT0g2bHVWQmRVMG5z?=
+ =?utf-8?B?N3ZsYjQzRG9JempCd1dwNFBCNmcxNlhmcVVuc1Z0WXM2MnpzWDEwSGM5WExV?=
+ =?utf-8?B?bmh4QjcvT0FVb1ZNVCtUMDVsOGxkZVRsZkM2VFRtNWF1cGs2Um9KKzhhYmpT?=
+ =?utf-8?B?cGlKRTMvSUJvb3VSc015bmVSZlMyZ1luR3dOODBjQW9UY1VHbXZCaE1Dejhl?=
+ =?utf-8?B?WjNLakliaWhIcTcwUmtTODlwb3pMWmJKUzhyVjc5amhpUHM2bmM5QXNyMjR4?=
+ =?utf-8?B?TEFNR09TZUV1eUdEeGxpRlNTVE9FSmlQWXdKeloyb3FiS0ZWQ0FhNmRiOUQv?=
+ =?utf-8?B?VlZOazhPdnRRUFRHK3NXdTJWNkNrYWovMmcwaGtKU2pTSEgvNVpLQ2N2TVgy?=
+ =?utf-8?B?YWswUlFPRVB0WkFJcVZUYXlXYWlCellhUVc3c0xOUFJ0emQvTCtyalZYRHZ5?=
+ =?utf-8?B?czJkWHc5VGZHaWRwbS9pSytCb1N0VXo1VkgvTmk5MTBBSVErK2hKd20zQXhX?=
+ =?utf-8?B?dXBPZk54cEtXMk9LWEo4WDEyWjZHT3U3bEtVZFozTnNubGFRcG9yb3JVaVRR?=
+ =?utf-8?B?S0xwd24wOVBTUnQ4cTNXa245bXRmUVF3RHREOExnRkJFSUJaeFd4aWt4WFdk?=
+ =?utf-8?B?ZnpEQ1RHZUNlQ3ZZUnRGZW42Z01OL0F1WkE1MWxvd2dnSm9ROXhML1BiQm1n?=
+ =?utf-8?B?QXIraHRCMGc0TzgvOHJ5YU1BdE5xK2lhUS94Wm9vUUJXM090Mmx5SFVoT1c5?=
+ =?utf-8?B?aHVFcHVQbFZDc0FJbVA5WFRXVDZKcWRCeVZaQmR4ZXNXU29iNE0zNVNycm9m?=
+ =?utf-8?B?dUE4aXAxVi9sN3B0aTNYKzIxOEVWaFdURXFJeldNYkV5emtNaXA3NE9ib0Zj?=
+ =?utf-8?B?L09UV28zSWlTSTdFaG1RQU1oN2lIV0E3Q3lJNkhvOFZQekJZYXkzUFRXVnZM?=
+ =?utf-8?B?TGgrb1BzUG5ab3VHZWRubnlqNkNpaVRicWFLbEp1d3M0L2VnSndvUTN0S1Bi?=
+ =?utf-8?B?T3BCbitlUjBzZWJGOG1laW9VekZEUUdrbkNyTWcvYmZsRVdKSmptWUY0dDVU?=
+ =?utf-8?B?M3FOczN6WW84Y1BqK0VqeHhCajFQWUx4eGFZK2Y1a2c2cmNUUXJQUHNNZmhF?=
+ =?utf-8?B?OFZuaG1HV1NkNDcxWm5ubU9jRjdMQjBBMThvbkJlOTV2b1dxSEhLNmJadkRo?=
+ =?utf-8?B?VW50eVk3U1dqQ2pTTGEyK2YwaWhrOGxOcXQ0ckVZd1BNYnJQdGFyZjN4cWpF?=
+ =?utf-8?B?dmx0cWxKcWZWbVc2d1A1M0M1VEc3dEtCVnlvZjRjZW9vTE05dFRQWFJ6eGpK?=
+ =?utf-8?B?N1Vsdmx6UVZnVUtKbEhvdk5tMm5vS2ZsMXYzVkRLUlBKQTJaWHMvbUJUaFYr?=
+ =?utf-8?B?QWl5L0lWWERXeHJUOWRjcEdJSnAxaGMxNU5oZXhFU2xxMVFzdGRsUk80Qk5F?=
+ =?utf-8?B?R014MzJxUDNaS2dEZlFjalN5L2RwajNIN0k5YnA3QzVTeFBKN2Q0YWI4b1RL?=
+ =?utf-8?B?Q0lNNXM5OGlJR0g0aFF4aHNQYWpRREJLNDJ0Tmw4REFNZjRJTXhmdVFnVGFI?=
+ =?utf-8?B?Y3dmem1xaHBzSSt0eEt5WXNhQmVXclVGZmtEU2ZZbVh0bHBmdm9LQVp2Zkd6?=
+ =?utf-8?Q?fvXk7UZvYoaghR8/ML1KjZQ0R?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: caedbfb8-d930-4288-8e64-08db40ab9a1a
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 07:56:37.3667
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RA9SD6zxwOsqxotMr2Xia38OVeZgInKtW+Fk1VKvlxfvPUvZBfPtZv7eHR8A6GIP+JhyhPiEUaVgtvOpSZ1sTw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9176
 
-On 18.04.23 23:33, Vishal Moola wrote:
-> On Tue, Apr 18, 2023 at 8:45 AM David Hildenbrand <david@redhat.com> wrote:
+On 18.04.2023 13:35, Roger Pau Monné wrote:
+> On Tue, Apr 18, 2023 at 11:24:19AM +0200, Jan Beulich wrote:
+>> ... in order to also intercept Dom0 accesses through the alias ports.
 >>
->> On 17.04.23 22:50, Vishal Moola (Oracle) wrote:
->>> s390 uses page->index to keep track of page tables for the guest address
->>> space. In an attempt to consolidate the usage of page fields in s390,
->>> replace _pt_pad_2 with _pt_s390_gaddr to replace page->index in gmap.
->>>
->>> This will help with the splitting of struct ptdesc from struct page, as
->>> well as allow s390 to use _pt_frag_refcount for fragmented page table
->>> tracking.
->>>
->>> Since page->_pt_s390_gaddr aliases with mapping, ensure its set to NULL
->>> before freeing the pages as well.
->>>
->>> Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
->>> ---
+>> Also stop intercepting accesses to the CMOS ports if we won't ourselves
+>> use the CMOS RTC, because of there being none.
 >>
->> [...]
+>> Note that rtc_init() deliberately uses 16 as the upper loop bound,
+>> despite probe_cmos_alias() using 8: The higher bound is benign now, but
+>> would save us touching the code (or, worse, missing to touch it) in case
+>> the lower one was doubled.
 >>
->>> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
->>> index 3fc9e680f174..2616d64c0e8c 100644
->>> --- a/include/linux/mm_types.h
->>> +++ b/include/linux/mm_types.h
->>> @@ -144,7 +144,7 @@ struct page {
->>>                struct {        /* Page table pages */
->>>                        unsigned long _pt_pad_1;        /* compound_head */
->>>                        pgtable_t pmd_huge_pte; /* protected by page->ptl */
->>> -                     unsigned long _pt_pad_2;        /* mapping */
->>> +                     unsigned long _pt_s390_gaddr;   /* mapping */
->>>                        union {
->>>                                struct mm_struct *pt_mm; /* x86 pgds only */
->>>                                atomic_t pt_frag_refcount; /* powerpc */
->>
->> The confusing part is, that these gmap page tables are not ordinary
->> process page tables that we would ordinarily place into this section
->> here. That's why they are also not allocated/freed using the typical
->> page table constructor/destructor ...
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> I initially thought the same, so I was quite confused when I saw
-> __gmap_segment_gaddr was using pmd_pgtable_page().
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks.
+
+>> --- a/xen/arch/x86/pv/emul-priv-op.c
+>> +++ b/xen/arch/x86/pv/emul-priv-op.c
+>> @@ -208,7 +208,7 @@ static bool admin_io_okay(unsigned int p
+>>          return false;
+>>  
+>>      /* We also never permit direct access to the RTC/CMOS registers. */
 > 
-> Although they are not ordinary process page tables, since we
-> eventually want to move them out of struct page, I think shifting them
-> to be in ptdescs, being a memory descriptor for page tables, makes
-> the most sense.
+> Hm, it's unclear to me whether the comment above would need updating:
+> we don't allow direct access to the RTC/CMOS registers, but we allow
+> direct access to the RTC/CMOS ports if there's no device behind.
 
-Seeing utilities like tlb_remove_page_ptdesc() that don't really apply 
-to such page tables, I wonder if we should much rather treat such 
-shadow/auxiliary/... page tables (just like other architectures like 
-x86, arm, ... employ as well) as a distinct type.
+Right, but those ports then don't allow access to said registers. So
+I think the comment is fine as is.
 
-And have ptdesc be the common type for all process page tables.
-
-> 
-> Another option is to leave pmd_pgtable_page() as is just for this case.
-> Or we can revert commit 7e25de77bc5ea which uses the function here
-> then figure out where these gmap pages table pages will go later.
-
-I'm always confused when reading gmap code, so let me have another look :)
-
-The confusing part is that s390x shares the lowest level page tables 
-(PTE tables) between the process and gmap ("guest mapping", similar to 
-EPT on x86-64). It maps these process PTE tables (covering 1 MiB) into 
-gmap-specific PMD tables.
-
-pmd_pgtable_page() should indeed always give us a gmap-specific 
-PMD-table. In fact, something allocated via gmap_alloc_table().
-
-Decoupling both concepts sounds like a good idea.
-
--- 
-Thanks,
-
-David / dhildenb
-
+Jan
 
