@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 777536E7F0E
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 18:01:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.523608.813830 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A287C6E7F17
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 18:04:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.523613.813839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppAFB-00088F-0u; Wed, 19 Apr 2023 16:01:17 +0000
+	id 1ppAHX-0000Ef-DT; Wed, 19 Apr 2023 16:03:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 523608.813830; Wed, 19 Apr 2023 16:01:16 +0000
+Received: by outflank-mailman (output) from mailman id 523613.813839; Wed, 19 Apr 2023 16:03:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppAFA-00084s-Tz; Wed, 19 Apr 2023 16:01:16 +0000
-Received: by outflank-mailman (input) for mailman id 523608;
- Wed, 19 Apr 2023 16:01:16 +0000
+	id 1ppAHX-0000By-AT; Wed, 19 Apr 2023 16:03:43 +0000
+Received: by outflank-mailman (input) for mailman id 523613;
+ Wed, 19 Apr 2023 16:03:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ifGd=AK=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ppAFA-00084m-4Y
- for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 16:01:16 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20626.outbound.protection.outlook.com
- [2a01:111:f400:fe5a::626])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8hvW=AK=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1ppAHW-0000Ba-5p
+ for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 16:03:42 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2062b.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 67cc0629-decb-11ed-8611-37d641c3527e;
- Wed, 19 Apr 2023 18:01:13 +0200 (CEST)
-Received: from MW2PR2101CA0005.namprd21.prod.outlook.com (2603:10b6:302:1::18)
- by IA0PR12MB8693.namprd12.prod.outlook.com (2603:10b6:208:48e::10)
+ id bfe9145a-decb-11ed-8611-37d641c3527e;
+ Wed, 19 Apr 2023 18:03:40 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PAXPR04MB8942.eurprd04.prod.outlook.com (2603:10a6:102:20d::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.20; Wed, 19 Apr
- 2023 16:01:09 +0000
-Received: from CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
- (2603:10b6:302:1:cafe::71) by MW2PR2101CA0005.outlook.office365.com
- (2603:10b6:302:1::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.8 via Frontend
- Transport; Wed, 19 Apr 2023 16:01:09 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT087.mail.protection.outlook.com (10.13.174.68) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.22 via Frontend Transport; Wed, 19 Apr 2023 16:01:08 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 19 Apr
- 2023 11:00:22 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 19 Apr
- 2023 09:00:20 -0700
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Wed, 19 Apr 2023 11:00:18 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.45; Wed, 19 Apr
+ 2023 16:03:37 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6298.045; Wed, 19 Apr 2023
+ 16:03:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,118 +47,263 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67cc0629-decb-11ed-8611-37d641c3527e
+X-Inumbo-ID: bfe9145a-decb-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lKFXGndJakPwVwcqWTjcZfCEJRw0nmGbatqukqCg0ISANFEHgCKlqZL7CxMHoBKSL2W0DwXNUVdCUCo8YNBGkkRnIWGimiTKueilDvMfcmUYINUlFn2CflkSIMDOlbI2/9nKMr6vfom37crCG40gAzWWEGKEk52c0gssvg4VBRoiXlEIhnwpmfKGizAsHpYAqOkPLqJQskWz0kA1Y63mkN0p9g/8MdMiUv5NVlSmsTe8Cy1OYa+zN0yUJO3uy36c694gxU+SqMvfpyVPrG0LVeDhtuZxaoSVr6+d+PYpZsoFx+3p3MgCu7EgkwlNqs+U2mXzi7JKUkPYuhUmw/JfXA==
+ b=jR/qI7erq912LHe6FBh+2DNe0ZIoU3HSbpDRFhwADgh5QFLE47LahrbQKxKgmyrsc/cWGAZ8jPero8cjsfjaMogN9p+bR5Lh7rp79+MaZpHbY5lyOFRcpV/UW49H6DcknY9ZZZl2yE0RvILbUK+DsTC4rvc6EVjBI6iguW995+li3Rs8uqPV2HgpPSJULPJA/TQBBZxrqJJaCayx7KFrBN6wSbzwQ5R9PGBa6rFHJiyfBynaAJuYUJ+qIxfyttiITGlhiWeoA7dUDfWmwJfgeWkPmy8UKoA1VfQSrwcXnN9RK36k3jieoYs4l/qNcHg6tlHlN471Bl2y64AEefpp6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y6Kh9SVHgRW+NFSRH3uXf1Z891SUPvWW+uA5beSDbuY=;
- b=XKJhau+jVA42qvGa52LNxQUrl7deNM0uMOm+sd2ljxS4UbVblGqmoERUD5oejbGQm6p5CjjZoFCHQeebrSeQE+Wku0J74nDlC14aS2pF0lEb+kflvtzt4Xe7MwgPuPHfuDSmcF2LP5yfsjr6XWUkU5YuJjRk1XKb1ODnSssg8WKlfdkYcX6uxP7sWJGWhTi+fILu85MWItYJwJlcXRkTZx6vR+2AKF9pYOK2EF0Ddtg7aZuTIqDKw/7L0Lbh6ST+U0O/yftzJBxeV16OoCyfz2nHesFtUMlDa1rzz/B4YbSQHA1pvG69Xip5iPsi23Ic6Zs/7Hr6oHzhK6UtOCeZDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=rTiADMqIJtFaQvtva9EyWgQK6SXimH726hZ7fGv33Jo=;
+ b=BynraFVj9uaLPI2bKrvcF8sQXANQdK+V+Td4srsW+Szg3n52TxuukalzfzuQ5ediXLGXbeh9QqY0QwnMv5tF6sI4r9VbWecIJMLpQZmQfY7C0E9nDuRIFl2bFRng+FpJnYW+sf9OS2GU0uMf3VLarFpkDuLotWo1UkE7BnPPfdQvkp26c33yfK0X5DIOk6ffxDpV7i152g1qcgM3WFL6GdA5iK6rr4NHSW2k9TsO2lymaP3C1pse/LOhOvEMzucaFiPg+e0ZA4daSFoJlrc+XbsR+0rR6lLLus0Nc7z55jFZOTivFW1eIYaUqvaQMsb72oqx1PX7UNuozTwu61bjTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y6Kh9SVHgRW+NFSRH3uXf1Z891SUPvWW+uA5beSDbuY=;
- b=46NTGojBGC7XF6arQnW519kYOR21ilYRhc95JjARrLv+iAz1TOS02o+LLKTXAjWLEUg5z2VE5dcezBSPmahJ0SLuDhNoEqLhW/tUlXyOOSrkj562CZKRdWR4nx7el212JuUpWIFZ8Lc+aYBvI9P3mpSO+PDAPhd9pLi6ix8rigU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <46daf4f9-ef43-b4fa-9246-c81ee3d8f13c@amd.com>
-Date: Wed, 19 Apr 2023 18:00:17 +0200
-MIME-Version: 1.0
+ bh=rTiADMqIJtFaQvtva9EyWgQK6SXimH726hZ7fGv33Jo=;
+ b=0mHxrVf2tu69o2yXnoYPn6HThodihiRwX0ZQJQobrVZY+vlLnxxlXYhTRtjgUW8xvH2oAjbhgCOij/xUjDwl/ffHFGfqUynkcNVJVWvnv5nNKMeJwhZ3rzMRA+U/c64wBCzoAezN7V4dnHIo8M3eQXzG7ELcLI48MwwbUJ5sx6xKQyHDfAfsoDwJA6PzZf2b6q6z+xbTweHbT6h6OBpy4Cw0ulmpVjDudu1pZV9dAJCJAq8Y0ADE/4YH8SLgckIu6akMVFo49fJwjiW3MLZKZB3KI7FYRQG/o/FbKgASeH3XQkUqe/AhmaRe92dlEuwtcvkbCwLC1QrYyRfscokR4Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <add420e4-cdaa-64dd-74ec-08244b9e238e@suse.com>
+Date: Wed, 19 Apr 2023 18:03:34 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [XEN v5 02/10] xen/arm: Typecast the DT values into paddr_t
+ Thunderbird/102.9.1
+Subject: Re: [PATCH] x86/livepatch: enable livepatching assembly source files
 Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, Ayan Kumar Halder
-	<ayan.kumar.halder@amd.com>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
-	<wl@xen.org>, <rahul.singh@arm.com>
-References: <20230413173735.48387-1-ayan.kumar.halder@amd.com>
- <20230413173735.48387-3-ayan.kumar.halder@amd.com>
- <458367fe-1781-7751-230c-8a43cecbfca6@amd.com>
- <f6c88703-a3bf-94e6-246e-ab0d0582eb7a@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <f6c88703-a3bf-94e6-246e-ab0d0582eb7a@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20230418092458.15253-1-roger.pau@citrix.com>
+ <ab604666-e9a4-3656-73a6-c09b2ae9d3bd@suse.com>
+ <ZD6V0wzw/VS/MMw/@Air-de-Roger>
+ <d301e110-f840-a032-c406-2f7404752783@suse.com>
+ <ZD+ljXSEPCmPMAtN@Air-de-Roger>
+ <5c476b65-0340-2a0e-e436-46368d3236b7@suse.com>
+ <ZD/UMyeckvCq0ivf@Air-de-Roger>
+ <86823b76-6be1-da65-7608-af391ff48978@suse.com>
+ <ZD/uX1VqYchQ4GgT@Air-de-Roger>
+ <4cfcaed2-21e9-a794-86b4-97f9b350c0d4@suse.com>
+ <ZEAPgFiYZoeJMLqc@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <ZEAPgFiYZoeJMLqc@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR3P281CA0125.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT087:EE_|IA0PR12MB8693:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1062344-89c7-411e-91dd-08db40ef4a23
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8942:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9354a200-b68e-4eef-9c55-08db40efa210
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	/UIWEDDAWZiGk9gKjtUl2CrW6Ql9LVsDfGEhdS7qirLWgLQ+JapVggf69DzsdlOf8+cvoXkLBFzV6239P3pHz/I3M33IJO90rvOaSEYCY3FK42d/MSpWMOUGTu1/5ZhY1YFV+VXLcVKxJZnAqx/a5IP4fQ4VDs8/psRC0t96sg6PQ3hd8sMQUtu+KqWZINSdGKgOHWtM1HrsuoDHkvT/peEhYR8b/7gi66Kr3BKNDmdFiLzVYwm/bD1jxf8lARBPbOPKG0Ck9Kbe8kBxMXEPUqkKhWV3kHCf3UVG1yGG3eXFCeF13dsuW9WXg4loJyyw/bc2m0oKM54P4oVMs7ZXp6wvs6G7hBBD/ygrfYFDBsRFxIaak5DRZlaxf6rohbk5QtZwKygWPf76ALKvk2WwyawqS6RkBJF7FSoduymm5VhfMwZkptdi0lO/BA7S8LKf0EipF33L5qCfjwQwJVbfbAnWZ7dvJUiB4kAa4aFqnymwyR1DpvnF6iXnzp8oIgChr5Q4Kfs88n7HEllIyYpQdxxeKIdGlyzJJnsaTCzNnX6xtMXXpB6nOkhLQz3/09Qso3nTkTZTf9OzdrwdgWmEQFoyyqeCfhYh4iHrlZKHkfF84sTGPOqai5AXhLn+LooBZsSlNCMYWNOva5Q4Gip+Wz03YPLM3IgnOsq9K87H4mkUO7R2WjrayzcxwK1TaG1EtY90ofCU1/nYoi+JItuZDbgttUCKwd7MV2XdWmWSeoGELIEv4AM3P9rbfbvw1QK44IAwmr9bGv/9uPXggRl5yQ==
+	H5DRLGmvr46QVMecjji/xG1Dl6vgpG2tj3+GH8y+0/9BfFABX21gzjo8F2/fW4j0P+V39lAhpGxb28cdwTF2pEyWUs+VgYvn4m25fGxBc/qJtKrEPzwWGlFwDfZg2aQAc4QTPfoji9DS8VhVI/pZ7XMi89Od9RsI6yR92Ga0Kze2xE0K3M/1wOAteD3+O/xCjMs7lWzldYeVY5/JsQMg/9zMH9KIJhavxuyGlpvtfpHNi256EhRbemjYqmKyGUxvmcMFFOnC2JMwfL+qyWg2TshsFDtc1dONVaD3W2d/McqMJpoWhrUi2LJ4grMjLWkOADCf1B54giYc5WLbUmWgUFWce0AWUhmm1QQjEXWzLzy1GzJSaxU/bhd08ugEuTp+KzWfZRG75dW+b3uJb8BdURKXeACJRELtXJuKUQLhsfoMILAcesKZ7qYRO/6lpp2Krs6YK3eAicnl7/qdu7wArqjJ/s3UquwufqjJLTEKBicABpNQ5K5PHaeUiDyTJTcbn6ts+p8n4h7qwXHAbduhJclPQaepdPC6QApOnMrrUy+URBRfUOjIe5R0ayk7gaY5zGiM5xv9F47ZhBm9wIN+Y12nDGbA86fTS2PLzqyL+1kKBY3TOhpVgMAe8FmWrfJ0DwYok5TqyESOnI3k6O/cXA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(396003)(136003)(346002)(451199021)(36840700001)(46966006)(40470700004)(36756003)(186003)(70586007)(4326008)(16576012)(110136005)(54906003)(316002)(70206006)(478600001)(40480700001)(8936002)(82310400005)(41300700001)(8676002)(5660300002)(7416002)(44832011)(82740400003)(2906002)(86362001)(356005)(81166007)(336012)(426003)(2616005)(26005)(53546011)(40460700003)(36860700001)(47076005)(31696002)(31686004)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 16:01:08.6701
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(376002)(136003)(396003)(346002)(366004)(451199021)(5660300002)(4326008)(86362001)(2616005)(31696002)(83380400001)(966005)(53546011)(186003)(6506007)(6512007)(26005)(38100700002)(8676002)(8936002)(478600001)(110136005)(6486002)(36756003)(41300700001)(316002)(66556008)(31686004)(66946007)(66476007)(66899021)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UFAvd0VmYit1czkxQUhheXloUmRVWWxoRU9lOWJ5UnhwOWp0cG5jQ3JiazhE?=
+ =?utf-8?B?MzBqSDV2YzI5TVV4RkozaWd4Y2NQaUdIcGV6dXdZYkoyZDMzcTBkazIrMGRp?=
+ =?utf-8?B?eE1icXFMZVN4VytMSTZ0T2I0ZjEvTDc1VitNb01UWm1qaCtJUXZyRWZRaG5L?=
+ =?utf-8?B?OWJNNWx3OHNoS2tPL0JXMnJnK3V3SUVFRStUOTNFeVllUGdBOTRXcHJ2NWZ5?=
+ =?utf-8?B?TGJpeWRUbENTSFFqQ2g0akErOWN5V25RNXVocm1CM2dUT1FZT3hNUjR5ekx2?=
+ =?utf-8?B?SXhaR2U0WG1vWkRlSHRIaC9xeWw5bDJudWRlT2NBak5WMktnVDQvZ1JhRWxC?=
+ =?utf-8?B?dHYzUUpYSHYvVnZOZlN5SzZLNTBDNkV5YlA4aG1uZzR6Skw5OGJudHBOVGov?=
+ =?utf-8?B?aDFhWEZaOTBrVVEyRGcyZWMwVlBNblJrdnpEaml3S1dyeTJ4Y08xWlU3TzVn?=
+ =?utf-8?B?MFhDenpmUEhjMHIycTVpVlgwV3dyLy9FaDZCN045Q2VsM3E1U1hiV3pDUXBv?=
+ =?utf-8?B?OFV4NkJqemVJYjZLWmR3eC9CdG1sRStkc0xFUms0ZGNjclRmQUhDTnFhbmxt?=
+ =?utf-8?B?WjhxV2x2RmxYOG43TEdHcFE2WUM0cWM3blhxVC9mbUpFbnVJdVFlUE9MUjhq?=
+ =?utf-8?B?SjRZcHM1WkZQUW9COXJkMEt0QlFwSmJNZHJRMHJZVC90SElzQVE2ZkcwNDJD?=
+ =?utf-8?B?VHlyRityajR2TTdLK3hCRE9HaW5NemQ2dmxBRkFxYkRHQjRBbUxLdit0UmtG?=
+ =?utf-8?B?aE1mTk4zNmNzSEd1aGo4dFB1RDJoQVZCenV4V256TVNBVEJRTlBCWTkwbjNF?=
+ =?utf-8?B?ZTd5dFBNL3VNN3ltZVBVR0o1TTN5cHNaUWhMMEx3RDhRbDg1YWVEbjc1bW14?=
+ =?utf-8?B?d3ZpUXJpSWJJRjB0MXRBeFRybmhRcFRYMHdFZHBkTkJnalREWlVXMUF5M2Ur?=
+ =?utf-8?B?RmdsTVBpVEZySVJac3h5VGVBQ1ByYW9mMkoyNnRuY1FMSVRjUURwcmR1QVEx?=
+ =?utf-8?B?MTIyRDEwNXd2eUVBSVVmWEVaQkZaaUlUTXJwUkNFeWd6b2NvRzUxVlRCQmxu?=
+ =?utf-8?B?SXJHOThpbTljV2dwQnovYVJ3YXNOQUczaytyK2k0b2U5YmRmbmpYSk55ajVR?=
+ =?utf-8?B?VlR2NTRXZkZVV2Y1M3k0cnhXTjVINSt1MTRBKzkvZFlXc1FjMEFkY0RZUTRN?=
+ =?utf-8?B?Rk1OaUJZSjZ5U1pIc01ZVmFLdE5IZTUvdkxHdmhtM2ZDZ0dDMjYwVytkcyt2?=
+ =?utf-8?B?aGpmcStjUytzR1RSaW5kMGFHZmlZN3lBVHlMQndGZFJPZGkzeTVBOGNlR0lQ?=
+ =?utf-8?B?bTc1bERkbWVhVG1EM2xCUFcySTNGZUJvUTVNTXJ3VXlhVHdCQUxVY2tlb0dl?=
+ =?utf-8?B?bXdOWE5QQ3hXNCttNGMzY0NmTHlXVitvUURGcDc5cHczL2xnemdPaFNET25N?=
+ =?utf-8?B?VUN3SzI0OFpDVDRVQlkxWjBWd0ZkM2VBM1duTDZCejVZMmJtbTVjQ0NzT0lG?=
+ =?utf-8?B?dnBpYjBNUGxrbVRDcUpmc0RQNEM0M3k1WG5Vd21lSTRUOUJ6TnhCeFJleTRR?=
+ =?utf-8?B?QWJWNG5HSUlKRW0vWnF2dlBybzI1OWtCTzBldW1MREZaRTArdUlOcjBwcnlD?=
+ =?utf-8?B?Mjk4K1RTeWgwYnVMSG9QeWQrclA2S0RoaTN2MWh0bEd4VkwvVzF3dDZQdngx?=
+ =?utf-8?B?UWwvOWIrMHYrbGRVMHdmeklsSjU5Wk8vT0lLc2ovbHJXRThvZW5QWEFQVzY5?=
+ =?utf-8?B?NDRlVmJnTEN3WHJURDlTMVQweW5ndkE4ZWhIWXM0UGlsb3g1MC9CYjNBenBz?=
+ =?utf-8?B?Vnh3TlpkRXR4SjhNYWkxRmNzK09aK1haYVYyTHhjMFdRQ3M3WmM3bnoxcGJS?=
+ =?utf-8?B?UXdnaEFlNWk1ZU1mNVUyM2RjaVFQOW5Cd2lVaGxscHRjK1d6bitwNHQvTEt3?=
+ =?utf-8?B?SjJkTTNlZFFHRHFYUG9TK3RpKzZ1U0ExbXZ0VS8xeWI4Y2lTVSt4MzRId0VS?=
+ =?utf-8?B?VXJ5VUNCdWFqSTFYWk1ZZ3ljajJCSDNKYzkya3lzVUlHMm9mdTB6Q251SE1t?=
+ =?utf-8?B?QWRaWjJ0SkJYTUg4ZVNTN3lVTGdwQThZTXVteUMvTTZhV0xCTDI5aW5LbFBB?=
+ =?utf-8?Q?5haRNnS7TRGiz99bu0snKOVsf?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9354a200-b68e-4eef-9c55-08db40efa210
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2023 16:03:36.5330
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1062344-89c7-411e-91dd-08db40ef4a23
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8693
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fRZIE6+1r609sXKkoYKDLK+51YmEZcsl+QCG6F+4ZSCHwIKDP0bJg1RQ0k1PP4HimQvpGgaI86MBi8+w+nk/kA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8942
 
-Hi Ayan,
-
-On 19/04/2023 17:12, Ayan Kumar Halder wrote:
-> 
-> On 19/04/2023 14:19, Michal Orzel wrote:
->> Hi Ayan,
-> 
-> Hi Michal,
-> 
-> ...
-> 
->> --- /dev/null
->> +++ b/xen/include/xen/libfdt/libfdt-xen.h
->> @@ -0,0 +1,55 @@
->> +/*
->> + * SPDX-License-Identifier: GPL-2.0-only
->> Our CODING_STYLE says:
->> New files should start with a single-line SPDX comment, ..., e.g.
->> /* SPDX-License-Identifier: GPL-2.0 */
+On 19.04.2023 17:57, Roger Pau Monné wrote:
+> On Wed, Apr 19, 2023 at 04:39:01PM +0200, Jan Beulich wrote:
+>> On 19.04.2023 15:36, Roger Pau Monné wrote:
+>>> On Wed, Apr 19, 2023 at 02:00:38PM +0200, Jan Beulich wrote:
+>>>> On 19.04.2023 13:44, Roger Pau Monné wrote:
+>>>>> On Wed, Apr 19, 2023 at 10:43:22AM +0200, Jan Beulich wrote:
+>>>>>> On 19.04.2023 10:25, Roger Pau Monné wrote:
+>>>>>>> On Wed, Apr 19, 2023 at 08:17:45AM +0200, Jan Beulich wrote:
+>>>>>>>> On 18.04.2023 15:06, Roger Pau Monné wrote:
+>>>>>>>>> On Tue, Apr 18, 2023 at 01:00:53PM +0200, Jan Beulich wrote:
+>>>>>>>>>> On 18.04.2023 11:24, Roger Pau Monne wrote:
+>>>>>>>>>>> --- a/xen/arch/x86/include/asm/config.h
+>>>>>>>>>>> +++ b/xen/arch/x86/include/asm/config.h
+>>>>>>>>>>> @@ -44,6 +44,20 @@
+>>>>>>>>>>>  /* Linkage for x86 */
+>>>>>>>>>>>  #ifdef __ASSEMBLY__
+>>>>>>>>>>>  #define ALIGN .align 16,0x90
+>>>>>>>>>>> +#ifdef CONFIG_LIVEPATCH
+>>>>>>>>>>> +#define START_LP(name)                          \
+>>>>>>>>>>> +  jmp name;                                     \
+>>>>>>>>>>> +  .pushsection .text.name, "ax", @progbits;     \
+>>>>>>>>>>> +  name:
+>>>>>>>>>>> +#define END_LP(name)                            \
+>>>>>>>>>>> +  .size name, . - name;                         \
+>>>>>>>>>>> +  .type name, @function;                        \
+>>>>>>>>>>> +  .popsection
+>>>>>>>>>>> +#else
+>>>>>>>>>>> +#define START_LP(name)                          \
+>>>>>>>>>>> +  name:
+>>>>>>>>>>> +#define END_LP(name)
+>>>>>>>>>>> +#endif
+>>>>>>>>>>>  #define ENTRY(name)                             \
+>>>>>>>>>>>    .globl name;                                  \
+>>>>>>>>>>>    ALIGN;                                        \
+>>>>>>>>>>
+>>>>>>>>>> Couldn't END_LP() set type and size unconditionally? (But see also
+>>>>>>>>>> below.)
+>>>>>>>>>
+>>>>>>>>> I see, so that we could also use it for debug purposes.  I guess at
+>>>>>>>>> that point it might be better to use {START,END}_FUNC() to note that
+>>>>>>>>> the macros also have an effect beyond that of livepatching.
+>>>>>>>>>
+>>>>>>>>> Maybe also introduce a START_ENTRY() that replaces ENTRY()?  Albeit I
+>>>>>>>>> find START_ENTRY a weird name.
+>>>>>>>>
+>>>>>>>> So do I. {START,END}_FUNC() or whatever else are in principle fine, but
+>>>>>>>> I take it that you're aware that we meanwhile have two or even three
+>>>>>>>> concurring proposals on a general scheme of such annotations, and we
+>>>>>>>> don't seem to be able to agree on one. (I guess I'll make a design
+>>>>>>>> session proposal on this topic for Prague.)
+>>>>>>>
+>>>>>>> Oh, I wasn't aware we had other proposals, I've been away on an off
+>>>>>>> quite a lot recently, and haven't been able to keep up with all
+>>>>>>> xen-devel email.  Do you have any references at hand?
+>>>>>>
+>>>>>> Andrew said he had posted something long ago, but I didn't recall and
+>>>>>> hence have no reference. My posting from about a year ago is
+>>>>>> https://lists.xen.org/archives/html/xen-devel/2022-04/msg00876.html
+>>>>>> Subsequently Jane went kind of the Linux route:
+>>>>>> https://lists.xen.org/archives/html/xen-devel/2022-08/msg00236.html
+>>>>>>
+>>>>>>>> One thing needs to be clear though: Macros doing things solely needed
+>>>>>>>> for LP need to not have extra effects with it disabled, and such
+>>>>>>>> macros also better wouldn't e.g. insert stray JMP when not really
+>>>>>>>> needed. Hence I expect we still want (some) LP-specific macros besides
+>>>>>>>> whatever we settle on as the generic ones.
+>>>>>>>
+>>>>>>> The stray jmp can be inserted only in the livepatch case, if we end up
+>>>>>>> having to add it.
+>>>>>>>
+>>>>>>> Maybe we should just go with Linux names, so initially I would like to
+>>>>>>> use:
+>>>>>>>
+>>>>>>> SYM_FUNC_START{_NOALIGN}(name)
+>>>>>>> SYM_FUNC_START_LOCAL{_NOALIGN}(name)
+>>>>>>> SYM_FUNC_END(name)
+>>>>>>
+>>>>>> As said in replies on the earlier threads, I think these are overly
+>>>>>> verbose and come in overly many variations.
+>>>>>
+>>>>> Right, I would only introduce the ones above and as lonog as I have at
+>>>>> least one user for them. I don't think there's much value in importing
+>>>>> the file wholesale if we have no use case for a lot of the imported
+>>>>> macros.
+>>>>>
+>>>>> The main issue with ENTRY() and ENDPROC() / ENDDATA() is that we still
+>>>>> need a tag for local function-like entry point labels, would you then
+>>>>> use PROC() for those? ENTRY_LOCAL()?
+>>>>>
+>>>>> I have to admit I prefer the FUNC_START{_LOCAL} for that purpose as I
+>>>>> think it's clearer.  I would agree on dropping the SYM_ prefix from
+>>>>> the Linux ones if there's consensus.
+>>>>
+>>>> Okay, I'm glad we can agree on no SYM_. But what value does START have?
+>>>> And why would the type be (re)specified via ..._END()? FUNC(), DATA(),
+>>>> and END() ought to be all we need.
+>>>
+>>> Does it imply that we would then drop ENTRY()? (seems so, would just
+>>> like to confirm).
 >>
->> For me it would be perfectly fine to do as you did but it is not what our docs state
->> (i.e. single-line comment). It might be that we need to modify CODING_STYLE instead.
+>> Yes. ENTRY() may not go away immediately, but I'd expect it to be
+>> phased out.
+>>
+>>>> The type would be set by the entry
+>>>> point macros, and the size by END(). To cover local vs global I could
+>>>> live with _LOCAL suffixes, but personally would prefer e.g. LFUNC()
+>>>> and GFUNC(). We could also limit ourselves to FUNC() plus DATA(), and
+>>>> have (non-)global expressed by END() and e.g. LEND() or END_LOCAL().
+>>>> One less macro, but maybe slightly odd to have the .global directives
+>>>> then at the end rather than at the beginning.
+>>>
+>>> Hm, yes, I do find it odd to have the .global at the end.  FUNC and
+>>> FUNC_LOCAL would be my preference, I do find {L,G}FUNC a bit
+>>> confusing.
+>>
+>> Well, yes, I was expecting this to be the case. Hence why I said I could
+>> live with _LOCAL suffixes, even if they aren't my preference. What we
+>> may want to keep in mind is that sooner or later we may want to have
+>> non-aligning variants of these. That'll again make for larger names,
+>> unless we went with e.g. an optional 2nd parameter which, if absent,
+>> means default alignment, while if present it would specify the alignment
+>> (which then can be used to effectively specify no alignment). E.g.
+>>
+>> #define ALIGN(algn...) .balign algn
+>>
+>> #define GLOBAL(name)                \
+>>     .globl name;                    \
+>>     .hidden name;                   \
+>>     name:
+>>
+>> #define FUNC(name, algn...)         \
+>>     ALIGN(LAST(16, ## algn), 0x90); \
+>>     GLOBAL(name);                   \
+>>     .type name, @function
+>>
+>> with these helpers (and count_args() as we already have it), or ideally
+>> something yet more simple (which right now I can't seem to be able to
+>> think of):
+>>
+>> #define ARG1_(x, y...) (x)
+>> #define ARG2_(x, y...) (y)
+>>
+>> #define LAST__(nr) ARG ## nr ## _
+>> #define LAST_(nr)  LAST__(nr)
+>> #define LAST(x, y...) LAST_(count_args(x, ## y))(x, ## y)
 > 
-> Just to be clear, this is what we should have (as Julien had earlier 
-> suggested to use **GPL-2.0-only** )
-I used GPL-2.0 just for example. We want of course GPL-2.0-only.
+> Would seem acceptable to me.  Would you like to make a proposal
+> (likely updating your previous patch) along this lines?
 
-> 
-> diff --git a/xen/include/xen/libfdt/libfdt-xen.h 
-> b/xen/include/xen/libfdt/libfdt-xen.h
-> index 3296a368a6..cad7ad3bfb 100644
-> --- a/xen/include/xen/libfdt/libfdt-xen.h
-> +++ b/xen/include/xen/libfdt/libfdt-xen.h
-> @@ -1,6 +1,5 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-You should use /* */ style instead of //
+I wouldn't mind doing so, as long as there was at least a vague chance
+that this also comes somewhat close to meet Andrew's expectations.
+Andrew?
 
->   /*
-> - * SPDX-License-Identifier: GPL-2.0-only
-> - *
->    * xen/include/xen/libfdt/libfdt-xen.h
->    *
->    * Wrapper functions for device tree. This helps to convert dt values
-> 
-> - Ayan
-> 
-
-~Michal
+Jan
 
