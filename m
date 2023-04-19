@@ -2,43 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A2CC6E8081
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 19:39:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.523675.814014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6CA56E813C
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 20:27:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.523727.814052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppBlm-0000aO-RR; Wed, 19 Apr 2023 17:39:02 +0000
+	id 1ppCVh-0000RK-4b; Wed, 19 Apr 2023 18:26:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 523675.814014; Wed, 19 Apr 2023 17:39:02 +0000
+Received: by outflank-mailman (output) from mailman id 523727.814052; Wed, 19 Apr 2023 18:26:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppBlm-0000Si-GR; Wed, 19 Apr 2023 17:39:02 +0000
-Received: by outflank-mailman (input) for mailman id 523675;
- Wed, 19 Apr 2023 17:38:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Pu/K=AK=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1ppBcW-0001ia-0d
- for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 17:29:28 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb7d62a9-ded7-11ed-b21f-6b7b168915f2;
- Wed, 19 Apr 2023 19:29:27 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-457-UORK3zzVOxmLu7977uaTMQ-1; Wed, 19 Apr 2023 13:29:22 -0400
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 59D9D1C189A4;
- Wed, 19 Apr 2023 17:29:21 +0000 (UTC)
-Received: from localhost (unknown [10.39.192.234])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8045B40C2064;
- Wed, 19 Apr 2023 17:29:20 +0000 (UTC)
+	id 1ppCVh-0000O1-1f; Wed, 19 Apr 2023 18:26:29 +0000
+Received: by outflank-mailman (input) for mailman id 523727;
+ Wed, 19 Apr 2023 18:26:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ppCVf-0000Ns-H6
+ for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 18:26:27 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ppCVe-0004uY-Rp; Wed, 19 Apr 2023 18:26:26 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.29.18]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ppCVe-0008AF-Ka; Wed, 19 Apr 2023 18:26:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,127 +39,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb7d62a9-ded7-11ed-b21f-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681925366;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qs0Wu6hxc7j58DwPPRdDhx+qIxo2MCSBXMmfJ14jr7A=;
-	b=P81Hbad2MkrxYTfi71uOxxkGaggxm+9W6bTi5GM2BTkPDcPFnK7pF6YXAlQOQkOq/8nV1O
-	hWV0a02+t5ibJI9zvKkiL8RyS6ToCmoM4vuje/hz+FkZktCEZmssTifAfPzGl6DH0z5Wb/
-	GjxSdH06n467P6qYOIzjoaC5c7SG0UE=
-X-MC-Unique: UORK3zzVOxmLu7977uaTMQ-1
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Fam Zheng <fam@euphon.net>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Julia Suvorova <jusual@redhat.com>,
-	Hanna Reitz <hreitz@redhat.com>,
-	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Coiby Xu <Coiby.Xu@gmail.com>,
-	Paul Durrant <paul@xen.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Juan Quintela <quintela@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Kevin Wolf <kwolf@redhat.com>,
-	"Richard W.M. Jones" <rjones@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	xen-devel@lists.xenproject.org,
-	qemu-block@nongnu.org,
-	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Peter Lieven <pl@kamp.de>,
-	eesposit@redhat.com,
-	Aarushi Mehta <mehta.aaru20@gmail.com>,
-	Stefan Weil <sw@weilnetz.de>,
-	Xie Yongji <xieyongji@bytedance.com>,
-	David Woodhouse <dwmw2@infradead.org>
-Subject: [PATCH v2 16/16] virtio: make it possible to detach host notifier from any thread
-Date: Wed, 19 Apr 2023 13:28:17 -0400
-Message-Id: <20230419172817.272758-17-stefanha@redhat.com>
-In-Reply-To: <20230419172817.272758-1-stefanha@redhat.com>
-References: <20230419172817.272758-1-stefanha@redhat.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=NTxGG+Wi2y1G3NRuaUPx296WWyqbtUW6lIoscbs5XIw=; b=NlGya7ac/zgDkKuwWugGlzMGGt
+	wZSpJb8ozd/gR+pM5ybRL1rvlGCTQaba7mltRje2t5zCDjgBzuJM74Z6JiDKxFosS3ylyB+vaQ0+4
+	9kqOFpvda1bjB6XvGUeHm4fEVtZEOlkpLeHsKihj1u408PlThBLEv0fM9VRAMUU6/8n8=;
+Message-ID: <32060944-324d-4c38-ad60-69553ab5a6be@xen.org>
+Date: Wed, 19 Apr 2023 19:26:24 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.10.0
+Subject: Re: [PATCH 3/3] xen/arm: fix unitialized use warning
+Content-Language: en-US
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230414185714.292881-1-stewart.hildebrand@amd.com>
+ <20230414185714.292881-4-stewart.hildebrand@amd.com>
+ <5fb567c5-1e82-a048-1cfe-f6f69e0b5ebc@xen.org>
+ <3833c906-8d88-d35d-b9dd-b70d5f7a9fa7@amd.com>
+ <b779a5cf-1421-086b-f7f3-188fcb9af3db@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <b779a5cf-1421-086b-f7f3-188fcb9af3db@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 
-virtio_queue_aio_detach_host_notifier() does two things:
-1. It removes the fd handler from the event loop.
-2. It processes the virtqueue one last time.
+Hi Stewart,
 
-The first step can be peformed by any thread and without taking the
-AioContext lock.
+On 17/04/2023 03:08, Stewart Hildebrand wrote:
+> On 4/16/23 22:03, Stewart Hildebrand wrote:
+>> On 4/16/23 08:53, Julien Grall wrote:
+>>> Hi Stewart,
+>>
+>> Hi Julien,
+>>
+>>> On 14/04/2023 19:57, Stewart Hildebrand wrote:
+>>>> When building the hypervisor with -Og, we encounter the following error:
+>>>
+>>> Is this with GCC 12 as well?
+>>
+>> Yes. If my memory serves me correctly this particular one occurs with both GCC 11 and 12.
 
-The second step may need the AioContext lock (depending on the device
-implementation) and runs in the thread where request processing takes
-place. virtio-blk and virtio-scsi therefore call
-virtio_queue_aio_detach_host_notifier() from a BH that is scheduled in
-AioContext
+Thanks. I will update the commit message to mention it.
 
-Scheduling a BH is undesirable for .drained_begin() functions. The next
-patch will introduce a .drained_begin() function that needs to call
-virtio_queue_aio_detach_host_notifier().
+>>
+>>>> arch/arm/domain_build.c: In function ‘make_cpus_node’:
+>>>> arch/arm/domain_build.c:2040:12: error: ‘clock_valid’ may be used uninitialized [-Werror=maybe-uninitialized]
+>>>>    2040 |         if ( clock_valid )
+>>>>         |            ^
+>>>> arch/arm/domain_build.c:1947:10: note: ‘clock_valid’ was declared here
+>>>>    1947 |     bool clock_valid;
+>>>>         |          ^~~~~~~~~~~
+>>>> cc1: all warnings being treated as errors
+>>>>
+>>>> Fix it by initializing the variable.
+>>>>
+>>>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>>>> ---
+>>>> See previous discussion here
+>>>> https://lists.xenproject.org/archives/html/xen-devel/2022-10/msg00741.html
+>>>> ---
+>>>>    xen/arch/arm/domain_build.c | 2 +-
+>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>>>> index 4f9d4f9d8867..18b350734a8e 100644
+>>>> --- a/xen/arch/arm/domain_build.c
+>>>> +++ b/xen/arch/arm/domain_build.c
+>>>> @@ -1944,7 +1944,7 @@ static int __init make_cpus_node(const struct domain *d, void *fdt)
+>>>>        /* Placeholder for cpu@ + a 32-bit hexadecimal number + \0 */
+>>>>        char buf[13];
+>>>>        u32 clock_frequency;
+>>>> -    bool clock_valid;
+>>>> +    bool clock_valid = false;
+>>>
+>>> NIT: I would add "Keep the compiler happy with -Og"
+>>>
+>>> I am happy to add it while committing if you agree.
+>>
+>> Yes, please do. Thanks.
+> 
+> One more thing, there is a typo in the subject, if you are willing to correct it while committing. s/unitialized/uninitialized/
 
-Move the virtqueue processing out to the callers of
-virtio_queue_aio_detach_host_notifier() so that the function can be
-called from any thread. This is in preparation for the next patch.
+Sure. I will do that.
 
-Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
----
- hw/block/dataplane/virtio-blk.c | 2 ++
- hw/scsi/virtio-scsi-dataplane.c | 9 +++++++++
- 2 files changed, 11 insertions(+)
+Cheers,
 
-diff --git a/hw/block/dataplane/virtio-blk.c b/hw/block/dataplane/virtio-blk.c
-index b28d81737e..bd7cc6e76b 100644
---- a/hw/block/dataplane/virtio-blk.c
-+++ b/hw/block/dataplane/virtio-blk.c
-@@ -286,8 +286,10 @@ static void virtio_blk_data_plane_stop_bh(void *opaque)
- 
-     for (i = 0; i < s->conf->num_queues; i++) {
-         VirtQueue *vq = virtio_get_queue(s->vdev, i);
-+        EventNotifier *host_notifier = virtio_queue_get_host_notifier(vq);
- 
-         virtio_queue_aio_detach_host_notifier(vq, s->ctx);
-+        virtio_queue_host_notifier_read(host_notifier);
-     }
- }
- 
-diff --git a/hw/scsi/virtio-scsi-dataplane.c b/hw/scsi/virtio-scsi-dataplane.c
-index 20bb91766e..81643445ed 100644
---- a/hw/scsi/virtio-scsi-dataplane.c
-+++ b/hw/scsi/virtio-scsi-dataplane.c
-@@ -71,12 +71,21 @@ static void virtio_scsi_dataplane_stop_bh(void *opaque)
- {
-     VirtIOSCSI *s = opaque;
-     VirtIOSCSICommon *vs = VIRTIO_SCSI_COMMON(s);
-+    EventNotifier *host_notifier;
-     int i;
- 
-     virtio_queue_aio_detach_host_notifier(vs->ctrl_vq, s->ctx);
-+    host_notifier = virtio_queue_get_host_notifier(vs->ctrl_vq);
-+    virtio_queue_host_notifier_read(host_notifier);
-+
-     virtio_queue_aio_detach_host_notifier(vs->event_vq, s->ctx);
-+    host_notifier = virtio_queue_get_host_notifier(vs->event_vq);
-+    virtio_queue_host_notifier_read(host_notifier);
-+
-     for (i = 0; i < vs->conf.num_queues; i++) {
-         virtio_queue_aio_detach_host_notifier(vs->cmd_vqs[i], s->ctx);
-+        host_notifier = virtio_queue_get_host_notifier(vs->cmd_vqs[i]);
-+        virtio_queue_host_notifier_read(host_notifier);
-     }
- }
- 
 -- 
-2.39.2
-
+Julien Grall
 
