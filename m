@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCE066E7E92
+	by mail.lfdr.de (Postfix) with ESMTPS id EEA786E7E93
 	for <lists+xen-devel@lfdr.de>; Wed, 19 Apr 2023 17:43:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.523579.813787 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.523578.813779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp9xQ-0002P6-Tb; Wed, 19 Apr 2023 15:42:56 +0000
+	id 1pp9xQ-00028f-Ab; Wed, 19 Apr 2023 15:42:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 523579.813787; Wed, 19 Apr 2023 15:42:56 +0000
+Received: by outflank-mailman (output) from mailman id 523578.813779; Wed, 19 Apr 2023 15:42:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pp9xQ-0002Eg-NW; Wed, 19 Apr 2023 15:42:56 +0000
-Received: by outflank-mailman (input) for mailman id 523579;
- Wed, 19 Apr 2023 15:42:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pp9xQ-00023t-0n; Wed, 19 Apr 2023 15:42:56 +0000
+Received: by outflank-mailman (input) for mailman id 523578;
+ Wed, 19 Apr 2023 15:42:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RA+/=AK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pp9xO-0001fS-WB
+ id 1pp9xO-0001fK-QX
  for xen-devel@lists.xenproject.org; Wed, 19 Apr 2023 15:42:54 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9091f47-dec8-11ed-8611-37d641c3527e;
- Wed, 19 Apr 2023 17:42:53 +0200 (CEST)
-Received: by mail-lj1-x22c.google.com with SMTP id y24so6980342ljm.6
- for <xen-devel@lists.xenproject.org>; Wed, 19 Apr 2023 08:42:53 -0700 (PDT)
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d9981225-dec8-11ed-b21f-6b7b168915f2;
+ Wed, 19 Apr 2023 17:42:54 +0200 (CEST)
+Received: by mail-lj1-x232.google.com with SMTP id r9so21017386ljp.9
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Apr 2023 08:42:54 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
  f3-20020a2e6a03000000b00298dc945e9bsm2945367ljc.125.2023.04.19.08.42.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Apr 2023 08:42:52 -0700 (PDT)
+ Wed, 19 Apr 2023 08:42:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,36 +43,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9091f47-dec8-11ed-8611-37d641c3527e
+X-Inumbo-ID: d9981225-dec8-11ed-b21f-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1681918973; x=1684510973;
+        d=gmail.com; s=20221208; t=1681918974; x=1684510974;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sK6lOiJmrrx8EIkDgF6+ULo+pkwl5Br6n5iUV/9+gh0=;
-        b=JY3+kb4x2B3fIW868V/DEQbhu+mTCUCi1tY01W+zSiNxgxm9xuR3y8tCW4kOQViPIK
-         /RCkVPNQUc4KfL2ShZuG+bT0+PNuDRLZkhIw1xQaVaOqDGdiXJGeXQzLyxqhFM+YkbxK
-         qXw/4BuAUE90ea2JDSeWo1ujNpatGO1FPLbx7I885L15uACE2DjzA20Vx/JgFwWFkpYr
-         g7tUR/jB7BuCYhb2qv2dGuiu00lF+rT70xuwZNAn5zlX7yzWNVNtOfJfWKf2Q9ts9UIe
-         hJM1vfO42IUk4/UFJYhcfHeAILiMpvr/Pye9uTf9k2kCtLPzVjZiAhNV+BDZS04nu383
-         wqEw==
+        bh=d6nuZqH4BFpdEi3VMqbbjTAjUlawv3o6/WP+NDuHGao=;
+        b=FTQsPdb4VZ4U8RE3yeFfHXGlvbgFa0QGfqVFr+jC6kl6lxCZtsLyajUUqYQLMgURWb
+         J4uGmuFYPY0pjFG3CvgZXBQ+DQSwKkx3aLHi8JiMlqqwFM7VZfY8qLUXuH8hNbaooToh
+         oUl8JWcg6/dqqTOISasLH4ArbdoYMv/7qTsrk21lipm8TZ0o+iGKtQcaitVK3NT7LnHh
+         cHUofTY6cexuLNRmw8QblHcS8LmQhx8wUSQySx0lMZFd0Mvb9N4HS1X65zhUQf+nG5lT
+         3cGIRqrrWfhy8kgYqFl1kyHbNncTpe5lX859YIwTjvJeyWa/XSb9WXw3PXjXypHssGbH
+         H7Zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1681918973; x=1684510973;
+        d=1e100.net; s=20221208; t=1681918974; x=1684510974;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=sK6lOiJmrrx8EIkDgF6+ULo+pkwl5Br6n5iUV/9+gh0=;
-        b=SKQ3xIjjGIxoOQ79mLsmDqmEF338cowCVNKrO/N0GxJoRmkyrGWdegi9nGpBFKMLnG
-         SNMaw/6FBogIvluuCB1U1zQ4U/DoQoHOEimIO2pgRBQXeR2tSrKsZHb2QbQCR2HbN98g
-         cwQK9JxzUKQvPnQvQAnsBOuW8oaIG4ScE9j1rUvxDpxUf5lHZ4Ywr0N0K0fL4mYeIObK
-         oJpQWsf8NGnhvj/iWimSzLk9xNckWSILM5PfsLF7GrK2npUif3js7tfL5bKS7uAHBdXG
-         apnp5+4nFlHep7RiuSk1jdY1J4cRNSxcLVLFevl3mm6XrgSzXx8y+3mGEBLkCIaHhTLx
-         6kEA==
-X-Gm-Message-State: AAQBX9cS4HA7z9IjdGEHIPojyUFuk38tvLLVNbu8f8BWZyqX5mnJRyMf
-	OxzEjAgFqwCJLOrUEMCelkc2Sv5bs+M=
-X-Google-Smtp-Source: AKy350bGcPFjMvPqoJslalD3B9AiEdsxHV+y7m279vTxSFKXJbRv+mXVwElB34h0bTjwCmFPzOHvNw==
-X-Received: by 2002:a2e:b041:0:b0:2a8:ea22:28b5 with SMTP id d1-20020a2eb041000000b002a8ea2228b5mr1253128ljl.4.1681918972863;
-        Wed, 19 Apr 2023 08:42:52 -0700 (PDT)
+        bh=d6nuZqH4BFpdEi3VMqbbjTAjUlawv3o6/WP+NDuHGao=;
+        b=Ny8H3Ypi0tTbfRCZjJONA1mxkFCo4dXZGZAIfjCIQUdMSRHwCuiuqtLj7XlgQFYRZf
+         LNHavrN3fJFflEYEFhkzyeUmj41cOPfCUzh/QeL+MfjXLJpnklR7x1XVbrIZTVQ+n2+r
+         86XrsWL9/suZQ1qbxV3RUK/T93AdrAPID+LQYPDCqKVCVGrlTEx+LnAZIKEJGD61zurU
+         1Itm8jscpnXvw60SeI++RWUkS7ZpdcWC3MMCPhCWNx687HDyrgTKXcJr+q2P3hgtZSl8
+         gUDZT0TCSU3qIzJ9pjgAQuUxuNEh5XKGZh66Q+mxlBzQzPF9I0BKWQAzYYIFRTWSXYb0
+         r86w==
+X-Gm-Message-State: AAQBX9eqqFzqLlj6udxAlu3mgBWrAH7AnwjX67eCRhQTpbgtYzvJYFxq
+	tylnPSnqEXv4+PBZItEM5Sza+JBaq4M=
+X-Google-Smtp-Source: AKy350b0B/kQEXWANRl+Ln8SJiVSd3pvv9i8HvVi4kbbG70yeWrmbVGwKZQAs+lqgOodMZ12n2+Y5w==
+X-Received: by 2002:a05:651c:cb:b0:2a7:79e6:1625 with SMTP id 11-20020a05651c00cb00b002a779e61625mr1987538ljr.37.1681918973693;
+        Wed, 19 Apr 2023 08:42:53 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Julien Grall <julien@xen.org>,
@@ -84,19 +84,17 @@ Cc: Julien Grall <julien@xen.org>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v5 3/4] xen/riscv: setup initial pagetables
-Date: Wed, 19 Apr 2023 18:42:46 +0300
-Message-Id: <cbd1417ddfc62de0d730511040d48c608cc09ea4.1681918194.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 4/4] xen/riscv: remove dummy_bss variable
+Date: Wed, 19 Apr 2023 18:42:47 +0300
+Message-Id: <6b56f750edc5d8f3ed41769896c865e3ea89c68f.1681918194.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <cover.1681918194.git.oleksii.kurochko@gmail.com>
 References: <cover.1681918194.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch does two thing:
-1. Setup initial pagetables.
-2. Enable MMU which end up with code in
-   cont_after_mmu_is_enabled()
+After introduction of initial pagetables there is no any sense
+in dummy_bss variable as bss section will not be empty anymore.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
@@ -107,32 +105,33 @@ Changes in V4:
  - Nothing changed. Only rebase
 ---
 Changes in V3:
- - update the commit message that MMU is also enabled here
- - remove early_printk("All set up\n") as it was moved to
-   cont_after_mmu_is_enabled() function after MMU is enabled.
+ * patch was introduced in the current one patch series (v3).
 ---
 Changes in V2:
- * Update the commit message
+ * patch was introduced in the current one patch series (v2).
 ---
- xen/arch/riscv/setup.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ xen/arch/riscv/setup.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
 diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 315804aa87..cf5dc5824e 100644
+index cf5dc5824e..845d18d86f 100644
 --- a/xen/arch/riscv/setup.c
 +++ b/xen/arch/riscv/setup.c
-@@ -21,7 +21,10 @@ void __init noreturn start_xen(unsigned long bootcpu_id,
+@@ -8,14 +8,6 @@
+ unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
+     __aligned(STACK_SIZE);
+ 
+-/*  
+- * To be sure that .bss isn't zero. It will simplify code of
+- * .bss initialization.
+- * TODO:
+- *   To be deleted when the first real .bss user appears
+- */
+-int dummy_bss __attribute__((unused));
+-
+ void __init noreturn start_xen(unsigned long bootcpu_id,
+                                paddr_t dtb_addr)
  {
-     early_printk("Hello from C env\n");
- 
--    early_printk("All set up\n");
-+    setup_initial_pagetables();
-+
-+    enable_mmu();
-+
-     for ( ;; )
-         asm volatile ("wfi");
- 
 -- 
 2.39.2
 
