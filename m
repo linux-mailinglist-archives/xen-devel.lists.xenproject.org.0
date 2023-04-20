@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2BE06E8D4A
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 10:55:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.523982.814467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 339E66E8D26
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 10:51:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.523969.814438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppQ4I-00030i-QM; Thu, 20 Apr 2023 08:55:06 +0000
+	id 1ppQ01-0001GX-Mj; Thu, 20 Apr 2023 08:50:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 523982.814467; Thu, 20 Apr 2023 08:55:06 +0000
+Received: by outflank-mailman (output) from mailman id 523969.814438; Thu, 20 Apr 2023 08:50:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppQ4I-0002y3-NR; Thu, 20 Apr 2023 08:55:06 +0000
-Received: by outflank-mailman (input) for mailman id 523982;
- Thu, 20 Apr 2023 08:55:04 +0000
+	id 1ppQ01-0001E7-K0; Thu, 20 Apr 2023 08:50:41 +0000
+Received: by outflank-mailman (input) for mailman id 523969;
+ Thu, 20 Apr 2023 08:50:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fY2H=AL=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ppQ4G-0002xx-GU
- for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 08:55:04 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on2062f.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::62f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7ocM=AL=gmail.com=oleshiiwood@srs-se1.protection.inumbo.net>)
+ id 1ppPzz-0001Dz-R9
+ for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 08:50:39 +0000
+Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
+ [2607:f8b0:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09c5ea9a-df59-11ed-b21f-6b7b168915f2;
- Thu, 20 Apr 2023 10:55:03 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DU0PR04MB9659.eurprd04.prod.outlook.com (2603:10a6:10:320::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.21; Thu, 20 Apr
- 2023 08:55:00 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6319.022; Thu, 20 Apr 2023
- 08:55:00 +0000
+ id 6b94d160-df58-11ed-b21f-6b7b168915f2;
+ Thu, 20 Apr 2023 10:50:38 +0200 (CEST)
+Received: by mail-pl1-x62a.google.com with SMTP id
+ d9443c01a7336-1a50cb65c92so7733865ad.0
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Apr 2023 01:50:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,132 +40,455 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09c5ea9a-df59-11ed-b21f-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Rk+34WOiU3m+Cxm5lARyaX2feDHnb6yVoH3+l9VBuR4EyFYLR8Vt4u+XDuI6J/kmMZdDWnHB3N4PZxdmXcdU7Kkt2BQV4NfRC/3UA1SZjMDSRi4U8JxBbrP6YHs8JFlErdbrxI3nczo7mCJX1bIq13hLMMXaqd5tDdK4EJjEhgPpuLQy+DLGxlDb5W/HDQx822K87a+vclc9EK7Ig7k+A9ISbzfTH7AqvMrGegEiR/5GOVNIg/6fxGlJEB736FIQxPlAo+0FOrzRfQjA84yTXZGwbmfOGp7oZJftdBxR/8CaQxZugYB9WJ2Q7g7hKRBUkwRcCgdDbli+FdZjt0wPkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FzHe1lBJgLijKLEEgidhwjdq1Ta8y0+4RrHR7zra7tE=;
- b=RqKqh5qET2C04a0vXZJ44ygx6br1+ZDI4xgZwwzwPts61JmvHQ4WE5uMTsQ7qpOhTr8d2I9mR/Un1jz0sXr/Ve1LnmK7a+XCiT7VVjQ9/nArgXdAkqXAq6Cy5GhGfJCiO4QErq75y+x/q46DnEIL8KSWwhkb/cek/C1UVWdGxtQxx/bPZNkCs4eeU4uNmOib5d16gakg4ONAKmhPQvFG6VpzEvDk+2njJTeq8FLPBfMVC4ouW8iWziv+snxV3MERxT+E5CoJ67rSz/caF4lqJYmWgEPHgwx90UeBBwxmVWBWFT+Y64TnAAjoKFDmOrzw6P/wEWM3pJxtXFIk6ea9Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FzHe1lBJgLijKLEEgidhwjdq1Ta8y0+4RrHR7zra7tE=;
- b=XqlMdMlMp33BgXt6IizvrPaiMIX8JQ0VLbDlYxjjIpEbpg7xmfzKSY4NEBFOI3YDFAlfj4ZQY0+aBjpqiyvwjfb294SGRzAdPRpGwu3Gi8PAC+r/33M0kGstJAsNBAqImjJXTgokDq8ztUm38kabCuvrhr8U3Hg9zHOJa/Hg0zHLpl7BfShaSYxD23jDauJ+D/572ASjXfqMocIvObJr0PlnkWCMeLlehg8+DvQvKUAXE0xMRFpPl/I/MxbkkuKSSdqRzIhLY12esmGUHEMxLd0lohyNZLitSBwqB8Vj7Q/usHBPE5QdlU8SiGZvtD2+Dm1Gat9DT5ukUuVyQaLaPA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ab185590-910b-6ada-d607-cc91e9002cfb@suse.com>
-Date: Thu, 20 Apr 2023 10:54:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH 1/5] x86: support cache-writeback in flush_area_local() et
- al
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <4b42e920-f007-186c-d838-a0294bfa86b5@suse.com>
- <ee33ad20-ef6e-504d-6987-59ccb166f8e4@suse.com>
- <53204261-3dac-579f-ede5-7acffd04f4db@citrix.com>
- <6f3726d6-60af-3db7-40cc-63308e427e85@suse.com>
-In-Reply-To: <6f3726d6-60af-3db7-40cc-63308e427e85@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0099.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 6b94d160-df58-11ed-b21f-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1681980637; x=1684572637;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=C7UaJjs9bvBkYzqOF6kajdzJbTKr/ZiaP1QqK+7GkNI=;
+        b=MkNb928H4ghrEc9c7ucgz55RSqcrf/k3Ei20sz/WOd8qmRbxXJ1pWO2T3FBEdpUwPF
+         17McAedy9E+ISphvtc1wiUDoagGy263DShj2aiRPfmA0fCVOSg5or5BuX13IzrR7YtXP
+         IDjg1N6d99/tZgJpHdFe1g2lq0xwU9wGFExYYRU0v4N2+kMrXuEBL3mchv+8tU6Qc90E
+         hwErR/habZ5VcIFSXvbLpkHxXxcFG9HPQiX5UBsTvl7BWei94iFgLN8Npx8VCkbElgmy
+         T9VEnIyiqaFtP66vun9ABtglvAldkcZBaoJ6QM4+bQeJt93Owba9mmDQN94NOPMYGKOc
+         yUpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1681980637; x=1684572637;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=C7UaJjs9bvBkYzqOF6kajdzJbTKr/ZiaP1QqK+7GkNI=;
+        b=R7LUv97+whl3yIQle8Ty/g1ZrzgNuieytcL3QHbIMPfeNoc+NkxaPzxRV2zffc8fxq
+         aaPoEwRfSKlhn9de8fRU+ELQcgId1KAycRPI6gc5zWJYXY5uLwwPFGU/cONCO1/X0Rzp
+         pPItBtFFNGn5bz9qqDgPP1CJndVG/nsLsSkk55Rjhv45NsZ23iffw6cNxDlSoodHvKa7
+         8Z1kLbFKdcz09cXKb3pqkxFFrl06By4kwy9ktMcVYJyJvF4/Hhbf0/FjWClCLeEIgTgi
+         /1cHbmgXMF2MY2zP3MDh1qLUesAcZRVffB6TWxdslqe3NaxgjOqWiw/RDokGvl4XhGW4
+         1Nag==
+X-Gm-Message-State: AAQBX9frSzLE9NkjS9LNkwM8nVXBLwpkFWdYePNe2qLzygDaWcJfWpAC
+	qQUPhksCRD50+FJKHUGh2Pxc3BklkvNI2g+3kVI=
+X-Google-Smtp-Source: AKy350YwvZ6FtJvtNFDa8S/UL7XlUjfB+hmqz13+mA3AvHBBZKIjAefrcjqh61EF2qtRWFqyFXmPiDi12FdfojPsxEo=
+X-Received: by 2002:a17:903:8c7:b0:1a0:5349:6606 with SMTP id
+ lk7-20020a17090308c700b001a053496606mr865597plb.56.1681980636533; Thu, 20 Apr
+ 2023 01:50:36 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU0PR04MB9659:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13da261c-21f2-4ea3-95e1-08db417cec3a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	6/A2VLXOFW4zNpWBSLO2oRgHfdVZzrdm0mwt9+0pTV3jYxInO2yaqaMesetPjFhwgaWu1eouAZ3RXNW2DYFFlyKQ2u9WtuKDixFd4o9E8bXbZsH5w/pMF0yKGcBSdM3YyafKpVwvXcB33opCSk4g7025nPCWvKFi7hMNKrsZqQkeo99vWYi8Cj4feS53xThyVdiP1UWlGKfFpOwwUl0K+U8Q7/3Got+fjDOXB6uaNP2cD8jSsngcSjrx0wDSfVmTYlQeL9A6yLwbWrNV3tx5JX6ec0S21kdovtO8CMFUODigFy2AODvTbCVy8KCc99RnLWs+jlhGamUjYZo62Xyo09tTi13KAt6wsVu9oJYKBA+qp0b6ZAcJxOznrjhm6tXlt+PT5jXKTy0v++t5m3Xbj12WHQLfRH1AmLEbgoZUEXqKz1gBBdieqJpJxJnGDfkaAv9kdpU6KqWVcra+MEgPWORP2+FymkyXj6GGalComFU+NH7sYT/zOfRUO7OMrP2SvAtNlurpcHW0HKBnKC/QwJ0TdR5Mg9V/X0LIJM31RC3F5AiMv7yo4vJxBJVJl4ZBBPS2tBgBzLN1nl2CTrHf6RJEKVPAVtjzSM9SaGUX/4puV7xwv4jeK8YZPsoTTh0ZfFXz9YOBP77AExlYQ/hKCw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(366004)(39860400002)(346002)(136003)(376002)(451199021)(38100700002)(6506007)(6512007)(26005)(186003)(53546011)(2616005)(8676002)(8936002)(5660300002)(2906002)(86362001)(36756003)(41300700001)(478600001)(6486002)(4326008)(6916009)(66946007)(31696002)(66476007)(66556008)(54906003)(316002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UjJXUkxndkRQTE9Nbmo2Z2VralFvbUR6azVIeXJ5TjZ1ZURnWjF5UStRNlQ2?=
- =?utf-8?B?RXVXY1dJcGV4QlI1SFBLM2ZiZ1g2blFVRnAxdDFSampPcmxmWWtmUUk0Nmc2?=
- =?utf-8?B?am0weEdsYjlXM1czdzNoczhiVFhzeFV5NklOSkw1dys2Y1ZxSVd1VlJyN2J6?=
- =?utf-8?B?Ulo1U0V0NjdlR1YyV3pZREJVY3JTZU5yQzNpOUxVcmVWR0d3RDV0MEE3RzRN?=
- =?utf-8?B?aHNtSTVBSG5vS08zTVYzeitCRFJoM3B5NXhvMzFtTGgrSU44cm9NNTV3VEZi?=
- =?utf-8?B?K2FVOHpUNWpmOXdqaER1bE1hNlpUZ25ONEY4Uk5hRXdoN0RRa3ZIMWFoelk4?=
- =?utf-8?B?YlJaWHhzQmtINkdLR295d3ZYMklIeTQxTlUxSjhRSW1BSkQwUkE2c1QwL1ds?=
- =?utf-8?B?RDBlc1Mvd09EbVZ1YUowT3IvWlQ4RklXSFVYeVlqWnJjb1dmb1RDTDVhR2JQ?=
- =?utf-8?B?SmhJUzJmcUdEd0RCQm03QTU3cTNjalZWYUZqSEhSZ1FmY3k4cHVzcE1TQ3Ji?=
- =?utf-8?B?RkhUaUZ2SUVBdkEzYkRHdVovMHFoYnBpOStBU01UMWlLMWJzTnFaSnhQdzlq?=
- =?utf-8?B?ZjB6RkFrYVB5cTlXKzZDRitxQWwxR1I5dUh6Q0ZRUFhxNzVocnNlNEVieVI3?=
- =?utf-8?B?RTZwYW9QR3gvUTZMZjBiekg0T3o5SDdIai8xS1ptejZVQkNSZWRhTEphVEF1?=
- =?utf-8?B?eEFTVzdiVUl4bi9hcmJHcDJGVHh6MlFwYloxaVpHLzg3WGRvZmpwK29WZURI?=
- =?utf-8?B?dlE4NFZCWVlxc1poenFaQTJkOUMybTIxdmlvYVJCTXJFREN1V2NWZ3orWWcy?=
- =?utf-8?B?MVhqcVovWEVlcTVMMjAxLzVEZTNhcGlxeW5HMlJYZjFpN0FqK0FZS2VEMnJM?=
- =?utf-8?B?SVVIVDVRN2wrYUxvNmo1bmRkc2wxQ3FnT0poWlR2WHRBMUJERm5taDFoVXFC?=
- =?utf-8?B?NnAxRnUrYnFudjY5bFplTk83Z3ZIWWllRXN5ZDZ2bFBsMGxSZ0w1a2NIeU1u?=
- =?utf-8?B?Vkg4QVpDNy9VdTNtM1g1Unl4dDBRV1ZTMWhnbFRIcXpKam1JbmtIbmNqWFZv?=
- =?utf-8?B?dWhVNlA5QThaNG95YkpRZWRBdEl0YjFZcTc5QlY2ekE1Sk40eTI4eFp6Z2F2?=
- =?utf-8?B?V3R3b0hPdkk1d0JtZGE0Y0xaZzNKQWw4WWdUcjdBZWE5dTVUQkdiM3ROeWYz?=
- =?utf-8?B?VDJOUFd2cGVMbVlUT05FUnViL2thM3c5Q0c3NWdMUmZWeVpFVGtMaXFaaDky?=
- =?utf-8?B?ZkFIbHhMR0NQeEk5VFBseDJYUVVsdGh6b3BnYVhJTlAyelZQaWYxa3Bpd3ZB?=
- =?utf-8?B?NDg5UXFrUWsxMWhlRnZ3bTZBSXZPMDlTVVl3OWxkSVRXQ1pmREZtaGhUYkU5?=
- =?utf-8?B?QjB4Y1FxT0lSMlNxUlREcG40QjAzTzNGamVVSnMxbndzRi9tTGQvei9YcHUw?=
- =?utf-8?B?WDdwMDd1c2xqSFJuN2ZaVUlTUVNLRjVRVjkzTVhnSEIreDRFNjFHcWpkcmgw?=
- =?utf-8?B?ZEU1RVlvN0JBUm1NY3kxbnIxSU41dmpMd3MzajZjTlBFQmNvanpYRGgyNWRG?=
- =?utf-8?B?VjJLVWlzRG9hU1hqSnY5ck9ENXlRaTZGSjJVcUczUVV6UldwdnhPS3ArTWNL?=
- =?utf-8?B?U2owQjFWSitoTlpjNnZyR3hsNUE2bEpBNlMydk1aK3hKN2NNMzRaUDg0d1JM?=
- =?utf-8?B?RDZ0YUVCYzB4N1VRNFVTb0VSYzJnTTBMODZXazNaNkQrdUNEY2Z6Z0d3TExN?=
- =?utf-8?B?LzVPdlEzaWFwN0l0SjdsS1YzUWxQbW9XTjJXNlF6ZE1NRkdTOU1CR3lxb2V1?=
- =?utf-8?B?elc2dkNsd3pMOGd2YmR5V0Q0MU1EclVGOFBrd3Rpb3JmMkI1ZFNKZUMvc3F5?=
- =?utf-8?B?cUpBRy9XOVp3bEpxNU93cmFkTzlINkVWVTZVSEp4dkloNC9TaU1ySHZMaWJG?=
- =?utf-8?B?OEEybzZDcG1aVy9mSk0xeVB4Y21CbEw1ZHFLb0xzS2N3QTJCWkljUTR6cldJ?=
- =?utf-8?B?dmUwa3pCcHNROTVtekFQdjdJRitRZ3A3Vll0ZTdjTWNJek9RZGswVTVDSWxt?=
- =?utf-8?B?dk9FcFpvd3AzcThHRUJnZWFIVW5mQlBrSXZQSzNqWVgwc281OUJTeHFvcUNr?=
- =?utf-8?Q?cghvBcMY8mp70teqFNuldjDrF?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13da261c-21f2-4ea3-95e1-08db417cec3a
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2023 08:54:59.9957
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BH68eD9pvUObDd0kVcN3EJy7EeOmdH8Uu8Qb7RfnMfMDy52C6Q8MIgQ/j3tRVfjK1ENcYc5sgsx9xsr8hSOwzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9659
+References: <CA+SAi2uwrKFYN1tkYJ1_LVC-f+b-xb46RWTUv6wDOUO41yx8zg@mail.gmail.com>
+ <bad09a6f-d41e-ab8e-2291-7fde3b646710@xen.org> <CA+SAi2uPZ=Dq1GxF9Kj1zCO=nbb55ruVG31kH-TgdpR6bLznvA@mail.gmail.com>
+ <CA+SAi2s4WLiMEVa3u8rJRNZDpCpLTvnDygpObSUKxau-Q8dfyA@mail.gmail.com>
+ <64326e46-096e-0f86-2aa9-31a72d3cd004@xen.org> <CA+SAi2u2=7h=Lo=bTC8YzmzidOErYaQGi=hpoG3w7tdM4LUzFw@mail.gmail.com>
+ <alpine.DEB.2.22.394.2304181044080.15580@ubuntu-linux-20-04-desktop>
+ <CA+SAi2srSq5Vwq8KL4TGc-GC3OjsFf=d-yKLVPw=C0KfBW67eA@mail.gmail.com>
+ <58cae772-dd3b-31f4-9849-9c2597f6eae6@amd.com> <CA+SAi2vU0i9trrdgCusB0WYJmYLqjXRk9qSGALjMbKYvmPGcvw@mail.gmail.com>
+ <CA+SAi2tc_3r3SAXVOmdbDJXvppaXkSdMH0iv-fG1zUwG3Ub_hQ@mail.gmail.com> <alpine.DEB.2.22.394.2304191304570.15580@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2304191304570.15580@ubuntu-linux-20-04-desktop>
+From: Oleg Nikitenko <oleshiiwood@gmail.com>
+Date: Thu, 20 Apr 2023 11:56:43 +0300
+Message-ID: <CA+SAi2tEbV0Y=p=NhT_8H1SeBzqXxUTS5R9pZu3_UYn5zU952A@mail.gmail.com>
+Subject: Re: xen cache colors in ARM
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Carlo Nonato <carlo.nonato@minervasys.tech>
+Content-Type: multipart/alternative; boundary="0000000000005c1af205f9c0a284"
 
-On 20.04.2023 10:50, Jan Beulich wrote:
-> On 19.04.2023 21:56, Andrew Cooper wrote:
->> But on to the main thing which caught my eye...
->>
->> The FLUSH in FLUSH_CACHE means the flush infrastructure, not "cache
->> flushing", and FLUSH_WRITEBACK is nonsensical next to this.
-> 
-> I agree; I chose the name simply to avoid further changes, while still
-> fitting the naming scheme (i.e. the FLUSH_ prefix). I'm okay to change
-> to ...
-> 
->>   All other
->> things we flush have a qualification that makes them clear in context.
->> (other than the assist one which I'm going to time out objections to and
->> revert back to name which made more sense.)
->>
->> At an absolutely minimum, FLUSH_CACHE first needs renaming to
->> FLUSH_CACHE_EVICT and then this new one you're adding needs to be
->> FLUSH_CACHE_WRITEBACK.
-> 
-> ... these, but I don't think they're much better (still primarily
-> because of the FLUSH_ prefixes).
+--0000000000005c1af205f9c0a284
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Actually - are you going to insist on "first"? There would be less code
-churn if first I introduced and used FLUSH_CACHE_WRITEBACK, and only
-then renamed the few remaining FLUSH_CACHE to FLUSH_CACHE_EVICT.
+Thanks Stefano.
 
-Jan
+I am going to do it today.
+
+Regards,
+O.
+
+=D1=81=D1=80, 19 =D0=B0=D0=BF=D1=80. 2023=E2=80=AF=D0=B3. =D0=B2 23:05, Ste=
+fano Stabellini <sstabellini@kernel.org>:
+
+> On Wed, 19 Apr 2023, Oleg Nikitenko wrote:
+> > Hi Michal,
+> >
+> > I corrected xen's command line.
+> > Now it is
+> > xen,xen-bootargs =3D "console=3Ddtuart dtuart=3Dserial0 dom0_mem=3D1600=
+M
+> dom0_max_vcpus=3D2 dom0_vcpus_pin bootscrub=3D0 vwfi=3Dnative sched=3Dnul=
+l
+> > timer_slop=3D0 way_size=3D65536 xen_colors=3D0-3 dom0_colors=3D4-7";
+>
+> 4 colors is way too many for xen, just do xen_colors=3D0-0. There is no
+> advantage in using more than 1 color for Xen.
+>
+> 4 colors is too few for dom0, if you are giving 1600M of memory to Dom0.
+> Each color is 256M. For 1600M you should give at least 7 colors. Try:
+>
+> xen_colors=3D0-0 dom0_colors=3D1-8
+>
+>
+>
+> > Unfortunately the result was the same.
+> >
+> > (XEN)  - Dom0 mode: Relaxed
+> > (XEN) P2M: 40-bit IPA with 40-bit PA and 8-bit VMID
+> > (XEN) P2M: 3 levels with order-1 root, VTCR 0x0000000080023558
+> > (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
+> > (XEN) Coloring general information
+> > (XEN) Way size: 64kB
+> > (XEN) Max. number of colors available: 16
+> > (XEN) Xen color(s): [ 0 ]
+> > (XEN) alternatives: Patching with alt table 00000000002cc690 ->
+> 00000000002ccc0c
+> > (XEN) Color array allocation failed for dom0
+> > (XEN)
+> > (XEN) ****************************************
+> > (XEN) Panic on CPU 0:
+> > (XEN) Error creating domain 0
+> > (XEN) ****************************************
+> > (XEN)
+> > (XEN) Reboot in five seconds...
+> >
+> > I am going to find out how command line arguments passed and parsed.
+> >
+> > Regards,
+> > Oleg
+> >
+> > =D1=81=D1=80, 19 =D0=B0=D0=BF=D1=80. 2023=E2=80=AF=D0=B3. =D0=B2 11:25,=
+ Oleg Nikitenko <oleshiiwood@gmail.com>:
+> >       Hi Michal,
+> >
+> > You put my nose into the problem. Thank you.
+> > I am going to use your point.
+> > Let's see what happens.
+> >
+> > Regards,
+> > Oleg
+> >
+> >
+> > =D1=81=D1=80, 19 =D0=B0=D0=BF=D1=80. 2023=E2=80=AF=D0=B3. =D0=B2 10:37,=
+ Michal Orzel <michal.orzel@amd.com>:
+> >       Hi Oleg,
+> >
+> >       On 19/04/2023 09:03, Oleg Nikitenko wrote:
+> >       >
+> >       >
+> >       >
+> >       > Hello Stefano,
+> >       >
+> >       > Thanks for the clarification.
+> >       > My company uses yocto for image generation.
+> >       > What kind of information do you need to consult me in this case=
+ ?
+> >       >
+> >       > Maybe modules sizes/addresses which were mentioned by @Julien
+> Grall <mailto:julien@xen.org> ?
+> >
+> >       Sorry for jumping into discussion, but FWICS the Xen command line
+> you provided seems to be not the one
+> >       Xen booted with. The error you are observing most likely is due t=
+o
+> dom0 colors configuration not being
+> >       specified (i.e. lack of dom0_colors=3D<> parameter). Although in =
+the
+> command line you provided, this parameter
+> >       is set, I strongly doubt that this is the actual command line in
+> use.
+> >
+> >       You wrote:
+> >       xen,xen-bootargs =3D "console=3Ddtuart dtuart=3Dserial0 dom0_mem=
+=3D1600M
+> dom0_max_vcpus=3D2 dom0_vcpus_pin bootscrub=3D0 vwfi=3Dnative
+> >       sched=3Dnull timer_slop=3D0 way_szize=3D65536 xen_colors=3D0-3
+> dom0_colors=3D4-7";
+> >
+> >       but:
+> >       1) way_szize has a typo
+> >       2) you specified 4 colors (0-3) for Xen, but the boot log says
+> that Xen has only one:
+> >       (XEN) Xen color(s): [ 0 ]
+> >
+> >       This makes me believe that no colors configuration actually end u=
+p
+> in command line that Xen booted with.
+> >       Single color for Xen is a "default if not specified" and way size
+> was probably calculated by asking HW.
+> >
+> >       So I would suggest to first cross-check the command line in use.
+> >
+> >       ~Michal
+> >
+> >
+> >       >
+> >       > Regards,
+> >       > Oleg
+> >       >
+> >       > =D0=B2=D1=82, 18 =D0=B0=D0=BF=D1=80. 2023=E2=80=AF=D0=B3. =D0=
+=B2 20:44, Stefano Stabellini <
+> sstabellini@kernel.org <mailto:sstabellini@kernel.org>>:
+> >       >
+> >       >     On Tue, 18 Apr 2023, Oleg Nikitenko wrote:
+> >       >     > Hi Julien,
+> >       >     >
+> >       >     > >> This feature has not been merged in Xen upstream yet
+> >       >     >
+> >       >     > > would assume that upstream + the series on the ML [1]
+> work
+> >       >     >
+> >       >     > Please clarify this point.
+> >       >     > Because the two thoughts are controversial.
+> >       >
+> >       >     Hi Oleg,
+> >       >
+> >       >     As Julien wrote, there is nothing controversial. As you are
+> aware,
+> >       >     Xilinx maintains a separate Xen tree specific for Xilinx
+> here:
+> >       >     https://github.com/xilinx/xen <https://github.com/xilinx/xe=
+n
+> >
+> >       >
+> >       >     and the branch you are using (xlnx_rebase_4.16) comes from
+> there.
+> >       >
+> >       >
+> >       >     Instead, the upstream Xen tree lives here:
+> >       >     https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dsummary <
+> https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dsummary>
+> >       >
+> >       >
+> >       >     The Cache Coloring feature that you are trying to configure
+> is present
+> >       >     in xlnx_rebase_4.16, but not yet present upstream (there is
+> an
+> >       >     outstanding patch series to add cache coloring to Xen
+> upstream but it
+> >       >     hasn't been merged yet.)
+> >       >
+> >       >
+> >       >     Anyway, if you are using xlnx_rebase_4.16 it doesn't matter
+> too much for
+> >       >     you as you already have Cache Coloring as a feature there.
+> >       >
+> >       >
+> >       >     I take you are using ImageBuilder to generate the boot
+> configuration? If
+> >       >     so, please post the ImageBuilder config file that you are
+> using.
+> >       >
+> >       >     But from the boot message, it looks like the colors
+> configuration for
+> >       >     Dom0 is incorrect.
+> >       >
+> >
+> >
+> >
+
+--0000000000005c1af205f9c0a284
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Thanks Stefano.</div><div><br></div><div>I am going t=
+o do it today.</div><div><br></div><div>Regards,</div><div>O.<br></div></di=
+v><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=D1=
+=81=D1=80, 19 =D0=B0=D0=BF=D1=80. 2023=E2=80=AF=D0=B3. =D0=B2 23:05, Stefan=
+o Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabellini@kern=
+el.org</a>&gt;:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
+0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
+On Wed, 19 Apr 2023, Oleg Nikitenko wrote:<br>
+&gt; Hi Michal,<br>
+&gt; <br>
+&gt; I corrected xen&#39;s command line.<br>
+&gt; Now it is<br>
+&gt; xen,xen-bootargs =3D &quot;console=3Ddtuart dtuart=3Dserial0 dom0_mem=
+=3D1600M dom0_max_vcpus=3D2 dom0_vcpus_pin bootscrub=3D0 vwfi=3Dnative sche=
+d=3Dnull<br>
+&gt; timer_slop=3D0 way_size=3D65536 xen_colors=3D0-3 dom0_colors=3D4-7&quo=
+t;;<br>
+<br>
+4 colors is way too many for xen, just do xen_colors=3D0-0. There is no<br>
+advantage in using more than 1 color for Xen.<br>
+<br>
+4 colors is too few for dom0, if you are giving 1600M of memory to Dom0.<br=
+>
+Each color is 256M. For 1600M you should give at least 7 colors. Try:<br>
+<br>
+xen_colors=3D0-0 dom0_colors=3D1-8<br>
+<br>
+<br>
+<br>
+&gt; Unfortunately the result was the same.<br>
+&gt; <br>
+&gt; (XEN) =C2=A0- Dom0 mode: Relaxed<br>
+&gt; (XEN) P2M: 40-bit IPA with 40-bit PA and 8-bit VMID<br>
+&gt; (XEN) P2M: 3 levels with order-1 root, VTCR 0x0000000080023558<br>
+&gt; (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource<br>
+&gt; (XEN) Coloring general information<br>
+&gt; (XEN) Way size: 64kB<br>
+&gt; (XEN) Max. number of colors available: 16<br>
+&gt; (XEN) Xen color(s): [ 0 ]<br>
+&gt; (XEN) alternatives: Patching with alt table 00000000002cc690 -&gt; 000=
+00000002ccc0c<br>
+&gt; (XEN) Color array allocation failed for dom0<br>
+&gt; (XEN)<br>
+&gt; (XEN) ****************************************<br>
+&gt; (XEN) Panic on CPU 0:<br>
+&gt; (XEN) Error creating domain 0<br>
+&gt; (XEN) ****************************************<br>
+&gt; (XEN)<br>
+&gt; (XEN) Reboot in five seconds...<br>
+&gt; <br>
+&gt; I am going to find out how command line arguments passed and parsed.<b=
+r>
+&gt; <br>
+&gt; Regards,<br>
+&gt; Oleg<br>
+&gt; <br>
+&gt; =D1=81=D1=80, 19 =D0=B0=D0=BF=D1=80. 2023=E2=80=AF=D0=B3. =D0=B2 11:25=
+, Oleg Nikitenko &lt;<a href=3D"mailto:oleshiiwood@gmail.com" target=3D"_bl=
+ank">oleshiiwood@gmail.com</a>&gt;:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Hi Michal,<br>
+&gt; <br>
+&gt; You put my nose into the problem. Thank you.<br>
+&gt; I am going to use your point.<br>
+&gt; Let&#39;s see what happens.<br>
+&gt; <br>
+&gt; Regards,<br>
+&gt; Oleg<br>
+&gt; <br>
+&gt; <br>
+&gt; =D1=81=D1=80, 19 =D0=B0=D0=BF=D1=80. 2023=E2=80=AF=D0=B3. =D0=B2 10:37=
+, Michal Orzel &lt;<a href=3D"mailto:michal.orzel@amd.com" target=3D"_blank=
+">michal.orzel@amd.com</a>&gt;:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Hi Oleg,<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0On 19/04/2023 09:03, Oleg Nikitenko wrote:<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Hello Stefano,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Thanks for the clarification.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; My company uses yocto for image generat=
+ion.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; What kind of information do you need to=
+ consult me in this case ?<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Maybe modules sizes/addresses which wer=
+e mentioned by @Julien Grall &lt;mailto:<a href=3D"mailto:julien@xen.org" t=
+arget=3D"_blank">julien@xen.org</a>&gt; ?<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Sorry for jumping into discussion, but FWICS=
+ the Xen command line you provided seems to be not the one<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Xen booted with. The error you are observing=
+ most likely is due to dom0 colors configuration not being<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0specified (i.e. lack of dom0_colors=3D&lt;&g=
+t; parameter). Although in the command line you provided, this parameter<br=
+>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0is set, I strongly doubt that this is the ac=
+tual command line in use.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0You wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0xen,xen-bootargs =3D &quot;console=3Ddtuart =
+dtuart=3Dserial0 dom0_mem=3D1600M dom0_max_vcpus=3D2 dom0_vcpus_pin bootscr=
+ub=3D0 vwfi=3Dnative<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0sched=3Dnull timer_slop=3D0 way_szize=3D6553=
+6 xen_colors=3D0-3 dom0_colors=3D4-7&quot;;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0but:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A01) way_szize has a typo<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A02) you specified 4 colors (0-3) for Xen, but=
+ the boot log says that Xen has only one:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0(XEN) Xen color(s): [ 0 ]<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0This makes me believe that no colors configu=
+ration actually end up in command line that Xen booted with.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Single color for Xen is a &quot;default if n=
+ot specified&quot; and way size was probably calculated by asking HW.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0So I would suggest to first cross-check the =
+command line in use.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0~Michal<br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Regards,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Oleg<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =D0=B2=D1=82, 18 =D0=B0=D0=BF=D1=80. 20=
+23=E2=80=AF=D0=B3. =D0=B2 20:44, Stefano Stabellini &lt;<a href=3D"mailto:s=
+stabellini@kernel.org" target=3D"_blank">sstabellini@kernel.org</a> &lt;mai=
+lto:<a href=3D"mailto:sstabellini@kernel.org" target=3D"_blank">sstabellini=
+@kernel.org</a>&gt;&gt;:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0On Tue, 18 Apr 2023,=
+ Oleg Nikitenko wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0&gt; Hi Julien,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0&gt; &gt;&gt; This f=
+eature has not been merged in Xen upstream yet<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0&gt; &gt; would assu=
+me that upstream + the series on the ML [1] work<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0&gt; Please clarify =
+this point.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0&gt; Because the two=
+ thoughts are controversial.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0Hi Oleg,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0As Julien wrote, the=
+re is nothing controversial. As you are aware,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0Xilinx maintains a s=
+eparate Xen tree specific for Xilinx here:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0<a href=3D"https://g=
+ithub.com/xilinx/xen" rel=3D"noreferrer" target=3D"_blank">https://github.c=
+om/xilinx/xen</a> &lt;<a href=3D"https://github.com/xilinx/xen" rel=3D"nore=
+ferrer" target=3D"_blank">https://github.com/xilinx/xen</a>&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0and the branch you a=
+re using (xlnx_rebase_4.16) comes from there.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0Instead, the upstrea=
+m Xen tree lives here:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0<a href=3D"https://x=
+enbits.xen.org/gitweb/?p=3Dxen.git;a=3Dsummary" rel=3D"noreferrer" target=
+=3D"_blank">https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dsummary</a> &lt=
+;<a href=3D"https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dsummary" rel=3D=
+"noreferrer" target=3D"_blank">https://xenbits.xen.org/gitweb/?p=3Dxen.git;=
+a=3Dsummary</a>&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0The Cache Coloring f=
+eature that you are trying to configure is present<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0in xlnx_rebase_4.16,=
+ but not yet present upstream (there is an<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0outstanding patch se=
+ries to add cache coloring to Xen upstream but it<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0hasn&#39;t been merg=
+ed yet.)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0Anyway, if you are u=
+sing xlnx_rebase_4.16 it doesn&#39;t matter too much for<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0you as you already h=
+ave Cache Coloring as a feature there.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0I take you are using=
+ ImageBuilder to generate the boot configuration? If<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0so, please post the =
+ImageBuilder config file that you are using.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0But from the boot me=
+ssage, it looks like the colors configuration for<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0Dom0 is incorrect.<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt; <br>
+&gt; <br>
+&gt; </blockquote></div>
+
+--0000000000005c1af205f9c0a284--
 
