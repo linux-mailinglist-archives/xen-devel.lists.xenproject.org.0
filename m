@@ -2,42 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9910B6E9954
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 18:16:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.524331.815190 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72B636E99DA
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 18:48:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.524337.815200 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppWwm-0002SB-RJ; Thu, 20 Apr 2023 16:15:48 +0000
+	id 1ppXRb-0005um-Dc; Thu, 20 Apr 2023 16:47:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 524331.815190; Thu, 20 Apr 2023 16:15:48 +0000
+Received: by outflank-mailman (output) from mailman id 524337.815200; Thu, 20 Apr 2023 16:47:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppWwm-0002PQ-O5; Thu, 20 Apr 2023 16:15:48 +0000
-Received: by outflank-mailman (input) for mailman id 524331;
- Thu, 20 Apr 2023 16:15:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ppXRb-0005rb-AV; Thu, 20 Apr 2023 16:47:39 +0000
+Received: by outflank-mailman (input) for mailman id 524337;
+ Thu, 20 Apr 2023 16:47:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IO+W=AL=citrix.com=prvs=467e7f66c=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1ppWwl-0002PK-2e
- for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 16:15:47 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 985cab62-df96-11ed-b21f-6b7b168915f2;
- Thu, 20 Apr 2023 18:15:43 +0200 (CEST)
-Received: from mail-bn8nam11lp2169.outbound.protection.outlook.com (HELO
- NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.169])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 20 Apr 2023 12:15:01 -0400
-Received: from DM6PR03MB5372.namprd03.prod.outlook.com (2603:10b6:5:24f::15)
- by BL1PR03MB6150.namprd03.prod.outlook.com (2603:10b6:208:31e::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Thu, 20 Apr
- 2023 16:14:56 +0000
-Received: from DM6PR03MB5372.namprd03.prod.outlook.com
- ([fe80::4418:2c5d:f218:e58]) by DM6PR03MB5372.namprd03.prod.outlook.com
- ([fe80::4418:2c5d:f218:e58%6]) with mapi id 15.20.6319.022; Thu, 20 Apr 2023
- 16:14:56 +0000
+ <SRS0=oMKn=AL=molgen.mpg.de=pmenzel@srs-se1.protection.inumbo.net>)
+ id 1ppXRa-0005rV-1J
+ for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 16:47:38 +0000
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0cac3c05-df9b-11ed-8611-37d641c3527e;
+ Thu, 20 Apr 2023 18:47:35 +0200 (CEST)
+Received: from [192.168.0.2] (ip5f5aee70.dynamic.kabel-deutschland.de
+ [95.90.238.112])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id C4A9E61E4052B;
+ Thu, 20 Apr 2023 18:47:32 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,187 +43,324 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 985cab62-df96-11ed-b21f-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1682007342;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=5qYw18nuoylvmGWA8A6EOst6p1DtVudzE1QBsL1wGH8=;
-  b=dUZxL6dboTBhHboJiNrn1wvsQMilA7pXXFhfs4dgaNEJ4htqi98eyqCa
-   hcxffn3R5y1FGtDHkLxXGPiIBWId+klFuVt8bUacpmZ5KAza9Ehphz13W
-   UEHDX6vbKAyyU/439sOsFcksxtTfTEBH9wVL9U5zhFER0VzYWd+g0xny5
-   4=;
-X-IronPort-RemoteIP: 104.47.58.169
-X-IronPort-MID: 106308308
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:hbWLT6rxK0V2P/A7xO5krmcLwgleBmI/ZBIvgKrLsJaIsI4StFCzt
- garIBmPO/yPNDb9c99zaIqwoBgDvMOBzdFgQQc5+Sw1QyxDpJuZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WJwUmAWP6gR5weCzSFNUPrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXAG4BdFO+u/K2+bO6ZK5pgJ8DdsTxYKpK7xmMzRmBZRonabbqZvyToPV+jHI3jM0IGuvCb
- c0EbzYpdA7HfxBEJlYQDtQ5gfusgX78NTZfrTp5p4JuuzSVkFM3jeiraYSEEjCJbZw9ckKwv
- GXd5CL9Cx4XLsOWzT6t+XOwnO7f2yj8Xer+EZXhrqAx2A3Injx75Bs+e2a9jeW72hWCRNdcC
- nEF/BVypqtp3Rn+JjX6d1jiyJKehTYMVtwVH+Ak5QWlzqvP/x3fFmUCViRGatEtqIkxXzNC/
- lyOmcngCXpwsbmWYXWH/7yQoHW5Pi19EIMZTSoNTA9A6d+zpog210vLVow6Tv/zicDpEzbtx
- TzMtDI5m7gYkc8M0eO84EzDhDWv4JPOS2bZ+znqY45s1SshDKbNWmBiwQOFhRqcBO51lmW8g
- UU=
-IronPort-HdrOrdr: A9a23:MbtWUa67x+r5N42g1wPXwOrXdLJyesId70hD6qkRc20xTiX8ra
- rCoB1173PJYVoqN03I4OrwX5VoIkmsl6Kdg7NwAV7KZmCPhILPFu9fBODZsl7d8kPFl9K14p
- 0QF5SWWOeaMbGjt7eB3OBjKadZ/DBbytHPuQ4D9QYXcei1UdAc0+8XYjzra3FLeA==
-X-Talos-CUID: =?us-ascii?q?9a23=3Ajq9DaWtoOPXz2xWN4UIapKYx6It7fmee8UvAI3a?=
- =?us-ascii?q?5CEguTbvOaQWd4v9Nxp8=3D?=
-X-Talos-MUID: =?us-ascii?q?9a23=3AUXY0yQ6ApIvbZMsSg6UwTuNYxoxG3qKCFEJdyqk?=
- =?us-ascii?q?ZvsqlCD12BGuWj2+eF9o=3D?=
-X-IronPort-AV: E=Sophos;i="5.99,213,1677560400"; 
-   d="scan'208";a="106308308"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CjpzLjh2DlQQl+TspiHwKVVl5R/i7owrGn97wrSak2wbj9jC5IhGk6/cWepv3RJQdyLKkRnmOaHtWdoKBfDEKNKLlWQ8E3+QqICCM4UkpLNCYdpbHqnQK2TLidOGyJTWzsiq9AsjKq2nkO34AIDs/lnLqNFnLMjmWkf40zTCjaXBSKPOQIMIt+y5CO5fbzjc+Oz1yq+B80cgy6rge3GwlJ6AsugsWV97jPSGIK9WG7eAlVWlLrQpMHv4GKdxVsbmc6dXK45UKt11BEvh09mymJT+NzBi1hPe4qy3Aw10ZHSHrxhYZ1aHGAucA+8xw989SMP+yn0kQ2+09y6sUXZvCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5qYw18nuoylvmGWA8A6EOst6p1DtVudzE1QBsL1wGH8=;
- b=ZoBt7tCildVaKnke2inakBiB7CVNBS7l6GL4LWhhQvAogrGvcAPzWbWB3Zdvkx8z0f4SJxF9U3vKCjddKi7xz52tWrUY96SKyE44+YsZH3eLmw21kBUU/MHZCotNFR7vD8SlnjkzlLRaONe0JMnkoGjM0Wbk9c5CxJ2WGgVvdsq8JFTWrMj2ZBUtzCzaEyrmqwkEKUQgZaaKEA4R7CoMhp9dPDdCzrb+qpd1bY6VEBJEaZPEuch2GhcANsGiAi2ip3dhnK+mwrMXnN4j/isDSfyyLxdBpCHwTLWhpr0OpwbGQjsehKFbs9MYB/4fji1VAQX+5nW/QHonzvyGrD9GwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5qYw18nuoylvmGWA8A6EOst6p1DtVudzE1QBsL1wGH8=;
- b=sET5pzYrAq2/P/JWfeOFAq1Shw6aMvnjsL8qsf4SqXLw0UB5MIkF14klYCDrt1SXZuCnFfb5IxqZ67xH84cgit29r1I7shF3sUdFyMMtzrUMg/oihXa7j2ShIe2ZejaCOaWiWeng2bK1gHXn1PMwv4Ea7O84yWiozWY/4WwW3ng=
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-To: Roger Pau Monne <roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Subject: Re: [PATCH v2] livepatch-tools: remove usage of error.h
-Thread-Topic: [PATCH v2] livepatch-tools: remove usage of error.h
-Thread-Index: AQHZaHyz8c+PPcqCtEm6H34gcW31tK80dMV2
-Date: Thu, 20 Apr 2023 16:14:55 +0000
-Message-ID:
- <DM6PR03MB53728797915DB90C57CE03B2F0639@DM6PR03MB5372.namprd03.prod.outlook.com>
-References: <20230406114106.54735-1-roger.pau@citrix.com>
-In-Reply-To: <20230406114106.54735-1-roger.pau@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR03MB5372:EE_|BL1PR03MB6150:EE_
-x-ms-office365-filtering-correlation-id: 67b3d50d-4bf7-48af-5b18-08db41ba619a
-x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- +dWh4rs6FNIv1vMHiY7EMwEDVWeefxjhb781Uxzyf/p8e6h77Zclt8ZDKldv0uYbrTacTrCvRyCFnLCsD/9Ud3gGZtXNCRRYLU066oJPGViciSxCZVdiVILZVfsjY6XPC1/pDFIlqF3HPj6AOutUd1fjiWuADDH3CQdUQkuGi7FA+khlJUVH45Jtq3PIJMdF2iq7AnROMFRpj49cNMCQGvmQkW4+LePN7rzd5K7iNnzV/J50hwJV5Xw7hawBfC03wvGEV4BVJ2Rrj1uvMcgh4Q7xNNnBKcmwRLKcH+W9bpqO5zb0g9Y9afq+/yQjId4WMuuyHzlIGFf8YYCPasHrZ+GjGY3H4n7iClrLbDnv2yHtC3lxlzUaBZpZ+A3an4zFX5iWg1EHRTHa++MlVBFBL3qfCFmDiD6grA1npIp0F6AUfsscWZSRei0ooqKt2Amkg1PrIqOCHfjrvY6wSQvqyH0oTSwKqgAtHCaisBsNAN+3xiFTBOSmL3vbSeV9tIe/fDj6ZK8l8qdjcuBerMxVdfxF4lNFC71tr7l7LqM1T8BfQOhrCEo7wDA+5wN8JhMfK3dqRHTRwCkjO+OaXGGEZdxedqiNNYu3alm8yyOmEg8KMYO2E9amXP/kBYUVaklf
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB5372.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(39860400002)(346002)(136003)(376002)(396003)(451199021)(33656002)(4326008)(110136005)(316002)(66556008)(66476007)(66446008)(64756008)(76116006)(66946007)(91956017)(7696005)(478600001)(71200400001)(55016003)(8936002)(5660300002)(41300700001)(8676002)(52536014)(2906002)(44832011)(38070700005)(86362001)(122000001)(38100700002)(82960400001)(26005)(6506007)(53546011)(9686003)(83380400001)(186003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?gP98pwC5tySQ4A9F29jNc6CnCzzgRz7O0FqC9gp5YxkUL8Hzmwf9bhYw8N?=
- =?iso-8859-1?Q?Srrmyjsbe2w6DCxyNVa+bP4KewW1D2szeooZ7irA9GrbAjiu3T1FI1DkZs?=
- =?iso-8859-1?Q?hLvfdhYhqThAI6JMLn4uu3B+8fhWRtA2p4GpecREoKNHJD4PoVV21XOGtf?=
- =?iso-8859-1?Q?BfJd30ujh2+Opg1xaKDJ4VilOzpYVR++1Q/fdWu58I3eF8oyAA2TGGu3O4?=
- =?iso-8859-1?Q?vbrdVT+j/NrIt5mvMgSOQN/+NcMsOTslKCf8lYDpzHfkipFOivLZzJsxKz?=
- =?iso-8859-1?Q?MYRwfVlnZjQl37orgl6bZD1bGQ1UvohPBqlvPcCSKIXxmrClglN3EGkhdO?=
- =?iso-8859-1?Q?BXOD7I5h5LmWVmGttuD81BdkVNce4z9u8hA5Hu22mS+HNlIIaOoDo/xVDY?=
- =?iso-8859-1?Q?29FJUCkS4PI9GKSi8BUB3+lTo4CjSmUHtiyHQdL25Miuqyg5Cfcu0eoBcL?=
- =?iso-8859-1?Q?OKHLv1IV6JQMxzV5UlFAjWOiL1awAL15+2jQwdBRQnuPYsVyx39BKv+sUV?=
- =?iso-8859-1?Q?wVVOYnp9ktNxbxHIOsGioK4KL37XV1XSUWfyx0VEp25l+5aVaJJv2L1xMw?=
- =?iso-8859-1?Q?ih9jsatUmA8l8ysRdfdjqoZJB/mEfmvR4CqXVMToM6txvUprh/5sur72Cg?=
- =?iso-8859-1?Q?v0uvt+FBe8AAjYmTagKM/E0NhVSUtvIV8S1ER0tmxMqBugjk2Ns4WAm7BY?=
- =?iso-8859-1?Q?JsG0DIbxunhug2IdZyQIOmvpSZ0+jqAWog8V2CWkxkfQXHa3estolYiM5p?=
- =?iso-8859-1?Q?kjXRjPgOsPJY78gfXe+IR0kOripQrXviwqyIBj4nTvQi7d1fVgVxpbg42E?=
- =?iso-8859-1?Q?y0qv7qOgSjppz/f7khPuySaFsGC+wYr5Rt6c/rlvq+vMgbNYd+VegJnTVj?=
- =?iso-8859-1?Q?HQYG1Im/uBUVbnpIRhi8wZ1tw5Elqc8hIR12cRoJ6dW7+xQybn2/DzFr22?=
- =?iso-8859-1?Q?YAx/cZiKHttBtVjo3vB0C38lDlJiHqnwRiBrCd/QgaIxOaJre6J2wxnPUn?=
- =?iso-8859-1?Q?27oWO8optDJgiKTVsz8DFQIdgDvcyrKe4ukR+dmSdbZ88z7dQubvyfLHVi?=
- =?iso-8859-1?Q?aQs+Ym8184lLPxsUwgS2B4fVUg3ycA7+YCb0yWS4DnfoyFMlouUIwIkl+0?=
- =?iso-8859-1?Q?hcQPUS5P0lFc039pWjmOhMh46mXEzfY06KzbGL8/rwyewbqvzJ9AJJaxls?=
- =?iso-8859-1?Q?yQFXsyGUhY5PE50awOVa1RuM+WWA/xfO/LDL9yCQJpq/Yso7Q9zU62WkZA?=
- =?iso-8859-1?Q?SDwgu9Cb6fiQkOC49h1WdvQm3f1LpNBwERNBWsElzxfvtyFHZ+wd/jjmRH?=
- =?iso-8859-1?Q?10D3ZmuWflue3keC9JsQWxppRlU2++doUyA5e/qDTR/+3P5XRwcLQZq+Tk?=
- =?iso-8859-1?Q?fW0wcI5RtJZ7hYjj7JBh63MR3GJnOy7a08e813C3WklD/wTMRAS7OKpQ6x?=
- =?iso-8859-1?Q?rPoUzdDAjeJBKyV/R3C8FRUO7QOBcAfjQiCoXpBvbDBPeNmyTA8fe2ZaFa?=
- =?iso-8859-1?Q?8v9j8chodkKcj2SusMDq/wH0L1t3/Ddugns33XsAr5ie9xceRBj2GkmfgZ?=
- =?iso-8859-1?Q?IhcS6uQ+rpLqKnO3cm5iCDl+d++vxsqAVi9KHMxL0J1B5N8qX1yyPCql9E?=
- =?iso-8859-1?Q?8CoeI7C2VzBSezVRulv3JHuSI8CtLfPs5s?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 0cac3c05-df9b-11ed-8611-37d641c3527e
+Message-ID: <56e59a4d-a47f-4bfe-7db5-5f921062ad69@molgen.mpg.de>
+Date: Thu, 20 Apr 2023 18:47:31 +0200
 MIME-Version: 1.0
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	7ZMkqTsO/snJtAJAupYpvvjnlWj1jUQBLZj4nm+mDYQlCO5dl+gVke3gkQVN0IoBQVtrHcwIHMEXF3vcRqpWs4k2K7NlpftmrRL/o/FMBwbR60BraGl/TSiJY6ZNq/gJ9qY2rsstpkAMtaUFTKVcDr9dWruYzrZOgHS8YkwpM6oyTpKbQuwP9DO1X6JK36mv3ZDkODDyMoLB1FwhHi4dO9Dy75oBqq+UjpDt2o77Zx+rujQRf8xAJGDNV9PXbA74ep7rztoGbIXW6GLuq4hROm9kib4qtvsawbsB26a39vnyJj+OVHYY4RuBN50xCv4aoT0kU2C8fshnqYXmPEb4dmZiMpUqWFYSWwJAY9yxlA+xtWiVvGNsE7z1NooZnntVfjUQ8mD24QCvnyBB0jZ4EjICursrPhR/KKXuRnLxxst2GDDDpIebCJ2KHR+KaQdgRFbFPgZIy4HIpS4yTjvea1mBHN+gqMTzFzLQLeO+8U/lljcbBi09okvGB7NMvZRIRTEjJ115rlha3HAz3xBPMoQ3/lLgbozIcBz+aHYSDL7pqIZ/Tq+5NxtzVSCcJncnl4L8WzCGGdnfT9st7Og9OUia0DLYf7UG5zE+iH+SNRy/pCzVDC9+bPwCG+rZlhRRPgF4N6Z4vYb8ywLXfTfbNp+gavyn5htFLmb9rIRWb5hMf76fqjLIcD8HTw1hEun4sqIHgND3ozVo4Tc49NoMBp9Xn+IDF3YdFkKizZnBnR0NO1Z1wE15VTkW2/RWP1Fn5AGrRJkvg2r3pUyTEzFCG5OuWnKU9Q8X7de1CHAlMpv8sVb2IzjsaAjBho6wQzJd
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB5372.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67b3d50d-4bf7-48af-5b18-08db41ba619a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2023 16:14:56.0032
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: h1AoaiNdVwhRa56V97vrmpc8ke/mA95pxbIVg0B17j/tx66zr6PcUwrI3aLEIZN3CJbkB3KVcRbInu8vR8CN7blc+8lJyUdzbFE0sQF/Sbs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB6150
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [patch 00/37] cpu/hotplug, x86: Reworked parallel CPU bringup
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org,
+ x86@kernel.org, David Woodhouse <dwmw2@infradead.org>,
+ Brian Gerst <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Oleksandr Natalenko <oleksandr@natalenko.name>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Piotr Gorski <lucjan.lucjanov@gmail.com>, David Woodhouse
+ <dwmw@amazon.co.uk>, Usama Arif <usama.arif@bytedance.com>,
+ =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, Russell King <linux@armlinux.org.uk>,
+ Arnd Bergmann <arnd@arndb.de>, linux-arm-kernel@lists.infradead.org,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Guo Ren <guoren@kernel.org>, linux-csky@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org,
+ "James E. J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, linux-parisc@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
+ <palmer@dabbelt.com>, linux-riscv@lists.infradead.org,
+ Mark Rutland <mark.rutland@arm.com>, Sabin Rapan <sabrapan@amazon.com>
+References: <87r0sh4m7a.ffs@tglx>
+ <8592a301-9933-1cad-bd61-8d97e7c7493b@molgen.mpg.de> <87a5z443g2.ffs@tglx>
+ <877cu83v45.ffs@tglx> <874jpc3s3r.ffs@tglx>
+ <0f5463fd-9c4a-6361-adbb-dd89dbb9138d@citrix.com>
+ <c2aaa4fb-a5ba-d5bf-634a-dcf4fd8ad246@citrix.com> <871qkf3qek.ffs@tglx>
+ <26d385da-2ede-5d73-2959-84c8f7d89e03@citrix.com> <87y1mm3iqz.ffs@tglx>
+ <ZEFRhXua6Jxvit1R@google.com> <87v8hq35sk.ffs@tglx>
+Content-Language: en-US
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <87v8hq35sk.ffs@tglx>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> From: Roger Pau Monne <roger.pau@citrix.com>=0A=
-> Sent: Thursday, April 6, 2023 12:41 PM=0A=
-> To: xen-devel@lists.xenproject.org <xen-devel@lists.xenproject.org>=0A=
-> Cc: Roger Pau Monne <roger.pau@citrix.com>; Konrad Rzeszutek Wilk <konrad=
-.wilk@oracle.com>; Ross Lagerwall <ross.lagerwall@citrix.com>=0A=
-> Subject: [PATCH v2] livepatch-tools: remove usage of error.h =0A=
-> =A0=0A=
-> It's a GNU libc specific header which prevents building on musl for=0A=
-> example.=A0 Instead use errx() in ERROR() and DIFF_FATAL() macros.=0A=
-> =0A=
-> Signed-off-by: Roger Pau Monn=E9 <roger.pau@citrix.com>=0A=
-> ---=0A=
-> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>=0A=
-> Cc: Ross Lagerwall <ross.lagerwall@citrix.com>=0A=
-> ---=0A=
-> Changes since v1:=0A=
-> =A0- Use errx().=0A=
-> ---=0A=
-> =A0common.h=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 | 9 ++++++---=0A=
-> =A0create-diff-object.c | 1 -=0A=
-> =A0lookup.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 | 7 +++++--=0A=
-> =A0prelink.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 | 1 -=0A=
-> =A04 files changed, 11 insertions(+), 7 deletions(-)=0A=
-> =0A=
-> diff --git a/common.h b/common.h=0A=
-> index 9a9da79..bbaa950 100644=0A=
-> --- a/common.h=0A=
-> +++ b/common.h=0A=
-> @@ -1,18 +1,21 @@=0A=
-> =A0#ifndef _COMMON_H_=0A=
-> =A0#define _COMMON_H_=0A=
-> =A0=0A=
-> -#include <error.h>=0A=
-> +#include <err.h>=0A=
-> =A0=0A=
-> =A0extern char *childobj;=0A=
-> =A0=0A=
-> =A0#define ERROR(format, ...) \=0A=
-> -=A0=A0=A0=A0=A0=A0 error(1, 0, "ERROR: %s: %s: %d: " format, childobj, _=
-_FUNCTION__, __LINE__, ##__VA_ARGS__)=0A=
-> +({ \=0A=
-> +=A0=A0=A0=A0=A0=A0 fflush(stdout); \=0A=
-> +=A0=A0=A0=A0=A0=A0 errx(1, "ERROR: %s: %s: %d: " format "\n", childobj, =
-__FUNCTION__, __LINE__, ##__VA_ARGS__); \=0A=
-> +})=0A=
-=0A=
-Did you mean to add "\n" here? Wouldn't that result in a double new=0A=
-line?=0A=
-=0A=
-With that removed (can be done during commit),=0A=
-=0A=
-Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>=
+Dear Thomas,
+
+
+Am 20.04.23 um 17:57 schrieb Thomas Gleixner:
+> On Thu, Apr 20 2023 at 07:51, Sean Christopherson wrote:
+>> On Thu, Apr 20, 2023, Thomas Gleixner wrote:
+>>> On Thu, Apr 20 2023 at 10:23, Andrew Cooper wrote:
+>>>> On 20/04/2023 9:32 am, Thomas Gleixner wrote:
+>>>>> On Wed, Apr 19, 2023, Andrew Cooper wrote:
+>>>>>> This was changed in x2APIC, which made the x2APIC_ID immutable.
+>>>
+>>>>> I'm pondering to simply deny parallel mode if x2APIC is not there.
+>>>>
+>>>> I'm not sure if that will help much.
+>>>
+>>> Spoilsport.
+>>
+>> LOL, well let me pile on then.  x2APIC IDs aren't immutable on AMD hardware.  The
+>> ID is read-only when the CPU is in x2APIC mode, but any changes made to the ID
+>> while the CPU is in xAPIC mode survive the transition to x2APIC.  From the APM:
+>>
+>>    A value previously written by software to the 8-bit APIC_ID register (MMIO offset
+>>    30h) is converted by hardware into the appropriate format and reflected into the
+>>    32-bit x2APIC_ID register (MSR 802h).
+>>
+>> FWIW, my observations from testing on bare metal are that the xAPIC ID is effectively
+>> read-only (writes are dropped) on Intel CPUs as far back as Haswell, while the above
+>> behavior described in the APM holds true on at least Rome and Milan.
+>>
+>> My guess is that Intel's uArch specific behavior of the xAPIC ID being read-only
+>> was introduced when x2APIC came along, but I didn't test farther back than Haswell.
+> 
+> I'm not so worried about modern hardware. The horrorshow is the old muck
+> as demonstrated and of course there is virt :)
+> 
+> Something like the completely untested below should just work whatever
+> APIC ID the BIOS decided to dice.
+> 
+> That might just work on SEV too without that GHCB muck, but what do I
+> know.
+> 
+> Thanks,
+> 
+>          tglx
+> ---
+> --- a/arch/x86/include/asm/apicdef.h
+> +++ b/arch/x86/include/asm/apicdef.h
+> @@ -138,7 +138,8 @@
+>   #define		APIC_EILVT_MASKED	(1 << 16)
+>   
+>   #define APIC_BASE (fix_to_virt(FIX_APIC_BASE))
+> -#define APIC_BASE_MSR	0x800
+> +#define APIC_BASE_MSR		0x800
+> +#define APIC_X2APIC_ID_MSR	0x802
+>   #define XAPIC_ENABLE	(1UL << 11)
+>   #define X2APIC_ENABLE	(1UL << 10)
+>   
+> @@ -162,6 +163,7 @@
+>   #define APIC_CPUID(apicid)	((apicid) & XAPIC_DEST_CPUS_MASK)
+>   #define NUM_APIC_CLUSTERS	((BAD_APICID + 1) >> XAPIC_DEST_CPUS_SHIFT)
+>   
+> +#ifndef __ASSEMBLY__
+>   /*
+>    * the local APIC register structure, memory mapped. Not terribly well
+>    * tested, but we might eventually use this one in the future - the
+> @@ -435,4 +437,5 @@ enum apic_delivery_modes {
+>   	APIC_DELIVERY_MODE_EXTINT	= 7,
+>   };
+>   
+> +#endif /* !__ASSEMBLY__ */
+>   #endif /* _ASM_X86_APICDEF_H */
+> --- a/arch/x86/include/asm/smp.h
+> +++ b/arch/x86/include/asm/smp.h
+> @@ -195,14 +195,13 @@ extern void nmi_selftest(void);
+>   #endif
+>   
+>   extern unsigned int smpboot_control;
+> +extern unsigned long apic_mmio_base;
+>   
+>   #endif /* !__ASSEMBLY__ */
+>   
+>   /* Control bits for startup_64 */
+> -#define STARTUP_APICID_CPUID_1F 0x80000000
+> -#define STARTUP_APICID_CPUID_0B 0x40000000
+> -#define STARTUP_APICID_CPUID_01 0x20000000
+> -#define STARTUP_APICID_SEV_ES	0x10000000
+> +#define STARTUP_READ_APICID	0x80000000
+> +#define STARTUP_APICID_SEV_ES	0x40000000
+>   
+>   /* Top 8 bits are reserved for control */
+>   #define STARTUP_PARALLEL_MASK	0xFF000000
+> --- a/arch/x86/kernel/apic/apic.c
+> +++ b/arch/x86/kernel/apic/apic.c
+> @@ -101,6 +101,8 @@ static int apic_extnmi __ro_after_init =
+>    */
+>   static bool virt_ext_dest_id __ro_after_init;
+>   
+> +unsigned long apic_mmio_base __ro_after_init;
+> +
+>   /*
+>    * Map cpu index to physical APIC ID
+>    */
+> @@ -2164,6 +2166,7 @@ void __init register_lapic_address(unsig
+>   
+>   	if (!x2apic_mode) {
+>   		set_fixmap_nocache(FIX_APIC_BASE, address);
+> +		apic_mmio_base = APIC_BASE;
+>   		apic_printk(APIC_VERBOSE, "mapped APIC to %16lx (%16lx)\n",
+>   			    APIC_BASE, address);
+>   	}
+> --- a/arch/x86/kernel/head_64.S
+> +++ b/arch/x86/kernel/head_64.S
+> @@ -24,8 +24,10 @@
+>   #include "../entry/calling.h"
+>   #include <asm/export.h>
+>   #include <asm/nospec-branch.h>
+> +#include <asm/apicdef.h>
+>   #include <asm/fixmap.h>
+>   #include <asm/smp.h>
+> +
+>   #include <asm/sev-common.h>
+>   
+>   /*
+> @@ -237,37 +239,24 @@ SYM_INNER_LABEL(secondary_startup_64_no_
+>   
+>   #ifdef CONFIG_SMP
+>   	/*
+> -	 * For parallel boot, the APIC ID is retrieved from CPUID, and then
+> -	 * used to look up the CPU number.  For booting a single CPU, the
+> -	 * CPU number is encoded in smpboot_control.
+> +	 * For parallel boot, the APIC ID is either retrieved the APIC or
+> +	 * from CPUID, and then used to look up the CPU number.
+> +	 * For booting a single CPU, the CPU number is encoded in
+> +	 * smpboot_control.
+>   	 *
+> -	 * Bit 31	STARTUP_APICID_CPUID_1F flag (use CPUID 0x1f)
+> -	 * Bit 30	STARTUP_APICID_CPUID_0B flag (use CPUID 0x0b)
+> -	 * Bit 29	STARTUP_APICID_CPUID_01 flag (use CPUID 0x01)
+> -	 * Bit 28	STARTUP_APICID_SEV_ES flag (CPUID 0x0b via GHCB MSR)
+> +	 * Bit 31	STARTUP_APICID_READ (Read APICID from APIC)
+> +	 * Bit 30	STARTUP_APICID_SEV_ES flag (CPUID 0x0b via GHCB MSR)
+>   	 * Bit 0-23	CPU# if STARTUP_APICID_CPUID_xx flags are not set
+>   	 */
+>   	movl	smpboot_control(%rip), %ecx
+> +	testl	$STARTUP_READ_APICID, %ecx
+>   #ifdef CONFIG_AMD_MEM_ENCRYPT
+>   	testl	$STARTUP_APICID_SEV_ES, %ecx
+>   	jnz	.Luse_sev_cpuid_0b
+>   #endif
+> -	testl	$STARTUP_APICID_CPUID_1F, %ecx
+> -	jnz	.Luse_cpuid_1f
+> -	testl	$STARTUP_APICID_CPUID_0B, %ecx
+> -	jnz	.Luse_cpuid_0b
+> -	testl	$STARTUP_APICID_CPUID_01, %ecx
+> -	jnz	.Luse_cpuid_01
+>   	andl	$(~STARTUP_PARALLEL_MASK), %ecx
+>   	jmp	.Lsetup_cpu
+>   
+> -.Luse_cpuid_01:
+> -	mov	$0x01, %eax
+> -	cpuid
+> -	mov	%ebx, %edx
+> -	shr	$24, %edx
+> -	jmp	.Lsetup_AP
+> -
+>   #ifdef CONFIG_AMD_MEM_ENCRYPT
+>   .Luse_sev_cpuid_0b:
+>   	/* Set the GHCB MSR to request CPUID 0x0B_EDX */
+> @@ -292,24 +281,30 @@ SYM_INNER_LABEL(secondary_startup_64_no_
+>   	jmp	.Lsetup_AP
+>   #endif
+>   
+> -.Luse_cpuid_0b:
+> -	mov	$0x0B, %eax
+> -	xorl	%ecx, %ecx
+> -	cpuid
+> -	jmp	.Lsetup_AP
+> +.Lread_apicid:
+> +	mov	$MSR_IA32_APICBASE, %ecx
+> +	rdmsr
+> +	testl	$X2APIC_ENABLE, %eax
+> +	jnz	read_apicid_msr
+> +
+> +	/* Read the APIC ID from the fix-mapped MMIO space. */
+> +	movq	apic_mmio_base(%rip), %rcx
+> +	addq	$APIC_ID, %rcx
+> +	movl	(%rcx), %eax
+> +	shr	$24, %eax
+> +	jnz	.Lread_apicid
+>   
+> -.Luse_cpuid_1f:
+> -	mov	$0x1f, %eax
+> -	xorl	%ecx, %ecx
+> -	cpuid
+> +.Lread_apicid_msr:
+> +	mov	$APIC_X2APIC_ID_MSR, %ecx
+> +	rdmsr
+>   
+>   .Lsetup_AP:
+> -	/* EDX contains the APIC ID of the current CPU */
+> +	/* EAX contains the APIC ID of the current CPU */
+>   	xorq	%rcx, %rcx
+>   	leaq	cpuid_to_apicid(%rip), %rbx
+>   
+>   .Lfind_cpunr:
+> -	cmpl	(%rbx,%rcx,4), %edx
+> +	cmpl	(%rbx,%rcx,4), %eax
+>   	jz	.Lsetup_cpu
+>   	inc	%ecx
+>   #ifdef CONFIG_FORCE_NR_CPUS
+> --- a/arch/x86/kernel/smpboot.c
+> +++ b/arch/x86/kernel/smpboot.c
+> @@ -1253,41 +1253,22 @@ bool __init arch_cpuhp_init_parallel_bri
+>   		return false;
+>   	}
+>   
+> -	/* Encrypted guests require special CPUID handling. */
+> +	/* Encrypted guests require special handling. */
+>   	if (cc_platform_has(CC_ATTR_GUEST_STATE_ENCRYPT)) {
+>   		switch (cc_get_vendor()) {
+>   		case CC_VENDOR_AMD:
+>   			ctrl = STARTUP_APICID_SEV_ES;
+>   			if (topology_extended_leaf == 0x0b)
+> -				goto setup;
+> +				break;
+>   			fallthrough;
+>   		default:
+>   			pr_info("Parallel CPU startup disabled due to guest state encryption\n");
+>   			return false;
+>   		}
+> +	} else {
+> +		ctrl = STARTUP_READ_APICID;
+>   	}
+>   
+> -	switch (topology_extended_leaf) {
+> -	case 0x0b:
+> -		ctrl = STARTUP_APICID_CPUID_0B;
+> -		break;
+> -	case 0x1f:
+> -		ctrl = STARTUP_APICID_CPUID_1F;
+> -		break;
+> -	case 0x00:
+> -		/* For !x2APIC mode 8 bits from leaf 0x01 are sufficient. */
+> -		if (!x2apic_mode) {
+> -			ctrl = STARTUP_APICID_CPUID_01;
+> -			break;
+> -		}
+> -		fallthrough;
+> -	default:
+> -		pr_info("Parallel CPU startup disabled. Unsupported topology leaf %u\n",
+> -			topology_extended_leaf);
+> -		return false;
+> -	}
+> -
+> -setup:
+>   	pr_debug("Parallel CPU startup enabled: 0x%08x\n", ctrl);
+>   	smpboot_control = ctrl;
+>   	return true;
+
+I quickly applied it on top of your branch, but I am getting:
+
+```
+$ wget https://lore.kernel.org/lkml/87v8hq35sk.ffs@tglx/raw
+$ patch -p1 < raw
+$ make
+[…]
+   LD      .tmp_vmlinux.kallsyms1
+ld: arch/x86/kernel/head_64.o: in function `secondary_startup_64_no_verify':
+(.head.text+0xbf): undefined reference to `read_apicid_msr'
+make[1]: *** [scripts/Makefile.vmlinux:35: vmlinux] Error 1
+make: *** [Makefile:1249: vmlinux] Error 2
+```
+
+
+Kind regards,
+
+Paul
 
