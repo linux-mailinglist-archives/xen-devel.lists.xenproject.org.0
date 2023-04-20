@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84B9C6E944C
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 14:30:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.524240.815021 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A5306E9486
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 14:35:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.524246.815031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppTQX-0004gt-FR; Thu, 20 Apr 2023 12:30:17 +0000
+	id 1ppTVN-0005NJ-1s; Thu, 20 Apr 2023 12:35:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 524240.815021; Thu, 20 Apr 2023 12:30:17 +0000
+Received: by outflank-mailman (output) from mailman id 524246.815031; Thu, 20 Apr 2023 12:35:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppTQX-0004fC-CT; Thu, 20 Apr 2023 12:30:17 +0000
-Received: by outflank-mailman (input) for mailman id 524240;
- Thu, 20 Apr 2023 12:30:16 +0000
+	id 1ppTVM-0005Kl-UU; Thu, 20 Apr 2023 12:35:16 +0000
+Received: by outflank-mailman (input) for mailman id 524246;
+ Thu, 20 Apr 2023 12:35:16 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ppTQW-0004f2-GJ
- for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 12:30:16 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ppTVL-0005Kb-W2; Thu, 20 Apr 2023 12:35:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ppTQT-00050M-Is; Thu, 20 Apr 2023 12:30:13 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=[192.168.15.245]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ppTQT-0006jo-Bf; Thu, 20 Apr 2023 12:30:13 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ppTVL-0005GF-NC; Thu, 20 Apr 2023 12:35:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ppTVL-00076F-5n; Thu, 20 Apr 2023 12:35:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ppTVL-00079e-5M; Thu, 20 Apr 2023 12:35:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,130 +42,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=nSWYaANsJVA/M6A750YbBpgphrkLqfCBpbXVkB3eAN4=; b=6IMy7mSW79/H5jiqJ8gBO3t6pQ
-	Pj4fhPXn6jMVm1Hd1nUO9IzQ1EjBWOOv0n9ixXt1JlIPQDZQdNrUJPjaE+OeyWVIosUKHG6HEXbmR
-	oiJ1sXvKjCJJmRpKLKdXi34goY7JPD2JmadbG6i0oOnn1ogLJq35ptJ/UN4fjUMg0gs8=;
-Message-ID: <8e3d2240-3741-497e-2318-5a4a4d7bfd7b@xen.org>
-Date: Thu, 20 Apr 2023 13:30:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=SZ6hjhRErb8QiR4/S4QbDDkcri9m+TrgeVAw6tDWPBg=; b=mL/B2m53KHCpguyLpf7CbV8YuO
+	d6D5ouguUQLd8nXea929P5rp95krnFy53KJk1DLPp+25e2r1c+paNyVIMpsn5Xb26WGv67oGQXV52
+	waL/LKyUjJtSoNXycb3xvpqydoypKN5lrNBzHugTTUnewrpo/B1Lc6BXZ2c549gBQKoU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180331-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.0
-Subject: Re: [PATCH v5 00/12] SVE feature for arm guests
-Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Luca Fancellu <Luca.Fancellu@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Nick Rosbrook <rosbrookn@gmail.com>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Henry Wang <Henry.Wang@arm.com>,
- Community Manager <community.manager@xenproject.org>
-References: <20230412094938.2693890-1-luca.fancellu@arm.com>
- <08BE4F94-C4B5-4B05-AD92-61C5C5D24F39@arm.com>
- <bdb1b5e3-c3d9-1c39-f7f7-8f48157ba7b3@xen.org>
- <4cbaaf12-bd11-ca04-eed1-f8848290a692@suse.com>
- <C21BD176-AD46-4379-947F-4271D3EE05A1@arm.com>
- <5f5b65eb-d1fc-271a-02db-aa347cc708e9@suse.com>
- <7614AE25-F59D-430A-9C3E-30B1CE0E1580@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <7614AE25-F59D-430A-9C3E-30B1CE0E1580@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [qemu-mainline test] 180331: trouble: blocked/broken/fail/pass/starved
+X-Osstest-Failures:
+    qemu-mainline:build-armhf:<job status>:broken:regression
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:build-armhf:hosts-allocate:broken:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:build-check(1):starved:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):starved:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:build-check(1):starved:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):starved:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):starved:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):starved:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:build-check(1):starved:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:build-check(1):starved:nonblocking
+    qemu-mainline:build-arm64-pvops:hosts-allocate:starved:nonblocking
+    qemu-mainline:build-arm64-xsm:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    qemuu=c1eb2ddf0f8075faddc5f7c3d39feae3e8e9d6b4
+X-Osstest-Versions-That:
+    qemuu=7dbd6f8a27e30fe14adb3d5869097cddf24038d6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 20 Apr 2023 12:35:15 +0000
+
+flight 180331 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180331/
+
+Failures and problems with tests :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ build-armhf                   2 hosts-allocate        broken starved in 180258
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180258
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180258
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 180258
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180258
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 180258
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               starved  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               starved  n/a
+ test-arm64-arm64-xl           1 build-check(1)               starved  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               starved  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               starved  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               starved  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               starved  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               starved  n/a
+ build-arm64-pvops             2 hosts-allocate               starved  n/a
+ build-arm64-xsm               2 hosts-allocate               starved  n/a
+
+version targeted for testing:
+ qemuu                c1eb2ddf0f8075faddc5f7c3d39feae3e8e9d6b4
+baseline version:
+ qemuu                7dbd6f8a27e30fe14adb3d5869097cddf24038d6
+
+Last test of basis   180258  2023-04-14 08:48:34 Z    6 days
+Testing same since   180320  2023-04-19 16:38:30 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Peter Maydell <peter.maydell@linaro.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              starved 
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  broken  
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            starved 
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          starved 
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 starved 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      starved 
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  starved 
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  starved 
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 starved 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 starved 
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      starved 
+ test-armhf-armhf-xl-vhd                                      blocked 
+ test-amd64-i386-xl-vhd                                       pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 19/04/2023 09:20, Bertrand Marquis wrote:
-> Hi Jan,
-> 
->> On 19 Apr 2023, at 09:52, Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 19.04.2023 09:31, Bertrand Marquis wrote:
->>> Hi Jan,
->>>
->>>> On 19 Apr 2023, at 08:28, Jan Beulich <jbeulich@suse.com> wrote:
->>>>
->>>> On 18.04.2023 16:25, Julien Grall wrote:
->>>>> On 18/04/2023 14:13, Bertrand Marquis wrote:
->>>>>> On this serie I would like to open a discussion on how to handle the vector size
->>>>>> and the corresponding command line / configuration / device tree parameters.
->>>>>>
->>>>>> In general the user must either give a vector size it wants or has a solution to
->>>>>> just request the maximum supported size.
->>>>>>
->>>>>> In the current implementation if a size bigger than the supported one is provided:
->>>>>> - we silently disable SVE for dom0
->>>>>> - we silently disable SVE for dom0less
->>>>>> - we do not create a guest when done through tools
->>>>>>
->>>>>> This is not completely coherent and i think we should aim for a coherent behaviour
->>>>>> unless we have arguments for this status.
->>>>>
->>>>> +1.
->>>>>
->>>>>> Is there any good reason to silently disable for Dom0 and dom0less only ?
->>>>>>
->>>>>> I see some possible solutions here:
->>>>>>
->>>>>> - modify parameter behaviour to use the supported size if parameter is bigger than
->>>>>> it. This would at least keep SVE enabled if a VM depends on it and could simplify
->>>>>> some of the handling by using 2048 to use the maximum supported size.
->>>>>
->>>>> My concern with this approach and the third one is the user may take
->>>>> some time to realize the problem in the xl.cfg. So...
->>>>>
->>>>>>
->>>>>> - coherently stop if the parameter value is not supported (including if sve is
->>>>>> not supported)
->>>>>
->>>>> ... this is my preferred approach because it would be clear that the
->>>>> value passed to Xen is bogus.
->>>>
->>>> I did say earlier on that this comes with its own downside of preventing
->>>> boot to complete for no real reason. It's all Arm code, so you're fine
->>>> to ignore me, but in similar situations elsewhere (sorry, don't recall a
->>>> concrete example off the top of my head) we've aimed to allow the system
->>>> to boot, for the admin to then take corrective action if/as needed.
->>>
->>> But a guest depending on the feature will just crash later when booting.
->>> This is making the assumption that guests are all able to properly adapt
->>> to different hardware possibilities.
->>> This might be the case when you have a full Linux but if you consider an
->>> embedded use case, if something is activated due to command line parameters
->>> or configuration ones, it should not be expected that those are ignored I think.
->>>
->>> There are definitely 2 different needs here, maybe we need to have something
->>> like a "strict" switch to allow both use cases ?
->>
->> Possibly. Yet along what I've said before - would you then also mean that to
->> fail boot upon encountering entirely unknown command line options?
-> 
-> I think this should depend:
-> - completely unknow: we can ignore
-> - not supported (sve while sve is not supported by the platform or Xen): we should not ignore
-> 
-> I agree that one could use custom command line arguments for lots of reasons
-> (in linux you can do that and get them back from /proc for example) but silently
-> ignoring a parameter that is known to Xen i do not think we should do.
-> 
-> I think in most cases, one could think its system is correctly running but could get
-> problems later (or in some cases even not have any) so having a clear error at the
-> beginning is a lot more clear.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-FWIW, I agree with Bertrand.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Cheers,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Julien Grall
+broken-job build-armhf broken
+broken-step build-armhf hosts-allocate
+
+Not pushing.
+
+------------------------------------------------------------
+commit c1eb2ddf0f8075faddc5f7c3d39feae3e8e9d6b4
+Author: Peter Maydell <peter.maydell@linaro.org>
+Date:   Wed Apr 19 17:27:13 2023 +0100
+
+    Update version for v8.0.0 release
+    
+    Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
 
