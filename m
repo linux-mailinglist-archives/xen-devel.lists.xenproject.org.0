@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 037D76E92F4
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 13:38:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.524121.814761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C216C6E92F6
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 13:38:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.524123.814780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppSbh-0001Ak-Qi; Thu, 20 Apr 2023 11:37:45 +0000
+	id 1ppSbz-0001uC-Hx; Thu, 20 Apr 2023 11:38:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 524121.814761; Thu, 20 Apr 2023 11:37:45 +0000
+Received: by outflank-mailman (output) from mailman id 524123.814780; Thu, 20 Apr 2023 11:38:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppSbh-000180-Np; Thu, 20 Apr 2023 11:37:45 +0000
-Received: by outflank-mailman (input) for mailman id 524121;
- Thu, 20 Apr 2023 11:37:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ppSbz-0001qe-Ef; Thu, 20 Apr 2023 11:38:03 +0000
+Received: by outflank-mailman (input) for mailman id 524123;
+ Thu, 20 Apr 2023 11:38:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=onos=AL=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1ppSbg-00017u-Jp
- for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 11:37:44 +0000
+ id 1ppSbx-0001nK-W9
+ for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 11:38:01 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c28d34f5-df6f-11ed-b21f-6b7b168915f2;
- Thu, 20 Apr 2023 13:37:42 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cbebed97-df6f-11ed-8611-37d641c3527e;
+ Thu, 20 Apr 2023 13:37:59 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-178-a4reCKcJMC-maL8cmDVnuQ-1; Thu, 20 Apr 2023 07:37:37 -0400
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+ us-mta-433-iWi0qQDrOru7dTdAiGIe9Q-1; Thu, 20 Apr 2023 07:37:39 -0400
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F9FB280BF69;
- Thu, 20 Apr 2023 11:37:36 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4AD328996F3;
+ Thu, 20 Apr 2023 11:37:38 +0000 (UTC)
 Received: from localhost (unknown [10.39.193.254])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 7A6FC2166B33;
- Thu, 20 Apr 2023 11:37:34 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id A66435AB7A;
+ Thu, 20 Apr 2023 11:37:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,17 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c28d34f5-df6f-11ed-b21f-6b7b168915f2
+X-Inumbo-ID: cbebed97-df6f-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681990661;
+	s=mimecast20190719; t=1681990677;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=NjZzjvFlly0+fag4k7wDm16HnoaaLh2yTrNsegeJk9A=;
-	b=bhWwn3VHQNh+DU/GBBa7Q41H1799jHIO6uQCtz5oqe/vY6OpX+W3z9IaDNwaYgKszDVahE
-	9p05l5pGaS77sdJHGSjb69jdECyJBgR2FJh9H39O2dikonbZHpUTuSRwv6AttxP3yWo4/1
-	KdTqRVqcqru/RtQTGA1w2pFIeiK1ZQo=
-X-MC-Unique: a4reCKcJMC-maL8cmDVnuQ-1
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DrOhiPPcL+d6htjDrKGwRstWfOt7XytfnWLBr7kygzo=;
+	b=WIsjsDVv7HyDtM1F6k3FF5u8ijz8HUAezGGDfpYIUXukK6UH9iK2vO6JZghNPOWHQUn4Tx
+	+HfDJXSjmcjtDDw44RO5K66REStYoIKlqmjiJj0gTqmfzWnttunz00HLGeumfj9B4xTBzX
+	NqabMQREecI3QkKYSiObZJeKxJeKOqs=
+X-MC-Unique: iWi0qQDrOru7dTdAiGIe9Q-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Peter Lieven <pl@kamp.de>,
@@ -92,137 +93,85 @@ Cc: Peter Lieven <pl@kamp.de>,
 	"Richard W.M. Jones" <rjones@redhat.com>,
 	Coiby Xu <Coiby.Xu@gmail.com>,
 	Stefano Garzarella <sgarzare@redhat.com>
-Subject: [PATCH v3 00/20] block: remove aio_disable_external() API
-Date: Thu, 20 Apr 2023 07:37:12 -0400
-Message-Id: <20230420113732.336620-1-stefanha@redhat.com>
+Subject: [PATCH v3 01/20] hw/qdev: introduce qdev_is_realized() helper
+Date: Thu, 20 Apr 2023 07:37:13 -0400
+Message-Id: <20230420113732.336620-2-stefanha@redhat.com>
+In-Reply-To: <20230420113732.336620-1-stefanha@redhat.com>
+References: <20230420113732.336620-1-stefanha@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 
-v3:
-- Resend full patch series. v2 was sent in the middle of a git rebase and was
-  missing patches. [Eric]
-- Apply Reviewed-by tags.
-v2:
-- Do not rely on BlockBackend request queuing, implement .drained_begin/end()
-  instead in xen-block, virtio-blk, and virtio-scsi [Paolo]
-- Add qdev_is_realized() API [Philippe]
-- Add patch to avoid AioContext lock around blk_exp_ref/unref() [Paolo]
-- Add patch to call .drained_begin/end() from main loop thread to simplify
-  callback implementations
+Add a helper function to check whether the device is realized without
+requiring the Big QEMU Lock. The next patch adds a second caller. The
+goal is to avoid spreading DeviceState field accesses throughout the
+code.
 
-The aio_disable_external() API temporarily suspends file descriptor monitoring
-in the event loop. The block layer uses this to prevent new I/O requests being
-submitted from the guest and elsewhere between bdrv_drained_begin() and
-bdrv_drained_end().
+Suggested-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+---
+ include/hw/qdev-core.h | 17 ++++++++++++++---
+ hw/scsi/scsi-bus.c     |  3 +--
+ 2 files changed, 15 insertions(+), 5 deletions(-)
 
-While the block layer still needs to prevent new I/O requests in drained
-sections, the aio_disable_external() API can be replaced with
-.drained_begin/end/poll() callbacks that have been added to BdrvChildClass and
-BlockDevOps.
-
-This newer .bdrained_begin/end/poll() approach is attractive because it works
-without specifying a specific AioContext. The block layer is moving towards
-multi-queue and that means multiple AioContexts may be processing I/O
-simultaneously.
-
-The aio_disable_external() was always somewhat hacky. It suspends all file
-descriptors that were registered with is_external=true, even if they have
-nothing to do with the BlockDriverState graph nodes that are being drained.
-It's better to solve a block layer problem in the block layer than to have an
-odd event loop API solution.
-
-The approach in this patch series is to implement BlockDevOps
-.drained_begin/end() callbacks that temporarily stop file descriptor handlers.
-This ensures that new I/O requests are not submitted in drained sections.
-
-The first two virtio-scsi patches were already sent as a separate series. I
-included them because they are necessary in order to fully remove
-aio_disable_external().
-
-Based-on: 087bc644b7634436ca9d52fe58ba9234e2bef026 (kevin/block-next)
-
-Stefan Hajnoczi (20):
-  hw/qdev: introduce qdev_is_realized() helper
-  virtio-scsi: avoid race between unplug and transport event
-  virtio-scsi: stop using aio_disable_external() during unplug
-  block/export: only acquire AioContext once for
-    vhost_user_server_stop()
-  util/vhost-user-server: rename refcount to in_flight counter
-  block/export: wait for vhost-user-blk requests when draining
-  block/export: stop using is_external in vhost-user-blk server
-  hw/xen: do not use aio_set_fd_handler(is_external=true) in
-    xen_xenstore
-  block: add blk_in_drain() API
-  block: drain from main loop thread in bdrv_co_yield_to_drain()
-  xen-block: implement BlockDevOps->drained_begin()
-  hw/xen: do not set is_external=true on evtchn fds
-  block/export: rewrite vduse-blk drain code
-  block/export: don't require AioContext lock around blk_exp_ref/unref()
-  block/fuse: do not set is_external=true on FUSE fd
-  virtio: make it possible to detach host notifier from any thread
-  virtio-blk: implement BlockDevOps->drained_begin()
-  virtio-scsi: implement BlockDevOps->drained_begin()
-  virtio: do not set is_external=true on host notifiers
-  aio: remove aio_disable_external() API
-
- hw/block/dataplane/xen-block.h              |   2 +
- include/block/aio.h                         |  55 ---------
- include/block/export.h                      |   2 +
- include/hw/qdev-core.h                      |  17 ++-
- include/hw/scsi/scsi.h                      |  14 +++
- include/qemu/vhost-user-server.h            |   8 +-
- include/sysemu/block-backend-common.h       |  25 ++--
- include/sysemu/block-backend-global-state.h |   1 +
- util/aio-posix.h                            |   1 -
- block.c                                     |   7 --
- block/blkio.c                               |  15 +--
- block/block-backend.c                       |   7 ++
- block/curl.c                                |  10 +-
- block/export/export.c                       |  13 +-
- block/export/fuse.c                         |  58 ++++++++-
- block/export/vduse-blk.c                    | 128 ++++++++++++++------
- block/export/vhost-user-blk-server.c        |  73 +++++++----
- block/io.c                                  |   5 +-
- block/io_uring.c                            |   4 +-
- block/iscsi.c                               |   3 +-
- block/linux-aio.c                           |   4 +-
- block/nfs.c                                 |   5 +-
- block/nvme.c                                |   8 +-
- block/ssh.c                                 |   4 +-
- block/win32-aio.c                           |   6 +-
- hw/block/dataplane/virtio-blk.c             |  19 ++-
- hw/block/dataplane/xen-block.c              |  42 +++++--
- hw/block/virtio-blk.c                       |  38 +++++-
- hw/block/xen-block.c                        |  24 +++-
- hw/i386/kvm/xen_xenstore.c                  |   2 +-
- hw/scsi/scsi-bus.c                          |  46 ++++++-
- hw/scsi/scsi-disk.c                         |  28 ++++-
- hw/scsi/virtio-scsi-dataplane.c             |  31 +++--
- hw/scsi/virtio-scsi.c                       |  59 +++++++--
- hw/virtio/virtio.c                          |   6 +-
- hw/xen/xen-bus.c                            |  11 +-
- io/channel-command.c                        |   6 +-
- io/channel-file.c                           |   3 +-
- io/channel-socket.c                         |   3 +-
- migration/rdma.c                            |  16 +--
- tests/unit/test-aio.c                       |  27 +----
- tests/unit/test-fdmon-epoll.c               |  73 -----------
- util/aio-posix.c                            |  20 +--
- util/aio-win32.c                            |   8 +-
- util/async.c                                |   3 +-
- util/fdmon-epoll.c                          |  10 --
- util/fdmon-io_uring.c                       |   8 +-
- util/fdmon-poll.c                           |   3 +-
- util/main-loop.c                            |   7 +-
- util/qemu-coroutine-io.c                    |   7 +-
- util/vhost-user-server.c                    |  38 +++---
- hw/scsi/trace-events                        |   2 +
- tests/unit/meson.build                      |   3 -
- 53 files changed, 582 insertions(+), 436 deletions(-)
- delete mode 100644 tests/unit/test-fdmon-epoll.c
-
+diff --git a/include/hw/qdev-core.h b/include/hw/qdev-core.h
+index bd50ad5ee1..4d734cf35e 100644
+--- a/include/hw/qdev-core.h
++++ b/include/hw/qdev-core.h
+@@ -1,6 +1,7 @@
+ #ifndef QDEV_CORE_H
+ #define QDEV_CORE_H
+ 
++#include "qemu/atomic.h"
+ #include "qemu/queue.h"
+ #include "qemu/bitmap.h"
+ #include "qemu/rcu.h"
+@@ -164,9 +165,6 @@ struct NamedClockList {
+ 
+ /**
+  * DeviceState:
+- * @realized: Indicates whether the device has been fully constructed.
+- *            When accessed outside big qemu lock, must be accessed with
+- *            qatomic_load_acquire()
+  * @reset: ResettableState for the device; handled by Resettable interface.
+  *
+  * This structure should not be accessed directly.  We declare it here
+@@ -332,6 +330,19 @@ DeviceState *qdev_new(const char *name);
+  */
+ DeviceState *qdev_try_new(const char *name);
+ 
++/**
++ * qdev_is_realized:
++ * @dev: The device to check.
++ *
++ * May be called outside big qemu lock.
++ *
++ * Returns: %true% if the device has been fully constructed, %false% otherwise.
++ */
++static inline bool qdev_is_realized(DeviceState *dev)
++{
++    return qatomic_load_acquire(&dev->realized);
++}
++
+ /**
+  * qdev_realize: Realize @dev.
+  * @dev: device to realize
+diff --git a/hw/scsi/scsi-bus.c b/hw/scsi/scsi-bus.c
+index c97176110c..07275fb631 100644
+--- a/hw/scsi/scsi-bus.c
++++ b/hw/scsi/scsi-bus.c
+@@ -60,8 +60,7 @@ static SCSIDevice *do_scsi_device_find(SCSIBus *bus,
+      * the user access the device.
+      */
+ 
+-    if (retval && !include_unrealized &&
+-        !qatomic_load_acquire(&retval->qdev.realized)) {
++    if (retval && !include_unrealized && !qdev_is_realized(&retval->qdev)) {
+         retval = NULL;
+     }
+ 
 -- 
 2.39.2
 
