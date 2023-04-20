@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA96E6E9303
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 13:38:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.524143.814858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7ABF6E9302
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Apr 2023 13:38:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.524142.814851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppSch-00054m-DV; Thu, 20 Apr 2023 11:38:47 +0000
+	id 1ppScg-0004x0-PH; Thu, 20 Apr 2023 11:38:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 524143.814858; Thu, 20 Apr 2023 11:38:47 +0000
+Received: by outflank-mailman (output) from mailman id 524142.814851; Thu, 20 Apr 2023 11:38:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppSch-000500-5T; Thu, 20 Apr 2023 11:38:47 +0000
-Received: by outflank-mailman (input) for mailman id 524143;
- Thu, 20 Apr 2023 11:38:46 +0000
+	id 1ppScg-0004tP-Hp; Thu, 20 Apr 2023 11:38:46 +0000
+Received: by outflank-mailman (input) for mailman id 524142;
+ Thu, 20 Apr 2023 11:38:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=onos=AL=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1ppScg-0001nK-59
- for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 11:38:46 +0000
+ id 1ppSce-0001nK-BX
+ for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 11:38:44 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e76816f6-df6f-11ed-8611-37d641c3527e;
- Thu, 20 Apr 2023 13:38:44 +0200 (CEST)
+ id e64fda60-df6f-11ed-8611-37d641c3527e;
+ Thu, 20 Apr 2023 13:38:42 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-669-FevHGkSHNviPfel5s39mPA-1; Thu, 20 Apr 2023 07:38:37 -0400
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+ us-mta-121-zMSb4NMHMQGsHyfUy_KGfA-1; Thu, 20 Apr 2023 07:38:40 -0400
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7E978996F3;
- Thu, 20 Apr 2023 11:38:36 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 59959886063;
+ Thu, 20 Apr 2023 11:38:39 +0000 (UTC)
 Received: from localhost (unknown [10.39.193.254])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 242C340C2064;
- Thu, 20 Apr 2023 11:38:35 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 95E6F492C3E;
+ Thu, 20 Apr 2023 11:38:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e76816f6-df6f-11ed-8611-37d641c3527e
+X-Inumbo-ID: e64fda60-df6f-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681990723;
+	s=mimecast20190719; t=1681990721;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6sTqQmJRDK/JwUQj6FoYqmlPFJsGwZK9pc+TSucKp9o=;
-	b=X1W3GlOs2z9YBADvE1imCa68m4ULzfoqSPlxKlz8A1Dm+c4oNlaz46A4jp/GX9B2JeMZeg
-	2P59So8U5chJGviYUq7pS7zvRDcd+F4962cCU5sd220bf8Kga6zCqTFbwqWVAw+J5/dVNL
-	HM9KLI7Nmbig5+K1l83RvRd6L7yht5c=
-X-MC-Unique: FevHGkSHNviPfel5s39mPA-1
+	bh=TBoAHwSzsacA9uVcaYGhwuzX40gWj9dN8dhM1t9uyLM=;
+	b=IOM8cZKyFfKXM8lt2kn57jDDH/ibCphamlDD/EO4eSbo/Gx5FtLV5ylddDsXEV+Yc/ImAl
+	fQWgpzKa5KfZUBxC6IrggOH3MXlCE8EBjorDgbxErDZjKx0rkKXkBcpDzH0q5oYXlZy3QG
+	gEMHbEfbYtk9NVxh490V9j2w1aWyYhs=
+X-MC-Unique: zMSb4NMHMQGsHyfUy_KGfA-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Peter Lieven <pl@kamp.de>,
@@ -93,57 +93,85 @@ Cc: Peter Lieven <pl@kamp.de>,
 	"Richard W.M. Jones" <rjones@redhat.com>,
 	Coiby Xu <Coiby.Xu@gmail.com>,
 	Stefano Garzarella <sgarzare@redhat.com>
-Subject: [PATCH v3 09/20] block: add blk_in_drain() API
-Date: Thu, 20 Apr 2023 07:37:21 -0400
-Message-Id: <20230420113732.336620-10-stefanha@redhat.com>
+Subject: [PATCH v3 10/20] block: drain from main loop thread in bdrv_co_yield_to_drain()
+Date: Thu, 20 Apr 2023 07:37:22 -0400
+Message-Id: <20230420113732.336620-11-stefanha@redhat.com>
 In-Reply-To: <20230420113732.336620-1-stefanha@redhat.com>
 References: <20230420113732.336620-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 
-The BlockBackend quiesce_counter is greater than zero during drained
-sections. Add an API to check whether the BlockBackend is in a drained
-section.
+For simplicity, always run BlockDevOps .drained_begin/end/poll()
+callbacks in the main loop thread. This makes it easier to implement the
+callbacks and avoids extra locks.
 
-The next patch will use this API.
+Move the function pointer declarations from the I/O Code section to the
+Global State section in block-backend-common.h.
 
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- include/sysemu/block-backend-global-state.h | 1 +
- block/block-backend.c                       | 7 +++++++
- 2 files changed, 8 insertions(+)
+ include/sysemu/block-backend-common.h | 25 +++++++++++++------------
+ block/io.c                            |  3 ++-
+ 2 files changed, 15 insertions(+), 13 deletions(-)
 
-diff --git a/include/sysemu/block-backend-global-state.h b/include/sysemu/block-backend-global-state.h
-index 2b6d27db7c..ac7cbd6b5e 100644
---- a/include/sysemu/block-backend-global-state.h
-+++ b/include/sysemu/block-backend-global-state.h
-@@ -78,6 +78,7 @@ void blk_activate(BlockBackend *blk, Error **errp);
- int blk_make_zero(BlockBackend *blk, BdrvRequestFlags flags);
- void blk_aio_cancel(BlockAIOCB *acb);
- int blk_commit_all(void);
-+bool blk_in_drain(BlockBackend *blk);
- void blk_drain(BlockBackend *blk);
- void blk_drain_all(void);
- void blk_set_on_error(BlockBackend *blk, BlockdevOnError on_read_error,
-diff --git a/block/block-backend.c b/block/block-backend.c
-index 9e0f48692a..e0a1d9ec0f 100644
---- a/block/block-backend.c
-+++ b/block/block-backend.c
-@@ -1270,6 +1270,13 @@ blk_check_byte_request(BlockBackend *blk, int64_t offset, int64_t bytes)
-     return 0;
- }
+diff --git a/include/sysemu/block-backend-common.h b/include/sysemu/block-backend-common.h
+index 2391679c56..780cea7305 100644
+--- a/include/sysemu/block-backend-common.h
++++ b/include/sysemu/block-backend-common.h
+@@ -59,6 +59,19 @@ typedef struct BlockDevOps {
+      */
+     bool (*is_medium_locked)(void *opaque);
  
-+/* Are we currently in a drained section? */
-+bool blk_in_drain(BlockBackend *blk)
-+{
-+    GLOBAL_STATE_CODE(); /* change to IO_OR_GS_CODE(), if necessary */
-+    return qatomic_read(&blk->quiesce_counter);
-+}
++    /*
++     * Runs when the backend receives a drain request.
++     */
++    void (*drained_begin)(void *opaque);
++    /*
++     * Runs when the backend's last drain request ends.
++     */
++    void (*drained_end)(void *opaque);
++    /*
++     * Is the device still busy?
++     */
++    bool (*drained_poll)(void *opaque);
 +
- /* To be called between exactly one pair of blk_inc/dec_in_flight() */
- static void coroutine_fn blk_wait_while_drained(BlockBackend *blk)
- {
+     /*
+      * I/O API functions. These functions are thread-safe.
+      *
+@@ -76,18 +89,6 @@ typedef struct BlockDevOps {
+      * Runs when the size changed (e.g. monitor command block_resize)
+      */
+     void (*resize_cb)(void *opaque);
+-    /*
+-     * Runs when the backend receives a drain request.
+-     */
+-    void (*drained_begin)(void *opaque);
+-    /*
+-     * Runs when the backend's last drain request ends.
+-     */
+-    void (*drained_end)(void *opaque);
+-    /*
+-     * Is the device still busy?
+-     */
+-    bool (*drained_poll)(void *opaque);
+ } BlockDevOps;
+ 
+ /*
+diff --git a/block/io.c b/block/io.c
+index db438c7657..6285d67546 100644
+--- a/block/io.c
++++ b/block/io.c
+@@ -331,7 +331,8 @@ static void coroutine_fn bdrv_co_yield_to_drain(BlockDriverState *bs,
+     if (ctx != co_ctx) {
+         aio_context_release(ctx);
+     }
+-    replay_bh_schedule_oneshot_event(ctx, bdrv_co_drain_bh_cb, &data);
++    replay_bh_schedule_oneshot_event(qemu_get_aio_context(),
++                                     bdrv_co_drain_bh_cb, &data);
+ 
+     qemu_coroutine_yield();
+     /* If we are resumed from some other event (such as an aio completion or a
 -- 
 2.39.2
 
