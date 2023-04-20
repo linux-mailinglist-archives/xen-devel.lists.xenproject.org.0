@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB0A36E9F3D
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 00:46:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.524386.815280 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A99C6EA00B
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 01:34:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.524393.815289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppd2d-00024t-Bl; Thu, 20 Apr 2023 22:46:15 +0000
+	id 1ppdly-0007JH-Tf; Thu, 20 Apr 2023 23:33:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 524386.815280; Thu, 20 Apr 2023 22:46:15 +0000
+Received: by outflank-mailman (output) from mailman id 524393.815289; Thu, 20 Apr 2023 23:33:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppd2d-00022F-8g; Thu, 20 Apr 2023 22:46:15 +0000
-Received: by outflank-mailman (input) for mailman id 524386;
- Thu, 20 Apr 2023 22:46:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ppd2b-000225-JG; Thu, 20 Apr 2023 22:46:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ppd2b-0002wa-DE; Thu, 20 Apr 2023 22:46:13 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ppd2a-0006SB-OV; Thu, 20 Apr 2023 22:46:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ppd2a-0003ZR-O0; Thu, 20 Apr 2023 22:46:12 +0000
+	id 1ppdly-0007H4-Qo; Thu, 20 Apr 2023 23:33:06 +0000
+Received: by outflank-mailman (input) for mailman id 524393;
+ Thu, 20 Apr 2023 23:33:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VXON=AL=gmail.com=vishal.moola@srs-se1.protection.inumbo.net>)
+ id 1ppdlx-0007Gy-BN
+ for xen-devel@lists.xenproject.org; Thu, 20 Apr 2023 23:33:05 +0000
+Received: from mail-yw1-x112a.google.com (mail-yw1-x112a.google.com
+ [2607:f8b0:4864:20::112a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b17156f0-dfd3-11ed-b220-6b7b168915f2;
+ Fri, 21 Apr 2023 01:33:03 +0200 (CEST)
+Received: by mail-yw1-x112a.google.com with SMTP id
+ 00721157ae682-54fb89e1666so2161497b3.3
+ for <xen-devel@lists.xenproject.org>; Thu, 20 Apr 2023 16:33:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,252 +40,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=pWNlw9r9n1MUT4iJt1TufPIgBVuzPhY5172a75ktsH8=; b=u/URXNTRjVMmhQNqAN7Ls0h9VN
-	Wwg6U/S6RqyiB3Zt9cXHwH62pbiypGNV3ZQlqxEixzgm7lNS3ziehDMZxSn2WbCw1JhTykfhHCmGV
-	4HXTDsNjs5YGeKXbWjEFGNdOg0+K1yMMxyfVoNRU3FR3Zc6tZFRMR7t3V+/CvtJx6QRw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180328-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b17156f0-dfd3-11ed-b220-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1682033582; x=1684625582;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PN2ixoAK9D3BuA0Ys9lwnMZMdyz2nW/UTyxM+6NXzqI=;
+        b=AX4YGgPJjZWyR0kqu580/PVasSF+uNRiA7gr7gHqMdE/2vLkFpdjQpKmKbwxnvzy1W
+         4jX/DWRv14Hh6L+AuqxNt9TrfsVNFOA+DMslH6msB9ssOPuKNdU5LH4UlZNRkrQgi/yF
+         2C7UqT75y8+OehNqUJfsf2nClBSiv3rZRBTIf/8qXrl8xEYNdOg0mllWNN17Cw7o+BHc
+         Dv7TVavT6/AGmzCH4d7Tksroa3F14WaPTNTcwjLqhrbimQGYJu8Di4n0FcYkgCSZZuxf
+         BRI5CuXSQtBQDqv2Sdnh5lzey/n44xr+tGNe/P6HPq7sE+h81UtCj457v+cM+mPjpeEU
+         pLaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1682033582; x=1684625582;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PN2ixoAK9D3BuA0Ys9lwnMZMdyz2nW/UTyxM+6NXzqI=;
+        b=Yz73ePMtXXqZ+g5gf46nol9YXXf8t6OViB3pd7EZv3pkn+xiyaOezBfmM3Opvc9mML
+         E/6vQO2RJpWG07z1/Yncd40xJCxNUC9HqjfYRteQvButfbz8DfAjNTDmJ5wz7WEoJR9j
+         sU/8jASlMSZ7BJinX/dcpuQJqvHQhj3y8mfAjJNB53Xk3S8bgmN7+877jBjLCtDoWao1
+         YrcxyhglEKhs6hXcdiK42iTXXAat0YzKkMdIQ5jLskZIwQR/ZrDQxriVz45gYAyP7Le6
+         sHL55jj2eVkUAD2cPrwj5yyiQRQKhHYJYhyA0rhZmwyaYWKM8DNnuF4wbXYFsjXnnoDl
+         zlww==
+X-Gm-Message-State: AAQBX9d7Eh83QcKq+KYq+ITpEoV5ziwPPWuvdXXicIZKCIR7LJujOpZ8
+	vAFzFVxlTe7k8U4Ej1Yq/YBrmdztSLmivmQHqHY=
+X-Google-Smtp-Source: AKy350bopqnJQtT+418DUBi5UUf4Yx/MaaBIpccKeoXBRimnuUzPebu61FMjyfXCRvipIUnUp3uBwA4Azmrc32p/hx0=
+X-Received: by 2002:a0d:f205:0:b0:541:8810:8d7b with SMTP id
+ b5-20020a0df205000000b0054188108d7bmr466003ywf.15.1682033581993; Thu, 20 Apr
+ 2023 16:33:01 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [libvirt test] 180328: regressions - trouble: blocked/broken/fail/pass
-X-Osstest-Failures:
-    libvirt:build-armhf:<job status>:broken:regression
-    libvirt:build-armhf:hosts-allocate:broken:regression
-    libvirt:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
-    libvirt:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:regression
-    libvirt:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=0d0604a51a5674e432335d201418cbba80899b73
-X-Osstest-Versions-That:
-    libvirt=b486430db34d0db1dcbf39b0d9840d03cd57f615
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 20 Apr 2023 22:46:12 +0000
+References: <20230417205048.15870-1-vishal.moola@gmail.com>
+ <20230417205048.15870-2-vishal.moola@gmail.com> <da600570-51c7-8088-b46b-7524c9e66e5d@redhat.com>
+ <CAOzc2pwpRhNoFbdzdzuvrqbZdf2OsrTvBGs40QCZJjA5fS_q1A@mail.gmail.com> <e0c0ad67-f23f-ff35-80bf-841dcfd43d99@redhat.com>
+In-Reply-To: <e0c0ad67-f23f-ff35-80bf-841dcfd43d99@redhat.com>
+From: Vishal Moola <vishal.moola@gmail.com>
+Date: Thu, 20 Apr 2023 16:32:50 -0700
+Message-ID: <CAOzc2pwDtn836Tf0Egh+Z258hxSTVtvwuyU2qiJa1iLa6vZFjQ@mail.gmail.com>
+Subject: Re: [PATCH 01/33] s390: Use _pt_s390_gaddr for gmap address tracking
+To: David Hildenbrand <david@redhat.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
+	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 180328 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180328/
+On Wed, Apr 19, 2023 at 12:54=E2=80=AFAM David Hildenbrand <david@redhat.co=
+m> wrote:
+>
+> On 18.04.23 23:33, Vishal Moola wrote:
+> > On Tue, Apr 18, 2023 at 8:45=E2=80=AFAM David Hildenbrand <david@redhat=
+.com> wrote:
+> >>
+> >> On 17.04.23 22:50, Vishal Moola (Oracle) wrote:
+> >>> s390 uses page->index to keep track of page tables for the guest addr=
+ess
+> >>> space. In an attempt to consolidate the usage of page fields in s390,
+> >>> replace _pt_pad_2 with _pt_s390_gaddr to replace page->index in gmap.
+> >>>
+> >>> This will help with the splitting of struct ptdesc from struct page, =
+as
+> >>> well as allow s390 to use _pt_frag_refcount for fragmented page table
+> >>> tracking.
+> >>>
+> >>> Since page->_pt_s390_gaddr aliases with mapping, ensure its set to NU=
+LL
+> >>> before freeing the pages as well.
+> >>>
+> >>> Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+> >>> ---
+> >>
+> >> [...]
+> >>
+> >>> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> >>> index 3fc9e680f174..2616d64c0e8c 100644
+> >>> --- a/include/linux/mm_types.h
+> >>> +++ b/include/linux/mm_types.h
+> >>> @@ -144,7 +144,7 @@ struct page {
+> >>>                struct {        /* Page table pages */
+> >>>                        unsigned long _pt_pad_1;        /* compound_he=
+ad */
+> >>>                        pgtable_t pmd_huge_pte; /* protected by page->=
+ptl */
+> >>> -                     unsigned long _pt_pad_2;        /* mapping */
+> >>> +                     unsigned long _pt_s390_gaddr;   /* mapping */
+> >>>                        union {
+> >>>                                struct mm_struct *pt_mm; /* x86 pgds o=
+nly */
+> >>>                                atomic_t pt_frag_refcount; /* powerpc =
+*/
+> >>
+> >> The confusing part is, that these gmap page tables are not ordinary
+> >> process page tables that we would ordinarily place into this section
+> >> here. That's why they are also not allocated/freed using the typical
+> >> page table constructor/destructor ...
+> >
+> > I initially thought the same, so I was quite confused when I saw
+> > __gmap_segment_gaddr was using pmd_pgtable_page().
+> >
+> > Although they are not ordinary process page tables, since we
+> > eventually want to move them out of struct page, I think shifting them
+> > to be in ptdescs, being a memory descriptor for page tables, makes
+> > the most sense.
+>
+> Seeing utilities like tlb_remove_page_ptdesc() that don't really apply
+> to such page tables, I wonder if we should much rather treat such
+> shadow/auxiliary/... page tables (just like other architectures like
+> x86, arm, ... employ as well) as a distinct type.
+>
+> And have ptdesc be the common type for all process page tables.
 
-Regressions :-(
+Although I do like the idea of having a distinct type for them, I'm not sur=
+e
+I see the merits of having another type specifically for those types of
+page tables.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- build-armhf                   2 hosts-allocate         broken REGR. vs. 180308
- test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 180308
- test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat fail REGR. vs. 180308
+As it currently is, tlb_remove_table() is only distinct from tlb_remove_pag=
+e()
+when an architecture defines its own removal function. I'm not too familiar
+with most of their differences, but we can probably continue to let them do
+that. As of now, I'm not too sure what a distinct type would look like that
+could meet all their needs holistically.
 
-Tests which did not succeed, but are not blocking:
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+> >
+> > Another option is to leave pmd_pgtable_page() as is just for this case.
+> > Or we can revert commit 7e25de77bc5ea which uses the function here
+> > then figure out where these gmap pages table pages will go later.
+>
+> I'm always confused when reading gmap code, so let me have another look :=
+)
+>
+> The confusing part is that s390x shares the lowest level page tables
+> (PTE tables) between the process and gmap ("guest mapping", similar to
+> EPT on x86-64). It maps these process PTE tables (covering 1 MiB) into
+> gmap-specific PMD tables.
 
-version targeted for testing:
- libvirt              0d0604a51a5674e432335d201418cbba80899b73
-baseline version:
- libvirt              b486430db34d0db1dcbf39b0d9840d03cd57f615
+Especially in cases like this. If the architecture wants to share page tabl=
+es
+then everything being in form ptdesc would make that easiest, and
+continue to let them define their own niche functions for their needs.
 
-Last test of basis   180308  2023-04-19 04:18:48 Z    1 days
-Testing same since   180328  2023-04-20 04:18:54 Z    0 days    1 attempts
+> pmd_pgtable_page() should indeed always give us a gmap-specific
+> PMD-table. In fact, something allocated via gmap_alloc_table().
+>
+> Decoupling both concepts sounds like a good idea.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Privoznik <mprivozn@redhat.com>
-  Pavel Borecki <pavel.borecki@gmail.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  broken  
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 fail    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-armhf broken
-broken-step build-armhf hosts-allocate
-
-Not pushing.
-
-------------------------------------------------------------
-commit 0d0604a51a5674e432335d201418cbba80899b73
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Mon Apr 17 10:10:15 2023 +0200
-
-    networkRefreshDhcpDaemon: Get dnsmasq's PID once
-    
-    This is a relic of commit v3.7.0-rc1~132 when getter/setter APIs
-    for dnsmasq's PID were introduced. Previously, obj->dnsmasqPid
-    was accessed directly. But the aforementioned commit introduced
-    two calls to virNetworkObjGetDnsmasqPid() even though the result
-    of the first call is stored in a variable.
-    
-    Remove the second call as it's unnecessary.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Ján Tomko <jtomko@redhat.com>
-
-commit 004d5141c59b08904396d53efe64ebe15f30c7b6
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Mon Apr 17 10:10:04 2023 +0200
-
-    conf: Initialize _virNetworkObj::dnsmasqPid to -1 in virNetworkObjNew()
-    
-    Throughout all of our network driver code we assume that
-    dnsmasqPid of value -1 means the network has no dnsmasq process
-    running. There are plenty of calls to:
-    
-      virNetworkObjSetDnsmasqPid(obj, -1);
-    
-    or:
-    
-      pid_t dnsmasqPid = virNetworkObjGetDnsmasqPid(obj);
-      if (dnsmasqPid > 0) ...;
-    
-    Now, a virNetworkObj is created via virNetworkObjNew() which
-    might as well set this de-facto default value.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Ján Tomko <jtomko@redhat.com>
-
-commit 212dfa94eeec88eb1a0bcf0c935a0ce17984306a
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Mon Apr 17 10:09:51 2023 +0200
-
-    networkUpdateState: do not assume dnsmasq_caps
-    
-    Assume there's a dnsmasq running (because there's an active
-    virtual network that spawned it). Now, shut down the daemon,
-    remove the dnsmasq binary and start the daemon again. At this
-    point, networkUpdateState() is called, but dnsmasq_caps is NULL
-    (because networkStateInitialize() called earlier failed to set
-    them, rightfully though).
-    
-    Now, the networkUpdateState() tries to read the dnsmasq's PID
-    file using virPidFileReadIfAlive() which takes a path to the
-    corresponding binary as one of its arguments. To provide that
-    path, dnsmasqCapsGetBinaryPath() is called, but since
-    dnsmasq_caps is NULL, it dereferences it and thus causes a crash.
-    
-    It's true that virPidFileReadIfAlive() can deal with a removed
-    binary (well virPidFileReadPathIfAlive() which it calls can), but
-    iff the binary path is provided in its absolute form. Otherwise,
-    virFileResolveAllLinks() fails to canonicalize the path
-    (expected, the path doesn't exist anyway).
-    
-    Therefore, reading dnsmasq's PID file didn't work before
-    v8.1.0-rc1~401 which introduced this crash. It was always set to
-    -1. But passing NULL as binary path instead, makes
-    virPidFileReadIfAlive() return early, right after the PID file is
-    read and it's confirmed the PID exists.
-    
-    Yes, this may yield wrong results, as the PID might be of a
-    completely different binary. But this problem is preexistent and
-    until we start locking PID files, there's nothing we can do about
-    it. IOW, it would require rework of dnsmasq PID file handling.
-    
-    Fixes: 4b68c982e283471575bacbf87302495864da46fe
-    Resolves: https://gitlab.com/libvirt/libvirt/-/issues/456
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Ján Tomko <jtomko@redhat.com>
-
-commit 03094f8c65f71b8cc55b73d1c2af575b0e84a23d
-Author: Pavel Borecki <pavel.borecki@gmail.com>
-Date:   Wed Apr 19 07:48:48 2023 +0200
-
-    Translated using Weblate (Czech)
-    
-    Currently translated at 97.9% (10191 of 10400 strings)
-    
-    Translation: libvirt/libvirt
-    Translate-URL: https://translate.fedoraproject.org/projects/libvirt/libvirt/cs/
-    
-    Translated using Weblate (Czech)
-    
-    Currently translated at 97.9% (10189 of 10400 strings)
-    
-    Translation: libvirt/libvirt
-    Translate-URL: https://translate.fedoraproject.org/projects/libvirt/libvirt/cs/
-    
-    Co-authored-by: Pavel Borecki <pavel.borecki@gmail.com>
-    Signed-off-by: Pavel Borecki <pavel.borecki@gmail.com>
+Yeah, I'm not a fan of how this gmap caller is the only external caller
+using this to get a page for their own purposes. I'll update that in v2.
 
