@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B31FA6EA355
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 07:50:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.524433.815378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C9006EA28D
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 06:04:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.524435.815362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppjdq-0004Ie-3v; Fri, 21 Apr 2023 05:49:06 +0000
+	id 1pphzt-0002Av-DB; Fri, 21 Apr 2023 04:03:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 524433.815378; Fri, 21 Apr 2023 05:49:06 +0000
+Received: by outflank-mailman (output) from mailman id 524435.815362; Fri, 21 Apr 2023 04:03:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppjdq-0004FP-13; Fri, 21 Apr 2023 05:49:06 +0000
-Received: by outflank-mailman (input) for mailman id 524433;
- Fri, 21 Apr 2023 03:36:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z4Eq=AM=bytedance.com=xieyongji@srs-se1.protection.inumbo.net>)
- id 1pphZN-0007iA-IB
- for xen-devel@lists.xenproject.org; Fri, 21 Apr 2023 03:36:22 +0000
-Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
- [2607:f8b0:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac76b144-dff5-11ed-8611-37d641c3527e;
- Fri, 21 Apr 2023 05:36:18 +0200 (CEST)
-Received: by mail-pf1-x433.google.com with SMTP id
- d2e1a72fcca58-63b70ca0a84so2277553b3a.2
- for <xen-devel@lists.xenproject.org>; Thu, 20 Apr 2023 20:36:18 -0700 (PDT)
+	id 1pphzt-00028p-96; Fri, 21 Apr 2023 04:03:45 +0000
+Received: by outflank-mailman (input) for mailman id 524435;
+ Fri, 21 Apr 2023 04:03:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pphzs-00028f-0x; Fri, 21 Apr 2023 04:03:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pphzr-0001Gg-LC; Fri, 21 Apr 2023 04:03:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pphzr-0002k8-1C; Fri, 21 Apr 2023 04:03:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pphzr-00072r-0m; Fri, 21 Apr 2023 04:03:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,366 +42,392 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac76b144-dff5-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1682048176; x=1684640176;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1jAyLYhp4ydL9pXoFgTievz8fgHmpFOhj5xccyxtnbM=;
-        b=lp2uPGA/zzrUBtwKYaosqKXYbp1Hfuaopw4Et1t12z8UqIEtWDFJUqvZZm8AXxlaCr
-         J3D4BRSEP9UPFrmgBm0cFxhBEUg8LGrs1C4Ooa5DbdTjExLLIKiduWFeFqUZegKhy0lO
-         PI+OUij8NLg8tdSDSUzWRwOKx0ey59ZTNH3eq4xYsIb0LEp/mIQ3vti5mCr2ciDZ2JMs
-         GEfQiIjGOsYrMyGISiiPL/vdzn7T2jZsXypgv0Nc5Fg+66Fc4ppoZfjvKnb8nkPz0ZFC
-         ByQBiMwVApRyDGt0M5Dap5+fvdGoz7hgNghs/fgJ1YsLYUm/2yHyvqNlG69gI7Ik3k7r
-         H2mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682048176; x=1684640176;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=1jAyLYhp4ydL9pXoFgTievz8fgHmpFOhj5xccyxtnbM=;
-        b=FfQ2Y09cPLFMWa1M+IoFEqxUKqgGusT7Ajed4NNE1x6PQ1jpeQifx0XEuUofDDAZmB
-         Ooy1n/HukOazUpK6rm3IIzktR2qqotmrARzogunAwjBBrxtxt1/0Z8wYOaPgQ0Zn20/A
-         jyxQQaJHr6B2p1L3BRUlYYQlP6LG4meC98DBqZl5P+1fSMvnw+YBiZShQl3CbYE5L+ko
-         IMJ2fGqpUNwXvIJhAhckLpSoMas457z3G6o4mfvC0noNoTJSodZ0d5kpSvCtBFF5oCNn
-         Zg0N3YaV+7v8QrHqKI76sVGbIS+7iWeUADEjJ0111dszDhxM4S8WiJtlq1usTXfZYSFu
-         RFKw==
-X-Gm-Message-State: AAQBX9cdc6ZKlbtka0fKL77ioUZhW3mmTxB2lWvKQWCIUQkWQFwdgDgB
-	OAdPUqeq89stotJlU8zH3Pen3eIIQk+VdTGiyWv1
-X-Google-Smtp-Source: AKy350atzH7REymFEakAtJcBDaAv5k9Z2KJkzzHAI/Sc8hjb+qBg15jiqdI8NG3zUUovGGdTavKfB0tnlOpRCjqsQ48=
-X-Received: by 2002:a05:6a21:328d:b0:ee:ac3c:d2de with SMTP id
- yt13-20020a056a21328d00b000eeac3cd2demr6256801pzb.28.1682048176395; Thu, 20
- Apr 2023 20:36:16 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230420113732.336620-1-stefanha@redhat.com> <20230420113732.336620-14-stefanha@redhat.com>
-In-Reply-To: <20230420113732.336620-14-stefanha@redhat.com>
-From: Yongji Xie <xieyongji@bytedance.com>
-Date: Fri, 21 Apr 2023 11:36:02 +0800
-Message-ID: <CACycT3suSR+nYhe4z2zuocYsBBVSDBCE+614zT0jfDZCBRveaA@mail.gmail.com>
-Subject: Re: [PATCH v3 13/20] block/export: rewrite vduse-blk drain code
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu devel list <qemu-devel@nongnu.org>, Peter Lieven <pl@kamp.de>, 
-	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
-	Paolo Bonzini <pbonzini@redhat.com>, =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
-	Juan Quintela <quintela@redhat.com>, qemu-block@nongnu.org, 
-	Eduardo Habkost <eduardo@habkost.net>, Richard Henderson <richard.henderson@linaro.org>, 
-	David Woodhouse <dwmw2@infradead.org>, Stefan Weil <sw@weilnetz.de>, Fam Zheng <fam@euphon.net>, 
-	Julia Suvorova <jusual@redhat.com>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
-	xen-devel@lists.xenproject.org, Hanna Reitz <hreitz@redhat.com>, 
-	"Dr. David Alan Gilbert" <dgilbert@redhat.com>, eesposit@redhat.com, Kevin Wolf <kwolf@redhat.com>, 
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Paul Durrant <paul@xen.org>, Aarushi Mehta <mehta.aaru20@gmail.com>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Anthony Perard <anthony.perard@citrix.com>, 
-	"Richard W.M. Jones" <rjones@redhat.com>, Coiby Xu <Coiby.Xu@gmail.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tnbm1jAepUtbMbD3yBPuFtAhOup8yTScXd1pjpDB/1U=; b=l9DmdsrGARmyWvJ5t79f1ecRDZ
+	TUGdw0FRLp3YxTa/nad4it9xS6ZFnxnatFAmR0G6ZlwAp9QJ9jzKTwOqc6oA7xogiU2wF6m0tSHBb
+	JV5D44qFLNiEc+EntzBJeHxDYWhlwakaXDWy67YkdqQuKSEbG90i7FwES45BJ/667a24=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180333-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-5.4 test] 180333: trouble: blocked/broken/fail/pass
+X-Osstest-Failures:
+    linux-5.4:build-armhf:<job status>:broken:regression
+    linux-5.4:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    linux-5.4:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+    linux-5.4:build-armhf:hosts-allocate:broken:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=58f42ed1cd31238745bddd943c4f5849dc83a2ac
+X-Osstest-Versions-That:
+    linux=32bea3bac5ca484c6f7e302c8c96fc686f62e7b4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 21 Apr 2023 04:03:43 +0000
 
-Hi Stefan,
+flight 180333 linux-5.4 real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180333/
 
-On Thu, Apr 20, 2023 at 7:39=E2=80=AFPM Stefan Hajnoczi <stefanha@redhat.co=
-m> wrote:
->
-> vduse_blk_detach_ctx() waits for in-flight requests using
-> AIO_WAIT_WHILE(). This is not allowed according to a comment in
-> bdrv_set_aio_context_commit():
->
->   /*
->    * Take the old AioContex when detaching it from bs.
->    * At this point, new_context lock is already acquired, and we are now
->    * also taking old_context. This is safe as long as bdrv_detach_aio_con=
-text
->    * does not call AIO_POLL_WHILE().
->    */
->
-> Use this opportunity to rewrite the drain code in vduse-blk:
->
-> - Use the BlockExport refcount so that vduse_blk_exp_delete() is only
->   called when there are no more requests in flight.
->
-> - Implement .drained_poll() so in-flight request coroutines are stopped
->   by the time .bdrv_detach_aio_context() is called.
->
-> - Remove AIO_WAIT_WHILE() from vduse_blk_detach_ctx() to solve the
->   .bdrv_detach_aio_context() constraint violation. It's no longer
->   needed due to the previous changes.
->
-> - Always handle the VDUSE file descriptor, even in drained sections. The
->   VDUSE file descriptor doesn't submit I/O, so it's safe to handle it in
->   drained sections. This ensures that the VDUSE kernel code gets a fast
->   response.
->
-> - Suspend virtqueue fd handlers in .drained_begin() and resume them in
->   .drained_end(). This eliminates the need for the
->   aio_set_fd_handler(is_external=3Dtrue) flag, which is being removed fro=
-m
->   QEMU.
->
-> This is a long list but splitting it into individual commits would
-> probably lead to git bisect failures - the changes are all related.
->
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> ---
->  block/export/vduse-blk.c | 132 +++++++++++++++++++++++++++------------
->  1 file changed, 93 insertions(+), 39 deletions(-)
->
-> diff --git a/block/export/vduse-blk.c b/block/export/vduse-blk.c
-> index f7ae44e3ce..35dc8fcf45 100644
-> --- a/block/export/vduse-blk.c
-> +++ b/block/export/vduse-blk.c
-> @@ -31,7 +31,8 @@ typedef struct VduseBlkExport {
->      VduseDev *dev;
->      uint16_t num_queues;
->      char *recon_file;
-> -    unsigned int inflight;
-> +    unsigned int inflight; /* atomic */
-> +    bool vqs_started;
->  } VduseBlkExport;
->
->  typedef struct VduseBlkReq {
-> @@ -41,13 +42,24 @@ typedef struct VduseBlkReq {
->
->  static void vduse_blk_inflight_inc(VduseBlkExport *vblk_exp)
->  {
-> -    vblk_exp->inflight++;
-> +    if (qatomic_fetch_inc(&vblk_exp->inflight) =3D=3D 0) {
+Failures and problems with tests :-(
 
-I wonder why we need to use atomic operations here.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
 
-> +        /* Prevent export from being deleted */
-> +        aio_context_acquire(vblk_exp->export.ctx);
-> +        blk_exp_ref(&vblk_exp->export);
-> +        aio_context_release(vblk_exp->export.ctx);
-> +    }
->  }
->
->  static void vduse_blk_inflight_dec(VduseBlkExport *vblk_exp)
->  {
-> -    if (--vblk_exp->inflight =3D=3D 0) {
-> +    if (qatomic_fetch_dec(&vblk_exp->inflight) =3D=3D 1) {
-> +        /* Wake AIO_WAIT_WHILE() */
->          aio_wait_kick();
-> +
-> +        /* Now the export can be deleted */
-> +        aio_context_acquire(vblk_exp->export.ctx);
-> +        blk_exp_unref(&vblk_exp->export);
-> +        aio_context_release(vblk_exp->export.ctx);
->      }
->  }
->
-> @@ -124,8 +136,12 @@ static void vduse_blk_enable_queue(VduseDev *dev, Vd=
-useVirtq *vq)
->  {
->      VduseBlkExport *vblk_exp =3D vduse_dev_get_priv(dev);
->
-> +    if (!vblk_exp->vqs_started) {
-> +        return; /* vduse_blk_drained_end() will start vqs later */
-> +    }
-> +
->      aio_set_fd_handler(vblk_exp->export.ctx, vduse_queue_get_fd(vq),
-> -                       true, on_vduse_vq_kick, NULL, NULL, NULL, vq);
-> +                       false, on_vduse_vq_kick, NULL, NULL, NULL, vq);
->      /* Make sure we don't miss any kick afer reconnecting */
->      eventfd_write(vduse_queue_get_fd(vq), 1);
->  }
-> @@ -133,9 +149,14 @@ static void vduse_blk_enable_queue(VduseDev *dev, Vd=
-useVirtq *vq)
->  static void vduse_blk_disable_queue(VduseDev *dev, VduseVirtq *vq)
->  {
->      VduseBlkExport *vblk_exp =3D vduse_dev_get_priv(dev);
-> +    int fd =3D vduse_queue_get_fd(vq);
->
-> -    aio_set_fd_handler(vblk_exp->export.ctx, vduse_queue_get_fd(vq),
-> -                       true, NULL, NULL, NULL, NULL, NULL);
-> +    if (fd < 0) {
-> +        return;
-> +    }
-> +
-> +    aio_set_fd_handler(vblk_exp->export.ctx, fd, false,
-> +                       NULL, NULL, NULL, NULL, NULL);
->  }
->
->  static const VduseOps vduse_blk_ops =3D {
-> @@ -152,42 +173,19 @@ static void on_vduse_dev_kick(void *opaque)
->
->  static void vduse_blk_attach_ctx(VduseBlkExport *vblk_exp, AioContext *c=
-tx)
->  {
-> -    int i;
-> -
->      aio_set_fd_handler(vblk_exp->export.ctx, vduse_dev_get_fd(vblk_exp->=
-dev),
-> -                       true, on_vduse_dev_kick, NULL, NULL, NULL,
-> +                       false, on_vduse_dev_kick, NULL, NULL, NULL,
->                         vblk_exp->dev);
->
-> -    for (i =3D 0; i < vblk_exp->num_queues; i++) {
-> -        VduseVirtq *vq =3D vduse_dev_get_queue(vblk_exp->dev, i);
-> -        int fd =3D vduse_queue_get_fd(vq);
-> -
-> -        if (fd < 0) {
-> -            continue;
-> -        }
-> -        aio_set_fd_handler(vblk_exp->export.ctx, fd, true,
-> -                           on_vduse_vq_kick, NULL, NULL, NULL, vq);
-> -    }
-> +    /* Virtqueues are handled by vduse_blk_drained_end() */
->  }
->
->  static void vduse_blk_detach_ctx(VduseBlkExport *vblk_exp)
->  {
-> -    int i;
-> -
-> -    for (i =3D 0; i < vblk_exp->num_queues; i++) {
-> -        VduseVirtq *vq =3D vduse_dev_get_queue(vblk_exp->dev, i);
-> -        int fd =3D vduse_queue_get_fd(vq);
-> -
-> -        if (fd < 0) {
-> -            continue;
-> -        }
-> -        aio_set_fd_handler(vblk_exp->export.ctx, fd,
-> -                           true, NULL, NULL, NULL, NULL, NULL);
-> -    }
->      aio_set_fd_handler(vblk_exp->export.ctx, vduse_dev_get_fd(vblk_exp->=
-dev),
-> -                       true, NULL, NULL, NULL, NULL, NULL);
-> +                       false, NULL, NULL, NULL, NULL, NULL);
->
-> -    AIO_WAIT_WHILE(vblk_exp->export.ctx, vblk_exp->inflight > 0);
-> +    /* Virtqueues are handled by vduse_blk_drained_begin() */
->  }
->
->
-> @@ -220,8 +218,55 @@ static void vduse_blk_resize(void *opaque)
->                              (char *)&config.capacity);
->  }
->
-> +static void vduse_blk_stop_virtqueues(VduseBlkExport *vblk_exp)
-> +{
-> +    for (uint16_t i =3D 0; i < vblk_exp->num_queues; i++) {
-> +        VduseVirtq *vq =3D vduse_dev_get_queue(vblk_exp->dev, i);
-> +        vduse_blk_disable_queue(vblk_exp->dev, vq);
-> +    }
-> +
-> +    vblk_exp->vqs_started =3D false;
-> +}
-> +
-> +static void vduse_blk_start_virtqueues(VduseBlkExport *vblk_exp)
-> +{
-> +    vblk_exp->vqs_started =3D true;
-> +
-> +    for (uint16_t i =3D 0; i < vblk_exp->num_queues; i++) {
-> +        VduseVirtq *vq =3D vduse_dev_get_queue(vblk_exp->dev, i);
-> +        vduse_blk_enable_queue(vblk_exp->dev, vq);
-> +    }
-> +}
-> +
-> +static void vduse_blk_drained_begin(void *opaque)
-> +{
-> +    BlockExport *exp =3D opaque;
-> +    VduseBlkExport *vblk_exp =3D container_of(exp, VduseBlkExport, expor=
-t);
-> +
-> +    vduse_blk_stop_virtqueues(vblk_exp);
-> +}
-> +
-> +static void vduse_blk_drained_end(void *opaque)
-> +{
-> +    BlockExport *exp =3D opaque;
-> +    VduseBlkExport *vblk_exp =3D container_of(exp, VduseBlkExport, expor=
-t);
-> +
-> +    vduse_blk_start_virtqueues(vblk_exp);
-> +}
-> +
-> +static bool vduse_blk_drained_poll(void *opaque)
-> +{
-> +    BlockExport *exp =3D opaque;
-> +    VduseBlkExport *vblk_exp =3D container_of(exp, VduseBlkExport, expor=
-t);
-> +
-> +    return qatomic_read(&vblk_exp->inflight) > 0;
-> +}
-> +
->  static const BlockDevOps vduse_block_ops =3D {
-> -    .resize_cb =3D vduse_blk_resize,
-> +    .resize_cb     =3D vduse_blk_resize,
-> +    .drained_begin =3D vduse_blk_drained_begin,
-> +    .drained_end   =3D vduse_blk_drained_end,
-> +    .drained_poll  =3D vduse_blk_drained_poll,
->  };
->
->  static int vduse_blk_exp_create(BlockExport *exp, BlockExportOptions *op=
-ts,
-> @@ -268,6 +313,7 @@ static int vduse_blk_exp_create(BlockExport *exp, Blo=
-ckExportOptions *opts,
->      vblk_exp->handler.serial =3D g_strdup(vblk_opts->serial ?: "");
->      vblk_exp->handler.logical_block_size =3D logical_block_size;
->      vblk_exp->handler.writable =3D opts->writable;
-> +    vblk_exp->vqs_started =3D true;
->
->      config.capacity =3D
->              cpu_to_le64(blk_getlength(exp->blk) >> VIRTIO_BLK_SECTOR_BIT=
-S);
-> @@ -322,14 +368,20 @@ static int vduse_blk_exp_create(BlockExport *exp, B=
-lockExportOptions *opts,
->          vduse_dev_setup_queue(vblk_exp->dev, i, queue_size);
->      }
->
-> -    aio_set_fd_handler(exp->ctx, vduse_dev_get_fd(vblk_exp->dev), true,
-> +    aio_set_fd_handler(exp->ctx, vduse_dev_get_fd(vblk_exp->dev), false,
->                         on_vduse_dev_kick, NULL, NULL, NULL, vblk_exp->de=
-v);
->
->      blk_add_aio_context_notifier(exp->blk, blk_aio_attached, blk_aio_det=
-ach,
->                                   vblk_exp);
-> -
->      blk_set_dev_ops(exp->blk, &vduse_block_ops, exp);
->
-> +    /*
-> +     * We handle draining ourselves using an in-flight counter and by di=
-sabling
-> +     * virtqueue fd handlers. Do not queue BlockBackend requests, they n=
-eed to
-> +     * complete so the in-flight counter reaches zero.
-> +     */
-> +    blk_set_disable_request_queuing(exp->blk, true);
-> +
->      return 0;
->  err:
->      vduse_dev_destroy(vblk_exp->dev);
-> @@ -344,6 +396,9 @@ static void vduse_blk_exp_delete(BlockExport *exp)
->      VduseBlkExport *vblk_exp =3D container_of(exp, VduseBlkExport, expor=
-t);
->      int ret;
->
-> +    assert(qatomic_read(&vblk_exp->inflight) =3D=3D 0);
-> +
-> +    vduse_blk_detach_ctx(vblk_exp);
->      blk_remove_aio_context_notifier(exp->blk, blk_aio_attached, blk_aio_=
-detach,
->                                      vblk_exp);
->      blk_set_dev_ops(exp->blk, NULL, NULL);
-> @@ -355,13 +410,12 @@ static void vduse_blk_exp_delete(BlockExport *exp)
->      g_free(vblk_exp->handler.serial);
->  }
->
-> +/* Called with exp->ctx acquired */
->  static void vduse_blk_exp_request_shutdown(BlockExport *exp)
->  {
->      VduseBlkExport *vblk_exp =3D container_of(exp, VduseBlkExport, expor=
-t);
->
-> -    aio_context_acquire(vblk_exp->export.ctx);
-> -    vduse_blk_detach_ctx(vblk_exp);
-> -    aio_context_acquire(vblk_exp->export.ctx);
-> +    vduse_blk_stop_virtqueues(vblk_exp);
+Tests which did not succeed, but are not blocking:
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
+ build-armhf                   2 hosts-allocate        broken starved in 180149
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 180149
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180149
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 180149
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180149
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180149
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180149
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 180149
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 180149
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180149
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
 
-Can we add a AIO_WAIT_WHILE() here? Then we don't need to
-increase/decrease the BlockExport refcount during I/O processing.
+version targeted for testing:
+ linux                58f42ed1cd31238745bddd943c4f5849dc83a2ac
+baseline version:
+ linux                32bea3bac5ca484c6f7e302c8c96fc686f62e7b4
 
-Thanks,
-Yongji
+Last test of basis   180149  2023-04-05 09:43:16 Z   15 days
+Testing same since   180333  2023-04-20 10:12:45 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alexander Stein <alexander.stein@ew.tq-group.com>
+  Amir Goldstein <amir73il@gmail.com>
+  Andrew Morton <akpm@linux-foundation.org>
+  Ard Biesheuvel <ardb@kernel.org>
+  Arseniy Krasnov <AVKrasnov@sberdevices.ru>
+  Bang Li <libang.linuxer@gmail.com>
+  Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+  Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+  Biju Das <biju.das.jz@bp.renesas.com>
+  Bjorn Helgaas <bhelgaas@google.com>
+  Bjørn Mork <bjorn@mork.no>
+  Boris Brezillon <boris.brezillon@collabora.com>
+  Brian Foster <bfoster@redhat.com>
+  Chandan Babu R <chandan.babu@oracle.com>
+  Chris Paterson (CIP) <chris.paterson2@renesas.com>
+  Christoph Hellwig <hch@lst.de>
+  Christophe Kerello <christophe.kerello@foss.st.com>
+  Chuck Lever <chuck.lever@oracle.com>
+  D Scott Phillips <scott@os.amperecomputing.com>
+  Dai Ngo <dai.ngo@oracle.com>
+  Darrick J. Wong <darrick.wong@oracle.com>
+  Darrick J. Wong <djwong@kernel.org>
+  David Howells <dhowells@redhat.com>
+  David Lechner <david@lechnology.com>
+  David S. Miller <davem@davemloft.net>
+  David Sterba <dsterba@suse.com>
+  Denis Plotnikov <den-plotnikov@yandex-team.ru>
+  Dhruva Gole <d-gole@ti.com>
+  Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+  Enrico Sau <enrico.sau@gmail.com>
+  Eric Dumazet <edumazet@google.com>
+  Eric Van Hensbergen <ericvh@kernel.org>
+  Felix Fietkau <nbd@nbd.name>
+  Florian Fainelli <f.fainelli@gmail.com>
+  George Cherian <george.cherian@marvell.com>
+  Grant Grundler <grundler@chromium.org>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  Gregor Herburger <gregor.herburger@tq-group.com>
+  Guenter Roeck <linux@roeck-us.net>
+  Hans de Goede <hdegoede@redhat.com>
+  Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+  Hsin-Yi Wang <hsinyi@chromium.org>
+  Hulk Robot <hulkrobot@huawei.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jason Gunthorpe <jgg@nvidia.com>
+  Jeff Layton <jlayton@kernel.org>
+  Jeffrey Mitchell <jeffrey.mitchell@starlab.io>
+  Jeremy Soller <jeremy@system76.com>
+  Jiri Kosina <jkosina@suse.cz>
+  Johan Hovold <johan+linaro@kernel.org>
+  Johan Hovold <johan@kernel.org>
+  Johannes Berg <johannes.berg@intel.com>
+  John Keeping <john@metanate.com>
+  Jon Hunter <jonathanh@nvidia.com>
+  Jonathan Cameron <Jonathan.Cameron@huawei.com>
+  Kaixu Xia <kaixuxia@tencent.com>
+  Kan Liang <kan.liang@linux.intel.com>
+  Kees Cook <keescook@chromium.org>
+  Kees Jan Koster <kjkoster@kjkoster.org>
+  Kornel Dulęba <korneld@chromium.org>
+  Lars-Peter Clausen <lars@metafoo.de>
+  Lee Jones <lee.jones@linaro.org>
+  Linus Walleij <linus.walleij@linaro.org>
+  Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+  Marc Kleine-Budde <mkl@pengutronix.de>
+  Marc Zyngier <maz@kernel.org>
+  Mark-PK Tsai <mark-pk.tsai@mediatek.com>
+  Martin K. Petersen <martin.petersen@oracle.com>
+  Mathias Nyman <mathias.nyman@linux.intel.com>
+  Matthias Schiffer <matthias.schiffer@ew.tq-group.com>
+  Michal Kolar <mich.k@seznam.cz>
+  Min Li <lm0963hack@gmail.com>
+  Miquel Raynal <miquel.raynal@bootlin.com>
+  Miquel Raynal <miquel.raynal@bootlin.com> # v5.10, v4.19
+  Mirsad Todorovac <mirsad.todorovac@alu.unizg.hr>
+  Nicolas Ferre <nicolas.ferre@microchip.com>
+  Nicolas Schichan <nschichan@freebox.fr>
+  Oleksij Rempel <o.rempel@pengutronix.de>
+  Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+  Paolo Abeni <pabeni@redhat.com>
+  Peter Korsgaard <peter@korsgaard.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Pratyush Yadav <ptyadav@amazon.de>
+  RD Babiera <rdbabiera@google.com>
+  Richard Weinberger <richard@nod.at>
+  Robbie Harwood <rharwood@redhat.com>
+  Roman Gushchin <roman.gushchin@linux.dev>
+  Rongwei Wang <rongwei.wang@linux.alibaba.com>
+  Ryusuke Konishi <konishi.ryusuke@gmail.com>
+  Sachi King <nakato@nakato.io>
+  Saravanan Vajravel <saravanan.vajravel@broadcom.com>
+  Sasha Levin <sashal@kernel.org>
+  Sebastian Reichel <sebastian.reichel@collabora.com>
+  Sherry Sun <sherry.sun@nxp.com>
+  Shuah Khan <skhan@linuxfoundation.org>
+  Shuangpeng Bai <sjb7183@psu.edu>
+  Steve Clevenger <scclevenger@os.amperecomputing.com>
+  Steve French <stfrench@microsoft.com>
+  Steven Rostedt (Google) <rostedt@goodmis.org>
+  Suzuki K Poulose <suzuki.poulose@arm.com>
+  Takashi Iwai <tiwai@suse.de>
+  Takashi Sakamoto <o-takashi@sakamocchi.jp>
+  Tejun Heo <tj@kernel.org>
+  Thierry Reding <thierry.reding@gmail.com>
+  Thomas Glanzmann <thomas@glanzmann.de>
+  Thomas Gleixner <tglx@linutronix.de>
+  Tim Crawford <tcrawford@system76.com>
+  Tom Saeger <tom.saeger@oracle.com>
+  Tyler Hicks (Microsoft) <code@tyhicks.com>
+  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+  Waiman Long <longman@redhat.com>
+  William Breathitt Gray <william.gray@linaro.org>
+  Wim Van Sebroeck <wim@linux-watchdog.org>
+  Wolfram Sang <wsa@kernel.org>
+  Xin Long <lucien.xin@gmail.com>
+  Xu Biang <xubiang@hust.edu.cn>
+  Yongchen Yin <wb-yyc939293@alibaba-inc.com>
+  ZhaoLong Wang <wangzhaolong1@huawei.com>
+  Zheng Wang <zyytlz.wz@163.com>
+  Zheng Yejian <zhengyejian1@huawei.com>
+  Zhihao Cheng <chengzhihao1@huawei.com>
+  Ziyang Xuan <william.xuanziyang@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  broken  
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     blocked 
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      blocked 
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-armhf broken
+broken-step build-armhf hosts-allocate
+
+Not pushing.
+
+(No revision log; it would be 2835 lines long.)
 
