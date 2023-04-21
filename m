@@ -2,40 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB96D6EA1FB
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 04:52:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.524422.815339 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0154B6EA24E
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 05:24:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.524429.815352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppgrr-0002cX-Mw; Fri, 21 Apr 2023 02:51:23 +0000
+	id 1pphMp-0006Du-98; Fri, 21 Apr 2023 03:23:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 524422.815339; Fri, 21 Apr 2023 02:51:23 +0000
+Received: by outflank-mailman (output) from mailman id 524429.815352; Fri, 21 Apr 2023 03:23:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppgrr-0002aj-JI; Fri, 21 Apr 2023 02:51:23 +0000
-Received: by outflank-mailman (input) for mailman id 524422;
- Fri, 21 Apr 2023 02:51:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=L0IV=AM=gmail.com=htejun@srs-se1.protection.inumbo.net>)
- id 1ppgrp-0002ad-KG
- for xen-devel@lists.xenproject.org; Fri, 21 Apr 2023 02:51:21 +0000
-Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
- [2607:f8b0:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 646b1c9d-dfef-11ed-b220-6b7b168915f2;
- Fri, 21 Apr 2023 04:51:20 +0200 (CEST)
-Received: by mail-pf1-x434.google.com with SMTP id
- d2e1a72fcca58-63b60366047so1512959b3a.1
- for <xen-devel@lists.xenproject.org>; Thu, 20 Apr 2023 19:51:20 -0700 (PDT)
-Received: from localhost
- (2603-800c-1a02-1bae-a7fa-157f-969a-4cde.res6.spectrum.com.
- [2603:800c:1a02:1bae:a7fa:157f:969a:4cde])
- by smtp.gmail.com with ESMTPSA id
- n11-20020a056a00212b00b0063f167b41bdsm366523pfj.38.2023.04.20.19.51.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Apr 2023 19:51:18 -0700 (PDT)
+	id 1pphMp-0006Av-6T; Fri, 21 Apr 2023 03:23:23 +0000
+Received: by outflank-mailman (input) for mailman id 524429;
+ Fri, 21 Apr 2023 03:23:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ii9+=AM=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1pphMo-0006Ap-B0
+ for xen-devel@lists.xenproject.org; Fri, 21 Apr 2023 03:23:22 +0000
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on20613.outbound.protection.outlook.com
+ [2a01:111:f400:7eaf::613])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id daa51514-dff3-11ed-8611-37d641c3527e;
+ Fri, 21 Apr 2023 05:23:18 +0200 (CEST)
+Received: from DUZPR01CA0192.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b6::15) by AS2PR08MB9416.eurprd08.prod.outlook.com
+ (2603:10a6:20b:594::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.21; Fri, 21 Apr
+ 2023 03:23:05 +0000
+Received: from DBAEUR03FT059.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:4b6:cafe::30) by DUZPR01CA0192.outlook.office365.com
+ (2603:10a6:10:4b6::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.27 via Frontend
+ Transport; Fri, 21 Apr 2023 03:23:05 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT059.mail.protection.outlook.com (100.127.142.102) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6319.26 via Frontend Transport; Fri, 21 Apr 2023 03:23:04 +0000
+Received: ("Tessian outbound 3a01b65b5aad:v136");
+ Fri, 21 Apr 2023 03:23:04 +0000
+Received: from 68399d3fb0b3.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 096B505E-256B-43B8-AA24-CAA8DE7B3A84.1; 
+ Fri, 21 Apr 2023 03:22:56 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 68399d3fb0b3.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 21 Apr 2023 03:22:56 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by GV1PR08MB7756.eurprd08.prod.outlook.com (2603:10a6:150:57::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Fri, 21 Apr
+ 2023 03:22:52 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::2db3:aa30:7be0:10a6]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::2db3:aa30:7be0:10a6%7]) with mapi id 15.20.6319.022; Fri, 21 Apr 2023
+ 03:22:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,139 +71,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 646b1c9d-dfef-11ed-b220-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682045479; x=1684637479;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=HCPjQIn4S0PQfuCNwvELUc3S8eh+s9mUvwJw7/d5uLU=;
-        b=XMLFtb9wYP9gqpPSKTS7T/p74xQvZs2nOgKFEigpBUk7eM6Kb8bvSh/sAWoXK1dcSj
-         KWvLP7zD7yOkPXgcobpT2jsCaQldUniFt2NYg1yoc43TcDmS4stE8W3P1iJVksjOSFgn
-         jFjMkwjkXmYgdw0wK5uHCXH21wcr+eFz6d3UdFMZxRfvvPHtseSbL2d8RWYeNIn0heuJ
-         FLmKIh3j/9iUx4YIIjpr7XgLkSBxR4PUF5gMWpa5OT7mIXmR9L4DowA/AYb/EeXijmVO
-         hy4tJiy1od2XsdGkrSh8kcquhPEtsLG9Z6cwResFqBkNejkqYJI+lXHC9L6wZvRHe583
-         m/KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682045479; x=1684637479;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HCPjQIn4S0PQfuCNwvELUc3S8eh+s9mUvwJw7/d5uLU=;
-        b=DWds2gRN4Ngjjm9FhV702yrneRGXuSwpSWOGUuZYIcrCX0Mxz5xQwQj/xa9J3b2sQ+
-         TbFmyt34dSfq9dMEm/f8S/stH39DcbBLao2hTjSGJmQs4YycugUKQ9xvrnI9gFtmcph/
-         /q5LbuawrRKPmxXN+ZY1Y92USHoiQEWf9k8NjtsZ1L96+E/Cc0pC7NFAXMOKqvGlQ/f+
-         xgK0OR1I3UR2/5Pavz9wZyi5WL45mvwLz4xiOPrN/o/LIILQ8Coh7lue55f9vEcQgHXv
-         HU9vjuge8kFKwjtB3oEi7o41a5ZzP8Qlj2Pw4bgR0KC35XpekPvAqY3pjyh3nm4ukLud
-         Gtjw==
-X-Gm-Message-State: AAQBX9e8Gct//Fxsjtutbe8/K5cay/q6fJYihpMAOx6nx/PjwX3v7I+0
-	Cf/ikhWYvbKEn1BQ8YXs8oE=
-X-Google-Smtp-Source: AKy350ZqQdhTADBSG8sDswV21AqHVDTdbtktu2O/S0Hkg5un6hH0viAxUI3uMxO9h5GAesNZA/ePlA==
-X-Received: by 2002:a05:6a00:15ce:b0:63d:3411:f9e3 with SMTP id o14-20020a056a0015ce00b0063d3411f9e3mr5061818pfu.19.1682045478499;
-        Thu, 20 Apr 2023 19:51:18 -0700 (PDT)
-Sender: Tejun Heo <htejun@gmail.com>
-From: Tejun Heo <tj@kernel.org>
-To: jiangshanlai@gmail.com
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	Tejun Heo <tj@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH 15/22] xen/pvcalls: Use alloc_ordered_workqueue() to create ordered workqueues
-Date: Thu, 20 Apr 2023 16:50:39 -1000
-Message-Id: <20230421025046.4008499-16-tj@kernel.org>
-X-Mailer: git-send-email 2.40.0
-In-Reply-To: <20230421025046.4008499-1-tj@kernel.org>
-References: <20230421025046.4008499-1-tj@kernel.org>
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: daa51514-dff3-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LENz2T83NBmBa89xPiAXm3Qmok3tPn+Fo4PXGwsp4vE=;
+ b=MUBi1QJqCZNBJ2T1bmbGoYbSPx9f1miJOxU/XHR2N3jFWyy9HFrEEyH8bK6+4MTlvQFUn/V13jK+KufviGxMhT0xJJEw8rOaHDVb1n10UYlyAaAQOCvUM6huAbH32fypsxRcxIsGyK5U0CQhpm2NVAQosrrDzl4PuNPTIAmr+bM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=F89WwR5p+Rc2JSjatdP0UtxvOCXw/Le5Wiw/l6vALzo4NWOr+74onijUlQtOcFgtLQApbZlt+OhofKuZxWn0FRzuL31dFySGdzD1c8fQ6xYGwD5WU9f+s90a7dk/LgOwa1DNVxLQeG331YlJo8/9bTtI2B7rnm6+QSjh51VYYj3HANPLUVKw0EDbKihMCf6ZXzte7fNXkMBPcu1r+C8oQ3auNKDpg/uDTKHbz8bN4WPC3XySidp2cwLuWugCiSJL8IwOoF6l0FeDajzicWYHN53ukqI2apvTpu6WwzrvmK18pkyu6Dk9THnNc5DABM2DEQWFWqh9VLsl5LmR3p2tRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LENz2T83NBmBa89xPiAXm3Qmok3tPn+Fo4PXGwsp4vE=;
+ b=OU8QtHZwMNisF+g/fL7Etgh6NGRAqg85dMSSvOWR3AFIaklv0eQ9xcRJUNtsTKG0P79cNjyBV7VHVMudOvYm8yrMI/vbvOksEOgrQbFxtWws9wbZA4HVpL9DPMVwiJ10ZPLHbg4mLWgc/iLwYQVELkBOqcLAcgKED6QAROK3F8NhY3EJYx5gBYvBFh9qfOV40s6ULlPGmSPYMQxmYHe/tE7fAp6lbhqM7DUuP0UKOjnO7WJ03p/bTXEPp/xXlUPidLff3Er/SaMh5kOSAVNOrkS/oemh5f7k2bbykVj5NKECPyrmUdYaIf4wsA1zxvpADGkVtJFIwBzR7sVeK+eztg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LENz2T83NBmBa89xPiAXm3Qmok3tPn+Fo4PXGwsp4vE=;
+ b=MUBi1QJqCZNBJ2T1bmbGoYbSPx9f1miJOxU/XHR2N3jFWyy9HFrEEyH8bK6+4MTlvQFUn/V13jK+KufviGxMhT0xJJEw8rOaHDVb1n10UYlyAaAQOCvUM6huAbH32fypsxRcxIsGyK5U0CQhpm2NVAQosrrDzl4PuNPTIAmr+bM=
+From: Henry Wang <Henry.Wang@arm.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: "community.manager@xenproject.org" <community.manager@xenproject.org>,
+	Julien Grall <julien@xen.org>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Anthony PERARD
+	<anthony.perard@citrix.com>, George Dunlap <george.dunlap@cloud.com>, Juergen
+ Gross <jgross@suse.com>, Wei Chen <Wei.Chen@arm.com>
+Subject: Xen 4.18 release schedule update and poll (was: RE: Xen 4.18 release:
+ Proposed release schedule)
+Thread-Topic: Xen 4.18 release schedule update and poll (was: RE: Xen 4.18
+ release: Proposed release schedule)
+Thread-Index: AQHZdACNvTYSYql02kern4BL0bR1Kw==
+Date: Fri, 21 Apr 2023 03:22:49 +0000
+Message-ID:
+ <AS8PR08MB7991EAA2EF0E381FAFB4C1FD92609@AS8PR08MB7991.eurprd08.prod.outlook.com>
+References:
+ <AS8PR08MB7991424A3167C70A9B29530C92929@AS8PR08MB7991.eurprd08.prod.outlook.com>
+In-Reply-To:
+ <AS8PR08MB7991424A3167C70A9B29530C92929@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 70CBA437B84F104799042B1B96D0274B.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|GV1PR08MB7756:EE_|DBAEUR03FT059:EE_|AS2PR08MB9416:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9204668f-4fbd-4602-4a85-08db4217b830
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ +Icr5BS1NYU8t5GVRPPa0TKrMMrOlKMhO7C8sr4Q4Brx4fpwQSMIzD5l8Xvt4QzJuAe/cyW7vq7BGMNctmiGBVcq8s1fIf4Qmhvho/g7EpmtQDOkEuw89Qs/g6APKMqOGionaziQ3Ile6isgfNhXblwRJlBvlYbUWa6FXoTZHHNpC3JPueUDRgojDKdu58Gsa9jXox6GOOjEblABZMuIy1InU/Ag2Q2XWei46Gx4Shh4g3WTklKBHYr3XFDdKh2M8iwX+eeTm0surS+/Rx0/cU359ZpQxa3xPKMb0f2CeJdQgwEbZ5VzBWTaX9Kxn4vJ2ETIZzsBEH8XA1itI9y+LM4r2vy4QVuBoRV8qTIVfnHJR/giHPpO1/eBLQK77giPGnxBDlVxSLkziB6U5L8A/ySIwTRmKyjXgF4mYD7zZSTSiyLm4+XgnOMXOPxxr4fjnCubLDmxCfr6ns1sJoPWqX3Qfmt7nyTGt7jKtVTjXAPSPWLxPNCppAK6e1r+jXjJCPWMOuQbKFd8OpQMsX0G7RQrfIPl1DiTnO5TdpdVrerynqtA7+TJ0L3+O9rhLtoaLiMQ3MUVrJuKp7LQtGS4N+7k7j58YWX6nOpDtMmvgsywmXhs8c3hFN+d9KEaBMdp
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(366004)(346002)(39860400002)(396003)(451199021)(54906003)(8936002)(8676002)(122000001)(52536014)(15650500001)(7696005)(6666004)(55016003)(7416002)(5660300002)(6506007)(38070700005)(33656002)(41300700001)(26005)(186003)(9686003)(83380400001)(2906002)(38100700002)(76116006)(66946007)(66556008)(66476007)(66446008)(64756008)(4326008)(6916009)(316002)(478600001)(71200400001)(86362001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB7756
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT059.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	fa5fb66d-8f0e-4b11-69d6-08db4217af92
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Hp2nzMigZpwrYVtjH8I7S9qlU6CpZRVAQH2GaURcLxELXyIP0OtIHUd6ZxG34X9kcmB9qmhoomwXPryObIAkxPoq3svfKY1nVPNujcipDEKwW+k4GjXoJoHyEuSJwXTJkmwkQbUAyQKJ/M8rlJrRwkwbtJpPiaK8iWFXJFSEuWeFIU2Ke1Y7GLGTlBMye13JG+QH4LpUOweUjjVYR0/gA95cWgmbiR3P8u2Hdi9Hoy8thrEUvsRBKrNbzOgTbuSpwQKOQl9ld9jaNhpWyG4BRAoVDlM3K2wdVfVuSwNLL0GxfbEB7oPuvlQDZLJlIqvaFofaiIGOUa22Sq8oPQX8WCIrPc2gZAWexniHzBy2nKXBOnjrX/CTFy2+WH3Fnj42duHTgVndrZOgjG6JOfxkUOMLzIX4z1Ypsr/3lfT6witQxaCiUhR2OmqHrmCF7VtiNfvTaCrU1QUuF5/079W0pjYYvbbiCrnPIwvzjS+tHc2zV19mAU87i92Ddg6GZlCGXzIPU7lwd023jUPS3vgz2AOpcvsj3xu9ty4fvFQhsTwrn9w3ZsAYaEIVMHJgoUadY763wPvWm97/sH/8sZmlOlcXgtrrJlpn4M4aJl9sNTFeZZBmxMAEfMuUB+uJNAZaQb/A/Ka3vtekdB5F1PN+xvkdwLf+5m+1Onp20SjlNRHvnxO6HqPVTUBfzu9+iRHfhBdAv+bWqG3z+b9EY0wqyA==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(136003)(376002)(346002)(451199021)(46966006)(36840700001)(40470700004)(33656002)(82740400003)(82310400005)(81166007)(356005)(2906002)(15650500001)(47076005)(36860700001)(83380400001)(336012)(8676002)(52536014)(5660300002)(8936002)(86362001)(26005)(186003)(41300700001)(6506007)(9686003)(316002)(4326008)(6916009)(70586007)(70206006)(40480700001)(6666004)(54906003)(55016003)(7696005)(40460700003)(478600001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2023 03:23:04.4754
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9204668f-4fbd-4602-4a85-08db4217b830
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT059.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9416
 
-BACKGROUND
-==========
+Hi all,
 
-When multiple work items are queued to a workqueue, their execution order
-doesn't match the queueing order. They may get executed in any order and
-simultaneously. When fully serialized execution - one by one in the queueing
-order - is needed, an ordered workqueue should be used which can be created
-with alloc_ordered_workqueue().
+Following the discussion in April community call, here comes the two
+updated possible release schedule options that I came up with.
 
-However, alloc_ordered_workqueue() was a later addition. Before it, an
-ordered workqueue could be obtained by creating an UNBOUND workqueue with
-@max_active==1. This originally was an implementation side-effect which was
-broken by 4c16bd327c74 ("workqueue: restore WQ_UNBOUND/max_active==1 to be
-ordered"). Because there were users that depended on the ordered execution,
-5c0338c68706 ("workqueue: restore WQ_UNBOUND/max_active==1 to be ordered")
-made workqueue allocation path to implicitly promote UNBOUND workqueues w/
-@max_active==1 to ordered workqueues.
+Both of these two options will satisfy the requirements/concerns that
+I've received so far. But I personally would prefer the option 2 as we
+shouldn't expect there will be much progress happen in August due to
+the EU holiday season. I wonder if anyone has any objections or alternate
+suggestions.
 
-While this has worked okay, overloading the UNBOUND allocation interface
-this way creates other issues. It's difficult to tell whether a given
-workqueue actually needs to be ordered and users that legitimately want a
-min concurrency level wq unexpectedly gets an ordered one instead. With
-planned UNBOUND workqueue updates to improve execution locality and more
-prevalence of chiplet designs which can benefit from such improvements, this
-isn't a state we wanna be in forever.
+Please don't hesitate to raise your concerns and opinions. I would
+encourage that the feedback collection is cut off by the middle of May
+(say May 19). If nobody will have anything better, then let's go option 2
+by "lazy consensus". Thanks.
 
-This patch series audits all callsites that create an UNBOUND workqueue w/
-@max_active==1 and converts them to alloc_ordered_workqueue() as necessary.
+** Proposed option 1: Wed Aug 30, 2023 **
+(+8 months from Xen 4.17 release)
 
-WHAT TO LOOK FOR
-================
+- Last posting date          Fri Jun 16, 2023
 
-The conversions are from
+Patches adding new features are expected to be posted to the mailing
+list by this date, although perhaps not in their final version.
 
-  alloc_workqueue(WQ_UNBOUND | flags, 1, args..)
+(Note that Xen Summit is Jun 24 - 26, 2023)
 
-to
+- Feature freeze             Fri Jul 7, 2023 (+3 weeks from Last posting da=
+te)
 
-  alloc_ordered_workqueue(flags, args...)
+Patches adding new features should be committed by this date.
+Straightforward bugfixes may continue to be accepted by maintainers.
 
-which don't cause any functional changes. If you know that fully ordered
-execution is not ncessary, please let me know. I'll drop the conversion and
-instead add a comment noting the fact to reduce confusion while conversion
-is in progress.
+- Code freeze                Fri Jul 21, 2023 (+2 weeks from Feature freeze=
+)
 
-If you aren't fully sure, it's completely fine to let the conversion
-through. The behavior will stay exactly the same and we can always
-reconsider later.
+Bugfixes only.
 
-As there are follow-up workqueue core changes, I'd really appreciate if the
-patch can be routed through the workqueue tree w/ your acks. Thanks.
+- Hard code freeze           Fri Aug 11, 2023 (+3 weeks from Code freeze)
 
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org
----
- drivers/xen/pvcalls-back.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Bugfixes for serious bugs (including regressions), and low-risk fixes only.
 
-diff --git a/drivers/xen/pvcalls-back.c b/drivers/xen/pvcalls-back.c
-index 1f5219e12cc3..b41516f3f84a 100644
---- a/drivers/xen/pvcalls-back.c
-+++ b/drivers/xen/pvcalls-back.c
-@@ -361,7 +361,7 @@ static struct sock_mapping *pvcalls_new_active_socket(
- 	map->data.in = map->bytes;
- 	map->data.out = map->bytes + XEN_FLEX_RING_SIZE(map->ring_order);
- 
--	map->ioworker.wq = alloc_workqueue("pvcalls_io", WQ_UNBOUND, 1);
-+	map->ioworker.wq = alloc_ordered_workqueue("pvcalls_io", 0);
- 	if (!map->ioworker.wq)
- 		goto out;
- 	atomic_set(&map->io, 1);
-@@ -637,7 +637,7 @@ static int pvcalls_back_bind(struct xenbus_device *dev,
- 
- 	INIT_WORK(&map->register_work, __pvcalls_back_accept);
- 	spin_lock_init(&map->copy_lock);
--	map->wq = alloc_workqueue("pvcalls_wq", WQ_UNBOUND, 1);
-+	map->wq = alloc_ordered_workqueue("pvcalls_wq", 0);
- 	if (!map->wq) {
- 		ret = -ENOMEM;
- 		goto out;
--- 
-2.40.0
+- Final commits              Fri Aug 25, 2023 (+2 weeks from Hard code free=
+ze)
 
+Branch off staging-4.18.
+
+- Release                    Wed Aug 30, 2023
+
+
+** Proposed option 2: Wed Sep 27, 2023 (or the first week of Oct)**
+(+9 months from Xen 4.17 release)
+
+- Last posting date          Fri Jul 14, 2023
+
+Patches adding new features are expected to be posted to the mailing
+list by this date, although perhaps not in their final version.
+
+- Feature freeze             Fri Aug 4, 2023 (+3 weeks from Last posting da=
+te)
+
+Patches adding new features should be committed by this date.
+Straightforward bugfixes may continue to be accepted by maintainers.
+
+- Code freeze                Fri Aug 18, 2023 (+2 weeks from Feature freeze=
+)
+
+Bugfixes only.
+
+- Hard code freeze           Fri Sep 8, 2023 (+3 weeks from Code freeze)
+
+Bugfixes for serious bugs (including regressions), and low-risk fixes only.
+
+- Final commits              Fri Sep 22, 2023 (+2 weeks from Hard code free=
+ze)
+
+Branch off staging-4.18.
+
+- Release                    Wed Sep 27, 2023
+
+Kind regards,
+Henry
 
