@@ -2,30 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03EAD6EAF44
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 18:36:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.524651.815736 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 716BF6EB1B0
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 20:34:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.524661.815752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pptkA-0002x0-EK; Fri, 21 Apr 2023 16:36:18 +0000
+	id 1ppvZ9-0006QS-T3; Fri, 21 Apr 2023 18:33:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 524651.815736; Fri, 21 Apr 2023 16:36:18 +0000
+Received: by outflank-mailman (output) from mailman id 524661.815752; Fri, 21 Apr 2023 18:33:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pptkA-0002tk-Bc; Fri, 21 Apr 2023 16:36:18 +0000
-Received: by outflank-mailman (input) for mailman id 524651;
- Fri, 21 Apr 2023 16:36:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W9w3=AM=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pptk8-0002tM-RU
- for xen-devel@lists.xenproject.org; Fri, 21 Apr 2023 16:36:17 +0000
-Received: from galois.linutronix.de (galois.linutronix.de
- [2a0a:51c0:0:12e:550::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a19eab0b-e062-11ed-8611-37d641c3527e;
- Fri, 21 Apr 2023 18:36:14 +0200 (CEST)
+	id 1ppvZ9-0006Nk-O9; Fri, 21 Apr 2023 18:33:03 +0000
+Received: by outflank-mailman (input) for mailman id 524661;
+ Fri, 21 Apr 2023 18:33:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ppvZ8-0006Na-FK; Fri, 21 Apr 2023 18:33:02 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ppvZ8-0006VZ-2o; Fri, 21 Apr 2023 18:33:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ppvZ7-000135-Rr; Fri, 21 Apr 2023 18:33:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ppvZ7-00084q-RW; Fri, 21 Apr 2023 18:33:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,79 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a19eab0b-e062-11ed-8611-37d641c3527e
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1682094973;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AMzOR95vay5pg0WrO+uJUGs+TLmecn0h01ht4y+YBW4=;
-	b=o/TkSlykoJbZmwaCartOT04EgN5C+kODI7gZukI9DsIFy2Dgj3RH1WuWvwMvvYXkyiHIQk
-	oxshpYHuRgHC8o/JYqoEGQ0sMgPeCIrVwZGLDjjKa0oD47tebLMPcc0kwKmrYNmhibL69p
-	CuPI7WXBesGu+IQZaD33O9Vh8aqxpxbvEKmf8Inm6RIaaj7YSGPtkcXqQaDLBztSRLFiTD
-	jAl7P2Gr2fqg2KdBtxFZJUc3m5xmd9qgJZ7OLjPxBmIrUzXSJ1uWPWJLXceKreW9vWpPl+
-	SmWK7o2t1K1ok1OKIOZ0yX0u1SEvxXShW0sf3Kg6kxQp0c93gSDpceB1rVFESQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1682094973;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AMzOR95vay5pg0WrO+uJUGs+TLmecn0h01ht4y+YBW4=;
-	b=44dX9VJX+TMEmkgFv0MNfddpnQu4SMuQ4SBx4WdfdKvH1kS+zbYESmYQqIpwSH+YghznlV
-	s1xiQKd/rkmpEKCg==
-To: Paul Menzel <pmenzel@molgen.mpg.de>
-Cc: Sean Christopherson <seanjc@google.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, linux-kernel@vger.kernel.org, x86@kernel.org,
- David Woodhouse <dwmw2@infradead.org>, Brian Gerst <brgerst@gmail.com>,
- Arjan van de Veen <arjan@linux.intel.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>, Tom Lendacky
- <thomas.lendacky@amd.com>, Oleksandr Natalenko <oleksandr@natalenko.name>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Piotr Gorski
- <lucjan.lucjanov@gmail.com>, David Woodhouse <dwmw@amazon.co.uk>, Usama
- Arif <usama.arif@bytedance.com>, =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
- Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-kernel@lists.infradead.org, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
- <guoren@kernel.org>, linux-csky@vger.kernel.org, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, "James E. J.
- Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller
- <deller@gmx.de>, linux-parisc@vger.kernel.org, Paul Walmsley
- <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- linux-riscv@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
- Sabin Rapan <sabrapan@amazon.com>
-Subject: Re: [patch 00/37] cpu/hotplug, x86: Reworked parallel CPU bringup
-In-Reply-To: <87sfcu2wup.ffs@tglx>
-References: <87r0sh4m7a.ffs@tglx>
- <8592a301-9933-1cad-bd61-8d97e7c7493b@molgen.mpg.de> <87a5z443g2.ffs@tglx>
- <877cu83v45.ffs@tglx> <874jpc3s3r.ffs@tglx>
- <0f5463fd-9c4a-6361-adbb-dd89dbb9138d@citrix.com>
- <c2aaa4fb-a5ba-d5bf-634a-dcf4fd8ad246@citrix.com> <871qkf3qek.ffs@tglx>
- <26d385da-2ede-5d73-2959-84c8f7d89e03@citrix.com> <87y1mm3iqz.ffs@tglx>
- <ZEFRhXua6Jxvit1R@google.com> <87v8hq35sk.ffs@tglx>
- <56e59a4d-a47f-4bfe-7db5-5f921062ad69@molgen.mpg.de> <87sfcu2wup.ffs@tglx>
-Date: Fri, 21 Apr 2023 18:36:12 +0200
-Message-ID: <87bkjh2nwj.ffs@tglx>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=t/IVewr0trq9mN4c9mPh/PFonS1vMfb7elQk2s7Nh80=; b=LNDPpX0625QpqucKr7ZpYqquxy
+	nznWHNN6nlm0VSSe8dSGA8/Mx2cE/ips/Q1o0ZRFGYP9awMzxIq01TuNzsWtbisi4uMpqcdHM4dEb
+	8W/KB/0GmwZuQ4bv4GfQzXuVf1G8BcetjE+bBEyLggCYbAFuMeDP8QbPq9W8AIvpkp+M=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180365-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [ovmf test] 180365: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=ed2ff315db7e800dd7718b1d1320ea8024d4e8b2
+X-Osstest-Versions-That:
+    ovmf=3163f34a42a5dacaf63499e69bf0fefdc409d89e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 21 Apr 2023 18:33:01 +0000
 
-On Thu, Apr 20 2023 at 21:10, Thomas Gleixner wrote:
-> On Thu, Apr 20 2023 at 18:47, Paul Menzel wrote:
->> Am 20.04.23 um 17:57 schrieb Thomas Gleixner:
->> I quickly applied it on top of your branch, but I am getting:
->
-> As I said it was untested. I was traveling and did not have access to a
-> machine to even build it completely. Fixed up and tested version below.
+flight 180365 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180365/
 
-I've updated
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ed2ff315db7e800dd7718b1d1320ea8024d4e8b2
+baseline version:
+ ovmf                 3163f34a42a5dacaf63499e69bf0fefdc409d89e
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git hotplug
+Last test of basis   180346  2023-04-20 23:40:41 Z    0 days
+Testing same since   180365  2023-04-21 16:12:18 Z    0 days    1 attempts
 
-for your conveniance.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@amd.com>
 
-Thanks,
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-        tglx
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   3163f34a42..ed2ff315db  ed2ff315db7e800dd7718b1d1320ea8024d4e8b2 -> xen-tested-master
 
