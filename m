@@ -2,56 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EE566EAAF3
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 14:52:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.524576.815620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 662386EAB2D
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Apr 2023 15:03:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.524580.815630 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppqFI-0008Nu-Ll; Fri, 21 Apr 2023 12:52:12 +0000
+	id 1ppqPZ-0001U4-Lq; Fri, 21 Apr 2023 13:02:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 524576.815620; Fri, 21 Apr 2023 12:52:12 +0000
+Received: by outflank-mailman (output) from mailman id 524580.815630; Fri, 21 Apr 2023 13:02:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ppqFI-0008Lp-IV; Fri, 21 Apr 2023 12:52:12 +0000
-Received: by outflank-mailman (input) for mailman id 524576;
- Fri, 21 Apr 2023 12:52:11 +0000
+	id 1ppqPZ-0001RI-Ig; Fri, 21 Apr 2023 13:02:49 +0000
+Received: by outflank-mailman (input) for mailman id 524580;
+ Fri, 21 Apr 2023 13:02:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v1kD=AM=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ppqFH-0008Lj-9d
- for xen-devel@lists.xenproject.org; Fri, 21 Apr 2023 12:52:11 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20623.outbound.protection.outlook.com
- [2a01:111:f400:7e89::623])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 521206ad-e043-11ed-8611-37d641c3527e;
- Fri, 21 Apr 2023 14:52:08 +0200 (CEST)
-Received: from BN9PR03CA0660.namprd03.prod.outlook.com (2603:10b6:408:13b::35)
- by BL0PR12MB4946.namprd12.prod.outlook.com (2603:10b6:208:1c5::18)
+ <SRS0=YfVw=AM=epam.com=prvs=8475e47d9c=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1ppqPX-0001RB-Vk
+ for xen-devel@lists.xenproject.org; Fri, 21 Apr 2023 13:02:48 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cd3de100-e044-11ed-8611-37d641c3527e;
+ Fri, 21 Apr 2023 15:02:43 +0200 (CEST)
+Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 33LA6K2E017901; Fri, 21 Apr 2023 13:02:38 GMT
+Received: from eur02-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur02lp2107.outbound.protection.outlook.com [104.47.11.107])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3q372hku5u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 21 Apr 2023 13:02:37 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by AM7PR03MB6465.eurprd03.prod.outlook.com (2603:10a6:20b:1b3::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.22; Fri, 21 Apr
- 2023 12:52:04 +0000
-Received: from BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13b:cafe::d9) by BN9PR03CA0660.outlook.office365.com
- (2603:10b6:408:13b::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.25 via Frontend
- Transport; Fri, 21 Apr 2023 12:52:03 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT046.mail.protection.outlook.com (10.13.177.127) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6319.23 via Frontend Transport; Fri, 21 Apr 2023 12:52:03 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 21 Apr
- 2023 07:52:03 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 21 Apr
- 2023 05:52:03 -0700
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 21 Apr 2023 07:52:02 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.49; Fri, 21 Apr
+ 2023 13:02:34 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::9b45:4d32:a743:d5e3]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::9b45:4d32:a743:d5e3%3]) with mapi id 15.20.6298.045; Fri, 21 Apr 2023
+ 13:02:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,307 +53,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 521206ad-e043-11ed-8611-37d641c3527e
+X-Inumbo-ID: cd3de100-e044-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Hxjas5+i6Qmtl/IWYU2S6tR3KAPNxANdga11ZKPHWM73b8DLJVAfXFHFdmf2oITQMJO3Vbv2MSlV8Mg6ifrZX8ZHDW3FVp741WJl6CHMv0KCntM7IpQj5+vQsE6S6FYhjJgb1waJ8OE7/t5i2tAXuiuN0EqcudiRwP5ho4McpFGlucjD5Vm9gWZnEVjxDk45AplLc42dGZZp0C1T5A1dFPGsSqDu1EDchIB9V9EEd4LZOP/67692VdjwMc9gqqZ46GlwpmHb5F3y76HrD66LDA8JEk27djKIa8oA6turoxbqCPUgVysRhEgOyg64x2x1htX5C6LTxaY9OyiFrJqyEQ==
+ b=dcc1i3mh3JNbsDdbYgryjrYaY4a9tf0et6CcHqQGaXpegtg6sSVfLd4V2vlYfmskhDbEG7caZwFdmbVRfKkINCz+ez6Z0WrKvJaqoArjghhScNng5cnWUndyV48rm8rGoLx2BcLD58AcKO1q5uxGEmqMHEfL2pyg50qXSc2P6gfTDEiiNTcrgoziVjXxwFGBtgcOUjwtEbTPYXfREVQ2G7EWIF0vgNEAhO6RbUtqDnQa4Be0hgaUzWMW6rPxOcrkOv1z/SQ+ngYXEoHCN98tFZ4aGaAqkXivCpD0YHPjaiMkYBzXqGNHfeMU3S8G0lKjnXskUnRLiYmD4EMbxdqZ8w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xgdt6ZLreRtLGrIF59kbHE+xhYPe/lerXb0SOqaYsOE=;
- b=SZRgyHP6+wliwwJGDfQ+RMHeflCR4MqLXWbLnQEqbD/TsJgZJt8Fm8cH+IU4CImRQTNG3oa1sCp7+clXkMx8kiq9ZkYz8PthL5tKvxe4EfVAMOW0is8ZzQqbLGirYP67pPs7deidWVjMO4Bh0o9KadTtyGXEwikaTW3iZzx4nNbIT/7BGl+jR0GyjZ5ucPaHpQ1C39EzwrTUUU7ZZ/oCyr6tJjpQ++gjqRtUsDy5qVoJ7e0kzhs5cixCxe5ijybDzzxGud1URX6YlefomOMVyRvRBAxTGlNDXADeWcwUR4ns+wRA9xtl9t+UcE4Q+xDpXixjpTDWndoW2g+EP6H+nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=qUyX2dYvxqrGMER1SUiKatz+f2i6jGdC1T0t6ZOvL+8=;
+ b=B3emrQGUJj8WIWBcCt8pPkdXjdhifbPUombIDyCR5hBW4e+D2z+RJRG1qOyn38q3wmhHsfnZ7w9W99+5M8NKM1ZHoKFF/esoCr53P622dz+8H/+5Zm0va33JqW/ef1AdDj5Dv4C33fBrGucX1X8E4zTtA5vSfcMvP4OkpdHoffkZ9VBxwkxWpNTzNuXl8e5oRY+Cw/datVHQOxXNc9XVu3Rbtqvy1gDNsBpSHXpBVllBKjFkmvmqF+L1vx08U8+t5JIim1jQHF4mJ7sv41qMJSIbxnaTTCFuQSeVl2t2xA9TWUZNoWiG1SCDL2Kx6hxDe7BhPIRAmEMwhWOZdNTUVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xgdt6ZLreRtLGrIF59kbHE+xhYPe/lerXb0SOqaYsOE=;
- b=GNqeQRmeWlhyv+XRy7dSy6YPFFV/o0V6lp9WT9HWBD4u0nccvp7BRgIAOJ10spV3wic23LQ3dZk4Ur5xsCmDQJNw2+UG3b6LEZT3xahDO6AcdTT7I2io47U9+nWkokGgbUuQqoZciUKeadSrrxEdXgk3zJ8CitWNzaU6lGcImLU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <43f5fdaa-47c7-6ec9-c477-dac62a5bceae@amd.com>
-Date: Fri, 21 Apr 2023 14:52:01 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: xen cache colors in ARM
+ bh=qUyX2dYvxqrGMER1SUiKatz+f2i6jGdC1T0t6ZOvL+8=;
+ b=a7Db/1jFI7BDP+F489PyXHtWsQjheYcBpR9RcMj4jQTYoHGnqFtSR+LHJtH1xVSziLZBuqSQsNzds0wyzukYt9cHNMqHTTKcAMrCBML8uLy1pJI6Zp4oZ5Z3Bg9y8MlA+TmxcAdahZs5zH++SV2Xwfj8Tbf0zFw/F1ty88FBOKsLLCab0ZaDgOdnOWjBpl7fnW65gxCN5XFtE8UOdM8fWnWT/vc1CwaTTqGTEpcJqYBFArXuLZ3Ep+ao2qbg0pAMuykuXRIq2sGHpSSWV5BPqW/6TkbArP3pAtNJyNr3AYrqRb/p0mz+OHoDsXtWwYm1LjG5m4TJeisFWrEKxGzixA==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+        George
+ Dunlap <george.dunlap@citrix.com>,
+        Julien Grall <julien@xen.org>,
+        Stefano
+ Stabellini <sstabellini@kernel.org>,
+        Paul Durrant <paul@xen.org>, Kevin Tian
+	<kevin.tian@intel.com>,
+        =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
+	<roger.pau@citrix.com>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 2/6] xen: pci: introduce reference counting for pdev
+Thread-Topic: [PATCH v3 2/6] xen: pci: introduce reference counting for pdev
+Thread-Index: 
+ AQHZVrdzsdckomMx4kauxHkZQ597Iq79mAMAgClI2ACAAK/igIAAVGGAgAGe14CAAJvOAIAFXoKAgAAEr4CAAAS6AIAGQ32AgAAf0YCAAAVEAA==
+Date: Fri, 21 Apr 2023 13:02:33 +0000
+Message-ID: <87v8hp75hz.fsf@epam.com>
+References: <20230314205612.3703668-1-volodymyr_babchuk@epam.com>
+ <20230314205612.3703668-3-volodymyr_babchuk@epam.com>
+ <ZBNA9q5DXJYG3KVp@Air-de-Roger> <873556xa0g.fsf@epam.com>
+ <ZDZ2S4OxP2e12oSX@Air-de-Roger> <87v8i0wyv0.fsf@epam.com>
+ <ZDgZEZIG89oW6rEw@Air-de-Roger> <87leivw8qp.fsf@epam.com>
+ <ZD0cyXLt1knXyUzA@Air-de-Roger>
+ <963624f1-a36a-5d48-c34f-552d9d6c4950@suse.com>
+ <ZD0krtCOrEwiKMFP@Air-de-Roger> <87354t8pqg.fsf@epam.com>
+ <d9ab412f-b1d1-3fef-a956-05373ce76dd2@suse.com>
+In-Reply-To: <d9ab412f-b1d1-3fef-a956-05373ce76dd2@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Oleg Nikitenko <oleshiiwood@gmail.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Carlo Nonato <carlo.nonato@minervasys.tech>
-References: <CA+SAi2uwrKFYN1tkYJ1_LVC-f+b-xb46RWTUv6wDOUO41yx8zg@mail.gmail.com>
- <CA+SAi2s4WLiMEVa3u8rJRNZDpCpLTvnDygpObSUKxau-Q8dfyA@mail.gmail.com>
- <64326e46-096e-0f86-2aa9-31a72d3cd004@xen.org>
- <CA+SAi2u2=7h=Lo=bTC8YzmzidOErYaQGi=hpoG3w7tdM4LUzFw@mail.gmail.com>
- <alpine.DEB.2.22.394.2304181044080.15580@ubuntu-linux-20-04-desktop>
- <CA+SAi2srSq5Vwq8KL4TGc-GC3OjsFf=d-yKLVPw=C0KfBW67eA@mail.gmail.com>
- <58cae772-dd3b-31f4-9849-9c2597f6eae6@amd.com>
- <CA+SAi2vU0i9trrdgCusB0WYJmYLqjXRk9qSGALjMbKYvmPGcvw@mail.gmail.com>
- <CA+SAi2tc_3r3SAXVOmdbDJXvppaXkSdMH0iv-fG1zUwG3Ub_hQ@mail.gmail.com>
- <alpine.DEB.2.22.394.2304191304570.15580@ubuntu-linux-20-04-desktop>
- <CA+SAi2tEbV0Y=p=NhT_8H1SeBzqXxUTS5R9pZu3_UYn5zU952A@mail.gmail.com>
- <CA+SAi2s7jUf4ZB6WCDqEbG5jV1A5XV=bJDiGOseQBBG+Xt9_vQ@mail.gmail.com>
- <CA+SAi2uPnpwNowMWPdcbSkF=iNe9Xr5LQMtmtF-G7dKNswog_g@mail.gmail.com>
- <cc6380b9-b452-6492-75ab-fc0825b223d3@amd.com>
- <CA+SAi2upd1P=KzbQS2BpD5zr3+OA=mrq7JiC7Zou9XSEJ_OYhA@mail.gmail.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <CA+SAi2upd1P=KzbQS2BpD5zr3+OA=mrq7JiC7Zou9XSEJ_OYhA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT046:EE_|BL0PR12MB4946:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8674e127-dd4d-442d-b2ea-08db426734d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	DHNqoiTuHfOv+SMlup9U+Mr246WQ3gfrGCvLU3Nw+5+qLbLJpEY4DLtlUkslnifhfSCAoacDPtWV6fxGosb6A/IKtau/xXRRv5O9dOpvPyRJfdNmn5wiQkWD4JBoHybuqWWVHjcUn1A3WdKBpse/jZRkUxyw4sooF2hQYGglO053DcwZoJHUJRsI9gjt4kRBscimTANpuYvlaT+x6Jagn8P/I8xdVNjU8dhEMdITescY/bls4EBvRqPNQfYKHsHVHnyNXH+npT69t6bZynVg/MLw+g+J6nv2gpaZJFoN9bUgySKPhbhSzq0kA8dcSLMEv60pNDbMpTGn3g9tEowExuwlBXXzwPZrTEPKp1KUMdkV7ChuC8+7AP2AyPeLOQfF/wvmtIgRfdWFqvq1l+/FQVBMhK68TZpCBDMaUZFCA/ccZUt0TRlro8N9qqFbDXgLWGZWOjO6P9DIcFGsJeJhj90uvvXuGMDvoxvT+gZgaY/27pG2z0XY9lX4rc7buAn/NjvMTRYf/1XQIa0sssJx64uQvBU73ZtLA2XswBvMZtZumMYIrElUcnYlBSK274ZreWMv2sQXbNix6eKih8wN6a/uWIbBCYNDzARBPRpsD+MWJFizZBNy5/OFPm9mfyUid1WDfrdRJQG/c+7sokI/tGNrQsExHMU/dzISP4Xqc6+tZH1lYhA4WE1sJw4Vk6SdJ2jxeFajUVYzuLp1SGyWjV6FeyCLrKIVH7KYecrFdlx1nCpuW4x0V2vijobWhR8gzybybGQx2MhMyrC6WAOA+cYxBvROnv76vjbBpf/jFgk=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199021)(40470700004)(36840700001)(46966006)(44832011)(82740400003)(356005)(2906002)(81166007)(40460700003)(31696002)(86362001)(82310400005)(40480700001)(2616005)(16576012)(478600001)(54906003)(316002)(41300700001)(70586007)(70206006)(4326008)(6916009)(26005)(53546011)(36860700001)(966005)(186003)(36756003)(31686004)(47076005)(8936002)(8676002)(426003)(336012)(83380400001)(5660300002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Apr 2023 12:52:03.8269
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.8.9; emacs 28.2
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|AM7PR03MB6465:EE_
+x-ms-office365-filtering-correlation-id: f303242d-8dde-42c7-fb88-08db4268ac59
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ vIl5SCmGe0RJu0Qg3cp32rcYwhiL7VlIvxe8PFZl05v2ZXbml2ytoXm8taSCfkfAql7Vp6pprRWI3D0SK88zqTr6pG2EGAbdEMc9hSRbnvc5vWS3TolkD/lyhMxo50Pdop3kG+4/C3YAdHfLYRwX+050NG8BN7XxW3x2Q6QvfjwDRgfod9ysvI3dU0oiCTFM0WaJhampb59jiSfJsKHlVTIZXIhp0vX//SaZRbg+2UN2o23YyPAZG01m8UsKGJcwSckrDWpOEpc6wq2dbaR02POgvUWKg4FB/dOtpeGBAGB6uJuEvwGmhy5bC+OOG+ex7IVSWsT3VHc6j5VR1sEQX7VBjhOvBHKeQZEc3ypm27XXx+pBRiegY1M8abP+yKQA3+o748Qqc498ZKQwgdike+faE5pqQEZITbQzyYULSJtzgzAnZPiKJJVzPk/q/Umm9uUlXSYYXQlr7hqGETlt7ZkqzYig4wVW5jMS7yBKCkbvnCIwXytGjL2t4j59vVyMeSXUYco6CB4i7M6VcC6qs3/4fW9r2OoaK/AaQ3akk4TsG3r1SqiAqluOpbtXU/f9bC0zhhi+VmzOq0/5UZdkjz5NCCKXYRbQd0Gj7FHtBe+CpkQDrQShEJ8ea3hY4brl
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(366004)(376002)(346002)(396003)(451199021)(122000001)(64756008)(316002)(6916009)(66476007)(54906003)(76116006)(66446008)(66946007)(66556008)(4326008)(91956017)(6512007)(6506007)(26005)(55236004)(186003)(53546011)(38100700002)(2616005)(83380400001)(8936002)(5660300002)(8676002)(41300700001)(478600001)(71200400001)(6486002)(86362001)(36756003)(2906002)(38070700005)(7416002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?YTRJdnRZaU40OGw4c1dzbUprMmJpelczVzBLVHc5ZGNnTUttOVRoMkUwa25B?=
+ =?utf-8?B?dVZLZllJVlphejRldnZ6V094U2pwMlhDRjFFZkZIQTNtRC9JOVlsMEoyZFVW?=
+ =?utf-8?B?ZWNSdlVwaG9GTGY1SVdHdGNRVUgzNG0wWmdTTlUxcnpuUWlBUUdQeGhJTlha?=
+ =?utf-8?B?MHNadlZKa3RXeDUwWUZqQTd0dTRncS9xS050azZUNUtKVTMzN3dOZDBrK2Fr?=
+ =?utf-8?B?bVJHY0pDZnJTTnpWdUo5TEcxWWwyTUYySzdTQjZsMTAzL2xwTUcxVnl1Smhn?=
+ =?utf-8?B?ZXJ3SXpuckNOb2lucTVWVUJDUlpQRHpDeW5ITVoxMlcvbjJrOXZDb0RqSUQv?=
+ =?utf-8?B?ekNtd1dZMjFWYWViS1FxZUo4R1VlcDBaVit0RzgwZzNLbVAxZlZwQ0srU1hl?=
+ =?utf-8?B?M01DSDdHSGMxaHVQMmtJWlNCYVNxV0NFR2YyT01VeXV2U3A1L3kwQUdMSUxi?=
+ =?utf-8?B?aEZkR1BjTXhNZUZZdEFtN2NKVVlJdGVoYjFOMytlMmN6andRNjgxZGlCSVpZ?=
+ =?utf-8?B?cEp4amNKeTNTV1JKREJodkpPclI3RU4rR3BkVkVEUHE0NnY0dnE5Y1J5ZFVy?=
+ =?utf-8?B?MWh2cUpWM3FoSWMwRE82cWpUa0I0ckU1QVdUL3JsREFDbGV1Slg5QytKR24w?=
+ =?utf-8?B?eEZPNk1ERmhMeWRlSlQxaytHZGVxZFkvRWxyRzIwU2o5U1N2by9xRFVuOGZx?=
+ =?utf-8?B?Y0p2YW80RFJUTGFGdjQrcHF5NzFkZkRVeW5SWTI2SnBVTTFrYThCQzl4Ky9C?=
+ =?utf-8?B?YUtSUnE4emxEVUVsdGVac2FEYVZEMC9lU0xvS1grMDVZRXpXM3R3YllOUmZh?=
+ =?utf-8?B?K01YeW9OcUlib0hyNUxQaFl3UmdvTU9VZmppWjlmcWFVL3NoWk9DUkR1cEF6?=
+ =?utf-8?B?MVBOVk5NeEtUTzA3anNUTkVYMUJ4MUZRZlVkOWRRZW16NTZHa2p4OEpTdVhQ?=
+ =?utf-8?B?a3k3M0pvRXYvMlVyd1pieG5GbG1xckg4MUQxaWhKbm5pY0pPZHd5RU5rRjRI?=
+ =?utf-8?B?WlRxVlBBTHFIV3hrenU0dkhqajBXcDlyS28yaTFmZVB0MDB1d2lVcXNVenJY?=
+ =?utf-8?B?eU1RaC9VdWdabmhWVTVpUGRFYzB5QXdWak1XMjFVaHUwdnhTblRXOWlzSWlL?=
+ =?utf-8?B?R3Q3dXh1aUVxZlZEWE5BdXZoNWpKbW5LMGpaSVVNNktmbEc5V2xvTFNIS3pM?=
+ =?utf-8?B?NnVNUG1Ed2J2c2xabkJIbWYrbnFla3lmZ2lDT3NhYVZEWG9KWXltaWloQVFC?=
+ =?utf-8?B?S1E4WkxrcmxNcFVrVit0ampHWnU1SkVMV2IxQmE4WHpnMlRGQkorN0F5Zmlt?=
+ =?utf-8?B?bjV3RDV0UllPSzA1RGlBTGJQZ0dDUGVDc3hkQkgwV1JidFJNNHB4cGEzeW9y?=
+ =?utf-8?B?QVdpMFdhYUdreFNnTzVsb2c2a0YxMFFOQXBvcnh4YXhGK3F6cThqRDdhT0Jt?=
+ =?utf-8?B?SWZRYlc1MGZWVUEvN2s4Y3U0dEtwclpFa3pzRkYxVU1GeWxidHVQeE96ZnZO?=
+ =?utf-8?B?azg0N3RyMDJWdnVQenFrRFNwYzVIR29nTGI4MU5CdCtLbVNSb3AxUUlaS1hG?=
+ =?utf-8?B?dldvRERhWS9RK1I1alJuUkxyZnVRc2hDUUlPQmE1ZDlYR2luQVFQdnNja3h0?=
+ =?utf-8?B?RWxJT1E1RjVLZElBQkZpa0ZQUmVRazN5U0MxaWQwUjdvSHNNYUJza0xBR215?=
+ =?utf-8?B?OUUwekxXWFdwdE9rMmFsbFhIMTVVV0xZazhUQTVHbG9kS29vbVBrZXFmS2pN?=
+ =?utf-8?B?OGxxTkhzVTNWYUhzNmpoU1NVcHJxeGtucHoxSXNqRW5wRXBjN0Iwd1FKVll5?=
+ =?utf-8?B?UjJNbHVwTEY3cUJrWWFSOVc1bDJCWCtuY1BWbHRKemxGOWYrdXBOaStFNkwz?=
+ =?utf-8?B?MFFaNmZ0Q01jYWJycTlPdjRXa2pndnpQSER1ckNtVEhKcWxkenZKTlJuRitx?=
+ =?utf-8?B?WndwNEZUNnVsQ2NXcTVEczVEb3hMN1NBV25CcW0vRDU5MWp3R29EaFRpK1or?=
+ =?utf-8?B?ZDJCNGNobnpXc1pmalNiWEZIWHdlYnZlYzBLYVNKajZrM2lyZzRqS2xma3RC?=
+ =?utf-8?B?bURYN3YzZ0xPUHlFemVXMndZUnRLb1U5aE0wQ293Nnp1clhUemM4SFlkZGIx?=
+ =?utf-8?B?M0JYS2xBNXBIRGZlVkdzWVdMZEF2YitDUlRDb2pPVWRCNjFPdUVjYUlhL04y?=
+ =?utf-8?B?U2c9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <AFAFC34D145C5D41A275917467F7D243@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f303242d-8dde-42c7-fb88-08db4268ac59
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Apr 2023 13:02:33.8065
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8674e127-dd4d-442d-b2ea-08db426734d8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT046.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4946
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1yTJl8sAQ1tSIdlIuZfJf/OexF4SIuaCTKMVebEYbZU5MsLfIYp8gGx2zwzxEYalUvE1ExX0OuFVQidTQKSi4QwCToVFkPOvHQJVsM5K0xE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR03MB6465
+X-Proofpoint-GUID: Ot-2W9zlodlPxvTyu5iWgxFvM4glXPkV
+X-Proofpoint-ORIG-GUID: Ot-2W9zlodlPxvTyu5iWgxFvM4glXPkV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-21_06,2023-04-21_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0
+ mlxlogscore=999 malwarescore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 suspectscore=0 mlxscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.12.0-2303200000
+ definitions=main-2304210113
 
-Hi Oleg,
-
-On 21/04/2023 14:49, Oleg Nikitenko wrote:
-> 	
-> 
-> 
-> Hello Michal,
-> 
-> I was not able to enable earlyprintk in the xen for now.
-> I decided to choose another way.
-> This is a xen's command line that I found out completely.
-> 
-> (XEN) $$$$ console=dtuart dtuart=serial0 dom0_mem=1600M dom0_max_vcpus=2 dom0_vcpus_pin bootscrub=0 vwfi=native sched=null timer_slop=0
-Yes, adding a printk() in Xen was also a good idea.
-
-> 
-> So you are absolutely right about a command line.
-> Now I am going to find out why xen did not have the correct parameters from the device tree.
-Maybe you will find this document helpful:
-https://github.com/Xilinx/xen/blob/xlnx_rebase_4.16/docs/misc/arm/device-tree/booting.txt
-
-~Michal
-
-> 
-> Regards,
-> Oleg
-> 
-> пт, 21 апр. 2023 г. в 11:16, Michal Orzel <michal.orzel@amd.com <mailto:michal.orzel@amd.com>>:
-> 
-> 
->     On 21/04/2023 10:04, Oleg Nikitenko wrote:
->     >       
->     >
->     >
->     > Hello Michal,
->     >
->     > Yes, I use yocto.
->     >
->     > Yesterday all day long I tried to follow your suggestions.
->     > I faced a problem.
->     > Manually in the xen config build file I pasted the strings:
->     In the .config file or in some Yocto file (listing additional Kconfig options) added to SRC_URI?
->     You shouldn't really modify .config file but if you do, you should execute "make olddefconfig" afterwards.
-> 
->     >
->     > CONFIG_EARLY_PRINTK
->     > CONFIG_EARLY_PRINTK_ZYNQMP
->     > CONFIG_EARLY_UART_CHOICE_CADENCE
->     I hope you added =y to them.
-> 
->     Anyway, you have at least the following solutions:
->     1) Run bitbake xen -c menuconfig to properly set early printk
->     2) Find out how you enable other Kconfig options in your project (e.g. CONFIG_COLORING=y that is not enabled by default)
->     3) Append the following to "xen/arch/arm/configs/arm64_defconfig":
->     CONFIG_EARLY_PRINTK_ZYNQMP=y
-> 
->     ~Michal
-> 
->     >
->     > Host hangs in build time. 
->     > Maybe I did not set something in the config build file ?
->     >
->     > Regards,
->     > Oleg
->     >
->     > чт, 20 апр. 2023 г. в 11:57, Oleg Nikitenko <oleshiiwood@gmail.com <mailto:oleshiiwood@gmail.com> <mailto:oleshiiwood@gmail.com <mailto:oleshiiwood@gmail.com>>>:
->     >
->     >     Thanks Michal,
->     >
->     >     You gave me an idea.
->     >     I am going to try it today.
->     >
->     >     Regards,
->     >     O.
->     >
->     >     чт, 20 апр. 2023 г. в 11:56, Oleg Nikitenko <oleshiiwood@gmail.com <mailto:oleshiiwood@gmail.com> <mailto:oleshiiwood@gmail.com <mailto:oleshiiwood@gmail.com>>>:
->     >
->     >         Thanks Stefano.
->     >
->     >         I am going to do it today.
->     >
->     >         Regards,
->     >         O.
->     >
->     >         ср, 19 апр. 2023 г. в 23:05, Stefano Stabellini <sstabellini@kernel.org <mailto:sstabellini@kernel.org> <mailto:sstabellini@kernel.org <mailto:sstabellini@kernel.org>>>:
->     >
->     >             On Wed, 19 Apr 2023, Oleg Nikitenko wrote:
->     >             > Hi Michal,
->     >             >
->     >             > I corrected xen's command line.
->     >             > Now it is
->     >             > xen,xen-bootargs = "console=dtuart dtuart=serial0 dom0_mem=1600M dom0_max_vcpus=2 dom0_vcpus_pin bootscrub=0 vwfi=native sched=null
->     >             > timer_slop=0 way_size=65536 xen_colors=0-3 dom0_colors=4-7";
->     >
->     >             4 colors is way too many for xen, just do xen_colors=0-0. There is no
->     >             advantage in using more than 1 color for Xen.
->     >
->     >             4 colors is too few for dom0, if you are giving 1600M of memory to Dom0.
->     >             Each color is 256M. For 1600M you should give at least 7 colors. Try:
->     >
->     >             xen_colors=0-0 dom0_colors=1-8
->     >
->     >
->     >
->     >             > Unfortunately the result was the same.
->     >             >
->     >             > (XEN)  - Dom0 mode: Relaxed
->     >             > (XEN) P2M: 40-bit IPA with 40-bit PA and 8-bit VMID
->     >             > (XEN) P2M: 3 levels with order-1 root, VTCR 0x0000000080023558
->     >             > (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
->     >             > (XEN) Coloring general information
->     >             > (XEN) Way size: 64kB
->     >             > (XEN) Max. number of colors available: 16
->     >             > (XEN) Xen color(s): [ 0 ]
->     >             > (XEN) alternatives: Patching with alt table 00000000002cc690 -> 00000000002ccc0c
->     >             > (XEN) Color array allocation failed for dom0
->     >             > (XEN)
->     >             > (XEN) ****************************************
->     >             > (XEN) Panic on CPU 0:
->     >             > (XEN) Error creating domain 0
->     >             > (XEN) ****************************************
->     >             > (XEN)
->     >             > (XEN) Reboot in five seconds...
->     >             >
->     >             > I am going to find out how command line arguments passed and parsed.
->     >             >
->     >             > Regards,
->     >             > Oleg
->     >             >
->     >             > ср, 19 апр. 2023 г. в 11:25, Oleg Nikitenko <oleshiiwood@gmail.com <mailto:oleshiiwood@gmail.com> <mailto:oleshiiwood@gmail.com <mailto:oleshiiwood@gmail.com>>>:
->     >             >       Hi Michal,
->     >             >
->     >             > You put my nose into the problem. Thank you.
->     >             > I am going to use your point.
->     >             > Let's see what happens.
->     >             >
->     >             > Regards,
->     >             > Oleg
->     >             >
->     >             >
->     >             > ср, 19 апр. 2023 г. в 10:37, Michal Orzel <michal.orzel@amd.com <mailto:michal.orzel@amd.com> <mailto:michal.orzel@amd.com <mailto:michal.orzel@amd.com>>>:
->     >             >       Hi Oleg,
->     >             >
->     >             >       On 19/04/2023 09:03, Oleg Nikitenko wrote:
->     >             >       >       
->     >             >       >
->     >             >       >
->     >             >       > Hello Stefano,
->     >             >       >
->     >             >       > Thanks for the clarification.
->     >             >       > My company uses yocto for image generation.
->     >             >       > What kind of information do you need to consult me in this case ?
->     >             >       >
->     >             >       > Maybe modules sizes/addresses which were mentioned by @Julien Grall <mailto:julien@xen.org <mailto:julien@xen.org> <mailto:julien@xen.org <mailto:julien@xen.org>>> ?
->     >             >
->     >             >       Sorry for jumping into discussion, but FWICS the Xen command line you provided seems to be not the one
->     >             >       Xen booted with. The error you are observing most likely is due to dom0 colors configuration not being
->     >             >       specified (i.e. lack of dom0_colors=<> parameter). Although in the command line you provided, this parameter
->     >             >       is set, I strongly doubt that this is the actual command line in use.
->     >             >
->     >             >       You wrote:
->     >             >       xen,xen-bootargs = "console=dtuart dtuart=serial0 dom0_mem=1600M dom0_max_vcpus=2 dom0_vcpus_pin bootscrub=0 vwfi=native
->     >             >       sched=null timer_slop=0 way_szize=65536 xen_colors=0-3 dom0_colors=4-7";
->     >             >
->     >             >       but:
->     >             >       1) way_szize has a typo
->     >             >       2) you specified 4 colors (0-3) for Xen, but the boot log says that Xen has only one:
->     >             >       (XEN) Xen color(s): [ 0 ]
->     >             >
->     >             >       This makes me believe that no colors configuration actually end up in command line that Xen booted with.
->     >             >       Single color for Xen is a "default if not specified" and way size was probably calculated by asking HW.
->     >             >
->     >             >       So I would suggest to first cross-check the command line in use.
->     >             >
->     >             >       ~Michal
->     >             >
->     >             >
->     >             >       >
->     >             >       > Regards,
->     >             >       > Oleg
->     >             >       >
->     >             >       > вт, 18 апр. 2023 г. в 20:44, Stefano Stabellini <sstabellini@kernel.org <mailto:sstabellini@kernel.org> <mailto:sstabellini@kernel.org <mailto:sstabellini@kernel.org>> <mailto:sstabellini@kernel.org <mailto:sstabellini@kernel.org> <mailto:sstabellini@kernel.org <mailto:sstabellini@kernel.org>>>>:
->     >             >       >
->     >             >       >     On Tue, 18 Apr 2023, Oleg Nikitenko wrote:
->     >             >       >     > Hi Julien,
->     >             >       >     >
->     >             >       >     > >> This feature has not been merged in Xen upstream yet
->     >             >       >     >
->     >             >       >     > > would assume that upstream + the series on the ML [1] work
->     >             >       >     >
->     >             >       >     > Please clarify this point.
->     >             >       >     > Because the two thoughts are controversial.
->     >             >       >
->     >             >       >     Hi Oleg,
->     >             >       >
->     >             >       >     As Julien wrote, there is nothing controversial. As you are aware,
->     >             >       >     Xilinx maintains a separate Xen tree specific for Xilinx here:
->     >             >       >     https://github.com/xilinx/xen <https://github.com/xilinx/xen> <https://github.com/xilinx/xen <https://github.com/xilinx/xen>> <https://github.com/xilinx/xen <https://github.com/xilinx/xen> <https://github.com/xilinx/xen <https://github.com/xilinx/xen>>>
->     >             >       >
->     >             >       >     and the branch you are using (xlnx_rebase_4.16) comes from there.
->     >             >       >
->     >             >       >
->     >             >       >     Instead, the upstream Xen tree lives here:
->     >             >       >     https://xenbits.xen.org/gitweb/?p=xen.git;a=summary <https://xenbits.xen.org/gitweb/?p=xen.git;a=summary> <https://xenbits.xen.org/gitweb/?p=xen.git;a=summary <https://xenbits.xen.org/gitweb/?p=xen.git;a=summary>> <https://xenbits.xen.org/gitweb/?p=xen.git;a=summary <https://xenbits.xen.org/gitweb/?p=xen.git;a=summary> <https://xenbits.xen.org/gitweb/?p=xen.git;a=summary <https://xenbits.xen.org/gitweb/?p=xen.git;a=summary>>>
->     >             >       >
->     >             >       >
->     >             >       >     The Cache Coloring feature that you are trying to configure is present
->     >             >       >     in xlnx_rebase_4.16, but not yet present upstream (there is an
->     >             >       >     outstanding patch series to add cache coloring to Xen upstream but it
->     >             >       >     hasn't been merged yet.)
->     >             >       >
->     >             >       >
->     >             >       >     Anyway, if you are using xlnx_rebase_4.16 it doesn't matter too much for
->     >             >       >     you as you already have Cache Coloring as a feature there.
->     >             >       >
->     >             >       >
->     >             >       >     I take you are using ImageBuilder to generate the boot configuration? If
->     >             >       >     so, please post the ImageBuilder config file that you are using.
->     >             >       >
->     >             >       >     But from the boot message, it looks like the colors configuration for
->     >             >       >     Dom0 is incorrect.
->     >             >       >
->     >             >
->     >             >
->     >             >
->     >
-> 
+DQpIaSBKYW4sDQoNCkphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4gd3JpdGVzOg0KDQo+
+IE9uIDIxLjA0LjIwMjMgMTM6MDAsIFZvbG9keW15ciBCYWJjaHVrIHdyb3RlOg0KPj4gDQo+PiBI
+ZWxsbyBSb2dlciwNCj4+IA0KPj4gUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5j
+b20+IHdyaXRlczoNCj4+IA0KPj4+IE9uIE1vbiwgQXByIDE3LCAyMDIzIGF0IDEyOjM0OjMxUE0g
+KzAyMDAsIEphbiBCZXVsaWNoIHdyb3RlOg0KPj4+PiBPbiAxNy4wNC4yMDIzIDEyOjE3LCBSb2dl
+ciBQYXUgTW9ubsOpIHdyb3RlOg0KPj4+Pj4gT24gRnJpLCBBcHIgMTQsIDIwMjMgYXQgMDE6MzA6
+MzlBTSArMDAwMCwgVm9sb2R5bXlyIEJhYmNodWsgd3JvdGU6DQo+Pj4+Pj4gQWJvdmUgSSBoYXZl
+IHByb3Bvc2VkIGFub3RoZXIgdmlldyBvbiB0aGlzLiBJIGhvcGUsIGl0IHdpbGwgd29yayBmb3IN
+Cj4+Pj4+PiB5b3UuIEp1c3QgdG8gcmVpdGVyYXRlLCBpZGVhIGlzIHRvIGFsbG93ICJoYXJtbGVz
+cyIgcmVmY291bnRzIHRvIGJlIGxlZnQNCj4+Pj4+PiBhZnRlciByZXR1cm5pbmcgZnJvbSBwY2lf
+cmVtb3ZlX2RldmljZSgpLiBCeSAiaGFybWxlc3MiIEkgbWVhbiB0aGF0DQo+Pj4+Pj4gb3duZXJz
+IG9mIHRob3NlIHJlZmNvdW50cyB3aWxsIG5vdCB0cnkgdG8gYWNjZXNzIHRoZSBwaHlzaWNhbCBQ
+Q0kNCj4+Pj4+PiBkZXZpY2UgaWYgcGNpX3JlbW92ZV9kZXZpY2UoKSBpcyBhbHJlYWR5IGZpbmlz
+aGVkLg0KPj4+Pj4NCj4+Pj4+IEknbSBub3Qgc3RyaWN0bHkgYSBtYWludGFpbmVyIG9mIHRoaXMg
+cGllY2UgY29kZSwgYWxiZWl0IEkgaGF2ZSBhbg0KPj4+Pj4gb3Bpbmlvbi4gIEkgd2lsbCBsaWtl
+IHRvIGFsc28gaGVhciBKYW5zIG9waW5pb24sIHNpbmNlIGhlIGlzIHRoZQ0KPj4+Pj4gbWFpbnRh
+aW5lci4NCj4+Pj4NCj4+Pj4gSSdtIGFmcmFpZCBJIGNhbid0IHJlYWxseSBhcHByZWNpYXRlIHRo
+ZSB0ZXJtICJoYXJtbGVzcyByZWZjb3VudHMiLiBXaG9ldmVyDQo+Pj4+IGhvbGRzIGEgcmVmIGlz
+IGVudGl0bGVkIHRvIGFjY2VzcyB0aGUgZGV2aWNlLiBBcyBzdGF0ZWQgYmVmb3JlLCBJIHNlZSBv
+bmx5DQo+Pj4+IHR3byB3YXlzIG9mIGdldHRpbmcgdGhpbmdzIGNvbnNpc3RlbnQ6IEVpdGhlciBw
+Y2lfcmVtb3ZlX2RldmljZSgpIGlzDQo+Pj4+IGludm9rZWQgdXBvbiBkcm9wcGluZyBvZiB0aGUg
+bGFzdCByZWYsDQo+Pj4NCj4+PiBXaXRoIHRoaXMgYXBwcm9hY2gsIHdoYXQgd291bGQgYmUgdGhl
+IGltcGxlbWVudGF0aW9uIG9mDQo+Pj4gUEhZU0RFVk9QX21hbmFnZV9wY2lfcmVtb3ZlPyAgV291
+bGQgaXQganVzdCBjaGVjayB3aGV0aGVyIHRoZSBwZGV2DQo+Pj4gZXhpc3QgYW5kIGVpdGhlciBy
+ZXR1cm4gMCBvciAtRUJVU1k/DQo+Pj4NCj4+IA0KPj4gT2theSwgSSBhbSBwcmVwYXJpbmcgcGF0
+Y2hlcyB3aXRoIHRoZSBiZWhhdmlvciB5b3UgcHJvcG9zZWQuIFRvIHRlc3QgaXQsDQo+PiBJIGFy
+dGlmaWNpYWxseSBzZXQgcmVmY291bnQgdG8gMiBhbmQgaW5kZWVkIFBIWVNERVZPUF9tYW5hZ2Vf
+cGNpX3JlbW92ZQ0KPj4gcmV0dXJuZWQgLUVCVVNZLCB3aGljaCBwcm9wYWdhdGVkIHRvIHRoZSBs
+aW51eCBkcml2ZXIuIFByb2JsZW0gaXMgdGhhdA0KPj4gTGludXggZHJpdmVyIGNhbid0IGRvIGFu
+eXRoaW5nIHdpdGggdGhpcy4gSXQganVzdCBkaXNwbGF5ZWQgYW4gZXJyb3INCj4+IG1lc3NhZ2Ug
+YW5kIHJlbW92ZWQgZGV2aWNlIGFueXdheXMuIFRoaXMgaXMgYmVjYXVzZSBMaW51eCBzZW5kcw0K
+Pj4gUEhZU0RFVk9QX21hbmFnZV9wY2lfcmVtb3ZlIGluIGRldmljZV9yZW1vdmUoKSBjYWxsIHBh
+dGggYW5kIHRoZXJlIGlzIG5vDQo+PiB3YXkgdG8gcHJldmVudCB0aGUgZGV2aWNlIHJlbW92YWwu
+IFNvLCBhZG1pbiBpcyBub3QgY2FwYWJsZSB0byB0cnkgdGhpcw0KPj4gYWdhaW4uDQo+DQo+IFNv
+IG1heWJlIExpbnV4J2VzIGlzc3Vpbmcgb2YgdGhlIGNhbGwgbmVlZHMgbW92aW5nIGVsc2V3aGVy
+ZT8gT3Igd2UgbmVlZA0KPiBhIG5ldyBzdWItb3AsIHN1Y2ggdGhhdCBQSFlTREVWT1BfbWFuYWdl
+X3BjaV9yZW1vdmUgY2FuIHJlbWFpbiBwdXJlbHkgYQ0KPiBsYXN0LW1vbWVudCBub3RpZmljYXRp
+b24/DQoNCkZyb20gTGludXggcG9pbnQgb2YgdmlldywgaXQgYWxyZWFkeSBjbGVhbmVkIHVwIGFs
+bCB0aGUgZGV2aWNlIHJlc291cmNlcw0KYW5kIGl0IGlzIHJlYWR5IHRvIGhvdC11bnBsdWcgdGhl
+IGRldmljZS4gWGVuIFBDSSBkcml2ZXIgaW4gTGludXgganVzdA0KZ2V0cyBhIG5vdGlmaWNhdGlv
+biB0aGF0IGRldmljZSBpcyBiZWluZyByZW1vdmVkLg0KDQpCVFcsIHhlbl9wY2liYWNrIChBS0Eg
+cGNpX3N0dWIpIGRyaXZlciBpbiBMaW51eCB0cmFja3MgdGhhdCBkZXZpY2UgaXMNCmFzc2lnbmVk
+IHRvIGFub3RoZXIgZG9tYWluLCBidXQgYWxsIGl0IGNhbiBkbyBpcyB0byBsb3VkbHkgY29tcGxh
+aW4gaW4NCmtlcm5lbCBsb2cgaWYgZGV2aWNlIGlzIGJlaW5nIHJlbW92ZWQgd2l0aG91dCBiZWlu
+ZyBkZWFzc2lnbmVkIGZyb20NCmFub3RoZXIgZG9tYWluLg0KDQo+DQo+PiBBcyBJIHdvcmthcm91
+bmQsIEkgY2FuIGNyZWF0ZSBoeXBlcmNhbGwgY29udGludWF0aW9uIGluIGNhc2UgaWYNCj4+IHBj
+aV9yZW1vdmVfZGV2aWNlKCkgcmV0dXJucyAtRUJVU1kuIFdoYXQgaXMgeW91ciBvcGluaW9uPw0K
+Pg0KPiBIb3cgd291bGQgdGhhdCBoZWxwPyBZb3UnZCB0aGVuIHNwaW4gcGVyaGFwcyBmb3IgaG91
+cnMgb3IgZGF5cyAuLi4NCg0KQXJlIHlvdSBpbXBseWluZyB0aGUgY2FzZSB3aGVuIHdlIGluY3Jl
+YXNlIHJlZmNvdW50ZXIgd2hlbiB3ZSBhc3NpZ24gYQ0KUENJIGRldmljZSB0byBhIGRvbWFpbj8g
+SW4gdGhpcyBjYXNlIHllcywgaXQgaXMgcXVpdGUgcG9zc2libGUgdGhhdCB3ZQ0Kd2lsbCBzcGlu
+IHRoZXJlIGZvciBhbnkgYXJiaXRyYXJ5IGFtb3VudCBvZiB0aW1lLi4uDQoNCi0tIA0KV0JSLCBW
+b2xvZHlteXI=
 
