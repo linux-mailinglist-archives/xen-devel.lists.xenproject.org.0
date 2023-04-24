@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51D776ED121
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 17:17:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525482.816711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9FE66ED122
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 17:18:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525486.816720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqxvl-0002jE-DC; Mon, 24 Apr 2023 15:16:41 +0000
+	id 1pqxwm-0003Fc-NI; Mon, 24 Apr 2023 15:17:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525482.816711; Mon, 24 Apr 2023 15:16:41 +0000
+Received: by outflank-mailman (output) from mailman id 525486.816720; Mon, 24 Apr 2023 15:17:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqxvl-0002fo-9i; Mon, 24 Apr 2023 15:16:41 +0000
-Received: by outflank-mailman (input) for mailman id 525482;
- Mon, 24 Apr 2023 15:16:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wIvg=AP=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pqxvj-0002fi-UF
- for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 15:16:40 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 025cfaeb-e2b3-11ed-b223-6b7b168915f2;
- Mon, 24 Apr 2023 17:16:38 +0200 (CEST)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-4ec9c7c6986so4749713e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Apr 2023 08:16:38 -0700 (PDT)
-Received: from [192.168.202.197] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- m6-20020a056512014600b004efd3c2b746sm1297463lfo.162.2023.04.24.08.16.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Apr 2023 08:16:37 -0700 (PDT)
+	id 1pqxwm-0003CF-KS; Mon, 24 Apr 2023 15:17:44 +0000
+Received: by outflank-mailman (input) for mailman id 525486;
+ Mon, 24 Apr 2023 15:17:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ydgZ=AP=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pqxwk-000370-GQ
+ for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 15:17:42 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 276bb53a-e2b3-11ed-8611-37d641c3527e;
+ Mon, 24 Apr 2023 17:17:40 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4B35F1FD8E;
+ Mon, 24 Apr 2023 15:17:40 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0919513780;
+ Mon, 24 Apr 2023 15:17:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 54fXAJSdRmQQXwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 24 Apr 2023 15:17:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,307 +51,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 025cfaeb-e2b3-11ed-b223-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682349398; x=1684941398;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=d24bZOk6Pj50vCvUQOlE/p+ytm74tbHWHSWQcyWROMU=;
-        b=IDDsrE4w6TkNxZQBPmYvYL6M5Q5tzrYtIoPpZMZkZWtfpWmKd5cCaqKUMdKlhs7u8c
-         ANlvRltB4uNCMnWCfjT4cWwJ+DxQehWRQDyBtVvRAAkUCYWP2nfNlCxfu4u0V+pmEFKy
-         prjQ/kgxSbt2IMEgnKq0aYqQg81dd31HDFo0Ngt5323w4O6Bmm1gVRw/Hsoufzi4P9BO
-         C5Z1WqHnyo0I6zxnBrp+clpOWRDi2QzJSYKL1GgzIAzRlhU6LRxs59omJKMAVEzOmRnj
-         p7D676pWroHdaeSc8Ai+NjfpzPrBltT3lxrQ8sxsVo3h/2Tta2ctIzc0ugit7v7Ji70o
-         sVTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682349398; x=1684941398;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=d24bZOk6Pj50vCvUQOlE/p+ytm74tbHWHSWQcyWROMU=;
-        b=UxRKGIFodB7QbVoEM3BtSsTZMjS7DM6f6+cpK3YFyiKyrp31F9hdmgTOn4Om3gd+U+
-         9EEdnsDxcn+MYxOufaMX9+eiEi/rbiauJcC38Kh1V14HRO9YyN1juV7Vc+WtYnc0Vgdf
-         Curv9UM8Fr9AJZXMBw+W7I4OQc5b9dxGxb9aIZg4RB1CugvvOXr2UZsep2K2ZuN+/wRv
-         KmDIRqtVdIHc4fbQN0vNgAQzbvy+Sg6v9QWFF5Xz9wgA8kbhQV2skBSMB3TpTNxkjFCi
-         vyfVHEYhub54CRQcw6UGqsfTCqpk54NS+YrweWKMhtRAHScGQsH6+l+OIIpb2Jv90eFs
-         wo+Q==
-X-Gm-Message-State: AC+VfDzshJKeX1rSQqL916uADgTlYuH/hIrqTE8jYkiMxTsnv1/jw7WU
-	JSud/vchveXSGc2GsYRMfR8=
-X-Google-Smtp-Source: ACHHUZ4uq3bCFiT9y+9htoE+Wn4hqG2R4xyFcx7lGQFBszBntU4By9mWiLUqrBdyOg0lGyMWYVmmdQ==
-X-Received: by 2002:ac2:5282:0:b0:4ef:f509:1186 with SMTP id q2-20020ac25282000000b004eff5091186mr640773lfm.1.1682349397746;
-        Mon, 24 Apr 2023 08:16:37 -0700 (PDT)
-Message-ID: <3d440048717892fe5d3ed7fe3255dc8c9f5d38a3.camel@gmail.com>
-Subject: Re: [PATCH v5 2/4] xen/riscv: introduce setup_initial_pages
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-Date: Mon, 24 Apr 2023 18:16:36 +0300
-In-Reply-To: <53257ae8-d306-8c7e-35ff-f3bc3947849b@suse.com>
-References: <cover.1681918194.git.oleksii.kurochko@gmail.com>
-	 <5b27693bcdf6d64381314aeef72cfe03dee8d73a.1681918194.git.oleksii.kurochko@gmail.com>
-	 <67d8574f-2e0d-4eb6-19aa-67fe7645e35a@suse.com>
-	 <ea2d5cfabb9ada64eb975369779ca430f38e9eec.camel@gmail.com>
-	 <53257ae8-d306-8c7e-35ff-f3bc3947849b@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.0 (3.48.0-1.fc38) 
+X-Inumbo-ID: 276bb53a-e2b3-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1682349460; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oeDhGnn1kXclI1wIeQrChU8SI8SHAgK2tPz5hDl4WdY=;
+	b=IcqpwTVZgaW7kCvppuwQvL2yCmXNH+orT7OArRmCRFfl3RPBiAC/RaqGnFpQJarFvMMTKV
+	TjZYpBeW8B2u+jcfKo07MUQgNLKKk2Lz4kwf6KmRv0qgt2mz62OUdgqknHB1eFRwRvJbVe
+	mTek+PP733C10QVg/qRcsinK7ipn7Kg=
+Message-ID: <f1d30ad1-4612-0838-3064-611c5092c686@suse.com>
+Date: Mon, 24 Apr 2023 17:17:39 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.1
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20230424143057.27469-1-jgross@suse.com>
+ <626da7fb-9934-2a85-0022-90ae32f1a748@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v2] xen: add support for crash dump analysis with xen.efi
+In-Reply-To: <626da7fb-9934-2a85-0022-90ae32f1a748@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------3iLpi9RKgeqAtiKTguyw7X1V"
 
-On Mon, 2023-04-24 at 12:18 +0200, Jan Beulich wrote:
-> On 21.04.2023 18:01, Oleksii wrote:
-> > On Thu, 2023-04-20 at 16:36 +0200, Jan Beulich wrote:
-> > > On 19.04.2023 17:42, Oleksii Kurochko wrote:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*=
- panic(), <asm/bug.h> aren't ready
-> > > > now.
-> > > > */
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 di=
-e();
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Point to next page *=
-/
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 page_addr +=3D XEN_PT_L=
-EVEL_SIZE(0);
-> > >=20
-> > > Seeing this as well as the loop heading - maybe more suitable as
-> > > a
-> > > for(;;) loop?
-> > I am not sure that I understand the benefits of changing "while (
-> > page_addr < map_end )" to "for(;;)".
-> > Could you please explain me what the benefits are?
->=20
-> The common case of using while() is in situations where one cannot
-> use for(). for() is (imo) preferable in all cases where the third of
-> the controlling expressions isn't empty (and is to be carried out
-> after every iteration): Any use of "continue" inside the loop will
-> then properly effect loop progress. (Of course there are cases where
-> this behavior isn't wanted; that's where while() may come into play
-> then.)
-Thanks for clarification. Now it is more clear.
->=20
-> > > > +=C2=A0=C2=A0=C2=A0 csr_write(CSR_SATP,
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 ((unsigned long)stage1_pgtbl_root >> PAGE_SHIFT)
-> > > > |
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 satp_mode << SATP_MODE_SHIFT);
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 if ( (csr_read(CSR_SATP) >> SATP_MODE_SHIFT) =
-=3D=3D satp_mode
-> > > > )
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 is_mode_supported =3D t=
-rue;
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 /* Clean MMU root page table and disable MMU */
-> > > > +=C2=A0=C2=A0=C2=A0 stage1_pgtbl_root[index] =3D paddr_to_pte(0x0, =
-0x0);
-> > > > +
-> > > > +=C2=A0=C2=A0=C2=A0 csr_write(CSR_SATP, 0);
-> > > > +=C2=A0=C2=A0=C2=A0 asm volatile("sfence.vma");
-> > >=20
-> > > I guess what you do in this function could do with some more
-> > > comments.
-> > > Looks like you're briefly enabling the MMU to check that what you
-> > > wrote
-> > > to SATP you can also read back. (Isn't there a register reporting
-> > > whether the feature is available?)
-> > I supposed that it has to be but I couldn't find a register in
-> > docs.
->=20
-> Well, yes, interestingly the register is marked WARL, so apparently
-> intended to by used for probing like you do. (I find the definition
-> of
-> WARL a little odd though, as such writes supposedly aren't
-> necessarily
-> value preserving. For SATP this might mean that translation is
-> enabled
-> by a write of an unsupported mode, with a different number of levels.
-> This isn't going to work very well, I'm afraid.)
-Agree. It will be an issue in case of a different number of levels.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------3iLpi9RKgeqAtiKTguyw7X1V
+Content-Type: multipart/mixed; boundary="------------840oFkfKRNlKZ8g7au2UWUvU";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+Message-ID: <f1d30ad1-4612-0838-3064-611c5092c686@suse.com>
+Subject: Re: [PATCH v2] xen: add support for crash dump analysis with xen.efi
+References: <20230424143057.27469-1-jgross@suse.com>
+ <626da7fb-9934-2a85-0022-90ae32f1a748@suse.com>
+In-Reply-To: <626da7fb-9934-2a85-0022-90ae32f1a748@suse.com>
 
-Then it looks there is no way to check if SATP mode is supported.
+--------------840oFkfKRNlKZ8g7au2UWUvU
+Content-Type: multipart/mixed; boundary="------------oOcaZk8f080hL8ZMWvrCZF0M"
 
-So we have to rely on the fact that the developer specified
-RV_STAGE1_MODE correctly in the config file.
+--------------oOcaZk8f080hL8ZMWvrCZF0M
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
->=20
-> > > > +=C2=A0=C2=A0=C2=A0 /*
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * Stack should be re-inited as:
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * 1. Right now an address of the stack is=
- relative to
-> > > > load
-> > > > time
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 addresses what will c=
-ause an issue in case of load
-> > > > start
-> > > > address
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 isn't equal to linker=
- start address.
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 * 2. Addresses in stack are all load time=
- relative which
-> > > > can
-> > > > be an
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 issue in case when lo=
-ad start address isn't equal to
-> > > > linker
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 start address.
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > > > +=C2=A0=C2=A0=C2=A0 asm volatile ("mv sp, %0" : : "r"((unsigned
-> > > > long)cpu0_boot_stack + STACK_SIZE));
-> > >=20
-> > > Nit: Style (overly long line).
-> > >=20
-> > > What's worse - I don't think it is permitted to alter sp in the
-> > > middle of
-> > > a function. The compiler may maintain local variables on the
-> > > stack
-> > > which
-> > > don't correspond to any programmer specified ones, including
-> > > pointer
-> > > ones
-> > > which point into the stack frame. This is specifically why both
-> > > x86
-> > > and
-> > > Arm have switch_stack_and_jump() macros.
-> > but the macros (from ARM) looks equal to the code mentioned above:
-> > #define switch_stack_and_jump(stack, fn) do
-> > {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=20
-> > \
-> > =C2=A0=C2=A0=C2=A0 asm volatile ("mov sp,%0; b " STR(fn) : : "r" (stack=
-), "X" (fn)
-> > :
-> > "memory" ); \
->=20
-> Note how writing SP and branch are contained in a single asm() there.
-> By checking ...
->=20
-> > =C2=A0=C2=A0=C2=A0
-> > unreachable();=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=20
-> > \
-> > } while ( false )
-> >=20
-> > Here is part of disassembled enable_mmu():
-> >=20
-> > ffffffffc004aedc:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 18079073=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 csrw=C2=A0=C2=A0=C2=A0 satp,a5
-> > ffffffffc004aee0:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 00016797=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 auipc=C2=A0=C2=A0 a5,0x16
-> > ffffffffc004aee4:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 12078793=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 addi=C2=A0=C2=A0=C2=A0 a5,a5,288
-> > ffffffffc004aee8:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 813e=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 mv=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sp,a5
-> > ffffffffc004af00:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0f4000ef=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 jal=C2=A0=C2=A0=C2=A0=20
-> > ra,ffffffffc004aff4 <cont_after_mmu_is_enabled>
-> > ...
->=20
-> ... what the generated code in your case is you won't guarantee that
-> things remain that way with future (or simply different) compilers.
-Agree. Thanks for clarification. I'll take into account during the next
-version of patch series.
+T24gMjQuMDQuMjMgMTY6NTAsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAyNC4wNC4yMDIz
+IDE2OjMwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gLS0tIGEveGVuL2FyY2gveDg2L01h
+a2VmaWxlDQo+PiArKysgYi94ZW4vYXJjaC94ODYvTWFrZWZpbGUNCj4+IEBAIC0yMjYsNiAr
+MjI2LDkgQEAgZW5kaWYNCj4+ICAgCSAgICAgICQoQEQpLy4kKEBGKS4xci5vICQoQEQpLy4k
+KEBGKS4xcy5vICQob3JwaGFuLWhhbmRsaW5nLXkpICQobm90ZV9maWxlX29wdGlvbikgLW8g
+JEANCj4+ICAgCSQoTk0pIC1wYSAtLWZvcm1hdD1zeXN2ICQoQEQpLyQoQEYpIFwNCj4+ICAg
+CQl8ICQob2JqdHJlZSkvdG9vbHMvc3ltYm9scyAtLWFsbC1zeW1ib2xzIC0teGVuc3ltcyAt
+LXN5c3YgLS1zb3J0ID4kKEBEKS8kKEBGKS5tYXANCj4+ICtpZmVxICgkKENPTkZJR19ERUJV
+R19JTkZPKSx5KQ0KPj4gKwkkKGlmICQoZmlsdGVyIC0tc3RyaXAtZGVidWcsJChFRklfTERG
+TEFHUykpLDosJChPQkpDT1BZKSAtTyBlbGY2NC14ODYtNjQgJEAgJEAuZWxmKQ0KPiANCj4g
+VGhpcyBvbmx5IGFkZHJlc3NlcyBvbmUgb2YgdGhlIHR3byBlYXJsaWVyIHJhaXNlZCBhc3Bl
+Y3RzLCBhcyB5b3UgZGlkbid0DQo+IHVzZSB3aGF0IEkgcHJvcG9zZWQ6DQo+IA0KPiAJJChp
+ZiAkKGZpbHRlciAtLXN0cmlwLWRlYnVnLCQoRUZJX0xERkxBR1MpKSw6KSQoT0JKQ09QWSkg
+LU8gZWxmNjQteDg2LTY0ICRAICRALmVsZg0KPiANCj4gUXVpdGUgcG9zc2libHkgYmVjYXVz
+ZSB0aGVyZSB3YXMgYSBibGFuayBtaXNzaW5nIGluIHRoZXJlLCB0byBzZXBhcmF0ZQ0KPiB0
+aGUgY29sb24gZnJvbSAkKE9CSkNPUFkpLiBQcmVmZXJhYmx5IHdpdGggdGhlIGFkanVzdG1l
+bnQgKHdoaWNoIEknZA0KPiBiZSBmaW5lIGRvaW5nIHdoaWxlIGNvbW1pdHRpbmcsIGFzIGxv
+bmcgYXMgeW91J3JlIG9rYXkpDQoNClRvb2sgc29tZSB0aW1lIHRvIHVuZGVyc3RhbmQgeW91
+ciBjb25jZXJuIGhlcmUsIGJ1dCBmaW5hbGx5IEkndmUgZ290IGl0LiA6LSkNCg0KWWVzLCBJ
+J20gZmluZSB3aXRoIHRoaXMgY2hhbmdlLg0KDQo+IFJldmlld2VkLWJ5OiBKYW4gQmV1bGlj
+aCA8amJldWxpY2hAc3VzZS5jb20+DQoNClRoYW5rcy4NCg0KPiBUbyBhbHNvIG1lbnRpb24g
+d2hhdCB3ZSBoYXZlIGp1c3QgZGlzY3Vzc2VkOiBTaW5jZSB3ZSdyZSB0YWxraW5nIGFib3V0
+DQo+IGR1cGxpY2F0aW5nIG92ZXIgMzBNYiBvZiBkYXRhIChhdCBsZWFzdCBhY2NvcmRpbmcg
+dG8gbXkgYnVpbGQpLCBhbg0KPiBvcHRpb24gaXMgZ29pbmcgdG8gYmUgdG8gdGhlbiBzdHJp
+cCBkZWJ1ZyBpbmZvIG9mZiBvZiB4ZW4uZWZpIGl0c2VsZiwNCj4gZ2V0dGluZyBpdHMgc2l6
+ZSBpbnRvIHJlYXNvbmFibGUgcmFuZ2UgYWdhaW4uDQoNClllcywgdGhpcyB3b3VsZCBzaHJp
+bmsgaXQgdG8gYSBsaXR0bGUgYml0IGFib3ZlIDNNQi4NCg0KDQpKdWVyZ2VuDQo=
+--------------oOcaZk8f080hL8ZMWvrCZF0M
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
->=20
-> > > > --- a/xen/arch/riscv/riscv64/head.S
-> > > > +++ b/xen/arch/riscv/riscv64/head.S
-> > > > @@ -1,4 +1,5 @@
-> > > > =C2=A0#include <asm/asm.h>
-> > > > +#include <asm/asm-offsets.h>
-> > > > =C2=A0#include <asm/riscv_encoding.h>
-> > > > =C2=A0
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .section .text.hea=
-der, "ax", %progbits
-> > > > @@ -32,3 +33,4 @@ ENTRY(start)
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 add=C2=A0=C2=A0=C2=
-=A0=C2=A0 sp, sp, t0
-> > > > =C2=A0
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tail=C2=A0=C2=A0=
-=C2=A0 start_xen
-> > > > +
-> > >=20
-> > > ???
-> > Shouldn't it be the one empty line at the end of a file?
->=20
-> There should be a newline at the end of a file, but not normally a
-> blank one. When you introduce a new file, it can be viewed as a
-> matter
-> of taste whether to have an empty last line, but when you have a
-> seemingly unrelated change to a file like the one here, this is at
-> least odd.
-Agree. Then I'll remove this change from the patch series.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
->=20
-> > > > --- a/xen/arch/riscv/xen.lds.S
-> > > > +++ b/xen/arch/riscv/xen.lds.S
-> > > > @@ -136,6 +136,7 @@ SECTIONS
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 . =3D ALIGN(POINTER_ALIGN);
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 __init_end =3D .;
-> > > > =C2=A0
-> > > > +=C2=A0=C2=A0=C2=A0 . =3D ALIGN(PAGE_SIZE);
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 .bss : {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 /* BSS */
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __bss_start =3D .;
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.bss.stack_align=
-ed)
-> > >=20
-> > > Why do you need this? You properly use __aligned(PAGE_SIZE) for
-> > > the
-> > > page tables you define, and PAGE_SIZE wouldn't be enough here
-> > > anyway
-> > > if STACK_SIZE > PAGE_SIZE (as .bss.stack_aligned comes first).
-> > > The
-> > > only time you'd need such an ALIGN() is if the following label
-> > > (__bss_start in this case) needed to be aligned at a certain
-> > > boundary. (I'm a little puzzled though that __bss_start isn't
-> > > [immediately] preceded by ". =3D ALIGN(POINTER_ALIGN);" - didn't
-> > > .bss
-> > > clearing rely on such alignment?)
-> > ALIGN(PAGE_SIZE)=C2=A0 isn't needed anymore.
-> > I used it to have 4k aligned physical address for PTE when I mapped
-> > each section separately ( it was so in the previous verstion of MMU
-> > patch series )
-> >=20
-> > Regarding ". =3D ALIGN(POINTER_ALIGN);" I would say that it is enough
-> > to
-> > have aligned __bss_end ( what was done ) to be sure that we can
-> > clear
-> > __SIZEOF_POINTER__ bytes each iteration of .bss clearing loop and
-> > don't
-> > worry that size of .bss section may not be divisible by
-> > __SIZEOF_POINTER__.
->=20
-> How would guaranteeing this only for __bss_end help? __bss_start
-> could
-> still be misaligned, and then you'd
-> (a) use misaligned stores for clearing and
-> (b) extend clearing to outside of the .bss (as the last of the
-> misaligned
-> stores would cross the __bss_end boundary).
-It seems you are right. I'll create a separate commit to align
-__bss_start properly.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-~ Oleksii
+--------------oOcaZk8f080hL8ZMWvrCZF0M--
+
+--------------840oFkfKRNlKZ8g7au2UWUvU--
+
+--------------3iLpi9RKgeqAtiKTguyw7X1V
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmRGnZMFAwAAAAAACgkQsN6d1ii/Ey8p
+Fwf/fO+jm+xZG/5qhWiNzbpasll43J/+C4XAEYgUVSdlGOfW15T/sJXKVgSKcEKfWNuALQWsGeuP
+qxF0UXKJEfuJWgaW+6HXEQTTuvdwp0SeVfRjS3inim63m8V2ErC1RwbbXBvGNN/ZFydqZocvTmoA
+axr96vtB7YVXxwl4SJWkgaP60QWgYFMIplup7BWJacxafd8yTcJ7KVoTP8AF1ik3eYV07IKInfOM
+Ug5f4v19YPCIVq/9S6NoEuB7s3QitBdTSTsQ1UKVmONp8rJ+FYKB6QoPxADu250BN45vbNMTHn+N
+cagbvLV7wFk+B4xWerCg6X4ZGGEGVfvthdBdxsfWEA==
+=XP59
+-----END PGP SIGNATURE-----
+
+--------------3iLpi9RKgeqAtiKTguyw7X1V--
 
