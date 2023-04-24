@@ -2,33 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CB626ED2B9
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 18:43:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525554.816831 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 963B46ED405
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 19:59:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525578.816841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqzH1-0002ER-V6; Mon, 24 Apr 2023 16:42:43 +0000
+	id 1pr0Sb-00018Q-Df; Mon, 24 Apr 2023 17:58:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525554.816831; Mon, 24 Apr 2023 16:42:43 +0000
+Received: by outflank-mailman (output) from mailman id 525578.816841; Mon, 24 Apr 2023 17:58:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqzH1-0002CZ-Rt; Mon, 24 Apr 2023 16:42:43 +0000
-Received: by outflank-mailman (input) for mailman id 525554;
- Mon, 24 Apr 2023 16:42:42 +0000
+	id 1pr0Sb-00015o-AC; Mon, 24 Apr 2023 17:58:45 +0000
+Received: by outflank-mailman (input) for mailman id 525578;
+ Mon, 24 Apr 2023 17:58:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zAuZ=AP=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1pqzGz-0002CT-Vi
- for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 16:42:42 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ <SRS0=SIZu=AP=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1pr0SZ-00015i-4D
+ for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 17:58:43 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06a482e6-e2bf-11ed-8611-37d641c3527e;
- Mon, 24 Apr 2023 18:42:39 +0200 (CEST)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-5055141a8fdso6798517a12.3
- for <xen-devel@lists.xenproject.org>; Mon, 24 Apr 2023 09:42:39 -0700 (PDT)
+ id a45c57c4-e2c9-11ed-8611-37d641c3527e;
+ Mon, 24 Apr 2023 19:58:40 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,111 +37,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06a482e6-e2bf-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682354559; x=1684946559;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NxfJ7PXp6Ka4kQy3f5Kbc6uM9GAl3Q7uoq/tXeCesYc=;
-        b=CCFlJU5L61AcW9mGIxLgclBWO9Tq9H4hfwk+n+GSTwBtaXG4VMJJO63UPFY16YAwnA
-         IzDy9kCPZJUfFF+7TLKicB8K3VFNDWeH6X776nGEVelcGXMaiVnbtCgug/40VdQCeG4o
-         Ts5eH5c5rC+qTy1kkQZAZfoAmFm4xw3ZJOJy7dMN8kNv8V4o97ub8sor8FJh5UB/ZrCe
-         4IjV800l8twen3XqGS/ZXpk++igrOaE/y6g8c2r4iwiAg+r8PKtjsMwHlRMqSlakJ+pE
-         Yugiz5udB95mhMyeyOVMkIpNp6ZpTVJuqiFqvHhSRL6zYslPlFC0DJbI00BQRAqSSmPW
-         ILkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682354559; x=1684946559;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NxfJ7PXp6Ka4kQy3f5Kbc6uM9GAl3Q7uoq/tXeCesYc=;
-        b=BeXNFvdw56cRVyGO8waghUPW0SZ+4y7gpb4+Uv635Qp29c7fT9YTOxMubM73oITKlD
-         Yyo1LZiIWu/2Oizp5JMXQMyKznJ/Fc4r/yxPmIQIUWF6qbuUNH5rYlqBEYmrCiR3W3sU
-         jAuyBB3WHpmS0LNuYze9j1kNS/3cHoCqwKEZ8mOTi9r58T7Mh8bIn1x6pCQVKGxPnCFm
-         X3aE8p9/gKCsPiXamghaVqE64l5MnQFIjgyL7pVPqlzHo5IVRcDICwFAY4b1T23sDzFH
-         +rBNzfAbFq1njLx/6ivsGS3MBAOyFq8j+tlry6FbCQp+bD2aszEpNCY7kycS7BauzaKG
-         n7vQ==
-X-Gm-Message-State: AAQBX9fOv8HHwCQRL4CMqqq7I9LPcNwvn61ccCv96rC0cUgDAWnjFHM/
-	Tx8tzzM5OR0IuW9z0iVzB0hf6eJr7iHabLxTGFg=
-X-Google-Smtp-Source: AKy350aFHfq1BQDh8mDjW8ADJ9SKpwkE+6vwXksE8DDkLzrKKKewt3J1pYje+gp2oZg93dWnvcjIq8muRVUr6GiHO+8=
-X-Received: by 2002:aa7:d796:0:b0:506:b8ca:e07e with SMTP id
- s22-20020aa7d796000000b00506b8cae07emr11220329edq.11.1682354559115; Mon, 24
- Apr 2023 09:42:39 -0700 (PDT)
+X-Inumbo-ID: a45c57c4-e2c9-11ed-8611-37d641c3527e
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1682359118;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/B8ViPkT84zF77YJVg/Vg+DuX3x6sDAhKrSrx63B0t8=;
+	b=zNVUbHm89L6WRj2i94+vPyVn3/KO1LB2C60TWY+kKf2/e8X9/9XtdKbM639oCyDfzo+kF6
+	y7T/sJmhL5ytO4DUh414kpf+vt4CvUe/YodEpDD02hfzlBINbTEIvI3SsdLqezsCo+5tFW
+	AvbLWyv3qGi42txG7eIeRdoNoCDf86KN/QgJXAPPGmhTl1TqeCcHqSPF7eM9+ujvoD5z/m
+	AjrKuWx0mKwm8kHTyjPIB1SSadCZzqxSWvKRYA61NK+fA/i4N78zaZprmbihpUvGoCep3s
+	2RQE5w5ABRrYdGBrSZjZPmPvtUXxeogAae/i/g9/9f8KekX5LyUd6mtLrTj6qw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1682359118;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/B8ViPkT84zF77YJVg/Vg+DuX3x6sDAhKrSrx63B0t8=;
+	b=ZaMRZ/Y/wVrPL6Kd1U5Zo8HZlUCLMRTrTHQ/7Xvf+abFcSRFeSo9Dw3jXKeMeUtXfr3+up
+	aT9nxD885g2bqnAA==
+To: Brian Gerst <brgerst@gmail.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, David Woodhouse
+ <dwmw@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Arjan van
+ de Veen <arjan@linux.intel.com>, Paolo Bonzini <pbonzini@redhat.com>, Paul
+ McKenney <paulmck@kernel.org>, Tom Lendacky <thomas.lendacky@amd.com>, Sean
+ Christopherson <seanjc@google.com>, Oleksandr Natalenko
+ <oleksandr@natalenko.name>, Paul Menzel <pmenzel@molgen.mpg.de>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Piotr Gorski
+ <lucjan.lucjanov@gmail.com>, David Woodhouse <dwmw@amazon.co.uk>, Usama
+ Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
+ Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
+ <guoren@kernel.org>, linux-csky@vger.kernel.org, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, "James E.J.
+ Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller
+ <deller@gmx.de>, linux-parisc@vger.kernel.org, Paul Walmsley
+ <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-riscv@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
+ Sabin Rapan <sabrapan@amazon.com>
+Subject: Re: [patch 35/37] x86/smpboot: Support parallel startup of
+ secondary CPUs
+In-Reply-To: <87mt38yhwh.ffs@tglx>
+References: <20230414225551.858160935@linutronix.de>
+ <20230414232311.379210081@linutronix.de>
+ <CAMzpN2hUbYpYrqDL1ViXUWGKGa7mDEG6iHtWEZg9GvrAoRgvKQ@mail.gmail.com>
+ <87mt38yhwh.ffs@tglx>
+Date: Mon, 24 Apr 2023 19:58:36 +0200
+Message-ID: <878reh17sj.ffs@tglx>
 MIME-Version: 1.0
-References: <cover.c12fc399ea0151818e48ac5179ad554c00c9386d.1680752649.git-series.marmarek@invisiblethingslab.com>
- <6984a8571dac35d04c85117834d99b00fe1c4184.1680752649.git-series.marmarek@invisiblethingslab.com>
- <4eb45940-5615-2398-633d-e5f59dc6987d@suse.com> <CAKf6xps2nVoYL6LtOqW2UBHadNSQzkb1XAe7WRxXmLzyN3kAGQ@mail.gmail.com>
- <50a0883c-efb8-9456-7dac-a01cca3a17cf@suse.com>
-In-Reply-To: <50a0883c-efb8-9456-7dac-a01cca3a17cf@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 24 Apr 2023 12:42:26 -0400
-Message-ID: <CAKf6xpuWfFojO7_CX=uZoJGwRmiPe06DDNyhu4tqFvd8D+WzLg@mail.gmail.com>
-Subject: Re: [PATCH v3 4/4] x86/msi: clear initial MSI-X state on boot
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>, 
-	Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 24, 2023 at 11:30=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
+On Sat, Apr 15 2023 at 23:06, Thomas Gleixner wrote:
+
+> On Sat, Apr 15 2023 at 09:22, Brian Gerst wrote:
+>> On Fri, Apr 14, 2023 at 7:45=E2=80=AFPM Thomas Gleixner <tglx@linutronix=
+.de> wrote:
+>>> @@ -248,10 +311,20 @@ SYM_INNER_LABEL(secondary_startup_64_no_
+>>>          *
+>>>          * RDX contains the per-cpu offset
+>>>          */
+>>> -       movq    pcpu_hot + X86_current_task(%rdx), %rax
+>>> -       movq    TASK_threadsp(%rax), %rsp
+>>> +       movq    pcpu_hot + X86_top_of_stack(%rdx), %rsp
+>>
+>> Switching to using pcpu_hot.top_of_stack is ok, but it's not
+>> completely equivalent.  top_of_stack points to the end of the pt_regs
+>> structure, while the kernel stack starts below pt_regs even for kernel
+>> threads.  So you need to subtract PTREGS_SIZE from the stack pointer
+>> after this.
+>>
+>> This change should also be a separate patch.
 >
-> On 24.04.2023 17:25, Jason Andryuk wrote:
-> > On Mon, Apr 24, 2023 at 10:19=E2=80=AFAM Jan Beulich <jbeulich@suse.com=
-> wrote:
-> >> Jason - any chance of getting a Tested-by: from you?
-> >
-> > I'm building v3 now.  v2  worked for clearing MASKALL on initial boot.
-> >
-> > I posted in these two messages - a summary is below.
-> > https://lore.kernel.org/xen-devel/CAKf6xpto87QRSKT2qc1yApNfaw2SrLLxPoyt=
-YJv_jEbYTAbjCg@mail.gmail.com/
-> > https://lore.kernel.org/xen-devel/CAKf6xptHALLR-Qjf=3Dp5y0o9Ud2V7eFMJuB=
-8Ap-PLjv-N7PAJVQ@mail.gmail.com/
-> >
-> > OpenXT has a patch that performs an extra reset after domain shutdown,
-> > and that causes Xen to set MASKALL.  I confirmed by removing it.  So
-> > this patch helps with clearing MASKALL on host boot, but with the
-> > OpenXT patch, rebooting a domain fails.  MASKALL gets set on VM
-> > shutdown and then the subsequent boot can't assign the device.
-> >
-> > So this patch is helpful in some scenarios, but it was also an issue
-> > caused by the OpenXT patch.  Does that make it unsuitable for
-> > inclusion?
->
-> What is "it" here? If I get your reply right, there is a similar issue
-> left unaddressed by this version of the change (and as was said before,
-> a device reset changing state that Xen tracks or otherwise cares about
-> needs to be reported to Xen). Yet that doesn't really fit with the
-> question, at least the way I read it ...
+> You're right on both counts.
 
-"So this patch is helpful in some scenarios, but setting MASKALL in
-the first place is an issue caused by the OpenXT patch.  Does that
-make this patch unsuitable for inclusion?"
+Actually no. We can't do that as this breaks suspend/resume (again).
 
-I think Marek's response that "Xen IMO should deal with the state it
-gets on boot, regardless of what was running previously" makes sense
-and means this is worthy of inclusion.
-
-And I tested it.  Without the OpenXT libxl-fix-flr.patch:
-(XEN) 0000:00:14.3: unexpected initial MSI-X state (MASKALL=3D0, ENABLE=3D1=
-), fixing
-With the OpenXT patch:
-(XEN) 0000:00:14.3: unexpected initial MSI-X state (MASKALL=3D1, ENABLE=3D1=
-), fixing
-
-Tested-by: Jason Andryuk <jandryuk@gmail.com>
-
-The patch is here if anyone want to look:
-https://github.com/OpenXT/xenclient-oe/blob/master/recipes-extended/xen/fil=
-es/libxl-fix-flr.patch
-
-It's calling libxl__device_pci_reset() from destroy_finish_check(), so
-it's not trying to do anything behind Xen's back.  It's just that Xen
-sees memory decoding disabled, and then sets MASKALL.
-
-Regards,
-Jason
+/me drops it.
 
