@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E73896EC74D
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 09:42:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525155.816166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 355976EC758
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 09:44:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525159.816176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqqpf-0001oP-Os; Mon, 24 Apr 2023 07:41:55 +0000
+	id 1pqqs1-0002MF-6A; Mon, 24 Apr 2023 07:44:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525155.816166; Mon, 24 Apr 2023 07:41:55 +0000
+Received: by outflank-mailman (output) from mailman id 525159.816176; Mon, 24 Apr 2023 07:44:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqqpf-0001l6-Lq; Mon, 24 Apr 2023 07:41:55 +0000
-Received: by outflank-mailman (input) for mailman id 525155;
- Mon, 24 Apr 2023 07:41:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0Hh8=AP=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pqqpe-0001l0-2u
- for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 07:41:54 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20621.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::621])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7aa44a5f-e273-11ed-b223-6b7b168915f2;
- Mon, 24 Apr 2023 09:41:52 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM8PR04MB7889.eurprd04.prod.outlook.com (2603:10a6:20b:24c::13)
+	id 1pqqs1-0002Jj-2d; Mon, 24 Apr 2023 07:44:21 +0000
+Received: by outflank-mailman (input) for mailman id 525159;
+ Mon, 24 Apr 2023 07:44:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3wwt=AP=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pqqrz-0002Jb-LJ
+ for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 07:44:19 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20610.outbound.protection.outlook.com
+ [2a01:111:f400:7eb2::610])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cfb06d29-e273-11ed-8611-37d641c3527e;
+ Mon, 24 Apr 2023 09:44:17 +0200 (CEST)
+Received: from BN9P220CA0010.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::15)
+ by PH7PR12MB5781.namprd12.prod.outlook.com (2603:10b6:510:1d0::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Mon, 24 Apr
- 2023 07:41:51 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6319.033; Mon, 24 Apr 2023
- 07:41:51 +0000
+ 2023 07:44:13 +0000
+Received: from BN8NAM11FT047.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13e:cafe::73) by BN9P220CA0010.outlook.office365.com
+ (2603:10b6:408:13e::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33 via Frontend
+ Transport; Mon, 24 Apr 2023 07:44:12 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT047.mail.protection.outlook.com (10.13.177.220) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6340.18 via Frontend Transport; Mon, 24 Apr 2023 07:44:12 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 24 Apr
+ 2023 02:44:11 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 24 Apr
+ 2023 00:44:11 -0700
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 24 Apr 2023 02:44:09 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,219 +63,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7aa44a5f-e273-11ed-b223-6b7b168915f2
+X-Inumbo-ID: cfb06d29-e273-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MgSAb5kjAxsFdggzGHOXIAFcZh1G+HKgySFx01iKA8NDPCVfd1z2gUPEd5zoluL+PG/bDZ+HN7HM41Y4MWtkifx1Z/IFo4k7cGgCqREPWcBajywcPZWs5l11+zJf5Ff/U0CtFAFr9W5YiBIdC9uuikvjcRpf8HJiDUXT/z1s9Aw5oByjvYkoYAZYVLb6nB8dbgZG/97ABR5Ih7mjzYkQervSzWV96Iykkno/Ny8B1lF8fqU+QGZoNmecpDu7jmDfQzclRCa1bE+8tovgns3pyvrIeU0L6RStJ02M5h/tPHafSRy1aaCWwRnaM9wmX3Y++02DYhgG7wNU+81/oIqnNw==
+ b=eHPFNujeeqlLsaVHxsahf2KkpvQxHjnZIOOIO+/ALo5r4Bi7ISo3OjbqLBTFvQJT7W/5pUREqxv7RO1Au6RoMSwEsEpboDtxEvC1+XnZ3BPCHCygmTG36x3ggEMyWd+e4tikPQgB0VeTpbNy1Sz9ed+5yRZbWwn/daGnINNpSCDM1dvCf0LQqT/t725MiIq5UxS/uz+5bojQvEl9esiyP0ukhYvVZN+zbJSIJ1iE7v7OPF/AGsQ4LK8SzzEC8FD+4dmkZhHFjmt0V2oY9MsGU4menSFkuIHtVW1YcL2EI9Ua+fRNkZbII1JckAEPqi/UnY3xHcgLm05fPfrQHhgS5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9O3QSKKiMQmag2nEoAv4P6qdeA1sEqoAcHERrvq+sQM=;
- b=LoepIrKTgZkDrK/hSKPMVMavFwrj5HRj530K3LDceOR9J1LTuH2HwIXL3mzC627HzbuuvfYpZiUrzkH/DSI6r+A83w07UnqSNAKeLkhJ/crLve/z+HfAmbM7FMP4FBepAouUwU/tWMp4D63nUCtXG9WChxzjVh3EDr9ZGCHO8ZtulPCb2Yd37pBbnOY/oQjRe2+kPkKMIOgLH73cR12NxbHnDGFFYix5dN23HrU3jlZlva6oZvFya/FYXIkmkhLNe+HoZP7pcN76ck894dF50REAtJuQ81I+K70RRR0CbIzxWkthB8+Xi6/zsEj/mANjptsgIs0vAw8UClGF1wUKgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=grNcrikzXvK4eARuWWUjkz9IC2bJ7kOp0Z+dkBHWOH8=;
+ b=Bnz8JYaOcRfyOd8fg6saAQ20K9/auu1p4zuYmdqu6hkGCMtB612iwjFqrlEJslLWSCdVScnKYtp2XuzDyHGpeurV9CADH8F6t2ZoQCnEQvIMQdjSltJ4X9NuVLl7rQxZgdZ1MQ/CL1PWvsrQqAVX74CyhQRsGQyUObyWdmEUxcLE+Flv/upRM66tVFkJecgfGW6OPAV5ux4YBBHflC/P7XKgJT4K8Oz8ayLAjmAT0b+qbs6wo3ZRt0x4vcK8Z0n9hgA/P17CymzPCxcjiu0SBUGPGsZFj++O6Og7whmy+a/CS+/K7c0wuI7ljOKtiBY2vjSt4oVwNvsCEPCZ0GomeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9O3QSKKiMQmag2nEoAv4P6qdeA1sEqoAcHERrvq+sQM=;
- b=rkqA1dOUkSf20mSaNEV02uxC5ud9hSAWvoRA6nk/EVgmU+8+5jAU4t3580ldU6QqUUwCjiAobwwj4fMxWBOg5UZe2MFrQzr62P8wGT3eb1n0XfzAjE5c2elawOD8HYSvl3lmrK9P4vYWZf+ib7ZwaQcIqFf4LrLjkpPCKp7KGahql1c9o9FqdHpjtf09kZ/beaj6FKLDVEFjsQLZ14pp9G+k+n8hfgUTCHAO72WmeGH4Q+txmPA0SoxXysjz553k9DklryOp0XLKBllrqmpt1Iaep1FsWPTXPfPTtSxvhMpZpBWXTPcVXpabJ0E2cHiebZsUnjunXbTTa8nhzZVM8g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e06fc93f-293f-a873-c9b9-2d5c941168f9@suse.com>
-Date: Mon, 24 Apr 2023 09:41:51 +0200
+ bh=grNcrikzXvK4eARuWWUjkz9IC2bJ7kOp0Z+dkBHWOH8=;
+ b=jpAnzKCV10j/e/FXJQgqS1OyK6b1hJJjQtc1PcyV+Df5c5iAg+rY/rWNSBULNvbOvzeRD0yGZsr22c7Qz8apgIuB1HTYAqjFabNe6t+C3z7YeB7BxNRPAlcbS0z0PF5z8PkIQ3q00wiVwFWEUiRlCjw/kUN5b21v2OTECYLPb1E=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <3bd89851-e09d-1b24-6fde-5a13862f5eb2@amd.com>
+Date: Mon, 24 Apr 2023 09:44:04 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Subject: Re: [PATCH v3 03/17] xen/arm: implement node distance helpers for Arm
+Subject: Re: [XEN v5 08/10] xen/arm: domain_build: Check if the address fits
+ the range of physical address
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
+	<wl@xen.org>, <rahul.singh@arm.com>
+References: <20230413173735.48387-1-ayan.kumar.halder@amd.com>
+ <20230413173735.48387-9-ayan.kumar.halder@amd.com>
 Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>
-Cc: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20230420112521.3272732-1-Henry.Wang@arm.com>
- <20230420112521.3272732-4-Henry.Wang@arm.com>
- <ac54e04c-58b7-d0c9-2443-bb09258c8bc8@suse.com>
- <AS8PR08MB79912F294EDAC48F835FBB7A92609@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <bdf33169-4e29-8c50-ff76-16d05df81a14@suse.com>
- <AS8PR08MB7991576C75D0D4482595E7E292669@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <AS8PR08MB7991576C75D0D4482595E7E292669@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20230413173735.48387-9-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0173.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
-MIME-Version: 1.0
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM8PR04MB7889:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43692ca4-97b6-47d7-dfd4-08db44975e06
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT047:EE_|PH7PR12MB5781:EE_
+X-MS-Office365-Filtering-Correlation-Id: b5449ea4-dbda-4cff-0846-08db4497b231
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	sLORtVpC/focrFTn97Il6bF7MmbHhCrlgTBQv8rUBGknhFW1RCE1vwvKbgBVvaYLuCkXmXYyhVscZZn4KIaL/b2jfVzmvI06IAFzoKsEDZYNLGBcsyd2rR+SL8gA5Losf4s1wGeYY6J2pofnHlShBYC4tYLj61GqeO31OAwxnhzHLse/+hcSO9FoiC+J2ZIEuZrWxfDEopAjkj5HiOyQEHewP5guC3d7TgY+0FZE9wfsSiLJ6knso+QIzJcqGURo3iL4pVqPVSfq/NRbiXCPpM3/7I47yG/LfYo+KUgR1PWO2m9Hv/bAu3grTDK6g2Tz+sI6Xw7h/hU1+PQ87CJXf+WKLPwAcvucbqVLTxQUu8YPu8DQE6+BKViS1DyfHjg844TedQ5SwtKQMzKJ12TVAjGogM2H17hVaj991dCwCiWJZh3lbfPoEqSrP3MQq0AL2DN4lJc87EnLNK4GLvtL8tR9/IO3NLuzDPFMQP1Im3at2z43EfeI3ffUsxOCACoGUXuIZZysZTBBClsj3LBlIFkSeQ1FB17qZdXUdrbK4tyZgS+9wzY5NdONH5XhK+ZXMJ9/qp9BQg4kGGQFhqnLTJLfRuuI4grAq/6UqIkGjLYzbHyANnAgfeotHOMyq2oMlrI/mpYKMVVDp59EgIpveA==
+	xkBXG0l3efRsm5viFoj+pXO9N+AnibWW0Za55+vRYDHCGAL6DiG6uW9BldXIREuWVT5LhbUmq+Y14W/I9Iar9bUM62a9rvEAatiRLDyfsVOu4Jd4SYIlNA0GH15ASTp7R3YAnKQf/CAd8NTkNlg8r0zLxz/Aj8JORA7bSzJcK7fGaA0yx2pLOuyAWnfLedIaUGD4kTuMNBb9pLxhE8ztr5rtUd8CX6sADbP3BZGjOBKZPq9mvuwKAgvei51JCD4wEJPo1D9MPfl4yatiDNNVsDL6TM+PhuF83DBYzGhphGnVuCFoLr84JOXIbEQ5P9miOYRi9h+6ypYH0eM2d/H7Y6KZpo/sGC4mAmP2YETHzf4rfFEBpb+c83qHc3q0120YrPPmtJOCsSv+QFu5thAQ/VD79QuVzOPytKU2Vx1aJkGbc3X996+LlGD2o0ERIk5cMfUgM+Dj8R9jWGU8Rjw9tZ0VWlOax/PZ4HqFrzxL2zyVCCpk1u1ni/2cXQo8Wkla7Tzqt1OTOHB+cjxXgd4oEssdfNUkcD6bg92jchxITrEFklzBpLkOiwnRuYa2vmav/9eiX9HiOPLRuMcv+cqu1YAVdbsGnCEqvUeYYwwPNlYkzVNEr0Zfy6J9cGr0tHv/dOPTbSmVgWolPUZbI4zVQp/Ays+jr5fFPgKvVjqz5zJDRR3bGJU9I4gMIHfYTJJS14j6ck1AVWb4e1lNiToIDdy9B0AwCrQ2ePL4xnNz+fF80xE3WCH+Jg3k28lLfuZFDnx/6SQsRCAg6Cb/ZCHYRQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(376002)(136003)(396003)(39860400002)(366004)(451199021)(5660300002)(7416002)(2616005)(86362001)(31696002)(83380400001)(53546011)(186003)(6512007)(6506007)(26005)(38100700002)(8936002)(8676002)(54906003)(478600001)(316002)(6486002)(41300700001)(36756003)(4326008)(6916009)(66476007)(66556008)(66946007)(31686004)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RHJWdXFyeEtkdlVFWWoyN21HaG1QWmkwcjFFY2JOOVovUUladG9WbkUyU2sz?=
- =?utf-8?B?RUpKUHRGc1NzNEt0UDZOQjNwdWw4Szg0Wll2Ny9IcmtmWXkwWThXdXpVVUZ4?=
- =?utf-8?B?UHJCSmRRbXcwb0t4S21RZVpHVitCMEdrcXF4VG1iSlNXbkNJZStFKzVJdkoy?=
- =?utf-8?B?NGhJN3owZzdlaFZDeDdLdXNJK05aRVpuSWtLVmVHcjFoa2RsTDdwc3BvK0l5?=
- =?utf-8?B?Mm8yR3Q5TDNmRG1Oek9zT2pYeTRsU05LRUY0Ym4zcm5MMzI3Y2U1TUQ1Tkc4?=
- =?utf-8?B?alFFK2ViK08xZWxMYnhXVXNsdXdWbjlpdDhMSmcwbDRCRVBNclJWNkVwWXBr?=
- =?utf-8?B?Ynp2TFVjaUY2cTNKOXFhWVVxS2laeUVnZVk3blZ6akJSWXkxOXNiaFhxL284?=
- =?utf-8?B?ampNZGtoS2xnSXM4SlJ2K2pxTGFsbFgwdW01alpvQVg0dUF6MmZyaHJXcFNI?=
- =?utf-8?B?bllQU1lLL1lwZFZWaUpGWlZvWG5hMldRTE9XM3gyMk1QcGh1UTZPWDlPempM?=
- =?utf-8?B?SkliTG1TTjBvMnFmK0hpYmozcmpQRS9OUlFRaGR6UnJXRlRNLzJyV2o2K0p1?=
- =?utf-8?B?T2UvSHVYemJWSkVOamU3dGt6M25WblhRZTI3dVlaTnd3QzVwMW51S2hxUzNI?=
- =?utf-8?B?Z1gvcmpYcWQ3eHBCYTgzaE1TTkFISTlVSXMrOVRsWXZjSzY0cDdiMUptWWpM?=
- =?utf-8?B?L0dWMzdpMXlpQWZ3S2FJYnlDVkhuTlFseFlHdVA1c2dqS2lWVmVDUU5OUmUw?=
- =?utf-8?B?MTBNLzlJemU2Yi9OcDFubGVaVXp2VGVEcVFzc0U1TXlHaGNqRFdIVElMeTIv?=
- =?utf-8?B?S25XemkwVUd3cVp5VTE0UXg0TEY0SExPZDhIZWwyUEdJbG5zZzh0Tm56bWRS?=
- =?utf-8?B?UzFIajhtVUZJcDZLa28zQXpwVjA4SndtZHhETWM2ekpoN2ZPcXlQUUlCNVg1?=
- =?utf-8?B?UDZOUmtIR2NJRTZ6RnVERFZmMUVhczVCKzhKZTZWN0NzRHY5QkJzT0d4VWNR?=
- =?utf-8?B?VTNsaU41MFhDcTFDQnRHcVJ0R0dIME5TcXFKcFpCNHhaOGRwVnNRcW5xZFBG?=
- =?utf-8?B?TGMxRXRoWENCbi9NNnNqVnY5eE1qZjVmWGhsbjIvQTIzLzZMQVRwYWV0ekU4?=
- =?utf-8?B?TUJyRDlxalBuUWYyaENPdk1IaUdIVjk1YVh6aHU5TnlLak54YkhzMndOSTlM?=
- =?utf-8?B?NmxHcDRScm04Yi9NQ1pscUkwdXU5ZkE2RU84bFc3ZWF4NEJ4WlBjdzlJclFs?=
- =?utf-8?B?TzFSeWxWR2dmQlpwbjkwZmNGckZwRWg2c0JHa09DeHh5OEVadHhnUXY0STI4?=
- =?utf-8?B?TGNPSjE2K0xVTmNqakdhb3U2ZFhzRFpTalYrUTVoV2JqWVU5UGxVbUFJVnRj?=
- =?utf-8?B?V2tWNXV5YVpBUTBOeFBHeWRKcEtFYitKZXVHbWczRzFiZzgxSmduZUJQMkhB?=
- =?utf-8?B?MFlEakM4WXh3SUl0a1QrdjV6RnNaS0JmMWNhRFp2SXNyR0RCWitlNXp2R1FL?=
- =?utf-8?B?VzU5WFhLVEh5MnRUc3hNREpkQzJOejRVVmxwdFFRNzVlaFBuQlp5YTFnNGdv?=
- =?utf-8?B?R0lGMzh0eTdUUlNsQUdpZHFCcXduUTdCMmhSRkY4bmZtRWtkT2lWUkcrcHZ1?=
- =?utf-8?B?a05WeDZBd2Q3YTJna2RocE5TcDNHTFZUVlozWVlzSWoxL2lRWDdXbkpiL1dn?=
- =?utf-8?B?b0RGYUxtY1JDK1Avd2F2MEdqTmJMdEhjTE95NE14c3U2VndkTFNZdXdqOFly?=
- =?utf-8?B?aFNkbnlvVzZXcGdNWU5peTVrUEIwOUNQMTEzT3JIandGQXlpWFhDZmJJMFpU?=
- =?utf-8?B?WjJycUdHazltRmxFeVdZamdUL3hNQmU0dTJ4YTZxMmR0clJoNDhYeDNPR3lz?=
- =?utf-8?B?TlhhMmNNUk1Id3doMlAycmxwcWd2bDk4cnBLVWRtOEVvOHprcklMSmR1ajU3?=
- =?utf-8?B?U01yQ2NYcWpIdXBIaDdRZ3VFY3g3UTFLQ0RWd3pwNXZKajJVN2FmVEhSZWFX?=
- =?utf-8?B?UkprdHB1N0d0NkhLd043NjFLVUtFQ1d3UGpuem01R0FvaG5QQlNWTFQ5MjFo?=
- =?utf-8?B?aHdFekFQYmhGa2tEV29CVndIYXdocG9hSU0xU2hDenUrMkpJSk5HZnRodGti?=
- =?utf-8?Q?QSG3xcMriXdnB9RXh1l64k89v?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43692ca4-97b6-47d7-dfd4-08db44975e06
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 07:41:51.2873
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199021)(46966006)(36840700001)(40470700004)(53546011)(26005)(40480700001)(336012)(426003)(2616005)(36756003)(83380400001)(36860700001)(47076005)(186003)(40460700003)(356005)(82740400003)(81166007)(70206006)(70586007)(31696002)(478600001)(86362001)(31686004)(8936002)(8676002)(54906003)(7416002)(44832011)(110136005)(5660300002)(16576012)(41300700001)(2906002)(82310400005)(4326008)(6666004)(316002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 07:44:12.2428
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 05EMZEM+YS+f/0Ldmn84KDUbS3FhgH2sgiWEtWcrwYaI1N+smSr6Bd5OeZEbgusw526XIJPAP82DwX1MJf8oRw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7889
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5449ea4-dbda-4cff-0846-08db4497b231
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN8NAM11FT047.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5781
 
-On 23.04.2023 07:36, Henry Wang wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->>>> However, looking at the code below, don't you mean to have the array
->>>> pre-set to all NUMA_NO_DISTANCE?
->>>
->>> ...I am a bit puzzled about why pre-setting the array to all
->>> NUMA_NO_DISTANCE matters here, as I think the node distance map will
->>> be populated when parsing the device tree anyway no matter what their
->>> initial values.
->>
->> From this patch alone it doesn't become clear whether indeed all array
->> slots (and not just ones for valid nodes) would be populated. I think
->> the code in the patch here would better not make itself dependent on
->> behavior of code added subsequently (which may change; recall that a
->> series may be committed in pieces).
+Hi Ayan,
+
+On 13/04/2023 19:37, Ayan Kumar Halder wrote:
 > 
-> Correct, I agree. I added a numa_init_distance() function (in patch #12) to
-> set all values to NUMA_NO_DISTANCE. The numa_init_distance() will be
-> called in the beginning of numa_init().
-
-Why do you need a function for this? As said, this array can be pre-set at
-compile time (unless I'm overlooking something).
-
->>>>> +unsigned char __node_distance(nodeid_t from, nodeid_t to)
->>>>> +{
->>>>> +    /* When NUMA is off, any distance will be treated as remote. */
->>>>> +    if ( numa_disabled() )
->>>>> +        return NUMA_REMOTE_DISTANCE;
->>>>
->>>> Wouldn't it make sense to have the "from == to" special case ahead of
->>>> this (rather than further down), thus yielding a sensible result for
->>>> from == to == 0? And else return NUMA_NO_DISTANCE, thus having a
->>>> sensible result also for any from/to != 0?
->>>
->>> Could you please elaborate a bit more about why 0 matters here?
->>
->> When NUMA is off, there's only one node - node 0. Hence 0 has special
->> meaning in that case.
->>
->>> As from my understanding,
->>> (1) If from == to, then we set the distance to NUMA_LOCAL_DISTANCE
->>> which represents the diagonal of the matrix.
->>> (2) If from and to is in the matrix range, then we return
->>> node_distance_map[from][to].
->>
->> Provided that's set correctly. IOW this interacts with the other comment
->> (which really I made only after the one here, just that that's of course
->> not visible from the reply that I sent).
->>
->>> (3) Other cases we return NUMA_NO_DISTANCE.
->>
->> And when NUMA is off, it should be NUMA_NO_DISTANCE in _all_ other
->> cases,
->> i.e. ...
->>
->>>      /* When NUMA is off, any distance will be treated as remote. */
->>>      if ( numa_disabled() )
->>>          return NUMA_REMOTE_DISTANCE;
->>
->> ... this return is wrong in that case (even if in reality this likely
->> wouldn't matter much).
 > 
-> Thanks for the explanation! I think I now understand :) Would this diff below
-> look good to you then? Appreciate your patience.
+> handle_pci_range() and map_range_to_domain() take addr and len as uint64_t
+> parameters. Then frame numbers are obtained from addr and len by right shifting
+> with PAGE_SHIFT. The page frame numbers are saved using unsigned long.
+Maybe better to say "expressed" rather than "saved"
 
-Looks largely okay, but possibly one part can now be omitted (see below).
-
-> unsigned char __node_distance(nodeid_t from, nodeid_t to)
->  {
-> -    /* When NUMA is off, any distance will be treated as remote. */
-> +    if ( from == to )
-> +        return NUMA_LOCAL_DISTANCE;
-> +
-> +    /* When NUMA is off, any distance will be treated as unreachable (0xFF). */
-
-Please avoid mentioning the actual value of 0xFF: This serves no real
-purpose (afaict) and is liable to go stale at some point.
-
->      if ( numa_disabled() )
-> -        return NUMA_REMOTE_DISTANCE;
-> +        return NUMA_NO_DISTANCE;
-
-With the code below this is now only an optimization. Might be worth
-saying so in the comment (assuming having this optimization is deemed
-worth it).
-
-Jan
-
->      /*
->       * Check whether the nodes are in the matrix range.
->       * When any node is out of range, except from and to nodes are the
-> -     * same, we treat them as unreachable (return 0xFF)
-> +     * same, we treat them as unreachable (0xFF)
->       */
->      if ( from >= ARRAY_SIZE(node_distance_map) ||
->           to >= ARRAY_SIZE(node_distance_map[0]) )
-> -        return from == to ? NUMA_LOCAL_DISTANCE : NUMA_NO_DISTANCE;
-> +        return NUMA_NO_DISTANCE;
 > 
->      return node_distance_map[from][to];
+> Now if 64-bit >> PAGE_SHIFT, the result will have 52-bits as valid. On a 32-bit
+> system, 'unsigned long' is 32-bits. Thus, there is a potential loss of value
+> when the result is stored as 'unsigned long'.
+> 
+> To mitigate this issue, we check if the starting and end address can be
+> contained within the range of physical address supported on the system. If not,
+> then an appropriate error is returned.
+> 
+> Also, the end address is computed once and used when required. And replaced u64
+> with uint64_t.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> 
+> Changes from :-
+> v1...v4 - NA. New patch introduced in v5.
+> 
+>  xen/arch/arm/domain_build.c | 30 +++++++++++++++++++++++-------
+>  1 file changed, 23 insertions(+), 7 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 7d28b75517..b98ee506a8 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1637,15 +1637,23 @@ out:
 >  }
 > 
-> Kind regards,
-> Henry
+>  static int __init handle_pci_range(const struct dt_device_node *dev,
+> -                                   u64 addr, u64 len, void *data)
+> +                                   uint64_t addr, uint64_t len, void *data)
+>  {
+>      struct rangeset *mem_holes = data;
+>      paddr_t start, end;
+>      int res;
+> +    uint64_t end_addr = addr + len - 1;
+> +
+> +    if ( addr != (paddr_t)addr || end_addr != (paddr_t)end_addr )
+> +    {
+> +        printk(XENLOG_ERR "addr (0x%"PRIx64") or end_addr (0x%"PRIx64") exceeds the maximum allowed width (%d bits) for physical address\n",
+I don't think it is wise to print variable names (end_addr) to the user. Better would be to say explicitly: start, end address.
+Also to make the message shorter you could write: ... exceeds the maximum allowed PA width (%u bits)
+
+> +               addr, end_addr, CONFIG_PADDR_BITS);
+Why CONFIG_PADDR_BITS if you already introduced PADDR_BITS macro
+
+> +        return -ERANGE;
+> +    }
 > 
->>
->> Jan
->>
+>      start = addr & PAGE_MASK;
+> -    end = PAGE_ALIGN(addr + len);
+> -    res = rangeset_remove_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end - 1));
+> +    end = PAGE_ALIGN(end_addr);
+> +    res = rangeset_remove_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end));
+I doubt PFN_DOWN(end) is the same as PFN_DOWN(end - 1), so I think you should keep the behavior as it was
+
+>      if ( res )
+>      {
+>          printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+> @@ -2330,11 +2338,19 @@ static int __init map_dt_irq_to_domain(const struct dt_device_node *dev,
+>  }
+> 
+>  int __init map_range_to_domain(const struct dt_device_node *dev,
+> -                               u64 addr, u64 len, void *data)
+> +                               uint64_t addr, uint64_t len, void *data)
+You changed u64 to uint64_t in a definition but not in a prototype. Please fix.
+
+>  {
+>      struct map_range_data *mr_data = data;
+>      struct domain *d = mr_data->d;
+>      int res;
+> +    uint64_t end_addr = addr + len - 1;
+> +
+> +    if ( addr != (paddr_t)addr || end_addr != (paddr_t)end_addr )
+> +    {
+> +        printk(XENLOG_ERR "addr (0x%"PRIx64") or end_addr (0x%"PRIx64") exceeds the maximum allowed width (%d bits) for physical address\n",
+> +               addr, end_addr, CONFIG_PADDR_BITS);
+please see the remarks above about this code
+
+> +        return -ERANGE;
+> +    }
+> 
+>      /*
+>       * reserved-memory regions are RAM carved out for a special purpose.
+> @@ -2345,13 +2361,13 @@ int __init map_range_to_domain(const struct dt_device_node *dev,
+>                       strlen("/reserved-memory/")) != 0 )
+>      {
+>          res = iomem_permit_access(d, paddr_to_pfn(addr),
+> -                paddr_to_pfn(PAGE_ALIGN(addr + len - 1)));
+> +                paddr_to_pfn(PAGE_ALIGN(end_addr)));
+>          if ( res )
+>          {
+>              printk(XENLOG_ERR "Unable to permit to dom%d access to"
+>                      " 0x%"PRIx64" - 0x%"PRIx64"\n",
+>                      d->domain_id,
+> -                    addr & PAGE_MASK, PAGE_ALIGN(addr + len) - 1);
+> +                    addr & PAGE_MASK, PAGE_ALIGN(end_addr) - 1);
+>              return res;
+>          }
+>      }
+> @@ -2368,7 +2384,7 @@ int __init map_range_to_domain(const struct dt_device_node *dev,
+>          {
+>              printk(XENLOG_ERR "Unable to map 0x%"PRIx64
+>                     " - 0x%"PRIx64" in domain %d\n",
+> -                   addr & PAGE_MASK, PAGE_ALIGN(addr + len) - 1,
+> +                   addr & PAGE_MASK, PAGE_ALIGN(end_addr) - 1,
+>                     d->domain_id);
+>              return res;
+>          }
+> --
+> 2.17.1
+> 
+> 
+
+~Michal
 
 
