@@ -2,40 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 280356ECFD7
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 15:59:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525399.816568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B87306ECFDD
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 16:01:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525405.816577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqwiz-0003IR-2m; Mon, 24 Apr 2023 13:59:25 +0000
+	id 1pqwkn-0004pu-Hl; Mon, 24 Apr 2023 14:01:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525399.816568; Mon, 24 Apr 2023 13:59:25 +0000
+Received: by outflank-mailman (output) from mailman id 525405.816577; Mon, 24 Apr 2023 14:01:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqwiy-0003Ge-Vw; Mon, 24 Apr 2023 13:59:24 +0000
-Received: by outflank-mailman (input) for mailman id 525399;
- Mon, 24 Apr 2023 13:59:23 +0000
+	id 1pqwkn-0004nJ-EN; Mon, 24 Apr 2023 14:01:17 +0000
+Received: by outflank-mailman (input) for mailman id 525405;
+ Mon, 24 Apr 2023 14:01:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0Hh8=AP=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pqwix-0003GY-4s
- for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 13:59:23 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bhGg=AP=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1pqwkl-0004nC-Th
+ for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 14:01:16 +0000
 Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20625.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::625])
+ (mail-db8eur05on2060c.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::60c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 35927e32-e2a8-11ed-8611-37d641c3527e;
- Mon, 24 Apr 2023 15:59:21 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB8368.eurprd04.prod.outlook.com (2603:10a6:102:1bf::5)
+ id 77db332c-e2a8-11ed-8611-37d641c3527e;
+ Mon, 24 Apr 2023 16:01:11 +0200 (CEST)
+Received: from DB6PR0201CA0018.eurprd02.prod.outlook.com (2603:10a6:4:3f::28)
+ by DB9PR08MB6506.eurprd08.prod.outlook.com (2603:10a6:10:263::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Mon, 24 Apr
- 2023 13:59:17 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6319.033; Mon, 24 Apr 2023
- 13:59:17 +0000
+ 2023 14:01:02 +0000
+Received: from DBAEUR03FT050.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:4:3f:cafe::ef) by DB6PR0201CA0018.outlook.office365.com
+ (2603:10a6:4:3f::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33 via Frontend
+ Transport; Mon, 24 Apr 2023 14:01:02 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT050.mail.protection.outlook.com (100.127.142.250) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6340.19 via Frontend Transport; Mon, 24 Apr 2023 14:01:02 +0000
+Received: ("Tessian outbound 8b05220b4215:v136");
+ Mon, 24 Apr 2023 14:01:01 +0000
+Received: from bab51ad44cc3.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ BD53452C-E9C1-4777-9BD4-7927851D3AF9.1; 
+ Mon, 24 Apr 2023 14:00:50 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id bab51ad44cc3.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 24 Apr 2023 14:00:50 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
+ by DBBPR08MB6041.eurprd08.prod.outlook.com (2603:10a6:10:206::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Mon, 24 Apr
+ 2023 14:00:48 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::6b4f:579f:6dca:8b91]) by AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::6b4f:579f:6dca:8b91%5]) with mapi id 15.20.6319.033; Mon, 24 Apr 2023
+ 14:00:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,404 +72,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35927e32-e2a8-11ed-8611-37d641c3527e
+X-Inumbo-ID: 77db332c-e2a8-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OyVYQEMGXUOQiregtJcDHODeHEeDQ3Nwpg4pQOrM0B0=;
+ b=oibUaJv7WL5vACYMyudo8+bniX0atkTprxtueya6OSVfjvlCE9DW+yTmhLCLOh85KSolDvXSBGTrsps+4ZAsXGnkk4FOvuJh+wO91gpT07bkKz6xGXKcFrKGme2pMORasUlm7ERq/jg3LQwZAsZfbYWdPcL7yL81tkVovGaHmoo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 3e27c4062971cdcf
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iXx/GP3+Rzh8Y1Ywy2CcnTrPgX2BVk0E9NkQfz4erQE6yxf8o/otzT0FhbCVrOLFmi6AAJnXGCv+Hb7uAog+bS9AlXyQpwH752VrW2iijbBNCqizYBbgVnObwkqCz9w8EMSf5CHMqfmKmASPi1KsKhwPrxKQCcaeYBzKxTwXmbtMHoqtMDPvSDCyatoxMGN21+Qy4mi8O8OyjaqQvPH+mrBbbva2qVfO9lEB3CES3cU73yy30UXUo0G617dfQ8Mmv+98tyRu7NlvKWHzjrNuR+V74Z0IdLtg7gwTUcXcbd62Lia7HGcwVCqXBAAOrZfqbmxtxRXYEGxgjAXz8TdqWQ==
+ b=G1d9EPvGvyri9IQhjvR0yMj+Zcs5mRHFbuZBKxbKSKaWQKsF2S0p/C9h2xD2eyd04LKgYTmFr68MDA0CIWxf76M1eb+fvufzUFO/3Ah5+7taeFmXypHJ5Nipf11OV48YRD6WvqRtAglectsolKuG5bdqw8RSV/OZryzbmExOAEJbeQSMa9Br2wlCMf4CrIFkvLlN5NCYbti8LtE3mKfBCoUbT0rdAbeChJM/oPGzjlHaRjPuzLl+rbH5XmNT6Jkv1G9PVeRw/1+XjESKMgs/4LzGFCByWQ/lGK5c3pSTEv51DwEMbxz1Jc4XcB8rDyiBLHQOff4ALpiZ0oG8VeXyoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h7K8zzvcm/qI7O13PT/5IEE5ayUGR9RPHKuFzhwTJvQ=;
- b=VDZPdKTVhrqehNxBRjxuI4zwVX+nwK6gA4B8aHe3d/QNM94yl+HBEL3uF0odMLUDB6hNfykgsFvlbE5bB/59ej93rrQGV4BjgV4+VQLhD/6T3mi+FP3PfT1VUEg/mlTktOy3GSP8+H/5/tYy7scb2lUn/mmjB4FaTkPEXJl9UOyJ8G9X0TTn2LnR+z/p6aQxHgWaqL1lJbl+AInktCCecJljIxkIMBCWaGVUX1e5PwgkJMuaH4eXAKFpdtAe9mADT7fqCLbie7QPtdnjMFUxfmdbZuKhGvRqJkszVvQwYR4BgtAke0C5+2+4qTWJf15b9qDoqeoQ8WSnEphCtMgBuQ==
+ bh=OyVYQEMGXUOQiregtJcDHODeHEeDQ3Nwpg4pQOrM0B0=;
+ b=VzxOJhMDhwRAz6gAprkepyycMN9/+XkSGOjnbomMaYl++74e/ndMZiYsqgiHKTwG9bkR0WZNVchaOQfgEiFlNrBcq5QHPnpbFrjqKgn/HWUDDBOx8QIakUIxreivM/5sJ8Fq29XYbSvuO/YZHFBfpskytuMgZhXEABTBPV7CpkwLPHdKD5tBt+NzrV02Ee4x2WnVvdOZgzHwKDtRl4CThh/VTDrZaebLl4FzlKAdYkBwuR/U++B0UlGuWbupKCCSCRBvC+G8xQhzJx5gvWsTqWVueKc/Om1IUM3coZVpLA0EjY119UdAq7voo0Y2LIEVW+CYvHdd5ZEsjXNG+Ba+Gw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h7K8zzvcm/qI7O13PT/5IEE5ayUGR9RPHKuFzhwTJvQ=;
- b=t2HtdK4Z8OB5wXKSyFn+TCCKOP4mbGYff8qbanzYnUBQkEJuFtZO13VWiUrpEQK0jIQUM6CueZdmkRNuzgjLQGnQ8h99EHQ1tPaevhs1rcvUvif/7mKGeoD5Qmc2ecXxss1OCHaXztVnPBsVDRsItQcN0e2v25wnvE7X7bY7ThNPY0rsTXDKbGtTscljb3+7KPCqSkvVu94KhuIz6W6AEz9J6mploaaJsJDVmNdX1eT24GIMU/UQ85FaWNZA6F2pYAQSjbhppTIYhz3SXqKfQ328q2z5vP4UVTaMSsxnTgh2wXBtjqhhRqgJzRtg3WGOZxt5CPcqRQbA5b/UV4SU1A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <69ae7948-64fa-deaa-03b8-30eb84e07b61@suse.com>
-Date: Mon, 24 Apr 2023 15:59:15 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH v3 3/4] x86/hvm: Allow writes to registers on the same
- page as MSI-X table
+ bh=OyVYQEMGXUOQiregtJcDHODeHEeDQ3Nwpg4pQOrM0B0=;
+ b=oibUaJv7WL5vACYMyudo8+bniX0atkTprxtueya6OSVfjvlCE9DW+yTmhLCLOh85KSolDvXSBGTrsps+4ZAsXGnkk4FOvuJh+wO91gpT07bkKz6xGXKcFrKGme2pMORasUlm7ERq/jg3LQwZAsZfbYWdPcL7yL81tkVovGaHmoo=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v6 07/12] xen: enable Dom0 to use SVE feature
+Thread-Topic: [PATCH v6 07/12] xen: enable Dom0 to use SVE feature
+Thread-Index: AQHZdnKG11PjGcmQuE2MpJrElBiS3686VJGAgAAo1IA=
+Date: Mon, 24 Apr 2023 14:00:48 +0000
+Message-ID: <7064B21E-414F-4FB5-BCC9-349388B32EA5@arm.com>
+References: <20230424060248.1488859-1-luca.fancellu@arm.com>
+ <20230424060248.1488859-8-luca.fancellu@arm.com>
+ <589fdeec-a0cf-1dc0-18b2-bd20c76832d2@suse.com>
+In-Reply-To: <589fdeec-a0cf-1dc0-18b2-bd20c76832d2@suse.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.c12fc399ea0151818e48ac5179ad554c00c9386d.1680752649.git-series.marmarek@invisiblethingslab.com>
- <3a8f54cf631e0342b144935950c853d1884a7eac.1680752649.git-series.marmarek@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <3a8f54cf631e0342b144935950c853d1884a7eac.1680752649.git-series.marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0080.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8368:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd0542d7-56bf-499c-f65d-08db44cc17e8
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.500.231)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3749:EE_|DBBPR08MB6041:EE_|DBAEUR03FT050:EE_|DB9PR08MB6506:EE_
+X-MS-Office365-Filtering-Correlation-Id: a46d18fb-4154-4130-0e70-08db44cc569e
+x-checkrecipientrouted: true
+nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 6qrXwPvGmzlTRfAu5K/FMSFNvvK7/O51oAz6st969abKYcu38JFd8fbKHdIqGdROd9Mf1OBH1xs70BfAqDQcWuAWBBaPx2GeVJTKwMQLfAdgoVc6UWzpuKKN90PxCSL3Mcvl7SbXDcmr7ZOaDVLGv4585vcCkM3yDDA1akw87dBG5CgFHvXLRslXYhfqwWUC3enLdylApksFEnwI2cQR3KWKhXZORDsjZV6JMk5eNXJGkahEHhiseEVvfnmAMthqIN+4OgMpqmlvWcuc603gC7WIuSQMpRk242+tlgfTuDXBA4BDa/uXNQWvuonPb5Ta1B4z+ujW4pKwd1iXG5fr1orB1pgJ2tdOk1uDB940xBfe9sqzEE6j2wUfOIguJYrcZabx5wi0TsncFDI1gSlWzAT2B/lRzCKLlXhi6cjo6C4bUZ4sRDm0S9sVblb+hCKDQYifXDdpETes10LNR2rArZmTFetc2O/zv4pMzyXBOP/mfE2xoRDLg6+tQsYbgO9WiKDRcEVCmHiT2s1vOFoDYB4FmxKXiwD2PeTSGw/WuHKl2Wbx0w1/9jLeRg1zOj3A9ygQhjwEnDOPN6BByqEFNFfcoeSVl24ap40hYhPMysjTtKYiYmFvP2oT0wj/e8ai6zBzna3aYuhC039hag5XZA==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(366004)(376002)(346002)(396003)(451199021)(2906002)(76116006)(64756008)(66446008)(66476007)(66556008)(66946007)(6916009)(316002)(4326008)(8676002)(8936002)(5660300002)(38070700005)(41300700001)(33656002)(36756003)(86362001)(6512007)(26005)(186003)(122000001)(71200400001)(53546011)(38100700002)(478600001)(6486002)(83380400001)(2616005)(6506007)(54906003)(91956017)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C51CB9FF01CA7C42BE48F1BD0A9368CB@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB6041
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT050.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	38f82446-425b-4675-a91d-08db44cc4e9b
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	2FLc3ubGrUk86jB6NVP0xGzd8Hx172FKP042nUp8hA54igVVQOyrRfS0SK44pR/8JC6gXwyyUvKK2sX6GDSUjdt8UbaJyUGGzla2rBn+nO4nlgb2LtFDIWtHtzWi0R4pAfE51u1vG9kiv8htRw/NTTpBJfccuQ3t2IaBq6Q/MJXel4hf5SRed/fJICdEVQ7iC5qVv3lpxLJGQQXqxBiesRcAfB8nF4XzYA4+FIARzNR7MDOhgiPSKrg/picNn4ke2/FuwvWa4wOQuT3qNxW8uY0x3cRC7btZvvAPICewcR2RHQp4xZMl3b31nGwMMwNi/R/KEdFk+ZegB5vSO/SB1mk9VBcHQQ+wEa9Lxf9+ruJGYPkuLUKFdjV68XWXY+l5wftoRsnD4EYbAGXT3pj/mkiTak/XDkA8A4Ktzn/w3phFaaIQMbF17tMHPTKk1/42kxpevK69aL0hZU42/U/V83Z+IRoOtlNSG1NuR6hyfmgcJTqJqIeaNkYVVTaoDYOZG+NwPYiXL2fRv8OV52xesBR7nb1qGdpxeKWS4qIPXfPDRTPqAOS29WeUIfOryExvogSU00by47AMISIw2tS0OvOgcuWVhreGGXR2MI+xAsZQ/8NugpVxmo7Rap5y7kC62uXZDexfIRw+380pio/r2BrskpjKABCWVNwK4to6jr4=
+	k2VP5EpSe5MzDIh/4/lg3QgYkkHf3qa1Q/JL4afoPQG0DnwQ4v8jlOcA6e0dkoDp/rPeLUEi7Ghb4gv6ueS1dsnUsgIL38efhpzS9bM3tZoDI/ERLcGGnjWHBAUwILLRUnMv4n6YtEDML1wHi8R//wWnyKoK9KRD+2bxt0yjD/VQBgs7kE+sKSsOjLNLbQS7F27meMJD8XBri0hGYiH3VHozppP6t19O65/EKzUJLX6bm4D5TkM1lgQ/A3XFP367SfDYjWEtnXI2s5HfHJvxbnx6OEHHJAlM1yPRwdTK+jMZ/Ie4Gw6kqWm20nHeG1+8iJdwer/IpLUxWJObPxlYpcqjoItzxy16D8NWfZmvCjsM06YuE1E7pp635WZI6UBGys55o165fr63SozTL3V7e6lPe+73y+BZZ12sIqw0vxwa4/zVIIDS11ujXD2YAoziiWScrsKsIto2Eo7xtkMq+9hWT5XYVjyKGAQuGz4JzmNNdX2gzECr4KuEDWBX5ga0SZsaq5jOnL3u2GNbt/Q5fXpNjDklr+ELoNUq8Ov5ckHLGTBDM4/BGs4uFYWVPIQbRL1WJzsv/jX+5ptBhqh/iWc/MIXW998tv5NG5kNXyFhcYRxBJ2aG00CzwZLiXema14qspvU3FoTLCjC0tcYWs/LnfvIhZ/N7qp47PSfIh4u677f3ypQyp8HO64HHLzVDylfresNzVbdLgFGSyqAWBA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(376002)(346002)(136003)(39860400002)(366004)(451199021)(2906002)(6486002)(2616005)(6512007)(6506007)(26005)(53546011)(186003)(66946007)(66556008)(66476007)(8676002)(8936002)(316002)(41300700001)(6916009)(4326008)(478600001)(5660300002)(54906003)(38100700002)(36756003)(86362001)(31696002)(66574015)(83380400001)(31686004)(66899021)(21314003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?azV4cUsvaTRWWXRYUWVmVHpwTGlpVzc4SENOV3JMRGV1ZG43RU80bERYSDMw?=
- =?utf-8?B?cFJjQlVqMDhQVi9odUdIcnRZazlNWjVXQzR5cHp3WXQvWmZKbS9nOWdsQ2JJ?=
- =?utf-8?B?QmdPaWF6cW5Lbmx1THpYRHQ0V2M5M0xkUjBuQjhKRVZWeVl1VGwwa2ZIOFhC?=
- =?utf-8?B?b2FWTGZvbUI0UVdYT2pKWUROakdjWEQ5SmNDeldVYXRrcXBLNzlRVEszbXI4?=
- =?utf-8?B?M1pnVzRWczUvU1FrOWg2OTE2K1NxVEJpMEgySWcxYXdtNWI0MkU4Y1JPL0Z6?=
- =?utf-8?B?Y093elVzQWtNbFRGeHM0dmFqbGV1ZkdMZmFZdmFoRVFYTi9Uck9SSVhrUERx?=
- =?utf-8?B?WmNaMkhjMGcwR3JDa3J5cDRkVllDdFpBSE1OQlkzNG1IREVEZEdpNFNFU3RK?=
- =?utf-8?B?QVRhU1ZMTklocG1hS0ZMdGpEN2RPbUlwMHdCYzZTaEJ3ajJRa05rUGdvSENa?=
- =?utf-8?B?bkNKSFV0M3R1OG5jUWJTd1lvU0d4cFoza20xSjNUNHA2TEJhV2UxNURkRWo5?=
- =?utf-8?B?STIzUnN3N0RHZFdTeW5FSkVRYWxSZ29lRStqM3oyUmwxM0dCRElReittRXNZ?=
- =?utf-8?B?V3BMNW9XQ3hOWXFDQzFENXowUnBVNkFHTk90MlZ6R0ZhOU9YcTRQcHNXY2pp?=
- =?utf-8?B?QXJQbnRtSnpqYzJDRzlrWk8wMG5tN1dwSXZXYm81N2dOd0pma3VYNjFEWElE?=
- =?utf-8?B?N2VLVko5ZEk4Q0ZZK2dPMENLTGhQKzlVUnkySC9aMkkrZnZwb0UvOGI2T2Fo?=
- =?utf-8?B?bmVQZUtxVWs2N0g4NzRNREdWdTdqd2lhVndpa2F2Ym10K0VjdDlsSCsyL082?=
- =?utf-8?B?bVZ0VTRMVGVSZStKOEtHMjAzUE40TGZhWFNHQmRkNVJyOUNIcUEwYTlmUTJL?=
- =?utf-8?B?Wkk1VDRyMk5aSklDaVUwdUJmZmtFbnVLNnJ4dDcxSkhCRlA2SXFObHJSQk5G?=
- =?utf-8?B?R3JMK0trdEdNOGIxdVVxcmNwQUVnTncxdjAxSjF0S0ZzUHMrdnBLUEM3WmJ4?=
- =?utf-8?B?T3F6UERNMWN2T2JncUNtbFhJYUQwaEh2dmZqSno3Y3MzdENROTI5KzVteTlk?=
- =?utf-8?B?SDVyaU5IWXNITTI3RkcvSlFVL0pXazFJazFvYXE1aWk5dVdob3ptbDFZelJz?=
- =?utf-8?B?TEY3OHVuNTExbHBvdXhWN0paSWtPdEM0cHVxeGx3Y2txUmgxVnVXMThIQ2Y2?=
- =?utf-8?B?YnJDZUJmZlcvQ0ZVL2tENisxU2tlQXBIcHdobU1rMldvM3paM2g1VXhUZWpa?=
- =?utf-8?B?QnVRMzVOdEEzSElzZThRRkFOYitrZVhhRXllNHJqOTFZQit1ZjVqdUtreWtY?=
- =?utf-8?B?ZmpMc2hockpUOGthU0xseDRnOVhMZFJmQk1BZ2QrbWN4WEZyYXo0R2NteWR1?=
- =?utf-8?B?Mjhwa0hGa09DZk5nVVY0RkhuVXpscStZVDBCeGN4MXhZZ3h3WFFEU1VUaXRD?=
- =?utf-8?B?Ym41Y2Y3enJneTdwM2R6RmpjQWtIQms5cnZIeVRUVFlxQ1dyVE1VQkxSWWUr?=
- =?utf-8?B?NHhubkdVNnR6L1BCL2JWMFRvcHNvbi9FeXBpUExCTVhFaEVKMXJ4d084WUxT?=
- =?utf-8?B?S2ViZzNTUnhCVGpRUC9pbVZORzFSaUZNbVcxU2xPcWl4ZGlROUlkMWMxc3ZT?=
- =?utf-8?B?Y1pwUkNmSSt0SDdsbE02ZldYWUJycnFHWnUvOFlsMU9RcHNxNVczNzl5ZUl0?=
- =?utf-8?B?aDNBVWpJTDdLcWk3Sy93RmN4VUE2TTlaa1NPOGJQdE5BWEVvajFyVkp5RHNr?=
- =?utf-8?B?bXBTOGl0ZlFzTFYzbWJsSk9aKzdrcnhVS2pQVnJjY1loU2VnMmJsRmRZZ3p5?=
- =?utf-8?B?OGRJcVQwS1JhSHF1RDBtdG1WUFF4WWlBWXpFRjB2bStQWXNSbFpsVzc3Zk5v?=
- =?utf-8?B?UGVsMWU3S1g1Nk5Ocm9kQmh6RTF1VDM4aFFYaU5QWXZWZllWNitqTHpPV2Zy?=
- =?utf-8?B?SGxWWm9ZZVdUL21PMFlTS2NqWE1FSU1yRVh0Tnc1SGdScVhKZjUzSjJyNlVs?=
- =?utf-8?B?REZlenpIY1c1YktHRlVoVklXY0d0b3g4ME50YTRxSWhYUlhTbUk2OFhOS2V1?=
- =?utf-8?B?SWRwUm5wUnlpSGNJd0F2UkNoK3JUbXg3WHcxaGxwL28weWl2aGZ4a3pjdmRP?=
- =?utf-8?Q?J2tNhpcBWzpGUg1aSvqxa9S6C?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd0542d7-56bf-499c-f65d-08db44cc17e8
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 13:59:16.9532
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(136003)(39860400002)(376002)(346002)(396003)(451199021)(46966006)(36840700001)(40470700004)(40460700003)(2906002)(70206006)(70586007)(316002)(4326008)(6862004)(8676002)(8936002)(5660300002)(41300700001)(33656002)(82310400005)(36756003)(86362001)(40480700001)(356005)(6512007)(26005)(186003)(81166007)(53546011)(478600001)(6486002)(36860700001)(83380400001)(47076005)(2616005)(336012)(6506007)(82740400003)(54906003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 14:01:02.0117
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WCOYT4OBOOwNtsSk+el4D1W7g1Pxf2VYVsYZwOqrZH6qWNAvwSfeSwsBIBbi8kJDe3fufsHOz+nXSjePPkt+vw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8368
+X-MS-Exchange-CrossTenant-Network-Message-Id: a46d18fb-4154-4130-0e70-08db44cc569e
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT050.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6506
 
-On 06.04.2023 05:57, Marek Marczykowski-Górecki wrote:
-> --- a/xen/arch/x86/hvm/vmsi.c
-> +++ b/xen/arch/x86/hvm/vmsi.c
-> @@ -181,15 +181,21 @@ static bool msixtbl_initialised(const struct domain *d)
->  }
->  
->  static struct msixtbl_entry *msixtbl_find_entry(
-> -    struct vcpu *v, unsigned long addr)
-> +    struct vcpu *v, unsigned long addr, bool same_page)
->  {
->      struct msixtbl_entry *entry;
->      struct domain *d = v->domain;
->  
->      list_for_each_entry( entry, &d->arch.hvm.msixtbl_list, list )
-> +    {
-> +        if ( same_page &&
-> +             PFN_DOWN(addr) >= PFN_DOWN(entry->gtable) &&
-> +             PFN_DOWN(addr) <= PFN_DOWN(entry->gtable + entry->table_len) )
-
-This will allow access to the subsequent page in case entry->gtable +
-entry->table_len falls on a page boundary. I think you mean "< PFN_UP()"
-or "<= PFN_DOWN(... - 1)".
-
-But I anyway don't understand why you need both this and ...
-
-> +            return entry;
->          if ( addr >= entry->gtable &&
->               addr < entry->gtable + entry->table_len )
->              return entry;
-
-... this (and the new function parameter). Again like in the recently
-added vPCI code, all you should need ought to be the new code you add
-(see msix.c:msix_find()), with the caller then separating "in table" vs
-"other space". Only one of the four callers really cares about _just_
-the table range. In no event do you need to do both pairs of checks:
-
-        if ( same_page
-             ? PFN_DOWN(addr) >= PFN_DOWN(entry->gtable) &&
-               ...
-             : ...
-
-(i.e. in case you disagree with moving the original check to the sole
-place where it's needed).
-
-> @@ -213,6 +219,144 @@ static struct msi_desc *msixtbl_addr_to_desc(
->      return NULL;
->  }
->  
-> +/*
-> + * Returns:
-> + *  - UINT_MAX if no handling should be done
-> + *  - UINT_MAX-1 if write should be discarded
-> + *  - a fixmap idx to use for handling
-> + */
-> +#define ADJACENT_DONT_HANDLE UINT_MAX
-> +#define ADJACENT_DISCARD_WRITE (UINT_MAX - 1)
-> +static unsigned int adjacent_handle(
-> +    const struct msixtbl_entry *entry, unsigned long addr, bool write)
-> +{
-> +    unsigned int adj_type;
-> +
-> +    if ( !entry || !entry->pdev )
-> +        return ADJACENT_DONT_HANDLE;
-> +
-> +    if ( PFN_DOWN(addr) == PFN_DOWN(entry->gtable) && addr < entry->gtable )
-> +        adj_type = ADJ_IDX_FIRST;
-> +    else if ( PFN_DOWN(addr) == PFN_DOWN(entry->gtable + entry->table_len - 1) &&
-> +              addr >= entry->gtable + entry->table_len )
-> +        adj_type = ADJ_IDX_LAST;
-> +    else
-> +        return ADJACENT_DONT_HANDLE;
-> +
-> +    ASSERT(entry->pdev->msix);
-
-Considering the code below, you probably want to latch this pointer into
-a local variable.
-
-> +    if ( !entry->pdev->msix->adj_access_table_idx[adj_type] )
-> +    {
-> +        gprintk(XENLOG_WARNING,
-> +                "Page for adjacent(%d) MSI-X table access not initialized for %pp (addr %#lx, gtable %#lx\n",
-> +                adj_type, &entry->pdev->sbdf, addr, entry->gtable);
-> +
-> +        return ADJACENT_DONT_HANDLE;
-> +    }
-> +
-> +    /* If PBA lives on the same page too, discard writes. */
-> +    if ( write && (
-
-Nit: Style (no standalone opening parenthesis ought to be last on a line).
-
-> +        (adj_type == ADJ_IDX_LAST &&
-> +         entry->pdev->msix->table.last == entry->pdev->msix->pba.first) ||
-> +        (adj_type == ADJ_IDX_FIRST &&
-> +         entry->pdev->msix->table.first == entry->pdev->msix->pba.last)) )
-
-And these all need indenting by one more blank.
-
-> +    {
-> +        gprintk(XENLOG_WARNING,
-> +                 "MSI-X table and PBA of %pp live on the same page, "
-> +                 "writing to other registers there is not implemented\n",
-> +                 &entry->pdev->sbdf);
-
-Whereas here a blank needs dropping. But - don't you discard writes to
-more than just the PBA here?
-
-> +        return ADJACENT_DISCARD_WRITE;
-> +    }
-> +
-> +    return entry->pdev->msix->adj_access_table_idx[adj_type];
-> +}
-> +
-> +static int adjacent_read(
-> +        unsigned int fixmap_idx,
-> +        uint64_t address, uint32_t len, uint64_t *pval)
-
-Nit: Style (too deep indentation). Also while I'm fine with the two
-uint64_t (arguably the former may want to be paddr_t), the uint32_t
-clearly isn't needed here, and wants to be unsigned int.
-
-> +{
-> +    const void __iomem *hwaddr;
-> +
-> +    *pval = ~0UL;
-> +
-> +    if ( !IS_ALIGNED(address, len) )
-> +    {
-> +        gdprintk(XENLOG_WARNING,
-> +                "Dropping unaligned read from MSI-X table page at %" PRIx64 "\n",
-> +                address);
-
-Here indentation is one too little again.
-
-> +        return X86EMUL_OKAY;
-> +    }
-> +
-> +    ASSERT(fixmap_idx != ADJACENT_DISCARD_WRITE);
-> +
-> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
-> +
-> +    switch ( len )
-> +    {
-> +    case 1:
-> +        *pval = readb(hwaddr);
-> +        break;
-> +
-> +    case 2:
-> +        *pval = readw(hwaddr);
-> +        break;
-> +
-> +    case 4:
-> +        *pval = readl(hwaddr);
-> +        break;
-> +
-> +    case 8:
-> +        *pval = readq(hwaddr);
-> +        break;
-> +
-> +    default:
-> +        ASSERT_UNREACHABLE();
-> +    }
-> +    return X86EMUL_OKAY;
-> +}
-> +
-> +static int adjacent_write(
-> +        unsigned int fixmap_idx,
-> +        uint64_t address, uint32_t len, uint64_t val)
-> +{
-> +    void __iomem *hwaddr;
-> +
-> +    if ( !IS_ALIGNED(address, len) )
-> +    {
-> +        gdprintk(XENLOG_WARNING,
-> +                "Dropping unaligned write to MSI-X table page at %" PRIx64 "\n",
-> +                address);
-> +        return X86EMUL_OKAY;
-> +    }
-> +
-> +    if ( fixmap_idx == ADJACENT_DISCARD_WRITE )
-> +        return X86EMUL_OKAY;
-> +
-> +    hwaddr = fix_to_virt(fixmap_idx) + PAGE_OFFSET(address);
-> +
-> +    switch ( len ) {
-
-Nit: Style (brace placement).
-
-> @@ -220,16 +364,27 @@ static int cf_check msixtbl_read(
->      unsigned long offset;
->      struct msixtbl_entry *entry;
->      unsigned int nr_entry, index;
-> +    unsigned int adjacent_fixmap;
->      int r = X86EMUL_UNHANDLEABLE;
->  
-> -    if ( (len != 4 && len != 8) || (address & (len - 1)) )
-> +    if ( !IS_ALIGNED(address, len) )
->          return r;
->  
->      rcu_read_lock(&msixtbl_rcu_lock);
-> -
-> -    entry = msixtbl_find_entry(current, address);
-> +    entry = msixtbl_find_entry(current, address, true);
->      if ( !entry )
->          goto out;
-> +
-> +    adjacent_fixmap = adjacent_handle(entry, address, false);
-> +    if ( adjacent_fixmap != ADJACENT_DONT_HANDLE )
-> +    {
-> +        r = adjacent_read(adjacent_fixmap, address, len, pval);
-> +        goto out;
-> +    }
-
-adjacent_handle() may return ADJACENT_DONT_HANDLE for reasons other than
-the address not being in the expected ranges, so you can't blindly fall
-through to the original code just yet (same in functions further down).
-
-> @@ -375,14 +543,23 @@ static bool cf_check msixtbl_range(
->  {
->      struct vcpu *curr = current;
->      unsigned long addr = r->addr;
-> -    const struct msi_desc *desc;
-> +    struct msixtbl_entry *entry;
-
-const?
-
-> +    const struct msi_desc *desc = NULL;
-> +    unsigned int adjacent_fixmap;
-> +
->  
-
-Nit: Please don't introduce double blank lines.
-
-> --- a/xen/arch/x86/include/asm/msi.h
-> +++ b/xen/arch/x86/include/asm/msi.h
-> @@ -207,6 +207,10 @@ struct msg_address {
->                                         PCI_MSIX_ENTRY_SIZE + \
->                                         (~PCI_MSIX_BIRMASK & (PAGE_SIZE - 1)))
->  
-> +/* indexes in adj_access_table_idx[] below */
-> +#define ADJ_IDX_FIRST 0
-> +#define ADJ_IDX_LAST  1
-> +
->  struct arch_msix {
->      unsigned int nr_entries, used_entries;
->      struct {
-> @@ -214,6 +218,7 @@ struct arch_msix {
->      } table, pba;
->      int table_refcnt[MAX_MSIX_TABLE_PAGES];
->      int table_idx[MAX_MSIX_TABLE_PAGES];
-> +    int adj_access_table_idx[2];
-
-adjacent_handle() returns unsigned int - why is it plain int here?
-
-Also, to keep variable name length somewhat limited, I don't think "table"
-adds much value to the name here.
-
-> --- a/xen/arch/x86/msi.c
-> +++ b/xen/arch/x86/msi.c
-> @@ -961,6 +961,34 @@ static int msix_capability_init(struct pci_dev *dev,
->                  domain_crash(d);
->              /* XXX How to deal with existing mappings? */
->          }
-> +
-> +        /*
-> +         * If the MSI-X table doesn't start at the page boundary, map the first page for
-> +         * passthrough accesses.
-> +         */
-> +        if ( PAGE_OFFSET(table_paddr) )
-> +        {
-> +            int idx = msix_get_fixmap(msix, table_paddr, table_paddr);
-> +
-> +            if ( idx > 0 )
-> +                msix->adj_access_table_idx[ADJ_IDX_FIRST] = idx;
-> +            else
-> +                gprintk(XENLOG_ERR, "Failed to map first MSI-X table page: %d\n", idx);
-> +        }
-> +        /*
-> +         * If the MSI-X table doesn't span full page(s), map the last page for
-> +         * passthrough accesses.
-> +         */
-> +        if ( PAGE_OFFSET(table_paddr + msix->nr_entries * PCI_MSIX_ENTRY_SIZE) )
-> +        {
-> +            uint64_t entry_paddr = table_paddr + msix->nr_entries * PCI_MSIX_ENTRY_SIZE;
-> +            int idx = msix_get_fixmap(msix, table_paddr, entry_paddr);
-> +
-> +            if ( idx > 0 )
-> +                msix->adj_access_table_idx[ADJ_IDX_LAST] = idx;
-> +            else
-> +                gprintk(XENLOG_ERR, "Failed to map last MSI-X table page: %d\n", idx);
-> +        }
-
-Wouldn't this better be delayed until / restricted to the device actually
-being prepared for guest use? Which may be as simple as making all of this
-an "else" to the earlier if()?
-
-Also I think the 2nd comment is somewhat misleading - you don't really mean
-"spans full pages" but, along the lines of the first one, "ends on a page
-boundary".
-
-Jan
+SGkgSmFuLA0KDQo+IE9uIDI0IEFwciAyMDIzLCBhdCAxMjozNCwgSmFuIEJldWxpY2ggPGpiZXVs
+aWNoQHN1c2UuY29tPiB3cm90ZToNCj4gDQo+IE9uIDI0LjA0LjIwMjMgMDg6MDIsIEx1Y2EgRmFu
+Y2VsbHUgd3JvdGU6DQo+PiBAQCAtMzAsOSArMzcsMTEgQEAgaW50IHN2ZV9jb250ZXh0X2luaXQo
+c3RydWN0IHZjcHUgKnYpOw0KPj4gdm9pZCBzdmVfY29udGV4dF9mcmVlKHN0cnVjdCB2Y3B1ICp2
+KTsNCj4+IHZvaWQgc3ZlX3NhdmVfc3RhdGUoc3RydWN0IHZjcHUgKnYpOw0KPj4gdm9pZCBzdmVf
+cmVzdG9yZV9zdGF0ZShzdHJ1Y3QgdmNwdSAqdik7DQo+PiArYm9vbCBzdmVfZG9tY3RsX3ZsX3Bh
+cmFtKGludCB2YWwsIHVuc2lnbmVkIGludCAqb3V0KTsNCj4+IA0KPj4gI2Vsc2UgLyogIUNPTkZJ
+R19BUk02NF9TVkUgKi8NCj4+IA0KPj4gKyNkZWZpbmUgb3B0X2RvbTBfc3ZlICAgICAoMCkNCj4+
+ICNkZWZpbmUgaXNfc3ZlX2RvbWFpbihkKSAoMCkNCj4+IA0KPj4gc3RhdGljIGlubGluZSByZWdp
+c3Rlcl90IGNvbXB1dGVfbWF4X3pjcih2b2lkKQ0KPj4gQEAgLTU5LDYgKzY4LDExIEBAIHN0YXRp
+YyBpbmxpbmUgdm9pZCBzdmVfY29udGV4dF9mcmVlKHN0cnVjdCB2Y3B1ICp2KSB7fQ0KPj4gc3Rh
+dGljIGlubGluZSB2b2lkIHN2ZV9zYXZlX3N0YXRlKHN0cnVjdCB2Y3B1ICp2KSB7fQ0KPj4gc3Rh
+dGljIGlubGluZSB2b2lkIHN2ZV9yZXN0b3JlX3N0YXRlKHN0cnVjdCB2Y3B1ICp2KSB7fQ0KPj4g
+DQo+PiArc3RhdGljIGlubGluZSBib29sIHN2ZV9kb21jdGxfdmxfcGFyYW0oaW50IHZhbCwgdW5z
+aWduZWQgaW50ICpvdXQpDQo+PiArew0KPj4gKyAgICByZXR1cm4gZmFsc2U7DQo+PiArfQ0KPiAN
+Cj4gT25jZSBhZ2FpbiBJIGRvbid0IHNlZSB0aGUgbmVlZCBmb3IgdGhpcyBzdHViOiBvcHRfZG9t
+MF9zdmUgaXMgI2RlZmluZS1kDQo+IHRvIHBsYWluIHplcm8gd2hlbiAhQVJNNjRfU1ZFLCBzbyB0
+aGUgb25seSBjYWxsIHNpdGUgbWVyZWx5IHJlcXVpcmVzIGENCj4gdmlzaWJsZSBkZWNsYXJhdGlv
+biwgYW5kIERDRSB3aWxsIHRha2UgY2FyZSBvZiBlbGltaW5hdGluZyB0aGUgYWN0dWFsIGNhbGwu
+DQoNCknigJl2ZSB0cmllZCB0byBkbyB0aGF0LCBJ4oCZdmUgcHV0IHRoZSBkZWNsYXJhdGlvbiBv
+dXRzaWRlIHRoZSBpZmRlZiBzbyB0aGF0IGl0IHdhcyBhbHdheXMgaW5jbHVkZWQNCmFuZCBJIHJl
+bW92ZWQgdGhlIHN0dWIsIGJ1dCBJIGdvdCBlcnJvcnMgb24gY29tcGlsYXRpb24gYmVjYXVzZSBv
+ZiB1bmRlZmluZWQgZnVuY3Rpb24uDQpGb3IgdGhhdCByZWFzb24gIEkgbGVmdCB0aGF0IGNoYW5n
+ZSBvdXQuDQoNCj4gDQo+PiAtLS0gYS94ZW4vY29tbW9uL2tlcm5lbC5jDQo+PiArKysgYi94ZW4v
+Y29tbW9uL2tlcm5lbC5jDQo+PiBAQCAtMzE0LDYgKzMxNCwzMSBAQCBpbnQgcGFyc2VfYm9vbGVh
+bihjb25zdCBjaGFyICpuYW1lLCBjb25zdCBjaGFyICpzLCBjb25zdCBjaGFyICplKQ0KPj4gICAg
+IHJldHVybiAtMTsNCj4+IH0NCj4+IA0KPj4gK2ludCBfX2luaXQgcGFyc2Vfc2lnbmVkX2ludGVn
+ZXIoY29uc3QgY2hhciAqbmFtZSwgY29uc3QgY2hhciAqcywgY29uc3QgY2hhciAqZSwNCj4+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxvbmcgbG9uZyAqdmFsKQ0KPj4gK3sNCj4+
+ICsgICAgc2l6ZV90IHNsZW4sIG5sZW47DQo+PiArICAgIGNvbnN0IGNoYXIgKnN0cjsNCj4+ICsg
+ICAgbG9uZyBsb25nIHB2YWw7DQo+PiArDQo+PiArICAgIHNsZW4gPSBlID8gKHsgQVNTRVJUKGUg
+Pj0gcyk7IGUgLSBzOyB9KSA6IHN0cmxlbihzKTsNCj4gDQo+IEFzIHBlciB0aGlzICJlIiBtYXkg
+Y29tZSBpbiBhcyBOVUxMLCBtZWFuaW5nIHRoYXQgLi4uDQo+IA0KPj4gKyAgICBubGVuID0gc3Ry
+bGVuKG5hbWUpOw0KPj4gKw0KPj4gKyAgICAvKiBDaGVjayB0aGF0IHRoaXMgaXMgdGhlIG5hbWUg
+d2UncmUgbG9va2luZyBmb3IgYW5kIGEgdmFsdWUgd2FzIHByb3ZpZGVkICovDQo+PiArICAgIGlm
+ICggKHNsZW4gPD0gbmxlbikgfHwgc3RybmNtcChzLCBuYW1lLCBubGVuKSB8fCAoc1tubGVuXSAh
+PSAnPScpICkNCj4+ICsgICAgICAgIHJldHVybiAtMTsNCj4+ICsNCj4+ICsgICAgcHZhbCA9IHNp
+bXBsZV9zdHJ0b2xsKCZzW25sZW4gKyAxXSwgJnN0ciwgMCk7DQo+PiArDQo+PiArICAgIC8qIE51
+bWJlciBub3QgcmVjb2duaXNlZCAqLw0KPj4gKyAgICBpZiAoIHN0ciAhPSBlICkNCj4+ICsgICAg
+ICAgIHJldHVybiAtMjsNCj4gDQo+IC4uLiB0aGlzIGlzIGFsd2F5cyBnb2luZyB0byBsZWFkIHRv
+IGZhaWx1cmUgaW4gdGhhdCBjYXNlLiAoSSBndWVzcyBJIGNvdWxkDQo+IGhhdmUgc3BvdHRlZCB0
+aGlzIGVhcmxpZXIsIHNvcnJ5LikNCj4gDQo+IEFzIGEgbml0LCBJJ2QgYWxzbyBhcHByZWNpYXRl
+IGlmIHN0eWxlIGhlcmUgKHBhcmVudGhlc2l6YXRpb24gaW4gcGFydGljdWxhcikNCj4gY291bGQg
+bWF0Y2ggdGhhdCBvZiBwYXJzZV9ib29sZWFuKCksIHdoaWNoIGRvZXNuJ3QgcHV0IHBhcmVudGhl
+c2VzIGFyb3VuZA0KPiB0aGUgb3BlcmFuZHMgb2YgY29tcGFyaXNvbiBvcGVyYXRvcnMgKGEgZmV3
+IGxpbmVzIHVwIGZyb20gaGVyZSkuIFdpdGggdGhlDQo+IG90aGVyIGZ1bmN0aW9uIGluIG1pbmQs
+IEknbSB0aGVuIG5vdCBnb2luZyB0byBwaWNrIG9uIHRoZSBzZWVtaW5nbHkNCj4gcmVkdW5kYW50
+ICh3aXRoIHRoZSBzdWJzZXF1ZW50IHN0cm5jbXAoKSkgInNsZW4gPD0gbmxlbiIsIHdoaWNoIGhh
+cyBhbg0KPiBlcXVpdmFsZW50IHRoZXJlIGFzIHdlbGwuDQoNCllvdSBhcmUgcmlnaHQsIGRvIHlv
+dSB0aGluayB0aGlzIHdpbGwgYmUgb2s6DQoNCmRpZmYgLS1naXQgYS94ZW4vY29tbW9uL2tlcm5l
+bC5jIGIveGVuL2NvbW1vbi9rZXJuZWwuYw0KaW5kZXggYjY3ZDkwNTZmZWMzLi43Y2QwMGE0Yzk5
+OWEgMTAwNjQ0DQotLS0gYS94ZW4vY29tbW9uL2tlcm5lbC5jDQorKysgYi94ZW4vY29tbW9uL2tl
+cm5lbC5jDQpAQCAtMzI0LDExICszMjQsMTQgQEAgaW50IF9faW5pdCBwYXJzZV9zaWduZWRfaW50
+ZWdlcihjb25zdCBjaGFyICpuYW1lLCBjb25zdCBjaGFyICpzLCBjb25zdCBjaGFyICplLA0KICAg
+ICBzbGVuID0gZSA/ICh7IEFTU0VSVChlID49IHMpOyBlIC0gczsgfSkgOiBzdHJsZW4ocyk7DQog
+ICAgIG5sZW4gPSBzdHJsZW4obmFtZSk7DQogDQorICAgIGlmICggIWUgKQ0KKyAgICAgICAgZSA9
+IHMgKyBzbGVuOw0KKw0KICAgICAvKiBDaGVjayB0aGF0IHRoaXMgaXMgdGhlIG5hbWUgd2UncmUg
+bG9va2luZyBmb3IgYW5kIGEgdmFsdWUgd2FzIHByb3ZpZGVkICovDQotICAgIGlmICggKHNsZW4g
+PD0gbmxlbikgfHwgc3RybmNtcChzLCBuYW1lLCBubGVuKSB8fCAoc1tubGVuXSAhPSAnPScpICkN
+CisgICAgaWYgKCBzbGVuIDw9IG5sZW4gfHwgc3RybmNtcChzLCBuYW1lLCBubGVuKSB8fCBzW25s
+ZW5dICE9ICc9JyApDQogICAgICAgICByZXR1cm4gLTE7DQogDQotICAgIHB2YWwgPSBzaW1wbGVf
+c3RydG9sbCgmc1tubGVuICsgMV0sICZzdHIsIDApOw0KKyAgICBwdmFsID0gc2ltcGxlX3N0cnRv
+bGwoJnNbbmxlbiArIDFdLCAmc3RyLCAxMCk7DQogDQogICAgIC8qIE51bWJlciBub3QgcmVjb2du
+aXNlZCAqLw0KICAgICBpZiAoIHN0ciAhPSBlICkNCg0KDQpQbGVhc2Ugbm90ZSB0aGF0IEnigJl2
+ZSBhbHNvIGluY2x1ZGVkIHlvdXIgY29tbWVudCBhYm91dCB0aGUgYmFzZSwgd2hpY2ggSSBmb3Jn
+b3QgdG8gYWRkLCBhcG9sb2dpZXMgZm9yIHRoYXQuDQoNCnNsZW4gPD0gbmxlbiBkb2VzbuKAmXQg
+c2VlbXMgcmVkdW5kYW50IHRvIG1lLCBJIGhhdmUgdGhhdCBiZWNhdXNlIEnigJltIGFjY2Vzc2lu
+ZyBzW25sZW5dIGFuZCBJIHdvdWxkIGxpa2UNCnRoZSBzdHJpbmcgcyB0byBiZSBhdCBsZWFzdCA+
+IG5sZW4NCg0KDQoNCj4gDQo+IEphbg0KDQo=
 
