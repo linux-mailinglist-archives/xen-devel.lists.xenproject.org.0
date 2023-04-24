@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8FB16ECBD3
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 14:10:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525338.816489 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6F06ECBCD
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 14:09:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525340.816478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqv0p-0004d8-H5; Mon, 24 Apr 2023 12:09:43 +0000
+	id 1pquzu-00043k-6E; Mon, 24 Apr 2023 12:08:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525338.816489; Mon, 24 Apr 2023 12:09:43 +0000
+Received: by outflank-mailman (output) from mailman id 525340.816478; Mon, 24 Apr 2023 12:08:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqv0p-0004Zo-E8; Mon, 24 Apr 2023 12:09:43 +0000
-Received: by outflank-mailman (input) for mailman id 525338;
- Mon, 24 Apr 2023 12:07:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6ihU=AP=tibco.com=msyms@srs-se1.protection.inumbo.net>)
- id 1pquz6-0003yq-IS
- for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 12:07:56 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a514f091-e298-11ed-b223-6b7b168915f2;
- Mon, 24 Apr 2023 14:07:55 +0200 (CEST)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-2fe3fb8e25fso2580305f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 24 Apr 2023 05:07:55 -0700 (PDT)
+	id 1pquzu-00040p-3E; Mon, 24 Apr 2023 12:08:46 +0000
+Received: by outflank-mailman (input) for mailman id 525340;
+ Mon, 24 Apr 2023 12:08:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3wwt=AP=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pquzs-00040d-Hl
+ for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 12:08:44 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20615.outbound.protection.outlook.com
+ [2a01:111:f400:7e89::615])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bfb5978b-e298-11ed-8611-37d641c3527e;
+ Mon, 24 Apr 2023 14:08:41 +0200 (CEST)
+Received: from BN9PR03CA0078.namprd03.prod.outlook.com (2603:10b6:408:fc::23)
+ by SA1PR12MB7409.namprd12.prod.outlook.com (2603:10b6:806:29c::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6277.31; Mon, 24 Apr
+ 2023 12:08:36 +0000
+Received: from BN8NAM11FT077.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:fc:cafe::c1) by BN9PR03CA0078.outlook.office365.com
+ (2603:10b6:408:fc::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33 via Frontend
+ Transport; Mon, 24 Apr 2023 12:08:35 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT077.mail.protection.outlook.com (10.13.177.232) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6340.19 via Frontend Transport; Mon, 24 Apr 2023 12:08:35 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 24 Apr
+ 2023 07:08:32 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 24 Apr
+ 2023 05:08:31 -0700
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 24 Apr 2023 07:08:29 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,247 +63,255 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a514f091-e298-11ed-b223-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1682338075; x=1684930075;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=K/nk8/06PUIiEF4MTmCY2ffYz6LVNdA5FqcFP3h+JHE=;
-        b=E/HqZX9LsREaDluM7cJjcYiaeEE/srWvsBzb31fs0CH00Nu768RWLMrUUQuDuYcGQJ
-         yX7N1yUYRfWezOgunqHuu5v9jpf5UOheoeccCcIPEOM9rWw8t/q759zsvL3P7h1sBfaV
-         AgnLwVzu/dqQWgIJJ1ECPPGufTa/GBT7ssQSI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682338075; x=1684930075;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=K/nk8/06PUIiEF4MTmCY2ffYz6LVNdA5FqcFP3h+JHE=;
-        b=QPcB1wHwgYPBU9LYjZEPbgFC/UcppkjY6ZVuZk0jhpD3qnhme92aYSZN5K8ga3bQSD
-         zjf4gZNB0cy6g2LzXHQGdo8lWgOtwhxHssJiJTIsJd6sQnAphaKLugJ3UvghcIbag6lF
-         VhJrcOLjwyJG9O0EObPT/jQjhfUXTtvO+XrPbrlXBFZY09Hs2E1QszjR3n4A/6h3Hr9w
-         j4auK7t1/R4zXLjfmz/y4nWWmVjq5FpHV5RELWOAE57bVqLvP8DzjpwG9I72Tw+W34ep
-         4ciffxqWvot0NR4C2Z/iezSUmEdKuUfLT/lqvwB56qh0/MvoGLexRYWeiydFYv90DYsT
-         UM4g==
-X-Gm-Message-State: AC+VfDxLuiYfGyvMG4SneOU3AGZ1IrKc/HIN1fU5t/+ObOMs9x7/uUh6
-	VEaF41v6niY+HI2jTlXy2OrskHFvsgxtgAQeDToTJA==
-X-Google-Smtp-Source: ACHHUZ6u7WWEPIINNleWsZq9Pu/ASD8qrU9YsusjfMMTBjNblxYwTHQsh4UhCIhr4kycgtXT9iCpnCYDngowCfq8+Eg=
-X-Received: by 2002:a5d:4b86:0:b0:304:8149:239b with SMTP id
- b6-20020a5d4b86000000b003048149239bmr1051205wrt.50.1682338074747; Mon, 24 Apr
- 2023 05:07:54 -0700 (PDT)
+X-Inumbo-ID: bfb5978b-e298-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EQhr/spC1I5ImLjbsuuothYCZKce5G39HzJgYk7cjtnpOYghPMe7qaOV2dDX9j6qBQnp+uiYH00H3TR4YVsnZeV6drUmuV4EcB/3g163ez8EqtkTaaVlBqWD/snVFkow7ldJQBva1cYgZFSt8dDCXmI9mSO2ZHgukNGd6eWbWi+8FTiMtTjmRRTRplj4ilAcv0+MR9xCkG0KYK6WofphTr4NBa8CZzzqB9WtIuawqdjEX2qEyNeyM6ti/CYwgnSIF66eaRRy9vv/awI1cSWX3EESIAxe5u1G9lN3XfCETgWkl0+ud6twhkTEmTUap7FbTCufxY3SLl9BsRO2Lbc1qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nzCZ6OwnIpGRLsrvkEjJ8Q4GOcTCd5aFi9nRFFZQ/J8=;
+ b=cZZSY0v+4lq+1fnvWLnA3U16WhUAutKic9lh9mtUkcnlCWyll/3gfvSw0+E0CZrYLdyyAbP9E+2mleYi8pLBT7MekDt6FublQJJpBF5+BOFnt9McAy5vY6IlOdj0WD4aPdFajjahFJVbOGIiGGaZLpB+1Eh/qT9NH4uskGxgWnidLCEAdKiwjJka81leAk0je964n/glC/sbp7gPaCMypWJ6qkzkStHQ2R9VJtJqnA0OosCrJ73/xghBK1H/48Mr2IdIVrHgFe/JW2R5IlZ7DpZCoeMIxFHYTSs+ejgtZkiPeUYOGNhbO95444MWCOJFh9D2lQ8FCuTGPUflWpzcYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nzCZ6OwnIpGRLsrvkEjJ8Q4GOcTCd5aFi9nRFFZQ/J8=;
+ b=5ruGh9ZLDtPs01b54FgVh+uqePfcTns1Tq5rKMAAEV4X1V7sdYvQ24KMc/oymaItLQjGdeC3f1AvFg/NWJ+YEz63JRzylrGOP9ISyQOanyGS9jI/QW5lptnoFwmBvWulL3OzgYAUBRWMF95j2BPGCuKrSqiGNP0pME0/CRKQtc8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <ca8fd34c-3755-161d-38c1-651cf08ef589@amd.com>
+Date: Mon, 24 Apr 2023 14:08:29 +0200
 MIME-Version: 1.0
-References: <20230420110205.688689-1-mark.syms@citrix.com> <54a37172-cad5-3b27-36fc-3b7768e39df8@xen.org>
-In-Reply-To: <54a37172-cad5-3b27-36fc-3b7768e39df8@xen.org>
-From: Mark Syms <mark.syms@cloud.com>
-Date: Mon, 24 Apr 2023 13:07:44 +0100
-Message-ID: <CAPYKksVtGyfv3TbAjLH1G=N6=pH-pH2-FTX5c3+E5PsOKo2aOQ@mail.gmail.com>
-Subject: Re: [PATCH v2 RESEND] xen: Fix SEGV on domain disconnect
-To: paul@xen.org
-Cc: mark.syms@citrix.com, qemu-devel@nongnu.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, 
-	xen-devel@lists.xenproject.org, tim.smith@citrix.com
-Content-Type: multipart/alternative; boundary="000000000000567bf705fa13db30"
-
---000000000000567bf705fa13db30
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [XEN v5 05/10] xen/arm: Introduce choice to enable 64/32 bit
+ physical addressing
+Content-Language: en-US
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
+	<wl@xen.org>, <rahul.singh@arm.com>
+References: <20230413173735.48387-1-ayan.kumar.halder@amd.com>
+ <20230413173735.48387-6-ayan.kumar.halder@amd.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20230413173735.48387-6-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT077:EE_|SA1PR12MB7409:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38a56cba-dbed-4a7f-cfc8-08db44bca17d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	LdVh97DfdLZp1227d4UrxW7qjyUL6Sa/13bsx7CcZRL4tSziobx4eghirjqsHC2HWSCfajS41v1u3nDFX4lAgfMwaAiL7rzlm2eN4hdVU7GYP1jnUJ/csa+6S1KkU48CtSTaZxv4XJq669Y71JrqQDrt0gxIBg2hj9Pw2VlProX6xcD2mZBrRxnezsrYKm31tCXNB76q+ibH18Wh5hKA3JAgyVh0391ol6mEoOBJEgYQ6DrNgr05llCGdcv/YbNJMXHnrTMhEHKpPfu5vSV+QbBJC3kLx1ymobcJdp0p8qPh4MUvcNVR7MRbFHmJhwc4BsFHpqskT83ZzFKNfZWGYLXYguFscd9Z8ekdS1WYGHvbbGxvdj8gyE9IM+pkeh+DxO/x1s23b40sj7uMhRsjwNyHqSoPC7zEjoid+k4cgGBjpKjotcdaYptE49//JtFBflD8jGW294ApVjvAOfg/wlf8h/2jf3tvttq0LvYD4hu1bgStH8R11r2aWAvkS5ZOn4vzCFlSxvNW8Fq0V6ub2umJUmFlCojKcv9f7mys3m7zZLe3IzvyoT1fZX1vvfU3BMW8xc2WVJKUIKxdZtjDKsop1DllkG0PTn9H6+EwiVovipD1lh2Q+i/Mjpw/ftjNUqGtvwiXmcBUe+iroXxstE8F08L3OTwpUAjxHP3M1/zmn2OmBMKA32HVe1r1zxZ4BilWQJA7nbGcvjHMk6wRV6d0+7K/fR5v2l6smCDsZ47WpJRjaEt5aFHcAPk7m4v09gzvDVHugobuybbz0f6zOfvBO1uMWoQ2NSoOBZ/jUQs=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199021)(36840700001)(40470700004)(46966006)(70586007)(2616005)(336012)(426003)(83380400001)(36860700001)(4326008)(41300700001)(47076005)(31686004)(8676002)(8936002)(82740400003)(70206006)(356005)(81166007)(53546011)(5660300002)(316002)(110136005)(16576012)(186003)(7416002)(54906003)(40460700003)(31696002)(44832011)(478600001)(82310400005)(26005)(40480700001)(36756003)(86362001)(2906002)(21314003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 12:08:35.6505
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38a56cba-dbed-4a7f-cfc8-08db44bca17d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN8NAM11FT077.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7409
 
-Copying in Tim who did the final phase of the changes.
+Hi Ayan,
 
-On Mon, 24 Apr 2023 at 11:32, Paul Durrant <xadimgnik@gmail.com> wrote:
->
-> On 20/04/2023 12:02, mark.syms@citrix.com wrote:
-> > From: Mark Syms <mark.syms@citrix.com>
-> >
-> > Ensure the PV ring is drained on disconnect. Also ensure all pending
-> > AIO is complete, otherwise AIO tries to complete into a mapping of the
-> > ring which has been torn down.
-> >
-> > Signed-off-by: Mark Syms <mark.syms@citrix.com>
-> > ---
-> > CC: Stefano Stabellini <sstabellini@kernel.org>
-> > CC: Anthony Perard <anthony.perard@citrix.com>
-> > CC: Paul Durrant <paul@xen.org>
-> > CC: xen-devel@lists.xenproject.org
-> >
-> > v2:
-> >   * Ensure all inflight requests are completed before teardown
-> >   * RESEND to fix formatting
-> > ---
-> >   hw/block/dataplane/xen-block.c | 31 +++++++++++++++++++++++++------
-> >   1 file changed, 25 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/hw/block/dataplane/xen-block.c
-b/hw/block/dataplane/xen-block.c
-> > index 734da42ea7..d9da4090bf 100644
-> > --- a/hw/block/dataplane/xen-block.c
-> > +++ b/hw/block/dataplane/xen-block.c
-> > @@ -523,6 +523,10 @@ static bool
-xen_block_handle_requests(XenBlockDataPlane *dataplane)
-> >
-> >       dataplane->more_work = 0;
-> >
-> > +    if (dataplane->sring == 0) {
-> > +        return done_something;
-> > +    }
-> > +
->
-> I think you could just return false here... Nothing is ever going to be
-> done if there's no ring :-)
->
-> >       rc = dataplane->rings.common.req_cons;
-> >       rp = dataplane->rings.common.sring->req_prod;
-> >       xen_rmb(); /* Ensure we see queued requests up to 'rp'. */
-> > @@ -666,14 +670,35 @@ void
-xen_block_dataplane_destroy(XenBlockDataPlane *dataplane >   void
-xen_block_dataplane_stop(XenBlockDataPlane *dataplane)
-> >   {
-> >       XenDevice *xendev;
-> > +    XenBlockRequest *request, *next;
-> >
-> >       if (!dataplane) {
-> >           return;
-> >       }
-> >
-> > +    /* We're about to drain the ring. We can cancel the scheduling of
-any
-> > +     * bottom half now */
-> > +    qemu_bh_cancel(dataplane->bh);
-> > +
-> > +    /* Ensure we have drained the ring */
-> > +    aio_context_acquire(dataplane->ctx);
-> > +    do {
-> > +        xen_block_handle_requests(dataplane);
-> > +    } while (dataplane->more_work);
-> > +    aio_context_release(dataplane->ctx);
-> > +
->
-> I don't think we want to be taking new requests, do we?
->
-> > +    /* Now ensure that all inflight requests are complete */
-> > +    while (!QLIST_EMPTY(&dataplane->inflight)) {
-> > +        QLIST_FOREACH_SAFE(request, &dataplane->inflight, list, next) {
-> > +            blk_aio_flush(request->dataplane->blk,
-xen_block_complete_aio,
-> > +                        request);
-> > +        }
-> > +    }
-> > +
->
-> I think this could possibly be simplified by doing the drain after the
-> call to blk_set_aio_context(), as long as we set dataplane->ctx to
-> qemu_get_aio_context(). Alos, as long as more_work is not set then it
-> should still be safe to cancel the bh before the drain AFAICT.
->
->    Paul
->
-> >       xendev = dataplane->xendev;
-> >
-> >       aio_context_acquire(dataplane->ctx);
-> > +
-> >       if (dataplane->event_channel) {
-> >           /* Only reason for failure is a NULL channel */
-> >           xen_device_set_event_channel_context(xendev,
-dataplane->event_channel,
-> > @@ -684,12 +709,6 @@ void xen_block_dataplane_stop(XenBlockDataPlane
-*dataplane)
-> >       blk_set_aio_context(dataplane->blk, qemu_get_aio_context(),
-&error_abort);
-> >       aio_context_release(dataplane->ctx);
-> >
-> > -    /*
-> > -     * Now that the context has been moved onto the main thread, cancel
-> > -     * further processing.
-> > -     */
-> > -    qemu_bh_cancel(dataplane->bh);
-> > -
-> >       if (dataplane->event_channel) {
-> >           Error *local_err = NULL;
-> >
->
+On 13/04/2023 19:37, Ayan Kumar Halder wrote:
+> 
+> 
+> Some Arm based hardware platforms which does not support LPAE
+> (eg Cortex-R52), uses 32 bit physical addresses.
+> Also, users may choose to use 32 bits to represent physical addresses
+> for optimization.
+> 
+> To support the above use cases, we have introduced arch independent
+> configs to choose if the physical address can be represented using
+> 32 bits (PHYS_ADDR_T_32) or 64 bits (!PHYS_ADDR_T_32).
+> For now only ARM_32 provides support to enable 32 bit physical
+> addressing.
+> 
+> When PHYS_ADDR_T_32 is defined, PADDR_BITS is set to 32.
+> When PHYS_ADDR_T_32 is not defined for ARM_32, PADDR_BITS is set to 40.
+> When PHYS_ADDR_T_32 is not defined for ARM_64, PADDR_BITS is set to 48.
+> The last two are same as the current configuration used today on Xen.
+> 
+> PADDR_BITS is also set to 48 when ARM_64 is defined. The reason being
+> the choice to select ARM_PA_BITS_32/ARM_PA_BITS_40/ARM_PA_BITS_48 is
+> currently allowed when ARM_32 is defined.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> Changes from -
+> v1 - 1. Extracted from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr".
+> 
+> v2 - 1. Introduced Kconfig choice. ARM_64 can select PHYS_ADDR_64 only whereas
+> ARM_32 can select PHYS_ADDR_32 or PHYS_ADDR_64.
+> 2. For CONFIG_ARM_PA_32, paddr_t is defined as 'unsigned long'.
+> 
+> v3 - 1. Allow user to define PADDR_BITS by selecting different config options
+> ARM_PA_BITS_32, ARM_PA_BITS_40 and ARM_PA_BITS_48.
+> 2. Add the choice under "Architecture Features".
+> 
+> v4 - 1. Removed PHYS_ADDR_T_64 as !PHYS_ADDR_T_32 means PHYS_ADDR_T_32.
+> 
+>  xen/arch/Kconfig                     |  3 +++
+>  xen/arch/arm/Kconfig                 | 37 ++++++++++++++++++++++++++--
+>  xen/arch/arm/include/asm/page-bits.h |  6 +----
+>  xen/arch/arm/include/asm/types.h     |  6 +++++
+>  xen/arch/arm/mm.c                    |  5 ++++
+>  5 files changed, 50 insertions(+), 7 deletions(-)
+> 
+> diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
+> index 7028f7b74f..67ba38f32f 100644
+> --- a/xen/arch/Kconfig
+> +++ b/xen/arch/Kconfig
+> @@ -1,6 +1,9 @@
+>  config 64BIT
+>         bool
+> 
+> +config PHYS_ADDR_T_32
+> +       bool
+> +
+>  config NR_CPUS
+>         int "Maximum number of CPUs"
+>         range 1 4095
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index 239d3aed3c..3f6e13e475 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -19,13 +19,46 @@ config ARM
+>         select HAS_PMAP
+>         select IOMMU_FORCE_PT_SHARE
+> 
+> +menu "Architecture Features"
+> +
+> +choice
+> +       prompt "Physical address space size" if ARM_32
+Why is it protected by ARM_32 but in the next line you add something protected by ARM_64?
+This basically means that for arm64, ARM_PA_BITS_XXX is never defined.
 
---000000000000567bf705fa13db30
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> +       default ARM_PA_BITS_48 if ARM_64
+> +       default ARM_PA_BITS_40 if ARM_32
+> +       help
+> +         User can choose to represent the width of physical address. This can
+> +         sometimes help in optimizing the size of image when user chooses a
+> +         smaller size to represent physical address.
+> +
+> +config ARM_PA_BITS_32
+> +       bool "32-bit"
+> +       help
+> +         On platforms where any physical address can be represented within 32 bits,
+> +         user should choose this option. This will help is reduced size of the
+> +         binary.
+> +       select PHYS_ADDR_T_32
+> +       depends on ARM_32
+> +
+> +config ARM_PA_BITS_40
+> +       bool "40-bit"
+> +       depends on ARM_32
+> +
+> +config ARM_PA_BITS_48
+> +       bool "40-bit"
+40-bit? I think this should be 48-bit.
 
-<div dir=3D"ltr"><div>Copying in Tim who did the final phase of the changes=
-.</div><div><br></div>On Mon, 24 Apr 2023 at 11:32, Paul Durrant &lt;<a hre=
-f=3D"mailto:xadimgnik@gmail.com">xadimgnik@gmail.com</a>&gt; wrote:<br>&gt;=
-<br>&gt; On 20/04/2023 12:02, <a href=3D"mailto:mark.syms@citrix.com">mark.=
-syms@citrix.com</a> wrote:<br>&gt; &gt; From: Mark Syms &lt;<a href=3D"mail=
-to:mark.syms@citrix.com">mark.syms@citrix.com</a>&gt;<br>&gt; &gt;<br>&gt; =
-&gt; Ensure the PV ring is drained on disconnect. Also ensure all pending<b=
-r>&gt; &gt; AIO is complete, otherwise AIO tries to complete into a mapping=
- of the<br>&gt; &gt; ring which has been torn down.<br>&gt; &gt;<br>&gt; &g=
-t; Signed-off-by: Mark Syms &lt;<a href=3D"mailto:mark.syms@citrix.com">mar=
-k.syms@citrix.com</a>&gt;<br>&gt; &gt; ---<br>&gt; &gt; CC: Stefano Stabell=
-ini &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a=
->&gt;<br>&gt; &gt; CC: Anthony Perard &lt;<a href=3D"mailto:anthony.perard@=
-citrix.com">anthony.perard@citrix.com</a>&gt;<br>&gt; &gt; CC: Paul Durrant=
- &lt;<a href=3D"mailto:paul@xen.org">paul@xen.org</a>&gt;<br>&gt; &gt; CC: =
-<a href=3D"mailto:xen-devel@lists.xenproject.org">xen-devel@lists.xenprojec=
-t.org</a><br>&gt; &gt;<br>&gt; &gt; v2:<br>&gt; &gt; =C2=A0 * Ensure all in=
-flight requests are completed before teardown<br>&gt; &gt; =C2=A0 * RESEND =
-to fix formatting<br>&gt; &gt; ---<br>&gt; &gt; =C2=A0 hw/block/dataplane/x=
-en-block.c | 31 +++++++++++++++++++++++++------<br>&gt; &gt; =C2=A0 1 file =
-changed, 25 insertions(+), 6 deletions(-)<br>&gt; &gt;<br>&gt; &gt; diff --=
-git a/hw/block/dataplane/xen-block.c b/hw/block/dataplane/xen-block.c<br>&g=
-t; &gt; index 734da42ea7..d9da4090bf 100644<br>&gt; &gt; --- a/hw/block/dat=
-aplane/xen-block.c<br>&gt; &gt; +++ b/hw/block/dataplane/xen-block.c<br>&gt=
-; &gt; @@ -523,6 +523,10 @@ static bool xen_block_handle_requests(XenBlockD=
-ataPlane *dataplane)<br>&gt; &gt; =C2=A0 <br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0=
- dataplane-&gt;more_work =3D 0;<br>&gt; &gt; =C2=A0 <br>&gt; &gt; + =C2=A0 =
-=C2=A0if (dataplane-&gt;sring =3D=3D 0) {<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return done_something;<br>&gt; &gt; + =C2=A0 =C2=A0}<br>&gt; &gt;=
- +<br>&gt;<br>&gt; I think you could just return false here... Nothing is e=
-ver going to be<br>&gt; done if there&#39;s no ring :-)<br>&gt;<br>&gt; &gt=
-; =C2=A0 =C2=A0 =C2=A0 rc =3D dataplane-&gt;rings.common.req_cons;<br>&gt; =
-&gt; =C2=A0 =C2=A0 =C2=A0 rp =3D dataplane-&gt;rings.common.sring-&gt;req_p=
-rod;<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 xen_rmb(); /* Ensure we see queued r=
-equests up to &#39;rp&#39;. */<br>&gt; &gt; @@ -666,14 +670,35 @@ void xen_=
-block_dataplane_destroy(XenBlockDataPlane *dataplane &gt; =C2=A0 void xen_b=
-lock_dataplane_stop(XenBlockDataPlane *dataplane)<br>&gt; &gt; =C2=A0 {<br>=
-&gt; &gt; =C2=A0 =C2=A0 =C2=A0 XenDevice *xendev;<br>&gt; &gt; + =C2=A0 =C2=
-=A0XenBlockRequest *request, *next;<br>&gt; &gt; =C2=A0 <br>&gt; &gt; =C2=
-=A0 =C2=A0 =C2=A0 if (!dataplane) {<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 return;<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 }<br>&gt; &gt; =C2=A0 =
-<br>&gt; &gt; + =C2=A0 =C2=A0/* We&#39;re about to drain the ring. We can c=
-ancel the scheduling of any<br>&gt; &gt; + =C2=A0 =C2=A0 * bottom half now =
-*/<br>&gt; &gt; + =C2=A0 =C2=A0qemu_bh_cancel(dataplane-&gt;bh);<br>&gt; &g=
-t; +<br>&gt; &gt; + =C2=A0 =C2=A0/* Ensure we have drained the ring */<br>&=
-gt; &gt; + =C2=A0 =C2=A0aio_context_acquire(dataplane-&gt;ctx);<br>&gt; &gt=
-; + =C2=A0 =C2=A0do {<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0xen_block_h=
-andle_requests(dataplane);<br>&gt; &gt; + =C2=A0 =C2=A0} while (dataplane-&=
-gt;more_work);<br>&gt; &gt; + =C2=A0 =C2=A0aio_context_release(dataplane-&g=
-t;ctx);<br>&gt; &gt; +<br>&gt;<br>&gt; I don&#39;t think we want to be taki=
-ng new requests, do we?<br>&gt;<br>&gt; &gt; + =C2=A0 =C2=A0/* Now ensure t=
-hat all inflight requests are complete */<br>&gt; &gt; + =C2=A0 =C2=A0while=
- (!QLIST_EMPTY(&amp;dataplane-&gt;inflight)) {<br>&gt; &gt; + =C2=A0 =C2=A0=
- =C2=A0 =C2=A0QLIST_FOREACH_SAFE(request, &amp;dataplane-&gt;inflight, list=
-, next) {<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0blk_aio_f=
-lush(request-&gt;dataplane-&gt;blk, xen_block_complete_aio,<br>&gt; &gt; + =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0request);<br>&gt; &gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>&gt; &gt=
-; + =C2=A0 =C2=A0}<br>&gt; &gt; +<br>&gt;<br>&gt; I think this could possib=
-ly be simplified by doing the drain after the<br>&gt; call to blk_set_aio_c=
-ontext(), as long as we set dataplane-&gt;ctx to<br>&gt; qemu_get_aio_conte=
-xt(). Alos, as long as more_work is not set then it<br>&gt; should still be=
- safe to cancel the bh before the drain AFAICT.<br>&gt;<br>&gt; =C2=A0 =C2=
-=A0Paul<br>&gt;<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 xendev =3D dataplane-&gt;=
-xendev;<br>&gt; &gt; =C2=A0 <br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 aio_context_=
-acquire(dataplane-&gt;ctx);<br>&gt; &gt; +<br>&gt; &gt; =C2=A0 =C2=A0 =C2=
-=A0 if (dataplane-&gt;event_channel) {<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 /* Only reason for failure is a NULL channel */<br>&gt; &gt; =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 xen_device_set_event_channel_context(xen=
-dev, dataplane-&gt;event_channel,<br>&gt; &gt; @@ -684,12 +709,6 @@ void xe=
-n_block_dataplane_stop(XenBlockDataPlane *dataplane)<br>&gt; &gt; =C2=A0 =
-=C2=A0 =C2=A0 blk_set_aio_context(dataplane-&gt;blk, qemu_get_aio_context()=
-, &amp;error_abort);<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 aio_context_release(=
-dataplane-&gt;ctx);<br>&gt; &gt; =C2=A0 <br>&gt; &gt; - =C2=A0 =C2=A0/*<br>=
-&gt; &gt; - =C2=A0 =C2=A0 * Now that the context has been moved onto the ma=
-in thread, cancel<br>&gt; &gt; - =C2=A0 =C2=A0 * further processing.<br>&gt=
-; &gt; - =C2=A0 =C2=A0 */<br>&gt; &gt; - =C2=A0 =C2=A0qemu_bh_cancel(datapl=
-ane-&gt;bh);<br>&gt; &gt; -<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 if (dataplane=
--&gt;event_channel) {<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Error=
- *local_err =3D NULL;<br>&gt; &gt; =C2=A0 <br>&gt;<br></div>
+> +       depends on ARM_48
+What is ARM_48? Shouldn't it be ARM_64?
+And if so, why bother defining it given everything here is protected by ARM_32.
 
---000000000000567bf705fa13db30--
+> +endchoice
+> +
+> +config PADDR_BITS
+> +       int
+> +       default 32 if ARM_PA_BITS_32
+> +       default 40 if ARM_PA_BITS_40
+> +       default 48 if ARM_PA_BITS_48 || ARM_64
+This reads as if on arm32 we could have 48-bit PA space which is not true (LPAE is 40 bit unless I missed something).
+You could get rid of || ARM_64 if the choice wasn't protected by ARM_32 and fixing ARM_48 to ARM_64.
+
+> +
+>  config ARCH_DEFCONFIG
+>         string
+>         default "arch/arm/configs/arm32_defconfig" if ARM_32
+>         default "arch/arm/configs/arm64_defconfig" if ARM_64
+> 
+> -menu "Architecture Features"
+> -
+>  source "arch/Kconfig"
+> 
+>  config ACPI
+> diff --git a/xen/arch/arm/include/asm/page-bits.h b/xen/arch/arm/include/asm/page-bits.h
+> index 5d6477e599..deb381ceeb 100644
+> --- a/xen/arch/arm/include/asm/page-bits.h
+> +++ b/xen/arch/arm/include/asm/page-bits.h
+> @@ -3,10 +3,6 @@
+> 
+>  #define PAGE_SHIFT              12
+> 
+> -#ifdef CONFIG_ARM_64
+> -#define PADDR_BITS              48
+> -#else
+> -#define PADDR_BITS              40
+> -#endif
+> +#define PADDR_BITS              CONFIG_PADDR_BITS
+> 
+>  #endif /* __ARM_PAGE_SHIFT_H__ */
+> diff --git a/xen/arch/arm/include/asm/types.h b/xen/arch/arm/include/asm/types.h
+> index e218ed77bd..e3cfbbb060 100644
+> --- a/xen/arch/arm/include/asm/types.h
+> +++ b/xen/arch/arm/include/asm/types.h
+> @@ -34,9 +34,15 @@ typedef signed long long s64;
+>  typedef unsigned long long u64;
+>  typedef u32 vaddr_t;
+>  #define PRIvaddr PRIx32
+> +#if defined(CONFIG_PHYS_ADDR_T_32)
+> +typedef unsigned long paddr_t;
+> +#define INVALID_PADDR (~0UL)
+> +#define PRIpaddr "08lx"
+> +#else
+>  typedef u64 paddr_t;
+>  #define INVALID_PADDR (~0ULL)
+>  #define PRIpaddr "016llx"
+> +#endif
+>  typedef u32 register_t;
+>  #define PRIregister "08x"
+>  #elif defined (CONFIG_ARM_64)
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index b99806af99..6dc37be97e 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -690,6 +690,11 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+>      const unsigned long mapping_size = frametable_size < MB(32) ? MB(2) : MB(32);
+>      int rc;
+> 
+> +    /*
+> +     * The size of paddr_t should be sufficient for the complete range of
+> +     * physical address.
+> +     */
+> +    BUILD_BUG_ON((sizeof(paddr_t) * 8) < PADDR_BITS);
+Just FYI, there is a macro BITS_PER_BYTE defined in bitops.h that you could use instead of 8.
+Although I'm not sure if this would be better :)
+
+>      BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
+> 
+>      if ( frametable_size > FRAMETABLE_SIZE )
+> --
+> 2.17.1
+> 
+> 
+
+~Michal
 
