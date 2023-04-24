@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B116ECA45
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 12:23:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525275.816375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F0466ECA60
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 12:33:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525281.816385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqtLf-0004xB-5F; Mon, 24 Apr 2023 10:23:07 +0000
+	id 1pqtV1-0006Ty-0b; Mon, 24 Apr 2023 10:32:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525275.816375; Mon, 24 Apr 2023 10:23:07 +0000
+Received: by outflank-mailman (output) from mailman id 525281.816385; Mon, 24 Apr 2023 10:32:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqtLf-0004uB-1j; Mon, 24 Apr 2023 10:23:07 +0000
-Received: by outflank-mailman (input) for mailman id 525275;
- Mon, 24 Apr 2023 10:23:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pqtLd-0004tm-KE
- for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 10:23:05 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pqtLZ-0007zb-1W; Mon, 24 Apr 2023 10:23:01 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=[192.168.3.150]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pqtLY-0003pR-Re; Mon, 24 Apr 2023 10:23:00 +0000
+	id 1pqtV0-0006Ro-U1; Mon, 24 Apr 2023 10:32:46 +0000
+Received: by outflank-mailman (input) for mailman id 525281;
+ Mon, 24 Apr 2023 10:32:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=riw3=AP=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1pqtUz-0006Ri-9y
+ for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 10:32:45 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 58a39b88-e28b-11ed-b223-6b7b168915f2;
+ Mon, 24 Apr 2023 12:32:43 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-3f086770a50so27748705e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Apr 2023 03:32:43 -0700 (PDT)
+Received: from [192.168.22.129] (54-240-197-234.amazon.com. [54.240.197.234])
+ by smtp.gmail.com with ESMTPSA id
+ l2-20020a05600c4f0200b003ee74c25f12sm15346187wmq.35.2023.04.24.03.32.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Apr 2023 03:32:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,110 +45,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=UcwEkydxSvmzXPLWYGZR+632HvL01o8v2DFYmJKYHb4=; b=KJ/jHtEU9JwPbEIaaXo2ulsHd7
-	U2nBwng0NlRURR1z0bL0QeRksnLgaMYqjkrkwIAikdPnZ5R8zYEqP3WdmPVJU2/vNs32recCylOnj
-	kSNZHOxKohg05Nco1xFE8wohF+uBAIZZflWw5xLs3FOGcMDbM7k8RtieggJL+rATn5Mk=;
-Message-ID: <db3a9b3b-63db-89d1-5386-57eb7044b317@xen.org>
-Date: Mon, 24 Apr 2023 11:22:58 +0100
+X-Inumbo-ID: 58a39b88-e28b-11ed-b223-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1682332363; x=1684924363;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=HekhlNECns07R44Z9K5TIYVtdNSMvGMR7D7aXuLTW4w=;
+        b=KqZvlooGqzPbFnYyoDT9FR0u1PhaTgbn10imLe1nJE+SRYop93wiiDtVO/ojxVwXND
+         wYjg/iNbNfOxJobCSTYOX+yOxRdzaYbFnTQvB5hk9qI/MxAle4JMicOwxCgOjABOX0K1
+         tzn/rTk6Row7ti33PB193CSA1cFJajtI4NXNYCLmX1Dq1BXyYNWQRxeOQhtr0fNAI230
+         lB6HU89tg4MuAM0LxgLshhaLgF5xWVdfIkBebwjg1cJ1tkhNvZ9+MzgD36LcXmOzer3m
+         A3/KCRvhNJNALRLc/vZnP/4LbU2lalgM8BSjIPMws/AF+35MLA3GerCfppzA5nN2mYEU
+         nqxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1682332363; x=1684924363;
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HekhlNECns07R44Z9K5TIYVtdNSMvGMR7D7aXuLTW4w=;
+        b=cupQE2qB+e1Yh/utCj+Okb6K+phY6rK4U3azYcAA/lj+dqtI+IdaPFlzKbcmW25b0/
+         Xq70Io4cXwX26yWWJK+30BT72Y1GsxEFUS/5TQ1UOAKRJzbRQKq0mmJSGqhirtM2QMCr
+         whOzCRNlvbXZg7v1dpDLfdw216t5eZ5WzIxaszuJmSCIVXBBS05kfWuQKpX9dmQFAdga
+         WGbTlenyeyUIJWT0WbACYRDArEoWZbJbNIgqkb489SMHtumBK/4230iOiT0fHMmZVIDl
+         zCEvDPPAyktkAQ5ZXigDikdKRRn87BXgbKIqUiGbh1wMLcUZ6x+l0wR/tvZs9kXIE1qi
+         eohA==
+X-Gm-Message-State: AAQBX9eC5mKQnaq9h6mxeB9SrIuqxQpxkKKgxuYcZXqRakkwxnzNY8SL
+	ViLIuiL1xEJ8RF1/LTfSrBE=
+X-Google-Smtp-Source: AKy350aHtxscROpY+5mNq4W2uKR9Is2yVrdGfKhbjlxYoDFPfS5Ov6f3mTC72TrqfIGT+sUwMQsshQ==
+X-Received: by 2002:a7b:cb8a:0:b0:3ee:1acd:b039 with SMTP id m10-20020a7bcb8a000000b003ee1acdb039mr7454121wmi.34.1682332362824;
+        Mon, 24 Apr 2023 03:32:42 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <54a37172-cad5-3b27-36fc-3b7768e39df8@xen.org>
+Date: Mon, 24 Apr 2023 11:32:41 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.0
-Subject: Re: [PATCH v5 1/4] xen/riscv: add VM space layout
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Reply-To: paul@xen.org
+Subject: Re: [PATCH v2 RESEND] xen: Fix SEGV on domain disconnect
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Oleksii <oleksii.kurochko@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1681918194.git.oleksii.kurochko@gmail.com>
- <f1b5ee8652a20b2043965a4de5c2c64f662724bb.1681918194.git.oleksii.kurochko@gmail.com>
- <34f032df-cbfc-7a97-9a1f-2fa1ce574281@suse.com>
- <f2978c2ddc1872025f4d939187775c21fd90f074.camel@gmail.com>
- <509ba3a2-0b85-d758-6915-7975d31a3437@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <509ba3a2-0b85-d758-6915-7975d31a3437@suse.com>
+To: mark.syms@citrix.com, qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+References: <20230420110205.688689-1-mark.syms@citrix.com>
+Organization: Xen Project
+In-Reply-To: <20230420110205.688689-1-mark.syms@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi,
-
-On 24/04/2023 10:33, Jan Beulich wrote:
-> On 21.04.2023 16:41, Oleksii wrote:
->> On Thu, 2023-04-20 at 14:58 +0200, Jan Beulich wrote:
->>> On 19.04.2023 17:42, Oleksii Kurochko wrote:
->>>> + *
->>>> ===================================================================
->>>> =========
->>>> + *    Start addr    |   End addr        |  Size  | VM area
->>>> description
->>>> + *
->>>> ===================================================================
->>>> =========
->>>> + * FFFFFFFFC0000000 |  FFFFFFFFC0200000 |  2 MB  | Xen
->>>> + * FFFFFFFFC0200000 |  FFFFFFFFC0600000 |  4 MB  | FDT
->>>> + * FFFFFFFFC0600000 |  FFFFFFFFC0800000 |  2 MB  | Fixmap
->>>
->>> These are all L2 slot 511 aiui, which may be worth mentioning
->>> especially since
->>> the top bits don't match the top bits further down in the table
->>> (because of the
->>> aliasing).
->>
->> Than I'll add one more column where I'll put slot number
->>
->>>
->>>> + *     .................. unused ..................
->>>
->>> This is covering slot 510, which again may be worth mentioning.
->>>
->>>> + * 0000003200000000 |  0000007f40000000 | 331 GB | Direct map(L2
->>>> slot: 200-509)
->>>> + * 0000003100000000 |  0000003140000000 |  1 GB  | Frametable(L2
->>>> slot: 196-197)
->>>
->>> 1Gb is, if I'm not mistaken, a single L2 slot.
->> Yeah, it can be misunderstood. I meant [196, 197), so 197 isn't
->> included. I'll update the table.
->>
->>>
->>> Also assuming a 32-byte struct page_info (I don't think you'll get
->>> away with
->>> less than that, when even Arm32 requires this much), there's a
->>> mismatch
->>> between direct map and frame table size: With 4k pages, the scaling
->>> factor
->>> would be 128 if I'm not mistaken. So perhaps you really mean 3Gb here
->>> to
->>> cover for (slightly more than) the 331Gb of memory you mean to be
->>> able to
->>> map?
->> For RV64 page_info size will be 56-byte and 32-byte for RV32 but you
->> are right it should 3 Gb in that case what will be enough ( taking into
->> account both available sizes of page_info structure ).
+On 20/04/2023 12:02, mark.syms@citrix.com wrote:
+> From: Mark Syms <mark.syms@citrix.com>
 > 
-> As to the plan to it being 56 bytes (i.e. like on Arm): Arm forever has
-> had a 64-bit padding field at the end. My best guess is that the field
-> was introduced to have a 32-byte struct on Arm32. 
+> Ensure the PV ring is drained on disconnect. Also ensure all pending
+> AIO is complete, otherwise AIO tries to complete into a mapping of the
+> ring which has been torn down.
+> 
+> Signed-off-by: Mark Syms <mark.syms@citrix.com>
+> ---
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Anthony Perard <anthony.perard@citrix.com>
+> CC: Paul Durrant <paul@xen.org>
+> CC: xen-devel@lists.xenproject.org
+> 
+> v2:
+>   * Ensure all inflight requests are completed before teardown
+>   * RESEND to fix formatting
+> ---
+>   hw/block/dataplane/xen-block.c | 31 +++++++++++++++++++++++++------
+>   1 file changed, 25 insertions(+), 6 deletions(-)
+> 
+> diff --git a/hw/block/dataplane/xen-block.c b/hw/block/dataplane/xen-block.c
+> index 734da42ea7..d9da4090bf 100644
+> --- a/hw/block/dataplane/xen-block.c
+> +++ b/hw/block/dataplane/xen-block.c
+> @@ -523,6 +523,10 @@ static bool xen_block_handle_requests(XenBlockDataPlane *dataplane)
+>   
+>       dataplane->more_work = 0;
+>   
+> +    if (dataplane->sring == 0) {
+> +        return done_something;
+> +    }
+> +
 
-I can't exactly remember. But I would like to rework the struct 
-page_info on Arm64 because...
+I think you could just return false here... Nothing is ever going to be 
+done if there's no ring :-)
 
-But then why
-> artificially increase the struct from 48 to 56 bytes on Arm64? And hence
-> why have the same oddity on RV64?
+>       rc = dataplane->rings.common.req_cons;
+>       rp = dataplane->rings.common.sring->req_prod;
+>       xen_rmb(); /* Ensure we see queued requests up to 'rp'. */
+> @@ -666,14 +670,35 @@ void xen_block_dataplane_destroy(XenBlockDataPlane *dataplane >   void xen_block_dataplane_stop(XenBlockDataPlane *dataplane)
+>   {
+>       XenDevice *xendev;
+> +    XenBlockRequest *request, *next;
+>   
+>       if (!dataplane) {
+>           return;
+>       }
+>   
+> +    /* We're about to drain the ring. We can cancel the scheduling of any
+> +     * bottom half now */
+> +    qemu_bh_cancel(dataplane->bh);
+> +
+> +    /* Ensure we have drained the ring */
+> +    aio_context_acquire(dataplane->ctx);
+> +    do {
+> +        xen_block_handle_requests(dataplane);
+> +    } while (dataplane->more_work);
+> +    aio_context_release(dataplane->ctx);
+> +
 
+I don't think we want to be taking new requests, do we?
 
-... with 56 bytes, some struct page_info may cross a cache boundary. For 
-RISC-V, I would recommend to make sure the struct page_info will never 
-cross a cache boundary.
+> +    /* Now ensure that all inflight requests are complete */
+> +    while (!QLIST_EMPTY(&dataplane->inflight)) {
+> +        QLIST_FOREACH_SAFE(request, &dataplane->inflight, list, next) {
+> +            blk_aio_flush(request->dataplane->blk, xen_block_complete_aio,
+> +                        request);
+> +        }
+> +    }
+> +
 
-Cheers,
+I think this could possibly be simplified by doing the drain after the 
+call to blk_set_aio_context(), as long as we set dataplane->ctx to 
+qemu_get_aio_context(). Alos, as long as more_work is not set then it 
+should still be safe to cancel the bh before the drain AFAICT.
 
--- 
-Julien Grall
+   Paul
+
+>       xendev = dataplane->xendev;
+>   
+>       aio_context_acquire(dataplane->ctx);
+> +
+>       if (dataplane->event_channel) {
+>           /* Only reason for failure is a NULL channel */
+>           xen_device_set_event_channel_context(xendev, dataplane->event_channel,
+> @@ -684,12 +709,6 @@ void xen_block_dataplane_stop(XenBlockDataPlane *dataplane)
+>       blk_set_aio_context(dataplane->blk, qemu_get_aio_context(), &error_abort);
+>       aio_context_release(dataplane->ctx);
+>   
+> -    /*
+> -     * Now that the context has been moved onto the main thread, cancel
+> -     * further processing.
+> -     */
+> -    qemu_bh_cancel(dataplane->bh);
+> -
+>       if (dataplane->event_channel) {
+>           Error *local_err = NULL;
+>   
+
 
