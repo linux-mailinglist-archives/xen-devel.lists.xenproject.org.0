@@ -2,36 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6EE36ED173
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 17:35:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525513.816781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2B9B6ED177
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Apr 2023 17:36:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525522.816791 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqyDY-0008UM-PC; Mon, 24 Apr 2023 15:35:04 +0000
+	id 1pqyEw-0000su-3m; Mon, 24 Apr 2023 15:36:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525513.816781; Mon, 24 Apr 2023 15:35:04 +0000
+Received: by outflank-mailman (output) from mailman id 525522.816791; Mon, 24 Apr 2023 15:36:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pqyDY-0008SA-MC; Mon, 24 Apr 2023 15:35:04 +0000
-Received: by outflank-mailman (input) for mailman id 525513;
- Mon, 24 Apr 2023 15:35:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HiTc=AP=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pqyDX-0008QR-8z
- for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 15:35:03 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92853caf-e2b5-11ed-8611-37d641c3527e;
- Mon, 24 Apr 2023 17:35:00 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0175D5C0190;
- Mon, 24 Apr 2023 11:34:59 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 24 Apr 2023 11:34:59 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 24 Apr 2023 11:34:57 -0400 (EDT)
+	id 1pqyEw-0000q5-0G; Mon, 24 Apr 2023 15:36:30 +0000
+Received: by outflank-mailman (input) for mailman id 525522;
+ Mon, 24 Apr 2023 15:36:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0Hh8=AP=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pqyEu-0000px-Mw
+ for xen-devel@lists.xenproject.org; Mon, 24 Apr 2023 15:36:28 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2049.outbound.protection.outlook.com [40.107.7.49])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c70b4d60-e2b5-11ed-b223-6b7b168915f2;
+ Mon, 24 Apr 2023 17:36:27 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8166.eurprd04.prod.outlook.com (2603:10a6:20b:3fa::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Mon, 24 Apr
+ 2023 15:35:58 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6319.033; Mon, 24 Apr 2023
+ 15:35:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,204 +46,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92853caf-e2b5-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1682350498; x=1682436898; bh=5z2xL8Dc89vedDFBEfOdP2o8+4s0AnBLxIg
-	AbTHdUKs=; b=SMzb+eXJ3/Yc9ihXsw99AGKXjo/GZk7WwjGzLlP2ENTsuyfzDlP
-	moqcazokhSGQNXz764EwropL5Y9BBf0ViUSodmO6aE011vaD7+6kEwf5y1Iyxlh1
-	KbTo8vLNqhKYYseCFqwX02O65nUM5JwZUN4HJ9Bw5ZQVo7cJ05G8jgz9JV6XfxTD
-	QlXT99E9O6WoEuNn46jE/4Uk9ybwLacTFRm9l5g29xv5962lHggzXxkWvgatOscm
-	ROkpwvofOzCPWLpw1krrOBikESJLAt/ajSh1XPWx/jrYPYpwlkT3yndl+kzOzoyP
-	u/fZEnC3KZjcHyZmpZqxDOnT4u4hiJ07v3w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1682350498; x=1682436898; bh=5z2xL8Dc89ved
-	DFBEfOdP2o8+4s0AnBLxIgAbTHdUKs=; b=BasBoKXeay3N+zSIQKdtetQxxsCjb
-	WLo2AZpxcG13UuCiP5lB0igkLMK0lyAVgYjow665gK/Np4jECyIZCeBDqmsDhAS5
-	EyqFT0ERMMctPkOEN3de4BKYM4zKGEz9UQm5rpRhK9Mgm4lgmD8GUcvGtiRdjwCF
-	EQdZ7q7v7le/X5Ub3IZQ7cZw14Ee/dTI4g0UKdF7ukL4iFq5Na+qNyIAON8hqDfo
-	Q9vITvN6UC9poGx9aCF/X+PY7NG5+up3lm11xw0jL7qUbeknMSF5KecwCAk5i0S7
-	CdKmvaaUSMxjJ9MNzMpdxgchkU+To47B+s5G/Hncb6j/seHRoIfFh2+yg==
-X-ME-Sender: <xms:oqFGZFpqelXkbsdMGf_Qw1MZO81cO5qPvVcpYLAzdKamhUpBDcuLIQ>
-    <xme:oqFGZHpAmr_vgKm9HEyO_nKvxXAjsiABcvr2evAg1yPRFo-dKnfD9vu02UOa_6d-j
-    9ObNqwt9xoM2A>
-X-ME-Received: <xmr:oqFGZCNoc17PXQY0sV5ms7GTtjhMFizxMQoi-7McqFhN0mmboeb9d-iY2eySVsL6-JbpEDb2HaBi7ws5Acutf6dXgzxOh5KfEYU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfedutddgledtucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtroertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleeu
-    tdevfeffueelgfduieevuefftdekheevjeeiiefgtedttdefgfekheduteefnecuffhomh
-    grihhnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
-    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhm
-X-ME-Proxy: <xmx:oqFGZA412oV-6fnXs-37gm76-3LQqD68ZhaREG11xH6kAc9i58VmxQ>
-    <xmx:oqFGZE7vvlI301n2j3HIoD-vO-ZJJGtcWi9DtAniuJflU4sBC7TCsg>
-    <xmx:oqFGZIiUGocgbyhXMSjuxT1561pvU5eiFUh48wKMj8tyniHregqepA>
-    <xmx:oqFGZEFYTwadJj8UtBlbh9_pWWwmBOip0RahwsYLMsfcLE5QcMRWeg>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 24 Apr 2023 17:34:52 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 4/4] x86/msi: clear initial MSI-X state on boot
-Message-ID: <ZEahnVfwnDgLwodp@mail-itl>
-References: <cover.c12fc399ea0151818e48ac5179ad554c00c9386d.1680752649.git-series.marmarek@invisiblethingslab.com>
- <6984a8571dac35d04c85117834d99b00fe1c4184.1680752649.git-series.marmarek@invisiblethingslab.com>
- <4eb45940-5615-2398-633d-e5f59dc6987d@suse.com>
- <CAKf6xps2nVoYL6LtOqW2UBHadNSQzkb1XAe7WRxXmLzyN3kAGQ@mail.gmail.com>
+X-Inumbo-ID: c70b4d60-e2b5-11ed-b223-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Sl+4jFKU0OunTLJlTcOcqp35j9UYF+0ny+R2F2/i5/emxCFQLOZx7NWB5+cvskzpDdqa7LIjp03M1hLdhpLJePEupFmZ6BTQikSqh+gWnyGKNVVvJN4NHQjYxB5rOsA+0m2FMTpmx7cicZo/JRF3tPE2LDWE+gAQiJeoGZJAFJIFl5GhFA+OPseRLMqR1H5H8EuaHZxuvbWnLiCXB80UOGZItEqw8JKwgjm6mWzipSrdnNWJENzmtnmxbm/9NJoTml9LnMyd2pOtlMb6Ko7HL4mBvTZyey8SPHxblQWpMFbNTb7HrS8D1nUGccFgSm08emVS3c8jls3DkZM+TmaabQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8L1MefyeX44jGk7haZjaW+suQtvdSDuBGojG5wUjjN4=;
+ b=b73IoAtDmqL2ZtcarKAeZOvrw/rHT6W40RxBpMUA/zSnODKsHyiJlsSP3lorXCei9OeLN9ceuDsx5qZ1E9YfcKSF4B2QMyHb4Ij15FFbTUOdj0dwe1dxolB9lmWYPXZtL5Mf4uY1G+BaaRf2iFCCD3Rip2QwbiCgrAkLg0I6z8PJukyXp8TCQQ+hDpA6Bq9+YA+5pkM+XkTDOytGjIqH11dZa2pjPsQipO98PECy0kkwTHMLHBH9wrTzM6ARwWrslW5gCjhgu9w8XtK4HhwH82yIEkaUBgYI4uaoxGNfLO+EOpx5TfWizMLz8DdFTyA5MNvW/FDnDsHqWp1sOPZCFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8L1MefyeX44jGk7haZjaW+suQtvdSDuBGojG5wUjjN4=;
+ b=1mbLhFnvwNMqfYhESgncLjlPmt092IbNfe3SOCUTAPEYF+F/8goka94XFS3P/JrN7155yKy2+fNUxNHD0ibDtDXDSZNSE3FDBdCKKWddS000eXz68w8qF6OM3vJNmSAVYiGObAk9d+vnkDeP65MtaPIpXvV3b1GDYA2AAlj6/bHEkR1lRJyLf6oqX9py3dlnRF4Wb2fdF0E5TVJP47rwNzMuS41pt0BSw46nsExQzNBAThdRW6Pu5ekneERyV5g2CIuBrLFs/SVscdjE30RPkxt41zW4kKSeZ88zi0X6FTdRKXrUWQzt+4r9M+R34zLmwIXZVnvI40RxN4YxTaJXgA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <2c424759-3072-cd07-913d-c45ae6791ce2@suse.com>
+Date: Mon, 24 Apr 2023 17:35:57 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Subject: Re: [PATCH v5 2/4] xen/riscv: introduce setup_initial_pages
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1681918194.git.oleksii.kurochko@gmail.com>
+ <5b27693bcdf6d64381314aeef72cfe03dee8d73a.1681918194.git.oleksii.kurochko@gmail.com>
+ <67d8574f-2e0d-4eb6-19aa-67fe7645e35a@suse.com>
+ <ea2d5cfabb9ada64eb975369779ca430f38e9eec.camel@gmail.com>
+ <53257ae8-d306-8c7e-35ff-f3bc3947849b@suse.com>
+ <3d440048717892fe5d3ed7fe3255dc8c9f5d38a3.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <3d440048717892fe5d3ed7fe3255dc8c9f5d38a3.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0077.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1f::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="w/O0S1i4n57pGbhV"
-Content-Disposition: inline
-In-Reply-To: <CAKf6xps2nVoYL6LtOqW2UBHadNSQzkb1XAe7WRxXmLzyN3kAGQ@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8166:EE_
+X-MS-Office365-Filtering-Correlation-Id: 467cd46d-3bac-4858-107b-08db44d99a15
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	fz9cABQc1HTyQkIjPD7UuPSeRvLIObNkG/8oGhCZ4AmrGXBiRpd/W52E1vooPLscDHKwR4ZR0hYEEckN7xLTNF1ytBKRXQQrIzvwy3xzdrMfDkn1PJ22SkuSQ0Gkxglm8iYp5KMVMiWhrerVgp/ZvUITkimx6yC+2SxbEa5A3G0qvRlFiB2u0F0nbcG0cn+bZlQd7A356R/j23osucPRcuCaCMCzyQfmQzlPq1JTf4MGasCyjzEMEaW5CyVAvjS4mOyOe2OZhOAAtzYWjZFu/GjW0oNGTiGO5KOjqnKcSx3+fvWRSGbb/uXw4P70vU3qok0ruYYmxt1fxnjVuoAAFGXmdPk3y6A6f/KSdqxpOUhRbudktCm6TZfWPPAoL2sdoFKubqjpzdlZwpXSUAt5oEAcFJWSjPJsCuItlUkjfanNBZU34C/QiknEY9y2fU9WpRJ9IhfRmkPM8d3dQTHkxZ6/oPT8K7ROOmY145fWZa9Z4JEDYIMbuLm9DB9Br5p8uQk4pU4OSKxc/rN7Fr2pu2kB4zPHTWNM/wu6zh4pyxvodn5XB21+88oV3GOOBxStBVpkr/rcQdqlSFOmLo8L+QEfZ3xMjcUYx3+G5DCmjIT6pFB7LhtElEE45qqAXNS4Bv2WPd8b0VkhEvez7isWeQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(136003)(39860400002)(376002)(366004)(346002)(451199021)(53546011)(6506007)(26005)(6512007)(2616005)(36756003)(186003)(38100700002)(66946007)(31696002)(478600001)(86362001)(66556008)(66476007)(31686004)(8936002)(8676002)(54906003)(110136005)(5660300002)(6486002)(41300700001)(2906002)(4326008)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bnk0WFlMWmFoUjBFN0xaUkVyay9IM3FXbU9sSnlmdGIzL1JnaFo2Nklubk1h?=
+ =?utf-8?B?aDdETzh0SVhSMXJwK3BlNHlsM25qQStndlR0cVZMQ0p0ZWNwVm1nd2l2V0Q5?=
+ =?utf-8?B?SENwOEJTOG0xYzJOMnJNa25VTmJYZmRSWVhPM093QW9mMTBvYXRaYUhrQm5w?=
+ =?utf-8?B?ZDh2bDdJZXplZ2RUOXJjL3FsK3NlelNWRklEYWxNd0NlNm0yNHFRV1FoV2pN?=
+ =?utf-8?B?MDJGd2ZWcTQwdzM1eW9aNkZsMUEycUFCcjl1MExoZ0o1VHg1M2tOQmcxVzhL?=
+ =?utf-8?B?Rm5UQk0vbjBmaldnNDNUV0JvWm9QNnkvUGtKeHpHN2NhN0tKV2hQbnhMSUsz?=
+ =?utf-8?B?TWFqWk4xUFlLb1c1M0RPbjdQa25LVU5qQ1I5cEFwQVhVUmgwTW51WG9VanRj?=
+ =?utf-8?B?QnEyUGRNWFp0dlNLQ3ZVSjdUMTNJVE1qVlZSdWNGeUIrZUdHMUUyTWFjeGpE?=
+ =?utf-8?B?K2RQLytQQThMUENVNGZEWjhZTkk3WHhtaDZDcHM5MkhxS09ma3VpZXFpYnFo?=
+ =?utf-8?B?NmRTbi9pM2dxZ2U2OXdTUnFIZ1Z2ejRCSjhyU3VQME1VaWxiK0RlOUdVb3l3?=
+ =?utf-8?B?a0NGUXJSc0ZQd0RzTFV5OW5xT0lieXZZVStMMGtMOVhGczduYllYWjU2aFdh?=
+ =?utf-8?B?WUh4QWNYUFhFSmdDeUFtUzVKNWMvc1NZbzFFNFBWeTJBS3o4cm4vSThPZkhP?=
+ =?utf-8?B?bkhkYjkyU2NUaEd0UUd0QzZrdTBWcFNDdmdDVE9PMVdISkJuUzlQWFNQYTc4?=
+ =?utf-8?B?eVRNYjJDY0pKNkNVSGhqbEJoUGZoUnFQNGZFbWNJTCszeFdKc3RHamRTeFJY?=
+ =?utf-8?B?RUJra3FUeE1POG9PUE83YTd5ZTNoa1hISkJkS3hYWS9yN0RsMklHSmJrdTNR?=
+ =?utf-8?B?bUNoWWlPbml4empsa25NWSt1TWpnemZIOUNtdUV4WEFURnpxVTN4WnZFVXM0?=
+ =?utf-8?B?a3YwZElaQ2RxSDhRbHBHNWlUd2FWV0xYUjFOSDRZQUR6L2V4RERRZERYSkw0?=
+ =?utf-8?B?Ynpvc0NVT0trNnpiNzF6RmdwcHJpdk1pQ283RFdxbXkxZFBTeVBJcFpkVzNF?=
+ =?utf-8?B?UjQySUYzdlppZmcvVElacUhiTkRZWmRzNFdSdEpzZFFKQm9xenFKeG8wUDJj?=
+ =?utf-8?B?aS91SVhNaUFqclB5cTljSFg1MEQ2QUJtUHNiSW5FcWgvUlk3bmNDTFlqNjNu?=
+ =?utf-8?B?K0JURGdMbWRCSVhORU5QdjJSSUVuTXY4cm5lMjJwWk91MzN1NG5GdGJoa0pt?=
+ =?utf-8?B?WVpzaC82aUdIdnhFYWM3ejRwbFBkdGQzbnhyclByeWtESE1iblpYL0hFWWxj?=
+ =?utf-8?B?eFcvNHJuOXRUeDdWcFpIOWRYZWdyRU5Rd3pjRFlGaWgyTzg5OVMwN2daeUtN?=
+ =?utf-8?B?eG80Z0YvZVJyK0kvdnUwZlMvVkxOQWFhaHBzcE9INEdpOFFpeGliMU9aTTNY?=
+ =?utf-8?B?ZkxSaTRabktVUHVjMVBoc1N0bWFGbTBqc3RUbEJaRnMwQkNyNzNZcjB6MTA4?=
+ =?utf-8?B?TWZiLzRpU1F6aWplUmM3cVkyRUtYdkNxbUhRWURoYlFOc20zenhqZVdiTDJV?=
+ =?utf-8?B?MW43NVU0R3ArTGtKaS96ZmYrajl2b0Ixd1FFN0t0Y1VvRENWd2JhZUhFT0Vt?=
+ =?utf-8?B?T3o2bllDWHBvOVdWcCtBN1ZKRjdPbEtvRUhKMFlPSFZIRzc5bWpUTmI3MzJU?=
+ =?utf-8?B?UllJVnlJbUVuT0JTeUxLc2lPbDJwbTJpVFZVSndUdnh5N20rUHY5ZkNzS3Rt?=
+ =?utf-8?B?RFZmTnF2YUZ1SEFXMWl2R0FzMXpMcUlZZVZCaG9CRFM3NEN5NEhQUWlEaTVN?=
+ =?utf-8?B?ZnpYMjlMODZNWTJUanJFRndVTE1sRG1PVDF3UGZmb3FpRWkrQnlrNGluMkpT?=
+ =?utf-8?B?b0pWaUFsUkxhT0J0S2lib1pMSnFscFY0Q3BQUkJOOTNtTndZaWJVcW1hZFZy?=
+ =?utf-8?B?OE9MODFic2NiUEU1VE1lR3NaRkJsb3FHU0tUVjR4THVBOHZzazBaaFdpa01o?=
+ =?utf-8?B?VDhteitpUUFUUkZBSW4vd0RLVHBqckFrVjJlWFFQNGNGd21RSXQ2QW5MaVJu?=
+ =?utf-8?B?L2RCTjRzTDEwSjN5bkpjRGp6VUgvakZnRWMyTWh4S2ViQ0d5ODl4T2IwRys0?=
+ =?utf-8?Q?H32leA5e4WaMRQ0yl3yK7IkNp?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 467cd46d-3bac-4858-107b-08db44d99a15
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2023 15:35:58.8061
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oYsq+wzhvJeCSOuvOdeyRgeKSO4JvVIE2DdnFqGNBq4M9jplSd3R51CO2CExU7XABB5uwmUsF57DcoaQLzlC8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8166
 
+On 24.04.2023 17:16, Oleksii wrote:
+> On Mon, 2023-04-24 at 12:18 +0200, Jan Beulich wrote:
+>> On 21.04.2023 18:01, Oleksii wrote:
+>>> On Thu, 2023-04-20 at 16:36 +0200, Jan Beulich wrote:
+>>>> On 19.04.2023 17:42, Oleksii Kurochko wrote:
+>>>>> +    csr_write(CSR_SATP,
+>>>>> +              ((unsigned long)stage1_pgtbl_root >> PAGE_SHIFT)
+>>>>> |
+>>>>> +              satp_mode << SATP_MODE_SHIFT);
+>>>>> +
+>>>>> +    if ( (csr_read(CSR_SATP) >> SATP_MODE_SHIFT) == satp_mode
+>>>>> )
+>>>>> +        is_mode_supported = true;
+>>>>> +
+>>>>> +    /* Clean MMU root page table and disable MMU */
+>>>>> +    stage1_pgtbl_root[index] = paddr_to_pte(0x0, 0x0);
+>>>>> +
+>>>>> +    csr_write(CSR_SATP, 0);
+>>>>> +    asm volatile("sfence.vma");
+>>>>
+>>>> I guess what you do in this function could do with some more
+>>>> comments.
+>>>> Looks like you're briefly enabling the MMU to check that what you
+>>>> wrote
+>>>> to SATP you can also read back. (Isn't there a register reporting
+>>>> whether the feature is available?)
+>>> I supposed that it has to be but I couldn't find a register in
+>>> docs.
+>>
+>> Well, yes, interestingly the register is marked WARL, so apparently
+>> intended to by used for probing like you do. (I find the definition
+>> of
+>> WARL a little odd though, as such writes supposedly aren't
+>> necessarily
+>> value preserving. For SATP this might mean that translation is
+>> enabled
+>> by a write of an unsupported mode, with a different number of levels.
+>> This isn't going to work very well, I'm afraid.)
+> Agree. It will be an issue in case of a different number of levels.
+> 
+> Then it looks there is no way to check if SATP mode is supported.
+> 
+> So we have to rely on the fact that the developer specified
+> RV_STAGE1_MODE correctly in the config file.
 
---w/O0S1i4n57pGbhV
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Apr 2023 17:34:52 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 4/4] x86/msi: clear initial MSI-X state on boot
+Well, maybe the spec could be clarified in this regard. That WARL
+behavior may be okay for some registers, but as said I think it isn't
+enough of a guarantee for SATP probing. Alistair, Bob - any thoughts?
 
-On Mon, Apr 24, 2023 at 11:25:01AM -0400, Jason Andryuk wrote:
-> On Mon, Apr 24, 2023 at 10:19=E2=80=AFAM Jan Beulich <jbeulich@suse.com> =
-wrote:
-> >
-> > On 06.04.2023 05:57, Marek Marczykowski-G=C3=B3recki wrote:
-> > > Some firmware/devices are found to not reset MSI-X properly, leaving
-> > > MASKALL set. Jason reports on his machine MASKALL persists through a
-> > > warm reboot, but is cleared on cold boot. Xen relies on initial state
-> > > being MASKALL clear. Especially, pci_reset_msix_state() assumes if
-> > > MASKALL is set, it was Xen setting it due to msix->host_maskall or
-> > > msix->guest_maskall. Clearing just MASKALL might be unsafe if ENABLE =
-is
-> > > set, so clear them both.
-> > >
-> > > Reported-by: Jason Andryuk <jandryuk@gmail.com>
-> > > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethi=
-ngslab.com>
-> >
-> > Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> > albeit with a couple of nits (which I'd be happy to address while
-> > committing, so long as you agree).=20
-
-Yes, thanks!
-
-> > First one being on the last
-> > sentence above: It's surely not just "might"; if resetting already
-> > doesn't work right, nothing says that the individual mask bit all
-> > end up set. Clearing ENABLE as well is only natural imo, if we
-> > already need to fix up after firmware. So maybe "Even if so far not
-> > observed to be left set, clear ENABLE as well"?
-> >
-> > > --- a/xen/drivers/passthrough/msi.c
-> > > +++ b/xen/drivers/passthrough/msi.c
-> > > @@ -46,6 +46,23 @@ int pdev_msi_init(struct pci_dev *pdev)
-> > >          spin_lock_init(&msix->table_lock);
-> > >
-> > >          ctrl =3D pci_conf_read16(pdev->sbdf, msix_control_reg(pos));
-> > > +
-> > > +        if ( ctrl & (PCI_MSIX_FLAGS_MASKALL|PCI_MSIX_FLAGS_ENABLE) )
-> >
-> > Style (missing blanks around |; once more below).
-> >
-> > > +        {
-> > > +            /*
-> > > +             * pci_reset_msix_state() relies on MASKALL not being set
-> > > +             * initially, clear it (and ENABLE too - for safety), to=
- meet that
-> > > +             * expectation.
-> > > +             */
-> > > +            printk(XENLOG_WARNING
-> > > +                   "%pp: unexpected initial MSI-X state (MASKALL=3D%=
-d, ENABLE=3D%d), fixing\n",
-> > > +                   &pdev->sbdf,
-> > > +                   (ctrl & PCI_MSIX_FLAGS_MASKALL) ? 1 : 0,
-> > > +                   (ctrl & PCI_MSIX_FLAGS_ENABLE) ? 1 : 0);
-> >
-> > Our "canonical" way of dealing with this is !!(x & y).
-> >
-> > > +            ctrl &=3D ~(PCI_MSIX_FLAGS_ENABLE|PCI_MSIX_FLAGS_MASKALL=
-);
-> > > +            pci_conf_write16(pdev->sbdf, msix_control_reg(pos), ctrl=
-);
-> > > +        }
-> > > +
-> > >          msix->nr_entries =3D msix_table_size(ctrl);
-> > >
-> > >          pdev->msix =3D msix;
-> >
-> >
-> > Aiui there's no dependency here on the earlier patches in the series;
-> > please confirm (or otherwise).
-
-Indeed. An earlier patch uncovered a firmware (or such) issue on some
-systems and this patch deals with it, but it doesn't depend on earlier
-patches.
-
-> > Jason - any chance of getting a Tested-by: from you?
->=20
-> I'm building v3 now.  v2  worked for clearing MASKALL on initial boot.
->=20
-> I posted in these two messages - a summary is below.
-> https://lore.kernel.org/xen-devel/CAKf6xpto87QRSKT2qc1yApNfaw2SrLLxPoytYJ=
-v_jEbYTAbjCg@mail.gmail.com/
-> https://lore.kernel.org/xen-devel/CAKf6xptHALLR-Qjf=3Dp5y0o9Ud2V7eFMJuB8A=
-p-PLjv-N7PAJVQ@mail.gmail.com/
->=20
-> OpenXT has a patch that performs an extra reset after domain shutdown,
-> and that causes Xen to set MASKALL.  I confirmed by removing it.  So
-> this patch helps with clearing MASKALL on host boot, but with the
-> OpenXT patch, rebooting a domain fails.  MASKALL gets set on VM
-> shutdown and then the subsequent boot can't assign the device.
->=20
-> So this patch is helpful in some scenarios, but it was also an issue
-> caused by the OpenXT patch.  Does that make it unsuitable for
-> inclusion?  I assume the OpenXT patch wasn't an issue previously since
-> MSI-X was never enabled.
-
-Upstream Xen IMO should deal with the state it gets on boot, regardless
-of what was running previously (the actual issue is likely in firmware
-or device itself, that it doesn't clear that bit, but well...). So,
-rebooting from OpenXT, into vanilla upstream Xen should result in fully
-functional system. That's why I included this patch, but haven't dealt
-with an issue caused by OpenXT patch on subsequent domain startups (as
-it doesn't apply to the upstream code base).
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---w/O0S1i4n57pGbhV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRGoZwACgkQ24/THMrX
-1ywQQggAgLsWK3skwL1kN/N5dbGQ8muzBVTA47Pb8Q9PMZeXnj7Nab/iS184sLb4
-TuL3bGHREPLOUKFLqY0febOOKSBHCGzSLjeLEnYDMfpjPZbW17spo4VqLvrsL/sx
-cbduZHfctojCU5I9PX0mTMUSnq7s8brgMooWZ+cN3FX/8291xWXd4h+D1KRoqfTN
-gD56C1pglOGIBvy26nnbP7O8yKYO7tlQmDUKqg84twlVZakEGbH308MATO4/PMxU
-QKabaeyLI/NwapA4LzkR+YFBcOHnDusY/pSISb0N8YqW+KJba0MrcKL1Jf/7sc/r
-c80RSzWoYLDAuQ74ii4Trj1GKReIew==
-=jnTX
------END PGP SIGNATURE-----
-
---w/O0S1i4n57pGbhV--
+Jan
 
