@@ -2,36 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DD196EE5E1
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 18:38:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526152.817664 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FF036EE5F2
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 18:43:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526158.817674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prLg7-0000De-9I; Tue, 25 Apr 2023 16:38:07 +0000
+	id 1prLkl-0001ed-RE; Tue, 25 Apr 2023 16:42:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526152.817664; Tue, 25 Apr 2023 16:38:07 +0000
+Received: by outflank-mailman (output) from mailman id 526158.817674; Tue, 25 Apr 2023 16:42:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prLg7-0000AS-5v; Tue, 25 Apr 2023 16:38:07 +0000
-Received: by outflank-mailman (input) for mailman id 526152;
- Tue, 25 Apr 2023 16:38:05 +0000
+	id 1prLkl-0001bi-NB; Tue, 25 Apr 2023 16:42:55 +0000
+Received: by outflank-mailman (input) for mailman id 526158;
+ Tue, 25 Apr 2023 16:42:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BHzL=AQ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1prLg4-0000AM-UF
- for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 16:38:05 +0000
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89e220e4-e387-11ed-8611-37d641c3527e;
- Tue, 25 Apr 2023 18:38:01 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 75E3C3200919;
- Tue, 25 Apr 2023 12:37:57 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 25 Apr 2023 12:37:57 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 25 Apr 2023 12:37:56 -0400 (EDT)
+ <SRS0=7Bb6=AQ=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1prLkk-0001bc-DV
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 16:42:54 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 37c8516a-e388-11ed-8611-37d641c3527e;
+ Tue, 25 Apr 2023 18:42:52 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-36-0_Np5WYHP7OPCu59TXqr_g-1; Tue, 25 Apr 2023 12:42:45 -0400
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1EC7F811E7B;
+ Tue, 25 Apr 2023 16:42:44 +0000 (UTC)
+Received: from localhost (unknown [10.39.193.242])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 14022492B03;
+ Tue, 25 Apr 2023 16:42:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,179 +50,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89e220e4-e387-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1682440677; x=1682527077; bh=8x38kB+ZlYh223Y2lo2Kh7PwV9NIajIpnFg
-	diKdPG6g=; b=nPSmog2lvUAoNpQ1EpvOFWdYmmlsa3R1GF9rtqQohKiTz7E16kn
-	ICpXMT24n024y24RzWmAhOf67rFlPVWkRE8mzsCelKHbjvH24QPOSqMfWclKw4I3
-	jhRWu3U/Gnz4tC+kzH4KZtkhX8gio8fLLD8Qx6lszJrna1gvHuy1W5LLz6DUh0Ui
-	kXVtMI7cjSbandfDpXI2xaTMakeDxPmUrKHHTIQId7ngrTnLw4O8vrSa6oDLWXA0
-	NYLzR87cTkzQoK6LVK/XJAt3k/Esho3dD9HRdp2tEURD6zJ+6ZwlSzrBKFbjSouf
-	R8ItFJqPyU+MmwjyXXx/HiQEac2eGHbgQ3A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1682440677; x=1682527077; bh=8x38kB+ZlYh22
-	3Y2lo2Kh7PwV9NIajIpnFgdiKdPG6g=; b=DFSJFS4HgYkNlTAqMebl8BejZXFUl
-	9hxWkcxzq2aoJ0oBnKs6htToNWqHJp1IMZrJZNnzbmXOdkxjvNOfA1VmYNZOzhax
-	93GeHNPMtf0jjnxMQpLbQ52qkRe4ym2Dn0IIBQMmPt9piDS5EqtJQozLP/KSVMqa
-	4FQ+lDW89fGKMPE87N1SsqOJM9+Rcxd6nqVdPWv94HWg+Nys65I3HFTPL/WSlupR
-	racUjAUdzqbWoz18Dz0oWarx6OLFPrGBOsBLM9lmPWnARgNmoo+Yb2564GSKmDiJ
-	7i7DbZKabvcbOTRGhGYV6fHgiMyykchMgCrHxQHfAYZEe2/QsgczAXE+Q==
-X-ME-Sender: <xms:5AFIZFYEjt0wxiezo9TRAMznqB5mxrlkNHJAPnN1T3u58aw48Agv1w>
-    <xme:5AFIZMY4m8ihc0afzc7XfebbxA3qYkRZw2rGMEU3UeBw-DzW4ViwU2UjRay0N6QZx
-    q7Rp75CefPgyQ>
-X-ME-Received: <xmr:5AFIZH9oAeGVapR5ysm7jZtQg1YSGrlC1rtYYyxo6qekIDYGgIt_aTHWlNb4l0COTIRCIYW3golvacVEETsVoI9rDAfYOeqFk2k>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeduvddguddtfecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
-    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeev
-    ueejteegleelteduueevhfetgfffjeevtddvgfeiveehteehleegueelvdejveenucffoh
-    hmrghinhepghhithhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
-    rghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomh
-X-ME-Proxy: <xmx:5AFIZDoEc83D7WqTom5Dvd31P0XzW_gAIzL_-i69X1ML_3P7C7qcDA>
-    <xmx:5AFIZAqtgD09XwmohUaWC8GMOhQ131S48-dtniPBXZMyOogsQB77Lw>
-    <xmx:5AFIZJRFX33oh92xA9FoBjLJyYROd6XJy7I-JBf7v3U-4T-z9rgSpw>
-    <xmx:5QFIZHR2vQR8RUnazMJd-lfExnX_8oKK2qKfAE0wblDHcln4F4l2fQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 25 Apr 2023 18:37:52 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH 5/6] automation: PCI passthrough tests on ADL hw
-Message-ID: <ZEgB4e9Rfmt6wh2f@mail-itl>
-References: <cover.52ddd01da196853766a5b39a89c631f3e4652dd9.1682369736.git-series.marmarek@invisiblethingslab.com>
- <b01494665d1a8cce5c426be70beca2c519215eca.1682369736.git-series.marmarek@invisiblethingslab.com>
- <alpine.DEB.2.22.394.2304241717510.3419@ubuntu-linux-20-04-desktop>
+X-Inumbo-ID: 37c8516a-e388-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1682440970;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YU7EZWrc/q5d2oIlsofGQO2gCk+XKR8YPiDYAdpL+Z0=;
+	b=dJQFApdILoFuhcQyq7J6uptySBD6w+VnziUOQAG8Tv9aKtWqWjvAGMxe4AlGKTBuVu3GKY
+	oxxflVEAMQTCJFoHPqDjfysT1vMencROLGFdfQLS5Qu04oMA1Di90jf+fU/MRVbEOBxJmf
+	jGjgg/8cFG3WTZOLGHIb4yHMEq1dtYg=
+X-MC-Unique: 0_Np5WYHP7OPCu59TXqr_g-1
+Date: Tue, 25 Apr 2023 12:42:41 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Yongji Xie <xieyongji@bytedance.com>
+Cc: qemu devel list <qemu-devel@nongnu.org>, Peter Lieven <pl@kamp.de>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+	Juan Quintela <quintela@redhat.com>, qemu-block@nongnu.org,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	David Woodhouse <dwmw2@infradead.org>, Stefan Weil <sw@weilnetz.de>,
+	Fam Zheng <fam@euphon.net>, Julia Suvorova <jusual@redhat.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	xen-devel@lists.xenproject.org, Hanna Reitz <hreitz@redhat.com>,
+	"Dr. David Alan Gilbert" <dgilbert@redhat.com>, eesposit@redhat.com,
+	Kevin Wolf <kwolf@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Paul Durrant <paul@xen.org>, Aarushi Mehta <mehta.aaru20@gmail.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	"Richard W.M. Jones" <rjones@redhat.com>,
+	Coiby Xu <Coiby.Xu@gmail.com>,
+	Stefano Garzarella <sgarzare@redhat.com>
+Subject: Re: [PATCH v3 13/20] block/export: rewrite vduse-blk drain code
+Message-ID: <20230425164241.GC725672@fedora>
+References: <20230420113732.336620-1-stefanha@redhat.com>
+ <20230420113732.336620-14-stefanha@redhat.com>
+ <CACycT3suSR+nYhe4z2zuocYsBBVSDBCE+614zT0jfDZCBRveaA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="OS1ldJoc2laumTA5"
+	protocol="application/pgp-signature"; boundary="taPYnWD+LbJQX+JL"
 Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.22.394.2304241717510.3419@ubuntu-linux-20-04-desktop>
+In-Reply-To: <CACycT3suSR+nYhe4z2zuocYsBBVSDBCE+614zT0jfDZCBRveaA@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 
 
---OS1ldJoc2laumTA5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--taPYnWD+LbJQX+JL
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Apr 2023 18:37:52 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH 5/6] automation: PCI passthrough tests on ADL hw
 
-On Mon, Apr 24, 2023 at 08:01:46PM -0700, Stefano Stabellini wrote:
-> On Mon, 24 Apr 2023, Marek Marczykowski-G=C3=B3recki wrote:
-> > Add simple PCI passthrough test to both PV and HVM domU. It passes
-> > through a network adapter (the only one in the system), gets an IP via
-> > DHCP (first basic test) and then ping the gateway (second basic test).
-> > Finally, if device is supposed to use MSI or MSI-X (as set in the
-> > PCIDEV_INTR test variable), check if it's in use via /proc/interrupts.
-> >=20
-> > On the current runner, the device in question is this:
-> > 03:00.0 Ethernet controller [0200]: Intel Corporation Ethernet Controll=
-er I225-V [8086:15f3] (rev 03)
-> > 	Subsystem: Micro-Star International Co., Ltd. [MSI] Device [1462:7d25]
-> > 	Flags: bus master, fast devsel, latency 0, IRQ 18
-> > 	Memory at 50400000 (32-bit, non-prefetchable) [size=3D1M]
-> > 	Memory at 50500000 (32-bit, non-prefetchable) [size=3D16K]
-> > 	Capabilities: [40] Power Management version 3
-> > 	Capabilities: [50] MSI: Enable- Count=3D1/1 Maskable+ 64bit+
-> > 	Capabilities: [70] MSI-X: Enable+ Count=3D5 Masked-
-> > 	Capabilities: [a0] Express Endpoint, MSI 00
-> > 	Capabilities: [100] Advanced Error Reporting
-> > 	Capabilities: [140] Device Serial Number ...
-> > 	Capabilities: [1c0] Latency Tolerance Reporting
-> > 	Capabilities: [1f0] Precision Time Measurement
-> > 	Capabilities: [1e0] L1 PM Substates
-> > 	Kernel driver in use: igc
-> > 	Kernel modules: igc
-> >=20
-> > With the current Xen version, it uses MSI-X under PV and MSI under HVM.
-> >=20
-> > This patch moves domU config to a variable, to make it configurable on
-> > per-test basis. Add also a few comments for visual separation of tests.
-> >=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
+On Fri, Apr 21, 2023 at 11:36:02AM +0800, Yongji Xie wrote:
+> Hi Stefan,
+>=20
+> On Thu, Apr 20, 2023 at 7:39=E2=80=AFPM Stefan Hajnoczi <stefanha@redhat.=
+com> wrote:
+> >
+> > vduse_blk_detach_ctx() waits for in-flight requests using
+> > AIO_WAIT_WHILE(). This is not allowed according to a comment in
+> > bdrv_set_aio_context_commit():
+> >
+> >   /*
+> >    * Take the old AioContex when detaching it from bs.
+> >    * At this point, new_context lock is already acquired, and we are now
+> >    * also taking old_context. This is safe as long as bdrv_detach_aio_c=
+ontext
+> >    * does not call AIO_POLL_WHILE().
+> >    */
+> >
+> > Use this opportunity to rewrite the drain code in vduse-blk:
+> >
+> > - Use the BlockExport refcount so that vduse_blk_exp_delete() is only
+> >   called when there are no more requests in flight.
+> >
+> > - Implement .drained_poll() so in-flight request coroutines are stopped
+> >   by the time .bdrv_detach_aio_context() is called.
+> >
+> > - Remove AIO_WAIT_WHILE() from vduse_blk_detach_ctx() to solve the
+> >   .bdrv_detach_aio_context() constraint violation. It's no longer
+> >   needed due to the previous changes.
+> >
+> > - Always handle the VDUSE file descriptor, even in drained sections. The
+> >   VDUSE file descriptor doesn't submit I/O, so it's safe to handle it in
+> >   drained sections. This ensures that the VDUSE kernel code gets a fast
+> >   response.
+> >
+> > - Suspend virtqueue fd handlers in .drained_begin() and resume them in
+> >   .drained_end(). This eliminates the need for the
+> >   aio_set_fd_handler(is_external=3Dtrue) flag, which is being removed f=
+rom
+> >   QEMU.
+> >
+> > This is a long list but splitting it into individual commits would
+> > probably lead to git bisect failures - the changes are all related.
+> >
+> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 > > ---
-> >  automation/gitlab-ci/test.yaml     | 20 ++++++++-
-> >  automation/scripts/qubes-x86-64.sh | 80 ++++++++++++++++++++++++++-----
-> >  2 files changed, 89 insertions(+), 11 deletions(-)
-> >=20
-> > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test=
-=2Eyaml
-> > index d68c584269dd..1ce083e6cd88 100644
-> > --- a/automation/gitlab-ci/test.yaml
-> > +++ b/automation/gitlab-ci/test.yaml
-> > @@ -94,6 +94,8 @@
-> >      # the test controller runs on RPi4
-> >      CONTAINER: alpine:3.12-arm64v8
-> >      LOGFILE: smoke-test.log
-> > +    PCIDEV: "03:00.0"
-> > +    PCIDEV_INTR: "MSI-X"
+> >  block/export/vduse-blk.c | 132 +++++++++++++++++++++++++++------------
+> >  1 file changed, 93 insertions(+), 39 deletions(-)
+> >
+> > diff --git a/block/export/vduse-blk.c b/block/export/vduse-blk.c
+> > index f7ae44e3ce..35dc8fcf45 100644
+> > --- a/block/export/vduse-blk.c
+> > +++ b/block/export/vduse-blk.c
+> > @@ -31,7 +31,8 @@ typedef struct VduseBlkExport {
+> >      VduseDev *dev;
+> >      uint16_t num_queues;
+> >      char *recon_file;
+> > -    unsigned int inflight;
+> > +    unsigned int inflight; /* atomic */
+> > +    bool vqs_started;
+> >  } VduseBlkExport;
+> >
+> >  typedef struct VduseBlkReq {
+> > @@ -41,13 +42,24 @@ typedef struct VduseBlkReq {
+> >
+> >  static void vduse_blk_inflight_inc(VduseBlkExport *vblk_exp)
+> >  {
+> > -    vblk_exp->inflight++;
+> > +    if (qatomic_fetch_inc(&vblk_exp->inflight) =3D=3D 0) {
 >=20
-> This is minor but I would move PCIDEV_INTR to
-> adl-pci-pv-x86-64-gcc-debug given that adl-pci-hvm-x86-64-gcc-debug
-> already redefines it.
+> I wonder why we need to use atomic operations here.
 
-The device is MSI-X capable and I'd expect Linux should use MSI-X. My
-guess is it's using MSI in HVM because MSI-X doesn't work (and I hope my
-other series will fix that), but I have _not_ verified this theory.
-If I'm right, I hope the PCIDEV_INTR=3D"MSI" will go away from the HVM
-test, and it will be testing if MSI-X didn't regressed.
+The inflight counter is only modified by the vhost-user export thread,
+but it may be read by another thread here:
 
-> I would also move PCIDEV to adl-pci-pv-x86-64-gcc-debug and
-> adl-pci-hvm-x86-64-gcc-debug, but I am fine either way.
+  static bool vduse_blk_drained_poll(void *opaque)
+  {
+      BlockExport *exp =3D opaque;
+      VduseBlkExport *vblk_exp =3D container_of(exp, VduseBlkExport, export=
+);
 
-My idea is those both are more of a test target properties, not an
-individual test properties.
+      return qatomic_read(&vblk_exp->inflight) > 0;
 
+BlockDevOps->drained_poll() calls are invoked when BlockDriverStates are
+drained (e.g. blk_drain_all() and related APIs).
 
-> However the two new tests failed for me:
+> > @@ -355,13 +410,12 @@ static void vduse_blk_exp_delete(BlockExport *exp)
+> >      g_free(vblk_exp->handler.serial);
+> >  }
+> >
+> > +/* Called with exp->ctx acquired */
+> >  static void vduse_blk_exp_request_shutdown(BlockExport *exp)
+> >  {
+> >      VduseBlkExport *vblk_exp =3D container_of(exp, VduseBlkExport, exp=
+ort);
+> >
+> > -    aio_context_acquire(vblk_exp->export.ctx);
+> > -    vduse_blk_detach_ctx(vblk_exp);
+> > -    aio_context_acquire(vblk_exp->export.ctx);
+> > +    vduse_blk_stop_virtqueues(vblk_exp);
 >=20
-> https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/8471579=
-48
->=20
->=20
-> + grep '^Welcome to Alpine Linux' smoke.serial
-> + '[' 0 -le 0 ]
-> + '[' 0 -le 0 ]
-> + echo 'ERROR: test timeout, aborting'
-> ERROR: test timeout, aborting
->=20
-> The Welcome to Alpine Linux message is missing
+> Can we add a AIO_WAIT_WHILE() here? Then we don't need to
+> increase/decrease the BlockExport refcount during I/O processing.
 
-Ah, I forgot to remove debug shell...
+I don't think so because vduse_blk_exp_request_shutdown() is not the
+only place where we wait for requests to complete. There would still
+need to be away to wait for requests to finish (without calling
+AIO_WAIT_WHILE()) in vduse_blk_drained_poll().
 
-I'll post v2 once it passes test run (waiting in the queue...).
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Stefan
 
---OS1ldJoc2laumTA5
+--taPYnWD+LbJQX+JL
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRIAeEACgkQ24/THMrX
-1yyZoAf/ecXi0HTG95PO/xvHUpnfDFNZYr07QJXHtWxB05Vf6RWkXUoOujoAec4U
-CUt0aQbfdbeWB26CcTpJ/ZdTlyqFt1lWKvPtBzlAPryuKY6X2FLAznsm+VxT4919
-I/9reZO8TdVfM6rXmBoe3to+uvn9wbHephterwgp5PCf6nZTnYc/xszJUhn6CVGt
-GjLPpdQ8jnmMDOo5CCosKYwAHOWcZBaBhcUhxCEKcFO/a/WdM37Kdo8m+g2ZCBjq
-t1gK2de6YigHbEXGcBXrU0/Vc2t4Gq0zajOuquZxw4oAjEq95KPNN22TJ7equa2F
-EtCNiqqGaQ4Cy7fpEWJaNrXUrfq/vA==
-=dOyz
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRIAwEACgkQnKSrs4Gr
+c8hhBggAqyQ3QbuCykGssGed+Wva5piRrv+slVXsp6pWuyvi67KwteSenyU8jyVK
+0nAuF6fpgfMC44OAy/Cqt5JYbZg0883laglZxoFjJIJ52FvhtMCDOetwnVhjmkN7
+U1CdvipfqjL7dKNx316HDrqikr28F8CBTMmgyLP9HLUEegIh1RpGyUyvE8G0FmXJ
+cTYoJPC6PJZE1TNwJ0hlsUIsSvR+IL8s5JpqUPEiybpZAl5ro9a3O/4QnExGxsIl
+cakAXaxPfK2wgbbbvDirQefgDT1nnexKs7hpMRMoci9FHPUyWv+V1OLNuakp0XMf
+gUwutPZE/o7Yw4PJJiH8duPpAKz5wQ==
+=rvpQ
 -----END PGP SIGNATURE-----
 
---OS1ldJoc2laumTA5--
+--taPYnWD+LbJQX+JL--
+
 
