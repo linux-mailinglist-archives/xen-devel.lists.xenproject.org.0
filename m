@@ -2,43 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B456A6EE5BC
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 18:30:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526141.817650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DD196EE5E1
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 18:38:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526152.817664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prLYI-00075u-9p; Tue, 25 Apr 2023 16:30:02 +0000
+	id 1prLg7-0000De-9I; Tue, 25 Apr 2023 16:38:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526141.817650; Tue, 25 Apr 2023 16:30:02 +0000
+Received: by outflank-mailman (output) from mailman id 526152.817664; Tue, 25 Apr 2023 16:38:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prLYI-00072O-5c; Tue, 25 Apr 2023 16:30:02 +0000
-Received: by outflank-mailman (input) for mailman id 526141;
- Tue, 25 Apr 2023 16:30:00 +0000
+	id 1prLg7-0000AS-5v; Tue, 25 Apr 2023 16:38:07 +0000
+Received: by outflank-mailman (input) for mailman id 526152;
+ Tue, 25 Apr 2023 16:38:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Bb6=AQ=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1prLYG-0006rg-JA
- for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 16:30:00 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6aaa6d4a-e386-11ed-8611-37d641c3527e;
- Tue, 25 Apr 2023 18:29:58 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-307-k5r-hIbGOR-yTKl6ZBF_ag-1; Tue, 25 Apr 2023 12:29:53 -0400
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A73FC885624;
- Tue, 25 Apr 2023 16:29:52 +0000 (UTC)
-Received: from localhost (unknown [10.39.193.242])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 1D32CC15BA0;
- Tue, 25 Apr 2023 16:29:51 +0000 (UTC)
+ <SRS0=BHzL=AQ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1prLg4-0000AM-UF
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 16:38:05 +0000
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 89e220e4-e387-11ed-8611-37d641c3527e;
+ Tue, 25 Apr 2023 18:38:01 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 75E3C3200919;
+ Tue, 25 Apr 2023 12:37:57 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 25 Apr 2023 12:37:57 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 25 Apr 2023 12:37:56 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,224 +43,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6aaa6d4a-e386-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1682440197;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=E79i0nQNcOhPx9obbDT5boX/wVXS7Z+jrWPuvrkk1Y4=;
-	b=FHiVH9DMSiIGrsu1k21xbNJtDh8YSWeUHLMvInVumC/j98dczWJ8FZ7UY9zLmgU9+EhW/W
-	ns5kC2Rb1FNMuwFcAzteIJKxFNgXCyrv0BUhQvXP9ABmCFxKLo/7MAfTriXNy7eCc+W2/M
-	GQnDgfenuDCr7TFYIDu4usuK9yud6Hs=
-X-MC-Unique: k5r-hIbGOR-yTKl6ZBF_ag-1
-Date: Tue, 25 Apr 2023 12:29:50 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
-Cc: qemu-devel@nongnu.org, Peter Lieven <pl@kamp.de>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Xie Yongji <xieyongji@bytedance.com>,
-	Juan Quintela <quintela@redhat.com>, qemu-block@nongnu.org,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	David Woodhouse <dwmw2@infradead.org>, Stefan Weil <sw@weilnetz.de>,
-	Fam Zheng <fam@euphon.net>, Julia Suvorova <jusual@redhat.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	xen-devel@lists.xenproject.org, Hanna Reitz <hreitz@redhat.com>,
-	"Dr. David Alan Gilbert" <dgilbert@redhat.com>, eesposit@redhat.com,
-	Kevin Wolf <kwolf@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Paul Durrant <paul@xen.org>, Aarushi Mehta <mehta.aaru20@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	"Richard W.M. Jones" <rjones@redhat.com>,
-	Coiby Xu <Coiby.Xu@gmail.com>,
-	Stefano Garzarella <sgarzare@redhat.com>
-Subject: Re: [PATCH v3 20/20] aio: remove aio_disable_external() API
-Message-ID: <20230425162950.GB725672@fedora>
-References: <20230420113732.336620-1-stefanha@redhat.com>
- <20230420113732.336620-21-stefanha@redhat.com>
- <f7b20c96-be06-2299-5589-11dbf23251f8@linaro.org>
+X-Inumbo-ID: 89e220e4-e387-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1682440677; x=1682527077; bh=8x38kB+ZlYh223Y2lo2Kh7PwV9NIajIpnFg
+	diKdPG6g=; b=nPSmog2lvUAoNpQ1EpvOFWdYmmlsa3R1GF9rtqQohKiTz7E16kn
+	ICpXMT24n024y24RzWmAhOf67rFlPVWkRE8mzsCelKHbjvH24QPOSqMfWclKw4I3
+	jhRWu3U/Gnz4tC+kzH4KZtkhX8gio8fLLD8Qx6lszJrna1gvHuy1W5LLz6DUh0Ui
+	kXVtMI7cjSbandfDpXI2xaTMakeDxPmUrKHHTIQId7ngrTnLw4O8vrSa6oDLWXA0
+	NYLzR87cTkzQoK6LVK/XJAt3k/Esho3dD9HRdp2tEURD6zJ+6ZwlSzrBKFbjSouf
+	R8ItFJqPyU+MmwjyXXx/HiQEac2eGHbgQ3A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1682440677; x=1682527077; bh=8x38kB+ZlYh22
+	3Y2lo2Kh7PwV9NIajIpnFgdiKdPG6g=; b=DFSJFS4HgYkNlTAqMebl8BejZXFUl
+	9hxWkcxzq2aoJ0oBnKs6htToNWqHJp1IMZrJZNnzbmXOdkxjvNOfA1VmYNZOzhax
+	93GeHNPMtf0jjnxMQpLbQ52qkRe4ym2Dn0IIBQMmPt9piDS5EqtJQozLP/KSVMqa
+	4FQ+lDW89fGKMPE87N1SsqOJM9+Rcxd6nqVdPWv94HWg+Nys65I3HFTPL/WSlupR
+	racUjAUdzqbWoz18Dz0oWarx6OLFPrGBOsBLM9lmPWnARgNmoo+Yb2564GSKmDiJ
+	7i7DbZKabvcbOTRGhGYV6fHgiMyykchMgCrHxQHfAYZEe2/QsgczAXE+Q==
+X-ME-Sender: <xms:5AFIZFYEjt0wxiezo9TRAMznqB5mxrlkNHJAPnN1T3u58aw48Agv1w>
+    <xme:5AFIZMY4m8ihc0afzc7XfebbxA3qYkRZw2rGMEU3UeBw-DzW4ViwU2UjRay0N6QZx
+    q7Rp75CefPgyQ>
+X-ME-Received: <xmr:5AFIZH9oAeGVapR5ysm7jZtQg1YSGrlC1rtYYyxo6qekIDYGgIt_aTHWlNb4l0COTIRCIYW3golvacVEETsVoI9rDAfYOeqFk2k>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeduvddguddtfecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
+    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
+    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeev
+    ueejteegleelteduueevhfetgfffjeevtddvgfeiveehteehleegueelvdejveenucffoh
+    hmrghinhepghhithhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
+    rghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomh
+X-ME-Proxy: <xmx:5AFIZDoEc83D7WqTom5Dvd31P0XzW_gAIzL_-i69X1ML_3P7C7qcDA>
+    <xmx:5AFIZAqtgD09XwmohUaWC8GMOhQ131S48-dtniPBXZMyOogsQB77Lw>
+    <xmx:5AFIZJRFX33oh92xA9FoBjLJyYROd6XJy7I-JBf7v3U-4T-z9rgSpw>
+    <xmx:5QFIZHR2vQR8RUnazMJd-lfExnX_8oKK2qKfAE0wblDHcln4F4l2fQ>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 25 Apr 2023 18:37:52 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH 5/6] automation: PCI passthrough tests on ADL hw
+Message-ID: <ZEgB4e9Rfmt6wh2f@mail-itl>
+References: <cover.52ddd01da196853766a5b39a89c631f3e4652dd9.1682369736.git-series.marmarek@invisiblethingslab.com>
+ <b01494665d1a8cce5c426be70beca2c519215eca.1682369736.git-series.marmarek@invisiblethingslab.com>
+ <alpine.DEB.2.22.394.2304241717510.3419@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="BIT1XJZKQdQoLFB0"
+	protocol="application/pgp-signature"; boundary="OS1ldJoc2laumTA5"
 Content-Disposition: inline
-In-Reply-To: <f7b20c96-be06-2299-5589-11dbf23251f8@linaro.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+In-Reply-To: <alpine.DEB.2.22.394.2304241717510.3419@ubuntu-linux-20-04-desktop>
 
 
---BIT1XJZKQdQoLFB0
-Content-Type: text/plain; charset=iso-8859-1
+--OS1ldJoc2laumTA5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Apr 2023 18:37:52 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH 5/6] automation: PCI passthrough tests on ADL hw
 
-On Thu, Apr 20, 2023 at 03:44:06PM +0200, Philippe Mathieu-Daud=E9 wrote:
-> On 20/4/23 13:37, Stefan Hajnoczi wrote:
-> > All callers now pass is_external=3Dfalse to aio_set_fd_handler() and
-> > aio_set_event_notifier(). The aio_disable_external() API that
-> > temporarily disables fd handlers that were registered is_external=3Dtrue
-> > is therefore dead code.
+On Mon, Apr 24, 2023 at 08:01:46PM -0700, Stefano Stabellini wrote:
+> On Mon, 24 Apr 2023, Marek Marczykowski-G=C3=B3recki wrote:
+> > Add simple PCI passthrough test to both PV and HVM domU. It passes
+> > through a network adapter (the only one in the system), gets an IP via
+> > DHCP (first basic test) and then ping the gateway (second basic test).
+> > Finally, if device is supposed to use MSI or MSI-X (as set in the
+> > PCIDEV_INTR test variable), check if it's in use via /proc/interrupts.
 > >=20
-> > Remove aio_disable_external(), aio_enable_external(), and the
-> > is_external arguments to aio_set_fd_handler() and
-> > aio_set_event_notifier().
+> > On the current runner, the device in question is this:
+> > 03:00.0 Ethernet controller [0200]: Intel Corporation Ethernet Controll=
+er I225-V [8086:15f3] (rev 03)
+> > 	Subsystem: Micro-Star International Co., Ltd. [MSI] Device [1462:7d25]
+> > 	Flags: bus master, fast devsel, latency 0, IRQ 18
+> > 	Memory at 50400000 (32-bit, non-prefetchable) [size=3D1M]
+> > 	Memory at 50500000 (32-bit, non-prefetchable) [size=3D16K]
+> > 	Capabilities: [40] Power Management version 3
+> > 	Capabilities: [50] MSI: Enable- Count=3D1/1 Maskable+ 64bit+
+> > 	Capabilities: [70] MSI-X: Enable+ Count=3D5 Masked-
+> > 	Capabilities: [a0] Express Endpoint, MSI 00
+> > 	Capabilities: [100] Advanced Error Reporting
+> > 	Capabilities: [140] Device Serial Number ...
+> > 	Capabilities: [1c0] Latency Tolerance Reporting
+> > 	Capabilities: [1f0] Precision Time Measurement
+> > 	Capabilities: [1e0] L1 PM Substates
+> > 	Kernel driver in use: igc
+> > 	Kernel modules: igc
 > >=20
-> > The entire test-fdmon-epoll test is removed because its sole purpose was
-> > testing aio_disable_external().
+> > With the current Xen version, it uses MSI-X under PV and MSI under HVM.
 > >=20
-> > Parts of this patch were generated using the following coccinelle
-> > (https://coccinelle.lip6.fr/) semantic patch:
+> > This patch moves domU config to a variable, to make it configurable on
+> > per-test basis. Add also a few comments for visual separation of tests.
 > >=20
-> >    @@
-> >    expression ctx, fd, is_external, io_read, io_write, io_poll, io_poll=
-_ready, opaque;
-> >    @@
-> >    - aio_set_fd_handler(ctx, fd, is_external, io_read, io_write, io_pol=
-l, io_poll_ready, opaque)
-> >    + aio_set_fd_handler(ctx, fd, io_read, io_write, io_poll, io_poll_re=
-ady, opaque)
-> >=20
-> >    @@
-> >    expression ctx, notifier, is_external, io_read, io_poll, io_poll_rea=
-dy;
-> >    @@
-> >    - aio_set_event_notifier(ctx, notifier, is_external, io_read, io_pol=
-l, io_poll_ready)
-> >    + aio_set_event_notifier(ctx, notifier, io_read, io_poll, io_poll_re=
-ady)
-> >=20
-> > Reviewed-by: Juan Quintela <quintela@redhat.com>
-> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
 > > ---
-> >   include/block/aio.h           | 55 --------------------------
-> >   util/aio-posix.h              |  1 -
-> >   block.c                       |  7 ----
-> >   block/blkio.c                 | 15 +++----
-> >   block/curl.c                  | 10 ++---
-> >   block/export/fuse.c           |  8 ++--
-> >   block/export/vduse-blk.c      | 10 ++---
-> >   block/io.c                    |  2 -
-> >   block/io_uring.c              |  4 +-
-> >   block/iscsi.c                 |  3 +-
-> >   block/linux-aio.c             |  4 +-
-> >   block/nfs.c                   |  5 +--
-> >   block/nvme.c                  |  8 ++--
-> >   block/ssh.c                   |  4 +-
-> >   block/win32-aio.c             |  6 +--
-> >   hw/i386/kvm/xen_xenstore.c    |  2 +-
-> >   hw/virtio/virtio.c            |  6 +--
-> >   hw/xen/xen-bus.c              |  8 ++--
-> >   io/channel-command.c          |  6 +--
-> >   io/channel-file.c             |  3 +-
-> >   io/channel-socket.c           |  3 +-
-> >   migration/rdma.c              | 16 ++++----
-> >   tests/unit/test-aio.c         | 27 +------------
-> >   tests/unit/test-fdmon-epoll.c | 73 -----------------------------------
-> >   util/aio-posix.c              | 20 +++-------
-> >   util/aio-win32.c              |  8 +---
-> >   util/async.c                  |  3 +-
-> >   util/fdmon-epoll.c            | 10 -----
-> >   util/fdmon-io_uring.c         |  8 +---
-> >   util/fdmon-poll.c             |  3 +-
-> >   util/main-loop.c              |  7 ++--
-> >   util/qemu-coroutine-io.c      |  7 ++--
-> >   util/vhost-user-server.c      | 11 +++---
-> >   tests/unit/meson.build        |  3 --
-> >   34 files changed, 76 insertions(+), 290 deletions(-)
-> >   delete mode 100644 tests/unit/test-fdmon-epoll.c
+> >  automation/gitlab-ci/test.yaml     | 20 ++++++++-
+> >  automation/scripts/qubes-x86-64.sh | 80 ++++++++++++++++++++++++++-----
+> >  2 files changed, 89 insertions(+), 11 deletions(-)
+> >=20
+> > diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test=
+=2Eyaml
+> > index d68c584269dd..1ce083e6cd88 100644
+> > --- a/automation/gitlab-ci/test.yaml
+> > +++ b/automation/gitlab-ci/test.yaml
+> > @@ -94,6 +94,8 @@
+> >      # the test controller runs on RPi4
+> >      CONTAINER: alpine:3.12-arm64v8
+> >      LOGFILE: smoke-test.log
+> > +    PCIDEV: "03:00.0"
+> > +    PCIDEV_INTR: "MSI-X"
 >=20
->=20
-> > -/**
-> > - * aio_disable_external:
-> > - * @ctx: the aio context
-> > - *
-> > - * Disable the further processing of external clients.
-> > - */
-> > -static inline void aio_disable_external(AioContext *ctx)
-> > -{
-> > -    qatomic_inc(&ctx->external_disable_cnt);
-> > -}
-> > -
-> > -/**
-> > - * aio_enable_external:
-> > - * @ctx: the aio context
-> > - *
-> > - * Enable the processing of external clients.
-> > - */
-> > -static inline void aio_enable_external(AioContext *ctx)
-> > -{
-> > -    int old;
-> > -
-> > -    old =3D qatomic_fetch_dec(&ctx->external_disable_cnt);
-> > -    assert(old > 0);
-> > -    if (old =3D=3D 1) {
-> > -        /* Kick event loop so it re-arms file descriptors */
-> > -        aio_notify(ctx);
-> > -    }
-> > -}
-> > -
-> > -/**
-> > - * aio_external_disabled:
-> > - * @ctx: the aio context
-> > - *
-> > - * Return true if the external clients are disabled.
-> > - */
-> > -static inline bool aio_external_disabled(AioContext *ctx)
-> > -{
-> > -    return qatomic_read(&ctx->external_disable_cnt);
-> > -}
->=20
-> Missing:
->=20
-> -- >8 --
-> diff --git a/include/block/aio.h b/include/block/aio.h
-> index d4ce01ea08..266be26f8e 100644
-> --- a/include/block/aio.h
-> +++ b/include/block/aio.h
-> @@ -224,6 +224,4 @@ struct AioContext {
->      QEMUTimerListGroup tlg;
->=20
-> -    int external_disable_cnt;
-> -
->      /* Number of AioHandlers without .io_poll() */
->      int poll_disable_cnt;
-> diff --git a/tests/unit/test-bdrv-drain.c b/tests/unit/test-bdrv-drain.c
-> index d9d3807062..5c89169e46 100644
-> --- a/tests/unit/test-bdrv-drain.c
-> +++ b/tests/unit/test-bdrv-drain.c
-> @@ -436,5 +436,4 @@ static void test_graph_change_drain_all(void)
->      g_assert_cmpint(bs_b->quiesce_counter, =3D=3D, 0);
->      g_assert_cmpint(b_s->drain_count, =3D=3D, 0);
-> -    g_assert_cmpint(qemu_get_aio_context()->external_disable_cnt, =3D=3D=
-, 0);
->=20
->      bdrv_unref(bs_b);
-> ---
->=20
-> Once cleaned:
-> Reviewed-by: Philippe Mathieu-Daud=E9 <philmd@linaro.org>
+> This is minor but I would move PCIDEV_INTR to
+> adl-pci-pv-x86-64-gcc-debug given that adl-pci-hvm-x86-64-gcc-debug
+> already redefines it.
 
-Oh, yes! Thank you.
+The device is MSI-X capable and I'd expect Linux should use MSI-X. My
+guess is it's using MSI in HVM because MSI-X doesn't work (and I hope my
+other series will fix that), but I have _not_ verified this theory.
+If I'm right, I hope the PCIDEV_INTR=3D"MSI" will go away from the HVM
+test, and it will be testing if MSI-X didn't regressed.
 
-Stefan
+> I would also move PCIDEV to adl-pci-pv-x86-64-gcc-debug and
+> adl-pci-hvm-x86-64-gcc-debug, but I am fine either way.
 
---BIT1XJZKQdQoLFB0
+My idea is those both are more of a test target properties, not an
+individual test properties.
+
+
+> However the two new tests failed for me:
+>=20
+> https://gitlab.com/xen-project/people/sstabellini/xen/-/pipelines/8471579=
+48
+>=20
+>=20
+> + grep '^Welcome to Alpine Linux' smoke.serial
+> + '[' 0 -le 0 ]
+> + '[' 0 -le 0 ]
+> + echo 'ERROR: test timeout, aborting'
+> ERROR: test timeout, aborting
+>=20
+> The Welcome to Alpine Linux message is missing
+
+Ah, I forgot to remove debug shell...
+
+I'll post v2 once it passes test run (waiting in the queue...).
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--OS1ldJoc2laumTA5
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRH//4ACgkQnKSrs4Gr
-c8hAWAgArFHJSBD/052Y5YxJagR3rp5Ty6TQFZbFR7XqgZm4OKiJUdVsYRjLFAVb
-88VPsKWcJcTIjsM6CsLc08dll7kjwWltL1oWglX3chlwNSyFz7JJpkrBEsGi+FTk
-QnHEXHYTopX8yvkc63FJy9xMYPUkBRoxRU2out3CeqaPrcBTtkoDRjoUvG0iPi4I
-a2KBbyhYim8z4W2OWw3ereSqfBzSHaIc6c16hE74O2NTVFXYKWxj1VV/HNJDmRM9
-s+wDgxnywf2oAtec9QZvxI7k/Jkb4B4zqox2QJV/2f2ngq5QqQMEBh4Q8uKMyC8t
-qV7BJGwMNoPGtu5fnTYjZVJApmvWNA==
-=q6+o
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRIAeEACgkQ24/THMrX
+1yyZoAf/ecXi0HTG95PO/xvHUpnfDFNZYr07QJXHtWxB05Vf6RWkXUoOujoAec4U
+CUt0aQbfdbeWB26CcTpJ/ZdTlyqFt1lWKvPtBzlAPryuKY6X2FLAznsm+VxT4919
+I/9reZO8TdVfM6rXmBoe3to+uvn9wbHephterwgp5PCf6nZTnYc/xszJUhn6CVGt
+GjLPpdQ8jnmMDOo5CCosKYwAHOWcZBaBhcUhxCEKcFO/a/WdM37Kdo8m+g2ZCBjq
+t1gK2de6YigHbEXGcBXrU0/Vc2t4Gq0zajOuquZxw4oAjEq95KPNN22TJ7equa2F
+EtCNiqqGaQ4Cy7fpEWJaNrXUrfq/vA==
+=dOyz
 -----END PGP SIGNATURE-----
 
---BIT1XJZKQdQoLFB0--
-
+--OS1ldJoc2laumTA5--
 
