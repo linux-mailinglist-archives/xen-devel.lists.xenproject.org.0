@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C86BE6EE694
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 19:28:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526177.817743 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2329E6EE69D
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 19:28:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526176.817739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prMS5-0007w1-2K; Tue, 25 Apr 2023 17:27:41 +0000
+	id 1prMS4-0007q8-Oj; Tue, 25 Apr 2023 17:27:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526177.817743; Tue, 25 Apr 2023 17:27:41 +0000
+Received: by outflank-mailman (output) from mailman id 526176.817739; Tue, 25 Apr 2023 17:27:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prMS4-0007q4-Sz; Tue, 25 Apr 2023 17:27:40 +0000
-Received: by outflank-mailman (input) for mailman id 526177;
- Tue, 25 Apr 2023 17:27:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1prMS4-0007mY-Hg; Tue, 25 Apr 2023 17:27:40 +0000
+Received: by outflank-mailman (input) for mailman id 526176;
+ Tue, 25 Apr 2023 17:27:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7Bb6=AQ=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1prMS3-0007l5-Gq
- for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 17:27:39 +0000
+ id 1prMS2-0006fQ-GZ
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 17:27:38 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 78a1ec62-e38e-11ed-8611-37d641c3527e;
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 78b37e55-e38e-11ed-b223-6b7b168915f2;
  Tue, 25 Apr 2023 19:27:37 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-319-1GkdNZ8vNFmRijBei6Lasw-1; Tue, 25 Apr 2023 13:27:30 -0400
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+ us-mta-668-sx8UeKvTNgSkYAJ4YHtjZQ-1; Tue, 25 Apr 2023 13:27:33 -0400
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 57853885626;
- Tue, 25 Apr 2023 17:27:29 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 06A6128082AC;
+ Tue, 25 Apr 2023 17:27:32 +0000 (UTC)
 Received: from localhost (unknown [10.39.193.242])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6B06A2166B41;
- Tue, 25 Apr 2023 17:27:28 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 5EE9B492C13;
+ Tue, 25 Apr 2023 17:27:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78a1ec62-e38e-11ed-8611-37d641c3527e
+X-Inumbo-ID: 78b37e55-e38e-11ed-b223-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1682443656;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=mEUiDYhTGG6/grGbCAPXx5jwh+m436EKZLWWN7O6BQM=;
-	b=LmFcph+6LbhJpiq7MdnyDQOSbqobS1ymcEFCay5kqgB8FYCdBXin46Qdhy395T9c0pNnFe
-	5vLtIQraJdzSPf7Ms7pgIK9qCZ6DONXRIzANCQuJv1unTM/n+pTsscdiMInYo3RiHvdKzv
-	AekbdPhDwvvQYLCOMHbLr06SszJU1bI=
-X-MC-Unique: 1GkdNZ8vNFmRijBei6Lasw-1
+	bh=B3H8MiZnviPPfHHhNt1UwKF8b8RPyeQv8gQKbNPpxCA=;
+	b=Oo9bBjzectlGtdKIB+P6y1Onka2xWwJDAvL6oj+QsDf44S5PJGiYCO4HVsTbmhySVnTMbn
+	mECVXgQhzw0zZe3pnbaD9b0D6r/+Ln7UpoERLTKUPZr4yumLSvW1D0eKNMGxlhXy4j7kwR
+	IwfWWwlXXsrFV2hQzyuoTeeJBfHRTfk=
+X-MC-Unique: sx8UeKvTNgSkYAJ4YHtjZQ-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
@@ -91,85 +91,143 @@ Cc: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
 	Eduardo Habkost <eduardo@habkost.net>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Hanna Reitz <hreitz@redhat.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Zhengui Li <lizhengui@huawei.com>,
-	Daniil Tatianin <d-tatianin@yandex-team.ru>
-Subject: [PATCH v4 04/20] virtio-scsi: stop using aio_disable_external() during unplug
-Date: Tue, 25 Apr 2023 13:27:00 -0400
-Message-Id: <20230425172716.1033562-5-stefanha@redhat.com>
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Subject: [PATCH v4 05/20] util/vhost-user-server: rename refcount to in_flight counter
+Date: Tue, 25 Apr 2023 13:27:01 -0400
+Message-Id: <20230425172716.1033562-6-stefanha@redhat.com>
 In-Reply-To: <20230425172716.1033562-1-stefanha@redhat.com>
 References: <20230425172716.1033562-1-stefanha@redhat.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 
-This patch is part of an effort to remove the aio_disable_external()
-API because it does not fit in a multi-queue block layer world where
-many AioContexts may be submitting requests to the same disk.
+The VuServer object has a refcount field and ref/unref APIs. The name is
+confusing because it's actually an in-flight request counter instead of
+a refcount.
 
-The SCSI emulation code is already in good shape to stop using
-aio_disable_external(). It was only used by commit 9c5aad84da1c
-("virtio-scsi: fixed virtio_scsi_ctx_check failed when detaching scsi
-disk") to ensure that virtio_scsi_hotunplug() works while the guest
-driver is submitting I/O.
+Normally a refcount destroys the object upon reaching zero. The VuServer
+counter is used to wake up the vhost-user coroutine when there are no
+more requests.
 
-Ensure virtio_scsi_hotunplug() is safe as follows:
+Avoid confusing by renaming refcount and ref/unref to in_flight and
+inc/dec.
 
-1. qdev_simple_device_unplug_cb() -> qdev_unrealize() ->
-   device_set_realized() calls qatomic_set(&dev->realized, false) so
-   that future scsi_device_get() calls return NULL because they exclude
-   SCSIDevices with realized=false.
-
-   That means virtio-scsi will reject new I/O requests to this
-   SCSIDevice with VIRTIO_SCSI_S_BAD_TARGET even while
-   virtio_scsi_hotunplug() is still executing. We are protected against
-   new requests!
-
-2. Add a call to scsi_device_purge_requests() from scsi_unrealize() so
-   that in-flight requests are cancelled synchronously. This ensures
-   that no in-flight requests remain once qdev_simple_device_unplug_cb()
-   returns.
-
-Thanks to these two conditions we don't need aio_disable_external()
-anymore.
-
-Cc: Zhengui Li <lizhengui@huawei.com>
 Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
-Reviewed-by: Daniil Tatianin <d-tatianin@yandex-team.ru>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- hw/scsi/scsi-disk.c   | 1 +
- hw/scsi/virtio-scsi.c | 3 ---
- 2 files changed, 1 insertion(+), 3 deletions(-)
+ include/qemu/vhost-user-server.h     |  6 +++---
+ block/export/vhost-user-blk-server.c | 11 +++++++----
+ util/vhost-user-server.c             | 14 +++++++-------
+ 3 files changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/hw/scsi/scsi-disk.c b/hw/scsi/scsi-disk.c
-index 97c9b1c8cd..e01bd84541 100644
---- a/hw/scsi/scsi-disk.c
-+++ b/hw/scsi/scsi-disk.c
-@@ -2522,6 +2522,7 @@ static void scsi_realize(SCSIDevice *dev, Error **errp)
+diff --git a/include/qemu/vhost-user-server.h b/include/qemu/vhost-user-server.h
+index 25c72433ca..bc0ac9ddb6 100644
+--- a/include/qemu/vhost-user-server.h
++++ b/include/qemu/vhost-user-server.h
+@@ -41,7 +41,7 @@ typedef struct {
+     const VuDevIface *vu_iface;
  
- static void scsi_unrealize(SCSIDevice *dev)
- {
-+    scsi_device_purge_requests(dev, SENSE_CODE(RESET));
-     del_boot_device_lchs(&dev->qdev, NULL);
+     /* Protected by ctx lock */
+-    unsigned int refcount;
++    unsigned int in_flight;
+     bool wait_idle;
+     VuDev vu_dev;
+     QIOChannel *ioc; /* The I/O channel with the client */
+@@ -60,8 +60,8 @@ bool vhost_user_server_start(VuServer *server,
+ 
+ void vhost_user_server_stop(VuServer *server);
+ 
+-void vhost_user_server_ref(VuServer *server);
+-void vhost_user_server_unref(VuServer *server);
++void vhost_user_server_inc_in_flight(VuServer *server);
++void vhost_user_server_dec_in_flight(VuServer *server);
+ 
+ void vhost_user_server_attach_aio_context(VuServer *server, AioContext *ctx);
+ void vhost_user_server_detach_aio_context(VuServer *server);
+diff --git a/block/export/vhost-user-blk-server.c b/block/export/vhost-user-blk-server.c
+index e56b92f2e2..841acb36e3 100644
+--- a/block/export/vhost-user-blk-server.c
++++ b/block/export/vhost-user-blk-server.c
+@@ -50,7 +50,10 @@ static void vu_blk_req_complete(VuBlkReq *req, size_t in_len)
+     free(req);
  }
  
-diff --git a/hw/scsi/virtio-scsi.c b/hw/scsi/virtio-scsi.c
-index 000961446c..a02f9233ec 100644
---- a/hw/scsi/virtio-scsi.c
-+++ b/hw/scsi/virtio-scsi.c
-@@ -1061,11 +1061,8 @@ static void virtio_scsi_hotunplug(HotplugHandler *hotplug_dev, DeviceState *dev,
-     VirtIODevice *vdev = VIRTIO_DEVICE(hotplug_dev);
-     VirtIOSCSI *s = VIRTIO_SCSI(vdev);
-     SCSIDevice *sd = SCSI_DEVICE(dev);
--    AioContext *ctx = s->ctx ?: qemu_get_aio_context();
+-/* Called with server refcount increased, must decrease before returning */
++/*
++ * Called with server in_flight counter increased, must decrease before
++ * returning.
++ */
+ static void coroutine_fn vu_blk_virtio_process_req(void *opaque)
+ {
+     VuBlkReq *req = opaque;
+@@ -68,12 +71,12 @@ static void coroutine_fn vu_blk_virtio_process_req(void *opaque)
+                                     in_num, out_num);
+     if (in_len < 0) {
+         free(req);
+-        vhost_user_server_unref(server);
++        vhost_user_server_dec_in_flight(server);
+         return;
+     }
  
--    aio_disable_external(ctx);
-     qdev_simple_device_unplug_cb(hotplug_dev, dev, errp);
--    aio_enable_external(ctx);
+     vu_blk_req_complete(req, in_len);
+-    vhost_user_server_unref(server);
++    vhost_user_server_dec_in_flight(server);
+ }
  
-     if (s->ctx) {
-         virtio_scsi_acquire(s);
+ static void vu_blk_process_vq(VuDev *vu_dev, int idx)
+@@ -95,7 +98,7 @@ static void vu_blk_process_vq(VuDev *vu_dev, int idx)
+         Coroutine *co =
+             qemu_coroutine_create(vu_blk_virtio_process_req, req);
+ 
+-        vhost_user_server_ref(server);
++        vhost_user_server_inc_in_flight(server);
+         qemu_coroutine_enter(co);
+     }
+ }
+diff --git a/util/vhost-user-server.c b/util/vhost-user-server.c
+index 5b6216069c..1622f8cfb3 100644
+--- a/util/vhost-user-server.c
++++ b/util/vhost-user-server.c
+@@ -75,16 +75,16 @@ static void panic_cb(VuDev *vu_dev, const char *buf)
+     error_report("vu_panic: %s", buf);
+ }
+ 
+-void vhost_user_server_ref(VuServer *server)
++void vhost_user_server_inc_in_flight(VuServer *server)
+ {
+     assert(!server->wait_idle);
+-    server->refcount++;
++    server->in_flight++;
+ }
+ 
+-void vhost_user_server_unref(VuServer *server)
++void vhost_user_server_dec_in_flight(VuServer *server)
+ {
+-    server->refcount--;
+-    if (server->wait_idle && !server->refcount) {
++    server->in_flight--;
++    if (server->wait_idle && !server->in_flight) {
+         aio_co_wake(server->co_trip);
+     }
+ }
+@@ -192,13 +192,13 @@ static coroutine_fn void vu_client_trip(void *opaque)
+         /* Keep running */
+     }
+ 
+-    if (server->refcount) {
++    if (server->in_flight) {
+         /* Wait for requests to complete before we can unmap the memory */
+         server->wait_idle = true;
+         qemu_coroutine_yield();
+         server->wait_idle = false;
+     }
+-    assert(server->refcount == 0);
++    assert(server->in_flight == 0);
+ 
+     vu_deinit(vu_dev);
+ 
 -- 
 2.39.2
 
