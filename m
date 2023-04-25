@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F62E6EE6A5
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 19:29:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526216.817853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 303BA6EE6A6
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 19:29:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526212.817847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prMTN-0006Q7-0x; Tue, 25 Apr 2023 17:29:01 +0000
+	id 1prMTM-0006Li-J3; Tue, 25 Apr 2023 17:29:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526216.817853; Tue, 25 Apr 2023 17:29:00 +0000
+Received: by outflank-mailman (output) from mailman id 526212.817847; Tue, 25 Apr 2023 17:29:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prMTM-0006LE-Ni; Tue, 25 Apr 2023 17:29:00 +0000
-Received: by outflank-mailman (input) for mailman id 526216;
- Tue, 25 Apr 2023 17:28:59 +0000
+	id 1prMTM-0006IB-Db; Tue, 25 Apr 2023 17:29:00 +0000
+Received: by outflank-mailman (input) for mailman id 526212;
+ Tue, 25 Apr 2023 17:28:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7Bb6=AQ=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1prMST-0006fQ-JU
- for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 17:28:05 +0000
+ id 1prMSV-0006fQ-KJ
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 17:28:07 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 878b602f-e38e-11ed-b223-6b7b168915f2;
- Tue, 25 Apr 2023 19:28:02 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ id 8858f246-e38e-11ed-b223-6b7b168915f2;
+ Tue, 25 Apr 2023 19:28:04 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-135-xhkpTfX3OsmcGVRiBiaH6Q-1; Tue, 25 Apr 2023 13:27:58 -0400
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+ us-mta-208-MR8Wa4WXPsOHkLnVhYPEbw-1; Tue, 25 Apr 2023 13:28:00 -0400
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2607C1C02C9C;
- Tue, 25 Apr 2023 17:27:57 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33B01858289;
+ Tue, 25 Apr 2023 17:27:59 +0000 (UTC)
 Received: from localhost (unknown [10.39.193.242])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 9478314171B8;
- Tue, 25 Apr 2023 17:27:56 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8808C1121314;
+ Tue, 25 Apr 2023 17:27:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 878b602f-e38e-11ed-b223-6b7b168915f2
+X-Inumbo-ID: 8858f246-e38e-11ed-b223-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1682443681;
+	s=mimecast20190719; t=1682443682;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=NTRadM71WOmRghvzBom8j3O5LrKwHmY9JQuXgfzMJZs=;
-	b=Eo/BY+5G4tvepPg7/VqkGl66Ffv7ln2B9qN0qWNDhg7YHzIIYGcp15WFkSIDMm8Getfjmh
-	UdF9L0OLgtkPuN92EVuxhFTCoPRXEdxThsJzyMA1AHBmts9IYIRMe6GqHt8QOpXZxaPQKJ
-	KGYWKOLWpkA8+wB7aD7laMgUiE/8BAc=
-X-MC-Unique: xhkpTfX3OsmcGVRiBiaH6Q-1
+	bh=V8/JM/4FpUbs1MFSPNPGCdntPIYaUvTzToJc4P5DEws=;
+	b=M3Ng3nvp7JIPp1R9UjJSFaygwF1leg0n3idtDawHu5QXB/DrESgiYLD2Ym9svyXor6mjPF
+	8vDsTs4dFECE0CkRjryPexyj6sDQwl2xebguegIHnoI/agXYR+HGaqKBdOOhI68UwdAJXG
+	rJONw7FvZFzsjP9XHU6hGXf6f6gEQMw=
+X-MC-Unique: MR8Wa4WXPsOHkLnVhYPEbw-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
@@ -92,118 +92,294 @@ Cc: =?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Hanna Reitz <hreitz@redhat.com>,
 	Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Subject: [PATCH v4 17/20] virtio-blk: implement BlockDevOps->drained_begin()
-Date: Tue, 25 Apr 2023 13:27:13 -0400
-Message-Id: <20230425172716.1033562-18-stefanha@redhat.com>
+Subject: [PATCH v4 18/20] virtio-scsi: implement BlockDevOps->drained_begin()
+Date: Tue, 25 Apr 2023 13:27:14 -0400
+Message-Id: <20230425172716.1033562-19-stefanha@redhat.com>
 In-Reply-To: <20230425172716.1033562-1-stefanha@redhat.com>
 References: <20230425172716.1033562-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 
-Detach ioeventfds during drained sections to stop I/O submission from
-the guest. virtio-blk is no longer reliant on aio_disable_external()
-after this patch. This will allow us to remove the
-aio_disable_external() API once all other code that relies on it is
-converted.
+The virtio-scsi Host Bus Adapter provides access to devices on a SCSI
+bus. Those SCSI devices typically have a BlockBackend. When the
+BlockBackend enters a drained section, the SCSI device must temporarily
+stop submitting new I/O requests.
 
-Take extra care to avoid attaching/detaching ioeventfds if the data
-plane is started/stopped during a drained section. This should be rare,
-but maybe the mirror block job can trigger it.
+Implement this behavior by temporarily stopping virtio-scsi virtqueue
+processing when one of the SCSI devices enters a drained section. The
+new scsi_device_drained_begin() API allows scsi-disk to message the
+virtio-scsi HBA.
+
+scsi_device_drained_begin() uses a drain counter so that multiple SCSI
+devices can have overlapping drained sections. The HBA only sees one
+pair of .drained_begin/end() calls.
+
+After this commit, virtio-scsi no longer depends on hw/virtio's
+ioeventfd aio_set_event_notifier(is_external=true). This commit is a
+step towards removing the aio_disable_external() API.
 
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- hw/block/dataplane/virtio-blk.c | 17 +++++++++------
- hw/block/virtio-blk.c           | 38 ++++++++++++++++++++++++++++++++-
- 2 files changed, 48 insertions(+), 7 deletions(-)
+ include/hw/scsi/scsi.h          | 14 ++++++++++++
+ hw/scsi/scsi-bus.c              | 40 +++++++++++++++++++++++++++++++++
+ hw/scsi/scsi-disk.c             | 27 +++++++++++++++++-----
+ hw/scsi/virtio-scsi-dataplane.c | 22 ++++++++++--------
+ hw/scsi/virtio-scsi.c           | 38 +++++++++++++++++++++++++++++++
+ hw/scsi/trace-events            |  2 ++
+ 6 files changed, 129 insertions(+), 14 deletions(-)
 
-diff --git a/hw/block/dataplane/virtio-blk.c b/hw/block/dataplane/virtio-blk.c
-index bd7cc6e76b..d77fc6028c 100644
---- a/hw/block/dataplane/virtio-blk.c
-+++ b/hw/block/dataplane/virtio-blk.c
-@@ -245,13 +245,15 @@ int virtio_blk_data_plane_start(VirtIODevice *vdev)
-     }
+diff --git a/include/hw/scsi/scsi.h b/include/hw/scsi/scsi.h
+index 6f23a7a73e..e2bb1a2fbf 100644
+--- a/include/hw/scsi/scsi.h
++++ b/include/hw/scsi/scsi.h
+@@ -133,6 +133,16 @@ struct SCSIBusInfo {
+     void (*save_request)(QEMUFile *f, SCSIRequest *req);
+     void *(*load_request)(QEMUFile *f, SCSIRequest *req);
+     void (*free_request)(SCSIBus *bus, void *priv);
++
++    /*
++     * Temporarily stop submitting new requests between drained_begin() and
++     * drained_end(). Called from the main loop thread with the BQL held.
++     *
++     * Implement these callbacks if request processing is triggered by a file
++     * descriptor like an EventNotifier. Otherwise set them to NULL.
++     */
++    void (*drained_begin)(SCSIBus *bus);
++    void (*drained_end)(SCSIBus *bus);
+ };
  
-     /* Get this show started by hooking up our callbacks */
+ #define TYPE_SCSI_BUS "SCSI"
+@@ -144,6 +154,8 @@ struct SCSIBus {
+ 
+     SCSISense unit_attention;
+     const SCSIBusInfo *info;
++
++    int drain_count; /* protected by BQL */
+ };
+ 
+ /**
+@@ -213,6 +225,8 @@ void scsi_req_cancel_complete(SCSIRequest *req);
+ void scsi_req_cancel(SCSIRequest *req);
+ void scsi_req_cancel_async(SCSIRequest *req, Notifier *notifier);
+ void scsi_req_retry(SCSIRequest *req);
++void scsi_device_drained_begin(SCSIDevice *sdev);
++void scsi_device_drained_end(SCSIDevice *sdev);
+ void scsi_device_purge_requests(SCSIDevice *sdev, SCSISense sense);
+ void scsi_device_set_ua(SCSIDevice *sdev, SCSISense sense);
+ void scsi_device_report_change(SCSIDevice *dev, SCSISense sense);
+diff --git a/hw/scsi/scsi-bus.c b/hw/scsi/scsi-bus.c
+index 64d7311757..b571fdf895 100644
+--- a/hw/scsi/scsi-bus.c
++++ b/hw/scsi/scsi-bus.c
+@@ -1668,6 +1668,46 @@ void scsi_device_purge_requests(SCSIDevice *sdev, SCSISense sense)
+     scsi_device_set_ua(sdev, sense);
+ }
+ 
++void scsi_device_drained_begin(SCSIDevice *sdev)
++{
++    SCSIBus *bus = DO_UPCAST(SCSIBus, qbus, sdev->qdev.parent_bus);
++    if (!bus) {
++        return;
++    }
++
++    assert(qemu_get_current_aio_context() == qemu_get_aio_context());
++    assert(bus->drain_count < INT_MAX);
++
++    /*
++     * Multiple BlockBackends can be on a SCSIBus and each may begin/end
++     * draining at any time. Keep a counter so HBAs only see begin/end once.
++     */
++    if (bus->drain_count++ == 0) {
++        trace_scsi_bus_drained_begin(bus, sdev);
++        if (bus->info->drained_begin) {
++            bus->info->drained_begin(bus);
++        }
++    }
++}
++
++void scsi_device_drained_end(SCSIDevice *sdev)
++{
++    SCSIBus *bus = DO_UPCAST(SCSIBus, qbus, sdev->qdev.parent_bus);
++    if (!bus) {
++        return;
++    }
++
++    assert(qemu_get_current_aio_context() == qemu_get_aio_context());
++    assert(bus->drain_count > 0);
++
++    if (bus->drain_count-- == 1) {
++        trace_scsi_bus_drained_end(bus, sdev);
++        if (bus->info->drained_end) {
++            bus->info->drained_end(bus);
++        }
++    }
++}
++
+ static char *scsibus_get_dev_path(DeviceState *dev)
+ {
+     SCSIDevice *d = SCSI_DEVICE(dev);
+diff --git a/hw/scsi/scsi-disk.c b/hw/scsi/scsi-disk.c
+index e01bd84541..2249087d6a 100644
+--- a/hw/scsi/scsi-disk.c
++++ b/hw/scsi/scsi-disk.c
+@@ -2360,6 +2360,20 @@ static void scsi_disk_reset(DeviceState *dev)
+     s->qdev.scsi_version = s->qdev.default_scsi_version;
+ }
+ 
++static void scsi_disk_drained_begin(void *opaque)
++{
++    SCSIDiskState *s = opaque;
++
++    scsi_device_drained_begin(&s->qdev);
++}
++
++static void scsi_disk_drained_end(void *opaque)
++{
++    SCSIDiskState *s = opaque;
++
++    scsi_device_drained_end(&s->qdev);
++}
++
+ static void scsi_disk_resize_cb(void *opaque)
+ {
+     SCSIDiskState *s = opaque;
+@@ -2414,16 +2428,19 @@ static bool scsi_cd_is_medium_locked(void *opaque)
+ }
+ 
+ static const BlockDevOps scsi_disk_removable_block_ops = {
+-    .change_media_cb = scsi_cd_change_media_cb,
++    .change_media_cb  = scsi_cd_change_media_cb,
++    .drained_begin    = scsi_disk_drained_begin,
++    .drained_end      = scsi_disk_drained_end,
+     .eject_request_cb = scsi_cd_eject_request_cb,
+-    .is_tray_open = scsi_cd_is_tray_open,
+     .is_medium_locked = scsi_cd_is_medium_locked,
+-
+-    .resize_cb = scsi_disk_resize_cb,
++    .is_tray_open     = scsi_cd_is_tray_open,
++    .resize_cb        = scsi_disk_resize_cb,
+ };
+ 
+ static const BlockDevOps scsi_disk_block_ops = {
+-    .resize_cb = scsi_disk_resize_cb,
++    .drained_begin = scsi_disk_drained_begin,
++    .drained_end   = scsi_disk_drained_end,
++    .resize_cb     = scsi_disk_resize_cb,
+ };
+ 
+ static void scsi_disk_unit_attention_reported(SCSIDevice *dev)
+diff --git a/hw/scsi/virtio-scsi-dataplane.c b/hw/scsi/virtio-scsi-dataplane.c
+index 81643445ed..1060038e13 100644
+--- a/hw/scsi/virtio-scsi-dataplane.c
++++ b/hw/scsi/virtio-scsi-dataplane.c
+@@ -153,14 +153,16 @@ int virtio_scsi_dataplane_start(VirtIODevice *vdev)
+     s->dataplane_starting = false;
+     s->dataplane_started = true;
+ 
 -    aio_context_acquire(s->ctx);
--    for (i = 0; i < nvqs; i++) {
--        VirtQueue *vq = virtio_get_queue(s->vdev, i);
-+    if (!blk_in_drain(s->conf->conf.blk)) {
+-    virtio_queue_aio_attach_host_notifier(vs->ctrl_vq, s->ctx);
+-    virtio_queue_aio_attach_host_notifier_no_poll(vs->event_vq, s->ctx);
++    if (s->bus.drain_count == 0) {
 +        aio_context_acquire(s->ctx);
-+        for (i = 0; i < nvqs; i++) {
-+            VirtQueue *vq = virtio_get_queue(s->vdev, i);
++        virtio_queue_aio_attach_host_notifier(vs->ctrl_vq, s->ctx);
++        virtio_queue_aio_attach_host_notifier_no_poll(vs->event_vq, s->ctx);
  
--        virtio_queue_aio_attach_host_notifier(vq, s->ctx);
-+            virtio_queue_aio_attach_host_notifier(vq, s->ctx);
+-    for (i = 0; i < vs->conf.num_queues; i++) {
+-        virtio_queue_aio_attach_host_notifier(vs->cmd_vqs[i], s->ctx);
++        for (i = 0; i < vs->conf.num_queues; i++) {
++            virtio_queue_aio_attach_host_notifier(vs->cmd_vqs[i], s->ctx);
 +        }
 +        aio_context_release(s->ctx);
      }
 -    aio_context_release(s->ctx);
      return 0;
  
-   fail_aio_context:
-@@ -317,7 +319,10 @@ void virtio_blk_data_plane_stop(VirtIODevice *vdev)
-     trace_virtio_blk_data_plane_stop(s);
+ fail_host_notifiers:
+@@ -206,9 +208,11 @@ void virtio_scsi_dataplane_stop(VirtIODevice *vdev)
+     }
+     s->dataplane_stopping = true;
  
-     aio_context_acquire(s->ctx);
--    aio_wait_bh_oneshot(s->ctx, virtio_blk_data_plane_stop_bh, s);
-+
-+    if (!blk_in_drain(s->conf->conf.blk)) {
-+        aio_wait_bh_oneshot(s->ctx, virtio_blk_data_plane_stop_bh, s);
+-    aio_context_acquire(s->ctx);
+-    aio_wait_bh_oneshot(s->ctx, virtio_scsi_dataplane_stop_bh, s);
+-    aio_context_release(s->ctx);
++    if (s->bus.drain_count == 0) {
++        aio_context_acquire(s->ctx);
++        aio_wait_bh_oneshot(s->ctx, virtio_scsi_dataplane_stop_bh, s);
++        aio_context_release(s->ctx);
 +    }
  
-     /* Wait for virtio_blk_dma_restart_bh() and in flight I/O to complete */
-     blk_drain(s->conf->conf.blk);
-diff --git a/hw/block/virtio-blk.c b/hw/block/virtio-blk.c
-index cefca93b31..d8dedc575c 100644
---- a/hw/block/virtio-blk.c
-+++ b/hw/block/virtio-blk.c
-@@ -1109,8 +1109,44 @@ static void virtio_blk_resize(void *opaque)
-     aio_bh_schedule_oneshot(qemu_get_aio_context(), virtio_resize_cb, vdev);
+     blk_drain_all(); /* ensure there are no in-flight requests */
+ 
+diff --git a/hw/scsi/virtio-scsi.c b/hw/scsi/virtio-scsi.c
+index a02f9233ec..eba1e84dac 100644
+--- a/hw/scsi/virtio-scsi.c
++++ b/hw/scsi/virtio-scsi.c
+@@ -1081,6 +1081,42 @@ static void virtio_scsi_hotunplug(HotplugHandler *hotplug_dev, DeviceState *dev,
+     }
  }
  
 +/* Suspend virtqueue ioeventfd processing during drain */
-+static void virtio_blk_drained_begin(void *opaque)
++static void virtio_scsi_drained_begin(SCSIBus *bus)
 +{
-+    VirtIOBlock *s = opaque;
-+    VirtIODevice *vdev = VIRTIO_DEVICE(opaque);
-+    AioContext *ctx = blk_get_aio_context(s->conf.conf.blk);
++    VirtIOSCSI *s = container_of(bus, VirtIOSCSI, bus);
++    VirtIODevice *vdev = VIRTIO_DEVICE(s);
++    uint32_t total_queues = VIRTIO_SCSI_VQ_NUM_FIXED +
++                            s->parent_obj.conf.num_queues;
 +
-+    if (!s->dataplane || !s->dataplane_started) {
++    if (!s->dataplane_started) {
 +        return;
 +    }
 +
-+    for (uint16_t i = 0; i < s->conf.num_queues; i++) {
++    for (uint32_t i = 0; i < total_queues; i++) {
 +        VirtQueue *vq = virtio_get_queue(vdev, i);
-+        virtio_queue_aio_detach_host_notifier(vq, ctx);
++        virtio_queue_aio_detach_host_notifier(vq, s->ctx);
 +    }
 +}
 +
 +/* Resume virtqueue ioeventfd processing after drain */
-+static void virtio_blk_drained_end(void *opaque)
++static void virtio_scsi_drained_end(SCSIBus *bus)
 +{
-+    VirtIOBlock *s = opaque;
-+    VirtIODevice *vdev = VIRTIO_DEVICE(opaque);
-+    AioContext *ctx = blk_get_aio_context(s->conf.conf.blk);
++    VirtIOSCSI *s = container_of(bus, VirtIOSCSI, bus);
++    VirtIODevice *vdev = VIRTIO_DEVICE(s);
++    uint32_t total_queues = VIRTIO_SCSI_VQ_NUM_FIXED +
++                            s->parent_obj.conf.num_queues;
 +
-+    if (!s->dataplane || !s->dataplane_started) {
++    if (!s->dataplane_started) {
 +        return;
 +    }
 +
-+    for (uint16_t i = 0; i < s->conf.num_queues; i++) {
++    for (uint32_t i = 0; i < total_queues; i++) {
 +        VirtQueue *vq = virtio_get_queue(vdev, i);
-+        virtio_queue_aio_attach_host_notifier(vq, ctx);
++        virtio_queue_aio_attach_host_notifier(vq, s->ctx);
 +    }
 +}
 +
- static const BlockDevOps virtio_block_ops = {
--    .resize_cb = virtio_blk_resize,
-+    .resize_cb     = virtio_blk_resize,
-+    .drained_begin = virtio_blk_drained_begin,
-+    .drained_end   = virtio_blk_drained_end,
+ static struct SCSIBusInfo virtio_scsi_scsi_info = {
+     .tcq = true,
+     .max_channel = VIRTIO_SCSI_MAX_CHANNEL,
+@@ -1095,6 +1131,8 @@ static struct SCSIBusInfo virtio_scsi_scsi_info = {
+     .get_sg_list = virtio_scsi_get_sg_list,
+     .save_request = virtio_scsi_save_request,
+     .load_request = virtio_scsi_load_request,
++    .drained_begin = virtio_scsi_drained_begin,
++    .drained_end = virtio_scsi_drained_end,
  };
  
- static void virtio_blk_device_realize(DeviceState *dev, Error **errp)
+ void virtio_scsi_common_realize(DeviceState *dev,
+diff --git a/hw/scsi/trace-events b/hw/scsi/trace-events
+index ab238293f0..bdd4e2c7c7 100644
+--- a/hw/scsi/trace-events
++++ b/hw/scsi/trace-events
+@@ -6,6 +6,8 @@ scsi_req_cancel(int target, int lun, int tag) "target %d lun %d tag %d"
+ scsi_req_data(int target, int lun, int tag, int len) "target %d lun %d tag %d len %d"
+ scsi_req_data_canceled(int target, int lun, int tag, int len) "target %d lun %d tag %d len %d"
+ scsi_req_dequeue(int target, int lun, int tag) "target %d lun %d tag %d"
++scsi_bus_drained_begin(void *bus, void *sdev) "bus %p sdev %p"
++scsi_bus_drained_end(void *bus, void *sdev) "bus %p sdev %p"
+ scsi_req_continue(int target, int lun, int tag) "target %d lun %d tag %d"
+ scsi_req_continue_canceled(int target, int lun, int tag) "target %d lun %d tag %d"
+ scsi_req_parsed(int target, int lun, int tag, int cmd, int mode, int xfer) "target %d lun %d tag %d command %d dir %d length %d"
 -- 
 2.39.2
 
