@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 638816EE384
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 15:58:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526090.817568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39E136EE413
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 16:40:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526095.817577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prJBd-0004Zc-Ej; Tue, 25 Apr 2023 13:58:29 +0000
+	id 1prJpG-0000Y0-JG; Tue, 25 Apr 2023 14:39:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526090.817568; Tue, 25 Apr 2023 13:58:29 +0000
+Received: by outflank-mailman (output) from mailman id 526095.817577; Tue, 25 Apr 2023 14:39:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prJBd-0004Xd-Bq; Tue, 25 Apr 2023 13:58:29 +0000
-Received: by outflank-mailman (input) for mailman id 526090;
- Tue, 25 Apr 2023 13:58:28 +0000
+	id 1prJpG-0000WB-GN; Tue, 25 Apr 2023 14:39:26 +0000
+Received: by outflank-mailman (input) for mailman id 526095;
+ Tue, 25 Apr 2023 14:39:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=v3bG=AQ=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1prJBc-0004XW-Ek
- for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 13:58:28 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4097ac8e-e371-11ed-b223-6b7b168915f2;
- Tue, 25 Apr 2023 15:58:27 +0200 (CEST)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-94ed7e49541so877107166b.1
- for <xen-devel@lists.xenproject.org>; Tue, 25 Apr 2023 06:58:27 -0700 (PDT)
+ <SRS0=BHzL=AQ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1prJpE-0000Vm-VV
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 14:39:25 +0000
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f626a355-e376-11ed-b223-6b7b168915f2;
+ Tue, 25 Apr 2023 16:39:21 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 91E7E3200CD9;
+ Tue, 25 Apr 2023 10:39:17 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Tue, 25 Apr 2023 10:39:18 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 25 Apr 2023 10:39:15 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,67 +43,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4097ac8e-e371-11ed-b223-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682431107; x=1685023107;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wIWeMc9o17CKQ0OUZe12x31/iPLhRnin8xVXaGqeYpA=;
-        b=Rb+VuDNYs28yW0WYOIvdnYfvtJpGDiQK0y4UhkwQfM7O6IgEl/aezgT2nBCEwX9M5x
-         6KmaDprPA4SYNUuOQ4I2EalgNmlvSqSBuK7/Ow/JtFJafmnWkXYsWE34vh2eSTX/IHue
-         6XLbChAqjIylc0rSDWMoYoQpZARTtW/OSVRCriH2Zde6LHfhwHnFM3GbA3r/BEMLmE3+
-         qYBxzM/fqXJQq1w7gRriI92+e02I0I1FJ3e9KsdT4x7389GPLP+NQnJLddKT4fIaNWPp
-         WKINBSE/0rfPTdzW9bNygzBT1Dk9GALMY1si3plWgQtueBSXgRvLmIrw+yYdS1oea4HH
-         XQaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682431107; x=1685023107;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=wIWeMc9o17CKQ0OUZe12x31/iPLhRnin8xVXaGqeYpA=;
-        b=OPcq2j/OmG8M4/89jnnZTfLqhY8LVpjKHkWzUEfOAtZaSBXLE+Q14BUCXRbEe0AFOE
-         ESQG14wicaVZUYov5tzURKZkDIZsniGbLHxQj060JZDZt7ZpsLN4r/rJo3F87ZrMQoDO
-         pTl9yJyyD46r6Pdm8Kyt2F39K7R0g195lKegAqU4iqeuCN2HY28hhULWr1JqMvNrLpX+
-         AxpinXBFMWWgq4AUjYkk7BgEOi8Zot4V+ySFu3R8RmLYrR1CISKWz0tnKWJwtJxQgFQu
-         of4lTekiygVjRofTAhAyF7buCVJLS7Iqj14KATQZIr2TI6IxMQ9CKk4XtPT+lRPASbXC
-         PifA==
-X-Gm-Message-State: AAQBX9f+cmkEno5amfkT67iXEHca3PRRSSNg1knDQKxK31T6GpXQVE3Z
-	xnWoS34cV8I8Te2rAaNFGLtBhD9xTFlWZUhtW10=
-X-Google-Smtp-Source: AKy350b5ev7765OJdt+6XmlRn+b+ZUQ5QqXnDgaS/HE/fDBJbyO2HyTg9as9UCV+Xv7FBEO/Bpf0dCYMoxyz+i6gX3Q=
-X-Received: by 2002:a17:906:72dc:b0:94c:dcac:4b24 with SMTP id
- m28-20020a17090672dc00b0094cdcac4b24mr13523937ejl.49.1682431106886; Tue, 25
- Apr 2023 06:58:26 -0700 (PDT)
+X-Inumbo-ID: f626a355-e376-11ed-b223-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:sender:subject:subject:to:to;
+	 s=fm3; t=1682433557; x=1682519957; bh=Yo6puT7IlnChcJRZUA4S2RX7x
+	2nQa/b22dTRjpdjRFk=; b=NMR7MnGJfxRxH+qV7woA8jZrxU/29CsoaLANUQE9R
+	q9GxQzDWAJgUn2/yv4/POsMjqQttyxGbeaMJE0E1+DCBc+Hm6YK5qunzPz+OsxTE
+	x3Py0KfUOkJsKiJUA6pqcESQIaLnWFCioLuhIIa99FiHsdeJOU90kZwg9ZkX6yaz
+	wbxllesRpIou9Qhr8ojMIOL03+Ocx6M5eZmoAnK4YmwW5aU++E2j3UWqVss7VGxN
+	j+WESSxbllYl6rYaHA3WSnfGBKCXxaf9SBhIvXs/aO5HKL8fE7zEVKE/n00X+U5Y
+	wVcmsOSxmx065wSQ72TnJfH9WivdQZ0oLpgdiufyHKESQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:sender
+	:subject:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm3; t=1682433557; x=1682519957; bh=Y
+	o6puT7IlnChcJRZUA4S2RX7x2nQa/b22dTRjpdjRFk=; b=ItE/ETWrUTce9lCu0
+	ezIMyA2r0sxzDYNJENwHoiUSYeTbDB4o0j9jKFDzV++YLj6lXqskQ0D5hDN/9UrA
+	WAD4xv+JnQrR85fvhsoFtnzcN258z3bSjZvnp8g963odrg8tWrT5in/8PGikYtkg
+	38+NY8nwB4X+dpCGr/m/OWFjogsJCTCU3s2AvmCpvQor8mzCYE4ilo/nf9mHsWuP
+	AYnppOLLnNCEHt/VDwB/PmSqfLQXj5Fy4Ts5e7n/WOrKaMJLfHjkr6sn0eRAWV1W
+	XGYiR1ZAhH2MVJgRt70RiXfJj9LJ5X/5Ag28quxTADlyExb9SvEkSsPfvfGPYasH
+	oG52A==
+X-ME-Sender: <xms:FOZHZGbcVn6nrVvpFokIbp0HrcT1-AzZhivSqHmYaY5dxSvSUP9Tkw>
+    <xme:FOZHZJaX_b4nwMPkPa8xUs3B7UC4ESeNUzl_2ekk4JHV_PvaV_B6YYN7pFJxE6OAC
+    Z5MwZpNjLUx2Q>
+X-ME-Received: <xmr:FOZHZA-n0vGhwGj2bFlyIHC52qmclhBcwGj6XKiue9Fs-EAMw7gBJ7uRRgZgNoo9WjpIM0cwzlFOveH5mu5y_iLfnUApjzwkCobCaespYAG7KX0fn00F>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeduvddgjeelucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeelkefh
+    udelteelleelteetveeffeetffekteetjeehlefggeekleeghefhtdehvdenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:FOZHZIoHgIHcc3co1pbHz82zevfUDsmrSgjM6pK4ydQkgqgfnNyvEg>
+    <xmx:FOZHZBr2xAWv3k-xpzziezsP2Ys1qOEyj-0ZirP0QWJt9bwLNhLYCA>
+    <xmx:FOZHZGTB1lZTwDn9MOtKq-N4So9JSQ58n1-W9Bp-2SWKrzeqIykQWg>
+    <xmx:FeZHZKACaZ9245IKBwyZ2rAGmcMSCLg-HBLBzUgtED9j8x0NQdZ0Fg>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] ns16550: enable memory decoding on MMIO-based PCI console card
+Date: Tue, 25 Apr 2023 16:39:02 +0200
+Message-Id: <20230425143902.142571-1-marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-References: <cover.52ddd01da196853766a5b39a89c631f3e4652dd9.1682369736.git-series.marmarek@invisiblethingslab.com>
- <b01494665d1a8cce5c426be70beca2c519215eca.1682369736.git-series.marmarek@invisiblethingslab.com>
-In-Reply-To: <b01494665d1a8cce5c426be70beca2c519215eca.1682369736.git-series.marmarek@invisiblethingslab.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 25 Apr 2023 09:58:15 -0400
-Message-ID: <CAKf6xpvg-NQrJhekDdNi+RS0KyDQBtOOWTYmdQCtpdF5Ggfr2g@mail.gmail.com>
-Subject: Re: [PATCH 5/6] automation: PCI passthrough tests on ADL hw
-To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Doug Goldstein <cardoe@cardoe.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi, Marek,
+pci_serial_early_init() enables PCI_COMMAND_IO for IO-based UART
+devices, add setting PCI_COMMAND_MEMORY for MMIO-based UART devices too.
+Note the MMIO-based devices in practice need a "pci" sub-option,
+otherwise a few parameters are not initialized (including bar_idx,
+reg_shift, reg_width etc). The "pci" is not supposed to be used with
+explicit BDF, so do not key setting PCI_COMMAND_MEMORY on explicit BDF
+being set. Contrary to the IO-based UART, pci_serial_early_init() will
+not attempt to set BAR0 address, even if user provided io_base manually
+- in most cases, those are with an offest and the current cmdline syntax
+doesn't allow expressing it. Due to this, enable PCI_COMMAND_MEMORY only
+if uart->bar is already populated. In similar spirit, this patch does
+not support setting BAR0 of the bridge.
 
-On Mon, Apr 24, 2023 at 4:57=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
-<marmarek@invisiblethingslab.com> wrote:
-> +    elif [ "$PCIDEV_INTR" =3D "MSI" ]; then
-> +        # depending on the kernel version and domain type, the MSI can b=
-e
-> +        # marked as '-msi', 'PCI-MSI', or 'PCI-MSI-<SBDF>'; be careful t=
-o not match
-> +        # -msi-x nor PCI-MSI-X
-> +        domU_check=3D"$domU_check
-> +grep -- '\\(-msi\\|PCI-MSI\\( \\|-[^X]\\)\\).*eth0' /proc/interrupts
-> +"
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+This fixes the issue I was talking about on #xendevel. Thanks Roger for
+the hint.
 
-This will match -msi-x.  Do you want to make the first part "-msi "?
+Changes in v2:
+ - check if uart->bar instead of uart->io_base
+ - move it ahead of !uart->ps_bdf_enable return
+ - expand commit message.
+---
+ xen/drivers/char/ns16550.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Regards,
-Jason
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index 1b21eb93c45f..34231dcb23ea 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -272,7 +272,15 @@ static int cf_check ns16550_getc(struct serial_port *port, char *pc)
+ static void pci_serial_early_init(struct ns16550 *uart)
+ {
+ #ifdef NS16550_PCI
+-    if ( !uart->ps_bdf_enable || uart->io_base >= 0x10000 )
++    if ( uart->bar )
++    {
++        pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
++                                  uart->ps_bdf[2]),
++                         PCI_COMMAND, PCI_COMMAND_MEMORY);
++        return;
++    }
++
++    if ( !uart->ps_bdf_enable )
+         return;
+ 
+     if ( uart->pb_bdf_enable )
+-- 
+2.39.2
+
 
