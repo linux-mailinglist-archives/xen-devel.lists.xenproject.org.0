@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11F556EDE3C
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 10:35:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525879.817381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 833826EDE3F
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 10:37:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525885.817391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prE8S-0005Cr-Vg; Tue, 25 Apr 2023 08:34:52 +0000
+	id 1prEAq-0005rs-HH; Tue, 25 Apr 2023 08:37:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525879.817381; Tue, 25 Apr 2023 08:34:52 +0000
+Received: by outflank-mailman (output) from mailman id 525885.817391; Tue, 25 Apr 2023 08:37:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prE8S-0005B8-Su; Tue, 25 Apr 2023 08:34:52 +0000
-Received: by outflank-mailman (input) for mailman id 525879;
- Tue, 25 Apr 2023 08:34:51 +0000
+	id 1prEAq-0005oy-DY; Tue, 25 Apr 2023 08:37:20 +0000
+Received: by outflank-mailman (input) for mailman id 525885;
+ Tue, 25 Apr 2023 08:37:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=x+We=AQ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1prE8R-0005B2-8q
- for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 08:34:51 +0000
+ id 1prEAp-0005oZ-Mg
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 08:37:19 +0000
 Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20611.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::611])
+ (mail-am6eur05on20608.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::608])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 090278a9-e344-11ed-8611-37d641c3527e;
- Tue, 25 Apr 2023 10:34:47 +0200 (CEST)
+ id 62e926a8-e344-11ed-8611-37d641c3527e;
+ Tue, 25 Apr 2023 10:37:17 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB6975.eurprd04.prod.outlook.com (2603:10a6:803:138::19)
+ by AM0PR04MB6817.eurprd04.prod.outlook.com (2603:10a6:208:17e::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Tue, 25 Apr
- 2023 08:34:44 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.34; Tue, 25 Apr
+ 2023 08:37:16 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6319.033; Tue, 25 Apr 2023
- 08:34:44 +0000
+ 08:37:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,251 +47,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 090278a9-e344-11ed-8611-37d641c3527e
+X-Inumbo-ID: 62e926a8-e344-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EOdy7LrTX7mJmnxKuUiKWyzETscTsxLXVkFtudkWnxKFKDzWhmrZVWqYe8aj1PgDGuyq2dOociSURUE4CBmj8H38flIFfoog1Xt/pVY2BGMk4oZYsa+JCqK2gcYV9eaPeKC3J2yC/tGxNSDcAFfgFsko7XalgjdcPt5Ag+bFfubKlWZTFaw7xxE8pm9UKqTZ5neUPVh43IL2k8am02WJ8oU51UMvfgzKFjis8FGVntjL8MhWPgXVWJN4P4VhMjzZrTEx4YzCS81g4vUlT7boNMwlpb8cxTGomMytZAGbFU24+upe9wejpibMiGIAjPhXJeTI4hAJ3cbfboHU9dfKJg==
+ b=S+/n0+itQbSPOE8HeG2HZv8dieSAuecCt/q5/c9RSFeWZtnY/5dM42i7zI1cnRBzAtuCTCP/JWfSz3EhxVMnLR82FLrwHZT3jSbgGYQ1VoQTK39UOOYAHg1EodXodLFr+I81MInpF3vAMYPeoc88NzaX8ZCXCTUDqu+3xlxHfVU3d21wHH4d9Yv3H2wMS6xS1HKJwhtepl8K6NI0VjDCXYS+/CmTAkAnnaf6a+R1bGDZhYDG10UXBGU4gOUY11M55fJRdzLrC6lXnc1l5EvJ3Mrns6av/NFPm17xGUYJyhi5Yq4nWSyD3EEPSuLbi6Fw27VrK3YjFq7b9zQElMuDFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EzRFWBVOHDvBq54TKxesyfelsMZoGhCw5JQVop2/VUY=;
- b=h6MQ9JIeDfgC3ce4C+ZoiXYz9bmHiHZprBda8JqvJTi18KpV2COYsv1snhA2/bpQbDvJQUj8VTnuXiIumJ1rrMrQ+zp2m+pe2w3YkET9afCa2QJ8eWcC7JLIkjHR9tHvBw+UjWPyoAOI9I7tcuNa/jSvFg/29Xse3EN2SdGogvAkmOOKedvvL+iy9HtZMpqDvGPG3WMRDs1qoRHDr3AfBewRi07x1/344Hcnzxa+brNO6+YgaRScfRK/zQWkolRPf1aulVwmHJEpNuDsrs5RCy4ckGlnw8xBxMivFwk2ZrYwzk10/hTb/USXn1y/wsv83+wuerzND3gDtxPdmHllLg==
+ bh=CJ+p3bW39XOWyNhcAhQW2ne/frfdX1ojC+lG8hv2g6E=;
+ b=Ks+VcbVHKBqklxeIZNMb3WuurG7H3BvbOk9OA5tUwiTr1kMw/QvUguRv7ACPspVayeAZF9y3mB//JwVS1InVluV2QIQtFhKx6tct3vOUCz8GUesr6/egnfdMR+n/a6fZXyIkAtOcmks+EkbnLP7Uqt5wTibFfYb5grAfozlm2tw9lqqKGxQny86O1Jf1oJmxLzeXRvmHYhnf5PfBFr/NQJifBIJzbWTWy7Ff6ElpWYER0ETPUL8gRjq6VmXVoXGuBrRrgFsAwsgC56tITFg3oZ/aAX7yva6X3h1ZhVF19O4ekNk+iP8Zoe4H9xz8fX+Qi92mO5sgcA+e6Piw6F9tkw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EzRFWBVOHDvBq54TKxesyfelsMZoGhCw5JQVop2/VUY=;
- b=bn9LWdpB4sacz8C+4ncr30dbjeQqcGP7ARk+tPHtyLmhMb9p4aZQ5Ii5SI0zyFf7fpgMLEC1tZzDHRkrt5VKNl983Jlb9pfkoQu1phkrIb19SSdJl46HduEug4pge/peJR8tM/MgjIklcxviT0dYj3FoNojwCH/UMA/yNAo0/Hbs7RN3HS+5HuRY5QMbvz3lheMv/SkGrKJx0tXeyHWR/AF6tSB1Zzl7JxVfyXRHmqlkzjt+tYulr35eOQhMmwkmC/yF6yi8L1Yz5eZo46d5t8d9lIty9FBSkqWQQ9tkNobty/LhKHS3LuUborp1fgXT1+RdH9G8dOmKj/nGrV2qHA==
+ bh=CJ+p3bW39XOWyNhcAhQW2ne/frfdX1ojC+lG8hv2g6E=;
+ b=LLJpqc85iQRQgJ0QxhZIgHYjgA1t56xtwol6Hdb4QZePwTL3ZMJs0PHSE6jKe7jJT9bBA9KaltNmKu+WEGchMcPNLwhLdioq8PMCsS1VmM7ckV+wi3llYIVK0zBcUgoHnX7GkIyJKsoiMNsYZdALyYc1DU28FwVSsSvK7YCFUWCVv3+x7p8DEPtaTiQ2/5XoVZvii2aDjzv0p7qz48ar1/VHO7QgJS3WnlunF2sOt9Cfa4d+XF0ACoxy9H+5A1gAV2c4f02ydm63GLVr+zGpX1xB022HLahDcdYvSd/W48GcniKqd7GBEo654uv3DGfQ7RdNINbuN6eiPdDHmCi6NQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e03bbb52-1a19-7d18-4abe-75bbef8a0aee@suse.com>
-Date: Tue, 25 Apr 2023 10:34:41 +0200
+Message-ID: <7d2c221b-745b-109e-af1f-2b78504b2e0e@suse.com>
+Date: Tue, 25 Apr 2023 10:37:12 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.0
-Subject: Re: [PATCH v4 09/17] xen/arm: introduce a helper to parse device tree
- NUMA distance map
+Subject: Re: [PATCH v4 03/17] xen/arm: implement node distance helpers for Arm
 Content-Language: en-US
 To: Henry Wang <Henry.Wang@arm.com>
 Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
  Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <20230425075655.4037980-1-Henry.Wang@arm.com>
- <20230425075655.4037980-10-Henry.Wang@arm.com>
+ <20230425075655.4037980-4-Henry.Wang@arm.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230425075655.4037980-10-Henry.Wang@arm.com>
+In-Reply-To: <20230425075655.4037980-4-Henry.Wang@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0017.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::27) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0149.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:95::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VI1PR04MB6975:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53ed1436-f9c9-4324-ab5a-08db4567eb89
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM0PR04MB6817:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcf3e90b-73cc-4cdd-1629-08db4568464a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	YereA+rfMzguNCxWNnPtuTsyN+37C8HUjkbJ+MAo58I/1hgkqPA1yC1dCLlm70C3kfecR13rvW8W9YNn9UmH/IeFbryjnBZZmO8B8KS3fuH+MKwUC1iZpM64UEG2z3r6k5g4A8wbwyDo8HvvUOIW9H12IH1EUsBbX+ZnNkcUKyZYbgEt/o006515ofHtvS3DT8wRBxVHrMJOswe5UhNhYPoHYyWKyKWzYJ1HF0Cpd+dW3vXpk9gPnLVvsGUwHnRd382RVs+EiRfXSSIkWmssfh9zOkp/9GXei1llgzxnDc/48DoepiBaYD3o+iUE3Xrdr2suohVwPwz89q6kkg7Wwo8ixs+ZWrC4Zzc5EeR0btT6fiQR/UTEmtMuw5YucXnIgkniGzTjfcIq+ZKQd+ssv7sqnHS0dO1IAKEAFwNzw+jUHInwFuSm1ItDprUYAivJelBwuZ8cc8jdMWE3Vw5spK2W9Yt3lFX7XkDDtSbcA7LMCQHB2ZnuQ7exzU9yo0CSxpAhARCJylt6i2xXAvPqbk79fIVDM87WmX9wJNQV/0a6ioGyzZj9B8NfAXr/qpm9ufRM7/rId9Kw8tHp8867BwSexGMRieQB3emr2aNUhSHMtYCXXV58Pehomorh9WGw
+	WTecQoHxhSNIYSo1b4b6QcxCkWZXrvPCcr0Th7f/B1zwfQWODUV6pQVJDYBC8P97DRYuTX2Gd7/LjFDloynNnCWTDBDODfmf82faE3Ue+2o7j6ypN+T4TvV9qOCP65H7ouW0HSkvMKpHxyEid1gLaSEkc3MODvf79XMZTDTF/trIc4DeUsm2UXtvK3891jgyEzsySY/TAFT+6DRfgOTMsIehOK/ml43dQsC+LBOjab04DeMMjI2E5K2U2tYyUXQuD7bU0jz1CQ8K+DEkNcwPhjD41d9RcWtZ0tXpACy8jmhehDQeEltA15SKj0I7i7K918MHiVm3IJrOs3CvtyodLB/V2ahYToJqwNCnkRs8zK8KJq3tPVx66wxh/xs/I8DLSUxQ1UfRkMGRS19Us4xNzxKuNpryL8Wjz/TBmanb6fBm5+d5731cmM8q0iNAkMvhEo6Z1QOW5rv97fhc2UWD9lIMmP8Dui2u3gBoMUQY6gcpj62x3eQPkpOi6n1Pt+2V4/3cMUxmXjQcUQxJqAk7DpXIGDc6G6NAvhYUCFBrE8rxS5zEd4IkG1vaFL/POyWeyHdXT789MiyzIpiNsTqPtMutETZvi1ljmIG9AYShjKWd6eD+TlEmuyJKeqgny7dH9u5LDAfTtMdEWprh6POkAQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(39860400002)(396003)(346002)(376002)(136003)(451199021)(966005)(53546011)(6506007)(26005)(6512007)(2616005)(36756003)(83380400001)(186003)(38100700002)(66946007)(478600001)(31696002)(86362001)(6916009)(66556008)(66476007)(31686004)(8676002)(8936002)(54906003)(5660300002)(6486002)(41300700001)(2906002)(4326008)(6666004)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(346002)(396003)(376002)(366004)(39860400002)(451199021)(38100700002)(8936002)(5660300002)(2906002)(8676002)(36756003)(31696002)(86362001)(7416002)(6486002)(6666004)(54906003)(478600001)(2616005)(83380400001)(53546011)(26005)(6506007)(6512007)(31686004)(186003)(316002)(66946007)(41300700001)(6916009)(4326008)(66476007)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cEhjWkQyZ3EyM0p3eEdWUU9PV2tFMnVPRERkdTVQWGdLd1BGajM4b0orNWs1?=
- =?utf-8?B?bWQzM29FTkNnNkZ2RWx0cGFHQkpXaktPd1ZPZXZIN3lreFg5d0xwejRBWG9k?=
- =?utf-8?B?ckVaazNIRGdhN0FRWVg5MjdkUWZUNmsxb1BkT1RqNWhMVUZZN01oVldBOHNt?=
- =?utf-8?B?WU93MncwcTk2alk4Q3Roa3ZQWDR6QUZmczcyNUdZQUtZS05FOWVSUE5NQ09R?=
- =?utf-8?B?RVhTTzJGTUxyZVNUdVlSRnVkaitGYkE3OUVvZHFYaWVaRUxGMTBDb3k1QWdW?=
- =?utf-8?B?NnB6VElGZDluYmJuWGpCUitSdmQrRzcrVWc1QkRkNjNxWVE0azVIdGdWZFVJ?=
- =?utf-8?B?bkxtVG1PUDZEcDVqNS9kOXEyRnozSnZocFdISVVmLytGcnExTFk5eEhsQ3g0?=
- =?utf-8?B?UkxhbG42YjJodnF4TXdNRW5RV0E4a3N0SUU2Y1ZEd2plTUg5MHhJT05HSzdk?=
- =?utf-8?B?RWRTaUdKM3EvbGlXYVJlaTdFVkFwMmtqQlNsQkxwQ0pFb2FMWHVCYlFUcmZB?=
- =?utf-8?B?WXIwYnExZVRSMTEwNm1hcm9reTRlSFVYbTQ0NjN5VFRHR29sY2NkWEZLT216?=
- =?utf-8?B?RDlIQzNsekY5OGk1dnk0WXpCWndRZzc2TlZLTVR1NndZTDc1VjlUdkN4TTZy?=
- =?utf-8?B?b0hPRjNvRHJFWEZzVEs2ODFVNFdpYitCU1dwVDVsV0tWM3dnNWZ1L1JXM3hl?=
- =?utf-8?B?RXdwTHI3NzIxdjY2WHIraFRJSjNzNGwwdWppeTdoeFpKek5Zbkk1OXY3MnNk?=
- =?utf-8?B?eXlOby9ncEVrMmxxNVNzOWVhUk5PakNNa253QXlkSU9LSWx5NVpseXpzYjRN?=
- =?utf-8?B?ZFA1NHpVQk0wRHhhRGo3QjEwUG1rTlg4bm5XL0k1bVBTSlJ2NG41YklsYmlK?=
- =?utf-8?B?UVVHTVIybGt6V0JDbEVuRTQ5Z1RweWg3SThoWTVENFVkRGNxU0l6Q1d6Q1NM?=
- =?utf-8?B?WWRVemhTbElKWndsdHppVEtlREFrcmVnRE1hYzdlZGpGQ2ZYMjZ5bVU4NWkz?=
- =?utf-8?B?UXVXSGFVYmpNU09xUFloZnhpbzNNK0JTaEVpRFdZMGlpZXZuV2dDNDIwM1dq?=
- =?utf-8?B?RlV5NVFDNExqVHVPQ3BHZEZWdnFoaStNYjlQdm5vUFU4YXRSOWtiNlJwTjFj?=
- =?utf-8?B?ZXNkYXlEVkNlY1d4bTlCeUUvbzB3YXN0VHpCZnV3eGkzbkZUUHNVVTJWaUFU?=
- =?utf-8?B?dXRFU0M2dDNJTHl1TjJHaEVQeWJ4SWlMS1krT1FxZER2WW5tR0s2YWh2aUI4?=
- =?utf-8?B?M3pLcm1mSjRSTm1xZ1dwOGVzWjFlZnJqRjRJLzZ0S1RwY1E3LzRPQm9UZ0E4?=
- =?utf-8?B?MXFpb1BHUm91ZS9mdHE1NitjVGEvekhCM2g4UExFZ0FHUG5ZaDNVak52ZGFs?=
- =?utf-8?B?YndocXU4MzBicVFncE4wZTRiVXRSWHRwM3FyVndrT1BJVjVneTJJWGlVenRN?=
- =?utf-8?B?TWxtbkJ4eWdRRU5jMVhGMHhCQmJ5THZpZlZsWnN0Lzk1clovaFhlK0VLQita?=
- =?utf-8?B?NzNnWldSOHBvY0o3NTUyWGpsSEhIM0UwNzlIaFJoRGg2eEwzVHNPVEhaZ1dF?=
- =?utf-8?B?bXRZU3Y3ZnEwYUtvVDkrSVBabUpTMy9wN3lVUEh3TW11WFhKUXJYZDN2dHdS?=
- =?utf-8?B?eGF5ZW55cjZvditFV3pHN0s5QjNOTnVxVXJGSk9zeVIzS3BiYlJJbVdZNHFX?=
- =?utf-8?B?b0NRbis3dDlWUjNUa2dLeGpGbXNWbHdTWFY4dG9oK0NXUitPV0l3OWhSc1Nv?=
- =?utf-8?B?SVFCNVlnUW1GVmladkp5L1VEZ0hVc3ZWa1hZZFMwbjFZMHU1Y09NUE5jVUk1?=
- =?utf-8?B?Ti9ScmhvZGx3L1RsdVNvWTRUNnZteEkyWG1TMXpVbDNJK3JGTDBjTkdvb205?=
- =?utf-8?B?SlFKN253WS9GQWh3UFE4ZW80MkxuelNnUnIrQnhmWHVGWmE4YkhtWmNKMWhr?=
- =?utf-8?B?RzUvYTZFK1hzYnluaG5jNFhmZFl6MmNwRlRyRThmZDBLeUtRNi9zMm1UbGd2?=
- =?utf-8?B?V2ZBaHBCYVBadWdBeXR6bHZ5NnAxM2ovcWRvVzlpdkxNR2JKanVTYmNJNTht?=
- =?utf-8?B?aW1QRUdRZjJOaUhtWm1JNmdHTUxCc295c0Y2TnFURzBITGlRdzJPT0RudFFC?=
- =?utf-8?Q?O1LwRiOgX9jR6HtftPNlSTTS7?=
+	=?utf-8?B?NkdlaElUd0I5TlB4YVdObHRuQ0g0VExwWlRIL3hBR2JSWS8rSnpJcGtTWm1P?=
+ =?utf-8?B?SmZHMHJXY3NMM0pCQTdJNDlNcFM1dDlTZ05aSDYyWkpEYnpEcCtobG9MZGIv?=
+ =?utf-8?B?eUhrQmFvQytWY0xHYy94cTBNMDFreHNLdDNkSG1ESzREODNyWitNSXhmWjRY?=
+ =?utf-8?B?S3FTQXZManhubWgvWlpnOXNiVFNOS05SdHNJMDlIR1dlZkV3MDdnS2ZGWEpF?=
+ =?utf-8?B?WVFWb0tZak5SVGE2bmhHUmkrSVBCUk9iU0dkQWhudm1NRVQ5RnpZNEFyNUc5?=
+ =?utf-8?B?eWs1dHQ1QW1Ua08ydXVMeDlqbDFMVEhxSVpNNWRTWm9tVDRpUnVWQ2R2TEZk?=
+ =?utf-8?B?TGJiMUZFYWpkZHh5eVRmcEs0Q1pqODFGeklhcFJ6SXkvdTluMFlSdkg4NVNB?=
+ =?utf-8?B?Y1NHT0NxUkNGSGdJK3RKeDRxNndDN3NSaTNZQ0dPL01hQjRpdlhMVkk0VGlN?=
+ =?utf-8?B?UlZVQmkraCt4alFQbVJiQmhyWDBlR3BNN2tGZ0FoN0JQVG9VVnlxWHFaeVJi?=
+ =?utf-8?B?U3p0N2pQbU5YaDNINEVDemRRSFFWaHhBbmtzRERaakJ5ZXBLdzNhK1hZVytP?=
+ =?utf-8?B?MUF5REdKZmFoeEw5dG0wOUFSQ28zMDZjblhWMjBJK1dLYkJySlBYT29qVjlY?=
+ =?utf-8?B?T0kxdDN1TlZQckV2aVRCS2hac0N3aE8zc0hpLy9ydG43RzhsWmZsb01UczF0?=
+ =?utf-8?B?Z2wwR1pMYlRJR3hsaUF4ZGlyMDkrcCs1U0V1TE0wUEQ1QytSN0YxVERRbnpI?=
+ =?utf-8?B?US9nVHc4YTc3RFZiZWdjUjBIL1VDL1E4U1NEalAxTHlIdTZubkpPM1lsRnk4?=
+ =?utf-8?B?eVo4YTBVUmE5aG5BK25WZFdRUWl4VlJXeVhIVXVVaFB3ZU1Ob3ppZjNGM3Uy?=
+ =?utf-8?B?d0hkZzJoWTUySWpEdlV0SFZ3TjEydWlPREtDYnUrU2VUUkdQd295emlWWU5S?=
+ =?utf-8?B?dXNpdmtSU0J6MDN3aVpGM0QxSHlWN28rOWtWNmVYdmxCejFkWVp6Q3ZSZmtw?=
+ =?utf-8?B?V0JRYW1YbUJZOXRwZ0wraC9Pazk4anN5OS9JNHFVdmlCZDVHQXdTSVpGZVNx?=
+ =?utf-8?B?eXd3MGcrYlVLWGVOTENlMWRKd09ESURFTSs0UXRuUEkxbm9Gb25yNVFEMGtG?=
+ =?utf-8?B?Wnp0bVp6bE5CeVdEMnVsQVpDY0x6bGk5OHJPRUtpaTZHUXJEWHBMUTNoMlll?=
+ =?utf-8?B?by9EVUJiRXBnR21BSkZHb25ndXpJWEZBeGRXWmJuT3FUam9EVzJpekdpbDdB?=
+ =?utf-8?B?L3djOWM1dG5RVnFWNVovTC9uSURYL1M2SEdlVmRBODV1bCtzNzIwcWZzUW1P?=
+ =?utf-8?B?OWY2b1RsV0czK0tHSktTemhIOWlhZ014L09ldGtFYnJmR29BOEltTDVLeEQy?=
+ =?utf-8?B?ZWwxT01PV1BsTFdKRlB6YzNmS3BHVmp3YTdsTjJwYks1OVhleDd3ckxtclM4?=
+ =?utf-8?B?dmxmUlhFV1pkSit4MmRzOEkyR0NONjlCRzdDck0xOGhQSVBPVm5wdmwwVFF0?=
+ =?utf-8?B?SGlrWSszU1EyY0tERVRLNUJQekdxZXZIdHNnZTgvbzVNenc4VlFTQlZQSTJZ?=
+ =?utf-8?B?QXB1U3JidGNvdXh6dDBBRDU1R1hWVlBuZmQ4Z3BSY3NBWWdkQWpDT0ZvTE5B?=
+ =?utf-8?B?UmxtSlEwd3dCUUlDY3hpZjNKakRIUkFmUTV0VEFKakNSQkN0R0hpVGVEZks3?=
+ =?utf-8?B?K1g0aU5vcmJQNXNneHZKQWF5S3RQZmphVXpzZUttM0t3TEpnN0V1TXpvcXdW?=
+ =?utf-8?B?ZmNab0lHTVBJWVNTRFAxZW0vaGdmRG5DbkVxZWpJT3JrT044bHMvbDFsTncx?=
+ =?utf-8?B?dVVUVXpzWmQwTmVpNGlHcy9kTGFLV0ZZWUtNSEt4M3U5aXFLeGFaVk9HK0Zq?=
+ =?utf-8?B?cGlxK0RXSnJPNnc1MEsrSkp4SDZORHRUTE8xM0ZJR0pmOTFtV3hZZDZwSmg4?=
+ =?utf-8?B?YzJydnhmL2p6OCsyQkRDZEJkQ3FsNDVvcEJxc25qZTVGZ0pJdHMwYkRNSWZK?=
+ =?utf-8?B?bjBOVk92REttKytOa0laZmtoSnhXSm5OcTBScVoveVVzT3BkdUwwUkVFLzdJ?=
+ =?utf-8?B?ZDgrYW03TitMelZSbVVnNzIzSzFQUkI1Q1FUbTRMYm1lKzJ4ZnhIaWp3aVh4?=
+ =?utf-8?Q?bnoHNrEBolWRJ0P0yXa8bkZkl?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53ed1436-f9c9-4324-ab5a-08db4567eb89
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcf3e90b-73cc-4cdd-1629-08db4568464a
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 08:34:44.0145
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 08:37:16.2636
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4pWUaiUyY+erwjaJEkiJ+EgG3bSUl421yI8Oj8J3YlZJmrBFLyZUx02z+H5kqd3VgvXeooxILYx9GG6V9F13+Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6975
+X-MS-Exchange-CrossTenant-UserPrincipalName: pL8/OFDb5ATXqgyLk8VOG5gxAcJkDL7VajtD727gC8ZUzt/NSBCvsEnOG29zhr1w1kVCwN+o57AdI2sD7MSjHw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6817
 
 On 25.04.2023 09:56, Henry Wang wrote:
-> From: Wei Chen <wei.chen@arm.com>
-> 
-> A NUMA aware device tree will provide a "distance-map" node to
-> describe distance between any two nodes. This patch introduce a
-> new helper to parse this distance map.
-> 
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> --- a/xen/arch/arm/numa.c
+> +++ b/xen/arch/arm/numa.c
+> @@ -28,6 +28,12 @@ enum dt_numa_status {
+>  
+>  static enum dt_numa_status __ro_after_init device_tree_numa = DT_NUMA_DEFAULT;
+>  
+> +static unsigned char __ro_after_init
+> +node_distance_map[MAX_NUMNODES][MAX_NUMNODES] = {
+> +    [0 ... MAX_NUMNODES - 1] = { [0 ... MAX_NUMNODES - 1] = NUMA_NO_DISTANCE }
+> +};
+> +
+> +
 
-While trying to hunt down the caller(s) of numa_set_distance() in the
-context to replying to patch 3, I came across this one:
+Nit: A stray 2nd blank line has appeared here.
 
-> --- a/xen/arch/arm/numa_device_tree.c
-> +++ b/xen/arch/arm/numa_device_tree.c
-> @@ -151,3 +151,111 @@ invalid_data:
->      numa_fw_bad();
+> @@ -48,3 +54,52 @@ int __init arch_numa_setup(const char *opt)
+>  {
 >      return -EINVAL;
 >  }
 > +
-> +/* Parse NUMA distance map v1 */
-> +static int __init fdt_parse_numa_distance_map_v1(const void *fdt, int node)
+> +void __init numa_set_distance(nodeid_t from, nodeid_t to,
+> +                              unsigned int distance)
 > +{
-> +    const struct fdt_property *prop;
-> +    const __be32 *matrix;
-> +    unsigned int i, entry_count;
-> +    int len;
-> +
-> +    printk(XENLOG_INFO "NUMA: parsing numa-distance-map\n");
-> +
-> +    prop = fdt_get_property(fdt, node, "distance-matrix", &len);
-> +    if ( !prop )
+> +    if ( from >= ARRAY_SIZE(node_distance_map) ||
+> +         to >= ARRAY_SIZE(node_distance_map[0]) )
 > +    {
-> +        printk(XENLOG_WARNING
-> +               "NUMA: No distance-matrix property in distance-map\n");
-> +        goto invalid_data;
+> +        printk(KERN_WARNING
+> +               "NUMA: invalid nodes: from=%"PRIu8" to=%"PRIu8" MAX=%"PRIu8"\n",
+> +               from, to, MAX_NUMNODES);
+> +        return;
 > +    }
 > +
-> +    if ( len % sizeof(__be32) != 0 )
+> +    /* NUMA defines NUMA_NO_DISTANCE as unreachable and 0-9 are undefined */
+> +    if ( distance >= NUMA_NO_DISTANCE || distance <= NUMA_DISTANCE_UDF_MAX ||
+> +         (from == to && distance != NUMA_LOCAL_DISTANCE) )
 > +    {
-> +        printk(XENLOG_WARNING
-> +               "distance-matrix in node is not a multiple of u32\n");
-> +        goto invalid_data;
-> +    }
-> +
-> +    entry_count = len / sizeof(__be32);
-> +    if ( entry_count == 0 )
-> +    {
-> +        printk(XENLOG_WARNING "NUMA: Invalid distance-matrix\n");
-> +        goto invalid_data;
-> +    }
-> +
-> +    matrix = (const __be32 *)prop->data;
-> +    for ( i = 0; i + 2 < entry_count; i += 3 )
-> +    {
-> +        unsigned int from, to, distance, opposite;
-
-With these ...
-
-> +        from = dt_next_cell(1, &matrix);
-> +        to = dt_next_cell(1, &matrix);
-> +        distance = dt_next_cell(1, &matrix);
-> +        if ( (from == to && distance != NUMA_LOCAL_DISTANCE) ||
-> +             (from != to && distance <= NUMA_LOCAL_DISTANCE) )
-> +        {
-> +            printk(XENLOG_WARNING
-> +                   "NUMA: Invalid distance: NODE#%"PRIu32"->NODE#%"PRIu32":%"PRIu32"\n",
-
-... you don't mean PRIu32 here and ...
-
-> +                   from, to, distance);
-> +            goto invalid_data;
-> +        }
-> +
-> +        printk(XENLOG_INFO "NUMA: distance: NODE#%"PRIu32"->NODE#%"PRIu32":%"PRIu32"\n",
-
-... here and yet further down anymore. That'll at the same time shorten
-all these lines quite a bit.
-
+> +        printk(KERN_WARNING
+> +               "NUMA: invalid distance: from=%"PRIu8" to=%"PRIu8" distance=%"PRIu32"\n",
 > +               from, to, distance);
-> +
-> +        /* Get opposite way distance */
-> +        opposite = __node_distance(to, from);
-> +        /* The default value in node_distance_map is NUMA_NO_DISTANCE */
-> +        if ( opposite == NUMA_NO_DISTANCE )
-
-And the matrix you're reading from can't hold NUMA_NO_DISTANCE entries?
-I ask because you don't check this above; you only check against
-NUMA_LOCAL_DISTANCE.
-
-> +        {
-> +            /* Bi-directions are not set, set both */
-> +            numa_set_distance(from, to, distance);
-> +            numa_set_distance(to, from, distance);
-> +        }
-> +        else
-> +        {
-> +            /*
-> +             * Opposite way distance has been set to a different value.
-> +             * It may be a firmware device tree bug?
-> +             */
-> +            if ( opposite != distance )
-> +            {
-> +                /*
-> +                 * In device tree NUMA distance-matrix binding:
-> +                 * https://www.kernel.org/doc/Documentation/devicetree/bindings/numa.txt
-> +                 * There is a notes mentions:
-> +                 * "Each entry represents distance from first node to
-> +                 *  second node. The distances are equal in either
-> +                 *  direction."
-> +                 *
-> +                 * That means device tree doesn't permit this case.
-> +                 * But in ACPI spec, it cares to specifically permit this
-> +                 * case:
-> +                 * "Except for the relative distance from a System Locality
-> +                 *  to itself, each relative distance is stored twice in the
-> +                 *  matrix. This provides the capability to describe the
-> +                 *  scenario where the relative distances for the two
-> +                 *  directions between System Localities is different."
-> +                 *
-> +                 * That means a real machine allows such NUMA configuration.
-> +                 * So, place a WARNING here to notice system administrators,
-> +                 * is it the specail case that they hijack the device tree
-> +                 * to support their rare machines?
-> +                 */
-> +                printk(XENLOG_WARNING
-> +                       "Un-matched bi-direction! NODE#%"PRIu32"->NODE#%"PRIu32":%"PRIu32", NODE#%"PRIu32"->NODE#%"PRIu32":%"PRIu32"\n",
-> +                       from, to, distance, to, from, opposite);
-> +            }
-> +
-> +            /* Opposite way distance has been set, just set this way */
-> +            numa_set_distance(from, to, distance);
-
-It took me a while to understand what the comment is to tell me,
-because in this iteration the opposite entry wasn't set. May I
-suggest to make more explicit that you refer to an earlier iteration,
-e.g. by "... was set before, ..."?
-
-> +        }
+> +        return;
 > +    }
-> +
-> +    return 0;
-> +
-> +invalid_data:
 
-Nit: Style (labels to be indented by [at least] one blank).
+I appreciate the checking that node-local references are NUMA_LOCAL_DISTANCE,
+but if they're wrongly passed into here, shouldn't the resulting array still
+have NUMA_LOCAL_DISTANCE on its diagonal, at least as far as present nodes
+go?
+
+> +    node_distance_map[from][to] = distance;
+> +}
+> +
+> +unsigned char __node_distance(nodeid_t from, nodeid_t to)
+> +{
+> +    if ( from == to )
+> +        return NUMA_LOCAL_DISTANCE;
+> +
+> +    /*
+> +     * When NUMA is off, any distance will be treated as unreachable, so
+> +     * directly return NUMA_NO_DISTANCE from here as an optimization.
+> +     */
+> +    if ( numa_disabled() )
+> +        return NUMA_NO_DISTANCE;
+> +
+> +    /*
+> +     * Check whether the nodes are in the matrix range.
+> +     * When any node is out of range, except from and to nodes are the
+> +     * same, we treat them as unreachable.
+
+I think this "except ..." part is slightly confusing, as it doesn't comment
+the subsequent code, but instead refers to the first check in the function.
+If you want to keep it, may I suggest to add something like "(see above)"
+before the comma?
 
 Jan
 
