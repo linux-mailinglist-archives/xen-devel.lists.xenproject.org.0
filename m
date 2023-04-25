@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5ED06EDD5A
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 09:57:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525751.817150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 183B86EDD5C
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 09:57:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525752.817161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prDY3-0005MF-8o; Tue, 25 Apr 2023 07:57:15 +0000
+	id 1prDY6-0005e3-JC; Tue, 25 Apr 2023 07:57:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525751.817150; Tue, 25 Apr 2023 07:57:15 +0000
+Received: by outflank-mailman (output) from mailman id 525752.817161; Tue, 25 Apr 2023 07:57:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prDY3-0005Ir-4O; Tue, 25 Apr 2023 07:57:15 +0000
-Received: by outflank-mailman (input) for mailman id 525751;
- Tue, 25 Apr 2023 07:57:13 +0000
+	id 1prDY6-0005ag-GB; Tue, 25 Apr 2023 07:57:18 +0000
+Received: by outflank-mailman (input) for mailman id 525752;
+ Tue, 25 Apr 2023 07:57:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1xGP=AQ=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1prDY1-00053E-Eg
- for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 07:57:13 +0000
+ id 1prDY4-00053E-Rv
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 07:57:16 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id c943116a-e33e-11ed-b223-6b7b168915f2;
- Tue, 25 Apr 2023 09:57:12 +0200 (CEST)
+ id cb5e765d-e33e-11ed-b223-6b7b168915f2;
+ Tue, 25 Apr 2023 09:57:16 +0200 (CEST)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BDFD1D75;
- Tue, 25 Apr 2023 00:57:55 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3D17C4B3;
+ Tue, 25 Apr 2023 00:57:59 -0700 (PDT)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.5])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6B5A63F587;
- Tue, 25 Apr 2023 00:57:08 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E70743F587;
+ Tue, 25 Apr 2023 00:57:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c943116a-e33e-11ed-b223-6b7b168915f2
+X-Inumbo-ID: cb5e765d-e33e-11ed-b223-6b7b168915f2
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Wei Chen <wei.chen@arm.com>,
@@ -51,14 +51,10 @@ Cc: Wei Chen <wei.chen@arm.com>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>,
 	Henry Wang <Henry.Wang@arm.com>
-Subject: [PATCH v4 01/17] xen/arm: use NR_MEM_BANKS to override default NR_NODE_MEMBLKS
-Date: Tue, 25 Apr 2023 15:56:39 +0800
-Message-Id: <20230425075655.4037980-2-Henry.Wang@arm.com>
+Subject: [PATCH v4 02/17] xen/arm: implement helpers to get and update NUMA status
+Date: Tue, 25 Apr 2023 15:56:40 +0800
+Message-Id: <20230425075655.4037980-3-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230425075655.4037980-1-Henry.Wang@arm.com>
 References: <20230425075655.4037980-1-Henry.Wang@arm.com>
@@ -67,93 +63,133 @@ Content-Transfer-Encoding: 8bit
 
 From: Wei Chen <wei.chen@arm.com>
 
-As a memory range described in device tree cannot be split across
-multiple nodes. And it is very likely than if you have more than
-64 nodes, you may need a lot more than 2 regions per node. So the
-default NR_NODE_MEMBLKS value (MAX_NUMNODES * 2) makes no sense
-on Arm.
+NUMA has one global and one implementation specific switches. For
+ACPI NUMA implementation, Xen has acpi_numa, so we introduce
+device_tree_numa for device tree NUMA implementation. And use
+enumerations to indicate init, off and on status.
 
-So, for Arm, we would just define NR_NODE_MEMBLKS as an alias to
-NR_MEM_BANKS. And in the future NR_MEM_BANKS will be user-configurable
-via kconfig, but for now leave NR_MEM_BANKS as 128 on Arm. This
-avoids having different way to define the value based NUMA vs non-NUMA.
-
-Further discussions can be found here[1].
-
-[1] https://lists.xenproject.org/archives/html/xen-devel/2021-09/msg02322.html
+arch_numa_disabled will get device_tree_numa status, but for
+arch_numa_setup we have not provided boot arguments to setup
+device_tree_numa. So we just return -EINVAL in this patch.
 
 Signed-off-by: Wei Chen <wei.chen@arm.com>
 Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 v3 -> v4:
-1. Add Acked-by tag from Jan.
+1. No change.
 v2 -> v3:
-By checking the discussion in [1] and [2]
-[1] https://lists.xenproject.org/archives/html/xen-devel/2023-01/msg00595.html
-[2] https://lists.xenproject.org/archives/html/xen-devel/2021-09/msg02322.html
-1. No change
+1. Rename the first entry of enum dt_numa_status as DT_NUMA_DEFAULT.
+2. Make enum dt_numa_status device_tree_numa as __ro_after_init and
+   assign it explicitly to DT_NUMA_DEFAULT.
+3. Update the year in copyright to 2023.
+4. Don't move the x86 numa_disabled() and make Arm's numa_disabled()
+   a static inline function for !CONFIG_NUMA.
 v1 -> v2:
-1. Add code comments to explain using NR_MEM_BANKS for Arm
-2. Refine commit messages.
+1. Use arch_numa_disabled to replace numa_enable_with_firmware.
+2. Introduce enumerations for device tree numa status.
+3. Use common numa_disabled, drop Arm version numa_disabled.
+4. Introduce arch_numa_setup for Arm.
+5. Rename bad_srat to numa_bad.
+6. Add numa_enable_with_firmware helper.
+7. Add numa_disabled helper.
+8. Refine commit message.
 ---
- xen/arch/arm/include/asm/numa.h | 19 ++++++++++++++++++-
- xen/include/xen/numa.h          |  9 +++++++++
- 2 files changed, 27 insertions(+), 1 deletion(-)
+ xen/arch/arm/include/asm/numa.h | 17 +++++++++++
+ xen/arch/arm/numa.c             | 50 +++++++++++++++++++++++++++++++++
+ 2 files changed, 67 insertions(+)
+ create mode 100644 xen/arch/arm/numa.c
 
 diff --git a/xen/arch/arm/include/asm/numa.h b/xen/arch/arm/include/asm/numa.h
-index e2bee2bd82..7d6ae36a19 100644
+index 7d6ae36a19..83f60ad05b 100644
 --- a/xen/arch/arm/include/asm/numa.h
 +++ b/xen/arch/arm/include/asm/numa.h
-@@ -3,9 +3,26 @@
+@@ -22,6 +22,8 @@ typedef u8 nodeid_t;
+  */
+ #define NR_NODE_MEMBLKS NR_MEM_BANKS
  
- #include <xen/mm.h>
- 
-+#include <asm/setup.h>
++extern bool numa_disabled(void);
 +
- typedef u8 nodeid_t;
- 
--#ifndef CONFIG_NUMA
-+#ifdef CONFIG_NUMA
-+
-+/*
-+ * It is very likely that if you have more than 64 nodes, you may
-+ * need a lot more than 2 regions per node. So, for Arm, we would
-+ * just define NR_NODE_MEMBLKS as an alias to NR_MEM_BANKS.
-+ * And in the future NR_MEM_BANKS will be bumped for new platforms,
-+ * but for now leave NR_MEM_BANKS as it is on Arm. This avoid to
-+ * have different way to define the value based NUMA vs non-NUMA.
-+ *
-+ * Further discussions can be found here:
-+ * https://lists.xenproject.org/archives/html/xen-devel/2021-09/msg02322.html
-+ */
-+#define NR_NODE_MEMBLKS NR_MEM_BANKS
-+
-+#else
+ #else
  
  /* Fake one node for now. See also node_online_map. */
- #define cpu_to_node(cpu) 0
-diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-index 29b8c2df89..b86d0851fc 100644
---- a/xen/include/xen/numa.h
-+++ b/xen/include/xen/numa.h
-@@ -13,7 +13,16 @@
- #define MAX_NUMNODES 1
+@@ -39,6 +41,21 @@ extern mfn_t first_valid_mfn;
+ #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+ #define __node_distance(a, b) (20)
+ 
++static inline bool numa_disabled(void)
++{
++    return true;
++}
++
++static inline bool arch_numa_unavailable(void)
++{
++    return true;
++}
++
++static inline bool arch_numa_broken(void)
++{
++    return true;
++}
++
  #endif
  
+ #define arch_want_default_dmazone() (false)
+diff --git a/xen/arch/arm/numa.c b/xen/arch/arm/numa.c
+new file mode 100644
+index 0000000000..eb5d0632cb
+--- /dev/null
++++ b/xen/arch/arm/numa.c
+@@ -0,0 +1,50 @@
++/* SPDX-License-Identifier: GPL-2.0 */
 +/*
-+ * Some architectures may have different considerations for
-+ * number of node memory blocks. They can define their
-+ * NR_NODE_MEMBLKS in asm/numa.h to reflect their architectural
-+ * implementation. If the arch does not have specific implementation,
-+ * the following default NR_NODE_MEMBLKS will be used.
++ * Arm Architecture support layer for NUMA.
++ *
++ * Copyright (C) 2023 Arm Ltd
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program. If not, see <http://www.gnu.org/licenses/>.
++ *
 + */
-+#ifndef NR_NODE_MEMBLKS
- #define NR_NODE_MEMBLKS (MAX_NUMNODES * 2)
-+#endif
- 
- #define vcpu_to_node(v) (cpu_to_node((v)->processor))
- 
++#include <xen/init.h>
++#include <xen/numa.h>
++
++enum dt_numa_status {
++    DT_NUMA_DEFAULT,
++    DT_NUMA_ON,
++    DT_NUMA_OFF,
++};
++
++static enum dt_numa_status __ro_after_init device_tree_numa = DT_NUMA_DEFAULT;
++
++void __init numa_fw_bad(void)
++{
++    printk(KERN_ERR "NUMA: device tree numa info table not used.\n");
++    device_tree_numa = DT_NUMA_OFF;
++}
++
++bool __init arch_numa_unavailable(void)
++{
++    return device_tree_numa != DT_NUMA_ON;
++}
++
++bool arch_numa_disabled(void)
++{
++    return device_tree_numa == DT_NUMA_OFF;
++}
++
++int __init arch_numa_setup(const char *opt)
++{
++    return -EINVAL;
++}
 -- 
 2.25.1
 
