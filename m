@@ -2,52 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E554A6EDEF7
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 11:17:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525920.817443 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D146EDF1C
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 11:23:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525924.817454 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prEnD-00043S-Jl; Tue, 25 Apr 2023 09:16:59 +0000
+	id 1prEsw-0005Vk-AP; Tue, 25 Apr 2023 09:22:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525920.817443; Tue, 25 Apr 2023 09:16:59 +0000
+Received: by outflank-mailman (output) from mailman id 525924.817454; Tue, 25 Apr 2023 09:22:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prEnD-00041R-Gf; Tue, 25 Apr 2023 09:16:59 +0000
-Received: by outflank-mailman (input) for mailman id 525920;
- Tue, 25 Apr 2023 09:16:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1prEsw-0005So-6Y; Tue, 25 Apr 2023 09:22:54 +0000
+Received: by outflank-mailman (input) for mailman id 525924;
+ Tue, 25 Apr 2023 09:22:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+dmH=AQ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1prEnB-00041L-Vu
- for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 09:16:58 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2060d.outbound.protection.outlook.com
- [2a01:111:f400:7e89::60d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ebd96e39-e349-11ed-8611-37d641c3527e;
- Tue, 25 Apr 2023 11:16:55 +0200 (CEST)
-Received: from MW4PR04CA0254.namprd04.prod.outlook.com (2603:10b6:303:88::19)
- by SN7PR12MB7451.namprd12.prod.outlook.com (2603:10b6:806:29b::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.33; Tue, 25 Apr
- 2023 09:16:51 +0000
-Received: from CO1NAM11FT013.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:88:cafe::a3) by MW4PR04CA0254.outlook.office365.com
- (2603:10b6:303:88::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6319.34 via Frontend
- Transport; Tue, 25 Apr 2023 09:16:51 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT013.mail.protection.outlook.com (10.13.174.227) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.20 via Frontend Transport; Tue, 25 Apr 2023 09:16:50 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 25 Apr
- 2023 04:16:50 -0500
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 25 Apr 2023 04:16:48 -0500
+ <SRS0=BHzL=AQ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1prEsu-0005Sh-Nm
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 09:22:52 +0000
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bea29891-e34a-11ed-b223-6b7b168915f2;
+ Tue, 25 Apr 2023 11:22:50 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 5C5E332005C1;
+ Tue, 25 Apr 2023 05:22:46 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 25 Apr 2023 05:22:47 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 25 Apr 2023 05:22:44 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,138 +43,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebd96e39-e349-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h5GdVPIo3ax4hXGsZQRsuER/4Br+JzxTKb+PlKVLKL9hT2dbSV3erDC1BjFk0um4OMlEJvoN5WijlmQvzS+1klmGfef3jGG7YRjUVjvWBOrH2tel2FwtQyWhEFcvmZN4SqahFjiCpuogxfTdbObR2Qkc2a3ssfBDxsgNnGAaBhsNx1fE7hjUp4y8Na0xc0mYMtcrOfgpZT6dMTmN2bAnBXvuUw1XBxT6BJFNjz4/+3S56wxt/HLl57icuQG1D27InRH3+28v5ClqwrXmX4KgLXsM7TuWOKTjTAY8EM5psKNLfY5KSfKfzcnRltP6rRZoSforMuikLp9rzyMHAL/CDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Am36Z/cVjOhEFeXClzPQpcORJB52iIGKESmRFUjF08g=;
- b=f1W02WmAr3pEE0ia0GlUugWduth2e+ObYIXxZFVL/AvTZ5DBgV2p9RsS21rrdnzAtg5tZ4RG9hmVfVfS358FyCagkKpB6zCg9BT9r3mqXk70bSZAO1agzJoINeusvJfHzGN0lBMuzuZ2RJb/a2eUMGoNxp2sBxMNi4niz+3BAcOlZ/Tes4QYCd8w+6HsYJue2s7Bl6l6YD8T7i7tMDps3JwVMFzEkE8KIPKj1RShL3GwdmsnwuRn9HHvVO0gLQ8Opbr8kQZUjxzPYMtuydCCZzls4gwqvRTmxJn+zn1socsPsI8pxeshaP0C2hDS1uG5AhDFwBc48W/HUaqe9cvJSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Am36Z/cVjOhEFeXClzPQpcORJB52iIGKESmRFUjF08g=;
- b=jZhn4cGae0sS7n07mCtZ2AMIeEmIqPOI4Duvke3O73CRu06if4rLD2WOrMq7pdZSIEz38T74GC9+OtmM1J4TKH8B+5qAUtgEE0SFQRtdLGtjl2MkaHOxxOU6xWFiLXTN6k18+erQ+PH2mZfNSmsq9OWG9ABnl1eaczn5sLSZpsQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <a9b8b2ee-1b41-7fc4-2cda-3f490e70ada6@amd.com>
-Date: Tue, 25 Apr 2023 11:16:43 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH v4 07/17] xen/arm: introduce a helper to parse device tree
- processor node
-Content-Language: en-US
+X-Inumbo-ID: bea29891-e34a-11ed-b223-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1682414565; x=1682500965; bh=n7mEZHqqlPL4GuAmu+P0KpVYPyPHX0Db6or
+	cu4QoUDU=; b=ofpUM5MlX1mzGborQ6U/zTN7T3LNetR3enueMNXKd04sCg4H1HU
+	BIkgsY3eXNEF3jvbFGWcn2oR45LCFTxwfOKhpKviwnizVbo/1oyXcEp5aLtocHG/
+	ZAvcxN9Owb7uKAJk9+OjNueH+Lleq0b0ETO1vpC6qFt9cxqpjMavsGGZX9z71Gks
+	SctfzNlQnH6GYoNg0fmCDEHTRK2chTz4kgH1m69T7AFNPuKZIwcAAuuLXD+h47tZ
+	oxDAFlR0mno/kPH/UshVwVBXZvWZ/3irCtlvgjZ5sut4QpsDnr7Y9kV1fnjAbAsk
+	ja1R6AnTYcij1r9hOAGWXAzjOjXeVM9/H4A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1682414565; x=1682500965; bh=n7mEZHqqlPL4G
+	uAmu+P0KpVYPyPHX0Db6orcu4QoUDU=; b=iwftkVvaFqonMFO9WW/mjPGa0pFzu
+	B1/3fus/3i5hZkIcuba/FKS4huyRKKsheMErqSlnwAnpegAB0aAx/eSYWWW9PS4y
+	iL0bpcrulYTJzAyF+xU2x68VXelxlO3pxkkQ2VSqFa4EMJBFdlviiepfQvtTWBQP
+	05Gr3phlmbZvU1nDWx7qi6Ls+WeMSDyPhDVsxjppUjyL4UStl97c8iNiVEcd0CE3
+	v21ZVIpSDTuzxQBrilfpwfFuNQY/8zKX+qEzHay7uhbChhpuhigUB57mkwWEz1vh
+	Iz+f8r1BT6+uqAmnuuTbno3VtgrzdKFWKR0grPMzkUX+L6CtQU80yeKDw==
+X-ME-Sender: <xms:5ZtHZBhQg3zkBi_dNd1TkzKVX3uljLUOtNPqgOM-zgWra8kWl03Yhw>
+    <xme:5ZtHZGDG9Ot2Z9zgb226hqjkHsMZ2NtXpTAUg4Di0hT0JW7oYFsDC8riqBSLgzudq
+    UOy5TKBhCYcig>
+X-ME-Received: <xmr:5ZtHZBEPU3mdRfFh1t7xeRs1TWOHuU-DQJsLkO7vJ4qIxZO9w-fodL7jqZdwX9VA49v-FZkheAeOv1vZSKCL2XqLbqhZCVzwJl4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeduvddgudehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:5ZtHZGQcdi6HjHiIvgfuJWuC7eNJ7p6EEJHnEEUjSwNDR_Y8H0m8vg>
+    <xmx:5ZtHZOyyPwaLNgKVj9c3L9uNa_1LufSiwT-aLqFv9QVmZi6zUGuNhg>
+    <xmx:5ZtHZM7SVf59UqbFl-8OMEPV_qZvTpt8zelNlQEU6rRlOroKHlx5Kg>
+    <xmx:5ZtHZIsh3pCr89N5nuDQZGLyEBl8jlyMWpvNql7PV1K_jAIj5f_FtQ>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 25 Apr 2023 11:22:41 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
-CC: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	<xen-devel@lists.xenproject.org>, Henry Wang <Henry.Wang@arm.com>
-References: <20230425075655.4037980-1-Henry.Wang@arm.com>
- <20230425075655.4037980-8-Henry.Wang@arm.com>
- <8ce925a1-dadd-79c3-3b0f-c3ab45b1a669@suse.com>
- <36e27df0-7fdc-5f1d-ebb7-0b021bdae2bf@amd.com>
- <d998b0cd-d8da-6022-3ec4-acfb798d5d3f@suse.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <d998b0cd-d8da-6022-3ec4-acfb798d5d3f@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT013:EE_|SN7PR12MB7451:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8dde6a4-42ca-4e3a-a122-08db456dcdce
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ROpxwRGAOPtdFNdqeEAu2B5KW5/BYY6qn5fD2e/nRu/zPcNRozOC28t54QD3ZsB9Mk/vPIwnRvyhCVJcoZ4VuPquKe8Ahu+lllIEKnBOxIRrRtNT1Dck0lPfmKSCMQGrTv85Db9uah92GAd0uIp1N6Tj9yiySNa5WCfAUXSVmsDcxw2riNT5wMODRm5sPJihM3wLMABtISObILGDelaR0AK/w2Pr28N8mm/uyXrWWZ4Lq6s+pvY8U028XsfOJ0YKRBFj2WChI8UAdqYsDdXBqof4qdzKgkwyZq0wzNkyYqaTx3O6aOgoD83rUi/r3c0dO2Ch10CZ+4yTYLPYF0wyRK8J3OE+0egB7mOVMBGLTNmkRQ5j1MulPfwcwWdXyvirceh0yrFMxQ9fs6ot3+vBd+/YWd0SpOHNgypONxvwSIH8jIKjxYY7DrYKYusS9yzp6iuWj3p73PGQrX3P347qW+Iiw5h9z/XXNZtaZ2mEEx3o7OJXK6IZaJ3m585w/qBbSTIBUYnS34Izs9tsokgaeY6vnSVKijSsg1BQWVbTjmXHqtX5xf0WvUx4iSlqKfeK+Kx5wF50EqYvnEXxrbuTRHW8ZoJox2o5aVuNW+DPvQSnirLRt03ro/fAY1UgNfcNVV0aAHq1596FBpUaBxmCQ7u4aNnifWRE3CGc5DvfopIusjt0KisO5ueY04HxrrPXH7aO95ef16XNvNhlQbEn8/dTFt/Qg08YslE/fxBO75dRTSs42BUBHwDokPuYr6rRy0v4hVVRvyAC/wtp1ecDVg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(346002)(376002)(39860400002)(396003)(451199021)(40470700004)(46966006)(36840700001)(2616005)(44832011)(40460700003)(2906002)(36756003)(5660300002)(86362001)(8936002)(8676002)(40480700001)(47076005)(31696002)(82310400005)(16576012)(316002)(26005)(53546011)(54906003)(186003)(478600001)(6666004)(4326008)(6916009)(41300700001)(81166007)(83380400001)(336012)(426003)(82740400003)(356005)(31686004)(70586007)(70206006)(36860700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Apr 2023 09:16:50.8117
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8dde6a4-42ca-4e3a-a122-08db456dcdce
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT013.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7451
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] ns16550: enable memory decoding on MMIO-based PCI
+ console card
+Message-ID: <ZEeb4ieUq1B1cQsg@mail-itl>
+References: <20230424233930.129621-1-marmarek@invisiblethingslab.com>
+ <e93bd35b-42fb-3979-7e08-0d7f779e9ed1@suse.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="o+ldYxeBTrHEeD44"
+Content-Disposition: inline
+In-Reply-To: <e93bd35b-42fb-3979-7e08-0d7f779e9ed1@suse.com>
 
 
+--o+ldYxeBTrHEeD44
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Apr 2023 11:22:41 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] ns16550: enable memory decoding on MMIO-based PCI
+ console card
 
-On 25/04/2023 10:47, Jan Beulich wrote:
-> 
-> 
-> On 25.04.2023 10:39, Michal Orzel wrote:
->> Hi Jan,
->>
->> On 25/04/2023 10:20, Jan Beulich wrote:
->>>
->>>
->>> On 25.04.2023 09:56, Henry Wang wrote:
->>>> From: Wei Chen <wei.chen@arm.com>
->>>>
->>>> Processor NUMA ID information is stored in device tree's processor
->>>> node as "numa-node-id". We need a new helper to parse this ID from
->>>> processor node. If we get this ID from processor node, this ID's
->>>> validity still need to be checked. Once we got a invalid NUMA ID
->>>> from any processor node, the device tree will be marked as NUMA
->>>> information invalid.
->>>>
->>>> Since new helpers need to know the NUMA status, move the
->>>> enum dt_numa_status to the Arm NUMA header.
->>>>
->>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
->>>> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
->>>> ---
->>>> v3 -> v4:
->>>> 1. No change.
->>>> v2 -> v3:
->>>> 1. Move the enum dt_numa_status to the Arm NUMA header.
->>>> 2. Update the year in copyright to 2023.
->>>> v1 -> v2:
->>>> 1. Move numa_disabled from fdt_numa_processor_affinity_init
->>>>    to fdt_parse_numa_cpu_node.
->>>> 2. Move invalid NUMA id check to fdt_parse_numa_cpu_node.
->>>> 3. Return ENODATA for normal dtb without NUMA info.
->>>> 4. Use NUMA status helpers instead of SRAT functions.
->>>> ---
->>>>  xen/arch/arm/Makefile           |  1 +
->>>>  xen/arch/arm/include/asm/numa.h |  8 +++++
->>>>  xen/arch/arm/numa.c             |  8 +----
->>>>  xen/arch/arm/numa_device_tree.c | 64 +++++++++++++++++++++++++++++++++
->>>>  4 files changed, 74 insertions(+), 7 deletions(-)
->>>>  create mode 100644 xen/arch/arm/numa_device_tree.c
->>>
->>> As asked for in various other contexts, may I please ask that new files
->>> prefer dashes over underscores in their names? Additionally short but
->>> still descriptive names are imo to be generally preferred; in the case
->>> here how about numa-dt.c?
->>
->> Seeing that you made this request multiple times within the last months, maybe it would
->> be better to write it down in CODING_STYLE or CONTRIBUTING? Otherwise, you will keep making
->> these requests indefinitely without people being able to know things like that before pushing
->> new files (+ this always requires respin).
-> 
-> Well. I could make a try, but getting ./CODING_STYLE changed has proven
-> to be difficult in the past, and I would prefer to not again sit on such
-> a patch for months or years. IOW I've become quite hesitant to submit
-> such patches, even more so for things which - imo - should go without
-> saying.
+On Tue, Apr 25, 2023 at 10:05:25AM +0200, Jan Beulich wrote:
+> On 25.04.2023 01:39, Marek Marczykowski-G=C3=B3recki wrote:
+> > pci_serial_early_init() enables PCI_COMMAND_IO for IO-based UART
+> > devices, do similar with PCI_COMMAND_MEMORY for MMIO-based UART devices.
+>=20
+> While I agree that something like this is needed (and in fact I have been
+> wondering more than once why this wasn't there), what you say above isn't
+> really correct imo: You do not really make things similar to port-based
+> handling. For one you don't respect uart->pb_bdf_enable. And then you also
+> don't write the BAR. When you use the BDF form of com<N>=3D, I don't see =
+how
+> else the BAR could be written to the value that you (necessarily) have to
+> also specify on the command line.=20
 
-I understand your point. It might be worth asking e.g. on a community call
-to see what others think (for now I did not see any objections). It might be
-that everyone is ok with it under good justification.
+I don't think MMIO-based UART is going to work without "pci" on the
+command line at all. Setting the BAR is one of the reasons (there is
+more to it than just setting (or reading) PCI_BASE_ADDRESS_0, as many
+cards have UART registers at an offset), but also other parameters like
+fifo_size. So, I don't think it's a good idea to set PCI_BASE_ADDRESS_0
+to what user provided in io_base.
 
-~Michal
+> As said on Matrix, using the "pci"
+> sub-option together with the BDF one isn't intended (and would probably
+> better be rejected), according to all I can tell. Which in turn means that
+> for the "pci" sub-option alone to also have the effect of - if necessary -
+> enabling I/O or memory decoding, a further adjustment would be needed
+> (because merely keying this to uart->ps_bdf_enable then isn't enough). I
+> guess like e.g. ns16550_init_postirq() you'd want to also check uart->bar.
+
+Yes, checking also uart->bar makes sense.
+
+> That said, I'm not meaning to mandate you to particularly deal with the
+> bridge part of the setup, not the least because I consider bogus what we
+> have. But you should at least mention in the description what you leave
+> untouched (and hence dissimilar to port-based handling).
+>=20
+> As to rejecting invalid combinations of sub-options: See e.g. the dev_set
+> variable in parse_namevalue_pairs(). That's a wee attempt to go in the
+> intended direction.
+
+That makes sense with the current code shape. At some point IMO it's
+worth having an option to choose which PCI device to use, also for
+MMIO-based cards, but I don't have a need for this feature right now.
+
+> Jan
+>=20
+> > --- a/xen/drivers/char/ns16550.c
+> > +++ b/xen/drivers/char/ns16550.c
+> > @@ -272,9 +272,17 @@ static int cf_check ns16550_getc(struct serial_por=
+t *port, char *pc)
+> >  static void pci_serial_early_init(struct ns16550 *uart)
+> >  {
+> >  #ifdef NS16550_PCI
+> > -    if ( !uart->ps_bdf_enable || uart->io_base >=3D 0x10000 )
+> > +    if ( !uart->ps_bdf_enable )
+> >          return;
+> > =20
+> > +    if ( uart->io_base >=3D 0x10000 )
+> > +    {
+> > +        pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
+> > +                                  uart->ps_bdf[2]),
+> > +                         PCI_COMMAND, PCI_COMMAND_MEMORY);
+> > +        return;
+> > +    }
+> > +
+> >      if ( uart->pb_bdf_enable )
+> >          pci_conf_write16(PCI_SBDF(0, uart->pb_bdf[0], uart->pb_bdf[1],
+> >                                    uart->pb_bdf[2]),
+>=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--o+ldYxeBTrHEeD44
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRHm+IACgkQ24/THMrX
+1yyhnAgAmigbGE67ThnOdCcgO7WrstM++HrGTvar4fpC3mK/q1VkFlrxeB+AXRjY
+eG++ne4G//wvxAJeP1uQZQSNCwLMGL4PboPQ1/RolhRoW8nj4fenIOjc96Dyc9rB
+7FkEfe/SIiyEuu9PxFXbavEnrLEOPCVdfSBj0ZR1JA1bAcYwyVEHbslWG++qUdks
+sqHSDa5neq4McV/ucC/JvOdxdxffCVZf15m/is7mqayM0smFuyGOLUTStI9cus1S
+jXTJwyw44Foyd4bW+w6zDDEDVdPGwtTRZQvw3jPbwnKYxf7c4bbNpOoR6ysNRXh2
+ttIBbaDPtYjwJ8EAa8LcVZsB9z+4dQ==
+=KdJE
+-----END PGP SIGNATURE-----
+
+--o+ldYxeBTrHEeD44--
 
