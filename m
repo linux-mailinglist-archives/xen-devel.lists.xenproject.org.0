@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71D146EDF1C
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 11:23:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.525924.817454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DA806EDF41
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 11:30:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.525932.817464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prEsw-0005Vk-AP; Tue, 25 Apr 2023 09:22:54 +0000
+	id 1prF09-00073j-5a; Tue, 25 Apr 2023 09:30:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 525924.817454; Tue, 25 Apr 2023 09:22:54 +0000
+Received: by outflank-mailman (output) from mailman id 525932.817464; Tue, 25 Apr 2023 09:30:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prEsw-0005So-6Y; Tue, 25 Apr 2023 09:22:54 +0000
-Received: by outflank-mailman (input) for mailman id 525924;
- Tue, 25 Apr 2023 09:22:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1prF09-00071G-2f; Tue, 25 Apr 2023 09:30:21 +0000
+Received: by outflank-mailman (input) for mailman id 525932;
+ Tue, 25 Apr 2023 09:30:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BHzL=AQ=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1prEsu-0005Sh-Nm
- for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 09:22:52 +0000
+ id 1prF07-00070t-PL
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 09:30:19 +0000
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bea29891-e34a-11ed-b223-6b7b168915f2;
- Tue, 25 Apr 2023 11:22:50 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 5C5E332005C1;
- Tue, 25 Apr 2023 05:22:46 -0400 (EDT)
+ [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c91fd13e-e34b-11ed-8611-37d641c3527e;
+ Tue, 25 Apr 2023 11:30:17 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id C9B0B320096B;
+ Tue, 25 Apr 2023 05:30:13 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 25 Apr 2023 05:22:47 -0400
+ by compute5.internal (MEProxy); Tue, 25 Apr 2023 05:30:14 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 25 Apr 2023 05:22:44 -0400 (EDT)
+ 25 Apr 2023 05:30:11 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bea29891-e34a-11ed-b223-6b7b168915f2
+X-Inumbo-ID: c91fd13e-e34b-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1682414565; x=1682500965; bh=n7mEZHqqlPL4GuAmu+P0KpVYPyPHX0Db6or
-	cu4QoUDU=; b=ofpUM5MlX1mzGborQ6U/zTN7T3LNetR3enueMNXKd04sCg4H1HU
-	BIkgsY3eXNEF3jvbFGWcn2oR45LCFTxwfOKhpKviwnizVbo/1oyXcEp5aLtocHG/
-	ZAvcxN9Owb7uKAJk9+OjNueH+Lleq0b0ETO1vpC6qFt9cxqpjMavsGGZX9z71Gks
-	SctfzNlQnH6GYoNg0fmCDEHTRK2chTz4kgH1m69T7AFNPuKZIwcAAuuLXD+h47tZ
-	oxDAFlR0mno/kPH/UshVwVBXZvWZ/3irCtlvgjZ5sut4QpsDnr7Y9kV1fnjAbAsk
-	ja1R6AnTYcij1r9hOAGWXAzjOjXeVM9/H4A==
+	1682415013; x=1682501413; bh=UI7v9qpm2wM1dJOLNNZWpO2w8GjESz36ETP
+	nStloqCo=; b=kqH/YXRtQhN1inkhLamlO3PDbbp67aGfS+OH9Pruouf8DhGoQ3b
+	AZK1OdGCOskWGG4WDgIn5r7gf7ZPbX1iK6nCy2Ivk50U2LTmTD8Pe9VIBYsMDv/J
+	pICjTL2JUfD/8hmk2YXiClb1Or5g6DPgTciCBGcvGEW9LAI/YD5QlZtMPIe3RHv6
+	QA1eQ2xR8z/JlbbQmKyN7NmeLaynhpKKwyuM3vZ0+Bv3GMbO30G2wcZMNqZ0FC+j
+	pNJXOCDyTHyFm5bur9LvwsLl8ecaQ86ot9ynw3IrPZZEGdyC3Sx79s1XtuXqdHsU
+	pMCw8sOGHLEQs8ns/ze/j68VtSIQXEnPbew==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1682414565; x=1682500965; bh=n7mEZHqqlPL4G
-	uAmu+P0KpVYPyPHX0Db6orcu4QoUDU=; b=iwftkVvaFqonMFO9WW/mjPGa0pFzu
-	B1/3fus/3i5hZkIcuba/FKS4huyRKKsheMErqSlnwAnpegAB0aAx/eSYWWW9PS4y
-	iL0bpcrulYTJzAyF+xU2x68VXelxlO3pxkkQ2VSqFa4EMJBFdlviiepfQvtTWBQP
-	05Gr3phlmbZvU1nDWx7qi6Ls+WeMSDyPhDVsxjppUjyL4UStl97c8iNiVEcd0CE3
-	v21ZVIpSDTuzxQBrilfpwfFuNQY/8zKX+qEzHay7uhbChhpuhigUB57mkwWEz1vh
-	Iz+f8r1BT6+uqAmnuuTbno3VtgrzdKFWKR0grPMzkUX+L6CtQU80yeKDw==
-X-ME-Sender: <xms:5ZtHZBhQg3zkBi_dNd1TkzKVX3uljLUOtNPqgOM-zgWra8kWl03Yhw>
-    <xme:5ZtHZGDG9Ot2Z9zgb226hqjkHsMZ2NtXpTAUg4Di0hT0JW7oYFsDC8riqBSLgzudq
-    UOy5TKBhCYcig>
-X-ME-Received: <xmr:5ZtHZBEPU3mdRfFh1t7xeRs1TWOHuU-DQJsLkO7vJ4qIxZO9w-fodL7jqZdwX9VA49v-FZkheAeOv1vZSKCL2XqLbqhZCVzwJl4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeduvddgudehucetufdoteggodetrfdotf
+	:x-sasl-enc; s=fm3; t=1682415013; x=1682501413; bh=UI7v9qpm2wM1d
+	JOLNNZWpO2w8GjESz36ETPnStloqCo=; b=NUUTDpnBC46mlEiwFGf300L3A+mJT
+	uveRcYq5R3kU7tiGG+FCB4YP3iNBD/cHYXnKYn1HxEI9+2TE9WUEG7n1KkQzqKhS
+	4MpPnBgKWUeAQD4TC04z6rKLFqrv8nW/yZ/DW9O3ulOkO1gL4Rz+d/GcCVJMiTwK
+	jvKwihKnFcTkmKpfaUhqSpAd8sMmAC5+VrPB7F1OGXBQLKC6G36C/cip/xewOo+u
+	bakEgu+yPhnWNsSbfhTISMweaa05xEpBYRfZHZBzeLoZpZVwquX5qlXgV29vbYUS
+	WoYbqeZVcJwfaG0EzhOefdBibYpOEweHnUcbBKOK1WSTPCf5iQlqZdKlg==
+X-ME-Sender: <xms:pZ1HZCaYoAvCyeIXUcSNyxjhYuwrKhnhEto6dMQsHn6Cg0E6pfI7fQ>
+    <xme:pZ1HZFYIEbsaKwm7UmbTNfNKPPiBPUMYgaR454xYAtJhpoCeh4extYjh3nyb9Xe0n
+    -Szt1vrB_YR2w>
+X-ME-Received: <xmr:pZ1HZM8oZi7kmdpDOrPoM_Zvz45R5z9X7AyPLw_aiCb_-gTmnXBxXZfcZtLa-uv8ptLsCFoCRKla71D3Nh5rEh0SElw2mak86-I>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeduvddgudejucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
     cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
@@ -80,12 +80,12 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeduvddgudehucetufdoteggod
     leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
     hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
     sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:5ZtHZGQcdi6HjHiIvgfuJWuC7eNJ7p6EEJHnEEUjSwNDR_Y8H0m8vg>
-    <xmx:5ZtHZOyyPwaLNgKVj9c3L9uNa_1LufSiwT-aLqFv9QVmZi6zUGuNhg>
-    <xmx:5ZtHZM7SVf59UqbFl-8OMEPV_qZvTpt8zelNlQEU6rRlOroKHlx5Kg>
-    <xmx:5ZtHZIsh3pCr89N5nuDQZGLyEBl8jlyMWpvNql7PV1K_jAIj5f_FtQ>
+X-ME-Proxy: <xmx:pZ1HZErG4O-LxN5QMriXmfPNRvegADqcSSibZCFvvhQQdgAmezGwKQ>
+    <xmx:pZ1HZNqtVkmXAm8F4nrdwdKHmivIsI1AukjO7jgatmnciPsNko0ccg>
+    <xmx:pZ1HZCR--OvPCa3klKb0nbfXNL9xjCWIYxlYWGEQkonKTISWy3DF4w>
+    <xmx:pZ1HZOluAPDSk2O52mbK0iyXYUPOHWp-VbjNG_x37_dNYxJee3UUBA>
 Feedback-ID: i1568416f:Fastmail
-Date: Tue, 25 Apr 2023 11:22:41 +0200
+Date: Tue, 25 Apr 2023 11:30:08 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -95,21 +95,21 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	xen-devel@lists.xenproject.org
 Subject: Re: [PATCH] ns16550: enable memory decoding on MMIO-based PCI
  console card
-Message-ID: <ZEeb4ieUq1B1cQsg@mail-itl>
+Message-ID: <ZEedoM+iqUUroneP@mail-itl>
 References: <20230424233930.129621-1-marmarek@invisiblethingslab.com>
  <e93bd35b-42fb-3979-7e08-0d7f779e9ed1@suse.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="o+ldYxeBTrHEeD44"
+	protocol="application/pgp-signature"; boundary="3zpo+Ev1W+2Pp2ss"
 Content-Disposition: inline
 In-Reply-To: <e93bd35b-42fb-3979-7e08-0d7f779e9ed1@suse.com>
 
 
---o+ldYxeBTrHEeD44
+--3zpo+Ev1W+2Pp2ss
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Apr 2023 11:22:41 +0200
+Date: Tue, 25 Apr 2023 11:30:08 +0200
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -195,20 +195,20 @@ Best Regards,
 Marek Marczykowski-G=C3=B3recki
 Invisible Things Lab
 
---o+ldYxeBTrHEeD44
+--3zpo+Ev1W+2Pp2ss
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRHm+IACgkQ24/THMrX
-1yyhnAgAmigbGE67ThnOdCcgO7WrstM++HrGTvar4fpC3mK/q1VkFlrxeB+AXRjY
-eG++ne4G//wvxAJeP1uQZQSNCwLMGL4PboPQ1/RolhRoW8nj4fenIOjc96Dyc9rB
-7FkEfe/SIiyEuu9PxFXbavEnrLEOPCVdfSBj0ZR1JA1bAcYwyVEHbslWG++qUdks
-sqHSDa5neq4McV/ucC/JvOdxdxffCVZf15m/is7mqayM0smFuyGOLUTStI9cus1S
-jXTJwyw44Foyd4bW+w6zDDEDVdPGwtTRZQvw3jPbwnKYxf7c4bbNpOoR6ysNRXh2
-ttIBbaDPtYjwJ8EAa8LcVZsB9z+4dQ==
-=KdJE
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRHnaAACgkQ24/THMrX
+1yxV1QgAmByH3X0slNQEPxJ5CA71kaoVU9VQAO9habWVMGdQZ6f5QCvHn2ScvO8l
+JTQPFbqxplnfWkPrWr1yvA93fFkOadPvC8yxWQNqUrkKY2TU0WjVWPgiQlcYxW5p
+eG0jE+gHEEhZy7M+mNqJXXNwi/PCQyydHHHF3lO/dTtFDho/a5twpzgr3b3FPX7N
+WF93gq62fnC/itXA3HH3bU+sc5J9zO+cH3qUVKBFDgo42ZfDq6VF8Y5Szdh1dHzO
+hzpgKdpd5/WlJSiIhaVE0C3moZCQpTCXWjLE1N6B2E/Dkn2gb8dpVVl8vW5P6mV9
+/taIoRQNpOEbe2sDKNKIgiQe3msrMw==
+=0aWC
 -----END PGP SIGNATURE-----
 
---o+ldYxeBTrHEeD44--
+--3zpo+Ev1W+2Pp2ss--
 
