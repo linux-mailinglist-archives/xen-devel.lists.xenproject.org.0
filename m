@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9BB66EE8B4
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 21:55:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526324.818023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 640556EE8D1
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Apr 2023 22:08:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526335.818032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prOlJ-0005Sj-BO; Tue, 25 Apr 2023 19:55:41 +0000
+	id 1prOx6-00079K-Jm; Tue, 25 Apr 2023 20:07:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526324.818023; Tue, 25 Apr 2023 19:55:41 +0000
+Received: by outflank-mailman (output) from mailman id 526335.818032; Tue, 25 Apr 2023 20:07:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prOlJ-0005R2-7z; Tue, 25 Apr 2023 19:55:41 +0000
-Received: by outflank-mailman (input) for mailman id 526324;
- Tue, 25 Apr 2023 19:55:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1prOlH-0005Qs-QI; Tue, 25 Apr 2023 19:55:39 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1prOlH-0005l9-Ew; Tue, 25 Apr 2023 19:55:39 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1prOlH-0007Bt-3N; Tue, 25 Apr 2023 19:55:39 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1prOlH-0001UP-2v; Tue, 25 Apr 2023 19:55:39 +0000
+	id 1prOx6-00077V-Gu; Tue, 25 Apr 2023 20:07:52 +0000
+Received: by outflank-mailman (input) for mailman id 526335;
+ Tue, 25 Apr 2023 20:07:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KQ8d=AQ=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1prOx5-00077P-C3
+ for xen-devel@lists.xenproject.org; Tue, 25 Apr 2023 20:07:51 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id da0433af-e3a4-11ed-8611-37d641c3527e;
+ Tue, 25 Apr 2023 22:07:49 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,143 +37,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=6GofTY2zcgwqWal2gV3ynFS4syq69OYIgsmDC31qgz4=; b=PJaRazu/W6HG94DhEMNSNgq+pm
-	w1yjeHKj/kKiuB85dtRgocYgpLgnOIG6+UMg79juUDbQkxnnD35ZGgGgxY0uw0pF107pD8MfCjKlZ
-	WS0UyLEG1Qx1bUr9S7sRuuiqF7qtgdneRse24cLXyfCsyYI46/kgEXYBeKHp/lucqXBA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180403-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: da0433af-e3a4-11ed-8611-37d641c3527e
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1682453268;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4O15691mL3gwOERb5M8WwZ/BXXDNqH0+MWC0TCs50QE=;
+	b=Bwuzz8Nz/BV6G/VL2bb+kha7mVj8/IRkuvbsjwjzk4USnPr2OW7n7gum3YLTay29fSKm4l
+	VIaAVviF4DxNGn2wYM6o0v57oY64CRe+VgXsYQv76pd/utkcrBMIA+Hlh315Cm54VqTo7K
+	atpyanHwbqEDa1wx0+1kk6JnSgmhiayROO89bvR9xqhG5h5fXOyJHuELCWZOaAN84arMeq
+	GGcJ4Ir8foJBLeP8ch9gHIy9jvOiKYJ4asV3QtfyaAgXR2pzDWC3evufPz0x9jkOlulsT0
+	C2Q9I3DEe4BIAOmlzxJr0oVN2tLwYUOfQk+hTo1aBm1XqujojvIZxEYvbxiQIw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1682453268;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4O15691mL3gwOERb5M8WwZ/BXXDNqH0+MWC0TCs50QE=;
+	b=RrFYGWkb9+Sr7TGoFVSkR/dCgulbRZuvJgUFeQBLzx1gsWc2Iv3HT6T4XcF1FLb33wIMzq
+	mCdHr2bCd+lRBoCA==
+To: Sean Christopherson <seanjc@google.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Menzel
+ <pmenzel@molgen.mpg.de>, linux-kernel@vger.kernel.org, x86@kernel.org,
+ David Woodhouse <dwmw2@infradead.org>, Brian Gerst <brgerst@gmail.com>,
+ Arjan van de Veen <arjan@linux.intel.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>, Tom Lendacky
+ <thomas.lendacky@amd.com>, Oleksandr Natalenko <oleksandr@natalenko.name>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Piotr Gorski
+ <lucjan.lucjanov@gmail.com>, David Woodhouse <dwmw@amazon.co.uk>, Usama
+ Arif <usama.arif@bytedance.com>, =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
+ Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
+ <guoren@kernel.org>, linux-csky@vger.kernel.org, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, "James E. J.
+ Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller
+ <deller@gmx.de>, linux-parisc@vger.kernel.org, Paul Walmsley
+ <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-riscv@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
+ Sabin Rapan <sabrapan@amazon.com>
+Subject: Re: [patch 00/37] cpu/hotplug, x86: Reworked parallel CPU bringup
+In-Reply-To: <87v8hq35sk.ffs@tglx>
+References: <87r0sh4m7a.ffs@tglx>
+ <8592a301-9933-1cad-bd61-8d97e7c7493b@molgen.mpg.de> <87a5z443g2.ffs@tglx>
+ <877cu83v45.ffs@tglx> <874jpc3s3r.ffs@tglx>
+ <0f5463fd-9c4a-6361-adbb-dd89dbb9138d@citrix.com>
+ <c2aaa4fb-a5ba-d5bf-634a-dcf4fd8ad246@citrix.com> <871qkf3qek.ffs@tglx>
+ <26d385da-2ede-5d73-2959-84c8f7d89e03@citrix.com> <87y1mm3iqz.ffs@tglx>
+ <ZEFRhXua6Jxvit1R@google.com> <87v8hq35sk.ffs@tglx>
+Date: Tue, 25 Apr 2023 22:07:47 +0200
+Message-ID: <87r0s7zpws.ffs@tglx>
 MIME-Version: 1.0
-Subject: [libvirt test] 180403: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=c4bc4d3b82fbe22e03c986ca896090f481df5c10
-X-Osstest-Versions-That:
-    libvirt=d063389f10707a6694fb98a69f403a63e4d22245
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 25 Apr 2023 19:55:39 +0000
+Content-Type: text/plain
 
-flight 180403 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180403/
+On Thu, Apr 20 2023 at 17:57, Thomas Gleixner wrote:
+> On Thu, Apr 20 2023 at 07:51, Sean Christopherson wrote:
+> Something like the completely untested below should just work whatever
+> APIC ID the BIOS decided to dice.
+>
+> That might just work on SEV too without that GHCB muck, but what do I
+> know.
 
-Failures :-/ but no regressions.
+It does not.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 180353
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 180353
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 180353
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+RDMSR(X2APIC_ID) is trapped via #VC which cannot be handled at that
+point. Unfortunately the GHCB protocol does not provide a RDMSR
+mechanism similar to the CPUID mechanism. Neither does the secure
+firmware enforce CPUID(0xb):APICID to real APIC ID consistency.
 
-version targeted for testing:
- libvirt              c4bc4d3b82fbe22e03c986ca896090f481df5c10
-baseline version:
- libvirt              d063389f10707a6694fb98a69f403a63e4d22245
+So the hypervisor can dice the APIC IDs as long as they are consistent
+with the provided ACPI/MADT table.
 
-Last test of basis   180353  2023-04-21 04:18:52 Z    4 days
-Testing same since   180403  2023-04-25 04:20:19 Z    0 days    1 attempts
+So no parallel startup for SEV for now.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  K Shiva <shiva_kr@riseup.net>
-  Peter Krempa <pkrempa@redhat.com>
+Thanks,
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   d063389f10..c4bc4d3b82  c4bc4d3b82fbe22e03c986ca896090f481df5c10 -> xen-tested-master
+        tglx
 
