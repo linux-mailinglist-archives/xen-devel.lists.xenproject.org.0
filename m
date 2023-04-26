@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 484DF6EED95
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 07:38:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526468.818233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A5326EED96
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 07:38:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526472.818243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prXqT-0004kY-TF; Wed, 26 Apr 2023 05:37:37 +0000
+	id 1prXr8-0005Et-8C; Wed, 26 Apr 2023 05:38:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526468.818233; Wed, 26 Apr 2023 05:37:37 +0000
+Received: by outflank-mailman (output) from mailman id 526472.818243; Wed, 26 Apr 2023 05:38:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prXqT-0004iI-Pt; Wed, 26 Apr 2023 05:37:37 +0000
-Received: by outflank-mailman (input) for mailman id 526468;
- Wed, 26 Apr 2023 05:37:36 +0000
+	id 1prXr8-0005Ca-1o; Wed, 26 Apr 2023 05:38:18 +0000
+Received: by outflank-mailman (input) for mailman id 526472;
+ Wed, 26 Apr 2023 05:38:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vDOC=AR=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1prXqR-0004iA-UZ
- for xen-devel@lists.xenproject.org; Wed, 26 Apr 2023 05:37:35 +0000
+ id 1prXr6-0004iA-H3
+ for xen-devel@lists.xenproject.org; Wed, 26 Apr 2023 05:38:16 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7218f253-e3f4-11ed-b224-6b7b168915f2;
- Wed, 26 Apr 2023 07:37:34 +0200 (CEST)
+ id 8aca9f1f-e3f4-11ed-b224-6b7b168915f2;
+ Wed, 26 Apr 2023 07:38:16 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1A86F1FDCC;
- Wed, 26 Apr 2023 05:37:34 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C24EB1FDC9;
+ Wed, 26 Apr 2023 05:38:15 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E454413499;
- Wed, 26 Apr 2023 05:37:33 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8F07C13499;
+ Wed, 26 Apr 2023 05:38:15 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id cdn/NZ24SGQpQwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 26 Apr 2023 05:37:33 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id oFgAIce4SGRjQwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 26 Apr 2023 05:38:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,59 +51,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7218f253-e3f4-11ed-b224-6b7b168915f2
+X-Inumbo-ID: 8aca9f1f-e3f4-11ed-b224-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1682487454; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1682487495; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tgV56S5qiOQ/84KjqJPAHn3Vo9CBCYcj1Ub2WXXrFbs=;
-	b=sIIO70hC+bfFaKVEW6yYLT8P6nPEZJ/8RvAKV+5tsGAwExrh3K+uD3ZmyaQoXrvFHZHHyE
-	18s32b8Ze926XSgR/exCJfIGh3zZKY8Oec9/5OyMY9cCnggVDn3jexSB1tbqXQQYwrf/5b
-	SnDGMOZennRpOEs2roBRguPwz+oJTEQ=
-Message-ID: <b317291f-98d3-f028-db75-a8aef8db5f9c@suse.com>
-Date: Wed, 26 Apr 2023 07:37:33 +0200
+	bh=3+1LvzoczVZHA9tNjJWh1uzUv+ITIV58gQTXKySEJAs=;
+	b=E5ngDgT/WXnIiiiADnX0nFj9xPxoThk+T33YZhGYNg0q07SKvC2FInS8y4doyK06/tldpU
+	SYiNVIGn/gUh2xuKjSxJe7yJx1wv2KmB2NEsrgquO97tUhXPSFZsFjmwXqNk9Ol6e/aAnH
+	M1+4ArFq2vBTT0WizIma5pBQCTHRBAI=
+Message-ID: <47ba66e3-085f-b6c8-77c6-3a080ca883ee@suse.com>
+Date: Wed, 26 Apr 2023 07:38:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.1
-Subject: Re: [PATCH] libxl: device_backend_callback() print rc on error
+Subject: Re: [PATCH] libxl: Print device_kind as a string
 Content-Language: en-US
 To: Jason Andryuk <jandryuk@gmail.com>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
 References: <20230425194622.114869-1-jandryuk@gmail.com>
- <20230425194622.114869-2-jandryuk@gmail.com>
+ <20230425194622.114869-3-jandryuk@gmail.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230425194622.114869-2-jandryuk@gmail.com>
+In-Reply-To: <20230425194622.114869-3-jandryuk@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------c4IAEzMtsYnTZHDVMQLUbDxe"
+ boundary="------------cOBoH2z0C60Q0n00Hbw4G0te"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------c4IAEzMtsYnTZHDVMQLUbDxe
-Content-Type: multipart/mixed; boundary="------------IFoo0gcLmFeWkxVCxGbVc59U";
+--------------cOBoH2z0C60Q0n00Hbw4G0te
+Content-Type: multipart/mixed; boundary="------------TRU7bDplHhpwZYUhH07j7NmB";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Jason Andryuk <jandryuk@gmail.com>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <b317291f-98d3-f028-db75-a8aef8db5f9c@suse.com>
-Subject: Re: [PATCH] libxl: device_backend_callback() print rc on error
+Message-ID: <47ba66e3-085f-b6c8-77c6-3a080ca883ee@suse.com>
+Subject: Re: [PATCH] libxl: Print device_kind as a string
 References: <20230425194622.114869-1-jandryuk@gmail.com>
- <20230425194622.114869-2-jandryuk@gmail.com>
-In-Reply-To: <20230425194622.114869-2-jandryuk@gmail.com>
+ <20230425194622.114869-3-jandryuk@gmail.com>
+In-Reply-To: <20230425194622.114869-3-jandryuk@gmail.com>
 
---------------IFoo0gcLmFeWkxVCxGbVc59U
-Content-Type: multipart/mixed; boundary="------------GCU1EmVOLdBvRV7KobKOGRLm"
+--------------TRU7bDplHhpwZYUhH07j7NmB
+Content-Type: multipart/mixed; boundary="------------ErqHxfrzy03szkk3N7YH9UY0"
 
---------------GCU1EmVOLdBvRV7KobKOGRLm
+--------------ErqHxfrzy03szkk3N7YH9UY0
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMjUuMDQuMjMgMjE6NDYsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IFByaW50IHRoZSBy
-YyB3aGVuIGFuIGVycm9yIGlzIGZvdW5kIGluIGRldmljZV9iYWNrZW5kX2NhbGxiYWNrKCkg
-c28gdGhlDQo+IHVzZXIgY2FuIGhhdmUgc29tZSBpZGVhIG9mIHdoeSB0aGluZ3Mgd2VudCB3
-cm9uZy4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEphc29uIEFuZHJ5dWsgPGphbmRyeXVrQGdt
-YWlsLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNv
-bT4NCg0KDQpKdWVyZ2VuDQoNCg==
---------------GCU1EmVOLdBvRV7KobKOGRLm
+T24gMjUuMDQuMjMgMjE6NDYsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IFByaW50aW5nIHRo
+ZSBpbnRlZ2VyIGlzbid0IHBhcnRpY3VsYXJseSBpbmZvcm1hdGl2ZS4gIFN3aXRjaCB0byBh
+DQo+IGh1bWFuLXJlYWRhYmxlIHN0cmluZyB3aGVuIHByaW50aW5nIHRoZSBkZXZpY2Vfa2lu
+ZCBpbg0KPiBsaWJ4bF9fZ2V0X2hvdHBsdWdfc2NyaXB0X2luZm8oKS4NCj4gDQo+IFNpZ25l
+ZC1vZmYtYnk6IEphc29uIEFuZHJ5dWsgPGphbmRyeXVrQGdtYWlsLmNvbT4NCg0KUmV2aWV3
+ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoN
+Cg==
+--------------ErqHxfrzy03szkk3N7YH9UY0
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -161,25 +162,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------GCU1EmVOLdBvRV7KobKOGRLm--
+--------------ErqHxfrzy03szkk3N7YH9UY0--
 
---------------IFoo0gcLmFeWkxVCxGbVc59U--
+--------------TRU7bDplHhpwZYUhH07j7NmB--
 
---------------c4IAEzMtsYnTZHDVMQLUbDxe
+--------------cOBoH2z0C60Q0n00Hbw4G0te
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmRIuJ0FAwAAAAAACgkQsN6d1ii/Ey9E
-MQf9GBtWQvYFemQ+WW1KKzk+vHlYUs3FXrVMJWMHX5a1PzYnmXwnbF1MD63L91Wi0ua0QyouwE8l
-+wFDPotfEojZ5jCoU2C3+GMbUEjN9xhfIXWfTRDQEqcqJq1wdHCAM7W5vd2qXosTRoG12FKOOmKU
-1TDPtRG54jPnrBfG/7D4tLB437vz71k00bhsso8AmP3gRWENTLsr7WuvF9MoNRMYU2uJUwtl+hN5
-48PUbaL4YLMeJVFWsi4WS/S9wZcnTiBZJ8DKlfvUEOwcAbm+KjZlI71lLoUJqT6F28Lqo4QtAQxT
-V575vLrs2rcQ+BQfpdazgG2XwA/eYE1Grn8qTVcvIQ==
-=+z/X
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmRIuMcFAwAAAAAACgkQsN6d1ii/Ey+/
+Dwf/ZIbJR0e9BN6cana3f/ZVUCCbpodCiY1aRcoDtRXkTc5sr2O77rNWWF25Wqt++Kox3lch/L7j
+YUnkUaTZU1F9jItTsOT119RESuFcKthjsv9WSZ89JSYGtbq5B/b05VZ3gnkf2xKgNEPlhRmkAV0e
+y6iC0qTrhVdb8QXQOlHJujmW27guo06oLqVp0D6vxsGKoeG0Uc5/av+Zl3uz02E5GfW5pMGWaRKx
+xUmy80vfZ5Z+ZeexOoPmCmQFKeTT2pqKwCcbo9SOEWgYRq2CFWm0Jf4h42P6U7VmF9YhNqYOfCij
+5qVO/yVUTIohWB8IwucGTwkHjNg8lytyeq4hiepQmg==
+=Se84
 -----END PGP SIGNATURE-----
 
---------------c4IAEzMtsYnTZHDVMQLUbDxe--
+--------------cOBoH2z0C60Q0n00Hbw4G0te--
 
