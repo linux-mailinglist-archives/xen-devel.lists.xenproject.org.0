@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E84686EF2C9
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 12:52:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526629.818516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45E236EF2CB
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 12:52:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526636.818527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prckr-0001fK-BA; Wed, 26 Apr 2023 10:52:09 +0000
+	id 1prclV-0002EN-ND; Wed, 26 Apr 2023 10:52:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526629.818516; Wed, 26 Apr 2023 10:52:09 +0000
+Received: by outflank-mailman (output) from mailman id 526636.818527; Wed, 26 Apr 2023 10:52:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prckr-0001cc-7l; Wed, 26 Apr 2023 10:52:09 +0000
-Received: by outflank-mailman (input) for mailman id 526629;
- Wed, 26 Apr 2023 10:52:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1prclV-0002Be-K6; Wed, 26 Apr 2023 10:52:49 +0000
+Received: by outflank-mailman (input) for mailman id 526636;
+ Wed, 26 Apr 2023 10:52:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2HkN=AR=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1prckp-0001cW-G3
- for xen-devel@lists.xenproject.org; Wed, 26 Apr 2023 10:52:07 +0000
+ id 1prclU-0001z0-9t
+ for xen-devel@lists.xenproject.org; Wed, 26 Apr 2023 10:52:48 +0000
 Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.54]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 623d8318-e420-11ed-b224-6b7b168915f2;
- Wed, 26 Apr 2023 12:52:05 +0200 (CEST)
+ [81.169.146.166]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7a7ba89e-e420-11ed-8611-37d641c3527e;
+ Wed, 26 Apr 2023 12:52:46 +0200 (CEST)
 Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
- with ESMTPSA id x6987cz3QApxIF3
+ with ESMTPSA id x6987cz3QAqgIFZ
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Wed, 26 Apr 2023 12:51:59 +0200 (CEST)
+ Wed, 26 Apr 2023 12:52:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,54 +41,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 623d8318-e420-11ed-b224-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1682506319; cv=none;
+X-Inumbo-ID: 7a7ba89e-e420-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1682506362; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=YrrrVEKkY1xSgYZ/BuO72DGofk503zHM4gDgcFMX1aKdNWQ72EjkA92+M0TKuOnie1
-    v0qtaBCSPUgGrcPhhxbjpUVq4wZq9XnK4o6HLtVNPdiySYLH4g9MLZAnTVXxTUgjSE4l
-    yDFIUeudjppMVwvOmTHhsEBILhaaiLAMEI23AEOcxgwCPBgO5OuD9pcNROQeTZff3ocp
-    NI2A4x+s62tF3ZwPgCuKA3/aCf/FTMFkZIv2uGSkdfX/mlGyBWPhOVxsAR/AY0++NaM3
-    a/0OGXRUe0DueN+YuM0TsM0EW7jlGDl0UEhXLeBEw1zpKVEx3Hunjvd78gFOjSyojD3i
-    epvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1682506319;
+    b=fDSnyS0AnPUWEsBPNKZT8Fza6aye84168oMlcIM8ES38acohynGIhJgSIczWo1zrpX
+    hZYCwtxQqZF0pZpG2VAyy309HMj8OKY/TB+AvaRv8w7P15DLVmTaYVnf7Mk2ADLtmXOd
+    hzO5T1JklfEO1XZR/VNAN6qj3Ln/qiSqbNgz2vcqfHa2DBBxOlwrgNdDk0yWXFYcd5vx
+    26GI4PqpSgYOxp2dtbyqUaFb4OuMwxei52tb4EJmC7vokJc7avT2erKcXLkipq/TAigz
+    pKZcSxW9arADq6ypCZVbavWamAQC5R6Xxc6De8+em4vS4g8TUpG06z2mBZo1vGLl9fAW
+    LLEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1682506362;
     s=strato-dkim-0002; d=strato.com;
     h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=IrwdqgFkX0ZU6V+Dyc1PJ+89WpXrnJ6yDr5eITXGbIk=;
-    b=ZXxDPWcAJaD17yqeCLXedK7trTlY678n7MviBf4sp6ZEnUJal1lPTmZedvVfiW33Z6
-    FQ7X3VB1EHJTA9czyTUST0oqbtGKyLdSzeDBakJfo+/e3I2GQzpnM454kVVWD3FWTtVX
-    xhEaKXKtQmJCivn6nEZ5giPiiNqjO8cV+eVANoQ8ZJi+TiSHBNzn7HIsN8rACmKvsnye
-    5yDNv07Z+JH6h2GK7etnkkS2+MeVXT31m1fSaP0Uv9qStvdj1p/QCzVNYYjhc+AvsijN
-    4FNOIPHp/S+cmNtsOVYyUHyoVLo7+Ht0owSAXxCXpdjCUVS/8nrqLkmoPxq/ECjk+oB1
-    R5qQ==
+    bh=FGgNeMXD1fpexIJRy+L7hZ4dIGHGd8+SytNB0T7EbIo=;
+    b=D6/CsQ4f0aYGmnI0YT7CETI+l2HWhROAw1BLQt0yUFC8egLStQawlDenTYK993ucbo
+    7+VM0xSi43KAo1JzEWGNNeA4rP7HSmR1zn+TM9gU73Y5g+jHgBWfk3cGUsQyXsvtN07T
+    i1gAboA4ww9SROyDQU44MGoNcqhI3JCR98FWxLZ6uiKcg/Y58x+zTeffjtpFdiUI1ZAH
+    QK3iyo6Xi21+hjKmVsg/V1TDrePyoxJgnQ1Xz4e6joMYbi4R0w74r6XXLi5oqORElRfn
+    ZtgYwUkMJoFut1ainqGyN+Hs4o6QlzX3O6VqH5RA8goyXGn+G2riBItZCKCrnWKpGkEL
+    Ko/g==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1682506319;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1682506362;
     s=strato-dkim-0002; d=aepfle.de;
     h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=IrwdqgFkX0ZU6V+Dyc1PJ+89WpXrnJ6yDr5eITXGbIk=;
-    b=GbJB8GvqAlv+3XL1xBzNIrWQ9tnFIpW/gfRcY1r4XefmTeOEhx4SzwLJVZKT6Nfdg9
-    M+nSoU0ZOPJUft0a3KJGJJZP2adU8m84kXYPRVbqEkIPrci73stEHWOMlbmyw5gXtTPz
-    k4vLOO4XC7ewX6Qu+h3Mbz4UhqGpAasSJLflGXj4R7ZKNeclnICendUjsg0bCViSkOrQ
-    L5YwaQBkfbtF0IvSI3Z22iz4cpKOu9avLkoeW50mkExJUyRNUqcKRPtDjVTJcTzkt7J0
-    xOPorAfarGORMHSmDBXMeZAgORjKWk/dGUHLfbnI405QJnV9atreSToDWBDSo9j/Gj+E
-    sRBw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1682506319;
+    bh=FGgNeMXD1fpexIJRy+L7hZ4dIGHGd8+SytNB0T7EbIo=;
+    b=qcUqHBrMyUw+8k9zC8a2mxDix5kVQgxLggr4op3S+S2ppeKaJ9gbMOQ968dfBnFA3L
+    rA9gWFqvNJpxdNLUXMLtUo36MSYOBnMzXr3dkOMBFZYtEJMoh1Xm6Hm1rmzr3GLukdvV
+    730t1qqPB7R80E/2bgpS5WKvJ/gTDVqWBGQf1+PW5j7I6J6p0zvaLA6qffloxvnLNFoh
+    BZy27wl8q6UHlp5gwkAgAQJ42GYOGIXzAZ64Ia+KBADMzgDAcFDArgDfKhLLz4xc3qVu
+    dHRxmFjb2oeWfkxLxT/ExyvZXTCqcS7k0mXIYJqCTqrjAe8QCJVEYMEy2MFSNAEkXoNE
+    nXjQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1682506362;
     s=strato-dkim-0003; d=aepfle.de;
     h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=IrwdqgFkX0ZU6V+Dyc1PJ+89WpXrnJ6yDr5eITXGbIk=;
-    b=250efq1htmE8aU8OOiwXNUCEZS1+ZFbx3H4aGmt34PqEcMm8k5EFcsTJybbfGgxrey
-    /NYe7G/9HO7OR8aeL5Bg==
+    bh=FGgNeMXD1fpexIJRy+L7hZ4dIGHGd8+SytNB0T7EbIo=;
+    b=8Y0W7mwTenpHKm7zfzP8w9KqGro7xUbeRKJJ13DUR8LjhgRkfhCpH0QO6dnr5oFKsC
+    yVpNEll8ofCKJxgXnZDA==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4wqlr7GpgtSxIX+ZWs95M7PYKTHoBaxED20qrwFA=="
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>,
 	Samuel Thibault <samuel.thibault@ens-lyon.org>
-Subject: [PATCH v1] stubdom: fix errors in newlib:cygmon-gmon.c
-Date: Wed, 26 Apr 2023 10:51:56 +0000
-Message-Id: <20230426105156.2381-1-olaf@aepfle.de>
+Subject: [PATCH v1] stubdom: fix errors in newlib:makedoc
+Date: Wed, 26 Apr 2023 10:52:39 +0000
+Message-Id: <20230426105239.2496-1-olaf@aepfle.de>
 X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -97,106 +97,82 @@ Content-Type: text/plain; charset="us-ascii"
 rpm post-build-checks found a few code bugs in newlib, and marks them as
 errors. Add another newlib patch and apply it during stubdom build.
 
-I: A function uses a 'return;' statement, but has actually a value
-   to return, like an integer ('return 42;') or similar.
-W: xen voidreturn ../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:117, 125, 146, 157, 330
+[  227s] ../../../../newlib-1.16.0/newlib/doc/makedoc.c: In function 'lookup_word':
+[  227s] ../../../../newlib-1.16.0/newlib/doc/makedoc.c:1147:10: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
+[  227s]       if (strcmp(ptr->word, word) == 0) return ptr;
+[  227s]           ^
 
-I: Program is using implicit definitions of special functions.
-   these functions need to use their correct prototypes to allow
-   the lightweight buffer overflow checking to work.
-     - Implicit memory/string functions need #include <string.h>.
-     - Implicit *printf functions need #include <stdio.h>.
-     - Implicit *printf functions need #include <stdio.h>.
-     - Implicit *read* functions need #include <unistd.h>.
-     - Implicit *recv* functions need #include <sys/socket.h>.
-E: xen implicit-fortify-decl ../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:119
-
-I: Program returns random data in a function
-E: xen no-return-in-nonvoid-function ../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:362
+[  460s] I: Program is using implicit definitions of special functions.
+[  460s]    these functions need to use their correct prototypes to allow
+[  460s]    the lightweight buffer overflow checking to work.
+[  460s]      - Implicit memory/string functions need #include <string.h>.
+[  460s]      - Implicit *printf functions need #include <stdio.h>.
+[  460s]      - Implicit *printf functions need #include <stdio.h>.
+[  460s]      - Implicit *read* functions need #include <unistd.h>.
+[  460s]      - Implicit *recv* functions need #include <sys/socket.h>.
+[  460s] E: xen implicit-fortify-decl ../../../../newlib-1.16.0/newlib/doc/makedoc.c:1147
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- stubdom/Makefile                 |  1 +
- stubdom/newlib-cygmon-gmon.patch | 60 ++++++++++++++++++++++++++++++++
- 2 files changed, 61 insertions(+)
- create mode 100644 stubdom/newlib-cygmon-gmon.patch
+
+Depends on newlib-cygmon-gmon.patch
+
+ stubdom/Makefile             |  1 +
+ stubdom/newlib-makedoc.patch | 35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 36 insertions(+)
+ create mode 100644 stubdom/newlib-makedoc.patch
 
 diff --git a/stubdom/Makefile b/stubdom/Makefile
-index b312f710cd..cddbbe2da0 100644
+index cddbbe2da0..a21e1c3fa3 100644
 --- a/stubdom/Makefile
 +++ b/stubdom/Makefile
-@@ -95,6 +95,7 @@ newlib-$(NEWLIB_VERSION): newlib-$(NEWLIB_VERSION).tar.gz
- 	patch -d $@ -p0 < newlib-chk.patch
+@@ -96,6 +96,7 @@ newlib-$(NEWLIB_VERSION): newlib-$(NEWLIB_VERSION).tar.gz
  	patch -d $@ -p1 < newlib-stdint-size_max-fix-from-1.17.0.patch
  	patch -d $@ -p1 < newlib-disable-texinfo.patch
-+	patch -d $@ -p1 < newlib-cygmon-gmon.patch
+ 	patch -d $@ -p1 < newlib-cygmon-gmon.patch
++	patch -d $@ -p1 < newlib-makedoc.patch
  	find $@ -type f | xargs perl -i.bak \
  		-pe 's/\b_(tzname|daylight|timezone)\b/$$1/g'
  	touch $@
-diff --git a/stubdom/newlib-cygmon-gmon.patch b/stubdom/newlib-cygmon-gmon.patch
+diff --git a/stubdom/newlib-makedoc.patch b/stubdom/newlib-makedoc.patch
 new file mode 100644
-index 0000000000..b2dfbfafe2
+index 0000000000..90678f1b63
 --- /dev/null
-+++ b/stubdom/newlib-cygmon-gmon.patch
-@@ -0,0 +1,60 @@
++++ b/stubdom/newlib-makedoc.patch
+@@ -0,0 +1,35 @@
++stubdom: fix errors in newlib
 +
-+I: A function uses a 'return;' statement, but has actually a value
-+   to return, like an integer ('return 42;') or similar.
-+W: xen voidreturn ../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:117, 125, 146, 157, 330
++rpm post-build-checks found a few code bugs in newlib, and marks them as
++errors. Add another newlib patch and apply it during stubdom build.
 +
-+I: Program is using implicit definitions of special functions.
-+   these functions need to use their correct prototypes to allow
-+   the lightweight buffer overflow checking to work.
-+     - Implicit memory/string functions need #include <string.h>.
-+     - Implicit *printf functions need #include <stdio.h>.
-+     - Implicit *printf functions need #include <stdio.h>.
-+     - Implicit *read* functions need #include <unistd.h>.
-+     - Implicit *recv* functions need #include <sys/socket.h>.
-+E: xen implicit-fortify-decl ../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:119
++[  227s] ../../../../newlib-1.16.0/newlib/doc/makedoc.c: In function 'lookup_word':
++[  227s] ../../../../newlib-1.16.0/newlib/doc/makedoc.c:1147:10: warning: implicit declaration of function 'strcmp' [-Wimplicit-function-declaration]
++[  227s]       if (strcmp(ptr->word, word) == 0) return ptr;
++[  227s]           ^
 +
-+I: Program returns random data in a function
-+E: xen no-return-in-nonvoid-function ../../../../newlib-1.16.0/libgloss/i386/cygmon-gmon.c:362
-+
++[  460s] I: Program is using implicit definitions of special functions.
++[  460s]    these functions need to use their correct prototypes to allow
++[  460s]    the lightweight buffer overflow checking to work.
++[  460s]      - Implicit memory/string functions need #include <string.h>.
++[  460s]      - Implicit *printf functions need #include <stdio.h>.
++[  460s]      - Implicit *printf functions need #include <stdio.h>.
++[  460s]      - Implicit *read* functions need #include <unistd.h>.
++[  460s]      - Implicit *recv* functions need #include <sys/socket.h>.
++[  460s] E: xen implicit-fortify-decl ../../../../newlib-1.16.0/newlib/doc/makedoc.c:1147
 +---
-+ libgloss/i386/cygmon-gmon.c |    6 +++++-
-+ 1 file changed, 5 insertions(+), 1 deletion(-)
++ newlib/doc/makedoc.c |    1 +
++ 1 file changed, 1 insertion(+)
 +
-+Index: newlib-1.16.0/libgloss/i386/cygmon-gmon.c
++Index: newlib-1.16.0/newlib/doc/makedoc.c
 +===================================================================
-+--- newlib-1.16.0.orig/libgloss/i386/cygmon-gmon.c
-++++ newlib-1.16.0/libgloss/i386/cygmon-gmon.c
-+@@ -61,6 +61,8 @@
-+ static char sccsid[] = "@(#)gmon.c	5.3 (Berkeley) 5/22/91";
-+ #endif /* not lint */
-+ 
-++#include <string.h>
-++#include <unistd.h>
-+ #define DEBUG
-+ #ifdef DEBUG
++--- newlib-1.16.0.orig/newlib/doc/makedoc.c
+++++ newlib-1.16.0/newlib/doc/makedoc.c
++@@ -38,6 +38,7 @@ There is  no
++ #include "ansidecl.h"
 + #include <stdio.h>
-+@@ -89,7 +91,7 @@ static int	s_scale;
++ #include <stdlib.h>
+++#include <string.h>
++ #include <ctype.h>
 + 
-+ extern int errno;
-+ 
-+-int
-++void
-+ monstartup(lowpc, highpc)
-+      char	*lowpc;
-+      char	*highpc;
-+@@ -199,6 +201,7 @@ _mcleanup()
-+ 
-+ static char already_setup = 0;
-+ 
-++void
-+ _mcount()
-+ {
-+   register char			*selfpc;
-+@@ -341,6 +344,7 @@ overflow:
-+  *	profiling is what mcount checks to see if
-+  *	all the data structures are ready.
-+  */
-++void
-+ moncontrol(mode)
-+     int mode;
-+ {
++ #define DEF_SIZE 5000
 
