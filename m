@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2971C6EF6F5
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 16:58:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526741.818659 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 623086EF6FB
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 16:59:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526746.818670 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prgav-000064-Vp; Wed, 26 Apr 2023 14:58:09 +0000
+	id 1prgcR-0000fK-Ay; Wed, 26 Apr 2023 14:59:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526741.818659; Wed, 26 Apr 2023 14:58:09 +0000
+Received: by outflank-mailman (output) from mailman id 526746.818670; Wed, 26 Apr 2023 14:59:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prgav-0008UX-Sf; Wed, 26 Apr 2023 14:58:09 +0000
-Received: by outflank-mailman (input) for mailman id 526741;
- Wed, 26 Apr 2023 14:55:49 +0000
+	id 1prgcR-0000cG-7K; Wed, 26 Apr 2023 14:59:43 +0000
+Received: by outflank-mailman (input) for mailman id 526746;
+ Wed, 26 Apr 2023 14:59:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t/Q4=AR=amazon.co.uk=prvs=473b0a973=hakor@srs-se1.protection.inumbo.net>)
- id 1prgYf-0008RQ-On
- for xen-devel@lists.xenproject.org; Wed, 26 Apr 2023 14:55:49 +0000
-Received: from smtp-fw-80006.amazon.com (smtp-fw-80006.amazon.com
- [99.78.197.217]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6bb8d845-e442-11ed-8611-37d641c3527e;
- Wed, 26 Apr 2023 16:55:46 +0200 (CEST)
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- email-inbound-relay-iad-1e-m6i4x-a65ebc6e.us-east-1.amazon.com)
- ([10.25.36.210]) by smtp-border-fw-80006.pdx80.corp.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Apr 2023 14:55:28 +0000
-Received: from EX19D020EUA004.ant.amazon.com
- (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
- by email-inbound-relay-iad-1e-m6i4x-a65ebc6e.us-east-1.amazon.com (Postfix)
- with ESMTPS id 979826575B; Wed, 26 Apr 2023 14:55:24 +0000 (UTC)
-Received: from EX19D037EUC004.ant.amazon.com (10.252.61.170) by
- EX19D020EUA004.ant.amazon.com (10.252.50.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Wed, 26 Apr 2023 14:55:23 +0000
-Received: from EX19MTAUEC001.ant.amazon.com (10.252.135.222) by
- EX19D037EUC004.ant.amazon.com (10.252.61.170) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Wed, 26 Apr 2023 14:55:23 +0000
-Received: from dev-dsk-hakor-1a-9589d7a9.eu-west-1.amazon.com (172.19.124.154)
- by mail-relay.amazon.com (10.252.135.200) with Microsoft SMTP Server
- id
- 15.2.1118.26 via Frontend Transport; Wed, 26 Apr 2023 14:55:22 +0000
+ <SRS0=vxt2=AR=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1prgcP-0000bz-8C
+ for xen-devel@lists.xenproject.org; Wed, 26 Apr 2023 14:59:41 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f75b1724-e442-11ed-8611-37d641c3527e;
+ Wed, 26 Apr 2023 16:59:38 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-3f09b4a156eso48771165e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Apr 2023 07:59:38 -0700 (PDT)
+Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ v17-20020a5d43d1000000b003047ea78b42sm6654116wrr.43.2023.04.26.07.59.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 26 Apr 2023 07:59:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,236 +43,130 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bb8d845-e442-11ed-8611-37d641c3527e
+X-Inumbo-ID: f75b1724-e442-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1682520947; x=1714056947;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=HqpkH6rdqOFcn9B9h8DzALRHycpElJztzr/EKxb5REs=;
-  b=QATy8Bc35oNRYIiAA0Ky7W5w+DDbkTJcsyYsTiOVoQSEOyb1ACbwTo0o
-   18vrzB2EAzU87o5WZO7K3L3UXR1gxahFividw7tbnEl2P7X9oP9eHYFFU
-   ikM79d41GGxROeoTzLz+HkYP/o4JhHeFsX17BUe7HgABnV51uG+Hl6mo3
-   Y=;
-X-IronPort-AV: E=Sophos;i="5.99,228,1677542400"; 
-   d="scan'208";a="208348781"
-From: Ruben Hakobyan <hakor@amazon.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Julien Grall <jgrall@amazon.com>, Ruben Hakobyan <hakor@amazon.com>, "Jan
- Beulich" <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>
-Subject: [PATCH] x86/msi: dynamically map pages for MSI-X tables
-Date: Wed, 26 Apr 2023 14:55:20 +0000
-Message-ID: <20230426145520.40554-1-hakor@amazon.com>
-X-Mailer: git-send-email 2.39.2
+        d=cloud.com; s=cloud; t=1682521177; x=1685113177;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=mfe9T+Yu+Be8zdjjmeeZpDjZq2wXyt3ymKJgvGq+f2s=;
+        b=Zsa40GFw7quWUyzlNKE2/WO9yo3B4xyo7S5MMKiQm0DhEgvT7cWWncoEXg70x/nltN
+         PAsoVkBd5CyDtGmzh3/2429VIQEty6yphlQxmnO/PC4h4BCcmfYRYQYuRGE57FuIl/Pz
+         n8I/v6uKQj144wnlV54TevTsWGi8lS91DKxm4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1682521177; x=1685113177;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mfe9T+Yu+Be8zdjjmeeZpDjZq2wXyt3ymKJgvGq+f2s=;
+        b=EQ5GdgFah1rRepSKpXpbsXwCezNi7BXmq1Lm0pYulk9zR17RT2i9BS8BX2EQfrhrSm
+         l/LRw1hyWF6UA2JLyRbc9hHnzArcjfduDqhcl3r/2ICe/i9VV9Glpr/TH246Y83saoHo
+         15D7xrRb/IRq6arafRHvzPwHWNm+CkrTgVoR6+BtI0m2pj+DkdaiE8kx1HAM9dwQJHFh
+         u3CJ56VBoiqhKK1xdiD93JWJ+YoEBRD+IQDKDjKaZsHiw2R5VrLzANEqJ/ga5JuOLi/9
+         rmk/UHaSPw45PMhKPfhqM7vbTCzXa4nHY4DWXUMjy6KKuRYht+uheN1C5lkvnR46OK8E
+         VnPw==
+X-Gm-Message-State: AAQBX9eUJRYfp6ditbaopw9+dBmOUL6HIH7q7lq9h+H92d6Wt2EERdGL
+	LdYqNwYSu/Kk0ZQ65rtj00dHZkxnT4SMIyNDKkutxw==
+X-Google-Smtp-Source: AKy350axbG54dQ9LxejbXJX0pZMaL1zCVNK1c1BL+Tm2RDrKrOREH2imfxVIz8Z23wCKRzpe2w5jSw==
+X-Received: by 2002:a7b:c386:0:b0:3f1:78d0:fc45 with SMTP id s6-20020a7bc386000000b003f178d0fc45mr13170623wmj.28.1682521177562;
+        Wed, 26 Apr 2023 07:59:37 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Tim Deegan <tim@xen.org>
+Subject: [PATCH 0/7] Rationalize usage of xc_domain_getinfo{,list}()
+Date: Wed, 26 Apr 2023 15:59:25 +0100
+Message-Id: <20230426145932.3340-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Precedence: Bulk
 
-Xen reserves a constant number of pages that can be used for mapping
-MSI-X tables. This limit is defined by FIX_MSIX_MAX_PAGES in fixmap.h.
+xc_domain_getinfo() returns the list of domains with domid >= first_domid.
+It does so by repeatedly invoking XEN_DOMCTL_getdomaininfo, which leads to
+unintuitive behaviour (asking for domid=1 might succeed returning domid=2).
+Furthermore, N hypercalls are required whereas the equivalent functionality
+can be achieved using with XEN_SYSCTL_getdomaininfo.
 
-Reserving a fixed number of pages could result in an -ENOMEM if a
-device requests a new page when the fixmap limit is exhausted and will
-necessitate manually adjusting the limit before compilation.
+Ideally, we want a DOMCTL interface that operates over a single precisely
+specified domain and a SYSCTL interface that can be used for bulk queries.
 
-To avoid the issues with the current fixmap implementation, we modify
-the MSI-X page mapping logic to instead dynamically map new pages when
-they are needed by making use of ioremap().
+All callers of xc_domain_getinfo() that are better off using SYSCTL are
+migrated to use that instead. That includes callers performing domain
+discovery and those requesting info for more than 1 domain per hypercall.
 
-Signed-off-by: Ruben Hakobyan <hakor@amazon.com>
----
- xen/arch/x86/include/asm/fixmap.h |  2 -
- xen/arch/x86/include/asm/msi.h    |  5 +--
- xen/arch/x86/msi.c                | 69 ++++++++-----------------------
- 3 files changed, 19 insertions(+), 57 deletions(-)
+A new xc_domain_getinfo_single() is introduced with stricter semantics than
+xc_domain_getinfo() (failing if domid isn't found) to migrate the rest to.
 
-diff --git a/xen/arch/x86/include/asm/fixmap.h b/xen/arch/x86/include/asm/fixmap.h
-index 516ec3fa6c..139c3e2dcc 100644
---- a/xen/arch/x86/include/asm/fixmap.h
-+++ b/xen/arch/x86/include/asm/fixmap.h
-@@ -61,8 +61,6 @@ enum fixed_addresses {
-     FIX_ACPI_END = FIX_ACPI_BEGIN + NUM_FIXMAP_ACPI_PAGES - 1,
-     FIX_HPET_BASE,
-     FIX_TBOOT_SHARED_BASE,
--    FIX_MSIX_IO_RESERV_BASE,
--    FIX_MSIX_IO_RESERV_END = FIX_MSIX_IO_RESERV_BASE + FIX_MSIX_MAX_PAGES -1,
-     FIX_TBOOT_MAP_ADDRESS,
-     FIX_APEI_RANGE_BASE,
-     FIX_APEI_RANGE_END = FIX_APEI_RANGE_BASE + FIX_APEI_RANGE_MAX -1,
-diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
-index a53ade95c9..16c80c9883 100644
---- a/xen/arch/x86/include/asm/msi.h
-+++ b/xen/arch/x86/include/asm/msi.h
-@@ -55,9 +55,6 @@
- #define	 MSI_ADDR_DEST_ID_MASK		0x00ff000
- #define  MSI_ADDR_DEST_ID(dest)		(((dest) << MSI_ADDR_DEST_ID_SHIFT) & MSI_ADDR_DEST_ID_MASK)
- 
--/* MAX fixed pages reserved for mapping MSIX tables. */
--#define FIX_MSIX_MAX_PAGES              512
--
- struct msi_info {
-     pci_sbdf_t sbdf;
-     int irq;
-@@ -213,7 +210,7 @@ struct arch_msix {
-         unsigned long first, last;
-     } table, pba;
-     int table_refcnt[MAX_MSIX_TABLE_PAGES];
--    int table_idx[MAX_MSIX_TABLE_PAGES];
-+    void __iomem *table_va[MAX_MSIX_TABLE_PAGES];
-     spinlock_t table_lock;
-     bool host_maskall, guest_maskall;
-     domid_t warned;
-diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
-index d0bf63df1d..8128274c07 100644
---- a/xen/arch/x86/msi.c
-+++ b/xen/arch/x86/msi.c
-@@ -24,7 +24,6 @@
- #include <asm/smp.h>
- #include <asm/desc.h>
- #include <asm/msi.h>
--#include <asm/fixmap.h>
- #include <asm/p2m.h>
- #include <mach_apic.h>
- #include <io_ports.h>
-@@ -39,75 +38,44 @@ boolean_param("msi", use_msi);
- 
- static void __pci_disable_msix(struct msi_desc *);
- 
--/* bitmap indicate which fixed map is free */
--static DEFINE_SPINLOCK(msix_fixmap_lock);
--static DECLARE_BITMAP(msix_fixmap_pages, FIX_MSIX_MAX_PAGES);
--
--static int msix_fixmap_alloc(void)
--{
--    int i, rc = -ENOMEM;
--
--    spin_lock(&msix_fixmap_lock);
--    for ( i = 0; i < FIX_MSIX_MAX_PAGES; i++ )
--        if ( !test_bit(i, &msix_fixmap_pages) )
--            break;
--    if ( i == FIX_MSIX_MAX_PAGES )
--        goto out;
--    rc = FIX_MSIX_IO_RESERV_BASE + i;
--    set_bit(i, &msix_fixmap_pages);
--
-- out:
--    spin_unlock(&msix_fixmap_lock);
--    return rc;
--}
--
--static void msix_fixmap_free(int idx)
--{
--    spin_lock(&msix_fixmap_lock);
--    if ( idx >= FIX_MSIX_IO_RESERV_BASE )
--        clear_bit(idx - FIX_MSIX_IO_RESERV_BASE, &msix_fixmap_pages);
--    spin_unlock(&msix_fixmap_lock);
--}
--
--static int msix_get_fixmap(struct arch_msix *msix, u64 table_paddr,
-+static void __iomem *msix_map_table(struct arch_msix *msix, u64 table_paddr,
-                            u64 entry_paddr)
- {
-     long nr_page;
--    int idx;
-+    void __iomem *va = NULL;
- 
-     nr_page = (entry_paddr >> PAGE_SHIFT) - (table_paddr >> PAGE_SHIFT);
- 
-     if ( nr_page < 0 || nr_page >= MAX_MSIX_TABLE_PAGES )
--        return -EINVAL;
-+        return NULL;
- 
-     spin_lock(&msix->table_lock);
-     if ( msix->table_refcnt[nr_page]++ == 0 )
-     {
--        idx = msix_fixmap_alloc();
--        if ( idx < 0 )
-+        va = ioremap(entry_paddr, PAGE_SIZE);
-+        if ( va == NULL )
-         {
-             msix->table_refcnt[nr_page]--;
-             goto out;
-         }
--        set_fixmap_nocache(idx, entry_paddr);
--        msix->table_idx[nr_page] = idx;
-+        msix->table_va[nr_page] = va;
-     }
-     else
--        idx = msix->table_idx[nr_page];
-+        va = msix->table_va[nr_page];
- 
-  out:
-     spin_unlock(&msix->table_lock);
--    return idx;
-+    return va;
- }
- 
--static void msix_put_fixmap(struct arch_msix *msix, int idx)
-+static void msix_unmap_table(struct arch_msix *msix, void __iomem *va)
- {
-     int i;
- 
-     spin_lock(&msix->table_lock);
-     for ( i = 0; i < MAX_MSIX_TABLE_PAGES; i++ )
-     {
--        if ( msix->table_idx[i] == idx )
-+        if ( msix->table_va[i] == va )
-             break;
-     }
-     if ( i == MAX_MSIX_TABLE_PAGES )
-@@ -115,9 +83,8 @@ static void msix_put_fixmap(struct arch_msix *msix, int idx)
- 
-     if ( --msix->table_refcnt[i] == 0 )
-     {
--        clear_fixmap(idx);
--        msix_fixmap_free(idx);
--        msix->table_idx[i] = 0;
-+        vunmap(va);
-+        msix->table_va[i] = NULL;
-     }
- 
-  out:
-@@ -568,8 +535,8 @@ int msi_free_irq(struct msi_desc *entry)
-     }
- 
-     if ( entry->msi_attrib.type == PCI_CAP_ID_MSIX )
--        msix_put_fixmap(entry->dev->msix,
--                        virt_to_fix((unsigned long)entry->mask_base));
-+        msix_unmap_table(entry->dev->msix,
-+                       (void*)((unsigned long)entry->mask_base & PAGE_MASK));
- 
-     list_del(&entry->list);
-     xfree(entry);
-@@ -892,10 +859,10 @@ static int msix_capability_init(struct pci_dev *dev,
-     {
-         /* Map MSI-X table region */
-         u64 entry_paddr = table_paddr + msi->entry_nr * PCI_MSIX_ENTRY_SIZE;
--        int idx = msix_get_fixmap(msix, table_paddr, entry_paddr);
-+        void __iomem *va = msix_map_table(msix, table_paddr, entry_paddr);
-         void __iomem *base;
- 
--        if ( idx < 0 )
-+        if ( va == NULL )
-         {
-             if ( zap_on_error )
-             {
-@@ -907,9 +874,9 @@ static int msix_capability_init(struct pci_dev *dev,
- 
-             pci_conf_write16(dev->sbdf, msix_control_reg(pos), control);
-             xfree(entry);
--            return idx;
-+            return -ENOMEM;
-         }
--        base = fix_to_virt(idx) + (entry_paddr & (PAGE_SIZE - 1));
-+        base = va + (entry_paddr & (PAGE_SIZE - 1));
- 
-         /* Mask interrupt here */
-         writel(1, base + PCI_MSIX_ENTRY_VECTOR_CTRL_OFFSET);
+With no callers left the xc_dominfo_t structure and the xc_domain_getinfo()
+call itself can be cleanly removed, and the DOMCTL interface simplified to
+only use its fastpath.
+
+With the DOMCTL ammended, the new xc_domain_getinfo_single() drops its
+stricter check, becoming a simple wrapper to invoke the hypercall itself.
+
+Alejandro Vallejo (7):
+  tools: Make some callers of xc_domain_getinfo use
+    xc_domain_getinfolist
+  tools: Create xc_domain_getinfo_single()
+  tools: Refactor the console/io.c to avoid using xc_domain_getinfo()
+  tools: Make init-xenstore-domain use xc_domain_getinfolist()
+  tools: Modify single-domid callers of xc_domain_getinfolist
+  tools: Use new xc function for some xc_domain_getinfo calls
+  domctl: Modify getdomaininfo to fail if domid is not found
+
+ tools/console/client/main.c             |  7 +--
+ tools/console/daemon/io.c               | 31 +++++-----
+ tools/debugger/kdd/kdd-xen.c            |  6 +-
+ tools/helpers/init-xenstore-domain.c    | 14 +++--
+ tools/include/xenctrl.h                 | 63 ++++++++------------
+ tools/libs/ctrl/xc_domain.c             | 79 +++++--------------------
+ tools/libs/ctrl/xc_pagetab.c            |  7 +--
+ tools/libs/ctrl/xc_private.c            |  7 +--
+ tools/libs/ctrl/xc_private.h            |  6 +-
+ tools/libs/guest/xg_core.c              | 21 +++----
+ tools/libs/guest/xg_core.h              |  6 +-
+ tools/libs/guest/xg_core_arm.c          | 10 ++--
+ tools/libs/guest/xg_core_x86.c          | 18 +++---
+ tools/libs/guest/xg_cpuid_x86.c         | 28 +++++----
+ tools/libs/guest/xg_dom_boot.c          | 12 +---
+ tools/libs/guest/xg_domain.c            |  6 +-
+ tools/libs/guest/xg_offline_page.c      | 10 ++--
+ tools/libs/guest/xg_private.h           |  1 +
+ tools/libs/guest/xg_resume.c            | 17 +++---
+ tools/libs/guest/xg_sr_common.h         |  2 +-
+ tools/libs/guest/xg_sr_restore.c        | 14 ++---
+ tools/libs/guest/xg_sr_restore_x86_pv.c |  2 +-
+ tools/libs/guest/xg_sr_save.c           | 26 ++++----
+ tools/libs/guest/xg_sr_save_x86_pv.c    |  6 +-
+ tools/libs/light/libxl_dom.c            | 15 ++---
+ tools/libs/light/libxl_dom_suspend.c    |  7 +--
+ tools/libs/light/libxl_domain.c         | 12 ++--
+ tools/libs/light/libxl_mem.c            |  4 +-
+ tools/libs/light/libxl_sched.c          | 28 ++++-----
+ tools/libs/light/libxl_x86_acpi.c       |  4 +-
+ tools/misc/xen-hvmcrash.c               |  6 +-
+ tools/misc/xen-lowmemd.c                |  6 +-
+ tools/misc/xen-mfndump.c                | 22 +++----
+ tools/misc/xen-vmtrace.c                |  6 +-
+ tools/python/xen/lowlevel/xc/xc.c       | 29 ++++-----
+ tools/vchan/vchan-socket-proxy.c        |  6 +-
+ tools/xenmon/xenbaked.c                 |  6 +-
+ tools/xenpaging/xenpaging.c             | 14 ++---
+ tools/xenstore/xenstored_domain.c       | 15 +++--
+ tools/xentrace/xenctx.c                 |  8 +--
+ xen/common/domctl.c                     | 32 +---------
+ 41 files changed, 245 insertions(+), 374 deletions(-)
+
 -- 
-2.39.2
+2.34.1
 
 
