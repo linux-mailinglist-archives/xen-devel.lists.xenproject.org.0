@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 623086EF6FB
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 16:59:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526746.818670 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5C0F6EF6F8
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 16:59:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526747.818680 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prgcR-0000fK-Ay; Wed, 26 Apr 2023 14:59:43 +0000
+	id 1prgcS-0000u9-Lh; Wed, 26 Apr 2023 14:59:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526746.818670; Wed, 26 Apr 2023 14:59:43 +0000
+Received: by outflank-mailman (output) from mailman id 526747.818680; Wed, 26 Apr 2023 14:59:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prgcR-0000cG-7K; Wed, 26 Apr 2023 14:59:43 +0000
-Received: by outflank-mailman (input) for mailman id 526746;
- Wed, 26 Apr 2023 14:59:41 +0000
+	id 1prgcS-0000rR-H7; Wed, 26 Apr 2023 14:59:44 +0000
+Received: by outflank-mailman (input) for mailman id 526747;
+ Wed, 26 Apr 2023 14:59:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vxt2=AR=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1prgcP-0000bz-8C
- for xen-devel@lists.xenproject.org; Wed, 26 Apr 2023 14:59:41 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1prgcQ-0000bz-OW
+ for xen-devel@lists.xenproject.org; Wed, 26 Apr 2023 14:59:42 +0000
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [2a00:1450:4864:20::441])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f75b1724-e442-11ed-8611-37d641c3527e;
- Wed, 26 Apr 2023 16:59:38 +0200 (CEST)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-3f09b4a156eso48771165e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 26 Apr 2023 07:59:38 -0700 (PDT)
+ id f8656139-e442-11ed-8611-37d641c3527e;
+ Wed, 26 Apr 2023 16:59:41 +0200 (CEST)
+Received: by mail-wr1-x441.google.com with SMTP id
+ ffacd0b85a97d-2f7a7f9667bso4529552f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Apr 2023 07:59:41 -0700 (PDT)
 Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- v17-20020a5d43d1000000b003047ea78b42sm6654116wrr.43.2023.04.26.07.59.36
+ v17-20020a5d43d1000000b003047ea78b42sm6654116wrr.43.2023.04.26.07.59.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 26 Apr 2023 07:59:36 -0700 (PDT)
+ Wed, 26 Apr 2023 07:59:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +45,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f75b1724-e442-11ed-8611-37d641c3527e
+X-Inumbo-ID: f8656139-e442-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1682521177; x=1685113177;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mfe9T+Yu+Be8zdjjmeeZpDjZq2wXyt3ymKJgvGq+f2s=;
-        b=Zsa40GFw7quWUyzlNKE2/WO9yo3B4xyo7S5MMKiQm0DhEgvT7cWWncoEXg70x/nltN
-         PAsoVkBd5CyDtGmzh3/2429VIQEty6yphlQxmnO/PC4h4BCcmfYRYQYuRGE57FuIl/Pz
-         n8I/v6uKQj144wnlV54TevTsWGi8lS91DKxm4=
+        d=cloud.com; s=cloud; t=1682521179; x=1685113179;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GPXQUFmJANWtRSEJizBlmBuJVzkoyDDxbZ36Iy8xMlY=;
+        b=cQpl9qbpxf7rta6xIMY73ap19qqUEtWRCoT83Xl2dd7h75ijI6RiGAuRvhdMYY2MDA
+         iAX0Ha6+IaSlue/rS2jtE9TQhFEWTNMDKFVgRSY3qIqQqLJcXiASx1ru0stUXI6zeXlx
+         8JPSwb4AyTkg0WkXjqfdeOSiSTLL99IOZZfds=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682521177; x=1685113177;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mfe9T+Yu+Be8zdjjmeeZpDjZq2wXyt3ymKJgvGq+f2s=;
-        b=EQ5GdgFah1rRepSKpXpbsXwCezNi7BXmq1Lm0pYulk9zR17RT2i9BS8BX2EQfrhrSm
-         l/LRw1hyWF6UA2JLyRbc9hHnzArcjfduDqhcl3r/2ICe/i9VV9Glpr/TH246Y83saoHo
-         15D7xrRb/IRq6arafRHvzPwHWNm+CkrTgVoR6+BtI0m2pj+DkdaiE8kx1HAM9dwQJHFh
-         u3CJ56VBoiqhKK1xdiD93JWJ+YoEBRD+IQDKDjKaZsHiw2R5VrLzANEqJ/ga5JuOLi/9
-         rmk/UHaSPw45PMhKPfhqM7vbTCzXa4nHY4DWXUMjy6KKuRYht+uheN1C5lkvnR46OK8E
-         VnPw==
-X-Gm-Message-State: AAQBX9eUJRYfp6ditbaopw9+dBmOUL6HIH7q7lq9h+H92d6Wt2EERdGL
-	LdYqNwYSu/Kk0ZQ65rtj00dHZkxnT4SMIyNDKkutxw==
-X-Google-Smtp-Source: AKy350axbG54dQ9LxejbXJX0pZMaL1zCVNK1c1BL+Tm2RDrKrOREH2imfxVIz8Z23wCKRzpe2w5jSw==
-X-Received: by 2002:a7b:c386:0:b0:3f1:78d0:fc45 with SMTP id s6-20020a7bc386000000b003f178d0fc45mr13170623wmj.28.1682521177562;
-        Wed, 26 Apr 2023 07:59:37 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1682521179; x=1685113179;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=GPXQUFmJANWtRSEJizBlmBuJVzkoyDDxbZ36Iy8xMlY=;
+        b=PuqSMXoqrF3h10OQOGo3VuzwbBXAnT9KHFVeQQZjXwtoxsipEYPl+abgJTwdqRWtpu
+         ECNFUn2IHD6nGGbuxAVfgG6kQXJs4B1t+5ZFO302wUmNgGBdlLXDxFvmXJe0QwtIXUbI
+         KpeUkVW1pk3rX2uAtLI/1tyhRoyHJHRbD1XWB2QrRQyGZMFtLqIDNesNPPXx4OGv6F3D
+         hlD3ddVAbF7AFOIxVdeBr6uM5n+chd3GWl1ikYgVj2nkPhYsAX3yfoxQ0SE0JBMRKhbS
+         p1SkRMt6Xuj/U323LABOmzKfXS1QkGmX6z9OhoBIvckXKcfV+Zcdti+MeRtaz9dmji7a
+         bVSA==
+X-Gm-Message-State: AAQBX9coDEySX5xvNlkONLWaf4itEOKBJz44uLbmQn2KoM9uevmqrYBy
+	5VtXl+xeYcvOnT1Zn31PncuWL+QOChImMBpSuyOAPQ==
+X-Google-Smtp-Source: AKy350Yamqi6Z9wNCPW6Nlmb5C/dSHeaLKEaMUxtujLbZj+v6bod9X89zyCRsNhe5eHuw1fRY1Ucfw==
+X-Received: by 2002:adf:f3d0:0:b0:2ee:fa23:7904 with SMTP id g16-20020adff3d0000000b002eefa237904mr13332616wrp.70.1682521179434;
+        Wed, 26 Apr 2023 07:59:39 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Tim Deegan <tim@xen.org>
-Subject: [PATCH 0/7] Rationalize usage of xc_domain_getinfo{,list}()
-Date: Wed, 26 Apr 2023 15:59:25 +0100
-Message-Id: <20230426145932.3340-1-alejandro.vallejo@cloud.com>
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH 1/7] tools: Make some callers of xc_domain_getinfo use xc_domain_getinfolist
+Date: Wed, 26 Apr 2023 15:59:26 +0100
+Message-Id: <20230426145932.3340-2-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20230426145932.3340-1-alejandro.vallejo@cloud.com>
+References: <20230426145932.3340-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xc_domain_getinfo() returns the list of domains with domid >= first_domid.
-It does so by repeatedly invoking XEN_DOMCTL_getdomaininfo, which leads to
-unintuitive behaviour (asking for domid=1 might succeed returning domid=2).
-Furthermore, N hypercalls are required whereas the equivalent functionality
-can be achieved using with XEN_SYSCTL_getdomaininfo.
+xc_domain_getinfo() is slow and prone to races because N hypercalls are
+needed to find information about N domains. xc_domain_getinfolist() finds
+the same information in a single hypercall as long as a big enough buffer
+is provided. Plus, xc_domain_getinfo() is disappearing on a future patch
+so migrate the callers interested in more than 1 domain to the the *list()
+version.
 
-Ideally, we want a DOMCTL interface that operates over a single precisely
-specified domain and a SYSCTL interface that can be used for bulk queries.
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+---
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>
+Cc: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>
+---
+ tools/include/xenctrl.h           |  5 +++++
+ tools/python/xen/lowlevel/xc/xc.c | 29 +++++++++++++++--------------
+ tools/xenmon/xenbaked.c           |  6 +++---
+ 3 files changed, 23 insertions(+), 17 deletions(-)
 
-All callers of xc_domain_getinfo() that are better off using SYSCTL are
-migrated to use that instead. That includes callers performing domain
-discovery and those requesting info for more than 1 domain per hypercall.
-
-A new xc_domain_getinfo_single() is introduced with stricter semantics than
-xc_domain_getinfo() (failing if domid isn't found) to migrate the rest to.
-
-With no callers left the xc_dominfo_t structure and the xc_domain_getinfo()
-call itself can be cleanly removed, and the DOMCTL interface simplified to
-only use its fastpath.
-
-With the DOMCTL ammended, the new xc_domain_getinfo_single() drops its
-stricter check, becoming a simple wrapper to invoke the hypercall itself.
-
-Alejandro Vallejo (7):
-  tools: Make some callers of xc_domain_getinfo use
-    xc_domain_getinfolist
-  tools: Create xc_domain_getinfo_single()
-  tools: Refactor the console/io.c to avoid using xc_domain_getinfo()
-  tools: Make init-xenstore-domain use xc_domain_getinfolist()
-  tools: Modify single-domid callers of xc_domain_getinfolist
-  tools: Use new xc function for some xc_domain_getinfo calls
-  domctl: Modify getdomaininfo to fail if domid is not found
-
- tools/console/client/main.c             |  7 +--
- tools/console/daemon/io.c               | 31 +++++-----
- tools/debugger/kdd/kdd-xen.c            |  6 +-
- tools/helpers/init-xenstore-domain.c    | 14 +++--
- tools/include/xenctrl.h                 | 63 ++++++++------------
- tools/libs/ctrl/xc_domain.c             | 79 +++++--------------------
- tools/libs/ctrl/xc_pagetab.c            |  7 +--
- tools/libs/ctrl/xc_private.c            |  7 +--
- tools/libs/ctrl/xc_private.h            |  6 +-
- tools/libs/guest/xg_core.c              | 21 +++----
- tools/libs/guest/xg_core.h              |  6 +-
- tools/libs/guest/xg_core_arm.c          | 10 ++--
- tools/libs/guest/xg_core_x86.c          | 18 +++---
- tools/libs/guest/xg_cpuid_x86.c         | 28 +++++----
- tools/libs/guest/xg_dom_boot.c          | 12 +---
- tools/libs/guest/xg_domain.c            |  6 +-
- tools/libs/guest/xg_offline_page.c      | 10 ++--
- tools/libs/guest/xg_private.h           |  1 +
- tools/libs/guest/xg_resume.c            | 17 +++---
- tools/libs/guest/xg_sr_common.h         |  2 +-
- tools/libs/guest/xg_sr_restore.c        | 14 ++---
- tools/libs/guest/xg_sr_restore_x86_pv.c |  2 +-
- tools/libs/guest/xg_sr_save.c           | 26 ++++----
- tools/libs/guest/xg_sr_save_x86_pv.c    |  6 +-
- tools/libs/light/libxl_dom.c            | 15 ++---
- tools/libs/light/libxl_dom_suspend.c    |  7 +--
- tools/libs/light/libxl_domain.c         | 12 ++--
- tools/libs/light/libxl_mem.c            |  4 +-
- tools/libs/light/libxl_sched.c          | 28 ++++-----
- tools/libs/light/libxl_x86_acpi.c       |  4 +-
- tools/misc/xen-hvmcrash.c               |  6 +-
- tools/misc/xen-lowmemd.c                |  6 +-
- tools/misc/xen-mfndump.c                | 22 +++----
- tools/misc/xen-vmtrace.c                |  6 +-
- tools/python/xen/lowlevel/xc/xc.c       | 29 ++++-----
- tools/vchan/vchan-socket-proxy.c        |  6 +-
- tools/xenmon/xenbaked.c                 |  6 +-
- tools/xenpaging/xenpaging.c             | 14 ++---
- tools/xenstore/xenstored_domain.c       | 15 +++--
- tools/xentrace/xenctx.c                 |  8 +--
- xen/common/domctl.c                     | 32 +---------
- 41 files changed, 245 insertions(+), 374 deletions(-)
-
+diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+index 05967ecc92..90b33aa3a7 100644
+--- a/tools/include/xenctrl.h
++++ b/tools/include/xenctrl.h
+@@ -468,6 +468,11 @@ typedef struct xc_dominfo {
+ 
+ typedef xen_domctl_getdomaininfo_t xc_domaininfo_t;
+ 
++static inline unsigned int dominfo_shutdown_reason(const xc_domaininfo_t *info)
++{
++    return (info->flags >> XEN_DOMINF_shutdownshift) & XEN_DOMINF_shutdownmask;
++}
++
+ typedef union 
+ {
+ #if defined(__i386__) || defined(__x86_64__)
+diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowlevel/xc/xc.c
+index 35901c2d63..38212e8091 100644
+--- a/tools/python/xen/lowlevel/xc/xc.c
++++ b/tools/python/xen/lowlevel/xc/xc.c
+@@ -342,7 +342,7 @@ static PyObject *pyxc_domain_getinfo(XcObject *self,
+     uint32_t first_dom = 0;
+     int max_doms = 1024, nr_doms, i;
+     size_t j;
+-    xc_dominfo_t *info;
++    xc_domaininfo_t *info;
+ 
+     static char *kwd_list[] = { "first_dom", "max_doms", NULL };
+ 
+@@ -350,11 +350,11 @@ static PyObject *pyxc_domain_getinfo(XcObject *self,
+                                       &first_dom, &max_doms) )
+         return NULL;
+ 
+-    info = calloc(max_doms, sizeof(xc_dominfo_t));
++    info = calloc(max_doms, sizeof(*info));
+     if (info == NULL)
+         return PyErr_NoMemory();
+ 
+-    nr_doms = xc_domain_getinfo(self->xc_handle, first_dom, max_doms, info);
++    nr_doms = xc_domain_getinfolist(self->xc_handle, first_dom, max_doms, info);
+ 
+     if (nr_doms < 0)
+     {
+@@ -368,21 +368,22 @@ static PyObject *pyxc_domain_getinfo(XcObject *self,
+         info_dict = Py_BuildValue(
+             "{s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i,s:i"
+             ",s:L,s:L,s:L,s:i,s:i,s:i}",
+-            "domid",           (int)info[i].domid,
++            "domid",           (int)info[i].domain,
+             "online_vcpus",    info[i].nr_online_vcpus,
+             "max_vcpu_id",     info[i].max_vcpu_id,
+-            "hvm",             info[i].hvm,
+-            "dying",           info[i].dying,
+-            "crashed",         info[i].crashed,
+-            "shutdown",        info[i].shutdown,
+-            "paused",          info[i].paused,
+-            "blocked",         info[i].blocked,
+-            "running",         info[i].running,
+-            "mem_kb",          (long long)info[i].nr_pages*(XC_PAGE_SIZE/1024),
++            "hvm",             !!(info[i].flags & XEN_DOMINF_hvm_guest),
++            "dying",           !!(info[i].flags & XEN_DOMINF_dying),
++            "crashed",         (info[i].flags & XEN_DOMINF_shutdown) &&
++                                 (dominfo_shutdown_reason(&info[i]) == SHUTDOWN_crash),
++            "shutdown",        !!(info[i].flags & XEN_DOMINF_shutdown),
++            "paused",          !!(info[i].flags & XEN_DOMINF_paused),
++            "blocked",         !!(info[i].flags & XEN_DOMINF_blocked),
++            "running",         !!(info[i].flags & XEN_DOMINF_running),
++            "mem_kb",          (long long)info[i].tot_pages*(XC_PAGE_SIZE/1024),
+             "cpu_time",        (long long)info[i].cpu_time,
+-            "maxmem_kb",       (long long)info[i].max_memkb,
++            "maxmem_kb",       (long long)(info[i].max_pages << (XC_PAGE_SHIFT - 10)),
+             "ssidref",         (int)info[i].ssidref,
+-            "shutdown_reason", info[i].shutdown_reason,
++            "shutdown_reason", dominfo_shutdown_reason(&info[i]),
+             "cpupool",         (int)info[i].cpupool);
+         pyhandle = PyList_New(sizeof(xen_domain_handle_t));
+         if ( (pyhandle == NULL) || (info_dict == NULL) )
+diff --git a/tools/xenmon/xenbaked.c b/tools/xenmon/xenbaked.c
+index 4dddbd20e2..8632b10ea4 100644
+--- a/tools/xenmon/xenbaked.c
++++ b/tools/xenmon/xenbaked.c
+@@ -775,7 +775,7 @@ static void global_init_domain(int domid, int idx)
+ static int indexof(int domid)
+ {
+     int idx;
+-    xc_dominfo_t dominfo[NDOMAINS];
++    xc_domaininfo_t dominfo[NDOMAINS];
+     xc_interface *xc_handle;
+     int ndomains;
+   
+@@ -797,7 +797,7 @@ static int indexof(int domid)
+ 
+     // call domaininfo hypercall to try and garbage collect unused entries
+     xc_handle = xc_interface_open(0,0,0);
+-    ndomains = xc_domain_getinfo(xc_handle, 0, NDOMAINS, dominfo);
++    ndomains = xc_domain_getinfolist(xc_handle, 0, NDOMAINS, dominfo);
+     xc_interface_close(xc_handle);
+ 
+     // for each domain in our data, look for it in the system dominfo structure
+@@ -808,7 +808,7 @@ static int indexof(int domid)
+         int jdx;
+     
+         for (jdx=0; jdx<ndomains; jdx++) {
+-            if (dominfo[jdx].domid == domid)
++            if (dominfo[jdx].domain == domid)
+                 break;
+         }
+         if (jdx == ndomains)        // we didn't find domid in the dominfo struct
 -- 
 2.34.1
 
