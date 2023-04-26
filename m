@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64CF46EEBE4
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 03:25:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.526422.818159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3EF66EEBEC
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Apr 2023 03:29:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.526426.818168 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prTuY-0001IO-F9; Wed, 26 Apr 2023 01:25:34 +0000
+	id 1prTy2-0001tT-Vh; Wed, 26 Apr 2023 01:29:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 526422.818159; Wed, 26 Apr 2023 01:25:34 +0000
+Received: by outflank-mailman (output) from mailman id 526426.818168; Wed, 26 Apr 2023 01:29:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1prTuY-0001G0-CT; Wed, 26 Apr 2023 01:25:34 +0000
-Received: by outflank-mailman (input) for mailman id 526422;
- Wed, 26 Apr 2023 01:25:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9cwp=AR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1prTuX-0001Fu-Fr
- for xen-devel@lists.xenproject.org; Wed, 26 Apr 2023 01:25:33 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b891c20-e3d1-11ed-8611-37d641c3527e;
- Wed, 26 Apr 2023 03:25:31 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2503761776;
- Wed, 26 Apr 2023 01:25:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E822CC433D2;
- Wed, 26 Apr 2023 01:25:28 +0000 (UTC)
+	id 1prTy2-0001qw-Sf; Wed, 26 Apr 2023 01:29:10 +0000
+Received: by outflank-mailman (input) for mailman id 526426;
+ Wed, 26 Apr 2023 01:29:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1prTy0-0001qm-T5; Wed, 26 Apr 2023 01:29:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1prTy0-0003g7-Fg; Wed, 26 Apr 2023 01:29:08 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1prTxz-0000k8-Uq; Wed, 26 Apr 2023 01:29:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1prTxz-0001Q4-UL; Wed, 26 Apr 2023 01:29:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,85 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b891c20-e3d1-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1682472329;
-	bh=/VXR3+ubC/WgQkXMc/DNqf78a9huRi+gfho5wyE5DCo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=bsNYwWHCE+3I58rI+J1ndqKbw4qHtPDPU/Jb/ZPSjfU+2i0yjdZ9mbmWDrF7nVIUm
-	 ckyleNZBoTArAA1vNqO9rAs1jfHinuivlpqK4vwryI3HAyHYCZzikyhr5fK79CDkcn
-	 ox8pTwawLXQXdTHwcbzxDTd+kftt9hQTQvIK2PvivD9l9fc+ygf61XJMa9IB5ZZhha
-	 uvM8llHp2Z44LGHrGvCQosy3dwMYqkzUv45IOu/1N2N91PB5VwGeYC+qpIe5Gt7Jka
-	 3mZ/9amAbJpo+ZVTcIWvb5HrqN1joty5YMNGFOQFw9nx8sXKNpk0sTKwo9nA98SwOb
-	 PJvUlWUHWGzlA==
-Date: Tue, 25 Apr 2023 18:25:27 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-cc: xen-devel@lists.xenproject.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v2 4/6] automation: wait for the login prompt as test
- end marker
-In-Reply-To: <7a0e3b0f6373ce9ad0bf66ddb1535ca9c4fed0fc.1682468126.git-series.marmarek@invisiblethingslab.com>
-Message-ID: <alpine.DEB.2.22.394.2304251825050.3419@ubuntu-linux-20-04-desktop>
-References: <cover.ddd9fded43b546af196bcfb4473b62e1fa3864b3.1682468126.git-series.marmarek@invisiblethingslab.com> <7a0e3b0f6373ce9ad0bf66ddb1535ca9c4fed0fc.1682468126.git-series.marmarek@invisiblethingslab.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=51ojedJ/IrA8S6czndB8Ed0SCd5o4mD5+3Se0Z7yw3U=; b=PHF836nGN667zbixVmtVCs2hw9
+	TtewWw4gjV8q0KdbXQKNaDsNC6sAp+hEVCh/z0PYLyI9Q2uMXDhLOf5OxEoJdSgFzrPT7o5GzuYIk
+	Ce8l4Q9tZExK0bdT8xKrE+eOGqje2gdt3zIBOU2zXkr4fPu/dvkby339wQ5hGkfAT0FA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180420-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2132388244-1682472329=:3419"
+Subject: [xen-unstable-smoke test] 180420: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=18a36b4a9b088875486cfe33a2d4a8ae7eb4ab47
+X-Osstest-Versions-That:
+    xen=f6c3cb21628f7bed73cb992da400f6b36630f290
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 26 Apr 2023 01:29:07 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 180420 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180420/
 
---8323329-2132388244-1682472329=:3419
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Failures :-/ but no regressions.
 
-On Wed, 26 Apr 2023, Marek Marczykowski-Górecki wrote:
-> The login prompt is printed after all the startup (test) scripts, wait
-> for that instead of "passed" marker. And only then check if test passed.
-> Before this patch there was a race: "passed" marker could be already
-> printed, but the final check would fail because login prompt wasn't
-> there yet.
-> 
-> Also, modify etc/issue in domU rootfs to avoid confusing the one from
-> domU with the dom0's one. Use the dom0 one as test end marker.
-> 
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+version targeted for testing:
+ xen                  18a36b4a9b088875486cfe33a2d4a8ae7eb4ab47
+baseline version:
+ xen                  f6c3cb21628f7bed73cb992da400f6b36630f290
+
+Last test of basis   180411  2023-04-25 14:00:26 Z    0 days
+Testing same since   180420  2023-04-25 23:02:14 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Olaf Hering <olaf@aepfle.de>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-> ---
-> changes in v2:
->  - differentiate dom0 and domU welcome message
-> ---
->  automation/scripts/qubes-x86-64.sh | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
-> index 916dbaae59c3..6c0309704661 100755
-> --- a/automation/scripts/qubes-x86-64.sh
-> +++ b/automation/scripts/qubes-x86-64.sh
-> @@ -66,6 +66,7 @@ ${domU_check}
->  /bin/sh" > etc/local.d/xen.start
->  chmod +x etc/local.d/xen.start
->  echo "rc_verbose=yes" >> etc/rc.conf
-> +sed -i -e 's/^Welcome/domU \0/' etc/issue
->  find . | fakeroot -i ../fakeroot-save cpio -H newc -o | gzip > ../binaries/domU-rootfs.cpio.gz
->  cd ..
->  rm -rf rootfs
-> @@ -159,7 +160,7 @@ if [ -n "$wait_and_wakeup" ]; then
->      ssh $CONTROLLER wake
->  fi
->  
-> -until grep "$passed" smoke.serial || [ $timeout -le 0 ]; do
-> +until grep "^Welcome to Alpine Linux" smoke.serial || [ $timeout -le 0 ]; do
->      sleep 1;
->      : $((--timeout))
->  done
-> -- 
-> git-series 0.9.1
-> 
---8323329-2132388244-1682472329=:3419--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   f6c3cb2162..18a36b4a9b  18a36b4a9b088875486cfe33a2d4a8ae7eb4ab47 -> smoke
 
