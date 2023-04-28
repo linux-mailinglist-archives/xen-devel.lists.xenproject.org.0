@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F876F1DB5
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Apr 2023 19:57:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.527436.820015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFCA16F1DB9
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Apr 2023 19:58:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.527441.820025 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psSLS-00064i-G1; Fri, 28 Apr 2023 17:57:22 +0000
+	id 1psSMW-0006j4-Uj; Fri, 28 Apr 2023 17:58:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 527436.820015; Fri, 28 Apr 2023 17:57:22 +0000
+Received: by outflank-mailman (output) from mailman id 527441.820025; Fri, 28 Apr 2023 17:58:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psSLS-00062t-CQ; Fri, 28 Apr 2023 17:57:22 +0000
-Received: by outflank-mailman (input) for mailman id 527436;
- Fri, 28 Apr 2023 17:57:21 +0000
+	id 1psSMW-0006fo-RL; Fri, 28 Apr 2023 17:58:28 +0000
+Received: by outflank-mailman (input) for mailman id 527441;
+ Fri, 28 Apr 2023 17:58:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SG5/=AT=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1psSLR-0005xG-IF
- for xen-devel@lists.xenproject.org; Fri, 28 Apr 2023 17:57:21 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2060e.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::60e])
+ id 1psSMV-0006fW-0A
+ for xen-devel@lists.xenproject.org; Fri, 28 Apr 2023 17:58:27 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20609.outbound.protection.outlook.com
+ [2a01:111:f400:7e8d::609])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1dd676a4-e5ee-11ed-8611-37d641c3527e;
- Fri, 28 Apr 2023 19:57:19 +0200 (CEST)
-Received: from BN9PR03CA0781.namprd03.prod.outlook.com (2603:10b6:408:13f::6)
- by PH0PR12MB5450.namprd12.prod.outlook.com (2603:10b6:510:e8::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.24; Fri, 28 Apr
- 2023 17:57:14 +0000
-Received: from BL02EPF000145B8.namprd05.prod.outlook.com
- (2603:10b6:408:13f:cafe::a2) by BN9PR03CA0781.outlook.office365.com
- (2603:10b6:408:13f::6) with Microsoft SMTP Server (version=TLS1_2,
+ id 443abc28-e5ee-11ed-8611-37d641c3527e;
+ Fri, 28 Apr 2023 19:58:24 +0200 (CEST)
+Received: from DM6PR06CA0096.namprd06.prod.outlook.com (2603:10b6:5:336::29)
+ by DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.22; Fri, 28 Apr
+ 2023 17:58:18 +0000
+Received: from DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::23) by DM6PR06CA0096.outlook.office365.com
+ (2603:10b6:5:336::29) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.24 via Frontend
- Transport; Fri, 28 Apr 2023 17:57:13 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF000145B8.mail.protection.outlook.com (10.167.241.208) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6340.15 via Frontend Transport; Fri, 28 Apr 2023 17:57:12 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ Transport; Fri, 28 Apr 2023 17:58:18 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT068.mail.protection.outlook.com (10.13.173.67) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6340.25 via Frontend Transport; Fri, 28 Apr 2023 17:58:18 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 28 Apr
- 2023 12:57:12 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 12:58:17 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 28 Apr
- 2023 12:57:12 -0500
+ 2023 10:58:17 -0700
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Fri, 28 Apr 2023 12:57:10 -0500
+ via Frontend Transport; Fri, 28 Apr 2023 12:58:16 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,28 +63,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1dd676a4-e5ee-11ed-8611-37d641c3527e
+X-Inumbo-ID: 443abc28-e5ee-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=he8wUTrQyxRNVmeXe7Ck5g+D0hKqRwEnakTT1wUjuvoFcA+IJAwPljG7v3ECpqNcNK6PL1BC3N0k8PJLMNdY/VfMiKCXDYFkP6ywx8f09orF5dirJAOWcmtkAFeAbicWMjrPIi0+cJe0HwP06hcXY4yiBKEruJXPlt8t5+v/Astg0JnqOFqgMxcHLTpYa6oI94ecFZk39MKk9iNp0tPTWQ3cxdZE9B6mQZawlUCjrFWVDNgC5xBEp9XbDjJ0EajHjz13LoRQpgqAL4tF2W2WN8DNfJ1GcWYh+ErubZm+GeKAQVlNqu/9whOWI533bWAYPK//JC242HjzpNonKaFDbw==
+ b=TdfiZWsEWVEPu9iOIBZh9iud8lhd+zD9j2wKSLX6xbR7TvvXYCg4rDbWvNYbdt/fLn3dO6+/ykcW2ypkw63PZgesM064GMB6D3y7P4EBOiAYQpH2gaFbh81+fezJoa2Ofdyn69HigI/V0CfESWIDraMLSLcz66h/lK3T45iTWS9mOps0n2POVBrm9lSxu0kOxt8eyY5vO7MVKw05AvcE4hqlEO7e6QGNnUZs8pvvYN11yRAhchbjezlKKNr61pR0RQJjR1g+dX4GpQpzu/U78ghyJvQ/xQA7UD1bH4WhovP4tW/QtR+vq3PwfNos343feWMxK1pDddGbLRLrCGrD2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RLOopyrCxXrFnZHqu61vRHbngeDUKnfARgP4fYXLREo=;
- b=FybGUtgmqipk6hdUXR3/shyYOHw0XPKvD9h4HIcwveVWYkFTFJboEuq9eXF2ukhBcHKovfjS4uSJFpoHDQol3igESY63KDFZUtLImacm23XpwBE58JnoPOxDawX301eN3/vfwX0R4e3fhoG7sKb9m3AXFSCDuqGtdcBK+ltW2HXUf0nURdwydwQXjFRUzXKdh52d3u6Ao06GT2gy+5mxOAZ5GW5nur9kB7zGe1M9Ikdatf0ong8WLdptM2Z83b6N+KNBKfxB1gUxWoMFHNBt/eo/SeycEJxx4i+zhnFptOxFNu30tKCSVTXBkpl3u3aFnOi0/EmzwFdnHt5MurU3Dw==
+ bh=8ItbA7MR54EyUW59X/0s7sZ+VmZsyeSeXlpY7oOYDWU=;
+ b=ngpgaAt8U+5kGfG6ik/Pa2YKqqHANKJCPEuOQRSYx8DW586qgphGrPeBZrcwAnNyal2KxQVMsH7LSKb617ko9VoqPMBz3Kp9XmeXVvuCEuN9dciVQar7cimK6aPoylNYK7PLlaV+D0p2/bor1hC2cjkewUe8QoMBANN4Fgv44g4VjTnoeRVDNHnDUgtcEh8LD1ifUGM90PZSvhRcOcKC9xPibgVRnM+js+yglQqvalY8wVC8Cmu1ixL2ueuidVD13f4bHwRhXJOnRQSZppmBC0UiUrav4fU+Pw2nZ3jkoJRCqtZSfi3JxiFwHp2GGt2tiNRj6VPPlANc5P8Vj9Izew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RLOopyrCxXrFnZHqu61vRHbngeDUKnfARgP4fYXLREo=;
- b=uJXBbTqwwF+Byazy7H5LHgoPgnwUbUKuXbg5xZom5YbzUva56uB35qku4C/owetAUoOMxjSg8bisDY87Zi/7sihCxm0MyUs3jCT8OYLgXMxeVc58kdkIoSCqEjpqIWWk0cezVawb6TVqMCQ9FrQwLlC7tN+pq0Ks8XK2r5ONk2k=
+ bh=8ItbA7MR54EyUW59X/0s7sZ+VmZsyeSeXlpY7oOYDWU=;
+ b=g8h7tadonNxZ8a2OeG5zwvQDq4pHyqfGSuIgVu8YvDx9XlCe1vlyeGAgiOpZHLAKEyekZm6u47dgtzLy2dU8tQsBn1TmEAu4BmCTZKxVMi+30o2bVfd+qMxuEVlVhlqlf2agFaLIFnJJCCJWoq4ML4p569XSLD8SZHr/T1PfWDQ=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
@@ -92,9 +92,9 @@ CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
 	<wl@xen.org>, <rahul.singh@arm.com>, Ayan Kumar Halder
 	<ayan.kumar.halder@amd.com>
-Subject: [XEN v6 01/12] xen/arm: domain_build: Track unallocated pages using the frame number
-Date: Fri, 28 Apr 2023 18:55:32 +0100
-Message-ID: <20230428175543.11902-2-ayan.kumar.halder@amd.com>
+Subject: [XEN v6 02/12] xen/arm: Typecast the DT values into paddr_t
+Date: Fri, 28 Apr 2023 18:55:33 +0100
+Message-ID: <20230428175543.11902-3-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230428175543.11902-1-ayan.kumar.halder@amd.com>
 References: <20230428175543.11902-1-ayan.kumar.halder@amd.com>
@@ -102,171 +102,367 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF000145B8:EE_|PH0PR12MB5450:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa3189f5-981d-4e8f-e130-08db4811feb5
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT068:EE_|DM4PR12MB8476:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d088cdc-a40e-4a1e-9a60-08db481225ae
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	OiUpvXG3+lXoq17BnlvYznR4NfscNYqeRm5aEnuaqhyTML+zfRfomIWIXWLTSFjYcQe6i4XwWBmkJ28iie0zeKHm0/lFR1+iW+jKBkhDjaJM474trp/b17aNuHb/T7Taax0hZbJO5ddM/1i8zfFdCn/WE/F322e8FbJW3o0NIZ1rRcr/uZtuJMWsbajoqVwNM//7ZRaEhA4862drXLwu7+a7XVzxx2AR4oDUvkPb+USgiktt6sVcpTtH09mhoIw6SRuMlGFCmZ0NifZ9ryY5hWF1CSjGS/s6BUIrZDaHlFUbofoHTfdz6hyo9QS1UpU7qGcEOEAVSL56DWyFB88zF2V6BW4IxSgAHlNQ2lQr+5Uh6TbTO6JlzwAhWnG3lqt6wJFsXdddku2otmU3q3AILZYfNCYfiOKzfy3qwtkGdZa4sBBvSLFSwfDuO6YLJGbSc49pgQcLR2c1e3URQQJGtD+BqVtOBnMPdT+SZi3YXL6CgpSxswTw1gvF5XAdUlEqxS7S7GD5AuMqCq7NJy5t1HRMNGRt5PIzl3OjVI//tjAOQEZrpPdGohWDxnRrIby69TKxJt37ReobZ2f8CmYstrhkT6Iz82kDk+3XElGpjTpYN2bE56x+nxTcDOsMPIGHWMqdLbD1/uhvQ1+UII4vVoJ6Rb92uHy3bd28TKgVdAnMy+xo7wZykD+xi6lBMS9eZkiei3776VB7GT/OMSuaFfVcMEt7mZvj/Tptg1Z7cUZ+uuORQCcfTOKkskpDYQ80
+	E1NjJKs5hWXPbda8yXqbNBE6Li5XP2FZZQ4f4i/LSGMWUwjU7cGupSEEIv2KZgy9JJxj/RdeDUIobjoE9Laqbaa63srQLsyuhSW8+IZBuMyZW/kgxCuBMXG6sZdCPdg74nWb+X9sCztfWSMR8LnuxThmTPu3wFzO7zHJd5g55TD2G3jmmccYjGUTDbGcXfc9W1nLvrrm80exU2lcjJGIKwDr1H5zS6mgMP2c9iok8e4ZyRjMcPm5CSgYfKNwexyq3avd8SeMQvtyevVkf50cB/pKMHJx6jX81qvbJS3GQtM/WOON/6+TqbrfIx2QmCzy7+NO23vMCfsp6h0JgTvps5hICQZJExWY75P039U3+YS7cZQUA7xzgTGLPyTBRXPloA8bN197rluF1NCbhLCdFGx4WI2eoD1XCE8lLcj1tauWXe7+PywGDN2TqmBwBws8x2vN9dOglXvbnye9RaLnQFo0Oe48uOkM2QoxQahNjRDj9eg2N6TVCY2fpJ49mD28m+dmw7+AoTH0k7VETmMi8w1jIHMUGo71G+tkiZLMe92TMG2sSeJbxExBHIrxeXDOF51JvsXUFAWY+/aqxL7R+7gnL5pLgLFpgmh3/YOdayXBBzW618L06A3PNLqWVSlybO+4p6zIeODHHi4Us11lu0KiLrCe1D/zKFTxhJ4eJn0IlDAX2isn0NpVtXwChbz3Moct0AM+LUMW5uRWJ5lK2yproczmiZ+pc7C1oP/2S+k=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(346002)(396003)(376002)(136003)(451199021)(46966006)(36840700001)(40470700004)(8676002)(8936002)(7416002)(41300700001)(82740400003)(356005)(81166007)(36860700001)(316002)(2906002)(70206006)(70586007)(5660300002)(6916009)(82310400005)(4326008)(47076005)(83380400001)(426003)(336012)(2616005)(103116003)(54906003)(40480700001)(186003)(40460700003)(36756003)(86362001)(966005)(6666004)(1076003)(478600001)(26005)(21314003)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(82310400005)(336012)(426003)(83380400001)(36860700001)(41300700001)(30864003)(1076003)(26005)(82740400003)(40460700003)(36756003)(186003)(2906002)(2616005)(103116003)(6666004)(40480700001)(86362001)(5660300002)(8936002)(7416002)(8676002)(47076005)(4326008)(316002)(6916009)(70206006)(81166007)(478600001)(356005)(70586007)(54906003)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2023 17:57:12.7564
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2023 17:58:18.1086
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa3189f5-981d-4e8f-e130-08db4811feb5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d088cdc-a40e-4a1e-9a60-08db481225ae
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF000145B8.namprd05.prod.outlook.com
+	DM6NAM11FT068.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5450
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8476
 
-rangeset_{xxx}_range() functions are invoked with 'start' and 'size' as
-arguments which are either 'uint64_t' or 'paddr_t'. However, the function
-accepts 'unsigned long' for 'start' and 'size'. 'unsigned long' is 32 bits for
-Arm32. Thus, there is an implicit downcasting from 'uint64_t'/'paddr_t' to
-'unsigned long' when invoking rangeset_{xxx}_range().
+The DT functions (dt_read_number(), device_tree_get_reg(), fdt_get_mem_rsv())
+currently accept or return 64-bit values.
 
-So, it may seem there is a possibility of lose of data due to truncation.
+In future when we support 32-bit physical address, these DT functions are
+expected to accept/return 32-bit or 64-bit values (depending on the width of
+physical address). Also, we wish to detect if any truncation has occurred
+(i.e. while parsing 32-bit physical addresses from 64-bit values read from DT).
 
-In reality, 'start' and 'size' are always page aligned. And Arm32 currently
-supports 40 bits as the width of physical address.
-So if the addresses are page aligned, the last 12 bits contain zeroes.
-Thus, we could instead pass page frame number which will contain 28 bits (40-12
-on Arm32) and this can be represented using 'unsigned long'.
+device_tree_get_reg() should now be able to return paddr_t. This is invoked by
+various callers to get DT address and size.
 
-On Arm64, this change will not induce any adverse side effect as the max
-supported width of physical address is 48 bits. Thus, the width of 'gfn'
-(ie 48 - 12 = 36) can be represented using 'unsigned long' (which is 64 bits
-wide).
+For fdt_get_mem_rsv(), we have introduced a wrapper named
+fdt_get_mem_rsv_paddr() which will invoke fdt_get_mem_rsv() and translate
+uint64_t to paddr_t. The reason being we cannot modify fdt_get_mem_rsv() as it
+has been imported from external source.
+
+For dt_read_number(), we have also introduced a wrapper named dt_read_paddr()
+dt_read_paddr() to read physical addresses. We chose not to modify the original
+function as it is used in places where it needs to specifically read 64-bit
+values from dt (For e.g. dt_property_read_u64()).
+
+Xen prints warning when it detects truncation in cases where it is not able to
+return error.
+
+Also, replaced u32/u64 with uint32_t/uint64_t in the functions touched
+by the code changes.
 
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
 ---
-Changes from -
 
-v3 - 1. Extracted the patch from https://lists.xenproject.org/archives/html/xen-devel/2023-02/msg00657.html
-and added it to this series.
-2. Modified add_ext_regions(). This accepts a frame number instead of physical
-address.
+Changes from
 
-v4 - 1. Reworded the commit message to use Arm32/Arm64
-(32-bit/64-bit Arm architecture).
-2. Replaced pfn with gfn to denote guest frame number in add_ext_regions().
-3. Use pfn_to_paddr() to return a physical address from the guest frame number.
+v1 - 1. Dropped "[XEN v1 2/9] xen/arm: Define translate_dt_address_size() for the translation between u64 and paddr_t" and
+"[XEN v1 4/9] xen/arm: Use translate_dt_address_size() to translate between device tree addr/size and paddr_t", instead
+this approach achieves the same purpose.
 
-v5 - 1. Updated the commit message. Added R-b and A-b.
+2. No need to check for truncation while converting values from u64 to paddr_t.
 
- xen/arch/arm/domain_build.c | 27 +++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+v2 - 1. Use "( (dt_start >> (PADDR_SHIFT - 1)) > 1 )" to detect truncation.
+2. Introduced libfdt_xen.h to implement fdt_get_mem_rsv_paddr
+3. Logged error messages in case truncation is detected.
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index f80fdd1af2..494611a3e5 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -1500,10 +1500,13 @@ static int __init make_resv_memory_node(const struct domain *d,
-     return res;
+v3 - 1. Renamed libfdt_xen.h to libfdt-xen.h.
+2. Replaced u32/u64 with uint32_t/uint64_t
+3. Use "(paddr_t)val != val" to check for truncation.
+4. Removed the alias "#define PADDR_SHIFT PADDR_BITS". 
+
+v4 - 1. Added a WARN() when truncation is detected.
+2. Always check the return value of fdt_get_mem_rsv().
+
+v5 - 1. Removed the initialization of variables in fdt_get_mem_rsv_paddr().
+The warning has been fixed by checking "if (ret < 0)", similar to how it was
+being done for fdt_get_mem_rsv().
+
+2. Removed printing "Error:" before WARN().
+3. Added the note about implicit casting before dt_read_number()
+4. Sanity fixes.
+
+ xen/arch/arm/bootfdt.c              | 46 +++++++++++++++++++-----
+ xen/arch/arm/domain_build.c         |  2 +-
+ xen/arch/arm/include/asm/setup.h    |  4 +--
+ xen/arch/arm/setup.c                | 14 ++++----
+ xen/arch/arm/smpboot.c              |  2 +-
+ xen/include/xen/device_tree.h       | 27 ++++++++++++++
+ xen/include/xen/libfdt/libfdt-xen.h | 55 +++++++++++++++++++++++++++++
+ 7 files changed, 130 insertions(+), 20 deletions(-)
+ create mode 100644 xen/include/xen/libfdt/libfdt-xen.h
+
+diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+index e2f6c7324b..b6f92a174f 100644
+--- a/xen/arch/arm/bootfdt.c
++++ b/xen/arch/arm/bootfdt.c
+@@ -11,7 +11,7 @@
+ #include <xen/efi.h>
+ #include <xen/device_tree.h>
+ #include <xen/lib.h>
+-#include <xen/libfdt/libfdt.h>
++#include <xen/libfdt/libfdt-xen.h>
+ #include <xen/sort.h>
+ #include <xsm/xsm.h>
+ #include <asm/setup.h>
+@@ -52,11 +52,37 @@ static bool __init device_tree_node_compatible(const void *fdt, int node,
+     return false;
  }
  
--static int __init add_ext_regions(unsigned long s, unsigned long e, void *data)
-+static int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
-+                                  void *data)
+-void __init device_tree_get_reg(const __be32 **cell, u32 address_cells,
+-                                u32 size_cells, u64 *start, u64 *size)
++void __init device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
++                                uint32_t size_cells, paddr_t *start,
++                                paddr_t *size)
  {
-     struct meminfo *ext_regions = data;
-     paddr_t start, size;
-+    paddr_t s = pfn_to_paddr(s_gfn);
-+    paddr_t e = pfn_to_paddr(e_gfn);
+-    *start = dt_next_cell(address_cells, cell);
+-    *size = dt_next_cell(size_cells, cell);
++    uint64_t dt_start, dt_size;
++
++    /*
++     * dt_next_cell will return uint64_t whereas paddr_t may not be 64-bit.
++     * Thus, there is an implicit cast from uint64_t to paddr_t.
++     */
++    dt_start = dt_next_cell(address_cells, cell);
++    dt_size = dt_next_cell(size_cells, cell);
++
++    if ( dt_start != (paddr_t)dt_start )
++    {
++        printk("Physical address greater than max width supported\n");
++        WARN();
++    }
++
++    if ( dt_size != (paddr_t)dt_size )
++    {
++        printk("Physical size greater than max width supported\n");
++        WARN();
++    }
++
++    /*
++     * Xen will truncate the address/size if it is greater than the maximum
++     * supported width and it will give an appropriate warning.
++     */
++    *start = dt_start;
++    *size = dt_size;
+ }
  
-     if ( ext_regions->nr_banks >= ARRAY_SIZE(ext_regions->bank) )
-         return 0;
-@@ -1566,7 +1569,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+ static int __init device_tree_get_meminfo(const void *fdt, int node,
+@@ -329,7 +355,7 @@ static int __init process_chosen_node(const void *fdt, int node,
+         printk("linux,initrd-start property has invalid length %d\n", len);
+         return -EINVAL;
+     }
+-    start = dt_read_number((void *)&prop->data, dt_size_to_cells(len));
++    start = dt_read_paddr((void *)&prop->data, dt_size_to_cells(len));
+ 
+     prop = fdt_get_property(fdt, node, "linux,initrd-end", &len);
+     if ( !prop )
+@@ -342,7 +368,7 @@ static int __init process_chosen_node(const void *fdt, int node,
+         printk("linux,initrd-end property has invalid length %d\n", len);
+         return -EINVAL;
+     }
+-    end = dt_read_number((void *)&prop->data, dt_size_to_cells(len));
++    end = dt_read_paddr((void *)&prop->data, dt_size_to_cells(len));
+ 
+     if ( start >= end )
      {
-         start = bootinfo.mem.bank[i].start;
-         end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size;
--        res = rangeset_add_range(unalloc_mem, start, end - 1);
-+        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
-+                                 PFN_DOWN(end - 1));
-         if ( res )
+@@ -593,9 +619,11 @@ static void __init early_print_info(void)
+     for ( i = 0; i < nr_rsvd; i++ )
+     {
+         paddr_t s, e;
+-        if ( fdt_get_mem_rsv(device_tree_flattened, i, &s, &e) < 0 )
++
++        if ( fdt_get_mem_rsv_paddr(device_tree_flattened, i, &s, &e) < 0 )
+             continue;
+-        /* fdt_get_mem_rsv returns length */
++
++        /* fdt_get_mem_rsv_paddr returns length */
+         e += s;
+         printk(" RESVD[%u]: %"PRIpaddr" - %"PRIpaddr"\n", i, s, e);
+     }
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 494611a3e5..270fb06139 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -949,7 +949,7 @@ static int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+         BUG_ON(!prop);
+         cells = (const __be32 *)prop->value;
+         device_tree_get_reg(&cells, addr_cells, addr_cells, &pbase, &gbase);
+-        psize = dt_read_number(cells, size_cells);
++        psize = dt_read_paddr(cells, size_cells);
+         if ( !IS_ALIGNED(pbase, PAGE_SIZE) || !IS_ALIGNED(gbase, PAGE_SIZE) )
          {
-             printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
-@@ -1580,7 +1584,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+             printk("%pd: physical address 0x%"PRIpaddr", or guest address 0x%"PRIpaddr" is not suitably aligned.\n",
+diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+index 38e2ce255f..47ce565d87 100644
+--- a/xen/arch/arm/include/asm/setup.h
++++ b/xen/arch/arm/include/asm/setup.h
+@@ -159,8 +159,8 @@ const char *boot_module_kind_as_string(bootmodule_kind kind);
+ extern uint32_t hyp_traps_vector[];
+ void init_traps(void);
+ 
+-void device_tree_get_reg(const __be32 **cell, u32 address_cells,
+-                         u32 size_cells, u64 *start, u64 *size);
++void device_tree_get_reg(const __be32 **cell, uint32_t address_cells,
++                         uint32_t size_cells, paddr_t *start, paddr_t *size);
+ 
+ u32 device_tree_get_u32(const void *fdt, int node,
+                         const char *prop_name, u32 dflt);
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 6f9f4d8c8a..74b40e527f 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -29,7 +29,7 @@
+ #include <xen/virtual_region.h>
+ #include <xen/vmap.h>
+ #include <xen/trace.h>
+-#include <xen/libfdt/libfdt.h>
++#include <xen/libfdt/libfdt-xen.h>
+ #include <xen/acpi.h>
+ #include <xen/warning.h>
+ #include <asm/alternative.h>
+@@ -222,11 +222,11 @@ static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
      {
-         start = assign_mem->bank[i].start;
-         end = assign_mem->bank[i].start + assign_mem->bank[i].size;
--        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-+        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
-+                                    PFN_DOWN(end - 1));
-         if ( res )
+         paddr_t r_s, r_e;
+ 
+-        if ( fdt_get_mem_rsv(device_tree_flattened, i, &r_s, &r_e ) < 0 )
++        if ( fdt_get_mem_rsv_paddr(device_tree_flattened, i, &r_s, &r_e ) < 0 )
+             /* If we can't read it, pretend it doesn't exist... */
+             continue;
+ 
+-        r_e += r_s; /* fdt_get_mem_rsv returns length */
++        r_e += r_s; /* fdt_get_mem_rsv_paddr returns length */
+ 
+         if ( s < r_e && r_s < e )
          {
-             printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-@@ -1595,7 +1600,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
-         start = bootinfo.reserved_mem.bank[i].start;
-         end = bootinfo.reserved_mem.bank[i].start +
-             bootinfo.reserved_mem.bank[i].size;
--        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-+        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
-+                                    PFN_DOWN(end - 1));
-         if ( res )
-         {
-             printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-@@ -1607,7 +1613,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
-     /* Remove grant table region */
-     start = kinfo->gnttab_start;
-     end = kinfo->gnttab_start + kinfo->gnttab_size;
--    res = rangeset_remove_range(unalloc_mem, start, end - 1);
-+    res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end - 1));
-     if ( res )
+@@ -592,13 +592,13 @@ static paddr_t __init consider_modules(paddr_t s, paddr_t e,
      {
-         printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-@@ -1617,7 +1623,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+         paddr_t mod_s, mod_e;
  
-     start = 0;
-     end = (1ULL << p2m_ipa_bits) - 1;
--    res = rangeset_report_ranges(unalloc_mem, start, end,
-+    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
-                                  add_ext_regions, ext_regions);
-     if ( res )
-         ext_regions->nr_banks = 0;
-@@ -1639,7 +1645,7 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
+-        if ( fdt_get_mem_rsv(device_tree_flattened,
+-                             i - mi->nr_mods,
+-                             &mod_s, &mod_e ) < 0 )
++        if ( fdt_get_mem_rsv_paddr(device_tree_flattened,
++                                   i - mi->nr_mods,
++                                   &mod_s, &mod_e ) < 0 )
+             /* If we can't read it, pretend it doesn't exist... */
+             continue;
  
-     start = addr & PAGE_MASK;
-     end = PAGE_ALIGN(addr + len);
--    res = rangeset_remove_range(mem_holes, start, end - 1);
-+    res = rangeset_remove_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end - 1));
-     if ( res )
-     {
-         printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-@@ -1677,7 +1683,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
-     /* Start with maximum possible addressable physical memory range */
-     start = 0;
-     end = (1ULL << p2m_ipa_bits) - 1;
--    res = rangeset_add_range(mem_holes, start, end);
-+    res = rangeset_add_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end));
-     if ( res )
-     {
-         printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
-@@ -1708,7 +1714,8 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
+-        /* fdt_get_mem_rsv returns length */
++        /* fdt_get_mem_rsv_paddr returns length */
+         mod_e += mod_s;
  
-             start = addr & PAGE_MASK;
-             end = PAGE_ALIGN(addr + size);
--            res = rangeset_remove_range(mem_holes, start, end - 1);
-+            res = rangeset_remove_range(mem_holes, PFN_DOWN(start),
-+                                        PFN_DOWN(end - 1));
-             if ( res )
-             {
-                 printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-@@ -1735,7 +1742,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
+         if ( s < mod_e && mod_s < e )
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index 4a89b3a834..e107b86b7b 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -159,7 +159,7 @@ static void __init dt_smp_init_cpus(void)
+             continue;
+         }
  
-     start = 0;
-     end = (1ULL << p2m_ipa_bits) - 1;
--    res = rangeset_report_ranges(mem_holes, start, end,
-+    res = rangeset_report_ranges(mem_holes, PFN_DOWN(start), PFN_DOWN(end),
-                                  add_ext_regions,  ext_regions);
-     if ( res )
-         ext_regions->nr_banks = 0;
+-        addr = dt_read_number(prop, dt_n_addr_cells(cpu));
++        addr = dt_read_paddr(prop, dt_n_addr_cells(cpu));
+ 
+         hwid = addr;
+         if ( hwid != addr )
+diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+index 19a74909ce..5f8f61aec8 100644
+--- a/xen/include/xen/device_tree.h
++++ b/xen/include/xen/device_tree.h
+@@ -241,6 +241,33 @@ static inline u64 dt_read_number(const __be32 *cell, int size)
+     return r;
+ }
+ 
++/* Wrapper for dt_read_number() to return paddr_t (instead of uint64_t) */
++static inline paddr_t dt_read_paddr(const __be32 *cell, int size)
++{
++    uint64_t dt_r;
++    paddr_t r;
++
++    /*
++     * dt_read_number will return uint64_t whereas paddr_t may not be 64-bit.
++     * Thus, there is an implicit cast from uint64_t to paddr_t.
++     */
++    dt_r = dt_read_number(cell, size);
++
++    if ( dt_r != (paddr_t)dt_r )
++    {
++        printk("Physical address greater than max width supported\n");
++        WARN();
++    }
++
++    /*
++     * Xen will truncate the address/size if it is greater than the maximum
++     * supported width and it will give an appropriate warning.
++     */
++    r = dt_r;
++
++    return r;
++}
++
+ /* Helper to convert a number of cells to bytes */
+ static inline int dt_cells_to_size(int size)
+ {
+diff --git a/xen/include/xen/libfdt/libfdt-xen.h b/xen/include/xen/libfdt/libfdt-xen.h
+new file mode 100644
+index 0000000000..a5340bc9f4
+--- /dev/null
++++ b/xen/include/xen/libfdt/libfdt-xen.h
+@@ -0,0 +1,55 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * xen/include/xen/libfdt/libfdt-xen.h
++ *
++ * Wrapper functions for device tree. This helps to convert dt values
++ * between uint64_t and paddr_t.
++ *
++ * Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
++ */
++
++#ifndef LIBFDT_XEN_H
++#define LIBFDT_XEN_H
++
++#include <xen/libfdt/libfdt.h>
++
++static inline int fdt_get_mem_rsv_paddr(const void *fdt, int n,
++                                        paddr_t *address,
++                                        paddr_t *size)
++{
++    uint64_t dt_addr;
++    uint64_t dt_size;
++    int ret;
++
++    ret = fdt_get_mem_rsv(fdt, n, &dt_addr, &dt_size);
++    if ( ret < 0 )
++        return ret;
++
++    if ( dt_addr != (paddr_t)dt_addr )
++    {
++        printk("Error: Physical address greater than max width supported\n");
++        return -FDT_ERR_MAX;
++    }
++
++    if ( dt_size != (paddr_t)dt_size )
++    {
++        printk("Error: Physical size greater than max width supported\n");
++        return -FDT_ERR_MAX;
++    }
++
++    *address = dt_addr;
++    *size = dt_size;
++
++    return ret;
++}
++
++#endif /* LIBFDT_XEN_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.17.1
 
