@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0D2E6F1869
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Apr 2023 14:45:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.527320.819828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6846F1891
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Apr 2023 14:58:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.527322.819837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psNTj-0007Fu-S1; Fri, 28 Apr 2023 12:45:35 +0000
+	id 1psNg5-0000La-SO; Fri, 28 Apr 2023 12:58:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 527320.819828; Fri, 28 Apr 2023 12:45:35 +0000
+Received: by outflank-mailman (output) from mailman id 527322.819837; Fri, 28 Apr 2023 12:58:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psNTj-0007Co-OX; Fri, 28 Apr 2023 12:45:35 +0000
-Received: by outflank-mailman (input) for mailman id 527320;
- Fri, 28 Apr 2023 12:45:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1psNg5-0000Js-PY; Fri, 28 Apr 2023 12:58:21 +0000
+Received: by outflank-mailman (input) for mailman id 527322;
+ Fri, 28 Apr 2023 12:58:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=19My=AT=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1psNTi-0007Cg-EI
- for xen-devel@lists.xenproject.org; Fri, 28 Apr 2023 12:45:34 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90af33cd-e5c2-11ed-b224-6b7b168915f2;
- Fri, 28 Apr 2023 14:45:33 +0200 (CEST)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-2f625d52275so9469358f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 28 Apr 2023 05:45:33 -0700 (PDT)
+ id 1psNg4-0000Jm-01
+ for xen-devel@lists.xenproject.org; Fri, 28 Apr 2023 12:58:20 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 58175972-e5c4-11ed-8611-37d641c3527e;
+ Fri, 28 Apr 2023 14:58:17 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-3f178da21afso67067555e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Apr 2023 05:58:17 -0700 (PDT)
 Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- v11-20020a5d43cb000000b002ff77b033b1sm21021014wrr.33.2023.04.28.05.45.31
+ t12-20020a5d460c000000b002f6962ee703sm21079612wrq.61.2023.04.28.05.58.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Apr 2023 05:45:32 -0700 (PDT)
+ Fri, 28 Apr 2023 05:58:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90af33cd-e5c2-11ed-b224-6b7b168915f2
+X-Inumbo-ID: 58175972-e5c4-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1682685933; x=1685277933;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CPPLZGllxogODxD/PVNpAMECSxpd7F8e1+DC4KSwfXU=;
-        b=ftc7pjM1VxG3C6fcoI0q0pI7waJGLslNGT9WeiqvT172xDh9kEwFxlLivj+4ekH4zu
-         8BpfJNeD0hDu18ZQaob4qRKVTPG3/sD354IxONy1je2haKsH6QI1uAPPHDrNAnQacLtg
-         pHY5I5E0dEqKOkyhql1eQO2GK9cXYdfx5UAP0=
+        d=cloud.com; s=cloud; t=1682686697; x=1685278697;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=I4CBZO3VZzr3VcxoHMJPx5192j4wNQ7zuHM7OHU5MIM=;
+        b=IQSaG0SdU23395dtkSsY+HynAQU2XjUeVBfWYZyxAjcrfTcxFw3TtKqvp3geSNf0EJ
+         Tl4kfmNb1sAJ6MbM8+x/0Y81D9eRjOkZ/Uu/u+6Kg4RRu5a37uvNsbzlrnj5svNsnPOT
+         afiy87iiuC1YtaMRc7+intkpRmfECpJtzTgM4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682685933; x=1685277933;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CPPLZGllxogODxD/PVNpAMECSxpd7F8e1+DC4KSwfXU=;
-        b=IfY2iqrLYgQfByQhiEbd88ki4RaW6KjDcZ8/YcRhwPbjV48vBoQiA3E2sHTjBvBR8Z
-         Eo4KRKpHmPHtitxZrVT7eamH9ZRfjJV7DTAhSmsDfqY/EpBVno1H7x1rHMP0p/NvCi4M
-         qje4lLdMI8HMjSDeufpfcf1/qH/Hbeg21mgg42AzzCSHuWSRjUIVjwhRUvenaP7PS7ww
-         TLbEfeE2l8wAih9cmbNFIvTYhkCKmXbCqrIGqlovSqIOjK20uO6VLhiqJXaRCzUrkEG+
-         0M8OrfPyYDRsUMC+RuWrThbx0hj/2CHJbJtm2LBWuotLErXEvZi9P0oDjErEcz+8wPwO
-         Cdlg==
-X-Gm-Message-State: AC+VfDwc1Kfv/G8bRpHNe4Cfxm39AvKZJBLx+j2vCqQY8oHW/Eig/LFP
-	+fJW2J2si8/s3i5x/qPhfgO0oQ==
-X-Google-Smtp-Source: ACHHUZ622D/ODo8CwhixTjH626Gk3gSCLFN2Mi4mmjXDtK0cISb1oWJyIqFQ/RXg/i9NoSGO10/Eqg==
-X-Received: by 2002:adf:e6d1:0:b0:303:ba27:4366 with SMTP id y17-20020adfe6d1000000b00303ba274366mr3401582wrm.49.1682685932859;
-        Fri, 28 Apr 2023 05:45:32 -0700 (PDT)
-Message-ID: <644bbfec.5d0a0220.4f622.d428@mx.google.com>
-X-Google-Original-Message-ID: <ZEu/6f1YHOTof4UY@EMEAENGAAD19049.>
-Date: Fri, 28 Apr 2023 13:45:29 +0100
+        d=1e100.net; s=20221208; t=1682686697; x=1685278697;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:subject:cc:to:from:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=I4CBZO3VZzr3VcxoHMJPx5192j4wNQ7zuHM7OHU5MIM=;
+        b=UbTQFqDfhYF04XM3sK2mIoI/V7QV+A9EpSi2jmhcVya2vt5Nfscj4Q23bvnCf+/IWs
+         Kid7005VkM3qRjTTb0wTNHbVyVmUJEGaCccBquNje8eabbw3vXEw8iKu0MGk1wnP675x
+         3fz8BRwR4jR0F1tL51U2IK67RMT6UeZVZ8QAoEAbb50/gRMqZsvYd2PlVdUHaviP6aYj
+         Tpmiv8gMfoVhhIRrQKCxg9CCJq7s9duAjUZMEJVKQEMts8Kdqh0AcOrnoUgsTY/rMArA
+         kJKr8M5+2s+pFtOQ33QZQMC8+YpLnUFcVnkpA0XmmLX/XrEwAszUIzR3A807bFnsZG7U
+         9yUg==
+X-Gm-Message-State: AC+VfDxCtEQb5TBulcn+/GWlsKc9DokBEjK2J2BPsgEQ6uV8b9GZ+9Vl
+	5nhSS930DkpKdiIg/gY4WPItmQ==
+X-Google-Smtp-Source: ACHHUZ5nrK2nv4OlTQdMdEE7E/5dunabfIbYBIfbK4/GYZG7Rwz7K4+HAjysidp9jBFEH/wmE2va3Q==
+X-Received: by 2002:a7b:cc16:0:b0:3ed:f5b5:37fc with SMTP id f22-20020a7bcc16000000b003edf5b537fcmr3939461wmh.1.1682686696846;
+        Fri, 28 Apr 2023 05:58:16 -0700 (PDT)
+Message-ID: <644bc2e7.5d0a0220.3e72d.ff3d@mx.google.com>
+X-Google-Original-Message-ID: <ZEvC5ODtE7W+hPL+@EMEAENGAAD19049.>
+Date: Fri, 28 Apr 2023 13:58:12 +0100
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.org>
-Subject: Re: [PATCH v2 4/7] tools: Make init-xenstore-domain use
- xc_domain_getinfolist()
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v2 3/7] tools: Refactor console/io.c to avoid using
+ xc_domain_getinfo()
 References: <20230428104124.1044-1-alejandro.vallejo@cloud.com>
- <20230428104124.1044-5-alejandro.vallejo@cloud.com>
- <8b7b7fe0-f814-ba53-eca9-a9341665cc7f@citrix.com>
+ <20230428104124.1044-4-alejandro.vallejo@cloud.com>
+ <91438b54-df82-f790-7154-c76feea90f18@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <8b7b7fe0-f814-ba53-eca9-a9341665cc7f@citrix.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <91438b54-df82-f790-7154-c76feea90f18@citrix.com>
 
-Sounds good to me.
+On Fri, Apr 28, 2023 at 01:33:45PM +0100, Andrew Cooper wrote:
+> On 28/04/2023 11:41 am, Alejandro Vallejo wrote:
+> > It has 2 avoidable occurences
+> >
+> > * Check whether a domain is valid, which can be done faster with
+> >     xc_domain_getinfo_single()
+> > * Domain discovery, which can be done much faster with the sysctl
+> >     interface through xc_domain_getinfolist().
+> 
+> It occurs to me that this isn't really right here.
+> 
+> It's true in principle, but switching to requesting all domains at once
+> is a fix for a race condition.
+> 
+> I'd suggest "which can be done in a race free way through ..." and avoid
+> saying faster.  It's likely not faster now with the 4M bounce, but we
+> can fix that in due course.
 
-Cheers,
+I agree, yes.
+
 Alejandro
-
-On Fri, Apr 28, 2023 at 01:40:50PM +0100, Andrew Cooper wrote:
-> I'm recommend having a comment here, saying something like /* Commonly
-> dom0 is the only domain, but buffer a little for efficiency. */
-> 
-> Because this is also the justification for why we don't need to ask for
-> 32k domains at once to find XEN_DOMINF_xs_domain in a race-free way.
-> 
-> Can be fixed on commit if you're happy with the adjustment.
-> 
-> ~Andrew
 
