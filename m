@@ -2,32 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E10BF6F14C1
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Apr 2023 11:57:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.527228.819602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 416AE6F1566
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Apr 2023 12:28:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.527247.819638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psKqm-0002Cn-K3; Fri, 28 Apr 2023 09:57:12 +0000
+	id 1psLJx-0008E9-LP; Fri, 28 Apr 2023 10:27:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 527228.819602; Fri, 28 Apr 2023 09:57:12 +0000
+Received: by outflank-mailman (output) from mailman id 527247.819638; Fri, 28 Apr 2023 10:27:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psKqm-00025t-9q; Fri, 28 Apr 2023 09:57:12 +0000
-Received: by outflank-mailman (input) for mailman id 527228;
- Fri, 28 Apr 2023 09:54:00 +0000
+	id 1psLJx-0008C2-I9; Fri, 28 Apr 2023 10:27:21 +0000
+Received: by outflank-mailman (input) for mailman id 527247;
+ Fri, 28 Apr 2023 10:27:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dCeu=AT=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
- id 1psKng-0001in-KE
- for xen-devel@lists.xenproject.org; Fri, 28 Apr 2023 09:54:00 +0000
-Received: from out0-208.mail.aliyun.com (out0-208.mail.aliyun.com
- [140.205.0.208]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96c1f67c-e5aa-11ed-b224-6b7b168915f2;
- Fri, 28 Apr 2023 11:53:57 +0200 (CEST)
-Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
- fp:SMTPD_---.STFoGhB_1682675630) by smtp.aliyun-inc.com;
- Fri, 28 Apr 2023 17:53:50 +0800
+ <SRS0=Azqw=AT=amazon.co.uk=prvs=475810522=hakor@srs-se1.protection.inumbo.net>)
+ id 1psLJw-0008Bw-CP
+ for xen-devel@lists.xenproject.org; Fri, 28 Apr 2023 10:27:20 +0000
+Received: from smtp-fw-9103.amazon.com (smtp-fw-9103.amazon.com
+ [207.171.188.200]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3ff9d0bd-e5af-11ed-b224-6b7b168915f2;
+ Fri, 28 Apr 2023 12:27:18 +0200 (CEST)
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
+ email-inbound-relay-iad-1a-m6i4x-617e30c2.us-east-1.amazon.com)
+ ([10.25.36.214]) by smtp-border-fw-9103.sea19.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Apr 2023 10:27:06 +0000
+Received: from EX19D017EUB004.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
+ by email-inbound-relay-iad-1a-m6i4x-617e30c2.us-east-1.amazon.com (Postfix)
+ with ESMTPS id D78B6639FB; Fri, 28 Apr 2023 10:26:56 +0000 (UTC)
+Received: from EX19MTAUEA001.ant.amazon.com (10.252.134.203) by
+ EX19D017EUB004.ant.amazon.com (10.252.51.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.26; Fri, 28 Apr 2023 10:26:55 +0000
+Received: from dev-dsk-hakor-1a-9589d7a9.eu-west-1.amazon.com (172.19.124.154)
+ by mail-relay.amazon.com (10.252.134.102) with Microsoft SMTP Server
+ id
+ 15.2.1118.26 via Frontend Transport; Fri, 28 Apr 2023 10:26:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,91 +50,120 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96c1f67c-e5aa-11ed-b224-6b7b168915f2
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018047206;MF=houwenlong.hwl@antgroup.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---.STFoGhB_1682675630;
-From: "Hou Wenlong" <houwenlong.hwl@antgroup.com>
-To: linux-kernel@vger.kernel.org
-Cc: "Thomas Garnier" <thgarnie@chromium.org>,
-  "Lai Jiangshan" <jiangshan.ljs@antgroup.com>,
-  "Kees Cook" <keescook@chromium.org>,
-  "Hou Wenlong" <houwenlong.hwl@antgroup.com>,
-  "Juergen Gross" <jgross@suse.com>,
-  "Boris Ostrovsky" <boris.ostrovsky@oracle.com>,
-  "Thomas Gleixner" <tglx@linutronix.de>,
-  "Ingo Molnar" <mingo@redhat.com>,
-  "Borislav Petkov" <bp@alien8.de>,
-  "Dave Hansen" <dave.hansen@linux.intel.com>,
-   <x86@kernel.org>,
-  "H. Peter Anvin" <hpa@zytor.com>,
-   <xen-devel@lists.xenproject.org>
-Subject: [PATCH RFC 37/43] x86/xen: Pin up to VSYSCALL_ADDR when vsyscall page is out of fixmap area
-Date: Fri, 28 Apr 2023 17:51:17 +0800
-Message-Id: <13975abd9b8b2e2e1e2efd3be6c341542b08af24.1682673543.git.houwenlong.hwl@antgroup.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <cover.1682673542.git.houwenlong.hwl@antgroup.com>
-References: <cover.1682673542.git.houwenlong.hwl@antgroup.com>
+X-Inumbo-ID: 3ff9d0bd-e5af-11ed-b224-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1682677639; x=1714213639;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=6N7xgEqW1adG5czCROokGAB7KqoQj1XrEp7xLcti96I=;
+  b=Mdjs+Bs1c/l2zAWchEeuKbPZFRb6iwbXWJOf/f2Vbo7kwuncgzAiXvkw
+   D3UUMuOg+CYrs7Og6xqle0HYr1wZOX7b2nmIJOdQju2pFKz/vPKCUSoEy
+   ZIaETlBs5PKt/srzFbfJlr47olQKs26n5QNI2jcgKf25ekN5tH43HqqJq
+   4=;
+X-IronPort-AV: E=Sophos;i="5.99,234,1677542400"; 
+   d="scan'208";a="1126887208"
+From: Ruben Hakobyan <hakor@amazon.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Ruben Hakobyan <hakor@amazon.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH] xen/grant-table: Properly acquire the vCPU maptrack freelist lock
+Date: Fri, 28 Apr 2023 10:26:33 +0000
+Message-ID: <20230428102633.86473-1-hakor@amazon.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Precedence: Bulk
 
-If vsyscall page is moved out of fixmap area, then FIXADDR_TOP would be
-below vsyscall page. So it should pin up to VSYSCALL_ADDR if vsyscall is
-enabled.
+Introduced as part of XSA-228, the maptrack_freelist_lock is meant to
+protect all accesses to entries in the vCPU freelist as well as the
+head and tail pointers.
 
-Suggested-by: Lai Jiangshan <jiangshan.ljs@antgroup.com>
-Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
-Cc: Thomas Garnier <thgarnie@chromium.org>
-Cc: Kees Cook <keescook@chromium.org>
+However, this principle is violated twice in get_maptrack_handle(),
+where the tail pointer is directly accessed without taking the lock.
+The first occurrence is when stealing an extra entry for the tail
+pointer, and the second occurrence is when directly setting the tail of
+an empty freelist after allocating its first page.
+
+Make sure to correctly acquire the freelist lock before accessing and
+modifying the tail pointer to fully comply with XSA-228.
+
+It should be noted that with the current setup, it is not possible for
+these accesses to race with anything. However, it is still important
+to correctly take the lock here to avoid any future possible races. For
+example, a race could be possible with put_maptrack_handle() if the
+maptrack code is modified to allow vCPU freelists to temporarily
+include handles not directly assigned to them in the maptrack.
+
+Note that the tail and head pointers can still be accessed without
+taking the lock when initialising the freelist in grant_table_init_vcpu()
+as concurrent access will not be possible here.
+
+Signed-off-by: Ruben Hakobyan <hakor@amazon.com>
 ---
- arch/x86/xen/mmu_pv.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ xen/common/grant_table.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
-diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-index a59bc013ee5b..28392f3478a0 100644
---- a/arch/x86/xen/mmu_pv.c
-+++ b/arch/x86/xen/mmu_pv.c
-@@ -587,6 +587,12 @@ static void xen_p4d_walk(struct mm_struct *mm, p4d_t *p4d,
- 	xen_pud_walk(mm, pud, func, last, limit);
- }
- 
-+#ifdef CONFIG_X86_VSYSCALL_EMULATION
-+#define __KERNEL_MAP_TOP	(VSYSCALL_ADDR + PAGE_SIZE)
-+#else
-+#define __KERNEL_MAP_TOP	FIXADDR_TOP
-+#endif
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index d87e58a53d..67e346ca64 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -660,23 +660,27 @@ get_maptrack_handle(
+     if ( !new_mt )
+     {
+         spin_unlock(&lgt->maptrack_lock);
++        handle = steal_maptrack_handle(lgt, curr);
++        if ( handle == INVALID_MAPTRACK_HANDLE )
++            return handle;
 +
- /*
-  * (Yet another) pagetable walker.  This one is intended for pinning a
-  * pagetable.  This means that it walks a pagetable and calls the
-@@ -594,7 +600,7 @@ static void xen_p4d_walk(struct mm_struct *mm, p4d_t *p4d,
-  * at every level.  It walks the entire pagetable, but it only bothers
-  * pinning pte pages which are below limit.  In the normal case this
-  * will be STACK_TOP_MAX, but at boot we need to pin up to
-- * FIXADDR_TOP.
-+ * __KERNEL_MAP_TOP.
-  *
-  * We must skip the Xen hole in the middle of the address space, just after
-  * the big x86-64 virtual hole.
-@@ -609,7 +615,7 @@ static void __xen_pgd_walk(struct mm_struct *mm, pgd_t *pgd,
++        spin_lock(&curr->maptrack_freelist_lock);
++        if ( curr->maptrack_tail != MAPTRACK_TAIL )
++        {
++            spin_unlock(&curr->maptrack_freelist_lock);
++            return handle;
++        }
  
- 	/* The limit is the last byte to be touched */
- 	limit--;
--	BUG_ON(limit >= FIXADDR_TOP);
-+	BUG_ON(limit >= __KERNEL_MAP_TOP);
+         /*
+          * Uninitialized free list? Steal an extra entry for the tail
+          * sentinel.
+          */
+-        if ( curr->maptrack_tail == MAPTRACK_TAIL )
+-        {
+-            handle = steal_maptrack_handle(lgt, curr);
+-            if ( handle == INVALID_MAPTRACK_HANDLE )
+-                return handle;
+-            spin_lock(&curr->maptrack_freelist_lock);
+-            maptrack_entry(lgt, handle).ref = MAPTRACK_TAIL;
+-            curr->maptrack_tail = handle;
+-            if ( curr->maptrack_head == MAPTRACK_TAIL )
+-                curr->maptrack_head = handle;
+-            spin_unlock(&curr->maptrack_freelist_lock);
+-        }
++        maptrack_entry(lgt, handle).ref = MAPTRACK_TAIL;
++        curr->maptrack_tail = handle;
++        if ( curr->maptrack_head == MAPTRACK_TAIL )
++            curr->maptrack_head = handle;
++        spin_unlock(&curr->maptrack_freelist_lock);
++
+         return steal_maptrack_handle(lgt, curr);
+     }
  
- 	/*
- 	 * 64-bit has a great big hole in the middle of the address
-@@ -797,7 +803,7 @@ static void __init xen_after_bootmem(void)
- #ifdef CONFIG_X86_VSYSCALL_EMULATION
- 	SetPagePinned(virt_to_page(level3_user_vsyscall));
- #endif
--	xen_pgd_walk(&init_mm, xen_mark_pinned, FIXADDR_TOP);
-+	xen_pgd_walk(&init_mm, xen_mark_pinned, __KERNEL_MAP_TOP);
- }
+@@ -696,8 +700,10 @@ get_maptrack_handle(
+     }
  
- static void xen_unpin_page(struct mm_struct *mm, struct page *page,
+     /* Set tail directly if this is the first page for the local vCPU. */
++    spin_lock(&curr->maptrack_freelist_lock);
+     if ( curr->maptrack_tail == MAPTRACK_TAIL )
+         curr->maptrack_tail = handle + MAPTRACK_PER_PAGE - 1;
++    spin_unlock(&curr->maptrack_freelist_lock);
+ 
+     lgt->maptrack[nr_maptrack_frames(lgt)] = new_mt;
+     smp_wmb();
 -- 
-2.31.1
+2.39.2
 
 
