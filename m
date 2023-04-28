@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D92126F15E7
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Apr 2023 12:41:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.527252.819668 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 996326F15E0
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Apr 2023 12:41:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.527253.819678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psLXo-0002iN-E8; Fri, 28 Apr 2023 10:41:40 +0000
+	id 1psLXq-00030u-TN; Fri, 28 Apr 2023 10:41:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 527252.819668; Fri, 28 Apr 2023 10:41:40 +0000
+Received: by outflank-mailman (output) from mailman id 527253.819678; Fri, 28 Apr 2023 10:41:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psLXo-0002fc-9w; Fri, 28 Apr 2023 10:41:40 +0000
-Received: by outflank-mailman (input) for mailman id 527252;
- Fri, 28 Apr 2023 10:41:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1psLXq-0002x7-Pb; Fri, 28 Apr 2023 10:41:42 +0000
+Received: by outflank-mailman (input) for mailman id 527253;
+ Fri, 28 Apr 2023 10:41:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=19My=AT=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1psLXm-0002Ac-E9
- for xen-devel@lists.xenproject.org; Fri, 28 Apr 2023 10:41:38 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 40cc4b21-e5b1-11ed-b224-6b7b168915f2;
- Fri, 28 Apr 2023 12:41:37 +0200 (CEST)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-3f195b164c4so54569655e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 28 Apr 2023 03:41:37 -0700 (PDT)
+ id 1psLXp-0002tZ-Di
+ for xen-devel@lists.xenproject.org; Fri, 28 Apr 2023 10:41:41 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 41b60cc2-e5b1-11ed-8611-37d641c3527e;
+ Fri, 28 Apr 2023 12:41:39 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-2fc3f1d6f8cso6128360f8f.3
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Apr 2023 03:41:39 -0700 (PDT)
 Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- k6-20020a5d5246000000b002e71156b0fcsm20930378wrc.6.2023.04.28.03.41.35
+ k6-20020a5d5246000000b002e71156b0fcsm20930378wrc.6.2023.04.28.03.41.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Apr 2023 03:41:35 -0700 (PDT)
+ Fri, 28 Apr 2023 03:41:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +45,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40cc4b21-e5b1-11ed-b224-6b7b168915f2
+X-Inumbo-ID: 41b60cc2-e5b1-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1682678497; x=1685270497;
+        d=cloud.com; s=cloud; t=1682678498; x=1685270498;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GjNbfk0xALFvPg/Q2nqnzUi1rQe3ybCNF8EPFcCfhsg=;
-        b=doXKRnIfGtk8X1UsxlUlwUs3hgezFypzhgo49lzUFmiP+ZMYZMkyUe54ma48a0dfFM
-         7sIZhmeAs+d0n7tHhabHuQLdK1Vmu0+FDPJuGtuoDCDueM1mRNwcH/Xie1W0kkDru9v7
-         jZpqSfb6GMf4L325KbTUfsuDPledE0aHomcG4=
+        bh=ZUhXin/OPZZXRGBUuqUwhDZyM+uQc0DAORSurlrGu/k=;
+        b=DbzyUqqc6Cw2R8dr9vtDR53PFmBj/RuOITN0eOZONHdDlyEjXuN8SgfQV9y3x3WQUd
+         Gx+j2mLhyNZRtRgHwB6UDFDSN9ROX1Kr/3PmRwwCts2TXhztfqeGuzzrBOMJh0iBplqA
+         A6nM4qi7FXDYzCR+VP6cewiBdvF9NK0xzzCGA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682678497; x=1685270497;
+        d=1e100.net; s=20221208; t=1682678498; x=1685270498;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=GjNbfk0xALFvPg/Q2nqnzUi1rQe3ybCNF8EPFcCfhsg=;
-        b=LLr2kt+8+qj6aiJHK+Aw+lfLUmsPkakz1XdLnJSKh1Dnpruod5yDZwGLFfegB0wgr0
-         FLyFIrL1OIWa0m9y5/odSWy92HEB3mosfmOF73jiIATVvikf6uoQ5QFIbgflNbHmV1R4
-         38NPZyBWkujhh+IYbJ/k2tRYGdIWEFTPSc23ytprkS9/gv6rrUx62VwVCxhUNn6YCMNG
-         dIgOkGFAoktLZOhDEw1AJEpbcloDL9rNdwdhfoR2U7ndnc9TSMPBatri9uSu1mBMIo8J
-         +/EFou8q/bvFma6fMS6zoT3+hX0VQYA7SH+H8+zA4e39pOiQ2wml4gRiTj0YRoOukUCA
-         1lSA==
-X-Gm-Message-State: AC+VfDyF0+3pVPg6cjGMFIuTr9tEBJR4Fg5+d0AAwtMSvlT/z2gIHvJ6
-	DXnQQ4n30CsacHdG2APNL84BgKZdOcNTxt0cyHQ=
-X-Google-Smtp-Source: ACHHUZ5zmHCUIvKa4yobrBKZfiTv65xktyXqTmuejeBm+sYxeGHsM6c+JXMfu169jy8KdVYhontodg==
-X-Received: by 2002:adf:dccc:0:b0:302:2d79:9f6e with SMTP id x12-20020adfdccc000000b003022d799f6emr2773957wrm.60.1682678496749;
-        Fri, 28 Apr 2023 03:41:36 -0700 (PDT)
+        bh=ZUhXin/OPZZXRGBUuqUwhDZyM+uQc0DAORSurlrGu/k=;
+        b=WhQpPhuqU+k7k3ehiQK8YNZqE1e/aK0If0pfgQ4WiK4pDPUAcKKtZ6C8fg65ukd9KH
+         6le6o6jnhIoNOn7APhMSCqE5wBOzwiJJih6Ss9BYuK7xceb35F5oj1HA2z9PXsJ7nSdC
+         ev5Jo/aLsWkESGcKGz64BNzN9BpYyaq4j+MlDY9QEXR6zDYBoRI8VYbMZkBOMYVCNsXs
+         47FuGH41meOYxXh+LR8U80upKFpS0xMIP4qM69s4u68mBB1W/x+gjAwpNKA5N5/CtNe7
+         WBwkY+YLOqRVlvBbm1GWmFHBUojlHnLLr/g87mc758SPgrfe/PX3HcptxKzoHvjbQr8f
+         vEFw==
+X-Gm-Message-State: AC+VfDxJ5QSMRnS8k87rHdH/rB1uPSa+DtVhwV0vzV+OlsuYqwZiS4UY
+	1DIW2wl4W80TpYtHiQG+Rcf1YwhdfVtGGT39f20=
+X-Google-Smtp-Source: ACHHUZ4zH2UeGBP+lfx0B2dTM3GHzvvs90ipnwa4Jzx0cFPfM1bp7lgtg0zeJbuzU+pqxW/QVhNW7Q==
+X-Received: by 2002:a5d:49c3:0:b0:2d8:47c7:7b52 with SMTP id t3-20020a5d49c3000000b002d847c77b52mr3576746wrs.9.1682678498391;
+        Fri, 28 Apr 2023 03:41:38 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 2/7] tools: Create xc_domain_getinfo_single()
-Date: Fri, 28 Apr 2023 11:41:19 +0100
-Message-Id: <20230428104124.1044-3-alejandro.vallejo@cloud.com>
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 3/7] tools: Refactor console/io.c to avoid using xc_domain_getinfo()
+Date: Fri, 28 Apr 2023 11:41:20 +0100
+Message-Id: <20230428104124.1044-4-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230428104124.1044-1-alejandro.vallejo@cloud.com>
 References: <20230428104124.1044-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-It's a stricter version of xc_domain_getinfo() where the returned domid
-always matches the requested domid or the error code shows an error instead.
-A few patches ahead usages of xc_domain_getinfo() are removed until only
-xc_domain_getinfo_single() and xc_domain_getinfolist() remain.
+It has 2 avoidable occurences
+
+* Check whether a domain is valid, which can be done faster with
+    xc_domain_getinfo_single()
+* Domain discovery, which can be done much faster with the sysctl
+    interface through xc_domain_getinfolist().
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Wei Liu <wl@xen.org>
 Cc: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Juergen Gross <jgross@suse.com>
 ---
- tools/include/xenctrl.h     | 16 ++++++++++++++++
- tools/libs/ctrl/xc_domain.c | 23 +++++++++++++++++++++++
- 2 files changed, 39 insertions(+)
+ tools/console/daemon/io.c | 31 +++++++++++++++++--------------
+ 1 file changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index f5bc7f58b6..685df1c7ba 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -703,6 +703,22 @@ int xc_vcpu_getaffinity(xc_interface *xch,
- int xc_domain_get_guest_width(xc_interface *xch, uint32_t domid,
-                               unsigned int *guest_width);
+diff --git a/tools/console/daemon/io.c b/tools/console/daemon/io.c
+index 6bfe96715b..c5972cb721 100644
+--- a/tools/console/daemon/io.c
++++ b/tools/console/daemon/io.c
+@@ -405,13 +405,7 @@ static void buffer_advance(struct buffer *buffer, size_t len)
  
-+/**
-+ * This function will return information about a single domain. It looks
-+ * up the domain by the provided domid and succeeds if the domain exists
-+ * and is accesible by the current domain, or fails otherwise. A buffer
-+ * may optionally passed on the `info` parameter in order to retrieve
-+ * information about the domain. The buffer is ignored if NULL is
-+ * passed instead.
-+ *
-+ * @parm xch a handle to an open hypervisor interface
-+ * @parm domid domid to lookup
-+ * @parm info Optional domain information buffer (may be NULL)
-+ * @return 0 on success, otherwise the call failed and info is undefined
-+ */
-+int xc_domain_getinfo_single(xc_interface *xch,
-+                             uint32_t domid,
-+                             xc_domaininfo_t *info);
- 
- /**
-  * This function will return information about one or more domains. It is
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index e939d07157..6b11775d4c 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -345,6 +345,29 @@ int xc_dom_vuart_init(xc_interface *xch,
-     return rc;
+ static bool domain_is_valid(int domid)
+ {
+-	bool ret;
+-	xc_dominfo_t info;
+-
+-	ret = (xc_domain_getinfo(xc, domid, 1, &info) == 1 &&
+-	       info.domid == domid);
+-		
+-	return ret;
++	return xc_domain_getinfo_single(xc, domid, NULL) == 0;
  }
  
-+int xc_domain_getinfo_single(xc_interface *xch,
-+                             uint32_t domid,
-+                             xc_domaininfo_t *info)
-+{
-+    struct xen_domctl domctl = {
-+        .cmd = XEN_DOMCTL_getdomaininfo,
-+        .domain = domid,
-+    };
+ static int create_hv_log(void)
+@@ -961,24 +955,33 @@ static unsigned enum_pass = 0;
+ 
+ static void enum_domains(void)
+ {
+-	int domid = 1;
+-	xc_dominfo_t dominfo;
++	/**
++	 * Memory set aside to query the state of every
++	 * domain in the hypervisor in a single hypercall.
++	 */
++	 static xc_domaininfo_t domaininfo[DOMID_FIRST_RESERVED - 1];
 +
-+    if ( do_domctl(xch, &domctl) < 0 )
-+        return -1;
++	int ret;
+ 	struct domain *dom;
+ 
+ 	enum_pass++;
+ 
+-	while (xc_domain_getinfo(xc, domid, 1, &dominfo) == 1) {
+-		dom = lookup_domain(dominfo.domid);
+-		if (dominfo.dying) {
++	/* Fetch info on every valid domain except for dom0 */
++	ret = xc_domain_getinfolist(xc, 1, DOMID_FIRST_RESERVED - 1, domaininfo);
++	if (ret < 0)
++		return;
 +
-+    if ( domctl.u.getdomaininfo.domain != domid ) {
-+        errno = ESRCH;
-+        return -1;
-+    }
-+
-+    if ( info )
-+        *info = domctl.u.getdomaininfo;
-+
-+    return 0;
-+}
-+
- int xc_domain_getinfo(xc_interface *xch,
-                       uint32_t first_domid,
-                       unsigned int max_doms,
++	for (size_t i = 0; i < ret; i++) {
++		dom = lookup_domain(domaininfo[i].domain);
++		if (domaininfo[i].flags & XEN_DOMINF_dying) {
+ 			if (dom)
+ 				shutdown_domain(dom);
+ 		} else {
+ 			if (dom == NULL)
+-				dom = create_domain(dominfo.domid);
++				dom = create_domain(domaininfo[i].domain);
+ 		}
+ 		if (dom)
+ 			dom->last_seen = enum_pass;
+-		domid = dominfo.domid + 1;
+ 	}
+ }
+ 
 -- 
 2.34.1
 
