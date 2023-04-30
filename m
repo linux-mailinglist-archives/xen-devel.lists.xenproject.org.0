@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02D116F2747
-	for <lists+xen-devel@lfdr.de>; Sun, 30 Apr 2023 03:22:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.527724.820383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 968126F2774
+	for <lists+xen-devel@lfdr.de>; Sun, 30 Apr 2023 05:20:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.527730.820393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psvkY-0002P2-Mr; Sun, 30 Apr 2023 01:21:14 +0000
+	id 1psxao-0005rQ-5X; Sun, 30 Apr 2023 03:19:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 527724.820383; Sun, 30 Apr 2023 01:21:14 +0000
+Received: by outflank-mailman (output) from mailman id 527730.820393; Sun, 30 Apr 2023 03:19:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1psvkY-0002MT-JS; Sun, 30 Apr 2023 01:21:14 +0000
-Received: by outflank-mailman (input) for mailman id 527724;
- Sun, 30 Apr 2023 01:21:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=idFW=AV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1psvkX-0002MN-TP
- for xen-devel@lists.xenproject.org; Sun, 30 Apr 2023 01:21:14 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4ab3a7da-e6f5-11ed-b225-6b7b168915f2;
- Sun, 30 Apr 2023 03:21:12 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 81A0960A2A;
- Sun, 30 Apr 2023 01:21:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01214C433EF;
- Sun, 30 Apr 2023 01:21:08 +0000 (UTC)
+	id 1psxan-0005o9-Vl; Sun, 30 Apr 2023 03:19:17 +0000
+Received: by outflank-mailman (input) for mailman id 527730;
+ Sun, 30 Apr 2023 03:19:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1psxam-0005nz-P3; Sun, 30 Apr 2023 03:19:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1psxam-0007pJ-Gp; Sun, 30 Apr 2023 03:19:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1psxam-00078Y-45; Sun, 30 Apr 2023 03:19:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1psxam-0003uy-3b; Sun, 30 Apr 2023 03:19:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,110 +42,312 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ab3a7da-e6f5-11ed-b225-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1682817669;
-	bh=zvdiHVD+yQZ6YgLLxkqDm2WUcDmMrw3uH/G3jHJgrnE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=WkdxA0MsIkRlVTvyBg7Zv2f9vLtXaQ7swIawx3jhreSRj4v0nFkIppGpJ//SL50+w
-	 1Hf/YR2dghTSynRaX46B0HR9kEtK/iCccTfKkZ1oUlInkOCG23qqjVplT1H4egWfGV
-	 5z/CVel353VtfOjiI1umyw9aIE8IKytFFajZaQjgoufODcMHg+p0ir+PnL6N6SI2Di
-	 kUVDcedzaVdvXlhk3AN6IIw8OFZmOalJYMoxaYr3dGccPPZUlqutvJuSya5PRzSM2/
-	 yLgDOMSmSAw/bM7gUvWWYXLM8TCk+g/3kx0vzeSZ+GhLuO8drzFtCgsxGk3Xxq8Vjf
-	 sJVBeTAN+RKBw==
-Date: Sat, 29 Apr 2023 18:21:07 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: andrew.cooper3@citrix.com
-cc: Stefano Stabellini <sstabellini@kernel.org>, alejandro.vallejo@cloud.com, 
-    committers@xenproject.org, michal.orzel@amd.com, 
-    xen-devel@lists.xenproject.org
-Subject: Re: xen | Failed pipeline for staging | 6a47ba2f
-In-Reply-To: <ca0144a6-2c57-0cc3-fd27-5dbe59491ef3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2304291808420.974517@ubuntu-linux-20-04-desktop>
-References: <644bfbc6939d8_2a49bbb403253f4@gitlab-sidekiq-catchall-v2-78885c497-qxnp2.mail> <alpine.DEB.2.22.394.2304281905020.974517@ubuntu-linux-20-04-desktop> <ca0144a6-2c57-0cc3-fd27-5dbe59491ef3@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=j+ZTbTpQNWZ/NZU/7Ytbt26zCJMEAnpFGIZEjc6ITxE=; b=nLmRUXLFb1JOT/zNADhY39ub/M
+	gy8kvUtT4lT5ca/WFx2YmKrEkLlxAulIdAVSPjyj24W3Bc0YYctcJt6BWUMRN2DR9ObhyjowjB8xf
+	6N3proGeoiRTFNmAmUoh+2mqQOlH6aL61gRrl6RRHMdJ8MSYjr3Pcaor0/6TyK1X2Nx4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180481-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1229086743-1682817254=:974517"
-Content-ID: <alpine.DEB.2.22.394.2304291814590.974517@ubuntu-linux-20-04-desktop>
+Subject: [xen-unstable test] 180481: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:heisenbug
+    xen-unstable:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-install:fail:heisenbug
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:heisenbug
+    xen-unstable:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:heisenbug
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=6a47ba2f7855f8fc094ec4f837e71a34ededb77b
+X-Osstest-Versions-That:
+    xen=dde20f7dc182fdfeeb6c55648979326bb982ca8c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 30 Apr 2023 03:19:16 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 180481 xen-unstable real [real]
+flight 180483 xen-unstable real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180481/
+http://logs.test-lab.xenproject.org/osstest/logs/180483/
 
---8323329-1229086743-1682817254=:974517
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2304291814591.974517@ubuntu-linux-20-04-desktop>
+Failures :-/ but no regressions.
 
-On Sat, 29 Apr 2023, andrew.cooper3@citrix.com wrote:
-> On 29/04/2023 4:05 am, Stefano Stabellini wrote:
-> > On Fri, 28 Apr 2023, GitLab wrote:
-> >> Pipeline #852233694 triggered by
-> >> [568538936b4ac45a343cb3a4ab0c6cda?s=48&d=identicon]
-> >> Ganis
-> >> had 3 failed jobs
-> >> Failed jobs
-> >> ✖
-> >> test
-> >> qemu-smoke-dom0less-arm64-gcc
-> > This is a real failure on staging. Unfortunately it is intermittent. It
-> > usually happens once every 3-8 tests for me.
-> >
-> > The test script is:
-> > automation/scripts/qemu-smoke-dom0less-arm64.sh
-> >
-> > and for this test it is invoked without arguments. It is starting 2
-> > dom0less VMs in parallel, then dom0 does a xl network-attach and the
-> > domU is supposed to setup eth0 and ping.
-> >
-> > The failure is that nothing happens after "xl network-attach". The domU
-> > never hotplugs any interfaces. I have logs that show that eth0 never
-> > shows up and the only interface is lo no matter how long we wait.
-> >
-> >
-> > On a hunch, I removed Alejandro patches. Without them, I ran 20 tests
-> > without any failures. I have not investigated further but it looks like
-> > one of these 4 commits is the problem:
-> >
-> > 2023-04-28 11:41 Alejandro Vallejo    tools: Make init-xenstore-domain use xc_domain_getinfolist()
-> > 2023-04-28 11:41 Alejandro Vallejo    tools: Refactor console/io.c to avoid using xc_domain_getinfo()
-> > 2023-04-28 11:41 Alejandro Vallejo    tools: Create xc_domain_getinfo_single()
-> > 2023-04-28 11:41 Alejandro Vallejo    tools: Make some callers of xc_domain_getinfo() use xc_domain_getinfol 
-> 
-> In commit order (reverse of above), these patches are:
-> 
-> 1) Modify the python bindings and xenbaked
-> 2) Introduce a new library function with a better API/ABI
-> 3) Modify xenconsoled
-> 4) Modify init-xenstore-domain
-> 
-> The test isn't using anything from 4 or 1, and 2 definitely isn't
-> breaking anything on its own.
-> 
-> That just leaves 3.  This test does turn activate xenconsoled by virtue
-> of invoking xencommons, but that doesn't help explain why a change in
-> xenconsoled interferes (and only intermittently on this one single test)
-> with `xl network-attach`.
-> 
-> The xenconsoled change does have correctness fix in it, requiring
-> xenconsoled to ask for all domains info in one go.  This does mean it's
-> hypercall-buffering (i.e. bouncing) a 4M array now where previously it
-> was racy figuring out which VMs had come and gone.
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-qemut-rhel6hvm-amd  7 xen-install   fail pass in 180483-retest
+ test-amd64-i386-xl-qemuu-debianhvm-amd64 7 xen-install fail pass in 180483-retest
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot          fail pass in 180483-retest
+ test-amd64-amd64-xl-qcow2 21 guest-start/debian.repeat fail pass in 180483-retest
 
-Your guess was correct. I have done more bisecting today. The culprit is
-the following commit (I reverted only this commit and ran 25 tests
-successfully, usually it fails in less than 5):
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail in 180483 like 180452
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check fail in 180483 never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180452
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 180452
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180452
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180452
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 180452
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 180452
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 180452
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 180452
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180452
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 180452
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180452
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-e522c98c3    tools: Refactor console/io.c to avoid using xc_domain_getinfo()
+version targeted for testing:
+ xen                  6a47ba2f7855f8fc094ec4f837e71a34ededb77b
+baseline version:
+ xen                  dde20f7dc182fdfeeb6c55648979326bb982ca8c
 
-I don't know why. Traditionally if this was OSSTest we would revert the
-commit until we understand what is going on to unblock master/staging. I
-suggest to do the same here to be consistent. And also because otherwise
-future failures in this test due to other bugs might be masked by this
-unsolved issue.
+Last test of basis   180452  2023-04-27 18:45:25 Z    2 days
+Failing since        180475  2023-04-28 18:13:52 Z    1 days    2 attempts
+Testing same since   180481  2023-04-29 12:51:37 Z    0 days    1 attempts
 
-I have nothing against this commit and I'd be happy for it to go in
-again as soon as things are not necessarely resolved, but at least
-better understood.
---8323329-1229086743-1682817254=:974517--
+------------------------------------------------------------
+People who touched revisions under test:
+  Alejandro Vallejo <alejandro.vallejo@cloud.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Juergen Gross <jgross@suse.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     fail    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   dde20f7dc1..6a47ba2f78  6a47ba2f7855f8fc094ec4f837e71a34ededb77b -> master
 
