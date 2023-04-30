@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5DBF6F29DC
-	for <lists+xen-devel@lfdr.de>; Sun, 30 Apr 2023 19:17:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.527833.820473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 531DF6F29E3
+	for <lists+xen-devel@lfdr.de>; Sun, 30 Apr 2023 19:18:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.527837.820483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptAfA-0000mc-1m; Sun, 30 Apr 2023 17:16:40 +0000
+	id 1ptAgf-0001JR-CJ; Sun, 30 Apr 2023 17:18:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 527833.820473; Sun, 30 Apr 2023 17:16:40 +0000
+Received: by outflank-mailman (output) from mailman id 527837.820483; Sun, 30 Apr 2023 17:18:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptAf9-0000k7-UH; Sun, 30 Apr 2023 17:16:39 +0000
-Received: by outflank-mailman (input) for mailman id 527833;
- Sun, 30 Apr 2023 17:16:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ptAgf-0001Gc-96; Sun, 30 Apr 2023 17:18:13 +0000
+Received: by outflank-mailman (input) for mailman id 527837;
+ Sun, 30 Apr 2023 17:18:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3rtS=AV=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1ptAf9-0000k1-3S
- for xen-devel@lists.xenproject.org; Sun, 30 Apr 2023 17:16:39 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1fd6230-e77a-11ed-8611-37d641c3527e;
- Sun, 30 Apr 2023 19:16:36 +0200 (CEST)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 33UHGPvO054819
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Sun, 30 Apr 2023 13:16:31 -0400 (EDT) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 33UHGPQs054818;
- Sun, 30 Apr 2023 10:16:25 -0700 (PDT) (envelope-from ehem)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ptAgd-0001GI-VD; Sun, 30 Apr 2023 17:18:11 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ptAgd-0002wW-Ja; Sun, 30 Apr 2023 17:18:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ptAgc-0001S3-U4; Sun, 30 Apr 2023 17:18:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ptAgc-0007D3-Te; Sun, 30 Apr 2023 17:18:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,200 +42,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1fd6230-e77a-11ed-8611-37d641c3527e
-Date: Sun, 30 Apr 2023 10:16:25 -0700
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: [BUG] x2apic broken with current AMD hardware
-Message-ID: <ZE6iaaUvScHUjoKy@mattapan.m5p.com>
-References: <a2e5cb62-9aef-4f91-b5e9-35fee6739fc8@suse.com>
- <ZAkVVhIldUv/xQqt@mattapan.m5p.com>
- <21436010-8212-7b09-a577-09d3f57156bf@suse.com>
- <ZAvGvokloPf+ltr9@mattapan.m5p.com>
- <f33c9b8a-f25d-caab-659d-d34ba21ebc25@suse.com>
- <ZBOSKo+sT/FtWY9C@mattapan.m5p.com>
- <e5b28dae-3699-cb0d-ab7e-42fdd42d3222@suse.com>
- <ZBSi2KfoQXo7hr6z@mattapan.m5p.com>
- <b2eaeacc-de5f-ebe9-a330-fbf9e20626b1@suse.com>
- <a2de5d87-ada8-46b9-090b-00dc43309362@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=2lfgOs7OVD5wL6GP0J90UiqbFKVG1XZm65OIUCga/1Q=; b=ielrN0mlOp8ZHXCWKocM+sNp0H
+	7cDB7i0wvLGGHxDEJsz/clEnSYoUZs5J8a96CsrW4OAvZOFrCjzOvH9W5Gx/aWMWhx01nf3oJzPJ/
+	xqHKfkoLoLTuxorrRBKdxyAGnLlvFO+9oRg8m/xu+ivuF8CHA04Aqj/jCQVRoK4PrgKE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180486-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a2de5d87-ada8-46b9-090b-00dc43309362@suse.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
+Subject: [linux-linus test] 180486: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=825a0714d2b3883d4f8ff64f6933fb73ee3f1834
+X-Osstest-Versions-That:
+    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 30 Apr 2023 17:18:10 +0000
 
-On Mon, Mar 20, 2023 at 09:28:20AM +0100, Jan Beulich wrote:
-> On 20.03.2023 09:14, Jan Beulich wrote:
-> > On 17.03.2023 18:26, Elliott Mitchell wrote:
-> >> On Fri, Mar 17, 2023 at 09:22:09AM +0100, Jan Beulich wrote:
-> >>> On 16.03.2023 23:03, Elliott Mitchell wrote:
-> >>>> On Mon, Mar 13, 2023 at 08:01:02AM +0100, Jan Beulich wrote:
-> >>>>> On 11.03.2023 01:09, Elliott Mitchell wrote:
-> >>>>>> On Thu, Mar 09, 2023 at 10:03:23AM +0100, Jan Beulich wrote:
-> >>>>>>>
-> >>>>>>> In any event you will want to collect a serial log at maximum verbosity.
-> >>>>>>> It would also be of interest to know whether turning off the IOMMU avoids
-> >>>>>>> the issue as well (on the assumption that your system has less than 255
-> >>>>>>> CPUs).
-> >>>>>>
-> >>>>>> I think I might have figured out the situation in a different fashion.
-> >>>>>>
-> >>>>>> I was taking a look at the BIOS manual for this motherboard and noticed
-> >>>>>> a mention of a "Local APIC Mode" setting.  Four values are listed
-> >>>>>> "Compatibility", "xAPIC", "x2APIC", and "Auto".
-> >>>>>>
-> >>>>>> That is the sort of setting I likely left at "Auto" and that may well
-> >>>>>> result in x2 functionality being disabled.  Perhaps the x2APIC
-> >>>>>> functionality on AMD is detecting whether the hardware is present, and
-> >>>>>> failing to test whether it has been enabled?  (could be useful to output
-> >>>>>> a message suggesting enabling the hardware feature)
-> >>>>>
-> >>>>> Can we please move to a little more technical terms here? What is "present"
-> >>>>> and "enabled" in your view? I don't suppose you mean the CPUID bit (which
-> >>>>> we check) and the x2APIC-mode-enable one (which we drive as needed). It's
-> >>>>> also left unclear what the four modes of BIOS operation evaluate to. Even
-> >>>>> if we knew that, overriding e.g. "Compatibility" (which likely means some
-> >>>>> form of "disabled" / "hidden") isn't normally an appropriate thing to do.
-> >>>>> In "Auto" mode Xen likely should work - the only way I could interpret the
-> >>>>> the other modes are "xAPIC" meaning no x2APIC ACPI tables entries (and
-> >>>>> presumably the CPUID bit also masked), "x2APIC" meaning x2APIC mode pre-
-> >>>>> enabled by firmware, and "Auto" leaving it to the OS to select. Yet that's
-> >>>>> speculation on my part ...
-> >>>>
-> >>>> I provided the information I had discovered.  There is a setting for this
-> >>>> motherboard (likely present on some similar motherboards) which /may/
-> >>>> effect the issue.  I doubt I've tried "compatibility", but none of the
-> >>>> values I've tried have gotten the system to boot without "x2apic=false"
-> >>>> on Xen's command-line.
-> >>>>
-> >>>> When setting to "x2APIC" just after "(XEN) AMD-Vi: IOMMU Extended Features:"
-> >>>> I see the line "(XEN) - x2APIC".  Later is the line
-> >>>> "(XEN) x2APIC mode is already enabled by BIOS."  I'll guess "Auto"
-> >>>> leaves the x2APIC turned off since neither line is present.
-> >>>
-> >>> When "(XEN) - x2APIC" is absent the IOMMU can't be switched into x2APIC
-> >>> mode. Are you sure that's the case when using "Auto"?
-> >>
-> >> grep -eAPIC\ driver -e-\ x2APIC:
-> >>
-> >> "Auto":
-> >> (XEN) Using APIC driver default
-> >> (XEN) Overriding APIC driver with bigsmp
-> >> (XEN) Switched to APIC driver x2apic_cluster
-> >>
-> >> "x2APIC":
-> >> (XEN) Using APIC driver x2apic_cluster
-> >> (XEN) - x2APIC
-> >>
-> >> Yes, I'm sure.
-> > 
-> > Okay, this then means we're running in a mode we don't mean to run
-> > in: When the IOMMU claims to not support x2APIC mode (which is odd in
-> > the first place when at the same time the CPU reports x2APIC mode as
-> > supported), amd_iommu_prepare() is intended to switch interrupt
-> > remapping mode to "restricted" (which in turn would force x2APIC mode
-> > to "physical", not "clustered"). I notice though that there are a
-> > number of error paths in the function which bypass this setting. Could
-> > you add a couple of printk()s to understand which path is taken (each
-> > time; the function can be called more than once)?
-> 
-> I think I've spotted at least one issue. Could you give the patch below
-> a try please? (Patch is fine for master and 4.17 but would need context
-> adjustment for 4.16.)
+flight 180486 linux-linus real [real]
+flight 180488 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180486/
+http://logs.test-lab.xenproject.org/osstest/logs/180488/
 
-Given the patch didn't fix the problem, that wasn't the issue.  I did
-though manage to try another variant of BIOS settings for this
-motherboard.  Setting "Local APIC Mode" to "x2APIC" in the BIOS neither
-breaks anything additional, nor fixes issues.  What was in Xen's dmesg
-did change slightly and looks likely better for my purposes.  Some more
-snippets from 4.17 Xen dmesg, with "x2apic_phys=true":
+Regressions :-(
 
-(XEN) AMD-Vi: IOMMU Extended Features:
-(XEN) - Peripheral Page Service Request
-(XEN) - x2APIC
-(XEN) - NX bit
-(XEN) - Guest APIC Physical Processor Interrupt
-(XEN) - Invalidate All Command
-(XEN) - Guest APIC
-(XEN) - Performance Counters
-(XEN) - Host Address Translation Size: 0x2
-(XEN) - Guest Address Translation Size: 0
-(XEN) - Guest CR3 Root Table Level: 0x1
-(XEN) - Maximum PASID: 0xf
-(XEN) - SMI Filter Register: 0x1
-(XEN) - SMI Filter Register Count: 0x1
-(XEN) - Guest Virtual APIC Modes: 0x1
-(XEN) - Dual PPR Log: 0x2
-(XEN) - Dual Event Log: 0x2
-(XEN) - Secure ATS
-(XEN) - User / Supervisor Page Protection
-(XEN) - Device Table Segmentation: 0x3
-(XEN) - PPR Log Overflow Early Warning
-(XEN) - PPR Automatic Response
-(XEN) - Memory Access Routing and Control: 0x1
-(XEN) - Block StopMark Message
-(XEN) - Performance Optimization
-(XEN) - MSI Capability MMIO Access
-(XEN) - Guest I/O Protection
-(XEN) - Enhanced PPR Handling
-(XEN) - Invalidate IOTLB Type
-(XEN) - VM Table Size: 0x2
-(XEN) - Guest Access Bit Update Disable
-(XEN) AMD-Vi: Disabled HAP memory map sharing with IOMMU
-(XEN) AMD-Vi: IOMMU 0 Enabled.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 180278
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
 
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt-raw  8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-credit2   8 xen-boot                     fail  like 180278
+ test-armhf-armhf-libvirt      8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-vhd       8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-arndale   8 xen-boot                     fail  like 180278
+ test-armhf-armhf-examine      8 reboot                       fail  like 180278
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180278
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot                    fail like 180278
+ test-armhf-armhf-xl-rtds      8 xen-boot                     fail  like 180278
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                     fail like 180278
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180278
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
 
-(XEN) I/O virtualisation enabled
-(XEN)  - Dom0 mode: Relaxed
-(XEN) Interrupt remapping enabled
-(XEN) nr_sockets: 1
-(XEN) Enabled directed EOI with ioapic_ack_old on!
-(XEN) Enabling APIC mode:  Physical.  Using 2 I/O APICs
-(XEN) ENABLING IO-APIC IRQs
-(XEN)  -> Using old ACK method
+version targeted for testing:
+ linux                825a0714d2b3883d4f8ff64f6933fb73ee3f1834
+baseline version:
+ linux                6c538e1adbfc696ac4747fb10d63e704344f763d
 
+Last test of basis   180278  2023-04-16 19:41:46 Z   13 days
+Failing since        180281  2023-04-17 06:24:36 Z   13 days   22 attempts
+Testing same since   180486  2023-04-30 05:33:05 Z    0 days    1 attempts
 
-(XEN) SVM: Supported advanced features:
-(XEN)  - Nested Page Tables (NPT)
-(XEN)  - Last Branch Record (LBR) Virtualisation
-(XEN)  - Next-RIP Saved on #VMEXIT
-(XEN)  - VMCB Clean Bits
-(XEN)  - DecodeAssists
-(XEN)  - Virtual VMLOAD/VMSAVE
-(XEN)  - Virtual GIF
-(XEN)  - Pause-Intercept Filter
-(XEN)  - Pause-Intercept Filter Threshold
-(XEN)  - TSC Rate MSR
-(XEN)  - NPT Supervisor Shadow Stack
-(XEN)  - MSR_SPEC_CTRL virtualisation
-(XEN) HVM: SVM enabled
+------------------------------------------------------------
+2087 people touched revisions under test,
+not listing them all
 
-If I'm reading that correctly, everything is there for x2APIC.  As such
-there seem to be 1 or 2 bugs:
-
-The definite bug is the x2apic_cluster APIC driver fails on recent AMD
-processors.
-
-I'm unsure whether selecting the x2apic_cluster APIC driver is correct or
-not.  Capabilities you used to only find a multi-socket server
-motherboards are now being found on desktop motherboards.  My
-understanding is this processor does NUMA on a single die, not merely a
-single-socket.  As such it may well need the features of x2apic_cluster,
-perhaps the driver assumes nr_socket > 1 which is untrue here?
-
-Does appear "x2apic_phys=true" plus "tsc_mode = 'always_emulate'" are
-adaquate workarounds all the way back to 4.14.  Now for the second
-correct bugfix.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Not pushing.
+
+(No revision log; it would be 247816 lines long.)
 
