@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF9906F376A
-	for <lists+xen-devel@lfdr.de>; Mon,  1 May 2023 21:30:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528102.820869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 767E06F3773
+	for <lists+xen-devel@lfdr.de>; Mon,  1 May 2023 21:31:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528103.820879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptZEX-00017F-Mt; Mon, 01 May 2023 19:30:49 +0000
+	id 1ptZEa-0001Px-Vt; Mon, 01 May 2023 19:30:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528102.820869; Mon, 01 May 2023 19:30:49 +0000
+Received: by outflank-mailman (output) from mailman id 528103.820879; Mon, 01 May 2023 19:30:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptZEX-00015P-Ja; Mon, 01 May 2023 19:30:49 +0000
-Received: by outflank-mailman (input) for mailman id 528102;
- Mon, 01 May 2023 19:30:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ptZEa-0001NW-Rz; Mon, 01 May 2023 19:30:52 +0000
+Received: by outflank-mailman (input) for mailman id 528103;
+ Mon, 01 May 2023 19:30:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lARM=AW=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1ptZEW-000149-0Q
- for xen-devel@lists.xenproject.org; Mon, 01 May 2023 19:30:48 +0000
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [2607:f8b0:4864:20::731])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ab36cae7-e856-11ed-8611-37d641c3527e;
- Mon, 01 May 2023 21:30:46 +0200 (CEST)
-Received: by mail-qk1-x731.google.com with SMTP id
- af79cd13be357-74e0180b7d3so129184485a.2
- for <xen-devel@lists.xenproject.org>; Mon, 01 May 2023 12:30:46 -0700 (PDT)
+ id 1ptZEZ-0000m4-Bd
+ for xen-devel@lists.xenproject.org; Mon, 01 May 2023 19:30:51 +0000
+Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
+ [2607:f8b0:4864:20::836])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id adfbb034-e856-11ed-b225-6b7b168915f2;
+ Mon, 01 May 2023 21:30:50 +0200 (CEST)
+Received: by mail-qt1-x836.google.com with SMTP id
+ d75a77b69052e-3ef302a642eso13479981cf.1
+ for <xen-devel@lists.xenproject.org>; Mon, 01 May 2023 12:30:50 -0700 (PDT)
 Received: from pm2-ws13.praxislan02.com
  (207-172-141-204.s8906.c3-0.slvr-cbr1.lnh-slvr.md.cable.rcncustomer.com.
  [207.172.141.204]) by smtp.gmail.com with ESMTPSA id
- d6-20020ac80606000000b003bf9f9f1844sm9351784qth.71.2023.05.01.12.30.43
+ d6-20020ac80606000000b003bf9f9f1844sm9351784qth.71.2023.05.01.12.30.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 May 2023 12:30:43 -0700 (PDT)
+ Mon, 01 May 2023 12:30:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,116 +46,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab36cae7-e856-11ed-8611-37d641c3527e
+X-Inumbo-ID: adfbb034-e856-11ed-b225-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1682969444; x=1685561444;
+        d=gmail.com; s=20221208; t=1682969449; x=1685561449;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7VFwxnOVM/nUJWo2+kFJfbzF53GX8dfaVA+R5Uyazpc=;
-        b=r9j9BPVz3/laZA8dsDmxZe7TRv0yNCtj/Xbsb4WpqDXgx/fA0HOTxNUrvpQf+C4t2T
-         YNYN206A0eGrKe1qAym9I5p7tG8XdEGiJaLW8/t6JkTJFkIT0pzBFXS/iIkCO56wJn3J
-         pUjquCuW3n9+l6STbY/dk/Ilm9zT/scjBTbtK0COm2KbSl8FAiXw+kNZWbpx0W2WhcG0
-         xkKJVYBUTb1RNwa7L8EPhULHZE9DzKHmCK095rERWUvFMoy1jZyxhh3f0Ve6Bc7Dd9u0
-         RXDpYSvLxEtoWzrauTp25svhJmvdF5OfkwS+uKrmB1iBB7Lcit4b94RhLAlA38eqUI8l
-         eUEg==
+        bh=txBzmZlgf2a5ZApasbIDD2P8VUrWanxh/ZCZKapkSd4=;
+        b=ruWWxubqxWEfgknzCeHfuioXix3neQCmP3+a25TdXUf2lY/OXFPt8Fw7bOACTmeMj9
+         W6lzbRO4CQm8VUxPYOZhHZE9MAixtoaCcKrnatX2CtjIGctgcqhiDy42JfMp7IiwQsJ2
+         pJORAvC5p1oFLI9ZU2fPomLTuylha83HfbB0PRFixRqg6vC0BYsOt3O8hjTzKeInVEdB
+         xETcc6syUMfOhifQLASnke2KU3HfyTwJkOGtQEYC2WBE1K5fATNr2/dHtxgsu261Kbce
+         +eSDtdfkJ8r4k8f/c73OadVqX97fNky9tSHYk/+MBR2Gh0dmKpPjUK3U/1WOM4cjGqT8
+         qyEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1682969444; x=1685561444;
+        d=1e100.net; s=20221208; t=1682969449; x=1685561449;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=7VFwxnOVM/nUJWo2+kFJfbzF53GX8dfaVA+R5Uyazpc=;
-        b=e5YLgoL599yP+Xdv0THAgss77WW4BQBhNDGUt27NFu/yV8d6Hk2Xd9U7aftqQ9dfzF
-         oxkCghMUyRzel1clzQJRcVM5vahCRhg5CezxVDGDhNsiIXrczwnAnja7up9ZnNSqsirz
-         Xk0Vz8cjOfJwbJDcv0EbU8WPQS4pz0PV5AmBG55CQXJwBZo4R77v1SRPl7B8hHOGyuux
-         fW7j/gmJRqw+qC1Kd8bmqB+lyEOOsb8WaTgPQNv/o086SviJ2xaEg6yIef5ubaSMo0/4
-         rYTqB6y/H3gTJVZ2si5QbqwIoOXZfqyUHXaWgQ8j2LM2Pri5RCygi/gtiVwLfOhr2+Op
-         pcqA==
-X-Gm-Message-State: AC+VfDwFiDMZoBVws863mnqB/YZLQslfknsbY4EPLNA1QijkGfK4cKVZ
-	0hNoj1dGBrCCfasguw8ZeKCvACa/Zlk=
-X-Google-Smtp-Source: ACHHUZ73X7XhEV+VKk/WhUuhmrdce/HnekpsrCHDFejO2dmdia7/TP7F2pse7XFmNwI5RC0Ffs/PlA==
-X-Received: by 2002:ac8:7c50:0:b0:3f0:df4d:40b7 with SMTP id o16-20020ac87c50000000b003f0df4d40b7mr24378132qtv.7.1682969444425;
-        Mon, 01 May 2023 12:30:44 -0700 (PDT)
+        bh=txBzmZlgf2a5ZApasbIDD2P8VUrWanxh/ZCZKapkSd4=;
+        b=lRDxUe0u80tEBUo92bxCtRWM89Hy/Fw3aGEIRyMdP2PTUrIr2heCD6Tw0J1ELx2T+k
+         kvzOWfk7ttslKi9QWHDo17AiiosT1bsSntJo1bjoA9d/M7UH9ItDYQf60f+qtFKtQfBJ
+         a1sUADMWndydb1dJS44dp6IdNuPVzkmFshlM1JUM4MSQCDDoq6OyIPR4btn9Rsja0vUU
+         TmWsF3DWL6kgbprf/92dHaQaifLGalJ3WXJ380y8hthwzRKi7Uhukrq+llE5lhGWYUMx
+         3LI0cKVLhbRJwBWb3VZuvoDju4ALAyYcbpj6q64dLqyRBgOMWnaZXnIWcB26PyJMCMTo
+         DNZQ==
+X-Gm-Message-State: AC+VfDz2ZyXgNv5NVJHbm+h+AJUvo12iPoBEfAROIVdOAPKtibh8Xq7Q
+	E1q2aR2C8nus3W2KoD2ACU8ntOmiLfQ=
+X-Google-Smtp-Source: ACHHUZ6w3eawFGc/l9nZiVmnOOvz/C0aG06cvY9N0n+NkCEj6Vg7LQZ4xbldKhhvalrOwWvRbT6aDw==
+X-Received: by 2002:ac8:7c50:0:b0:3f0:df4d:40b7 with SMTP id o16-20020ac87c50000000b003f0df4d40b7mr24378669qtv.7.1682969449211;
+        Mon, 01 May 2023 12:30:49 -0700 (PDT)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v3 01/14 RESEND] cpufreq: Allow restricting to internal governors only
-Date: Mon,  1 May 2023 15:30:21 -0400
-Message-Id: <20230501193034.88575-2-jandryuk@gmail.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 02/14 RESEND] cpufreq: Add perf_freq to cpuinfo
+Date: Mon,  1 May 2023 15:30:22 -0400
+Message-Id: <20230501193034.88575-3-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.40.0
 In-Reply-To: <20230501193034.88575-1-jandryuk@gmail.com>
 References: <20230501193034.88575-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For hwp, the standard governors are not usable, and only the internal
-one is applicable.  Add the cpufreq_governor_internal boolean to
-indicate when an internal governor, like hwp-internal, will be used.
-This is set during presmp_initcall, so that it can suppress governor
-registration during initcall.  Only a governor with a name containing
-"-internal" will be allowed in that case.
-
-This way, the unuseable governors are not registered, so the internal
-one is the only one returned to userspace.  This means incompatible
-governors won't be advertised to userspace.
+acpi-cpufreq scales the aperf/mperf measurements by max_freq, but HWP
+needs to scale by base frequency.  Settings max_freq to base_freq
+"works" but the code is not obvious, and returning values to userspace
+is tricky.  Add an additonal perf_freq member which is used for scaling
+aperf/mperf measurements.
 
 Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 v3:
-Switch to initdata
-Add Jan Acked-by
-Commit message s/they/the/ typo
-Don't register hwp-internal when running non-hwp - Marek
+Add Jan's Ack
 
-v2:
-Switch to "-internal"
-Add blank line in header
+I don't like this, but it seems the best way to re-use the common
+aperf/mperf code.  The other option would be to add wrappers that then
+do the acpi vs. hwp scaling.
 ---
- xen/drivers/cpufreq/cpufreq.c      | 8 ++++++++
- xen/include/acpi/cpufreq/cpufreq.h | 2 ++
- 2 files changed, 10 insertions(+)
+ xen/arch/x86/acpi/cpufreq/cpufreq.c | 2 +-
+ xen/drivers/cpufreq/utility.c       | 1 +
+ xen/include/acpi/cpufreq/cpufreq.h  | 3 +++
+ 3 files changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/xen/drivers/cpufreq/cpufreq.c b/xen/drivers/cpufreq/cpufreq.c
-index 2321c7dd07..7bd81680da 100644
---- a/xen/drivers/cpufreq/cpufreq.c
-+++ b/xen/drivers/cpufreq/cpufreq.c
-@@ -56,6 +56,7 @@ struct cpufreq_dom {
- };
- static LIST_HEAD_READ_MOSTLY(cpufreq_dom_list_head);
+diff --git a/xen/arch/x86/acpi/cpufreq/cpufreq.c b/xen/arch/x86/acpi/cpufreq/cpufreq.c
+index 2e0067fbe5..6c70d04395 100644
+--- a/xen/arch/x86/acpi/cpufreq/cpufreq.c
++++ b/xen/arch/x86/acpi/cpufreq/cpufreq.c
+@@ -316,7 +316,7 @@ unsigned int get_measured_perf(unsigned int cpu, unsigned int flag)
+     else
+         perf_percent = 0;
  
-+bool __initdata cpufreq_governor_internal;
- struct cpufreq_governor *__read_mostly cpufreq_opt_governor;
- LIST_HEAD_READ_MOSTLY(cpufreq_governor_list);
+-    return policy->cpuinfo.max_freq * perf_percent / 100;
++    return policy->cpuinfo.perf_freq * perf_percent / 100;
+ }
  
-@@ -121,6 +122,13 @@ int __init cpufreq_register_governor(struct cpufreq_governor *governor)
-     if (!governor)
-         return -EINVAL;
+ static unsigned int cf_check get_cur_freq_on_cpu(unsigned int cpu)
+diff --git a/xen/drivers/cpufreq/utility.c b/xen/drivers/cpufreq/utility.c
+index 9eb7ecedcd..6831f62851 100644
+--- a/xen/drivers/cpufreq/utility.c
++++ b/xen/drivers/cpufreq/utility.c
+@@ -236,6 +236,7 @@ int cpufreq_frequency_table_cpuinfo(struct cpufreq_policy *policy,
  
-+    if (cpufreq_governor_internal &&
-+        strstr(governor->name, "-internal") == NULL)
-+        return -EINVAL;
-+
-+    if (!cpufreq_governor_internal && strstr(governor->name, "-internal"))
-+        return -EINVAL;
-+
-     if (__find_governor(governor->name) != NULL)
-         return -EEXIST;
+     policy->min = policy->cpuinfo.min_freq = min_freq;
+     policy->max = policy->cpuinfo.max_freq = max_freq;
++    policy->cpuinfo.perf_freq = max_freq;
+     policy->cpuinfo.second_max_freq = second_max_freq;
  
+     if (policy->min == ~0)
 diff --git a/xen/include/acpi/cpufreq/cpufreq.h b/xen/include/acpi/cpufreq/cpufreq.h
-index 35dcf21e8f..0da32ef519 100644
+index 0da32ef519..a06aa92f62 100644
 --- a/xen/include/acpi/cpufreq/cpufreq.h
 +++ b/xen/include/acpi/cpufreq/cpufreq.h
-@@ -114,6 +114,8 @@ extern struct cpufreq_governor cpufreq_gov_userspace;
- extern struct cpufreq_governor cpufreq_gov_performance;
- extern struct cpufreq_governor cpufreq_gov_powersave;
- 
-+extern bool cpufreq_governor_internal;
-+
- extern struct list_head cpufreq_governor_list;
- 
- extern int cpufreq_register_governor(struct cpufreq_governor *governor);
+@@ -37,6 +37,9 @@ extern struct acpi_cpufreq_data *cpufreq_drv_data[NR_CPUS];
+ struct cpufreq_cpuinfo {
+     unsigned int        max_freq;
+     unsigned int        second_max_freq;    /* P1 if Turbo Mode is on */
++    unsigned int        perf_freq; /* Scaling freq for aperf/mpref.
++                                      acpi-cpufreq uses max_freq, but HWP uses
++                                      base_freq.*/
+     unsigned int        min_freq;
+     unsigned int        transition_latency; /* in 10^(-9) s = nanoseconds */
+ };
 -- 
 2.40.0
 
