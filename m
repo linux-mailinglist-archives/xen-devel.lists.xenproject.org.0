@@ -2,65 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D51A6F4AA7
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 21:55:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528799.822397 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C06396F4AD7
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:03:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528802.822408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptw59-0000t0-8Z; Tue, 02 May 2023 19:54:39 +0000
+	id 1ptwDA-0002Ww-25; Tue, 02 May 2023 20:02:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528799.822397; Tue, 02 May 2023 19:54:39 +0000
+Received: by outflank-mailman (output) from mailman id 528802.822408; Tue, 02 May 2023 20:02:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptw59-0000q8-5r; Tue, 02 May 2023 19:54:39 +0000
-Received: by outflank-mailman (input) for mailman id 528799;
- Tue, 02 May 2023 19:54:37 +0000
+	id 1ptwD9-0002UH-VM; Tue, 02 May 2023 20:02:55 +0000
+Received: by outflank-mailman (input) for mailman id 528802;
+ Tue, 02 May 2023 20:02:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=foPY=AX=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1ptw57-0000q2-Lw
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 19:54:37 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2062c.outbound.protection.outlook.com
- [2a01:111:f400:7d00::62c])
+ <SRS0=GGWT=AX=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1ptwD8-0002UB-MN
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:02:54 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28f94b9b-e923-11ed-8611-37d641c3527e;
- Tue, 02 May 2023 21:54:34 +0200 (CEST)
-Received: from DB6P18901CA0014.EURP189.PROD.OUTLOOK.COM (2603:10a6:4:16::24)
- by PAXPR08MB7365.eurprd08.prod.outlook.com (2603:10a6:102:225::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31; Tue, 2 May
- 2023 19:54:30 +0000
-Received: from DBAEUR03FT019.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:16:cafe::ee) by DB6P18901CA0014.outlook.office365.com
- (2603:10a6:4:16::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31 via Frontend
- Transport; Tue, 2 May 2023 19:54:30 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT019.mail.protection.outlook.com (100.127.142.129) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6363.20 via Frontend Transport; Tue, 2 May 2023 19:54:30 +0000
-Received: ("Tessian outbound 3a01b65b5aad:v136");
- Tue, 02 May 2023 19:54:30 +0000
-Received: from b54e168d3d85.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- E57027C9-C2EC-48B5-AFD4-76F064C796A6.1; 
- Tue, 02 May 2023 19:54:23 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b54e168d3d85.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 02 May 2023 19:54:23 +0000
-Received: from AM0PR08MB3745.eurprd08.prod.outlook.com (2603:10a6:208:ff::27)
- by AS8PR08MB7790.eurprd08.prod.outlook.com (2603:10a6:20b:527::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31; Tue, 2 May
- 2023 19:54:20 +0000
-Received: from AM0PR08MB3745.eurprd08.prod.outlook.com
- ([fe80::e6af:7fc5:bb80:9406]) by AM0PR08MB3745.eurprd08.prod.outlook.com
- ([fe80::e6af:7fc5:bb80:9406%7]) with mapi id 15.20.6340.031; Tue, 2 May 2023
- 19:54:20 +0000
+ id 506a762f-e924-11ed-8611-37d641c3527e;
+ Tue, 02 May 2023 22:02:50 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-551-8i9sxkcoOrucqmHkxzDdSA-1; Tue, 02 May 2023 16:02:47 -0400
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C708A101A531;
+ Tue,  2 May 2023 20:02:46 +0000 (UTC)
+Received: from localhost (unknown [10.39.192.230])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B65FF63F5B;
+ Tue,  2 May 2023 20:02:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,224 +50,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28f94b9b-e923-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rIauXjVPwCZaMr0emwlQmLTVrakJ4XH4Bg+H0hwJ6Ps=;
- b=Dn+OGWmWdLsk3GfgTNzj4BxB6XYEAtHamV31fGGOKpf34aTy9eCCl/9jv29XAwE0M3KYpn8O0m31qIjN63kAcaLweCGllEYLESWPgghAkgWvtiqofn+FYEdYgesmNIG+KuGPir0ki2pVF+i+0l1u0K7+RRBBhpz3Zweh6PwRMlQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: e32b693e000c3f57
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FpthWXKaINUH8Ffau9FkQTjG/1yDRnGL3JXR6Pjfxo6/LU5+NlNRPOp16Xj32KG2DArUmXeeVZ1/J116fmtmngh7hDunEbvMVHIGeCC0BFt/GXB5Ml/AVWwPu+zn/EDIpU3NFp8VQg59Z/lu6DlMV7V38XAI5VjKLq4mldeESrwJZBmXpHuqfT6bbDQgGYxdStvULFR/NZoEPVaIAJHixe40c2Gq9mxwHCwCwhFHOGATDjm7weTLZ4ZcP0x/AII+DtPbxFefyQVxwGBXtqmoixGxAE7mtJ4wS5RVuhDR99XuNumLIjGwA2i7QhXx08id+bqOvHxw1GmyRgARGEEAeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rIauXjVPwCZaMr0emwlQmLTVrakJ4XH4Bg+H0hwJ6Ps=;
- b=b3wlaNk70l3h2uMgePNDcwa21sKbJarrPVzhT/TdQpxnK1zhVudO8FIDmp+i37fwixEE7/qfUH+ISMv5PUf5qrhiI6kswttR1aCobhlJwjWoC6+bB7epBLz+CNA/3u1zw626YrfIssy+Ed9hqOWt/YzKoplhObqbBQguXYnHK6OnZacJXfnhemlqbMt/un+X+89J7FK03VJ9yVtxLxcnFSXmAJtSp8x6AQEliLGWrBl88lOPLh6Wg4gLZlbItk+haXSmxyB4xHqinR1wF+ije5TH+U6djs2G5RvfTYabuJ8nZfnNVvKdBSIUyY5W+dynmG7w4iyhpkKaMrwiejqm5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rIauXjVPwCZaMr0emwlQmLTVrakJ4XH4Bg+H0hwJ6Ps=;
- b=Dn+OGWmWdLsk3GfgTNzj4BxB6XYEAtHamV31fGGOKpf34aTy9eCCl/9jv29XAwE0M3KYpn8O0m31qIjN63kAcaLweCGllEYLESWPgghAkgWvtiqofn+FYEdYgesmNIG+KuGPir0ki2pVF+i+0l1u0K7+RRBBhpz3Zweh6PwRMlQ=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
-	<rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v6 10/12] xen/tools: add sve parameter in XL configuration
-Thread-Topic: [PATCH v6 10/12] xen/tools: add sve parameter in XL
- configuration
-Thread-Index: AQHZdnKI1/ryq6h2kEuVT2yTgC4YMq9HQ+EAgAAu74A=
-Date: Tue, 2 May 2023 19:54:19 +0000
-Message-ID: <8C3DC6ED-83D8-4DD0-9C99-B34449304373@arm.com>
-References: <20230424060248.1488859-1-luca.fancellu@arm.com>
- <20230424060248.1488859-11-luca.fancellu@arm.com>
- <996db21b-e963-4259-884d-2131c548ca1e@perard>
-In-Reply-To: <996db21b-e963-4259-884d-2131c548ca1e@perard>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.500.231)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM0PR08MB3745:EE_|AS8PR08MB7790:EE_|DBAEUR03FT019:EE_|PAXPR08MB7365:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed8df2ad-d3f4-4f97-8c36-08db4b470b2b
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- nl7jwy/rHwCPApwMIp99tPwC058MrOC+sbuOUGWwMy0B4loMknKMU7rIELwR0U7EexJSfJimqvJN9M9BtR697nk60j/wIHfnE1XIplUMseFxr306WXBD2p6nQhyJOTIzIijiF122dxnzcKMBGVJv0gFZC1B2+HQ5BowBy40GBSl1Q30g+4p3XoROa239QlgdKF7QwcIcZV0H7QmQAIgMC2z2eRSXo9pGO5qg7Nu2ovn/e0oZN0ySxDUuMAb2cpy5t3jeLvgMRyh6L+eW4OXJA4QGxt3lmJ7RN/2HUX6eQrQfnd1XRfrJQcCsHsty/eF3UX+iTUXRSipXkYtlYLqL2BGcHFF58HfFIRghv8suVmdEyY62F9pMUEi2tBshNCGzkxDMs9R5tcAdDdEx2CaVn61et1UtAMw7JjkjQu55YJRMV2e1xhLhm1aIXurVUHQcKNXs3WFMvOdR0Uf7no5u6husfiMlLYaBb/Bo9oYIaC13bAX9ah2nuzR4/9p0ZM4+2s4vfgSAANd64DwyTe0Y2ujtenTuqg4mBvDIiCw6bBfHeZQXD6OSDJFc5Xhc6pqv4v+ZRtZJ3VcJBrZ+cDtVHtHoNKnB9oTWNadrc7HAogB7ZdZntg+5nruBE0h94UDqX1AbfCnxtKdXo6h4Zt+h6A==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB3745.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(366004)(39860400002)(346002)(396003)(376002)(451199021)(53546011)(26005)(6512007)(6506007)(4326008)(76116006)(64756008)(66446008)(66556008)(6916009)(66476007)(66946007)(2616005)(33656002)(478600001)(40140700001)(86362001)(91956017)(83380400001)(71200400001)(316002)(38070700005)(122000001)(38100700002)(41300700001)(2906002)(6486002)(36756003)(186003)(54906003)(5660300002)(8936002)(8676002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <AE75BDE125C23B43B704AF9D0A60A6BE@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 506a762f-e924-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1683057769;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7lfhqttiODmbNxuxzmQIGPLL6DVlwheJNNJYYd5PHZI=;
+	b=AGFtq8/EGGpm3JUeI6/CRMExUZ6AnZ5zcqDaOdxHzwxRxLC1k41BXmbB7V/2ZQznGsWuQ2
+	6UXIAgqnPhyJc54mAl82el0Q/+FQQv8R22QPGyAhZPHmsL7on8f/869spz1FFVqXnORij1
+	f1cRVtmlXDbCO5FcsKSFWKc88FvPOTE=
+X-MC-Unique: 8i9sxkcoOrucqmHkxzDdSA-1
+Date: Tue, 2 May 2023 16:02:43 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Kevin Wolf <kwolf@redhat.com>
+Cc: qemu-devel@nongnu.org,
+	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+	Juan Quintela <quintela@redhat.com>,
+	Julia Suvorova <jusual@redhat.com>, xen-devel@lists.xenproject.org,
+	eesposit@redhat.com,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Fam Zheng <fam@euphon.net>, "Michael S. Tsirkin" <mst@redhat.com>,
+	Coiby Xu <Coiby.Xu@gmail.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Peter Lieven <pl@kamp.de>, Paul Durrant <paul@xen.org>,
+	"Richard W.M. Jones" <rjones@redhat.com>, qemu-block@nongnu.org,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Stefan Weil <sw@weilnetz.de>, Xie Yongji <xieyongji@bytedance.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Aarushi Mehta <mehta.aaru20@gmail.com>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Hanna Reitz <hreitz@redhat.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Zhengui Li <lizhengui@huawei.com>,
+	Daniil Tatianin <d-tatianin@yandex-team.ru>
+Subject: Re: [PATCH v4 04/20] virtio-scsi: stop using aio_disable_external()
+ during unplug
+Message-ID: <20230502200243.GD535070@fedora>
+References: <20230425172716.1033562-1-stefanha@redhat.com>
+ <20230425172716.1033562-5-stefanha@redhat.com>
+ <ZEvWv8dF78Jpb6CQ@redhat.com>
+ <20230501150934.GA14869@fedora>
+ <ZFEN+KY8JViTDtv/@redhat.com>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7790
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT019.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	017bfbe8-4da0-47fe-6519-08db4b4704c0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	+gV8+WY3y81bNs8Edn910en4Q0IWtOLF4ggYKDGMXTxrTWrRgTUra+0ePZDtO2Qz+MBTXf2uWQEA0amTLNEfPknFXNN78FEeFzvCeV3tCOiXu9ex75UKe877xNnD0B6uxWEVSg3RoxXGjgUHmNT/pq6iRwhOBQK9GkdzL6Cq3oVvRxr2U53t5VACqNXTSAeZEPY8dipVcHr6H8Ta8oH1kSInH5Rn40/GoHSyr4dqX4W/BBpoFK3JAe7OvHWmzisHP2vh2lmUyqLs1Z9YbD4BKQhjq+YOhHoz/JFMKRyKylRsQv9xDvECtM3DvnRhBxlOM3ZHOkwBVLl8Rq7HjKWvo8LgaOYn397VpdbMJew4a6i9A7nnrxMSKMjx/QVZbO4fv68DMLIAmc+CoKN7QtgVc2Ezen8o0ksGmUUsQre/ny/sxHdTn/DNrmzWVVQCezMySDV355DuRCycU/ZfRnrfYiYjcLOOOMCWRgMFdx7l1SM56liV38U6P6PM18oh8n1+yv0sddGYVdBTiOo5tfDblRa6dIyUht70dYih8i5eOUeoz0yF7VZwm3EeykFObTEJr5TmM8N/3VLRlfbFvufRpco6qHsnqysVBTdlFRqXruSn+pg89cX3eitNlxDwHlH2HihSw79rJcEYy/a+d3icNnnAcW6TRPKHMSQaFSN3x+P+GC+4iGtRxpu0MBGJHfgz5BWzh1pgr8HHFKIed/wscv/LyBbZjH7DXEYDmVrduPg=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(39860400002)(136003)(396003)(451199021)(40470700004)(36840700001)(46966006)(6862004)(86362001)(40460700003)(5660300002)(8676002)(70206006)(8936002)(41300700001)(81166007)(356005)(82740400003)(70586007)(4326008)(316002)(40480700001)(2906002)(6486002)(34020700004)(36860700001)(36756003)(33656002)(2616005)(107886003)(53546011)(186003)(26005)(40140700001)(6506007)(82310400005)(6512007)(83380400001)(54906003)(47076005)(478600001)(336012);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 19:54:30.5221
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed8df2ad-d3f4-4f97-8c36-08db4b470b2b
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT019.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7365
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="KLJLJshWTSqDDVpb"
+Content-Disposition: inline
+In-Reply-To: <ZFEN+KY8JViTDtv/@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 
-Hi Anthony,
 
-Thank you for your review.
+--KLJLJshWTSqDDVpb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> On 2 May 2023, at 18:06, Anthony PERARD <anthony.perard@citrix.com> wrote=
-:
+On Tue, May 02, 2023 at 03:19:52PM +0200, Kevin Wolf wrote:
+> Am 01.05.2023 um 17:09 hat Stefan Hajnoczi geschrieben:
+> > On Fri, Apr 28, 2023 at 04:22:55PM +0200, Kevin Wolf wrote:
+> > > Am 25.04.2023 um 19:27 hat Stefan Hajnoczi geschrieben:
+> > > > This patch is part of an effort to remove the aio_disable_external()
+> > > > API because it does not fit in a multi-queue block layer world where
+> > > > many AioContexts may be submitting requests to the same disk.
+> > > >=20
+> > > > The SCSI emulation code is already in good shape to stop using
+> > > > aio_disable_external(). It was only used by commit 9c5aad84da1c
+> > > > ("virtio-scsi: fixed virtio_scsi_ctx_check failed when detaching sc=
+si
+> > > > disk") to ensure that virtio_scsi_hotunplug() works while the guest
+> > > > driver is submitting I/O.
+> > > >=20
+> > > > Ensure virtio_scsi_hotunplug() is safe as follows:
+> > > >=20
+> > > > 1. qdev_simple_device_unplug_cb() -> qdev_unrealize() ->
+> > > >    device_set_realized() calls qatomic_set(&dev->realized, false) so
+> > > >    that future scsi_device_get() calls return NULL because they exc=
+lude
+> > > >    SCSIDevices with realized=3Dfalse.
+> > > >=20
+> > > >    That means virtio-scsi will reject new I/O requests to this
+> > > >    SCSIDevice with VIRTIO_SCSI_S_BAD_TARGET even while
+> > > >    virtio_scsi_hotunplug() is still executing. We are protected aga=
+inst
+> > > >    new requests!
+> > > >=20
+> > > > 2. Add a call to scsi_device_purge_requests() from scsi_unrealize()=
+ so
+> > > >    that in-flight requests are cancelled synchronously. This ensures
+> > > >    that no in-flight requests remain once qdev_simple_device_unplug=
+_cb()
+> > > >    returns.
+> > > >=20
+> > > > Thanks to these two conditions we don't need aio_disable_external()
+> > > > anymore.
+> > > >=20
+> > > > Cc: Zhengui Li <lizhengui@huawei.com>
+> > > > Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
+> > > > Reviewed-by: Daniil Tatianin <d-tatianin@yandex-team.ru>
+> > > > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> > >=20
+> > > qemu-iotests 040 starts failing for me after this patch, with what lo=
+oks
+> > > like a use-after-free error of some kind.
+> > >=20
+> > > (gdb) bt
+> > > #0  0x000055b6e3e1f31c in job_type (job=3D0xe3e3e3e3e3e3e3e3) at ../j=
+ob.c:238
+> > > #1  0x000055b6e3e1cee5 in is_block_job (job=3D0xe3e3e3e3e3e3e3e3) at =
+=2E./blockjob.c:41
+> > > #2  0x000055b6e3e1ce7d in block_job_next_locked (bjob=3D0x55b6e72b757=
+0) at ../blockjob.c:54
+> > > #3  0x000055b6e3df6370 in blockdev_mark_auto_del (blk=3D0x55b6e74af0a=
+0) at ../blockdev.c:157
+> > > #4  0x000055b6e393e23b in scsi_qdev_unrealize (qdev=3D0x55b6e7c04d40)=
+ at ../hw/scsi/scsi-bus.c:303
+> > > #5  0x000055b6e3db0d0e in device_set_realized (obj=3D0x55b6e7c04d40, =
+value=3Dfalse, errp=3D0x55b6e497c918 <error_abort>) at ../hw/core/qdev.c:599
+> > > #6  0x000055b6e3dba36e in property_set_bool (obj=3D0x55b6e7c04d40, v=
+=3D0x55b6e7d7f290, name=3D0x55b6e41bd6d8 "realized", opaque=3D0x55b6e7246d2=
+0, errp=3D0x55b6e497c918 <error_abort>)
+> > >     at ../qom/object.c:2285
+> > > #7  0x000055b6e3db7e65 in object_property_set (obj=3D0x55b6e7c04d40, =
+name=3D0x55b6e41bd6d8 "realized", v=3D0x55b6e7d7f290, errp=3D0x55b6e497c918=
+ <error_abort>) at ../qom/object.c:1420
+> > > #8  0x000055b6e3dbd84a in object_property_set_qobject (obj=3D0x55b6e7=
+c04d40, name=3D0x55b6e41bd6d8 "realized", value=3D0x55b6e74c1890, errp=3D0x=
+55b6e497c918 <error_abort>)
+> > >     at ../qom/qom-qobject.c:28
+> > > #9  0x000055b6e3db8570 in object_property_set_bool (obj=3D0x55b6e7c04=
+d40, name=3D0x55b6e41bd6d8 "realized", value=3Dfalse, errp=3D0x55b6e497c918=
+ <error_abort>) at ../qom/object.c:1489
+> > > #10 0x000055b6e3daf2b5 in qdev_unrealize (dev=3D0x55b6e7c04d40) at ..=
+/hw/core/qdev.c:306
+> > > #11 0x000055b6e3db509d in qdev_simple_device_unplug_cb (hotplug_dev=
+=3D0x55b6e81c3630, dev=3D0x55b6e7c04d40, errp=3D0x7ffec5519200) at ../hw/co=
+re/qdev-hotplug.c:72
+> > > #12 0x000055b6e3c520f9 in virtio_scsi_hotunplug (hotplug_dev=3D0x55b6=
+e81c3630, dev=3D0x55b6e7c04d40, errp=3D0x7ffec5519200) at ../hw/scsi/virtio=
+-scsi.c:1065
+> > > #13 0x000055b6e3db4dec in hotplug_handler_unplug (plug_handler=3D0x55=
+b6e81c3630, plugged_dev=3D0x55b6e7c04d40, errp=3D0x7ffec5519200) at ../hw/c=
+ore/hotplug.c:56
+> > > #14 0x000055b6e3a28f84 in qdev_unplug (dev=3D0x55b6e7c04d40, errp=3D0=
+x7ffec55192e0) at ../softmmu/qdev-monitor.c:935
+> > > #15 0x000055b6e3a290fa in qmp_device_del (id=3D0x55b6e74c1760 "scsi0"=
+, errp=3D0x7ffec55192e0) at ../softmmu/qdev-monitor.c:955
+> > > #16 0x000055b6e3fb0a5f in qmp_marshal_device_del (args=3D0x7f61cc005e=
+b0, ret=3D0x7f61d5a8ae38, errp=3D0x7f61d5a8ae40) at qapi/qapi-commands-qdev=
+=2Ec:114
+> > > #17 0x000055b6e3fd52e1 in do_qmp_dispatch_bh (opaque=3D0x7f61d5a8ae08=
+) at ../qapi/qmp-dispatch.c:128
+> > > #18 0x000055b6e4007b9e in aio_bh_call (bh=3D0x55b6e7dea730) at ../uti=
+l/async.c:155
+> > > #19 0x000055b6e4007d2e in aio_bh_poll (ctx=3D0x55b6e72447c0) at ../ut=
+il/async.c:184
+> > > #20 0x000055b6e3fe3b45 in aio_dispatch (ctx=3D0x55b6e72447c0) at ../u=
+til/aio-posix.c:421
+> > > #21 0x000055b6e4009544 in aio_ctx_dispatch (source=3D0x55b6e72447c0, =
+callback=3D0x0, user_data=3D0x0) at ../util/async.c:326
+> > > #22 0x00007f61ddc14c7f in g_main_dispatch (context=3D0x55b6e7244b20) =
+at ../glib/gmain.c:3454
+> > > #23 g_main_context_dispatch (context=3D0x55b6e7244b20) at ../glib/gma=
+in.c:4172
+> > > #24 0x000055b6e400a7e8 in glib_pollfds_poll () at ../util/main-loop.c=
+:290
+> > > #25 0x000055b6e400a0c2 in os_host_main_loop_wait (timeout=3D0) at ../=
+util/main-loop.c:313
+> > > #26 0x000055b6e4009fa2 in main_loop_wait (nonblocking=3D0) at ../util=
+/main-loop.c:592
+> > > #27 0x000055b6e3a3047b in qemu_main_loop () at ../softmmu/runstate.c:=
+731
+> > > #28 0x000055b6e3dab27d in qemu_default_main () at ../softmmu/main.c:37
+> > > #29 0x000055b6e3dab2b8 in main (argc=3D24, argv=3D0x7ffec55196a8) at =
+=2E./softmmu/main.c:48
+> > > (gdb) p jobs
+> > > $4 =3D {lh_first =3D 0x0}
+> >=20
+> > I wasn't able to reproduce this with gcc 13.1.1 or clang 16.0.1:
+> >=20
+> >   $ tests/qemu-iotests/check -qcow2 040
+> >=20
+> > Any suggestions on how to reproduce the issue?
 >=20
-> On Mon, Apr 24, 2023 at 07:02:46AM +0100, Luca Fancellu wrote:
->> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
->> index ddc7b2a15975..1e69dac2c4fa 100644
->> --- a/tools/libs/light/libxl_arm.c
->> +++ b/tools/libs/light/libxl_arm.c
->> @@ -211,6 +213,12 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc=
-,
->>         return ERROR_FAIL;
->>     }
->>=20
->> +    /* Parameter is sanitised in libxl__arch_domain_build_info_setdefau=
-lt */
->> +    if (d_config->b_info.arch_arm.sve_vl) {
->> +        /* Vector length is divided by 128 in struct xen_domctl_created=
-omain */
->> +        config->arch.sve_vl =3D d_config->b_info.arch_arm.sve_vl / 128U=
-;
->> +    }
->> +
->>     return 0;
->> }
->>=20
->> @@ -1681,6 +1689,26 @@ int libxl__arch_domain_build_info_setdefault(libx=
-l__gc *gc,
->>     /* ACPI is disabled by default */
->>     libxl_defbool_setdefault(&b_info->acpi, false);
->>=20
->> +    /* Sanitise SVE parameter */
->> +    if (b_info->arch_arm.sve_vl) {
->> +        unsigned int max_sve_vl =3D
->> +            arch_capabilities_arm_sve(physinfo->arch_capabilities);
->> +
->> +        if (!max_sve_vl) {
->> +            LOG(ERROR, "SVE is unsupported on this machine.");
->> +            return ERROR_FAIL;
->> +        }
->> +
->> +        if (LIBXL_SVE_TYPE_HW =3D=3D b_info->arch_arm.sve_vl) {
->> +            b_info->arch_arm.sve_vl =3D max_sve_vl;
->> +        } else if (b_info->arch_arm.sve_vl > max_sve_vl) {
->> +            LOG(ERROR,
->> +                "Invalid sve value: %d. Platform supports up to %u bits=
-",
->> +                b_info->arch_arm.sve_vl, max_sve_vl);
->> +            return ERROR_FAIL;
->> +        }
+> It happens consistently for me with the same command line, both with gcc
+> and clang.
 >=20
-> You still need to check that sve_vl is one of the value from the enum,
-> or that the value is divisible by 128.
+> gcc (GCC) 12.2.1 20221121 (Red Hat 12.2.1-4)
+> clang version 15.0.7 (Fedora 15.0.7-2.fc37)
+>=20
+> Maybe there is a semantic merge conflict? I have applied the series on
+> top of master (05d50ba2d4) and my block branch (88f81f7bc8).
 
-I have probably missed something, I thought that using the way below to
-specify the input I had for free that the value is 0 or divisible by 128, i=
-s it
-not the case? Who can write to b_info->arch_arm.sve_vl different value
-from the enum we specified in the .idl?
+I can't find 88f81f7bc8 but rebased on repo.or.cz/qemu/kevin.git block
+(4514dac7f2e9) and the test passes here.
 
->=20
->> +    }
->> +
->>     if (b_info->type !=3D LIBXL_DOMAIN_TYPE_PV)
->>         return 0;
->>=20
->> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_t=
-ypes.idl
->> index fd31dacf7d5a..9e48bb772646 100644
->> --- a/tools/libs/light/libxl_types.idl
->> +++ b/tools/libs/light/libxl_types.idl
->> @@ -523,6 +523,27 @@ libxl_tee_type =3D Enumeration("tee_type", [
->>     (1, "optee")
->>     ], init_val =3D "LIBXL_TEE_TYPE_NONE")
->>=20
->> +libxl_sve_type =3D Enumeration("sve_type", [
->> +    (-1, "hw"),
->> +    (0, "disabled"),
->> +    (128, "128"),
->> +    (256, "256"),
->> +    (384, "384"),
->> +    (512, "512"),
->> +    (640, "640"),
->> +    (768, "768"),
->> +    (896, "896"),
->> +    (1024, "1024"),
->> +    (1152, "1152"),
->> +    (1280, "1280"),
->> +    (1408, "1408"),
->> +    (1536, "1536"),
->> +    (1664, "1664"),
->> +    (1792, "1792"),
->> +    (1920, "1920"),
->> +    (2048, "2048")
->> +    ], init_val =3D "LIBXL_SVE_TYPE_DISABLED")
->=20
-> I'm not sure if I like that or not. Is there a reason to stop at 2048?
-> It is possible that there will be more value available in the future?
+I rebased on qemu.git/master (05d50ba2d4) and it also passes.
 
-Uhm... possibly there might be some extension, I thought that when it will
-be the case, the only thing to do was to add another entry, I used this way
-also to have for free the checks on the %128 and maximum 2048.
+Please let me know if the following tree (a0ff680a72f6) works on your
+machine:
+https://gitlab.com/stefanha/qemu/-/tree/remove-aio_disable_external
 
->=20
-> Also this mean that users of libxl (like libvirt) would be supposed to
-> use LIBXL_SVE_TYPE_1024 for e.g., or use libxl_sve_type_from_string().
->=20
-> Also, it feels weird to me to mostly use numerical value of the enum
-> rather than the enum itself.
->=20
-> Anyway, hopefully that enum will work fine.
->=20
->> libxl_rdm_reserve =3D Struct("rdm_reserve", [
->>     ("strategy",    libxl_rdm_reserve_strategy),
->>     ("policy",      libxl_rdm_reserve_policy),
->=20
-> Thanks,
->=20
-> --=20
-> Anthony PERARD
+Thanks,
+Stefan
+
+--KLJLJshWTSqDDVpb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRRbGMACgkQnKSrs4Gr
+c8iL5Af+MRYfwim9BEWCQ+OFF9rPydT4E+bBnTgMftUJz8XcaxXz5sDzpq3sXhvM
+UXDSMHg1/RY38aMEGGT1kPtlxI3zUO3pwNckFeU3rpqa22dI1yxMwI92Rn29LLIk
+8txmNTd4eG89Vgvvl3zrqV/budvInTRmy7ZtMgMnNJ+SGAMxWWtakCZlBQzw7WBh
+946sfiub2lvQKnvBgQJJLCOfVs3drSqV9+4IdzkpGwjN5fruVe3WhKC98Ha88ACF
+L4cpa9MvlMyJvrxmPdB2uL8Eyn1mV3uLVi8Z0nRwiy4/mtahrGMZ3jkEJNi3Zn12
+qpT/iMyl9DjsAj5nh2ElduicM7QFgw==
+=9x4Q
+-----END PGP SIGNATURE-----
+
+--KLJLJshWTSqDDVpb--
 
 
