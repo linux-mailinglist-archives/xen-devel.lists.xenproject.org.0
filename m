@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C54DC6F4221
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 12:59:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528490.821717 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0D2B6F421D
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 12:59:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528489.821708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptnjB-0006nk-Pa; Tue, 02 May 2023 10:59:25 +0000
+	id 1ptnix-0006Tr-D0; Tue, 02 May 2023 10:59:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528490.821717; Tue, 02 May 2023 10:59:25 +0000
+Received: by outflank-mailman (output) from mailman id 528489.821708; Tue, 02 May 2023 10:59:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptnjB-0006lG-M4; Tue, 02 May 2023 10:59:25 +0000
-Received: by outflank-mailman (input) for mailman id 528490;
- Tue, 02 May 2023 10:59:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/mRu=AX=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1ptnjA-0006kf-Fm
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 10:59:24 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20628.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::628])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 648248b0-e8d8-11ed-b225-6b7b168915f2;
- Tue, 02 May 2023 12:59:22 +0200 (CEST)
-Received: from DM6PR05CA0052.namprd05.prod.outlook.com (2603:10b6:5:335::21)
- by PH7PR12MB9101.namprd12.prod.outlook.com (2603:10b6:510:2f9::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.30; Tue, 2 May
- 2023 10:59:14 +0000
-Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:335:cafe::17) by DM6PR05CA0052.outlook.office365.com
- (2603:10b6:5:335::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.20 via Frontend
- Transport; Tue, 2 May 2023 10:59:14 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6363.21 via Frontend Transport; Tue, 2 May 2023 10:59:13 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 2 May
- 2023 05:59:13 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 2 May
- 2023 03:59:12 -0700
-Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 2 May 2023 05:59:11 -0500
+	id 1ptnix-0006QW-9O; Tue, 02 May 2023 10:59:11 +0000
+Received: by outflank-mailman (input) for mailman id 528489;
+ Tue, 02 May 2023 10:59:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fQfQ=AX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1ptniw-0006Q7-08
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 10:59:10 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0619.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::619])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c08f4e2-e8d8-11ed-8611-37d641c3527e;
+ Tue, 02 May 2023 12:59:07 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM9PR04MB8177.eurprd04.prod.outlook.com (2603:10a6:20b:3b7::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31; Tue, 2 May
+ 2023 10:59:04 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6340.030; Tue, 2 May 2023
+ 10:59:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,243 +47,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 648248b0-e8d8-11ed-b225-6b7b168915f2
+X-Inumbo-ID: 5c08f4e2-e8d8-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WzaL5pvSdR6/FWIl5XJrQcaUB9qFlxhr2tzrHUsg/nQ8B3OETwOrH+Ua1y/AUpABhGJ8nDlNnjiY+TvV7RiWPw5aTl9/6YWtupUcilUIvUMVWemXb/6itFUDHI77Nc5QCTi/yif3Mshe5e+187xkpf8RLXRt9Cui1Z0C/qgpeqiikckh77qxZlCRpjtBh7crLOobsLDjIRj0UMX6v7DfS43FfAJPca8tScG8uXY7fwrfxGKt7VM9FPGGhD5PNk/rbTyOzfeWn0J+EkjLd8BcnsEtQsTl1BEYXKOSQk9Pf8Yl+zlmwvKXrR9W7IYkwa/cKCsNbwMbYXL5Hl8hZpwU6g==
+ b=Zx78q1ZzM2xxCujcPgwQ+6ZG6BElMZMDs60MTwfinDgo2+DKHGpljpZyZHGLiKvk86uJVD/XLXLTqDO6F9jBWWyYOILl7E9uXwlTPMW5bEBrwYW0xG/+11SHQNLXEkX/+8LluV/M2q2vRlFJGlak8oOmtm/OP3bBhbG7tDmnoRPvLixGmTHVDb+RvHbVEt3qykscCITNbuLYMgup3y3ZCQ5oRqa7pPSN8O266jZPyvtpqe9wYFRK2k7sQu0w5HA4G7W5o9fCCfgsffd/wMK5CFCVsSvNbZiWySrdwv5eaJ7lEBmjMWkDLL3Q7N6SERauYX9nvuSVM/l6HmilU/iVIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6PNfiLfJ10whjs+8iQVR/PSPige/chRgA3zDIEpohM0=;
- b=nBJvrYCkscFgGLIrrQkgi2tqczU2DO5vaWGd3uFUTaQdkJSsgAgb0TB+ajpIqtzX1FOQrCN1Km758PrrF9Xf4/i8Kzpd5cjw38NAhe7aGcaPxuU8TBF3V17687rpFnBrD+1IciJeFr45iP46EiaxrwJq1kH5Gq1H/a/lMFO5dHuaPDaWmquvDTtzXtXYbo7wbOg5CKfr3vafN0ffviEKlkvKbMh6I3268NvKc/SEwQddMuFuZ2TPf/hJJE9ky7XlPdsQPM80M0U+6C+KYQmScUSoZcwUwn6u32owXiKKqJxcur/r0CxgtpcPV6qKVQ1UufE5zKwpvPXSZqm27xeShw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=W3fCQlvpDzEPjiM6a2fCovblRteLnyI0+TpO2FGT6zY=;
+ b=Lr09JNO3cDo1JUzF+X3OrIzG1wkHh5cvu6ZjfS5QlDyaXZ9h+D9C8xy7jr6jL+v82c1RSiwYFA1xhZeRdOEz0E49wV8X6wmzNCWKmG31Vi1M7P3z5BKteoaGMOFxNdwTVC0Twcq1J264cG/PX8kg8nlE+xCJIiIuVcYnRaVzNC+VpYlzJRQfMy2+O+dfKvCvTfxAs35OeO8hLMwkAeDzttvjUNS53dkkeHB7q382U2bVIX/cNw5rH+uOJrdrzvPZ/mMBRuqtZvPNiK6/ldaUhOWpxssf7b4/hFLFXdr2CYlPOy1wyPdU56ZadBvtzVHkfZV24uvlYMRHpS8XwOjpow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6PNfiLfJ10whjs+8iQVR/PSPige/chRgA3zDIEpohM0=;
- b=z9mGcYRSjjWrIvhFEG2GoM16AhGE/tK0alCTBGkOOp7ROsVx31t+Ru17frXUwHcUMS3Q9JWKRgUuRIeO34eCHN6lHxoLm2lp0ZwdsXU5W4Xqvvmg0qIe9V3vDxH+GMjn+wDya8XZoaLaSy0U+zJSzSGBRQpqJdC4Nz0RorWLHrI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>, Ayan Kumar Halder
-	<ayan.kumar.halder@amd.com>
-Subject: [RFC PATCH] xen/arm: arm32: Enable smpboot on Arm32 based systems
-Date: Tue, 2 May 2023 11:58:49 +0100
-Message-ID: <20230502105849.40677-1-ayan.kumar.halder@amd.com>
-X-Mailer: git-send-email 2.17.1
+ bh=W3fCQlvpDzEPjiM6a2fCovblRteLnyI0+TpO2FGT6zY=;
+ b=MQN2nyNvqbSvypviWgvIKv28HjuQU2VPz9XUsO7kKp1cdnY2QzYu47H7+4mtN2DdBQqWQUBlkRHIpVS2YNAeAggiedyMQU8lKEuusdPCoB658VtEXxAonFzFAfH0qULea5x8c4wFSi7NHKJP/r6mlzNuHoSfXubbIM5EfO17SsmOup9MnPEvFi4mnzMVzBMxegceTx/iHBgkQrP/Q17pDJ8oHoWY2KeBS4dsZDqRe5GW83crL35Pb+Mg+HTHqY56hhkVWL08iMzZyCW4rzRP/GP0oRVwS9Zz0u3XUrDrhWR7sjfyVgZBLcbV88FcP2DJJdPU8VFpGbhUTOih4TkIzQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <22b2e03c-ac5e-915a-78a2-0a632b09a53a@suse.com>
+Date: Tue, 2 May 2023 12:59:06 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH] sysctl: XSM hook should not cause
+ XEN_SYSCTL_getdomaininfolist to (appear to) fail
+Content-Language: en-US
+To: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <26064a5a-423d-ded5-745e-61abb0fa601c@suse.com>
+ <600c8c62-5982-ec7e-7996-5b7fbfb40067@apertussolutions.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <600c8c62-5982-ec7e-7996-5b7fbfb40067@apertussolutions.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0087.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT031:EE_|PH7PR12MB9101:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5ed3dd7-90c7-42a8-c0e9-08db4afc4417
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8177:EE_
+X-MS-Office365-Filtering-Correlation-Id: da721443-6b17-41be-f00b-08db4afc3e6e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3ktANM2X2wpzfWF7vop5ZDS74ZOsRE8IF8bCVEKyXE0/s+TLLUnKBXSUs2myd2LIpy7N2BcY95ko1FqBRDIUfowqVvKxnvAmJDSYDuZL4SUzvxhDUbJaNQyR+S5AmlMz4O4KSqtmzvGX8Ckw1gE1SCTdBTURnuuDDBv4sFxRI6Z6H8TQe+d/zniawhuqZe5BrqG6ygWi4Sw32mwQ9hu0+58UBwL/hQSgNUWybr8rcNCL9/8os+n2YnyGhTjqibmfOcHm9ab+8MpyQ4mvQp0Kf1pgzpqu1YFckDpF7ZgB90lo7LYFvPfvpCZOPxvChGs2KiyjlWREUriZX/DbhHBVo0ARTos44N0hsc+EGugWjn6gnYjyd2hv1GOkD9w632V5aKr53yDy7MlcccjDqiU6Jj7jgXZyLVv6tG7SuF0I0IXPkKibjJ24X4uMSm9tcHbw9wthwk7H0rYxcAk25CvLzr0vzQpRwaGteOzM0uRyP7cSZd/yToLVBs91JxVTJAz+y0sGb+l/hC/1RxIM3ooiOYw3cxrlyo8DiuTJ2zDX75batf1bFWhAcP/iSxFkP308El3HnSdznD0e09y/T6Gx1yjek160lEbfXdYXIq5ad7GTXu4Ju63JFh1kw6nrlmAtTPmOMnDtneCEjC8pivT7AgdKuTPKNVUOQfocHQZOLZ0yQKgqIjnbqHpkdBOAIUK8VfWBLJmu9WoYq3xXN2cqU/RfjQj4AE6FHJITX+KYF0w=
+	8YodDVeluo0qVcFLJrtElMsBqieglQfr5MkiCdmfgv/uQNzkb1cM/avK39Olr0MdPE5Osl3Gz86MhpnlTTzPw37i0HDaS8U/YIMATQLbm8WLCn6CC043x8M1CSdQbJBml9K6IlH8AxfML7w6gvIgcL1HUBM7K4Gc+Rpy++wLDkJTJBxrSHVBu5+4Cpscp0YRn4PHtVKZvdyrf//ac0+EQj4ASk0H83ON145y1mLjmeowgzxYTWn5HuQSbDjgyWADICRELIlMrQf+LFqPnWV1Ho48fMmEQ5JNZEpgAiEEi1TGuCupZUqrcn/4FH4RI46dHadOR5W3GYGhcKqnB3ZRvbkoJ2BEWQeVNPWLFiLRM7EJdYbnCSWX25vHuXExB/fGJuI6K1Z8kFnUyT3sgLEo/7Bv0UdlTuuD9mHK7QLwgvjfN3DXjYU3OeGuiq6T1AClMRb0yNv/L9nxEo3WFDwjuK31kduAZ8p9CMxTP0hBDAxr9h+cF7Prrt7o3aa6FZEJf2BD439iHiwmtajz8cP4wcUE3qIHm6aytA4zJnwhmmRPLwFi9+LrnHLcGpW21ueHNZj2mOp53MNI0BEHfBCcXt9cjgg+UDP8aqq49FIAFyJC6cUP+fD/SBoN6MmM0oEM7CMb77NbogYhdCdm/VV+0g==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(26005)(1076003)(478600001)(36860700001)(47076005)(2616005)(426003)(336012)(186003)(83380400001)(86362001)(40460700003)(966005)(6666004)(40480700001)(82310400005)(8936002)(316002)(2906002)(54906003)(70586007)(6916009)(103116003)(8676002)(36756003)(356005)(70206006)(82740400003)(81166007)(41300700001)(5660300002)(4326008)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 10:59:13.6895
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(136003)(39860400002)(396003)(346002)(376002)(451199021)(316002)(6486002)(41300700001)(8936002)(8676002)(478600001)(5660300002)(54906003)(31686004)(6916009)(66946007)(66476007)(66556008)(4326008)(26005)(6512007)(6506007)(2906002)(53546011)(186003)(36756003)(2616005)(83380400001)(38100700002)(66574015)(31696002)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dHhHMGxXMEtDKzRrSC8wSjZzcTlRWGNUeVUrcFdacXBrY05MLzBWb3k2Mi9t?=
+ =?utf-8?B?MGtoQ2VvYTFPVWNEM2RxSlh1WXlVcW10RzJQei9uMk1HLzJFV1NSeFY0MmJl?=
+ =?utf-8?B?OVUzTHgvOGE3ekxpY1U4Nk4zeEJsN2ozNVBOWnpvUlZsOTRGOTQyR3RkcWVS?=
+ =?utf-8?B?dTdqejNCVVVLUy9VeHBpb0pLd3I1dHduOXFGZXR4VHRzRFpGVUExbnI4MjNj?=
+ =?utf-8?B?d3ZtWmhMT2NXSEpwYXFsbms5R3BnZWVRUzYwZzJ1bmdtMkNTcVFJam9YL1Ex?=
+ =?utf-8?B?TDk4NzAvcGZNSlBzamdySFNXdm9ULzZMbXE3ZXNzd1EzdjVCQk1UZ0R4RG8z?=
+ =?utf-8?B?MUt6UzIxRlpnMWNCVGNZSWw2cFNERVVzbWtWaHl6b0tVSm5SRVErSWo4dTBI?=
+ =?utf-8?B?NGYzbjFzN2dzOWxZTXgvc1NiVkhSZE91WWJHdkNvS3RjRGdaNXpGamVoU2RI?=
+ =?utf-8?B?TjdxSXZnd0VNdmdwS1VVdzQrcFN0eU0zNjAzWjFBbWFORDlHdUFaM2dIQUNF?=
+ =?utf-8?B?KzgrZCtwMExCTkgwZ1haRWc5SEIyczZ6RDNlR1Frd0J0QWdEbno0SUgzTjVa?=
+ =?utf-8?B?MG93eGtOSzhVZ0N3aEJMUWxPMkVkYWpuVzdPb3J6dE9LQ3VSZklPWllKS3VJ?=
+ =?utf-8?B?Rk5KMVc4VDBXQjZrV3diZUlMS2N0U042SlQzSXM4L3hQR09va1QwVHJsRGVQ?=
+ =?utf-8?B?bDdFM1djT1VuOUt3V3AwTmRMeEV6bENmdE5RK0JCWHA5YVFIWXNNbjcrV04z?=
+ =?utf-8?B?Kytrb29sUFhhcUZ1MDFwM092by9DS0Z3czFUNzdSdXRpUlR3ZERLYVdlYXlt?=
+ =?utf-8?B?VGhvUTFQc2FXcHBBYXlzb25qUDZOa1VOV2lUSGV3T3IvNHY0ZjgxNTVkaWFy?=
+ =?utf-8?B?OTNlY3JTdFBmbDI4eVNNdHNpUU5VTXlQbFJSaXAwc1lKZkt1U0s5V1NVZVBU?=
+ =?utf-8?B?b1laUGt3SG84aXp0emcrTzlGRkhhWWdvd2NHMFl2YjgvdnRFamtBN3RWaEVl?=
+ =?utf-8?B?ZktKU2g0THJESlBnVkdSRjNMelNTc0dSNU4ybWVDTWpBdU14WkRPOEEwUDc2?=
+ =?utf-8?B?L2pMalltMHVJbG44clR3VVFkSDh6SkdudzJIYVlUakIrWUFLcXNZMkJJbmtX?=
+ =?utf-8?B?NzhxdU5ISUE1aXN0bk94MlZmRlZuV1d4ZVk4RzZHcDJWRllyTWc1Qi9QTm0v?=
+ =?utf-8?B?N0lCcVRHUmM0MFBsdDFYb1NVM1ZUK1VFT0N2OS9YU3lTU3RwcW1ZTElxM0g4?=
+ =?utf-8?B?RENQTjJza2ZxcDZNWG05OW9LRDJteEd3OW16eVZPa21Ca3ArZE5oVHd2Wm9D?=
+ =?utf-8?B?clYvSkVGT3BmUE5idEpDcGRzUFROUm5PSFp3ZXU2K0Mvd2NBbmFHbUhWS2hV?=
+ =?utf-8?B?NVI4Tm0ralE1V05yb0FFdXRZTzR1dXRrc3FnbndGWkFOSUFxU0NqSzV2d2JF?=
+ =?utf-8?B?bDhWQk9yQ3ZGdjIzWnR5NSt3bVlCMngrOFVtelNjMWZ2RTFXSnhPSTJwdGdD?=
+ =?utf-8?B?L0RCenF6a1cyY0l4bG00aC80RW14cXpZc2I2RjlXMFN5Ym4wUUFpMHlwdXc0?=
+ =?utf-8?B?WmJtRU92QzlGOTgzK21GbHh6bFJvQmE3M1Q1TSttcTNJd0RrY2YxVlBIVmtF?=
+ =?utf-8?B?bFY1VjVlZCtpZmpBdFpzdlRXMFZvK0VkKzNMaC9ZTWQ3cDhFRzkxWlMwRDZF?=
+ =?utf-8?B?ZFlCOGVBbldLaGFwNVJIbGViT29wdlpNcWpSOVU4bmlNWmNOb3l4bThiTzBK?=
+ =?utf-8?B?WG5iTEJXMGNkbEV4eU9CbTU3aS9ZMnpnLzd3ZHljZ0NPcm5hVlV1WE1uYTBj?=
+ =?utf-8?B?QWd3RElqSXdqVGVuWFFTUFFJS2pCS2Y0aGEvZ0pxbGJPZzZtS1NwTmNoS00w?=
+ =?utf-8?B?Sitkbnh4WmMzSWQyVmdvUTJzd0F2cGNNZ1hsbmwxL2dhNmphM3Q3dXpHRms3?=
+ =?utf-8?B?VHI1QWQwazZNMko3QzRHR2ZqOVJIbmlEUTFBV2xaWTRLSXpVQkZ2RmNsZmVw?=
+ =?utf-8?B?UlR3SlNXV0dWRFkzZGdEb25VQURCSXIzZWtnM3pNOTdrSzRLb0ZTV1p3aTlR?=
+ =?utf-8?B?UDY4Q0V0OUhPZE9rVnEwK0t5UW1tS1Bsc1BndHpjeFlBWDNBUnIvVmNDR2tw?=
+ =?utf-8?Q?8wPfg6iPR/5pOamGykcONx8oE?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da721443-6b17-41be-f00b-08db4afc3e6e
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 10:59:04.4328
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5ed3dd7-90c7-42a8-c0e9-08db4afc4417
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9101
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Wa5abGoCzdx6yeb8wywLyDU5C9b2K+nJ2SfZeP0VJ5jR+7KBU928de8HzHutaiPyiPA/tNJYjL+QW9r6yGKg4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8177
 
-On some of the Arm32 based systems (eg Cortex-R52), smpboot is supported.
-In these systems PSCI may not always be supported. In case of Cortex-R52, there
-is no EL3 or secure mode. Thus, PSCI is not supported as it requires EL3.
+On 02.05.2023 12:43, Daniel P. Smith wrote:
+> On 5/2/23 03:17, Jan Beulich wrote:
+>> Unlike for XEN_DOMCTL_getdomaininfo, where the XSM check is intended to
+>> cause the operation to fail, in the loop here it ought to merely
+>> determine whether information for the domain at hand may be reported
+>> back. Therefore if on the last iteration the hook results in denial,
+>> this should not affect the sub-op's return value.
+>>
+>> Fixes: d046f361dc93 ("Xen Security Modules: XSM")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> The hook being able to deny access to data for certain domains means
+>> that no caller can assume to have a system-wide picture when holding the
+>> results.
+>>
+>> Wouldn't it make sense to permit the function to merely "count" domains?
+>> While racy in general (including in its present, "normal" mode of
+>> operation), within a tool stack this could be used as long as creation
+>> of new domains is suppressed between obtaining the count and then using
+>> it.
+>>
+>> In XEN_DOMCTL_getpageframeinfo2 said commit had introduced a 2nd such
+>> issue, but luckily that sub-op and xsm_getpageframeinfo() are long gone.
+>>
+> 
+> I understand there is a larger issue at play here but neutering the 
+> security control/XSM check is not the answer. This literally changes the 
+> way a FLASK policy that people currently have would be enforced, as well 
+> as contrary to how they understand the access control that it provides. 
+> Even though the code path does not fall under XSM maintainer, I would 
+> NACK this patch. IMHO, it is better to find a solution that does not 
+> abuse, misuse, or invalidate the purpose of the XSM calls.
+> 
+> On a side note, I am a little concern that only one person thought to 
+> include the XSM maintainer, or any of the XSM reviewers, onto a patch 
+> and the discussion around a patch that clearly relates to XSM for us to 
+> gauge the consequences of the patch. I am not assuming intentions here, 
+> only wanting to raise the concern.
 
-Thus, we use 'spin-table' mechanism to boot the secondary cpus. The primary
-cpu provides the startup address of the secondary cores. This address is
-provided using the 'cpu-release-addr' property.
+Well, yes, for the discussion items I could have remembered to include
+you. The code change itself, otoh, doesn't require your ack, even if it
+is the return value of an XSM function which was used wrongly here.
 
-To support smpboot, we have copied the code from xen/arch/arm/arm64/smpboot.c
-with the following changes :-
+> So for what it is worth, NACK.
 
-1. 'enable-method' is an optional property. Refer to the comment in
-https://www.kernel.org/doc/Documentation/devicetree/bindings/arm/cpus.yaml
-"      # On ARM 32-bit systems this property is optional"
+I'm puzzled: I hope you don't mean NACK to the patch (or effectively
+Jürgen's identical one, which I had noticed only after sending mine).
+Yet beyond that I don't see anything here which could be NACKed. I've
+merely raised a couple of points for discussion.
 
-2. psci is not currently supported as a value for 'enable-method'.
-
-3. update_identity_mapping() is not invoked as we are not sure if it is
-required.
-
-Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
----
-
-The dts snippet with which this has been validated is :-
-
-    cpus {
-        #address-cells = <0x02>;
-        #size-cells = <0x00>;
-
-        cpu-map {
-
-            cluster0 {
-
-                core0 {
-
-                    thread0 {
-                        cpu = <0x02>;
-                    };
-                };
-                core1 {
-
-                    thread0 {
-                        cpu = <0x03>;
-                    };
-                };
-            };
-        };
-
-        cpu@0 {
-            device_type = "cpu";
-            compatible = "arm,armv8";
-            reg = <0x00 0x00>;
-            phandle = <0x02>;
-        };
-
-        cpu@1 {
-            device_type = "cpu";
-            compatible = "arm,armv8";
-            reg = <0x00 0x01>;
-            enable-method = "spin-table";
-            cpu-release-addr = <0xEB58C010>;
-            phandle = <0x03>;
-        };
-    };
-
-Although currently I have tested this on Cortex-R52, I feel this may be helpful
-to enable smp on other Arm32 based systems as well. Happy to hear opinions.
-
- xen/arch/arm/arm32/smpboot.c | 84 ++++++++++++++++++++++++++++++++++--
- 1 file changed, 80 insertions(+), 4 deletions(-)
-
-diff --git a/xen/arch/arm/arm32/smpboot.c b/xen/arch/arm/arm32/smpboot.c
-index 518e9f9c7e..feb249d3f8 100644
---- a/xen/arch/arm/arm32/smpboot.c
-+++ b/xen/arch/arm/arm32/smpboot.c
-@@ -1,24 +1,100 @@
- #include <xen/device_tree.h>
- #include <xen/init.h>
- #include <xen/smp.h>
-+#include <xen/vmap.h>
-+#include <asm/io.h>
- #include <asm/platform.h>
- 
-+struct smp_enable_ops {
-+        int             (*prepare_cpu)(int);
-+};
-+
-+static uint32_t cpu_release_addr[NR_CPUS];
-+static struct smp_enable_ops smp_enable_ops[NR_CPUS];
-+
- int __init arch_smp_init(void)
- {
-     return platform_smp_init();
- }
- 
--int __init arch_cpu_init(int cpu, struct dt_device_node *dn)
-+static int __init smp_spin_table_cpu_up(int cpu)
-+{
-+    uint32_t __iomem *release;
-+
-+    if (!cpu_release_addr[cpu])
-+    {
-+        printk("CPU%d: No release addr\n", cpu);
-+        return -ENODEV;
-+    }
-+
-+    release = ioremap_nocache(cpu_release_addr[cpu], 4);
-+    if ( !release )
-+    {
-+        dprintk(XENLOG_ERR, "CPU%d: Unable to map release address\n", cpu);
-+        return -EFAULT;
-+    }
-+
-+    writel(__pa(init_secondary), release);
-+
-+    iounmap(release);
-+
-+    sev();
-+
-+    return 0;
-+}
-+
-+static void __init smp_spin_table_init(int cpu, struct dt_device_node *dn)
- {
--    /* Not needed on ARM32, as there is no relevant information in
--     * the CPU device tree node for ARMv7 CPUs.
-+    if ( !dt_property_read_u32(dn, "cpu-release-addr", &cpu_release_addr[cpu]) )
-+    {
-+        printk("CPU%d has no cpu-release-addr\n", cpu);
-+        return;
-+    }
-+
-+    smp_enable_ops[cpu].prepare_cpu = smp_spin_table_cpu_up;
-+}
-+
-+static int __init dt_arch_cpu_init(int cpu, struct dt_device_node *dn)
-+{
-+    const char *enable_method;
-+
-+    /*
-+     * Refer Documentation/devicetree/bindings/arm/cpus.yaml, it says on
-+     * ARM 32-bit systems this property is optional.
-      */
-+    enable_method = dt_get_property(dn, "enable-method", NULL);
-+    if (!enable_method)
-+    {
-+        return 0;
-+    }
-+
-+    if ( !strcmp(enable_method, "spin-table") )
-+        smp_spin_table_init(cpu, dn);
-+    else
-+    {
-+        printk("CPU%d has unknown enable method \"%s\"\n", cpu, enable_method);
-+        return -EINVAL;
-+    }
-+
-     return 0;
- }
- 
-+int __init arch_cpu_init(int cpu, struct dt_device_node *dn)
-+{
-+    return dt_arch_cpu_init(cpu, dn);
-+}
-+
- int arch_cpu_up(int cpu)
- {
--    return platform_cpu_up(cpu);
-+    int ret = 0;
-+
-+    if ( smp_enable_ops[cpu].prepare_cpu )
-+        ret = smp_enable_ops[cpu].prepare_cpu(cpu);
-+
-+    if ( !ret )
-+        return platform_cpu_up(cpu);
-+
-+    return ret;
- }
- 
- void arch_cpu_up_finish(void)
--- 
-2.17.1
-
+Jan
 
