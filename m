@@ -2,43 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1487A6F4B06
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:10:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528815.822438 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 280B66F4B1B
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:15:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528818.822447 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwKg-0005GQ-Ck; Tue, 02 May 2023 20:10:42 +0000
+	id 1ptwOs-0005pc-Sv; Tue, 02 May 2023 20:15:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528815.822438; Tue, 02 May 2023 20:10:42 +0000
+Received: by outflank-mailman (output) from mailman id 528818.822447; Tue, 02 May 2023 20:15:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwKg-0005DR-99; Tue, 02 May 2023 20:10:42 +0000
-Received: by outflank-mailman (input) for mailman id 528815;
- Tue, 02 May 2023 20:10:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GGWT=AX=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1ptwKe-0005DL-MF
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:10:40 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6775e7a5-e925-11ed-8611-37d641c3527e;
- Tue, 02 May 2023 22:10:38 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-215-bZJNyyK4N4GaEmywDujudQ-1; Tue, 02 May 2023 16:10:34 -0400
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04349381D4CF;
- Tue,  2 May 2023 20:10:33 +0000 (UTC)
-Received: from localhost (unknown [10.39.192.230])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4A3BA2026D16;
- Tue,  2 May 2023 20:10:32 +0000 (UTC)
+	id 1ptwOs-0005nh-Pz; Tue, 02 May 2023 20:15:02 +0000
+Received: by outflank-mailman (input) for mailman id 528818;
+ Tue, 02 May 2023 20:15:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=d5QU=AX=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1ptwOr-0005nb-3W
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:15:01 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [81.169.146.218]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 03a698ed-e926-11ed-b225-6b7b168915f2;
+ Tue, 02 May 2023 22:15:00 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
+ with ESMTPSA id x6987cz42KEleXg
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 2 May 2023 22:14:47 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,112 +41,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6775e7a5-e925-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683058237;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G3M6X6Cb/uW8g9mA7FuVSmxMkf0IsGJPoGtjU0Aq7ck=;
-	b=RZxDJe5lu4RnGcmN+KYDTrqtX7hrzuZzbT2Beipg3nNRdhCAPthdixq8qoRBt3l59wscW8
-	qcsgj0Zt4h1IxBUffsPO2o3AT1V9brxXxYH/02H2VCMtD8+VoZMDrUTwarfpMVchnSUVAo
-	6U8cRZm+2CHan+r0/c7LeYkJciKsnZA=
-X-MC-Unique: bZJNyyK4N4GaEmywDujudQ-1
-Date: Tue, 2 May 2023 16:10:29 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: qemu-devel@nongnu.org,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Juan Quintela <quintela@redhat.com>,
-	Julia Suvorova <jusual@redhat.com>, xen-devel@lists.xenproject.org,
-	eesposit@redhat.com,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Fam Zheng <fam@euphon.net>, "Michael S. Tsirkin" <mst@redhat.com>,
-	Coiby Xu <Coiby.Xu@gmail.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Peter Lieven <pl@kamp.de>, Paul Durrant <paul@xen.org>,
-	"Richard W.M. Jones" <rjones@redhat.com>, qemu-block@nongnu.org,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Stefan Weil <sw@weilnetz.de>, Xie Yongji <xieyongji@bytedance.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Aarushi Mehta <mehta.aaru20@gmail.com>,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Hanna Reitz <hreitz@redhat.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Subject: Re: [PATCH v4 10/20] block: drain from main loop thread in
- bdrv_co_yield_to_drain()
-Message-ID: <20230502201029.GF535070@fedora>
-References: <20230425172716.1033562-1-stefanha@redhat.com>
- <20230425172716.1033562-11-stefanha@redhat.com>
- <ZFE4gFFXnu+FSk35@redhat.com>
+X-Inumbo-ID: 03a698ed-e926-11ed-b225-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1683058487; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=Ds0jttF+aKpnyizFvLwPcgYyQRhFfzMmVaTRFZFNctH8VH0kFLcpAqsfezmvXBRCYz
+    KdHcAvL8a5xQxKV3oJ4eFsD9UpZKLkQJ0B3RifRzgEJCB9MSttCR6Vzo64PXAldLsrBc
+    Wz07E2ECscbZkA5fovapg8KST8mN89S1n52mNib0tFWFXVUOeBmSxH7SET4Q7MgUQom3
+    tu8yYbmqek/+H7PJCALNsWv/K6qdJ1Ujd203jQM7vnuFJ5NkoPZnCZ+Bw+Fk2eRpNA6E
+    B2Q2wMD/a10MG4miOUoWb362pgJ0ynvRiq1jXFXazKxDb3PnokK50/j+CXGvKi4BnALs
+    JmfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683058487;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=HaTckfyLjqk40qDuyIqmlzT69DZDd16J9hzv/RfFXdw=;
+    b=dsxLrTGvJ23T0cLr9YlQYcXuwdqpEWfDYiLJ94z/QIJ6twmuzGXMtrvyN6ftwhIIYG
+    cfYul3FNjCmKCe/qiQMwMckCgNWTmJ8WSpOXPjJp/77pGtBy0vUu1VM6YQvDHcdQI247
+    Ng8R0AEne0dExBspNBKkpofLCNvuCXph5HkmY1aSB2iE/T7J3Onbc2wGrBCKFMJAEtKy
+    52eKKRcbrln15szUJw+GSGCZiSKSPQUJEe0xD749jR3H52DVyaISMj+5qlzfGVI8zXyU
+    EJC4xpoRO9h6WzGmNluT2N/aEl8wYKCuxPtym6chdTBQHnK/+HYHHty1aF3Fm/Kb0KBa
+    hqVA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683058487;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=HaTckfyLjqk40qDuyIqmlzT69DZDd16J9hzv/RfFXdw=;
+    b=OXtbbvbKPXlMkGJF8ZaYajgpWeNfBs5y3Qf140/IE3LzHJPYCTOyQS3fS780NHuQ5j
+    wKE5wO7VZgpvTzvymXqXSFRv2IFmMJ2lMH5CK9QJgEOu/c91IdiILy331uVW7b8XwSu6
+    PMHFbPeI78m579EtlPF1iiCxl01o5b0/00uJQybU4YdMj+POgy+n6QqXVbbCSjEI9Sm0
+    Aq3Gz5e041ng0qtZ7WMw4XXgRPtyx05VRzPaRGno9mNg9Q0S5azvMnIPXA+wqMmaUnp8
+    ZClndfo8k0LLVapdnt19BAbUxbNGI0cTeZpys1u70TOiw40CosQ6wvChDjtgtmxQCx8V
+    858w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683058487;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=HaTckfyLjqk40qDuyIqmlzT69DZDd16J9hzv/RfFXdw=;
+    b=L5mt69J7gmNxWp5lL7WZVDPa68NiGMEPAUz+f0Z9EBN68KWNTHWFAEWe3zLIl2gfLE
+    P6ezV3ZGiZBn8qyoISDA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4wqVv7FZ8tH5EUSbMVU80kUr7f4QlYaI60OjHt/Q=="
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v1] automation: provide example for downloading an existing container
+Date: Tue,  2 May 2023 20:14:44 +0000
+Message-Id: <20230502201444.6532-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="brpBxr+X1vKHT7XM"
-Content-Disposition: inline
-In-Reply-To: <ZFE4gFFXnu+FSk35@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+ automation/build/README.md | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
---brpBxr+X1vKHT7XM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, May 02, 2023 at 06:21:20PM +0200, Kevin Wolf wrote:
-> Am 25.04.2023 um 19:27 hat Stefan Hajnoczi geschrieben:
-> > For simplicity, always run BlockDevOps .drained_begin/end/poll()
-> > callbacks in the main loop thread. This makes it easier to implement the
-> > callbacks and avoids extra locks.
-> >=20
-> > Move the function pointer declarations from the I/O Code section to the
-> > Global State section in block-backend-common.h.
-> >=20
-> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
->=20
-> If we're updating function pointers, we should probably update them in
-> BdrvChildClass and BlockDriver, too.
-
-I'll do that in the next revision.
-
-> This means that a non-coroutine caller can't run in an iothread, not
-> even the home iothread of the BlockDriverState. (I'm not sure if it was
-> allowed previously. I don't think we're actually doing this, but in
-> theory it could have worked.) Maybe put a GLOBAL_STATE_CODE() after
-> handling the bdrv_co_yield_to_drain() case? Or would that look too odd?
->=20
->     IO_OR_GS_CODE();
->=20
->     if (qemu_in_coroutine()) {
->         bdrv_co_yield_to_drain(bs, true, parent, poll);
->         return;
->     }
->=20
->     GLOBAL_STATE_CODE();
-
-That looks good to me, it makes explicit that IO_OR_GS_CODE() only
-applies until the end of the if statement.
-
-Stefan
-
---brpBxr+X1vKHT7XM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRRbjUACgkQnKSrs4Gr
-c8gcCwf/T65LBfJJcwJAyvlXRfg2oJ/yZvsfJ3BZCAaupLZjx+EeDLlXwOdhSb2S
-GKjZnCRY+804xb2asfcWI/aD6+FfB/OtlSQmoNpLQ0rRSl0ySEwoAolto1Z9ekGZ
-L+Jfc76d+YxOe+NNrrZ9OzISmnofdrQVvqoJotHO/4bB0pUPvWzJG4f+ji/jy3u/
-A+7u0pbN8C5zVOa6Cd3OXliYePtIv3nGH9xL8HmL/6YQD5rcPgFj2HlylhSMjRqy
-dY54mvDssnwZL5sI2RfogH00TesZlaXrVwMD5Mr+HJ/T5H3myPLw1Y3RCgiPVLCM
-WUaRx6PORhkBp198DzErfTVGl1grqQ==
-=G1hQ
------END PGP SIGNATURE-----
-
---brpBxr+X1vKHT7XM--
-
+diff --git a/automation/build/README.md b/automation/build/README.md
+index 2d07cafe0e..8ad89a259a 100644
+--- a/automation/build/README.md
++++ b/automation/build/README.md
+@@ -12,6 +12,12 @@ can be pulled with Docker from the following path:
+ docker pull registry.gitlab.com/xen-project/xen/DISTRO:VERSION
+ ```
+ 
++This example shows how to pull the existing container for Tumbleweed:
++
++```
++docker pull registry.gitlab.com/xen-project/xen/suse:opensuse-tumbleweed
++```
++
+ To see the list of available containers run `make` in this
+ directory. You will have to replace the `/` with a `:` to use
+ them.
 
