@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B586F4207
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 12:53:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528486.821698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C54DC6F4221
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 12:59:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528490.821717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptndJ-0005kh-TU; Tue, 02 May 2023 10:53:21 +0000
+	id 1ptnjB-0006nk-Pa; Tue, 02 May 2023 10:59:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528486.821698; Tue, 02 May 2023 10:53:21 +0000
+Received: by outflank-mailman (output) from mailman id 528490.821717; Tue, 02 May 2023 10:59:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptndJ-0005iR-PU; Tue, 02 May 2023 10:53:21 +0000
-Received: by outflank-mailman (input) for mailman id 528486;
- Tue, 02 May 2023 10:53:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fQfQ=AX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ptndH-0005fU-Mg
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 10:53:19 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2062f.outbound.protection.outlook.com
- [2a01:111:f400:fe16::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b9147d0-e8d7-11ed-8611-37d641c3527e;
- Tue, 02 May 2023 12:53:18 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by GVXPR04MB10069.eurprd04.prod.outlook.com (2603:10a6:150:121::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31; Tue, 2 May
- 2023 10:53:13 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6340.030; Tue, 2 May 2023
- 10:53:13 +0000
+	id 1ptnjB-0006lG-M4; Tue, 02 May 2023 10:59:25 +0000
+Received: by outflank-mailman (input) for mailman id 528490;
+ Tue, 02 May 2023 10:59:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/mRu=AX=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1ptnjA-0006kf-Fm
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 10:59:24 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20628.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::628])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 648248b0-e8d8-11ed-b225-6b7b168915f2;
+ Tue, 02 May 2023 12:59:22 +0200 (CEST)
+Received: from DM6PR05CA0052.namprd05.prod.outlook.com (2603:10b6:5:335::21)
+ by PH7PR12MB9101.namprd12.prod.outlook.com (2603:10b6:510:2f9::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.30; Tue, 2 May
+ 2023 10:59:14 +0000
+Received: from DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:335:cafe::17) by DM6PR05CA0052.outlook.office365.com
+ (2603:10b6:5:335::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.20 via Frontend
+ Transport; Tue, 2 May 2023 10:59:14 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT031.mail.protection.outlook.com (10.13.172.203) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6363.21 via Frontend Transport; Tue, 2 May 2023 10:59:13 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 2 May
+ 2023 05:59:13 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 2 May
+ 2023 03:59:12 -0700
+Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Tue, 2 May 2023 05:59:11 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,139 +63,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b9147d0-e8d7-11ed-8611-37d641c3527e
+X-Inumbo-ID: 648248b0-e8d8-11ed-b225-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z6uT0owrnYItSFu/uyk+jGZ88jOexV6wNpyIKosz5LRvMk3MPjLOZu8hBYufVM1prSBJ4VByLr2kmnoUw5ZP1fhzdZdcHb8E5Yu49/JBi/diEWbJ4bq2WgRkXBYTj/RlnfK9an09nftBjfiI9mwwN+/1OsxOEl649CcGe8ksg16l+CdepOfsES7luJsKb2Pmf1mkYYLxR4jABet6K5MJfaqYMJi7ZoqaLgO4X2CZh92jwyLHuASTPzwvjNma/1BFDN1EtpUmTuZPFS0u8LV5h7s4UhvEiCNOJzNH/n+aN/koyct611mQgtwCvIQClFg3L2IieiUeHERrAwNyml30Og==
+ b=WzaL5pvSdR6/FWIl5XJrQcaUB9qFlxhr2tzrHUsg/nQ8B3OETwOrH+Ua1y/AUpABhGJ8nDlNnjiY+TvV7RiWPw5aTl9/6YWtupUcilUIvUMVWemXb/6itFUDHI77Nc5QCTi/yif3Mshe5e+187xkpf8RLXRt9Cui1Z0C/qgpeqiikckh77qxZlCRpjtBh7crLOobsLDjIRj0UMX6v7DfS43FfAJPca8tScG8uXY7fwrfxGKt7VM9FPGGhD5PNk/rbTyOzfeWn0J+EkjLd8BcnsEtQsTl1BEYXKOSQk9Pf8Yl+zlmwvKXrR9W7IYkwa/cKCsNbwMbYXL5Hl8hZpwU6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gXbRNs8L0HqQSzzKkVrPVszxsVNglD88jNZQ98h8eug=;
- b=dkmdwbyZ4TVCmhA9uFOUKpt2PH+f+y+J6xEcKTpoiRFtHUZkREq22J8X9yGtnYlABFLYpa1nmHEJ/5fwNhKGw8pwGiyZTxj5St5DhcVB+3cYI8BYYcmo1FyyFzcIZOtdp7l5kZb4fw7zqsxJ5me6eV7RqE6r1fhjkdQAK7NlX4D+vkeImZ+f26Y5khxD54KZPTbUByBEM3nMsK08YBK5cXAGWDIYimL+Ah/9Z2+JRgJFGVXC9tLDt3bVrSLMBWDy6OO4a3AbBErSxWgeyMH2bYgaf+lyZpprI/tMMGGpWoWw9P7QCHOVC9Rx71KRELfCRkys7BuiYY9XLH+cfrPx9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=6PNfiLfJ10whjs+8iQVR/PSPige/chRgA3zDIEpohM0=;
+ b=nBJvrYCkscFgGLIrrQkgi2tqczU2DO5vaWGd3uFUTaQdkJSsgAgb0TB+ajpIqtzX1FOQrCN1Km758PrrF9Xf4/i8Kzpd5cjw38NAhe7aGcaPxuU8TBF3V17687rpFnBrD+1IciJeFr45iP46EiaxrwJq1kH5Gq1H/a/lMFO5dHuaPDaWmquvDTtzXtXYbo7wbOg5CKfr3vafN0ffviEKlkvKbMh6I3268NvKc/SEwQddMuFuZ2TPf/hJJE9ky7XlPdsQPM80M0U+6C+KYQmScUSoZcwUwn6u32owXiKKqJxcur/r0CxgtpcPV6qKVQ1UufE5zKwpvPXSZqm27xeShw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gXbRNs8L0HqQSzzKkVrPVszxsVNglD88jNZQ98h8eug=;
- b=C4sAanMrp7PQxeG+VeWAGxzwCCf5gEnyPtqPBaSy5HxiMQh6obHymTvaZBoyjJcDTMBf9J9BmQ8FmHGxIdtVO9FHoem27g4Q2P4jwNAqdL5j7ZXFVeuJKk9RUdDEvdfd0O0FKknpV5j+025msewB4zQ7Y59g92nc77WdpQW1+kTPrNGhxmWzZ2mPQZCGgkUX/SGCkgmJCmd419b+7IhjgoNJ6jPPuDxhN1gJOe7g/tuL94kxLR0+adq2cwEMYM3NMC8dS8XV8J/2hmwp2RmCrgH/QNzPQCBkkvMoa0oH6gkemgg5TulGRTkDFf4M9rEd1IGvxVkujwF2SD/Mj8Uuog==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a3f2d048-78c5-9a5d-d44d-3a930ba780fd@suse.com>
-Date: Tue, 2 May 2023 12:53:15 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [PATCH v2] ns16550: enable memory decoding on MMIO-based PCI
- console card
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20230425143902.142571-1-marmarek@invisiblethingslab.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230425143902.142571-1-marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0046.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::23) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ bh=6PNfiLfJ10whjs+8iQVR/PSPige/chRgA3zDIEpohM0=;
+ b=z9mGcYRSjjWrIvhFEG2GoM16AhGE/tK0alCTBGkOOp7ROsVx31t+Ru17frXUwHcUMS3Q9JWKRgUuRIeO34eCHN6lHxoLm2lp0ZwdsXU5W4Xqvvmg0qIe9V3vDxH+GMjn+wDya8XZoaLaSy0U+zJSzSGBRQpqJdC4Nz0RorWLHrI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>
+Subject: [RFC PATCH] xen/arm: arm32: Enable smpboot on Arm32 based systems
+Date: Tue, 2 May 2023 11:58:49 +0100
+Message-ID: <20230502105849.40677-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|GVXPR04MB10069:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7718c9a2-cf9d-4a4e-d549-08db4afb6d34
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT031:EE_|PH7PR12MB9101:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5ed3dd7-90c7-42a8-c0e9-08db4afc4417
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Sm5t77WuXcH8imUj1HImIQ76wX0XxAhjV04HH9kM5pSFY66LhEDMLzNTCuF51olj2kY7dTx43pBcvCqNOM6KoEHWvik8bhYyirF4a+virPWqKe7T8k7PZIgvKgYls2I3+KvZVRXFkIPjZ87dm/TgpWcOyXIV2jHaXEa2Kci9KcvKjsAWCnbLnMR2IWcQV9hX74QzJEawmM7NTOYSgtzNTtBT1wyC9D4Ef8VQBBQl6ydomW6x9XaYRAQRTdbXIyNjVe/5S4Atpa7gsP5yfFDZiT2RwH5VLA9GiJGkVhjdsEm8T4OLWwODZeXlcvrtrAFuMkcc1cvO0XL7CZSzBeRLc+ZurzhhjDQXorHFSh0C/m+3bBQGq11c3vO36PQ792LSaoxFvBQMaaeO5RtQvhNteb45TrC20H0YPLn/cDNFAJdRMyMX3aMyccoq2FEAD/ohHvG2fcqOVGpCK1GxUO5AwcETIxc3Vf3PPHnf/2PoKDyPgxI0U4R0kCxH5Bb9xNkkaInDtGnrK8mirjUh5WE7Gf5rWQFyZ8AxiB0SWDHxi1758a/8QEuSgHxRfjHHO8KkYu06LA11SQVj3ArDKKuV+u6EIRVD837mULrxsivRq6EqBgoHj12MQNI+1m/62Eko4EsO2tWD+2f1B0SoI6URsA==
+	3ktANM2X2wpzfWF7vop5ZDS74ZOsRE8IF8bCVEKyXE0/s+TLLUnKBXSUs2myd2LIpy7N2BcY95ko1FqBRDIUfowqVvKxnvAmJDSYDuZL4SUzvxhDUbJaNQyR+S5AmlMz4O4KSqtmzvGX8Ckw1gE1SCTdBTURnuuDDBv4sFxRI6Z6H8TQe+d/zniawhuqZe5BrqG6ygWi4Sw32mwQ9hu0+58UBwL/hQSgNUWybr8rcNCL9/8os+n2YnyGhTjqibmfOcHm9ab+8MpyQ4mvQp0Kf1pgzpqu1YFckDpF7ZgB90lo7LYFvPfvpCZOPxvChGs2KiyjlWREUriZX/DbhHBVo0ARTos44N0hsc+EGugWjn6gnYjyd2hv1GOkD9w632V5aKr53yDy7MlcccjDqiU6Jj7jgXZyLVv6tG7SuF0I0IXPkKibjJ24X4uMSm9tcHbw9wthwk7H0rYxcAk25CvLzr0vzQpRwaGteOzM0uRyP7cSZd/yToLVBs91JxVTJAz+y0sGb+l/hC/1RxIM3ooiOYw3cxrlyo8DiuTJ2zDX75batf1bFWhAcP/iSxFkP308El3HnSdznD0e09y/T6Gx1yjek160lEbfXdYXIq5ad7GTXu4Ju63JFh1kw6nrlmAtTPmOMnDtneCEjC8pivT7AgdKuTPKNVUOQfocHQZOLZ0yQKgqIjnbqHpkdBOAIUK8VfWBLJmu9WoYq3xXN2cqU/RfjQj4AE6FHJITX+KYF0w=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(366004)(346002)(39860400002)(376002)(136003)(451199021)(8676002)(8936002)(36756003)(41300700001)(31696002)(316002)(66556008)(66946007)(6916009)(4326008)(66476007)(86362001)(54906003)(478600001)(38100700002)(6486002)(2906002)(2616005)(5660300002)(53546011)(26005)(6512007)(6506007)(31686004)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SkMxZHNwbjVBSXZUa0RzTjZBQzBJbHVYOS9CN3Y4L01Gbkl2a3NOSkphVGhW?=
- =?utf-8?B?KzdCc01Ud0p0dS9PTGtIZk1sZ2FZdElhcXBBRW5aTmxuemVFc3loWFNBRmkz?=
- =?utf-8?B?cEIrRTBMY2VtREltSFRQOW1GTmVjckxwZDUrOEN6allGYWFhTXF1ODZvR1Za?=
- =?utf-8?B?SCtFejZ5cVAxOWswaFNyMzl3WENQOXhBZ1Axemp4TDNadUVMSWUvYXo0YXky?=
- =?utf-8?B?RGxRSHJOd29veGNRdDJPSHFGdWtDdWVLMTlaZDEvSUZtR29UVTM2emVJUStz?=
- =?utf-8?B?cXAxSFJVY3FNSStHaGRjMFFBQzNMYnloWlZ3UjN0U0NEZWM5Nm1DM1FQZDFU?=
- =?utf-8?B?N1RVSGd6SVppaHpsSEZNZ1lFQkp5TUl3bHNvbHFVdWM4eGkwR0l5azR5Z1Iv?=
- =?utf-8?B?OE83Zk8zcGhoQ3I0bDZIL3lhTTdZOVNPdGt5TE5KR0NydXdxY1Nma3EyYkpS?=
- =?utf-8?B?SjNKT3hiWDVNRFYyb0t6dTNHWmZ0Zks0RTlPNzJKU3dhbyttckQrY21LWWEy?=
- =?utf-8?B?S09mQm9iZnJyenhJMTd6ZTNiN3d5MU9JS1V6YjdCNXAzVlFmb2FLTy9mdXZ6?=
- =?utf-8?B?WDQ2Wi9xWmRzWnlkcEN5SXNjVCtOMmdyUzNxMUxkTDFBdmJpZ3d3bHN6SGln?=
- =?utf-8?B?NFlvSDVsQ0NiYWdGMjAzV25jam1Ta3ZBU3BpZklNQ0dWUW05RE5XN2w1d28v?=
- =?utf-8?B?Z0g0cng0dVhkTVYxeWJ1c1hhd1Vqa3UvS3EvcWVqdlhEeHh0dWdqU3R1cVE5?=
- =?utf-8?B?MnBZalJhNW5yZ0Rka2s4djlvY2JUMS9tSHJTR2F6MloxcEZJRTVLNzF0MnRt?=
- =?utf-8?B?UlpmazM4SWNyWDJNRGRjMWptR3Q3WHZ4dmJFb1RMOTFaeERUOEU1ckdpaksr?=
- =?utf-8?B?WmxVYjU2OWQ2UTdkM0pQOTAyRDUvRkZEdDdrdU9haWNTR2RGVzdzWGRRb0xw?=
- =?utf-8?B?Z1VBZkp0RzVBRllSZWJWQU91RDA4QTJBazVmYUN5T3ZMUGhpTzRPYmlUWGJN?=
- =?utf-8?B?dnp2MzBBQ0lGTXZwaE91SFp5UVh4dmZnemZQS3RxSTc5cEVFS04yTkErMER1?=
- =?utf-8?B?WkJrdHczMm51OFNLdGNHU1I4UG5jVVlXSG9sb3NGMU5HN2N1aVMydTQyL0ha?=
- =?utf-8?B?NGNEbkpBV3ZaL3E0S1FXanczTzFtbFBuVG1uN0dHbFZaVmdrai96YlBneDY4?=
- =?utf-8?B?a3cvdEFsblZMS2RNUnNvby85OUF4Y2FENVlsU2pyWXF6TUtDM3RVUWRCMWFi?=
- =?utf-8?B?N1c1d1ZNeDZBdDVFRmdkNFp2M0tpNTVmTGttM3VoMEt5Qm9ROWYvRHJkNGRz?=
- =?utf-8?B?emppODBqM1JqSjcyTlpSOVBGVzJzaHNPRHdWR1VSWllVSnNmSm1wYUl0WmtL?=
- =?utf-8?B?bWxiVTBmcGtmUmFuVEZJRXRHdzFMb3YwVW9VVVlRcnl4YzJhVENOcEQ1aWZK?=
- =?utf-8?B?VVZtR0JoM0cxbGlhQ0ZjQWFESFlWRUlkYXFLVk1zWFhqanpNNnB5YkZ6TmJ4?=
- =?utf-8?B?RVVXOG5mSmtXZW52R09vcHVnU3ZtYnlyOGNWZS9Ham5rQy9TZFQwbW5POG1P?=
- =?utf-8?B?L1J0OWZpUWZMalZoR2FGa055dXlua1BZbElNeEk3QjFmb0NWUnZ3c2g1dXNK?=
- =?utf-8?B?YVFMejZsS0pFRXduSktQMTU4RFVqalRvMjd0bVFjRFBiL0JJc1FRbmVhLzNW?=
- =?utf-8?B?djJpNGNHekRrT01icUR4Vm9pVlc4c1NlY1BwNDVnQmlwYkJtTFFuK3JBaFR1?=
- =?utf-8?B?by9IWnNpclkreFZEUGJ1NXRlbVhIbk12WGYzN2dhditVcEh6OW5PaStUVnV1?=
- =?utf-8?B?Nkg2MVRUQ094dnlhUytFbzF1OGllSU9jRlpET1U5aDYxaXZrWVhwSCtVQjky?=
- =?utf-8?B?K2NWWlR5UWhNY1FrLy9mdUtsUlI4cU1oWGFYK2lCTlhnbXlOT3JYcWttNDl4?=
- =?utf-8?B?ZEVvN3JRU2dXc3JNUWxaTytHZFRVQk5RN0ZvSzZ3WnRLVWtFT2dsTFIycHZy?=
- =?utf-8?B?c3RsZVcycmdxTEhpT2hlTVBkaWxRemROV3M4L0dkTm1XSXlVN2gxdCtOVDNo?=
- =?utf-8?B?Y2N5bEVEVCt0U1hMYmM1a2o1S0w1ODR1bEw4Zm9jTnFKTk4xNEFjcWp1b2VC?=
- =?utf-8?Q?igZylEpaZkLYUHU10vGMfUFDI?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7718c9a2-cf9d-4a4e-d549-08db4afb6d34
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 10:53:13.3819
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(26005)(1076003)(478600001)(36860700001)(47076005)(2616005)(426003)(336012)(186003)(83380400001)(86362001)(40460700003)(966005)(6666004)(40480700001)(82310400005)(8936002)(316002)(2906002)(54906003)(70586007)(6916009)(103116003)(8676002)(36756003)(356005)(70206006)(82740400003)(81166007)(41300700001)(5660300002)(4326008)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 10:59:13.6895
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oKvXqdiy9789UbIXn3pStcbtOdm9qyK2k79rhBsYRKVavs51E0+aQoYzPTDSX7/25N9H/SknqEXW4OYPBYTNTQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10069
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5ed3dd7-90c7-42a8-c0e9-08db4afc4417
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT031.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9101
 
-On 25.04.2023 16:39, Marek Marczykowski-Górecki wrote:
-> pci_serial_early_init() enables PCI_COMMAND_IO for IO-based UART
-> devices, add setting PCI_COMMAND_MEMORY for MMIO-based UART devices too.
+On some of the Arm32 based systems (eg Cortex-R52), smpboot is supported.
+In these systems PSCI may not always be supported. In case of Cortex-R52, there
+is no EL3 or secure mode. Thus, PSCI is not supported as it requires EL3.
 
-This sentence is odd, as by its grammar it looks to describe the current
-situation only. The respective sentence in v1 did not have this issue.
+Thus, we use 'spin-table' mechanism to boot the secondary cpus. The primary
+cpu provides the startup address of the secondary cores. This address is
+provided using the 'cpu-release-addr' property.
 
-> --- a/xen/drivers/char/ns16550.c
-> +++ b/xen/drivers/char/ns16550.c
-> @@ -272,7 +272,15 @@ static int cf_check ns16550_getc(struct serial_port *port, char *pc)
->  static void pci_serial_early_init(struct ns16550 *uart)
->  {
->  #ifdef NS16550_PCI
-> -    if ( !uart->ps_bdf_enable || uart->io_base >= 0x10000 )
-> +    if ( uart->bar )
-> +    {
-> +        pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
-> +                                  uart->ps_bdf[2]),
-> +                         PCI_COMMAND, PCI_COMMAND_MEMORY);
-> +        return;
-> +    }
-> +
-> +    if ( !uart->ps_bdf_enable )
->          return;
->  
->      if ( uart->pb_bdf_enable )
+To support smpboot, we have copied the code from xen/arch/arm/arm64/smpboot.c
+with the following changes :-
 
-While I did suggest using uart->bar, my implication was that the io_base
-check would then remain in place. Otherwise, if I'm not mistaken, MMIO-
-based devices not specified via "com<N>=...,pci" would then wrongly take
-the I/O port path.
+1. 'enable-method' is an optional property. Refer to the comment in
+https://www.kernel.org/doc/Documentation/devicetree/bindings/arm/cpus.yaml
+"      # On ARM 32-bit systems this property is optional"
 
-Furthermore - you can't use uart->bar alone here, can you? The field is
-set equally for MMIO and port based cards in pci_uart_config().
+2. psci is not currently supported as a value for 'enable-method'.
 
-Jan
+3. update_identity_mapping() is not invoked as we are not sure if it is
+required.
+
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+
+The dts snippet with which this has been validated is :-
+
+    cpus {
+        #address-cells = <0x02>;
+        #size-cells = <0x00>;
+
+        cpu-map {
+
+            cluster0 {
+
+                core0 {
+
+                    thread0 {
+                        cpu = <0x02>;
+                    };
+                };
+                core1 {
+
+                    thread0 {
+                        cpu = <0x03>;
+                    };
+                };
+            };
+        };
+
+        cpu@0 {
+            device_type = "cpu";
+            compatible = "arm,armv8";
+            reg = <0x00 0x00>;
+            phandle = <0x02>;
+        };
+
+        cpu@1 {
+            device_type = "cpu";
+            compatible = "arm,armv8";
+            reg = <0x00 0x01>;
+            enable-method = "spin-table";
+            cpu-release-addr = <0xEB58C010>;
+            phandle = <0x03>;
+        };
+    };
+
+Although currently I have tested this on Cortex-R52, I feel this may be helpful
+to enable smp on other Arm32 based systems as well. Happy to hear opinions.
+
+ xen/arch/arm/arm32/smpboot.c | 84 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 80 insertions(+), 4 deletions(-)
+
+diff --git a/xen/arch/arm/arm32/smpboot.c b/xen/arch/arm/arm32/smpboot.c
+index 518e9f9c7e..feb249d3f8 100644
+--- a/xen/arch/arm/arm32/smpboot.c
++++ b/xen/arch/arm/arm32/smpboot.c
+@@ -1,24 +1,100 @@
+ #include <xen/device_tree.h>
+ #include <xen/init.h>
+ #include <xen/smp.h>
++#include <xen/vmap.h>
++#include <asm/io.h>
+ #include <asm/platform.h>
+ 
++struct smp_enable_ops {
++        int             (*prepare_cpu)(int);
++};
++
++static uint32_t cpu_release_addr[NR_CPUS];
++static struct smp_enable_ops smp_enable_ops[NR_CPUS];
++
+ int __init arch_smp_init(void)
+ {
+     return platform_smp_init();
+ }
+ 
+-int __init arch_cpu_init(int cpu, struct dt_device_node *dn)
++static int __init smp_spin_table_cpu_up(int cpu)
++{
++    uint32_t __iomem *release;
++
++    if (!cpu_release_addr[cpu])
++    {
++        printk("CPU%d: No release addr\n", cpu);
++        return -ENODEV;
++    }
++
++    release = ioremap_nocache(cpu_release_addr[cpu], 4);
++    if ( !release )
++    {
++        dprintk(XENLOG_ERR, "CPU%d: Unable to map release address\n", cpu);
++        return -EFAULT;
++    }
++
++    writel(__pa(init_secondary), release);
++
++    iounmap(release);
++
++    sev();
++
++    return 0;
++}
++
++static void __init smp_spin_table_init(int cpu, struct dt_device_node *dn)
+ {
+-    /* Not needed on ARM32, as there is no relevant information in
+-     * the CPU device tree node for ARMv7 CPUs.
++    if ( !dt_property_read_u32(dn, "cpu-release-addr", &cpu_release_addr[cpu]) )
++    {
++        printk("CPU%d has no cpu-release-addr\n", cpu);
++        return;
++    }
++
++    smp_enable_ops[cpu].prepare_cpu = smp_spin_table_cpu_up;
++}
++
++static int __init dt_arch_cpu_init(int cpu, struct dt_device_node *dn)
++{
++    const char *enable_method;
++
++    /*
++     * Refer Documentation/devicetree/bindings/arm/cpus.yaml, it says on
++     * ARM 32-bit systems this property is optional.
+      */
++    enable_method = dt_get_property(dn, "enable-method", NULL);
++    if (!enable_method)
++    {
++        return 0;
++    }
++
++    if ( !strcmp(enable_method, "spin-table") )
++        smp_spin_table_init(cpu, dn);
++    else
++    {
++        printk("CPU%d has unknown enable method \"%s\"\n", cpu, enable_method);
++        return -EINVAL;
++    }
++
+     return 0;
+ }
+ 
++int __init arch_cpu_init(int cpu, struct dt_device_node *dn)
++{
++    return dt_arch_cpu_init(cpu, dn);
++}
++
+ int arch_cpu_up(int cpu)
+ {
+-    return platform_cpu_up(cpu);
++    int ret = 0;
++
++    if ( smp_enable_ops[cpu].prepare_cpu )
++        ret = smp_enable_ops[cpu].prepare_cpu(cpu);
++
++    if ( !ret )
++        return platform_cpu_up(cpu);
++
++    return ret;
+ }
+ 
+ void arch_cpu_up_finish(void)
+-- 
+2.17.1
+
 
