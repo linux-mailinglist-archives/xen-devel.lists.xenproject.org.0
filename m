@@ -2,34 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6B746F4342
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 14:05:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528555.821878 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 202466F4356
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 14:10:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528559.821887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptoka-0006LE-Kp; Tue, 02 May 2023 12:04:56 +0000
+	id 1ptopG-00070Y-6D; Tue, 02 May 2023 12:09:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528555.821878; Tue, 02 May 2023 12:04:56 +0000
+Received: by outflank-mailman (output) from mailman id 528559.821887; Tue, 02 May 2023 12:09:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptoka-0006IP-Hj; Tue, 02 May 2023 12:04:56 +0000
-Received: by outflank-mailman (input) for mailman id 528555;
- Tue, 02 May 2023 12:04:55 +0000
+	id 1ptopG-0006yg-3O; Tue, 02 May 2023 12:09:46 +0000
+Received: by outflank-mailman (input) for mailman id 528559;
+ Tue, 02 May 2023 12:09:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d5QU=AX=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1ptokZ-0006IJ-G2
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 12:04:55 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [85.215.255.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b8047f9-e8e1-11ed-8611-37d641c3527e;
- Tue, 02 May 2023 14:04:52 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
- with ESMTPSA id x6987cz42C4pcnt
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 2 May 2023 14:04:51 +0200 (CEST)
+ (envelope-from <SRS0=Zdoi=AX=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ptopE-0006ya-SS
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 12:09:44 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 38643c05-e8e2-11ed-8611-37d641c3527e;
+ Tue, 02 May 2023 14:09:42 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 23DE021A10;
+ Tue,  2 May 2023 12:09:42 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9635D139C3;
+ Tue,  2 May 2023 12:09:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id bPRFI4X9UGRmLwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 02 May 2023 12:09:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,101 +51,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b8047f9-e8e1-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1683029091; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=EWO7skeoBe4yfkVPVp8E9tGGHEtGucIQH+nn7LMialRWFBTvh03Yjp7YddlGAcDH/P
-    UVY3xpxjxfApHPIKEhs9lR58drijThiRQqw4uiwIPyEA/NPbk3a4hRGR9l9+75DmYEGB
-    tBj7KA6tJ/TFViW27zmZ+tUyyycPaAjasJaSRnAPQSI5NZL0otasnFA8osNJnkhwqewV
-    w6tjhiVXCFWnVSIyZIqy9W8V/gBioQORp80OAKUMiQ4OFnaEvipAhmbr0FQQ+uPYNXNt
-    IgRY37a1nhcxm2P5WgK3+zO2z1kUTbQo7S6VYfd0XQhgjcM2jwgo4KovmqGtyr0mIATU
-    Km/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683029091;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=qM5Q7xIHqNoa7V8tuK4qUQi9+8lwqvYj9KvI656lkEU=;
-    b=IWBkxbwRO8gW5D0NTN27tqBe7//+rxZBBcqJ5ta8tYVGHHjf4n+o6k3/OZr1FKt+yx
-    9wTYCAkBpg0P0owNRv99Tr4enViuSg2gDBI513xzrusBys40tcOvxLIyeKI4ihTcw/mq
-    eOskdgw7beZ5/Y+ZBBni6CaApSvg7C6hZjmMY0y0/HAKYw9a6AV+Y4bRdRtzcn/EboA+
-    87Sn80X7j3ky5ayF3u3x2Omj43ddxrgWt898tfanf9YOYL1nhtQUw4lhCGwoEwEzuaxM
-    /Ok34dCQ22IdEdzLHVARzuZHJcIlSR76knCEnxSlwePBFPyyP0TMTaI5uOs5wrTAztsm
-    1WFw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683029091;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=qM5Q7xIHqNoa7V8tuK4qUQi9+8lwqvYj9KvI656lkEU=;
-    b=OEBmRGRRxrpMGETMpt/ESEsFgkbUQ8aeGsU/LWiHnb+YzteC2koBVEhuUNiYY8BqML
-    Xs5sB10vk53OoxD+0GEtPZ8NFgOto5D+zytdzti3WtAKlySpki+/STvXJOmzLXeeryGk
-    brY4ybGpZEmglEFFVMXbSEYxuVoMOm9+OR1dU1tZPgic+u5I5ik150tiPpVYoJtycMU1
-    lnqfz7LodshImI/ZNvr3rVKYwWKF7LmLoXyP+wThyEXZ4GOCHwWbLxS63STyt9HhcuLI
-    Xnt8v4F9q2vwUCgqQMTjtIMb9CogEst2PnSlJHOWXxEInq+avu68LE7AERHftk1CJtK1
-    sg/w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683029091;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=qM5Q7xIHqNoa7V8tuK4qUQi9+8lwqvYj9KvI656lkEU=;
-    b=C76atAzpxdx41BT+4DfbwOyRKcXi0KcwZJn9OTlz/+ik+v3G00nujNUraDY3uIGbEc
-    mW+W0i16b09mfspZ3yDA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR5BxOIbBnsc1fym1gFvNQ7EzMpH+yFJc4aADp/8Q=="
-Date: Tue, 2 May 2023 14:04:44 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: HAS_CC_CET_IBT misdetected
-Message-ID: <20230502140444.1dacdb33.olaf@aepfle.de>
-In-Reply-To: <20230502133313.2192eb99.olaf@aepfle.de>
-References: <20230502074853.7cd10ee3.olaf@aepfle.de>
-	<43b1c214-4248-a735-6f8c-9e08bdd2eaf6@suse.com>
-	<20230502133313.2192eb99.olaf@aepfle.de>
-X-Mailer: Claws Mail 20220819T065813.516423bc hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: 38643c05-e8e2-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1683029382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=5isj2N5NCBHlgNEX7kDR8L5F10upbDgKEvNgnzD7pjU=;
+	b=lCdfsFMOgUvQOOjznQ29dhIfCPfBATrhqs0ygxXq+WuLpchDR8rfeWRUqFg4gsVq1hAZso
+	M6yRbkcUUeSN+OZpt0kdpNk+01NuOD3H4axIM8mN+INEgVDTKNBob6uRoIMwSVTHqsAyiH
+	tXY30Kqoaqh0gDh5kUwQuvMJsIBgFwg=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: mikelley@microsoft.com,
+	Juergen Gross <jgross@suse.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: [PATCH v6 00/16] x86/mtrr: fix handling with PAT but without MTRR
+Date: Tue,  2 May 2023 14:09:15 +0200
+Message-Id: <20230502120931.20719-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/HiNIMqJmHC3=du_nGbCKnvP";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
---Sig_/HiNIMqJmHC3=du_nGbCKnvP
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+This series tries to fix the rather special case of PAT being available
+without having MTRRs (either due to CONFIG_MTRR being not set, or
+because the feature has been disabled e.g. by a hypervisor).
 
-Tue, 2 May 2023 13:33:13 +0200 Olaf Hering <olaf@aepfle.de>:
+The main use cases are Xen PV guests and SEV-SNP guests running under
+Hyper-V.
 
-> I will investigate why it failed to build for me.
+Instead of trying to work around all the issues by adding if statements
+here and there, just try to use the complete available infrastructure
+by setting up a read-only MTRR state when needed.
 
-This happens if one builds first with the Tumbleweed container, and later w=
-ith the Leap container, without a 'git clean -dffx' in between.
+In the Xen PV case the current MTRR MSR values can be read from the
+hypervisor, while for the SEV-SNP case all needed is to set the
+default caching mode to "WB".
 
-Is there a way to invalidate everything if the toolchain changes?
+I have added more cleanup which has been discussed when looking into
+the most recent failures.
 
+Note that I couldn't test the Hyper-V related change (patch 3).
 
-Olaf
+Running on bare metal and with Xen didn't show any problems with the
+series applied.
 
---Sig_/HiNIMqJmHC3=du_nGbCKnvP
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
+It should be noted that patches 9+10 are replacing today's way to
+lookup the MTRR cache type for a memory region from looking at the
+MTRR register values to building a memory map with the cache types.
+This should make the lookup much faster and much easier to understand.
 
------BEGIN PGP SIGNATURE-----
+Changes in V2:
+- replaced former patches 1+2 with new patches 1-4, avoiding especially
+  the rather hacky approach of V1, while making all the MTRR type
+  conflict tests available for the Xen PV case
+- updated patch 6 (was patch 4 in V1)
 
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmRQ/FwACgkQ86SN7mm1
-DoBBbA/+JpzGbwooQx4pzx5wH+ctKszUF1DHoZUoBlonOR8ZNXfyDkvFV7CfMLsF
-ouQe/MzZPIMBXmRQvgdgPoamxOKbSwze+2qNNRsgkqeUMrFafUNT7/UkHqk4cHgG
-Yx3zj+lKoJDqU1fybmNUFrIdA+0nYuRS/L/vPZkt3qOQXtu1MEn9vsQKmgSOs7Wj
-7GfUJhSKXCN5brtxwWy9Gd9/bK6NemaCxLv9txIxKaySWDMJ16yNiKIhX/dK6tTx
-GMq1kuAajxe8xgbSxUYiHVmJ+fbuFmuiPpejQbYurc30AEzXsVaRg04ub8bt37NF
-nQxtUuK9E8awKRWtcjZJMs6jJCHtRwWyltROs7JW5R9wtvzu299Kd39NHN+Plu4m
-RK45OQC8ypbEWO8boN4I4NJ5A1B2o99y6Wwnyufb3fzgZgSu4mnPlX1LcTGQoebD
-miDxtIm2fAybqBTWQEX350GWSaBy6kCyKFYqNNxmKv29GyraY44jo213CWfQRFqD
-G757CKQP4BPidjQJpIcarUAmHS3XXSOGbI93oPmLOfPBFt2yJSnnw4WR7uNDyGgR
-z1m3cEZokbVX7YsTmzwGOE4k5N5S50UEwFKKl7ly2vg0j76yHtyuXfXTHkual3ko
-xipHjguTHl/E08Z4M5cpmyn+FBQa/Tl/n+stFLsmWjqn3/Dails=
-=MGIj
------END PGP SIGNATURE-----
+Changes in V3:
+- dropped patch 5 of V2, as already applied
+- split patch 1 of V2 into 2 patches
+- new patches 6-10
+- addressed comments
 
---Sig_/HiNIMqJmHC3=du_nGbCKnvP--
+Changes in V4:
+- addressed comments
+
+Changes in V5
+- addressed comments
+- some other small fixes
+- new patches 3, 8 and 15
+
+Changes in V6:
+- patch 1 replaces patches 1+2 of V5
+- new patches 8+12
+- addressed comments
+
+Juergen Gross (16):
+  x86/mtrr: remove physical address size calculation
+  x86/mtrr: replace some constants with defines
+  x86/mtrr: support setting MTRR state for software defined MTRRs
+  x86/hyperv: set MTRR state when running as SEV-SNP Hyper-V guest
+  x86/xen: set MTRR state when running as Xen PV initial domain
+  x86/mtrr: replace vendor tests in MTRR code
+  x86/mtrr: have only one set_mtrr() variant
+  x86/mtrr: move 32-bit code from mtrr.c to legacy.c
+  x86/mtrr: allocate mtrr_value array dynamically
+  x86/mtrr: add get_effective_type() service function
+  x86/mtrr: construct a memory map with cache modes
+  x86/mtrr: add mtrr=debug command line option
+  x86/mtrr: use new cache_map in mtrr_type_lookup()
+  x86/mtrr: don't let mtrr_type_lookup() return MTRR_TYPE_INVALID
+  x86/mm: only check uniform after calling mtrr_type_lookup()
+  x86/mtrr: remove unused code
+
+ .../admin-guide/kernel-parameters.txt         |   4 +
+ arch/x86/hyperv/ivm.c                         |   4 +
+ arch/x86/include/asm/mtrr.h                   |  43 +-
+ arch/x86/include/uapi/asm/mtrr.h              |   6 +-
+ arch/x86/kernel/cpu/mtrr/Makefile             |   2 +-
+ arch/x86/kernel/cpu/mtrr/amd.c                |   2 +-
+ arch/x86/kernel/cpu/mtrr/centaur.c            |  11 +-
+ arch/x86/kernel/cpu/mtrr/cleanup.c            |  22 +-
+ arch/x86/kernel/cpu/mtrr/cyrix.c              |   2 +-
+ arch/x86/kernel/cpu/mtrr/generic.c            | 677 ++++++++++++------
+ arch/x86/kernel/cpu/mtrr/legacy.c             |  90 +++
+ arch/x86/kernel/cpu/mtrr/mtrr.c               | 195 ++---
+ arch/x86/kernel/cpu/mtrr/mtrr.h               |  18 +-
+ arch/x86/kernel/setup.c                       |   2 +
+ arch/x86/mm/pgtable.c                         |  24 +-
+ arch/x86/xen/enlighten_pv.c                   |  52 ++
+ 16 files changed, 721 insertions(+), 433 deletions(-)
+ create mode 100644 arch/x86/kernel/cpu/mtrr/legacy.c
+
+-- 
+2.35.3
+
 
