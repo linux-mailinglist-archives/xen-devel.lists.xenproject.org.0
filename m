@@ -2,52 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C65A56F4DB3
-	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 01:39:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528894.822678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B93CC6F4DEC
+	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 01:56:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528927.822707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptzaG-0005r6-0T; Tue, 02 May 2023 23:39:00 +0000
+	id 1ptzqi-0001Oe-1X; Tue, 02 May 2023 23:56:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528894.822678; Tue, 02 May 2023 23:38:59 +0000
+Received: by outflank-mailman (output) from mailman id 528927.822707; Tue, 02 May 2023 23:56:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptzaF-0005on-Rv; Tue, 02 May 2023 23:38:59 +0000
-Received: by outflank-mailman (input) for mailman id 528894;
- Tue, 02 May 2023 23:38:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ptzqh-0001MD-Uw; Tue, 02 May 2023 23:55:59 +0000
+Received: by outflank-mailman (input) for mailman id 528927;
+ Tue, 02 May 2023 23:55:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/cxx=AX=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1ptzZ7-0004sC-Lr
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 23:37:49 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2061e.outbound.protection.outlook.com
- [2a01:111:f400:7eab::61e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 582050bd-e942-11ed-b225-6b7b168915f2;
- Wed, 03 May 2023 01:37:49 +0200 (CEST)
-Received: from BN9PR03CA0269.namprd03.prod.outlook.com (2603:10b6:408:ff::34)
- by DS0PR12MB6559.namprd12.prod.outlook.com (2603:10b6:8:d1::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6363.20; Tue, 2 May 2023 23:37:45 +0000
-Received: from BN8NAM11FT101.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ff:cafe::2c) by BN9PR03CA0269.outlook.office365.com
- (2603:10b6:408:ff::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31 via Frontend
- Transport; Tue, 2 May 2023 23:37:45 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT101.mail.protection.outlook.com (10.13.177.126) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6363.21 via Frontend Transport; Tue, 2 May 2023 23:37:45 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 2 May
- 2023 18:37:43 -0500
-Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 2 May 2023 18:37:42 -0500
+ <SRS0=PvCK=AX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ptzqg-0001M7-UZ
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 23:55:59 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dfb62e28-e944-11ed-8611-37d641c3527e;
+ Wed, 03 May 2023 01:55:54 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 464DE6133A;
+ Tue,  2 May 2023 23:55:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E40C433D2;
+ Tue,  2 May 2023 23:55:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,164 +43,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 582050bd-e942-11ed-b225-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DROLClaF+aGH7NYS5zydzrPTP4mibpTNPe0ZoUB0bNtEgTnF7SV6zAwcvfmxH3k8vXh0kFr3FltTZ9r851MD1pbZeZ/2Y4GGAoUmC64jqHyT7oieI4BlyMayUPqlbrzPZJn3JKnhqRFvb8RmEVY5yDj3/msJR0MkBMAoZ0c9ubGZvmUG2Yyys/8mVGJEcIl2fVFRZ0TwB9LKsNidCjRYK7wBxEqI/KqTn93UHrmDTqRLM29+5bA1ptTsEN68F3xU7vt02WgfzTenO1Fqst1MWPbqytuWEtf/l5x/iEshJ8RaTYN/OuC0iJ+NEP7qMrT8EHhgWnYhsXIVB9VysQAgow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W8ANf04rvVBwwTVoSmk1wMh7BnV4jbgpw3PgliDnkIY=;
- b=T9QZoJnBB2xOZ1/jmK/an5wpiebV1ZJURBqpIOADuHLmDou8E6zhHXpMY3idjmzyiHZghWswDPZsaf07fVuWeVaHQIWUTk7wf5jApo5WaBXs5vsBpn/23OUeCky6wA4v7cpeyQnBNkBviXD+oUiosL/uYaYBSwX3kr74lqjs3fszIw8ay97Gyj0sYnAD9I5a7ZBU216h4WztFF72nJ/F/WsAae5RCRNMmXiukDov2K5RinaWmAT9tMRsA1w+sWhZpsfiRDfgCjOvS3RMyaSH9aJuDxdaRb4WN3Vgrq3YmyJRnvCB/ioixZc+VV89Sj1xEsSqh5QWYr6n8Zz5H9EPZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W8ANf04rvVBwwTVoSmk1wMh7BnV4jbgpw3PgliDnkIY=;
- b=mfMEDx1uFImG7A79WBozqHEF2QaRa5nkflQ1zG9Mp0jlMowT7VOk82LRmrBYQfGZDBCBnpgATlgNfzKix+vIYo4VbAU6H9liO3KEs+CYIjNkz/fSrX4+cOhbflIktTiB+vr4TSuOhNIgM1lMUj28Xv853meqj4V/feAdQPZpnls=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Vikram Garhwal <vikram.garhwal@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <vikram.garhwal@amd.com>,
-	<michal.orzel@amd.com>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>
-Subject: [XEN][PATCH v6 19/19] tools/xl: Add new xl command overlay for device tree overlay support
-Date: Tue, 2 May 2023 16:36:50 -0700
-Message-ID: <20230502233650.20121-20-vikram.garhwal@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20230502233650.20121-1-vikram.garhwal@amd.com>
-References: <20230502233650.20121-1-vikram.garhwal@amd.com>
+X-Inumbo-ID: dfb62e28-e944-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1683071752;
+	bh=21q8w7ad/mG6Dz+Zc8o3O6b5fBKnpcih2EQHedK29+8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=T0y+SeALxGjv7qjOAHnrqgrZT6aZedSmotuF2IoKNPZ8uxf8OkvphYb0qZIo6MFE+
+	 1NAsx6pVeLibpHQ8TZM/tEvGzTtr5CUajFlDBi+UNyKdtt+I6LYtlbGIe/ztos7pQ6
+	 boF1nDodstjmLzeBx6dDvgyLxCJH0vJglPyMc/gvHZCeG0cN4gpxlBcBU2StAgY7Dm
+	 8dczSL+C5RmIjH2vG/xX1YKaInsCFLpDqgPPIanh2DOP3D3IsoyO1PeP8PMdUTEVEu
+	 WDfd7vSPHOZovoZEwt8vKQgafg1f5wvQhWSvG5mv+YfA9zN+nFzsqmKQy3kSi6wC4a
+	 nAfVh5kPvrM0Q==
+Date: Tue, 2 May 2023 16:55:49 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    stefano.stabellini@amd.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
+    bertrand.marquis@arm.com
+Subject: Re: [RFC PATCH] xen/arm: arm32: Enable smpboot on Arm32 based
+ systems
+In-Reply-To: <20230502105849.40677-1-ayan.kumar.halder@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2305021643010.974517@ubuntu-linux-20-04-desktop>
+References: <20230502105849.40677-1-ayan.kumar.halder@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT101:EE_|DS0PR12MB6559:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87db793a-0ce9-45e1-14f2-08db4b663b0f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	5Ky0jDQ4nyKCJRDumE86REXWu2MwxLdK/N4E2ZhzE8ccdaSyv3yNRoPZcsBcI9fQGC1FFQ/fuGX/KAekGKo6JCmQo+ouL+BxL123Vhxn60oV76fmKva9JBNBWOfuMEUH9voXJHENWv8N22JPCO26FT0XR1OT9seGW9JnX4p0redjuQ7qAAGFxLsHDhDB0ggjl+HHJeiBhSGfRJhD3ikXu72OwkfaSYS5bWHGKlInr4B1K5p9N5aanBizbmTHGlN1pgUgQX3rSMf2c7l7zFRCvAhjeoC18ebw/S8OwmNrf5aBIYL18q3kKRXSQVqiuAhpxeZAowrLBMCideSLROGISJ06GfSo8FWUxf+jypIXCJPmwGYT0jPWrsR4l8GCCpJjtmi29Jvax1Ed9gInCVCh6JmtKRwhkcRo27MU0oGdbLYkBcoTnvuuFz6mfoA4ndvHW6AUFxWiJA2IsVSsXUdD2FqsPGOcOZXH3bs7/gVpITYaJCTM9nrjVGmLCV24FsGrjawGG+1UM313zXFLcq5GB6MHVQ/0HU6bR7gJDhaFdK9VB/iNnzZbYxSUW8EdZJdsLfbxsnR1v0nlWHtASoCs5KFNuWFnfGe2Ji9uR5nMwjSMt2R9ZCPJw8aOZOi9A8zdLYopXEkBmVdxLdOx+C9ZGJykxd28HM6La4dK1GWl3S3Z7O9C3VRTneCMX0RyorMCAsI/GPgWuT0fl2/RsGRNNEWRPCHSl1V8urf9CMN8nmU=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(39860400002)(396003)(136003)(451199021)(40470700004)(46966006)(36840700001)(356005)(2906002)(81166007)(1076003)(82740400003)(186003)(26005)(6666004)(47076005)(36860700001)(2616005)(82310400005)(336012)(426003)(36756003)(44832011)(40460700003)(5660300002)(54906003)(478600001)(86362001)(83380400001)(8936002)(8676002)(41300700001)(6916009)(70206006)(70586007)(316002)(40480700001)(4326008)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 23:37:45.2336
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87db793a-0ce9-45e1-14f2-08db4b663b0f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT101.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6559
+Content-Type: text/plain; charset=US-ASCII
 
-Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
----
- tools/xl/xl.h           |  1 +
- tools/xl/xl_cmdtable.c  |  6 +++++
- tools/xl/xl_vmcontrol.c | 52 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 59 insertions(+)
+On Tue, 2 May 2023, Ayan Kumar Halder wrote:
+> On some of the Arm32 based systems (eg Cortex-R52), smpboot is supported.
+> In these systems PSCI may not always be supported. In case of Cortex-R52, there
+> is no EL3 or secure mode. Thus, PSCI is not supported as it requires EL3.
+> 
+> Thus, we use 'spin-table' mechanism to boot the secondary cpus. The primary
+> cpu provides the startup address of the secondary cores. This address is
+> provided using the 'cpu-release-addr' property.
+> 
+> To support smpboot, we have copied the code from xen/arch/arm/arm64/smpboot.c
+> with the following changes :-
+> 
+> 1. 'enable-method' is an optional property. Refer to the comment in
+> https://www.kernel.org/doc/Documentation/devicetree/bindings/arm/cpus.yaml
+> "      # On ARM 32-bit systems this property is optional"
+> 
+> 2. psci is not currently supported as a value for 'enable-method'.
+> 
+> 3. update_identity_mapping() is not invoked as we are not sure if it is
+> required.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> 
+> The dts snippet with which this has been validated is :-
+> 
+>     cpus {
+>         #address-cells = <0x02>;
+>         #size-cells = <0x00>;
+> 
+>         cpu-map {
+> 
+>             cluster0 {
+> 
+>                 core0 {
+> 
+>                     thread0 {
+>                         cpu = <0x02>;
+>                     };
+>                 };
+>                 core1 {
+> 
+>                     thread0 {
+>                         cpu = <0x03>;
+>                     };
+>                 };
+>             };
+>         };
+> 
+>         cpu@0 {
+>             device_type = "cpu";
+>             compatible = "arm,armv8";
+>             reg = <0x00 0x00>;
+>             phandle = <0x02>;
+>         };
+> 
+>         cpu@1 {
+>             device_type = "cpu";
+>             compatible = "arm,armv8";
+>             reg = <0x00 0x01>;
+>             enable-method = "spin-table";
+>             cpu-release-addr = <0xEB58C010>;
+>             phandle = <0x03>;
+>         };
+>     };
+> 
+> Although currently I have tested this on Cortex-R52, I feel this may be helpful
+> to enable smp on other Arm32 based systems as well. Happy to hear opinions.
 
-diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-index 72538d6a81..a923daccd3 100644
---- a/tools/xl/xl.h
-+++ b/tools/xl/xl.h
-@@ -138,6 +138,7 @@ int main_shutdown(int argc, char **argv);
- int main_reboot(int argc, char **argv);
- int main_list(int argc, char **argv);
- int main_vm_list(int argc, char **argv);
-+int main_dt_overlay(int argc, char **argv);
- int main_create(int argc, char **argv);
- int main_config_update(int argc, char **argv);
- int main_button_press(int argc, char **argv);
-diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
-index ccf4d83584..db0acff62a 100644
---- a/tools/xl/xl_cmdtable.c
-+++ b/tools/xl/xl_cmdtable.c
-@@ -630,6 +630,12 @@ const struct cmd_spec cmd_table[] = {
-       "Issue a qemu monitor command to the device model of a domain",
-       "<Domain> <Command>",
-     },
-+    { "dt-overlay",
-+      &main_dt_overlay, 0, 1,
-+      "Add/Remove a device tree overlay",
-+      "add/remove <.dtbo>"
-+      "-h print this help\n"
-+    },
- };
- 
- const int cmdtable_len = ARRAY_SIZE(cmd_table);
-diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
-index 5518c78dc6..de56e00d8b 100644
---- a/tools/xl/xl_vmcontrol.c
-+++ b/tools/xl/xl_vmcontrol.c
-@@ -1265,6 +1265,58 @@ int main_create(int argc, char **argv)
-     return 0;
- }
- 
-+int main_dt_overlay(int argc, char **argv)
-+{
-+    const char *overlay_ops = NULL;
-+    const char *overlay_config_file = NULL;
-+    void *overlay_dtb = NULL;
-+    int rc;
-+    uint8_t op;
-+    int overlay_dtb_size = 0;
-+    const int overlay_add_op = 1;
-+    const int overlay_remove_op = 2;
-+
-+    if (argc < 2) {
-+        help("dt_overlay");
-+        return EXIT_FAILURE;
-+    }
-+
-+    overlay_ops = argv[1];
-+    overlay_config_file = argv[2];
-+
-+    if (strcmp(overlay_ops, "add") == 0)
-+        op = overlay_add_op;
-+    else if (strcmp(overlay_ops, "remove") == 0)
-+        op = overlay_remove_op;
-+    else {
-+        fprintf(stderr, "Invalid dt overlay operation\n");
-+        return EXIT_FAILURE;
-+    }
-+
-+    if (overlay_config_file) {
-+        rc = libxl_read_file_contents(ctx, overlay_config_file,
-+                                      &overlay_dtb, &overlay_dtb_size);
-+
-+        if (rc) {
-+            fprintf(stderr, "failed to read the overlay device tree file %s\n",
-+                    overlay_config_file);
-+            free(overlay_dtb);
-+            return ERROR_FAIL;
-+        }
-+    } else {
-+        fprintf(stderr, "overlay dtbo file not provided\n");
-+        return ERROR_FAIL;
-+    }
-+
-+    rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
-+
-+    free(overlay_dtb);
-+
-+    if (rc)
-+        return EXIT_FAILURE;
-+
-+    return rc;
-+}
- /*
-  * Local variables:
-  * mode: C
--- 
-2.17.1
+I think you are right
 
+
+>  xen/arch/arm/arm32/smpboot.c | 84 ++++++++++++++++++++++++++++++++++--
+>  1 file changed, 80 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm32/smpboot.c b/xen/arch/arm/arm32/smpboot.c
+> index 518e9f9c7e..feb249d3f8 100644
+> --- a/xen/arch/arm/arm32/smpboot.c
+> +++ b/xen/arch/arm/arm32/smpboot.c
+> @@ -1,24 +1,100 @@
+>  #include <xen/device_tree.h>
+>  #include <xen/init.h>
+>  #include <xen/smp.h>
+> +#include <xen/vmap.h>
+> +#include <asm/io.h>
+>  #include <asm/platform.h>
+>  
+> +struct smp_enable_ops {
+> +        int             (*prepare_cpu)(int);
+> +};
+
+coding style
+
+
+> +static uint32_t cpu_release_addr[NR_CPUS];
+> +static struct smp_enable_ops smp_enable_ops[NR_CPUS];
+
+they could be __initdata
+
+
+>  int __init arch_smp_init(void)
+>  {
+>      return platform_smp_init();
+>  }
+>  
+> -int __init arch_cpu_init(int cpu, struct dt_device_node *dn)
+> +static int __init smp_spin_table_cpu_up(int cpu)
+> +{
+> +    uint32_t __iomem *release;
+> +
+> +    if (!cpu_release_addr[cpu])
+
+code style
+
+
+> +    {
+> +        printk("CPU%d: No release addr\n", cpu);
+> +        return -ENODEV;
+> +    }
+> +
+> +    release = ioremap_nocache(cpu_release_addr[cpu], 4);
+> +    if ( !release )
+> +    {
+> +        dprintk(XENLOG_ERR, "CPU%d: Unable to map release address\n", cpu);
+> +        return -EFAULT;
+> +    }
+> +
+> +    writel(__pa(init_secondary), release);
+> +
+> +    iounmap(release);
+
+I think we need a wmb() ?
+
+
+> +    sev();
+> +
+> +    return 0;
+> +}
+> +
+> +static void __init smp_spin_table_init(int cpu, struct dt_device_node *dn)
+>  {
+> -    /* Not needed on ARM32, as there is no relevant information in
+> -     * the CPU device tree node for ARMv7 CPUs.
+> +    if ( !dt_property_read_u32(dn, "cpu-release-addr", &cpu_release_addr[cpu]) )
+
+It looks like cpu-release-addr could be u64 or u32. Can we detect the
+size of the property and act accordingly? If the address is u64 and
+above 4GB it is fine to abort.
+
+
+> +    {
+> +        printk("CPU%d has no cpu-release-addr\n", cpu);
+> +        return;
+> +    }
+> +
+> +    smp_enable_ops[cpu].prepare_cpu = smp_spin_table_cpu_up;
+> +}
+> +
+> +static int __init dt_arch_cpu_init(int cpu, struct dt_device_node *dn)
+> +{
+> +    const char *enable_method;
+> +
+> +    /*
+> +     * Refer Documentation/devicetree/bindings/arm/cpus.yaml, it says on
+> +     * ARM 32-bit systems this property is optional.
+>       */
+> +    enable_method = dt_get_property(dn, "enable-method", NULL);
+> +    if (!enable_method)
+
+coding style
+
+
+> +    {
+> +        return 0;
+> +    }
+> +
+> +    if ( !strcmp(enable_method, "spin-table") )
+> +        smp_spin_table_init(cpu, dn);
+> +    else
+> +    {
+> +        printk("CPU%d has unknown enable method \"%s\"\n", cpu, enable_method);
+> +        return -EINVAL;
+> +    }
+> +
+>      return 0;
+>  }
+>  
+> +int __init arch_cpu_init(int cpu, struct dt_device_node *dn)
+> +{
+> +    return dt_arch_cpu_init(cpu, dn);
+> +}
+> +
+>  int arch_cpu_up(int cpu)
+>  {
+> -    return platform_cpu_up(cpu);
+> +    int ret = 0;
+> +
+> +    if ( smp_enable_ops[cpu].prepare_cpu )
+> +        ret = smp_enable_ops[cpu].prepare_cpu(cpu);
+> +
+> +    if ( !ret )
+> +        return platform_cpu_up(cpu);
+
+I think this should be:
+
+    if ( smp_enable_ops[cpu].prepare_cpu )
+        ret = smp_enable_ops[cpu].prepare_cpu(cpu);
+    else
+        ret = platform_cpu_up(cpu);
+
+
+
+
+> +    return ret;
+>  }
+>  
+>  void arch_cpu_up_finish(void)
+> -- 
+> 2.17.1
+> 
+> 
 
