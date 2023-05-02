@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A71696F4442
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 14:51:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528574.821908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F228F6F4454
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 14:54:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528578.821918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptpSX-0004bT-FA; Tue, 02 May 2023 12:50:21 +0000
+	id 1ptpWh-0005CA-0F; Tue, 02 May 2023 12:54:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528574.821908; Tue, 02 May 2023 12:50:21 +0000
+Received: by outflank-mailman (output) from mailman id 528578.821918; Tue, 02 May 2023 12:54:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptpSX-0004Zj-Cc; Tue, 02 May 2023 12:50:21 +0000
-Received: by outflank-mailman (input) for mailman id 528574;
- Tue, 02 May 2023 12:50:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vLcn=AX=tibco.com=clindig@srs-se1.protection.inumbo.net>)
- id 1ptpSW-0004Zd-9l
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 12:50:20 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e4cd1940-e8e7-11ed-b225-6b7b168915f2;
- Tue, 02 May 2023 14:50:19 +0200 (CEST)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-3f3331f928cso21879345e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 May 2023 05:50:19 -0700 (PDT)
-Received: from smtpclient.apple (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- k7-20020adff5c7000000b00306299be5a2sm7086099wrp.72.2023.05.02.05.50.17
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 02 May 2023 05:50:18 -0700 (PDT)
+	id 1ptpWg-00059q-Tc; Tue, 02 May 2023 12:54:38 +0000
+Received: by outflank-mailman (input) for mailman id 528578;
+ Tue, 02 May 2023 12:54:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=l/wp=AX=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1ptpWf-00059k-OE
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 12:54:37 +0000
+Received: from sender3-of-o58.zoho.com (sender3-of-o58.zoho.com
+ [136.143.184.58]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7c5b8517-e8e8-11ed-8611-37d641c3527e;
+ Tue, 02 May 2023 14:54:35 +0200 (CEST)
+Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1683032061497608.2626436346678;
+ Tue, 2 May 2023 05:54:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,75 +40,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4cd1940-e8e7-11ed-b225-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1683031819; x=1685623819;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=s4U/e2ueVkIftF9kI3geNYcSUvjsAJfgMH+focDaLwM=;
-        b=UPOW42jY0e1qYe7ptHYUn3nvE7C5mg6br2zNrp98TtVWAIjZhy4iQMly9PBtff3hdX
-         sCR4fEysID5v63m1d4qKaGWYFbR6Ni+0AcMXJYgRVDm6H+gzGZSwZ5naDV59fYyhI7Id
-         6xplGXvepfZjOlmKvq1xdCSe1EeEYWefmpfUI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683031819; x=1685623819;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=s4U/e2ueVkIftF9kI3geNYcSUvjsAJfgMH+focDaLwM=;
-        b=HO2epBH+COFH+PFJg/kMMdpOLP/Ri/AXN2gnxm+0COpvSF3DOoelZxCmjHa6VVor1c
-         Z2Vx9K9nQqxx8BsK7AJtXQoGBjeRnE70yQMLVBm5feoRRtUVRH72UWcPEkf2NpI3TF/H
-         InrZrF4ncJg6WKMYFnBYFF8CrtsLGIv/ijkyyqHVpcBWHa+2w8YchLkxSh9GHofepIKG
-         Fe/tpS9NU4ZH81/AxZaux/WYLZmf8betuzoH4qHwgCk9Nn0M9bxeAmdYhsYqmZWKdNYj
-         dvfF+bYan9frYYVV1aPZb5yO1m6ACs4L6UOUbxp0ZU+tPHrW0RADbA/8yDNzR0PZ3OI0
-         oKDA==
-X-Gm-Message-State: AC+VfDy6Ux+sXPqooeX37IpcLmMF0ttq/GFnF8FxBsnWIkl4iOhg8vmH
-	9r3BSXT+zYD3rHiTHpxWliPW3A==
-X-Google-Smtp-Source: ACHHUZ5yU5MA+8UsxHIog3VNPIQHEYE6JqjPOldI32Apd5dXnAARkntx6nmRfVrN6gYiWxldQdM3MQ==
-X-Received: by 2002:a1c:7c19:0:b0:3f1:8c5f:dfc5 with SMTP id x25-20020a1c7c19000000b003f18c5fdfc5mr12794192wmc.39.1683031818759;
-        Tue, 02 May 2023 05:50:18 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
-Subject: Re: [PATCH v3 1/3] tools: Modify single-domid callers of
- xc_domain_getinfolist()
-From: Christian Lindig <christian.lindig@cloud.com>
-In-Reply-To: <20230502111338.16757-2-alejandro.vallejo@cloud.com>
-Date: Tue, 2 May 2023 13:50:17 +0100
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>,
- Christian Lindig <christian.lindig@citrix.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A40FFA8F-421C-48E1-B163-9B411D0F59B3@cloud.com>
-References: <20230502111338.16757-1-alejandro.vallejo@cloud.com>
- <20230502111338.16757-2-alejandro.vallejo@cloud.com>
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-X-Mailer: Apple Mail (2.3696.120.41.1.1)
+X-Inumbo-ID: 7c5b8517-e8e8-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1683032063; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=l2XLGY8zcqX3D8x898GT/KRbeRTOt8BCSGyucgps7mCnsDadj6hWr0CfO/hz5mK2Q/sckMfz74mskfOoD2g9H8RGYfUzV8PbOcWO7HekAUawfjwnYFUElJ6I2AtD3/bVsDLYMaMNjLy1HcsYuFEHkfWilNF7/23bhOPVwjXh47c=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1683032063; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=xgJzjqiynfOW2SuuA1mzX5zeflmOYIFlHVIvrgPOF+E=; 
+	b=YZXVPBMgHa5R5rXlJvRTvpU6EtuCJulZEHyexO3BSj0lMqMib4kWO/FuA+bJTzv5SJVLGfM9nRUYMVn3YmQT4mlShQqu3kqU9Bx5l8KRF28KFs3jzueaJTZn/NH3AA4Z2Pn3FewFZN3yiCmQtiOIAfSW/nTWTcgyDIXl/Qlv0xM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1683032063;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:To:To:Cc:Cc:References:From:From:Subject:Subject:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=xgJzjqiynfOW2SuuA1mzX5zeflmOYIFlHVIvrgPOF+E=;
+	b=s+2EMRcww57hKhnh0PlnkU/6CiOICPQWsr7Y/OzuojHyQG7qGjIhmH8WMS/j2w4L
+	vRml+47d2iEIfSscqyxqdDRrRQ7cJEvwC+6wmyHRE9oA1FWLPEN3ORjqqwfPkwQihHD
+	IBbDDkdr2aD3WQoT89j5q3HZE8H22XMzGU8f31uE=
+Message-ID: <c333f02e-0655-50ec-aee8-7c1449ca267f@apertussolutions.com>
+Date: Tue, 2 May 2023 08:54:19 -0400
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <26064a5a-423d-ded5-745e-61abb0fa601c@suse.com>
+ <600c8c62-5982-ec7e-7996-5b7fbfb40067@apertussolutions.com>
+ <22b2e03c-ac5e-915a-78a2-0a632b09a53a@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: Re: [PATCH] sysctl: XSM hook should not cause
+ XEN_SYSCTL_getdomaininfolist to (appear to) fail
+In-Reply-To: <22b2e03c-ac5e-915a-78a2-0a632b09a53a@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
+On 5/2/23 06:59, Jan Beulich wrote:
+> On 02.05.2023 12:43, Daniel P. Smith wrote:
+>> On 5/2/23 03:17, Jan Beulich wrote:
+>>> Unlike for XEN_DOMCTL_getdomaininfo, where the XSM check is intended to
+>>> cause the operation to fail, in the loop here it ought to merely
+>>> determine whether information for the domain at hand may be reported
+>>> back. Therefore if on the last iteration the hook results in denial,
+>>> this should not affect the sub-op's return value.
+>>>
+>>> Fixes: d046f361dc93 ("Xen Security Modules: XSM")
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> The hook being able to deny access to data for certain domains means
+>>> that no caller can assume to have a system-wide picture when holding the
+>>> results.
+>>>
+>>> Wouldn't it make sense to permit the function to merely "count" domains?
+>>> While racy in general (including in its present, "normal" mode of
+>>> operation), within a tool stack this could be used as long as creation
+>>> of new domains is suppressed between obtaining the count and then using
+>>> it.
+>>>
+>>> In XEN_DOMCTL_getpageframeinfo2 said commit had introduced a 2nd such
+>>> issue, but luckily that sub-op and xsm_getpageframeinfo() are long gone.
+>>>
+>>
+>> I understand there is a larger issue at play here but neutering the
+>> security control/XSM check is not the answer. This literally changes the
+>> way a FLASK policy that people currently have would be enforced, as well
+>> as contrary to how they understand the access control that it provides.
+>> Even though the code path does not fall under XSM maintainer, I would
+>> NACK this patch. IMHO, it is better to find a solution that does not
+>> abuse, misuse, or invalidate the purpose of the XSM calls.
+>>
+>> On a side note, I am a little concern that only one person thought to
+>> include the XSM maintainer, or any of the XSM reviewers, onto a patch
+>> and the discussion around a patch that clearly relates to XSM for us to
+>> gauge the consequences of the patch. I am not assuming intentions here,
+>> only wanting to raise the concern.
+> 
+> Well, yes, for the discussion items I could have remembered to include
+> you. The code change itself, otoh, doesn't require your ack, even if it
+> is the return value of an XSM function which was used wrongly here.
 
+I beg to disagree, not that you could have, but that you should have. 
+This is now the second XSM issue, that I am aware of at least, that 
+myself and the XSM reviewers have been left out of. How and where the 
+XSM hooks are deployed are critical to how XSM function, regardless of 
+how mundane the change may be. By your logic, as the XSM maintainer I 
+can make changes to the XSM code that changes how the system behaves for 
+x86 and claim you have no Ack/Nack authority since it is XSM code. These 
+subsystems are symbiotic, and we owe each other the due respect to 
+include to the other when these systems touch or influence each other.
 
-> On 2 May 2023, at 12:13, Alejandro Vallejo =
-<alejandro.vallejo@cloud.com> wrote:
->=20
-> xc_domain_getinfolist() internally relies on a sysctl that performs
-> a linear search for the domids. Many callers of =
-xc_domain_getinfolist()
-> who require information about a precise domid are much better off =
-calling
-> xc_domain_getinfo_single() instead, that will use the getdomaininfo =
-domctl
-> instead and ensure the returned domid matches the requested one. The =
-domtctl
-> will find the domid faster too, because that uses hashed lists.
->=20
-> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+>> So for what it is worth, NACK.
+> 
+> I'm puzzled: I hope you don't mean NACK to the patch (or effectively
+> Jürgen's identical one, which I had noticed only after sending mine).
+> Yet beyond that I don't see anything here which could be NACKed. I've
+> merely raised a couple of points for discussion.
 
-Acked-by: Christian Lindig <christian.lindig@cloud.com>
-
-I mostly care about the OCaml bindings - looks good to me.
-
-=E2=80=94 C=
+I will comment on Jurgen's patch.
 
