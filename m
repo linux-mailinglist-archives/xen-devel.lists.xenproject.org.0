@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D60C6F4B90
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:44:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528828.822468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A79A6F4B97
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:48:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528836.822478 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwr3-0001eM-FS; Tue, 02 May 2023 20:44:09 +0000
+	id 1ptwuy-0002Ij-1v; Tue, 02 May 2023 20:48:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528828.822468; Tue, 02 May 2023 20:44:09 +0000
+Received: by outflank-mailman (output) from mailman id 528836.822478; Tue, 02 May 2023 20:48:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwr3-0001bC-C5; Tue, 02 May 2023 20:44:09 +0000
-Received: by outflank-mailman (input) for mailman id 528828;
- Tue, 02 May 2023 20:44:08 +0000
+	id 1ptwux-0002H3-VH; Tue, 02 May 2023 20:48:11 +0000
+Received: by outflank-mailman (input) for mailman id 528836;
+ Tue, 02 May 2023 20:48:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b5+i=AX=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ptwr2-0001b6-GB
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:44:08 +0000
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1389ce24-e92a-11ed-8611-37d641c3527e;
- Tue, 02 May 2023 22:44:05 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 2EA135C0206;
- Tue,  2 May 2023 16:44:04 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Tue, 02 May 2023 16:44:04 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 2 May 2023 16:44:02 -0400 (EDT)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=d5QU=AX=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1ptwuw-0002Gn-K3
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:48:10 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.53]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a523253f-e92a-11ed-8611-37d641c3527e;
+ Tue, 02 May 2023 22:48:08 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
+ with ESMTPSA id x6987cz42Km3eaa
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 2 May 2023 22:48:03 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,145 +41,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1389ce24-e92a-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1683060244; x=1683146644; bh=bquulcUGVvPXVr3hhUZYxsQgDschilipxpo
-	PBxW7lwM=; b=RPmQ0OEV9S1XkKuov9bdECga8Q63lGNujL6ihp0PnRNOmlBYp7l
-	EsvBDkYTCNEiDTD8WP6tOee8+sayAI3Fx9y7ZcpmmZ+ou/AhR5Oh3dQAXoiIFSan
-	amtiFluu6Hj7BMyLhViAT5i1SI+Fkz7AQ0d49oNlnQS04R4oaVOHA1/gTtjVe2Dc
-	wO/sFNKj3PU3mrBZg05Yv/VlSefvV3kFDlCGpmG/W/9QQIwoVGxOfsH28DBDCaqT
-	N8gkWDQMJq+cONor2MdJSk9tMwg0MjnE9ReybQ7WTNyafJVW0KF9zvoWKRFryyNF
-	WI+l2AV7hByEb4zm00CdvUYtIx3aP3769Sg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1683060244; x=1683146644; bh=bquulcUGVvPXV
-	r3hhUZYxsQgDschilipxpoPBxW7lwM=; b=hHrHP8WKRMORzXF/1BbhU2fLHwaxC
-	+SIWNSZAakxT1Xjiw2S4+upHy4LtpWg89ea3rUS42UJVq9QMN5fpSUBBmheMEvm3
-	11qNlg4sKrLSvUCc8qNvNUEFjZCVmqthKmU/d1K+BF/sgOpuxyuGwFkfBf8+hqSX
-	7Zt3fih/ZsgANDSLoMNgQczj63l1ItxGlooXPLoDSZ2raYWhReUnS3TFgtWDnE4e
-	ulaJEooge2O1aVDlu9rlNOt/Eg6YRQfaIirQ5Pmovd56T/qEXnPa1G+42jRaSgxk
-	srviAENp5d+ALe/+9wSYlKQvWCKMVeHLMRpuIJjZ9f657hgOx7GnaunWQ==
-X-ME-Sender: <xms:E3ZRZB-kVMC_FO4nyrDydFnbPoKPVeehzfhjg0a6WOp7ZTJ-IyUYGg>
-    <xme:E3ZRZFvXB2bS4HnIImV4hs668OcZzbpWpSH25FfooQIvr15J-lVEAL127QnpW2xJU
-    WOnjyUEEJdg0A>
-X-ME-Received: <xmr:E3ZRZPDLFuYiAGlyEd4AniNNLrfZDdoraytrdavI7_yhF8GZEX861MIv4y1IcLFo0J5g9tMYZ2btG44qQTPVwKkKv8bSzib5uE8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfedviedgudehfecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
-    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
-    udelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlh
-    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
-    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:E3ZRZFfhEdkJ7CJ5PXMmNmlwTx_fD1joy8ha3KrD8D9nuH6C-t4Vqw>
-    <xmx:E3ZRZGPgiOcR1sX8aHDGmmx0fVdUlIJzzm8xJKDjUaQ-3FuPLHqAEA>
-    <xmx:E3ZRZHkYC8WEzuJjgJAwB_YUYOcIVIjfES7db8EA562avGwKO9qT4A>
-    <xmx:FHZRZDp4koRt3K0bpUFNlosNeteRmvU__iJejTJTOWi1HiZm6y2VBg>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 2 May 2023 22:43:58 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] ns16550: enable memory decoding on MMIO-based PCI
- console card
-Message-ID: <ZFF2D0NkvJdkR1dU@mail-itl>
-References: <20230425143902.142571-1-marmarek@invisiblethingslab.com>
- <a3f2d048-78c5-9a5d-d44d-3a930ba780fd@suse.com>
+X-Inumbo-ID: a523253f-e92a-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1683060483; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=YphspjVUr1YpHqRikiihIxJoLv2OCITtQV2UvMFMZ2PhF0noh9mB5RGWXjV+mAczkw
+    L1D8CF4IovVOq4qUDTdEpIMR0bq6FwITgN0BhrxC1JsM2ThblhlULPZSoA/H3ylwwWpZ
+    lJKF1YlpJhho+lVjd8yYd7KAsby9JrXF/DUnlZZ7TdUTpdGpNOm07UscfTohjdte4dnX
+    /M2F6nIIxMjUfBO4hGi0/n6D6Se+FyRilaw0Nn9Ql9SRv0g94y8rBPDMg9ye+zM6cpHP
+    vLhgBSlKBl6oQl/FO/K2gBFVFsabShGgQDKZAzFJ6s3qoxqTRmc8UeQ+GZaS/pwFnNOs
+    AL9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683060483;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=QAmU+/VygWvLyKR/GJw/qjknyykgRWf7rx6CpuHmpt0=;
+    b=JZKUUpuNJbmSYa79RF9EtvehtI53BYpwqF27R7Xb0vE6y9JiDhBdiahv8xaMttbDzD
+    JYVebTs4az3SUiq33cVM1mG60iOju+tuA8HzdgVowSe2WSLkazyPMXuLwl+LCK6bhfwR
+    /5XTEM7Hgxf5N0Intn9oRtQ4Z735QDIWZkKB7qmBUju0M723cSJLcBVYcd/ZhFBEUoOJ
+    s9ZdgVk2SAOHU/U0e2RZ/Cuhd2dNaz0DJLWUYuXFYs4N1yR8oa+qa9Lend3L6JEce7Sb
+    oVKSRpG4wXIDD1oWPnhXIgbbKnZFcszRybkb2InYmvYlb4b8VjcQm/IfsnfOZ2kl9omX
+    05tw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683060483;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=QAmU+/VygWvLyKR/GJw/qjknyykgRWf7rx6CpuHmpt0=;
+    b=OzvPmEsxeE2vTN5SuQfki+E/p+3fuZVACtCtI2ckS9oij4NX5t3tm37W1cfbh/VWB9
+    tycdyhkLAvDcHNa+8BZh6VDtqLZ01phSFgKtJHSjRwnAg4w2DF23wkrycAujdhwJJ9a3
+    tIdo1c6kwidHeMmaQqJrTefbTa7AHpuf3pZpt+A/ZshFeU083lk/rVopJEWQDeLHRHEM
+    hTSL21bDBRh3IaDxleayoIz6NL4gH2AuxfbvIdxTYbhLuv/AXXjH+bVMkJ3jTpT0BFfT
+    idqlR5cAX7cG5zCUmMgJXzIXGyvadPXmTxTtYJCwkz6gUqte0LWin4GbFtDUMPZIpp/X
+    Bkfg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683060483;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=QAmU+/VygWvLyKR/GJw/qjknyykgRWf7rx6CpuHmpt0=;
+    b=BkQP3SKq0gNjF4VeD4vRL+gay92bML/DQMIgjjOJL2Jn0X4euM9t0Umb6TwfbfvmYF
+    KdRauizvLKwtf1oIg4DA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4wqVv7FZ8tH5EUSbMVU80kUr7f4QlYaI60OjHt/Q=="
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v1] tools: drop bogus and obsolete ptyfuncs.m4
+Date: Tue,  2 May 2023 20:48:00 +0000
+Message-Id: <20230502204800.10733-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="eIxYRDk9pctUlU0V"
-Content-Disposition: inline
-In-Reply-To: <a3f2d048-78c5-9a5d-d44d-3a930ba780fd@suse.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
+According to openpty(3) it is required to include <pty.h> to get the
+prototypes for openpty() and login_tty(). But this is not what the
+function AX_CHECK_PTYFUNCS actually does. It makes no attempt to include
+the required header.
 
---eIxYRDk9pctUlU0V
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 2 May 2023 22:43:58 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] ns16550: enable memory decoding on MMIO-based PCI
- console card
+The two source files which call openpty() and login_tty() already contain
+the conditionals to include the required header.
 
-On Tue, May 02, 2023 at 12:53:15PM +0200, Jan Beulich wrote:
-> On 25.04.2023 16:39, Marek Marczykowski-G=C3=B3recki wrote:
-> > pci_serial_early_init() enables PCI_COMMAND_IO for IO-based UART
-> > devices, add setting PCI_COMMAND_MEMORY for MMIO-based UART devices too.
->=20
-> This sentence is odd, as by its grammar it looks to describe the current
-> situation only. The respective sentence in v1 did not have this issue.
->=20
-> > --- a/xen/drivers/char/ns16550.c
-> > +++ b/xen/drivers/char/ns16550.c
-> > @@ -272,7 +272,15 @@ static int cf_check ns16550_getc(struct serial_por=
-t *port, char *pc)
-> >  static void pci_serial_early_init(struct ns16550 *uart)
-> >  {
-> >  #ifdef NS16550_PCI
-> > -    if ( !uart->ps_bdf_enable || uart->io_base >=3D 0x10000 )
-> > +    if ( uart->bar )
-> > +    {
-> > +        pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
-> > +                                  uart->ps_bdf[2]),
-> > +                         PCI_COMMAND, PCI_COMMAND_MEMORY);
-> > +        return;
-> > +    }
-> > +
-> > +    if ( !uart->ps_bdf_enable )
-> >          return;
-> > =20
-> >      if ( uart->pb_bdf_enable )
->=20
-> While I did suggest using uart->bar, my implication was that the io_base
-> check would then remain in place. Otherwise, if I'm not mistaken, MMIO-
-> based devices not specified via "com<N>=3D...,pci" would then wrongly take
-> the I/O port path.
+Remove the bogus m4 file to fix build with clang, which complains about
+calls to undeclared functions.
 
-I don't think MMIO-based devices specified manually have great chance to
-work anyway (see the commit message), but indeed I shouldn't have broken
-them even more.
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+ m4/ptyfuncs.m4     | 35 -----------------------------------
+ tools/configure.ac |  1 -
+ 2 files changed, 36 deletions(-)
+ delete mode 100644 m4/ptyfuncs.m4
 
-> Furthermore - you can't use uart->bar alone here, can you? The field is
-> set equally for MMIO and port based cards in pci_uart_config().
-
-Right, I'll restore the io_base check.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---eIxYRDk9pctUlU0V
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRRdg8ACgkQ24/THMrX
-1yxm9wf/dusj5o4WiivPB3JYBb6aS4pI2gj3KvUbO+8zK5nxFkL5SCTxE/4gMhY2
-aTNlNTnxfo7xuhWqptqaJ1tM9mScc6vwHODrwUf6jv8o8K+YFZoEPgfhyeEC2Xjn
-qJA6M8JPaEWi+QPCSbY2BeVlxXTNM30xKOoBIuCav9v8OMozbz02OGescxyDCt0e
-xUzFozvsy/KC4Bvv22sZ7YxwKad+KbfmNhFN791YZ97RFn4uTErAgVCV/ajGH6FE
-fXQeVQcLymxyWBI4tlicQdw9SNVYwvm0bkHXhjP6MmGXQhc//LxssUIRPe/KVXW9
-DcAWB7caQ7yNyV+kbvFO6qK3UlMgtw==
-=Q3KG
------END PGP SIGNATURE-----
-
---eIxYRDk9pctUlU0V--
+diff --git a/m4/ptyfuncs.m4 b/m4/ptyfuncs.m4
+deleted file mode 100644
+index 3e37b5a23c..0000000000
+--- a/m4/ptyfuncs.m4
++++ /dev/null
+@@ -1,35 +0,0 @@
+-AC_DEFUN([AX_CHECK_PTYFUNCS], [
+-    dnl This is a workaround for a bug in Debian package
+-    dnl libbsd-dev-0.3.0-1. Once we no longer support that
+-    dnl package we can remove the addition of -Werror to
+-    dnl CPPFLAGS.
+-    AX_SAVEVAR_SAVE(CPPFLAGS)
+-    CPPFLAGS="$CPPFLAGS -Werror"
+-    AC_CHECK_HEADER([libutil.h],[
+-      AC_DEFINE([INCLUDE_LIBUTIL_H],[<libutil.h>],[libutil header file name])
+-    ])
+-    AX_SAVEVAR_RESTORE(CPPFLAGS)
+-    AC_CACHE_CHECK([for openpty et al], [ax_cv_ptyfuncs_libs], [
+-        for ax_cv_ptyfuncs_libs in -lutil "" NOT_FOUND; do
+-            if test "x$ax_cv_ptyfuncs_libs" = "xNOT_FOUND"; then
+-                AC_MSG_FAILURE([Unable to find library for openpty and login_tty])
+-            fi
+-            AX_SAVEVAR_SAVE(LIBS)
+-            LIBS="$LIBS $ax_cv_ptyfuncs_libs"
+-            AC_LINK_IFELSE([AC_LANG_SOURCE([
+-#ifdef INCLUDE_LIBUTIL_H
+-#include INCLUDE_LIBUTIL_H
+-#endif
+-int main(void) {
+-  openpty(0,0,0,0,0);
+-  login_tty(0);
+-}
+-])],[
+-                break
+-            ],[])
+-            AX_SAVEVAR_RESTORE(LIBS)
+-        done
+-    ])
+-    PTYFUNCS_LIBS="$ax_cv_ptyfuncs_libs"
+-    AC_SUBST(PTYFUNCS_LIBS)
+-])
+diff --git a/tools/configure.ac b/tools/configure.ac
+index 9bcf42f233..c94257f751 100644
+--- a/tools/configure.ac
++++ b/tools/configure.ac
+@@ -70,7 +70,6 @@ m4_include([../m4/uuid.m4])
+ m4_include([../m4/pkg.m4])
+ m4_include([../m4/curses.m4])
+ m4_include([../m4/pthread.m4])
+-m4_include([../m4/ptyfuncs.m4])
+ m4_include([../m4/extfs.m4])
+ m4_include([../m4/fetcher.m4])
+ m4_include([../m4/ax_compare_version.m4])
 
