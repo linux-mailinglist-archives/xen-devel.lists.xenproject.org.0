@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBB746F3C7F
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 06:00:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528330.821328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48E406F3D1D
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 07:43:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528335.821338 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pthAv-0001sW-Fl; Tue, 02 May 2023 03:59:37 +0000
+	id 1ptiml-0004zY-2Q; Tue, 02 May 2023 05:42:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528330.821328; Tue, 02 May 2023 03:59:37 +0000
+Received: by outflank-mailman (output) from mailman id 528335.821338; Tue, 02 May 2023 05:42:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pthAv-0001pC-D6; Tue, 02 May 2023 03:59:37 +0000
-Received: by outflank-mailman (input) for mailman id 528330;
- Tue, 02 May 2023 03:59:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PvCK=AX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pthAu-0001p6-2Y
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 03:59:36 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bdb2bdd0-e89d-11ed-8611-37d641c3527e;
- Tue, 02 May 2023 05:59:32 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 399EC618FE;
- Tue,  2 May 2023 03:59:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4C1C433D2;
- Tue,  2 May 2023 03:59:28 +0000 (UTC)
+	id 1ptimk-0004wD-VD; Tue, 02 May 2023 05:42:46 +0000
+Received: by outflank-mailman (input) for mailman id 528335;
+ Tue, 02 May 2023 05:42:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=d5QU=AX=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1ptimi-0004w6-DA
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 05:42:44 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [81.169.146.163]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 27b03e94-e8ac-11ed-b225-6b7b168915f2;
+ Tue, 02 May 2023 07:42:42 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
+ with ESMTPSA id x6987cz425gTaRK
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Tue, 2 May 2023 07:42:29 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,90 +41,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bdb2bdd0-e89d-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1682999969;
-	bh=pmCTwM5JeS/nROPQdqbvEVzgt5qKVs7zZy9Af5KBrC0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=LpV7prXFLMFtaEZrhSeYwjhaMrErPjwtYqkH1CkPrNmwpXPJS3FOOvEFyONbjilRG
-	 9N5bgQCO04Mr9HUip9M1I98h/8mi8ArU/EmTRqWi++UzLM+t+fw8J//1huirwUCMoh
-	 QCsttQxykjd/PjYjpQKAgcPdeR5wJjpNZYSzaOFaWvsBg0iswwNr5JkUWX0wm1Mw7K
-	 7SKRLdMHdjojXXVRa9q1dXgnd3GL3LpAQdg2Fy8zS1ROFvb4bbPgs3tawVFJPnpONL
-	 GHgZRSAzatM1T09iHkbRKh9rs1Ef2EaHelrMoKYPRmxWlz0KE8EFv71DUICe7cmwbO
-	 9NcVX/7JCmkRQ==
-Date: Mon, 1 May 2023 20:59:26 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: andrew.cooper3@citrix.com, alejandro.vallejo@cloud.com, 
-    committers@xenproject.org, michal.orzel@amd.com, 
-    xen-devel@lists.xenproject.org
-Subject: Re: xen | Failed pipeline for staging | 6a47ba2f
-In-Reply-To: <alpine.DEB.2.22.394.2304291808420.974517@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2305011835000.974517@ubuntu-linux-20-04-desktop>
-References: <644bfbc6939d8_2a49bbb403253f4@gitlab-sidekiq-catchall-v2-78885c497-qxnp2.mail> <alpine.DEB.2.22.394.2304281905020.974517@ubuntu-linux-20-04-desktop> <ca0144a6-2c57-0cc3-fd27-5dbe59491ef3@citrix.com>
- <alpine.DEB.2.22.394.2304291808420.974517@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 27b03e94-e8ac-11ed-b225-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1683006149; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=hz4P2fYHoTAGVQJxiYF1+wg1eGX4s1T6oLiKnz3J9ijpYzkt+pHRrYGLY9KNIi5wSc
+    vwk/W94SFCc5885n0F3vIjEqHm4jdMyEIuOjtwJ+Q2OzZMvSkhkaBQVZ3PZfoFFfnvj9
+    yVglKOzNQ1C3ZTIrTqiU9/kQCfkwQxLqKirs/13YydPRb/4Prq4LQMCfKMZJOkzqX9cs
+    vhQCqLLL4j6Ja2EtuiQ4kGvrWcd79kVJ38awktFQ68ZExXFNvhIZYzPETIXNvrYVSK6v
+    FMxBeC55j1VchQhPXE5KspldBUVi/fpvbjx9Eg7HqWG6EVgkhqEltyoP6ti3RtH9qCHw
+    Yw8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683006149;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=GhE5fBfcNwMLwxUGqEDocKD//uK7BAVcWCZfFlhjFms=;
+    b=Gde1FB+GfQETrwt+XkxjfOrvcybPN0VAQeR9m+K2cd4mfnDYlxtOnOSquEVUbYxevI
+    Dds1Z3Oy2vNgHTeUIyGnMRvxyHDDMYN6mYqmPISUsSWnjeZPE2HZQJHJQumZU47MW4G4
+    grW5N/u6w44/Z88lRmrldU4FBErCS1InX/4tTtthsj0ByTWjPvc3908biRdZ2T9Jo3RN
+    B88jXkKE0L97zI+vkLcaK/Yh3HhdWw4v9a/NKsxidkF+oVhMHe09wRrYEa3pxrOCuyxW
+    t65iRbILnc09mZfd2a6CAEONc+UWobZvMO2OFGn74iAZzPB1bqrw8v1MSEGX6biEw07Y
+    cU3A==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683006149;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=GhE5fBfcNwMLwxUGqEDocKD//uK7BAVcWCZfFlhjFms=;
+    b=PS3ttY3jAhpm4VF4UrTquU3/BxHgUGsP9e4yt/292Jn9arpNz90rNGgsDIq0qG6hIj
+    xVb0cdSgiY3CvTSmatDIM9U6dqOAOrYxLxMaq+t9dGgrkb4Rc68DpVamAt9JpVRtJ4pw
+    qaoaDOh6cozDCLuhDVzIxtGV+V/y+jMeupUw8sTqtzWz8mDnNG2ayw8gzIf3nXf4dqfr
+    4wUZCT6JXwl1/1av7ceNyPfmRRQVP24LQV2dI6oKGWpetZ3IXJb3bheITpjIQ8wgRRYT
+    a22FzeGFw3Z23t1Ty6w5LzK04dxDFwCXMi8IvwnEur7/zjUKgamIoea5Heoz8e1hElKN
+    hxPA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683006149;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=GhE5fBfcNwMLwxUGqEDocKD//uK7BAVcWCZfFlhjFms=;
+    b=jce+kKB9N9Yw3D4ke3LWxnftnI7FNN8KoVsLRzyBG4JD1+RhZ4FP33vzSxtCde+Uap
+    VdFO+886OfHYvfQLSEDA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4wqVv7FZ8tH5EUSbMVU80kUr7f4QlYaI60OjHt/Q=="
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v1] automation: provide diffutils and ghostscript in opensuse images
+Date: Tue,  2 May 2023 05:42:18 +0000
+Message-Id: <20230502054218.15303-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-On Sat, 29 Apr 2023, Stefano Stabellini wrote:
-> Your guess was correct. I have done more bisecting today. The culprit is
-> the following commit (I reverted only this commit and ran 25 tests
-> successfully, usually it fails in less than 5):
-> 
-> e522c98c3    tools: Refactor console/io.c to avoid using xc_domain_getinfo()
+The diffutils package is a hard requirement for building xen.
+It was dropped from the Tumbleweed base image in the past 12 months.
 
-I did more debugging. One problem seems to be that
-XEN_SYSCTL_getdomaininfolist is buggy in the hypervisor. The field
-u.getdomaininfolist.num_domains is not copied back to the guest. It
-doesn't look like the hypercall would behave well for more than 1 guest.
-I am appending the fix.
+Building with --enable-docs does now require the gs tool.
 
-This is not sufficient to fix the failure. On a hunch, I made this
-change:
+Add both packages to the suse dockerfiles.
 
-
- 	/* Fetch info on every valid domain except for dom0 */
--	ret = xc_domain_getinfolist(xc, 1, DOMID_FIRST_RESERVED - 1, domaininfo);
-+	ret = xc_domain_getinfolist(xc, 1, 10, domaininfo);
- 	if (ret < 0)
- 		return;
- 
-With it, everything works. I have run out of time today for my
-investigation.
-
-
-I would like to take the opportunity to highlight that gitlab-ci did a
-very good job spotting an issue. I am glad we are starting to reap the
-benefits of all the hard work we put into it.
-
-Cheers,
-
-Stefano
-
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
-xen: fix broken XEN_SYSCTL_getdomaininfolist hypercall
+ automation/build/suse/opensuse-leap.dockerfile       | 2 ++
+ automation/build/suse/opensuse-tumbleweed.dockerfile | 2 ++
+ 2 files changed, 4 insertions(+)
 
-XEN_SYSCTL_getdomaininfolist doesn't actually update the guest
-num_domains field, only its local copy. Fix that.
-
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-
-diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-index 02505ab044..0e1097be96 100644
---- a/xen/common/sysctl.c
-+++ b/xen/common/sysctl.c
-@@ -107,10 +107,8 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
-         
-         rcu_read_unlock(&domlist_read_lock);
-         
--        if ( ret != 0 )
--            break;
--        
-         op->u.getdomaininfolist.num_domains = num_domains;
-+        __copy_field_to_guest(u_sysctl, op, u.getdomaininfolist.num_domains);
-     }
-     break;
- 
+diff --git a/automation/build/suse/opensuse-leap.dockerfile b/automation/build/suse/opensuse-leap.dockerfile
+index bac9385412..c7973dd6ab 100644
+--- a/automation/build/suse/opensuse-leap.dockerfile
++++ b/automation/build/suse/opensuse-leap.dockerfile
+@@ -18,11 +18,13 @@ RUN zypper install -y --no-recommends \
+         clang \
+         cmake \
+         dev86 \
++        diffutils \
+         discount \
+         flex \
+         gcc \
+         gcc-c++ \
+         git \
++        ghostscript \
+         glib2-devel \
+         glibc-devel \
+         # glibc-devel-32bit for Xen < 4.15
+diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
+index 3e5771fccd..7e5f22acef 100644
+--- a/automation/build/suse/opensuse-tumbleweed.dockerfile
++++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
+@@ -18,11 +18,13 @@ RUN zypper install -y --no-recommends \
+         clang \
+         cmake \
+         dev86 \
++        diffutils \
+         discount \
+         flex \
+         gcc \
+         gcc-c++ \
+         git \
++        ghostscript \
+         glib2-devel \
+         glibc-devel \
+         # glibc-devel-32bit for Xen < 4.15
 
