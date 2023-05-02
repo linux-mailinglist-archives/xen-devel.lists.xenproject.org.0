@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84C9E6F3DE3
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 08:54:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528355.821387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E4806F3E52
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 09:18:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528362.821397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptjtK-00069G-8d; Tue, 02 May 2023 06:53:38 +0000
+	id 1ptkHI-0000O3-Al; Tue, 02 May 2023 07:18:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528355.821387; Tue, 02 May 2023 06:53:38 +0000
+Received: by outflank-mailman (output) from mailman id 528362.821397; Tue, 02 May 2023 07:18:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptjtK-00067W-5r; Tue, 02 May 2023 06:53:38 +0000
-Received: by outflank-mailman (input) for mailman id 528355;
- Tue, 02 May 2023 06:53:37 +0000
+	id 1ptkHI-0000LD-7h; Tue, 02 May 2023 07:18:24 +0000
+Received: by outflank-mailman (input) for mailman id 528362;
+ Tue, 02 May 2023 07:18:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fQfQ=AX=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ptjtJ-00067O-7s
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 06:53:37 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20605.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::605])
+ id 1ptkHG-0000L7-Kt
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 07:18:22 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on2052.outbound.protection.outlook.com [40.107.7.52])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d014f29-e8b6-11ed-8611-37d641c3527e;
- Tue, 02 May 2023 08:53:32 +0200 (CEST)
+ id 83772843-e8b9-11ed-8611-37d641c3527e;
+ Tue, 02 May 2023 09:18:19 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VI1PR04MB7166.eurprd04.prod.outlook.com (2603:10a6:800:121::11)
+ by GVXPR04MB10072.eurprd04.prod.outlook.com (2603:10a6:150:117::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.30; Tue, 2 May
- 2023 06:53:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.31; Tue, 2 May
+ 2023 07:17:50 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6340.030; Tue, 2 May 2023
- 06:53:29 +0000
+ 07:17:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,148 +46,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d014f29-e8b6-11ed-8611-37d641c3527e
+X-Inumbo-ID: 83772843-e8b9-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nNp8q5CcnOl/0AUeIHGQ+6W6OpdVzdWScnUcpbXQ4dKoGbMYaEA7XH14J/fQMonyo+j3YlYRyF0WczBn8N8BzAOAk3GxjqVYPGy8MtpxDWdH6yEYWx482zCoJhIeGDY8i4tsXUGKgIemF/p4knCLlvIxvNPCNONCLcZyzSYKfgGNGtlEAcIQM6kfD0/NlZTy0tP5XdqSCLGJ2p0ttUV6yvqs5iOCKW7QJIuR/5PGIQ4iHPg36l1BGIjizACY5vex0pIRwt5mC0iZ0aEYwFb438CJL1p0TOidAMg7+QrYgg2sLkHw911bABEqStO+DKSsubjSSzrDZEeasu5GFENqng==
+ b=YoFzm8fmaDDVP9+IUvOGemPkdB0WBIVdceOi1jg63jmurBJRS04BupVc9AnPlF0k7IOrdk9j3JdpkBJbWj5C1uHAll/U9oM1XeQZRffloDcTgi4G5xjwMS52rVTsh4sXjUuRG0QwPY8RyryfzEh3SpEE04661mrXliVtiJeVjLmQtlDb+DuHPDQ54L5D0EumU7hR8/y9Nzcse/7BoOudtCIofcZFkQ3MCWHMKAuy4fdGqA0TwymtsLSZGXm5ZvhlaoeQrLlfIcvshhMXNkFQCoheZCJfkZVTrHTM46TNhAPTh0aCC6VSExLEpeIrjqfSzvyWWhx9PrsgLdXRVtVhLA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KrLqDwXogvWTiVrkF8oSNrFfbNIE+diqB/eY+7SfAGE=;
- b=BdiNKGBJiP10df1M7B4H4J+kt4HNcLKqiRV52JZAJEkMQQpTGRGpuehAWmge6JIMywD/bjfjlwgUlV5zUmGG3PFz+2EH3s5/JHt0reV+rQv8rO560zOLdsiGKbB1cIHvU1TA6HpphMlTabzDPtlErDb+9F050E5vXR2j3S1a7vVG6lN4zZ6IfSx0LpTBp+DnlJH0qP4LvIjh8HJCW10o174bvoDR7myE7wwVEHBd6atnjFWGi8u8GNWhz/O9f0FiElbjlgC9wHhM7qLwxVNpaWX5FQeYPBKA12DOzBlA4Rw5kKGcuEZ+1gq2c3CMEIAZg5JNmNbg8g7ROiHqJtSByw==
+ bh=mJOXKJhqj0dCvMwJodrI7VMwHJWDODfDJZHptDaJKnA=;
+ b=cQwgf+HFCB71gNmwOwTc32kr0vD6apx8wsnQTFmfgPtLakoBpY2J0FP4Ip/tYNUogGDADU13g+Z444CsvAKMzvkpewNFKcFicZmZL0ls0SzptRX5ZGWq+SPOUW5IfQ0GkhjG4TXsWRKcB4d2bgp7XU6QqeYvRlfWPITreZUa7jRpY5CnCN0DR7vUvhlFK7upre5Kt+GHD0uicR1/RjcOlbYpC9CHDCPzpJHaOlz6Jm66aiF9VGr8e/yNwboHwVXMI8MbVjZ9fEzWaK6IrjyO6hgD6QEmYp62v/LXfePtd5MHQHoMX+j/fY4JDCm589ADJWKe8OHEr3jRRh5dpRoL2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KrLqDwXogvWTiVrkF8oSNrFfbNIE+diqB/eY+7SfAGE=;
- b=W8Ix5nkC79R46Gd/R4FxCjtMd7XQox70KmM/ikPWTICEfc/tTDQE36j7wvhvVmhXEfvWawECz0iCwsdlGmgH4TnaMVGoBZMpQT6FuEZvlp7RQwvVZcNyUr2fBpEOPvVMOYI0yaSzje44+aRqea6BqUJsPzVnCft4l42WmbpARvqu+If8Tm2tIKrtatbr48QlXgnRD3Otzqem/cKFCIv0XSOk03LXL4c0P4vFDVhoAhWo/61t/4tIOCID0LO0n+clE/Zl+WoQArzbAKIczR7SXJlzgkZTVAOinkfLOLcAuZ3bT0rknYKNcHpp1xR5txJIB8aJ8/jwCj3EC0UpcJFrsA==
+ bh=mJOXKJhqj0dCvMwJodrI7VMwHJWDODfDJZHptDaJKnA=;
+ b=TW+ANcAzg1QYKZs6gvuJXde2Srh2KXjRR9MPzOGydwGa7xnTfwBkFh1ADlUqI5rX7Cwv0cwvxpGmLodyLCiOHjtZkX0Rsasop8LBoVS9dmE6yzyYx0zuNs3vk1/NLz5rbtEplqbN9Iap2TEUY+5pgQaORnsWDDnwMemibyD+57Y/En/m4v7U3W8S0ikKe7IXGmf2GlnES3nSJVmCO4fDU/5n/0rvlCrGn8ZBXDDvQyvsxbFRVerteekE68uwmgCMZN1j2xhXgbnTI62wtY8tlaf5IZCv/CVz2OodLHGEBR8/1RXXvHieVojeA207U3MDTWm38Qay6g55Wu/WW85FvA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <333df991-58a8-f4e0-b46c-9f480cd34213@suse.com>
-Date: Tue, 2 May 2023 08:53:31 +0200
+Message-ID: <26064a5a-423d-ded5-745e-61abb0fa601c@suse.com>
+Date: Tue, 2 May 2023 09:17:52 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
-Subject: Re: xen | Failed pipeline for staging | 6a47ba2f
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, alejandro.vallejo@cloud.com,
- committers@xenproject.org, michal.orzel@amd.com,
- xen-devel@lists.xenproject.org
-References: <644bfbc6939d8_2a49bbb403253f4@gitlab-sidekiq-catchall-v2-78885c497-qxnp2.mail>
- <alpine.DEB.2.22.394.2304281905020.974517@ubuntu-linux-20-04-desktop>
- <ca0144a6-2c57-0cc3-fd27-5dbe59491ef3@citrix.com>
- <alpine.DEB.2.22.394.2304291808420.974517@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2305011835000.974517@ubuntu-linux-20-04-desktop>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <alpine.DEB.2.22.394.2305011835000.974517@ubuntu-linux-20-04-desktop>
+Subject: [PATCH] sysctl: XSM hook should not cause
+ XEN_SYSCTL_getdomaininfolist to (appear to) fail
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0006.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::16)
- To VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+X-ClientProxiedBy: FR2P281CA0141.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9e::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VI1PR04MB7166:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d591166-a79b-49f1-547b-08db4ad9ef95
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|GVXPR04MB10072:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d484f16-dd8e-4ca2-bcba-08db4add5695
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	qbzQPVavKnYfdLUSE/vmpkMy5tBAX1AUAwG2Irw/ovXSkC8TzL4pSFKLHXprPTgkjagt1/yeGTe6P+8EqeYIN2lUZdDykh3WtxfmmLvM8UgzEUoG6iAEPdiSr7lnBPIRfYrC312x9VO/pe/hzkInvWldH7ygZxhs1onYP2N5Ko/igtG0yDPVOii1FGvD1vbic7jXGslqyC3hcpXn7iGxKSfoWcg4FVFYthvKqZOs1FUyqZyQP4HC+cAfFR7eHe91VOf6dpsNW12uSHU37+pCA2WyABTxs0+evlQN+l2RCwygiZt4NUkOTIBRA5xHBpaq/vxHSZtljqd3gUkNvxoQb5o4WACJJpDGafiNay71wryb9lkx25VHjyDmmaRDg6TUElzn4UhawxhO4ACBNH4fKmTwGNBRL8RZP0qpj/bpL/6QHd+GCJYE4SBVm+wxsRKKaLVAgmfG1UgN7tTVLTTbMfyhagchvwA4tdvgsRSmsd0GkdyGz5c30TiQbTyuPEAsFu/73UuxLvdi/QVO3QqP3rY8lXvD+SbK68VeXXnfT4J6CoTs6R5xVox9M1bVR+h6x2zd+iZwWtYXSH9u1BapuKLT7ECz8hrRbhehcm/cXOUNKp5ZLwyTHnGFy2C9WSwN3mPRkXiWWSLW+KHttCQXUQ==
+	Gs8EetnGNi98b48zVs7nSu+d8jNxf6h2QCcIQP9R1XuLAEXeOdiKW2OlfU6wEooRH4BtM9nFAPd1+Cao56kilEg3dAz4r1llEvmGPks1To55o2672TUVjvrFoCZbIuujkunYdENBxNC4XSB+WFdnERbWW0UPKe5xfFWUpP6wsUFy4efM+NU3pTw+dSRk9z3tkkX3G998+8EIM9JdByc42jarY9OTTFVbkDxgONSyAkZglnRte1BduYF67y1JCrcZDzrVaMOyzxenSOareoz4z1cgzXMn0xf98rUv1yogGEN0F6KZGaAJf7GEevnAFcP4IP19EzNcYGINhrULsk4xG5CY1C8m8Ccgyv6lgfdSpP8AABEorOAAqtxIWij9VS39Pjw/7gy9zidzevFEdGZCHw+2KT9Dop6hrh2+qkSiphQhzXRWVB4/o4xSyx0Cwqm6iz+oiGEaGtXufuhukh1vEZL92Lh4aCsPDfRtHob+DZ2WUxPtJ4StbnkPtuO/Fjg3SR1GSfYQZwtEwJwfq/GUGUCD31rTSgoM+5tTVAJPsT64u3r/ni8oU1ldh1Lw6uPd3lhQi2EnbjgQWQm4g/Ny2W/mY5SPg3GAEa9YdXL9HiUPXL7bMB2CLwZtsS2TKheQ90IzzkCRwSD8dZXZ9O4IHg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(366004)(346002)(39850400004)(376002)(396003)(451199021)(31686004)(316002)(2616005)(53546011)(6512007)(4326008)(6506007)(8936002)(8676002)(31696002)(86362001)(5660300002)(478600001)(83380400001)(26005)(41300700001)(2906002)(36756003)(6916009)(6486002)(66946007)(38100700002)(66556008)(186003)(66476007)(6666004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(366004)(136003)(396003)(39860400002)(346002)(451199021)(31686004)(86362001)(4326008)(6916009)(66476007)(66556008)(66946007)(6506007)(6512007)(41300700001)(36756003)(8676002)(8936002)(5660300002)(6486002)(316002)(2906002)(31696002)(54906003)(478600001)(38100700002)(26005)(186003)(2616005)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Qy85dzQvU3F6ZkZsenFCZVg3ZHZkd3k1MForRlJpMXZxV2F2eURmQWxHN2Mv?=
- =?utf-8?B?blhnQUlveW5majlBcWh5dERKOGRIZnhlN3UvWmcxQkhJQWZ5SnVpRzliSHZM?=
- =?utf-8?B?QWdKVFlISUJ6emIzMlRSZmNtaEt0dXFsV0xNUkRkWnR3Z0dlMFMwYU5DSWVV?=
- =?utf-8?B?MUxoanRVSjNuMk4vWWZwcDNNR21CRm9sT2luUnZobE4wNGZ0b2xBZ1JBK1hm?=
- =?utf-8?B?YXlMTW9EQ3FjRUNUajI5ZHBFeW5ROGpWMWRrK3QwTElkY2UwYkpzcjNwTHln?=
- =?utf-8?B?MGhibVExWHpxOURNY2w2cHBVWjJlcSsyc09saXp4dzkvaEhUdEtzUW9ON0Zp?=
- =?utf-8?B?MmtVNmRWNEpLMmJONlNwZUdLaFdlUVU0R0FVaEN6SHovTk9ZQ2dJNmNOcmp4?=
- =?utf-8?B?QlBjZFF2akl1djdnajNuREp3UnF2U2pJSFIxejh3SHl0RXhLd0hFckYrdDhP?=
- =?utf-8?B?c0pTVjBvOTkrRlo1d3VyL2xBTGxGZFhXcnFBZ0JOQTV3SXkrWWpGdjQ2dG1F?=
- =?utf-8?B?Rk5idmwvZE42YUVCZ2xuaVROT2x6VEo3d003N1lZK1I4WmN5VERMV0Vvck9N?=
- =?utf-8?B?Q01Gb3BnOTdKK1dMVUMxWEJxdXZvMjgvVjk3c0puVndWU3BkbUY4Wkk4WERZ?=
- =?utf-8?B?Rm12QlZ1b0RtZGRIRUhMc0lRemErcXdZbjliMTgxMmQrWkJKRkxwN1RQV3l0?=
- =?utf-8?B?YnRjS1pYSlZvc1FsbGRKc1kyWTlWUHF0Y0pYVnhlQTdKVjJpZ3ROcXB3Z2JJ?=
- =?utf-8?B?VWE1UkpCaVZMeDArMVQ0QmhBbjFvcHVrWVdXdGxlMXFqK1lZbmxBUUVQRzhr?=
- =?utf-8?B?SmNabUJWR0Q5amppTXA3bHRIRkUxd0phSjFYMjhjaEltK1Y0UnN2ZmM1Nm9k?=
- =?utf-8?B?UnRVaXAvOHZnWVVyL09CQVJ6UXhpSEtZVWNhMStucmVtQ1grWFVqZ0hsOHRI?=
- =?utf-8?B?aytZcHpnaFdoUk1Rdi9oVzF2ZEpuMmJEU3d0L1ZxK3dYMVd0cmpiSUdlelg0?=
- =?utf-8?B?RFBVOVJQU3VpVmtpZHFoNDcvTUpxK2I0bEwrYUlLSXY3YkpRajgwL1U1MUJK?=
- =?utf-8?B?ZzFxNzlZMFNnUzFlNEhreUN2U0I0L3BpRzdIdGJMenkvOUJyYVhLKzF4VElo?=
- =?utf-8?B?bTFmbjZOYkF4NVNra2dybW5oR0Q3UjJZZDZ5bHYwa1ppQjFScEtxbm1OV0JV?=
- =?utf-8?B?cDM0dEUvczhBc1gwOEp3eU5LZWZkeGpzU0JWc3Z3TnF6QVdwUHA3Qi9tblJB?=
- =?utf-8?B?Zlg1aTR2dnFOU21nRVFzZy9lRXBBc25uVytxcUM2MlVFbytCUHNsYnFRTDI0?=
- =?utf-8?B?alBCbWpJU1hxamp5UzJuM242YlpFTVkvWXhWb3RXQU5kWWI3UXloTmpFeHV6?=
- =?utf-8?B?UFE1cmhSMmJDQ1lHL2ZjNDJENHZZdnh4dWlrdlNydjBncU9Ed0UrM29GYzla?=
- =?utf-8?B?TWVKeG5WdkV0ZUgxV1QveHJYN2ZWUEFqWXNzek0xSjc4VTQ0UW5GY3hISHdL?=
- =?utf-8?B?QXZ5aGl2bmVNLzVRS0cyWUEzYzNqNWxmMHBpd2lqaXNyc1dBa0xHVFlYR3Vh?=
- =?utf-8?B?SXRadmgzSTdZK3FiRFp4Zk5wOHNFNTNGSEZycFhDVUpCQllPWjd0YW4wcldS?=
- =?utf-8?B?WVQwVEZWeHlsWDdvMWV1T3lNZ2RCRFNkSWdhTU5wZnlHb3d5ait0QVU1MTZl?=
- =?utf-8?B?NE4wc3VtdjFiWW9FUEgyNVVEMXFrdjc0UURJSTlLMk1HOGc3VEpKdzI0NEpz?=
- =?utf-8?B?UUJTbVFGbk9QZTlycWRaRUJJY2dic21pdWlxZE5ESnVFTWhwQUJFYjJpeTNZ?=
- =?utf-8?B?WTh1RUkweGo1dGcycFRnMWZWWi83TmRHeUkwUW8rVVhLU09vTG5rWTlkSi9Q?=
- =?utf-8?B?UTFSbHFVMUp5c3d5NjZwVjJBMW1XVTNreVFyczZpMGdwUmNhZVZOZDlqaW10?=
- =?utf-8?B?R0x5ZTBLbEx5WHg2N29POW9ENVpGT05MSEVOdWFzeUN5VkNza1BqdXo0YVlH?=
- =?utf-8?B?SlZhZDlHYzBod0x4OGxJVDYyQlNCdFhyS3NoakxlQytmMkNnNTZRc2x5VUNR?=
- =?utf-8?B?V3dXVnVIMjM2THZaYlpKc3NhM2dteUhwbnQyT2FGbWtXTE96RkdkNW9rVE9S?=
- =?utf-8?Q?T1v9GXQBq8vRJO0oE+EkKiOOF?=
+	=?utf-8?B?cGtvcmF2ZHozUjRtK3BWRkJVY1FoSXpBNzZCSWJRc3NMZzk2dlhQa3QvNHRF?=
+ =?utf-8?B?Y2hMdHl6L1YwVWdvWWR0SzJkc0NxMnk3c3oydmZxK1pFNVZwTG1Vb1B3Zk9j?=
+ =?utf-8?B?R3RSWHdDQ2sxNzY1dUkwT0NmZlExdW96ZlVyRSs4aUdRWUxzNlZ4VC8xYm01?=
+ =?utf-8?B?MU56Z0EvZkFDSVUrTTdIcndVM0RFRjgzWG9QQVBRUWNNT3ltWHpkQWhMQW1N?=
+ =?utf-8?B?eVZBUldpZFErd2xjQnpwUXFzR2pucEhOU1hvKzNORVFLREZPR2h4MGYyZlR0?=
+ =?utf-8?B?NERZSWU2MmFoWjRjdVQ0dkVPVytiazRRT203YUJaR1NIK21DcHRUZFoxL0pM?=
+ =?utf-8?B?cHdDS00zUkUwdlhKakZDdUlGNVhMWHBMTzRORk1rSUhvS1h0S3FBeWxqdXdM?=
+ =?utf-8?B?VlpNVndUNW1lcFA5ZTVZQUI1ZkZ4aEFvbytOMy9DZXBoSFZ1dmxQdnhrVjdU?=
+ =?utf-8?B?VG9tUVNSVDQvYVJvQk90MkpUOU9DblpwNTF0YnprVU5vdFJPdG9EcWhHVWRD?=
+ =?utf-8?B?OUE3WGc1VndGMHp4a3d1VE5ldWZGV1RCTStrbGtrai9YYlZKRUlzTWEweGxX?=
+ =?utf-8?B?TmpDcmZDempqSFNWem5uN080eWlNRDVHRnNCVlFvaWpzVXVhckNlVGsyaE4r?=
+ =?utf-8?B?QVl6VXQ5S0VDeVlsWi9rT1NhY2Q0NVorVUtXdnZFajBRL2ZacXQ2UHZjbXdS?=
+ =?utf-8?B?N2s0Wm5ubjlJM0NkV2xYU2xiNWJpeDZBMTdxTTg2WWxya2dJRGQzMmVhc296?=
+ =?utf-8?B?aGp3NG1wMktjTERGR2VPOGUrNzRESlRTaFpIbkZUOHZsaXBHOTlLaEgrMzRF?=
+ =?utf-8?B?RFpIY1lwRDhVNU4zUFMxWXcwZ084OElRYXFoam1Tb1FZdk9JRThoZlUxNEZ2?=
+ =?utf-8?B?V0xnTVBDdTQzWEczbDBwcFpXMHVuUk1HYk1XRDJCenhmUjYyS0pEaTEwNEgr?=
+ =?utf-8?B?eTBZTWFjRmVpS2hxNTh1RVM5QWh3QmczSE9KS1l1emViTTluVTVINXlsKzU1?=
+ =?utf-8?B?YWlFcXhTTkllQXpNT3BDd2p5VjV0Umk2a0NtRW5oellnV3k1NXJwT3JKM2I3?=
+ =?utf-8?B?QXhKZkVpYU1XOHRjSG9oRWFEZnNnb0M4ZE41dzZEN1RhRGZjalUxZVhHYmJ1?=
+ =?utf-8?B?UDVrYlVSRUhPMWNjTXhVcTl4ZE16dEdMZGNTRzdjUVpnemQ4TDRwMnhsNXh2?=
+ =?utf-8?B?OHVzeEJYR0htWEQzK01JWkw3d2dMZ0VoSXV2cFJDdUZ3ZDdCMGVkemxEaWlN?=
+ =?utf-8?B?dzQ1eUJRallKdXZETFFralJIYjF1SlpGcjRaaVpqVVNBNzFGcWlBbklpaGQ5?=
+ =?utf-8?B?WFZTQlRSSC92ekxHZXJWcWw4bDlHbkdiVTJzSFJLQXBVSGlBc0VkYkhmZXFy?=
+ =?utf-8?B?Y2FBSFRqeXlMWnVMMVNqYXkrNXRkQUltY1NxN0xmRWNhYktWMUNKc2JYMkw5?=
+ =?utf-8?B?ejdjN21idWpCNGM1ZnpRbVQ4eWE4KzE5bUVBZGFCd001WkZPR2RNaTFyN2sy?=
+ =?utf-8?B?bkUvQk1YUmZVWVExMzZQN2tJc29aSFgwVmcwNWNCaVhwL1AxaGQwaHhPOHZ3?=
+ =?utf-8?B?S2VJTk4zeUVzbDBRYjdZYi9ZdEpWWndnQnJRSktwN3NWMWkwV3kwcFVlOUpR?=
+ =?utf-8?B?NUpjbEJDaHIwSTN2MzdaK0FCbHhSRnhRVG14elhGVnMrNDBvOFpDVXhoaWRQ?=
+ =?utf-8?B?eUlCbDBnREdVa0F4NjR3NGhVQUdaaEkyK0N5djgwUGNWVzFpc1pISkRObVE5?=
+ =?utf-8?B?c3lsVEQ4TFlVWEdNeTlnbUs2V2cvWEx2ZklBODMrVkdYVUwwUTYrOEQyeGEy?=
+ =?utf-8?B?aVVoMTc4dzdhVDhrWk1PcmxoNW11dHllTEVNTDhoaXpOM04vTUN5WGh5d3gx?=
+ =?utf-8?B?RmVCM3ZFUWtqcTVIWEZ2Y3RYaUFjZTNnVklPdzB1K3RlMUYybWQzd1dqbldi?=
+ =?utf-8?B?TmN0bGg0WEx6aXhVQkYzOVNKM05OaXdGam9IVXhrcHZtM3FsUmVhRG91U3cr?=
+ =?utf-8?B?UTZCYU5RVHU2Umx4Q0dSR1FoMU9EcC9IZ3BuVlJDTktWWmZkYTlSOFZXcU93?=
+ =?utf-8?B?a25HbGFnSjlGeG1RTzc5VzhoUnJLUWRSOWF6VitOT0hBL1Y4NTJtMnhZcFBo?=
+ =?utf-8?Q?9GgplJLyUkuB5NtN4Ozeny0zz?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d591166-a79b-49f1-547b-08db4ad9ef95
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d484f16-dd8e-4ca2-bcba-08db4add5695
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 06:53:29.2757
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2023 07:17:50.5780
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z5jsHjRA6JGkxWYJpi5s7LiWBjhryPWew13PHDaH1HQhzXvwmD4QMadDZK3PmPWbWmoxeViZEy51e6KnQj+FQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7166
+X-MS-Exchange-CrossTenant-UserPrincipalName: xawX4/7HxFajo9aw1K0PWV8Bey8UTunv4MBbFItVn+IBfu3Dr6PMuJz9uXjRh0DB+HboQ/qxXDU6zZi8nYG3wQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10072
 
-On 02.05.2023 05:59, Stefano Stabellini wrote:
-> xen: fix broken XEN_SYSCTL_getdomaininfolist hypercall
-> 
-> XEN_SYSCTL_getdomaininfolist doesn't actually update the guest
-> num_domains field, only its local copy. Fix that.
+Unlike for XEN_DOMCTL_getdomaininfo, where the XSM check is intended to
+cause the operation to fail, in the loop here it ought to merely
+determine whether information for the domain at hand may be reported
+back. Therefore if on the last iteration the hook results in denial,
+this should not affect the sub-op's return value.
 
-This isn't true, at least not always / unconditionally. "copyback" is
-what controls copying back of the entire struct, and in the success
-case this looks to be happening fine. Yet for the failure case it's
-unclear whether any copying back is actually intended. (If the op was
-to return merely the number of active domains, I think that ought to
-be restricted to max_domains == 0 and the handle also being a null
-one.
+Fixes: d046f361dc93 ("Xen Security Modules: XSM")
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+The hook being able to deny access to data for certain domains means
+that no caller can assume to have a system-wide picture when holding the
+results.
 
-I'm also having a hard time seeing what failure case the test ended
-up encountering: There are only two errors which can occur - one
-from the XSM hook (which is mishandled, and I'll make a separate
-patch for that) and the other from failing to copy back the info for
-the domain being looked at. I hope we can exclude the former, so are
-you suggesting the info struct copy-back is failing in your case?
+Wouldn't it make sense to permit the function to merely "count" domains?
+While racy in general (including in its present, "normal" mode of
+operation), within a tool stack this could be used as long as creation
+of new domains is suppressed between obtaining the count and then using
+it.
 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+In XEN_DOMCTL_getpageframeinfo2 said commit had introduced a 2nd such
+issue, but luckily that sub-op and xsm_getpageframeinfo() are long gone.
 
-In any event, if anything needs fixing here, a Fixes: tag would be
-nice.
-
-Jan
-
-> diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
-> index 02505ab044..0e1097be96 100644
-> --- a/xen/common/sysctl.c
-> +++ b/xen/common/sysctl.c
-> @@ -107,10 +107,8 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->          
->          rcu_read_unlock(&domlist_read_lock);
->          
-> -        if ( ret != 0 )
-> -            break;
-> -        
->          op->u.getdomaininfolist.num_domains = num_domains;
-> +        __copy_field_to_guest(u_sysctl, op, u.getdomaininfolist.num_domains);
->      }
->      break;
->  
-
+--- a/xen/common/sysctl.c
++++ b/xen/common/sysctl.c
+@@ -89,8 +89,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xe
+             if ( num_domains == op->u.getdomaininfolist.max_domains )
+                 break;
+ 
+-            ret = xsm_getdomaininfo(XSM_HOOK, d);
+-            if ( ret )
++            if ( xsm_getdomaininfo(XSM_HOOK, d) )
+                 continue;
+ 
+             getdomaininfo(d, &info);
 
