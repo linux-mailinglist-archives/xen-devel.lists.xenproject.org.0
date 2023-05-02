@@ -2,34 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A0E16F4ADB
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:06:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528806.822418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9A1C6F4AE4
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:07:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528812.822428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwFp-00037B-FZ; Tue, 02 May 2023 20:05:41 +0000
+	id 1ptwH1-0003jO-T4; Tue, 02 May 2023 20:06:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528806.822418; Tue, 02 May 2023 20:05:41 +0000
+Received: by outflank-mailman (output) from mailman id 528812.822428; Tue, 02 May 2023 20:06:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwFp-00034o-Bv; Tue, 02 May 2023 20:05:41 +0000
-Received: by outflank-mailman (input) for mailman id 528806;
- Tue, 02 May 2023 20:05:40 +0000
+	id 1ptwH1-0003gt-Pc; Tue, 02 May 2023 20:06:55 +0000
+Received: by outflank-mailman (input) for mailman id 528812;
+ Tue, 02 May 2023 20:06:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d5QU=AX=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1ptwFo-00034i-E3
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:05:40 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [81.169.146.160]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5024652-e924-11ed-b225-6b7b168915f2;
- Tue, 02 May 2023 22:05:38 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
- with ESMTPSA id x6987cz42K5TeWg
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 2 May 2023 22:05:29 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=GGWT=AX=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1ptwH0-0003gj-Er
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:06:54 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0bd3cb8-e924-11ed-b225-6b7b168915f2;
+ Tue, 02 May 2023 22:06:52 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-228-EPMPoQX1NfuQ2XU-a2gp2Q-1; Tue, 02 May 2023 16:06:48 -0400
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5758A85A588;
+ Tue,  2 May 2023 20:06:47 +0000 (UTC)
+Received: from localhost (unknown [10.39.192.230])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C37E1C15BAE;
+ Tue,  2 May 2023 20:06:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,92 +50,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5024652-e924-11ed-b225-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1683057929; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=cG8KjmyrRrTYB5GwSRIc8LwpK66j62bJNlj/2huPJn8NfiXUGLJafuQMCWyQry7VpL
-    jsiu4rKFyCiqsQhvULmKEPR2drVTwIlcbcfRqc8uJjiWrHxKkLy+iPfyRcUz6pGKoK6x
-    LctszF9rh0ZTALpbHTLgLoN52mjhartSdrK+bZKpVVvkxeKzO8eUt25tXc3CVuMKg832
-    WSmu26Xq+fzWNI04vHMr1jOj7IgOmDqSrrXbeCDojL5K+nw1Ac0Wijjxy4kJvElFaPSh
-    XedWXrpuA/lazArBvSlvfkfxLFY1W5oeVw4rBp7FxLJUQ6mr1p+4AsQav0qv/sfNQzbO
-    LTPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683057929;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=Jcpwk8O1aNbRAScb4kL6cbWNb5fNbiHkZRl03EzEa2Y=;
-    b=R9NQNLPDlwFbs06f7FnhVtVR0BGo0RnuNjeRbXLoxYMyQa12noGM2g2p+s73wzLRH+
-    Bszkph2/uBTNc/wnIusfmGYuD7cOVSg+S8jA18RNFLXdzYrfdQkESBKlVTW5kYL/BaGS
-    Z340NeHgAqYK6R63zabC4PXJknQyJ8iGQKJoWyqaqE/1JPiN8Rr0EbIxQqTbBe3r+BLr
-    IDTjw0BWl2SShIWDgLOhn7Jk4ehL7OEXOHY8AYbUc2H0KeKjVP/KSv+sLvJDHgUDrdq1
-    J2y8hW2qI1/nyRs3NhPq05RVajCCFZ3xnI2fc/qvJydIQzLb3SwXQ/81uoJDUayR20rx
-    hPvQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683057929;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=Jcpwk8O1aNbRAScb4kL6cbWNb5fNbiHkZRl03EzEa2Y=;
-    b=UKZD/btOkhsmuzrQ2ax97YV/4tJajWTvblfrPjEFQne5BfdY4rKA8Cz6n6xbZ0Gdoc
-    yus83LWHbtzPEX8fkj7TQy7YAnlDewoqsMElkcSFBd/aRmUc1A5UFE3HZUST+O+08IU4
-    ZGaxLts0aJdg+h8X0Eijk+jo+RVM+W/rZdClZUp+yhJpG5UMbOfcLAmlcimLbJSWS1mf
-    7K62KuoHrtJz9TINh3P7UT7/pslAUUfYTCp0i+pZpBGYl0NZPTssnriQva8L0hqe0lvV
-    8MAjzkRlWNIlZx/+B9LDNUfIWaDcgM/MXxzwCdB/MA+wPviJFMlRbQJufLfHccx3RvPX
-    hzCw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683057929;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=Jcpwk8O1aNbRAScb4kL6cbWNb5fNbiHkZRl03EzEa2Y=;
-    b=bo7z4PjawhUc+CdXTcaWsyybfHs0y1hAbRsIzFKNpPagK/56U2ateLU4sqT2NpKRYu
-    WjuNsz/pTOdiJ62akIBw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4wqVv7FZ8tH5EUSbMVU80kUr7f4QlYaI60OjHt/Q=="
-From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1] automation: remove python2 from opensuse images
-Date: Tue,  2 May 2023 20:05:27 +0000
-Message-Id: <20230502200527.5365-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.35.3
+X-Inumbo-ID: e0bd3cb8-e924-11ed-b225-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1683058011;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LgDhtbpQWSSNsgeEph8esneZJVWEPWcWGLZOnDkeVKE=;
+	b=Kdbe6o3RSShoyolv1BJEpZjDP6CP1+4m4XuVtcQZgsQ8LZnWJ0ZRruYghKu6UwyXZPiH6I
+	qEb+XNd2k/EysxjXB5O8vTPgiIC9pDlAMRg4iKbCoMn30TV93xjZDaSZ0cHl1p6ydQ5qJg
+	fz0cE2caF7n03Xrp0fzPYt9s6obYr9Y=
+X-MC-Unique: EPMPoQX1NfuQ2XU-a2gp2Q-1
+Date: Tue, 2 May 2023 16:06:45 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Kevin Wolf <kwolf@redhat.com>
+Cc: qemu-devel@nongnu.org,
+	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+	Juan Quintela <quintela@redhat.com>,
+	Julia Suvorova <jusual@redhat.com>, xen-devel@lists.xenproject.org,
+	eesposit@redhat.com,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Fam Zheng <fam@euphon.net>, "Michael S. Tsirkin" <mst@redhat.com>,
+	Coiby Xu <Coiby.Xu@gmail.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Peter Lieven <pl@kamp.de>, Paul Durrant <paul@xen.org>,
+	"Richard W.M. Jones" <rjones@redhat.com>, qemu-block@nongnu.org,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Stefan Weil <sw@weilnetz.de>, Xie Yongji <xieyongji@bytedance.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Aarushi Mehta <mehta.aaru20@gmail.com>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Hanna Reitz <hreitz@redhat.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Subject: Re: [PATCH v4 07/20] block/export: stop using is_external in
+ vhost-user-blk server
+Message-ID: <20230502200645.GE535070@fedora>
+References: <20230425172716.1033562-1-stefanha@redhat.com>
+ <20230425172716.1033562-8-stefanha@redhat.com>
+ <ZFE0iFnbr2ey0A7X@redhat.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="O5xAqfWJ9HxCWIfk"
+Content-Disposition: inline
+In-Reply-To: <ZFE0iFnbr2ey0A7X@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 
-The upcoming Leap 15.5 will come without a binary named 'python'.
-Prepare the suse images for that change.
 
-Starting with Xen 4.14 python3 can be used for build.
+--O5xAqfWJ9HxCWIfk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- automation/build/suse/opensuse-leap.dockerfile       | 2 --
- automation/build/suse/opensuse-tumbleweed.dockerfile | 1 -
- 2 files changed, 3 deletions(-)
+On Tue, May 02, 2023 at 06:04:24PM +0200, Kevin Wolf wrote:
+> Am 25.04.2023 um 19:27 hat Stefan Hajnoczi geschrieben:
+> > vhost-user activity must be suspended during bdrv_drained_begin/end().
+> > This prevents new requests from interfering with whatever is happening
+> > in the drained section.
+> >=20
+> > Previously this was done using aio_set_fd_handler()'s is_external
+> > argument. In a multi-queue block layer world the aio_disable_external()
+> > API cannot be used since multiple AioContext may be processing I/O, not
+> > just one.
+> >=20
+> > Switch to BlockDevOps->drained_begin/end() callbacks.
+> >=20
+> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> > ---
+> >  block/export/vhost-user-blk-server.c | 43 ++++++++++++++--------------
+> >  util/vhost-user-server.c             | 10 +++----
+> >  2 files changed, 26 insertions(+), 27 deletions(-)
+> >=20
+> > diff --git a/block/export/vhost-user-blk-server.c b/block/export/vhost-=
+user-blk-server.c
+> > index 092b86aae4..d20f69cd74 100644
+> > --- a/block/export/vhost-user-blk-server.c
+> > +++ b/block/export/vhost-user-blk-server.c
+> > @@ -208,22 +208,6 @@ static const VuDevIface vu_blk_iface =3D {
+> >      .process_msg           =3D vu_blk_process_msg,
+> >  };
+> > =20
+> > -static void blk_aio_attached(AioContext *ctx, void *opaque)
+> > -{
+> > -    VuBlkExport *vexp =3D opaque;
+> > -
+> > -    vexp->export.ctx =3D ctx;
+> > -    vhost_user_server_attach_aio_context(&vexp->vu_server, ctx);
+> > -}
+> > -
+> > -static void blk_aio_detach(void *opaque)
+> > -{
+> > -    VuBlkExport *vexp =3D opaque;
+> > -
+> > -    vhost_user_server_detach_aio_context(&vexp->vu_server);
+> > -    vexp->export.ctx =3D NULL;
+> > -}
+>=20
+> So for changing the AioContext, we now rely on the fact that the node to
+> be changed is always drained, so the drain callbacks implicitly cover
+> this case, too?
 
-diff --git a/automation/build/suse/opensuse-leap.dockerfile b/automation/build/suse/opensuse-leap.dockerfile
-index c7973dd6ab..79de83ac20 100644
---- a/automation/build/suse/opensuse-leap.dockerfile
-+++ b/automation/build/suse/opensuse-leap.dockerfile
-@@ -58,8 +58,6 @@ RUN zypper install -y --no-recommends \
-         'pkgconfig(libpci)' \
-         'pkgconfig(sdl)' \
-         'pkgconfig(sdl2)' \
--        python \
--        python-devel \
-         python3-devel \
-         systemd-devel \
-         tar \
-diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile b/automation/build/suse/opensuse-tumbleweed.dockerfile
-index 7e5f22acef..abb25c8c84 100644
---- a/automation/build/suse/opensuse-tumbleweed.dockerfile
-+++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
-@@ -61,7 +61,6 @@ RUN zypper install -y --no-recommends \
-         'pkgconfig(libpci)' \
-         'pkgconfig(sdl)' \
-         'pkgconfig(sdl2)' \
--        python-devel \
-         python3-devel \
-         systemd-devel \
-         tar \
+Yes.
+
+> >  static void
+> >  vu_blk_initialize_config(BlockDriverState *bs,
+> >                           struct virtio_blk_config *config,
+> > @@ -272,6 +256,25 @@ static void vu_blk_exp_resize(void *opaque)
+> >      vu_config_change_msg(&vexp->vu_server.vu_dev);
+> >  }
+> > =20
+> > +/* Called with vexp->export.ctx acquired */
+> > +static void vu_blk_drained_begin(void *opaque)
+> > +{
+> > +    VuBlkExport *vexp =3D opaque;
+> > +
+> > +    vhost_user_server_detach_aio_context(&vexp->vu_server);
+> > +}
+>=20
+> Compared to the old code, we're losing the vexp->export.ctx =3D NULL. This
+> is correct at this point because after drained_begin we still keep
+> processing requests until we arrive at a quiescent state.
+>=20
+> However, if we detach the AioContext because we're deleting the
+> iothread, won't we end up with a dangling pointer in vexp->export.ctx?
+> Or can we be certain that nothing interesting happens before drained_end
+> updates it with a new valid pointer again?
+
+If you want I can add the detach() callback back again and set ctx to
+NULL there?
+
+Stefan
+
+--O5xAqfWJ9HxCWIfk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRRbVUACgkQnKSrs4Gr
+c8i4OAf+KMBGicSKs6PxKeNThQpFSMAOYw12vnQg0N97hfarjPeaKf9lZmdJLKB7
+McPjsLuRThNx0snklzDlcRovZKNZcV5EjEddXKA1ikDqZXDeLue4X717xIIV1RF0
+oYAyyPcTXr9V1JKG2nKQzz1fK/zb0oXyEycRI1uPB1YjiL/NnBUZEdAG3DEZmBXK
+qjZcFpvChPe6DFydAfunLcRtoSASIb6cBLCeOFHXuTrKixFZeG9QDW87ONOMnG7D
+JF3Cjcfsn94R6SFWDOK2TGeKF7IY6kVJa+gOJXyTE2+n2vZhpezwmroM4kprRJGc
+TiMUeoBbZl3Oi5FrMOcj7MOeMEdRlw==
+=PCPd
+-----END PGP SIGNATURE-----
+
+--O5xAqfWJ9HxCWIfk--
+
 
