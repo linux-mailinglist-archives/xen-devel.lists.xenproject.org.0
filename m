@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9A1C6F4AE4
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:07:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528812.822428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1487A6F4B06
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:10:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528815.822438 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwH1-0003jO-T4; Tue, 02 May 2023 20:06:55 +0000
+	id 1ptwKg-0005GQ-Ck; Tue, 02 May 2023 20:10:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528812.822428; Tue, 02 May 2023 20:06:55 +0000
+Received: by outflank-mailman (output) from mailman id 528815.822438; Tue, 02 May 2023 20:10:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwH1-0003gt-Pc; Tue, 02 May 2023 20:06:55 +0000
-Received: by outflank-mailman (input) for mailman id 528812;
- Tue, 02 May 2023 20:06:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ptwKg-0005DR-99; Tue, 02 May 2023 20:10:42 +0000
+Received: by outflank-mailman (input) for mailman id 528815;
+ Tue, 02 May 2023 20:10:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GGWT=AX=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1ptwH0-0003gj-Er
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:06:54 +0000
+ id 1ptwKe-0005DL-MF
+ for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:10:40 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0bd3cb8-e924-11ed-b225-6b7b168915f2;
- Tue, 02 May 2023 22:06:52 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6775e7a5-e925-11ed-8611-37d641c3527e;
+ Tue, 02 May 2023 22:10:38 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-228-EPMPoQX1NfuQ2XU-a2gp2Q-1; Tue, 02 May 2023 16:06:48 -0400
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+ us-mta-215-bZJNyyK4N4GaEmywDujudQ-1; Tue, 02 May 2023 16:10:34 -0400
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5758A85A588;
- Tue,  2 May 2023 20:06:47 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04349381D4CF;
+ Tue,  2 May 2023 20:10:33 +0000 (UTC)
 Received: from localhost (unknown [10.39.192.230])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C37E1C15BAE;
- Tue,  2 May 2023 20:06:46 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 4A3BA2026D16;
+ Tue,  2 May 2023 20:10:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0bd3cb8-e924-11ed-b225-6b7b168915f2
+X-Inumbo-ID: 6775e7a5-e925-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683058011;
+	s=mimecast20190719; t=1683058237;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LgDhtbpQWSSNsgeEph8esneZJVWEPWcWGLZOnDkeVKE=;
-	b=Kdbe6o3RSShoyolv1BJEpZjDP6CP1+4m4XuVtcQZgsQ8LZnWJ0ZRruYghKu6UwyXZPiH6I
-	qEb+XNd2k/EysxjXB5O8vTPgiIC9pDlAMRg4iKbCoMn30TV93xjZDaSZ0cHl1p6ydQ5qJg
-	fz0cE2caF7n03Xrp0fzPYt9s6obYr9Y=
-X-MC-Unique: EPMPoQX1NfuQ2XU-a2gp2Q-1
-Date: Tue, 2 May 2023 16:06:45 -0400
+	bh=G3M6X6Cb/uW8g9mA7FuVSmxMkf0IsGJPoGtjU0Aq7ck=;
+	b=RZxDJe5lu4RnGcmN+KYDTrqtX7hrzuZzbT2Beipg3nNRdhCAPthdixq8qoRBt3l59wscW8
+	qcsgj0Zt4h1IxBUffsPO2o3AT1V9brxXxYH/02H2VCMtD8+VoZMDrUTwarfpMVchnSUVAo
+	6U8cRZm+2CHan+r0/c7LeYkJciKsnZA=
+X-MC-Unique: bZJNyyK4N4GaEmywDujudQ-1
+Date: Tue, 2 May 2023 16:10:29 -0400
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: Kevin Wolf <kwolf@redhat.com>
 Cc: qemu-devel@nongnu.org,
@@ -86,119 +86,76 @@ Cc: qemu-devel@nongnu.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Hanna Reitz <hreitz@redhat.com>,
 	Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Subject: Re: [PATCH v4 07/20] block/export: stop using is_external in
- vhost-user-blk server
-Message-ID: <20230502200645.GE535070@fedora>
+Subject: Re: [PATCH v4 10/20] block: drain from main loop thread in
+ bdrv_co_yield_to_drain()
+Message-ID: <20230502201029.GF535070@fedora>
 References: <20230425172716.1033562-1-stefanha@redhat.com>
- <20230425172716.1033562-8-stefanha@redhat.com>
- <ZFE0iFnbr2ey0A7X@redhat.com>
+ <20230425172716.1033562-11-stefanha@redhat.com>
+ <ZFE4gFFXnu+FSk35@redhat.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="O5xAqfWJ9HxCWIfk"
+	protocol="application/pgp-signature"; boundary="brpBxr+X1vKHT7XM"
 Content-Disposition: inline
-In-Reply-To: <ZFE0iFnbr2ey0A7X@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+In-Reply-To: <ZFE4gFFXnu+FSk35@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 
 
---O5xAqfWJ9HxCWIfk
+--brpBxr+X1vKHT7XM
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 02, 2023 at 06:04:24PM +0200, Kevin Wolf wrote:
+On Tue, May 02, 2023 at 06:21:20PM +0200, Kevin Wolf wrote:
 > Am 25.04.2023 um 19:27 hat Stefan Hajnoczi geschrieben:
-> > vhost-user activity must be suspended during bdrv_drained_begin/end().
-> > This prevents new requests from interfering with whatever is happening
-> > in the drained section.
+> > For simplicity, always run BlockDevOps .drained_begin/end/poll()
+> > callbacks in the main loop thread. This makes it easier to implement the
+> > callbacks and avoids extra locks.
 > >=20
-> > Previously this was done using aio_set_fd_handler()'s is_external
-> > argument. In a multi-queue block layer world the aio_disable_external()
-> > API cannot be used since multiple AioContext may be processing I/O, not
-> > just one.
-> >=20
-> > Switch to BlockDevOps->drained_begin/end() callbacks.
+> > Move the function pointer declarations from the I/O Code section to the
+> > Global State section in block-backend-common.h.
 > >=20
 > > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> > ---
-> >  block/export/vhost-user-blk-server.c | 43 ++++++++++++++--------------
-> >  util/vhost-user-server.c             | 10 +++----
-> >  2 files changed, 26 insertions(+), 27 deletions(-)
-> >=20
-> > diff --git a/block/export/vhost-user-blk-server.c b/block/export/vhost-=
-user-blk-server.c
-> > index 092b86aae4..d20f69cd74 100644
-> > --- a/block/export/vhost-user-blk-server.c
-> > +++ b/block/export/vhost-user-blk-server.c
-> > @@ -208,22 +208,6 @@ static const VuDevIface vu_blk_iface =3D {
-> >      .process_msg           =3D vu_blk_process_msg,
-> >  };
-> > =20
-> > -static void blk_aio_attached(AioContext *ctx, void *opaque)
-> > -{
-> > -    VuBlkExport *vexp =3D opaque;
-> > -
-> > -    vexp->export.ctx =3D ctx;
-> > -    vhost_user_server_attach_aio_context(&vexp->vu_server, ctx);
-> > -}
-> > -
-> > -static void blk_aio_detach(void *opaque)
-> > -{
-> > -    VuBlkExport *vexp =3D opaque;
-> > -
-> > -    vhost_user_server_detach_aio_context(&vexp->vu_server);
-> > -    vexp->export.ctx =3D NULL;
-> > -}
 >=20
-> So for changing the AioContext, we now rely on the fact that the node to
-> be changed is always drained, so the drain callbacks implicitly cover
-> this case, too?
+> If we're updating function pointers, we should probably update them in
+> BdrvChildClass and BlockDriver, too.
 
-Yes.
+I'll do that in the next revision.
 
-> >  static void
-> >  vu_blk_initialize_config(BlockDriverState *bs,
-> >                           struct virtio_blk_config *config,
-> > @@ -272,6 +256,25 @@ static void vu_blk_exp_resize(void *opaque)
-> >      vu_config_change_msg(&vexp->vu_server.vu_dev);
-> >  }
-> > =20
-> > +/* Called with vexp->export.ctx acquired */
-> > +static void vu_blk_drained_begin(void *opaque)
-> > +{
-> > +    VuBlkExport *vexp =3D opaque;
-> > +
-> > +    vhost_user_server_detach_aio_context(&vexp->vu_server);
-> > +}
+> This means that a non-coroutine caller can't run in an iothread, not
+> even the home iothread of the BlockDriverState. (I'm not sure if it was
+> allowed previously. I don't think we're actually doing this, but in
+> theory it could have worked.) Maybe put a GLOBAL_STATE_CODE() after
+> handling the bdrv_co_yield_to_drain() case? Or would that look too odd?
 >=20
-> Compared to the old code, we're losing the vexp->export.ctx =3D NULL. This
-> is correct at this point because after drained_begin we still keep
-> processing requests until we arrive at a quiescent state.
+>     IO_OR_GS_CODE();
 >=20
-> However, if we detach the AioContext because we're deleting the
-> iothread, won't we end up with a dangling pointer in vexp->export.ctx?
-> Or can we be certain that nothing interesting happens before drained_end
-> updates it with a new valid pointer again?
+>     if (qemu_in_coroutine()) {
+>         bdrv_co_yield_to_drain(bs, true, parent, poll);
+>         return;
+>     }
+>=20
+>     GLOBAL_STATE_CODE();
 
-If you want I can add the detach() callback back again and set ctx to
-NULL there?
+That looks good to me, it makes explicit that IO_OR_GS_CODE() only
+applies until the end of the if statement.
 
 Stefan
 
---O5xAqfWJ9HxCWIfk
+--brpBxr+X1vKHT7XM
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRRbVUACgkQnKSrs4Gr
-c8i4OAf+KMBGicSKs6PxKeNThQpFSMAOYw12vnQg0N97hfarjPeaKf9lZmdJLKB7
-McPjsLuRThNx0snklzDlcRovZKNZcV5EjEddXKA1ikDqZXDeLue4X717xIIV1RF0
-oYAyyPcTXr9V1JKG2nKQzz1fK/zb0oXyEycRI1uPB1YjiL/NnBUZEdAG3DEZmBXK
-qjZcFpvChPe6DFydAfunLcRtoSASIb6cBLCeOFHXuTrKixFZeG9QDW87ONOMnG7D
-JF3Cjcfsn94R6SFWDOK2TGeKF7IY6kVJa+gOJXyTE2+n2vZhpezwmroM4kprRJGc
-TiMUeoBbZl3Oi5FrMOcj7MOeMEdRlw==
-=PCPd
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRRbjUACgkQnKSrs4Gr
+c8gcCwf/T65LBfJJcwJAyvlXRfg2oJ/yZvsfJ3BZCAaupLZjx+EeDLlXwOdhSb2S
+GKjZnCRY+804xb2asfcWI/aD6+FfB/OtlSQmoNpLQ0rRSl0ySEwoAolto1Z9ekGZ
+L+Jfc76d+YxOe+NNrrZ9OzISmnofdrQVvqoJotHO/4bB0pUPvWzJG4f+ji/jy3u/
+A+7u0pbN8C5zVOa6Cd3OXliYePtIv3nGH9xL8HmL/6YQD5rcPgFj2HlylhSMjRqy
+dY54mvDssnwZL5sI2RfogH00TesZlaXrVwMD5Mr+HJ/T5H3myPLw1Y3RCgiPVLCM
+WUaRx6PORhkBp198DzErfTVGl1grqQ==
+=G1hQ
 -----END PGP SIGNATURE-----
 
---O5xAqfWJ9HxCWIfk--
+--brpBxr+X1vKHT7XM--
 
 
