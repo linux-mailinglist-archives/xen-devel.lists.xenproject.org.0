@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 280B66F4B1B
-	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:15:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.528818.822447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E50B6F4B87
+	for <lists+xen-devel@lfdr.de>; Tue,  2 May 2023 22:42:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.528823.822458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwOs-0005pc-Sv; Tue, 02 May 2023 20:15:02 +0000
+	id 1ptwoX-000147-0F; Tue, 02 May 2023 20:41:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 528818.822447; Tue, 02 May 2023 20:15:02 +0000
+Received: by outflank-mailman (output) from mailman id 528823.822458; Tue, 02 May 2023 20:41:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ptwOs-0005nh-Pz; Tue, 02 May 2023 20:15:02 +0000
-Received: by outflank-mailman (input) for mailman id 528818;
- Tue, 02 May 2023 20:15:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ptwoW-00011f-TY; Tue, 02 May 2023 20:41:32 +0000
+Received: by outflank-mailman (input) for mailman id 528823;
+ Tue, 02 May 2023 20:41:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d5QU=AX=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1ptwOr-0005nb-3W
- for xen-devel@lists.xenproject.org; Tue, 02 May 2023 20:15:01 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [81.169.146.218]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 03a698ed-e926-11ed-b225-6b7b168915f2;
- Tue, 02 May 2023 22:15:00 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
- with ESMTPSA id x6987cz42KEleXg
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 2 May 2023 22:14:47 +0200 (CEST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ptwoV-00011V-Bv; Tue, 02 May 2023 20:41:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ptwoV-0006CD-3m; Tue, 02 May 2023 20:41:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ptwoU-0007jw-PA; Tue, 02 May 2023 20:41:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ptwoU-00021N-Of; Tue, 02 May 2023 20:41:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,78 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03a698ed-e926-11ed-b225-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1683058487; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=Ds0jttF+aKpnyizFvLwPcgYyQRhFfzMmVaTRFZFNctH8VH0kFLcpAqsfezmvXBRCYz
-    KdHcAvL8a5xQxKV3oJ4eFsD9UpZKLkQJ0B3RifRzgEJCB9MSttCR6Vzo64PXAldLsrBc
-    Wz07E2ECscbZkA5fovapg8KST8mN89S1n52mNib0tFWFXVUOeBmSxH7SET4Q7MgUQom3
-    tu8yYbmqek/+H7PJCALNsWv/K6qdJ1Ujd203jQM7vnuFJ5NkoPZnCZ+Bw+Fk2eRpNA6E
-    B2Q2wMD/a10MG4miOUoWb362pgJ0ynvRiq1jXFXazKxDb3PnokK50/j+CXGvKi4BnALs
-    JmfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683058487;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=HaTckfyLjqk40qDuyIqmlzT69DZDd16J9hzv/RfFXdw=;
-    b=dsxLrTGvJ23T0cLr9YlQYcXuwdqpEWfDYiLJ94z/QIJ6twmuzGXMtrvyN6ftwhIIYG
-    cfYul3FNjCmKCe/qiQMwMckCgNWTmJ8WSpOXPjJp/77pGtBy0vUu1VM6YQvDHcdQI247
-    Ng8R0AEne0dExBspNBKkpofLCNvuCXph5HkmY1aSB2iE/T7J3Onbc2wGrBCKFMJAEtKy
-    52eKKRcbrln15szUJw+GSGCZiSKSPQUJEe0xD749jR3H52DVyaISMj+5qlzfGVI8zXyU
-    EJC4xpoRO9h6WzGmNluT2N/aEl8wYKCuxPtym6chdTBQHnK/+HYHHty1aF3Fm/Kb0KBa
-    hqVA==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683058487;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=HaTckfyLjqk40qDuyIqmlzT69DZDd16J9hzv/RfFXdw=;
-    b=OXtbbvbKPXlMkGJF8ZaYajgpWeNfBs5y3Qf140/IE3LzHJPYCTOyQS3fS780NHuQ5j
-    wKE5wO7VZgpvTzvymXqXSFRv2IFmMJ2lMH5CK9QJgEOu/c91IdiILy331uVW7b8XwSu6
-    PMHFbPeI78m579EtlPF1iiCxl01o5b0/00uJQybU4YdMj+POgy+n6QqXVbbCSjEI9Sm0
-    Aq3Gz5e041ng0qtZ7WMw4XXgRPtyx05VRzPaRGno9mNg9Q0S5azvMnIPXA+wqMmaUnp8
-    ZClndfo8k0LLVapdnt19BAbUxbNGI0cTeZpys1u70TOiw40CosQ6wvChDjtgtmxQCx8V
-    858w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683058487;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=HaTckfyLjqk40qDuyIqmlzT69DZDd16J9hzv/RfFXdw=;
-    b=L5mt69J7gmNxWp5lL7WZVDPa68NiGMEPAUz+f0Z9EBN68KWNTHWFAEWe3zLIl2gfLE
-    P6ezV3ZGiZBn8qyoISDA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4wqVv7FZ8tH5EUSbMVU80kUr7f4QlYaI60OjHt/Q=="
-From: Olaf Hering <olaf@aepfle.de>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Av+DCOvPiFoOSzqCPa5dDi6cyRQ7WduvSjAH+ZlDvOY=; b=VuEY9ZTEt6Z672mNSHfYeZwFVU
+	2A4/KEKWzW76CoMKZa52J3yjU+/Pfg5gHnasGqdI3UZbzUt+KhwZ0vPQGcidfoLOfkTmsLRHLq9/N
+	RvVCEk7rjfnjnVhcwhKa+g4JGPoZK5mIryg4mcqOST+U+B5RMKpqNhwKhrUdWSE0AdGQ=;
 To: xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1] automation: provide example for downloading an existing container
-Date: Tue,  2 May 2023 20:14:44 +0000
-Message-Id: <20230502201444.6532-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.35.3
-MIME-Version: 1.0
+Message-ID: <osstest-180508-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Subject: [ovmf test] 180508: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=d6b42ed7ed1b0c4584097f0d76798cff74c96379
+X-Osstest-Versions-That:
+    ovmf=23c71536efbebed57942947668f470f934324477
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 02 May 2023 20:41:30 +0000
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- automation/build/README.md | 6 ++++++
- 1 file changed, 6 insertions(+)
+flight 180508 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180508/
 
-diff --git a/automation/build/README.md b/automation/build/README.md
-index 2d07cafe0e..8ad89a259a 100644
---- a/automation/build/README.md
-+++ b/automation/build/README.md
-@@ -12,6 +12,12 @@ can be pulled with Docker from the following path:
- docker pull registry.gitlab.com/xen-project/xen/DISTRO:VERSION
- ```
- 
-+This example shows how to pull the existing container for Tumbleweed:
-+
-+```
-+docker pull registry.gitlab.com/xen-project/xen/suse:opensuse-tumbleweed
-+```
-+
- To see the list of available containers run `make` in this
- directory. You will have to replace the `/` with a `:` to use
- them.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 d6b42ed7ed1b0c4584097f0d76798cff74c96379
+baseline version:
+ ovmf                 23c71536efbebed57942947668f470f934324477
+
+Last test of basis   180502  2023-05-02 07:42:13 Z    0 days
+Testing same since   180508  2023-05-02 16:10:54 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   23c71536ef..d6b42ed7ed  d6b42ed7ed1b0c4584097f0d76798cff74c96379 -> xen-tested-master
 
