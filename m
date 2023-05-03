@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C294A6F5D32
-	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 19:44:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529414.823826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDFFB6F5D40
+	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 19:46:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529416.823837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puGW4-0008Ii-Qa; Wed, 03 May 2023 17:43:48 +0000
+	id 1puGYC-0000Sr-6p; Wed, 03 May 2023 17:46:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529414.823826; Wed, 03 May 2023 17:43:48 +0000
+Received: by outflank-mailman (output) from mailman id 529416.823837; Wed, 03 May 2023 17:46:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puGW4-0008GV-Ne; Wed, 03 May 2023 17:43:48 +0000
-Received: by outflank-mailman (input) for mailman id 529414;
- Wed, 03 May 2023 17:43:47 +0000
+	id 1puGYC-0000Qc-3a; Wed, 03 May 2023 17:46:00 +0000
+Received: by outflank-mailman (input) for mailman id 529416;
+ Wed, 03 May 2023 17:45:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1puGW3-0008GP-Qx
- for xen-devel@lists.xenproject.org; Wed, 03 May 2023 17:43:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1puGYA-0000QS-Gs; Wed, 03 May 2023 17:45:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1puGW3-0001DY-6Q; Wed, 03 May 2023 17:43:47 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230] helo=[192.168.7.72])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1puGW2-0004EE-SN; Wed, 03 May 2023 17:43:47 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1puGYA-0001H4-FH; Wed, 03 May 2023 17:45:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1puGYA-0000F1-3C; Wed, 03 May 2023 17:45:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1puGYA-0001Am-2d; Wed, 03 May 2023 17:45:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,94 +42,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=MqtxypmUk17dKd0G1AXzSt7RuNsLGclS8MiMovjho+0=; b=e6XZocs5E9HLnhipQ/5hjf1KrZ
-	ZKN6VUuZcy6CGZTFtwE4Kyimdoh984dANucEPTMdKEqRIcZga2c96cu2hYzO5MKBOcsjbHo1l9k4r
-	ApbepXV5zplE+QlFtiSY5sCr4ZeaCYa6FPOFHglHD9Bp/Gsxtxs3au/TratNBiLUh9sk=;
-Message-ID: <556611a5-dc9a-8155-650d-327b6853f761@xen.org>
-Date: Wed, 3 May 2023 18:43:44 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.0
-Subject: Re: [RFC PATCH] xen/arm: arm32: Enable smpboot on Arm32 based systems
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20230502105849.40677-1-ayan.kumar.halder@amd.com>
- <2d764f29-2eb9-ecff-84cd-9baf12961c54@xen.org>
- <e9a95271-021f-523a-770a-302c638bfe73@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <e9a95271-021f-523a-770a-302c638bfe73@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=yG2gX4m8SPgzFxt09UFUplBjhrvtZSdRomfzn7CSzac=; b=09Gk4UhEh4kspzgLf/s9YSAiiV
+	2HUel732nZec5HJ1RG5BuvGNB0eT5a6jd2eBcV4BACogpLQSyUPMgmcTdnmTXTe1bdqt+6GCLms4C
+	uG2WcX1k874ch+xe8YSlBA1NwdM5ojbkp5sHugquJDVAHEUmMINqRU4VQcCc4vzSZLeg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180513-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 180513: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=b4f5e6c91b9871173de205f81b51cf06a833fcb1
+X-Osstest-Versions-That:
+    libvirt=844a3b48d6161560eddc1e1f85719b67659f1ea9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 03 May 2023 17:45:58 +0000
 
-Hi Ayan,
+flight 180513 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180513/
 
-On 03/05/2023 17:49, Ayan Kumar Halder wrote:
-> 
-> On 03/05/2023 08:40, Julien Grall wrote:
->> Hi,
-> Hi Julien,
->>
->> Title: Did you mean "Enable spin table"?
-> Yes, that would be more concrete.
->>
->> On 02/05/2023 11:58, Ayan Kumar Halder wrote:
->>> On some of the Arm32 based systems (eg Cortex-R52), smpboot is 
->>> supported.
->>
->> Same here.
-> Yes
->>
->>> In these systems PSCI may not always be supported. In case of 
->>> Cortex-R52, there
->>> is no EL3 or secure mode. Thus, PSCI is not supported as it requires 
->>> EL3.
->>>
->>> Thus, we use 'spin-table' mechanism to boot the secondary cpus. The 
->>> primary
->>> cpu provides the startup address of the secondary cores. This address is
->>> provided using the 'cpu-release-addr' property.
->>>
->>> To support smpboot, we have copied the code from 
->>> xen/arch/arm/arm64/smpboot.c
->>
->> I would rather prefer if we don't duplicate the code but instead move 
->> the logic in common code.
-> Ack
->>
->>> with the following changes :-
->>>
->>> 1. 'enable-method' is an optional property. Refer to the comment in
->>> https://www.kernel.org/doc/Documentation/devicetree/bindings/arm/cpus.yaml
->>> "      # On ARM 32-bit systems this property is optional"
->>
->> Looking at this list, "spin-table" doesn't seem to be supported
->> for 32-bit systems. 
-> 
-> However, looking at 
-> https://developer.arm.com/documentation/den0013/d/Multi-core-processors/Booting-SMP-systems/SMP-boot-in-Linux , it seems "spin-table" is a valid boot mechanism for Armv7 cpus.
+Failures :-/ but no regressions.
 
-I am not able to find the associated code in Linux 32-bit. Do you have 
-any pointer?
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 180479
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 180479
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 180479
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-> 
-> 
->> Can you point me to the discussion/patch where this would be added?
-> 
-> Actually, this is the first discussion I am having with regards to 
-> adding a "spin-table" support on Arm32.
+version targeted for testing:
+ libvirt              b4f5e6c91b9871173de205f81b51cf06a833fcb1
+baseline version:
+ libvirt              844a3b48d6161560eddc1e1f85719b67659f1ea9
 
-I was asking for the discussion on the Device-Tree/Linux ML or code.
-I don't really want to do a "spin-table" support if this is not even 
-supported in Linux.
+Last test of basis   180479  2023-04-29 04:20:19 Z    4 days
+Testing same since   180513  2023-05-03 04:18:50 Z    0 days    1 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Jiri Denemark <jdenemar@redhat.com>
+  Peter Krempa <pkrempa@redhat.com
+  Peter Krempa <pkrempa@redhat.com>
+  Shaleen Bathla <shaleen.bathla@oracle.com>
+  Tim Shearer <tshearer@adva.com>
 
--- 
-Julien Grall
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   844a3b48d6..b4f5e6c91b  b4f5e6c91b9871173de205f81b51cf06a833fcb1 -> xen-tested-master
 
