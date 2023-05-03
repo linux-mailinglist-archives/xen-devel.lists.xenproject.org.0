@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00A9A6F52B8
-	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 10:09:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529021.822930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C72AD6F5383
+	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 10:42:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529035.822941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pu7Xo-0002dm-5G; Wed, 03 May 2023 08:09:00 +0000
+	id 1pu83f-000747-P6; Wed, 03 May 2023 08:41:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529021.822930; Wed, 03 May 2023 08:09:00 +0000
+Received: by outflank-mailman (output) from mailman id 529035.822941; Wed, 03 May 2023 08:41:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pu7Xo-0002bm-19; Wed, 03 May 2023 08:09:00 +0000
-Received: by outflank-mailman (input) for mailman id 529021;
- Wed, 03 May 2023 08:08:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pu83f-00070l-Lf; Wed, 03 May 2023 08:41:55 +0000
+Received: by outflank-mailman (input) for mailman id 529035;
+ Wed, 03 May 2023 08:41:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+yte=AY=redhat.com=kwolf@srs-se1.protection.inumbo.net>)
- id 1pu7Xn-0002AX-5e
- for xen-devel@lists.xenproject.org; Wed, 03 May 2023 08:08:59 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c0e62e46-e989-11ed-b225-6b7b168915f2;
- Wed, 03 May 2023 10:08:58 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-36-vLcfhCiUOwuGWkdaAmksmg-1; Wed, 03 May 2023 04:08:51 -0400
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (envelope-from <SRS0=C18W=AY=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pu83e-00070f-1W
+ for xen-devel@lists.xenproject.org; Wed, 03 May 2023 08:41:54 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 59abf5b9-e98e-11ed-8611-37d641c3527e;
+ Wed, 03 May 2023 10:41:51 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C56C810504AC;
- Wed,  3 May 2023 08:08:50 +0000 (UTC)
-Received: from redhat.com (dhcp-192-205.str.redhat.com [10.33.192.205])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4DD9F492B00;
- Wed,  3 May 2023 08:08:47 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 75AAC22448;
+ Wed,  3 May 2023 08:41:51 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4E77C139F8;
+ Wed,  3 May 2023 08:41:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ekddEU8eUmT0dwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 03 May 2023 08:41:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,179 +51,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0e62e46-e989-11ed-b225-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683101337;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 59abf5b9-e98e-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1683103311; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GdsrTvtpKiwphnVpAamWYth1JM74zuqKQh3Am2keHQg=;
-	b=DrcBo0DMnCv/KYxjqbWPFEyuBQ5x0xjmLkCGM4iu9AWTD7bMDcq3Wb9YyNkcujEtAfsvw/
-	j+MCnqqGLEWWFB1X3FiTInfVcS+E9cAVWuKkQJdECig6CHgi8sOGjV7gIO0ZE6SJgaxxPl
-	EOqzB54vB61LF8uKV5o2rajrMYOoT1w=
-X-MC-Unique: vLcfhCiUOwuGWkdaAmksmg-1
-Date: Wed, 3 May 2023 10:08:46 +0200
-From: Kevin Wolf <kwolf@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Juan Quintela <quintela@redhat.com>,
-	Julia Suvorova <jusual@redhat.com>, xen-devel@lists.xenproject.org,
-	eesposit@redhat.com,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Fam Zheng <fam@euphon.net>, "Michael S. Tsirkin" <mst@redhat.com>,
-	Coiby Xu <Coiby.Xu@gmail.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Peter Lieven <pl@kamp.de>, Paul Durrant <paul@xen.org>,
-	"Richard W.M. Jones" <rjones@redhat.com>, qemu-block@nongnu.org,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Stefan Weil <sw@weilnetz.de>, Xie Yongji <xieyongji@bytedance.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Aarushi Mehta <mehta.aaru20@gmail.com>,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Hanna Reitz <hreitz@redhat.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Subject: Re: [PATCH v4 07/20] block/export: stop using is_external in
- vhost-user-blk server
-Message-ID: <ZFIWjuST/9tHVNMG@redhat.com>
-References: <20230425172716.1033562-1-stefanha@redhat.com>
- <20230425172716.1033562-8-stefanha@redhat.com>
- <ZFE0iFnbr2ey0A7X@redhat.com>
- <20230502200645.GE535070@fedora>
+	bh=lUD7esgrDW79z9o7+4vsMOz/TSmW2ZPXBObw8d5vtnU=;
+	b=Z95QtXrIV8lVavs295Wjb54a3o+JdDbodmdlTdvZ5OBWGCGCegXm+GcDi3lzbNOT4bKnZm
+	wxgNWV1JogPKjZfZGjRlb4EXF9ekz6uPoaYHG4j//PMQhubJLIml3rvdf/0sEbEOFPhaFC
+	NDIS/b95wbSa3tRRghUQgGW03zzYTdM=
+Message-ID: <ce231d58-c300-36d8-791c-2c6544b5e329@suse.com>
+Date: Wed, 3 May 2023 10:41:50 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH v4 05/13] tools/xenstore: use accounting buffering for
+ node accounting
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230405070349.25293-1-jgross@suse.com>
+ <20230405070349.25293-6-jgross@suse.com>
+ <c3be0db1-ed47-967b-7f98-6f1569691fb6@xen.org>
+ <887675ad-ef06-cf8c-8a32-5b3f726e2198@suse.com>
+ <acea2ebe-47c5-1d26-887d-b29df06d07dd@xen.org>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <acea2ebe-47c5-1d26-887d-b29df06d07dd@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="8uIPJqxz2LaoW5Jz"
-Content-Disposition: inline
-In-Reply-To: <20230502200645.GE535070@fedora>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+ protocol="application/pgp-signature";
+ boundary="------------TMp6T5rdQQnTdKltCroqfQzP"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------TMp6T5rdQQnTdKltCroqfQzP
+Content-Type: multipart/mixed; boundary="------------5CBjTXPndDZHeScJshg2sxDR";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <ce231d58-c300-36d8-791c-2c6544b5e329@suse.com>
+Subject: Re: [PATCH v4 05/13] tools/xenstore: use accounting buffering for
+ node accounting
+References: <20230405070349.25293-1-jgross@suse.com>
+ <20230405070349.25293-6-jgross@suse.com>
+ <c3be0db1-ed47-967b-7f98-6f1569691fb6@xen.org>
+ <887675ad-ef06-cf8c-8a32-5b3f726e2198@suse.com>
+ <acea2ebe-47c5-1d26-887d-b29df06d07dd@xen.org>
+In-Reply-To: <acea2ebe-47c5-1d26-887d-b29df06d07dd@xen.org>
 
---8uIPJqxz2LaoW5Jz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--------------5CBjTXPndDZHeScJshg2sxDR
+Content-Type: multipart/mixed; boundary="------------OB0I27oQAIR4oCHfZceSMzAY"
+
+--------------OB0I27oQAIR4oCHfZceSMzAY
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDMuMDUuMjMgMTA6MDIsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
+Cj4gDQo+IE9uIDAzLzA1LzIwMjMgMDY6MTMsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBP
+biAwMi4wNS4yMyAyMDo1NSwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+IEhpIEp1ZXJnZW4s
+DQo+Pj4NCj4+PiBPbiAwNS8wNC8yMDIzIDA4OjAzLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
+Pj4+PiBBZGQgdGhlIG5vZGUgYWNjb3VudGluZyB0byB0aGUgYWNjb3VudGluZyBpbmZvcm1h
+dGlvbiBidWZmZXJpbmcgaW4NCj4+Pj4gb3JkZXIgdG8gYXZvaWQgaGF2aW5nIHRvIHVuZG8g
+aXQgaW4gY2FzZSBvZiBmYWlsdXJlLg0KPj4+Pg0KPj4+PiBTaWduZWQtb2ZmLWJ5OiBKdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+Pj4+IC0tLQ0KPj4+PiDCoCB0b29scy94
+ZW5zdG9yZS94ZW5zdG9yZWRfY29yZS5jwqDCoCB8IDIxICsrLS0tLS0tLS0tLS0tLS0tLS0t
+LQ0KPj4+PiDCoCB0b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfZG9tYWluLmggfMKgIDQgKyst
+LQ0KPj4+PiDCoCAyIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMjEgZGVsZXRp
+b25zKC0pDQo+Pj4+DQo+Pj4+IGRpZmYgLS1naXQgYS90b29scy94ZW5zdG9yZS94ZW5zdG9y
+ZWRfY29yZS5jIGIvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2NvcmUuYw0KPj4+PiBpbmRl
+eCA4NDMzNWY1ZjNkLi45MmE0MGNjZjNmIDEwMDY0NA0KPj4+PiAtLS0gYS90b29scy94ZW5z
+dG9yZS94ZW5zdG9yZWRfY29yZS5jDQo+Pj4+ICsrKyBiL3Rvb2xzL3hlbnN0b3JlL3hlbnN0
+b3JlZF9jb3JlLmMNCj4+Pj4gQEAgLTE0NTIsNyArMTQ1Miw2IEBAIHN0YXRpYyB2b2lkIGRl
+c3Ryb3lfbm9kZV9ybShzdHJ1Y3QgY29ubmVjdGlvbiAqY29ubiwgDQo+Pj4+IHN0cnVjdCBu
+b2RlICpub2RlKQ0KPj4+PiDCoCBzdGF0aWMgaW50IGRlc3Ryb3lfbm9kZShzdHJ1Y3QgY29u
+bmVjdGlvbiAqY29ubiwgc3RydWN0IG5vZGUgKm5vZGUpDQo+Pj4+IMKgIHsNCj4+Pj4gwqDC
+oMKgwqDCoCBkZXN0cm95X25vZGVfcm0oY29ubiwgbm9kZSk7DQo+Pj4+IC3CoMKgwqAgZG9t
+YWluX25iZW50cnlfZGVjKGNvbm4sIGdldF9ub2RlX293bmVyKG5vZGUpKTsNCj4+Pj4gwqDC
+oMKgwqDCoCAvKg0KPj4+PiDCoMKgwqDCoMKgwqAgKiBJdCBpcyBub3QgcG9zc2libGUgdG8g
+ZWFzaWx5IHJldmVydCB0aGUgY2hhbmdlcyBpbiBhIHRyYW5zYWN0aW9uLg0KPj4+PiBAQCAt
+MTc5NywyNyArMTc5NiwxMSBAQCBzdGF0aWMgaW50IGRvX3NldF9wZXJtcyhjb25zdCB2b2lk
+ICpjdHgsIHN0cnVjdCANCj4+Pj4gY29ubmVjdGlvbiAqY29ubiwNCj4+Pj4gwqDCoMKgwqDC
+oCBvbGRfcGVybXMgPSBub2RlLT5wZXJtczsNCj4+Pj4gwqDCoMKgwqDCoCBkb21haW5fbmJl
+bnRyeV9kZWMoY29ubiwgZ2V0X25vZGVfb3duZXIobm9kZSkpOw0KPj4+DQo+Pj4gSUlSQywg
+d2Ugb3JpZ2luYWxseSBzYWlkIHRoYXQgZG9tYWluX25iZW50cnlfZGVjKCkgY291bGQgbmV2
+ZXIgZmFpbCBpbiBhIA0KPj4+IG5vbi10cmFuc2FjdGlvbiBjYXNlLiBCdXQgd2l0aCB5b3Vy
+IGN1cnJlbnQgcmV3b3JrLCB0aGUgZnVuY3Rpb24gY2FuIG5vdyBmYWlsIA0KPj4+IGJlY2F1
+c2Ugb2YgYW4gYWxsb2NhdGlvbiBmYWlsdXJlLg0KPj4NCj4+IEhvdyB3b3VsZCB0aGF0IGJl
+IHBvc3NpYmxlIHRvIGhhcHBlbj8NCj4+DQo+PiBkb21haW5fbmJlbnRyeV9kZWMoKSBjYW4g
+b25seSBiZSBjYWxsZWQgaWYgYSBub2RlIGlzIGJlaW5nIG93bmVkIGJ5IGFuIGFscmVhZHkN
+Cj4+IGtub3duIGRvbWFpbi4gU28gYWxsb2NhdGlvbiBpcyBpbXBvc3NpYmxlIHRvIGhhcHBl
+biwgYXMgdGhpcyB3b3VsZCBiZSBhIG1ham9yDQo+PiBlcnJvciBpbiB4ZW5zdG9yZWQuDQo+
+IA0KPiAgRnJvbSBteSB1bmRlcnN0YW5kaW5nLCB0aGUgbm9kZXMgYWNjb3VudGluZyB3aWxs
+IGJlIHRlbXBvcmFyeSBhbmQgdGhlbiANCj4gY29tbWl0dGVkIGF0IHRoZSBlbmQgb2YgdGhl
+IHJlcXVlc3QuDQo+IA0KPiBTbyB3ZSB3b3VsZCBjYWxsIGFjY19hZGRfY2hhbmdlZF9kb20o
+KSB3aGljaCBtYXkgcmVxdWlyZSBhbGxvY2F0aW9uIHRvIGhvbGQgdGhlIA0KPiB0ZW1wb3Jh
+cnkgYWNjb3VudGluZy4NCg0KQWgsIHJpZ2h0LCBnb29kIGNhdGNoIQ0KDQpXaWxsIGFkZCBj
+aGVja2luZyB0aGUgcmV0dXJuIHZhbHVlIGFuZCBtb3ZlIHRoZSBjYWxscyBhaGVhZCBvZiB0
+aGUgdGRiIGNoYW5nZXMuDQoNCg0KSnVlcmdlbg0K
+--------------OB0I27oQAIR4oCHfZceSMzAY
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-Am 02.05.2023 um 22:06 hat Stefan Hajnoczi geschrieben:
-> On Tue, May 02, 2023 at 06:04:24PM +0200, Kevin Wolf wrote:
-> > Am 25.04.2023 um 19:27 hat Stefan Hajnoczi geschrieben:
-> > > vhost-user activity must be suspended during bdrv_drained_begin/end().
-> > > This prevents new requests from interfering with whatever is happening
-> > > in the drained section.
-> > >=20
-> > > Previously this was done using aio_set_fd_handler()'s is_external
-> > > argument. In a multi-queue block layer world the aio_disable_external=
-()
-> > > API cannot be used since multiple AioContext may be processing I/O, n=
-ot
-> > > just one.
-> > >=20
-> > > Switch to BlockDevOps->drained_begin/end() callbacks.
-> > >=20
-> > > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> > > ---
-> > >  block/export/vhost-user-blk-server.c | 43 ++++++++++++++------------=
---
-> > >  util/vhost-user-server.c             | 10 +++----
-> > >  2 files changed, 26 insertions(+), 27 deletions(-)
-> > >=20
-> > > diff --git a/block/export/vhost-user-blk-server.c b/block/export/vhos=
-t-user-blk-server.c
-> > > index 092b86aae4..d20f69cd74 100644
-> > > --- a/block/export/vhost-user-blk-server.c
-> > > +++ b/block/export/vhost-user-blk-server.c
-> > > @@ -208,22 +208,6 @@ static const VuDevIface vu_blk_iface =3D {
-> > >      .process_msg           =3D vu_blk_process_msg,
-> > >  };
-> > > =20
-> > > -static void blk_aio_attached(AioContext *ctx, void *opaque)
-> > > -{
-> > > -    VuBlkExport *vexp =3D opaque;
-> > > -
-> > > -    vexp->export.ctx =3D ctx;
-> > > -    vhost_user_server_attach_aio_context(&vexp->vu_server, ctx);
-> > > -}
-> > > -
-> > > -static void blk_aio_detach(void *opaque)
-> > > -{
-> > > -    VuBlkExport *vexp =3D opaque;
-> > > -
-> > > -    vhost_user_server_detach_aio_context(&vexp->vu_server);
-> > > -    vexp->export.ctx =3D NULL;
-> > > -}
-> >=20
-> > So for changing the AioContext, we now rely on the fact that the node to
-> > be changed is always drained, so the drain callbacks implicitly cover
-> > this case, too?
->=20
-> Yes.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Ok. This surprised me a bit at first, but I think it's fine.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-We just need to remember it if we ever decide that once we have
-multiqueue, we can actually change the default AioContext without
-draining the node. But maybe at that point, we have to do more
-fundamental changes anyway.
+--------------OB0I27oQAIR4oCHfZceSMzAY--
 
-> > >  static void
-> > >  vu_blk_initialize_config(BlockDriverState *bs,
-> > >                           struct virtio_blk_config *config,
-> > > @@ -272,6 +256,25 @@ static void vu_blk_exp_resize(void *opaque)
-> > >      vu_config_change_msg(&vexp->vu_server.vu_dev);
-> > >  }
-> > > =20
-> > > +/* Called with vexp->export.ctx acquired */
-> > > +static void vu_blk_drained_begin(void *opaque)
-> > > +{
-> > > +    VuBlkExport *vexp =3D opaque;
-> > > +
-> > > +    vhost_user_server_detach_aio_context(&vexp->vu_server);
-> > > +}
-> >=20
-> > Compared to the old code, we're losing the vexp->export.ctx =3D NULL. T=
-his
-> > is correct at this point because after drained_begin we still keep
-> > processing requests until we arrive at a quiescent state.
-> >=20
-> > However, if we detach the AioContext because we're deleting the
-> > iothread, won't we end up with a dangling pointer in vexp->export.ctx?
-> > Or can we be certain that nothing interesting happens before drained_end
-> > updates it with a new valid pointer again?
->=20
-> If you want I can add the detach() callback back again and set ctx to
-> NULL there?
+--------------5CBjTXPndDZHeScJshg2sxDR--
 
-I haven't thought enough about it to say if it's a problem. If you have
-and are confident that it's correct the way it is, I'm happy with it.
-
-But bringing the callback back is the minimal change compared to the old
-state. It's just unnecessary code if we don't actually need it.
-
-Kevin
-
---8uIPJqxz2LaoW5Jz
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------TMp6T5rdQQnTdKltCroqfQzP
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEE3D3rFZqa+V09dFb+fwmycsiPL9YFAmRSFo4ACgkQfwmycsiP
-L9bGwQ/9HZIvpsXG7HrllRtRSZut7ucmoWbVO6oQFsVMI4RFuShXz3jZHU1roMAs
-tCqrZRC6M8Y+JA/pROYtwBTcrvOE/FUc6d/KXFXblg/NGTFDUGwmPWa3t8kZPul/
-wfOG8F/BRVLtOhY1DtJhAqO1cXkda/bZxqFDrCgyqtfLpXh+kuVQSOCHbontOMYu
-vNfhY3FYP0FH44fRnPsUJQVsx0pmZ07waR5lc2ukINv8d0uSN2L7U8Vw8JrNaWAK
-xGJmpznwr+eZla+/lsWQCQhWysYQIuZGuk/WFeXbitwLEnw7CiJc7qpYf55v4v8Z
-AOLuMBQVN7QGGrKmpbwuzoD09MOWsIk7dd6X30DxiF7eaE5kO/4jkIeVYPtiaXg2
-WUJpZYL1bRX04Tg2snXA4fw06fWMOO1LdAhrDHbU8P+WmxgjDpSO6zFGySFEjukb
-NHi9p14nSXwrhFUD5wOREzVRR828cmgltcrVypCRPXwISwqxfHuAvqRdrG4/+pIh
-5u/VTqxrKerXIPxMgiU9yqJAwaRJkyK/+yFmg9vYUiBcR4sGw5HQIUzeEif5V+pd
-ckV5NxGX/Wbuyo5RpiL1YnzwB4LthdVaRYLQBuR3RaKyY7G6VSUP9ARQjBg6hEr/
-fDnW23q/JH7Gr7CIdAKWz/D9Q4aL+rw4z9CbfBFkq4oG7naqDIU=
-=3jaa
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmRSHk4FAwAAAAAACgkQsN6d1ii/Ey/x
+/Af+LQayKbh6eHMkv4HWMtqlDxEjXR1ipNLuHisUPL+VBlb2oqr35hC2mKpkD014gUBr7gGonEHH
+yBbA+EKgTBdNM/HAnB2UzxOW/IHavKElP+U2CVAM9g9PPuOTJZoLIo5OP6tMRWjbIETvT0Kn8OLm
+/rP5jqmBi4G0slEKnci4XPn4qeW2GwOagcvJgW5d05a4rfxyX1O4ik2lzFj641/MpLyc25++JJwR
+PrgY7nB4nhDok1xYz0Q0GUXfHfIN/zjEoVamIsrltsIv+FQBaRgufH6Mxwx7TC8koDJOwl6PIHz1
+pbPa6P3o71M8r05ofPeRW9HW5Dmn+1k12DdNoRaVuA==
+=WGAn
 -----END PGP SIGNATURE-----
 
---8uIPJqxz2LaoW5Jz--
-
+--------------TMp6T5rdQQnTdKltCroqfQzP--
 
