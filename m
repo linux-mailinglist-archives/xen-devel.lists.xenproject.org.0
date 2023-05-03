@@ -2,43 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 699416F574B
-	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 13:42:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529132.823189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A844B6F574E
+	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 13:42:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529137.823201 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puAr2-0004df-Ve; Wed, 03 May 2023 11:41:04 +0000
+	id 1puAsU-0005DZ-EV; Wed, 03 May 2023 11:42:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529132.823189; Wed, 03 May 2023 11:41:04 +0000
+Received: by outflank-mailman (output) from mailman id 529137.823201; Wed, 03 May 2023 11:42:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puAr2-0004af-SR; Wed, 03 May 2023 11:41:04 +0000
-Received: by outflank-mailman (input) for mailman id 529132;
- Wed, 03 May 2023 11:41:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1puAsU-0005AW-AU; Wed, 03 May 2023 11:42:34 +0000
+Received: by outflank-mailman (input) for mailman id 529137;
+ Wed, 03 May 2023 11:42:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+yte=AY=redhat.com=kwolf@srs-se1.protection.inumbo.net>)
- id 1puAr1-0004aZ-1j
- for xen-devel@lists.xenproject.org; Wed, 03 May 2023 11:41:03 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ea33c10-e9a7-11ed-8611-37d641c3527e;
- Wed, 03 May 2023 13:40:58 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-638-0-m7RWIiMhaNdaGkO17WiQ-1; Wed, 03 May 2023 07:40:55 -0400
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6BEB7A0F386;
- Wed,  3 May 2023 11:40:54 +0000 (UTC)
-Received: from redhat.com (dhcp-192-205.str.redhat.com [10.33.192.205])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 132F1405DBBC;
- Wed,  3 May 2023 11:40:49 +0000 (UTC)
+ (envelope-from <SRS0=S1uT=AY=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1puAsS-0005AQ-QW
+ for xen-devel@lists.xen.org; Wed, 03 May 2023 11:42:32 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20607.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::607])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 96bd1c28-e9a7-11ed-b225-6b7b168915f2;
+ Wed, 03 May 2023 13:42:31 +0200 (CEST)
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
+ by AM7PR04MB6998.eurprd04.prod.outlook.com (2603:10a6:20b:10a::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6340.33; Wed, 3 May
+ 2023 11:42:29 +0000
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::768c:6df7:9afb:acd7]) by AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::768c:6df7:9afb:acd7%6]) with mapi id 15.20.6340.031; Wed, 3 May 2023
+ 11:42:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,261 +47,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ea33c10-e9a7-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683114057;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dRwOSZS087B+j9NDbbckQmSe0NEnNmqFyABRgslLrL0=;
-	b=QathHsffgtsumWCQxOd1tvVwCEFZzKWMwfiTHAJ3ebD2ZZ5FHqBTZdNG2IcXPYPUlkkiQq
-	XFOSdcpdSe1h66XSIeiG8P5VMBhL45pwU7r3fLIgrikl3bUU8KklC/J2h+JoTaOXvC9oHp
-	90TxTV5HTVBVLnIIcRqNdnsmfXJYxsQ=
-X-MC-Unique: 0-m7RWIiMhaNdaGkO17WiQ-1
-Date: Wed, 3 May 2023 13:40:49 +0200
-From: Kevin Wolf <kwolf@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Juan Quintela <quintela@redhat.com>,
-	Julia Suvorova <jusual@redhat.com>, xen-devel@lists.xenproject.org,
-	eesposit@redhat.com,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Fam Zheng <fam@euphon.net>, "Michael S. Tsirkin" <mst@redhat.com>,
-	Coiby Xu <Coiby.Xu@gmail.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Peter Lieven <pl@kamp.de>, Paul Durrant <paul@xen.org>,
-	"Richard W.M. Jones" <rjones@redhat.com>, qemu-block@nongnu.org,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Stefan Weil <sw@weilnetz.de>, Xie Yongji <xieyongji@bytedance.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Aarushi Mehta <mehta.aaru20@gmail.com>,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Hanna Reitz <hreitz@redhat.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Zhengui Li <lizhengui@huawei.com>,
-	Daniil Tatianin <d-tatianin@yandex-team.ru>
-Subject: Re: [PATCH v4 04/20] virtio-scsi: stop using aio_disable_external()
- during unplug
-Message-ID: <ZFJIQW6RpndfCcXR@redhat.com>
-References: <20230425172716.1033562-1-stefanha@redhat.com>
- <20230425172716.1033562-5-stefanha@redhat.com>
- <ZEvWv8dF78Jpb6CQ@redhat.com>
- <20230501150934.GA14869@fedora>
- <ZFEN+KY8JViTDtv/@redhat.com>
- <20230502200243.GD535070@fedora>
+X-Inumbo-ID: 96bd1c28-e9a7-11ed-b225-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jzIJHT4HhHUjeJNm9Xv4nW2Mc4JnyDJHVwILzK1biKIll3zQkfRVloH9QIqqwyXKpe7WtUwgSmy3sQ16nvm7n53i01Ib53ODdFW4wBkxvFeecIuL5QBu44kXLSIRcTKyaZcAYQgz60iekk/AD2F2R88vJz7fpQRwwZe0gn5b2V3iYbB7fWVB9e2CTmp7+H/gOnL/kaStwQYsNnQ5sSfXhRrU3Sk3gTyH4biXkv+/+qU2ssjstGb/W9VpqNx8kjvy3L/b+cj38lHKwgkh0LlQEtsYhfBi+5h3vWfy65R4WdIRiNZrivGCMLNcxYZ8URw77jZtGEZgDIL4xIrEQfTAiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T6yWBchkBNgoC9CCoa83SX//6pM98VoMRlufZMx9IEM=;
+ b=IofnN4TDjXT29HplfUE20jkIWNUP2ZHTcDn89WiqK+UMsg+DWahRY5fBm+z6wAR7h8/dEZjIFRDuP6rkUZXNluFX19V6jZ5avoC6KirOceNJxzeSJ6DEEYqrhUdGsKurDv/rt+bf60enQ/5KLQrckMTEOaBP3ELQQ3+voGcY1iiPSSq2flZSYb1R1oTYGvwfyKCZr/JqyEJruzQdDACJaR0qSt3Z6ogZPWDMeo7M1xyb4Elj+FnASURJezFnv0B5koaxiGgh7nrMhBeEZoNDIX/LkFxuFQzSUILicT4sAV7Bv+5OiOrjO4seh2j2Me5WRciBvVw4sM1usA30RLGlpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T6yWBchkBNgoC9CCoa83SX//6pM98VoMRlufZMx9IEM=;
+ b=wZZcmxFX77cbgKZ1aJXQExSyrxQd7BzNO2ILww8/BBZLPIEDTMf6p1I5b3eN/DxqC0w44goDt17QPb3JKQlUffdJjN1PWAgq01UjiE8njkG2BKF9Uv3zcjorySA0AzVGD2j9N7Y07Y/MvpLS6XYFQkZLmHlKAZDFcLMuxiFnIX4lXsHpGq4IisKs9Ua9pjekCqpOX31SNVjngZff+/9FynlfpgHEkpxYZn+SB0GOxbLZtAqmy/EijRO3nSGVKxJhXQtthxn40ssizIg/olOZpH8WkzGAG2ivMLKJSwxyjEez+67Op+yoeDhZHxzQxTaIb2tnMzmCjoJMOml8AStebg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <6d18f284-8cf9-4c21-7057-5f53bd98536e@suse.com>
+Date: Wed, 3 May 2023 13:42:27 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH V3 2/2] libxl: fix matching of generic virtio device
+Content-Language: en-US
+To: Viresh Kumar <viresh.kumar@linaro.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+ stratos-dev@op-lists.linaro.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
+ <alex.bennee@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.com>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ Erik Schilling <erik.schilling@linaro.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xen.org, Julien Grall <julien@xen.org>,
+ Juergen Gross <jgross@suse.com>
+References: <18458fa39433ce4ac950a0a20cc64da93db0b03a.1680771422.git.viresh.kumar@linaro.org>
+ <888e60d2ec49f53230bc82df393b6bed4180cb8a.1680771422.git.viresh.kumar@linaro.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <888e60d2ec49f53230bc82df393b6bed4180cb8a.1680771422.git.viresh.kumar@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0136.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:96::10) To AM6PR04MB6551.eurprd04.prod.outlook.com
+ (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Sh4VljrAVjcetdM0"
-Content-Disposition: inline
-In-Reply-To: <20230502200243.GD535070@fedora>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|AM7PR04MB6998:EE_
+X-MS-Office365-Filtering-Correlation-Id: d8beee39-b378-42c4-f366-08db4bcb7975
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Gnn/WE853ow6ZIQvpxAXQByDhilqk9fVTdBQ/CyqwX3kN8shqwqMMPB7lsr6l3FAq3ofQ83rAzwH3fwyPNQdoxpLzrLtCEnHfC+/6+jQGJIXMk3E0AEyEdRn5bU/X2UygE/cvcsOwCqJqnnrqHZiHxc6nHs8slyoXhDOlGwy0RyiVeC+D+gRmUAsCtR/yhjafnVpJTyH2FQ0YV2ybgwYtPztVQb89YH+h5rIeW5u8KgMSZjr+qkwvl29fo+rDT0bl8KvwcTkdlcHtJd2snOMzqL4/eOkIpQvNJQsfW+zC00dMoAS7I/WNEmgQr5Qq+TbjmEIS+rEeJm+BSWMm7E9GXKsprl8MAEGGEpXwxqaJDXT2Kv7vKhukVqxc1C7iYG6/dxLQsfidgo2SEF73ZeqlNYme/AKfRsjKmRDbPwXUW38UgTuEkvYcHe895QRLXOiuhdKC0ChCJmGj5kfyMa3aPcaI6Qs/mj8P4aBOatqH8ipc472R+HQ3bSrID3UnZ3M0hHxAFV4nlLt0MPDwdyYUNXPbvdQ/A2yKEjOJyMZSxHmkM7tK6HFzY4urhr/4lCGFWdGUMIImFC9EveA9pP8HDsIJ2mfKCxq4zHeWj01soQWwYhvFnE4S14hn/wu+4YJ5RqYa9EWvmvz5ySL1ZpQ1HAQxpiXNGKmPnUzDxDl3nk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(136003)(39860400002)(376002)(366004)(346002)(451199021)(2616005)(6506007)(83380400001)(2906002)(26005)(6512007)(53546011)(41300700001)(4326008)(66946007)(66476007)(66556008)(316002)(110136005)(54906003)(186003)(7416002)(107886003)(5660300002)(6486002)(8936002)(8676002)(478600001)(38100700002)(86362001)(31696002)(36756003)(31686004)(41533002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SlBtMEZGeHBRcWVwMHB4aWF1dnBMN1oyTElpYXAxM2NZVXJDNEdIb0ZSbGgw?=
+ =?utf-8?B?R2FzUkJHVWpBNElOc3NXUkk3RjZhT3BjSWZDMlBxK0xNYXZJV0xweG1iRHhR?=
+ =?utf-8?B?U29TNjdjbmloYkxnOFA3dkJ0UnhMU0VLTlgzZUgrVU8rb2IrYVJJOGZBYjBS?=
+ =?utf-8?B?UUx4QlJhK2F4eUREQWpIci9LUlU3R1FZc2hhT29lc05nenRtL3JZQnNIdGJP?=
+ =?utf-8?B?TTJUWWNDV0lVMFcvbkdRUHNHTjBvS0NWUWs2c1lqYWhaY29KNzNxQ1pOZjI3?=
+ =?utf-8?B?bVM2MzVuR3pwdEtNbFBRVUsvT1lJV2RTSERrNTV2ZXp5R0VqclFFdE0vWUxx?=
+ =?utf-8?B?aktEaFZlNXYxUU41RDdyT05NMnBoa3BxczdUZDB1c0NBUGRUZ0F0ZWdGTGtr?=
+ =?utf-8?B?YnRqUlBsWWJ4cy95OGEzTmpFWXhHcmFSMmFMVDV0SXZ2ZHBsQ3pXMDJvQWJk?=
+ =?utf-8?B?dGlGSVBlVFhlaTVRQkkyZGpSOHFnRngrb3BLMnU4dGZjaE1Gcy9tb0NEdmNt?=
+ =?utf-8?B?MkJXbU01bE0xQ3JJdzdUR0ZDUldjeVNnQVRHa05PSisxYnJZc0thOHlGTXkw?=
+ =?utf-8?B?SElTd0cybTRtcmFlTmFhZUU4QkdvcEVoTzRHYVU5cjN2dkk3U1l0bzhBY1Nm?=
+ =?utf-8?B?QWlSU1pMVFNkY0UwQzVQR1hzZnhWdWpMNmZHMGs4T2MwQVRpT3lzTGE4Y3U5?=
+ =?utf-8?B?aGZ2OUxoMUx1cy9kbzRwK0pxTVV6MlBJK0tTamRpMVZNeUdsU2ZPL2VwY3NQ?=
+ =?utf-8?B?OC9xdUNkOFNNckpxaUJUWDlBVHQxZUg0ak1PeUY4TVgxWkZkYXN6MTJqd3VP?=
+ =?utf-8?B?N3JXNGJkNVFTZjdUY3hkeGZNTUxObGRiQ0R2aUhQQTdxZklJSXNrRlo5dy95?=
+ =?utf-8?B?NFFQa3h0eFd2S0pFQ3lwblE4ME9JTUh0TWt2djEyaU80a2I4UzM5c0dvVjVX?=
+ =?utf-8?B?WklleWY5azI1VGF1WmhHbFk5UmRkVmJQQ2d4Y0FKY3VJME44cllDT0pEbUdu?=
+ =?utf-8?B?TFc4V3BNSVNZcSsxK2RpdDlKOTJMaTNveHVUdzlSVXhMTzNRTzNjcWluRUxW?=
+ =?utf-8?B?RFlETEdMV1lLNzhvb0U4dXRwbFJoR29rZlhubzIwNUVJbjRqckF1bVFlMGxB?=
+ =?utf-8?B?TVhhZ0RYMThwYTMrTm1SN2ZEVngxTHVtR1RtZCtFcGVKSFhoVHUwMHpRaDk1?=
+ =?utf-8?B?RVNlMktBUkltUFhITXNkL1VKZ1dOQk9xTmRoNUl3UXlJNVFvOXl0d2w5Sjc2?=
+ =?utf-8?B?TUJ5eWMrbzJKa1Eya2VWcExSR2xmeUdWbDc0SDZXSGZDdWpkdU1nMVZWMDk0?=
+ =?utf-8?B?cjcvSWdKUGZ3cFRiT2RvSUsvK0pZRWNMUTJvSUh4UHZrczVhNUo1YlM0bXo5?=
+ =?utf-8?B?MEh3VjY3VXZ2RE5EVVhTYVZWODlNUlZnR1QwTTJDcmNtUS9PQVYrb1FFL3lt?=
+ =?utf-8?B?clRVNlJZZ000Y3FIR241S1ArOE5JUTZpbytkM1pSYWlTU29MOHo2ckxtYjVh?=
+ =?utf-8?B?dEdOSlJ2TCtZQ2hTaHJMZHJHRS9IV2I3dDZoZlEzREdmQTE5MXhURG1JV3hW?=
+ =?utf-8?B?SnVDb05tT0xCdFdlVDVoTzRDVW9lbmx0NlM5dTFlMDRVclRWYWtUVmVmZ2V1?=
+ =?utf-8?B?bmIveWh2OW9pSWlxQXBpYithUnJ0K1JHY1IvSm1aYlZDdmY0ZklWTGdCY1NR?=
+ =?utf-8?B?R0psa2NodVFnWnd4ZkV2bENJbWs2aFJEaUpXTVBaUDhpU1RPYmo5cWNnRWM2?=
+ =?utf-8?B?dVMxOW9MTjhZM0pVNi9CVEluSy9OUmFnT2dmZ3FVNFB2L3c1bjRhamgveEt0?=
+ =?utf-8?B?Q0dWZGNCeTFkbTBEZEU4cEsrL20reklzUzlJdnhWUUs3eFVoT2toZUdWdlha?=
+ =?utf-8?B?MjNaRXZOMU1GQzBGZHRQYlJSTTZZaW93THFTQ0IwZ0h6M1RwWmtkUWN4Znlh?=
+ =?utf-8?B?bnBKMmJJQUNsRllaekNwYVFhOVdZcmNRVmIyaFZxZzU5YnVqZ3NsUXNqRzlZ?=
+ =?utf-8?B?MjFucUEwZDk0VWFlN0hHaXdCTXB4SDZWSmdmN2IrRXJoMGFOWlpLcUFLZFph?=
+ =?utf-8?B?d0ltaFJqWGFCTExad0IrUGlpWjZVeGs5MGtzcURBYThaVkNBYU9NdzRNcXI2?=
+ =?utf-8?Q?QQflbsdCZYtY74Gcib3et3qxW?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8beee39-b378-42c4-f366-08db4bcb7975
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2023 11:42:29.4095
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ajXbDfDc/mJOmnEg/SLlzCr2Co2o+nDsb6Qaaxmmr/9j3NqgErSGuZqW5BQvH3M6m2q+PWoUWgyFXRbSe7hYgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6998
 
+On 06.04.2023 10:58, Viresh Kumar wrote:
+> The strings won't be an exact match, as we are only looking to match the
+> prefix here, i.e. "virtio,device". This is already done properly in
+> libxl_virtio.c file, lets do the same here too.
+> 
+> Fixes: 43ba5202e2ee ("libxl: add support for generic virtio device")
+> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+> Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
---Sh4VljrAVjcetdM0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+While I've committed the doc patch (patch 1), I don't think I should
+commit this one without a maintainer ack, even if it looks pretty
+straightforward. Anthony, Wei?
 
-Am 02.05.2023 um 22:02 hat Stefan Hajnoczi geschrieben:
-> On Tue, May 02, 2023 at 03:19:52PM +0200, Kevin Wolf wrote:
-> > Am 01.05.2023 um 17:09 hat Stefan Hajnoczi geschrieben:
-> > > On Fri, Apr 28, 2023 at 04:22:55PM +0200, Kevin Wolf wrote:
-> > > > Am 25.04.2023 um 19:27 hat Stefan Hajnoczi geschrieben:
-> > > > > This patch is part of an effort to remove the aio_disable_externa=
-l()
-> > > > > API because it does not fit in a multi-queue block layer world wh=
-ere
-> > > > > many AioContexts may be submitting requests to the same disk.
-> > > > >=20
-> > > > > The SCSI emulation code is already in good shape to stop using
-> > > > > aio_disable_external(). It was only used by commit 9c5aad84da1c
-> > > > > ("virtio-scsi: fixed virtio_scsi_ctx_check failed when detaching =
-scsi
-> > > > > disk") to ensure that virtio_scsi_hotunplug() works while the gue=
-st
-> > > > > driver is submitting I/O.
-> > > > >=20
-> > > > > Ensure virtio_scsi_hotunplug() is safe as follows:
-> > > > >=20
-> > > > > 1. qdev_simple_device_unplug_cb() -> qdev_unrealize() ->
-> > > > >    device_set_realized() calls qatomic_set(&dev->realized, false)=
- so
-> > > > >    that future scsi_device_get() calls return NULL because they e=
-xclude
-> > > > >    SCSIDevices with realized=3Dfalse.
-> > > > >=20
-> > > > >    That means virtio-scsi will reject new I/O requests to this
-> > > > >    SCSIDevice with VIRTIO_SCSI_S_BAD_TARGET even while
-> > > > >    virtio_scsi_hotunplug() is still executing. We are protected a=
-gainst
-> > > > >    new requests!
-> > > > >=20
-> > > > > 2. Add a call to scsi_device_purge_requests() from scsi_unrealize=
-() so
-> > > > >    that in-flight requests are cancelled synchronously. This ensu=
-res
-> > > > >    that no in-flight requests remain once qdev_simple_device_unpl=
-ug_cb()
-> > > > >    returns.
-> > > > >=20
-> > > > > Thanks to these two conditions we don't need aio_disable_external=
-()
-> > > > > anymore.
-> > > > >=20
-> > > > > Cc: Zhengui Li <lizhengui@huawei.com>
-> > > > > Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
-> > > > > Reviewed-by: Daniil Tatianin <d-tatianin@yandex-team.ru>
-> > > > > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> > > >=20
-> > > > qemu-iotests 040 starts failing for me after this patch, with what =
-looks
-> > > > like a use-after-free error of some kind.
-> > > >=20
-> > > > (gdb) bt
-> > > > #0  0x000055b6e3e1f31c in job_type (job=3D0xe3e3e3e3e3e3e3e3) at ..=
-/job.c:238
-> > > > #1  0x000055b6e3e1cee5 in is_block_job (job=3D0xe3e3e3e3e3e3e3e3) a=
-t ../blockjob.c:41
-> > > > #2  0x000055b6e3e1ce7d in block_job_next_locked (bjob=3D0x55b6e72b7=
-570) at ../blockjob.c:54
-> > > > #3  0x000055b6e3df6370 in blockdev_mark_auto_del (blk=3D0x55b6e74af=
-0a0) at ../blockdev.c:157
-> > > > #4  0x000055b6e393e23b in scsi_qdev_unrealize (qdev=3D0x55b6e7c04d4=
-0) at ../hw/scsi/scsi-bus.c:303
-> > > > #5  0x000055b6e3db0d0e in device_set_realized (obj=3D0x55b6e7c04d40=
-, value=3Dfalse, errp=3D0x55b6e497c918 <error_abort>) at ../hw/core/qdev.c:=
-599
-> > > > #6  0x000055b6e3dba36e in property_set_bool (obj=3D0x55b6e7c04d40, =
-v=3D0x55b6e7d7f290, name=3D0x55b6e41bd6d8 "realized", opaque=3D0x55b6e7246d=
-20, errp=3D0x55b6e497c918 <error_abort>)
-> > > >     at ../qom/object.c:2285
-> > > > #7  0x000055b6e3db7e65 in object_property_set (obj=3D0x55b6e7c04d40=
-, name=3D0x55b6e41bd6d8 "realized", v=3D0x55b6e7d7f290, errp=3D0x55b6e497c9=
-18 <error_abort>) at ../qom/object.c:1420
-> > > > #8  0x000055b6e3dbd84a in object_property_set_qobject (obj=3D0x55b6=
-e7c04d40, name=3D0x55b6e41bd6d8 "realized", value=3D0x55b6e74c1890, errp=3D=
-0x55b6e497c918 <error_abort>)
-> > > >     at ../qom/qom-qobject.c:28
-> > > > #9  0x000055b6e3db8570 in object_property_set_bool (obj=3D0x55b6e7c=
-04d40, name=3D0x55b6e41bd6d8 "realized", value=3Dfalse, errp=3D0x55b6e497c9=
-18 <error_abort>) at ../qom/object.c:1489
-> > > > #10 0x000055b6e3daf2b5 in qdev_unrealize (dev=3D0x55b6e7c04d40) at =
-=2E./hw/core/qdev.c:306
-> > > > #11 0x000055b6e3db509d in qdev_simple_device_unplug_cb (hotplug_dev=
-=3D0x55b6e81c3630, dev=3D0x55b6e7c04d40, errp=3D0x7ffec5519200) at ../hw/co=
-re/qdev-hotplug.c:72
-> > > > #12 0x000055b6e3c520f9 in virtio_scsi_hotunplug (hotplug_dev=3D0x55=
-b6e81c3630, dev=3D0x55b6e7c04d40, errp=3D0x7ffec5519200) at ../hw/scsi/virt=
-io-scsi.c:1065
-> > > > #13 0x000055b6e3db4dec in hotplug_handler_unplug (plug_handler=3D0x=
-55b6e81c3630, plugged_dev=3D0x55b6e7c04d40, errp=3D0x7ffec5519200) at ../hw=
-/core/hotplug.c:56
-> > > > #14 0x000055b6e3a28f84 in qdev_unplug (dev=3D0x55b6e7c04d40, errp=
-=3D0x7ffec55192e0) at ../softmmu/qdev-monitor.c:935
-> > > > #15 0x000055b6e3a290fa in qmp_device_del (id=3D0x55b6e74c1760 "scsi=
-0", errp=3D0x7ffec55192e0) at ../softmmu/qdev-monitor.c:955
-> > > > #16 0x000055b6e3fb0a5f in qmp_marshal_device_del (args=3D0x7f61cc00=
-5eb0, ret=3D0x7f61d5a8ae38, errp=3D0x7f61d5a8ae40) at qapi/qapi-commands-qd=
-ev.c:114
-> > > > #17 0x000055b6e3fd52e1 in do_qmp_dispatch_bh (opaque=3D0x7f61d5a8ae=
-08) at ../qapi/qmp-dispatch.c:128
-> > > > #18 0x000055b6e4007b9e in aio_bh_call (bh=3D0x55b6e7dea730) at ../u=
-til/async.c:155
-> > > > #19 0x000055b6e4007d2e in aio_bh_poll (ctx=3D0x55b6e72447c0) at ../=
-util/async.c:184
-> > > > #20 0x000055b6e3fe3b45 in aio_dispatch (ctx=3D0x55b6e72447c0) at ..=
-/util/aio-posix.c:421
-> > > > #21 0x000055b6e4009544 in aio_ctx_dispatch (source=3D0x55b6e72447c0=
-, callback=3D0x0, user_data=3D0x0) at ../util/async.c:326
-> > > > #22 0x00007f61ddc14c7f in g_main_dispatch (context=3D0x55b6e7244b20=
-) at ../glib/gmain.c:3454
-> > > > #23 g_main_context_dispatch (context=3D0x55b6e7244b20) at ../glib/g=
-main.c:4172
-> > > > #24 0x000055b6e400a7e8 in glib_pollfds_poll () at ../util/main-loop=
-=2Ec:290
-> > > > #25 0x000055b6e400a0c2 in os_host_main_loop_wait (timeout=3D0) at .=
-=2E/util/main-loop.c:313
-> > > > #26 0x000055b6e4009fa2 in main_loop_wait (nonblocking=3D0) at ../ut=
-il/main-loop.c:592
-> > > > #27 0x000055b6e3a3047b in qemu_main_loop () at ../softmmu/runstate.=
-c:731
-> > > > #28 0x000055b6e3dab27d in qemu_default_main () at ../softmmu/main.c=
-:37
-> > > > #29 0x000055b6e3dab2b8 in main (argc=3D24, argv=3D0x7ffec55196a8) a=
-t ../softmmu/main.c:48
-> > > > (gdb) p jobs
-> > > > $4 =3D {lh_first =3D 0x0}
-> > >=20
-> > > I wasn't able to reproduce this with gcc 13.1.1 or clang 16.0.1:
-> > >=20
-> > >   $ tests/qemu-iotests/check -qcow2 040
-> > >=20
-> > > Any suggestions on how to reproduce the issue?
-> >=20
-> > It happens consistently for me with the same command line, both with gcc
-> > and clang.
-> >=20
-> > gcc (GCC) 12.2.1 20221121 (Red Hat 12.2.1-4)
-> > clang version 15.0.7 (Fedora 15.0.7-2.fc37)
-> >=20
-> > Maybe there is a semantic merge conflict? I have applied the series on
-> > top of master (05d50ba2d4) and my block branch (88f81f7bc8).
->=20
-> I can't find 88f81f7bc8 but rebased on repo.or.cz/qemu/kevin.git block
-> (4514dac7f2e9) and the test passes here.
->=20
-> I rebased on qemu.git/master (05d50ba2d4) and it also passes.
->=20
-> Please let me know if the following tree (a0ff680a72f6) works on your
-> machine:
-> https://gitlab.com/stefanha/qemu/-/tree/remove-aio_disable_external
+Jan
 
-Fails in the same way.
-
-So I tried to debug this myself now. The problem is that iterating the
-jobs in blockdev_mark_auto_del() is incorrect: job_cancel_locked()
-frees the job and then block_job_next_locked() is a use after free.
-
-It also drops job_mutex temporarily and polls, so even switching to a
-*_FOREACH_SAFE style loop won't fix this. I guess we have to restart
-the whole search from the start after a job_cancel_locked() because the
-list might look very different after the call.
-
-Now, of course, how this is related to your patch and why it doesn't
-trigger before it, is still less than clear. What I found out is that
-adding the scsi_device_purge_requests() is enough to crash it. Maybe
-it's related to the blk_drain() inside of it. That the job finishes
-earlier during the unplug now or something like that.
-
-Anyway, changing blockdev_mark_auto_del() fixes it. I'll send a patch.
-
-Kevin
-
---Sh4VljrAVjcetdM0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE3D3rFZqa+V09dFb+fwmycsiPL9YFAmRSSEAACgkQfwmycsiP
-L9Z4jRAAvTT64p9bQdNSCCIFrqkkGEZS5J/8ud4wvKBgYacJ8pOY30Z2B3dA78bz
-ik5KMZlaTa4GXFwlKGNn/OUGiB3ivuhXeIUHXv+pw8F9sCQy4WJDpeO6WPDtQ6Os
-swWWC3Uv+cnfLQH8dZjf4yoLY4hYACt683Ptml960LIYhpX/AXjdnOv6f/tj3gXO
-q+mxfLwTi5S08Kkq08e8sXbqCwSiTPXX106MDdk/oMD3MxzUmqu6qFxrf9n6Yp5i
-kI1rJD0VR64ScA58lJlFnAdZGWL7d9kX5WUbZ+x27lLay4Uel4cmY9AIsUWThnHZ
-fMk2Sol1aUKSEAlVdHL5vWbQF/UyYe+KB2tn++4HJZ/ojVBL1GNdnWgmk+ZPXGfI
-BtIc5+h7Qsa2uXUX2gJQYP7j6Y/EBQMAT0oTlG2v+CxS+1MrSa4O9ufnx1c9hoLF
-FOUU2CT4vrJlYI281yWZ5R6pZrm0ZJMHAGStCJH4/ayo1xVj/5gPdffIRksFwUzy
-yfia4Pis1nU9ET5riOk4WTCHz44BgIPvkDSYe1aJMS9XT3DM6MsZm9shuUMueLBd
-0H5rU7ScgGB6ZLJLOQN0m84AfHOrxSgo7+bdAmXriAYvgDwr9B6fc50cDUBOEGNo
-zDb0PBH7R3fZT9rEpHlQi4t3SOBkDV3L1toGvWHYymLPkzOC3/w=
-=9639
------END PGP SIGNATURE-----
-
---Sh4VljrAVjcetdM0--
+> ---
+> V2->V3:
+> - Tag from Oleksandr.
+> 
+>  tools/libs/light/libxl_arm.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> index ddc7b2a15975..97c80d7ed0fa 100644
+> --- a/tools/libs/light/libxl_arm.c
+> +++ b/tools/libs/light/libxl_arm.c
+> @@ -1033,10 +1033,14 @@ static int make_virtio_mmio_node_device(libxl__gc *gc, void *fdt, uint64_t base,
+>      } else if (!strcmp(type, VIRTIO_DEVICE_TYPE_GPIO)) {
+>          res = make_virtio_mmio_node_gpio(gc, fdt);
+>          if (res) return res;
+> -    } else if (strcmp(type, VIRTIO_DEVICE_TYPE_GENERIC)) {
+> -        /* Doesn't match generic virtio device */
+> -        LOG(ERROR, "Invalid type for virtio device: %s", type);
+> -        return -EINVAL;
+> +    } else {
+> +        int len = sizeof(VIRTIO_DEVICE_TYPE_GENERIC) - 1;
+> +
+> +        if (strncmp(type, VIRTIO_DEVICE_TYPE_GENERIC, len)) {
+> +            /* Doesn't match generic virtio device */
+> +            LOG(ERROR, "Invalid type for virtio device: %s", type);
+> +            return -EINVAL;
+> +        }
+>      }
+>  
+>      return fdt_end_node(fdt);
 
 
