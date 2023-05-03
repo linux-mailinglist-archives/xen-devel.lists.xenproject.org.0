@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79A5F6F5B3D
-	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 17:33:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529307.823579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD36A6F5B44
+	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 17:34:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529312.823590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puETg-0006as-KQ; Wed, 03 May 2023 15:33:12 +0000
+	id 1puEUQ-0007AV-1d; Wed, 03 May 2023 15:33:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529307.823579; Wed, 03 May 2023 15:33:12 +0000
+Received: by outflank-mailman (output) from mailman id 529312.823590; Wed, 03 May 2023 15:33:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puETg-0006YE-H0; Wed, 03 May 2023 15:33:12 +0000
-Received: by outflank-mailman (input) for mailman id 529307;
- Wed, 03 May 2023 15:33:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1puEUP-00078G-V9; Wed, 03 May 2023 15:33:57 +0000
+Received: by outflank-mailman (input) for mailman id 529312;
+ Wed, 03 May 2023 15:33:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S1uT=AY=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1puETe-0006Y6-WC
- for xen-devel@lists.xenproject.org; Wed, 03 May 2023 15:33:11 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20616.outbound.protection.outlook.com
- [2a01:111:f400:7eaf::616])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce137e99-e9c7-11ed-8611-37d641c3527e;
- Wed, 03 May 2023 17:33:08 +0200 (CEST)
+ id 1puEUN-000715-TT
+ for xen-devel@lists.xenproject.org; Wed, 03 May 2023 15:33:55 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2062a.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e9d48b08-e9c7-11ed-b225-6b7b168915f2;
+ Wed, 03 May 2023 17:33:55 +0200 (CEST)
 Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
  by DBBPR04MB7498.eurprd04.prod.outlook.com (2603:10a6:10:20b::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.22; Wed, 3 May
- 2023 15:33:07 +0000
+ 2023 15:33:53 +0000
 Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
  ([fe80::768c:6df7:9afb:acd7]) by AM6PR04MB6551.eurprd04.prod.outlook.com
  ([fe80::768c:6df7:9afb:acd7%6]) with mapi id 15.20.6340.031; Wed, 3 May 2023
- 15:33:07 +0000
+ 15:33:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,343 +47,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce137e99-e9c7-11ed-8611-37d641c3527e
+X-Inumbo-ID: e9d48b08-e9c7-11ed-b225-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nSgB/yFikd9A65BGSSGIKIyQygm92cG+/3011FVurmipxC58uOkyY7W4m6Yvd8xMheY1Ao4f22SZA5IZyEBC/2ccaXsV+2VuL9RfaMUXbSzTY/yQR8W6TI7AdGmCWyVnfyjzfSXD4dN9fYULBzNrgsE/7LurvowxL7uw6+CCpQU/oRhiCY/kPVsWKO/5I3YnDr46uWKSEfWPJKd5YZ827V3KQYDGGsE4kHES9/ytnke97ur3xfplzbzC9z10qqhX9JmalwPAEQB0lOrh1m3fgFJZDED25YcbTy2jrnq0EqAbI6qFl2eQu9Vb5gKLjgWbhDquWgwQhQyCy9eGNSOHvQ==
+ b=Osh+id0j45zfZXNwwHYouI5WHcCjfXcW/PyhDXbQXBsTt22k+zb9dvmqUh0qb8/gJpX49M+717kFrQpfsxD4+zEjGH28AxGPjcDXZRf7B91Sdp46bA8jKrHKjKo0T2ForzHKAis1oWD687NmykAO+8nyLPd3VYIlavX/tUeSpWmlOQVrU1RksTJnk94eScXQstVvafNxxH11XSLNEI8zTyYWUYMYdmivRB7v/66vuSZhqReKu5UGjhbNtxD1TN4zeyoVxapi5UTkRTzyxdRWh8HIQp5njCtIyfqTfkLD01m3SIzWucl/UfXoPIk+OpgA7kYrO8ok3N6HU4M2tAaYyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g3wz92lQ5KDUxdt8BmZClL8NBUi7+IdNuZks2UaRJyU=;
- b=gXtfyiiP1q1b9Q+Ftsb7t7PhMZE/zsJ+JcGhXU8ZSxD1A3CFYwjRhAyj8Q0K2HZr3c9lj+822nboWrJEvq9Kv+PT9DX6AbP0mFpChXyAYUcAawM6BtMlh9EwTf4IWlTj0uANRF/g7mfnGjSlG0aAvq10VZAB2edFTwCD1YtK/OA/Kvlh4OELwxVnlGmt+CKvrjSmEKdpIU4G12UWWHxbwC8b9KyLh7lAkvrMw6gy5rbPMlg91lXvM/zJz3jmkChzU0u2VOzvzIIOlrL/axu9IST8n+yPeC+ZQYZxIsVRN3vbTIazM/i4dF97eV6tFc1UuZ/7Sh9iRg/6K6GLObf+Tg==
+ bh=9Stzvh+MzN3TPUQsXG0ZEOGdaQBSL5CX/KwjgUIRxmE=;
+ b=XNIvxcwah0j0y5meDtGSTvbuPRRZaltVoJGZABiv4ebymhF28ftVLne/3HN9SLCXTFVwbqHDqlEICGRfq6yrE0gsoquglqbRg33k/OME9bJ0VswsZUBkprlPKPSXQOj91Q/4nezcAzaMl4Noob+DJQVCjhPWv0jk6SJbflqF/MnvmW7tJ3e2KsBpyehb80qv5rgfHJNKMmN96/71pFcNH5rzXx2vIXAEl+5vXXhRRrJWFR2yMiZ67yOW+HYWpQLft2edyQd/TE7UMohdLHQKjnEybuSIY4RhiOkTzSEfRBwQqQX1MQQa7pzTPaYceVMHFSevJSspkKIv/4hNjOi1dQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g3wz92lQ5KDUxdt8BmZClL8NBUi7+IdNuZks2UaRJyU=;
- b=wWZJWEo2csCq+ts+WmBivzAf7dj+q15/dhb8hM6lCZzGF7dEYJf6GpodWSdyXJ48Eh/3oFUrt4WhAYcJiKLXY4l7UQX6qAHXHf7eKhK70uy1jft1p0mGqZamsBuL3ds17stW/NaaNK2YU6zS49GliCxirAKzhpA4t4wubmvNLoS3vVHurUhATqKXLFAQtDKbzr+AUGS2SHG+2NL+pDiF2eiHD+D+k6c54H7rEfroEPPrMs1YVr/YjailEXntJvMG7CVQqWDMUUg8fFU+izziIwsyth5WIUZTMxdkwCA73MRuHangD9aLlboMtWwPVj4u+XB1kfc6OM2vsOXPPZ6Arw==
+ bh=9Stzvh+MzN3TPUQsXG0ZEOGdaQBSL5CX/KwjgUIRxmE=;
+ b=WSCpiCM0pwYb3is2V7/KjC/dXNtG/1sAm2BHuO7hURtLJlMZ62T22xzj6NV2xR5rgptr76qpkDYNo7UA8l3w1gQWD7MxxHYkO6xy2INWmLylU4M35sKmQqjzouqPyVdlXXOsOvcXjRS2MueZbCaWqmq79j1DQK9oJQ70v+wYojnHdUaGH38KefhKWmxCb5hjU3pYDdOQQBKmDUqzhzdk3UAzLp/lXOZtBTqSn1UYUyv8HepHNo+B5JV17VCG9bkaug/bpDltBs/Y2ovnMt9pjCy6uAM8k0dvQduAf6SwNsMO492AuxOcj/IcoyL9OT2MpIaqBVf8FSbN7+J4IWkv1Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <98f51b96-8a1c-7f33-b4d3-1744174df465@suse.com>
-Date: Wed, 3 May 2023 17:33:05 +0200
+Message-ID: <b9425d47-dff8-bf1e-5310-afbf834b8366@suse.com>
+Date: Wed, 3 May 2023 17:33:50 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
-Subject: [PATCH v2 1/2] restrict concept of pIRQ to x86
+Subject: [PATCH v2 2/2] cmdline: document and enforce "extra_guest_irqs" upper
+ bounds
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <85e59fd5-9a06-48b4-ba7e-81865d44e332@suse.com>
 In-Reply-To: <85e59fd5-9a06-48b4-ba7e-81865d44e332@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0039.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::22) To AM6PR04MB6551.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0041.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:48::6) To AM6PR04MB6551.eurprd04.prod.outlook.com
  (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|DBBPR04MB7498:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a73f6e4-c252-4979-c19b-08db4bebb195
+X-MS-Office365-Filtering-Correlation-Id: 1ab24165-e4b5-4636-bd4c-08db4bebcd02
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	X8N1uBMFM/CQ2lRA4tF99/KGO78WBR/GOmU7pEy+b5Zw9dGDVVlCmAtWoXpK9tIDvFA8bbV+fa9l2PJa1YYwp9rCG6BD9lK396w6UiLWtp68qhQBu5V+YfJ2czPkkprwd0h43qXyJXpWH2ybDGAUFrQ1Xr1Jv+5UqOc0YrNRN4oOHCj8bHnEwuUPv5vTEe35nPyA0tkCA7E8vhq+Hf9Fa3RefUcAV1TbD57w9QUucxq+juHHqczCSnH+nfMAmfXDcjWsox8btc/l71neZfkacDUJijKhAjEg8SQMltIzG3zAxNw3d+uBoCCqG/d4vv/fOC9Jqr4tHqjOSo/kkstxUkn985C63JZFyaWZK8XGz0UFTBNWL6t4GS/kGvTZVLvTRbk+QXbgw6CjmXqwwafp0ekrBxNsMkVAi7dOuZx3Vlp8fN6zbt7ufrcAlwRFJp6Gt7IMYmwCFc9vEfrmI1pRCqzBeZZuLV22hInMwXUewtol1/UQsXIJKKkNJGDUMMhWULM2pTZxr23Zb42knaETBhsnC+bvcp+usEpX6Tza0v1n/+J1HoAbb6kzR8U7b5sAeHjQD+sR5XQqV1oHiaD9rgDTdzTfftooFdhwWClORixFyMsXfcFgC2J1kzxYSiRUr8h+sixoglMZLa/ISA8MEezjjiy5j9rjrowIMZitahCZlokFAAOYbBZF3lOmZa/O
+	leDVpWvs0zltC/Ydikt60yEb5v24ta6p02297aWXobICp5wlrY8ahIQCAWWMGoAwPtzog8ZsVA03Wa3IIsn6tLDUf7/9Q+95p4OQ/wNGiL/nsbR/Ch+MLBiKgJ5f+vYv5dcBT4DbVi7Al0aua7QCrHLOE0m1zRXp62gPfA3ZGGl8KY1s81zDO2jVMWZcNIboRb/HSolJl1zq5aQRcxROafTKwjtTi+AfGOTJdsy6inexFh48GbL9Bw9Xzqz9Nb2iocKUnd7rl/48yZSe8954gBXACcB7L6AAw5RFWBVjfqAOfypyXDjcG/tKog/+JzfiLThwKKsc2bxKkGLbMTrT+qloI/9yPBGaq2StcE0L6b8YcjF+LWcRiG3RcNgmrv2HlGtqKTBJ3sD0J+cefabBut1VXzVvvvJ08XK1H/FQ40HJGkjQHu/3bFOCBXXLHDjAGfLwF6QqYNEKPx/r9rwUZ7xIgvp9Vouzdcura2/qMDEWsnLqmWHFlG3661i7mk/ofELMz1nM7xyImamS7032MsxuQATPC6xtkmFKE88hma3eP9a7ekjx3oxG0D+4hkkKjBAge0LBnZz3v3nEvhrP7o50acptyY+6KicwTBgmHcpGvhdrPkz0inLe3LxkGKdipuhDEg18TGq0k6bXRzoGggfkSbssihQ2Z7txnbdc1eA7gDqsX3tUEb8zDYwLPvxaJsAha4PVxNkYx5Y3Kafhcw==
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(396003)(346002)(366004)(376002)(39860400002)(136003)(451199021)(2906002)(38100700002)(83380400001)(2616005)(26005)(6512007)(6506007)(186003)(6486002)(36756003)(8676002)(8936002)(5660300002)(86362001)(31696002)(478600001)(4326008)(6916009)(54906003)(316002)(41300700001)(66476007)(66946007)(66556008)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZEk3WVR3Tk85TWsxcEF2SlZxcnpaK1FCNXRZRENlcHVtUkZTWi8rSGtYYjFs?=
- =?utf-8?B?aUMyMjEyQ0ZaUHhlNE9XU3VuWHl0Wk43TU1QVEZSOW9EcXpYQkFIYTh4QjlZ?=
- =?utf-8?B?MXhnMzd0YnBKV3YxR1M3YWFOSzZZcmxZN1JET3A5MFZqQmZVelppRVg4RE13?=
- =?utf-8?B?TTBPYjRwYm9YeUUya2J5MVA2eHhkUFNXVUNINzdock9YSnh3M3g4dTAwak9N?=
- =?utf-8?B?blhRdjVDS0x1YjB5WHdhUnJKTDRPeHNLc1hkVVdFSkl5ODRyMHlQWldpWHJa?=
- =?utf-8?B?NUJoUXRrQ09KUXMzMG01dEQ0SXhJejAyejRMS3pZYmZFTHFyUUQyTGoyZ291?=
- =?utf-8?B?YzhSd21HQko0R1lHMmExZXlBQjRuVTFydUtEczZKcUV6MlQ3V0d6Zm15MGRP?=
- =?utf-8?B?MkFINWt0MmRMSGhzK29yN3pUVDNrWE1iRmRSeWhDSnNxYkk4M0R5b0JNRktH?=
- =?utf-8?B?VmxvRU0wREJROEVrT0wrZWoxSXYxSzUwSTdNY2w5bmdrSXMzUnFGTUNvREJx?=
- =?utf-8?B?cVNkOS9KM1NzM3ZHSmNDNmhpM2RZR0hmbS9tU0JEbXVrWHJ6QTNBeDAwZnJC?=
- =?utf-8?B?TEQ5S3I4L1lJN1JrdmFGa0tFalFRTFVJSDBQWE1iQlVaM0ptS2FhaFM0S2Jw?=
- =?utf-8?B?RGFXVzRCMVRnWGNwQ0hza1p3VXFzKzF4WkJVSE1hTlh4SnNuOFJqVEhuUGdE?=
- =?utf-8?B?dEw4ZmRtUkZhdXRUOUlMQnpLQnlQbjkyTFNER0s0elJGZXQ0Zjd1UnNPRmox?=
- =?utf-8?B?ZHVPSk1aU1VxeTEwTmJRQkZZN0lhc0g2VnVra2lna01xcVpheWNXM3Q2cm81?=
- =?utf-8?B?UlhWcjlsT3VZd2ZrQkVOM09RbXBuN0I2UWx0bVg5WGZqOElaa0FRMDZLcU9a?=
- =?utf-8?B?Z2s0bW4xT3ZPRFFzRlMxTWFvZlVPM2V6NkhJWkxpU2l3aFNpWWE2cFVrZVVh?=
- =?utf-8?B?Y2I1c0JQVnhMSHNnbFBKa1FneExpZWx3YlBhTEJUei9LRGFlM0pXZWJSK3V4?=
- =?utf-8?B?WGpWd3NRbFNmMHpad0p5NWJlUmxVZzNoc0RJMzZZMzBocStLbkdNTmdMN0JN?=
- =?utf-8?B?clAvbmhDcnN4VkFuNE9ab20xdXNhd3JvU2tsUVIvRHpOb05LMHU1dW9rVzVV?=
- =?utf-8?B?Zjk1RXQvWkJNK1JzWkpMZzQ4cWMyQUh1eGJpb2FlZzFUL3dwelYzQ2hDK1M3?=
- =?utf-8?B?MldLVys0NWlobEhjY2ZQVTBST29uY3hrenF3NlpaVXN5WXVkV0tDT0VDNzRI?=
- =?utf-8?B?c09uRmRwVzZnU0VHRmE0K3lMM0d1NDg3N1JxbDA3V1ViRy9qOXNmU3RlamM4?=
- =?utf-8?B?N2swdEpYZkNMcXVNRDM0U2RCY2tJOEdmSndUcDBEOUNVTUdlOTBmREp6S2RH?=
- =?utf-8?B?dW5QWWtNdUJKdlJjbGMyL0R6QlIyak1kdGkzVHJnazlYa01rc29YMlBwUEJn?=
- =?utf-8?B?TXlzVzBGVTBEdXVxVncvMjZkYXhPWUZES1JQY1ExMDNhRVJQaE9OVzFpVWlH?=
- =?utf-8?B?WXpKWThjbWVzVEhOVklhSEZiaE9yK2lVVTVra3lEbFdVU2w1bmdVQXJXbE0z?=
- =?utf-8?B?a0M1MmNScnNuOGduOXAwM1FXUkxyamJKT0NXSWMwMmVCNjZUeS9GaGh1VGs1?=
- =?utf-8?B?cUtHelhIRGFKQk1zczk4Z1RrMnEwZkYrT1ZqNjhob3hmRGI5MnZZZjB2cGk5?=
- =?utf-8?B?VUpCU1ZHUTBkQ3BoQTBUNUc5eHR4a3lJSmJMNTQxbnkrc2I2cnpsV2x4ank4?=
- =?utf-8?B?SVpkelZRZ2xnVHlqTkZEWXNQcGs1Zms4czJiZW9PM3JjSklGc2VGeHVFbXFF?=
- =?utf-8?B?RXltaXNYSGxBLzVpcHNobWZOSUxYTG93aEh3eVR2cTB2UWU4MEgxVjBIZjJH?=
- =?utf-8?B?RzROVzJ6MkU3TUJGUmFpQVQ2RHk2MkZXVzVDcDVrSWd6Wk00Z3RtVEZDZEZZ?=
- =?utf-8?B?WitoU2hDMzl0aW43WDNBR2tFUnhkTWliZ0h3ckhZb0hKUitod3B4NGtMOURZ?=
- =?utf-8?B?NzRjYTFlbU1FTFc3MzdWY2pFVkhPT05RZnNDaXVPK050SmYwSEIxNE14OHgw?=
- =?utf-8?B?YWxDUXNkZ1BhQktxZHV4dTYveUdwTHRhWHRNYTVMOVdLVzZ3MWMyaEdxYUla?=
- =?utf-8?Q?ivwht6oUnMOXiNx3tAKvhgc3o?=
+	=?utf-8?B?RnVwb0R3ZVN0OUdZd3gvMkovN04wM2xLUXRmUmY4ckRwbDZiUmZmQ3ZZMnRT?=
+ =?utf-8?B?dVYxVmEwTTNiY2dvNGNsVmxrZThIc3hqeHZvZkxjdHdOYXU1RXBvZURLa0xj?=
+ =?utf-8?B?OGZlT0VmYW52eE9KNHgxSjBQemZpWk5PaG5vUHdTVVpaSVo4c3VWWGh3OHlp?=
+ =?utf-8?B?YkJ3blZna3ovR0dmN0tjOE9hMUc2Z0dYMkc2bzg4cURqM3FtSXZqR0ptQkNn?=
+ =?utf-8?B?cGZ6cFY3RjNhWjJxTUtleTVSQjBVZzZIQmZSblRuWmluTjV0bEhrdlFxZ1ZV?=
+ =?utf-8?B?QVNVei8wQnVhNHc0MVcwd0hhYUE4bUh4bWhFU2Z4RXBLQmM0ZXVmWnNXeHAz?=
+ =?utf-8?B?b3JObG0xS3RTRTAzME8wV0FYa0taZ2d3MnZLU0o4aDROSjRSTGE0WFBuTDJD?=
+ =?utf-8?B?bnNGcUliYVNsRmZxaUpXUC9EZ0REYzJDV2RkSisvUzIwUmdKbUhCRXFQNG1U?=
+ =?utf-8?B?VWRkRno5cXVDQUlSYTJtSXlEMDNCaWs3eHZCK1JlaHV5cVllbllkL0lULzJP?=
+ =?utf-8?B?VWpvekk5eXFra0xGcEEyR28vemJrd29xL3JpVDQ2K25lUFJNSVhwa3pkMFNu?=
+ =?utf-8?B?R2Q2dUt0dFo3VFlwdU44VHVTc0hQMGc5NjZmQkZGM1lmTi9pZ3l3NG43TUUv?=
+ =?utf-8?B?RWh2OThVM2VpcVRleEtBTG91cXVaMTZNSmdUWlorNXcvUGJ4eS9McDRCQWtQ?=
+ =?utf-8?B?MUoyUGU3MHNzeklVSzVjZ1NNTnZXNnA5QnhXcDNCRStSRnc5U3BnUi9PRVZx?=
+ =?utf-8?B?a0xtZnNtT0Z6eHpsQ2xFb01WaGt1RW1aNkJlMGZILzdtb1RDOTQzREhhUzJ3?=
+ =?utf-8?B?RVlKR2ZvbWVhdTBBMmJjcjFxSDFLVE1kb0VWUFZnVmdyZ00xYk1zUXVPMDNw?=
+ =?utf-8?B?ZDgzNHA4TExUMmwvdHY5elgzZUpYU1pDOHRURktBV3N2YkxYcEZQLzdKSU1w?=
+ =?utf-8?B?R3lEVjlkeDh6d0FVeHdyU2dCUDh3Q2lZZEh2WnBEV2RhK01zVFFTay85NXN3?=
+ =?utf-8?B?UU85bldaYzFsb3VlWE94MGQza2YrUit5aGV0MUt1SVJIMHJHNHVkbkQwdFVu?=
+ =?utf-8?B?cWhtNnVQYWRxS08zOVY0TEwwTmdHRUlUWktSbDdidlA1MzdiT3BMeVRyM2da?=
+ =?utf-8?B?dC9LcGgxeDlOOHBRMml2cjNTWGxyZVZtMjdIQkxna2lXcWFpVE1xSkFabzRB?=
+ =?utf-8?B?MFN6TVRHUWRCakV1NEgrMUhtc1A2VXAzWERlM3FRZ3d5Qm96UGVmUFNLejls?=
+ =?utf-8?B?QVd5b0p3TW5iQ0JZNkJ6QkNJdFZaSmhENUF0UW4yaUJocWhJTFFWbUp5TFUy?=
+ =?utf-8?B?YndUMWh1L1lzS3NKeHJOaUZKdk9leEFCVU4yN1dnRjRXRzRTa2ZxUXBORVdM?=
+ =?utf-8?B?S3I0Y0Uvd0t1YjE5YXQvNlAxaVlUZm10WFp4YU9wNWtaZER2QU9XaGp6UHBE?=
+ =?utf-8?B?SjFKQU81U0NjZmZEbmhGSDl0TTR1NkV1eFF3ZndEQTVUZzRZNW55ZFowQnlZ?=
+ =?utf-8?B?MUphWDY5bjRnOWN2MU9qMU5mamJ2Vm9hUzBDZ1pVWE5LelRNWkdOU0I5clJk?=
+ =?utf-8?B?QVFzbzRZMTdkdW1NSzV2NWdHRkdNOUVVamt4cWFKU2VuYXJvUjlTNjhISWcv?=
+ =?utf-8?B?YjRUYWhTVktyZ2IwOHJYYTU2eGJadkVTeUJlL2V2eGoxdCtraEFXczR5REZS?=
+ =?utf-8?B?a3FEU1p5ZE5IYkg1QmszWTlZM1VyRE0xVVZQUUh3QXo1QzdXclpabVJjcFMz?=
+ =?utf-8?B?R2RBT09WMW11aUpuWWRxTlN6WVJmU25Pb0ZYS1NCVGprbUlYYS9Cdm1vV1Vw?=
+ =?utf-8?B?cG54c1oyV0hGNnYyS28ybHpsNGdjVkxtWGNyV3R4SzRMSnhHSFZFalpXUnNB?=
+ =?utf-8?B?NnVNMElEUEdWdmMyVHpjaW5YVXRiQTZEb0pDM29WVVR3SzJLY2dlcncrU2JI?=
+ =?utf-8?B?dExBUmwwY1VwbHdTamR4aTJBRmRNT2xORlJyT21qaFJ0VERKeGl4eVcxNWJ5?=
+ =?utf-8?B?NjFTOUlVWE1NcDVJQXlaeGozSHpDM1hPd3BFNWlyRUpQSE9jWE5BQU16ZnJl?=
+ =?utf-8?B?Q28wWWVBQ3J3aEtJdmdHdzh2OHdQbmpNSy83bnhnV1ZBR3FsY2hZb0N3aUE2?=
+ =?utf-8?Q?g6DE0DOb7vWi951dVVcTjWMKl?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a73f6e4-c252-4979-c19b-08db4bebb195
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ab24165-e4b5-4636-bd4c-08db4bebcd02
 X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2023 15:33:07.2824
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2023 15:33:53.3300
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BJwHarARIxSm0JrOqugUK70nhkVOKmSA66weHMWK3Nk8Ohw889mtHQV8TJOn4v999HAheH0LeUzzowLi1t5h/g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: /qSKEzYxXp5UlJBs3RLCbphf7RVbJrX2cagk/opAjDZKWg6seXFDKXD31QlFJmdfcNh9yXf6qaWqAgOnMm9RNg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7498
 
-... by way of a new arch-selectable Kconfig control.
+PHYSDEVOP_pirq_eoi_gmfn_v<N> accepting just a single GFN implies that no
+more than 32k pIRQ-s can be used by a domain on x86. Document this upper
+bound.
 
-Note that some smaller pieces of code are left without #ifdef, to keep
-things better readable. Hence items like ECS_PIRQ, nr_static_irqs, or
-domain_pirq_to_irq() remain uniformly.
+To also enforce the limit, (ab)use both arch_hwdom_irqs() (changing its
+parameter type) and setup_system_domains(). This is primarily to avoid
+exposing the two static variables or introducing yet further arch hooks.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-I'm not really certain about XEN_DOMCTL_irq_permission: With pIRQ-s not
-used, the prior pIRQ -> IRQ translation cannot have succeeded on Arm, so
-quite possibly the entire domctl is unused there? Yet then how is access
-to particular device IRQs being granted/revoked?
+Instead of passing dom_xen into arch_hwdom_irqs(), NULL could also be
+used. That would make the connection to setup_system_domains() yet more
+weak, though.
+
+Passing the domain pointer instead of the domain ID would also allow
+to return a possibly different value if sensible for PVH Dom0 (which
+presently has no access to PHYSDEVOP_pirq_eoi_gmfn_v<N> in the first
+place).
 ---
-v2: New.
+v2: Also enforce these bounds. Adjust doc to constrain the bound to x86
+    only. Re-base over new earlier patch.
 
 --- a/docs/misc/xen-command-line.pandoc
 +++ b/docs/misc/xen-command-line.pandoc
-@@ -1120,7 +1120,7 @@ introduced with the Nehalem architecture
-       intended as an emergency option for people who first chose fast, then
-       change their minds to secure, and wish not to reboot.**
+@@ -1130,7 +1130,8 @@ common for all domUs, while the optional
+ is for dom0.  Changing the setting for domU has no impact on dom0 and vice
+ versa.  For example to change dom0 without changing domU, use
+ `extra_guest_irqs=,512`.  The default value for Dom0 and an eventual separate
+-hardware domain is architecture dependent.
++hardware domain is architecture dependent.  The upper limit for both values on
++x86 is such that the resulting total number of IRQs can't be higher than 32768.
+ Note that specifying zero as domU value means zero, while for dom0 it means
+ to use the default.
  
--### extra_guest_irqs
-+### extra_guest_irqs (x86)
- > `= [<domU number>][,<dom0 number>]`
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -2665,18 +2665,21 @@ void __init ioapic_init(void)
+            nr_irqs_gsi, nr_irqs - nr_irqs_gsi);
+ }
  
- > Default: `32,<variable>`
---- a/xen/arch/arm/include/asm/irq.h
-+++ b/xen/arch/arm/include/asm/irq.h
-@@ -52,7 +52,6 @@ struct arch_irq_desc {
+-unsigned int arch_hwdom_irqs(domid_t domid)
++unsigned int arch_hwdom_irqs(const struct domain *d)
+ {
+     unsigned int n = fls(num_present_cpus());
  
- extern const unsigned int nr_irqs;
- #define nr_static_irqs NR_IRQS
--#define arch_hwdom_irqs(domid) NR_IRQS
- 
- struct irq_desc;
- struct irqaction;
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -25,6 +25,7 @@ config X86
- 	select HAS_PCI
- 	select HAS_PCI_MSI
- 	select HAS_PDX
-+	select HAS_PIRQ
- 	select HAS_SCHED_GRANULARITY
- 	select HAS_UBSAN
- 	select HAS_VPCI if HVM
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -56,6 +56,9 @@ config HAS_KEXEC
- config HAS_PDX
- 	bool
- 
-+config HAS_PIRQ
-+	bool
+-    if ( !domid )
++    if ( is_system_domain(d) )
++        return PAGE_SIZE * BITS_PER_BYTE;
 +
- config HAS_PMAP
- 	bool
++    if ( !d->domain_id )
+         n = min(n, dom0_max_vcpus());
+     n = min(nr_irqs_gsi + n * NR_DYNAMIC_VECTORS, nr_irqs);
  
+     /* Bounded by the domain pirq eoi bitmap gfn. */
+     n = min_t(unsigned int, n, PAGE_SIZE * BITS_PER_BYTE);
+ 
+-    printk("Dom%d has maximum %u PIRQs\n", domid, n);
++    printk("%pd has maximum %u PIRQs\n", d, n);
+ 
+     return n;
+ }
 --- a/xen/common/domain.c
 +++ b/xen/common/domain.c
-@@ -350,6 +350,8 @@ static int late_hwdom_init(struct domain
- #endif
- }
- 
-+#ifdef CONFIG_HAS_PIRQ
-+
- static unsigned int __read_mostly extra_hwdom_irqs;
- static unsigned int __read_mostly extra_domU_irqs = 32;
- 
-@@ -364,6 +366,8 @@ static int __init cf_check parse_extra_g
- }
- custom_param("extra_guest_irqs", parse_extra_guest_irqs);
- 
-+#endif /* CONFIG_HAS_PIRQ */
-+
- /*
-  * Release resources held by a domain.  There may or may not be live
-  * references to the domain, and it may or may not be fully constructed.
-@@ -653,6 +657,7 @@ struct domain *domain_create(domid_t dom
-     if ( is_system_domain(d) && !is_idle_domain(d) )
-         return d;
- 
-+#ifdef CONFIG_HAS_PIRQ
-     if ( !is_idle_domain(d) )
-     {
-         if ( !is_hardware_domain(d) )
-@@ -664,6 +669,7 @@ struct domain *domain_create(domid_t dom
+@@ -664,7 +664,7 @@ struct domain *domain_create(domid_t dom
+             d->nr_pirqs = nr_static_irqs + extra_domU_irqs;
+         else
+             d->nr_pirqs = extra_hwdom_irqs ? nr_static_irqs + extra_hwdom_irqs
+-                                           : arch_hwdom_irqs(domid);
++                                           : arch_hwdom_irqs(d);
+         d->nr_pirqs = min(d->nr_pirqs, nr_irqs);
  
          radix_tree_init(&d->pirq_tree);
-     }
-+#endif
- 
-     if ( (err = arch_domain_create(d, config, flags)) != 0 )
-         goto fail;
-@@ -755,7 +761,9 @@ struct domain *domain_create(domid_t dom
-     {
-         evtchn_destroy(d);
-         evtchn_destroy_final(d);
-+#ifdef CONFIG_HAS_PIRQ
-         radix_tree_destroy(&d->pirq_tree, free_pirq_struct);
-+#endif
-     }
-     if ( init_status & INIT_watchdog )
-         watchdog_domain_destroy(d);
-@@ -1151,7 +1159,9 @@ static void cf_check complete_domain_des
- 
-     evtchn_destroy_final(d);
+@@ -790,6 +790,24 @@ void __init setup_system_domains(void)
+     if ( IS_ERR(dom_xen) )
+         panic("Failed to create d[XEN]: %ld\n", PTR_ERR(dom_xen));
  
 +#ifdef CONFIG_HAS_PIRQ
-     radix_tree_destroy(&d->pirq_tree, free_pirq_struct);
++    /* Bound-check values passed via "extra_guest_irqs=". */
++    {
++        unsigned int n = max(arch_hwdom_irqs(dom_xen), nr_static_irqs);
++
++        if ( extra_hwdom_irqs > n - nr_static_irqs )
++        {
++            extra_hwdom_irqs = n - nr_static_irqs;
++            printk(XENLOG_WARNING "hwdom IRQs bounded to %u\n", n);
++        }
++        if ( extra_domU_irqs > max(32U, n - nr_static_irqs) )
++        {
++            extra_domU_irqs = n - nr_static_irqs;
++            printk(XENLOG_WARNING "domU IRQs bounded to %u\n", n);
++        }
++    }
 +#endif
++
+     /*
+      * Initialise our DOMID_IO domain.
+      * This domain owns I/O pages that are within the range of the page_info
+--- a/xen/include/xen/irq.h
++++ b/xen/include/xen/irq.h
+@@ -173,8 +173,9 @@ extern irq_desc_t *pirq_spin_lock_irq_de
  
-     xfree(d->vcpu);
+ unsigned int set_desc_affinity(struct irq_desc *, const cpumask_t *);
  
-@@ -1864,6 +1874,8 @@ long do_vm_assist(unsigned int cmd, unsi
- }
++/* When passed a system domain, this returns the maximum permissible value. */
+ #ifndef arch_hwdom_irqs
+-unsigned int arch_hwdom_irqs(domid_t);
++unsigned int arch_hwdom_irqs(const struct domain *);
  #endif
  
-+#ifdef CONFIG_HAS_PIRQ
-+
- struct pirq *pirq_get_info(struct domain *d, int pirq)
- {
-     struct pirq *info = pirq_info(d, pirq);
-@@ -1893,6 +1905,8 @@ void cf_check free_pirq_struct(void *ptr
-     call_rcu(&pirq->rcu_head, _free_pirq_struct);
- }
- 
-+#endif /* CONFIG_HAS_PIRQ */
-+
- struct migrate_info {
-     long (*func)(void *data);
-     void *data;
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -683,11 +683,13 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xe
-         unsigned int pirq = op->u.irq_permission.pirq, irq;
-         int allow = op->u.irq_permission.allow_access;
- 
-+#ifdef CONFIG_HAS_PIRQ
-         if ( pirq >= current->domain->nr_pirqs )
-         {
-             ret = -EINVAL;
-             break;
-         }
-+#endif
-         irq = pirq_access_permitted(current->domain, pirq);
-         if ( !irq || xsm_irq_permission(XSM_HOOK, d, irq, allow) )
-             ret = -EPERM;
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -555,6 +555,7 @@ static int evtchn_bind_ipi(evtchn_bind_i
-     return rc;
- }
- 
-+#ifdef CONFIG_HAS_PIRQ
- 
- static void link_pirq_port(int port, struct evtchn *chn, struct vcpu *v)
- {
-@@ -580,9 +581,11 @@ static void unlink_pirq_port(struct evtc
-             chn->u.pirq.prev_port;
- }
- 
-+#endif /* CONFIG_HAS_PIRQ */
- 
- static int evtchn_bind_pirq(evtchn_bind_pirq_t *bind)
- {
-+#ifdef CONFIG_HAS_PIRQ
-     struct evtchn *chn;
-     struct domain *d = current->domain;
-     struct vcpu   *v = d->vcpu[0];
-@@ -639,6 +642,9 @@ static int evtchn_bind_pirq(evtchn_bind_
-     write_unlock(&d->event_lock);
- 
-     return rc;
-+#else /* !CONFIG_HAS_PIRQ */
-+    return -EOPNOTSUPP;
-+#endif
- }
- 
- 
-@@ -671,6 +677,7 @@ int evtchn_close(struct domain *d1, int
-     case ECS_UNBOUND:
-         break;
- 
-+#ifdef CONFIG_HAS_PIRQ
-     case ECS_PIRQ: {
-         struct pirq *pirq = pirq_info(d1, chn1->u.pirq.irq);
- 
-@@ -680,14 +687,13 @@ int evtchn_close(struct domain *d1, int
-                 pirq_guest_unbind(d1, pirq);
-             pirq->evtchn = 0;
-             pirq_cleanup_check(pirq, d1);
--#ifdef CONFIG_X86
-             if ( is_hvm_domain(d1) && domain_pirq_to_irq(d1, pirq->pirq) > 0 )
-                 unmap_domain_pirq_emuirq(d1, pirq->pirq);
--#endif
-         }
-         unlink_pirq_port(chn1, d1->vcpu[chn1->notify_vcpu_id]);
-         break;
-     }
-+#endif
- 
-     case ECS_VIRQ: {
-         struct vcpu *v;
-@@ -1097,6 +1103,8 @@ int evtchn_bind_vcpu(evtchn_port_t port,
-     case ECS_INTERDOMAIN:
-         chn->notify_vcpu_id = v->vcpu_id;
-         break;
-+
-+#ifdef CONFIG_HAS_PIRQ
-     case ECS_PIRQ:
-         if ( chn->notify_vcpu_id == v->vcpu_id )
-             break;
-@@ -1106,6 +1114,8 @@ int evtchn_bind_vcpu(evtchn_port_t port,
-                           cpumask_of(v->processor));
-         link_pirq_port(port, chn, v);
-         break;
-+#endif
-+
-     default:
-         rc = -EINVAL;
-         break;
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -438,12 +438,14 @@ struct domain
- 
-     struct grant_table *grant_table;
- 
-+#ifdef CONFIG_HAS_PIRQ
-     /*
-      * Interrupt to event-channel mappings and other per-guest-pirq data.
-      * Protected by the domain's event-channel spinlock.
-      */
-     struct radix_tree_root pirq_tree;
-     unsigned int     nr_pirqs;
-+#endif
- 
-     unsigned int     options;         /* copy of createdomain flags */
- 
+ #ifndef arch_evtchn_bind_pirq
 
 
