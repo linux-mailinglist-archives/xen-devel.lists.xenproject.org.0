@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3339D6F563F
-	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 12:32:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529087.823080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F5D06F564E
+	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 12:37:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529091.823089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pu9lP-00005U-49; Wed, 03 May 2023 10:31:11 +0000
+	id 1pu9qu-0000o5-QU; Wed, 03 May 2023 10:36:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529087.823080; Wed, 03 May 2023 10:31:11 +0000
+Received: by outflank-mailman (output) from mailman id 529091.823089; Wed, 03 May 2023 10:36:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pu9lP-0008Uu-0T; Wed, 03 May 2023 10:31:11 +0000
-Received: by outflank-mailman (input) for mailman id 529087;
- Wed, 03 May 2023 10:31:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pu9qu-0000lv-Ng; Wed, 03 May 2023 10:36:52 +0000
+Received: by outflank-mailman (input) for mailman id 529091;
+ Wed, 03 May 2023 10:36:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZDiC=AY=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1pu9lN-0008Uo-7S
- for xen-devel@lists.xenproject.org; Wed, 03 May 2023 10:31:09 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9bddfd91-e99d-11ed-8611-37d641c3527e;
- Wed, 03 May 2023 12:31:05 +0200 (CEST)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-4ecb137af7eso5789766e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 May 2023 03:31:05 -0700 (PDT)
+ (envelope-from <SRS0=S1uT=AY=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pu9qt-0000lp-67
+ for xen-devel@lists.xenproject.org; Wed, 03 May 2023 10:36:51 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20619.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::619])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6919bb39-e99e-11ed-b225-6b7b168915f2;
+ Wed, 03 May 2023 12:36:50 +0200 (CEST)
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
+ by VE1PR04MB7263.eurprd04.prod.outlook.com (2603:10a6:800:1af::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.22; Wed, 3 May
+ 2023 10:36:47 +0000
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::768c:6df7:9afb:acd7]) by AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::768c:6df7:9afb:acd7%6]) with mapi id 15.20.6340.031; Wed, 3 May 2023
+ 10:36:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,172 +47,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9bddfd91-e99d-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1683109865; x=1685701865;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=XH75TWJ2QK3zdQ/KOUS0feKVGadWx7stMsjQVAPoLPk=;
-        b=Rb6ZOSztdPJhHIt2xej/h224+3Edu0xk4ke2X6vH/IPAL9jb/53cT5nEH28c/Hd/NS
-         FBXA2zZiZDPjX3+hd0FWPEM6O5yybznZra2LbJvbY63ylhYayOIUNjFmsACgjrfZfj1R
-         ax8Jj3NOCDOU1Rgzr9DtemrhagdEwAdBAkCIU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683109865; x=1685701865;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=XH75TWJ2QK3zdQ/KOUS0feKVGadWx7stMsjQVAPoLPk=;
-        b=cU9+0PJj2BK7vXbtrUZPP764PfPXpNuaYmGWdV1/IVcWF3OYzLpxT7PYFQHGyTqbEE
-         po7jVr5kBS69Ky4Kc31wEaDgRuXtu1HgpqdzXgoxdURIzYgYokcaP8yQJJdamp/xxJfd
-         x+dl3pEtTYB0AHc68DcalGzzgf5QowWaXhDYY/svfsKzhy17Rgs2+snw3MktAACt0iuB
-         6dbAnVO03pNtc4s5edn16LhIqXUGv//zD/ftDMaecDbZC4ArEBlWV76f6Qw4+bpasZ8L
-         7cvVsWziOf8vlzZISb/IFk6B3qCpw7cjAvjB/fKOJ1UxuWmF8kwRk5EHCjy8NrK69hH5
-         hTnA==
-X-Gm-Message-State: AC+VfDxsPc3bFV4qqIFAKTAwZuWCh92FNk0Uwgvoa+BFKka3rSAWpxTQ
-	oX0VAULD07BdMLBFywfl00rians+LENjRkmgyErpFw==
-X-Google-Smtp-Source: ACHHUZ6hTs76I1dbN2GtIr2MCjXCJG09adCJ7BxIwzWF6znw3MNSgQAe1EX5GBuLa33kH0FpAh1BgdXq7yUDWaIdrAg=
-X-Received: by 2002:ac2:5ec2:0:b0:4dd:af71:a5b7 with SMTP id
- d2-20020ac25ec2000000b004ddaf71a5b7mr819878lfq.41.1683109864742; Wed, 03 May
- 2023 03:31:04 -0700 (PDT)
+X-Inumbo-ID: 6919bb39-e99e-11ed-b225-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cl5p12lIMh/AmyDfA2AnyabYzMVMLVngMTmR1PluzZT51IO9gh0e6tOaxQtHpu/Ln5FeQfIhupw8UUUAcd2ocXPFpcJKICd3/OpJkOxKgw+EajqslZ6B85EjLbfKDi0qxhlESdy9ZNvh379AwDw3Ev1+QGHc5jXx6F0tkRdWQM0brl5Xsyi4mE5w8hPOeGn0lY9IIf3OQBnH+2mWobljYEIxYGn8XSLIMEHEzvyBQZ0HS4x2r7lLWdnf04idUO1CdnjNtFnh/nUmZNHqpXi2uRuG3yUhTCwaS5rHI3yEKehlLrNWWp0FQKsHEDl2r0OexICJMqjvKWk3TzIKpwGBGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4hFX+X1sh+3XqbisDaZVyq/2N10sj1zXa+mjFkM1wa4=;
+ b=NaFrp9Qe6qajzY7JOnA6XMU0Upv5Zz32xhKZF3vJz8TH+OeSzQdeqtR/Yrex3RQUFtC05hKMVJ81We3FVhmGiCu3dPI7sOrGoDK0VNRX9eU3N3KfevRGu+37BIScd8tZEEPjddiMxGu52o/2iO0yo5U28LuL0ynk18wmsiGIiaAwBBxse9NfS3frwxQUAaA9IMX/A+0BTJ8FAzVK8gOvQ5JADp2BQfH8BcT30cFMirnHpcx9lXXPkbG4AC6jCG9h6lxqgpnFSQoH1CEzszb53++vaB6FwIQ4Zp/XT2OWKkjzi7IfhKqMsTE+KmAU7DJt7Or+sN+x/c3LGZNFtYXDUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4hFX+X1sh+3XqbisDaZVyq/2N10sj1zXa+mjFkM1wa4=;
+ b=S2HRuKQBn7OmsBGIvXdBWLLJTgFyyLR/ACxMX/HTm/kZ1Y7Staj0qAfm4SRZDomjZjKYvjv5+hFtGfb1Jto3Umf6fBy5z2Rg6a6fwTsMFxbgSfCadF/jqFEVKdfR1EsEWlBP3NonGqOmNifykpqmsRVJarF1jpbQ9iqqDW1CtFGJ+gXEue8XSBjeMUUz760YF5Wmj4lyzAt74AR+nqHVrIgVzuq7++Zv7UsqFu6lha0cP6apvgqBYiECmZR2xQKuWLBVO4gh1HYUhOxL6RD5k4dQlUNYavZ5uX0rWgLWrh4xsPckhLnP5P0Y6biVD1I4aqiadckTonvBtf57H3B9Rw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <fef669f5-2b28-c47b-9b57-60c4eb99017e@suse.com>
+Date: Wed, 3 May 2023 12:36:45 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Ping: [PATCH RFC] build: respect top-level .config also for
+ out-of-tree hypervisor builds
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+References: <beace0ce-e90b-eb79-4419-03de45ea7360@suse.com>
+In-Reply-To: <beace0ce-e90b-eb79-4419-03de45ea7360@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0114.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a3::6) To AM6PR04MB6551.eurprd04.prod.outlook.com
+ (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
-References: <20230428081231.2464275-1-george.dunlap@cloud.com> <b5292073-c675-587e-e19c-cbbeead41a7c@suse.com>
-In-Reply-To: <b5292073-c675-587e-e19c-cbbeead41a7c@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Wed, 3 May 2023 11:30:53 +0100
-Message-ID: <CA+zSX=YKzn6qqie3cKd-78Q5Sqhux3eok3CDwr=jQbJed8NzHw@mail.gmail.com>
-Subject: Re: [PATCH RFC] SUPPORT.md: Make all security support explicit
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper@cloud.com>, 
-	Roger Pau Monne <roger.pau@cloud.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000009b382e05fac78d41"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|VE1PR04MB7263:EE_
+X-MS-Office365-Filtering-Correlation-Id: 513571ee-53ae-47a7-4526-08db4bc24bb9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	RWPi+bzsMpR58Ct8rKlP8TTg54OyOsiLk0oy03whHf0GKjkO26IGXf+/YY2gsWwh3peYgNL3yRIi2Q7PrEstBl+YwCezL3PKuGujwe7W0MyTEMHfb+aKkr0IOuSeW8/zPLEt1ZuhopBzlPGzIuH8UzTTzPvFjh65jcl3WObOjfK8zMC2CGkHj4vyN4xOjwCRmwRD4ZxvFPwvYsnpfgaXpm7XJ8BSZ3kQeoX3Qk6WAm3hL2HjiXnsDB9vQnpEdrCHfO6Yhg4h1xe4/nmPS45TUQTDg9fa3ekvcAg/MRxUXAiClkTybgRTsa9MUVhO7RM2X8oBeu1L0ouzqpnqoLfZM6WtxSEXRbyoiNhDKgCeh2RrEwZjiK1HD689C6dEOFzXlXNf/oaUgzHKxg+cb9FYshuR6wnyqAqqv+0Lgg1yC3fvCBexCbUPys9Z1WKuzb715eDfN5pu5KR6GPbHww5jLVqAMZFIHi/vF3mtkZRKwe1oYUO7gWwkeCV26vlZ4iFa4BKJSmGbmcZHPLfBy4ZrsdM90IJYgOJpGY9XVGvghna5e/pjrj/vpsGZCVZLMCQLgWYSrXNM/9I8XV9RDB2GX87f/28u5ZH5iDxAesFogs/18NuZ+DxsEwzSKCBZRKfd/BJKR56Tp5QiGzgeBqHAWyuGg8/cWqx892ABWAXNepG7Ze1ZZIAzI50a6GRmeWflH3JB3kKFIpyKzoSt3uSioGhWdqva0LaEdh+8lzmt6w8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(376002)(346002)(366004)(396003)(136003)(39850400004)(451199021)(186003)(31686004)(2906002)(38100700002)(2616005)(54906003)(53546011)(6506007)(26005)(6512007)(66476007)(66556008)(66946007)(478600001)(5660300002)(8936002)(8676002)(41300700001)(36756003)(86362001)(6486002)(31696002)(316002)(4326008)(6916009)(142923001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MUpaTVpTTWx1NW1DNUN1aE1mcS96bTNzY2Q5L2ZVOTc1TDlOdXpUTTJCQjI2?=
+ =?utf-8?B?cm45c2dCcWdUTkJpMVdsS21ZcWU0ZHptcHUvbS9PNHNmUlVMSnNMOEs1N3R3?=
+ =?utf-8?B?eWZtNFd6bUNMaEVWd2RNWUl2OTVYUVpHWHZzcUxOd0xRblI0SmxRN2xlbnhL?=
+ =?utf-8?B?RFR1MllRcWx0amlaTE93ZXQrMElFUSt2OHUxT3ErcDFYWGFEV0M0VUlwNW5W?=
+ =?utf-8?B?cUc4YU1SK2VkcXFJelNyM21LZGdCRjNEdXpzN2MvSlRQc1lNZU9zYXVoUU91?=
+ =?utf-8?B?bXUyM3BqSDJFRmw4MmowUUp6ZFZZdFUrZU5kd1Ixbk8zN1AxQWViUi9NOUxB?=
+ =?utf-8?B?a3cxdHdVbHhjVXRZVmxBOHMwYTVqTk9PV3pLaGpoMm9MRmR1cDltRnFyNG9H?=
+ =?utf-8?B?VlVYbzNMNHZjT0JIMDVFRWlRSjJhUmNPZ1c3U2NDMWQvUTlGR1I3dFdDbFFn?=
+ =?utf-8?B?SUZZWEh4ZFZTS3dGMDhmT3NLS3d1bUJxQ0JJYzNRZzZQd3Nsd2pYTURRNDU2?=
+ =?utf-8?B?bUF0MGFZbytyQ1VELzJXOXl1ZnhYdEsyUnp1ZmZBRVltNkpGdlM2TGdBaHp3?=
+ =?utf-8?B?VHBONkI1QlNld3M1WXNmaXNic1BCZU40OGwzL05jZitHK0VqVStxVnlWUVFr?=
+ =?utf-8?B?bCtZVWE3YmpsemZqRXB3eUIrcEdjb3FvNWNiNlMwTkkwWVA0SStvYVFIVzhT?=
+ =?utf-8?B?bWEvMGF1VTNWRUhOVElyR2dKUjA4L0lYWWtFdWxmbXp4YnBCbWRielYyd1E5?=
+ =?utf-8?B?TmU2cElwa0VmdGxhdjhydnlzYWxSTExKdjRXZzdQNXZLL3REMmtsWDlSRy8y?=
+ =?utf-8?B?THozTjFKcSt0VXRIcXEvSUtSaHVPeEJXMmx0T0poRThSRklMbENFTm5zbnZX?=
+ =?utf-8?B?ZDFreXRsRVozRnV0ekJ6bWhNWmxZMFFjcHNNeCtIZzgreXZDWVY5VU9yeTF4?=
+ =?utf-8?B?TjJWZ3Q4ZTVZL0VydDQ5elI1Zm5LYkpWc3cxMnpIWE12RUJnUUhSQXlkT2c2?=
+ =?utf-8?B?em1JQVU0cjhzM0hQUXZJM3RmRFM5KzFnenkrRGFuRnh6SER5TXgra2E5YktW?=
+ =?utf-8?B?RUQ5SnpISUtTODJPM2RDVWRiQ05melhQcFBPZmQ4aTZ5TU5OcEVlZWdoQVVx?=
+ =?utf-8?B?OGg2U0NpRkltSVlmMzArMy9mVkVCL0ltMjZsVlJ2Y1VEUUVjclVJajJVU0Rw?=
+ =?utf-8?B?WDFXUEhGRnZyNy9oUnNiWHRVWlBHOEZEYVRZS3J3WVlFTWZuRnFjRkFQL09L?=
+ =?utf-8?B?d0hGbVNhUDlqdWtmcXh1azhSYW16WDBLUjM0b1BBSUhjNFpyVzZNM2dFa3da?=
+ =?utf-8?B?VlFWUE1hYWRzN21aZTlMMXE0NStvcWdGZ1k4aEFQeDl6Y2FWcFp2VkpsWG1p?=
+ =?utf-8?B?dTNEQ1FueXRYREEvMnNSWGxxeDhrMk5IRVdWb3VwajFZME5jNkE3YlV1VCt6?=
+ =?utf-8?B?U1ZQQ29GdmJOMTB0MGZBeExMR04xMDIzTGxrakc5bXJ1TFdHYW03eUg5d09k?=
+ =?utf-8?B?czRBRjBRRHRpNENiQ054di9VWmRnQ09paHhMZ3poMHMyV3JkbTd1SytDY3pU?=
+ =?utf-8?B?Nm9GMkhEazFva2FabmMzSmZmbTBoUkl2QlZwMGptNDVtY2lTV1QwMHpyL3hE?=
+ =?utf-8?B?QkN0S3Roa1puTGQ1clFhOEMzSk1tZzB1TU15eVJhdm9zTENLcWlYSklMc0Zw?=
+ =?utf-8?B?T2JXdmxheURrS2ZUcU91cVh4NFVWRk92dTdoMFkraVVXdVREaTQvazFOUGgz?=
+ =?utf-8?B?dXhvU2EwVlRjaVR2QnVRYndjK1pIOTJWR2RZQnAvajdTZ1d3cmhLWVJkMS9B?=
+ =?utf-8?B?eEl0TFNBdjlGRGMxTGNac1NneDMwWjgzQUQwMURnQk5jTWEyelFaRTNldHJP?=
+ =?utf-8?B?SDNoU3Z4NFBDWnQ3ZWpVN0puM3N0NGlkQjhFSFNyV3krQTRZWTNsT1Z4TXlJ?=
+ =?utf-8?B?MFp2TnlGUHBHM2tnY282S2Evd2ZlMEJDNGRVNUlwWWZEeHppQldlbFUwYjha?=
+ =?utf-8?B?K2R0WC8wL2FLWnlQc2t3VitRMzNxRTZPQSs0UGhtYms4cjl1cHpGL3VIMW93?=
+ =?utf-8?B?dm1oakh5b1R1dHc3S0xEa2hIaEtBNWRVaEVPampaOWc3K1JkcjU5VDNxS1pm?=
+ =?utf-8?Q?3Wb22EHlKeyJHwGrXd9qdPvOC?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 513571ee-53ae-47a7-4526-08db4bc24bb9
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2023 10:36:47.1327
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f6eZUv9EpTvJhEpWvi3jxyEup6Ia7GgquzBLg9bQlon20oKn9v4aUOupgHDw0AJZzG9w8SsQW9LrQo8gQwapDw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7263
 
---0000000000009b382e05fac78d41
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 15.03.2023 15:58, Jan Beulich wrote:
+> With in-tree builds Config.mk includes a .config file (if present) from
+> the top-level directory. Similar functionality is wanted with out-of-
+> tree builds. Yet the concept of "top-level directory" becomes fuzzy in
+> that case, because there is not really a requirement to have identical
+> top-level directory structure in the output tree; in fact there's no
+> need for anything top-level-ish there. Look for such a .config, but only
+> if the tree layout matches (read: if the directory we're building in is
+> named "xen").
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> RFC: The directory name based heuristic of course isn't nice. But I
+>      couldn't think of anything better. Suggestions?
+> 
+> RFC: There also being a .config in the top-level source dir would be a
+>      little problematic: It would be included _after_ the one in the
+>      object tree. Yet if such a scenario is to be expected/supported at
+>      all, it makes more sense the other way around.
 
-On Tue, May 2, 2023 at 12:19=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
+Anyone? I'm certainly okay for my approach to be rejected, but I'd like
+to see out-of-tree builds to reach functional parity with in-tree ones.
 
-> On 28.04.2023 10:12, George Dunlap wrote:
-> > --- a/SUPPORT.md
-> > +++ b/SUPPORT.md
-> > @@ -17,6 +17,36 @@ for the definitions of the support status levels etc=
-.
-> >  Release Notes
-> >  : <a href=3D"
-> https://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes">RN</a>
-> >
-> > +# General security support
-> > +
-> > +An XSA will always be issued for security-related bugs which are
-> > +present in a "plain vanilla" configuration.  A "plain vanilla"
-> > +configuration is defined as follows:
-> > +
-> > +* The Xen hypervisor is built from a tagged release of Xen, or a
-> > +  commit which was on the tip of one of the supported stable branches.
-> > +
-> > +* The Xen hypervisor was built with the default config for the platfor=
-m
-> > +
-> > +* No Xen command-line parameters were specified
-> > +
-> > +* No parameters for Xen-related drivers in the Linux kernel were
-> specified
-> > +
-> > +* No modifications were made to the default xl.conf
-> > +
-> > +* xl.cfg files use only core functionality
-> > +
-> > +* Alternate toolstacks only activate functionality activated by the
-> > +  core functionality of xl.cfg files.
-> > +
-> > +Any system outside this configuration will only be considered security
-> > +supported if the functionality is explicitly listed as supported in
-> > +this document.
-> > +
-> > +If a security-related bug exits only in a configuration listed as not
-> > +security supported, the security team will generally not issue an XSA;
-> > +the bug will simply be handled in public.
->
-> In this last paragraph, did you perhaps mean "not listed as security
-> supported"? Otherwise we wouldn't improve our situation, unless I'm
-> misunderstanding and word order doesn't matter here in English. In which
-> case some unambiguous wording would need to be found.
->
+Jan
 
-No, I think your wording is more accurate.
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -236,8 +236,17 @@ endif
+>  
+>  include scripts/Kbuild.include
+>  
+> -# Don't break if the build process wasn't called from the top level
+> -# we need XEN_TARGET_ARCH to generate the proper config
+> +# Don't break if the build process wasn't called from the top level.  We need
+> +# XEN_TARGET_ARCH to generate the proper config.  If building outside of the
+> +# source tree also check whether we need to include a "top-level" .config:
+> +# Config.mk, using $(XEN_ROOT)/.config, would look only in the source tree.
+> +ifeq ($(building_out_of_srctree),1)
+> +# Try to avoid including a random unrelated .config: Assume our parent dir
+> +# is a "top-level" one only when the objtree is .../xen.
+> +ifeq ($(patsubst %/xen,,$(abs_objtree)),)
+> +-include ../.config
+> +endif
+> +endif
+>  include $(XEN_ROOT)/Config.mk
+>  
+>  # Set ARCH/SUBARCH appropriately.
+> --- a/xen/Rules.mk
+> +++ b/xen/Rules.mk
+> @@ -17,6 +17,13 @@ __build:
+>  
+>  -include $(objtree)/include/config/auto.conf
+>  
+> +# See commentary around the similar contruct in Makefile.
+> +ifneq ($(abs_objtree),$(abs_srctree))
+> +ifeq ($(patsubst %/xen,,$(abs_objtree)),)
+> +../.config: ;
+> +-include ../.config
+> +endif
+> +endif
+>  include $(XEN_ROOT)/Config.mk
+>  include $(srctree)/scripts/Kbuild.include
+>  
+> 
 
- -George
-
---0000000000009b382e05fac78d41
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Tue, May 2, 2023 at 12:19=E2=80=AF=
-PM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" target=3D"_blank">j=
-beulich@suse.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">On 28.04.2023 10:12, George Dunlap wrote:<br>
-&gt; --- a/SUPPORT.md<br>
-&gt; +++ b/SUPPORT.md<br>
-&gt; @@ -17,6 +17,36 @@ for the definitions of the support status levels et=
-c.<br>
-&gt;=C2=A0 Release Notes<br>
-&gt;=C2=A0 : &lt;a href=3D&quot;<a href=3D"https://wiki.xenproject.org/wiki=
-/Xen_Project_X.YY_Release_Notes" rel=3D"noreferrer" target=3D"_blank">https=
-://wiki.xenproject.org/wiki/Xen_Project_X.YY_Release_Notes</a>&quot;&gt;RN&=
-lt;/a&gt;<br>
-&gt;=C2=A0 <br>
-&gt; +# General security support<br>
-&gt; +<br>
-&gt; +An XSA will always be issued for security-related bugs which are<br>
-&gt; +present in a &quot;plain vanilla&quot; configuration.=C2=A0 A &quot;p=
-lain vanilla&quot;<br>
-&gt; +configuration is defined as follows:<br>
-&gt; +<br>
-&gt; +* The Xen hypervisor is built from a tagged release of Xen, or a<br>
-&gt; +=C2=A0 commit which was on the tip of one of the supported stable bra=
-nches.<br>
-&gt; +<br>
-&gt; +* The Xen hypervisor was built with the default config for the platfo=
-rm<br>
-&gt; +<br>
-&gt; +* No Xen command-line parameters were specified<br>
-&gt; +<br>
-&gt; +* No parameters for Xen-related drivers in the Linux kernel were spec=
-ified<br>
-&gt; +<br>
-&gt; +* No modifications were made to the default xl.conf<br>
-&gt; +<br>
-&gt; +* xl.cfg files use only core functionality<br>
-&gt; +<br>
-&gt; +* Alternate toolstacks only activate functionality activated by the<b=
-r>
-&gt; +=C2=A0 core functionality of xl.cfg files.<br>
-&gt; +<br>
-&gt; +Any system outside this configuration will only be considered securit=
-y<br>
-&gt; +supported if the functionality is explicitly listed as supported in<b=
-r>
-&gt; +this document.<br>
-&gt; +<br>
-&gt; +If a security-related bug exits only in a configuration listed as not=
-<br>
-&gt; +security supported, the security team will generally not issue an XSA=
-;<br>
-&gt; +the bug will simply be handled in public.<br>
-<br>
-In this last paragraph, did you perhaps mean &quot;not listed as security<b=
-r>
-supported&quot;? Otherwise we wouldn&#39;t improve our situation, unless I&=
-#39;m<br>
-misunderstanding and word order doesn&#39;t matter here in English. In whic=
-h<br>
-case some unambiguous wording would need to be found.<br></blockquote><div>=
-<br></div><div>No, I think your wording is more accurate.</div><div><br></d=
-iv><div>=C2=A0-George=C2=A0</div></div></div>
-
---0000000000009b382e05fac78d41--
 
