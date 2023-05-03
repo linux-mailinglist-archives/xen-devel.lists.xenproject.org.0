@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEEA46F5D47
-	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 19:51:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529424.823847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7DBB6F5D57
+	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 19:54:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529429.823857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puGd5-0001ya-Tc; Wed, 03 May 2023 17:51:03 +0000
+	id 1puGgG-0002XW-C1; Wed, 03 May 2023 17:54:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529424.823847; Wed, 03 May 2023 17:51:03 +0000
+Received: by outflank-mailman (output) from mailman id 529429.823857; Wed, 03 May 2023 17:54:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puGd5-0001vp-QL; Wed, 03 May 2023 17:51:03 +0000
-Received: by outflank-mailman (input) for mailman id 529424;
- Wed, 03 May 2023 17:51:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1puGd4-0001vf-NN; Wed, 03 May 2023 17:51:02 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1puGd4-0001MC-It; Wed, 03 May 2023 17:51:02 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1puGd4-0000S0-2d; Wed, 03 May 2023 17:51:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1puGd4-0002wd-29; Wed, 03 May 2023 17:51:02 +0000
+	id 1puGgG-0002VY-8p; Wed, 03 May 2023 17:54:20 +0000
+Received: by outflank-mailman (input) for mailman id 529429;
+ Wed, 03 May 2023 17:54:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ISkc=AY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1puGgF-0002VS-Ew
+ for xen-devel@lists.xenproject.org; Wed, 03 May 2023 17:54:19 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 86135c70-e9db-11ed-b225-6b7b168915f2;
+ Wed, 03 May 2023 19:54:18 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BE40260F7B;
+ Wed,  3 May 2023 17:54:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FBB9C433EF;
+ Wed,  3 May 2023 17:54:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +43,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MsiWno7UsTjhI/mSnDzGVdjJifgINL2VW4bzZfnD9gk=; b=AvUrIoXrYtafWCnH+j73cC2M3W
-	Eg2sXcNhbK5dorBkdAN7z5Iuzb+evSEGKCEk0eknPzOnGuOwW3Z+ldU1xoW5H41W56HtmBmWQDRVx
-	bub082P2SjgB9c5ak9QCZuru5DmIBKgjyMKCOk7opb+/j0keHW9Uf34Zvnuw80SxxiXo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180518-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 86135c70-e9db-11ed-b225-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1683136456;
+	bh=pYSY+/3DUBT8zv91GwZKnPhkAlej1WQJEZ6BUC42DsM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=ZbZQB4SU/VtM5irjWc60DW7lyHBSM0kf8mCFsv9LbYSgD/tyhYNdsg+aOhQbUks5x
+	 q4pV+8YX+xd+98Jb/GYDyCrJqD5g0UADxB+gXs7d0NHl96NUjKgzBb9U6o+nTyjGSv
+	 rXJe86FOc1K+W4CcqdFFDqdYdQMy8M1ZPp6e5G8nemHjOEgeQyk3brd0zJJwmzwmtD
+	 J3YKxomKeQBxJG/9K9WGid1hvJyLgmE6jvQrn4NA8/9RQ4Rxj15ZlB6OdumfaarL60
+	 lrPr8pyrYVKNuovx1NIgmu2/2pU7i582EsytVw/Yy/c4NySIkdXeUYzcF7xfpSdl+J
+	 YNDGQFZnFpD2g==
+Date: Wed, 3 May 2023 10:54:12 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Ayan Kumar Halder <ayan.kumar.halder@amd.com>, 
+    xen-devel@lists.xenproject.org, stefano.stabellini@amd.com, 
+    Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
+Subject: Re: [RFC PATCH] xen/arm: arm32: Enable smpboot on Arm32 based
+ systems
+In-Reply-To: <a0d48f47-bb62-5ed0-0c9b-95935dc75ca3@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2305031053590.974517@ubuntu-linux-20-04-desktop>
+References: <20230502105849.40677-1-ayan.kumar.halder@amd.com> <alpine.DEB.2.22.394.2305021643010.974517@ubuntu-linux-20-04-desktop> <a0d48f47-bb62-5ed0-0c9b-95935dc75ca3@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 180518: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=99a9c3d7141063ae3f357892c6181cfa3be8a280
-X-Osstest-Versions-That:
-    xen=0956aa2219745a198bb6a0a99e2108a3c09b280e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 03 May 2023 17:51:02 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 180518 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180518/
+On Wed, 3 May 2023, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 03/05/2023 00:55, Stefano Stabellini wrote:
+> > > +    {
+> > > +        printk("CPU%d: No release addr\n", cpu);
+> > > +        return -ENODEV;
+> > > +    }
+> > > +
+> > > +    release = ioremap_nocache(cpu_release_addr[cpu], 4);
+> > > +    if ( !release )
+> > > +    {
+> > > +        dprintk(XENLOG_ERR, "CPU%d: Unable to map release address\n",
+> > > cpu);
+> > > +        return -EFAULT;
+> > > +    }
+> > > +
+> > > +    writel(__pa(init_secondary), release);
+> > > +
+> > > +    iounmap(release);
+> > 
+> > I think we need a wmb() ?
+> 
+> I am not sure why we would need a wmb() here.
 
-Failures :-/ but no regressions.
+The code does:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+writel(__pa(init_secondary), release);
+iounmap
+sev();
 
-version targeted for testing:
- xen                  99a9c3d7141063ae3f357892c6181cfa3be8a280
-baseline version:
- xen                  0956aa2219745a198bb6a0a99e2108a3c09b280e
-
-Last test of basis   180517  2023-05-03 12:01:56 Z    0 days
-Testing same since   180518  2023-05-03 15:00:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Olaf Hering <olaf@aepfle.de>
-  Viresh Kumar <viresh.kumar@linaro.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+I was thinking of trying to make sure the write is completed before
+issuing a sev(). Technically it is possible for the CPU to reorder the
+sev() before the write as there is no explicit dependency between the
+two?
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> Instead, looking at the Linux
+> version, I think we are missing a cache flush (so does on arm64) which would
+> be necessary if the CPU waiting for the release doesn't have cache enabled.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   0956aa2219..99a9c3d714  99a9c3d7141063ae3f357892c6181cfa3be8a280 -> smoke
+I thought about it as well but here the patch is calling
+ioremap_nocache(), so cache flushes should not be needed?
 
