@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47C976F5C11
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FBF56F5C0F
 	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 18:32:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529378.823717 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.529380.823733 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puFOj-0003rd-R8; Wed, 03 May 2023 16:32:09 +0000
+	id 1puFOl-0004Bf-Fx; Wed, 03 May 2023 16:32:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529378.823717; Wed, 03 May 2023 16:32:09 +0000
+Received: by outflank-mailman (output) from mailman id 529380.823733; Wed, 03 May 2023 16:32:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puFOj-0003px-O4; Wed, 03 May 2023 16:32:09 +0000
-Received: by outflank-mailman (input) for mailman id 529378;
- Wed, 03 May 2023 16:32:08 +0000
+	id 1puFOl-00046e-9a; Wed, 03 May 2023 16:32:11 +0000
+Received: by outflank-mailman (input) for mailman id 529380;
+ Wed, 03 May 2023 16:32:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=O9tK=AY=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1puFOi-0003pe-LE
- for xen-devel@lists.xenproject.org; Wed, 03 May 2023 16:32:08 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
+ id 1puFOj-0003pe-9y
+ for xen-devel@lists.xenproject.org; Wed, 03 May 2023 16:32:09 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ac7d538-e9d0-11ed-8611-37d641c3527e;
+ id 0b1c3d72-e9d0-11ed-8611-37d641c3527e;
  Wed, 03 May 2023 18:32:06 +0200 (CEST)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2ac785015d6so5005641fa.0
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-4f00c33c3d6so6788921e87.2
  for <xen-devel@lists.xenproject.org>; Wed, 03 May 2023 09:32:06 -0700 (PDT)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- h20-20020a2e9ed4000000b002a634bfa224sm6074321ljk.40.2023.05.03.09.32.04
+ h20-20020a2e9ed4000000b002a634bfa224sm6074321ljk.40.2023.05.03.09.32.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 May 2023 09:32:04 -0700 (PDT)
+ Wed, 03 May 2023 09:32:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ac7d538-e9d0-11ed-8611-37d641c3527e
+X-Inumbo-ID: 0b1c3d72-e9d0-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683131525; x=1685723525;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=TWeR2qcurw4IzjHMr6XJWFzGIGAQGUDuYVTUhmEWiwA=;
-        b=UXJ6jF2MYR5jhjvd7sXNNq9wGZuk7Z/kA1pQbsm3a9PjKdqhRsWejMfJ9y7o2FPLmS
-         IV7/smydWp6/vfnGWUGpbtMfQ0+w4mnc8KTmf1szhotCEswsrtKn9AEOavqJOhrC/tqE
-         cHTZ0r0Uw0iRfE2TZMhrmTiwdlVHJCtSMsll4Are/9MiLGkqN1a73ytgX79wlJlQF4ke
-         +sFl4rBzipRzHZokuwX4dGG5TubK/TurL0TtVDPUgK1SpkkmihfSFVW0N8farxL6SUKg
-         vjAjo3TdnnnNZcOrx9pkSXC9ol08m5rxiXIEpoNf4gyncLtVX3/W3gzroJAD7I90U9s6
-         gbcw==
+        d=gmail.com; s=20221208; t=1683131526; x=1685723526;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Na1AM2pS/tIxc8UzxXCz1qX+aY29hkPhhjEAhDGZruo=;
+        b=YN4i0x2Yf/gqJP/4Wil8NwO76B5aVgrwNYJfDOi8HrmreBLvnv7H08aytbVqZ11YhL
+         4KekE+f6UrOsu3MY9X0MLjVCZYapuKXWZQmCGXGqq8oAdXx3NeEHZitnOUlLKf47hQIK
+         vlcgKcr35nyhsh7XF1oHcpG/Q4bJJS3fAYMSY0cvU/HeMXSfq6cRBqE/bRG/69xs0Sr6
+         4icKCS2Oqd4uKktE5QoUTobPVOK4ETFx7dZIOhK1XQ8c7XZdnXz09wuhqf0jo67vsRsp
+         NK2vVQRZ+tmQYCMI8Qneg6sD6J93ozqM+SGdnvl+wYsxK5GDUpBkMIECURDrm9kV4ydO
+         tPxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683131525; x=1685723525;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TWeR2qcurw4IzjHMr6XJWFzGIGAQGUDuYVTUhmEWiwA=;
-        b=PsTE7EORsviiLB8B9g6iYzgpkz6+SDmzKx8U4VXsbT7T0ZXYZ8Ovopnn0MELdARG4E
-         Y9jFb2PEShX+DQ6pxDvBbDeVRF+W07SIzk76RFIPJWj3svpZ44chPU1/S4PnuCanJXv9
-         LYGUWus9Z427h1C68YVwgxk5Pbh6LXR8kiwns1OMndf51WAzhYJ2ioXZtZ8/AShniMKp
-         7ZLQeiFawRh4kXpJYtgEsxUPjHElqSNuOgrtKLvZVgNcyoPMBHGHkpg/VJ0dHfxICVr6
-         OShLrjrMdMBZEBeaU9sd5w5IlTUq7IWoULMRtJ8IBTsP75oNKem24n6yj4lYEgQQn56O
-         KpLA==
-X-Gm-Message-State: AC+VfDxT/pTfyssY7Em16mSqozvBct/zdgtdEfX0s04+Yl7QymRm1G01
-	kuy7fLUBgIKJhC3G/w5zOZe5XCiH/vw=
-X-Google-Smtp-Source: ACHHUZ7glxPCRwO7qFBhiTeHjIW6cp91jCb1h0bTuP4OpAw0eE7y3beNZGyL2fnKjsEQSFsif8ejkA==
-X-Received: by 2002:a05:651c:117:b0:2a6:1682:3a1e with SMTP id a23-20020a05651c011700b002a616823a1emr147641ljb.31.1683131525180;
+        d=1e100.net; s=20221208; t=1683131526; x=1685723526;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Na1AM2pS/tIxc8UzxXCz1qX+aY29hkPhhjEAhDGZruo=;
+        b=eII/XvRzZF/PXjkQ8ZFZoREfOlqHoiknav+w5Sz+PIpOGfLmLQWOQE7EXUR2XWtR5D
+         aLjnTOtf7S6GUHp9rOYfl2xzCB8Y5aIwsoGMDWKZJz++4ozQ28tbHQugnFluD+HV5/Rx
+         sfpU7IhZqV8uOe3HQCk4JmGlMzwnEYI+HbrozCES3w3LvRdRAluXM1Nc+ShDefJm1SUL
+         zRC9/8Kyl3J0AwowVYT+C/sD13gKHfLDGWAXd+JlxwrRi8nXhcYdipY9pyKEM7quvudO
+         qG2xjHzKb7IPn1Q5hErenOiaZj8RSEDIMGgCXzkoo+TByMfuF5Pk5wPlCu9zctWt44hb
+         N7eQ==
+X-Gm-Message-State: AC+VfDysJH1CQn/S7VEFuRQRKd3yt7XIhzg/2gU27msm2wh/9+O/Kcd1
+	67Ke0iL1sgT9NjKlc8rmAAvVj/Fys2w=
+X-Google-Smtp-Source: ACHHUZ6yZKqCW5UQULMXODri/ZEA/RVcnsdSbX8Yx5MfUVYSJ4SkZhriZAecO1eFmtWzAYYMtP4P3g==
+X-Received: by 2002:ac2:42d4:0:b0:4ec:9fe9:fea9 with SMTP id n20-20020ac242d4000000b004ec9fe9fea9mr1289229lfl.56.1683131525895;
         Wed, 03 May 2023 09:32:05 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -84,155 +85,72 @@ Cc: Julien Grall <julien@xen.org>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v6 0/4] enable MMU for RISC-V
-Date: Wed,  3 May 2023 19:31:57 +0300
-Message-Id: <cover.1683131359.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v6 1/4] xen/riscv: add VM space layout
+Date: Wed,  3 May 2023 19:31:58 +0300
+Message-Id: <a4004849c87990e5379acc5d60a52492385cd8e0.1683131359.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.40.1
+In-Reply-To: <cover.1683131359.git.oleksii.kurochko@gmail.com>
+References: <cover.1683131359.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch series introduces the following things:
-1. Functionality to build the page tables for Xen that map
-   link-time to physical-time location.
-2. Check that Xen is less then page size.
-3. Check that load addresses don't overlap with linker addresses.
-4. Prepare things for proper switch to virtual memory world.
-5. Load the built page table into the SATP
-6. Enable MMU.
+Also it was added explanation about ignoring of top VA bits
 
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V6:
-  - update RV VM layout and related to it things
- 	- move PAGE_SHIFT, PADDR_BITS to the top of page-bits.h
- 	- cast argument x of pte_to_addr() macros to paddr_t to avoid risk of overflow for RV32
- 	- update type of num_levels from 'unsigned long' to 'unsigned int'
- 	- define PGTBL_INITIAL_COUNT as ((CONFIG_PAGING_LEVELS - 1) + 1)
- 	- update type of permission arguments. changed it from 'unsgined long' to 'unsigned int'
- 	- fix code style
- 	- switch while 'loop' to 'for' loop
- 	- undef HANDLE_PGTBL
- 	- clean root page table after MMU is disabled in check_pgtbl_mode_support() function
- 	- align __bss_start properly
- 	- remove unnecesssary const for paddr_to_pte, pte_to_paddr, pte_is_valid functions
- 	- add switch_stack_and_jump macros and use it inside enable_mmu() before jump to
- 	  cont_after_mmu_is_enabled() function
-
+ - update comment above the RISCV-64 layout table
+ - add Slot column to the table with RISCV-64 Layout
+ - update RV-64 layout table.
 ---
 Changes in V5:
-  * rebase the patch series on top of current staging
-  * Update cover letter: it was removed the info about the patches on which
-    MMU patch series is based as they were merged to staging
-  * add new patch with description of VM layout for RISC-V2
-  * Indent fields of pte_t struct
-	* Rename addr_to_pte() and ppn_to_paddr() to match their content
+* the patch was introduced in the current patch series.
 ---
-Changes in V4:
-  * use GB() macros instead of defining SZ_1G
-  * hardcode XEN_VIRT_START and add comment (ADDRESS_SPACE_END + 1 - GB(1))
-  * remove unnecessary 'asm' word at the end of #error
-  * encapsulate pte_t definition in a struct
-  * rename addr_to_ppn() to ppn_to_paddr().
-  * change type of paddr argument from const unsigned long to paddr_t
-  * pte_to_paddr() update prototype.
-  * calculate size of Xen binary based on an amount of page tables
-  * use unsgined int instead of 'uint32_t' instead of uint32_t as
-    their use isn't warranted.
-  * remove extern of bss_{start,end} as they aren't used in mm.c anymore
-  * fix code style
-  * add argument for HANDLE_PGTBL macros instead of curr_lvl_num variable
-  * make enable_mmu() as noinline to prevent under link-time optimization
-    because of the nature of enable_mmu()
-  * add function to check that SATP_MODE is supported.
-  * update the commit message
-  * update setup_initial_pagetables to set correct PTE flags in one pass
-    instead of calling setup_pte_permissions after setup_initial_pagetables()
-    as setup_initial_pagetables() isn't used to change permission flags.
----
-Changes in V3:
-  * Update the cover letter message: the patch series isn't depend on
-    [ RISC-V basic exception handling implementation ] as it was decied
-    to enable MMU before implementation of exception handling. Also MMU
-    patch series is based on two other patches which weren't merged [1]
-    and [2]
-  - Update the commit message for [ [PATCH v3 1/3]
-    xen/riscv: introduce setup_initial_pages ].
-  - update definition of pte_t structure to have a proper size of pte_t in case of RV32.
-  - update asm/mm.h with new functions and remove unnecessary 'extern'.
-  - remove LEVEL_* macros as only XEN_PT_LEVEL_* are enough.
-  - update paddr_to_pte() to receive permissions as an argument.
-  - add check that map_start & pa_start is properly aligned.
-  - move  defines PAGETABLE_ORDER, PAGETABLE_ENTRIES, PTE_PPN_SHIFT to <asm/page-bits.h>
-  - Rename PTE_SHIFT to PTE_PPN_SHIFT
-  - refactor setup_initial_pagetables: map all LINK addresses to LOAD addresses and after
-    setup PTEs permission for sections; update check that linker and load addresses don't
-    overlap.
-  - refactor setup_initial_mapping: allocate pagetable 'dynamically' if it is necessary.
-  - rewrite enable_mmu in C; add the check that map_start and pa_start are aligned on 4k
-    boundary.
-  - update the comment for setup_initial_pagetable funcion
-  - Add RV_STAGE1_MODE to support different MMU modes.
-  - update the commit message that MMU is also enabled here
-  - set XEN_VIRT_START very high to not overlap with load address range
-  - align bss section
----
-Changes in V2:
-  * Remove {ZEROETH,FIRST,...}_{SHIFT,MASK, SIZE,...} and
-    introduce instead of them XEN_PT_LEVEL_*() and LEVEL_*
-  * Rework pt_linear_offset() and pt_index based on  XEN_PT_LEVEL_*()
-  * Remove clear_pagetables() functions as pagetables were zeroed during
-    .bss initialization
-  * Rename _setup_initial_pagetables() to setup_initial_mapping()
-  * Make PTE_DEFAULT equal to RX.
-  * Update prototype of setup_initial_mapping(..., bool writable) -> 
-    setup_initial_mapping(..., UL flags)  
-  * Update calls of setup_initial_mapping according to new prototype
-  * Remove unnecessary call of:
-    _setup_initial_pagetables(..., load_addr_start, load_addr_end, load_addr_start, ...)
-  * Define index* in the loop of setup_initial_mapping
-  * Remove attribute "__attribute__((section(".entry")))" for setup_initial_pagetables()
-    as we don't have such section
-  * make arguments of paddr_to_pte() and pte_is_valid() as const.
-  * use <xen/kernel.h> instead of declaring extern unsigned long _stext, 0etext, _srodata, _erodata
-  * update  'extern unsigned long __init_begin' to 'extern unsigned long __init_begin[]'
-  * use aligned() instead of "__attribute__((__aligned__(PAGE_SIZE)))"
-  * set __section(".bss.page_aligned") for page tables arrays
-  * fix identatations
-  * Change '__attribute__((section(".entry")))' to '__init'
-  * Remove alignment  of {map, pa}_start &= XEN_PT_LEVEL_MAP_MASK(0); in
-    setup_inital_mapping() as they should be already aligned.
-  * Remove clear_pagetables() as initial pagetables will be
-    zeroed during bss initialization
-  * Remove __attribute__((section(".entry")) for setup_initial_pagetables()
-    as there is no such section in xen.lds.S
-  * Update the argument of pte_is_valid() to "const pte_t *p"
-  * Remove patch "[PATCH v1 3/3] automation: update RISC-V smoke test" from the patch series
-    as it was introduced simplified approach for RISC-V smoke test by Andrew Cooper
-  * Add patch [[xen/riscv: remove dummy_bss variable] as there is no any sense in
-    dummy_bss variable after introduction of inittial page tables.
----
+ xen/arch/riscv/include/asm/config.h | 31 +++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-Oleksii Kurochko (4):
-  xen/riscv: add VM space layout
-  xen/riscv: introduce setup_initial_pages
-  xen/riscv: setup initial pagetables
-  xen/riscv: remove dummy_bss variable
-
- xen/arch/riscv/Makefile                |   1 +
- xen/arch/riscv/include/asm/config.h    |  44 +++-
- xen/arch/riscv/include/asm/current.h   |  10 +
- xen/arch/riscv/include/asm/mm.h        |   9 +
- xen/arch/riscv/include/asm/page-bits.h |  10 +
- xen/arch/riscv/include/asm/page.h      |  62 +++++
- xen/arch/riscv/mm.c                    | 315 +++++++++++++++++++++++++
- xen/arch/riscv/riscv64/head.S          |   1 +
- xen/arch/riscv/setup.c                 |  22 +-
- xen/arch/riscv/xen.lds.S               |   4 +
- 10 files changed, 469 insertions(+), 9 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/current.h
- create mode 100644 xen/arch/riscv/include/asm/mm.h
- create mode 100644 xen/arch/riscv/include/asm/page.h
- create mode 100644 xen/arch/riscv/mm.c
-
+diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
+index 763a922a04..73b86ce789 100644
+--- a/xen/arch/riscv/include/asm/config.h
++++ b/xen/arch/riscv/include/asm/config.h
+@@ -4,6 +4,37 @@
+ #include <xen/const.h>
+ #include <xen/page-size.h>
+ 
++/*
++ * RISC-V64 Layout:
++ *
++ * From the riscv-privileged doc:
++ *   When mapping between narrower and wider addresses,
++ *   RISC-V zero-extends a narrower physical address to a wider size.
++ *   The mapping between 64-bit virtual addresses and the 39-bit usable
++ *   address space of Sv39 is not based on zero-extension but instead
++ *   follows an entrenched convention that allows an OS to use one or
++ *   a few of the most-significant bits of a full-size (64-bit) virtual
++ *   address to quickly distinguish user and supervisor address regions.
++ *
++ * It means that:
++ *   top VA bits are simply ignored for the purpose of translating to PA.
++ *
++ * ============================================================================
++ *    Start addr    |   End addr        |  Size  | Slot       |area description
++ * ============================================================================
++ * FFFFFFFFC0000000 |  FFFFFFFFC0200000 |  2 MB  | L2 511     | Xen
++ * FFFFFFFFC0200000 |  FFFFFFFFC0600000 |  4 MB  | L2 511     | FDT
++ * FFFFFFFFC0600000 |  FFFFFFFFC0800000 |  2 MB  | L2 511     | Fixmap
++ *                 ...                  |  1 GB  | L2 510     | Unused
++ * 0000003200000000 |  0000007f40000000 | 331 GB | L2 200-609 | Direct map
++ *                 ...                  |  1 GB  | L2 199     | Unused
++ * 0000003100000000 |  0000003140000000 |  3 GB  | L2 196-198 | Frametable
++ *                 ...                  |  1 GB  | L2 195     | Unused
++ * 0000003080000000 |  00000030c0000000 |  1 GB  | L2 194     | VMAP
++ *     .................. unused ..................
++ * ============================================================================
++ */
++
+ #if defined(CONFIG_RISCV_64)
+ # define LONG_BYTEORDER 3
+ # define ELFSIZE 64
 -- 
 2.40.1
 
