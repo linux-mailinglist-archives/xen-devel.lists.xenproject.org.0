@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98E546F57E0
-	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 14:28:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529165.823259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 969CE6F5805
+	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 14:36:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529169.823269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puBaO-00044c-CO; Wed, 03 May 2023 12:27:56 +0000
+	id 1puBi7-0005ZR-61; Wed, 03 May 2023 12:35:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529165.823259; Wed, 03 May 2023 12:27:56 +0000
+Received: by outflank-mailman (output) from mailman id 529169.823269; Wed, 03 May 2023 12:35:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puBaO-00042g-9e; Wed, 03 May 2023 12:27:56 +0000
-Received: by outflank-mailman (input) for mailman id 529165;
- Wed, 03 May 2023 12:27:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1puBi7-0005Wb-3E; Wed, 03 May 2023 12:35:55 +0000
+Received: by outflank-mailman (input) for mailman id 529169;
+ Wed, 03 May 2023 12:35:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=S1uT=AY=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1puBaM-00042a-KX
- for xen-devel@lists.xen.org; Wed, 03 May 2023 12:27:54 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on20625.outbound.protection.outlook.com
- [2a01:111:f400:fe13::625])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ebebd58c-e9ad-11ed-8611-37d641c3527e;
- Wed, 03 May 2023 14:27:51 +0200 (CEST)
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
- by AM8PR04MB7332.eurprd04.prod.outlook.com (2603:10a6:20b:1db::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.21; Wed, 3 May
- 2023 12:27:51 +0000
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::768c:6df7:9afb:acd7]) by AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::768c:6df7:9afb:acd7%6]) with mapi id 15.20.6340.031; Wed, 3 May 2023
- 12:27:51 +0000
+ (envelope-from <julien@xen.org>) id 1puBi5-0005WV-Cs
+ for xen-devel@lists.xenproject.org; Wed, 03 May 2023 12:35:53 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1puBi4-0001y0-Qe; Wed, 03 May 2023 12:35:52 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230] helo=[192.168.7.72])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1puBi4-0002Xj-JJ; Wed, 03 May 2023 12:35:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,131 +39,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebebd58c-e9ad-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Qw98ewXzUnygrXuCZH3fKbYbAOyfhIiRAnG382VjQ9OleHtRNZTm8EAyvwa77hlhiZE2HbSpWx4FBXpjVfsI44kGK9eUny1lf8g1ErYFd1eOfAPfo6c67Z4vdU/L4I3hJINQKwBhQnZsCrqn2v+SKAbVX1QQMbHV+DLDwKjHN6WwWKdFkjB5RvLg5vOax76LmXuXLUAz0y5YOVkob/IteEselgtyEZSYQBOank8tpUYNu6tutXLqUvWP/4++9woknm5Bfbs9qLRRsfvZtRMm7cd70AAXAdaFWNkRe8E7VCPzU52uRm0Gi7OIzWikfWIHFcx4UCZfJ/QCnJwuf0KlPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v9M5VZYtq+Ran5nYj9i4Y8tieuCE7epdLKj66oHAKeY=;
- b=T7pBL6CYiog40yzAKvYGpCwuEF1XzzfdiX05zzz7VFoIYaZBZ4OPVUxMOUggCNgFI5CDeyFrQYFcdNVMgAcLzkn5xY3F77b6Ka6ydFJUDkpRDyGrr/KmTn9OSty4o/A6snhzdcEQUvg48N7sll4fFtpbWr70Mz1sZ+aCOB/mFG7Mkqa8CpR733uas6kI0kiKCvHk9AHWoJew0iTFrwATyh1rCrmNrLyMONeLJNkmUULLjNZ2VcqmeehzJjepVUAtPU0kNgRH4lfMpqv/WCpQ3irGLSYsTtfxtBG0MhiUM7PFctkn/3R3LkWooiPj02a9Wj4fyaKHnE1/pnMXloNE9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v9M5VZYtq+Ran5nYj9i4Y8tieuCE7epdLKj66oHAKeY=;
- b=Le1kwJhj7WPYIxOnoloTHR9k3PcyiPe0UOh314Kmst1ZmG+JelG+nye1hnFDxLYRVmvNL1bxpIhpaEp0kRvZiC3t7wG/pLhDUbSzsjefGrAMTugX4rsW5NN/RRc4gVvoiC+aSKM0PNJ34eK8l5Z8J3ceCnUopwcJoiKD7EWUsdK/oCZxVENWPN6YKVXGUBwK6pcPNocjm+9A4HGAyhGoKR9j3OtbZwZQcbwrNONyRFS3vISm/kQ62dL38OMGw24dkqWIqVUxRYnm6bFdxFkBFPGSXwFLuBP3LwwBSUOiDdJst06rwmUB7Xg6gZUmPXJROcToakQ1Qa4eNQyigfas9A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7cd38c79-2876-87a5-ed2a-8a49a432d79d@suse.com>
-Date: Wed, 3 May 2023 14:27:49 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [PATCH V3 2/2] libxl: fix matching of generic virtio device
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
- stratos-dev@op-lists.linaro.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
- <alex.bennee@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.com>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- Erik Schilling <erik.schilling@linaro.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- xen-devel@lists.xen.org, Juergen Gross <jgross@suse.com>,
- Wei Liu <wl@xen.org>, Viresh Kumar <viresh.kumar@linaro.org>
-References: <18458fa39433ce4ac950a0a20cc64da93db0b03a.1680771422.git.viresh.kumar@linaro.org>
- <888e60d2ec49f53230bc82df393b6bed4180cb8a.1680771422.git.viresh.kumar@linaro.org>
- <6d18f284-8cf9-4c21-7057-5f53bd98536e@suse.com>
- <1e34ae06-c5b1-586a-c840-1dcb768c70e9@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <1e34ae06-c5b1-586a-c840-1dcb768c70e9@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0049.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::9) To AM6PR04MB6551.eurprd04.prod.outlook.com
- (2603:10a6:20b:fa::20)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=lpezSXCZbHYzG/uYZGtKRGiZ9sjYSZy6hUjCZRVKOas=; b=k5X+wG9s2ZrxRK6QiNaBjNnZqR
+	0e4K0w8pXtIUTlrQDj2eUvb2hdrmrZSqaRBVP7Yih60vkuImU4dv7VxsUb6gYIyZcXHek4WeZ5TmM
+	KhbuLtTPCB97mf93HXg2m/qOc06vToxZ1fTA/9x+Zh+FVJOYWrGBOKbK20Nnf3nUHySQ=;
+Message-ID: <178f9c0f-2f72-daac-772b-c3c4221bea40@xen.org>
+Date: Wed, 3 May 2023 13:35:49 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|AM8PR04MB7332:EE_
-X-MS-Office365-Filtering-Correlation-Id: 55303217-77ca-4134-25e4-08db4bd1cfc7
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	C7vKvupxex64WdRGeTWpDWPNpvjqQG7cZTGvlI2jj2lgLnJhfTfVbOyH8ZXTHl3VLqmvhu9xd72WNXyh15sbKpVcY+z994FB3ARliho629K/8dE94V/MXizYGvpaj1fFMjuH4TYo9zlHQlSaKJVuqlyHdYxwK0GzkNmrcXWFD80MpJvbYDnBwX5yAirFHDRTqdB7HpC+EEIXbLfijcTyGgTW45sp4XYzMlSuh72/Qikpgc29j5ztIAnqdOimtAsudg5tRggB44vLuKTLTC3S0eLzSMzfq8kvDQRCfn9z7Y6lMK4Sz1SOriBX91A1ujOcghTANeZ3YErDiMAbXIn8mqcdWQI+0Ra7eLNGn2wenIZf8T0wP5JoASJrE/OA/KvqElHW+CXALvp758OwlqMURYfhc/LE9caK5nJsRSpmf07dobEJBLidNbx0WhwqmEtnw/Vq0vXr/Mlh2b9aILPAY6EW87fVf+hIWLn3BSI2ZHjSnHwUIoSbFk8S9/oRZnSdwi0yTweZ/nXyI4sMLadQ7w4p5dmYWiCcogIFPH2v6oKMwz5yjo3JY/nlmaJ6aAID5YxtDXwqu0QlSZJi1R+58ZfRr8yOYmOX46bv4nsYykxeBwVK5QewvioT+niOYsjV8p3kRsJv0cM8cMmwomSfRyX65zSi1Rf6CDEUsNoCMPg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(346002)(136003)(39860400002)(376002)(396003)(451199021)(966005)(6506007)(6486002)(478600001)(110136005)(2616005)(6512007)(53546011)(26005)(54906003)(186003)(38100700002)(2906002)(4744005)(7416002)(36756003)(5660300002)(66556008)(66476007)(66946007)(4326008)(41300700001)(8936002)(8676002)(31696002)(316002)(86362001)(31686004)(41533002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YzhnT1hwNmN1Ynp6SVlYS3hselN5dHEwMWRPcmlVbFJXRk5ackx2cFFaaGIx?=
- =?utf-8?B?UzNMY28rVllrRjMvV3QvNC90aVRkTzdsUG43Um1zYmZLZEcxUGg5S2MvZzZ3?=
- =?utf-8?B?NUUwQjhNRzNxbndPYk9EdnE0OUhSOFRLLzdId2FrRE1naUNMaW0wdVJSdDBY?=
- =?utf-8?B?WUx1U3NFWTVSWis4c0pjaFVDSGVBQmRsMUJVaEtyY3JIS1ZLdHZDK2R2Slly?=
- =?utf-8?B?czZiUW04T1dDRFNxZVdpZzUzRGNTaThXaVFGWXFvS3kxQU5TZ3J6Ym9pVitq?=
- =?utf-8?B?STF4VnUvUHU3WlRJOW5BNzBCNkw5WUhHVkRhbG5uRTNCK2Jpc0FtR2RoQ0dP?=
- =?utf-8?B?emp5RnM5b3dmQVA5SDdrMHdiOFhTV3dSVWlxcUk1WXRhMjNVMll0UCtKWC9L?=
- =?utf-8?B?L2g4ZWlqUk9qL3dVYTBGUElmcGFrZTFYcGE2YlpVMU5YTzJBOVVlVTRLTUV6?=
- =?utf-8?B?cUFuZ3lOOFhwemFURkpEODdsVU56MzRScTZqdHJPVTIwMnB5bWsyYWtYMG9J?=
- =?utf-8?B?VUFqOWVtSHNCY2t5L2I1am4zUE01L2R0ei9WZjNUNEFkZG9OR3NFTnFWWEhv?=
- =?utf-8?B?dDR0b01vRFVkZ2FzVHNRZi81dWUyVjI5aXMrS3VSZTdBd1UvdTlsbGRzT3h4?=
- =?utf-8?B?eE9BUTF1eUNQUDhMQURQMURZQXlML28xQWt3UjgxbXdLait0NTlTbUVyVENl?=
- =?utf-8?B?aE44ejdUM0Q0WFlacjlaRmVlMFJCNFowaHIvOWpUbE96OVNtYzhLNEVnMVNS?=
- =?utf-8?B?UVhZYjBJelVDQ2V3R1V6dURmQVFROXRaY3NSZ2lKR1h2bTYvRW5laXlDemRV?=
- =?utf-8?B?czR5b2swLzdHbmNLYmtObUJ3eEIrNHJtZmJHRnZTUWRzWUZnUFFYS2FmZ0JB?=
- =?utf-8?B?MUlvcks5YW1JeHF1TmRXZ0M1b3BOYWt6VlZIWnJNQVpQNi81cEI1Y1o5eDZy?=
- =?utf-8?B?MDVkKzdYZG54SDBwaHZDSEdpcHh1QzBUQThVdjBVM1ZST2xXV0xKaFJwNFVw?=
- =?utf-8?B?TkxsY0g5VjRicHhlckVtd2x4eFF3ampMQWR2Q0o3SkJXV1RONGEvbFRWcWVo?=
- =?utf-8?B?anNHSDc4NnpvNXZCTDg2L25EWnpvOEZwT2FLRUt0ZkRTaWNYcXZmQ3c3cVND?=
- =?utf-8?B?cXJ6dUNwMnh3N1dWN1lnZEJRMW9BTFd3TmFpeDlWOHRySnhWWXNpbFZiSUl1?=
- =?utf-8?B?SjBVYUdINFVnS09GRkhmNGd0d244MFQybG1zTXlrZG96cDNFOVRVVUV3bzho?=
- =?utf-8?B?eGxBMzBOOHJPL0NYaVF4WkhneS9xdjBvYXcxQVFjeGVkdVpzZ1hpc0RLRHdB?=
- =?utf-8?B?ekdHZTRBcnhJMk1UL1E1bEQzaDk5eGhXMEpVL3FhclkwR0pPc0ZCeGt0TnFQ?=
- =?utf-8?B?cFYrd3A1RTgyajV6LzU2WGNUanhmaC80TUg0TlVuenZkd0FpN1dJVXlCTmRP?=
- =?utf-8?B?dWNORU1UK25LbFdnZ0pEeHQ4RTIwUE1qbUlqUXVTd3dKcTZxRFZkblJ4b3lu?=
- =?utf-8?B?Szlka2ZDakQ3dVprclIwNTJQUDFFeGppT0xKVm5Bc1F3c2lUY1BtZmc4MjdT?=
- =?utf-8?B?T244endpNTVBcUNSUVNCdVhnbk15c0JTTXJWSkFYREpXQ2J2U3MwSGIrblpX?=
- =?utf-8?B?UkhVd2lNNWNqVFpCbjViMjNoYWxPdzlZbm9jQXF5ZS9wMHNJRllETUw4Yy9h?=
- =?utf-8?B?SWxSTmcxS0o1VXlhOUY5OXlQa1B1azVjdVZSQVRPak16bnNLOExLWTdGcm9O?=
- =?utf-8?B?U0RHK0ZkTFgwTGNFT2F5OFlQVThRTlhRWHVqVFVLUmYxMHYvdlk2R2JDVkl2?=
- =?utf-8?B?N1RyR0JabjE0bHhaOW5nMTRVNkZMTWs5MXR1UzBuK0FSVXdTOXVuK0llK3dW?=
- =?utf-8?B?aEY5L3I1QmFuazJNQXYwNUdLTkZFUU1ia2lmYjh1Z21uWDhQNmF6WWhzNTRa?=
- =?utf-8?B?MDV6MmdhNDliUHhxRTRDdnRaVFFnTzFLNmhHRktuSUxWSDhuUWFxblZlanlZ?=
- =?utf-8?B?bWhXZ1FnYis0OUxvbGJibDQxTEE0UjRFNzZTcC9EVGUwNTlubjk0TGxhZU5l?=
- =?utf-8?B?elNleDQvK25aZGZWNTZ6MVZkZVV2bllJekIwWTZTVldwUytzaWF0VWMzbi9P?=
- =?utf-8?Q?HJfzdfY7340gKyRkVdsqpZ9Ms?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55303217-77ca-4134-25e4-08db4bd1cfc7
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 May 2023 12:27:51.1052
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jw+CWna+tnLJJiG4Z3q7uM1F61Cb0SU0Sm5TErcWLYM9ZsnCEwgEC9o6bnYpmbP1HbLyO7Yhq1bACT6ew+kpfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7332
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.10.0
+Subject: Re: [XEN v6 11/12] xen/arm: p2m: Use the pa_range_info table to
+ support ARM_32 and ARM_64
+Content-Language: en-US
+From: Julien Grall <julien@xen.org>
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
+ wl@xen.org, rahul.singh@arm.com
+References: <20230428175543.11902-1-ayan.kumar.halder@amd.com>
+ <20230428175543.11902-12-ayan.kumar.halder@amd.com>
+ <63fa927e-72f5-1645-97c0-6986f2fdcabe@xen.org>
+In-Reply-To: <63fa927e-72f5-1645-97c0-6986f2fdcabe@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 03.05.2023 14:04, Julien Grall wrote:
-> On 03/05/2023 12:42, Jan Beulich wrote:
->> On 06.04.2023 10:58, Viresh Kumar wrote:
->>> The strings won't be an exact match, as we are only looking to match the
->>> prefix here, i.e. "virtio,device". This is already done properly in
->>> libxl_virtio.c file, lets do the same here too.
->>>
->>> Fixes: 43ba5202e2ee ("libxl: add support for generic virtio device")
->>> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
->>> Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+
+On 03/05/2023 13:20, Julien Grall wrote:
+> Hi,
+> 
+> On 28/04/2023 18:55, Ayan Kumar Halder wrote:
+>> Restructure the code so that one can use pa_range_info[] table for both
+>> ARM_32 as well as ARM_64.
 >>
->> While I've committed the doc patch (patch 1), I don't think I should
->> commit this one without a maintainer ack, even if it looks pretty
->> straightforward. Anthony, Wei?
+>> Also, removed the hardcoding for P2M_ROOT_ORDER and P2M_ROOT_LEVEL as
+>> p2m_root_order can be obtained from the pa_range_info[].root_order and
+>> p2m_root_level can be obtained from pa_range_info[].sl0.
+>>
+>> Refer ARM DDI 0406C.d ID040418, B3-1345,
+>> "Use of concatenated first-level translation tables
+>>
+>> ...However, a 40-bit input address range with a translation 
+>> granularity of 4KB
+>> requires a total of 28 bits of address resolution. Therefore, a stage 2
+>> translation that supports a 40-bit input address range requires two 
+>> concatenated
+>> first-level translation tables,..."
+>>
+>> Thus, root-order is 1 for 40-bit IPA on ARM_32.
+>>
+>> Refer ARM DDI 0406C.d ID040418, B3-1348,
+>>
+>> "Determining the required first lookup level for stage 2 translations
+>>
+>> For a stage 2 translation, the output address range from the stage 1
+>> translations determines the required input address range for the stage 2
+>> translation. The permitted values of VTCR.SL0 are:
+>>
+>> 0b00 Stage 2 translation lookup must start at the second level.
+>> 0b01 Stage 2 translation lookup must start at the first level.
+>>
+>> VTCR.T0SZ must indicate the required input address range. The size of 
+>> the input
+>> address region is 2^(32-T0SZ) bytes."
+>>
+>> Thus VTCR.SL0 = 1 (maximum value) and VTCR.T0SZ = -8 when the size of 
+>> input
+>> address region is 2^40 bytes.
+>>
+>> Thus, pa_range_info[].t0sz = 1 (VTCR.S) | 8 (VTCR.T0SZ) ie 11000b 
+>> which is 24.
+>>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>> Changes from -
+>>
+>> v3 - 1. New patch introduced in v4.
+>> 2. Restructure the code such that pa_range_info[] is used both by 
+>> ARM_32 as
+>> well as ARM_64.
+>>
+>> v4 - 1. Removed the hardcoded definitions of P2M_ROOT_ORDER and 
+>> P2M_ROOT_LEVEL.
+>> The reason being root_order will not be always 1 (See the next patch).
+>> 2. Updated the commit message to explain t0sz, sl0 and root_order 
+>> values for
+>> 32-bit IPA on Arm32.
+>> 3. Some sanity fixes.
+>>
+>> v5 - pa_range_info is indexed by system_cpuinfo.mm64.pa_range. ie
+>> when PARange is 0, the PA size is 32, 1 -> 36 and so on. So 
+>> pa_range_info[] has
+>> been updated accordingly.
+>> For ARM_32 pa_range_info[0] = 0 and pa_range_info[1] = 0 as we do not 
+>> support
+>> 32-bit, 36-bit physical address range yet.
+>>
+>>   xen/arch/arm/include/asm/p2m.h |  8 +-------
+>>   xen/arch/arm/p2m.c             | 32 ++++++++++++++++++--------------
+>>   2 files changed, 19 insertions(+), 21 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/p2m.h 
+>> b/xen/arch/arm/include/asm/p2m.h
+>> index f67e9ddc72..4ddd4643d7 100644
+>> --- a/xen/arch/arm/include/asm/p2m.h
+>> +++ b/xen/arch/arm/include/asm/p2m.h
+>> @@ -14,16 +14,10 @@
+>>   /* Holds the bit size of IPAs in p2m tables.  */
+>>   extern unsigned int p2m_ipa_bits;
+>> -#ifdef CONFIG_ARM_64
+>>   extern unsigned int p2m_root_order;
+>>   extern unsigned int p2m_root_level;
+>> -#define P2M_ROOT_ORDER    p2m_root_order
+>> +#define P2M_ROOT_ORDER p2m_root_order
 > 
-> AFAICT Anthony has already given his acked-by:
+> This looks like a spurious change.
 > 
-> https://lore.kernel.org/xen-devel/5e98d465-be8f-4050-a988-2a0829a71a2e@perard/#R
+>>   #define P2M_ROOT_LEVEL p2m_root_level
+>> -#else
+>> -/* First level P2M is always 2 consecutive pages */
+>> -#define P2M_ROOT_ORDER    1
+>> -#define P2M_ROOT_LEVEL 1
+>> -#endif
+>>   struct domain;
+>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+>> index 418997843d..1fe3cccf46 100644
+>> --- a/xen/arch/arm/p2m.c
+>> +++ b/xen/arch/arm/p2m.c
+>> @@ -19,9 +19,9 @@
+>>   #define INVALID_VMID 0 /* VMID 0 is reserved */
+>> -#ifdef CONFIG_ARM_64
+>>   unsigned int __read_mostly p2m_root_order;
+>>   unsigned int __read_mostly p2m_root_level;
+>> +#ifdef CONFIG_ARM_64
+>>   static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
+>>   /* VMID is by default 8 bit width on AArch64 */
+>>   #define MAX_VMID       max_vmid
+>> @@ -2247,16 +2247,6 @@ void __init setup_virt_paging(void)
+>>       /* Setup Stage 2 address translation */
+>>       register_t val = 
+>> VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
+>> -#ifdef CONFIG_ARM_32
+>> -    if ( p2m_ipa_bits < 40 )
+>> -        panic("P2M: Not able to support %u-bit IPA at the moment\n",
+>> -              p2m_ipa_bits);
+>> -
+>> -    printk("P2M: 40-bit IPA\n");
+>> -    p2m_ipa_bits = 40;
+>> -    val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
+>> -    val |= VTCR_SL0(0x1); /* P2M starts at first level */
+>> -#else /* CONFIG_ARM_64 */
+>>       static const struct {
+>>           unsigned int pabits; /* Physical Address Size */
+>>           unsigned int t0sz;   /* Desired T0SZ, minimum in comment */
+>> @@ -2265,19 +2255,26 @@ void __init setup_virt_paging(void)
+>>       } pa_range_info[] __initconst = {
+>>           /* T0SZ minimum and SL0 maximum from ARM DDI 0487H.a Table 
+>> D5-6 */
+>>           /*      PA size, t0sz(min), root-order, sl0(max) */
+>> +        [2] = { 40,      24/*24*/,  1,          1 },
+> 
+> I don't like the fact that the index are not ordered anymore and...
+> 
+>> +#ifdef CONFIG_ARM_64
+>>           [0] = { 32,      32/*32*/,  0,          1 },
+>>           [1] = { 36,      28/*28*/,  0,          1 },
+>> -        [2] = { 40,      24/*24*/,  1,          1 },
+>>           [3] = { 42,      22/*22*/,  3,          1 },
+>>           [4] = { 44,      20/*20*/,  0,          2 },
+>>           [5] = { 48,      16/*16*/,  0,          2 },
+>>           [6] = { 52,      12/*12*/,  4,          2 },
+>>           [7] = { 0 }  /* Invalid */
+>> +#else
+>> +        [0] = { 0 },  /* Invalid */
+>> +        [1] = { 0 },  /* Invalid */
+>> +        [3] = { 0 }  /* Invalid */
+>> +#endif
+> 
+> ... it is not clear to me why we are adding 3 extra entries. I think it 
+> would be better if we do:
+> 
+> #ifdef CONFIG_ARM_64
+>     [0] ...
+>     [1] ...
+> #endif
+>     [2] ...
+> #ifdef CONFIG_ARM_64
+>     [3] ...
+>     [4] ...
+>     ...
+> #endif
 
-Oh, right you are. Thanks for pointing this out. And, Anthony: I'm sorry.
+Looking at the next patch. An alternative would be to go back 
+duplicating the lines. So after the two patches we would have
 
-Jan
+#ifdef CONFIG_ARM_64
+     [0] ...
+     [7] ...
+#else
+     { /* 32-bit */ }
+     { /* 40-bit */ }
+#endif
+
+I didn't add '[X] = ' because the index is not necessary for 32-bit.
+
+Cheers,
+
+-- 
+Julien Grall
 
