@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E755E6F570A
-	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 13:18:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529124.823169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25F976F571A
+	for <lists+xen-devel@lfdr.de>; Wed,  3 May 2023 13:25:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529130.823180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puAUp-0000jw-NI; Wed, 03 May 2023 11:18:07 +0000
+	id 1puAba-0002Do-IW; Wed, 03 May 2023 11:25:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529124.823169; Wed, 03 May 2023 11:18:07 +0000
+Received: by outflank-mailman (output) from mailman id 529130.823180; Wed, 03 May 2023 11:25:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puAUp-0000iF-KE; Wed, 03 May 2023 11:18:07 +0000
-Received: by outflank-mailman (input) for mailman id 529124;
- Wed, 03 May 2023 11:18:06 +0000
+	id 1puAba-0002Ac-Fb; Wed, 03 May 2023 11:25:06 +0000
+Received: by outflank-mailman (input) for mailman id 529130;
+ Wed, 03 May 2023 11:25:05 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1puAUo-0000i9-7U
- for xen-devel@lists.xenproject.org; Wed, 03 May 2023 11:18:06 +0000
+ (envelope-from <julien@xen.org>) id 1puAbZ-0002AW-RE
+ for xen-devel@lists.xenproject.org; Wed, 03 May 2023 11:25:05 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1puAUn-00007V-Gv; Wed, 03 May 2023 11:18:05 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230] helo=[192.168.7.72])
+ id 1puAbZ-0000GD-Bn; Wed, 03 May 2023 11:25:05 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238] helo=[192.168.7.72])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1puAUn-0007XG-8n; Wed, 03 May 2023 11:18:05 +0000
+ id 1puAbZ-0007oI-3q; Wed, 03 May 2023 11:25:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,15 +42,16 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=LM+GbpkIg/ENzcdPKrIAU1+f7oH9sLXG/MVrC12j6Cs=; b=LlQVSYlyBgU1o3n5F7uai8ef/v
-	VFQCFcZJxiP5Z3aaDKYXsFA4bLKPheX1k4/NRDQTa0/RGNR//jXsx2urJev4N5odebmF9lh9uFYvd
-	J+8mM6EyMpiJfLfrI2uwo4xgsg3e4Er1AUp7K0wOhSjMpnTtFRA2BOTgaMav38vI393g=;
-Message-ID: <935ea085-5a82-973a-00cf-b5f57b4e769b@xen.org>
-Date: Wed, 3 May 2023 12:18:02 +0100
+	bh=6sG+lt55RW6cg3w+0EPGSycs/EzwUim5Jp6dpCWi5DA=; b=UD0X50o87WcMeQjBXdYmyau2vZ
+	mziPLsMUO/gH64SjlIlcx2dE/LG+bTr+1AjCWgCjh7/vX0EjWzc3gzj6T39UaF5wLBEDx+SmiZX51
+	Eiu4qKc/7LHJp19Ss4qd7Gvs3lK6hyv92fbO5jDOXA2DPEkoBbzJagznZTmJ0OjcRyp4=;
+Message-ID: <37c9a45f-ae07-8d47-093a-6cf7501389d4@xen.org>
+Date: Wed, 3 May 2023 12:25:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.10.0
-Subject: Re: [XEN v6 02/12] xen/arm: Typecast the DT values into paddr_t
+Subject: Re: [XEN v6 03/12] xen/arm: Introduce a wrapper for
+ dt_device_get_address() to handle paddr_t
 Content-Language: en-US
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
  xen-devel@lists.xenproject.org
@@ -59,46 +60,84 @@ Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
  andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
  wl@xen.org, rahul.singh@arm.com
 References: <20230428175543.11902-1-ayan.kumar.halder@amd.com>
- <20230428175543.11902-3-ayan.kumar.halder@amd.com>
+ <20230428175543.11902-4-ayan.kumar.halder@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230428175543.11902-3-ayan.kumar.halder@amd.com>
+In-Reply-To: <20230428175543.11902-4-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Ayan,
 
 On 28/04/2023 18:55, Ayan Kumar Halder wrote:
-> The DT functions (dt_read_number(), device_tree_get_reg(), fdt_get_mem_rsv())
-> currently accept or return 64-bit values.
+> dt_device_get_address() can accept uint64_t only for address and size.
+> However, the address/size denotes physical addresses. Thus, they should
+> be represented by 'paddr_t'.
+> Consequently, we introduce a wrapper for dt_device_get_address() ie
+> dt_device_get_paddr() which accepts address/size as paddr_t and inturn
+> invokes dt_device_get_address() after converting address/size to
+> uint64_t.
 > 
-> In future when we support 32-bit physical address, these DT functions are
-> expected to accept/return 32-bit or 64-bit values (depending on the width of
-> physical address). Also, we wish to detect if any truncation has occurred
-> (i.e. while parsing 32-bit physical addresses from 64-bit values read from DT).
+> The reason for introducing this is that in future 'paddr_t' may not
+> always be 64-bit. Thus, we need an explicit wrapper to do the type
+> conversion and return an error in case of truncation.
 > 
-> device_tree_get_reg() should now be able to return paddr_t. This is invoked by
-> various callers to get DT address and size.
-> 
-> For fdt_get_mem_rsv(), we have introduced a wrapper named
-> fdt_get_mem_rsv_paddr() which will invoke fdt_get_mem_rsv() and translate
-> uint64_t to paddr_t. The reason being we cannot modify fdt_get_mem_rsv() as it
-> has been imported from external source.
-> 
-> For dt_read_number(), we have also introduced a wrapper named dt_read_paddr()
-> dt_read_paddr() to read physical addresses. We chose not to modify the original
-> function as it is used in places where it needs to specifically read 64-bit
-> values from dt (For e.g. dt_property_read_u64()).
-> 
-> Xen prints warning when it detects truncation in cases where it is not able to
-> return error.
-> 
-> Also, replaced u32/u64 with uint32_t/uint64_t in the functions touched
-> by the code changes.
+> With this, callers can now invoke dt_device_get_paddr().
 > 
 > Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> Changes from -
+> 
+> v1 - 1. New patch.
+> 
+> v2 - 1. Extracted part of "[XEN v2 05/11] xen/arm: Use paddr_t instead of u64 for address/size"
+> into this patch.
+> 
+> 2. dt_device_get_address() callers now invoke dt_device_get_paddr() instead.
+> 
+> 3. Logged error in case of truncation.
+> 
+> v3 - 1. Modified the truncation checks as "dt_addr != (paddr_t)dt_addr".
+> 2. Some sanity fixes.
+> 
+> v4 - 1. Some sanity fixes.
+> 2. Preserved the declaration of dt_device_get_address() in
+> xen/include/xen/device_tree.h. The reason being it is currently used by
+> ns16550.c. This driver requires some more changes as pointed by Jan in
+> https://lore.kernel.org/xen-devel/6196e90f-752e-e61a-45ce-37e46c22b812@suse.com/
+> which is to be addressed as a separate series.
+> 
+> v5 - 1. Removed initialization of variables.
+> 2. In dt_device_get_paddr(), added the check
+> if ( !addr )
+>      return -EINVAL;
+> 
+>   xen/arch/arm/domain_build.c                | 10 +++---
+>   xen/arch/arm/gic-v2.c                      | 10 +++---
+>   xen/arch/arm/gic-v3-its.c                  |  4 +--
+>   xen/arch/arm/gic-v3.c                      | 10 +++---
+>   xen/arch/arm/pci/pci-host-common.c         |  6 ++--
+>   xen/arch/arm/platforms/brcm-raspberry-pi.c |  2 +-
+>   xen/arch/arm/platforms/brcm.c              |  6 ++--
+>   xen/arch/arm/platforms/exynos5.c           | 32 +++++++++---------
+>   xen/arch/arm/platforms/sunxi.c             |  2 +-
+>   xen/arch/arm/platforms/xgene-storm.c       |  2 +-
+>   xen/common/device_tree.c                   | 39 ++++++++++++++++++++++
+>   xen/drivers/char/cadence-uart.c            |  4 +--
+>   xen/drivers/char/exynos4210-uart.c         |  4 +--
+>   xen/drivers/char/imx-lpuart.c              |  4 +--
+>   xen/drivers/char/meson-uart.c              |  4 +--
+>   xen/drivers/char/mvebu-uart.c              |  4 +--
+>   xen/drivers/char/omap-uart.c               |  4 +--
+>   xen/drivers/char/pl011.c                   |  6 ++--
+>   xen/drivers/char/scif-uart.c               |  4 +--
 
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+What about the call in xen/drivers/char/ns16550.c?
 
+>   xen/drivers/passthrough/arm/ipmmu-vmsa.c   |  8 ++---
+>   xen/drivers/passthrough/arm/smmu-v3.c      |  2 +-
+>   xen/drivers/passthrough/arm/smmu.c         |  8 ++---
+>   xen/include/xen/device_tree.h              | 13 ++++++++
+>   23 files changed, 120 insertions(+), 68 deletions(-)
 Cheers,
 
 -- 
