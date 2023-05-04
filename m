@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0E656F75A5
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:59:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530093.825449 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC7956F75AF
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 22:00:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530110.825489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puf6m-0002C3-2t; Thu, 04 May 2023 19:59:20 +0000
+	id 1puf7W-0005Cw-C5; Thu, 04 May 2023 20:00:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530093.825449; Thu, 04 May 2023 19:59:20 +0000
+Received: by outflank-mailman (output) from mailman id 530110.825489; Thu, 04 May 2023 20:00:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puf6m-00029U-0A; Thu, 04 May 2023 19:59:20 +0000
-Received: by outflank-mailman (input) for mailman id 530093;
- Thu, 04 May 2023 19:59:18 +0000
+	id 1puf7W-0005As-6v; Thu, 04 May 2023 20:00:06 +0000
+Received: by outflank-mailman (input) for mailman id 530110;
+ Thu, 04 May 2023 20:00:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EoaW=AZ=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1puf1v-0003xx-QK
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:54:19 +0000
+ id 1puf1y-0003xx-0Y
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:54:22 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 732726f0-eab5-11ed-8611-37d641c3527e;
- Thu, 04 May 2023 21:54:16 +0200 (CEST)
+ id 752ae21e-eab5-11ed-8611-37d641c3527e;
+ Thu, 04 May 2023 21:54:20 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-311-pmj5n48DPI265atIoUKLhQ-1; Thu, 04 May 2023 15:54:12 -0400
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+ us-mta-635-rnzRckGWN_uYxyN68Qx0aw-1; Thu, 04 May 2023 15:54:15 -0400
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78EBA855304;
- Thu,  4 May 2023 19:54:11 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A63E5101A531;
+ Thu,  4 May 2023 19:54:13 +0000 (UTC)
 Received: from localhost (unknown [10.39.192.57])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DB4002166B30;
- Thu,  4 May 2023 19:54:10 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E92B763F3E;
+ Thu,  4 May 2023 19:54:12 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 732726f0-eab5-11ed-8611-37d641c3527e
+X-Inumbo-ID: 752ae21e-eab5-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683230055;
+	s=mimecast20190719; t=1683230059;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pXsgzUQNPWG1ZQh/g83GoR8nnGiyShUYhUlRFMynpck=;
-	b=LLvQInOb3cY5EaZPXCFCBQngtWgL2hlRshh00E2VEU/8EUi3VryPt+evBdNGoje4Ifbzeq
-	ubrqBZEy6RlpJtvugbWI2NJTZUCJOhBfjzoB6YhQ2+yrQjZ8v0/c9254je/izmLXQvKx2D
-	CqOWg14P8OWSNDy+XUKUU/BoZ+25+P4=
-X-MC-Unique: pmj5n48DPI265atIoUKLhQ-1
+	bh=94EbW6UEPYMLwV9zB8HOwndWfCZlP2kutpuX+h7WMqo=;
+	b=TaCAoYoEpnhHFw4ZKWwTsG7GbZ0YvaDn5NTWcZ/jZDa3c4KlIcULOT36dZiExKMMTVnE7o
+	UBao6Axld3t7VTAfWW3isW+Ye8ny5/OtoWfP+3Z2s7drTiyrp8aidxwNY9jwqu3QjltNcY
+	p8HKKe6OkyZ4msncWm5i5djPhMndmko=
+X-MC-Unique: rnzRckGWN_uYxyN68Qx0aw-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
@@ -94,137 +94,83 @@ Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
 	"Richard W.M. Jones" <rjones@redhat.com>,
 	Fam Zheng <fam@euphon.net>,
 	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
-Subject: [PATCH v5 16/21] block/fuse: do not set is_external=true on FUSE fd
-Date: Thu,  4 May 2023 15:53:22 -0400
-Message-Id: <20230504195327.695107-17-stefanha@redhat.com>
+Subject: [PATCH v5 17/21] virtio: make it possible to detach host notifier from any thread
+Date: Thu,  4 May 2023 15:53:23 -0400
+Message-Id: <20230504195327.695107-18-stefanha@redhat.com>
 In-Reply-To: <20230504195327.695107-1-stefanha@redhat.com>
 References: <20230504195327.695107-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 
-This is part of ongoing work to remove the aio_disable_external() API.
+virtio_queue_aio_detach_host_notifier() does two things:
+1. It removes the fd handler from the event loop.
+2. It processes the virtqueue one last time.
 
-Use BlockDevOps .drained_begin/end/poll() instead of
-aio_set_fd_handler(is_external=true).
+The first step can be peformed by any thread and without taking the
+AioContext lock.
 
-As a side-effect the FUSE export now follows AioContext changes like the
-other export types.
+The second step may need the AioContext lock (depending on the device
+implementation) and runs in the thread where request processing takes
+place. virtio-blk and virtio-scsi therefore call
+virtio_queue_aio_detach_host_notifier() from a BH that is scheduled in
+AioContext
+
+Scheduling a BH is undesirable for .drained_begin() functions. The next
+patch will introduce a .drained_begin() function that needs to call
+virtio_queue_aio_detach_host_notifier().
+
+Move the virtqueue processing out to the callers of
+virtio_queue_aio_detach_host_notifier() so that the function can be
+called from any thread. This is in preparation for the next patch.
 
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- block/export/fuse.c | 56 +++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 54 insertions(+), 2 deletions(-)
+ hw/block/dataplane/virtio-blk.c | 2 ++
+ hw/scsi/virtio-scsi-dataplane.c | 9 +++++++++
+ 2 files changed, 11 insertions(+)
 
-diff --git a/block/export/fuse.c b/block/export/fuse.c
-index 06fa41079e..adf3236b5a 100644
---- a/block/export/fuse.c
-+++ b/block/export/fuse.c
-@@ -50,6 +50,7 @@ typedef struct FuseExport {
+diff --git a/hw/block/dataplane/virtio-blk.c b/hw/block/dataplane/virtio-blk.c
+index a6202997ee..27eafa6c92 100644
+--- a/hw/block/dataplane/virtio-blk.c
++++ b/hw/block/dataplane/virtio-blk.c
+@@ -287,8 +287,10 @@ static void virtio_blk_data_plane_stop_bh(void *opaque)
  
-     struct fuse_session *fuse_session;
-     struct fuse_buf fuse_buf;
-+    unsigned int in_flight; /* atomic */
-     bool mounted, fd_handler_set_up;
+     for (i = 0; i < s->conf->num_queues; i++) {
+         VirtQueue *vq = virtio_get_queue(s->vdev, i);
++        EventNotifier *host_notifier = virtio_queue_get_host_notifier(vq);
  
-     char *mountpoint;
-@@ -78,6 +79,42 @@ static void read_from_fuse_export(void *opaque);
- static bool is_regular_file(const char *path, Error **errp);
- 
- 
-+static void fuse_export_drained_begin(void *opaque)
-+{
-+    FuseExport *exp = opaque;
-+
-+    aio_set_fd_handler(exp->common.ctx,
-+                       fuse_session_fd(exp->fuse_session), false,
-+                       NULL, NULL, NULL, NULL, NULL);
-+    exp->fd_handler_set_up = false;
-+}
-+
-+static void fuse_export_drained_end(void *opaque)
-+{
-+    FuseExport *exp = opaque;
-+
-+    /* Refresh AioContext in case it changed */
-+    exp->common.ctx = blk_get_aio_context(exp->common.blk);
-+
-+    aio_set_fd_handler(exp->common.ctx,
-+                       fuse_session_fd(exp->fuse_session), false,
-+                       read_from_fuse_export, NULL, NULL, NULL, exp);
-+    exp->fd_handler_set_up = true;
-+}
-+
-+static bool fuse_export_drained_poll(void *opaque)
-+{
-+    FuseExport *exp = opaque;
-+
-+    return qatomic_read(&exp->in_flight) > 0;
-+}
-+
-+static const BlockDevOps fuse_export_blk_dev_ops = {
-+    .drained_begin = fuse_export_drained_begin,
-+    .drained_end   = fuse_export_drained_end,
-+    .drained_poll  = fuse_export_drained_poll,
-+};
-+
- static int fuse_export_create(BlockExport *blk_exp,
-                               BlockExportOptions *blk_exp_args,
-                               Error **errp)
-@@ -101,6 +138,15 @@ static int fuse_export_create(BlockExport *blk_exp,
-         }
+         virtio_queue_aio_detach_host_notifier(vq, s->ctx);
++        virtio_queue_host_notifier_read(host_notifier);
      }
- 
-+    blk_set_dev_ops(exp->common.blk, &fuse_export_blk_dev_ops, exp);
-+
-+    /*
-+     * We handle draining ourselves using an in-flight counter and by disabling
-+     * the FUSE fd handler. Do not queue BlockBackend requests, they need to
-+     * complete so the in-flight counter reaches zero.
-+     */
-+    blk_set_disable_request_queuing(exp->common.blk, true);
-+
-     init_exports_table();
- 
-     /*
-@@ -224,7 +270,7 @@ static int setup_fuse_export(FuseExport *exp, const char *mountpoint,
-     g_hash_table_insert(exports, g_strdup(mountpoint), NULL);
- 
-     aio_set_fd_handler(exp->common.ctx,
--                       fuse_session_fd(exp->fuse_session), true,
-+                       fuse_session_fd(exp->fuse_session), false,
-                        read_from_fuse_export, NULL, NULL, NULL, exp);
-     exp->fd_handler_set_up = true;
- 
-@@ -246,6 +292,8 @@ static void read_from_fuse_export(void *opaque)
- 
-     blk_exp_ref(&exp->common);
- 
-+    qatomic_inc(&exp->in_flight);
-+
-     do {
-         ret = fuse_session_receive_buf(exp->fuse_session, &exp->fuse_buf);
-     } while (ret == -EINTR);
-@@ -256,6 +304,10 @@ static void read_from_fuse_export(void *opaque)
-     fuse_session_process_buf(exp->fuse_session, &exp->fuse_buf);
- 
- out:
-+    if (qatomic_fetch_dec(&exp->in_flight) == 1) {
-+        aio_wait_kick(); /* wake AIO_WAIT_WHILE() */
-+    }
-+
-     blk_exp_unref(&exp->common);
  }
  
-@@ -268,7 +320,7 @@ static void fuse_export_shutdown(BlockExport *blk_exp)
+diff --git a/hw/scsi/virtio-scsi-dataplane.c b/hw/scsi/virtio-scsi-dataplane.c
+index 20bb91766e..81643445ed 100644
+--- a/hw/scsi/virtio-scsi-dataplane.c
++++ b/hw/scsi/virtio-scsi-dataplane.c
+@@ -71,12 +71,21 @@ static void virtio_scsi_dataplane_stop_bh(void *opaque)
+ {
+     VirtIOSCSI *s = opaque;
+     VirtIOSCSICommon *vs = VIRTIO_SCSI_COMMON(s);
++    EventNotifier *host_notifier;
+     int i;
  
-         if (exp->fd_handler_set_up) {
-             aio_set_fd_handler(exp->common.ctx,
--                               fuse_session_fd(exp->fuse_session), true,
-+                               fuse_session_fd(exp->fuse_session), false,
-                                NULL, NULL, NULL, NULL, NULL);
-             exp->fd_handler_set_up = false;
-         }
+     virtio_queue_aio_detach_host_notifier(vs->ctrl_vq, s->ctx);
++    host_notifier = virtio_queue_get_host_notifier(vs->ctrl_vq);
++    virtio_queue_host_notifier_read(host_notifier);
++
+     virtio_queue_aio_detach_host_notifier(vs->event_vq, s->ctx);
++    host_notifier = virtio_queue_get_host_notifier(vs->event_vq);
++    virtio_queue_host_notifier_read(host_notifier);
++
+     for (i = 0; i < vs->conf.num_queues; i++) {
+         virtio_queue_aio_detach_host_notifier(vs->cmd_vqs[i], s->ctx);
++        host_notifier = virtio_queue_get_host_notifier(vs->cmd_vqs[i]);
++        virtio_queue_host_notifier_read(host_notifier);
+     }
+ }
+ 
 -- 
 2.40.1
 
