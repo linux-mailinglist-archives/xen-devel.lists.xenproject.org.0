@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 352ED6F74DD
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:54:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530062.825349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E71C56F74E1
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:54:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530063.825359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puf1O-0004IN-3x; Thu, 04 May 2023 19:53:46 +0000
+	id 1puf1P-0004ZJ-EG; Thu, 04 May 2023 19:53:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530062.825349; Thu, 04 May 2023 19:53:46 +0000
+Received: by outflank-mailman (output) from mailman id 530063.825359; Thu, 04 May 2023 19:53:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puf1N-0004Fy-WC; Thu, 04 May 2023 19:53:46 +0000
-Received: by outflank-mailman (input) for mailman id 530062;
- Thu, 04 May 2023 19:53:44 +0000
+	id 1puf1P-0004WB-AA; Thu, 04 May 2023 19:53:47 +0000
+Received: by outflank-mailman (input) for mailman id 530063;
+ Thu, 04 May 2023 19:53:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EoaW=AZ=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1puf1M-0003xx-8V
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:53:44 +0000
+ id 1puf1N-0003xx-K1
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:53:45 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5e861438-eab5-11ed-8611-37d641c3527e;
- Thu, 04 May 2023 21:53:42 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ id 5f943d10-eab5-11ed-8611-37d641c3527e;
+ Thu, 04 May 2023 21:53:44 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-403-PWDrmmbSNeKjFAv3qLOnZg-1; Thu, 04 May 2023 15:53:37 -0400
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+ us-mta-300-_aYTw-OjPuqtsu_BDqa0FQ-1; Thu, 04 May 2023 15:53:39 -0400
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 31E0D109DCE5;
- Thu,  4 May 2023 19:53:36 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8751C3813F32;
+ Thu,  4 May 2023 19:53:38 +0000 (UTC)
 Received: from localhost (unknown [10.39.192.57])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 59BEFC15BAD;
- Thu,  4 May 2023 19:53:35 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E2CA11410DD7;
+ Thu,  4 May 2023 19:53:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5e861438-eab5-11ed-8611-37d641c3527e
+X-Inumbo-ID: 5f943d10-eab5-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683230021;
+	s=mimecast20190719; t=1683230023;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2q86JTUb82jHsKou8iDv6+YsV2u1chyoHCqSrVQuj0g=;
-	b=B5pQAGBnnAr0A+0xGh0wbuAruZ1+g+47gWo6+eRRnLbwl9zPOfvj1q63v6OuTe5vKic0M2
-	bvAcYiZhsT4glR8IbJYeqRoykfg+/DtaLLX8Zxd+7p20mKLEZMUvxn7GJjzKIwAVZC4QKu
-	yLIcmabUUUiXUP7+hkyj2v2WoEDXtQ0=
-X-MC-Unique: PWDrmmbSNeKjFAv3qLOnZg-1
+	bh=XkgBmD/d+YGvrkKNM3PZYahxZ017Cf0e7HM4zKnGRyM=;
+	b=hRN+vthTTk5GIzhy/fi6D2ClFGcQlDtxI7DX7m15PSDuLyMoaX2Pnf7iUoS/LJeFY9CFR3
+	UNesnjOaw7uQN8Q+A3WdAl9Y2qH9q0ybFlwPScOhC4jHKhf4p9dGNdAMVKAmoQAs0ay4CX
+	hxqUNjxt3LmOaCFGwCE3Er4bPvr+oXM=
+X-MC-Unique: _aYTw-OjPuqtsu_BDqa0FQ-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
@@ -94,143 +94,85 @@ Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
 	"Richard W.M. Jones" <rjones@redhat.com>,
 	Fam Zheng <fam@euphon.net>,
 	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>
-Subject: [PATCH v5 02/21] block-backend: split blk_do_set_aio_context()
-Date: Thu,  4 May 2023 15:53:08 -0400
-Message-Id: <20230504195327.695107-3-stefanha@redhat.com>
+Subject: [PATCH v5 03/21] hw/qdev: introduce qdev_is_realized() helper
+Date: Thu,  4 May 2023 15:53:09 -0400
+Message-Id: <20230504195327.695107-4-stefanha@redhat.com>
 In-Reply-To: <20230504195327.695107-1-stefanha@redhat.com>
 References: <20230504195327.695107-1-stefanha@redhat.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 
-blk_set_aio_context() is not fully transactional because
-blk_do_set_aio_context() updates blk->ctx outside the transaction. Most
-of the time this goes unnoticed but a BlockDevOps.drained_end() callback
-that invokes blk_get_aio_context() fails assert(ctx == blk->ctx). This
-happens because blk->ctx is only assigned after
-BlockDevOps.drained_end() is called and we're in an intermediate state
-where BlockDrvierState nodes already have the new context and the
-BlockBackend still has the old context.
+Add a helper function to check whether the device is realized without
+requiring the Big QEMU Lock. The next patch adds a second caller. The
+goal is to avoid spreading DeviceState field accesses throughout the
+code.
 
-Making blk_set_aio_context() fully transactional solves this assertion
-failure because the BlockBackend's context is updated as part of the
-transaction (before BlockDevOps.drained_end() is called).
-
-Split blk_do_set_aio_context() in order to solve this assertion failure.
-This helper function actually serves two different purposes:
-1. It drives blk_set_aio_context().
-2. It responds to BdrvChildClass->change_aio_ctx().
-
-Get rid of the helper function. Do #1 inside blk_set_aio_context() and
-do #2 inside blk_root_set_aio_ctx_commit(). This simplifies the code.
-
-The only drawback of the fully transactional approach is that
-blk_set_aio_context() must contend with blk_root_set_aio_ctx_commit()
-being invoked as part of the AioContext change propagation. This can be
-solved by temporarily setting blk->allow_aio_context_change to true.
-
-Future patches call blk_get_aio_context() from
-BlockDevOps->drained_end(), so this patch will become necessary.
-
+Suggested-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 ---
- block/block-backend.c | 71 +++++++++++++++++--------------------------
- 1 file changed, 28 insertions(+), 43 deletions(-)
+ include/hw/qdev-core.h | 17 ++++++++++++++---
+ hw/scsi/scsi-bus.c     |  3 +--
+ 2 files changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/block/block-backend.c b/block/block-backend.c
-index fc530ded6a..68d38635bc 100644
---- a/block/block-backend.c
-+++ b/block/block-backend.c
-@@ -2205,52 +2205,31 @@ static AioContext *blk_aiocb_get_aio_context(BlockAIOCB *acb)
-     return blk_get_aio_context(blk_acb->blk);
- }
+diff --git a/include/hw/qdev-core.h b/include/hw/qdev-core.h
+index 7623703943..f1070d6dc7 100644
+--- a/include/hw/qdev-core.h
++++ b/include/hw/qdev-core.h
+@@ -1,6 +1,7 @@
+ #ifndef QDEV_CORE_H
+ #define QDEV_CORE_H
  
--static int blk_do_set_aio_context(BlockBackend *blk, AioContext *new_context,
--                                  bool update_root_node, Error **errp)
--{
--    BlockDriverState *bs = blk_bs(blk);
--    ThrottleGroupMember *tgm = &blk->public.throttle_group_member;
--    int ret;
--
--    if (bs) {
--        bdrv_ref(bs);
--
--        if (update_root_node) {
--            /*
--             * update_root_node MUST be false for blk_root_set_aio_ctx_commit(),
--             * as we are already in the commit function of a transaction.
--             */
--            ret = bdrv_try_change_aio_context(bs, new_context, blk->root, errp);
--            if (ret < 0) {
--                bdrv_unref(bs);
--                return ret;
--            }
--        }
--        /*
--         * Make blk->ctx consistent with the root node before we invoke any
--         * other operations like drain that might inquire blk->ctx
--         */
--        blk->ctx = new_context;
--        if (tgm->throttle_state) {
--            bdrv_drained_begin(bs);
--            throttle_group_detach_aio_context(tgm);
--            throttle_group_attach_aio_context(tgm, new_context);
--            bdrv_drained_end(bs);
--        }
--
--        bdrv_unref(bs);
--    } else {
--        blk->ctx = new_context;
--    }
--
--    return 0;
--}
--
- int blk_set_aio_context(BlockBackend *blk, AioContext *new_context,
-                         Error **errp)
- {
-+    bool old_allow_change;
-+    BlockDriverState *bs = blk_bs(blk);
-+    int ret;
-+
-     GLOBAL_STATE_CODE();
--    return blk_do_set_aio_context(blk, new_context, true, errp);
-+
-+    if (!bs) {
-+        blk->ctx = new_context;
-+        return 0;
-+    }
-+
-+    bdrv_ref(bs);
-+
-+    old_allow_change = blk->allow_aio_context_change;
-+    blk->allow_aio_context_change = true;
-+
-+    ret = bdrv_try_change_aio_context(bs, new_context, NULL, errp);
-+
-+    blk->allow_aio_context_change = old_allow_change;
-+
-+    bdrv_unref(bs);
-+    return ret;
- }
++#include "qemu/atomic.h"
+ #include "qemu/queue.h"
+ #include "qemu/bitmap.h"
+ #include "qemu/rcu.h"
+@@ -168,9 +169,6 @@ typedef struct {
  
- typedef struct BdrvStateBlkRootContext {
-@@ -2262,8 +2241,14 @@ static void blk_root_set_aio_ctx_commit(void *opaque)
- {
-     BdrvStateBlkRootContext *s = opaque;
-     BlockBackend *blk = s->blk;
-+    AioContext *new_context = s->new_ctx;
-+    ThrottleGroupMember *tgm = &blk->public.throttle_group_member;
+ /**
+  * DeviceState:
+- * @realized: Indicates whether the device has been fully constructed.
+- *            When accessed outside big qemu lock, must be accessed with
+- *            qatomic_load_acquire()
+  * @reset: ResettableState for the device; handled by Resettable interface.
+  *
+  * This structure should not be accessed directly.  We declare it here
+@@ -339,6 +337,19 @@ DeviceState *qdev_new(const char *name);
+  */
+ DeviceState *qdev_try_new(const char *name);
  
--    blk_do_set_aio_context(blk, s->new_ctx, false, &error_abort);
-+    blk->ctx = new_context;
-+    if (tgm->throttle_state) {
-+        throttle_group_detach_aio_context(tgm);
-+        throttle_group_attach_aio_context(tgm, new_context);
-+    }
- }
++/**
++ * qdev_is_realized:
++ * @dev: The device to check.
++ *
++ * May be called outside big qemu lock.
++ *
++ * Returns: %true% if the device has been fully constructed, %false% otherwise.
++ */
++static inline bool qdev_is_realized(DeviceState *dev)
++{
++    return qatomic_load_acquire(&dev->realized);
++}
++
+ /**
+  * qdev_realize: Realize @dev.
+  * @dev: device to realize
+diff --git a/hw/scsi/scsi-bus.c b/hw/scsi/scsi-bus.c
+index 3c20b47ad0..8857ff41f6 100644
+--- a/hw/scsi/scsi-bus.c
++++ b/hw/scsi/scsi-bus.c
+@@ -60,8 +60,7 @@ static SCSIDevice *do_scsi_device_find(SCSIBus *bus,
+      * the user access the device.
+      */
  
- static TransactionActionDrv set_blk_root_context = {
+-    if (retval && !include_unrealized &&
+-        !qatomic_load_acquire(&retval->qdev.realized)) {
++    if (retval && !include_unrealized && !qdev_is_realized(&retval->qdev)) {
+         retval = NULL;
+     }
+ 
 -- 
 2.40.1
 
