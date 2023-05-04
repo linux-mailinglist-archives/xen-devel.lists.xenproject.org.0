@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53DC46F721D
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 20:48:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529877.824805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 252EF6F7256
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:02:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529885.824820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pudzf-0001SS-Su; Thu, 04 May 2023 18:47:55 +0000
+	id 1pueDM-00048x-IH; Thu, 04 May 2023 19:02:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529877.824805; Thu, 04 May 2023 18:47:55 +0000
+Received: by outflank-mailman (output) from mailman id 529885.824820; Thu, 04 May 2023 19:02:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pudzf-0001Qi-Ph; Thu, 04 May 2023 18:47:55 +0000
-Received: by outflank-mailman (input) for mailman id 529877;
- Thu, 04 May 2023 18:47:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pudzd-0001QU-Kq; Thu, 04 May 2023 18:47:53 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pudzd-0006Sp-Bw; Thu, 04 May 2023 18:47:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pudzc-0006Wb-SI; Thu, 04 May 2023 18:47:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pudzc-0003ar-Rm; Thu, 04 May 2023 18:47:52 +0000
+	id 1pueDM-00044v-C0; Thu, 04 May 2023 19:02:04 +0000
+Received: by outflank-mailman (input) for mailman id 529885;
+ Thu, 04 May 2023 19:02:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=srgM=AZ=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1pueDK-00042k-Py
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:02:02 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 25ed47b2-eaae-11ed-8611-37d641c3527e;
+ Thu, 04 May 2023 21:02:00 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,76 +36,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Jd4tqMh94nxAFtcL3IuvD56wAwIQCkHfrRc5dvBrkkQ=; b=paJQuS9CKXMztABLjimo1lFZ6J
-	2aT/wV84FHBQcysE3MNfnkmDMUD4fVJgQaAjp1DRddIxuiJv3+N4Bg1SfqL7eQTagHFsCShwm/iUF
-	mSvhG3a+eUvfYCcYkoUt1YBPP6hn7+Hunp1vSspbrPUgZjPMdoUhh8NHeJqy8frmR4FQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180532-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 180532: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=4b02045f86d6aac8a617bf3f65f9cb2146630ce3
-X-Osstest-Versions-That:
-    ovmf=d6b42ed7ed1b0c4584097f0d76798cff74c96379
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 04 May 2023 18:47:52 +0000
+X-Inumbo-ID: 25ed47b2-eaae-11ed-8611-37d641c3527e
+Message-ID: <20230504185733.126511787@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1683226919;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc; bh=Owpn3VAzXYYF5pE4nW59O5YtNe6oATS3CJHH6pOEc+Q=;
+	b=ydWEHvQKju6ua5QrgIvoNFizD1mp/ScmeGKoSzoDnG7Bbtt8/QnpnQ3+taJ6G0kL830h+i
+	7ID/utgQdKCvUYsl6w6CO2W2gJuO8HL9LCU4D0vVfB6YxemlrHUeCt4ToRjPCaRBB5yHoD
+	U1z1RXcQdP2U5KMvTNzHXSugPczS5MTUtGDtT8qHk2Yf+N4IEi6AoiUHeLjn63zurjgLOd
+	4VlOYXYRkaR1ek5ywemLfh9oakl4kmjQRYWBDRl/UvRYBt4y2JOaZBadJTEhsdykMmsR/p
+	RzfI1eYCgw7RPP+JveXpGF8/O3jsZY1WVFPEdOuBnlsQhWH5/KilpYnEwkhH7g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1683226919;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc; bh=Owpn3VAzXYYF5pE4nW59O5YtNe6oATS3CJHH6pOEc+Q=;
+	b=t9YK5Y1XQbyMkzjkBl9J4dD0O18uiVWSVJxE2v987VhpllLfPD1+SKL0rJE7GDXI8icRF3
+	WCaTcXYHj80XrzAw==
+From: Thomas Gleixner <tglx@linutronix.de>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: x86@kernel.org,
+ David Woodhouse <dwmw2@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Brian Gerst <brgerst@gmail.com>,
+ Arjan van de Veen <arjan@linux.intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Paul McKenney <paulmck@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Oleksandr Natalenko <oleksandr@natalenko.name>,
+ Paul Menzel <pmenzel@molgen.mpg.de>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Piotr Gorski <lucjan.lucjanov@gmail.com>,
+ Usama Arif <usama.arif@bytedance.com>,
+ Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org,
+ Russell King <linux@armlinux.org.uk>,
+ Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Guo Ren <guoren@kernel.org>,
+ linux-csky@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ linux-mips@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>,
+ linux-parisc@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-riscv@lists.infradead.org,
+ Mark Rutland <mark.rutland@arm.com>,
+ Sabin Rapan <sabrapan@amazon.com>,
+ "Michael Kelley (LINUX)" <mikelley@microsoft.com>
+Subject: [patch V2 00/38] cpu/hotplug, x86: Reworked parallel CPU bringup
+Date: Thu,  4 May 2023 21:01:58 +0200 (CEST)
 
-flight 180532 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180532/
+Hi!
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 4b02045f86d6aac8a617bf3f65f9cb2146630ce3
-baseline version:
- ovmf                 d6b42ed7ed1b0c4584097f0d76798cff74c96379
+This is version 2 of the reworked parallel bringup series. Version 1 can be
+found here:
 
-Last test of basis   180508  2023-05-02 16:10:54 Z    2 days
-Testing same since   180532  2023-05-04 14:40:45 Z    0 days    1 attempts
+   https://lore.kernel.org/lkml/20230414225551.858160935@linutronix.de
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-  Oliver Steffen <osteffen@redhat.com>
-  Patrik Berglund <patrik.berglund@arm.com>
-  Pierre Gondois <pierre.gondois@arm.com>
+Background
+----------
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+The reason why people are interested in parallel bringup is to shorten the
+(kexec) reboot time of cloud servers to reduce the downtime of the VM
+tenants.
 
+The current fully serialized bringup does the following per AP:
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+    1) Prepare callbacks (allocate, intialize, create threads)
+    2) Kick the AP alive (e.g. INIT/SIPI on x86)
+    3) Wait for the AP to report alive state
+    4) Let the AP continue through the atomic bringup
+    5) Let the AP run the threaded bringup to full online state
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+There are two significant delays:
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+    #3 The time for an AP to report alive state in start_secondary() on x86
+       has been measured in the range between 350us and 3.5ms depending on
+       vendor and CPU type, BIOS microcode size etc.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+    #4 The atomic bringup does the microcode update. This has been measured
+       to take up to ~8ms on the primary threads depending on the microcode
+       patch size to apply.
 
+On a two socket SKL server with 56 cores (112 threads) the boot CPU spends
+on current mainline about 800ms busy waiting for the APs to come up and
+apply microcode. That's more than 80% of the actual onlining procedure.
 
-Pushing revision :
+By splitting the actual bringup mechanism into two parts this can be
+reduced to waiting for the first AP to report alive or if the system is
+large enough the first AP is already waiting when the boot CPU finished the
+wake-up of the last AP. That reduces the AP bringup time on that SKL from
+~800ms to ~80ms.
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   d6b42ed7ed..4b02045f86  4b02045f86d6aac8a617bf3f65f9cb2146630ce3 -> xen-tested-master
+The actual gain varies wildly depending on the system, CPU, microcode patch
+size and other factors.
+
+The V1 cover letter has more details and a deep analysis.
+
+Changes vs. V1:
+
+  1) Switch APIC ID retrieval from CPUID to reading the APIC itself.
+
+     This is required because CPUID based APIC ID retrieval can only
+     provide the initial APIC ID, which might have been overruled by the
+     firmware. Some AMD APUs come up with APIC ID = initial APIC ID + 0x10,
+     so the APIC ID to CPU number lookup would fail miserably if based on
+     CPUID. The only requirement is that the actual APIC IDs are consistent
+     with the APCI/MADT table.
+
+  2) As a consequence of #1 parallel bootup support for SEV guest has been
+     dropped.
+
+     Reading the APIC ID in a SEV guest is done via RDMSR. That RDMSR is
+     intercepted and raises #VC which cannot be handled at that point as
+     there is no stack and no IDT. There is no GHCB protocol for RDMSR
+     like there is for CPUID. Left as an exercise for SEV wizards.
+
+  3) Address review comments from Brian and the fallout reported by the
+     kernel robot
+
+  4) Unbreak i386 which exploded when bringing up the secondary CPUs due to
+     the unconditinal load_ucode_ap() invocation in start_secondary(). That
+     happens because on 32-bit load_ucode_ap() is invoked on the secondary
+     CPUs from assembly code before paging is initialized and therefore
+     uses physical addresses which are obviously invalid after paging is
+     enabled.
+
+  5) Small enhancements and comment updates.
+
+  6) Rebased on Linux tree (1a5304fecee5)
+
+The series applies on Linus tree and is also available from git:
+
+    git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git hotplug
+
+Thanks,
+
+	tglx
+---
+ Documentation/admin-guide/kernel-parameters.txt |   20 
+ Documentation/core-api/cpu_hotplug.rst          |   13 
+ arch/Kconfig                                    |   23 +
+ arch/arm/Kconfig                                |    1 
+ arch/arm/include/asm/smp.h                      |    2 
+ arch/arm/kernel/smp.c                           |   18 
+ arch/arm64/Kconfig                              |    1 
+ arch/arm64/include/asm/smp.h                    |    2 
+ arch/arm64/kernel/smp.c                         |   14 
+ arch/csky/Kconfig                               |    1 
+ arch/csky/include/asm/smp.h                     |    2 
+ arch/csky/kernel/smp.c                          |    8 
+ arch/mips/Kconfig                               |    1 
+ arch/mips/cavium-octeon/smp.c                   |    1 
+ arch/mips/include/asm/smp-ops.h                 |    1 
+ arch/mips/kernel/smp-bmips.c                    |    1 
+ arch/mips/kernel/smp-cps.c                      |   14 
+ arch/mips/kernel/smp.c                          |    8 
+ arch/mips/loongson64/smp.c                      |    1 
+ arch/parisc/Kconfig                             |    1 
+ arch/parisc/kernel/process.c                    |    4 
+ arch/parisc/kernel/smp.c                        |    7 
+ arch/riscv/Kconfig                              |    1 
+ arch/riscv/include/asm/smp.h                    |    2 
+ arch/riscv/kernel/cpu-hotplug.c                 |   14 
+ arch/x86/Kconfig                                |   45 --
+ arch/x86/include/asm/apic.h                     |    5 
+ arch/x86/include/asm/apicdef.h                  |    5 
+ arch/x86/include/asm/cpu.h                      |    5 
+ arch/x86/include/asm/cpumask.h                  |    5 
+ arch/x86/include/asm/processor.h                |    1 
+ arch/x86/include/asm/realmode.h                 |    3 
+ arch/x86/include/asm/smp.h                      |   24 -
+ arch/x86/include/asm/topology.h                 |   23 -
+ arch/x86/include/asm/tsc.h                      |    2 
+ arch/x86/kernel/acpi/sleep.c                    |    9 
+ arch/x86/kernel/apic/apic.c                     |   26 -
+ arch/x86/kernel/callthunks.c                    |    4 
+ arch/x86/kernel/cpu/amd.c                       |    2 
+ arch/x86/kernel/cpu/cacheinfo.c                 |   21 
+ arch/x86/kernel/cpu/common.c                    |   50 --
+ arch/x86/kernel/cpu/topology.c                  |    3 
+ arch/x86/kernel/head_32.S                       |   14 
+ arch/x86/kernel/head_64.S                       |   87 +++
+ arch/x86/kernel/sev.c                           |    2 
+ arch/x86/kernel/smp.c                           |    3 
+ arch/x86/kernel/smpboot.c                       |  526 ++++++++----------------
+ arch/x86/kernel/topology.c                      |   98 ----
+ arch/x86/kernel/tsc.c                           |   20 
+ arch/x86/kernel/tsc_sync.c                      |   36 -
+ arch/x86/power/cpu.c                            |   37 -
+ arch/x86/realmode/init.c                        |    3 
+ arch/x86/realmode/rm/trampoline_64.S            |   27 +
+ arch/x86/xen/enlighten_hvm.c                    |   11 
+ arch/x86/xen/smp_hvm.c                          |   16 
+ arch/x86/xen/smp_pv.c                           |   56 +-
+ drivers/acpi/processor_idle.c                   |    4 
+ include/linux/cpu.h                             |    4 
+ include/linux/cpuhotplug.h                      |   17 
+ kernel/cpu.c                                    |  396 +++++++++++++++++-
+ kernel/smp.c                                    |    2 
+ kernel/smpboot.c                                |  163 -------
+ 62 files changed, 934 insertions(+), 982 deletions(-)
 
