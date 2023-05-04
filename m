@@ -2,35 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E17976F6DAA
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 16:26:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529796.824614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 814E36F6DAB
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 16:27:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529813.824633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puZtr-0004l6-M0; Thu, 04 May 2023 14:25:39 +0000
+	id 1puZvQ-0006Sp-E8; Thu, 04 May 2023 14:27:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529796.824614; Thu, 04 May 2023 14:25:39 +0000
+Received: by outflank-mailman (output) from mailman id 529813.824633; Thu, 04 May 2023 14:27:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puZtr-0004hm-HZ; Thu, 04 May 2023 14:25:39 +0000
-Received: by outflank-mailman (input) for mailman id 529796;
- Thu, 04 May 2023 14:25:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1puZvQ-0006Pu-BL; Thu, 04 May 2023 14:27:16 +0000
+Received: by outflank-mailman (input) for mailman id 529813;
+ Thu, 04 May 2023 14:27:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UZDr=AZ=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1puZtp-00049d-MN
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 14:25:37 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 8949c1f3-ea87-11ed-b226-6b7b168915f2;
- Thu, 04 May 2023 16:25:36 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2D3A4139F;
- Thu,  4 May 2023 07:26:20 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 90E7E3F67D;
- Thu,  4 May 2023 07:25:34 -0700 (PDT)
+ <SRS0=evI0=AZ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1puZvO-0006Pe-Lj
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 14:27:14 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20620.outbound.protection.outlook.com
+ [2a01:111:f400:7e83::620])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c12773c4-ea87-11ed-8611-37d641c3527e;
+ Thu, 04 May 2023 16:27:11 +0200 (CEST)
+Received: from MW4PR04CA0083.namprd04.prod.outlook.com (2603:10b6:303:6b::28)
+ by IA1PR12MB7541.namprd12.prod.outlook.com (2603:10b6:208:42f::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.22; Thu, 4 May
+ 2023 14:27:08 +0000
+Received: from CO1NAM11FT101.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:6b:cafe::25) by MW4PR04CA0083.outlook.office365.com
+ (2603:10b6:303:6b::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.26 via Frontend
+ Transport; Thu, 4 May 2023 14:27:07 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT101.mail.protection.outlook.com (10.13.175.164) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6363.26 via Frontend Transport; Thu, 4 May 2023 14:27:07 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 4 May
+ 2023 09:27:05 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 4 May
+ 2023 09:26:55 -0500
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Thu, 4 May 2023 09:26:53 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,486 +63,254 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8949c1f3-ea87-11ed-b226-6b7b168915f2
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 2/2] xen/misra: diff-report.py: add report patching feature
-Date: Thu,  4 May 2023 15:25:23 +0100
-Message-Id: <20230504142523.2989306-3-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230504142523.2989306-1-luca.fancellu@arm.com>
-References: <20230504142523.2989306-1-luca.fancellu@arm.com>
+X-Inumbo-ID: c12773c4-ea87-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WDcNXg2LdgacGaYFeU8pVvn6v3Aie+Yp8o6ardijkCDTKdESXTFbE1L0J1WEXMk3GQdmfPopJ+6hRoy5N2ci89qIro/3yG6//cZ4iwPjywdenoheOTenlCmltLETnOH0CfRdexhtwn2DONiaLwPUvQYrzkis+LVexY8g/0s01DBHsUL5YQzQLTNza1aVmUvQAPn0xn+oIMx4jALTjAdfzXi8JotrUBdxR6ihT1Wn63SDGSBSiTTxsyjLrsvUXOXyvGzFBaMfLT5DMivlt9pVo7Rhwwcx3yaBZWP3Dq/CGjNjtDGb2gtFM/MuYtl3rnKLAgYhk1a4yIM1G0wb6nYYEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yReBJkggtW9j5YlcdD87yqF+ZbDUNTJM8rmOi+qPKGQ=;
+ b=CpjLRgWfDs8BsnbB47Q3aj1pWUyqiJYu+ClxoMrO11/LjZXvsO7B1Qlaq5HB16I59G4dhYgktaAJ9U8VTdyk43ZURO1ajuCXg9HD9mVjkMnYPcfevK/6kVIO2/+wYY2/uXUuZdF2gR3oXJkHdOPiUd3ac8jprfI86WTEQ5qUENYq42bSkWlSLUk2gbf8uwRx0Ym9elqcwvyz32GNiCbgeXvXTqSjpsK5SsdDCAwrfMUC8daL99rwp+f72ZqFa8gmGtO1CEnzCQVR0CuuRj4RksZ3Z2K+XVjHhWhDWkVOaWnHSKE9DqHOnqkPPdCZGrqdG+08IJPcst+1c/efZseiwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yReBJkggtW9j5YlcdD87yqF+ZbDUNTJM8rmOi+qPKGQ=;
+ b=NKbihi94TR5t4BugvsGhA0I/oKidbt6pdCCHtFKuSBdgoMWv9u+Sa/BaZjKKrOedeccjWW8JXwHTAbQOOuH1w78yy8gh3OErasTsiviBeu1bfAeueijkok4+Icgti3cjHn568uvEzWNowE709lPl4OG/gLHkLS+TNOAGq1f/V/A=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <29c7bf6a-0db4-5192-b93d-3e3220fe6a2e@amd.com>
+Date: Thu, 4 May 2023 16:26:52 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [XEN v6 11/12] xen/arm: p2m: Use the pa_range_info table to
+ support ARM_32 and ARM_64
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>, <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
+	<wl@xen.org>, <rahul.singh@arm.com>
+References: <20230428175543.11902-1-ayan.kumar.halder@amd.com>
+ <20230428175543.11902-12-ayan.kumar.halder@amd.com>
+ <63fa927e-72f5-1645-97c0-6986f2fdcabe@xen.org>
+ <178f9c0f-2f72-daac-772b-c3c4221bea40@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <178f9c0f-2f72-daac-772b-c3c4221bea40@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT101:EE_|IA1PR12MB7541:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d21ad43-6b9c-45b7-bc61-08db4caba3de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	SxZh8RKOhHH5pULoRBT8yc0+AAwfnujgqnvedg6RpqQhgedfi7BrpMes61WcsUvtvvdRfzrxVf+kdaAUI8FZ2B3LHfm8rRlXawi8RVwxMipMgETudHKmULRJ8rqrMJhJX5dGA28fN+ZfQzoQhR9uM+R2Rv+yj0sfSVVoaAGxx2R8QPwyNLQTs2ds20tPZpVx0nMhy5rvAzyWOOASXLzpyS2b0v3InwQ2kyz5Ee2jPZG3wR2xGRBSdYFtAlYtJXkhfIk5xgYVPndcWqO1ZINWatT0Z+5JgTykezBNeh+M+VWNvTykcTtxlOqgtVvPy8Bvtw7Fu4uorKQeoBPxhY+nPg+drYnCWzWi8MQ3mnz8K2xnho2hMZTXj6aanptEZ2LCmADamNeygG33SBVTZuGXg6R5O075xnr5J4WK4tXtABc5hlRiBUufOnxBeTcezvJq+ppw4puruExDqRVEDIgxWptzT3RF3ahFHnBbOIsMvHt6wH5MJ2+C+ONarq+6AbkFNLWyGkT5Rik1j/VDBXBUNZGulun6J9Evi+TvwIsItogHxfNrtjAXRiI79xFKW6/fWSaD4lHhIXKEC35pvCzqn6rtLO/cVFooKT9t2KqxBf9jcncl652Hyk5Re3hS5nQUzcNoSyrYOVUOc2gbV++YPfxgLPjz61eSYnowqY1UC324RA3D7nvtgDcB1ZEiRvT+/Iy9EzFX+YNF3QEVXKA3LlR0RhdK5EZ2ywdJ+NdTmlWKRABFkq2zfxdoLACvcdRexeawqkx3eVKt4ZjfUwPSwg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(136003)(396003)(346002)(451199021)(36840700001)(46966006)(40470700004)(40460700003)(31686004)(8936002)(82310400005)(8676002)(7416002)(2616005)(26005)(53546011)(336012)(426003)(36756003)(40480700001)(2906002)(47076005)(83380400001)(44832011)(186003)(478600001)(4326008)(5660300002)(41300700001)(70586007)(70206006)(356005)(316002)(16576012)(110136005)(54906003)(31696002)(82740400003)(36860700001)(86362001)(81166007)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2023 14:27:07.3896
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d21ad43-6b9c-45b7-bc61-08db4caba3de
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT101.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7541
 
-Add a feature to the diff-report.py script that improves the comparison
-between two analysis report, one from a baseline codebase and the other
-from the changes applied to the baseline.
 
-The comparison between reports of different codebase is an issue because
-entries in the baseline could have been moved in position due to addition
-or deletion of unrelated lines or can disappear because of deletion of
-the interested line, making the comparison between two revisions of the
-code harder.
 
-Having a baseline report, a report of the codebase with the changes
-called "new report" and a git diff format file that describes the
-changes happened to the code from the baseline, this feature can
-understand which entries from the baseline report are deleted or shifted
-in position due to changes to unrelated lines and can modify them as
-they will appear in the "new report".
+On 03/05/2023 14:35, Julien Grall wrote:
+> 
+> 
+> On 03/05/2023 13:20, Julien Grall wrote:
+>> Hi,
+>>
+>> On 28/04/2023 18:55, Ayan Kumar Halder wrote:
+>>> Restructure the code so that one can use pa_range_info[] table for both
+>>> ARM_32 as well as ARM_64.
+>>>
+>>> Also, removed the hardcoding for P2M_ROOT_ORDER and P2M_ROOT_LEVEL as
+>>> p2m_root_order can be obtained from the pa_range_info[].root_order and
+>>> p2m_root_level can be obtained from pa_range_info[].sl0.
+>>>
+>>> Refer ARM DDI 0406C.d ID040418, B3-1345,
+>>> "Use of concatenated first-level translation tables
+>>>
+>>> ...However, a 40-bit input address range with a translation
+>>> granularity of 4KB
+>>> requires a total of 28 bits of address resolution. Therefore, a stage 2
+>>> translation that supports a 40-bit input address range requires two
+>>> concatenated
+>>> first-level translation tables,..."
+>>>
+>>> Thus, root-order is 1 for 40-bit IPA on ARM_32.
+>>>
+>>> Refer ARM DDI 0406C.d ID040418, B3-1348,
+>>>
+>>> "Determining the required first lookup level for stage 2 translations
+>>>
+>>> For a stage 2 translation, the output address range from the stage 1
+>>> translations determines the required input address range for the stage 2
+>>> translation. The permitted values of VTCR.SL0 are:
+>>>
+>>> 0b00 Stage 2 translation lookup must start at the second level.
+>>> 0b01 Stage 2 translation lookup must start at the first level.
+>>>
+>>> VTCR.T0SZ must indicate the required input address range. The size of
+>>> the input
+>>> address region is 2^(32-T0SZ) bytes."
+>>>
+>>> Thus VTCR.SL0 = 1 (maximum value) and VTCR.T0SZ = -8 when the size of
+>>> input
+>>> address region is 2^40 bytes.
+>>>
+>>> Thus, pa_range_info[].t0sz = 1 (VTCR.S) | 8 (VTCR.T0SZ) ie 11000b
+>>> which is 24.
+>>>
+>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>>> ---
+>>> Changes from -
+>>>
+>>> v3 - 1. New patch introduced in v4.
+>>> 2. Restructure the code such that pa_range_info[] is used both by
+>>> ARM_32 as
+>>> well as ARM_64.
+>>>
+>>> v4 - 1. Removed the hardcoded definitions of P2M_ROOT_ORDER and
+>>> P2M_ROOT_LEVEL.
+>>> The reason being root_order will not be always 1 (See the next patch).
+>>> 2. Updated the commit message to explain t0sz, sl0 and root_order
+>>> values for
+>>> 32-bit IPA on Arm32.
+>>> 3. Some sanity fixes.
+>>>
+>>> v5 - pa_range_info is indexed by system_cpuinfo.mm64.pa_range. ie
+>>> when PARange is 0, the PA size is 32, 1 -> 36 and so on. So
+>>> pa_range_info[] has
+>>> been updated accordingly.
+>>> For ARM_32 pa_range_info[0] = 0 and pa_range_info[1] = 0 as we do not
+>>> support
+>>> 32-bit, 36-bit physical address range yet.
+>>>
+>>>   xen/arch/arm/include/asm/p2m.h |  8 +-------
+>>>   xen/arch/arm/p2m.c             | 32 ++++++++++++++++++--------------
+>>>   2 files changed, 19 insertions(+), 21 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/include/asm/p2m.h
+>>> b/xen/arch/arm/include/asm/p2m.h
+>>> index f67e9ddc72..4ddd4643d7 100644
+>>> --- a/xen/arch/arm/include/asm/p2m.h
+>>> +++ b/xen/arch/arm/include/asm/p2m.h
+>>> @@ -14,16 +14,10 @@
+>>>   /* Holds the bit size of IPAs in p2m tables.  */
+>>>   extern unsigned int p2m_ipa_bits;
+>>> -#ifdef CONFIG_ARM_64
+>>>   extern unsigned int p2m_root_order;
+>>>   extern unsigned int p2m_root_level;
+>>> -#define P2M_ROOT_ORDER    p2m_root_order
+>>> +#define P2M_ROOT_ORDER p2m_root_order
+>>
+>> This looks like a spurious change.
+>>
+>>>   #define P2M_ROOT_LEVEL p2m_root_level
+>>> -#else
+>>> -/* First level P2M is always 2 consecutive pages */
+>>> -#define P2M_ROOT_ORDER    1
+>>> -#define P2M_ROOT_LEVEL 1
+>>> -#endif
+>>>   struct domain;
+>>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+>>> index 418997843d..1fe3cccf46 100644
+>>> --- a/xen/arch/arm/p2m.c
+>>> +++ b/xen/arch/arm/p2m.c
+>>> @@ -19,9 +19,9 @@
+>>>   #define INVALID_VMID 0 /* VMID 0 is reserved */
+>>> -#ifdef CONFIG_ARM_64
+>>>   unsigned int __read_mostly p2m_root_order;
+>>>   unsigned int __read_mostly p2m_root_level;
+>>> +#ifdef CONFIG_ARM_64
+>>>   static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
+>>>   /* VMID is by default 8 bit width on AArch64 */
+>>>   #define MAX_VMID       max_vmid
+>>> @@ -2247,16 +2247,6 @@ void __init setup_virt_paging(void)
+>>>       /* Setup Stage 2 address translation */
+>>>       register_t val =
+>>> VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
+>>> -#ifdef CONFIG_ARM_32
+>>> -    if ( p2m_ipa_bits < 40 )
+>>> -        panic("P2M: Not able to support %u-bit IPA at the moment\n",
+>>> -              p2m_ipa_bits);
+>>> -
+>>> -    printk("P2M: 40-bit IPA\n");
+>>> -    p2m_ipa_bits = 40;
+>>> -    val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
+>>> -    val |= VTCR_SL0(0x1); /* P2M starts at first level */
+>>> -#else /* CONFIG_ARM_64 */
+>>>       static const struct {
+>>>           unsigned int pabits; /* Physical Address Size */
+>>>           unsigned int t0sz;   /* Desired T0SZ, minimum in comment */
+>>> @@ -2265,19 +2255,26 @@ void __init setup_virt_paging(void)
+>>>       } pa_range_info[] __initconst = {
+>>>           /* T0SZ minimum and SL0 maximum from ARM DDI 0487H.a Table
+>>> D5-6 */
+>>>           /*      PA size, t0sz(min), root-order, sl0(max) */
+>>> +        [2] = { 40,      24/*24*/,  1,          1 },
+>>
+>> I don't like the fact that the index are not ordered anymore and...
+>>
+>>> +#ifdef CONFIG_ARM_64
+>>>           [0] = { 32,      32/*32*/,  0,          1 },
+>>>           [1] = { 36,      28/*28*/,  0,          1 },
+>>> -        [2] = { 40,      24/*24*/,  1,          1 },
+>>>           [3] = { 42,      22/*22*/,  3,          1 },
+>>>           [4] = { 44,      20/*20*/,  0,          2 },
+>>>           [5] = { 48,      16/*16*/,  0,          2 },
+>>>           [6] = { 52,      12/*12*/,  4,          2 },
+>>>           [7] = { 0 }  /* Invalid */
+>>> +#else
+>>> +        [0] = { 0 },  /* Invalid */
+>>> +        [1] = { 0 },  /* Invalid */
+>>> +        [3] = { 0 }  /* Invalid */
+>>> +#endif
+>>
+>> ... it is not clear to me why we are adding 3 extra entries. I think it
+>> would be better if we do:
+>>
+>> #ifdef CONFIG_ARM_64
+>>     [0] ...
+>>     [1] ...
+>> #endif
+>>     [2] ...
+>> #ifdef CONFIG_ARM_64
+>>     [3] ...
+>>     [4] ...
+>>     ...
+>> #endif
+> 
+> Looking at the next patch. An alternative would be to go back
+> duplicating the lines. So after the two patches we would have
+> 
+> #ifdef CONFIG_ARM_64
+>      [0] ...
+>      [7] ...
+> #else
+>      { /* 32-bit */ }
+>      { /* 40-bit */ }
+> #endif
++1 for this approach
 
-Having the "patched baseline" and the "new report", now it's simple
-to make the diff between them and print only the entry that are new.
-
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
- xen/scripts/diff-report.py                    |  55 ++++-
- xen/scripts/xen_analysis/diff_tool/debug.py   |  19 ++
- xen/scripts/xen_analysis/diff_tool/report.py  |  84 ++++++++
- .../diff_tool/unified_format_parser.py        | 202 ++++++++++++++++++
- 4 files changed, 358 insertions(+), 2 deletions(-)
- create mode 100644 xen/scripts/xen_analysis/diff_tool/unified_format_parser.py
-
-diff --git a/xen/scripts/diff-report.py b/xen/scripts/diff-report.py
-index 4913fb43a8f9..17f707f5d34e 100755
---- a/xen/scripts/diff-report.py
-+++ b/xen/scripts/diff-report.py
-@@ -5,6 +5,10 @@ from argparse import ArgumentParser
- from xen_analysis.diff_tool.debug import Debug
- from xen_analysis.diff_tool.report import ReportError
- from xen_analysis.diff_tool.cppcheck_report import CppcheckReport
-+from xen_analysis.diff_tool.unified_format_parser import \
-+    (UnifiedFormatParser, UnifiedFormatParseError)
-+from xen_analysis.utils import invoke_command
-+from xen_analysis.settings import repo_dir
- 
- 
- def log_info(text, end='\n'):
-@@ -32,9 +36,32 @@ def main(argv):
-                              "against the baseline.")
-     parser.add_argument("-v", "--verbose", action='store_true',
-                         help="Print more informations during the run.")
-+    parser.add_argument("--patch", type=str,
-+                        help="The patch file containing the changes to the "
-+                             "code, from the baseline analysis result to the "
-+                             "'check report' analysis result.\n"
-+                             "Do not use with --baseline-rev/--report-rev")
-+    parser.add_argument("--baseline-rev", type=str,
-+                        help="Revision or SHA of the codebase analysed to "
-+                             "create the baseline report.\n"
-+                             "Use together with --report-rev")
-+    parser.add_argument("--report-rev", type=str,
-+                        help="Revision or SHA of the codebase analysed to "
-+                             "create the 'check report'.\n"
-+                             "Use together with --baseline-rev")
- 
-     args = parser.parse_args()
- 
-+    if args.patch and (args.baseline_rev or args.report_rev):
-+        print("ERROR: '--patch' argument can't be used with '--baseline-rev'"
-+              " or '--report-rev'.")
-+        sys.exit(1)
-+
-+    if bool(args.baseline_rev) != bool(args.report_rev):
-+        print("ERROR: '--baseline-rev' must be used together with "
-+              "'--report-rev'.")
-+        sys.exit(1)
-+
-     if args.out == "stdout":
-         file_out = sys.stdout
-     else:
-@@ -59,11 +86,35 @@ def main(argv):
-         new_rep.parse()
-         debug.debug_print_parsed_report(new_rep)
-         log_info(" [OK]")
--    except ReportError as e:
-+        diff_source = None
-+        if args.patch:
-+            diff_source = os.path.realpath(args.patch)
-+        elif args.baseline_rev:
-+            git_diff = invoke_command(
-+                "git diff --git-dir={} -C -C {}..{}".format(repo_dir,
-+                                                            args.baseline_rev,
-+                                                            args.report_rev),
-+                True, "Error occured invoking:\n{}\n\n{}"
-+            )
-+            diff_source = git_diff.splitlines(keepends=True)
-+        if diff_source:
-+            log_info("Parsing changes...", "")
-+            diffs = UnifiedFormatParser(diff_source)
-+            debug.debug_print_parsed_diff(diffs)
-+            log_info(" [OK]")
-+    except (ReportError, UnifiedFormatParseError) as e:
-         print("ERROR: {}".format(e))
-         sys.exit(1)
- 
--    output = new_rep - baseline
-+    if args.patch or args.baseline_rev:
-+        log_info("Patching baseline...", "")
-+        baseline_patched = baseline.patch(diffs)
-+        debug.debug_print_patched_report(baseline_patched)
-+        log_info(" [OK]")
-+        output = new_rep - baseline_patched
-+    else:
-+        output = new_rep - baseline
-+
-     print(output, end="", file=file_out)
- 
-     if len(output) > 0:
-diff --git a/xen/scripts/xen_analysis/diff_tool/debug.py b/xen/scripts/xen_analysis/diff_tool/debug.py
-index d46df3300d21..c314edbc8e38 100644
---- a/xen/scripts/xen_analysis/diff_tool/debug.py
-+++ b/xen/scripts/xen_analysis/diff_tool/debug.py
-@@ -2,6 +2,7 @@
- 
- import os
- from .report import Report
-+from .unified_format_parser import UnifiedFormatParser
- 
- 
- class Debug:
-@@ -34,3 +35,21 @@ class Debug:
-         if not self.args.debug:
-             return
-         self.__debug_print_report(report, ".parsed")
-+
-+    def debug_print_patched_report(self, report: Report) -> None:
-+        if not self.args.debug:
-+            return
-+        # The patched report contains already .patched in its name
-+        self.__debug_print_report(report, "")
-+
-+    def debug_print_parsed_diff(self, diff: UnifiedFormatParser) -> None:
-+        if not self.args.debug:
-+            return
-+        diff_filename = diff.get_diff_path()
-+        out_pathname = self.__get_debug_out_filename(diff_filename, ".parsed")
-+        try:
-+            with open(out_pathname, "wt") as outfile:
-+                for change_obj in diff.get_change_sets().values():
-+                    print(change_obj, end="", file=outfile)
-+        except OSError as e:
-+            print("ERROR: Issue opening file {}: {}".format(out_pathname, e))
-diff --git a/xen/scripts/xen_analysis/diff_tool/report.py b/xen/scripts/xen_analysis/diff_tool/report.py
-index d958d1816eb4..312d59682329 100644
---- a/xen/scripts/xen_analysis/diff_tool/report.py
-+++ b/xen/scripts/xen_analysis/diff_tool/report.py
-@@ -1,6 +1,7 @@
- #!/usr/bin/env python3
- 
- import os
-+from .unified_format_parser import UnifiedFormatParser, ChangeSet
- 
- 
- class ReportError(Exception):
-@@ -65,6 +66,89 @@ class Report:
-             self.__entries[entry_path] = [entry]
-         self.__last_line_order += 1
- 
-+    def remove_entries(self, entry_file_path: str) -> None:
-+        del self.__entries[entry_file_path]
-+
-+    def remove_entry(self, entry_path: str, line_id: int) -> None:
-+        if entry_path in self.__entries.keys():
-+            len_entry_path = len(self.__entries[entry_path])
-+            if len_entry_path == 1:
-+                del self.__entries[entry_path]
-+            else:
-+                if line_id in self.__entries[entry_path]:
-+                    self.__entries[entry_path].remove(line_id)
-+
-+    def patch(self, diff_obj: UnifiedFormatParser) -> 'Report':
-+        filename, file_extension = os.path.splitext(self.__path)
-+        patched_report = self.__class__(filename + ".patched" + file_extension)
-+        remove_files = []
-+        rename_files = []
-+        remove_entry = []
-+        ChangeMode = ChangeSet.ChangeMode
-+
-+        # Copy entries from this report to the report we are going to patch
-+        for entries in self.__entries.values():
-+            for entry in entries:
-+                patched_report.add_entry(entry.file_path, entry.line_number,
-+                                         entry.text)
-+
-+        # Patch the output report
-+        patched_rep_entries = patched_report.get_report_entries()
-+        for file_diff, change_obj in diff_obj.get_change_sets().items():
-+            if change_obj.is_change_mode(ChangeMode.COPY):
-+                # Copy the original entry pointed by change_obj.orig_file into
-+                # a new key in the patched report named change_obj.dst_file,
-+                # that here is file_diff variable content, because this
-+                # change_obj is pushed into the change_sets with the
-+                # change_obj.dst_file key
-+                if change_obj.orig_file in self.__entries.keys():
-+                    for entry in self.__entries[change_obj.orig_file]:
-+                        patched_report.add_entry(file_diff,
-+                                                 entry.line_number,
-+                                                 entry.text)
-+
-+            if file_diff in patched_rep_entries.keys():
-+                if change_obj.is_change_mode(ChangeMode.DELETE):
-+                    # No need to check changes here, just remember to delete
-+                    # the file from the report
-+                    remove_files.append(file_diff)
-+                    continue
-+                elif change_obj.is_change_mode(ChangeMode.RENAME):
-+                    # Remember to rename the file entry on this report
-+                    rename_files.append(change_obj)
-+
-+                for line_num, change_type in change_obj.get_change_set():
-+                    len_rep = len(patched_rep_entries[file_diff])
-+                    for i in range(len_rep):
-+                        rep_item = patched_rep_entries[file_diff][i]
-+                        if change_type == ChangeSet.ChangeType.REMOVE:
-+                            if rep_item.line_number == line_num:
-+                                # This line is removed with this changes,
-+                                # append to the list of entries to be removed
-+                                remove_entry.append(rep_item)
-+                            elif rep_item.line_number > line_num:
-+                                rep_item.line_number -= 1
-+                        elif change_type == ChangeSet.ChangeType.ADD:
-+                            if rep_item.line_number >= line_num:
-+                                rep_item.line_number += 1
-+                    # Remove deleted entries from the list
-+                    if len(remove_entry) > 0:
-+                        for entry in remove_entry:
-+                            patched_report.remove_entry(entry.file_path,
-+                                                        entry.line_id)
-+                        remove_entry.clear()
-+
-+        if len(remove_files) > 0:
-+            for file_name in remove_files:
-+                patched_report.remove_entries(file_name)
-+
-+        if len(rename_files) > 0:
-+            for change_obj in rename_files:
-+                patched_rep_entries[change_obj.dst_file] = \
-+                    patched_rep_entries.pop(change_obj.orig_file)
-+
-+        return patched_report
-+
-     def to_list(self) -> list:
-         report_list = []
-         for _, entries in self.__entries.items():
-diff --git a/xen/scripts/xen_analysis/diff_tool/unified_format_parser.py b/xen/scripts/xen_analysis/diff_tool/unified_format_parser.py
-new file mode 100644
-index 000000000000..e34cc8ac063f
---- /dev/null
-+++ b/xen/scripts/xen_analysis/diff_tool/unified_format_parser.py
-@@ -0,0 +1,202 @@
-+#!/usr/bin/env python3
-+
-+import re
-+from enum import Enum
-+from typing import Tuple
-+
-+
-+class UnifiedFormatParseError(Exception):
-+    pass
-+
-+
-+class ParserState(Enum):
-+    FIND_DIFF_HEADER = 0
-+    REGISTER_CHANGES = 1
-+    FIND_HUNK_OR_DIFF_HEADER = 2
-+
-+
-+class ChangeSet:
-+    class ChangeType(Enum):
-+        REMOVE = 0
-+        ADD = 1
-+
-+    class ChangeMode(Enum):
-+        NONE = 0
-+        CHANGE = 1
-+        RENAME = 2
-+        DELETE = 3
-+        COPY = 4
-+
-+    def __init__(self, a_file: str, b_file: str) -> None:
-+        self.orig_file = a_file
-+        self.dst_file = b_file
-+        self.change_mode = ChangeSet.ChangeMode.NONE
-+        self.__changes = []
-+
-+    def __str__(self) -> str:
-+        str_out = "{}: {} -> {}:\n{}\n".format(
-+            str(self.change_mode), self.orig_file, self.dst_file,
-+            str(self.__changes)
-+        )
-+        return str_out
-+
-+    def set_change_mode(self, change_mode: ChangeMode) -> None:
-+        self.change_mode = change_mode
-+
-+    def is_change_mode(self, change_mode: ChangeMode) -> bool:
-+        return self.change_mode == change_mode
-+
-+    def add_change(self, line_number: int, change_type: ChangeType) -> None:
-+        self.__changes.append((line_number, change_type))
-+
-+    def get_change_set(self) -> dict:
-+        return self.__changes
-+
-+
-+class UnifiedFormatParser:
-+    def __init__(self, args: str | list) -> None:
-+        if isinstance(args, str):
-+            self.__diff_file = args
-+            try:
-+                with open(self.__diff_file, "rt") as infile:
-+                    self.__diff_lines = infile.readlines()
-+            except OSError as e:
-+                raise UnifiedFormatParseError(
-+                    "Issue with reading file {}: {}"
-+                    .format(self.__diff_file, e)
-+                )
-+        elif isinstance(args, list):
-+            self.__diff_file = "git-diff-local.txt"
-+            self.__diff_lines = args
-+        else:
-+            raise UnifiedFormatParseError(
-+                "UnifiedFormatParser constructor called with wrong arguments")
-+
-+        self.__git_diff_header = re.compile(r'^diff --git a/(.*) b/(.*)$')
-+        self.__git_hunk_header = \
-+            re.compile(r'^@@ -\d+,(\d+) \+(\d+),(\d+) @@.*$')
-+        self.__diff_set = {}
-+        self.__parse()
-+
-+    def get_diff_path(self) -> str:
-+        return self.__diff_file
-+
-+    def add_change_set(self, change_set: ChangeSet) -> None:
-+        if not change_set.is_change_mode(ChangeSet.ChangeMode.NONE):
-+            if change_set.is_change_mode(ChangeSet.ChangeMode.COPY):
-+                # Add copy change mode items using the dst_file key, because
-+                # there might be other changes for the orig_file in this diff
-+                self.__diff_set[change_set.dst_file] = change_set
-+            else:
-+                self.__diff_set[change_set.orig_file] = change_set
-+
-+    def __parse(self) -> None:
-+        def parse_diff_header(line: str) -> ChangeSet | None:
-+            change_item = None
-+            diff_head = self.__git_diff_header.match(line)
-+            if diff_head and diff_head.group(1) and diff_head.group(2):
-+                change_item = ChangeSet(diff_head.group(1), diff_head.group(2))
-+
-+            return change_item
-+
-+        def parse_hunk_header(line: str) -> Tuple[int, int, int]:
-+            file_linenum = -1
-+            hunk_a_linemax = -1
-+            hunk_b_linemax = -1
-+            hunk_head = self.__git_hunk_header.match(line)
-+            if hunk_head and hunk_head.group(1) and hunk_head.group(2) \
-+               and hunk_head.group(3):
-+                file_linenum = int(hunk_head.group(2))
-+                hunk_a_linemax = int(hunk_head.group(1))
-+                hunk_b_linemax = int(hunk_head.group(3))
-+
-+            return (file_linenum, hunk_a_linemax, hunk_b_linemax)
-+
-+        file_linenum = 0
-+        hunk_a_linemax = 0
-+        hunk_b_linemax = 0
-+        diff_elem = None
-+        parse_state = ParserState.FIND_DIFF_HEADER
-+        ChangeMode = ChangeSet.ChangeMode
-+        ChangeType = ChangeSet.ChangeType
-+
-+        for line in self.__diff_lines:
-+            if parse_state == ParserState.FIND_DIFF_HEADER:
-+                diff_elem = parse_diff_header(line)
-+                if diff_elem:
-+                    # Found the diff header, go to the next stage
-+                    parse_state = ParserState.FIND_HUNK_OR_DIFF_HEADER
-+            elif parse_state == ParserState.FIND_HUNK_OR_DIFF_HEADER:
-+                # Here only these change modalities will be registered:
-+                # deleted file mode <mode>
-+                # rename from <path>
-+                # rename to <path>
-+                # copy from <path>
-+                # copy to <path>
-+                #
-+                # These will be ignored:
-+                # old mode <mode>
-+                # new mode <mode>
-+                # new file mode <mode>
-+                #
-+                # Also these info will be ignored
-+                # similarity index <number>
-+                # dissimilarity index <number>
-+                # index <hash>..<hash> <mode>
-+                if line.startswith("deleted file"):
-+                    # If the file is deleted, register it but don't go through
-+                    # the changes that will be only a set of lines removed
-+                    diff_elem.set_change_mode(ChangeMode.DELETE)
-+                    parse_state = ParserState.FIND_DIFF_HEADER
-+                elif line.startswith("new file"):
-+                    # If the file is new, skip it, as it doesn't give any
-+                    # useful information on the report translation
-+                    parse_state = ParserState.FIND_DIFF_HEADER
-+                elif line.startswith("rename to"):
-+                    # Renaming operation can be a pure renaming or a rename
-+                    # and a set of change, so keep looking for the hunk
-+                    # header
-+                    diff_elem.set_change_mode(ChangeMode.RENAME)
-+                elif line.startswith("copy to"):
-+                    # This is a copy operation, mark it
-+                    diff_elem.set_change_mode(ChangeMode.COPY)
-+                else:
-+                    # Look for the hunk header
-+                    (file_linenum, hunk_a_linemax, hunk_b_linemax) = \
-+                        parse_hunk_header(line)
-+                    if file_linenum >= 0:
-+                        if diff_elem.is_change_mode(ChangeMode.NONE):
-+                            # The file has only changes
-+                            diff_elem.set_change_mode(ChangeMode.CHANGE)
-+                        parse_state = ParserState.REGISTER_CHANGES
-+                    else:
-+                        # ... or there could be a diff header
-+                        new_diff_elem = parse_diff_header(line)
-+                        if new_diff_elem:
-+                            # Found a diff header, register the last change
-+                            # item
-+                            self.add_change_set(diff_elem)
-+                            diff_elem = new_diff_elem
-+            elif parse_state == ParserState.REGISTER_CHANGES:
-+                if (hunk_b_linemax > 0) and line.startswith("+"):
-+                    diff_elem.add_change(file_linenum, ChangeType.ADD)
-+                    hunk_b_linemax -= 1
-+                elif (hunk_a_linemax > 0) and line.startswith("-"):
-+                    diff_elem.add_change(file_linenum, ChangeType.REMOVE)
-+                    hunk_a_linemax -= 1
-+                    file_linenum -= 1
-+                elif ((hunk_a_linemax + hunk_b_linemax) > 0) and \
-+                        line.startswith(" "):
-+                    hunk_a_linemax -= 1 if (hunk_a_linemax > 0) else 0
-+                    hunk_b_linemax -= 1 if (hunk_b_linemax > 0) else 0
-+
-+                if (hunk_a_linemax + hunk_b_linemax) <= 0:
-+                    parse_state = ParserState.FIND_HUNK_OR_DIFF_HEADER
-+
-+                file_linenum += 1
-+
-+        if diff_elem is not None:
-+            self.add_change_set(diff_elem)
-+
-+    def get_change_sets(self) -> dict:
-+        return self.__diff_set
--- 
-2.34.1
-
+~Michal
 
