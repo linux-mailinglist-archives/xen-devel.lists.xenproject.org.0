@@ -2,30 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEF3F6F725C
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:02:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529901.824960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FE96F72F9
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:10:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529958.825065 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pueDj-0000Kp-2L; Thu, 04 May 2023 19:02:27 +0000
+	id 1pueKt-0000eF-Ru; Thu, 04 May 2023 19:09:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529901.824960; Thu, 04 May 2023 19:02:26 +0000
+Received: by outflank-mailman (output) from mailman id 529958.825065; Thu, 04 May 2023 19:09:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pueDi-0000BF-ON; Thu, 04 May 2023 19:02:26 +0000
-Received: by outflank-mailman (input) for mailman id 529901;
- Thu, 04 May 2023 19:02:24 +0000
+	id 1pueKt-0000bV-OU; Thu, 04 May 2023 19:09:51 +0000
+Received: by outflank-mailman (input) for mailman id 529958;
+ Thu, 04 May 2023 19:09:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=srgM=AZ=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pueDf-00042j-Vf
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:02:23 +0000
-Received: from galois.linutronix.de (galois.linutronix.de
- [2a0a:51c0:0:12e:550::1])
+ id 1pueDh-00042j-KE
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:02:25 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33e3e5b7-eaae-11ed-b226-6b7b168915f2;
- Thu, 04 May 2023 21:02:23 +0200 (CEST)
+ id 34e19d1e-eaae-11ed-b226-6b7b168915f2;
+ Thu, 04 May 2023 21:02:25 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33e3e5b7-eaae-11ed-b226-6b7b168915f2
-Message-ID: <20230504185937.145906075@linutronix.de>
+X-Inumbo-ID: 34e19d1e-eaae-11ed-b226-6b7b168915f2
+Message-ID: <20230504185937.201611990@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1683226943;
+	s=2020; t=1683226944;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=lJLvACyWoTrqBZOps4v6XbP7wlJ3d4Q7defz4e+9Zb8=;
-	b=M3KgFVyzFkR4ccZ70dYavQ5/yqmJzYsNUe2w4AYa1zmqPGpOGfvnO2dLe+bqfdSYVxHNmg
-	UzxBYDkuh0vO9FnTUv0U0boU0E1jTAuFuEPxGvjM1vNFxZkY4+YKEIRoL7asL6MLh7WY2k
-	YHroxEZc/MyAi6EghJhWG+wOe//5AznxGGSpRWucK1h/BnTyT75KngcAYt8WZjiMtq166b
-	mZZvUfn/tKwnN+lYf/c6UiDK6atXikbDlaDBZ4sMT8u+PU/SPukxmYsr0YlXnC0aFBugr6
-	4bUgvijH50TXxyxKZ9qydiyNaQwVfzl3UXTSijqX2pY50ezKH3gbSbXO2Pf/Zg==
+	 references:references; bh=8IR2ZEar7xSTX3+WcC3NFIdAp4AUTKg+YP70lXONDYs=;
+	b=b5Dhpk7DXri1g+Jk4Fccefqph5HHh5m0O6WHx1dP1v8spz8TW/ZVEXRzP6Fu5Vyp4twGau
+	0WJ5VSOP7FkG0YM49DJA3ab9WsH+lMCnQQToJbW5YLIvGGqyCD5SuatG+70PddmmocvInY
+	sbywrL3O4QW1MGnAo6cSBXhCM/VRCDBpxMydY3h/7/ooJkjuTTpet2ZIX0gkrKNjXC4iyZ
+	NM25MYCPlURsUrvY1AdwvXfa3J2aswhoiO4UsIkjW2ZgbjIhOmU0uQ9SDbhRPFEyzNsNh0
+	mS7KdesNxpuJcwz0hAomc0k47L5YQTKWUQ3/pEIBgfRwzYecCD6MkvQPPrVSxw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1683226943;
+	s=2020e; t=1683226944;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=lJLvACyWoTrqBZOps4v6XbP7wlJ3d4Q7defz4e+9Zb8=;
-	b=YUlyUuTQQYH6MyD4cTuFQt3gYiD8H4Dxlm3l2cVGkFebVjVj9D7krF98nosGppSH1sXEJ5
-	189JeF0cp5TwVnAA==
+	 references:references; bh=8IR2ZEar7xSTX3+WcC3NFIdAp4AUTKg+YP70lXONDYs=;
+	b=dn+I2+Yxq6eST9WYLeBz7I//tSeh1zP1C4UnkiRYUPrB/Bi9OJVO0kV5NCl8mWHGp/F1Kx
+	csRGXLzl80A3yQBw==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org,
@@ -93,72 +92,47 @@ Cc: x86@kernel.org,
  Mark Rutland <mark.rutland@arm.com>,
  Sabin Rapan <sabrapan@amazon.com>,
  "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-Subject: [patch V2 15/38] x86/smpboot: Remove wait for cpu_online()
+Subject: [patch V2 16/38] x86/xen/smp_pv: Remove wait for CPU online
 References: <20230504185733.126511787@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Thu,  4 May 2023 21:02:22 +0200 (CEST)
+Date: Thu,  4 May 2023 21:02:24 +0200 (CEST)
 
 From: Thomas Gleixner <tglx@linutronix.de>
 
 Now that the core code drops sparse_irq_lock after the idle thread
 synchronized, it's pointless to wait for the AP to mark itself online.
 
+Whether the control CPU runs in a wait loop or sleeps in the core code
+waiting for the online operation to complete makes no difference.
+
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: xen-devel@lists.xenproject.org
 
 ---
- arch/x86/kernel/smpboot.c |   26 ++------------------------
- 1 file changed, 2 insertions(+), 24 deletions(-)
+ arch/x86/xen/smp_pv.c |   10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 ---
---- a/arch/x86/kernel/smpboot.c
-+++ b/arch/x86/kernel/smpboot.c
-@@ -281,7 +281,6 @@ static void notrace start_secondary(void
- 	 * half valid vector space.
- 	 */
- 	lock_vector_lock();
--	/* Sync point with do_wait_cpu_online() */
- 	set_cpu_online(smp_processor_id(), true);
- 	lapic_online();
- 	unlock_vector_lock();
-@@ -1110,20 +1109,6 @@ static int wait_cpu_initialized(unsigned
+--- a/arch/x86/xen/smp_pv.c
++++ b/arch/x86/xen/smp_pv.c
+@@ -340,11 +340,11 @@ static int xen_pv_cpu_up(unsigned int cp
+ 
+ 	xen_pmu_init(cpu);
+ 
+-	rc = HYPERVISOR_vcpu_op(VCPUOP_up, xen_vcpu_nr(cpu), NULL);
+-	BUG_ON(rc);
+-
+-	while (cpu_report_state(cpu) != CPU_ONLINE)
+-		HYPERVISOR_sched_op(SCHEDOP_yield, NULL);
++	/*
++	 * Why is this a BUG? If the hypercall fails then everything can be
++	 * rolled back, no?
++	 */
++	BUG_ON(HYPERVISOR_vcpu_op(VCPUOP_up, xen_vcpu_nr(cpu), NULL));
+ 
  	return 0;
  }
- 
--/*
-- * Bringup step three: Wait for the target AP to reach set_cpu_online() in
-- * start_secondary().
-- */
--static void wait_cpu_online(unsigned int cpu)
--{
--	/*
--	 * Wait for the AP to mark itself online, so the core caller
--	 * can drop sparse_irq_lock.
--	 */
--	while (!cpu_online(cpu))
--		schedule();
--}
--
- static int native_kick_ap(unsigned int cpu, struct task_struct *tidle)
- {
- 	int apicid = apic->cpu_present_to_apicid(cpu);
-@@ -1170,16 +1155,9 @@ int native_cpu_up(unsigned int cpu, stru
- 	int ret;
- 
- 	ret = native_kick_ap(cpu, tidle);
--	if (ret)
--		goto out;
--
--	ret = wait_cpu_initialized(cpu);
--	if (ret)
--		goto out;
--
--	wait_cpu_online(cpu);
-+	if (!ret)
-+		ret = wait_cpu_initialized(cpu);
- 
--out:
- 	/* Cleanup possible dangling ends... */
- 	if (x86_platform.legacy.warm_reset)
- 		smpboot_restore_warm_reset_vector();
 
 
