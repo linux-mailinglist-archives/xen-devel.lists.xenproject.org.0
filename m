@@ -2,40 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24EEE6F6CD6
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 15:21:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529749.824483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 785176F6CE0
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 15:24:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529752.824493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puYtN-0008L3-LR; Thu, 04 May 2023 13:21:05 +0000
+	id 1puYw6-0000WL-1I; Thu, 04 May 2023 13:23:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529749.824483; Thu, 04 May 2023 13:21:05 +0000
+Received: by outflank-mailman (output) from mailman id 529752.824493; Thu, 04 May 2023 13:23:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puYtN-0008IN-IJ; Thu, 04 May 2023 13:21:05 +0000
-Received: by outflank-mailman (input) for mailman id 529749;
- Thu, 04 May 2023 13:21:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bg5W=AZ=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1puYtM-0008IH-9n
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 13:21:04 +0000
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on20630.outbound.protection.outlook.com
- [2a01:111:f400:fe12::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8402c845-ea7e-11ed-8611-37d641c3527e;
- Thu, 04 May 2023 15:21:02 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB8109.eurprd04.prod.outlook.com (2603:10a6:102:1c2::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.26; Thu, 4 May
- 2023 13:21:01 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::52b2:f58:e19:56ae%2]) with mapi id 15.20.6363.022; Thu, 4 May 2023
- 13:21:00 +0000
+	id 1puYw5-0000Tp-U3; Thu, 04 May 2023 13:23:53 +0000
+Received: by outflank-mailman (input) for mailman id 529752;
+ Thu, 04 May 2023 13:23:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XYMk=AZ=citrix.com=prvs=481980579=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1puYw4-0000SC-DT
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 13:23:52 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e813e0cf-ea7e-11ed-b226-6b7b168915f2;
+ Thu, 04 May 2023 15:23:51 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,128 +36,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8402c845-ea7e-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Gm0bs90qeOG0WODSswUzUOhzkZ38lpvH8xbJmewoJqCIMpl/5jqJmehxgFvp3fKoFmehYKbgWrPy87LIpHupktbPM97b3V8Sl7M8ABmQleo9iTSXElA62QOvLSXx5hhkyf0kJ+7d7Xx+EvQ7VdwpkUjWmgj6o4cnADHJgZGLGoGZbxa8akOpWD4tfxFZY1xDdKJZnI+YYJHEF3z4Aq0ThNq8s6RvgQH3kn4an1hcMCksU3Kz9Nib/V6zA5x2M4lCXbU+lkVXO5gp7DMpl7LoG2y1oDzweSDE1eTS3+0BF6gtKzZAHNZEt1Zzu+qSE7tY9LXxGFAXCGMYAfrDwKwqAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X4lJ5TCVn+ArYoM6a9T+pkoACxd5SnywVsjoTgae4rU=;
- b=VzK4l8udJDs7dHKzUKpNQH4zv97ZrLhcflGMO2Zu6SF2BfNt+u8lvpbWOCOzPGetk73SvimjgHFaOH8UBOL8eKOIaCyRH8MDSCmAsXTtJMiC/tkVR7UxLjp3czKhjD7AiK7tQbD9ulDey4qpP0buZsGle9niFtLh3pTNooob6bF/BzCCr7qFfp59jPwKnKF71mH9ZCYjA5/V09+pC9NPbYiyiNXo++vHehuCojknBKtikCu+f+6EAfbkgWo1TcN+4okLdH8s/TtPbPkRAGZMvSF0PR2RrJyLQ3nzxtkOPdg+gKJUb05IKOjdpRbtefeE/elWIuc+109JLyri+PwwzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X4lJ5TCVn+ArYoM6a9T+pkoACxd5SnywVsjoTgae4rU=;
- b=m9mn00OWurukgjPA2dNPa7Bhi0HyOC9AR9uYW3SuD4wSZc2UaW2I9vY2whvuCc0E3jo1G1fybn6sKESfNTLH769Q7IapI4iK9wsondvH8l5K+Ib6OGtexNstYP3HKA7ec17FO4YQOwTDexP5dwpABo4qP2/mLjP5JdnjKVGD7jYLq7QwDamknhbXKQuJ7OAsGp4+tY4hFwG8RQOdXBM5pyFOI+4akbBq/RM7CGId7eR3qd9CLhHMpbJdHXUovtlO/6TO7WvoxuC2vn3LUhOXsgXVY3q3Bg9miFjLZl9NndT7bO/zX1lm9HDAaDx81PvHOqHhmgmoVgVxxouq7rqVUA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <12008cc4-965e-9d7d-b655-95c867b3bcb2@suse.com>
-Date: Thu, 4 May 2023 15:20:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [PATCH] x86/bitops: Drop include of cpufeatureset
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230504130755.3181176-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230504130755.3181176-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0149.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:96::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: e813e0cf-ea7e-11ed-b226-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1683206631;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=/pvEq/xZicrqe/jwH85spYOYRNCODnIg5BSH4wsVGzc=;
+  b=Q4/eDSd3c2ItnxLGYWt0z7h9BvTejdvIfBcyxEfZ51J6rTdatfSLCO59
+   CzgFv/NwOQlTb1P9cQp/kNslloGooJa2Lpzk9X77zN4YRlih2gOpBjnDj
+   8Nq0AqVaadBikmhPc+QiMIxe/vZlafHxbr2Lvh0nqpmMCAvZL4l1ayskz
+   k=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 107748272
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:948xPaOPQ9hc62fvrR3al8FynXyQoLVcMsEvi/4bfWQNrUok3zVRy
+ 2BLCmDSO6rcZWX3e4pwat7joUMD657czNdrHAto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGj9SuvPrRC9H5qyo42tF5gBmPJingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0vRQIH1+y
+ dNBEgIMay6boOSu56K+UPY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
+ ZNEN3w2Nk+ojx5nYz/7DLo3mvuogX/uNSVVsluPqYI84nTJzRw327/oWDbQUoXSGpoJzhzH/
+ Aoq+UzlXC4kZYOY7Aa9qE/zg8TqgAqkUYENQejQGvlC3wTImz175ActfUS/iem0jFakXNBSI
+ FBS/TAhxYA77EGxR8PxdwG5qnWD+BUbXrJ4A+A8rQ2A1KfQywKYHXQfCC5MbsQ8s807TiBs0
+ UWG9+4FHhQ27ufTEyjEsO7J83XrY3N9wXI+iTEsXywk/+nfj9gJvBPKcM5EFraSntjvBmSlq
+ 9yVlxTSl4n/nOZSifXgpQmd023zznTaZlVrv1uKBwpJ+is8Pdf4PNLwtDA3+N4adO6kok+9U
+ G/ociR0xMQHFtmzmSOEW43h95n5tq/eYFUwbbOCdqTNFghBGFb5J+i8GBkkeC9U3j8sIFcFm
+ nP7twJL/4N0N3C3d6JxaI/ZI510nfO5SYy8DqiLP4cmjn1NSeN61Hs2OR74M57FySDAbp3Ty
+ b/EKJ3xXB72+IxszSasRvd17ILHMhsWnDuJLbiilkTP7FZrTCLNIVvzGAfUP79RAWLtiFm9z
+ uuzwOPQl00FCLOkOXa/HEx6BQliEEXXzKve86R/HtNv6CI/cI39I5c9GY8cRrE=
+IronPort-HdrOrdr: A9a23:7N5aD6qMMpAyQkxcl8ZjXIoaV5rveYIsimQD101hICG9Evb0qy
+ nOpoV/6faQslwssR4b9uxoVJPvfZq+z+8W3WByB9eftWDd0QPFEGgL1+DfKlbbak7DH4BmtJ
+ uJc8JFeafN5VoRt7eG3OFveexQvOVu88qT9JjjJ28Gd3APV0n5hT0JcjpyFCdNNW57LKt8Lr
+ WwzOxdqQGtfHwGB/7LfUXsD4D41rv2fIuNW29+OyIa
+X-Talos-CUID: 9a23:mLhtnGM8gkpiE+5DSg5G6H4oNZkfQHzY8m/3JVefGWNzV+jA
+X-Talos-MUID: =?us-ascii?q?9a23=3AfLdoPg1klOxh+1mii7qGBMvHrDUj//qRNhFSlrA?=
+ =?us-ascii?q?6g5O5ailbHiq00z20Xdpy?=
+X-IronPort-AV: E=Sophos;i="5.99,249,1677560400"; 
+   d="scan'208";a="107748272"
+Date: Thu, 4 May 2023 14:23:45 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: George Dunlap <george.dunlap@cloud.com>
+CC: <xen-devel@lists.xenproject.org>, Anthony Perard
+	<anthony.perard@cloud.com>, Wei Liu <wl@xenproject.org>
+Subject: Re: [PATCH 1/2] xenalyze: Handle start-of-day ->RUNNING transitions
+Message-ID: <96a6a07f-b61a-4c11-9dcb-0c0bf1942bf3@perard>
+References: <20230327161326.48851-1-george.dunlap@cloud.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8109:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e515585-10e6-4872-76b7-08db4ca26778
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	OqaQLPii4qhrQGCqjMhKumNAtW29Lx8nCNbTOK1jnYA/2wSfy8zla+BlHLoTgd/+9U6DPleF5ovlTCW1DUWC7+sjiO91P6TwtjgnEdI5vcU0A6OjyK05K43DBJvYwKMVnA1LUrFSOqhwSHLE5yr4iM3c2KaEmI5SL7LS0ZIlY3A8USDxnTBnY4/b95fKFFACU9D75uIcQau36DvOARRsgzFL/wKPxaRKh6pTNTM0ljjFkV7eV3RLB7SEfk3UivzPfv4fyOilQS/H5AUJDD8VCIb/kYhpBD6Ys5Mz39YrK2g5BsQtysoyT5DJ/twkh9xjI6ODA+VrN0wst/XWGU0nfWoLyVQR9yrPdydfkp0xrxk2pzqQzHGY3lAOXUOpeVSPTWYl0mg2Hu6IL+EucU11T5TjtP98sLYSZ9iPzrUOOpEQhlrA8lkpEmePV4B2ZfLqG2JByfkdSWZ15KDukZi5GxAikzSKNj61q89iJTHyQGAdahc0uvFe11HjTfBtAY4Xe311kNHoOy5jQSvP/oZo9wMvrfzCYJrPTqTWqtKTz/D+E/ku5mhp6HnJN72KfaElCpUhUTXulBBrjZPQmrGmehx11gCGGf2saJV4B5DloA8SFjFx4h90UiyiVMwix/JJkQa01uMx5smh+IbIFJcc5A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(376002)(396003)(366004)(39860400002)(346002)(451199021)(83380400001)(54906003)(2906002)(478600001)(316002)(5660300002)(8936002)(66556008)(8676002)(41300700001)(66476007)(66946007)(6916009)(4326008)(31696002)(38100700002)(86362001)(6486002)(36756003)(186003)(6506007)(53546011)(6512007)(26005)(31686004)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UDZxZ3NUcXR4TitsMFJteDFFZnJrNFlNUWk2WTgzUWFSblc2R1BtSUhURlNT?=
- =?utf-8?B?REQ5YXdObkg0TUZlRlMwMGhXaVJUQVdTKzBwSElSb0Y5bng0WFR6Z0VGNys2?=
- =?utf-8?B?NWwrcWVHeDdoQXErMnd2bEhNZVdxQ3JTOFcyNWtqeXVaaGFHU05CYVM3T3Jo?=
- =?utf-8?B?UUFxVDNqQzFKeTd6QytqLzhsWElkdTVNS2VPVDlzaWFqd1RUaTJScDNrVUF3?=
- =?utf-8?B?Y2ZBN2N6WmdTUDJBbXNXSWpUS3kyY0JrYjNIQ1NNb2dMYTdzMnJoSjZGRTcv?=
- =?utf-8?B?MWNNSDRjOWYvTVBTNlN0bXA1UGJjekYxVmlGNXpmYWFRMUY4R085a0lEV2xZ?=
- =?utf-8?B?Z1Jlc2FKbytqdkJMNXhrVW9ic0w2MFVjd0NxYXN4K0ZuMWw3OXdBTFJ3Rzd6?=
- =?utf-8?B?cm11L1g1VkFsVXBNT0dUbGJRMzF4YmdmRUtVZW1JdXlMQTk1UmFlRHJ4TUUv?=
- =?utf-8?B?cjNOUzdDakErMUxtNU9WaVIvTVZjcjFQOFVjcDcyTTJEK0JHQStIM09Fblh3?=
- =?utf-8?B?UEVOdmIrbVowelU5aUFzZXRoS0tyOUZIQ1c1ZWpHQ0xPMVlxd3JXc1VJK0Fy?=
- =?utf-8?B?ODJPd3V1UFBYd0ltM1FIYldtSHZuRnhWNEJYT3NtNnRZV1ZFUkw5TDU4SFdX?=
- =?utf-8?B?ZFNOZVRXTjdkU1ZtQjFXZkk1STNiVlhVcTA2eHp3Z2R4N1IyWmpLckZIc1pV?=
- =?utf-8?B?WnZQdmZhNTU3alhWTHZySmp0NXdrZWJFSTNDdjd4QytTbzU5Nm9iL2k0V3lx?=
- =?utf-8?B?U05zeWxjSWR1Ykd6MzFoKy82aXFVNDVpT2VQdTAveEFKVHZHZFNXandsWFBr?=
- =?utf-8?B?S3FYdEsrY2NFVEgxMEVwejR5WUhEQjM3dVZjMjVqOXVsdFJvaE1wUjM5VWZ6?=
- =?utf-8?B?ZUNhbU5xNExMTHV5NEN1Y1ErdkkvOEJzZVF2dkE3eFVZQ3JMa2JNbHI3YjdF?=
- =?utf-8?B?NjZuaURBeHdTZFROUFBsaHFRbU9XSjRwNU5LV01RMGNJTmdEYmRLcUVzS2Zn?=
- =?utf-8?B?SmY4VEJGdCs3WlIyZTlIQ1N1d1hSSHJqUlhLdzdqN2JpZndGSWtGVG9xU0VV?=
- =?utf-8?B?a0lOMmhuSWFVcDNpbFMwUzJwdVZhUE1ZZks5bnU3OUhzRGwvSndUaUlQcnk3?=
- =?utf-8?B?Qi9WaElzL1AxMUFNYks4QWlQU2o0Q1lFL1plM3BKS09HMmVFTDhHWDVzTEQ0?=
- =?utf-8?B?R2liQlBJSjA2SmhhTExEbGNIQjkvMEovQ2s5V1M3eEU3aUhwVHVpMEZEWmZN?=
- =?utf-8?B?b011akcvVU94bEsweHk2UFhGY1FNc2k0UkVrOUdVclpOZmJnSk5lTWxpT0hJ?=
- =?utf-8?B?WWxzV1htWGMyVGZQZHNMYWJJOUxhaDhnUVNQRzhIbkZhU2dSWkIxU0dmZE03?=
- =?utf-8?B?b0hNcDRqbEJhT1dieHp4MWhSV1NWUHg1ZFhoU3pUUUE5QzBnNTdueFZqNUNZ?=
- =?utf-8?B?SnZBd3haSnVONUxhNG1KN0xFTTlWZ2NFazg0Zm9JMnhQM3RldGVDTThqOGVu?=
- =?utf-8?B?QkdYaG1zTkkwc1JjQXY4WDg5KzFoSzFkemdIRzVwR3VZaWNDSC9BTlNaMmlU?=
- =?utf-8?B?dmJtaTlrRFF0ZlVoUWlmWDZQZzFSamVJcmQyK0QxVU9remZKenlZSS95T0Vs?=
- =?utf-8?B?bVpMVzg1WDd2Yyt2ZU53UFNGZlUvYVEvSDdNdDBWUHkzMWxETHFpaHFad3Fm?=
- =?utf-8?B?Wk0yMDZub3VURVM0ak01cEl1T0V4Q1lNWERqYW1lai9Bak5FQ2xlRDE2ZWVG?=
- =?utf-8?B?NCtCaS9iS0ZrdFQrZW4zTG82MWRwbEE3Rkg4aEdjWFlzWjVUNmZIakZPcEh4?=
- =?utf-8?B?MENXcmdFQTkyOVo0NGNxWCs1clp4M2lJVEROVDhQUHBpbXNOZnJ5aE9CNEFQ?=
- =?utf-8?B?VFgvVTBRanhOcnp0aXlqSkNiMWI1MjRCNEVsQVkyL1BndVd0QlAzL1FXelhB?=
- =?utf-8?B?d09qSWdqaUE5VEFYU0tSNGxyODV1UjU3UTF4ZXRGZzFNVmpxWWZKOERRaC9v?=
- =?utf-8?B?d1hmd1hYUFdpME81S3hpc3NRbGRoRmpaYUxId0JFQTJERm1pZG5TUGVPbzRm?=
- =?utf-8?B?dkl4SG5QVjlsWndBZnRrWi8vMEN6SkxQM1ZlaWgzMFpOWFRKTGo3d3BhL0Zw?=
- =?utf-8?Q?OPAfcA+Mo5K7uE9dm6ec9B3O9?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e515585-10e6-4872-76b7-08db4ca26778
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2023 13:21:00.8562
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y/ojy2G6to1WF50O+/Gs97rRqpuLcTsQYKdbcVDsY0UhalF5xSdq7eoemK4t3lz9UdVPBPdYgqvZNW3m65Uuiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8109
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20230327161326.48851-1-george.dunlap@cloud.com>
 
-On 04.05.2023 15:07, Andrew Cooper wrote:
-> Nothing in x86/bitops uses anything from x86/cpufeatureset, and it is creating
-> problems when trying to untangle other aspects of feature handling.
+On Mon, Mar 27, 2023 at 05:13:25PM +0100, George Dunlap wrote:
+> A recent xentrace highlighted an unhandled corner case in the vcpu
+> "start-of-day" logic, if the trace starts after the last running ->
+> non-running transition, but before the first non-running -> running
+> transition.  Because start-of-day wasn't handled, vcpu_next_update()
+> was expecting p->current to be NULL, and tripping out with the
+> following error message when it wasn't:
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> ---
->  xen/arch/x86/include/asm/bitops.h | 1 -
->  1 file changed, 1 deletion(-)
+> vcpu_next_update: FATAL: p->current not NULL! (d32768dv$p, runstate RUNSTATE_INIT)
 > 
-> diff --git a/xen/arch/x86/include/asm/bitops.h b/xen/arch/x86/include/asm/bitops.h
-> index 5a71afbc89d5..aa8bd65b4565 100644
-> --- a/xen/arch/x86/include/asm/bitops.h
-> +++ b/xen/arch/x86/include/asm/bitops.h
-> @@ -6,7 +6,6 @@
->   */
->  
->  #include <asm/alternative.h>
-> -#include <asm/cpufeatureset.h>
+> where 32768 is the DEFAULT_DOMAIN, and $p is the pcpu number.
+> 
+> Instead of calling vcpu_start() piecemeal throughout
+> sched_runstate_process(), call it at the top of the function if the
+> vcpu in question is still in RUNSTATE_INIT, so that we can handle all
+> the cases in one place.
+> 
+> Sketch out at the top of the function all cases which we need to
+> handle, and what to do in those cases.  Some transitions tell us where
+> v is running; some transitions tell us about what is (or is not)
+> running on p; some transitions tell us neither.
+> 
+> If a transition tells us where v is now running, update its state;
+> otherwise leave it in INIT, in order to avoid having to deal with TSC
+> skew on start-up.
+> 
+> If a transition tells us what is or is not running on p, update
+> p->current (either to v or NULL).  Otherwise leave it alone.
+> 
+> If neither, do nothing.
+> 
+> Reifying those rules:
+> 
+> - If we're continuing to run, set v to RUNNING, and use p->first_tsc
+>   as the runstate time.
+> 
+> - If we're starting to run, set v to RUNNING, and use ri->tsc as the
+>   runstate time.
+> 
+> - If v is being deschedled, leave v in the INIT state to avoid dealing
+>   with TSC skew; but set p->current to NULL so that whatever is
+>   scheduled next won't trigger the assert in vcpu_next_update().
+> 
+> - If a vcpu is waking up (switching from one non-runnable state to
+>   another non-runnable state), leave v in INIT, and p in whatever
+>   state it's in (which may be the default domain, or some other vcpu
+>   which has already run).
+> 
+> While here, fix the comment above vcpu_start; it's called when the
+> vcpu state is INIT, not when current is the default domain.
+> 
+> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 
-Prior to your 44325775f724 ("x86/cpuid: Untangle the <asm/cpufeature.h>
-include hierachy") it was asm/cpufeature.h that was included here,
-presumably for the use of X86_FEATURE_BMI1 in __scanbit(). I guess that
-wants to be asm/cpufeatures.h now instead?
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Jan
+-- 
+Anthony PERARD
 
