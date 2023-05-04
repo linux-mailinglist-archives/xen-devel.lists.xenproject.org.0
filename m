@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7D036F672F
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 10:23:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529630.824217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D2B36F67DC
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 10:58:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529636.824230 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puUEy-0004hF-Nk; Thu, 04 May 2023 08:23:04 +0000
+	id 1puUm2-0008Nv-Ek; Thu, 04 May 2023 08:57:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529630.824217; Thu, 04 May 2023 08:23:04 +0000
+Received: by outflank-mailman (output) from mailman id 529636.824230; Thu, 04 May 2023 08:57:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puUEy-0004eu-KF; Thu, 04 May 2023 08:23:04 +0000
-Received: by outflank-mailman (input) for mailman id 529630;
- Thu, 04 May 2023 08:23:03 +0000
+	id 1puUm2-0008LH-Bc; Thu, 04 May 2023 08:57:14 +0000
+Received: by outflank-mailman (input) for mailman id 529636;
+ Thu, 04 May 2023 08:57:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x2gh=AZ=citrix.com=prvs=481e65374=roger.pau@srs-se1.protection.inumbo.net>)
- id 1puUEx-0004el-0y
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 08:23:03 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1b0bf3a-ea54-11ed-b226-6b7b168915f2;
- Thu, 04 May 2023 10:23:01 +0200 (CEST)
-Received: from mail-dm6nam10lp2104.outbound.protection.outlook.com (HELO
- NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.104])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 04 May 2023 04:22:59 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by SJ0PR03MB5648.namprd03.prod.outlook.com (2603:10b6:a03:288::17)
+ <SRS0=o2+9=AZ=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1puUm0-0008LB-D2
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 08:57:12 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a739ef4f-ea59-11ed-b226-6b7b168915f2;
+ Thu, 04 May 2023 10:57:10 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by MN0PR12MB6150.namprd12.prod.outlook.com (2603:10b6:208:3c6::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.22; Thu, 4 May
- 2023 08:22:57 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::b0b8:8f54:2603:54ec]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::b0b8:8f54:2603:54ec%3]) with mapi id 15.20.6340.031; Thu, 4 May 2023
- 08:22:57 +0000
+ 2023 08:57:07 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::5b9b:f31f:ac6d:be94]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::5b9b:f31f:ac6d:be94%7]) with mapi id 15.20.6363.022; Thu, 4 May 2023
+ 08:57:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,198 +47,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1b0bf3a-ea54-11ed-b226-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1683188581;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=29Hbv4zczTPm7mmZsDXiWwpgGywep53NlU2KoFia+Ks=;
-  b=XrJzlUvCo6vvUIUJoLsrSsAWQ2H9SpUE1uKe5tXz8iJoYFNN34K6t/RR
-   2/VSH7RQgNSf5FIE+1+V+cAIX0Y79TZv9CHVf7mfM9aJmU2VSv6cf2+Zp
-   Y5MgnAA016zTwKdenjs9tJJbS7hoZCSzSmpwqHerADbmp8P62LmkHWbz+
-   Q=;
-X-IronPort-RemoteIP: 104.47.58.104
-X-IronPort-MID: 106585431
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:6dUlkK/r8W4Wagp5riJCDrUDpn+TJUtcMsCJ2f8bNWPcYEJGY0x3m
- mEbCj+Oa6uPa2Omf90lbYu1/BgF65PTz9M2T1Bpqi48E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ire7kI+1BjOkGlA5AdmOKgX5Aa2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklw+
- 94KJSEoZyq4isCn64n8YOlCppoKeZyD0IM34hmMzBn/JNN/GdXvZvuP4tVVmjAtmspJAPDSI
- dIDbiZiZwjBZBsJPUoLDJU5n6GjgXyXnz9w8QrJ4/ZopTWDilUpjNABM/KMEjCObd9SkUuC4
- HrP4kzyAw0ANczZwj2Amp6prraXw36rBd5JTdVU8NZxuFmul0MdOicPC1qqhuCSgF+YRulQf
- hl8Fi0G6PJaGFaQZtv3UgC8oXWElgUBQNcWGOo/gCmSzoLE7gDfAXILJhZRZdpjuMIoSDgC0
- l6Sg8ivFTFpqKeSS3+W6vGTtzzaBMQOBWoLZCtBQQ5b5dDm+dk3lkiWFoolF7OphNroHz222
- yqNsCU1m7QUi4gMyrm/+lfExTmro/AlUzII2+keZUr9hisRWWJvT9XABYTzhRqYELukcw==
-IronPort-HdrOrdr: A9a23:6rr6Jqnatn9OM+lMf8vqPmuC1QvpDfIW3DAbv31ZSRFFG/Fw8P
- rDoB1773DJYVMqM03I9urvBEDtexLhHPxOkOos1MaZPDUO0VHAROsO0WKI+UyDJ8SRzJ876Y
- 5QN4R4Fd3sHRxboK/BkW+F+g8bsby6GXaT9IPj80s=
-X-Talos-CUID: 9a23:xSSJzGAwslYYNi76Exdp1lwZC+UsSEbQ7mb7GAiSCUhJFpTAHA==
-X-Talos-MUID: =?us-ascii?q?9a23=3AYgLQ2Q8pptk3vgv21uLeMoaQf9xQ55n/J04/q4x?=
- =?us-ascii?q?YutijLAd6KhGAtzviFw=3D=3D?=
-X-IronPort-AV: E=Sophos;i="5.99,249,1677560400"; 
-   d="scan'208";a="106585431"
+X-Inumbo-ID: a739ef4f-ea59-11ed-b226-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WLK373GUcwahTfMmf8XAGl/Chmc8ERWlGZKXxUorWPyXaMdFA5Rx3eNptNvB1h9GXBYcytJXjSDCyLSLX4iISARWSLI9PL+Nxs47XindI7ulaJgKIHNyZRfwdrv0KmTKDQUSd0MWUQ3J/4cgqP7TPr7UmgB0Uwmb0XiOAxtL0SP9vU7fihfWoOk3DvCV4yCWhDBBWog14+QvCsMBIXM0CDSb2VTAdr6Cy7yw1NdSKijUq8ujQ8Zu52GMQAA2WmhaGzMYjlmnesEUwUq6Ys/LIMSG2fHstkluodKEgB6zKMDIjqVFoYU7ykbxxDPDiiznit0HeRt/fhoNoWdlo2ZL0w==
+ b=V5gcc2Zjco2uTjZEwkckk85r6s/WdAHcPiGxVMxMnzcGdjhUcA5rk4vq+k+jAu3S8WXzqItdIUpLz4p2rWeelg2mRr6QixWe2zdZGt5KWdTMUQlcLMNlI/IiJ7p4Ex17vpvew9CnKxBQyGRK099kf292UCeV1PIter4X+xPhXhEqGwMHDC4TXFhk/wHLAWXmWFQxXQKobplFcM//9SXZF9JRBL5YU+W4dV/1uNRSeQmFhs8Wli/jEcaq6juLEJLmBLFs98dNVlvXxP4BESH5ESA68sgC1/63Dk0Rzi/W/b9TukjRpNTOfBi6MpPXYXpfVQ3O6A50rMXHU11cOI52WA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vbwPc94iyHwUkqQgtzgz/Y6XXp7gSahAMvglzZG4bls=;
- b=YYFL0bvnQMYA/gCvQiDKB7myLKs2SIqcJIztkU6pOH+lXr/dqTZ22iz7FuTpwZumhY45XirT66qomCgBb0Mua90cWdItmTpkxoJIO1cl73/e9JCzUNxB/PtRb4JHArBUgO9RCI231hn9psQ50Z62MRu8hD8kkN4XTh7XBBTd1d2eOq5NJLkrAwgN1HdbPRCE6oV9vWVl0V1Hx6UmS/qvgFAMki/2O/XI7s9yve1cq6kbhUQs1soLCmGGmoO8NrYKPxkOzhQKHQDSw5ymNeWKO65p197rczE6f32GQEGknWQAl28zlu//cbWOw3Y8chKcuQV+Is9ukES0Rp6IVtvzHA==
+ bh=bOcCAn5J6X8Pm64VOVcAOsHmFnDG/KQ8frpCsmJ+zzY=;
+ b=RF28fiOq7LUiNB/qA+LxEN7s5tnsZzlUOV6AJ+Vp5OSao3ZycLQU81VvRXQvtkNd7skGu+mqMPt9yLnuCH3MQo/NeLlQiaKpf0b4QG4gYbBTuTHy8+faojU8ofFhNpMPW2NiL6VqBryhri673yIpusWQWhRU0CnkMKPite6I4sgl4Rk4rIwKFqm6cB6pvVz4vUjxplTT35Mv8YCJPwbHe3sVXLCOVrtr/UNAjSNIovN/0YMLBFkrrlgt+W7Lhf1/Z14fdarfCUDG9i6iAsoKwBJtAfkgYqn/uXapVnT5OFnzs6/vl9+ROhc0i2bTI0c/GmelxkQReOV97TesERZqiQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vbwPc94iyHwUkqQgtzgz/Y6XXp7gSahAMvglzZG4bls=;
- b=QzcZfixCFnfr+RoJCK5gMRlS3sQTqIahoRn5/gCM8xs4nJbf78xGV2kyQfa01mpvZgNK7ie5YBvrostieVdldUTRTPmC5rASpdxgvMhj1ezOz4++B1OMIevUPEl+YJCtyYAIIHz6FVAtkZYn/aPRS0p0Dv34YzLZaDE9gq4oFsI=
+ bh=bOcCAn5J6X8Pm64VOVcAOsHmFnDG/KQ8frpCsmJ+zzY=;
+ b=DGUNHVRpwYrRt9NaYynA62vhDPd3DCL2xMsRQQ8R8ApQGt/DqTGeqH8u826i4nTd5dCb5aCOQCluiAPGDwrMnZONTm+CXJ2FeT4aDtlCwMfyD8F3CFLXaX5wpUPSK9M5CNiKFkNX8hFOc6wXg9q57wh4ryCHe70HD5YxoiYHKPQ=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 4 May 2023 10:22:51 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] x86/ucode: Refresh raw CPU policy after microcode load
-Message-ID: <ZFNrW5a/aY7a3KTs@Air-de-Roger>
-References: <20230503185813.3050382-1-andrew.cooper3@citrix.com>
- <ccf68f0f-6fd7-a9a4-ef72-03999d11035a@suse.com>
- <b655305f-293e-a0dc-ab39-36b0c9787433@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <22c4da5c-9ad7-68ba-b005-8ba18e584bf6@amd.com>
+Date: Thu, 4 May 2023 09:57:01 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.10.1
+Subject: Re: [RFC PATCH] xen/arm: arm32: Enable smpboot on Arm32 based systems
+To: Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
+References: <20230502105849.40677-1-ayan.kumar.halder@amd.com>
+ <2d764f29-2eb9-ecff-84cd-9baf12961c54@xen.org>
+ <e9a95271-021f-523a-770a-302c638bfe73@amd.com>
+ <556611a5-dc9a-8155-650d-327b6853f761@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <556611a5-dc9a-8155-650d-327b6853f761@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b655305f-293e-a0dc-ab39-36b0c9787433@citrix.com>
-X-ClientProxiedBy: LO6P265CA0016.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ff::7) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+X-ClientProxiedBy: LO2P265CA0322.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a4::22) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ0PR03MB5648:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcb543bc-21ef-4fc9-0d87-08db4c78c439
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MN0PR12MB6150:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e170e52-c7d5-4b73-e76a-08db4c7d89b5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	xoiLXjy6P22MRQka85m4N4n3qTK0mpjyxch2PkmakTJF0xDNC1YuIscRAa7/SGbReZVKKis65RlsS8LlsTcUsTTQkxBkVmIpxAMDI69LFar19YYslQfnkmjAnSOkWE8QHY4i0hm/pJc3/QUuA7+l4MyNHJx5iSjgiQKDjaKDXeuzZGGLtTC2C7Q7qacBUYPwoJUuHTlo4LPnV6mxhG+EnfTn8dFcPfafi546PJa5ZOK7X809nRf5j7WbMFy4x7O5tALV8OpUbOrpKuLd/ta5YrnjRFlGtwNeZjgUUUapqHKrzT4MScLPF2lVTV4dFQc3BJVZ7jRAxswkd7Oet0CpFjOKnGMEfqLBI2DsjKI7PtlHY0pQ5ZnIdLc9pgLftJcnt52jb4HrnuV2p1CJdqD1f9bDT33GJDQsU+twn60deduFFk+43VgTbsG4ltn2QC27gBsT/qj0+Bi2YJcZTsfxFhsuRQfT9proW0w4EtS0aKWgrm7MtBUZyh2O4e476xIVzVsWMjcaBy0G0gVdaoy7EJ5CeVl5MKZtpSnyXIHiV3HWmAqtO5yfY5Hqt/RfzZW4
+	Pf1gvA9IXaWApc6aTTNxVBn+hHNVK2SY6nk4axFLBAZ45EeMT3l3YhTakMceUoFWrXnMus6PqtGCKgfvNkOOMjErm5jCwatLxuqXjxtbM87WoK+6C7ZbhNT0XfkF07csWkvdyPvTAiVy5k/SRRtvef6Ijs7O7dKCPG7oi1etKcXMwwMNf2/NJL9FRXkhMB4cgAuX9sjgqDRWoaPZrBDvmnTrZii2BoJU/Hz82waHM0zVD20TakSD/6m8KUV0RUWR6BiItOhin1sWAP+BQocb5pDSIEoLT9DDiWJ/UR3C0otX2A1SoWMbZ9IuBDZV4LZ6/JtpdClDZvq4ByW7e8CsEhAoZFfjEf+oigOs7dXrEbcu3UyguFPeAHPzQ/yRYU8XCavVQnPikIRHY8BzYhQalS+MvCxo350LoQboYWWEgB5h/1XwbjsEdGasD6qdDrOOEEZyfFiGzVLqUiEs5sIdsWYhVx+vBnvX5o3CIhVZBZJxQc+wcpFlY5y02ZF3UoK0kB53uWstSxW1VlbRYJqdS6yY1nE2My0j/u+0JLeL3j+bOcx+HSSGAmTTAUXIaVwmbOpCh2VMs/SNW8lglPJls5pW5qNQSaV5aP1klpfrESuiNZmQETTzM0g3Rcch2h+zPcNasNZqMQgTd9sAxf0yg47ZEeXMlefWZW1Xb2JtM9w1sG92uwal6hpNIeTb4D/p
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(39860400002)(366004)(376002)(136003)(396003)(346002)(451199021)(66899021)(33716001)(8936002)(26005)(8676002)(9686003)(6512007)(6506007)(6862004)(53546011)(2906002)(83380400001)(478600001)(186003)(4326008)(6666004)(85182001)(6486002)(6636002)(41300700001)(5660300002)(316002)(66946007)(66556008)(66476007)(54906003)(38100700002)(82960400001)(86362001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(39860400002)(366004)(346002)(396003)(451199021)(31686004)(4326008)(66476007)(66946007)(478600001)(966005)(66556008)(6666004)(6486002)(316002)(110136005)(36756003)(31696002)(83380400001)(53546011)(2616005)(6512007)(6506007)(26005)(8676002)(41300700001)(8936002)(2906002)(5660300002)(38100700002)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R1NmSFFhQ2JUKzRqcENaVWJIdUFtTTJTUVhscTFCZjNRcFBjeEJvZ1kzM095?=
- =?utf-8?B?a3ZXSlQ4QXg4TitKaXZQT0c0MjlaUVRpdmpwQUdPY3AvWFdtSktvdHRqY2da?=
- =?utf-8?B?SHdFMmFkS2Zlb3hSdXNNT3dpMnYxbmhpYVZNVnh3Q0JxemJsdTVHNTB3WHpD?=
- =?utf-8?B?OFhBTzhYWWhtQnBoTDFCeUN2cGFBTDNMWHdmeFpZZkViaXpnMW9sNk9veVRG?=
- =?utf-8?B?YVR0SnZhdVA3dERNRTNZQXdxa0c1NHFGZDJvbnd1Z3dMVmk1YXFRdVpxeXFj?=
- =?utf-8?B?NjM0dzVVTVJSSy9Lc1JXZ09FRmlqaHhSMjZnK1R0S0tVVVB1WnZOL1VpQ2lC?=
- =?utf-8?B?NngvVEtubHp6Y015SllMejJ2TnBzYmY5dXNKR3dzY1BxSWpPZmh5U1JyeFRI?=
- =?utf-8?B?ZVIwbXFKc2krQTU1YnpwUXJvNnFSeGVUQ3JCQ0ZGNXhHaGp6ZXcwUHlTUjJt?=
- =?utf-8?B?TWRQNkVzcXZhS2FPRzhOa0VMcGx4ajBTSU9UWERGY2xGMmtSNXJmRXlucXBC?=
- =?utf-8?B?eS9kdXBoTWYzY0Q5SkRuTW1rcGZ1QVUxVmtveUc2dHh6SThYa3NtYWRsVnM0?=
- =?utf-8?B?UEVZUTc3TTdnbFY0M3JYWmZJU05DSVpSVzJKanliSFY1aDl4bmZVNitqSWFl?=
- =?utf-8?B?VGdIa2FEaThkYjdoekpwaWFwWEZrd2JNdlFXVzA2V0pOcmVKYUY0SlgvM3J6?=
- =?utf-8?B?LzBTNTdXMStIWS8wOGNvZnVvei9iOGtkQUpXL0d2TlhRVjhxWWVWTEdKSXk1?=
- =?utf-8?B?L3d0TW9JOHRqYm4rOFFkMzFMcFBsemRLS3dFK0tyd2NhSFB1K2sxWFkrUlRh?=
- =?utf-8?B?U1gxK1NCUGJ2UDcwZE05OWFQVU14NnlFQ2t5RGlrbUE1RTVKMW9UUmFZVlh1?=
- =?utf-8?B?ZzRHUVhSaHVQcXF1ZlJJVWhsV3dpUTFMMFBGdzl4WWMyRElwb0d4RXM3NkRE?=
- =?utf-8?B?dm5tUGUraEVLVHhybU9pR3V5NjFJYUVJTUR2WDYxd0hDSG1jcDJpRTE0ellt?=
- =?utf-8?B?enVIRUtPTFFTRHl3SjlXNWpJQXBDMCtOR244ZURoK3RYUjRpSk5kS0pJTDly?=
- =?utf-8?B?Y3Z5R0dOWkdhaUZGR1puL01XVFJiQUJkRnVLdTVuNUFDVm9VTGU2c1hzdmNG?=
- =?utf-8?B?V2t3eXA4ZTVQNVhCQ1ZsNmNRdG1hTmsrN0JXV0tjbTlvWXNveVRLeXQ5aUFG?=
- =?utf-8?B?WXUxZTRiSERmLy9NOWIvZ1V1SG50eVR4aFpmYUM3UUhxWFJwaDZqTW5TSHhs?=
- =?utf-8?B?aWVsZ2FmN0lPQ3o0U0xoUktSN1BmaTc0RUFNT0hWRytJOWIrWEdmMFZyT3Nx?=
- =?utf-8?B?YnFnZDBQME02TkNpQlExS3hEaGlZUnlJQUsrTHRwQ2JLMnk1c1NjSzZHRDlQ?=
- =?utf-8?B?eWJKTzlaWHRkM1Erdy9iNG42WGZFUFMwM3REaWZlY0t4eGMrc0tmR2dwNUJJ?=
- =?utf-8?B?dGtpQ0lBdjRLdCtxUVQxUEhCZjNVNG5SSWZQU2pUNk81R3NhWkg3d3U4UEVB?=
- =?utf-8?B?cjdjb0dWMGhRWGVIZlNEeXB3a0xuZ1dERGNxMzZGZW0wOFhoK1pLUitydXlM?=
- =?utf-8?B?UnVmL3BwNjhYZGNUVndqMWhBRnN0WW5lWk4ycVRpdmJ2TlBHMEkvb0dGS21J?=
- =?utf-8?B?VkxBbWpjbnU5b0Y1Z1NtK1EycUZIdlpLRUFOa2lBaUNwU1JuT2dJV1VNa0Zt?=
- =?utf-8?B?ZmROZm55REpvc0grNm85QitmdlVlZm00cWdHMFRSL3JuYjBqUmxPOFJjRHJ6?=
- =?utf-8?B?VHFqWkp6djRUYW1yOTM0aDh6bU0zbWVrNXViZytobjFrMjg4UGF0NWpBZTAw?=
- =?utf-8?B?c1Z5Q2hObGJWWUFFNWtPWHJkNXlVbTRYOGNtQS8yNitYTTJZSjZpTnRoY3hs?=
- =?utf-8?B?NWtNUkNjNk1QUzUxamRGeGN4bERpQ1hZUmxJR1NWdUp4UXdvSEM2angzSy9s?=
- =?utf-8?B?dWpvT0pyT2NYeVN1RGlPQnNldk1obzRUOS9LK0o5cFA5MzBkVlN1anZKQ2xO?=
- =?utf-8?B?eWpXZncvOWtpNzJXYlVvMTdNRWt1blQxTmdSam5WbFhCUkV1M3Z5dW1ZcVhS?=
- =?utf-8?B?NzQxQnYrVzZ6NzZnRGRXZ1p6TXFwVjQrK01seWw1eXR1MUdsUGd4K0FFci9X?=
- =?utf-8?Q?7cgHu1TSS6pbN8Rmhv1I6aqvZ?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	ATQJZC+NXqsUJTIB/C93uEsActuBsUDUI1H9PtsN43fczgFz9LN2mYkuMECjsCK+ntQu99Bg2mgZqjj6ZzmfXv6ZMN0HgW3/uB7hGrvnTugY/ljwfvg/EzpzLF9kAT6ufUigxFjs2ROi+LQZrq/7K8MZlnRsJsWujd9TcWWe1AsTNlZuHtsybrgZSxbLzyHKUkJkHTFCkTPiqfrgxHe3POV+uqEppxPL3Pv2CqHBWiGaBo2KSnKwZ93bgHp3IYsfVxMN902tfmuEjak1kq2DfWu6GP2pBW97NG+msxTz73khSYT07N3c1C5qSyS48j4298qA0u8dXivlyb9AuCKW37ezDBi28zVk+8/XXXj1Z9mKxLQRkk9aL6FRPO1ViBVywc4un03fNjWcCWqPNLypYIicAHlQ/hzx5njUZqK3JFpYs8I32wXVh+k99QgAae54jAvVuLEDSs+3z0aDUk0ngmyJHQGcBHlQ15nEKqJIJ5XJVrMKeGQo15zCK2ROTWBRDIc3v4y2iLYnm7GFqsxzvTxNExJJ+jiDB8zo5Hmz+RVtIAUIXcDKCMkYgP6VGU8Tp7rqGR0ffk8jjSuJNYzsOKxozf/ToB7fOquhryh29xo9kpJx117tmqS3ppvmUAQQFitFdfe+3zUtePuzrBAlSYy6HfuoByqtF/nseMOp/84/hRDw7fFjXVzd8JVkgd8qzG2dpx00TU9RJthIzpgQV4Jm5pDLZKEomdRrSDRtrM97nljFmrMTcGDKXK4S8+9URZ36q5LkkvGCUMLM/yFwN9XDpKrD5d5RlmBHKnqEs41BGS0w9NXnmhfz9ORPVaZI
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcb543bc-21ef-4fc9-0d87-08db4c78c439
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+	=?utf-8?B?YTFhT1NZcVFwVUNXcHBPQ1VJWm5nV2I0RGZpNTh1MDlQL2FiT3FOcnRaQlhH?=
+ =?utf-8?B?REU3RGJSUElmRTFSbUJBZTZWOEV0T3FUTUZ6NXRyb2RvNmc3cCtQbmlZcmd4?=
+ =?utf-8?B?cWVRM3AybytSRU9pVWx4cTUwQUZCZ3V5bElBTEpYUnVSQW1jWmR6RGZCcWxJ?=
+ =?utf-8?B?QTFJN2p5RHdGaFZMSHpuSnFhSlhkWjJqVmNuN3JaS3k1aHZldm9NUGwyRHRv?=
+ =?utf-8?B?MW4vZ2VXWW9OZkE1K2JSTXBPRms1ejI0bFpMMUV2QzZYWXlFekpqcVR1ZmFW?=
+ =?utf-8?B?V2V3eHR1VkF4SWEzdUUwb09BNE9PcGlKS29CYlJEenRNQlFRZ2FFSGwzNVpV?=
+ =?utf-8?B?RWIzYXk0ZzNodGtENFZsMk5zajlyYnFVNnNrWjNiUmMxU1I2L01wNWlSajZx?=
+ =?utf-8?B?bHU3azhGWmlLaE5LYkJqNlk5a1dqd1FWYkI2cXJUVFpORHl4eW1rMlNLbzMz?=
+ =?utf-8?B?STc2VjljL1N1QWhscVNTUVhWbGJTOUF6YzZPd3NUNm1Qa3hLTlBqM2MzWEln?=
+ =?utf-8?B?KzlmTURWeVRuT3lQQW1rcEtDK3hYOFNUNUlSbGkyck0vNzE3MzB0TkZLRmhp?=
+ =?utf-8?B?QTQ1YUd4YUwrN1V5S3F3VFdkZ2tDcmNXNGx0T0o5OHNwTUR3TFk2UXlic0wr?=
+ =?utf-8?B?U0pFcTViWFA0RHRGTS9UVFVlSjhBYnpZYytZMHhkVGFmUDRaMm5rOWxxVmxF?=
+ =?utf-8?B?Uy82cUx6bkhoYStPT0g4ZWtQUzJPUHB0VWNCYkVnZFhFVDdCQThuSEZCN0oz?=
+ =?utf-8?B?UkJ3dnZocmVEdkhuSDIxbTNmakh2MnkreFVodzl0azBadlJiWmNNL0dVdVIv?=
+ =?utf-8?B?TXgxdGxSM0lIbko2NDdDbWNhV1VTN3F1L2lLRUpnRmxBWURhMnRhdTRzMVpJ?=
+ =?utf-8?B?b2VWdmRBS21YKzczcW1pTjdTQXN4Qk85TE8rcnRkR21MU2JrSFhVeHVXckVi?=
+ =?utf-8?B?ZHQ2T3lmRldqekNIRGwzVDNZVWNBcEtSWFc2cGdPRGtHWnFpVUh3RmViU0NH?=
+ =?utf-8?B?ZEdKeXNiQmcxMTIzOVQ5dlVDU1JpdzVlakV2YjE5U3FTcklmQzlaNWdWQkZt?=
+ =?utf-8?B?QldzUElmcnBFRVBpRS9XL2lvZkpZVVpTWTM0QzU4dFI0NlF6VldTM0JIbStR?=
+ =?utf-8?B?OXhKNmNNMW9OMVd3Mml0UXROM3U0YU1wdTNUVWlEV290OUNwWTZoNHpuVjZH?=
+ =?utf-8?B?UWVPQyt3T3FId2Z5UU1wVmZTRkprVXJuSWgxdlQvVmpiMkczbEhCNFBMckJX?=
+ =?utf-8?B?TnlmVDRxcjBRZkFkVHFzWDhHdHUxWDZqSjhvalZlMW1FV2JSMDcvTklRNkc0?=
+ =?utf-8?B?aDFQcFkrbVplQmhma3pQM2dxOEtyNW8rZ2l1RmdiVVlNaW5TUm5FeFhqdk5i?=
+ =?utf-8?B?VlU2WVZzc0ZlcFdEdUprbHR1WHl1K1VWd2VQZEFNdTRxTVB1TkpPL01yd1Q5?=
+ =?utf-8?B?V0drTThRV0M4d3FqeG50T1RLY2Qxa0t2cHVlUjRVb1dESzZLemRmVlYvTmZG?=
+ =?utf-8?B?SFB1QmV5VnZBYTk1eHdQVlpVQUw5T3J1Q1BKMXlTVUhwZUVqNEdkUTcxWnR6?=
+ =?utf-8?B?Q25WWkxXb1NtUmRjNHBIdE9vM0E1eE1MOWVoeDZvaXdBTTRQQ1ErYWJMejFL?=
+ =?utf-8?B?TTZDVVZBdU5OaWVabUM1ak84WnVjTXFuckRPMEZVQUs3Qzk1eDRZais2R2FY?=
+ =?utf-8?B?bU8ySlhDQTJTQVgzMkdrUVNBMzIva1JxRzhaV0owT1FqeExXZ3FvTmlITlFh?=
+ =?utf-8?B?MUQzTjFjQUxheHVrOXRTUnlyMW54NE5NUGJjYlh5a2VHNnZva3hVcUpQMGpj?=
+ =?utf-8?B?RjRDMEFWTmc4dmJ4Wm5vNFVibFZrWkdkTTY1dHdpVkJTUDBFb1dIUTczbUgv?=
+ =?utf-8?B?LytSbmdTU0JpWDN4OUl5VzZaeHRkYlBqSDFkUXNkM2g0MlRXN2lISDdpQ1oz?=
+ =?utf-8?B?TFUwSzVyR1ZiOHhibG1lenZTbTMzb0c4WXk4a2tpMGUzZy9OR3ExVDlzZ1F6?=
+ =?utf-8?B?VC9ET3VJK0ZCMUJOZTVnQ3VKVlVET0U2S2E1NFFpZ0RETXh3azRNYkErSWZ4?=
+ =?utf-8?B?YnBwRVJKdkdxMWpkLytFK1l0bmEzWWc4RDF4OGt5b0dlMkVxd2Y0d0UzZGpB?=
+ =?utf-8?Q?tRB0fPFHouoZfUjnMVofDxjz3?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e170e52-c7d5-4b73-e76a-08db4c7d89b5
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2023 08:22:57.6547
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2023 08:57:07.0618
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zft3jmgwPQVZUK+nupfBR18LSv2muX4ZRF6JLqM1wXg1t6es59eUvXPkk3m2JLIMq/pc7XiK29miM/OBqMLinw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5648
+X-MS-Exchange-CrossTenant-UserPrincipalName: G61RrDPaAk7D1HDfQB8/3qo6By6bTewltqiyqgNxQ3kHxEqsXhOsa5YYfmtMUvD9pEivNDdfY9F/hh/VLA7TVw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6150
 
-On Thu, May 04, 2023 at 09:08:02AM +0100, Andrew Cooper wrote:
-> On 04/05/2023 8:08 am, Jan Beulich wrote:
-> > On 03.05.2023 20:58, Andrew Cooper wrote:
-> >> Loading microcode can cause new features to appear.
-> > Or disappear (LWP)? While I don't think we want to panic() in this
-> > case (we do on the S3 resume path when recheck_cpu_features() fails
-> > on the BSP), it would seem to me that we want to go a step further
-> > than you do and at least warn when a feature went amiss. Or is that
-> > too much of a scope-creeping request right here?
-> 
-> You're correct that I ought to discuss the disappear case.  But like
-> livepatching, it's firmly in the realm of "the end user takes
-> responsibility for trying this in their test system before running it in
-> production".
-> 
-> For LWP specifically, we ought to explicitly permit its disappearance in
-> recheck_cpu_features(), because this specific example is known to exist,
-> and known safe as Xen never used or virtualised LWP functionality. 
-> Crashing on S3
 
-Printing disappearing features might be a nice bonus, but could be
-done from the tool that loads the microcode itself, no need to do such
-work in the hypervisor IMO.
+On 03/05/2023 18:43, Julien Grall wrote:
+> Hi Ayan,
+Hi Julien,
+>
+> On 03/05/2023 17:49, Ayan Kumar Halder wrote:
+>>
+>> On 03/05/2023 08:40, Julien Grall wrote:
+>>> Hi,
+>> Hi Julien,
+>>>
+>>> Title: Did you mean "Enable spin table"?
+>> Yes, that would be more concrete.
+>>>
+>>> On 02/05/2023 11:58, Ayan Kumar Halder wrote:
+>>>> On some of the Arm32 based systems (eg Cortex-R52), smpboot is 
+>>>> supported.
+>>>
+>>> Same here.
+>> Yes
+>>>
+>>>> In these systems PSCI may not always be supported. In case of 
+>>>> Cortex-R52, there
+>>>> is no EL3 or secure mode. Thus, PSCI is not supported as it 
+>>>> requires EL3.
+>>>>
+>>>> Thus, we use 'spin-table' mechanism to boot the secondary cpus. The 
+>>>> primary
+>>>> cpu provides the startup address of the secondary cores. This 
+>>>> address is
+>>>> provided using the 'cpu-release-addr' property.
+>>>>
+>>>> To support smpboot, we have copied the code from 
+>>>> xen/arch/arm/arm64/smpboot.c
+>>>
+>>> I would rather prefer if we don't duplicate the code but instead 
+>>> move the logic in common code.
+>> Ack
+>>>
+>>>> with the following changes :-
+>>>>
+>>>> 1. 'enable-method' is an optional property. Refer to the comment in
+>>>> https://www.kernel.org/doc/Documentation/devicetree/bindings/arm/cpus.yaml 
+>>>>
+>>>> "      # On ARM 32-bit systems this property is optional"
+>>>
+>>> Looking at this list, "spin-table" doesn't seem to be supported
+>>> for 32-bit systems. 
+>>
+>> However, looking at 
+>> https://developer.arm.com/documentation/den0013/d/Multi-core-processors/Booting-SMP-systems/SMP-boot-in-Linux 
+>> , it seems "spin-table" is a valid boot mechanism for Armv7 cpus.
+>
+> I am not able to find the associated code in Linux 32-bit. Do you have 
+> any pointer?
 
-> >
-> >> @@ -677,6 +678,9 @@ static long cf_check microcode_update_helper(void *data)
-> >>          spin_lock(&microcode_mutex);
-> >>          microcode_update_cache(patch);
-> >>          spin_unlock(&microcode_mutex);
-> >> +
-> >> +        /* Refresh the raw CPU policy, in case the features have changed. */
-> >> +        calculate_raw_cpu_policy();
-> > I understand this is in line with what we do during boot, but there
-> > and here I wonder whether this wouldn't better deal with possible
-> > asymmetries (e.g. in case ucode loading failed on one of the CPUs),
-> > along the lines of what we do near the end of identify_cpu() for
-> > APs. (Unlike the question higher up, this is definitely only a
-> > remark here, not something I'd consider dealing with right in this
-> > change.)
-> 
-> Asymmetry is an increasingly theoretical problem.  Yeah, it exists in
-> principle, but Xen has no way of letting you explicitly get into that
-> situation.
-> 
-> This too falls firmly into the "end user takes responsibility for
-> testing it properly first" category.
-> 
-> We have explicit symmetric assumptions/requirements elsewhere (e.g. for
-> a single system, there's 1 correct ucode blob).
-> 
-> We can acknowledge that asymmetry exists, but there is basically nothing
-> Xen can do about it other than highlight that something is very wrong on
-> the system.  Odds are that a system which gets into such a state won't
-> survive much longer.
+Unfortunately, no.
 
-Would it make sense to only update the CPU policy if updated ==
-nr_cores?
+I see that in linux, "spin-table" support is added in 
+arch/arm64/kernel/smp_spin_table.c. So, there seems to be no Arm32 
+support for this.
 
-Thanks, Roger.
+>
+>>
+>>
+>>> Can you point me to the discussion/patch where this would be added?
+>>
+>> Actually, this is the first discussion I am having with regards to 
+>> adding a "spin-table" support on Arm32.
+>
+> I was asking for the discussion on the Device-Tree/Linux ML or code.
+> I don't really want to do a "spin-table" support if this is not even 
+> supported in Linux.
+
+I see your point. But that brings me to my next question, how do I parse 
+cpu node specific properties for Arm32 cpus.
+
+In 
+https://www.kernel.org/doc/Documentation/devicetree/bindings/arm/cpus.yaml 
+, I see some of the properties valid for Arm32 cpus.
+
+For example:-
+
+secondary-boot-reg
+rockchip,pmu
+
+Also, it says "additionalProperties: true" which means I can add platform specific properties under the cpu node. Please correct me if mistaken.
+
+My cpu nodes will look like this :-
+
+         cpu@1 {
+             device_type = "cpu";
+             compatible = "arm,armv8";
+             reg = <0x00 0x01>;
+             enable-method = "spin-table";
+             amd-cpu-release-addr = <0xEB58C010>; /* might also use "secondary-boot-reg" */
+             amd-cpu-reset-addr = <0xEB58C000>;
+             amd-cpu-reset-delay = <0xF00000>;
+             amd-cpu-re
+             phandle = <0x03>;
+         };
+
+         cpu@2 {
+             device_type = "cpu";
+             compatible = "arm,armv8";
+             reg = <0x00 0x02>;
+             enable-method = "spin-table";
+             amd-cpu-release-addr = <0xEB59C010>; /* might also use "secondary-boot-reg" */
+             amd-cpu-reset-addr = <0xEB59C000>;
+             amd-cpu-reset-delay = <0xF00000>;
+             amd-cpu-re
+             phandle = <0x03>;
+         };
+
+If the reasoning makes sense, then does the following proposed change 
+looks sane ?
+
+diff --git a/xen/arch/arm/arm32/smpboot.c b/xen/arch/arm/arm32/smpboot.c
+index e7368665d5..0b281edb9d 100644
+--- a/xen/arch/arm/arm32/smpboot.c
++++ b/xen/arch/arm/arm32/smpboot.c
+@@ -10,10 +10,7 @@ int __init arch_smp_init(void)
+
+  int __init arch_cpu_init(int cpu, struct dt_device_node *dn)
+  {
+-    /* Not needed on ARM32, as there is no relevant information in
+-     * the CPU device tree node for ARMv7 CPUs.
+-     */
+-    return 0;
++    return platform_cpu_init(cpu, dn);
+  }
+
+  int arch_cpu_up(int cpu)
+diff --git a/xen/arch/arm/include/asm/platform.h 
+b/xen/arch/arm/include/asm/platform.h
+index d03b261ce8..5cd7af4d0e 100644
+--- a/xen/arch/arm/include/asm/platform.h
++++ b/xen/arch/arm/include/asm/platform.h
+@@ -18,6 +18,7 @@ struct platform_desc {
+      /* SMP */
+      int (*smp_init)(void);
+      int (*cpu_up)(int cpu);
++    int (*cpu_init)(int cpu, struct dt_device_node *dn);
+  #endif
+      /* Specific mapping for dom0 */
+      int (*specific_mapping)(struct domain *d);
+diff --git a/xen/arch/arm/platform.c b/xen/arch/arm/platform.c
+index a820665020..ed54b68c20 100644
+--- a/xen/arch/arm/platform.c
++++ b/xen/arch/arm/platform.c
+@@ -95,6 +95,14 @@ int __init platform_specific_mapping(struct domain *d)
+  }
+
+  #ifdef CONFIG_ARM_32
++int __init platform_cpu_init(int cpu, struct dt_device_node *dn)
++{
++    if ( platform && platform->cpu_init )
++        return platform_cpu_init(cpu, dn); /* parse platform specific 
+cpu properties */
++
++    return 0;
++}
++
+  int platform_cpu_up(int cpu)
+  {
+      if ( psci_ver )
+
+
+Let me know your thoughts, please.
+
+Kind regards,
+
+Ayan
+
+>
+> Cheers,
+>
 
