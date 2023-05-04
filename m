@@ -2,56 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E93006F65B2
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 09:28:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529575.824086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE5546F65B5
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 09:29:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529578.824097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puTN1-0007mn-PC; Thu, 04 May 2023 07:27:19 +0000
+	id 1puTOY-0008Kj-4w; Thu, 04 May 2023 07:28:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529575.824086; Thu, 04 May 2023 07:27:19 +0000
+Received: by outflank-mailman (output) from mailman id 529578.824097; Thu, 04 May 2023 07:28:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puTN1-0007jm-MQ; Thu, 04 May 2023 07:27:19 +0000
-Received: by outflank-mailman (input) for mailman id 529575;
- Thu, 04 May 2023 07:27:18 +0000
+	id 1puTOY-0008Ha-2E; Thu, 04 May 2023 07:28:54 +0000
+Received: by outflank-mailman (input) for mailman id 529578;
+ Thu, 04 May 2023 07:28:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=evI0=AZ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1puTN0-0007jg-8p
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 07:27:18 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2061a.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::61a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zFwM=AZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1puTOW-0008HO-5M
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 07:28:52 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 171caca3-ea4d-11ed-8611-37d641c3527e;
- Thu, 04 May 2023 09:27:14 +0200 (CEST)
-Received: from DM6PR13CA0003.namprd13.prod.outlook.com (2603:10b6:5:bc::16) by
- CY5PR12MB6405.namprd12.prod.outlook.com (2603:10b6:930:3e::17) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6340.31; Thu, 4 May 2023 07:27:11 +0000
-Received: from DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:bc:cafe::94) by DM6PR13CA0003.outlook.office365.com
- (2603:10b6:5:bc::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.9 via Frontend
- Transport; Thu, 4 May 2023 07:27:11 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT064.mail.protection.outlook.com (10.13.172.234) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6363.26 via Frontend Transport; Thu, 4 May 2023 07:27:11 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 4 May
- 2023 02:27:10 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 4 May
- 2023 02:27:10 -0500
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 4 May 2023 02:27:08 -0500
+ id 502288e7-ea4d-11ed-8611-37d641c3527e;
+ Thu, 04 May 2023 09:28:49 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4D94E2093F;
+ Thu,  4 May 2023 07:28:49 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 26172133F7;
+ Thu,  4 May 2023 07:28:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ljjEB7FeU2TREAAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 04 May 2023 07:28:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,105 +51,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 171caca3-ea4d-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NwPyUoFiPLy79x+V3gAUVNnuJ2u0KI35vP94nwvM/SaJBXAWZb9c37jU2Pokch9tRiD2GdxUhp3RO5CnVKKIXPmr4E28b8NSwFfcfdhxmzKZ2AMdxhgcqmmxCDeNX8nBOzQ6MCwIDaaeCQHGz4Rv8EysxCPlJTKzjJ1ynsEP7lrzIGgS/C5NYCazPZaVsqLbAYjO6xABrIv1KW59+7ySHjp6X3+a0S5wMGuOfZbA7hRmtT1aGfdgIfaDL6Y3sWX2urooLvF/oTwnwui4Cx1JL2nC4/i3Onr1MXzJXxXuapngnBMu+4CMb4+tMnOKDlZHEGiWpISsZdN/+fzL22Ql2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=piNITOBU4G5juGieXw/xT3ryw6m2OzxAGcoOcWNc/iw=;
- b=HHaj8lxxAIK2tFW68v0PHujjDhshCHYqhRkprRY7urzOJmeZvuCEpGuqNvfAJ9c62zilsYGl1s3nbN32KRxa6DEUskgNa7sr/1bXrJWiqCuu/0lm5pa8wKvlTS7wSUwEYCRxWd4beSbyYoyCVKU6y/NFBeB/0zYy+J/MGnip9Dqw6vLsj3GC3BKZWgb678GXRi9Rb+w5+0aqbZFsxiaOC/3G66t7ej+fhe055CmQlGKzWAL9wwyHINEkiHuUCu/PXJ4EMM+aNofs87pn3zN8/fl9y3EzGkDekeNhsG90/jp+KOwf7avDZd6ac1v4RNnzLZ46CzgpXn+SYQGa0UMJ0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=piNITOBU4G5juGieXw/xT3ryw6m2OzxAGcoOcWNc/iw=;
- b=OBZhlXOw8V74WbQ6zZcl/o9w1qQXUpmx1bPGfzrlLL8Jsl6pdGqFlhY8xTYAJP7DWc59DjQtKceV5gfVRxMmoBjvQTFOovO6wqMevWmkyGRwh3p288wyUpQ2L6sTUNB4zLf6RQDurBcUF66jQzxt4wZmsaQ2nz4UIWH7ebmI0+c=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <a5aae4d8-ffe8-bde5-9f3a-d1489e31b0d2@amd.com>
-Date: Thu, 4 May 2023 09:27:07 +0200
+X-Inumbo-ID: 502288e7-ea4d-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1683185329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ay238mjQf1ceO3a0O/KbE61dVumd3XZZUy4XAGxOU7M=;
+	b=WpRLtgl4xAFAqsK4cZW08WEZwX9+BFJ1rQaX4L28EDWJmsbGJJyNoPX46XCcNd7Ug7lqPr
+	TXSLcYMkOHf7h9l5yOIGEdtI/bV9YCnZ2ei3b3unvvuyIf1KfA8Nsptf7iF3PcDuM8yaW+
+	OoXCVklH1bO5qFeUjyLS5/2oClW4fBs=
+Message-ID: <b97e5159-7419-625d-d1e8-fc00c553a9dc@suse.com>
+Date: Thu, 4 May 2023 09:28:48 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
-Subject: Re: [XEN v6 02/12] xen/arm: Typecast the DT values into paddr_t
+Subject: Re: [PATCH v4 12/13] tools/xenstore: use generic accounting for
+ remaining quotas
 Content-Language: en-US
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
-	<wl@xen.org>, <rahul.singh@arm.com>
-References: <20230428175543.11902-1-ayan.kumar.halder@amd.com>
- <20230428175543.11902-3-ayan.kumar.halder@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20230428175543.11902-3-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT064:EE_|CY5PR12MB6405:EE_
-X-MS-Office365-Filtering-Correlation-Id: f634efe8-35b0-43aa-009e-08db4c70f9c5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	uk5LriQ8imUIgWFcpf5KoiCMPj0Rf0so0oPeAFhQJL7tpUr34CnJmUYAqxMJY5S6erwe0Xl/2AkWamXG68SrABUSx0Ynw7oyi26edk5K/dNFuV/XoppVqMrhZBTRUZLxQnlo0P3Ypw8C83rTSzw+UF9CBhSXJH0JU1tThWqjjKW6g/Q0lCrXGNkwiZyM3ejfQRcLZMDz0owHvyl9DNITtKYQ+2/L0lF1IA3AgoNQZHIcBbcGZ7zuvZRui/tqbYOzD3bb8DccM8AQaGvmc2XsFuB2UMq+qt3tVUTbiZoOxscHtPequQ0wd0GHUN2hczrWUl73Q4Yn2R+WaaNR9MX8YZC5JmF/7S6gShWEfdXyOeQ7RsSGv58RFqvmCTS8kyNxisLt2QvOTyPuPDk1mgT/G+gykePIci1LSSBNuFFmh9vyxr9w4C9rCgZmW5AvY7uiV+0VIADDgeSI2cv/J9GB3C3xei3sOTzag0GrtmkJGf4f+BoqP2OYE4LpSimT06NpegZht33zdFxldxhkMSzzDbjX+zzcFXoyok+q176mmLlEGwEUkpzEMkW2BoaTKW4LjzZwIjq9v5mOVFnYyQB/4dtIvazYB8GsTXBFWt0REqfOKN6UsUKFUaOQoAU5k59p0zudwSZ73SX9/hgVjDKXQS2kV7iXpn6MzpJyHqv+i9CCM7FCNqRTw8kUJm8G+aWxQkmgPwpzQGNsTrJqHZX2otyq6KfmHhaLEYvARApU/++SpDVQclY+Lx9LsNfqRtBDF4/eck5OsTywoSggLVFcjA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(136003)(346002)(396003)(451199021)(40470700004)(36840700001)(46966006)(70586007)(70206006)(82740400003)(356005)(316002)(4326008)(40460700003)(16576012)(478600001)(82310400005)(31696002)(110136005)(54906003)(36756003)(86362001)(186003)(40480700001)(53546011)(26005)(36860700001)(2616005)(5660300002)(44832011)(31686004)(7416002)(83380400001)(426003)(8676002)(8936002)(336012)(41300700001)(81166007)(47076005)(2906002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2023 07:27:11.2761
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f634efe8-35b0-43aa-009e-08db4c70f9c5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT064.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6405
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230405070349.25293-1-jgross@suse.com>
+ <20230405070349.25293-13-jgross@suse.com>
+ <e4f8a0e6-7a4c-3193-ce38-e43891f063ed@xen.org>
+ <da3b9daf-9358-2af8-edc3-4f74f9cc0c55@suse.com>
+In-Reply-To: <da3b9daf-9358-2af8-edc3-4f74f9cc0c55@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------omy7s3TeOwCTo65ysfZS0svu"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------omy7s3TeOwCTo65ysfZS0svu
+Content-Type: multipart/mixed; boundary="------------krxl8VYciXw4aVNwHwjYgAy3";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <b97e5159-7419-625d-d1e8-fc00c553a9dc@suse.com>
+Subject: Re: [PATCH v4 12/13] tools/xenstore: use generic accounting for
+ remaining quotas
+References: <20230405070349.25293-1-jgross@suse.com>
+ <20230405070349.25293-13-jgross@suse.com>
+ <e4f8a0e6-7a4c-3193-ce38-e43891f063ed@xen.org>
+ <da3b9daf-9358-2af8-edc3-4f74f9cc0c55@suse.com>
+In-Reply-To: <da3b9daf-9358-2af8-edc3-4f74f9cc0c55@suse.com>
 
+--------------krxl8VYciXw4aVNwHwjYgAy3
+Content-Type: multipart/mixed; boundary="------------Al8MzfbhTp0V99nba1sGjqRy"
 
-On 28/04/2023 19:55, Ayan Kumar Halder wrote:
-> 
-> 
-> The DT functions (dt_read_number(), device_tree_get_reg(), fdt_get_mem_rsv())
-> currently accept or return 64-bit values.
-> 
-> In future when we support 32-bit physical address, these DT functions are
-> expected to accept/return 32-bit or 64-bit values (depending on the width of
-> physical address). Also, we wish to detect if any truncation has occurred
-> (i.e. while parsing 32-bit physical addresses from 64-bit values read from DT).
-> 
-> device_tree_get_reg() should now be able to return paddr_t. This is invoked by
-> various callers to get DT address and size.
-> 
-> For fdt_get_mem_rsv(), we have introduced a wrapper named
-> fdt_get_mem_rsv_paddr() which will invoke fdt_get_mem_rsv() and translate
-> uint64_t to paddr_t. The reason being we cannot modify fdt_get_mem_rsv() as it
-> has been imported from external source.
-> 
-> For dt_read_number(), we have also introduced a wrapper named dt_read_paddr()
-> dt_read_paddr() to read physical addresses. We chose not to modify the original
-> function as it is used in places where it needs to specifically read 64-bit
-> values from dt (For e.g. dt_property_read_u64()).
-> 
-> Xen prints warning when it detects truncation in cases where it is not able to
-> return error.
-> 
-> Also, replaced u32/u64 with uint32_t/uint64_t in the functions touched
-> by the code changes.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+--------------Al8MzfbhTp0V99nba1sGjqRy
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-~Michal
+T24gMDMuMDUuMjMgMTY6MzksIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IE9uIDAzLjA1LjIz
+IDEyOjE4LCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+PiBPbiAwNS8wNC8yMDIzIDA4OjAzLCBK
+dWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4+ICtzdGF0aWMgdm9pZCBkb21haW5fYWNjX3ZhbGlk
+X21heChzdHJ1Y3QgZG9tYWluICpkLCBlbnVtIGFjY2l0ZW0gd2hhdCwNCj4+PiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgaW50IHZhbCkNCj4+PiArew0K
+Pj4+ICvCoMKgwqAgYXNzZXJ0KHdoYXQgPCBBUlJBWV9TSVpFKGQtPmFjYykpOw0KPj4+ICvC
+oMKgwqAgYXNzZXJ0KHdoYXQgPCBBUlJBWV9TSVpFKGFjY19nbG9iYWxfbWF4KSk7DQo+Pj4g
+Kw0KPj4+ICvCoMKgwqAgaWYgKHZhbCA+IGQtPmFjY1t3aGF0XS5tYXgpDQo+Pj4gK8KgwqDC
+oMKgwqDCoMKgIGQtPmFjY1t3aGF0XS5tYXggPSB2YWw7DQo+Pj4gK8KgwqDCoCBpZiAodmFs
+ID4gYWNjX2dsb2JhbF9tYXhbd2hhdF0gJiYgZG9taWRfaXNfdW5wcml2aWxlZ2VkKGQtPmRv
+bWlkKSkNCj4+PiArwqDCoMKgwqDCoMKgwqAgYWNjX2dsb2JhbF9tYXhbd2hhdF0gPSB2YWw7
+DQo+Pj4gK30NCj4+PiArDQo+Pj4gwqAgc3RhdGljIGludCBkb21haW5fYWNjX2FkZF92YWxp
+ZChzdHJ1Y3QgZG9tYWluICpkLCBlbnVtIGFjY2l0ZW0gd2hhdCwgaW50IGFkZCkNCj4+PiDC
+oCB7DQo+Pj4gwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgdmFsOw0KPj4+IC3CoMKgwqAgYXNz
+ZXJ0KHdoYXQgPCBBUlJBWV9TSVpFKGQtPmFjYykpOw0KPj4NCj4+IEkgdGhpbmsgdGhpcyBh
+c3NlcnQgc2hvdWxkIGJlIGtlcHQgYmVjYXVzZS4uLg0KPj4NCj4+PiAtDQo+Pj4gwqDCoMKg
+wqDCoCBpZiAoKGFkZCA8IDAgJiYgLWFkZCA+IGQtPmFjY1t3aGF0XS52YWwpIHx8DQo+Pg0K
+Pj4gLi4uIG9mIHRoaXMgY2hlY2suIE90aGVyd2lzZSwgeW91IHdvdWxkIGNoZWNrIHRoYXQg
+J3doYXQnIGlzIHdpdGhpbiB0aGUgYm91bmRzIA0KPj4gYWZ0ZXIgdGhlIHVzZS4NCj4gDQo+
+IE9rYXkuDQoNCkhtbSwgSSdtIG5vIGxvbmdlciBzdXJlIHRoaXMgaXMgYSBnb29kIHJlYXNv
+biB0byBkdXBsaWNhdGUgdGhlIGFzc2VydCgpLg0KDQpGb2xsb3dpbmcgdGhpcyByZWFzb25p
+bmcgSSdkIG5lZWQgdG8gcHV0IGl0IGludG8gZXZlbiBtb3JlIGZ1bmN0aW9ucy4gQW5kIGFu
+DQphc3NlcnQoKSB0cmlnZ2VyaW5nIGEgbGl0dGxlIGJpdCBsYXRlIGlzIG5vIHJlYWwgcHJv
+YmxlbSwgYXMgaXQgd2lsbCBhYm9ydA0KeGVuc3RvcmVkIGFueXdheS4NCg0KQWRkaXRpb25h
+bGx5IHdpdGggdGhlIGdsb2JhbCBhbmQgdGhlIHBlci1kb21haW4gYXJyYXlzIG5vdyBjb3Zl
+cmluZyBhbGwNCnBvc3NpYmxlIHF1b3RhcywgaXQgd291bGQgZXZlbiBiZSByZWFzb25hYmxl
+IHRvIGRyb3AgdGhlIGFzc2VydCgpcyBpbg0KZG9tYWluX2FjY192YWxpZF9tYXgoKSBjb21w
+bGV0ZWx5Lg0KDQoNCkp1ZXJnZW4NCg==
+--------------Al8MzfbhTp0V99nba1sGjqRy
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------Al8MzfbhTp0V99nba1sGjqRy--
+
+--------------krxl8VYciXw4aVNwHwjYgAy3--
+
+--------------omy7s3TeOwCTo65ysfZS0svu
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmRTXrAFAwAAAAAACgkQsN6d1ii/Ey/c
+YAf+MbaXkDJigZEt8y6Sh5KvAOMsl3S4KOLaM4KZgsGjgMA5S5O/tMI3FV7z97sF8UzOZ0naj7UH
+eBvjq+SCXbL4fXN4k812h3Nn2hSfEGugcsl9XWgBh+CFCUJS7Jf1KQ3wS1QF1/zgBjom/Kari62c
+EMVQaJVp0S+9QNDGlT+19mZFocfPxQerlUTp5+xr0kf9VBeMrijEK6i86VOmKyFg2K6ZkzRMmKTg
+KcDjmv8e8xgcU8QIZiwnftYZj7qE0wnFfuwf0hFFNnn+n7EhkM4bgUlMDxr22/3OpMmMRF1hGNFG
+B27d5HJ8qQz43E6Ha+IKnRogYxEPS2uhVMHCXp0dKw==
+=umYT
+-----END PGP SIGNATURE-----
+
+--------------omy7s3TeOwCTo65ysfZS0svu--
 
