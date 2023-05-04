@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBD456F725A
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:02:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529899.824947 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEF3F6F725C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:02:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529901.824960 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pueDh-00088a-40; Thu, 04 May 2023 19:02:25 +0000
+	id 1pueDj-0000Kp-2L; Thu, 04 May 2023 19:02:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529899.824947; Thu, 04 May 2023 19:02:25 +0000
+Received: by outflank-mailman (output) from mailman id 529901.824960; Thu, 04 May 2023 19:02:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pueDg-0007u5-LA; Thu, 04 May 2023 19:02:24 +0000
-Received: by outflank-mailman (input) for mailman id 529899;
- Thu, 04 May 2023 19:02:22 +0000
+	id 1pueDi-0000BF-ON; Thu, 04 May 2023 19:02:26 +0000
+Received: by outflank-mailman (input) for mailman id 529901;
+ Thu, 04 May 2023 19:02:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=srgM=AZ=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pueDe-00042j-9G
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:02:22 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ id 1pueDf-00042j-Vf
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:02:23 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32e2137c-eaae-11ed-b226-6b7b168915f2;
- Thu, 04 May 2023 21:02:21 +0200 (CEST)
+ id 33e3e5b7-eaae-11ed-b226-6b7b168915f2;
+ Thu, 04 May 2023 21:02:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +37,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32e2137c-eaae-11ed-b226-6b7b168915f2
-Message-ID: <20230504185937.088861348@linutronix.de>
+X-Inumbo-ID: 33e3e5b7-eaae-11ed-b226-6b7b168915f2
+Message-ID: <20230504185937.145906075@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1683226941;
+	s=2020; t=1683226943;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=waR3DpyQ6DyvK8jEESlEb5rxqBYC2I7FeZ3H8ZtIrVQ=;
-	b=HKYLcl9cklgr6YO5/NspFjC+D2CCt/ZYWzxxiOOGuCX7u/7IGOq81DQhVq9PvbBHY6Kpcr
-	SxWHo0Ub70GUTAFkoXjKOB1ZyWdtlCAv2pBsav0oFkFgcMqJgiDoblcu2Hnt6D2hLbDJE7
-	kec7wtFBfE1xoWI2cME3sJv8K73WrIvhYqzB8k1hCePY7f28tWiYPkzCL3lKJ1aAZjMvt+
-	kXyU82XPa0OHMGsQ8hlC+TxCd6BOdr1gglOHT1fZhwBJGZCjFBU2Yxs7+XALa+aaWrMaCV
-	mvw2zjNCImLQQhSEXScVL50CeJT6NF1GH6WIuPs8AGymg+ULRPU3wowu71D4Lw==
+	 references:references; bh=lJLvACyWoTrqBZOps4v6XbP7wlJ3d4Q7defz4e+9Zb8=;
+	b=M3KgFVyzFkR4ccZ70dYavQ5/yqmJzYsNUe2w4AYa1zmqPGpOGfvnO2dLe+bqfdSYVxHNmg
+	UzxBYDkuh0vO9FnTUv0U0boU0E1jTAuFuEPxGvjM1vNFxZkY4+YKEIRoL7asL6MLh7WY2k
+	YHroxEZc/MyAi6EghJhWG+wOe//5AznxGGSpRWucK1h/BnTyT75KngcAYt8WZjiMtq166b
+	mZZvUfn/tKwnN+lYf/c6UiDK6atXikbDlaDBZ4sMT8u+PU/SPukxmYsr0YlXnC0aFBugr6
+	4bUgvijH50TXxyxKZ9qydiyNaQwVfzl3UXTSijqX2pY50ezKH3gbSbXO2Pf/Zg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1683226941;
+	s=2020e; t=1683226943;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=waR3DpyQ6DyvK8jEESlEb5rxqBYC2I7FeZ3H8ZtIrVQ=;
-	b=XDnjEy7a3qUl/tWMxBUIj3PidEk2DRdxC5hulFnew5UcHpu5yRDRS/g5aolbe6p1RMLJCX
-	rQwCSliTpoNYDfAw==
+	 references:references; bh=lJLvACyWoTrqBZOps4v6XbP7wlJ3d4Q7defz4e+9Zb8=;
+	b=YUlyUuTQQYH6MyD4cTuFQt3gYiD8H4Dxlm3l2cVGkFebVjVj9D7krF98nosGppSH1sXEJ5
+	189JeF0cp5TwVnAA==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org,
@@ -92,80 +93,72 @@ Cc: x86@kernel.org,
  Mark Rutland <mark.rutland@arm.com>,
  Sabin Rapan <sabrapan@amazon.com>,
  "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-Subject:
- [patch V2 14/38] cpu/hotplug: Rework sparse_irq locking in bringup_cpu()
+Subject: [patch V2 15/38] x86/smpboot: Remove wait for cpu_online()
 References: <20230504185733.126511787@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Thu,  4 May 2023 21:02:21 +0200 (CEST)
+Date: Thu,  4 May 2023 21:02:22 +0200 (CEST)
 
 From: Thomas Gleixner <tglx@linutronix.de>
 
-There is no harm to hold sparse_irq lock until the upcoming CPU completes
-in cpuhp_online_idle(). This allows to remove cpu_online() synchronization
-from architecture code.
+Now that the core code drops sparse_irq_lock after the idle thread
+synchronized, it's pointless to wait for the AP to mark itself online.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 
 ---
- kernel/cpu.c |   28 +++++++++++++++++++---------
- 1 file changed, 19 insertions(+), 9 deletions(-)
+ arch/x86/kernel/smpboot.c |   26 ++------------------------
+ 1 file changed, 2 insertions(+), 24 deletions(-)
 ---
---- a/kernel/cpu.c
-+++ b/kernel/cpu.c
-@@ -558,7 +558,7 @@ static int cpuhp_kick_ap(int cpu, struct
- 	return ret;
- }
- 
--static int bringup_wait_for_ap(unsigned int cpu)
-+static int bringup_wait_for_ap_online(unsigned int cpu)
- {
- 	struct cpuhp_cpu_state *st = per_cpu_ptr(&cpuhp_state, cpu);
- 
-@@ -579,15 +579,12 @@ static int bringup_wait_for_ap(unsigned
+--- a/arch/x86/kernel/smpboot.c
++++ b/arch/x86/kernel/smpboot.c
+@@ -281,7 +281,6 @@ static void notrace start_secondary(void
+ 	 * half valid vector space.
  	 */
- 	if (!cpu_smt_allowed(cpu))
- 		return -ECANCELED;
--
--	if (st->target <= CPUHP_AP_ONLINE_IDLE)
--		return 0;
--
--	return cpuhp_kick_ap(cpu, st, st->target);
-+	return 0;
+ 	lock_vector_lock();
+-	/* Sync point with do_wait_cpu_online() */
+ 	set_cpu_online(smp_processor_id(), true);
+ 	lapic_online();
+ 	unlock_vector_lock();
+@@ -1110,20 +1109,6 @@ static int wait_cpu_initialized(unsigned
+ 	return 0;
  }
  
- static int bringup_cpu(unsigned int cpu)
+-/*
+- * Bringup step three: Wait for the target AP to reach set_cpu_online() in
+- * start_secondary().
+- */
+-static void wait_cpu_online(unsigned int cpu)
+-{
+-	/*
+-	 * Wait for the AP to mark itself online, so the core caller
+-	 * can drop sparse_irq_lock.
+-	 */
+-	while (!cpu_online(cpu))
+-		schedule();
+-}
+-
+ static int native_kick_ap(unsigned int cpu, struct task_struct *tidle)
  {
-+	struct cpuhp_cpu_state *st = per_cpu_ptr(&cpuhp_state, cpu);
- 	struct task_struct *idle = idle_thread_get(cpu);
+ 	int apicid = apic->cpu_present_to_apicid(cpu);
+@@ -1170,16 +1155,9 @@ int native_cpu_up(unsigned int cpu, stru
  	int ret;
  
-@@ -606,10 +603,23 @@ static int bringup_cpu(unsigned int cpu)
+ 	ret = native_kick_ap(cpu, tidle);
+-	if (ret)
+-		goto out;
+-
+-	ret = wait_cpu_initialized(cpu);
+-	if (ret)
+-		goto out;
+-
+-	wait_cpu_online(cpu);
++	if (!ret)
++		ret = wait_cpu_initialized(cpu);
  
- 	/* Arch-specific enabling code. */
- 	ret = __cpu_up(cpu, idle);
--	irq_unlock_sparse();
- 	if (ret)
--		return ret;
--	return bringup_wait_for_ap(cpu);
-+		goto out_unlock;
-+
-+	ret = bringup_wait_for_ap_online(cpu);
-+	if (ret)
-+		goto out_unlock;
-+
-+	irq_unlock_sparse();
-+
-+	if (st->target <= CPUHP_AP_ONLINE_IDLE)
-+		return 0;
-+
-+	return cpuhp_kick_ap(cpu, st, st->target);
-+
-+out_unlock:
-+	irq_unlock_sparse();
-+	return ret;
- }
- 
- static int finish_cpu(unsigned int cpu)
+-out:
+ 	/* Cleanup possible dangling ends... */
+ 	if (x86_platform.legacy.warm_reset)
+ 		smpboot_restore_warm_reset_vector();
 
 
