@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41AD16F7338
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:39:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530043.825316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E48796F733D
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:39:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530040.825275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puenk-0007bL-DT; Thu, 04 May 2023 19:39:40 +0000
+	id 1puenh-0006Sy-1o; Thu, 04 May 2023 19:39:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530043.825316; Thu, 04 May 2023 19:39:40 +0000
+Received: by outflank-mailman (output) from mailman id 530040.825275; Thu, 04 May 2023 19:39:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puenk-0007Sm-6t; Thu, 04 May 2023 19:39:40 +0000
-Received: by outflank-mailman (input) for mailman id 530043;
- Thu, 04 May 2023 19:39:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pueng-0006K7-Sy; Thu, 04 May 2023 19:39:36 +0000
+Received: by outflank-mailman (input) for mailman id 530040;
+ Thu, 04 May 2023 19:39:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jZxo=AZ=citrix.com=prvs=48139b1ea=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1puenj-00069W-3g
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:39:39 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 672ce9c0-eab3-11ed-8611-37d641c3527e;
- Thu, 04 May 2023 21:39:37 +0200 (CEST)
+ id 1puenf-00069l-T7
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:39:35 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65d9d6e2-eab3-11ed-b226-6b7b168915f2;
+ Thu, 04 May 2023 21:39:35 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,55 +36,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 672ce9c0-eab3-11ed-8611-37d641c3527e
+X-Inumbo-ID: 65d9d6e2-eab3-11ed-b226-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1683229177;
+  d=citrix.com; s=securemail; t=1683229175;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=9R0YIYGzst7iA1qXqPxFQ9NZvJDOOPfxgM5CuGK9bi0=;
-  b=bikuqNEzzDFQ2Sf6I2FAkoVPskOLa973sYNn8vEWFMOGFl5lyQrQ30u5
-   /EvVrVGWRbweLgs+i7XQUjnYfXHVTIXd4p4/DevXudG10pLMYhfYpkXPR
-   PAg1dK2hch0j0mGjogzNY5HlVx/oy0M8kYNXuVd2LpG1AOtgp2vPOf6vB
-   w=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=Jr5O2ho0oh2dy6YyNewvIFzCxvBrXOJlZmgmV269Q/k=;
+  b=bs2AD/Fs7u8FRnFxMUlW3QRP1fUgBjsvmJorU8NJ2LZzdeKpZyrIfaSb
+   rQ2yZAo16A/RlrVY1gQts8UuiF7iGAYzQCItZCYZL0ULaQrhMQKMFzNtb
+   eoYjBsI3CgDXHg1XQhIOH1X6K3KnJgElM2PMXI6s+2SOKNi1vd1xQ4dxF
+   k=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 107797747
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 107931611
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:+Wvn1ajqcahEGyv37WPFhN36X161ERAKZh0ujC45NGQN5FlHY01je
- htvWz2HafyDMGTye4twad+0o0gB75PXm4dqHQptpCo8Qigb9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsy+qWj0N8klgZmP6sT4QeCzyN94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tRbAwstaBynpt7umoPjceNSlNsvL/vSadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
- pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27B/
- j2ZrjumXk5y2Nq3zBiv6U2mh+v1hWD3XcFPRIGqyO86nwjGroAUIEJPDgbqyRWjsWauVtQaJ
- 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O88Q5RyJy6HUyx2EHWVCRTlEAPQ5sOcmSDps0
- UWG9+4FHhQ27ufTEyjEsO7J83XrY3N9wXI+iTEsDiA+w9/vhKAP1kj+Fu1pLryqgt7HIGSlq
- 9yVlxTSl4n/nOZSifXgpQmd023zznTaZlVrv1uKBwpJ+is8Pdf4PNLwtDA3+N4adO6kok+9U
- G/ociR0xMQHFtmzmSOEW43h95n5tq/eYFUwbbOCdqTNFghBGFb5J+i8GBkkeC9U3j8sIFcFm
- nP7twJL/4N0N3C3d6JxaI/ZI510nfO6T4q5D6GMNYUmjn1NSeN61Hs2OR74M57FySDAbp3Ty
- b/EKJ3xXB72+IxszSasRvd17ILHMhsWnDuJLbiilkTP7FZrTCLNIVvzGAfUP79RAWLtiFm9z
- uuzwOPQlk4BDbekOXGImWPRRHhTRUUG6VnNg5Q/Xoa+zsBOQgnN19e5LWsdRrFY
-IronPort-HdrOrdr: A9a23:DDCJwqG4+wEztRPFpLqELMeALOsnbusQ8zAXPiBKJCC9E/bo8v
- xG+c5w6faaslkssR0b9+xoW5PwI080l6QU3WB5B97LMDUO0FHCEGgI1/qA/9SPIUzDHu4279
- YbT0B9YueAcGSTW6zBkXWF+9VL+qj5zEix792uq0uE1WtRGtldBwESMHf9LmRGADNoKLAeD5
- Sm6s9Ot1ObCA8qhpTSPAhiYwDbzee77a7bXQ==
-X-Talos-CUID: =?us-ascii?q?9a23=3AnvwvZWqHZzaKT4gwBTMBk1PmUYMOSV3bwFPxHxf?=
- =?us-ascii?q?iOD5SQoOHVlOTypoxxg=3D=3D?=
-X-Talos-MUID: 9a23:yZW1TQnAhHGdUB5UFoWydnpnFu1z3K6vDHoV0pkD+JTUCT5OKmeC2WE=
+IronPort-Data: A9a23:kJpQzKuPcYcZMGFx809kXMhjeOfnVCdeMUV32f8akzHdYApBsoF/q
+ tZmKTyCa6yKMGX2foh0aY209hkDu5SAxtFrHQVkpHsxHigR+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
+ Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj6Vv0gnRkPaoQ5AKGyyFPZH4iDfrZw0XQE9E88tGSH
+ 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
+ Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
+ fMwEz8saE25nNiPkY2FStA3r50DE5HxBdZK0p1g5Wmx4fcORJnCR+PB5MNC3Sd2jcdLdRrcT
+ 5NHM3w1Nk2GOkARfA5NU/rSn8/x7pX7WxRepEiYuuwc5G/LwRYq+LPsLMDUapqBQsA9ckOw/
+ zqZrj+gXEhDXDCZ4WSP9nzzud3dpwDce4NIN7GX7uYyonTGkwT/DzVJDADm8JFVkHWWRNZ3O
+ 0ESvC00osAa5EGtC9XwQRC8iHqFpQIHHcpdFfUg7wOAwbaS5ByWbkAGRDNcbN0ttOctWCcnk
+ FSOmrvU6SdH6ePPDyjHr/HN8G30YHJORYMfWcMaZTAKwt++mpoJt0PwcNZaS4fsruKtAwill
+ lhmsxMCa6UvYd8jjvvrpgie2WLz+fAlXSZuuFyJAzvNAhdRIdf8Otf2sQWzAeNodt7xc7WXg
+ JQTdyFyBsgqBIrFqiGCSf5l8FqBt6fca220bbKC8vAcG9WRF52LJ9o4DMlWfhsBDyr9UWaBj
+ LXvkQ1Q/oRPG3ChcLV6ZYm8Y+xzk/i7T467CqmFNoERCnSUSDJrAQk0PRLAt4wTuBFEfV4D1
+ WezLp/3UCdy5VVPxzuqXeYNuYIWKtQF7TqLH/jTlk33uYdykVbJEd/pxnPSNLFmhE5FyS2Jm
+ +ti2zyikUgEDrCkOHKPrub+7zkidBAGOHw/kOQPHsbrH+asMDtJ5yP5qV/5R7FYog==
+IronPort-HdrOrdr: A9a23:dcGjLqjOHA+0jiMQx7THnu5Q8nBQXg4ji2hC6mlwRA09TyX4rb
+ HKoB1/73LJYVkqN03I9ervBED4ewK5yXct2/h3AV7AZniFhILLFu1fBOLZqlWLJ8SZzI9gPM
+ 9bGJSWY+eAbmSS4/yb3OFte+xQueVu78iT9JjjJ2YEd3ANV0l/hz0JcjpzGHcGODWvWPICZe
+ GhDtIunUvbRZwNBv7Le0U4Yw==
+X-Talos-CUID: 9a23:ujj73W9qBqA70R+GzX2Vv3UbO8Z4SGbn9SbvHU+BUk8waILNU2bFrQ==
+X-Talos-MUID: =?us-ascii?q?9a23=3AoOu8Lw9dfBjUJW2cTSXRQG6Qf5li56rxN3Ifq7Y?=
+ =?us-ascii?q?hmMjeFiBfIy/Frh3iFw=3D=3D?=
 X-IronPort-AV: E=Sophos;i="5.99,250,1677560400"; 
-   d="scan'208";a="107797747"
+   d="scan'208";a="107931611"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 4/6] x86/cpu-policy: Split cpuid-consts.h out of cpu-policy.h
-Date: Thu, 4 May 2023 20:39:22 +0100
-Message-ID: <20230504193924.3305496-5-andrew.cooper3@citrix.com>
+	<jbeulich@suse.com>, Jan Beulich <JBeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>
+Subject: [PATCH 5/6] x86/cpu-policy: Disentangle X86_NR_FEAT and FEATURESET_NR_ENTRIES
+Date: Thu, 4 May 2023 20:39:23 +0100
+Message-ID: <20230504193924.3305496-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230504193924.3305496-1-andrew.cooper3@citrix.com>
 References: <20230504193924.3305496-1-andrew.cooper3@citrix.com>
@@ -92,95 +93,135 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-In order to disentangle X86_NR_FEAT from FEATURESET_NR_ENTRIES, we need to
-adjust asm/cpufeatures.h's inclusion of cpuid-autogen.h, and including all of
-cpu-policy.h ends with cyclic dependences and a mess.
+When adding new words to a featureset, there is a reasonable amount of
+boilerplate and it is preforable to split the addition into multiple patches.
 
-Split the FEATURESET_* constants out into a new header.
+GCC 12 spotted a real (transient) error which occurs when splitting additions
+like this.  Right now, FEATURESET_NR_ENTRIES is dynamically generated from the
+highest numeric XEN_CPUFEATURE() value, and can be less than what the
+FEATURESET_* constants suggest the length of a featureset bitmap ought to be.
 
+This causes the policy <-> featureset converters to genuinely access
+out-of-bounds on the featureset array.
+
+Rework X86_NR_FEAT to be related to FEATURESET_* alone, allowing it
+specifically to grow larger than FEATURESET_NR_ENTRIES.
+
+Reported-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
-I don't particularly like this, but I can't find a better alternative.
+To preempt what I expect will be the first review question, no FEATURESET_*
+can't become an enumeration, because the constants undergo token concatination
+in the preprocess as part of making DECL_BITFIELD() work.
 ---
- xen/include/xen/lib/x86/cpu-policy.h   | 19 +-------------
- xen/include/xen/lib/x86/cpuid-consts.h | 34 ++++++++++++++++++++++++++
- 2 files changed, 35 insertions(+), 18 deletions(-)
- create mode 100644 xen/include/xen/lib/x86/cpuid-consts.h
+ xen/arch/x86/cpu-policy.c              | 7 +++++++
+ xen/arch/x86/include/asm/cpufeatures.h | 5 +----
+ xen/include/xen/lib/x86/cpu-policy.h   | 4 ++--
+ xen/include/xen/lib/x86/cpuid-consts.h | 2 ++
+ xen/lib/x86/cpuid.c                    | 6 +++---
+ 5 files changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
-index bfa425060464..e9bda14a7595 100644
---- a/xen/include/xen/lib/x86/cpu-policy.h
-+++ b/xen/include/xen/lib/x86/cpu-policy.h
-@@ -2,24 +2,7 @@
- #ifndef XEN_LIB_X86_POLICIES_H
- #define XEN_LIB_X86_POLICIES_H
+diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
+index 774c512a03bd..00416244a3d8 100644
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -883,6 +883,13 @@ void __init init_dom0_cpuid_policy(struct domain *d)
+ 
+ static void __init __maybe_unused build_assertions(void)
+ {
++    /*
++     * Generally these are the same, but tend to differ when adding new
++     * infrastructure split across several patches.  Simply confirm that the
++     * gen-cpuid.py X86_FEATURE_* bits fit within the bitmaps we operate on.
++     */
++    BUILD_BUG_ON(FEATURESET_NR_ENTRIES > X86_NR_FEAT);
++
+     /* Find some more clever allocation scheme if this trips. */
+     BUILD_BUG_ON(sizeof(struct cpu_policy) > PAGE_SIZE);
+ 
+diff --git a/xen/arch/x86/include/asm/cpufeatures.h b/xen/arch/x86/include/asm/cpufeatures.h
+index 408ab4ba16a5..8989291bbfd6 100644
+--- a/xen/arch/x86/include/asm/cpufeatures.h
++++ b/xen/arch/x86/include/asm/cpufeatures.h
+@@ -2,10 +2,7 @@
+  * Explicitly intended for multiple inclusion.
+  */
  
 -#include <xen/lib/x86/cpuid-autogen.h>
 -
--#define FEATURESET_1d     0 /* 0x00000001.edx      */
--#define FEATURESET_1c     1 /* 0x00000001.ecx      */
--#define FEATURESET_e1d    2 /* 0x80000001.edx      */
--#define FEATURESET_e1c    3 /* 0x80000001.ecx      */
--#define FEATURESET_Da1    4 /* 0x0000000d:1.eax    */
--#define FEATURESET_7b0    5 /* 0x00000007:0.ebx    */
--#define FEATURESET_7c0    6 /* 0x00000007:0.ecx    */
--#define FEATURESET_e7d    7 /* 0x80000007.edx      */
--#define FEATURESET_e8b    8 /* 0x80000008.ebx      */
--#define FEATURESET_7d0    9 /* 0x00000007:0.edx    */
--#define FEATURESET_7a1   10 /* 0x00000007:1.eax    */
--#define FEATURESET_e21a  11 /* 0x80000021.eax      */
--#define FEATURESET_7b1   12 /* 0x00000007:1.ebx    */
--#define FEATURESET_7d2   13 /* 0x00000007:2.edx    */
--#define FEATURESET_7c1   14 /* 0x00000007:1.ecx    */
--#define FEATURESET_7d1   15 /* 0x00000007:1.edx    */
+-/* Number of capability words covered by the featureset words. */
+-#define X86_NR_FEAT FEATURESET_NR_ENTRIES
 +#include <xen/lib/x86/cpuid-consts.h>
  
- struct cpuid_leaf
- {
+ /* Synthetic words follow the featureset words. */
+ #define X86_NR_SYNTH 1
+diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
+index e9bda14a7595..01431de056c8 100644
+--- a/xen/include/xen/lib/x86/cpu-policy.h
++++ b/xen/include/xen/lib/x86/cpu-policy.h
+@@ -370,12 +370,12 @@ struct cpu_policy_errors
+  * Copy the featureset words out of a cpu_policy object.
+  */
+ void x86_cpu_policy_to_featureset(const struct cpu_policy *p,
+-                                  uint32_t fs[FEATURESET_NR_ENTRIES]);
++                                  uint32_t fs[X86_NR_FEAT]);
+ 
+ /**
+  * Copy the featureset words back into a cpu_policy object.
+  */
+-void x86_cpu_featureset_to_policy(const uint32_t fs[FEATURESET_NR_ENTRIES],
++void x86_cpu_featureset_to_policy(const uint32_t fs[X86_NR_FEAT],
+                                   struct cpu_policy *p);
+ 
+ static inline uint64_t cpu_policy_xcr0_max(const struct cpu_policy *p)
 diff --git a/xen/include/xen/lib/x86/cpuid-consts.h b/xen/include/xen/lib/x86/cpuid-consts.h
-new file mode 100644
-index 000000000000..6ca8c39a3df4
---- /dev/null
+index 6ca8c39a3df4..9fe931b8e31f 100644
+--- a/xen/include/xen/lib/x86/cpuid-consts.h
 +++ b/xen/include/xen/lib/x86/cpuid-consts.h
-@@ -0,0 +1,34 @@
-+/* Common data structures and functions consumed by hypervisor and toolstack */
-+#ifndef XEN_LIB_X86_CONSTS_H
-+#define XEN_LIB_X86_CONSTS_H
+@@ -21,6 +21,8 @@
+ #define FEATURESET_7c1   14 /* 0x00000007:1.ecx    */
+ #define FEATURESET_7d1   15 /* 0x00000007:1.edx    */
+ 
++#define X86_NR_FEAT (FEATURESET_7d1 + 1)
 +
-+#include <xen/lib/x86/cpuid-autogen.h>
-+
-+#define FEATURESET_1d     0 /* 0x00000001.edx      */
-+#define FEATURESET_1c     1 /* 0x00000001.ecx      */
-+#define FEATURESET_e1d    2 /* 0x80000001.edx      */
-+#define FEATURESET_e1c    3 /* 0x80000001.ecx      */
-+#define FEATURESET_Da1    4 /* 0x0000000d:1.eax    */
-+#define FEATURESET_7b0    5 /* 0x00000007:0.ebx    */
-+#define FEATURESET_7c0    6 /* 0x00000007:0.ecx    */
-+#define FEATURESET_e7d    7 /* 0x80000007.edx      */
-+#define FEATURESET_e8b    8 /* 0x80000008.ebx      */
-+#define FEATURESET_7d0    9 /* 0x00000007:0.edx    */
-+#define FEATURESET_7a1   10 /* 0x00000007:1.eax    */
-+#define FEATURESET_e21a  11 /* 0x80000021.eax      */
-+#define FEATURESET_7b1   12 /* 0x00000007:1.ebx    */
-+#define FEATURESET_7d2   13 /* 0x00000007:2.edx    */
-+#define FEATURESET_7c1   14 /* 0x00000007:1.ecx    */
-+#define FEATURESET_7d1   15 /* 0x00000007:1.edx    */
-+
-+#endif /* !XEN_LIB_X86_CONSTS_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+ #endif /* !XEN_LIB_X86_CONSTS_H */
+ 
+ /*
+diff --git a/xen/lib/x86/cpuid.c b/xen/lib/x86/cpuid.c
+index 68aafb404927..76f26e92af8d 100644
+--- a/xen/lib/x86/cpuid.c
++++ b/xen/lib/x86/cpuid.c
+@@ -61,7 +61,7 @@ const char *x86_cpuid_vendor_to_str(unsigned int vendor)
+ }
+ 
+ void x86_cpu_policy_to_featureset(
+-    const struct cpu_policy *p, uint32_t fs[FEATURESET_NR_ENTRIES])
++    const struct cpu_policy *p, uint32_t fs[X86_NR_FEAT])
+ {
+     fs[FEATURESET_1d]        = p->basic._1d;
+     fs[FEATURESET_1c]        = p->basic._1c;
+@@ -82,7 +82,7 @@ void x86_cpu_policy_to_featureset(
+ }
+ 
+ void x86_cpu_featureset_to_policy(
+-    const uint32_t fs[FEATURESET_NR_ENTRIES], struct cpu_policy *p)
++    const uint32_t fs[X86_NR_FEAT], struct cpu_policy *p)
+ {
+     p->basic._1d             = fs[FEATURESET_1d];
+     p->basic._1c             = fs[FEATURESET_1c];
+@@ -285,7 +285,7 @@ const uint32_t *x86_cpu_policy_lookup_deep_deps(uint32_t feature)
+     static const uint32_t deep_features[] = INIT_DEEP_FEATURES;
+     static const struct {
+         uint32_t feature;
+-        uint32_t fs[FEATURESET_NR_ENTRIES];
++        uint32_t fs[X86_NR_FEAT];
+     } deep_deps[] = INIT_DEEP_DEPS;
+     unsigned int start = 0, end = ARRAY_SIZE(deep_deps);
+ 
 -- 
 2.30.2
 
