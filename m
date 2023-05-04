@@ -2,44 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE5546F65B5
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 09:29:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529578.824097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F3466F65BA
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 09:30:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529581.824107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puTOY-0008Kj-4w; Thu, 04 May 2023 07:28:54 +0000
+	id 1puTQ4-0001K2-Gw; Thu, 04 May 2023 07:30:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529578.824097; Thu, 04 May 2023 07:28:54 +0000
+Received: by outflank-mailman (output) from mailman id 529581.824107; Thu, 04 May 2023 07:30:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puTOY-0008Ha-2E; Thu, 04 May 2023 07:28:54 +0000
-Received: by outflank-mailman (input) for mailman id 529578;
- Thu, 04 May 2023 07:28:52 +0000
+	id 1puTQ4-0001Gs-Dx; Thu, 04 May 2023 07:30:28 +0000
+Received: by outflank-mailman (input) for mailman id 529581;
+ Thu, 04 May 2023 07:30:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zFwM=AZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1puTOW-0008HO-5M
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 07:28:52 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=evI0=AZ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1puTQ2-0001Gf-Og
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 07:30:26 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20603.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::603])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 502288e7-ea4d-11ed-8611-37d641c3527e;
- Thu, 04 May 2023 09:28:49 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4D94E2093F;
- Thu,  4 May 2023 07:28:49 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 26172133F7;
- Thu,  4 May 2023 07:28:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ljjEB7FeU2TREAAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 04 May 2023 07:28:49 +0000
+ id 87f718a7-ea4d-11ed-8611-37d641c3527e;
+ Thu, 04 May 2023 09:30:24 +0200 (CEST)
+Received: from DS7PR03CA0328.namprd03.prod.outlook.com (2603:10b6:8:2b::30) by
+ PH0PR12MB5679.namprd12.prod.outlook.com (2603:10b6:510:14f::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6363.26; Thu, 4 May 2023 07:30:19 +0000
+Received: from DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2b:cafe::5d) by DS7PR03CA0328.outlook.office365.com
+ (2603:10b6:8:2b::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.26 via Frontend
+ Transport; Thu, 4 May 2023 07:30:18 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT044.mail.protection.outlook.com (10.13.173.185) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6363.27 via Frontend Transport; Thu, 4 May 2023 07:30:18 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 4 May
+ 2023 02:30:17 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 4 May
+ 2023 02:30:17 -0500
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Thu, 4 May 2023 02:30:15 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,163 +63,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 502288e7-ea4d-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1683185329; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ay238mjQf1ceO3a0O/KbE61dVumd3XZZUy4XAGxOU7M=;
-	b=WpRLtgl4xAFAqsK4cZW08WEZwX9+BFJ1rQaX4L28EDWJmsbGJJyNoPX46XCcNd7Ug7lqPr
-	TXSLcYMkOHf7h9l5yOIGEdtI/bV9YCnZ2ei3b3unvvuyIf1KfA8Nsptf7iF3PcDuM8yaW+
-	OoXCVklH1bO5qFeUjyLS5/2oClW4fBs=
-Message-ID: <b97e5159-7419-625d-d1e8-fc00c553a9dc@suse.com>
-Date: Thu, 4 May 2023 09:28:48 +0200
+X-Inumbo-ID: 87f718a7-ea4d-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EV6gYA28E9DOfBjQk9A0XhceyM2C/8+TklkE1RLM354c9oyu/RYyEu9dp2epeIk/bMb2QzqGdQO7S6q4PCa25RP4IA6aQAUI7M4aZdMwrtFmF8FVDy9Nnm7nWarIYAcnpsIC5Wp9u9GQFupmxG8Yv15tKSLT2Rcdz/g4EsgQ6735/AghMkHQyq2kO1/WAGN7fd8YfmRHFCZoPaPZ+TekOSha3pNGXN17CPYj8bPRLiTjjC+UmBws0Vlq/NdvLYF45MtMVx/DFhQZP7tMVqGQ2n9lMS4F2C1FIiIBKuH23sQgvvL7+V/7IAoS8aA+YyzwrAVuXyxsA1zslkuJeg+6DA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lX6B3Pv3MVT8M+7HUeJq5+tI69DxXdfq+5n4o6/+Vt8=;
+ b=gj43ETfFIwHvlSYgybRFHVrOXotPzPm7IF8tKPevEzzB3z8ohM82kdPkxvMydzv48qQaRpSwb4HZrIqmwNSZmV71IsfW1C5KVOgJofrrDUCjr4FdHRjTuJImf3vn3Rpt0fZxVPh+8Dm8jIJZQ0b344OmVH1hojyRcizAA3fAeWqZPP5LjYkHmSUm94JlQHYGgzd5Uv8kvGGXx0D+Bsp9dSgiZTDEVDGHRAMdu2lg46fgDy6MB/bhiP78CE04garUl1zUEdnvwxLzgs0yywnLFbrw4HFHTfZo86DJqXwl67Y6PG9/6YdhHf16lCfnnz5A7FaVzGq5yTQGM/nTcVZ3Ug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lX6B3Pv3MVT8M+7HUeJq5+tI69DxXdfq+5n4o6/+Vt8=;
+ b=R1/wPWDfeusBSqWi7QVkXEIm5IylL6qXln2gxbHwnQl1ndCp1Bn2KpkVe4TR16NApGoy+LUAwUqzFwOC/iPycuW3ve269o8VPEqgkOdrCPW46JKkycAmbtrSFAPiHff/jkS4Tz45KPwQ1i3hLXG6Mh1NVBwsXUnRg708Ak2/DyU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <0c947418-9551-c5cc-7fa3-8569f08d4c25@amd.com>
+Date: Thu, 4 May 2023 09:30:00 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
-Subject: Re: [PATCH v4 12/13] tools/xenstore: use generic accounting for
- remaining quotas
+Subject: Re: [XEN v6 03/12] xen/arm: Introduce a wrapper for
+ dt_device_get_address() to handle paddr_t
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230405070349.25293-1-jgross@suse.com>
- <20230405070349.25293-13-jgross@suse.com>
- <e4f8a0e6-7a4c-3193-ce38-e43891f063ed@xen.org>
- <da3b9daf-9358-2af8-edc3-4f74f9cc0c55@suse.com>
-In-Reply-To: <da3b9daf-9358-2af8-edc3-4f74f9cc0c55@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------omy7s3TeOwCTo65ysfZS0svu"
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
+	<wl@xen.org>, <rahul.singh@arm.com>
+References: <20230428175543.11902-1-ayan.kumar.halder@amd.com>
+ <20230428175543.11902-4-ayan.kumar.halder@amd.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20230428175543.11902-4-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT044:EE_|PH0PR12MB5679:EE_
+X-MS-Office365-Filtering-Correlation-Id: 80876131-7851-4e06-7add-08db4c71694f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	z222BoF3KjJwJw1ysBbUfXFxGGWFDJ4lUjajOyxc5UjbCOmkYJWFcyz/qm75hpYbOIH2EBU1lhsbchWOLuslSCc6vYzZfTO5UjAB8Ya/ODsPOsr2eyi3qZlz5LZjbvml65If25KStByTtjswvvnFdRLWT7xu3fqWUrtadZUhoBPBpenQ8xN1CCNnHOdedUx1zhRMczociE0ueTj6yvb76OzhxfgqpWl46NJVdUFYzDxeGOopKDHaj6UcJlZZz8CPMlJDDOm7r7IvtCCdz5wT55KyAG1SseXceSpvft3sH1Nl8NjaCKao4XzzKcZHztRIwciAAlCW5ahtW/C1BO3wJZWZ4zgT05OICD38Z7wa3Q3QfhKYUTzPhW8tLvArn6SpURpKOnTgFb64ns41n42fM/9OY2CxgY6IqEvjxAHqJarHwP9qZsgbryWjsIm6OxlBBjzGK5YMwPEY5SUeNF8kb8Z+Q2fS+rvS/1CqmSWe1genr20vSMAT7mv7UFsko1vuN17MgBWMB7ZxlDBDTJJ/kM62bZB0CkK1MugMWx/xZmOgH/Yl66ejjFPJhzUIA3HmFDaa73q5Hrddt0uO32XYAdBWuEs48Y/8kbesPCP0IdfUq6kpxlz9TrkYNhx95vzVkeV6SVaTl3DJ5W7/TdbTJNcH98E8vE7QFyWr/QwM5kGK2VJ6qwC8jylkZRdXZmlQjApi3HAphAS4A44xUq7XT8v3RCgFnqBWu/d7gvCAy1M5Y9Ee8eSb+J/EqL5FuKV3pyaqjrl0OrNEAUC7j2QOSQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(39860400002)(396003)(376002)(451199021)(46966006)(36840700001)(40470700004)(36756003)(4326008)(70586007)(426003)(336012)(70206006)(53546011)(26005)(186003)(110136005)(2906002)(54906003)(16576012)(31686004)(478600001)(40460700003)(2616005)(81166007)(82740400003)(356005)(8676002)(8936002)(40480700001)(44832011)(31696002)(6666004)(86362001)(41300700001)(82310400005)(7416002)(5660300002)(47076005)(316002)(36860700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2023 07:30:18.4107
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 80876131-7851-4e06-7add-08db4c71694f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT044.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5679
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------omy7s3TeOwCTo65ysfZS0svu
-Content-Type: multipart/mixed; boundary="------------krxl8VYciXw4aVNwHwjYgAy3";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <b97e5159-7419-625d-d1e8-fc00c553a9dc@suse.com>
-Subject: Re: [PATCH v4 12/13] tools/xenstore: use generic accounting for
- remaining quotas
-References: <20230405070349.25293-1-jgross@suse.com>
- <20230405070349.25293-13-jgross@suse.com>
- <e4f8a0e6-7a4c-3193-ce38-e43891f063ed@xen.org>
- <da3b9daf-9358-2af8-edc3-4f74f9cc0c55@suse.com>
-In-Reply-To: <da3b9daf-9358-2af8-edc3-4f74f9cc0c55@suse.com>
 
---------------krxl8VYciXw4aVNwHwjYgAy3
-Content-Type: multipart/mixed; boundary="------------Al8MzfbhTp0V99nba1sGjqRy"
+On 28/04/2023 19:55, Ayan Kumar Halder wrote:
+> 
+> 
+> dt_device_get_address() can accept uint64_t only for address and size.
+> However, the address/size denotes physical addresses. Thus, they should
+> be represented by 'paddr_t'.
+> Consequently, we introduce a wrapper for dt_device_get_address() ie
+> dt_device_get_paddr() which accepts address/size as paddr_t and inturn
+> invokes dt_device_get_address() after converting address/size to
+> uint64_t.
+> 
+> The reason for introducing this is that in future 'paddr_t' may not
+> always be 64-bit. Thus, we need an explicit wrapper to do the type
+> conversion and return an error in case of truncation.
+> 
+> With this, callers can now invoke dt_device_get_paddr().
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+> index 6c9712ab7b..2163cf26d0 100644
+> --- a/xen/common/device_tree.c
+> +++ b/xen/common/device_tree.c
+> @@ -955,6 +955,45 @@ int dt_device_get_address(const struct dt_device_node *dev, unsigned int index,
+>      return 0;
+>  }
+> 
+> +int dt_device_get_paddr(const struct dt_device_node *dev, unsigned int index,
+> +                        paddr_t *addr, paddr_t *size)
+> +{
+> +    uint64_t dt_addr, dt_size;
+> +    int ret;
+> +
+> +    ret = dt_device_get_address(dev, index, &dt_addr, &dt_size);
+> +    if ( ret )
+> +        return ret;
+> +
+> +    if ( !addr )
+Because of this ...
 
---------------Al8MzfbhTp0V99nba1sGjqRy
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> +        return -EINVAL;
+> +
+> +    if ( addr )
+you should drop this.
 
-T24gMDMuMDUuMjMgMTY6MzksIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IE9uIDAzLjA1LjIz
-IDEyOjE4LCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+PiBPbiAwNS8wNC8yMDIzIDA4OjAzLCBK
-dWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4+ICtzdGF0aWMgdm9pZCBkb21haW5fYWNjX3ZhbGlk
-X21heChzdHJ1Y3QgZG9tYWluICpkLCBlbnVtIGFjY2l0ZW0gd2hhdCwNCj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgaW50IHZhbCkNCj4+PiArew0K
-Pj4+ICvCoMKgwqAgYXNzZXJ0KHdoYXQgPCBBUlJBWV9TSVpFKGQtPmFjYykpOw0KPj4+ICvC
-oMKgwqAgYXNzZXJ0KHdoYXQgPCBBUlJBWV9TSVpFKGFjY19nbG9iYWxfbWF4KSk7DQo+Pj4g
-Kw0KPj4+ICvCoMKgwqAgaWYgKHZhbCA+IGQtPmFjY1t3aGF0XS5tYXgpDQo+Pj4gK8KgwqDC
-oMKgwqDCoMKgIGQtPmFjY1t3aGF0XS5tYXggPSB2YWw7DQo+Pj4gK8KgwqDCoCBpZiAodmFs
-ID4gYWNjX2dsb2JhbF9tYXhbd2hhdF0gJiYgZG9taWRfaXNfdW5wcml2aWxlZ2VkKGQtPmRv
-bWlkKSkNCj4+PiArwqDCoMKgwqDCoMKgwqAgYWNjX2dsb2JhbF9tYXhbd2hhdF0gPSB2YWw7
-DQo+Pj4gK30NCj4+PiArDQo+Pj4gwqAgc3RhdGljIGludCBkb21haW5fYWNjX2FkZF92YWxp
-ZChzdHJ1Y3QgZG9tYWluICpkLCBlbnVtIGFjY2l0ZW0gd2hhdCwgaW50IGFkZCkNCj4+PiDC
-oCB7DQo+Pj4gwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgdmFsOw0KPj4+IC3CoMKgwqAgYXNz
-ZXJ0KHdoYXQgPCBBUlJBWV9TSVpFKGQtPmFjYykpOw0KPj4NCj4+IEkgdGhpbmsgdGhpcyBh
-c3NlcnQgc2hvdWxkIGJlIGtlcHQgYmVjYXVzZS4uLg0KPj4NCj4+PiAtDQo+Pj4gwqDCoMKg
-wqDCoCBpZiAoKGFkZCA8IDAgJiYgLWFkZCA+IGQtPmFjY1t3aGF0XS52YWwpIHx8DQo+Pg0K
-Pj4gLi4uIG9mIHRoaXMgY2hlY2suIE90aGVyd2lzZSwgeW91IHdvdWxkIGNoZWNrIHRoYXQg
-J3doYXQnIGlzIHdpdGhpbiB0aGUgYm91bmRzIA0KPj4gYWZ0ZXIgdGhlIHVzZS4NCj4gDQo+
-IE9rYXkuDQoNCkhtbSwgSSdtIG5vIGxvbmdlciBzdXJlIHRoaXMgaXMgYSBnb29kIHJlYXNv
-biB0byBkdXBsaWNhdGUgdGhlIGFzc2VydCgpLg0KDQpGb2xsb3dpbmcgdGhpcyByZWFzb25p
-bmcgSSdkIG5lZWQgdG8gcHV0IGl0IGludG8gZXZlbiBtb3JlIGZ1bmN0aW9ucy4gQW5kIGFu
-DQphc3NlcnQoKSB0cmlnZ2VyaW5nIGEgbGl0dGxlIGJpdCBsYXRlIGlzIG5vIHJlYWwgcHJv
-YmxlbSwgYXMgaXQgd2lsbCBhYm9ydA0KeGVuc3RvcmVkIGFueXdheS4NCg0KQWRkaXRpb25h
-bGx5IHdpdGggdGhlIGdsb2JhbCBhbmQgdGhlIHBlci1kb21haW4gYXJyYXlzIG5vdyBjb3Zl
-cmluZyBhbGwNCnBvc3NpYmxlIHF1b3RhcywgaXQgd291bGQgZXZlbiBiZSByZWFzb25hYmxl
-IHRvIGRyb3AgdGhlIGFzc2VydCgpcyBpbg0KZG9tYWluX2FjY192YWxpZF9tYXgoKSBjb21w
-bGV0ZWx5Lg0KDQoNCkp1ZXJnZW4NCg==
---------------Al8MzfbhTp0V99nba1sGjqRy
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> +    {
+> +        if ( dt_addr != (paddr_t)dt_addr )
+> +        {
+> +            printk("Error: Physical address 0x%"PRIx64" for node=%s is greater than max width (%zu bytes) supported\n",
+> +                   dt_addr, dev->name, sizeof(paddr_t));
+> +            return -ERANGE;
+> +        }
+> +
+> +        *addr = dt_addr;
+> +    }
+> +
+> +    if ( size )
+> +    {
+> +        if ( dt_size != (paddr_t)dt_size )
+> +        {
+> +            printk("Error: Physical size 0x%"PRIx64" for node=%s is greater than max width (%zu bytes) supported\n",
+> +                   dt_size, dev->name, sizeof(paddr_t));
+> +            return -ERANGE;
+> +        }
+> +
+> +        *size = dt_size;
+> +    }
+> +
+> +    return ret;
+> +}
+> 
+>  int dt_for_each_range(const struct dt_device_node *dev,
+>                        int (*cb)(const struct dt_device_node *,
+> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+> index 5f8f61aec8..ce25b89c4b 100644
+> --- a/xen/include/xen/device_tree.h
+> +++ b/xen/include/xen/device_tree.h
+> @@ -585,6 +585,19 @@ int dt_find_node_by_gpath(XEN_GUEST_HANDLE(char) u_path, uint32_t u_plen,
+>   */
+>  const struct dt_device_node *dt_get_parent(const struct dt_device_node *node);
+> 
+> +/**
+> + * dt_device_get_paddr - Resolve an address for a device
+> + * @device: the device whose address is to be resolved
+> + * @index: index of the address to resolve
+> + * @addr: address filled by this function
+> + * @size: size filled by this function
+> + *
+> + * This function resolves an address, walking the tree, for a give
+s/give/given
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Other than that:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------Al8MzfbhTp0V99nba1sGjqRy--
-
---------------krxl8VYciXw4aVNwHwjYgAy3--
-
---------------omy7s3TeOwCTo65ysfZS0svu
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmRTXrAFAwAAAAAACgkQsN6d1ii/Ey/c
-YAf+MbaXkDJigZEt8y6Sh5KvAOMsl3S4KOLaM4KZgsGjgMA5S5O/tMI3FV7z97sF8UzOZ0naj7UH
-eBvjq+SCXbL4fXN4k812h3Nn2hSfEGugcsl9XWgBh+CFCUJS7Jf1KQ3wS1QF1/zgBjom/Kari62c
-EMVQaJVp0S+9QNDGlT+19mZFocfPxQerlUTp5+xr0kf9VBeMrijEK6i86VOmKyFg2K6ZkzRMmKTg
-KcDjmv8e8xgcU8QIZiwnftYZj7qE0wnFfuwf0hFFNnn+n7EhkM4bgUlMDxr22/3OpMmMRF1hGNFG
-B27d5HJ8qQz43E6Ha+IKnRogYxEPS2uhVMHCXp0dKw==
-=umYT
------END PGP SIGNATURE-----
-
---------------omy7s3TeOwCTo65ysfZS0svu--
+~Michal
 
