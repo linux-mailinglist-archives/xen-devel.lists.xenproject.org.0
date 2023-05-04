@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE7316F6CFF
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 15:36:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529776.824553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FAA16F6D6C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 16:01:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529785.824563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puZ89-000532-J2; Thu, 04 May 2023 13:36:21 +0000
+	id 1puZU8-0007nJ-Ia; Thu, 04 May 2023 13:59:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529776.824553; Thu, 04 May 2023 13:36:21 +0000
+Received: by outflank-mailman (output) from mailman id 529785.824563; Thu, 04 May 2023 13:59:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puZ89-00050f-EO; Thu, 04 May 2023 13:36:21 +0000
-Received: by outflank-mailman (input) for mailman id 529776;
- Thu, 04 May 2023 13:36:20 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1puZU8-0007kM-F4; Thu, 04 May 2023 13:59:04 +0000
+Received: by outflank-mailman (input) for mailman id 529785;
+ Thu, 04 May 2023 13:59:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1puZ87-00050V-Uf; Thu, 04 May 2023 13:36:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1puZ87-0006yx-OO; Thu, 04 May 2023 13:36:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1puZ87-0007Nk-6O; Thu, 04 May 2023 13:36:19 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1puZ87-0005UF-5v; Thu, 04 May 2023 13:36:19 +0000
+ (envelope-from <SRS0=qVjO=AZ=rabbit.lu=slack@srs-se1.protection.inumbo.net>)
+ id 1puZU6-0007kG-Ry
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 13:59:02 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d22b68e6-ea83-11ed-b226-6b7b168915f2;
+ Thu, 04 May 2023 15:59:00 +0200 (CEST)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-3f173af665fso4104285e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 May 2023 06:59:00 -0700 (PDT)
+Received: from [192.168.2.1] (82-64-138-184.subs.proxad.net. [82.64.138.184])
+ by smtp.googlemail.com with ESMTPSA id
+ k1-20020a7bc301000000b003eddc6aa5fasm5024354wmj.39.2023.05.04.06.58.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 May 2023 06:58:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,207 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MK1/6KrYMFAvN7ejZ09yhL58G40ImulP6+b5JDPPqfY=; b=cH20l5dJWr8mYUeSfC/n/VfqPj
-	inC2VU/7Tg/MrxKf5MuqonA9ar4qJvhz+FOJU8eX3xJGFp9rXg3qpgE/q/ptAsZ/RfzbLOXMhYp+V
-	TmGMQ8pTgc6a+qqxBEe5YCaG+0C52DMwf/VErNgjuF2BHEp4kIRlRnLrhWiZOdbqfMtk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180525-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d22b68e6-ea83-11ed-b226-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rabbit-lu.20221208.gappssmtp.com; s=20221208; t=1683208740; x=1685800740;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=741OYHclmnary9o8QuEmWBLI/yLKwj6EVSWqvcmDpPk=;
+        b=Ktoj4Y2WCFKxcd/Bza2FkWvcDKZaHrNjIp9fNFMB/s8f2XwFstTADuCWQlqwahabB1
+         nuFtlvPM3aU9Iq5UhlTcalJERgrJGINvm1/05NnuA3L89nRgEPepkaJ+E0f3Dn5Qai6T
+         y3Ny/8rjCrjgV6W1W3upx51duZdUMdIpG53mapkad30WPe2BE+uFBZx4vpf2yGzCerU7
+         Y8JDR4dxk1f+Uke9oXCEC6xoS4FO5POEs91cgFvpN7JBgDwmA/Xb43lX4kjZI2TWkuO3
+         rXYvU5SCfiykJGHPap2ki5o8eQj+8rGb9ExUgJG46GG4CIpLPdRuMrbXnM75F147QyH2
+         u46w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683208740; x=1685800740;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=741OYHclmnary9o8QuEmWBLI/yLKwj6EVSWqvcmDpPk=;
+        b=dAV4FcsaE7TcXqwMSg1yCFz2opC72hm6EnD/llRVMUxzKr9A/ohX+TnwP+P9cM/Wzk
+         HJQJXkhaXSwNsTwdaNgQJF76tnV5//Mvy8sFwXFqlIxmSC6LhyHIo23rs7PHjJTPHZ2t
+         Xw25EaKjvONLdYBEe7sU7SSNtTMII/bgjeyxrOa8snQZNznhrIiHFfbxh6aTLL09hSBN
+         m6L9/R/yfwku43fyss4xFqUhJGazcQu95ILJP5OFsJ/cC9ASgivSTBAwzeqsGtrS/8/I
+         XNyzAAoJxJWaT2WKkZUlnT616uTEMzzYwlZUai1bxgYRbhiKgmw6v/3xNH2ittiue6Fs
+         UMug==
+X-Gm-Message-State: AC+VfDwqeoXCwcJbMTfbE7xhpKWLZAsFz33GTjSrsNx4Ki+rgTtdtsc7
+	m+omT3P0lJpi9Vnw/Pca8FVc2Hya4w2HlQp8zm8uIw==
+X-Google-Smtp-Source: ACHHUZ4vGVlTodkKYjJUmbu4stY+lxNumSzjMlNzBnYPHHXxS4yamNQKYTPQb180khL0pdtR1pRp/A==
+X-Received: by 2002:a7b:c015:0:b0:3f1:662a:93d0 with SMTP id c21-20020a7bc015000000b003f1662a93d0mr17906533wmb.15.1683208740096;
+        Thu, 04 May 2023 06:59:00 -0700 (PDT)
+Message-ID: <50bf6b82-965b-d17c-7c5a-49c703991504@rabbit.lu>
+Date: Thu, 4 May 2023 15:58:58 +0200
 MIME-Version: 1.0
-Subject: [linux-linus test] 180525: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:build-arm64-pvops:kernel-build:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=1a5304fecee523060f26e2778d9d8e33c0562df3
-X-Osstest-Versions-That:
-    linux=6c538e1adbfc696ac4747fb10d63e704344f763d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 04 May 2023 13:36:19 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.0
+From: zithro <slack@rabbit.lu>
+Subject: Re: xenstored: EACCESS error accessing control/feature-balloon 1
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>, =?UTF-8?B?RWR3aW4gVMO2csO2aw==?=
+ <edwin.torok@cloud.com>, Julien Grall <julien@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Yann Dirson <yann.dirson@vates.fr>
+References: <3065c524-07c7-6458-ff4c-ba68ff78c946@rabbit.lu>
+ <474b531f-2067-a5d4-8b01-5b8ef1f7061d@citrix.com>
+ <678df1ff-df18-b063-eda3-2a1aed6d40f8@vates.fr>
+Content-Language: en-US
+In-Reply-To: <678df1ff-df18-b063-eda3-2a1aed6d40f8@vates.fr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 180525 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180525/
+Hi,
 
-Regressions :-(
+[ snipped for brevity, report summary:
+XAPI daemon in domU tries to write to a non-existent xenstore node in a 
+non-XAPI dom0 ]
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
- build-arm64-pvops             6 kernel-build             fail REGR. vs. 180278
+On 12 Apr 2023 18:41, Yann Dirson wrote:
+> Is there anything besides XAPI using this node, or the other data
+> published by xe-daemon?
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      8 xen-boot                     fail  like 180278
- test-armhf-armhf-xl-vhd       8 xen-boot                     fail  like 180278
- test-armhf-armhf-examine      8 reboot                       fail  like 180278
- test-armhf-armhf-libvirt-raw  8 xen-boot                     fail  like 180278
- test-armhf-armhf-xl-rtds      8 xen-boot                     fail  like 180278
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180278
- test-armhf-armhf-xl           8 xen-boot                     fail  like 180278
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180278
- test-armhf-armhf-xl-multivcpu  8 xen-boot                     fail like 180278
- test-armhf-armhf-libvirt-qcow2  8 xen-boot                    fail like 180278
- test-armhf-armhf-xl-credit2   8 xen-boot                     fail  like 180278
- test-armhf-armhf-xl-arndale   8 xen-boot                     fail  like 180278
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180278
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+On my vanilla Xen (ie. non-XAPI), I have no node about "balloon"-ing in 
+xenstore (either dom0 or domU nodes, but I'm not using ballooning in both).
 
-version targeted for testing:
- linux                1a5304fecee523060f26e2778d9d8e33c0562df3
-baseline version:
- linux                6c538e1adbfc696ac4747fb10d63e704344f763d
+> Maybe the original issue is just that there is no reason to have
+> xe-guest-utilities installed in this setup?
 
-Last test of basis   180278  2023-04-16 19:41:46 Z   17 days
-Failing since        180281  2023-04-17 06:24:36 Z   17 days   30 attempts
-Testing same since   180525  2023-05-04 05:05:04 Z    0 days    1 attempts
+That's what I thought as I'm not using XAPI, so maybe the problem should 
+only be addressed to the truenas team ? I posted on their forum but got 
+no answer.
+I killed the 'xe-daemon' in both setups without loss of functionality.
 
-------------------------------------------------------------
-2224 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            fail    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          blocked 
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  blocked 
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  blocked 
- test-armhf-armhf-xl-credit2                                  fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     blocked 
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 blocked 
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      blocked 
- test-armhf-armhf-xl-vhd                                      fail    
+My wild guess is that 'xe-daemon', 'xe-update-guest-attrs' and all 
+'xenstore* commands' are leftovers from when Xen was working as a dom0 
+under FreeBSD (why would a *domU* have them ?).
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+But Julien Grall went further by reacting to a suggestion by Yann Dirson 
+(no snip here so you have the full patch details) :
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 12 Apr 2023 22:04, Julien Grall wrote:
+>  From a brief look, this is very similar to the patch below that was 
+> sent 3 years ago. I bet no-one ever tested the driver against libxl.
+> 
+> commit 30a970906038
+> Author: Vitaly Kuznetsov <vkuznets@redhat.com>
+> Date:   Tue Sep 4 13:39:29 2018 +0200
+> 
+>      libxl: create control/sysrq xenstore node
+> 
+>      'xl sysrq' command doesn't work with modern Linux guests with the 
+> following
+>      message in guest's log:
+> 
+>       xen:manage: sysrq_handler: Error -13 writing sysrq in control/sysrq
+> 
+>      xenstore trace confirms:
+> 
+>       IN 0x24bd9a0 20180904 04:36:32 WRITE (control/sysrq )
+>       OUT 0x24bd9a0 20180904 04:36:32 ERROR (EACCES )
+> 
+>      The problem seems to be in the fact that we don't pre-create 
+> control/sysrq
+>      xenstore node and libxl_send_sysrq() doing libxl__xs_printf() 
+> creates it as
+>      read-only. As we want to allow guests to clean 'control/sysrq' 
+> after the
+>      requested action is performed, we need to make this node writable.
+> 
+>      Signed-off-by: Vitaly Kuznetsov <vkuznets@redhat.com>
+>      Acked-by: Wei Liu <wei.liu2@citrix.com>
+> 
+> diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
+> index 60676304e9b5..dcfde7787e2c 100644
+> --- a/tools/libxl/libxl_create.c
+> +++ b/tools/libxl/libxl_create.c
+> @@ -695,6 +695,9 @@ retry_transaction:
+>                           GCSPRINTF("%s/control/feature-s4", dom_path),
+>                           rwperm, ARRAY_SIZE(rwperm));
+>       }
+> +    libxl__xs_mknod(gc, t,
+> +                    GCSPRINTF("%s/control/sysrq", dom_path),
+> +                    rwperm, ARRAY_SIZE(rwperm));
+>       libxl__xs_mknod(gc, t,
+>                       GCSPRINTF("%s/device/suspend/event-channel", 
+> dom_path),
+>                       rwperm, ARRAY_SIZE(rwperm));
+> 
+>>
+>> I suspect the best (/least bad) thing to do here is formally introduce
+>> feature-ballon as a permitted node, and have the toolstack initialise it
+>> to "" like we do with all other nodes, after which TrueNAS ought to be
+>> able to set it successfully and not touch it a second time.
+> 
+> +1. This would match how libxl already deal "feature-s3" & co.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+So, I will file a bug against truenas anyways, but are you going to 
+alter the xenstore/toolstack ?
+In that case it may be good to tell them at the same time.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Thanks all,
 
+Kind regards,
 
-Not pushing.
-
-(No revision log; it would be 272978 lines long.)
+zithro/Cyril
 
