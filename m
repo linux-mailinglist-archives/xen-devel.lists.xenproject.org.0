@@ -2,30 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B8B66F7304
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:10:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529980.825178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 836716F72F2
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 21:09:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529922.824986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pueLB-00051v-7H; Thu, 04 May 2023 19:10:09 +0000
+	id 1pueKB-0005KK-VA; Thu, 04 May 2023 19:09:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529980.825178; Thu, 04 May 2023 19:10:09 +0000
+Received: by outflank-mailman (output) from mailman id 529922.824986; Thu, 04 May 2023 19:09:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pueLA-0004sp-I4; Thu, 04 May 2023 19:10:08 +0000
-Received: by outflank-mailman (input) for mailman id 529980;
- Thu, 04 May 2023 19:10:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pueKB-0005HN-R5; Thu, 04 May 2023 19:09:07 +0000
+Received: by outflank-mailman (input) for mailman id 529922;
+ Thu, 04 May 2023 19:09:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=srgM=AZ=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pueEA-00042j-Mk
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:02:54 +0000
-Received: from galois.linutronix.de (galois.linutronix.de
- [2a0a:51c0:0:12e:550::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46390635-eaae-11ed-b226-6b7b168915f2;
- Thu, 04 May 2023 21:02:54 +0200 (CEST)
+ id 1pueED-00042k-9y
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 19:02:57 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 47244339-eaae-11ed-8611-37d641c3527e;
+ Thu, 04 May 2023 21:02:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46390635-eaae-11ed-b226-6b7b168915f2
-Message-ID: <20230504185938.179661118@linutronix.de>
+X-Inumbo-ID: 47244339-eaae-11ed-8611-37d641c3527e
+Message-ID: <20230504185938.232336513@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1683226974;
+	s=2020; t=1683226975;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=dh/52GRhLbpp4gh50fAuvfQix7j7Ih1160L/CdLI8l0=;
-	b=O6cG1HBehiX74K9JFp369TIKx6mKBR2TPreNtZ0JIxAQi+1KIShpZOLr9yn98NyJ2DVeV2
-	KoRI+hkYEu5smHES9pGvnLyoWtwb4Bp/4BfVhvbHAfxZcdiWB7o0B0Ira+4IzxwLMlhRJ+
-	sMHMr6Be0jbWVJhRKWMRzaormlwxyZ+o2EofkewXORpIgLbjVpvUxjCQcSQl+YfTMlHZ9T
-	UE8rmtHne4Y5TmubM7NIWK98QCHj+0F+rqBtOZSFGM77VBpgrVetzsILoS9DByN2vrAczS
-	5+Uo3R/A6vnceg12D8eqIMTFGAGJV6sRpxtSZ3hp8//m2IPi36uIIWtNhU3PLg==
+	 references:references; bh=PaGuo8GAZ65ZbtTn7wzwCB2xmjp/8CcdVtBqqK3zJyY=;
+	b=WBrmRYfVh8Hf7VAtaZM+773NG/l2NaZEQY2PbsMWpwgijTHlkaPZNZwTTqZqSePaJs28Tp
+	huH2qX95r4oDUOSFSd9zA+6+RZv5lgr0xa0QdgDkEncw9LVXBvKPVIlHpBCwardNQlPmIT
+	cajVqbzngFG+dnpn2I0UeA+RYWcEBwo1QkYYSYABAtHiWYiay4DXWTSDKMd3/FerfS7z8b
+	xwX6otdMILDZ1YbCULvPsUARGQzswNTUUkZzB3iKqcysyV9JxG2dUxCWqjPi7FUYFLn/3T
+	jkRxQ4LmxpZMkrdtxeZw1NAb25wiC+Tx1duuJ885D0xawxhq7zhP9DRXxAmkFA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1683226974;
+	s=2020e; t=1683226975;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=dh/52GRhLbpp4gh50fAuvfQix7j7Ih1160L/CdLI8l0=;
-	b=2Mr8xnCCJXQNYK40wYiyDitX1rtgKVSav9FlO5VPGJbI6wVmqI0M9y1M9rUGvQKL9tG1OS
-	lphjzmGYwmWjK5CQ==
+	 references:references; bh=PaGuo8GAZ65ZbtTn7wzwCB2xmjp/8CcdVtBqqK3zJyY=;
+	b=G0tsDBn5b6jENP+Wz6pMSYtlj20+hRg4V3sQlU3KTcd+8sMa78JVCQNTfSLn2dU5TfjS5i
+	VD5uznhB/0z5zkAQ==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org,
@@ -93,34 +92,62 @@ Cc: x86@kernel.org,
  Mark Rutland <mark.rutland@arm.com>,
  Sabin Rapan <sabrapan@amazon.com>,
  "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-Subject: [patch V2 34/38] x86/cpu/amd; Invoke detect_extended_topology_early()
- on boot CPU
+Subject: [patch V2 35/38] x86/apic: Save the APIC virtual base address
 References: <20230504185733.126511787@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Thu,  4 May 2023 21:02:53 +0200 (CEST)
+Date: Thu,  4 May 2023 21:02:55 +0200 (CEST)
 
 From: Thomas Gleixner <tglx@linutronix.de>
 
-The early detection stores the extended topology leaf number which is
-required for parallel hotplug.
+For parallel CPU brinugp it's required to read the APIC ID in the low level
+startup code. The virtual APIC base address is a constant because its a
+fix-mapped address. Exposing that constant which is composed via macros to
+assembly code is non-trivial dues to header inclusion hell.
+
+Aside of that it's constant only because of the vsyscall ABI
+requirement. Once vsyscall is out of the picture the fixmap can be placed
+at runtime.
+
+Avoid header hell, stay flexible and store the address in a variable which
+can be exposed to the low level startup code.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 
 ---
- arch/x86/kernel/cpu/amd.c |    2 ++
- 1 file changed, 2 insertions(+)
+ arch/x86/include/asm/smp.h  |    1 +
+ arch/x86/kernel/apic/apic.c |    4 ++++
+ 2 files changed, 5 insertions(+)
 ---
---- a/arch/x86/kernel/cpu/amd.c
-+++ b/arch/x86/kernel/cpu/amd.c
-@@ -692,6 +692,8 @@ static void early_init_amd(struct cpuinf
- 		}
- 	}
+--- a/arch/x86/include/asm/smp.h
++++ b/arch/x86/include/asm/smp.h
+@@ -196,6 +196,7 @@ extern void nmi_selftest(void);
+ #endif
  
-+	detect_extended_topology_early(c);
+ extern unsigned int smpboot_control;
++extern unsigned long apic_mmio_base;
+ 
+ #endif /* !__ASSEMBLY__ */
+ 
+--- a/arch/x86/kernel/apic/apic.c
++++ b/arch/x86/kernel/apic/apic.c
+@@ -101,6 +101,9 @@ static int apic_extnmi __ro_after_init =
+  */
+ static bool virt_ext_dest_id __ro_after_init;
+ 
++/* For parallel bootup. */
++unsigned long apic_mmio_base __ro_after_init;
 +
- 	if (cpu_has(c, X86_FEATURE_TOPOEXT))
- 		smp_num_siblings = ((cpuid_ebx(0x8000001e) >> 8) & 0xff) + 1;
- }
+ /*
+  * Map cpu index to physical APIC ID
+  */
+@@ -2163,6 +2166,7 @@ void __init register_lapic_address(unsig
+ 
+ 	if (!x2apic_mode) {
+ 		set_fixmap_nocache(FIX_APIC_BASE, address);
++		apic_mmio_base = APIC_BASE;
+ 		apic_printk(APIC_VERBOSE, "mapped APIC to %16lx (%16lx)\n",
+ 			    APIC_BASE, address);
+ 	}
 
 
