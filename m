@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E2D36F7801
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 23:26:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530151.825578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5F406F783C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 23:34:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530155.825589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pugSE-00029f-0v; Thu, 04 May 2023 21:25:34 +0000
+	id 1pugat-0003cq-TS; Thu, 04 May 2023 21:34:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530151.825578; Thu, 04 May 2023 21:25:33 +0000
+Received: by outflank-mailman (output) from mailman id 530155.825589; Thu, 04 May 2023 21:34:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pugSD-00027A-U9; Thu, 04 May 2023 21:25:33 +0000
-Received: by outflank-mailman (input) for mailman id 530151;
- Thu, 04 May 2023 21:25:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pugat-0003aL-Pc; Thu, 04 May 2023 21:34:31 +0000
+Received: by outflank-mailman (input) for mailman id 530155;
+ Thu, 04 May 2023 21:34:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6+xu=AZ=redhat.com=kwolf@srs-se1.protection.inumbo.net>)
- id 1pugSC-000274-CE
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 21:25:32 +0000
+ id 1pugar-0003aF-Le
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 21:34:29 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32193822-eac2-11ed-b226-6b7b168915f2;
- Thu, 04 May 2023 23:25:31 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 71c1c72b-eac3-11ed-8611-37d641c3527e;
+ Thu, 04 May 2023 23:34:27 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-365-0JHXhtIDOzGjIqozYKIm0A-1; Thu, 04 May 2023 17:25:23 -0400
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+ us-mta-301-oftBbWKyPpm5UhTcIWwpiQ-1; Thu, 04 May 2023 17:34:23 -0400
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB301185A78B;
- Thu,  4 May 2023 21:25:22 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 20351185A7A2;
+ Thu,  4 May 2023 21:34:22 +0000 (UTC)
 Received: from redhat.com (unknown [10.39.192.9])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1EA6640C2064;
- Thu,  4 May 2023 21:25:18 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F7E82166B30;
+ Thu,  4 May 2023 21:34:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32193822-eac2-11ed-b226-6b7b168915f2
+X-Inumbo-ID: 71c1c72b-eac3-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683235530;
+	s=mimecast20190719; t=1683236066;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EXBTvckOEwAXoXWbpnPFajVuZsPXxwBJqTqoZHV9JvQ=;
-	b=V2u7aBfrIH5B/lud3IMRO5flv/4nzzzBj6wm+PNJR0HVqdcYOyOxZnUltN/AFkx8SiZCeG
-	VDAwJHC8aYJ6rnAkEOm1N56ay9LYPtIh3jkUuKhTm5DoA9zl6tB3teyVVKfPJCM0iIMPr3
-	JR5HPy+kg2Lws21G5Mpgg/UNQYzYRp4=
-X-MC-Unique: 0JHXhtIDOzGjIqozYKIm0A-1
-Date: Thu, 4 May 2023 23:25:17 +0200
+	bh=Gi2dujXyOOsp2C2GzNI9fp0qtTuAHfyKycpA+LfupIY=;
+	b=f+D9eg0FBnB1NY3jV8V1yvq9MIp96rcHolYq2LK3paPVShitP/PJbMWk7d/aryHjHdDbk/
+	ZWjNHOW00lPpaMmoiQJWS44Ak8nyghDEe0FwUB4udGtF2iZjQv5Mn4YX6I6Lng0p0DF4pQ
+	EozO1CzqHwF0pcqw4bRXQy2yEc1CLQI=
+X-MC-Unique: oftBbWKyPpm5UhTcIWwpiQ-1
+Date: Thu, 4 May 2023 23:34:17 +0200
 From: Kevin Wolf <kwolf@redhat.com>
 To: Stefan Hajnoczi <stefanha@redhat.com>
 Cc: qemu-devel@nongnu.org,
@@ -86,54 +87,78 @@ Cc: qemu-devel@nongnu.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Hanna Reitz <hreitz@redhat.com>,
 	Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Subject: Re: [PATCH v4 18/20] virtio-scsi: implement
- BlockDevOps->drained_begin()
-Message-ID: <ZFQivbkVPcX3nECA@redhat.com>
+Subject: Re: [PATCH v4 20/20] aio: remove aio_disable_external() API
+Message-ID: <ZFQk2TdhZ6DiwM4t@redhat.com>
 References: <20230425172716.1033562-1-stefanha@redhat.com>
- <20230425172716.1033562-19-stefanha@redhat.com>
+ <20230425172716.1033562-21-stefanha@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20230425172716.1033562-19-stefanha@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230425172716.1033562-21-stefanha@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 
 Am 25.04.2023 um 19:27 hat Stefan Hajnoczi geschrieben:
-> The virtio-scsi Host Bus Adapter provides access to devices on a SCSI
-> bus. Those SCSI devices typically have a BlockBackend. When the
-> BlockBackend enters a drained section, the SCSI device must temporarily
-> stop submitting new I/O requests.
+> All callers now pass is_external=false to aio_set_fd_handler() and
+> aio_set_event_notifier(). The aio_disable_external() API that
+> temporarily disables fd handlers that were registered is_external=true
+> is therefore dead code.
 > 
-> Implement this behavior by temporarily stopping virtio-scsi virtqueue
-> processing when one of the SCSI devices enters a drained section. The
-> new scsi_device_drained_begin() API allows scsi-disk to message the
-> virtio-scsi HBA.
+> Remove aio_disable_external(), aio_enable_external(), and the
+> is_external arguments to aio_set_fd_handler() and
+> aio_set_event_notifier().
 > 
-> scsi_device_drained_begin() uses a drain counter so that multiple SCSI
-> devices can have overlapping drained sections. The HBA only sees one
-> pair of .drained_begin/end() calls.
+> The entire test-fdmon-epoll test is removed because its sole purpose was
+> testing aio_disable_external().
 > 
-> After this commit, virtio-scsi no longer depends on hw/virtio's
-> ioeventfd aio_set_event_notifier(is_external=true). This commit is a
-> step towards removing the aio_disable_external() API.
+> Parts of this patch were generated using the following coccinelle
+> (https://coccinelle.lip6.fr/) semantic patch:
 > 
+>   @@
+>   expression ctx, fd, is_external, io_read, io_write, io_poll, io_poll_ready, opaque;
+>   @@
+>   - aio_set_fd_handler(ctx, fd, is_external, io_read, io_write, io_poll, io_poll_ready, opaque)
+>   + aio_set_fd_handler(ctx, fd, io_read, io_write, io_poll, io_poll_ready, opaque)
+> 
+>   @@
+>   expression ctx, notifier, is_external, io_read, io_poll, io_poll_ready;
+>   @@
+>   - aio_set_event_notifier(ctx, notifier, is_external, io_read, io_poll, io_poll_ready)
+>   + aio_set_event_notifier(ctx, notifier, io_read, io_poll, io_poll_ready)
+> 
+> Reviewed-by: Juan Quintela <quintela@redhat.com>
+> Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 
-> @@ -206,9 +208,11 @@ void virtio_scsi_dataplane_stop(VirtIODevice *vdev)
+> diff --git a/util/fdmon-epoll.c b/util/fdmon-epoll.c
+> index 1683aa1105..6b6a1a91f8 100644
+> --- a/util/fdmon-epoll.c
+> +++ b/util/fdmon-epoll.c
+> @@ -133,13 +128,12 @@ bool fdmon_epoll_try_upgrade(AioContext *ctx, unsigned npfd)
+>          return false;
 >      }
->      s->dataplane_stopping = true;
 >  
-> -    aio_context_acquire(s->ctx);
-> -    aio_wait_bh_oneshot(s->ctx, virtio_scsi_dataplane_stop_bh, s);
-> -    aio_context_release(s->ctx);
-> +    if (s->bus.drain_count == 0) {
-> +        aio_context_acquire(s->ctx);
-> +        aio_wait_bh_oneshot(s->ctx, virtio_scsi_dataplane_stop_bh, s);
-> +        aio_context_release(s->ctx);
-> +    }
+> -    /* Do not upgrade while external clients are disabled */
+> -    if (qatomic_read(&ctx->external_disable_cnt)) {
+> -        return false;
+> -    }
+> -
+> -    if (npfd < EPOLL_ENABLE_THRESHOLD) {
+> -        return false;
+> +    if (npfd >= EPOLL_ENABLE_THRESHOLD) {
+> +        if (fdmon_epoll_try_enable(ctx)) {
+> +            return true;
+> +        } else {
+> +            fdmon_epoll_disable(ctx);
+> +        }
+>      }
+>  
+>      /* The list must not change while we add fds to epoll */
 
-Same question as for virtio-blk: We lose processing the virtqueue one
-last time during drain. Is it okay, and if so, why do we need it outside
-of drain?
+I don't understand this hunk. Why are you changing more than just
+deleting the external_disable_cnt check?
+
+Is this a mismerge with your own commit e62da985?
 
 Kevin
 
