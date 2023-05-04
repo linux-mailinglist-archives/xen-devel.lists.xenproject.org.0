@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B1C96F71BA
-	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 20:05:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.529871.824786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFAD36F721A
+	for <lists+xen-devel@lfdr.de>; Thu,  4 May 2023 20:47:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.529874.824797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pudJP-0004nB-EP; Thu, 04 May 2023 18:04:15 +0000
+	id 1pudy9-0000wZ-IY; Thu, 04 May 2023 18:46:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 529871.824786; Thu, 04 May 2023 18:04:15 +0000
+Received: by outflank-mailman (output) from mailman id 529874.824797; Thu, 04 May 2023 18:46:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pudJP-0004lL-BP; Thu, 04 May 2023 18:04:15 +0000
-Received: by outflank-mailman (input) for mailman id 529871;
- Thu, 04 May 2023 18:04:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qVjO=AZ=rabbit.lu=slack@srs-se1.protection.inumbo.net>)
- id 1pudJO-0004lF-IJ
- for xen-devel@lists.xenproject.org; Thu, 04 May 2023 18:04:14 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 12baa79e-eaa6-11ed-8611-37d641c3527e;
- Thu, 04 May 2023 20:04:12 +0200 (CEST)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-306281edf15so749146f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 May 2023 11:04:11 -0700 (PDT)
-Received: from [192.168.2.1] (82-64-138-184.subs.proxad.net. [82.64.138.184])
- by smtp.googlemail.com with ESMTPSA id
- q6-20020a5d5746000000b003063db8f45bsm6351649wrw.23.2023.05.04.11.04.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 May 2023 11:04:11 -0700 (PDT)
+	id 1pudy9-0000tD-Fe; Thu, 04 May 2023 18:46:21 +0000
+Received: by outflank-mailman (input) for mailman id 529874;
+ Thu, 04 May 2023 18:46:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=srgM=AZ=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1pudy7-0000t7-MM
+ for xen-devel@lists.xenproject.org; Thu, 04 May 2023 18:46:19 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f3d9d1ce-eaab-11ed-b226-6b7b168915f2;
+ Thu, 04 May 2023 20:46:17 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,110 +36,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12baa79e-eaa6-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rabbit-lu.20221208.gappssmtp.com; s=20221208; t=1683223451; x=1685815451;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zPoy7ZjH0Hp3L3NSAKFAvrycApDT8quJeyk+IzfMzr8=;
-        b=n740Nn8vCLMkAbNPdJ4Ss/Yj+iwdxeLduFRV5USOrUmS/rvP+eGovQmfo6kDZKkFk+
-         RkfGBLKiyFyqTwUTFQVmuYs51Uvfjuu9a1XBmZKadGPoJXjqrR7R9w3WRiVTEmXb191C
-         3gQXfFUJMYOYOdrVeuk+TZKTLNRCseERcSdLjCFxijIIr+Q8s5KrVOaURi1qd7dzAeJ3
-         CRGrecprB6gOoSXxKKgeCt30UH94YH3nl15ZwKBuk55omYVHA7a5mQ5P2+VU4TEy1z5v
-         hm5p5lLC0WhYDQNp3Xp1iI+2vykSpUyh4vX+AWGYFBPiUTY8u6ojDD85i7Pv0bowga2Q
-         YYyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683223451; x=1685815451;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zPoy7ZjH0Hp3L3NSAKFAvrycApDT8quJeyk+IzfMzr8=;
-        b=S5LGlMmu2bu6l1IPVRnxG8jHi53d/seY9J6Klbb+2LjV777fvSGKqlXWB+nR/JGOnn
-         pGmgPmpKF4fVBA/I2xrWeAJ8Dv4Fgh1zDglGwsWIR19vUOCgzDf1eKPhi99/A1ipWSsN
-         2rDz/NZpoYadYjTCRgCWVITYGs4DmCiUqW44rZjIX4FBtfDHiYDSgfgzGV55Qt3EZGz6
-         3/kWLQ3dBsIdE3fgUr5XI/1cpn/dcce/66XbCw2jdif01Lcu0EW8FQPUPHx1ChhwRT9l
-         /mdxTa72m9I4ccBnR/MpkABqCL9ShvpnF2mQ9U1x4sU1j1KBYcgL2yxF/6UGyYhwFYYr
-         5vSA==
-X-Gm-Message-State: AC+VfDy0CLVE5fYnC6G942T+umybaxt2JmdNYW+G97H2SYwU6IARI9Wu
-	S8o2gBdS3DqQf08VNR9v11aUOA==
-X-Google-Smtp-Source: ACHHUZ6Mo1nJZkoEy25euN2Nob3Y+z0UQWcQqryc3MNaJrMrtoUE/Nf6NS4SdUF8LM5x7J5pd1tCSw==
-X-Received: by 2002:a5d:42cf:0:b0:306:40dc:abd9 with SMTP id t15-20020a5d42cf000000b0030640dcabd9mr3376711wrr.71.1683223451453;
-        Thu, 04 May 2023 11:04:11 -0700 (PDT)
-Message-ID: <a51e0f7e-aed0-2ec9-f451-2e750636fb78@rabbit.lu>
-Date: Thu, 4 May 2023 20:04:09 +0200
+X-Inumbo-ID: f3d9d1ce-eaab-11ed-b226-6b7b168915f2
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1683225976;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OIAcVs2YXBnNfaPvpuizW2PEW4lhJ1YnG6MUoZkO7aY=;
+	b=3+tD+LTP2nHbLKQ6ayQSSKK8VpBIuQK3gXforAfUYbXvx4vM+fYGuufKzSpG2saVKOpTsV
+	to0Q6mzIGbAQjDqsOQkje2Tja0U/TKz3F+TviP3kf+19hr3bEm6s4uGo2F+s+PdBgPIGkj
+	gHjK9Yi0pM4GUZc5ZpONvd31Hppwcu+Bcbd8TlaOcVKhOuZIjToIAW5YXeXW3Go5sZpcCh
+	htSi5EE8To3+PKCGlsNtyNrMRTsE8PlVdNzqWmd8pkRxZ1vMQC2VO2mXVu6cVctYauCbM0
+	4H8XFlx6BIILGrhdr/EBrOtC8Cm0866nFAfWkkLlHu0QtdUMHZ2jk6jWm8xf3Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1683225976;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OIAcVs2YXBnNfaPvpuizW2PEW4lhJ1YnG6MUoZkO7aY=;
+	b=pPb8Wqh2Bj6AkjBEVHoo9nA/DLOEH7EgQ6O+EgS1RtAjQlyepgF0Tr/3dF7rDdC5tR1PRC
+	DisRQOSHrsQxZlDw==
+To: "Michael Kelley (LINUX)" <mikelley@microsoft.com>, LKML
+ <linux-kernel@vger.kernel.org>
+Cc: "x86@kernel.org" <x86@kernel.org>, David Woodhouse <dwmw@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Brian Gerst
+ <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>, Paolo
+ Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>, Tom
+ Lendacky <thomas.lendacky@amd.com>, Sean Christopherson
+ <seanjc@google.com>, Oleksandr
+ Natalenko <oleksandr@natalenko.name>, Paul Menzel <pmenzel@molgen.mpg.de>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Piotr Gorski
+ <lucjan.lucjanov@gmail.com>, David Woodhouse <dwmw@amazon.co.uk>, Usama
+ Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, Russell King <linux@armlinux.org.uk>,
+ Arnd
+ Bergmann <arnd@arndb.de>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
+ <guoren@kernel.org>, "linux-csky@vger.kernel.org"
+ <linux-csky@vger.kernel.org>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, "linux-mips@vger.kernel.org"
+ <linux-mips@vger.kernel.org>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, Helge Deller <deller@gmx.de>,
+ "linux-parisc@vger.kernel.org" <linux-parisc@vger.kernel.org>, Paul
+ Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Mark
+ Rutland <Mark.Rutland@arm.com>, Sabin Rapan <sabrapan@amazon.com>
+Subject: RE: [patch 00/37] cpu/hotplug, x86: Reworked parallel CPU bringup
+In-Reply-To: <BYAPR21MB168888DC5432883D8866BA40D76A9@BYAPR21MB1688.namprd21.prod.outlook.com>
+References: <20230414225551.858160935@linutronix.de>
+ <BYAPR21MB168888DC5432883D8866BA40D76A9@BYAPR21MB1688.namprd21.prod.outlook.com>
+Date: Thu, 04 May 2023 20:46:15 +0200
+Message-ID: <878re43pfs.ffs@tglx>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: xenstored: EACCESS error accessing control/feature-balloon 1
-Content-Language: en-US
-To: Yann Dirson <yann.dirson@vates.fr>, xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>, =?UTF-8?B?RWR3aW4gVMO2csO2aw==?=
- <edwin.torok@cloud.com>, Julien Grall <julien@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <3065c524-07c7-6458-ff4c-ba68ff78c946@rabbit.lu>
- <474b531f-2067-a5d4-8b01-5b8ef1f7061d@citrix.com>
- <678df1ff-df18-b063-eda3-2a1aed6d40f8@vates.fr>
- <50bf6b82-965b-d17c-7c5a-49c703991504@rabbit.lu>
- <f44261a2-df39-f69a-9798-dc1d656e6dac@vates.fr>
-From: zithro <slack@rabbit.lu>
-In-Reply-To: <f44261a2-df39-f69a-9798-dc1d656e6dac@vates.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 04 May 2023 17:59, Yann Dirson wrote:
-> 
-> On 5/4/23 15:58, zithro wrote:
->> Hi,
->>
->> [ snipped for brevity, report summary:
->> XAPI daemon in domU tries to write to a non-existent xenstore node in
->> a non-XAPI dom0 ]
->>
->> On 12 Apr 2023 18:41, Yann Dirson wrote:
->>> Is there anything besides XAPI using this node, or the other data
->>> published by xe-daemon?
->>
->> On my vanilla Xen (ie. non-XAPI), I have no node about "balloon"-ing
->> in xenstore (either dom0 or domU nodes, but I'm not using ballooning
->> in both).
->>
->>> Maybe the original issue is just that there is no reason to have
->>> xe-guest-utilities installed in this setup?
->>
->> That's what I thought as I'm not using XAPI, so maybe the problem
->> should only be addressed to the truenas team ? I posted on their forum
->> but got no answer.
->> I killed the 'xe-daemon' in both setups without loss of functionality.
->>
->> My wild guess is that 'xe-daemon', 'xe-update-guest-attrs' and all
->> 'xenstore* commands' are leftovers from when Xen was working as a dom0
->> under FreeBSD (why would a *domU* have them ?).
-> 
-> That would not be correct: xenstore* are useful in guests, should you
-> want to read/write to the XenStore manually or from scripts;
+Michael!
 
-Didn't know that, can you give some use cases (or URLs) for which it is 
-useful, with or without XAPI ?
-I've read xenstore* man pages and could not infer a use case.
-Although I may already see some : updating ballooned memory values, or 
-as Julien Grall pointed out, updating "feature-s3/4" values ?
+On Thu, Apr 27 2023 at 14:48, Michael Kelley wrote:
+> From: Thomas Gleixner <tglx@linutronix.de> Sent: Friday, April 14, 2023 4:44 PM
+>
+> I smoke-tested several Linux guest configurations running on Hyper-V,
+> using the "kernel/git/tglx/devel.git hotplug" tree as updated on April 26th.
+> No functional issues, but encountered one cosmetic issue (details below).
+>
+> Configurations tested:
+> *  16 vCPUs and 32 vCPUs
+> *  1 NUMA node and 2 NUMA nodes
+> *  Parallel bring-up enabled and disabled via kernel boot line
+> *  "Normal" VMs and SEV-SNP VMs running with a paravisor on Hyper-V.
+>     This config can use parallel bring-up because most of the SNP-ness is
+>     hidden in the paravisor.  I was glad to see this work properly.
+>
+> There's not much difference in performance with and without parallel
+> bring-up on the 32 vCPU VM.   Without parallel, the time is about 26
+> milliseconds.  With parallel, it's about 24 ms.   So bring-up is already
+> fast in the virtual environment.
 
-PS: small mistake in "man/xenstore-write.1.html" (from at least 4.14, 
-and onward), the synopsis reads "xenstore-read" ieof "xenstore-read".
-Also, the -s option disappeared from unstable, although it may be 
-expected. I don't know it's purpose either.
+Depends on the environment :)
 
-> xe-deamon and xe-update-guest-attrs both come from xe-guest-utilities 6.x, which
-> is really a domU tool as well, but is there to support XAPI in dom0.
+> The cosmetic issue is in the dmesg log, and arises because Hyper-V
+> enumerates SMT CPUs differently from many other environments.  In
+> a Hyper-V guest, the SMT threads in a core are numbered as <even, odd>
+> pairs.  Guest CPUs #0 & #1 are SMT threads in core, as are #2 & #3, etc.  With
+> parallel bring-up, here's the dmesg output:
+>
+> [    0.444345] smp: Bringing up secondary CPUs ...
+> [    0.445139] .... node  #0, CPUs:    #2  #4  #6  #8 #10 #12 #14 #16 #18 #20 #22 #24 #26 #28 #30
+> [    0.454112] x86: Booting SMP configuration:
+> [    0.456035]       #1  #3  #5  #7  #9 #11 #13 #15 #17 #19 #21 #23 #25 #27 #29 #31
+> [    0.466120] smp: Brought up 1 node, 32 CPUs
+> [    0.467036] smpboot: Max logical packages: 1
+> [    0.468035] smpboot: Total of 32 processors activated (153240.06 BogoMIPS)
+>
+> The function announce_cpu() is specifically testing for CPU #1 to output the
+> "Booting SMP configuration" message.  In a Hyper-V guest, CPU #1 is the second
+> SMT thread in a core, so it isn't started until all the even-numbered CPUs are
+> started.
 
-I checked on freshports, this is effectively the last version in 
-FreeBSD, hence FreeNAS (although the version number hasn't been updated 
-since 2020, despite updates, so it's not clear which version I'm using).
+Ah. Didn't notice that because SMT siblings are usually enumerated after
+all primary ones in ACPI.
 
-So next question is: shouldn't the installer detect if running on a XAPI 
-Xen or not ? I imagine it's feasible, maybe via XAPI-specific xenstore 
-nodes ?
+> I don't know if this cosmetic issue is worth fixing, but I thought I'd point it out.
 
-Have a nice evening
+That's trivial enough to fix. I'll amend the topmost patch before
+posting V2.
+
+Thanks for giving it a ride!
+
+       tglx
 
