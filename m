@@ -2,29 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D85C6F8370
-	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 15:06:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530328.825895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3BB6F8377
+	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 15:07:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530339.825905 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puv85-0004WV-Ju; Fri, 05 May 2023 13:05:45 +0000
+	id 1puv99-0005et-32; Fri, 05 May 2023 13:06:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530328.825895; Fri, 05 May 2023 13:05:45 +0000
+Received: by outflank-mailman (output) from mailman id 530339.825905; Fri, 05 May 2023 13:06:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puv85-0004UD-GD; Fri, 05 May 2023 13:05:45 +0000
-Received: by outflank-mailman (input) for mailman id 530328;
- Fri, 05 May 2023 13:05:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XVLi=A2=citrix.com=prvs=4822586d7=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1puv83-0003zO-Vt
- for xen-devel@lists.xenproject.org; Fri, 05 May 2023 13:05:43 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a541022-eb45-11ed-b226-6b7b168915f2;
- Fri, 05 May 2023 15:05:42 +0200 (CEST)
+	id 1puv99-0005c9-0D; Fri, 05 May 2023 13:06:51 +0000
+Received: by outflank-mailman (input) for mailman id 530339;
+ Fri, 05 May 2023 13:06:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9G22=A2=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1puv96-0005Hq-Q0
+ for xen-devel@lists.xenproject.org; Fri, 05 May 2023 13:06:48 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20622.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::622])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b09b0e98-eb45-11ed-8611-37d641c3527e;
+ Fri, 05 May 2023 15:06:47 +0200 (CEST)
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
+ by AS4PR04MB9337.eurprd04.prod.outlook.com (2603:10a6:20b:4e5::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.26; Fri, 5 May
+ 2023 13:06:44 +0000
+Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::768c:6df7:9afb:acd7]) by AM6PR04MB6551.eurprd04.prod.outlook.com
+ ([fe80::768c:6df7:9afb:acd7%7]) with mapi id 15.20.6363.027; Fri, 5 May 2023
+ 13:06:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,316 +47,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a541022-eb45-11ed-b226-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1683291943;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=2bX75MfTm7xh700KZ13jcKWteUQ7dRrOiWoTRNhLPAY=;
-  b=dYRbFxwfFlIYNr10Phm3SDW/0pzQHu6j3Oz9sesHXEKwmmSp2WLdO6zB
-   HaYsxYBX5YEzskyOufH7ZUO1TrTS3L6huK3BtLIKpJnOHBAh+HEMgzLeU
-   bD9pMPgBr9UHdMB7HM+p2OKm3ExuA15Iyx4qXGTsz1Jomi4qWZ74QljdP
-   I=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 108401387
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:vn5UFaiUPoRXygEj5O7GNLDaX161eRAKZh0ujC45NGQN5FlHY01je
- htvXj+FM/7ZN2v3ctwnOd6290sA7ZSHztUwSwFtqS01ES0b9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsy+qWj0N8klgZmP6sT4QeDzyN94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQhEx40P0yKhNjx44ODYNlgutQAAczkadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
- pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27B/
- jKapz2iUk5y2Nq32R+B1kKCl+/znhz7SJ0pBrKd3PBajwjGroAUIEJPDgbqyRWjsWalQM5WI
- UEQ/isorIAx+VatQ927WAe3yFabujYMVtwWFPc1gCmP167V7gCxFmUCCDlbZ7QOluU7WDgr3
- V+hhM7yCHpkt7j9YWKQ8PKYoC2/PQARLHQefmkUQA0d+d7hrYovyBXVQb5e/LWd14OvX2uqm
- nbT8XZ43u9I5SIW60ml1Wn8rQv9+pHKdEkW1z39bm6Z/iBUYYHwMuRE9mPnAeZ8wJexFwfR5
- yJZypHHs4jiHrnWynXTHbxl8KWBoq/cbWaC2QMH84wJrWzFxpK1QWxHDNiSzm9NO91MRzLma
- VS7Veh5tM4KZyvCgUOajuuM5yUWIUvIT46Nugj8NIYmX3SIXFbvENtSTUCRxXvxt0MnjLsyP
- 5yWGe71UyZBU/45kGPnH7xCuVPO+h3SOEuJHcyrp/hZ+eP2iIGppUctbwLVM7FRAFKsqwTJ6
- ddPX/a3J+FkeLSmOEH/qNdDRW3m2FBnXfgaXeQLLL/cSuencUl9Y8LsLUQJJ9U5w/8PybiVr
- hlQmCZwkTLCuJEOEi3SAlgLVV8ldcwXQa4TVcD0AWuV5g==
-IronPort-HdrOrdr: A9a23:g7a6Ka4Z7h2xCF+HEAPXwM/XdLJyesId70hD6qkRc20yTiX8ra
- rCoB11737JYVoqOE3I4OrvBEDiewK6yXcW2/h1AV7KZmCP01dASrsSjrcKqweNJ8SUzJ846U
- 4PSdkdNDUuZWIUsS6ciDPIauod/A==
-X-Talos-CUID: =?us-ascii?q?9a23=3A7FiXjGpgGp8n1aa4XKKADqrmUfkeXESMkH7TGQi?=
- =?us-ascii?q?bOF5DeLGpWXy9/awxxg=3D=3D?=
-X-Talos-MUID: 9a23:pZ/JGAmvWLgeA+bgXzoldnpyEcNM04q/CHwOrpUWpPKWOglaNQeS2WE=
-X-IronPort-AV: E=Sophos;i="5.99,252,1677560400"; 
-   d="scan'208";a="108401387"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
-	<julien@xen.org>
-Subject: [PATCH 2/2] LICENSES: Remove the use of deprecated LGPL SPDX tags
-Date: Fri, 5 May 2023 14:05:33 +0100
-Message-ID: <20230505130533.3580545-3-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230505130533.3580545-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: b09b0e98-eb45-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=X6/3/Ys4PDb7OFaBf3sNTgJjxjHdbKYT3NtSSDR2vY8NwtEV61POKUWOFtxyhfo9YIUFojXQ4KsmP8VV2ZEyBDPzDk0D5OQatvHtFdsZbriUZOuduJ80LHU49kdA9ucEX4mQ94B0I3K582wBv/vm2cP08FBAeU6KhnPdscbJp7GnaAtu/Bc6qobY2wOnUJa1k1mKLsbOCCUmYv7hUBnS195oOCtFHugEhQZqUKr7lWwhSa6jpcAC8vB0hovXM0j2TVj1cNYc9he0gwnKk3Gl7GVmKEk0CksDA23qmC6HfoD6d+wumRNjdNeq/TbIf/kddm5Ne4pCoj6PhKf2vmY0tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5fi21jemoaQ/IahEePuXb4ql0t8nqpe0QrayBGOWBbM=;
+ b=W2x3oeYCdAPHPsUfTD99rn2WKjzKRn7c0jm1z6Y4T1yrp5kO9c6Je898YsgWF6ej6bT51VHecaEqk3l9cnwakUlUAfKhuzC5XAIiUOM2/+6Q6kFtYrYeiw8W1YfyYzVcov56B2N4lQ0L9xk+QA6SrDZSZ24FY/FLq0otGI2/Pa7I/+QS/Mz/Mz5Kq4ZR/Fdud0+0oVPuwS+D4ql7DdwR47CrtISQX1197C4u9B6dsWK7Ov8VZUZA0HC/r8S/9/BHlmzfGFDF4BKlscR7suCXw2v9Tdi3P3x3sUbJ+dJRUuIJMWtIyfi8L1iCXZWpYYG0JnEwDHnTDX8DdPb18VgH/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5fi21jemoaQ/IahEePuXb4ql0t8nqpe0QrayBGOWBbM=;
+ b=OYcQ+WXnHA0rYlh5HW02H8d/0dFnQRFbg9AeXmd3wyoUxepUbpM6L78XdJh97AJhoZ2jUDZKJShjRg1r74le/gWX5N+V9iwE52VoiI2xvI1pFIoC+gPKvldnc6MIvW2txpYcEDxQahfZPgcoWWFAYf2yAorhR2mjYXC4+pxc8WUgAChnTrdBxQSMsQqR5FHzrAI1IdUieHFied16YGMzYIgiUILiSRFS8JJVgLOMvcUIqqARzLhCywJ6K2FXJywcfwtxG6jsH5ZmSMp6qQwUTVor2k8Ek3O8mrTogQAiKvJ2ziZfOVR7q7yRFWMep4FbBUmEog+WplsNKBx6SgrgRg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <e8ec85b6-90bb-1df0-4f6b-d7e9c6ade25f@suse.com>
+Date: Fri, 5 May 2023 15:06:42 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Subject: Re: [PATCH 1/2] LICENSES: Improve the legibility of these files
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20230505130533.3580545-1-andrew.cooper3@citrix.com>
+ <20230505130533.3580545-2-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230505130533.3580545-2-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0174.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b4::7) To AM6PR04MB6551.eurprd04.prod.outlook.com
+ (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|AS4PR04MB9337:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf45689d-f97e-4be8-bbb0-08db4d699383
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Bnyk6Wx3DJFMeLKeR/igUv4DCbFygvGeyk5QNqYrJ9WvNpBMPWBr9w3P1qqCLXJN9gJ/T2p2QuUSygI5j6qzGsE7gDZ6ryvMT1AkiQIs3M5xMd5j1gO9eAc9ylwL+NHMAGerp03RZQbccMNj2bdDyBpPTxWX984NXs4vBIYQ/HYcnhU3/yBdSK11WVovjLcpQKLtl76i8UmOm6kp7np09ner6l5litb04EvuwEpMrwN2Jt7gjC5ul07jPyNIsE9q5gBHEuJbiuVYziqWGY2R88TO4RNBUTYc5A2INoVeNUfq2B//6U1Sw62ouEnfod+bxpOaVO+oZvQyEGupadY1yQn7CpFAASe73X0B3dPp7tZHjMvtIIQ4JGHiwHeVZRgZtnO/uYfex4FsRuJQfB28z3aDOVL1frzFihn9crcXbw4muq2JuoOK5gwCPbwobZYHFEtyjrF/o80+FgPGHcFngR8D8sqlSzTW6TytjfKDZ8J3GOBpIuRoykzbHLGWTvg5azIDTi2WS86c3aoFOkKO6/qbkxc0sq+ZYFnhWwY88+BXabxu5w5kOqmDqq+AhCB5pp3i07ItTZ5Naah+v4foyOAZt1oHlQ2FH9CmXCh09DlbVlq392uXOklVGbu6ReLPI2wZqtPtn65pyo/3oXUVXQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(376002)(136003)(396003)(366004)(39860400002)(451199021)(6486002)(478600001)(54906003)(2616005)(53546011)(186003)(6512007)(6506007)(26005)(8676002)(2906002)(38100700002)(5660300002)(36756003)(558084003)(4326008)(8936002)(66556008)(66476007)(6916009)(41300700001)(66946007)(31696002)(86362001)(316002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aWpkWjJXc3U2aXplUFpvdExYYWlnakdPNFBNWFlKaytnVkFzMlN5bVNQQ1J3?=
+ =?utf-8?B?dnhXTEUwY01vRmRjc2x3VVFpRURFTWhsbnhJSHp4TlMyZGZuM0tzQ28yK29I?=
+ =?utf-8?B?b3QrUkZ0UUo3dkV5a1c1Q0xweVNGSy9vUWRMTVMvZmVKTUE4RWI1Nzl5alNw?=
+ =?utf-8?B?b08rREprdWVYaGVVTjdOYTRYYzBRS2hsNllWbnA4NUtzZFNZT3E3b3RJZ01J?=
+ =?utf-8?B?NWFzam9ENWdxVjFOVFNiK043TDdqLzZvclJoYXY2UTRPYUVMeVI0SnptRFRZ?=
+ =?utf-8?B?VkhzMVAyaWFza0lmNTRTZUJuVkxhU2ttZ1JWZnhHUFpzMGp4MDVkTkZxMW8r?=
+ =?utf-8?B?M0FPdVY4eU9EbnNhaHVTWHVqaXZXTExHbXo0dWlKZjh1RVl3cFRrbVI2UkhK?=
+ =?utf-8?B?a0VRQVc2aUw3KzBxUGRiTTRWSlhyM3JFTy9OaE9lUC9QYmpqZEpudXRTL25W?=
+ =?utf-8?B?SHk2QjErZlpxaFlzays2RE02bXhYL05GMFV3azVJZnM4cjVOSWJiT1Rnenh1?=
+ =?utf-8?B?N0ZFbkRYUXdQZ1FlcTl5bzlabWVZRFRYekZONzAxVFFHYU1XaEJPbk1PY0Z4?=
+ =?utf-8?B?b2RQVFBaZU1HSGx5QWF1Syt4ZER0ZVlKdEJOdDRENW1qNHhnTjdmOUVwSlZQ?=
+ =?utf-8?B?Rml4TGdtcDdXc1E1QWFIRjNhUHZQTSs2V2xWeVZNOUF2Zy95RDlDNjZBZkVH?=
+ =?utf-8?B?SXAwS2UzRnZPM29vSVhQVEJIVUtwaXZtajZJaWJsTnFGSXVvTzBacnRGR0Zr?=
+ =?utf-8?B?ZmZQejFiYUQ2by80b1JpNDJvYmtDbW4yMkdvOG0rVU5zV3FuZ0FPMkpNeGRU?=
+ =?utf-8?B?cXdsWWtJVnhsbm9pWGVCTzNkNzBoZnVrZDkySlA2MUY2dlRXam1xZ0RvWVRJ?=
+ =?utf-8?B?eThyQzYzVnRqTWd4MkZIM2Jxc0NhZ3BsUzBNcktmdHdpdlZjRDNKcHdEcWJZ?=
+ =?utf-8?B?YzVqeStDbTRGNDlhNnFvZ25qWDFoMy9nYWRrMWRyUjdGUXk5QTY0bTYzbms4?=
+ =?utf-8?B?dndxcU0rbUdnVUFDQmlYb2tId2h1SWY5eEVIWXViTi9wTC92VUczamVVRlQ2?=
+ =?utf-8?B?cDFjRWpoMUtBQ0NRelNOSjF0aWlwejAvdUNwalU4dVhrVDFYZFllR2grWE00?=
+ =?utf-8?B?SjhHYnBORHBFZUZIYVJmTTdzajFYQm9BMExxNDNMOVEzODBsNGdKanpwVFJ1?=
+ =?utf-8?B?Q0ROb2hEZ1ZoL3NPTnVPUTF4U3hIUWhjNHBvU0cvSENCdDlSZTBrdHVBSWpj?=
+ =?utf-8?B?MkFFTDNzUVBaV0E2dVlXcUxrNVUvRUQvODNKaWEzUHh2b1pOUzFlZlFpYnd5?=
+ =?utf-8?B?dDduMFJqcFhTWEl4MWFKRGp6cFR0a2JoU0l6STVjRSs5elZUVHNCRzBTTzNk?=
+ =?utf-8?B?SUhqNzF0MmVJSXUzQWprRk1RaFIxeG9tcnMyRlNsYnFZbG9DbjFnanZaRzI4?=
+ =?utf-8?B?RVFhbU9ROWxkM0ljcXBvYTBqZHdMTXBDSHBMb3ZIUnlUYTBlWHZHRzIwcE50?=
+ =?utf-8?B?TnNPcTNxVUY2MldBWjdEU3dCb2JjQU5HTUtHMmdTSWN1YWpPZzNmdzVZVUpV?=
+ =?utf-8?B?RjY1NjZHSEUwMnpqQTNYa2hrZ2gwKzd6YVNzM3hYK0M0VmpYR05SbFRNMmRj?=
+ =?utf-8?B?cXBXVGZvRU9zV2daQVNNSHVKMGVLcW9wM2RaN2lVUGJBaEY4bjVFdk1uR0dP?=
+ =?utf-8?B?QXRxRlhLQTR0Ni9taEZQVVpIRlFSYTNoWUpJcndSV0R3YTBYSnVpRFVwR1FQ?=
+ =?utf-8?B?bDZpTEZid1FFRVBYc2RTZnFIK0pwZDNZVnI0azdKNUQ1c2wxZENZQURQdWsz?=
+ =?utf-8?B?SWtoOVVCWURIYkQyQXBBb1QzeXRFeSswVjNwVXZ4QXFCbGtwaDRXblhqc2Vh?=
+ =?utf-8?B?eU5ubEVsZWNFM3JOM0lZNjhDQmNYNWtQYXVGZkRrKzdVNXIxN21wbldWTFlw?=
+ =?utf-8?B?UXR2VEhXQUlCaHZJUmFWUlg2bE5HakkxQjhHdVlwNHYyUmhsaENIc2NvaExU?=
+ =?utf-8?B?SFFJYXFMU3RHUlI0bDVhMkx3UG1SajlxMCtnd1RQa2hRcHBqdHFKUit0eGFI?=
+ =?utf-8?B?R1FXZXZOZEE5NWo2QXFjZWwrbkR1L1dKRmh3clZROThLcVpXOUMwdGNtTk43?=
+ =?utf-8?Q?mCF0cKcPZOgjRz7XzFWK4pJLw?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf45689d-f97e-4be8-bbb0-08db4d699383
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2023 13:06:44.6295
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: szisnl/g/ITnM56g37H6Qb7/IMSpOuJPQFH9HR7bkLUv9yXoF7sNIGpNt/+47EFvLwvCUF8FKum+8zt8yol1yQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9337
 
-The SPDX forms without an explicit -only or -or-later suffix are deprecated
-and should not be used.  The recent changes to libacpi are the only examples
-in tree, so fix them all up.
+On 05.05.2023 15:05, Andrew Cooper wrote:
+> A few newlines go a very long way
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-For GPL, we have many examples using deprecated tags.  For now, just identify
-them as such recommend that no new instances get added.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: George Dunlap <George.Dunlap@eu.citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Wei Liu <wl@xen.org>
-CC: Julien Grall <julien@xen.org>
-
-Unsure whether this should get some Fixes: tags or not.  Note also that
-Jenny's "[PATCH v4 2/2] acpi: Add TPM2 interface definition." wants its SPDX
-tag correcting as per this patch.
----
- LICENSES/GPL-2.0                    | 12 ++++++------
- LICENSES/LGPL-2.0                   |  8 ++++----
- LICENSES/LGPL-2.1                   |  8 ++++----
- tools/libacpi/Makefile              |  2 +-
- tools/libacpi/acpi2_0.h             |  2 +-
- tools/libacpi/build.c               |  2 +-
- tools/libacpi/dsdt.asl              |  2 +-
- tools/libacpi/dsdt_acpi_info.asl    |  2 +-
- tools/libacpi/libacpi.h             |  2 +-
- tools/libacpi/mk_dsdt.c             |  2 +-
- tools/libacpi/ssdt_laptop_slate.asl |  2 +-
- tools/libacpi/ssdt_pm.asl           |  2 +-
- tools/libacpi/ssdt_s3.asl           |  2 +-
- tools/libacpi/ssdt_s4.asl           |  2 +-
- tools/libacpi/ssdt_tpm.asl          |  2 +-
- tools/libacpi/static_tables.c       |  2 +-
- 16 files changed, 27 insertions(+), 27 deletions(-)
-
-diff --git a/LICENSES/GPL-2.0 b/LICENSES/GPL-2.0
-index 0022a7c17788..dcd969aa85b5 100644
---- a/LICENSES/GPL-2.0
-+++ b/LICENSES/GPL-2.0
-@@ -1,8 +1,9 @@
--Valid-License-Identifier: GPL-2.0
- Valid-License-Identifier: GPL-2.0-only
--Valid-License-Identifier: GPL-2.0+
- Valid-License-Identifier: GPL-2.0-or-later
- 
-+Deprecated-Identifier: GPL-2.0
-+Deprecated-Identifier: GPL-2.0+
-+
- SPDX-URL: https://spdx.org/licenses/GPL-2.0.html
- 
- Usage-Guide:
-@@ -13,13 +14,12 @@ Usage-Guide:
- 
-   For 'GNU General Public License (GPL) version 2 only' use:
-     SPDX-License-Identifier: GPL-2.0-only
--  or (now deprecated)
--    SPDX-License-Identifier: GPL-2.0
-   For 'GNU General Public License (GPL) version 2 or any later version' use:
--    SPDX-License-Identifier: GPL-2.0+
--  or
-     SPDX-License-Identifier: GPL-2.0-or-later
- 
-+  The deprecated tags should not be used for any new additions.  Where
-+  possible, their existing uses should be phased out.
-+
- License-Text:
- 
- 		    GNU GENERAL PUBLIC LICENSE
-diff --git a/LICENSES/LGPL-2.0 b/LICENSES/LGPL-2.0
-index 2fa16d72eabf..c960ba3ce3b8 100644
---- a/LICENSES/LGPL-2.0
-+++ b/LICENSES/LGPL-2.0
-@@ -1,5 +1,5 @@
--Valid-License-Identifier: LGPL-2.0
--Valid-License-Identifier: LGPL-2.0+
-+Valid-License-Identifier: LGPL-2.0-only
-+Valid-License-Identifier: LGPL-2.0-or-later
- 
- SPDX-URL: https://spdx.org/licenses/LGPL-2.0.html
- 
-@@ -10,11 +10,11 @@ Usage-Guide:
-   guidelines in the licensing rules documentation.
- 
-   For 'GNU Library General Public License (LGPL) version 2.0 only' use:
--    SPDX-License-Identifier: LGPL-2.0
-+    SPDX-License-Identifier: LGPL-2.0-only
- 
-   For 'GNU Library General Public License (LGPL) version 2.0 or any later
-   version' use:
--    SPDX-License-Identifier: LGPL-2.0+
-+    SPDX-License-Identifier: LGPL-2.0-or-later
- 
- License-Text:
- 
-diff --git a/LICENSES/LGPL-2.1 b/LICENSES/LGPL-2.1
-index b366c7e49199..4553664b76bf 100644
---- a/LICENSES/LGPL-2.1
-+++ b/LICENSES/LGPL-2.1
-@@ -1,5 +1,5 @@
--Valid-License-Identifier: LGPL-2.1
--Valid-License-Identifier: LGPL-2.1+
-+Valid-License-Identifier: LGPL-2.1-only
-+Valid-License-Identifier: LGPL-2.1-or-later
- 
- SPDX-URL: https://spdx.org/licenses/LGPL-2.1.html
- 
-@@ -10,11 +10,11 @@ Usage-Guide:
-   guidelines in the licensing rules documentation.
- 
-   For 'GNU Lesser General Public License (LGPL) version 2.1 only' use:
--    SPDX-License-Identifier: LGPL-2.1
-+    SPDX-License-Identifier: LGPL-2.1-only
- 
-   For 'GNU Lesser General Public License (LGPL) version 2.1 or any later
-   version' use:
--    SPDX-License-Identifier: LGPL-2.1+
-+    SPDX-License-Identifier: LGPL-2.1-or-later
- 
- License-Text:
- 
-diff --git a/tools/libacpi/Makefile b/tools/libacpi/Makefile
-index aa9c520cbe85..bcfcd852f92f 100644
---- a/tools/libacpi/Makefile
-+++ b/tools/libacpi/Makefile
-@@ -1,4 +1,4 @@
--# SPDX-License-Identifier: LGPL-2.1
-+# SPDX-License-Identifier: LGPL-2.1-only
- #
- # Copyright (c) 2004, Intel Corporation.
- 
-diff --git a/tools/libacpi/acpi2_0.h b/tools/libacpi/acpi2_0.h
-index 212f5ab64182..e00b29854be0 100644
---- a/tools/libacpi/acpi2_0.h
-+++ b/tools/libacpi/acpi2_0.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /*
-  * Copyright (c) 2004, Intel Corporation.
-  */
-diff --git a/tools/libacpi/build.c b/tools/libacpi/build.c
-index 830d37c61f03..3142e0ac84c0 100644
---- a/tools/libacpi/build.c
-+++ b/tools/libacpi/build.c
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /*
-  * Copyright (c) 2004, Intel Corporation.
-  * Copyright (c) 2006, Keir Fraser, XenSource Inc.
-diff --git a/tools/libacpi/dsdt.asl b/tools/libacpi/dsdt.asl
-index c6691b56a986..32b42f85ae9f 100644
---- a/tools/libacpi/dsdt.asl
-+++ b/tools/libacpi/dsdt.asl
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /******************************************************************************
-  * DSDT for Xen with Qemu device model
-  *
-diff --git a/tools/libacpi/dsdt_acpi_info.asl b/tools/libacpi/dsdt_acpi_info.asl
-index c6e82f1fe6a7..6e114fa23404 100644
---- a/tools/libacpi/dsdt_acpi_info.asl
-+++ b/tools/libacpi/dsdt_acpi_info.asl
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- 
-     Scope (\_SB)
-     {
-diff --git a/tools/libacpi/libacpi.h b/tools/libacpi/libacpi.h
-index acf012e35578..7ae28525f604 100644
---- a/tools/libacpi/libacpi.h
-+++ b/tools/libacpi/libacpi.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /******************************************************************************
-  * libacpi.h
-  * 
-diff --git a/tools/libacpi/mk_dsdt.c b/tools/libacpi/mk_dsdt.c
-index c74b270c0c5d..34f6753f6193 100644
---- a/tools/libacpi/mk_dsdt.c
-+++ b/tools/libacpi/mk_dsdt.c
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- 
- #include <stdio.h>
- #include <stdarg.h>
-diff --git a/tools/libacpi/ssdt_laptop_slate.asl b/tools/libacpi/ssdt_laptop_slate.asl
-index 494f2d048d0a..69fd504c19fc 100644
---- a/tools/libacpi/ssdt_laptop_slate.asl
-+++ b/tools/libacpi/ssdt_laptop_slate.asl
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /*
-  * ssdt_conv.asl
-  *
-diff --git a/tools/libacpi/ssdt_pm.asl b/tools/libacpi/ssdt_pm.asl
-index e577e85c072b..db578d10ac3e 100644
---- a/tools/libacpi/ssdt_pm.asl
-+++ b/tools/libacpi/ssdt_pm.asl
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /*
-  * ssdt_pm.asl
-  *
-diff --git a/tools/libacpi/ssdt_s3.asl b/tools/libacpi/ssdt_s3.asl
-index 8f3177ec5adc..f6e9636f4759 100644
---- a/tools/libacpi/ssdt_s3.asl
-+++ b/tools/libacpi/ssdt_s3.asl
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /*
-  * ssdt_s3.asl
-  *
-diff --git a/tools/libacpi/ssdt_s4.asl b/tools/libacpi/ssdt_s4.asl
-index 979318eca1f5..8014f5fc9014 100644
---- a/tools/libacpi/ssdt_s4.asl
-+++ b/tools/libacpi/ssdt_s4.asl
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /*
-  * ssdt_s4.asl
-  *
-diff --git a/tools/libacpi/ssdt_tpm.asl b/tools/libacpi/ssdt_tpm.asl
-index 6c3267218f3b..944658d25177 100644
---- a/tools/libacpi/ssdt_tpm.asl
-+++ b/tools/libacpi/ssdt_tpm.asl
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /*
-  * ssdt_tpm.asl
-  *
-diff --git a/tools/libacpi/static_tables.c b/tools/libacpi/static_tables.c
-index 631fb911413b..715f46fee05c 100644
---- a/tools/libacpi/static_tables.c
-+++ b/tools/libacpi/static_tables.c
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: LGPL-2.1 */
-+/* SPDX-License-Identifier: LGPL-2.1-only */
- /*
-  * Copyright (c) 2004, Intel Corporation.
-  * Copyright (c) 2006, Keir Fraser, XenSource Inc.
--- 
-2.30.2
 
 
