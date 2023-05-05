@@ -2,29 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 122C36F85C8
-	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 17:31:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530475.826103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B2226F85EF
+	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 17:36:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530480.826113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puxOp-0006GA-Hp; Fri, 05 May 2023 15:31:11 +0000
+	id 1puxTQ-0006u2-3r; Fri, 05 May 2023 15:35:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530475.826103; Fri, 05 May 2023 15:31:11 +0000
+Received: by outflank-mailman (output) from mailman id 530480.826113; Fri, 05 May 2023 15:35:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puxOp-0006Df-ES; Fri, 05 May 2023 15:31:11 +0000
-Received: by outflank-mailman (input) for mailman id 530475;
- Fri, 05 May 2023 15:31:09 +0000
+	id 1puxTQ-0006rX-0J; Fri, 05 May 2023 15:35:56 +0000
+Received: by outflank-mailman (input) for mailman id 530480;
+ Fri, 05 May 2023 15:35:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fp4m=A2=citrix.com=prvs=4826eee3f=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1puxOn-0006DZ-Cm
- for xen-devel@lists.xenproject.org; Fri, 05 May 2023 15:31:09 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d91dfa4f-eb59-11ed-b226-6b7b168915f2;
- Fri, 05 May 2023 17:31:06 +0200 (CEST)
+ <SRS0=V+Y3=A2=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1puxTN-0006rR-OX
+ for xen-devel@lists.xenproject.org; Fri, 05 May 2023 15:35:53 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 84876bdc-eb5a-11ed-b226-6b7b168915f2;
+ Fri, 05 May 2023 17:35:52 +0200 (CEST)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-965d2749e2eso188730766b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 05 May 2023 08:35:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,97 +40,324 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d91dfa4f-eb59-11ed-b226-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1683300666;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pd6I1EXHaLBuaVUf35P+v7jHRWsGbpVWYeZwKsxvbI4=;
-  b=ZB0YRwaXS9HqLH8x2ILKW0zepcElfgKob2wJGOfujFO+GAavNbVJA/nW
-   R5+6Ac5OnoMiG6HLksjs/nw7IL57UStapxr3z5PAFS4G5oxyCoHkduswZ
-   8CNU6GR/Ofa1rS7bSYUaDvHLtWOypAPFU/TqY6WTX9uFplb6K8Lbf37ah
-   8=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 106778848
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:sJsI5KoFxnawG7lFbZlWSLf1km5eBmIyZRIvgKrLsJaIsI4StFCzt
- garIBnXPquDZGPzctslYdm3oUlUucSAnIA2SVNqpS5kFi1Dp5uZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WJwUmAWP6gR5weDzyRNVvrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXAB9TTh+Fndm9+rmiWMln2sMAffPuB4xK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVRrk6VoqwmpXDe1gVr3JDmMcbPe8zMTsJQ9qqdj
- jueoTumUkFGZLRzzxKCrW/zvOHEhR/ZXb8KH7+hxNd1jEaMkzl75Bo+CgLg/KjRZlSFc8JSL
- QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUSyiuA167V6AaxHXUfQ3hKb9lOnNQtWTUg2
- 1uNntXoLT9iqruYTTSa7Lj8hSy2ETgYKykFfyBsZQkY59jupqkjgxSJScxseIa8ltDvECv86
- yyLpiM5wb4UiKY2O76TpA6dxWj2/96QE1Bzv1+MNo640u9nTKH7R4Ou82PQ1/1ZPqaSEl6i7
- UIBoMfLuYjiEqqxeDyxrPQlRe/5vKzYYWSF3jaDDLF6qW3zpifLkZR4pWgneRw3aptslSrBO
- he7hO9H2HNE0JJGh4dTapn5NcklxLOI+T/NBqGNNYomjnScmWa6EMBSia24hTqFfLAEy/1XB
- HtiWZ/E4YwmIapm1iGqYOwWzKUmwCszrUuKG8CglU75jePPPCXKIVvgDGZik8hjtP/UyOkr2
- 4832zS2J+V3D7SlP3i/HX87JlEWN3krba3LRzhsXrfbeGJOQThxY8I9NJt9I+SJaYwJzLaXl
- px8M2cEoGfCaYrvcFrRMS8/MuOxBf6SbxsTZEQRALph4FB7Ca7H0UvVX8FfkWUPnAC78cNJc
- g==
-IronPort-HdrOrdr: A9a23:qVE71q3T0ySNbBavHrvGcgqjBIgkLtp133Aq2lEZdPUCSL3+qy
- nIpoV56faUslYssR4b8uxoVJPrfZq+z/9ICOsqUotKBzOW3FdARbsKhbcKpQeMJ8SUzIBgPM
- lbH5SXp7fLfD5HZWqR2njbLz6AquP3lZyVuQ==
-X-Talos-CUID: =?us-ascii?q?9a23=3A9AH+I2iAWrmViYKK6NNScXjCKDJuXSP9w3HKGES?=
- =?us-ascii?q?CAn97aLbJTnzBwqZfnJ87?=
-X-Talos-MUID: =?us-ascii?q?9a23=3AbLj8Kw372EAKKl45AHLNV3l0tTUj5PuzV3oDmo0?=
- =?us-ascii?q?6mcy5LSdyIgW0kzisXdpy?=
-X-IronPort-AV: E=Sophos;i="5.99,252,1677560400"; 
-   d="scan'208";a="106778848"
-Date: Fri, 5 May 2023 16:30:52 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
-	<julien@xen.org>
-Subject: Re: [PATCH 2/2] LICENSES: Remove the use of deprecated LGPL SPDX tags
-Message-ID: <ZFUhLBm1fzlbpAux@perard>
-References: <20230505130533.3580545-1-andrew.cooper3@citrix.com>
- <20230505130533.3580545-3-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 84876bdc-eb5a-11ed-b226-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1683300952; x=1685892952;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=31qlMl6bkiI4bRzxC3N4JX9MyFjNBhP97o0bysyL4Rc=;
+        b=niNGKM0LFFqkXMppAj+bYzmkzTsiisqFtDYz2Ro5WDODkbpBxHRUlWGeHheYpVWuK6
+         TmjoLen0WxGpuoBJ88btqLrqrpddqPupfNtcV4q2j5jHnCEsmWN31z0p/VdajBVEuVxP
+         /HClno6FPtan36OMZs9l9VrpdNVwryYWwhnBlDZWBU9fv+X0v/wusYx8gp1LAYm1mYrG
+         1r43/L6DUmDygi5XIHnq3ZwyoA3U6deRTP2+iqjFHC9E3fmu6YF4JneN3nCd/Z7MrYau
+         A8/SpQWEAIZlG9nhV22q1lNlgX8Fa+/XuPvcWJQoeyfpjntFfEjE6CckHOrnWUoZCExA
+         DFBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683300952; x=1685892952;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=31qlMl6bkiI4bRzxC3N4JX9MyFjNBhP97o0bysyL4Rc=;
+        b=cHX2kSGRBpik3pSyRwoUogdkcg897eLxXg5CjBrl7iQ86VZE7E83aP5oRaNDU5E/Af
+         SABEWadpLdflgN3CrxQ/BIwBQ/5bWmJ4duUYDnweX/gKQb7a+b3ZAyYJEJuLRFQznMtY
+         WGvFZHnDY7hZ2jGC2Vz2F6PmnBkGU+osSZrUAc6jXMgMvAT9S84utEsXLPjU5qZysHz5
+         rjqQxremf8G08p6UXjsbm6mLxvPS4xC/9QGWmvk1ehq4CtLwstvHd6QN9eFZtR/dN/vO
+         edmI4D5rUBfOD1FbTHsHqAVDEos4MBGEP37Nbq51bLYiqQQ+QCljLYw5rDWZGoPUSZ3q
+         Vcsg==
+X-Gm-Message-State: AC+VfDy9DU+uueU2V3Lg5nrAjN/KPPvLZEKlSo7xx9mB2wdA7P7W/RRK
+	qvzOaWvJPjGdTQKDbZq2j7l41+NfsXmAo4VzxYcAfRBZ
+X-Google-Smtp-Source: ACHHUZ6K+ucZsTkXReKaSLyTS6MXHvsPgDI/+Lt4ZClDTgE2NQfoE9KEzyoCJh20jvOGkN5fGHmw7kAjBmMAo864o9k=
+X-Received: by 2002:a17:907:6287:b0:962:582d:89d7 with SMTP id
+ nd7-20020a170907628700b00962582d89d7mr1758978ejc.38.1683300951588; Fri, 05
+ May 2023 08:35:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230505130533.3580545-3-andrew.cooper3@citrix.com>
+References: <20230501193034.88575-1-jandryuk@gmail.com> <20230501193034.88575-5-jandryuk@gmail.com>
+ <43c519f7-577d-f657-a4b1-1a31bf7f093a@suse.com> <CAKf6xpuzk6vLjbNAHzEmVpq8sDAO8O-cRFVStQxNqyD5ERr+Yg@mail.gmail.com>
+ <7921d24d-7d4d-8829-44bf-b8c2ecd001c8@suse.com>
+In-Reply-To: <7921d24d-7d4d-8829-44bf-b8c2ecd001c8@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Fri, 5 May 2023 11:35:39 -0400
+Message-ID: <CAKf6xpt0n2GO1PuqeaiWi6iOoeBt0ULoKJ4xgeiTZo2Rh67kVg@mail.gmail.com>
+Subject: Re: [PATCH v3 04/14 RESEND] cpufreq: Add Hardware P-State (HWP) driver
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 05, 2023 at 02:05:33PM +0100, Andrew Cooper wrote:
-> ---
->  LICENSES/GPL-2.0                    | 12 ++++++------
->  LICENSES/LGPL-2.0                   |  8 ++++----
->  LICENSES/LGPL-2.1                   |  8 ++++----
-> 
-> diff --git a/LICENSES/GPL-2.0 b/LICENSES/GPL-2.0
-> index 0022a7c17788..dcd969aa85b5 100644
-> --- a/LICENSES/GPL-2.0
-> +++ b/LICENSES/GPL-2.0
-> @@ -1,8 +1,9 @@
-> -Valid-License-Identifier: GPL-2.0
->  Valid-License-Identifier: GPL-2.0-only
-> -Valid-License-Identifier: GPL-2.0+
->  Valid-License-Identifier: GPL-2.0-or-later
->  
-> +Deprecated-Identifier: GPL-2.0
-> +Deprecated-Identifier: GPL-2.0+
-> +
->  SPDX-URL: https://spdx.org/licenses/GPL-2.0.html
+On Fri, May 5, 2023 at 3:01=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 04.05.2023 18:56, Jason Andryuk wrote:
+> > On Thu, May 4, 2023 at 9:11=E2=80=AFAM Jan Beulich <jbeulich@suse.com> =
+wrote:
+> >> On 01.05.2023 21:30, Jason Andryuk wrote:
+> >>> --- a/docs/misc/xen-command-line.pandoc
+> >>> +++ b/docs/misc/xen-command-line.pandoc
+> >>> @@ -499,7 +499,7 @@ If set, force use of the performance counters for=
+ oprofile, rather than detectin
+> >>>  available support.
+> >>>
+> >>>  ### cpufreq
+> >>> -> `=3D none | {{ <boolean> | xen } [:[powersave|performance|ondemand=
+|userspace][,<maxfreq>][,[<minfreq>][,[verbose]]]]} | dom0-kernel`
+> >>> +> `=3D none | {{ <boolean> | xen } [:[powersave|performance|ondemand=
+|userspace][,<hdc>][,[<hwp>]][,[<maxfreq>]][,[<minfreq>]][,[verbose]]]} | d=
+om0-kernel`
+> >>
+> >> Considering you use a special internal governor, the 4 governor altern=
+atives are
+> >> meaningless for hwp. Hence at the command line level recognizing "hwp"=
+ as if it
+> >> was another governor name would seem better to me. This would then als=
+o get rid
+> >> of one of the two special "no-" prefix parsing cases (which I'm not ov=
+erly
+> >> happy about).
+> >>
+> >> Even if not done that way I'm puzzled by the way you spell out the int=
+eraction
+> >> of "hwp" and "hdc": As you say in the description, "hdc" is meaningful=
+ only when
+> >> "hwp" was specified, so even if not merged with the governors group "h=
+wp" should
+> >> come first, and "hdc" ought to be rejected if "hwp" wasn't first speci=
+fied. (The
+> >> way you've spelled it out it actually looks to be kind of the other wa=
+y around.)
+> >
+> > I placed them in alphabetical order, but, yes, it doesn't make sense.
+> >
+> >> Strictly speaking "maxfreq" and "minfreq" also should be objected to w=
+hen "hwp"
+> >> was specified.
+> >>
+> >> Overall I'm getting the impression that beyond your "verbose" related =
+adjustment
+> >> more is needed, if you're meaning to get things closer to how we parse=
+ the
+> >> option (splitting across multiple lines to help see what I mean):
+> >>
+> >> `=3D none
+> >>  | {{ <boolean> | xen } [:{powersave|performance|ondemand|userspace}
+> >>                           [{,hwp[,hdc]|[,maxfreq=3D<maxfreq>[,minfreq=
+=3D<minfreq>]}]
+> >>                           [,verbose]]}
+> >>  | dom0-kernel`
+> >>
+> >> (We're still parsing in a more relaxed way, e.g. minfreq may come ahea=
+d of
+> >> maxfreq, but better be more tight in the doc than too relaxed.)
+> >>
+> >> Furthermore while max/min freq don't apply directly, there are still t=
+wo MSRs
+> >> controlling bounds at the package and logical processor levels.
+> >
+> > Well, we only program the logical processor level MSRs because we
+> > don't have a good idea of the packages to know when we can skip
+> > writing an MSR.
+> >
+> > How about this:
+> > `=3D none
+> >  | {{ <boolean> | xen } {
+> > [:{powersave|performance|ondemand|userspace}[,maxfreq=3D<maxfreq>[,minf=
+req=3D<minfreq>]]
+> >                         | [:hwp[,hdc]] }
+> >                           [,verbose]]}
+> >  | dom0-kernel`
+>
+> Looks right, yes.
 
-You probably want to update the URLs as well, this one point to a page
-with a deprecated notice. New url is:
-    https://spdx.org/licenses/GPL-2.0-only.html
+There is a wrinkle to using the hwp governor.  The hwp governor was
+named "hwp-internal", so it needs to be renamed to "hwp" for use with
+command line parsing.  That means the checking for "-internal" needs
+to change to just "hwp" which removes the generality of the original
+implementation.
 
-Same remark for the other licences file changed.
+The other issue is that if you select "hwp" as the governor, but HWP
+hardware support is not available, then hwp_available() needs to reset
+the governor back to the default.  This feels like a layering
+violation.
 
-Also, maybe they want to be renamed as well, to match the identifier,
-I'm not sure.
+I'm still investigating, but promoting hwp to a top level option -
+cpufreq=3Dhwp - might be a better arrangement.
 
-Cheers,
+> >>> +union hwp_request
+> >>> +{
+> >>> +    struct
+> >>> +    {
+> >>> +        uint64_t min_perf:8;
+> >>> +        uint64_t max_perf:8;
+> >>> +        uint64_t desired:8;
+> >>> +        uint64_t energy_perf:8;
+> >>> +        uint64_t activity_window:10;
+> >>> +        uint64_t package_control:1;
+> >>> +        uint64_t reserved:16;
+> >>> +        uint64_t activity_window_valid:1;
+> >>> +        uint64_t energy_perf_valid:1;
+> >>> +        uint64_t desired_valid:1;
+> >>> +        uint64_t max_perf_valid:1;
+> >>> +        uint64_t min_perf_valid:1;
+> >>
+> >> The boolean fields here would probably better be of type "bool". I als=
+o
+> >> don't see the need for using uint64_t for any of the other fields -
+> >> unsigned int will be quite fine, I think. Only ...
+> >
+> > This is the hardware MSR format, so it seemed natural to use uint64_t
+> > and the bit fields.  To me, uint64_t foo:$bits; better shows that we
+> > are dividing up a single hardware register using bit fields.
+> > Honestly, I'm unfamiliar with the finer points of laying out bitfields
+> > with bool.  And the 10 bits of activity window throws off aligning to
+> > standard types.
+> >
+> > This seems to have the correct layout:
+> > struct
+> > {
+> >         unsigned char min_perf;
+> >         unsigned char max_perf;
+> >         unsigned char desired;
+> >         unsigned char energy_perf;
+> >         unsigned int activity_window:10;
+> >         bool package_control:1;
+> >         unsigned int reserved:16;
+> >         bool activity_window_valid:1;
+> >         bool energy_perf_valid:1;
+> >         bool desired_valid:1;
+> >         bool max_perf_valid:1;
+> >         bool min_perf_valid:1;
+> > } ;
+> >
+> > Or would you prefer the first 8 bit ones to be unsigned int
+> > min_perf:8?
+>
+> Personally I think using bitfields uniformly would be better. What you
+> definitely cannot use if not using a bitfield is "unsigned char", it
+> ought to by uint8_t then. If using a bitfield, as said, I think it's
+> best to stick to unsigned int and bool, unless field width goes
+> beyond 32 bits or fields cross a 32-bit boundary.
 
--- 
-Anthony PERARD
+Ok, thanks.
+
+> >>> +bool __init hwp_available(void)
+> >>> +{
+> >>> +    unsigned int eax, ecx, unused;
+> >>> +    bool use_hwp;
+> >>> +
+> >>> +    if ( boot_cpu_data.cpuid_level < CPUID_PM_LEAF )
+> >>> +    {
+> >>> +        hwp_verbose("cpuid_level (%#x) lacks HWP support\n",
+> >>> +                    boot_cpu_data.cpuid_level);
+> >>> +        return false;
+> >>> +    }
+> >>> +
+> >>> +    if ( boot_cpu_data.cpuid_level < 0x16 )
+> >>> +    {
+> >>> +        hwp_info("HWP disabled: cpuid_level %#x < 0x16 lacks CPU fre=
+q info\n",
+> >>> +                 boot_cpu_data.cpuid_level);
+> >>> +        return false;
+> >>> +    }
+> >>> +
+> >>> +    cpuid(CPUID_PM_LEAF, &eax, &unused, &ecx, &unused);
+> >>> +
+> >>> +    if ( !(eax & CPUID6_EAX_HWP_ENERGY_PERFORMANCE_PREFERENCE) &&
+> >>> +         !(ecx & CPUID6_ECX_IA32_ENERGY_PERF_BIAS) )
+> >>> +    {
+> >>> +        hwp_verbose("HWP disabled: No energy/performance preference =
+available");
+> >>> +        return false;
+> >>> +    }
+> >>> +
+> >>> +    feature_hwp                 =3D eax & CPUID6_EAX_HWP;
+> >>> +    feature_hwp_notification    =3D eax & CPUID6_EAX_HWP_NOTIFICATIO=
+N;
+> >>> +    feature_hwp_activity_window =3D eax & CPUID6_EAX_HWP_ACTIVITY_WI=
+NDOW;
+> >>> +    feature_hwp_energy_perf     =3D
+> >>> +        eax & CPUID6_EAX_HWP_ENERGY_PERFORMANCE_PREFERENCE;
+> >>> +    feature_hwp_pkg_level_ctl   =3D eax & CPUID6_EAX_HWP_PACKAGE_LEV=
+EL_REQUEST;
+> >>> +    feature_hwp_peci            =3D eax & CPUID6_EAX_HWP_PECI;
+> >>> +
+> >>> +    hwp_verbose("HWP: %d notify: %d act-window: %d energy-perf: %d p=
+kg-level: %d peci: %d\n",
+> >>> +                feature_hwp, feature_hwp_notification,
+> >>> +                feature_hwp_activity_window, feature_hwp_energy_perf=
+,
+> >>> +                feature_hwp_pkg_level_ctl, feature_hwp_peci);
+> >>> +
+> >>> +    if ( !feature_hwp )
+> >>> +        return false;
+> >>> +
+> >>> +    feature_hdc =3D eax & CPUID6_EAX_HDC;
+> >>> +
+> >>> +    hwp_verbose("HWP: Hardware Duty Cycling (HDC) %ssupported%s\n",
+> >>> +                feature_hdc ? "" : "not ",
+> >>> +                feature_hdc ? opt_cpufreq_hdc ? ", enabled" : ", dis=
+abled"
+> >>> +                            : "");
+> >>> +
+> >>> +    feature_hdc =3D feature_hdc && opt_cpufreq_hdc;
+> >>> +
+> >>> +    hwp_verbose("HWP: HW_FEEDBACK %ssupported\n",
+> >>> +                (eax & CPUID6_EAX_HW_FEEDBACK) ? "" : "not ");
+> >>
+> >> You report this, but you don't really use it?
+> >
+> > Correct.  I needed to know what capabilities my processors have.
+> >
+> > feature_hwp_pkg_level_ctl and feature_hwp_peci can also be dropped
+> > since they aren't used beyond printing their values.  I'd still lean
+> > toward keeping their printing under verbose since otherwise there
+> > isn't a convenient way to know if they are available without
+> > recompiling.
+>
+> That's fine, but wants mentioning in the description. Also respective
+> variables would want to be __initdata then, be local to the function,
+> or be dropped altogether. Plus you'd want to be consistent - either
+> you use a helper variable for all print-only features, or you don't.
+
+Got it, thanks.
+
+> >>> +        if ( rdmsr_safe(MSR_IA32_ENERGY_PERF_BIAS, val) )
+> >>> +        {
+> >>> +            hwp_err("error rdmsr_safe(MSR_IA32_ENERGY_PERF_BIAS)\n")=
+;
+> >>> +            data->curr_req.raw =3D -1;
+> >>> +
+> >>> +            return;
+> >>> +        }
+> >>> +
+> >>> +        data->energy_perf =3D val & IA32_ENERGY_BIAS_MASK;
+> >>> +    }
+> >>
+> >> In order to not need to undo the "enable" you've already done, maybe t=
+hat
+> >> should move down here?
+> >
+> > HWP needs to be enabled before the Capabilities and Request MSRs can
+> > be read.
+>
+> I must have missed this aspect in the SDM. Do you have a pointer?
+
+In 15.4.2 Enabling HWP
+Additional MSRs associated with HWP may only be accessed after HWP is
+enabled, with the exception of IA32_HWP_INTERRUPT and MSR_PPERF.
+Accessing the IA32_HWP_INTERRUPT MSR requires only HWP is present as
+enumerated by CPUID but does not require enabling HWP.
+
+> >  Reading them shouldn't fail, but it seems safer to use
+> > rdmsr_safe in case something goes wrong.
+>
+> Sure. But then the "enable" will need undoing in the unlikely event of
+> failure.
+
+Yes.
+
+Regards,
+Jason
 
