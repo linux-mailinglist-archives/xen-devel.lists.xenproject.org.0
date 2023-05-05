@@ -2,40 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F3BB6F8377
-	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 15:07:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530339.825905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D02246F838C
+	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 15:11:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530344.825916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puv99-0005et-32; Fri, 05 May 2023 13:06:51 +0000
+	id 1puvDm-0007By-Kv; Fri, 05 May 2023 13:11:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530339.825905; Fri, 05 May 2023 13:06:51 +0000
+Received: by outflank-mailman (output) from mailman id 530344.825916; Fri, 05 May 2023 13:11:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puv99-0005c9-0D; Fri, 05 May 2023 13:06:51 +0000
-Received: by outflank-mailman (input) for mailman id 530339;
- Fri, 05 May 2023 13:06:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9G22=A2=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1puv96-0005Hq-Q0
- for xen-devel@lists.xenproject.org; Fri, 05 May 2023 13:06:48 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20622.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::622])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b09b0e98-eb45-11ed-8611-37d641c3527e;
- Fri, 05 May 2023 15:06:47 +0200 (CEST)
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
- by AS4PR04MB9337.eurprd04.prod.outlook.com (2603:10a6:20b:4e5::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.26; Fri, 5 May
- 2023 13:06:44 +0000
-Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::768c:6df7:9afb:acd7]) by AM6PR04MB6551.eurprd04.prod.outlook.com
- ([fe80::768c:6df7:9afb:acd7%7]) with mapi id 15.20.6363.027; Fri, 5 May 2023
- 13:06:44 +0000
+	id 1puvDm-00079V-Hb; Fri, 05 May 2023 13:11:38 +0000
+Received: by outflank-mailman (input) for mailman id 530344;
+ Fri, 05 May 2023 13:11:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uJCN=A2=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1puvDl-00079P-4g
+ for xen-devel@lists.xen.org; Fri, 05 May 2023 13:11:37 +0000
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [2607:f8b0:4864:20::62c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5c691316-eb46-11ed-b226-6b7b168915f2;
+ Fri, 05 May 2023 15:11:35 +0200 (CEST)
+Received: by mail-pl1-x62c.google.com with SMTP id
+ d9443c01a7336-1ab1ce53ca6so12546535ad.0
+ for <xen-devel@lists.xen.org>; Fri, 05 May 2023 06:11:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,109 +40,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b09b0e98-eb45-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X6/3/Ys4PDb7OFaBf3sNTgJjxjHdbKYT3NtSSDR2vY8NwtEV61POKUWOFtxyhfo9YIUFojXQ4KsmP8VV2ZEyBDPzDk0D5OQatvHtFdsZbriUZOuduJ80LHU49kdA9ucEX4mQ94B0I3K582wBv/vm2cP08FBAeU6KhnPdscbJp7GnaAtu/Bc6qobY2wOnUJa1k1mKLsbOCCUmYv7hUBnS195oOCtFHugEhQZqUKr7lWwhSa6jpcAC8vB0hovXM0j2TVj1cNYc9he0gwnKk3Gl7GVmKEk0CksDA23qmC6HfoD6d+wumRNjdNeq/TbIf/kddm5Ne4pCoj6PhKf2vmY0tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5fi21jemoaQ/IahEePuXb4ql0t8nqpe0QrayBGOWBbM=;
- b=W2x3oeYCdAPHPsUfTD99rn2WKjzKRn7c0jm1z6Y4T1yrp5kO9c6Je898YsgWF6ej6bT51VHecaEqk3l9cnwakUlUAfKhuzC5XAIiUOM2/+6Q6kFtYrYeiw8W1YfyYzVcov56B2N4lQ0L9xk+QA6SrDZSZ24FY/FLq0otGI2/Pa7I/+QS/Mz/Mz5Kq4ZR/Fdud0+0oVPuwS+D4ql7DdwR47CrtISQX1197C4u9B6dsWK7Ov8VZUZA0HC/r8S/9/BHlmzfGFDF4BKlscR7suCXw2v9Tdi3P3x3sUbJ+dJRUuIJMWtIyfi8L1iCXZWpYYG0JnEwDHnTDX8DdPb18VgH/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5fi21jemoaQ/IahEePuXb4ql0t8nqpe0QrayBGOWBbM=;
- b=OYcQ+WXnHA0rYlh5HW02H8d/0dFnQRFbg9AeXmd3wyoUxepUbpM6L78XdJh97AJhoZ2jUDZKJShjRg1r74le/gWX5N+V9iwE52VoiI2xvI1pFIoC+gPKvldnc6MIvW2txpYcEDxQahfZPgcoWWFAYf2yAorhR2mjYXC4+pxc8WUgAChnTrdBxQSMsQqR5FHzrAI1IdUieHFied16YGMzYIgiUILiSRFS8JJVgLOMvcUIqqARzLhCywJ6K2FXJywcfwtxG6jsH5ZmSMp6qQwUTVor2k8Ek3O8mrTogQAiKvJ2ziZfOVR7q7yRFWMep4FbBUmEog+WplsNKBx6SgrgRg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e8ec85b6-90bb-1df0-4f6b-d7e9c6ade25f@suse.com>
-Date: Fri, 5 May 2023 15:06:42 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [PATCH 1/2] LICENSES: Improve the legibility of these files
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230505130533.3580545-1-andrew.cooper3@citrix.com>
- <20230505130533.3580545-2-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230505130533.3580545-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0174.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b4::7) To AM6PR04MB6551.eurprd04.prod.outlook.com
- (2603:10a6:20b:fa::20)
+X-Inumbo-ID: 5c691316-eb46-11ed-b226-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1683292294; x=1685884294;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=kFXuBNBO1/GgAF8ppAIzcxSbDhbGubAz15oXF2l6RaU=;
+        b=EmFSas1IcVTUjHuldQ2/6zNLezKywUWrBa9ONtWGtBr44Oh2n7g4qgPDHQfRrPVIf9
+         gFU79gd1sYWfdZ2HqumFD0Gb4FhK64HSYt7hYh810wzM7DUttkDzTJifoX65Yh5ajKdL
+         kN1AP9DB9XkXBMjWa3Hi6/Og9NQ2q5JnKcBRoLGw+DECydT49kl/2q7stAzYhqAXG6kr
+         o5zg221k5noTVc/+Z/zq7yoriUvoPSF7aC3T4qtleMQmOnRnNiUTRc80IM6ddiJ8d1Vi
+         V8GZkhebIZ01+0X5bO7bCmMGZhftmMTe2YW3oZv7cg/SKmCwEBKj8NZEH4w6KXY73pmS
+         cQzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1683292294; x=1685884294;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kFXuBNBO1/GgAF8ppAIzcxSbDhbGubAz15oXF2l6RaU=;
+        b=htw9xHRfSArlVktpEFtSw/fsGeZC99YTB0uFkF6E0liXKPkJGYAo1qUqnx6hg5tuyP
+         3No2b052UtLkzYKTvKrHjWoQzSx5gQIMlmkoiGrg5X+aPDZWIS4bAgNA9Yfaz5c3H2Oz
+         auibYEMRK9jBprOglOcAhnIZCQx4v205kgDWtryKioPT2xJKdhjs97pqybkvfoHLJ1nk
+         hIXQXg0C7HGyCAU0sVyM6A7tDA5ksWKnGviF/dtNhK3RgEdf6ZpQPMDx5TKtDZYdqVsG
+         FbcwC7SU0LSkyjz3QBHL8M60MxoC5qPhv82z4VA3usRfRN57nf142TbTHEXg63qddohm
+         Z2XQ==
+X-Gm-Message-State: AC+VfDxW2H2q8bXdXaPBY3aKl8fLYM5jIHz5hQobye//vYlO2rcBreW+
+	PlyThS0Ea3MyQbNbSm4KUDqtRr2FiVSZObg5Bm4=
+X-Google-Smtp-Source: ACHHUZ4ocOAy1V5T9RjnZJ17ugGMfoiOcHse95/8gKexFyzq4yZczoV1WVOyAJTomSbTL+cXt7IoIs33gFSE/LLcw0Y=
+X-Received: by 2002:a17:902:eb4b:b0:1a6:7632:2b20 with SMTP id
+ i11-20020a170902eb4b00b001a676322b20mr1393189pli.40.1683292294302; Fri, 05
+ May 2023 06:11:34 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|AS4PR04MB9337:EE_
-X-MS-Office365-Filtering-Correlation-Id: cf45689d-f97e-4be8-bbb0-08db4d699383
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Bnyk6Wx3DJFMeLKeR/igUv4DCbFygvGeyk5QNqYrJ9WvNpBMPWBr9w3P1qqCLXJN9gJ/T2p2QuUSygI5j6qzGsE7gDZ6ryvMT1AkiQIs3M5xMd5j1gO9eAc9ylwL+NHMAGerp03RZQbccMNj2bdDyBpPTxWX984NXs4vBIYQ/HYcnhU3/yBdSK11WVovjLcpQKLtl76i8UmOm6kp7np09ner6l5litb04EvuwEpMrwN2Jt7gjC5ul07jPyNIsE9q5gBHEuJbiuVYziqWGY2R88TO4RNBUTYc5A2INoVeNUfq2B//6U1Sw62ouEnfod+bxpOaVO+oZvQyEGupadY1yQn7CpFAASe73X0B3dPp7tZHjMvtIIQ4JGHiwHeVZRgZtnO/uYfex4FsRuJQfB28z3aDOVL1frzFihn9crcXbw4muq2JuoOK5gwCPbwobZYHFEtyjrF/o80+FgPGHcFngR8D8sqlSzTW6TytjfKDZ8J3GOBpIuRoykzbHLGWTvg5azIDTi2WS86c3aoFOkKO6/qbkxc0sq+ZYFnhWwY88+BXabxu5w5kOqmDqq+AhCB5pp3i07ItTZ5Naah+v4foyOAZt1oHlQ2FH9CmXCh09DlbVlq392uXOklVGbu6ReLPI2wZqtPtn65pyo/3oXUVXQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(376002)(136003)(396003)(366004)(39860400002)(451199021)(6486002)(478600001)(54906003)(2616005)(53546011)(186003)(6512007)(6506007)(26005)(8676002)(2906002)(38100700002)(5660300002)(36756003)(558084003)(4326008)(8936002)(66556008)(66476007)(6916009)(41300700001)(66946007)(31696002)(86362001)(316002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aWpkWjJXc3U2aXplUFpvdExYYWlnakdPNFBNWFlKaytnVkFzMlN5bVNQQ1J3?=
- =?utf-8?B?dnhXTEUwY01vRmRjc2x3VVFpRURFTWhsbnhJSHp4TlMyZGZuM0tzQ28yK29I?=
- =?utf-8?B?b3QrUkZ0UUo3dkV5a1c1Q0xweVNGSy9vUWRMTVMvZmVKTUE4RWI1Nzl5alNw?=
- =?utf-8?B?b08rREprdWVYaGVVTjdOYTRYYzBRS2hsNllWbnA4NUtzZFNZT3E3b3RJZ01J?=
- =?utf-8?B?NWFzam9ENWdxVjFOVFNiK043TDdqLzZvclJoYXY2UTRPYUVMeVI0SnptRFRZ?=
- =?utf-8?B?VkhzMVAyaWFza0lmNTRTZUJuVkxhU2ttZ1JWZnhHUFpzMGp4MDVkTkZxMW8r?=
- =?utf-8?B?M0FPdVY4eU9EbnNhaHVTWHVqaXZXTExHbXo0dWlKZjh1RVl3cFRrbVI2UkhK?=
- =?utf-8?B?a0VRQVc2aUw3KzBxUGRiTTRWSlhyM3JFTy9OaE9lUC9QYmpqZEpudXRTL25W?=
- =?utf-8?B?SHk2QjErZlpxaFlzays2RE02bXhYL05GMFV3azVJZnM4cjVOSWJiT1Rnenh1?=
- =?utf-8?B?N0ZFbkRYUXdQZ1FlcTl5bzlabWVZRFRYekZONzAxVFFHYU1XaEJPbk1PY0Z4?=
- =?utf-8?B?b2RQVFBaZU1HSGx5QWF1Syt4ZER0ZVlKdEJOdDRENW1qNHhnTjdmOUVwSlZQ?=
- =?utf-8?B?Rml4TGdtcDdXc1E1QWFIRjNhUHZQTSs2V2xWeVZNOUF2Zy95RDlDNjZBZkVH?=
- =?utf-8?B?SXAwS2UzRnZPM29vSVhQVEJIVUtwaXZtajZJaWJsTnFGSXVvTzBacnRGR0Zr?=
- =?utf-8?B?ZmZQejFiYUQ2by80b1JpNDJvYmtDbW4yMkdvOG0rVU5zV3FuZ0FPMkpNeGRU?=
- =?utf-8?B?cXdsWWtJVnhsbm9pWGVCTzNkNzBoZnVrZDkySlA2MUY2dlRXam1xZ0RvWVRJ?=
- =?utf-8?B?eThyQzYzVnRqTWd4MkZIM2Jxc0NhZ3BsUzBNcktmdHdpdlZjRDNKcHdEcWJZ?=
- =?utf-8?B?YzVqeStDbTRGNDlhNnFvZ25qWDFoMy9nYWRrMWRyUjdGUXk5QTY0bTYzbms4?=
- =?utf-8?B?dndxcU0rbUdnVUFDQmlYb2tId2h1SWY5eEVIWXViTi9wTC92VUczamVVRlQ2?=
- =?utf-8?B?cDFjRWpoMUtBQ0NRelNOSjF0aWlwejAvdUNwalU4dVhrVDFYZFllR2grWE00?=
- =?utf-8?B?SjhHYnBORHBFZUZIYVJmTTdzajFYQm9BMExxNDNMOVEzODBsNGdKanpwVFJ1?=
- =?utf-8?B?Q0ROb2hEZ1ZoL3NPTnVPUTF4U3hIUWhjNHBvU0cvSENCdDlSZTBrdHVBSWpj?=
- =?utf-8?B?MkFFTDNzUVBaV0E2dVlXcUxrNVUvRUQvODNKaWEzUHh2b1pOUzFlZlFpYnd5?=
- =?utf-8?B?dDduMFJqcFhTWEl4MWFKRGp6cFR0a2JoU0l6STVjRSs5elZUVHNCRzBTTzNk?=
- =?utf-8?B?SUhqNzF0MmVJSXUzQWprRk1RaFIxeG9tcnMyRlNsYnFZbG9DbjFnanZaRzI4?=
- =?utf-8?B?RVFhbU9ROWxkM0ljcXBvYTBqZHdMTXBDSHBMb3ZIUnlUYTBlWHZHRzIwcE50?=
- =?utf-8?B?TnNPcTNxVUY2MldBWjdEU3dCb2JjQU5HTUtHMmdTSWN1YWpPZzNmdzVZVUpV?=
- =?utf-8?B?RjY1NjZHSEUwMnpqQTNYa2hrZ2gwKzd6YVNzM3hYK0M0VmpYR05SbFRNMmRj?=
- =?utf-8?B?cXBXVGZvRU9zV2daQVNNSHVKMGVLcW9wM2RaN2lVUGJBaEY4bjVFdk1uR0dP?=
- =?utf-8?B?QXRxRlhLQTR0Ni9taEZQVVpIRlFSYTNoWUpJcndSV0R3YTBYSnVpRFVwR1FQ?=
- =?utf-8?B?bDZpTEZid1FFRVBYc2RTZnFIK0pwZDNZVnI0azdKNUQ1c2wxZENZQURQdWsz?=
- =?utf-8?B?SWtoOVVCWURIYkQyQXBBb1QzeXRFeSswVjNwVXZ4QXFCbGtwaDRXblhqc2Vh?=
- =?utf-8?B?eU5ubEVsZWNFM3JOM0lZNjhDQmNYNWtQYXVGZkRrKzdVNXIxN21wbldWTFlw?=
- =?utf-8?B?UXR2VEhXQUlCaHZJUmFWUlg2bE5HakkxQjhHdVlwNHYyUmhsaENIc2NvaExU?=
- =?utf-8?B?SFFJYXFMU3RHUlI0bDVhMkx3UG1SajlxMCtnd1RQa2hRcHBqdHFKUit0eGFI?=
- =?utf-8?B?R1FXZXZOZEE5NWo2QXFjZWwrbkR1L1dKRmh3clZROThLcVpXOUMwdGNtTk43?=
- =?utf-8?Q?mCF0cKcPZOgjRz7XzFWK4pJLw?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf45689d-f97e-4be8-bbb0-08db4d699383
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2023 13:06:44.6295
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: szisnl/g/ITnM56g37H6Qb7/IMSpOuJPQFH9HR7bkLUv9yXoF7sNIGpNt/+47EFvLwvCUF8FKum+8zt8yol1yQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9337
+References: <817f0320316dd144826add0ac834618026b91160.1680165772.git.viresh.kumar@linaro.org>
+ <25fb2b71-b663-b712-01cd-5c75aa4ccf9b@gmail.com> <20230404234228.vghxrrj6auy7zw4c@vireshk-i7>
+ <20230505061934.jm3bwjgsl5hf5rns@vireshk-i7>
+In-Reply-To: <20230505061934.jm3bwjgsl5hf5rns@vireshk-i7>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Fri, 5 May 2023 16:11:23 +0300
+Message-ID: <CAPD2p-nvLXdxkwik-UPjS1JAjz6z2FNuxb1JYrj4bNwusEZpPg@mail.gmail.com>
+Subject: Re: [PATCH] libxl: arm: Allow grant mappings for backends running on Dom0
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>, xen-devel@lists.xen.org, 
+	stratos-dev@op-lists.linaro.org, Juergen Gross <jgross@suse.com>, 
+	Julien Grall <julien@xen.org>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Mathieu Poirier <mathieu.poirier@linaro.com>, 
+	Erik Schilling <erik.schilling@linaro.org>
+Content-Type: multipart/alternative; boundary="00000000000041518705faf207ed"
 
-On 05.05.2023 15:05, Andrew Cooper wrote:
-> A few newlines go a very long way
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+--00000000000041518705faf207ed
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Hello Viresh
+
+[sorry for the possible format issues]
+
+On Fri, May 5, 2023 at 9:19=E2=80=AFAM Viresh Kumar <viresh.kumar@linaro.or=
+g> wrote:
+
+> On 05-04-23, 05:12, Viresh Kumar wrote:
+> > On 04-04-23, 21:16, Oleksandr Tyshchenko wrote:
+> > > ok, probably makes sense
+> >
+> > While testing both foreign and grant mappings I stumbled upon another
+> > related problem. How do I control the creation of iommu node from
+> > guest configuration file, irrespective of the domain backend is
+> > running at ? This is what we have right now:
+> >
+> > - always create iommu nodes if backend-dom !=3D 0
+> > - always create iommu nodes if forced_grant =3D=3D 1
+> >
+> > what I need to cover is
+> > - don't create iommu nodes irrespective of the domain
+> >
+> > This is required if you want to test both foreign and grant memory
+> > allocations, with different guests kernels. i.e. one guest kernel for
+> > device with grant mappings and another guest for device with foreign
+> > mappings. There is no way, that I know of, to disable the creation of
+> > iommu nodes. Of course we would want to use the same images for kernel
+> > and other stuff, so this needs to be controlled from guest
+> > configuration file.
+>
+> Any input on this please ?
+>
 
 
+I was going to propose an idea, but I have just realized that you already
+voiced it here [1] ))
+So what you proposed there sounds reasonable to me.
+
+I will just rephrase it according to my understanding:
+
+We probably need to consider transforming your "forced_grant" to something
+three-state, for example
+"grant_usage" (or "use_grant" as you suggested) which could be "default
+behaviour" or "always disabled", or "always enabled".
+
+With "grant_usage=3Ddefault" we will get exact what we have at the moment
+(only create iommu nodes if backend-domid !=3D 0)
+With "grant_usage=3Ddisabled" we will force grants to be always disabled
+(don't create iommu nodes irrespective of the domain)
+With "grant_usage=3Denabled" we will force grants to be always enabled
+(always create iommu nodes irrespective of the domain)
+
+
+[1]
+https://lore.kernel.org/xen-devel/20230505093835.jcbwo6zjk5hcjvsm@vireshk-i=
+7/
+
+
+>
+> --
+> viresh
+>
+
+
+--=20
+Regards,
+
+Oleksandr Tyshchenko
+
+--00000000000041518705faf207ed
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hello Viresh<br></div><div dir=3D"ltr"><b=
+r></div><div>[sorry for the possible format issues]</div><br><div class=3D"=
+gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, May 5, 2023 at 9=
+:19=E2=80=AFAM Viresh Kumar &lt;<a href=3D"mailto:viresh.kumar@linaro.org" =
+target=3D"_blank">viresh.kumar@linaro.org</a>&gt; wrote:<br></div><blockquo=
+te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
+solid rgb(204,204,204);padding-left:1ex">On 05-04-23, 05:12, Viresh Kumar w=
+rote:<br>
+&gt; On 04-04-23, 21:16, Oleksandr Tyshchenko wrote:<br>
+&gt; &gt; ok, probably makes sense<br>
+&gt; <br>
+&gt; While testing both foreign and grant mappings I stumbled upon another<=
+br>
+&gt; related problem. How do I control the creation of iommu node from<br>
+&gt; guest configuration file, irrespective of the domain backend is<br>
+&gt; running at ? This is what we have right now:<br>
+&gt; <br>
+&gt; - always create iommu nodes if backend-dom !=3D 0<br>
+&gt; - always create iommu nodes if forced_grant =3D=3D 1<br>
+&gt; <br>
+&gt; what I need to cover is<br>
+&gt; - don&#39;t create iommu nodes irrespective of the domain<br>
+&gt; <br>
+&gt; This is required if you want to test both foreign and grant memory<br>
+&gt; allocations, with different guests kernels. i.e. one guest kernel for<=
+br>
+&gt; device with grant mappings and another guest for device with foreign<b=
+r>
+&gt; mappings. There is no way, that I know of, to disable the creation of<=
+br>
+&gt; iommu nodes. Of course we would want to use the same images for kernel=
+<br>
+&gt; and other stuff, so this needs to be controlled from guest<br>
+&gt; configuration file.<br>
+<br>
+Any input on this please ?<br></blockquote><div><br></div><div><br></div><d=
+iv>I was going to propose an idea, but I have just realized that you alread=
+y voiced it here [1] ))<br>So what you proposed there sounds reasonable to =
+me.<br><br>I will just rephrase it according to my understanding:<br><br>We=
+ probably need to consider transforming your &quot;forced_grant&quot; to so=
+mething three-state, for example<br>&quot;grant_usage&quot; (or &quot;use_g=
+rant&quot; as you suggested) which could be &quot;default behaviour&quot; o=
+r &quot;always disabled&quot;, or &quot;always enabled&quot;.<br><br>With &=
+quot;grant_usage=3Ddefault&quot; we will get exact what we have at the mome=
+nt (only create iommu nodes if backend-domid !=3D 0)<br>With &quot;grant_us=
+age=3Ddisabled&quot; we will force grants to be always disabled (don&#39;t =
+create iommu nodes irrespective of the domain)<br>With &quot;grant_usage=3D=
+enabled&quot; we will force grants to be always enabled (always create iomm=
+u nodes irrespective of the domain)<br></div><div><br></div><div><br></div>=
+<div>[1] <a href=3D"https://lore.kernel.org/xen-devel/20230505093835.jcbwo6=
+zjk5hcjvsm@vireshk-i7/">https://lore.kernel.org/xen-devel/20230505093835.jc=
+bwo6zjk5hcjvsm@vireshk-i7/</a><br></div><div>=C2=A0</div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">
+<br>
+-- <br>
+viresh<br>
+</blockquote></div><br clear=3D"all"><div><br></div><span>-- </span><br><di=
+v dir=3D"ltr"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr">=
+<span style=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span st=
+yle=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></f=
+ont></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span sty=
+le=3D"background-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshche=
+nko</font></span></div></div></div></div></div></div></div></div>
+
+--00000000000041518705faf207ed--
 
