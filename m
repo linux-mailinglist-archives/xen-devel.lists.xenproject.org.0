@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7A256F833A
-	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 14:46:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530322.825866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9806A6F8371
+	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 15:06:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530326.825876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puuoY-0001Z4-Bn; Fri, 05 May 2023 12:45:34 +0000
+	id 1puv84-00043N-1V; Fri, 05 May 2023 13:05:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530322.825866; Fri, 05 May 2023 12:45:34 +0000
+Received: by outflank-mailman (output) from mailman id 530326.825876; Fri, 05 May 2023 13:05:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1puuoY-0001XN-91; Fri, 05 May 2023 12:45:34 +0000
-Received: by outflank-mailman (input) for mailman id 530322;
- Fri, 05 May 2023 12:45:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1puv83-0003zZ-Ue; Fri, 05 May 2023 13:05:43 +0000
+Received: by outflank-mailman (input) for mailman id 530326;
+ Fri, 05 May 2023 13:05:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vWC1=A2=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1puuoV-0001XH-N8
- for xen-devel@lists.xenproject.org; Fri, 05 May 2023 12:45:32 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7505a15-eb42-11ed-8611-37d641c3527e;
- Fri, 05 May 2023 14:45:29 +0200 (CEST)
+ <SRS0=XVLi=A2=citrix.com=prvs=4822586d7=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1puv82-0003zO-Fn
+ for xen-devel@lists.xenproject.org; Fri, 05 May 2023 13:05:42 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 87db2096-eb45-11ed-b226-6b7b168915f2;
+ Fri, 05 May 2023 15:05:40 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,74 +36,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7505a15-eb42-11ed-8611-37d641c3527e
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1683290728;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ro/VOFl72UDWFwy8gwNK93pOtDrJEFznvt3NXDl6cF8=;
-	b=NEssImE7oVj95z4/FBIZJnxzphr31CeA4k7oJeJinz1r5r1l9dXN1gppKxrfH844UqDO9z
-	4QSvSZ+MCzWy04loOUdVFWsJabtUy+6xAHaZOnUP3kDamwQqqChUVjh6yxS90kqh/3foQl
-	BxPnqXdK0mEFhXKLhgXSM8yu090mNdF9FRSITtHjxNfxijznNsQsOy0jITHZ9ajNCFSUr7
-	ixcpybMXO0+Tte9hyNa1D9uPISenZGZ0GM57Wg5ua9BDE6mitsB+qwg3eCN369M6O0Jwe5
-	/MuZBe8FpjmVO3WPvPxa64u3KW+r1rcVtivlIiAVpuzcTFgSsngi+McsE/7vlQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1683290728;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ro/VOFl72UDWFwy8gwNK93pOtDrJEFznvt3NXDl6cF8=;
-	b=65zpCtdzuEaRqOzhfQTeNfeiCJfu8TviFjuPm0aorQPKM8pLdEAQ4DrGamxrKih4/79CxI
-	kPU4Ye7GnkFx6vAA==
-To: Andrew Cooper <andrew.cooper3@citrix.com>, LKML
- <linux-kernel@vger.kernel.org>
-Cc: x86@kernel.org, David Woodhouse <dwmw2@infradead.org>, Brian Gerst
- <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>, Paolo
- Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>, Tom
- Lendacky <thomas.lendacky@amd.com>, Sean Christopherson
- <seanjc@google.com>, Oleksandr Natalenko <oleksandr@natalenko.name>, Paul
- Menzel <pmenzel@molgen.mpg.de>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Piotr Gorski <lucjan.lucjanov@gmail.com>, Usama
- Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
- Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-kernel@lists.infradead.org, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
- <guoren@kernel.org>, linux-csky@vger.kernel.org, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, "James E.J.
- Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller
- <deller@gmx.de>, linux-parisc@vger.kernel.org, Paul Walmsley
- <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- linux-riscv@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
- Sabin Rapan <sabrapan@amazon.com>, "Michael Kelley (LINUX)"
- <mikelley@microsoft.com>
-Subject: Re: [patch V2 34/38] x86/cpu/amd; Invoke
- detect_extended_topology_early() on boot CPU
-In-Reply-To: <38b259bb-050b-023e-4f43-212f95f022ac@citrix.com>
-References: <20230504185733.126511787@linutronix.de>
- <20230504185938.179661118@linutronix.de>
- <38b259bb-050b-023e-4f43-212f95f022ac@citrix.com>
-Date: Fri, 05 May 2023 14:45:28 +0200
-Message-ID: <87354b3q1j.ffs@tglx>
+X-Inumbo-ID: 87db2096-eb45-11ed-b226-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1683291940;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=9MVcvLqzUK6qhH7+uSpDyPfF2OpcLaXOQ00IpCjwAPE=;
+  b=K9xihGbGjbbYcA1Apd0CkxWjml2vKNd/UxPHvaZSBu7RU/s0uPLCrwNv
+   HzbDm1m4xW4zl8G2kolMjjLFbOqdRw3CJZRUwXFc7aN7fELwjunhRbEsy
+   nmzo4svr6ouA2scenvOk0VG4gxOotqdQ5AAB5/beTq2KdIJHsVC5tBdh5
+   4=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 108401385
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:0LvNqK7bmN5yQw1c4je0twxRtCHHchMFZxGqfqrLsTDasY5as4F+v
+ mNOWGmBPvqNMDb8fdh2Ydu+px9XvJ6ByoVqSwI/qSA9Hi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9VU+7ZwehBtC5gZlPa0T4QeE/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5mz
+ Mc2EWFRZxO5wMGH+JiLRtV8pekmI5y+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
+ YxDM2MpNUmeJUQVYT/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9xx7I+
+ jqfpDSkav0cHPKV6RPe31fvus7SsjOqdaY9Pae8xNc/1TV/wURMUUZLBDNXu8KRkVWiUthSL
+ 0gV/CsGrqUo8kGvCN7nUHWQv3qsrhMaHd1KHIUS6hyJy6fSyxaUAC4DVDEpQP4MudIyRDcq/
+ kSUhN6vDjtq2JWFRHTY+rqKoDeaPSkOMXREdSICVREC4dTovMc0lB2nczp4OPfr1JuvQ2i2m
+ m3U6nFk3N3/kPLnyY2Cxn7+0m6lpaKObT8NzDXbYnKGwwZ2MdvNi5OT1bTL0RpRBN/HHgLb4
+ Sldwpf2APMmVs/UynHUKAkZNPTwvqvebmWB6bJ6N8N5nwlB7UJPamy5DNtWAE5yevgJdjbyC
+ KM4kVMAvcQDVJdGgEIeXm5QNyjJ5fK6fTgdfqqIBueim7AoHON9wAlgZFSLw0fmm1U2nKc0N
+ P+zKJj8VixAV/g+nWLtGI/xNIMWKt0WnzuPFfgXMTz+uVZhWJJlYehcawbfBgzIxKiFvB/U4
+ 75iCid+8D0GCLeWSnCOoeYuwaUicSBT6Wbe95YGKYZu42NORAkcNhMm6e94J9A+xfsKy7egE
+ 7PUchYw9WcTTEbvcW2iAk2Popu2NXqjhRrX5RARAGs=
+IronPort-HdrOrdr: A9a23:T4gJWqCV9fFsutTlHemr55DYdb4zR+YMi2TDtnoBLyC9F/bz+v
+ xG88576faZslYssQgb9+xoW5PwJk80l6QFhLX5VI3KNGLbUQ2TXeJfBOPZrwEIcBeOktK1u5
+ 0QEZSX17XLYmST6q7BkXCFL+o=
+X-Talos-CUID: 9a23:wQwmsWHH/ouQitEyqmJez2AtS5wscUea70boCX+0NXZKZbiaHAo=
+X-Talos-MUID: 9a23:BcY9uQQpwcNp3u90RXTCjhFLb+pNoJiPFW8dwLgilOCeMR5ZbmI=
+X-IronPort-AV: E=Sophos;i="5.99,252,1677560400"; 
+   d="scan'208";a="108401385"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+	<julien@xen.org>
+Subject: [PATCH 0/2] LICENSES improvements/corrections
+Date: Fri, 5 May 2023 14:05:31 +0100
+Message-ID: <20230505130533.3580545-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-On Fri, May 05 2023 at 00:04, Andrew Cooper wrote:
-> On 04/05/2023 8:02 pm, Thomas Gleixner wrote:
->> From: Thomas Gleixner <tglx@linutronix.de>
->>
->> The early detection stores the extended topology leaf number which is
->> required for parallel hotplug.
->>
->> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
->
-> It occurs to me that this and the previous patch are stale given that we
-> no longer look at CPUID in the trampoline.
->
-> They're probably useful changes in isolation, but the commit messages
-> want adjusting to remove the association with parallel boot.
+Noticed in light of the recent LGPL changes to libacpi, but sadly only after
+the fact.
 
-Duh. Indeed. Completely forgot about that.
+Andrew Cooper (2):
+  LICENSES: Improve the legibility of these files
+  LICENSES: Remove the use of deprecated LGPL SPDX tags
+
+ LICENSES/BSD-2-Clause               |  4 ++++
+ LICENSES/BSD-3-Clause               |  4 ++++
+ LICENSES/BSD-3-Clause-Clear         |  4 ++++
+ LICENSES/CC-BY-4.0                  |  5 +++++
+ LICENSES/GPL-2.0                    | 17 +++++++++++------
+ LICENSES/LGPL-2.0                   | 14 ++++++++++----
+ LICENSES/LGPL-2.1                   | 14 ++++++++++----
+ LICENSES/MIT                        |  4 ++++
+ tools/libacpi/Makefile              |  2 +-
+ tools/libacpi/acpi2_0.h             |  2 +-
+ tools/libacpi/build.c               |  2 +-
+ tools/libacpi/dsdt.asl              |  2 +-
+ tools/libacpi/dsdt_acpi_info.asl    |  2 +-
+ tools/libacpi/libacpi.h             |  2 +-
+ tools/libacpi/mk_dsdt.c             |  2 +-
+ tools/libacpi/ssdt_laptop_slate.asl |  2 +-
+ tools/libacpi/ssdt_pm.asl           |  2 +-
+ tools/libacpi/ssdt_s3.asl           |  2 +-
+ tools/libacpi/ssdt_s4.asl           |  2 +-
+ tools/libacpi/ssdt_tpm.asl          |  2 +-
+ tools/libacpi/static_tables.c       |  2 +-
+ 21 files changed, 65 insertions(+), 27 deletions(-)
+
+-- 
+2.30.2
+
 
