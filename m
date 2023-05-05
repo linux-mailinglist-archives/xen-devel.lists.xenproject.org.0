@@ -2,52 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10C1E6F802B
-	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 11:39:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530275.825805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40F546F8089
+	for <lists+xen-devel@lfdr.de>; Fri,  5 May 2023 12:06:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530282.825815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1purtw-0004pB-R5; Fri, 05 May 2023 09:38:56 +0000
+	id 1pusK8-00005H-PH; Fri, 05 May 2023 10:06:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530275.825805; Fri, 05 May 2023 09:38:56 +0000
+Received: by outflank-mailman (output) from mailman id 530282.825815; Fri, 05 May 2023 10:06:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1purtw-0004m4-Nt; Fri, 05 May 2023 09:38:56 +0000
-Received: by outflank-mailman (input) for mailman id 530275;
- Fri, 05 May 2023 09:38:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pusK8-0008VA-M8; Fri, 05 May 2023 10:06:00 +0000
+Received: by outflank-mailman (input) for mailman id 530282;
+ Fri, 05 May 2023 10:05:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yBOj=A2=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1purtv-0004lV-1j
- for xen-devel@lists.xenproject.org; Fri, 05 May 2023 09:38:55 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2060e.outbound.protection.outlook.com
- [2a01:111:f400:7e8c::60e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a385b987-eb28-11ed-8611-37d641c3527e;
- Fri, 05 May 2023 11:38:51 +0200 (CEST)
-Received: from BY3PR05CA0002.namprd05.prod.outlook.com (2603:10b6:a03:254::7)
- by DM4PR12MB6376.namprd12.prod.outlook.com (2603:10b6:8:a0::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.27; Fri, 5 May
- 2023 09:38:45 +0000
-Received: from DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
- (2603:10b6:a03:254:cafe::6b) by BY3PR05CA0002.outlook.office365.com
- (2603:10b6:a03:254::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.12 via Frontend
- Transport; Fri, 5 May 2023 09:38:45 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT019.mail.protection.outlook.com (10.13.172.172) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6363.27 via Frontend Transport; Fri, 5 May 2023 09:38:44 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 5 May
- 2023 04:38:44 -0500
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 5 May 2023 04:38:43 -0500
+ <SRS0=SieT=A2=crudebyte.com=qemu_oss@srs-se1.protection.inumbo.net>)
+ id 1pusK7-0008V4-BJ
+ for xen-devel@lists.xenproject.org; Fri, 05 May 2023 10:05:59 +0000
+Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e0f159c-eb2c-11ed-b226-6b7b168915f2;
+ Fri, 05 May 2023 12:05:57 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,141 +36,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a385b987-eb28-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GR6gtOXpoC57t0HCacBTkIHeDuFNTDtoOhiwMl1S0NB31Zn4mX3CMYIMp3JlhZ6GZlNDSfmvUyKUDonfMSg5LB8gQTnU8pILRCSPP5q/JpAI6LSW61NDAlmPvzBq7jFAXPHS+9EA+lVodYp7rkfT0tl0TN/gpwbyo9Vkn6A7D6iCihd7Q1+3/B9wMEbc3dTwDw87bri34AKT3TAxriEV0NRchR7RqJPDsVN62U+Iwt3/u0AmSrXA+8VEnG8oa+fLlzlwOZzc0ye2PIGguv7zgiqK+vyBqZ8BF4pDCRARUoqL5PFDPJ1Xn1nW6HjaNcH9LZp9CDCbEJNFpTrBDYYrXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iPitrE6wIpj4ueq7bKbBJIHgmndspWRUr4v1ZWtVluk=;
- b=ExaaTXL4SpZi/s7k8WmlxbtcM+xaJ3E4uIM8krilBukWqac2/7SPRCVLgFah8oK17zgwZ0Bq6rtDRbVSU0A+QBCHL5Q9a+PQbpLgfPeOTREPg4Ij9OqKT6HOPaKm7x5aTZdLlf2l0lmuOMF5G0z+p3non15qqLzK4macH6rgoNeTDBIliX1U24v0L00WjcUKv7hXdTUYOYcG8dv9t7G9qC2HIPGK7JE565XvUSAWhCD4tQB2+icVBMICMQELgQccG+jvRlQSHinxCem4uS123J2kMzlmz96Vl8Sv9BE2KQiMsgSvnbGN6+KLUUjHw+6f/1ezzWqB2NS3C1R1Wfz61Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iPitrE6wIpj4ueq7bKbBJIHgmndspWRUr4v1ZWtVluk=;
- b=QeekNrC1mQiY24zng4JUAsFn8nqY9QayZPQ5ESW+7cVzwnSZLdhqmKsBi4sMDyTK45qdDFjyhnj/+0GCT0iP3ECkcaRXUu4m1GMAEaYTU4Oh843af9pwsJoSyvDfAhseETinGFPb7OKTI1vS0aNmx5zXSEmmkF8IfoWuYOfTrus=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <57937e19-e038-b36a-73aa-c2a95de7e525@amd.com>
-Date: Fri, 5 May 2023 11:38:42 +0200
+X-Inumbo-ID: 6e0f159c-eb2c-11ed-b226-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Content-ID:Content-Description;
+	bh=dQqO1khjEzEoVtLNIOKXHQ3bWHajiFN7+uL2OPfkzMc=; b=mdPsTpwATAWPjUrJsoF9GqrraD
+	ajLSNGDetq1iGmRFud9L4vAHbADCzTD3E3c6yEdaLI3bbNGs1D4uyazX3g9WPHteinNh9oz30GZRE
+	CO8h/8ds1IYxaYm2gkOCo7yB82NJf/CHy//A8XKS7wurt69xdA5mmKgLcqj8/Qjek+I2jKDWt/eP7
+	MUf5+MlWwrg3SzIYfYMzYZF4OBLVHR5ZqxuXqiJPfQAECq80PEl2Kdc0m86pSda+Ppxoi442OEqdO
+	06GMIvCgnIicQa5eekq+hFLlxYcWoOD6FN3s+7HFtT8nBKvE5J53fQO3t6EsUfKXr8KWuODtgBBxu
+	MlCt7vSu6nU8XxBuAO4oon6qV8IQX7DrKh4D+3O94BsG6OReeTHKqKOzqIBJ4gzvxwD4qSSl9IWZG
+	l7A0qMl3H8rZ+jj80Tx2SrBg+FKrFYd1DJC+iuTaIrnaibk3DWZhOFRDdUNAv5DG+NzAE2Whe0SPF
+	V8rbCFG37AMef1xY+AxMloEZXIOAGM1m3edeEBVnPOQHL9fXA4OtsP17LmZUTqsh/kKAexb2RgY//
+	FwZCdBD4uickZaxI4MJcwFtO/m3AL4f1b0ifFtnUgpStquuZ98puAJ+oPGsAGRWmmJ+TBYYnC2ZEA
+	TNUaF0NX0WSuOJtxSSqcaHEl5uHf4J0kx6/+e/YN4=;
+From: Christian Schoenebeck <qemu_oss@crudebyte.com>
+To: qemu-devel@nongnu.org
+Cc: Jason Andryuk <jandryuk@gmail.com>, Greg Kurz <groug@kaod.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+ Jason Andryuk <jandryuk@gmail.com>
+Subject: Re: [PATCH] 9pfs/xen: Fix segfault on shutdown
+Date: Fri, 05 May 2023 12:05:45 +0200
+Message-ID: <43162544.QFhiSxD2Za@silver>
+In-Reply-To: <20230502143722.15613-1-jandryuk@gmail.com>
+References: <20230502143722.15613-1-jandryuk@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [XEN][PATCH v6 02/19] common/device_tree: handle memory
- allocation failure in __unflatten_device_tree()
-Content-Language: en-US
-To: Vikram Garhwal <vikram.garhwal@amd.com>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-References: <20230502233650.20121-1-vikram.garhwal@amd.com>
- <20230502233650.20121-3-vikram.garhwal@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20230502233650.20121-3-vikram.garhwal@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT019:EE_|DM4PR12MB6376:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb878aa9-5058-4563-07c8-08db4d4c8508
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	yCaqO0KGybFwAdbjNwSE4DwJym2jIDSrvKBT+IDReINK/ahz6pTHvxsN9DVQsmuf5G34Sks9al3IQYKb4PqjswFhddO74zRPiP6guhuKnsCtskWB/sSmxLCSYIztGUCvn4r/r5y5TurnkJLr0x5qinHmxzBhhsHDp+ezCW+AezkEdn7QLCeazMTD2MtIfi/wBItuac+Hq8BqtVsx6RVRwiKidu1eiWUVjDbpqP8NQS0Pzdw0XFqcw9haP26cKfQsa+pCyeaH0QO4RmozFgEVJR9Otdr/HfUlyd+orhkpvaGXbgp7QYW9rZLtlWqvm8I5Vy7AEnpPtrUyRpQCybZzEwJFUXiyv/csrNmWImdH2aWiUoeyoAngYqyePKVs870+DkmJrGPxOerxLKO7oLdT5nMKiW5+p8ACpp2bHPgG6l2Tu9vLH/eADI/ekNAEKms6YtCaeQW2BJiZ+DO0XZF0bfpxM8Stxhqtl+2bz8V7eHms5EBiwH6Hhy8aVRnhczpazonKRh0YJkCKWsCuD49KH7zIli+ptIEVS3y1UMfkhqXPMUiMozzQHaXEP3myJqk9ZdUgjDCW24SDsB3s1MlOqRrArseX7YNJVMM+GtinBHX+/7SdWE+FcvosnhbEKipBMrqpZ7vQ+PCnFbCK09K2paPThrLPCklJiRkVlGbeo8sBOzcb7mKdRy33Ii2Nfvltri7sVWtBk/jnqWa6QLA7/6vvqlIKyrAKvOAFmxywKI1TLHKB4L0hLE2FcpYFPlxT1jvtG6qahS/vHj+TVso+9Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199021)(40470700004)(46966006)(36840700001)(47076005)(83380400001)(2616005)(336012)(426003)(40460700003)(186003)(2906002)(40480700001)(36756003)(82310400005)(86362001)(31696002)(82740400003)(81166007)(356005)(36860700001)(41300700001)(8936002)(8676002)(5660300002)(44832011)(4326008)(70206006)(70586007)(316002)(478600001)(31686004)(53546011)(26005)(16576012)(110136005)(54906003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2023 09:38:44.7025
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb878aa9-5058-4563-07c8-08db4d4c8508
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT019.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6376
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 
+Hi Jason,
 
-On 03/05/2023 01:36, Vikram Garhwal wrote:
-> 
-> 
-> Change __unflatten_device_tree() return type to integer so it can propagate
-> memory allocation failure. Add panic() in dt_unflatten_host_device_tree() for
-> memory allocation failure during boot.
-> 
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-I think we are missing a Fixes tag.
+as this is a Xen specific change, I would like Stefano or another Xen
+developer to take a look at it, just few things from my side ...
 
+On Tuesday, May 2, 2023 4:37:22 PM CEST Jason Andryuk wrote:
+> xen_9pfs_free can't use gnttabdev since it is already closed and NULL-ed
+
+Where exactly does it do that access? A backtrace or another detailed commit
+log description would help.
+
+> out when free is called.  Do the teardown in _disconnect().  This
+> matches the setup done in _connect().
+> 
+> trace-events are also added for the XenDevOps functions.
+> 
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 > ---
->  xen/common/device_tree.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+>  hw/9pfs/trace-events     |  5 +++++
+>  hw/9pfs/xen-9p-backend.c | 36 +++++++++++++++++++++++-------------
+>  2 files changed, 28 insertions(+), 13 deletions(-)
 > 
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index 5f7ae45304..fc38a0b3dd 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -2056,8 +2056,8 @@ static unsigned long unflatten_dt_node(const void *fdt,
->   * @fdt: The fdt to expand
->   * @mynodes: The device_node tree created by the call
->   */
-> -static void __init __unflatten_device_tree(const void *fdt,
-> -                                           struct dt_device_node **mynodes)
-> +static int __init __unflatten_device_tree(const void *fdt,
-> +                                          struct dt_device_node **mynodes)
->  {
->      unsigned long start, mem, size;
->      struct dt_device_node **allnextp = mynodes;
-> @@ -2078,6 +2078,8 @@ static void __init __unflatten_device_tree(const void *fdt,
-> 
->      /* Allocate memory for the expanded device tree */
->      mem = (unsigned long)_xmalloc (size + 4, __alignof__(struct dt_device_node));
-> +    if ( !mem )
-> +        return -ENOMEM;
-> 
->      ((__be32 *)mem)[size / 4] = cpu_to_be32(0xdeadbeef);
-> 
-> @@ -2095,6 +2097,8 @@ static void __init __unflatten_device_tree(const void *fdt,
->      *allnextp = NULL;
-> 
->      dt_dprintk(" <- unflatten_device_tree()\n");
+> diff --git a/hw/9pfs/trace-events b/hw/9pfs/trace-events
+> index 6c77966c0b..7b5b0b5a48 100644
+> --- a/hw/9pfs/trace-events
+> +++ b/hw/9pfs/trace-events
+> @@ -48,3 +48,8 @@ v9fs_readlink(uint16_t tag, uint8_t id, int32_t fid) "tag %d id %d fid %d"
+>  v9fs_readlink_return(uint16_t tag, uint8_t id, char* target) "tag %d id %d name %s"
+>  v9fs_setattr(uint16_t tag, uint8_t id, int32_t fid, int32_t valid, int32_t mode, int32_t uid, int32_t gid, int64_t size, int64_t atime_sec, int64_t mtime_sec) "tag %u id %u fid %d iattr={valid %d mode %d uid %d gid %d size %"PRId64" atime=%"PRId64" mtime=%"PRId64" }"
+>  v9fs_setattr_return(uint16_t tag, uint8_t id) "tag %u id %u"
 > +
-> +    return 0;
->  }
-> 
->  static void dt_alias_add(struct dt_alias_prop *ap,
-> @@ -2179,7 +2183,10 @@ dt_find_interrupt_controller(const struct dt_device_match *matches)
-> 
->  void __init dt_unflatten_host_device_tree(void)
->  {
-> -    __unflatten_device_tree(device_tree_flattened, &dt_host);
-> +    int error = __unflatten_device_tree(device_tree_flattened, &dt_host);
-NIT: there should be a blank line between definitions and rest of the code
 
-> +    if ( error )
-> +        panic("__unflatten_device_tree failed with error %d\n", error);
+Nit-picking; missing leading comment:
+
+# xen-9p-backend.c
+
+> +xen_9pfs_alloc(char *name) "name %s"
+> +xen_9pfs_connect(char *name) "name %s"
+> +xen_9pfs_disconnect(char *name) "name %s"
+> +xen_9pfs_free(char *name) "name %s"
+> diff --git a/hw/9pfs/xen-9p-backend.c b/hw/9pfs/xen-9p-backend.c
+> index 0e266c552b..c646a0b3d1 100644
+> --- a/hw/9pfs/xen-9p-backend.c
+> +++ b/hw/9pfs/xen-9p-backend.c
+> @@ -25,6 +25,8 @@
+>  #include "qemu/iov.h"
+>  #include "fsdev/qemu-fsdev.h"
+>  
+> +#include "trace.h"
 > +
->      dt_alias_scan();
+>  #define VERSIONS "1"
+>  #define MAX_RINGS 8
+>  #define MAX_RING_ORDER 9
+> @@ -337,6 +339,8 @@ static void xen_9pfs_disconnect(struct XenLegacyDevice *xendev)
+>      Xen9pfsDev *xen_9pdev = container_of(xendev, Xen9pfsDev, xendev);
+>      int i;
+>  
+> +    trace_xen_9pfs_disconnect(xendev->name);
+> +
+>      for (i = 0; i < xen_9pdev->num_rings; i++) {
+>          if (xen_9pdev->rings[i].evtchndev != NULL) {
+>              qemu_set_fd_handler(qemu_xen_evtchn_fd(xen_9pdev->rings[i].evtchndev),
+> @@ -345,40 +349,42 @@ static void xen_9pfs_disconnect(struct XenLegacyDevice *xendev)
+>                                     xen_9pdev->rings[i].local_port);
+>              xen_9pdev->rings[i].evtchndev = NULL;
+>          }
+> -    }
+> -}
+> -
+> -static int xen_9pfs_free(struct XenLegacyDevice *xendev)
+> -{
+> -    Xen9pfsDev *xen_9pdev = container_of(xendev, Xen9pfsDev, xendev);
+> -    int i;
+> -
+> -    if (xen_9pdev->rings[0].evtchndev != NULL) {
+> -        xen_9pfs_disconnect(xendev);
+> -    }
+> -
+> -    for (i = 0; i < xen_9pdev->num_rings; i++) {
+>          if (xen_9pdev->rings[i].data != NULL) {
+>              xen_be_unmap_grant_refs(&xen_9pdev->xendev,
+>                                      xen_9pdev->rings[i].data,
+>                                      xen_9pdev->rings[i].intf->ref,
+>                                      (1 << xen_9pdev->rings[i].ring_order));
+> +            xen_9pdev->rings[i].data = NULL;
+>          }
+>          if (xen_9pdev->rings[i].intf != NULL) {
+>              xen_be_unmap_grant_ref(&xen_9pdev->xendev,
+>                                     xen_9pdev->rings[i].intf,
+>                                     xen_9pdev->rings[i].ref);
+> +            xen_9pdev->rings[i].intf = NULL;
+>          }
+>          if (xen_9pdev->rings[i].bh != NULL) {
+>              qemu_bh_delete(xen_9pdev->rings[i].bh);
+> +            xen_9pdev->rings[i].bh = NULL;
+>          }
+>      }
+>  
+>      g_free(xen_9pdev->id);
+> +    xen_9pdev->id = NULL;
+>      g_free(xen_9pdev->tag);
+> +    xen_9pdev->tag = NULL;
+>      g_free(xen_9pdev->path);
+> +    xen_9pdev->path = NULL;
+>      g_free(xen_9pdev->security_model);
+> +    xen_9pdev->security_model = NULL;
+>      g_free(xen_9pdev->rings);
+> +    xen_9pdev->rings = NULL;
+> +    return;
+> +}
+> +
+> +static int xen_9pfs_free(struct XenLegacyDevice *xendev)
+> +{
+> +    trace_xen_9pfs_free(xendev->name);
+> +
+>      return 0;
 >  }
-> 
-> --
-> 2.17.1
-> 
+
+xen_9pfs_free() doing nothing, that doesn't look right to me. Wouldn't it make
+sense to turn xen_9pfs_free() idempotent instead?
+
+>  
+> @@ -390,6 +396,8 @@ static int xen_9pfs_connect(struct XenLegacyDevice *xendev)
+>      V9fsState *s = &xen_9pdev->state;
+>      QemuOpts *fsdev;
+>  
+> +    trace_xen_9pfs_connect(xendev->name);
+> +
+>      if (xenstore_read_fe_int(&xen_9pdev->xendev, "num-rings",
+>                               &xen_9pdev->num_rings) == -1 ||
+>          xen_9pdev->num_rings > MAX_RINGS || xen_9pdev->num_rings < 1) {
+> @@ -499,6 +507,8 @@ out:
+>  
+>  static void xen_9pfs_alloc(struct XenLegacyDevice *xendev)
+>  {
+> +    trace_xen_9pfs_alloc(xendev->name);
+> +
+>      xenstore_write_be_str(xendev, "versions", VERSIONS);
+>      xenstore_write_be_int(xendev, "max-rings", MAX_RINGS);
+>      xenstore_write_be_int(xendev, "max-ring-page-order", MAX_RING_ORDER);
 > 
 
-FWICS, patches 2 and 4 are not strictly related to DTBO and are fixing issues
-and propagating errors which is always good. Therefore by moving them to the start
-of the series, they could be merged right away reducing the number of patches to review.
-At the moment, they can't be because patch 3 placed in-between is strictly related to the series.
-
-@julien?
-
-~Michal
 
 
