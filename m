@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D0526F8C6E
-	for <lists+xen-devel@lfdr.de>; Sat,  6 May 2023 00:35:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.530685.826446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0323F6F8D2A
+	for <lists+xen-devel@lfdr.de>; Sat,  6 May 2023 02:36:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.530751.826492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pv40o-0000UL-Ai; Fri, 05 May 2023 22:34:50 +0000
+	id 1pv5to-0007F2-Ud; Sat, 06 May 2023 00:35:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 530685.826446; Fri, 05 May 2023 22:34:50 +0000
+Received: by outflank-mailman (output) from mailman id 530751.826492; Sat, 06 May 2023 00:35:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pv40o-0000Rn-7K; Fri, 05 May 2023 22:34:50 +0000
-Received: by outflank-mailman (input) for mailman id 530685;
- Fri, 05 May 2023 22:34:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pv5to-0007Bk-R1; Sat, 06 May 2023 00:35:44 +0000
+Received: by outflank-mailman (input) for mailman id 530751;
+ Sat, 06 May 2023 00:35:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cSQs=A2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pv40m-0000Rh-LW
- for xen-devel@lists.xenproject.org; Fri, 05 May 2023 22:34:48 +0000
+ <SRS0=CN1r=A3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1pv5tn-0007Be-4p
+ for xen-devel@lists.xenproject.org; Sat, 06 May 2023 00:35:43 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09b6a312-eb95-11ed-b226-6b7b168915f2;
- Sat, 06 May 2023 00:34:47 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ecd62efd-eba5-11ed-8611-37d641c3527e;
+ Sat, 06 May 2023 02:35:40 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D31DB64151;
- Fri,  5 May 2023 22:34:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C84DC433D2;
- Fri,  5 May 2023 22:34:44 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0079763C2E;
+ Sat,  6 May 2023 00:35:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DED8C433D2;
+ Sat,  6 May 2023 00:35:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,317 +43,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09b6a312-eb95-11ed-b226-6b7b168915f2
+X-Inumbo-ID: ecd62efd-eba5-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1683326085;
-	bh=C/tyMP0on/mJnQfCVGm2XWdaMp5GF2+MJvI5FCXTLqw=;
+	s=k20201202; t=1683333338;
+	bh=bP/3aHvZYOXH3zu8B4TUIjOV1o/FusNOt/78mT12AFw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DgNoqDqYcVbOWM3f1/A10Xt2InPUysmrPBBiqkpFrPuF89iQLuhs84grhdxWLq8qJ
-	 8Zi8OKJOy1SgtK4YkipQD3naH/FzZsIotDzXMu0Jq95aQaiQj5kXm8nHKGdnrY12Tt
-	 V/xZtvlupwWCOmgr5AmSaMsjBERFG1avpPqrQ+NNEVkvWmH0ARbdDQr9WVdG74gSAo
-	 NRnPCaMp+aiRbUtRETTtZ1cwsDMlP9+m0DJtkcD8kDEwwDldiqOj/I+GwOz3q7vWBL
-	 HUVgIthV5MSAvNzY5I1gNJWZVJvpin43ztSXsYdcgVl+mOFfYBwZ7N+flRGKcAoM7F
-	 /ajPZcMvRlHbQ==
-Date: Fri, 5 May 2023 15:34:41 -0700 (PDT)
+	b=FA6qHKtIZCoo7JyMA/TPj5q9THuxlE3xbt1wUPQos+XP7Llr1DVlqSqtI9CtwtEnz
+	 ZtUpCdFFsQR/gq0RuBDEBWUmNytLi/26Er/7E5CNzoXvyhvX11CvehWdgMcSyFl5cZ
+	 3HzhQ/SrPomJvST5vkoMFoGPniwB7pf7KCH8NLBEl5KAntmYPPE51DFaGvltpnRcUH
+	 HwWJN2Z7vYd8UykRhHmNmOONUvwc3qz1+hw8RfD3ILXha6BvLupOEUlSSxKnAeUsjz
+	 p2hwvi5X8C8gabXB+E3EvyS/+uNsd1Knj9l/hxSPto3NSsb+r7k38IJIl4nGDQLUHr
+	 o4yTLuUOaVS/w==
+Date: Fri, 5 May 2023 17:35:35 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    George Dunlap <George.Dunlap@eu.citrix.com>, 
-    Jan Beulich <JBeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2 2/2] LICENSES: Remove the use of deprecated SPDX
- tags
-In-Reply-To: <20230505181528.3587485-3-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2305051534190.974517@ubuntu-linux-20-04-desktop>
-References: <20230505181528.3587485-1-andrew.cooper3@citrix.com> <20230505181528.3587485-3-andrew.cooper3@citrix.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+cc: qemu-devel@nongnu.org, Greg Kurz <groug@kaod.org>, 
+    Christian Schoenebeck <qemu_oss@crudebyte.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
+    "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] 9pfs/xen: Fix segfault on shutdown
+In-Reply-To: <20230502143722.15613-1-jandryuk@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2305051735020.974517@ubuntu-linux-20-04-desktop>
+References: <20230502143722.15613-1-jandryuk@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 5 May 2023, Andrew Cooper wrote:
-> The GPL and LGPL SPDX forms without an explicit -only or -or-later suffix are
-> deprecated and should not be used.  Update the documention.
+On Tue, 2 May 2023, Jason Andryuk wrote:
+> xen_9pfs_free can't use gnttabdev since it is already closed and NULL-ed
+> out when free is called.  Do the teardown in _disconnect().  This
+> matches the setup done in _connect().
 > 
-> Somewhat unhelpfully at the time of writing, this only appears to be indicated
-> by the separation of the two tables at https://spdx.org/licenses/
+> trace-events are also added for the XenDevOps functions.
 > 
-> The recent changes to libacpi are the only examples of deprecated LGPL tags in
-> tree, so fix them all up.
-> 
-> For GPL, we have many examples using deprecated tags.  For now, just identify
-> them as such and recommend that no new instances get added.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 > ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
+>  hw/9pfs/trace-events     |  5 +++++
+>  hw/9pfs/xen-9p-backend.c | 36 +++++++++++++++++++++++-------------
+>  2 files changed, 28 insertions(+), 13 deletions(-)
 > 
-> Unsure whether this should get some Fixes: tags or not.  Note also that
-> Jenny's "[PATCH v4 2/2] acpi: Add TPM2 interface definition." wants its SPDX
-> tag correcting as per this patch.
-> 
-> v2:
->  * Extend commit message to include https://spdx.org/licenses/
->  * Update the URLs too
-> ---
->  LICENSES/GPL-2.0                    | 15 ++++++++-------
->  LICENSES/LGPL-2.0                   | 11 ++++++-----
->  LICENSES/LGPL-2.1                   | 11 ++++++-----
->  tools/libacpi/Makefile              |  2 +-
->  tools/libacpi/acpi2_0.h             |  2 +-
->  tools/libacpi/build.c               |  2 +-
->  tools/libacpi/dsdt.asl              |  2 +-
->  tools/libacpi/dsdt_acpi_info.asl    |  2 +-
->  tools/libacpi/libacpi.h             |  2 +-
->  tools/libacpi/mk_dsdt.c             |  2 +-
->  tools/libacpi/ssdt_laptop_slate.asl |  2 +-
->  tools/libacpi/ssdt_pm.asl           |  2 +-
->  tools/libacpi/ssdt_s3.asl           |  2 +-
->  tools/libacpi/ssdt_s4.asl           |  2 +-
->  tools/libacpi/ssdt_tpm.asl          |  2 +-
->  tools/libacpi/static_tables.c       |  2 +-
->  16 files changed, 33 insertions(+), 30 deletions(-)
-> 
-> diff --git a/LICENSES/GPL-2.0 b/LICENSES/GPL-2.0
-> index fa5c66236fe9..07f332641ccd 100644
-> --- a/LICENSES/GPL-2.0
-> +++ b/LICENSES/GPL-2.0
-> @@ -1,9 +1,11 @@
-> -Valid-License-Identifier: GPL-2.0
->  Valid-License-Identifier: GPL-2.0-only
-> -Valid-License-Identifier: GPL-2.0+
->  Valid-License-Identifier: GPL-2.0-or-later
->  
-> -SPDX-URL: https://spdx.org/licenses/GPL-2.0.html
-> +SPDX-URL: https://spdx.org/licenses/GPL-2.0-only.html
-> +SPDX-URL: https://spdx.org/licenses/GPL-2.0-or-later.html
+> diff --git a/hw/9pfs/trace-events b/hw/9pfs/trace-events
+> index 6c77966c0b..7b5b0b5a48 100644
+> --- a/hw/9pfs/trace-events
+> +++ b/hw/9pfs/trace-events
+> @@ -48,3 +48,8 @@ v9fs_readlink(uint16_t tag, uint8_t id, int32_t fid) "tag %d id %d fid %d"
+>  v9fs_readlink_return(uint16_t tag, uint8_t id, char* target) "tag %d id %d name %s"
+>  v9fs_setattr(uint16_t tag, uint8_t id, int32_t fid, int32_t valid, int32_t mode, int32_t uid, int32_t gid, int64_t size, int64_t atime_sec, int64_t mtime_sec) "tag %u id %u fid %d iattr={valid %d mode %d uid %d gid %d size %"PRId64" atime=%"PRId64" mtime=%"PRId64" }"
+>  v9fs_setattr_return(uint16_t tag, uint8_t id) "tag %u id %u"
 > +
-> +Deprecated-Identifier: GPL-2.0
-> +Deprecated-Identifier: GPL-2.0+
+> +xen_9pfs_alloc(char *name) "name %s"
+> +xen_9pfs_connect(char *name) "name %s"
+> +xen_9pfs_disconnect(char *name) "name %s"
+> +xen_9pfs_free(char *name) "name %s"
+> diff --git a/hw/9pfs/xen-9p-backend.c b/hw/9pfs/xen-9p-backend.c
+> index 0e266c552b..c646a0b3d1 100644
+> --- a/hw/9pfs/xen-9p-backend.c
+> +++ b/hw/9pfs/xen-9p-backend.c
+> @@ -25,6 +25,8 @@
+>  #include "qemu/iov.h"
+>  #include "fsdev/qemu-fsdev.h"
 >  
->  Usage-Guide:
->  
-> @@ -13,14 +15,13 @@ Usage-Guide:
->  
->    For 'GNU General Public License (GPL) version 2 only' use:
->      SPDX-License-Identifier: GPL-2.0-only
-> -  or (now deprecated)
-> -    SPDX-License-Identifier: GPL-2.0
->  
->    For 'GNU General Public License (GPL) version 2 or any later version' use:
-> -    SPDX-License-Identifier: GPL-2.0+
-> -  or
->      SPDX-License-Identifier: GPL-2.0-or-later
->  
-> +  The deprecated tags should not be used for any new additions.  Where
-> +  possible, their existing uses should be phased out.
+> +#include "trace.h"
 > +
->  License-Text:
+>  #define VERSIONS "1"
+>  #define MAX_RINGS 8
+>  #define MAX_RING_ORDER 9
+> @@ -337,6 +339,8 @@ static void xen_9pfs_disconnect(struct XenLegacyDevice *xendev)
+>      Xen9pfsDev *xen_9pdev = container_of(xendev, Xen9pfsDev, xendev);
+>      int i;
 >  
->  		    GNU GENERAL PUBLIC LICENSE
-> diff --git a/LICENSES/LGPL-2.0 b/LICENSES/LGPL-2.0
-> index 2fa16d72eabf..100c72c6db8c 100644
-> --- a/LICENSES/LGPL-2.0
-> +++ b/LICENSES/LGPL-2.0
-> @@ -1,7 +1,8 @@
-> -Valid-License-Identifier: LGPL-2.0
-> -Valid-License-Identifier: LGPL-2.0+
-> +Valid-License-Identifier: LGPL-2.0-only
-> +Valid-License-Identifier: LGPL-2.0-or-later
+> +    trace_xen_9pfs_disconnect(xendev->name);
+> +
+>      for (i = 0; i < xen_9pdev->num_rings; i++) {
+>          if (xen_9pdev->rings[i].evtchndev != NULL) {
+>              qemu_set_fd_handler(qemu_xen_evtchn_fd(xen_9pdev->rings[i].evtchndev),
+> @@ -345,40 +349,42 @@ static void xen_9pfs_disconnect(struct XenLegacyDevice *xendev)
+>                                     xen_9pdev->rings[i].local_port);
+>              xen_9pdev->rings[i].evtchndev = NULL;
+>          }
+> -    }
+> -}
+> -
+> -static int xen_9pfs_free(struct XenLegacyDevice *xendev)
+> -{
+> -    Xen9pfsDev *xen_9pdev = container_of(xendev, Xen9pfsDev, xendev);
+> -    int i;
+> -
+> -    if (xen_9pdev->rings[0].evtchndev != NULL) {
+> -        xen_9pfs_disconnect(xendev);
+> -    }
+> -
+> -    for (i = 0; i < xen_9pdev->num_rings; i++) {
+>          if (xen_9pdev->rings[i].data != NULL) {
+>              xen_be_unmap_grant_refs(&xen_9pdev->xendev,
+>                                      xen_9pdev->rings[i].data,
+>                                      xen_9pdev->rings[i].intf->ref,
+>                                      (1 << xen_9pdev->rings[i].ring_order));
+> +            xen_9pdev->rings[i].data = NULL;
+>          }
+>          if (xen_9pdev->rings[i].intf != NULL) {
+>              xen_be_unmap_grant_ref(&xen_9pdev->xendev,
+>                                     xen_9pdev->rings[i].intf,
+>                                     xen_9pdev->rings[i].ref);
+> +            xen_9pdev->rings[i].intf = NULL;
+>          }
+>          if (xen_9pdev->rings[i].bh != NULL) {
+>              qemu_bh_delete(xen_9pdev->rings[i].bh);
+> +            xen_9pdev->rings[i].bh = NULL;
+>          }
+>      }
 >  
-> -SPDX-URL: https://spdx.org/licenses/LGPL-2.0.html
-> +SPDX-URL: https://spdx.org/licenses/LGPL-2.0-only.html
-> +SPDX-URL: https://spdx.org/licenses/LGPL-2.0-or-later.html
+>      g_free(xen_9pdev->id);
+> +    xen_9pdev->id = NULL;
+>      g_free(xen_9pdev->tag);
+> +    xen_9pdev->tag = NULL;
+>      g_free(xen_9pdev->path);
+> +    xen_9pdev->path = NULL;
+>      g_free(xen_9pdev->security_model);
+> +    xen_9pdev->security_model = NULL;
+>      g_free(xen_9pdev->rings);
+> +    xen_9pdev->rings = NULL;
+> +    return;
+
+NIT: this return is redudant.
+
+Aside from that:
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> +}
+> +
+> +static int xen_9pfs_free(struct XenLegacyDevice *xendev)
+> +{
+> +    trace_xen_9pfs_free(xendev->name);
+> +
+>      return 0;
+>  }
 >  
->  Usage-Guide:
+> @@ -390,6 +396,8 @@ static int xen_9pfs_connect(struct XenLegacyDevice *xendev)
+>      V9fsState *s = &xen_9pdev->state;
+>      QemuOpts *fsdev;
 >  
-> @@ -10,11 +11,11 @@ Usage-Guide:
->    guidelines in the licensing rules documentation.
+> +    trace_xen_9pfs_connect(xendev->name);
+> +
+>      if (xenstore_read_fe_int(&xen_9pdev->xendev, "num-rings",
+>                               &xen_9pdev->num_rings) == -1 ||
+>          xen_9pdev->num_rings > MAX_RINGS || xen_9pdev->num_rings < 1) {
+> @@ -499,6 +507,8 @@ out:
 >  
->    For 'GNU Library General Public License (LGPL) version 2.0 only' use:
-> -    SPDX-License-Identifier: LGPL-2.0
-> +    SPDX-License-Identifier: LGPL-2.0-only
->  
->    For 'GNU Library General Public License (LGPL) version 2.0 or any later
->    version' use:
-> -    SPDX-License-Identifier: LGPL-2.0+
-> +    SPDX-License-Identifier: LGPL-2.0-or-later
->  
->  License-Text:
->  
-> diff --git a/LICENSES/LGPL-2.1 b/LICENSES/LGPL-2.1
-> index b366c7e49199..d3e213c39c26 100644
-> --- a/LICENSES/LGPL-2.1
-> +++ b/LICENSES/LGPL-2.1
-> @@ -1,7 +1,8 @@
-> -Valid-License-Identifier: LGPL-2.1
-> -Valid-License-Identifier: LGPL-2.1+
-> +Valid-License-Identifier: LGPL-2.1-only
-> +Valid-License-Identifier: LGPL-2.1-or-later
->  
-> -SPDX-URL: https://spdx.org/licenses/LGPL-2.1.html
-> +SPDX-URL: https://spdx.org/licenses/LGPL-2.1-only.html
-> +SPDX-URL: https://spdx.org/licenses/LGPL-2.1-or-later.html
->  
->  Usage-Guide:
->  
-> @@ -10,11 +11,11 @@ Usage-Guide:
->    guidelines in the licensing rules documentation.
->  
->    For 'GNU Lesser General Public License (LGPL) version 2.1 only' use:
-> -    SPDX-License-Identifier: LGPL-2.1
-> +    SPDX-License-Identifier: LGPL-2.1-only
->  
->    For 'GNU Lesser General Public License (LGPL) version 2.1 or any later
->    version' use:
-> -    SPDX-License-Identifier: LGPL-2.1+
-> +    SPDX-License-Identifier: LGPL-2.1-or-later
->  
->  License-Text:
->  
-> diff --git a/tools/libacpi/Makefile b/tools/libacpi/Makefile
-> index aa9c520cbe85..bcfcd852f92f 100644
-> --- a/tools/libacpi/Makefile
-> +++ b/tools/libacpi/Makefile
-> @@ -1,4 +1,4 @@
-> -# SPDX-License-Identifier: LGPL-2.1
-> +# SPDX-License-Identifier: LGPL-2.1-only
->  #
->  # Copyright (c) 2004, Intel Corporation.
->  
-> diff --git a/tools/libacpi/acpi2_0.h b/tools/libacpi/acpi2_0.h
-> index 212f5ab64182..e00b29854be0 100644
-> --- a/tools/libacpi/acpi2_0.h
-> +++ b/tools/libacpi/acpi2_0.h
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /*
->   * Copyright (c) 2004, Intel Corporation.
->   */
-> diff --git a/tools/libacpi/build.c b/tools/libacpi/build.c
-> index 830d37c61f03..3142e0ac84c0 100644
-> --- a/tools/libacpi/build.c
-> +++ b/tools/libacpi/build.c
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /*
->   * Copyright (c) 2004, Intel Corporation.
->   * Copyright (c) 2006, Keir Fraser, XenSource Inc.
-> diff --git a/tools/libacpi/dsdt.asl b/tools/libacpi/dsdt.asl
-> index c6691b56a986..32b42f85ae9f 100644
-> --- a/tools/libacpi/dsdt.asl
-> +++ b/tools/libacpi/dsdt.asl
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /******************************************************************************
->   * DSDT for Xen with Qemu device model
->   *
-> diff --git a/tools/libacpi/dsdt_acpi_info.asl b/tools/libacpi/dsdt_acpi_info.asl
-> index c6e82f1fe6a7..6e114fa23404 100644
-> --- a/tools/libacpi/dsdt_acpi_info.asl
-> +++ b/tools/libacpi/dsdt_acpi_info.asl
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  
->      Scope (\_SB)
->      {
-> diff --git a/tools/libacpi/libacpi.h b/tools/libacpi/libacpi.h
-> index acf012e35578..7ae28525f604 100644
-> --- a/tools/libacpi/libacpi.h
-> +++ b/tools/libacpi/libacpi.h
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /******************************************************************************
->   * libacpi.h
->   * 
-> diff --git a/tools/libacpi/mk_dsdt.c b/tools/libacpi/mk_dsdt.c
-> index c74b270c0c5d..34f6753f6193 100644
-> --- a/tools/libacpi/mk_dsdt.c
-> +++ b/tools/libacpi/mk_dsdt.c
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  
->  #include <stdio.h>
->  #include <stdarg.h>
-> diff --git a/tools/libacpi/ssdt_laptop_slate.asl b/tools/libacpi/ssdt_laptop_slate.asl
-> index 494f2d048d0a..69fd504c19fc 100644
-> --- a/tools/libacpi/ssdt_laptop_slate.asl
-> +++ b/tools/libacpi/ssdt_laptop_slate.asl
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /*
->   * ssdt_conv.asl
->   *
-> diff --git a/tools/libacpi/ssdt_pm.asl b/tools/libacpi/ssdt_pm.asl
-> index e577e85c072b..db578d10ac3e 100644
-> --- a/tools/libacpi/ssdt_pm.asl
-> +++ b/tools/libacpi/ssdt_pm.asl
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /*
->   * ssdt_pm.asl
->   *
-> diff --git a/tools/libacpi/ssdt_s3.asl b/tools/libacpi/ssdt_s3.asl
-> index 8f3177ec5adc..f6e9636f4759 100644
-> --- a/tools/libacpi/ssdt_s3.asl
-> +++ b/tools/libacpi/ssdt_s3.asl
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /*
->   * ssdt_s3.asl
->   *
-> diff --git a/tools/libacpi/ssdt_s4.asl b/tools/libacpi/ssdt_s4.asl
-> index 979318eca1f5..8014f5fc9014 100644
-> --- a/tools/libacpi/ssdt_s4.asl
-> +++ b/tools/libacpi/ssdt_s4.asl
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /*
->   * ssdt_s4.asl
->   *
-> diff --git a/tools/libacpi/ssdt_tpm.asl b/tools/libacpi/ssdt_tpm.asl
-> index 6c3267218f3b..944658d25177 100644
-> --- a/tools/libacpi/ssdt_tpm.asl
-> +++ b/tools/libacpi/ssdt_tpm.asl
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /*
->   * ssdt_tpm.asl
->   *
-> diff --git a/tools/libacpi/static_tables.c b/tools/libacpi/static_tables.c
-> index 631fb911413b..715f46fee05c 100644
-> --- a/tools/libacpi/static_tables.c
-> +++ b/tools/libacpi/static_tables.c
-> @@ -1,4 +1,4 @@
-> -/* SPDX-License-Identifier: LGPL-2.1 */
-> +/* SPDX-License-Identifier: LGPL-2.1-only */
->  /*
->   * Copyright (c) 2004, Intel Corporation.
->   * Copyright (c) 2006, Keir Fraser, XenSource Inc.
+>  static void xen_9pfs_alloc(struct XenLegacyDevice *xendev)
+>  {
+> +    trace_xen_9pfs_alloc(xendev->name);
+> +
+>      xenstore_write_be_str(xendev, "versions", VERSIONS);
+>      xenstore_write_be_int(xendev, "max-rings", MAX_RINGS);
+>      xenstore_write_be_int(xendev, "max-ring-page-order", MAX_RING_ORDER);
 > -- 
-> 2.30.2
+> 2.40.1
 > 
 
