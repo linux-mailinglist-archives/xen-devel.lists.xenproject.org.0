@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C39C6F98FA
-	for <lists+xen-devel@lfdr.de>; Sun,  7 May 2023 16:46:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.531138.826758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 116886F9C0A
+	for <lists+xen-devel@lfdr.de>; Sun,  7 May 2023 23:50:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.531194.826767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pvfdr-0000iR-4m; Sun, 07 May 2023 14:45:39 +0000
+	id 1pvmFg-0000oW-Tn; Sun, 07 May 2023 21:49:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 531138.826758; Sun, 07 May 2023 14:45:39 +0000
+Received: by outflank-mailman (output) from mailman id 531194.826767; Sun, 07 May 2023 21:49:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pvfdr-0000gY-1p; Sun, 07 May 2023 14:45:39 +0000
-Received: by outflank-mailman (input) for mailman id 531138;
- Sun, 07 May 2023 14:45:38 +0000
+	id 1pvmFg-0000lh-QS; Sun, 07 May 2023 21:49:08 +0000
+Received: by outflank-mailman (input) for mailman id 531194;
+ Sun, 07 May 2023 21:49:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1pvfdq-0000gO-Fa; Sun, 07 May 2023 14:45:38 +0000
+ id 1pvmFe-0000lX-OU; Sun, 07 May 2023 21:49:06 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1pvfdq-0003Rw-BJ; Sun, 07 May 2023 14:45:38 +0000
+ id 1pvmFe-00055C-IQ; Sun, 07 May 2023 21:49:06 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1pvfdp-00031E-RW; Sun, 07 May 2023 14:45:37 +0000
+ id 1pvmFe-0007Zq-3Z; Sun, 07 May 2023 21:49:06 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pvfdp-0001jz-R6; Sun, 07 May 2023 14:45:37 +0000
+ id 1pvmFe-0002dJ-33; Sun, 07 May 2023 21:49:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,17 +45,18 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7VZ2pH50TOpI9NMZ5O2TYb8t9mMoa4nUqwN66FTWrvs=; b=heczHIC8KoRSmUcdYnYOfiAKIP
-	s+0eDfFOtBgSrPKx4tnJhiT0V+D1R4t7nBNWF/MUDq5PerZ/rmCK7BXnpSWnHgkdBCWcDGllWXQ8y
-	C7CzhxMaWQirfB7b2q/pEEWTykNyrlcGIeqvEQcqL0sa1iL5VovS/rCRf62wCa3VSlXE=;
+	bh=kcJ7NMyj4diQqk6DYu3WFsRuJeySkpKqHXq4+awghbY=; b=a9GD9/yJ2Nwn2/1gnYonYA8tBT
+	N3PLBXaePYq72DtvPS0ZYLv1dIz3gTECTlUsuoUH7sRlwGevcdfqYji/mbBmpO9cIPxrtSd4Hg8wE
+	E+nb1ZPXXdDdlAfOLE70+EIA4g0ntm0NEINcdnMQchfSS4OCEFGRAkp+ctP4bVIqhrkc=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180567-mainreport@xen.org>
+Message-ID: <osstest-180570-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [linux-linus test] 180567: regressions - FAIL
+Subject: [linux-linus test] 180570: regressions - FAIL
 X-Osstest-Failures:
     linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start/debian.repeat:fail:heisenbug
     linux-linus:test-armhf-armhf-examine:reboot:fail:nonblocking
     linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:nonblocking
     linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:nonblocking
@@ -72,11 +73,11 @@ X-Osstest-Failures:
     linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
     linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
     linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
     linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
@@ -97,18 +98,19 @@ X-Osstest-Versions-This:
 X-Osstest-Versions-That:
     linux=6c538e1adbfc696ac4747fb10d63e704344f763d
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 07 May 2023 14:45:37 +0000
+Date: Sun, 07 May 2023 21:49:06 +0000
 
-flight 180567 linux-linus real [real]
-flight 180569 linux-linus real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180567/
-http://logs.test-lab.xenproject.org/osstest/logs/180569/
+flight 180570 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180570/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
  test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
+
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-dom0pvh-xl-amd 22 guest-start/debian.repeat fail pass in 180567
 
 Tests which did not succeed, but are not blocking:
  test-armhf-armhf-examine      8 reboot                       fail  like 180278
@@ -127,11 +129,11 @@ Tests which did not succeed, but are not blocking:
  test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180278
  test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180278
  test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
  test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
  test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
@@ -153,9 +155,9 @@ version targeted for testing:
 baseline version:
  linux                6c538e1adbfc696ac4747fb10d63e704344f763d
 
-Last test of basis   180278  2023-04-16 19:41:46 Z   20 days
-Failing since        180281  2023-04-17 06:24:36 Z   20 days   35 attempts
-Testing same since   180567  2023-05-07 02:05:07 Z    0 days    1 attempts
+Last test of basis   180278  2023-04-16 19:41:46 Z   21 days
+Failing since        180281  2023-04-17 06:24:36 Z   20 days   36 attempts
+Testing same since   180567  2023-05-07 02:05:07 Z    0 days    2 attempts
 
 ------------------------------------------------------------
 2326 people touched revisions under test,
@@ -191,7 +193,7 @@ jobs:
  test-arm64-arm64-xl-xsm                                      pass    
  test-amd64-amd64-qemuu-nested-amd                            fail    
  test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
  test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
  test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
  test-amd64-amd64-freebsd11-amd64                             pass    
