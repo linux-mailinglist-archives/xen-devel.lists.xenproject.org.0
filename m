@@ -2,30 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88DB86FB705
-	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 21:44:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.531743.827504 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F4BD6FB716
+	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 21:44:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.531744.827511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw6lg-0004In-4V; Mon, 08 May 2023 19:43:32 +0000
+	id 1pw6lg-0004OY-EU; Mon, 08 May 2023 19:43:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 531743.827504; Mon, 08 May 2023 19:43:32 +0000
+Received: by outflank-mailman (output) from mailman id 531744.827511; Mon, 08 May 2023 19:43:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw6lg-0004GP-1s; Mon, 08 May 2023 19:43:32 +0000
-Received: by outflank-mailman (input) for mailman id 531743;
- Mon, 08 May 2023 19:43:30 +0000
+	id 1pw6lg-0004Iq-A4; Mon, 08 May 2023 19:43:32 +0000
+Received: by outflank-mailman (input) for mailman id 531744;
+ Mon, 08 May 2023 19:43:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=49Re=A5=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pw6le-0004GB-BE
- for xen-devel@lists.xenproject.org; Mon, 08 May 2023 19:43:30 +0000
-Received: from galois.linutronix.de (galois.linutronix.de
- [2a0a:51c0:0:12e:550::1])
+ id 1pw6lf-0004GB-0k
+ for xen-devel@lists.xenproject.org; Mon, 08 May 2023 19:43:31 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9a860726-edd8-11ed-b226-6b7b168915f2;
- Mon, 08 May 2023 21:43:28 +0200 (CEST)
+ id 9b2f47c9-edd8-11ed-b226-6b7b168915f2;
+ Mon, 08 May 2023 21:43:29 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,23 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a860726-edd8-11ed-b226-6b7b168915f2
-Message-ID: <20230508181633.089804905@linutronix.de>
+X-Inumbo-ID: 9b2f47c9-edd8-11ed-b226-6b7b168915f2
+Message-ID: <20230508185217.287533369@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1683575007;
+	s=2020; t=1683575008;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc; bh=cSONB8rAwM/DhP8pLyA+5ZPUbC2lOuuQwaVdJRn5WDM=;
-	b=TUKnHdyKCm2jhBxD5IlUGRPEG/QaxWUEEk5j+F5TiwGQh75MzfKnWvvga1ogV0FWpqsAk0
-	Z/VqPwKzVgozvsmFgeZHc6fKtgAWVGs7xGme4vq54PLJoTakzMDfDNVCbcO2rny0q4HnR6
-	qlFXb43Qt1L8lTxJDtVVOKBuzxeXABCLtAFoVNNIdEV1p8ow/ukbkpiR2uIVB/FYpjA6p3
-	h6hKX4cZFsqIirm+tNd9G+ACRA1lcKi+gtx7U3umktHuz9juvrtG2mgbwLKrM2SK5QyvS3
-	r9jvL2zUpq3y0guhjpTb2zQUgu9MH/0dN+oTlFfspWYXJjDrCu5rao9nchjzhw==
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 references:references; bh=TIFcpQKDkUA3tA8gujt3zKN0CCqeTM3e8ZIS8vByT1c=;
+	b=Wf4mqDxFrL1eWhI5cpdoRdFllQIJr50VWM3iPhe3WsbZ/Iw75OzzMXvNpDiX4/F1RlUka/
+	FuaadHz8U/UJgoRuNI+eiueis1okBnBTdsW7K3h/5cJff54TU9cNXi2Eo25oxatOtt8Ped
+	uqIwnl5vpuaeMpBtb7hOTKugxduUe8Augp4O7OKVi2nBKgfwEY926yQ5SmqvUi7xIbg97V
+	fQtSCNhqHK3HwtnrdayfMk5OYNYQqF7Po1kCsNkOoJVvrU6F54wA+I/A0Pn8m/abs0ww8P
+	YoKjgZ69Z9J+x/KjldafuRP3SwFynPh5Zr2/PtLG0H6Hu60gav2dDq7D6S6DFA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1683575007;
+	s=2020e; t=1683575008;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc; bh=cSONB8rAwM/DhP8pLyA+5ZPUbC2lOuuQwaVdJRn5WDM=;
-	b=i5YP5va30wPZDaaNSG4+BZNoSkYS91jOjq0F96kx0dzX5lZgVd2tGOGcKaXMK8erIbX4td
-	IGoM8wVZMNo8tHAg==
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 references:references; bh=TIFcpQKDkUA3tA8gujt3zKN0CCqeTM3e8ZIS8vByT1c=;
+	b=LftWUnhcnLdQ0KvHaFRp+CDhSV7AuCp+oemkbqukqx/mhhoAfEVrKqqXitjKTnGoiLrrvy
+	h0+2Iv+MwcjSr/DA==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org,
@@ -91,32 +92,86 @@ Cc: x86@kernel.org,
  Mark Rutland <mark.rutland@arm.com>,
  Sabin Rapan <sabrapan@amazon.com>,
  "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-Subject: [patch v3 00/36] cpu/hotplug, x86: Reworked parallel CPU bringup
-Date: Mon,  8 May 2023 21:43:26 +0200 (CEST)
+Subject: [patch v3 01/36] [patch V2 01/38] x86/smpboot: Cleanup
+ topology_phys_to_logical_pkg()/die()
+References: <20230508181633.089804905@linutronix.de>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Mon,  8 May 2023 21:43:28 +0200 (CEST)
 
-Hi!
+From: Thomas Gleixner <tglx@linutronix.de>
 
-This is version 3 of the reworked parallel bringup series. Version 2 can be
-found here:
+Make topology_phys_to_logical_pkg_die() static as it's only used in
+smpboot.c and fixup the kernel-doc warnings for both functions.
 
-   https://lore.kernel.org/lkml/20230504185733.126511787@linutronix.de
-
-This is just a quick reiteration to address the following details:
-
-  1) Drop the two extended topology leaf patches as they are not longer
-     relevant (Andrew Cooper)
-
-  2) Make the announce_cpu() fixup work for real (Micheal Kelley)
-
-Other than that there are no changes and the other details are all the same
-as in V2.
-
-Thanks,
-
-	tglx
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Tested-by: Michael Kelley <mikelley@microsoft.com>
 
 
+---
+ arch/x86/include/asm/topology.h |    3 ---
+ arch/x86/kernel/smpboot.c       |   10 ++++++----
+ 2 files changed, 6 insertions(+), 7 deletions(-)
+---
 
+--- a/arch/x86/include/asm/topology.h
++++ b/arch/x86/include/asm/topology.h
+@@ -139,7 +139,6 @@ static inline int topology_max_smt_threa
+ int topology_update_package_map(unsigned int apicid, unsigned int cpu);
+ int topology_update_die_map(unsigned int dieid, unsigned int cpu);
+ int topology_phys_to_logical_pkg(unsigned int pkg);
+-int topology_phys_to_logical_die(unsigned int die, unsigned int cpu);
+ bool topology_is_primary_thread(unsigned int cpu);
+ bool topology_smt_supported(void);
+ #else
+@@ -149,8 +148,6 @@ topology_update_package_map(unsigned int
+ static inline int
+ topology_update_die_map(unsigned int dieid, unsigned int cpu) { return 0; }
+ static inline int topology_phys_to_logical_pkg(unsigned int pkg) { return 0; }
+-static inline int topology_phys_to_logical_die(unsigned int die,
+-		unsigned int cpu) { return 0; }
+ static inline int topology_max_die_per_package(void) { return 1; }
+ static inline int topology_max_smt_threads(void) { return 1; }
+ static inline bool topology_is_primary_thread(unsigned int cpu) { return true; }
+--- a/arch/x86/kernel/smpboot.c
++++ b/arch/x86/kernel/smpboot.c
+@@ -288,6 +288,7 @@ bool topology_smt_supported(void)
+ 
+ /**
+  * topology_phys_to_logical_pkg - Map a physical package id to a logical
++ * @phys_pkg:	The physical package id to map
+  *
+  * Returns logical package id or -1 if not found
+  */
+@@ -304,15 +305,17 @@ int topology_phys_to_logical_pkg(unsigne
+ 	return -1;
+ }
+ EXPORT_SYMBOL(topology_phys_to_logical_pkg);
++
+ /**
+  * topology_phys_to_logical_die - Map a physical die id to logical
++ * @die_id:	The physical die id to map
++ * @cur_cpu:	The CPU for which the mapping is done
+  *
+  * Returns logical die id or -1 if not found
+  */
+-int topology_phys_to_logical_die(unsigned int die_id, unsigned int cur_cpu)
++static int topology_phys_to_logical_die(unsigned int die_id, unsigned int cur_cpu)
+ {
+-	int cpu;
+-	int proc_id = cpu_data(cur_cpu).phys_proc_id;
++	int cpu, proc_id = cpu_data(cur_cpu).phys_proc_id;
+ 
+ 	for_each_possible_cpu(cpu) {
+ 		struct cpuinfo_x86 *c = &cpu_data(cpu);
+@@ -323,7 +326,6 @@ int topology_phys_to_logical_die(unsigne
+ 	}
+ 	return -1;
+ }
+-EXPORT_SYMBOL(topology_phys_to_logical_die);
+ 
+ /**
+  * topology_update_package_map - Update the physical to logical package map
 
 
 
