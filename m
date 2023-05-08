@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E33C6FB57A
-	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 18:47:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.531668.827448 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 704BB6FB5C4
+	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 19:15:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.531682.827457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw40S-0000CE-Ul; Mon, 08 May 2023 16:46:36 +0000
+	id 1pw4Rp-0003fK-2W; Mon, 08 May 2023 17:14:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 531668.827448; Mon, 08 May 2023 16:46:36 +0000
+Received: by outflank-mailman (output) from mailman id 531682.827457; Mon, 08 May 2023 17:14:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw40S-00009Q-RH; Mon, 08 May 2023 16:46:36 +0000
-Received: by outflank-mailman (input) for mailman id 531668;
- Mon, 08 May 2023 16:46:34 +0000
+	id 1pw4Ro-0003de-VW; Mon, 08 May 2023 17:14:52 +0000
+Received: by outflank-mailman (input) for mailman id 531682;
+ Mon, 08 May 2023 17:14:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fEaP=A5=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1pw40Q-000094-Mv
- for xen-devel@lists.xenproject.org; Mon, 08 May 2023 16:46:34 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [85.215.255.23]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2bcf59e-edbf-11ed-b226-6b7b168915f2;
- Mon, 08 May 2023 18:46:32 +0200 (CEST)
+ id 1pw4Rn-0003cn-K1
+ for xen-devel@lists.xenproject.org; Mon, 08 May 2023 17:14:51 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.53]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d70ff816-edc3-11ed-b226-6b7b168915f2;
+ Mon, 08 May 2023 19:14:50 +0200 (CEST)
 Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
- with ESMTPSA id x6987cz48GkL1ei
+ with ESMTPSA id x6987cz48HEj1iE
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Mon, 8 May 2023 18:46:21 +0200 (CEST)
+ Mon, 8 May 2023 19:14:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,121 +41,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2bcf59e-edbf-11ed-b226-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1683564381; cv=none;
+X-Inumbo-ID: d70ff816-edc3-11ed-b226-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1683566085; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=aQOBJvQhWb1t5tnqeVzHgWO/YtjOx3rNfKHaYf6UwWeC+MkYJiCW6nVylCffa88lSq
-    rxywtfvj3AtpTtoxlKpAeE4d7M7PP7Jpm/WbNNNcb73Ij/TqE2erALOQFRhZcwmgtt6x
-    Mjhg75RwKlvhrs0+85eJmM+nVXGzhGsJ1XrhOP5Y0zXGoj3blIyezNeI45wgpqvuOk9p
-    AD7tSc+6GhenaDRaGJaO+oiPusdN7s/FMVw0+oRj4hoeDUcNWNYoyPMOF6qQUJWpOBHG
-    jyayKvdqHKxnVoPxjQJapLW/IHBC5li5C7gPqcf2HYrd8c1PQfjUGkIAuAmKHcb38HoR
-    cgJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683564381;
+    b=tE6YHuHy5lVgdjuDoGDmTwSBgXKtuS1zDa+h/S810xaL3xbUpjKNwYeQHYaBy2RvFl
+    XpZuEd8VLlxKqHAEIc6ga5n58BAziTQas967IHhukhcGU0EDv2VsvjZ7VEaqrihJ2Y9/
+    i0Vh4ngEwa0bPncFQPvXLsOHMVorH7YoZ/dzlDlOWjPIgm8mif3tAGTWiCrnKCCsRpx5
+    3p479Zye8lgUFoWvbLH1feNVbJbESCTKFSG1ntDBw8jU7975kRDXEu7X0WX7prpco4nY
+    8IA6BOJYLF39Ln+EoVt4zk6X+h1daiCLOmcQ3KbsYczTIh/wB+29XuPf70rWREdCAzxP
+    zuOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683566085;
     s=strato-dkim-0002; d=strato.com;
     h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=ckiWL2I0mA50zkvrZeK7N1+RfhrIURHzeKf776Hu3nE=;
-    b=sA2c/UTSPr2n7ftMly/N4kZ+4i/RdAraMSv6OKQJzoMMS31a4YiFXk317NdQ8JDecl
-    UZ3YSpJiHy4jOftrucQE2aQwBKabxU/6Mg86o/MfTEktpulYnCrA7ngx18K8YJ77gPkF
-    VcB3npY+fxOlecInxj2vvi026+WWT2z/rOzFnVQjfCNjXeTnpza3x/GBuYUsV5L/2qUa
-    KhDA1kudFXhh8eMON1SO2Vlb9IHdbexSPZwtOh3HjlI1sppc0BI/FEEw9UzINc3agVbZ
-    KuVMnRfa1JoWmeg0klSPaOyyt6lvUt6NsboUaR+VItTy7lxuhOGUSwd7l7lrYt3cI9TU
-    DBmw==
+    bh=y0EEjOUz8ZL2cVZEIRcJ/bDf+Ceoz247L+uHTHcTrAo=;
+    b=b05BlS4jHDUWuizJL3NhuJotZtOLwERDH4ZMFsEmvbs1CocwbRm41A3tZEBaDUksS1
+    bObD3J8ePYHUk56GTqUyNvuIIyr0TpW5RGBlTbFg2B+8kZ1iKGYar6S9pIcE4v2EoUEQ
+    Aiif6AdOVQ2p43r4o49yQt8SkH3UCdRzJGUEJWmir2/yaSTfISyhavMHQmrOrdzTssTL
+    Uy+8oDr+ixK9Q8+QuM/NvGZlMiF9/OM7ERoOIn7MdwiqlqeRQq061xtFbRdponjbMUyj
+    par6x6S8IudAulCdUcHgTeeAc3I/J5elU9eXBxQl5yTrnaQwhbczQ43Nu5CdN53R0mnr
+    5qZg==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683564381;
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683566085;
     s=strato-dkim-0002; d=aepfle.de;
     h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=ckiWL2I0mA50zkvrZeK7N1+RfhrIURHzeKf776Hu3nE=;
-    b=DYlKtcZN7zjBC8XassEpnx4dkpk7e+6kblL6C/sXsfFuSVud0v/JrJWX0/jFftfBNB
-    EQeYLWdSZ3xsZ/WJfX0hz/gA5177SlhTDVIx3qo40NVDsNmMiDickNOZWWDt1Vw6+Uh6
-    SvgFrMp4rP2ik9yU5YUcD4szOKk3myQheW9DQTPuvCKUjdUzHBoRHJ1dMDsY53UuRiUq
-    27NNBL2ui3LtZN7Kb6ZQSI5kZSZ5qRYHtZgT5EOKBMLGh2mbGDdSGdP44WlhGzOg8IxW
-    jmkSnshwncGbb/Q7VO/lZW7t1AF8l8nhXMaLC45fp1m8xgIWfIpPIGWeskhPLyzyvfZY
-    /6+Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683564381;
+    bh=y0EEjOUz8ZL2cVZEIRcJ/bDf+Ceoz247L+uHTHcTrAo=;
+    b=WfTnRdjagb5Qlqlvp773aVY/NuQaV7jGY/PlS4dKa71IgRcOYO6ew27kbArysI/G4B
+    NBRDn20uoaNrc2WE+6ct3b07XSY+Eoa/8cKTCYhlLLZhNWGaTLBR2TL8/TFPfD+ATE/0
+    bwCc52HlIp3OxyY0qeId8K1ML943XhRviSODWacIDH44dHDBWemI/90VI1gNvxd5moF3
+    T8Xq2hYL9hi0hZGiVXsvkdRGXIB+RIRQqYV71l+1Aa8nN9VqmR4okXlvqENWBrs8AphC
+    SfYsqLG4ToE8gaC/ITXOTvYJCXu3m+WyZLHmMWfgBelPihBJsltJyS2mJYNi+wQ2M48c
+    HlOQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683566085;
     s=strato-dkim-0003; d=aepfle.de;
     h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=ckiWL2I0mA50zkvrZeK7N1+RfhrIURHzeKf776Hu3nE=;
-    b=R/ogvXlolyxT7xoTrk9JeByV/QKhwCZGA0U4eQmaLX3o5UhMKPO6iBpLAuUruMwFvW
-    odSG+o0vcbpzzlmCDfCQ==
+    bh=y0EEjOUz8ZL2cVZEIRcJ/bDf+Ceoz247L+uHTHcTrAo=;
+    b=mCQQC+FJHISBFELfPTHBHvCVe1SjmVm6K6kDqRAgGoenlST0+wBHtE71uQq1U4//KB
+    rFjD9jOEkEWyFKMDY4Bg==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4xr137Gpot26qU4O0oDB37weYobhAHKAaiA4NsOg=="
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	George Dunlap <george.dunlap@citrix.com>
-Subject: [PATCH v2] tools: convert bitfields to unsigned type
-Date: Mon,  8 May 2023 16:46:18 +0000
-Message-Id: <20230508164618.21496-1-olaf@aepfle.de>
+Cc: Jason Andryuk <jandryuk@gmail.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2] Fix install.sh for systemd
+Date: Mon,  8 May 2023 17:14:37 +0000
+Message-Id: <20230508171437.27424-1-olaf@aepfle.de>
 X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
 
-clang complains about the signed type:
+On a fedora system, if you run `sudo sh install.sh` you break your
+system.  The installation clobbers /var/run, a symlink to /run.  A
+subsequent boot fails when /var/run and /run are different since
+accesses through /var/run can't find items that now only exist in /run
+and vice-versa.
 
-implicit truncation from 'int' to a one-bit wide bit-field changes value from 1 to -1 [-Wsingle-bit-bitfield-constant-conversion]
+Skip populating /var/run/xen during make install.
+The directory is already created by some scripts. Adjust all remaining
+scripts to create XEN_RUN_DIR at runtime.
 
-The potential ABI change in libxenvchan is covered by the Xen version based SONAME.
+XEN_RUN_STORED is covered by XEN_RUN_DIR because xenstored is usually
+started afterwards.
 
+Reported-by: Jason Andryuk <jandryuk@gmail.com>
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
-v2: cover one more case in xenalyze
+ tools/Makefile                                     | 2 --
+ tools/hotplug/FreeBSD/rc.d/xencommons.in           | 1 +
+ tools/hotplug/FreeBSD/rc.d/xendriverdomain.in      | 1 +
+ tools/hotplug/Linux/init.d/xendriverdomain.in      | 1 +
+ tools/hotplug/Linux/systemd/xenconsoled.service.in | 2 +-
+ tools/hotplug/NetBSD/rc.d/xendriverdomain.in       | 2 +-
+ 6 files changed, 5 insertions(+), 4 deletions(-)
 
- tools/include/libxenvchan.h | 6 +++---
- tools/xentrace/xenalyze.c   | 8 ++++----
- 2 files changed, 7 insertions(+), 7 deletions(-)
-
-diff --git a/tools/include/libxenvchan.h b/tools/include/libxenvchan.h
-index 30cc73cf97..3d3b8aa8dd 100644
---- a/tools/include/libxenvchan.h
-+++ b/tools/include/libxenvchan.h
-@@ -79,11 +79,11 @@ struct libxenvchan {
- 	xenevtchn_handle *event;
- 	uint32_t event_port;
- 	/* informative flags: are we acting as server? */
--	int is_server:1;
-+	unsigned int is_server:1;
- 	/* true if server remains active when client closes (allows reconnection) */
--	int server_persist:1;
-+	unsigned int server_persist:1;
- 	/* true if operations should block instead of returning 0 */
--	int blocking:1;
-+	unsigned int blocking:1;
- 	/* communication rings */
- 	struct libxenvchan_ring read, write;
- 	/**
-diff --git a/tools/xentrace/xenalyze.c b/tools/xentrace/xenalyze.c
-index 12dcca9646..a50538e9a8 100644
---- a/tools/xentrace/xenalyze.c
-+++ b/tools/xentrace/xenalyze.c
-@@ -1377,7 +1377,7 @@ struct hvm_data {
-     tsc_t exit_tsc, arc_cycles, entry_tsc;
-     unsigned long long rip;
-     unsigned exit_reason, event_handler;
--    int short_summary_done:1, prealloc_unpin:1, wrmap_bf:1;
-+    unsigned int short_summary_done:1, prealloc_unpin:1, wrmap_bf:1;
+diff --git a/tools/Makefile b/tools/Makefile
+index 4906fdbc23..1ff90ddfa0 100644
+--- a/tools/Makefile
++++ b/tools/Makefile
+@@ -58,9 +58,7 @@ build all: subdirs-all
+ install:
+ 	$(INSTALL_DIR) -m 700 $(DESTDIR)$(XEN_DUMP_DIR)
+ 	$(INSTALL_DIR) $(DESTDIR)$(XEN_LOG_DIR)
+-	$(INSTALL_DIR) $(DESTDIR)$(XEN_RUN_DIR)
+ 	$(INSTALL_DIR) $(DESTDIR)$(XEN_LIB_DIR)
+-	$(INSTALL_DIR) $(DESTDIR)$(XEN_RUN_STORED)
+ 	$(INSTALL_DIR) $(DESTDIR)$(PKG_INSTALLDIR)
+ 	$(MAKE) subdirs-install
  
-     /* Immediate processing */
-     void *d;
-@@ -8235,13 +8235,13 @@ void mem_set_p2m_entry_process(struct pcpu_info *p)
+diff --git a/tools/hotplug/FreeBSD/rc.d/xencommons.in b/tools/hotplug/FreeBSD/rc.d/xencommons.in
+index 7f7cda289f..1cf217d418 100644
+--- a/tools/hotplug/FreeBSD/rc.d/xencommons.in
++++ b/tools/hotplug/FreeBSD/rc.d/xencommons.in
+@@ -34,6 +34,7 @@ xen_startcmd()
+ 	local time=0
+ 	local timeout=30
  
-     struct {
-         uint64_t gfn, mfn;
--        int p2mt;
--        int d:16,order:16;
-+        uint32_t p2mt;
-+        uint16_t d, order;
-     } *r = (typeof(r))ri->d;
++	mkdir -p "@XEN_RUN_DIR@"
+ 	xenstored_pid=$(check_pidfile ${XENSTORED_PIDFILE} ${XENSTORED})
+ 	if test -z "$xenstored_pid"; then
+ 		printf "Starting xenservices: xenstored, xenconsoled."
+diff --git a/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in b/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in
+index a032822e33..030d104024 100644
+--- a/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in
++++ b/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in
+@@ -27,6 +27,7 @@ xendriverdomain_start()
+ {
+ 	printf "Starting xenservices: xl devd."
  
-     if ( opt.dump_all )
-     {
--        printf(" %s set_p2m_entry d%d o%d t %d g %llx m %llx\n",
-+        printf(" %s set_p2m_entry d%u o%u t %u g %llx m %llx\n",
-                ri->dump_header,
-                r->d, r->order,
-                r->p2mt,
++	mkdir -p "@XEN_RUN_DIR@"
+ 	PATH="${bindir}:${sbindir}:$PATH" ${sbindir}/xl devd --pidfile ${XLDEVD_PIDFILE} ${XLDEVD_ARGS}
+ 
+ 	printf "\n"
+diff --git a/tools/hotplug/Linux/init.d/xendriverdomain.in b/tools/hotplug/Linux/init.d/xendriverdomain.in
+index c63060f62a..1055d0b942 100644
+--- a/tools/hotplug/Linux/init.d/xendriverdomain.in
++++ b/tools/hotplug/Linux/init.d/xendriverdomain.in
+@@ -49,6 +49,7 @@ fi
+ 
+ do_start () {
+ 	echo Starting xl devd...
++	mkdir -m700 -p @XEN_RUN_DIR@
+ 	${sbindir}/xl devd --pidfile=$XLDEVD_PIDFILE $XLDEVD_ARGS
+ }
+ do_stop () {
+diff --git a/tools/hotplug/Linux/systemd/xenconsoled.service.in b/tools/hotplug/Linux/systemd/xenconsoled.service.in
+index 1f03de9041..d84c09aa9c 100644
+--- a/tools/hotplug/Linux/systemd/xenconsoled.service.in
++++ b/tools/hotplug/Linux/systemd/xenconsoled.service.in
+@@ -11,7 +11,7 @@ Environment=XENCONSOLED_TRACE=none
+ Environment=XENCONSOLED_LOG_DIR=@XEN_LOG_DIR@/console
+ EnvironmentFile=-@CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons
+ ExecStartPre=/bin/grep -q control_d /proc/xen/capabilities
+-ExecStartPre=/bin/mkdir -p ${XENCONSOLED_LOG_DIR}
++ExecStartPre=/bin/mkdir -p ${XENCONSOLED_LOG_DIR} @XEN_RUN_DIR@
+ ExecStart=@sbindir@/xenconsoled -i --log=${XENCONSOLED_TRACE} --log-dir=${XENCONSOLED_LOG_DIR} $XENCONSOLED_ARGS
+ 
+ [Install]
+diff --git a/tools/hotplug/NetBSD/rc.d/xendriverdomain.in b/tools/hotplug/NetBSD/rc.d/xendriverdomain.in
+index f47b0b189c..23a5352502 100644
+--- a/tools/hotplug/NetBSD/rc.d/xendriverdomain.in
++++ b/tools/hotplug/NetBSD/rc.d/xendriverdomain.in
+@@ -23,7 +23,7 @@ XLDEVD_PIDFILE="@XEN_RUN_DIR@/xldevd.pid"
+ 
+ xendriverdomain_precmd()
+ {
+-	:
++	mkdir -p "@XEN_RUN_DIR@"
+ }
+ 
+ xendriverdomain_startcmd()
 
