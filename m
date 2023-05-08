@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41BDD6FB016
-	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 14:33:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.531503.827228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 278686FB020
+	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 14:35:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.531505.827248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw03d-0004Pb-9r; Mon, 08 May 2023 12:33:37 +0000
+	id 1pw04w-0005VX-2v; Mon, 08 May 2023 12:34:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 531503.827228; Mon, 08 May 2023 12:33:37 +0000
+Received: by outflank-mailman (output) from mailman id 531505.827248; Mon, 08 May 2023 12:34:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw03d-0004MP-64; Mon, 08 May 2023 12:33:37 +0000
-Received: by outflank-mailman (input) for mailman id 531503;
- Mon, 08 May 2023 12:33:36 +0000
+	id 1pw04v-0005TN-VA; Mon, 08 May 2023 12:34:57 +0000
+Received: by outflank-mailman (input) for mailman id 531505;
+ Mon, 08 May 2023 12:33:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tnRg=A5=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pw03b-0003kR-Uu
- for xen-devel@lists.xenproject.org; Mon, 08 May 2023 12:33:36 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2053.outbound.protection.outlook.com [40.107.7.53])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=a0X6=A5=amd.com=RaghavendraPrasad.Mallela@srs-se1.protection.inumbo.net>)
+ id 1pw03o-0003kR-3C
+ for xen-devel@lists.xenproject.org; Mon, 08 May 2023 12:33:48 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20624.outbound.protection.outlook.com
+ [2a01:111:f400:fe5a::624])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c1e543f-ed9c-11ed-b226-6b7b168915f2;
- Mon, 08 May 2023 14:33:35 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PA4PR04MB9318.eurprd04.prod.outlook.com (2603:10a6:102:2a5::10)
+ id 92141580-ed9c-11ed-b226-6b7b168915f2;
+ Mon, 08 May 2023 14:33:45 +0200 (CEST)
+Received: from MN0PR12MB6079.namprd12.prod.outlook.com (2603:10b6:208:3c9::13)
+ by BL0PR12MB5009.namprd12.prod.outlook.com (2603:10b6:208:1c2::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.31; Mon, 8 May
- 2023 12:33:05 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::8e41:82b6:a27f:2e0c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::8e41:82b6:a27f:2e0c%4]) with mapi id 15.20.6363.031; Mon, 8 May 2023
- 12:33:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.32; Mon, 8 May
+ 2023 12:33:41 +0000
+Received: from MN0PR12MB6079.namprd12.prod.outlook.com
+ ([fe80::e454:fcba:69ae:728f]) by MN0PR12MB6079.namprd12.prod.outlook.com
+ ([fe80::e454:fcba:69ae:728f%7]) with mapi id 15.20.6363.032; Mon, 8 May 2023
+ 12:33:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,328 +47,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c1e543f-ed9c-11ed-b226-6b7b168915f2
+X-Inumbo-ID: 92141580-ed9c-11ed-b226-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eu3/82MsRMb+Xg735h6svvjGT8GvOsmLqaOVIQsKJ3cO9Enva5jsuZUxZqhxjMcK1/Ag4yYEiUSmBqm4n1Kfc52mbWI2lCZ0X3S/VDtdGZe3+jfTbhYmd7KOsiOisG86PlArmCwVh1g22FBSTXnZ3qZHMlSbKaW+8EYGR14M6boXDQao0auwfPWbGgszV3dxceewtdDtW4fzE9AFWvhDRVYIZs2JIzGKvcChdW4y2InzUEmP0q9CbnD45i2r9u30Y5RzR9bQ2GHcySVW+UpCxksPcCvCAVMfYHM38f67rv3mh3zYUVeEa3RuN2qw3hBaYHD7rkxTtTa62WKWKNN0HA==
+ b=j/QLxgqsx5B1hvVHaVJ3JEwWLaXBDFG+ertJ0/kjccuo3BeW4I2nZRA3gUAYjtCPwmGI2qjb7IaTQ6261CQErMFIQKkB3jr6Y0RvJE7pj7z0bUBI3ccfRHja0suVZxjF5ISrwKy10J5lK1m0fhZofIGSUc8934itBmxMeWVNl7ZTxMDQbohqlLPdppP8CXjZDCLo6oaD3YMN2scFp5pjL0iZ38+lsmupDsEB4nuDDwYmQuwDKokuy+qEjNlUFylchVMQo3OIVcf+5czOKj4zuL6LvuqqYsnbh6/uVIAU1DqfRv0KE2Q3lfFnBQgz8Cq4M/rrU8l2QffGg0cW1eGBZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zhas7AbeMgoLdGDJZhnhFI7UMWReMRLI7GR1/taFIZY=;
- b=bYb7OqMW1l/j/F1uzfs7MC/9s5bokkatFXAHsfpUPSiNIkF5g4AdPZZN97pvbQSq33L8oBRt7qFFQQ+TkMCfaTJy2Z8N9rblziCT1FLx/gb6guZYGlL7rYTXhLj7yD42XOO94f0zoGMQeCs2+NM9P6A3u/tiFjqTIYmzDgfG/UysnGPw2Uu0pWG8gxWRhzxr2hFF9rSXBP0yJyIYaT7n5Z4vzPc6TxQVRd71H7urIJXIXyTIHtV3hcEoL27l5ONxmg0h06jWQlRqfue6KLxdy4v39wFAa+gzJEqckHAm2II9H6cllq01QZo/f5ZJ//D0Y5jBbiRgRuCl9SN084smtQ==
+ bh=WYqWbYuXDvj6TSNImC7BXmYK/ywqaOpoS6YFN0CCBBw=;
+ b=AzoPsgTKOfXS9fQGUbWCw9lpvEZcwQeqDYHQFQoEKwlDKXsaFybDQCRz7pSssCK6mSPlMuJ9ktyBgeQPbNtO1UYtwEtJbEglPXfV0eexoe5YiXJ/EBLuqwcHhWZua1MB2egJD5bHZrRPOlvoK7DBL2Yg26v15AykgggQ+660B2ciSZl+EGEgbtycltTgkWTZHbN4xoQSWvWhnif7puCVng74voCnjwHE2Rp3+hsOmyGPR5mFjgfnNjs6qaIIYoGIziGJLChCJLcaCZJGwb+SwG2RxSa9p89veGnpFIJ7NNFHqvTaZnE7PibyqzXUnj54gi1v8gmFWZmjVZ5wnbWByQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zhas7AbeMgoLdGDJZhnhFI7UMWReMRLI7GR1/taFIZY=;
- b=iQpyTqRHXgUwDexql+X39Veb4ywEhj52pOZdKnc4ijT/tcAhj3jkVMkiQSFhhbMDATnCPvnq0jnXxZYarTJ7xDmFbWW4WqVFY4tSUEpqi8Ngdefzk2Th1GzzwTK0BEr0dcWhu+Qzc6+B/kjGD4PMH3ABCr4zc2/qk9maqrgA6csJ/GyaKhTpFM7P6JZN66yT5uzGlDwT0+x+5b68j/hu8n4j2ujYWL8ryhB9yjrFCJEhpWd6TcAD1mklrPQOJTVewPRxNosfzXFUPUramN2Q7cBsqpMAiwc+xSPwUHpQM9cTNQhaTx+eLO2iugc9veO3+VK5xTo5lCO60tuiWrxydQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a1e4d155-f316-79a8-14d1-b236a18abcba@suse.com>
-Date: Mon, 8 May 2023 14:33:04 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: [PATCH v2 3/4] VMX: tertiary execution control infrastructure
+ bh=WYqWbYuXDvj6TSNImC7BXmYK/ywqaOpoS6YFN0CCBBw=;
+ b=5L+W9vKai6y9mPcOCmien2x6k/bCmqPxLj+GMf3pH6RjYxLbClagWYSOUsScwaAeNtZIlP+3BEkhhSa4vNEdhCYUu99u1in1UUzu4I15yftqwIndnsCfxpA8Z5xi7yprewaPP2XjPqrgzs7QdEMq4ZgmauA6XrNRH9kHw3VXjf4=
+From: "Mallela, RaghavendraPrasad (Raghavendra Prasad)"
+	<RaghavendraPrasad.Mallela@amd.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"xen-users@lists.xenproject.org" <xen-users@lists.xenproject.org>
+CC: "SHARMA, JYOTIRMOY" <JYOTIRMOY.SHARMA@amd.com>, "Stabellini, Stefano"
+	<stefano.stabellini@amd.com>
+Subject: Camera Virtualization
+Thread-Topic: Camera Virtualization
+Thread-Index: AdmBp7+i8bgPkutESA2yV0wZFwMI9w==
+Date: Mon, 8 May 2023 12:33:41 +0000
+Message-ID:
+ <MN0PR12MB6079CF8A38A6EB9FA7B97F29F5719@MN0PR12MB6079.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
-References: <0b2a4e8c-ab43-4e6e-2c51-027dcdf1425d@suse.com>
-In-Reply-To: <0b2a4e8c-ab43-4e6e-2c51-027dcdf1425d@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0107.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9c::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels: MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Enabled=true;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SetDate=2023-05-08T12:33:39Z;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Method=Standard;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_Name=General;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ActionId=fe803404-e6b6-4be7-b52d-f6f8ca114558;
+ MSIP_Label_4342314e-0df4-4b58-84bf-38bed6170a0f_ContentBits=1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN0PR12MB6079:EE_|BL0PR12MB5009:EE_
+x-ms-office365-filtering-correlation-id: c0ec9681-896f-4378-8597-08db4fc074c1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 7CqGVRd1TziMRAyaXfFX6brV28XOtGeMKE9L9uaGdATBAa/r/ReQCzv1kJQ6X6HvtXGttrSCt1znIDzfTAInzPgzIB4/eD2mqsAkf8vGLmu9i8lBUfxU6CzqjW04hf6EZaGUXLknNV3WwoZLLcNfGayhbWEZfzf+AFtr93RrHSeyyb2VyJ1W8dx4ICd5L2v/GBD7MWHzLUq5nAoAxTZs7n3aUPn6fLHfEQ/b4eKhx+9iVninb3xjOYdqBKobsiGFOtQtIV6AxUSAjMPzUw4ofj4OMw1OP6VKn2BbEYP4PsHoIo9MrLkT5KXYdGMkJoh2T46knmxJqdf/LqCi1IouDY/JsJ+uoU6exMOOfquUuhfWh+5kiRjfEa0PM1dxfLIXiJanohsR3GKs1EycL+9ZXg9bWUe9pySpsdS5MldgIEWHms4K6V4cuaCq6RZcUqROO9H3tofcD2QseFlVNwWAk5kk7yvHYz3WFAzGsm7njbHRySDFSof3wQaJLXsbjepX8Nh3MyEZfKEQoRhkTMfBm9GupqmVajRTE0k/ZnyKCwFalI9B04VAJhfaFgK4S4b1YTlN7JRNpXTY05cwF7CiszVM/Q99esA7+9xRngbl+OnZZm/c3v1J1Toi1AbCTjM0r7i63Eqv9/8xy8XuUKwnRQ==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6079.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(366004)(346002)(136003)(396003)(376002)(451199021)(4744005)(2906002)(7116003)(52536014)(5660300002)(38070700005)(166002)(38100700002)(122000001)(33656002)(86362001)(3480700007)(55016003)(54906003)(110136005)(6506007)(9686003)(478600001)(186003)(26005)(450100002)(966005)(7696005)(71200400001)(316002)(8936002)(66446008)(64756008)(66556008)(8676002)(41300700001)(66476007)(76116006)(66946007)(4326008)(83380400001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?IzWGawMNeW1P6N030XyAlNkislZcCAhLPLVVnCIwYgTbGG2/GvN2w564Pbcg?=
+ =?us-ascii?Q?RLGBF73FPV0cVzN4q1tcYDdCPWI/6hyYiC5R8umrc9oNdwm0YD+kQlnR4tZm?=
+ =?us-ascii?Q?xeTr00oALwstHnCGeOpNgzjRzwtRajPj7tUV4f7JVwmEC+jR85jnrc9NW1rR?=
+ =?us-ascii?Q?Xa6sdr7R3uY1Qv5si3m+5NnQ2IldJZgSjGbOcTxOWAa+nEZuDj0rnMe7d8nh?=
+ =?us-ascii?Q?9Z/m8Aw8tqhfSjK32eZYlDwkZ+bOOROneXob7PK8yKF7EznlTM7jV3BwCADX?=
+ =?us-ascii?Q?xRT5ishTv2IX1GBG3KQFP9csF+BV6AhjhsSbxk8cA2KQb/FJs/ghE8VngNeq?=
+ =?us-ascii?Q?Nsh6M1hUX9g/e3m8DcpHYhk0ZWDl/gWt4mW2mhQMuRGOyA/mg7dDAuyu3Lf0?=
+ =?us-ascii?Q?RYBAQ6hwwGnM2J3Lpj6I4qJLv5nSALvM5F9pXbgvjZC97ctxAMcgKDGbX2QD?=
+ =?us-ascii?Q?+LNlbbuViBVydbZbo7Cg0iD/k044ZxhMZLUKvyl80YrlBRrIDqf47Lix0LB6?=
+ =?us-ascii?Q?EgUbXDkjh3oOGcfE92nlZ8HrCmWRbmUfwv/pRKLbrqFbAvFGsw09vnbtuV9p?=
+ =?us-ascii?Q?g/HZb15sWd7tuoCRSO+yMoBcttB4OPeCWjeYj12xMAMvMvZS6u+HOyqyavVV?=
+ =?us-ascii?Q?qJ54DWEOaRnSUaQfhpEfi6ymRJEbEaUCBpbak+E1dwtZyoF8OXBO+U796eYq?=
+ =?us-ascii?Q?YHad8egdeKRbRdIqQ9pCYgC5LCjWTNWQ63Y7uhAuf6XhAHG/fX8wxGa9qJjJ?=
+ =?us-ascii?Q?0v6Sh4dYdwu4vCq66ZLpeDiD0icCFlQvUnIcfl02FAEEy3kkmWJ4uczqMDuU?=
+ =?us-ascii?Q?0K2caCBvyEd6Yh/oMBRewAzmyof829lWFcyKmj4WT/3U7KQCCooJVgjp8pVQ?=
+ =?us-ascii?Q?lmlh40CYXCyATltaWIFvZ46ZRG+OQgSUhR1KzNpHCTDVn9pyIXs+lxQreFtH?=
+ =?us-ascii?Q?NJ5Xj5ZcTZr635WhJenEg2SHT5faAj3nTiuJ35SOoJAXRc3TuC0ZnxaAeHWs?=
+ =?us-ascii?Q?9tc4Muqw/wz5tLXCJJIL2bu9quTERyuLbCqplm8hYOZQ5FT49duve5AGaQQ8?=
+ =?us-ascii?Q?uRnk6CbrqErDbMklQKCxFMjnD/aTwrrbxbhIruj6a4oCBkCQJ7IBpkcXQUTp?=
+ =?us-ascii?Q?yhXzNJocCvh/wfZvKuhQCAb8eDKs+9QgZELyvq+icw07LJ2wxAeI18S+cw4R?=
+ =?us-ascii?Q?RyrceKtnvzvYgT9/q/vMK/a56IUmkXpYIKGrkWQ3UTujL0M+vreHOBWSDZz2?=
+ =?us-ascii?Q?jnCZpxi9+N8RtOfuYuCVbXCRzoxqhDYxijvn72+BUBuN3Bc80jNUI4n7UgcP?=
+ =?us-ascii?Q?yW4rCzrokjEl1Pw7HQp5gBnke1/aeP0damjtj1c4lpRtinIewc6vOhYj2xMz?=
+ =?us-ascii?Q?muQz+OqU1KIHhdDRiqXvC2obGQmxIZOHn+bcycJvXJcORxIGPqJSxkxwTUAI?=
+ =?us-ascii?Q?0yclQPAbmXUHipy2jGQ3dtyc/5mAUrEzMHIvpI7Sh6kcsvgw2knRmbQQ9Zxn?=
+ =?us-ascii?Q?FJ5aDd06/T7Ie3hbYQBODeQHLvIOIiq+9JEL66hOY/eIOMVVlJW8s+zUJtUM?=
+ =?us-ascii?Q?XY2CuwFeyTcp7VdKLAE=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_MN0PR12MB6079CF8A38A6EB9FA7B97F29F5719MN0PR12MB6079namp_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB9318:EE_
-X-MS-Office365-Filtering-Correlation-Id: 894566cc-d6b5-471d-9cc9-08db4fc05f63
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	NK1oHSgzst9vZzeZga3Z+xHv99CxtFl1Cm2mKi04S2SGA9+lSucMxCl3KSD7kGrXqHzetzwtvKSgDtcvJzDqgdmSa++LQ8CicnnM13LZOO2fXkhp3Dp3TbraJp4MOglAFeKGCpoFxMMROfQzGd5LT1dvL4+dYSmrzYE0azb6QKeNmwSJ7pW7pZn9nEamCPBGmAdyFjvg/5s3hkKISDsPmkwV6L5pk45grpA8Am9ljnW9ULljP4rQ9+/MfYJWji2OixN/UG/B9awXbGUR9kNpF0KAnBYeZPNfCQUkJ7zY4kOZCjAUX5XinwNpHVAWGVkT+ypO7XeMNK2U8iCX31z8p7/NIbZkYsDxIFBDVKYacshlfIKQfUs74CYJRxG8h3Tbm7pG+PWKl2PGYIQ2CDedcEV+tQzH6/KvQzbsrgikfDLitFcUWfBNtixZr5V8Vyx69Nb0mMt/DSsbh+D5d15+zMzPvfYgiCiAyhpIEGGKm33IFufDftiL7PmTHFTi4yFL8ybjUO907Ak4m9UHDXG3ssizgJISuDo77SwZfB9I3XJafNaY2Kg4AKtkmLr3MaX3IwqTydN5qUUy8/KwPB84XiPKVVMbagqMzvzaddUsxfLWLYPQ4PBMMm+6MhKfQZN+X01ltjqTC76zWPvV0MxZyA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(396003)(366004)(376002)(346002)(136003)(451199021)(31686004)(36756003)(38100700002)(2906002)(8676002)(5660300002)(316002)(86362001)(31696002)(8936002)(6916009)(66556008)(66946007)(41300700001)(66476007)(4326008)(83380400001)(186003)(6512007)(6506007)(26005)(6486002)(478600001)(2616005)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NUN2OW5iL1grQ2YyQXBwejNXOUdGb1NmaStQclZXcjZRQnQ4ZitlVVNSSzhE?=
- =?utf-8?B?cEtsVG9WU2VqU3YrTVJ4dWJDVUlvejNxQ0JodG9rSjFuVzYvZzBNQ3pmdS9a?=
- =?utf-8?B?L09SWWJHRXZqVUhLaU5qR0RocitaVzgvRjRlWnZJS0R1Q1hPanJJZEh1M2w5?=
- =?utf-8?B?ZCtrS0VZc0dsSDZqMlZMZlBma0VjOXFCeStnbnpneG5CaDR6TCtPYlBJTS92?=
- =?utf-8?B?MGcxQ3F4NlYvNUJaWVpsMUc3TjA5czRMdzBzVkNzNmdsM29IckN1dkZSTDBH?=
- =?utf-8?B?dUFQOHhPaGdCaE55NjlPL0t0VXhiUXZYMStEM2ZjRVd3SXhqU0dnakZtUEUr?=
- =?utf-8?B?akZNOTVqd2FOV0RLKzUvMWJPb2I2UXpTTVd4SXA3UXFBRWQ5YzlWNVg4cFg5?=
- =?utf-8?B?NWJzNjZMamZ0aGxoTkFQSUdKbU5Ja1IwNHJ1cURabnlDTy8wUHlzbmJrR25Y?=
- =?utf-8?B?YnNMR2lVeXl3aGEwVjdRK0EwUHcxcDFLY3QyVkp4NkxJWUV4bDJYOHR4MEZC?=
- =?utf-8?B?Rk1QSnpZZXY5Y3BnK0pRa2JGWkZjSm0rbDQrWjZZSzNiOTV2aXF0Uk11M3p2?=
- =?utf-8?B?cFRoRGN3azRPZk9razFlLzNyMnE2eWxoUEYzZFk2eU50MEJJUDIvbDBqWmd5?=
- =?utf-8?B?Rkd5UEd2UW50V0dBVFdHdHJqVTJvcGlhc0wySUgrMitVRUJ1bVFKeWUranBZ?=
- =?utf-8?B?ajZ5emhOSWo2ZlNBVUp2bi9xcDhEY2Yzc0E5cysvakJTWjR5V2kxemxRSjNO?=
- =?utf-8?B?YlZaanNzaTNGdDd3Qldkc1BWWmY0cnRMT1BkaFplLytnWGMwMWFlRGZLOXoy?=
- =?utf-8?B?MFNXMlM0dmp6L2tsd01LMHNCOXRjcVhJOWZNMUlsaGdrUm4rR2IrSE5URnFn?=
- =?utf-8?B?YXNJM3RaNVdSY054Z0llVzhNWFJrRlJmQnZnVUlNRkl2M25xTVF5MGlHZEp6?=
- =?utf-8?B?TjB4S0k0RXFMYTdicTR3eWlCSm1tV2NUeWQwVTRoZGZadGp5ZCtXL1VPaW9r?=
- =?utf-8?B?SldPcTc5dFZ4US8zcTJPMENiTmp4Q05QeWpyWDFqWEpHbEpEelJkWHdrc20y?=
- =?utf-8?B?ZHJuWGYrMVVXcFRPalk5SzVxQktMU2gvUnp5OHFVdTNQMzBGa1dnYmRHRjB1?=
- =?utf-8?B?bk1lVFFxTHhTVytwMlM2Y1hvTUxrNzg2MHpMa3BwOExvNm12VkhXc0wvbGY4?=
- =?utf-8?B?ck93SE9nQUJLNWJzckMrZ2ZSdG5yc0JGVmR0Y1lIbG94eWxUV0pYS295cEFC?=
- =?utf-8?B?NVZpSFJXSy9BZEVYSEpObk9IZzd3Qlc1dnhPL21oQXZieFVHenZCTXZVOHNl?=
- =?utf-8?B?cTBlOU16RjBlU3NkV2wwMXlGaGJFUnBCYW4wVnZSN2hIcWRGakZOUlkwMEsx?=
- =?utf-8?B?UW9Rb0xEZUY0ZjErOHhhWWRvWFJ1WlFFakMwYUg3Nlh3UDdNYnVkYnA0eE50?=
- =?utf-8?B?djBzSHFwaWcxbnVGell4dHZZWnRpSERUNW5LNC9MQkdDMGVkSzVrVzZBaW9x?=
- =?utf-8?B?dW1zcVdBUEg0NURaWkxOVGNFZHE1bEo2NGdIQklEMHdXaDM0KzlVTmtYQ0Np?=
- =?utf-8?B?eWdDNEJrcTljTXFZQ3NVdk84ZTQraE5YNUE0VHZzQTJXK0dmUXNBN1FHeGVS?=
- =?utf-8?B?Yml4anUremt6cC90KzNSaWxDZjRzNUR6UVhnQzQzOXNyaG5OZ3dWWkVPZXRS?=
- =?utf-8?B?bm5TcERTVmxFL1FtKzI1RnVUUmFrcWVRUDJkaHYwdDFTK1QySmhsRlBGcldq?=
- =?utf-8?B?a3o1Wlc0cGg4YlA5RUsvd20vSjNHWG9TV1dEMDE2dk9kbkxjYTFjcW5aR2VN?=
- =?utf-8?B?UXZMV1lOcHVNdW5kTDRYTGlESmpKM1JwVVVSaFlMdldSVFRTV09LOGZIZ0I0?=
- =?utf-8?B?UHRnN3RDL3cwZ2Fnb3J4ZXRJOHFWM2Q0MjZpSkI5SUpCajZzVnhZYmhRcUVq?=
- =?utf-8?B?cFU1Q1h6bWZYODkvMnIzWnVSMDA0Y21tSWtHb0JubmZZMVQ3U1ZNZlNHTUhJ?=
- =?utf-8?B?Q05xamh2TWxMVE5BalByOHFlcHB4ajlTSXA5U2F0NENCZnRTU3NQYUtYTkt6?=
- =?utf-8?B?a0tJa29JWlJmOVkzTnUvR2lod2NiWGhyemlkeU40ODJZUnNyazdYMHJPUjhu?=
- =?utf-8?Q?Gb+W02zxAdGwKqVU0VCJkKZW9?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 894566cc-d6b5-471d-9cc9-08db4fc05f63
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2023 12:33:05.6933
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6079.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0ec9681-896f-4378-8597-08db4fc074c1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 May 2023 12:33:41.3813
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VRijHlB1aNuOVndKmzJoQxzy21Pd/Wbqbw8VmnxENBqC/b/4CoTc4hCqv3xvQ1lUDfEgZSZRkWEFpVE3R3YFjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9318
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iTNvPclckLvaOzMb5JN27HTLFjZrPvjEI3x828bea4pVVUZXwKBeuni0D85yi5ULaDc1pDvhhqGoD5I4tfLXMg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5009
 
-This is a prereq to enabling the MSRLIST feature.
+--_000_MN0PR12MB6079CF8A38A6EB9FA7B97F29F5719MN0PR12MB6079namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Note that the PROCBASED_CTLS3 MSR is different from other VMX feature
-reporting MSRs, in that all 64 bits report allowed 1-settings.
+[AMD Official Use Only - General]
 
-vVMX code is left alone, though, for the time being.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: New.
+Hello all,
 
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -164,6 +164,7 @@ static int cf_check parse_ept_param_runt
- u32 vmx_pin_based_exec_control __read_mostly;
- u32 vmx_cpu_based_exec_control __read_mostly;
- u32 vmx_secondary_exec_control __read_mostly;
-+uint64_t vmx_tertiary_exec_control __read_mostly;
- u32 vmx_vmexit_control __read_mostly;
- u32 vmx_vmentry_control __read_mostly;
- u64 vmx_ept_vpid_cap __read_mostly;
-@@ -229,10 +230,32 @@ static u32 adjust_vmx_controls(
-     return ctl;
- }
- 
--static bool_t cap_check(const char *name, u32 expected, u32 saw)
-+static uint64_t adjust_vmx_controls2(
-+    const char *name, uint64_t ctl_min, uint64_t ctl_opt, unsigned int msr,
-+    bool *mismatch)
-+{
-+    uint64_t vmx_msr, ctl = ctl_min | ctl_opt;
-+
-+    rdmsrl(msr, vmx_msr);
-+
-+    ctl &= vmx_msr; /* bit == 0 ==> must be zero */
-+
-+    /* Ensure minimum (required) set of control bits are supported. */
-+    if ( ctl_min & ~ctl )
-+    {
-+        *mismatch = true;
-+        printk("VMX: CPU%u has insufficient %s (%#lx; requires %#lx)\n",
-+               smp_processor_id(), name, ctl, ctl_min);
-+    }
-+
-+    return ctl;
-+}
-+
-+static bool cap_check(
-+    const char *name, unsigned long expected, unsigned long saw)
- {
-     if ( saw != expected )
--        printk("VMX %s: saw %#x expected %#x\n", name, saw, expected);
-+        printk("VMX %s: saw %#lx expected %#lx\n", name, saw, expected);
-     return saw != expected;
- }
- 
-@@ -242,6 +265,7 @@ static int vmx_init_vmcs_config(bool bsp
-     u32 _vmx_pin_based_exec_control;
-     u32 _vmx_cpu_based_exec_control;
-     u32 _vmx_secondary_exec_control = 0;
-+    uint64_t _vmx_tertiary_exec_control = 0;
-     u64 _vmx_ept_vpid_cap = 0;
-     u64 _vmx_misc_cap = 0;
-     u32 _vmx_vmexit_control;
-@@ -275,7 +299,8 @@ static int vmx_init_vmcs_config(bool bsp
-     opt = (CPU_BASED_ACTIVATE_MSR_BITMAP |
-            CPU_BASED_TPR_SHADOW |
-            CPU_BASED_MONITOR_TRAP_FLAG |
--           CPU_BASED_ACTIVATE_SECONDARY_CONTROLS);
-+           CPU_BASED_ACTIVATE_SECONDARY_CONTROLS |
-+           CPU_BASED_ACTIVATE_TERTIARY_CONTROLS);
-     _vmx_cpu_based_exec_control = adjust_vmx_controls(
-         "CPU-Based Exec Control", min, opt,
-         MSR_IA32_VMX_PROCBASED_CTLS, &mismatch);
-@@ -339,6 +364,15 @@ static int vmx_init_vmcs_config(bool bsp
-             MSR_IA32_VMX_PROCBASED_CTLS2, &mismatch);
-     }
- 
-+    if ( _vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS )
-+    {
-+        uint64_t opt = 0;
-+
-+        _vmx_tertiary_exec_control = adjust_vmx_controls2(
-+            "Tertiary Exec Control", 0, opt,
-+            MSR_IA32_VMX_PROCBASED_CTLS3, &mismatch);
-+    }
-+
-     /* The IA32_VMX_EPT_VPID_CAP MSR exists only when EPT or VPID available */
-     if ( _vmx_secondary_exec_control & (SECONDARY_EXEC_ENABLE_EPT |
-                                         SECONDARY_EXEC_ENABLE_VPID) )
-@@ -469,6 +503,7 @@ static int vmx_init_vmcs_config(bool bsp
-         vmx_pin_based_exec_control = _vmx_pin_based_exec_control;
-         vmx_cpu_based_exec_control = _vmx_cpu_based_exec_control;
-         vmx_secondary_exec_control = _vmx_secondary_exec_control;
-+        vmx_tertiary_exec_control  = _vmx_tertiary_exec_control;
-         vmx_ept_vpid_cap           = _vmx_ept_vpid_cap;
-         vmx_vmexit_control         = _vmx_vmexit_control;
-         vmx_vmentry_control        = _vmx_vmentry_control;
-@@ -505,6 +540,9 @@ static int vmx_init_vmcs_config(bool bsp
-             "Secondary Exec Control",
-             vmx_secondary_exec_control, _vmx_secondary_exec_control);
-         mismatch |= cap_check(
-+            "Tertiary Exec Control",
-+            vmx_tertiary_exec_control, _vmx_tertiary_exec_control);
-+        mismatch |= cap_check(
-             "VMExit Control",
-             vmx_vmexit_control, _vmx_vmexit_control);
-         mismatch |= cap_check(
-@@ -1082,6 +1120,7 @@ static int construct_vmcs(struct vcpu *v
-         v->arch.hvm.vmx.exec_control |= CPU_BASED_RDTSC_EXITING;
- 
-     v->arch.hvm.vmx.secondary_exec_control = vmx_secondary_exec_control;
-+    v->arch.hvm.vmx.tertiary_exec_control  = vmx_tertiary_exec_control;
- 
-     /*
-      * Disable features which we don't want active by default:
-@@ -1136,6 +1175,10 @@ static int construct_vmcs(struct vcpu *v
-         __vmwrite(SECONDARY_VM_EXEC_CONTROL,
-                   v->arch.hvm.vmx.secondary_exec_control);
- 
-+    if ( cpu_has_vmx_tertiary_exec_control )
-+        __vmwrite(TERTIARY_VM_EXEC_CONTROL,
-+                  v->arch.hvm.vmx.tertiary_exec_control);
-+
-     /* MSR access bitmap. */
-     if ( cpu_has_vmx_msr_bitmap )
-     {
-@@ -2071,10 +2114,12 @@ void vmcs_dump_vcpu(struct vcpu *v)
-                vmr(HOST_PERF_GLOBAL_CTRL));
- 
-     printk("*** Control State ***\n");
--    printk("PinBased=%08x CPUBased=%08x SecondaryExec=%08x\n",
-+    printk("PinBased=%08x CPUBased=%08x\n",
-            vmr32(PIN_BASED_VM_EXEC_CONTROL),
--           vmr32(CPU_BASED_VM_EXEC_CONTROL),
--           vmr32(SECONDARY_VM_EXEC_CONTROL));
-+           vmr32(CPU_BASED_VM_EXEC_CONTROL));
-+    printk("SecondaryExec=%08x TertiaryExec=%08lx\n",
-+           vmr32(SECONDARY_VM_EXEC_CONTROL),
-+           vmr(TERTIARY_VM_EXEC_CONTROL));
-     printk("EntryControls=%08x ExitControls=%08x\n", vmentry_ctl, vmexit_ctl);
-     printk("ExceptionBitmap=%08x PFECmask=%08x PFECmatch=%08x\n",
-            vmr32(EXCEPTION_BITMAP),
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -114,6 +114,7 @@ struct vmx_vcpu {
-     /* Cache of cpu execution control. */
-     u32                  exec_control;
-     u32                  secondary_exec_control;
-+    uint64_t             tertiary_exec_control;
-     u32                  exception_bitmap;
- 
-     uint64_t             shadow_gs;
-@@ -196,6 +197,7 @@ void vmx_vmcs_reload(struct vcpu *v);
- #define CPU_BASED_RDTSC_EXITING               0x00001000
- #define CPU_BASED_CR3_LOAD_EXITING            0x00008000
- #define CPU_BASED_CR3_STORE_EXITING           0x00010000
-+#define CPU_BASED_ACTIVATE_TERTIARY_CONTROLS  0x00020000
- #define CPU_BASED_CR8_LOAD_EXITING            0x00080000
- #define CPU_BASED_CR8_STORE_EXITING           0x00100000
- #define CPU_BASED_TPR_SHADOW                  0x00200000
-@@ -260,6 +262,13 @@ extern u32 vmx_vmentry_control;
- #define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000
- extern u32 vmx_secondary_exec_control;
- 
-+#define TERTIARY_EXEC_LOADIWKEY_EXITING         BIT(0, UL)
-+#define TERTIARY_EXEC_ENABLE_HLAT               BIT(1, UL)
-+#define TERTIARY_EXEC_EPT_PAGING_WRITE          BIT(2, UL)
-+#define TERTIARY_EXEC_GUEST_PAGING_VERIFY       BIT(3, UL)
-+#define TERTIARY_EXEC_IPI_VIRT                  BIT(4, UL)
-+extern uint64_t vmx_tertiary_exec_control;
-+
- #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
- #define VMX_EPT_WALK_LENGTH_4_SUPPORTED                     0x00000040
- #define VMX_EPT_MEMORY_TYPE_UC                              0x00000100
-@@ -295,6 +304,8 @@ extern u64 vmx_ept_vpid_cap;
-     (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_MSR_BITMAP)
- #define cpu_has_vmx_secondary_exec_control \
-     (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS)
-+#define cpu_has_vmx_tertiary_exec_control \
-+    (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS)
- #define cpu_has_vmx_ept \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_EPT)
- #define cpu_has_vmx_dt_exiting \
-@@ -418,6 +429,7 @@ enum vmcs_field {
-     VIRT_EXCEPTION_INFO             = 0x0000202a,
-     XSS_EXIT_BITMAP                 = 0x0000202c,
-     TSC_MULTIPLIER                  = 0x00002032,
-+    TERTIARY_VM_EXEC_CONTROL        = 0x00002034,
-     GUEST_PHYSICAL_ADDRESS          = 0x00002400,
-     VMCS_LINK_POINTER               = 0x00002800,
-     GUEST_IA32_DEBUGCTL             = 0x00002802,
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -320,6 +320,7 @@
- #define MSR_IA32_VMX_TRUE_EXIT_CTLS             0x48f
- #define MSR_IA32_VMX_TRUE_ENTRY_CTLS            0x490
- #define MSR_IA32_VMX_VMFUNC                     0x491
-+#define MSR_IA32_VMX_PROCBASED_CTLS3            0x492
- 
- /* K7/K8 MSRs. Not complete. See the architecture manual for a more
-    complete list. */
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -760,6 +760,12 @@ void vmx_update_secondary_exec_control(s
-                   v->arch.hvm.vmx.secondary_exec_control);
- }
- 
-+void vmx_update_tertiary_exec_control(struct vcpu *v)
-+{
-+    __vmwrite(TERTIARY_VM_EXEC_CONTROL,
-+              v->arch.hvm.vmx.tertiary_exec_control);
-+}
-+
- void vmx_update_exception_bitmap(struct vcpu *v)
- {
-     u32 bitmap = unlikely(v->arch.hvm.vmx.vmx_realmode)
---- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-@@ -80,6 +80,7 @@ void vmx_realmode(struct cpu_user_regs *
- void vmx_update_exception_bitmap(struct vcpu *v);
- void vmx_update_cpu_exec_control(struct vcpu *v);
- void vmx_update_secondary_exec_control(struct vcpu *v);
-+void vmx_update_tertiary_exec_control(struct vcpu *v);
- 
- #define POSTED_INTR_ON  0
- #define POSTED_INTR_SN  1
+We want to virtualize the camera that uses the V4L2 Linux drivers i.e.., wa=
+nted to use the Camera APP in DOMU.
+Searched online and found 2 approaches to virtualize the camera.
 
+FE and BE:
+FrontEnd Driver is available at https://github.com/andr2000/linux/commits/c=
+amera_front_v1/drivers/media/xen
+BackEnd Driver is available at https://github.com/andr2000/camera_be
+
+VirtIO Implementation:
+Collabora implemented the VirtIO Camera implementation and is available at =
+ https://gitlab.collabora.com/collabora/virtio-camera
+
+Does anyone used above implementations?
+Please guide us on which approach is best to use for Camera Virtualization?
+
+Raghavendra M
+
+--_000_MN0PR12MB6079CF8A38A6EB9FA7B97F29F5719MN0PR12MB6079namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
+break-word">
+<p class=3D"msipheaderdf3d92d6" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#0000FF">[AMD Official Use O=
+nly - General]</span></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hello all,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">We want to virtualize the camera that uses the V4L2 =
+Linux drivers i.e.., wanted to use the Camera APP in DOMU.<o:p></o:p></p>
+<p class=3D"MsoNormal">Searched online and found 2 approaches to virtualize=
+ the camera.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><b>FE and BE:<o:p></o:p></b></p>
+<p class=3D"MsoNormal">FrontEnd Driver is available at <a href=3D"https://g=
+ithub.com/andr2000/linux/commits/camera_front_v1/drivers/media/xen">
+https://github.com/andr2000/linux/commits/camera_front_v1/drivers/media/xen=
+</a><o:p></o:p></p>
+<p class=3D"MsoNormal">BackEnd Driver is available at <a href=3D"https://gi=
+thub.com/andr2000/camera_be">
+https://github.com/andr2000/camera_be</a><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><b>VirtIO Implementation</b>:<o:p></o:p></p>
+<p class=3D"MsoNormal">Collabora implemented the VirtIO Camera implementati=
+on and is available at &nbsp;<a href=3D"https://gitlab.collabora.com/collab=
+ora/virtio-camera">https://gitlab.collabora.com/collabora/virtio-camera</a>=
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Does anyone used above implementations?<o:p></o:p></=
+p>
+<p class=3D"MsoNormal">Please guide us on which approach is best to use for=
+ Camera Virtualization?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Raghavendra M<o:p></o:p></p>
+</div>
+</body>
+</html>
+
+--_000_MN0PR12MB6079CF8A38A6EB9FA7B97F29F5719MN0PR12MB6079namp_--
 
