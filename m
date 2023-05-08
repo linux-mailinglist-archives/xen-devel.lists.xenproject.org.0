@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F9C6FB475
-	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 17:54:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.531645.827418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09C856FB480
+	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 17:57:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.531649.827428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw3B6-0001cU-MV; Mon, 08 May 2023 15:53:32 +0000
+	id 1pw3En-0002Ey-5n; Mon, 08 May 2023 15:57:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 531645.827418; Mon, 08 May 2023 15:53:32 +0000
+Received: by outflank-mailman (output) from mailman id 531649.827428; Mon, 08 May 2023 15:57:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw3B6-0001aY-Ig; Mon, 08 May 2023 15:53:32 +0000
-Received: by outflank-mailman (input) for mailman id 531645;
- Mon, 08 May 2023 15:53:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pw3En-0002Be-2y; Mon, 08 May 2023 15:57:21 +0000
+Received: by outflank-mailman (input) for mailman id 531649;
+ Mon, 08 May 2023 15:57:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SOTd=A5=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pw3B5-0001a6-Bf
- for xen-devel@lists.xenproject.org; Mon, 08 May 2023 15:53:31 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79e06d9a-edb8-11ed-8611-37d641c3527e;
- Mon, 08 May 2023 17:53:29 +0200 (CEST)
+ id 1pw3El-0002BY-Tr
+ for xen-devel@lists.xenproject.org; Mon, 08 May 2023 15:57:19 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0250432e-edb9-11ed-b226-6b7b168915f2;
+ Mon, 08 May 2023 17:57:18 +0200 (CEST)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 02C4F21DB3;
- Mon,  8 May 2023 15:53:29 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ED6AE21E9C;
+ Mon,  8 May 2023 15:57:17 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 809EE1346B;
- Mon,  8 May 2023 15:53:28 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BB4481346B;
+ Mon,  8 May 2023 15:57:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id y8mUHfgaWWQfOQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 08 May 2023 15:53:28 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id EbczLN0bWWQqOwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 08 May 2023 15:57:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,88 +51,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79e06d9a-edb8-11ed-8611-37d641c3527e
+X-Inumbo-ID: 0250432e-edb9-11ed-b226-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1683561209; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1683561437; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=enCmPKVL/QYyWJsvjc1siLNro32aXyEZpjP4ToWLEys=;
-	b=ithED1KI1jXI4dpx1wT8kE5Q567qTNV290ZWYDHVsYekplRXDrxtJQ+EvU5F7c90fBjv19
-	TB5/cxMwkMWg5B9aAl5f6H/hSokrfNUEno+6Xt156PNgM0Dk2JrTcpTPyZexNh7ip4e8ou
-	tWXTL7Rb7w06LMHD/hNPWswPX0spdsY=
-Message-ID: <3ce78def-659c-a3c2-3633-26e5b0a212b1@suse.com>
-Date: Mon, 8 May 2023 17:53:28 +0200
+	bh=uJsZCdyVn5207Vye65VsGviklEd6AocSi/qGBd7aHkI=;
+	b=AgB+dU+oP9plsZBFhGD+WPMqLBj8LtSrFz8Z8g1HZIZuZZbycHFYaCWnAtY0KNbh/Cybig
+	ZtQUnMFz3v2c6S/MyUMiXXKSL9ACf8v3Cf7Hhp3Fhosbhb3IVhvKXHwR4w2dlipITC5BVg
+	xvd+S3fAJywGgjvvAPWaXgABg+jnQIo=
+Message-ID: <db39c117-d6fa-ab4d-1683-05fccdeda404@suse.com>
+Date: Mon, 8 May 2023 17:57:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
-Subject: Re: [PATCH] x86/pci/xen: populate MSI sysfs entries
+Subject: Re: [PATCH] xen/pvcalls-back: fix double frees with
+ pvcalls_new_active_socket()
 Content-Language: en-US
-To: Maximilian Heyne <mheyne@amazon.de>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Marc Zyngier <maz@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Ashok Raj <ashok.raj@intel.com>,
- "Ahmed S. Darwish" <darwi@linutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20230503131656.15928-1-mheyne@amazon.de>
+To: Dan Carpenter <dan.carpenter@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, kernel-janitors@vger.kernel.org
+References: <e5f98dc2-0305-491f-a860-71bbd1398a2f@kili.mountain>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230503131656.15928-1-mheyne@amazon.de>
+In-Reply-To: <e5f98dc2-0305-491f-a860-71bbd1398a2f@kili.mountain>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------qUSNF0DqSSSO09uggR0ul3al"
+ boundary="------------GQgp9aeO0OpOmH1pBanwsEqn"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------qUSNF0DqSSSO09uggR0ul3al
-Content-Type: multipart/mixed; boundary="------------2VgdL2ARHnFdKP06t0hm3NRa";
+--------------GQgp9aeO0OpOmH1pBanwsEqn
+Content-Type: multipart/mixed; boundary="------------qLcoMchTk1vUtg8ADvS0YEfR";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Maximilian Heyne <mheyne@amazon.de>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner
- <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Marc Zyngier <maz@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Ashok Raj <ashok.raj@intel.com>,
- "Ahmed S. Darwish" <darwi@linutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-ID: <3ce78def-659c-a3c2-3633-26e5b0a212b1@suse.com>
-Subject: Re: [PATCH] x86/pci/xen: populate MSI sysfs entries
-References: <20230503131656.15928-1-mheyne@amazon.de>
-In-Reply-To: <20230503131656.15928-1-mheyne@amazon.de>
+To: Dan Carpenter <dan.carpenter@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, kernel-janitors@vger.kernel.org
+Message-ID: <db39c117-d6fa-ab4d-1683-05fccdeda404@suse.com>
+Subject: Re: [PATCH] xen/pvcalls-back: fix double frees with
+ pvcalls_new_active_socket()
+References: <e5f98dc2-0305-491f-a860-71bbd1398a2f@kili.mountain>
+In-Reply-To: <e5f98dc2-0305-491f-a860-71bbd1398a2f@kili.mountain>
 
---------------2VgdL2ARHnFdKP06t0hm3NRa
-Content-Type: multipart/mixed; boundary="------------5l1refLpYoFuAkuHwmsfSyyJ"
+--------------qLcoMchTk1vUtg8ADvS0YEfR
+Content-Type: multipart/mixed; boundary="------------XKdA7KkFzwvrNm5B0HXEBVTK"
 
---------------5l1refLpYoFuAkuHwmsfSyyJ
+--------------XKdA7KkFzwvrNm5B0HXEBVTK
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDMuMDUuMjMgMTU6MTYsIE1heGltaWxpYW4gSGV5bmUgd3JvdGU6DQo+IENvbW1pdCBi
-ZjVlNzU4ZjAyZmMgKCJnZW5pcnEvbXNpOiBTaW1wbGlmeSBzeXNmcyBoYW5kbGluZyIpIHJl
-d29ya2VkIHRoZQ0KPiBjcmVhdGlvbiBvZiBzeXNmcyBlbnRyaWVzIGZvciBNU0kgSVJRcy4g
-VGhlIGNyZWF0aW9uIHVzZWQgdG8gYmUgaW4NCj4gbXNpX2RvbWFpbl9hbGxvY19pcnFzX2Rl
-c2NzX2xvY2tlZCBhZnRlciBjYWxsaW5nIG9wcy0+ZG9tYWluX2FsbG9jX2lycXMuDQo+IFRo
-ZW4gaXQgbW92ZWQgaW50byBfX21zaV9kb21haW5fYWxsb2NfaXJxcyB3aGljaCBpcyBhbiBp
-bXBsZW1lbnRhdGlvbiBvZg0KPiBkb21haW5fYWxsb2NfaXJxcy4gSG93ZXZlciwgWGVuIGNv
-bWVzIHdpdGggdGhlIG9ubHkgb3RoZXIgaW1wbGVtZW50YXRpb24NCj4gb2YgZG9tYWluX2Fs
-bG9jX2lycXMgYW5kIGhlbmNlIGRvZXNuJ3QgcnVuIHRoZSBzeXNmcyBwb3B1bGF0aW9uIGNv
-ZGUNCj4gYW55bW9yZS4NCj4gDQo+IENvbW1pdCA2Yzc5Njk5NmVlNzAgKCJ4ODYvcGNpL3hl
-bjogRml4dXAgZmFsbG91dCBmcm9tIHRoZSBQQ0kvTVNJDQo+IG92ZXJoYXVsIikgc2V0IHRo
-ZSBmbGFnIE1TSV9GTEFHX0RFVl9TWVNGUyBmb3IgdGhlIHhlbiBtc2lfZG9tYWluX2luZm8N
-Cj4gYnV0IHRoYXQgZG9lc24ndCBhY3R1YWxseSBoYXZlIGFuIGVmZmVjdCBiZWNhdXNlIFhl
-biB1c2VzIGl0J3Mgb3duDQo+IGRvbWFpbl9hbGxvY19pcnFzIGltcGxlbWVudGF0aW9uLg0K
-PiANCj4gRml4IHRoaXMgYnkgbWFraW5nIHVzZSBvZiB0aGUgZmFsbGJhY2sgZnVuY3Rpb25z
-IGZvciBzeXNmcyBwb3B1bGF0aW9uLg0KPiANCj4gRml4ZXM6IGJmNWU3NThmMDJmYyAoImdl
-bmlycS9tc2k6IFNpbXBsaWZ5IHN5c2ZzIGhhbmRsaW5nIikNCj4gU2lnbmVkLW9mZi1ieTog
-TWF4aW1pbGlhbiBIZXluZSA8bWhleW5lQGFtYXpvbi5kZT4NCg0KUmV2aWV3ZWQtYnk6IEp1
-ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoNCg==
---------------5l1refLpYoFuAkuHwmsfSyyJ
+T24gMDMuMDUuMjMgMTc6MTEsIERhbiBDYXJwZW50ZXIgd3JvdGU6DQo+IEluIHRoZSBwdmNh
+bGxzX25ld19hY3RpdmVfc29ja2V0KCkgZnVuY3Rpb24sIG1vc3QgZXJyb3IgcGF0aHMgY2Fs
+bA0KPiBwdmNhbGxzX2JhY2tfcmVsZWFzZV9hY3RpdmUoZmVkYXRhLT5kZXYsIGZlZGF0YSwg
+bWFwKSB3aGljaCBjYWxscw0KPiBzb2NrX3JlbGVhc2UoKSBvbiAic29jayIuICBUaGUgYnVn
+IGlzIHRoYXQgdGhlIGNhbGxlciBhbHNvIGZyZWVzIHNvY2suDQo+IA0KPiBGaXggdGhpcyBi
+eSBtYWtpbmcgZXZlcnkgZXJyb3IgcGF0aCBpbiBwdmNhbGxzX25ld19hY3RpdmVfc29ja2V0
+KCkNCj4gcmVsZWFzZSB0aGUgc29jaywgYW5kIGRvbid0IGZyZWUgaXQgaW4gdGhlIGNhbGxl
+ci4NCj4gDQo+IEZpeGVzOiA1ZGI0ZDI4NmE4ZWYgKCJ4ZW4vcHZjYWxsczogaW1wbGVtZW50
+IGNvbm5lY3QgY29tbWFuZCIpDQo+IFNpZ25lZC1vZmYtYnk6IERhbiBDYXJwZW50ZXIgPGRh
+bi5jYXJwZW50ZXJAbGluYXJvLm9yZz4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3Mg
+PGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoNCg==
+--------------XKdA7KkFzwvrNm5B0HXEBVTK
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -190,25 +172,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------5l1refLpYoFuAkuHwmsfSyyJ--
+--------------XKdA7KkFzwvrNm5B0HXEBVTK--
 
---------------2VgdL2ARHnFdKP06t0hm3NRa--
+--------------qLcoMchTk1vUtg8ADvS0YEfR--
 
---------------qUSNF0DqSSSO09uggR0ul3al
+--------------GQgp9aeO0OpOmH1pBanwsEqn
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmRZGvgFAwAAAAAACgkQsN6d1ii/Ey93
-MQf/cxKVXhKe0gAEAMln7DmZGr6S7zdybp9iDiXoHMLt9maAVZlKd7AoiwoDqsSRJCkaxoZWtPfC
-1ShfFUXQrH3X+RXM0xoOZbwErxXDCnT06ZAtV4muq8RUWfw6wTppfnvd0t0WxuYhEtvdbU40zH0u
-+K26n/zsBHSUygZ6kpnHLvMAI/BarkuOamBar8fkKQ3SxhKdOtpNWSn7UgmyvO0tDyepG3GciLy6
-cMrI5ibjjWIOeOJD93KNpihT0QlSlVVfQ2MYr58QUyTmi4VLtIJ2LPI/H6whMc1d399u16pzjpfJ
-gIE01xfP/1/0PoBJhnL3Y+9LNzY1ZGzF/iKfnTxP7Q==
-=cQFh
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmRZG90FAwAAAAAACgkQsN6d1ii/Ey9p
+CAf/UjzlrR65HDDHfmlqqsZfml3j7ueSzKVzrj7j4Ak/rlQupbNWb/03mifKyEBPoBJ8+qEV2yhZ
+VGm1S9mL6iXq4+tJWIwiHEAB+a/JkCREjiMARkT7s3OuFi60SDWIbJJzNeZFk2zf+EhhvKrygjP5
+19rB2nfHdjc1kRuHTh8jwUKihsxam/LuprDgq77gN+3HO/Y4AjR+/AIrtGifuza+do4YPc9ECHv4
+xrO8kjf04JUQVZsS7vDDNBQc4NJChg/vIFP7P56hJdSjTl+DU5hLqtAldYs2ModCd43J0gGoKyTV
+rEPYka4jLtmTJFzyLYxwFnMkII2qzV3lcc9pHpb31w==
+=IZyW
 -----END PGP SIGNATURE-----
 
---------------qUSNF0DqSSSO09uggR0ul3al--
+--------------GQgp9aeO0OpOmH1pBanwsEqn--
 
