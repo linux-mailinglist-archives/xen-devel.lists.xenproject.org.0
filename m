@@ -2,37 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E17636FB5F2
-	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 19:30:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.531694.827478 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88DB86FB705
+	for <lists+xen-devel@lfdr.de>; Mon,  8 May 2023 21:44:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.531743.827504 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw4gF-0005ni-Hl; Mon, 08 May 2023 17:29:47 +0000
+	id 1pw6lg-0004In-4V; Mon, 08 May 2023 19:43:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 531694.827478; Mon, 08 May 2023 17:29:47 +0000
+Received: by outflank-mailman (output) from mailman id 531743.827504; Mon, 08 May 2023 19:43:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pw4gF-0005kj-Ea; Mon, 08 May 2023 17:29:47 +0000
-Received: by outflank-mailman (input) for mailman id 531694;
- Mon, 08 May 2023 17:29:46 +0000
+	id 1pw6lg-0004GP-1s; Mon, 08 May 2023 19:43:32 +0000
+Received: by outflank-mailman (input) for mailman id 531743;
+ Mon, 08 May 2023 19:43:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hkai=A5=gmail.com=wei.liu.linux@srs-se1.protection.inumbo.net>)
- id 1pw4gE-0005kd-BZ
- for xen-devel@lists.xenproject.org; Mon, 08 May 2023 17:29:46 +0000
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ebfd1c59-edc5-11ed-b226-6b7b168915f2;
- Mon, 08 May 2023 19:29:45 +0200 (CEST)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-6439bbc93b6so3004198b3a.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 May 2023 10:29:45 -0700 (PDT)
-Received: from liuwe-devbox-debian-v2 ([20.69.120.36])
- by smtp.gmail.com with ESMTPSA id
- i4-20020aa787c4000000b0063d2d9990ecsm232036pfo.87.2023.05.08.10.29.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 May 2023 10:29:43 -0700 (PDT)
+ <SRS0=49Re=A5=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1pw6le-0004GB-BE
+ for xen-devel@lists.xenproject.org; Mon, 08 May 2023 19:43:30 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9a860726-edd8-11ed-b226-6b7b168915f2;
+ Mon, 08 May 2023 21:43:28 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,155 +37,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebfd1c59-edc5-11ed-b226-6b7b168915f2
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683566983; x=1686158983;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3rfke9qB1DRHiCuMEOyzzXuV8oi0P7zjijqnIYynp3o=;
-        b=PXcyir2XDkklOuGPiNzcz5Kv++6+ZR18LlHpIM5iK2H/hLAGM6dLX8P3ym0awZFide
-         hyl3t4W+OWFLBV9Pdp9aqsiq+4xZmRRWwA3TxhTfX+t5zusnI7K9+rSNVDjcTqxZqXdH
-         5/8OPK7mgTLz0RSFtEPsSBOsaU9gsids09s9zpPzlDsHr3pyToTQLjhfl6ymlXCdxUfJ
-         yCDN7xJld0ez525YX03T0zOgnCkp02Uxnb42EH/3Crfk/jDbROadD1lj4EggnwZBmGAj
-         Ex4VH3ZAxsfi9VCsYKXZUhoKAuM+5etoDw3GYPKuBzmtXOklDfV65eZTcxzo5xQOM8XJ
-         hWdg==
-X-Gm-Message-State: AC+VfDymeHvftx864ayDzXBbxi/zFeL18p0LeMQ4/iIom4ZFn+DkXROx
-	APk6uaoIEMURJMP40pfxS+k=
-X-Google-Smtp-Source: ACHHUZ75U4lCk4iijzyP5tOZ0JsVrz/EkvkWJ7HQDBXg3iSt23KVdFrierjfNZySz59EZ1uNpntsKQ==
-X-Received: by 2002:a05:6a20:a107:b0:ff:7c74:a799 with SMTP id q7-20020a056a20a10700b000ff7c74a799mr11302220pzk.9.1683566983497;
-        Mon, 08 May 2023 10:29:43 -0700 (PDT)
-Date: Mon, 8 May 2023 17:29:41 +0000
-From: Wei Liu <wei.liu@kernel.org>
-To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
-Cc: Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-	Kees Cook <keescook@chromium.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Alexander Graf <graf@amazon.com>,
-	Forrest Yuan Yu <yuanyu@google.com>,
-	James Morris <jamorris@linux.microsoft.com>,
-	John Andersen <john.s.andersen@intel.com>,
-	Liran Alon <liran.alon@oracle.com>,
-	"Madhavan T . Venkataraman" <madvenka@linux.microsoft.com>,
-	Marian Rotariu <marian.c.rotariu@gmail.com>,
-	Mihai =?utf-8?B?RG9uyJt1?= <mdontu@bitdefender.com>,
-	=?utf-8?B?TmljdciZb3IgQ8OuyJt1?= <nicu.citu@icloud.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Thara Gopinath <tgopinath@microsoft.com>,
-	Will Deacon <will@kernel.org>,
-	Zahra Tarkhani <ztarkhani@microsoft.com>,
-	=?utf-8?Q?=C8=98tefan_=C8=98icleru?= <ssicleru@bitdefender.com>,
-	dev@lists.cloudhypervisor.org, kvm@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	qemu-devel@nongnu.org, virtualization@lists.linux-foundation.org,
-	x86@kernel.org, xen-devel@lists.xenproject.org,
-	Wei Liu <wei.liu@kernel.org>
-Subject: Re: [PATCH v1 3/9] virt: Implement Heki common code
-Message-ID: <ZFkxhWhjyIzrPkt8@liuwe-devbox-debian-v2>
-References: <20230505152046.6575-1-mic@digikod.net>
- <20230505152046.6575-4-mic@digikod.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230505152046.6575-4-mic@digikod.net>
+X-Inumbo-ID: 9a860726-edd8-11ed-b226-6b7b168915f2
+Message-ID: <20230508181633.089804905@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1683575007;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc; bh=cSONB8rAwM/DhP8pLyA+5ZPUbC2lOuuQwaVdJRn5WDM=;
+	b=TUKnHdyKCm2jhBxD5IlUGRPEG/QaxWUEEk5j+F5TiwGQh75MzfKnWvvga1ogV0FWpqsAk0
+	Z/VqPwKzVgozvsmFgeZHc6fKtgAWVGs7xGme4vq54PLJoTakzMDfDNVCbcO2rny0q4HnR6
+	qlFXb43Qt1L8lTxJDtVVOKBuzxeXABCLtAFoVNNIdEV1p8ow/ukbkpiR2uIVB/FYpjA6p3
+	h6hKX4cZFsqIirm+tNd9G+ACRA1lcKi+gtx7U3umktHuz9juvrtG2mgbwLKrM2SK5QyvS3
+	r9jvL2zUpq3y0guhjpTb2zQUgu9MH/0dN+oTlFfspWYXJjDrCu5rao9nchjzhw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1683575007;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc; bh=cSONB8rAwM/DhP8pLyA+5ZPUbC2lOuuQwaVdJRn5WDM=;
+	b=i5YP5va30wPZDaaNSG4+BZNoSkYS91jOjq0F96kx0dzX5lZgVd2tGOGcKaXMK8erIbX4td
+	IGoM8wVZMNo8tHAg==
+From: Thomas Gleixner <tglx@linutronix.de>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: x86@kernel.org,
+ David Woodhouse <dwmw2@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Brian Gerst <brgerst@gmail.com>,
+ Arjan van de Veen <arjan@linux.intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Paul McKenney <paulmck@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Oleksandr Natalenko <oleksandr@natalenko.name>,
+ Paul Menzel <pmenzel@molgen.mpg.de>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Piotr Gorski <lucjan.lucjanov@gmail.com>,
+ Usama Arif <usama.arif@bytedance.com>,
+ Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org,
+ Russell King <linux@armlinux.org.uk>,
+ Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Guo Ren <guoren@kernel.org>,
+ linux-csky@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ linux-mips@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>,
+ linux-parisc@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-riscv@lists.infradead.org,
+ Mark Rutland <mark.rutland@arm.com>,
+ Sabin Rapan <sabrapan@amazon.com>,
+ "Michael Kelley (LINUX)" <mikelley@microsoft.com>
+Subject: [patch v3 00/36] cpu/hotplug, x86: Reworked parallel CPU bringup
+Date: Mon,  8 May 2023 21:43:26 +0200 (CEST)
 
-On Fri, May 05, 2023 at 05:20:40PM +0200, Mickaël Salaün wrote:
-> From: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
-> 
-> Hypervisor Enforced Kernel Integrity (Heki) is a feature that will use
-> the hypervisor to enhance guest virtual machine security.
-> 
-> Configuration
-> =============
-> 
-> Define the config variables for the feature. This feature depends on
-> support from the architecture as well as the hypervisor.
-> 
-> Enabling HEKI
-> =============
-> 
-> Define a kernel command line parameter "heki" to turn the feature on or
-> off. By default, Heki is on.
+Hi!
 
-For such a newfangled feature can we have it off by default? Especially
-when there are unsolved issues around dynamically loaded code.
+This is version 3 of the reworked parallel bringup series. Version 2 can be
+found here:
 
-> 
-[...]
-> diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-> index 3604074a878b..5cf5a7a97811 100644
-> --- a/arch/x86/Kconfig
-> +++ b/arch/x86/Kconfig
-> @@ -297,6 +297,7 @@ config X86
->  	select FUNCTION_ALIGNMENT_4B
->  	imply IMA_SECURE_AND_OR_TRUSTED_BOOT    if EFI
->  	select HAVE_DYNAMIC_FTRACE_NO_PATCHABLE
-> +	select ARCH_SUPPORTS_HEKI		if X86_64
+   https://lore.kernel.org/lkml/20230504185733.126511787@linutronix.de
 
-Why is there a restriction on X86_64?
+This is just a quick reiteration to address the following details:
 
->  
->  config INSTRUCTION_DECODER
->  	def_bool y
-> diff --git a/arch/x86/include/asm/sections.h b/arch/x86/include/asm/sections.h
-> index a6e8373a5170..42ef1e33b8a5 100644
-> --- a/arch/x86/include/asm/sections.h
-> +++ b/arch/x86/include/asm/sections.h
-[...]
->  
-> +#ifdef CONFIG_HEKI
-> +
-> +/*
-> + * Gather all of the statically defined sections so heki_late_init() can
-> + * protect these sections in the host page table.
-> + *
-> + * The sections are defined under "SECTIONS" in vmlinux.lds.S
-> + * Keep this array in sync with SECTIONS.
-> + */
+  1) Drop the two extended topology leaf patches as they are not longer
+     relevant (Andrew Cooper)
 
-This seems a bit fragile, because it requires constant attention from
-people who care about this functionality. Can this table be
-automatically generated?
+  2) Make the announce_cpu() fixup work for real (Micheal Kelley)
+
+Other than that there are no changes and the other details are all the same
+as in V2.
 
 Thanks,
-Wei.
 
-> +struct heki_va_range __initdata heki_va_ranges[] = {
-> +	{
-> +		.va_start = _stext,
-> +		.va_end = _etext,
-> +		.attributes = HEKI_ATTR_MEM_NOWRITE | HEKI_ATTR_MEM_EXEC,
-> +	},
-> +	{
-> +		.va_start = __start_rodata,
-> +		.va_end = __end_rodata,
-> +		.attributes = HEKI_ATTR_MEM_NOWRITE,
-> +	},
-> +#ifdef CONFIG_UNWINDER_ORC
-> +	{
-> +		.va_start = __start_orc_unwind_ip,
-> +		.va_end = __stop_orc_unwind_ip,
-> +		.attributes = HEKI_ATTR_MEM_NOWRITE,
-> +	},
-> +	{
-> +		.va_start = __start_orc_unwind,
-> +		.va_end = __stop_orc_unwind,
-> +		.attributes = HEKI_ATTR_MEM_NOWRITE,
-> +	},
-> +	{
-> +		.va_start = orc_lookup,
-> +		.va_end = orc_lookup_end,
-> +		.attributes = HEKI_ATTR_MEM_NOWRITE,
-> +	},
-> +#endif /* CONFIG_UNWINDER_ORC */
-> +};
-> +
+	tglx
+
+
+
+
+
 
