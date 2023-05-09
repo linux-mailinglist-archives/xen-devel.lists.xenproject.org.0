@@ -2,29 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D38416FCF31
-	for <lists+xen-devel@lfdr.de>; Tue,  9 May 2023 22:12:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.532540.828760 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DE9D6FCF3E
+	for <lists+xen-devel@lfdr.de>; Tue,  9 May 2023 22:15:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.532556.828771 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwTg1-0001UX-6M; Tue, 09 May 2023 20:11:13 +0000
+	id 1pwTjQ-00024W-M0; Tue, 09 May 2023 20:14:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 532540.828760; Tue, 09 May 2023 20:11:13 +0000
+Received: by outflank-mailman (output) from mailman id 532556.828771; Tue, 09 May 2023 20:14:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwTg1-0001Rz-3k; Tue, 09 May 2023 20:11:13 +0000
-Received: by outflank-mailman (input) for mailman id 532540;
- Tue, 09 May 2023 20:11:11 +0000
+	id 1pwTjQ-000226-Iu; Tue, 09 May 2023 20:14:44 +0000
+Received: by outflank-mailman (input) for mailman id 532556;
+ Tue, 09 May 2023 20:14:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M5VI=A6=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pwTfz-0001Rt-PA
- for xen-devel@lists.xenproject.org; Tue, 09 May 2023 20:11:11 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mGMN=A6=alien8.de=bp@srs-se1.protection.inumbo.net>)
+ id 1pwTjP-00021y-5u
+ for xen-devel@lists.xenproject.org; Tue, 09 May 2023 20:14:43 +0000
+Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a1adf6fe-eea5-11ed-b229-6b7b168915f2;
- Tue, 09 May 2023 22:11:07 +0200 (CEST)
+ id 21c10306-eea6-11ed-b229-6b7b168915f2;
+ Tue, 09 May 2023 22:14:41 +0200 (CEST)
+Received: from zn.tnic (p5de8e8ea.dip0.t-ipconnect.de [93.232.232.234])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 1E5041EC051E;
+ Tue,  9 May 2023 22:14:41 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,76 +41,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1adf6fe-eea5-11ed-b229-6b7b168915f2
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1683663065;
+X-Inumbo-ID: 21c10306-eea6-11ed-b229-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
+	t=1683663281;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GDHRmjiERMZtAMWS8NswxcpsZgr8pqyf8cBJN0UwKq4=;
-	b=qRz1Wt3JIbNYLISqAbJr1CMERh+G2fMl0sqNUINGFnuAglUDS20PR5mShGM7iQQQaOXzUO
-	6p1nBmlJSh5FISuh/gxPpyFl5N/5lIcPzXiWCbOhc/BY9nLjejGZdozuMFQuDWHB0czbQ3
-	N334596N1dIxTBUtYyzDiKqjfnYYlcCALsa05iyDdZ772j72RpkHn+oDxyP4ObL7l+piSu
-	ZhZkepOsryy7f/3f8Xvt0ySi2CMPDVnx0tsF8XLS0QXVKSABEb0ZDeaHvlrFZfnZHg6sEY
-	EkUkcA416BPYsfyNhOSk3xIjz0pEBaTy2eNw1t0P+tqJe8e17B+vC1YPI9z1/Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1683663065;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GDHRmjiERMZtAMWS8NswxcpsZgr8pqyf8cBJN0UwKq4=;
-	b=Xlcesbr/mowxxv4d+xv21wM9Nh14MEM6CP2UULmrKClB0/ijd/XoMlkIURymgqxjfMwTM5
-	2x4mgfol9jpnTzDw==
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, David Woodhouse
- <dwmw2@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Brian
- Gerst <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>, Sean Christopherson
- <seanjc@google.com>, Oleksandr Natalenko <oleksandr@natalenko.name>, Paul
- Menzel <pmenzel@molgen.mpg.de>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Piotr Gorski <lucjan.lucjanov@gmail.com>, Usama
- Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
- Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-kernel@lists.infradead.org, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
- <guoren@kernel.org>, linux-csky@vger.kernel.org, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, "James E.J.
- Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller
- <deller@gmx.de>, linux-parisc@vger.kernel.org, Paul Walmsley
- <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- linux-riscv@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
- Sabin Rapan <sabrapan@amazon.com>, "Michael Kelley (LINUX)"
- <mikelley@microsoft.com>, David Woodhouse <dwmw@amazon.co.uk>
-Subject: Re: [patch v3 08/36] x86/smpboot: Split up native_cpu_up() into
- separate phases and document them
-In-Reply-To: <20230509100421.GU83892@hirez.programming.kicks-ass.net>
-References: <20230508181633.089804905@linutronix.de>
- <20230508185217.671595388@linutronix.de>
- <20230509100421.GU83892@hirez.programming.kicks-ass.net>
-Date: Tue, 09 May 2023 22:11:05 +0200
-Message-ID: <87fs85z2na.ffs@tglx>
+	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
+	bh=8FPEI6O6QAK3kRZvBqgdS/NqiP5GyoVTXmMIcWstwBU=;
+	b=n6OGzuOgVvJpy46SSxzCzljQXgU88uLFdQj2tc18ANXJPJ/n6DZlbqX2Ya1zBVzJP82imI
+	IzJlBM+TdVBQJB0VJYtKy4Jsd+Pjk9LIoJnvGZ5lLIkJansEWD5y7tusJyVZlQ3232xtIz
+	IdrfYuxRa58gLxRAKyiKW9shhR18t08=
+Date: Tue, 9 May 2023 22:14:37 +0200
+From: Borislav Petkov <bp@alien8.de>
+To: Juergen Gross <jgross@suse.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+	linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org,
+	mikelley@microsoft.com, Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	xen-devel@lists.xenproject.org, Jonathan Corbet <corbet@lwn.net>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [PATCH v6 00/16] x86/mtrr: fix handling with PAT but without MTRR
+Message-ID: <20230509201437.GFZFqprc6otRejDPUt@fat_crate.local>
+References: <20230502120931.20719-1-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20230502120931.20719-1-jgross@suse.com>
 
-On Tue, May 09 2023 at 12:04, Peter Zijlstra wrote:
-> On Mon, May 08, 2023 at 09:43:39PM +0200, Thomas Gleixner wrote:
-> Not to the detriment of this patch, but this barrier() and it's comment
-> seem weird vs smp_callin(). That function ends with an atomic bitop (it
-> has to, at the very least it must not be weaker than store-release) but
-> also has an explicit wmb() to order setup vs CPU_STARTING.
->
-> (arguably that should be a full fence *AND* get a comment)
+On Tue, May 02, 2023 at 02:09:15PM +0200, Juergen Gross wrote:
+> This series tries to fix the rather special case of PAT being available
+> without having MTRRs (either due to CONFIG_MTRR being not set, or
+> because the feature has been disabled e.g. by a hypervisor).
 
-TBH: I'm grasping for something 'arguable': What's the point of this
-wmb() or even a mb()?
+More weird stuff. With the series:
 
-Most of the [w]mb()'s in smpboot.c except those in mwait_play_dead()
-have a very distinct voodoo programming smell.
+[root@vh: ~> cat /proc/mtrr 
+cat: /proc/mtrr: Input/output error
 
-Thanks,
+before:
 
-        tglx
+[root@vh: ~> cat /proc/mtrr 
+reg00: base=0x000000000 (    0MB), size= 2048MB, count=1: write-back
+reg01: base=0x080000000 ( 2048MB), size= 1024MB, count=1: write-back
+reg02: base=0x0c0000000 ( 3072MB), size=  256MB, count=1: write-back
+reg03: base=0x0ff000000 ( 4080MB), size=   16MB, count=1: write-protect
+
+I think it wrongly determines that MTRRs are disabled by BIOS:
+
+MTRRs disabled by BIOS
+x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT
+
+which is obviously wrong.
+
+But more debugging later.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
