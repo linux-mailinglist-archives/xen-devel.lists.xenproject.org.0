@@ -2,43 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A99926FC519
-	for <lists+xen-devel@lfdr.de>; Tue,  9 May 2023 13:36:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.532124.828163 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EDF26FC5D3
+	for <lists+xen-devel@lfdr.de>; Tue,  9 May 2023 14:07:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.532139.828173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwLe0-00084F-GY; Tue, 09 May 2023 11:36:36 +0000
+	id 1pwM7q-0003MP-6s; Tue, 09 May 2023 12:07:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 532124.828163; Tue, 09 May 2023 11:36:36 +0000
+Received: by outflank-mailman (output) from mailman id 532139.828173; Tue, 09 May 2023 12:07:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwLe0-00082Z-Dp; Tue, 09 May 2023 11:36:36 +0000
-Received: by outflank-mailman (input) for mailman id 532124;
- Tue, 09 May 2023 11:36:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pwM7q-0003KJ-49; Tue, 09 May 2023 12:07:26 +0000
+Received: by outflank-mailman (input) for mailman id 532139;
+ Tue, 09 May 2023 12:07:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SDpd=A6=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1pwLdy-00082T-ON
- for xen-devel@lists.xenproject.org; Tue, 09 May 2023 11:36:34 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bfebc1a3-ee5d-11ed-b227-6b7b168915f2;
- Tue, 09 May 2023 13:36:34 +0200 (CEST)
-Received: from j130084.upc-j.chello.nl ([24.132.130.84]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1pwLdH-00678Y-0c; Tue, 09 May 2023 11:35:52 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 8F613302F3D;
- Tue,  9 May 2023 13:35:48 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 6D04F20C342B1; Tue,  9 May 2023 13:35:48 +0200 (CEST)
+ <SRS0=M5VI=A6=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1pwM7o-0003KA-EB
+ for xen-devel@lists.xenproject.org; Tue, 09 May 2023 12:07:24 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0d69057c-ee62-11ed-8611-37d641c3527e;
+ Tue, 09 May 2023 14:07:22 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,84 +36,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfebc1a3-ee5d-11ed-b227-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=9uy06VylNOBEAiDOc+c/ggtZsNSxY44p/M1PWpIHlTo=; b=AdPs8XtYEpkR3G25UQ9/ynnaJQ
-	yoQ7TJHtTer78qTxQSruGfUSIJdNhTXt+0UcvF9ygN5qgsE6skCGKlKdAU+XGBlszdQLENogWL1pZ
-	XLDEoXkr1kINeJ7StBwuvXlWsxIhr3i/RPNAsp79LBG8KMNp3MRdGeYKSudMDFtBS86uE8nzWEe5v
-	a8CfaEawnbrmqXklNcksitW8TUN0x1wEip6a7zDZlkdKaRBllociBadnbaExT9c9ou3QCvpRH4AgG
-	bSH5gSP2c1D5dxXxDWXZkTYGeRAN4a/hJ1z/YW9bJKB/4Im2NbAtVPF75WnxH6OHWaCKH0GsK31IY
-	N6mfY+UQ==;
-Date: Tue, 9 May 2023 13:35:48 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
-	David Woodhouse <dwmw2@infradead.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Brian Gerst <brgerst@gmail.com>,
-	Arjan van de Veen <arjan@linux.intel.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Paul McKenney <paulmck@kernel.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Oleksandr Natalenko <oleksandr@natalenko.name>,
-	Paul Menzel <pmenzel@molgen.mpg.de>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Piotr Gorski <lucjan.lucjanov@gmail.com>,
-	Usama Arif <usama.arif@bytedance.com>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org,
-	Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
-	linux-arm-kernel@lists.infradead.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
-	linux-csky@vger.kernel.org,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org,
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-	Helge Deller <deller@gmx.de>, linux-parisc@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	linux-riscv@lists.infradead.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Sabin Rapan <sabrapan@amazon.com>,
-	"Michael Kelley (LINUX)" <mikelley@microsoft.com>
-Subject: Re: [patch v3 18/36] [patch V2 18/38] cpu/hotplug: Add CPU state
- tracking and synchronization
-Message-ID: <20230509113548.GD38236@hirez.programming.kicks-ass.net>
+X-Inumbo-ID: 0d69057c-ee62-11ed-8611-37d641c3527e
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1683634040;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L8MCFM0FDR2P5xT6w7iIAowrB6rGKJkA6dzl9HivHWk=;
+	b=WQKf9JTpFPSQGT0uFg5INijnVR8R5fqcikzHfuS5DVBLQGQ7GwJQT+EVszHAmjT/3/UBuz
+	qVYnARbWYomJ6gliEb43t5la/h6VifzuO+zL/GRl0NjzHXmgK5N/FGwqL06FgLMkljqBFm
+	XyfTJfmksGnqa6BjZhyerBbGE6iuFhkjn27fQrUXAQ1QApceQPW64uUNRla+fMpap+pUkk
+	SWZ9l1mk0piAcuHN5EvFC700NqxfjfjIo2TZ35Uf44N6qz9M7DRMymepQA2ZWVsdTMQEJG
+	ZopQRoGBKBzZCgD4GsYTMKx5vSxJBSs3/zJnl8HdNjGWI5X3/Fou00r0/4324g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1683634040;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L8MCFM0FDR2P5xT6w7iIAowrB6rGKJkA6dzl9HivHWk=;
+	b=HEbhRwUpE3y701WVF4If5EM5F8H8s6m0+F3iRYhv9+fKfUn3XmN66AS4uimVHFaZrmTvUY
+	YoYD1EwiDwf+ofDQ==
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, David Woodhouse
+ <dwmw2@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Brian
+ Gerst <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Sean Christopherson
+ <seanjc@google.com>, Oleksandr Natalenko <oleksandr@natalenko.name>, Paul
+ Menzel <pmenzel@molgen.mpg.de>, "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>, Piotr Gorski <lucjan.lucjanov@gmail.com>, Usama
+ Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
+ Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
+ <guoren@kernel.org>, linux-csky@vger.kernel.org, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, "James E.J.
+ Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller
+ <deller@gmx.de>, linux-parisc@vger.kernel.org, Paul Walmsley
+ <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-riscv@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
+ Sabin Rapan <sabrapan@amazon.com>, "Michael Kelley (LINUX)"
+ <mikelley@microsoft.com>, David Woodhouse <dwmw@amazon.co.uk>
+Subject: Re: [patch v3 08/36] x86/smpboot: Split up native_cpu_up() into
+ separate phases and document them
+In-Reply-To: <20230509100421.GU83892@hirez.programming.kicks-ass.net>
 References: <20230508181633.089804905@linutronix.de>
- <20230508185218.240871842@linutronix.de>
- <20230509110722.GZ83892@hirez.programming.kicks-ass.net>
+ <20230508185217.671595388@linutronix.de>
+ <20230509100421.GU83892@hirez.programming.kicks-ass.net>
+Date: Tue, 09 May 2023 14:07:20 +0200
+Message-ID: <87pm791zev.ffs@tglx>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230509110722.GZ83892@hirez.programming.kicks-ass.net>
+Content-Type: text/plain
 
-On Tue, May 09, 2023 at 01:07:23PM +0200, Peter Zijlstra wrote:
-> On Mon, May 08, 2023 at 09:43:55PM +0200, Thomas Gleixner wrote:
-> 
-> > +static inline void cpuhp_ap_update_sync_state(enum cpuhp_sync_state state)
-> > +{
-> > +	atomic_t *st = this_cpu_ptr(&cpuhp_state.ap_sync_state);
-> > +	int sync = atomic_read(st);
-> > +
-> > +	while (!atomic_try_cmpxchg(st, &sync, state));
-> > +}
-> 
-> Why isn't:
-> 
-> 	atomic_set(st, state);
-> 
-> any good?
+On Tue, May 09 2023 at 12:04, Peter Zijlstra wrote:
+> On Mon, May 08, 2023 at 09:43:39PM +0200, Thomas Gleixner wrote:
+>> +	/*
+>> +	 * Sync point with wait_cpu_callin(). The AP doesn't wait here
+>> +	 * but just sets the bit to let the controlling CPU (BSP) know that
+>> +	 * it's got this far.
+>> +	 */
+>>  	smp_callin();
+>>  
+>> -	/* otherwise gcc will move up smp_processor_id before the cpu_init */
+>> +	/* Otherwise gcc will move up smp_processor_id() before cpu_init() */
+>>  	barrier();
+>
+> Not to the detriment of this patch, but this barrier() and it's comment
+> seem weird vs smp_callin(). That function ends with an atomic bitop (it
+> has to, at the very least it must not be weaker than store-release) but
+> also has an explicit wmb() to order setup vs CPU_STARTING.
+>
+> (arguably that should be a full fence *AND* get a comment)
+>
+> There is no way the smp_processor_id() referred to in this comment can
+> land before cpu_init() even without the barrier().
 
-Hmm, should at the very least be atomic_set_release(), but if you want
-the full barrier then:
+Right. Let me clean that up.
 
-	(void)atomic_xchg(st, state);
+Thanks,
 
-is the much saner way to write the above.
+        tglx
 
