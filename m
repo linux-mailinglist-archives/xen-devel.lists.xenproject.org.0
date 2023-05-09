@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EDF26FC5D3
-	for <lists+xen-devel@lfdr.de>; Tue,  9 May 2023 14:07:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.532139.828173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C0BC6FC5E2
+	for <lists+xen-devel@lfdr.de>; Tue,  9 May 2023 14:08:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.532144.828183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwM7q-0003MP-6s; Tue, 09 May 2023 12:07:26 +0000
+	id 1pwM8y-0003vU-Fo; Tue, 09 May 2023 12:08:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 532139.828173; Tue, 09 May 2023 12:07:26 +0000
+Received: by outflank-mailman (output) from mailman id 532144.828183; Tue, 09 May 2023 12:08:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwM7q-0003KJ-49; Tue, 09 May 2023 12:07:26 +0000
-Received: by outflank-mailman (input) for mailman id 532139;
- Tue, 09 May 2023 12:07:24 +0000
+	id 1pwM8y-0003tI-D5; Tue, 09 May 2023 12:08:36 +0000
+Received: by outflank-mailman (input) for mailman id 532144;
+ Tue, 09 May 2023 12:08:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=M5VI=A6=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pwM7o-0003KA-EB
- for xen-devel@lists.xenproject.org; Tue, 09 May 2023 12:07:24 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ id 1pwM8x-0003oR-1W
+ for xen-devel@lists.xenproject.org; Tue, 09 May 2023 12:08:35 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d69057c-ee62-11ed-8611-37d641c3527e;
- Tue, 09 May 2023 14:07:22 +0200 (CEST)
+ id 372c68cf-ee62-11ed-8611-37d641c3527e;
+ Tue, 09 May 2023 14:08:33 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,27 +37,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d69057c-ee62-11ed-8611-37d641c3527e
+X-Inumbo-ID: 372c68cf-ee62-11ed-8611-37d641c3527e
 From: Thomas Gleixner <tglx@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1683634040;
+	s=2020; t=1683634111;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=L8MCFM0FDR2P5xT6w7iIAowrB6rGKJkA6dzl9HivHWk=;
-	b=WQKf9JTpFPSQGT0uFg5INijnVR8R5fqcikzHfuS5DVBLQGQ7GwJQT+EVszHAmjT/3/UBuz
-	qVYnARbWYomJ6gliEb43t5la/h6VifzuO+zL/GRl0NjzHXmgK5N/FGwqL06FgLMkljqBFm
-	XyfTJfmksGnqa6BjZhyerBbGE6iuFhkjn27fQrUXAQ1QApceQPW64uUNRla+fMpap+pUkk
-	SWZ9l1mk0piAcuHN5EvFC700NqxfjfjIo2TZ35Uf44N6qz9M7DRMymepQA2ZWVsdTMQEJG
-	ZopQRoGBKBzZCgD4GsYTMKx5vSxJBSs3/zJnl8HdNjGWI5X3/Fou00r0/4324g==
+	bh=auvnPlCdrxbwfVCryOkTHE8CzjY0504gnLY8d2dRonQ=;
+	b=wafQfE3T818swYq6uLvh8KHiTe44B+AlTcCuev0YTvhSecK7fkanUUlrOFuq1HA2ASd8t+
+	BU6tHwwDMQA0mZaxMylheStrGpAitYQ7e4+1xdIBRK50qlGuPKGUbpzNoPFc/U7pFg4vp7
+	3txn/u3LsCuYBQ0eNUlaTm7ZlGVH1WlsNSZfP3xwKGSzwPqUJorHyzC7YM1MHYvCO7Lmx3
+	BiJQOvEs+Zr/r7cQvp3o3X/HSCezUruhmuDtMYKpw4lmxWL4y4XK9Xj0Ms0sscYlMfQk/M
+	8L9/ObIQjuOr/DXSdupvrplmykX+MkwMcI4Kqk1nxIkYGFdBkt+5ECVVyItbUg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1683634040;
+	s=2020e; t=1683634111;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=L8MCFM0FDR2P5xT6w7iIAowrB6rGKJkA6dzl9HivHWk=;
-	b=HEbhRwUpE3y701WVF4If5EM5F8H8s6m0+F3iRYhv9+fKfUn3XmN66AS4uimVHFaZrmTvUY
-	YoYD1EwiDwf+ofDQ==
+	bh=auvnPlCdrxbwfVCryOkTHE8CzjY0504gnLY8d2dRonQ=;
+	b=iQxVDqhAuaPEJSQzwxbX/REaKwQ08dwCm2L5m3NrRVeFnmsUvKPu/IfGcUkN/jYTMsh6S3
+	yqlu1nzMP1/UIxCA==
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, David Woodhouse
  <dwmw2@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Brian
@@ -81,41 +82,36 @@ Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, David Woodhouse
  <mikelley@microsoft.com>, David Woodhouse <dwmw@amazon.co.uk>
 Subject: Re: [patch v3 08/36] x86/smpboot: Split up native_cpu_up() into
  separate phases and document them
-In-Reply-To: <20230509100421.GU83892@hirez.programming.kicks-ass.net>
+In-Reply-To: <20230509101902.GV83892@hirez.programming.kicks-ass.net>
 References: <20230508181633.089804905@linutronix.de>
  <20230508185217.671595388@linutronix.de>
- <20230509100421.GU83892@hirez.programming.kicks-ass.net>
-Date: Tue, 09 May 2023 14:07:20 +0200
-Message-ID: <87pm791zev.ffs@tglx>
+ <20230509101902.GV83892@hirez.programming.kicks-ass.net>
+Date: Tue, 09 May 2023 14:08:31 +0200
+Message-ID: <87mt2d1zcw.ffs@tglx>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-On Tue, May 09 2023 at 12:04, Peter Zijlstra wrote:
+On Tue, May 09 2023 at 12:19, Peter Zijlstra wrote:
 > On Mon, May 08, 2023 at 09:43:39PM +0200, Thomas Gleixner wrote:
->> +	/*
->> +	 * Sync point with wait_cpu_callin(). The AP doesn't wait here
->> +	 * but just sets the bit to let the controlling CPU (BSP) know that
->> +	 * it's got this far.
->> +	 */
->>  	smp_callin();
->>  
->> -	/* otherwise gcc will move up smp_processor_id before the cpu_init */
->> +	/* Otherwise gcc will move up smp_processor_id() before cpu_init() */
->>  	barrier();
+>> @@ -1048,60 +1066,89 @@ static int do_boot_cpu(int apicid, int c
 >
-> Not to the detriment of this patch, but this barrier() and it's comment
-> seem weird vs smp_callin(). That function ends with an atomic bitop (it
-> has to, at the very least it must not be weaker than store-release) but
-> also has an explicit wmb() to order setup vs CPU_STARTING.
+> 	/*
+> 	 * AP might wait on cpu_callout_mask in cpu_init() with
+> 	 * cpu_initialized_mask set if previous attempt to online
+> 	 * it timed-out. Clear cpu_initialized_mask so that after
+> 	 * INIT/SIPI it could start with a clean state.
+> 	 */
+> 	cpumask_clear_cpu(cpu, cpu_initialized_mask);
+> 	smp_mb();
 >
-> (arguably that should be a full fence *AND* get a comment)
+> ^^^ that barrier is weird too, cpumask_clear_cpu() is an atomic op and
+> implies much the same (this is x86 after all). If you want to be super
+> explicit about it write:
 >
-> There is no way the smp_processor_id() referred to in this comment can
-> land before cpu_init() even without the barrier().
+> 	smp_mb__after_atomic();
+>
+> (which is a no-op) but then it still very much requires a comment as to
+> what exactly it orders against what.
 
-Right. Let me clean that up.
-
-Thanks,
-
-        tglx
+As this is gone a few patches later, I just be lazy and leave it alone.
 
