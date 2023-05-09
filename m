@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5FB96FCB8C
-	for <lists+xen-devel@lfdr.de>; Tue,  9 May 2023 18:44:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.532376.828548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C60886FCB8F
+	for <lists+xen-devel@lfdr.de>; Tue,  9 May 2023 18:44:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.532377.828561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwQRF-00021v-Kf; Tue, 09 May 2023 16:43:45 +0000
+	id 1pwQRI-0002OA-V4; Tue, 09 May 2023 16:43:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 532376.828548; Tue, 09 May 2023 16:43:45 +0000
+Received: by outflank-mailman (output) from mailman id 532377.828561; Tue, 09 May 2023 16:43:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwQRF-0001u9-G6; Tue, 09 May 2023 16:43:45 +0000
-Received: by outflank-mailman (input) for mailman id 532376;
- Tue, 09 May 2023 16:43:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pwQRI-0002Lv-RW; Tue, 09 May 2023 16:43:48 +0000
+Received: by outflank-mailman (input) for mailman id 532377;
+ Tue, 09 May 2023 16:43:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kELI=A6=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1pwQRD-0001qp-VG
- for xen-devel@lists.xenproject.org; Tue, 09 May 2023 16:43:43 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8d2fb1d-ee88-11ed-b229-6b7b168915f2;
- Tue, 09 May 2023 18:43:43 +0200 (CEST)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-3f42ba32e24so7279585e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 May 2023 09:43:43 -0700 (PDT)
+ id 1pwQRH-0002Ky-BX
+ for xen-devel@lists.xenproject.org; Tue, 09 May 2023 16:43:47 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a9d017aa-ee88-11ed-8611-37d641c3527e;
+ Tue, 09 May 2023 18:43:45 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3078fa679a7so2934622f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 May 2023 09:43:45 -0700 (PDT)
 Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- s9-20020a5d5109000000b002ffbf2213d4sm14754606wrt.75.2023.05.09.09.43.40
+ s9-20020a5d5109000000b002ffbf2213d4sm14754606wrt.75.2023.05.09.09.43.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 May 2023 09:43:41 -0700 (PDT)
+ Tue, 09 May 2023 09:43:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8d2fb1d-ee88-11ed-b229-6b7b168915f2
+X-Inumbo-ID: a9d017aa-ee88-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1683650622; x=1686242622;
+        d=cloud.com; s=cloud; t=1683650624; x=1686242624;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2enxHJVvB53hhS6w5p4MreN4cLpgSnyXWT9wrZUvS/4=;
-        b=Jx1Y62UZFeAOx2gMKCjK4jBHh3yhgyKAn9n7FuUAvNutUqg8yAeuRofpXYb8vErxfI
-         7mrXPYxG+D4C8qtZvknk5JZ1buBWqM91LA8CGQylC4OiOQNkJyFM8JFHan2FaHKM8qrS
-         D4S45+nSoit9/DdwrTanwMs6g87mBGlF5IcYU=
+        bh=oQyCUxTpPixPBVFBdSiN0k/YI9aqhLZJQE2OAMb3ZSg=;
+        b=XKh1o0IgXOTR8pP6xG5QopyY1l3y18i6SbkyqgaYeApyoLGSwmQqskMhCdfK8PiKlx
+         hZsFMYdruCgUuqpKvRiOHLxtzSm7F6qfb92tbMj9hM/rf5Dg3lGcdNBbPmOqlN87lNNX
+         esDFxd4EnbwvdY1XizIi7/oaISq0xuXxA9EM8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683650622; x=1686242622;
+        d=1e100.net; s=20221208; t=1683650624; x=1686242624;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=2enxHJVvB53hhS6w5p4MreN4cLpgSnyXWT9wrZUvS/4=;
-        b=F+RtZctmdlk1u4hnyJaebmVIITPuxovDcCUH9M5PiGIjHzVJw7EtwKmAwU83XB4gCr
-         gv67lLrH4IIwNdMleLU/5Umq13hBN0JARzZmpFVMdzfnK20FgWWdvJzXCvGqFUiAmu0F
-         7lxRxns8kfYX/WGGxZP8/KRI8Oxr+6Zveqvi2jtRruz9GvAtHZKgh4Vzhe1FW9BJD50z
-         U9cg1MTMQ0FlNGKa8lkYIu7yBpwj5UR6opRa5bBBkjJtJX5YsP4WzTJ8EGDBAeXg9qpP
-         m49XQ7mRPXR0X89DCO2UG62FjtKJcz9g67wytX6YxRGX5mWELFF02gfKtLLnyDXlZKRz
-         LMeA==
-X-Gm-Message-State: AC+VfDxVHJPam9f7x1Yy0O51mWMYpNhF+7+6Z8QCqLZTQbof7kq6G37A
-	qQwBzninmoSbTx5llR5TlwYsCiZvflXaM9BplII=
-X-Google-Smtp-Source: ACHHUZ581+1hPFk3uezFqtzRz8gKAsnHQjClnXioOR9gPVCwBkgpowVceLxszo8PH6MPDLUn03qoRg==
-X-Received: by 2002:a05:600c:2206:b0:3f4:2220:28cc with SMTP id z6-20020a05600c220600b003f4222028ccmr5959782wml.9.1683650622346;
-        Tue, 09 May 2023 09:43:42 -0700 (PDT)
+        bh=oQyCUxTpPixPBVFBdSiN0k/YI9aqhLZJQE2OAMb3ZSg=;
+        b=Yq7+wJ8TLQdz8yR4jjPX/5m+pzg9xShn4d9VRWlBPlN3WTov1LVtDWh1av7vHqPQ4/
+         OU7ElZe2dwRcOBwxQiV3o2PM7cuJhOm+cZjhg6sxxd5kQXgENCVURtpblbtJtIRr9Fcp
+         27MSbE9PiIHAsT1GJ9K7iboODimQtQ2YmZ9cHpZs3VVpeLqIpMPEJer4m/DkbaMqGy6L
+         FXNcvcBS99W1l1id79uYCSFBNWvKFF/gQEPq+K1YGO4onu9qOWLw9VJ6fS5kI2E6anlp
+         Utr594ffQ5DqtET5Olm3WTzuAKbhP810X9IpxTtVa0bJheqAtEAYB0/xelj2V/oZHo2F
+         q79g==
+X-Gm-Message-State: AC+VfDyLlfxcdVFu7QWw61WIt95gR4LVUYQzhJf0M4E4ZfPEnR1mzUaS
+	iyvhGADQYwcZk9Wf8zf4ElyV4vY5ddp5OSQ+lkQ=
+X-Google-Smtp-Source: ACHHUZ66heKHNtZecnybWt7F3Z5YP/uYyRzYh7uooIzmomVHTOppE0QrYKMEGi9+Efhd8qFzR3KEag==
+X-Received: by 2002:adf:fa06:0:b0:2fb:600e:55bd with SMTP id m6-20020adffa06000000b002fb600e55bdmr10065258wrr.39.1683650623951;
+        Tue, 09 May 2023 09:43:43 -0700 (PDT)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 1/3] x86: Add AMD's CpuidUserDis bit definitions
-Date: Tue,  9 May 2023 17:43:34 +0100
-Message-Id: <20230509164336.12523-2-alejandro.vallejo@cloud.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2 2/3] x86: Refactor conditional guard in probe_cpuid_faulting()
+Date: Tue,  9 May 2023 17:43:35 +0100
+Message-Id: <20230509164336.12523-3-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230509164336.12523-1-alejandro.vallejo@cloud.com>
 References: <20230509164336.12523-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-AMD reports support for CpuidUserDis in CPUID and provides the toggle in HWCR.
-This patch adds the positions of both of those bits to both xen and tools.
+Move vendor-specific checks to the vendor-specific callers.
 
 No functional change.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
- tools/libs/light/libxl_cpuid.c              | 1 +
- tools/misc/xen-cpuid.c                      | 2 ++
- xen/arch/x86/include/asm/msr-index.h        | 1 +
- xen/include/public/arch-x86/cpufeatureset.h | 1 +
- 4 files changed, 5 insertions(+)
+v2:
+  * Patch factored out from patch2 of v1
+---
+ xen/arch/x86/cpu/amd.c    | 10 +++++++++-
+ xen/arch/x86/cpu/common.c | 11 -----------
+ xen/arch/x86/cpu/intel.c  |  9 ++++++++-
+ 3 files changed, 17 insertions(+), 13 deletions(-)
 
-diff --git a/tools/libs/light/libxl_cpuid.c b/tools/libs/light/libxl_cpuid.c
-index 5f0bf93810..4d2fab5414 100644
---- a/tools/libs/light/libxl_cpuid.c
-+++ b/tools/libs/light/libxl_cpuid.c
-@@ -317,6 +317,7 @@ int libxl_cpuid_parse_config(libxl_cpuid_policy_list *cpuid, const char* str)
- 
-         {"lfence+",      0x80000021, NA, CPUID_REG_EAX,  2,  1},
-         {"nscb",         0x80000021, NA, CPUID_REG_EAX,  6,  1},
-+        {"cpuid-user-dis", 0x80000021, NA, CPUID_REG_EAX, 17,  1},
- 
-         {"maxhvleaf",    0x40000000, NA, CPUID_REG_EAX,  0,  8},
- 
-diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-index d7efc59d31..8ec143ebc8 100644
---- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -199,6 +199,8 @@ static const char *const str_e21a[32] =
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index caafe44740..899bae7a10 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -271,7 +271,15 @@ static void __init noinline amd_init_levelling(void)
  {
-     [ 2] = "lfence+",
-     [ 6] = "nscb",
-+
-+    /* 16 */                [17] = "cpuid-user-dis",
- };
+ 	const struct cpuidmask *m = NULL;
  
- static const char *const str_7b1[32] =
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index fa771ed0b5..082fb2e0d9 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -337,6 +337,7 @@
+-	if (probe_cpuid_faulting())
++	/*
++	 * If there's support for CpuidUserDis or CPUID faulting then
++	 * we can skip levelling because CPUID accesses are trapped anyway.
++	 *
++	 * CPUID faulting is an Intel feature analogous to CpuidUserDis, so
++	 * that can only be present when Xen is itself virtualized (because
++	 * it can be emulated)
++	 */
++	if (cpu_has_hypervisor && probe_cpuid_faulting())
+ 		return;
  
- #define MSR_K8_HWCR			0xc0010015
- #define K8_HWCR_TSC_FREQ_SEL		(1ULL << 24)
-+#define K8_HWCR_CPUID_USER_DIS		(1ULL << 35)
+ 	probe_masking_msrs();
+diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+index edc4db1335..4bfaac4590 100644
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -131,17 +131,6 @@ bool __init probe_cpuid_faulting(void)
+ 	uint64_t val;
+ 	int rc;
  
- #define MSR_K7_FID_VID_CTL		0xc0010041
- #define MSR_K7_FID_VID_STATUS		0xc0010042
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 12e3dc80c6..623dcb1bce 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -287,6 +287,7 @@ XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /*A  AVX-IFMA Instructions */
- /* AMD-defined CPU features, CPUID level 0x80000021.eax, word 11 */
- XEN_CPUFEATURE(LFENCE_DISPATCH,    11*32+ 2) /*A  LFENCE always serializing */
- XEN_CPUFEATURE(NSCB,               11*32+ 6) /*A  Null Selector Clears Base (and limit too) */
-+XEN_CPUFEATURE(CPUID_USER_DIS,     11*32+17) /*   CPUID disable for non-privileged software */
+-	/*
+-	 * Don't bother looking for CPUID faulting if we aren't virtualised on
+-	 * AMD or Hygon hardware - it won't be present.  Likewise for Fam0F
+-	 * Intel hardware.
+-	 */
+-	if (((boot_cpu_data.x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) ||
+-	     ((boot_cpu_data.x86_vendor == X86_VENDOR_INTEL) &&
+-	      boot_cpu_data.x86 == 0xf)) &&
+-	    !cpu_has_hypervisor)
+-		return false;
+-
+ 	if ((rc = rdmsr_safe(MSR_INTEL_PLATFORM_INFO, val)) == 0)
+ 		raw_cpu_policy.platform_info.cpuid_faulting =
+ 			val & MSR_PLATFORM_INFO_CPUID_FAULTING;
+diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+index 71fc1a1e18..a04414ba1d 100644
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -226,7 +226,14 @@ static void cf_check intel_ctxt_switch_masking(const struct vcpu *next)
+  */
+ static void __init noinline intel_init_levelling(void)
+ {
+-	if (probe_cpuid_faulting())
++	/*
++	 * Intel Fam0f is old enough that probing for CPUID faulting support
++	 * introduces spurious #GP(0) when the appropriate MSRs are read,
++	 * so skip it altogether. In the case where Xen is virtualized these
++	 * MSRs may be emulated though, so we allow it in that case.
++	 */
++	if ((boot_cpu_data.x86 != 0xf || cpu_has_hypervisor) &&
++	    probe_cpuid_faulting())
+ 		return;
  
- /* Intel-defined CPU features, CPUID level 0x00000007:1.ebx, word 12 */
- XEN_CPUFEATURE(INTEL_PPIN,         12*32+ 0) /*   Protected Processor Inventory Number */
+ 	probe_masking_msrs();
 -- 
 2.34.1
 
