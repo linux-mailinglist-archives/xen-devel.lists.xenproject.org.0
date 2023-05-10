@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E9116FE3AD
-	for <lists+xen-devel@lfdr.de>; Wed, 10 May 2023 20:12:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.532995.829351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C14876FE48B
+	for <lists+xen-devel@lfdr.de>; Wed, 10 May 2023 21:35:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533008.829362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwoI3-0005NA-8F; Wed, 10 May 2023 18:11:51 +0000
+	id 1pwpZm-0005is-4h; Wed, 10 May 2023 19:34:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 532995.829351; Wed, 10 May 2023 18:11:51 +0000
+Received: by outflank-mailman (output) from mailman id 533008.829362; Wed, 10 May 2023 19:34:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwoI3-0005LL-5P; Wed, 10 May 2023 18:11:51 +0000
-Received: by outflank-mailman (input) for mailman id 532995;
- Wed, 10 May 2023 18:11:49 +0000
+	id 1pwpZm-0005gI-0T; Wed, 10 May 2023 19:34:14 +0000
+Received: by outflank-mailman (input) for mailman id 533008;
+ Wed, 10 May 2023 19:34:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=e4GJ=A7=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1pwoI1-0005LD-EN
- for xen-devel@lists.xenproject.org; Wed, 10 May 2023 18:11:49 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 20b971cd-ef5e-11ed-8611-37d641c3527e;
- Wed, 10 May 2023 20:11:47 +0200 (CEST)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-50bc0ced1d9so11371986a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 May 2023 11:11:47 -0700 (PDT)
+ <SRS0=PWYj=A7=citrix.com=prvs=487e665c6=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pwpZk-0005gC-Bq
+ for xen-devel@lists.xenproject.org; Wed, 10 May 2023 19:34:12 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a12d6ff3-ef69-11ed-8611-37d641c3527e;
+ Wed, 10 May 2023 21:34:08 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,160 +36,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20b971cd-ef5e-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683742307; x=1686334307;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NhillotERfDC11pI/SjbWszv+x7ZdZYj7Ka2Ky8L5ZI=;
-        b=gCqsC0iOF1MAHnPS+2arCcorZ6UW1WZ7SW4zXFghfDXU/xtopNcxXMkZW4+1rN7TsP
-         TLksRHEk/xV+P61+rjZZvBQOPn4EkFYqVxCK0DCI14Hq0jM7w1E5s7jIqw4YjAMffC+5
-         ClOju4FTNUytPo+7YuZkAbGdNZKBAL7H3K7CT2H6WqUw40ihaOct32INNPcouw04DNTU
-         rjFWzrmqGcnlm+bbyX8V6mvdvxtaUBDhP5nxWLfAc+cCRpm3PqXwkcv+9500jG9qnzt2
-         l/fXlNyeOUib5gMj7FBoEp95or604hnQ5joItKy8vevxfjn9f3oU3uBiqCTg4CJjnFwp
-         VTcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683742307; x=1686334307;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=NhillotERfDC11pI/SjbWszv+x7ZdZYj7Ka2Ky8L5ZI=;
-        b=OzpFPlPd3O9Ss9JShseYZg+bVswVqJlOR80FNDo7UkBODDwLs7gHYKW/9oBK3Khngg
-         Q91prNCu5IiXyIQtd1y8E6cp6JS358HYzoV5mYMywUVRJC6RQwlytms7rzUFcn7IzCeP
-         X2/FH6eAJXJynq0XB7FLhpeJkMVBJG9v7qXkbkJAF4ZhCUFIgve8Mz7oxo+14dyH20he
-         RhRvvVpuATTjBCZ9RWjJycOUrZD55FdH8bH2aE40yJHTqltQRgDnx83p/Fz4X9sQLVL9
-         ISIrojvOzozs/QPJ7W6F/HcJjLaHyfd3PN5owL60IV5LSamTkHpUi2lzm5HLvfim+U8l
-         ZGWA==
-X-Gm-Message-State: AC+VfDxWpc/6bCa8Z52vCt18m4LZIywi+NDpZe9aRqOk7SDNT13o45Ct
-	oexgl73ISZY+I8Bd+eqTqxTJj+BQ0C55g1x9qy+h5bwXkmE=
-X-Google-Smtp-Source: ACHHUZ5sff9gdoF+tagHOWQt7z7g7hkn4GCWMfGXusRwqibUsKH2ln6NBtzX9BXarP483iqXd/+O8nh4hpw5PsGVVlo=
-X-Received: by 2002:a17:906:da8e:b0:94f:7c4e:24ea with SMTP id
- xh14-20020a170906da8e00b0094f7c4e24eamr14918920ejb.38.1683742306719; Wed, 10
- May 2023 11:11:46 -0700 (PDT)
+X-Inumbo-ID: a12d6ff3-ef69-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1683747248;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=zo3AkidUaDbd0s0WimnpWcrKKliyz/SIRsjhAoV2Jz4=;
+  b=Pq5WlovHQNu0arzcZuQ0r57obcir1zj3DbXFPG57ICzH9Y5TYDd+T+S3
+   VFoHjtXHwJxekiTXVG2TciwCRcE+OqrgT3LgFY9E2rZ3jDrBnPs0YY9jb
+   yWHP5CForSiKlfFhMlwZTLW3Z6CRzJY8+1fzU701eOXwZO6gH6tyjHaLM
+   0=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 108977908
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:wWybV6+Nq8Zpenw8ko37DrUDvn6TJUtcMsCJ2f8bNWPcYEJGY0x3m
+ mZKXT2OMq6PamGjf9p0PIu+oUgO7cTQm9I3TAdkrio8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kI+1BjOkGlA5AdmOKkT5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklI7
+ t8gbwocYirTlr3t3paHSLh+ic0aeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGOkcUUrsUIMtWcOOAr3/zaTBH7nmSorI6+TP7xw1tyrn9dtHSf7RmQO0MxhbJ+
+ T2XpzSR7hcyDN2l8TfCqG2Q3qzyux28cpMIGf6m6as/6LGU7jNKU0BHPbehmtGph0j7V99BJ
+ kg8/is1sbN05EGtVsP6XRCzvDiDpBF0c/h6HvA+6QqN4rHJ+AvfDW8BJhZebPQ2uclwQiYlv
+ neLgtWvAzVsub+UTHu197GIoDf0Mi8QRUcBaDEFS00Z4tDliIA1kh/LCN1kFcaIYsbdQG+qh
+ WrQ9W5n2utV1JRQv0mmwbzZqzS3haCOdB853FXGATm7yj97NZyqbrX9vDA38s18BIqeS1CAu
+ l0NlM6f8P0CAPmxqcCdfAkeNOr3vqjYaVUwlXYqRsB8rGr1pxZPaKgKuFlDyFFV3tHokNMDS
+ Gvaoktv6ZBaJxNGhocnMtvqW6zGIUUNfOkJt8w4jPIUOvCdlyfdpkmCgHJ8OEiy+HXAaYllZ
+ f+mnT+EVB7285hPwjusXPs62rQ23C04zm67bcmln0/4jeHOOiXJE+tt3L6yggcRs8u5TPj9q
+ Y4DZ6NmNT0FOAEBXsUn2dFKdg1bRZTKLZv3t9ZWZoa+H+aSI0l4U6W56ep4K+RYc1F9yr+gE
+ oeVBhUJlzISRBTvdW23V5yUQOqzDM4n9S5hZXBE0JTB8yFLXLtDJZw3L/MfFYTLPsQ6pRKoZ
+ 5Hpo/m9P8k=
+IronPort-HdrOrdr: A9a23:XiJNPq9MaMZP3eR45DBuk+DnI+orL9Y04lQ7vn2ZhyYlC/Bw9v
+ re5MjzsCWftN9/YgBEpTntAtjjfZqYz+8X3WBzB9aftWvdyQ+VxehZhOOI/9SjIU3DH4VmpM
+ BdmsZFebvN5JtB4foSIjPULz/t+ra6GWmT69vj8w==
+X-Talos-CUID: 9a23:NDD2EWz5olNc8k3QUMB5BgUSAeMdNUfMwE2AMhDjF0JVSuyHRlaprfY=
+X-Talos-MUID: 9a23:cxFz4Anwyxc9dPsl6ej3dnpaNf1Q7uP0F3xV0qgghY6uJDZ9eCmC2WE=
+X-IronPort-AV: E=Sophos;i="5.99,265,1677560400"; 
+   d="scan'208";a="108977908"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Jun Nakajima
+	<jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
+Subject: [PATCH] x86: Use printk_once() instead of opencoding it
+Date: Wed, 10 May 2023 20:33:57 +0100
+Message-ID: <20230510193357.12278-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-References: <20230501193034.88575-1-jandryuk@gmail.com> <20230501193034.88575-10-jandryuk@gmail.com>
- <256fc66c-066f-3f0c-b34b-a237e9268f22@suse.com>
-In-Reply-To: <256fc66c-066f-3f0c-b34b-a237e9268f22@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 10 May 2023 14:11:34 -0400
-Message-ID: <CAKf6xpu=KiSkjGpyRYBCpYh67XhdtmjvwLjthkpTbE+HoNQm7g@mail.gmail.com>
-Subject: Re: [PATCH v3 09/14 RESEND] xenpm: Print HWP parameters
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
-	xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, May 8, 2023 at 6:43=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 01.05.2023 21:30, Jason Andryuk wrote:
-> > Print HWP-specific parameters.  Some are always present, but others
-> > depend on hardware support.
-> >
-> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> > ---
-> > v2:
-> > Style fixes
-> > Declare i outside loop
-> > Replace repearted hardware/configured limits with spaces
-> > Fixup for hw_ removal
-> > Use XEN_HWP_GOVERNOR
-> > Use HWP_ACT_WINDOW_EXPONENT_*
-> > Remove energy_perf hw autonomous - 0 doesn't mean autonomous
-> > ---
-> >  tools/misc/xenpm.c | 65 ++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 65 insertions(+)
-> >
-> > diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
-> > index ce8d7644d0..b2defde0d4 100644
-> > --- a/tools/misc/xenpm.c
-> > +++ b/tools/misc/xenpm.c
-> > @@ -708,6 +708,44 @@ void start_gather_func(int argc, char *argv[])
-> >      pause();
-> >  }
-> >
-> > +static void calculate_hwp_activity_window(const xc_hwp_para_t *hwp,
-> > +                                          unsigned int *activity_windo=
-w,
-> > +                                          const char **units)
->
-> The function's return value would be nice to use for one of the two
-> values that are being returned.
+Technically our helper post-dates all of these examples, but it's good cleanup
+nevertheless.  None of these examples should be using fully locked
+test_and_set_bool() in the first place.
 
-Ok, I'll return activity_window.
+No functional change.
 
-> > +{
-> > +    unsigned int mantissa =3D hwp->activity_window & HWP_ACT_WINDOW_MA=
-NTISSA_MASK;
-> > +    unsigned int exponent =3D
-> > +        (hwp->activity_window >> HWP_ACT_WINDOW_EXPONENT_SHIFT) &
-> > +            HWP_ACT_WINDOW_EXPONENT_MASK;
->
-> I wish we had MASK_EXTR() in common-macros.h. While really a comment on
-> patch 7 - HWP_ACT_WINDOW_EXPONENT_SHIFT is redundant information and
-> should imo be omitted from the public interface, in favor of just a
-> (suitably shifted) mask value. Also note how those constants all lack
-> proper XEN_ prefixes.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Jun Nakajima <jun.nakajima@intel.com>
+CC: Kevin Tian <kevin.tian@intel.com>
+---
+ xen/arch/x86/cpu/amd.c     | 22 ++++++++--------------
+ xen/arch/x86/hvm/vmx/vmx.c | 18 ++++++------------
+ xen/arch/x86/srat.c        |  8 ++------
+ xen/arch/x86/time.c        | 19 ++++---------------
+ 4 files changed, 20 insertions(+), 47 deletions(-)
 
-I'll add a patch adding MASK_EXTR() & MASK_INSR() to common-macros.h
-and use those - is there any reason not to do that?
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index caafe4474021..630adead2fc1 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -1061,25 +1061,19 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
+ 
+ 		rdmsrl(MSR_AMD64_LS_CFG, value);
+ 		if (!(value & (1 << 15))) {
+-			static bool_t warned;
+-
+-			if (c == &boot_cpu_data || opt_cpu_info ||
+-			    !test_and_set_bool(warned))
+-				printk(KERN_WARNING
+-				       "CPU%u: Applying workaround for erratum 793\n",
+-				       smp_processor_id());
++			if (c == &boot_cpu_data || opt_cpu_info)
++				printk_once(XENLOG_WARNING
++					    "CPU%u: Applying workaround for erratum 793\n",
++					    smp_processor_id());
+ 			wrmsrl(MSR_AMD64_LS_CFG, value | (1 << 15));
+ 		}
+ 	} else if (c->x86 == 0x12) {
+ 		rdmsrl(MSR_AMD64_DE_CFG, value);
+ 		if (!(value & (1U << 31))) {
+-			static bool warned;
+-
+-			if (c == &boot_cpu_data || opt_cpu_info ||
+-			    !test_and_set_bool(warned))
+-				printk(KERN_WARNING
+-				       "CPU%u: Applying workaround for erratum 665\n",
+-				       smp_processor_id());
++			if (c == &boot_cpu_data || opt_cpu_info)
++				printk_once(XENLOG_WARNING
++					    "CPU%u: Applying workaround for erratum 665\n",
++					    smp_processor_id());
+ 			wrmsrl(MSR_AMD64_DE_CFG, value | (1U << 31));
+ 		}
+ 	}
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 096c69251d58..0f392fc0d4fe 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -1183,16 +1183,11 @@ static void cf_check vmx_get_segment_register(
+      */
+     if ( unlikely(!vmx_vmcs_try_enter(v)) )
+     {
+-        static bool_t warned;
++        printk_once(XENLOG_WARNING "Segment register inaccessible for %pv\n"
++                    "(If you see this outside of debugging activity,"
++                    " please report to xen-devel@lists.xenproject.org)\n",
++                    v);
+ 
+-        if ( !warned )
+-        {
+-            warned = 1;
+-            printk(XENLOG_WARNING "Segment register inaccessible for %pv\n"
+-                   "(If you see this outside of debugging activity,"
+-                   " please report to xen-devel@lists.xenproject.org)\n",
+-                   v);
+-        }
+         memset(reg, 0, sizeof(*reg));
+         return;
+     }
+@@ -2301,10 +2296,9 @@ static bool cf_check vmx_test_pir(const struct vcpu *v, uint8_t vec)
+ static void cf_check vmx_handle_eoi(uint8_t vector, int isr)
+ {
+     uint8_t old_svi = set_svi(isr);
+-    static bool warned;
+ 
+-    if ( vector != old_svi && !test_and_set_bool(warned) )
+-        printk(XENLOG_WARNING "EOI for %02x but SVI=%02x\n", vector, old_svi);
++    if ( vector != old_svi )
++        printk_once(XENLOG_WARNING "EOI for %02x but SVI=%02x\n", vector, old_svi);
+ }
+ 
+ static void cf_check vmx_enable_msr_interception(struct domain *d, uint32_t msr)
+diff --git a/xen/arch/x86/srat.c b/xen/arch/x86/srat.c
+index 56749ddca526..3f70338e6e23 100644
+--- a/xen/arch/x86/srat.c
++++ b/xen/arch/x86/srat.c
+@@ -55,7 +55,6 @@ nodeid_t setup_node(unsigned pxm)
+ {
+ 	nodeid_t node;
+ 	unsigned idx;
+-	static bool warned;
+ 	static unsigned nodes_found;
+ 
+ 	BUILD_BUG_ON(MAX_NUMNODES >= NUMA_NO_NODE);
+@@ -75,11 +74,8 @@ nodeid_t setup_node(unsigned pxm)
+ 		if (pxm2node[idx].node == NUMA_NO_NODE)
+ 			goto finish;
+ 
+-	if (!warned) {
+-		printk(KERN_WARNING "SRAT: Too many proximity domains (%#x)\n",
+-		       pxm);
+-		warned = true;
+-	}
++	printk_once(XENLOG_WARNING "SRAT: Too many proximity domains (%#x)\n",
++		    pxm);
+ 
+ 	return NUMA_NO_NODE;
+ 
+diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+index bc75e1ae7d42..f5e30d4e0236 100644
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -876,13 +876,8 @@ static void cf_check plt_overflow(void *unused)
+         plt_stamp64 += plt_mask + 1;
+     }
+     if ( i != 0 )
+-    {
+-        static bool warned_once;
+-
+-        if ( !test_and_set_bool(warned_once) )
+-            printk("Platform timer appears to have unexpectedly wrapped "
+-                   "%u%s times.\n", i, (i == 10) ? " or more" : "");
+-    }
++        printk_once("Platform timer appears to have unexpectedly wrapped "
++                    "%u%s times.\n", i, (i == 10) ? " or more" : "");
+ 
+     spin_unlock_irq(&platform_timer_lock);
+ 
+@@ -2156,14 +2151,8 @@ void init_percpu_time(void)
+         }
+         else if ( adj != tsc_adjust[socket] )
+         {
+-            static bool __read_mostly warned;
+-
+-            if ( !warned )
+-            {
+-                warned = true;
+-                printk(XENLOG_WARNING
+-                       "Differing TSC ADJUST values within socket(s) - fixing all\n");
+-            }
++            printk_once(XENLOG_WARNING
++                        "Differing TSC ADJUST values within socket(s) - fixing all\n");
+             wrmsrl(MSR_IA32_TSC_ADJUST, tsc_adjust[socket]);
+         }
+     }
 
-I'll also add XEN_ prefixes.
+base-commit: 31c65549746179e16cf3f82b694b4b1e0b7545ca
+-- 
+2.30.2
 
-> > +    unsigned int multiplier =3D 1;
-> > +    unsigned int i;
-> > +
-> > +    if ( hwp->activity_window =3D=3D 0 )
-> > +    {
-> > +        *units =3D "hardware selected";
-> > +        *activity_window =3D 0;
-> > +
-> > +        return;
-> > +    }
->
-> While in line with documentation, any mantissa of 0 results in a 0us
-> window, which I assume would then also mean "hardware selected".
-
-I hadn't considered that.  The hardware seems to allow you to write a
-0 mantissa, non-0 exponent.  From the SDM, it's unclear what that
-would mean.  The code as written would display "0 us", "0 ms", or "0
-s" - not "0 hardware selected".  Do you want more explicity printing
-for those cases?  I think it's fine to have a distinction between the
-output.  "0 hardware selected" is the known valid value that is
-working as expected.  The other ones being something different seems
-good to me since we don't really know what they mean.
-
-> > @@ -773,6 +811,33 @@ static void print_cpufreq_para(int cpuid, struct x=
-c_get_cpufreq_para *p_cpufreq)
-> >                 p_cpufreq->scaling_cur_freq);
-> >      }
-> >
-> > +    if ( strcmp(p_cpufreq->scaling_governor, XEN_HWP_GOVERNOR) =3D=3D =
-0 )
-> > +    {
-> > +        const xc_hwp_para_t *hwp =3D &p_cpufreq->u.hwp_para;
-> > +
-> > +        printf("hwp variables        :\n");
-> > +        printf("  hardware limits    : lowest [%u] most_efficient [%u]=
-\n",
->
-> Here and ...
->
-> > +               hwp->lowest, hwp->most_efficient);
-> > +        printf("                     : guaranteed [%u] highest [%u]\n"=
-,
-> > +               hwp->guaranteed, hwp->highest);
-> > +        printf("  configured limits  : min [%u] max [%u] energy_perf [=
-%u]\n",
->
-> ... here I wonder what use the underscores are in produced output. I'd
-> use blanks. If you really want a separator there, then please use
-> dashes.
-
-I'll use blanks.
-
-Regards,
-Jason
 
