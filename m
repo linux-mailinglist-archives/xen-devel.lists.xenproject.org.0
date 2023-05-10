@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF2846FE37C
-	for <lists+xen-devel@lfdr.de>; Wed, 10 May 2023 19:51:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.532987.829341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E9116FE3AD
+	for <lists+xen-devel@lfdr.de>; Wed, 10 May 2023 20:12:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.532995.829351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwnx0-0002fj-DQ; Wed, 10 May 2023 17:50:06 +0000
+	id 1pwoI3-0005NA-8F; Wed, 10 May 2023 18:11:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 532987.829341; Wed, 10 May 2023 17:50:06 +0000
+Received: by outflank-mailman (output) from mailman id 532995.829351; Wed, 10 May 2023 18:11:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwnx0-0002dC-AU; Wed, 10 May 2023 17:50:06 +0000
-Received: by outflank-mailman (input) for mailman id 532987;
- Wed, 10 May 2023 17:50:05 +0000
+	id 1pwoI3-0005LL-5P; Wed, 10 May 2023 18:11:51 +0000
+Received: by outflank-mailman (input) for mailman id 532995;
+ Wed, 10 May 2023 18:11:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=e4GJ=A7=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1pwnwz-0002YO-64
- for xen-devel@lists.xenproject.org; Wed, 10 May 2023 17:50:05 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1pwoI1-0005LD-EN
+ for xen-devel@lists.xenproject.org; Wed, 10 May 2023 18:11:49 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 17440444-ef5b-11ed-8611-37d641c3527e;
- Wed, 10 May 2023 19:50:03 +0200 (CEST)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-50bd37ca954so71378593a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 May 2023 10:50:03 -0700 (PDT)
+ id 20b971cd-ef5e-11ed-8611-37d641c3527e;
+ Wed, 10 May 2023 20:11:47 +0200 (CEST)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-50bc0ced1d9so11371986a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 10 May 2023 11:11:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,207 +40,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17440444-ef5b-11ed-8611-37d641c3527e
+X-Inumbo-ID: 20b971cd-ef5e-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683741002; x=1686333002;
+        d=gmail.com; s=20221208; t=1683742307; x=1686334307;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WlhCSp4HvAjawplHt1DQMmD8fJoyJaQJKiGyjRIHpzk=;
-        b=bJiMPeZdTjx/2JTkVvVTJQCgz6PT5hL+swcSBTmAbcARup4+nQ/YQvXhsZWgHjOVEi
-         Ogb3UpGkW8fGgOBP9tgEEdjhzY4l4MQrhNLCRm2g+ifjfIbkgr7Xh1btUb3rc9eFvCeS
-         qRMQTZQM0DkglOGMSR4aQuVInZCyJNDKhJ/bm0BEG1cWOdX4Kn+Z9wk2ODn9peCr23qK
-         ip0wz8ZuUhCvKX9iOjCYyl++R2RAdTUpWIdvuEQXO2sBa5AyHJbeZmB278kpbaagAKZI
-         PFmZX0SnL4W5wjuY+iXtn0u8VFEPyNj2XBIDdEfmUA9agC3fdVPoQS10rXm5lpSvqpVJ
-         PdXg==
+        bh=NhillotERfDC11pI/SjbWszv+x7ZdZYj7Ka2Ky8L5ZI=;
+        b=gCqsC0iOF1MAHnPS+2arCcorZ6UW1WZ7SW4zXFghfDXU/xtopNcxXMkZW4+1rN7TsP
+         TLksRHEk/xV+P61+rjZZvBQOPn4EkFYqVxCK0DCI14Hq0jM7w1E5s7jIqw4YjAMffC+5
+         ClOju4FTNUytPo+7YuZkAbGdNZKBAL7H3K7CT2H6WqUw40ihaOct32INNPcouw04DNTU
+         rjFWzrmqGcnlm+bbyX8V6mvdvxtaUBDhP5nxWLfAc+cCRpm3PqXwkcv+9500jG9qnzt2
+         l/fXlNyeOUib5gMj7FBoEp95or604hnQ5joItKy8vevxfjn9f3oU3uBiqCTg4CJjnFwp
+         VTcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683741002; x=1686333002;
+        d=1e100.net; s=20221208; t=1683742307; x=1686334307;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=WlhCSp4HvAjawplHt1DQMmD8fJoyJaQJKiGyjRIHpzk=;
-        b=ZKHHsC4w2e21fOr3mjIxUYiFqegcYQJdTC5cBT7HwPHmAaKoRsPZoupQnNF1e9UytP
-         QLe2JACvRFCswpnmYkZiV5J3ylq8IE8kqoyCEiQeAhYlfNmA0RyVTrIFxG/BWXeUbLJ1
-         TvD2vqQLEvtzmv5Yb14qemzWrooxa1xLm4y4eBQKCTYZwFihFy7SpnGnO4UimaSneRbh
-         GUBlNN0VUV8gO9znwBOjBxctLxvvUosI4Zi2ybAvFmmI+Gu1VsDbMypsaMgkQscf8SME
-         eZ1I/BNliPCnozH3kOsXOn1V9bXZnTqL85FQ4cl8QnwsjIBcd7XGc/94MD6kjnC5NOv9
-         ud5w==
-X-Gm-Message-State: AC+VfDxZX/XhFoDUQvIH8vCx1gduYLkN8d+zFqvJvFxyfYjUnwrkJXcT
-	2RNrY6Q37Pefe4fwyt2ChnnZ7ri2i6coHUPJhYk=
-X-Google-Smtp-Source: ACHHUZ5MgXLjWye+NCjf+WfmtC/BVN76xVRxSKQHQ/FSXFstIs8dYL1frcMRmk/PKSW+cJb/dk9DovAHWE288vTowis=
-X-Received: by 2002:a17:907:3e2a:b0:966:4973:b35 with SMTP id
- hp42-20020a1709073e2a00b0096649730b35mr11320928ejc.22.1683741002253; Wed, 10
- May 2023 10:50:02 -0700 (PDT)
+        bh=NhillotERfDC11pI/SjbWszv+x7ZdZYj7Ka2Ky8L5ZI=;
+        b=OzpFPlPd3O9Ss9JShseYZg+bVswVqJlOR80FNDo7UkBODDwLs7gHYKW/9oBK3Khngg
+         Q91prNCu5IiXyIQtd1y8E6cp6JS358HYzoV5mYMywUVRJC6RQwlytms7rzUFcn7IzCeP
+         X2/FH6eAJXJynq0XB7FLhpeJkMVBJG9v7qXkbkJAF4ZhCUFIgve8Mz7oxo+14dyH20he
+         RhRvvVpuATTjBCZ9RWjJycOUrZD55FdH8bH2aE40yJHTqltQRgDnx83p/Fz4X9sQLVL9
+         ISIrojvOzozs/QPJ7W6F/HcJjLaHyfd3PN5owL60IV5LSamTkHpUi2lzm5HLvfim+U8l
+         ZGWA==
+X-Gm-Message-State: AC+VfDxWpc/6bCa8Z52vCt18m4LZIywi+NDpZe9aRqOk7SDNT13o45Ct
+	oexgl73ISZY+I8Bd+eqTqxTJj+BQ0C55g1x9qy+h5bwXkmE=
+X-Google-Smtp-Source: ACHHUZ5sff9gdoF+tagHOWQt7z7g7hkn4GCWMfGXusRwqibUsKH2ln6NBtzX9BXarP483iqXd/+O8nh4hpw5PsGVVlo=
+X-Received: by 2002:a17:906:da8e:b0:94f:7c4e:24ea with SMTP id
+ xh14-20020a170906da8e00b0094f7c4e24eamr14918920ejb.38.1683742306719; Wed, 10
+ May 2023 11:11:46 -0700 (PDT)
 MIME-Version: 1.0
-References: <20230501193034.88575-1-jandryuk@gmail.com> <20230501193034.88575-8-jandryuk@gmail.com>
- <7db38688-1233-bc16-03f3-7afdc3394054@suse.com> <9cf71407-6209-296a-489a-9732b1928246@suse.com>
-In-Reply-To: <9cf71407-6209-296a-489a-9732b1928246@suse.com>
+References: <20230501193034.88575-1-jandryuk@gmail.com> <20230501193034.88575-10-jandryuk@gmail.com>
+ <256fc66c-066f-3f0c-b34b-a237e9268f22@suse.com>
+In-Reply-To: <256fc66c-066f-3f0c-b34b-a237e9268f22@suse.com>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 10 May 2023 13:49:50 -0400
-Message-ID: <CAKf6xptOf7eSzstzjfbbSU0tMBpNjtPEwt2uNzj=2TucrgFRiA@mail.gmail.com>
-Subject: Re: [PATCH v3 07/14 RESEND] cpufreq: Export HWP parameters to userspace
+Date: Wed, 10 May 2023 14:11:34 -0400
+Message-ID: <CAKf6xpu=KiSkjGpyRYBCpYh67XhdtmjvwLjthkpTbE+HoNQm7g@mail.gmail.com>
+Subject: Re: [PATCH v3 09/14 RESEND] xenpm: Print HWP parameters
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+	xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 8, 2023 at 6:26=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+On Mon, May 8, 2023 at 6:43=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
 e:
 >
 > On 01.05.2023 21:30, Jason Andryuk wrote:
-> > Extend xen_get_cpufreq_para to return hwp parameters.  These match the
-> > hardware rather closely.
+> > Print HWP-specific parameters.  Some are always present, but others
+> > depend on hardware support.
 > >
-> > We need the features bitmask to indicated fields supported by the actua=
-l
-> > hardware.
+> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> > ---
+> > v2:
+> > Style fixes
+> > Declare i outside loop
+> > Replace repearted hardware/configured limits with spaces
+> > Fixup for hw_ removal
+> > Use XEN_HWP_GOVERNOR
+> > Use HWP_ACT_WINDOW_EXPONENT_*
+> > Remove energy_perf hw autonomous - 0 doesn't mean autonomous
+> > ---
+> >  tools/misc/xenpm.c | 65 ++++++++++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 65 insertions(+)
 > >
-> > The use of uint8_t parameters matches the hardware size.  uint32_t
-> > entries grows the sysctl_t past the build assertion in setup.c.  The
-> > uint8_t ranges are supported across multiple generations, so hopefully
-> > they won't change.
->
-> Still it feels a little odd for values to be this narrow. Aiui the
-> scaling_governor[] and scaling_{max,min}_freq fields aren't (really)
-> used by HWP. So you could widen the union in struct
-> xen_get_cpufreq_para (in a binary but not necessarily source compatible
-> manner), gaining you 6 more uint32_t slots. Possibly the somewhat oddly
-> placed scaling_cur_freq could be included as well ...
-
-The values are narrow, but they match the hardware.  It works for HWP,
-so there is no need to change at this time AFAICT.
-
-Do you want me to make this change?
-
-> > --- a/xen/arch/x86/acpi/cpufreq/hwp.c
-> > +++ b/xen/arch/x86/acpi/cpufreq/hwp.c
-> > @@ -506,6 +506,31 @@ static const struct cpufreq_driver __initconstrel =
-hwp_cpufreq_driver =3D
-> >      .update =3D hwp_cpufreq_update,
-> >  };
+> > diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
+> > index ce8d7644d0..b2defde0d4 100644
+> > --- a/tools/misc/xenpm.c
+> > +++ b/tools/misc/xenpm.c
+> > @@ -708,6 +708,44 @@ void start_gather_func(int argc, char *argv[])
+> >      pause();
+> >  }
 > >
-> > +int get_hwp_para(const struct cpufreq_policy *policy,
+> > +static void calculate_hwp_activity_window(const xc_hwp_para_t *hwp,
+> > +                                          unsigned int *activity_windo=
+w,
+> > +                                          const char **units)
 >
-> While I don't really mind a policy being passed into here, ...
->
-> > +                 struct xen_hwp_para *hwp_para)
+> The function's return value would be nice to use for one of the two
+> values that are being returned.
+
+Ok, I'll return activity_window.
+
 > > +{
-> > +    unsigned int cpu =3D policy->cpu;
+> > +    unsigned int mantissa =3D hwp->activity_window & HWP_ACT_WINDOW_MA=
+NTISSA_MASK;
+> > +    unsigned int exponent =3D
+> > +        (hwp->activity_window >> HWP_ACT_WINDOW_EXPONENT_SHIFT) &
+> > +            HWP_ACT_WINDOW_EXPONENT_MASK;
 >
-> ... this is its only use afaics, and hence the caller could as well pass
-> in just a CPU number?
+> I wish we had MASK_EXTR() in common-macros.h. While really a comment on
+> patch 7 - HWP_ACT_WINDOW_EXPONENT_SHIFT is redundant information and
+> should imo be omitted from the public interface, in favor of just a
+> (suitably shifted) mask value. Also note how those constants all lack
+> proper XEN_ prefixes.
 
-Sounds good.
+I'll add a patch adding MASK_EXTR() & MASK_INSR() to common-macros.h
+and use those - is there any reason not to do that?
 
-> > --- a/xen/include/public/sysctl.h
-> > +++ b/xen/include/public/sysctl.h
-> > @@ -292,6 +292,31 @@ struct xen_ondemand {
-> >      uint32_t up_threshold;
-> >  };
+I'll also add XEN_ prefixes.
+
+> > +    unsigned int multiplier =3D 1;
+> > +    unsigned int i;
+> > +
+> > +    if ( hwp->activity_window =3D=3D 0 )
+> > +    {
+> > +        *units =3D "hardware selected";
+> > +        *activity_window =3D 0;
+> > +
+> > +        return;
+> > +    }
+>
+> While in line with documentation, any mantissa of 0 results in a 0us
+> window, which I assume would then also mean "hardware selected".
+
+I hadn't considered that.  The hardware seems to allow you to write a
+0 mantissa, non-0 exponent.  From the SDM, it's unclear what that
+would mean.  The code as written would display "0 us", "0 ms", or "0
+s" - not "0 hardware selected".  Do you want more explicity printing
+for those cases?  I think it's fine to have a distinction between the
+output.  "0 hardware selected" is the known valid value that is
+working as expected.  The other ones being something different seems
+good to me since we don't really know what they mean.
+
+> > @@ -773,6 +811,33 @@ static void print_cpufreq_para(int cpuid, struct x=
+c_get_cpufreq_para *p_cpufreq)
+> >                 p_cpufreq->scaling_cur_freq);
+> >      }
 > >
-> > +struct xen_hwp_para {
-> > +    /*
-> > +     * bits 6:0   - 7bit mantissa
-> > +     * bits 9:7   - 3bit base-10 exponent
-> > +     * btis 15:10 - Unused - must be 0
-> > +     */
-> > +#define HWP_ACT_WINDOW_MANTISSA_MASK  0x7f
-> > +#define HWP_ACT_WINDOW_EXPONENT_MASK  0x7
-> > +#define HWP_ACT_WINDOW_EXPONENT_SHIFT 7
-> > +    uint16_t activity_window;
-> > +    /* energy_perf range 0-255 if 1. Otherwise 0-15 */
-> > +#define XEN_SYSCTL_HWP_FEAT_ENERGY_PERF (1 << 0)
-> > +    /* activity_window supported if 1 */
-> > +#define XEN_SYSCTL_HWP_FEAT_ACT_WINDOW  (1 << 1)
-> > +    uint8_t features; /* bit flags for features */
-> > +    uint8_t lowest;
-> > +    uint8_t most_efficient;
-> > +    uint8_t guaranteed;
-> > +    uint8_t highest;
-> > +    uint8_t minimum;
-> > +    uint8_t maximum;
-> > +    uint8_t desired;
-> > +    uint8_t energy_perf;
+> > +    if ( strcmp(p_cpufreq->scaling_governor, XEN_HWP_GOVERNOR) =3D=3D =
+0 )
+> > +    {
+> > +        const xc_hwp_para_t *hwp =3D &p_cpufreq->u.hwp_para;
+> > +
+> > +        printf("hwp variables        :\n");
+> > +        printf("  hardware limits    : lowest [%u] most_efficient [%u]=
+\n",
 >
-> These fields could do with some more commentary. To be honest I had
-> trouble figuring (from the SDM) what exact meaning specific numeric
-> values have. Readers of this header should at the very least be told
-> where they can turn to in order to understand what these fields
-> communicate. (FTAOD this could be section names, but please not
-> section numbers. The latter are fine to use in a discussion, but
-> they're changing too frequently to make them useful in code
-> comments.)
-
-Sounds good.  I'll add some description.
-
-> > +};
+> Here and ...
 >
-> Also, if you decide to stick to uint8_t, then the trailing padding
-> field (another uint8_t) wants making explicit. I'm on the edge
-> whether to ask to also check the field: Right here the struct is
-> "get only", and peeking ahead you look to be introducing a separate
-> sub-op for "set". Perhaps if you added /* OUT */ at the top of the
-> new struct? (But if you don't check the field for being zero, then
-> you'll want to set it to zero for forward compatibility.)
-
-Thanks for catching.  I'll add the padding field and zero it.
-
-On Mon, May 8, 2023 at 6:47=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
-e:
+> > +               hwp->lowest, hwp->most_efficient);
+> > +        printf("                     : guaranteed [%u] highest [%u]\n"=
+,
+> > +               hwp->guaranteed, hwp->highest);
+> > +        printf("  configured limits  : min [%u] max [%u] energy_perf [=
+%u]\n",
 >
-> On 08.05.2023 12:25, Jan Beulich wrote:
-> > On 01.05.2023 21:30, Jason Andryuk wrote:
-> >> Extend xen_get_cpufreq_para to return hwp parameters.  These match the
-> >> hardware rather closely.
-> >>
-> >> We need the features bitmask to indicated fields supported by the actu=
-al
-> >> hardware.
-> >>
-> >> The use of uint8_t parameters matches the hardware size.  uint32_t
-> >> entries grows the sysctl_t past the build assertion in setup.c.  The
-> >> uint8_t ranges are supported across multiple generations, so hopefully
-> >> they won't change.
-> >
-> > Still it feels a little odd for values to be this narrow. Aiui the
-> > scaling_governor[] and scaling_{max,min}_freq fields aren't (really)
-> > used by HWP. So you could widen the union in struct
-> > xen_get_cpufreq_para (in a binary but not necessarily source compatible
-> > manner), gaining you 6 more uint32_t slots. Possibly the somewhat oddly
-> > placed scaling_cur_freq could be included as well ...
->
-> Having seen patch 9 now as well, I wonder whether here (or in a separate
-> patch) you don't want to limit providing inapplicable data (for example
-> not filling *scaling_available_governors would even avoid an allocation,
-> thus removing a possible reason for failure), while there (or again in a
-> separate patch) you'd also limit what the tool reports (inapplicable
-> output causes confusion / questions at best).
+> ... here I wonder what use the underscores are in produced output. I'd
+> use blanks. If you really want a separator there, then please use
+> dashes.
 
-The xenpm output only shows relevant information:
-
-# xenpm get-cpufreq-para 11
-cpu id               : 11
-affected_cpus        : 11
-cpuinfo frequency    : base [1600000] max [4900000]
-scaling_driver       : hwp-cpufreq
-scaling_avail_gov    : hwp
-current_governor     : hwp
-hwp variables        :
-  hardware limits    : lowest [1] most_efficient [11]
-                     : guaranteed [11] highest [49]
-  configured limits  : min [1] max [255] energy_perf [128]
-                     : activity_window [0 hardware selected]
-                     : desired [0 hw autonomous]
-turbo mode           : enabled
-
-The scaling_*_freq values, policy->{min,max,cur} are filled in with
-base, max and 0 in hwp_get_cpu_speeds(), so it's not totally invalid
-values being returned.  The governor registration restricting to only
-internal governors when HWP is active means it only has the single
-governor.  I think it's okay as-is, but let me know if you want
-something changed.
+I'll use blanks.
 
 Regards,
 Jason
