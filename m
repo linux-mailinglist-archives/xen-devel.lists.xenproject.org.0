@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56ACE6FF5BE
-	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 17:21:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533463.830164 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B23536FF5D2
+	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 17:23:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533467.830174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1px864-0004TV-3G; Thu, 11 May 2023 15:20:48 +0000
+	id 1px88V-00052h-Gc; Thu, 11 May 2023 15:23:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533463.830164; Thu, 11 May 2023 15:20:48 +0000
+Received: by outflank-mailman (output) from mailman id 533467.830174; Thu, 11 May 2023 15:23:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1px864-0004R6-0A; Thu, 11 May 2023 15:20:48 +0000
-Received: by outflank-mailman (input) for mailman id 533463;
- Thu, 11 May 2023 15:20:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1px88V-0004zr-DZ; Thu, 11 May 2023 15:23:19 +0000
+Received: by outflank-mailman (input) for mailman id 533467;
+ Thu, 11 May 2023 15:23:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DXxA=BA=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1px862-0004R0-Gx
- for xen-devel@lists.xenproject.org; Thu, 11 May 2023 15:20:46 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20622.outbound.protection.outlook.com
- [2a01:111:f400:7e8d::622])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6580dff9-f00f-11ed-b229-6b7b168915f2;
- Thu, 11 May 2023 17:20:44 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by BN9PR12MB5290.namprd12.prod.outlook.com (2603:10b6:408:103::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.21; Thu, 11 May
- 2023 15:20:41 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::ef8d:bf8a:d296:ec2c]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::ef8d:bf8a:d296:ec2c%7]) with mapi id 15.20.6363.033; Thu, 11 May 2023
- 15:20:41 +0000
+ <SRS0=3dl8=BA=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1px88G-0004zW-K4
+ for xen-devel@lists.xenproject.org; Thu, 11 May 2023 15:23:18 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b27b2d23-f00f-11ed-8611-37d641c3527e;
+ Thu, 11 May 2023 17:22:54 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 50AA75C00EE;
+ Thu, 11 May 2023 11:22:52 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Thu, 11 May 2023 11:22:52 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 11 May 2023 11:22:51 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,128 +43,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6580dff9-f00f-11ed-b229-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g87zleXaVIEW4oaBKiY0RkQyXilG8X1j19Nj9KZCm2RGp5XU0Y214yXzO6TSR82e/dgDr2aIpPTcWT3w82bljnEsRPHSlS6eyuXkjpwnfEQlXVdyTRc4ubRyBsVPRht1QmjS9unG8b1I+WkcHJwcxqHvJlPzwUDdrMsb2b/hZtwzcr1Dyo6tMg/9+xoB3104dADcR8zI8MgVpBZLaKcDZ8beEonozhoi3MBf4dFCQz0PXVFb1BLmlLeA0ZSZCtN5GLnAUFmQzwSOkpo1ZPHTDzAMhZoQh8uXwfjaip5l+dkeoSK9ckjj//mIK9XW/dpymVWRHsXelHi0J6zIETSX6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AwKN5ctfo4h345rsU1a5vyrdU45foxlxf5zSETQJSko=;
- b=L8BVRObG0QwtYAOlc4K7jYObI1g0NnqIh/d5YdN0RGXxusa7lvQrQFq1s0M/L1YxlI7qj6Qy3s8ShlQHo64JjsEs75hD39PxZipvx7DnePDAIHmYkH9YWQI0IhJF7Q7UHqsYay28thxOuFQFTh8m6OgdmbyuaHRTQZyo22e/H3PWMfNdzuvByST+7p5wEb+xq2NmFfQKZkLGuDPvI/U0emESLupgHmSYRp00JK3nbqWqO2/lcEMmIYl/gEIMVXhvuqTymH3BSkhH0/8yFlKg9neGdVUBZKkp2IwQYOdpljZrurHUUTmtBvCEYFNyzQnLNT2xw4HTK0bZ7y0vSyBufA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AwKN5ctfo4h345rsU1a5vyrdU45foxlxf5zSETQJSko=;
- b=Hf9vJQ/EtEdtfefmF8BM+uSEo0puhjWPhcSRRWw/kQwW3yYqIxskuv1bsGPFKHJxKsMkA6sRo/gR5jg+gkWM5HPr8PNNROmxfb/EWGLDzOFK6TxhrO8KWZYas7yF/cn829JsLLMFa38btZg1/fIbeJhrhduMLw8878TKtQ2JDZk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <773f3bb2-249d-c6e9-13b4-e7637e1035b3@amd.com>
-Date: Thu, 11 May 2023 16:20:36 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.1
-Subject: Re: [PATCH v2 1/2] xen/arm: domain_build: Propagate return code of
- map_irq_to_domain()
-To: xen-devel@lists.xenproject.org, Michal Orzel <michal.orzel@amd.com>
-References: <20230511130218.22606-1-michal.orzel@amd.com>
- <20230511130218.22606-2-michal.orzel@amd.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <20230511130218.22606-2-michal.orzel@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0457.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a2::13) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: b27b2d23-f00f-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1683818572; x=1683904972; bh=YliH59hT2gaIIGacYHQkH/P/AUqcG8p3geu
+	Ha5iQB+U=; b=cteZTWaOk5K7FZBWhFD4UDwgRl6KAFrIJp8X732p9WnxiAWLEQK
+	7EZ9Pg2aEWhW5km9GXDsmsuoTHOPFDHrDq8b70/jPtnblSTZnU+qTTFs3cbUWbb4
+	myt9PZCdHlgHz29/maCOEzG6O4y4sX5172lGQ2S/zZMoV+3iGoXubGGsqW7PQtT2
+	pV3gZca5+6J4+8egaCjZc8bfZY4/vNm+lACI1t5mPw4k7OlM8AJug7ApEt7Ttbiq
+	U+7g1+EnfFXXwWVWb3Jh4VuXVQz1L7BVLGmSSaKhYNRvSA+LhHpTCINaSe2mLcP3
+	66L4uy/SlFcj6LUZ1evnEseLCrR8Gd6KUSA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm3; t=1683818572; x=1683904972; bh=YliH59hT2gaII
+	GacYHQkH/P/AUqcG8p3geuHa5iQB+U=; b=hIxK3irsrL9OcWotPMv0cHqIurLXM
+	CwyPY2C3vwmuZXKPphHGH+qenxn9wWNfpGW0zzqd/OERvbfejtKwyADMYcPAF5h1
+	XQ0D05xz+QhvQ71x2WLwjiGZ6nWIKHUPXF0c5AHmWn0J6fwyU/8ixGCD7ZcZJXU3
+	xj9Mrj0hiP4iyY8egkXDKJ+U27yYstTdHVMNf3dlJDHAeWwqoQ0lDUgCAL9SCi2V
+	rgXUBHtnDj/FGr4r/FvxetevIohfCbYnBasaSlOgP1mxUft4VFlzFHcTTFfFiB7G
+	nEgtj9OJ3p0YDj9NzEt6rz3GEr1ZOyR5LEcHAgXAKN1r8tVGcutxO9XeA==
+X-ME-Sender: <xms:TAhdZFeYlcxr1g73oNCDdvfFbrHSEfZn1U3Qsi6dJe1PP1eSx91oqQ>
+    <xme:TAhdZDMjuqwn2rQ8aQQZDzHh4uweWwjWHn6059pTbVMCGUXAeX2mbozoi206GzUcn
+    5Sk7wWauFX7Dw>
+X-ME-Received: <xmr:TAhdZOgmRWsKcbmh60C-nPkEtuuFLeZbghlhwBc2PufMdwh8LDpMkYH6TfBNHycbJE2T0AHGF9M1kNH61f9jjAuth5MNlbrEiCE>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeegkedgkeekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:TAhdZO9sKSBCudRh8e2CqNH10x4RDC2r9U6UQeJdjGG9blT86ldFzA>
+    <xmx:TAhdZBvgGdTKWQ0rR3Eti0h250GZHpaLisnaQB57n01AuWNfaMRS2g>
+    <xmx:TAhdZNFJJxIPMsJgIKWAeAFhNUHDNBzaa-Kba5Pyzs_43uIC_csXHQ>
+    <xmx:TAhdZG5p_hLCFz_es-3jYdUxYLp8Caq3_5zWfU_DYJr8gz8xeG2hNw>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 11 May 2023 17:22:48 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 0/2] Add API for making parts of a MMIO page R/O and
+ use it in XHCI console
+Message-ID: <ZF0ISD/uMns0aLtd@mail-itl>
+References: <cover.dd82aca339854e90ffe12e7bc4298254a6caaf0d.1683321183.git-series.marmarek@invisiblethingslab.com>
+ <CAKf6xpspPdt6mM4MuL2-vwXHu23ahm874e4kZqROqCwC4cd=fA@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|BN9PR12MB5290:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe507d2d-475c-448d-6857-08db52334841
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	BAtGrjjHghJyYSnJX4RCZ9hPTd7HQxeHyCms6r13SYLYpuG0JD4wbUdSsCzGQ4JNLKvrtN2qyRChsDtRshSN8MIgIicH1EMgt3abnK6TqrFxMJFkQPmLz2hBuXO/lBnsKhKiog0itCgYNviUrB6T7UESMeO9G99d7z2SsbzGFyKM0GrBmsT3kxECJp6HcfbZnheMLJijJvHH5fhWtTn3/UkHyZ/ZOCiM3Tb4fRVHiSKzkwD4YGFGt1Lk1+nhoSsu9LpC6iAbTu5eyvTV0DzhDL7jqIb5xKwTtGG8SrCX/LW5QXYOAjHKWE4xc/MV+wOFwFQIXQFNJ2w6gfqvdpOjIjZH24DSvy3DapuRe083IhCvxk1dp6dPkpfDXTmY2UiGeis9X+/cK3JpHUBpZ+/l4nLEIaT2mYaD8R+rJsIL91x235AlhHC5JP0q/wc9FHKk4DLhEB1Vg7J9IyXuSs/wyiIdl91f03pF446L3/2WV4ZBS4fkeOBlSoATbs/HxUffki3okb8RDcKr30Cq0rOre3FDiEz7CeTXcHaMtLZJTSdXZ/cmA5ddiT1GVSLuvmyqsiNNuS8qP4dgPbe6QaXakh5pUYKR2Y1ucMztM9OBGdScyuFxRtT3d1JhERbrha2J2s90JQW/EyVeixfM8VEPlg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(39860400002)(396003)(376002)(366004)(136003)(451199021)(8936002)(8676002)(5660300002)(38100700002)(6486002)(6862004)(6636002)(36756003)(66476007)(66556008)(66946007)(316002)(478600001)(41300700001)(6666004)(37006003)(2906002)(2616005)(31696002)(186003)(6512007)(31686004)(83380400001)(6506007)(26005)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NDB2bzlHaUYzYkQ4R2dUK3VXTGpJaks5RHo3UVJ1eGh1WEdQeUpPc1ZYaDRW?=
- =?utf-8?B?M0JhSjJQSGVWOXpyWlpCSjlpMmZiaDN5ek9QWVE5bDRYVXpJbGVrVEZELzZl?=
- =?utf-8?B?NlhRaTRaYjZ5cmZ0ckNmLzRlUVVxQVJFcmJ0OGRjT0hqUFRUbHVTditiMzVW?=
- =?utf-8?B?ZElwSmNOZkJKcTFzSVJIUFVkWExtUENTNTVKbnNsdUFxUWV4K01yQk1BSWxa?=
- =?utf-8?B?WVlzOG1VVnNZMjNYZUl6QkJzeFJHbStpYWNBb3lvWEJpQ2VaOTJpVUJnZVJw?=
- =?utf-8?B?TWxNMjE2bVpuU1NtakthK0k4aVZLcEpKdGptY3Z4OGhmeWNxNC81Vlp5VFBa?=
- =?utf-8?B?aUNpdklKWDdqakdSZzJpbFkvQmU0RU1iY1BZdlZLNi93aUpGYUNKSWYvZDR3?=
- =?utf-8?B?MFcyZTA2RFFOa3cyOGVGcGJMNVpFWXFCcnFiM2RrRWk3dUQxcTFXbjVsREJZ?=
- =?utf-8?B?Z0duMmJHSDJNVnFrSCt2WExUN1J4ZFB2aHRNUnI3OTlPNVFPQVVINzVCdlp5?=
- =?utf-8?B?NmNsSTc5TkQwa3VPV1czenNqdDlkZ2ptcm94aXBuUFR5ODQ2Z2Nha2Y1by9Y?=
- =?utf-8?B?djBCMUlZaTE4ZmxPSEpHUFpLalg4R3Awdk5MbzVRZFZFNnQ2elI4bDJtREpv?=
- =?utf-8?B?aEQrdlFCeThlVUhPSmFtSXZYcGhYaVFoS2ZPcDI0Nk80Z0ZvYk1rdjVZMlZF?=
- =?utf-8?B?cjVtSmwyUkl3ejVnL0huVlo3aXlUSVFRSFVKV1ZIS0pWQ3dpb1ZkWTdhWllr?=
- =?utf-8?B?dkM4eVZiRldLVC9WL1lwOWw4NDFnb0pUd01vSWN6UDNPWmMxMnoycENXY0hX?=
- =?utf-8?B?LzdSYUQvdVJ4czZDWjkvRTlLTyt1SUZXQndidXhCaVh6NGtPbldFWTNGbzhk?=
- =?utf-8?B?dHljdDBIU3M0bTNKcm5RNmZZSkExaVRBVElpTkFoZmwvbE8rQlJTeGxOUzV2?=
- =?utf-8?B?aGU5aHdsaloxQnBmbnFmczhwNkROVEljanh2b2h5eGNHbU1tT090dFk5ZWQx?=
- =?utf-8?B?enJBdnY1RnhhMTk1NUNOQi95eDZJZ2orOHZaV0wxQ2lBRVdCOXQ1N2tHMlNq?=
- =?utf-8?B?Zk80REJ0d0tFVFg5bDg0d1RTdHdZVFhoOEhOa1NtcERTZ2FrMnBHSjZFeGdO?=
- =?utf-8?B?TDFUOVpnUXEwcU12ZEp6YUNSVFdDNmM2c1lQaFY2T01SKzBTVVVZV1hlV09z?=
- =?utf-8?B?cmVNZlRxMG5jWFFvTnMzdGc2cW8vRy9hY01rSFJhczJ2cjBLWXBaRUpxak9w?=
- =?utf-8?B?M3ZrMFVUajJCUnVyR21sQmppeUNVdGVhV1pzVjk5SkxvanpjZ0ZpTFpTek0y?=
- =?utf-8?B?b1haOURkS3BLZ05QNG1SWElHL0Jwb1FDYzMzdEVrcWlrN3BCSmtaTC9zckJH?=
- =?utf-8?B?TnlkcjJVMWdoem1GQVVZV09oVmJQVStnYXJMNFRYSC9WQlVuZmk4Wms5ZHM4?=
- =?utf-8?B?QVl1Tlp2V1VZZy9lLzlFS2RSdVpmQlFMZU5TQSt3MzU3cnh2TFdVQ1BxY2xw?=
- =?utf-8?B?UkJBTytWbWpWUFlKM2FLZDQ2TnEvZDdsRURvMnBSNngxRTRxSDNsKzhtVUJq?=
- =?utf-8?B?ck5ya1FwYS93K0tqR2k2UUhWSnFiMThkeWswNVhUK1lhYjBTSS9zTnM3MUh2?=
- =?utf-8?B?TEE1SWlCR0Q1YlBQUU4ybHBIZmplNlRaclhrY1pwWCt1cHR4dzFoblpBYVh1?=
- =?utf-8?B?WXF3bkFlSitVcFJndlE0UndUTThkakhUUVVHMzhCYU9xcnc4ZURMQTk0Tm91?=
- =?utf-8?B?dGRJMGtvdXFWL3NSVzlTZDZBVE0wRWw5SDduRjgyYmFvcW02MWt5Z0w3cDg4?=
- =?utf-8?B?bWsxSlJUSUl5ODlWanllbU4vQXpTek1qWlgzTTE5akt2Nk1oTTNSMGhsTXEz?=
- =?utf-8?B?SVFOVzkyeHEzQXVrazJKVWRxRW9YRzZYY2Q0WlpuZndJYVNSREp6L1d0Mkln?=
- =?utf-8?B?RWxETU95WHJncGdGOThBbDJCUnMzUlpGKzlPNndDdzB2eDB4WU5HOVlVemR0?=
- =?utf-8?B?QjY4N1I4WldVWnRURUZESHkybDdrUlhVN0xSOGpheUprOHRiNjdicXB0STJk?=
- =?utf-8?B?WEJYUlc4c1pVVnlTSnZRVUpucUl4SzRsNEhxT0t4TVNrdG1halRWRkY3cS9M?=
- =?utf-8?Q?HDLZTLy9l8GR2ArrFa9Vmc8C5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe507d2d-475c-448d-6857-08db52334841
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2023 15:20:41.5072
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o277S/qqTIRJZ0U3YqGerTQEaVwqo6asS5iq7aurkFUWieC9scEGcuzu9kmkGT9gZkGsUSXqeXQ06dMHlT4gtw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5290
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="7EIq/qd3Zxw5tvMI"
+Content-Disposition: inline
+In-Reply-To: <CAKf6xpspPdt6mM4MuL2-vwXHu23ahm874e4kZqROqCwC4cd=fA@mail.gmail.com>
 
 
-On 11/05/2023 14:02, Michal Orzel wrote:
->  From map_dt_irq_to_domain() we are assigning a return code of
-> map_irq_to_domain() to a variable without checking it for an error.
-> Fix it by propagating the return code directly since this is the last
-> call.
->
-> Fixes: 467e5cbb2ffc ("xen: arm: consolidate mmio and irq mapping to dom0")
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> Changes in v2:
->   - split the patch so that a fix alone can be backported
-> ---
->   xen/arch/arm/domain_build.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index f80fdd1af206..9dee1bb8f21c 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -2320,7 +2320,7 @@ static int __init map_dt_irq_to_domain(const struct dt_device_node *dev,
->   
->       res = map_irq_to_domain(d, irq, !mr_data->skip_mapping, dt_node_name(dev));
->   
-> -    return 0;
-> +    return res;
->   }
->   
->   int __init map_range_to_domain(const struct dt_device_node *dev,
+--7EIq/qd3Zxw5tvMI
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 11 May 2023 17:22:48 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 0/2] Add API for making parts of a MMIO page R/O and
+ use it in XHCI console
+
+On Thu, May 11, 2023 at 10:58:48AM -0400, Jason Andryuk wrote:
+> On Fri, May 5, 2023 at 5:26=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com> wrote:
+> >
+> > On older systems, XHCI xcap had a layout that no other (interesting) re=
+gisters
+> > were placed on the same page as the debug capability, so Linux was fine=
+ with
+> > making the whole page R/O. But at least on Tiger Lake and Alder Lake, L=
+inux
+> > needs to write to some other registers on the same page too.
+> >
+> > Add a generic API for making just parts of an MMIO page R/O and use it =
+to fix
+> > USB3 console with share=3Dyes or share=3Dhwdom options. More details in=
+ commit
+> > messages.
+> >
+> > Marek Marczykowski-G=C3=B3recki (2):
+> >   x86/mm: add API for marking only part of a MMIO page read only
+> >   drivers/char: Use sub-page ro API to make just xhci dbc cap RO
+>=20
+> Series:
+> Tested-by: Jason Andryuk <jandryuk@gmail.com>
+>=20
+> I had the issue with a 10th Gen, Comet Lake, laptop.  With an HVM
+> usbvm with dbgp=3Dxhci,share=3D1, Xen crashed the domain because of:
+> (XEN) d1v0 EPT violation 0xdaa (-w-/r-x) gpa 0x000000f1008470 mfn 0xcc328=
+ type 5
+
+Hmm, this series is supposed to avoid exactly this issue. I tested it on
+12th Gen, so maybe 10th Gen has a bit different layout.
+Can you add a debug print before subpage_mmio_ro_add() call in
+xhci-dbc.c and see what area is getting protected?
+
+> The BAR is mfn 0xcc320-0xcc32f
+>=20
+> Booting PV, it faulted at drivers/usb/host/pci-quirks.c:1170 which looks =
+to be:
+> ```
+> /* Disable any BIOS SMIs and clear all SMI events*/
+> writel(val, base + ext_cap_offset + XHCI_LEGACY_CONTROL_OFFSET);
+> ```
+>=20
+> Thanks for integrating XUE, Marek!
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--7EIq/qd3Zxw5tvMI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRdCEgACgkQ24/THMrX
+1ywQPgf/U0lCST5MSzHwIwOXwDkviiPxKD1XdpSPaTgqT+N6aCV367NuKRgSW/qI
+1sZiXUHMQ5qQ7V5IFIAVKIK4aPZeSPGs7OIQGeKyFssVsDNYCuF4i/D9XIX+3ySD
+cko5UuPGM8OCXt0lRlYdnKGcJq3Dlhlz0Gb382wWy/VIP9hnJcLdQO02gpPdCqH/
+IsI73VBCAV+skYv2vx82lkScJy2aXaj8hkB3jh6xq1++TV3l4n+Rt2nI1Z4wlneK
+HziNe1nuvMPPIvQgCJ2SVdy1UMOcWa924v44+kqnzOctgx1PQo0YXgXSytRAMImc
+zTr8iGasz6WHwYe5pdAOYigpDCZveQ==
+=X8eh
+-----END PGP SIGNATURE-----
+
+--7EIq/qd3Zxw5tvMI--
 
