@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 465446FF0A7
-	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 13:47:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533270.829784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F3456FF0B0
+	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 13:50:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533276.829795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1px4ke-0001SV-01; Thu, 11 May 2023 11:46:28 +0000
+	id 1px4oG-00030t-Mw; Thu, 11 May 2023 11:50:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533270.829784; Thu, 11 May 2023 11:46:27 +0000
+Received: by outflank-mailman (output) from mailman id 533276.829795; Thu, 11 May 2023 11:50:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1px4kd-0001P9-SJ; Thu, 11 May 2023 11:46:27 +0000
-Received: by outflank-mailman (input) for mailman id 533270;
- Thu, 11 May 2023 11:46:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DXxA=BA=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1px4kc-0001P1-DR
- for xen-devel@lists.xenproject.org; Thu, 11 May 2023 11:46:26 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20605.outbound.protection.outlook.com
- [2a01:111:f400:7e83::605])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73416516-eff1-11ed-8611-37d641c3527e;
- Thu, 11 May 2023 13:46:23 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by SJ0PR12MB6990.namprd12.prod.outlook.com (2603:10b6:a03:449::9)
+	id 1px4oG-0002z0-Hp; Thu, 11 May 2023 11:50:12 +0000
+Received: by outflank-mailman (input) for mailman id 533276;
+ Thu, 11 May 2023 11:50:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CrlD=BA=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1px4oF-0002yu-Gc
+ for xen-devel@lists.xenproject.org; Thu, 11 May 2023 11:50:11 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20621.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::621])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fb30fdde-eff1-11ed-b229-6b7b168915f2;
+ Thu, 11 May 2023 13:50:10 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB9PR04MB8363.eurprd04.prod.outlook.com (2603:10a6:10:24b::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.29; Thu, 11 May
- 2023 11:46:13 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::ef8d:bf8a:d296:ec2c]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::ef8d:bf8a:d296:ec2c%7]) with mapi id 15.20.6363.033; Thu, 11 May 2023
- 11:46:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.20; Thu, 11 May
+ 2023 11:50:08 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::8e41:82b6:a27f:2e0c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::8e41:82b6:a27f:2e0c%4]) with mapi id 15.20.6363.033; Thu, 11 May 2023
+ 11:50:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,385 +47,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73416516-eff1-11ed-8611-37d641c3527e
+X-Inumbo-ID: fb30fdde-eff1-11ed-b229-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dOmxBFx+9O/X2BjuhUYLcc1pcE0O09o7YYacjI8LjQxBhtX8IDeReRFy16MkWQWU8F2ZKLkc9a3bqorMum0P+vRsSD0To/FuXeGcXCmT4XWx3kSjxKgDneHXr7+Y6peIT3b+AnPDgsTiAlst4qjYHUnz5IATONfK+Pj5TOuHwgJqibhCamJWARAZx7C2kMKKWuN8t1aSJe2N2ssUCR6H3VqkXl75/18GR41kyFTrGKzyofrEK2+05rlks/MXVElexD3FIvo08jwSw0nnu+jUVhVci2U2If0QlbJXl11gpWBSX0WudHcFnJac3GOyFaP2QD4GwofAuI5SkrgBjHEnGQ==
+ b=J1KmYhuK6+4o5gPuLjsva2MWNG5hPQ5LeNK+kKqI8tuK+xmI9R8NIXZD4FXxDDyAMpteA5Jix91NYmHf/soN74UUGGuMoP9OJeIbtan5wHfCYduf7VFybucR7KdjavFkYHM8UucUOOEZrxb4qU4EnY3V8r/o1lphqzau+Q+gW/8sRymsHpINMXU2hW8IN6MBN6oDNkFm9AnDVw0zTqEWEcqYjd19IKE1rXJM3CVTgsdQ/SGx29KY1KGRekJRy/PpTnSGhd6OSatBIci9gvn8OE8gpps/T4fDAe/NXYlUICUlGLJpsaLBy3nzr6aBTiJLSaMvuuOG2Bjnykda7KX6UQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3L93PlTDNF/+ZVKt9KlAsKMqQwonQfUPGmZBB3GjyjY=;
- b=aIEGJdwZI4SneVPzwjr3+cCq2h3iYT7jXNZUF0z+qAeo+UzrTsWqhEWe8IlxnMnXDVLgiQw/37kgqruWdc9YKYKIwghKl61yT+SC3om3hS+ITWbOqYQz1kZ/FVAoZI8c8HL9yA8PjRHu6xnZaT1lnU5dGcEJlxWpbPX+V3MEbP7eSYPePa//hErfcVVuHh+gSq3/OnKucD4X+AvNhZ3JYYuBrA82FcOFFrSlMWwm3R+ak8pylglz98ZwcroHMck2am4bT3kUhr9f8SDOhxYRS14zeHK1ASIXQCvQXWm4hZp0D/SyEC5J9RWVD1aqsKyRLRx7n7HIS0Y4h0u6rJCVkg==
+ bh=CPKJcU9yyCNN6ui7J+8QrolkEQPO4ronoUMXEO9IIrk=;
+ b=Ph4VuLBqed1csXbbMLSP0QEKTCVFLiUVlxCUnio6stHdMazNLMjfuTokJtRfwiPgdfEf25EOAhEHnjruS5rh4qlnKcF2FUQaPtOhuqVp+wokctjPn0To7DKux92EpQ0nUVd3nnWDO4dzvn/471INROuQNr9YuWHSXjelRgBmaVhFhtkVc+XU30yMi+4ApfHqwoqUmZCX0RrAuWt/woCQqPeAuKnjLS81OP+4VLoOhMaq7wdKl8Z5EEYT3W59o4gPP3xRa1HMc0kVQzBQ5boQgMe4XMAGz73TXwewz1WfBHkfTpIuiDWk3Ntvv2rEnqdzXvWahEyUaosOPApALSYsYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3L93PlTDNF/+ZVKt9KlAsKMqQwonQfUPGmZBB3GjyjY=;
- b=w9wMAIR+dw/1+vyKZgJvZqc6zD0QJxX8ZrAFoJzuBgeY8K8b7kJsx1jH12rpT3Y/qNwPmfWZS3J9yjwIvoQcnRCerNdxpt/f0Vnwr7gY7zqxkCG2YyBIQmCB/H8MpHmAx3StUdbYpLjNPh8Tcel6PT3GUVH5R4xWiOVAhYbXiAA=
+ bh=CPKJcU9yyCNN6ui7J+8QrolkEQPO4ronoUMXEO9IIrk=;
+ b=VfZ7JE0aDX4ktYDKrda7knBhDagAkCFa1Dfwk9NvXAIpm8Jv1PkRzzU/+1xpaJTcOP3NDaFHP2y0rjIq7unPsDRmZIXh3iGU7ff/DBtEh0Od1oMwyiVxr0KxdzQJZLVwkRQH6bbWg3GcxYfd+zJkhKDPEGTPgplaZUt+AEBnoDUVPJ7tRyRH6lVYi1gFACrJSesklO1FlKpuTr51G0fjgohQQL6ge9fcNRp3yjFs9BYopwRX7Rznpc4q9PxVf/nUcwDRc/dhEMQNfDExsfLFOjsORyzAVANA01Mj29fWHuqRGotFyNUBvM3AksID2mP/7QsICdRgfITCib1d48iObA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <4681a4d4-68d3-01cd-912c-bca2cdc83266@amd.com>
-Date: Thu, 11 May 2023 12:45:59 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.1
-From: Ayan Kumar Halder <ayankuma@amd.com>
-Subject: Re: [XEN v6 11/12] xen/arm: p2m: Use the pa_range_info table to
- support ARM_32 and ARM_64
-To: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- wl@xen.org, rahul.singh@arm.com
-References: <20230428175543.11902-1-ayan.kumar.halder@amd.com>
- <20230428175543.11902-12-ayan.kumar.halder@amd.com>
- <63fa927e-72f5-1645-97c0-6986f2fdcabe@xen.org>
-In-Reply-To: <63fa927e-72f5-1645-97c0-6986f2fdcabe@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0095.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2bc::19) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f83213df-2433-ec51-814c-436ce5ea4967@suse.com>
+Date: Thu, 11 May 2023 13:50:05 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.10.1
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/vPIT: check/bound values loaded from state save record
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0062.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|SJ0PR12MB6990:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d8dffde-a487-465f-c784-08db5215520e
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8363:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5a1067e-b41e-413d-c5c3-08db5215ddf0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	6e5n35glgCd5lVf5Nofvs8tluwDvnP4mT3yw/mi/lQIAcBVsb3utJqVkrinaaadneP9rpdGn5T6YGd+4otaeb6fhbRzEJl831FVVjBqqr1z1D8eknYbtL9z0rUnPMlEtYeQ7SuEAp0uvYUAb49TX+JXJCj3NMHx393TZTZdl5Xv9HwB3Xw7Gbq/p9DjUR48/E8rTy9zJzuB2z72dbIqf8SZnLYBJYEb0TNJdKYZ1ft9IVVtjtQECPln4UY8cebs3uNHUXILlbfLLwqNqq11bQWoNyS721uYX1g0HqrhVLMeqrh5xEeGyY19wsJEMWTIbmAyIZlQ1EOz9feqJKIu7L+pJB2fLBK92iKX2P5XsQwUuwqmb8JGhdexBq+tZ2zOGoBlqCFMfmlkdKmXD7TsJcMKPxVKtdtmLuOXT5+EzLZLO3mosjFaD2bYbNwFJhQ/dDaDMTcfo1bZRj7xwwgJUna4mp1kXrFi4dB18wQn+FRXVbnE4nstxEiSqaNw4Wn9ysX3ivQbHORAeWWj2Y2Xuwyw7fgfJPvnDqKHWFbeBF0TQ/1T/au2aGrp4+/kTcif8cfzC0WgDfULs3ITvQ+eAhkxOi/GKbgbuKiQCpgToxuJJMuqKJ3a0G7HI2DBPrcvaQLgfH+ghwIwHF+tmPmZTkQ==
+	qxEc4IOSN8VaFsS2kYnDVrbVjvC09s3UduO92z4qrrsvij3SwBRzV6AM1vxdf9qkKl9ittLwPQAt7JtItLVxwLM9X0s9RNUb19FnolR+iymVMX8KUZF3I3dD9sOEFhNCGZ9nhAjuM/J6wKlvMQqCRNa1JhjcowJk4ePo/8uuDy/pRXRLJjDEVt0dKiVX3REuo4vE2E/81KROXii9ePIAc91Io5XM8QLWjmExfgPEgm5JOKXcnLJt2uExPGJ2LmfSoYWCSSNvSja119DXT3EEBVYQV6I7V8Y2jxj2QPrGxlSjTGwrRpImmbrNGGdzTbHYzgvtLcDHdS2A/KQZ0LNgpjYRVMPHoMm7Vf4/iDHAdSeoChnUtqZPE2CWseD87/bIgM/fcMgzMu/f/uMQQNVRvgFQlUsg2AepR/IIm7NA2NyWm7f3Mzx9d1XjMhTsYaqjRMOMJXnyaj9JUZjGNDBIssuJ07NKcNS+Pj9po5FQ4nYJ++dwB+V5jCHuvR3XjhO63pFdrL+c59BOFA54THikdlxlKpMpGlOhPrP2UIWPfIto/9XYjEldmVPXkPMG4+a0nK2nw+9k3eK8na96qLbkOESS5mOcRSBu7ktDxxA1MzsyJUswYJnJoncIOpObcWOkh0lsZ5S7aMZllAdGTVBwQajb4siBrzBkToFffxhqcpilmqTmNpr9516R+4zrxK1t
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(376002)(39860400002)(366004)(396003)(136003)(451199021)(6486002)(6666004)(41300700001)(38100700002)(8936002)(6506007)(2906002)(53546011)(6512007)(26005)(478600001)(110136005)(186003)(31696002)(316002)(36756003)(7416002)(5660300002)(8676002)(4326008)(31686004)(66946007)(66476007)(66556008)(83380400001)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(136003)(376002)(39860400002)(396003)(346002)(451199021)(38100700002)(6916009)(8676002)(31686004)(8936002)(54906003)(83380400001)(2616005)(66556008)(4326008)(66946007)(66476007)(316002)(41300700001)(6506007)(6512007)(186003)(26005)(478600001)(2906002)(86362001)(36756003)(31696002)(6486002)(6666004)(5660300002)(45980500001)(43740500002)(309714004);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UTE3ZEE4Nk94dkpQNEJrZ3gwRkRaTFlsWjNzRjNpUWpTOWc0bERKdmRnQXdK?=
- =?utf-8?B?c1U1OFpqdE9SN0J3TWlpdXpPenFGMEtyd2ZJRThZemFlK1N1ZHF5Rnc2VWdD?=
- =?utf-8?B?UzVkT2ZSdUFFckIraU5JYUpxUW4xVzhWeXpiYWkyT04xeGQ5aGpwL2tXYjgr?=
- =?utf-8?B?Q2NseFlGVG94NTFFZTVwTXdWSUhWMG5vUmd1WVFLTVhFR0hudCtBZ2ZvMi9B?=
- =?utf-8?B?RSsxKzluamN3TUZxUHliL0k0MHVmU2JPMlFjckdhRGV6ZWtGaHJic0p4SHFM?=
- =?utf-8?B?QXFjRlUxNU5jdjRqcHcyb2h6RTJvQlh0TUlvRk84Z1RybkFsUDNydTRSUExU?=
- =?utf-8?B?aTFwdkI4cVozQlM5Qm5QeDliNVZ2WFhkOS9QUjVmS0JTY1hjcllvb3Y0OEo5?=
- =?utf-8?B?UEhvNlFyM3A4dlQ0NkVRdzhTTzExb2szOVVGaFRpSXRoN3JUZlhFVXhPdi84?=
- =?utf-8?B?NkY3am9haEJ6bGI2TmxmMkg0Sy82cDBCL0N2QW9HeGsvdXZIYXdxMGtOYlRM?=
- =?utf-8?B?L0JuMHJPNkVhalliZDRuS2NwVEZSOXVOaXpyNDJ2Wm9iVkwvZ0xsQStNYnpo?=
- =?utf-8?B?bWE2dXZPV08vL3lYUmhLaVczRUdRdzRBUldGTzQrZmJzYUlzZS9Dc21zQUlT?=
- =?utf-8?B?bW1Ta2ZkV3kzUnZFVHN2eTk5THR2dlUyUkxkN252clorejR5a1BPTGM5NGhE?=
- =?utf-8?B?cDRNbnVrM2FpcWk0d3ZjRFF3OUR6TlpNRE1mRm1QZlFqVFhQbVlzZ0kweGls?=
- =?utf-8?B?Y2xWczRoL1ZmTlZIRFFERkRBWXdsQ0xJOFJtcmM1ZEtzamVwbWovTUwyZ3ov?=
- =?utf-8?B?anJ6cUN1M1RvdlVPOUx2NzZCVmRzbFV3MEh6MUFveWs0cC91azFCUDViQ2xz?=
- =?utf-8?B?bFNyb3RBWkp0NlpmbEtXSDErUWFKZXR5ZG1RcFk4djNFRG1FT21TYjBabXhz?=
- =?utf-8?B?dnJNdDU3bjU0d2F5ekFKVFhpREc5akdGQitwa3U1a2dSeWI1QTRaMlRkQlRv?=
- =?utf-8?B?amZVQVZkSFN4Z0Y5V2RHRlNIMXMvSjFHM0dMYTkyYXNUWTBSR3lhQXJqbFd3?=
- =?utf-8?B?MnhJOWFPc3VYellvVDFDTEJCVDVMSUZxbXBJSi9XNzM0bXFiZTV6MVkxY1Vn?=
- =?utf-8?B?S2RGcEJodmtta0w2elBIaGd3OW1EcVQ0YW90c2xPSFp0cUtFamt3Q0lVZWRW?=
- =?utf-8?B?UUtGMytybGR2Y1VVL255cC8yeDl1MWp6K2M5OWg0VkdCK3lBbndYWjlLT3Jw?=
- =?utf-8?B?dXhQbEE4QXRTNmhZREFxYU5wRnEvK2tLUjBMT0NaNy9nMSt1Qjc0c3pXS1FK?=
- =?utf-8?B?N1RlUE9hMi8zRVpVWXFNUS9SeDFJcElZY25MNUNkYjJvQXZUeHpYdjlZcHBY?=
- =?utf-8?B?bXRmSU5ZNHp2TGY2N0E2N09sUTZXUnhKQ3NsQ3ROTFVMM05xNy9lbmRCbGVL?=
- =?utf-8?B?eTNIWG5aOURlS0czOVhQL1EwdkFRY2laL2FDWVEyMjFmOGd4MmdBOUNlelhQ?=
- =?utf-8?B?cndjTzl2NTVYa0Z3M3NQUDAxTy85QS9MTGFZRWR0dVd2OUlvaUZjQ2VVNE1n?=
- =?utf-8?B?ZEE2Q2R2QlFKRHhoTXdGS3hsNlZkWDE1d2hVY3JmMGVDYmJEZW5FeUFNZFdQ?=
- =?utf-8?B?NDFQMkVaWFJ6dTRrMmUyMnFFQU5iVWsvcFZrQWJyUXFGV1FlTG9SUCtTbEFD?=
- =?utf-8?B?c3hkTlo0WWR2N1ZvdHhUeXlTdm1yZStUS3orQ2U0TzZpSkhsT3M3MDFYZkIv?=
- =?utf-8?B?V2NsdUZlMTVvYkhaYVdqQXNuOFBWYnYveWhhTDFnRW5vWTVZRlFiQlI3SW40?=
- =?utf-8?B?MldMU3ZaSG5sWEVDRHd4K2xyb3JxSTlTdUt6K0dCZnRUa082TWh2cjBWOW5G?=
- =?utf-8?B?Sm82U3VGNEkvb1BRdnQ4WS9VTFdLZHJqUkJxRDFMaElhcnljSFQrdXRuYmk2?=
- =?utf-8?B?TmdtY3FBZG55TXFIVjl3SmRSeHFxemRHWS9pcnEzQTZyTyswaWMzYis1Q3ho?=
- =?utf-8?B?QlRZR0Y4VVVVbnFhc1IySWtMaUpvRGtSR1NjcDNOc3E5aytaQUdiUmZsTS83?=
- =?utf-8?B?K3YwdzA1eDZ6SE1GdjhVTWZIM2Y5UGtZNm5pSEdQeEtLTEN1UzFIQ3lJYTNS?=
- =?utf-8?Q?+z7CyV1vLS+9nTtnWi54P0gak?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d8dffde-a487-465f-c784-08db5215520e
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+	=?utf-8?B?UEdCcXJpVmRHakIrelpYQkFGV0RKbStXemJFZWpTSnF5RlJLUlZHY1dBYjVy?=
+ =?utf-8?B?MEV2cTEvaFB2dHZiWjcySGZyQW1GcVBNQzNRVGFLZ2RKUHgvL3dneFFOL3o5?=
+ =?utf-8?B?UytOUTlCVDZyeitMRGFwV05yVlRGTnFIK0twK0ZuOW0vUFo2TFg2OXNkaWx5?=
+ =?utf-8?B?cmdMNU9VYzIxeUl1elgxVExxdTlNL2xLM1NYNnErY1lMbjBzSWltZzlZSTd1?=
+ =?utf-8?B?aGVTaFpGbE5mcUJzbTZYWjViVGl6bFFkRkx4VWluSkJEcEdGRzhreE9jclZn?=
+ =?utf-8?B?bUtaWEp5VWpmazV6MkhsWlpqUlFoS1FvZ0I1d2ZyQzhITDNPclpmeEMzZmxB?=
+ =?utf-8?B?bXJrRG5BM01JUnViM05jSFYrM2l0YmJRSmM2OXN5cm9zK3NyNDEyeklUQVJR?=
+ =?utf-8?B?Y2ZoWkJiUEFxUVpyeVVvZjdSVVNQb05KMlcyN2hSQTRDMkJxRnVmdTVydjgv?=
+ =?utf-8?B?d2lyTUg0bmRKQzFJUmYxb0V0YmcrWFJQT0RWOGFDeVhhNjk0SENGRUUrYnZz?=
+ =?utf-8?B?eVZ5cnlPamtya3Q1YzUwK2hZTFZOaExUZTQxQy9pL1JYSU5RYTFqREtsa0Vk?=
+ =?utf-8?B?Mm5iaTdqRkdFVEIwVU42bll4cURrTGxLdTNVZnA5Y0h3cFc1Yk1kdWM4NUw2?=
+ =?utf-8?B?R1l4Zkp1RWh6b3BVa2FhbnYwTi9EWmJ4UzBLNkRDbVIraEJCd0daZ3BtZ1ZO?=
+ =?utf-8?B?ZXhDZkxSbWpLZWh4enBYNHhURVV3OEtFZkp0NDdGSkpCaU5tN091SjdlYWg3?=
+ =?utf-8?B?ZmxqUytneThtbHBTeE44Y3FhS3BoY1EvZnJvWHJ4VUxOTFBhY1hXZ2RRWjBS?=
+ =?utf-8?B?QVlHT2FLb2hZUVZpRnRjVytOanB4NWc4c09Wc0twdzQ4cHdHZkhGQ0t5TWVv?=
+ =?utf-8?B?Y1BNaG04TEU3UGkxbGtMaE93YjEwUnYwZlUyYjJibUZKTUtGNkhRYmtxVitG?=
+ =?utf-8?B?dDJleGdnOHZTclRIVUxJRjk2OVVvTllDak9ocHpqaGI4aTY3bnpRWlJ0NDJa?=
+ =?utf-8?B?T1NycXcxZDlVSnpEN2lGTk1qeHlvaGlrRm9mV0xQSTNMVjdKQkZ0WkdiQnB2?=
+ =?utf-8?B?NEVyZFRLTG5iNnJyc2laVnFUK0c2Ry9DQWFqaWhFYW9FUzYybUM1L3A3THg2?=
+ =?utf-8?B?M0VJQXZxMllxZzVNeHNGdWw3eTlIckZ6MTdRaW5JeDJML1lscFZCbjBtc1E1?=
+ =?utf-8?B?REU2NVFHUm55RFR0am42cXkwRDJZRzRjczc2SWJWVnlIN0s1NmdCYnIrMG0x?=
+ =?utf-8?B?K2ZKZWR2Y215SVhhK3NIa1prSmZyeVZsLzd3UEYzVk5jNUJLZG5lSEU0SWV5?=
+ =?utf-8?B?S2xTbFAxd2pUcEJsYnUrMmtZV3ZUcFFwS2JhclVNU1pLY3F2a2h6MHFyMkdQ?=
+ =?utf-8?B?L1E0cW1YMStIUUx3QjkzbkNHWW9KOTNvTW5tUExEQmNWMVVwOXpUcUxLU1pr?=
+ =?utf-8?B?enlzZy9jS3duYklZaUtoWjFVMnJNMHpjbHFrTHdFNnBldU5CZS9neUdVVlMr?=
+ =?utf-8?B?UElLcVdhU2RiaFVYZGVSUHNCS01YTWFDLzAzaXZrL3ByUTNVQzJZcWp1RTJ6?=
+ =?utf-8?B?MXMzOTRMY3FWci9jVWh1NjF2Z3pXcmhFdHBpYkphc1VYZ1kvRXhMYVl6QkpY?=
+ =?utf-8?B?VWlUK0huclZvUkJqZ29IUVE5WlZxZlZqQTVscVdBTDRiT1FOUFZlU0VjaUNv?=
+ =?utf-8?B?U0VaS3QzajJMdGRBNHJ4bmNzRlY1TDdIbkh2NFYzQ3M3OHBKZU5FVDJPQmp1?=
+ =?utf-8?B?RXFxOHdwUXVoQmF3QmZGaVhYVUtLWTQ5b1JzeHNoNkZzYTI0ZU1FRzUzdE9J?=
+ =?utf-8?B?OU8rV1JqSmZWeHdtQmlQRnRYR0RHTlpwcm40MWliZENBRi9aNFhVc08wUXZ1?=
+ =?utf-8?B?elVWUkNkbURCNXZiUVg0RmgyUWhHU3BKeXkzcnZFZEJRUWRneVpsS1pSMFlx?=
+ =?utf-8?B?b3J1V0JDSzgwUEFCMHk2NjZVSTMwb1VBUmREK0RDR1hwWU1XUVM1V3dwbnND?=
+ =?utf-8?B?RnZCV2V0ZlkwdUdLR1h0WXNudnRZMWpBc3NvWUkrT0gyTjZzd1hvWGxnTzhy?=
+ =?utf-8?B?a3JaSDZhMHpTM2Z1V3lGMVplRkdoZUhhQ25CdXBseVhVN0hseERjSS8zTFFp?=
+ =?utf-8?Q?07saZHLdgkRqL21a9Ow+mYN6X?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5a1067e-b41e-413d-c5c3-08db5215ddf0
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2023 11:46:12.9809
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2023 11:50:07.5992
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SZUOAA/SBE1bqXELzzFGqt9GvfQyrqPT/X5e2RYWEr/CGj4ivyPq2LLUB8A8VnpGeRbyApd2PQgmg4MPitSx4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6990
+X-MS-Exchange-CrossTenant-UserPrincipalName: WW0DAQBQWTU4l5Iz/Nad5wS0R9ygKxgRI0mRPWZuZoJMxY7EicbeQ/TLrBNdcpq8O6QAKHM3yD7QgM62RFSYYw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8363
 
+In particular pit_latch_status() and speaker_ioport_read() perform
+calculations which assume in-bounds values. Several of the state save
+record fields can hold wider ranges, though.
 
-On 03/05/2023 13:20, Julien Grall wrote:
-> Hi,
+Note that ->gate should only be possible to be zero for channel 2;
+enforce that as well.
 
-Hi Julien,
+Adjust pit_reset()'s writing of ->mode as well, to not unduly affect
+the value pit_latch_status() may calculate. The chosen mode of 7 is
+still one which cannot be established by writing the control word.
 
-I have some clarification.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Of course an alternative would be to simply reject state save records
+with out of bounds values.
 
->
-> On 28/04/2023 18:55, Ayan Kumar Halder wrote:
->> Restructure the code so that one can use pa_range_info[] table for both
->> ARM_32 as well as ARM_64.
->>
->> Also, removed the hardcoding for P2M_ROOT_ORDER and P2M_ROOT_LEVEL as
->> p2m_root_order can be obtained from the pa_range_info[].root_order and
->> p2m_root_level can be obtained from pa_range_info[].sl0.
->>
->> Refer ARM DDI 0406C.d ID040418, B3-1345,
->> "Use of concatenated first-level translation tables
->>
->> ...However, a 40-bit input address range with a translation 
->> granularity of 4KB
->> requires a total of 28 bits of address resolution. Therefore, a stage 2
->> translation that supports a 40-bit input address range requires two 
->> concatenated
->> first-level translation tables,..."
->>
->> Thus, root-order is 1 for 40-bit IPA on ARM_32.
->>
->> Refer ARM DDI 0406C.d ID040418, B3-1348,
->>
->> "Determining the required first lookup level for stage 2 translations
->>
->> For a stage 2 translation, the output address range from the stage 1
->> translations determines the required input address range for the stage 2
->> translation. The permitted values of VTCR.SL0 are:
->>
->> 0b00 Stage 2 translation lookup must start at the second level.
->> 0b01 Stage 2 translation lookup must start at the first level.
->>
->> VTCR.T0SZ must indicate the required input address range. The size of 
->> the input
->> address region is 2^(32-T0SZ) bytes."
->>
->> Thus VTCR.SL0 = 1 (maximum value) and VTCR.T0SZ = -8 when the size of 
->> input
->> address region is 2^40 bytes.
->>
->> Thus, pa_range_info[].t0sz = 1 (VTCR.S) | 8 (VTCR.T0SZ) ie 11000b 
->> which is 24.
->>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
->> Changes from -
->>
->> v3 - 1. New patch introduced in v4.
->> 2. Restructure the code such that pa_range_info[] is used both by 
->> ARM_32 as
->> well as ARM_64.
->>
->> v4 - 1. Removed the hardcoded definitions of P2M_ROOT_ORDER and 
->> P2M_ROOT_LEVEL.
->> The reason being root_order will not be always 1 (See the next patch).
->> 2. Updated the commit message to explain t0sz, sl0 and root_order 
->> values for
->> 32-bit IPA on Arm32.
->> 3. Some sanity fixes.
->>
->> v5 - pa_range_info is indexed by system_cpuinfo.mm64.pa_range. ie
->> when PARange is 0, the PA size is 32, 1 -> 36 and so on. So 
->> pa_range_info[] has
->> been updated accordingly.
->> For ARM_32 pa_range_info[0] = 0 and pa_range_info[1] = 0 as we do not 
->> support
->> 32-bit, 36-bit physical address range yet.
->>
->>   xen/arch/arm/include/asm/p2m.h |  8 +-------
->>   xen/arch/arm/p2m.c             | 32 ++++++++++++++++++--------------
->>   2 files changed, 19 insertions(+), 21 deletions(-)
->>
->> diff --git a/xen/arch/arm/include/asm/p2m.h 
->> b/xen/arch/arm/include/asm/p2m.h
->> index f67e9ddc72..4ddd4643d7 100644
->> --- a/xen/arch/arm/include/asm/p2m.h
->> +++ b/xen/arch/arm/include/asm/p2m.h
->> @@ -14,16 +14,10 @@
->>   /* Holds the bit size of IPAs in p2m tables.  */
->>   extern unsigned int p2m_ipa_bits;
->>   -#ifdef CONFIG_ARM_64
->>   extern unsigned int p2m_root_order;
->>   extern unsigned int p2m_root_level;
->> -#define P2M_ROOT_ORDER    p2m_root_order
->> +#define P2M_ROOT_ORDER p2m_root_order
->
-> This looks like a spurious change.
->
->>   #define P2M_ROOT_LEVEL p2m_root_level
->> -#else
->> -/* First level P2M is always 2 consecutive pages */
->> -#define P2M_ROOT_ORDER    1
->> -#define P2M_ROOT_LEVEL 1
->> -#endif
->>     struct domain;
->>   diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->> index 418997843d..1fe3cccf46 100644
->> --- a/xen/arch/arm/p2m.c
->> +++ b/xen/arch/arm/p2m.c
->> @@ -19,9 +19,9 @@
->>     #define INVALID_VMID 0 /* VMID 0 is reserved */
->>   -#ifdef CONFIG_ARM_64
->>   unsigned int __read_mostly p2m_root_order;
->>   unsigned int __read_mostly p2m_root_level;
->> +#ifdef CONFIG_ARM_64
->>   static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
->>   /* VMID is by default 8 bit width on AArch64 */
->>   #define MAX_VMID       max_vmid
->> @@ -2247,16 +2247,6 @@ void __init setup_virt_paging(void)
->>       /* Setup Stage 2 address translation */
->>       register_t val = 
->> VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
->>   -#ifdef CONFIG_ARM_32
->> -    if ( p2m_ipa_bits < 40 )
->> -        panic("P2M: Not able to support %u-bit IPA at the moment\n",
->> -              p2m_ipa_bits);
->> -
->> -    printk("P2M: 40-bit IPA\n");
->> -    p2m_ipa_bits = 40;
->> -    val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
->> -    val |= VTCR_SL0(0x1); /* P2M starts at first level */
->> -#else /* CONFIG_ARM_64 */
->>       static const struct {
->>           unsigned int pabits; /* Physical Address Size */
->>           unsigned int t0sz;   /* Desired T0SZ, minimum in comment */
->> @@ -2265,19 +2255,26 @@ void __init setup_virt_paging(void)
->>       } pa_range_info[] __initconst = {
->>           /* T0SZ minimum and SL0 maximum from ARM DDI 0487H.a Table 
->> D5-6 */
->>           /*      PA size, t0sz(min), root-order, sl0(max) */
->> +        [2] = { 40,      24/*24*/,  1,          1 },
->
-> I don't like the fact that the index are not ordered anymore and...
->
->> +#ifdef CONFIG_ARM_64
->>           [0] = { 32,      32/*32*/,  0,          1 },
->>           [1] = { 36,      28/*28*/,  0,          1 },
->> -        [2] = { 40,      24/*24*/,  1,          1 },
->>           [3] = { 42,      22/*22*/,  3,          1 },
->>           [4] = { 44,      20/*20*/,  0,          2 },
->>           [5] = { 48,      16/*16*/,  0,          2 },
->>           [6] = { 52,      12/*12*/,  4,          2 },
->>           [7] = { 0 }  /* Invalid */
->> +#else
->> +        [0] = { 0 },  /* Invalid */
->> +        [1] = { 0 },  /* Invalid */
->> +        [3] = { 0 }  /* Invalid */
->> +#endif
->
-> ... it is not clear to me why we are adding 3 extra entries. I think 
-> it would be better if we do:
->
-> #ifdef CONFIG_ARM_64
->    [0] ...
->    [1] ...
-> #endif
->    [2] ...
-> #ifdef CONFIG_ARM_64
->    [3] ...
->    [4] ...
->    ...
-> #endif
->
->>       };
->>         unsigned int i;
->>       unsigned int pa_range = 0x10; /* Larger than any possible value */
->>   +#ifdef CONFIG_ARM_64
->>       /*
->>        * Restrict "p2m_ipa_bits" if needed. As P2M table is always 
->> configured
->>        * with IPA bits == PA bits, compare against "pabits".
->> @@ -2291,6 +2288,9 @@ void __init setup_virt_paging(void)
->>        */
->>       if ( system_cpuinfo.mm64.vmid_bits == MM64_VMID_16_BITS_SUPPORT )
->>           max_vmid = MAX_VMID_16_BIT;
->> +#else
->> +    p2m_ipa_bits = PADDR_BITS;
->> +#endif
-> Why do we need to reset p2m_ipa_bits for Arm?
-
-Ah, this is a mistake. I will remove this.
-
->
->>         /* Choose suitable "pa_range" according to the resulted 
->> "p2m_ipa_bits". */
->>       for ( i = 0; i < ARRAY_SIZE(pa_range_info); i++ )
->> @@ -2306,24 +2306,28 @@ void __init setup_virt_paging(void)
->>       if ( pa_range >= ARRAY_SIZE(pa_range_info) || 
->> !pa_range_info[pa_range].pabits )
->>           panic("Unknown encoding of ID_AA64MMFR0_EL1.PARange %x\n", 
->> pa_range);
->>   +#ifdef CONFIG_ARM_64
->>       val |= VTCR_PS(pa_range);
->>       val |= VTCR_TG0_4K;
->>         /* Set the VS bit only if 16 bit VMID is supported. */
->>       if ( MAX_VMID == MAX_VMID_16_BIT )
->>           val |= VTCR_VS;
->> +
->> +    p2m_ipa_bits = 64 - pa_range_info[pa_range].t0sz;
->> +#endif
->> +
->>       val |= VTCR_SL0(pa_range_info[pa_range].sl0);
->>       val |= VTCR_T0SZ(pa_range_info[pa_range].t0sz);
->>         p2m_root_order = pa_range_info[pa_range].root_order;
->>       p2m_root_level = 2 - pa_range_info[pa_range].sl0;
->> -    p2m_ipa_bits = 64 - pa_range_info[pa_range].t0sz;
->
-> I think this line should stay for 32-bit as well because we 
-> p2m_ipa_bits should be based on the PA range we selected (see the loop 
-> 'Choose suitable "pa_range"...').
-
-This isn't true for ARM_32.
-
-ReferARM DDI 0406C.d ID040418, B3-1348, "Determining the required first 
-lookup level for stage 2 translations"
-
-"...The size of this input address region is 2(32-TxSZ) bytes, ..."
-
-So for
-
-#ifdef CONFIG_ARM_32
-
-p2m_ipa_bits = 32 - pa_range_info[pa_range].t0sz;
-
-#endif
-
-This will be a problem for 40-bit PA as T0SZ = 24.
-
-So p2m_ipa_bits = 32 - 24 = 8 (which is incorrect).
-
-
-To get around this issue, there are two possible solutions :-
-
-1. For ARM_32,  do not modify p2m_ipa_bits. Thus p2m_ipa_bits will be 
-using its initialized value (ie PADDR_BITS).
-
-2. T0SZ should be signed int for ARM_32 (so that it can hold -8) and 
-unsigned int for ARM_64.
-
-ie
-
-     static const struct {
-         unsigned int pabits; /* Physical Address Size */
-#ifdef CONFIG_ARM_64
-         unsigned int t0sz:5;   /* Desired T0SZ, minimum in comment */
-#else
-         signed int t0sz:5;   /* Desired T0SZ, minimum in comment */
-#endif
-         unsigned int root_order; /* Page order of the root of the p2m */
-         unsigned int sl0;    /* Desired SL0, maximum in comment */
-     } pa_range_info[] __initconst = {
-....
-
-
-I will prefer option 1 for the sake of less if..defs.
-
-Happy to hear your opinions.
-
-- Ayan
-
->
->>         printk("P2M: %d-bit IPA with %d-bit PA and %d-bit VMID\n",
->>              p2m_ipa_bits,
->>              pa_range_info[pa_range].pabits,
->>              ( MAX_VMID == MAX_VMID_16_BIT ) ? 16 : 8);
->> -#endif
->> +
->>       printk("P2M: %d levels with order-%d root, VTCR 
->> 0x%"PRIregister"\n",
->>              4 - P2M_ROOT_LEVEL, P2M_ROOT_ORDER, val);
->
-> Cheers,
->
+--- a/xen/arch/x86/emul-i8254.c
++++ b/xen/arch/x86/emul-i8254.c
+@@ -47,6 +47,7 @@
+ #define RW_STATE_MSB 2
+ #define RW_STATE_WORD0 3
+ #define RW_STATE_WORD1 4
++#define RW_STATE_NUM 5
+ 
+ static int cf_check handle_pit_io(
+     int dir, unsigned int port, unsigned int bytes, uint32_t *val);
+@@ -426,6 +427,33 @@ static int cf_check pit_load(struct doma
+     }
+     
+     /*
++     * Convert loaded values to be within valid range, for them to represent
++     * actually reachable state.  Uses of some of the values elsewhere assume
++     * this is the case.
++     */
++    for ( i = 0; i < ARRAY_SIZE(pit->hw.channels); ++i )
++    {
++        struct hvm_hw_pit_channel *ch = &pit->hw.channels[i];
++
++        /* pit_load_count() will convert 0 suitably back to 0x10000. */
++        ch->count &= 0xffff;
++        if ( ch->count_latched >= RW_STATE_NUM )
++            ch->count_latched = 0;
++        if ( ch->read_state >= RW_STATE_NUM )
++            ch->read_state = 0;
++        if ( ch->read_state >= RW_STATE_NUM )
++            ch->write_state = 0;
++        if ( ch->rw_mode > RW_STATE_WORD0 )
++            ch->rw_mode = 0;
++        if ( (ch->mode &= 7) > 5 )
++            ch->mode -= 4;
++        ch->bcd = !!ch->bcd;
++        ch->gate = i != 2 || ch->gate;
++    }
++
++    pit->hw.speaker_data_on = !!pit->hw.speaker_data_on;
++
++    /*
+      * Recreate platform timers from hardware state.  There will be some 
+      * time jitter here, but the wall-clock will have jumped massively, so 
+      * we hope the guest can handle it.
+@@ -464,7 +492,7 @@ void pit_reset(struct domain *d)
+     for ( i = 0; i < 3; i++ )
+     {
+         s = &pit->hw.channels[i];
+-        s->mode = 0xff; /* the init mode */
++        s->mode = 7; /* the init mode */
+         s->gate = (i != 2);
+         pit_load_count(pit, i, 0);
+     }
 
