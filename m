@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D1636FF551
-	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 16:59:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533453.830143 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26E636FF585
+	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 17:08:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533457.830154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1px7l3-0000M6-5O; Thu, 11 May 2023 14:59:05 +0000
+	id 1px7te-00020k-Vq; Thu, 11 May 2023 15:07:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533453.830143; Thu, 11 May 2023 14:59:05 +0000
+Received: by outflank-mailman (output) from mailman id 533457.830154; Thu, 11 May 2023 15:07:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1px7l3-0000JO-2N; Thu, 11 May 2023 14:59:05 +0000
-Received: by outflank-mailman (input) for mailman id 533453;
- Thu, 11 May 2023 14:59:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=e1K6=BA=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1px7l1-0000JI-FN
- for xen-devel@lists.xenproject.org; Thu, 11 May 2023 14:59:03 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5d407e9d-f00c-11ed-8611-37d641c3527e;
- Thu, 11 May 2023 16:59:01 +0200 (CEST)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-96652cb7673so885294766b.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 May 2023 07:59:01 -0700 (PDT)
+	id 1px7te-0001yf-S5; Thu, 11 May 2023 15:07:58 +0000
+Received: by outflank-mailman (input) for mailman id 533457;
+ Thu, 11 May 2023 15:07:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1px7td-0001yS-7J; Thu, 11 May 2023 15:07:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1px7td-0006NT-4u; Thu, 11 May 2023 15:07:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1px7tc-00065g-LI; Thu, 11 May 2023 15:07:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1px7tc-0002QC-Kk; Thu, 11 May 2023 15:07:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,90 +42,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d407e9d-f00c-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1683817141; x=1686409141;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kDMPMJLrsM9dVLuvF/W0GQkxoJ6OcetP9YejMWwb9DM=;
-        b=SahRhICcgTdz2iH+MvUCpagW9qlLlK5MQYaK7tvh0/qSt/wMBbPDaoEFD4DZasGhEq
-         JmC52cmT1I97tpuEjEvMq8GRlRigmo5ElGizm9NWPqeyDJPPeHmnl9PoafJYNHOm7tmN
-         nqQTB+A0tZ3+nnwGt0aYMdUWI3IZsfBA+LBr6/7Zs9DJyeoX/WiaHOoRiAEeqogEYNJl
-         ayhuRtXfdb/iSbm07gY17v91xMjDAMOQRD3zkialvuugHfH92HhXpEWz0wxpIN7FyJjr
-         w49x6rR+afGMM21Bp9WMTIV8sZDC8X/rQxjn9m0HCaSRuuVF2Cn6b6H4BEjkYEnDsOAl
-         i+Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1683817141; x=1686409141;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kDMPMJLrsM9dVLuvF/W0GQkxoJ6OcetP9YejMWwb9DM=;
-        b=XZVcMtbbYUf3Rv04G19iLQm5fPxq/LoRNsd6xcpTaGfXOqjPGcmriIiRq4N7SoCzET
-         j5aO0aUJ4QIhh3qH2ZWXhw9bJmivEyssdQCqheI/VAK1qzSqmbTvne5P5IltaiA3KWEU
-         gSYrWDqNMGREmO4emFwBY3bK0DuKIvRYSev0aUEl2LA0HJoM6QDbS0vm8t2ANdPq1wmF
-         KOok1x7MiCN87pWjwbAA8M444zPFNh7fOjzRCE8GNR4x+Sz9YNEhLe05lsIZliJHx/Rg
-         gvqwpSyMX3RYxm6hkVTCXnyN7abMX1tSp0MFKOJbhKyW3vw/5fQehYRqM8r1v3olNlwv
-         7Xpw==
-X-Gm-Message-State: AC+VfDyeSlMvvR5nDWgEzU6Ag4E/2JGDpxjaw0vlIdEV3w+Eqt7VpnGX
-	tQ5NdaPuVD6fnjDqETgFUp/74elyf71KBDlDBcz4BONC
-X-Google-Smtp-Source: ACHHUZ6MEXYm1d/rqgGP714Op3jMHhrLC2mdRPND2zjqt20YVjgq3sESHSGBXfn/pcpkV0BytDZ4EQAHq9OyqwKM31o=
-X-Received: by 2002:a17:906:db0e:b0:96a:8412:a444 with SMTP id
- xj14-20020a170906db0e00b0096a8412a444mr822479ejb.73.1683817140791; Thu, 11
- May 2023 07:59:00 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.dd82aca339854e90ffe12e7bc4298254a6caaf0d.1683321183.git-series.marmarek@invisiblethingslab.com>
-In-Reply-To: <cover.dd82aca339854e90ffe12e7bc4298254a6caaf0d.1683321183.git-series.marmarek@invisiblethingslab.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 11 May 2023 10:58:48 -0400
-Message-ID: <CAKf6xpspPdt6mM4MuL2-vwXHu23ahm874e4kZqROqCwC4cd=fA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] Add API for making parts of a MMIO page R/O and
- use it in XHCI console
-To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=HS4v1aS4Yu0xOZ3t9yU28ZQUsNrwJmpMLMpZqZmS8Y0=; b=7NDbq+MOeFQX/q24huEAMWBowP
+	wRP04lNxWuWIXX/i9f+tavG62v4rlY04TkVHYp+Ytth+/iJy98jNikBRvUaYgIyO0NViu2z4bH9pm
+	V8457389GDceDC9phczAOVNCwnqQI0nHADXMRTXtZubJ174WjyVLngHnO+6Hp9ZbpphI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180619-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 180619: regressions - trouble: blocked/broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:host-build-prep:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=bdb1184d4f6bf4e0121fda34a6c1cb51fe270e7d
+X-Osstest-Versions-That:
+    xen=31c65549746179e16cf3f82b694b4b1e0b7545ca
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 11 May 2023 15:07:56 +0000
 
-On Fri, May 5, 2023 at 5:26=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
-<marmarek@invisiblethingslab.com> wrote:
->
-> On older systems, XHCI xcap had a layout that no other (interesting) regi=
-sters
-> were placed on the same page as the debug capability, so Linux was fine w=
-ith
-> making the whole page R/O. But at least on Tiger Lake and Alder Lake, Lin=
-ux
-> needs to write to some other registers on the same page too.
->
-> Add a generic API for making just parts of an MMIO page R/O and use it to=
- fix
-> USB3 console with share=3Dyes or share=3Dhwdom options. More details in c=
-ommit
-> messages.
->
-> Marek Marczykowski-G=C3=B3recki (2):
->   x86/mm: add API for marking only part of a MMIO page read only
->   drivers/char: Use sub-page ro API to make just xhci dbc cap RO
+flight 180619 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180619/
 
-Series:
-Tested-by: Jason Andryuk <jandryuk@gmail.com>
+Regressions :-(
 
-I had the issue with a 10th Gen, Comet Lake, laptop.  With an HVM
-usbvm with dbgp=3Dxhci,share=3D1, Xen crashed the domain because of:
-(XEN) d1v0 EPT violation 0xdaa (-w-/r-x) gpa 0x000000f1008470 mfn 0xcc328 t=
-ype 5
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   5 host-build-prep          fail REGR. vs. 180607
 
-The BAR is mfn 0xcc320-0xcc32f
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-Booting PV, it faulted at drivers/usb/host/pci-quirks.c:1170 which looks to=
- be:
-```
-/* Disable any BIOS SMIs and clear all SMI events*/
-writel(val, base + ext_cap_offset + XHCI_LEGACY_CONTROL_OFFSET);
-```
+version targeted for testing:
+ xen                  bdb1184d4f6bf4e0121fda34a6c1cb51fe270e7d
+baseline version:
+ xen                  31c65549746179e16cf3f82b694b4b1e0b7545ca
 
-Thanks for integrating XUE, Marek!
+Last test of basis   180607  2023-05-10 19:03:28 Z    0 days
+Testing same since   180619  2023-05-11 12:00:27 Z    0 days    1 attempts
 
-Regards,
-Jason
+------------------------------------------------------------
+People who touched revisions under test:
+  Alejandro Vallejo <alejandro.vallejo@cloud.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-armhf broken
+
+Not pushing.
+
+------------------------------------------------------------
+commit bdb1184d4f6bf4e0121fda34a6c1cb51fe270e7d
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu May 11 13:13:55 2023 +0200
+
+    domctl: bump interface version
+    
+    The change to XEN_DOMCTL_getdomaininfo was a binary incompatible one,
+    and the interface version wasn't bumped yet during the 4.18 release
+    cycle.
+    
+    Fixes: 31c655497461 ("domctl: Modify XEN_DOMCTL_getdomaininfo to fail if domid is not found")
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 5b49f5e09df905a3688107a06bc022a590606555
+Author: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Date:   Thu May 11 13:12:46 2023 +0200
+
+    x86: Add AMD's CpuidUserDis bit definitions
+    
+    AMD reports support for CpuidUserDis in CPUID and provides the toggle in HWCR.
+    This patch adds the positions of both of those bits to both xen and tools.
+    
+    No functional change.
+    
+    Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
