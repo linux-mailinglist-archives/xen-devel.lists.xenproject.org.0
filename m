@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2EBB6FEB8E
-	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 08:09:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533113.829487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24DF56FEBB0
+	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 08:22:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533117.829498 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwzTa-0000OH-KX; Thu, 11 May 2023 06:08:30 +0000
+	id 1pwzgY-0002mv-Ot; Thu, 11 May 2023 06:21:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533113.829487; Thu, 11 May 2023 06:08:30 +0000
+Received: by outflank-mailman (output) from mailman id 533117.829498; Thu, 11 May 2023 06:21:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pwzTa-0000LE-Hs; Thu, 11 May 2023 06:08:30 +0000
-Received: by outflank-mailman (input) for mailman id 533113;
- Thu, 11 May 2023 06:08:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pwzgY-0002kL-M5; Thu, 11 May 2023 06:21:54 +0000
+Received: by outflank-mailman (input) for mailman id 533117;
+ Thu, 11 May 2023 06:21:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CrlD=BA=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pwzTZ-0000L8-2R
- for xen-devel@lists.xenproject.org; Thu, 11 May 2023 06:08:29 +0000
+ id 1pwzgX-0002kF-KK
+ for xen-devel@lists.xenproject.org; Thu, 11 May 2023 06:21:53 +0000
 Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2060f.outbound.protection.outlook.com
- [2a01:111:f400:7d00::60f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3e88bd58-efc2-11ed-b229-6b7b168915f2;
- Thu, 11 May 2023 08:08:27 +0200 (CEST)
+ (mail-vi1eur05on20623.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::623])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1d9be1cf-efc4-11ed-8611-37d641c3527e;
+ Thu, 11 May 2023 08:21:51 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB7494.eurprd04.prod.outlook.com (2603:10a6:20b:23f::23)
+ by AS8PR04MB9095.eurprd04.prod.outlook.com (2603:10a6:20b:446::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.20; Thu, 11 May
- 2023 06:08:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6363.33; Thu, 11 May
+ 2023 06:21:49 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::8e41:82b6:a27f:2e0c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::8e41:82b6:a27f:2e0c%4]) with mapi id 15.20.6363.033; Thu, 11 May 2023
- 06:08:24 +0000
+ 06:21:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,213 +47,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e88bd58-efc2-11ed-b229-6b7b168915f2
+X-Inumbo-ID: 1d9be1cf-efc4-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QujaTB7cUuUw5xhipdJL0ncT3acgqqVFPRoF2STK+vZzqc0ZIqnrHNUYB9EzT3YXKcF5sWpMSEZkew9YKFaBXRyAiLyaPVbLRVKi3f691He77wvNLvawKNtYZNryqF6ufZ1gRSvsx/I4hizYlVqpSGcdIAZxUyjIEGGb2GKBpixCyIh97HfC5sXkuoAZiae8IamM2sRphkVTrR/U3+u8ER0+1Km2aykeJzDHAVeP6TzmmrP7M8STnTxhidqoHU8N5Ehs6ift4pmNNLBLilcZU0TmjkiZScqePPy9TRCHF44N4IVhLs1xHb6jrn50jECPgq+6DRTcTF4qW/CSi1n3oQ==
+ b=i7W+Ky0+DMEP/Kw5xz5ZplkQUaFrHyIIwyx8aTTgawe3vSvcFz/qRrjQX5X3Bed+oJHjD3u3enPLQDkbTnDIxjaxe0yIjfI4JBNAlCGpCDJ+mkwUTDYAvqqlUl1DboV1lOAWjMSAQKxB9WNvcO+aZ3Y1tQOKUluJRwgJV+sBkW1uPSKOYTIEpFaJboACYk0Zq2K2zdtnU/K6/B7BkWf4UksTax3I0lPaoYwhgJEXwrBzzYWQg+3Oqi8efg0JrocUjuQTvVtR7AdL/x6zIA48QnVdrs2Y/l6kYYrHdk/e1PSrDx75tBO7wwAKoC+q2q5x3VrW0IVcKOH5FJlihkgOgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rPeDCyyi69C/QPSdoXyljUJNrvj5LSTzHr/5LDbgjIE=;
- b=iEXbwCC9Otdy9101/TerJRvJnQjYAGSAn34C1PrsmUEXJFBEa7uN0ua7VBufksBD633bBSfoYiH+OLvqhqRylVQHFDoLJt3o4HHLi8WKZMA9Zgzf3/LVISN2pvhm1MGmpxmjAhTZ3eR3NtXgXJNC8eTfDWM62chn4yfVLaK/02tDSkosu3B0goLJG9o8BYDqW+pXhsmZJy0iAW56Z72vRN9diIBShMc+Pr0L7kTQ32VikuXUNilyxYGSLn1Gs7scbFciMitxhBRuci8YQ6CZm3BCk7lFlkDWnW8G1ucut0ckhBSnsyaeJHo9uRxwtnyRzhpJ89hO95pyVsTZzDG7JQ==
+ bh=6xSy4r1ApRa2RujTA9D3qOzby21+mZcddGWct3F7Ou8=;
+ b=KK0Vg/QIEIQiZoBSnu2h+zYxypmjdnjkwGcUd30R3pJKOECOEa1tbg1R201Md/LPmCmD8A0lNPOXC+Y4pJG7/xo3mGVTZt7uGEU3bLoofEWpiXxBhszzVDGlTKif5Bdpk7OdPHOUWvsPbx5ZTGg+MM8mNoIS6MzNNGLmeMORY2fq+0l/QMKTFs8wJypyik3fhAh4eKsVZEpxexIHI62FuviWukefp3WEtZlfeHLmj6clj9tBGMM5yUnuEyycGETbcu8ZdyPPXeJLbo4MOUWbjoh/0cq/slW+hhv4EwTx9okBA5Ok3CpNRTUb7mNg8iuzfj4ymWDJFi7m9JVEnWIUdw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rPeDCyyi69C/QPSdoXyljUJNrvj5LSTzHr/5LDbgjIE=;
- b=XEUmRsxEjGH7PsB8T7qYquJjgI9UXuuUu1ATM0x6svjzZiPYwPud28A10KSoHCC3Ir8E+XLln0qLzyxd2vJB7PkgYiHdqJGqrF8GkMhrfAb0ncrbn8CxDcp9wNngHWBuzl7hMnSxTgrIakH6jgATyxSTd180IvBeXvCtxV/hZVDmXdxyerCXPion0D5flLoLYyyTKuWLqf9VZ3ygMXyVQxY1tIgk46Yl98A6RJpiMju70mDQ+qbAnd+Xb0YSomxG4PBFF+a/hz934EudTeH35IzBKvClMEhInsWPEe130OvlCXYpr3J2Py9PvN9oWm6D+pAQAQ6i6rk511VMKTpSjw==
+ bh=6xSy4r1ApRa2RujTA9D3qOzby21+mZcddGWct3F7Ou8=;
+ b=Nc7W6c1soEgsLv6VSTJCaQIHrzqp/YYmrPM6/QzvzdTI90LgztyL/Q58GfZKbPSsyVQUYanx3V65EhcDn+SsU8461D2qeArF6cL4RQeKLyMwmmpwoCIYv6RU16EUwbDWsSVcDKgN5JKsuaKcu0+3gv/nv0mTWsoY3GoIqehbneIyI6XKGCp+4f6608qM3Z1CKwJnfmYKK9o0/4gDsB7n6bqcqDXoV3lcuWfDU8uUDZblLDosWugfo+u4rs8wf7Www48g4/g39pI+C6Jp7A3kCEJBc/87mfxxnnmI0opkUiSh500x6ZxCuEKE5WNDfepnJKeP85xrmf+tRg5ub3aGRA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8c4012a2-a0a7-b6f3-e931-c793659ad5a7@suse.com>
-Date: Thu, 11 May 2023 08:08:21 +0200
+Message-ID: <80ccf9c7-5d22-b368-dac6-01fe6cec7add@suse.com>
+Date: Thu, 11 May 2023 08:21:46 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.10.1
-Subject: Re: [XEN PATCH 2/2] x86/Dom0: Use streaming decompression for ZSTD
- compressed kernels
+Subject: Re: [PATCH v3 07/14 RESEND] cpufreq: Export HWP parameters to
+ userspace
 Content-Language: en-US
-To: =?UTF-8?Q?Rafa=c3=abl_Kooi?= <rafael_andreas@hotmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <cover.1683673597.git.rafael_andreas@hotmail.com>
- <DU0P192MB1700F6DFE45A48D90B5FE679E3779@DU0P192MB1700.EURP192.PROD.OUTLOOK.COM>
- <283798a0-0c69-7705-aade-6cd6b2c5f3c4@suse.com>
- <DU0P192MB1700F7BB44DC06D67D7AE345E3779@DU0P192MB1700.EURP192.PROD.OUTLOOK.COM>
- <9b8f033d-321c-412d-d0f3-51d29ac8d238@suse.com>
- <DU0P192MB17005DCCA86057EA3DF33171E3779@DU0P192MB1700.EURP192.PROD.OUTLOOK.COM>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20230501193034.88575-1-jandryuk@gmail.com>
+ <20230501193034.88575-8-jandryuk@gmail.com>
+ <7db38688-1233-bc16-03f3-7afdc3394054@suse.com>
+ <9cf71407-6209-296a-489a-9732b1928246@suse.com>
+ <CAKf6xptOf7eSzstzjfbbSU0tMBpNjtPEwt2uNzj=2TucrgFRiA@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <DU0P192MB17005DCCA86057EA3DF33171E3779@DU0P192MB1700.EURP192.PROD.OUTLOOK.COM>
+In-Reply-To: <CAKf6xptOf7eSzstzjfbbSU0tMBpNjtPEwt2uNzj=2TucrgFRiA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0038.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0014.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::24) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB7494:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7726a5d-220f-46db-2e29-08db51e620dc
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB9095:EE_
+X-MS-Office365-Filtering-Correlation-Id: a376ab8f-a4e9-41a0-ae9c-08db51e800c4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	yBNotofXybMzNmYp+obSafpIMjqQPLFXMokVZ0IHcqAPTevQkLsvBbuLg1SJlIbHCCiskMVVSXzXQxhG4ruPlp31dqTDlcpbcW1+8kO2b/hJkiZ2RCeIkYr5CPe4SBEsafPfiZ9feLpF5ZXxu/CBa+CLSjqlULpt4vytb4MZIlP6umzC62l6MCiHAh+T1E5JuhvR/VSMPsVSFFjrhNbtcAH3QMfWvt2KQ9KUO1Ux8OiGOgbVbi2gQcmvChxAvmQcF68hFUxZaAVcDqxie7LufvhMWQgi5Amzb/JC9XDa9nkxHZBv3kXfa6fpYfDYD16E/u10Yl/K3hDEVo9nVHpB8g/uZbC1CQszEi2n1ziXqcRz9bTd7KF0i1mU3SFekp19TQ1gCjpX9jL19RsvQ1ss5SOnB1SVAn7vsRnleeVNS0FiwHjXar8ioduSGB86dpltbwN7gBd7yWIT9s5HdqGxGiauBsgftSYDYd2sS1Alc5FqMpO1ko7TtUQ8nFyCrkNTWgl85sOry/AMlSEr4aVZgQd9Pmy/Jc6TBGSQzZg1xvF5mftqsezm4nJ620xZoFTZcWhvt6NQQFn7Mot2TnSkkSSBU3VQokxnUrreWhg3LzfHRJbFx4QwrRLV4kW8aRkGlZqjkumdiCLDJo6kAFYSjg==
+	8wKG5l3kFI3mcwdriiCCbJpM42EaF9DwyragNL9iu7fPIJ7pmk5cQnh52UxlbP2FOUhngWBVkW3tu6sJ8mc0WHHmHNSerU4iC0pJJ96H5zSA7JbADXsR3/7Yd5Z09oh4t5XnWT6Xh3MDLZJowcMAOTn/qRsysmeWsRNRG9hTqM1ueoKfZ5Sa5vZUduSNs6WMY+uGT0Ajpa707f8Fga2cxHmyvS2S3eaTqbR87n9+xf215eZS/48pf0kqgfWEXAgTCjGzxJBaEMn2tkJjxFmFD0KIKZvP5FhqGcM4lFsXBWaPqH1tPrNQ0q+lBt2BtNwPi1Xyy3IBS+YL/eV+Iz28+0r+Re++PniUHhMvO0b+Zdn/m0jaFQWS1v24xQCi98io/sZ22RGFLRf8mEK0byqx1rJ7AeIlRSlVEQl/21XWTux6J+ZqzgVHUSYgIEaQcxAjWPNIWpGfxy+VEvKmOaVdKE+P8RUO0CnI9Vx3JGkS91XY/mHsTT5U9QFhTaoQcoDgxfuOaSYM38546lH+NgGbdKDxfLbP/teyjG8naLZuZj7ApWAI/8eO/4GM+o4Hkjrn8Ep93MQHSykIKy5qCPKPIygZZ0xq5PHxLluCosg5emQB/sV3zISVksDXhRGmMxkB5/WAh2miBCWYLS+YGfp72w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(39860400002)(136003)(366004)(376002)(396003)(451199021)(2906002)(86362001)(31696002)(36756003)(6486002)(6506007)(53546011)(6512007)(26005)(186003)(478600001)(5660300002)(6666004)(66574015)(38100700002)(4326008)(66476007)(66946007)(6916009)(66556008)(2616005)(41300700001)(316002)(8676002)(31686004)(8936002)(54906003)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(366004)(136003)(396003)(376002)(346002)(451199021)(31686004)(66899021)(66556008)(66946007)(6916009)(66476007)(478600001)(6486002)(6666004)(54906003)(316002)(86362001)(36756003)(4326008)(31696002)(83380400001)(2616005)(6506007)(2906002)(6512007)(53546011)(26005)(8936002)(8676002)(5660300002)(41300700001)(38100700002)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TkZaUmo4dWk1MW4wZUppbWZsMXh2emtObzNCRlREd2s4NndGSW5XRTdUd2cr?=
- =?utf-8?B?MU5CeWZFQ0F6byt2VlQ3eXpVbkhHekhhZmxyMDAvUHlSRjVFZ1JqeitKSFlW?=
- =?utf-8?B?ZGJqcVJHdWt3VFdEZEQvUEFBUlJ6eFFsMWl4MDcvRmNueS9YWXJFSTRTMmt1?=
- =?utf-8?B?S3E2SnY3cEJaaGFCdmdQTHR1QThjVlZKK3VJTk9iRWRqeStEZEV6UFJFUEIw?=
- =?utf-8?B?cjRuMXdINlVqdTc2aDNRQzNtTmlZU0ZsWGtZTnJkKzJLT2d5WUdZME1BS1E2?=
- =?utf-8?B?dUY5bGo3Uy9EemhvblF2Z21FNzZVTDFCbEt6RlNOZ0RuQnV0WTFuSTF5cXcr?=
- =?utf-8?B?eFdkNzJBYi9zc2FmTVlOZUltTk9qMzNZNjJpeTZmRzcydHRIbS9DTlRsYlpp?=
- =?utf-8?B?U2xlWU9mYStVVnJ1Skw2T1FGbUM0NG1DYW5KTG84TFZsVlF5c3NMQzRIK3k2?=
- =?utf-8?B?S1NlYjkwdlZNMDdUT2VyTWZYaGorMFdVV1diQXRvMkVIcEtKdUd5R25jdk4y?=
- =?utf-8?B?YVRyQnlkVUZBMjdEUkVWdmpZZ25LYm0rb09mR0pGNGlObkx3NDMrRUt2TFZS?=
- =?utf-8?B?RjZ6OFR1LzNiamJHdFVWWWkzempVa3pWK2hxYkFWRXVwRHFUTFlhaXNVMElJ?=
- =?utf-8?B?QWpqOE1IWG00NmlQYkE3MHlyTEFqN3BOZlZyT3VWano3TVNjY2orbDB4Uk4x?=
- =?utf-8?B?WlBXSlNUd1RkUlhOUVc1RkN1RW5Oc3N0TVNEY3VFaDlkNlFVdjlyOHo0ZWMy?=
- =?utf-8?B?N2RJVWpJUVpTNU8veGFlN0x3bWQyRzNNYWdId3ZzSXVZT3ZvVzNxTGVWM0Ji?=
- =?utf-8?B?dFRwM0NnZ040biswWlUxbVp3clQ3MkpyRk52emhWZ0VubUVIZmc3ZVpXVEdD?=
- =?utf-8?B?Z3pHZXVzQUYwUlVQUEVKeUZYWTNsNFMxNWhXWWVaRGNBY2ZhdUc3Q0Rpb1E5?=
- =?utf-8?B?Wi95bmx5MTJqUzROZkc4bkI5ZXhOL0pLLzMvMnExRmJvRXRQSUtrTzVrNjI0?=
- =?utf-8?B?QnNuYUxYYUlwMTFPbUMyZTlURTI5Z1pUdjRXZ3luZVlzc056VjQwdEZPMEZr?=
- =?utf-8?B?ZTRMaGRQcGRIcVl2YmVWOTF2UUh2dzVlOThRS1dnYUdIYmdheE5UakZHdGxo?=
- =?utf-8?B?bFpaTEFTTGF0ekZjNVdLQTB0NEpkUHVyNitSbHQ1eE5LM2dwdHllK2VKRGJV?=
- =?utf-8?B?MUl5dFpNT2RheGlhZjlEN2FFaFRqOXQ2UUlrRXoybzcyRWtDYStldkpWZExR?=
- =?utf-8?B?cEQvQ2E5aWFCNmxhWnhiOXZBN2JFb1VsL3RkNU5hVWJQZC9JZFlja2F4QkM1?=
- =?utf-8?B?Z1dNRU8zdVV1eG5PdEZ3NDN6VVpCTGE2dGVzMGlrRVlOSmxJU1V4dS9HTkgy?=
- =?utf-8?B?dGVsR3BVWHVqQWxiNTA2NTA3WEc3WGVsWkE1YXZjR0NvWWpEUjlnWVBKM0xB?=
- =?utf-8?B?SHhiYlhVRmwwWWF3YmhWV0pBMUd1TTBWS2ZLMU83eEZVdmpMUFpiWStOVVFJ?=
- =?utf-8?B?R3RNbWh2NlRlbldnaDJZaUt2MnJmWDJLRTZsUXRqMVhhdmdkdDVHWjJNaXEw?=
- =?utf-8?B?NlNHMFo1bE5SZmlBUkM3eVZrYVZzc2k0N1hvZENOQVJGd2EzSGNoYzRId2E3?=
- =?utf-8?B?Rm14UmVveVhBSE16cEVBQUFtQVgrODU0RG5WV01tN3VXZWlmdGMzS1JWYThN?=
- =?utf-8?B?QmY2M0ljN0YwdnBQSzVuRVpSWG56NXAza0NvUzIxcmsxVHd6dTVnVytnaExS?=
- =?utf-8?B?dndiYzlIMXdNc051dmZmWTQxaXpYY2xsUGt5ZnFaTmw0WFdCbGwzSmpoNGVV?=
- =?utf-8?B?TW5iVlFzSk1haWQwK2Jyd2lqWHU2azVLblZRbmdQeEdQV3BJMlJRMEFTci9S?=
- =?utf-8?B?UzVaSlVucmE5ZDdzc0plNTBYYmc3SHhYUHh3WForZk4vMGNWUXhrYVJaZ3ZE?=
- =?utf-8?B?eDMvOCt6V3R6TXNzdlRnWElmMm0vTDZqUFkrd0c2V21LeDdYOG9tTldkbUxP?=
- =?utf-8?B?YUhkSkVqSWpVOFU1SWk0MWswbElMSWNBRVFkdEFzUSt2b0Z3b3M0VE1GUHVU?=
- =?utf-8?B?ekNSOXZVbnArdFJiK25BRWFhZG4xYmRlcFJpbUFmVjZ4bzZ4RVBsaFhOckh0?=
- =?utf-8?Q?qCGSVkLbjKCbmkYM4Ca7w2Fa0?=
+	=?utf-8?B?RzBMT3IycDBtQlVlc2g2NDZ3czZkZGNuK1ViUHdJRmlaajFtSEJPTXIwcS9u?=
+ =?utf-8?B?aVZucGNkQ3M4RkVtallNNFgvRTdWdC8zYkR0eTJZVVpoNS9CZng3MTBFMHcz?=
+ =?utf-8?B?REluR09sZnIrMjJxMzRGRmZJcVBwOTR0aTJGaWlnMGw5a0xWVmdYaXFqdEds?=
+ =?utf-8?B?L2llZURKKy9OMFpDUXFzcldCRzRDM2J3YjZVUEdPcGVic0o0ekZra04yMGY5?=
+ =?utf-8?B?ZFRhUDFYOVpJRHBiUUtsa2Z1d1F4VkkzYkNYZ3JIekJ1UTJZRmo5TjdKcEFV?=
+ =?utf-8?B?b1g1Y3hUQ21IZzNVK2RzcUo5RFhOQ1NhQ2ZJaEphUHNtWlNFUUUwVmVaUndp?=
+ =?utf-8?B?ZHNHTkxpT1VkM0lnUTQrU2JwUWY2YVJ6aTR0ajlNUlUzSnFGT0M4YTFEQkxn?=
+ =?utf-8?B?cFp2TlBzcnNQSXJJRVhmNGl5RXRha3FYOW5oQjVFZ2MwYzlmZFJET25oVCtq?=
+ =?utf-8?B?M05xZHhSd1lEQmJWQU9YalpxUGJsMDI5YytNenlYTG1BTFlzV01YOHpieG9a?=
+ =?utf-8?B?SC9RWlFUM0lnREdZOWF4QytVSlhKS3lXemswdUZlaHZtTlM5alFQalFuMXlo?=
+ =?utf-8?B?dVRPdCtjdXg1aCtYVGJsWmNhZjVJY0c4eEVicUs4SVBLcEwxdE05dmhybHc2?=
+ =?utf-8?B?cmVPdlBoNXkrQkpHMjNXbFZOZmhnOXRnQTlSTWtUR3dhQm9PUG1HRU9kYmly?=
+ =?utf-8?B?dFRpRHlFN0hpb3A5UWlENVNrMW91dFZ6RmpqVWtIU21TSWg5Q3U3b2Z3MEdE?=
+ =?utf-8?B?dVRubEk2QmNCKzh6ZzJMTFhGa3dUbXVlWDMyRmpkQXdid3J0Wm9jdWFaOG5k?=
+ =?utf-8?B?NjJUTVhQdTlZSDlCbTI4LzlsVVc0MkdXcjgxc2RvSDVrTTdNRXI5RzdFcTNz?=
+ =?utf-8?B?T0JueHJzWVVmdFJnRmdxQ1pTcTg4dFYvSFR5cm82Y2NTQnkyNFlTcExHejRK?=
+ =?utf-8?B?eHZkL0EvbXZ3Wm1RdzJsVXMzaXdLTWk5cDdmQnRJeGhPdWpjRytNMzVFdDJx?=
+ =?utf-8?B?REVPaG5GSWo1VEtid0ZxQ3lkNGUrcHVRZFZEdFlzOW9aQVh4Z2tGNDVtYlQv?=
+ =?utf-8?B?MXVGMUJlQmEyNlI4cktvRDUvaE5BYjhWQkg2ZmJBWDdSM2JnWTFpUkxhbDhm?=
+ =?utf-8?B?OGtkODFIS0dtVXRTMWdRZWVqL3lhbXVXSzhVejA0MHh2M2NNaU1rZldrV3F5?=
+ =?utf-8?B?UjJRVEU4VWt6VU8zVTZrMDFPRm9tL04xdFkwN1BNNEdlQkVVTTF1V3g0ekpT?=
+ =?utf-8?B?dEpQTmVlVnY4RTBHOHE0WldUVEhDSUNvY0EyWTJpcThvWVVOakxweStPQjBF?=
+ =?utf-8?B?amZBVkpaSFB3azd6M0IxTHlPNHZYaGxMNDhUdGZSSzJNVHVRNXdKMGhSRS9l?=
+ =?utf-8?B?REg3YnF4YW5kQUhiaXNzOVpzZnhrc3NwemdzYWlTNzhsMXgvOEJzaEtpeXQ0?=
+ =?utf-8?B?dzZ5S2trN25nQlBhUnlTY2VaNFF3UTBKdmlZcm1oS01qeVExbThzSEUxRFJR?=
+ =?utf-8?B?OWJac2t6TGFQNnhXM25DbVJnNTcwUy9jUysxNzhGQUZoNTdDVU1sVFcwcHZs?=
+ =?utf-8?B?RXczN1FRcmZ6SFpaeU9JR2R3UXNnQ2ZpbnRrMGRGNTZlaEVOS1lBMnc2RTJZ?=
+ =?utf-8?B?b0FSVlZBY1VNd3NZdk91MkU4andLSy9HS0M1Ty9lck1MMUtLdWJnbVkwMWhl?=
+ =?utf-8?B?eDVUYlI0d3F1KzgwdjgrU2FDeFlCMmduQVVtQmFGQnFJOFNPNER4UzFqSTNo?=
+ =?utf-8?B?b05jZy9UTkRIY2tRTTBra2N3MVgxY1ZwcXpucng4MHBwQTIyWHFvVDNVMEto?=
+ =?utf-8?B?Mnc3QzVzamEvNjJaUzNhbnJ4WnZIYkRnY09vY09NYm1JLzBoS0J5ZTh5UEkr?=
+ =?utf-8?B?OWtvaFB4TzZZNjNIdFh1VGdBSVZsWTRnRlBWeGdaYlRPdDkwbjUvNFNLVGdP?=
+ =?utf-8?B?TmxqUmMzSGdBaDJpUEdIblFPZUh6ZkIyY2NWQldXNkppMzgzOW5FRHlpN2pC?=
+ =?utf-8?B?LzFvTkxaMkV5T05SK0VUeG5SZkhNclVsankvZU1SNHNRQlUveW1wMUhFdll3?=
+ =?utf-8?B?Mkp6VCtSNFRyczl2anl6VGoxRmNrWDJvKzBrVnVvTjZHSHhXMmx3MXU1WHFv?=
+ =?utf-8?Q?QIRiUhyEPV+i8eLfYBZ7EGwQP?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7726a5d-220f-46db-2e29-08db51e620dc
+X-MS-Exchange-CrossTenant-Network-Message-Id: a376ab8f-a4e9-41a0-ae9c-08db51e800c4
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2023 06:08:24.2755
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2023 06:21:49.1588
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QNnBYUKsuRCC2AbKy3DlvBH7kV/tRZuzpkw6uEYhGOUXspAvPL8rM0kbDj2b5CIcJe1lWbrE5YnazwPxUpg6Kg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7494
+X-MS-Exchange-CrossTenant-UserPrincipalName: xQJRbL11fruAqd9F0wXM4hCtSJXRHj/bzPb1S0R+NxPbuOzELH9p2Kl6JAPGc1PxyG/vqT/7npbQDFkWDkAlXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9095
 
-On 10.05.2023 19:30, Rafaël Kooi wrote:
-> On 10/05/2023 11:48, Jan Beulich wrote:
->> On 10.05.2023 10:51, Rafaël Kooi wrote:
->>> On 10/05/2023 10:03, Jan Beulich wrote:> On 10.05.2023 02:18, Rafaël Kooi wrote:
->>>>> --- a/xen/common/decompress.c
->>>>> +++ b/xen/common/decompress.c
->>>>> @@ -3,11 +3,26 @@
->>>>>    #include <xen/string.h>
->>>>>    #include <xen/decompress.h>
->>>>>    
->>>>> +typedef struct _ZSTD_state
->>>>> +{
->>>>> +    void *write_buf;
->>>>> +    unsigned int write_pos;
->>>>> +} ZSTD_state;
->>>>> +
->>>>>    static void __init cf_check error(const char *msg)
->>>>>    {
->>>>>        printk("%s\n", msg);
->>>>>    }
->>>>>    
->>>>> +static int __init cf_check ZSTD_flush(void *buf, unsigned int pos,
->>>>> +                                      void *userptr)
->>>>> +{
->>>>> +    ZSTD_state *state = (ZSTD_state*)userptr;
->>>>> +    memcpy(state->write_buf + state->write_pos, buf, pos);
->>>>> +    state->write_pos += pos;
->>>>> +    return pos;
->>>>> +}
->>>>
->>>> This doesn't really belong here, but will (I expect) go away anyway once
->>>> you drop the earlier patch.
->>>>
+On 10.05.2023 19:49, Jason Andryuk wrote:
+> On Mon, May 8, 2023 at 6:26 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 01.05.2023 21:30, Jason Andryuk wrote:
+>>> Extend xen_get_cpufreq_para to return hwp parameters.  These match the
+>>> hardware rather closely.
 >>>
->>> The ZSTD_flush will have to stay, as that is how the decompressor will
->>> start streaming decompression. The difference will be that the book
->>> keeping will be "global" (to the translation unit).
->>
->> But this bookkeeping should be entirely in zstd code (i.e. presumably
->> unzstd.c).
->>
-> 
-> The implementation of the decompression functions seem to indicate
-> otherwise. Referring to unzstd.c:`unzstd`, the function will take the
-> streaming decompression path if either `fill` or `flush` have been
-> supplied. I cross checked with unlzma.c and unxz.c, and that seems to
-> have similar behavior in regards to flushing the output data. The
-> `flush` function is passed a buffer to a chunk of decompressed data with
-> `pos` being the size of the chunk. For the sake of consistency I don't
-> think it's a good idea to deviate from this behavior in just unzstd.c.
-
-Well, so far we don't use any flush functions, do we? The question
-could therefore also be put differently: In how far is the flush
-function you introduce zstd-specific? If it isn't be other than the
-fact that it is only passed to unzstd(), perhaps it shouldn't be
-named as if zstd-specific?
-
->>>>>        if ( len >= 4 && !memcmp(inbuf, "\x28\xb5\x2f\xfd", 4) )
->>>>> -	return unzstd(inbuf, len, NULL, NULL, outbuf, NULL, error);
->>>>> +    {
->>>>> +        // NOTE (Rafaël): On Arch Linux the kernel is compressed in a way
->>>>> +        // that requires streaming ZSTD decompression. Otherwise decompression
->>>>> +        // will fail when using a unified EFI binary. Somehow decompression
->>>>> +        // works when not using a unified EFI binary, I suspect this is the
->>>>> +        // kernel self decompressing. Or there is a code path that I am not
->>>>> +        // aware of that takes care of the use case properly.
->>>>
->>>> Along the lines of what I've said for the description, this wants to avoid
->>>> terms like "somehow" if at all possible.
+>>> We need the features bitmask to indicated fields supported by the actual
+>>> hardware.
 >>>
->>> I've used the term "somehow" because I don't know why decompression
->>> works when Xen loads the kernel from the EFI file system. I assume the
->>> kernel still gets unpacked by Xen, right? Or does the kernel unpack
->>> itself?
+>>> The use of uint8_t parameters matches the hardware size.  uint32_t
+>>> entries grows the sysctl_t past the build assertion in setup.c.  The
+>>> uint8_t ranges are supported across multiple generations, so hopefully
+>>> they won't change.
 >>
->> The handling of Dom0 kernel decompression ought to be entirely independent
->> of EFI vs legacy. Unless I'm wrong with that (mis-remembering), you
->> mentioning EFI is potentially misleading. And yes, at least on x86 the
->> kernel is decompressed by Xen (by peeking into the supplied bzImage). The
->> difference between a plain bzImage and a "unified EFI binary" is what you
->> will want to outline in the description (and at least mention in the
->> comment). What I'm wondering is whether there simply is an issue with size
->> determination when the kernel is taken from the .kernel section.
->>
+>> Still it feels a little odd for values to be this narrow. Aiui the
+>> scaling_governor[] and scaling_{max,min}_freq fields aren't (really)
+>> used by HWP. So you could widen the union in struct
+>> xen_get_cpufreq_para (in a binary but not necessarily source compatible
+>> manner), gaining you 6 more uint32_t slots. Possibly the somewhat oddly
+>> placed scaling_cur_freq could be included as well ...
 > 
-> Assuming you are talking about size determination of the compressed
-> bzImage, I notice a discrepancy in the size of the ZSTD stream and the
-> reported size by the vmlinuz-* header upon further investigation. When
-> using the streaming decompression code I made it output how many bytes
-> it reads from the extracted-but-still-compressed bzImage. The code
-> reads 12,327,560 bytes, but the size of the compressed bzImage in the
-> header is 12,327,564 bytes. In xen/arch/x86/bzImage.c `decompress` is
-> called with `orig_image_len`, when the function `output_length`
-> calculates the end address and removes 4 bytes from that address. If I
-> remove the last 4 bytes from the compressed bzImage then `unzstd` will
-> unpack it with `unzstd bzImage.zst -o bzImage`, otherwise it will
-> complain with `zstd: /*stdin*\: unknown header`. With this new
-> information I think the correct solution is to try calling `decompress`
-> a second time with with `orig_image_len - 4` if it fails.
+> The values are narrow, but they match the hardware.  It works for HWP,
+> so there is no need to change at this time AFAICT.
+> 
+> Do you want me to make this change?
 
-That's not very likely to be an appropriate solution. If the sizes
-diverge by 4, that difference needs explaining. Once understood, it'll
-hopefully become clear under what conditions (if any) to adjust the
-length right away, without any need to retry.
+Well, much depends on what these 8-bit values actually express (I did
+raise this question in one of the replies to your patches, as I wasn't
+able to find anything in the SDM). That'll then hopefully allow to
+make some educated prediction on on how likely it is that a future
+variant of hwp would want to widen them. (Was it energy_perf that went
+from 4 to 8 bits at some point, which you even comment upon in the
+public header?)
+
+> On Mon, May 8, 2023 at 6:47 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 08.05.2023 12:25, Jan Beulich wrote:
+>>> On 01.05.2023 21:30, Jason Andryuk wrote:
+>>>> Extend xen_get_cpufreq_para to return hwp parameters.  These match the
+>>>> hardware rather closely.
+>>>>
+>>>> We need the features bitmask to indicated fields supported by the actual
+>>>> hardware.
+>>>>
+>>>> The use of uint8_t parameters matches the hardware size.  uint32_t
+>>>> entries grows the sysctl_t past the build assertion in setup.c.  The
+>>>> uint8_t ranges are supported across multiple generations, so hopefully
+>>>> they won't change.
+>>>
+>>> Still it feels a little odd for values to be this narrow. Aiui the
+>>> scaling_governor[] and scaling_{max,min}_freq fields aren't (really)
+>>> used by HWP. So you could widen the union in struct
+>>> xen_get_cpufreq_para (in a binary but not necessarily source compatible
+>>> manner), gaining you 6 more uint32_t slots. Possibly the somewhat oddly
+>>> placed scaling_cur_freq could be included as well ...
+>>
+>> Having seen patch 9 now as well, I wonder whether here (or in a separate
+>> patch) you don't want to limit providing inapplicable data (for example
+>> not filling *scaling_available_governors would even avoid an allocation,
+>> thus removing a possible reason for failure), while there (or again in a
+>> separate patch) you'd also limit what the tool reports (inapplicable
+>> output causes confusion / questions at best).
+> 
+> The xenpm output only shows relevant information:
+> 
+> # xenpm get-cpufreq-para 11
+> cpu id               : 11
+> affected_cpus        : 11
+> cpuinfo frequency    : base [1600000] max [4900000]
+> scaling_driver       : hwp-cpufreq
+> scaling_avail_gov    : hwp
+> current_governor     : hwp
+> hwp variables        :
+>   hardware limits    : lowest [1] most_efficient [11]
+>                      : guaranteed [11] highest [49]
+>   configured limits  : min [1] max [255] energy_perf [128]
+>                      : activity_window [0 hardware selected]
+>                      : desired [0 hw autonomous]
+> turbo mode           : enabled
+> 
+> The scaling_*_freq values, policy->{min,max,cur} are filled in with
+> base, max and 0 in hwp_get_cpu_speeds(), so it's not totally invalid
+> values being returned.  The governor registration restricting to only
+> internal governors when HWP is active means it only has the single
+> governor.  I think it's okay as-is, but let me know if you want
+> something changed.
+
+Well, the main connection here was to the possible overloading of
+space in the sysctl struct, by widening what the union covers. That
+can of course only be done for fields which don't convey useful data.
+If we go without the further overloading, I guess we can for now leave
+the tool as you have it, and deal with possible tidying later on.
 
 Jan
 
