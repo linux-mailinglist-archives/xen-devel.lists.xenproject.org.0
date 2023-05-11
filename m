@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 889656FFB83
-	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 22:55:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533601.830423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56FF86FFBCF
+	for <lists+xen-devel@lfdr.de>; Thu, 11 May 2023 23:23:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533636.830451 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxDIs-00051V-Kh; Thu, 11 May 2023 20:54:22 +0000
+	id 1pxDkj-0001Nr-8i; Thu, 11 May 2023 21:23:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533601.830423; Thu, 11 May 2023 20:54:22 +0000
+Received: by outflank-mailman (output) from mailman id 533636.830451; Thu, 11 May 2023 21:23:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxDIs-0004zC-I3; Thu, 11 May 2023 20:54:22 +0000
-Received: by outflank-mailman (input) for mailman id 533601;
- Thu, 11 May 2023 20:54:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pxDkj-0001L4-5J; Thu, 11 May 2023 21:23:09 +0000
+Received: by outflank-mailman (input) for mailman id 533636;
+ Thu, 11 May 2023 21:23:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hqDu=BA=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1pxDIr-0004z6-El
- for xen-devel@lists.xenproject.org; Thu, 11 May 2023 20:54:21 +0000
+ id 1pxDkh-0001Ky-6h
+ for xen-devel@lists.xenproject.org; Thu, 11 May 2023 21:23:07 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff12c282-f03d-11ed-b229-6b7b168915f2;
- Thu, 11 May 2023 22:54:19 +0200 (CEST)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 03777d16-f042-11ed-8611-37d641c3527e;
+ Thu, 11 May 2023 23:23:04 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-664-pVDtR5lIO9KK6aA01R3HOQ-1; Thu, 11 May 2023 16:54:14 -0400
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+ us-mta-475-3xO6SSSRNHmyv7vq4yn9MA-1; Thu, 11 May 2023 17:23:01 -0400
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4114F101A551;
- Thu, 11 May 2023 20:54:13 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B1EFD101A54F;
+ Thu, 11 May 2023 21:23:00 +0000 (UTC)
 Received: from localhost (unknown [10.39.194.137])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 4CE1D40C2076;
- Thu, 11 May 2023 20:54:12 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id C76ED1121314;
+ Thu, 11 May 2023 21:22:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff12c282-f03d-11ed-b229-6b7b168915f2
+X-Inumbo-ID: 03777d16-f042-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683838457;
+	s=mimecast20190719; t=1683840183;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lKaLumOy3GlXOhr3lyW/BQUjBQQOyF+DHc2DmfELBtc=;
-	b=XasFPHD/Tgv4t1j17HtYj7vhdzDyFETtmUO227IXV8vC1aMbAt9dZXURK50dzcu7hH2Gyk
-	6/c6lKZ+R7tGVJ+AuqNFvOQOG+Zahu9OInSIgDag1NYx26Hgp+Zr/c3sCbk9PQT/8YIAxh
-	Kb3wt25Y5wmXUpd+4FPLc8g4Ob++cXE=
-X-MC-Unique: pVDtR5lIO9KK6aA01R3HOQ-1
-Date: Thu, 11 May 2023 16:54:10 -0400
+	bh=15TTAtwTe95TssE/QqqHEBqg7HkRY26GkLUlrAlX6ug=;
+	b=IBSoeGcHRY15VNV+mWpW266dTOYTC1LlX/5veW5WpPm/kbrJEvnRqKlkhfSnvT1qYBIA/7
+	q9fx/J8aKiO3/LGw4OPCGiFmzS6kFDXHquCxYt5wRxXEaUDPbJ8zpWqxUUsLVfdmQxeafy
+	kxV/0jyTggNl8JR7Vg20/d9oc1VHZJA=
+X-MC-Unique: 3xO6SSSRNHmyv7vq4yn9MA-1
+Date: Thu, 11 May 2023 17:22:57 -0400
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: Kevin Wolf <kwolf@redhat.com>
 Cc: qemu-devel@nongnu.org,
@@ -88,19 +88,19 @@ Cc: qemu-devel@nongnu.org,
 	Ronnie Sahlberg <ronniesahlberg@gmail.com>
 Subject: Re: [PATCH v4 17/20] virtio-blk: implement
  BlockDevOps->drained_begin()
-Message-ID: <20230511205410.GB1425915@fedora>
+Message-ID: <20230511212257.GC1425915@fedora>
 References: <20230425172716.1033562-1-stefanha@redhat.com>
  <20230425172716.1033562-18-stefanha@redhat.com>
  <ZFQgBvWShB4NCymj@redhat.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="7sdJLAkKzW28PHgM"
+	protocol="application/pgp-signature"; boundary="Oiaj1dMwGdbo2z3S"
 Content-Disposition: inline
 In-Reply-To: <ZFQgBvWShB4NCymj@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 
 
---7sdJLAkKzW28PHgM
+--Oiaj1dMwGdbo2z3S
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -167,45 +167,39 @@ v)
 > If it's okay to just skip this during drain, why do we need to do it
 > outside of drain?
 
-Yes, it's safe because virtio_blk_data_plane_stop() has two cases:
-1. The device is being reset. It is not necessary to process new
-   requests.
-2. 'stop'/'cont'. 'cont' will call virtio_blk_data_plane_start() ->
-   event_notifier_set() so new requests will be processed when the guest
-   resumes exection.
+I forgot to answer why we need to process requests one last time outside
+drain.
 
-That's why I think this is safe and the right thing to do.
+This approach comes from how vhost uses ioeventfd. When switching from
+vhost back to QEMU emulation, there's a chance that a final virtqueue
+kick snuck in while ioeventfd was being disabled.
 
-However, your question led me to a pre-existing drain bug when a vCPU
-resets the device during a drained section (e.g. when a mirror block job
-has started a drained section and the main loop runs until the block job
-exits). New requests must not be processed by
-virtio_blk_data_plane_stop() because that would violate drain semantics.
+This is not the case with dataplane nowadays (it may have in the past).
+The only state dataplane transitions are device reset and 'stop'/'cont'.
+Neither of these require QEMU to process new requests in while stopping
+dataplane.
 
-It turns out requests are still processed because of
-virtio_blk_data_plane_stop() -> virtio_bus_cleanup_host_notifier() ->
-virtio_queue_host_notifier_read().
-
-I think that should be handled in a separate patch series. It's not
-related to aio_disable_external().
+My confidence is not 100%, but still pretty high that the
+virtio_queue_host_notifier_read() call could be dropped from dataplane
+code. Since I'm not 100% sure I didn't attempt that.
 
 Stefan
 
---7sdJLAkKzW28PHgM
+--Oiaj1dMwGdbo2z3S
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRdVfIACgkQnKSrs4Gr
-c8ig3wf/Ub9knJu/SlPq8GcOBNeoLnzjSUY4Sw4CMGQZP7HTtfyEzuHDcyem8dMb
-hnX70qEgVgutOHbRBZG/cdU8MiCLqWxHqLm6PBJSEzyfI4MyTH1k3K5mN7MYlxqa
-1Y6JQgCWYdoy+oGU1/MzZF6hYufpInTMPHl+Wkw6K5+1R9WrZB23PYeNgr0sfhFf
-ln/aPF/FnkBUioLw4V0rto053D38fnFjNG62iD2z3CFiU9Pt+Qt2Z71TbMlIYk2m
-eTIAXB4LI0ub9CYXVQSykpsYRTk2KzFdGR9VyeUiz5YIoLumSPMuOW+rs6Df1lww
-Oy6Pkgt/sUviNAkQUANJ3x/oqLPSfg==
-=RwYy
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmRdXLEACgkQnKSrs4Gr
+c8jaKwf/fkopq41ZCcEWQFE6onRfieKs07b9qdmYnv9Ly46C4LHZe6PGnV7WnARH
+Io4P4+i62gfIqhSteatqauqvYq0TKi/1WtWlzzOZhBU4J2zQGkJ29d5j7Z5YCTb7
+uNx4J0SysXXmIau/T/Tg0KbpTI8srRIYOW5j7qlrEiLcINJvXaK10xjyz3ANbGkl
+uh/ieO4H2Yuf4IZn51Lm7xQhUfcHCVNOS2Or0s2zrhu4wI8UpJUIrcH56yQIoXis
+isUj+u0Yh4B7BMeBVYSOfV4omMO8NhBALqjpJBJ4frnh+1RZ0aeZKB0PWPafYYrc
+UkYTFhgJIK8F7OpXUii69DxnOfDAmQ==
+=Ls32
 -----END PGP SIGNATURE-----
 
---7sdJLAkKzW28PHgM--
+--Oiaj1dMwGdbo2z3S--
 
 
