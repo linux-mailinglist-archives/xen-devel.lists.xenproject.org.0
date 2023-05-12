@@ -2,29 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 474CF7010D4
-	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 23:17:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533965.831139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 240327010E0
+	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 23:18:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.534002.831218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxa8s-0000xs-Af; Fri, 12 May 2023 21:17:34 +0000
+	id 1pxa9G-0003zr-AQ; Fri, 12 May 2023 21:17:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533965.831139; Fri, 12 May 2023 21:17:34 +0000
+Received: by outflank-mailman (output) from mailman id 534002.831218; Fri, 12 May 2023 21:17:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxa8s-0000rM-3O; Fri, 12 May 2023 21:17:34 +0000
-Received: by outflank-mailman (input) for mailman id 533965;
- Fri, 12 May 2023 21:17:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pxa9F-0003nx-OV; Fri, 12 May 2023 21:17:57 +0000
+Received: by outflank-mailman (input) for mailman id 534002;
+ Fri, 12 May 2023 21:17:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5PQu=BB=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pxZzJ-0004FP-MU
- for xen-devel@lists.xenproject.org; Fri, 12 May 2023 21:07:41 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 08144d87-f109-11ed-b229-6b7b168915f2;
- Fri, 12 May 2023 23:07:41 +0200 (CEST)
+ id 1pxZzN-0004F7-G4
+ for xen-devel@lists.xenproject.org; Fri, 12 May 2023 21:07:45 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0901af17-f109-11ed-8611-37d641c3527e;
+ Fri, 12 May 2023 23:07:42 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +37,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08144d87-f109-11ed-b229-6b7b168915f2
-Message-ID: <20230512205256.916055844@linutronix.de>
+X-Inumbo-ID: 0901af17-f109-11ed-8611-37d641c3527e
+Message-ID: <20230512205256.972894276@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1683925660;
+	s=2020; t=1683925662;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=3WyGAeXCoINo+ZjbtqDSmG4Uv4XxBoW1eRT13EQq0fk=;
-	b=gCuo784jqFHJl8ajBn8394w4OmHWarWHua689soLfocU0hu6yonNTwuMrKteuZS5UiIuEV
-	qrcv15f4Q6TokbWN0YfdK3MSd6z8xiHfnEZzev7CF61wRptMWuiL7c2cva2fdafmy4x44i
-	QLCrGnHJHlwNB/wrQX3E9sCIWLmnibPYc8f6Fvn0Mhtkx8DzedCkReA25Zy2fK9LabrFWb
-	x1UPFk0hgEJqdWWpnRwgFxJ1i3v5p9suQyaN5MHQM1jUq9DQq3rPXVvibiH0XDHv/RMwo0
-	mWl2Aksb+Mjpq0yv8/Ii5IfUB3vzQQo6B2UpFf/trJXJtP52QvDOQWDArAV10Q==
+	 references:references; bh=nzItUYys+FxnFlxHRSRwXNvBFw4/RHjBPySjAIg1FA0=;
+	b=HFAJV0pMQwfu/4+GAhQLuXhpUO6abQd4y85mbgjAss6mqH/BExmc6AKeRMkuLpdoxhLinj
+	NBMK7Ra2vav1RTE5mzIkDgtLQvIZiWXsjGTWMWD3X/NXyy3ID7jD6oi/PGdhpAjN0b4CZQ
+	6IMLg3BcGBtrqbRHE3Td3hMjnCGGjMUZew8rgNfnNgQ+oeJaUqITgff3tJlFeEUzOnnv+R
+	Fjr1+md7ekwb9fGi39VcdH3yTLAztWBmY3Yv4ndK172fdqfHvHqzXeEqjzim8ZrnuECBT9
+	6bomIHXV7BUv75NlLf7B9z3kwvgz12t7LUL/w3aX0Wd0Yv0nG39/k2Y0dX/XYA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1683925660;
+	s=2020e; t=1683925662;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=3WyGAeXCoINo+ZjbtqDSmG4Uv4XxBoW1eRT13EQq0fk=;
-	b=LWXqEciaP4I0I25ywyzxuHHtRRVAY1D7DccVqnOk2GJSZvUntz/BBxlff7vjipNfXjw8l7
-	MDKU/BWHM78qyUDA==
+	 references:references; bh=nzItUYys+FxnFlxHRSRwXNvBFw4/RHjBPySjAIg1FA0=;
+	b=eK6tV6hlAQaheu95GgdL2hUtApcdcJITHelzRXs0n6MnF+U01Souw/mHmLrDCW7jivSlgK
+	RTZIurVUzouaTZAQ==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: x86@kernel.org,
@@ -92,92 +93,117 @@ Cc: x86@kernel.org,
  Mark Rutland <mark.rutland@arm.com>,
  Sabin Rapan <sabrapan@amazon.com>,
  "Michael Kelley (LINUX)" <mikelley@microsoft.com>,
- Ross Philipson <ross.philipson@oracle.com>,
- Palmer Dabbelt <palmer@rivosinc.com>
-Subject: [patch V4 27/37] riscv: Switch to hotplug core state synchronization
+ Ross Philipson <ross.philipson@oracle.com>
+Subject: [patch V4 28/37] cpu/hotplug: Remove unused state functions
 References: <20230512203426.452963764@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 12 May 2023 23:07:40 +0200 (CEST)
+Date: Fri, 12 May 2023 23:07:41 +0200 (CEST)
 
 From: Thomas Gleixner <tglx@linutronix.de>
 
-Switch to the CPU hotplug core state tracking and synchronization
-mechanim. No functional change intended.
+All users converted to the hotplug core mechanism.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Tested-by: Michael Kelley <mikelley@microsoft.com>
-Acked-by: Palmer Dabbelt <palmer@rivosinc.com>
 ---
- arch/riscv/Kconfig              |    1 +
- arch/riscv/include/asm/smp.h    |    2 +-
- arch/riscv/kernel/cpu-hotplug.c |   14 +++++++-------
- 3 files changed, 9 insertions(+), 8 deletions(-)
---- a/arch/riscv/Kconfig
-+++ b/arch/riscv/Kconfig
-@@ -122,6 +122,7 @@ config RISCV
- 	select HAVE_RSEQ
- 	select HAVE_STACKPROTECTOR
- 	select HAVE_SYSCALL_TRACEPOINTS
-+	select HOTPLUG_CORE_SYNC_DEAD if HOTPLUG_CPU
- 	select IRQ_DOMAIN
- 	select IRQ_FORCED_THREADING
- 	select KASAN_VMALLOC if KASAN
---- a/arch/riscv/include/asm/smp.h
-+++ b/arch/riscv/include/asm/smp.h
-@@ -70,7 +70,7 @@ asmlinkage void smp_callin(void);
+ include/linux/cpu.h |    2 -
+ kernel/smpboot.c    |   75 ----------------------------------------------------
+ 2 files changed, 77 deletions(-)
+
+
+--- a/include/linux/cpu.h
++++ b/include/linux/cpu.h
+@@ -193,8 +193,6 @@ static inline void play_idle(unsigned lo
+ }
  
- #if defined CONFIG_HOTPLUG_CPU
- int __cpu_disable(void);
--void __cpu_die(unsigned int cpu);
-+static inline void __cpu_die(unsigned int cpu) { }
- #endif /* CONFIG_HOTPLUG_CPU */
- 
+ #ifdef CONFIG_HOTPLUG_CPU
+-bool cpu_wait_death(unsigned int cpu, int seconds);
+-bool cpu_report_death(void);
+ void cpuhp_report_idle_dead(void);
  #else
---- a/arch/riscv/kernel/cpu-hotplug.c
-+++ b/arch/riscv/kernel/cpu-hotplug.c
-@@ -8,6 +8,7 @@
- #include <linux/sched.h>
- #include <linux/err.h>
- #include <linux/irq.h>
-+#include <linux/cpuhotplug.h>
- #include <linux/cpu.h>
- #include <linux/sched/hotplug.h>
- #include <asm/irq.h>
-@@ -49,17 +50,15 @@ int __cpu_disable(void)
- 	return ret;
+ static inline void cpuhp_report_idle_dead(void) { }
+--- a/kernel/smpboot.c
++++ b/kernel/smpboot.c
+@@ -325,78 +325,3 @@ void smpboot_unregister_percpu_thread(st
+ 	cpus_read_unlock();
  }
- 
-+#ifdef CONFIG_HOTPLUG_CPU
- /*
-- * Called on the thread which is asking for a CPU to be shutdown.
-+ * Called on the thread which is asking for a CPU to be shutdown, if the
-+ * CPU reported dead to the hotplug core.
-  */
--void __cpu_die(unsigned int cpu)
-+void arch_cpuhp_cleanup_dead_cpu(unsigned int cpu)
- {
- 	int ret = 0;
- 
--	if (!cpu_wait_death(cpu, 5)) {
--		pr_err("CPU %u: didn't die\n", cpu);
--		return;
+ EXPORT_SYMBOL_GPL(smpboot_unregister_percpu_thread);
+-
+-#ifndef CONFIG_HOTPLUG_CORE_SYNC
+-static DEFINE_PER_CPU(atomic_t, cpu_hotplug_state) = ATOMIC_INIT(CPU_POST_DEAD);
+-
+-#ifdef CONFIG_HOTPLUG_CPU
+-/*
+- * Wait for the specified CPU to exit the idle loop and die.
+- */
+-bool cpu_wait_death(unsigned int cpu, int seconds)
+-{
+-	int jf_left = seconds * HZ;
+-	int oldstate;
+-	bool ret = true;
+-	int sleep_jf = 1;
+-
+-	might_sleep();
+-
+-	/* The outgoing CPU will normally get done quite quickly. */
+-	if (atomic_read(&per_cpu(cpu_hotplug_state, cpu)) == CPU_DEAD)
+-		goto update_state_early;
+-	udelay(5);
+-
+-	/* But if the outgoing CPU dawdles, wait increasingly long times. */
+-	while (atomic_read(&per_cpu(cpu_hotplug_state, cpu)) != CPU_DEAD) {
+-		schedule_timeout_uninterruptible(sleep_jf);
+-		jf_left -= sleep_jf;
+-		if (jf_left <= 0)
+-			break;
+-		sleep_jf = DIV_ROUND_UP(sleep_jf * 11, 10);
 -	}
- 	pr_notice("CPU%u: off\n", cpu);
- 
- 	/* Verify from the firmware if the cpu is really stopped*/
-@@ -76,9 +75,10 @@ void __noreturn arch_cpu_idle_dead(void)
- {
- 	idle_task_exit();
- 
--	(void)cpu_report_death();
-+	cpuhp_ap_report_dead();
- 
- 	cpu_ops[smp_processor_id()]->cpu_stop();
- 	/* It should never reach here */
- 	BUG();
- }
-+#endif
+-update_state_early:
+-	oldstate = atomic_read(&per_cpu(cpu_hotplug_state, cpu));
+-update_state:
+-	if (oldstate == CPU_DEAD) {
+-		/* Outgoing CPU died normally, update state. */
+-		smp_mb(); /* atomic_read() before update. */
+-		atomic_set(&per_cpu(cpu_hotplug_state, cpu), CPU_POST_DEAD);
+-	} else {
+-		/* Outgoing CPU still hasn't died, set state accordingly. */
+-		if (!atomic_try_cmpxchg(&per_cpu(cpu_hotplug_state, cpu),
+-					&oldstate, CPU_BROKEN))
+-			goto update_state;
+-		ret = false;
+-	}
+-	return ret;
+-}
+-
+-/*
+- * Called by the outgoing CPU to report its successful death.  Return
+- * false if this report follows the surviving CPU's timing out.
+- *
+- * A separate "CPU_DEAD_FROZEN" is used when the surviving CPU
+- * timed out.  This approach allows architectures to omit calls to
+- * cpu_check_up_prepare() and cpu_set_state_online() without defeating
+- * the next cpu_wait_death()'s polling loop.
+- */
+-bool cpu_report_death(void)
+-{
+-	int oldstate;
+-	int newstate;
+-	int cpu = smp_processor_id();
+-
+-	oldstate = atomic_read(&per_cpu(cpu_hotplug_state, cpu));
+-	do {
+-		if (oldstate != CPU_BROKEN)
+-			newstate = CPU_DEAD;
+-		else
+-			newstate = CPU_DEAD_FROZEN;
+-	} while (!atomic_try_cmpxchg(&per_cpu(cpu_hotplug_state, cpu),
+-				     &oldstate, newstate));
+-	return newstate == CPU_DEAD;
+-}
+-
+-#endif /* #ifdef CONFIG_HOTPLUG_CPU */
+-#endif /* !CONFIG_HOTPLUG_CORE_SYNC */
 
 
 
