@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBA897005DA
-	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 12:44:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533773.830692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41FCE700617
+	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 12:57:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533777.830704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxQFs-0001mj-Tc; Fri, 12 May 2023 10:44:08 +0000
+	id 1pxQSC-0003WA-1g; Fri, 12 May 2023 10:56:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533773.830692; Fri, 12 May 2023 10:44:08 +0000
+Received: by outflank-mailman (output) from mailman id 533777.830704; Fri, 12 May 2023 10:56:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxQFs-0001kH-QM; Fri, 12 May 2023 10:44:08 +0000
-Received: by outflank-mailman (input) for mailman id 533773;
- Fri, 12 May 2023 10:44:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pxQSB-0003So-Uq; Fri, 12 May 2023 10:56:51 +0000
+Received: by outflank-mailman (input) for mailman id 533777;
+ Fri, 12 May 2023 10:56:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GX4r=BB=citrix.com=prvs=48968f2ef=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pxQFr-0001kB-3P
- for xen-devel@lists.xen.org; Fri, 12 May 2023 10:44:07 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8c47ff8-f0b1-11ed-8611-37d641c3527e;
- Fri, 12 May 2023 12:44:04 +0200 (CEST)
+ <SRS0=stcw=BB=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
+ id 1pxQSA-0003Sg-1S
+ for xen-devel@lists.xenproject.org; Fri, 12 May 2023 10:56:50 +0000
+Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aee7605b-f0b3-11ed-b229-6b7b168915f2;
+ Fri, 12 May 2023 12:56:46 +0200 (CEST)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2023 03:56:43 -0700
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by fmsmga002.fm.intel.com with ESMTP; 12 May 2023 03:56:34 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1pxQRq-0004Zv-0i; Fri, 12 May 2023 13:56:30 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,172 +44,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8c47ff8-f0b1-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1683888244;
+X-Inumbo-ID: aee7605b-f0b3-11ed-b229-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1683889006; x=1715425006;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=Hz4U37AppMR36JTCO7x5tMz+33q6Ugp3iE+r7h2QfLY=;
-  b=D2LFzzX6qhzqB3VcP77WnIQjYbfsJL0DpbGcjXhd5S4D5fIyeQaLT0AA
-   hx6HwSzsNcENpI5vQc1vdU24TL2p2U9Bmw/48SW8NgV0SE5FOHuErQQR8
-   dsD24QFGPcVAdPF1h/s56E+Y1Juw72uUJAKcvUoM0jKEgedudBwo8Ib+F
-   o=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 108682800
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:d8G4HqyvEZQv4kFfAA96t+dnwSrEfRIJ4+MujC+fZmUNrF6WrkUPy
- 2AZX2rQM/iMYjOhKtoiPYiypBsP6MLUnNJrHQNsqSAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw//F+UIHUMja4mtC5QRjPKoT5jcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KVgX3
- +I7AzMhVzuOvPu30IOHQ9E3hct2eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
- ZBAL2MyMlKZOUYn1lQ/UfrSmM+hgGX/dDtJ7kqYv6Mt70DYzRBr0airO93QEjCPbZwNzhjI/
- DKepwwVBDkVbIGR+yTa9Umhi8LljzL8CZgQDp+3o6sCbFq7mTVIVUx+uUGAiee4kEOlW5RcN
- kkd4AIqrK477kvtScPyNzWorXjBshMCVt54F+wh9BrL2qfSpQGDCQAsTDFbb8c9nNQrXjFs3
- ViM9/vrGDhuvbu9WX+bsLCOoluaJykTJmIEeWkLUAoZ/97/iIUyiBvVSZBkCqHdpsbpAzjsx
- CvPoCUgr7ILyMoKzLmgu1TGhTu2od7OVAFdzgzTU3Lj5A5/YoOoT4ip71HB6rBHNonxZlyIo
- HgFltXY9OcPF5CAjgSJQeMEBrbv7PGAWBXbhVNsBIUw7DSF9HuqfIQW6zZ7TG9kKMcHPyTiY
- E7XvQJX67dXPX2jd6gxZJi+Y+wj1aX6HM7pfuzVZNFJJJN2cWe6EDpGPBDKmTq3yQ51zP95Y
- M3AGSqxMZoEIZ0+5iSVbOQx6JQm/Tk/1VLvTKigzBvyhNJye0WpYbsCNVKPaMUw46WFvBjZ/
- r5jCiea9/lMeLagO3eKqOb/OXhPdCFmXs6u96S7Y8bZemJb9Hcd5+g9KF/LU6hshOxrm+jB5
- RlRsWcImQOk1RUrxehnA02PiY8Dv74l9RrX3gR2Zz5EPkTPhq7xhJrzj7NtIdEaGBVLlJaYt
- cUtdcSaGehoQT/a4TkbZpSVhNU8JE/73lrUb3T8PWVXk3tcq+vhpLfZkvbHrnFSXkJbS+Nky
- 1Ff6u8racVaHFkzZConQPmu00mwrRAgpQ6GZGOReoM7UBy1oOBXx9nZ0qdfzzckdU+SmVN3F
- m++XX8lmAU6i9ZrrYCZ3vza99vB/ikXNhMyIlQ3JI2ebUHylldPC6caOApUVVgxjF/JxZg=
-IronPort-HdrOrdr: A9a23:u6/LXK/D4XnzVmvIvDtuk+DYI+orL9Y04lQ7vn2YSXRuHPBws/
- re+MjztCWE7Qr5N0tMpTntAsW9qDbnhPlICOoqTNWftWvd2FdARbsKheCJ/9SjIVycygc079
- YHT0EUMrzN5DZB4vrH3A==
-X-Talos-CUID: =?us-ascii?q?9a23=3AlJEz+GnEI/a3hBbfoa1r6fSYNFrXOUSE5mnzCEy?=
- =?us-ascii?q?UME1kc6SUWW6s8Zs/kMU7zg=3D=3D?=
-X-Talos-MUID: =?us-ascii?q?9a23=3A/niYKQ1PxPS0WB6E0INSG6KrgjUj7PzzBnITzpI?=
- =?us-ascii?q?9tsSpHz5hPGaHji6VTdpy?=
-X-IronPort-AV: E=Sophos;i="5.99,269,1677560400"; 
-   d="scan'208";a="108682800"
-Date: Fri, 12 May 2023 11:43:51 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-CC: <xen-devel@lists.xen.org>, Juergen Gross <jgross@suse.com>, Julien Grall
-	<julien@xen.org>, Vincent Guittot <vincent.guittot@linaro.org>,
-	<stratos-dev@op-lists.linaro.org>, Alex =?iso-8859-1?Q?Benn=E9e?=
-	<alex.bennee@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>, Erik Schilling
-	<erik.schilling@linaro.org>
-Subject: Re: [PATCH V2 2/2] libxl: arm: Add grant_usage parameter for virtio
- devices
-Message-ID: <5dc217d6-ca8f-4c5f-ad7c-2ab30d6647bd@perard>
-References: <782a7b3f54c36a3930a031647f6778e8dd02131d.1683791298.git.viresh.kumar@linaro.org>
- <ccf5b1402fb7156be0ef33b44f7b114efbe76319.1683791298.git.viresh.kumar@linaro.org>
+  bh=aTme5qDkFV7Mcp0uaOboKBbeV5ze/dqrLO9cBA/tElE=;
+  b=metEbHt10/j5rTqX/CuJRt8bYDclqhcaubvgP6l0z0dHj5dyc2asp7lb
+   1xQm/358fwA4HRf+W8vjMV5Y1Kko27hVWmVCmy7jisGRQm/AeUFfrcrDQ
+   U24a1rDUd/eIfSP31FQHEGWtoCJJggFuu/dSbp58COXtONJ+wT1Ev4yoo
+   cupw6w15ojhJzKkVTH2KFwPRRfV7rt6BBj2zKV8swdlb36ZAexvTJk2QZ
+   pGbFgxQQsPSLiz09IquI3dpt29kihROiRYx4EaKBzRH3v4igF4rLXQWPv
+   cuyhhzvjvJo/9fqsVYF3p7PfRGC8vQnNDJTcpw8lw7JhkHQYg4+DJOU1I
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="414132443"
+X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; 
+   d="scan'208";a="414132443"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="812041055"
+X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; 
+   d="scan'208";a="812041055"
+Date: Fri, 12 May 2023 13:56:29 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+	Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	Dominik Brodowski <linux@dominikbrodowski.net>,
+	linux-mips@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
+	Andrew Lunn <andrew@lunn.ch>, sparclinux@vger.kernel.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Russell King <linux@armlinux.org.uk>, linux-acpi@vger.kernel.org,
+	Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
+	Matt Turner <mattst88@gmail.com>,
+	Anatolij Gustschin <agust@denx.de>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Niklas Schnelle <schnelle@linux.ibm.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Juergen Gross <jgross@suse.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	linux-alpha@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	"David S. Miller" <davem@davemloft.net>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>
+Subject: Re: [PATCH v8 0/7] Add pci_dev_for_each_resource() helper and update
+ users
+Message-ID: <ZF4bXaz2r75dlA5g@smile.fi.intel.com>
+References: <20230404161101.GA3554747@bhelgaas>
+ <20230509182122.GA1259567@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ccf5b1402fb7156be0ef33b44f7b114efbe76319.1683791298.git.viresh.kumar@linaro.org>
+In-Reply-To: <20230509182122.GA1259567@bhelgaas>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-On Thu, May 11, 2023 at 01:20:43PM +0530, Viresh Kumar wrote:
-> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> index 24ac92718288..0405f6efe62a 100644
-> --- a/docs/man/xl.cfg.5.pod.in
-> +++ b/docs/man/xl.cfg.5.pod.in
-> @@ -1619,6 +1619,18 @@ hexadecimal format, without the "0x" prefix and all in lower case, like
->  Specifies the transport mechanism for the Virtio device, only "mmio" is
->  supported for now.
->  
-> +=item B<grant_usage=STRING>
-> +
-> +Specifies the grant usage details for the Virtio device. This can be set to
-> +following values:
-> +
-> +- "default": The default grant setting will be used, enable grants if
-> +  backend-domid != 0.
+On Tue, May 09, 2023 at 01:21:22PM -0500, Bjorn Helgaas wrote:
+> On Tue, Apr 04, 2023 at 11:11:01AM -0500, Bjorn Helgaas wrote:
+> > On Thu, Mar 30, 2023 at 07:24:27PM +0300, Andy Shevchenko wrote:
+> > > Provide two new helper macros to iterate over PCI device resources and
+> > > convert users.
+> 
+> > Applied 2-7 to pci/resource for v6.4, thanks, I really like this!
+> 
+> This is 09cc90063240 ("PCI: Introduce pci_dev_for_each_resource()")
+> upstream now.
+> 
+> Coverity complains about each use,
 
-I don't think this "default" setting is useful. We could just describe
-what the default is when "grant_usage" setting is missing from the
-configuration.
+It needs more clarification here. Use of reduced variant of the macro or all of
+them? If the former one, then I can speculate that Coverity (famous for false
+positives) simply doesn't understand `for (type var; var ...)` code.
 
-> +- "enabled": The grants are always enabled.
-> +
-> +- "disabled": The grants are always disabled.
-
-> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-> index c10292e0d7e3..17228817f9b7 100644
-> --- a/tools/libs/light/libxl_types.idl
-> +++ b/tools/libs/light/libxl_types.idl
-> @@ -283,6 +283,12 @@ libxl_virtio_transport = Enumeration("virtio_transport", [
->      (1, "MMIO"),
->      ])
->  
-> +libxl_virtio_grant_usage = Enumeration("virtio_grant_usage", [
-> +    (0, "DEFAULT"),
-> +    (1, "DISABLED"),
-> +    (2, "ENABLED"),
-
-libxl already provide this type, it's call "libxl_defbool". It can be
-set to "default", "false" or "true".
-
-
-
-> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> index 97c80d7ed0fa..9cd7dbef0237 100644
-> --- a/tools/libs/light/libxl_arm.c
-> +++ b/tools/libs/light/libxl_arm.c
-> @@ -1363,22 +1365,29 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
->                      iommu_needed = true;
->  
->                  FDT( make_virtio_mmio_node(gc, fdt, disk->base, disk->irq,
-> -                                           disk->backend_domid) );
-> +                                           disk->backend_domid,
-> +                                           disk->backend_domid != LIBXL_TOOLSTACK_DOMID) );
->              }
->          }
->  
->          for (i = 0; i < d_config->num_virtios; i++) {
->              libxl_device_virtio *virtio = &d_config->virtios[i];
-> +            bool use_grant = false;
->  
->              if (virtio->transport != LIBXL_VIRTIO_TRANSPORT_MMIO)
->                  continue;
->  
-> -            if (virtio->backend_domid != LIBXL_TOOLSTACK_DOMID)
-> +            if ((virtio->grant_usage == LIBXL_VIRTIO_GRANT_USAGE_ENABLED) ||
-> +                ((virtio->grant_usage == LIBXL_VIRTIO_GRANT_USAGE_DEFAULT) &&
-> +                 (virtio->backend_domid != LIBXL_TOOLSTACK_DOMID))) {
-
-I think libxl can select what the default value should be replace with
-before we start to setup the guest. There's a *_setdefault() phase were
-we set the correct value when a configuration value hasn't been set and
-thus a default value is used. I think this can be done in
-    libxl__device_virtio_setdefault().
-After that, virtio->grant_usage will be true or false, and that's the
-value that should be given to the virtio backend via xenstore.
-
-> diff --git a/tools/libs/light/libxl_virtio.c b/tools/libs/light/libxl_virtio.c
-> index eadcb7124c3f..0a0fae967a0f 100644
-> --- a/tools/libs/light/libxl_virtio.c
-> +++ b/tools/libs/light/libxl_virtio.c
-> @@ -46,11 +46,13 @@ static int libxl__set_xenstore_virtio(libxl__gc *gc, uint32_t domid,
->                                        flexarray_t *ro_front)
->  {
->      const char *transport = libxl_virtio_transport_to_string(virtio->transport);
-> +    const char *grant_usage = libxl_virtio_grant_usage_to_string(virtio->grant_usage);
->  
->      flexarray_append_pair(back, "irq", GCSPRINTF("%u", virtio->irq));
->      flexarray_append_pair(back, "base", GCSPRINTF("%#"PRIx64, virtio->base));
->      flexarray_append_pair(back, "type", GCSPRINTF("%s", virtio->type));
->      flexarray_append_pair(back, "transport", GCSPRINTF("%s", transport));
-> +    flexarray_append_pair(back, "grant_usage", GCSPRINTF("%s", grant_usage));
-
-Currently, this mean that we store "default" in this node. That mean
-that both the virtio backend and libxl have to do computation in order
-to figure out if "default" mean "true" or "false". And both have to find
-the same result. I don't think this is necessary, and libxl can just
-tell enabled or disable. This would be done in libxl before we run this
-function. See previous comment on this patch.
-
-Thanks,
+>	sample below from
+> drivers/pci/vgaarb.c.  I didn't investigate at all, so it might be a
+> false positive; just FYI.
+> 
+> 	  1. Condition screen_info.capabilities & (2U /* 1 << 1 */), taking true branch.
+>   556        if (screen_info.capabilities & VIDEO_CAPABILITY_64BIT_BASE)
+>   557                base |= (u64)screen_info.ext_lfb_base << 32;
+>   558
+>   559        limit = base + size;
+>   560
+>   561        /* Does firmware framebuffer belong to us? */
+> 	  2. Condition __b < PCI_NUM_RESOURCES, taking true branch.
+> 	  3. Condition (r = &pdev->resource[__b]) , (__b < PCI_NUM_RESOURCES), taking true branch.
+> 	  6. Condition __b < PCI_NUM_RESOURCES, taking true branch.
+> 	  7. cond_at_most: Checking __b < PCI_NUM_RESOURCES implies that __b may be up to 16 on the true branch.
+> 	  8. Condition (r = &pdev->resource[__b]) , (__b < PCI_NUM_RESOURCES), taking true branch.
+> 	  11. incr: Incrementing __b. The value of __b may now be up to 17.
+> 	  12. alias: Assigning: r = &pdev->resource[__b]. r may now point to as high as element 17 of pdev->resource (which consists of 17 64-byte elements).
+> 	  13. Condition __b < PCI_NUM_RESOURCES, taking true branch.
+> 	  14. Condition (r = &pdev->resource[__b]) , (__b < PCI_NUM_RESOURCES), taking true branch.
+>   562        pci_dev_for_each_resource(pdev, r) {
+> 	  4. Condition resource_type(r) != 512, taking true branch.
+> 	  9. Condition resource_type(r) != 512, taking true branch.
+> 
+>   CID 1529911 (#1 of 1): Out-of-bounds read (OVERRUN)
+>   15. overrun-local: Overrunning array of 1088 bytes at byte offset 1088 by dereferencing pointer r. [show details]
+>   563                if (resource_type(r) != IORESOURCE_MEM)
+> 	  5. Continuing loop.
+> 	  10. Continuing loop.
+>   564                        continue;
 
 -- 
-Anthony PERARD
+With Best Regards,
+Andy Shevchenko
+
+
 
