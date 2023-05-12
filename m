@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41FCE700617
-	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 12:57:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533777.830704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B48A700689
+	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 13:19:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533781.830713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxQSC-0003WA-1g; Fri, 12 May 2023 10:56:52 +0000
+	id 1pxQnH-0006Xq-J1; Fri, 12 May 2023 11:18:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533777.830704; Fri, 12 May 2023 10:56:52 +0000
+Received: by outflank-mailman (output) from mailman id 533781.830713; Fri, 12 May 2023 11:18:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxQSB-0003So-Uq; Fri, 12 May 2023 10:56:51 +0000
-Received: by outflank-mailman (input) for mailman id 533777;
- Fri, 12 May 2023 10:56:50 +0000
+	id 1pxQnH-0006Vq-GM; Fri, 12 May 2023 11:18:39 +0000
+Received: by outflank-mailman (input) for mailman id 533781;
+ Fri, 12 May 2023 11:18:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=stcw=BB=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
- id 1pxQSA-0003Sg-1S
- for xen-devel@lists.xenproject.org; Fri, 12 May 2023 10:56:50 +0000
-Received: from mga06.intel.com (mga06b.intel.com [134.134.136.31])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aee7605b-f0b3-11ed-b229-6b7b168915f2;
- Fri, 12 May 2023 12:56:46 +0200 (CEST)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2023 03:56:43 -0700
-Received: from smile.fi.intel.com ([10.237.72.54])
- by fmsmga002.fm.intel.com with ESMTP; 12 May 2023 03:56:34 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1pxQRq-0004Zv-0i; Fri, 12 May 2023 13:56:30 +0300
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=3Uaj=BB=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1pxQnG-0006Vg-1n
+ for xen-devel@lists.xenproject.org; Fri, 12 May 2023 11:18:38 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [85.215.255.20]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bcf2b41d-f0b6-11ed-b229-6b7b168915f2;
+ Fri, 12 May 2023 13:18:36 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
+ with ESMTPSA id x6987cz4CBIXJFd
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 12 May 2023 13:18:33 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,125 +41,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aee7605b-f0b3-11ed-b229-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1683889006; x=1715425006;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aTme5qDkFV7Mcp0uaOboKBbeV5ze/dqrLO9cBA/tElE=;
-  b=metEbHt10/j5rTqX/CuJRt8bYDclqhcaubvgP6l0z0dHj5dyc2asp7lb
-   1xQm/358fwA4HRf+W8vjMV5Y1Kko27hVWmVCmy7jisGRQm/AeUFfrcrDQ
-   U24a1rDUd/eIfSP31FQHEGWtoCJJggFuu/dSbp58COXtONJ+wT1Ev4yoo
-   cupw6w15ojhJzKkVTH2KFwPRRfV7rt6BBj2zKV8swdlb36ZAexvTJk2QZ
-   pGbFgxQQsPSLiz09IquI3dpt29kihROiRYx4EaKBzRH3v4igF4rLXQWPv
-   cuyhhzvjvJo/9fqsVYF3p7PfRGC8vQnNDJTcpw8lw7JhkHQYg4+DJOU1I
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="414132443"
-X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; 
-   d="scan'208";a="414132443"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10707"; a="812041055"
-X-IronPort-AV: E=Sophos;i="5.99,269,1677571200"; 
-   d="scan'208";a="812041055"
-Date: Fri, 12 May 2023 13:56:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	linux-mips@vger.kernel.org, Bjorn Helgaas <bhelgaas@google.com>,
-	Andrew Lunn <andrew@lunn.ch>, sparclinux@vger.kernel.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Russell King <linux@armlinux.org.uk>, linux-acpi@vger.kernel.org,
-	Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
-	Matt Turner <mattst88@gmail.com>,
-	Anatolij Gustschin <agust@denx.de>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Juergen Gross <jgross@suse.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	linux-alpha@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-	"David S. Miller" <davem@davemloft.net>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>
-Subject: Re: [PATCH v8 0/7] Add pci_dev_for_each_resource() helper and update
- users
-Message-ID: <ZF4bXaz2r75dlA5g@smile.fi.intel.com>
-References: <20230404161101.GA3554747@bhelgaas>
- <20230509182122.GA1259567@bhelgaas>
+X-Inumbo-ID: bcf2b41d-f0b6-11ed-b229-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1683890313; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=FRe3TEsviGbwhVJHmGWu8+4MSEgkw3T0lAC2syXgRI1nGIqq4IFHA7nDWfp5zn0XGQ
+    O5BzPCqdZVs6nyvvGOKjM66fhLQwN7GZw1Q3YU+q+4VzeKeaUrwTYAvqaJvSjcbxVH6e
+    32/MhSugwJcx6icbAoSRkuTrHxdLc0PgaayPeO9YHmh6gb/JtQLy+FAUvDrmFe7kzDua
+    6pBVen1s7R0KHbZ8oKMiTCt8h5lOjeRl35dS9R7HqLsJ2G5jrZPjPSaCNfCpBTnAelGO
+    7CHdcp0xUYOMj79BBgnN4ET/xNQcmoDwXioMoelkK4Yu2IBCNcAnxZz/IkM2x0u6ZmgG
+    v6XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683890313;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=tigSnCt6TQ+e8MtVlCi7/8cx0Lj8IuTBbKJnyQt5R9A=;
+    b=LVpkvAGQjOlKwXktpKmA7wDt7CqCtc4Uq9Xz9KTS57bpP8kdH0yRtlJJQjxB3NXxP6
+    C7/xkL8zP2BpknsFVleJF390C7VaC3VUA+CzNTiF+hu2nHSZFN1+mNnT+WanF9Q4d6hm
+    VmMyvrupmmexpRy2cLub6kk2KWu2Q9EfWdqpnZGfHTGDVADb+bPoojo2f6pS+8fZuU6O
+    of7TfnubFVyONlq9tKtQB6hmJfBwC9aZSIE3cfrEsd7NLr9x+djzVnsgy0AOriWXbgQS
+    p9uhYBmLuadbn+jLC+sle6EHT5HYFVTPOnLPEE4XAPdUuu6+Bb3WSfqaFrrIy9FQAW16
+    TwAQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683890313;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=tigSnCt6TQ+e8MtVlCi7/8cx0Lj8IuTBbKJnyQt5R9A=;
+    b=JOjldXokCJourXLUdec+xYfP6g2DvmiEgzgQ90vLixVHpBCWWxPAt8UssmKGAqFkQp
+    sIoHJn4t0dgCVKqXqxincuKslzkPTPyykbF30skYQrNmyu+Ep+89kDfOKsDy8clsrNp4
+    GUEvvgORgIF75oNqsT4qTaxDc4NvBGirxTLlDPmQEFUrv2lu+416p9S8JmJPUZAP71eU
+    LSy7U4CTvw0Nd6myDQR31nn8vKIHfmOPUm6zKn7pr0dEieK0x1u+7X1g5VKPx5UMU9xY
+    Q6fwLkqXKCQzxEftxejkBzDexgCkjrn2DcKGOx8SvwVRPt0JP92gx+yu0ZtnV8hRtRpY
+    bxCg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683890313;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=tigSnCt6TQ+e8MtVlCi7/8cx0Lj8IuTBbKJnyQt5R9A=;
+    b=hCYCpVVGIoXu0A9dIKa/bmac/BobJqKH+shMvSXjpx7iNAsLf6H8EMvFzHw3rJvuJX
+    PABA0JDOP7r1drqVPWDA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR4ARWIYxzstZKeVom+bauo0LKSCjuo5iX5xLikmg=="
+Date: Fri, 12 May 2023 13:18:19 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>, Wei
+ Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH v2] Fix install.sh for systemd
+Message-ID: <20230512131819.02b3a128.olaf@aepfle.de>
+In-Reply-To: <0785a316-1920-f5de-61d3-ed21ddbff0b9@citrix.com>
+References: <20230508171437.27424-1-olaf@aepfle.de>
+	<0785a316-1920-f5de-61d3-ed21ddbff0b9@citrix.com>
+X-Mailer: Claws Mail 20230504T161344.b05adb60 hat ein Softwareproblem, kann man nichts machen.
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230509182122.GA1259567@bhelgaas>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Type: multipart/signed; boundary="Sig_/kmuudUbtj62vrb0QAzfYPWU";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 09, 2023 at 01:21:22PM -0500, Bjorn Helgaas wrote:
-> On Tue, Apr 04, 2023 at 11:11:01AM -0500, Bjorn Helgaas wrote:
-> > On Thu, Mar 30, 2023 at 07:24:27PM +0300, Andy Shevchenko wrote:
-> > > Provide two new helper macros to iterate over PCI device resources and
-> > > convert users.
-> 
-> > Applied 2-7 to pci/resource for v6.4, thanks, I really like this!
-> 
-> This is 09cc90063240 ("PCI: Introduce pci_dev_for_each_resource()")
-> upstream now.
-> 
-> Coverity complains about each use,
+--Sig_/kmuudUbtj62vrb0QAzfYPWU
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-It needs more clarification here. Use of reduced variant of the macro or all of
-them? If the former one, then I can speculate that Coverity (famous for false
-positives) simply doesn't understand `for (type var; var ...)` code.
+Tue, 9 May 2023 13:47:11 +0100 Andrew Cooper <andrew.cooper3@citrix.com>:
 
->	sample below from
-> drivers/pci/vgaarb.c.  I didn't investigate at all, so it might be a
-> false positive; just FYI.
-> 
-> 	  1. Condition screen_info.capabilities & (2U /* 1 << 1 */), taking true branch.
->   556        if (screen_info.capabilities & VIDEO_CAPABILITY_64BIT_BASE)
->   557                base |= (u64)screen_info.ext_lfb_base << 32;
->   558
->   559        limit = base + size;
->   560
->   561        /* Does firmware framebuffer belong to us? */
-> 	  2. Condition __b < PCI_NUM_RESOURCES, taking true branch.
-> 	  3. Condition (r = &pdev->resource[__b]) , (__b < PCI_NUM_RESOURCES), taking true branch.
-> 	  6. Condition __b < PCI_NUM_RESOURCES, taking true branch.
-> 	  7. cond_at_most: Checking __b < PCI_NUM_RESOURCES implies that __b may be up to 16 on the true branch.
-> 	  8. Condition (r = &pdev->resource[__b]) , (__b < PCI_NUM_RESOURCES), taking true branch.
-> 	  11. incr: Incrementing __b. The value of __b may now be up to 17.
-> 	  12. alias: Assigning: r = &pdev->resource[__b]. r may now point to as high as element 17 of pdev->resource (which consists of 17 64-byte elements).
-> 	  13. Condition __b < PCI_NUM_RESOURCES, taking true branch.
-> 	  14. Condition (r = &pdev->resource[__b]) , (__b < PCI_NUM_RESOURCES), taking true branch.
->   562        pci_dev_for_each_resource(pdev, r) {
-> 	  4. Condition resource_type(r) != 512, taking true branch.
-> 	  9. Condition resource_type(r) != 512, taking true branch.
-> 
->   CID 1529911 (#1 of 1): Out-of-bounds read (OVERRUN)
->   15. overrun-local: Overrunning array of 1088 bytes at byte offset 1088 by dereferencing pointer r. [show details]
->   563                if (resource_type(r) != IORESOURCE_MEM)
-> 	  5. Continuing loop.
-> 	  10. Continuing loop.
->   564                        continue;
+> Why is this 700, and the others just using regular perms?
+> Also, doesn't it want quoting like the other examples too?
 
--- 
-With Best Regards,
-Andy Shevchenko
+It is not clear why there is a single mkdir -m 0700 in the tree.
+Most likely it will not give any extra security.
+
+The scripts source hotplug.sh, which defines a variable XEN_RUN_DIR.
+I think it is better to use the shell variable instead of hardcoded paths.
+
+Regarding quoting: there are many paths used without quoting.
+For the beauty an additional (huge) change could be done to quote
+everything. Not sure if it is worth the effort...
+
+I will post a v3 with this relative change:
+
+--- a/tools/hotplug/FreeBSD/rc.d/xencommons.in
++++ b/tools/hotplug/FreeBSD/rc.d/xencommons.in
+@@ -34,7 +34,7 @@ xen_startcmd()
+ 	local time=3D0
+ 	local timeout=3D30
+=20
+-	mkdir -p "@XEN_RUN_DIR@"
++	mkdir -p "${XEN_RUN_DIR}"
+ 	xenstored_pid=3D$(check_pidfile ${XENSTORED_PIDFILE} ${XENSTORED})
+ 	if test -z "$xenstored_pid"; then
+ 		printf "Starting xenservices: xenstored, xenconsoled."
+--- a/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in
++++ b/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in
+@@ -27,7 +27,7 @@ xendriverdomain_start()
+ {
+ 	printf "Starting xenservices: xl devd."
+=20
+-	mkdir -p "@XEN_RUN_DIR@"
++	mkdir -p "${XEN_RUN_DIR}"
+ 	PATH=3D"${bindir}:${sbindir}:$PATH" ${sbindir}/xl devd --pidfile ${XLDEVD=
+_PIDFILE} ${XLDEVD_ARGS}
+=20
+ 	printf "\n"
+--- a/tools/hotplug/Linux/init.d/xendriverdomain.in
++++ b/tools/hotplug/Linux/init.d/xendriverdomain.in
+@@ -49,7 +49,7 @@ fi
+=20
+ do_start () {
+ 	echo Starting xl devd...
+-	mkdir -m700 -p @XEN_RUN_DIR@
++	mkdir -p "${XEN_RUN_DIR}"
+ 	${sbindir}/xl devd --pidfile=3D$XLDEVD_PIDFILE $XLDEVD_ARGS
+ }
+ do_stop () {
+--- a/tools/hotplug/NetBSD/rc.d/xendriverdomain.in
++++ b/tools/hotplug/NetBSD/rc.d/xendriverdomain.in
+@@ -23,7 +23,7 @@ XLDEVD_PIDFILE=3D"@XEN_RUN_DIR@/xldevd.pid"
+=20
+ xendriverdomain_precmd()
+ {
+-	mkdir -p "@XEN_RUN_DIR@"
++	mkdir -p "${XEN_RUN_DIR}"
+ }
+=20
+ xendriverdomain_startcmd()
 
 
+--Sig_/kmuudUbtj62vrb0QAzfYPWU
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmReIHsACgkQ86SN7mm1
+DoDskBAAikvmuvF3oMZ4tZTsP4/IdSAHXs2PuwupI9S0+uN/kncGYT2iOAtwiyhd
+w99nTHWWqQ7DHY3yGxXkwJgeBhlVLUUtLUDCQ7uldRv//C/uRybFEYtOgLtg//Mg
+04fONaZaCMjfd4O3Y+h4V2jFrepKwtiYh1moC73s0vrmG1WQ0FtcPzQgh5eY7ezN
+I6myUdOx1Dgm/B6JxnJi73VbpbyJEIH3m31RgGb9Wl1Kh3xrRLmSFujn39M3xSjs
+16oW0wU1/TGJAvgtNMCJ+HIl5pNPKeIOknJFevt1BGrOxE6hRDa2dsjdjLw9zdCq
+fKbQ5fUTKhUh6zL7grXUdluywnYzVc9eWtC5IFpYZMN3wyaJHOLYHe02DQ1bxrE2
+T2v6k7XoivyTTiPRkg7Zd+/FYOuxR5HkLapjYnwZ4+0sTIVUqIwTIy9enEYxMyid
+e4t9w/l/lswBujutEw5WaA9hxux3MPOlaQRPSqq2BeCPthadMmo/MHYpELCEMT/x
+GbsnE2CCAhK5O9T7TGHaxLYSAzQvpr5VaYG6LSHW36KK39YjmTBMz+H5baONQddW
+skrAGri/1/7cN0giU4smY7tGpkr07fRK8D1obwrDc6dXA81AcKA9dzDtSeH8rkq5
+Ngk4GzmXylckaoCw/Tt9CQZH+tiEMBLhoKs38YglsFUoj04BNB4=
+=Gy9K
+-----END PGP SIGNATURE-----
+
+--Sig_/kmuudUbtj62vrb0QAzfYPWU--
 
