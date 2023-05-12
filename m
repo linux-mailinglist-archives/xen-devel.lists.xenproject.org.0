@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C418E7006F0
-	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 13:38:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533797.830742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 492F570073C
+	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 13:52:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533802.830753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxR5X-0001sV-M1; Fri, 12 May 2023 11:37:31 +0000
+	id 1pxRJn-0004ZX-TL; Fri, 12 May 2023 11:52:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533797.830742; Fri, 12 May 2023 11:37:31 +0000
+Received: by outflank-mailman (output) from mailman id 533802.830753; Fri, 12 May 2023 11:52:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxR5X-0001pf-Iz; Fri, 12 May 2023 11:37:31 +0000
-Received: by outflank-mailman (input) for mailman id 533797;
- Fri, 12 May 2023 11:37:30 +0000
+	id 1pxRJn-0004X1-QU; Fri, 12 May 2023 11:52:15 +0000
+Received: by outflank-mailman (input) for mailman id 533802;
+ Fri, 12 May 2023 11:52:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3Uaj=BB=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1pxR5W-0001pZ-7r
- for xen-devel@lists.xenproject.org; Fri, 12 May 2023 11:37:30 +0000
+ id 1pxRJm-0004Wv-0P
+ for xen-devel@lists.xenproject.org; Fri, 12 May 2023 11:52:14 +0000
 Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.164]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 601b5111-f0b9-11ed-b229-6b7b168915f2;
- Fri, 12 May 2023 13:37:29 +0200 (CEST)
+ [81.169.146.167]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6e52901a-f0bb-11ed-b229-6b7b168915f2;
+ Fri, 12 May 2023 13:52:12 +0200 (CEST)
 Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
- with ESMTPSA id x6987cz4CBbOJLT
+ with ESMTPSA id x6987cz4CBq8JPe
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Fri, 12 May 2023 13:37:24 +0200 (CEST)
+ Fri, 12 May 2023 13:52:08 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,162 +41,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 601b5111-f0b9-11ed-b229-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1683891444; cv=none;
+X-Inumbo-ID: 6e52901a-f0bb-11ed-b229-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1683892329; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=m0EwRS4obPPprrZpWB3J2CyEC7twPxJUOqHNGo926fbwiV/0FO/zHDBvfXkO6YphJY
-    SjPCDZ9XIBr+h+BfV/uWH+2/vC41HgLlSwWebwM8j5eLwJb4jzorFd+QfXQlp+H6wN6T
-    LNkufYO60H9ewBWNmpYlTQHeE29IuYw3wASu5WDYcXS9lnnMmRG6xEVJ7OfdGx/6u6ek
-    URXFen2oNfxTXASIMLbZBpZVMOxRQQ19/rasSaFG96VgW6cMAnrMROFEBnBxDHDxQ6U5
-    de7Iy2oHx/J2G+fgb+JcPmgadqQLIJ975hHsRAfISuwdcBaBfcBZ44YJxYVJd8PSvlHN
-    xGsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683891444;
+    b=M4ovsXlVQlninO635eY0mKR8DuDh0BZQlf38BK/4NTBcRQj4b0Knz2L3molYqY77lU
+    NLCLi+kfneJY6CnaEFsUDOC0IBlDGci8HuzwvgxoFfmvMXL6+dX5O8yMIX4+Ykrnlr0O
+    Ns7v6eoWEDv3h7+xqaHn6p7qm5ZEm43rD7S1Uk4vETJcwK2Kwz7DQ+4LNOrKYkew7lEM
+    E65gm2mL25BC7h21VBM9qeJBOHd67y4AuUtH2R8CQgfUVSmMRSniqG1vTx+d32isF7lG
+    aLjo51pF6tmZMhA9h3NCJjifcTzObQMVvhE8vWwCP6pnIx9XpaZazaxI79xu24ITYxfb
+    d6RQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1683892329;
     s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=3/HjLg8WC0z8XKR8q3J8WROiVeYOfFeQJrGqHDVdwzY=;
-    b=H4/QOwAZ8Vn99qhxVwRtAd7bL9A68E0EX/lW7Z26LlLkUzta3Ygck9awAYZ8sPzkMk
-    yOcK42E0bFsFVIAXcTBNi1wCVtUP6ATe/7veKKuoeKhqczAjzU3XE99mk/LG2sn3IKuH
-    ecGcdZJXttlpiOay7bzM8oEj3faDdMVya5pfAwHs7iFlzoZavEAKfuWk2NTtgupidNqk
-    n8aqJEaBofbHdZtYU3MAFG1Kb16ocCoGqtJqZHDri1mdb0lO5Y5TgGp6q9hMyol2Tb8x
-    sqywq4X0J+nHkd6TlM+PNRwPriSUG0bMsMFhEH1cQ/Q4/2e3fxO3NUha7T41TxN/07Sq
-    T0NA==
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=4pO3OeqHNQDQyAaWXS+vdNOuErKYYtDSH/h/zsSid+E=;
+    b=gqOFTSO+w3MnjYmwnNWfwKOlLE3UyOK5JFvO6vPsLM7vQ/sl9va5mX4H9fsl4xrjpp
+    S8FdvkCCFnbNqRt661ua17QTnF/eUgQ1BXP1mUaeJcc8b+/4GYuMGrxhzKjETjyjcJwL
+    /e5D2wGUZhr/UJMu0AVBcBPIWujrjXoRl2lkM2RyzZGWwqZapatfzUE5E78cP4lSbVOi
+    n/q0W634+kPFWfx62vimGJmBEkbC7e60yFVfGGq0ZixwMKtPZqCPPBLtJYug76zFuplx
+    w944s/Cuhzb4VQS9S8hXVQ+HYNjk+CfRc3fFsZEsTMYZfkhebFUJFIaA13FZglu8gr02
+    NtiA==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683891444;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1683892329;
     s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=3/HjLg8WC0z8XKR8q3J8WROiVeYOfFeQJrGqHDVdwzY=;
-    b=JyTu814bNR382Bmdfdo8+wonA/oY50TPIBrdgqTgrPW2LtLZH9nkxqeIqqDQnRZNpw
-    kKDXHrD5TMaOhQTgtptveNDzIPiWd9kLfrgxa51/QkxSByKED+JpqRxR31SwydaaflLf
-    JdY/pFHbtal9C9Oz5wKJJh5apxxs8iKrpvutBT5smm6+lTYfbe/81MPkiH7NR+tS8v0F
-    z+NiEod/RIppQ/L5ScZZVg8toNkb33UWJu1iNHpICHIxp5xq1MVpfhEyx8um2CneYDy4
-    WOfZvasQr0OELrx293ZYMuV+qbbU73oqkK29PHOTAP9Qmg6SRo3hRG6C5kMPwJbSz9eb
-    O01g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683891444;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=4pO3OeqHNQDQyAaWXS+vdNOuErKYYtDSH/h/zsSid+E=;
+    b=XfiOgOAlqR66VpE9RVaz0JMyxzuZkwZKlNIz7O84eknEqLBdAWLTg2UVY4+TE2Okep
+    9YRx2mvgViiPMs3vmFPcf4wFTqEsDkZCSUwjmoiSfN2P4E1VgipzieTzkvunDM0TsEl+
+    o12+u5bjg2uvyWbYRyG6x/vj1LLF5BquvmtVvEC86mIiN1aoAauHOk9Inj6kmV4Mugqn
+    cYVXxQjuIryCaW2GvjsqkA4bjAB5zvvrA0iWr96STlioy3xQEJMcfJPEaynfA3Dx9VPL
+    2JG9myK8gktv7kTPNix3Qz6zJJnvRiYlX1z5rgim45DR38FvxgDKcE1lgOhgFdIjX8yK
+    N1nw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1683892329;
     s=strato-dkim-0003; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=3/HjLg8WC0z8XKR8q3J8WROiVeYOfFeQJrGqHDVdwzY=;
-    b=p5+k55pLv40PM75YSx6prQ7IPz9yYFBFFNstwjHdfyBsOjh4SDvrKz0hhbJBq1ukow
-    9Tg6Ga8UTXI5j71Np0DA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4xr137Gpot26qU4O0oDB37weYobhAHKAaiA4NsOg=="
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=4pO3OeqHNQDQyAaWXS+vdNOuErKYYtDSH/h/zsSid+E=;
+    b=AWsNT7YRCnt3GpKkb1O7y6HbyaXYAqOcHK/aqS5DSQvk5cSnGc+13zA0pDuv05P1+Y
+    8ZOg2mo1/zo5waEXRcAA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR4ARWIYxzstZKeVom+bauo0LKSCjuo5iX5xLikmg=="
+Date: Fri, 12 May 2023 13:51:55 +0200
 From: Olaf Hering <olaf@aepfle.de>
-To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v3] Fix install.sh for systemd
-Date: Fri, 12 May 2023 11:36:44 +0000
-Message-Id: <20230512113643.3549-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.35.3
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v1] tools: drop bogus and obsolete ptyfuncs.m4
+Message-ID: <20230512135155.07157aa8.olaf@aepfle.de>
+In-Reply-To: <9fd06ad0-4c21-43be-ac48-8d30844535ad@perard>
+References: <20230502204800.10733-1-olaf@aepfle.de>
+	<9fd06ad0-4c21-43be-ac48-8d30844535ad@perard>
+X-Mailer: Claws Mail 20230504T161344.b05adb60 hat ein Softwareproblem, kann man nichts machen.
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; boundary="Sig_/AMegc+nWY52/.ERzMOn52x4";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 7bit
 
-On a fedora system, if you run `sudo sh install.sh` you break your
-system. The installation clobbers /var/run, a symlink to /run.
-A subsequent boot fails when /var/run and /run are different since
-accesses through /var/run can't find items that now only exist in /run
-and vice-versa.
+--Sig_/AMegc+nWY52/.ERzMOn52x4
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Skip populating /var/run/xen during make install.
-The directory is already created by some scripts. Adjust all remaining
-scripts to create XEN_RUN_DIR at runtime.
+Tue, 9 May 2023 17:47:33 +0100 Anthony PERARD <anthony.perard@citrix.com>:
 
-Use the shell variable XEN_RUN_DIR instead of hardcoded paths.
+> That change isn't enough. And I'm not convinced that it needs to be
+> removed.
 
-XEN_RUN_STORED is covered by XEN_RUN_DIR because xenstored is usually
-started afterwards.
+You are right, the provided functions must be removed as well.
+My build scripts do not run autoreconf, perhaps it is about time to
+change that.
 
-Reported-by: Jason Andryuk <jandryuk@gmail.com>
-Tested-by: Jason Andryuk <jandryuk@gmail.com>
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
-v3: use variables, and quote variables, drop -m0700 from one mkdir call
+> First, AX_CHECK_PTYFUNCS is still called in "tools/configure.ac".
 
- tools/Makefile                                     | 2 --
- tools/hotplug/FreeBSD/rc.d/xencommons.in           | 1 +
- tools/hotplug/FreeBSD/rc.d/xendriverdomain.in      | 1 +
- tools/hotplug/Linux/init.d/xendriverdomain.in      | 1 +
- tools/hotplug/Linux/systemd/xenconsoled.service.in | 2 +-
- tools/hotplug/NetBSD/rc.d/xendriverdomain.in       | 2 +-
- 6 files changed, 5 insertions(+), 4 deletions(-)
+This needs to be removed, yes.
 
-diff --git a/tools/Makefile b/tools/Makefile
-index 4906fdbc23..1ff90ddfa0 100644
---- a/tools/Makefile
-+++ b/tools/Makefile
-@@ -58,9 +58,7 @@ build all: subdirs-all
- install:
- 	$(INSTALL_DIR) -m 700 $(DESTDIR)$(XEN_DUMP_DIR)
- 	$(INSTALL_DIR) $(DESTDIR)$(XEN_LOG_DIR)
--	$(INSTALL_DIR) $(DESTDIR)$(XEN_RUN_DIR)
- 	$(INSTALL_DIR) $(DESTDIR)$(XEN_LIB_DIR)
--	$(INSTALL_DIR) $(DESTDIR)$(XEN_RUN_STORED)
- 	$(INSTALL_DIR) $(DESTDIR)$(PKG_INSTALLDIR)
- 	$(MAKE) subdirs-install
- 
-diff --git a/tools/hotplug/FreeBSD/rc.d/xencommons.in b/tools/hotplug/FreeBSD/rc.d/xencommons.in
-index 7f7cda289f..6f429e4b0c 100644
---- a/tools/hotplug/FreeBSD/rc.d/xencommons.in
-+++ b/tools/hotplug/FreeBSD/rc.d/xencommons.in
-@@ -34,6 +34,7 @@ xen_startcmd()
- 	local time=0
- 	local timeout=30
- 
-+	mkdir -p "${XEN_RUN_DIR}"
- 	xenstored_pid=$(check_pidfile ${XENSTORED_PIDFILE} ${XENSTORED})
- 	if test -z "$xenstored_pid"; then
- 		printf "Starting xenservices: xenstored, xenconsoled."
-diff --git a/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in b/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in
-index a032822e33..f487c43468 100644
---- a/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in
-+++ b/tools/hotplug/FreeBSD/rc.d/xendriverdomain.in
-@@ -27,6 +27,7 @@ xendriverdomain_start()
- {
- 	printf "Starting xenservices: xl devd."
- 
-+	mkdir -p "${XEN_RUN_DIR}"
- 	PATH="${bindir}:${sbindir}:$PATH" ${sbindir}/xl devd --pidfile ${XLDEVD_PIDFILE} ${XLDEVD_ARGS}
- 
- 	printf "\n"
-diff --git a/tools/hotplug/Linux/init.d/xendriverdomain.in b/tools/hotplug/Linux/init.d/xendriverdomain.in
-index c63060f62a..17b381c3dc 100644
---- a/tools/hotplug/Linux/init.d/xendriverdomain.in
-+++ b/tools/hotplug/Linux/init.d/xendriverdomain.in
-@@ -49,6 +49,7 @@ fi
- 
- do_start () {
- 	echo Starting xl devd...
-+	mkdir -p "${XEN_RUN_DIR}"
- 	${sbindir}/xl devd --pidfile=$XLDEVD_PIDFILE $XLDEVD_ARGS
- }
- do_stop () {
-diff --git a/tools/hotplug/Linux/systemd/xenconsoled.service.in b/tools/hotplug/Linux/systemd/xenconsoled.service.in
-index 1f03de9041..d84c09aa9c 100644
---- a/tools/hotplug/Linux/systemd/xenconsoled.service.in
-+++ b/tools/hotplug/Linux/systemd/xenconsoled.service.in
-@@ -11,7 +11,7 @@ Environment=XENCONSOLED_TRACE=none
- Environment=XENCONSOLED_LOG_DIR=@XEN_LOG_DIR@/console
- EnvironmentFile=-@CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons
- ExecStartPre=/bin/grep -q control_d /proc/xen/capabilities
--ExecStartPre=/bin/mkdir -p ${XENCONSOLED_LOG_DIR}
-+ExecStartPre=/bin/mkdir -p ${XENCONSOLED_LOG_DIR} @XEN_RUN_DIR@
- ExecStart=@sbindir@/xenconsoled -i --log=${XENCONSOLED_TRACE} --log-dir=${XENCONSOLED_LOG_DIR} $XENCONSOLED_ARGS
- 
- [Install]
-diff --git a/tools/hotplug/NetBSD/rc.d/xendriverdomain.in b/tools/hotplug/NetBSD/rc.d/xendriverdomain.in
-index f47b0b189c..87afc061ac 100644
---- a/tools/hotplug/NetBSD/rc.d/xendriverdomain.in
-+++ b/tools/hotplug/NetBSD/rc.d/xendriverdomain.in
-@@ -23,7 +23,7 @@ XLDEVD_PIDFILE="@XEN_RUN_DIR@/xldevd.pid"
- 
- xendriverdomain_precmd()
- {
--	:
-+	mkdir -p "${XEN_RUN_DIR}"
- }
- 
- xendriverdomain_startcmd()
+> Then, AX_CHECK_PTYFUNCS define INCLUDE_LIBUTIL_H and PTYFUNCS_LIBS.
+
+This is used inconsistently. Some places include <libutil.h> unconditionall=
+y.
+-lutil is already used unconditionally via UTIL_LIBS
+
+> Also, that that macro isn't just about the header, but also about the
+> needed library.
+
+This is already covered.
+
+Olaf
+
+--Sig_/AMegc+nWY52/.ERzMOn52x4
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmReKFsACgkQ86SN7mm1
+DoDXzw/+PKZdb1Z6tmsIT+GDx+aWdahQBGnmiRCF76Nx1HkBdkpoCA+cnr91uggy
+rlTUaZNnTZSw1ie4rYLslltccr830w76BbmFLRjGPbznRlGgGFD44ZdK1axPs3yj
+DeXzorWmxd+qpZApwWwnZXmbsq//a27s78XR7pRkegzTuvB9e+ZoZZDkhJKlTBgH
+5VgSUrm+C6oEHq0UmpWgTecmJZecLpTQ2ZXZ/FnrI2UiHPNMJfBStpIVHW9akAJc
+YyLrvlHyJsOXFwJhIODH2bn1gSoEiAp1lx5LgRxq1/W1XI/Es2Oebm470Z+RzHuU
+7Yw1auxhV5LqRH65U0CqcVhk7fcnWfhXkXnmfntrAmzv75JzITFZwJrCkTZxVpJI
+DZ4p2uq2VcO1pW5/rkV24EvWWm6In0rH5Yv9+PMp6Qo7OGlO4Bdu3OKEUEuls5vx
+YtXyO6U3aTryiEaIG8ASLD51uK5j3cBRM+GMEp02uKmdDrvi2cfJQ9nR5JNq3a7p
+dGGx02NMMFPU++wd6K44aM62cI5a9u8mDEMErShSBV2nfpTw6a4xU8CDJkyWS/qm
+Qo1qGf+HvfoHLACGmtwsmrZFSYkvNzQ1w9gXr9q9Rg2qNPgcASa9LtnZ/TK1rrPG
+OZtanD4EHPhqYG1DH0N6YvgAd/pT8vIHaRXft3Gkh1t8Mt3FtOI=
+=5Rp/
+-----END PGP SIGNATURE-----
+
+--Sig_/AMegc+nWY52/.ERzMOn52x4--
 
