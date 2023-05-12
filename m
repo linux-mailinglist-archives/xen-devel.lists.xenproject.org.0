@@ -2,56 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47FE270100B
-	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 23:04:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.533900.830902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AED3701021
+	for <lists+xen-devel@lfdr.de>; Fri, 12 May 2023 23:07:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.533906.830911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxZvJ-0003cE-Sg; Fri, 12 May 2023 21:03:33 +0000
+	id 1pxZyg-0004I3-ES; Fri, 12 May 2023 21:07:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 533900.830902; Fri, 12 May 2023 21:03:33 +0000
+Received: by outflank-mailman (output) from mailman id 533906.830911; Fri, 12 May 2023 21:07:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pxZvJ-0003aW-Pk; Fri, 12 May 2023 21:03:33 +0000
-Received: by outflank-mailman (input) for mailman id 533900;
- Fri, 12 May 2023 21:03:32 +0000
+	id 1pxZyg-0004FI-Bj; Fri, 12 May 2023 21:07:02 +0000
+Received: by outflank-mailman (input) for mailman id 533906;
+ Fri, 12 May 2023 21:07:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X/Ay=BB=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1pxZvI-0003aQ-E1
- for xen-devel@lists.xenproject.org; Fri, 12 May 2023 21:03:32 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2062f.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::62f])
+ <SRS0=5PQu=BB=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1pxZye-0004F7-OB
+ for xen-devel@lists.xenproject.org; Fri, 12 May 2023 21:07:01 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 70e92bd1-f108-11ed-8611-37d641c3527e;
- Fri, 12 May 2023 23:03:28 +0200 (CEST)
-Received: from MW4PR04CA0056.namprd04.prod.outlook.com (2603:10b6:303:6a::31)
- by DM4PR12MB7573.namprd12.prod.outlook.com (2603:10b6:8:10f::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.20; Fri, 12 May
- 2023 21:03:25 +0000
-Received: from CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6a:cafe::3f) by MW4PR04CA0056.outlook.office365.com
- (2603:10b6:303:6a::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.24 via Frontend
- Transport; Fri, 12 May 2023 21:03:25 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT010.mail.protection.outlook.com (10.13.175.88) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6387.24 via Frontend Transport; Fri, 12 May 2023 21:03:25 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 12 May
- 2023 16:03:21 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 12 May
- 2023 16:03:21 -0500
-Received: from [192.168.137.15] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 12 May 2023 16:03:19 -0500
+ id ee9a52b6-f108-11ed-8611-37d641c3527e;
+ Fri, 12 May 2023 23:06:58 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,160 +36,254 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70e92bd1-f108-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GIm/dIKuvGLy5M25MK8OtQa8p7bSDT/RAIQnHWKDy1v8C6H+m9yUEIyHBptGGcskVdfbs3lPe6UQ1KpR+ySRco7ZNlXGnufYnsSrvmlaJ81ri+EgbDUa7K5o0W5wIYcYSP9+gTHNDhgww1QD3AHbI/XPeUN6Rc9pzfE+tdH6GvuITr3XJjy2wwgTNm4auz6Qetzv6dRJoq83clCbzlIfC7NgYGlXJWw/mRyDJw/LZR2ULXtIk3ifwRfv9ap3z65Fjt4wk5VCuQaBGgW1LfOCwnBCvlhYIHAtQJQhFMBXdAR9/8/WsKjKVwgwhi5/9z7+0TNCPobmF3YrZ4nlbLG7Gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9VPlWYf129wYlKBXI6XeX6da7R6uiXrDylbJaC8/Pr8=;
- b=oK5x7vyZmY/PHJgtkNLjg5htKNymCCYAKamGK0a5HqMgYiGGB/HitRJLXcmrhOYrGQQITpBe1rSAkiBWx0bJy5SY9v5HrCP3Pf8unF6BCP9wlo7RxYv9SlOt9vKpDb7YOjGDzqwyvArIDfIgbNo2tZHhvMYoSDZgym43jz4ynvUQ6xDX3+nJj3H6B+agAIzAPLAR3vomcgbW1jlRamP50/h9yHh/OsHCsRXyBsLOR9QvCO/KJCSibd+49TpO7ZTntBpr3NE1lYav1vqOJj9P9ov2MFO7QYbyBW0vkLqypH/AmM6saKm4kio/RNOk9JrgoWqkqVLA2Qn/khUo4vRuSg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9VPlWYf129wYlKBXI6XeX6da7R6uiXrDylbJaC8/Pr8=;
- b=pe+h2PTvED0hA0k/WpmAFgN7sns8tgzxiAdRqrJ3PqOjNb0nANicmnzsE917fftKPwoEg8MS+LFlT/TypqLnLRU/9/yrVgIMPvQDeOwzYmFQuWWQY5P2/FiaqhQ0DKs72Nt63+S9wW4s9ntcv5JgaP6ARBR0lx008g88eG3izec=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <f7d78b4e-3a16-d342-59d2-caa4d2b75b9c@amd.com>
-Date: Fri, 12 May 2023 17:03:18 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-Subject: Re: [PATCH v2 5/8] pci/arm: Use iommu_add_dt_pci_device()
-To: Jan Beulich <jbeulich@suse.com>
-CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Paul Durrant
-	<paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
-	Julien Grall <julien@xen.org>, Rahul Singh <rahul.singh@arm.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20230511191654.400720-1-stewart.hildebrand@amd.com>
- <20230511191654.400720-6-stewart.hildebrand@amd.com>
- <61ae93e8-ac8f-b373-4fa7-0a8aeb61ef4f@suse.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <61ae93e8-ac8f-b373-4fa7-0a8aeb61ef4f@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT010:EE_|DM4PR12MB7573:EE_
-X-MS-Office365-Filtering-Correlation-Id: c9f25149-2073-482f-be1e-08db532c53c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Jz1oEhBLfnBYTj4KfvgUm+FkGv1/ZhTZKA7NpGBN6ZHRqRCrkJLaznK52yo5h9beJehYIugk9efaUIreElOLr6wqxH0W2Nbyk4EGWpR+zp4uevHl/DMDshK2oLBCwDBfI19bTLz4dcIvs5Zbe6FJbONjKiBl1tNggUaKXwwhg1tQNqy23YRkhXZdEGHYZKC8yakY4smGaCgPNsi8H1FKneP7stqetdPtvirPrv6fr7GOVmdAYnoXfM7XTUg0+aEunGqGc3LIHhZvWZXvBNVNs8y6l4iLSydAzfPloBCjP4DxQ0h6Iulw/R6Q9bfJKB3A/j791THBkkaLx6Uup7Cny2LO+8WYcli43EigGcvwgNuXp41m7Wt1Twm3aWPLGfzgSnewn4nOJgtZLtHHQA1n2zbQlirv2WmRndOOLR43B6SFNIGc/ktZLO0SIfcRAt+VVcWo1VOYaWXEWCMGAE89Kgd+M+zU9cll6TqeqsdnZTj3OJsw/wQO1+N2GkmtKKLZkgj8l1CXOYqCru8mex4KVVfTNL9uLM0KgwR9bVUKT+HftsnfmUfADQsHyF8dAGSVSt7GP1AaHA1ezoobOcRyBgn2xYJ6SOaJixB+DiPmGR11sUDJNVslhviMMrh5pK1Pe7i0yGMAxQ6pNges8uGNdjtuXI9O6ouyOCNZy4dH3PqukTgYhoECYMIAVliOKmU4Itv0a4WQhOQnxVGO6/cwEXABRLbc/fG8L8hixjnuPTM3aSt2FY25ukpodd+sU6jQW5s3mYSQ+GVftTQER+TRrCwfCXSzfB4wRrGOL9ugvJg=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(39860400002)(136003)(451199021)(36840700001)(46966006)(40470700004)(82310400005)(2616005)(16576012)(81166007)(47076005)(70586007)(31686004)(316002)(8676002)(8936002)(54906003)(70206006)(426003)(4326008)(6916009)(41300700001)(336012)(7416002)(44832011)(40460700003)(53546011)(186003)(40480700001)(26005)(478600001)(86362001)(356005)(2906002)(36756003)(31696002)(82740400003)(36860700001)(5660300002)(966005)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2023 21:03:25.0523
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9f25149-2073-482f-be1e-08db532c53c1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7573
+X-Inumbo-ID: ee9a52b6-f108-11ed-8611-37d641c3527e
+Message-ID: <20230512203426.452963764@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1683925617;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc; bh=gnTvflJCY17ngq7v3t1VaZ+udg1fVO8xaD7NmVGfdtM=;
+	b=hpItgE596OZsCHwd4RZltNwkaoUY+M4nxaNk5aijZSoKnJnX+Z1ftHJzFxXeLlwiR7CBVO
+	kAeU5V6ipd8kuvNmo2jUYlgeJQZcAoQ/B2gtcPpMbKBJ5Hdb19cpdNKmIFAdiRriVPQFBq
+	TB+mebv9nD57p/zwHVWvLj1xYW2llen6ecBlhNLpiB4mMX8ISxfhUt0cg8NuDkltKRGqwv
+	kwkihKVbLzgwH4zA3a4gu5TjBLy8knJzdeBq4mfGSlsG3QssoI+I+YLWMjEKtJyMnCZYCb
+	q0UpvbfNJvV5gxrJ96IhSco7wHR/BgKJzA+FPEk8wMxiA3axwjVqCn3rrplQeA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1683925617;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc; bh=gnTvflJCY17ngq7v3t1VaZ+udg1fVO8xaD7NmVGfdtM=;
+	b=MX4k3gwiR3uPG3aHdqZkMbzsCUhWKscxACmgEvdnthaN7mX9Y50PkiqEAK2jw11B2rBJ5s
+	0yIwakfLrEZSxWCw==
+From: Thomas Gleixner <tglx@linutronix.de>
+To: LKML <linux-kernel@vger.kernel.org>
+Cc: x86@kernel.org,
+ David Woodhouse <dwmw2@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Brian Gerst <brgerst@gmail.com>,
+ Arjan van de Veen <arjan@linux.intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Paul McKenney <paulmck@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Sean Christopherson <seanjc@google.com>,
+ Oleksandr Natalenko <oleksandr@natalenko.name>,
+ Paul Menzel <pmenzel@molgen.mpg.de>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Piotr Gorski <lucjan.lucjanov@gmail.com>,
+ Usama Arif <usama.arif@bytedance.com>,
+ Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org,
+ Russell King <linux@armlinux.org.uk>,
+ Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Guo Ren <guoren@kernel.org>,
+ linux-csky@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ linux-mips@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>,
+ linux-parisc@vger.kernel.org,
+ Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-riscv@lists.infradead.org,
+ Mark Rutland <mark.rutland@arm.com>,
+ Sabin Rapan <sabrapan@amazon.com>,
+ "Michael Kelley (LINUX)" <mikelley@microsoft.com>,
+ Ross Philipson <ross.philipson@oracle.com>
+Subject: [patch V4 00/37] cpu/hotplug, x86: Reworked parallel CPU bringup
+Date: Fri, 12 May 2023 23:06:56 +0200 (CEST)
 
-On 5/12/23 03:25, Jan Beulich wrote:
-> On 11.05.2023 21:16, Stewart Hildebrand wrote:
->> @@ -762,9 +767,20 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->>              pdev->domain = NULL;
->>              goto out;
->>          }
->> +#ifdef CONFIG_HAS_DEVICE_TREE
->> +        ret = iommu_add_dt_pci_device(pdev);
->> +        if ( ret < 0 )
->> +        {
->> +            printk(XENLOG_ERR "pci-iommu translation failed: %d\n", ret);
->> +            goto out;
->> +        }
->> +#endif
->>          ret = iommu_add_device(pdev);
-> 
-> Hmm, am I misremembering that in the earlier patch you had #else to
-> invoke the alternative behavior?
+Hi!
 
-You are remembering correctly. v1 had an #else, v2 does not.
+This is version 4 of the reworked parallel bringup series. Version 3 can be
+found here:
 
-> Now you end up calling both functions;
-> if that's indeed intended,
+   https://lore.kernel.org/lkml/20230508181633.089804905@linutronix.de
 
-Yes, this is intentional.
+This is just a reiteration to address the following details:
 
-> this may still want doing differently.
-> Looking at the earlier patch introducing the function, I can't infer
-> though whether that's intended: iommu_add_dt_pci_device() checks that
-> the add_device hook is present, but then I didn't find any use of this
-> hook. The revlog there suggests the check might be stale.
+  1) Address review feedback (Peter Zijlstra)
 
-Ah, right, the ops->add_device check is stale in the other patch. Good catch, I'll remove it there.
+  2) Fix a MIPS related build problem (0day)
 
-> If indeed the function does only preparatory work, I don't see why it
-> would need naming "iommu_..."; I'd rather consider pci_add_dt_device()
-> then.
+Other than that there are no changes and the other details are all the same
+as in V3 and V2.
 
-The function has now been reduced to reading SMMU configuration data from DT and mapping RID/BDF -> AXI stream ID. However, it is still SMMU related, and it is still invoking another iommu_ops hook function, dt_xlate (which is yet another AXI stream ID translation, separate from what is being discussed here). Does this justify keeping "iommu_..." in the name? I'm not convinced pci_add_dt_device() is a good name for it either (more on this below).
+It's also available from git:
 
-> Plus in such a case #ifdef-ary here probably wants avoiding by
-> introducing a suitable no-op stub for the !HAS_DEVICE_TREE case. Then
-> ...
-> 
->>          if ( ret )
->>          {
->> +#ifdef CONFIG_HAS_DEVICE_TREE
->> +            iommu_fwspec_free(pci_to_dev(pdev));
->> +#endif
-> 
-> ... this (which I understand is doing the corresponding cleanup) then
-> also wants wrapping in a suitably named tiny helper function.
+    git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git hotplug
 
-Sure, I'm on board with eliminating/reducing the #ifdef-ary where possible. Will do.
+Diff to V3 below.
 
-> But yet further I'm then no longer convinced this is the right place
-> for the addition. pci_add_device() is backing physdev hypercalls. It
-> would seem to me that the function may want invoking yet one layer
-> further up, or it may even want invoking from a brand new DT-specific
-> physdev-op. This would then leave at least the x86-only paths (invoking
-> pci_add_device() from outside of pci_physdev_op()) entirely alone.
+Thanks,
 
-Let's establish that pci_add_device()/iommu_add_device() are already inherently performing tasks related to setting up a PCI device to work with an IOMMU.
+	tglx
+---
+diff --git a/arch/mips/kernel/smp.c b/arch/mips/kernel/smp.c
+index f5e0f4235746..90c71d800b59 100644
+--- a/arch/mips/kernel/smp.c
++++ b/arch/mips/kernel/smp.c
+@@ -690,7 +690,7 @@ void flush_tlb_one(unsigned long vaddr)
+ EXPORT_SYMBOL(flush_tlb_page);
+ EXPORT_SYMBOL(flush_tlb_one);
+ 
+-#ifdef CONFIG_HOTPLUG_CPU
++#ifdef CONFIG_HOTPLUG_CORE_SYNC_DEAD
+ void arch_cpuhp_cleanup_dead_cpu(unsigned int cpu)
+ {
+ 	if (mp_ops->cleanup_dead_cpu)
+diff --git a/arch/x86/kernel/head_64.S b/arch/x86/kernel/head_64.S
+index 0438802031c3..9cd77d319555 100644
+--- a/arch/x86/kernel/head_64.S
++++ b/arch/x86/kernel/head_64.S
+@@ -290,8 +290,7 @@ SYM_INNER_LABEL(secondary_startup_64_no_verify, SYM_L_GLOBAL)
+ 
+ 	/*  APIC ID not found in the table. Drop the trampoline lock and bail. */
+ 	movq	trampoline_lock(%rip), %rax
+-	lock
+-	btrl	$0, (%rax)
++	movl	$0, (%rax)
+ 
+ 1:	cli
+ 	hlt
+@@ -320,8 +319,7 @@ SYM_INNER_LABEL(secondary_startup_64_no_verify, SYM_L_GLOBAL)
+ 	movq	trampoline_lock(%rip), %rax
+ 	testq	%rax, %rax
+ 	jz	.Lsetup_gdt
+-	lock
+-	btrl	$0, (%rax)
++	movl	$0, (%rax)
+ 
+ .Lsetup_gdt:
+ 	/*
+diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+index 5caf4897b507..660709e94823 100644
+--- a/arch/x86/kernel/smpboot.c
++++ b/arch/x86/kernel/smpboot.c
+@@ -161,31 +161,28 @@ static inline void smpboot_restore_warm_reset_vector(void)
+ 
+ }
+ 
+-/*
+- * Report back to the Boot Processor during boot time or to the caller processor
+- * during CPU online.
+- */
+-static void smp_callin(void)
++/* Run the next set of setup steps for the upcoming CPU */
++static void ap_starting(void)
+ {
+ 	int cpuid = smp_processor_id();
+ 
+ 	/*
+-	 * If waken up by an INIT in an 82489DX configuration the alive
+-	 * synchronization guarantees we don't get here before an
+-	 * INIT_deassert IPI reaches our local APIC, so it is now safe to
+-	 * touch our local APIC.
++	 * If woken up by an INIT in an 82489DX configuration the alive
++	 * synchronization guarantees that the CPU does not reach this
++	 * point before an INIT_deassert IPI reaches the local APIC, so it
++	 * is now safe to touch the local APIC.
+ 	 *
+ 	 * Set up this CPU, first the APIC, which is probably redundant on
+ 	 * most boards.
+ 	 */
+ 	apic_ap_setup();
+ 
+-	/* Save our processor parameters. */
++	/* Save the processor parameters. */
+ 	smp_store_cpu_info(cpuid);
+ 
+ 	/*
+ 	 * The topology information must be up to date before
+-	 * calibrate_delay() and notify_cpu_starting().
++	 * notify_cpu_starting().
+ 	 */
+ 	set_cpu_sibling_map(cpuid);
+ 
+@@ -197,7 +194,7 @@ static void smp_callin(void)
+ 
+ 	/*
+ 	 * This runs the AP through all the cpuhp states to its target
+-	 * state (CPUHP_ONLINE in the case of serial bringup).
++	 * state CPUHP_ONLINE.
+ 	 */
+ 	notify_cpu_starting(cpuid);
+ }
+@@ -274,10 +271,7 @@ static void notrace start_secondary(void *unused)
+ 	rcu_cpu_starting(raw_smp_processor_id());
+ 	x86_cpuinit.early_percpu_clock_init();
+ 
+-	smp_callin();
+-
+-	/* Otherwise gcc will move up smp_processor_id() before cpu_init() */
+-	barrier();
++	ap_starting();
+ 
+ 	/* Check TSC synchronization with the control CPU. */
+ 	check_tsc_sync_target();
+diff --git a/arch/x86/realmode/rm/trampoline_64.S b/arch/x86/realmode/rm/trampoline_64.S
+index 2dfb1c400167..c6de4deec746 100644
+--- a/arch/x86/realmode/rm/trampoline_64.S
++++ b/arch/x86/realmode/rm/trampoline_64.S
+@@ -40,17 +40,13 @@
+ .macro LOAD_REALMODE_ESP
+ 	/*
+ 	 * Make sure only one CPU fiddles with the realmode stack
+-	 */
++	*/
+ .Llock_rm\@:
+-	btl	$0, tr_lock
+-	jnc	2f
+-	pause
+-	jmp	.Llock_rm\@
++        lock btsl       $0, tr_lock
++        jnc             2f
++        pause
++        jmp             .Llock_rm\@
+ 2:
+-	lock
+-	btsl	$0, tr_lock
+-	jc	.Llock_rm\@
+-
+ 	# Setup stack
+ 	movl	$rm_stack_end, %esp
+ .endm
+diff --git a/kernel/cpu.c b/kernel/cpu.c
+index 60b4093fae9e..005f863a3d2b 100644
+--- a/kernel/cpu.c
++++ b/kernel/cpu.c
+@@ -294,14 +294,14 @@ enum cpuhp_sync_state {
+  * cpuhp_ap_update_sync_state - Update synchronization state during bringup/teardown
+  * @state:	The synchronization state to set
+  *
+- * No synchronization point. Just update of the synchronization state.
++ * No synchronization point. Just update of the synchronization state, but implies
++ * a full barrier so that the AP changes are visible before the control CPU proceeds.
+  */
+ static inline void cpuhp_ap_update_sync_state(enum cpuhp_sync_state state)
+ {
+ 	atomic_t *st = this_cpu_ptr(&cpuhp_state.ap_sync_state);
+-	int sync = atomic_read(st);
+ 
+-	while (!atomic_try_cmpxchg(st, &sync, state));
++	(void)atomic_xchg(st, state);
+ }
+ 
+ void __weak arch_cpuhp_sync_state_poll(void) { cpu_relax(); }
+@@ -829,7 +829,11 @@ static int bringup_cpu(unsigned int cpu)
+ 	/*
+ 	 * Some architectures have to walk the irq descriptors to
+ 	 * setup the vector space for the cpu which comes online.
+-	 * Prevent irq alloc/free across the bringup.
++	 *
++	 * Prevent irq alloc/free across the bringup by acquiring the
++	 * sparse irq lock. Hold it until the upcoming CPU completes the
++	 * startup in cpuhp_online_idle() which allows to avoid
++	 * intermediate synchronization points in the architecture code.
+ 	 */
+ 	irq_lock_sparse();
+ 
 
-The preparatory work in question needs to happen after:
 
-  pci_add_device()
-    -> alloc_pdev()
-
-since we need to know all the possible RIDs (including those for phantom functions), but before the add_device iommu hook:
-
-  pci_add_device()
-    -> iommu_add_device()
-      -> iommu_call(hd->platform_ops, add_device, ...)
-
-
-The preparatory work (i.e. mapping RID/BDF -> AXI stream ID) is inherently associated with setting up a PCI device to work with an ARM SMMU (but not any particular variant of the SMMU). The SMMU distinguishes what PCI device/function DMA traffic is associated with based on the derived AXI stream ID (sideband data), not the RID/BDF directly. See [1].
-
-Moving the preparatory work one layer up would mean duplicating what alloc_pdev() is already doing to set up pdev->phantom_stride (which we need to figure out all RIDs for that particular device). Moving it down into the individual SMMU drivers (smmu_ops/platform_ops) would mean duplicating special phantom function handling in each SMMU driver, and further deviating from the Linux SMMU driver(s) they are based on.
-
-It still feels to me like pci_add_device() (or iommu_add_device()) is the right place to perform the RID/BDF -> AXI stream ID mapping.
-
-Since there's nothing inherently DT specific (or ACPI specific) about deriving sideband data from RID/BDF, let me propose a new name for the function (instead of iommu_add_dt_pci_device):
-
-  iommu_derive_pci_device_sideband_IDs()
-
-
-Now, as far as DT and ACPI co-existing goes, I admit I haven't tested with CONFIG_ACPI=y yet (there seems to be some issues when both CONFIG_ARM_SMMU_V3=y and CONFIG_ACPI=y are enabled, even in staging). But I do recognize that we need a way support both CONFIG_HAS_DEVICE_TREE=y and CONFIG_ACPI=y simultaneously. Let me think on that for a bit...
-
-[1] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/pci-iommu.txt
 
