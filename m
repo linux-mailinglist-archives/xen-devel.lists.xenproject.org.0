@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E519E702AD7
-	for <lists+xen-devel@lfdr.de>; Mon, 15 May 2023 12:44:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.534706.831998 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30596702B8E
+	for <lists+xen-devel@lfdr.de>; Mon, 15 May 2023 13:32:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.534711.832009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyVgD-0003Mg-7O; Mon, 15 May 2023 10:43:49 +0000
+	id 1pyWQc-0000QM-Nl; Mon, 15 May 2023 11:31:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 534706.831998; Mon, 15 May 2023 10:43:49 +0000
+Received: by outflank-mailman (output) from mailman id 534711.832009; Mon, 15 May 2023 11:31:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyVgD-0003KF-3m; Mon, 15 May 2023 10:43:49 +0000
-Received: by outflank-mailman (input) for mailman id 534706;
- Mon, 15 May 2023 10:43:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pyVgB-0003K9-Fv
- for xen-devel@lists.xenproject.org; Mon, 15 May 2023 10:43:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pyVgB-0004OY-4k; Mon, 15 May 2023 10:43:47 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226]
- helo=[192.168.27.136]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pyVgA-0007Dw-Ti; Mon, 15 May 2023 10:43:47 +0000
+	id 1pyWQc-0000N3-Ku; Mon, 15 May 2023 11:31:46 +0000
+Received: by outflank-mailman (input) for mailman id 534711;
+ Mon, 15 May 2023 11:31:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ig+9=BE=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1pyWQb-0000Ms-Vt
+ for xen-devel@lists.xenproject.org; Mon, 15 May 2023 11:31:46 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10b400dc-f314-11ed-8611-37d641c3527e;
+ Mon, 15 May 2023 13:31:42 +0200 (CEST)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-3f41d087bd3so63356265e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 May 2023 04:31:42 -0700 (PDT)
+Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ 2-20020a05600c22c200b003f42328b5d9sm24857485wmg.39.2023.05.15.04.31.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 May 2023 04:31:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,59 +45,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=LNoOzTB0CC3lyktdTwz+xxTG0I9DDNmDJw1pgKuSVhc=; b=Iz8seSAh5Nqoa3BnGgQk43W9aH
-	zbaF0yl6xpOC1m7cN+ddCs39C5c8QIXTK9HAfmgPbJEw+K/2OZSh8MhQ85hHKoF0lQf3wH0IKfauj
-	399InR3tXnfBSdjTxThwdwHGj3qEotFeGLpO4wLSrbde27acO3RCCb/XiSktnfAjPbFM=;
-Message-ID: <701fb2b6-d552-0e3d-d108-a73863160b25@xen.org>
-Date: Mon, 15 May 2023 11:43:44 +0100
+X-Inumbo-ID: 10b400dc-f314-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1684150301; x=1686742301;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GcS0sFy1j+iBirD4dRuPYJrHtHgaoJyuoMIW8QbN+lY=;
+        b=EvSyOXYOhoECtJSlqGBVgwanO9Uxg8r9uzRPIB5gUBORfCsOUdF4bkq5T4R8FVj/PD
+         v577vCRVd8RVg4/VR1WRb6l1jj9IW1/xG846OqHybl9AT+xntr/cygtKJqHSe79a2aqQ
+         AtypoBa3MunRWY/VDbCVZ52zM7mMgvE8nHJCA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684150301; x=1686742301;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GcS0sFy1j+iBirD4dRuPYJrHtHgaoJyuoMIW8QbN+lY=;
+        b=hTnv1za3mCaIBqd8TWLWeeF5bcTaW2wVEzAqugvcaKzvX/8AjFL+9Q+9Bzbe3Krdtg
+         G/IJG5NwakljxAkXOnKINALCeAGohALgeUsdk0Nm3GWASZp3/Q9NDwpY2qujOR5qKDqZ
+         PyYXjU6m1qDwRIs2OkxgFO5gcYqVMVzBbs5pL2i5o7x96p2DwXxxb2XOim015aaDTT//
+         2LqHDm9snc4o8VuAufOeUEpAURNgyuwmbC1qA80lwTz4/L8vUVVtNswr8DuqCXjLLmWq
+         o8aVwROuviOjQD5mUwH7Y2h5oF/P4tVwTiC8YReGIWno4OoaJJlLx5kVuv2PXVpwPE/D
+         Gv3w==
+X-Gm-Message-State: AC+VfDxuW0FHqNRFU3NyynL3q0UZpQ7cahla/ynjs2wI92XDY7LN8cAm
+	AY0PmgDE/bFuYEnbTIIldy9WTrbrVgpJJgweJYY=
+X-Google-Smtp-Source: ACHHUZ6RscVihJNZLvIthvOqYC3JgRqd5SMFPqjj7Q2jWvfWgRJj8KHE2E2T0xTekQpoZiKAgQU7dw==
+X-Received: by 2002:a1c:6a0d:0:b0:3f4:23d4:e48 with SMTP id f13-20020a1c6a0d000000b003f423d40e48mr18847738wmc.23.1684150301172;
+        Mon, 15 May 2023 04:31:41 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 0/2] Add CpuidUserDis support
+Date: Mon, 15 May 2023 12:31:34 +0100
+Message-Id: <20230515113136.2465-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.0
-Subject: Re: [XEN v6 11/12] xen/arm: p2m: Use the pa_range_info table to
- support ARM_32 and ARM_64
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- wl@xen.org, rahul.singh@arm.com
-References: <20230428175543.11902-1-ayan.kumar.halder@amd.com>
- <20230428175543.11902-12-ayan.kumar.halder@amd.com>
- <63fa927e-72f5-1645-97c0-6986f2fdcabe@xen.org>
- <4681a4d4-68d3-01cd-912c-bca2cdc83266@amd.com>
- <175d5e01-6258-edcc-bddd-05ff9e1eb547@xen.org>
- <72fa0686-2703-6682-fe06-2fca14ff1986@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <72fa0686-2703-6682-fe06-2fca14ff1986@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+v3:
+ * Move LCAP setters from patch 2 to patch 1
+ * Comment on rationale for checking CPUID faulting before CpuidUserDis on AMD
 
+Nowadays AMD supports trapping the CPUID instruction from ring>0 to ring0,
+(CpuidUserDis) akin to Intel's "CPUID faulting". There is a difference in
+that the toggle bit is in a different MSR and the support bit is in CPUID
+itself rather than yet another MSR. This patch enables AMD hosts to use it
+when supported in order to provide correct CPUID contents to PV guests.
 
-On 15/05/2023 11:30, Ayan Kumar Halder wrote:
->> AFAICT, this approach would be incorrect because we wouldn't take into 
->> account any restriction from the SMMU susbystem (it may support less 
->> than what the processor support).
-> 
-> By the restriction from SMMU subsystem, I think you mean 
-> p2m_restrict_ipa_bits().
+Patch 1 moves vendor-specific code on probe_cpuid_faulting() to amd.c/intel.c
 
-Yes.
+Patch 2 adds support for CpuidUserDis, hooking it in the probing path and
+the context switching path.
 
-> 
-> As I can see, p2m_restrict_ipa_bits() gets invoked much later than 
-> setup_virt_paging().
+Alejandro Vallejo (2):
+  x86: Refactor conditional guard in probe_cpuid_faulting()
+  x86: Add support for CpuidUserDis
 
-I am afraid this is not correct. If you look at setup.c, you will notice 
-that iommu_setup() is called before setup_virt_paging(). There is a 
-comment on top of the former call explaining the ordering.
-
-Cheers,
+ xen/arch/x86/cpu/amd.c         | 32 ++++++++++++++++++++-
+ xen/arch/x86/cpu/common.c      | 51 ++++++++++++++++++----------------
+ xen/arch/x86/cpu/intel.c       | 12 +++++++-
+ xen/arch/x86/include/asm/amd.h |  1 +
+ 4 files changed, 70 insertions(+), 26 deletions(-)
 
 -- 
-Julien Grall
+2.34.1
+
 
