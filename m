@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E151D70422E
-	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 02:16:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.534903.832387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E4B704243
+	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 02:22:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.534908.832397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyiMl-0006ZQ-Vp; Tue, 16 May 2023 00:16:35 +0000
+	id 1pyiSB-00083P-MZ; Tue, 16 May 2023 00:22:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 534903.832387; Tue, 16 May 2023 00:16:35 +0000
+Received: by outflank-mailman (output) from mailman id 534908.832397; Tue, 16 May 2023 00:22:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyiMl-0006W7-Su; Tue, 16 May 2023 00:16:35 +0000
-Received: by outflank-mailman (input) for mailman id 534903;
- Tue, 16 May 2023 00:16:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PFhh=BF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pyiMk-0006Vz-Ju
- for xen-devel@lists.xenproject.org; Tue, 16 May 2023 00:16:34 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e89fb8f0-f37e-11ed-8611-37d641c3527e;
- Tue, 16 May 2023 02:16:32 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D2C27611EE;
- Tue, 16 May 2023 00:16:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5767AC433EF;
- Tue, 16 May 2023 00:16:29 +0000 (UTC)
+	id 1pyiSB-00081e-Jy; Tue, 16 May 2023 00:22:11 +0000
+Received: by outflank-mailman (input) for mailman id 534908;
+ Tue, 16 May 2023 00:22:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pyiSA-00081U-4t; Tue, 16 May 2023 00:22:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pyiS9-0007Yr-TJ; Tue, 16 May 2023 00:22:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pyiS9-00035v-GQ; Tue, 16 May 2023 00:22:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pyiS9-0003Zk-G0; Tue, 16 May 2023 00:22:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,108 +42,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e89fb8f0-f37e-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684196190;
-	bh=vHzC7PTPgkpZdzLyFNybngmOcYC3HM7pRTDTAG1k4/U=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=QAdZ7EZOi+BA6c7OCxtP7sXksNg9xvcFGyRb5X1DcgNNkSwDmUJ1zlWNiQLs1S+fR
-	 wAgRMnNteFEKEHxVJYJGx9w+rCX5YwtxVdAofTUdfcED8kAWKwIUYqGt4K4KZGhCQ1
-	 PpKJF/doa1K8g3eGWnND1eoQTDUrX5bD9Ot2RrBVrGGc6Y+QUEo5LD/YyG6lVABXso
-	 3Udk2iSOk4I/+KBctfaUVgouUHJ2aNqLcLSvnsWIOaXxMhY2heP5SZwAbTSGr4FmJP
-	 T1cW/J8bmFzImGv46cyvQlk83sp8wxA92LZkkqV3wNMOoXV7Ve7WgAKTCKf0KGLIZq
-	 sJWNlNnvsi0Jw==
-Date: Mon, 15 May 2023 17:16:27 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
-    xen-devel@lists.xenproject.org, Xenia.Ragiadakou@amd.com, 
-    Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: Re: [PATCH 1/2] xen/x86/pvh: use preset XSDT header for XSDT
- generation
-In-Reply-To: <81ac6e51-6de9-5c4c-5cbd-7318cae93032@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2305151712390.4125828@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2305121801460.3748626@ubuntu-linux-20-04-desktop> <20230513011720.3978354-1-sstabellini@kernel.org> <ZGHx9Mk3UGPdli1h@Air-de-Roger> <81ac6e51-6de9-5c4c-5cbd-7318cae93032@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=M14eZ1sfFzJsvip2DOntWtB+MPd2HJq5hUe5Xdej8yg=; b=AGjCO09enkFXGp2Qgz8mHwJtaL
+	Di6mkJ9qSgZSnSsDb8m3wmjfJ+ygcUS/BWOhhEXIxJog+rnX2+6hjeH4hS/DOhD44WZ929xljg7+m
+	mIcayr6l2pWSMOcx+EXPazRtUW/Q+1SsWGgg4b7JERgDFwIXoY+1Ln5h1nA80k5sqmUg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180676-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1714508303-1684196189=:4125828"
+Subject: [xen-unstable-smoke test] 180676: regressions - trouble: blocked/broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:host-build-prep:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=fc1b51268025233a81e5fd9c5eabe170bc830720
+X-Osstest-Versions-That:
+    xen=56e2c8e5860090a35d5f0cafe168223a2a7c0e62
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 16 May 2023 00:22:09 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 180676 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180676/
 
---8323329-1714508303-1684196189=:4125828
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Regressions :-(
 
-On Mon, 15 May 2023, Jan Beulich wrote:
-> On 15.05.2023 10:48, Roger Pau Monné wrote:
-> > On Fri, May 12, 2023 at 06:17:19PM -0700, Stefano Stabellini wrote:
-> >> From: Stefano Stabellini <stefano.stabellini@amd.com>
-> >>
-> >> Xen always generates a XSDT table even if the firmware provided a RSDT
-> >> table. Instead of copying the XSDT header from the firmware table (that
-> >> might be missing), generate the XSDT header from a preset.
-> >>
-> >> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> >> ---
-> >>  xen/arch/x86/hvm/dom0_build.c | 32 +++++++++-----------------------
-> >>  1 file changed, 9 insertions(+), 23 deletions(-)
-> >>
-> >> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-> >> index 307edc6a8c..5fde769863 100644
-> >> --- a/xen/arch/x86/hvm/dom0_build.c
-> >> +++ b/xen/arch/x86/hvm/dom0_build.c
-> >> @@ -963,13 +963,18 @@ static int __init pvh_setup_acpi_xsdt(struct domain *d, paddr_t madt_addr,
-> >>                                        paddr_t *addr)
-> >>  {
-> >>      struct acpi_table_xsdt *xsdt;
-> >> -    struct acpi_table_header *table;
-> >> -    struct acpi_table_rsdp *rsdp;
-> >>      const struct acpi_table_desc *tables = acpi_gbl_root_table_list.tables;
-> >>      unsigned long size = sizeof(*xsdt);
-> >>      unsigned int i, j, num_tables = 0;
-> >> -    paddr_t xsdt_paddr;
-> >>      int rc;
-> >> +    struct acpi_table_header header = {
-> >> +        .signature    = "XSDT",
-> >> +        .length       = sizeof(struct acpi_table_header),
-> >> +        .revision     = 0x1,
-> >> +        .oem_id       = "Xen",
-> >> +        .oem_table_id = "HVM",
-> > 
-> > I think this is wrong, as according to the spec the OEM Table ID must
-> > match the OEM Table ID in the FADT.
-> > 
-> > We likely want to copy the OEM ID and OEM Table ID from the RSDP, and
-> > possibly also the other OEM related fields.
-> > 
-> > Alternatively we might want to copy and use the RSDT on systems that
-> > lack an XSDT, or even just copy the header from the RSDT into Xen's
-> > crafted XSDT, since the format of the RSDP and the XSDT headers are
-> > exactly the same (the difference is in the size of the description
-> > headers that come after).
-> 
-> I guess I'd prefer that last variant.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   5 host-build-prep          fail REGR. vs. 180672
 
-I tried this approach (together with the second patch for necessity) and
-it worked.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
-index fd2cbf68bc..11d6d1bc23 100644
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -967,6 +967,10 @@ static int __init pvh_setup_acpi_xsdt(struct domain *d, paddr_t madt_addr,
-         goto out;
-     }
-     xsdt_paddr = rsdp->xsdt_physical_address;
-+    if ( !xsdt_paddr )
-+    {
-+        xsdt_paddr = rsdp->rsdt_physical_address;
-+    }
-     acpi_os_unmap_memory(rsdp, sizeof(*rsdp));
-     table = acpi_os_map_memory(xsdt_paddr, sizeof(*table));
-     if ( !table )
---8323329-1714508303-1684196189=:4125828--
+version targeted for testing:
+ xen                  fc1b51268025233a81e5fd9c5eabe170bc830720
+baseline version:
+ xen                  56e2c8e5860090a35d5f0cafe168223a2a7c0e62
+
+Last test of basis   180672  2023-05-15 14:00:25 Z    0 days
+Testing same since   180676  2023-05-15 23:03:30 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-armhf broken
+
+Not pushing.
+
+------------------------------------------------------------
+commit fc1b51268025233a81e5fd9c5eabe170bc830720
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Sat May 13 04:12:46 2023 +0200
+
+    automation: add x86_64 tests on a AMD Zen3+ runner
+    
+    This adds another physical runner to Gitlab-CI, running similar set of
+    jobs that the Adler Lake one.
+    
+    The machine specifically is
+    MinisForum UM773 Lite with AMD Ryzen 7 7735HS
+    
+    The PV passthrough test is skipped as currently it fails on this system
+    with:
+    (d1) Can't find new memory area for initrd needed due to E820 map conflict
+    
+    The S3 test is skipped as it currently fails - the system seems to
+    suspend properly (power LED blinks), but when woken up the power LED
+    gets back to solid on and the fan spins at top speed and but otherwise there is no
+    signs of if life from the system (no output on the console, HDMI or
+    anything else).
+    
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit d6f0c82539a8dad043186cf9f9e44acdd440f0ae
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Mon May 15 14:43:05 2023 -0700
+
+    automation: enable earlyprintk=xen for both dom0 and domU in hw tests
+    
+    Make debugging early boot failures easier based on just CI logs.
+    
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 3e02611fac8b238f99415b5b90dd31373ded2fac
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Mon May 15 14:41:18 2023 -0700
+
+    automation: make console options configurable via variables
+    
+    This makes the test script easier reusable for different runners, where
+    console may be connected differently. Include both console= option and
+    configuration for specific chosen console too (like com1= here) in the
+    'CONSOLE_OPTS' variable.
+    
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit be6aa637db95b1d7c50671fb30b79b3cd7e6dabf
+Author: Stefano Stabellini <stefano.stabellini@amd.com>
+Date:   Fri May 12 18:24:44 2023 -0700
+
+    automation: add a Dom0 PVH test based on Qubes' runner
+    
+    Straightforward Dom0 PVH test based on the existing basic Smoke test for
+    the Qubes runner.
+    
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+    Acked-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+(qemu changes not included)
 
