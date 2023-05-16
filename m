@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B840E7053C3
-	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 18:29:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.535424.833131 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4840C705525
+	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 19:40:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.535436.833140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyxXZ-0001OL-4Z; Tue, 16 May 2023 16:28:45 +0000
+	id 1pyydZ-0000RA-3s; Tue, 16 May 2023 17:39:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 535424.833131; Tue, 16 May 2023 16:28:45 +0000
+Received: by outflank-mailman (output) from mailman id 535436.833140; Tue, 16 May 2023 17:39:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyxXZ-0001LR-1O; Tue, 16 May 2023 16:28:45 +0000
-Received: by outflank-mailman (input) for mailman id 535424;
- Tue, 16 May 2023 16:28:43 +0000
+	id 1pyydZ-0000P2-0w; Tue, 16 May 2023 17:39:01 +0000
+Received: by outflank-mailman (input) for mailman id 535436;
+ Tue, 16 May 2023 17:38:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a0wm=BF=citrix.com=prvs=4936e02c6=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pyxXX-0001LJ-2H
- for xen-devel@lists.xenproject.org; Tue, 16 May 2023 16:28:43 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b6cf12c8-f406-11ed-b229-6b7b168915f2;
- Tue, 16 May 2023 18:28:41 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nKnf=BF=redhat.com=jsnow@srs-se1.protection.inumbo.net>)
+ id 1pyydX-0000Ow-HA
+ for xen-devel@lists.xenproject.org; Tue, 16 May 2023 17:38:59 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 885e26f8-f410-11ed-b229-6b7b168915f2;
+ Tue, 16 May 2023 19:38:57 +0200 (CEST)
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-267-ttrvkttINniNw_plmSPcBw-1; Tue, 16 May 2023 13:38:54 -0400
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-6434336147cso8246265b3a.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 May 2023 10:38:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,86 +44,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6cf12c8-f406-11ed-b229-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1684254520;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ekbf1hsSNWvboaNh50ECw+KQwFQtwXZLH+LZ8zLNlXg=;
-  b=BGa3jdSShWnoSc47cRK3EfwI9S2svD1bPiZdO3PPxV1BytRLSekkt9/l
-   TNPXOG6UN+egPhoqOVGz7zykhEjQN6OehBP5wfr89vD/b7JZq72yop76l
-   3BIji+q/E1ejf8REAWZ6br3hUS+DzIlkMdtsdVxMUumiSBf1xIoeAv30o
-   k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 109647125
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:jPNdCagAfAbqyOj545dUcI0CX161SxAKZh0ujC45NGQN5FlHY01je
- htvXzzQa/qMZjD1fYp/Od+w9U4AusTVyYJkT1A6riowECMb9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsy+qWj0N8klgZmP6sT4QaAzyN94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQxeDUCcjCunt6S+46ncPEwwe0JDtfCadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
- pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XejtEqFWTtOwv7nLa1gBZ27nxKtvFPNeNQK25m27B/
- jOYozugWExy2Nq39muor0i0h7D0uS7GVthDGo2hxOczqQjGroAUIEJPDgbqyRWjsWa5X9tRA
- 0UZ4iQqoO4++SSDXtT7GhG1vnOAlhodQMZLVf037hmXzajZ6BrfAXILJhZebPQ2uclwQiYlv
- neLkMnuHidHq6CORDSW8bL8hTqqNDIcN2MqeS4ORgxD6N7myLzflTqWEIwlSvTsyISoR3epm
- WviQDUCa6s7pJ4O2Lmb0En7pwmQuqLREkkczCfJdzfwhu9mX7KNa4ut4FndyP9PKoeFU1WM1
- EQ5d9iiAPMmVs/UynHUKAkZNPTwvqvebmWA6bJ6N8N5nwlB7UJPamy5DNtWAE5yevgJdjbyC
- KM4kVMAvcQDVJdGgEIeXm5QNyjI5fK4fTgGfqqOBjarXnSWXFHvwc2WTRTMt10BaWB1+U3FB
- b+VcNy3EVERArl9wTy9So81iOF7mnlhmD2CHMyklXxLNIZyg1bEIYrpzXPUNrxphE96iF+9H
- ylj2zuilEwEDbyWjtj/+o8PN1EaRUUG6WTNg5UPLIare1M2cFzN/teNmdvNjaQ5xfUK/goJl
- 1nhMnJlJK3X3CaXeFnSNSsyNNsCn/9X9BoGAMDlBn7ws1BLXGplxP53m0cfFVX/yNFe8A==
-IronPort-HdrOrdr: A9a23:VqipeKMj0QzZ5cBcTsGjsMiBIKoaSvp037BL7TEWdfUxSKalfq
- +V7ZYmPHzP6Ar5OktQ/OxoUZPoKRi8yXcf2/h0AV7NZniAhIJqFu1fBEnZrgEI1xeQygeV78
- ldmw4SMqySMWRH
-X-Talos-CUID: 9a23:RcWcTmFVxWkoelFGqmJOpEsbBuAIa0H590vMGVfkTk9DaqO8HAo=
-X-Talos-MUID: 9a23:e4ZZfQvqmKo+LxVsR82nu2BPaf1w4vuVLE0wn89XtfmdBzUpEmLI
-X-IronPort-AV: E=Sophos;i="5.99,278,1677560400"; 
-   d="scan'208";a="109647125"
-Date: Tue, 16 May 2023 17:28:34 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Olaf Hering <olaf@aepfle.de>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
-	<jgross@suse.com>
-Subject: Re: [PATCH v2] tools: drop bogus and obsolete ptyfuncs.m4
-Message-ID: <2ef56f76-f75b-47f7-aef9-bef0c5b52883@perard>
-References: <20230512122614.3724-1-olaf@aepfle.de>
+X-Inumbo-ID: 885e26f8-f410-11ed-b229-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1684258736;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G7JGMjrkbABMXmudfgjOwEmUZFJhzeLKxKLcXPj6Fso=;
+	b=KRA8bo/3JK9izibu72tDcbgNmcoTaS2QDNlvi6idksoR7blblWRtaoUpAEJm+4FaWcibbx
+	GAjhBnkG36F4Dbz7ueZmX4wbZpwL+oJ+dhmFd9EpfGJq1JqniHPFxFNzXKms1RX5aAjlDg
+	4antL9sef/Pq8V1zHooPyieghQB9Tlk=
+X-MC-Unique: ttrvkttINniNw_plmSPcBw-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684258733; x=1686850733;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=G7JGMjrkbABMXmudfgjOwEmUZFJhzeLKxKLcXPj6Fso=;
+        b=d4OUU9u0zMpXTo+cSEmi+dOV/GUi179RBUKrfzwHzI0/XQdKzCKjTDhK2PYkvscDr0
+         F2M0n3iQILXzQ5qPtX2Iih+/dLbgNmeurlBwNyHbzKZfWBYsn7EPToGh8BL3fcJteRYU
+         4moTzSHQ2MtQLG4ZneRWJoLxEML3lJvzom/xU9qqfE6G9pmcABRyyXnyqy3RD497Wnv2
+         VnKuiUSebmQxIioipq8aJR6QKnP+XZRVDTAMaAX8nqZeCCF4J6hoaKMCdz0JQddebwEb
+         XVP8CF/Qw+Q3o/ghTDdDUlH817jJS2UDTu9s5F8jIhwu76b1fcS87kQY1pbqAwLoVXYw
+         M/rA==
+X-Gm-Message-State: AC+VfDxYNOcwQLPvnkoUNCIvocHAwS5Ae9S7j9ieJwPu08mw0VUHgp+h
+	Mi2LZN/IHomL1g8NUsQX+8NS17cPgBRwXiMbS5pEId3WDP+gqoUlya2BeijEa9H8//c02uSWasU
+	jX/qvevAITFudlq4Ywq0PpMSnUuJgNqJsHzt/Omrdh4s=
+X-Received: by 2002:a05:6a00:189a:b0:646:7234:cbfc with SMTP id x26-20020a056a00189a00b006467234cbfcmr42825192pfh.27.1684258733606;
+        Tue, 16 May 2023 10:38:53 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5DqjD5Mv/y/nBF5tNjAvtQEFBbZtdinKk9xVA0Nn3QAhyxhf+TjPJwds4k7CJPEPxrICXCVe7WEr6J8AcMekw=
+X-Received: by 2002:a05:6a00:189a:b0:646:7234:cbfc with SMTP id
+ x26-20020a056a00189a00b006467234cbfcmr42825176pfh.27.1684258733316; Tue, 16
+ May 2023 10:38:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230512122614.3724-1-olaf@aepfle.de>
+References: <20210317070046.17860-1-olaf@aepfle.de> <4441d32f-bd52-9408-cabc-146b59f0e4dc@redhat.com>
+ <20210325121219.7b5daf76.olaf@aepfle.de> <dae251e1-f808-708e-902c-05cfcbbea9cf@redhat.com>
+ <20230509225818.GA16290@aepfle.de> <20230510094719.26fb79e5.olaf@aepfle.de> <alpine.DEB.2.22.394.2305121411310.3748626@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2305121411310.3748626@ubuntu-linux-20-04-desktop>
+From: John Snow <jsnow@redhat.com>
+Date: Tue, 16 May 2023 13:38:42 -0400
+Message-ID: <CAFn=p-aFa_jFYuaYLMumkX=5zpn228ctBcV=Gch=BhmQs6i2dA@mail.gmail.com>
+Subject: Re: [PATCH v2] piix: fix regression during unplug in Xen HVM domUs
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Olaf Hering <olaf@aepfle.de>, Paolo Bonzini <pbonzini@redhat.com>, xen-devel@lists.xenproject.org, 
+	qemu-devel@nongnu.org, qemu-block@nongnu.org, 
+	=?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 12, 2023 at 12:26:14PM +0000, Olaf Hering wrote:
-> According to openpty(3) it is required to include <pty.h> to get the
-> prototypes for openpty() and login_tty(). But this is not what the
-> function AX_CHECK_PTYFUNCS actually does. It makes no attempt to include
-> the required header.
-> 
-> The two source files which call openpty() and login_tty() already contain
-> the conditionals to include the required header.
-> 
-> Remove the bogus m4 file to fix build with clang, which complains about
-> calls to undeclared functions.
-> 
-> Remove usage of INCLUDE_LIBUTIL_H in libxl_bootloader.c, it is already
-> covered by inclusion of libxl_osdep.h.
-> 
-> Remove usage of PTYFUNCS_LIBS in libxl/Makefile, it is already covered
-> by UTIL_LIBS from config/StdGNU.mk.
-> 
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
+On Fri, May 12, 2023 at 5:14=E2=80=AFPM Stefano Stabellini
+<sstabellini@kernel.org> wrote:
+>
+> On Wed, 10 May 2023, Olaf Hering wrote:
+> > Wed, 10 May 2023 00:58:27 +0200 Olaf Hering <olaf@aepfle.de>:
+> >
+> > > In my debugging (with v8.0.0) it turned out the three pci_set_word
+> > > causes the domU to hang. In fact, it is just the last one:
+> > >
+> > >    pci_set_byte(pci_conf + 0x20, 0x01);  /* BMIBA: 20-23h */
+> > >
+> > > It changes the value from 0xc121 to 0x1.
+> >
+> > If I disable just "pci_set_word(pci_conf + PCI_COMMAND, 0x0000);" it wo=
+rks as well.
+> > It changes the value from 0x5 to 0.
+> >
+> > In general I feel it is wrong to fiddle with PCI from the host side.
+> > This is most likely not the intention of the Xen unplug protocol.
+> > I'm sure the guest does not expect such changes under the hood.
+> > It happens to work by luck with pvops kernels because their PCI discove=
+ry
+> > is done after the unplug.
+> >
+> > So, what do we do here to get this off the table?
+>
+> I don't have a concrete suggestion because I don't understand the root
+> cause of the issue. Looking back at Paolo's reply from 2021
+>
+> https://marc.info/?l=3Dxen-devel&m=3D161669099305992&w=3D2
+>
+> I think he was right. We can either fix the root cause of the issue or
+> avoid calling qdev_reset_all on unplug. I am OK with either one.
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+I haven't touched IDE or block code in quite a long while now -- I
+don't think I can help land this fix, but I won't get in anyone's way,
+either. Maybe just re-submit the patches with an improved commit
+message / cover letter that helps collect the info from the previous
+thread, the core issue, etc.
 
-Obviously, the committer will have to run ./autogen.sh before
-committing.
+--js
 
-Thanks,
-
--- 
-Anthony PERARD
 
