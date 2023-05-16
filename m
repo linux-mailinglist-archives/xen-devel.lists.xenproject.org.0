@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EEDA7056A4
-	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 21:03:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.535472.833281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7757056BD
+	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 21:07:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.535495.833301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyzxV-0007Vv-Qg; Tue, 16 May 2023 19:03:41 +0000
+	id 1pz01I-0001Tx-HV; Tue, 16 May 2023 19:07:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 535472.833281; Tue, 16 May 2023 19:03:41 +0000
+Received: by outflank-mailman (output) from mailman id 535495.833301; Tue, 16 May 2023 19:07:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyzxV-0007T6-N4; Tue, 16 May 2023 19:03:41 +0000
-Received: by outflank-mailman (input) for mailman id 535472;
- Tue, 16 May 2023 19:03:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pz01I-0001RM-EF; Tue, 16 May 2023 19:07:36 +0000
+Received: by outflank-mailman (input) for mailman id 535495;
+ Tue, 16 May 2023 19:07:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zzm0=BF=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1pyzxU-0002eu-Uf
- for xen-devel@lists.xenproject.org; Tue, 16 May 2023 19:03:40 +0000
+ id 1pyzxa-0002US-LX
+ for xen-devel@lists.xenproject.org; Tue, 16 May 2023 19:03:46 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5df11914-f41c-11ed-b229-6b7b168915f2;
- Tue, 16 May 2023 21:03:40 +0200 (CEST)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 60ebfc81-f41c-11ed-8611-37d641c3527e;
+ Tue, 16 May 2023 21:03:45 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-107-qbs1UNnyNMWMb1G0IdJnag-1; Tue, 16 May 2023 15:03:35 -0400
+ us-mta-630-s834bll1PqWUszHXDikoHA-1; Tue, 16 May 2023 15:03:37 -0400
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 612FC29A9CBD;
- Tue, 16 May 2023 19:03:34 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9C81D3C025D8;
+ Tue, 16 May 2023 19:03:36 +0000 (UTC)
 Received: from localhost (unknown [10.39.192.44])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B9719492B00;
- Tue, 16 May 2023 19:03:33 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 03DCC492B02;
+ Tue, 16 May 2023 19:03:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,18 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5df11914-f41c-11ed-b229-6b7b168915f2
+X-Inumbo-ID: 60ebfc81-f41c-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684263818;
+	s=mimecast20190719; t=1684263823;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IFl7FI73+FiKjtdEe70JC8EnCu2IGMWapigmR378qow=;
-	b=BvMfhU/LbFfGbN58I1Xq2b0BeCGztN3HKZ58N9LGRhpGWkY/OG+/hrJBMAi+9z+ljkN/Pz
-	dfMJHbxMhts+eYH324AROaZfQShrVECsXRR603Bk8ao6oz49Z5AgTuY6107tzIwCrfRboF
-	jLv0how9LpmIUcpzd27Baxp+kNk7f20=
-X-MC-Unique: qbs1UNnyNMWMb1G0IdJnag-1
+	bh=XPd169DcGag/GSLBXKJkqR/lFNY63tNqxrQt5+AlYZw=;
+	b=Hat8UP3n6MF33JjUJyzPgWU3xDFoh1J7sKe6wvtKH1TaEKvdlNZ2ek9kqiG+bCIGN673mn
+	uhDnkUmuXOWxwREHEzPUrZfZMVLkiicrruDewltxWwFbFUwpV6h2Otig0dos2hBjSsPrOZ
+	d5JjYISaOE8lgxjhcaBLlbIy1IvsM5c=
+X-MC-Unique: s834bll1PqWUszHXDikoHA-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Coiby Xu <Coiby.Xu@gmail.com>,
@@ -94,107 +94,138 @@ Cc: Coiby Xu <Coiby.Xu@gmail.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
 	Juan Quintela <quintela@redhat.com>
-Subject: [PATCH v6 14/20] block/export: don't require AioContext lock around blk_exp_ref/unref()
-Date: Tue, 16 May 2023 15:02:32 -0400
-Message-Id: <20230516190238.8401-15-stefanha@redhat.com>
+Subject: [PATCH v6 15/20] block/fuse: do not set is_external=true on FUSE fd
+Date: Tue, 16 May 2023 15:02:33 -0400
+Message-Id: <20230516190238.8401-16-stefanha@redhat.com>
 In-Reply-To: <20230516190238.8401-1-stefanha@redhat.com>
 References: <20230516190238.8401-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 
-The FUSE export calls blk_exp_ref/unref() without the AioContext lock.
-Instead of fixing the FUSE export, adjust blk_exp_ref/unref() so they
-work without the AioContext lock. This way it's less error-prone.
+This is part of ongoing work to remove the aio_disable_external() API.
 
-Suggested-by: Paolo Bonzini <pbonzini@redhat.com>
+Use BlockDevOps .drained_begin/end/poll() instead of
+aio_set_fd_handler(is_external=true).
+
+As a side-effect the FUSE export now follows AioContext changes like the
+other export types.
+
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 Reviewed-by: Kevin Wolf <kwolf@redhat.com>
 ---
- include/block/export.h   |  2 ++
- block/export/export.c    | 13 ++++++-------
- block/export/vduse-blk.c |  4 ----
- 3 files changed, 8 insertions(+), 11 deletions(-)
+ block/export/fuse.c | 56 +++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 54 insertions(+), 2 deletions(-)
 
-diff --git a/include/block/export.h b/include/block/export.h
-index 7feb02e10d..f2fe0f8078 100644
---- a/include/block/export.h
-+++ b/include/block/export.h
-@@ -57,6 +57,8 @@ struct BlockExport {
-      * Reference count for this block export. This includes strong references
-      * both from the owner (qemu-nbd or the monitor) and clients connected to
-      * the export.
-+     *
-+     * Use atomics to access this field.
-      */
-     int refcount;
+diff --git a/block/export/fuse.c b/block/export/fuse.c
+index 06fa41079e..adf3236b5a 100644
+--- a/block/export/fuse.c
++++ b/block/export/fuse.c
+@@ -50,6 +50,7 @@ typedef struct FuseExport {
  
-diff --git a/block/export/export.c b/block/export/export.c
-index 62c7c22d45..ab007e9d31 100644
---- a/block/export/export.c
-+++ b/block/export/export.c
-@@ -202,11 +202,10 @@ fail:
-     return NULL;
- }
+     struct fuse_session *fuse_session;
+     struct fuse_buf fuse_buf;
++    unsigned int in_flight; /* atomic */
+     bool mounted, fd_handler_set_up;
  
--/* Callers must hold exp->ctx lock */
- void blk_exp_ref(BlockExport *exp)
- {
--    assert(exp->refcount > 0);
--    exp->refcount++;
-+    assert(qatomic_read(&exp->refcount) > 0);
-+    qatomic_inc(&exp->refcount);
- }
+     char *mountpoint;
+@@ -78,6 +79,42 @@ static void read_from_fuse_export(void *opaque);
+ static bool is_regular_file(const char *path, Error **errp);
  
- /* Runs in the main thread */
-@@ -229,11 +228,10 @@ static void blk_exp_delete_bh(void *opaque)
-     aio_context_release(aio_context);
- }
  
--/* Callers must hold exp->ctx lock */
- void blk_exp_unref(BlockExport *exp)
- {
--    assert(exp->refcount > 0);
--    if (--exp->refcount == 0) {
-+    assert(qatomic_read(&exp->refcount) > 0);
-+    if (qatomic_fetch_dec(&exp->refcount) == 1) {
-         /* Touch the block_exports list only in the main thread */
-         aio_bh_schedule_oneshot(qemu_get_aio_context(), blk_exp_delete_bh,
-                                 exp);
-@@ -341,7 +339,8 @@ void qmp_block_export_del(const char *id,
-     if (!has_mode) {
-         mode = BLOCK_EXPORT_REMOVE_MODE_SAFE;
++static void fuse_export_drained_begin(void *opaque)
++{
++    FuseExport *exp = opaque;
++
++    aio_set_fd_handler(exp->common.ctx,
++                       fuse_session_fd(exp->fuse_session), false,
++                       NULL, NULL, NULL, NULL, NULL);
++    exp->fd_handler_set_up = false;
++}
++
++static void fuse_export_drained_end(void *opaque)
++{
++    FuseExport *exp = opaque;
++
++    /* Refresh AioContext in case it changed */
++    exp->common.ctx = blk_get_aio_context(exp->common.blk);
++
++    aio_set_fd_handler(exp->common.ctx,
++                       fuse_session_fd(exp->fuse_session), false,
++                       read_from_fuse_export, NULL, NULL, NULL, exp);
++    exp->fd_handler_set_up = true;
++}
++
++static bool fuse_export_drained_poll(void *opaque)
++{
++    FuseExport *exp = opaque;
++
++    return qatomic_read(&exp->in_flight) > 0;
++}
++
++static const BlockDevOps fuse_export_blk_dev_ops = {
++    .drained_begin = fuse_export_drained_begin,
++    .drained_end   = fuse_export_drained_end,
++    .drained_poll  = fuse_export_drained_poll,
++};
++
+ static int fuse_export_create(BlockExport *blk_exp,
+                               BlockExportOptions *blk_exp_args,
+                               Error **errp)
+@@ -101,6 +138,15 @@ static int fuse_export_create(BlockExport *blk_exp,
+         }
      }
--    if (mode == BLOCK_EXPORT_REMOVE_MODE_SAFE && exp->refcount > 1) {
-+    if (mode == BLOCK_EXPORT_REMOVE_MODE_SAFE &&
-+        qatomic_read(&exp->refcount) > 1) {
-         error_setg(errp, "export '%s' still in use", exp->id);
-         error_append_hint(errp, "Use mode='hard' to force client "
-                           "disconnect\n");
-diff --git a/block/export/vduse-blk.c b/block/export/vduse-blk.c
-index a25556fe04..e0455551f9 100644
---- a/block/export/vduse-blk.c
-+++ b/block/export/vduse-blk.c
-@@ -44,9 +44,7 @@ static void vduse_blk_inflight_inc(VduseBlkExport *vblk_exp)
- {
-     if (qatomic_fetch_inc(&vblk_exp->inflight) == 0) {
-         /* Prevent export from being deleted */
--        aio_context_acquire(vblk_exp->export.ctx);
-         blk_exp_ref(&vblk_exp->export);
--        aio_context_release(vblk_exp->export.ctx);
-     }
+ 
++    blk_set_dev_ops(exp->common.blk, &fuse_export_blk_dev_ops, exp);
++
++    /*
++     * We handle draining ourselves using an in-flight counter and by disabling
++     * the FUSE fd handler. Do not queue BlockBackend requests, they need to
++     * complete so the in-flight counter reaches zero.
++     */
++    blk_set_disable_request_queuing(exp->common.blk, true);
++
+     init_exports_table();
+ 
+     /*
+@@ -224,7 +270,7 @@ static int setup_fuse_export(FuseExport *exp, const char *mountpoint,
+     g_hash_table_insert(exports, g_strdup(mountpoint), NULL);
+ 
+     aio_set_fd_handler(exp->common.ctx,
+-                       fuse_session_fd(exp->fuse_session), true,
++                       fuse_session_fd(exp->fuse_session), false,
+                        read_from_fuse_export, NULL, NULL, NULL, exp);
+     exp->fd_handler_set_up = true;
+ 
+@@ -246,6 +292,8 @@ static void read_from_fuse_export(void *opaque)
+ 
+     blk_exp_ref(&exp->common);
+ 
++    qatomic_inc(&exp->in_flight);
++
+     do {
+         ret = fuse_session_receive_buf(exp->fuse_session, &exp->fuse_buf);
+     } while (ret == -EINTR);
+@@ -256,6 +304,10 @@ static void read_from_fuse_export(void *opaque)
+     fuse_session_process_buf(exp->fuse_session, &exp->fuse_buf);
+ 
+ out:
++    if (qatomic_fetch_dec(&exp->in_flight) == 1) {
++        aio_wait_kick(); /* wake AIO_WAIT_WHILE() */
++    }
++
+     blk_exp_unref(&exp->common);
  }
  
-@@ -57,9 +55,7 @@ static void vduse_blk_inflight_dec(VduseBlkExport *vblk_exp)
-         aio_wait_kick();
+@@ -268,7 +320,7 @@ static void fuse_export_shutdown(BlockExport *blk_exp)
  
-         /* Now the export can be deleted */
--        aio_context_acquire(vblk_exp->export.ctx);
-         blk_exp_unref(&vblk_exp->export);
--        aio_context_release(vblk_exp->export.ctx);
-     }
- }
- 
+         if (exp->fd_handler_set_up) {
+             aio_set_fd_handler(exp->common.ctx,
+-                               fuse_session_fd(exp->fuse_session), true,
++                               fuse_session_fd(exp->fuse_session), false,
+                                NULL, NULL, NULL, NULL, NULL);
+             exp->fd_handler_set_up = false;
+         }
 -- 
 2.40.1
 
