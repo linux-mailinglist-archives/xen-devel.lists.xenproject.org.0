@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CA3C7048C5
-	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 11:13:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.535077.832676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22891704906
+	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 11:21:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.535083.832687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyqkH-000085-Uq; Tue, 16 May 2023 09:13:25 +0000
+	id 1pyqs8-0001fS-OU; Tue, 16 May 2023 09:21:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 535077.832676; Tue, 16 May 2023 09:13:25 +0000
+Received: by outflank-mailman (output) from mailman id 535083.832687; Tue, 16 May 2023 09:21:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyqkH-00005P-Rq; Tue, 16 May 2023 09:13:25 +0000
-Received: by outflank-mailman (input) for mailman id 535077;
- Tue, 16 May 2023 09:13:24 +0000
+	id 1pyqs8-0001de-LI; Tue, 16 May 2023 09:21:32 +0000
+Received: by outflank-mailman (input) for mailman id 535083;
+ Tue, 16 May 2023 09:21:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=00Q8=BF=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pyqkG-00005J-7x
- for xen-devel@lists.xenproject.org; Tue, 16 May 2023 09:13:24 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20610.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::610])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e7b2f663-f3c9-11ed-8611-37d641c3527e;
- Tue, 16 May 2023 11:13:22 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB8925.eurprd04.prod.outlook.com (2603:10a6:102:20c::20)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=S66/=BF=citrix.com=prvs=49309c509=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1pyqs6-0001dW-Ve
+ for xen-devel@lists.xenproject.org; Tue, 16 May 2023 09:21:31 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 08450031-f3cb-11ed-8611-37d641c3527e;
+ Tue, 16 May 2023 11:21:28 +0200 (CEST)
+Received: from mail-bn8nam12lp2174.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.174])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 16 May 2023 05:21:15 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by SA2PR03MB5771.namprd03.prod.outlook.com (2603:10b6:806:11e::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.30; Tue, 16 May
- 2023 09:13:20 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%4]) with mapi id 15.20.6387.032; Tue, 16 May 2023
- 09:13:19 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33; Tue, 16 May
+ 2023 09:21:12 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::192:6bdf:b105:64dd]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::192:6bdf:b105:64dd%3]) with mapi id 15.20.6387.030; Tue, 16 May 2023
+ 09:21:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,202 +49,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7b2f663-f3c9-11ed-8611-37d641c3527e
+X-Inumbo-ID: 08450031-f3cb-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1684228887;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=TDuJLJc9JTp2gSh3nCkWiB74uRaH05uB2T6EVgzcnz4=;
+  b=E1TAKYGIo1EZfuwGJJZk93qzBH85j2UahJzWC3MCcKgbgF/LN4lXYViu
+   9E1yxtcq4a8P3QdPYxyHsDVW8ZkLrLab0+zDyG0VPrvHFUYaiORcWRJ0i
+   XTqVQkVeSfG0cp+5nPvT9+qbpBxw2kPgwiAhYn9vWTt+3k/GwqAultot0
+   g=;
+X-IronPort-RemoteIP: 104.47.55.174
+X-IronPort-MID: 111644949
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:F+QxhK4P4o41lolxbJLdxAxRtNjGchMFZxGqfqrLsTDasY5as4F+v
+ jQeXGyBaa7ZMDbwet0lOYji9ktVup+DmINqQQY/ryA8Hi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9VU+7ZwehBtC5gZlPa0S4geH/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5mz
+ cRBE3MiYAu4tryym52aQ85L3eEsBZy+VG8fkikIITDxK98DGMqGaYOaoNhS0XE3m9xEGuvYa
+ 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6OkUooj+SF3Nn9I7RmQe1PmUmVv
+ CTe9nnRCRAGLt2PjzGC9xpAg8eWxHqlBN5DSOzQGvhC2EK110EiKzwvTUK9quumikOnfN8FJ
+ BlBksYphe1onKCxdfHmRAGxqnOAuh8aWvJTHvc85QXLzbDbiy6bDGUZSj9KaPQ9qdQ7Azct0
+ zehj97vQDBirrCRYXac7auP6yO/PzAPKm0PbjNCShEKi/HTrYcyh1T1R9liGaK8jdroMTj1z
+ 3aBqy1Wr64PgMAC0aL95kzOiT+oopnPTyY84wmRVWWghj6Vf6agbo2srFLdvfBJKd/DSkHb5
+ SdY3c+D8OoJEJeB0jSXR/kAF62o4PDDNyDAhVloHN8q8DHFF2OfQL28KQpWfC9BWvvosxewC
+ KMPkWu9PKNuAUY=
+IronPort-HdrOrdr: A9a23:1jZeKKt0f2rRjW/guRAkX0Eo7skD+dV00zEX/kB9WHVpmwKj9v
+ xG+85rsSMc6QxhPU3I/OrrBEDuex7hHPJOjbX409+ZLXPbUSiTXfpfBbKL+UycJ8SGzJ8g6U
+ 4DSchD4azLfDpHZJ3BkW6F+r8bqbHtzEnPv4jjJhxWPGJXgs9bgTuRIzzrbXFedU1pBYcZCJ
+ HZ3cZOvTymEE5nFviTNz0qX/Xju9aOr57tYQcHCxk7gTP+9A+A2frVEwW4whxbaD9Ewa4j/W
+ /Z1yT1676uqevT8G6j60bjq7pXhfr8wZ94CMuAhtN9EESLtjqV
+X-Talos-CUID: =?us-ascii?q?9a23=3ABG05+2tkTI4/eWzszQuwjcJs6IsdSiTmj1jeOHS?=
+ =?us-ascii?q?JV2IyZ5ycbnjL3axNxp8=3D?=
+X-Talos-MUID: 9a23:LoM9wwsHy2nIAh2Dls2n3C5EJepZwIWXEFkLmocZu8SdEiEqNGLI
+X-IronPort-AV: E=Sophos;i="5.99,278,1677560400"; 
+   d="scan'208";a="111644949"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cpsVJDsbC++Tf8PSbRlecHOhvLkqmLLEiuQDHgxHlCttYartm7RFSH97hA1aQB/xNWCAQ9JCu6Kb5Vg6LQykqoVXMatQX6TTFdXRf9hE8tm5fo8W5pydX5tVGcNkR3NXRg9m7MMnK/0+JN6Mj2aO4LxT0wrB1RN1UU6FXzlIf+m7RY97pk43ZGHpAhBTQ2SpDwSXyjRH2u+U+QYAQV0LRbnJRisD3sZiqeg76u8OEWh4YzBbgLtHGG+TEkrTOg6iQNkIDie9wOWWJGr6v6UdNir/2AGSMcOGhL4oK3gRBXM7sZgnLs0ySKlBlrZSlZvYf0K8VMRPpWpKTlNnioD0KA==
+ b=OVpnLsN0fHSmkvMCfioD73q2hNpKrPq4hW7OIbp50DRHFKHKaG9XBhEIYVzoJ51qS3nGZUIn09w1e1vji8vKHZx9+bKpq2Zd5P5Ld/gawn3pQ1u0SznqPbKFMaA84vQ1xAzO+2JGNJMKrp2Zbs6UIaoidJtO3MifKr0W09WRUSM6IXWmpmnNM6jN9QDC604IGmkpaxp/6x0vu6WEhPUPLGM4CEfOAPjoxs8Ht48rG0NZHc3TzJgwyhDrWOLmUy+9ueuhdjZRFoJ88uc/FuEwg5NRPOPO3B3MyOxaRvkPDFaHKzRoDr40+9rhZYlX78OXIL75XtA49ub52ylxZdpbSw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ML7NNYnIEVvp9wboHB3nARQtK27CnZkjSArpdibskKQ=;
- b=iMqWK+y2j5XPfavqr/marj7uOuMNl4NH0jzFIf4L/jVVWUjJEvs7UzlK+7JYWSBtfn/O/rm2sZA5AV1Cy2iPBjmVrzk/4CrIoO9RbwNZWa6ZHAWdQpWhGOHbUOLOFjZL0UgnUyFeew/kx+tbc6u2xHJkbENtAvxCNAsci9jixaOFgRnfeZq1oyPPAri2awiXxffPErHVgLJN4bm5ZZ68yjg7MJFszdRkkj3FTeJ79zAY6r9iOer8L4ty25XmrOMZrdEamkUG41OKaB3r1lBKOKGoqnhMIC0t9ng6X2xhSFIt6ozL9WH72lgvt1noCCm2a2uBLQSOrWbvrJxH7Yw7Jg==
+ bh=0Iaz8Ns+pztBCChtJr+/H8kIaExMISa0flvV/PBsQXs=;
+ b=mM3P+/+1NZFujYwvxqlaewGgA7txyhZEs68XIL3ayJnrPaLzTHpAOydJr9Kr8DHsKWYe3KA8Ekc+hg7JXf3KMA9YOO4zgiWNxXNAnsF7ajB11K4g4KYzZNxM6HYk0SAUpo2v6MbvujnHSYvexgimipeiQsu+/MTDTr18an9N7DuD/G/r//yUIOFy1Te2aaCmoLoTD95T3107Yl9CCB4HflmvnVYTgJgdsYrhUgEu+ZIillkviaGmGl/OUj13Hp4YIYYh6g5nhj93WHQ1tU6ZaelxL4pzWwZCvpTQJfOSpjE0dMEi9eRXPKcx/k6+MNdf+l0Z7cNUaCrbSICuzjVoNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ML7NNYnIEVvp9wboHB3nARQtK27CnZkjSArpdibskKQ=;
- b=3TyvC+xD/ywd3vsbs45CPkjTuNe9qAG7Wec+pA7jRMc5aJFeFHoM/aV8pR07snZJhpp+kYOOheuT412+r9hYX4qM9G848YdTpqYRQG/4CAjy/995jaQu9Jx1/Lof6R0OyJnhFA5dZYVQl3/ZVnSuy0XO1YH7H+voCdgXnIo0g7wCY9U1YJzoSTBa4D/JqeeGjxfLvARiFKStm1cYUCJpGCfuDk5MaSkFHUIV2uywZtWd7tyc0d9ausEQ5SqXTFU0n4kWaRLcTww8asE+Tg+SVW4qFCpwn8+SWWevXiiR3v4ks797mzGS+Lu3BijqG/2wiKUUjNAPDjdmnM3XY7V5hw==
+ bh=0Iaz8Ns+pztBCChtJr+/H8kIaExMISa0flvV/PBsQXs=;
+ b=p8WFQkmbuKJ1vZFKHxf210Cp/BjuxwzQLxqD1mWoxpqwnB/qkSYKbsv6Bbz/fyoYNuTY/pFDNl9IiNx9ksLgWyTGa9FqPHBfwC7fa1orR9bwVCa0kwgBiUUrXVz0aCcy248tbqvP5GKLcA74tuMAB4eKYDlbJu2Cw9utwUKNDoY=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <cb550850-4cf7-5bb6-d84f-633be1ce3bac@suse.com>
-Date: Tue, 16 May 2023 11:13:17 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [PATCH 1/2] xen/x86/pvh: use preset XSDT header for XSDT
- generation
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org,
- Xenia.Ragiadakou@amd.com, Stefano Stabellini <stefano.stabellini@amd.com>
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 16 May 2023 11:21:06 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, jbeulich@suse.com,
+	xen-devel@lists.xenproject.org, Xenia.Ragiadakou@amd.com,
+	Stefano Stabellini <stefano.stabellini@amd.com>
+Subject: Re: [PATCH 2/2] xen/x86/pvh: copy ACPI tables to Dom0 instead of
+ mapping
+Message-ID: <ZGNLArlA0Yei4Fr0@Air-de-Roger>
 References: <alpine.DEB.2.22.394.2305121801460.3748626@ubuntu-linux-20-04-desktop>
- <20230513011720.3978354-1-sstabellini@kernel.org>
- <ZGHx9Mk3UGPdli1h@Air-de-Roger>
- <81ac6e51-6de9-5c4c-5cbd-7318cae93032@suse.com>
- <alpine.DEB.2.22.394.2305151712390.4125828@ubuntu-linux-20-04-desktop>
- <ZGM6X19p50oSqbNB@Air-de-Roger> <ZGM9vzwGm7Jv6i7M@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZGM9vzwGm7Jv6i7M@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
+ <20230513011720.3978354-2-sstabellini@kernel.org>
+ <ZGH+5OKqnjTjUr/F@Air-de-Roger>
+ <alpine.DEB.2.22.394.2305151656500.4125828@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0141.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+In-Reply-To: <alpine.DEB.2.22.394.2305151656500.4125828@ubuntu-linux-20-04-desktop>
+X-ClientProxiedBy: LO4P265CA0135.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c4::10) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8925:EE_
-X-MS-Office365-Filtering-Correlation-Id: e555bcd3-e7b8-4c77-b54f-08db55edca5c
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SA2PR03MB5771:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8fc7d12-3c4d-40cd-944a-08db55eee3db
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	wPdeFcqsZsTxvmOEqu9BlMh3zw/eKS0tlVGOWnGF7lqMq8VNxWhS3p8v2MR2MhgSWyh5sIclZlTObXXQ6CF1fjC/xGFUUw+/FMM23xmBAyfMRr4BIj4i02tae1S1o8dyr1A5CjJesI0V4GPn8d48LKVQlPcA3nKboGAQFsb+2bhUxcz8viADxoYW+KXTGlwKml717yafnSH4dHuzTMsqGntoMSMQXbD6SREPAVjYNgAcAMvAsDZDe7FTzE8xUxLXyy0O0kqgPcGurQGmwysu+Se5R0D9N3X6YAXpYmWH89+rXe9dzAU+51FhzwqekxS2n9aR/gQmohovdAM/LnTjYXI66ZgwLbiqTu0WawVA6OvavEenLjkHi6cIvnVtaSXRAXb7N6H1awoPvH78Gt8+2eQr0tPzYC6zek/qjsYhbZGMVZiKEEbQfTxxiBB0JQOGjS5I2+jFcdV6YtotgfM1a5ngLO6GNtKwdhBWu/uGX02AmmKFYAs4CTmydytf4XfmA6JJip54PNmPCBOOeJIWoHMV/qn1NjZlpPRnGXoN8qFFE03ntItmkbUfOqHxwv6XebxaYacPl6ai81lToneTb6uC0qG9tnC2jrRY83byNBzOBS2ZEFOr9PMChA4f5mvOj2oETJsWdqhDFRlvQiJA1A==
+	JiqOvaANBivDLepYIrUSCSZX7cmK18REKUuqb1AksWxOmeTih530K6lcgIZLJVYw8gNpToh7ZNI9me3BIKGMNDMUSWsv5GyIdE+nNmdnSBQr5xKLywBO1u6sSe5KO5f4+uefmX4tCP5TtVKB71O0smuQ3wr/nHNGDAmnAMlgQ/4/AwdYTb4gqMUtAhC3oY96eUW5sSKxcOHS8cHkEaiRn6bm3eUvfJYsfLiugjrtE17Ens8BOsl+o4W3oGkuBX4rXTjRfDDIu2ojgql+DTMJ8tgu7rQiSE4f7oQ9UUYr6Snvvm6G1cJDupd0xrMDKLd26CN7njLzs24F7Pm9H6xja10/dRiLvv2EEqSVGkPxU3bMinUyMDPslIILWNiDhPuUZYBD9D/nicn31rRwsYThUXbVo+kKapLI82wsBb1yYeBavEn0a6UF+TnZhPMtNz/Hq8x3TUk6F7Vh3PX0Wv4G2usS7DEtxOoqZf9ve4vN4Vo57xrv0SWGgAta2qGs10RUu6CMN33ajpmxElqF0XzfCxxBwPirQvNCaevI41uOvJo=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(346002)(376002)(396003)(136003)(366004)(451199021)(38100700002)(2616005)(186003)(26005)(83380400001)(53546011)(2906002)(6506007)(8936002)(41300700001)(5660300002)(8676002)(6512007)(36756003)(66946007)(31696002)(478600001)(66476007)(110136005)(6486002)(86362001)(66556008)(4326008)(316002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(7916004)(4636009)(396003)(136003)(346002)(376002)(366004)(39860400002)(451199021)(84970400001)(4326008)(66946007)(66556008)(66476007)(6916009)(478600001)(86362001)(316002)(85182001)(6486002)(83380400001)(6506007)(186003)(26005)(6512007)(9686003)(41300700001)(8936002)(8676002)(5660300002)(2906002)(6666004)(33716001)(82960400001)(38100700002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eU5DS3J0WlJRc3JBOFQ3WmxCdXlhd2ZWeFFRQXBBd0d4UnM0MHlleDVHMmty?=
- =?utf-8?B?QWZoazVOSVp4TjRncklDMkd4WWY3TnVxRTduTUVmZm1FbTRsdDRMMHlLT25H?=
- =?utf-8?B?cktSbFdXY2JJNE01Zm5qanA1NnZkemFzYVdVNjh2cjQzSG1UTUFKWU1lbzFD?=
- =?utf-8?B?cWw0K3gxei95VmI5UjlqR3ZuakU1TXFuQks1eml1c0RXKzJSNFhhQmdGK29Y?=
- =?utf-8?B?b0NxRnV1eDBSRFlYSGVjVHBzNzkrSGFxaEE5bzJCM3dSS1ZsdDhGOGlUMlo1?=
- =?utf-8?B?MkIxNUFNMERkREYzQ3ZENmlvdmROK3h4ZHFnbEJQd0Q0UU5uWXlVSE1XZFJS?=
- =?utf-8?B?aGpzcC8zYUpraCtzSFE4WFRjUUdkWW92OFJZdDRFcHFtbXZaMXBGS0xmMEZw?=
- =?utf-8?B?MjNNSGorUm1ZdXpETE1ILzlLQzNqR0R2V2hXc21RREN3ampqc0lLcUVBYUVy?=
- =?utf-8?B?U1ViMmlXR2VaWUgxOTYxbTBMM253QlJZRVBiekZRRnZVaXBWekpDZm10Rjhs?=
- =?utf-8?B?WUVaTU52WllZcHFDRmJ5MUpJUjRPbkpQeHIxL044Zkg3RlZuWitOcnQxd1RJ?=
- =?utf-8?B?MVVScVBrU3puclBRV1lWTmx2VnpDTm43dUdaaTcwUEkvNTc4b2Jxak94aE5W?=
- =?utf-8?B?VmhXYmxwYm9TNVQyRG13VnRQODBvdXJMYVBBb1lCQVFPWGw4anRZWk1iTnc2?=
- =?utf-8?B?K2NMaXdGd2NiM0d4Z1JGWjBHakM1STdpWjJrcHJMNVBIZmE0Ny9SaUU2ZHI2?=
- =?utf-8?B?dm44cGtybmo5UHZSU0prR0ZHNjRGaW1JbUtTNHh6R0NkcWlIQ0ZBT1JoLy95?=
- =?utf-8?B?NVV6d3RMeC9Dbk5XdklqUlpPVXJrUUJwQklUdHltdGdYQlY4c0pjS1FoeVZE?=
- =?utf-8?B?Wmo1MG9qV0hkdWtFbm4zZWtPK2dJUHdFL3RBb2JCSDF1UkhWNUdaT3Z1eklo?=
- =?utf-8?B?Wjl2MEEvZmZmcG8ralp3U1BlS2prQzZOZlRYWGN5cndTc3E4MjNoNG0ydVpi?=
- =?utf-8?B?a3FnbGFsZ25wNlRKUmJodUpENFhZVnNwMFdoRTl5NUNmMDB6TERyVk1rSkpl?=
- =?utf-8?B?N3NXSlVvcjFlRzNqODB1YmlxYldPaUhIS1VSbDlwRGhsc1dhdjRQcTZQU3lE?=
- =?utf-8?B?dE51UUcvK0lKR2ZhYTl3TXFxbFp2M3REQjkyZ1lmWm5uNzM2WTR4YjhFNVll?=
- =?utf-8?B?V0R2cDU1UzhhOUtjUU1UQVNMMENOWjVPVm1veFZNYXZqaCt6bC9pUTN2N1NG?=
- =?utf-8?B?OVY5UERUeWdCdEsyaU9qSzVaUisxeDBEekZTSElhMjJpemUrTHUvVy9VMWJS?=
- =?utf-8?B?Tis2Yk5nd2NQTW9oOWtFckYyclUyZzFJMmE2TUx5MHF4Q1ZjNEN0WUdiK21l?=
- =?utf-8?B?V0VJSkxyUitYSVpiZHk1Y01VQ29HY3pZY0tCa2NpOG5HQk9qb3UzRDErSGpX?=
- =?utf-8?B?SnRnMmlIWDJLc25qbGtNQmVtRGZsZ1pEOWtTbjJobXVWZkVlOFZLbDlpSW9P?=
- =?utf-8?B?OEJzK0MyMHRyRm9QeFZ5ODg1UmVZN2FqZ3F5cllnL3ZENUxGeUE1cjVReUxz?=
- =?utf-8?B?b0pROCtMNWVJNWNpc2NaWGloNWZCTWpGYlRTWTJzWDNwZEFvVUgwN2JBb05t?=
- =?utf-8?B?RngySzlILzQyMElUazdnL0JCdjZxaHhmaDdQZjVVcisyRGZwZzZ5dG85NmpE?=
- =?utf-8?B?RlJobisxSVN4dUNrTDNYNEVQS0lsTS9TOWw0M1g0YlZaUjkyQmF2ZE5mTDRU?=
- =?utf-8?B?UmhTOS9ocTZPaFVCUlFseEJEalFPYjVkelJsRnp3WnBzOGs0V0pSTlFEemNZ?=
- =?utf-8?B?MlIxcnNWUkhLbnpkYzBpT3AzUFRHYjhWV2ZYSUI4Mk1YVFBPOW9aSmQ4dkVu?=
- =?utf-8?B?dWFTSXZibndPbW1vbVRGcUJHYWRZM1hlVGNOcCsyeEVQV1JEZmt6eFFJeEFL?=
- =?utf-8?B?VlBSNW1PRFlIRkwzODNUOTY4dlRHQnd0NG0yV1ZFVk54NWNtbDErb2xHd0NC?=
- =?utf-8?B?MHlVRy8yQmJKQmJVbW9Jc1pkZGdzYnRNcVBEMlNIYjRTR0REM2tKVHN3Vzgv?=
- =?utf-8?B?RjFpS0QvMlVUVVdDSi9xV3pnbklyUVphTGVvT3E3RGp1eUVZYlFKRzdLRWFa?=
- =?utf-8?Q?0KYfck21UVR0Lgnk7uggkaEUf?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e555bcd3-e7b8-4c77-b54f-08db55edca5c
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?TEVpaUE0SmZHazdpeGpEdm0wSnI3RDRFZkdENzlWU1RubW8zMGZGaFh1ZUFs?=
+ =?utf-8?B?TjVHVE05clNKZ2hjYWhpbzI2MUtGOXVFMXpUQnhLRVIvZjJPNTI0aE5MSUx1?=
+ =?utf-8?B?UXFZMVRhVmo3dk1SZmxVeXl3cGtCSlIvR1Y1eDBSdnRDdk1jMjBxOUZvb0Ny?=
+ =?utf-8?B?T1ZHZ2h1RHovaHNsdUNaR0VUL3I5RGdEZHEvUGhYVDBOcS9laEVjUDFjMjlJ?=
+ =?utf-8?B?OVowWVk2dmRMRHZ2Szlhc3ZJdDdIczQ2Z2xoM2srdFp6VTJPTmJNRXhmSm9B?=
+ =?utf-8?B?N09EVllleFNISjV5bUw4MTRhWDllTUg2bXI5b1p1SW5LL2F2Rkhqczl4K01H?=
+ =?utf-8?B?ZHhoRnArWFAza2RMcTRrYkIrcXQ1VGwrSXU3ZGNGNUV2YmF1S3BHeURVMHlY?=
+ =?utf-8?B?V3RnSUcvNUV0K3pySnIvOEdZK2hQYmtxZzZFMVBPcWhUeVQ3clRHZWpKeHlh?=
+ =?utf-8?B?L05vU09lK3dCTjI1WjBnb1I5NlVteWlEUE53aFFGeGRxMXl3dVVZWmNYSi9t?=
+ =?utf-8?B?Nm1rOVNBMVlpV0dtdHBwNWVMWmpBSjBVUVR2ZU1WekZqNE5FeFdHM25iMTlx?=
+ =?utf-8?B?TkQvK3FxaHZGZnR3MWNHV2VEOC9YN2Q4czcxbzNaamU2WHBTbDY0QjhXdGF5?=
+ =?utf-8?B?a3J4VkMwTmlBOXFRUUNqK2o4d2xuVm9MRmZXNlpZZlBFMVQwd0Z0aU80U2Fq?=
+ =?utf-8?B?ZzVyYk81T0JMWEZaUFM2cGd0T0RwaU5Ub0RjOUpwRmVOaFZNVWtpd1NMMGI5?=
+ =?utf-8?B?QjVjeEZTNGlod1RYRm52bkRpdi9xVUFUU003WHJrd0V4cUlDM1FsUHc4bUV1?=
+ =?utf-8?B?NWdRUy91b1lRN25lWWx6WnFMOFFweENFWHZza21hNGFkZERIVHprL0hkSmNC?=
+ =?utf-8?B?Rm5MUCtMOXhjWFZhZE42Yml0WHlveXlrUmRSY1RpVWtVbDNVZVJTRnpRTDFw?=
+ =?utf-8?B?c2RuOWxZWDBnKzhRc3BpL1hMc0VqaUtDNG9CWlFlOXpGTlJzeFBzblJIUThO?=
+ =?utf-8?B?STM0QmkwYTU4REZwNGpvOW45U0ljeW1uQzdvOGNRdFhTa2xFRVU0MURZcUtX?=
+ =?utf-8?B?ZDE2K1FSZXYzSUZia0pVZkZyaTdyc1ZMYS9udGNZRHc1bUNWaVRTellXZE5F?=
+ =?utf-8?B?NjVZZHErN1lqSXd2ekpnaHl5QlVabjcrbHlJMkhDS0s3aXRxcytseVpoTm9i?=
+ =?utf-8?B?VktzQ0tMS09QcE9VNEFGeUR4dEdKNWsvd3AwZVg0Rk9QN1ZJZ2JjN1g4Smg3?=
+ =?utf-8?B?U3pTajU1S0ljQzk3MEFDUkxQaWI0dlB2UGxVQTBUdkNTQndqY2gyaEhQUjZ4?=
+ =?utf-8?B?UTN0UEowSklLRlo1Y1UvTnZLYzVTKytFY1I1SnpjdnVaY045UjdIRGkxekow?=
+ =?utf-8?B?MVVyOVg5Uk5Sa1NrTmZ6dDJaYXpNdG84SDgyRC9RZk1tSzVwS29HSENKRGRW?=
+ =?utf-8?B?QjFheXB5aGJIeWZSUzVDNjhKczNEdTFhTkN4cFZ5RnBwbVJ6bFZZelQrS09K?=
+ =?utf-8?B?aDdoaDNiOS9tMnMvcjJ3WjZzZDI5QmV4MldNVzlETjNLREl2bXMzV0h3UnJl?=
+ =?utf-8?B?elBnck5DSVlGQnZwS2xjdXhQLzhNZk9sL25LZXlVY0FyMm1EZ2NqOGFpS3lm?=
+ =?utf-8?B?Z1JsendsbDdvem0vRnFjU1crZlpKaTEzU2RMQXVUdEMwWlNuSFJJckd6aXRM?=
+ =?utf-8?B?QWgxYXBPS2JsV2ZEM0RvZmNxd0RZbldCUlNyY1JIZXBIWlV1RllIN3FYeXVq?=
+ =?utf-8?B?YWVjZVZuR3RkME0zZ1dTaHY3ZWNXbnRBa2doVjk0R3VOWVEwb0hRU1F4UjhP?=
+ =?utf-8?B?eDRKaDVqbGE1WUxEYkxVYS9tM0Y3M2FFM0lFandKY0hGSHlQV29Mc2ZXN093?=
+ =?utf-8?B?WHo5S2NsQ2dxbnlkNVpxWkJNMldsaHMzWjBtZkllZjN2aWl3R21sT2J4VjBW?=
+ =?utf-8?B?cVNzendvMWs4SkpQa2NXZzg3MXUrSzA3UHhRYnFuR0hJZzExdUo4QlRSM2xj?=
+ =?utf-8?B?TDJvUkJWQmhCQW1FcWNpTGlVN2hPUHRjMW8rQW9mai82NkNWRWtqa05JT0VK?=
+ =?utf-8?B?SEw2ZFpqbjZFdU5ITGRkN1JFNm5SR0pHUTgwVGVOQkNJaWttOWdFaUtuekk2?=
+ =?utf-8?Q?sZ/Mg2WLY+6JlL8EW3ehJgjiX?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	jOhi7Y3ppVbJviKzs4Vpf6/2j7rrnm0MlzV3/boC4nh3WhdTBeLoet6tcAM/PDMR/j+d1qslq+ZZDxgxQ8zF4wwQNU7NswidNW+dUaYMQlrhuNCDBjOXiZKOV/j03C9w4hzBeS0pat/uz2njjzgIRLUmcKsCmzAfqZASObvkrAHbEaqSZ4jrDVCPSUST6EW0U1+n5Jri2LmbaXxRa/GqKA1npe1zklbNotsCAUeUX2Ph6efteCBG6N0OzyJFk7Af7JQfk4Czm/RuKeZ2B4gjjxdmpyLs/l1tj90EqmVaSA26Br1ddO/SMQ7CC1CqRKLq2NXrDLD414tZ6nCoD2kAaR7hfREFt8VTfV55xCR7cuEzpKsDXzMVjQc+nrEbcMtetUZVCy9ClsgIuBY08TRTlWyzqgfxm+M1noPc2Iq7XYOrGG9fWwHKUrK5fgUlB/OWdqEJU17vW+0RMNWimTZPMLA/FHUjGhmAefTmRTKLux5GthUn1n3PqMk4sqF/L39hJuCV0UuRZcml3M+aMLn9jdvUCoDNjNV5SyhAOJ3pv3U9W+s9gTicZJAkf6rgQvKo6uGRcj/TV9di2bdJ0VJVoqrMHVKDi8qiU+4oEnOFwu5htasJ/iXcSzzNxInzgYxQRO+VYRyrR4eFBWXpn4elv+vqu6w8LxKVWQbVbBvJq2lXz0Dure1zts0I4SIy3QAzvF4r8walMapz/qjp3BTafAVBl2IC+NwCnG3OAwwq3ONIF72lyLHQIWte4nus6RjXuHROjN+6UF2XYoHdbNaNATx07zPET3eq3xJ5EmObrzyrqfRxLoHmSBwyEXocuazgBf5cUAS78CoKbKQ8PH3FxXfPNihYmuMJ5rpWl5IgTIk=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8fc7d12-3c4d-40cd-944a-08db55eee3db
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2023 09:13:19.6599
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 May 2023 09:21:11.9411
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tf3VlUVkZI+3EE4HCTFEsTnM+wLBqqUyAagETvognbbFR2IDffuOH+tfjX0Uw8TgUfe+5v4tFOEiBXIeVqNZiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8925
+X-MS-Exchange-CrossTenant-UserPrincipalName: sMQiu2VELBlhU/xTLRw7w161qkTEM1LoziQbRJamrLjNl6Q677OK1VreTm5P0x9g5uOHlmeFmfZWTQREt5T85w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5771
 
-On 16.05.2023 10:24, Roger Pau Monné wrote:
-> On Tue, May 16, 2023 at 10:10:07AM +0200, Roger Pau Monné wrote:
->> On Mon, May 15, 2023 at 05:16:27PM -0700, Stefano Stabellini wrote:
->>> On Mon, 15 May 2023, Jan Beulich wrote:
->>>> On 15.05.2023 10:48, Roger Pau Monné wrote:
->>>>> On Fri, May 12, 2023 at 06:17:19PM -0700, Stefano Stabellini wrote:
->>>>>> From: Stefano Stabellini <stefano.stabellini@amd.com>
->>>>>>
->>>>>> Xen always generates a XSDT table even if the firmware provided a RSDT
->>>>>> table. Instead of copying the XSDT header from the firmware table (that
->>>>>> might be missing), generate the XSDT header from a preset.
->>>>>>
->>>>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>>>>> ---
->>>>>>  xen/arch/x86/hvm/dom0_build.c | 32 +++++++++-----------------------
->>>>>>  1 file changed, 9 insertions(+), 23 deletions(-)
->>>>>>
->>>>>> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
->>>>>> index 307edc6a8c..5fde769863 100644
->>>>>> --- a/xen/arch/x86/hvm/dom0_build.c
->>>>>> +++ b/xen/arch/x86/hvm/dom0_build.c
->>>>>> @@ -963,13 +963,18 @@ static int __init pvh_setup_acpi_xsdt(struct domain *d, paddr_t madt_addr,
->>>>>>                                        paddr_t *addr)
->>>>>>  {
->>>>>>      struct acpi_table_xsdt *xsdt;
->>>>>> -    struct acpi_table_header *table;
->>>>>> -    struct acpi_table_rsdp *rsdp;
->>>>>>      const struct acpi_table_desc *tables = acpi_gbl_root_table_list.tables;
->>>>>>      unsigned long size = sizeof(*xsdt);
->>>>>>      unsigned int i, j, num_tables = 0;
->>>>>> -    paddr_t xsdt_paddr;
->>>>>>      int rc;
->>>>>> +    struct acpi_table_header header = {
->>>>>> +        .signature    = "XSDT",
->>>>>> +        .length       = sizeof(struct acpi_table_header),
->>>>>> +        .revision     = 0x1,
->>>>>> +        .oem_id       = "Xen",
->>>>>> +        .oem_table_id = "HVM",
->>>>>
->>>>> I think this is wrong, as according to the spec the OEM Table ID must
->>>>> match the OEM Table ID in the FADT.
->>>>>
->>>>> We likely want to copy the OEM ID and OEM Table ID from the RSDP, and
->>>>> possibly also the other OEM related fields.
->>>>>
->>>>> Alternatively we might want to copy and use the RSDT on systems that
->>>>> lack an XSDT, or even just copy the header from the RSDT into Xen's
->>>>> crafted XSDT, since the format of the RSDP and the XSDT headers are
->>>>> exactly the same (the difference is in the size of the description
->>>>> headers that come after).
->>>>
->>>> I guess I'd prefer that last variant.
->>>
->>> I tried this approach (together with the second patch for necessity) and
->>> it worked.
->>>
->>> diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
->>> index fd2cbf68bc..11d6d1bc23 100644
->>> --- a/xen/arch/x86/hvm/dom0_build.c
->>> +++ b/xen/arch/x86/hvm/dom0_build.c
->>> @@ -967,6 +967,10 @@ static int __init pvh_setup_acpi_xsdt(struct domain *d, paddr_t madt_addr,
->>>          goto out;
->>>      }
->>>      xsdt_paddr = rsdp->xsdt_physical_address;
->>> +    if ( !xsdt_paddr )
->>> +    {
->>> +        xsdt_paddr = rsdp->rsdt_physical_address;
->>> +    }
->>>      acpi_os_unmap_memory(rsdp, sizeof(*rsdp));
->>>      table = acpi_os_map_memory(xsdt_paddr, sizeof(*table));
->>>      if ( !table )
->>
->> To be slightly more consistent, could you use:
->>
->> /*
->>  * Note the header is the same for both RSDT and XSDT, so it's fine to
->>  * copy the native RSDT header to the Xen crafted XSDT if no native
->>  * XSDT is available.
->>  */
->> if (rsdp->revision > 1 && rsdp->xsdt_physical_address)
->>     sdt_paddr = rsdp->xsdt_physical_address;
->> else
->>     sdt_paddr = rsdp->rsdt_physical_address;
->>
->> It was an oversight of mine to not check for the RSDP revision, as
->> RSDP < 2 will never have an XSDT.  Also add:
->>
->> Fixes: 1d74282c455f ('x86: setup PVHv2 Dom0 ACPI tables')
+On Mon, May 15, 2023 at 05:11:25PM -0700, Stefano Stabellini wrote:
+> On Mon, 15 May 2023, Roger Pau Monné wrote:
+> > On Fri, May 12, 2023 at 06:17:20PM -0700, Stefano Stabellini wrote:
+> > > From: Stefano Stabellini <stefano.stabellini@amd.com>
+> > > 
+> > > Mapping the ACPI tables to Dom0 PVH 1:1 leads to memory corruptions of
+> > > the tables in the guest. Instead, copy the tables to Dom0.
+> > > 
+> > > This is a workaround.
+> > > 
+> > > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > > ---
+> > > As mentioned in the cover letter, this is a RFC workaround as I don't
+> > > know the cause of the underlying problem. I do know that this patch
+> > > solves what would be otherwise a hang at boot when Dom0 PVH attempts to
+> > > parse ACPI tables.
+> > 
+> > I'm unsure how safe this is for native systems, as it's possible for
+> > firmware to modify the data in the tables, so copying them would
+> > break that functionality.
+> > 
+> > I think we need to get to the root cause that triggers this behavior
+> > on QEMU.  Is it the table checksum that fail, or something else?  Is
+> > there an error from Linux you could reference?
 > 
-> Just realized this will require some more work so that the guest
-> (dom0) provided RSDP is at least revision 2.  You will need to adjust
-> the field and recalculate the checksum if needed.
+> I agree with you but so far I haven't managed to find a way to the root
+> of the issue. Here is what I know. These are the logs of a successful
+> boot using this patch:
+> 
+> [   10.437488] ACPI: Early table checksum verification disabled
+> [   10.439345] ACPI: RSDP 0x000000004005F955 000024 (v02 BOCHS )
+> [   10.441033] ACPI: RSDT 0x000000004005F979 000034 (v01 BOCHS  BXPCRSDT 00000001 BXPC 00000001)
+> [   10.444045] ACPI: APIC 0x0000000040060F76 00008A (v01 BOCHS  BXPCAPIC 00000001 BXPC 00000001)
+> [   10.445984] ACPI: FACP 0x000000004005FA65 000074 (v01 BOCHS  BXPCFACP 00000001 BXPC 00000001)
+> [   10.447170] ACPI BIOS Warning (bug): Incorrect checksum in table [FACP] - 0x67, should be 0x30 (20220331/tbprint-174)
+> [   10.449522] ACPI: DSDT 0x000000004005FB19 00145D (v01 BOCHS  BXPCDSDT 00000001 BXPC 00000001)
+> [   10.451258] ACPI: FACS 0x000000004005FAD9 000040
+> [   10.452245] ACPI: Reserving APIC table memory at [mem 0x40060f76-0x40060fff]
+> [   10.452389] ACPI: Reserving FACP table memory at [mem 0x4005fa65-0x4005fad8]
+> [   10.452497] ACPI: Reserving DSDT table memory at [mem 0x4005fb19-0x40060f75]
+> [   10.452602] ACPI: Reserving FACS table memory at [mem 0x4005fad9-0x4005fb18]
+> 
+> 
+> And these are the logs of the same boot (unsuccessful) without this
+> patch:
+> 
+> [   10.516015] ACPI: Early table checksum verification disabled
+> [   10.517732] ACPI: RSDP 0x0000000040060F1E 000024 (v02 BOCHS )
+> [   10.519535] ACPI: RSDT 0x0000000040060F42 000034 (v01 BOCHS  BXPCRSDT 00000001 BXPC 00000001)
+> [   10.522523] ACPI: APIC 0x0000000040060F76 00008A (v01 BOCHS  BXPCAPIC 00000001 BXPC 00000001)
+> [   10.527453] ACPI: ���� 0x000000007FFE149D FFFFFFFF (v255 ������ �������� FFFFFFFF ���� FFFFFFFF)
+> [   10.528362] ACPI: Reserving APIC table memory at [mem 0x40060f76-0x40060fff]
+> [   10.528491] ACPI: Reserving ���� table memory at [mem 0x7ffe149d-0x17ffe149b]
+> 
+> It is clearly a memory corruption around FACS but I couldn't find the
+> reason for it. The mapping code looks correct. I hope you can suggest a
+> way to narrow down the problem. If I could, I would suggest to apply
+> this patch just for the QEMU PVH tests but we don't have the
+> infrastructure for that in gitlab-ci as there is a single Xen build for
+> all tests.
 
-We could also mandate ACPI version >= 2 for PVH Dom0.
+Would be helpful to see the memory map provided to Linux, just in case
+we messed up and there's some overlap.
 
-Jan
+It seems like some of the XSDT entries (the FADT one) is corrupt?
+
+Could you maybe add some debug to the Xen-crafted XSDT placement.
+
+> 
+> If it helps to repro on your side, you can just do the following,
+> assuming your Xen repo is in /local/repos/xen:
+> 
+> 
+> cd /local/repos/xen
+> mkdir binaries
+> cd binaries
+> mkdir -p dist/install/
+> 
+> docker run -it -v `pwd`:`pwd` registry.gitlab.com/xen-project/xen/tests-artifacts/alpine:3.12
+> cp /initrd* /local/repos/xen/binaries
+> exit
+> 
+> docker run -it -v `pwd`:`pwd` registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:6.1.19
+> cp /bzImage /local/repos/xen/binaries
+> exit
+> 
+> That's it. Now you have enough pre-built binaries to repro the issue.
+> Next you can edit automation/scripts/qemu-alpine-x86_64.sh to add
+> 
+>   dom0=pvh dom0_mem=1G dom0-iommu=none
+
+Do you get to boot with dom0-iommu=none?  Is there also some trick
+here in order to identity map dom0? I would expect things to not work
+because addresses used for IO with QEMU emulated devices won't be
+correct.
+
+> 
+> on the Xen command line. I also removed "timeout" and pipe "tee" at the
+> end for my own convenience:
+> 
+>  # Run the test
+> -rm -f smoke.serial
+> -set +e
+> -timeout -k 1 720 \
+>  qemu-system-x86_64 \
+>      -cpu qemu64,+svm \
+>      -m 2G -smp 2 \
+>      -monitor none -serial stdio \
+>      -nographic \
+>      -device virtio-net-pci,netdev=n0 \
+> -    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0 |& tee smoke.serial
+> +    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0
+>  
+> 
+> make sure to build the Xen hypervisor binary and place the binary under
+> /local/repos/xen/binaries/
+> 
+> You can finally run the test with the below:
+> 
+> cd ..
+> docker run -it -v /local/repos/xen:/local/repos/xen registry.gitlab.com/xen-project/xen/debian:unstable
+> cd /local/repos/xen
+> bash automation/scripts/qemu-alpine-x86_64.sh
+> 
+> It usually gets stuck halfway through the boot without this patch.
+
+Thanks for the instructions, will give it a try if I can find some
+time.
+
+Roger.
 
