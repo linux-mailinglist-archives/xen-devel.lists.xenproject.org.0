@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19C2170578E
-	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 21:39:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.535599.833500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4EBE70578F
+	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 21:40:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.535602.833520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pz0WK-00076A-T4; Tue, 16 May 2023 19:39:40 +0000
+	id 1pz0WV-0007nc-JL; Tue, 16 May 2023 19:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 535599.833500; Tue, 16 May 2023 19:39:40 +0000
+Received: by outflank-mailman (output) from mailman id 535602.833520; Tue, 16 May 2023 19:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pz0WK-00073W-PA; Tue, 16 May 2023 19:39:40 +0000
-Received: by outflank-mailman (input) for mailman id 535599;
- Tue, 16 May 2023 19:39:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pz0WV-0007kF-G6; Tue, 16 May 2023 19:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 535602;
+ Tue, 16 May 2023 19:39:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oY92=BF=kernel.org=arnd@srs-se1.protection.inumbo.net>)
- id 1pz0U8-00020V-8Q
- for xen-devel@lists.xenproject.org; Tue, 16 May 2023 19:37:24 +0000
+ id 1pz0UD-0001kC-E9
+ for xen-devel@lists.xenproject.org; Tue, 16 May 2023 19:37:29 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1386c707-f421-11ed-8611-37d641c3527e;
- Tue, 16 May 2023 21:37:22 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 17327862-f421-11ed-b229-6b7b168915f2;
+ Tue, 16 May 2023 21:37:28 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6D7D063E9D;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 92C7963E89;
+ Tue, 16 May 2023 19:37:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57333C4339B;
  Tue, 16 May 2023 19:37:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31EEEC433D2;
- Tue, 16 May 2023 19:37:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1386c707-f421-11ed-8611-37d641c3527e
+X-Inumbo-ID: 17327862-f421-11ed-b229-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684265840;
-	bh=HzuyPJn9FfyStpC9b/gY3UOkJ1RIpy94E010iL3VMAA=;
+	s=k20201202; t=1684265847;
+	bh=J5EKXsQ8JpkrI9Gz8p7tvN4WBF349kQdKYOIvFSrsNU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lyMTmn90wbr/qFgLkHQFxSX2cjoGcxvnL1nVSavn0cO0jwQAdZ0abIUvOOmHaJE4h
-	 SRKGKH4YuALaqYyeDXwC2rmXjbD8x3uOm+2hb9k6zSm0RE9k2ye4pRA7pKDh/KFcUg
-	 74ThzTAjh7UyyblnQImUp9i/blUb9mBsmos5h+x7AgL6jhJm2i+7HlTCuZjmpcKHzQ
-	 a92UzT+0fGfuHuE9dTXbB60MlSLud/EeFS1nvtAW1I2R9HUD4pSyK9Lo7mDNBfABSe
-	 uLCctFq8BxZkKc2zL5wl5wy4XGrTMum5M9PugMRDnqjPC1nckk1AZSNKzdl5PpJ2N5
-	 Yjoqi6uLxWodA==
+	b=XIN+eFgSG5axh0khDn+f/DfiFa2fy/Gl7HlqCu4DFGR/Gh/jJBZE6kogRn1pGLSf0
+	 H7p3sJKdHoW15hlgh4PqRp1aSRxoJGu8xkUBD8UOV/7Wc3R0dnNCmKZ0BDGWJZb8D1
+	 oH2yP6PbTSse4jjfW7V1Oui8ScgC+ip8wsTfipPJG3h+KlhBMS7cqSGZFq5vDlKiy0
+	 RswG11Urln0rfwHreMBoCRqO+yKcqFn55K7Ppwg4ukMOh1RtnbSr9DTsibIdx1NEsh
+	 DnzXMlfpiLzkeqt66J/wTfnFD+0D1bBh1mk3F7Als3cmaZdCeWg7QJDwUyVhPN3vUW
+	 T784GEZx+Ea6A==
 From: Arnd Bergmann <arnd@kernel.org>
 To: x86@kernel.org
 Cc: Arnd Bergmann <arnd@arndb.de>,
@@ -83,9 +83,9 @@ Cc: Arnd Bergmann <arnd@arndb.de>,
 	xen-devel@lists.xenproject.org,
 	linux-pm@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 12/20] x86: qspinlock-paravirt: fix mising-prototype warnings
-Date: Tue, 16 May 2023 21:35:41 +0200
-Message-Id: <20230516193549.544673-13-arnd@kernel.org>
+Subject: [PATCH 13/20] x86: hibernate: declare global functions in suspend.h
+Date: Tue, 16 May 2023 21:35:42 +0200
+Message-Id: <20230516193549.544673-14-arnd@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230516193549.544673-1-arnd@kernel.org>
 References: <20230516193549.544673-1-arnd@kernel.org>
@@ -94,97 +94,61 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-__pv_queued_spin_unlock_slowpath is defined in a header file as a global
-function, and designed to be called from an inline asm, but there is
-no prototype visible in the definition:
+Three functions that are defined in x86 specific code to override
+generic __weak implementations cause a warning because of a missing
+prototype:
 
-kernel/locking/qspinlock_paravirt.h:493:1: error: no previous prototype for '__pv_queued_spin_unlock_slowpath' [-Werror=missing-prototypes]
+arch/x86/power/cpu.c:298:5: error: no previous prototype for 'hibernate_resume_nonboot_cpu_disable' [-Werror=missing-prototypes]
+arch/x86/power/hibernate.c:129:5: error: no previous prototype for 'arch_hibernation_header_restore' [-Werror=missing-prototypes]
+arch/x86/power/hibernate.c:91:5: error: no previous prototype for 'arch_hibernation_header_save' [-Werror=missing-prototypes]
 
-Add this to the x86 header that contains the inline asm calling it,
-and ensure this gets included before the definition, rather than
-after it.
-
-The native_pv_lock_init function in turn is only declared in SMP
-builds but can be left out in UP to avoid another warning:
-
-arch/x86/kernel/paravirt.c:76:13: error: no previous prototype for 'native_pv_lock_init' [-Werror=missing-prototypes]
+Move the declarations into a global header so it can be included
+by any file defining one of these.
 
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- arch/x86/include/asm/qspinlock_paravirt.h |  2 ++
- arch/x86/kernel/paravirt.c                |  2 ++
- kernel/locking/qspinlock_paravirt.h       | 20 ++++++++++----------
- 3 files changed, 14 insertions(+), 10 deletions(-)
+ include/linux/suspend.h | 4 ++++
+ kernel/power/power.h    | 5 -----
+ 2 files changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/include/asm/qspinlock_paravirt.h b/arch/x86/include/asm/qspinlock_paravirt.h
-index 42b17cf10b10..85b6e3609cb9 100644
---- a/arch/x86/include/asm/qspinlock_paravirt.h
-+++ b/arch/x86/include/asm/qspinlock_paravirt.h
-@@ -4,6 +4,8 @@
+diff --git a/include/linux/suspend.h b/include/linux/suspend.h
+index 7ec73e77e652..bc911fecb8e8 100644
+--- a/include/linux/suspend.h
++++ b/include/linux/suspend.h
+@@ -452,6 +452,10 @@ extern struct pbe *restore_pblist;
+ int pfn_is_nosave(unsigned long pfn);
  
- #include <asm/ibt.h>
- 
-+void __lockfunc __pv_queued_spin_unlock_slowpath(struct qspinlock *lock, u8 locked);
+ int hibernate_quiet_exec(int (*func)(void *data), void *data);
++int hibernate_resume_nonboot_cpu_disable(void);
++int arch_hibernation_header_save(void *addr, unsigned int max_size);
++int arch_hibernation_header_restore(void *addr);
 +
- /*
-  * For x86-64, PV_CALLEE_SAVE_REGS_THUNK() saves and restores 8 64-bit
-  * registers. For i386, however, only 1 32-bit register needs to be saved
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index ac10b46c5832..eb67aa4cc5ef 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -73,11 +73,13 @@ DEFINE_PARAVIRT_ASM(pv_native_read_cr2, "mov %cr2, %rax", .noinstr.text);
+ #else /* CONFIG_HIBERNATION */
+ static inline void register_nosave_region(unsigned long b, unsigned long e) {}
+ static inline int swsusp_page_is_forbidden(struct page *p) { return 0; }
+diff --git a/kernel/power/power.h b/kernel/power/power.h
+index b83c8d5e188d..a6a16faf0ead 100644
+--- a/kernel/power/power.h
++++ b/kernel/power/power.h
+@@ -26,9 +26,6 @@ extern void __init hibernate_image_size_init(void);
+ /* Maximum size of architecture specific data in a hibernation header */
+ #define MAX_ARCH_HEADER_SIZE	(sizeof(struct new_utsname) + 4)
  
- DEFINE_STATIC_KEY_TRUE(virt_spin_lock_key);
- 
-+#ifdef CONFIG_SMP
- void __init native_pv_lock_init(void)
- {
- 	if (!boot_cpu_has(X86_FEATURE_HYPERVISOR))
- 		static_branch_disable(&virt_spin_lock_key);
- }
-+#endif
- 
- unsigned int paravirt_patch(u8 type, void *insn_buff, unsigned long addr,
- 			    unsigned int len)
-diff --git a/kernel/locking/qspinlock_paravirt.h b/kernel/locking/qspinlock_paravirt.h
-index 6afc249ce697..6a0184e9c234 100644
---- a/kernel/locking/qspinlock_paravirt.h
-+++ b/kernel/locking/qspinlock_paravirt.h
-@@ -485,6 +485,16 @@ pv_wait_head_or_lock(struct qspinlock *lock, struct mcs_spinlock *node)
- 	return (u32)(atomic_read(&lock->val) | _Q_LOCKED_VAL);
- }
- 
-+/*
-+ * Include the architecture specific callee-save thunk of the
-+ * __pv_queued_spin_unlock(). This thunk is put together with
-+ * __pv_queued_spin_unlock() to make the callee-save thunk and the real unlock
-+ * function close to each other sharing consecutive instruction cachelines.
-+ * Alternatively, architecture specific version of __pv_queued_spin_unlock()
-+ * can be defined.
-+ */
-+#include <asm/qspinlock_paravirt.h>
-+
- /*
-  * PV versions of the unlock fastpath and slowpath functions to be used
-  * instead of queued_spin_unlock().
-@@ -533,16 +543,6 @@ __pv_queued_spin_unlock_slowpath(struct qspinlock *lock, u8 locked)
- 	pv_kick(node->cpu);
- }
- 
--/*
-- * Include the architecture specific callee-save thunk of the
-- * __pv_queued_spin_unlock(). This thunk is put together with
-- * __pv_queued_spin_unlock() to make the callee-save thunk and the real unlock
-- * function close to each other sharing consecutive instruction cachelines.
-- * Alternatively, architecture specific version of __pv_queued_spin_unlock()
-- * can be defined.
-- */
--#include <asm/qspinlock_paravirt.h>
+-extern int arch_hibernation_header_save(void *addr, unsigned int max_size);
+-extern int arch_hibernation_header_restore(void *addr);
 -
- #ifndef __pv_queued_spin_unlock
- __visible __lockfunc void __pv_queued_spin_unlock(struct qspinlock *lock)
+ static inline int init_header_complete(struct swsusp_info *info)
  {
+ 	return arch_hibernation_header_save(info, MAX_ARCH_HEADER_SIZE);
+@@ -41,8 +38,6 @@ static inline const char *check_image_kernel(struct swsusp_info *info)
+ }
+ #endif /* CONFIG_ARCH_HIBERNATION_HEADER */
+ 
+-extern int hibernate_resume_nonboot_cpu_disable(void);
+-
+ /*
+  * Keep some memory free so that I/O operations can succeed without paging
+  * [Might this be more than 4 MB?]
 -- 
 2.39.2
 
