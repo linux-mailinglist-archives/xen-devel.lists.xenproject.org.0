@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4EBE70578F
-	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 21:40:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.535602.833520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 672997057D8
+	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 21:48:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.535633.833551 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pz0WV-0007nc-JL; Tue, 16 May 2023 19:39:51 +0000
+	id 1pz0eA-0002lE-Vb; Tue, 16 May 2023 19:47:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 535602.833520; Tue, 16 May 2023 19:39:51 +0000
+Received: by outflank-mailman (output) from mailman id 535633.833551; Tue, 16 May 2023 19:47:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pz0WV-0007kF-G6; Tue, 16 May 2023 19:39:51 +0000
-Received: by outflank-mailman (input) for mailman id 535602;
- Tue, 16 May 2023 19:39:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pz0eA-0002iP-RF; Tue, 16 May 2023 19:47:46 +0000
+Received: by outflank-mailman (input) for mailman id 535633;
+ Tue, 16 May 2023 19:47:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oY92=BF=kernel.org=arnd@srs-se1.protection.inumbo.net>)
- id 1pz0UD-0001kC-E9
- for xen-devel@lists.xenproject.org; Tue, 16 May 2023 19:37:29 +0000
+ id 1pz0UK-00020V-Ap
+ for xen-devel@lists.xenproject.org; Tue, 16 May 2023 19:37:36 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 17327862-f421-11ed-b229-6b7b168915f2;
- Tue, 16 May 2023 21:37:28 +0200 (CEST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1ad9d06d-f421-11ed-8611-37d641c3527e;
+ Tue, 16 May 2023 21:37:34 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 92C7963E89;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B40FD63E94;
+ Tue, 16 May 2023 19:37:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B617C4339C;
  Tue, 16 May 2023 19:37:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57333C4339B;
- Tue, 16 May 2023 19:37:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17327862-f421-11ed-b229-6b7b168915f2
+X-Inumbo-ID: 1ad9d06d-f421-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684265847;
-	bh=J5EKXsQ8JpkrI9Gz8p7tvN4WBF349kQdKYOIvFSrsNU=;
+	s=k20201202; t=1684265853;
+	bh=VUIVbi0JrRPfajUkNZclAh0STTeBs9rnHGdAvoTKkf0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XIN+eFgSG5axh0khDn+f/DfiFa2fy/Gl7HlqCu4DFGR/Gh/jJBZE6kogRn1pGLSf0
-	 H7p3sJKdHoW15hlgh4PqRp1aSRxoJGu8xkUBD8UOV/7Wc3R0dnNCmKZ0BDGWJZb8D1
-	 oH2yP6PbTSse4jjfW7V1Oui8ScgC+ip8wsTfipPJG3h+KlhBMS7cqSGZFq5vDlKiy0
-	 RswG11Urln0rfwHreMBoCRqO+yKcqFn55K7Ppwg4ukMOh1RtnbSr9DTsibIdx1NEsh
-	 DnzXMlfpiLzkeqt66J/wTfnFD+0D1bBh1mk3F7Als3cmaZdCeWg7QJDwUyVhPN3vUW
-	 T784GEZx+Ea6A==
+	b=mC+M7eKABjyFWUz3ahztx+5ej0UDKRHny6IDcOOkOBb7T8TKyoOo1fQHoeIhY+UJr
+	 sMwYJWriml+CN5IT55dh+Y3N4Qkk1jy6sqNrI9NQRSoJY9QmUi1UgvCpWOpG8IrCEn
+	 JOOcmypp8HYKXesh78Zw9Mn2B1hMfzJ5E0vHwnVhf9EWjHBjng/8AutDQDYVKbiQni
+	 nhbYm4YAKuzLx1TphcnEliNa7XAqoVH4gMMnVTi3+fU11+7fSp55kbWmoZSJxYHgWE
+	 bkp6SUDmTbzTpuvHIao5LyGY8w2RZRYUNYlNHTF5PTUou4JACCZ0eU58pOVKhjr1zj
+	 +aqQ1XVbdlOGQ==
 From: Arnd Bergmann <arnd@kernel.org>
 To: x86@kernel.org
 Cc: Arnd Bergmann <arnd@arndb.de>,
@@ -83,9 +83,9 @@ Cc: Arnd Bergmann <arnd@arndb.de>,
 	xen-devel@lists.xenproject.org,
 	linux-pm@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 13/20] x86: hibernate: declare global functions in suspend.h
-Date: Tue, 16 May 2023 21:35:42 +0200
-Message-Id: <20230516193549.544673-14-arnd@kernel.org>
+Subject: [PATCH 14/20] x86: fbdev: include asm/fb.h as needed
+Date: Tue, 16 May 2023 21:35:43 +0200
+Message-Id: <20230516193549.544673-15-arnd@kernel.org>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230516193549.544673-1-arnd@kernel.org>
 References: <20230516193549.544673-1-arnd@kernel.org>
@@ -94,61 +94,29 @@ Content-Transfer-Encoding: 8bit
 
 From: Arnd Bergmann <arnd@arndb.de>
 
-Three functions that are defined in x86 specific code to override
-generic __weak implementations cause a warning because of a missing
-prototype:
+fb_is_primary_device() is defined as a global function on x86, unlike
+the others that have an inline version. The file that defines is
+however needs to include the declaration to avoid a warning:
 
-arch/x86/power/cpu.c:298:5: error: no previous prototype for 'hibernate_resume_nonboot_cpu_disable' [-Werror=missing-prototypes]
-arch/x86/power/hibernate.c:129:5: error: no previous prototype for 'arch_hibernation_header_restore' [-Werror=missing-prototypes]
-arch/x86/power/hibernate.c:91:5: error: no previous prototype for 'arch_hibernation_header_save' [-Werror=missing-prototypes]
-
-Move the declarations into a global header so it can be included
-by any file defining one of these.
+arch/x86/video/fbdev.c:14:5: error: no previous prototype for 'fb_is_primary_device' [-Werror=missing-prototypes]
 
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- include/linux/suspend.h | 4 ++++
- kernel/power/power.h    | 5 -----
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ arch/x86/video/fbdev.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/suspend.h b/include/linux/suspend.h
-index 7ec73e77e652..bc911fecb8e8 100644
---- a/include/linux/suspend.h
-+++ b/include/linux/suspend.h
-@@ -452,6 +452,10 @@ extern struct pbe *restore_pblist;
- int pfn_is_nosave(unsigned long pfn);
+diff --git a/arch/x86/video/fbdev.c b/arch/x86/video/fbdev.c
+index 9fd24846d094..9e9143085d19 100644
+--- a/arch/x86/video/fbdev.c
++++ b/arch/x86/video/fbdev.c
+@@ -10,6 +10,7 @@
+ #include <linux/pci.h>
+ #include <linux/module.h>
+ #include <linux/vgaarb.h>
++#include <asm/fb.h>
  
- int hibernate_quiet_exec(int (*func)(void *data), void *data);
-+int hibernate_resume_nonboot_cpu_disable(void);
-+int arch_hibernation_header_save(void *addr, unsigned int max_size);
-+int arch_hibernation_header_restore(void *addr);
-+
- #else /* CONFIG_HIBERNATION */
- static inline void register_nosave_region(unsigned long b, unsigned long e) {}
- static inline int swsusp_page_is_forbidden(struct page *p) { return 0; }
-diff --git a/kernel/power/power.h b/kernel/power/power.h
-index b83c8d5e188d..a6a16faf0ead 100644
---- a/kernel/power/power.h
-+++ b/kernel/power/power.h
-@@ -26,9 +26,6 @@ extern void __init hibernate_image_size_init(void);
- /* Maximum size of architecture specific data in a hibernation header */
- #define MAX_ARCH_HEADER_SIZE	(sizeof(struct new_utsname) + 4)
- 
--extern int arch_hibernation_header_save(void *addr, unsigned int max_size);
--extern int arch_hibernation_header_restore(void *addr);
--
- static inline int init_header_complete(struct swsusp_info *info)
+ int fb_is_primary_device(struct fb_info *info)
  {
- 	return arch_hibernation_header_save(info, MAX_ARCH_HEADER_SIZE);
-@@ -41,8 +38,6 @@ static inline const char *check_image_kernel(struct swsusp_info *info)
- }
- #endif /* CONFIG_ARCH_HIBERNATION_HEADER */
- 
--extern int hibernate_resume_nonboot_cpu_disable(void);
--
- /*
-  * Keep some memory free so that I/O operations can succeed without paging
-  * [Might this be more than 4 MB?]
 -- 
 2.39.2
 
