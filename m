@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 446A370569C
-	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 21:03:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.535454.833170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51B55705699
+	for <lists+xen-devel@lfdr.de>; Tue, 16 May 2023 21:03:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.535455.833181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyzwn-0002XU-0v; Tue, 16 May 2023 19:02:57 +0000
+	id 1pyzwq-0002m7-9Y; Tue, 16 May 2023 19:03:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 535454.833170; Tue, 16 May 2023 19:02:56 +0000
+Received: by outflank-mailman (output) from mailman id 535455.833181; Tue, 16 May 2023 19:03:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pyzwm-0002UZ-Tl; Tue, 16 May 2023 19:02:56 +0000
-Received: by outflank-mailman (input) for mailman id 535454;
- Tue, 16 May 2023 19:02:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pyzwq-0002jk-6A; Tue, 16 May 2023 19:03:00 +0000
+Received: by outflank-mailman (input) for mailman id 535455;
+ Tue, 16 May 2023 19:02:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zzm0=BF=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1pyzwl-0002US-Hz
- for xen-devel@lists.xenproject.org; Tue, 16 May 2023 19:02:55 +0000
+ id 1pyzwo-0002eu-Nd
+ for xen-devel@lists.xenproject.org; Tue, 16 May 2023 19:02:58 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 411fffb8-f41c-11ed-8611-37d641c3527e;
- Tue, 16 May 2023 21:02:52 +0200 (CEST)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 43463480-f41c-11ed-b229-6b7b168915f2;
+ Tue, 16 May 2023 21:02:56 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-170-nJeA-3YaMay_1Lj1RYmoHw-1; Tue, 16 May 2023 15:02:47 -0400
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+ us-mta-96-VQz7vN_JPiauZfBJGMjQqA-1; Tue, 16 May 2023 15:02:50 -0400
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3E45586C60F;
- Tue, 16 May 2023 19:02:46 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AD23E857DF7;
+ Tue, 16 May 2023 19:02:48 +0000 (UTC)
 Received: from localhost (unknown [10.39.192.44])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B453C4021D9;
- Tue, 16 May 2023 19:02:44 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 02BBC2026D16;
+ Tue, 16 May 2023 19:02:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,17 +50,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 411fffb8-f41c-11ed-8611-37d641c3527e
+X-Inumbo-ID: 43463480-f41c-11ed-b229-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684263770;
+	s=mimecast20190719; t=1684263774;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=XSavnLJy34agtHvxXyiVShndCbcr4jJazu6AYV1BQac=;
-	b=TyQL9RBAGHXzgu7zC7j7phD1K0+mrRdy+VNiYtVy9so8RdpAMVbMj9n38qnjd2+h0YqfBK
-	0jamgNj3Cu/CuwKb2erCf/iiabthqm9draWkDEB8NT1z3FDr9Z+yOnf4Or7Tfny7KknTys
-	1crt6SZfDmB4r5sKmIXhupk2JcLJYuc=
-X-MC-Unique: nJeA-3YaMay_1Lj1RYmoHw-1
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aGfiJ3QdLqEJFIVBe0dFRaZLYBYa5r932VA0IFYrkjY=;
+	b=WwbE7jbSPTZF+KABzIdyjc0RaOdpMsX+NvPTPXPubVcvr8iIwP/XltbZkqda6a77jIF7Jm
+	Kw4hOxuEzNLP77AeGv3CicrKwULoLYG03apyKAyixP0dN87HU7nNye90y1RjUMQlgnRF1J
+	cqlje3UhNe/nIP3qAZXq4Qn+/03bIQk=
+X-MC-Unique: VQz7vN_JPiauZfBJGMjQqA-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Coiby Xu <Coiby.Xu@gmail.com>,
@@ -93,153 +94,144 @@ Cc: Coiby Xu <Coiby.Xu@gmail.com>,
 	Paolo Bonzini <pbonzini@redhat.com>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
 	Juan Quintela <quintela@redhat.com>
-Subject: [PATCH v6 00/20] block: remove aio_disable_external() API
-Date: Tue, 16 May 2023 15:02:18 -0400
-Message-Id: <20230516190238.8401-1-stefanha@redhat.com>
+Subject: [PATCH v6 01/20] block-backend: split blk_do_set_aio_context()
+Date: Tue, 16 May 2023 15:02:19 -0400
+Message-Id: <20230516190238.8401-2-stefanha@redhat.com>
+In-Reply-To: <20230516190238.8401-1-stefanha@redhat.com>
+References: <20230516190238.8401-1-stefanha@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 
-v6:
-- Fix scsi_device_unrealize() -> scsi_qdev_unrealize() mistake in Patch 4
-  commit description [Kevin]
-- Explain why we don't schedule a BH in .drained_begin() in Patch 16 [Kevin]
-- Copy the comment explaining why the event notifier is tested and cleared in
-  Patch 16 [Kevin]
-- Fix EPOLL_ENABLE_THRESHOLD mismerge in util/fdmon-epoll.c [Kevin]
+blk_set_aio_context() is not fully transactional because
+blk_do_set_aio_context() updates blk->ctx outside the transaction. Most
+of the time this goes unnoticed but a BlockDevOps.drained_end() callback
+that invokes blk_get_aio_context() fails assert(ctx == blk->ctx). This
+happens because blk->ctx is only assigned after
+BlockDevOps.drained_end() is called and we're in an intermediate state
+where BlockDrvierState nodes already have the new context and the
+BlockBackend still has the old context.
 
-v5:
-- Use atomic accesses for in_flight counter in vhost-user-server.c [Kevin]
-- Stash SCSIDevice id/lun values for VIRTIO_SCSI_T_TRANSPORT_RESET event
-  before unrealizing the SCSIDevice [Kevin]
-- Keep vhost-user-blk export .detach() callback so ctx is set to NULL [Kevin]
-- Narrow BdrvChildClass and BlockDriver drained_{begin/end/poll} callbacks from
-  IO_OR_GS_CODE() to GLOBAL_STATE_CODE() [Kevin]
-- Include Kevin's "block: Fix use after free in blockdev_mark_auto_del()" to
-  fix a latent bug that was exposed by this series
+Making blk_set_aio_context() fully transactional solves this assertion
+failure because the BlockBackend's context is updated as part of the
+transaction (before BlockDevOps.drained_end() is called).
 
-v4:
-- Remove external_disable_cnt variable [Philippe]
-- Add Patch 1 to fix assertion failure in .drained_end() -> blk_get_aio_context()
-v3:
-- Resend full patch series. v2 was sent in the middle of a git rebase and was
-  missing patches. [Eric]
-- Apply Reviewed-by tags.
-v2:
-- Do not rely on BlockBackend request queuing, implement .drained_begin/end()
-  instead in xen-block, virtio-blk, and virtio-scsi [Paolo]
-- Add qdev_is_realized() API [Philippe]
-- Add patch to avoid AioContext lock around blk_exp_ref/unref() [Paolo]
-- Add patch to call .drained_begin/end() from main loop thread to simplify
-  callback implementations
+Split blk_do_set_aio_context() in order to solve this assertion failure.
+This helper function actually serves two different purposes:
+1. It drives blk_set_aio_context().
+2. It responds to BdrvChildClass->change_aio_ctx().
 
-The aio_disable_external() API temporarily suspends file descriptor monitoring
-in the event loop. The block layer uses this to prevent new I/O requests being
-submitted from the guest and elsewhere between bdrv_drained_begin() and
-bdrv_drained_end().
+Get rid of the helper function. Do #1 inside blk_set_aio_context() and
+do #2 inside blk_root_set_aio_ctx_commit(). This simplifies the code.
 
-While the block layer still needs to prevent new I/O requests in drained
-sections, the aio_disable_external() API can be replaced with
-.drained_begin/end/poll() callbacks that have been added to BdrvChildClass and
-BlockDevOps.
+The only drawback of the fully transactional approach is that
+blk_set_aio_context() must contend with blk_root_set_aio_ctx_commit()
+being invoked as part of the AioContext change propagation. This can be
+solved by temporarily setting blk->allow_aio_context_change to true.
 
-This newer .bdrained_begin/end/poll() approach is attractive because it works
-without specifying a specific AioContext. The block layer is moving towards
-multi-queue and that means multiple AioContexts may be processing I/O
-simultaneously.
+Future patches call blk_get_aio_context() from
+BlockDevOps->drained_end(), so this patch will become necessary.
 
-The aio_disable_external() was always somewhat hacky. It suspends all file
-descriptors that were registered with is_external=true, even if they have
-nothing to do with the BlockDriverState graph nodes that are being drained.
-It's better to solve a block layer problem in the block layer than to have an
-odd event loop API solution.
+Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+Reviewed-by: Kevin Wolf <kwolf@redhat.com>
+---
+ block/block-backend.c | 71 +++++++++++++++++--------------------------
+ 1 file changed, 28 insertions(+), 43 deletions(-)
 
-The approach in this patch series is to implement BlockDevOps
-.drained_begin/end() callbacks that temporarily stop file descriptor handlers.
-This ensures that new I/O requests are not submitted in drained sections.
-
-Stefan Hajnoczi (20):
-  block-backend: split blk_do_set_aio_context()
-  hw/qdev: introduce qdev_is_realized() helper
-  virtio-scsi: avoid race between unplug and transport event
-  virtio-scsi: stop using aio_disable_external() during unplug
-  util/vhost-user-server: rename refcount to in_flight counter
-  block/export: wait for vhost-user-blk requests when draining
-  block/export: stop using is_external in vhost-user-blk server
-  hw/xen: do not use aio_set_fd_handler(is_external=true) in
-    xen_xenstore
-  block: add blk_in_drain() API
-  block: drain from main loop thread in bdrv_co_yield_to_drain()
-  xen-block: implement BlockDevOps->drained_begin()
-  hw/xen: do not set is_external=true on evtchn fds
-  block/export: rewrite vduse-blk drain code
-  block/export: don't require AioContext lock around blk_exp_ref/unref()
-  block/fuse: do not set is_external=true on FUSE fd
-  virtio: make it possible to detach host notifier from any thread
-  virtio-blk: implement BlockDevOps->drained_begin()
-  virtio-scsi: implement BlockDevOps->drained_begin()
-  virtio: do not set is_external=true on host notifiers
-  aio: remove aio_disable_external() API
-
- hw/block/dataplane/xen-block.h              |   2 +
- include/block/aio.h                         |  57 ---------
- include/block/block_int-common.h            |  90 +++++++-------
- include/block/export.h                      |   2 +
- include/hw/qdev-core.h                      |  17 ++-
- include/hw/scsi/scsi.h                      |  14 +++
- include/qemu/vhost-user-server.h            |   8 +-
- include/sysemu/block-backend-common.h       |  25 ++--
- include/sysemu/block-backend-global-state.h |   1 +
- util/aio-posix.h                            |   1 -
- block.c                                     |   7 --
- block/blkio.c                               |  15 +--
- block/block-backend.c                       |  78 ++++++------
- block/curl.c                                |  10 +-
- block/export/export.c                       |  13 +-
- block/export/fuse.c                         |  56 ++++++++-
- block/export/vduse-blk.c                    | 128 ++++++++++++++------
- block/export/vhost-user-blk-server.c        |  52 +++++++-
- block/io.c                                  |  16 ++-
- block/io_uring.c                            |   4 +-
- block/iscsi.c                               |   3 +-
- block/linux-aio.c                           |   4 +-
- block/nfs.c                                 |   5 +-
- block/nvme.c                                |   8 +-
- block/ssh.c                                 |   4 +-
- block/win32-aio.c                           |   6 +-
- hw/block/dataplane/virtio-blk.c             |  23 +++-
- hw/block/dataplane/xen-block.c              |  42 +++++--
- hw/block/virtio-blk.c                       |  38 +++++-
- hw/block/xen-block.c                        |  24 +++-
- hw/i386/kvm/xen_xenstore.c                  |   2 +-
- hw/scsi/scsi-bus.c                          |  46 ++++++-
- hw/scsi/scsi-disk.c                         |  27 ++++-
- hw/scsi/virtio-scsi-dataplane.c             |  32 +++--
- hw/scsi/virtio-scsi.c                       | 127 ++++++++++++++-----
- hw/virtio/virtio.c                          |   9 +-
- hw/xen/xen-bus.c                            |  11 +-
- io/channel-command.c                        |   6 +-
- io/channel-file.c                           |   3 +-
- io/channel-socket.c                         |   3 +-
- migration/rdma.c                            |  16 +--
- tests/unit/test-aio.c                       |  27 +----
- tests/unit/test-bdrv-drain.c                |  15 +--
- tests/unit/test-fdmon-epoll.c               |  73 -----------
- util/aio-posix.c                            |  20 +--
- util/aio-win32.c                            |   8 +-
- util/async.c                                |   3 +-
- util/fdmon-epoll.c                          |  10 --
- util/fdmon-io_uring.c                       |   8 +-
- util/fdmon-poll.c                           |   3 +-
- util/main-loop.c                            |   7 +-
- util/qemu-coroutine-io.c                    |   7 +-
- util/vhost-user-server.c                    |  33 ++---
- hw/scsi/trace-events                        |   2 +
- tests/unit/meson.build                      |   3 -
- 55 files changed, 725 insertions(+), 529 deletions(-)
- delete mode 100644 tests/unit/test-fdmon-epoll.c
-
+diff --git a/block/block-backend.c b/block/block-backend.c
+index ca537cd0ad..68087437ac 100644
+--- a/block/block-backend.c
++++ b/block/block-backend.c
+@@ -2411,52 +2411,31 @@ static AioContext *blk_aiocb_get_aio_context(BlockAIOCB *acb)
+     return blk_get_aio_context(blk_acb->blk);
+ }
+ 
+-static int blk_do_set_aio_context(BlockBackend *blk, AioContext *new_context,
+-                                  bool update_root_node, Error **errp)
+-{
+-    BlockDriverState *bs = blk_bs(blk);
+-    ThrottleGroupMember *tgm = &blk->public.throttle_group_member;
+-    int ret;
+-
+-    if (bs) {
+-        bdrv_ref(bs);
+-
+-        if (update_root_node) {
+-            /*
+-             * update_root_node MUST be false for blk_root_set_aio_ctx_commit(),
+-             * as we are already in the commit function of a transaction.
+-             */
+-            ret = bdrv_try_change_aio_context(bs, new_context, blk->root, errp);
+-            if (ret < 0) {
+-                bdrv_unref(bs);
+-                return ret;
+-            }
+-        }
+-        /*
+-         * Make blk->ctx consistent with the root node before we invoke any
+-         * other operations like drain that might inquire blk->ctx
+-         */
+-        blk->ctx = new_context;
+-        if (tgm->throttle_state) {
+-            bdrv_drained_begin(bs);
+-            throttle_group_detach_aio_context(tgm);
+-            throttle_group_attach_aio_context(tgm, new_context);
+-            bdrv_drained_end(bs);
+-        }
+-
+-        bdrv_unref(bs);
+-    } else {
+-        blk->ctx = new_context;
+-    }
+-
+-    return 0;
+-}
+-
+ int blk_set_aio_context(BlockBackend *blk, AioContext *new_context,
+                         Error **errp)
+ {
++    bool old_allow_change;
++    BlockDriverState *bs = blk_bs(blk);
++    int ret;
++
+     GLOBAL_STATE_CODE();
+-    return blk_do_set_aio_context(blk, new_context, true, errp);
++
++    if (!bs) {
++        blk->ctx = new_context;
++        return 0;
++    }
++
++    bdrv_ref(bs);
++
++    old_allow_change = blk->allow_aio_context_change;
++    blk->allow_aio_context_change = true;
++
++    ret = bdrv_try_change_aio_context(bs, new_context, NULL, errp);
++
++    blk->allow_aio_context_change = old_allow_change;
++
++    bdrv_unref(bs);
++    return ret;
+ }
+ 
+ typedef struct BdrvStateBlkRootContext {
+@@ -2468,8 +2447,14 @@ static void blk_root_set_aio_ctx_commit(void *opaque)
+ {
+     BdrvStateBlkRootContext *s = opaque;
+     BlockBackend *blk = s->blk;
++    AioContext *new_context = s->new_ctx;
++    ThrottleGroupMember *tgm = &blk->public.throttle_group_member;
+ 
+-    blk_do_set_aio_context(blk, s->new_ctx, false, &error_abort);
++    blk->ctx = new_context;
++    if (tgm->throttle_state) {
++        throttle_group_detach_aio_context(tgm);
++        throttle_group_attach_aio_context(tgm, new_context);
++    }
+ }
+ 
+ static TransactionActionDrv set_blk_root_context = {
 -- 
 2.40.1
 
