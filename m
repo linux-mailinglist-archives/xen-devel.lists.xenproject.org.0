@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 456897063FF
-	for <lists+xen-devel@lfdr.de>; Wed, 17 May 2023 11:21:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.535837.833877 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FC4B706481
+	for <lists+xen-devel@lfdr.de>; Wed, 17 May 2023 11:49:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.535843.833886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzDL0-0000Ot-Jt; Wed, 17 May 2023 09:20:50 +0000
+	id 1pzDlP-00047N-Jq; Wed, 17 May 2023 09:48:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 535837.833877; Wed, 17 May 2023 09:20:50 +0000
+Received: by outflank-mailman (output) from mailman id 535843.833886; Wed, 17 May 2023 09:48:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzDL0-0000LU-GX; Wed, 17 May 2023 09:20:50 +0000
-Received: by outflank-mailman (input) for mailman id 535837;
- Wed, 17 May 2023 09:20:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pzDlP-00045k-Gq; Wed, 17 May 2023 09:48:07 +0000
+Received: by outflank-mailman (input) for mailman id 535843;
+ Wed, 17 May 2023 09:48:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xfpx=BG=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pzDKz-0000LO-7C
- for xen-devel@lists.xenproject.org; Wed, 17 May 2023 09:20:49 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on2045.outbound.protection.outlook.com [40.107.13.45])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1b18923b-f494-11ed-8611-37d641c3527e;
- Wed, 17 May 2023 11:20:46 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PA4PR04MB9638.eurprd04.prod.outlook.com (2603:10a6:102:273::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.30; Wed, 17 May
- 2023 09:20:16 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%4]) with mapi id 15.20.6387.032; Wed, 17 May 2023
- 09:20:16 +0000
+ (envelope-from <SRS0=NVq3=BG=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1pzDlN-00045W-4z
+ for xen-devel@lists.xenproject.org; Wed, 17 May 2023 09:48:05 +0000
+Received: from sonic315-8.consmr.mail.gq1.yahoo.com
+ (sonic315-8.consmr.mail.gq1.yahoo.com [98.137.65.32])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e900c11b-f497-11ed-b229-6b7b168915f2;
+ Wed, 17 May 2023 11:48:02 +0200 (CEST)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic315.consmr.mail.gq1.yahoo.com with HTTP; Wed, 17 May 2023 09:47:59 +0000
+Received: by hermes--production-bf1-54475bbfff-xh8w9 (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 24aad0db06063cbf22325155fe59148c; 
+ Wed, 17 May 2023 09:47:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,210 +42,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b18923b-f494-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cJBTe2TMYKC1qsZKjNntHlIfGjTBaGp+HwLRsS6ovd1tkmvLsxaVVShNN5tDZUnOYHIOCFNbhIeDEnMIIMSsd8x2m+jD+F0N/oK+GwWnu2rnZXTqAOXTkhqmyp9ULVUslHGfmETRtlh5qLQ6JjTRz9QeqkMhwkLIA9x5R6d0S1Qs+Yy6Ux/w3o/IEFXcLdwSCO5ZCFC+E8jhmG6fLTd7f17ODhH1ppvGAnujpxDk2f9PoPT6Sj5mYsqzGdL7vxsgSe3+LDBdHI8muamRa8QLp4cCiaV+YALOptBa+xRux9AlspTHVWZOTgJqgCeIa8mWFaymA4WnHg8IVLQQVxA3dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eGbu0+1oMNgp65PCtVCXEk10tNXbQ0sRu9AHOVhCyQA=;
- b=W18b2DxPyLpxpJHE2a1SQoYMQTc2vWAhRHeS2SOEBJ/6SxIM0mLzGiCNAKpRiOAvPxo0trMnpAeIsBl1f4eUOL4iV54nCNTPpz5voPigGKHLCRVdeOYKj/VnAOlzSgsZSdKubJEzOHKMek08e+y4Fc8qVIsHyaQegXHR3zudTFdj8TvkBUd+mUJVvM62eKbxOuIQzvHA8kFfcWQHTUyzocSC4mFOGjgPv1tPcnMqgKzrFoxh7l6bboouBlgnWFdVoUyy4Ip3oVQI1e2t4D9tFSgYOtBPpfCL+6LWaEUIY4hs8uRSHFzLIzaQ23QXBzkySxPoDlp1zr0MZymr4pRBoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eGbu0+1oMNgp65PCtVCXEk10tNXbQ0sRu9AHOVhCyQA=;
- b=JnCcvppf3A/dzP0WpXZTO54Z559mwYq5mSQANx1SsHZCanzvSUr1hjdrSivYK/0937ovtLK9F2zj00D0gaVrVwbmOEK+SJb1dGJKR3T4GKkdoKyntzF/OZfMlg5pWqdX22vf5jWBeEIf2IlZ1Oh62b5Zz8soHTZG4kLu2ol95KyLCOcHiTghKEvTQEWNvYMa2AiZJiRlC+MHAKH0zrERbdrJtNAKL0eH5U7LbfUafRpH6tZ0u+NkWhCzKx5Q5JsiQa6kqNX8uyyYy9OMLYL4Z9vQnO1DtEVYUgiMsMSYjwle52XSrufv6tfhb2g/XJUjLg9RbJK9lQ8cw5FZRnPu2Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a53a77e3-6dcd-2668-0f3c-282de93d8b04@suse.com>
-Date: Wed, 17 May 2023 11:20:14 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.1
-Subject: Re: [PATCH 6/6] x86/boot: Expose MSR_ARCH_CAPS data in guest max
- policies
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230515144259.1009245-1-andrew.cooper3@citrix.com>
- <20230515144259.1009245-7-andrew.cooper3@citrix.com>
- <a545a6c9-db48-9d91-c23b-59ea97def769@suse.com>
- <25421dbc-5889-a33c-37dd-d82476d56ce4@citrix.com>
- <1bef2b0e-04e8-2ca0-cf03-f61cdae484a9@suse.com>
- <b1c56e56-90cc-0f37-4c8a-df1217339e59@citrix.com>
- <22a6bd70-887e-da72-ccff-16b3627463c3@suse.com>
- <54b35fa0-160e-3035-6c22-65a791ed2f84@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <54b35fa0-160e-3035-6c22-65a791ed2f84@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0243.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:af::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: e900c11b-f497-11ed-b229-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1684316879; bh=aQdscKvLY6S6aQh/xtHAjeHn3mkGg+q462RfdyoVGDo=; h=Date:From:Subject:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=NxYsyj0LBb0F4lcv7k+j5t9nJ4hSQqhiDpI3nPPqw1dqNP99We5mLSXhlhwA3SuYVtYN8n9B9bvHhnNEz5RwHkRYM2DjbY7ibSoOJB09VeOw5/X9Ld9AojjWdyPknZMzixOONhwwBRLZKAG84APZ+Nd7wdpcF4FscnmdUEAdPhuaIEhhAYHXzbHXoXBT6r+OdKUxEtacpr/XXrh8Z7TAJkbfHZ16h8Nw9fGoMMgGe7DKRUkGNjG1om3DV49gz1A0ZCBFnXgHX3tw9TxMBkrjEN/xqP9eU/fFun6Mt8DCneDS+S3qGwJlFtZPv0alZdiajH84j9AuHQNyPa8L3n3i1Q==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1684316879; bh=4daBEh926WVPMyxCoaZ42Ind3YD2iMbZTrLb4RtE6eL=; h=X-Sonic-MF:Date:From:Subject:To:From:Subject; b=DCJJDr9M5HfHciobmrpii3IKct1Wf7aFwV/eU5GygKPWS7n2gI97QtQdymen8M+Sx1L2d9s31YFc+dC2hxxyZvI8TfzzbRdlKkrOmg534OdJyP3LXMXqqLJqEeSAIDN19TKe8Q+9Cl2JCKPrM55hTJ6Il4G5yXGWXg7dK0lrL8FMm53a4t5TXjaE60eTL4yx2bgoa0TpDhZWaNVfj0Upw0hj+/uc2bwewnPtvsjRQkZ8vFfWXtQ1xqOlHrPzr5HrhVmFOGGsbLModl6CSR/VXP617ac181VKgCZmcL10k0JWb7FmM+Ex3ek9IhU+685sAah84bKNZ1jxUa14rrKShw==
+X-YMail-OSG: TJX2jYsVM1nF85kpPnGWeXvnTL5hE1dgUE6Cq76nrXx.KSuRVXdJydyDPNVdAou
+ eJKhlXPF_0yUHiWremP6Zed_03k1h07aaq3BnbKS64N4mpma7Qti_RAGgBRe6_h8ieB9JxdQTwps
+ DIPZNc.8E.cvlyw.8KxFAZpK4j6AH_DNlY7hQWRsaHL.1aVEj_Eeg4vSUtT2fUjElmyuLLm2p1hM
+ kQBWiRZgpPS5f4PxJcWfMqpRppMQK6Wg5NzFjW5drADld0rou9k5hdwHmnITiSQhO_awGhmGf.AR
+ JaczotUdnLayeCYw9D_nlvzFJ7olROQ.nYYL5aGTjqoa3vRphnTXIRauhrkbJ5SCLcwFjaHNFZRf
+ XhRS0IwT0qBocmxt.0t6dAVPOSjpcZDz1BofVfchffrsyYEjj6JwkahPT4lE1dNkS7rYha.4ab.G
+ 7y8vUmLgPbOazHHpD19UYB0ZSU6SNgvN7MjMFjXq0zf9gLk07SPLHHN0gdU00oujtJIHrtJUTsuc
+ bM1FHveV0JUZ4XZFuK_jHsd8AjRR.bRCQihHAxN131sLcv05DgzNBGlyY29gr6yyoJTrTymXLnSc
+ TZPBClCy_rBrvgp6R8KThwEOq6EAfZF2QW9zK5zMFSJsCq0mYZzDgNL3Nin3uFMVbUxhmfiyvyBY
+ dUMr6iUvqpCijY6wrByjMZhIDi9oc2Fx15bU6QckILeuuk7CKPz7JQ1SER7OtwyFrM71Mv1XmX02
+ fvbBUs.uUTyzQMwla84VN.dpVPVd6hXtKcqkoUeBGbjEgU9gQ7ttDUgEU3veeLkRi7YRqwoJFr.f
+ M_hxFmyQidjkon0YNugVUdxjVIhGVZ5wm9.62nys4VYhv7Ip_7hyHAEXetXaEpmZAFonwkUQUDHp
+ dtjxU.eBw2EEq9bYRIDEVXHNH72j_DcZXCitXetALf8pm__WZMwuObtqTLCKJarIs4AHycO1G4k9
+ wQBAPv7soUT21cOMmbl91oss3jLohT10ecZ.6nzXrZsJ7aEyBy7AG4L4x6dGUcSsNrD.Q37cNpfO
+ NoaC23VIYqRMvy8kCg95bS_NMdWd8QqIJjZNTyUcxbm64k.nL2a2.lmgbBnQ6iqjIN9cHCyQruQw
+ uCSCpDUA4G0AfS84wpSA.lrTmTzzFsIWkuh8GBiyBppg3Epmn_ToBVqNmCaArBEZdJf_ZxEPaOfa
+ 0JM5r7gBHfEFSwdDz_mGAkHtZNENZhL1so.uMTppiqLkA_3396Jm83UcUcir6e4r4T55b7vlABWk
+ jfCY5p0R_zrg7xLy68wkdRog.B3xxGdx6Cyjqipl2IjCaHUv0UDqxOlK85vdYWW0pxWQNyNn_YYf
+ qI0ZRgD_oAG9f240YwBnDHTufTZUZWalcTcubC5K2ovDANBtX36APUTJT2JmvKckHqaHMXaaXuo2
+ rgM2GHwlA4.R3BaLwqCv1TrhNjPC.W8iC5pGIzKSEiLmcjgm9jPPmJqcO1aHNG5k9qu2wlahlJee
+ hqRdoTAHUsy09D9iD8VQ6bjrT8Sx3rEh7L0O9zO.4AVCm5LHzY5hwjRbZORaM5vHckDoqRhj9q6R
+ xyAK1.r5w1me8rRgvfzpAhrqj6Karnc5qZOSj7l440U_8sAc2jDh443zrZpyjJJKDQ8aJUkjSE2F
+ jWv6WcOgbcl2NXjIht1Z.BMxGUSpWOl20e__FqxmawrLu1be5oDwi8GIJGIPfORSf2d_ZuwqmcjS
+ UI86Fz_tjgLUfLaL6oAsWg7yZbBs2I.gNNlicnBsF4qhhhBunVy6MDcdteObdGEqQomvHrYeP2Gc
+ K3m7iOxL6zGQNhI8elC1n5so4ici6FIohO4fSVgeIAsV6vxJ85PvS54Pg61zk7yfQERppaFIYZEP
+ U93LvdNp8f_BkXp0rkoNKgBo7AnasOsA8QPxMogBYLg8KvEF1ORwpgpc4S5Vb5BgXBsLY52LTNNs
+ J_.isQr9FRXoktN61BetWZxDuwQ3qODmcTyi.PO2i2jcX_99V2e.ul2fz_hPv.iuAITvUO5JpHI7
+ s8q3H7ylHPTDGHqx3vjY8ncdco24Qkj2V0yhfHEyr.RAhsLrcpD.UtDRT1odIIxuh._vSldh1ihf
+ 4xIiiaAqS4fjooQDOPRbP.dJDQTBJM7Khv1bjaVx8WaDVLbYITTXQMRedYoDE7NeB6dZt69IdzCq
+ YyPXa5fP1AkkI6QbYhwWHH5ZPJFrMm59HsOiAKC0QbOeSVujKFVwFmwNUY5lsaB3d5SV4nIs4uIe
+ W3RtOY4LVGEjCeEJA
+X-Sonic-MF: <brchuckz@aim.com>
+X-Sonic-ID: 4eb3fcf0-14b8-4781-b11e-557bf4fbb7f4
+Message-ID: <47ed3568-2127-a865-4e4f-ff5902484231@aol.com>
+Date: Wed, 17 May 2023 05:47:52 -0400
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB9638:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68c96103-34e1-45e8-d6ec-08db56b7ed25
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ZaCvDjx1ADyGr+grh4I+rw8A0QJTQOlNtNMSFwi05/sVr8gctEmqQglfoVnpopYdP7UwhMomhlhSb+hbmIJEmQmSpHzL2ABtBwNN3EbTuqRXN9sSIxEy9qnh05fCcErSv+v5w7U+7jjDTQkMw4vnX+AZP+WC2V1uLvAwNKp/A18WGnNsgaO64ONZVXvTXanweMBNvF24cSfckAFseSMCUR0KHUeFimkCjmLAOXuxxIEKYGLOJOqyM0y23jgkRax4HTQBQ9C8G0emh3GQW+cAYWam3f923WiyXPhdTfBg4fFMsZDSM7TrXWQJ30nkPpUlSLNjG/Z2+qGNjExj1ZD8jne9A5EJ4MXY1hibC5lH5+eykOoX6QyaElmjHHUN8QOBOUTdZFgMGZdRgy63vSnIlp1sv/kCyqvnIdWQrYBn1DF3ppKNBkB5ZOrNbW9IMx1UweyzfexAXzv+nDD5N//+97hnZ/N6EkNV1Fijp+bOOhFQyHwYFTD5wb+SCzDlmUds1hf6BG6zWaiqLaGpHPOZUUwG5JTfpCHzmSHVdQZYukN9IKIdPV89LwJswFvf/LRw8tnF90XJ2OOtNbbDApy3tGbUCjNKxvb8KurQlu4RzRcfycqIUyx/iNR3LrBTSyvbGDllaOA7kuZ/M/Z8cZNeug==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(366004)(136003)(346002)(396003)(376002)(451199021)(41300700001)(478600001)(186003)(26005)(6506007)(6512007)(53546011)(66946007)(4326008)(66476007)(54906003)(6916009)(83380400001)(2616005)(31686004)(6486002)(66556008)(86362001)(5660300002)(316002)(8936002)(8676002)(2906002)(38100700002)(31696002)(66899021)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d0d4Nm5Gdlo0bHFTUms5bWVWVE0vRHVwa2xHWEpVQmtPS0VCb0RseFNXMzVv?=
- =?utf-8?B?U2cxS25ibjJzVy9oU1NYVk9GNE1KTnRvOWk0MEVBMFlTT1IydFdTQUxyMys5?=
- =?utf-8?B?aDg2MTJ5WVhCMkxPZ3VGSmRhY0JtUlo1UnErVWZXOExjTDkrSXd6VHNSYUth?=
- =?utf-8?B?YVhGckRSRm9NWXkvVGZuUiszTDNUdGZQNUFtVFBwaTRWUnhqcUoySmg1VDcz?=
- =?utf-8?B?SnVieXNCM0hOU3VlQk1nZnRlcWxxSXBDb2ZoR00zZlQzTDQvb3RMelNQNEVq?=
- =?utf-8?B?c1BGckVBYUdtREFJTWxCRGNhclNIaVRCdk5ZcmM2alhCRkY1QTdjRGZPUU9J?=
- =?utf-8?B?bjg3YmJoaHRyWTE1Z3lEY29tNjZvMS9lSGJ4ZmVPekw4TElOZnpSeUxYKy95?=
- =?utf-8?B?YXFvaFZBRytSWkpzSjNFeGFHNmdFYTZqUyt5cHM2Wkd0OXFrSGxKdG9uZ3k2?=
- =?utf-8?B?amRaRUQrS0pNWFkzYmt0bWRpRkVtRWhlRXU1eE51OUk4djBDZzFrSFdBNHM2?=
- =?utf-8?B?bWdYWngzcEY1MnRQdUp3czBBVTBKaGI2ZW56cmdsdUZ2OGVPTUx6MTZOcGZm?=
- =?utf-8?B?UUdPQXIxTExNajZUQkY4SUUrUmxyb1k4RCsvVHVuN1M0STh6Q2F6SEp4TkEr?=
- =?utf-8?B?OHJuRUt0UEI5UmFMK3pzQzU4TGVJN0FTZUJ0dzEvcWxacVdzNi9zUGFITTFI?=
- =?utf-8?B?Z0k1VHhHVElvRXRVMWVmZ1hzbFhTYlpXT2MzUjMwaUl5S3VHTkFFWlZpTy9j?=
- =?utf-8?B?dC8remRBUUZmRE04bHdTaTVyRkRjTXJPU0VaSDRMbDFuK082KzRMU1NoQnln?=
- =?utf-8?B?U25rTk8xVEh2YkVJemlDeFVkRGZuYncxdHN2bjdJYjhCVGszSjNuUEpMODlJ?=
- =?utf-8?B?UnNIcGo1ZFhnUDVkKzdNK1hlQk42YjVtbGVzazNaWUwyWWFKTm5LcGEydHh4?=
- =?utf-8?B?Ukd4UEFoVkFMbmhOQmxkMnhIalpldk00T3pRcXd2ajNyUGN6UFd0cmNtYzlK?=
- =?utf-8?B?L0lkOTFJQ0xpVG9YYWszWjdkaHdaM0FoTGVVamx1TmNyOGt0cGJibjV6MGla?=
- =?utf-8?B?cmhka2ZlRFZnN2FCRmVoSFZIbTJnbThGWEVhcE82NDR4VENPdmVtTjZRNXpx?=
- =?utf-8?B?bzFyd2RWeEJaNlhYVUkwYUt3bXUwcjQ3MUw5Y1JwRFUvOGhxdXAveGpJbi9s?=
- =?utf-8?B?eERiMytHbEUvQ3BhN3o0b2JEQUkzWGV4NHQ1bHJtN0NqdjlkRHVxT2wxTDBx?=
- =?utf-8?B?N0ppYVZFWS9IYXlKODgwQy9sa3BVR1RleGNVbUlUbU1WaDRhRStLVDJVbkUy?=
- =?utf-8?B?M0tZZnZiSE5DY2k4MG0ydmlCOElrbitiOE1uNXdUNmdDaExPbEVGVmVmNEUr?=
- =?utf-8?B?T1E3NVFoZFY3TGlkYkMrYVZidUpBMUhBNFV0MW5ONC9CQURWQVJpdXlKL2JM?=
- =?utf-8?B?Wm16U0J1ZjAxVE1KMjBNR2dkT1NRbXh2UmY5YlJXdFZiSHh1VzFiNmJWRC84?=
- =?utf-8?B?VVJseGRBNFFHMjJrYTRmTjFBZC9IN051bDNtUXRKTHRpdU9PWFJBM3cwTjdN?=
- =?utf-8?B?aGozRC9RaURNL0VId2tmQk03V0c4bFh6dUF2K3hJZC81WERRc0tkRGVjWWxW?=
- =?utf-8?B?Y2cvNktsUFFNQ1N6WlA4NzgwNGU1emJkZFA2dGtONEdleGN6Ry84MHBiWVpU?=
- =?utf-8?B?dm5ETUY0YmR4eHBLeG02MGNtUlAzbU5ySGthQlgwUU0zZVRGVlNTTEhadG5l?=
- =?utf-8?B?RDFBaFprNzYvSTRZa2pKSFFEQzFycjNmOTFpMFpRTkVTU0NoL2k2eEJzZWdk?=
- =?utf-8?B?VmdFc05BV1diWGVwZ21jK0tQSWVSZUErRHZCb0IxZzdxSFJSbS9aZ3VtR2dv?=
- =?utf-8?B?aGRWSnFlT0JpaWUxYjFpRkI0NmFCVWlkZXk4cHdYcUNMQjh3MWRvK0UrWGJz?=
- =?utf-8?B?eFdyYTQ2OTJpOEFCdHIrcXFuQXpMTTA4Yi9rU2ZGQWNlaVJwUWM3RnVUUjM3?=
- =?utf-8?B?UERpbDZraHZSUGt4a04xbzBkL1ZXb0dRS1NoblVuQ1IrcmsyOWVwUy9XZnA5?=
- =?utf-8?B?WE5WVE1zM013YWMzR0xyV091RGhlNlVZK1hVRTVxWEpCakxaY3JzTTRKcnZt?=
- =?utf-8?Q?/Vlr8QqO4/oDe9KdWpfb8tH7L?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68c96103-34e1-45e8-d6ec-08db56b7ed25
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 May 2023 09:20:16.3008
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yr4Qxnzj+mDUy5lRq8udPLtxj0lG/xOUoFd5sWyzr9HJsKVVfuhs01EriO/u2YaY0PNXUXKdpNLdd1kIkgpZng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9638
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+From: Chuck Zmudzinski <brchuckz@aol.com>
+Subject: Re: [PATCH] xen/pt: fix igd passthrough for pc machine with xen
+ accelerator
+To: Michael Tokarev <mjt@tls.msk.ru>, qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Igor Mammedov <imammedo@redhat.com>, xen-devel@lists.xenproject.org,
+ qemu-stable@nongnu.org
+References: <a304213d26506b066021f803c39b87f6a262ed86.1675820085.git.brchuckz.ref@aol.com>
+ <a304213d26506b066021f803c39b87f6a262ed86.1675820085.git.brchuckz@aol.com>
+ <986d9eca-5fab-cacb-05c7-b85e4d58665b@msgid.tls.msk.ru>
+Content-Language: en-US
+In-Reply-To: <986d9eca-5fab-cacb-05c7-b85e4d58665b@msgid.tls.msk.ru>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.21471 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On 16.05.2023 21:31, Andrew Cooper wrote:
-> On 16/05/2023 3:53 pm, Jan Beulich wrote:
->> On 16.05.2023 16:16, Andrew Cooper wrote:
->>> On 16/05/2023 3:06 pm, Jan Beulich wrote:
->>>> On 16.05.2023 15:51, Andrew Cooper wrote:
->>>>> On 16/05/2023 2:06 pm, Jan Beulich wrote:
->>>>>> On 15.05.2023 16:42, Andrew Cooper wrote:
->>>>>> Further is even just non-default exposure of all the various bits okay
->>>>>> to other than Dom0? IOW is there indeed no further adjustment necessary
->>>>>> to guest_rdmsr()?
->>>> With your reply further down also sufficiently clarifying things for
->>>> me (in particular pointing the one oversight of mine), the question
->>>> above is the sole part remaining before I'd be okay giving my R-b here.
->>> Oh sorry.  Yes, it is sufficient.  Because VMs (other than dom0) don't
->>> get the ARCH_CAPS CPUID bit, reads of MSR_ARCH_CAPS will #GP.
->>>
->>> Right now, you can set cpuid = "host:arch-caps" in an xl.cfg file.  If
->>> you do this, you get to keep both pieces, as you'll end up advertising
->>> the MSR but with a value of 0 because of the note in patch 4.  libxl
->>> still only understand the xend CPUID format and can't express any MSR
->>> data at all.
->> Hmm, so the CPUID bit being max only results in all the ARCH_CAPS bits
->> getting turned off in the default policy. That is, to enable anything
->> you need to not only enable the CPUID bit, but also the ARCH_CAPS bits
->> you want enabled (with no presents means to do so).
-> 
-> Correct.
-> 
->> I guess that's no
->> different from other max-only features with dependents, but I wonder
->> whether that's good behavior.
-> 
-> It's not really something you get a choice over.
-> 
-> Default is always less than max, so however you choose to express these
-> concepts, when you're opting-in you're always having to put information
-> back in which was previously stripped out.
+On 5/17/2023 2:39 AM, Michael Tokarev wrote:
+> 08.02.2023 05:03, Chuck Zmudzinski wrote:
+> > Commit 998250e97661 ("xen, gfx passthrough: register host bridge specific
+> > to passthrough") uses the igd-passthrough-i440FX pci host device with
+> > the xenfv machine type and igd-passthru=on, but using it for the pc
+> > machine type, xen accelerator, and igd-passtru=on was omitted from that
+> > commit.
+> > 
+> > The igd-passthru-i440FX pci host device is also needed for guests
+> > configured with the pc machine type, the xen accelerator, and
+> > igd-passthru=on. Specifically, tests show that not using the igd-specific
+> > pci host device with the Intel igd passed through to the guest results
+> > in slower startup performance and reduced resolution of the display
+> > during startup. This patch fixes this issue.
+> > 
+> > To simplify the logic that is needed to support both the --enable-xen
+> > and the --disable-xen configure options, introduce the boolean symbol
+> > pc_xen_igd_gfx_pt_enabled() whose value is set appropriately in the
+> > sysemu/xen.h header file as the test to determine whether or not
+> > to use the igd-passthrough-i440FX pci host device instead of the
+> > normal i440FX pci host device.
+> > 
+> > Fixes: 998250e97661 ("xen, gfx passthrough: register host bridge specific to passthrough")
+> > Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+>
+> Has this change been forgotten?  Is it not needed anymore?
 
-But my point is towards the amount of data you need to specify manually.
-I would find it quite helpful if default-on sub-features became available
-automatically once the top-level feature was turned on. I guess so far
-we don't have many such cases, but here you add a whole bunch.
+Short answer:
 
->> Wouldn't it make more sense for the
->> individual bits' exposure qualifiers to become meaningful one to
->> qualifying feature is enabled? I.e. here this would then mean that
->> some ARCH_CAPS bits may become available, while others may require
->> explicit turning on (assuming they weren't all 'A').
-> 
-> I'm afraid I don't follow.  You could make some bits of MSR_ARCH_CAPS
-> itself 'a' vs 'A', and that would have the expected effect (for any VM
-> where arch_caps was visible).
+After 4f67543b ("xen/pt: reserve PCI slot 2 for Intel igd-passthru ") was
+applied, I was inclined to think this change is not needed anymore, but
+it would not hurt to add this change also, and now I think it might be
+more correct to also add this change.
 
-Visible by default, you mean. Whereas I'm considering the case where
-the CPUID bit is default-off, and turning it on for a guest doesn't at
-the same time turn on all the 'A' bits in ARCH_CAPS (which hardware
-offers, or which we synthesize).
+Longer explanation:
 
-Something similar could be seen / utilized for AMX, where in my
-pending series I set all the bits to 'a', requiring every individual
-bit to be turned on along with turning on AMX-TILE. Yet it would be
-more user friendly if only the top-level bit needed enabling manually,
-with available sub-features then becoming available "automatically".
+I strongly desired that at least one of the patches I proposed to improve
+support for Intel IGD passthrough with xen be committed. Since
+4f67543b ("xen/pt: reserve PCI slot 2 for Intel igd-passthru ") that fixed
+Intel IGD passthrough for the xenfv machine type has been committed,
+I reasoned that there is not such a great need to also fix Intel IGD
+passthrough for the pc machine type with xen so I did not push hard for
+this patch to also be applied.
 
-> The thing which is 99% of the complexity with MSR_ARCH_CAPS is getting
-> RSBA/RRSBA right.  The moment we advertise MSR_ARCH_CAPS to guests,
-> RSBA/RRSBA must be set appropriately for migrate or we're creating a
-> security vulnerability in the guest.
-> 
-> If you're wondering about the block disable, that's because MSRs and
-> CPUID are different.  With CPUID, we have
-> x86_cpu_policy_clear_out_of_range_leaves() which uses the various
-> max_leaf.  e.g. a feat.max_leaf=0 is what causes all of subleaf 1 and 2
-> to be zeroed in a policy.
-> 
-> 
->> But irrespective of that (which is kind of orthogonal) my question was
->> rather with already considering the point in time when the CPUID bit
->> would become 'A'. IOW I was wondering whether at that point having all
->> the individual bits be 'A' is actually going to be correct.
-> 
-> I've chosen all 'A' for these bits because that is what I expect to be
-> correct in due course.  They're all the simple "you're not vulnerable to
-> $X" bits, plus eIBRS which in practice is just a qualifying statement on
-> IBRS (already fully supported in guests).
+My requirement was that either the xenfv machine be fixed or the pc
+machine be fixed. I did not think it was necessary to fix them both, and
+4f67543b ("xen/pt: reserve PCI slot 2 for Intel igd-passthru ") fixed the
+xenfv machine. But this patch provides the additional fix for the pc machine,
+a fix that is distinct from the fix that has already been committed for the
+xenfv machine, and it probably should also be applied so pc and xenfv
+machines will work equally well with Intel IGD passthrough.
 
-Right, upon checking again I agree.
+In other words, it is good to fix at least one of the two broken machines configured
+for Intel IGD passthrough and xen, it is better to fix them both. We already fixed
+one of them with 4f67543b ("xen/pt: reserve PCI slot 2 for Intel igd-passthru "),
+this patch would fix the other one.
 
-Jan
+If you want to add this change also, let's make sure recent changes to the
+xen header files do not require the patch to be rebased before committing
+it.
 
-> The rest of MSR_ARCH_CAPS is pretty much a dumping ground for all of the
-> controls we can't give to guests under any circumstance.  (FB_CLEAR_CTRL
-> might be an exception - allegedly we might want to give it to guests
-> which have passthrough and trust their userspace, but I'm unconvinced of
-> this argument and going to insist on concrete numbers from anyone
-> wanting to try and implement this usecase.)
-> 
-> But there certainly could be a feature in there in the future where we
-> leave it at 'a' for a while...  It's just feature bitmap data in a
-> non-CPUID form factor.
-> 
-> ~Andrew
-
+Chuck
 
