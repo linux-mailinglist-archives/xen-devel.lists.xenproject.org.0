@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDF6B7065AC
-	for <lists+xen-devel@lfdr.de>; Wed, 17 May 2023 12:53:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.535869.833936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA506706887
+	for <lists+xen-devel@lfdr.de>; Wed, 17 May 2023 14:46:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.535910.833949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzEmB-0007pS-Aw; Wed, 17 May 2023 10:52:59 +0000
+	id 1pzGXB-000748-D4; Wed, 17 May 2023 12:45:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 535869.833936; Wed, 17 May 2023 10:52:59 +0000
+Received: by outflank-mailman (output) from mailman id 535910.833949; Wed, 17 May 2023 12:45:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzEmB-0007nm-7T; Wed, 17 May 2023 10:52:59 +0000
-Received: by outflank-mailman (input) for mailman id 535869;
- Wed, 17 May 2023 10:52:57 +0000
+	id 1pzGXB-00071b-7V; Wed, 17 May 2023 12:45:37 +0000
+Received: by outflank-mailman (input) for mailman id 535910;
+ Wed, 17 May 2023 12:45:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ws97=BG=tls.msk.ru=mjt@srs-se1.protection.inumbo.net>)
- id 1pzEm9-0007nS-6u
- for xen-devel@lists.xenproject.org; Wed, 17 May 2023 10:52:57 +0000
-Received: from isrv.corpit.ru (isrv.corpit.ru [86.62.121.231])
+ (envelope-from <SRS0=v3JH=BG=kernel.org=arnd@srs-se1.protection.inumbo.net>)
+ id 1pzGX9-00071T-8L
+ for xen-devel@lists.xenproject.org; Wed, 17 May 2023 12:45:35 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa4abd12-f4a0-11ed-b229-6b7b168915f2;
- Wed, 17 May 2023 12:52:55 +0200 (CEST)
-Received: from tsrv.corpit.ru (tsrv.tls.msk.ru [192.168.177.2])
- by isrv.corpit.ru (Postfix) with ESMTP id 7584E696D;
- Wed, 17 May 2023 13:52:54 +0300 (MSK)
-Received: from [192.168.177.130] (mjt.wg.tls.msk.ru [192.168.177.130])
- by tsrv.corpit.ru (Postfix) with ESMTP id B170C5FCC;
- Wed, 17 May 2023 13:52:53 +0300 (MSK)
+ id b668fed2-f4b0-11ed-b229-6b7b168915f2;
+ Wed, 17 May 2023 14:45:33 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B5DC7646CA;
+ Wed, 17 May 2023 12:45:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC045C4339B;
+ Wed, 17 May 2023 12:45:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,63 +43,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa4abd12-f4a0-11ed-b229-6b7b168915f2
-Message-ID: <2b07603f-6623-9fbf-15df-a86849d9aca3@msgid.tls.msk.ru>
-Date: Wed, 17 May 2023 13:52:53 +0300
+X-Inumbo-ID: b668fed2-f4b0-11ed-b229-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1684327532;
+	bh=iOvwhrIqurJ9VDkNH99fkMyAAsvkDjtRTJDy0SAwuEE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=KXW/r94Q7ohDPiHr0WynE0BNA5PbgMdv1VdP3fPVRosVwyBRn7cKtcvUHduFDm/6n
+	 Z7ROnCIBNMzOYh4W6Lne0zgMcRsWz4vfpGfN2AFOdfrb+uUtd7orQ0KL6Kp5dEGLrs
+	 FlzSb7yHd4VOO64a3lGHt429hR9rOA9YlSkxHH/kaptA/8GzG3jIOOIFT34l7SD+GH
+	 lne4q4ssxGKV8nM4y86ywSHghXnzr3qmL6B11q5AKGvTW76/nagyX35hi0QLj5CSX8
+	 rjKhJ/JdACi3+X78dudTjmyOL6QV+dyifUsO3VQeo+W+pkq6tm0+ts0sn+8kgtqGYL
+	 GOd3HPkal7XTw==
+From: Arnd Bergmann <arnd@kernel.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] xen: xen_debug_interrupt prototype to global header
+Date: Wed, 17 May 2023 14:45:07 +0200
+Message-Id: <20230517124525.929201-1-arnd@kernel.org>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] xen/pt: fix igd passthrough for pc machine with xen
- accelerator
-Content-Language: en-US
-To: Chuck Zmudzinski <brchuckz@aol.com>, qemu-devel@nongnu.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, "Michael S. Tsirkin"
- <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Igor Mammedov <imammedo@redhat.com>, xen-devel@lists.xenproject.org,
- qemu-stable@nongnu.org
-References: <a304213d26506b066021f803c39b87f6a262ed86.1675820085.git.brchuckz.ref@aol.com>
- <a304213d26506b066021f803c39b87f6a262ed86.1675820085.git.brchuckz@aol.com>
- <986d9eca-5fab-cacb-05c7-b85e4d58665b@msgid.tls.msk.ru>
- <47ed3568-2127-a865-4e4f-ff5902484231@aol.com>
-From: Michael Tokarev <mjt@tls.msk.ru>
-In-Reply-To: <47ed3568-2127-a865-4e4f-ff5902484231@aol.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-17.05.2023 12:47, Chuck Zmudzinski wrote:
-> On 5/17/2023 2:39 AM, Michael Tokarev wrote:
->> 08.02.2023 05:03, Chuck Zmudzinski wrote:...
->>> Fixes: 998250e97661 ("xen, gfx passthrough: register host bridge specific to passthrough")
->>> Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
->>
->> Has this change been forgotten?  Is it not needed anymore?
-> 
-> Short answer:
-> 
-> After 4f67543b ("xen/pt: reserve PCI slot 2 for Intel igd-passthru ") was
-> applied, I was inclined to think this change is not needed anymore, but
-> it would not hurt to add this change also, and now I think it might be
-> more correct to also add this change.
-...
+From: Arnd Bergmann <arnd@arndb.de>
 
-Well, there were two machines with broken IDG passthrough in xen, now
-there's one machine with broken IDG passthrough. Let's fix them all :)
-Note this patch is tagged -stable as well.
+The xen_debug_interrupt() function is only called on x86, which has a
+prototype in an architecture specific header, but the definition also
+exists on others, where the lack of a prototype causes a W=1 warning:
 
-> If you want to add this change also, let's make sure recent changes to the
-> xen header files do not require the patch to be rebased before committing
-> it.
+drivers/xen/events/events_2l.c:264:13: error: no previous prototype for 'xen_debug_interrupt' [-Werror=missing-prototypes]
 
-It doesn't require rebasing, it looks like, - just built 8.0 and current master
-qemu with it applied.  I haven't tried the actual IDG passthrough, though.
+Move the prototype into a global header instead to avoid this warning.
 
-It just neeeds to be picked up the usual way as all other qemu changes goes in.
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ arch/x86/xen/xen-ops.h | 2 --
+ include/xen/events.h   | 3 +++
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-Thanks,
+diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
+index 84a35ff1e0c9..0f71ee3fe86b 100644
+--- a/arch/x86/xen/xen-ops.h
++++ b/arch/x86/xen/xen-ops.h
+@@ -72,8 +72,6 @@ void xen_restore_time_memory_area(void);
+ void xen_init_time_ops(void);
+ void xen_hvm_init_time_ops(void);
+ 
+-irqreturn_t xen_debug_interrupt(int irq, void *dev_id);
+-
+ bool xen_vcpu_stolen(int vcpu);
+ 
+ void xen_vcpu_setup(int cpu);
+diff --git a/include/xen/events.h b/include/xen/events.h
+index 44c2855c76d1..ac1281c5ead6 100644
+--- a/include/xen/events.h
++++ b/include/xen/events.h
+@@ -138,4 +138,7 @@ int xen_test_irq_shared(int irq);
+ 
+ /* initialize Xen IRQ subsystem */
+ void xen_init_IRQ(void);
++
++irqreturn_t xen_debug_interrupt(int irq, void *dev_id);
++
+ #endif	/* _XEN_EVENTS_H */
+-- 
+2.39.2
 
-/mjt
 
