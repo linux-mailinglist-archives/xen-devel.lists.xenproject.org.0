@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAEFD705FA9
-	for <lists+xen-devel@lfdr.de>; Wed, 17 May 2023 07:58:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.535771.833770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3064705FB4
+	for <lists+xen-devel@lfdr.de>; Wed, 17 May 2023 08:00:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.535776.833781 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzAAN-0001Fl-Ot; Wed, 17 May 2023 05:57:39 +0000
+	id 1pzADQ-0002n0-3t; Wed, 17 May 2023 06:00:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 535771.833770; Wed, 17 May 2023 05:57:39 +0000
+Received: by outflank-mailman (output) from mailman id 535776.833781; Wed, 17 May 2023 06:00:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzAAN-0001E7-Ic; Wed, 17 May 2023 05:57:39 +0000
-Received: by outflank-mailman (input) for mailman id 535771;
- Wed, 17 May 2023 05:57:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pzADQ-0002kN-0P; Wed, 17 May 2023 06:00:48 +0000
+Received: by outflank-mailman (input) for mailman id 535776;
+ Wed, 17 May 2023 06:00:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ox5N=BG=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1pzAAM-0001Dr-1f
- for xen-devel@lists.xenproject.org; Wed, 17 May 2023 05:57:38 +0000
+ id 1pzADO-0002kH-Qk
+ for xen-devel@lists.xenproject.org; Wed, 17 May 2023 06:00:46 +0000
 Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [81.169.146.220]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b7899ce0-f477-11ed-8611-37d641c3527e;
- Wed, 17 May 2023 07:57:34 +0200 (CEST)
+ [85.215.255.20]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 295a637f-f478-11ed-b229-6b7b168915f2;
+ Wed, 17 May 2023 08:00:44 +0200 (CEST)
 Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
- with ESMTPSA id x6987cz4H5vPZnt
+ with ESMTPSA id x6987cz4H60iZoh
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Wed, 17 May 2023 07:57:25 +0200 (CEST)
+ (Client did not present a certificate)
+ for <xen-devel@lists.xenproject.org>;
+ Wed, 17 May 2023 08:00:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,79 +42,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7899ce0-f477-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1684303045; cv=none;
+X-Inumbo-ID: 295a637f-f478-11ed-b229-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1684303244; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=qlywIqirYfVvCXm0Ivti94KV4tzDKWLCMlCwPMFJdun/2rS+nCng0MKAIHL3B+FcY0
-    8o+Vj83a3TyrZVgrnPWdzssR5RP7EeUqWh5dlSHwmw6WOQIxwUWBWWG7Bq5p0owFWKZu
-    k0PoO1Q95CIkQX0SFeCqMColTRsXGjH4s0Jz1IPEXBi1+1//TJ12AvBz7gGYrS/40nk0
-    MN+qnBgWCnGDF2M5ToixRx02hNHviPRfrrtOR4w8WxbgRDCgQ+eSwwGnKYLsfivmCjEY
-    RvTDaLVYcMq3RvVBjYc+hPTutksK1I2lwWF2MExp4YuZ/bzt8Y1ywyPwqjwq70ml3sx4
-    j13Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1684303045;
+    b=V06lVMquFWcqyXSZhOHKtdEmcCCCG+GHqcGes+MX+X9cvdL2mg8zhGQkCIuOJ1aIy/
+    G/mzZR84IRLGKXqLIrWGnnLtGrBt6vaYaU/ikLr+p4EnUvpxPcv1U3PdIbdDDpEUWkhd
+    ZwnIiqxurPx1sWoqSNLosPSqjDBJrymai0eFCU9FWpLPeGE/ARA4j5KObk6uhvutQ3v0
+    GyHFMhOAvRrZj0fg4rJ1xBYWw63TKfDumcoyYBZEXBx/x8IiZezBLVDe4LLV2cgmNWI6
+    u3CfIoYupdBUqELH6QKrLciM2dHVjLUcj5AZZpQltZ5jB2Yv0nFDglCRorbteJf8PfM+
+    dXxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1684303244;
     s=strato-dkim-0002; d=strato.com;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=Si4oKzEcLlw3G7OffbBr/cajuDCVeN0U6l5SUR78nAw=;
-    b=AzW7el+eUWgRP9yjV4N2FbrHj4pQ6TSsLgUOhC/fbDto32rXB8ohUTapHshdcnWA8C
-    af7MJXrmxDIcLT4tZm32srvRfkqgze6tyn9nEkPmDzosf/GnLQ5nDhQKLtAzimX6o6CH
-    VyEcWNhz3VZ0mAxGUQNa7iB/QS7fgSr9m3Al3+PVdiE3dGtGxkBslt/SdhUsY+9jIlwV
-    F30/Z8dt2qRXvgsaby/iiCAiQ+MBxePc8GIm/dpfYxGPgJqeVTkdNkCCKcnkRmIyoWqW
-    jMkom84ypZOhOvA2oByFd4h2h3wp6xgwjBr3E5p0JidQSGoBZUBiBvZjODIcSsbpjbyr
-    s1nQ==
+    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=MhFDJKZnJdarpDmKEzJHJdw14S3sG04JUxt6GAadBKY=;
+    b=LrFYoXNhjwOOjNWJst7MypRsmpYf8ukQb7w1NZ02a2W0vGZ4ND2ENeEYCvo/Sk3JUN
+    QI/7T4nLxurDK+tEEwk9VWFnf6wq5qCfkqN8Ze2i+q1Tz0OfIyb4pC0jngNfIqY3x8ly
+    11yPs2dVvFmSjz9zwcdpesfdizTY/8ENRcBhq/Q5JjCbCdzLk9LfPzZJiXwV0oM0ZygM
+    joVN9aZrrhS72h0D/oP5D8+4kZ65wyC7gH7AK8fAbCjlVFeP28hpwXmF23hil4/sBLsD
+    iJu1erlJCvuuPCFJbMTNLTxxP/CFaAeaU9ISYYbBFuysZ9m4LtR73zHBFrS/DaPahdtC
+    Kjcg==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1684303045;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1684303244;
     s=strato-dkim-0002; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=Si4oKzEcLlw3G7OffbBr/cajuDCVeN0U6l5SUR78nAw=;
-    b=cK8PWqXLm6G7PUJClO6dj/gvsZ2LUCvNXolrEwEKuPMoJGbh2r/YfHmxmbAmJd0Aku
-    /i2AqE2u4mr8AdPJ2h/yXSm8MQFn3U+hbG8tX8AynhHQmeuGHTjPNI5GmXyGT9t9PCu9
-    3DRCwloIDr4wKVHlEJqi32BeTwGbhHZwzDIvFJCI0mOsepErbZ+MhwQi7epxJYkzlIVA
-    ZXdysazhahNC7dZ87zQwz2S0QOx6wmyGbexaA+3ohBI2YvAGiDqZe4Hwh3dHJBc0D5bu
-    El4Z2yxesbkSUPhgG6k1Tmc1kM+lcdw+iuy+Uy1IadfLkjXYLnnWNmr/Td6ZbcUgU/hp
-    kXUw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1684303045;
+    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=MhFDJKZnJdarpDmKEzJHJdw14S3sG04JUxt6GAadBKY=;
+    b=Rp4Xy09VQnlWT8lQN8EOQJSqbEb18IYd8KRgGheboNPUBd26lyRmZGwNARjN/slz9k
+    UDM8tSe7oV37Feo2iy74PWpHKldB3Bk4UAdfboo/x2DLtNTaNjCtK+KksAWsvmzNxPS2
+    0r2uit/u3linKUXH3i1+W+JptG6Liq5CvvCPI83CV3ftKkja1Uoqat7JwS0PkwfMDtQM
+    gw2hDtpYfQ6Zym1p/YTp+7sVdZPiI74OamNiqrRlWOSLkalgtlsSJJpgSX+/91qg3SiQ
+    ZFbUqANVDRccyDDHnTQN7WGxqnOKzIQL4CprqO41iykvIXgGrtUpEHzTUJadko90+tfG
+    2d5g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1684303244;
     s=strato-dkim-0003; d=aepfle.de;
-    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=Si4oKzEcLlw3G7OffbBr/cajuDCVeN0U6l5SUR78nAw=;
-    b=8J8jANwHgUY1QrchMr3OqwFXj4RT8+LbEUz+hEHpS7Nzy6WXiGu8saAxCz32A/u5jt
-    gfpAF9dKSVQYNV23apBg==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuznLRsvx4Sq0NeWsWjIFVg=="
+    h=Message-ID:Subject:To:From:Date:Cc:Date:From:Subject:Sender;
+    bh=MhFDJKZnJdarpDmKEzJHJdw14S3sG04JUxt6GAadBKY=;
+    b=p26KJiwi+30BISZqx/YNQNXGCKIgGlIx9S4qrXS7+BfJL3UTlcfI8PH8hnRvWvXGva
+    EnSmtFZ5JPdVqSQeI9Ag==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4kV1cX/0jCNVp4ivfSTHw=="
+Date: Wed, 17 May 2023 06:00:24 +0000
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
-Cc: Olaf Hering <olaf@aepfle.de>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1] automation: allow to rerun build script
-Date: Wed, 17 May 2023 05:57:22 +0000
-Message-Id: <20230517055722.4057-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.35.3
+Subject: fix qemu to build with gcc13
+Message-ID: <20230517060024.6c5d730a@sender>
+X-Mailer: Claws Mail 2023.04.19 (GTK 3.24.34; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; boundary="Sig_/zhdk1pmSVJ9su3FAnEtA_Mw";
+ protocol="application/pgp-signature"; micalg=pgp-sha1
+Content-Transfer-Encoding: 7bit
 
-Calling build twice in the same environment will fail because the
-directory 'binaries' was already created before. Use mkdir -p to ignore
-an existing directory and move on to the actual build.
+--Sig_/zhdk1pmSVJ9su3FAnEtA_Mw
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- automation/scripts/build | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hello,
 
-diff --git a/automation/scripts/build b/automation/scripts/build
-index 197d085f3e..9085cba352 100755
---- a/automation/scripts/build
-+++ b/automation/scripts/build
-@@ -36,7 +36,7 @@ fi
- cp xen/.config xen-config
- 
- # Directory for the artefacts to be dumped into
--mkdir binaries
-+mkdir -p binaries
- 
- if [[ "${CPPCHECK}" == "y" ]] && [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
-     # Cppcheck analysis invokes Xen-only build.
+please backport d66ba6dc1cce914673bd8a89fca30a7715ea70d1 to
+qemu-xen.git to allow building it with gcc13.
+
+Thanks,
+Olaf
+
+--Sig_/zhdk1pmSVJ9su3FAnEtA_Mw
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQSkRyP6Rn//f03pRUBdQqD6ppg2fgUCZGRteAAKCRBdQqD6ppg2
+fod7AJ94xNQhydRMQazuKNN4F/jGW/FLMACfT/FPSPpkfpzDGoD/7XOxDdWHqUY=
+=cvRE
+-----END PGP SIGNATURE-----
+
+--Sig_/zhdk1pmSVJ9su3FAnEtA_Mw--
 
