@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 861DA70722C
-	for <lists+xen-devel@lfdr.de>; Wed, 17 May 2023 21:29:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536007.834133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99ACB707235
+	for <lists+xen-devel@lfdr.de>; Wed, 17 May 2023 21:31:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.536011.834142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzMpX-0003pO-7f; Wed, 17 May 2023 19:28:59 +0000
+	id 1pzMs5-0005KS-Kf; Wed, 17 May 2023 19:31:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536007.834133; Wed, 17 May 2023 19:28:59 +0000
+Received: by outflank-mailman (output) from mailman id 536011.834142; Wed, 17 May 2023 19:31:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzMpX-0003nT-4U; Wed, 17 May 2023 19:28:59 +0000
-Received: by outflank-mailman (input) for mailman id 536007;
- Wed, 17 May 2023 19:28:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xrYZ=BG=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1pzMpW-0003nN-Ad
- for xen-devel@lists.xenproject.org; Wed, 17 May 2023 19:28:58 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10786f62-f4e9-11ed-8611-37d641c3527e;
- Wed, 17 May 2023 21:28:56 +0200 (CEST)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-965ab8ed1c0so183162266b.2
- for <xen-devel@lists.xenproject.org>; Wed, 17 May 2023 12:28:56 -0700 (PDT)
+	id 1pzMs5-0005IL-HP; Wed, 17 May 2023 19:31:37 +0000
+Received: by outflank-mailman (input) for mailman id 536011;
+ Wed, 17 May 2023 19:31:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pzMs4-0005Hx-0e; Wed, 17 May 2023 19:31:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pzMs3-0002g1-Pj; Wed, 17 May 2023 19:31:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pzMs3-0000mV-7R; Wed, 17 May 2023 19:31:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pzMs3-00068C-73; Wed, 17 May 2023 19:31:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,151 +42,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10786f62-f4e9-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1684351735; x=1686943735;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=09axWUAu7hMSOcfm7NJQZY/JdptKb9Ru1nm1aT0b6uU=;
-        b=lnBzNV2+n7/yBxyor14bcPPauELJvTQxJcVUUhwi2eiYFdIfWhQwAjzOkz//b0ZZHC
-         smpjNANRklgztHTqHeOSkXtprhgWtu4oNacB2LomxTAjve2UBXxiVCHwTTqSkTQiloXV
-         3HF4XAsiGVRkuYIH8BB9d+QZkAiJz11c+G6wHYkT8CwVgarsDoQXdLe0f6apRCbhx3PQ
-         RWuLC/fv8cW4rNbaD48JavXSPk6x8irbPniJPLRCf13VeheXdU5yUHN31pkJ9zf35lLq
-         So8jbEvuSgPcndw0tvWw6H+m3/1x01JmptzlF9BkkC1DXaGvIPUXvGFTs5DoHcE4YR3n
-         cc3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684351735; x=1686943735;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=09axWUAu7hMSOcfm7NJQZY/JdptKb9Ru1nm1aT0b6uU=;
-        b=cMNbyAfSIOVPjEeC45JFG1zJkFieS/UMr8JPkKRNS7Kkh8cmk17QV9T4JMDy8vumsa
-         SI7hqjYteXqxu49YGiMLo2dqinU+3YyE/XDC7o5q3EiB2FqbiGnMDjTg3QiHgtY+blyh
-         G1DsVlKyXsm+7Jbq+Utap2j2i0ui+x5ce7vLjQDsjHkB6B2vqtxSQtIj6FmHxdAYmoKM
-         JsoeiahKymzkLFtwxHc5LDkfPl7NCH36+IH0DqkyQtdJSrmFM6u5oPy427e/H1cQ3svf
-         TF12h18XhT6NAxYuAlXBMwckBB3pL2gdX7UC66ylGK8zuhuRZ5TXtcl8hkMWkw6p6pzp
-         bswA==
-X-Gm-Message-State: AC+VfDyWswtbL8ejUfSQEeGF/wZfPYu/nz5OFbLf1qY/itFDSCSQSPet
-	DQ0fhF1uqabfVfe6ku2SVZLGQeDPNTKcNBtOrEadaW5O
-X-Google-Smtp-Source: ACHHUZ56cD5Zzj2+JNa4rMz97JF+2l1nIbcNmzc1tXD+5Z41FVdagBv5FfxWAcLV87jmhfvbW3J1J2U/S24X9Dlc+Qk=
-X-Received: by 2002:a17:907:948e:b0:96a:ec5c:685b with SMTP id
- dm14-20020a170907948e00b0096aec5c685bmr13701204ejc.29.1684351735305; Wed, 17
- May 2023 12:28:55 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.dd82aca339854e90ffe12e7bc4298254a6caaf0d.1683321183.git-series.marmarek@invisiblethingslab.com>
- <def382a6481a9d1bcc106200b971cd5b0f3d19c1.1683321183.git-series.marmarek@invisiblethingslab.com>
-In-Reply-To: <def382a6481a9d1bcc106200b971cd5b0f3d19c1.1683321183.git-series.marmarek@invisiblethingslab.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 17 May 2023 15:28:42 -0400
-Message-ID: <CAKf6xpuSg9vdxNejKYNix237ScPmo2WmF1np275f=czjT3jqAg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] x86/mm: add API for marking only part of a MMIO
- page read only
-To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>, 
-	Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=rKbRHMV8Jhlkw0gB+RFaCCB1EVrzHaheDqYxUFuckYc=; b=aeCHdyspHfGo/9XvIhEhVMoy5E
+	slBzs9dcLzyP6ddFfGzvE0KSjG1EqcPnnRhOVJ8AjZlK9aDAtcdk8Ysp2D3xQlSoYZtxLVtjF57Ce
+	60dvIH67HpIpnfPJeiLBTiu1W74EGgaqckWAR52UgR9/NbQbDdWffwB4ywGq3kVyi35U=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180688-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 180688: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=b10bc8f7ab6f9986ccc54ba04fc5b3bad7576be6
+X-Osstest-Versions-That:
+    libvirt=4a681995bc9f0ba5df779c392b7bebf3470a3f9a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 17 May 2023 19:31:35 +0000
 
-On Fri, May 5, 2023 at 5:26=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
-<marmarek@invisiblethingslab.com> wrote:
->
-> In some cases, only few registers on a page needs to be write-protected.
+flight 180688 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180688/
 
-Maybe "In some cases, only part of a page needs to be write-protected"?
+Failures :-/ but no regressions.
 
-> Examples include USB3 console (64 bytes worth of registers) or MSI-X's
-> PBA table (which doesn't need to span the whole table either), although
-> in the latter case the spec forbids placing other registers on the same
-> page. Current API allows only marking whole pages pages read-only,
-> which sometimes may cover other registers that guest may need to
-> write into.
->
-> Currently, when a guest tries to write to an MMIO page on the
-> mmio_ro_ranges, it's either immediately crashed on EPT violation - if
-> that's HVM, or if PV, it gets #PF. In case of Linux PV, if access was
-> from userspace (like, /dev/mem), it will try to fixup by updating page
-> tables (that Xen again will force to read-only) and will hit that #PF
-> again (looping endlessly). Both behaviors are undesirable if guest could
-> actually be allowed the write.
->
-> Introduce an API that allows marking part of a page read-only. Since
-> sub-page permissions are not a thing in page tables (they are in EPT,
-> but not granular enough), do this via emulation (or simply page fault
-> handler for PV) that handles writes that are supposed to be allowed.
-> The new subpage_mmio_ro_add() takes a start physical address and the
-> region size in bytes. Both start address and the size need to be 8-byte
-> aligned, as a practical simplification (allows using smaller bitmask,
-> and a smaller granularity isn't really necessary right now).
-> It will internally add relevant pages to mmio_ro_ranges, but if either
-> start or end address is not page-aligned, it additionally adds that page
-> to a list for sub-page R/O handling. The list holds a bitmask which
-> dwords are supposed to be read-only and an address where page is mapped
-> for write emulation - this mapping is done only on the first access. A
-> plain list is used instead of more efficient structure, because there
-> isn't supposed to be many pages needing this precise r/o control.
->
-> The mechanism this API is plugged in is slightly different for PV and
-> HVM. For both paths, it's plugged into mmio_ro_emulated_write(). For PV,
-> it's already called for #PF on read-only MMIO page. For HVM however, EPT
-> violation on p2m_mmio_direct page results in a direct domain_crash().
-> To reach mmio_ro_emulated_write(), change how write violations for
-> p2m_mmio_direct are handled - specifically, check if they relate to such
-> partially protected page via subpage_mmio_write_accept() and if so, call
-> hvm_emulate_one_mmio() for them too. This decodes what guest is trying
-> write and finally calls mmio_ro_emulated_write(). Note that hitting EPT
-> write violation for p2m_mmio_direct page can only happen if the page was
-> on mmio_ro_ranges (see ept_p2m_type_to_flags()), so there is no need for
-> checking that again.
-> Both of those paths need an MFN to which guest tried to write (to check
-> which part of the page is supposed to be read-only, and where
-> the page is mapped for writes). This information currently isn't
-> available directly in mmio_ro_emulated_write(), but in both cases it is
-> already resolved somewhere higher in the call tree. Pass it down to
-> mmio_ro_emulated_write() via new mmio_ro_emulate_ctxt.mfn field.
->
-> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
-ab.com>
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 180642
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 180642
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 180642
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
 
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+version targeted for testing:
+ libvirt              b10bc8f7ab6f9986ccc54ba04fc5b3bad7576be6
+baseline version:
+ libvirt              4a681995bc9f0ba5df779c392b7bebf3470a3f9a
 
-> --- a/xen/arch/x86/include/asm/mm.h
-> +++ b/xen/arch/x86/include/asm/mm.h
-> @@ -522,9 +522,24 @@ extern struct rangeset *mmio_ro_ranges;
->  void memguard_guard_stack(void *p);
->  void memguard_unguard_stack(void *p);
->
-> +/*
-> + * Add more precise r/o marking for a MMIO page. Bytes range specified h=
-ere
-> + * will still be R/O, but the rest of the page (nor marked as R/O via an=
-other
+Last test of basis   180642  2023-05-13 04:21:42 Z    4 days
+Testing same since   180688  2023-05-17 04:20:21 Z    0 days    1 attempts
 
-s/nor/not/
+------------------------------------------------------------
+People who touched revisions under test:
+  Michal Privoznik <mprivozn@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
 
-> + * call) will have writes passed through.
-> + * The start address and the size must be aligned to SUBPAGE_MMIO_RO_ALI=
-GN.
-> + *
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
 
-> +            /*
-> +             * We don't know the write seize at this point yet, so it co=
-uld be
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-s/seize/size/
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> +             * an unalligned write, but accept it here anyway and deal w=
-ith it
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-s/unalligned/unaligned/
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-> +             * later.
-> +             */
 
-Thanks,
-Jason
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   4a681995bc..b10bc8f7ab  b10bc8f7ab6f9986ccc54ba04fc5b3bad7576be6 -> xen-tested-master
 
