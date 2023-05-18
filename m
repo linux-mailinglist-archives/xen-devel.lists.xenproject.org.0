@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52EEC7087B8
-	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 20:19:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536494.834871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E96647087C5
+	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 20:28:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.536499.834881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pziDI-0007Qb-64; Thu, 18 May 2023 18:18:56 +0000
+	id 1pziLs-0000VS-1Y; Thu, 18 May 2023 18:27:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536494.834871; Thu, 18 May 2023 18:18:56 +0000
+Received: by outflank-mailman (output) from mailman id 536499.834881; Thu, 18 May 2023 18:27:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pziDI-0007OC-3S; Thu, 18 May 2023 18:18:56 +0000
-Received: by outflank-mailman (input) for mailman id 536494;
- Thu, 18 May 2023 18:18:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bBlf=BH=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pziDG-0007O6-Og
- for xen-devel@lists.xenproject.org; Thu, 18 May 2023 18:18:55 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d6086cb-f5a8-11ed-8611-37d641c3527e;
- Thu, 18 May 2023 20:18:49 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 467EA5C0189;
- Thu, 18 May 2023 14:18:45 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 18 May 2023 14:18:45 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 18 May 2023 14:18:42 -0400 (EDT)
+	id 1pziLr-0000TK-V0; Thu, 18 May 2023 18:27:47 +0000
+Received: by outflank-mailman (input) for mailman id 536499;
+ Thu, 18 May 2023 18:27:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pziLr-0000TC-5v
+ for xen-devel@lists.xenproject.org; Thu, 18 May 2023 18:27:47 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pziLq-0001Jf-Fx; Thu, 18 May 2023 18:27:46 +0000
+Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ helo=[192.168.26.27]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pziLq-0007lt-6S; Thu, 18 May 2023 18:27:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,217 +39,427 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d6086cb-f5a8-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1684433925; x=1684520325; bh=8axqpDZcBJUL6/RSlQEGx3UykZkeYDfsoFq
-	sKS4DlH8=; b=LTDJ72ZJBNU4Q+wdQtTMHbKI7Rf7xCwPmPlFPa/OWtk6KR2yIsb
-	wUx4TgI9fwxNTiD9tCkEW9fGhx6uFOOexL8CANKKVptANJ3uJC8nIcLpDQnNeuJ5
-	9tieBz0pNDhKd4uSNPNux7XAJUkWci2MO18bTW3KhOKheIthnn54/C2EIz2B7n0p
-	ArsV7dtXoA+8i7LqZVw5QBTuof9aSMA381lGLdwimEdPy6/4q2hSQupv4lFLphcq
-	Xz1nGSd9blAmwB1xoafB3KUXW/7h0gRdkot2+/Ph2RsVSc6V0quQymU13VP2wcXw
-	AuAa+ike1zV5TPGd9EvSg2UdVQTk5IVi74g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1684433925; x=1684520325; bh=8axqpDZcBJUL6
-	/RSlQEGx3UykZkeYDfsoFqsKS4DlH8=; b=ahTrDDMNHMprtR6j7zsInmHT0unIR
-	qAyeVpbtq7fyzs/HsksHaOtng51EzIdD1Y4DmO8WoPBkTWZ5M3rG0m/mcJ6JDmPw
-	Ecy4AFX/C+Uewwq8xxSQ0sk7Is2WYhYYslyESxZijdWH/cei3IxLH5Fq8X6pTphq
-	SxFdOZPf2JQXVzxxMxEilNQPw4mbB+ZrezIiDlKcdSqxv2j25fEZnzUl0MJ8yfLX
-	4IBsMTnU58G/IcA7jgPp15uxmuqzn8dHYvRHo01VfoDYtRBqchFq9RUOtpPcUI9N
-	ZflIOipXAScjPuYZeecwD2XoSt2p9rjtUfsNR+ACw3XeX8tFtlst0182g==
-X-ME-Sender: <xms:BGxmZEHwrxvzj2rUdyQFtkeClxzfILEtdDb-xaRPscDsugNfa_gRhg>
-    <xme:BGxmZNXNpf0AMvINhbKCxiq-tUTzBaefoJnHwWVNaDikDkZjQkGPm_8uhSk2JyFpn
-    4sOIN4kpu3nRQ>
-X-ME-Received: <xmr:BGxmZOJZQmSuEVRCprIH4kzePADrtGYRp1bSQUHUENFrUWHdOe2cZ4QgvTtelEMwRsTpyFOh_IZf-gSqvSecmq8Ebl-rrYiRAFA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeifedguddvfecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghr
-    vghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesih
-    hnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefg
-    udelteefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlh
-    hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgv
-    khesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:BGxmZGG9PGqozfwHtPqImZp0h9jq6zXETkRQMUn2ych4Vg8Ht-Fv7g>
-    <xmx:BGxmZKWMsb0cJjwvkTZF5RgdlJXSFKEsQNnO8v9cj_4G3rifEk9oVA>
-    <xmx:BGxmZJO894ds2AjAhhHmsTz7sH_UR233C-BOjr4cInJFMiOoHG__fw>
-    <xmx:BWxmZDVQItjPzKlagxJxlOPA1P5hwMRsW1KjHLFzxth6sl8DCB60tA>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 18 May 2023 20:18:39 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
-	xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org
-Subject: Re: [PATCH 2/4] x86: always initialize xen-swiotlb when xen-pcifront
- is enabling
-Message-ID: <ZGZr/xgbUmVqpOpN@mail-itl>
-References: <20230518134253.909623-1-hch@lst.de>
- <20230518134253.909623-3-hch@lst.de>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=rJ95ros767tiVD/9rk/xr/iTTMFUGfe1uzd3kHsbOa0=; b=jEMydz+r2otD+Exd5ghSqdh3JN
+	fJ73yaMaok/qN34s8RWZu0icII3tiDwlfEcfIaZly46UTc/0K1ZHj8WDpNMzaD9m+4vK9iSs392nM
+	ZbjLocuvykf0atWwknlLzu2W1izvvgXhsVdku317LPekG1ySRgyzAeJNBZTiOhAr/Fng=;
+Message-ID: <d735e539-a8ad-0c14-2eda-22fbad19191f@xen.org>
+Date: Thu, 18 May 2023 19:27:44 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="CsM+DO8kg05XbydD"
-Content-Disposition: inline
-In-Reply-To: <20230518134253.909623-3-hch@lst.de>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.11.0
+Subject: Re: [PATCH v6 05/12] arm/sve: save/restore SVE context switch
+Content-Language: en-US
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230424060248.1488859-1-luca.fancellu@arm.com>
+ <20230424060248.1488859-6-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230424060248.1488859-6-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi Luca,
 
---CsM+DO8kg05XbydD
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 18 May 2023 20:18:39 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Christoph Hellwig <hch@lst.de>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Ben Skeggs <bskeggs@redhat.com>,
-	Karol Herbst <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
-	xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org
-Subject: Re: [PATCH 2/4] x86: always initialize xen-swiotlb when xen-pcifront
- is enabling
-
-On Thu, May 18, 2023 at 03:42:51PM +0200, Christoph Hellwig wrote:
-> Remove the dangerous late initialization of xen-swiotlb in
-> pci_xen_swiotlb_init_late and instead just always initialize
-> xen-swiotlb in the boot code if CONFIG_XEN_PCIDEV_FRONTEND is enabled.
->=20
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-
-Doesn't it mean all the PV guests will basically waste 64MB of RAM
-by default each if they don't really have PCI devices?
-
+On 24/04/2023 07:02, Luca Fancellu wrote:
+> Save/restore context switch for SVE, allocate memory to contain
+> the Z0-31 registers whose length is maximum 2048 bits each and
+> FFR who can be maximum 256 bits, the allocated memory depends on
+> how many bits is the vector length for the domain and how many bits
+> are supported by the platform.
+> 
+> Save P0-15 whose length is maximum 256 bits each, in this case the
+> memory used is from the fpregs field in struct vfp_state,
+> because V0-31 are part of Z0-31 and this space would have been
+> unused for SVE domain otherwise.
+> 
+> Create zcr_el{1,2} fields in arch_vcpu, initialise zcr_el2 on vcpu
+> creation given the requested vector length and restore it on
+> context switch, save/restore ZCR_EL1 value as well.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 > ---
->  arch/x86/include/asm/xen/swiotlb-xen.h |  6 ------
->  arch/x86/kernel/pci-dma.c              | 25 +++----------------------
->  drivers/pci/xen-pcifront.c             |  6 ------
->  3 files changed, 3 insertions(+), 34 deletions(-)
->=20
-> diff --git a/arch/x86/include/asm/xen/swiotlb-xen.h b/arch/x86/include/as=
-m/xen/swiotlb-xen.h
-> index 77a2d19cc9909e..abde0f44df57dc 100644
-> --- a/arch/x86/include/asm/xen/swiotlb-xen.h
-> +++ b/arch/x86/include/asm/xen/swiotlb-xen.h
-> @@ -2,12 +2,6 @@
->  #ifndef _ASM_X86_SWIOTLB_XEN_H
->  #define _ASM_X86_SWIOTLB_XEN_H
-> =20
-> -#ifdef CONFIG_SWIOTLB_XEN
-> -extern int pci_xen_swiotlb_init_late(void);
-> -#else
-> -static inline int pci_xen_swiotlb_init_late(void) { return -ENXIO; }
-> -#endif
-> -
->  int xen_swiotlb_fixup(void *buf, unsigned long nslabs);
->  int xen_create_contiguous_region(phys_addr_t pstart, unsigned int order,
->  				unsigned int address_bits,
-> diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
-> index f887b08ac5ffe4..c4a7ead9eb674e 100644
-> --- a/arch/x86/kernel/pci-dma.c
-> +++ b/arch/x86/kernel/pci-dma.c
-> @@ -81,27 +81,6 @@ static void __init pci_xen_swiotlb_init(void)
->  	if (IS_ENABLED(CONFIG_PCI))
->  		pci_request_acs();
->  }
-> -
-> -int pci_xen_swiotlb_init_late(void)
-> -{
-> -	if (dma_ops =3D=3D &xen_swiotlb_dma_ops)
-> -		return 0;
-> -
-> -	/* we can work with the default swiotlb */
-> -	if (!io_tlb_default_mem.nslabs) {
-> -		int rc =3D swiotlb_init_late(swiotlb_size_or_default(),
-> -					   GFP_KERNEL, xen_swiotlb_fixup);
-> -		if (rc < 0)
-> -			return rc;
-> -	}
-> -
-> -	/* XXX: this switches the dma ops under live devices! */
-> -	dma_ops =3D &xen_swiotlb_dma_ops;
-> -	if (IS_ENABLED(CONFIG_PCI))
-> -		pci_request_acs();
-> -	return 0;
-> -}
-> -EXPORT_SYMBOL_GPL(pci_xen_swiotlb_init_late);
->  #else
->  static inline void __init pci_xen_swiotlb_init(void)
->  {
-> @@ -111,7 +90,9 @@ static inline void __init pci_xen_swiotlb_init(void)
->  void __init pci_iommu_alloc(void)
->  {
->  	if (xen_pv_domain()) {
-> -		if (xen_initial_domain() || x86_swiotlb_enable)
-> +		if (xen_initial_domain() ||
-> +		    IS_ENABLED(CONFIG_XEN_PCIDEV_FRONTEND) ||
-> +		    x86_swiotlb_enable)
->  			pci_xen_swiotlb_init();
->  		return;
->  	}
-> diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
-> index 83c0ab50676dff..11636634ae512f 100644
-> --- a/drivers/pci/xen-pcifront.c
-> +++ b/drivers/pci/xen-pcifront.c
-> @@ -22,7 +22,6 @@
->  #include <linux/bitops.h>
->  #include <linux/time.h>
->  #include <linux/ktime.h>
-> -#include <linux/swiotlb.h>
->  #include <xen/platform_pci.h>
-> =20
->  #include <asm/xen/swiotlb-xen.h>
-> @@ -669,11 +668,6 @@ static int pcifront_connect_and_init_dma(struct pcif=
-ront_device *pdev)
-> =20
->  	spin_unlock(&pcifront_dev_lock);
-> =20
-> -	if (!err && !is_swiotlb_active(&pdev->xdev->dev)) {
-> -		err =3D pci_xen_swiotlb_init_late();
-> -		if (err)
-> -			dev_err(&pdev->xdev->dev, "Could not setup SWIOTLB!\n");
-> -	}
->  	return err;
->  }
-> =20
-> --=20
-> 2.39.2
->=20
->=20
+> Changes from v5:
+>   - use XFREE instead of xfree, keep the headers (Julien)
+>   - Avoid math computation for every save/restore, store the computation
+>     in struct vfp_state once (Bertrand)
+>   - protect access to v->domain->arch.sve_vl inside arch_vcpu_create now
+>     that sve_vl is available only on arm64
+> Changes from v4:
+>   - No changes
+> Changes from v3:
+>   - don't use fixed len types when not needed (Jan)
+>   - now VL is an encoded value, decode it before using.
+> Changes from v2:
+>   - No changes
+> Changes from v1:
+>   - No changes
+> Changes from RFC:
+>   - Moved zcr_el2 field introduction in this patch, restore its
+>     content inside sve_restore_state function. (Julien)
+> ---
+>   xen/arch/arm/arm64/sve-asm.S             | 141 +++++++++++++++++++++++
+>   xen/arch/arm/arm64/sve.c                 |  63 ++++++++++
+>   xen/arch/arm/arm64/vfp.c                 |  79 +++++++------
+>   xen/arch/arm/domain.c                    |   9 ++
+>   xen/arch/arm/include/asm/arm64/sve.h     |  13 +++
+>   xen/arch/arm/include/asm/arm64/sysregs.h |   3 +
+>   xen/arch/arm/include/asm/arm64/vfp.h     |  12 ++
+>   xen/arch/arm/include/asm/domain.h        |   2 +
+>   8 files changed, 288 insertions(+), 34 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm64/sve-asm.S b/xen/arch/arm/arm64/sve-asm.S
+> index 4d1549344733..8c37d7bc95d5 100644
+> --- a/xen/arch/arm/arm64/sve-asm.S
+> +++ b/xen/arch/arm/arm64/sve-asm.S
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Are all the new helpers added in this patch taken from Linux? If so, it 
+would be good to clarify this (again) in the commit message as it helps 
+for the review (I can diff with Linux rather than properly reviewing them).
 
---CsM+DO8kg05XbydD
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/xen/arch/arm/arm64/sve.c b/xen/arch/arm/arm64/sve.c
+> index 86a5e617bfca..064832b450ff 100644
+> --- a/xen/arch/arm/arm64/sve.c
+> +++ b/xen/arch/arm/arm64/sve.c
+> @@ -5,6 +5,8 @@
+>    * Copyright (C) 2022 ARM Ltd.
+>    */
+>   
+> +#include <xen/sched.h>
+> +#include <xen/sizes.h>
+>   #include <xen/types.h>
+>   #include <asm/arm64/sve.h>
+>   #include <asm/arm64/sysregs.h>
+> @@ -13,6 +15,24 @@
+>   #include <asm/system.h>
+>   
+>   extern unsigned int sve_get_hw_vl(void);
+> +extern void sve_save_ctx(uint64_t *sve_ctx, uint64_t *pregs, int save_ffr);
+> +extern void sve_load_ctx(uint64_t const *sve_ctx, uint64_t const *pregs,
+> +                         int restore_ffr);
 
------BEGIN PGP SIGNATURE-----
+ From the use, it is not entirely what restore_ffr/save_ffr is meant to 
+be. Are they bool? If so, maybe use bool? At mimimum, they probably want 
+to be unsigned int.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRma/8ACgkQ24/THMrX
-1yzT+gf/S1uwHKmjBfQtKqzw50EE/PUeNAO8869wN0cpWYT6WkKJT5BxXOVgbJfW
-9mibLfMCcVO0H1cE8+PCxvC9BIv3ldhC7KVtSQks99V24zf0mPiqBiGM2mAI9VRD
-SYMwmipIXDSRFERIcBo1XomAt4ytJj/BkqCv+Xy5PgYIqdABz9R4G3HT2q6rN0Lq
-M2sLnKWdGwoYdk8hOmlTY5F3/iYdv/Zlel4Ki2s5ZzLUBxCZ1IKErb31wRaRid8p
-APcTnrs8RZE8+YBL7nzdr9HudKMlaChsiZsPkIo0v0aI5oFa+OHs6Z5sOXOP0RAB
-qmCDKShHiVUc6Lqc1gT6VHLmZdEEig==
-=Y97F
------END PGP SIGNATURE-----
+> +
+> +static inline unsigned int sve_zreg_ctx_size(unsigned int vl)
+> +{
+> +    /*
+> +     * Z0-31 registers size in bytes is computed from VL that is in bits, so VL
+> +     * in bytes is VL/8.
+> +     */
+> +    return (vl / 8U) * 32U;
+> +}
+> +
+> +static inline unsigned int sve_ffrreg_ctx_size(unsigned int vl)
+> +{
+> +    /* FFR register size is VL/8, which is in bytes (VL/8)/8 */
+> +    return (vl / 64U);
+> +}
+>   
+>   register_t compute_max_zcr(void)
+>   {
+> @@ -60,3 +80,46 @@ unsigned int get_sys_vl_len(void)
+>       return ((system_cpuinfo.zcr64.bits[0] & ZCR_ELx_LEN_MASK) + 1U) *
+>               SVE_VL_MULTIPLE_VAL;
+>   }
+> +
+> +int sve_context_init(struct vcpu *v)
+> +{
+> +    unsigned int sve_vl_bits = sve_decode_vl(v->domain->arch.sve_vl);
+> +    uint64_t *ctx = _xzalloc(sve_zreg_ctx_size(sve_vl_bits) +
+> +                             sve_ffrreg_ctx_size(sve_vl_bits),
+> +                             L1_CACHE_BYTES);
+> +
+> +    if ( !ctx )
+> +        return -ENOMEM;
+> +
+> +    /* Point to the end of Z0-Z31 memory, just before FFR memory */
 
---CsM+DO8kg05XbydD--
+NIT: I would add that the logic should be kept in sync with 
+sve_context_free(). Same...
+
+> +    v->arch.vfp.sve_zreg_ctx_end = ctx +
+> +        (sve_zreg_ctx_size(sve_vl_bits) / sizeof(uint64_t));
+> +
+> +    return 0;
+> +}
+> +
+> +void sve_context_free(struct vcpu *v)
+> +{
+> +    unsigned int sve_vl_bits = sve_decode_vl(v->domain->arch.sve_vl);
+> +
+> +    /* Point back to the beginning of Z0-Z31 + FFR memory */
+
+... here (but with sve_context_init()). So it is clearer that if the 
+logic change in one place then it needs to be changed in the other.
+
+> +    v->arch.vfp.sve_zreg_ctx_end -=
+> +        (sve_zreg_ctx_size(sve_vl_bits) / sizeof(uint64_t));
+
+ From my understanding, sve_context_free() could be called with 
+sve_zreg_ctxt_end equal to NULL (i.e. because sve_context_init() 
+failed). So wouldn't we end up to substract the value to NULL and 
+therefore...
+
+> +
+> +    XFREE(v->arch.vfp.sve_zreg_ctx_end);
+
+... free a random pointer?
+
+> +}
+> +
+> +void sve_save_state(struct vcpu *v)
+> +{
+> +    v->arch.zcr_el1 = READ_SYSREG(ZCR_EL1);
+> +
+> +    sve_save_ctx(v->arch.vfp.sve_zreg_ctx_end, v->arch.vfp.fpregs, 1);
+> +}
+> +
+> +void sve_restore_state(struct vcpu *v)
+> +{
+> +    WRITE_SYSREG(v->arch.zcr_el1, ZCR_EL1);
+> +    WRITE_SYSREG(v->arch.zcr_el2, ZCR_EL2);
+
+AFAIU, this value will be used for the restore below. So don't we need 
+an isb()?
+
+> +
+> +    sve_load_ctx(v->arch.vfp.sve_zreg_ctx_end, v->arch.vfp.fpregs, 1);
+> +}
+> diff --git a/xen/arch/arm/arm64/vfp.c b/xen/arch/arm/arm64/vfp.c
+> index 47885e76baae..2d0d7c2e6ddb 100644
+> --- a/xen/arch/arm/arm64/vfp.c
+> +++ b/xen/arch/arm/arm64/vfp.c
+> @@ -2,29 +2,35 @@
+>   #include <asm/processor.h>
+>   #include <asm/cpufeature.h>
+>   #include <asm/vfp.h>
+> +#include <asm/arm64/sve.h>
+>   
+>   void vfp_save_state(struct vcpu *v)
+>   {
+>       if ( !cpu_has_fp )
+>           return;
+>   
+> -    asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
+> -                 "stp q2, q3, [%1, #16 * 2]\n\t"
+> -                 "stp q4, q5, [%1, #16 * 4]\n\t"
+> -                 "stp q6, q7, [%1, #16 * 6]\n\t"
+> -                 "stp q8, q9, [%1, #16 * 8]\n\t"
+> -                 "stp q10, q11, [%1, #16 * 10]\n\t"
+> -                 "stp q12, q13, [%1, #16 * 12]\n\t"
+> -                 "stp q14, q15, [%1, #16 * 14]\n\t"
+> -                 "stp q16, q17, [%1, #16 * 16]\n\t"
+> -                 "stp q18, q19, [%1, #16 * 18]\n\t"
+> -                 "stp q20, q21, [%1, #16 * 20]\n\t"
+> -                 "stp q22, q23, [%1, #16 * 22]\n\t"
+> -                 "stp q24, q25, [%1, #16 * 24]\n\t"
+> -                 "stp q26, q27, [%1, #16 * 26]\n\t"
+> -                 "stp q28, q29, [%1, #16 * 28]\n\t"
+> -                 "stp q30, q31, [%1, #16 * 30]\n\t"
+> -                 : "=Q" (*v->arch.vfp.fpregs) : "r" (v->arch.vfp.fpregs));
+> +    if ( is_sve_domain(v->domain) )
+> +        sve_save_state(v);
+> +    else
+> +    {
+> +        asm volatile("stp q0, q1, [%1, #16 * 0]\n\t"
+> +                     "stp q2, q3, [%1, #16 * 2]\n\t"
+> +                     "stp q4, q5, [%1, #16 * 4]\n\t"
+> +                     "stp q6, q7, [%1, #16 * 6]\n\t"
+> +                     "stp q8, q9, [%1, #16 * 8]\n\t"
+> +                     "stp q10, q11, [%1, #16 * 10]\n\t"
+> +                     "stp q12, q13, [%1, #16 * 12]\n\t"
+> +                     "stp q14, q15, [%1, #16 * 14]\n\t"
+> +                     "stp q16, q17, [%1, #16 * 16]\n\t"
+> +                     "stp q18, q19, [%1, #16 * 18]\n\t"
+> +                     "stp q20, q21, [%1, #16 * 20]\n\t"
+> +                     "stp q22, q23, [%1, #16 * 22]\n\t"
+> +                     "stp q24, q25, [%1, #16 * 24]\n\t"
+> +                     "stp q26, q27, [%1, #16 * 26]\n\t"
+> +                     "stp q28, q29, [%1, #16 * 28]\n\t"
+> +                     "stp q30, q31, [%1, #16 * 30]\n\t"
+> +                     : "=Q" (*v->arch.vfp.fpregs) : "r" (v->arch.vfp.fpregs));
+> +    }
+>   
+>       v->arch.vfp.fpsr = READ_SYSREG(FPSR);
+>       v->arch.vfp.fpcr = READ_SYSREG(FPCR);
+> @@ -37,23 +43,28 @@ void vfp_restore_state(struct vcpu *v)
+>       if ( !cpu_has_fp )
+>           return;
+>   
+> -    asm volatile("ldp q0, q1, [%1, #16 * 0]\n\t"
+> -                 "ldp q2, q3, [%1, #16 * 2]\n\t"
+> -                 "ldp q4, q5, [%1, #16 * 4]\n\t"
+> -                 "ldp q6, q7, [%1, #16 * 6]\n\t"
+> -                 "ldp q8, q9, [%1, #16 * 8]\n\t"
+> -                 "ldp q10, q11, [%1, #16 * 10]\n\t"
+> -                 "ldp q12, q13, [%1, #16 * 12]\n\t"
+> -                 "ldp q14, q15, [%1, #16 * 14]\n\t"
+> -                 "ldp q16, q17, [%1, #16 * 16]\n\t"
+> -                 "ldp q18, q19, [%1, #16 * 18]\n\t"
+> -                 "ldp q20, q21, [%1, #16 * 20]\n\t"
+> -                 "ldp q22, q23, [%1, #16 * 22]\n\t"
+> -                 "ldp q24, q25, [%1, #16 * 24]\n\t"
+> -                 "ldp q26, q27, [%1, #16 * 26]\n\t"
+> -                 "ldp q28, q29, [%1, #16 * 28]\n\t"
+> -                 "ldp q30, q31, [%1, #16 * 30]\n\t"
+> -                 : : "Q" (*v->arch.vfp.fpregs), "r" (v->arch.vfp.fpregs));
+> +    if ( is_sve_domain(v->domain) )
+> +        sve_restore_state(v);
+> +    else
+> +    {
+> +        asm volatile("ldp q0, q1, [%1, #16 * 0]\n\t"
+> +                     "ldp q2, q3, [%1, #16 * 2]\n\t"
+> +                     "ldp q4, q5, [%1, #16 * 4]\n\t"
+> +                     "ldp q6, q7, [%1, #16 * 6]\n\t"
+> +                     "ldp q8, q9, [%1, #16 * 8]\n\t"
+> +                     "ldp q10, q11, [%1, #16 * 10]\n\t"
+> +                     "ldp q12, q13, [%1, #16 * 12]\n\t"
+> +                     "ldp q14, q15, [%1, #16 * 14]\n\t"
+> +                     "ldp q16, q17, [%1, #16 * 16]\n\t"
+> +                     "ldp q18, q19, [%1, #16 * 18]\n\t"
+> +                     "ldp q20, q21, [%1, #16 * 20]\n\t"
+> +                     "ldp q22, q23, [%1, #16 * 22]\n\t"
+> +                     "ldp q24, q25, [%1, #16 * 24]\n\t"
+> +                     "ldp q26, q27, [%1, #16 * 26]\n\t"
+> +                     "ldp q28, q29, [%1, #16 * 28]\n\t"
+> +                     "ldp q30, q31, [%1, #16 * 30]\n\t"
+> +                     : : "Q" (*v->arch.vfp.fpregs), "r" (v->arch.vfp.fpregs));
+> +    }
+>   
+>       WRITE_SYSREG(v->arch.vfp.fpsr, FPSR);
+>       WRITE_SYSREG(v->arch.vfp.fpcr, FPCR);
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 143359d0f313..24c722a4a11e 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -552,7 +552,14 @@ int arch_vcpu_create(struct vcpu *v)
+>   
+>       v->arch.cptr_el2 = get_default_cptr_flags();
+>       if ( is_sve_domain(v->domain) )
+> +    {
+> +        if ( (rc = sve_context_init(v)) != 0 )
+> +            goto fail;
+>           v->arch.cptr_el2 &= ~HCPTR_CP(8);
+> +#ifdef CONFIG_ARM64_SVE
+
+This #ifdef reads a bit odd to me because you are protecting 
+v->arch.zcr_el2 but not the rest. This is one of the case where I would 
+surround the full if with the #ifdef because it makes clearer that there 
+is no way the rest of the code can be reached if !CONFIG_ARM64_SVE.
+
+That said, I would actually prefer if...
+
+> +        v->arch.zcr_el2 = vl_to_zcr(sve_decode_vl(v->domain->arch.sve_vl));
+
+... this line is moved in sve_context_init() because this is related to 
+the SVE context.
+
+> +#endif
+> +    }
+>   
+>       v->arch.hcr_el2 = get_default_hcr_flags();
+>   
+> @@ -582,6 +589,8 @@ fail:
+>   
+>   void arch_vcpu_destroy(struct vcpu *v)
+>   {
+> +    if ( is_sve_domain(v->domain) )
+> +        sve_context_free(v);
+>       vcpu_timer_destroy(v);
+>       vcpu_vgic_free(v);
+>       free_xenheap_pages(v->arch.stack, STACK_ORDER);
+> diff --git a/xen/arch/arm/include/asm/arm64/sve.h b/xen/arch/arm/include/asm/arm64/sve.h
+> index 730c3fb5a9c8..582405dfdf6a 100644
+> --- a/xen/arch/arm/include/asm/arm64/sve.h
+> +++ b/xen/arch/arm/include/asm/arm64/sve.h
+> @@ -26,6 +26,10 @@ static inline unsigned int sve_decode_vl(unsigned int sve_vl)
+>   register_t compute_max_zcr(void);
+>   register_t vl_to_zcr(unsigned int vl);
+>   unsigned int get_sys_vl_len(void);
+> +int sve_context_init(struct vcpu *v);
+> +void sve_context_free(struct vcpu *v);
+> +void sve_save_state(struct vcpu *v);
+> +void sve_restore_state(struct vcpu *v);
+>   
+>   #else /* !CONFIG_ARM64_SVE */
+>   
+> @@ -46,6 +50,15 @@ static inline unsigned int get_sys_vl_len(void)
+>       return 0;
+>   }
+>   
+> +static inline int sve_context_init(struct vcpu *v)
+> +{
+> +    return 0;
+> +}
+> +
+> +static inline void sve_context_free(struct vcpu *v) {}
+> +static inline void sve_save_state(struct vcpu *v) {}
+> +static inline void sve_restore_state(struct vcpu *v) {}
+> +
+>   #endif /* CONFIG_ARM64_SVE */
+>   
+>   #endif /* _ARM_ARM64_SVE_H */
+> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+> index 4cabb9eb4d5e..3fdeb9d8cdef 100644
+> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
+> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+> @@ -88,6 +88,9 @@
+>   #ifndef ID_AA64ISAR2_EL1
+>   #define ID_AA64ISAR2_EL1            S3_0_C0_C6_2
+>   #endif
+> +#ifndef ZCR_EL1
+> +#define ZCR_EL1                     S3_0_C1_C2_0
+> +#endif
+>   
+>   /* ID registers (imported from arm64/include/asm/sysreg.h in Linux) */
+>   
+> diff --git a/xen/arch/arm/include/asm/arm64/vfp.h b/xen/arch/arm/include/asm/arm64/vfp.h
+> index e6e8c363bc16..4aa371e85d26 100644
+> --- a/xen/arch/arm/include/asm/arm64/vfp.h
+> +++ b/xen/arch/arm/include/asm/arm64/vfp.h
+> @@ -6,7 +6,19 @@
+>   
+>   struct vfp_state
+>   {
+> +    /*
+> +     * When SVE is enabled for the guest, fpregs memory will be used to
+> +     * save/restore P0-P15 registers, otherwise it will be used for the V0-V31
+> +     * registers.
+> +     */
+>       uint64_t fpregs[64] __vfp_aligned;
+> +    /*
+> +     * When SVE is enabled for the guest, sve_zreg_ctx_end points to memory
+> +     * where Z0-Z31 registers and FFR can be saved/restored, it points at the
+> +     * end of the Z0-Z31 space and at the beginning of the FFR space, it's done
+> +     * like that to ease the save/restore assembly operations.
+> +     */
+> +    uint64_t *sve_zreg_ctx_end;
+>       register_t fpcr;
+>       register_t fpexc32_el2;
+>       register_t fpsr;
+> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+> index 331da0f3bcc3..814652d92568 100644
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -195,6 +195,8 @@ struct arch_vcpu
+>       register_t tpidrro_el0;
+>   
+>       /* HYP configuration */
+> +    register_t zcr_el1;
+> +    register_t zcr_el2;
+>       register_t cptr_el2;
+>       register_t hcr_el2;
+>       register_t mdcr_el2;
+
+Cheers,
+
+-- 
+Julien Grall
 
