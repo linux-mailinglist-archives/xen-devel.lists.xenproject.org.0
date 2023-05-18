@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E7D37087E9
-	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 20:39:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536509.834901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01243708871
+	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 21:38:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.536514.834911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pziWx-0002em-Ev; Thu, 18 May 2023 18:39:15 +0000
+	id 1pzjRD-0000aU-S2; Thu, 18 May 2023 19:37:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536509.834901; Thu, 18 May 2023 18:39:15 +0000
+Received: by outflank-mailman (output) from mailman id 536514.834911; Thu, 18 May 2023 19:37:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pziWx-0002bV-CA; Thu, 18 May 2023 18:39:15 +0000
-Received: by outflank-mailman (input) for mailman id 536509;
- Thu, 18 May 2023 18:39:13 +0000
+	id 1pzjRD-0000Y8-OS; Thu, 18 May 2023 19:37:23 +0000
+Received: by outflank-mailman (input) for mailman id 536514;
+ Thu, 18 May 2023 19:37:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pziWv-0002bP-Ao
- for xen-devel@lists.xenproject.org; Thu, 18 May 2023 18:39:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pzjRC-0000Xy-Mp; Thu, 18 May 2023 19:37:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pziWr-0001nb-2B; Thu, 18 May 2023 18:39:09 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226]
- helo=[192.168.26.27]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pziWq-0008FY-S2; Thu, 18 May 2023 18:39:08 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pzjRC-0003W3-Gu; Thu, 18 May 2023 19:37:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pzjRB-0003qx-Te; Thu, 18 May 2023 19:37:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pzjRB-0004fi-T6; Thu, 18 May 2023 19:37:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=BcYQED4F2cqPOXbxdtEQiFqYi1G038BgSr3Wel6ihBY=; b=vAdSuWg3p8DwIA8T4usdohmXMv
-	776EPTI+m7bGGgaBoVM9oInuC5XQwTTdwwZ4wmPhi+9AiC3OUDRCCcEuKnvlCfKqcgsdduvsVnCie
-	Pn/csV0sQXlSSOJuvcrG6Q+2VsAb3AvJl1xHZ5rIGqhHlsPs32rIMoTUpgPgVixcD+PE=;
-Message-ID: <ccbb32bb-56cc-11c0-b3d6-f4506dadc541@xen.org>
-Date: Thu, 18 May 2023 19:39:06 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.11.0
-Subject: Re: [PATCH v6 07/12] xen: enable Dom0 to use SVE feature
-Content-Language: en-US
-To: Luca Fancellu <Luca.Fancellu@arm.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20230424060248.1488859-1-luca.fancellu@arm.com>
- <20230424060248.1488859-8-luca.fancellu@arm.com>
- <589fdeec-a0cf-1dc0-18b2-bd20c76832d2@suse.com>
- <7064B21E-414F-4FB5-BCC9-349388B32EA5@arm.com>
- <11e92082-6603-7180-f405-b96a14d430dd@suse.com>
- <37C35493-D5DA-4102-9B93-0045732E6F94@arm.com>
- <d49f1df6-ac49-27ef-d55f-b6284c76b055@suse.com>
- <5535FDB0-989E-4536-AF7B-8F0BB561667A@arm.com>
- <bd064b44-3531-a1b0-a7a8-1ad7ae434394@suse.com>
- <300BE89F-CA37-4A28-9CC5-5875E10D4A0C@arm.com>
- <a268313d-03be-9281-3627-c38115d3e5de@suse.com>
- <B534E482-71BF-4C5F-B9A8-3D567367F7AA@arm.com>
- <f9e631e1-02bb-a565-4df4-ccbb66fbaf49@suse.com>
- <C1815EB3-E875-4D49-831A-56E152BF4B61@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <C1815EB3-E875-4D49-831A-56E152BF4B61@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=g+MdtslopQ3z6dkxv2ayg+pmdLBIDMc4aeLqvPYAm4s=; b=NbDlhArW/UOeK/9iDuQH64JI/6
+	Y2i9lEBGALO8+ifCM3w17U6k4ytm/7Kw2vTFSQwuOryXK/LXfEbNxVnN1vUh4BeIF8Pj9rRV678G2
+	dobTFD1gJcgVhfyHsKIGfRW+zrE4C67HknDPzEpsRjjWkiQXuLCxMJ6py7757xd24kpI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180698-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 180698: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=5ff58a0ce7a6ad452919a86a05e27427ccf1f27b
+X-Osstest-Versions-That:
+    libvirt=b10bc8f7ab6f9986ccc54ba04fc5b3bad7576be6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 18 May 2023 19:37:21 +0000
 
-Hi Luca,
+flight 180698 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180698/
 
-Sorry for the late reply.
+Failures :-/ but no regressions.
 
-On 25/04/2023 07:04, Luca Fancellu wrote:
-> 
-> 
->> On 24 Apr 2023, at 17:10, Jan Beulich <jbeulich@suse.com> wrote:
->>
->> On 24.04.2023 17:43, Luca Fancellu wrote:
->>>> On 24 Apr 2023, at 16:41, Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 24.04.2023 17:34, Luca Fancellu wrote:
->>>>>> On 24 Apr 2023, at 16:25, Jan Beulich <jbeulich@suse.com> wrote:
->>>>>> On 24.04.2023 17:18, Luca Fancellu wrote:
->>>>>>> Oh ok, I don’t know, here what I get if for example I build arm32:
->>>>>>>
->>>>>>> arm-linux-gnueabihf-ld -EL -T arch/arm/xen.lds -N prelink.o \
->>>>>>> ./common/symbols-dummy.o -o ./.xen-syms.0
->>>>>>> arm-linux-gnueabihf-ld: prelink.o: in function `create_domUs':
->>>>>>> (.init.text+0x13464): undefined reference to `sve_domctl_vl_param'
->>>>>>
->>>>>> In particular with seeing this: What you copied here is a build with the
->>>>>> series applied only up to this patch? I ask because the patch here adds a
->>>>>> call only out of create_dom0().
->>>>>
->>>>> No I’ve do the changes on top of the serie, I’ve tried it now, only to this patch and it builds correctly,
->>>>> It was my mistake to don’t read carefully the error output.
->>>>>
->>>>> Anyway I guess this change is not applicable because we don’t have a symbol that is plain 0 for domUs
->>>>> to be placed inside create_domUs.
->>>>
->>>> Possible, but would you mind first telling me in which other patch(es) the
->>>> further reference(s) are being introduced, so I could take a look without
->>>> (again) digging through the entire series?
->>>
->>> Sure, the other references to the function are introduced in "xen/arm: add sve property for dom0less domUs” patch 11
->>
->> Personally I'm inclined to suggest adding "#ifdef CONFIG_ARM64_SVE" there.
->> But I guess that may again go against your desire to not ignore inapplicable
->> options. Still I can't resist to at least ask how an "sve" node on Arm32 is
->> different from an entirely unknown one.
-> 
-> It would be ok for me to use #ifdef CONFIG_ARM64_SVE and fail in the #else branch,
-> but I had the feeling in the past that Arm maintainers are not very happy with #ifdefs, I might
-> be wrong so I’ll wait for them to give an opinion and then I will be happy to follow.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 180688
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 180688
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 180688
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
 
-IIRC, your suggestion is for patch #11. In this case, my preference is 
-the #ifdef + throwing an error in the #else branch. This would avoid to 
-silently ignore the property if SVE is not enabled (both Bertrand and I 
-agreed this should not be ignored, see [1]).
+version targeted for testing:
+ libvirt              5ff58a0ce7a6ad452919a86a05e27427ccf1f27b
+baseline version:
+ libvirt              b10bc8f7ab6f9986ccc54ba04fc5b3bad7576be6
 
-Cheers,
+Last test of basis   180688  2023-05-17 04:20:21 Z    1 days
+Testing same since   180698  2023-05-18 04:18:52 Z    0 days    1 attempts
 
-[1] 
-https://lore.kernel.org/all/7614AE25-F59D-430A-9C3E-30B1CE0E1580@arm.com/
+------------------------------------------------------------
+People who touched revisions under test:
+  Peter Krempa <pkrempa@redhat.com>
 
--- 
-Julien Grall
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   b10bc8f7ab..5ff58a0ce7  5ff58a0ce7a6ad452919a86a05e27427ccf1f27b -> xen-tested-master
 
