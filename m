@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53E77708413
-	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 16:41:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536403.834711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C71B9708415
+	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 16:41:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.536406.834722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzeoR-0001nO-GT; Thu, 18 May 2023 14:41:03 +0000
+	id 1pzeoW-0002CA-RN; Thu, 18 May 2023 14:41:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536403.834711; Thu, 18 May 2023 14:41:03 +0000
+Received: by outflank-mailman (output) from mailman id 536406.834722; Thu, 18 May 2023 14:41:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzeoR-0001kT-DF; Thu, 18 May 2023 14:41:03 +0000
-Received: by outflank-mailman (input) for mailman id 536403;
- Thu, 18 May 2023 14:41:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pzeoW-00028O-N3; Thu, 18 May 2023 14:41:08 +0000
+Received: by outflank-mailman (input) for mailman id 536406;
+ Thu, 18 May 2023 14:41:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=R7bG=BH=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pzeoQ-0000Pw-1B
- for xen-devel@lists.xenproject.org; Thu, 18 May 2023 14:41:02 +0000
+ id 1pzeoU-00074K-K6
+ for xen-devel@lists.xenproject.org; Thu, 18 May 2023 14:41:06 +0000
 Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20622.outbound.protection.outlook.com
- [2a01:111:f400:7e83::622])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 01770aa1-f58a-11ed-b22c-6b7b168915f2;
- Thu, 18 May 2023 16:41:01 +0200 (CEST)
-Received: from BN9PR03CA0178.namprd03.prod.outlook.com (2603:10b6:408:f4::33)
- by CH0PR12MB5387.namprd12.prod.outlook.com (2603:10b6:610:d6::17)
+ (mail-dm3nam02on20625.outbound.protection.outlook.com
+ [2a01:111:f400:7e83::625])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 03ad2234-f58a-11ed-8611-37d641c3527e;
+ Thu, 18 May 2023 16:41:04 +0200 (CEST)
+Received: from MW4PR02CA0022.namprd02.prod.outlook.com (2603:10b6:303:16d::15)
+ by SA1PR12MB7037.namprd12.prod.outlook.com (2603:10b6:806:24c::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19; Thu, 18 May
- 2023 14:40:57 +0000
-Received: from BN8NAM11FT092.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:f4:cafe::f6) by BN9PR03CA0178.outlook.office365.com
- (2603:10b6:408:f4::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33; Thu, 18 May
+ 2023 14:41:01 +0000
+Received: from CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:16d:cafe::4a) by MW4PR02CA0022.outlook.office365.com
+ (2603:10b6:303:16d::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19 via Frontend
- Transport; Thu, 18 May 2023 14:40:57 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT092.mail.protection.outlook.com (10.13.176.180) with Microsoft SMTP
+ Transport; Thu, 18 May 2023 14:41:01 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT004.mail.protection.outlook.com (10.13.175.89) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.19 via Frontend Transport; Thu, 18 May 2023 14:40:57 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6411.20 via Frontend Transport; Thu, 18 May 2023 14:41:00 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 18 May
- 2023 09:40:56 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 18 May
- 2023 09:40:56 -0500
+ 2023 09:41:00 -0500
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Thu, 18 May 2023 09:40:54 -0500
+ via Frontend Transport; Thu, 18 May 2023 09:40:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,28 +59,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01770aa1-f58a-11ed-b22c-6b7b168915f2
+X-Inumbo-ID: 03ad2234-f58a-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gJzO8xv45zn9w1Dkr6iS3sdn+uUGIm0t3eT8Y99//7eksGU4+5ND2qXPc0gRrb4OwJ6jS4JMp93Z1i8RkmMrt87qdrblGMBbP6LJm0pW0z+l6R7+JXmWyDGBJCUgEM3TRGszwdv0eKtgSYWrPcBDLQ8J/qxMNZTBEA70nOAKXQP3D2rkqNXCIXTYsnuLYzSslSlgnvq+W3jyQpc9ATrBqgSHYX43RfoALa0hXO+98MUdl7QWrG+M/62MXWDPq0jn3vi66NLz0Ptq7IKnm37iAVmLwrHEQNFgQmAukcJhJe9FKHvoxjwPCQX9oyur4iWc8TMFOnincM6CHqtEUrFtGQ==
+ b=aS+z61dIEOh9wHoYQV5HXZhDJBTlh4TPoLbW+9gdcSiLp3XAhVn/tBxddyrVUTKUk4yq1AT/ovHB07PoVgvS99vV47y8G2dE7XfGsIhT7sUrLEMOSx+AA/YhLt/XirD4t8e1qEKICwLqEP0nUj4+voZ3vjdR/jOxiR64NEJV89nmJlN4bV3Wd3XbBLUGRhKgLmhoB7X3vjQPvujpbkjElB68qQyQICCnqNtpCAAmZsHFSUZjT0XqfRA8p7VzAV/atuxZDMZbqK4D3jMXVE4Pl0nlAx0jht8jhsIucB9zqc9JrG+HiNbBmRo5T5llVni8iXn7rE0ZCztJ4/9BsQfEug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dIbGtyu/gWerwDuQ2gvCU+RRCAtN1+d/wfgGFegCZv8=;
- b=b52H8s8t5TiuEfTjY1BYae43ctiUlp5SrDAghP7Ch5lU5qRAxXZvo315DTaQ/OmE96vBx9DO2+5Jm+R1GUS2IAm82ct9aJXb1TOenhUG/w518yyEbpulMzbyl5+lYNZcKzx38sFYrHYC+Xm2o5jbkRBJdnSI2/dLUt5PaaeMSWs2juLy6vxetn+srTreohqXk4oFgfTIuv/0KpkhFHinvwsEKlrpQJDpB3j3Bh5/UYVF05fJg8aVUVHqkfvnQLPKoh1DM+Q4OetQbUeGAlTkYsuTo9qCW4LKkpaShuvHsxxxi38VNwCYsJ5AGaY5W9S4AG+RTPAnO8Io15qUG0n0Cw==
+ bh=fc/6ksSNIY14+cMIRv0fMrHzTXfYwm3DIOoQYaSFZAM=;
+ b=mmIwTPUwjh0down3t8bHqjdQQblEEBW29Qv65oYd67eza7VGyDqQxU2Oy6ynaZSDbwrNUnpeKRlJBtnIryTiSA1Wv3RJ+mEtO5P4LevGyX/cAl5Q49AQN6CYgXnAQVQHvMTTA7OfJV0h7IosWdb+oDKtjDrXR9qLAVf9sxkeSV3u9KB8ufcZ4/tuo4TIrC4iRjiUgLXeSyXWLbHdOlXhXrsO35pripi3T6Tzjk6CHZv+r0xcufJy0O/DeBiHqaArAisCR8iu/eYW7sTPyJ6ujPdRk9k7UhKNXsRJQqKtNMOEPrVHPG/2B6gYIvZM8S/UMjSW5MaPLjsssVfsAN1BzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dIbGtyu/gWerwDuQ2gvCU+RRCAtN1+d/wfgGFegCZv8=;
- b=3PcfitGTM7m6Qvsh/k33vn7y/9jZIWX+YmiNxh+R4bztP2zKWlw9w66fA/sBoeaLq1gGMrVYIXzvmNv1jrFBITkRtcRDrMPT/nSMIptpeWwEUms7vhdpfvgTonh5SXlLjimCbLHB7hm0tGylvT5tCGYSi9qesfemifJgaUdtS+I=
+ bh=fc/6ksSNIY14+cMIRv0fMrHzTXfYwm3DIOoQYaSFZAM=;
+ b=HmA0QSxc/Gsqf83zKSAxc3OM9X71iHPC+SfCoVacqvu7aRu1yT9ptN4ocilEI31+bKTiCWlFexGXwZjpTD+q1lT79tscMYRIczWkpaTD+g7vTJXr++sanlK7ead8i6q7SJdCN7cX3BypzpB1MKmUFC6SuJxygs842R+RregMTms=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
@@ -92,9 +88,9 @@ CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
 	<wl@xen.org>, <rahul.singh@arm.com>, <michal.orzel@amd.com>, "Ayan Kumar
  Halder" <ayan.kumar.halder@amd.com>
-Subject: [XEN v7 05/11] xen/arm: domain_build: Check if the address fits the range of physical address
-Date: Thu, 18 May 2023 15:39:14 +0100
-Message-ID: <20230518143920.43186-6-ayan.kumar.halder@amd.com>
+Subject: [XEN v7 06/11] xen: dt: Replace u64 with uint64_t as the callback function parameters for dt_for_each_range()
+Date: Thu, 18 May 2023 15:39:15 +0100
+Message-ID: <20230518143920.43186-7-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230518143920.43186-1-ayan.kumar.halder@amd.com>
 References: <20230518143920.43186-1-ayan.kumar.halder@amd.com>
@@ -102,88 +98,137 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT092:EE_|CH0PR12MB5387:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbfb26b1-c771-4668-1066-08db57ade439
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT004:EE_|SA1PR12MB7037:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92281347-216f-4037-489d-08db57ade65e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	a0K+eRmx4ZJrhgGkrSsAthQy62mld0TL3pwTK+ORsIN/pwZxnZp5B8e40sTSJ1dBEpKORAMPaeoDGJ4Pan5AYrd09u5h9oUDkVKSHzNhJsWyZ0NcMKa10krwL3tMdHtgZTD8RzKRK4Uxa+na8sRJBAvAEFhNbhnoKs/csyUuh/p8h8kA251l4D+IGmOmE3UuugPK6znsc2RgNDtUGJdBKmyCdrSzxCvqbPf7Fry/edZ+YP5Yib+8vUoC6HXheCc+8+GRk/PqjXI7P4Qi6niGH79suI9wVj+ahSzkJE5HQESIKHzWSQMWuhfVNTK6ZcKVck2nS0DM8OcxYH6fNRvwVI7Hb3eBFSC1IQ3DE001MISSulKJQq9sjw8+ZCltvZ8968UzqtS4kXyCHe6TSCgvjfN/dQ7N6XpKysHY21OnVVA0OLtstkaea/NCszfZHXJ8fTWpS49p5cFRuQltFW0O/JeUykEBfDcTja4ThSXFdlvw9pJy1YnFEifpEmjAr3Gfg/wlVI1hF60T4Sk/Y+X7ZaaHTMmvHnt7bnct/mdP+tXZXIsOeK4KhS/7lFoVv2S9wuf5kUaen8kN8WXqIywPWYq3cLYn9WVhTeQEmOVSa2qsOgekLDbtYFGDlVgg7Tzauk14SFe58o08NFd03SI93LP50QZVH+MeZjmP1ol/+BeEdArGltr/d1UPfJTilrrIznD66Jx9KKDCd4wUaJ1y6iVpENh7xY1EZgs1qAEF+m1zDQSwc+u3LE8MDDNCydfgby/++LMIwJ+cucXqhjwk1g==
+	PSaiMIR0zR/aFHCVT2O4ZUfN99/cgRGDkD1kvTEAZTHQPU9uFnh/vZ+H9c9FlielH16tLEHYK67FgZ1zU3cSSlWDtNdC1wtsR1V2sqnRj+kERDJYtH4tiAh/PAbqElyoQybBpZ3Z61n5UO7YWqM1N0wGnlrkmEL7DZAElfN0L2SaD0k7xsN+QsR5VHEPgyviG7yJrS+YPuHRjdXVNYSaUTE4GqQIqfOzWjyHCNzNUShyagpWEjVVQAQsdsi4hhlYU6G4UrCfLoC/1j29P8G39qPplLY3SswB06ykBSkrq/GPVe+QOUgh0yg75kvOoeuOFBLhrAU8wbVt/z/60F7Dd0hnHJ4E6x3Bwlni9riHeAgUsya5NO7UO5NG0aKB43hA/W6ZXoCRZZWKZcvYx5obFn4ePsoK8jBBjeioFmDghyU1Vx7ueEapCCrpmZIc+QC+5T/JOr2wMA4jAAWG9J7TgiiACsO3KO23fix4FZlm/iSIPBKXEJrqg+VpHXwjzVb1ZUUmIl6vuMrnEh5CkcHdgmiFUKzmqvhSnHzxR+wojJSFkb1S80YaHw4AGX/rPMqmnnUPpzHbUjfBIuTH0KT+cITVEniCU8G58TFIX6495e5vhwxUACbWUJchyN2WHge4tjfK749Q+Bqh9LBbHHdgb+ape6fLZ4QkuD/D/uDQJz+HMy4fCSsp85uUEhNV42NTbQMJ9c5nPrJkFUjjnrrGVR0vW0GEaZyzGN6sjwHdopBEsU4/OtG7ReFTV88zanOlroEmFCGLFouqMo464H2lpw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(396003)(39860400002)(346002)(451199021)(46966006)(36840700001)(40470700004)(26005)(40460700003)(1076003)(36860700001)(36756003)(83380400001)(47076005)(40480700001)(426003)(336012)(86362001)(82310400005)(2616005)(103116003)(356005)(81166007)(82740400003)(186003)(54906003)(7416002)(478600001)(2906002)(316002)(8936002)(6916009)(4326008)(8676002)(41300700001)(5660300002)(70586007)(70206006)(6666004)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(346002)(376002)(39860400002)(136003)(451199021)(36840700001)(40470700004)(46966006)(41300700001)(86362001)(316002)(54906003)(82310400005)(7416002)(103116003)(5660300002)(81166007)(82740400003)(356005)(478600001)(2906002)(4326008)(6916009)(8676002)(8936002)(70586007)(70206006)(36756003)(6666004)(26005)(36860700001)(47076005)(1076003)(2616005)(336012)(40460700003)(426003)(186003)(83380400001)(40480700001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 14:40:57.2492
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 14:41:00.7235
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbfb26b1-c771-4668-1066-08db57ade439
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92281347-216f-4037-489d-08db57ade65e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT092.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT004.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5387
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7037
 
-handle_pci_range() and map_range_to_domain() take addr and len as uint64_t
-parameters. Then frame numbers are obtained from addr and len by right shifting
-with PAGE_SHIFT. The frame numbers are expressed using unsigned long.
+In the callback functions invoked by dt_for_each_range() ie handle_pci_range(),
+map_range_to_domain(), 'u64' should be replaced with 'uint64_t' as the data type
+for the parameters. The reason being Xen coding style mentions that u32/u64
+should be avoided.
 
-Now if 64-bit >> PAGE_SHIFT, the result will have 52-bits as valid. On a 32-bit
-system, 'unsigned long' is 32-bits. Thus, there is a potential loss of value
-when the result is stored as 'unsigned long'.
-
-To mitigate this issue, we check if the starting and end address can be
-contained within the range of physical address supported on the system. If not,
-then an appropriate error is returned.
+Also dt_for_each_range() invokes the callback functions with 'uint64_t'
+arguments. Thus, is_bar_valid() needs to change the parameter types accordingly.
 
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
 Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 ---
 Changes from :-
-v1...v4 - NA. New patch introduced in v5.
 
-v5 - 1. Updated the error message
-2. Used "(((paddr_t)~0 - addr) < len)" to check the limit on len.
-3. Changes in the prototype of "map_range_to_domain()" has been
-addressed by the patch 8.
+v1-v5 - New patch introduced in v6.
 
-v6 - Trivial changes. Added R-b.
+v6 - 1. Merged "[XEN v6 08/12] xen: dt: Replace u64 with uint64_t as the callback"
+and "[XEN v6 09/12] xen/arm: pci: Use 'uint64_t' as the datatype for the .."
 
- xen/arch/arm/domain_build.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+2. Added R-b.
+
+ xen/arch/arm/domain_build.c        | 4 ++--
+ xen/arch/arm/include/asm/setup.h   | 2 +-
+ xen/arch/arm/pci/pci-host-common.c | 2 +-
+ xen/common/device_tree.c           | 4 ++--
+ xen/include/xen/device_tree.h      | 2 +-
+ 5 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 50b85ea783..cb23f531a8 100644
+index cb23f531a8..3f4558ade6 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -1643,6 +1643,13 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
+@@ -1637,7 +1637,7 @@ out:
+ }
+ 
+ static int __init handle_pci_range(const struct dt_device_node *dev,
+-                                   u64 addr, u64 len, void *data)
++                                   uint64_t addr, uint64_t len, void *data)
+ {
+     struct rangeset *mem_holes = data;
      paddr_t start, end;
-     int res;
+@@ -2334,7 +2334,7 @@ static int __init map_dt_irq_to_domain(const struct dt_device_node *dev,
+ }
  
-+    if ( (addr != (paddr_t)addr) || (((paddr_t)~0 - addr) < len) )
-+    {
-+        printk(XENLOG_ERR "%s: [0x%"PRIx64", 0x%"PRIx64"] exceeds the maximum allowed PA width (%u bits)",
-+               dt_node_full_name(dev), addr, (addr + len), PADDR_BITS);
-+        return -ERANGE;
-+    }
-+
-     start = addr & PAGE_MASK;
-     end = PAGE_ALIGN(addr + len);
-     res = rangeset_remove_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end - 1));
-@@ -2333,6 +2340,13 @@ int __init map_range_to_domain(const struct dt_device_node *dev,
+ int __init map_range_to_domain(const struct dt_device_node *dev,
+-                               u64 addr, u64 len, void *data)
++                               uint64_t addr, uint64_t len, void *data)
+ {
+     struct map_range_data *mr_data = data;
      struct domain *d = mr_data->d;
-     int res;
+diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+index 47ce565d87..fe17cb0a4a 100644
+--- a/xen/arch/arm/include/asm/setup.h
++++ b/xen/arch/arm/include/asm/setup.h
+@@ -166,7 +166,7 @@ u32 device_tree_get_u32(const void *fdt, int node,
+                         const char *prop_name, u32 dflt);
  
-+    if ( (addr != (paddr_t)addr) || (((paddr_t)~0 - addr) < len) )
-+    {
-+        printk(XENLOG_ERR "%s: [0x%"PRIx64", 0x%"PRIx64"] exceeds the maximum allowed PA width (%u bits)",
-+               dt_node_full_name(dev), addr, (addr + len), PADDR_BITS);
-+        return -ERANGE;
-+    }
-+
-     /*
-      * reserved-memory regions are RAM carved out for a special purpose.
-      * They are not MMIO and therefore a domain should not be able to
+ int map_range_to_domain(const struct dt_device_node *dev,
+-                        u64 addr, u64 len, void *data);
++                        uint64_t addr, uint64_t len, void *data);
+ 
+ extern DEFINE_BOOT_PAGE_TABLE(boot_pgtable);
+ 
+diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
+index 5dd62e8013..7cdfc89e52 100644
+--- a/xen/arch/arm/pci/pci-host-common.c
++++ b/xen/arch/arm/pci/pci-host-common.c
+@@ -381,7 +381,7 @@ int __init pci_host_bridge_mappings(struct domain *d)
+  * right place for alignment check.
+  */
+ static int is_bar_valid(const struct dt_device_node *dev,
+-                        paddr_t addr, paddr_t len, void *data)
++                        uint64_t addr, uint64_t len, void *data)
+ {
+     struct pdev_bar_check *bar_data = data;
+     paddr_t s = bar_data->start;
+diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+index 20bc369367..8da1052911 100644
+--- a/xen/common/device_tree.c
++++ b/xen/common/device_tree.c
+@@ -994,7 +994,7 @@ int dt_device_get_paddr(const struct dt_device_node *dev, unsigned int index,
+ 
+ int dt_for_each_range(const struct dt_device_node *dev,
+                       int (*cb)(const struct dt_device_node *,
+-                                u64 addr, u64 length,
++                                uint64_t addr, uint64_t length,
+                                 void *),
+                       void *data)
+ {
+@@ -1057,7 +1057,7 @@ int dt_for_each_range(const struct dt_device_node *dev,
+ 
+     for ( ; rlen >= rone; rlen -= rone, ranges += rone )
+     {
+-        u64 a, s;
++        uint64_t a, s;
+         int ret;
+ 
+         memcpy(addr, ranges + na, 4 * pna);
+diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+index d514c486a8..c2eada7489 100644
+--- a/xen/include/xen/device_tree.h
++++ b/xen/include/xen/device_tree.h
+@@ -681,7 +681,7 @@ int dt_for_each_irq_map(const struct dt_device_node *dev,
+  */
+ int dt_for_each_range(const struct dt_device_node *dev,
+                       int (*cb)(const struct dt_device_node *,
+-                                u64 addr, u64 length,
++                                uint64_t addr, uint64_t length,
+                                 void *),
+                       void *data);
+ 
 -- 
 2.17.1
 
