@@ -2,42 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50225707CEC
-	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 11:32:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536251.834411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B5DE707D02
+	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 11:35:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.536256.834421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzZyr-0005Mv-HR; Thu, 18 May 2023 09:31:29 +0000
+	id 1pza2V-0005yT-1p; Thu, 18 May 2023 09:35:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536251.834411; Thu, 18 May 2023 09:31:29 +0000
+Received: by outflank-mailman (output) from mailman id 536256.834421; Thu, 18 May 2023 09:35:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzZyr-0005Kl-Dv; Thu, 18 May 2023 09:31:29 +0000
-Received: by outflank-mailman (input) for mailman id 536251;
- Thu, 18 May 2023 09:31:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=joHs=BH=citrix.com=prvs=495b323d3=roger.pau@srs-se1.protection.inumbo.net>)
- id 1pzZyq-0005Kf-Ez
- for xen-devel@lists.xenproject.org; Thu, 18 May 2023 09:31:28 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c17a2eb7-f55e-11ed-8611-37d641c3527e;
- Thu, 18 May 2023 11:31:25 +0200 (CEST)
-Received: from mail-bn8nam12lp2175.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.175])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 18 May 2023 05:31:22 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by SJ0PR03MB6455.namprd03.prod.outlook.com (2603:10b6:a03:38d::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19; Thu, 18 May
- 2023 09:31:20 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::192:6bdf:b105:64dd]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::192:6bdf:b105:64dd%3]) with mapi id 15.20.6411.019; Thu, 18 May 2023
- 09:31:20 +0000
+	id 1pza2U-0005w4-Td; Thu, 18 May 2023 09:35:14 +0000
+Received: by outflank-mailman (input) for mailman id 536256;
+ Thu, 18 May 2023 09:35:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pza2T-0005vy-Ux
+ for xen-devel@lists.xenproject.org; Thu, 18 May 2023 09:35:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pza2T-0001um-9B; Thu, 18 May 2023 09:35:13 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.26.27]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pza2S-0005Q1-Vc; Thu, 18 May 2023 09:35:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,207 +39,608 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c17a2eb7-f55e-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1684402285;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=sgovmXIw5wcey7WW6bfshpN918+MI3214S71E6T1VnY=;
-  b=cCkyEeClYUrcnDiqK0SO2QsvNPViZ0FQJsopOLa4QknZmW32qM8dUBAX
-   ccY8hHmIl0za28hx7If87JLvZb4N4xcBsUhvaf3aiMdPTu/qceVjaSnqv
-   unRZKhtK5cL9i6U7D3CA8K9ynZNwYT1VWHc1YWsvBkxWXjUoJBaq9fcKx
-   I=;
-X-IronPort-RemoteIP: 104.47.55.175
-X-IronPort-MID: 109503796
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:cIikw623mpPlKOtrCfbD5TNwkn2cJEfYwER7XKvMYLTBsI5bpzNSz
- jRKCj2HPK6CY2T2L9wnbNy09B9S75/Rz9AxTlM9pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8tuTS+XuDgNyo4GlD5gFnNagS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfAkEVz
- OAieG43VVOMnOft/pWgZvlGr5F2RCXrFNt3VnBI6xj8VKxja7aTBqLA6JlfwSs6gd1IEbDGf
- c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqvi6Kk1EZPLvFabI5fvSQQspYhACAr
- 3/u9GXlGBAKcteYzFJp91r13r6SxXikCdx6+LuQ7dJI2k2N6zMvAxwJaEuLocHhoUSQVIcKQ
- 6AT0m90xUQoz2S7Q9/8VluiqXGFtxIVWN1NO+Q/5EeGza+8ywSTC3UATzVBQMc7r8JwTjsvv
- neShM/gDzFrtLyTSFqe+62SoDf0PjIaRUcSaClBQQYb7t3LpIAokgmJXttlCLSyjND+BXf32
- T/ihDMiirsai8lNzLmy913DhzOqp7DASwJz7QLSNl9J9St8bY+hIoauuV7S6K8aKJ7DFwbc+
- n8Zh8KZ8eYCS4mXkzCAS/kMG7fv4OuZNDrbghhkGJxJGymRxkNPtLt4uFlWTHqF+O5dEdM1S
- Cc/YT9s2aI=
-IronPort-HdrOrdr: A9a23:NITSBq+nS12sPj8TLyxuk+G5dr1zdoMgy1knxilNoENuH/Bwxv
- rFoB1E73TJYVYqN03IV+rwXZVoZUmsjaKdgLNhRItKOTOLhILGFuFfBOfZsl7d8mjFh5VgPM
- RbAtRD4b/LfD9HZK/BiWHXcurIguP3lpxA7d2uskuFJjsaD52IgT0JaDpyRSZNNXN77NcCZe
- yhDo0tnUvRRV0nKuCAQlUVVenKoNPG0LrgfB49HhYirCWekD+y77b+Mh6AmjMTSSlGz7sO+X
- XM11WR3NToj9iLjjvnk0PD5ZVfn9XsjvNFGcy3k8AQbhn8lwqyY4xlerua+BQ4uvum5loGmM
- TF5z0gI8NwwXXMeXzdm2qn5yDQlBIVr1Pyw16RhnXu5eT/WTIBEsJEwaZUaAHQ5UYMtMx1lP
- sj5RPQi7NnSTf72Ajt7dnBUB9n0mKyvHoZiOYWy1hSS5EXZrN9pZEWuGlVDJADNiTn751PKp
- gmMOjsoNJtNX+KZXHQuWdihPSqQ3QIBx+DBnMPv8SEugIm6UxR/g89/ogyj30A/JUyR91v/O
- LfKJllk7lIU4s/cb99LP1pe7r4NkX9BTb3dE6CK1XuE68Kf1jXrYTs3bkz7Oa2PLQV0ZoJno
- jbWl8wjx98R6vXM7zP4HR3yGGPfI3kNg6diP22pqIJ9oEUfYCbcBFqEzsV4o6dS/Z2OLyoZx
- /8AuMTPxbZFxqeJW945XyAZ3BsEwhhbCQ0gKdOZ7vcmLO9FqTa8srmTd30GJ3BVR4ZZ0KXOA
- pxYNG0HrQM0nyW
-X-Talos-CUID: 9a23:om3lhmDPgaE5ckz6EypHr3cIIJB7SEaew2zVeHGfEkp5YpTAHA==
-X-Talos-MUID: 9a23:bZjD8wotU0KBXtBK9UQezypOFp14/YnxNEsMjqgWi8m8bQd6FTjI2Q==
-X-IronPort-AV: E=Sophos;i="5.99,284,1677560400"; 
-   d="scan'208";a="109503796"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gHMwULcYjEJQv3aNV3ivpLS/cP11bZSPxEuplKEMyuTQIT1B18lGK9VTQqBJX5QHt+Dc3Mjs3A+OwHimxOUfBZPGMuDzX34rXnumPM/9VT7gutUg3yqNjBVM3eBUVPhVR37hDCxY+bHLFQurbKzRc9Gpm7ceOVZ+4z0s6gmVcSwagjkSSAejYWjXYt30HvXsblHdya8jbV9VWgSvPBBxEcisEkB/qYBamEWivQ1AgBUwzxYTAzskOeaaWeyIMwF7Mx2scCoZJEXLY2AMzmeJcB03xnofDDqT95YpGjw8htmuhrsHQzLgwGZJ04Azgs61Y1Uu45Fk6Dja+iMu54ufmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+OMXQrhCQaBqSvOUEgCtRxojhKihVOS7X5ukdb3X92A=;
- b=N29955NlCpVIhnl3tD6NhnVe1Q33+Qb3W9kI56WTavCJM8Cb6ndV5bQCabKwNyTUJBTYpA6ZJZkAe0AiE/JzPxTpu8YDMHjgQuNn9ISWUggqIMNTmBydxNYi8bje3fSq+AWDM0vic3sRFE7iYphCHveSB2jiYf+Q+73ikJfNxK9D2B48o1Ulh+seAHa0aUJduqhUdRZC6IyUJdq5ZyoNESRdpaz1DvP+ISZsMKEdnkcG/+eAYH94DlkZDAb1p60Kz9+RSanEnTuHnyR8gH5YPT0U65qWpGq7V+qsOBjBAidcwIUfpjXBoZx9KKXJQGd1WG0U5pxI8/2Z6Q0r8n47dw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+OMXQrhCQaBqSvOUEgCtRxojhKihVOS7X5ukdb3X92A=;
- b=nfoaqKF1xk+/QZG9lc1N5JdFDugybaRzjl2i2K+C9Rbfa7S5ShNhPyhgmE59EQDBN5z/l+I/n7Rlx1EX/9Ot+2TEcHnIF5kH3iLlha3T/3u94phWU7/MTlKrI5iNE42uQ8gri5OyT6mi2Q1GtVkz6Q9u2cCq6+SQzD0jjr2p/ss=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 18 May 2023 11:31:14 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	Stefano Stabellini <stefano.stabellini@amd.com>,
-	andrew.cooper3@citrix.com
-Subject: Re: [PATCH 2/2] xen/x86/pvh: copy ACPI tables to Dom0 instead of
- mapping
-Message-ID: <ZGXwYsOX44/EBI3x@Air-de-Roger>
-References: <alpine.DEB.2.22.394.2305121801460.3748626@ubuntu-linux-20-04-desktop>
- <20230513011720.3978354-2-sstabellini@kernel.org>
- <c22a8925-15e4-47b9-6f5d-f85bbe802255@suse.com>
- <6f3f4e12-ae5b-c58c-891c-fbce08283206@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <6f3f4e12-ae5b-c58c-891c-fbce08283206@amd.com>
-X-ClientProxiedBy: LO4P302CA0040.GBRP302.PROD.OUTLOOK.COM
- (2603:10a6:600:317::15) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=fHevM2NyMfg5N/W6uT4sRsj9HSH4dDzO5SgkDt2t3iU=; b=F6Amjt61SF39a9FMLILHC16rmc
+	mg7WCC3OPwSdCzWH95Nzs6/h7tCTOaQuqOHu/UB6Mo0mmC8osPRFFng+S4VrqMiwLJOw4ojzVeu9R
+	J4YZiuTodyAS4eRwWLgEp5CaAw0jjTLR5k7lBW6nUq7TsWmLeUB9Ov0p4x5O482JAI4E=;
+Message-ID: <1fb3c4a2-8bc7-45e4-7ccf-803157f1b3b1@xen.org>
+Date: Thu, 18 May 2023 10:35:11 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ0PR03MB6455:EE_
-X-MS-Office365-Filtering-Correlation-Id: b68abc7f-f886-4e83-81a7-08db5782a329
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	eUl7vYvJkpenHzF+8rkT3OyVk8JfkCS7+X4uTk30Q45VAuD4fvAt2nnFn37xmDzm7VZyXaPWmLf3ignUtkdQHw1FaERNqmYEtH881w3sK760EbrhYEFMCbQGSxXtGga6xp94AxtCrUDAjH6RW+5tZr16WCgCvAQoA8FrXx1ELV4TLGo9YscRxpqSKCU1DZBSUyw6MCQcmKAIWSfnrZjRKyijvltK6J6FcmVMcm/PZwUtiLjM8rjt6SIXDHcguoJHPn7u7J1Nii4fW9zChsOBfbCtPoj1nhseSe9dKR5uy5F4ZItCg5odpQjW7sOV4z1jvyM8iNAAqBgg2+NyWmSIIWxElJMyFutopyM1ZuheYvlREPzcbYBXiNERhv1bCwJYwrP6WgmhYFUsndsLOHUG/oe9PdwHtSa6Xjs0+sN0LEOjTfjNKBRG1YjAKN0sLy/qlay8qtkWn67M/uWWiM25TsflxF0JurTiUyk1bsdw3MF+CxLRyJ/YbDD04RwS7XwYRanN/MVQn2nwGcdoBq67JTeqFPexQvUsHRt4BQBnSv4mWD1F2x5ALUXcmDNjZTU2
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(346002)(366004)(376002)(136003)(396003)(39860400002)(451199021)(82960400001)(33716001)(38100700002)(478600001)(2906002)(6486002)(54906003)(6666004)(86362001)(85182001)(107886003)(186003)(53546011)(6506007)(9686003)(6512007)(26005)(66556008)(66946007)(4326008)(41300700001)(8676002)(8936002)(6916009)(316002)(66476007)(5660300002)(83380400001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NldCOWttVnlHTytNaHNNZlRldGpNdGgwOGNlK1NtclNMZ1ZicWxjc1M0Ulh0?=
- =?utf-8?B?bnR3bkZnV2RzeGY1dXpIZHVBd3FBUkthcWxwM2JkenFzeGl2Q2E0NFhHSUNO?=
- =?utf-8?B?VFJ5SkQxamcwalo0elh6dEhoeXUzT2VKZmJSTlBLMU9RcmJBYXV0RHdRZW0z?=
- =?utf-8?B?dmZSbFlmN3lZd2FsSXJaMmw5VFRma0pWaENlZzVJdE42WURvWWd3L0NLQ2Fx?=
- =?utf-8?B?V08vYWFzNlRsT0F6ZkxuZ1lJY0xrbzVhODA1djNRT2VrTzNwYkh4dmduWEFw?=
- =?utf-8?B?K2tnWkFJNDhSOFZ2MWNvcUoyTlN5b01xbDEwYjBYZmt5bWtIRW5NUmhIbW5v?=
- =?utf-8?B?MGEzbUY5RmxkTEppM1ZLTGpPYkNFaExmMno0bTZBS1lLY1FQNVdPb05ZUXpB?=
- =?utf-8?B?dzBrOWVjcXBvTlNNNXRpZU1kaysvTVl2MG40aFFHb2xjc1luM091NFlPaDE3?=
- =?utf-8?B?eUh5K3hOUVhSL05qWEhMUVlBZ2doYXc3RUt6UHpQVTludC9PZ1g4MWNGYnd5?=
- =?utf-8?B?dnFnRk0yQ1U1M1lyUjhTVThIbHFWUEpBWW1LN0JsNDRzK3JRTTJ0QU5vRjR5?=
- =?utf-8?B?TzhCazZFSzRvek9nb0QvVXpGWVcrKys2VXpjWTJoQVoyeGdIa1lMOGtQNjlt?=
- =?utf-8?B?c2J3WlVqRTRSSWdZQjBEVzRwVGZjVUw5UVVtb2Z4b2E2SDVnV0tJeWFHY3R6?=
- =?utf-8?B?Q1I2YlV3azUyVXc4NU5JcklPc3ZWaVk3UWd0azZmMVpFTjNRRUF5dmNoNWo0?=
- =?utf-8?B?NlVIL1I5ajNqczNvUVZ2T3FWekplN1RKUFNNeUpab01KM0o1RFBYeVpsRG8y?=
- =?utf-8?B?aXNwRS9jajNMRlpOYitrWlV1MkVONXZEaEY1SEJtTGo2SThjVElqV0hxRG1E?=
- =?utf-8?B?UVluM3lCa1FoWmZISWk5ZGx3cnFTN3g3VXNjMHFrWE1lcGs0azFMSXRMOGtk?=
- =?utf-8?B?REYyUEhXUUlINVFOZloxSzIrOGtId21YR0xRVW41a1ZocTZCNzgzK29GN04w?=
- =?utf-8?B?SGpXSG9KUEZTdElWWWtTOXRGeGRlQStwVVVkNU04d29PQXdHUnFjOXNlMllu?=
- =?utf-8?B?eUJVNy9YakNoajRFL1UrRnZlMDVCRVowS2J0bjgycmV5dmlSVFQvTFJoTnNF?=
- =?utf-8?B?UHlCNjRpYjRraFo4bXJxNUEwcjdBaXB3cmdNZ2VhaUg2dnpLcVZxNmJWUUJ2?=
- =?utf-8?B?R1UyZzU5UkJCN1o0TDBIcyswMG9GM1ZraUpxM0pHRWs2aWRNUkpNb1lVeFZv?=
- =?utf-8?B?MVNCbjRoU2FoUHdZK1NxQk44KytLOWlHWm03eHRCSmdJN1RMN0d5MUp0QkhX?=
- =?utf-8?B?Y2RXc0QyNzVsRWdobDMrdE9BMk5rZ2NqVFZ3Rlc1a085NlVyOFBjcVZwQ0g4?=
- =?utf-8?B?VUVOTHpudlVER3pVUkJpVWxEL3IrQ0tqOGY3QTB6QVZYZ3VjVmg1TUVWMnQ3?=
- =?utf-8?B?UHJzV0M4OGlhSWNmQnl1aGV2bjY4Qll3a3U5Rml2Wkh6RWN6cjVQUWEwcjFk?=
- =?utf-8?B?NUY4dWEzVEVqWWZEekoyWjJGdC9lREt5RGpPWjVYSDZqSnhhVjhVaVZlcUll?=
- =?utf-8?B?T0hZTXhkM2hMNkY4cGd3MHNsdUhEMXBhQUNLR1RNSzEyb0d1a2tjMms3RHFx?=
- =?utf-8?B?MTFlaXNnUGcrWnBsOFhMRVpEczlJNVdaL0N2OGxUN01jWU9KdmtOSXlNTys3?=
- =?utf-8?B?YUJuZHpZNHVMdUpnbmxCTVdUWDFOalp0RzlVMDRxVG5MTlpCSzQwSHNEai95?=
- =?utf-8?B?cDRVbWt2Q01KeGJRUnZrRDZ4S3lTSFkybjRNWGlkSHo3L3ByclBwZ3lua0p5?=
- =?utf-8?B?cEprS1Qzb1pybG9sMUUvTDlqVVRkWXpMZjluZkdqUUYyL1VIak5QcGhKTmNC?=
- =?utf-8?B?cDBxbElwVjl4ZTViVlprK0JzWmRyQVl1RS83VVZKeDdTMUxRQnJEcWR4bnJF?=
- =?utf-8?B?WHNaRDVQcC9oWWl0T2p2T084WHVTWTNBZDBlVTFpenNHb1MyTE0zVUF4SC90?=
- =?utf-8?B?T0VFa2dkNXdRSnNYMFZJSHd3aXpka2RpVzhBSitxNEJGeUNEZk40eXUvNDFK?=
- =?utf-8?B?eVI5aHRHRzVWQU0wbFUwNEJOWjgrNGNMUDZBVzBsQjhJNlVDSUZlalVKSlRQ?=
- =?utf-8?Q?UI4LDHWpVlY7gQ0p8T2LBV73a?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	bcHtTnJUd3LvvK3sQgamIcFEWqGdgs2b1EhUY5u/0hpTU1+F64Cd29b93ikXRVsvw88CUZrCs/Zz9xq+QnGd3Ej/kyZ/ygGaobB5FJdCj/l6DTdhdGdpp9gK3V8g1EWQwmzerAm0edq2ZsDDi3r6HlEDLypZlBU5vN9ODf2BCWk9YxUW4QRwtDMjGyUGnholuw+dhojvZ2YyvvdgbqKG6wVpOAYQxbPQm2I2pylLwCggDudR4DYpM7vVJSQOyZeavs6fsHTWhfr1cRVYpJWf3tMIe0YoUnih0XJUEMX71KlohQAH6ZhaRjdd0in0FNFhSy5xd7f+HjuFM8jDZYznuOpEnuPTbwZXtBUnM5pEddUeG4YMC+fyFbwrVQbDg5Zqp++YtsexGet1FjhcOlxVbwLSSdGtkOAtYMEDm9DWMtHzEQa0XGDno9Z5CCwaEDuLwP0xeDBXSsFNRC2tmjZWFGlgjIWD/GL31ibyx1XfnPw8hCFjVjkZ0HeJogm0qu7ecOePWVtnOrOS5z62noIwe8qjgiUTuzJSQw6xpeedY4NQppdhVIyS/2LYaW2MZ45BNo30qnUq4Holfp1SGuvpVgFev4Q6h/qEJOnHqJe3Sgcoap30UNV6wSO/R8v+tnQz8yYhq4lwPtJpTehDdQIon0Du5mokB674wdRqaFfXBcp6lq22nhlQWAObkDIxjqpLCMaLFqsZ7SjjB60VtWF7bk8EM4bAyCnrxnwLJerr3+2EhUSvciGVipf1OKK1Sd5TRFOLGZpZscC771wxo6lfpIJpPyn13/sQHdyq9eCiK9Nd61Nls/oPEp2yLy1A5sBytmBrPMda06U9yn4g1TvT+DMn1KdXM+LZjm7z7toePOE=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b68abc7f-f886-4e83-81a7-08db5782a329
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 09:31:19.9945
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DzqYsmAl9TjY2xiAYXSuJehE3reVvJG3ToXNsBWa2DEgiUazDYDQ+2+RDzNub3B9LbzcQM/+6Yn56CWxFe9sqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6455
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.11.0
+Subject: Re: [PATCH v6 01/12] xen/arm: enable SVE extension for Xen
+Content-Language: en-US
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230424060248.1488859-1-luca.fancellu@arm.com>
+ <20230424060248.1488859-2-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230424060248.1488859-2-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, May 18, 2023 at 10:24:10AM +0300, Xenia Ragiadakou wrote:
+Hi Luca,
+
+Sorry for jumping late in the review.
+
+On 24/04/2023 07:02, Luca Fancellu wrote:
+> Enable Xen to handle the SVE extension, add code in cpufeature module
+> to handle ZCR SVE register, disable trapping SVE feature on system
+> boot only when SVE resources are accessed.
+> While there, correct coding style for the comment on coprocessor
+> trapping.
 > 
-> On 15/5/23 17:17, Jan Beulich wrote:
-> > On 13.05.2023 03:17, Stefano Stabellini wrote:
-> > > From: Stefano Stabellini <stefano.stabellini@amd.com>
-> > > 
-> > > Mapping the ACPI tables to Dom0 PVH 1:1 leads to memory corruptions of
-> > > the tables in the guest. Instead, copy the tables to Dom0.
-> > Do you really mean "in the guest" (i.e. from Xen's perspective, i.e.
-> > ignoring that when running on qemu it is kind of a guest itself)?
-> > 
-> > I also consider the statement too broad anyway: Various people have
-> > run PVH Dom0 without running into such an issue, so it's clearly not
-> > just "leads to".
+> Now cptr_el2 is part of the domain context and it will be restored
+> on context switch, this is a preparation for saving the SVE context
+> which will be part of VFP operations, so restore it before the call
+> to save VFP registers.
+> To save an additional isb barrier, restore cptr_el2 before an
+> existing isb barrier and move the call for saving VFP context after
+> that barrier.
 > 
-> In my opinion the issue is broader.
+> Change the KConfig entry to make ARM64_SVE symbol selectable, by
+> default it will be not selected.
 > 
-> In pvh_setup_acpi(), the code adding the ACPI tables to dom0 memory map does
-> not check the return value of pvh_add_mem_range(). If there is an overlap
-> and the overlapping region is marked as E820_ACPI, it maps not just the
-> allowed tables but the entire overlapping range ,
+> Create sve module and sve_asm.S that contains assembly routines for
+> the SVE feature, this code is inspired from linux and it uses
+> instruction encoding to be compatible with compilers that does not
+> support SVE.
+> 
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes from v5:
+>   - Add R-by Bertrand
+> Changes from v4:
+>   - don't use fixed types in vl_to_zcr, forgot to address that in
+>     v3, by mistake I changed that in patch 2, fixing now (Jan)
+> Changes from v3:
+>   - no changes
+> Changes from v2:
+>   - renamed sve_asm.S in sve-asm.S, new files should not contain
+>     underscore in the name (Jan)
+> Changes from v1:
+>   - Add assert to vl_to_zcr, it is never called with vl==0, but just
+>     to be sure it won't in the future.
+> Changes from RFC:
+>   - Moved restoring of cptr before an existing barrier (Julien)
+>   - Marked the feature as unsupported for now (Julien)
+>   - Trap and un-trap only when using SVE resources in
+>     compute_max_zcr() (Julien)
+> ---
+>   xen/arch/arm/Kconfig                     | 10 +++--
+>   xen/arch/arm/arm64/Makefile              |  1 +
+>   xen/arch/arm/arm64/cpufeature.c          |  7 ++--
+>   xen/arch/arm/arm64/sve-asm.S             | 48 +++++++++++++++++++++++
+>   xen/arch/arm/arm64/sve.c                 | 50 ++++++++++++++++++++++++
+>   xen/arch/arm/cpufeature.c                |  6 ++-
+>   xen/arch/arm/domain.c                    |  9 +++--
+>   xen/arch/arm/include/asm/arm64/sve.h     | 43 ++++++++++++++++++++
+>   xen/arch/arm/include/asm/arm64/sysregs.h |  1 +
+>   xen/arch/arm/include/asm/cpufeature.h    | 14 +++++++
+>   xen/arch/arm/include/asm/domain.h        |  1 +
+>   xen/arch/arm/include/asm/processor.h     |  2 +
+>   xen/arch/arm/setup.c                     |  5 ++-
+>   xen/arch/arm/traps.c                     | 28 +++++++------
+>   14 files changed, 201 insertions(+), 24 deletions(-)
+>   create mode 100644 xen/arch/arm/arm64/sve-asm.S
+>   create mode 100644 xen/arch/arm/arm64/sve.c
+>   create mode 100644 xen/arch/arm/include/asm/arm64/sve.h
+> 
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index 239d3aed3c7f..41f45d8d1203 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -112,11 +112,15 @@ config ARM64_PTR_AUTH
+>   	  This feature is not supported in Xen.
+>   
+>   config ARM64_SVE
+> -	def_bool n
+> +	bool "Enable Scalar Vector Extension support (UNSUPPORTED)" if UNSUPPORTED
+>   	depends on ARM_64
+>   	help
+> -	  Scalar Vector Extension support.
+> -	  This feature is not supported in Xen.
+> +	  Scalar Vector Extension (SVE/SVE2) support for guests.
+> +
+> +	  Please be aware that currently, enabling this feature will add latency on
+> +	  VM context switch between SVE enabled guests, between not-enabled SVE
+> +	  guests and SVE enabled guests and viceversa, compared to the time
+> +	  required to switch between not-enabled SVE guests.
+>   
+>   config ARM64_MTE
+>   	def_bool n
+> diff --git a/xen/arch/arm/arm64/Makefile b/xen/arch/arm/arm64/Makefile
+> index 28481393e98f..54ad55c75cda 100644
+> --- a/xen/arch/arm/arm64/Makefile
+> +++ b/xen/arch/arm/arm64/Makefile
+> @@ -13,6 +13,7 @@ obj-$(CONFIG_LIVEPATCH) += livepatch.o
+>   obj-y += mm.o
+>   obj-y += smc.o
+>   obj-y += smpboot.o
+> +obj-$(CONFIG_ARM64_SVE) += sve.o sve-asm.o
+>   obj-y += traps.o
+>   obj-y += vfp.o
+>   obj-y += vsysreg.o
+> diff --git a/xen/arch/arm/arm64/cpufeature.c b/xen/arch/arm/arm64/cpufeature.c
+> index d9039d37b2d1..b4656ff4d80f 100644
+> --- a/xen/arch/arm/arm64/cpufeature.c
+> +++ b/xen/arch/arm/arm64/cpufeature.c
+> @@ -455,15 +455,11 @@ static const struct arm64_ftr_bits ftr_id_dfr1[] = {
+>   	ARM64_FTR_END,
+>   };
+>   
+> -#if 0
+> -/* TODO: use this to sanitize SVE once we support it */
+> -
+>   static const struct arm64_ftr_bits ftr_zcr[] = {
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE,
+>   		ZCR_ELx_LEN_SHIFT, ZCR_ELx_LEN_SIZE, 0),	/* LEN */
+>   	ARM64_FTR_END,
+>   };
+> -#endif
+>   
+>   /*
+>    * Common ftr bits for a 32bit register with all hidden, strict
+> @@ -603,6 +599,9 @@ void update_system_features(const struct cpuinfo_arm *new)
+>   
+>   	SANITIZE_ID_REG(zfr64, 0, aa64zfr0);
+>   
+> +	if ( cpu_has_sve )
+> +		SANITIZE_REG(zcr64, 0, zcr);
+> +
+>   	/*
+>   	 * Comment from Linux:
+>   	 * Userspace may perform DC ZVA instructions. Mismatched block sizes
+> diff --git a/xen/arch/arm/arm64/sve-asm.S b/xen/arch/arm/arm64/sve-asm.S
+> new file mode 100644
+> index 000000000000..4d1549344733
+> --- /dev/null
+> +++ b/xen/arch/arm/arm64/sve-asm.S
+> @@ -0,0 +1,48 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Arm SVE assembly routines
+> + *
+> + * Copyright (C) 2022 ARM Ltd.
+> + *
+> + * Some macros and instruction encoding in this file are taken from linux 6.1.1,
+> + * file arch/arm64/include/asm/fpsimdmacros.h, some of them are a modified
+> + * version.
+AFAICT, the only modified version is _sve_rdvl, but it is not clear to 
+me why we would want to have a modified version?
 
-But that's the indented behavior: all ACPI regions will be mapped into
-the dom0 physmap, the filtering of the tables exposed to dom0 is done
-in the XSDT, but not in by filtering the mapped regions.  Note this
-won't be effective anyway, as the minimal granularity of physmap
-entries is 4k, so multiple tables could live in the same 4K region.
-Also Xen cannot parse dynamic tables (SSDT) or execute methods, and
-hence doesn't know exactly which memory will be used.
+I am asking this because without an explanation, it would be difficult 
+to know how to re-sync the code with Linux.
 
-Xen relies on the firmware to have the ACPI tables in ACPI, NVS or
-RESERVED regions in order for them to be mapped into the gust physmap.
-The call to pvh_add_mem_range() in pvh_setup_acpi() is just an attempt
-to workaround broken systems that have tables placed in memory map
-holes, and hence ignoring the return value is fine.
+> + */
+> +
+> +/* Sanity-check macros to help avoid encoding garbage instructions */
+> +
+> +.macro _check_general_reg nr
+> +    .if (\nr) < 0 || (\nr) > 30
+> +        .error "Bad register number \nr."
+> +    .endif
+> +.endm
+> +
+> +.macro _check_num n, min, max
+> +    .if (\n) < (\min) || (\n) > (\max)
+> +        .error "Number \n out of range [\min,\max]"
+> +    .endif
+> +.endm
+> +
+> +/* SVE instruction encodings for non-SVE-capable assemblers */
+> +/* (pre binutils 2.28, all kernel capable clang versions support SVE) */
+> +
+> +/* RDVL X\nx, #\imm */
+> +.macro _sve_rdvl nx, imm
+> +    _check_general_reg \nx
+> +    _check_num (\imm), -0x20, 0x1f
+> +    .inst 0x04bf5000                \
+> +        | (\nx)                     \
+> +        | (((\imm) & 0x3f) << 5)
+> +.endm
+> +
+> +/* Gets the current vector register size in bytes */
+> +GLOBAL(sve_get_hw_vl)
+> +    _sve_rdvl 0, 1
+> +    ret
+> +
+> +/*
+> + * Local variables:
+> + * mode: ASM
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/arm64/sve.c b/xen/arch/arm/arm64/sve.c
+> new file mode 100644
+> index 000000000000..6f3fb368c59b
+> --- /dev/null
+> +++ b/xen/arch/arm/arm64/sve.c
+> @@ -0,0 +1,50 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
 
-> while if the overlapping
-> range is marked as E820_RESERVED, it does not map the tables at all (the
-> issue that Stefano saw with qemu). Since dom0 memory map is initialized
-> based on the native one, the code adding the ACPI table memory ranges will
-> naturally fall into one of the two cases above.
+Above, you are using GPL-2.0-only, but here GPL-2.0. We favor the former 
+now. Happy to deal it on commit if there is nothing else to address.
 
-Xen does map them, but that's done in arch_iommu_hwdom_init() which get
-short-circuited by the usage of dom0-iommu=none in your example.  See
-my reply to Stefano about moving such mappings into pvh_populate_p2m().
+> +/*
+> + * Arm SVE feature code
+> + *
+> + * Copyright (C) 2022 ARM Ltd.
+> + */
+> +
+> +#include <xen/types.h>
+> +#include <asm/arm64/sve.h>
+> +#include <asm/arm64/sysregs.h>
+> +#include <asm/processor.h>
+> +#include <asm/system.h>
+> +
+> +extern unsigned int sve_get_hw_vl(void);
+> +
+> +register_t compute_max_zcr(void)
+> +{
+> +    register_t cptr_bits = get_default_cptr_flags();
+> +    register_t zcr = vl_to_zcr(SVE_VL_MAX_BITS);
+> +    unsigned int hw_vl;
+> +
+> +    /* Remove trap for SVE resources */
+> +    WRITE_SYSREG(cptr_bits & ~HCPTR_CP(8), CPTR_EL2);
+> +    isb();
+> +
+> +    /*
+> +     * Set the maximum SVE vector length, doing that we will know the VL
+> +     * supported by the platform, calling sve_get_hw_vl()
+> +     */
+> +    WRITE_SYSREG(zcr, ZCR_EL2);
 
-> So even when not running into this issue, pvh_add_mem_range() still fails
-> and the memory range mapped is wider than the allowed one.
+ From my reading of the Arm (D19-6331, ARM DDI 0487J.a), a direct write 
+to a system register would need to be followed by an context 
+synchronization event (e.g. isb()) before the software can rely on the 
+value.
 
-The intention of that call to pvh_add_mem_range() is not to limit what
-gets mapped into dom0 physmap, but rather to workaround bugs in the
-firmware if ACPI tables are placed in memory map holes.
+In this situation, AFAICT, the instruciton in sve_get_hw_vl() will use 
+the content of ZCR_EL2. So don't we need an ISB() here?
 
-Thanks, Roger.
+> +
+> +    /*
+> +     * Read the maximum VL, which could be lower than what we imposed before,
+> +     * hw_vl contains VL in bytes, multiply it by 8 to use vl_to_zcr() later
+> +     */
+> +    hw_vl = sve_get_hw_vl() * 8U;
+> +
+> +    /* Restore CPTR_EL2 */
+> +    WRITE_SYSREG(cptr_bits, CPTR_EL2);
+> +    isb();
+> +
+> +    return vl_to_zcr(hw_vl);
+> +}
+> +
+> +/* Takes a vector length in bits and returns the ZCR_ELx encoding */
+> +register_t vl_to_zcr(unsigned int vl)
+> +{
+> +    ASSERT(vl > 0);
+> +    return ((vl / SVE_VL_MULTIPLE_VAL) - 1U) & ZCR_ELx_LEN_MASK;
+> +}
+
+Missing the emacs magic blocks at the end.
+
+> diff --git a/xen/arch/arm/cpufeature.c b/xen/arch/arm/cpufeature.c
+> index c4ec38bb2554..83b84368f6d5 100644
+> --- a/xen/arch/arm/cpufeature.c
+> +++ b/xen/arch/arm/cpufeature.c
+> @@ -9,6 +9,7 @@
+>   #include <xen/init.h>
+>   #include <xen/smp.h>
+>   #include <xen/stop_machine.h>
+> +#include <asm/arm64/sve.h>
+>   #include <asm/cpufeature.h>
+>   
+>   DECLARE_BITMAP(cpu_hwcaps, ARM_NCAPS);
+> @@ -143,6 +144,9 @@ void identify_cpu(struct cpuinfo_arm *c)
+>   
+>       c->zfr64.bits[0] = READ_SYSREG(ID_AA64ZFR0_EL1);
+>   
+> +    if ( cpu_has_sve )
+> +        c->zcr64.bits[0] = compute_max_zcr();
+> +
+>       c->dczid.bits[0] = READ_SYSREG(DCZID_EL0);
+>   
+>       c->ctr.bits[0] = READ_SYSREG(CTR_EL0);
+> @@ -199,7 +203,7 @@ static int __init create_guest_cpuinfo(void)
+>       guest_cpuinfo.pfr64.mpam = 0;
+>       guest_cpuinfo.pfr64.mpam_frac = 0;
+>   
+> -    /* Hide SVE as Xen does not support it */
+> +    /* Hide SVE by default to the guests */
+>       guest_cpuinfo.pfr64.sve = 0;
+>       guest_cpuinfo.zfr64.bits[0] = 0;
+>   
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index d8ef6501ff8e..0350d8c61ed8 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -181,9 +181,6 @@ static void ctxt_switch_to(struct vcpu *n)
+>       /* VGIC */
+>       gic_restore_state(n);
+>   
+> -    /* VFP */
+> -    vfp_restore_state(n);
+> -
+
+At the moment ctxt_switch_to() is (mostly?) the reverse of 
+ctxt_switch_from(). But with this change, you are going to break it.
+
+I would really prefer if the existing convention stays because it helps 
+to confirm that we didn't miss bits in the restore code.
+
+So if you want to move vfp_restore_state() later, then please more 
+vfp_save_state() earlier in ctxt_switch_from().
+
+
+>       /* XXX MPU */
+>   
+>       /* Fault Status */
+> @@ -234,6 +231,7 @@ static void ctxt_switch_to(struct vcpu *n)
+>       p2m_restore_state(n);
+>   
+>       /* Control Registers */
+> +    WRITE_SYSREG(n->arch.cptr_el2, CPTR_EL2);
+
+I would prefer if this called closer to vfp_restore_state(). So the 
+dependency between the two is easier to spot.
+
+>       WRITE_SYSREG(n->arch.cpacr, CPACR_EL1);
+>   
+>       /*
+> @@ -258,6 +256,9 @@ static void ctxt_switch_to(struct vcpu *n)
+>   #endif
+>       isb();
+>   
+> +    /* VFP */
+
+Please document in the code that vfp_restore_state() have to be called 
+after CPTR_EL2() + a synchronization event.
+
+Similar docoumentation on top of at least CPTR_EL2 and possibly isb(). 
+This would help if we need to re-order the code in the future.
+
+
+> +    vfp_restore_state(n);
+> +
+>       /* CP 15 */
+>       WRITE_SYSREG(n->arch.csselr, CSSELR_EL1);
+>   
+> @@ -548,6 +549,8 @@ int arch_vcpu_create(struct vcpu *v)
+>   
+>       v->arch.vmpidr = MPIDR_SMP | vcpuid_to_vaffinity(v->vcpu_id);
+>   
+> +    v->arch.cptr_el2 = get_default_cptr_flags();
+> +
+>       v->arch.hcr_el2 = get_default_hcr_flags();
+>   
+>       v->arch.mdcr_el2 = HDCR_TDRA | HDCR_TDOSA | HDCR_TDA;
+> diff --git a/xen/arch/arm/include/asm/arm64/sve.h b/xen/arch/arm/include/asm/arm64/sve.h
+> new file mode 100644
+> index 000000000000..144d2b1cc485
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/arm64/sve.h
+> @@ -0,0 +1,43 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+
+Use GPL-2.0-only.
+
+> +/*
+> + * Arm SVE feature code
+> + *
+> + * Copyright (C) 2022 ARM Ltd.
+> + */
+> +
+> +#ifndef _ARM_ARM64_SVE_H
+> +#define _ARM_ARM64_SVE_H
+> +
+> +#define SVE_VL_MAX_BITS (2048U)
+
+NIT: The parentheses are unnecessary and we don't tend to add them in Xen.
+
+> +
+> +/* Vector length must be multiple of 128 */
+> +#define SVE_VL_MULTIPLE_VAL (128U)
+
+NIT: The parentheses are unnecessary
+
+> +
+> +#ifdef CONFIG_ARM64_SVE
+> +
+> +register_t compute_max_zcr(void);
+> +register_t vl_to_zcr(unsigned int vl);
+> +
+> +#else /* !CONFIG_ARM64_SVE */
+> +
+> +static inline register_t compute_max_zcr(void)
+> +{
+
+Is this meant to be called when SVE is not enabled? If not, then please 
+add ASSERT_UNREACHABLE().
+
+> +    return 0;
+> +}
+> +
+> +static inline register_t vl_to_zcr(unsigned int vl)
+> +{
+
+Is this meant to be called when SVE is not enabled? If not, then please 
+add ASSERT_UNREACHABLE().
+
+> +    return 0;
+> +}
+> +
+> +#endif /* CONFIG_ARM64_SVE */
+> +
+> +#endif /* _ARM_ARM64_SVE_H */
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+> index 463899951414..4cabb9eb4d5e 100644
+> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
+> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+> @@ -24,6 +24,7 @@
+>   #define ICH_EISR_EL2              S3_4_C12_C11_3
+>   #define ICH_ELSR_EL2              S3_4_C12_C11_5
+>   #define ICH_VMCR_EL2              S3_4_C12_C11_7
+> +#define ZCR_EL2                   S3_4_C1_C2_0
+>   
+>   #define __LR0_EL2(x)              S3_4_C12_C12_ ## x
+>   #define __LR8_EL2(x)              S3_4_C12_C13_ ## x
+> diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
+> index c62cf6293fd6..6d703e051906 100644
+> --- a/xen/arch/arm/include/asm/cpufeature.h
+> +++ b/xen/arch/arm/include/asm/cpufeature.h
+> @@ -32,6 +32,12 @@
+>   #define cpu_has_thumbee   (boot_cpu_feature32(thumbee) == 1)
+>   #define cpu_has_aarch32   (cpu_has_arm || cpu_has_thumb)
+>   
+> +#ifdef CONFIG_ARM64_SVE
+> +#define cpu_has_sve       (boot_cpu_feature64(sve) == 1)
+> +#else
+> +#define cpu_has_sve       (0)
+
+NIT: The parentheses are unnecessary
+
+> +#endif
+> +
+>   #ifdef CONFIG_ARM_32
+>   #define cpu_has_gicv3     (boot_cpu_feature32(gic) >= 1)
+>   #define cpu_has_gentimer  (boot_cpu_feature32(gentimer) == 1)
+> @@ -323,6 +329,14 @@ struct cpuinfo_arm {
+>           };
+>       } isa64;
+>   
+> +    union {
+> +        register_t bits[1];
+> +        struct {
+> +            unsigned long len:4;
+> +            unsigned long __res0:60;
+> +        };
+> +    } zcr64;
+> +
+>       struct {
+>           register_t bits[1];
+>       } zfr64;
+> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+> index 2a51f0ca688e..e776ee704b7d 100644
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -190,6 +190,7 @@ struct arch_vcpu
+>       register_t tpidrro_el0;
+>   
+>       /* HYP configuration */
+> +    register_t cptr_el2;
+>       register_t hcr_el2;
+>       register_t mdcr_el2;
+>   
+> diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
+> index 54f253087718..bc683334125c 100644
+> --- a/xen/arch/arm/include/asm/processor.h
+> +++ b/xen/arch/arm/include/asm/processor.h
+> @@ -582,6 +582,8 @@ void do_trap_guest_serror(struct cpu_user_regs *regs);
+>   
+>   register_t get_default_hcr_flags(void);
+>   
+> +register_t get_default_cptr_flags(void);
+> +
+>   /*
+>    * Synchronize SError unless the feature is selected.
+>    * This is relying on the SErrors are currently unmasked.
+> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> index 6f9f4d8c8a15..4191a766767a 100644
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -135,10 +135,11 @@ static void __init processor_id(void)
+>              cpu_has_el2_32 ? "64+32" : cpu_has_el2_64 ? "64" : "No",
+>              cpu_has_el1_32 ? "64+32" : cpu_has_el1_64 ? "64" : "No",
+>              cpu_has_el0_32 ? "64+32" : cpu_has_el0_64 ? "64" : "No");
+> -    printk("    Extensions:%s%s%s\n",
+> +    printk("    Extensions:%s%s%s%s\n",
+>              cpu_has_fp ? " FloatingPoint" : "",
+>              cpu_has_simd ? " AdvancedSIMD" : "",
+> -           cpu_has_gicv3 ? " GICv3-SysReg" : "");
+> +           cpu_has_gicv3 ? " GICv3-SysReg" : "",
+> +           cpu_has_sve ? " SVE" : "");
+>   
+>       /* Warn user if we find unknown floating-point features */
+>       if ( cpu_has_fp && (boot_cpu_feature64(fp) >= 2) )
+> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> index d40c331a4e9c..c0611c2ef6a5 100644
+> --- a/xen/arch/arm/traps.c
+> +++ b/xen/arch/arm/traps.c
+> @@ -93,6 +93,21 @@ register_t get_default_hcr_flags(void)
+>                HCR_TID3|HCR_TSC|HCR_TAC|HCR_SWIO|HCR_TIDCP|HCR_FB|HCR_TSW);
+>   }
+>   
+> +register_t get_default_cptr_flags(void)
+> +{
+> +    /*
+> +     * Trap all coprocessor registers (0-13) except cp10 and
+> +     * cp11 for VFP.
+> +     *
+> +     * /!\ All coprocessors except cp10 and cp11 cannot be used in Xen.
+> +     *
+> +     * On ARM64 the TCPx bits which we set here (0..9,12,13) are all
+> +     * RES1, i.e. they would trap whether we did this write or not.
+> +     */
+> +    return  ((HCPTR_CP_MASK & ~(HCPTR_CP(10) | HCPTR_CP(11))) |
+> +             HCPTR_TTA | HCPTR_TAM);
+> +}
+> +
+>   static enum {
+>       SERRORS_DIVERSE,
+>       SERRORS_PANIC,
+> @@ -122,6 +137,7 @@ __initcall(update_serrors_cpu_caps);
+>   
+>   void init_traps(void)
+>   {
+> +    register_t cptr_bits = get_default_cptr_flags();
+
+Coding style: Please add a newline after the declaration. That said...
+
+>       /*
+>        * Setup Hyp vector base. Note they might get updated with the
+>        * branch predictor hardening.
+> @@ -135,17 +151,7 @@ void init_traps(void)
+>       /* Trap CP15 c15 used for implementation defined registers */
+>       WRITE_SYSREG(HSTR_T(15), HSTR_EL2);
+>   
+> -    /* Trap all coprocessor registers (0-13) except cp10 and
+> -     * cp11 for VFP.
+> -     *
+> -     * /!\ All coprocessors except cp10 and cp11 cannot be used in Xen.
+> -     *
+> -     * On ARM64 the TCPx bits which we set here (0..9,12,13) are all
+> -     * RES1, i.e. they would trap whether we did this write or not.
+> -     */
+> -    WRITE_SYSREG((HCPTR_CP_MASK & ~(HCPTR_CP(10) | HCPTR_CP(11))) |
+> -                 HCPTR_TTA | HCPTR_TAM,
+> -                 CPTR_EL2);
+> +    WRITE_SYSREG(cptr_bits, CPTR_EL2);
+
+... I would combine the two lines as the variable seems unnecessary.
+
+>   
+>       /*
+>        * Configure HCR_EL2 with the bare minimum to run Xen until a guest
+
+Cheers,
+
+-- 
+Julien Grall
 
