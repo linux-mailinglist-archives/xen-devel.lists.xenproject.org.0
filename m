@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54B44707C25
-	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 10:36:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536244.834401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50225707CEC
+	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 11:32:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.536251.834411 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzZ68-0007LF-7n; Thu, 18 May 2023 08:34:56 +0000
+	id 1pzZyr-0005Mv-HR; Thu, 18 May 2023 09:31:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536244.834401; Thu, 18 May 2023 08:34:56 +0000
+Received: by outflank-mailman (output) from mailman id 536251.834411; Thu, 18 May 2023 09:31:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzZ68-0007Ic-4R; Thu, 18 May 2023 08:34:56 +0000
-Received: by outflank-mailman (input) for mailman id 536244;
- Thu, 18 May 2023 08:34:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pzZyr-0005Kl-Dv; Thu, 18 May 2023 09:31:29 +0000
+Received: by outflank-mailman (input) for mailman id 536251;
+ Thu, 18 May 2023 09:31:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=joHs=BH=citrix.com=prvs=495b323d3=roger.pau@srs-se1.protection.inumbo.net>)
- id 1pzZ66-0007IW-Sa
- for xen-devel@lists.xenproject.org; Thu, 18 May 2023 08:34:55 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dab760dd-f556-11ed-b22b-6b7b168915f2;
- Thu, 18 May 2023 10:34:52 +0200 (CEST)
-Received: from mail-bn7nam10lp2106.outbound.protection.outlook.com (HELO
- NAM10-BN7-obe.outbound.protection.outlook.com) ([104.47.70.106])
+ id 1pzZyq-0005Kf-Ez
+ for xen-devel@lists.xenproject.org; Thu, 18 May 2023 09:31:28 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c17a2eb7-f55e-11ed-8611-37d641c3527e;
+ Thu, 18 May 2023 11:31:25 +0200 (CEST)
+Received: from mail-bn8nam12lp2175.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.175])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 18 May 2023 04:34:38 -0400
+ 18 May 2023 05:31:22 -0400
 Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by PH0PR03MB6769.namprd03.prod.outlook.com (2603:10b6:510:120::17)
+ by SJ0PR03MB6455.namprd03.prod.outlook.com (2603:10b6:a03:38d::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.30; Thu, 18 May
- 2023 08:34:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19; Thu, 18 May
+ 2023 09:31:20 +0000
 Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
  ([fe80::192:6bdf:b105:64dd]) by SJ0PR03MB6423.namprd03.prod.outlook.com
  ([fe80::192:6bdf:b105:64dd%3]) with mapi id 15.20.6411.019; Thu, 18 May 2023
- 08:34:33 +0000
+ 09:31:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,378 +49,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dab760dd-f556-11ed-b22b-6b7b168915f2
+X-Inumbo-ID: c17a2eb7-f55e-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1684398891;
+  d=citrix.com; s=securemail; t=1684402285;
   h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=yYyjy6cYQ7Zlm7OGQQ3EZXNb98J8mMHDjexKfljOy80=;
-  b=bSDBTN5gg9TVbQYgeZI5NnD7JECkOle5f1454SCxndBNgTX7MKPXMeZJ
-   9LAPv7/XEZOqSTVyCVdQ/ta7CTI7QzNG0rJwh2r4AQmzbjkBdp9UyraKy
-   dL3ux2Hetq+3jAke6yeYMDLXkTzmUj2iSYZKxXjP4Onk26TjzLSmnVXh+
-   4=;
-X-IronPort-RemoteIP: 104.47.70.106
-X-IronPort-MID: 108247284
+   in-reply-to:mime-version;
+  bh=sgovmXIw5wcey7WW6bfshpN918+MI3214S71E6T1VnY=;
+  b=cCkyEeClYUrcnDiqK0SO2QsvNPViZ0FQJsopOLa4QknZmW32qM8dUBAX
+   ccY8hHmIl0za28hx7If87JLvZb4N4xcBsUhvaf3aiMdPTu/qceVjaSnqv
+   unRZKhtK5cL9i6U7D3CA8K9ynZNwYT1VWHc1YWsvBkxWXjUoJBaq9fcKx
+   I=;
+X-IronPort-RemoteIP: 104.47.55.175
+X-IronPort-MID: 109503796
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:xAMSIa2EY4YO4PJfa/bD5TNwkn2cJEfYwER7XKvMYLTBsI5bpzUEy
- WYdWjyAafiNMGWkctEnad+zoEoH6MKGzNJnGlZqpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+IronPort-Data: A9a23:cIikw623mpPlKOtrCfbD5TNwkn2cJEfYwER7XKvMYLTBsI5bpzNSz
+ jRKCj2HPK6CY2T2L9wnbNy09B9S75/Rz9AxTlM9pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
  J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
  tq3qMDEULOf82cc3lk8tuTS+XuDgNyo4GlD5gFnNagS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
  87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfDjhi0
- KAeNC00MzucjcaqkOO1eMZMmZF2RCXrFNt3VnBI6xj8VK5ja7acBqLA6JlfwSs6gd1IEbDGf
- c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxouy6KlFIZPLvFabI5fvSQQspYhACAr
- 3/u9GXlGBAKcteYzFJp91r13r+VwXyhCN56+LuQ6KJLrGC06GoqCz4MBFrq5si1mFOBRIcKQ
- 6AT0m90xUQoz2SwVcX0VRC8pH+CvzYfVsBWHul87xuCooLW6QuEAmkPThZadccr8sQxQFQCx
- lKP2t/kGzFrmLmUUm6GsKeZqyuoPioYJnNEYjULJSM17t/iqccJhx3OR9pqE6moptTwFXf7x
- DXihDMiirsai8lNzLmy913DhzOqp7DASwJz7QLSNl9J9St8bY+hIoautl7S6K8YKJ7DFwHf+
- n8Zh8KZ8eYCS4mXkzCAS/kMG7fv4OuZNDrbghhkGJxJGymRxkNPtLt4uFlWTHqF+O5fEdM1S
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfAkEVz
+ OAieG43VVOMnOft/pWgZvlGr5F2RCXrFNt3VnBI6xj8VKxja7aTBqLA6JlfwSs6gd1IEbDGf
+ c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqvi6Kk1EZPLvFabI5fvSQQspYhACAr
+ 3/u9GXlGBAKcteYzFJp91r13r6SxXikCdx6+LuQ7dJI2k2N6zMvAxwJaEuLocHhoUSQVIcKQ
+ 6AT0m90xUQoz2S7Q9/8VluiqXGFtxIVWN1NO+Q/5EeGza+8ywSTC3UATzVBQMc7r8JwTjsvv
+ neShM/gDzFrtLyTSFqe+62SoDf0PjIaRUcSaClBQQYb7t3LpIAokgmJXttlCLSyjND+BXf32
+ T/ihDMiirsai8lNzLmy913DhzOqp7DASwJz7QLSNl9J9St8bY+hIoauuV7S6K8aKJ7DFwbc+
+ n8Zh8KZ8eYCS4mXkzCAS/kMG7fv4OuZNDrbghhkGJxJGymRxkNPtLt4uFlWTHqF+O5dEdM1S
  Cc/YT9s2aI=
-IronPort-HdrOrdr: A9a23:C0osjaA6KZD/GJflHelo55DYdb4zR+YMi2TDt3oddfU1SL38qy
- nKpp4mPHDP5wr5NEtPpTniAtjjfZq/z/5ICOAqVN/PYOCPggCVxepZnOjfKlPbehEX9oRmpN
- 1dm6oVMqyMMbCt5/yKnDVRELwbsaa6GLjDv5a785/0JzsaE52J6W1Ce2GmO3wzfiZqL7wjGq
- GR48JWzgDQAkj+PqyAdx84t/GonayzqK7b
-X-Talos-CUID: =?us-ascii?q?9a23=3AzsO782gDEWQDhQTmMv3H18ee8DJufSTx6SvWP1K?=
- =?us-ascii?q?BVE12QpmJGQ6eyoxEjJ87?=
-X-Talos-MUID: 9a23:zdlOpwSSSJKhuVIbRXTy2BBOCeBG5Z2tK1pckMRBisWWKBNvbmI=
+IronPort-HdrOrdr: A9a23:NITSBq+nS12sPj8TLyxuk+G5dr1zdoMgy1knxilNoENuH/Bwxv
+ rFoB1E73TJYVYqN03IV+rwXZVoZUmsjaKdgLNhRItKOTOLhILGFuFfBOfZsl7d8mjFh5VgPM
+ RbAtRD4b/LfD9HZK/BiWHXcurIguP3lpxA7d2uskuFJjsaD52IgT0JaDpyRSZNNXN77NcCZe
+ yhDo0tnUvRRV0nKuCAQlUVVenKoNPG0LrgfB49HhYirCWekD+y77b+Mh6AmjMTSSlGz7sO+X
+ XM11WR3NToj9iLjjvnk0PD5ZVfn9XsjvNFGcy3k8AQbhn8lwqyY4xlerua+BQ4uvum5loGmM
+ TF5z0gI8NwwXXMeXzdm2qn5yDQlBIVr1Pyw16RhnXu5eT/WTIBEsJEwaZUaAHQ5UYMtMx1lP
+ sj5RPQi7NnSTf72Ajt7dnBUB9n0mKyvHoZiOYWy1hSS5EXZrN9pZEWuGlVDJADNiTn751PKp
+ gmMOjsoNJtNX+KZXHQuWdihPSqQ3QIBx+DBnMPv8SEugIm6UxR/g89/ogyj30A/JUyR91v/O
+ LfKJllk7lIU4s/cb99LP1pe7r4NkX9BTb3dE6CK1XuE68Kf1jXrYTs3bkz7Oa2PLQV0ZoJno
+ jbWl8wjx98R6vXM7zP4HR3yGGPfI3kNg6diP22pqIJ9oEUfYCbcBFqEzsV4o6dS/Z2OLyoZx
+ /8AuMTPxbZFxqeJW945XyAZ3BsEwhhbCQ0gKdOZ7vcmLO9FqTa8srmTd30GJ3BVR4ZZ0KXOA
+ pxYNG0HrQM0nyW
+X-Talos-CUID: 9a23:om3lhmDPgaE5ckz6EypHr3cIIJB7SEaew2zVeHGfEkp5YpTAHA==
+X-Talos-MUID: 9a23:bZjD8wotU0KBXtBK9UQezypOFp14/YnxNEsMjqgWi8m8bQd6FTjI2Q==
 X-IronPort-AV: E=Sophos;i="5.99,284,1677560400"; 
-   d="scan'208";a="108247284"
+   d="scan'208";a="109503796"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZDj1Bw4xwXn7sFbso6cO11RL6ll6YBwvJvxDx88NYvbglgenJrmOWrR49H0FWem+67w196iLVI8OaMDnsxUUl1C7+Uh/wHyl41BtLG2TFqAqan6UZfTfRpmVxRYRh/rfEFJOepXectlSV9mbEa+YNW7goxtKnXp5vxXXZk4vj0EInbL46lJN5L7uBkS+WyuNYA7gdgnEoi/RauWKfRYkdnaTsdhyW5CfEWAhhwihOr8OmV0n3KBbZMnnjidwAWzsOg6Ladlbis7PsaYHjuHpLoRf/O8MK7MS2RBe6d7evprh1iKoyqTwJQaKCSLdQVFECk5MBjKCe/WwmemT+m3rzA==
+ b=gHMwULcYjEJQv3aNV3ivpLS/cP11bZSPxEuplKEMyuTQIT1B18lGK9VTQqBJX5QHt+Dc3Mjs3A+OwHimxOUfBZPGMuDzX34rXnumPM/9VT7gutUg3yqNjBVM3eBUVPhVR37hDCxY+bHLFQurbKzRc9Gpm7ceOVZ+4z0s6gmVcSwagjkSSAejYWjXYt30HvXsblHdya8jbV9VWgSvPBBxEcisEkB/qYBamEWivQ1AgBUwzxYTAzskOeaaWeyIMwF7Mx2scCoZJEXLY2AMzmeJcB03xnofDDqT95YpGjw8htmuhrsHQzLgwGZJ04Azgs61Y1Uu45Fk6Dja+iMu54ufmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=umiSJINlN7iH5/qvE4Jx983fQszMg/7S/RA0VjeOv14=;
- b=coiXy1qGPgTEU7TMnqONerqfPF4ZSdPRiDKsk+xHX4+gtYIVeCKkyNu+VjEE1He1eeVzq/L7bkNRg5If0BJOOMYTEyhwNyye3HvGt/tTz6F3FSE1Cwei3Cgms0PuCA3vhKVQThfi4uMKMUPTifM3rM+rZrclM+JlPHiG4+08jHZyO2mEkdwPT+BNVPgEGeUiHi1qUf44oZa4OsLqil2poyhNrKHfIK75M0fiqmCb83Sy3/WCDahBGTQunlrrxZU5hCcij3nKzmurZVr+yGQ9yV3EuCmGmKxe9XTnxitAyvSjKqNIyCpdeT1/KoAPDpfdsWSynh+UkaPsakJnhrDbJw==
+ bh=+OMXQrhCQaBqSvOUEgCtRxojhKihVOS7X5ukdb3X92A=;
+ b=N29955NlCpVIhnl3tD6NhnVe1Q33+Qb3W9kI56WTavCJM8Cb6ndV5bQCabKwNyTUJBTYpA6ZJZkAe0AiE/JzPxTpu8YDMHjgQuNn9ISWUggqIMNTmBydxNYi8bje3fSq+AWDM0vic3sRFE7iYphCHveSB2jiYf+Q+73ikJfNxK9D2B48o1Ulh+seAHa0aUJduqhUdRZC6IyUJdq5ZyoNESRdpaz1DvP+ISZsMKEdnkcG/+eAYH94DlkZDAb1p60Kz9+RSanEnTuHnyR8gH5YPT0U65qWpGq7V+qsOBjBAidcwIUfpjXBoZx9KKXJQGd1WG0U5pxI8/2Z6Q0r8n47dw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=umiSJINlN7iH5/qvE4Jx983fQszMg/7S/RA0VjeOv14=;
- b=jDRFa9amZ4UHoVx30RwdsS5tUbXF4bnn4QuDQxeaHxwjZongi4dj49g6R1Mk22fKc5Hgh6Mg5nofbCFa8fn2yVBxjs2ENRgRK6dbABkw1D+O4LEax8bTg/U/phBdF0MWQUlFVAiym7SB00Z9Jlu9tF0k2oYFL3Didq6Ba3uqmNE=
+ bh=+OMXQrhCQaBqSvOUEgCtRxojhKihVOS7X5ukdb3X92A=;
+ b=nfoaqKF1xk+/QZG9lc1N5JdFDugybaRzjl2i2K+C9Rbfa7S5ShNhPyhgmE59EQDBN5z/l+I/n7Rlx1EX/9Ot+2TEcHnIF5kH3iLlha3T/3u94phWU7/MTlKrI5iNE42uQ8gri5OyT6mi2Q1GtVkz6Q9u2cCq6+SQzD0jjr2p/ss=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 18 May 2023 10:34:25 +0200
+Date: Thu, 18 May 2023 11:31:14 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, jbeulich@suse.com,
-	xen-devel@lists.xenproject.org, Xenia.Ragiadakou@amd.com,
-	Stefano Stabellini <stefano.stabellini@amd.com>
+To: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org,
+	Stefano Stabellini <stefano.stabellini@amd.com>,
+	andrew.cooper3@citrix.com
 Subject: Re: [PATCH 2/2] xen/x86/pvh: copy ACPI tables to Dom0 instead of
  mapping
-Message-ID: <ZGXjEQ2yM5CXqn3c@Air-de-Roger>
+Message-ID: <ZGXwYsOX44/EBI3x@Air-de-Roger>
 References: <alpine.DEB.2.22.394.2305121801460.3748626@ubuntu-linux-20-04-desktop>
  <20230513011720.3978354-2-sstabellini@kernel.org>
- <ZGH+5OKqnjTjUr/F@Air-de-Roger>
- <alpine.DEB.2.22.394.2305151656500.4125828@ubuntu-linux-20-04-desktop>
- <ZGNLArlA0Yei4Fr0@Air-de-Roger>
- <alpine.DEB.2.22.394.2305161522480.128889@ubuntu-linux-20-04-desktop>
- <ZGSTGIMh6qvCLZSr@Air-de-Roger>
- <alpine.DEB.2.22.394.2305171354590.128889@ubuntu-linux-20-04-desktop>
+ <c22a8925-15e4-47b9-6f5d-f85bbe802255@suse.com>
+ <6f3f4e12-ae5b-c58c-891c-fbce08283206@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <alpine.DEB.2.22.394.2305171354590.128889@ubuntu-linux-20-04-desktop>
-X-ClientProxiedBy: LO4P123CA0199.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::6) To SJ0PR03MB6423.namprd03.prod.outlook.com
+In-Reply-To: <6f3f4e12-ae5b-c58c-891c-fbce08283206@amd.com>
+X-ClientProxiedBy: LO4P302CA0040.GBRP302.PROD.OUTLOOK.COM
+ (2603:10a6:600:317::15) To SJ0PR03MB6423.namprd03.prod.outlook.com
  (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|PH0PR03MB6769:EE_
-X-MS-Office365-Filtering-Correlation-Id: 297b8550-87de-4c29-52fa-08db577ab45e
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ0PR03MB6455:EE_
+X-MS-Office365-Filtering-Correlation-Id: b68abc7f-f886-4e83-81a7-08db5782a329
 X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	H50f6fRS6oAgaiE3Zjt4C+bz9OJOlf9j3fOua5KC9UK2rsvCoKREDWYPOoYkNfLQTiy2MMax/T0YojwcZiNUxmsXl8Qc9givsc/Qz1j2REOiR2jC96plb6vfOok4/wK9avgctohMewMeyW+uiVXX3JU+zwdVjzkoO3CqpwIFl3PgIiGfOBu3eQby6spuhYnBo2B1FNDVz/stYfGSvjhopAboIEtWP5MKAzcT+5YPG4TBEuLemBYglzcZ2wkigtkAh/9A4hi6cdz507PsDHMPlpl8bAtuLO6/th0PXPt7xw8bfpYIIpju8/ZEmC6dhsJqGIOqUf2+t9nAPlntVnfF8Sl10ggiw81ad1PhVVrYUi7qrBQN+rVkiEkrSFnqeJNzb2mubz+FcSX/uR8E9uXUF/enPE5uI66sjqyXuJbvhI2tjIcHPzRxtaflK8AwXQM8B0EUDy4kEQXLGW8OMYX7B642QjxGyZwpweGYnDb4Zov0BXFVKJw3zClQaejEcMSvJ0XgdgrTkIIsrCcKH6BhH2MuoPlcuWpy1Y8xUMQNbO2Hu5fUjujWeo+W/xHr0oQE
+	eUl7vYvJkpenHzF+8rkT3OyVk8JfkCS7+X4uTk30Q45VAuD4fvAt2nnFn37xmDzm7VZyXaPWmLf3ignUtkdQHw1FaERNqmYEtH881w3sK760EbrhYEFMCbQGSxXtGga6xp94AxtCrUDAjH6RW+5tZr16WCgCvAQoA8FrXx1ELV4TLGo9YscRxpqSKCU1DZBSUyw6MCQcmKAIWSfnrZjRKyijvltK6J6FcmVMcm/PZwUtiLjM8rjt6SIXDHcguoJHPn7u7J1Nii4fW9zChsOBfbCtPoj1nhseSe9dKR5uy5F4ZItCg5odpQjW7sOV4z1jvyM8iNAAqBgg2+NyWmSIIWxElJMyFutopyM1ZuheYvlREPzcbYBXiNERhv1bCwJYwrP6WgmhYFUsndsLOHUG/oe9PdwHtSa6Xjs0+sN0LEOjTfjNKBRG1YjAKN0sLy/qlay8qtkWn67M/uWWiM25TsflxF0JurTiUyk1bsdw3MF+CxLRyJ/YbDD04RwS7XwYRanN/MVQn2nwGcdoBq67JTeqFPexQvUsHRt4BQBnSv4mWD1F2x5ALUXcmDNjZTU2
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(39860400002)(366004)(346002)(396003)(136003)(376002)(451199021)(478600001)(6512007)(26005)(6506007)(186003)(9686003)(6666004)(6916009)(4326008)(66476007)(66556008)(82960400001)(83380400001)(66946007)(6486002)(41300700001)(5660300002)(316002)(8936002)(8676002)(2906002)(30864003)(86362001)(38100700002)(66899021)(33716001)(85182001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(346002)(366004)(376002)(136003)(396003)(39860400002)(451199021)(82960400001)(33716001)(38100700002)(478600001)(2906002)(6486002)(54906003)(6666004)(86362001)(85182001)(107886003)(186003)(53546011)(6506007)(9686003)(6512007)(26005)(66556008)(66946007)(4326008)(41300700001)(8676002)(8936002)(6916009)(316002)(66476007)(5660300002)(83380400001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SSt2NS9xanc1SXNJbjU2VC9aUm9uSlFBREREbkZWeGFCZ1NlNGR4UGRRbERX?=
- =?utf-8?B?ckE0dFU4UHlqd1FMM1NZKzRlVjlTRk9sRlltN0U1ZWsvOGdZS2liak5XYVdz?=
- =?utf-8?B?NU9FT2JkYzJncEU4ZUJrbmZQbHhuSDkzN0hxSldKLzd3MitnRTZLV1h2Nmk1?=
- =?utf-8?B?d3lnOEFGZXhNZjdOaVIvQ3pzaXV4OERUZFJyQUpHQllibG1Vd09FMlpaUjc5?=
- =?utf-8?B?ekdqZjBuUEJTSGlXb2txT2JJWFNCSTY4K2Rnb3IzTitCNkxGRDF5RjljSy95?=
- =?utf-8?B?OUVxa2ZoSEhRQ1RrTU13dXRQZHducFpibm1VWlFqajJXVGw4ZTM5Uno5NzV0?=
- =?utf-8?B?SDFIMTVqUGtBaXpLQVRMWnpUc05OK0hGZm9ZbU5SRFd3UWxNTWxnWE82QVZz?=
- =?utf-8?B?T0tyK1dIOUc0R0VEeUs4TFNlbWFFSjBUOHVESzBaOU1sTU9BaVI3OGxMbkQw?=
- =?utf-8?B?a1RhazFrZmNOL1g2d3R6bVQrek9WdzFXUXA5bVNXQ1R0V3o1MFpaay9kTW5D?=
- =?utf-8?B?VTA0Z21aNjh2Ni85bitITXRHRDBJSUZwZjl4RGF6UzY4M2RQUWpGMitEdTR0?=
- =?utf-8?B?ejlMM0Nqc21IYkc4b3VVS0JTV2szUlJ3MTQwQktBempZVTQ3UklFTWlUU3ZK?=
- =?utf-8?B?YkdnSExCbDlacHF1MzQveXVkdkJlYm81VytHWGwzVk5uem93Z0tycWh1cDZq?=
- =?utf-8?B?QTBuSlNPM291TUlUcERGSStrTTQzcFB5aFdXT2hSd0s3a2tjb0tuNUVENmdr?=
- =?utf-8?B?VE13ZDFWbENEcUhmSTJFZ0NUaEJDM3E4TzVwNm9OWFpqTHM2d3RJMU5mWE9r?=
- =?utf-8?B?UTVvbXo4N25QeVdRY0hSSWZrajhTdm1zVDJCd1AvOFVtOC9EazQvWUhLbDlS?=
- =?utf-8?B?Vkc2c3ZyME8wdjNLOHQyREJiVU5XM0ZkK0ZMRXNLOG1DY0gyWXI3YlkyME1u?=
- =?utf-8?B?TmU1dkh3dTZ4NU9yTzd5a3dPYkYxVVNwSkdFaHA5cFg1ejRkNmdCVmUrcFdQ?=
- =?utf-8?B?SlNzMUE0SVQ4MVpzYXhuMDR5RE5wWHFtWlFUYUdJcXM2bGdDRGRNSE5SMFJx?=
- =?utf-8?B?L0JQL01Qc25ZMUIyTzd6TGhyNWxFOENHUUF3djhCSU91TnQzcnZ3dlNrdkNO?=
- =?utf-8?B?K09mUy83a3VGak8zZEFhbWFMR0ttT2ptVVdXaTgwQWsxbU9NU0s1WWU4cFJY?=
- =?utf-8?B?U3drZUl3YmxpK1dzNWhvUmpRNkJHL3dFbUVPamd0MmhLb0RWVWZyQ0dyWjRs?=
- =?utf-8?B?d3NYcHJQWUhiV1VVc04zVGp3Ym9wRG5xU1c3SElvTVRCNk1VOXJCTUphUmJP?=
- =?utf-8?B?aDd2amVkdnpyK2VEejFOdVhkWWlyN25KWnQ2TldIUG1ZTXlaTnBCSzZBcDZr?=
- =?utf-8?B?MVNiQm54L1RMQllRRDNmcE11ODJCUUpqVE81ZGlzUTBiMWN6S21GVEtJUms1?=
- =?utf-8?B?NHVhV0NlNGJQbHZiajZIZWFvemhnc0k2OWtIWlpnYzJ0a2hNd3JpWGEydy9x?=
- =?utf-8?B?NGFRVzdHcVI0NEkzVUI5R3FRT25JWUNCem1iT3B0am8wSzlBdWRVdDU3VkJt?=
- =?utf-8?B?RGo1UHJ6WTVZOFJlWmlERVE5TWVNL1dkM1AvYkw5Rm5zS2l4RHVBVVJUdWp2?=
- =?utf-8?B?eE1UUStyTHBidS90RDhIRTlZdDllV1N1MW9hM2wrazBhQW1ML285ODUvNG1T?=
- =?utf-8?B?U1FiVkNVcFlzVEg3MXFpMXlIQURPdm9PaXFCUFdGNDlXMUVPZm5WeFVKN2pn?=
- =?utf-8?B?ZUdBajhyK2hMdUFnSU9aSVZuZm5zU1dKTWk0T1BCTCs1aDN3ZXlrVTBaNmVU?=
- =?utf-8?B?Zi90aE5vV3JSTnNpS1k3ZGtYN2wwZFZFYzFidnNZbm5OVW44clA1UVQ0dmFq?=
- =?utf-8?B?VmNZTTR3VURWNnZLZjhzekh3Y3cvSGNtRzhDaFNlTDk3MGZqclhpSUlnaG9O?=
- =?utf-8?B?bnMzdVFKK01RUUd3Q1RxeFI4VXVSTUEyWlk1M2tPRUFMV0ViWUl0QjF5bEl6?=
- =?utf-8?B?ZHgyMXIzUk1MeTJ6ZysyY2lQNzhPeVV2SHpWTG1od2FGaXV2MGx4TmxYTElp?=
- =?utf-8?B?ZmttQlpBOHVnaGUvNnpzRG5SNU5EVWhjdVhQT3ljSzdzcjJ6S1dKeGIyMVBw?=
- =?utf-8?Q?qj2nn/INkj9PqL8EkWnafVm2P?=
+	=?utf-8?B?NldCOWttVnlHTytNaHNNZlRldGpNdGgwOGNlK1NtclNMZ1ZicWxjc1M0Ulh0?=
+ =?utf-8?B?bnR3bkZnV2RzeGY1dXpIZHVBd3FBUkthcWxwM2JkenFzeGl2Q2E0NFhHSUNO?=
+ =?utf-8?B?VFJ5SkQxamcwalo0elh6dEhoeXUzT2VKZmJSTlBLMU9RcmJBYXV0RHdRZW0z?=
+ =?utf-8?B?dmZSbFlmN3lZd2FsSXJaMmw5VFRma0pWaENlZzVJdE42WURvWWd3L0NLQ2Fx?=
+ =?utf-8?B?V08vYWFzNlRsT0F6ZkxuZ1lJY0xrbzVhODA1djNRT2VrTzNwYkh4dmduWEFw?=
+ =?utf-8?B?K2tnWkFJNDhSOFZ2MWNvcUoyTlN5b01xbDEwYjBYZmt5bWtIRW5NUmhIbW5v?=
+ =?utf-8?B?MGEzbUY5RmxkTEppM1ZLTGpPYkNFaExmMno0bTZBS1lLY1FQNVdPb05ZUXpB?=
+ =?utf-8?B?dzBrOWVjcXBvTlNNNXRpZU1kaysvTVl2MG40aFFHb2xjc1luM091NFlPaDE3?=
+ =?utf-8?B?eUh5K3hOUVhSL05qWEhMUVlBZ2doYXc3RUt6UHpQVTludC9PZ1g4MWNGYnd5?=
+ =?utf-8?B?dnFnRk0yQ1U1M1lyUjhTVThIbHFWUEpBWW1LN0JsNDRzK3JRTTJ0QU5vRjR5?=
+ =?utf-8?B?TzhCazZFSzRvek9nb0QvVXpGWVcrKys2VXpjWTJoQVoyeGdIa1lMOGtQNjlt?=
+ =?utf-8?B?c2J3WlVqRTRSSWdZQjBEVzRwVGZjVUw5UVVtb2Z4b2E2SDVnV0tJeWFHY3R6?=
+ =?utf-8?B?Q1I2YlV3azUyVXc4NU5JcklPc3ZWaVk3UWd0azZmMVpFTjNRRUF5dmNoNWo0?=
+ =?utf-8?B?NlVIL1I5ajNqczNvUVZ2T3FWekplN1RKUFNNeUpab01KM0o1RFBYeVpsRG8y?=
+ =?utf-8?B?aXNwRS9jajNMRlpOYitrWlV1MkVONXZEaEY1SEJtTGo2SThjVElqV0hxRG1E?=
+ =?utf-8?B?UVluM3lCa1FoWmZISWk5ZGx3cnFTN3g3VXNjMHFrWE1lcGs0azFMSXRMOGtk?=
+ =?utf-8?B?REYyUEhXUUlINVFOZloxSzIrOGtId21YR0xRVW41a1ZocTZCNzgzK29GN04w?=
+ =?utf-8?B?SGpXSG9KUEZTdElWWWtTOXRGeGRlQStwVVVkNU04d29PQXdHUnFjOXNlMllu?=
+ =?utf-8?B?eUJVNy9YakNoajRFL1UrRnZlMDVCRVowS2J0bjgycmV5dmlSVFQvTFJoTnNF?=
+ =?utf-8?B?UHlCNjRpYjRraFo4bXJxNUEwcjdBaXB3cmdNZ2VhaUg2dnpLcVZxNmJWUUJ2?=
+ =?utf-8?B?R1UyZzU5UkJCN1o0TDBIcyswMG9GM1ZraUpxM0pHRWs2aWRNUkpNb1lVeFZv?=
+ =?utf-8?B?MVNCbjRoU2FoUHdZK1NxQk44KytLOWlHWm03eHRCSmdJN1RMN0d5MUp0QkhX?=
+ =?utf-8?B?Y2RXc0QyNzVsRWdobDMrdE9BMk5rZ2NqVFZ3Rlc1a085NlVyOFBjcVZwQ0g4?=
+ =?utf-8?B?VUVOTHpudlVER3pVUkJpVWxEL3IrQ0tqOGY3QTB6QVZYZ3VjVmg1TUVWMnQ3?=
+ =?utf-8?B?UHJzV0M4OGlhSWNmQnl1aGV2bjY4Qll3a3U5Rml2Wkh6RWN6cjVQUWEwcjFk?=
+ =?utf-8?B?NUY4dWEzVEVqWWZEekoyWjJGdC9lREt5RGpPWjVYSDZqSnhhVjhVaVZlcUll?=
+ =?utf-8?B?T0hZTXhkM2hMNkY4cGd3MHNsdUhEMXBhQUNLR1RNSzEyb0d1a2tjMms3RHFx?=
+ =?utf-8?B?MTFlaXNnUGcrWnBsOFhMRVpEczlJNVdaL0N2OGxUN01jWU9KdmtOSXlNTys3?=
+ =?utf-8?B?YUJuZHpZNHVMdUpnbmxCTVdUWDFOalp0RzlVMDRxVG5MTlpCSzQwSHNEai95?=
+ =?utf-8?B?cDRVbWt2Q01KeGJRUnZrRDZ4S3lTSFkybjRNWGlkSHo3L3ByclBwZ3lua0p5?=
+ =?utf-8?B?cEprS1Qzb1pybG9sMUUvTDlqVVRkWXpMZjluZkdqUUYyL1VIak5QcGhKTmNC?=
+ =?utf-8?B?cDBxbElwVjl4ZTViVlprK0JzWmRyQVl1RS83VVZKeDdTMUxRQnJEcWR4bnJF?=
+ =?utf-8?B?WHNaRDVQcC9oWWl0T2p2T084WHVTWTNBZDBlVTFpenNHb1MyTE0zVUF4SC90?=
+ =?utf-8?B?T0VFa2dkNXdRSnNYMFZJSHd3aXpka2RpVzhBSitxNEJGeUNEZk40eXUvNDFK?=
+ =?utf-8?B?eVI5aHRHRzVWQU0wbFUwNEJOWjgrNGNMUDZBVzBsQjhJNlVDSUZlalVKSlRQ?=
+ =?utf-8?Q?UI4LDHWpVlY7gQ0p8T2LBV73a?=
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	KYM3z+xGTiugboyTd7roKnioIaIBr8RDPJrsvC0zqJnjH1kjlgetbcuBKKeqi8p8bG/o1V0Ci1ud5LWEefe8WFPb26tBYJtL4BlTO3RJEhV9utwWuZ7T4OMEmWLLtpHr8hh2zNKcPV9q0gXrJGs9fzKCXI0l/M1o3ZXRR4x1JaY/FT9USErydNDvGW9rZAbLOo/95TwbWTnfzouaXdjvqKXYJepSSs/pNZ7QY8NLV1CZUqjVPcuIo2ZYWevV14K+IIM+wQryc09fnw1lXpIKojCDGVSueh1vBJtQpn0D2D3+zkzRbYN7I4MH5LUNPY5O2BQw7OICGTrj+G+DnR/dVynhV12U2VWG4LCjivvsCFE2OXi5LXrCtS5xLc6zaMwiXKODDc1VhsomxA0wxR0KUyeOyLNdXbHnF2K9i+cjAYVVAJ0N2csgsvXdpsfoA2iWl5vHOP6lJrv4yzm3nwizIBkRQbuGAM8p3tY7oUxTd1BjQLSxOvjRdr9WiOte1L2PrPuD3TySs9dV27MrRfr3PjpxWqoyMtvIg/4u5RvYJ9pjnuEg4iklcp2H2K3cVzoLgSoV1RTahsBscEEMzZGWuLpmkmweOOPt2QMYdqdmcvGeoZ9yft23eA+skr7tSNNUyi7PDv+WOw2lyr0PNNu4Uf+FBuOrULhVRNzPJ5jrmwimJVl3i/h0B8hZ3xfiAvh9rbt+8v9sRbgM5ZIS6Ze2mn+s8gCy7GjnRowApf5m+yI1RylnicYNxDydcVBXYxzFrP2fABY7dbLNAZNLcVi7v1JsKzXMQU+zIpXcRqngsv1U8EURoooVsE0QLqXK3T++V3dWg8iU8g8q30t2QXpq6JRq8TbLy84dgySJsAwDzQw=
+	bcHtTnJUd3LvvK3sQgamIcFEWqGdgs2b1EhUY5u/0hpTU1+F64Cd29b93ikXRVsvw88CUZrCs/Zz9xq+QnGd3Ej/kyZ/ygGaobB5FJdCj/l6DTdhdGdpp9gK3V8g1EWQwmzerAm0edq2ZsDDi3r6HlEDLypZlBU5vN9ODf2BCWk9YxUW4QRwtDMjGyUGnholuw+dhojvZ2YyvvdgbqKG6wVpOAYQxbPQm2I2pylLwCggDudR4DYpM7vVJSQOyZeavs6fsHTWhfr1cRVYpJWf3tMIe0YoUnih0XJUEMX71KlohQAH6ZhaRjdd0in0FNFhSy5xd7f+HjuFM8jDZYznuOpEnuPTbwZXtBUnM5pEddUeG4YMC+fyFbwrVQbDg5Zqp++YtsexGet1FjhcOlxVbwLSSdGtkOAtYMEDm9DWMtHzEQa0XGDno9Z5CCwaEDuLwP0xeDBXSsFNRC2tmjZWFGlgjIWD/GL31ibyx1XfnPw8hCFjVjkZ0HeJogm0qu7ecOePWVtnOrOS5z62noIwe8qjgiUTuzJSQw6xpeedY4NQppdhVIyS/2LYaW2MZ45BNo30qnUq4Holfp1SGuvpVgFev4Q6h/qEJOnHqJe3Sgcoap30UNV6wSO/R8v+tnQz8yYhq4lwPtJpTehDdQIon0Du5mokB674wdRqaFfXBcp6lq22nhlQWAObkDIxjqpLCMaLFqsZ7SjjB60VtWF7bk8EM4bAyCnrxnwLJerr3+2EhUSvciGVipf1OKK1Sd5TRFOLGZpZscC771wxo6lfpIJpPyn13/sQHdyq9eCiK9Nd61Nls/oPEp2yLy1A5sBytmBrPMda06U9yn4g1TvT+DMn1KdXM+LZjm7z7toePOE=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 297b8550-87de-4c29-52fa-08db577ab45e
+X-MS-Exchange-CrossTenant-Network-Message-Id: b68abc7f-f886-4e83-81a7-08db5782a329
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 08:34:33.1464
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 09:31:19.9945
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G2wCCo2UBmxXZStd1/h+2UupshJynhpIa4OLV/MHQg6QL0PQO4rHZj/2+6atfFr+PoMCvyKjVduTZ4Xo57Ympg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6769
+X-MS-Exchange-CrossTenant-UserPrincipalName: DzqYsmAl9TjY2xiAYXSuJehE3reVvJG3ToXNsBWa2DEgiUazDYDQ+2+RDzNub3B9LbzcQM/+6Yn56CWxFe9sqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6455
 
-On Wed, May 17, 2023 at 02:00:01PM -0700, Stefano Stabellini wrote:
-> On Wed, 17 May 2023, Roger Pau Monné wrote:
-> > On Tue, May 16, 2023 at 04:34:09PM -0700, Stefano Stabellini wrote:
-> > > On Tue, 16 May 2023, Roger Pau Monné wrote:
-> > > > On Mon, May 15, 2023 at 05:11:25PM -0700, Stefano Stabellini wrote:
-> > > > > On Mon, 15 May 2023, Roger Pau Monné wrote:
-> > > > > > On Fri, May 12, 2023 at 06:17:20PM -0700, Stefano Stabellini wrote:
-> > > > > > > From: Stefano Stabellini <stefano.stabellini@amd.com>
-> > > > > > > 
-> > > > > > > Mapping the ACPI tables to Dom0 PVH 1:1 leads to memory corruptions of
-> > > > > > > the tables in the guest. Instead, copy the tables to Dom0.
-> > > > > > > 
-> > > > > > > This is a workaround.
-> > > > > > > 
-> > > > > > > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > > > > > > ---
-> > > > > > > As mentioned in the cover letter, this is a RFC workaround as I don't
-> > > > > > > know the cause of the underlying problem. I do know that this patch
-> > > > > > > solves what would be otherwise a hang at boot when Dom0 PVH attempts to
-> > > > > > > parse ACPI tables.
-> > > > > > 
-> > > > > > I'm unsure how safe this is for native systems, as it's possible for
-> > > > > > firmware to modify the data in the tables, so copying them would
-> > > > > > break that functionality.
-> > > > > > 
-> > > > > > I think we need to get to the root cause that triggers this behavior
-> > > > > > on QEMU.  Is it the table checksum that fail, or something else?  Is
-> > > > > > there an error from Linux you could reference?
-> > > > > 
-> > > > > I agree with you but so far I haven't managed to find a way to the root
-> > > > > of the issue. Here is what I know. These are the logs of a successful
-> > > > > boot using this patch:
-> > > > > 
-> > > > > [   10.437488] ACPI: Early table checksum verification disabled
-> > > > > [   10.439345] ACPI: RSDP 0x000000004005F955 000024 (v02 BOCHS )
-> > > > > [   10.441033] ACPI: RSDT 0x000000004005F979 000034 (v01 BOCHS  BXPCRSDT 00000001 BXPC 00000001)
-> > > > > [   10.444045] ACPI: APIC 0x0000000040060F76 00008A (v01 BOCHS  BXPCAPIC 00000001 BXPC 00000001)
-> > > > > [   10.445984] ACPI: FACP 0x000000004005FA65 000074 (v01 BOCHS  BXPCFACP 00000001 BXPC 00000001)
-> > > > > [   10.447170] ACPI BIOS Warning (bug): Incorrect checksum in table [FACP] - 0x67, should be 0x30 (20220331/tbprint-174)
-> > > > > [   10.449522] ACPI: DSDT 0x000000004005FB19 00145D (v01 BOCHS  BXPCDSDT 00000001 BXPC 00000001)
-> > > > > [   10.451258] ACPI: FACS 0x000000004005FAD9 000040
-> > > > > [   10.452245] ACPI: Reserving APIC table memory at [mem 0x40060f76-0x40060fff]
-> > > > > [   10.452389] ACPI: Reserving FACP table memory at [mem 0x4005fa65-0x4005fad8]
-> > > > > [   10.452497] ACPI: Reserving DSDT table memory at [mem 0x4005fb19-0x40060f75]
-> > > > > [   10.452602] ACPI: Reserving FACS table memory at [mem 0x4005fad9-0x4005fb18]
-> > > > > 
-> > > > > 
-> > > > > And these are the logs of the same boot (unsuccessful) without this
-> > > > > patch:
-> > > > > 
-> > > > > [   10.516015] ACPI: Early table checksum verification disabled
-> > > > > [   10.517732] ACPI: RSDP 0x0000000040060F1E 000024 (v02 BOCHS )
-> > > > > [   10.519535] ACPI: RSDT 0x0000000040060F42 000034 (v01 BOCHS  BXPCRSDT 00000001 BXPC 00000001)
-> > > > > [   10.522523] ACPI: APIC 0x0000000040060F76 00008A (v01 BOCHS  BXPCAPIC 00000001 BXPC 00000001)
-> > > > > [   10.527453] ACPI: ���� 0x000000007FFE149D FFFFFFFF (v255 ������ �������� FFFFFFFF ���� FFFFFFFF)
-> > > > > [   10.528362] ACPI: Reserving APIC table memory at [mem 0x40060f76-0x40060fff]
-> > > > > [   10.528491] ACPI: Reserving ���� table memory at [mem 0x7ffe149d-0x17ffe149b]
-> > > > > 
-> > > > > It is clearly a memory corruption around FACS but I couldn't find the
-> > > > > reason for it. The mapping code looks correct. I hope you can suggest a
-> > > > > way to narrow down the problem. If I could, I would suggest to apply
-> > > > > this patch just for the QEMU PVH tests but we don't have the
-> > > > > infrastructure for that in gitlab-ci as there is a single Xen build for
-> > > > > all tests.
-> > > > 
-> > > > Would be helpful to see the memory map provided to Linux, just in case
-> > > > we messed up and there's some overlap.
-> > > 
-> > > Everything looks correct. Here are some more logs:
-> > > 
-> > > (XEN) Xen-e820 RAM map:
-> > > (XEN)  [0000000000000000, 000000000009fbff] (usable)
-> > > (XEN)  [000000000009fc00, 000000000009ffff] (reserved)
-> > > (XEN)  [00000000000f0000, 00000000000fffff] (reserved)
-> > > (XEN)  [0000000000100000, 000000007ffdffff] (usable)
-> > > (XEN)  [000000007ffe0000, 000000007fffffff] (reserved)
-> > > (XEN)  [00000000fffc0000, 00000000ffffffff] (reserved)
-> > > (XEN)  [000000fd00000000, 000000ffffffffff] (reserved)
-> > > (XEN) Microcode loading not available
-> > > (XEN) New Xen image base address: 0x7f600000
-> > > (XEN) System RAM: 2047MB (2096636kB)
-> > > (XEN) ACPI: RSDP 000F58D0, 0014 (r0 BOCHS )
-> > > (XEN) ACPI: RSDT 7FFE1B21, 0034 (r1 BOCHS  BXPC            1 BXPC        1)
-> > > (XEN) ACPI: FACP 7FFE19CD, 0074 (r1 BOCHS  BXPC            1 BXPC        1)
-> > > (XEN) ACPI: DSDT 7FFE0040, 198D (r1 BOCHS  BXPC            1 BXPC        1)
-> > > (XEN) ACPI: FACS 7FFE0000, 0040
-> > > (XEN) ACPI: APIC 7FFE1A41, 0080 (r1 BOCHS  BXPC            1 BXPC        1)
-> > > (XEN) ACPI: HPET 7FFE1AC1, 0038 (r1 BOCHS  BXPC            1 BXPC        1)
-> > > (XEN) ACPI: WAET 7FFE1AF9, 0028 (r1 BOCHS  BXPC            1 BXPC        1)
-> > > [...]
-> > > (XEN) Dom0 memory map:
-> > > (XEN)  [0000000000000000, 000000000009efff] (usable)
-> > > (XEN)  [000000000009fc00, 000000000009ffff] (reserved)
-> > > (XEN)  [00000000000f0000, 00000000000fffff] (reserved)
-> > > (XEN)  [0000000000100000, 0000000040060f1d] (usable)
-> > > (XEN)  [0000000040060f1e, 0000000040060fa7] (ACPI data)
-> > > (XEN)  [0000000040061000, 000000007ffdffff] (unusable)
-> > > (XEN)  [000000007ffe0000, 000000007fffffff] (reserved)
-> > > (XEN)  [00000000fffc0000, 00000000ffffffff] (reserved)
-> > > (XEN)  [000000fd00000000, 000000ffffffffff] (reserved)
-> > > [...]
-> > > [    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009efff] usable
-> > > [    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x00000000000fffff] reserved
-> > > [    0.000000] BIOS-e820: [mem 0x0000000000100000-0x0000000040060f1d] usable
-> > > [    0.000000] BIOS-e820: [mem 0x0000000040060f1e-0x0000000040060fa7] ACPI data
-> > > [    0.000000] BIOS-e820: [mem 0x0000000040061000-0x000000007ffdffff] unusable
-> > > [    0.000000] BIOS-e820: [mem 0x000000007ffe0000-0x000000007fffffff] reserved
-> > > [    0.000000] BIOS-e820: [mem 0x00000000fffc0000-0x00000000ffffffff] reserved
-> > > [    0.000000] BIOS-e820: [mem 0x000000fd00000000-0x000000ffffffffff] reserved
-> > > [...]
-> > > [   10.102427] ACPI: Early table checksum verification disabled
-> > > [   10.104455] ACPI: RSDP 0x0000000040060F1E 000024 (v02 BOCHS )
-> > > [   10.106250] ACPI: RSDT 0x0000000040060F42 000034 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
-> > > [   10.109549] ACPI: APIC 0x0000000040060F76 00008A (v01 BOCHS  BXPC     00000001 BXPC 00000001)
-> > > [   10.115173] ACPI: ���� 0x000000007FFE19CD FFFFFFFF (v255 ������ �������� FFFFFFFF ���� FFFFFFFF)
-> > > [   10.116054] ACPI: Reserving APIC table memory at [mem 0x40060f76-0x40060fff]
-> > > [   10.116182] ACPI: Reserving ���� table memory at [mem 0x7ffe19cd-0x17ffe19cb]
-> > > 
-> > > 
-> > > 
-> > > > It seems like some of the XSDT entries (the FADT one) is corrupt?
-> > > > 
-> > > > Could you maybe add some debug to the Xen-crafted XSDT placement.
-> > > 
-> > > I added a printk just after:
-> > > 
-> > >   xsdt->table_offset_entry[j++] = tables[i].address;
-> > > 
-> > > And it printed only once:
-> > > 
-> > >   (XEN) DEBUG pvh_setup_acpi_xsdt 1000 name=FACP address=7ffe19cd
-> > > 
-> > > That actually matches the address read by Linux:
-> > > 
-> > >   [   10.175448] ACPI: ���� 0x000000007FFE19CD FFFFFFFF (v255 ������ �������� FFFFFFFF ���� FFFFFFFF)
-> > > 
-> > > So the address seems correct. It is the content of the FADT/FACP table
-> > > that is corrupted.
-> > > 
-> > > I wrote the following function in Xen:
-> > > 
-> > > static void check(void)
-> > > {
-> > >     unsigned long addr = 0x7ffe19cd;
-> > >     struct acpi_table_fadt *fadt;
-> > >     fadt = acpi_os_map_memory(addr, sizeof(*fadt));
-> > >     printk("DEBUG %s %d s=%s\n",__func__,__LINE__,fadt->header.signature);
-> > >     acpi_os_unmap_memory(fadt, sizeof(*fadt));
-> > > }
-> > > 
-> > > It prints the right table signature at the end of pvh_setup_acpi.
-> > > I also added a call at the top of xenmem_add_to_physmap_one, and the
-> > > signature is still correct. Then I added a call at the beginning of
-> > > __update_vcpu_system_time. Here is the surprise: from Xen point of view
-> > > the table never gets corrupted. Here are the logs:
-> > > 
-> > > [...]
-> > > (XEN) DEBUG fadt_check 1551 s=FACPt
-> > > (XEN) DEBUG fadt_check 1551 s=FACPt
-> > > (XEN) DEBUG fadt_check 1551 s=FACPt
-> > > (XEN) DEBUG fadt_check 1551 s=FACPt
-> > > (XEN) d0v0: upcall vector f3
-> > > [    0.000000] Linux version 6.1.19 (root@124de7fbba7f) (gcc (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_3
-> > > [    0.000000] Command line: console=hvc0
-> > > [...]
-> > > [   10.371610] ACPI: Early table checksum verification disabled
-> > > [   10.373633] ACPI: RSDP 0x0000000040060F1E 000024 (v02 BOCHS )
-> > > [   10.375548] ACPI: RSDT 0x0000000040060F42 000034 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
-> > > [   10.378732] ACPI: APIC 0x0000000040060F76 00008A (v01 BOCHS  BXPC     00000001 BXPC 00000001)
-> > > [   10.384188] ACPI: ���� 0x000000007FFE19CD FFFFFFFF (v255 ������ �������� FFFFFFFF ���� FFFFFFFF)
-> > > [   10.385374] ACPI: Reserving APIC table memory at [mem 0x40060f76-0x40060fff]
-> > > [   10.385519] ACPI: Reserving ���� table memory at [mem 0x7ffe19cd-0x17ffe19cb]
-> > > [...]
-> > > (XEN) DEBUG fadt_check 1551 s=FACPt
-> > > (XEN) DEBUG fadt_check 1551 s=FACPt
-> > > (XEN) DEBUG fadt_check 1551 s=FACPt
-> > > (XEN) DEBUG fadt_check 1551 s=FACPt
-> > > 
-> > > 
-> > > So it looks like it is a problem with the mapping itself? Xen sees the
-> > > data correctly and Linux sees it corrupted?
-> > 
-> > It seems to me like the page is not correctly mapped, and so 1s are
-> > returned? (same behavior as a hole).  IOW: would seem to me like MMIO
-> > areas are not correctly handled by nested NPT? (I assume you are
-> > running this on AMD).
-> > 
-> > Does it make a difference if you try to boot with dom0=pvh,shadow?
-> > 
-> > A couple of wild ideas.  Maybe the nested virt support that you are
-> > using doesn't handle the UC bit in second stage page table entries?
-> > You could to remove this in p2m_type_to_flags() (see the
-> > p2m_mmio_direct case).
-> > 
-> > Another wild idea I have is that the emulated NPT code doesn't like
-> > having the bits 63:52 from the PTE set to anything different than 0,
-> > and hence only p2m_ram_rw works (p2m_mmio_direct is 5).
+On Thu, May 18, 2023 at 10:24:10AM +0300, Xenia Ragiadakou wrote:
 > 
-> Many thanks to Xenia for figuring out the root cause of the bug. The
-> underlying memory region is already added as E820_RESERVED to the guest
-> (instead of E820_ACPI). When pvh_add_mem_range is called with E820_ACPI
-> as parameter for the interesting table, pvh_add_mem_range returns with
-> -EEXIST without doing anything.
+> On 15/5/23 17:17, Jan Beulich wrote:
+> > On 13.05.2023 03:17, Stefano Stabellini wrote:
+> > > From: Stefano Stabellini <stefano.stabellini@amd.com>
+> > > 
+> > > Mapping the ACPI tables to Dom0 PVH 1:1 leads to memory corruptions of
+> > > the tables in the guest. Instead, copy the tables to Dom0.
+> > Do you really mean "in the guest" (i.e. from Xen's perspective, i.e.
+> > ignoring that when running on qemu it is kind of a guest itself)?
+> > 
+> > I also consider the statement too broad anyway: Various people have
+> > run PVH Dom0 without running into such an issue, so it's clearly not
+> > just "leads to".
 > 
-> The original fix by Xenia was to carve out the relevant subset of the
-> reserved region and mark it as E820_ACPI. Instead, I rewrote it as
-> changing the type of the entire region to E820_ACPI because it is
-> simpler and doesn't have to deal with the edge cases (partially
-> overlapping, overlapping 2 existing regions, etc.)
+> In my opinion the issue is broader.
 > 
-> What do you think?
+> In pvh_setup_acpi(), the code adding the ACPI tables to dom0 memory map does
+> not check the return value of pvh_add_mem_range(). If there is an overlap
+> and the overlapping region is marked as E820_ACPI, it maps not just the
+> allowed tables but the entire overlapping range ,
 
-Hm, I'm unsure whether wholesale converting reserved regions into ACPI
-ones is correct, for example Xen will handle reserved regions specially
-when creating the IOMMU mappings, and RMRRs are also expected to live
-in reserved regions.
+But that's the indented behavior: all ACPI regions will be mapped into
+the dom0 physmap, the filtering of the tables exposed to dom0 is done
+in the XSDT, but not in by filtering the mapped regions.  Note this
+won't be effective anyway, as the minimal granularity of physmap
+entries is 4k, so multiple tables could live in the same 4K region.
+Also Xen cannot parse dynamic tables (SSDT) or execute methods, and
+hence doesn't know exactly which memory will be used.
 
-The issue is IMO with the usage of dom0-iommu=none, which leads to
-reserved regions not mapped in the dom0 physmap (see
-arch_iommu_hwdom_init()).
+Xen relies on the firmware to have the ACPI tables in ACPI, NVS or
+RESERVED regions in order for them to be mapped into the gust physmap.
+The call to pvh_add_mem_range() in pvh_setup_acpi() is just an attempt
+to workaround broken systems that have tables placed in memory map
+holes, and hence ignoring the return value is fine.
 
-One option might be to move the mapping of reserved regions from
-arch_iommu_hwdom_init() into PVH dom0 build (as part of
-pvh_populate_p2m()) and thus render arch_iommu_hwdom_init() PV only.
-That would also imply that for PVH dom0 `dom0-iommu=map-reserved` is
-fixed cannot be modified (iow: reserved regions are always added to
-the PVH dom0 physmap).
+> while if the overlapping
+> range is marked as E820_RESERVED, it does not map the tables at all (the
+> issue that Stefano saw with qemu). Since dom0 memory map is initialized
+> based on the native one, the code adding the ACPI table memory ranges will
+> naturally fall into one of the two cases above.
+
+Xen does map them, but that's done in arch_iommu_hwdom_init() which get
+short-circuited by the usage of dom0-iommu=none in your example.  See
+my reply to Stefano about moving such mappings into pvh_populate_p2m().
+
+> So even when not running into this issue, pvh_add_mem_range() still fails
+> and the memory range mapped is wider than the allowed one.
+
+The intention of that call to pvh_add_mem_range() is not to limit what
+gets mapped into dom0 physmap, but rather to workaround bugs in the
+firmware if ACPI tables are placed in memory map holes.
 
 Thanks, Roger.
 
