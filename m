@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B086708405
+	by mail.lfdr.de (Postfix) with ESMTPS id 58B84708404
 	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 16:40:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536391.834661 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.536392.834671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzen3-00077g-Ro; Thu, 18 May 2023 14:39:37 +0000
+	id 1pzenH-0007PH-4i; Thu, 18 May 2023 14:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536391.834661; Thu, 18 May 2023 14:39:37 +0000
+Received: by outflank-mailman (output) from mailman id 536392.834671; Thu, 18 May 2023 14:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzen3-00074Q-Oh; Thu, 18 May 2023 14:39:37 +0000
-Received: by outflank-mailman (input) for mailman id 536391;
- Thu, 18 May 2023 14:39:36 +0000
+	id 1pzenH-0007MU-15; Thu, 18 May 2023 14:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 536392;
+ Thu, 18 May 2023 14:39:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=R7bG=BH=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pzen1-00074K-V0
- for xen-devel@lists.xenproject.org; Thu, 18 May 2023 14:39:36 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [2a01:111:f400:7eae::600])
+ id 1pzenF-00074K-4e
+ for xen-devel@lists.xenproject.org; Thu, 18 May 2023 14:39:49 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20608.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::608])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cd15eceb-f589-11ed-8611-37d641c3527e;
- Thu, 18 May 2023 16:39:32 +0200 (CEST)
-Received: from DM6PR07CA0119.namprd07.prod.outlook.com (2603:10b6:5:330::11)
- by DS7PR12MB8371.namprd12.prod.outlook.com (2603:10b6:8:e9::18) with
+ id d61c4b9f-f589-11ed-8611-37d641c3527e;
+ Thu, 18 May 2023 16:39:47 +0200 (CEST)
+Received: from DS7PR03CA0179.namprd03.prod.outlook.com (2603:10b6:5:3b2::34)
+ by BN9PR12MB5179.namprd12.prod.outlook.com (2603:10b6:408:11c::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19; Thu, 18 May
- 2023 14:39:29 +0000
-Received: from DM6NAM11FT070.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:330:cafe::7f) by DM6PR07CA0119.outlook.office365.com
- (2603:10b6:5:330::11) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 14:39:43 +0000
+Received: from DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b2:cafe::ee) by DS7PR03CA0179.outlook.office365.com
+ (2603:10b6:5:3b2::34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19 via Frontend
- Transport; Thu, 18 May 2023 14:39:29 +0000
+ Transport; Thu, 18 May 2023 14:39:43 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT070.mail.protection.outlook.com (10.13.173.51) with Microsoft SMTP
+ DM6NAM11FT003.mail.protection.outlook.com (10.13.173.162) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.21 via Frontend Transport; Thu, 18 May 2023 14:39:29 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ 15.20.6411.15 via Frontend Transport; Thu, 18 May 2023 14:39:43 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 18 May
- 2023 09:39:29 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 18 May
- 2023 09:39:28 -0500
+ 2023 09:39:42 -0500
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Thu, 18 May 2023 09:39:27 -0500
+ via Frontend Transport; Thu, 18 May 2023 09:39:41 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd15eceb-f589-11ed-8611-37d641c3527e
+X-Inumbo-ID: d61c4b9f-f589-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PXp8NrG71WdXvHyJiseIZqZlZF++FeRXuH8CJyDz9/JE2UZL/TLN8iiH5XZJiAIu86WKguhO7hEkZkLUtKk1WBqUaP5nNR8BbN2e7tPANHdS40/zeX9RSJiGq5VSkpUpkAhFXMhKLz+dr0rxgKs6jdyxw7BDjROgr8u3HfnTa6zZr22lGAPIKhQ4/lOqfb9Uu9lFCruPDAQDrBqNuqnGgUKg78EUwXnccUMITF0eFbdvX+uB0D9k1G2JHgR7gI9f6p6Y8Sidt8cxunf1EH1heZrU6X+Z2tRwVlJ2921wZYWwa4eIMaI4LmflhCa8Vi3QnHjTXm0AWN0LdDxxITHeLA==
+ b=Lxn6bxJ9FerscYp3grHBK2B0pUXcoeNVyjdBgNvThgGyKNEALTzfU17PsiFbOT2lG77rc8pFX07dyCuog2cv1WF3zmlSRwUgc/CZmbHYHrsnT51mR9VZRgPX2amK8T+BUVmyXNvtEIytCoBrHSModYYe2pZY1DsegMVCa7l3bf40ybP7innwTfZFOqL2xoX7F+t3n32o6BpUvz73muGw2AgPLjoJeWCHbL1zEGuh83PQMWP40Jsp0pCJaFGgWdLIfqfrHpI6+YuMMg2ZBY3ecQr2JrIUL91308TUoJXSUgwnF3F+aEEnaus0QhZvlrQwpjff/f0DlqldRbj0gRZ+fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aJCvJZk+ePYZnsdqF65o/m8Ky/j3D4a3J97pUu8ku9s=;
- b=LdVY9sTMm7WOKIc/SiY74yycRnjVa6NZhCQpwEtc/+9R4eJ3m72PXZVPAy31+gWLidNHNSnoaAnEDAe8lcY0nPB9YN9b1pLcNPDsGfWsmU7muf/jL9F4FHaOOOsROzZG5TmS5jZEvy14OGJySBjH2YCsojsxF9cVMyLLfVK6kW26mJcKTIUJWej0Avcoqe6lMnoGRcSPWUO1U6FFeOwa3w72k6pgNxf7LlsVtYXaGH9xaPgG10IHJTGyqezdjfhV0Pm+twVtf3JT5SXsUN7Ya7uTPwJif93Fw1WAtDUZByUBMM/gAOX3VEAjZ+6pA+l8MN3+mpwXdwMwCSnSBOIJjw==
+ bh=5fJWKj17VMd4J7OD9poo9yDrAqqLVEuS40vyYFKg3Cw=;
+ b=Mikke4fJReDcL8VdETUDJEPJTlh97aslDxLn7mhwxEy5HdyuX0uK4/ewLn2mKE/JPizYydafvkHWn61SS2FSFPlg3pLHquoTycPXUfAea4mXsKxz4zD4+TkoXE664IBmcZkKiCu4Tq+b8PGjocVktXu6qNxmfbVOKkr0YfZIZu5SKq6XALk+H+nERAtft9V9CJA7Ax9MGviziMSX6qRjXSqNku9+XfkWUsbnlG1HMcEpyEA0Wq+khh1gbtLBXCEctIzvDGhTRmheSJqO+GdsPeqRMA0snIJFGHCQ4jMl2y3ArsxR2Kvwn9A02mJfl5wDRO5ro9xsTGMQl2x5ZHotLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aJCvJZk+ePYZnsdqF65o/m8Ky/j3D4a3J97pUu8ku9s=;
- b=chB5Xbp46K0i3Wkh5ga1Ejjl0c/GtmN1PL9wKclPk/74IqdSOG3RwPb9vWPKQiXjIJnmGJPWCOoGws7/fwsIT1A4OEEv2gu9oPI2KwI0zoB+vRKwqjwrfFIS8/GWiMH2qXBV+TyggC1piypASGQGPqF6p/gkx/SKCGvUlcXE4BQ=
+ bh=5fJWKj17VMd4J7OD9poo9yDrAqqLVEuS40vyYFKg3Cw=;
+ b=Cwo6uug56mruDIseFPdUnK8HMVoCkAKspB28uOoMYsrUdAW0nmCQnpp32cEe511W1dH4768pKmFaM7A++JH6INVi8ADy4aQ45/E1tDRdlSi1fCV5FdSDy1Nc6iPDVMXMc1ffeadoxVtBk3c8LNbfnHEzJbrVtWhTNmnFXrcAk44=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -92,191 +88,183 @@ CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
 	<wl@xen.org>, <rahul.singh@arm.com>, <michal.orzel@amd.com>, "Ayan Kumar
  Halder" <ayan.kumar.halder@amd.com>
-Subject: [XEN v7 00/11] Add support for 32-bit physical address
-Date: Thu, 18 May 2023 15:39:09 +0100
-Message-ID: <20230518143920.43186-1-ayan.kumar.halder@amd.com>
+Subject: [XEN v7 01/11] xen/arm: domain_build: Track unallocated pages using the frame number
+Date: Thu, 18 May 2023 15:39:10 +0100
+Message-ID: <20230518143920.43186-2-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20230518143920.43186-1-ayan.kumar.halder@amd.com>
+References: <20230518143920.43186-1-ayan.kumar.halder@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT070:EE_|DS7PR12MB8371:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc125919-d51c-4c43-819f-08db57adafde
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT003:EE_|BN9PR12MB5179:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8295b1e-d244-40d7-87c6-08db57adb821
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	f5g1fXXQDvEMJWYT2G97Xh6UjGwDEvzCyf71DU70nAocIy8Kb5mihXivxowCVivrQTfrZlf5ScYAlGWzZt/VTuxrLTr8jp/8waeT4No8FchEenKSK81omms21DsUgwzlTKqMqhtscok1qVuiU4XUZZYAS2hF1ez8QbOqRgGUE0NMa1Fn8Qb45xcojzlfa0czou9QgTLm9IR+Y5q/XqJYHe5kmFg5om1FjygAf37TmwdfRoJTCBWlYEBQG9YKPlvFdlvvgee81K1XVnDNIvK4wMGczTB9g3UKlvPx3yHqPU8g52by8Z3Xp9PH+E+xM6JrwbMgUHAW/Pg4eBvqyHYszsRwXHVNDjNIUpDBdIXmp7rTpBMinumIKMuRlUyvqaJpiRE3OH5OnB7QDEY8ACGaHVMKda+ZLwaMPlFyGFoX0NQ/uqhel99LgWTSzn9wx+BzGFuZPhu6WVB+PfHSeZaTAL6XVv8Zl+IPwCyGGdYm+osJXI0w8TTzNwm0LzUAluRRgc43VOmonSy7svIJeAa5rbGuARawBXKLbdA8IH5Przlujxv/dJ47BAAL4fNmWVDfGYJKRJOxRlvGx31oYp0VTlbFHn6O6IUdNLWBTeJihvqHVIvw4osADaiF6yP2wKOtNft+BZACQ4lbgHp73ATx/PhDpHkHzkOgr0lNEpxAFgWvRdK2qsk3zlLpRn5frdkAtk73l1/ILS1kly7gHj08UNixLUOlQYFHM1OAZknqxO7HaTY6wjyv5ovcg5XUE+CPiyAXSXktplHL0ZBwdEQwQrPqYJup34fMCnuK1wBFZsA=
+	yzlQW8HU0QhXF13+6fkD+BIJJyDB9q5BmFHDi0AtI3L1c0viVJqHgwFmoBPdnuGd4XcMpUBfvXK28chzRvYrOfB3W0PlqtSwSEkD7HJqlvF6ZUahdpRzCfzfCcDaD3PBgdy3YTL/2x+6VJY6vvatvwth1rysr3rq44drWufZ4ja2b3M5fHY3aOoJooIco3l22Brq4krBLwhxaajBwqfGuUbyuwH2y7cU5c95auuaeQ57FZ2DsroRnnRgviWeOUbjk/sSgwcWaaiKNmqNtAmngURLe0858O4/BnAwr2nxGEL4vvmx5/EdyrdxOFiXX4UOsDXG8Eq1cund4EDurSrEd+Z4bDITrf+pCNr5C5vOF4Y48jlzwYK8WkjgrCsFOwNRenJvGLZM7uFBIY6rrNRTu+TLDq1CAAy32eSfSzZQvtz6SqpbyzqUMk5E6AUczGqGA2wX5R09bkk1J4TYQRVQydTyAPvrd6c1tcDCvNaGAPKkP6HQtftrW7Elg/oPvneP9I7oTtmWVTbYlICdGAhkQ0+dK7xXF4WPYl135QFL2kbhvZanmrgx7iqasrKhxdZlXr4Q9XlVF5vkFyzJ+p7hGppCLUqIAV6dk5EC03lOKOKr8F71uA4FN1QvKj6XLpG3vKOP+BmLVUIWVesC5WLEz0htHcbVdyzfIRDXNGBMbZlry3ufvYjtofa8Gg/uXVoCzn2P7l1soylgdGIAE7iSDge++HKlxgedt7osKfYId2vTvV3UHNkTL+6kZXl9UmwYV7bsHm37B9eDg0nGjagDtpQAClsy678OQK5atyYQRVE=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199021)(46966006)(36840700001)(40470700004)(1076003)(26005)(966005)(40460700003)(36860700001)(36756003)(2616005)(40480700001)(47076005)(83380400001)(426003)(336012)(86362001)(82310400005)(81166007)(103116003)(82740400003)(356005)(186003)(54906003)(7416002)(478600001)(316002)(2906002)(6916009)(8936002)(8676002)(4326008)(41300700001)(5660300002)(70586007)(70206006)(6666004)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(346002)(396003)(136003)(376002)(451199021)(40470700004)(36840700001)(46966006)(86362001)(6916009)(8676002)(41300700001)(8936002)(4326008)(356005)(82740400003)(82310400005)(81166007)(54906003)(336012)(70586007)(70206006)(316002)(103116003)(7416002)(36756003)(2906002)(83380400001)(478600001)(47076005)(426003)(2616005)(36860700001)(40480700001)(6666004)(966005)(26005)(5660300002)(40460700003)(186003)(1076003)(21314003)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 14:39:29.3829
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 14:39:43.2283
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc125919-d51c-4c43-819f-08db57adafde
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8295b1e-d244-40d7-87c6-08db57adb821
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT070.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8371
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5179
 
-Hi All,
+rangeset_{xxx}_range() functions are invoked with 'start' and 'size' as
+arguments which are either 'uint64_t' or 'paddr_t'. However, the function
+accepts 'unsigned long' for 'start' and 'size'. 'unsigned long' is 32 bits for
+Arm32. Thus, there is an implicit downcasting from 'uint64_t'/'paddr_t' to
+'unsigned long' when invoking rangeset_{xxx}_range().
 
-Please have a look at https://lists.xenproject.org/archives/html/xen-devel/2022-11/msg01465.html
-for the context.
+So, it may seem there is a possibility of lose of data due to truncation.
 
-The benefits of using 32 bit physical addresses are as follows :-
+In reality, 'start' and 'size' are always page aligned. And Arm32 currently
+supports 40 bits as the width of physical address.
+So if the addresses are page aligned, the last 12 bits contain zeroes.
+Thus, we could instead pass page frame number which will contain 28 bits (40-12
+on Arm32) and this can be represented using 'unsigned long'.
 
-1. It helps to use Xen on platforms (for eg R52) which supports 32-bit
-physical addresses and has no support for large physical address extension.
-On 32-bit MPU systems which supports flat-mapping (for eg R52), it helps
-to translate 32 bit VA into 32 bit PA.
+On Arm64, this change will not induce any adverse side effect as the max
+supported width of physical address is 48 bits. Thus, the width of 'gfn'
+(ie 48 - 12 = 36) can be represented using 'unsigned long' (which is 64 bits
+wide).
 
-2. It also helps in code optimization when the underlying platform does not
-use large physical address extension.
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
+---
+Changes from -
 
-The following points are to be noted :-
-1. Device tree always use uint64_t for address and size. The caller needs to
-translate between uint64_t and unsigned long (when 32 bit physical addressing is used).
-2. Currently, we have enabled this option for Arm_32 as the MMU for Arm_64
-uses 48-bit physical addressing.
+v3 - 1. Extracted the patch from https://lists.xenproject.org/archives/html/xen-devel/2023-02/msg00657.html
+and added it to this series.
+2. Modified add_ext_regions(). This accepts a frame number instead of physical
+address.
 
+v4 - 1. Reworded the commit message to use Arm32/Arm64
+(32-bit/64-bit Arm architecture).
+2. Replaced pfn with gfn to denote guest frame number in add_ext_regions().
+3. Use pfn_to_paddr() to return a physical address from the guest frame number.
 
-A note for the Xen committers/reviewers :-
+v5 - 1. Updated the commit message. Added R-b and A-b.
 
-The following patches are ready to be committed (1..5). They have been reviewed
-by atleast 2 people (out of which atleast one is mantainer).
-  xen/arm: domain_build: Track unallocated pages using the frame number
-  xen/arm: Typecast the DT values into paddr_t
-  xen/arm: Introduce a wrapper for dt_device_get_address() to handle
-    paddr_t
-  xen/arm: smmu: Use writeq_relaxed_non_atomic() for writing to
-    SMMU_CBn_TTBR0
-  xen/arm: domain_build: Check if the address fits the range of physical
-    address
+v6 - 1. No changes.
 
-Out of the remaining patches, the following is the status :-
-  xen: dt: Replace u64 with uint64_t as the callback function parameters
-    for dt_for_each_range() (Reviewed)
-  xen/arm: p2m: Use the pa_range_info table to support ARM_32 and ARM_64
-  xen/arm: Introduce choice to enable 64/32 bit physical addressing
-  xen/arm: guest_walk: LPAE specific bits should be enclosed within
-    "ifndef CONFIG_PHYS_ADDR_T_32"  (Acked)
-  xen/arm: Restrict zeroeth_table_offset for ARM_64 (Reviewed and Ack)
-  xen/arm: p2m: Enable support for 32bit IPA for ARM_32
+ xen/arch/arm/domain_build.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
-I have reordered the patches such that the initial five patches can be
-committed without any rebase.
-
-Changes from :
-
-v1 - 1. Reordered the patches such that the first three patches fixes issues in
-the existing codebase. These can be applied independent of the remaining patches
-in this serie.
-
-2. Dropped translate_dt_address_size() for the address/size translation between
-paddr_t and u64 (as parsed from the device tree). Also, dropped the check for
-truncation (while converting u64 to paddr_t).
-Instead now we have modified device_tree_get_reg() and typecasted the return for
-dt_read_number(), to obtain paddr_t. Also, introduced wrappers for
-fdt_get_mem_rsv() and dt_device_get_address() for the same purpose. These can be
-found in patch 4/11 and patch 6/11.
-
-3. Split "Other adaptations required to support 32bit paddr" into the following
-individual patches for each adaptation :
-  xen/arm: smmu: Use writeq_relaxed_non_atomic() for writing to
-    SMMU_CBn_TTBR0
-  xen/arm: guest_walk: LPAE specific bits should be enclosed within
-    "ifndef CONFIG_ARM_PA_32"
-
-4. Introduced "xen/arm: p2m: Enable support for 32bit IPA".
-
-v2 - 1. Dropped patches 1/11, 2/11 and 3/11 from the v2 as it has already been
-committed (except 2/11 - "[XEN v5] xen/arm: Use the correct format specifier"
-which is waiting to be committed).
-
-2. Introduced a new patch "xen/drivers: ns16550: Use paddr_t for io_base/io_size".
-
-v3 - 1. Combined the patches from https://lists.xenproject.org/archives/html/xen-devel/2023-02/msg00656.html in this series.
-
-v4 - 1. Dropped "xen/drivers: ns16550: Use paddr_t for io_base/io_size" from the patch series.
-
-2. Introduced "xen/arm: domain_build: Check if the address fits the range of physical address".
-
-3. "xen/arm: Use the correct format specifier" has been committed in v4.
-
-v5 - 1. Based on the comments on "[XEN v5 08/10] xen/arm: domain_build: Check if the address fits the range of physical address",
-the patch has been modified and split into the following :-
-
-a.  xen: dt: Replace u64 with uint64_t as the callback function parameters
-    for dt_for_each_range()
-b.  xen/arm: pci: Use 'uint64_t' as the datatype for the function
-    parameters.
-c.  xen/arm: domain_build: Check if the address fits the range of physical
-    address
-
-v6 - 1. Reordered the patches such that only the patches which are dependent on
-"CONFIG_PHYS_ADDR_T_32" appear after the Kconfig option is introduced.
-
-Ayan Kumar Halder (11):
-  xen/arm: domain_build: Track unallocated pages using the frame number
-  xen/arm: Typecast the DT values into paddr_t
-  xen/arm: Introduce a wrapper for dt_device_get_address() to handle
-    paddr_t
-  xen/arm: smmu: Use writeq_relaxed_non_atomic() for writing to
-    SMMU_CBn_TTBR0
-  xen/arm: domain_build: Check if the address fits the range of physical
-    address
-  xen: dt: Replace u64 with uint64_t as the callback function parameters
-    for dt_for_each_range()
-  xen/arm: p2m: Use the pa_range_info table to support ARM_32 and ARM_64
-  xen/arm: Introduce choice to enable 64/32 bit physical addressing
-  xen/arm: guest_walk: LPAE specific bits should be enclosed within
-    "ifndef CONFIG_PHYS_ADDR_T_32"
-  xen/arm: Restrict zeroeth_table_offset for ARM_64
-  xen/arm: p2m: Enable support for 32bit IPA for ARM_32
-
- xen/arch/Kconfig                           |  3 ++
- xen/arch/arm/Kconfig                       | 32 ++++++++++++
- xen/arch/arm/bootfdt.c                     | 46 +++++++++++++----
- xen/arch/arm/domain_build.c                | 57 +++++++++++++++-------
- xen/arch/arm/gic-v2.c                      | 10 ++--
- xen/arch/arm/gic-v3-its.c                  |  4 +-
- xen/arch/arm/gic-v3.c                      | 10 ++--
- xen/arch/arm/guest_walk.c                  |  2 +
- xen/arch/arm/include/asm/lpae.h            |  4 ++
- xen/arch/arm/include/asm/p2m.h             |  6 ---
- xen/arch/arm/include/asm/page-bits.h       |  6 +--
- xen/arch/arm/include/asm/setup.h           |  6 +--
- xen/arch/arm/include/asm/types.h           | 13 +++++
- xen/arch/arm/mm.c                          | 12 ++---
- xen/arch/arm/p2m.c                         | 38 ++++++++++-----
- xen/arch/arm/pci/pci-host-common.c         |  8 +--
- xen/arch/arm/platforms/brcm-raspberry-pi.c |  2 +-
- xen/arch/arm/platforms/brcm.c              |  6 +--
- xen/arch/arm/platforms/exynos5.c           | 32 ++++++------
- xen/arch/arm/platforms/sunxi.c             |  2 +-
- xen/arch/arm/platforms/xgene-storm.c       |  2 +-
- xen/arch/arm/setup.c                       | 14 +++---
- xen/arch/arm/smpboot.c                     |  2 +-
- xen/common/device_tree.c                   | 40 ++++++++++++++-
- xen/drivers/char/cadence-uart.c            |  4 +-
- xen/drivers/char/exynos4210-uart.c         |  4 +-
- xen/drivers/char/imx-lpuart.c              |  4 +-
- xen/drivers/char/meson-uart.c              |  4 +-
- xen/drivers/char/mvebu-uart.c              |  4 +-
- xen/drivers/char/omap-uart.c               |  4 +-
- xen/drivers/char/pl011.c                   |  6 +--
- xen/drivers/char/scif-uart.c               |  4 +-
- xen/drivers/passthrough/arm/ipmmu-vmsa.c   |  8 +--
- xen/drivers/passthrough/arm/smmu-v3.c      |  2 +-
- xen/drivers/passthrough/arm/smmu.c         | 23 ++++-----
- xen/include/xen/device_tree.h              | 42 +++++++++++++++-
- xen/include/xen/libfdt/libfdt-xen.h        | 55 +++++++++++++++++++++
- 37 files changed, 380 insertions(+), 141 deletions(-)
- create mode 100644 xen/include/xen/libfdt/libfdt-xen.h
-
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 71f307a572..e0ac5db60d 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -1500,10 +1500,13 @@ static int __init make_resv_memory_node(const struct domain *d,
+     return res;
+ }
+ 
+-static int __init add_ext_regions(unsigned long s, unsigned long e, void *data)
++static int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
++                                  void *data)
+ {
+     struct meminfo *ext_regions = data;
+     paddr_t start, size;
++    paddr_t s = pfn_to_paddr(s_gfn);
++    paddr_t e = pfn_to_paddr(e_gfn);
+ 
+     if ( ext_regions->nr_banks >= ARRAY_SIZE(ext_regions->bank) )
+         return 0;
+@@ -1566,7 +1569,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+     {
+         start = bootinfo.mem.bank[i].start;
+         end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size;
+-        res = rangeset_add_range(unalloc_mem, start, end - 1);
++        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
++                                 PFN_DOWN(end - 1));
+         if ( res )
+         {
+             printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1580,7 +1584,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+     {
+         start = assign_mem->bank[i].start;
+         end = assign_mem->bank[i].start + assign_mem->bank[i].size;
+-        res = rangeset_remove_range(unalloc_mem, start, end - 1);
++        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
++                                    PFN_DOWN(end - 1));
+         if ( res )
+         {
+             printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1595,7 +1600,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+         start = bootinfo.reserved_mem.bank[i].start;
+         end = bootinfo.reserved_mem.bank[i].start +
+             bootinfo.reserved_mem.bank[i].size;
+-        res = rangeset_remove_range(unalloc_mem, start, end - 1);
++        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
++                                    PFN_DOWN(end - 1));
+         if ( res )
+         {
+             printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1607,7 +1613,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+     /* Remove grant table region */
+     start = kinfo->gnttab_start;
+     end = kinfo->gnttab_start + kinfo->gnttab_size;
+-    res = rangeset_remove_range(unalloc_mem, start, end - 1);
++    res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end - 1));
+     if ( res )
+     {
+         printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1617,7 +1623,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+ 
+     start = 0;
+     end = (1ULL << p2m_ipa_bits) - 1;
+-    res = rangeset_report_ranges(unalloc_mem, start, end,
++    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
+                                  add_ext_regions, ext_regions);
+     if ( res )
+         ext_regions->nr_banks = 0;
+@@ -1639,7 +1645,7 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
+ 
+     start = addr & PAGE_MASK;
+     end = PAGE_ALIGN(addr + len);
+-    res = rangeset_remove_range(mem_holes, start, end - 1);
++    res = rangeset_remove_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end - 1));
+     if ( res )
+     {
+         printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1677,7 +1683,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
+     /* Start with maximum possible addressable physical memory range */
+     start = 0;
+     end = (1ULL << p2m_ipa_bits) - 1;
+-    res = rangeset_add_range(mem_holes, start, end);
++    res = rangeset_add_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end));
+     if ( res )
+     {
+         printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1708,7 +1714,8 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
+ 
+             start = addr & PAGE_MASK;
+             end = PAGE_ALIGN(addr + size);
+-            res = rangeset_remove_range(mem_holes, start, end - 1);
++            res = rangeset_remove_range(mem_holes, PFN_DOWN(start),
++                                        PFN_DOWN(end - 1));
+             if ( res )
+             {
+                 printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1735,7 +1742,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
+ 
+     start = 0;
+     end = (1ULL << p2m_ipa_bits) - 1;
+-    res = rangeset_report_ranges(mem_holes, start, end,
++    res = rangeset_report_ranges(mem_holes, PFN_DOWN(start), PFN_DOWN(end),
+                                  add_ext_regions,  ext_regions);
+     if ( res )
+         ext_regions->nr_banks = 0;
 -- 
 2.17.1
 
