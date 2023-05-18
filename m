@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 587EB708A2B
-	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 23:09:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536559.835000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A327A708A3E
+	for <lists+xen-devel@lfdr.de>; Thu, 18 May 2023 23:17:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.536573.835031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzks7-0005yD-2g; Thu, 18 May 2023 21:09:15 +0000
+	id 1pzl0A-0000Ec-D7; Thu, 18 May 2023 21:17:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536559.835000; Thu, 18 May 2023 21:09:15 +0000
+Received: by outflank-mailman (output) from mailman id 536573.835031; Thu, 18 May 2023 21:17:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzks6-0005vJ-WD; Thu, 18 May 2023 21:09:15 +0000
-Received: by outflank-mailman (input) for mailman id 536559;
- Thu, 18 May 2023 21:09:13 +0000
+	id 1pzl0A-0000BU-A8; Thu, 18 May 2023 21:17:34 +0000
+Received: by outflank-mailman (input) for mailman id 536573;
+ Thu, 18 May 2023 21:17:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yK0N=BH=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1pzks5-0003gZ-8d
- for xen-devel@lists.xenproject.org; Thu, 18 May 2023 21:09:13 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20605.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::605])
+ id 1pzksW-0003gZ-NY
+ for xen-devel@lists.xenproject.org; Thu, 18 May 2023 21:09:40 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2060a.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::60a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b716a8e-f5c0-11ed-8611-37d641c3527e;
- Thu, 18 May 2023 23:09:11 +0200 (CEST)
-Received: from DS7PR03CA0097.namprd03.prod.outlook.com (2603:10b6:5:3b7::12)
- by SJ0PR12MB8613.namprd12.prod.outlook.com (2603:10b6:a03:44d::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6387.33; Thu, 18 May
- 2023 21:09:03 +0000
-Received: from DM6NAM11FT055.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b7:cafe::4e) by DS7PR03CA0097.outlook.office365.com
- (2603:10b6:5:3b7::12) with Microsoft SMTP Server (version=TLS1_2,
+ id 4baa4d84-f5c0-11ed-8611-37d641c3527e;
+ Thu, 18 May 2023 23:09:38 +0200 (CEST)
+Received: from BN7PR06CA0051.namprd06.prod.outlook.com (2603:10b6:408:34::28)
+ by PH8PR12MB8606.namprd12.prod.outlook.com (2603:10b6:510:1ce::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19; Thu, 18 May
+ 2023 21:09:32 +0000
+Received: from BN8NAM11FT093.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:34:cafe::55) by BN7PR06CA0051.outlook.office365.com
+ (2603:10b6:408:34::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.19 via Frontend
- Transport; Thu, 18 May 2023 21:09:03 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT055.mail.protection.outlook.com (10.13.173.103) with Microsoft SMTP
+ Transport; Thu, 18 May 2023 21:09:32 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT093.mail.protection.outlook.com (10.13.177.22) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6411.21 via Frontend Transport; Thu, 18 May 2023 21:09:03 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6411.21 via Frontend Transport; Thu, 18 May 2023 21:09:32 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 18 May
- 2023 16:09:02 -0500
+ 2023 16:09:32 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 18 May
+ 2023 14:09:31 -0700
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 18 May 2023 16:09:01 -0500
+ Transport; Thu, 18 May 2023 16:09:30 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,37 +63,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b716a8e-f5c0-11ed-8611-37d641c3527e
+X-Inumbo-ID: 4baa4d84-f5c0-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SUqtsNWKjzke+85coSzJ7VAQldY8bQL5RXLADsy0VRONFXm2cME3ji5kBBpdJPwQVJR5XSz8gkB15vsL5hzJkBEK+Qk0zyJRhYNJH1yIsjqohmWRPmBgxtShin2YQoXYjhgHwkzrskVMoFQ2L28NNnllWeikDOzZyYxLhaBncV3XsN/QwXIy5E7xiq/MIB23Jo29A6BZq541NItZVdFAgsAU1eKncvflEaRDYAO2mX2xVt49S32I9wVbw3Axsvc3gGfxgh8QkPa7fbW+QwFQkvZ1NgdN+cjF6nsZxk2zXvVaFouo8BkrBNcrNP4pY3kz4LbYeSFZb3CaJzJsRsAX/g==
+ b=E6Wr2OYG3a+Fm5SXOFHd2FRWHDmDxhUP8zsTxSyevBLLKvW+98zwcJC5HrmIS20DUDQ7A2WsSwf5xfZ/zJN+hziLpXUi7WBcsmV9w5iKVWEInVlHBfDuTnHBNYepfJrlVAtdcQRrbH+xOL1zpImvnKniWUoZrlXcVcqBVvy8spZf7RcTuut1ku/LL9zq0sFmvZiwu0q0OgdHvJjvNuRyDuDpU6SwT3shx6cvYukY+JXlXyWwuTgTQ1R0lRvfSWTs2rZA1ArmBYdSeoKCq/gWnXh8BF6UzPCJJBkzbgAOzTxDJlru3vmJeED1VXoalUM3MaRJ/SIlSGDRHCifHYwXUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MxTD/B2LQB1Jv047UjgOqA+QiFcS4OIKP4Cx/fTEEkk=;
- b=SPbyHzZ81QzXgSSXTN7atwxTEtmDckKn9QOLSx1zAOTy4yzTwG2ZBBlaze7PuwQe3UVX2SK7r7PP1PxiK+8itUY66XADRoY0X5IRr4DpvTlj9Xi4vzvif8Bi520T5hRPJe+bsw0OgWm59CjOyK9WgcYV3B0scQUw9b2wivGD1AWq5eGqr+FMJJcL4V2XV42f4XjbSFicjWHZ6bEcZtnTy6xZdDg7XwpGf9vlAUWdPk6Zl/tcwd/zwlCL852fyhyZrfaVwG9Y3hMfmp3zwZeSZ03Kqj+yaJAaLoVL1C4rPiFjRFm5st7ph0V2bIEhiYWeQCgqO8W/1UVJNcI16txUsw==
+ bh=RAz7bk/eEBRtyO3ChhU4KoUxEkKuzfEMkl7Zwu/CsVI=;
+ b=ZPCzaYJ6jvLx/ysZ+rUPQl3JSBxcdRp/qWmEwKlUmwc26buxu0w/dy6A5hSZ9hLrutq2pSLH9Ak/5nuBPM17lzaG1bW2lhNNr5uxFzg960VFoulR5xEkpHc95jHgi0bLvgfC6vVjtEloo4pA0UeebVrPmAJMSyg6Lf3rLUx0CISv10gKzzClOi+gWxidlOq2MaLsU1b2n1e0+awiM12/eUamoz/Tem4HNOwSm0bBNtkHMRRfsmtuE724tpAjUlL3U2rbDNp0rfLsZl7/ofXwmh7lwWHLGhhkN5hwAnLho9CLT+1q+9Aoa6nG19gQHVYCTAErjjSUPjCpAdvmg6G9Sw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MxTD/B2LQB1Jv047UjgOqA+QiFcS4OIKP4Cx/fTEEkk=;
- b=kFOVTD5IAn72oyfE6DV51rj2DRsq5Hp3w8p3ytZqEGHCk4ICOSqlJB1H3OBCvd8QOiRR2FcMTjTOc1LCw0JR33llJnHPkXWqrcqIUtvoWe72ZU5QfTak6g8VUrBnkmtUB60QxHHzeixrUA4qJlqcEszwMkZTNxBls0DNXYv1SKA=
+ bh=RAz7bk/eEBRtyO3ChhU4KoUxEkKuzfEMkl7Zwu/CsVI=;
+ b=ClklKs6DNata2RzT7hRoGKX5EWLWUZ+YquIktNtvQHO3mVIgFUGck54FwqnO999CAYT+0roNx/mcnY9fi+WdzYq+x+/8o+n5heL5/A5ZjLc0i3P7AfzBXi3Ifn416eY3nGracvn/NPTPJxE6XEbePrliYqlUyIiouasamqDfgKQ=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Rahul Singh
-	<rahul.singh@arm.com>, Bertrand Marquis <bertrand.marquis@arm.com>, "Jan
- Beulich" <jbeulich@suse.com>
-Subject: [PATCH v3 4/6] iommu/arm: iommu_add_dt_pci_sideband_ids phantom handling
-Date: Thu, 18 May 2023 17:06:56 -0400
-Message-ID: <20230518210658.66156-5-stewart.hildebrand@amd.com>
+CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Julien Grall
+	<julien@xen.org>, Rahul Singh <rahul.singh@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Stewart Hildebrand
+	<stewart.hildebrand@amd.com>
+Subject: [PATCH v3 5/6] xen/arm: smmuv2: Add PCI devices support for SMMUv2
+Date: Thu, 18 May 2023 17:06:57 -0400
+Message-ID: <20230518210658.66156-6-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230518210658.66156-1-stewart.hildebrand@amd.com>
 References: <20230518210658.66156-1-stewart.hildebrand@amd.com>
@@ -98,103 +104,342 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT055:EE_|SJ0PR12MB8613:EE_
-X-MS-Office365-Filtering-Correlation-Id: f698b08a-9328-4df4-aa27-08db57e41bc1
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT093:EE_|PH8PR12MB8606:EE_
+X-MS-Office365-Filtering-Correlation-Id: aac9e896-4d5c-4822-0496-08db57e42d44
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Dd6XR/njwJuEOsighaKQGU0olMfUNbREGRa0WoDP0rVTPmXdRG4yhBPW8q+07gIVLTF5HkcYVsevVgHQO1zikP13N7QoWShXR+HUDzGOyPeziKqjOMFoxMCB64RzMHtNRhxIpJAUzVtDHfC9E/Q/AbGRXh9DeoaG86o1fGI2jxv9dQJ+7ZEknu8gxBpU19WiASBa2mcwLn2RDtIhJBYQj4UqHSy3YOaE7qgq9eBb/GziJ/03jMx3Gh41JctGuSGP0TxXjk70B8+vGQzu8mSrO6bFDEXMOn0O0EIi19YF5JhvCopNbObsnhm/bLUJleS/Sg7Q6g+uOCc9Alzmzli/m1Whobf8zf6M4p9F8aXIKxr9f6tfvhRChcZBi6L+COnHkYzxIKxt8qz+CGPdV505Ng6kE+Tdh96PN1piZ9U+F75y7fgdURr3QeH9i3AsK5hrYkymbSanyCaBq4KaLxoWX3ywSwFFzdWF4GkAldppsnPPq3d7wCUoUQ9VKhI9mwMxUaCvLSYkCA4cEFo+EsxLhlbksM3ZAMd0vEKzvyO9g6NP0bys2jZY9Kr6wc16Q4RDvWhIm7D9cmgIiEHMOaZ4Zwa57AqDZeFn8u78sI7VQ5OSy3Thoh+GLL2Go51ar9K15kJalL4I0GPXtOKOfnR9Nlk3tWxdFHskPwu1PTVqOo+dwtTTggI28Xv67BCarXosuSZyK05QJb+rn5dxqk1LZBeCqAuJ+D4/mWPpXzf7wAJpGWPkzYMiGEhs0zCVfDTAMRe6VqPKNKdu2HeUKsRPbg==
+	ZJT4YLVQhFLGIj9qIKSHASBsQ3ItZGieFdULQ3RKZleVCnzzYHspvXbeBeF96lyT1uNazn5AHeNpuJLUPNs/k3qwJU9EoywtdPIKRuBxNKP0jAL8NuekSvBPm/Wt8xLIvTpasaQhapS5Ar6ISh2YoJK54QvPlGjFSXSHfrEIKSr7KRCrmyxwlFZZkUka7bRdpvO/tkAoW3NzvsueMlLePUL7tZn2c+Mqh6/uPC3fQN2LG+M2Jji+IVCI+wlY/pQKLM1LIG3qtkJccsuWuswG1ILafM6QZUynrB8TxFJlUwwW7J7KXhbhVFwzGJxjVwk6bctbdfD5rU4BmjUV5+iJK2nUmFzZHMIRu5XwJVgTcE9GRQxVl92+ER85tzOMUmOXrDY8KykYMAN85zN7Gnx3gljqerfKhia7bLo7CqSD2Ye6gNrXmCrrRtN0MSbh/5mGTnzHmf3uzSVLLu2bharWN8rK6jarITz2oHUnwDeyYab/dvCbtE6dGS1HNIORyrao4a3bWuRPz3XTkH+A1PzejHN1pSy3CAUE4XNkMooNNxtyWNmGY8jpLZFiKhsStDv4T2mNhCvAeEfI/ofSOqDgyFdpEchbc24BqUAOXE1dPBfNrDzQw5nqRkShSYArOnUS/zXW/MNq2zYweeLhN2VU1VDp4IUwdwXSyccWE1YXGHwSUx6+3Ehjtm9mDRQCrS776Uami60EUCVuRPqhGYI2fx4kkuE2/nihEPo1mPz2zPwDfZZnRxG2nrQgxemkbjpYHKjJKvycsUoIfeqGmxmNrW6wSY0Oyz0fu3ikCObFbFM=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(136003)(396003)(39860400002)(451199021)(46966006)(40470700004)(36840700001)(40460700003)(70586007)(4326008)(86362001)(6916009)(478600001)(70206006)(966005)(54906003)(316002)(36756003)(83380400001)(36860700001)(26005)(1076003)(336012)(186003)(47076005)(426003)(2616005)(2906002)(44832011)(8676002)(8936002)(40480700001)(41300700001)(356005)(82310400005)(5660300002)(82740400003)(81166007)(6666004)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(346002)(396003)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(2906002)(478600001)(41300700001)(4326008)(6916009)(8936002)(8676002)(316002)(54906003)(44832011)(6666004)(70586007)(70206006)(5660300002)(40460700003)(966005)(26005)(1076003)(82740400003)(356005)(186003)(81166007)(2616005)(83380400001)(40480700001)(47076005)(36756003)(36860700001)(82310400005)(336012)(426003)(86362001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 21:09:03.2112
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2023 21:09:32.6337
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f698b08a-9328-4df4-aa27-08db57e41bc1
+X-MS-Exchange-CrossTenant-Network-Message-Id: aac9e896-4d5c-4822-0496-08db57e42d44
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT055.eop-nam11.prod.protection.outlook.com
+	BN8NAM11FT093.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8613
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8606
 
-Handle phantom functions in iommu_add_dt_pci_sideband_ids(). Each phantom
-function will have a unique requestor ID (RID)/BDF. On ARM, we need to
-map/translate the RID/BDF to an AXI stream ID for each phantom function
-according to the pci-iommu device tree mapping [1]. The RID/BDF -> AXI stream ID
-mapping in DT could allow phantom devices (i.e. devices with phantom functions)
-to use different AXI stream IDs based on the (phantom) function.
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-[1] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/pci-iommu.txt
-
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 ---
 v2->v3:
-* new patch title (was: iommu/arm: iommu_add_dt_pci_device phantom handling)
-* rework loop to reduce duplication
-* s/iommu_fwspec_free(pci_to_dev(pdev))/iommu_fwspec_free(dev)/
+* invoke iommu_add_pci_sideband_ids() from add_device hook
 
 v1->v2:
-* new patch
+* ignore add_device/assign_device/reassign_device calls for phantom functions
+  (i.e. devfn != pdev->devfn)
 
+downstream->v1:
+* wrap unused function in #ifdef 0
+* remove the remove_device() stub since it was submitted separately to the list
+  [XEN][PATCH v6 12/19] xen/smmu: Add remove_device callback for smmu_iommu ops
+  https://lists.xenproject.org/archives/html/xen-devel/2023-05/msg00204.html
+* arm_smmu_(de)assign_dev: return error instead of crashing system
+* update condition in arm_smmu_reassign_dev
+* style fixup
+* add && !is_hardware_domain(d) into condition in arm_smmu_assign_dev()
+
+(cherry picked from commit 0c11a7f65f044c26d87d1e27ac6283ef1f9cfb7a from
+ the downstream branch spider-master from
+ https://github.com/xen-troops/xen.git)
 ---
- xen/drivers/passthrough/device_tree.c | 33 ++++++++++++++++-----------
- 1 file changed, 20 insertions(+), 13 deletions(-)
 
-diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-index d568166e19ec..c18ddae3e993 100644
---- a/xen/drivers/passthrough/device_tree.c
-+++ b/xen/drivers/passthrough/device_tree.c
-@@ -247,6 +247,7 @@ int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
-     struct device *dev = pci_to_dev(pdev);
-     const struct dt_device_node *np;
-     int rc = NO_IOMMU;
-+    unsigned int devfn = pdev->devfn;
+This is a file imported from Linux with modifications for Xen. What should be
+the coding style for Xen modifications?
+---
+ xen/drivers/passthrough/arm/smmu.c | 114 +++++++++++++++++++++++------
+ 1 file changed, 93 insertions(+), 21 deletions(-)
+
+diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+index 5b6024d579a8..d426920d8f9b 100644
+--- a/xen/drivers/passthrough/arm/smmu.c
++++ b/xen/drivers/passthrough/arm/smmu.c
+@@ -134,8 +134,20 @@ typedef enum irqreturn irqreturn_t;
+ /* Device logger functions
+  * TODO: Handle PCI
+  */
+-#define dev_print(dev, lvl, fmt, ...)						\
+-	 printk(lvl "smmu: %s: " fmt, dt_node_full_name(dev_to_dt(dev)), ## __VA_ARGS__)
++#ifndef CONFIG_HAS_PCI
++#define dev_print(dev, lvl, fmt, ...)    \
++    printk(lvl "smmu: %s: " fmt, dev_name(dev), ## __VA_ARGS__)
++#else
++#define dev_print(dev, lvl, fmt, ...) ({                                \
++    if ( !dev_is_pci((dev)) )                                           \
++        printk(lvl "smmu: %s: " fmt, dev_name((dev)), ## __VA_ARGS__);  \
++    else                                                                \
++    {                                                                   \
++        struct pci_dev *pdev = dev_to_pci((dev));                       \
++        printk(lvl "smmu: %pp: " fmt, &pdev->sbdf, ## __VA_ARGS__);     \
++    }                                                                   \
++})
++#endif
  
-     if ( !iommu_enabled )
-         return NO_IOMMU;
-@@ -271,21 +272,27 @@ int iommu_add_dt_pci_sideband_ids(struct pci_dev *pdev)
-     if ( !ops->dt_xlate )
-         return -EINVAL;
- 
--    /*
--     * According to the Documentation/devicetree/bindings/pci/pci-iommu.txt
--     * from Linux.
--     */
--    rc = iommu_dt_pci_map_id(np, PCI_BDF(pdev->bus, pdev->devfn), "iommu-map",
--                             "iommu-map-mask", &iommu_spec.np, iommu_spec.args);
--    if ( rc )
--        return rc == -ENODEV ? NO_IOMMU : rc;
-+    do {
-+        /*
-+         * According to the Documentation/devicetree/bindings/pci/pci-iommu.txt
-+         * from Linux.
-+         */
-+        rc = iommu_dt_pci_map_id(np, PCI_BDF(pdev->bus, devfn), "iommu-map",
-+                                 "iommu-map-mask", &iommu_spec.np, iommu_spec.args);
-+        if ( rc )
-+            return rc == -ENODEV ? NO_IOMMU : rc;
- 
--    rc = iommu_dt_xlate(dev, &iommu_spec);
--    if ( rc < 0 )
--    {
--        iommu_fwspec_free(dev);
--        return -EINVAL;
-+        rc = iommu_dt_xlate(dev, &iommu_spec);
-+        if ( rc < 0 )
-+        {
-+            iommu_fwspec_free(dev);
-+            return -EINVAL;
-+        }
-+
-+        devfn += pdev->phantom_stride;
-     }
-+    while ( devfn != pdev->devfn &&
-+            PCI_SLOT(devfn) == PCI_SLOT(pdev->devfn));
- 
-     return rc;
+ #define dev_dbg(dev, fmt, ...) dev_print(dev, XENLOG_DEBUG, fmt, ## __VA_ARGS__)
+ #define dev_notice(dev, fmt, ...) dev_print(dev, XENLOG_INFO, fmt, ## __VA_ARGS__)
+@@ -187,6 +199,7 @@ static void __iomem *devm_ioremap_resource(struct device *dev,
+  * Xen: PCI functions
+  * TODO: It should be implemented when PCI will be supported
+  */
++#if 0 /* unused */
+ #define to_pci_dev(dev)	(NULL)
+ static inline int pci_for_each_dma_alias(struct pci_dev *pdev,
+ 					 int (*fn) (struct pci_dev *pdev,
+@@ -196,6 +209,7 @@ static inline int pci_for_each_dma_alias(struct pci_dev *pdev,
+ 	BUG();
+ 	return 0;
  }
++#endif
+ 
+ /* Xen: misc */
+ #define PHYS_MASK_SHIFT		PADDR_BITS
+@@ -632,7 +646,7 @@ struct arm_smmu_master_cfg {
+ 	for (i = 0; idx = cfg->smendx[i], i < num; ++i)
+ 
+ struct arm_smmu_master {
+-	struct device_node		*of_node;
++	struct device			*dev;
+ 	struct rb_node			node;
+ 	struct arm_smmu_master_cfg	cfg;
+ };
+@@ -724,7 +738,7 @@ arm_smmu_get_fwspec(struct arm_smmu_master_cfg *cfg)
+ {
+ 	struct arm_smmu_master *master = container_of(cfg,
+ 			                                      struct arm_smmu_master, cfg);
+-	return dev_iommu_fwspec_get(&master->of_node->dev);
++	return dev_iommu_fwspec_get(master->dev);
+ }
+ 
+ static void parse_driver_options(struct arm_smmu_device *smmu)
+@@ -757,7 +771,7 @@ static struct device_node *dev_get_dev_node(struct device *dev)
+ }
+ 
+ static struct arm_smmu_master *find_smmu_master(struct arm_smmu_device *smmu,
+-						struct device_node *dev_node)
++						struct device *dev)
+ {
+ 	struct rb_node *node = smmu->masters.rb_node;
+ 
+@@ -766,9 +780,9 @@ static struct arm_smmu_master *find_smmu_master(struct arm_smmu_device *smmu,
+ 
+ 		master = container_of(node, struct arm_smmu_master, node);
+ 
+-		if (dev_node < master->of_node)
++		if (dev < master->dev)
+ 			node = node->rb_left;
+-		else if (dev_node > master->of_node)
++		else if (dev > master->dev)
+ 			node = node->rb_right;
+ 		else
+ 			return master;
+@@ -803,9 +817,9 @@ static int insert_smmu_master(struct arm_smmu_device *smmu,
+ 			= container_of(*new, struct arm_smmu_master, node);
+ 
+ 		parent = *new;
+-		if (master->of_node < this->of_node)
++		if (master->dev < this->dev)
+ 			new = &((*new)->rb_left);
+-		else if (master->of_node > this->of_node)
++		else if (master->dev > this->dev)
+ 			new = &((*new)->rb_right);
+ 		else
+ 			return -EEXIST;
+@@ -824,18 +838,18 @@ static int arm_smmu_dt_add_device_legacy(struct arm_smmu_device *smmu,
+ 	struct arm_smmu_master *master;
+ 	struct device_node *dev_node = dev_get_dev_node(dev);
+ 
+-	master = find_smmu_master(smmu, dev_node);
++	master = find_smmu_master(smmu, dev);
+ 	if (master) {
+ 		dev_err(dev,
+ 			"rejecting multiple registrations for master device %s\n",
+-			dev_node->name);
++			dev_node ? dev_node->name : "");
+ 		return -EBUSY;
+ 	}
+ 
+ 	master = devm_kzalloc(dev, sizeof(*master), GFP_KERNEL);
+ 	if (!master)
+ 		return -ENOMEM;
+-	master->of_node = dev_node;
++	master->dev = dev;
+ 
+ 	/* Xen: Let Xen know that the device is protected by an SMMU */
+ 	device_set_protected(dev);
+@@ -845,7 +859,7 @@ static int arm_smmu_dt_add_device_legacy(struct arm_smmu_device *smmu,
+ 		     (fwspec->ids[i] >= smmu->num_mapping_groups)) {
+ 			dev_err(dev,
+ 				"stream ID for master device %s greater than maximum allowed (%d)\n",
+-				dev_node->name, smmu->num_mapping_groups);
++				dev_node ? dev_node->name : "", smmu->num_mapping_groups);
+ 			return -ERANGE;
+ 		}
+ 		master->cfg.smendx[i] = INVALID_SMENDX;
+@@ -881,6 +895,21 @@ static int arm_smmu_dt_add_device_generic(u8 devfn, struct device *dev)
+ 	struct arm_smmu_device *smmu;
+ 	struct iommu_fwspec *fwspec;
+ 
++#ifdef CONFIG_HAS_PCI
++	if ( dev_is_pci(dev) )
++	{
++		struct pci_dev *pdev = dev_to_pci(dev);
++		int ret;
++
++		if ( devfn != pdev->devfn )
++			return 0;
++
++		ret = iommu_add_pci_sideband_ids(pdev);
++		if ( ret < 0 )
++			iommu_fwspec_free(dev);
++	}
++#endif
++
+ 	fwspec = dev_iommu_fwspec_get(dev);
+ 	if (fwspec == NULL)
+ 		return -ENXIO;
+@@ -912,11 +941,10 @@ static struct arm_smmu_device *find_smmu_for_device(struct device *dev)
+ {
+ 	struct arm_smmu_device *smmu;
+ 	struct arm_smmu_master *master = NULL;
+-	struct device_node *dev_node = dev_get_dev_node(dev);
+ 
+ 	spin_lock(&arm_smmu_devices_lock);
+ 	list_for_each_entry(smmu, &arm_smmu_devices, list) {
+-		master = find_smmu_master(smmu, dev_node);
++		master = find_smmu_master(smmu, dev);
+ 		if (master)
+ 			break;
+ 	}
+@@ -2006,6 +2034,7 @@ static bool arm_smmu_capable(enum iommu_cap cap)
+ }
+ #endif
+ 
++#if 0 /* Not used */
+ static int __arm_smmu_get_pci_sid(struct pci_dev *pdev, u16 alias, void *data)
+ {
+ 	*((u16 *)data) = alias;
+@@ -2016,6 +2045,7 @@ static void __arm_smmu_release_pci_iommudata(void *data)
+ {
+ 	kfree(data);
+ }
++#endif
+ 
+ static int arm_smmu_add_device(struct device *dev)
+ {
+@@ -2023,12 +2053,13 @@ static int arm_smmu_add_device(struct device *dev)
+ 	struct arm_smmu_master_cfg *cfg;
+ 	struct iommu_group *group;
+ 	void (*releasefn)(void *) = NULL;
+-	int ret;
+ 
+ 	smmu = find_smmu_for_device(dev);
+ 	if (!smmu)
+ 		return -ENODEV;
+ 
++	/* There is no need to distinguish here, thanks to PCI-IOMMU DT bindings */
++#if 0
+ 	if (dev_is_pci(dev)) {
+ 		struct pci_dev *pdev = to_pci_dev(dev);
+ 		struct iommu_fwspec *fwspec;
+@@ -2053,10 +2084,12 @@ static int arm_smmu_add_device(struct device *dev)
+ 				       &fwspec->ids[0]);
+ 		releasefn = __arm_smmu_release_pci_iommudata;
+ 		cfg->smmu = smmu;
+-	} else {
++	} else
++#endif
++	{
+ 		struct arm_smmu_master *master;
+ 
+-		master = find_smmu_master(smmu, dev->of_node);
++		master = find_smmu_master(smmu, dev);
+ 		if (!master) {
+ 			return -ENODEV;
+ 		}
+@@ -2724,6 +2757,27 @@ static int arm_smmu_assign_dev(struct domain *d, u8 devfn,
+ 			return -ENOMEM;
+ 	}
+ 
++#ifdef CONFIG_HAS_PCI
++	if ( dev_is_pci(dev) && !is_hardware_domain(d) )
++	{
++		struct pci_dev *pdev = dev_to_pci(dev);
++
++		printk(XENLOG_INFO "Assigning device %04x:%02x:%02x.%u to dom%d\n",
++		       pdev->seg, pdev->bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
++		       d->domain_id);
++
++		if ( devfn != pdev->devfn || pdev->domain == d )
++			return 0;
++
++		list_move(&pdev->domain_list, &d->pdev_list);
++		pdev->domain = d;
++
++		/* dom_io is used as a sentinel for quarantined devices */
++		if ( d == dom_io )
++			return 0;
++	}
++#endif
++
+ 	if (!dev_iommu_group(dev)) {
+ 		ret = arm_smmu_add_device(dev);
+ 		if (ret)
+@@ -2773,11 +2827,29 @@ out:
+ 	return ret;
+ }
+ 
+-static int arm_smmu_deassign_dev(struct domain *d, struct device *dev)
++static int arm_smmu_deassign_dev(struct domain *d, u8 devfn, struct device *dev)
+ {
+ 	struct iommu_domain *domain = dev_iommu_domain(dev);
+ 	struct arm_smmu_xen_domain *xen_domain;
+ 
++#ifdef CONFIG_HAS_PCI
++	if ( dev_is_pci(dev) )
++	{
++		struct pci_dev *pdev = dev_to_pci(dev);
++
++		printk(XENLOG_INFO "Deassigning device %04x:%02x:%02x.%u from dom%d\n",
++		       pdev->seg, pdev->bus, PCI_SLOT(devfn), PCI_FUNC(devfn),
++		       d->domain_id);
++
++		if ( devfn != pdev->devfn )
++			return 0;
++
++		/* dom_io is used as a sentinel for quarantined devices */
++		if ( d == dom_io )
++			return 0;
++	}
++#endif
++
+ 	xen_domain = dom_iommu(d)->arch.priv;
+ 
+ 	if (!domain || domain->priv->cfg.domain != d) {
+@@ -2805,13 +2877,13 @@ static int arm_smmu_reassign_dev(struct domain *s, struct domain *t,
+ 	int ret = 0;
+ 
+ 	/* Don't allow remapping on other domain than hwdom */
+-	if ( t && !is_hardware_domain(t) )
++	if ( t && !is_hardware_domain(t) && t != dom_io )
+ 		return -EPERM;
+ 
+ 	if (t == s)
+ 		return 0;
+ 
+-	ret = arm_smmu_deassign_dev(s, dev);
++	ret = arm_smmu_deassign_dev(s, devfn, dev);
+ 	if (ret)
+ 		return ret;
+ 
 -- 
 2.40.1
 
