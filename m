@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E0C70A2E1
-	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 00:45:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.537283.836291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F01E170A367
+	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 01:37:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.537294.836323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q08qK-0003rz-Ql; Fri, 19 May 2023 22:45:00 +0000
+	id 1q09dh-00016K-Pc; Fri, 19 May 2023 23:36:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 537283.836291; Fri, 19 May 2023 22:45:00 +0000
+Received: by outflank-mailman (output) from mailman id 537294.836323; Fri, 19 May 2023 23:36:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q08qK-0003pL-O5; Fri, 19 May 2023 22:45:00 +0000
-Received: by outflank-mailman (input) for mailman id 537283;
- Fri, 19 May 2023 22:44:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Sk0S=BI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1q08qJ-0003pD-0f
- for xen-devel@lists.xenproject.org; Fri, 19 May 2023 22:44:59 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c64b8cd6-f696-11ed-8611-37d641c3527e;
- Sat, 20 May 2023 00:44:56 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AFCCB65AF5;
- Fri, 19 May 2023 22:44:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D8AC433EF;
- Fri, 19 May 2023 22:44:53 +0000 (UTC)
+	id 1q09dh-000134-Lg; Fri, 19 May 2023 23:36:01 +0000
+Received: by outflank-mailman (input) for mailman id 537294;
+ Fri, 19 May 2023 23:36:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q09dg-00012u-Fb; Fri, 19 May 2023 23:36:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q09df-0001EX-To; Fri, 19 May 2023 23:35:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q09df-00088x-KB; Fri, 19 May 2023 23:35:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q09df-00042C-Jl; Fri, 19 May 2023 23:35:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,98 +42,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c64b8cd6-f696-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684536294;
-	bh=avhqWAzTLQYSC2CKBntCFG/I4IQPsOmgng9uuN2d9F4=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Oib71LM9fOYGGzo9wCebmTL9hEST8mTMhZPd5EAqerSU11GzTJdGgpJR84IKJfHt5
-	 Lv0Ddq2gGEK62d7lr85dPNQS2YSro7yDMhAVpRkQZULALX1kqGP7hJRA4WgMh6XP7X
-	 DlMziPqCCJX6sRrMwz9kBwRfDURQD2xH0R4vFkhebjAwoBhkU6FzlonIBqqMo650dt
-	 M/eHumRWxbigcbbAIqCFD/iYFwAObtf3faDQWCexY7TB/GRfY5XPhztEjyirYICssw
-	 L2snwxsieRzpng3RdJgrMIdS2zrEtSfj8ca9Ah1IkWE9/9BJwTYsbXYkuCKCHWflpm
-	 MYrg9DEwhnEng==
-Date: Fri, 19 May 2023 15:44:48 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
-    xen-devel@lists.xenproject.org, marmarek@invisiblethingslab.com, 
-    xenia.ragiadakou@amd.com
-Subject: Re: PVH Dom0 related UART failure
-In-Reply-To: <b411f7aa-7fd2-7b1c-1bcd-35b989f528b6@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2305191544420.815658@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2305171745450.128889@ubuntu-linux-20-04-desktop> <ZGX/Pvgy3+onJOJZ@Air-de-Roger> <b411f7aa-7fd2-7b1c-1bcd-35b989f528b6@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-464613732-1684536293=:815658"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=5D3AxBuZEYRt5KMINZrmiWlxB7cNPVQYSH+OdHXWLnA=; b=xjsI0yoXPBgbrIMy2ryEV+CQaF
+	az1cKk07+9hLrExmqahjYvLks0IawWUzXqyHX116wXoSHR7q5ZsYInwIe1QTWZRqqmiUxyhD0sseJ
+	V8W8fW2SrDmlBlbj1qCanAQ3+z3S+2cg106Ig3YWkw9n336ns3mwWKwyBnG0HXcE1q7E=;
+To: xen-devel@lists.xenproject.org
+Subject: [qemu-mainline bisection] complete build-amd64
+Message-Id: <E1q09df-00042C-Jl@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 May 2023 23:35:59 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+branch xen-unstable
+xenbranch xen-unstable
+job build-amd64
+testid xen-build
 
---8323329-464613732-1684536293=:815658
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu https://gitlab.com/qemu-project/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-On Fri, 19 May 2023, Jan Beulich wrote:
-> On 18.05.2023 12:34, Roger Pau Monné wrote:
-> > On Wed, May 17, 2023 at 05:59:31PM -0700, Stefano Stabellini wrote:
-> >> I have run into another PVH Dom0 issue. I am trying to enable a PVH Dom0
-> >> test with the brand new gitlab-ci runner offered by Qubes. It is an AMD
-> >> Zen3 system and we already have a few successful tests with it, see
-> >> automation/gitlab-ci/test.yaml.
-> >>
-> >> We managed to narrow down the issue to a console problem. We are
-> >> currently using console=com1 com1=115200,8n1,pci,msi as Xen command line
-> >> options, it works with PV Dom0 and it is using a PCI UART card.
-> >>
-> >> In the case of Dom0 PVH:
-> >> - it works without console=com1
-> >> - it works with console=com1 and with the patch appended below
-> >> - it doesn't work otherwise and crashes with this error:
-> >> https://matrix-client.matrix.org/_matrix/media/r0/download/invisiblethingslab.com/uzcmldIqHptFZuxqsJtviLZK
-> > 
-> > Jan also noticed this, and we have a ticket for it in gitlab:
-> > 
-> > https://gitlab.com/xen-project/xen/-/issues/85
-> > 
-> >> What is the right way to fix it?
-> > 
-> > I think the right fix is to simply avoid hidden devices from being
-> > handled by vPCI, in any case such devices won't work propewrly with
-> > vPCI because they are in use by Xen, and so any cached information by
-> > vPCI is likely to become stable as Xen can modify the device without
-> > vPCI noticing.
-> > 
-> > I think the chunk below should help.  It's not clear to me however how
-> > hidden devices should be handled, is the intention to completely hide
-> > such devices from dom0?
-> 
-> No, Dom0 should still be able to see them in a (mostly) r/o fashion.
+*** Found and reproduced problem changeset ***
 
-But why? If something is in-use by Xen (e.g. IOMMU, a serial PCI device,
-etc.) ideally Dom0 shouldn't even know of its existence because the
-device is not exposed to Dom0. Dom0 is not meant to use it. Why let Dom0
-know it exists if Dom0 should not use it?
+  Bug is in tree:  qemuu https://gitlab.com/qemu-project/qemu.git
+  Bug introduced:  81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
+  Bug not present: 2274817f6c499fd31081d7973b7cbfdca17c44a8
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/180774/
 
-In Xen on ARM, initially we didn't expose devices used by Xen to Dom0
-at all.  However to hide them completely we had to make complex device
-tree manipulations. Now instead we leave the device nodes in device tree
-as is, but we change the "status" property to "disabled".
 
-The idea is still that we completely hide Xen devices from Dom0, but
-because of implementation complexity, instead of completing taking away
-the corresponding nodes from device tree, we change them to disabled,
-which still leads to the same result: the guest OS will skip them.
+  commit 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
+  Author: John Snow <jsnow@redhat.com>
+  Date:   Wed May 10 23:54:23 2023 -0400
+  
+      configure: create a python venv unconditionally
+      
+      This patch changes the configure script so that it always creates and
+      uses a python virtual environment unconditionally.
+      
+      Meson bootstrapping is temporarily altered to force the use of meson
+      from git or vendored source (as packaged in our source tarballs). A
+      subsequent commit restores the use of distribution-vendored Meson.
+      
+      Signed-off-by: John Snow <jsnow@redhat.com>
+      Message-Id: <20230511035435.734312-16-jsnow@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-I am saying this without being familiar with the x86 PVH implementation,
-so pardon my ignorance here, but it seems to me that as we are moving
-toward an better architecture with PVH, once that allows any OS to be
-Dom0, not just Linux, we would want to also completely hide devices
-owned by Xen from Dom0.
 
-That way we don't need any workaround in the guest OS for it not to use
-them.
---8323329-464613732-1684536293=:815658--
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/build-amd64.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/build-amd64.xen-build --summary-out=tmp/180774.bisection-summary --basis-template=180691 --blessings=real,real-bisect,real-retry qemu-mainline build-amd64 xen-build
+Searching for failure / basis pass:
+ 180742 fail [host=himrod2] / 180691 ok.
+Failure / basis pass flights: 180742 / 180691
+(tree with no url: minios)
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu https://gitlab.com/qemu-project/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+Basis pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6972ef1440a9d685482d78672620a7482f2bd09a be7e899350caa7b74d8271a34264c3b4aef25ab0 8f9c8274a4e3e860bd777269cb2c91971e9fa69e
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e-0abfb0be6cf78a8e962383e85cec57851ddae5bc git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 https://gitlab.com/qemu-project/qemu.git#6972ef1440a9d685482d78672620a7482f2bd09a-146f515110e86aefe3bc2e8eb581ab724614060f git://xenbits.xen.org/osstest/seabios.git#be7e899350caa7b74d8271a34264c3b\
+ 4aef25ab0-be7e899350caa7b74d8271a34264c3b4aef25ab0 git://xenbits.xen.org/xen.git#8f9c8274a4e3e860bd777269cb2c91971e9fa69e-42abf5b9c53eb1b1a902002fcda68708234152c3
+Loaded 34991 nodes in revision graph
+Searching for test results:
+ 180702 [host=himrod0]
+ 180691 pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6972ef1440a9d685482d78672620a7482f2bd09a be7e899350caa7b74d8271a34264c3b4aef25ab0 8f9c8274a4e3e860bd777269cb2c91971e9fa69e
+ 180704 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 297e8182194e634baa0cbbfd96d2e09e2a0bcd40 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180721 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180742 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180759 pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6972ef1440a9d685482d78672620a7482f2bd09a be7e899350caa7b74d8271a34264c3b4aef25ab0 8f9c8274a4e3e860bd777269cb2c91971e9fa69e
+ 180760 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180761 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 34f983d86fe40ffe5975369c1cf5e6a61688383a be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180762 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dee01b827ffc26577217697074052b8b7f4770dc be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180764 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6b0cedcdc7c52feda1a6b5d6c6f30356290af0ec be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180765 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dd48b477e90c3200b970545d1953e12e8c1431db be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180767 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e80bdbf283fb7a3643172b7f85b41d9dd312091c be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180769 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180770 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180771 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180772 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180773 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180774 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+Searching for interesting versions
+ Result found: flight 180691 (pass), for basis pass
+ Result found: flight 180721 (fail), for basis failure
+ Repro found: flight 180759 (pass), for basis pass
+ Repro found: flight 180760 (fail), for basis failure
+ 0 revisions at 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+No revisions left to test, checking graph state.
+ Result found: flight 180769 (pass), for last pass
+ Result found: flight 180770 (fail), for first failure
+ Repro found: flight 180771 (pass), for last pass
+ Repro found: flight 180772 (fail), for first failure
+ Repro found: flight 180773 (pass), for last pass
+ Repro found: flight 180774 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  qemuu https://gitlab.com/qemu-project/qemu.git
+  Bug introduced:  81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
+  Bug not present: 2274817f6c499fd31081d7973b7cbfdca17c44a8
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/180774/
+
+
+  commit 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
+  Author: John Snow <jsnow@redhat.com>
+  Date:   Wed May 10 23:54:23 2023 -0400
+  
+      configure: create a python venv unconditionally
+      
+      This patch changes the configure script so that it always creates and
+      uses a python virtual environment unconditionally.
+      
+      Meson bootstrapping is temporarily altered to force the use of meson
+      from git or vendored source (as packaged in our source tarballs). A
+      subsequent commit restores the use of distribution-vendored Meson.
+      
+      Signed-off-by: John Snow <jsnow@redhat.com>
+      Message-Id: <20230511035435.734312-16-jsnow@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+
+Revision graph left in /home/logs/results/bisect/qemu-mainline/build-amd64.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+180774: tolerable ALL FAIL
+
+flight 180774 qemu-mainline real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180774/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-amd64                   6 xen-build               fail baseline untested
+
+
+jobs:
+ build-amd64                                                  fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
