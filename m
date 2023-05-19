@@ -2,35 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 069CE7093F9
-	for <lists+xen-devel@lfdr.de>; Fri, 19 May 2023 11:46:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536875.835613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8B93709408
+	for <lists+xen-devel@lfdr.de>; Fri, 19 May 2023 11:48:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.536890.835624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzwgw-00071u-ET; Fri, 19 May 2023 09:46:30 +0000
+	id 1pzwj8-0008Gl-VH; Fri, 19 May 2023 09:48:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536875.835613; Fri, 19 May 2023 09:46:30 +0000
+Received: by outflank-mailman (output) from mailman id 536890.835624; Fri, 19 May 2023 09:48:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pzwgw-0006zi-BO; Fri, 19 May 2023 09:46:30 +0000
-Received: by outflank-mailman (input) for mailman id 536875;
- Fri, 19 May 2023 09:46:29 +0000
+	id 1pzwj8-0008E1-Rd; Fri, 19 May 2023 09:48:46 +0000
+Received: by outflank-mailman (input) for mailman id 536890;
+ Fri, 19 May 2023 09:48:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Umm=BI=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1pzwgu-0006V3-Vw
- for xen-devel@lists.xenproject.org; Fri, 19 May 2023 09:46:29 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 0660987c-f62a-11ed-b22d-6b7b168915f2;
- Fri, 19 May 2023 11:46:27 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D94DF15BF;
- Fri, 19 May 2023 02:47:11 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AAD083F73F;
- Fri, 19 May 2023 02:46:25 -0700 (PDT)
+ <SRS0=7Umm=BI=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1pzwj7-0008Dt-C9
+ for xen-devel@lists.xenproject.org; Fri, 19 May 2023 09:48:45 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20615.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::615])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 57cf9d14-f62a-11ed-b22d-6b7b168915f2;
+ Fri, 19 May 2023 11:48:44 +0200 (CEST)
+Received: from DB8PR06CA0046.eurprd06.prod.outlook.com (2603:10a6:10:120::20)
+ by DU2PR08MB10186.eurprd08.prod.outlook.com (2603:10a6:10:46c::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.17; Fri, 19 May
+ 2023 09:48:38 +0000
+Received: from DBAEUR03FT057.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:120:cafe::2f) by DB8PR06CA0046.outlook.office365.com
+ (2603:10a6:10:120::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.21 via Frontend
+ Transport; Fri, 19 May 2023 09:48:38 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT057.mail.protection.outlook.com (100.127.142.182) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6433.7 via Frontend Transport; Fri, 19 May 2023 09:48:37 +0000
+Received: ("Tessian outbound e13c2446394c:v136");
+ Fri, 19 May 2023 09:48:37 +0000
+Received: from 438853850870.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 6E59D5B5-2E83-4C41-9A49-D57BC1E61E46.1; 
+ Fri, 19 May 2023 09:48:27 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 438853850870.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 19 May 2023 09:48:27 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
+ by DU0PR08MB8208.eurprd08.prod.outlook.com (2603:10a6:10:3b1::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.21; Fri, 19 May
+ 2023 09:48:24 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::362c:56c7:5ea4:422e]) by AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::362c:56c7:5ea4:422e%7]) with mapi id 15.20.6411.019; Fri, 19 May 2023
+ 09:48:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,524 +72,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0660987c-f62a-11ed-b22d-6b7b168915f2
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: bertrand.marquis@arm.com,
-	wei.chen@arm.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 2/2] xen/misra: diff-report.py: add report patching feature
-Date: Fri, 19 May 2023 10:46:13 +0100
-Message-Id: <20230519094613.2134153-3-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230519094613.2134153-1-luca.fancellu@arm.com>
-References: <20230519094613.2134153-1-luca.fancellu@arm.com>
+X-Inumbo-ID: 57cf9d14-f62a-11ed-b22d-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gdBCT2ALX5Wxv5EZGQ6wrQqEMqsMT1tYY2k01sLMPS0=;
+ b=8HHmubthp8xQw5hulC4LH4Eiz/RN+JCMVg+HEVEO8y+TokYFFT6qrrKlZsHmgvIfyeqMSPaECgqcSb+HmxSTEcOk1N/rZ8Rkm+g8IAVRRto6I0KDIkJ8Va0AvPTrx8we7ZECV84AQfcpMemi84/rMOToLNRQayH9Yob8yyde3AA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 8d4045b0b297e259
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=N64MGL6x8aWxkr47NOizVmqrR0LVrncssg3Aog02CtgEIyA60EW0hRWa8Qb8IM0nMYe849pDAENkUdPWM/Be4j2g4ObeBAE0Dp5PTZX3PlXEJ/WTk/Eqv2AF2g+O9VKDgtCPc/n6Ka1MilAKkMxJsaM11VH3TkITolCTDfWGAHE+BGf9IWE+z20AYj6WYqhB9oPxR6mlAUoWBJytqcUz3EpQzNtXEoOgCxmiDyqjBqVr63Xa+mGNetNF6ID11gv62EnMLje/RYUck0Rsnkl6Y0a5r0ymrFrccOkSbhBp74D75SGvoqF/uKjRYpQsdeIzf0BKZWZLP6cD3lx9HlVUPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gdBCT2ALX5Wxv5EZGQ6wrQqEMqsMT1tYY2k01sLMPS0=;
+ b=DDBD5I/IbYqAGMuEtSlUoOBu9GemtXFdyZVCcR24Vt3GpiW/e1zFyxM+3oCh8fUtHHGMBVnlCtvHOzx6md+o2w7OcxnoftqsXIqRZSUomAOgxOoH0+CTlftRcsPmp1JAkEpq1VMhwNk6MX78z3DWH6efb7Ni7wyiVKdlxWDqCLNqdmnhLdFQSE/3pTHjlPzysTX498uCiaxQ+N9UhcSfWnt/i/ofQfPu47+94FMHK2Jf/77kI1pTzcYQMpHZJ4Q1kx6FXzef3YVIlz+7BGl0JfFPaUaNcpfjl/rI6ufGEUvsqDpfzohoDuzp5dJPCLHHHIWJ7BmQd+ncEAT9l6Q2nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gdBCT2ALX5Wxv5EZGQ6wrQqEMqsMT1tYY2k01sLMPS0=;
+ b=8HHmubthp8xQw5hulC4LH4Eiz/RN+JCMVg+HEVEO8y+TokYFFT6qrrKlZsHmgvIfyeqMSPaECgqcSb+HmxSTEcOk1N/rZ8Rkm+g8IAVRRto6I0KDIkJ8Va0AvPTrx8we7ZECV84AQfcpMemi84/rMOToLNRQayH9Yob8yyde3AA=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Michal Orzel <michal.orzel@amd.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Xen-devel
+	<xen-devel@lists.xenproject.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [PATCH 3/3] xen/misra: xen-analysis.py: use the relative path
+ from the ...
+Thread-Topic: [PATCH 3/3] xen/misra: xen-analysis.py: use the relative path
+ from the ...
+Thread-Index: AQHZfooyuAY6OgOAbESkC2BSWxnO0K9dtEiAgAOQFACAAAETgIAAA8GAgAAnyAA=
+Date: Fri, 19 May 2023 09:48:23 +0000
+Message-ID: <FAFAD44A-0241-432A-8439-F3D92D4D3A53@arm.com>
+References: <20230504131245.2985400-1-luca.fancellu@arm.com>
+ <20230504131245.2985400-4-luca.fancellu@arm.com>
+ <alpine.DEB.2.22.394.2305161743520.128889@ubuntu-linux-20-04-desktop>
+ <a0d6197a-53e8-0121-c7e0-ddbdaf970c7e@amd.com>
+ <B087CAA6-0DCD-48C8-8199-A328BDA649A8@arm.com>
+ <acb39086-69f1-4bd0-96f8-d9c9420cbb41@amd.com>
+In-Reply-To: <acb39086-69f1-4bd0-96f8-d9c9420cbb41@amd.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3731.500.231)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3749:EE_|DU0PR08MB8208:EE_|DBAEUR03FT057:EE_|DU2PR08MB10186:EE_
+X-MS-Office365-Filtering-Correlation-Id: b10c7300-fd20-4b5a-dd29-08db584e385a
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ tzWXpvvKHKkHY2dXI1LW8QmAJ2oTQ02CxZg32VFzeqeo4SUTxaW3/h+FfbWhlS3pK2FFKSC5a/vuvXX+gNeUqvPqPkg5BQA4EC5sf1LxdZrYN1SYte4sfqs9y8mJhFeC8HI20D5qIA5UG27eA20YjV0n33s4vnrwdpeuKrWl2NINlNTNnM/XBlXG9E7oZewVt/n+r7vtAJc4tx0Uk/QMdp7mUm8RKipyq6nBHE+4ASInlzImr1hxMsO//tHkjPrSCUBxKuj7TEGnCBvDmmieejahGpF9AtxWfdHvxflrhNuu/nbJ0qyJfWhWftlqT1KV0+xfEIITe8J6EKKgjza9GRmRaCpbSnulCbPKAhy4vIcIP/QzrsH5xAvZ76leQUv9dKW+m9aqFVeIYiMbThJs3zEJrIBt4UzniG3vg7hLcDay40BTOnPXuGjxdR9FeRhZmQ5+TUw06q6Gc6KXSx/rh4MgVlmkb/zCt7Fq6mOMbjydiYHP/qDTpNTWNOF2mV5LPSgr5hoCJyIDnFu0I0AfaxZ1eYCRDT/4GdhmYFKLbarwdkJDOrRTdMV3mBPjUqhcsperK66HP3sfht5kugnFYc7QQpVFZNdatbbqZVx7xc1fWdUj23sNqQVF9P+aHfq7Ks9xqfwC0sr7UfV+gou32Q==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(396003)(346002)(39860400002)(376002)(136003)(451199021)(38070700005)(36756003)(33656002)(86362001)(91956017)(54906003)(316002)(6916009)(66946007)(66556008)(66476007)(64756008)(76116006)(66446008)(966005)(4326008)(478600001)(71200400001)(6486002)(8936002)(8676002)(5660300002)(2906002)(38100700002)(122000001)(41300700001)(2616005)(26005)(186003)(53546011)(6506007)(6512007)(83380400001)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <487662D172FD0045B92E79C11CE1F525@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8208
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT057.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	f06f2006-68c2-46c0-2c2f-08db584e2fea
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	c/otDLz/nyCz9pidzWvj0fFDISfvcwo7zp7p0Sfmp56HlMRFBgtIgsOuKY88MeUuxpslSZi4Xp73tc7xIlPxa7zsKFNRZiy6p4c492ZYGa7NMOPa+ucKvZQTPLMXAemRNtBnfYL2izyeBhqEHLX5o8Jq9vaBVV+qScvRJaxAb4/V/wgWuRpa5mtCoAhZ6SqQmcBxwlPyKERooI8yBzdDe6zXUqtaaoH4QilQUYfWHSUKTr6Ts+G8pXluYppjavYlpdxfsuvPGa4P9oSXEnbXB6FZGwOCxTCym5sXxRNKlotCgZhDp6/qef9W9raiz0w788Jf2xn9Kqys6Eq5FYy+i6tuFv/0GvmukIt3I5ths0EwNvnh145v4iWpgj0XeHS+5LlgZ4acTWef3b0MqD0KbwiDlvGqa9xmYNfm6jkgf7zoDm5XihMfuEZgB6aZuCGALoxDsr3nySQhxCKWDGm/LLEk/UyUeTBLXDhad8ME6SVgGN0bY3hOK9oFkFxHen7vLvyMR1xx/0nuiJFPbpoKIC6lGx3fVag+0NsYAZPTB33ERl7H11BFuDc8cEZ5DN4aZt/5GjuGehxiz+YhpOSKj7ryTePMBYPXblj4pRdLY1z+ErJuShYJWHiR9tDqKxFAx8iHSY7/Gorp0custlu8IOhTs5dSFa6g5/tXWzgdxHbJVTFsc2nTRlTB2ZsXTMCDxNBdElyvENQIx9Hmn/LkGAt01VFN5PIXsbwkYINqwBI=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199021)(46966006)(36840700001)(40470700004)(83380400001)(36860700001)(186003)(966005)(336012)(47076005)(2616005)(54906003)(478600001)(6486002)(6512007)(26005)(53546011)(6506007)(8936002)(6862004)(36756003)(5660300002)(40460700003)(81166007)(33656002)(82740400003)(356005)(40480700001)(82310400005)(41300700001)(70586007)(8676002)(70206006)(4326008)(2906002)(316002)(86362001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2023 09:48:37.9229
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b10c7300-fd20-4b5a-dd29-08db584e385a
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT057.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR08MB10186
 
-Add a feature to the diff-report.py script that improves the comparison
-between two analysis report, one from a baseline codebase and the other
-from the changes applied to the baseline.
-
-The comparison between reports of different codebase is an issue because
-entries in the baseline could have been moved in position due to addition
-or deletion of unrelated lines or can disappear because of deletion of
-the interested line, making the comparison between two revisions of the
-code harder.
-
-Having a baseline report, a report of the codebase with the changes
-called "new report" and a git diff format file that describes the
-changes happened to the code from the baseline, this feature can
-understand which entries from the baseline report are deleted or shifted
-in position due to changes to unrelated lines and can modify them as
-they will appear in the "new report".
-
-Having the "patched baseline" and the "new report", now it's simple
-to make the diff between them and print only the entry that are new.
-
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
-Changes from v1:
- - Made the script compatible with python2 (Stefano)
----
- xen/scripts/diff-report.py                    |  55 ++++-
- xen/scripts/xen_analysis/diff_tool/debug.py   |  21 ++
- xen/scripts/xen_analysis/diff_tool/report.py  |  87 +++++++
- .../diff_tool/unified_format_parser.py        | 232 ++++++++++++++++++
- 4 files changed, 393 insertions(+), 2 deletions(-)
- create mode 100644 xen/scripts/xen_analysis/diff_tool/unified_format_parser.py
-
-diff --git a/xen/scripts/diff-report.py b/xen/scripts/diff-report.py
-index f97cb2355cc3..d608e3a05aa1 100755
---- a/xen/scripts/diff-report.py
-+++ b/xen/scripts/diff-report.py
-@@ -7,6 +7,10 @@ from argparse import ArgumentParser
- from xen_analysis.diff_tool.cppcheck_report import CppcheckReport
- from xen_analysis.diff_tool.debug import Debug
- from xen_analysis.diff_tool.report import ReportError
-+from xen_analysis.diff_tool.unified_format_parser import \
-+    (UnifiedFormatParser, UnifiedFormatParseError)
-+from xen_analysis.settings import repo_dir
-+from xen_analysis.utils import invoke_command
- 
- 
- def log_info(text, end='\n'):
-@@ -36,9 +40,32 @@ def main(argv):
-                              "against the baseline.")
-     parser.add_argument("-v", "--verbose", action='store_true',
-                         help="Print more informations during the run.")
-+    parser.add_argument("--patch", type=str,
-+                        help="The patch file containing the changes to the "
-+                             "code, from the baseline analysis result to the "
-+                             "'check report' analysis result.\n"
-+                             "Do not use with --baseline-rev/--report-rev")
-+    parser.add_argument("--baseline-rev", type=str,
-+                        help="Revision or SHA of the codebase analysed to "
-+                             "create the baseline report.\n"
-+                             "Use together with --report-rev")
-+    parser.add_argument("--report-rev", type=str,
-+                        help="Revision or SHA of the codebase analysed to "
-+                             "create the 'check report'.\n"
-+                             "Use together with --baseline-rev")
- 
-     args = parser.parse_args()
- 
-+    if args.patch and (args.baseline_rev or args.report_rev):
-+        print("ERROR: '--patch' argument can't be used with '--baseline-rev'"
-+              " or '--report-rev'.")
-+        sys.exit(1)
-+
-+    if bool(args.baseline_rev) != bool(args.report_rev):
-+        print("ERROR: '--baseline-rev' must be used together with "
-+              "'--report-rev'.")
-+        sys.exit(1)
-+
-     if args.out == "stdout":
-         file_out = sys.stdout
-     else:
-@@ -63,11 +90,35 @@ def main(argv):
-         new_rep.parse()
-         debug.debug_print_parsed_report(new_rep)
-         log_info(" [OK]")
--    except ReportError as e:
-+        diff_source = None
-+        if args.patch:
-+            diff_source = os.path.realpath(args.patch)
-+        elif args.baseline_rev:
-+            git_diff = invoke_command(
-+                "git diff --git-dir={} -C -C {}..{}".format(repo_dir,
-+                                                            args.baseline_rev,
-+                                                            args.report_rev),
-+                True, "Error occured invoking:\n{}\n\n{}"
-+            )
-+            diff_source = git_diff.splitlines(keepends=True)
-+        if diff_source:
-+            log_info("Parsing changes...", "")
-+            diffs = UnifiedFormatParser(diff_source)
-+            debug.debug_print_parsed_diff(diffs)
-+            log_info(" [OK]")
-+    except (ReportError, UnifiedFormatParseError) as e:
-         print("ERROR: {}".format(e))
-         sys.exit(1)
- 
--    output = new_rep - baseline
-+    if args.patch or args.baseline_rev:
-+        log_info("Patching baseline...", "")
-+        baseline_patched = baseline.patch(diffs)
-+        debug.debug_print_patched_report(baseline_patched)
-+        log_info(" [OK]")
-+        output = new_rep - baseline_patched
-+    else:
-+        output = new_rep - baseline
-+
-     print(output, end="", file=file_out)
- 
-     if len(output) > 0:
-diff --git a/xen/scripts/xen_analysis/diff_tool/debug.py b/xen/scripts/xen_analysis/diff_tool/debug.py
-index 65cca2464110..fcf1d861b5cf 100644
---- a/xen/scripts/xen_analysis/diff_tool/debug.py
-+++ b/xen/scripts/xen_analysis/diff_tool/debug.py
-@@ -3,6 +3,7 @@
- from __future__ import print_function
- import os
- from .report import Report
-+from .unified_format_parser import UnifiedFormatParser
- 
- 
- class Debug:
-@@ -38,3 +39,23 @@ class Debug:
-         if not self.args.debug:
-             return
-         self.__debug_print_report(report, ".parsed")
-+
-+    def debug_print_patched_report(self, report):
-+        # type: (Report) -> None
-+        if not self.args.debug:
-+            return
-+        # The patched report contains already .patched in its name
-+        self.__debug_print_report(report, "")
-+
-+    def debug_print_parsed_diff(self, diff):
-+        # type: (UnifiedFormatParser) -> None
-+        if not self.args.debug:
-+            return
-+        diff_filename = diff.get_diff_path()
-+        out_pathname = self.__get_debug_out_filename(diff_filename, ".parsed")
-+        try:
-+            with open(out_pathname, "wt") as outfile:
-+                for change_obj in diff.get_change_sets().values():
-+                    print(change_obj, end="", file=outfile)
-+        except OSError as e:
-+            print("ERROR: Issue opening file {}: {}".format(out_pathname, e))
-diff --git a/xen/scripts/xen_analysis/diff_tool/report.py b/xen/scripts/xen_analysis/diff_tool/report.py
-index 4a303d61b3ea..b80eb31114f0 100644
---- a/xen/scripts/xen_analysis/diff_tool/report.py
-+++ b/xen/scripts/xen_analysis/diff_tool/report.py
-@@ -1,6 +1,7 @@
- #!/usr/bin/env python3
- 
- import os
-+from .unified_format_parser import UnifiedFormatParser, ChangeSet
- 
- 
- class ReportError(Exception):
-@@ -47,6 +48,92 @@ class Report(object):
-             self.__entries[entry_path] = [entry]
-         self.__last_line_order += 1
- 
-+    def remove_entries(self, entry_file_path):
-+        # type: (str) -> None
-+        del self.__entries[entry_file_path]
-+
-+    def remove_entry(self, entry_path, line_id):
-+        # type: (str, int) -> None
-+        if entry_path in self.__entries.keys():
-+            len_entry_path = len(self.__entries[entry_path])
-+            if len_entry_path == 1:
-+                del self.__entries[entry_path]
-+            else:
-+                if line_id in self.__entries[entry_path]:
-+                    self.__entries[entry_path].remove(line_id)
-+
-+    def patch(self, diff_obj):
-+        # type: (UnifiedFormatParser) -> Report
-+        filename, file_extension = os.path.splitext(self.__path)
-+        patched_report = self.__class__(filename + ".patched" + file_extension)
-+        remove_files = []
-+        rename_files = []
-+        remove_entry = []
-+        ChangeMode = ChangeSet.ChangeMode
-+
-+        # Copy entries from this report to the report we are going to patch
-+        for entries in self.__entries.values():
-+            for entry in entries:
-+                patched_report.add_entry(entry.file_path, entry.line_number,
-+                                         entry.text)
-+
-+        # Patch the output report
-+        patched_rep_entries = patched_report.get_report_entries()
-+        for file_diff, change_obj in diff_obj.get_change_sets().items():
-+            if change_obj.is_change_mode(ChangeMode.COPY):
-+                # Copy the original entry pointed by change_obj.orig_file into
-+                # a new key in the patched report named change_obj.dst_file,
-+                # that here is file_diff variable content, because this
-+                # change_obj is pushed into the change_sets with the
-+                # change_obj.dst_file key
-+                if change_obj.orig_file in self.__entries.keys():
-+                    for entry in self.__entries[change_obj.orig_file]:
-+                        patched_report.add_entry(file_diff,
-+                                                 entry.line_number,
-+                                                 entry.text)
-+
-+            if file_diff in patched_rep_entries.keys():
-+                if change_obj.is_change_mode(ChangeMode.DELETE):
-+                    # No need to check changes here, just remember to delete
-+                    # the file from the report
-+                    remove_files.append(file_diff)
-+                    continue
-+                elif change_obj.is_change_mode(ChangeMode.RENAME):
-+                    # Remember to rename the file entry on this report
-+                    rename_files.append(change_obj)
-+
-+                for line_num, change_type in change_obj.get_change_set():
-+                    len_rep = len(patched_rep_entries[file_diff])
-+                    for i in range(len_rep):
-+                        rep_item = patched_rep_entries[file_diff][i]
-+                        if change_type == ChangeSet.ChangeType.REMOVE:
-+                            if rep_item.line_number == line_num:
-+                                # This line is removed with this changes,
-+                                # append to the list of entries to be removed
-+                                remove_entry.append(rep_item)
-+                            elif rep_item.line_number > line_num:
-+                                rep_item.line_number -= 1
-+                        elif change_type == ChangeSet.ChangeType.ADD:
-+                            if rep_item.line_number >= line_num:
-+                                rep_item.line_number += 1
-+                    # Remove deleted entries from the list
-+                    if len(remove_entry) > 0:
-+                        for entry in remove_entry:
-+                            patched_report.remove_entry(entry.file_path,
-+                                                        entry.line_id)
-+                        del remove_entry[:]
-+
-+        if len(remove_files) > 0:
-+            for file_name in remove_files:
-+                patched_report.remove_entries(file_name)
-+
-+        if len(rename_files) > 0:
-+            for change_obj in rename_files:
-+                patched_rep_entries[change_obj.dst_file] = \
-+                    patched_rep_entries.pop(change_obj.orig_file)
-+
-+        return patched_report
-+
-     def to_list(self):
-         # type: () -> list
-         report_list = []
-diff --git a/xen/scripts/xen_analysis/diff_tool/unified_format_parser.py b/xen/scripts/xen_analysis/diff_tool/unified_format_parser.py
-new file mode 100644
-index 000000000000..8b3fbc318df7
---- /dev/null
-+++ b/xen/scripts/xen_analysis/diff_tool/unified_format_parser.py
-@@ -0,0 +1,232 @@
-+#!/usr/bin/env python3
-+
-+import re
-+import sys
-+
-+try:
-+    from enum import Enum
-+except Exception:
-+    if sys.version_info[0] == 2:
-+        print("Please install enum34 package when using python 2.")
-+    else:
-+        print("Please use python version 3.5 or above.")
-+    sys.exit(1)
-+
-+try:
-+    from typing import Tuple
-+except Exception:
-+    if sys.version_info[0] == 2:
-+        print("Please install typing package when using python 2.")
-+    else:
-+        print("Please use python version 3.5 or above.")
-+    sys.exit(1)
-+
-+
-+class UnifiedFormatParseError(Exception):
-+    pass
-+
-+
-+class ParserState(Enum):
-+    FIND_DIFF_HEADER = 0
-+    REGISTER_CHANGES = 1
-+    FIND_HUNK_OR_DIFF_HEADER = 2
-+
-+
-+class ChangeSet(object):
-+    class ChangeType(Enum):
-+        REMOVE = 0
-+        ADD = 1
-+
-+    class ChangeMode(Enum):
-+        NONE = 0
-+        CHANGE = 1
-+        RENAME = 2
-+        DELETE = 3
-+        COPY = 4
-+
-+    def __init__(self, a_file, b_file):
-+        # type: (str, str) -> None
-+        self.orig_file = a_file
-+        self.dst_file = b_file
-+        self.change_mode = ChangeSet.ChangeMode.NONE
-+        self.__changes = []
-+
-+    def __str__(self):
-+        # type: () -> str
-+        str_out = "{}: {} -> {}:\n{}\n".format(
-+            str(self.change_mode), self.orig_file, self.dst_file,
-+            str(self.__changes)
-+        )
-+        return str_out
-+
-+    def set_change_mode(self, change_mode):
-+        # type: (ChangeMode) -> None
-+        self.change_mode = change_mode
-+
-+    def is_change_mode(self, change_mode):
-+        # type: (ChangeMode) -> bool
-+        return self.change_mode == change_mode
-+
-+    def add_change(self, line_number, change_type):
-+        # type: (int, ChangeType) -> None
-+        self.__changes.append((line_number, change_type))
-+
-+    def get_change_set(self):
-+        # type: () -> dict
-+        return self.__changes
-+
-+
-+class UnifiedFormatParser(object):
-+    def __init__(self, args):
-+        # type: (str | list) -> None
-+        if isinstance(args, str):
-+            self.__diff_file = args
-+            try:
-+                with open(self.__diff_file, "rt") as infile:
-+                    self.__diff_lines = infile.readlines()
-+            except OSError as e:
-+                raise UnifiedFormatParseError(
-+                    "Issue with reading file {}: {}"
-+                    .format(self.__diff_file, e)
-+                )
-+        elif isinstance(args, list):
-+            self.__diff_file = "git-diff-local.txt"
-+            self.__diff_lines = args
-+        else:
-+            raise UnifiedFormatParseError(
-+                "UnifiedFormatParser constructor called with wrong arguments")
-+
-+        self.__git_diff_header = re.compile(r'^diff --git a/(.*) b/(.*)$')
-+        self.__git_hunk_header = \
-+            re.compile(r'^@@ -\d+,(\d+) \+(\d+),(\d+) @@.*$')
-+        self.__diff_set = {}
-+        self.__parse()
-+
-+    def get_diff_path(self):
-+        # type: () -> str
-+        return self.__diff_file
-+
-+    def add_change_set(self, change_set):
-+        # type: (ChangeSet) -> None
-+        if not change_set.is_change_mode(ChangeSet.ChangeMode.NONE):
-+            if change_set.is_change_mode(ChangeSet.ChangeMode.COPY):
-+                # Add copy change mode items using the dst_file key, because
-+                # there might be other changes for the orig_file in this diff
-+                self.__diff_set[change_set.dst_file] = change_set
-+            else:
-+                self.__diff_set[change_set.orig_file] = change_set
-+
-+    def __parse(self):
-+        # type: () -> None
-+        def parse_diff_header(line):
-+            # type: (str) -> ChangeSet | None
-+            change_item = None
-+            diff_head = self.__git_diff_header.match(line)
-+            if diff_head and diff_head.group(1) and diff_head.group(2):
-+                change_item = ChangeSet(diff_head.group(1), diff_head.group(2))
-+
-+            return change_item
-+
-+        def parse_hunk_header(line):
-+            # type: (str) -> Tuple[int, int, int]
-+            file_linenum = -1
-+            hunk_a_linemax = -1
-+            hunk_b_linemax = -1
-+            hunk_head = self.__git_hunk_header.match(line)
-+            if hunk_head and hunk_head.group(1) and hunk_head.group(2) \
-+               and hunk_head.group(3):
-+                file_linenum = int(hunk_head.group(2))
-+                hunk_a_linemax = int(hunk_head.group(1))
-+                hunk_b_linemax = int(hunk_head.group(3))
-+
-+            return (file_linenum, hunk_a_linemax, hunk_b_linemax)
-+
-+        file_linenum = 0
-+        hunk_a_linemax = 0
-+        hunk_b_linemax = 0
-+        diff_elem = None
-+        parse_state = ParserState.FIND_DIFF_HEADER
-+        ChangeMode = ChangeSet.ChangeMode
-+        ChangeType = ChangeSet.ChangeType
-+
-+        for line in self.__diff_lines:
-+            if parse_state == ParserState.FIND_DIFF_HEADER:
-+                diff_elem = parse_diff_header(line)
-+                if diff_elem:
-+                    # Found the diff header, go to the next stage
-+                    parse_state = ParserState.FIND_HUNK_OR_DIFF_HEADER
-+            elif parse_state == ParserState.FIND_HUNK_OR_DIFF_HEADER:
-+                # Here only these change modalities will be registered:
-+                # deleted file mode <mode>
-+                # rename from <path>
-+                # rename to <path>
-+                # copy from <path>
-+                # copy to <path>
-+                #
-+                # These will be ignored:
-+                # old mode <mode>
-+                # new mode <mode>
-+                # new file mode <mode>
-+                #
-+                # Also these info will be ignored
-+                # similarity index <number>
-+                # dissimilarity index <number>
-+                # index <hash>..<hash> <mode>
-+                if line.startswith("deleted file"):
-+                    # If the file is deleted, register it but don't go through
-+                    # the changes that will be only a set of lines removed
-+                    diff_elem.set_change_mode(ChangeMode.DELETE)
-+                    parse_state = ParserState.FIND_DIFF_HEADER
-+                elif line.startswith("new file"):
-+                    # If the file is new, skip it, as it doesn't give any
-+                    # useful information on the report translation
-+                    parse_state = ParserState.FIND_DIFF_HEADER
-+                elif line.startswith("rename to"):
-+                    # Renaming operation can be a pure renaming or a rename
-+                    # and a set of change, so keep looking for the hunk
-+                    # header
-+                    diff_elem.set_change_mode(ChangeMode.RENAME)
-+                elif line.startswith("copy to"):
-+                    # This is a copy operation, mark it
-+                    diff_elem.set_change_mode(ChangeMode.COPY)
-+                else:
-+                    # Look for the hunk header
-+                    (file_linenum, hunk_a_linemax, hunk_b_linemax) = \
-+                        parse_hunk_header(line)
-+                    if file_linenum >= 0:
-+                        if diff_elem.is_change_mode(ChangeMode.NONE):
-+                            # The file has only changes
-+                            diff_elem.set_change_mode(ChangeMode.CHANGE)
-+                        parse_state = ParserState.REGISTER_CHANGES
-+                    else:
-+                        # ... or there could be a diff header
-+                        new_diff_elem = parse_diff_header(line)
-+                        if new_diff_elem:
-+                            # Found a diff header, register the last change
-+                            # item
-+                            self.add_change_set(diff_elem)
-+                            diff_elem = new_diff_elem
-+            elif parse_state == ParserState.REGISTER_CHANGES:
-+                if (hunk_b_linemax > 0) and line.startswith("+"):
-+                    diff_elem.add_change(file_linenum, ChangeType.ADD)
-+                    hunk_b_linemax -= 1
-+                elif (hunk_a_linemax > 0) and line.startswith("-"):
-+                    diff_elem.add_change(file_linenum, ChangeType.REMOVE)
-+                    hunk_a_linemax -= 1
-+                    file_linenum -= 1
-+                elif ((hunk_a_linemax + hunk_b_linemax) > 0) and \
-+                        line.startswith(" "):
-+                    hunk_a_linemax -= 1 if (hunk_a_linemax > 0) else 0
-+                    hunk_b_linemax -= 1 if (hunk_b_linemax > 0) else 0
-+
-+                if (hunk_a_linemax + hunk_b_linemax) <= 0:
-+                    parse_state = ParserState.FIND_HUNK_OR_DIFF_HEADER
-+
-+                file_linenum += 1
-+
-+        if diff_elem is not None:
-+            self.add_change_set(diff_elem)
-+
-+    def get_change_sets(self):
-+        # type: () -> dict
-+        return self.__diff_set
--- 
-2.34.1
-
+DQoNCj4gT24gMTkgTWF5IDIwMjMsIGF0IDA4OjI1LCBNaWNoYWwgT3J6ZWwgPG1pY2hhbC5vcnpl
+bEBhbWQuY29tPiB3cm90ZToNCj4gDQo+IA0KPiBPbiAxOS8wNS8yMDIzIDA5OjEyLCBMdWNhIEZh
+bmNlbGx1IHdyb3RlOg0KPj4gDQo+PiANCj4+PiBPbiAxOSBNYXkgMjAyMywgYXQgMDg6MDgsIE1p
+Y2hhbCBPcnplbCA8bWljaGFsLm9yemVsQGFtZC5jb20+IHdyb3RlOg0KPj4+IA0KPj4+IEhpIEx1
+Y2EsDQo+Pj4gDQo+Pj4gT24gMTcvMDUvMjAyMyAwMjo0NCwgU3RlZmFubyBTdGFiZWxsaW5pIHdy
+b3RlOg0KPj4+PiANCj4+Pj4gDQo+Pj4+IE9uIFRodSwgNCBNYXkgMjAyMywgTHVjYSBGYW5jZWxs
+dSB3cm90ZToNCj4+Pj4+IHJlcG9zaXRvcnkgaW4gdGhlIHJlcG9ydHMNCj4+Pj4+IA0KPj4+Pj4g
+Q3VycmVudGx5IHRoZSBjcHBjaGVjayByZXBvcnQgZW50cmllcyBzaG93cyB0aGUgcmVsYXRpdmUg
+ZmlsZSBwYXRoDQo+Pj4+PiBmcm9tIHRoZSAveGVuIGZvbGRlciBvZiB0aGUgcmVwb3NpdG9yeSBp
+bnN0ZWFkIG9mIHRoZSBiYXNlIGZvbGRlci4NCj4+Pj4+IEluIG9yZGVyIHRvIGVhc2UgdGhlIGNo
+ZWNrcywgZm9yIGV4YW1wbGUsIHdoZW4gbG9va2luZyBhIGdpdCBkaWZmDQo+Pj4+PiBvdXRwdXQg
+YW5kIHRoZSByZXBvcnQsIHVzZSB0aGUgcmVwb3NpdG9yeSBmb2xkZXIgYXMgYmFzZS4NCj4+Pj4+
+IA0KPj4+Pj4gU2lnbmVkLW9mZi1ieTogTHVjYSBGYW5jZWxsdSA8bHVjYS5mYW5jZWxsdUBhcm0u
+Y29tPg0KPj4+PiANCj4+Pj4gQWNrZWQtYnk6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxp
+bmlAa2VybmVsLm9yZz4NCj4+Pj4gVGVzdGVkLWJ5OiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFi
+ZWxsaW5pQGtlcm5lbC5vcmc+DQo+Pj4gDQo+Pj4gSSBrbm93IHRoaXMgcGF0Y2ggaXMgbm93IGNv
+bW1pdHRlZCBidXQgdGhlcmUgaXMgc29tZXRoaW5nIGNvbmZ1c2luZyBoZXJlLg0KPj4+IEF0IHRo
+ZSBtb21lbnQsIGluIHRoZSBjcHBjaGVjayByZXBvcnQgd2UgaGF2ZSBwYXRocyByZWxhdGl2ZSB0
+byB4ZW4vIGUuZy46DQo+Pj4gYXJjaC9hcm0vYXJtNjQvbGliL2JpdG9wcy5jKDExNywxKTouLi4N
+Cj4+PiANCj4+PiBTbyBhZnRlciB0aGlzIHBhdGNoLCBJIHdvdWxkIGV4cGVjdCB0byBzZWUgdGhl
+IHBhdGggcmVsYXRpdmUgdG8gcm9vdCBvZiByZXBvc2l0b3J5IGUuZy46DQo+Pj4gKnhlbi8qYXJj
+aC9hcm0vYXJtNjQvbGliL2JpdG9wcy5jKDExNywxKTouLi4NCj4+PiANCj4+PiBIb3dldmVyLCB3
+aXRoIG9yIHdpdGhvdXQgdGhpcyBwYXRjaCB0aGUgYmVoYXZpb3IgaXMgdGhlIHNhbWUuDQo+Pj4g
+RGlkIEkgbWlzdW5kZXJzdGFuZCB5b3VyIHBhdGNoPw0KPj4gDQo+PiBIaSBNaWNoYWwsDQo+PiAN
+Cj4+IFRoYW5rIHlvdSBmb3IgaGF2aW5nIHNwb3R0ZWQgdGhpcywgZHVyaW5nIG15IHRlc3RzIEkg
+d2FzIHVzaW5nIFhlbi1hbmFseXNpcy5weSBzbyB0aGF0IGl0DQo+PiBjYWxscyB0aGUgbWFrZWZp
+bGUgd2l0aCBvdXQtb2YtdHJlZSBidWlsZCwgSeKAmXZlIGZvdW5kIGFmdGVyIHlvdXIgbWFpbCB0
+aGF0IHdoZW4gaXQgY2FsbHMgdGhlIG1ha2VmaWxlDQo+PiB3aXRoIGluLXRyZWUtYnVpbGQsIGNw
+cGNoZWNrIGlzIHJ1biBmcm9tIC94ZW4veGVuIGFuZCBpdCBjYXVzZXMgaXQgdG8gcHJvZHVjZSBy
+ZWxhdGl2ZSBwYXRoIGZyb20NCj4+IHRoZXJlIGluIHRoZSBUWFQgZnJhZ21lbnRzLCBzaG93aW5n
+IHRoZSBpc3N1ZSB5b3Ugb2JzZXJ2ZWQuDQo+IE9rLCB0aGUgd2F5IEkgdGVzdCBpdCBpcyB0aGUg
+c2FtZSBhcyBpbiBvdXIgZ2l0bGFiIENJIHNvIHRoaXMgbmVlZHMgdG8gYmUgZml4ZWQuDQoNCkhl
+cmUgaXQgaXMgdGhlIGZpeDogaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wcm9qZWN0L3hl
+bi1kZXZlbC9wYXRjaC8yMDIzMDUxOTA5MzAxOS4yMTMxODk2LTQtbHVjYS5mYW5jZWxsdUBhcm0u
+Y29tLw0KDQpJ4oCZdmUgdXBkYXRlZCBteSBpbnRlcm5hbCB0ZXN0IHNjcmlwdCB0byB0ZXN0IGl0
+IG9uIGluLXRyZWUgYW5kIG91dC1vZi10cmVlIG1ha2VmaWxlIGludm9jYXRpb24uIEhvcGUgSSBk
+aWQgbm90IGZvcmdldCBhbnl0aGluZywNCmFwb2xvZ2llcyBmb3IgdGhlIGluY29udmVuaWVuY2Uh
+DQoNCg0KPiANCj4+IA0KPj4gSSBoYXZlIHJlYWR5IGEgZml4IGZvciB0aGF0IGFuZCBJ4oCZbGwg
+cHVzaCB0aGF0IHNvb24uDQo+IFRoYW5rcy4NCj4gDQo+IH5NaWNoYWwNCg0KDQo=
 
