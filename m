@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4975A709A40
-	for <lists+xen-devel@lfdr.de>; Fri, 19 May 2023 16:44:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.537124.835948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C86F709A51
+	for <lists+xen-devel@lfdr.de>; Fri, 19 May 2023 16:46:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.537132.835959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q01KU-0003En-75; Fri, 19 May 2023 14:43:38 +0000
+	id 1q01NI-0003tw-Pv; Fri, 19 May 2023 14:46:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 537124.835948; Fri, 19 May 2023 14:43:38 +0000
+Received: by outflank-mailman (output) from mailman id 537132.835959; Fri, 19 May 2023 14:46:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q01KU-0003Da-4E; Fri, 19 May 2023 14:43:38 +0000
-Received: by outflank-mailman (input) for mailman id 537124;
- Fri, 19 May 2023 14:43:37 +0000
+	id 1q01NI-0003s0-Lm; Fri, 19 May 2023 14:46:32 +0000
+Received: by outflank-mailman (input) for mailman id 537132;
+ Fri, 19 May 2023 14:46:32 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q01KT-0003DQ-AP; Fri, 19 May 2023 14:43:37 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1q01NI-0003rs-4m
+ for xen-devel@lists.xenproject.org; Fri, 19 May 2023 14:46:32 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q01KT-0005bl-2t; Fri, 19 May 2023 14:43:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q01KS-0006UY-OA; Fri, 19 May 2023 14:43:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1q01KS-00015J-Nh; Fri, 19 May 2023 14:43:36 +0000
+ (envelope-from <julien@xen.org>)
+ id 1q01NH-0005eB-Lk; Fri, 19 May 2023 14:46:31 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.7.127]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1q01NH-0007Wl-GI; Fri, 19 May 2023 14:46:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,145 +39,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=lAXjcR8dVDFx4x1LcNEA0QcUzQMm7y2jym3A5L+d06c=; b=oL7ezuJNUfs/y7lRtp4WNz+ysY
-	TBpWThL6PWazNWkJEgn26561Fb073RPCbPympfd0UT/PRoJus4r2HY1SP1uF1bfMo83pozTOI2tki
-	+7eIsYykvxsXhfjM6xdi6BeO9No7ZMi1h4LaUHAgdVHWdo/db1ROz1F5byHBKXe7krA0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180714-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=evzsQn0cxznW7Q5CwHPtUbJ0lQbK8eu+IxdLYMEyEtE=; b=pXIUUsNIoFpv1AkWZGrdSmaDQt
+	yKNR2Q1h1GEsQi0cHKiIF0gxKmX5iKfeWqX4AddUtBefWhelsYgrTag6lOJW3oHRBCS7TWHE6fucU
+	Ie3i7804o7V7YOUbpqFYUlrHwTK/Yx3ZpJwTGs5J8AR7l4rrmNx0qzrh30BkbeP6yfwg=;
+Message-ID: <2f14dad9-25f5-7ac7-4ff5-d756e6f55718@xen.org>
+Date: Fri, 19 May 2023 15:46:29 +0100
 MIME-Version: 1.0
-Subject: [libvirt test] 180714: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=90404c53682f464b4a26efd618887dc336d9da80
-X-Osstest-Versions-That:
-    libvirt=5ff58a0ce7a6ad452919a86a05e27427ccf1f27b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 19 May 2023 14:43:36 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.11.0
+Subject: Re: [PATCH v6 01/12] xen/arm: enable SVE extension for Xen
+Content-Language: en-US
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230424060248.1488859-1-luca.fancellu@arm.com>
+ <20230424060248.1488859-2-luca.fancellu@arm.com>
+ <1fb3c4a2-8bc7-45e4-7ccf-803157f1b3b1@xen.org>
+ <86D7B5C8-2671-4359-A48D-E7D52B06565C@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <86D7B5C8-2671-4359-A48D-E7D52B06565C@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 180714 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180714/
+Hi Luca,
 
-Failures :-/ but no regressions.
+On 19/05/2023 15:26, Luca Fancellu wrote:
+>> On 18 May 2023, at 10:35, Julien Grall <julien@xen.org> wrote:
+>>>    /*
+>>>     * Comment from Linux:
+>>>     * Userspace may perform DC ZVA instructions. Mismatched block sizes
+>>> diff --git a/xen/arch/arm/arm64/sve-asm.S b/xen/arch/arm/arm64/sve-asm.S
+>>> new file mode 100644
+>>> index 000000000000..4d1549344733
+>>> --- /dev/null
+>>> +++ b/xen/arch/arm/arm64/sve-asm.S
+>>> @@ -0,0 +1,48 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +/*
+>>> + * Arm SVE assembly routines
+>>> + *
+>>> + * Copyright (C) 2022 ARM Ltd.
+>>> + *
+>>> + * Some macros and instruction encoding in this file are taken from linux 6.1.1,
+>>> + * file arch/arm64/include/asm/fpsimdmacros.h, some of them are a modified
+>>> + * version.
+>> AFAICT, the only modified version is _sve_rdvl, but it is not clear to me why we would want to have a modified version?
+>>
+>> I am asking this because without an explanation, it would be difficult to know how to re-sync the code with Linux.
+> 
+> In this patch the macros are exactly equal to Linux, apart from the coding style that uses spaces instead of tabs,
+> I was not expecting to keep them in sync as they seems to be not prone to change soon, let me know if I need to
+> use also tabs and be 100% equal to Linux.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 180698
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 180698
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 180698
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+The file is small enough, so I think it would be OK if this is converted 
+to the Xen coding style.
 
-version targeted for testing:
- libvirt              90404c53682f464b4a26efd618887dc336d9da80
-baseline version:
- libvirt              5ff58a0ce7a6ad452919a86a05e27427ccf1f27b
+> 
+> The following macros that are coming in patch 5 are equal apart from sve_save/sve_load, that are different because
+> of the construction differences between the storage buffers here and in Linux, if you want I can put a comment on them
+> to explain this difference in patch 5
 
-Last test of basis   180698  2023-05-18 04:18:52 Z    1 days
-Testing same since   180714  2023-05-19 04:18:50 Z    0 days    1 attempts
+That would be good. Also, can you update 
+arch/arm/README.LinuxPrimitives? The file is listing primitives imported 
+from Linux and when.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jiang Jiacheng <jiangjiacheng@huawei.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Laszlo Ersek <lersek@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
+> 
+>>>
+>>> diff --git a/xen/arch/arm/arm64/sve.c b/xen/arch/arm/arm64/sve.c
+>>> new file mode 100644
+>>> index 000000000000..6f3fb368c59b
+>>> --- /dev/null
+>>> +++ b/xen/arch/arm/arm64/sve.c
+>>> @@ -0,0 +1,50 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>>
+>> Above, you are using GPL-2.0-only, but here GPL-2.0. We favor the former now. Happy to deal it on commit if there is nothing else to address.
+> 
+> No problem, I will fix in the next push
+> 
+>>
+>>> +/*
+>>> + * Arm SVE feature code
+>>> + *
+>>> + * Copyright (C) 2022 ARM Ltd.
+>>> + */
+>>> +
+>>> +#include <xen/types.h>
+>>> +#include <asm/arm64/sve.h>
+>>> +#include <asm/arm64/sysregs.h>
+>>> +#include <asm/processor.h>
+>>> +#include <asm/system.h>
+>>> +
+>>> +extern unsigned int sve_get_hw_vl(void);
+>>> +
+>>> +register_t compute_max_zcr(void)
+>>> +{
+>>> +    register_t cptr_bits = get_default_cptr_flags();
+>>> +    register_t zcr = vl_to_zcr(SVE_VL_MAX_BITS);
+>>> +    unsigned int hw_vl;
+>>> +
+>>> +    /* Remove trap for SVE resources */
+>>> +    WRITE_SYSREG(cptr_bits & ~HCPTR_CP(8), CPTR_EL2);
+>>> +    isb();
+>>> +
+>>> +    /*
+>>> +     * Set the maximum SVE vector length, doing that we will know the VL
+>>> +     * supported by the platform, calling sve_get_hw_vl()
+>>> +     */
+>>> +    WRITE_SYSREG(zcr, ZCR_EL2);
+>>
+>>  From my reading of the Arm (D19-6331, ARM DDI 0487J.a), a direct write to a system register would need to be followed by an context synchronization event (e.g. isb()) before the software can rely on the value.
+>>
+>> In this situation, AFAICT, the instruciton in sve_get_hw_vl() will use the content of ZCR_EL2. So don't we need an ISB() here?
+> 
+>  From what I’ve read in the manual for ZCR_ELx:
+> 
+> An indirect read of ZCR_EL2.LEN appears to occur in program order relative to a direct write of
+> the same register, without the need for explicit synchronization
+> 
+> I’ve interpreted it as “there is no need to sync before write” and I’ve looked into Linux and it does not
+> Appear any synchronisation mechanism after a write to that register, but if I am wrong I can for sure
+> add an isb if you prefer.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
+Ah, I was reading the generic section about synchronization and didn't 
+realize there was a paragraph in the ZCR_EL2 section as well.
 
+Reading the new section, I agree with your understanding. The isb() is 
+not necessary.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+So please ignore this comment :).
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+>>>       /* XXX MPU */
+>>>         /* Fault Status */
+>>> @@ -234,6 +231,7 @@ static void ctxt_switch_to(struct vcpu *n)
+>>>       p2m_restore_state(n);
+>>>         /* Control Registers */
+>>> +    WRITE_SYSREG(n->arch.cptr_el2, CPTR_EL2);
+>>
+>> I would prefer if this called closer to vfp_restore_state(). So the dependency between the two is easier to spot.
+>>
+>>>       WRITE_SYSREG(n->arch.cpacr, CPACR_EL1);
+>>>         /*
+>>> @@ -258,6 +256,9 @@ static void ctxt_switch_to(struct vcpu *n)
+>>>   #endif
+>>>       isb();
+>>>   +    /* VFP */
+>>
+>> Please document in the code that vfp_restore_state() have to be called after CPTR_EL2() + a synchronization event.
+>>
+>> Similar docoumentation on top of at least CPTR_EL2 and possibly isb(). This would help if we need to re-order the code in the future.
+> 
+> I will put comments on top of CPTR_EL2 and vfp_restore_state to explain the sequence and the synchronisation.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Just to clarify, does this mean you will keep CPTR_EL2 where it 
+currently is? (See my comment just above in the previous e-mail)
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   5ff58a0ce7..90404c5368  90404c53682f464b4a26efd618887dc336d9da80 -> xen-tested-master
+-- 
+Julien Grall
 
