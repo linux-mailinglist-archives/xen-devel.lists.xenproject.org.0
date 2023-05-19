@@ -2,42 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EE7B70A5D7
-	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 08:02:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.536528.836512 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D795C70A5D6
+	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 08:02:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.537194.836529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q0Ffa-0001zj-6z; Sat, 20 May 2023 06:02:22 +0000
+	id 1q0Ffb-0002IN-5g; Sat, 20 May 2023 06:02:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 536528.836512; Sat, 20 May 2023 06:02:22 +0000
+Received: by outflank-mailman (output) from mailman id 537194.836529; Sat, 20 May 2023 06:02:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q0Ffa-0001xv-3t; Sat, 20 May 2023 06:02:22 +0000
-Received: by outflank-mailman (input) for mailman id 536528;
- Thu, 18 May 2023 20:30:57 +0000
+	id 1q0Ffa-0002B1-W6; Sat, 20 May 2023 06:02:22 +0000
+Received: by outflank-mailman (input) for mailman id 537194;
+ Fri, 19 May 2023 16:30:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FKe9=BH=redhat.com=lyude@srs-se1.protection.inumbo.net>)
- id 1pzkH3-0007P4-7h
- for xen-devel@lists.xenproject.org; Thu, 18 May 2023 20:30:57 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e28fedd7-f5ba-11ed-8611-37d641c3527e;
- Thu, 18 May 2023 22:30:54 +0200 (CEST)
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-270-nyCJTTlrODCn2wl02aVmcQ-1; Thu, 18 May 2023 16:30:51 -0400
-Received: by mail-qv1-f70.google.com with SMTP id
- 6a1803df08f44-62394519189so8034906d6.0
- for <xen-devel@lists.xenproject.org>; Thu, 18 May 2023 13:30:51 -0700 (PDT)
-Received: from ?IPv6:2600:4040:5c62:8200::feb? ([2600:4040:5c62:8200::feb])
- by smtp.gmail.com with ESMTPSA id
- cx3-20020a056214188300b006238f82cde4sm763000qvb.108.2023.05.18.13.30.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 May 2023 13:30:50 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4+OQ=BI=quicinc.com=quic_jhugo@srs-se1.protection.inumbo.net>)
+ id 1q030B-0004h7-QP
+ for xen-devel@lists.xenproject.org; Fri, 19 May 2023 16:30:47 +0000
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8044404c-f662-11ed-8611-37d641c3527e;
+ Fri, 19 May 2023 18:30:44 +0200 (CEST)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34JBfjsB011872; Fri, 19 May 2023 16:29:01 GMT
+Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
+ [129.46.96.20])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qp4ccs7tp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 May 2023 16:29:01 +0000
+Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
+ [10.47.209.196])
+ by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34JGSxwm014994
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 19 May 2023 16:28:59 GMT
+Received: from [10.226.59.182] (10.80.80.8) by nalasex01a.na.qualcomm.com
+ (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 19 May
+ 2023 09:28:57 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,124 +53,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e28fedd7-f5ba-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684441853;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ks6xt/wC6E+ECyHt7NO8D94Kf2RxqGGaF/pXlLsIP+4=;
-	b=hhMSrOa6g48vToxh/Dd/Meb0nIyRItdD3x56+Pvx4vZNW8lYpx/ZWFCIjE1Cibp0bRi47A
-	Zr/qGc51mSJwItxCfv7n/Y46nuAHhstwqqch/hDYSZKOXXB482E9yU7pvvGLggl6It46OH
-	y8rYAoxwjdM8kKq+GR4L4EaWLs0oNaU=
-X-MC-Unique: nyCJTTlrODCn2wl02aVmcQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684441851; x=1687033851;
-        h=mime-version:user-agent:content-transfer-encoding:organization
-         :references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UBHXSM6N4oYTfABvCGd3gPEAq2HM572bDIbMq8xh2Y4=;
-        b=aaL4W8SYC8mEqc5GFLGPu5g72/xgT3RoA+WX2lJq6fUvEgaypk4BMHDRBAwHGfrKtb
-         pTwn7frzyLNi0LC+KJ/DihydEIdazwxXdOA+ERmeIhkszolWdjqS8hZ4h/XvZx87BK4l
-         hoOonM+4eoGvEdIqE562SyMeQ9a6Mv2c1Q/c0pMVBKWv6btFz+Wm043wZoVY8hJH8FOt
-         pwNoEbAAQ1cN7epzPEa7B+80VJFsJ7moATxsAi7b6AQk7dcTtJzHDv/VX9n6nPAM+XdX
-         qMQqPawC02uoQzdniyyhbgexhMOZuHsjJSO6nx0NYgGgJPiISGQK0Usvnh9OoXVKZJXQ
-         Wtcw==
-X-Gm-Message-State: AC+VfDwYgwL8FwlvDBDo47c8jW9AOb043XXHEVxcApWZaaYIqLIr6uMg
-	IMpsw3VRPuXd3Nbij6hTmbEiNOWVy0Hdl0lL+s6hEm4rFRK8jvsELcT21hfaYkLJRBXZFyJD2wI
-	+aePjlOeGR1l2xDG64XD7U/1erMo=
-X-Received: by 2002:a05:6214:e4d:b0:5c7:d03c:f2b2 with SMTP id o13-20020a0562140e4d00b005c7d03cf2b2mr361301qvc.28.1684441851010;
-        Thu, 18 May 2023 13:30:51 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ7vnjCpdmwKeoU/jIRT/FUAUaf5A1UGyq52Jfrp1Qr7akRm4t7XVgexBhARVnPncRSkeITgNQ==
-X-Received: by 2002:a05:6214:e4d:b0:5c7:d03c:f2b2 with SMTP id o13-20020a0562140e4d00b005c7d03cf2b2mr361277qvc.28.1684441850746;
-        Thu, 18 May 2023 13:30:50 -0700 (PDT)
-Message-ID: <b07c93bc7cb71a32091794cd97f7c702c34539da.camel@redhat.com>
-Subject: Re: [PATCH 3/4] drm/nouveau: stop using is_swiotlb_active
-From: Lyude Paul <lyude@redhat.com>
-To: Christoph Hellwig <hch@lst.de>, Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>,  Borislav Petkov <bp@alien8.de>, Dave
- Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Ben Skeggs <bskeggs@redhat.com>, Karol Herbst
- <kherbst@redhat.com>
-Cc: xen-devel@lists.xenproject.org, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org
-Date: Thu, 18 May 2023 16:30:49 -0400
-In-Reply-To: <20230518134253.909623-4-hch@lst.de>
-References: <20230518134253.909623-1-hch@lst.de>
-	 <20230518134253.909623-4-hch@lst.de>
-Organization: Red Hat Inc.
-User-Agent: Evolution 3.44.4 (3.44.4-3.fc36)
+X-Inumbo-ID: 8044404c-f662-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=yZ+c8uZcJrlAlno5FxTnPElzATRQ31IF/+qQxmh4X7Y=;
+ b=JXYLKwcI2GbfAQOyp3pqNSg6DjU0Y7APV0UkqvAq+7mPhE6jU2niZ2R4O5GEnV8Jv3vY
+ GKGhPl9R8u8z9GTQRJNoPGaU+0mzwGn4MRHzlqrkBUJqPBmbmvIdtKopPW+l45x2R2N4
+ N53tfhOYno5CyDkZBijlZR00Ad7cvVpDEdEpXoDABtsI85/Pq3Lm9EQeADaOgh7BPKhU
+ vCAzv/tTJH7NrLUDiiqElo6FSx31LTwIxiOoWrGKsGUnDbsEy4Z69PrEn6OpGxkbbO+u
+ mhtvqcavuyOXh7qnKKh25rs7jG7FJgFRefJwgVrMfeYuSSMcB+UmlbDChCuJ2ha23dwu fw== 
+Message-ID: <16562305-3bc0-c69f-0cb5-1b9da1014f19@quicinc.com>
+Date: Fri, 19 May 2023 10:28:56 -0600
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.0
+Subject: Re: [patch V4 36/37] x86/smpboot: Support parallel startup of
+ secondary CPUs
+Content-Language: en-US
+To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>,
+        David Woodhouse <dwmw2@infradead.org>
+CC: <x86@kernel.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+        Brian Gerst
+	<brgerst@gmail.com>,
+        Arjan van de Veen <arjan@linux.intel.com>,
+        Paolo Bonzini
+	<pbonzini@redhat.com>,
+        Paul McKenney <paulmck@kernel.org>,
+        Tom Lendacky
+	<thomas.lendacky@amd.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Oleksandr
+ Natalenko <oleksandr@natalenko.name>,
+        Paul Menzel <pmenzel@molgen.mpg.de>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+        Piotr Gorski
+	<lucjan.lucjanov@gmail.com>,
+        Usama Arif <usama.arif@bytedance.com>,
+        Juergen
+ Gross <jgross@suse.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        <xen-devel@lists.xenproject.org>, Russell King <linux@armlinux.org.uk>,
+        Arnd
+ Bergmann <arnd@arndb.de>, <linux-arm-kernel@lists.infradead.org>,
+        Catalin
+ Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, Guo Ren
+	<guoren@kernel.org>,
+        <linux-csky@vger.kernel.org>,
+        Thomas Bogendoerfer
+	<tsbogend@alpha.franken.de>,
+        <linux-mips@vger.kernel.org>,
+        "James E.J.
+ Bottomley" <James.Bottomley@HansenPartnership.com>,
+        Helge Deller
+	<deller@gmx.de>, <linux-parisc@vger.kernel.org>,
+        Paul Walmsley
+	<paul.walmsley@sifive.com>,
+        Palmer Dabbelt <palmer@dabbelt.com>, <linux-riscv@lists.infradead.org>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Sabin
+ Rapan <sabrapan@amazon.com>,
+        "Michael Kelley (LINUX)"
+	<mikelley@microsoft.com>,
+        Ross Philipson <ross.philipson@oracle.com>,
+        David
+ Woodhouse <dwmw@amazon.co.uk>
+References: <20230512203426.452963764@linutronix.de>
+ <20230512205257.411554373@linutronix.de>
+From: Jeffrey Hugo <quic_jhugo@quicinc.com>
+In-Reply-To: <20230512205257.411554373@linutronix.de>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01b.na.qualcomm.com (10.46.141.250) To
+ nalasex01a.na.qualcomm.com (10.47.209.196)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-GUID: l2X6Bcn3k_Nws-GO_lVKOQ5EQSj3BbaM
+X-Proofpoint-ORIG-GUID: l2X6Bcn3k_Nws-GO_lVKOQ5EQSj3BbaM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-05-19_11,2023-05-17_02,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 impostorscore=0 spamscore=0 bulkscore=0
+ phishscore=0 mlxlogscore=999 suspectscore=0 malwarescore=0 clxscore=1011
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2304280000
+ definitions=main-2305190140
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
-
-Thanks for getting to this!
-
-On Thu, 2023-05-18 at 15:42 +0200, Christoph Hellwig wrote:
-> Drivers have no business looking into dma-mapping internals and check
-> what backend is used.  Unfortunstely the DRM core is still broken and
-> tries to do plain page allocations instead of using DMA API allocators
-> by default and uses various bandaids on when to use dma_alloc_coherent.
->=20
-> Switch nouveau to use the same (broken) scheme as amdgpu and radeon
-> to remove the last driver user of is_swiotlb_active.
->=20
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+On 5/12/2023 3:07 PM, Thomas Gleixner wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
+> 
+> In parallel startup mode the APs are kicked alive by the control CPU
+> quickly after each other and run through the early startup code in
+> parallel. The real-mode startup code is already serialized with a
+> bit-spinlock to protect the real-mode stack.
+> 
+> In parallel startup mode the smpboot_control variable obviously cannot
+> contain the Linux CPU number so the APs have to determine their Linux CPU
+> number on their own. This is required to find the CPUs per CPU offset in
+> order to find the idle task stack and other per CPU data.
+> 
+> To achieve this, export the cpuid_to_apicid[] array so that each AP can
+> find its own CPU number by searching therein based on its APIC ID.
+> 
+> Introduce a flag in the top bits of smpboot_control which indicates that
+> the AP should find its CPU number by reading the APIC ID from the APIC.
+> 
+> This is required because CPUID based APIC ID retrieval can only provide the
+> initial APIC ID, which might have been overruled by the firmware. Some AMD
+> APUs come up with APIC ID = initial APIC ID + 0x10, so the APIC ID to CPU
+> number lookup would fail miserably if based on CPUID. Also virtualization
+> can make its own APIC ID assignements. The only requirement is that the
+> APIC IDs are consistent with the APCI/MADT table.
+> 
+> For the boot CPU or in case parallel bringup is disabled the control bits
+> are empty and the CPU number is directly available in bit 0-23 of
+> smpboot_control.
+> 
+> [ tglx: Initial proof of concept patch with bitlock and APIC ID lookup ]
+> [ dwmw2: Rework and testing, commit message, CPUID 0x1 and CPU0 support ]
+> [ seanc: Fix stray override of initial_gs in common_cpu_up() ]
+> [ Oleksandr Natalenko: reported suspend/resume issue fixed in
+>    x86_acpi_suspend_lowlevel ]
+> [ tglx: Make it read the APIC ID from the APIC instead of using CPUID,
+>    	split the bitlock part out ]
+> 
+> Co-developed-by: Thomas Gleixner <tglx@linutronix.de>
+> Co-developed-by: Brian Gerst <brgerst@gmail.com>
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+> Signed-off-by: Brian Gerst <brgerst@gmail.com>
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+> Tested-by: Michael Kelley <mikelley@microsoft.com>
 > ---
->  drivers/gpu/drm/nouveau/nouveau_ttm.c | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_ttm.c
-> index 1469a88910e45d..486f39f31a38df 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> @@ -24,9 +24,9 @@
->   */
-> =20
->  #include <linux/limits.h>
-> -#include <linux/swiotlb.h>
-> =20
->  #include <drm/ttm/ttm_range_manager.h>
-> +#include <drm/drm_cache.h>
-> =20
->  #include "nouveau_drv.h"
->  #include "nouveau_gem.h"
-> @@ -265,7 +265,6 @@ nouveau_ttm_init(struct nouveau_drm *drm)
->  =09struct nvkm_pci *pci =3D device->pci;
->  =09struct nvif_mmu *mmu =3D &drm->client.mmu;
->  =09struct drm_device *dev =3D drm->dev;
-> -=09bool need_swiotlb =3D false;
->  =09int typei, ret;
-> =20
->  =09ret =3D nouveau_ttm_init_host(drm, 0);
-> @@ -300,13 +299,10 @@ nouveau_ttm_init(struct nouveau_drm *drm)
->  =09=09drm->agp.cma =3D pci->agp.cma;
->  =09}
-> =20
-> -#if IS_ENABLED(CONFIG_SWIOTLB) && IS_ENABLED(CONFIG_X86)
-> -=09need_swiotlb =3D is_swiotlb_active(dev->dev);
-> -#endif
-> -
->  =09ret =3D ttm_device_init(&drm->ttm.bdev, &nouveau_bo_driver, drm->dev-=
->dev,
->  =09=09=09=09  dev->anon_inode->i_mapping,
-> -=09=09=09=09  dev->vma_offset_manager, need_swiotlb,
-> +=09=09=09=09  dev->vma_offset_manager,
-> +=09=09=09=09  drm_need_swiotlb(drm->client.mmu.dmabits),
->  =09=09=09=09  drm->client.mmu.dmabits <=3D 32);
->  =09if (ret) {
->  =09=09NV_ERROR(drm, "error initialising bo driver, %d\n", ret);
 
---=20
-Cheers,
- Lyude Paul (she/her)
- Software Engineer at Red Hat
+I pulled in this change via the next tree, tag next-20230519 and I get a 
+build failure using the x86_64_defconfig -
 
+   DESCEND objtool
+   INSTALL libsubcmd_headers
+   CALL    scripts/checksyscalls.sh
+   AS      arch/x86/kernel/head_64.o
+arch/x86/kernel/head_64.S: Assembler messages:
+arch/x86/kernel/head_64.S:261: Error: missing ')'
+arch/x86/kernel/head_64.S:261: Error: junk `UL<<10)' after expression
+   CC      arch/x86/kernel/head64.o
+   CC      arch/x86/kernel/ebda.o
+   CC      arch/x86/kernel/platform-quirks.o
+scripts/Makefile.build:374: recipe for target 
+'arch/x86/kernel/head_64.o' failed
+make[3]: *** [arch/x86/kernel/head_64.o] Error 1
+make[3]: *** Waiting for unfinished jobs....
+scripts/Makefile.build:494: recipe for target 'arch/x86/kernel' failed
+make[2]: *** [arch/x86/kernel] Error 2
+scripts/Makefile.build:494: recipe for target 'arch/x86' failed
+make[1]: *** [arch/x86] Error 2
+make[1]: *** Waiting for unfinished jobs....
+Makefile:2026: recipe for target '.' failed
+make: *** [.] Error 2
+
+This is with GCC 5.4.0, if it matters.
+
+Reverting this change allows the build to move forward, although I also 
+need to revert "x86/smpboot/64: Implement 
+arch_cpuhp_init_parallel_bringup() and enable it" for the build to fully 
+succeed.
+
+I'm not familiar with this code, and nothing obvious stands out to me. 
+What can I do to help root cause this?
+
+-Jeff
 
