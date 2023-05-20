@@ -2,46 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E3AA70A5D8
-	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 08:02:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.537224.836538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89D1570A5B8
+	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 07:38:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.537366.836483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q0Ffb-0002SW-KR; Sat, 20 May 2023 06:02:23 +0000
+	id 1q0FH0-0006De-Nz; Sat, 20 May 2023 05:36:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 537224.836538; Sat, 20 May 2023 06:02:23 +0000
+Received: by outflank-mailman (output) from mailman id 537366.836483; Sat, 20 May 2023 05:36:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q0Ffb-0002Hu-B2; Sat, 20 May 2023 06:02:23 +0000
-Received: by outflank-mailman (input) for mailman id 537224;
- Fri, 19 May 2023 17:46:09 +0000
+	id 1q0FH0-0006C0-KL; Sat, 20 May 2023 05:36:58 +0000
+Received: by outflank-mailman (input) for mailman id 537366;
+ Sat, 20 May 2023 05:36:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4+OQ=BI=quicinc.com=quic_jhugo@srs-se1.protection.inumbo.net>)
- id 1q04B7-0005Ax-Dp
- for xen-devel@lists.xenproject.org; Fri, 19 May 2023 17:46:09 +0000
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0772ecf6-f66d-11ed-8611-37d641c3527e;
- Fri, 19 May 2023 19:46:06 +0200 (CEST)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34JFMfDd012512; Fri, 19 May 2023 17:45:03 GMT
-Received: from nalasppmta05.qualcomm.com (Global_NAT1.qualcomm.com
- [129.46.96.20])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qp95v0w04-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 May 2023 17:45:03 +0000
-Received: from nalasex01a.na.qualcomm.com (nalasex01a.na.qualcomm.com
- [10.47.209.196])
- by NALASPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34JHj1wR008027
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 19 May 2023 17:45:01 GMT
-Received: from [10.226.59.182] (10.80.80.8) by nalasex01a.na.qualcomm.com
- (10.47.209.196) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Fri, 19 May
- 2023 10:44:59 -0700
+ <SRS0=GQEh=BJ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1q0FGz-0006Bu-1r
+ for xen-devel@lists.xenproject.org; Sat, 20 May 2023 05:36:57 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 52a43a09-f6d0-11ed-8611-37d641c3527e;
+ Sat, 20 May 2023 07:36:52 +0200 (CEST)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 809765C00DA;
+ Sat, 20 May 2023 01:36:51 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Sat, 20 May 2023 01:36:51 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 20 May 2023 01:36:50 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,150 +43,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0772ecf6-f66d-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=eudHzY6WP7JinnfOr70AykPZvSkkpEMxuNg8hMfppYo=;
- b=DMV0U+nIXEVCY+aepXRfFYvdfBeVO+N4QF0je1NreoKWWMhdhmNCmkCFY69GHp3G1MUl
- W4uLhQQIfJlWzCmL2UlwpB67SLBLlnvd3eaMcPBXY3xpzTd4DPesNiwRSj6AMqZBspVo
- 08MDwx36HiK4jQA4XpyJQxV1CWo2sx0aEh71PEANzSjVcRsNE8URDp/9OH/+p2Kh4/Bd
- u8dY8/MWw20kSLCJ06My3a975QQQC9ySq7nhEqEvzzuIHXWUfJmJ+Gzj0a0CNBUiRPUE
- dcRr1k8AfSKrqIM3q0pDGScz3hGnOYsEF+bviVQ6TCuLFhAIK7GTUA+1LUQeisPdvBFr pg== 
-Message-ID: <ebe36911-024a-839c-3b7e-05c99bfb0d66@quicinc.com>
-Date: Fri, 19 May 2023 11:44:58 -0600
+X-Inumbo-ID: 52a43a09-f6d0-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:sender:subject:subject:to:to; s=fm1; t=1684561011; x=
+	1684647411; bh=8IitWPFe78G+zxKofkqDDSKZmdplMZYDBzCeut9KBls=; b=q
+	6/r7wB2zQZ2jEjveKe/1SGYEU/FNePYE70vakyrRqUbYr2BimK+WMM8slYFnwfiA
+	kP3ete9uVx90mRdW9y10J7bTUqDD/6Ncjt167n72EZMyS36oYCRoVMQ+3VFxZYTT
+	nGonFB8vQiXBFq4hjQBGxY5ipJgmS3gO569RucVleuufPDVLVlJC2FTn2VQ4tkez
+	fs1GvvfkT8QIsNcDh2faPmjYcUYqIKWEzkuU8RQnq7AANj4iAnG8zs3P658lz6r3
+	Z8ghyu8GASq+YqBuBsmbWRVdnEdgazOp2hqdq/ZSpbh9EiqRT1h8FsyfqbSMg6qt
+	nE67bYhXmjhn/hT/T1ykg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1684561011; x=1684647411; bh=8IitWPFe78G+zxKofkqDDSKZmdplMZYDBzC
+	eut9KBls=; b=TMSSDr0UaFz1SHJZdiS8/CeBFuUkKAjOjkdjnHdiz4AsyrkC7sG
+	whDCBDHNOjWZhbZ5E59Qtn/tMwwH6w8meCw0atTapN22IiNPH+1hasgsOvf3ooEU
+	3Wb5gqvHQcrxqGchnsSKGXAAYUA3W3phzvEaFKXm7soy0mrhczruUJge+B+Qe9Ps
+	OxICwtN+gmDjNisVX6uJsQ9f2mLhw8LY0vXw/bcN4HpxX3Cv5B+ODM6PAYNkMAvO
+	s0Nfr3inATVRJpWKPFxWY1DtILafHxEr/1wo9V6pOHxopDG18xU8skLjTjXF4Rrg
+	/xAFfY0mnctQsJrCqRPV+n9DUGDjYQlBPHA==
+X-ME-Sender: <xms:c1xoZPkxsJ2ADDhMkmc7fzFYgrgOF6F4JqkAm9tfnfVgWPa8NYO4HA>
+    <xme:c1xoZC0ZbbgGWHfo--rImLALvQPWtYrOX6E2ncrPrIJ9N8VftBvB1PgP71dXOF6rm
+    p5Qzpcn4ozjToI>
+X-ME-Received: <xmr:c1xoZFp-7r2T7PxWn6VEqUpTwGSzP1mP-dmAUQ_rNWdPDreA8lzirtyngvY>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeiiedgleeiucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkgggtugesghdtreertddtjeenucfhrhhomhepffgvmhhiucfo
+    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
+    grsgdrtghomheqnecuggftrfgrthhtvghrnhepueevleffkeefueelieeuveehfeeigfff
+    gefgudeiueejveevheffgfdthfeijefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
+    hrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgr
+    sgdrtghomh
+X-ME-Proxy: <xmx:c1xoZHkU7O8JRorYdPUhsShUQkgo5Jsk3HTrd_JVxR_CKWgUrEhIKQ>
+    <xmx:c1xoZN0xuUuIh8AiQcciNySbGKzeRBFyZ4CyM_0z_zzCqmAhwkvINQ>
+    <xmx:c1xoZGtlSb-iDCRRgSTCsKR6geWYZAoMM6KwDMG9QVRj9dnG8sLbvQ>
+    <xmx:c1xoZKhk-I6OtuUPbpkXDVqXnGoonlGzZNgVmUoKvRYlLJB1blboaA>
+Feedback-ID: iac594737:Fastmail
+Date: Sat, 20 May 2023 01:36:44 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Xen developer discussion <xen-devel@lists.xenproject.org>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Removing Linux memory hotplug limitations
+Message-ID: <ZGhccUNlipyTIm5/@itl-email>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Subject: Re: [patch V4 36/37] x86/smpboot: Support parallel startup of
- secondary CPUs
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
-        Thomas Gleixner
-	<tglx@linutronix.de>,
-        LKML <linux-kernel@vger.kernel.org>,
-        David Woodhouse
-	<dwmw2@infradead.org>
-CC: <x86@kernel.org>, Brian Gerst <brgerst@gmail.com>,
-        Arjan van de Veen
-	<arjan@linux.intel.com>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Paul McKenney
-	<paulmck@kernel.org>,
-        Tom Lendacky <thomas.lendacky@amd.com>,
-        Sean
- Christopherson <seanjc@google.com>,
-        Oleksandr Natalenko
-	<oleksandr@natalenko.name>,
-        Paul Menzel <pmenzel@molgen.mpg.de>,
-        "Guilherme
- G. Piccoli" <gpiccoli@igalia.com>,
-        Piotr Gorski <lucjan.lucjanov@gmail.com>,
-        Usama Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>,
-        Boris
- Ostrovsky <boris.ostrovsky@oracle.com>,
-        <xen-devel@lists.xenproject.org>, Russell King <linux@armlinux.org.uk>,
-        Arnd Bergmann <arnd@arndb.de>, <linux-arm-kernel@lists.infradead.org>,
-        Catalin Marinas
-	<catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>, Guo Ren
-	<guoren@kernel.org>,
-        <linux-csky@vger.kernel.org>,
-        Thomas Bogendoerfer
-	<tsbogend@alpha.franken.de>,
-        <linux-mips@vger.kernel.org>,
-        "James E.J.
- Bottomley" <James.Bottomley@HansenPartnership.com>,
-        Helge Deller
-	<deller@gmx.de>, <linux-parisc@vger.kernel.org>,
-        Paul Walmsley
-	<paul.walmsley@sifive.com>,
-        Palmer Dabbelt <palmer@dabbelt.com>, <linux-riscv@lists.infradead.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Sabin
- Rapan <sabrapan@amazon.com>,
-        "Michael Kelley (LINUX)"
-	<mikelley@microsoft.com>,
-        Ross Philipson <ross.philipson@oracle.com>,
-        David
- Woodhouse <dwmw@amazon.co.uk>
-References: <20230512203426.452963764@linutronix.de>
- <20230512205257.411554373@linutronix.de>
- <16562305-3bc0-c69f-0cb5-1b9da1014f19@quicinc.com>
- <0cafbfcb-2430-6d90-ee77-4e5de08ee1da@citrix.com>
-From: Jeffrey Hugo <quic_jhugo@quicinc.com>
-In-Reply-To: <0cafbfcb-2430-6d90-ee77-4e5de08ee1da@citrix.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nalasex01a.na.qualcomm.com (10.47.209.196)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: wzgfaxTFUND7jtAhGx51l9t9Ic-_fDjs
-X-Proofpoint-GUID: wzgfaxTFUND7jtAhGx51l9t9Ic-_fDjs
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-05-19_12,2023-05-17_02,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0 adultscore=0
- mlxscore=0 mlxlogscore=999 malwarescore=0 clxscore=1015 spamscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305190152
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Em6P91+DqSFMPKbb"
+Content-Disposition: inline
 
-On 5/19/2023 10:57 AM, Andrew Cooper wrote:
-> On 19/05/2023 5:28 pm, Jeffrey Hugo wrote:
->>    DESCEND objtool
->>    INSTALL libsubcmd_headers
->>    CALL    scripts/checksyscalls.sh
->>    AS      arch/x86/kernel/head_64.o
->> arch/x86/kernel/head_64.S: Assembler messages:
->> arch/x86/kernel/head_64.S:261: Error: missing ')'
->> arch/x86/kernel/head_64.S:261: Error: junk `UL<<10)' after expression
->>    CC      arch/x86/kernel/head64.o
->>    CC      arch/x86/kernel/ebda.o
->>    CC      arch/x86/kernel/platform-quirks.o
->> scripts/Makefile.build:374: recipe for target
->> 'arch/x86/kernel/head_64.o' failed
->> make[3]: *** [arch/x86/kernel/head_64.o] Error 1
->> make[3]: *** Waiting for unfinished jobs....
->> scripts/Makefile.build:494: recipe for target 'arch/x86/kernel' failed
->> make[2]: *** [arch/x86/kernel] Error 2
->> scripts/Makefile.build:494: recipe for target 'arch/x86' failed
->> make[1]: *** [arch/x86] Error 2
->> make[1]: *** Waiting for unfinished jobs....
->> Makefile:2026: recipe for target '.' failed
->> make: *** [.] Error 2
->>
->> This is with GCC 5.4.0, if it matters.
->>
->> Reverting this change allows the build to move forward, although I
->> also need to revert "x86/smpboot/64: Implement
->> arch_cpuhp_init_parallel_bringup() and enable it" for the build to
->> fully succeed.
->>
->> I'm not familiar with this code, and nothing obvious stands out to me.
->> What can I do to help root cause this?
-> 
-> Can you try:
-> 
-> -#define XAPIC_ENABLE    (1UL << 11)
-> -#define X2APIC_ENABLE    (1UL << 10)
-> +#define XAPIC_ENABLE    BIT(11)
-> +#define X2APIC_ENABLE    BIT(10)
-> 
-> The UL suffix isn't understood by older binutils, and this patch adds
-> the first use of these constants in assembly.
 
-Ah, makes sense.
+--Em6P91+DqSFMPKbb
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 20 May 2023 01:36:44 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Xen developer discussion <xen-devel@lists.xenproject.org>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Removing Linux memory hotplug limitations
 
-Your suggested change works for me.  No more compile error.
+Qubes OS is trying to switch from relying on populate-on-demand to
+memory hotplug for Linux guests.  However, this runs into a problem,
+which is that only a limited amount of memory can be hotplugged.
 
-I assume you will be following up with a patch to address this.  Feel 
-free to add the following tags as you see fit:
+My experiments with Qubes OS=E2=80=99s build of Linux 6.3.2 reveal:
 
-Reported-by: Jeffrey Hugo <quic_jhugo@quicinc.com>
-Tested-by: Jeffrey Hugo <quic_jhugo@quicinc.com>
+- The more memory a guest starts off with, the more memory that can be
+  added to it via hotplug.
 
--Jeff
+- The memory that the guest is not able to use remains available on the
+  host and can be assigned to dom0 (and, presumably, to oother guests).
+
+- There is no sudden jump at 2GiB or 3GiB as far as I can tell.
+
+- There are no kernel warning messages unless I try to add a huge amount
+  of memory (far beyond what can be successfully hotplugged).  In
+  particular, there are no warning messages from drivers/xen/balloon.c.
+
+- There are several waits in the balloon driver that should probably
+  hvae comments added.
+
+- `cat /sys/devices/system/memory/memory*/state` reveals that all memory
+  devices are online.
+
+- `echo $((1 << 63)) | sudo tee /sys/devices/system/xen_memory/xen_memory0/=
+target`
+  causes a kernel crash (BUG_ON(ret !=3D nr_pages) in drivers/xen/balloon.c=
+).
+  Patch coming.
+
+- The initial amount of memory assigned to a guest is irrelevant.
+
+- The maximum amount of memory assigned to a guest is highly relevant.
+  Table below:
+
+   Initial maximum memory:      Maximum after hotplug
+             400M                       2733M=20
+             500M                       3067M=20
+             600M                       3535M
+             700M                       3919M
+             800M                       4315
+             900m                       4711
+             1000m                      5105
+
+SciPy linear regression gives:
+
+- Slope: 3.9943
+- Y-Intercept: 1116.14
+- R: 0.99965
+- stderr: 0.047
+
+In short, there is a very clear, nearly linear relationship between the
+amount of cold-plugged memory and the amount of memory that can be
+hotplugged later.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--Em6P91+DqSFMPKbb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmRoXHEACgkQsoi1X/+c
+IsEMwg//ST7yUUKUJZL4pqYw+siRHT6dD8oax7dAGQx2Zo6CLyQ0K3fu27FOqTEM
+hB7Ua3h05DzYtOSJbDcdjqlYendfIo2Yj7ItBgt3VF1rPTBKy+sNYqxjr838LvUR
+18adFho7fiyqmuRB+kqmdQ/BW2S1mQos5AIq1rY7E+MaIgGyzXQHc2oIyGw1X6uY
+FJ3RoLRo3cHk1dbwsmSc+OXjxKPAW6I1DLd8GhFLhiBXUV1Q+QlUt5lJTPS7Ci5b
+nbIvEh+1kOyg35ZUefLWlMzdTGIMW6rpzIT3Q1C6YDr2K0EXeigUbgvhZIrbId0T
+zILnEI44MLzGAHyrC52BXyCPik8l97rlRHxW9/nV0dMXiM7/vVj1INURGK1Vm3y1
+waNiLfBohbKpGKb5cz874FgQV8dNl1704zSkKgchVRRTBQjte0PhgUDpHNM+IdtG
+E1fZZJ4wquJikUUYLqS2Hc8Z3O0H+2ALWVJwz8ZnosEARw8aZcICIbKpQgaReMHB
++dNxmyy4nSxBBzSMllLJhjsTjqA33MXAFIVRtAjmOqODR1sxhMjALdBCvTu5qXXt
+MycpQY4xVOVMC9E0QdD4XiKNbkFg+CHT0dzJmE5JQm3J/NZdGxeBAa5nbweXzJMX
+VJnF5eJogsnPXHAr42QFmW5HWrci3tg2ATGg9UOUSlQCzu7stV0=
+=3tFv
+-----END PGP SIGNATURE-----
+
+--Em6P91+DqSFMPKbb--
 
