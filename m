@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89D1570A5B8
-	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 07:38:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.537366.836483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 964A970A5BC
+	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 07:44:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.537373.836494 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q0FH0-0006De-Nz; Sat, 20 May 2023 05:36:58 +0000
+	id 1q0FNp-0007n8-K3; Sat, 20 May 2023 05:44:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 537366.836483; Sat, 20 May 2023 05:36:58 +0000
+Received: by outflank-mailman (output) from mailman id 537373.836494; Sat, 20 May 2023 05:44:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q0FH0-0006C0-KL; Sat, 20 May 2023 05:36:58 +0000
-Received: by outflank-mailman (input) for mailman id 537366;
- Sat, 20 May 2023 05:36:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GQEh=BJ=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1q0FGz-0006Bu-1r
- for xen-devel@lists.xenproject.org; Sat, 20 May 2023 05:36:57 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 52a43a09-f6d0-11ed-8611-37d641c3527e;
- Sat, 20 May 2023 07:36:52 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 809765C00DA;
- Sat, 20 May 2023 01:36:51 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Sat, 20 May 2023 01:36:51 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 20 May 2023 01:36:50 -0400 (EDT)
+	id 1q0FNp-0007kt-Ga; Sat, 20 May 2023 05:44:01 +0000
+Received: by outflank-mailman (input) for mailman id 537373;
+ Sat, 20 May 2023 05:43:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q0FNn-0007kj-Rk; Sat, 20 May 2023 05:43:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q0FNn-00022G-JI; Sat, 20 May 2023 05:43:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q0FNn-0006MI-Cl; Sat, 20 May 2023 05:43:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q0FNn-0003eI-CG; Sat, 20 May 2023 05:43:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,148 +42,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52a43a09-f6d0-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:sender:subject:subject:to:to; s=fm1; t=1684561011; x=
-	1684647411; bh=8IitWPFe78G+zxKofkqDDSKZmdplMZYDBzCeut9KBls=; b=q
-	6/r7wB2zQZ2jEjveKe/1SGYEU/FNePYE70vakyrRqUbYr2BimK+WMM8slYFnwfiA
-	kP3ete9uVx90mRdW9y10J7bTUqDD/6Ncjt167n72EZMyS36oYCRoVMQ+3VFxZYTT
-	nGonFB8vQiXBFq4hjQBGxY5ipJgmS3gO569RucVleuufPDVLVlJC2FTn2VQ4tkez
-	fs1GvvfkT8QIsNcDh2faPmjYcUYqIKWEzkuU8RQnq7AANj4iAnG8zs3P658lz6r3
-	Z8ghyu8GASq+YqBuBsmbWRVdnEdgazOp2hqdq/ZSpbh9EiqRT1h8FsyfqbSMg6qt
-	nE67bYhXmjhn/hT/T1ykg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1684561011; x=1684647411; bh=8IitWPFe78G+zxKofkqDDSKZmdplMZYDBzC
-	eut9KBls=; b=TMSSDr0UaFz1SHJZdiS8/CeBFuUkKAjOjkdjnHdiz4AsyrkC7sG
-	whDCBDHNOjWZhbZ5E59Qtn/tMwwH6w8meCw0atTapN22IiNPH+1hasgsOvf3ooEU
-	3Wb5gqvHQcrxqGchnsSKGXAAYUA3W3phzvEaFKXm7soy0mrhczruUJge+B+Qe9Ps
-	OxICwtN+gmDjNisVX6uJsQ9f2mLhw8LY0vXw/bcN4HpxX3Cv5B+ODM6PAYNkMAvO
-	s0Nfr3inATVRJpWKPFxWY1DtILafHxEr/1wo9V6pOHxopDG18xU8skLjTjXF4Rrg
-	/xAFfY0mnctQsJrCqRPV+n9DUGDjYQlBPHA==
-X-ME-Sender: <xms:c1xoZPkxsJ2ADDhMkmc7fzFYgrgOF6F4JqkAm9tfnfVgWPa8NYO4HA>
-    <xme:c1xoZC0ZbbgGWHfo--rImLALvQPWtYrOX6E2ncrPrIJ9N8VftBvB1PgP71dXOF6rm
-    p5Qzpcn4ozjToI>
-X-ME-Received: <xmr:c1xoZFp-7r2T7PxWn6VEqUpTwGSzP1mP-dmAUQ_rNWdPDreA8lzirtyngvY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeiiedgleeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkgggtugesghdtreertddtjeenucfhrhhomhepffgvmhhiucfo
-    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomheqnecuggftrfgrthhtvghrnhepueevleffkeefueelieeuveehfeeigfff
-    gefgudeiueejveevheffgfdthfeijefhnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
-    hrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgr
-    sgdrtghomh
-X-ME-Proxy: <xmx:c1xoZHkU7O8JRorYdPUhsShUQkgo5Jsk3HTrd_JVxR_CKWgUrEhIKQ>
-    <xmx:c1xoZN0xuUuIh8AiQcciNySbGKzeRBFyZ4CyM_0z_zzCqmAhwkvINQ>
-    <xmx:c1xoZGtlSb-iDCRRgSTCsKR6geWYZAoMM6KwDMG9QVRj9dnG8sLbvQ>
-    <xmx:c1xoZKhk-I6OtuUPbpkXDVqXnGoonlGzZNgVmUoKvRYlLJB1blboaA>
-Feedback-ID: iac594737:Fastmail
-Date: Sat, 20 May 2023 01:36:44 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Xen developer discussion <xen-devel@lists.xenproject.org>
-Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Removing Linux memory hotplug limitations
-Message-ID: <ZGhccUNlipyTIm5/@itl-email>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Em6P91+DqSFMPKbb"
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=6gjEcNgTEnz3Dp27QG3nnWbTbNPvcCjcODcRjIQCJXg=; b=gOi95AYy2PwtCvDVUDzIvboS98
+	X2GS9E70E5CNArF/426k0/joCn6MdvEWO1Jrj0CIpyvkny/k/qpVMNCrrYMCCsTbeC4PDcKJx+UQB
+	jflyK8x/1yNtJjDmZ6y8p6YWCYAwbgz9yUsGYk1yOOtFTLiAs95KY0pFEe02I1Gpy9c8=;
+To: xen-devel@lists.xenproject.org
+Subject: [qemu-mainline bisection] complete build-i386-xsm
+Message-Id: <E1q0FNn-0003eI-CG@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 20 May 2023 05:43:59 +0000
+
+branch xen-unstable
+xenbranch xen-unstable
+job build-i386-xsm
+testid xen-build
+
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu https://gitlab.com/qemu-project/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  qemuu https://gitlab.com/qemu-project/qemu.git
+  Bug introduced:  81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
+  Bug not present: 2274817f6c499fd31081d7973b7cbfdca17c44a8
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/180796/
 
 
---Em6P91+DqSFMPKbb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 20 May 2023 01:36:44 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Xen developer discussion <xen-devel@lists.xenproject.org>
-Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Removing Linux memory hotplug limitations
+  commit 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
+  Author: John Snow <jsnow@redhat.com>
+  Date:   Wed May 10 23:54:23 2023 -0400
+  
+      configure: create a python venv unconditionally
+      
+      This patch changes the configure script so that it always creates and
+      uses a python virtual environment unconditionally.
+      
+      Meson bootstrapping is temporarily altered to force the use of meson
+      from git or vendored source (as packaged in our source tarballs). A
+      subsequent commit restores the use of distribution-vendored Meson.
+      
+      Signed-off-by: John Snow <jsnow@redhat.com>
+      Message-Id: <20230511035435.734312-16-jsnow@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-Qubes OS is trying to switch from relying on populate-on-demand to
-memory hotplug for Linux guests.  However, this runs into a problem,
-which is that only a limited amount of memory can be hotplugged.
 
-My experiments with Qubes OS=E2=80=99s build of Linux 6.3.2 reveal:
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/build-i386-xsm.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-- The more memory a guest starts off with, the more memory that can be
-  added to it via hotplug.
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/build-i386-xsm.xen-build --summary-out=tmp/180796.bisection-summary --basis-template=180691 --blessings=real,real-bisect,real-retry qemu-mainline build-i386-xsm xen-build
+Searching for failure / basis pass:
+ 180753 fail [host=albana0] / 180691 [host=huxelrebe1] 180686 [host=huxelrebe1] 180673 [host=elbling0] 180659 ok.
+Failure / basis pass flights: 180753 / 180659
+(tree with no url: minios)
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu https://gitlab.com/qemu-project/qemu.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d009607d08d22f91ca399b72828c6693855e7325 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+Basis pass d3225577123767fd09c91201d27e9c91663ae132 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8844bb8d896595ee1d25d21c770e6e6f29803097 ea1b7a0733906b8425d948ae94fba63c32b1d425 4c507d8a6b6e8be90881a335b0a66eb28e0f7737
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#d3225577123767fd09c91201d27e9c91663ae132-0abfb0be6cf78a8e962383e85cec57851ddae5bc git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 https://gitlab.com/qemu-project/qemu.git#8844bb8d896595ee1d25d21c770e6e6f29803097-d009607d08d22f91ca399b72828c6693855e7325 git://xenbits.xen.org/osstest/seabios.git#ea1b7a0733906b8425d948ae94fba63\
+ c32b1d425-be7e899350caa7b74d8271a34264c3b4aef25ab0 git://xenbits.xen.org/xen.git#4c507d8a6b6e8be90881a335b0a66eb28e0f7737-42abf5b9c53eb1b1a902002fcda68708234152c3
+Loaded 43247 nodes in revision graph
+Searching for test results:
+ 180659 pass d3225577123767fd09c91201d27e9c91663ae132 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8844bb8d896595ee1d25d21c770e6e6f29803097 ea1b7a0733906b8425d948ae94fba63c32b1d425 4c507d8a6b6e8be90881a335b0a66eb28e0f7737
+ 180673 [host=elbling0]
+ 180686 [host=huxelrebe1]
+ 180702 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 297e8182194e634baa0cbbfd96d2e09e2a0bcd40 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180691 [host=huxelrebe1]
+ 180704 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 297e8182194e634baa0cbbfd96d2e09e2a0bcd40 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180721 [host=albana1]
+ 180742 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180775 pass d3225577123767fd09c91201d27e9c91663ae132 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8844bb8d896595ee1d25d21c770e6e6f29803097 ea1b7a0733906b8425d948ae94fba63c32b1d425 4c507d8a6b6e8be90881a335b0a66eb28e0f7737
+ 180777 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180778 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 91608e2a44f36e79cb83f863b8a7bb57d2c98061 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180779 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 66e2c6cbacea9302a1fc5528906243d36c103fc7 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180780 pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4baf3978c02b387c39dc6a75d323126ab386aece be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180781 pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 bfa72590df14e4c94c03d2464f3abe18bf2e5dac be7e899350caa7b74d8271a34264c3b4aef25ab0 8f9c8274a4e3e860bd777269cb2c91971e9fa69e
+ 180753 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d009607d08d22f91ca399b72828c6693855e7325 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180783 pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3887702e5f8995638c98f9d9326b4913fb107be7 be7e899350caa7b74d8271a34264c3b4aef25ab0 c8e4bbb5b8ee22fd1591ba6a5a3cef4466dda323
+ 180784 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d009607d08d22f91ca399b72828c6693855e7325 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180786 pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 ab4c44d657aeca7e1da6d6dcb1741c8e7d357b8b be7e899350caa7b74d8271a34264c3b4aef25ab0 fc1b51268025233a81e5fd9c5eabe170bc830720
+ 180787 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0e7e3bf1a552c178924867fa7c2f30ccc8a179e0 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180788 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 0b15c42b81ff1e66ccbab3c2f2cef1535cbb9d24 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180789 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 68ea6d17fe531e383394573251359ab4f99f7091 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180790 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dd48b477e90c3200b970545d1953e12e8c1431db be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180791 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180792 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180793 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180794 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180795 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+ 180796 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+Searching for interesting versions
+ Result found: flight 180659 (pass), for basis pass
+ Result found: flight 180753 (fail), for basis failure (at ancestor ~1)
+ Repro found: flight 180775 (pass), for basis pass
+ Repro found: flight 180784 (fail), for basis failure
+ 0 revisions at 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
+No revisions left to test, checking graph state.
+ Result found: flight 180791 (pass), for last pass
+ Result found: flight 180792 (fail), for first failure
+ Repro found: flight 180793 (pass), for last pass
+ Repro found: flight 180794 (fail), for first failure
+ Repro found: flight 180795 (pass), for last pass
+ Repro found: flight 180796 (fail), for first failure
 
-- The memory that the guest is not able to use remains available on the
-  host and can be assigned to dom0 (and, presumably, to oother guests).
+*** Found and reproduced problem changeset ***
 
-- There is no sudden jump at 2GiB or 3GiB as far as I can tell.
+  Bug is in tree:  qemuu https://gitlab.com/qemu-project/qemu.git
+  Bug introduced:  81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
+  Bug not present: 2274817f6c499fd31081d7973b7cbfdca17c44a8
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/180796/
 
-- There are no kernel warning messages unless I try to add a huge amount
-  of memory (far beyond what can be successfully hotplugged).  In
-  particular, there are no warning messages from drivers/xen/balloon.c.
 
-- There are several waits in the balloon driver that should probably
-  hvae comments added.
+  commit 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
+  Author: John Snow <jsnow@redhat.com>
+  Date:   Wed May 10 23:54:23 2023 -0400
+  
+      configure: create a python venv unconditionally
+      
+      This patch changes the configure script so that it always creates and
+      uses a python virtual environment unconditionally.
+      
+      Meson bootstrapping is temporarily altered to force the use of meson
+      from git or vendored source (as packaged in our source tarballs). A
+      subsequent commit restores the use of distribution-vendored Meson.
+      
+      Signed-off-by: John Snow <jsnow@redhat.com>
+      Message-Id: <20230511035435.734312-16-jsnow@redhat.com>
+      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 
-- `cat /sys/devices/system/memory/memory*/state` reveals that all memory
-  devices are online.
+Revision graph left in /home/logs/results/bisect/qemu-mainline/build-i386-xsm.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+180796: tolerable ALL FAIL
 
-- `echo $((1 << 63)) | sudo tee /sys/devices/system/xen_memory/xen_memory0/=
-target`
-  causes a kernel crash (BUG_ON(ret !=3D nr_pages) in drivers/xen/balloon.c=
-).
-  Patch coming.
+flight 180796 qemu-mainline real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180796/
 
-- The initial amount of memory assigned to a guest is irrelevant.
+Failures :-/ but no regressions.
 
-- The maximum amount of memory assigned to a guest is highly relevant.
-  Table below:
+Tests which did not succeed,
+including tests which could not be run:
+ build-i386-xsm                6 xen-build               fail baseline untested
 
-   Initial maximum memory:      Maximum after hotplug
-             400M                       2733M=20
-             500M                       3067M=20
-             600M                       3535M
-             700M                       3919M
-             800M                       4315
-             900m                       4711
-             1000m                      5105
 
-SciPy linear regression gives:
+jobs:
+ build-i386-xsm                                               fail    
 
-- Slope: 3.9943
-- Y-Intercept: 1116.14
-- R: 0.99965
-- stderr: 0.047
 
-In short, there is a very clear, nearly linear relationship between the
-amount of cold-plugged memory and the amount of memory that can be
-hotplugged later.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---Em6P91+DqSFMPKbb
-Content-Type: application/pgp-signature; name="signature.asc"
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
------BEGIN PGP SIGNATURE-----
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmRoXHEACgkQsoi1X/+c
-IsEMwg//ST7yUUKUJZL4pqYw+siRHT6dD8oax7dAGQx2Zo6CLyQ0K3fu27FOqTEM
-hB7Ua3h05DzYtOSJbDcdjqlYendfIo2Yj7ItBgt3VF1rPTBKy+sNYqxjr838LvUR
-18adFho7fiyqmuRB+kqmdQ/BW2S1mQos5AIq1rY7E+MaIgGyzXQHc2oIyGw1X6uY
-FJ3RoLRo3cHk1dbwsmSc+OXjxKPAW6I1DLd8GhFLhiBXUV1Q+QlUt5lJTPS7Ci5b
-nbIvEh+1kOyg35ZUefLWlMzdTGIMW6rpzIT3Q1C6YDr2K0EXeigUbgvhZIrbId0T
-zILnEI44MLzGAHyrC52BXyCPik8l97rlRHxW9/nV0dMXiM7/vVj1INURGK1Vm3y1
-waNiLfBohbKpGKb5cz874FgQV8dNl1704zSkKgchVRRTBQjte0PhgUDpHNM+IdtG
-E1fZZJ4wquJikUUYLqS2Hc8Z3O0H+2ALWVJwz8ZnosEARw8aZcICIbKpQgaReMHB
-+dNxmyy4nSxBBzSMllLJhjsTjqA33MXAFIVRtAjmOqODR1sxhMjALdBCvTu5qXXt
-MycpQY4xVOVMC9E0QdD4XiKNbkFg+CHT0dzJmE5JQm3J/NZdGxeBAa5nbweXzJMX
-VJnF5eJogsnPXHAr42QFmW5HWrci3tg2ATGg9UOUSlQCzu7stV0=
-=3tFv
------END PGP SIGNATURE-----
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---Em6P91+DqSFMPKbb--
 
