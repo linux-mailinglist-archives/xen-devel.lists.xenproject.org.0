@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F01E170A367
-	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 01:37:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.537294.836323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1912170A39E
+	for <lists+xen-devel@lfdr.de>; Sat, 20 May 2023 02:02:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.537305.836336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q09dh-00016K-Pc; Fri, 19 May 2023 23:36:01 +0000
+	id 1q0A3J-0005Ad-MT; Sat, 20 May 2023 00:02:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 537294.836323; Fri, 19 May 2023 23:36:01 +0000
+Received: by outflank-mailman (output) from mailman id 537305.836336; Sat, 20 May 2023 00:02:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q09dh-000134-Lg; Fri, 19 May 2023 23:36:01 +0000
-Received: by outflank-mailman (input) for mailman id 537294;
- Fri, 19 May 2023 23:36:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q09dg-00012u-Fb; Fri, 19 May 2023 23:36:00 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q09df-0001EX-To; Fri, 19 May 2023 23:35:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q09df-00088x-KB; Fri, 19 May 2023 23:35:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1q09df-00042C-Jl; Fri, 19 May 2023 23:35:59 +0000
+	id 1q0A3J-00058x-IV; Sat, 20 May 2023 00:02:29 +0000
+Received: by outflank-mailman (input) for mailman id 537305;
+ Sat, 20 May 2023 00:02:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fgvr=BJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1q0A3H-00058r-Ac
+ for xen-devel@lists.xenproject.org; Sat, 20 May 2023 00:02:27 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 99d57031-f6a1-11ed-b22d-6b7b168915f2;
+ Sat, 20 May 2023 02:02:25 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A0EF065BEA;
+ Sat, 20 May 2023 00:02:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131AEC4339B;
+ Sat, 20 May 2023 00:02:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,163 +43,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=5D3AxBuZEYRt5KMINZrmiWlxB7cNPVQYSH+OdHXWLnA=; b=xjsI0yoXPBgbrIMy2ryEV+CQaF
-	az1cKk07+9hLrExmqahjYvLks0IawWUzXqyHX116wXoSHR7q5ZsYInwIe1QTWZRqqmiUxyhD0sseJ
-	V8W8fW2SrDmlBlbj1qCanAQ3+z3S+2cg106Ig3YWkw9n336ns3mwWKwyBnG0HXcE1q7E=;
-To: xen-devel@lists.xenproject.org
-Subject: [qemu-mainline bisection] complete build-amd64
-Message-Id: <E1q09df-00042C-Jl@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 19 May 2023 23:35:59 +0000
+X-Inumbo-ID: 99d57031-f6a1-11ed-b22d-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1684540944;
+	bh=AB8uAjp95laAlH2gCZ2ccb+KwHo8hvVoZJ47TGn3mlY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=iYIUAbZq4kqtFHfSMjcXadrGYkUDTOomP0j8t677vUFIhUDJk5tVzUXpEyaFAnpV2
+	 BXgY44Kwj4lFgjXb0ZA/WvQDj1jB7QmVHeQq/h5OezCAX+yK0wGISNop3wAwmdoDQL
+	 bWrWD5DsEE0WYGq6PQqBxPCTNlBqSCd1Qql0M2TqoHFoPDLqR9kmKR/1RfXtMxkYSp
+	 mKxzpJ1B4Ybitfxjlz4l0+Za3DiRt/bzia9milu8wID8tsb24Z0q/xs4ZPj9EKjH83
+	 0hS3z29aqQVhO/RkoJ06Za5OtZsoOhXA/0tpJ5EHwBiY4WLjVMW/tFQYD3hnmxC+Lf
+	 Zf07KTHabMsZw==
+Date: Fri, 19 May 2023 17:02:21 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, jbeulich@suse.com, 
+    andrew.cooper3@citrix.com, xen-devel@lists.xenproject.org, 
+    marmarek@invisiblethingslab.com, xenia.ragiadakou@amd.com
+Subject: Re: PVH Dom0 related UART failure
+In-Reply-To: <ZGcu7EWW1cuNjwDA@Air-de-Roger>
+Message-ID: <alpine.DEB.2.22.394.2305191641010.815658@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2305171745450.128889@ubuntu-linux-20-04-desktop> <ZGX/Pvgy3+onJOJZ@Air-de-Roger> <alpine.DEB.2.22.394.2305181748280.128889@ubuntu-linux-20-04-desktop> <ZGcu7EWW1cuNjwDA@Air-de-Roger>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323329-1971014780-1684540943=:815658"
 
-branch xen-unstable
-xenbranch xen-unstable
-job build-amd64
-testid xen-build
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu https://gitlab.com/qemu-project/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+--8323329-1971014780-1684540943=:815658
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-*** Found and reproduced problem changeset ***
+On Fri, 19 May 2023, Roger Pau Monné wrote:
+> On Thu, May 18, 2023 at 06:46:52PM -0700, Stefano Stabellini wrote:
+> > On Thu, 18 May 2023, Roger Pau Monné wrote:
+> > > On Wed, May 17, 2023 at 05:59:31PM -0700, Stefano Stabellini wrote:
+> > > > Hi all,
+> > > > 
+> > > > I have run into another PVH Dom0 issue. I am trying to enable a PVH Dom0
+> > > > test with the brand new gitlab-ci runner offered by Qubes. It is an AMD
+> > > > Zen3 system and we already have a few successful tests with it, see
+> > > > automation/gitlab-ci/test.yaml.
+> > > > 
+> > > > We managed to narrow down the issue to a console problem. We are
+> > > > currently using console=com1 com1=115200,8n1,pci,msi as Xen command line
+> > > > options, it works with PV Dom0 and it is using a PCI UART card.
+> > > > 
+> > > > In the case of Dom0 PVH:
+> > > > - it works without console=com1
+> > > > - it works with console=com1 and with the patch appended below
+> > > > - it doesn't work otherwise and crashes with this error:
+> > > > https://matrix-client.matrix.org/_matrix/media/r0/download/invisiblethingslab.com/uzcmldIqHptFZuxqsJtviLZK
+> > > 
+> > > Jan also noticed this, and we have a ticket for it in gitlab:
+> > > 
+> > > https://gitlab.com/xen-project/xen/-/issues/85
+> > > 
+> > > > What is the right way to fix it?
+> > > 
+> > > I think the right fix is to simply avoid hidden devices from being
+> > > handled by vPCI, in any case such devices won't work propewrly with
+> > > vPCI because they are in use by Xen, and so any cached information by
+> > > vPCI is likely to become stable as Xen can modify the device without
+> > > vPCI noticing.
+> > > 
+> > > I think the chunk below should help.  It's not clear to me however how
+> > > hidden devices should be handled, is the intention to completely hide
+> > > such devices from dom0?
+> > 
+> > I like the idea but the patch below still failed:
+> > 
+> > (XEN) Xen call trace:
+> > (XEN)    [<ffff82d0402682b0>] R drivers/vpci/header.c#modify_bars+0x2b3/0x44d
+> > (XEN)    [<ffff82d040268714>] F drivers/vpci/header.c#init_bars+0x2ca/0x372
+> > (XEN)    [<ffff82d0402673b3>] F vpci_add_handlers+0xd5/0x10a
+> > (XEN)    [<ffff82d0404408b9>] F drivers/passthrough/pci.c#setup_one_hwdom_device+0x73/0x97
+> > (XEN)    [<ffff82d0404409b0>] F drivers/passthrough/pci.c#_setup_hwdom_pci_devices+0x63/0x15b
+> > (XEN)    [<ffff82d04027df08>] F drivers/passthrough/pci.c#pci_segments_iterate+0x43/0x69
+> > (XEN)    [<ffff82d040440e29>] F setup_hwdom_pci_devices+0x25/0x2c
+> > (XEN)    [<ffff82d04043cb1a>] F drivers/passthrough/amd/pci_amd_iommu.c#amd_iommu_hwdom_init+0xd4/0xdd
+> > (XEN)    [<ffff82d0404403c9>] F iommu_hwdom_init+0x49/0x53
+> > (XEN)    [<ffff82d04045175e>] F dom0_construct_pvh+0x160/0x138d
+> > (XEN)    [<ffff82d040468914>] F construct_dom0+0x5c/0xb7
+> > (XEN)    [<ffff82d0404619c1>] F __start_xen+0x2423/0x272d
+> > (XEN)    [<ffff82d040203344>] F __high_start+0x94/0xa0
+> > 
+> > I haven't managed to figure out why yet.
+> 
+> Do you have some other patches applied?
+> 
+> I've tested this by manually hiding a device on my system and can
+> confirm that without the fix I hit the ASSERT, but with the patch
+> applied I no longer hit it.  I have no idea how can you get into
+> init_bars if the device is hidden and thus belongs to dom_xen.
 
-  Bug is in tree:  qemuu https://gitlab.com/qemu-project/qemu.git
-  Bug introduced:  81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
-  Bug not present: 2274817f6c499fd31081d7973b7cbfdca17c44a8
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/180774/
+Unfortunately it doesn't work. Here are the full logs with interesting
+DEBUG messages (search for "DEBUG"):
+https://gitlab.com/xen-project/people/sstabellini/xen/-/jobs/4318489116
+https://gitlab.com/xen-project/people/sstabellini/xen/-/commit/31c400caa7b86d4c14f9553138e02af18d3b3284
 
+[...]
+(XEN) DEBUG ns16550_init_postirq 432  03:00.0
+[...]
+(XEN) DEBUG vpci_add_handlers 75 0000:00:00.0 0^M
+(XEN) DEBUG vpci_add_handlers 75 0000:00:00.2 1^M
+(XEN) DEBUG vpci_add_handlers 78 0000:00:00.2^M
+(XEN) DEBUG vpci_add_handlers 75 0000:00:01.0 0^M
+(XEN) DEBUG vpci_add_handlers 75 0000:00:02.0 0^M
+(XEN) DEBUG vpci_add_handlers 75 0000:00:02.1 0^M
 
-  commit 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
-  Author: John Snow <jsnow@redhat.com>
-  Date:   Wed May 10 23:54:23 2023 -0400
-  
-      configure: create a python venv unconditionally
-      
-      This patch changes the configure script so that it always creates and
-      uses a python virtual environment unconditionally.
-      
-      Meson bootstrapping is temporarily altered to force the use of meson
-      from git or vendored source (as packaged in our source tarballs). A
-      subsequent commit restores the use of distribution-vendored Meson.
-      
-      Signed-off-by: John Snow <jsnow@redhat.com>
-      Message-Id: <20230511035435.734312-16-jsnow@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Then crash on drivers/vpci/header.c#modify_bars
 
+vpci_add_handlers hasn't even been called yet for the interesing device,
+which is 03:00.0 (not 00:02.1).
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/build-amd64.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/build-amd64.xen-build --summary-out=tmp/180774.bisection-summary --basis-template=180691 --blessings=real,real-bisect,real-retry qemu-mainline build-amd64 xen-build
-Searching for failure / basis pass:
- 180742 fail [host=himrod2] / 180691 ok.
-Failure / basis pass flights: 180742 / 180691
-(tree with no url: minios)
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu https://gitlab.com/qemu-project/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
-Basis pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6972ef1440a9d685482d78672620a7482f2bd09a be7e899350caa7b74d8271a34264c3b4aef25ab0 8f9c8274a4e3e860bd777269cb2c91971e9fa69e
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e-0abfb0be6cf78a8e962383e85cec57851ddae5bc git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 https://gitlab.com/qemu-project/qemu.git#6972ef1440a9d685482d78672620a7482f2bd09a-146f515110e86aefe3bc2e8eb581ab724614060f git://xenbits.xen.org/osstest/seabios.git#be7e899350caa7b74d8271a34264c3b\
- 4aef25ab0-be7e899350caa7b74d8271a34264c3b4aef25ab0 git://xenbits.xen.org/xen.git#8f9c8274a4e3e860bd777269cb2c91971e9fa69e-42abf5b9c53eb1b1a902002fcda68708234152c3
-Loaded 34991 nodes in revision graph
-Searching for test results:
- 180702 [host=himrod0]
- 180691 pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6972ef1440a9d685482d78672620a7482f2bd09a be7e899350caa7b74d8271a34264c3b4aef25ab0 8f9c8274a4e3e860bd777269cb2c91971e9fa69e
- 180704 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 297e8182194e634baa0cbbfd96d2e09e2a0bcd40 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180721 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180742 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180759 pass cafb4f3f36e2101cab2ed6db3ea246a5a3e4708e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6972ef1440a9d685482d78672620a7482f2bd09a be7e899350caa7b74d8271a34264c3b4aef25ab0 8f9c8274a4e3e860bd777269cb2c91971e9fa69e
- 180760 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 146f515110e86aefe3bc2e8eb581ab724614060f be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180761 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 34f983d86fe40ffe5975369c1cf5e6a61688383a be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180762 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dee01b827ffc26577217697074052b8b7f4770dc be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180764 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 6b0cedcdc7c52feda1a6b5d6c6f30356290af0ec be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180765 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 dd48b477e90c3200b970545d1953e12e8c1431db be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180767 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e80bdbf283fb7a3643172b7f85b41d9dd312091c be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180769 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180770 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180771 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180772 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180773 pass 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
- 180774 fail 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
-Searching for interesting versions
- Result found: flight 180691 (pass), for basis pass
- Result found: flight 180721 (fail), for basis failure
- Repro found: flight 180759 (pass), for basis pass
- Repro found: flight 180760 (fail), for basis failure
- 0 revisions at 0abfb0be6cf78a8e962383e85cec57851ddae5bc 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2274817f6c499fd31081d7973b7cbfdca17c44a8 be7e899350caa7b74d8271a34264c3b4aef25ab0 42abf5b9c53eb1b1a902002fcda68708234152c3
-No revisions left to test, checking graph state.
- Result found: flight 180769 (pass), for last pass
- Result found: flight 180770 (fail), for first failure
- Repro found: flight 180771 (pass), for last pass
- Repro found: flight 180772 (fail), for first failure
- Repro found: flight 180773 (pass), for last pass
- Repro found: flight 180774 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu https://gitlab.com/qemu-project/qemu.git
-  Bug introduced:  81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
-  Bug not present: 2274817f6c499fd31081d7973b7cbfdca17c44a8
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/180774/
-
-
-  commit 81e2b198a8cb4ee5fdf108bd438f44b193ee3a36
-  Author: John Snow <jsnow@redhat.com>
-  Date:   Wed May 10 23:54:23 2023 -0400
-  
-      configure: create a python venv unconditionally
-      
-      This patch changes the configure script so that it always creates and
-      uses a python virtual environment unconditionally.
-      
-      Meson bootstrapping is temporarily altered to force the use of meson
-      from git or vendored source (as packaged in our source tarballs). A
-      subsequent commit restores the use of distribution-vendored Meson.
-      
-      Signed-off-by: John Snow <jsnow@redhat.com>
-      Message-Id: <20230511035435.734312-16-jsnow@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-Revision graph left in /home/logs/results/bisect/qemu-mainline/build-amd64.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-180774: tolerable ALL FAIL
-
-flight 180774 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180774/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-amd64                   6 xen-build               fail baseline untested
+At that pointed I doubted myself on the previous test so I went back and
+re-run it again. I do confirm that the below patch instead (instead, not
+in addition) works:
 
 
-jobs:
- build-amd64                                                  fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index 212a9c49ae..24abfaae30 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -429,17 +429,6 @@ static void __init cf_check ns16550_init_postirq(struct serial_port *port)
+ #ifdef NS16550_PCI
+     if ( uart->bar || uart->ps_bdf_enable )
+     {
+-        if ( uart->param && uart->param->mmio &&
+-             rangeset_add_range(mmio_ro_ranges, PFN_DOWN(uart->io_base),
+-                                PFN_UP(uart->io_base + uart->io_size) - 1) )
+-            printk(XENLOG_INFO "Error while adding MMIO range of device to mmio_ro_ranges\n");
+-
+-        if ( pci_ro_device(0, uart->ps_bdf[0],
+-                           PCI_DEVFN(uart->ps_bdf[1], uart->ps_bdf[2])) )
+-            printk(XENLOG_INFO "Could not mark config space of %02x:%02x.%u read-only.\n",
+-                   uart->ps_bdf[0], uart->ps_bdf[1],
+-                   uart->ps_bdf[2]);
+-
+         if ( uart->msi )
+         {
+             struct msi_info msi = {
+--8323329-1971014780-1684540943=:815658--
 
