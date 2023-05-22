@@ -2,64 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB1BD70BE9D
-	for <lists+xen-devel@lfdr.de>; Mon, 22 May 2023 14:44:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.537910.837545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2719570BEA4
+	for <lists+xen-devel@lfdr.de>; Mon, 22 May 2023 14:46:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.537916.837555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q14tY-0007PS-Pk; Mon, 22 May 2023 12:44:12 +0000
+	id 1q14vR-0007zP-7p; Mon, 22 May 2023 12:46:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 537910.837545; Mon, 22 May 2023 12:44:12 +0000
+Received: by outflank-mailman (output) from mailman id 537916.837555; Mon, 22 May 2023 12:46:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q14tY-0007ME-MP; Mon, 22 May 2023 12:44:12 +0000
-Received: by outflank-mailman (input) for mailman id 537910;
- Mon, 22 May 2023 12:44:10 +0000
+	id 1q14vR-0007xk-4M; Mon, 22 May 2023 12:46:09 +0000
+Received: by outflank-mailman (input) for mailman id 537916;
+ Mon, 22 May 2023 12:46:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cvIk=BL=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1q14tW-0007Ls-P3
- for xen-devel@lists.xenproject.org; Mon, 22 May 2023 12:44:10 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2075.outbound.protection.outlook.com [40.107.7.75])
+ <SRS0=Yzf4=BL=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1q14vQ-0007xe-0L
+ for xen-devel@lists.xenproject.org; Mon, 22 May 2023 12:46:08 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5825364c-f89e-11ed-b22d-6b7b168915f2;
- Mon, 22 May 2023 14:44:08 +0200 (CEST)
-Received: from DUZPR01CA0347.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b8::20) by AS4PR08MB8023.eurprd08.prod.outlook.com
- (2603:10a6:20b:586::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Mon, 22 May
- 2023 12:43:35 +0000
-Received: from DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:4b8:cafe::60) by DUZPR01CA0347.outlook.office365.com
- (2603:10a6:10:4b8::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28 via Frontend
- Transport; Mon, 22 May 2023 12:43:35 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT028.mail.protection.outlook.com (100.127.142.236) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6433.13 via Frontend Transport; Mon, 22 May 2023 12:43:34 +0000
-Received: ("Tessian outbound 99a3040377ca:v136");
- Mon, 22 May 2023 12:43:34 +0000
-Received: from d3257aa310d4.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 89DC387D-2243-4147-A16E-158F1FA094E0.1; 
- Mon, 22 May 2023 12:43:23 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id d3257aa310d4.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 22 May 2023 12:43:23 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by PAWPR08MB9520.eurprd08.prod.outlook.com (2603:10a6:102:2f2::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Mon, 22 May
- 2023 12:43:21 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::362c:56c7:5ea4:422e]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::362c:56c7:5ea4:422e%7]) with mapi id 15.20.6411.028; Mon, 22 May 2023
- 12:43:21 +0000
+ id 9ebba97a-f89e-11ed-b22d-6b7b168915f2;
+ Mon, 22 May 2023 14:46:07 +0200 (CEST)
+Received: by mail-ed1-x529.google.com with SMTP id
+ 4fb4d7f45d1cf-50bcb229adaso10984563a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 22 May 2023 05:46:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,123 +40,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5825364c-f89e-11ed-b22d-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pppqCx3b5ghZhsVDbkSYebN87OX1KJ+kKUlMjO1a4xc=;
- b=1vvOTMKUUOC9ch0QEEyX0J7w5e2h87vX++tXzKJz0Zf8KXLC85BnlWynjjN8yU1BPBeXSnVcfD+OYnjwkK8A262x8xCuNqDNreQrcQJlpkXjxvP2Q6u75f/Z3gt/yucw2c05Yrm8EGaADurP9KJztcNfv2cigZpLcN6PRmzumN0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: bd15c8988769b56f
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MHcf/q5mm/Z5QyIyiHD4FxoZFa/QKT3v+xPt8fHhezc9P+F64EeGrhvRmbtw+4Uu/svqT4UJOW7oxUYdoOpWUGCNNXmWXtyX7P7TBI3ykRPeEZHrsZs4c4TUvO/yTAPl2SYv/GeD7S8ScYRPHcRsSR1sE5QacxqXh9/lIzlu69e1P6PWOQExz3Kz9o7tYo4EaJmfawBNamNymKW4bGYjgegX4tjT+s3S4GZdCKRi2MGmug/PVvBc/zRWo1i6Y5OGAS6Ba6HPDbxs7e55Eap9iU++EOWkY5sJ0EArMQDFEDbNzZceoG5PazFVFEEdnkh0nugEnGW5nTGQBq//dVqPyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pppqCx3b5ghZhsVDbkSYebN87OX1KJ+kKUlMjO1a4xc=;
- b=czZBtvZM5Id6a+uuXtYbKO+0YgWYqZtbecJwwqIxpPAzyZF7J1oEGWgF4fw8HxRhuIexanTIDO7V7wOrvxpnc6YjaTvmIltjkxAoZRBGRDV8jlhY1N2IUftYOY02dcjRVCV2Inlk0HjTWzWFzqz00QWvViQ2yLe+0u6uKNyPRZTj5EAaMRow6I+6THLQFZ5b86luK9UPrAfkNyqkpu9w0Ll8Tu4uqpEjEnm3YeN+GSPHbmoTdXaPCXMMf3gBiD3mgeMYnqtuKlNNfu4wqxgIaZzDv7yBOqtdVvurWf7MVSoz5ZCAWN+1EepNdeo3lrt0JqR5NY3hofKHdh6MUB59Cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pppqCx3b5ghZhsVDbkSYebN87OX1KJ+kKUlMjO1a4xc=;
- b=1vvOTMKUUOC9ch0QEEyX0J7w5e2h87vX++tXzKJz0Zf8KXLC85BnlWynjjN8yU1BPBeXSnVcfD+OYnjwkK8A262x8xCuNqDNreQrcQJlpkXjxvP2Q6u75f/Z3gt/yucw2c05Yrm8EGaADurP9KJztcNfv2cigZpLcN6PRmzumN0=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v6 05/12] arm/sve: save/restore SVE context switch
-Thread-Topic: [PATCH v6 05/12] arm/sve: save/restore SVE context switch
-Thread-Index: AQHZdnJ92qfFeC693kK/O74mILlnGa9ggLQAgAXAhACAACdzAIAAAF0A
-Date: Mon, 22 May 2023 12:43:21 +0000
-Message-ID: <F88CF36C-0A10-41E3-8273-8ACCCC1836BD@arm.com>
-References: <20230424060248.1488859-1-luca.fancellu@arm.com>
- <20230424060248.1488859-6-luca.fancellu@arm.com>
- <779e46a5-a3d0-187a-6d15-e1a12f71278f@xen.org>
- <288F275C-D76F-4E89-B8C6-C8D9AD54D1D9@arm.com>
- <a2e282a6-8443-2650-dc63-e64b5fb72266@suse.com>
-In-Reply-To: <a2e282a6-8443-2650-dc63-e64b5fb72266@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.500.231)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3749:EE_|PAWPR08MB9520:EE_|DBAEUR03FT028:EE_|AS4PR08MB8023:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e9f9014-6aeb-4baf-fce0-08db5ac22846
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 3KIFAiPzY2CuSlLTi9wKRO0G5p29Q8lqC9CtJHdrAni/aeMb0m0V5FuKyS7xH+JmfB/G780VCAo/gBzw1UZcZXIYY3TjeGCBW+Qe6/YiBNdWY7gy2CMr+IvvXlHkmY1toqhOh+BdV7BrOdXiejX255uY6mmLwvL5J+qWuNQ11xTwdlzPBYwSACCdNBH+aGpH17gBu0FFDyzF6v60q/5s7x/gGYN5ak584+5k67tYQjQvFZ3cXS4P58wemlgxARHt0x+9dan3HtNNnEJ1wG5BMqxjgPU8IKvH2I6pfPstUCfrhDg4K2LO4vaxoKoif6wi4bSGidRDe0KJVtggaSHLelqs1ORjgEB6NXWUnyP7SIQb2IPkwFpb8pWblL5KhjsqX1NzdljJt8cWLZZMGq9SSRtW1pastLeSFkc8af2Qp6mJTw9NZeiT61a7wSe0FcXwRnjvP0kf7jxQZC01C56TWcWSHsd6U7C2rIi3f/qQXEZjftCvOMauoqoS4SyqkpX01nVX5MCRTwbwV4EWYmaJr+QJRexytIghXryLohSUPa6VJCw/CI6oHxDuM0q7qfciGKfYOuqtapizclD5qw9L5bWXy1j9O/5QNcP3ai5LA/i0T4vXfx1RdUsB6KentXL+4CSpY723DzslSBES0FDN9Q==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(366004)(39860400002)(346002)(396003)(136003)(376002)(451199021)(2906002)(5660300002)(8676002)(8936002)(41300700001)(66946007)(76116006)(66476007)(4326008)(91956017)(66556008)(6916009)(64756008)(66446008)(54906003)(316002)(36756003)(33656002)(71200400001)(6486002)(478600001)(2616005)(6512007)(6506007)(26005)(122000001)(86362001)(186003)(53546011)(38070700005)(38100700002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E85DE17FD3F7A747B2391C3736780A0B@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 9ebba97a-f89e-11ed-b22d-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1684759566; x=1687351566;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=PrvcRyygRNuD3AdW/ijyBdVckx6G34+02tg4NrkxHb8=;
+        b=TM+nuN0TCzUoWgApDuPHZLVc4uiGWdIwrP4czj+TQzbK2+ApP+gaF7ii3ibBZAq9fe
+         Bc+bGfgRMRFN7I0aCS3v0x0A8Ri1uc9Ao8ktPuLVZxMnYMR6J/d1OaZBsAQ+3rwOZa0+
+         XcEVDuB5f4kskcRh95QOvsc+clBwNAsv0E6rCpWmTI3+xIKmQheHLoPh7PKZ8wCZEjxn
+         5uWXf6P80Kcuos++TW1D6NXLLtNMGQ9kMXsH8ces5SllQDeSOAZQxckqBMNo7EQeF65v
+         LLs4HXaDbZM3OIjIacr2MSI7qxJEnOq7gCkzupHyXJjg4dH77EhSW8twxAL1O4imsKoU
+         jUwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684759566; x=1687351566;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PrvcRyygRNuD3AdW/ijyBdVckx6G34+02tg4NrkxHb8=;
+        b=FjrQHOsNfSaSscxEs1/1ZpPJIyonUiSvplIVSNb4ojInbglIUAARCjtJprZwGdExXH
+         yYKiWoBci9m9Y5htaPFrXKYbNsH6+6BcdkG9/L+6VrXKVCbjjd78nvwKv/eFbxYFLyvD
+         mqLkiGUEYvu7QNpBfrW8oxvBPyUJEiGAN/0ttDOWpt+KgEM1Vm2+gbStJya9UC97IEtT
+         O576ASvNC+hFmUca2GZntbcxfUWeSjyxzyVW4lGoVvQQcdZaR+0cgUCRBABYgEyz3u4h
+         w8vURH3EO1vdx3VH4/U0zCnCVx9Ia5N6iE5bd463I2H/WdmudtenR4//908TLIvscCDO
+         lR+w==
+X-Gm-Message-State: AC+VfDxaizHgOACuhWZHEeX12KPx2e5u4+NaYkaijN6Go8gd42FdA03w
+	hQernxPSyVTIULjqKhYaeX/CzIIQ40FCU6ZKH97tsSRm
+X-Google-Smtp-Source: ACHHUZ5iYJ6IUei0qb0sS5Wg/wTmkIvJ+luxLlethB7uVGxXnQRMSQYKHGi4FbUMbxUEkwkVkncKPrf5ubwhaPCAQxA=
+X-Received: by 2002:a50:ee8f:0:b0:506:8838:45cc with SMTP id
+ f15-20020a50ee8f000000b00506883845ccmr8822179edr.6.1684759566299; Mon, 22 May
+ 2023 05:46:06 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9520
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	f3edf340-cb76-4e95-5570-08db5ac2200a
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	u6DqRvRmzk7KEr3EX7hKYNbR/0e+urhYvIwzwj+SHspUv4EqARKoinYF371ot8DFvG+TWBldORLS26BxehKqGp5Gkpg2y/V7F3d6+QP4S3WyRNq4cTjUDWHirHYAilCmiLd5etnfdnH6mJoq4bg3LxsqAh9EkGUxeHSV+XcPN0EcrZkreeNsvrslxKCCi2sMvgeJBGvmHv4adchm5omwxsNflTwPovROCmIdl2kCQDkufb96DXbB9sEX1GK/ZT01suk7Kh42ptWMmFi6Flc1+v5qAUXYR2McD9zcz7FPTGJhskaX4i1A4FQHfalzUgtTrExotCHQRw7FgjMjIVDj/B5zaByZQB9sOUt1J6VjamAqeUOkBDNDW8dfshmNThkdJWhhzXt2qY1EWfWeIpQT3DziOlJeAlz/kVTa8aAZ6g0DhqDXKjEd07ZLxIcA8Zp6c5orFEBtQrw1XCf7Lrg3CzcDNZxGrHFOCWWJmXt5EVHd06S/9YcFJd3fHD+zA7KEdLRuQdVsP/92KC+uQ2ihqscoYwcwTVZZzIVvpIZJwncxCVeMrzYjT2LatK0lN5V5UQ/0b7baoFMrHjkjgRdZOEhQ7uNwDSXoFw9iRfNwLeEcGWybTwCTvcw6JMEriDwp4yiCVnhe1lqA3WnaasOmG/wTI0V9MQEan6e/sjaoMHi33S+D5BYHLHAZqI/0SmBEVkYR/MMovLjpvN//nlFQa9BXjdaysNZ1dVv+SJyuEVqbpLOdFbkMvAXzKo3y0C2Y
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(346002)(396003)(39860400002)(451199021)(40470700004)(36840700001)(46966006)(86362001)(36860700001)(33656002)(316002)(54906003)(478600001)(41300700001)(6486002)(70206006)(4326008)(70586007)(8676002)(8936002)(6862004)(81166007)(356005)(5660300002)(82740400003)(40460700003)(336012)(2616005)(36756003)(82310400005)(53546011)(47076005)(26005)(2906002)(186003)(40480700001)(6512007)(6506007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2023 12:43:34.8953
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e9f9014-6aeb-4baf-fce0-08db5ac22846
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT028.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB8023
+References: <20230501193034.88575-1-jandryuk@gmail.com> <20230501193034.88575-11-jandryuk@gmail.com>
+ <1166bdf1-4d54-30bb-bdf9-65dfaeb6b29e@suse.com>
+In-Reply-To: <1166bdf1-4d54-30bb-bdf9-65dfaeb6b29e@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Mon, 22 May 2023 08:45:53 -0400
+Message-ID: <CAKf6xpti23_fmwVWOafjUU+OPHPOA7EWOfkShGT9Qqr9=mR9zQ@mail.gmail.com>
+Subject: Re: [PATCH v3 10/14 RESEND] xen: Add SET_CPUFREQ_HWP xen_sysctl_pm_op
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-DQoNCj4gT24gMjIgTWF5IDIwMjMsIGF0IDEzOjQxLCBKYW4gQmV1bGljaCA8amJldWxpY2hAc3Vz
-ZS5jb20+IHdyb3RlOg0KPiANCj4gT24gMjIuMDUuMjAyMyAxMjoyMCwgTHVjYSBGYW5jZWxsdSB3
-cm90ZToNCj4+IA0KPj4gDQo+Pj4gT24gMTggTWF5IDIwMjMsIGF0IDE5OjMwLCBKdWxpZW4gR3Jh
-bGwgPGp1bGllbkB4ZW4ub3JnPiB3cm90ZToNCj4+PiANCj4+PiBIaSBMdWNhLA0KPj4+IA0KPj4+
-IE9uZSBtb3JlIHJlbWFyay4NCj4+PiANCj4+PiBPbiAyNC8wNC8yMDIzIDA3OjAyLCBMdWNhIEZh
-bmNlbGx1IHdyb3RlOg0KPj4+PiAjZWxzZSAvKiAhQ09ORklHX0FSTTY0X1NWRSAqLw0KPj4+PiBA
-QCAtNDYsNiArNTAsMTUgQEAgc3RhdGljIGlubGluZSB1bnNpZ25lZCBpbnQgZ2V0X3N5c192bF9s
-ZW4odm9pZCkNCj4+Pj4gICAgIHJldHVybiAwOw0KPj4+PiB9DQo+Pj4+ICtzdGF0aWMgaW5saW5l
-IGludCBzdmVfY29udGV4dF9pbml0KHN0cnVjdCB2Y3B1ICp2KQ0KPj4+PiArew0KPj4+PiArICAg
-IHJldHVybiAwOw0KPj4+IA0KPj4+IFRoZSBjYWxsIGlzIHByb3RlY3RlZCBieSBpc19kb21haW5f
-c3ZlKCkuIFNvIEkgdGhpbmsgd2Ugd2FudCB0byByZXR1cm4gYW4gZXJyb3IganVzdCBpbiBjYXNl
-IHNvbWVvbmUgaXMgY2FsbGluZyBpdCBvdXRzaWRlIG9mIGl0cyBpbnRlbmRlZCB1c2UuDQo+PiAN
-Cj4+IFJlZ2FyZGluZyB0aGlzIG9uZSwgc2luY2UgaXQgc2hvdWxkIG5vdCBiZSBjYWxsZWQgd2hl
-biBTVkUgaXMgbm90IGVuYWJsZWQsIGFyZSB5b3Ugb2sgaWYgSeKAmWxsIGRvIHRoaXM6DQo+PiAN
-Cj4+IHN0YXRpYyBpbmxpbmUgaW50IHN2ZV9jb250ZXh0X2luaXQoc3RydWN0IHZjcHUgKnYpDQo+
-PiB7DQo+PiBBU1NFUlRfVU5SRUFDSEFCTEUoKTsNCj4+IHJldHVybiAwOw0KPj4gfQ0KPiANCj4g
-RG8geW91IG5lZWQgc3VjaCBhIHN0dWIgaW4gdGhlIGZpcnN0IHBsYWNlPyBJLmUuIGNhbid0IHlv
-dSBhcnJhbmdlIGZvcg0KPiBEQ0UgdG8gdGFrZSBjYXJlIG9mIHVucmVhY2hhYmxlIGZ1bmN0aW9u
-IGNhbGxzLCB0aHVzIGxldHRpbmcgeW91IGdldA0KPiBhd2F5IHdpdGgganVzdCBhbiBhbHdheXMt
-dmlzaWJsZSBkZWNsYXJhdGlvbiAoYW5kIG5vIGRlZmluaXRpb24gd2hlbg0KPiAhQVJNNjRfU1ZF
-KT8NCj4gDQoNClJpZ2h0LCBJIGFsd2F5cyBmb3Jnb3QgYWJvdXQgdGhpcyBhcHByb2FjaCwgSeKA
-mWxsIHRyeSB0aGF0DQoNCj4gSmFuDQoNCg0K
+On Mon, May 8, 2023 at 7:27=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 01.05.2023 21:30, Jason Andryuk wrote:
+> > @@ -531,6 +533,100 @@ int get_hwp_para(const struct cpufreq_policy *pol=
+icy,
+> >      return 0;
+> >  }
+> >
+> > +int set_hwp_para(struct cpufreq_policy *policy,
+> > +                 struct xen_set_hwp_para *set_hwp)
+>
+> const?
+
+set_hwp can be const.  policy is passed to hwp_cpufreq_target() &
+on_selected_cpus(), so it cannot readily be made const.
+
+> > +{
+> > +    unsigned int cpu =3D policy->cpu;
+> > +    struct hwp_drv_data *data =3D per_cpu(hwp_drv_data, cpu);
+> > +
+> > +    if ( data =3D=3D NULL )
+> > +        return -EINVAL;
+> > +
+> > +    /* Validate all parameters first */
+> > +    if ( set_hwp->set_params & ~XEN_SYSCTL_HWP_SET_PARAM_MASK )
+> > +        return -EINVAL;
+> > +
+> > +    if ( set_hwp->activity_window & ~XEN_SYSCTL_HWP_ACT_WINDOW_MASK )
+> > +        return -EINVAL;
+>
+> Below you limit checks to when the respective control bit is set. I
+> think you want the same here.
+
+Not sure if you mean feature_hwp_activity_window or the bit in
+set_params as control bit.  But, yes, they can both use some
+additional checking.  IIRC, I wanted to always check
+~XEN_SYSCTL_HWP_ACT_WINDOW_MASK, because bits should never be set
+whether or not the activity window is supported by hardware.
+
+> > +    if ( !feature_hwp_energy_perf &&
+> > +         (set_hwp->set_params & XEN_SYSCTL_HWP_SET_ENERGY_PERF) &&
+> > +         set_hwp->energy_perf > IA32_ENERGY_BIAS_MAX_POWERSAVE )
+> > +        return -EINVAL;
+> > +
+> > +    if ( (set_hwp->set_params & XEN_SYSCTL_HWP_SET_DESIRED) &&
+> > +         set_hwp->desired !=3D 0 &&
+> > +         (set_hwp->desired < data->hw.lowest ||
+> > +          set_hwp->desired > data->hw.highest) )
+> > +        return -EINVAL;
+> > +
+> > +    /*
+> > +     * minimum & maximum are not validated as hardware doesn't seem to=
+ care
+> > +     * and the SDM says CPUs will clip internally.
+> > +     */
+> > +
+> > +    /* Apply presets */
+> > +    switch ( set_hwp->set_params & XEN_SYSCTL_HWP_SET_PRESET_MASK )
+> > +    {
+> > +    case XEN_SYSCTL_HWP_SET_PRESET_POWERSAVE:
+> > +        data->minimum =3D data->hw.lowest;
+> > +        data->maximum =3D data->hw.lowest;
+> > +        data->activity_window =3D 0;
+> > +        if ( feature_hwp_energy_perf )
+> > +            data->energy_perf =3D HWP_ENERGY_PERF_MAX_POWERSAVE;
+> > +        else
+> > +            data->energy_perf =3D IA32_ENERGY_BIAS_MAX_POWERSAVE;
+> > +        data->desired =3D 0;
+> > +        break;
+> > +
+> > +    case XEN_SYSCTL_HWP_SET_PRESET_PERFORMANCE:
+> > +        data->minimum =3D data->hw.highest;
+> > +        data->maximum =3D data->hw.highest;
+> > +        data->activity_window =3D 0;
+> > +        data->energy_perf =3D HWP_ENERGY_PERF_MAX_PERFORMANCE;
+> > +        data->desired =3D 0;
+> > +        break;
+> > +
+> > +    case XEN_SYSCTL_HWP_SET_PRESET_BALANCE:
+> > +        data->minimum =3D data->hw.lowest;
+> > +        data->maximum =3D data->hw.highest;
+> > +        data->activity_window =3D 0;
+> > +        if ( feature_hwp_energy_perf )
+> > +            data->energy_perf =3D HWP_ENERGY_PERF_BALANCE;
+> > +        else
+> > +            data->energy_perf =3D IA32_ENERGY_BIAS_BALANCE;
+> > +        data->desired =3D 0;
+> > +        break;
+> > +
+> > +    case XEN_SYSCTL_HWP_SET_PRESET_NONE:
+> > +        break;
+> > +
+> > +    default:
+> > +        return -EINVAL;
+> > +    }
+>
+> So presets set all the values for which the individual item control bits
+> are clear. That's not exactly what I would have expected, and it took me
+> reading the code several times until I realized that you write life per-
+> CPU data fields here, not fields of some intermediate variable. I think
+> this could do with saying explicitly in the public header (if indeed the
+> intended model).
+
+The commit message mentioned the idea of using a preset and further
+refinement.  The comments above "/* Apply presets */" and below "/*
+Further customize presets if needed */" were an attempt to highlight
+that.  But you are right that the public header should state this
+clearly.
+
+> > +    /* Further customize presets if needed */
+> > +    if ( set_hwp->set_params & XEN_SYSCTL_HWP_SET_MINIMUM )
+> > +        data->minimum =3D set_hwp->minimum;
+> > +
+> > +    if ( set_hwp->set_params & XEN_SYSCTL_HWP_SET_MAXIMUM )
+> > +        data->maximum =3D set_hwp->maximum;
+> > +
+> > +    if ( set_hwp->set_params & XEN_SYSCTL_HWP_SET_ENERGY_PERF )
+> > +        data->energy_perf =3D set_hwp->energy_perf;
+> > +
+> > +    if ( set_hwp->set_params & XEN_SYSCTL_HWP_SET_DESIRED )
+> > +        data->desired =3D set_hwp->desired;
+> > +
+> > +    if ( set_hwp->set_params & XEN_SYSCTL_HWP_SET_ACT_WINDOW )
+> > +        data->activity_window =3D set_hwp->activity_window &
+> > +                                XEN_SYSCTL_HWP_ACT_WINDOW_MASK;
+> > +
+> > +    hwp_cpufreq_target(policy, 0, 0);
+> > +
+> > +    return 0;
+>
+> I don't think you should assume here that hwp_cpufreq_target() will
+> only ever return 0. Plus by returning its return value here you
+> allow the compiler to tail-call optimize this code.
+
+Thanks for catching that.  Yeah, I made hwp_cpufreq_target() return a
+value per your earlier comment, so its value should be returned now.
+
+> > --- a/xen/drivers/acpi/pmstat.c
+> > +++ b/xen/drivers/acpi/pmstat.c
+> > @@ -398,6 +398,20 @@ static int set_cpufreq_para(struct xen_sysctl_pm_o=
+p *op)
+> >      return ret;
+> >  }
+> >
+> > +static int set_cpufreq_hwp(struct xen_sysctl_pm_op *op)
+>
+> const?
+
+Yes
+
+> > --- a/xen/include/public/sysctl.h
+> > +++ b/xen/include/public/sysctl.h
+> > @@ -317,6 +317,34 @@ struct xen_hwp_para {
+> >      uint8_t energy_perf;
+> >  };
+> >
+> > +/* set multiple values simultaneously when set_args bit is set */
+>
+> What "set_args bit" does this comment refer to?
+
+That should be set_params. IIRC, set_args was the previous name.
+
+> > +struct xen_set_hwp_para {
+> > +#define XEN_SYSCTL_HWP_SET_DESIRED              (1U << 0)
+> > +#define XEN_SYSCTL_HWP_SET_ENERGY_PERF          (1U << 1)
+> > +#define XEN_SYSCTL_HWP_SET_ACT_WINDOW           (1U << 2)
+> > +#define XEN_SYSCTL_HWP_SET_MINIMUM              (1U << 3)
+> > +#define XEN_SYSCTL_HWP_SET_MAXIMUM              (1U << 4)
+> > +#define XEN_SYSCTL_HWP_SET_PRESET_MASK          0xf000
+> > +#define XEN_SYSCTL_HWP_SET_PRESET_NONE          0x0000
+> > +#define XEN_SYSCTL_HWP_SET_PRESET_BALANCE       0x1000
+> > +#define XEN_SYSCTL_HWP_SET_PRESET_POWERSAVE     0x2000
+> > +#define XEN_SYSCTL_HWP_SET_PRESET_PERFORMANCE   0x3000
+> > +#define XEN_SYSCTL_HWP_SET_PARAM_MASK ( \
+> > +                                  XEN_SYSCTL_HWP_SET_PRESET_MASK | \
+> > +                                  XEN_SYSCTL_HWP_SET_DESIRED     | \
+> > +                                  XEN_SYSCTL_HWP_SET_ENERGY_PERF | \
+> > +                                  XEN_SYSCTL_HWP_SET_ACT_WINDOW  | \
+> > +                                  XEN_SYSCTL_HWP_SET_MINIMUM     | \
+> > +                                  XEN_SYSCTL_HWP_SET_MAXIMUM     )
+> > +    uint16_t set_params; /* bitflags for valid values */
+> > +#define XEN_SYSCTL_HWP_ACT_WINDOW_MASK          0x03ff
+> > +    uint16_t activity_window; /* See comment in struct xen_hwp_para */
+> > +    uint8_t minimum;
+> > +    uint8_t maximum;
+> > +    uint8_t desired;
+> > +    uint8_t energy_perf; /* 0-255 or 0-15 depending on HW support */
+>
+> Instead of (or in addition to) the "HW support" reference, could this
+> gain a reference to the "get para" bit determining which range to use?
+
+I've removed the fallback 0-15 support locally, so this will be removed.
+
+Regards,
+Jason
 
