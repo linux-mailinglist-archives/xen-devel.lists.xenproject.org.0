@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 093E270B731
-	for <lists+xen-devel@lfdr.de>; Mon, 22 May 2023 09:58:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.537788.837310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E125770B7B0
+	for <lists+xen-devel@lfdr.de>; Mon, 22 May 2023 10:33:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.537803.837325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q10Ql-0007yB-2e; Mon, 22 May 2023 07:58:11 +0000
+	id 1q10yC-0004Pw-5r; Mon, 22 May 2023 08:32:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 537788.837310; Mon, 22 May 2023 07:58:11 +0000
+Received: by outflank-mailman (output) from mailman id 537803.837325; Mon, 22 May 2023 08:32:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q10Qk-0007vg-Uj; Mon, 22 May 2023 07:58:10 +0000
-Received: by outflank-mailman (input) for mailman id 537788;
- Mon, 22 May 2023 07:55:26 +0000
+	id 1q10yC-0004NQ-30; Mon, 22 May 2023 08:32:44 +0000
+Received: by outflank-mailman (input) for mailman id 537803;
+ Mon, 22 May 2023 08:32:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J+bL=BL=tesarici.cz=petr@srs-se1.protection.inumbo.net>)
- id 1q10O6-0007KH-EO
- for xen-devel@lists.xenproject.org; Mon, 22 May 2023 07:55:26 +0000
-Received: from bee.tesarici.cz (bee.tesarici.cz [77.93.223.253])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DxKA=BL=bounce.vates.fr=bounce-md_30504962.646b28a6.v1-48590a49bbd54d81a738e5d7d69af5dd@srs-se1.protection.inumbo.net>)
+ id 1q10yB-0004NJ-1R
+ for xen-devel@lists.xenproject.org; Mon, 22 May 2023 08:32:43 +0000
+Received: from mail180-5.suw31.mandrillapp.com
+ (mail180-5.suw31.mandrillapp.com [198.2.180.5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 01bc6901-f876-11ed-8611-37d641c3527e;
- Mon, 22 May 2023 09:55:24 +0200 (CEST)
-Received: from meshulam.tesarici.cz
- (dynamic-2a00-1028-83b8-1e7a-4427-cc85-6706-c595.ipv6.o2.cz
- [IPv6:2a00:1028:83b8:1e7a:4427:cc85:6706:c595])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by bee.tesarici.cz (Postfix) with ESMTPSA id 1897E13C2DA;
- Mon, 22 May 2023 09:55:21 +0200 (CEST)
+ id 358f5920-f87b-11ed-8611-37d641c3527e;
+ Mon, 22 May 2023 10:32:38 +0200 (CEST)
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-5.suw31.mandrillapp.com (Mailchimp) with ESMTP id 4QPrKy2NhzzG0CBWK
+ for <xen-devel@lists.xenproject.org>; Mon, 22 May 2023 08:32:38 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 48590a49bbd54d81a738e5d7d69af5dd; Mon, 22 May 2023 08:32:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,86 +42,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 01bc6901-f876-11ed-8611-37d641c3527e
-Authentication-Results: mail.tesarici.cz; dmarc=fail (p=none dis=none) header.from=tesarici.cz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tesarici.cz; s=mail;
-	t=1684742122; bh=+ecvThwVNIF+3jNDHwnBtc4nIfmBUPqhUAXqbUCfwlk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=w6Ocr72GrnkWKmosOG9bJ8iIBfigFQC9bv9xRTioGZ2CSHlV1/RuH3eE+gUvmnvfs
-	 nupeVvjngA4t2geGD3q69X34CzBWx4qAmKkpMuMnSFHVYByJ5zbwogqgIPUcoeZdqa
-	 RqNtDRI+JKpfH9XtQLhgST01DHruuB5GwQejM4Ac7KHF3ZawwFK/uucm8u7sEHcsSb
-	 n5PuaYK1sl0TjJmngp2og1zrSsW9f7hvCWGHGBD5YJUn25qj/Sh4f0J4vGA0wTbHg3
-	 1jgpWjjEIZaxcs9YzhpV6ZMzjLM+wn23DgInohFErWKjQU2sYMZYfNvHQ7zx6gSJuh
-	 Mz/r0JnFTJi2w==
-Date: Mon, 22 May 2023 09:54:08 +0200
-From: Petr =?UTF-8?B?VGVzYcWZw61r?= <petr@tesarici.cz>
-To: Marek =?UTF-8?B?TWFyY3p5a293c2tpLUfDs3JlY2tp?=
- <marmarek@invisiblethingslab.com>
-Cc: Christoph Hellwig <hch@lst.de>, Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Ben Skeggs <bskeggs@redhat.com>, Karol Herbst
- <kherbst@redhat.com>, Lyude Paul <lyude@redhat.com>,
- xen-devel@lists.xenproject.org, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org
-Subject: Re: [PATCH 2/4] x86: always initialize xen-swiotlb when
- xen-pcifront is enabling
-Message-ID: <20230522095408.02874498@meshulam.tesarici.cz>
-In-Reply-To: <ZGdLErBzi9MANL3i@mail-itl>
-References: <20230518134253.909623-1-hch@lst.de>
-	<20230518134253.909623-3-hch@lst.de>
-	<ZGZr/xgbUmVqpOpN@mail-itl>
-	<20230519040405.GA10818@lst.de>
-	<ZGdLErBzi9MANL3i@mail-itl>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-suse-linux-gnu)
+X-Inumbo-ID: 358f5920-f87b-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr;
+	s=mandrill; t=1684744358; x=1685004858; i=yann.dirson@vates.fr;
+	bh=5ZA08ivYkpiAmPEWMcPTL2Cj/1pwkC/WlHb0/EmOyLI=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=PSE81vvQ/lABa/82Jx1ImzCi3GgEpblToN9kGvj3nbM+f2fIiWBil6vl28NUOrXk/
+	 xFVxXzB1NfE7tM8QrZtK0ysAHcvdhahAZWQL4VaeBGGdEKbOYDdT/JiBCxCRUhEd44
+	 G+DKUidt98xfr1oYaGL46R7GZWMhaad2s5GLMMrg=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
+ i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1684744358; h=From : 
+ Subject : Message-Id : To : Cc : References : In-Reply-To : Date : 
+ MIME-Version : Content-Type : Content-Transfer-Encoding : From : 
+ Subject : Date : X-Mandrill-User : List-Unsubscribe; 
+ bh=5ZA08ivYkpiAmPEWMcPTL2Cj/1pwkC/WlHb0/EmOyLI=; 
+ b=Nu0PL0HEFubr6IB6CEeU9xAnoiCyM5b5d32KXMwjEkzUahpmFCtrlM4Z/tMXl7cdbQSshZ
+ fGwg6cE85cNget1LXBKR9LkRPhF9UX0/cx1Q7J0OCdmRZgzCFTU6Vr8bdzB3niws6OjM388P
+ r4dwoCh2cSpJoZtyD+8Ff5SUrSav4=
+From: Yann Dirson <yann.dirson@vates.fr>
+Subject: =?utf-8?Q?Re:=20[PATCH=202/3]=20docs:=20document=20~/control/feature-balloon?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 9f954236-9dc1-4070-9d34-807dea7ccea1
+X-Bm-Transport-Timestamp: 1684744355983
+Message-Id: <46399590-322d-c66d-9917-2a55e97de2dc@vates.fr>
+To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xihuan.yang@citrix.com, min.li1@citrix.com
+References: <20230510142011.1120417-1-yann.dirson@vates.fr> <20230510142011.1120417-3-yann.dirson@vates.fr> <bb215c55-5064-7f48-820c-bf41d01529bd@suse.com>
+In-Reply-To: <bb215c55-5064-7f48-820c-bf41d01529bd@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.48590a49bbd54d81a738e5d7d69af5dd?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20230522:md
+Date: Mon, 22 May 2023 08:32:38 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/4FW=_VIffR_gzuETX7eJ3Lw";
- protocol="application/pgp-signature"; micalg=pgp-sha512
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
---Sig_/4FW=_VIffR_gzuETX7eJ3Lw
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, 19 May 2023 12:10:26 +0200
-Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com> wrote:
 
-> On Fri, May 19, 2023 at 06:04:05AM +0200, Christoph Hellwig wrote:
-> > On Thu, May 18, 2023 at 08:18:39PM +0200, Marek Marczykowski-G=C3=B3rec=
-ki wrote: =20
-> > > On Thu, May 18, 2023 at 03:42:51PM +0200, Christoph Hellwig wrote: =20
-> > > > Remove the dangerous late initialization of xen-swiotlb in
-> > > > pci_xen_swiotlb_init_late and instead just always initialize
-> > > > xen-swiotlb in the boot code if CONFIG_XEN_PCIDEV_FRONTEND is enabl=
-ed.
-> > > >=20
-> > > > Signed-off-by: Christoph Hellwig <hch@lst.de> =20
-> > >=20
-> > > Doesn't it mean all the PV guests will basically waste 64MB of RAM
-> > > by default each if they don't really have PCI devices? =20
-> >=20
-> > If CONFIG_XEN_PCIDEV_FRONTEND is enabled, and the kernel's isn't booted
-> > with swiotlb=3Dnoforce, yes. =20
->=20
-> That's "a bit" unfortunate, since that might be significant part of the
-> VM memory, or if you have a lot of VMs, a significant part of the host
-> memory - it quickly adds up.
+On 5/11/23 11:21, Jan Beulich wrote:
+> On 10.05.2023 16:20, Yann Dirson wrote:
+>> --- a/docs/misc/xenstore-paths.pandoc
+>> +++ b/docs/misc/xenstore-paths.pandoc
+>> @@ -509,6 +509,12 @@ This may be initialized to "" by the toolstack and may then be set
+>>   to 0 or 1 by a guest to indicate whether it is capable of responding
+>>   to a mode value written to ~/control/laptop-slate-mode.
+>>   
+>> +#### ~/control/feature-balloon
+>> +
+>> +This may be initialized to "" by the toolstack and may then be set to
+>> +0 or 1 by a guest to indicate whether it is capable of memory
+>> +ballooning, and responds to values written to ~/memory/target.
+> 
+> Besides correctly saying "may", I guess this wants to go further and also
+> clarify what the (intended) behavior is when the node is absent. Aiui PV
+> guests are always expected to have a balloon driver, so the assumed
+> value likely needs to be "1" there. Furthermore I'm afraid it doesn't
+> really become clear what value this node is if it's only optionally
+> present, while its absence doesn't really allow uniform assumptions
+> towards a default value.
 
-I wonder if dynamic swiotlb allocation might also help with this...
 
-Petr T
+Things are indeed more complicated than I originally identified,
+the way this xenstore entry is used currently seems to make it difficult 
+to introduce it in a backward-compatible manner
 
---Sig_/4FW=_VIffR_gzuETX7eJ3Lw
-Content-Type: application/pgp-signature
-Content-Description: Digitální podpis OpenPGP
+I guess this and a number of details ought to be discussed at the XAPI
+level first.
 
------BEGIN PGP SIGNATURE-----
+Details: the squeezed assumption [1] is that a domain which has not set 
+this to 1 is not ready yet to get ballooned, which implies the default 
+has to be 0 whatever the guest type, as it requires to know the total 
+number of pages used by the domain to be stable.  So I guess we can see 
+it as not being "not just a feature flag".
 
-iHUEARYKAB0WIQQR36mnYrQDNXFnn8/Pem5ZkryZSgUCZGsfoQAKCRDPem5ZkryZ
-SqVBAP0bQzVwflJ+O+7tLcfRm7IETeA07OEHXqZhmGqGL5eX8QD9HjbTN1pnVQK5
-45KGLgOriHcE1PpDjMqZrgg7MRy/3gY=
-=o6/4
------END PGP SIGNATURE-----
 
---Sig_/4FW=_VIffR_gzuETX7eJ3Lw--
+[1] 
+https://github.com/xapi-project/xen-api/tree/master/ocaml/squeezed/doc/design#environmental-assumptions
+
+
+-- 
+Yann Dirson | Vates Platform Developer
+XCP-ng & Xen Orchestra - Vates solutions
+w: vates.tech | xcp-ng.org | xen-orchestra.com
+
+
+Yann Dirson | Vates Platform Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+w: vates.fr | xcp-ng.org | xen-orchestra.com
 
