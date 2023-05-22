@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C670070C3BA
-	for <lists+xen-devel@lfdr.de>; Mon, 22 May 2023 18:48:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.538040.837784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1700D70C495
+	for <lists+xen-devel@lfdr.de>; Mon, 22 May 2023 19:45:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.538057.837802 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q18hJ-0002K2-Di; Mon, 22 May 2023 16:47:49 +0000
+	id 1q19aE-0000KN-Mu; Mon, 22 May 2023 17:44:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 538040.837784; Mon, 22 May 2023 16:47:49 +0000
+Received: by outflank-mailman (output) from mailman id 538057.837802; Mon, 22 May 2023 17:44:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q18hJ-0002HQ-8w; Mon, 22 May 2023 16:47:49 +0000
-Received: by outflank-mailman (input) for mailman id 538040;
- Mon, 22 May 2023 16:47:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eDGG=BL=arm.com=Peter.Hoyes@srs-se1.protection.inumbo.net>)
- id 1q18hH-0002HK-Sv
- for xen-devel@lists.xenproject.org; Mon, 22 May 2023 16:47:47 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 60632598-f8c0-11ed-b22d-6b7b168915f2;
- Mon, 22 May 2023 18:47:45 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E9C6E11FB;
- Mon, 22 May 2023 09:48:29 -0700 (PDT)
-Received: from [10.1.199.64] (unknown [10.1.199.64])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7B8BE3F762;
- Mon, 22 May 2023 09:47:44 -0700 (PDT)
+	id 1q19aE-0000I3-Jf; Mon, 22 May 2023 17:44:34 +0000
+Received: by outflank-mailman (input) for mailman id 538057;
+ Mon, 22 May 2023 17:44:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q19aD-0000Ht-1O; Mon, 22 May 2023 17:44:33 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q19aC-0005tV-JG; Mon, 22 May 2023 17:44:32 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q19aC-00045E-2o; Mon, 22 May 2023 17:44:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q19aC-0003CF-29; Mon, 22 May 2023 17:44:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,129 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60632598-f8c0-11ed-b22d-6b7b168915f2
-Message-ID: <f59cf610-7e1c-8143-8608-f76dc43e13b6@arm.com>
-Date: Mon, 22 May 2023 17:47:37 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=u6L3L7qbJ+vH9M6w1/IcR+WxQ00XU2vB767a7KPq4UI=; b=B96U+9ZE0siUt/ldbVUpLFCRm6
+	NmnIknnlOgvpftg1XgqJbcDWnZUX4CVvkb+t1rLJOO8pDMDDFWQpp/v7k7Api4cw/qM2EOSj8KFFk
+	TcIP09+ZAR/gIGW0ah3Qt1WARM1ccK+pX102TXEPX8FgYJC0ld5D/F2NIEHsEfnGaaKs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180897-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [XEN PATCH] tools/xendomains: Don't auto save/restore/migrate on
- Arm*
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>
-References: <d52c31c7-57b1-41c1-af35-a9b847683c0a@perard>
- <20230519162454.50337-1-anthony.perard@citrix.com>
-Content-Language: en-US
-From: Peter Hoyes <Peter.Hoyes@arm.com>
-In-Reply-To: <20230519162454.50337-1-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 180897: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=c7908869ac26961a3919491705e521179ad3fc0e
+X-Osstest-Versions-That:
+    xen=753d903a6f2d1e68d98487d36449b5739c28d65a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 22 May 2023 17:44:32 +0000
 
-On 19/05/2023 17:24, Anthony PERARD wrote:
-> Saving, restoring and migrating domains are not currently supported on
-> arm and arm64 platforms, so xendomains prints the warning:
->
->    An error occurred while saving domain:
->    command not implemented
->
-> when attempting to run `xendomains stop`. It otherwise continues to shut
-> down the domains cleanly, with the unsupported steps skipped.
->
-> Also in sysconfig.xendomains, change "Default" to "Example" as the
-> real default is an empty value.
->
-> Reported-by: Peter Hoyes <Peter.Hoyes@arm.com>
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
->
-> Peter, what do you think of this approach?
+flight 180897 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180897/
 
-Thanks for preparing this. Just validated that the warning above is not 
-present with both qemu-aarch64 and an internal stack.
+Failures :-/ but no regressions.
 
-Tested-by: Peter Hoyes <peter.hoyes@arm.com>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
->
-> For reference, there's also a way to findout if a macro exist, with
-> AC_CHECK_DECL(), but the libxl.h header depends on other headers that
-> needs to be generated.
-> ---
->   tools/configure                                    | 11 +++++++++++
->   tools/configure.ac                                 | 13 +++++++++++++
->   tools/hotplug/Linux/init.d/sysconfig.xendomains.in |  4 ++--
->   3 files changed, 26 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/configure b/tools/configure
-> index 52b4717d01..a722f72c08 100755
-> --- a/tools/configure
-> +++ b/tools/configure
-> @@ -624,6 +624,7 @@ ac_includes_default="\
->   
->   ac_subst_vars='LTLIBOBJS
->   LIBOBJS
-> +XENDOMAINS_SAVE_DIR
->   pvshim
->   ninepfs
->   SYSTEMD_LIBS
-> @@ -10155,6 +10156,16 @@ if test "$ax_found" = "0"; then :
->   fi
->   
->   
-> +case "$host_cpu" in
-> +    arm*|aarch64)
-> +        XENDOMAINS_SAVE_DIR=
-> +        ;;
-> +    *)
-> +        XENDOMAINS_SAVE_DIR="$XEN_LIB_DIR/save"
-> +        ;;
-> +esac
-> +
-> +
->   cat >confcache <<\_ACEOF
->   # This file is a shell script that caches the results of configure
->   # tests run on this system so they can be shared between configure
-> diff --git a/tools/configure.ac b/tools/configure.ac
-> index 3cccf41960..0f0983f6b7 100644
-> --- a/tools/configure.ac
-> +++ b/tools/configure.ac
-> @@ -517,4 +517,17 @@ AS_IF([test "x$pvshim" = "xy"], [
->   
->   AX_FIND_HEADER([INCLUDE_ENDIAN_H], [endian.h sys/endian.h])
->   
-> +dnl Disable autosave of domain in xendomains on shutdown
-> +dnl due to missing support. This should be in sync with
-> +dnl LIBXL_HAVE_NO_SUSPEND_RESUME in libxl.h
-> +case "$host_cpu" in
-> +    arm*|aarch64)
-> +        XENDOMAINS_SAVE_DIR=
-> +        ;;
-> +    *)
-> +        XENDOMAINS_SAVE_DIR="$XEN_LIB_DIR/save"
-> +        ;;
-> +esac
-> +AC_SUBST(XENDOMAINS_SAVE_DIR)
-> +
->   AC_OUTPUT()
-> diff --git a/tools/hotplug/Linux/init.d/sysconfig.xendomains.in b/tools/hotplug/Linux/init.d/sysconfig.xendomains.in
-> index f61ef9c4d1..3c49f18bb0 100644
-> --- a/tools/hotplug/Linux/init.d/sysconfig.xendomains.in
-> +++ b/tools/hotplug/Linux/init.d/sysconfig.xendomains.in
-> @@ -45,7 +45,7 @@ XENDOMAINS_CREATE_USLEEP=5000000
->   XENDOMAINS_MIGRATE=""
->   
->   ## Type: string
-> -## Default: @XEN_LIB_DIR@/save
-> +## Example: @XEN_LIB_DIR@/save
->   #
->   # Directory to save running domains to when the system (dom0) is
->   # shut down. Will also be used to restore domains from if # XENDOMAINS_RESTORE
-> @@ -53,7 +53,7 @@ XENDOMAINS_MIGRATE=""
->   # (e.g. because you rather shut domains down).
->   # If domain saving does succeed, SHUTDOWN will not be executed.
->   #
-> -XENDOMAINS_SAVE=@XEN_LIB_DIR@/save
-> +XENDOMAINS_SAVE=@XENDOMAINS_SAVE_DIR@
->   
->   ## Type: string
->   ## Default: "--wait"
+version targeted for testing:
+ xen                  c7908869ac26961a3919491705e521179ad3fc0e
+baseline version:
+ xen                  753d903a6f2d1e68d98487d36449b5739c28d65a
+
+Last test of basis   180694  2023-05-18 00:03:29 Z    4 days
+Testing same since   180897  2023-05-22 15:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Dario Faggioli <dfaggioli@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stewart Hildebrand <stewart.hildebrand@amd.com>
+  Yann Dirson <yann.dirson@vates.fr>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   753d903a6f..c7908869ac  c7908869ac26961a3919491705e521179ad3fc0e -> smoke
 
