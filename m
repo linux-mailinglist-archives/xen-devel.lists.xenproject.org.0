@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B691770C15F
-	for <lists+xen-devel@lfdr.de>; Mon, 22 May 2023 16:44:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.538000.837709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8794F70C16F
+	for <lists+xen-devel@lfdr.de>; Mon, 22 May 2023 16:48:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.538004.837719 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q16l2-00035J-37; Mon, 22 May 2023 14:43:32 +0000
+	id 1q16pt-0003it-M5; Mon, 22 May 2023 14:48:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 538000.837709; Mon, 22 May 2023 14:43:32 +0000
+Received: by outflank-mailman (output) from mailman id 538004.837719; Mon, 22 May 2023 14:48:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q16l2-00032o-0D; Mon, 22 May 2023 14:43:32 +0000
-Received: by outflank-mailman (input) for mailman id 538000;
- Mon, 22 May 2023 14:43:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q16pt-0003fn-Il; Mon, 22 May 2023 14:48:33 +0000
+Received: by outflank-mailman (input) for mailman id 538004;
+ Mon, 22 May 2023 14:48:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Yzf4=BL=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1q16l0-00032f-Ea
- for xen-devel@lists.xenproject.org; Mon, 22 May 2023 14:43:30 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 040c9f5f-f8af-11ed-b22d-6b7b168915f2;
- Mon, 22 May 2023 16:43:29 +0200 (CEST)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-96652cb7673so975759866b.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 May 2023 07:43:29 -0700 (PDT)
+ <SRS0=Qrm0=BL=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1q16ps-0003fh-45
+ for xen-devel@lists.xenproject.org; Mon, 22 May 2023 14:48:32 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20616.outbound.protection.outlook.com
+ [2a01:111:f400:7e89::616])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b59410c5-f8af-11ed-8611-37d641c3527e;
+ Mon, 22 May 2023 16:48:28 +0200 (CEST)
+Received: from BYAPR05CA0054.namprd05.prod.outlook.com (2603:10b6:a03:74::31)
+ by DM6PR12MB4073.namprd12.prod.outlook.com (2603:10b6:5:217::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Mon, 22 May
+ 2023 14:48:25 +0000
+Received: from DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:a03:74:cafe::81) by BYAPR05CA0054.outlook.office365.com
+ (2603:10b6:a03:74::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.13 via Frontend
+ Transport; Mon, 22 May 2023 14:48:24 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT099.mail.protection.outlook.com (10.13.172.241) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6411.29 via Frontend Transport; Mon, 22 May 2023 14:48:24 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 22 May
+ 2023 09:48:22 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 22 May
+ 2023 07:48:22 -0700
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 22 May 2023 09:48:20 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,104 +63,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 040c9f5f-f8af-11ed-b22d-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1684766608; x=1687358608;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pC21Wt79F0ocPDNkemtlfkU3jZZKz4hZTtPDV2VYO3c=;
-        b=DQalti/cz4Z23gv4roSvFIVC9PPLMBk2SJPEM9VksL+7ZRyclHv+epcDNfZXqtCD04
-         WCVnuPv2i/2uBgGvI/mMw8lSj+mQtwH5z3B13K7VGGQc2Jpt1vdBsiQEFb6ZlILO0eIf
-         aXz9PlFy55KzLdrNH9iyebCX8DVK/1mcwnwlYW/62rgsVVx1efNRLGBsoYz4Ol49nmYu
-         5yuyS0RCIsZhljMd25N380+CKKarR2PoimHQO5YRTNjT3jvtZyA/gOBrVwFqmP1tX4ju
-         fE7VjgqvoAxFZp7W4AM39O19VNDWHoBYjUKA6Qmpajw+avhIzE85vFKYZd93wpVVSPv1
-         nWIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1684766608; x=1687358608;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pC21Wt79F0ocPDNkemtlfkU3jZZKz4hZTtPDV2VYO3c=;
-        b=hhUaTYG8lFmzQAegtOcX7ZqIX4I6xGCOqc3msXTzjgRFYerNlO7CZn3eYaDxjD90Q7
-         N9YVTndPfs+xIre1iwTZbCxEsfZcemtMLGdmR7sNKMd3HUKfgaVgy6Q6sj+7saqrmAgj
-         YGJqv17/7N9ph3DWZHxYI2lgEGMb6zNWnECZ0OT+GCioBCxIWUK1153HGZ0K8uzJLSBx
-         YF/u2n3Cgx7b/sVYGRLYKyZPXHt3zKmyPoHKf1S4o26pbhRIWpwWH4AkPwK3ArqWPx9r
-         Q8fFXIb46NpdVIOiFKKRjY2S9PXQcWy0B2Ltyi7+of1Ng3u5Wwh8f2yoLQ4VZU6cWni6
-         Wf9Q==
-X-Gm-Message-State: AC+VfDyIXP0iRw7quSbFEkMaL+j8GSmuKfkbCwb7at0SgoBb5nqCcpUU
-	CxyA4ARqIIxV9sEz0DCdOUFoq7lHNmpvm92ahcM=
-X-Google-Smtp-Source: ACHHUZ78FtPyo6gMtcvvdGIMLHmE24bokwLE8lG9CMeQSCb9560NBylM0oGgwx2jCoG/ilHOICyZ6ZPi0ozP2dgjCI4=
-X-Received: by 2002:a17:907:74d:b0:94f:7edf:8fa1 with SMTP id
- xc13-20020a170907074d00b0094f7edf8fa1mr10151530ejb.32.1684766608315; Mon, 22
- May 2023 07:43:28 -0700 (PDT)
+X-Inumbo-ID: b59410c5-f8af-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Obt0/fydd3hKwj9etMrkyV6F48TcgzFv86SkRL7pCjrJrG/lrHHS1Fd91jnPBWPTR31bZ5eXPSFAuA0q+r9FgB8veeKYjdp3tY3wTio6PdjcIzs8jWSlOVuU4KKckGCOdIj2zEh+66ZtvbqRL0LcG8HnDXtii6gw6xJgVW7+4Hj7KLIqS2xKSdFDnexub33cALOpS/51+IkuiINpb7mTL2DdfxLclYlYlmojsbkXEUzJXzYxQquSF2PlIXsHYcKPWPKZCQgm5S2vvIMj2/ntsrkijtD2aT/05UbvcJYB6tpGPFi2NHVx417p/PHkePFU8xjV5miAxQWhqu4HhQs8Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bu8tc6QUaD2f1Bg+pJtdesvDnIdQHpfh5WkPGu9o9vI=;
+ b=A5Hfsge6A+oMgi1YfWN5VJy+BPp3d9OHwem8fQP0xw6oHwtwvK9PKH8MMPoWoZZjXdLogOfvmWH6ynSUhKhD5BtWiuVjNZLHZ+Jrn6WUEXKcpBwMZ/xTSjCC5Bs5ZfYA1M/qJCfuFPJfuX9uvSUhg/mJC/x9W8UAyG8gPSoN3+LTmTAl+an3JW3dp7C38JUPYJJz46le3kRSk0hyhXJZf87R09lpf7gFXsMYaeB9O/UkzPXzK6L1+EKaFCJoZrP4gC8qNMQmkfPUCMi7CHOQAlSHiqAd6lhFFrvX6QZ0vsd1POOSJq5DSOGWFnEuQiBGQhyxGFVLGAtgIq3J+LAfNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bu8tc6QUaD2f1Bg+pJtdesvDnIdQHpfh5WkPGu9o9vI=;
+ b=PGVwJLI9VokB550zZY4xWnKIiG1XYpF2KiHuoIczmGEbXwo1QVysjzoUfaOnguhc6i8wOrgchtZ9ngtcwBDS0P/E4W7MUK5IWZnHSaM5RTzecOTQ/xT/X51AGvDR+qX1eWFQAk9X01oSErDMeTX1+PXYCBlR5kcrDdDRShyuqic=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <c6dd2581-7dd9-a0da-8b27-3523744349c0@amd.com>
+Date: Mon, 22 May 2023 16:48:15 +0200
 MIME-Version: 1.0
-References: <20230501193034.88575-1-jandryuk@gmail.com> <20230501193034.88575-11-jandryuk@gmail.com>
- <1166bdf1-4d54-30bb-bdf9-65dfaeb6b29e@suse.com> <CAKf6xpti23_fmwVWOafjUU+OPHPOA7EWOfkShGT9Qqr9=mR9zQ@mail.gmail.com>
- <602ff9ef-e573-279e-441f-463ca7613fa6@suse.com>
-In-Reply-To: <602ff9ef-e573-279e-441f-463ca7613fa6@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 22 May 2023 10:43:16 -0400
-Message-ID: <CAKf6xptFN4s4yazcmmgqMWqNqmyYQjE+PaV6f=NdjR5g=NUx_g@mail.gmail.com>
-Subject: Re: [PATCH v3 10/14 RESEND] xen: Add SET_CPUFREQ_HWP xen_sysctl_pm_op
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v3 2/6] iommu/arm: Add iommu_dt_xlate()
+Content-Language: en-US
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Rahul Singh
+	<rahul.singh@arm.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20230518210658.66156-1-stewart.hildebrand@amd.com>
+ <20230518210658.66156-3-stewart.hildebrand@amd.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20230518210658.66156-3-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT099:EE_|DM6PR12MB4073:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72aabe80-d278-4f64-9bd9-08db5ad39849
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	yQh6Wws2ibR9EVHtPkhJ6s8C9IdKtATmGArtlz3GSbUX3p2UY7da6x7z8IcaBV7eOYveYyMtxEoMXwsLOhnfptCFvsohbp0Xm9gGFgtzKw/rslHA1gc6pldycMdZ3pTiHCAH1p39UtfubE8j9GGRS8qpmfbVMP2o8acLiUcTPnr6Sosntppu+TO6lKM+IfCMKgu8Yb1nTuW2lwJA9aAtIIkWY4YQ4Kl7FH9eIn/fiL/IZlyZsEYjEVk9z1gvgzyb5dJJLzKbLGsPmcydH8edcOpaxE8S7fYkxaCxlBWK/hKSadb+1rhYEqCRZR1LdIDFT3f6LCr0d0cOJixFexbZc2Mrl6e9foJJhAjz4IhjyR1wuJvIe4XJrEpVBqGufwk6hzyYXcmBvwxEiheHSfyikBu9I30xwYrdgoxDcW4K9ol5PuBSsrS5byBC/sxyvp8jNhCTKUOvqnTvbqijrxGnFb9daQkTJrbfggs8LWVPWEvFnQDPTWI/Qb9z3R89WDAg0JTzFUttYGTRxu8uC5cjgZwXAEQcH04ZnHYxZtpLZKqIwIjWZdeEY4SzV0V01dcCpLiRav5tJ9emaDrnNhsAXWOoCXW6hNPSXslk3Y2MmnWY/Y0qC3Z/HIXTE3KgPlg9WnTUh8m4fbkK4Oz4Ivrdi36vaJ0fgZvarhvXlHC/ylMeHWP0hAHI6PRhJgHYREMSy3LeDonuAbzy2+oEonh3o2vJr9NgjbuACB4Kgog2ek+NFDpDcwpmmeFTFcuUZyPI0SwOgb/1B8j7OOEI481913foqbmZFIV73DjfcWTfL4M=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(136003)(346002)(396003)(376002)(451199021)(36840700001)(40470700004)(46966006)(8676002)(8936002)(5660300002)(44832011)(36860700001)(82310400005)(47076005)(186003)(81166007)(53546011)(26005)(83380400001)(336012)(86362001)(2616005)(31696002)(82740400003)(356005)(426003)(40460700003)(41300700001)(6666004)(40480700001)(966005)(70206006)(70586007)(316002)(36756003)(4326008)(478600001)(110136005)(54906003)(16576012)(2906002)(31686004)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2023 14:48:24.1836
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72aabe80-d278-4f64-9bd9-08db5ad39849
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4073
 
-On Mon, May 22, 2023 at 9:11=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 22.05.2023 14:45, Jason Andryuk wrote:
-> > On Mon, May 8, 2023 at 7:27=E2=80=AFAM Jan Beulich <jbeulich@suse.com> =
-wrote:
-> >>
-> >> On 01.05.2023 21:30, Jason Andryuk wrote:
-> >>> +    if ( set_hwp->activity_window & ~XEN_SYSCTL_HWP_ACT_WINDOW_MASK =
-)
-> >>> +        return -EINVAL;
-> >>
-> >> Below you limit checks to when the respective control bit is set. I
-> >> think you want the same here.
-> >
-> > Not sure if you mean feature_hwp_activity_window or the bit in
-> > set_params as control bit.  But, yes, they can both use some
-> > additional checking.  IIRC, I wanted to always check
-> > ~XEN_SYSCTL_HWP_ACT_WINDOW_MASK, because bits should never be set
-> > whether or not the activity window is supported by hardware.
->
-> I took ...
->
-> >>> +    if ( !feature_hwp_energy_perf &&
-> >>> +         (set_hwp->set_params & XEN_SYSCTL_HWP_SET_ENERGY_PERF) &&
-> >>> +         set_hwp->energy_perf > IA32_ENERGY_BIAS_MAX_POWERSAVE )
-> >>> +        return -EINVAL;
-> >>> +
-> >>> +    if ( (set_hwp->set_params & XEN_SYSCTL_HWP_SET_DESIRED) &&
-> >>> +         set_hwp->desired !=3D 0 &&
-> >>> +         (set_hwp->desired < data->hw.lowest ||
-> >>> +          set_hwp->desired > data->hw.highest) )
-> >>> +        return -EINVAL;
->
-> ... e.g. this for comparison, where you apply the range check only when
-> the XEN_SYSCTL_HWP_* bit is set. I think you want to be consistent in
-> such checking: Either you always allow the caller to not care about
-> fields that aren't going to be consumed when their controlling bit is
-> off, or you always check validity. Both approaches have their pros and
-> cons, I think.
+Hi Stewart,
 
-Ok, good point.  I wrote it inconsistently because the SDM states the
-desired limit: "When set to a non-zero value (between the range of
-Lowest_Performance and Highest_Performance of IA32_HWP_CAPABILITIES)
-conveys an explicit performance request hint to the hardware;
-effectively disabling HW Autonomous selection."  And I was trying to
-follow that.  But later "The HWP hardware clips and resolves the field
-values as necessary to the valid range." seems to override that.  I'll
-test to verify that it is correct, and drop the lowest/highest
-checking if so.
+On 18/05/2023 23:06, Stewart Hildebrand wrote:
+> 
+> 
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> Move code for processing DT IOMMU specifier to a separate helper.
+> This helper will be re-used for adding PCI devices by the subsequent
+> patches as we will need exact the same actions for processing
+> DT PCI-IOMMU specifier.
+> 
+> While at it introduce NO_IOMMU to avoid magic "1".
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com> # rename
+> ---
+> v2->v3:
+> * no change
+> 
+> v1->v2:
+> * no change
+> 
+> downstream->v1:
+> * trivial rebase
+> * s/dt_iommu_xlate/iommu_dt_xlate/
+> 
+> (cherry picked from commit c26bab0415ca303df86aba1d06ef8edc713734d3 from
+>  the downstream branch poc/pci-passthrough from
+>  https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc.git)
+> ---
+>  xen/drivers/passthrough/device_tree.c | 42 +++++++++++++++++----------
+>  1 file changed, 27 insertions(+), 15 deletions(-)
+> 
+> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
+> index b5bd13393b56..1b50f4670944 100644
+> --- a/xen/drivers/passthrough/device_tree.c
+> +++ b/xen/drivers/passthrough/device_tree.c
+> @@ -127,15 +127,39 @@ int iommu_release_dt_devices(struct domain *d)
+>      return 0;
+>  }
+> 
+> +/* This correlation must not be altered */
+> +#define NO_IOMMU    1
+> +
+> +static int iommu_dt_xlate(struct device *dev,
+> +                          struct dt_phandle_args *iommu_spec)
+I think iommu_spec can be const.
 
-Thanks,
-Jason
+> +{
+> +    const struct iommu_ops *ops = iommu_get_ops();
+> +    int rc;
+> +
+> +    if ( !dt_device_is_available(iommu_spec->np) )
+> +        return NO_IOMMU;
+> +
+> +    rc = iommu_fwspec_init(dev, &iommu_spec->np->dev);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    /*
+> +     * Provide DT IOMMU specifier which describes the IOMMU master
+> +     * interfaces of that device (device IDs, etc) to the driver.
+> +     * The driver is responsible to decide how to interpret them.
+> +     */
+> +    return ops->dt_xlate(dev, iommu_spec);
+Wouldn't it be better to move the check (!ops->dt_xlate) from iommu_add_dt_device to this helper?
+After all it is the only function that calls dt_xlate so for me it would be a natural placement.
+Looking at the next patch it will also reduce the similar check in iommu_add_dt_pci_sideband_ids.
+
+~Michal
 
