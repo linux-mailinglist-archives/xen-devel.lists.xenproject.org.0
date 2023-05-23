@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB02A70E201
-	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 18:44:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.538594.838698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31FB470E26F
+	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 18:49:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.538625.838737 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1V7V-00062h-Fl; Tue, 23 May 2023 16:44:21 +0000
+	id 1q1VCa-0008JB-OZ; Tue, 23 May 2023 16:49:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 538594.838698; Tue, 23 May 2023 16:44:21 +0000
+Received: by outflank-mailman (output) from mailman id 538625.838737; Tue, 23 May 2023 16:49:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1V7V-0005zn-CK; Tue, 23 May 2023 16:44:21 +0000
-Received: by outflank-mailman (input) for mailman id 538594;
- Tue, 23 May 2023 16:44:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q1VCa-0008HN-LP; Tue, 23 May 2023 16:49:36 +0000
+Received: by outflank-mailman (input) for mailman id 538625;
+ Tue, 23 May 2023 16:49:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UuGZ=BM=citrix.com=prvs=5000a0748=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1q1V7U-0005zh-7F
- for xen-devel@lists.xenproject.org; Tue, 23 May 2023 16:44:20 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e65b4f3-f989-11ed-8611-37d641c3527e;
- Tue, 23 May 2023 18:44:18 +0200 (CEST)
+ id 1q1VCY-0008HF-NS
+ for xen-devel@lists.xenproject.org; Tue, 23 May 2023 16:49:34 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ca612a8c-f989-11ed-b22d-6b7b168915f2;
+ Tue, 23 May 2023 18:49:33 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,96 +36,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e65b4f3-f989-11ed-8611-37d641c3527e
+X-Inumbo-ID: ca612a8c-f989-11ed-b22d-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1684860257;
+  d=citrix.com; s=securemail; t=1684860573;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=EgRf1ZV6Y/Xg3Pz/iQe97WoKAP6ERDrGxXFTDkm8Sr8=;
-  b=ciFS33VqGqCqSmngsr0aeIhUf4DU6Ctq1tKfYf5O2h8nr5dUb3puONeT
-   Y7gTajoKUyKis+4ZrCY9xdaz2HKHLAesSCIEvoMU45L2qAVSx4ARBaWqP
-   XM3b1wk8y9IMOw9OJJNalgmYowyY0dD4FTCIe2Tgp10UsmwLXqSkkR2OK
-   w=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=Zl9vTPqi6RVZJGxKRYtGaBAPuiSWpOT0k2k62r7HVqA=;
+  b=D1J7JO5QicrFAlF3DMcgfTEGyNXyzFOihlD1TVqYGILwR52NpYtvfRNo
+   pXtQsfICzEgq45U/sBDEmnDpSGAIxLRRnJkE50EbnEnl1j/qGUmVnzCMH
+   Gwa//OcQSJ4eiKSO5bJzsPSHsqKQYCPeL6gtk0l3hhFUI72MuclXu8oKF
+   8=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 110113515
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 112569755
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:gGqTkqPLcdpTl+HvrR2Tl8FynXyQoLVcMsEvi/4bfWQNrUok3jwCn
- GpNUGrSP/mLajb8KNBzYIXno0MEsZWGytVkTQto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGjxSs/rrRC9H5qyo42tF5AdmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0vpXBERz1
- fAyEx42Vwqiob2zwrKKVMA506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w2Nk+ojx5nYz/7DLo3mvuogX/uNSVVsluPqYI84nTJzRw327/oWDbQUoXTHZwMxRvB+
- woq+Uz6Dk5LL4bPlQGV82CAg+7kwQnUBdI7QejQGvlC3wTImz175ActfUS/iem0jAi5Qd03A
- 0UM9zAnt6Qa6E2hRd67VBq9yFa8swIRQZxwFPw38ymE0K+S6AGcbkAGUzpAZdoOpMIwAzsw2
- Tehj97vQDBirrCRYXac7auP6yO/PzAPKm0PbjNCShEKi+QPu6lq0EiJFIw6Vvfo0JusQ2qYL
- y22QDYWm5UWqPMr24+A02v+mROK+Z3LTj8rz1CCNo661T9RaImgbo2uzFHU6/dcMYqUJmW8U
- Gg4d9u2t75XU8zU/MCZaKBURezyua7ZWNHJqQQ3d6TN4QhB7JJKkWp4xDhlbHlkPc8fEdMCS
- B+C4FgBjHO/0ZbDUEOWX25TI55ypUQDPY6/PhwxUjapSsYZSeN/1HsyDXN8Jki0+KTWrYkxO
- I2AbeGnBmsABKJswVKeHrlNjeB7nnxllDqLGfgXKihLNpLHPhaopUotagPSPojVEovfyOkqz
- zqvH5TTkEgOOAEPSiLW7ZQSPTg3EJTPPriv85Y/XrfacmJb9JQJV6e5LUUJJ9Y0wMy4V47go
- hmAZ6Ov4AGn3yyYdl3aOywLhXGGdc8XkE/X9BcEZT6As0XPq671hEvDX/PbpYUaydE=
-IronPort-HdrOrdr: A9a23:YsrY8aAePEZ28CXlHenP55DYdb4zR+YMi2TDtnoQdfUxSKelfq
- +V8cjzuSWftN9zYhAdcK67V5VoKEm0naKdirN8AV7NZmfbhFc=
-X-Talos-CUID: =?us-ascii?q?9a23=3AyQjD2GjmdKaT33HN57SvCzeYmDJubl3Y6UrwL2W?=
- =?us-ascii?q?DJ11QUpyzFlqS+JJ6up87?=
-X-Talos-MUID: =?us-ascii?q?9a23=3A24nFeg1/c2XVro5OxoSylpddGjUj4KjxWVtXwck?=
- =?us-ascii?q?9q8iWGSlxEGu3o2nna9py?=
+IronPort-Data: A9a23:wq/fba82syAfjNCismedDrUDcn6TJUtcMsCJ2f8bNWPcYEJGY0x3m
+ mIYDD+DPavYNmv2fYojao6y9kNT78Lcz9dmTQFo/no8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ird7ks31BjOkGlA5AdmOKoQ5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkkJz
+ dtGCwocRCyyvLiMzOmqddRKu548eZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGOkcUUrsUIMtWcOOAj3/jczpeuRSNqLA++WT7xw1tyrn9dtHSf7RmQO0MxxzF+
+ DOZojmR7hcyJeSE6See81SVi+7dwDrCVbg3TbTi36s/6LGU7jNKU0BHPbehmtG9l0W3HdxWL
+ UcZ/i4zhaEo8QqgSdyVdw21pjuIswARX/JUEvYm80edx6zM+QGbC2MYCDlbZ7QOvsIsWSYj0
+ FPPmtrzHCFuq5WcU3fb/bCRxRutNClTJm8PYwcNVw5D6N7myKksijrfQ9AlF7S65vXvHir62
+ TeNry4WiLAajMpN3KK+lXjFjCirvYPhVRMu60PcWWfNxgphaZSsfYCA9VnR5vEGJ4GcJmRtp
+ 1BdxZLYtrpXS8jQymrUGr5l8KyVC+itdwX7331VDrMdxg/3wXL4bL9txgwkOxI8WiobQgPBb
+ EjWsAJXwZZcOnq2cKN6C76M59QWIbvIToq8CK2NBjZaSt0oLVLconkyDaKF9zq1+HXAh53TL
+ ntynSyEKX8BQZpqwzOtLwv2+e96n3turY8/qH2S8vhG7VZ8TCTNIVvmGAHUBgzc0E9jiFu9z
+ jqnH5HWoyizqcWnCsUtzaYdLEoRMV8wDo3spspce4are1Q2RD5xU6OKkOp5J+SJepi5cc+Rp
+ BmAtrJwkgKj1RUr1y3RApycVF8fdckm9i9qVcDdFV2px2Iice6S0UvrTLNuJeNP3LU6nZZJo
+ wwtJ53o7gJnFm6WpFzwrPDV8ORfSfhcrVnWZXv6P2BvLsIIqs6g0oaMQzYDPRImVkKf3fbSa
+ ZX8vu8HafLvnzhfMfs=
+IronPort-HdrOrdr: A9a23:SbtdiK+F2cX3G2cF9yVuk+C7I+orL9Y04lQ7vn2ZKCY0TiX8ra
+ uTdZsguCMc5Ax6ZJhCo7G90de7Lk80nKQdibX5Vo3PYOCJggWVEL0=
+X-Talos-CUID: 9a23:u2WO9WF9kvMiHHYaqmIgzGlKOfo0WEHs9y3qLxSpNltPdeeKHAo=
+X-Talos-MUID: 9a23:T9n1swaaPIPIauBTpgf3pCx5NeFR7qW8VVk0nK8j4sDeHHkl
 X-IronPort-AV: E=Sophos;i="6.00,186,1681185600"; 
-   d="scan'208";a="110113515"
-Date: Tue, 23 May 2023 17:44:07 +0100
+   d="scan'208";a="112569755"
+Date: Tue, 23 May 2023 17:49:19 +0100
 From: Anthony PERARD <anthony.perard@citrix.com>
-To: Julien Grall <julien@xen.org>
-CC: <xen-devel@lists.xenproject.org>, Peter Hoyes <Peter.Hoyes@arm.com>, "Wei
- Liu" <wl@xen.org>
-Subject: Re: [XEN PATCH] tools/xendomains: Don't auto save/restore/migrate on
- Arm*
-Message-ID: <97f676c3-65da-4361-835c-5aa91b99db86@perard>
-References: <d52c31c7-57b1-41c1-af35-a9b847683c0a@perard>
- <20230519162454.50337-1-anthony.perard@citrix.com>
- <b18f7dcb-b790-2571-93e1-aa9a9132276a@xen.org>
+To: Luca Fancellu <luca.fancellu@arm.com>
+CC: <xen-devel@lists.xenproject.org>, <bertrand.marquis@arm.com>,
+	<wei.chen@arm.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>, "Juergen
+ Gross" <jgross@suse.com>
+Subject: Re: [PATCH v7 10/12] xen/tools: add sve parameter in XL configuration
+Message-ID: <1c32737f-771a-4172-84ef-65d24a42e8d4@perard>
+References: <20230523074326.3035745-1-luca.fancellu@arm.com>
+ <20230523074326.3035745-11-luca.fancellu@arm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <b18f7dcb-b790-2571-93e1-aa9a9132276a@xen.org>
+In-Reply-To: <20230523074326.3035745-11-luca.fancellu@arm.com>
 
-On Mon, May 22, 2023 at 08:34:52PM +0100, Julien Grall wrote:
-> On 19/05/2023 17:24, Anthony PERARD wrote:
-> > diff --git a/tools/configure.ac b/tools/configure.ac
-> > index 3cccf41960..0f0983f6b7 100644
-> > --- a/tools/configure.ac
-> > +++ b/tools/configure.ac
-> > @@ -517,4 +517,17 @@ AS_IF([test "x$pvshim" = "xy"], [
-> >   AX_FIND_HEADER([INCLUDE_ENDIAN_H], [endian.h sys/endian.h])
-> > +dnl Disable autosave of domain in xendomains on shutdown
-> > +dnl due to missing support. This should be in sync with
-> > +dnl LIBXL_HAVE_NO_SUSPEND_RESUME in libxl.h
+On Tue, May 23, 2023 at 08:43:24AM +0100, Luca Fancellu wrote:
+> Add sve parameter in XL configuration to allow guests to use
+> SVE feature.
 > 
-> Quite likely, a developer adding a new arch will first look at the
-> definition of LIXBL_HAVE_NO_SUSPEND_RESUME. So it would be good if we have a
-> similar message there to remind them to update this case. That said...
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 
-Probably true, I'll look at adding a comment there.
-
-> > +case "$host_cpu" in
-> > +    arm*|aarch64)
-> > +        XENDOMAINS_SAVE_DIR=
-> > +        ;;
-> > +    *)
-> > +        XENDOMAINS_SAVE_DIR="$XEN_LIB_DIR/save"
-> > +        ;;
-> > +esac
-> 
-> ... I am wondering if the switch should be the other way around. IOW, the
-> default should be no support for suspend/resume. This will make easier to
-> add support for RISC-V (I suspect support for suspend/resume will not be in
-> the first version) or any new other arch.
-
-Sounds good, I'll look at that.
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
 Thanks,
 
