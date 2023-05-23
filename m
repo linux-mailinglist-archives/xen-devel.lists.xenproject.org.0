@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBFEF70D40A
-	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 08:35:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.538233.838039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 694C070D411
+	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 08:37:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.538237.838049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1Lbz-0001L9-FL; Tue, 23 May 2023 06:35:11 +0000
+	id 1q1LeO-0001xY-Rr; Tue, 23 May 2023 06:37:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 538233.838039; Tue, 23 May 2023 06:35:11 +0000
+Received: by outflank-mailman (output) from mailman id 538237.838049; Tue, 23 May 2023 06:37:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1Lbz-0001Id-Bu; Tue, 23 May 2023 06:35:11 +0000
-Received: by outflank-mailman (input) for mailman id 538233;
- Tue, 23 May 2023 06:35:10 +0000
+	id 1q1LeO-0001uh-OT; Tue, 23 May 2023 06:37:40 +0000
+Received: by outflank-mailman (input) for mailman id 538237;
+ Tue, 23 May 2023 06:37:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jTts=BM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1q1Lby-0000kG-KM
- for xen-devel@lists.xenproject.org; Tue, 23 May 2023 06:35:10 +0000
+ id 1q1LeN-0001ub-SC
+ for xen-devel@lists.xenproject.org; Tue, 23 May 2023 06:37:39 +0000
 Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on20622.outbound.protection.outlook.com
- [2a01:111:f400:fe16::622])
+ (mail-vi1eur02on20629.outbound.protection.outlook.com
+ [2a01:111:f400:fe16::629])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f68f9568-f933-11ed-b22d-6b7b168915f2;
- Tue, 23 May 2023 08:35:09 +0200 (CEST)
+ id 4f815fe5-f934-11ed-b22d-6b7b168915f2;
+ Tue, 23 May 2023 08:37:39 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
  by AM7PR04MB6917.eurprd04.prod.outlook.com (2603:10a6:20b:109::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Tue, 23 May
- 2023 06:35:07 +0000
+ 2023 06:37:36 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6411.029; Tue, 23 May 2023
- 06:35:07 +0000
+ 06:37:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,153 +47,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f68f9568-f933-11ed-b22d-6b7b168915f2
+X-Inumbo-ID: 4f815fe5-f934-11ed-b22d-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LYx/c4t7pPeKchveUb5vDidI82L+Z/q82Ve2abZ08Aupg0PVRhruttBIxUeo8RK84qE7Dru+f0Y8T7C2qGe/+8+eUYMVZ7mDm9SBnM33E1sTGcS+TwJVDAXKBZcPfWOZCEpRECXno2aKOKMHZNYycn1A6M0OXL/8EQhtHDjyU0Xq9IkGufv3j61GRoO6qDlWyj1EZOhXQWDkllzj/WV/3MdX61GNSySre3pSZrEO8VqWG6wEo2kyVpzJ6lzsD5uHcUlz/nBd5Ldcz4iHI4OwqymS6jcebyhj/zNQ/gNE1qSmBT+jImU3QJ+lX6AnS7dUOs04NohwLB3aafMG78e7WA==
+ b=fVqYGVueVKHm2FdpUCHNe5c6s7G2UGojoPJb4K54SPWNKUBge+IxhPHhRoeFNo9OjFPhnMHuMU1fWg3Jw8PpeQqC1qHz9S6twTTyW8scj63JzME6V0MNusfkFjcqvng3SMvuIoNkS585pN6/9T+4Fl9UCLLsyV9rH1VpJgDTXMv/BtnOA4vSE51nlD7PtHG+1OOK9nweijhNdQheijasatVIk3PGDhchlDx23SXnUYNURM2HIxFOZ8Soe7d5uhczeH7Vxu6PeapSB7iSSzzXwmmnYWCv35zLsrGYHO9XBMH73R/qRT/bgsTM+bHJgZdptHkkfkHTRaNHKqWY4RXnpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uFGqUfDf30qXhHqeq7tRuoNndDE9UeRpAYnp+oLLIKY=;
- b=b73yHWCxxgjzJ6UbvP/riEr/d9GZKhHAFLyzvOKWZiLC4//00RBHNUCox+RlADLXlKxv82Y5conRXDGAUyfOamlS9lQ/VkIkteQf58e4pXnw3+uN0FfjoUAF5rlUGUAeO4ZKMKeeCefj4KefURyWSz+W4ln7mTJ5pyypBDLjfZgxW6km9QG53fvX6niLg2KNfcyX9YDUjefJqGXbMDocwesiDoJWsNJNQR3YYbOoWQwrJa1rY8w/RlF1hbGnQlWbOrOtOqTLWCGD+5k/Ls/2LScadT8e5bkO2uygWoG/fxcpMR2+aEL/0WTRsXsNmiEsk67mHqwF+ZJun/WJp0m6dg==
+ bh=PJXjn+rwTUfp/opgXzwXVIYfaFyj1aIFXa4K5yGG6qc=;
+ b=E3gQeR0505+O+UxypblUZBULyj3Vrf/0yj+Rg8H1noE37BqF9iZRrhF4lTBymdN3aqd7B1aHqw4XW520apKCzRzxbbNMlCIsGziFjEsbx+dbRPBXMaRvSMXpK8V9CS3MHHrYiP98KEOi12qzwf1PgegI+4c19kHcoTmYLypq39ZFq3zjp30T02D2NJRzQ+ufztcm17J0Kse38zOq22CbRWp4g5EatsDQFVtUYeTlbEQnSDN2gTH5JPjkrDfNPr0m/DSTLFalbKmoblNboEOQ0R+5btKQ1nMc+VdfHOClP3PuXd099aHA13IpmFgBNvr7jaXBAZjeafmw9ovTLc/kEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uFGqUfDf30qXhHqeq7tRuoNndDE9UeRpAYnp+oLLIKY=;
- b=Ndqf5zc0y1Dvdn16Hlou3LzIkOvd22ALP1qs+0QCfd0orWqkg0DzYYpyMbd13PR3Vmm2UcGCwXWrcrRnj1yn/gQTd0VRLdQZSDxRYA2R2NYIkEa/ZhZS125FlFrNMr1qpQS/4lr3X3neaStS9kT2RrfGvLJJs26K7PaXkZdLtKJbmrvVW0OishVHRjIp2SMUn5sjZJvZSq7GMTIFENtW+Z2Z58NBEWuSOHu5K6iB7jQDIv9C5WXBFXpCxzl6yvaLSeA0AwTDUxJSObj1TntBTKTXQuNgS/9w1pm3N9sOZcHlV59rO7XlcEKb00b0NLa9BUDF/MOIukwh1jUXyflbMw==
+ bh=PJXjn+rwTUfp/opgXzwXVIYfaFyj1aIFXa4K5yGG6qc=;
+ b=NNQTQmcoSW1EjJ18O9FFbMjxhFdEufWUle0uw7plEkWgH5wsNFJTo+lFy/xIy3ITae/yKY3OyUUKlFzvLz/vPUjXbOe+Ruza+091HCyM7LIDS7WavOEBrve8ViCfRYpxUi//Exf7HNj9wfK339V51llOeu8HTSO18Y89N6CKMVFbzZNQ80ik6dix8Mq3YGe5ncF47i2ALBYvEBxu9Q14nnm8YL+MybGcO/rx3GRpgUhmqzFvR8yA5GYsVnRbPcOElg95uFOVX7KnQPic1tBzAllCU5EGgeK/9b3j7RfwnjJO97AVVDAIQcfMaYtMLA2moTgceSrmeMNN6u0YCgdwqw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <fc1aca4e-c333-957c-d0e2-bbb4edc7af72@suse.com>
-Date: Tue, 23 May 2023 08:35:05 +0200
+Message-ID: <79859cfb-ab60-8661-e1ec-75fac74531b4@suse.com>
+Date: Tue, 23 May 2023 08:37:35 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v2 00/10] x86: support AVX512-FP16
+Subject: Re: [PATCH v4 09/17] xen/arm: introduce a helper to parse device tree
+ NUMA distance map
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <8cbbab55-d670-5632-30ee-3e8ca352f048@suse.com>
- <d6aa8dee-49e2-1493-adb5-2adb474af067@citrix.com>
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: Wei Chen <Wei.Chen@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <20230425075655.4037980-1-Henry.Wang@arm.com>
+ <20230425075655.4037980-10-Henry.Wang@arm.com>
+ <e03bbb52-1a19-7d18-4abe-75bbef8a0aee@suse.com>
+ <AS8PR08MB799117EDD6BAB892CAB870A192659@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <13635377-e296-370d-121b-5b617dc210bc@suse.com>
+ <AS8PR08MB7991DCE0DFC850FEA920BF8C92659@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <c195ef53-1151-1fb2-0cf9-f6f47d20b75e@suse.com>
+ <AS8PR08MB79919CD7C233345113F8D5C992409@AS8PR08MB7991.eurprd08.prod.outlook.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <d6aa8dee-49e2-1493-adb5-2adb474af067@citrix.com>
+In-Reply-To: <AS8PR08MB79919CD7C233345113F8D5C992409@AS8PR08MB7991.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0044.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0219.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ac::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM7PR04MB6917:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b7fab0a-a5aa-45ca-5c65-08db5b57d99f
+X-MS-Office365-Filtering-Correlation-Id: 01a5d677-36b4-46e8-eb04-08db5b583282
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Kvvpj4Gwf6aRaURS75Q/Z2iZAeoXJLEpA0n98Tjnjqh9V7RPLpRYnTW6H0Sgb6W9pFz1WMW4pL/MAX6OXTeqnqLEv9E4GOjXxKjgHi9y4/B1ArYSoIQlMhKv1M3isMX8RmTORrja5EsLEKoFYl7yd5r8+2CQbc9u0DKvF/z7juf9DLt3qaq9xhsgJzPlZNKcleB4Rf4e4N4extfT6Nh9VrE43tmOZcVOuxmH/DoWKqTBmpA00AWHU6G6BP6AOP92IY8CuXAM7Hr3VC0AFSNf58vOw+ft1C6R1XaHZ6XjCGtqEgU9a5BGRQ9wAIbzE/mbTbxKExcsmr4I61a3PATaByBM5zvrfJZ/xm31y18N0JKV6UPDNeRYk6UHlFLMkizecq8ulYvf3t345t2FIXuYaNmmXWKasjrZus+1QjfrsBnPWmF0dLbQQXb6TFO+0hRWiC1X6mBXRmPyDjxo4XZuEkA4IhpbKMzoW2CY/lBw12rQsP1xAddy/hXZgaXr58i651Wn/1QL48yknxKqlgyHlBbs+/tgFQp2jTw7N4959Z7HBQdOSsEicEns2n0jtX3+kfxg+CZdLdFmNiCalokhA92lRjg29cqa/23LpD6dE6wflDwHSlaSt+M8/S6c8cXvjrKGkIl1/+wd6jm1N02rvw==
+	Ygw5Funxd/0OGx6caZPoLFaNADjfxRJXr+gCrx4YIKiUcND/ueNm+dJmuWBTmDw2sSe3Jr78hJXQxpv1zOPh3Tmz+CMvOqKQ93Yku6z1qaEb3Vj1ZRRqcQ5/r0dRhdW2L7UjAyK9tjKEGAyk++V74vjjhBaE5F/EVHeJQoObiQwtTXTx8wD1mur/fcNfDA6JbhAZpKPA1vKb70y7kOJM1QnboTk8yCZ5DvO6uUwfv7tf/+jKyAwCsSnZ8iHDSh33mXsIMGqXg2mKcmGWHz9wCAt2tRoy+kCc6txNocF2Zekt1a7/jDSI4pZTbhgKdhYFAV7V5rdjjjtzViyE8MKlQPG8KZRczLVJo2vtINIY3haf3raSJfVt2u34f6kP7FcUBjHcnkK9VdzS6Ez82LDJtASikX1Ll9K7/T7/4uwBvXnGBBT4kSpDzrxDMvjSrf3AzadYkyTQeAm9eyxbpAjfwWWBJRLl8KzoeHF89ybfhLLs0sHpeRHXJ5YhaFck5gTwZKkuQaTcKMs+zxuwxG3SPr2wjXA0nHyZq5aI9hDdXNU5vtu278yH9VkRhXT5hJ9p6dDhP1n8y0ayXtGyYCtV+RICu9SbL7Yzl6r7eUhoiuBhQb+V9DGgz+sKadk+Afay7cGTERLhNR9vbeN2pY8acQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39850400004)(396003)(346002)(366004)(376002)(136003)(451199021)(8676002)(8936002)(5660300002)(86362001)(31696002)(966005)(2906002)(53546011)(6512007)(6506007)(26005)(83380400001)(36756003)(2616005)(186003)(4326008)(66476007)(66556008)(66946007)(316002)(54906003)(110136005)(31686004)(38100700002)(478600001)(6486002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39850400004)(396003)(346002)(366004)(376002)(136003)(451199021)(8676002)(8936002)(5660300002)(86362001)(31696002)(2906002)(53546011)(6512007)(6506007)(26005)(83380400001)(36756003)(2616005)(186003)(4326008)(6916009)(66476007)(66556008)(66946007)(316002)(54906003)(31686004)(38100700002)(478600001)(6486002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eThKVzlzcTB4SUNnZDdQUGVXWVdVbkVGWVE0VmdFdHN1Z015d1cwbXEzYmZH?=
- =?utf-8?B?RThZRjRJNGxqYVBCTWR4Q0tCUVM4ZHVNZXJJeGFXMFZzdjNUZ01kN29FdElq?=
- =?utf-8?B?dUJyaEVscDRnam9CQk5Hc3FzRkFuVldqTHN2bmQ4V2psRTljdmRPZFJVbWFP?=
- =?utf-8?B?ZGE2NGRNOXprYXROUVd4YnlTNmlnbCtZblYwQ1BxMlNCenVERkxweE9mT0sx?=
- =?utf-8?B?anhuVG1HTVc3a3Bxa0ViRVAvRTRtU1YvT09YRVZOTnFNZEpsMWtPblAxZ2J6?=
- =?utf-8?B?aDVScXF5cjRPdERyWWlFMEs2aGNVUGZMQUhPM0dhN0JESE9kQUtsUi9BdGxW?=
- =?utf-8?B?MDZHU0pTZG04K1pOY29WTHhGdUNaR1ZqTEpMMUZ0ZEZ6QUJNUktyVXBhS0ZW?=
- =?utf-8?B?VUo1VUhPeHFqUU90cEo3R1NoYk5QNTYvRFVZbTRwcUFoQVZBMkFGWE1HVGY5?=
- =?utf-8?B?Mm1qZ0l4Q1NFTWcvcTgzN2NpcFVRMjNoMVhWUDFGNDBlcmt2UEhvZXdOZ3FS?=
- =?utf-8?B?TWxtM0tjcFlYVVdQai9PU2V1aGt0aG1sYm5EcFJsNXBobHFOVG9naCtzVkxS?=
- =?utf-8?B?NzYwckVnQ2JwMUsrNTlURWZEUGtCU1lnejJxU3QzSG9LTGdCN21FVW5oZ2dz?=
- =?utf-8?B?d3pjVVlMaUFrTU5QY0l0TjhRMDB1Z21WeUQwL3Q1OU5KbTFsbnEzL09hQjcx?=
- =?utf-8?B?MHFUNnE3L0FMVnE3WXdFSElZdndiTFYwWVYwUGV2QUg5MW1Od1J5bWRPdHhy?=
- =?utf-8?B?ZVNiWUk1aG9OL1lrbndxTGtBbmFCU29MUUNLZmpTK3JpUWxlK05tVFVRcGpS?=
- =?utf-8?B?K1FKTXdmY1VFVW1CSlkyZ1BMNTZqWUVxczliQ245d1J5d044dk1IWmJJQ1ZT?=
- =?utf-8?B?VnFKbDg3REZkak5MNVJXdEROcFgzSEk2dXFyMlo3SmNwQnFhYUpWcjJHR2tV?=
- =?utf-8?B?RGNWalJLbE9US2pPdSswS2xDZEtwSzlxSHBWYWQ5TU9EdnBPR252VU1IVTVs?=
- =?utf-8?B?a0p3eUdHS0ZlSlFrSmVVMnFUdlZWVjh3VVVselNWNVhMUFpEZDNBaHZ1NENI?=
- =?utf-8?B?M1BsUllSU3NUNC8zMnNrK3VaWER1VU9oZ1R4MFFveXI5dWVPcEVmOTJsRmxz?=
- =?utf-8?B?RGJ1dGcvMHNaTUtTK3JWRmhNUzljWHFNckhnYklIbWhyRHBkYmRiV0hSUFJC?=
- =?utf-8?B?TytLQTVVRmVDSndxaXE5Y2pnMHdEVDBiYityd0ZaeVNid20vYm1YTlVEQlQr?=
- =?utf-8?B?Nld3MXZpMnVmZkhOSzJuQllCNjZDWGhHNXBWWXAyZlAwWjU1MFgyeittS3dX?=
- =?utf-8?B?Y1FYeHdLSkdMc2FoY1A0RXdLZTZocUtYd0U0dHFUUGFDRVJZUGx6Um5YS09W?=
- =?utf-8?B?NHFCVUlhMFhGb0xaSEozbU1PekdHSHhGVkZGM1RUdGtGQnFRbmd5dHd6ekla?=
- =?utf-8?B?dzFwUDlEL2ZCZVRkUUVSRUlWcEJFTXpGWDByays5dDd1KzIrRGtOSWNwbk1E?=
- =?utf-8?B?OFprRm5pTVliR0dXMWY3NnV0eEtHenR6VHp5cktRZHNib1E2NUZpck1vWGJF?=
- =?utf-8?B?TE5scVp4dE5CNURjMEJJWllueFBmdkxRVEg3TTk4ellsVUYvdE5hNzd6YnZX?=
- =?utf-8?B?ZkRrb2xwaUVzN21pTXJWRGc5OExPL081UnJ6UVAzRzkwY2dmSERtdnl0czBR?=
- =?utf-8?B?NnJ0RG95NFFyVXJCb0oyY0s5aUdGbzMrSk1NM25WOGo4SDJ6YndJVDRUWGpP?=
- =?utf-8?B?KzAwQXA5NGczWnBsRGV4d0FPMGtyNXA5cHNyN1VtUFRySjNlbE1HM1RjcUJ1?=
- =?utf-8?B?L3lSeUJvZE93eXlYUWdONXFFbWE2bmhzNFU5V28vM3h6TDN4OVJWT01nWXY5?=
- =?utf-8?B?N1BlQ2dNb25yZ3hoQXZtaTcrVDBGNTlPSUlsZWJGQjl5VHdtR2YyUkltRU5i?=
- =?utf-8?B?NXhTbmVuM2l1RjRuU3R5c05qUXZlbGJhV3dEZWdXeW84OGM2dDkybGp0UkJR?=
- =?utf-8?B?RmpQVzVDZ2tySlAyY09UWHlMZ1FtNWc3MENMS2Z2Vm5Jand6RlNYVERTcGQ5?=
- =?utf-8?B?NTRza0tzQWduelVFaXU5cHhRTi9jRExON0g3WVJCdXVRemtiUW9QZ2k0SEJh?=
- =?utf-8?Q?gp8XNoXa3KrWS0739AQc6eZCt?=
+	=?utf-8?B?MllCMEUwdEVXQm9GK1lNS2VocEpHSzMzbVkrbFUyc0FCWmhjL1I4RVQrUkVP?=
+ =?utf-8?B?dWdpUzF2OTNRUUt5TElpZHY5U0tvWENwSmt3cXVVL3NLdUxSZFRMeDBoM1RB?=
+ =?utf-8?B?S3hPbGtwR2hpOEY0RDdSWGlHazNpV1VuUWgyN0o2aDNXV2pXSUYvSHZkdjZa?=
+ =?utf-8?B?M2NxcDlwYzl0NTdhMk8zZS9wV2FFVHFLYzA2YkF1b2p6d2l1ZGJUcnUwQzl3?=
+ =?utf-8?B?cnVtRno1R3d1enhxR2REdjhOWjBOU0dyM1BnN2lrSnhwTk5BUWlINXdkMWtv?=
+ =?utf-8?B?bWcxVU04ZDF0VVNsQ1VVcVowdnhSVThTZGdGS2pKcVllN0FCWWxuMElQclFq?=
+ =?utf-8?B?d3lsenFiQk53bU9LVnZMeHE5dmJESERkVFhKM3lyRk9KZUtpSWRvbjBzcVBR?=
+ =?utf-8?B?c1Z6dHM3V21tdGp6RXhiMDE1VjIrOTVJd0hnSm8yL24xdE5sZjNvZzFiTnBR?=
+ =?utf-8?B?bisrZ3dLWW5MZTJGdHUxZ2xRc2pTSnBCVEZ4dkhreWluT2pLZXJjQnZwekh1?=
+ =?utf-8?B?YTArdjl4ZXZWNXh0TDJpYzVMdytJRFRFZzNydG9FaEJSbktiY3kwVzhCSUM3?=
+ =?utf-8?B?N1A2anBud3Ntd3BLZG9CNnNzYm9QV2tuZ05oUi8yQnJpSitaV3NHU2FZMFFN?=
+ =?utf-8?B?ZUtuam50YkVnSEkvL25JelJKMzFzekFSbnBMTHMvZEdRV21kWlFZeVEySDRG?=
+ =?utf-8?B?RnIvTmh0VDh2cHFjUm1PNmkwR3F0OE82bzc0ZURiS0RoSUsxdTFaOW8zUXNv?=
+ =?utf-8?B?NmF1Lzk3K28wQmV2bzlaaWxMQXZsWWl6NEcwRERjUWxIeTdNd040NEFIN0hF?=
+ =?utf-8?B?dkh1L0Y5aUdWeTFsMWk0WGpONTNnWm9DYnZSeHFCbDdIZGpyTmFDUFVZVFd5?=
+ =?utf-8?B?aDlOMitMUXJBNVZLazdsSE9VV2tTSWZESkNzdjdlSjN5UzlzOTlLZGRkUGRq?=
+ =?utf-8?B?Ym40TWE4VkVLWTVnemQ2WUpTMFVBWWgvNVU4TFBpM3R5WFNIRFRyNWJBbkp3?=
+ =?utf-8?B?dFMvaElVR2dwd2kyTkYraktVOS9RZnBsUXNDOGp3bjJLL3hRR0VLS3V4ODdX?=
+ =?utf-8?B?MGdYbjJiWm9TSW9NbWY2T2RxdEp0V3pJSWJ2SE1jZ2s3cVk1cHQwMDV6Y2Rx?=
+ =?utf-8?B?aUlWNWtuSXRZZ1hGSGl3R1FhYTQwTk1rSHphMnpWRXJ2dzAxQ0FhV3BUbk9s?=
+ =?utf-8?B?Qmt3Sy9pQ0xNdE8rV2xNZ2U5YzR6NkFxWWRwZkI0bzQySldhQUYxUUpLcGhB?=
+ =?utf-8?B?ZmJsQUFYQmNHeVJBR05aT1hyMk5ETXhkVjBrWUUyUGVnejNaQk54bnFoMlN6?=
+ =?utf-8?B?WDV2UlV1TkQ4LzJJb3VtU21EOEU1bHFVZ2hDREFBMks3RlF4Zzd0UzM4YWZS?=
+ =?utf-8?B?QWphQXdoZEt6bTFGeWhGNkI3NVBtWFJWL3VQa3ZremFuZXY4b0JLQm5LRFc1?=
+ =?utf-8?B?b2Iza1plbWJpbGVKWWpQSlZoVnF5Z1VuYTVTeDRXOWpCYk5WQUI1NmFHZ0ZU?=
+ =?utf-8?B?NXo5SU40cG95WS9MVi9xZVdYc2xheFMzRVY4cFdlSFRYQnk4S2FBY29ic1k5?=
+ =?utf-8?B?czRZSGdCVW8yTDNEalJLVytQZlNIalZGcTJDNmhNYzRQUUJWcHdMLzlVVnM0?=
+ =?utf-8?B?eGt6SGdTVzZUVXNQRFVad2VuY2R4TXlVTXlDNS9KbVRqTjZKQVVlUE4za0dx?=
+ =?utf-8?B?QmIvOVFqMXcxbEVjSGNONWlJWkJHY3d3ZlgyNTR1NysrbXpUeG9LL1NkQUt6?=
+ =?utf-8?B?dVkrVVY0RUsyUDA2aTJQdXRpVGwrSEtuUjJSNjVLODFPQzRHeVdON1J1QWZz?=
+ =?utf-8?B?U0RkSzVYVnJHVE1Zd3ZPM2p2MUNESlQvbjFBRW1ZWmQ4RVpncTBxdTZERjZM?=
+ =?utf-8?B?VEpRTkovMldBOUduWE1xL095WHpVaWJjczI2aFpSYmJRRXRjb2IxaFNxYy8y?=
+ =?utf-8?B?d1hnNDdITFA1THNMZGJRTGE3SUI3S0ZXOEd2bGljdkR1YzE4dnJhdWR4eXhY?=
+ =?utf-8?B?bHdRSDlJa2F4ejF2UFgzQjRma2pjc2dheVhDOGs0cnlINUZWbzQyUzhYdnFv?=
+ =?utf-8?B?QkNTOGovdElnd1dBZU8rSEprSFlpeXRLWldaanY5dkU2VTF5V2tTejg3b2hz?=
+ =?utf-8?Q?eHqkhK+Qmc6H8WRyqYKCWpKA1?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b7fab0a-a5aa-45ca-5c65-08db5b57d99f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01a5d677-36b4-46e8-eb04-08db5b583282
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2023 06:35:07.6504
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2023 06:37:36.7197
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cAQ7uN90Iayao/2Yn3UYHBN1BDLRD00m8V+EBdOf60Au/l8elZAu2oiva8GucPjtaL3FqhmV2jYo+gRIqrPt9A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: VVvlkm/PH7Ym+aTjUaUfr5/DZo1Q8JICSGxzb3DS+IUEmrgBogSTPKu0xWlbqZnxZfwk2T9q3AFpSdrmadWvfQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6917
 
-On 22.05.2023 18:25, Andrew Cooper wrote:
-> On 03/04/2023 3:56 pm, Jan Beulich wrote:
->> While I (quite obviously) don't have any suitable hardware, Intel's
->> SDE allows testing the implementation. And since there's no new
->> state (registers) associated with this ISA extension, this should
->> suffice for integration.
+On 23.05.2023 08:31, Henry Wang wrote:
+>> -----Original Message-----
+>> Subject: Re: [PATCH v4 09/17] xen/arm: introduce a helper to parse device
+>> tree NUMA distance map
+>>
+>>>>>>> +        /* The default value in node_distance_map is
+>>>> NUMA_NO_DISTANCE
+>>>>>> */
+>>>>>>> +        if ( opposite == NUMA_NO_DISTANCE )
+>>>>>>
+>>>>>> And the matrix you're reading from can't hold NUMA_NO_DISTANCE
+>>>> entries?
+>>>>>> I ask because you don't check this above; you only check against
+>>>>>> NUMA_LOCAL_DISTANCE.
+>>>>>
+>>>>> My understanding for the purpose of this part of code is to check if the
+>>>> opposite
+>>>>> way distance has already been set, so we need to compare the opposite
+>>>> way
+>>>>> distance with the default value NUMA_NO_DISTANCE here.
+>>>>>
+>>>>> Back to your question, I can see your point of the question. However I
+>> don't
+>>>> think
+>>>>> NUMA_NO_DISTANCE is a valid value to describe the node distance in the
+>>>> device
+>>>>> tree. This is because I hunted down the previous discussions and found
+>> [2]
+>>>> about
+>>>>> we should try to keep consistent between the value used in device tree
+>> and
+>>>> ACPI
+>>>>> tables. From the ACPI spec, 0xFF, i.e. NUMA_NO_DISTANCE means
+>>>> unreachable.
+>>>>> I think this is also the reason why NUMA_NO_DISTANCE can be used as
+>> the
+>>>> default
+>>>>> value of the distance map, otherwise we won't have any value to use.
+>>>>
+>>>> The [2] link you provided discusses NUMA_LOCAL_DISTANCE.
+>>>
+>>> I inferred the discussion as "we should try to keep consistent between the
+>> value
+>>> used in device tree and ACPI tables". Maybe my inference is wrong.
+>>>
+>>>> Looking at
+>>>> Linux'es Documentation/devicetree/numa.txt, there's no mention of an
+>>>> upper bound on the distance values. It only says that on the diagonal
+>>>> entries should be 10 (i.e. matching ACPI, without really saying so).
+>>>
+>>> I agree that the NUMA device tree binding is a little bit vague. So I cannot
+>>> say the case that you provided is not valid. I would like to ask Arm
+>> maintainers
+>>> (putting them into To:) opinion on this as I think I am not the one to decide
+>> the
+>>> expected behavior on Arm.
+>>>
+>>> Bertrand/Julien/Stefano: Would you please kindly share your opinion on
+>> which
+>>> value should be used as the default value of the node distance map? Do
+>> you
+>>> think reusing the "unreachable" distance, i.e. 0xFF, as the default node
+>> distance
+>>> is acceptable here? Thanks!
+>>
+>> My suggestion would be to, rather than rejecting values >= 0xff, to saturate
+>> at 0xfe, while keeping 0xff for NUMA_NO_DISTANCE (and overall keeping
+>> things
+>> consistent with ACPI).
 > 
-> I've given this a spin on a Sapphire Rapids system.
-> 
-> Relevant (AFAICT) bits of the log:
-> 
-> Testing vfpclasspsz $0x46,64(%edx),%k2...okay
-> Testing vfpclassphz $0x46,128(%ecx),%k3...okay
-> ...
-> Testing avx512_fp16/all disp8 handling...okay
-> Testing avx512_fp16/128 disp8 handling...okay
-> ...
-> Testing AVX512_FP16 f16 scal native execution...okay
-> Testing AVX512_FP16 f16 scal 64-bit code sequence...okay
-> Testing AVX512_FP16 f16 scal 32-bit code sequence...okay
-> Testing AVX512_FP16 f16x32 native execution...okay
-> Testing AVX512_FP16 f16x32 64-bit code sequence...okay
-> Testing AVX512_FP16 f16x32 32-bit code sequence...okay
-> Testing AVX512_FP16+VL f16x8 native execution...okay
-> Testing AVX512_FP16+VL f16x8 64-bit code sequence...okay
-> Testing AVX512_FP16+VL f16x8 32-bit code sequence...okay
-> Testing AVX512_FP16+VL f16x16 native execution...okay
-> Testing AVX512_FP16+VL f16x16 64-bit code sequence...okay
-> Testing AVX512_FP16+VL f16x16 32-bit code sequence...okay
-> 
-> and it exits zero, so everything seems fine.
-> 
-> 
-> One thing however, this series ups the minimum GCC version required to
-> build the emulator at all:
-> 
-> make: Entering directory '/local/xen.git/tools/tests/x86_emulator'
-> gcc: error: unrecognized command-line option ‘-mavx512fp16’; did you
-> mean ‘-mavx512bf16’?
-> Makefile:121: Test harness not built, use newer compiler than "gcc"
-> (version 10) and an "{evex}" capable assembler
-> 
-> and I'm not sure we want to do this.  When upping the version of GCC but
-> leaving binutils as-was does lead to a build of the harness without
-> AVX512-FP16 active, which is the preferred behaviour here.
+> Since it has been a while and there were no feedback from Arm maintainers,
+> I would like to follow your suggestions for v5. However while I was writing the
+> code for the "saturation", i.e., adding below snippet in numa_set_distance():
+> ```
+> if ( distance > NUMA_NO_DISTANCE )
+>         distance = NUMA_MAX_DISTANCE;
+> ```
+> I noticed an issue which needs your clarification:
+> Currently, the default value of the distance map is NUMA_NO_DISTANCE,
+> which indicates the nodes are not reachable. IMHO, if in device tree, we do
+> saturations like above for ACPI invalid distances (distances >= 0xff), by saturating
+> the distance to 0xfe, we are making the unreachable nodes to reachable. I am
+> not sure if this will lead to problems. Do you have any more thoughts? Thanks!
 
-Well, this series on its own does, but I did notice the issue already.
-Hence "x86emul: rework compiler probing in the test harness" [1].
+I can only answer this with a question back: How is "unreachable" represented
+in DT? Or is "unreachable" simply expressed by the absence of any data?
 
 Jan
-
-[1] https://lists.xen.org/archives/html/xen-devel/2023-03/msg00123.html
 
