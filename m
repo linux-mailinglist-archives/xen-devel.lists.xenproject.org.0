@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D4E070E1F1
-	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 18:38:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.538554.838598 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60E3670E1F3
+	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 18:38:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.538555.838608 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1V1s-00070M-1f; Tue, 23 May 2023 16:38:32 +0000
+	id 1q1V1y-0007MW-Bf; Tue, 23 May 2023 16:38:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 538554.838598; Tue, 23 May 2023 16:38:31 +0000
+Received: by outflank-mailman (output) from mailman id 538555.838608; Tue, 23 May 2023 16:38:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1V1r-0006x1-Tv; Tue, 23 May 2023 16:38:31 +0000
-Received: by outflank-mailman (input) for mailman id 538554;
- Tue, 23 May 2023 16:38:30 +0000
+	id 1q1V1y-0007Jo-5y; Tue, 23 May 2023 16:38:38 +0000
+Received: by outflank-mailman (input) for mailman id 538555;
+ Tue, 23 May 2023 16:38:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UuGZ=BM=citrix.com=prvs=5000a0748=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1q1V1q-0006Dr-EW
- for xen-devel@lists.xenproject.org; Tue, 23 May 2023 16:38:30 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3d9ef1d2-f988-11ed-8611-37d641c3527e;
- Tue, 23 May 2023 18:38:27 +0200 (CEST)
+ id 1q1V1w-0006Dr-3m
+ for xen-devel@lists.xenproject.org; Tue, 23 May 2023 16:38:36 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 415f2f5f-f988-11ed-8611-37d641c3527e;
+ Tue, 23 May 2023 18:38:34 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,56 +36,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d9ef1d2-f988-11ed-8611-37d641c3527e
+X-Inumbo-ID: 415f2f5f-f988-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1684859908;
+  d=citrix.com; s=securemail; t=1684859914;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=gHSnwWQZeNLJTGRbdWUmwUXIbgpyRr1aGRD7CkY8Nag=;
-  b=OQ9nSR56CJY6dCqTZ5z6nG8sF/XtQaMkoABf+s1nP8+/6zPXi1ICl3Y2
-   Im8BPiG1ZwFTBscauCjoPTIJFIgVPjxbTuP0GUTIyWyw9a02bzhIaEskt
-   VTTJJjs18DxMe1TAXL7gt7mmZNZNrNzuzSe6DKkpmjvh/P4RtunucR4vv
-   4=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=IEGR3JC5y7uEKhXS+Y9a7VtCNob5XWmUbPOoOUvPi10=;
+  b=cDkzbdqIILspKHeRoP+W1aLY9tz8Pt3L99A2u5Lx2rOsepGySQEUneJk
+   G1c9gnb+mIYXGzxpg0lGW3M5ACERAWmYWBIktrhCmyKI9fEv95a3viToL
+   CfOVdgsTtVX/QSi5BLtBTadJDwfsaMtkGR4m7TdQKh7UQFWQLwjwcqLbj
+   I=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 110112539
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 112568309
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:lCo++6LMFJBJQso/FE+R2pUlxSXFcZb7ZxGr2PjKsXjdYENShDNWn
- DcaW2qPOKmJMGGgLtx2bty18EsB7JTTyIRrTFFlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrbwP9TlK6q4mhA4wZlPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5JWV1Xs
- tYnJApdLRCOm6Wmwq2xZLhF05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpNU6bC/FMEg5/5JYWleG0hn75YntApUicv6Yf6GnP1g1hlrPqNbI5f/TTHJ0MxxzF/
- TOuE2LRWztECPeTyRS+83+Mhff0wC3VYpggC+jtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHslhwWVsdUEuY6wBqQ0aeS6AGcbkAbShZRZdpgs9U5LQHGz
- XfQwYmvX2Y29uTIFzTErOz8QS6O1TY9Ezc+fGgucgc/s5rjrZ10nhDQRPgyOfvg5jHqIg3Yz
- zePpSk4orwci88Xyqm2lWz6byKQSovhFVBsuFiONo6xxkYgPdP+OdT0gbTOxawYRLt1WGVtq
- 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hP0yT7FWyzyGskTKuMDirjUWGBX
- aMrkVkNjKK/xVPzBUONX6q/Ct4x0Y/rHsn/W/bfY7JmO8YhKFDXpH01NBfIgwgBdXTAdolmY
- /+mnTuEVy5GWcyLMhLtLwvi7VPb7n9nnj6CLXwK5x+mzaCfdBaodFvxC3PXNrpRxPrd8G3oH
- yN3a5PiJ+N3DLevPUE6MOc7cTg3EJTMLcuu8Z0IKbbTc1YO9aNII6a5/I7NsrdNx8x9/tokN
- FnnMqOE4DITXUH6FDg=
-IronPort-HdrOrdr: A9a23:4KA0+qG7d0GSW/a9pLqEGMeALOsnbusQ8zAXPiBKJCC9E/bo8/
- xG+c5w6faaslkssR0b9+xoW5PwJE80l6QFgrX5VI3KNGXbUQ2TTb2KhbGI/9SKIVydygcy78
- ddmtNFebrN5VgRt7eH3OG7eexQv+VuJsqT9JnjJ3QGd3AaV0l5hT0JbDpyiidNNXN77ZxSLu
- vk2uN34wCOVF4wdcqBCnwMT4H41qD2fMKPW29/O/Y/gjP+9g+V1A==
-X-Talos-CUID: 9a23:ohZfuGF0dMTMVjdhqmJZrHINXeoafkeNj3fdPwioC3ljZuy8HAo=
-X-Talos-MUID: 9a23:GBp5vwXBqT4llInq/GbG2g1JOMdG2KWjKEMVqsgIlfOeBzMlbg==
+IronPort-Data: A9a23:GKpitKNvQsKLJbnvrR2tl8FynXyQoLVcMsEvi/4bfWQNrUomhDZTy
+ jYXXGyAPfqNZjH3L953bd/j8RhS6pfcy9c1TQto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/rrRC9H5qyo42tF5AdmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0uBQGlgV6
+ N4REhZTcTuGi/Ky8buJYPY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
+ ZNEN3w2Nk+ojx5nYz/7DLo3mvuogX/uNSVVsluPqYI84nTJzRw327/oWDbQUoXTH5gLzh3A9
+ woq+UynEwgTN9ux4gG5rHaGp8KMkyShdYQdQejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
+ lcI4Ww+oK4q7kupQ9LhGRqirxassgYHXttME8Uz8AyX1rfP+AGdG3QFSThaLtchsacLqScCj
+ wHT2YmzXHo27ePTECjGnluJkd+sES4yNlZZeA0Ndy1b/PLmrJE3vxv9ZMk2RcZZkebJMT33x
+ jmLqg03iLMSkdMH2s2HwLzXv96/jsOXF1Bov207Skrgt1okP9D9O+RE/HCBtZ59wJClok5tV
+ ZTus+yX96gwAJ6Ej0Rhq81dTejyt55p3NAx6GOD/qXNFRz3oxZPnqgKulmSwXuF1e5aEQIFm
+ GeJ5WtsCGZ7ZRNGl5NfbYOrENgNxqP9D9njXf28RoMQMsQuJFfbp3A3PRL4M4XRfK8EyPtXB
+ HtmWZz0USZy5VpPl1JauNvxIZd0n3tjlAs/tLjwzgi90Kr2WUN5vYwtaQPUBshgtfPsnekg2
+ 4oHXyd840kFAbKWj+i+2dJ7EG3m2lBgXcqn9JMPJr/fSuekcUl4Y8LsLXoaU9QNt8xoei3gp
+ RlRhmcwJILDuED6
+IronPort-HdrOrdr: A9a23:ZH80mahGIJG3ZyMc8MxBHr1FMnBQXrkji2hC6mlwRA09TyX4ra
+ CTdZEgviMc5wx9ZJhNo7q90cq7IE80i6Qb3WB5B97LYOCMggeVxe9Zg7ff/w==
+X-Talos-CUID: 9a23:BCGbFG/R8fdHfma3dIaVv0gzAfl+b1/U9lGOPGS9BXZtebSnY0DFrQ==
+X-Talos-MUID: 9a23:U3QjYwnkB/TNRTWZubgZdno8Jd5h4KOAI3sxz5EsmuTHOysqFjGS2WE=
 X-IronPort-AV: E=Sophos;i="6.00,186,1681185600"; 
-   d="scan'208";a="110112539"
+   d="scan'208";a="112568309"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>
-Subject: [XEN PATCH 03/15] build, x86: clean build log for boot/ targets
-Date: Tue, 23 May 2023 17:37:59 +0100
-Message-ID: <20230523163811.30792-4-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>
+Subject: [XEN PATCH 04/15] build: hide policy.bin commands
+Date: Tue, 23 May 2023 17:38:00 +0100
+Message-ID: <20230523163811.30792-5-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523163811.30792-1-anthony.perard@citrix.com>
 References: <20230523163811.30792-1-anthony.perard@citrix.com>
@@ -93,48 +89,38 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-We are adding %.lnk to .PRECIOUS or make treat them as intermediate
-targets and remove them.
+Instead, show only when "policy.bin" is been updated.
+
+We still have the full command from the flask/policy Makefile, but we
+can't change that Makefile.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/arch/x86/boot/Makefile | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ xen/xsm/flask/Makefile | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-index 03d8ce3a9e..2693b938bd 100644
---- a/xen/arch/x86/boot/Makefile
-+++ b/xen/arch/x86/boot/Makefile
-@@ -5,6 +5,8 @@ head-bin-objs := cmdline.o reloc.o
- nocov-y   += $(head-bin-objs)
- noubsan-y += $(head-bin-objs)
- targets   += $(head-bin-objs)
-+targets   += $(head-bin-objs:.o=.bin)
-+targets   += $(head-bin-objs:.o=.lnk)
+diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
+index 3fdcf7727e..fc44ad684f 100644
+--- a/xen/xsm/flask/Makefile
++++ b/xen/xsm/flask/Makefile
+@@ -48,10 +48,15 @@ targets += flask-policy.S
+ FLASK_BUILD_DIR := $(abs_objtree)/$(obj)
+ POLICY_SRC := $(FLASK_BUILD_DIR)/xenpolicy-$(XEN_FULLVERSION)
  
- head-bin-objs := $(addprefix $(obj)/,$(head-bin-objs))
++policy_chk = \
++    $(Q)if ! cmp -s $(POLICY_SRC) $@; then \
++        $(kecho) '  UPD     $@'; \
++        cp $(POLICY_SRC) $@; \
++    fi
+ $(obj)/policy.bin: FORCE
+-	$(MAKE) -f $(XEN_ROOT)/tools/flask/policy/Makefile.common \
++	$(Q)$(MAKE) -f $(XEN_ROOT)/tools/flask/policy/Makefile.common \
+ 	        -C $(XEN_ROOT)/tools/flask/policy \
+ 	        FLASK_BUILD_DIR=$(FLASK_BUILD_DIR) POLICY_FILENAME=$(POLICY_SRC)
+-	cmp -s $(POLICY_SRC) $@ || cp $(POLICY_SRC) $@
++	$(call policy_chk)
  
-@@ -26,10 +28,16 @@ $(head-bin-objs): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
- LDFLAGS_DIRECT-$(call ld-option,--warn-rwx-segments) := --no-warn-rwx-segments
- LDFLAGS_DIRECT += $(LDFLAGS_DIRECT-y)
- 
--%.bin: %.lnk
--	$(OBJCOPY) -j .text -O binary $< $@
-+%.bin: OBJCOPYFLAGS := -j .text -O binary
-+%.bin: %.lnk FORCE
-+	$(call if_changed,objcopy)
- 
--%.lnk: %.o $(src)/build32.lds
--	$(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT)) -N -T $(filter %.lds,$^) -o $@ $<
-+quiet_cmd_ld_lnk_o = LD      $@
-+cmd_ld_lnk_o = $(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT)) -N -T $(filter %.lds,$^) -o $@ $<
-+
-+%.lnk: %.o $(src)/build32.lds FORCE
-+	$(call if_changed,ld_lnk_o)
- 
- clean-files := *.lnk *.bin
-+
-+.PRECIOUS: %.lnk
+ clean-files := policy.* $(POLICY_SRC)
 -- 
 Anthony PERARD
 
