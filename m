@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60E3670E1F3
-	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 18:38:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.538555.838608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6447970E1F9
+	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 18:39:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.538567.838668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1V1y-0007MW-Bf; Tue, 23 May 2023 16:38:38 +0000
+	id 1q1V2J-00023q-Q6; Tue, 23 May 2023 16:38:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 538555.838608; Tue, 23 May 2023 16:38:38 +0000
+Received: by outflank-mailman (output) from mailman id 538567.838668; Tue, 23 May 2023 16:38:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1V1y-0007Jo-5y; Tue, 23 May 2023 16:38:38 +0000
-Received: by outflank-mailman (input) for mailman id 538555;
- Tue, 23 May 2023 16:38:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q1V2J-0001x6-L5; Tue, 23 May 2023 16:38:59 +0000
+Received: by outflank-mailman (input) for mailman id 538567;
+ Tue, 23 May 2023 16:38:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UuGZ=BM=citrix.com=prvs=5000a0748=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1q1V1w-0006Dr-3m
- for xen-devel@lists.xenproject.org; Tue, 23 May 2023 16:38:36 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 415f2f5f-f988-11ed-8611-37d641c3527e;
- Tue, 23 May 2023 18:38:34 +0200 (CEST)
+ id 1q1V2H-0006Dq-Ij
+ for xen-devel@lists.xenproject.org; Tue, 23 May 2023 16:38:57 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4e613f36-f988-11ed-b22d-6b7b168915f2;
+ Tue, 23 May 2023 18:38:56 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,52 +36,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 415f2f5f-f988-11ed-8611-37d641c3527e
+X-Inumbo-ID: 4e613f36-f988-11ed-b22d-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1684859914;
+  d=citrix.com; s=securemail; t=1684859936;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=IEGR3JC5y7uEKhXS+Y9a7VtCNob5XWmUbPOoOUvPi10=;
-  b=cDkzbdqIILspKHeRoP+W1aLY9tz8Pt3L99A2u5Lx2rOsepGySQEUneJk
-   G1c9gnb+mIYXGzxpg0lGW3M5ACERAWmYWBIktrhCmyKI9fEv95a3viToL
-   CfOVdgsTtVX/QSi5BLtBTadJDwfsaMtkGR4m7TdQKh7UQFWQLwjwcqLbj
-   I=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=1S/PIs/4N3VAkKwJ+CBkSKlCj5ulIeeoVMLk5Q/XC08=;
+  b=ReGjuiPeDNGs5/wWMLup3ywIS2NAdQ8aqbibv7LZRQ2OZr2HV2MwNDrF
+   T7Xn86TkJ8VO3jIu3ONEOC6u8iQEECaz5PhjkE4W8PLFtL+ZD+PhCCzed
+   r7K7+pVWaEFz21b2BkFTVXMG/x8/cjcOUM/h6PK/e0HDGjfkqNA+kb3/K
+   Q=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 112568309
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 109985443
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:GKpitKNvQsKLJbnvrR2tl8FynXyQoLVcMsEvi/4bfWQNrUomhDZTy
- jYXXGyAPfqNZjH3L953bd/j8RhS6pfcy9c1TQto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGjxSs/rrRC9H5qyo42tF5AdmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0uBQGlgV6
- N4REhZTcTuGi/Ky8buJYPY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w2Nk+ojx5nYz/7DLo3mvuogX/uNSVVsluPqYI84nTJzRw327/oWDbQUoXTH5gLzh3A9
- woq+UynEwgTN9ux4gG5rHaGp8KMkyShdYQdQejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
- lcI4Ww+oK4q7kupQ9LhGRqirxassgYHXttME8Uz8AyX1rfP+AGdG3QFSThaLtchsacLqScCj
- wHT2YmzXHo27ePTECjGnluJkd+sES4yNlZZeA0Ndy1b/PLmrJE3vxv9ZMk2RcZZkebJMT33x
- jmLqg03iLMSkdMH2s2HwLzXv96/jsOXF1Bov207Skrgt1okP9D9O+RE/HCBtZ59wJClok5tV
- ZTus+yX96gwAJ6Ej0Rhq81dTejyt55p3NAx6GOD/qXNFRz3oxZPnqgKulmSwXuF1e5aEQIFm
- GeJ5WtsCGZ7ZRNGl5NfbYOrENgNxqP9D9njXf28RoMQMsQuJFfbp3A3PRL4M4XRfK8EyPtXB
- HtmWZz0USZy5VpPl1JauNvxIZd0n3tjlAs/tLjwzgi90Kr2WUN5vYwtaQPUBshgtfPsnekg2
- 4oHXyd840kFAbKWj+i+2dJ7EG3m2lBgXcqn9JMPJr/fSuekcUl4Y8LsLXoaU9QNt8xoei3gp
- RlRhmcwJILDuED6
-IronPort-HdrOrdr: A9a23:ZH80mahGIJG3ZyMc8MxBHr1FMnBQXrkji2hC6mlwRA09TyX4ra
- CTdZEgviMc5wx9ZJhNo7q90cq7IE80i6Qb3WB5B97LYOCMggeVxe9Zg7ff/w==
-X-Talos-CUID: 9a23:BCGbFG/R8fdHfma3dIaVv0gzAfl+b1/U9lGOPGS9BXZtebSnY0DFrQ==
-X-Talos-MUID: 9a23:U3QjYwnkB/TNRTWZubgZdno8Jd5h4KOAI3sxz5EsmuTHOysqFjGS2WE=
+IronPort-Data: A9a23:n7tHLaiFli/lPQhkHvJ7ujoCX161UhAKZh0ujC45NGQN5FlHY01je
+ htvWmGFOv2LZmD8fYp+OYy18BhS6MPdnIRlGQJo/ClnRi4b9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsx+qyq0N8klgZmP6sT4QWFzyN94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQ2GQg0Nlezl96MzbTgEbNLgNQRBZDSadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XejtEqFWTtOwv7nLa1gBZ27nxKtvFPNeNQK25m27B/
+ jOXrzmlXkpy2Nq3kCq0+G6vn9XzmhzmZ4ApHq2jq8BonwjGroAUIEJPDgbqyRWjsWa8RtZeJ
+ ko86ico668o+ySDTNPwQhm5q36spQMHVpxbFOhSwB6J4rrZ5UCeHGdsZiVadNUsucsyRDor/
+ lyEhdXkAXpoqrL9YWKQ8PKYoC2/PQARLHQefmkUQA0d+d7hrYovyBXVQb5e/LWd14OvX2uqm
+ nbT8XZ43u9I5SIW60ml1X72uwv04ajZcjQ44F6MBEWj/jFQPbfwMuRE9mPnxfpHKY+YSHyIs
+ 34Fh9WS4YgyMH2dqMCeaL5TRe/0vp5pJBWZ2AcyRMd5q1xB7lb5JehtDCdCyFCF2yruURvge
+ wfttAxY//e/11P6PPYsM+pd5ynHpJUM9OgJtNiONrKigbArLmdrGR2CgmbOt10BaGB2zckC1
+ W6zKK5A90oyB6V91yaRTOwAy7ItzS1W7TqNFcykn0z7iuvHPCL9pVI53LymN7pR0U95iF+Nr
+ 4Y32zWikH2zr9ESkgGIqNVOfDjm3FAwBIzsqtw/S9Nv1jFOQTl7Y9eImONJRmCQt/gN/gs+1
+ i3nCxAwJZuWrSGvFDhmnVg4MOm+Askn/SNnVcHuVH7xs0UejU+UxP93X/MKkXMPrbELISJcJ
+ xXdR/i9Pw==
+IronPort-HdrOrdr: A9a23:U9TLsKoPt5qbgWg/NZ2IesAaV5oTeYIsimQD101hICG8cqSj+f
+ xG+85rsyMc6QxhIE3I9urhBEDtex/hHNtOkOws1NSZLW7bUQmTXeJfBOLZqlWKcUDDH6xmpM
+ NdmsBFeaTN5DNB7PoSjjPWLz9Z+qjkzJyV
+X-Talos-CUID: 9a23:dGDAdWBLlX3GBFT6EwdWzHdMXfA1TkfQyiyLeWi+GVRAEYTAHA==
+X-Talos-MUID: 9a23:1zO0yQaC0Av2oOBT7i/dji1hLf1U5JuzN0I2m4Ud5veGKnkl
 X-IronPort-AV: E=Sophos;i="6.00,186,1681185600"; 
-   d="scan'208";a="112568309"
+   d="scan'208";a="109985443"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>
-Subject: [XEN PATCH 04/15] build: hide policy.bin commands
-Date: Tue, 23 May 2023 17:38:00 +0100
-Message-ID: <20230523163811.30792-5-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [XEN PATCH 05/15] build: introduce a generic command for gzip
+Date: Tue, 23 May 2023 17:38:01 +0100
+Message-ID: <20230523163811.30792-6-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523163811.30792-1-anthony.perard@citrix.com>
 References: <20230523163811.30792-1-anthony.perard@citrix.com>
@@ -89,38 +93,53 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Instead, show only when "policy.bin" is been updated.
-
-We still have the full command from the flask/policy Makefile, but we
-can't change that Makefile.
+Make the gzip command generic and use -9 which wasn't use for
+config.gz. (xen.gz does use -9)
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/xsm/flask/Makefile | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ xen/Rules.mk        | 5 +++++
+ xen/common/Makefile | 8 ++++----
+ 2 files changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
-index 3fdcf7727e..fc44ad684f 100644
---- a/xen/xsm/flask/Makefile
-+++ b/xen/xsm/flask/Makefile
-@@ -48,10 +48,15 @@ targets += flask-policy.S
- FLASK_BUILD_DIR := $(abs_objtree)/$(obj)
- POLICY_SRC := $(FLASK_BUILD_DIR)/xenpolicy-$(XEN_FULLVERSION)
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index 59072ae8df..68b10ca5ef 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -63,6 +63,11 @@ cmd_objcopy = $(OBJCOPY) $(OBJCOPYFLAGS) $< $@
+ quiet_cmd_binfile = BINFILE $@
+ cmd_binfile = $(SHELL) $(srctree)/tools/binfile $(BINFILE_FLAGS) $@ $(2)
  
-+policy_chk = \
-+    $(Q)if ! cmp -s $(POLICY_SRC) $@; then \
-+        $(kecho) '  UPD     $@'; \
-+        cp $(POLICY_SRC) $@; \
-+    fi
- $(obj)/policy.bin: FORCE
--	$(MAKE) -f $(XEN_ROOT)/tools/flask/policy/Makefile.common \
-+	$(Q)$(MAKE) -f $(XEN_ROOT)/tools/flask/policy/Makefile.common \
- 	        -C $(XEN_ROOT)/tools/flask/policy \
- 	        FLASK_BUILD_DIR=$(FLASK_BUILD_DIR) POLICY_FILENAME=$(POLICY_SRC)
--	cmp -s $(POLICY_SRC) $@ || cp $(POLICY_SRC) $@
-+	$(call policy_chk)
++# gzip
++quiet_cmd_gzip = GZIP    $@
++cmd_gzip = \
++    cat $(real-prereqs) | gzip -n -f -9 > $@
++
+ # Figure out what we need to build from the various variables
+ # ===========================================================================
  
- clean-files := policy.* $(POLICY_SRC)
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index 46049eac35..f45f19c391 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -78,13 +78,13 @@ obj-$(CONFIG_NEEDS_LIBELF) += libelf/
+ obj-$(CONFIG_HAS_DEVICE_TREE) += libfdt/
+ 
+ CONF_FILE := $(if $(patsubst /%,,$(KCONFIG_CONFIG)),$(objtree)/)$(KCONFIG_CONFIG)
+-$(obj)/config.gz: $(CONF_FILE)
+-	gzip -n -c $< >$@
++$(obj)/config.gz: $(CONF_FILE) FORCE
++	$(call if_changed,gzip)
++
++targets += config.gz
+ 
+ $(obj)/config_data.o: $(obj)/config.gz
+ 
+ $(obj)/config_data.S: $(srctree)/tools/binfile FORCE
+ 	$(call if_changed,binfile,$(obj)/config.gz xen_config_data)
+ targets += config_data.S
+-
+-clean-files := config.gz
 -- 
 Anthony PERARD
 
