@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D4D270E20C
-	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 18:47:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.538601.838714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E481670E1FB
+	for <lists+xen-devel@lfdr.de>; Tue, 23 May 2023 18:39:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.538571.838675 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1VAd-0006ii-AZ; Tue, 23 May 2023 16:47:35 +0000
+	id 1q1V2K-0002B7-C3; Tue, 23 May 2023 16:39:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 538601.838714; Tue, 23 May 2023 16:47:35 +0000
+Received: by outflank-mailman (output) from mailman id 538571.838675; Tue, 23 May 2023 16:39:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1VAd-0006de-44; Tue, 23 May 2023 16:47:35 +0000
-Received: by outflank-mailman (input) for mailman id 538601;
- Tue, 23 May 2023 16:47:33 +0000
+	id 1q1V2K-000240-2g; Tue, 23 May 2023 16:39:00 +0000
+Received: by outflank-mailman (input) for mailman id 538571;
+ Tue, 23 May 2023 16:38:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=UuGZ=BM=citrix.com=prvs=5000a0748=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1q1V2Q-0006Dr-EE
- for xen-devel@lists.xenproject.org; Tue, 23 May 2023 16:39:06 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5365c366-f988-11ed-8611-37d641c3527e;
- Tue, 23 May 2023 18:39:04 +0200 (CEST)
+ id 1q1V2I-0006Dr-Ua
+ for xen-devel@lists.xenproject.org; Tue, 23 May 2023 16:38:59 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4eed198e-f988-11ed-8611-37d641c3527e;
+ Tue, 23 May 2023 18:38:56 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,56 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5365c366-f988-11ed-8611-37d641c3527e
+X-Inumbo-ID: 4eed198e-f988-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1684859944;
+  d=citrix.com; s=securemail; t=1684859936;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=CUr6Ia8hka4MDdYyEkCHkmCAcxvFP9VRnjNhVX7Kyj0=;
-  b=QrX94MT2nLvMK7ov1dkRAEoc7v/E8vKdoyPHO/DszDViYpBAmSD6Jnx2
-   f8AzT8AZAVMeNCO73ZuztKU1D+10yFDHPwjlIOZRyuzDPY+JhihJ/tBbU
-   roLvkU/BUpSneGTVrFzSHhEWn10AsxXKZYkt9nL0o+oSTXOQOflXiJa3c
-   U=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=NQbxeavhneBRrc5N4TAMJ536RafB9YjyOc/ENwv/Ymk=;
+  b=NGpLfxnujMQzESbFl3zoFl5z7trgZIOTN6hOAGjwMxY0S+rfik8Wmfoy
+   Wa3N1jdv8NfpKDeiDMZcYr8sj0JHLWKwFLNeGWt2JZ3X4iHr3frqLHFL6
+   XAnUL2Hk9thB98XIaL88gNqazvt7U0FR28RrZDeX6CrT2MN3Hs4HUK9MZ
+   c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 108859061
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 109985465
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:D/UT8aIYpTbgJanbFE+R4pUlxSXFcZb7ZxGr2PjKsXjdYENS1DMPm
- mZKCm7Qb62PZGXxfohyPNy2oUpX68fUy4JmSAtlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrbwP9TlK6q4mhA4wZlPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5HX2xi/
- uEJFgscMEGmitOsm7uXds1V05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpNU6bC/FMEg5/5JYWleG0hn75YntApUicv6Yf6GnP1g1hlrPqNbI5f/TTHZUFwxfA+
- DuuE2LREChKNMSNlyi86V2zrLXGnir0c78NLejtnhJtqALKnTFCYPEMbnOguuWwgEO6X9NZK
- mQX9zAooKx081akJvH/Qhm5rXisrhMaHd1KHIUS9wWl2qfSpQGDCQAsTDRMddgnv88eXiEx2
- xmCmNaBLSxitviZRGyQ8p+QrCiuIm4FIGkafygGQAAZpd75r+kOYgnnF4g5VvTv15usRG+2m
- mrRxMQju1kNpf5V2omw4EH5uCPy973EfxRu7ynrelvwu2uVe7WZT4Cv7FHa69NJI4CYUkSNs
- RA4piSO0AwdJcrTzXLQGY3hCJnsvq/Ya2OE3TaDCrF7r1yQF2ifkZe8Cd2UDGNgKY46dDDge
- yc/UisBtcYIbBNGgUKaCr9d6vjGL4C6TbwJtdiONLKih6SdkyfZlByCnWbKgwjQfLEEyMnTw
- 6uzf8e2Fmo9Aq961jewTOp1+eZ1lnxhlTuPHsGil0jPPV+iiJm9EO1tDbdzRrphsPPsTPv9q
- L6zyPdmOz0ACbajM0E7AKYYLEwQLGhTOK0aX/d/L7bZSiI/QTFJNhMk6e95E2CTt/gPx7igE
- 7DUchMw9WcTclWccV/bNS87OOKzNXu9xFpiVRER0Z+T8yBLSe6SAG03J/PboZFPGDRf8MNJ
-IronPort-HdrOrdr: A9a23:xHAr66iFYpiKja7gCBVG0uA6YXBQXuIji2hC6mlwRA09TySZ//
- rBoB19726TtN9xYgBZpTnuAsm9qB/nmaKdpLNhWItKPzOW31dATrsSjrcKqgeIc0aVm9K1l5
- 0QF5SWYOeAdGSS5vya3ODXKbkdKaG8gcKVuds=
-X-Talos-CUID: 9a23:LWJsim4kRj7cSE9xI9ssxBAZNss4Y0Pm3SmBBkKJEz1gZIGxcArF
-X-Talos-MUID: 9a23:rxKyPgjR7Zoc9PX/l/qAdcMpJv4447y8VlI0iroZkZONNiV/EAqCtWHi
+IronPort-Data: A9a23:xTHf2qoAs4rTChhkO6Qj8ZBj5lFeBmKqZRIvgKrLsJaIsI4StFCzt
+ garIBnSOfaLNGv2Ltojb9i08E9Tvp7Rm4VnSQJq+301FXkRo5uZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GtwUmAWP6gR5weDzSJNVvrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXACAJYhTel/KH+uKEd6psvM0lIszVLIxK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVRrk6VoqwmpXDe1gVr3JDmMcbPe8zMTsJQ9qqdj
+ juerjWpX01EabRzzxKp/3S+pMrGzBrdXYsLEKyH8/p3rn+Mkzl75Bo+CgLg/KjRZlSFc+xYL
+ 0sY6y8/t58Y/UagTsT+dxCgqXvCtRkZM/JaHvcm8giLxuzR6hyAG2kfZjdbbZots8pebSMu/
+ k+EmZXuHzMHmLeSQ3iM+6yUqT63MC49ImoLZCtCRgwAi/Hop4c1iRDDR8hiC4a6i9T0HXf7x
+ DXihCE6hq4PhM8Rkauh9FbMgimEuZTCCAUy423/Tm+jqw90eoOhT4ip8kTAq+ZNKp6DSVuMt
+ 2RCnNKRhMgVFo2EniGJROQLHZmq6uyDPTmahkRgd7Ej6jCs9niLbY1WpjZkKy9BMMwJZDvoa
+ 0/7oh5K6dlYO37CUENsS9vvUYJwl/GmTIm7EKmONbKif6SdaieX+C1qOF6A7lq9r3VvkZs2P
+ 5meT9ajWCNy5btc8BK6QOIU0LkOzy84xH/OSZ2T8ylLwYZyd1bOF+5bbQLmgvQRqfrd/V6Lq
+ 4o3296ikU03bQHoXsXAHWf/x3guJGNzO535otc/mgWrcls/QzFJ5xM8LNocl21Zc0Z9zL+gE
+ pKVABUwJL/DaZrvd223hohLMu+HYHqGhStT0dYQFVipwWM/Ro2k8b0ScZA6FZF+qrw/kq4sE
+ 6JUIp3cahiqdtgg021HBaQRUaQ4LEj77e5wF3HNjMcDk25IGFWSp46MkvrH/ygSFCun3fYDT
+ 0mb/lqDG/IrHl0yZPs6ndrzlztdS1BBwrMtN6YJS/EPEHjRHH9CcHSr36Boe5FddX0uBFKyj
+ m6rPPvRnsGVy6ddzTUDrfrUx2t1O4OSxnZnIlQ=
+IronPort-HdrOrdr: A9a23:Purub6ixrSIPgfr7MA8h30qkinBQXioji2hC6mlwRA09TyX5ra
+ 2TdZUgpHvJYVMqMk3I9uruBEDtex3hHP1OkOws1NWZLWrbUQKTRekP0WKF+Vzd8kXFndK1vp
+ 0QEZSWZueRMbEAt7ec3OG5eexQvOVu8sqT9JjjJ6EGd3AVV0lihT0JezpyCidNNW977QJSLu
+ vn2iJAzQDQAEg/X4CAKVQuefPMnNHPnIKOW296O/Z2gDP+9Q9B8dTBYmOl4is=
+X-Talos-CUID: 9a23:zQciRGOW3sj4YO5DSC1r8BMECvEfIkLgj3fqKkm2DFh5R+jA
+X-Talos-MUID: 9a23:bvn3Dwk6E3u5H3vQ4n4bdnpOOcF6wYGnWXkrlJwfv9i7MChtFRWC2WE=
 X-IronPort-AV: E=Sophos;i="6.00,186,1681185600"; 
-   d="scan'208";a="108859061"
+   d="scan'208";a="109985465"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
  Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+	<alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH 10/15] build: rename $(AFLAGS) to $(XEN_AFLAGS)
-Date: Tue, 23 May 2023 17:38:06 +0100
-Message-ID: <20230523163811.30792-11-anthony.perard@citrix.com>
+Subject: [XEN PATCH 11/15] build: rename CFLAGS to XEN_CFLAGS in xen/Makefile
+Date: Tue, 23 May 2023 17:38:07 +0100
+Message-ID: <20230523163811.30792-12-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20230523163811.30792-1-anthony.perard@citrix.com>
 References: <20230523163811.30792-1-anthony.perard@citrix.com>
@@ -93,74 +100,273 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-We don't want the AFLAGS from the environment, they are usually meant
-to build user space application and not for the hypervisor.
-
-Config.mk doesn't provied any $(AFLAGS) so we can start a fresh
-$(XEN_AFLAGS).
+This is a preparatory patch. A future patch will not even use
+$(CFLAGS) to seed $(XEN_CFLAGS).
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/Makefile         | 10 ++++++----
- xen/arch/x86/arch.mk |  2 +-
- 2 files changed, 7 insertions(+), 5 deletions(-)
+ xen/Makefile           | 41 ++++++++++++++---------------
+ xen/arch/arm/arch.mk   |  4 +--
+ xen/arch/riscv/arch.mk |  4 +--
+ xen/arch/x86/arch.mk   | 58 +++++++++++++++++++++---------------------
+ 4 files changed, 54 insertions(+), 53 deletions(-)
 
 diff --git a/xen/Makefile b/xen/Makefile
-index 127c0e40b5..c4a83fca76 100644
+index c4a83fca76..b3bffe8c6f 100644
 --- a/xen/Makefile
 +++ b/xen/Makefile
-@@ -258,6 +258,8 @@ export KBUILD_DEFCONFIG := $(ARCH)_defconfig
- # reparsing Config.mk by e.g. arch/x86/boot/.
+@@ -259,6 +259,7 @@ export KBUILD_DEFCONFIG := $(ARCH)_defconfig
  export XEN_TREEWIDE_CFLAGS := $(CFLAGS)
  
-+XEN_AFLAGS =
-+
+ XEN_AFLAGS =
++XEN_CFLAGS = $(CFLAGS)
+ 
  # CLANG_FLAGS needs to be calculated before calling Kconfig
  ifneq ($(shell $(CC) --version 2>&1 | head -n 1 | grep clang),)
- CLANG_FLAGS :=
-@@ -412,9 +414,9 @@ ifneq ($(CONFIG_CC_IS_CLANG),y)
- CFLAGS += -Wa,--strip-local-absolute
+@@ -284,7 +285,7 @@ CLANG_FLAGS += $(call or,$(t1),$(t2),$(t3))
  endif
  
--AFLAGS += -D__ASSEMBLY__
-+XEN_AFLAGS += -D__ASSEMBLY__
+ CLANG_FLAGS += -Werror=unknown-warning-option
+-CFLAGS += $(CLANG_FLAGS)
++XEN_CFLAGS += $(CLANG_FLAGS)
+ export CLANG_FLAGS
+ endif
  
--$(call cc-option-add,AFLAGS,CC,-Wa$(comma)--noexecstack)
-+$(call cc-option-add,XEN_AFLAGS,CC,-Wa$(comma)--noexecstack)
+@@ -293,7 +294,7 @@ ifeq ($(call ld-ver-build-id,$(LD)),n)
+ XEN_LDFLAGS_BUILD_ID :=
+ XEN_HAS_BUILD_ID := n
+ else
+-CFLAGS += -DBUILD_ID
++XEN_CFLAGS += -DBUILD_ID
+ XEN_TREEWIDE_CFLAGS += -DBUILD_ID
+ XEN_HAS_BUILD_ID := y
+ XEN_LDFLAGS_BUILD_ID := --build-id=sha1
+@@ -388,30 +389,30 @@ include/config/%.conf include/config/%.conf.cmd: $(KCONFIG_CONFIG)
+ 	$(Q)$(MAKE) $(build)=tools/kconfig syncconfig
+ 
+ ifeq ($(CONFIG_DEBUG),y)
+-CFLAGS += -O1
++XEN_CFLAGS += -O1
+ else
+-CFLAGS += -O2
++XEN_CFLAGS += -O2
+ endif
+ 
+ ifeq ($(CONFIG_FRAME_POINTER),y)
+-CFLAGS += -fno-omit-frame-pointer
++XEN_CFLAGS += -fno-omit-frame-pointer
+ else
+-CFLAGS += -fomit-frame-pointer
++XEN_CFLAGS += -fomit-frame-pointer
+ endif
+ 
+ CFLAGS-$(CONFIG_CC_SPLIT_SECTIONS) += -ffunction-sections -fdata-sections
+ 
+-CFLAGS += -nostdinc -fno-builtin -fno-common
+-CFLAGS += -Werror -Wredundant-decls -Wno-pointer-arith
+-$(call cc-option-add,CFLAGS,CC,-Wvla)
+-CFLAGS += -pipe -D__XEN__ -include $(srctree)/include/xen/config.h
++XEN_CFLAGS += -nostdinc -fno-builtin -fno-common
++XEN_CFLAGS += -Werror -Wredundant-decls -Wno-pointer-arith
++$(call cc-option-add,XEN_CFLAGS,CC,-Wvla)
++XEN_CFLAGS += -pipe -D__XEN__ -include $(srctree)/include/xen/config.h
+ CFLAGS-$(CONFIG_DEBUG_INFO) += -g
+ 
+ ifneq ($(CONFIG_CC_IS_CLANG),y)
+ # Clang doesn't understand this command line argument, and doesn't appear to
+ # have a suitable alternative.  The resulting compiled binary does function,
+ # but has an excessively large symbol table.
+-CFLAGS += -Wa,--strip-local-absolute
++XEN_CFLAGS += -Wa,--strip-local-absolute
+ endif
+ 
+ XEN_AFLAGS += -D__ASSEMBLY__
+@@ -420,14 +421,14 @@ $(call cc-option-add,XEN_AFLAGS,CC,-Wa$(comma)--noexecstack)
  
  LDFLAGS-$(call ld-option,--warn-rwx-segments) += --no-warn-rwx-segments
  
-@@ -425,7 +427,7 @@ CFLAGS += $(EXTRA_CFLAGS_XEN_CORE)
+-CFLAGS += $(CFLAGS-y)
++XEN_CFLAGS += $(CFLAGS-y)
+ # allow extra CFLAGS externally via EXTRA_CFLAGS_XEN_CORE
+-CFLAGS += $(EXTRA_CFLAGS_XEN_CORE)
++XEN_CFLAGS += $(EXTRA_CFLAGS_XEN_CORE)
+ 
  # Most CFLAGS are safe for assembly files:
  #  -std=gnu{89,99} gets confused by #-prefixed end-of-line comments
  #  -flto makes no sense and annoys clang
--AFLAGS += $(filter-out -std=gnu% -flto,$(CFLAGS)) $(AFLAGS-y)
-+XEN_AFLAGS += $(filter-out -std=gnu% -flto,$(CFLAGS)) $(AFLAGS-y)
+-XEN_AFLAGS += $(filter-out -std=gnu% -flto,$(CFLAGS)) $(AFLAGS-y)
++XEN_AFLAGS += $(filter-out -std=gnu% -flto,$(XEN_CFLAGS)) $(AFLAGS-y)
  
  # LDFLAGS are only passed directly to $(LD)
  LDFLAGS += $(LDFLAGS_DIRECT) $(LDFLAGS-y)
-@@ -462,7 +464,7 @@ include $(srctree)/arch/$(TARGET_ARCH)/arch.mk
- 
- # define new variables to avoid the ones defined in Config.mk
- export XEN_CFLAGS := $(CFLAGS)
--export XEN_AFLAGS := $(AFLAGS)
-+export XEN_AFLAGS := $(XEN_AFLAGS)
- export XEN_LDFLAGS := $(LDFLAGS)
- export CFLAGS_UBSAN
- 
-diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
-index 7b5be9fe46..13ec88a628 100644
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -80,7 +80,7 @@ ifeq ($(CONFIG_LD_IS_GNU),y)
- AFLAGS-$(call ld-option,--print-output-format) += -DHAVE_LD_SORT_BY_INIT_PRIORITY
- else
- # Assume all versions of LLD support this.
--AFLAGS += -DHAVE_LD_SORT_BY_INIT_PRIORITY
-+XEN_AFLAGS += -DHAVE_LD_SORT_BY_INIT_PRIORITY
+@@ -439,16 +440,16 @@ CFLAGS_UBSAN :=
  endif
  
- ifneq ($(CONFIG_PV_SHIM_EXCLUSIVE),y)
+ ifeq ($(CONFIG_LTO),y)
+-CFLAGS += -flto
++XEN_CFLAGS += -flto
+ LDFLAGS-$(CONFIG_CC_IS_CLANG) += -plugin LLVMgold.so
+ endif
+ 
+ ifdef building_out_of_srctree
+-    CFLAGS += -I$(objtree)/include
+-    CFLAGS += -I$(objtree)/arch/$(TARGET_ARCH)/include
++    XEN_CFLAGS += -I$(objtree)/include
++    XEN_CFLAGS += -I$(objtree)/arch/$(TARGET_ARCH)/include
+ endif
+-CFLAGS += -I$(srctree)/include
+-CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
++XEN_CFLAGS += -I$(srctree)/include
++XEN_CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
+ 
+ # Note that link order matters!
+ ALL_OBJS-y                := common/built_in.o
+@@ -463,7 +464,7 @@ ALL_LIBS-y                := lib/lib.a
+ include $(srctree)/arch/$(TARGET_ARCH)/arch.mk
+ 
+ # define new variables to avoid the ones defined in Config.mk
+-export XEN_CFLAGS := $(CFLAGS)
++export XEN_CFLAGS := $(XEN_CFLAGS)
+ export XEN_AFLAGS := $(XEN_AFLAGS)
+ export XEN_LDFLAGS := $(LDFLAGS)
+ export CFLAGS_UBSAN
+diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
+index 58db76c4e1..300b8bf7ae 100644
+--- a/xen/arch/arm/arch.mk
++++ b/xen/arch/arm/arch.mk
+@@ -1,8 +1,8 @@
+ ########################################
+ # arm-specific definitions
+ 
+-$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+-$(call cc-option-add,CFLAGS,CC,-Wnested-externs)
++$(call cc-options-add,XEN_CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
++$(call cc-option-add,XEN_CFLAGS,CC,-Wnested-externs)
+ 
+ # Prevent floating-point variables from creeping into Xen.
+ CFLAGS-$(CONFIG_ARM_32) += -msoft-float
+diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+index 7448f759b4..aadf373ce8 100644
+--- a/xen/arch/riscv/arch.mk
++++ b/xen/arch/riscv/arch.mk
+@@ -1,7 +1,7 @@
+ ########################################
+ # RISCV-specific definitions
+ 
+-$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
++$(call cc-options-add,XEN_CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ 
+ CFLAGS-$(CONFIG_RISCV_64) += -mabi=lp64
+ 
+@@ -12,7 +12,7 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
+ # into the upper half _or_ the lower half of the address space.
+ # -mcmodel=medlow would force Xen into the lower half.
+ 
+-CFLAGS += -march=$(riscv-march-y) -mstrict-align -mcmodel=medany
++XEN_CFLAGS += -march=$(riscv-march-y) -mstrict-align -mcmodel=medany
+ 
+ # TODO: Drop override when more of the build is working
+ override ALL_OBJS-y = arch/$(TARGET_ARCH)/built_in.o
+diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
+index 13ec88a628..5df3cf6bc3 100644
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -3,42 +3,42 @@
+ 
+ export XEN_IMG_OFFSET := 0x200000
+ 
+-CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-generic
+-CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-default
+-CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFFSET)
++XEN_CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-generic
++XEN_CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-default
++XEN_CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFFSET)
+ 
+ # Prevent floating-point variables from creeping into Xen.
+-CFLAGS += -msoft-float
+-
+-$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+-$(call cc-option-add,CFLAGS,CC,-Wnested-externs)
+-$(call as-option-add,CFLAGS,CC,"vmcall",-DHAVE_AS_VMX)
+-$(call as-option-add,CFLAGS,CC,"crc32 %eax$(comma)%eax",-DHAVE_AS_SSE4_2)
+-$(call as-option-add,CFLAGS,CC,"invept (%rax)$(comma)%rax",-DHAVE_AS_EPT)
+-$(call as-option-add,CFLAGS,CC,"rdrand %eax",-DHAVE_AS_RDRAND)
+-$(call as-option-add,CFLAGS,CC,"rdfsbase %rax",-DHAVE_AS_FSGSBASE)
+-$(call as-option-add,CFLAGS,CC,"xsaveopt (%rax)",-DHAVE_AS_XSAVEOPT)
+-$(call as-option-add,CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
+-$(call as-option-add,CFLAGS,CC,"clac",-DHAVE_AS_CLAC_STAC)
+-$(call as-option-add,CFLAGS,CC,"clwb (%rax)",-DHAVE_AS_CLWB)
+-$(call as-option-add,CFLAGS,CC,".equ \"x\"$(comma)1",-DHAVE_AS_QUOTED_SYM)
+-$(call as-option-add,CFLAGS,CC,"invpcid (%rax)$(comma)%rax",-DHAVE_AS_INVPCID)
+-$(call as-option-add,CFLAGS,CC,"movdiri %rax$(comma)(%rax)",-DHAVE_AS_MOVDIR)
+-$(call as-option-add,CFLAGS,CC,"enqcmd (%rax)$(comma)%rax",-DHAVE_AS_ENQCMD)
++XEN_CFLAGS += -msoft-float
++
++$(call cc-options-add,XEN_CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
++$(call cc-option-add,XEN_CFLAGS,CC,-Wnested-externs)
++$(call as-option-add,XEN_CFLAGS,CC,"vmcall",-DHAVE_AS_VMX)
++$(call as-option-add,XEN_CFLAGS,CC,"crc32 %eax$(comma)%eax",-DHAVE_AS_SSE4_2)
++$(call as-option-add,XEN_CFLAGS,CC,"invept (%rax)$(comma)%rax",-DHAVE_AS_EPT)
++$(call as-option-add,XEN_CFLAGS,CC,"rdrand %eax",-DHAVE_AS_RDRAND)
++$(call as-option-add,XEN_CFLAGS,CC,"rdfsbase %rax",-DHAVE_AS_FSGSBASE)
++$(call as-option-add,XEN_CFLAGS,CC,"xsaveopt (%rax)",-DHAVE_AS_XSAVEOPT)
++$(call as-option-add,XEN_CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
++$(call as-option-add,XEN_CFLAGS,CC,"clac",-DHAVE_AS_CLAC_STAC)
++$(call as-option-add,XEN_CFLAGS,CC,"clwb (%rax)",-DHAVE_AS_CLWB)
++$(call as-option-add,XEN_CFLAGS,CC,".equ \"x\"$(comma)1",-DHAVE_AS_QUOTED_SYM)
++$(call as-option-add,XEN_CFLAGS,CC,"invpcid (%rax)$(comma)%rax",-DHAVE_AS_INVPCID)
++$(call as-option-add,XEN_CFLAGS,CC,"movdiri %rax$(comma)(%rax)",-DHAVE_AS_MOVDIR)
++$(call as-option-add,XEN_CFLAGS,CC,"enqcmd (%rax)$(comma)%rax",-DHAVE_AS_ENQCMD)
+ 
+ # GAS's idea of true is -1.  Clang's idea is 1
+-$(call as-option-add,CFLAGS,CC,\
++$(call as-option-add,XEN_CFLAGS,CC,\
+     ".if ((1 > 0) < 0); .error \"\";.endif",,-DHAVE_AS_NEGATIVE_TRUE)
+ 
+ # Check to see whether the assmbler supports the .nop directive.
+-$(call as-option-add,CFLAGS,CC,\
++$(call as-option-add,XEN_CFLAGS,CC,\
+     ".L1: .L2: .nops (.L2 - .L1)$(comma)9",-DHAVE_AS_NOPS_DIRECTIVE)
+ 
+-CFLAGS += -mno-red-zone -fpic
++XEN_CFLAGS += -mno-red-zone -fpic
+ 
+ # Xen doesn't use MMX or SSE interally.  If the compiler supports it, also skip
+ # the SSE setup for variadic function calls.
+-CFLAGS += -mno-mmx -mno-sse $(call cc-option,$(CC),-mskip-rax-setup)
++XEN_CFLAGS += -mno-mmx -mno-sse $(call cc-option,$(CC),-mskip-rax-setup)
+ 
+ ifeq ($(CONFIG_INDIRECT_THUNK),y)
+ # Compile with gcc thunk-extern, indirect-branch-register if available.
+@@ -54,10 +54,10 @@ ifdef CONFIG_XEN_IBT
+ # Force -fno-jump-tables to work around
+ #   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104816
+ #   https://github.com/llvm/llvm-project/issues/54247
+-CFLAGS += -fcf-protection=branch -mmanual-endbr -fno-jump-tables
+-$(call cc-option-add,CFLAGS,CC,-fcf-check-attribute=no)
++XEN_CFLAGS += -fcf-protection=branch -mmanual-endbr -fno-jump-tables
++$(call cc-option-add,XEN_CFLAGS,CC,-fcf-check-attribute=no)
+ else
+-$(call cc-option-add,CFLAGS,CC,-fcf-protection=none)
++$(call cc-option-add,XEN_CFLAGS,CC,-fcf-protection=none)
+ endif
+ 
+ # If supported by the compiler, reduce stack alignment to 8 bytes. But allow
+@@ -91,7 +91,7 @@ efi-check := arch/x86/efi/check
+ $(shell mkdir -p $(dir $(efi-check)))
+ 
+ # Check if the compiler supports the MS ABI.
+-XEN_BUILD_EFI := $(call if-success,$(CC) $(CFLAGS) -c $(srctree)/$(efi-check).c -o $(efi-check).o,y)
++XEN_BUILD_EFI := $(call if-success,$(CC) $(XEN_CFLAGS) -c $(srctree)/$(efi-check).c -o $(efi-check).o,y)
+ 
+ # Check if the linker supports PE.
+ EFI_LDFLAGS := $(patsubst -m%,-mi386pep,$(LDFLAGS)) --subsystem=10
+@@ -129,4 +129,4 @@ export EFI_LDFLAGS
+ endif
+ 
+ # Set up the assembler include path properly for older toolchains.
+-CFLAGS += -Wa,-I$(objtree)/include -Wa,-I$(srctree)/include
++XEN_CFLAGS += -Wa,-I$(objtree)/include -Wa,-I$(srctree)/include
 -- 
 Anthony PERARD
 
