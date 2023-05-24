@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 162A570F012
-	for <lists+xen-devel@lfdr.de>; Wed, 24 May 2023 10:01:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.538804.839049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EC2D70F026
+	for <lists+xen-devel@lfdr.de>; Wed, 24 May 2023 10:06:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.538809.839058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1jQt-0002qc-Vo; Wed, 24 May 2023 08:01:19 +0000
+	id 1q1jVO-0003SD-GZ; Wed, 24 May 2023 08:05:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 538804.839049; Wed, 24 May 2023 08:01:19 +0000
+Received: by outflank-mailman (output) from mailman id 538809.839058; Wed, 24 May 2023 08:05:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1jQt-0002oC-SH; Wed, 24 May 2023 08:01:19 +0000
-Received: by outflank-mailman (input) for mailman id 538804;
- Wed, 24 May 2023 08:01:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uwFZ=BN=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1q1jQs-0002o6-5d
- for xen-devel@lists.xenproject.org; Wed, 24 May 2023 08:01:18 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on0602.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::602])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 28c34b41-fa09-11ed-b22f-6b7b168915f2;
- Wed, 24 May 2023 10:01:16 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VE1PR04MB7341.eurprd04.prod.outlook.com (2603:10a6:800:1a6::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.29; Wed, 24 May
- 2023 08:01:12 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6411.029; Wed, 24 May 2023
- 08:01:07 +0000
+	id 1q1jVO-0003Pr-Dr; Wed, 24 May 2023 08:05:58 +0000
+Received: by outflank-mailman (input) for mailman id 538809;
+ Wed, 24 May 2023 08:05:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cCLF=BN=redhat.com=sgarzare@srs-se1.protection.inumbo.net>)
+ id 1q1jVN-0003Pl-Nt
+ for xen-devel@lists.xenproject.org; Wed, 24 May 2023 08:05:57 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ce6d8640-fa09-11ed-8611-37d641c3527e;
+ Wed, 24 May 2023 10:05:55 +0200 (CEST)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-608-RErQzMsmNfyVW-OdrzZ_Jg-1; Wed, 24 May 2023 04:05:52 -0400
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-3f60481749eso3824565e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 May 2023 01:05:52 -0700 (PDT)
+Received: from sgarzare-redhat ([134.0.5.107])
+ by smtp.gmail.com with ESMTPSA id
+ f8-20020a7bcd08000000b003f17848673fsm1401647wmj.27.2023.05.24.01.05.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 May 2023 01:05:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,135 +49,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28c34b41-fa09-11ed-b22f-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gcbtwhMT0ggJSURqDoBAJFQ68LXXKNiXR8NSVdUDMciO9bxayjbHOjlEeqUH43LPDMqmL1iomdZM6+bvMOpwT0RmNH9SoErX6vlo7bjqp+7n8tSh/BQ03Zlz1zBvzQ36aPIm0aKTgXndTiYD87f5PCfl/NWHhaJcCWzb4AHac7aeB2cuFDCpHr9sSCccBuDGBgquAwpmiBT78wUnQbmJRTda4EsObjp0yjI3K1wbFOV5Ia5J5FhQ6NTiqTzt2AcPCj5Sr5/vV7OR3PwqLwVe5BArPoW9+mSFZWHU8WW1tPlGilkE1DdHjg/1ALh4zfqFTu5+B2Kc0UQArgl0DRQeHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=un/dK/U6I31Il4k/zp4fEZ6bx9r0hWlIAKWoVSrhzUA=;
- b=FMsPVca0VZ23OREM/xygVd/bMr75xBxjGUtBS4wVK0WtCtyvM+/29aNfoou45u1Az2zZFup7EGDmhosNAoRVsIDE25XthOWrwxPtuAmLlNl9uMDowHQq2VGLudFTe1xFNINglTrMUaORhMpfUl6R74gTJWB3tEJpA4AmpLM3fwfdVWUhK49WrhoyBkopVcR9VqFujoUMaTcnjG7SkUh4m68xdcq+7pn4K3Xug7hitNQCUy65oRSHu8ViyLl3dVQJ7PosXIVa62AWDsFxgcXpdQaDowhNkOlLjcuFkde4S3uvYtjS92VNoPfgrJy/za/k5o3urbvXJEwBw31IdSs33Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=un/dK/U6I31Il4k/zp4fEZ6bx9r0hWlIAKWoVSrhzUA=;
- b=ro15YyUJo8gNPM+KAW5rlZb2qDKsQy9WjDZE3O8W8CvcLg/xLzzZ5/4jJ1jNdAM1O6gL7CK56E9r2yTE+pMkL/dmKPw6qz46LFgNCiZK/g95+nOVX27xBIBFOsuS8ONQqbNYuTFSEFRqsJWFXAEV2iQYG+U/IkSrT1w1G4wkEdRlbcuc5STV4724ISGNIT5l8MhWCMDvnuPSoacXYl1MvmBC2YcT316f39eTjsFYP20ZWvOFJK6V+p96Muc+XAGlT57KWFeJI7l/3fzZi40ihMYz+AGs07EcGFDWvTbmqFh5Hb7Tw1hDpH39swjdTpeyuZH+dcg3Xrg829ZVFoyW0g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ee97f251-a780-82be-b607-7cc7783a950f@suse.com>
-Date: Wed, 24 May 2023 10:01:03 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [XEN PATCH 02/15] build: rework asm-offsets.* build step to use
- kbuild
-Content-Language: en-US
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20230523163811.30792-1-anthony.perard@citrix.com>
- <20230523163811.30792-3-anthony.perard@citrix.com>
- <CBAF4CF3-C7DD-4071-9321-5EC7BEA1D432@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <CBAF4CF3-C7DD-4071-9321-5EC7BEA1D432@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: HE1PR09CA0064.eurprd09.prod.outlook.com
- (2603:10a6:7:3c::32) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: ce6d8640-fa09-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1684915554;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4D41eFNvy0+kPQfc9V8H+rhjCzgj7odAxqq3xoeOmEs=;
+	b=I2chZDsBHaFbKQfQczOovqRmEYsc+CSiwvSxA8EoEUDcAN0S89laA8v+qSK6IXKA8Gf9w8
+	inqfNXKN35GISZwrbwO1FihETqsEnmyEMadyMqJjUz+0gNACym0ZQeIbYSBYXyO9hX/45L
+	h2bSTOv8yq4bAfpIaMZmCQRnIQ9RKRY=
+X-MC-Unique: RErQzMsmNfyVW-OdrzZ_Jg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1684915551; x=1687507551;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4D41eFNvy0+kPQfc9V8H+rhjCzgj7odAxqq3xoeOmEs=;
+        b=GJ086LMrgsmPFM/nMAgu/hPqYRjImqozvQCA9vUZHZI7sXcf1EcOjUV2sAKWyDKwzh
+         tWi2lQp+Twmwj1cQ+oqazV18Nete2uySTuJZBV01Cj+Wly/ATIMxdnKVHq8WQnB867Gt
+         ZCYQ8nIjoPnL/kyTf4QnvTxuYRcaYVzIpA8MbTL32eC8O9z82wtHLf4sQ0d0Ec2GI8k6
+         5EiqYOcAChmtZqatJmiGYM2m/r9QIRRKd8Dvp7eQx2iQCTVf/FBwy8e79PidwYc/w9qD
+         2e+y8n8fTQk8dysgWVbow+UNCEHseTpRu7t9Ulop1mhBkYLkHZqHePkrfpAdBXLwHZNf
+         MHlQ==
+X-Gm-Message-State: AC+VfDyqI7et5soky/zJf5NgMiHjhy90Pq+tVIBK8pMassxHQzBYuj/h
+	aKbWh5GUiQN3optl6rKvLJaUGYpoa0mAt9TX4leZMzPk82i+Inzce/hHxEBDfep+pP5sTjpOwka
+	f65ObcaJ8wE0i3oelBFOx87lNkVk=
+X-Received: by 2002:a05:600c:1c0a:b0:3f6:335:d8f0 with SMTP id j10-20020a05600c1c0a00b003f60335d8f0mr7927344wms.13.1684915551656;
+        Wed, 24 May 2023 01:05:51 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ4Pa3Z/4cCdCc3y6y76Di99EDzxN9dw2x4Sv4Z+LSxzGUUIHRLjgxpENvXr/pbAwQBGrYrRFg==
+X-Received: by 2002:a05:600c:1c0a:b0:3f6:335:d8f0 with SMTP id j10-20020a05600c1c0a00b003f60335d8f0mr7927316wms.13.1684915551306;
+        Wed, 24 May 2023 01:05:51 -0700 (PDT)
+Date: Wed, 24 May 2023 10:05:46 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org, xen-devel@lists.xenproject.org, 
+	Julia Suvorova <jusual@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Kevin Wolf <kwolf@redhat.com>, Fam Zheng <fam@euphon.net>, 
+	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>, Paolo Bonzini <pbonzini@redhat.com>, qemu-block@nongnu.org, 
+	Paul Durrant <paul@xen.org>, Anthony Perard <anthony.perard@citrix.com>, 
+	Aarushi Mehta <mehta.aaru20@gmail.com>, Hanna Reitz <hreitz@redhat.com>
+Subject: Re: [PATCH 1/6] block: add blk_io_plug_call() API
+Message-ID: <cwgklwmov3evxbmty56vwgg2xzdpagcrguy66adrdiy43u35eb@jmamrxotsf45>
+References: <20230517221022.325091-1-stefanha@redhat.com>
+ <20230517221022.325091-2-stefanha@redhat.com>
+ <mzxjz4d3ab3sq6grwsle6wlacysh2uffz42ojpdze3hmqimbr5@fxgkad47nnim>
+ <20230523154708.GB96478@fedora>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VE1PR04MB7341:EE_
-X-MS-Office365-Filtering-Correlation-Id: a0edec24-8e52-429a-dae8-08db5c2d0716
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	fJ64El7lkK9+mQIVtIOaGVJyH76azQPrWslNhBXWa0t2L3F1FH+XaKdwei2/eYoYet2R5Z4DHWwg+qZ18HyUEo1rPPhWpSCmnHsbPWnGkYogmTHIStNnsA/ZKazc+n5SdM+p5OLVFJYBKXHMJLYRTR+7ZgU4GyaLLVXIXelLRYeg/520G6Ba8xVPuawdfecup67mW8m9AEliDFlOvo03V0z2zj+ftbJ3SstkPbvahFs804qxuk/2t3MKOy+Om3Hp5BLML/j2jc5QcizC8oizt3EWpVSkbQfJ2q6224XsHAN3U3XSQAOaPNTMMYLxsTApymUV6D2vyOGIERbjDDgi6zY39RXdLMQGxGcGU77JZF3SNATDf3kE8zMD1oQ32slBRbb8ymCc5feY2HkCVtLx4tHRDFaUkyjSw+ESvJSnFORfdUbQXoHodSxxLwEQw/Q+jBfHZzQbVvetZNdxwXh5tPoS6BLy8FXQL3Pf7TcudKZgVDdmj7VtUIgAm01sM10aC9NA5eYRN02zCi8b9gAssFFu48t0s16PPt/vd2WN4XIZ2KVYEXZeUyDEN5BlvRMwPPI65ckhl3zk+K/oW32HnQN1Zrt1us/i3qW0a9qj7InM1Iz3DN9sEQ0icRtkbhALKPD5V3YbJ9/IGmVXZlsOXw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(346002)(136003)(366004)(396003)(39860400002)(376002)(451199021)(31686004)(66946007)(66556008)(66476007)(6916009)(31696002)(478600001)(41300700001)(6486002)(6666004)(54906003)(316002)(4326008)(86362001)(8676002)(5660300002)(8936002)(26005)(186003)(53546011)(6512007)(6506007)(2906002)(38100700002)(2616005)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZGhic1QrOS9hb2hlQ1pMUXhSYVJsNSs4aWdleTNidzFuQ1hQZWtyOUZLOTQz?=
- =?utf-8?B?dW5Ickx5RFZ0TG5tZkdVWUNOUG4wNnQwUGt0VXVVcy8wYXBITTdYT0FJRVdQ?=
- =?utf-8?B?SmdZRHZZVjVERmRWU1lCQzA5S2VvclpMaHpOQnJpaWVWYkU4TDgxcXV0T2xn?=
- =?utf-8?B?em1Nb0loSXFLMFREdElPUkxra3o5bVFKa1Q0UlNsbWhqU1JsenhTVzlSei8x?=
- =?utf-8?B?N1cwWHBOaVBOa1gzK203ZTdHbmRoT0pkME5Od3ZLMzNMak01NTVWZWJQQTc3?=
- =?utf-8?B?MUg4V1ZRS2JUSk95TlZNalJDcUUzcm1PNFpCQ2RzZWd5N1ZkRThtZ0gwRXMy?=
- =?utf-8?B?a2lrdkxmUCsxc2lTU24rWEFCKzBYMXFVMkY2RVdmaFRablU4Tkp3SzFEZ0Uy?=
- =?utf-8?B?SEJDVmdQWW9Uanh4Yi93UFYrT214UGRDRUQvQ2VyVXpJL0J3ZXIxaWo0a2Vl?=
- =?utf-8?B?ZHZXcURwTnIzZ2NrRFBSVWlQUy96ZDNaNmhYK0hIMFZ5bGNPMXdSb2poK1A3?=
- =?utf-8?B?M09wK3JlYnJiOVV3enEvUWxtTGJqOE0wNmY4cVVLTjFsaWZZVmcvUW95SHZE?=
- =?utf-8?B?cFA2ZTBiSWZqc1RCenhyS3VmcDNUNGZyblhZT3pzcDdCVnVzYzhGREM1TldS?=
- =?utf-8?B?dmR1QUNoRGZBWDZCem1ZcEZtbHlySm50Smg1eFpReGxCRzRxVXE2M2pwdUtt?=
- =?utf-8?B?N0k2R0NkdDluNlAzYSsvLzhOZi9LZlRrR0NjajVBVWpMTHNMelVUNFRrZ25u?=
- =?utf-8?B?YzF5WVZEdkxJNm9jMzZKOE81L2tSK0JVQnhGNTdlcFJpT0cydnZmV1Bpc0J5?=
- =?utf-8?B?L2JWd0FrTW1GcDFoWXNVRncwVzZDdGxNYU1yelhsY3cxQ09aYVk4QTFSQXFB?=
- =?utf-8?B?YUppdUVBWFNqTVhVRVJ2RUpxdFQ2M3luL0k5RG93eitTbUdyYjliMHZmRVh1?=
- =?utf-8?B?Z1prNnJCMjJEdWd2cXJCVUtRbWx3cVN4ZUZSMGVpZUxIOURNZlVjTzRFM1J4?=
- =?utf-8?B?VUZLSTUyVFdveXhjRjZZWFR1NzIvNDhzM1N5SFB2bloxUG5uVHZReHNHZ2JX?=
- =?utf-8?B?SEpYSUdjbjZ4M2lMaHl4YWR5Qk9sSHFKSmI2SlJ5alNkcWViK01rNGxEVzds?=
- =?utf-8?B?S0R4cnF6OUlXQlBJV281VmkxdWkzNk1TTlpVMStWMmNaZXpSeHE4U0o0K21Y?=
- =?utf-8?B?RDdkK0tUWE5lS0dBTUx3T094bWIyakFFZElyNlh0enN2eHdoZnZZeGQ5dUVi?=
- =?utf-8?B?U2wrUlNUS1h5TEZuL3ozblhZTERvQjlaUXpvNDY2R09zSzRFR0IwaDNyTDR5?=
- =?utf-8?B?SS8vUVNzcEhxb2N1bkg1aFVzTUlYUmo4WmlkMHRkTi84V2FkOWxVbU1CS0Nm?=
- =?utf-8?B?TjlIWTJlcW5CRE55STM1V3VESUNkVTBSMjJ6c1h2a0ZwYlU5L3BZTUc3VWVU?=
- =?utf-8?B?QTgxWkZLUmNhdERvQy9icDJHa2VkTFBhZnZVQW1SLzEzLzZoRkc1L1lxNzNV?=
- =?utf-8?B?Zlg5cTk5V3U3WSszV3R6QStZTUFoMllNSjBOd2dvRnhMTHhaWmdta2p2SDRF?=
- =?utf-8?B?TTRyR1BPQ24xbE85TE95R29zdWpKZW9XYngrdGRhekhGL1JaMXZ6SVBQaGVn?=
- =?utf-8?B?dnl6OGMzNlVWY2Q4ckxjalJaMUl3NW80eEg5dlZJa1psYVV4Q0VtRkxJWFJT?=
- =?utf-8?B?cDkxQ0xwT0prTkFiTW8vRkd3ajZYQjQ0TWxMTTdUd01oUHhpS0xVcnBqZW5a?=
- =?utf-8?B?UjZxZ3E4ZmtQVzhjWEdMRyt4bTJZODBSL2dHVlFpTWxwZ1ZXMyt5Lys0VFdH?=
- =?utf-8?B?MjNkbnNWemxBWFMvenlra3lWT09VNU5jUzVBTEFTUUdQUVZoWGgxQkM1ZG9I?=
- =?utf-8?B?SkptMzhHWm41YjFHbmQzVnpWYmdwdGFIOXUrSmJxMk4rT09QcjgrMDA3Z2VX?=
- =?utf-8?B?cGVNdDIwQSszVlRFTm9HWkkrZzFRdWw1ZFpmS0RLR2FsbG1xajVJelJvdkZl?=
- =?utf-8?B?dE5WelRRRER3RWlzdDFqeFFKcGV3MTBjWUQvbzZaM0ZlcFd5TXQwcXppc3JK?=
- =?utf-8?B?MkJKaGRQYU93VEdWRFY3L2VFMDR5RWhwOFhqTVBBUWpoUG10YThOZW9uTDZh?=
- =?utf-8?Q?bzqn0/cK6eP5Ru2oIZL8KibeI?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0edec24-8e52-429a-dae8-08db5c2d0716
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2023 08:01:06.9925
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qBC6iqGpuTkeRI+afaiCp8VsCuoCLDlg84w+XRVHrkBbjrdDT2Cdy5gb12O2mGwf+4F5XvSW4+f654KQl2d+3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7341
+In-Reply-To: <20230523154708.GB96478@fedora>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
 
-On 24.05.2023 09:39, Luca Fancellu wrote:
->> On 23 May 2023, at 17:37, Anthony PERARD <anthony.perard@citrix.com> wrote:
->> Instead of having a special $(cmd_asm-offsets.s) command, we could
->> probably reuse $(cmd_cc_s_c) from Rules.mk, but that would mean that
->> an hypothetical additional flags "-flto" in CFLAGS would not be
->> removed anymore, not sure if that matter here.
+On Tue, May 23, 2023 at 11:47:08AM -0400, Stefan Hajnoczi wrote:
+>On Fri, May 19, 2023 at 10:45:57AM +0200, Stefano Garzarella wrote:
+>> On Wed, May 17, 2023 at 06:10:17PM -0400, Stefan Hajnoczi wrote:
+>> > Introduce a new API for thread-local blk_io_plug() that does not
+>> > traverse the block graph. The goal is to make blk_io_plug() multi-queue
+>> > friendly.
+>> >
+>> > Instead of having block drivers track whether or not we're in a plugged
+>> > section, provide an API that allows them to defer a function call until
+>> > we're unplugged: blk_io_plug_call(fn, opaque). If blk_io_plug_call() is
+>> > called multiple times with the same fn/opaque pair, then fn() is only
+>> > called once at the end of the function - resulting in batching.
+>> >
+>> > This patch introduces the API and changes blk_io_plug()/blk_io_unplug().
+>> > blk_io_plug()/blk_io_unplug() no longer require a BlockBackend argument
+>> > because the plug state is now thread-local.
+>> >
+>> > Later patches convert block drivers to blk_io_plug_call() and then we
+>> > can finally remove .bdrv_co_io_plug() once all block drivers have been
+>> > converted.
+>> >
+>> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+>> > ---
+>> > MAINTAINERS                       |   1 +
+>> > include/sysemu/block-backend-io.h |  13 +--
+>> > block/block-backend.c             |  22 -----
+>> > block/plug.c                      | 159 ++++++++++++++++++++++++++++++
+>> > hw/block/dataplane/xen-block.c    |   8 +-
+>> > hw/block/virtio-blk.c             |   4 +-
+>> > hw/scsi/virtio-scsi.c             |   6 +-
+>> > block/meson.build                 |   1 +
+>> > 8 files changed, 173 insertions(+), 41 deletions(-)
+>> > create mode 100644 block/plug.c
+>> >
+>> > diff --git a/MAINTAINERS b/MAINTAINERS
+>> > index 50585117a0..574202295c 100644
+>> > --- a/MAINTAINERS
+>> > +++ b/MAINTAINERS
+>> > @@ -2644,6 +2644,7 @@ F: util/aio-*.c
+>> > F: util/aio-*.h
+>> > F: util/fdmon-*.c
+>> > F: block/io.c
+>> > +F: block/plug.c
+>> > F: migration/block*
+>> > F: include/block/aio.h
+>> > F: include/block/aio-wait.h
+>> > diff --git a/include/sysemu/block-backend-io.h b/include/sysemu/block-backend-io.h
+>> > index d62a7ee773..be4dcef59d 100644
+>> > --- a/include/sysemu/block-backend-io.h
+>> > +++ b/include/sysemu/block-backend-io.h
+>> > @@ -100,16 +100,9 @@ void blk_iostatus_set_err(BlockBackend *blk, int error);
+>> > int blk_get_max_iov(BlockBackend *blk);
+>> > int blk_get_max_hw_iov(BlockBackend *blk);
+>> >
+>> > -/*
+>> > - * blk_io_plug/unplug are thread-local operations. This means that multiple
+>> > - * IOThreads can simultaneously call plug/unplug, but the caller must ensure
+>> > - * that each unplug() is called in the same IOThread of the matching plug().
+>> > - */
+>> > -void coroutine_fn blk_co_io_plug(BlockBackend *blk);
+>> > -void co_wrapper blk_io_plug(BlockBackend *blk);
+>> > -
+>> > -void coroutine_fn blk_co_io_unplug(BlockBackend *blk);
+>> > -void co_wrapper blk_io_unplug(BlockBackend *blk);
+>> > +void blk_io_plug(void);
+>> > +void blk_io_unplug(void);
+>> > +void blk_io_plug_call(void (*fn)(void *), void *opaque);
+>> >
+>> > AioContext *blk_get_aio_context(BlockBackend *blk);
+>> > BlockAcctStats *blk_get_stats(BlockBackend *blk);
+>> > diff --git a/block/block-backend.c b/block/block-backend.c
+>> > index ca537cd0ad..1f1d226ba6 100644
+>> > --- a/block/block-backend.c
+>> > +++ b/block/block-backend.c
+>> > @@ -2568,28 +2568,6 @@ void blk_add_insert_bs_notifier(BlockBackend *blk, Notifier *notify)
+>> >     notifier_list_add(&blk->insert_bs_notifiers, notify);
+>> > }
+>> >
+>> > -void coroutine_fn blk_co_io_plug(BlockBackend *blk)
+>> > -{
+>> > -    BlockDriverState *bs = blk_bs(blk);
+>> > -    IO_CODE();
+>> > -    GRAPH_RDLOCK_GUARD();
+>> > -
+>> > -    if (bs) {
+>> > -        bdrv_co_io_plug(bs);
+>> > -    }
+>> > -}
+>> > -
+>> > -void coroutine_fn blk_co_io_unplug(BlockBackend *blk)
+>> > -{
+>> > -    BlockDriverState *bs = blk_bs(blk);
+>> > -    IO_CODE();
+>> > -    GRAPH_RDLOCK_GUARD();
+>> > -
+>> > -    if (bs) {
+>> > -        bdrv_co_io_unplug(bs);
+>> > -    }
+>> > -}
+>> > -
+>> > BlockAcctStats *blk_get_stats(BlockBackend *blk)
+>> > {
+>> >     IO_CODE();
+>> > diff --git a/block/plug.c b/block/plug.c
+>> > new file mode 100644
+>> > index 0000000000..6738a568ba
+>> > --- /dev/null
+>> > +++ b/block/plug.c
+>> > @@ -0,0 +1,159 @@
+>> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
+>> > +/*
+>> > + * Block I/O plugging
+>> > + *
+>> > + * Copyright Red Hat.
+>> > + *
+>> > + * This API defers a function call within a blk_io_plug()/blk_io_unplug()
+>> > + * section, allowing multiple calls to batch up. This is a performance
+>> > + * optimization that is used in the block layer to submit several I/O requests
+>> > + * at once instead of individually:
+>> > + *
+>> > + *   blk_io_plug(); <-- start of plugged region
+>> > + *   ...
+>> > + *   blk_io_plug_call(my_func, my_obj); <-- deferred my_func(my_obj) call
+>> > + *   blk_io_plug_call(my_func, my_obj); <-- another
+>> > + *   blk_io_plug_call(my_func, my_obj); <-- another
+>> > + *   ...
+>> > + *   blk_io_unplug(); <-- end of plugged region, my_func(my_obj) is called once
+>> > + *
+>> > + * This code is actually generic and not tied to the block layer. If another
+>> > + * subsystem needs this functionality, it could be renamed.
+>> > + */
+>> > +
+>> > +#include "qemu/osdep.h"
+>> > +#include "qemu/coroutine-tls.h"
+>> > +#include "qemu/notify.h"
+>> > +#include "qemu/thread.h"
+>> > +#include "sysemu/block-backend.h"
+>> > +
+>> > +/* A function call that has been deferred until unplug() */
+>> > +typedef struct {
+>> > +    void (*fn)(void *);
+>> > +    void *opaque;
+>> > +} UnplugFn;
+>> > +
+>> > +/* Per-thread state */
+>> > +typedef struct {
+>> > +    unsigned count;       /* how many times has plug() been called? */
+>> > +    GArray *unplug_fns;   /* functions to call at unplug time */
+>> > +} Plug;
+>> > +
+>> > +/* Use get_ptr_plug() to fetch this thread-local value */
+>> > +QEMU_DEFINE_STATIC_CO_TLS(Plug, plug);
+>> > +
+>> > +/* Called at thread cleanup time */
+>> > +static void blk_io_plug_atexit(Notifier *n, void *value)
+>> > +{
+>> > +    Plug *plug = get_ptr_plug();
+>> > +    g_array_free(plug->unplug_fns, TRUE);
+>> > +}
+>> > +
+>> > +/* This won't involve coroutines, so use __thread */
+>> > +static __thread Notifier blk_io_plug_atexit_notifier;
+>> > +
+>> > +/**
+>> > + * blk_io_plug_call:
+>> > + * @fn: a function pointer to be invoked
+>> > + * @opaque: a user-defined argument to @fn()
+>> > + *
+>> > + * Call @fn(@opaque) immediately if not within a blk_io_plug()/blk_io_unplug()
+>> > + * section.
 >>
->> But then we could write this:
+>> Just to understand better, what if two BlockDrivers share the same
+>> iothread but one calls blk_io_plug()/blk_io_unplug(), while the other
+>> calls this function not in a blk_io_plug()/blk_io_unplug() section?
 >>
->> targets += arch/$(TARGET_ARCH)/$(TARGET_SUBARCH)/asm-offsets.s
->> arch/$(TARGET_ARCH)/$(TARGET_SUBARCH)/asm-offsets.s: CFLAGS-y += -g0
->> arch/$(TARGET_ARCH)/include/asm/asm-offsets.h: arch/$(TARGET_ARCH)/$(TARGET_SUBARCH)/asm-offsets.s FORCE
->>
->> instead of having to write a rule for asm-offsets.s
-> 
-> The solution above seems clean, maybe I am wrong but -flto should not matter here as we are
-> not building objects to include in the final build, isn’t it? And gcc documentation states just:
-> 
-> “It is recommended that you compile all the files participating in the same link with the same
-> options and also specify those options at link time."
-> 
-> I’ve also tested this patch and it works fine, I have to say however that I preferred
-> a more verbose output, so that people can check how we are invoking the compiler,
-> but I guess now it’s more consistent with the other invocations that doesn’t print
-> the compiler invocation.
+>> If the call is in the middle of the other BlockDriver's section, it is
+>> deferred, right?
+>
+>Yes, the call is deferred until blk_io_unplug().
+>
+>> Is this situation possible?
+>
+>One scenario I can think of is when aio_poll() is called between
+>plug/unplug. In that case, some I/O associated with device B might
+>happen while device A is with plug/unplug.
+>
+>> Or should we prevent blk_io_plug_call() from being called out of a
+>> blk_io_plug()/blk_io_unplug() section?
+>
+>blk_io_plug_call() is called outside blk_io_plug()/blk_io_unplug() when
+>device emulation doesn't use plug/unplug. For example, IDE doesn't use
+>it but still calls down into the same Linux AIO or io_uring code that
+>invokes blk_io_plug_call(). This is why blk_io_plug_call() calls fn()
+>immediately when invoked outside plug/unplug.
 
-If you want it more verbose, you can pass V=1 on the make command line.
-(Of course that'll affect all commands' output.)
+Got it, so it seems that everything should work properly.
 
-Jan
+Thanks,
+Stefano
+
 
