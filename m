@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A578770F535
-	for <lists+xen-devel@lfdr.de>; Wed, 24 May 2023 13:26:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.538976.839488 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5C8870F530
+	for <lists+xen-devel@lfdr.de>; Wed, 24 May 2023 13:26:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.538972.839444 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1mcy-0000xR-Do; Wed, 24 May 2023 11:26:00 +0000
+	id 1q1mcn-0007nO-Bw; Wed, 24 May 2023 11:25:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 538976.839488; Wed, 24 May 2023 11:26:00 +0000
+Received: by outflank-mailman (output) from mailman id 538972.839444; Wed, 24 May 2023 11:25:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1mcy-0000tm-8Y; Wed, 24 May 2023 11:26:00 +0000
-Received: by outflank-mailman (input) for mailman id 538976;
- Wed, 24 May 2023 11:25:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q1mcn-0007g3-7R; Wed, 24 May 2023 11:25:49 +0000
+Received: by outflank-mailman (input) for mailman id 538972;
+ Wed, 24 May 2023 11:25:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KTJK=BN=citrix.com=prvs=501cbbf32=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1q1mcw-0006nQ-Tc
- for xen-devel@lists.xenproject.org; Wed, 24 May 2023 11:25:58 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c04d50ee-fa25-11ed-b22f-6b7b168915f2;
- Wed, 24 May 2023 13:25:58 +0200 (CEST)
+ id 1q1mcl-0006dp-86
+ for xen-devel@lists.xenproject.org; Wed, 24 May 2023 11:25:47 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b8be0275-fa25-11ed-8611-37d641c3527e;
+ Wed, 24 May 2023 13:25:45 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,58 +36,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c04d50ee-fa25-11ed-b22f-6b7b168915f2
+X-Inumbo-ID: b8be0275-fa25-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1684927557;
+  d=citrix.com; s=securemail; t=1684927545;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=lb/LSILGLCd6gJWJslDO2ppBGoRSQMQXkFRr5JMK4ms=;
-  b=drk7pOLZ6UJE9rAViFLetIpYGok3ByzpvgK99/0mGDPesKzAzTu6/2GI
-   3+ceFvSfakjeiEUt+8fD6hbKGCN5ESXxHD52vcJMN5RVLMfwIcmc1uaTn
-   dIcoF41I7Fh2c4S1ZCOh89i2PY9roX3Lc3VTkVy+99VxgReuEiuUR7Emt
-   s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=wH9OWbCjMtjVvBDJDgEnYY93dMh+0saP5eOPD5fBQ2Q=;
+  b=UkJqOY3Cs1Bhc5UXqCQGRE0buql3rLCVWUCnhB61tWy+PeFq7mNWHcqk
+   B8eT5qStL1d2zT19x6JO/w1zk++JDv/+v9jGqBCiu6hEHn+kmWf+MryKC
+   kmuiRtmaRzpriIEsAB4kzgv2vIetiUnO1NGsIE1Yq0871Me6w+pxV5Tgm
+   M=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 109533433
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 110226278
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:o4YfL62lWqzXFzG5LfbD5epxkn2cJEfYwER7XKvMYLTBsI5bpzdRz
- TAdX2mDb/iPNzP0eIsga9yz8UlQu5aHnIc3GVY+pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8teTb8HuDgNyo4GlD5gFkOagQ1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfPDFP3
- NwCOB42TFOPhqW1/uubVetJr5F2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
- ZNfMGcxKk2aOHWjOX9OYH46tM6uimPybHtzr1WNqLBsy2PS0BZwwP7mN9+9ltmiHJ0Ewx3D+
- jmdl4j/Kj0gLcCt6iGVyGvylqzhgyngQdlKEITto5aGh3XMnzdOWXX6T2CTsfS/z0KzRd9bA
- 0gV4TY167g/8lSxSdvwVAH+p2SL1jYeUddNF+wx6CmW17HZpQ2eAwAsUTppeNEg8sgsSlQC1
- EKP2dXgBjVtsbicYXOb6rqQ6zi1PEA9LmIcZClCUQoM5fHipp0+ilTESdMLLUKupoSrQ3eqm
- WnM9XVgwexJ1qbnyplX43j60zOFhoLZYDUXpQnWGWGbtyNmZquMMtnABUfg0d5MK4OQT1+kt
- XcCmtSD4O1mMaxhhBBhU81WQuj3uq/t3Cn0xAc2QsJ/r2jFF2uLJ9g43d1oGKt+3i/okxfNa
- VSbhw5e7YQ70JCCPf4uONLZ5yjHIMHd+TXZuhL8NIImjntZLlXvEMRSiam4gQjQfLAEy/1XB
- HtiWZ/E4YwmIapm1iGqYOwWzKUmwCszrUuKG8Cnn0r5gebFOi/PIVvgDLdpRrljhJ5oXS2Pq
- 4oPXyd04043vBLCjtn/rtdIcAFiwYkTDpHqsc1HHtO+zv5dMDh5UZf5mOpxE7GJaowJzo8kC
- FnhAB4HoLc+7FWbQTi3hodLN+62As8m8SNkVcHuVH7xs0UejU+UxP93X/MKkXMPrbcLISJcJ
- xXdR/i9Pw==
-IronPort-HdrOrdr: A9a23:YaXTEaCs0UI/nqnlHemU55DYdb4zR+YMi2TC1yhKJyC9Ffbo7v
- xG/c5rsyMc5wxwZJhNo7y90ey7MBbhHP1OkO4s1NWZLWrbUQKTRekIh+bfKn/baknDH4ZmpN
- 9dmsNFaeEYY2IUsS+D2njbL+od
-X-Talos-CUID: 9a23:YwxQ6GFtG711vo4hqmJapE89Oto1XEb/j3vRZEyGUEZ2Spi8HAo=
-X-Talos-MUID: =?us-ascii?q?9a23=3AqReWIQzJ0kRRTQsSZ+74frqh5jeaqIiUEVw/so4?=
- =?us-ascii?q?WgdDaJW9eJT2GlW/vRrZyfw=3D=3D?=
+IronPort-Data: A9a23:tomPLagrxQlYzaXd02yFPLYWX161aBAKZh0ujC45NGQN5FlHY01je
+ htvXW/UOvyCN2P1KNAkYdy39hkO6JTSytdgHAVoriszEC4b9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsx+qyq0N8klgZmP6sT4QWCzyJ94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQhdQ5KMjmxvNuw74+dVPVuu/Y6b830adZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27B/
+ zqcpTqjXUFy2Nq35xmC3Gmvoff1ki74Z6MsLJyRq/tojwjGroAUIEJPDgbqyRWjsWauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O+8w5RyJy6HUyx2EHWVCRTlEAPQ5sOcmSDps0
+ UWG9+4FHhQ27ufTEyjEsO7J83XrY3N9wXI+iTEsdFY7pIXKkroKiD3yaMh/EpOHl57xBmSlq
+ 9yVlxQWi7IWhM8N8qy0+1Hbnj6hzqT0oh4JChb/BTz8sF4gDGKxT8nxsAWAs64cRGqMZgPZ1
+ EXojfRy+wzn4XulsCWWCNsAE7iyjxpuGG2N2AU/d3XNGtnExpJCQWyyyGsmTKuKGpxeEdMMX
+ KM0kV052XOrFCH2BZKbmqroYyjQ8YDuFM7+StffZcdUb556eWevpX8+OR7OgTCxyxZ9y8nT3
+ Kt3lu71Vx4n5VlPlmLqF4/xL5dwrszB+Y8jbc+ilEn2uVZvTHWUVa0EIDOzUwzN14vd+F+92
+ 48GZ6O3J+B3DLWWjt//rdRCcjjn7BETWfjLliCgXrHee1U/QT1wVJc8A9oJIuRYokicrc+Ql
+ lnVZ6OS4ACXaaHvQelSVk1eVQ==
+IronPort-HdrOrdr: A9a23:z2TrkalLGKL8IPFzhZLjPPJNlXPpDfLo3DAbv31ZSRFFG/Fw9/
+ rCoB17726QtN91YhsdcL+7V5VoLUmzyXcX2/hyAV7BZmnbUQKTRekP0WKL+Vbd8kbFh41gPM
+ lbEpSXCLfLfCJHZcSR2njELz73quP3jJxBho3lvghQpRkBUdAF0+/gYDzranGfQmN9dP0EPa
+ vZ3OVrjRy6d08aa8yqb0N1JNQq97Xw5fTbiQdtPW9f1DWz
+X-Talos-CUID: 9a23:3P1k6GBFSgPutLX6ExA6yglIM/IeS3vy8VHOP02FO38qTKLAHA==
+X-Talos-MUID: 9a23:goc8Wgqt2kaMpi7bUy8ezx9BM+lz4IO2Mk8AkqonhfGlHHF1OTjI2Q==
 X-IronPort-AV: E=Sophos;i="6.00,189,1681185600"; 
-   d="scan'208";a="109533433"
+   d="scan'208";a="110226278"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<jbeulich@suse.com>, Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
-	<kevin.tian@intel.com>
-Subject: [PATCH v2 08/10] x86/vtx: Remove opencoded MSR_ARCH_CAPS check
-Date: Wed, 24 May 2023 12:25:24 +0100
-Message-ID: <20230524112526.3475200-9-andrew.cooper3@citrix.com>
+	<wl@xen.org>
+Subject: [PATCH v2 09/10] x86/tsx: Remove opencoded MSR_ARCH_CAPS check
+Date: Wed, 24 May 2023 12:25:25 +0100
+Message-ID: <20230524112526.3475200-10-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230524112526.3475200-1-andrew.cooper3@citrix.com>
 References: <20230524112526.3475200-1-andrew.cooper3@citrix.com>
@@ -95,7 +93,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-MSR_ARCH_CAPS data is now included in featureset information.
+The current cpu_has_tsx_ctrl tristate is serving double pupose; to signal the
+first pass through tsx_init(), and the availability of MSR_TSX_CTRL.
+
+Drop the variable, replacing it with a once boolean, and altering
+cpu_has_tsx_ctrl to come out of the feature information.
+
+No functional change.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
@@ -103,53 +107,82 @@ Reviewed-by: Jan Beulich <jbeulich@suse.com>
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
-CC: Jun Nakajima <jun.nakajima@intel.com>
-CC: Kevin Tian <kevin.tian@intel.com>
 ---
- xen/arch/x86/hvm/vmx/vmx.c            | 8 ++------
- xen/arch/x86/include/asm/cpufeature.h | 3 +++
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ xen/arch/x86/include/asm/cpufeature.h |  1 +
+ xen/arch/x86/include/asm/processor.h  |  2 +-
+ xen/arch/x86/tsx.c                    | 13 ++++++++-----
+ 3 files changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 096c69251d58..9dc16d0cc6b9 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -2849,8 +2849,6 @@ static void __init ler_to_fixup_check(void);
-  */
- static bool __init has_if_pschange_mc(void)
- {
--    uint64_t caps = 0;
--
-     /*
-      * If we are virtualised, there is nothing we can do.  Our EPT tables are
-      * shadowed by our hypervisor, and not walked by hardware.
-@@ -2858,10 +2856,8 @@ static bool __init has_if_pschange_mc(void)
-     if ( cpu_has_hypervisor )
-         return false;
- 
--    if ( cpu_has_arch_caps )
--        rdmsrl(MSR_ARCH_CAPABILITIES, caps);
--
--    if ( caps & ARCH_CAPS_IF_PSCHANGE_MC_NO )
-+    /* Hardware reports itself as fixed. */
-+    if ( cpu_has_if_pschange_mc_no )
-         return false;
- 
-     /*
 diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
-index d0ead8e7a51e..e3154ec5800d 100644
+index e3154ec5800d..9047ea43f503 100644
 --- a/xen/arch/x86/include/asm/cpufeature.h
 +++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -182,6 +182,9 @@ static inline bool boot_cpu_has(unsigned int feat)
- #define cpu_has_avx_vnni_int8   boot_cpu_has(X86_FEATURE_AVX_VNNI_INT8)
- #define cpu_has_avx_ne_convert  boot_cpu_has(X86_FEATURE_AVX_NE_CONVERT)
+@@ -184,6 +184,7 @@ static inline bool boot_cpu_has(unsigned int feat)
  
-+/* MSR_ARCH_CAPS */
-+#define cpu_has_if_pschange_mc_no boot_cpu_has(X86_FEATURE_IF_PSCHANGE_MC_NO)
-+
+ /* MSR_ARCH_CAPS */
+ #define cpu_has_if_pschange_mc_no boot_cpu_has(X86_FEATURE_IF_PSCHANGE_MC_NO)
++#define cpu_has_tsx_ctrl        boot_cpu_has(X86_FEATURE_TSX_CTRL)
+ 
  /* Synthesized. */
  #define cpu_has_arch_perfmon    boot_cpu_has(X86_FEATURE_ARCH_PERFMON)
- #define cpu_has_cpuid_faulting  boot_cpu_has(X86_FEATURE_CPUID_FAULTING)
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index 0eaa2c3094d0..f983ff501d95 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -535,7 +535,7 @@ static inline uint8_t get_cpu_family(uint32_t raw, uint8_t *model,
+     return fam;
+ }
+ 
+-extern int8_t opt_tsx, cpu_has_tsx_ctrl;
++extern int8_t opt_tsx;
+ extern bool rtm_disabled;
+ void tsx_init(void);
+ 
+diff --git a/xen/arch/x86/tsx.c b/xen/arch/x86/tsx.c
+index 41b6092cfe16..fc199815994d 100644
+--- a/xen/arch/x86/tsx.c
++++ b/xen/arch/x86/tsx.c
+@@ -19,7 +19,6 @@
+  * controlling TSX behaviour, and where TSX isn't force-disabled by firmware.
+  */
+ int8_t __read_mostly opt_tsx = -1;
+-int8_t __read_mostly cpu_has_tsx_ctrl = -1;
+ bool __read_mostly rtm_disabled;
+ 
+ static int __init cf_check parse_tsx(const char *s)
+@@ -37,24 +36,28 @@ custom_param("tsx", parse_tsx);
+ 
+ void tsx_init(void)
+ {
++    static bool __read_mostly once;
++
+     /*
+      * This function is first called between microcode being loaded, and CPUID
+      * being scanned generally.  Read into boot_cpu_data.x86_capability[] for
+      * the cpu_has_* bits we care about using here.
+      */
+-    if ( unlikely(cpu_has_tsx_ctrl < 0) )
++    if ( unlikely(!once) )
+     {
+-        uint64_t caps = 0;
+         bool has_rtm_always_abort;
+ 
++        once = true;
++
+         if ( boot_cpu_data.cpuid_level >= 7 )
+             boot_cpu_data.x86_capability[FEATURESET_7d0]
+                 = cpuid_count_edx(7, 0);
+ 
+         if ( cpu_has_arch_caps )
+-            rdmsrl(MSR_ARCH_CAPABILITIES, caps);
++            rdmsr(MSR_ARCH_CAPABILITIES,
++                  boot_cpu_data.x86_capability[FEATURESET_10Al],
++                  boot_cpu_data.x86_capability[FEATURESET_10Ah]);
+ 
+-        cpu_has_tsx_ctrl = !!(caps & ARCH_CAPS_TSX_CTRL);
+         has_rtm_always_abort = cpu_has_rtm_always_abort;
+ 
+         if ( cpu_has_tsx_ctrl && cpu_has_srbds_ctrl )
 -- 
 2.30.2
 
