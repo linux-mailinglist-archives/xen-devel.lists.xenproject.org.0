@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA0C870FF73
-	for <lists+xen-devel@lfdr.de>; Wed, 24 May 2023 22:48:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539213.839858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C71A70FF7C
+	for <lists+xen-devel@lfdr.de>; Wed, 24 May 2023 22:53:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539217.839869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1vPO-0003Ug-SO; Wed, 24 May 2023 20:48:34 +0000
+	id 1q1vU6-0004um-E6; Wed, 24 May 2023 20:53:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539213.839858; Wed, 24 May 2023 20:48:34 +0000
+Received: by outflank-mailman (output) from mailman id 539217.839869; Wed, 24 May 2023 20:53:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1vPO-0003St-Pf; Wed, 24 May 2023 20:48:34 +0000
-Received: by outflank-mailman (input) for mailman id 539213;
- Wed, 24 May 2023 20:48:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q1vU6-0004sx-Aw; Wed, 24 May 2023 20:53:26 +0000
+Received: by outflank-mailman (input) for mailman id 539217;
+ Wed, 24 May 2023 20:53:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o7M2=BN=shutemov.name=kirill@srs-se1.protection.inumbo.net>)
- id 1q1vPN-0003Sn-5w
- for xen-devel@lists.xenproject.org; Wed, 24 May 2023 20:48:33 +0000
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 55f7fe42-fa74-11ed-8611-37d641c3527e;
- Wed, 24 May 2023 22:48:30 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 564803200B1C;
- Wed, 24 May 2023 16:48:24 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 24 May 2023 16:48:27 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 24 May 2023 16:48:21 -0400 (EDT)
-Received: by box.shutemov.name (Postfix, from userid 1000)
- id 49820109F9F; Wed, 24 May 2023 23:48:18 +0300 (+03)
+ <SRS0=9d7M=BN=linux.microsoft.com=madvenka@srs-se1.protection.inumbo.net>)
+ id 1q1vU5-0004sr-5F
+ for xen-devel@lists.xenproject.org; Wed, 24 May 2023 20:53:25 +0000
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 059cc036-fa75-11ed-b230-6b7b168915f2;
+ Wed, 24 May 2023 22:53:23 +0200 (CEST)
+Received: from [192.168.4.26] (unknown [47.186.50.133])
+ by linux.microsoft.com (Postfix) with ESMTPSA id E7B6E20FBA6D;
+ Wed, 24 May 2023 13:53:19 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,146 +39,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55f7fe42-fa74-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1684961303; x=
-	1685047703; bh=GIQrYXVIJfghlyJeZVTwMC4NvSXNZTZ81GeVUDK35vA=; b=t
-	V78D8AQWQriaLyjLryKXcRouM18sDnenIWh1Yu+0MLtrKqbfxYSkYAP7Ah45z0C0
-	wqrRshdZnP8Fzs3Y74J2dEDBmVYWYkp0Dr1xsrl5u5j90fMLI6BY4GxnFIanI2ra
-	ZHoNHyFdoiSeY0hssG0uaEFpYzR9Lz3q64/uyyqR22r9Bp9R7utjmhCAN40FS5yl
-	LMsNTY7sC/uKblPAscJfx1OowRzqDWvUUksw9EcLsmJ5dxmskbo1njKOtT/uAEJb
-	p8CBABZQSKnGrDpi9R3ukiBCGNRVKr8j1xz53Ydve6A5EMl4OC/qVLH06zs0pCt+
-	L7IqaBqFdMvHDowOKkSCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1684961303; x=1685047703; bh=GIQrYXVIJfghl
-	yJeZVTwMC4NvSXNZTZ81GeVUDK35vA=; b=YXeLdPNcTaSCsiCsBeJv2f5p9SuP4
-	8PNIAd5OHvvHh0zi0J6sHQ2iDxJi3KUZPgxTwHgsCiBnsG4iFJMa5e9VSO/9SRsp
-	1uf6gxH+qkDhvA2KvyiORL0inPnSLCOCJ7W/hgwUyUdJI1MHVbrXnbq8uhCmMqay
-	QCl1ZWzVXrCzb30GT0XC1Wta3d7Y3WxRKULau+sNOAow3o6ZJP+eHzUVYtEPFdUO
-	SEJPLcn5mgVKhWahWT0mp2x4brRIS3jKZQ5jeti0GnxZf5j3AV7cUWQLho6bY9Hg
-	bJgTAAYblxZs0e6yU12BJKusEGvIJR9TETpkuLHQittJSabdfnNE4zZlw==
-X-ME-Sender: <xms:FnhuZDTH2VncK0GAbUd4QSuubawcVJEemEMmfWagwDdFrmymqbynRw>
-    <xme:FnhuZEylmO4WOFyEi63qXNPS7KmYBZh0Oi4Ko1ah2WyXbPpIb5vWyfJ0rtnlScPMf
-    YwGNKBrFecAJTAStLU>
-X-ME-Received: <xmr:FnhuZI0B8fy9Ol2lnVR91k-mp_zuw1fzrmbcod9KqT-pVjgXEb11Z3-99qaxPUeQ45cz-A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeejhedgudehudcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehttddttddttddvnecuhfhrohhmpedfmfhi
-    rhhilhhlucetrdcuufhhuhhtvghmohhvfdcuoehkihhrihhllhesshhhuhhtvghmohhvrd
-    hnrghmvgeqnecuggftrfgrthhtvghrnhephfeigefhtdefhedtfedthefghedutddvueeh
-    tedttdehjeeukeejgeeuiedvkedtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
-    hmpehmrghilhhfrhhomhepkhhirhhilhhlsehshhhuthgvmhhovhdrnhgrmhgv
-X-ME-Proxy: <xmx:FnhuZDDD4TIO_TlTLMdLlTBKIBaI4Z9lylnIe3wBeaO4FVJJxTQ0FA>
-    <xmx:FnhuZMj_AEyzunCa7U0nUvY822b_W_v3y-MdIwmWBPCWgqMitbF1og>
-    <xmx:FnhuZHo0gf_JVrLFUK-EgR8w02dXTQBT2P7OqLOR94f80xY3JTy1xg>
-    <xmx:F3huZHB2sQNsFiPjk9M0j2hsG8Xww7Nt8oC4qQnHLKoB8ZE2QQW6hQ>
-Feedback-ID: ie3994620:Fastmail
-Date: Wed, 24 May 2023 23:48:18 +0300
-From: "Kirill A. Shutemov" <kirill@shutemov.name>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
-	David Woodhouse <dwmw2@infradead.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Brian Gerst <brgerst@gmail.com>,
-	Arjan van de Veen <arjan@linux.intel.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,	Paul McKenney <paulmck@kernel.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Oleksandr Natalenko <oleksandr@natalenko.name>,
-	Paul Menzel <pmenzel@molgen.mpg.de>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Piotr Gorski <lucjan.lucjanov@gmail.com>,
-	Usama Arif <usama.arif@bytedance.com>,	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org,	Russell King <linux@armlinux.org.uk>,
- Arnd Bergmann <arnd@arndb.de>,	linux-arm-kernel@lists.infradead.org,
-	Catalin Marinas <catalin.marinas@arm.com>,	Will Deacon <will@kernel.org>,
- Guo Ren <guoren@kernel.org>,	linux-csky@vger.kernel.org,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Helge Deller <deller@gmx.de>, linux-parisc@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,	linux-riscv@lists.infradead.org,
-	Mark Rutland <mark.rutland@arm.com>,	Sabin Rapan <sabrapan@amazon.com>,
-	"Michael Kelley (LINUX)" <mikelley@microsoft.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: Re: [patch v3 31/36] x86/apic: Provide cpu_primary_thread mask
-Message-ID: <20230524204818.3tjlwah2euncxzmh@box.shutemov.name>
-References: <20230508181633.089804905@linutronix.de>
- <20230508185218.962208640@linutronix.de>
+X-Inumbo-ID: 059cc036-fa75-11ed-b230-6b7b168915f2
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E7B6E20FBA6D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1684961602;
+	bh=jaoGaATWl6qH0LBuT7PMpFhq3wR8UB0SRjcinmr2MGw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gdGCklkn+W2FG8nWXMknVmZRf7MOqfBXFQSg1XVTieJjYv2pZpbSK13nBh6SaoEhT
+	 jcL639wc1nVXAHEnmQmaX6AIuaD25yFRRA9zSSEUAf6N/FK7V8PguD80UGHHcNbtZY
+	 /rfQmT61JJHHOojvC0XgtjYl2COQYPXjTiszLZkM=
+Message-ID: <b1ffbf50-7728-64a1-5d46-10331a17530d@linux.microsoft.com>
+Date: Wed, 24 May 2023 15:53:18 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230508185218.962208640@linutronix.de>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v1 2/9] KVM: x86/mmu: Add support for prewrite page
+ tracking
+To: Sean Christopherson <seanjc@google.com>, =?UTF-8?B?TWlja2HDq2wgU2FsYcO8?=
+ =?UTF-8?Q?n?= <mic@digikod.net>
+Cc: Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Kees Cook <keescook@chromium.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
+ Alexander Graf <graf@amazon.com>, Forrest Yuan Yu <yuanyu@google.com>,
+ James Morris <jamorris@linux.microsoft.com>,
+ John Andersen <john.s.andersen@intel.com>, Liran Alon
+ <liran.alon@oracle.com>, Marian Rotariu <marian.c.rotariu@gmail.com>,
+ =?UTF-8?Q?Mihai_Don=c8=9bu?= <mdontu@bitdefender.com>,
+ =?UTF-8?B?TmljdciZb3IgQ8OuyJt1?= <nicu.citu@icloud.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Thara Gopinath <tgopinath@microsoft.com>, Will Deacon <will@kernel.org>,
+ Zahra Tarkhani <ztarkhani@microsoft.com>,
+ =?UTF-8?Q?=c8=98tefan_=c8=98icleru?= <ssicleru@bitdefender.com>,
+ dev@lists.cloudhypervisor.org, kvm@vger.kernel.org,
+ linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ qemu-devel@nongnu.org, virtualization@lists.linux-foundation.org,
+ x86@kernel.org, xen-devel@lists.xenproject.org
+References: <20230505152046.6575-1-mic@digikod.net>
+ <20230505152046.6575-3-mic@digikod.net> <ZFUumGdZDNs1tkQA@google.com>
+ <6412bf27-4d05-eab8-3db1-d4efa44af3aa@digikod.net>
+ <ZFU9YzqG/T+Ty9gY@google.com>
+Content-Language: en-US
+From: "Madhavan T. Venkataraman" <madvenka@linux.microsoft.com>
+In-Reply-To: <ZFU9YzqG/T+Ty9gY@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, May 08, 2023 at 09:44:17PM +0200, Thomas Gleixner wrote:
-> From: Thomas Gleixner <tglx@linutronix.de>
+
+
+On 5/5/23 12:31, Sean Christopherson wrote:
+> On Fri, May 05, 2023, Mickaï¿½l Salaï¿½n wrote:
+>>
+>> On 05/05/2023 18:28, Sean Christopherson wrote:
+>>> I have no doubt that we'll need to solve performance and scaling issues with the
+>>> memory attributes implementation, e.g. to utilize xarray multi-range support
+>>> instead of storing information on a per-4KiB-page basis, but AFAICT, the core
+>>> idea is sound.  And a very big positive from a maintenance perspective is that
+>>> any optimizations, fixes, etc. for one use case (CoCo vs. hardening) should also
+>>> benefit the other use case.
+>>>
+>>> [1] https://lore.kernel.org/all/20230311002258.852397-22-seanjc@google.com
+>>> [2] https://lore.kernel.org/all/Y2WB48kD0J4VGynX@google.com
+>>> [3] https://lore.kernel.org/all/Y1a1i9vbJ%2FpVmV9r@google.com
+>>
+>> I agree, I used this mechanism because it was easier at first to rely on a
+>> previous work, but while I was working on the MBEC support, I realized that
+>> it's not the optimal way to do it.
+>>
+>> I was thinking about using a new special EPT bit similar to
+>> EPT_SPTE_HOST_WRITABLE, but it may not be portable though. What do you
+>> think?
 > 
-> Make the primary thread tracking CPU mask based in preparation for simpler
-> handling of parallel bootup.
+> On x86, SPTEs are even more ephemeral than memslots.  E.g. for historical reasons,
+> KVM zaps all SPTEs if _any_ memslot is deleted, which is problematic if the guest
+> is moving around BARs, using option ROMs, etc.
 > 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Tested-by: Michael Kelley <mikelley@microsoft.com>
+> ARM's pKVM tracks metadata in its stage-2 PTEs, i.e. doesn't need an xarray to
+> otrack attributes, but that works only because pKVM is more privileged than the
+> host kernel, and the shared vs. private memory attribute that pKVM cares about
+> is very, very restricted in how it can be used and changed.
 > 
-> 
-> ---
->  arch/x86/include/asm/apic.h     |    2 --
->  arch/x86/include/asm/topology.h |   19 +++++++++++++++----
->  arch/x86/kernel/apic/apic.c     |   20 +++++++++-----------
->  arch/x86/kernel/smpboot.c       |   12 +++---------
->  4 files changed, 27 insertions(+), 26 deletions(-)
-> ---
-> 
+> I tried shoehorning private vs. shared metadata into x86's SPTEs in the past, and
+> it ended up being a constant battle with the kernel, e.g. page migration, and with
+> KVM itself, e.g. the above memslot mess.
 
-...
+Sorry for the delay in responding to this. I wanted to study the KVM code and fully
+understand your comment before responding.
 
-> @@ -2386,20 +2386,16 @@ bool arch_match_cpu_phys_id(int cpu, u64
->  }
->  
->  #ifdef CONFIG_SMP
-> -/**
-> - * apic_id_is_primary_thread - Check whether APIC ID belongs to a primary thread
-> - * @apicid: APIC ID to check
-> - */
-> -bool apic_id_is_primary_thread(unsigned int apicid)
-> +static void cpu_mark_primary_thread(unsigned int cpu, unsigned int apicid)
->  {
-> -	u32 mask;
-> -
-> -	if (smp_num_siblings == 1)
-> -		return true;
->  	/* Isolate the SMT bit(s) in the APICID and check for 0 */
-> -	mask = (1U << (fls(smp_num_siblings) - 1)) - 1;
-> -	return !(apicid & mask);
-> +	u32 mask = (1U << (fls(smp_num_siblings) - 1)) - 1;
-> +
-> +	if (smp_num_siblings == 1 || !(apicid & mask))
-> +		cpumask_set_cpu(cpu, &__cpu_primary_thread_mask);
->  }
-> +#else
-> +static inline void cpu_mark_primary_thread(unsigned int cpu, unsigned int apicid) { }
->  #endif
->  
->  /*
+Yes, I quite agree with you. I will make an attempt to address this in the next version.
+I am working on it right now.
 
-This patch causes boot regression on TDX guest. The guest crashes on SMP
-bring up.
+Thanks.
 
-The change makes use of smp_num_siblings earlier than before: the mask get
-constructed in acpi_boot_init() codepath. Later on smp_num_siblings gets
-updated in detect_ht().
-
-In my setup with 16 vCPUs, smp_num_siblings is 16 before detect_ht() and
-set to 1 in detect_ht().
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Madhavan
 
