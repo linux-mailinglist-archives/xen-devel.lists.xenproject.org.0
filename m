@@ -2,35 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9EFD710F31
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 17:10:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539663.840790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAF32710F6F
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 17:23:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539693.840816 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2CbS-0003K4-8R; Thu, 25 May 2023 15:10:10 +0000
+	id 1q2Cnu-00058i-NH; Thu, 25 May 2023 15:23:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539663.840790; Thu, 25 May 2023 15:10:10 +0000
+Received: by outflank-mailman (output) from mailman id 539693.840816; Thu, 25 May 2023 15:23:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2CbS-0003HY-52; Thu, 25 May 2023 15:10:10 +0000
-Received: by outflank-mailman (input) for mailman id 539663;
- Thu, 25 May 2023 15:10:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1q2Cnu-00055q-JU; Thu, 25 May 2023 15:23:02 +0000
+Received: by outflank-mailman (input) for mailman id 539693;
+ Thu, 25 May 2023 15:23:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q2CbR-0003HO-87; Thu, 25 May 2023 15:10:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q2CbR-00015M-1N; Thu, 25 May 2023 15:10:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q2CbQ-0004mK-Ck; Thu, 25 May 2023 15:10:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1q2CbQ-0003pl-CC; Thu, 25 May 2023 15:10:08 +0000
+ (envelope-from <SRS0=xzDE=BO=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1q2Cnt-00055k-0Z
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 15:23:01 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20619.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::619])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 07bb0c29-fb10-11ed-8611-37d641c3527e;
+ Thu, 25 May 2023 17:22:59 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS4PR04MB9315.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.29; Thu, 25 May
+ 2023 15:22:56 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6433.016; Thu, 25 May 2023
+ 15:22:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,518 +47,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=SiCQDPXsbjnRGwmshGl+X8XyoceOXLNTmElAMqPmKaI=; b=dS2cYWjC/S03q+lclGWvy7KyCa
-	wjfYqOrCiHXUCK8/PlfzU0/niyEoGmW4+3W7JXYHdvzepxRrw43TsbDjty/kynXbst3g0lbLdnwTx
-	bX2wmYRAXGOkGynEsEMnN0n6w/Ne/ijr0mws0yPupBhZSQJMlJlvZml/IViRIAz6ElzI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180938-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: 07bb0c29-fb10-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VWr7PFq8eUdUOg9Nr0Nh+S2L2FLQ9VQh2mXrf3rO4eVUQiDQLsEPuTZUDInfZXGMckESY1LXFWcgu2Zfiadd/f9BD11QLNMSutUkm4tWbkgtjxabUBKjPlt+6/tcmoofgicLezN7YF6m0Etyc3cQl+WfrkEAZDJnW7hytNtmLbsZMBFEDZb2HXOcgvq51n0ckwKja3IhvizbrkDzsFEjNgei9FaycEzCIYPA4ZLMvDLP6pdT6FUL0y5Xx67hxNtL0p2y1U8gVBHp37DUpTcKAVGZQ2uWdHR79tXMi9gxWXrInz0ncrvPsGx2QN9gYfuYt3gUvqZqYlyqrhXeH5R+KA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kkFVCOGYL4an4mCcuOA6hS6maBBNiaz7sHi1Adol5Uw=;
+ b=VH8WnybyegBYMBf6vLqRxe9VM1lvvXw+niyC8NNyJ5BwU19LQhX13cJd5qtKoPR63u33tx3WYYyazCwtrwNr1ZxABfhW8I6rPc73rGe6UTmCZM0P9na4gI11TjZUFTJlOw235az6lPBbzaMAzLZLEUjDnHdHat528kV3fblmkyoyq5jusEawsN5D/g1v0Eu4zd7r/a8kalW0i/A3N2It4GfHrrsDHoMd+oip6QTc49cgauwRPK7N8RVB3Va0XNH01cRpF//Lyf70xx0Xc9VOWK99hpiL8LnorBKWYMhWGpQMQmBNQP3q8WwUrL+hJyHJxQCHgolbhsB21gwwUk1Ieg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kkFVCOGYL4an4mCcuOA6hS6maBBNiaz7sHi1Adol5Uw=;
+ b=Uit04lPsyjKmBeAK8psoUnE1usyI+lXgIq/l5s8l4uRUmHDTJ3agkPeAHhI/cO77hxJvXwjjS6+wsmk3H7z7A2Y3m9udsEpSYpSSG/m6aXXPQOHW57t5+TpDSx85b/tBEAwbxy265B0bgLucOyxnF7Un1adVdmn/0wxuw0gJNVUFIX9TXSUdFIjtJEGwwI4qp+Gk7Ou9cmqy0hRC3fqN4CavzBab9WuFkLH+7aedZc1uSe27jrczgev00h8NqO1tqEvToMNy+vj+Bmhci1EojNTlnLmpzXr7gCDFapLB7BxWf2C9gHA2MSDnyUMC2QidOGHuiMLl1JcLVYX/gT8RBQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <56cb3727-5905-1a7a-ceed-cf110bdddad4@suse.com>
+Date: Thu, 25 May 2023 17:22:53 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2] vpci/header: cope with devices not having vpci
+ allocated
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+References: <20230525145405.35348-1-roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230525145405.35348-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0181.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::17) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Subject: [xen-unstable test] 180938: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    xen-unstable:test-amd64-i386-xl-vhd:xen-install:fail:heisenbug
-    xen-unstable:test-armhf-armhf-libvirt:guest-start/debian.repeat:fail:heisenbug
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=511b9f286c3dadd041e0d90beeff7d47c9bf3b7a
-X-Osstest-Versions-That:
-    xen=380c6c170393c48852d4f2b1ea97125a399cfc61
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 25 May 2023 15:10:08 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS4PR04MB9315:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ee730d6-799a-4d0b-2b10-08db5d33ea23
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Ua4TqcZuFvOJfYqJIqoBXfxuHZqU1PtREHoYDfwCO3AKRlZiGiG6asMTxt8Hz/gNCx9WWTpedFt5M0msPdA8KCMWWjo1iQ4zuBmPnIJrEbMHAgYwgt81MdvQV8ysBGmo3O886dJ9+CAE/HuvwAMHYutuxMRMBpL8537IHVNVbFXiOEMGYnByoIFm2yXJPZjstdRf590/a5TY598FmxdrYJ/syKaU/HIV/Om9MdLZEMtdOlg1uIpCsqbmCCo3HHhaU6oJYnaIeIjNntu0xq+FEJuKYUI93Tgl130TL/PMvvAoXWij8s4lW3EoWIT2ikKEqSZ07TT6T1P+8/3SCZehA5cIJZw0yYuCjBrnJEF+R+rzKuqaZh7XLyVMqu/Sb03ilwzKGjF436tJ+g+CoZyJatn0wZCIeA6PBXFZI5aAGQV75hy70Q0N/aSrYLZ4aryf5egdOH9myjx9jYwueJmlSwkxKT8OcEhxoQgFz7u7xRjQ4uIKb0xSeg9i9bE1aPSwNmTgDM2svLS0SWQLzIg3bNlMbpsFlsvJ1QOG1lrT141uSue2A11PXqqcCB91/qZW+AZCPrsJdD56qI0RjoAsU2TGTd3iUZPXUwotAk4ktjcQ+BCCqNWzf8E4UhDGgaEjyK7koqdl2jvyEVD2R2/PEQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(396003)(346002)(366004)(376002)(39860400002)(451199021)(26005)(6506007)(6512007)(186003)(53546011)(38100700002)(2616005)(36756003)(2906002)(4744005)(6486002)(5660300002)(41300700001)(316002)(6666004)(86362001)(66476007)(31686004)(478600001)(66556008)(66946007)(6916009)(4326008)(31696002)(8936002)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?b1lqcXFDTlRiNm9LZlpGQzRyNVdYckJGZ2RjMjFPNnBFTXh0bXREaE1RMTVD?=
+ =?utf-8?B?UXR0RWdjODBZRzFzL2FreDBQS292alRNMEdYNVBhY3JiVVFISHRnbFB1UlIz?=
+ =?utf-8?B?dk9pK29sNHJ3L1RCeHcxUXlLN3dHNGgzT1pmOXdQYnl2VXdCZHV5Tnp5b1VP?=
+ =?utf-8?B?SXVOLzRtcFdkT3lxZWVicFZhajdMQ3krODNPV1NOTnBSVjFnT2ttanBGZEdz?=
+ =?utf-8?B?bEl0OVhlbC9MbVZVUFhOTXJMSDVGLzVYR0lrTTdlL3FuNDFVelgyUFd1UXpD?=
+ =?utf-8?B?Wm5BZUljbzd0TUFabmtjbTNULzZSZVlrT2UrZEJnWnRhNjV5V0FyM2hTZzg0?=
+ =?utf-8?B?ZE9vRVM0dU1rcElWUU51TlduV0pxdXg0aDFJWGNWc2pYOGRKanN4N2ZucjJo?=
+ =?utf-8?B?SFBKVWhTL1R0ZXhWR3dqRGg0ZHg3RlBrTFhGWWgwSStlV2tGY3VrWU93QjBM?=
+ =?utf-8?B?eWN3RTZTZTVuYUkzWnMvVnY0ZEhuN2hMa1V6WlZ1REhQbldsOXVnTXNBdTVi?=
+ =?utf-8?B?RzFsNHgrWTJIeDVvTXRMYTJsbnlPNlZ3UlVGMmZxbzFYOXRhUXRrWmNRLzVZ?=
+ =?utf-8?B?TWk5N1lLSHcvY0lHSDJWZzgxK1JoSmQrUEorYVhURWkwUUxkYzQ5TkpwWU42?=
+ =?utf-8?B?U0paYm1kYmUrVXhFKy9DT2RhdFJua0ZwOWdlM3pGVTJMWnFOS0hnOFRkWGxi?=
+ =?utf-8?B?TkdNZWxvV3lvZTd3eGxDcy9pZlpoR3VsZlExSG5jM0VpT0JubmJuM3grK2hn?=
+ =?utf-8?B?TUl6N3VvR29iVmJqL2k2eTZndjFwMFltODVFQ0w2NGhQUFlGQ0NHMURGZm9M?=
+ =?utf-8?B?bFlWVSt1MTR2TVZVWnowN08vMjMxU3J3VXFkZnJqQlRhZVp4Z3NnU05DMDRw?=
+ =?utf-8?B?ejNvM0NuRUVxNWhwRk9DM0JydFJkV2lNb0FDYzY3RklzbDZqWmtHOC9yVnF3?=
+ =?utf-8?B?OEZjTWVFQktpcG1iOU53N2QyNTZFOGNiTW9IVXlyeU5WYy9FcGxWbkRvMDFH?=
+ =?utf-8?B?VmlUU01QZWRHK005ZDNoM3orSFRvSU9rWVErRk95RUV6VDlvOTYyME81Uyta?=
+ =?utf-8?B?cEZObC9ST1RRMFhiVTFVNHNQc2xSSjAxVllOQXF6bFFaRnNlM3I3U0tkLy80?=
+ =?utf-8?B?cFFIZndZaitEYlI2Qmd5VjNJdm9WdlhtVVpKNDBLbDh2TE9mZUFvS3RHZlZJ?=
+ =?utf-8?B?ZmxnRGxVWUZDMmZMMDQwdHJqSTd0N2ZnREhMWHM4VTJrQ1FUN2c0UU15dWtQ?=
+ =?utf-8?B?dHRSZ2wrbzgwcStDWUFVam5zYmNrNWFEdXBXM1pyWlpMdWI0czFOanRxVXpC?=
+ =?utf-8?B?a1IwUE1FL3l6VmdGS09ERy84UVJid1J0VkRoN2FGam1pcmRHSjRyTEUvZHd2?=
+ =?utf-8?B?MUdUejljTDdFakJWTHJENDRKZ0xLR0ZnTzVkbDFJT3J3elZwQit0ejl1TWJK?=
+ =?utf-8?B?OE5jWG5LU2NiV1hyTFRVQXZ4Z0NOY0xpa0s5Y3dWS0lPa3RNOTl3RmFTZXY3?=
+ =?utf-8?B?M1E4ak9KSEZHUSs4MHg2MS9EaFZPZCtqYzc5M2tCOUM2TFNsUjlINUpQcjE1?=
+ =?utf-8?B?cXN6WEE5SE9hQ0pPbU4xYzZISFFGK1VXRVZwVGFpa2NDM1ZmV1d3cjhWN1Ry?=
+ =?utf-8?B?dE1lOC93RG1UcEZ6U2pHTjJMMGJuaGNKdEJmeVl0c2hySEh3TkxHUkFwZFZC?=
+ =?utf-8?B?UkkrYXJLWTI5UTFhRnQ1TjB0bFdaZ3Nab0RJNWdXMU1qcFBQMFRWdmtKTWdT?=
+ =?utf-8?B?SEM3RUdDaS9jSXRHa3NJRkgvMGxyZEFSRG5HUysyQzFVYi9zNjZPUVY0R3JE?=
+ =?utf-8?B?dWhvVVpyZnV6c2ZFUklseitJZGpLbko0NElPUUhVcW1oRElsaTcrRXFCRC9u?=
+ =?utf-8?B?czhUeHJxeTN3dzFyU3Jrc1dHb1RaSmQ0VEE3Nm4zTFNDMGlsNDc3cWozaGJH?=
+ =?utf-8?B?b0U3Y2ZZdmF4MkEwSVh0TEEzZkxPM1Vmdi80VkwzQXQwRWluY0NuZ29HTHpn?=
+ =?utf-8?B?ak1GdXdMdGdBWEZobXQzOUY0R1gxb2FhQWtkdC9kMGNMQS8zRWNCQlJiWmUx?=
+ =?utf-8?B?S0lFalJKV0Z1T0Vkd1IzWjBLMkl2eEpzOE1qaGo4WnRmNTNrZko2U2lpMHFw?=
+ =?utf-8?Q?/CABWn4QugVUbSa9z0d2l8z4A?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ee730d6-799a-4d0b-2b10-08db5d33ea23
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 15:22:55.8576
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JLS7SbbeWp6OCU+tdja7EFqr1rD8Ufjv8NcTVrKFlP2k786iC1jNobit1TDjWjUqbL+Vou5mF8+LJZh2zRDeJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9315
 
-flight 180938 xen-unstable real [real]
-flight 180944 xen-unstable real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180938/
-http://logs.test-lab.xenproject.org/osstest/logs/180944/
+On 25.05.2023 16:54, Roger Pau Monne wrote:
+> When traversing the list of pci devices assigned to a domain cope with
+> some of them not having the vpci struct allocated. It should be
+> possible for the hardware domain to have read-only devices assigned
+> that are not handled by vPCI, such support will be added by further
+> patches.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Regressions :-(
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 180930
+I was wondering whether to put an assertion in (permitting both DomXEN
+and hwdom, i.e. slightly more relaxed than I had it).
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-xl-vhd        7 xen-install         fail pass in 180944-retest
- test-armhf-armhf-libvirt 18 guest-start/debian.repeat fail pass in 180944-retest
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180930
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 180930
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180930
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 180930
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 180930
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 180930
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 180930
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 180930
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180930
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 180930
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 180930
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180930
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
-
-version targeted for testing:
- xen                  511b9f286c3dadd041e0d90beeff7d47c9bf3b7a
-baseline version:
- xen                  380c6c170393c48852d4f2b1ea97125a399cfc61
-
-Last test of basis   180930  2023-05-24 17:38:36 Z    0 days
-Testing same since   180938  2023-05-25 02:40:04 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 511b9f286c3dadd041e0d90beeff7d47c9bf3b7a
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon May 15 19:15:48 2023 +0100
-
-    x86/spec-ctrl: Remove opencoded MSR_ARCH_CAPS check
-    
-    MSR_ARCH_CAPS data is now included in featureset information.  Replace
-    opencoded checks with regular feature ones.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 205a9f970378c31ae3e00b52d59103a2e881b9e0
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon May 15 19:05:01 2023 +0100
-
-    x86/tsx: Remove opencoded MSR_ARCH_CAPS check
-    
-    The current cpu_has_tsx_ctrl tristate is serving double pupose; to signal the
-    first pass through tsx_init(), and the availability of MSR_TSX_CTRL.
-    
-    Drop the variable, replacing it with a once boolean, and altering
-    cpu_has_tsx_ctrl to come out of the feature information.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 8f6bc7f9b72eb7cf0c8c5ae5d80498a58ba0b7c3
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon May 15 16:59:25 2023 +0100
-
-    x86/vtx: Remove opencoded MSR_ARCH_CAPS check
-    
-    MSR_ARCH_CAPS data is now included in featureset information.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit a87d131a8c2952e53ba9ed513d5553426cdeac34
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue May 16 14:07:43 2023 +0100
-
-    x86/cpufeature: Rework {boot_,}cpu_has()
-    
-    One area where Xen deviates from Linux is that test_bit() forces a volatile
-    read.  This leads to poor code generation, because the optimiser cannot merge
-    bit operations on the same word.
-    
-    Drop the use of test_bit(), and write the expressions in regular C.  This
-    removes the include of bitops.h (which is a frequent source of header
-    tangles), and it offers the optimiser far more flexibility.
-    
-    Bloat-o-meter reports a net change of:
-    
-      add/remove: 0/0 grow/shrink: 21/87 up/down: 641/-2751 (-2110)
-    
-    with half of that in x86_emulate() alone.  vmx_ctxt_switch_to() seems to be
-    the fastpath with the greatest delta at -24, where the optimiser has
-    successfully removed the branch hidden in cpu_has_msr_tsc_aux.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit bbb289f3d5bdd3358af748d7c567343532ac45b5
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri May 12 15:53:35 2023 +0100
-
-    x86/boot: Expose MSR_ARCH_CAPS data in guest max policies
-    
-    We already have common and default feature adjustment helpers.  Introduce one
-    for max featuresets too.
-    
-    Offer MSR_ARCH_CAPS unconditionally in the max policy, and stop clobbering the
-    data inherited from the Host policy.  This will be necessary to level a VM
-    safely for migration.  Annotate the ARCH_CAPS CPUID bit as special.  Note:
-    ARCH_CAPS is still max-only for now, so will not be inhereted by the default
-    policies.
-    
-    With this done, the special case for dom0 can be shrunk to just resampling the
-    Host policy (as ARCH_CAPS isn't visible by default yet).
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 70553000d6b44dd7c271a35932b0b3e1f22c5532
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri May 12 15:37:02 2023 +0100
-
-    x86/boot: Record MSR_ARCH_CAPS for the Raw and Host CPU policy
-    
-    Extend x86_cpu_policy_fill_native() with a read of ARCH_CAPS based on the
-    CPUID information just read, removing the specially handling in
-    calculate_raw_cpu_policy().
-    
-    Right now, the only use of x86_cpu_policy_fill_native() outside of Xen is the
-    unit tests.  Getting MSR data in this context is left to whomever first
-    encounters a genuine need to have it.
-    
-    Extend generic_identify() to read ARCH_CAPS into x86_capability[], which is
-    fed into the Host Policy.  This in turn means there's no need to special case
-    arch_caps in calculate_host_policy().
-    
-    No practical change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit ce8c930851a5ca21c4e70f83be7e8b290ce1b519
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri May 12 18:50:59 2023 +0100
-
-    x86/cpu-policy: MSR_ARCH_CAPS feature names
-    
-    Seed the default visibility from the dom0 special case, which for the most
-    part just exposes the *_NO bits.  EIBRS is the one non-*_NO bit, which is
-    "just" a status bit to the guest indicating a change in implemention of IBRS
-    which is already fully supported.
-    
-    Insert a block dependency from the ARCH_CAPS CPUID bit to the entire content
-    of the MSR.  This is because MSRs have no structure information similar to
-    CPUID, and used by x86_cpu_policy_clear_out_of_range_leaves(), in order to
-    bulk-clear inaccessable words.
-    
-    The overall CPUID bit is still max-only, so all of MSR_ARCH_CAPS is hidden in
-    the default policies.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit d9fe459ffad8a6eac2f695adb2331aff83c345d1
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri May 12 17:55:21 2023 +0100
-
-    x86/cpu-policy: Infrastructure for MSR_ARCH_CAPS
-    
-    Bits through 24 are already defined, meaning that we're not far off needing
-    the second word.  Put both in right away.
-    
-    As both halves are present now, the arch_caps field is full width.  Adjust the
-    unit test, which notices.
-    
-    The bool bitfield names in the arch_caps union are unused, and somewhat out of
-    date.  They'll shortly be automatically generated.
-    
-    Add CPUID and MSR prefixes to the ./xen-cpuid verbose output, now that there
-    are a mix of the two.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 43912f8dbb1888ffd7f00adb10724c70e71927c4
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon May 15 14:14:53 2023 +0100
-
-    x86/boot: Adjust MSR_ARCH_CAPS handling for the Host policy
-    
-    We are about to move MSR_ARCH_CAPS into featureset, but the order of
-    operations (copy raw policy, then copy x86_capabilitiles[] in) will end up
-    clobbering the ARCH_CAPS value.
-    
-    Some toolstacks use this information to handle TSX compatibility across the
-    CPUs and microcode versions where support was removed.
-    
-    To avoid this transient breakage, read from raw_cpu_policy rather than
-    modifying it in place.  This logic will be removed entirely in due course.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit ef1987fcb0fdfaa7ee148024037cb5fa335a7b2d
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Fri May 12 13:52:39 2023 +0100
-
-    x86/boot: Rework dom0 feature configuration
-    
-    Right now, dom0's feature configuration is split between between the common
-    path and a dom0-specific one.  This mostly is by accident, and causes some
-    very subtle bugs.
-    
-    First, start by clearly defining init_dom0_cpuid_policy() to be the domain
-    that Xen builds automatically.  The late hwdom case is still constructed in a
-    mostly normal way, with the control domain having full discretion over the CPU
-    policy.
-    
-    Identifying this highlights a latent bug - the two halves of the MSR_ARCH_CAPS
-    bodge are asymmetric with respect to the hardware domain.  This means that
-    shim, or a control-only dom0 sees the MSR_ARCH_CAPS CPUID bit but none of the
-    MSR content.  This in turn declares the hardware to be retpoline-safe by
-    failing to advertise the {R,}RSBA bits appropriately.  Restrict this logic to
-    the hardware domain, although the special case will cease to exist shortly.
-    
-    For the CPUID Faulting adjustment, the comment in ctxt_switch_levelling()
-    isn't actually relevant.  Provide a better explanation.
-    
-    Move the recalculate_cpuid_policy() call outside of the dom0-cpuid= case.
-    This is no change for now, but will become necessary shortly.
-    
-    Finally, place the second half of the MSR_ARCH_CAPS bodge after the
-    recalculate_cpuid_policy() call.  This is necessary to avoid transiently
-    breaking the hardware domain's view while the handling is cleaned up.  This
-    special case will cease to exist shortly.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+Jan
 
