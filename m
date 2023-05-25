@@ -2,53 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 311927101D6
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 01:51:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539257.839949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837F0710210
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 02:39:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539264.839969 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1yGJ-0001nS-1V; Wed, 24 May 2023 23:51:23 +0000
+	id 1q1yzw-0007J6-Ui; Thu, 25 May 2023 00:38:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539257.839949; Wed, 24 May 2023 23:51:23 +0000
+Received: by outflank-mailman (output) from mailman id 539264.839969; Thu, 25 May 2023 00:38:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1yGI-0001ki-UE; Wed, 24 May 2023 23:51:22 +0000
-Received: by outflank-mailman (input) for mailman id 539257;
- Wed, 24 May 2023 23:51:22 +0000
+	id 1q1yzw-0007GK-Rb; Thu, 25 May 2023 00:38:32 +0000
+Received: by outflank-mailman (input) for mailman id 539264;
+ Thu, 25 May 2023 00:38:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BDQD=BN=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
- id 1q1yGH-0001kc-Qh
- for xen-devel@lists.xenproject.org; Wed, 24 May 2023 23:51:22 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20620.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::620])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dff569f3-fa8d-11ed-8611-37d641c3527e;
- Thu, 25 May 2023 01:51:17 +0200 (CEST)
-Received: from BN9PR03CA0316.namprd03.prod.outlook.com (2603:10b6:408:112::21)
- by CH3PR12MB7617.namprd12.prod.outlook.com (2603:10b6:610:140::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.29; Wed, 24 May
- 2023 23:51:13 +0000
-Received: from BN8NAM11FT104.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:112:cafe::3f) by BN9PR03CA0316.outlook.office365.com
- (2603:10b6:408:112::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.15 via Frontend
- Transport; Wed, 24 May 2023 23:51:13 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT104.mail.protection.outlook.com (10.13.177.160) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6433.16 via Frontend Transport; Wed, 24 May 2023 23:51:13 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 24 May
- 2023 18:51:10 -0500
-Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.34 via Frontend Transport; Wed, 24 May 2023 18:51:09 -0500
+ <SRS0=2bT+=BO=quicinc.com=quic_tsoni@srs-se1.protection.inumbo.net>)
+ id 1q1yzv-0007Fv-K3
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 00:38:31 +0000
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 766847be-fa94-11ed-8611-37d641c3527e;
+ Thu, 25 May 2023 02:38:27 +0200 (CEST)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34P0TOdZ014158; Thu, 25 May 2023 00:37:18 GMT
+Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qscautcq9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 May 2023 00:37:18 +0000
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34P0bGcV018047
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 May 2023 00:37:16 GMT
+Received: from [10.110.74.38] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Wed, 24 May
+ 2023 17:37:15 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,213 +53,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dff569f3-fa8d-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UG1uQHf1PS6aFhM68Cz+ovRWYTp1o7KBU0gWE5szrB/v0i7Bgm2Fgw+a8S75IBMaAR86Vwu+5KVe1JSzGCb1NUG/fP5BnUHDiwfCOsRXNb385O2fm0QMu01dXWu8G11lv+3Woxvw7Dkf1sh4+a7M8njUbOiwYYCeDNqGla6Fr5p9tCIh38YI0JQ3y1FMh/hIhdYZ9A1pBEFAHYDcL+fYtwnTgwMvf5ymfg5ixe1NIvlbnoG343/46mkMTj7AyVnnjoXY2ZfcYJ8eXtsmqPBY3eRFIYG8pqU1Uo8P03r6t6vkShVXi0lMJcIsbcc0tJlGp6ga3N2omJIPsu679p1skw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iA7i5SpS5XOBzknTlY79r/o2KC7fLSJ3ksCljteN7JY=;
- b=XMnVA2t49t0AXh7GFL1EvZSKzKObSwwkMSxAcvqw7GhKzKwsErCMnWOUY2LupuWiB+N7XHBGqnCBDubkiyj12kS7J9kT3qDfVsuizpuTzQFPh1cD0QBn5f3Wsr6qGbdGOnP2I8Drm61uT2AP2BICNUQ/SF6canhs208Gs4JaHM58qad8w7kmIF1icMNqzrY38R4y6+H7ykdvF/bznPhiVyScC0sfWLsBePfgRGontwHO+CmixMiGNdWdYV1ohE60VXw0qFjRMg2lG1myFg42K96QI4+sF4B07UJGNX0pLOqZnXYP8HKf10+qdx9xB5Sfb6g0UmnA4b0EY5l3oglbYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iA7i5SpS5XOBzknTlY79r/o2KC7fLSJ3ksCljteN7JY=;
- b=DgT/Pfu3bSgcU4q5Rk7IiqnajJ9lyepMOSIez412BZAQ3nuc8mj9CbWhU2C2CHhwla4mzm2THC+bLILeuaNWEg3STNZej5l6A9HYIazPD7GrPMGFczyU3fYu8kvkOd/O+1YRlSmwltOb0aye+o2Q4npFRgZFpwOcyaJn0p1eAzM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Date: Wed, 24 May 2023 16:51:03 -0700
-From: Stefano Stabellini <stefano.stabellini@amd.com>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-CC: Stefano Stabellini <stefano.stabellini@amd.com>,
-	<xen-devel@lists.xenproject.org>, <jbeulich@suse.com>,
-	<andrew.cooper3@citrix.com>, <xenia.ragiadakou@amd.com>
-Subject: Re: [RFC] Xen crashes on ASSERT on suspend/resume, suggested fix
-In-Reply-To: <ZGzSnu8m/IqjmyHx@Air-de-Roger>
-Message-ID: <alpine.DEB.2.22.394.2305241646520.44000@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2305181638390.128889@ubuntu-linux-20-04-desktop> <ZGzFnE2w/YqYT35c@Air-de-Roger> <ZGzSnu8m/IqjmyHx@Air-de-Roger>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 766847be-fa94-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=/e6B8PzwIMOA1NUnKfCKwK2WyRgcsLlUL/WWtMhoXOo=;
+ b=p3qB04b9XJKftly38O5+vr0J26dCdM35VoVjloUmf9fYS0RaN82z0Hr3YOWh4ZJQsIjf
+ BZiPx+ihcB08jdCDDKbmzPherYn1S2m1s//fnj9cxWlR23hvxTUQUVj+hShpm/tBZn5v
+ jDiBZ5ioeyyjMpK+LEvalgHQPiEK8wKmXBNCpReedGyLTdn2zyAqM3iDTmQKde8ORkWM
+ T86J62r2qVscXNPcq/nHDEto456qzSc9BtrhHoCSk2cNbiTANPUKFw9/ulvZYESobBSt
+ WF7jcasL0f/+Lab6joyPDPm4sna1+eyFr3WPINyTsoOpta5EBv9ueff6H1jxJGX7j1Tt ww== 
+Message-ID: <cf1d6831-dac9-f738-44b4-a9dbc575b7e9@quicinc.com>
+Date: Wed, 24 May 2023 17:37:14 -0700
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
-	boundary="8323329-690127031-1684972061=:44000"
-Content-ID: <alpine.DEB.2.22.394.2305241648030.44000@ubuntu-linux-20-04-desktop>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT104:EE_|CH3PR12MB7617:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3ee378bb-6a7e-42d3-9be1-08db5cb1c1e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ntsjOlHpzUNnsb1EXmISaVJYIAZJXOMHgRCjkPGTV57UUEYY9zV3o1eMN//3obTAunyI2BoYLNmlvibMgTgetUmteGTm/qFIDGH9kJc5yxxRPtcSgOGrMxbPJOaW2g+F+o2RyoHGX7b0tycApDivGZAixVKNtAI2hmGFFvTzxLP1/mSJoqcz/RZ8TmP9hDvchaXu3thSHy0vtkUvqWvj12U47ODrPZPW6unMa7ULWMrWyYt9FV02FvfvEurpXKmIrLDFABAMnTEdW062OxWBhKfjMxF7udOGGzGkI6bnKHC3U6J49zkI8y3EFrfEKOU1fTwrwbRroVYivzt34hsqHtYS8HIdzov9Oo/D5C97Ra7zlgcP5dUYJGzD8WDMYlhTrXnegyC10kYz8WWEA3wx+tQKY8jK2J6X9jEEIxec7z/7chYtfvlyFQyIvLJ3W0iuugb+LRvpyICpkStp33EZCDPeRAvIbTiWTD7JxVNS+BO4N/rczI+Zt4mLsxh6fPAH8q0VIn7M7x5pTR+3tgMeYVGRxgs+yIYOpkvqZ4U0hr+sVQRnPiBHDAgj90wo42t64f6IEW3ntb8HzeamW4LM8aNiNzqTFJdBHKPQlf8y3TBqnjw09wqowBPvA//CEWKutvds5Xrg0E1soQiBKBN/V08/6COWCwY+whMS+IuH4UxN+iibtsBB3cOFvN1HCTLPw9hmj1bPPWF34ZeXRXgBjvdNtkJcM0Q6OfR5OlqPB1ooYCWzlT7Du9WTDfQGueP6ZitQj8KXaW9EAntaAVVGFA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(7916004)(4636009)(136003)(396003)(39860400002)(346002)(376002)(451199021)(40470700004)(36840700001)(46966006)(82310400005)(478600001)(33716001)(4326008)(6916009)(70586007)(70206006)(41300700001)(33964004)(6666004)(54906003)(316002)(5660300002)(8936002)(8676002)(86362001)(44832011)(81166007)(26005)(9686003)(356005)(82740400003)(186003)(40460700003)(15650500001)(426003)(336012)(40480700001)(2906002)(83380400001)(36860700001)(47076005)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2023 23:51:13.4408
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ee378bb-6a7e-42d3-9be1-08db5cb1c1e2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT104.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7617
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [RFC PATCH v1 0/9] Hypervisor-Enforced Kernel Integrity
+Content-Language: en-US
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+        "mic@digikod.net"
+	<mic@digikod.net>,
+        "Christopherson,, Sean" <seanjc@google.com>,
+        "bp@alien8.de" <bp@alien8.de>,
+        "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>,
+        "keescook@chromium.org"
+	<keescook@chromium.org>,
+        "hpa@zytor.com" <hpa@zytor.com>,
+        "mingo@redhat.com"
+	<mingo@redhat.com>,
+        "tglx@linutronix.de" <tglx@linutronix.de>,
+        "pbonzini@redhat.com" <pbonzini@redhat.com>,
+        "wanpengli@tencent.com"
+	<wanpengli@tencent.com>,
+        "vkuznets@redhat.com" <vkuznets@redhat.com>
+CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+        "yuanyu@google.com"
+	<yuanyu@google.com>,
+        "jamorris@linux.microsoft.com"
+	<jamorris@linux.microsoft.com>,
+        "marian.c.rotariu@gmail.com"
+	<marian.c.rotariu@gmail.com>,
+        "Graf, Alexander" <graf@amazon.com>,
+        "Andersen,
+ John S" <john.s.andersen@intel.com>,
+        "madvenka@linux.microsoft.com"
+	<madvenka@linux.microsoft.com>,
+        "liran.alon@oracle.com"
+	<liran.alon@oracle.com>,
+        "ssicleru@bitdefender.com"
+	<ssicleru@bitdefender.com>,
+        "tgopinath@microsoft.com"
+	<tgopinath@microsoft.com>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "qemu-devel@nongnu.org"
+	<qemu-devel@nongnu.org>,
+        "linux-security-module@vger.kernel.org"
+	<linux-security-module@vger.kernel.org>,
+        "will@kernel.org" <will@kernel.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        "dev@lists.cloudhypervisor.org" <dev@lists.cloudhypervisor.org>,
+        "mdontu@bitdefender.com" <mdontu@bitdefender.com>,
+        "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
+        "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+        "virtualization@lists.linux-foundation.org"
+	<virtualization@lists.linux-foundation.org>,
+        "nicu.citu@icloud.com"
+	<nicu.citu@icloud.com>,
+        "ztarkhani@microsoft.com" <ztarkhani@microsoft.com>,
+        "x86@kernel.org" <x86@kernel.org>
+References: <20230505152046.6575-1-mic@digikod.net>
+ <93726a7b9498ec66db21c5792079996d5fed5453.camel@intel.com>
+From: Trilok Soni <quic_tsoni@quicinc.com>
+In-Reply-To: <93726a7b9498ec66db21c5792079996d5fed5453.camel@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-ORIG-GUID: IbOKlK9jsOZG2ChFhg5i0OOOj4Du3a1t
+X-Proofpoint-GUID: IbOKlK9jsOZG2ChFhg5i0OOOj4Du3a1t
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-24_17,2023-05-24_01,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 adultscore=0
+ impostorscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
+ phishscore=0 bulkscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305250003
 
---8323329-690127031-1684972061=:44000
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2305241648031.44000@ubuntu-linux-20-04-desktop>
-
-On Tue, 23 May 2023, Roger Pau Monné wrote:
-> On Tue, May 23, 2023 at 03:54:36PM +0200, Roger Pau Monné wrote:
-> > On Thu, May 18, 2023 at 04:44:53PM -0700, Stefano Stabellini wrote:
-> > > Hi all,
-> > > 
-> > > After many PVH Dom0 suspend/resume cycles we are seeing the following
-> > > Xen crash (it is random and doesn't reproduce reliably):
-> > > 
-> > > (XEN) [555.042981][<ffff82d04032a137>] R arch/x86/irq.c#_clear_irq_vector+0x214/0x2bd
-> > > (XEN) [555.042986][<ffff82d04032a74c>] F destroy_irq+0xe2/0x1b8
-> > > (XEN) [555.042991][<ffff82d0403276db>] F msi_free_irq+0x5e/0x1a7
-> > > (XEN) [555.042995][<ffff82d04032da2d>] F unmap_domain_pirq+0x441/0x4b4
-> > > (XEN) [555.043001][<ffff82d0402d29b9>] F arch/x86/hvm/vmsi.c#vpci_msi_disable+0xc0/0x155
-> > > (XEN) [555.043006][<ffff82d0402d39fc>] F vpci_msi_arch_disable+0x1e/0x2b
-> > > (XEN) [555.043013][<ffff82d04026561c>] F drivers/vpci/msi.c#control_write+0x109/0x10e
-> > > (XEN) [555.043018][<ffff82d0402640c3>] F vpci_write+0x11f/0x268
-> > > (XEN) [555.043024][<ffff82d0402c726a>] F arch/x86/hvm/io.c#vpci_portio_write+0xa0/0xa7
-> > > (XEN) [555.043029][<ffff82d0402c6682>] F hvm_process_io_intercept+0x203/0x26f
-> > > (XEN) [555.043034][<ffff82d0402c6718>] F hvm_io_intercept+0x2a/0x4c
-> > > (XEN) [555.043039][<ffff82d0402b6353>] F arch/x86/hvm/emulate.c#hvmemul_do_io+0x29b/0x5f6
-> > > (XEN) [555.043043][<ffff82d0402b66dd>] F arch/x86/hvm/emulate.c#hvmemul_do_io_buffer+0x2f/0x6a
-> > > (XEN) [555.043048][<ffff82d0402b7bde>] F hvmemul_do_pio_buffer+0x33/0x35
-> > > (XEN) [555.043053][<ffff82d0402c7042>] F handle_pio+0x6d/0x1b4
-> > > (XEN) [555.043059][<ffff82d04029ec20>] F svm_vmexit_handler+0x10bf/0x18b0
-> > > (XEN) [555.043064][<ffff82d0402034e5>] F svm_stgi_label+0x8/0x18
-> > > (XEN) [555.043067]
-> > > (XEN) [555.469861]
-> > > (XEN) [555.471855] ****************************************
-> > > (XEN) [555.477315] Panic on CPU 9:
-> > > (XEN) [555.480608] Assertion 'per_cpu(vector_irq, cpu)[old_vector] == irq' failed at arch/x86/irq.c:233
-> > > (XEN) [555.489882] ****************************************
-> > > 
-> > > Looking at the code in question, the ASSERT looks wrong to me.
-> > > 
-> > > Specifically, if you see send_cleanup_vector and
-> > > irq_move_cleanup_interrupt, it is entirely possible to have old_vector
-> > > still valid and also move_in_progress still set, but only some of the
-> > > per_cpu(vector_irq, me)[vector] cleared. It seems to me that this could
-> > > happen especially when an MSI has a large old_cpu_mask.
-> > 
-> > i guess the only way to get into such situation would be if you happen
-> > to execute _clear_irq_vector() with a cpu_online_map smaller than the
-> > one in old_cpu_mask, at which point you will leave old_vector fields
-> > not updated.
-> > 
-> > Maybe somehow you get into this situation when doing suspend/resume?
-> > 
-> > Could you try to add a:
-> > 
-> > ASSERT(cpumask_equal(tmp_mask, desc->arch.old_cpu_mask));
-> > 
-> > Before the `for_each_cpu(cpu, tmp_mask)` loop?
+On 5/24/2023 3:20 PM, Edgecombe, Rick P wrote:
+> On Fri, 2023-05-05 at 17:20 +0200, Mickaël Salaün wrote:
+>> # How does it work?
+>>
+>> This implementation mainly leverages KVM capabilities to control the
+>> Second
+>> Layer Address Translation (or the Two Dimensional Paging e.g.,
+>> Intel's EPT or
+>> AMD's RVI/NPT) and Mode Based Execution Control (Intel's MBEC)
+>> introduced with
+>> the Kaby Lake (7th generation) architecture. This allows to set
+>> permissions on
+>> memory pages in a complementary way to the guest kernel's managed
+>> memory
+>> permissions. Once these permissions are set, they are locked and
+>> there is no
+>> way back.
+>>
+>> A first KVM_HC_LOCK_MEM_PAGE_RANGES hypercall enables the guest
+>> kernel to lock
+>> a set of its memory page ranges with either the HEKI_ATTR_MEM_NOWRITE
+>> or the
+>> HEKI_ATTR_MEM_EXEC attribute. The first one denies write access to a
+>> specific
+>> set of pages (allow-list approach), and the second only allows kernel
+>> execution
+>> for a set of pages (deny-list approach).
+>>
+>> The current implementation sets the whole kernel's .rodata (i.e., any
+>> const or
+>> __ro_after_init variables, which includes critical security data such
+>> as LSM
+>> parameters) and .text sections as non-writable, and the .text section
+>> is the
+>> only one where kernel execution is allowed. This is possible thanks
+>> to the new
+>> MBEC support also brough by this series (otherwise the vDSO would
+>> have to be
+>> executable). Thanks to this hardware support (VT-x, EPT and MBEC),
+>> the
+>> performance impact of such guest protection is negligible.
+>>
+>> The second KVM_HC_LOCK_CR_UPDATE hypercall enables guests to pin some
+>> of its
+>> CPU control register flags (e.g., X86_CR0_WP, X86_CR4_SMEP,
+>> X86_CR4_SMAP),
+>> which is another complementary hardening mechanism.
+>>
+>> Heki can be enabled with the heki=1 boot command argument.
+>>
+>>
 > 
-> I see that the old_cpu_mask is cleared in release_old_vec(), so that
-> suggestion is not very useful.
+> Can the guest kernel ask the host VMM's emulated devices to DMA into
+> the protected data? It should go through the host userspace mappings I
+> think, which don't care about EPT permissions. Or did I miss where you
+> are protecting that another way? There are a lot of easy ways to ask
+> the host to write to guest memory that don't involve the EPT. You
+> probably need to protect the host userspace mappings, and also the
+> places in KVM that kmap a GPA provided by the guest.
 > 
-> Does the crash happen at specific points, for example just after
-> resume or before suspend?
+> [ snip ]
+> 
+>>
+>> # Current limitations
+>>
+>> The main limitation of this patch series is the statically enforced
+>> permissions. This is not an issue for kernels without module but this
+>> needs to
+>> be addressed.  Mechanisms that dynamically impact kernel executable
+>> memory are
+>> not handled for now (e.g., kernel modules, tracepoints, eBPF JIT),
+>> and such
+>> code will need to be authenticated.  Because the hypervisor is highly
+>> privileged and critical to the security of all the VMs, we don't want
+>> to
+>> implement a code authentication mechanism in the hypervisor itself
+>> but delegate
+>> this verification to something much less privileged. We are thinking
+>> of two
+>> ways to solve this: implement this verification in the VMM or spawn a
+>> dedicated
+>> special VM (similar to Windows's VBS). There are pros on cons to each
+>> approach:
+>> complexity, verification code ownership (guest's or VMM's), access to
+>> guest
+>> memory (i.e., confidential computing).
+> 
+> The kernel often creates writable aliases in order to write to
+> protected data (kernel text, etc). Some of this is done right as text
+> is being first written out (alternatives for example), and some happens
+> way later (jump labels, etc). So for verification, I wonder what stage
+> you would be verifying? If you want to verify the end state, you would
+> have to maintain knowledge in the verifier of all the touch-ups the
+> kernel does. I think it would get very tricky.
 
-Hi Roger, Jan,
+Right and for the ARM (from what I know) is that Erratas can be applied
+using the alternatives fwk when you hotplug in the CPU post boot.
 
-Unfortunately we are all completely blind on this issue. It is not
-reproducible. It only happened once. We only have our wits to solve this
-problem. However, looking at the codebase I think there are a few
-possible races. Here is my analysis and suggested fix.
-
-
----
-xen/irq: fix races between send_cleanup_vector and _clear_irq_vector
-
-It is possible that send_cleanup_vector and _clear_irq_vector are
-running at the same time on different CPUs. In that case we have a race
-as both _clear_irq_vector and irq_move_cleanup_interrupt are trying to
-clear old_vector.
-
-This patch fixes 3 races:
-
-1) As irq_move_cleanup_interrupt is running on multiple CPUs at the
-same time, and also _clear_irq_vector is running, it is possible that
-only some per_cpu(vector_irq, cpu)[old_vector] are valid but not all.
-So, turn the ASSERT in _clear_irq_vector into an if.
-
-2) It is possible that _clear_irq_vector is running at the same time as
-release_old_vec, called from irq_move_cleanup_interrupt. At the moment,
-it is possible for _clear_irq_vector to read a valid old_cpu_mask but an
-invalid old_vector (because it is being set to invalid by
-release_old_vec). To avoid this problem in release_old_vec move clearing
-old_cpu_mask before setting old_vector to invalid. This way, we know that
-in _clear_irq_vector if old_vector is invalid also old_cpu_mask is zero
-and we don't enter the loop.
-
-3) It is possible that release_old_vec is running twice at the same time
-for the same old_vector. Change the code in release_old_vec to make it
-OK to call it twice. Remove both ASSERTs. With those gone, it should be
-possible now to call release_old_vec twice in a row for the same
-old_vector.
-
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
- xen/arch/x86/irq.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
-
-diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
-index 20150b1c7f..d9c139cf1b 100644
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -112,16 +112,11 @@ static void release_old_vec(struct irq_desc *desc)
- {
-     unsigned int vector = desc->arch.old_vector;
- 
--    desc->arch.old_vector = IRQ_VECTOR_UNASSIGNED;
-     cpumask_clear(desc->arch.old_cpu_mask);
-+    desc->arch.old_vector = IRQ_VECTOR_UNASSIGNED;
- 
--    if ( !valid_irq_vector(vector) )
--        ASSERT_UNREACHABLE();
--    else if ( desc->arch.used_vectors )
--    {
--        ASSERT(test_bit(vector, desc->arch.used_vectors));
-+    if ( desc->arch.used_vectors )
-         clear_bit(vector, desc->arch.used_vectors);
--    }
- }
- 
- static void _trace_irq_mask(uint32_t event, int irq, int vector,
-@@ -230,9 +225,11 @@ static void _clear_irq_vector(struct irq_desc *desc)
- 
-         for_each_cpu(cpu, tmp_mask)
-         {
--            ASSERT(per_cpu(vector_irq, cpu)[old_vector] == irq);
--            TRACE_3D(TRC_HW_IRQ_MOVE_FINISH, irq, old_vector, cpu);
--            per_cpu(vector_irq, cpu)[old_vector] = ~irq;
-+            if ( per_cpu(vector_irq, cpu)[old_vector] == irq )
-+            {
-+                TRACE_3D(TRC_HW_IRQ_MOVE_FINISH, irq, old_vector, cpu);
-+                per_cpu(vector_irq, cpu)[old_vector] = ~irq;
-+            }
-         }
- 
-         release_old_vec(desc);
--- 
-2.25.1
---8323329-690127031-1684972061=:44000--
+---Trilok Soni
 
