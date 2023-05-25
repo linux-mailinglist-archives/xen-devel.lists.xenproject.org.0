@@ -2,33 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F6BB711381
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 20:17:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539804.841039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CC92711409
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 20:35:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539808.841049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2FWj-00010K-2h; Thu, 25 May 2023 18:17:29 +0000
+	id 1q2Fnw-0003Sc-IF; Thu, 25 May 2023 18:35:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539804.841039; Thu, 25 May 2023 18:17:29 +0000
+Received: by outflank-mailman (output) from mailman id 539808.841049; Thu, 25 May 2023 18:35:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2FWi-0000yf-Vw; Thu, 25 May 2023 18:17:28 +0000
-Received: by outflank-mailman (input) for mailman id 539804;
- Thu, 25 May 2023 18:17:28 +0000
+	id 1q2Fnw-0003Qj-EC; Thu, 25 May 2023 18:35:16 +0000
+Received: by outflank-mailman (input) for mailman id 539808;
+ Thu, 25 May 2023 18:35:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JN8z=BO=gmail.com=vishal.moola@srs-se1.protection.inumbo.net>)
- id 1q2FWi-0000yZ-4u
- for xen-devel@lists.xenproject.org; Thu, 25 May 2023 18:17:28 +0000
-Received: from mail-yb1-xb2f.google.com (mail-yb1-xb2f.google.com
- [2607:f8b0:4864:20::b2f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 669b59ea-fb28-11ed-b230-6b7b168915f2;
- Thu, 25 May 2023 20:17:26 +0200 (CEST)
-Received: by mail-yb1-xb2f.google.com with SMTP id
- 3f1490d57ef6-ba1815e12efso763585276.3
- for <xen-devel@lists.xenproject.org>; Thu, 25 May 2023 11:17:26 -0700 (PDT)
+ <SRS0=2bT+=BO=quicinc.com=quic_tsoni@srs-se1.protection.inumbo.net>)
+ id 1q2Fnu-0003Qd-RZ
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 18:35:14 +0000
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e1dd1935-fb2a-11ed-b230-6b7b168915f2;
+ Thu, 25 May 2023 20:35:12 +0200 (CEST)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 34PFGFcD001882; Thu, 25 May 2023 18:34:31 GMT
+Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
+ [199.106.103.254])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qt27n1j61-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 May 2023 18:34:31 +0000
+Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
+ [10.52.223.231])
+ by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34PIYDC6001496
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 May 2023 18:34:13 GMT
+Received: from [10.110.51.179] (10.80.80.8) by nasanex01a.na.qualcomm.com
+ (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 25 May
+ 2023 11:34:12 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,173 +53,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 669b59ea-fb28-11ed-b230-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685038645; x=1687630645;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vEt/V8+3jpKdaWf/91twz9m1AxbB8mw1sieW7q1FOX4=;
-        b=qpx33W23LxzGgtt7x0f+jHNiqnq/vW7f+lo4R60odkrqHHbvAvDFwCToA7ZeGOtlZu
-         1pix82nq+XRaSlrOoV5XSSn7dUtYbrVRPJSVcc+Y0QUEIud/VeliblGAWTefKuC3uiLW
-         Y767SW9acPu7TamxQ3rDZ7ad1waallUvH2KGWMSoPdMgQ6uqByETyo++E8JgCnYWaIR7
-         T+3+xQi6fbJlgvqxHEFBxTPhg1oh030qaBtpvB360U8uoO6SqTXFxFoolc38s3Jd+HWF
-         qSuZfJvCEliq2Q2QxhelaN+CYntsdlTkVUzhuGY+pHQjjIlm9D34YIwBuMF1/x8S1rOB
-         qR0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685038645; x=1687630645;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=vEt/V8+3jpKdaWf/91twz9m1AxbB8mw1sieW7q1FOX4=;
-        b=kZuWoUSTm3y06yFwAx9VQz161G5+Di/GJfUNL1GApKqroxrT68J87Mj7AOqvHFh0lD
-         fOy0/KIDnBYLvqTvaJ3ar020IUNTDL/psziwDlB9w4JU2jpRbF4gf5U/Iz5jL/34vIBz
-         GZdToI58znNCvmkcPvm8HW7NYzl3xevAS6UyIIAplfU6kNEzmGqCu35EbTPAHIWe/L71
-         SG6wDLKQ3MQlT8gRKi6ifrUjbARGDMQoN4YksKHpxavg9qs6DYRbHvCuFnceba9ZSJ0H
-         AN4TfdZb7K7wxbKjgwhyj80QeYExsjAqIy34CtEITVPkaGdHRy6bbmOE/IFDZXe3PCjQ
-         POuQ==
-X-Gm-Message-State: AC+VfDzn6rbTBRkE39LlCvI0EYNXO7rChTml5nv+40BvpFmy9mItbxxI
-	1LUGHp7YfkePsQcgnU3ZDA2MKybRLEicGW1LF7w=
-X-Google-Smtp-Source: ACHHUZ4CxdCafEVA2N8+YE3r54vbJuyNv4iSvWQn7ibpFdu7Q8YcRob13nPjv7XKdbKB6AoaGk0hrDu/6J2TDu7u8Qo=
-X-Received: by 2002:a25:ac6:0:b0:ba7:bb4c:7960 with SMTP id
- 189-20020a250ac6000000b00ba7bb4c7960mr4320550ybk.26.1685038645132; Thu, 25
- May 2023 11:17:25 -0700 (PDT)
+X-Inumbo-ID: e1dd1935-fb2a-11ed-b230-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=message-id : date :
+ mime-version : subject : to : cc : references : from : in-reply-to :
+ content-type : content-transfer-encoding; s=qcppdkim1;
+ bh=YlvFsbEPrwbVAdxwxMbKnxn1gExf5XgZ9Xo7rbW6dUQ=;
+ b=Lzyf9aLPcAqinix9YfLlsRAGGN+gR2pGIMlP8b/TpYgMTdhl/3rPyJ97zvP/hy/rFL48
+ cqe4Pi8D360VWoL8sYMXdrz3fQmuqTWxk7EjcGsPO8A4qjig2fE0oOs8zCtvb5BhmMB9
+ sAdHk7SIWExI5l2C0Z5IPdzh1SSC8+UsT4WL8RiZ4aJdj3SoEqluyXexy6vivclVNQRp
+ xfywfC0GZvFljCxVu48w6+0GrjH6HI80FeJdCtLJPgWUaVFWinxGnDMoTThNWZaZkTrb
+ fqWNgaubCjXAnculU0WyTmLSQbSFozQhX9Eign2tg15P5DGaZoNtC7o225DL42lxfvDi MA== 
+Message-ID: <e17da8f4-4d5d-adb7-02c9-631ffdfc9037@quicinc.com>
+Date: Thu, 25 May 2023 11:34:11 -0700
 MIME-Version: 1.0
-References: <20230501192829.17086-1-vishal.moola@gmail.com>
- <20230501192829.17086-14-vishal.moola@gmail.com> <20230525091900.GY4967@kernel.org>
-In-Reply-To: <20230525091900.GY4967@kernel.org>
-From: Vishal Moola <vishal.moola@gmail.com>
-Date: Thu, 25 May 2023 11:17:14 -0700
-Message-ID: <CAOzc2pxNRbohxxNnaKtBNOBgOschHMj278-6hWZK9A1oJOgujA@mail.gmail.com>
-Subject: Re: [PATCH v2 13/34] mm: Create ptdesc equivalents for pgtable_{pte,pmd}_page_{ctor,dtor}
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
-	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.9.0
+Subject: Re: [RFC PATCH v1 0/9] Hypervisor-Enforced Kernel Integrity
+Content-Language: en-US
+To: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
+        Borislav Petkov
+	<bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H . Peter Anvin"
+	<hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+        Kees Cook
+	<keescook@chromium.org>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Sean
+ Christopherson <seanjc@google.com>,
+        Thomas Gleixner <tglx@linutronix.de>,
+        Vitaly Kuznetsov <vkuznets@redhat.com>,
+        Wanpeng Li <wanpengli@tencent.com>
+CC: Alexander Graf <graf@amazon.com>, Forrest Yuan Yu <yuanyu@google.com>,
+        James Morris <jamorris@linux.microsoft.com>,
+        John Andersen
+	<john.s.andersen@intel.com>,
+        Liran Alon <liran.alon@oracle.com>,
+        "Madhavan T
+ . Venkataraman" <madvenka@linux.microsoft.com>,
+        Marian Rotariu
+	<marian.c.rotariu@gmail.com>,
+        =?UTF-8?Q?Mihai_Don=c8=9bu?=
+	<mdontu@bitdefender.com>,
+        =?UTF-8?B?TmljdciZb3IgQ8OuyJt1?=
+	<nicu.citu@icloud.com>,
+        Rick Edgecombe <rick.p.edgecombe@intel.com>,
+        Thara
+ Gopinath <tgopinath@microsoft.com>,
+        Will Deacon <will@kernel.org>,
+        Zahra
+ Tarkhani <ztarkhani@microsoft.com>,
+        =?UTF-8?Q?=c8=98tefan_=c8=98icleru?=
+	<ssicleru@bitdefender.com>,
+        <dev@lists.cloudhypervisor.org>, <kvm@vger.kernel.org>,
+        <linux-hardening@vger.kernel.org>, <linux-hyperv@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>,
+        <linux-security-module@vger.kernel.org>, <qemu-devel@nongnu.org>,
+        <virtualization@lists.linux-foundation.org>, <x86@kernel.org>,
+        <xen-devel@lists.xenproject.org>
+References: <20230505152046.6575-1-mic@digikod.net>
+ <1e10da25-5704-18ee-b0ce-6de704e6f0e1@quicinc.com>
+ <0b069bc3-0362-d8ec-fc2a-05dd65218c39@digikod.net>
+From: Trilok Soni <quic_tsoni@quicinc.com>
+In-Reply-To: <0b069bc3-0362-d8ec-fc2a-05dd65218c39@digikod.net>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.80.80.8]
+X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
+ nasanex01a.na.qualcomm.com (10.52.223.231)
+X-QCInternal: smtphost
+X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
+X-Proofpoint-ORIG-GUID: uBbHTCakZngacL0OpkU9CBmNWESa7i53
+X-Proofpoint-GUID: uBbHTCakZngacL0OpkU9CBmNWESa7i53
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
+ definitions=2023-05-25_10,2023-05-25_03,2023-05-22_02
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0 spamscore=0
+ mlxlogscore=999 adultscore=0 priorityscore=1501 suspectscore=0
+ clxscore=1015 mlxscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2304280000 definitions=main-2305250156
 
-On Thu, May 25, 2023 at 2:19=E2=80=AFAM Mike Rapoport <rppt@kernel.org> wro=
-te:
->
-> On Mon, May 01, 2023 at 12:28:08PM -0700, Vishal Moola (Oracle) wrote:
-> > Creates ptdesc_pte_ctor(), ptdesc_pmd_ctor(), ptdesc_pte_dtor(), and
-> > ptdesc_pmd_dtor() and make the original pgtable constructor/destructors
-> > wrappers.
->
-> I think pgtable_pXY_ctor/dtor names would be better.
+On 5/25/2023 6:25 AM, Mickaël Salaün wrote:
+> 
+> On 24/05/2023 23:04, Trilok Soni wrote:
+>> On 5/5/2023 8:20 AM, Mickaël Salaün wrote:
+>>> Hi,
+>>>
+>>> This patch series is a proof-of-concept that implements new KVM features
+>>> (extended page tracking, MBEC support, CR pinning) and defines a new 
+>>> API to
+>>> protect guest VMs. No VMM (e.g., Qemu) modification is required.
+>>>
+>>> The main idea being that kernel self-protection mechanisms should be 
+>>> delegated
+>>> to a more privileged part of the system, hence the hypervisor. It is 
+>>> still the
+>>> role of the guest kernel to request such restrictions according to its
+>>
+>> Only for the guest kernel images here? Why not for the host OS kernel?
+> 
+> As explained in the Future work section, protecting the host would be 
+> useful, but that doesn't really fit with the KVM model. The Protected 
+> KVM project is a first step to help in this direction [11].
+> 
+> In a nutshell, KVM is close to a type-2 hypervisor, and the host kernel 
+> is also part of the hypervisor.
+> 
+> 
+>> Embedded devices w/ Android you have mentioned below supports the host
+>> OS as well it seems, right?
+> 
+> What do you mean?
 
-I have it as ptdesc to keep it consistent with the rest of the functions. I
-also think it makes more sense as it's initializing stuff tracked by a ptde=
-sc.
+I think you have answered this above w/ pKVM and I was referring the 
+host protection as well w/ Heki. The link/references below refers to the 
+Android OS it seems and not guest VM.
 
-> > Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
-> > ---
-> >  include/linux/mm.h | 56 ++++++++++++++++++++++++++++++++++------------
-> >  1 file changed, 42 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/include/linux/mm.h b/include/linux/mm.h
-> > index 58c911341a33..dc61aeca9077 100644
-> > --- a/include/linux/mm.h
-> > +++ b/include/linux/mm.h
-> > @@ -2847,20 +2847,34 @@ static inline bool ptlock_init(struct ptdesc *p=
-tdesc) { return true; }
-> >  static inline void ptlock_free(struct ptdesc *ptdesc) {}
-> >  #endif /* USE_SPLIT_PTE_PTLOCKS */
-> >
-> > -static inline bool pgtable_pte_page_ctor(struct page *page)
-> > +static inline bool ptdesc_pte_ctor(struct ptdesc *ptdesc)
-> >  {
-> > -     if (!ptlock_init(page_ptdesc(page)))
-> > +     struct folio *folio =3D ptdesc_folio(ptdesc);
-> > +
-> > +     if (!ptlock_init(ptdesc))
-> >               return false;
-> > -     __SetPageTable(page);
-> > -     inc_lruvec_page_state(page, NR_PAGETABLE);
-> > +     __folio_set_table(folio);
-> > +     lruvec_stat_add_folio(folio, NR_PAGETABLE);
-> >       return true;
-> >  }
-> >
-> > +static inline bool pgtable_pte_page_ctor(struct page *page)
-> > +{
-> > +     return ptdesc_pte_ctor(page_ptdesc(page));
-> > +}
-> > +
-> > +static inline void ptdesc_pte_dtor(struct ptdesc *ptdesc)
-> > +{
-> > +     struct folio *folio =3D ptdesc_folio(ptdesc);
-> > +
-> > +     ptlock_free(ptdesc);
-> > +     __folio_clear_table(folio);
-> > +     lruvec_stat_sub_folio(folio, NR_PAGETABLE);
-> > +}
-> > +
-> >  static inline void pgtable_pte_page_dtor(struct page *page)
-> >  {
-> > -     ptlock_free(page_ptdesc(page));
-> > -     __ClearPageTable(page);
-> > -     dec_lruvec_page_state(page, NR_PAGETABLE);
-> > +     ptdesc_pte_dtor(page_ptdesc(page));
-> >  }
-> >
-> >  #define pte_offset_map_lock(mm, pmd, address, ptlp)  \
-> > @@ -2942,20 +2956,34 @@ static inline spinlock_t *pmd_lock(struct mm_st=
-ruct *mm, pmd_t *pmd)
-> >       return ptl;
-> >  }
-> >
-> > -static inline bool pgtable_pmd_page_ctor(struct page *page)
-> > +static inline bool ptdesc_pmd_ctor(struct ptdesc *ptdesc)
-> >  {
-> > -     if (!pmd_ptlock_init(page_ptdesc(page)))
-> > +     struct folio *folio =3D ptdesc_folio(ptdesc);
-> > +
-> > +     if (!pmd_ptlock_init(ptdesc))
-> >               return false;
-> > -     __SetPageTable(page);
-> > -     inc_lruvec_page_state(page, NR_PAGETABLE);
-> > +     __folio_set_table(folio);
-> > +     lruvec_stat_add_folio(folio, NR_PAGETABLE);
-> >       return true;
-> >  }
-> >
-> > +static inline bool pgtable_pmd_page_ctor(struct page *page)
-> > +{
-> > +     return ptdesc_pmd_ctor(page_ptdesc(page));
-> > +}
-> > +
-> > +static inline void ptdesc_pmd_dtor(struct ptdesc *ptdesc)
-> > +{
-> > +     struct folio *folio =3D ptdesc_folio(ptdesc);
-> > +
-> > +     pmd_ptlock_free(ptdesc);
-> > +     __folio_clear_table(folio);
-> > +     lruvec_stat_sub_folio(folio, NR_PAGETABLE);
-> > +}
-> > +
-> >  static inline void pgtable_pmd_page_dtor(struct page *page)
-> >  {
-> > -     pmd_ptlock_free(page_ptdesc(page));
-> > -     __ClearPageTable(page);
-> > -     dec_lruvec_page_state(page, NR_PAGETABLE);
-> > +     ptdesc_pmd_dtor(page_ptdesc(page));
-> >  }
-> >
-> >  /*
-> > --
-> > 2.39.2
-> >
-> >
->
-> --
-> Sincerely yours,
-> Mike.
+> 
+> 
+>>
+>> Do we suggest that all the functionalities should be implemented in the
+>> Hypervisor (NS-EL2 for ARM) or even at Secure EL like Secure-EL1 (ARM).
+> 
+> KVM runs in EL2. TrustZone is mainly used to enforce DRM, which means 
+> that we may not control the related code.
+> 
+> This patch series is dedicated to hypervisor-enforced kernel integrity, 
+> then KVM.
+> 
+>>
+>> I am hoping that whatever we suggest the interface here from the Guest
+>> to the Hypervisor becomes the ABI right?
+> 
+> Yes, hypercalls are part of the KVM ABI.
+
+Sure. I just hope that they are extensible enough to support for other 
+Hypervisors too. I am not sure if they are on this list like ACRN / Xen 
+and see if it fits their need too.
+
+Is there any other Hypervisor you plan to test this feature as well?
+
+> 
+>>
+>>
+>>>
+>>> # Current limitations
+>>>
+>>> The main limitation of this patch series is the statically enforced
+>>> permissions. This is not an issue for kernels without module but this 
+>>> needs to
+>>> be addressed.  Mechanisms that dynamically impact kernel executable 
+>>> memory are
+>>> not handled for now (e.g., kernel modules, tracepoints, eBPF JIT), 
+>>> and such
+>>> code will need to be authenticated.  Because the hypervisor is highly
+>>> privileged and critical to the security of all the VMs, we don't want to
+>>> implement a code authentication mechanism in the hypervisor itself 
+>>> but delegate
+>>> this verification to something much less privileged. We are thinking 
+>>> of two
+>>> ways to solve this: implement this verification in the VMM or spawn a 
+>>> dedicated
+>>> special VM (similar to Windows's VBS). There are pros on cons to each 
+>>> approach:
+>>> complexity, verification code ownership (guest's or VMM's), access to 
+>>> guest
+>>> memory (i.e., confidential computing).
+>>
+>> Do you foresee the performance regressions due to lot of tracking here?
+> 
+> The performance impact of execution prevention should be negligible 
+> because once configured the hypervisor do nothing except catch 
+> illegitimate access attempts.
+
+Yes, if you are using the static kernel only and not considering the 
+other dynamic patching features like explained. They need to be thought 
+upon differently to reduce the likely impact.
+
+> 
+> 
+>> Production kernels do have lot of tracepoints and we use it as feature
+>> in the GKI kernel for the vendor hooks implementation and in those cases
+>> every vendor driver is a module.
+> 
+> As explained in this section, dynamic kernel modifications such as 
+> tracepoints or modules are not currently supported by this patch series. 
+> Handling tracepoints is possible but requires more work to define and 
+> check legitimate changes. This proposal is still useful for static 
+> kernels though.
+> 
+> 
+>> Separate VM further fragments this
+>> design and delegates more of it to proprietary solutions?
+> 
+> What do you mean? KVM is not a proprietary solution.
+
+Ah, I was referring the VBS Windows VM mentioned in the above text. Is 
+it open-source? The reference of VM (or dedicated VM) didn't mention 
+that VM itself will be open-source running Linux kernel.
+
+> 
+> For dynamic checks, this would require code not run by KVM itself, but 
+> either the VMM or a dedicated VM. In this case, the dynamic 
+> authentication code could come from the guest VM or from the VMM itself. 
+> In the former case, it is more challenging from a security point of view 
+> but doesn't rely on external (proprietary) solution. In the latter case, 
+> open-source VMMs should implement the specification to provide the 
+> required service (e.g. check kernel module signature).
+> 
+> The goal of the common API layer provided by this RFC is to share code 
+> as much as possible between different hypervisor backends.
+> 
+> 
+>>
+>> Do you have any performance numbers w/ current RFC?
+> 
+> No, but the only hypervisor performance impact is at boot time and 
+> should be negligible. I'll try to get some numbers for the 
+> hardware-enforcement impact, but it should be negligible too.
+
+Thanks. Please share the data once you have it ready.
+
+---Trilok Soni
+
 
