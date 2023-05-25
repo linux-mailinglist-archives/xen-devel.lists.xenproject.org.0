@@ -2,36 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EE907107BB
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 10:40:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539395.840211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4E467107EE
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 10:53:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539401.840221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q26Va-0007UI-9F; Thu, 25 May 2023 08:39:42 +0000
+	id 1q26iW-0001Uc-Iu; Thu, 25 May 2023 08:53:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539395.840211; Thu, 25 May 2023 08:39:42 +0000
+Received: by outflank-mailman (output) from mailman id 539401.840221; Thu, 25 May 2023 08:53:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q26Va-0007RH-5I; Thu, 25 May 2023 08:39:42 +0000
-Received: by outflank-mailman (input) for mailman id 539395;
- Thu, 25 May 2023 08:39:40 +0000
+	id 1q26iW-0001Rn-Fa; Thu, 25 May 2023 08:53:04 +0000
+Received: by outflank-mailman (input) for mailman id 539401;
+ Thu, 25 May 2023 08:53:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+adF=BO=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1q26VY-0007RB-7a
- for xen-devel@lists.xenproject.org; Thu, 25 May 2023 08:39:40 +0000
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac5a6183-fad7-11ed-8611-37d641c3527e;
- Thu, 25 May 2023 10:39:34 +0200 (CEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 461C73200A48;
- Thu, 25 May 2023 04:39:33 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Thu, 25 May 2023 04:39:34 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 25 May 2023 04:39:29 -0400 (EDT)
+ <SRS0=UGVO=BO=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1q26iU-0001Rc-Ac
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 08:53:02 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061e.outbound.protection.outlook.com
+ [2a01:111:f400:7eab::61e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8a3bf825-fad9-11ed-8611-37d641c3527e;
+ Thu, 25 May 2023 10:52:56 +0200 (CEST)
+Received: from MW2PR16CA0046.namprd16.prod.outlook.com (2603:10b6:907:1::23)
+ by SA0PR12MB4384.namprd12.prod.outlook.com (2603:10b6:806:9f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.17; Thu, 25 May
+ 2023 08:52:53 +0000
+Received: from CO1NAM11FT099.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:907:1:cafe::39) by MW2PR16CA0046.outlook.office365.com
+ (2603:10b6:907:1::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.15 via Frontend
+ Transport; Thu, 25 May 2023 08:52:53 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT099.mail.protection.outlook.com (10.13.175.171) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6411.30 via Frontend Transport; Thu, 25 May 2023 08:52:52 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 25 May
+ 2023 03:52:51 -0500
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Thu, 25 May 2023 03:52:50 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,211 +59,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac5a6183-fad7-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1685003972; x=1685090372; bh=fJPOoxz9d4rewdetMuVslRJGP7SrQ2uzfRc
-	G+ZHKW7E=; b=Di57kEOJH9BF5Zyu87ZaXM8VpHjXtYMzpROV/L89VssjWOxOY81
-	7cxzUC3Pqx+VmJhtQMqK+RNs0lTkpxjwwf0N8/E6qb/xSt21/uRIi0h6NAduprSD
-	+MfXWON3G8zd4I7SHDKMZcqe0YicR0FE7VM5vSIVyFPc6Z+SZ26+XiXP3wWQk+qg
-	CdZYRY0zg+tj5E926LRWzMIoAB5CiiXbqUrcgpFeTZogVgAd7CKqVzpY0wXLm2WA
-	PiH+lkKhFmshnQkjbSC5F7Q7dcxorc1NtUOrOxZ6xT764lpwycWgwvS41k+hc5RA
-	kQ5UWyCfABXNAPhPP0Zo+vyI28loS+/OxZg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1685003972; x=1685090372; bh=fJPOoxz9d4rew
-	detMuVslRJGP7SrQ2uzfRcG+ZHKW7E=; b=U7ZLi7XvP35O24LCoycAGNE3ou5YH
-	vb6rGxPIaQzyGz3KUFGjbsz3+qJ64pKG2uTcxAwt+vpr74rZsLNRn0KX9EM04M5p
-	2QY5yBb+9zCLYrY/shc4lytz3AnL335JAVO4VQQQKHKDWsl/EFCsm2mjGxZl6bJE
-	6kQ6D808GVNLmMp0HQlB4okmiZYv8O/XMdIpnMmDxfxiHetiudmQoz8lRsJJhizF
-	W4Lf1+6dT/sQNhuV12gNhYHC+MT7anbZDv4bK2c7w+52KaKz3Zm4FfetMMzLgN+Q
-	sKIvUEkBJgSroqmMOqPJ7phuKKZ0Wd4JU4idv5q+1TQ8AEhKPHflOyARw==
-X-ME-Sender: <xms:xB5vZBZQjoHsShmONSMFlTNTKHnRO72KvjF-JQP6-sgQ7H_BJs_u_Q>
-    <xme:xB5vZIb5yTUXVpkWSyQSddbRd25t7DmTbPniLNiErZggBZavA2KcL1qw220QW8HSA
-    -7pvDLRM9DUwQ>
-X-ME-Received: <xmr:xB5vZD_6FZCemiDBj-AnFvYLONygrSHNlmWxgDuEWoCNlzmg_xGo7PQAzZh_>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeejjedgtdehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:xB5vZPqSJ7EHDubZ9Ey86c8ANFXkTaYmDuG1A0qy_CXJLQOuv407ew>
-    <xmx:xB5vZMr0oYKt7PUCzgvMDmFwvahKMpIpABs-nUG2uys3uI2C5FUErA>
-    <xmx:xB5vZFRSAXhL1HHnrkErv9yAXUpKa9-FH6WXZTCL8aLcm03lemxROA>
-    <xmx:xB5vZD1mj8BTLzwIMTiSPxLiHkf3IWcVxTH8LEdsUvc3M7ZOa1MaUQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 25 May 2023 10:39:26 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
-	wei.chen@arm.com, George Dunlap <george.dunlap@citrix.com>,
-	Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Christian Lindig <christian.lindig@cloud.com>
-Subject: Re: [PATCH v7 09/12] tools: add physinfo arch_capabilities handling
- for Arm
-Message-ID: <ZG8evxN0mF8NDTPS@mail-itl>
-References: <20230523074326.3035745-1-luca.fancellu@arm.com>
- <20230523074326.3035745-10-luca.fancellu@arm.com>
+X-Inumbo-ID: 8a3bf825-fad9-11ed-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZnQaQTk26mH33VBGktPes/YsmpC9umrQSM4M545Lac4YOVpjhF5jH3DFuiO0SSSgzF4Eve0J2MZnDkMOaZ/NQlr4SgbbGPWKLWQ2qMg6WTFqdRo1xMGgDdixZmEEbnk4j5UIN/vW6yN2rpXYlbbAFeP864OP1LB7BqoL7ADJhan3CbYM3wxQge27WGej2FcY7/m8F8EhI/C3ihjV1fXH6rjf+QC7U0L3FHq9zgpc8VG3MYidwFkuQALSBwrMKpSW4ZqkW5dc3CRCnuSiGgWpDNAKktd1O6WETS8oHW7XOFx3my1jYbtP2ale6pAwgnedPxzQ0ETTAz+xLw3RoaMoeQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/OyPcgKZoFP8YKYHn+5Au+VhrdJACiIX6cyKBpe3eDc=;
+ b=O1yjYBZASixDvI/iS36UpC0O1mRGYmnR6GshlLj3Zy0KjYLzvDKIiDB2BECwFIQTUN5Nv4dcYJwUyGK7Tf9D3g1KX/PFD7MvtWZ30RM19EsHvuFEjJmV0oJTOqGho0QzZgNf2wUph1IIY8gDNOYudUW9IwjhfHeSToiZb27FGrkR2/0gC1jsfi64B6Ehuv1oP3bmBUAlOuw2JYMLWxozR21d1MJMZ/oIaApnlyTwMvWdwo9rSO5Raj8EiQMuq5zp60e0BmQts+iEQWVGBQw+KJ67KeSlSzpYK74bXChWqAqyYYq+nvzq5E6AWKhv00Fh6AT+ENB7eJla0CquoKhLHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/OyPcgKZoFP8YKYHn+5Au+VhrdJACiIX6cyKBpe3eDc=;
+ b=FlCtNr2Ff4cmhdvhcKSf5bPqlse/fJsXwashj53aX1j6hJVQzjCjod4JVaFdjipTAqlVeAKBkGoyKAaTHbie9LIwPmHTQ+4aUXJUpesUgefiluRQWMejraR5mSu/KUPPiVm0s8D0VuaP+qtTfi4lYp0iaH0JgzP/febz98bM94k=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <3dcbec7c-87d2-31cc-ad0f-d8ff4c8baeae@amd.com>
+Date: Thu, 25 May 2023 10:52:43 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="5vUbqozINaCJ3g6D"
-Content-Disposition: inline
-In-Reply-To: <20230523074326.3035745-10-luca.fancellu@arm.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v7 11/12] xen/arm: add sve property for dom0less domUs
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>, Luca Fancellu
+	<Luca.Fancellu@arm.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230523074326.3035745-1-luca.fancellu@arm.com>
+ <20230523074326.3035745-12-luca.fancellu@arm.com>
+ <D01601D3-8215-46A0-8539-CF126A5FE11F@arm.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <D01601D3-8215-46A0-8539-CF126A5FE11F@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT099:EE_|SA0PR12MB4384:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ac61525-2327-470e-9c9d-08db5cfd6d2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	aELOJXecHJW9xH4lHQV9JzXEKa0OljZpSubEN6ppA5T2CG9o8Bu67ypP82UmIfJZDE1nnGFW+Ll/bY19PC1PPGCghvSQg82Nfr+/euwzo8LVcXGblIS6ZXFZC4+yjlsDJdkgsHSDpQBFWKDas+5sv1FoAfjoI+A/BFutPC3TilKbd1z4P6nLB+Uh/oC3YJ/VqRnHmxzjqkzbhN+1P9QegC2voBUBIzEHLRSCRgT3m3W76OlbqAq5GMC04j/Tt+Qq9S/Z2Ks7lX4mK1fz2yLAkYLftD+0HHlGAADsC5xaG2l5ASQ5xpE7WJzvCwIeM0xuKkCaEJX8pSJ3XHqGflrkNWcGOnQAxJpapssEHpxcfT2pXMbrlEosjzKzYo1lTZtlvCutqwIQ/EHtPdn6kmYtGmV2ls5q+PcfWo7QrdZQY/Uu57MdjvPCMzEI2uhQgKlsdOdJ2SEkJECkEotgpaevoNvx86ZrPn56b6kTVPmqiW0H0X1nDp5TDhFXBg2Vuib2zEQNhGgprgtxEs5fIitznARnhht+NHzej2fTM6Apsw4iBY/35/zmFFrzSEUTF89sAYnL/9+aTF9cv4dyqYh8KQ5f9i/VKYA2kDttAsbzXeScFj9RMP6PfKB6pkZp+K1D2YANT66WgzV+HuDFpwCnJtqFHHnyvmo8C4Lv82JUe1ayMdMtILtetsK4kKWcQNWTqRXsMoKobnZwUhg+gfibZ056ECaxv7RfXjO0wVjuKQeL6t4G1uFqmTQVEX00B8xSZrcQios7Mz2/BwzZ+95giA34wjGZHLccS60DlHWfKbyea0bdE/o7Jc2sv05LP8xKpn8+2tj0NviIxpeNC5SeTg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199021)(36840700001)(46966006)(40470700004)(4326008)(478600001)(26005)(186003)(53546011)(70586007)(70206006)(110136005)(54906003)(16576012)(316002)(31686004)(40460700003)(36860700001)(2616005)(6666004)(83380400001)(426003)(47076005)(336012)(41300700001)(31696002)(82310400005)(81166007)(8936002)(356005)(44832011)(2906002)(86362001)(40480700001)(82740400003)(5660300002)(36756003)(8676002)(32563001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 08:52:52.9706
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ac61525-2327-470e-9c9d-08db5cfd6d2b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT099.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4384
 
+Hi Luca,
 
---5vUbqozINaCJ3g6D
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 25 May 2023 10:39:26 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com,
-	wei.chen@arm.com, George Dunlap <george.dunlap@citrix.com>,
-	Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Christian Lindig <christian.lindig@cloud.com>
-Subject: Re: [PATCH v7 09/12] tools: add physinfo arch_capabilities handling
- for Arm
+Sorry for jumping into this but I just wanted to read the dt binding doc and spotted one thing by accident.
 
-On Tue, May 23, 2023 at 08:43:23AM +0100, Luca Fancellu wrote:
-> On Arm, the SVE vector length is encoded in arch_capabilities field
-> of struct xen_sysctl_physinfo, make use of this field in the tools
-> when building for arm.
->=20
-> Create header arm-arch-capabilities.h to handle the arch_capabilities
-> field of physinfo for Arm.
->=20
-> Removed include for xen-tools/common-macros.h in
-> python/xen/lowlevel/xc/xc.c because it is already included by the
-> arm-arch-capabilities.h header.
->=20
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-> Acked-by: George Dunlap <george.dunlap@citrix.com>
-> Acked-by: Christian Lindig <christian.lindig@cloud.com>
-> Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
-> Changes from v6:
->  - Fix licence header in arm-atch-capabilities.h, add R-by (Anthony)
-> Changes from v5:
->  - no changes
-> Changes from v4:
->  - Move arm-arch-capabilities.h into xen-tools/, add LIBXL_HAVE_,
->    fixed python return type to I instead of i. (Anthony)
-> Changes from v3:
->  - add Ack-by for the Golang bits (George)
->  - add Ack-by for the OCaml tools (Christian)
->  - now xen-tools/libs.h is named xen-tools/common-macros.h
->  - changed commit message to explain why the header modification
->    in python/xen/lowlevel/xc/xc.c
-> Changes from v2:
->  - rename arm_arch_capabilities.h in arm-arch-capabilities.h, use
->    MASK_EXTR.
->  - Now arm-arch-capabilities.h needs MASK_EXTR macro, but it is
->    defined in libxl_internal.h, it doesn't feel right to include
->    that header so move MASK_EXTR into xen-tools/libs.h that is also
->    included in libxl_internal.h
-> Changes from v1:
->  - now SVE VL is encoded in arch_capabilities on Arm
-> Changes from RFC:
->  - new patch
-> ---
->  tools/golang/xenlight/helpers.gen.go          |  2 ++
->  tools/golang/xenlight/types.gen.go            |  1 +
->  tools/include/libxl.h                         |  6 ++++
->  .../include/xen-tools/arm-arch-capabilities.h | 28 +++++++++++++++++++
->  tools/include/xen-tools/common-macros.h       |  2 ++
->  tools/libs/light/libxl.c                      |  1 +
->  tools/libs/light/libxl_internal.h             |  1 -
->  tools/libs/light/libxl_types.idl              |  1 +
->  tools/ocaml/libs/xc/xenctrl.ml                |  4 +--
->  tools/ocaml/libs/xc/xenctrl.mli               |  4 +--
->  tools/ocaml/libs/xc/xenctrl_stubs.c           |  8 ++++--
->  tools/python/xen/lowlevel/xc/xc.c             |  8 ++++--
->  tools/xl/xl_info.c                            |  8 ++++++
->  13 files changed, 62 insertions(+), 12 deletions(-)
->  create mode 100644 tools/include/xen-tools/arm-arch-capabilities.h
->=20
+On 24/05/2023 17:20, Bertrand Marquis wrote:
+> 
+> 
+> Hi Luca,
+> 
+>> On 23 May 2023, at 09:43, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
+>>
+>> Add a device tree property in the dom0less domU configuration
+>> to enable the guest to use SVE.
+>>
+>> Update documentation.
+>>
+>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> 
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
 (...)
+>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>> index 9202a96d9c28..ba4fe9e165ee 100644
+>> --- a/xen/arch/arm/domain_build.c
+>> +++ b/xen/arch/arm/domain_build.c
+>> @@ -4008,6 +4008,34 @@ void __init create_domUs(void)
+>>             d_cfg.max_maptrack_frames = val;
+>>         }
+>>
+>> +        if ( dt_get_property(node, "sve", &val) )
+>> +        {
+>> +#ifdef CONFIG_ARM64_SVE
+>> +            unsigned int sve_vl_bits;
+>> +            bool ret = false;
+>> +
+>> +            if ( !val )
+>> +            {
+>> +                /* Property found with no value, means max HW VL supported */
+>> +                ret = sve_domctl_vl_param(-1, &sve_vl_bits);
+>> +            }
+>> +            else
+>> +            {
+>> +                if ( dt_property_read_u32(node, "sve", &val) )
+>> +                    ret = sve_domctl_vl_param(val, &sve_vl_bits);
+>> +                else
+>> +                    panic("Error reading 'sve' property");
+Both here and ...
 
-> diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowleve=
-l/xc/xc.c
-> index 9728b34185ac..b3699fdac58e 100644
-> --- a/tools/python/xen/lowlevel/xc/xc.c
-> +++ b/tools/python/xen/lowlevel/xc/xc.c
-> @@ -22,6 +22,7 @@
->  #include <xen/hvm/hvm_info_table.h>
->  #include <xen/hvm/params.h>
-> =20
-> +#include <xen-tools/arm-arch-capabilities.h>
->  #include <xen-tools/common-macros.h>
-> =20
->  /* Needed for Python versions earlier than 2.3. */
-> @@ -897,7 +898,7 @@ static PyObject *pyxc_physinfo(XcObject *self)
->      if ( p !=3D virt_caps )
->        *(p-1) =3D '\0';
-> =20
-> -    return Py_BuildValue("{s:i,s:i,s:i,s:i,s:l,s:l,s:l,s:i,s:s,s:s}",
-> +    return Py_BuildValue("{s:i,s:i,s:i,s:i,s:l,s:l,s:l,s:i,s:s,s:s,s:I}",
->                              "nr_nodes",         pinfo.nr_nodes,
->                              "threads_per_core", pinfo.threads_per_core,
->                              "cores_per_socket", pinfo.cores_per_socket,
-> @@ -907,7 +908,10 @@ static PyObject *pyxc_physinfo(XcObject *self)
->                              "scrub_memory",     pages_to_kib(pinfo.scrub=
-_pages),
->                              "cpu_khz",          pinfo.cpu_khz,
->                              "hw_caps",          cpu_cap,
-> -                            "virt_caps",        virt_caps);
-> +                            "virt_caps",        virt_caps,
-> +                            "arm_sve_vl",
-> +                              arch_capabilities_arm_sve(pinfo.arch_capab=
-ilities)
-> +                        );
+>> +            }
+>> +
+>> +            if ( ret )
+>> +                d_cfg.arch.sve_vl = sve_encode_vl(sve_vl_bits);
+>> +            else
+>> +                panic("SVE vector length error\n");
+>> +#else
+>> +            panic("'sve' property found, but CONFIG_ARM64_SVE not selected");
+here you are missing \n at the end of string. If you take a look at panic() implementation,
+new line char is not added so in your case it would result in an ugly formatted panic message.
 
-This should be added only when building for ARM, similar as for other
-bindings.
-
->  }
-> =20
->  static PyObject *pyxc_getcpuinfo(XcObject *self, PyObject *args, PyObjec=
-t *kwds)
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---5vUbqozINaCJ3g6D
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmRvHr8ACgkQ24/THMrX
-1yw72QgAi3Ytlx2NiTs7zaLyrl/JEgTJbX7368gg/O/lS1Dv0lwFY7dH9D6Hbu7o
-5BjOlIi/KTR1EWu02IvkJmEEt0yWJPQ4ypOmZNO6KP+z5fJaqSNfB/1im9KkS9T9
-zuzreX13JCoJEnHXfc6CiP1TY3VEmZA8HjKAwJ+apuU6I3XBVautTAqLw6gTjW8V
-9KMYFWXnng2OSUKTI5ILf0ktMRG2jiIDJSH/yHLAsIXrlchk+jxYcqyRnO5lePRx
-FzvClVP7pj8RunkjwkcHvLP9q7FtjyEyaKasLC5InRVm2P6U/gVxpyiFNwxvdCeJ
-td3gLSpKwIYLtUNAJvjXh8CvVKNQOw==
-=SgUV
------END PGP SIGNATURE-----
-
---5vUbqozINaCJ3g6D--
+~Michal
 
