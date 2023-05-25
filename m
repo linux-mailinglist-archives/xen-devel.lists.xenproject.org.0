@@ -2,55 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 925B271170E
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 21:17:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539829.841089 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826B8711759
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 21:25:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539836.841099 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2GSM-00016Z-Eh; Thu, 25 May 2023 19:17:02 +0000
+	id 1q2GZb-0002fH-7m; Thu, 25 May 2023 19:24:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539829.841089; Thu, 25 May 2023 19:17:02 +0000
+Received: by outflank-mailman (output) from mailman id 539836.841099; Thu, 25 May 2023 19:24:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2GSM-00014J-9d; Thu, 25 May 2023 19:17:02 +0000
-Received: by outflank-mailman (input) for mailman id 539829;
- Thu, 25 May 2023 19:17:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q2GZb-0002d1-4n; Thu, 25 May 2023 19:24:31 +0000
+Received: by outflank-mailman (input) for mailman id 539836;
+ Thu, 25 May 2023 19:24:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sqFY=BO=intel.com=rick.p.edgecombe@srs-se1.protection.inumbo.net>)
- id 1q2GSL-000149-IJ
- for xen-devel@lists.xenproject.org; Thu, 25 May 2023 19:17:01 +0000
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b64a91a6-fb30-11ed-8611-37d641c3527e;
- Thu, 25 May 2023 21:16:58 +0200 (CEST)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2023 12:16:48 -0700
-Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
- by FMSMGA003.fm.intel.com with ESMTP; 25 May 2023 12:16:47 -0700
-Received: from orsmsx601.amr.corp.intel.com (10.22.229.14) by
- ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23; Thu, 25 May 2023 12:16:47 -0700
-Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
- orsmsx601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.23 via Frontend Transport; Thu, 25 May 2023 12:16:47 -0700
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com (104.47.66.46) by
- edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.1.2507.23; Thu, 25 May 2023 12:16:46 -0700
-Received: from MN0PR11MB5963.namprd11.prod.outlook.com (2603:10b6:208:372::10)
- by IA0PR11MB7911.namprd11.prod.outlook.com (2603:10b6:208:40e::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.17; Thu, 25 May
- 2023 19:16:44 +0000
-Received: from MN0PR11MB5963.namprd11.prod.outlook.com
- ([fe80::6984:19a5:fe1c:dfec]) by MN0PR11MB5963.namprd11.prod.outlook.com
- ([fe80::6984:19a5:fe1c:dfec%6]) with mapi id 15.20.6433.016; Thu, 25 May 2023
- 19:16:44 +0000
+ <SRS0=gGWh=BO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1q2GZZ-0002cv-SV
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 19:24:29 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c38e3f94-fb31-11ed-b230-6b7b168915f2;
+ Thu, 25 May 2023 21:24:27 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 92EB060F93;
+ Thu, 25 May 2023 19:24:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67AFBC4339B;
+ Thu, 25 May 2023 19:24:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,169 +43,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b64a91a6-fb30-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1685042218; x=1716578218;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=g5JJbQpzk9KTIUfEMKg72HvNldEktM/APqNazebbZT0=;
-  b=M9C2Sb0YysP8ltEsjRcZNgdygmDKE600yLC5mod2T6ZZFU3OuQ1KMJYh
-   6F9iijLsdbfIlh66luUE37V2bmqx35FqbjqPLQbYk7bzwda2i5FLYgyKt
-   sTK/zr1/fXo9Pt+Km74GPn2vSZ+Lw4gs18Wf58uhzI55OuwIvnHL6p3p5
-   C509C24mCCoMqORF9FVJikgirnbR7vVrjBqSSMyviGuBbGLiUkKrfwHhX
-   UJ5J0fVon8Vx57PpsQ+ML+fZObjLHAoYdAjxgotwdRni6CDXhD6JZzZD+
-   2Z4MowZhSqf4OsxIQrSyViiIvE9AqOnxI88wvV/cux3qlozmi7UIwatof
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10721"; a="356377148"
-X-IronPort-AV: E=Sophos;i="6.00,192,1681196400"; 
-   d="scan'208";a="356377148"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10721"; a="794776668"
-X-IronPort-AV: E=Sophos;i="6.00,192,1681196400"; 
-   d="scan'208";a="794776668"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jKU6aNgj0C6xM8XHCUStPmJZ+KZnb6hqWomyDUvkB6Y3x7z5WeFKyxIx75ib7tsbKFOYcbG58nkP8YveicRNwKXwe028iqdXfOdK+U25qnkEbbcUgwRwrh470Zpkl+mzBUbLhzPBJyiWv2nfba277YGvgaIErGUanT38FI0TJWUllYk+QeChMzRjvFLTmSLW18fXWCZnZxFCLW4mQFt1D3+E8mlnlkGF8kTM5x7t1YnK3dZeIP57kigf44gYzOdA4xK1CA556HEkvXKMgJspwvsMmjKB9QIlRpmK+34P6wUM8DzE4t8p73cap3RqUiEKJUFVbpNr7cKxVtLbNRyuwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g5JJbQpzk9KTIUfEMKg72HvNldEktM/APqNazebbZT0=;
- b=UoittoKY3opRk4VKtyWXy/jq0C9+o3Grakzg1R4wSXfb2Ukc+9AMzVILcRZX8qTuRZzSN81jFphHbkfbUY5dZdLb9piXp7FVSgQ7ald/Js1hqMnMA4mMC3mQiu1KERLif+9B+Dn1GBzzDjNqLhvwnoMKcKd9dUW8CaefHplHz0WMrVTR6T79ZZTyJqI9A888LCttX8DAWQwcPbgTBv+vcRtvKqG3WcjlRLYBIn4AEpB+xW4F9X/2eahhBFYD/7daO2kZ5jdw72Je/iMOT4ro85Nr2rFepNvHB65C2q7eFNrZiy/GY0yyZNUNxVPHNuonbLEE2flRK4ThXXoQTR+KOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "Christopherson,, Sean" <seanjc@google.com>
-CC: "ssicleru@bitdefender.com" <ssicleru@bitdefender.com>,
-	"tglx@linutronix.de" <tglx@linutronix.de>, "mic@digikod.net"
-	<mic@digikod.net>, "marian.c.rotariu@gmail.com" <marian.c.rotariu@gmail.com>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"virtualization@lists.linux-foundation.org"
-	<virtualization@lists.linux-foundation.org>, "pbonzini@redhat.com"
-	<pbonzini@redhat.com>, "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
-	"tgopinath@microsoft.com" <tgopinath@microsoft.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"liran.alon@oracle.com" <liran.alon@oracle.com>, "ztarkhani@microsoft.com"
-	<ztarkhani@microsoft.com>, "mdontu@bitdefender.com" <mdontu@bitdefender.com>,
-	"x86@kernel.org" <x86@kernel.org>, "bp@alien8.de" <bp@alien8.de>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"jamorris@linux.microsoft.com" <jamorris@linux.microsoft.com>,
-	"vkuznets@redhat.com" <vkuznets@redhat.com>, "Andersen, John S"
-	<john.s.andersen@intel.com>, "nicu.citu@icloud.com" <nicu.citu@icloud.com>,
-	"keescook@chromium.org" <keescook@chromium.org>, "Graf, Alexander"
-	<graf@amazon.com>, "wanpengli@tencent.com" <wanpengli@tencent.com>,
-	"dev@lists.cloudhypervisor.org" <dev@lists.cloudhypervisor.org>,
-	"madvenka@linux.microsoft.com" <madvenka@linux.microsoft.com>,
-	"mingo@redhat.com" <mingo@redhat.com>, "will@kernel.org" <will@kernel.org>,
-	"linux-security-module@vger.kernel.org"
-	<linux-security-module@vger.kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
-	"yuanyu@google.com" <yuanyu@google.com>, "linux-hyperv@vger.kernel.org"
-	<linux-hyperv@vger.kernel.org>, "linux-hardening@vger.kernel.org"
-	<linux-hardening@vger.kernel.org>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>
-Subject: Re: [RFC PATCH v1 0/9] Hypervisor-Enforced Kernel Integrity
-Thread-Topic: [RFC PATCH v1 0/9] Hypervisor-Enforced Kernel Integrity
-Thread-Index: AQHZf2Ve5xw6RDm4tUGLnlOpizAoCa9qHQcAgAEGdICAAB9/gIAABBoAgAA1AQA=
-Date: Thu, 25 May 2023 19:16:43 +0000
-Message-ID: <99bea6ec8b3091986008a3a9f2e7c74f0abaea92.camel@intel.com>
-References: <20230505152046.6575-1-mic@digikod.net>
-	 <93726a7b9498ec66db21c5792079996d5fed5453.camel@intel.com>
-	 <facfd178-3157-80b4-243b-a5c8dabadbfb@digikod.net>
-	 <7cb6c4c28c077bb9f866c2d795e918610e77d49f.camel@intel.com>
-	 <ZG+HpFjIuSWvyo+B@google.com>
-In-Reply-To: <ZG+HpFjIuSWvyo+B@google.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.44.4-0ubuntu1 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR11MB5963:EE_|IA0PR11MB7911:EE_
-x-ms-office365-filtering-correlation-id: f220390b-43ad-4962-0944-08db5d5493a7
-x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: HN7MBKegHsRwUSnjSRFp+3MlHU73niuACJd8ACjfbzqldL0YwJvRQXrZdYK/5/8yG/76ZAa9ouZGC2tmEHLbPWuvgAmTAJ1aYTujovthpMBqV927urR3Fg/dLGJnlJIyqyp1Y4e4t+5y4YWhooNim8XrlfGxvGvbgUzoElZHs92mCK5LEkDt+rtdYpb2DD/wzpxoFFgq1CjPKpK1rENUlt65ZTTXKXClDFnNxNRZdoWTGGO76aOQfZdX2q+badj/u4edfA5LVAJA/YJlbdcKvoErJsbJ4wS/kZzRv4Mikg8bmFIrLGSgwS2UHjNtxlS350Ltb/z1LR7HGLWow6WQPTS24OpQK4lf6Sq/2SY7laWaoIp/u5QU4icmUSSRsbpHvFr8eAizKfJf/sLeJABjwwerJ60ps/MmZu+uizgIdQjEwTIQ7BcJv7femS1sH0au6J4PWeBV0NLRzQkX1BAjXs0PEERV56PWdE1Xqqhq8DwEu3Upv9QA93EUEnYb2+AH6O4wjpcQUJAehlZcKTvEeHQil2pAFRaFNnYJyU0j0IMsTsZHaUmrOgJh/AAtd4gwzJiRmPWBiiegChnqfU8sHq0nS0y0ekBMOovMD0zpvug=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR11MB5963.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(346002)(376002)(136003)(396003)(39860400002)(451199021)(86362001)(36756003)(64756008)(966005)(6486002)(41300700001)(38070700005)(71200400001)(316002)(4326008)(6916009)(66446008)(66946007)(76116006)(66556008)(91956017)(66476007)(478600001)(54906003)(7416002)(7406005)(5660300002)(186003)(83380400001)(122000001)(2906002)(38100700002)(82960400001)(26005)(8936002)(2616005)(8676002)(6506007)(6512007);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eHRCUFlUdU0zVFdVTW44enR2WUdZcDhqdE0wVjNkamRZNDBFSWZMa1J6MHpm?=
- =?utf-8?B?ZW00WExWekJ3RG5xTXA3SnhGWXVrbHNldTJwREIyZm8vakJYUzRMS3dGVWNT?=
- =?utf-8?B?TEpqMmtPYUNEVXhPMEFVa0w1cHJpQXJybDFQeGFucUl1U0lic0RkVjNGcFZy?=
- =?utf-8?B?dklGWmNzS1RTMUVzbFkwcmRBVE15MFVoZ3RmTm14Tk5KRVhLY1dpMm5NaTho?=
- =?utf-8?B?MTVqOHpFOTVhY3V6c1c2cERUVkp3SVNzQkNxcVRNN3VGNWZLNmh6THhHQU1U?=
- =?utf-8?B?cnNuRFdacWJsa0hNZFlqSDVBL0kvMkxWSm9wYU1pMFJmZlhtVkZhL2tDOVUy?=
- =?utf-8?B?R2MyV1AwdXEzd05kVXIxMWRLK1JHZ3ZuMnZBWmVCRk1NdzdlSDVBbmxJSXIr?=
- =?utf-8?B?RTBQcWRvUnpGa3d5QTBZcVA3Z2krZ09WTWZxbGd4NSsySW4zRVZvNCtFdkhO?=
- =?utf-8?B?RGttQXJlT2hNRXYwbUhHRjd4STZYMnJZeWw1bVpJekNGVDEwaUlUTnRRSHFy?=
- =?utf-8?B?d3U4dUhHeXcrUnIwL2VwSlcvdmczQ1Yzais1NXp1Yzh4S2k3WW56UWFhYjRP?=
- =?utf-8?B?ZFhSNmhLNE9xVG9qWFd2OC80SWxhditEZFZLd2orSU5MWHkrTmdUSkp4bDVi?=
- =?utf-8?B?cENiaEh1QkVEalAxT2lBaW5UaWxWWDNnVmpCbExoQmlqUlUxTjlpUFhKMFl2?=
- =?utf-8?B?YVBXTVRWTGNTMmRBSWEzbmNyUXk1YVgzMmhsOGhnK3NmLzl0OVlib2VkZTdZ?=
- =?utf-8?B?c3pTR0ppQVgwODR1RE10RmVqVEJYSURwcDQrbm9DK3ZrMWdmQWVVaC8wdjEy?=
- =?utf-8?B?TkI3akx1a3c4YlBzbFBHY05iUnh2ZDlncThpcG5BZHhtMWdqQVVSOEJ6QjRl?=
- =?utf-8?B?bEVOaTkyQnkzQjM4SkdLSy9yR3AvSFpBSmdwUGV2ZkcxWnQxMmR2Q2UrWWgw?=
- =?utf-8?B?V2dBMTh4bzJ0ZFFaWEhyTUs5VDFPZXVvelZ0eVpKcXhhcUo2My8wUG5wWDc2?=
- =?utf-8?B?N1k5VHJHSDV1cHgwY3pPUVJCS25PZm45bVR6YnpoSzRqZVZoRXluOW5LM0Zh?=
- =?utf-8?B?bHMwa3lMaEp0S0lSYWFZeU11dkxib1c3TGxJNjFock02Q1VkR3lwbEFUM1Iy?=
- =?utf-8?B?SmxYOVhJUkJIZ2ZndkRkaVliWllRVWpDS0orVlZDeWdWa0x5L1pLSlVVMzVh?=
- =?utf-8?B?elpFVmNSLzBOQjlMT3ZVUEFYTnF6OWRKNVRrbTErMklRZURuSWlVcStVYi9S?=
- =?utf-8?B?TTg1bk9CaVJVcm5iT3VydktBQ0Zra0xlSDBXd21FTmFWTmZsaG1NMmNVaGF5?=
- =?utf-8?B?eEp5Qi8xa21xTmIzTDJXb04rM3N6ejZ2eFpqUzRVc1U4WTU1WFZZZGtXS2Fq?=
- =?utf-8?B?aFN0Sm5GTXZ3c0ZSSGVSNWllYWp2OUpxR3JobVhyL1Bxc0pvMXhUcWtoaGxX?=
- =?utf-8?B?cGxVcGpUdjlrKzE3cmZNd1k2QUl1Ky9WaTUzeURDRVhEVzNTVHlrZXZHZjF1?=
- =?utf-8?B?NllsMWkyYVh1clQ1TCt5WkJyYkNKZmZQVlJGZFJ2RnhXVFB5S0hZSHJkdytJ?=
- =?utf-8?B?SU14a0svK1VtWXRFeXBMclRsVnhtaUVlVFlQeVZFUzcrTnRScWsrQmZEdm9Z?=
- =?utf-8?B?SVFtMkNTc0cxR1plWFFydnBwd3RZZkxQbWgxVXRPMVFDZStaY25nTXNvZm1T?=
- =?utf-8?B?NXVSS2ZkbCt3eXNjMDB6WG5qNGorYzUrNkVhL3NIQUp3V0FNd1g1aUNpTFVm?=
- =?utf-8?B?RngwQURacHlxZWlkN1QvUVd1OGlvNWFsYXlYZmpnYmUyRDVHOWRMdHR1Y3FO?=
- =?utf-8?B?VEpZaXRrd1l3ZEVSWkNQUndVbGFmOHhyYkhiVkp5MTB2N1k4cy9PZElVNlZ1?=
- =?utf-8?B?NjVnZWZwbXlMdll0WDkrT0dUMkpsMFpyVEhGRlhPc1lmYlZ5WjQzcXN4RER4?=
- =?utf-8?B?ZEFYZ1VaYmlETjZydWRiTGtTcDJDNmw3SXVNYzdxcHl6M0Rxa2Z2QnFnUnh6?=
- =?utf-8?B?QWI2Z1JIK3BHMVBJdTd5UjQ3dVlOTWxramFtTU55WjkwT0w5MmdwS0VzRkR3?=
- =?utf-8?B?NVkvUDBWRkFHR090YWM4cVE5Mld3Z2ZEVU53R0I4VjI2OW0xViswcTR2WWh4?=
- =?utf-8?B?cC9vZVo4L1VnenYxenF6MDA2ZnYya3podWtaZ0FIRGJaN0ZqZHJ5NXlJb2VS?=
- =?utf-8?B?YXc9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <AA10C771A476A6418E0A8249E035B02D@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: c38e3f94-fb31-11ed-b230-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685042666;
+	bh=R5zvbql2G4QtPhAse6Tir/ekcUVFYxTrBthVEBTBa+s=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=kWGmZh8SGu+cQVGNQHHVa3YgUb2k03velPDWbjsfcxQj+xfHxhnsVNTfJSBw1xcXx
+	 vt7H5xEj5QIXwAStRDA2B5JmESMuuhSi+u1TQdZv/sV2S0M39VkKvORntSP5j86qvl
+	 HOrt/lG7oBIf6AiWC4yaCKeDr9kuHZUjhn7Oeyq8WGRsuuogLZAGqjS2f+ipCWudpV
+	 4KxsIhP7hiNmVtGLIq0R0ElAhHWFf7Ut542XFtK2es57rj/S5+ZJmRSk8b7ol1YOoy
+	 JWOPA1NVtCLs2HwHnpMFvmszAnvfR9Jy5pSz0lodKzrVZWxLoWwAYCzloydFCCSTxh
+	 MiX4u1QOX+xRw==
+Date: Thu, 25 May 2023 12:24:23 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH RFC v2] vPCI: account for hidden devices
+In-Reply-To: <8956af09-9ba4-11bf-a272-25f508bbbb3c@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2305251224070.44000@ubuntu-linux-20-04-desktop>
+References: <7294a70c-0089-e375-bb5a-bf9544d4f251@suse.com> <ZG4dmJuzNVUE5UIY@Air-de-Roger> <614c5bf4-b273-7439-caf7-f6df0d90bf87@suse.com> <alpine.DEB.2.22.394.2305241627290.44000@ubuntu-linux-20-04-desktop> <8956af09-9ba4-11bf-a272-25f508bbbb3c@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR11MB5963.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f220390b-43ad-4962-0944-08db5d5493a7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 May 2023 19:16:43.8644
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rn1A9kFAXkIu3a7t4A4AqbkVZiy6ABK0S/SBBG78xekDWKioiJzLwMOrIWI8edU6XMR4N+zsyMxTdaGNDDotV0DqA/fMVH6Dz7hmT7eIn8Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7911
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
 
-T24gVGh1LCAyMDIzLTA1LTI1IGF0IDA5OjA3IC0wNzAwLCBTZWFuIENocmlzdG9waGVyc29uIHdy
-b3RlOg0KPiBPbiBUaHUsIE1heSAyNSwgMjAyMywgUmljayBQIEVkZ2Vjb21iZSB3cm90ZToNCj4g
-PiBJIHdvbmRlciBpZiBpdCBtaWdodCBiZSBhIGdvb2QgaWRlYSB0byBQT0MgdGhlIGd1ZXN0IHNp
-ZGUgYmVmb3JlDQo+ID4gc2V0dGxpbmcgb24gdGhlIEtWTSBpbnRlcmZhY2UuIFRoZW4geW91IGNh
-biBhbHNvIGxvb2sgYXQgdGhlIHdob2xlDQo+ID4gdGhpbmcgYW5kIGp1ZGdlIGhvdyBtdWNoIHVz
-YWdlIGl0IHdvdWxkIGdldCBmb3IgdGhlIGRpZmZlcmVudA0KPiA+IG9wdGlvbnMNCj4gPiBvZiBy
-ZXN0cmljdGlvbnMuDQo+IA0KPiBBcyBJIHNhaWQgZWFybGllclsqXSwgSU1PIHRoZSBjb250cm9s
-IHBsYW5lIGxvZ2ljIG5lZWRzIHRvIGxpdmUgaW4NCj4gaG9zdCB1c2Vyc3BhY2UuDQo+IEkgdGhp
-bmsgYW55IGF0dGVtcHQgdG8gaGF2ZSBLVk0gcHJvdmlkZW4gYW55dGhpbmcgYnV0IHRoZSBsb3cg
-bGV2ZWwNCj4gcGx1bWJpbmcgd2lsbA0KPiBzdWZmZXIgdGhlIHNhbWUgZmF0ZSBhcyBDUjQgcGlu
-bmluZyBhbmQgWE8gbWVtb3J5LsKgIEl0ZXJhdGluZyBvbiBhbg0KPiBpbXBlcmZlY3QNCj4gc29s
-dXRpb24gdG8gaW5jcmVtZW50bHkgaW1wcm92ZSBzZWN1cml0eSBpcyBmYXIsIGZhciBlYXNpZXIg
-dG8gZG8gaW4NCj4gdXNlcnNwYWNlLA0KPiBhbmQgZmFyIG1vcmUgbGlrZWx5IHRvIGdldCBtZXJn
-ZWQuDQo+IA0KPiBbKl0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsL1pGVXloUHVodE1iWWRK
-NzZAZ29vZ2xlLmNvbQ0KDQpTdXJlLCBJIHNob3VsZCBoYXZlIHB1dCBpdCBtb3JlIGdlbmVyYWxs
-eS4gSSBqdXN0IG1lYW50IHBlb3BsZSBhcmUgbm90DQpnb2luZyB0byB3YW50IHRvIG1haW50YWlu
-IGhvc3QtYmFzZWQgZmVhdHVyZXMgdGhhdCBndWVzdHMgY2FuJ3QNCmVmZmVjdGl2ZWx5IHVzZS4N
-Cg0KTXkgdGFrZWF3YXkgZnJvbSB0aGUgQ1IgcGlubmluZyB3YXMgdGhhdCB0aGUgZ3Vlc3Qga2Vy
-bmVsIGludGVncmF0aW9uDQp3YXMgc3VycHJpc2luZ2x5IHRyaWNreSBkdWUgdG8gdGhlIG9uZS13
-YXkgbmF0dXJlIG9mIHRoZSBpbnRlcmZhY2UuIFhPDQp3YXMgbW9yZSBmbGV4aWJsZSB0aGFuIENS
-IHBpbm5pbmcgaW4gdGhhdCByZXNwZWN0LCBiZWNhdXNlIHRoZSBndWVzdA0KY291bGQgdHVybiBp
-dCBvZmYgKGFuZCBpbmRlZWQsIGluIHRoZSBYTyBrZXJuZWwgdGV4dCBwYXRjaGVzIGl0IGhhZCB0
-bw0KZG8gdGhpcyBhIGxvdCkuDQoNCg==
+On Thu, 25 May 2023, Jan Beulich wrote:
+> On 25.05.2023 01:37, Stefano Stabellini wrote:
+> > On Wed, 24 May 2023, Jan Beulich wrote:
+> >>>> RFC: _setup_hwdom_pci_devices()' loop may want splitting: For
+> >>>>      modify_bars() to consistently respect BARs of hidden devices while
+> >>>>      setting up "normal" ones (i.e. to avoid as much as possible the
+> >>>>      "continue" path introduced here), setting up of the former may want
+> >>>>      doing first.
+> >>>
+> >>> But BARs of hidden devices should be mapped into dom0 physmap?
+> >>
+> >> Yes.
+> > 
+> > The BARs would be mapped read-only (not read-write), right? Otherwise we
+> > let dom0 access devices that belong to Xen, which doesn't seem like a
+> > good idea.
+> > 
+> > But even if we map the BARs read-only, what is the benefit of mapping
+> > them to Dom0? If Dom0 loads a driver for it and the driver wants to
+> > initialize the device, the driver will crash because the MMIO region is
+> > read-only instead of read-write, right?
+> > 
+> > How does this device hiding work for dom0? How does dom0 know not to
+> > access a device that is present on the PCI bus but is used by Xen?
+> 
+> None of these are new questions - this has all been this way for PV Dom0,
+> and so far we've limped along quite okay. That's not to say that we
+> shouldn't improve things if we can, but that first requires ideas as to
+> how.
+
+For PV, that was OK because PV requires extensive guest modifications
+anyway. We only run Linux and few BSDs as Dom0. So, making the interface
+cleaner and reducing guest changes is nice-to-have but not critical.
+
+For PVH, this is different. One of the top reasons for AMD to work on
+PVH is to enable arbitrary non-Linux OSes as Dom0 (when paired with
+dom0less/hyperlaunch). It could be anything from Zephyr to a
+proprietary RTOS like VxWorks. Minimal guest changes for advanced
+features (e.g. Dom0 S3) might be OK but in general I think we should aim
+at (almost) zero guest changes. On ARM, it is already the case (with some
+non-upstream patches for dom0less PCI.)
+
+For this specific patch, which is necessary to enable PVH on AMD x86 in
+gitlab-ci, we can do anything we want to make it move faster. But
+medium/long term I think we should try to make non-Xen-aware PVH Dom0
+possible.
+
+Cheers,
+
+Stefano
 
