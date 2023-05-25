@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CBF5710232
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 03:09:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539275.839989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF51E710245
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 03:19:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539279.839999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1zTE-0001GE-JG; Thu, 25 May 2023 01:08:48 +0000
+	id 1q1zdG-0002lC-Fn; Thu, 25 May 2023 01:19:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539275.839989; Thu, 25 May 2023 01:08:48 +0000
+Received: by outflank-mailman (output) from mailman id 539279.839999; Thu, 25 May 2023 01:19:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1zTE-0001Da-Fl; Thu, 25 May 2023 01:08:48 +0000
-Received: by outflank-mailman (input) for mailman id 539275;
- Thu, 25 May 2023 01:08:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q1zdG-0002iT-CT; Thu, 25 May 2023 01:19:10 +0000
+Received: by outflank-mailman (input) for mailman id 539279;
+ Thu, 25 May 2023 01:19:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gGWh=BO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1q1zTC-0001DU-K0
- for xen-devel@lists.xenproject.org; Thu, 25 May 2023 01:08:46 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1730f5f-fa98-11ed-b230-6b7b168915f2;
- Thu, 25 May 2023 03:08:44 +0200 (CEST)
+ id 1q1zdE-0002iJ-GK
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 01:19:08 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23eb60c4-fa9a-11ed-8611-37d641c3527e;
+ Thu, 25 May 2023 03:19:06 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4A6CB638E2;
- Thu, 25 May 2023 01:08:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4723DC4339B;
- Thu, 25 May 2023 01:08:41 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id D4B9960CA4;
+ Thu, 25 May 2023 01:19:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A28FC433D2;
+ Thu, 25 May 2023 01:19:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,359 +43,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1730f5f-fa98-11ed-b230-6b7b168915f2
+X-Inumbo-ID: 23eb60c4-fa9a-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1684976922;
-	bh=OJ3nGvm1kGzimKYOlU3imxP5BIz1dmvBtlW73TAM3k4=;
+	s=k20201202; t=1684977544;
+	bh=poYWUzsvU1FJcSFwaQ/BgZYa728xSmNE2fmYEjAePHk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=tMmApaSuFxN2lxKaWT3mgVGqmajyVhFOq01m3wMu2TLwdxAmDOJZ+H4YsXVXb66Ov
-	 pQDJWHFjbfeBjqDEmGbTGebtkekHnQPwla+GAkyUv05aTJ2o/uILMxtvrMGkf79ysA
-	 vXp0HFGShSd9Pr/SmY1MFfW/rnBZ4RPXg4X4HWi54RUSHbV9HPADt28HdR3vFZEEvv
-	 JqAfHUIGBLXv6yrcD5q3B07Cfhy8BifbSwv7+K+lWGHKDzSwTBexzDJQuTcIUFvunc
-	 nOdtayr9FSzJsOf1UtLOUZEkoAhTaoj8NCwQ5WCsOPGcjFmp0peThTQxVt4SJy10w2
-	 YbRgEiBC4Pshw==
-Date: Wed, 24 May 2023 18:08:39 -0700 (PDT)
+	b=TwlAAFK3FRSs8E0wCJeO0zyKTDsGA8GOg4PpHpTsM808uQbcmw8FtRWtBRjQzKGQP
+	 D5e8TCcNG7EaNG6qC0A8ec1yqixXQNYo5/9MsjpWnzyrSiNdzpsGqc+itgguiGWpFM
+	 BA6GIc9K2gz6y3eYyKah+1kBNMoptaLiexw2w728ZCiAOVqjnamTRlIRSEK/AvBZAH
+	 IxXvyul2NG5mxvJmPyu7nmwHcpzORicQf3FufaUIsZ9ZkAvL8spJnBanBm+9IfBePZ
+	 y3Tamh0evIfK6KuxMBo+Pxvsa3u6Y5FkRsA6E8UAsE0ZDQe4Ka/OQVrEDyc4hi0y5e
+	 BXHyxop6nry/g==
+Date: Wed, 24 May 2023 18:18:59 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Luca Fancellu <luca.fancellu@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, wei.chen@arm.com, 
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
     Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
     Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/2] xen/misra: add diff-report.py tool
-In-Reply-To: <20230519094613.2134153-2-luca.fancellu@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2305241808050.44000@ubuntu-linux-20-04-desktop>
-References: <20230519094613.2134153-1-luca.fancellu@arm.com> <20230519094613.2134153-2-luca.fancellu@arm.com>
+Subject: Re: [PATCH 2/2] xen/misra: diff-report.py: add report patching
+ feature
+In-Reply-To: <CA6576E0-E49F-4E36-9363-CEB23B508DCE@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2305241818410.44000@ubuntu-linux-20-04-desktop>
+References: <20230519094613.2134153-1-luca.fancellu@arm.com> <20230519094613.2134153-3-luca.fancellu@arm.com> <CA6576E0-E49F-4E36-9363-CEB23B508DCE@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-2005679444-1684977543=:44000"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-2005679444-1684977543=:44000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
 On Fri, 19 May 2023, Luca Fancellu wrote:
-> Add a new tool, diff-report.py that can be used to make diff between
-> reports generated by xen-analysis.py tool.
-> Currently this tool supports the Xen cppcheck text report format in
-> its operations.
+> > On 19 May 2023, at 10:46, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
+> > 
+> > Add a feature to the diff-report.py script that improves the comparison
+> > between two analysis report, one from a baseline codebase and the other
+> > from the changes applied to the baseline.
+> > 
+> > The comparison between reports of different codebase is an issue because
+> > entries in the baseline could have been moved in position due to addition
+> > or deletion of unrelated lines or can disappear because of deletion of
+> > the interested line, making the comparison between two revisions of the
+> > code harder.
+> > 
+> > Having a baseline report, a report of the codebase with the changes
+> > called "new report" and a git diff format file that describes the
+> > changes happened to the code from the baseline, this feature can
+> > understand which entries from the baseline report are deleted or shifted
+> > in position due to changes to unrelated lines and can modify them as
+> > they will appear in the "new report".
+> > 
+> > Having the "patched baseline" and the "new report", now it's simple
+> > to make the diff between them and print only the entry that are new.
+> > 
+> > Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> > ---
+> > Changes from v1:
+> > - Made the script compatible with python2 (Stefano)
+> > ---
+> > xen/scripts/diff-report.py                    |  55 ++++-
+> > xen/scripts/xen_analysis/diff_tool/debug.py   |  21 ++
+> > xen/scripts/xen_analysis/diff_tool/report.py  |  87 +++++++
+> > .../diff_tool/unified_format_parser.py        | 232 ++++++++++++++++++
+> > 4 files changed, 393 insertions(+), 2 deletions(-)
+> > create mode 100644 xen/scripts/xen_analysis/diff_tool/unified_format_parser.py
+> > 
+> > diff --git a/xen/scripts/diff-report.py b/xen/scripts/diff-report.py
+> > index f97cb2355cc3..d608e3a05aa1 100755
+> > --- a/xen/scripts/diff-report.py
+> > +++ b/xen/scripts/diff-report.py
+> > @@ -7,6 +7,10 @@ from argparse import ArgumentParser
+> > from xen_analysis.diff_tool.cppcheck_report import CppcheckReport
+> > from xen_analysis.diff_tool.debug import Debug
+> > from xen_analysis.diff_tool.report import ReportError
+> > +from xen_analysis.diff_tool.unified_format_parser import \
+> > +    (UnifiedFormatParser, UnifiedFormatParseError)
+> > +from xen_analysis.settings import repo_dir
+> > +from xen_analysis.utils import invoke_command
+> > 
+> > 
+> > def log_info(text, end='\n'):
+> > @@ -36,9 +40,32 @@ def main(argv):
+> >                              "against the baseline.")
+> >     parser.add_argument("-v", "--verbose", action='store_true',
+> >                         help="Print more informations during the run.")
+> > +    parser.add_argument("--patch", type=str,
+> > +                        help="The patch file containing the changes to the "
+> > +                             "code, from the baseline analysis result to the "
+> > +                             "'check report' analysis result.\n"
+> > +                             "Do not use with --baseline-rev/--report-rev")
+> > +    parser.add_argument("--baseline-rev", type=str,
+> > +                        help="Revision or SHA of the codebase analysed to "
+> > +                             "create the baseline report.\n"
+> > +                             "Use together with --report-rev")
+> > +    parser.add_argument("--report-rev", type=str,
+> > +                        help="Revision or SHA of the codebase analysed to "
+> > +                             "create the 'check report'.\n"
+> > +                             "Use together with --baseline-rev")
+> > 
+> >     args = parser.parse_args()
+> > 
+> > +    if args.patch and (args.baseline_rev or args.report_rev):
+> > +        print("ERROR: '--patch' argument can't be used with '--baseline-rev'"
+> > +              " or '--report-rev'.")
+> > +        sys.exit(1)
+> > +
+> > +    if bool(args.baseline_rev) != bool(args.report_rev):
+> > +        print("ERROR: '--baseline-rev' must be used together with "
+> > +              "'--report-rev'.")
+> > +        sys.exit(1)
+> > +
+> >     if args.out == "stdout":
+> >         file_out = sys.stdout
+> >     else:
+> > @@ -63,11 +90,35 @@ def main(argv):
+> >         new_rep.parse()
+> >         debug.debug_print_parsed_report(new_rep)
+> >         log_info(" [OK]")
+> > -    except ReportError as e:
+> > +        diff_source = None
+> > +        if args.patch:
+> > +            diff_source = os.path.realpath(args.patch)
+> > +        elif args.baseline_rev:
+> > +            git_diff = invoke_command(
+> > +                "git diff --git-dir={} -C -C {}..{}".format(repo_dir,
+> > +                                                            args.baseline_rev,
+> > +                                                            args.report_rev),
+> > +                True, "Error occured invoking:\n{}\n\n{}"
+> > +            )
 > 
-> The tool prints every finding that is in the report passed with -r
-> (check report) which is not in the report passed with -b (baseline).
+> I’ve noticed now an issue here, when using --baseline-rev/--report-rev, the fix is this one:
 > 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> diff --git a/xen/scripts/diff-report.py b/xen/scripts/diff-report.py
+> index d608e3a05aa1..636f98f5eebe 100755
+> --- a/xen/scripts/diff-report.py
+> +++ b/xen/scripts/diff-report.py
+> @@ -95,9 +95,8 @@ def main(argv):
+>              diff_source = os.path.realpath(args.patch)
+>          elif args.baseline_rev:
+>              git_diff = invoke_command(
+> -                "git diff --git-dir={} -C -C {}..{}".format(repo_dir,
+> -                                                            args.baseline_rev,
+> -                                                            args.report_rev),
+> +                "git --git-dir={}/.git diff -C -C {}..{}"
+> +                .format(repo_dir, args.baseline_rev, args.report_rev),
+>                  True, "Error occured invoking:\n{}\n\n{}"
+>              )
+>              diff_source = git_diff.splitlines(keepends=True)
+> 
+> I’ll wait for other feedback on the patch before sending it again.
+
+With this change:
 
 Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 Tested-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> Changes from v1:
->  - removed 2 method from class ReportEntry that landed there by a
->    mistake on rebase.
->  - Made the script compatible also with python2 (Stefano)
-> ---
->  xen/scripts/diff-report.py                    |  80 ++++++++++++++
->  .../xen_analysis/diff_tool/__init__.py        |   0
->  .../xen_analysis/diff_tool/cppcheck_report.py |  44 ++++++++
->  xen/scripts/xen_analysis/diff_tool/debug.py   |  40 +++++++
->  xen/scripts/xen_analysis/diff_tool/report.py  | 100 ++++++++++++++++++
->  5 files changed, 264 insertions(+)
->  create mode 100755 xen/scripts/diff-report.py
->  create mode 100644 xen/scripts/xen_analysis/diff_tool/__init__.py
->  create mode 100644 xen/scripts/xen_analysis/diff_tool/cppcheck_report.py
->  create mode 100644 xen/scripts/xen_analysis/diff_tool/debug.py
->  create mode 100644 xen/scripts/xen_analysis/diff_tool/report.py
-> 
-> diff --git a/xen/scripts/diff-report.py b/xen/scripts/diff-report.py
-> new file mode 100755
-> index 000000000000..f97cb2355cc3
-> --- /dev/null
-> +++ b/xen/scripts/diff-report.py
-> @@ -0,0 +1,80 @@
-> +#!/usr/bin/env python3
-> +
-> +from __future__ import print_function
-> +import os
-> +import sys
-> +from argparse import ArgumentParser
-> +from xen_analysis.diff_tool.cppcheck_report import CppcheckReport
-> +from xen_analysis.diff_tool.debug import Debug
-> +from xen_analysis.diff_tool.report import ReportError
-> +
-> +
-> +def log_info(text, end='\n'):
-> +    # type: (str, str) -> None
-> +    global args
-> +    global file_out
-> +
-> +    if (args.verbose):
-> +        print(text, end=end, file=file_out)
-> +
-> +
-> +def main(argv):
-> +    # type: (list) -> None
-> +    global args
-> +    global file_out
-> +
-> +    parser = ArgumentParser(prog="diff-report.py")
-> +    parser.add_argument("-b", "--baseline", required=True, type=str,
-> +                        help="Path to the baseline report.")
-> +    parser.add_argument("--debug", action='store_true',
-> +                        help="Produce intermediate reports during operations.")
-> +    parser.add_argument("-o", "--out", default="stdout", type=str,
-> +                        help="Where to print the tool output. Default is "
-> +                             "stdout")
-> +    parser.add_argument("-r", "--report", required=True, type=str,
-> +                        help="Path to the 'check report', the one checked "
-> +                             "against the baseline.")
-> +    parser.add_argument("-v", "--verbose", action='store_true',
-> +                        help="Print more informations during the run.")
-> +
-> +    args = parser.parse_args()
-> +
-> +    if args.out == "stdout":
-> +        file_out = sys.stdout
-> +    else:
-> +        try:
-> +            file_out = open(args.out, "wt")
-> +        except OSError as e:
-> +            print("ERROR: Issue opening file {}: {}".format(args.out, e))
-> +            sys.exit(1)
-> +
-> +    debug = Debug(args)
-> +
-> +    try:
-> +        baseline_path = os.path.realpath(args.baseline)
-> +        log_info("Loading baseline report {}".format(baseline_path), "")
-> +        baseline = CppcheckReport(baseline_path)
-> +        baseline.parse()
-> +        debug.debug_print_parsed_report(baseline)
-> +        log_info(" [OK]")
-> +        new_rep_path = os.path.realpath(args.report)
-> +        log_info("Loading check report {}".format(new_rep_path), "")
-> +        new_rep = CppcheckReport(new_rep_path)
-> +        new_rep.parse()
-> +        debug.debug_print_parsed_report(new_rep)
-> +        log_info(" [OK]")
-> +    except ReportError as e:
-> +        print("ERROR: {}".format(e))
-> +        sys.exit(1)
-> +
-> +    output = new_rep - baseline
-> +    print(output, end="", file=file_out)
-> +
-> +    if len(output) > 0:
-> +        sys.exit(1)
-> +
-> +    sys.exit(0)
-> +
-> +
-> +if __name__ == "__main__":
-> +    main(sys.argv[1:])
-> diff --git a/xen/scripts/xen_analysis/diff_tool/__init__.py b/xen/scripts/xen_analysis/diff_tool/__init__.py
-> new file mode 100644
-> index 000000000000..e69de29bb2d1
-> diff --git a/xen/scripts/xen_analysis/diff_tool/cppcheck_report.py b/xen/scripts/xen_analysis/diff_tool/cppcheck_report.py
-> new file mode 100644
-> index 000000000000..e7e80a9dde84
-> --- /dev/null
-> +++ b/xen/scripts/xen_analysis/diff_tool/cppcheck_report.py
-> @@ -0,0 +1,44 @@
-> +#!/usr/bin/env python3
-> +
-> +import re
-> +from .report import Report, ReportError
-> +
-> +
-> +class CppcheckReport(Report):
-> +    def __init__(self, report_path):
-> +        # type: (str) -> None
-> +        super(CppcheckReport, self).__init__(report_path)
-> +        # This matches a string like:
-> +        # path/to/file.c(<line number>,<digits>):<whatever>
-> +        # and captures file name path and line number
-> +        # the last capture group is used for text substitution in __str__
-> +        self.__report_entry_regex = re.compile(r'^(.*)\((\d+)(,\d+\):.*)$')
-> +
-> +    def parse(self):
-> +        # type: () -> None
-> +        report_path = self.get_report_path()
-> +        try:
-> +            with open(report_path, "rt") as infile:
-> +                report_lines = infile.readlines()
-> +        except OSError as e:
-> +            raise ReportError("Issue with reading file {}: {}"
-> +                              .format(report_path, e))
-> +        for line in report_lines:
-> +            entry = self.__report_entry_regex.match(line)
-> +            if entry and entry.group(1) and entry.group(2):
-> +                file_path = entry.group(1)
-> +                line_number = int(entry.group(2))
-> +                self.add_entry(file_path, line_number, line)
-> +            else:
-> +                raise ReportError("Malformed report entry in file {}:\n{}"
-> +                                  .format(report_path, line))
-> +
-> +    def __str__(self):
-> +        # type: () -> str
-> +        ret = ""
-> +        for entry in self.to_list():
-> +            ret += re.sub(self.__report_entry_regex,
-> +                          r'{}({}\3'.format(entry.file_path,
-> +                                            entry.line_number),
-> +                          entry.text)
-> +        return ret
-> diff --git a/xen/scripts/xen_analysis/diff_tool/debug.py b/xen/scripts/xen_analysis/diff_tool/debug.py
-> new file mode 100644
-> index 000000000000..65cca2464110
-> --- /dev/null
-> +++ b/xen/scripts/xen_analysis/diff_tool/debug.py
-> @@ -0,0 +1,40 @@
-> +#!/usr/bin/env python3
-> +
-> +from __future__ import print_function
-> +import os
-> +from .report import Report
-> +
-> +
-> +class Debug:
-> +    def __init__(self, args):
-> +        self.args = args
-> +
-> +    def __get_debug_out_filename(self, path, type):
-> +        # type: (str, str) -> str
-> +        # Take basename
-> +        file_name = os.path.basename(path)
-> +        # Split in name and extension
-> +        file_name = os.path.splitext(file_name)
-> +        if self.args.out != "stdout":
-> +            out_folder = os.path.dirname(self.args.out)
-> +        else:
-> +            out_folder = "./"
-> +        dbg_report_path = out_folder + file_name[0] + type + file_name[1]
-> +
-> +        return dbg_report_path
-> +
-> +    def __debug_print_report(self, report, type):
-> +        # type: (Report, str) -> None
-> +        report_name = self.__get_debug_out_filename(report.get_report_path(),
-> +                                                    type)
-> +        try:
-> +            with open(report_name, "wt") as outfile:
-> +                print(report, end="", file=outfile)
-> +        except OSError as e:
-> +            print("ERROR: Issue opening file {}: {}".format(report_name, e))
-> +
-> +    def debug_print_parsed_report(self, report):
-> +        # type: (Report) -> None
-> +        if not self.args.debug:
-> +            return
-> +        self.__debug_print_report(report, ".parsed")
-> diff --git a/xen/scripts/xen_analysis/diff_tool/report.py b/xen/scripts/xen_analysis/diff_tool/report.py
-> new file mode 100644
-> index 000000000000..4a303d61b3ea
-> --- /dev/null
-> +++ b/xen/scripts/xen_analysis/diff_tool/report.py
-> @@ -0,0 +1,100 @@
-> +#!/usr/bin/env python3
-> +
-> +import os
-> +
-> +
-> +class ReportError(Exception):
-> +    pass
-> +
-> +
-> +class Report(object):
-> +    class ReportEntry:
-> +        def __init__(self, file_path, line_number, entry_text, line_id):
-> +            # type: (str, int, list, int) -> None
-> +            if not isinstance(line_number, int) or \
-> +               not isinstance(line_id, int):
-> +                raise ReportError("ReportEntry constructor wrong type args")
-> +            self.file_path = file_path
-> +            self.line_number = line_number
-> +            self.text = entry_text
-> +            self.line_id = line_id
-> +
-> +    def __init__(self, report_path):
-> +        # type: (str) -> None
-> +        self.__entries = {}
-> +        self.__path = report_path
-> +        self.__last_line_order = 0
-> +
-> +    def parse(self):
-> +        # type: () -> None
-> +        raise ReportError("Please create a specialised class from 'Report'.")
-> +
-> +    def get_report_path(self):
-> +        # type: () -> str
-> +        return self.__path
-> +
-> +    def get_report_entries(self):
-> +        # type: () -> dict
-> +        return self.__entries
-> +
-> +    def add_entry(self, entry_path, entry_line_number, entry_text):
-> +        # type: (str, int, str) -> None
-> +        entry = Report.ReportEntry(entry_path, entry_line_number, entry_text,
-> +                                   self.__last_line_order)
-> +        if entry_path in self.__entries.keys():
-> +            self.__entries[entry_path].append(entry)
-> +        else:
-> +            self.__entries[entry_path] = [entry]
-> +        self.__last_line_order += 1
-> +
-> +    def to_list(self):
-> +        # type: () -> list
-> +        report_list = []
-> +        for _, entries in self.__entries.items():
-> +            for entry in entries:
-> +                report_list.append(entry)
-> +
-> +        report_list.sort(key=lambda x: x.line_id)
-> +        return report_list
-> +
-> +    def __str__(self):
-> +        # type: () -> str
-> +        ret = ""
-> +        for entry in self.to_list():
-> +            ret += entry.file_path + ":" + entry.line_number + ":" + entry.text
-> +
-> +        return ret
-> +
-> +    def __len__(self):
-> +        # type: () -> int
-> +        return len(self.to_list())
-> +
-> +    def __sub__(self, report_b):
-> +        # type: (Report) -> Report
-> +        if self.__class__ != report_b.__class__:
-> +            raise ReportError("Diff of different type of report!")
-> +
-> +        filename, file_extension = os.path.splitext(self.__path)
-> +        diff_report = self.__class__(filename + ".diff" + file_extension)
-> +        # Put in the diff report only records of this report that are not
-> +        # present in the report_b.
-> +        for file_path, entries in self.__entries.items():
-> +            rep_b_entries = report_b.get_report_entries()
-> +            if file_path in rep_b_entries.keys():
-> +                # File path exists in report_b, so check what entries of that
-> +                # file path doesn't exist in report_b and add them to the diff
-> +                rep_b_entries_num = [
-> +                    x.line_number for x in rep_b_entries[file_path]
-> +                ]
-> +                for entry in entries:
-> +                    if entry.line_number not in rep_b_entries_num:
-> +                        diff_report.add_entry(file_path, entry.line_number,
-> +                                              entry.text)
-> +            else:
-> +                # File path doesn't exist in report_b, so add every entry
-> +                # of that file path to the diff
-> +                for entry in entries:
-> +                    diff_report.add_entry(file_path, entry.line_number,
-> +                                          entry.text)
-> +
-> +        return diff_report
-> -- 
-> 2.34.1
-> 
+--8323329-2005679444-1684977543=:44000--
 
