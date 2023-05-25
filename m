@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D892B7108A6
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 11:18:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539463.840360 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 743C77108B1
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 11:19:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539469.840371 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q276s-0002vn-4r; Thu, 25 May 2023 09:18:14 +0000
+	id 1q2787-0003VB-F4; Thu, 25 May 2023 09:19:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539463.840360; Thu, 25 May 2023 09:18:14 +0000
+Received: by outflank-mailman (output) from mailman id 539469.840371; Thu, 25 May 2023 09:19:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q276s-0002tL-29; Thu, 25 May 2023 09:18:14 +0000
-Received: by outflank-mailman (input) for mailman id 539463;
- Thu, 25 May 2023 09:18:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1q2787-0003T3-BZ; Thu, 25 May 2023 09:19:31 +0000
+Received: by outflank-mailman (input) for mailman id 539469;
+ Thu, 25 May 2023 09:19:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1q276q-0002tC-V7
- for xen-devel@lists.xenproject.org; Thu, 25 May 2023 09:18:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1q276q-00013L-CC; Thu, 25 May 2023 09:18:12 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.31.224]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1q276q-0006N7-4N; Thu, 25 May 2023 09:18:12 +0000
+ (envelope-from <SRS0=JOix=BO=kernel.org=rppt@srs-se1.protection.inumbo.net>)
+ id 1q2786-0003BH-C3
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 09:19:30 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3f561c39-fadd-11ed-8611-37d641c3527e;
+ Thu, 25 May 2023 11:19:28 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0FA426442A;
+ Thu, 25 May 2023 09:19:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3CF9C433EF;
+ Thu, 25 May 2023 09:19:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,149 +43,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Qv55Y6m1lllBaFGCfpqSkg94suT4Na6FI0EpMe1yfok=; b=1JQiFao6+RqeVw4RddjdQ8XVxf
-	7SiVRfQLx50szY7gvsCHA8ZYpWPVdDFwkS+mSQcwueqUeJiFURyCVvk3o3aqAWAu/0cClNjP08QPU
-	tHiCiq8oeK4BzleMGkknrF6elpwsBWRdQpYjCMGUlQa6U4J4TNiSyMad4rivk+FACEnA=;
-Message-ID: <b92aa9fb-440e-d315-92b5-ccc10e1e38f8@xen.org>
-Date: Thu, 25 May 2023 10:18:09 +0100
+X-Inumbo-ID: 3f561c39-fadd-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685006366;
+	bh=wqsrR+VLdLpuPAmDdXqCVY2XwnsXyfpXvlaNwL8b95Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=foE41UqPH1HgRiXHDcvmNVSgga8+6+movhrIvHcP0lKkim5d2C0CveXiAkrsugwUY
+	 mTMqHgjGefxYEA1DbMZBeEKmAQcDqRXgChs6yPJ6RFCubSjjaqUfXH5DibAVcYpUBA
+	 aCcKgzmG5mhVSa4fQNmh2lbUtoTD+weF0ODUHN0azy9cnLxTNG6czawfKdDGiZ3h9+
+	 eQhVfl9VDk2zYUu2V/zd6ljbuCqaKQw9PEhJG6TAu5DceAsH/0TRlb4M7Mib7O0vr6
+	 Y2yg35as+E26Oh74LjFv8mXxr+pdJYlNpysggvOKmpyB8i+xjdzE7MqNjdH/FF5KDP
+	 bMNE7SNyaBLAA==
+Date: Thu, 25 May 2023 12:19:00 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org
+Subject: Re: [PATCH v2 13/34] mm: Create ptdesc equivalents for
+ pgtable_{pte,pmd}_page_{ctor,dtor}
+Message-ID: <20230525091900.GY4967@kernel.org>
+References: <20230501192829.17086-1-vishal.moola@gmail.com>
+ <20230501192829.17086-14-vishal.moola@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.11.0
-Subject: Re: [PATCH v7 07/12] xen: enable Dom0 to use SVE feature
-Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230523074326.3035745-1-luca.fancellu@arm.com>
- <20230523074326.3035745-8-luca.fancellu@arm.com>
- <04D83C51-E734-465D-BC2D-4F0535C91B77@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <04D83C51-E734-465D-BC2D-4F0535C91B77@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230501192829.17086-14-vishal.moola@gmail.com>
 
+On Mon, May 01, 2023 at 12:28:08PM -0700, Vishal Moola (Oracle) wrote:
+> Creates ptdesc_pte_ctor(), ptdesc_pmd_ctor(), ptdesc_pte_dtor(), and
+> ptdesc_pmd_dtor() and make the original pgtable constructor/destructors
+> wrappers.
 
-
-On 24/05/2023 11:05, Bertrand Marquis wrote:
-> Hi Luca,
-
-Hi,
-
-
->> On 23 May 2023, at 09:43, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
->>
->> Add a command line parameter to allow Dom0 the use of SVE resources,
->> the command line parameter sve=<integer>, sub argument of dom0=,
->> controls the feature on this domain and sets the maximum SVE vector
->> length for Dom0.
->>
->> Add a new function, parse_signed_integer(), to parse an integer
->> command line argument.
->>
->> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+I think pgtable_pXY_ctor/dtor names would be better.
+ 
+> Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+> ---
+>  include/linux/mm.h | 56 ++++++++++++++++++++++++++++++++++------------
+>  1 file changed, 42 insertions(+), 14 deletions(-)
 > 
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 58c911341a33..dc61aeca9077 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2847,20 +2847,34 @@ static inline bool ptlock_init(struct ptdesc *ptdesc) { return true; }
+>  static inline void ptlock_free(struct ptdesc *ptdesc) {}
+>  #endif /* USE_SPLIT_PTE_PTLOCKS */
+>  
+> -static inline bool pgtable_pte_page_ctor(struct page *page)
+> +static inline bool ptdesc_pte_ctor(struct ptdesc *ptdesc)
+>  {
+> -	if (!ptlock_init(page_ptdesc(page)))
+> +	struct folio *folio = ptdesc_folio(ptdesc);
+> +
+> +	if (!ptlock_init(ptdesc))
+>  		return false;
+> -	__SetPageTable(page);
+> -	inc_lruvec_page_state(page, NR_PAGETABLE);
+> +	__folio_set_table(folio);
+> +	lruvec_stat_add_folio(folio, NR_PAGETABLE);
+>  	return true;
+>  }
+>  
+> +static inline bool pgtable_pte_page_ctor(struct page *page)
+> +{
+> +	return ptdesc_pte_ctor(page_ptdesc(page));
+> +}
+> +
+> +static inline void ptdesc_pte_dtor(struct ptdesc *ptdesc)
+> +{
+> +	struct folio *folio = ptdesc_folio(ptdesc);
+> +
+> +	ptlock_free(ptdesc);
+> +	__folio_clear_table(folio);
+> +	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
+> +}
+> +
+>  static inline void pgtable_pte_page_dtor(struct page *page)
+>  {
+> -	ptlock_free(page_ptdesc(page));
+> -	__ClearPageTable(page);
+> -	dec_lruvec_page_state(page, NR_PAGETABLE);
+> +	ptdesc_pte_dtor(page_ptdesc(page));
+>  }
+>  
+>  #define pte_offset_map_lock(mm, pmd, address, ptlp)	\
+> @@ -2942,20 +2956,34 @@ static inline spinlock_t *pmd_lock(struct mm_struct *mm, pmd_t *pmd)
+>  	return ptl;
+>  }
+>  
+> -static inline bool pgtable_pmd_page_ctor(struct page *page)
+> +static inline bool ptdesc_pmd_ctor(struct ptdesc *ptdesc)
+>  {
+> -	if (!pmd_ptlock_init(page_ptdesc(page)))
+> +	struct folio *folio = ptdesc_folio(ptdesc);
+> +
+> +	if (!pmd_ptlock_init(ptdesc))
+>  		return false;
+> -	__SetPageTable(page);
+> -	inc_lruvec_page_state(page, NR_PAGETABLE);
+> +	__folio_set_table(folio);
+> +	lruvec_stat_add_folio(folio, NR_PAGETABLE);
+>  	return true;
+>  }
+>  
+> +static inline bool pgtable_pmd_page_ctor(struct page *page)
+> +{
+> +	return ptdesc_pmd_ctor(page_ptdesc(page));
+> +}
+> +
+> +static inline void ptdesc_pmd_dtor(struct ptdesc *ptdesc)
+> +{
+> +	struct folio *folio = ptdesc_folio(ptdesc);
+> +
+> +	pmd_ptlock_free(ptdesc);
+> +	__folio_clear_table(folio);
+> +	lruvec_stat_sub_folio(folio, NR_PAGETABLE);
+> +}
+> +
+>  static inline void pgtable_pmd_page_dtor(struct page *page)
+>  {
+> -	pmd_ptlock_free(page_ptdesc(page));
+> -	__ClearPageTable(page);
+> -	dec_lruvec_page_state(page, NR_PAGETABLE);
+> +	ptdesc_pmd_dtor(page_ptdesc(page));
+>  }
+>  
+>  /*
+> -- 
+> 2.39.2
 > 
-> with ...
 > 
->> ---
->> Changes from v6:
->> - Fixed case for e==NULL in parse_signed_integer, drop parenthesis
->>    from if conditions, delete inline sve_domctl_vl_param and rely on
->>    DCE from the compiler (Jan)
->> - Drop parenthesis from opt_dom0_sve (Julien)
->> - Do not continue if 'sve' is in command line args but
->>    CONFIG_ARM64_SVE is not selected:
->>    https://lore.kernel.org/all/7614AE25-F59D-430A-9C3E-30B1CE0E1580@arm.com/
->> Changes from v5:
->> - stop the domain if VL error occurs (Julien, Bertrand)
->> - update the documentation
->> - Rename sve_sanitize_vl_param to sve_domctl_vl_param to
->>    mark the fact that we are sanitizing a parameter coming from
->>    the user before encoding it into sve_vl in domctl structure.
->>    (suggestion from Bertrand in a separate discussion)
->> - update comment in parse_signed_integer, return boolean in
->>    sve_domctl_vl_param (Jan).
->> Changes from v4:
->> - Negative values as user param means max supported HW VL (Jan)
->> - update documentation, make use of no_config_param(), rename
->>    parse_integer into parse_signed_integer and take long long *,
->>    also put a comment on the -2 return condition, update
->>    declaration comment to reflect the modifications (Jan)
->> Changes from v3:
->> - Don't use fixed len types when not needed (Jan)
->> - renamed domainconfig_encode_vl to sve_encode_vl
->> - Use a sub argument of dom0= to enable the feature (Jan)
->> - Add parse_integer() function
->> Changes from v2:
->> - xen_domctl_createdomain field has changed into sve_vl and its
->>    value now is the VL / 128, create an helper function for that.
->> Changes from v1:
->> - No changes
->> Changes from RFC:
->> - Changed docs to explain that the domain won't be created if the
->>    requested vector length is above the supported one from the
->>    platform.
->> ---
->> docs/misc/xen-command-line.pandoc    | 20 ++++++++++++++++++--
->> xen/arch/arm/arm64/sve.c             | 20 ++++++++++++++++++++
->> xen/arch/arm/domain_build.c          | 26 ++++++++++++++++++++++++++
->> xen/arch/arm/include/asm/arm64/sve.h | 10 ++++++++++
->> xen/common/kernel.c                  | 28 ++++++++++++++++++++++++++++
->> xen/include/xen/lib.h                | 10 ++++++++++
->> 6 files changed, 112 insertions(+), 2 deletions(-)
->>
->> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
->> index e0b89b7d3319..47e5b4eb6199 100644
->> --- a/docs/misc/xen-command-line.pandoc
->> +++ b/docs/misc/xen-command-line.pandoc
->> @@ -777,9 +777,9 @@ Specify the bit width of the DMA heap.
->>
->> ### dom0
->>      = List of [ pv | pvh, shadow=<bool>, verbose=<bool>,
->> -                cpuid-faulting=<bool>, msr-relaxed=<bool> ]
->> +                cpuid-faulting=<bool>, msr-relaxed=<bool> ] (x86)
->>
->> -    Applicability: x86
->> +    = List of [ sve=<integer> ] (Arm)
->>
->> Controls for how dom0 is constructed on x86 systems.
->>
->> @@ -838,6 +838,22 @@ Controls for how dom0 is constructed on x86 systems.
->>
->>      If using this option is necessary to fix an issue, please report a bug.
->>
->> +Enables features on dom0 on Arm systems.
->> +
->> +*   The `sve` integer parameter enables Arm SVE usage for Dom0 domain and sets
-
-NIT: "Domain" is bit redundant here.
-
->> +    the maximum SVE vector length, the option is applicable only to AArch64
->> +    guests.
-> 
-> Here i would just remove "guests", just AArch64 is enough.
-> I am ok if you choose to use "AArch64 Dom0 kernels"
-
-So far we have no use of AArch64 in our documentation. We have a few use 
-of Arm64 (with various uppercase).
-
-In the code base, we seem to have a mix of AArch64 and Arm64. At the 
-moment, I am not going to ask for consistency in the code. But we should 
-aim to not introduce inconsistency in the documentation.
-
-I don't have a strong opinion whether we should use aarch64 or arm64. My 
-only request is to be consistent.
-
-Cheers,
 
 -- 
-Julien Grall
+Sincerely yours,
+Mike.
 
