@@ -2,46 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 837F0710210
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 02:39:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539264.839969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 758DE71020B
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 02:38:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539261.839958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1yzw-0007J6-Ui; Thu, 25 May 2023 00:38:32 +0000
+	id 1q1yzH-0006oz-Kh; Thu, 25 May 2023 00:37:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539264.839969; Thu, 25 May 2023 00:38:32 +0000
+Received: by outflank-mailman (output) from mailman id 539261.839958; Thu, 25 May 2023 00:37:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q1yzw-0007GK-Rb; Thu, 25 May 2023 00:38:32 +0000
-Received: by outflank-mailman (input) for mailman id 539264;
- Thu, 25 May 2023 00:38:31 +0000
+	id 1q1yzH-0006nK-Ho; Thu, 25 May 2023 00:37:51 +0000
+Received: by outflank-mailman (input) for mailman id 539261;
+ Thu, 25 May 2023 00:37:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2bT+=BO=quicinc.com=quic_tsoni@srs-se1.protection.inumbo.net>)
- id 1q1yzv-0007Fv-K3
- for xen-devel@lists.xenproject.org; Thu, 25 May 2023 00:38:31 +0000
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 766847be-fa94-11ed-8611-37d641c3527e;
- Thu, 25 May 2023 02:38:27 +0200 (CEST)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34P0TOdZ014158; Thu, 25 May 2023 00:37:18 GMT
-Received: from nasanppmta05.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qscautcq9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 May 2023 00:37:18 +0000
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
- by NASANPPMTA05.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34P0bGcV018047
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 May 2023 00:37:16 GMT
-Received: from [10.110.74.38] (10.80.80.8) by nasanex01a.na.qualcomm.com
- (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Wed, 24 May
- 2023 17:37:15 -0700
+ <SRS0=gGWh=BO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1q1yzG-0006mv-20
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 00:37:50 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5e0a4a67-fa94-11ed-8611-37d641c3527e;
+ Thu, 25 May 2023 02:37:47 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3F480640E1;
+ Thu, 25 May 2023 00:37:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 501BBC433D2;
+ Thu, 25 May 2023 00:37:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,195 +44,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 766847be-fa94-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=/e6B8PzwIMOA1NUnKfCKwK2WyRgcsLlUL/WWtMhoXOo=;
- b=p3qB04b9XJKftly38O5+vr0J26dCdM35VoVjloUmf9fYS0RaN82z0Hr3YOWh4ZJQsIjf
- BZiPx+ihcB08jdCDDKbmzPherYn1S2m1s//fnj9cxWlR23hvxTUQUVj+hShpm/tBZn5v
- jDiBZ5ioeyyjMpK+LEvalgHQPiEK8wKmXBNCpReedGyLTdn2zyAqM3iDTmQKde8ORkWM
- T86J62r2qVscXNPcq/nHDEto456qzSc9BtrhHoCSk2cNbiTANPUKFw9/ulvZYESobBSt
- WF7jcasL0f/+Lab6joyPDPm4sna1+eyFr3WPINyTsoOpta5EBv9ueff6H1jxJGX7j1Tt ww== 
-Message-ID: <cf1d6831-dac9-f738-44b4-a9dbc575b7e9@quicinc.com>
-Date: Wed, 24 May 2023 17:37:14 -0700
+X-Inumbo-ID: 5e0a4a67-fa94-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1684975064;
+	bh=R/CEbL3gLijXrnN1wmloMA92/w/+Y2y8jCJRaA0r2j4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=PE8mFMDLFhgHlmb768p/ZNPrUeoe57nW4gUASnYvLAD3hedPozwIkOwTL0HgonGV2
+	 kkQFVi2jAdPAwoaeR0bydedXYLccIVxnniErj1G5IaNhVAfytDv60NDiMxqgd87nkH
+	 pcklZBLTjVohQVBQv3Li9ct/R/XHKfhJO/3VrAvEeBuNPSAd6AQqxIUjogEtEEaAZ8
+	 n81yaIZnc+kAoQrWOSS6thvQB+Vx/evtX7VQ27lmiitjuKq8C+9hkVa+gwqsMhgiv4
+	 bsKY88lgH2gjVhuczBSpjAAsZZSDXSEFL205wsF9mHxTWmwK+yR+Mp6eFT4+dO7kXp
+	 FfEcBsQvILIFQ==
+Date: Wed, 24 May 2023 17:37:41 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Luca Fancellu <luca.fancellu@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, wei.chen@arm.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/3] xen/misra: xen-analysis.py: Improve the cppcheck
+ version check
+In-Reply-To: <20230519093019.2131896-2-luca.fancellu@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2305241737340.44000@ubuntu-linux-20-04-desktop>
+References: <20230519093019.2131896-1-luca.fancellu@arm.com> <20230519093019.2131896-2-luca.fancellu@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [RFC PATCH v1 0/9] Hypervisor-Enforced Kernel Integrity
-Content-Language: en-US
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
-        "mic@digikod.net"
-	<mic@digikod.net>,
-        "Christopherson,, Sean" <seanjc@google.com>,
-        "bp@alien8.de" <bp@alien8.de>,
-        "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>,
-        "keescook@chromium.org"
-	<keescook@chromium.org>,
-        "hpa@zytor.com" <hpa@zytor.com>,
-        "mingo@redhat.com"
-	<mingo@redhat.com>,
-        "tglx@linutronix.de" <tglx@linutronix.de>,
-        "pbonzini@redhat.com" <pbonzini@redhat.com>,
-        "wanpengli@tencent.com"
-	<wanpengli@tencent.com>,
-        "vkuznets@redhat.com" <vkuznets@redhat.com>
-CC: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-        "yuanyu@google.com"
-	<yuanyu@google.com>,
-        "jamorris@linux.microsoft.com"
-	<jamorris@linux.microsoft.com>,
-        "marian.c.rotariu@gmail.com"
-	<marian.c.rotariu@gmail.com>,
-        "Graf, Alexander" <graf@amazon.com>,
-        "Andersen,
- John S" <john.s.andersen@intel.com>,
-        "madvenka@linux.microsoft.com"
-	<madvenka@linux.microsoft.com>,
-        "liran.alon@oracle.com"
-	<liran.alon@oracle.com>,
-        "ssicleru@bitdefender.com"
-	<ssicleru@bitdefender.com>,
-        "tgopinath@microsoft.com"
-	<tgopinath@microsoft.com>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "qemu-devel@nongnu.org"
-	<qemu-devel@nongnu.org>,
-        "linux-security-module@vger.kernel.org"
-	<linux-security-module@vger.kernel.org>,
-        "will@kernel.org" <will@kernel.org>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        "dev@lists.cloudhypervisor.org" <dev@lists.cloudhypervisor.org>,
-        "mdontu@bitdefender.com" <mdontu@bitdefender.com>,
-        "linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>,
-        "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-        "virtualization@lists.linux-foundation.org"
-	<virtualization@lists.linux-foundation.org>,
-        "nicu.citu@icloud.com"
-	<nicu.citu@icloud.com>,
-        "ztarkhani@microsoft.com" <ztarkhani@microsoft.com>,
-        "x86@kernel.org" <x86@kernel.org>
-References: <20230505152046.6575-1-mic@digikod.net>
- <93726a7b9498ec66db21c5792079996d5fed5453.camel@intel.com>
-From: Trilok Soni <quic_tsoni@quicinc.com>
-In-Reply-To: <93726a7b9498ec66db21c5792079996d5fed5453.camel@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: IbOKlK9jsOZG2ChFhg5i0OOOj4Du3a1t
-X-Proofpoint-GUID: IbOKlK9jsOZG2ChFhg5i0OOOj4Du3a1t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-24_17,2023-05-24_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 adultscore=0
- impostorscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0
- phishscore=0 bulkscore=0 suspectscore=0 clxscore=1015 malwarescore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305250003
+Content-Type: text/plain; charset=US-ASCII
 
-On 5/24/2023 3:20 PM, Edgecombe, Rick P wrote:
-> On Fri, 2023-05-05 at 17:20 +0200, Mickaël Salaün wrote:
->> # How does it work?
->>
->> This implementation mainly leverages KVM capabilities to control the
->> Second
->> Layer Address Translation (or the Two Dimensional Paging e.g.,
->> Intel's EPT or
->> AMD's RVI/NPT) and Mode Based Execution Control (Intel's MBEC)
->> introduced with
->> the Kaby Lake (7th generation) architecture. This allows to set
->> permissions on
->> memory pages in a complementary way to the guest kernel's managed
->> memory
->> permissions. Once these permissions are set, they are locked and
->> there is no
->> way back.
->>
->> A first KVM_HC_LOCK_MEM_PAGE_RANGES hypercall enables the guest
->> kernel to lock
->> a set of its memory page ranges with either the HEKI_ATTR_MEM_NOWRITE
->> or the
->> HEKI_ATTR_MEM_EXEC attribute. The first one denies write access to a
->> specific
->> set of pages (allow-list approach), and the second only allows kernel
->> execution
->> for a set of pages (deny-list approach).
->>
->> The current implementation sets the whole kernel's .rodata (i.e., any
->> const or
->> __ro_after_init variables, which includes critical security data such
->> as LSM
->> parameters) and .text sections as non-writable, and the .text section
->> is the
->> only one where kernel execution is allowed. This is possible thanks
->> to the new
->> MBEC support also brough by this series (otherwise the vDSO would
->> have to be
->> executable). Thanks to this hardware support (VT-x, EPT and MBEC),
->> the
->> performance impact of such guest protection is negligible.
->>
->> The second KVM_HC_LOCK_CR_UPDATE hypercall enables guests to pin some
->> of its
->> CPU control register flags (e.g., X86_CR0_WP, X86_CR4_SMEP,
->> X86_CR4_SMAP),
->> which is another complementary hardening mechanism.
->>
->> Heki can be enabled with the heki=1 boot command argument.
->>
->>
+On Fri, 19 May 2023, Luca Fancellu wrote:
+> Use tuple comparison to check the cppcheck version.
 > 
-> Can the guest kernel ask the host VMM's emulated devices to DMA into
-> the protected data? It should go through the host userspace mappings I
-> think, which don't care about EPT permissions. Or did I miss where you
-> are protecting that another way? There are a lot of easy ways to ask
-> the host to write to guest memory that don't involve the EPT. You
-> probably need to protect the host userspace mappings, and also the
-> places in KVM that kmap a GPA provided by the guest.
+> Take the occasion to harden the regex, escaping the dots so that we
+> check for them instead of generic characters.
 > 
-> [ snip ]
-> 
->>
->> # Current limitations
->>
->> The main limitation of this patch series is the statically enforced
->> permissions. This is not an issue for kernels without module but this
->> needs to
->> be addressed.  Mechanisms that dynamically impact kernel executable
->> memory are
->> not handled for now (e.g., kernel modules, tracepoints, eBPF JIT),
->> and such
->> code will need to be authenticated.  Because the hypervisor is highly
->> privileged and critical to the security of all the VMs, we don't want
->> to
->> implement a code authentication mechanism in the hypervisor itself
->> but delegate
->> this verification to something much less privileged. We are thinking
->> of two
->> ways to solve this: implement this verification in the VMM or spawn a
->> dedicated
->> special VM (similar to Windows's VBS). There are pros on cons to each
->> approach:
->> complexity, verification code ownership (guest's or VMM's), access to
->> guest
->> memory (i.e., confidential computing).
-> 
-> The kernel often creates writable aliases in order to write to
-> protected data (kernel text, etc). Some of this is done right as text
-> is being first written out (alternatives for example), and some happens
-> way later (jump labels, etc). So for verification, I wonder what stage
-> you would be verifying? If you want to verify the end state, you would
-> have to maintain knowledge in the verifier of all the touch-ups the
-> kernel does. I think it would get very tricky.
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 
-Right and for the ARM (from what I know) is that Erratas can be applied
-using the alternatives fwk when you hotplug in the CPU post boot.
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
----Trilok Soni
+
+> ---
+>  xen/scripts/xen_analysis/cppcheck_analysis.py | 13 ++++---------
+>  1 file changed, 4 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/scripts/xen_analysis/cppcheck_analysis.py b/xen/scripts/xen_analysis/cppcheck_analysis.py
+> index c8abbe0fca79..8dc45e653b79 100644
+> --- a/xen/scripts/xen_analysis/cppcheck_analysis.py
+> +++ b/xen/scripts/xen_analysis/cppcheck_analysis.py
+> @@ -157,7 +157,7 @@ def generate_cppcheck_deps():
+>              "Error occured retrieving cppcheck version:\n{}\n\n{}"
+>          )
+>  
+> -    version_regex = re.search('^Cppcheck (\d+).(\d+)(?:.\d+)?$',
+> +    version_regex = re.search('^Cppcheck (\d+)\.(\d+)(?:\.\d+)?$',
+>                                invoke_cppcheck, flags=re.M)
+>      # Currently, only cppcheck version >= 2.7 is supported, but version 2.8 is
+>      # known to be broken, please refer to docs/misra/cppcheck.txt
+> @@ -166,15 +166,10 @@ def generate_cppcheck_deps():
+>              "Can't find cppcheck version or version not identified: "
+>              "{}".format(invoke_cppcheck)
+>          )
+> -    major = int(version_regex.group(1))
+> -    minor = int(version_regex.group(2))
+> -    if major < 2 or (major == 2 and minor < 7):
+> +    version = (int(version_regex.group(1)), int(version_regex.group(2)))
+> +    if version < (2, 7) or version == (2, 8):
+>          raise CppcheckDepsPhaseError(
+> -            "Cppcheck version < 2.7 is not supported"
+> -        )
+> -    if major == 2 and minor == 8:
+> -        raise CppcheckDepsPhaseError(
+> -            "Cppcheck version 2.8 is known to be broken, see the documentation"
+> +            "Cppcheck version < 2.7 or 2.8 are not supported"
+>          )
+>  
+>      # If misra option is selected, append misra addon and generate cppcheck
+> -- 
+> 2.34.1
+> 
 
