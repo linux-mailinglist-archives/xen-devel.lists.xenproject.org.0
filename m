@@ -2,46 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CC92711409
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 20:35:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539808.841049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 169F671150B
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 20:44:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539815.841058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2Fnw-0003Sc-IF; Thu, 25 May 2023 18:35:16 +0000
+	id 1q2Fwb-0004ze-EG; Thu, 25 May 2023 18:44:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539808.841049; Thu, 25 May 2023 18:35:16 +0000
+Received: by outflank-mailman (output) from mailman id 539815.841058; Thu, 25 May 2023 18:44:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2Fnw-0003Qj-EC; Thu, 25 May 2023 18:35:16 +0000
-Received: by outflank-mailman (input) for mailman id 539808;
- Thu, 25 May 2023 18:35:14 +0000
+	id 1q2Fwb-0004xF-Bf; Thu, 25 May 2023 18:44:13 +0000
+Received: by outflank-mailman (input) for mailman id 539815;
+ Thu, 25 May 2023 18:44:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2bT+=BO=quicinc.com=quic_tsoni@srs-se1.protection.inumbo.net>)
- id 1q2Fnu-0003Qd-RZ
- for xen-devel@lists.xenproject.org; Thu, 25 May 2023 18:35:14 +0000
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1dd1935-fb2a-11ed-b230-6b7b168915f2;
- Thu, 25 May 2023 20:35:12 +0200 (CEST)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34PFGFcD001882; Thu, 25 May 2023 18:34:31 GMT
-Received: from nasanppmta03.qualcomm.com (i-global254.qualcomm.com
- [199.106.103.254])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 3qt27n1j61-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 May 2023 18:34:31 +0000
-Received: from nasanex01a.na.qualcomm.com (nasanex01a.na.qualcomm.com
- [10.52.223.231])
- by NASANPPMTA03.qualcomm.com (8.17.1.5/8.17.1.5) with ESMTPS id 34PIYDC6001496
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 25 May 2023 18:34:13 GMT
-Received: from [10.110.51.179] (10.80.80.8) by nasanex01a.na.qualcomm.com
- (10.52.223.231) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.986.42; Thu, 25 May
- 2023 11:34:12 -0700
+ <SRS0=x5Sm=BO=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1q2Fwa-0004x9-3b
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 18:44:12 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2060a.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::60a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 224c86de-fb2c-11ed-b230-6b7b168915f2;
+ Thu, 25 May 2023 20:44:10 +0200 (CEST)
+Received: from MW4PR04CA0198.namprd04.prod.outlook.com (2603:10b6:303:86::23)
+ by BL3PR12MB6594.namprd12.prod.outlook.com (2603:10b6:208:38d::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.28; Thu, 25 May
+ 2023 18:44:07 +0000
+Received: from CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:86:cafe::65) by MW4PR04CA0198.outlook.office365.com
+ (2603:10b6:303:86::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.17 via Frontend
+ Transport; Thu, 25 May 2023 18:44:06 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT014.mail.protection.outlook.com (10.13.175.99) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6433.17 via Frontend Transport; Thu, 25 May 2023 18:44:06 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 25 May
+ 2023 13:44:02 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 25 May
+ 2023 13:44:01 -0500
+Received: from [192.168.137.15] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Thu, 25 May 2023 13:44:00 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,228 +63,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1dd1935-fb2a-11ed-b230-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=quicinc.com; h=message-id : date :
- mime-version : subject : to : cc : references : from : in-reply-to :
- content-type : content-transfer-encoding; s=qcppdkim1;
- bh=YlvFsbEPrwbVAdxwxMbKnxn1gExf5XgZ9Xo7rbW6dUQ=;
- b=Lzyf9aLPcAqinix9YfLlsRAGGN+gR2pGIMlP8b/TpYgMTdhl/3rPyJ97zvP/hy/rFL48
- cqe4Pi8D360VWoL8sYMXdrz3fQmuqTWxk7EjcGsPO8A4qjig2fE0oOs8zCtvb5BhmMB9
- sAdHk7SIWExI5l2C0Z5IPdzh1SSC8+UsT4WL8RiZ4aJdj3SoEqluyXexy6vivclVNQRp
- xfywfC0GZvFljCxVu48w6+0GrjH6HI80FeJdCtLJPgWUaVFWinxGnDMoTThNWZaZkTrb
- fqWNgaubCjXAnculU0WyTmLSQbSFozQhX9Eign2tg15P5DGaZoNtC7o225DL42lxfvDi MA== 
-Message-ID: <e17da8f4-4d5d-adb7-02c9-631ffdfc9037@quicinc.com>
-Date: Thu, 25 May 2023 11:34:11 -0700
+X-Inumbo-ID: 224c86de-fb2c-11ed-b230-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TgWISFYeUtJBes0bFYE7R/AyboaVBXe+PsBVo6XGEEecYVET4P1Vg2c4DhpO0mdYM1o8wwrkg3FMa1D98WxmdzHms8kzler2s2HDsv5RKoKTDUD7RrvoCD3DPgddoX+ktWGdxOXH+hbKnMYPwgEpxabdxw8xvrtd0nfmHwFwmLWDPiqRddTgECh+MKzIkJXpIY7GMf1u64OLGp7jRxMZGFVw03JeBYpZ1DO/sebXgVfslugHRJdkteIIR9xu9EJ/wLDmLQ8FzjfdNQZEA3j9FVaoVRnXi1t6eQ42aYyq+RUxUK0+3Skg8rT5xBXWKxWDybe1ufieXVvWoZ+bMJovpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=53IppQY8P00JUZOEakZOn5qLBVo1mulM6P3qTzEkU3E=;
+ b=JNps74dxtQDk/afS8DlQ7oDXHXWfOevYQk0blHpLn8VaogllHh0ETQQzdg0X5F6CVf19B1Jx5b5KR+mxARQR0KV8yIllRkxcT6DrO3DIXB/MB3ARTlqqRq7ddK774y0xm8Ws7m12K9vqt1JsW64WhbLAjGJwL/kihBjBU2Gm4BKkZ6vwVVV7cgyFVnMNOGsf+X3gXj7OEU8LAcFfgQcn5yTzRKUThDXBHiY2EOEui5ZxsA+C7pcYdP6ALvRRa+kSwwZIca+lTsEGm8VRhpDnA8kT83zE8Ro8KuagszANiKJ60XTKJVIz6cMMmr4bbOxq/ejmi9LpRgvRIZ2KsNDfEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=53IppQY8P00JUZOEakZOn5qLBVo1mulM6P3qTzEkU3E=;
+ b=0/K3NRaXTQ/nDPUCeCTF9ihx0HRL/ESSiyEI9Hux1khaE4u8EYhPnAG6rM5l2dw2xyoCwyizFkF01QeGj5702PTbKGHQmdHKceDsrRYfpqeMoFotJIUG4LrSb3s96BmuhAvvLGaLRUKegYRKorHlY76btDouPyMxz5UNJEbuUMc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <c27e63fc-1952-6c90-158e-987274e78d6a@amd.com>
+Date: Thu, 25 May 2023 14:43:59 -0400
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-Subject: Re: [RFC PATCH v1 0/9] Hypervisor-Enforced Kernel Integrity
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH] xen/arm: un-break build with clang
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>, George Dunlap
+	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Wei Liu
+	<wl@xen.org>
+References: <20230525175115.110606-1-stewart.hildebrand@amd.com>
+ <45621f03-2d3e-f208-1d0c-018479b5e8ef@citrix.com>
 Content-Language: en-US
-To: =?UTF-8?Q?Micka=c3=abl_Sala=c3=bcn?= <mic@digikod.net>,
-        Borislav Petkov
-	<bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        "H . Peter Anvin"
-	<hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-        Kees Cook
-	<keescook@chromium.org>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Sean
- Christopherson <seanjc@google.com>,
-        Thomas Gleixner <tglx@linutronix.de>,
-        Vitaly Kuznetsov <vkuznets@redhat.com>,
-        Wanpeng Li <wanpengli@tencent.com>
-CC: Alexander Graf <graf@amazon.com>, Forrest Yuan Yu <yuanyu@google.com>,
-        James Morris <jamorris@linux.microsoft.com>,
-        John Andersen
-	<john.s.andersen@intel.com>,
-        Liran Alon <liran.alon@oracle.com>,
-        "Madhavan T
- . Venkataraman" <madvenka@linux.microsoft.com>,
-        Marian Rotariu
-	<marian.c.rotariu@gmail.com>,
-        =?UTF-8?Q?Mihai_Don=c8=9bu?=
-	<mdontu@bitdefender.com>,
-        =?UTF-8?B?TmljdciZb3IgQ8OuyJt1?=
-	<nicu.citu@icloud.com>,
-        Rick Edgecombe <rick.p.edgecombe@intel.com>,
-        Thara
- Gopinath <tgopinath@microsoft.com>,
-        Will Deacon <will@kernel.org>,
-        Zahra
- Tarkhani <ztarkhani@microsoft.com>,
-        =?UTF-8?Q?=c8=98tefan_=c8=98icleru?=
-	<ssicleru@bitdefender.com>,
-        <dev@lists.cloudhypervisor.org>, <kvm@vger.kernel.org>,
-        <linux-hardening@vger.kernel.org>, <linux-hyperv@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        <linux-security-module@vger.kernel.org>, <qemu-devel@nongnu.org>,
-        <virtualization@lists.linux-foundation.org>, <x86@kernel.org>,
-        <xen-devel@lists.xenproject.org>
-References: <20230505152046.6575-1-mic@digikod.net>
- <1e10da25-5704-18ee-b0ce-6de704e6f0e1@quicinc.com>
- <0b069bc3-0362-d8ec-fc2a-05dd65218c39@digikod.net>
-From: Trilok Soni <quic_tsoni@quicinc.com>
-In-Reply-To: <0b069bc3-0362-d8ec-fc2a-05dd65218c39@digikod.net>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.80.80.8]
-X-ClientProxiedBy: nasanex01a.na.qualcomm.com (10.52.223.231) To
- nasanex01a.na.qualcomm.com (10.52.223.231)
-X-QCInternal: smtphost
-X-Proofpoint-Virus-Version: vendor=nai engine=6200 definitions=5800 signatures=585085
-X-Proofpoint-ORIG-GUID: uBbHTCakZngacL0OpkU9CBmNWESa7i53
-X-Proofpoint-GUID: uBbHTCakZngacL0OpkU9CBmNWESa7i53
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-25_10,2023-05-25_03,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0 spamscore=0
- mlxlogscore=999 adultscore=0 priorityscore=1501 suspectscore=0
- clxscore=1015 mlxscore=0 bulkscore=0 malwarescore=0 phishscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305250156
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <45621f03-2d3e-f208-1d0c-018479b5e8ef@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT014:EE_|BL3PR12MB6594:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55fa35f9-7c27-416f-9c50-08db5d5004c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	7XdkTIcFQGacXHVNqp80cuXtLp4dmbqJYfE+p2E8/wZvHbILCAVxAb7quufubArTvKm4TMZvY0449hioT+uZmBu+9FV8rCpEa6g10Tk7FIYpLBqmC7QWJff7TOl4o3IwVo8o8+BV1ZRs+PJo0B9nZ3M7fOvpGLiUd8psMhbVcYriaJkDQK++yzbbfrG5XW5Fgy7g7osT5Qekrf+BZ27PnmkgjhrVl67UEqFQ8TPaIQYi5dUjZ771Rpr2wRdPK9gZaVs3JW9hKHALt33pt/X5g5AgdZHF03xDd5xfNYhavFZq/fe07STLlHvrvOLsQcq+E7ax9GvmmVwJEtj9ZtItQkJ6x9v3AGcpCzvPCouEZ44l95rDseiYh9VFeTKCD123tJFzSMAqTDcuhUlR/l4yB6HKLCUEDxkoVDT01+F+y9ryJbYHy5XJdfT6cvbREBdWSvoOycKVrAiSc5bLs3j0jRhcPb0vqnbSRN9h/9/m3hZmyHXqe4bks39e4yVGgGr+2e0BGm6fIsdzrp6rYIT2rIsiZVCOf79Mwen4vtHmhH+Yy/FX5vajzsB4Zgcc+nXbUygRCR5xu0XSVAFTFg+byPuwWZl8EhLPRS7fkvQ/sAiL9l1RVtXgUCyim+JaZTztAtto0h3IppX38UboEsS/GQgf6HV0UXIFy4miR7FpYDa0As23NO8SB4lcSqYFWF62via83vWZsw/hNduCelcC00yp7OqSwDvYeY/QUpuT3sh76n98BtTi4FAbkXdFTxtuOWdvM/VtcrU30lS3bv5h+1njJQ0ZRddRUOuzCMZIqles1H6rvaF6llpuZ3kxKLPC
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(346002)(136003)(396003)(376002)(39860400002)(451199021)(36840700001)(40470700004)(46966006)(31686004)(82310400005)(36860700001)(336012)(426003)(356005)(44832011)(81166007)(36756003)(86362001)(31696002)(40460700003)(82740400003)(8676002)(47076005)(316002)(41300700001)(40480700001)(8936002)(70586007)(4326008)(2906002)(186003)(53546011)(5660300002)(478600001)(70206006)(54906003)(26005)(110136005)(2616005)(16576012)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2023 18:44:06.0517
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55fa35f9-7c27-416f-9c50-08db5d5004c8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT014.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6594
 
-On 5/25/2023 6:25 AM, Mickaël Salaün wrote:
-> 
-> On 24/05/2023 23:04, Trilok Soni wrote:
->> On 5/5/2023 8:20 AM, Mickaël Salaün wrote:
->>> Hi,
->>>
->>> This patch series is a proof-of-concept that implements new KVM features
->>> (extended page tracking, MBEC support, CR pinning) and defines a new 
->>> API to
->>> protect guest VMs. No VMM (e.g., Qemu) modification is required.
->>>
->>> The main idea being that kernel self-protection mechanisms should be 
->>> delegated
->>> to a more privileged part of the system, hence the hypervisor. It is 
->>> still the
->>> role of the guest kernel to request such restrictions according to its
+On 5/25/23 14:05, Andrew Cooper wrote:
+> On 25/05/2023 6:51 pm, Stewart Hildebrand wrote:
+>> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+>> index 38e2ce255fcf..af53e58a6a07 100644
+>> --- a/xen/arch/arm/include/asm/setup.h
+>> +++ b/xen/arch/arm/include/asm/setup.h
+>> @@ -168,13 +168,13 @@ u32 device_tree_get_u32(const void *fdt, int node,
+>>  int map_range_to_domain(const struct dt_device_node *dev,
+>>                          u64 addr, u64 len, void *data);
 >>
->> Only for the guest kernel images here? Why not for the host OS kernel?
+>> -extern DEFINE_BOOT_PAGE_TABLE(boot_pgtable);
+>> +EXTERN_DEFINE_BOOT_PAGE_TABLE(boot_pgtable);
 > 
-> As explained in the Future work section, protecting the host would be 
-> useful, but that doesn't really fit with the KVM model. The Protected 
-> KVM project is a first step to help in this direction [11].
+> The problem is using DEFINE_$blah() when you mean DECLARE_$blah().
+> They're split everywhere else in Xen for good reason.
 > 
-> In a nutshell, KVM is close to a type-2 hypervisor, and the host kernel 
-> is also part of the hypervisor.
+> But the macro looks like pure obfuscation to start with.  It should just
+> be a simple
 > 
+> extern lpae_t boot_pgtable[XEN_PT_LPAE_ENTRIES];
 > 
->> Embedded devices w/ Android you have mentioned below supports the host
->> OS as well it seems, right?
-> 
-> What do you mean?
+> The declaration shouldn't have an alignment or section attribute on, and
+> deleting the macro makes the header easier to read.
 
-I think you have answered this above w/ pKVM and I was referring the 
-host protection as well w/ Heki. The link/references below refers to the 
-Android OS it seems and not guest VM.
+This indeed makes much more sense. I will send v2 with simplified extern declarations.
 
-> 
-> 
->>
->> Do we suggest that all the functionalities should be implemented in the
->> Hypervisor (NS-EL2 for ARM) or even at Secure EL like Secure-EL1 (ARM).
-> 
-> KVM runs in EL2. TrustZone is mainly used to enforce DRM, which means 
-> that we may not control the related code.
-> 
-> This patch series is dedicated to hypervisor-enforced kernel integrity, 
-> then KVM.
-> 
->>
->> I am hoping that whatever we suggest the interface here from the Guest
->> to the Hypervisor becomes the ABI right?
-> 
-> Yes, hypercalls are part of the KVM ABI.
-
-Sure. I just hope that they are extensible enough to support for other 
-Hypervisors too. I am not sure if they are on this list like ACRN / Xen 
-and see if it fits their need too.
-
-Is there any other Hypervisor you plan to test this feature as well?
-
-> 
->>
->>
->>>
->>> # Current limitations
->>>
->>> The main limitation of this patch series is the statically enforced
->>> permissions. This is not an issue for kernels without module but this 
->>> needs to
->>> be addressed.  Mechanisms that dynamically impact kernel executable 
->>> memory are
->>> not handled for now (e.g., kernel modules, tracepoints, eBPF JIT), 
->>> and such
->>> code will need to be authenticated.  Because the hypervisor is highly
->>> privileged and critical to the security of all the VMs, we don't want to
->>> implement a code authentication mechanism in the hypervisor itself 
->>> but delegate
->>> this verification to something much less privileged. We are thinking 
->>> of two
->>> ways to solve this: implement this verification in the VMM or spawn a 
->>> dedicated
->>> special VM (similar to Windows's VBS). There are pros on cons to each 
->>> approach:
->>> complexity, verification code ownership (guest's or VMM's), access to 
->>> guest
->>> memory (i.e., confidential computing).
->>
->> Do you foresee the performance regressions due to lot of tracking here?
-> 
-> The performance impact of execution prevention should be negligible 
-> because once configured the hypervisor do nothing except catch 
-> illegitimate access attempts.
-
-Yes, if you are using the static kernel only and not considering the 
-other dynamic patching features like explained. They need to be thought 
-upon differently to reduce the likely impact.
-
-> 
-> 
->> Production kernels do have lot of tracepoints and we use it as feature
->> in the GKI kernel for the vendor hooks implementation and in those cases
->> every vendor driver is a module.
-> 
-> As explained in this section, dynamic kernel modifications such as 
-> tracepoints or modules are not currently supported by this patch series. 
-> Handling tracepoints is possible but requires more work to define and 
-> check legitimate changes. This proposal is still useful for static 
-> kernels though.
-> 
-> 
->> Separate VM further fragments this
->> design and delegates more of it to proprietary solutions?
-> 
-> What do you mean? KVM is not a proprietary solution.
-
-Ah, I was referring the VBS Windows VM mentioned in the above text. Is 
-it open-source? The reference of VM (or dedicated VM) didn't mention 
-that VM itself will be open-source running Linux kernel.
-
-> 
-> For dynamic checks, this would require code not run by KVM itself, but 
-> either the VMM or a dedicated VM. In this case, the dynamic 
-> authentication code could come from the guest VM or from the VMM itself. 
-> In the former case, it is more challenging from a security point of view 
-> but doesn't rely on external (proprietary) solution. In the latter case, 
-> open-source VMMs should implement the specification to provide the 
-> required service (e.g. check kernel module signature).
-> 
-> The goal of the common API layer provided by this RFC is to share code 
-> as much as possible between different hypervisor backends.
-> 
-> 
->>
->> Do you have any performance numbers w/ current RFC?
-> 
-> No, but the only hypervisor performance impact is at boot time and 
-> should be negligible. I'll try to get some numbers for the 
-> hardware-enforcement impact, but it should be negligible too.
-
-Thanks. Please share the data once you have it ready.
-
----Trilok Soni
-
+To clarify, the definitions in xen/arch/arm/mm.c are to remain unchanged.
 
