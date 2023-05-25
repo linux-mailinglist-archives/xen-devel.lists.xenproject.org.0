@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57D617117E6
-	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 22:12:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539858.841139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15D12711802
+	for <lists+xen-devel@lfdr.de>; Thu, 25 May 2023 22:21:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539862.841149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2HJD-0001LP-IN; Thu, 25 May 2023 20:11:39 +0000
+	id 1q2HRw-0002qK-Cr; Thu, 25 May 2023 20:20:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539858.841139; Thu, 25 May 2023 20:11:39 +0000
+Received: by outflank-mailman (output) from mailman id 539862.841149; Thu, 25 May 2023 20:20:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2HJD-0001IG-Ew; Thu, 25 May 2023 20:11:39 +0000
-Received: by outflank-mailman (input) for mailman id 539858;
- Thu, 25 May 2023 20:11:38 +0000
+	id 1q2HRw-0002nZ-A0; Thu, 25 May 2023 20:20:40 +0000
+Received: by outflank-mailman (input) for mailman id 539862;
+ Thu, 25 May 2023 20:20:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gGWh=BO=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1q2HJC-0001IA-67
- for xen-devel@lists.xenproject.org; Thu, 25 May 2023 20:11:38 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JOix=BO=kernel.org=rppt@srs-se1.protection.inumbo.net>)
+ id 1q2HRv-0002nT-9m
+ for xen-devel@lists.xenproject.org; Thu, 25 May 2023 20:20:39 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59966129-fb38-11ed-b230-6b7b168915f2;
- Thu, 25 May 2023 22:11:36 +0200 (CEST)
+ id 9c7ee068-fb39-11ed-b230-6b7b168915f2;
+ Thu, 25 May 2023 22:20:38 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 65474610A2;
- Thu, 25 May 2023 20:11:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8705FC433D2;
- Thu, 25 May 2023 20:11:33 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DE92864A34;
+ Thu, 25 May 2023 20:20:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D613BC433D2;
+ Thu, 25 May 2023 20:20:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,73 +43,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59966129-fb38-11ed-b230-6b7b168915f2
+X-Inumbo-ID: 9c7ee068-fb39-11ed-b230-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685045494;
-	bh=EzZL9IYsv4ObAENOhFVVXjh8vx3gjUIKAELWKpquYKE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Qb/wCxBv5VX19WHxEbwJeK7X5ZL7TLciSxHvUQHi7bGirPVUEulAVgg7OALsYGcAX
-	 XMGBi8dpZh08Xz2dJGufS5XEU29KKIi8U8ytzxv/uKVD2diMY7KGYP8E8sGA6N42Z6
-	 RoufjQidA1opWN2IHPhhQ+gMICE7D723d3V3O6xIHL4ebwD9zVh1dyu3Fw0rqjMpdI
-	 9X5GZ8zNg0gwM6RYBM+iTeucDqZl6Ey6mgS/8ZhLYwfBwUouS435+TyRgmPkpuDujh
-	 dwjlRSLClc9yI33Ybi8thfFgUBqa+y2CQuR0gvGM+t6IkdZCKGV8VTBze2s1NOXJ+i
-	 Bk2StOvXTsKfg==
-Date: Thu, 25 May 2023 13:11:31 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Luca Fancellu <luca.fancellu@arm.com>
-cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, wei.chen@arm.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 3/3] maintainers: Add Xen MISRA Analysis Tools
- section
-In-Reply-To: <20230525083401.3838462-4-luca.fancellu@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2305251311220.44000@ubuntu-linux-20-04-desktop>
-References: <20230525083401.3838462-1-luca.fancellu@arm.com> <20230525083401.3838462-4-luca.fancellu@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+	s=k20201202; t=1685046036;
+	bh=TRdhRXxXUIYfs640uIn+I4Rf6UAXCv8idpkcYdsSebM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oiC2XGhNWUAmWE7pr8r3QtJ9JQsEo/jXvve3lXs2r5Y+W4R2mTSVXer6rhbIqd0H3
+	 uoSQkJ728HLdXkJmf2eWWiJHTRm/fGQOsi2eZMGN8iMwau2U+ioJb0W4RoKYGYtykh
+	 z9scTeHJfdOUnqeX313qP2xIMkwidI5DxymtOtruiJkZ/HiGGdvi3+NdefCU8HC/4L
+	 yVF6ukcziPPo5ghUZkvreoJAGRzTQdLIctyd1RS1O+YIm3/yAJVKFl1SAT+U6nvVPE
+	 TUmcZj1oUZgh7b4Odb9/HzteZyqvh1+JrTl0ADJm08qL98dpyZZ8OeR78PQJMngFPN
+	 0x/EvMWBkU0Qw==
+Date: Thu, 25 May 2023 23:20:11 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Vishal Moola <vishal.moola@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org,
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org
+Subject: Re: [PATCH v2 01/34] mm: Add PAGE_TYPE_OP folio functions
+Message-ID: <20230525202011.GZ4967@kernel.org>
+References: <20230501192829.17086-1-vishal.moola@gmail.com>
+ <20230501192829.17086-2-vishal.moola@gmail.com>
+ <20230525085555.GV4967@kernel.org>
+ <CAOzc2pxx489C26NnS9NHkUQY9PYiagzt-nYK6LnkJ1N3NYQWzg@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOzc2pxx489C26NnS9NHkUQY9PYiagzt-nYK6LnkJ1N3NYQWzg@mail.gmail.com>
 
-On Thu, 25 May 2023, Luca Fancellu wrote:
-> Add a section for the Xen MISRA Analysis Tools.
+On Thu, May 25, 2023 at 10:00:23AM -0700, Vishal Moola wrote:
+> On Thu, May 25, 2023 at 1:56 AM Mike Rapoport <rppt@kernel.org> wrote:
+> >
+> > Hi,
+> >
+> > On Mon, May 01, 2023 at 12:27:56PM -0700, Vishal Moola (Oracle) wrote:
+> > > No folio equivalents for page type operations have been defined, so
+> > > define them for later folio conversions.
+> >
+> > Can you please elaborate why would we need folios for page table descriptors?
 > 
-> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> Changes from v2:
->  - New patch, suggested by Stefano:
->    https://lore.kernel.org/all/alpine.DEB.2.22.394.2305171232440.128889@ubuntu-linux-20-04-desktop/
-> ---
->  MAINTAINERS | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+> Thanks for the review!
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f2f1881b32cc..c5b2dc2b024c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -667,6 +667,16 @@ F:	tools/xentrace/
->  F:	xen/common/trace.c
->  F:	xen/include/xen/trace.h
->  
-> +XEN MISRA ANALYSIS TOOLS
-> +M:	Luca Fancellu <luca.fancellu@arm.com>
-> +S:	Supported
-> +F:	xen/scripts/xen_analysis/
-> +F:	xen/scripts/xen-analysis.py
-> +F:	xen/scripts/diff-report.py
-> +F:	xen/tools/cppcheck-plat/
-> +F:	xen/tools/convert_misra_doc.py
-> +F:	xen/tools/cppcheck-cc.sh
-> +
->  XSM/FLASK
->  M:	Daniel P. Smith <dpsmith@apertussolutions.com>
->  S:	Supported
-> -- 
-> 2.34.1
-> 
+> These macros are for callers that care about the page type, i.e. Table and
+> Buddy. Aside from accounting for those cases, the page tables don't use folios.
+> These are more for the cleanliness of those callers.
+
+But why using folio APIs for PageType will be cleaner than using page APIs?
+Do you have an example?
+
+-- 
+Sincerely yours,
+Mike.
 
