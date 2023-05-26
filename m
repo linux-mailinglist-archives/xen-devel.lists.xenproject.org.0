@@ -2,33 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2635712449
-	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 12:12:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540041.841472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 970F6712452
+	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 12:14:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540045.841483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2UQd-0008Sc-8Q; Fri, 26 May 2023 10:12:11 +0000
+	id 1q2USo-0000b0-Mg; Fri, 26 May 2023 10:14:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540041.841472; Fri, 26 May 2023 10:12:11 +0000
+Received: by outflank-mailman (output) from mailman id 540045.841483; Fri, 26 May 2023 10:14:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2UQd-0008Pf-5j; Fri, 26 May 2023 10:12:11 +0000
-Received: by outflank-mailman (input) for mailman id 540041;
- Fri, 26 May 2023 10:12:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=X81t=BP=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1q2UQc-0008PZ-8T
- for xen-devel@lists.xenproject.org; Fri, 26 May 2023 10:12:10 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c6433396-fbad-11ed-b230-6b7b168915f2;
- Fri, 26 May 2023 12:12:09 +0200 (CEST)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2af225e5b4bso5346091fa.3
- for <xen-devel@lists.xenproject.org>; Fri, 26 May 2023 03:12:09 -0700 (PDT)
+	id 1q2USo-0000Z3-Hy; Fri, 26 May 2023 10:14:26 +0000
+Received: by outflank-mailman (input) for mailman id 540045;
+ Fri, 26 May 2023 10:14:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8JpW=BP=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1q2USn-0000Yx-Hk
+ for xen-devel@lists.xenproject.org; Fri, 26 May 2023 10:14:25 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 15f72935-fbae-11ed-8611-37d641c3527e;
+ Fri, 26 May 2023 12:14:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,91 +36,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6433396-fbad-11ed-b230-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1685095929; x=1687687929;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=AhfjEJJ7c5rJX0Z0KvcDFdNSqDnBAEJVFDchzhucJrg=;
-        b=E7txLwawbdHK6MGzWi8eg+ugipVXzeRo9puMNyrpEF6yi/zF9QLmXM/Y+N2tSU7Hv6
-         SP1ij1Y9sxVVm5Bh8Y+t3ea6YaGMWUowsf7Ul7aGmwdkrwVohcs4Zk3vBlZRX6/vhdaJ
-         bzSmnFsc1H/Mqt/4cLzXaTpwMZON4kfCwl4ac=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685095929; x=1687687929;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=AhfjEJJ7c5rJX0Z0KvcDFdNSqDnBAEJVFDchzhucJrg=;
-        b=L+krsvL/PUYHqnWwTNSlfD9BTPGE7fGYrZpCT/0QR3iXmXvlvrId3KYpq2tyTcG4DO
-         BCyDnDa4LrSM99dehSxNHY84L9wcL8SFlLyrmv+YDaYoq9anLc4TyEV1XjN1kwzinQsa
-         yqHNPAd9RsU4B7VDVqcgH4KuW0d2fCmbF931zCWzt2s+0vuBsOrltynpK0XBMmuTFsWV
-         V4dcqVODGU142KWLJKSAuE0k04K2Q5OoUgs4hL1QIgdO52v6tX3XWVhsk0t5C3AvnhFx
-         7L6M4mBgIsHU0S2RQqLQDWLUpc0Ps0ou8T/XOa9xlp9a90WGSwsVCqkWd5zo2JuFmgPh
-         ktEA==
-X-Gm-Message-State: AC+VfDwjRZuLDXojqNlFhFEwKESORvI7+P5s/uvEz+rUnF1b16tU0wS1
-	3P5SRog6NstbWbaq4mNL/U2aHVQSNPiAbNdPdSWy+A==
-X-Google-Smtp-Source: ACHHUZ4NukaulJo1fdhHjOKKMY3Npa/RoLZeIraFM4Azlf9Vu5CjA887KiEfG1dZlespbB0Z7UIZSuQWQWKzdiXqyUc=
-X-Received: by 2002:a2e:9c9a:0:b0:2a7:7b8e:5888 with SMTP id
- x26-20020a2e9c9a000000b002a77b8e5888mr669610lji.27.1685095928855; Fri, 26 May
- 2023 03:12:08 -0700 (PDT)
+X-Inumbo-ID: 15f72935-fbae-11ed-8611-37d641c3527e
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1685096062;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l0JCLWaWxAiVqnK2HID86lF3S13SCfgrB4rF/jITy/I=;
+	b=ip+IsKji95mPrphWLVAUcdYl0y7pMoo/0rzxXxKZorc2i1ogyDwgLlmNAyb0qqipND//Q9
+	mcdcjSKoJ1BmMv2yfve0Ih3RShF4W067n1L36VQOlRFjew11DbOIHP9BY3hPEmKWEMkYtF
+	3++Mlj3E1pedAPDLuSJp8O8yrjmKl61cO3sikLlCo0aFQA4sDzjqIug5Y2sHJzxAouulen
+	yWchVZzHYCyYvLl2IBhaE7LhZZ90HvEDnnYiIPfmZVnM5oPDhrPgISY7m926weiwqHfWOw
+	VMBPX/ASMwnX6UaU0XNMhsxdic6Oppo5GnIK5pHcSkZVNuJmv/nyAhmosdGW7Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1685096062;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=l0JCLWaWxAiVqnK2HID86lF3S13SCfgrB4rF/jITy/I=;
+	b=mQPEsm7iwifOjyLdaiqWmBusXWewAsMMsfF7/82drVMMawEZjza+eT9dmICykmFbK9zGX6
+	K4OvjM1+WRhVDmDw==
+To: "Kirill A. Shutemov" <kirill@shutemov.name>
+Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, David Woodhouse
+ <dwmw2@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Brian
+ Gerst <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Sean Christopherson
+ <seanjc@google.com>, Oleksandr Natalenko <oleksandr@natalenko.name>, Paul
+ Menzel <pmenzel@molgen.mpg.de>, "Guilherme G. Piccoli"
+ <gpiccoli@igalia.com>, Piotr Gorski <lucjan.lucjanov@gmail.com>, Usama
+ Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
+ Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
+ <guoren@kernel.org>, linux-csky@vger.kernel.org, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, "James E.J.
+ Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller
+ <deller@gmx.de>, linux-parisc@vger.kernel.org, Paul Walmsley
+ <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ linux-riscv@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
+ Sabin Rapan <sabrapan@amazon.com>, "Michael Kelley (LINUX)"
+ <mikelley@microsoft.com>, Dave Hansen <dave.hansen@linux.intel.com>
+Subject: Re: [patch v3 31/36] x86/apic: Provide cpu_primary_thread mask
+In-Reply-To: <20230524204818.3tjlwah2euncxzmh@box.shutemov.name>
+References: <20230508181633.089804905@linutronix.de>
+ <20230508185218.962208640@linutronix.de>
+ <20230524204818.3tjlwah2euncxzmh@box.shutemov.name>
+Date: Fri, 26 May 2023 12:14:21 +0200
+Message-ID: <87y1lbl7r6.ffs@tglx>
 MIME-Version: 1.0
-References: <20230526072916.7424-1-olaf@aepfle.de> <20230526072916.7424-3-olaf@aepfle.de>
-In-Reply-To: <20230526072916.7424-3-olaf@aepfle.de>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Fri, 26 May 2023 11:11:58 +0100
-Message-ID: <CA+zSX=ZNZD2qQ1HGtqauoJdU_g1T45_gLq6XCG2Sn9VJJTNnbg@mail.gmail.com>
-Subject: Re: [PATCH v1 2/3] xentrace: remove return value from monitor_tbufs
-To: Olaf Hering <olaf@aepfle.de>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>, 
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Content-Type: multipart/alternative; boundary="00000000000040a09f05fc95f87b"
+Content-Type: text/plain
 
---00000000000040a09f05fc95f87b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, May 26, 2023 at 8:29=E2=80=AFAM Olaf Hering <olaf@aepfle.de> wrote:
-
-> The function always returns zero.
+On Wed, May 24 2023 at 23:48, Kirill A. Shutemov wrote:
+> On Mon, May 08, 2023 at 09:44:17PM +0200, Thomas Gleixner wrote:
+>>  #ifdef CONFIG_SMP
+>> -/**
+>> - * apic_id_is_primary_thread - Check whether APIC ID belongs to a primary thread
+>> - * @apicid: APIC ID to check
+>> - */
+>> -bool apic_id_is_primary_thread(unsigned int apicid)
+>> +static void cpu_mark_primary_thread(unsigned int cpu, unsigned int apicid)
+>>  {
+>> -	u32 mask;
+>> -
+>> -	if (smp_num_siblings == 1)
+>> -		return true;
+>>  	/* Isolate the SMT bit(s) in the APICID and check for 0 */
+>> -	mask = (1U << (fls(smp_num_siblings) - 1)) - 1;
+>> -	return !(apicid & mask);
+>> +	u32 mask = (1U << (fls(smp_num_siblings) - 1)) - 1;
+>> +
+>> +	if (smp_num_siblings == 1 || !(apicid & mask))
+>> +		cpumask_set_cpu(cpu, &__cpu_primary_thread_mask);
+>>  }
+>> +#else
+>> +static inline void cpu_mark_primary_thread(unsigned int cpu, unsigned int apicid) { }
+>>  #endif
+>>  
+>>  /*
 >
+> This patch causes boot regression on TDX guest. The guest crashes on SMP
+> bring up.
 
-I think a better argument (which I propose to replace the content of the
-commit message) would be something like this:
+I rather call it a security feature: It makes TDX unbreakably secure.
 
----
-The program is structured so that fatal errors cause exit() to be called
-directly, rather than being passed up the stack; returning a value here may
-mislead people into believing otherwise.
----
+> The change makes use of smp_num_siblings earlier than before: the mask get
+> constructed in acpi_boot_init() codepath. Later on smp_num_siblings gets
+> updated in detect_ht().
+>
+> In my setup with 16 vCPUs, smp_num_siblings is 16 before detect_ht() and
+> set to 1 in detect_ht().
 
-With that change:
+  early_init_intel(c)
+    if (detect_extended_topology_early(c) < 0)
+       detect_ht_early(c);
 
-Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+  acpi_boot_init()
+    ....
 
-If that sounds OK to you I'll modify it on check-in.
+  identify_boot_cpu(c)
+    detect_ht(c);
 
- -George
+Aaargh. That whole CPU identification code is a complete horrorshow.
 
---00000000000040a09f05fc95f87b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I'll have a look....
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, May 26, 2023 at 8:29=E2=80=AF=
-AM Olaf Hering &lt;<a href=3D"mailto:olaf@aepfle.de">olaf@aepfle.de</a>&gt;=
- wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">The func=
-tion always returns zero.<br></blockquote><div><br></div><div>I think a bet=
-ter argument (which I propose to replace the content of the commit message)=
- would be something like this:</div><div><br></div><div>---</div><div>The p=
-rogram is structured so that fatal errors cause exit() to be called directl=
-y, rather than being passed up the stack; returning a value here may mislea=
-d people into believing otherwise.<br></div><div>---</div><div><br></div><d=
-iv>With that change:</div><div><br></div><div>Reviewed-by: George Dunlap &l=
-t;<a href=3D"mailto:george.dunlap@cloud.com">george.dunlap@cloud.com</a>&gt=
-;</div><div><br></div><div>If that sounds OK to you I&#39;ll modify it on c=
-heck-in.</div><div><br></div><div>=C2=A0-George</div><div><br></div></div><=
-/div>
 
---00000000000040a09f05fc95f87b--
 
