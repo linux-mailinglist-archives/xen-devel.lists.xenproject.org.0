@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD1A271253F
+	by mail.lfdr.de (Postfix) with ESMTPS id D351A712541
 	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 13:08:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540058.841514 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.540061.841543 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2VIJ-0006w6-8C; Fri, 26 May 2023 11:07:39 +0000
+	id 1q2VIN-0007jB-9S; Fri, 26 May 2023 11:07:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540058.841514; Fri, 26 May 2023 11:07:39 +0000
+Received: by outflank-mailman (output) from mailman id 540061.841543; Fri, 26 May 2023 11:07:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2VIJ-0006sg-4c; Fri, 26 May 2023 11:07:39 +0000
-Received: by outflank-mailman (input) for mailman id 540058;
- Fri, 26 May 2023 11:07:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q2VIN-0007gR-4z; Fri, 26 May 2023 11:07:43 +0000
+Received: by outflank-mailman (input) for mailman id 540061;
+ Fri, 26 May 2023 11:07:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gDTS=BP=citrix.com=prvs=5031e17c9=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1q2VIH-0006de-6X
- for xen-devel@lists.xenproject.org; Fri, 26 May 2023 11:07:37 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84906ae6-fbb5-11ed-8611-37d641c3527e;
- Fri, 26 May 2023 13:07:35 +0200 (CEST)
+ id 1q2VIJ-0006sm-Tl
+ for xen-devel@lists.xenproject.org; Fri, 26 May 2023 11:07:39 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 84d6f7e6-fbb5-11ed-b230-6b7b168915f2;
+ Fri, 26 May 2023 13:07:37 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,114 +36,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84906ae6-fbb5-11ed-8611-37d641c3527e
+X-Inumbo-ID: 84d6f7e6-fbb5-11ed-b230-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1685099255;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=j+U/re5HOnLv+lutE3nsZHY4bWNR15bqPcginliGyR4=;
-  b=RlwHTCK0HksvNFBJDce4kObAFGvWZzSfxwcdjZuEcPQbkIxaArH/dKFq
-   jbdc29yjI8Nk4kkN8GRA3Q3cgivWspW6vs/zQXeNs21dMsexlHrOoTTle
-   zNFJ1PVW1l4qi7XRAvOm/BXMHH9z4S08bg/0LZN9FjtmMuSOM1MOY8lKQ
-   E=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1685099257;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=tRC3UNaCj65Aajc92g1f04RU5FXAg5eRZ78lBWu320s=;
+  b=LM1gi+wmkEVqhGjUQ7uNSs8gDNE+T9yfECPD10vO/zN6lcPbZhf9wxJ0
+   ArK/L+GdX8fwxvzLj6ZVNRqGGxeBvFd1vKjk5CG/KB+f8YliAIaGbqb0S
+   Z05gtVJakFiqbVsZ90PJP8/dsciMpTDEr2omoWG9VdRFFQxNcqsBaKYRr
+   U=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 113007426
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 109294592
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:+y1uo6/tDosUUvzhYApgDrUDkH6TJUtcMsCJ2f8bNWPcYEJGY0x3m
- GEeCGDTbvmPMTP9fYwkPonk9BhU6p/VzNU3HQE/+Co8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ird7ks31BjOkGlA5AdmOKoV5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkkS5
- M4oMWs2ayvS3c6sxou7WM1Vq8k8eZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
- ZBDMHw2MUqGOkcUUrsUIMtWcOOAr3/zaTBH7nmSorI6+TP7xw1tyrn9dtHSf7RmQO0Mxx3A/
- j2apTqR7hcyKey/+z+p1CmQo7HuhSn2CKcONofjz6s/6LGU7jNKU0BHPbehmtGph0j7V99BJ
- kg8/is1sbN05EGtVsP6XRCzvDiDpBF0c/h6HvA+6QqN4rHJ+AvfDW8BJhZebPQ2uclwQiYlv
- mJlhPuwW2Yp6ufMDyvAqPHN92ja1TUpwXEqOT42fRJe2NzY8dsflBT2TsRHKYO4kYigcd3v+
- AyioC87jrQVqMcE0aSn4FzK6w6RSoj1oh0dvVuOAD/8hu9tTMv8PtHztwCHhRpVBNzBJmRtq
- kTojCR3AAomKZiW3BKAT+wWdF1Cz6bUaWaM6bKD8nRIythMx5JBVdoIiN2dDB0zWirhRdMOS
- BG7hO+pzMUPVEZGlIcuC25LN+wkzLL7CfPuXe3OY9xFb/BZLVHXoXk1NBLMhj68yiDAdJ3T3
- 7/BLa5A6l5DU8xaIMeeHb9BgdfHOAhirY8seXwL50v+iufPDJJkYbwELEGPfogE0U9wmy2Mq
- 4w3H5LTm31ivBjWPnG/HXg7cQpbchDWxPne96RqSwJ0ClA7QDp9U6SIkOpJlk4Mt/09q9okN
- 0qVAidwoGcTT1WbcW1mtlgLhGvTYKtC
-IronPort-HdrOrdr: A9a23:n1Cee6C37ont8aDlHelc55DYdb4zR+YMi2TDt3oddfU1SL39qy
- nKpp4mPHDP5wr5NEtPpTniAtjkfZq/z+8X3WB5B97LMDUO3lHIEGgL1+DfKlbbak/DH4BmtZ
- uICJIOb+EZDTJB/LrHCAvTKade/DFQmprY+9s3zB1WPHBXg7kL1XYeNu4CeHcGPjWvA/ACZe
- Ohz/sCnRWMU1INYP+2A3EUNtKz2uEixPrdEGY77wdM0nj0sQ+V
-X-Talos-CUID: =?us-ascii?q?9a23=3AY5WKo2m3R9Oe+iJa1rq9jAyh33rXOSHM/kfJeHS?=
- =?us-ascii?q?9MjczZKeTcF+C3JpJntU7zg=3D=3D?=
-X-Talos-MUID: =?us-ascii?q?9a23=3AUotOmw2gayxu/XvVVnnq1bdTpzUj/pSOOkUht84?=
- =?us-ascii?q?6npelLSZ9axKBrg7se9py?=
+IronPort-Data: A9a23:cBW1faP5CyulEM/vrR21l8FynXyQoLVcMsEvi/4bfWQNrUpz0jAFz
+ WMcXjiDPfeJMGL9ft4nb460oUgF78PTmtZgQQto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/rrRC9H5qyo42tF5AJmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0s14WE9x9
+ 60pESgENkGDpP2Q3r38Q/Y506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
+ ZNEN3w2Nk+ojx5nYz/7DLoXmuuyi2a5WDpfsF+P/oI84nTJzRw327/oWDbQUoXSFJ8EwhvJ/
+ Aoq+UynLT0YHvKalwOOzViV3umegTvSCawdQejQGvlC3wTImz175ActfUS/iem0jAi5Qd03A
+ 1wZ/G8ioLY/8GSvT8LhRFuorXicpBkeVtFMVeog52ml6IDZ/gKYDWgsVSNaZZots8peeNAx/
+ gbXxZWzX2Up6eDLDyvHrd94sA9eJwA+IjYsWi1VfDId6oGyoKIsqAzACd98RfvdYsLOJRn8x
+ DWDrS4bjroVjNIW26jTwW0rkw5AtbCSEFdru1y/snaNq1ogOdX7P9DABU3zt64oEWqPcrWWU
+ JHoceC65ftGM5yCnTflrA4lTODwvKbt3NExbDdS83gdG9aFoSbLkWN4umsWyKJV3iEsJ1fUj
+ Lf741852XOqFCLCgVVLS4ywEd826qPrCM7oUPvZBvIXPMgsLFTWoH03Ox/Kt4wIrKTKuftjU
+ Xt8WZ/2ZUv29Iw9lGbmLwvj+eNDKt8CKZP7GsmgkkXPPUu2b3+JU7YVWGazghQCxPrc+m39q
+ o8PX/ZmPj0DCIUSlAGLq99MRb3LRFBnba3LRzt/LLPbeVY+QzhwUpc8A9oJIuRYokicrc+Ql
+ lnVZ6OS4Aak7ZEbAW1mskxeVY4=
+IronPort-HdrOrdr: A9a23:VFnX+K3Pp0nw9MLWDklb9wqjBEIkLtp133Aq2lEZdPU0SKGlfq
+ GV7ZAmPHrP4gr5N0tOpTntAse9qBDnhPtICOsqTNSftWDd0QPFEGgF1+rfKlXbcBEWndQtt5
+ uIHZIfNDSKNykcsS77ijPIb+rJwrO8gd+VbTG19QYSceloAZsQnjuQEmygYytLrJEtP+tCKH
+ KbjPA33gaISDAsQemQIGIKZOTHr82jruOaXfZXbyRXkDVnlFmTmcXHLyQ=
+X-Talos-CUID: =?us-ascii?q?9a23=3AnFnHrmkr7iIBbMER6dP25rr6IULXOVbSlVnvIR6?=
+ =?us-ascii?q?JMH5gEOyVakC25qwjmtU7zg=3D=3D?=
+X-Talos-MUID: 9a23:jwmPlgkPzsQImLdwUzX6dno8G+tqyYqrVnkGrr8/48/VKTRZahmS2WE=
 X-IronPort-AV: E=Sophos;i="6.00,194,1681185600"; 
-   d="scan'208";a="113007426"
+   d="scan'208";a="109294592"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 0/4] x86: RSBA and RRSBA handling
-Date: Fri, 26 May 2023 12:06:51 +0100
-Message-ID: <20230526110656.4018711-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 1/4] x86/spec-ctrl: Rename retpoline_safe() to retpoline_calculations()
+Date: Fri, 26 May 2023 12:06:52 +0100
+Message-ID: <20230526110656.4018711-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230526110656.4018711-1-andrew.cooper3@citrix.com>
+References: <20230526110656.4018711-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-This series deals with the hanlding of the RSBA and RRSBA bits across all
-parts and all mistakes encountered in various microcode versions.
+This is prep work, split out to simply the diff on the following change.
 
-With it in place, here are some examples from various generations of Intel
-hardware:
+ * Rename to retpoline_calculations(), and call unconditionally.  It is
+   shortly going to synthesize missing enumerations required for guest safety.
+ * For Broadwell, store the ucode revision calculation in a variable and fall
+   out of the bottom of the switch statement.
 
-  BDX Raw
-  BDX Host
-  BDX HVM Max   rsba
+No functional change.
 
-  KBL Raw       rsba misc-pkg-ctrl energy-ctrl
-  KBL Host      rsba misc-pkg-ctrl energy-ctrl
-  KBL HVM Max   rsba
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/spec_ctrl.c | 30 ++++++++++++++++++++----------
+ 1 file changed, 20 insertions(+), 10 deletions(-)
 
-  SKX Raw       rsba misc-pkg-ctrl energy-ctrl
-  SKX Host      rsba misc-pkg-ctrl energy-ctrl
-  SKX HVM Max   rsba
-
-  CFL Raw       rdcl-no eibrs skip-l1dfl mds-no tsx-ctrl misc-pkg-ctrl energy-ctrl fb-clear
-  CFL Host      rdcl-no eibrs rsba skip-l1dfl mds-no tsx-ctrl misc-pkg-ctrl energy-ctrl fb-clear rrsba
-  CFL HVM Max   rdcl-no eibrs rsba mds-no fb-clear rrsba
-
-  CLX Raw       rdcl-no eibrs skip-l1dfl mds-no tsx-ctrl misc-pkg-ctrl energy-ctrl sbdr-ssdp-no psdp-no fb-clear rrsba
-  CLX Host      rdcl-no eibrs rsba skip-l1dfl mds-no tsx-ctrl misc-pkg-ctrl energy-ctrl sbdr-ssdp-no psdp-no fb-clear rrsba
-  CLX HVM Max   rdcl-no eibrs rsba mds-no sbdr-ssdp-no psdp-no fb-clear rrsba
-
-  SPR Raw       rdcl-no eibrs skip-l1dfl mds-no if-pschange-mc-no tsx-ctrl taa-no misc-pkg-ctrl energy-ctrl
-  SPR Host      rdcl-no eibrs rsba skip-l1dfl mds-no if-pschange-mc-no tsx-ctrl taa-no misc-pkg-ctrl energy-ctrl rrsba
-  SPR HVM Max   rdcl-no eibrs rsba mds-no if-pschange-mc-no taa-no rrsba
-
-
-Of note:
- * The SPR CPU is pre-release and didn't get the MMIO ucode in the end
-   (sbdr-ssdp-no psdp-no fb-clear).
- * SKX/KBL enumerate RSBA following the energy filtering microcode.  Prior to
-   that, they don't enumerate MSR_ARCH_CAPS at all.
- * CFL and SPR fails to enumerate both RSBA and RRSBA.  CLX fails to enumerate
-   RSBA.  These should be addressed in due course.
-
-
-Andrew Cooper (4):
-  x86/spec-ctrl: Rename retpoline_safe() to retpoline_calculations()
-  x86/spec-ctrl: Synthesize missing RSBA/RRSBA bits
-  x86/cpu-policy: Rearrange guest_common_default_feature_adjustments()
-  x86/cpu-policy: Derive {,R}RSBA for guest policies
-
- xen/arch/x86/cpu-policy.c             | 59 ++++++++++++++------
- xen/arch/x86/include/asm/cpufeature.h |  1 +
- xen/arch/x86/spec_ctrl.c              | 78 +++++++++++++++++++++------
- xen/tools/gen-cpuid.py                |  5 +-
- 4 files changed, 111 insertions(+), 32 deletions(-)
-
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index 50d467f74cf8..0774d40627dd 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -579,9 +579,10 @@ static bool __init check_smt_enabled(void)
+ }
+ 
+ /* Calculate whether Retpoline is known-safe on this CPU. */
+-static bool __init retpoline_safe(void)
++static bool __init retpoline_calculations(void)
+ {
+     unsigned int ucode_rev = this_cpu(cpu_sig).rev;
++    bool safe = false;
+ 
+     if ( boot_cpu_data.x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
+         return true;
+@@ -626,18 +627,18 @@ static bool __init retpoline_safe(void)
+          * versions.
+          */
+     case 0x3d: /* Broadwell */
+-        return ucode_rev >= 0x2a;
++        safe = ucode_rev >= 0x2a;      break;
+     case 0x47: /* Broadwell H */
+-        return ucode_rev >= 0x1d;
++        safe = ucode_rev >= 0x1d;      break;
+     case 0x4f: /* Broadwell EP/EX */
+-        return ucode_rev >= 0xb000021;
++        safe = ucode_rev >= 0xb000021; break;
+     case 0x56: /* Broadwell D */
+         switch ( boot_cpu_data.x86_mask )
+         {
+-        case 2:  return ucode_rev >= 0x15;
+-        case 3:  return ucode_rev >= 0x7000012;
+-        case 4:  return ucode_rev >= 0xf000011;
+-        case 5:  return ucode_rev >= 0xe000009;
++        case 2:  safe = ucode_rev >= 0x15;      break;
++        case 3:  safe = ucode_rev >= 0x7000012; break;
++        case 4:  safe = ucode_rev >= 0xf000011; break;
++        case 5:  safe = ucode_rev >= 0xe000009; break;
+         default:
+             printk("Unrecognised CPU stepping %#x - assuming not reptpoline safe\n",
+                    boot_cpu_data.x86_mask);
+@@ -681,6 +682,12 @@ static bool __init retpoline_safe(void)
+                boot_cpu_data.x86_model);
+         return false;
+     }
++
++    /* Only Broadwell gets here. */
++    if ( safe )
++        return true;
++
++    return false;
+ }
+ 
+ /*
+@@ -1113,7 +1120,7 @@ void __init init_speculation_mitigations(void)
+ {
+     enum ind_thunk thunk = THUNK_DEFAULT;
+     bool has_spec_ctrl, ibrs = false, hw_smt_enabled;
+-    bool cpu_has_bug_taa;
++    bool cpu_has_bug_taa, retpoline_safe;
+ 
+     hw_smt_enabled = check_smt_enabled();
+ 
+@@ -1139,6 +1146,9 @@ void __init init_speculation_mitigations(void)
+             thunk = THUNK_JMP;
+     }
+ 
++    /* Determine if retpoline is safe on this CPU. */
++    retpoline_safe = retpoline_calculations();
++
+     /*
+      * Has the user specified any custom BTI mitigations?  If so, follow their
+      * instructions exactly and disable all heuristics.
+@@ -1160,7 +1170,7 @@ void __init init_speculation_mitigations(void)
+              * On all hardware, we'd like to use retpoline in preference to
+              * IBRS, but only if it is safe on this hardware.
+              */
+-            if ( retpoline_safe() )
++            if ( retpoline_safe )
+                 thunk = THUNK_RETPOLINE;
+             else if ( has_spec_ctrl )
+                 ibrs = true;
 -- 
 2.30.2
 
