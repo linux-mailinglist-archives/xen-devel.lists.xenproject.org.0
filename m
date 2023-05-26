@@ -2,44 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91FB371269C
-	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 14:29:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540112.841612 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C89F7126D3
+	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 14:38:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540116.841622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2WZe-00055Q-Vi; Fri, 26 May 2023 12:29:38 +0000
+	id 1q2Wi6-0006n3-Qh; Fri, 26 May 2023 12:38:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540112.841612; Fri, 26 May 2023 12:29:38 +0000
+Received: by outflank-mailman (output) from mailman id 540116.841622; Fri, 26 May 2023 12:38:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2WZe-00052z-T2; Fri, 26 May 2023 12:29:38 +0000
-Received: by outflank-mailman (input) for mailman id 540112;
- Fri, 26 May 2023 12:29:38 +0000
+	id 1q2Wi6-0006jy-Na; Fri, 26 May 2023 12:38:22 +0000
+Received: by outflank-mailman (input) for mailman id 540116;
+ Fri, 26 May 2023 12:38:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Xi8L=BP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1q2WZd-00052r-VA
- for xen-devel@lists.xenproject.org; Fri, 26 May 2023 12:29:37 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9e6b288-fbc0-11ed-b230-6b7b168915f2;
- Fri, 26 May 2023 14:29:36 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id F10A321B33;
- Fri, 26 May 2023 12:29:35 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id B9FC6134AB;
- Fri, 26 May 2023 12:29:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id zLRpKy+mcGQ1WAAAGKfGzw
- (envelope-from <jgross@suse.com>); Fri, 26 May 2023 12:29:35 +0000
+ (envelope-from <SRS0=Xc68=BP=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1q2Wi5-0006jp-AD
+ for xen-devel@lists.xenproject.org; Fri, 26 May 2023 12:38:21 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [81.169.146.163]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 31f65e63-fbc2-11ed-b230-6b7b168915f2;
+ Fri, 26 May 2023 14:38:20 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
+ with ESMTPSA id x6987cz4QCcE7ih
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 26 May 2023 14:38:14 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,142 +41,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9e6b288-fbc0-11ed-b230-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1685104175; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kwjcmuagLfOHSWG0LiIoiDu9YlO+nsSe2Nz9n6SGCS0=;
-	b=rCCOrHUhD58lG93TowQiKzFXAJl9OQOgFzen9QaDterYVrWTcNgBL6TVLBCQDSXGoWXUPv
-	HO9M2/VQhjW2d9qhAsD+giDTAHdRqZhH+l1W7lduTGHtoLvlPHpfugRphcyc3XxLC1xCbk
-	Tum53QqzTiKHoxe8tXy1jIxTPCNyZb4=
-Message-ID: <6e83b70e-a3a5-d11f-c0ea-fb0c5f0c0829@suse.com>
-Date: Fri, 26 May 2023 14:29:35 +0200
+X-Inumbo-ID: 31f65e63-fbc2-11ed-b230-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1685104694; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=WhKwkL3PZvTC5PFUX4/6PjJyLk2w3VNxaA4P3s2hzqx+fryyZdmQPN6wFImmNN8QSt
+    FSlnf+vfShdkZWfOKC+FrGJMdx3QKwwhLE6W+f8h5zK2ZWyBKrv8D0SmYiMKFfOtV9Oe
+    vAcPApae6dCHcLm+54nvxSHu3kILit4NrCMpi9aGP4d4NZ7x7pccl6DGuE5rfdI4GIoo
+    W7NooGIW8g12iht9JwdsUNoRkhxE19QJE251FH4vn1zSSejcVqwAvh//lhFRnx/Ea6gE
+    dJpdaOY4x3fETgraPqCEPGh9GR/imvUwcjr+m0LAO8AskhAplkw8le/ZPoLi69h4fVfx
+    tnTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1685104694;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=TV6XPOqE6SFQtp9w1o26J0iwlJ8FZqSaP4PKDn98ZHc=;
+    b=kjUs0VtQMVGLqmD8Of+u5PqcFizlXG2edidpieVCblFrTWLmAL+Zwjwk7Vgut/RQ9n
+    8iIwUJrgrEJYMw9lWQgUhhS0cHmcIn7pQccMzFviig1Z9J83WvxAc0mWBj4choJL1b1l
+    Xgp5Jw5H3Hja8GRL7OwZlEYvELcEUebuter8KcKqxmdmvtR+XFTRnngq4DjgNaMNLeN2
+    tf+ZThknRovrkP8HNyMv4xRuT3fSbuMHeTM0ygtRkiwWHo5TPhOYyswkM9cGPaPrGepg
+    C8StWC1s7Mc8eMWF4CpS7bdxoEufDZwR6h1hX0p4Lws2NEod4TYOQMOTWi6IFu9J0xXa
+    xhPw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1685104694;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=TV6XPOqE6SFQtp9w1o26J0iwlJ8FZqSaP4PKDn98ZHc=;
+    b=rAws7qeGCU+DW0tyUMYx5DJe59k15Mv0ZPCtskiNSREh2b394MbDT1c6+P5CPd9j1P
+    nqwSrypqIMt25pj0zAuXV9P8Lw4DjEvSLuNoPnE32nIneDc2jMawYZFi/eOIT/TeRU3U
+    6zQjYlBNwixDxuuwu0lHMSbBI4VL/o5H9ylfnOCnlCXJwl8Lfb+U+bTa1ThbabWYFOPZ
+    vrEMY2AXLeeesxD2HHo5dLvEya2XAa1j8F6hYJiJ9t3ra8lKOA1cvjkgCiFR54KgryDT
+    nhUGiWxdKPAuWQVnFtH+3AgMl0L8X5EKraLVH+I8n6hE31jfigTAqcKcYCbx49gtSK9M
+    W9mA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1685104694;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=TV6XPOqE6SFQtp9w1o26J0iwlJ8FZqSaP4PKDn98ZHc=;
+    b=fdF0v2+49ioYdWmmkdyKrpGubJ4ZlCRPNP8Wooiikj7E7tD61I+EBOTNLGRf5nmEr2
+    nj+OwfcvDeb1dLQVqeBA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4xqFv7EJ0tgRX/vKfT/e8Ig6v0dNw4QAWpzMWrRQ=="
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v1] xentrace: adjust exit code for --help option
+Date: Fri, 26 May 2023 14:38:10 +0200
+Message-Id: <20230526123810.23210-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [XEN PATCH] tools/xenstore: remove deprecated parameter from
- xenstore commands help
-To: =?UTF-8?Q?Cyril_R=c3=a9bert?= <slack@rabbit.lu>,
- xen-devel@lists.xenproject.org
-Cc: Yann Dirson <yann.dirson@vates.fr>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <47cbac6bcf8f454b47bc6430c101f064a5623261.1685041564.git.slack@rabbit.lu>
-Content-Language: en-US
-In-Reply-To: <47cbac6bcf8f454b47bc6430c101f064a5623261.1685041564.git.slack@rabbit.lu>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Wcf7RH3Pc0cME6RJcl0dOAgc"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Wcf7RH3Pc0cME6RJcl0dOAgc
-Content-Type: multipart/mixed; boundary="------------n5mvIR6liUv90bJsSbK43Q0S";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?Q?Cyril_R=c3=a9bert?= <slack@rabbit.lu>,
- xen-devel@lists.xenproject.org
-Cc: Yann Dirson <yann.dirson@vates.fr>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <6e83b70e-a3a5-d11f-c0ea-fb0c5f0c0829@suse.com>
-Subject: Re: [XEN PATCH] tools/xenstore: remove deprecated parameter from
- xenstore commands help
-References: <47cbac6bcf8f454b47bc6430c101f064a5623261.1685041564.git.slack@rabbit.lu>
-In-Reply-To: <47cbac6bcf8f454b47bc6430c101f064a5623261.1685041564.git.slack@rabbit.lu>
+Invoking the --help option of any tool should not return with an error,
+if that tool does have a documented and implemented help option.
 
---------------n5mvIR6liUv90bJsSbK43Q0S
-Content-Type: multipart/mixed; boundary="------------KSZlhZ4E2rwQyhmRzNiIE0mB"
+Adjust the usage() function to exit with either error or success.
+Handle the existing entry in the option table to call usage accordingly.
 
---------------KSZlhZ4E2rwQyhmRzNiIE0mB
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Adjust the getopt value for help. The char '?' is returned for unknown
+options. Returning 'h' instead of '?' allows to handle --help.
 
-T24gMjUuMDUuMjMgMjE6MDYsIEN5cmlsIFLDqWJlcnQgd3JvdGU6DQo+IENvbXBsZXRpbmcg
-Y29tbWl0IGM2NTY4N2UgKCJ0b29scy94ZW5zdG9yZTogcmVtb3ZlIHNvY2tldC1vbmx5IG9w
-dGlvbiBmcm9tIHhlbnN0b3JlIGNsaWVudCIpLg0KPiBBcyB0aGUgc29ja2V0LW9ubHkgb3B0
-aW9uICgtcykgaGFzIGJlZW4gcmVtb3ZlZCBmcm9tIHRoZSBYZW5zdG9yZSBhY2Nlc3MgY29t
-bWFuZHMgKHhlbnN0b3JlLSopLA0KPiBhbHNvIHJlbW92ZSB0aGUgcGFyYW1ldGVyIGZyb20g
-dGhlIGNvbW1hbmRzIGhlbHAgKHhlbnN0b3JlLSogLWgpLg0KPiANCj4gU3VnZ2VzdGVkLWJ5
-OiBZYW5uIERpcnNvbiA8eWFubi5kaXJzb25AdmF0ZXMuZnI+DQo+IFNpZ25lZC1vZmYtYnk6
-IEN5cmlsIFLDqWJlcnQgPHNsYWNrQHJhYmJpdC5sdT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJn
-ZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoNCg==
---------------KSZlhZ4E2rwQyhmRzNiIE0mB
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+ tools/xentrace/xentrace.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------KSZlhZ4E2rwQyhmRzNiIE0mB--
-
---------------n5mvIR6liUv90bJsSbK43Q0S--
-
---------------Wcf7RH3Pc0cME6RJcl0dOAgc
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmRwpi8FAwAAAAAACgkQsN6d1ii/Ey/o
-ZQgAnCXBIohKM9ALfeQfamwssAohKGyC+/u7MV0wsbQQLoQixFRX6cbgk/6vxclSl5OsOUVIFLw1
-PgCJo0T8IKwISQCMEYBaMina86T6sQ+2SNlCNsJsBhBwq7kyVQbxFmtbDAUkXYCKbhvNXrPiSd12
-w7bh8Y9hiVtOcA6BFnqntmIvJJTjpOhsPu4f1jIKsn/NhU8ce+xz92m0n6uSIH/Ho2cXdpYXmcZY
-ER2E3SDe/HHarUkPHcv4HIsgmOdhiM9wm1XjVujUHkrwtCe8GMg7E1G0Bgc4dHv+kKU+YwYNrP1G
-FBUFguX6BSVqnzXyCDSdWAXFYU4C0EFT/Y7SJD8l/g==
-=Prr3
------END PGP SIGNATURE-----
-
---------------Wcf7RH3Pc0cME6RJcl0dOAgc--
+diff --git a/tools/xentrace/xentrace.c b/tools/xentrace/xentrace.c
+index 3548255123..be6226f088 100644
+--- a/tools/xentrace/xentrace.c
++++ b/tools/xentrace/xentrace.c
+@@ -807,7 +807,7 @@ static void monitor_tbufs(void)
+ const char *program_version     = "xentrace v1.2";
+ const char *program_bug_address = "<mark.a.williamson@intel.com>";
+ 
+-static void usage(void)
++static void usage(int status)
+ {
+ #define USAGE_STR \
+ "Usage: xentrace [OPTION...] [output file]\n" \
+@@ -854,7 +854,7 @@ static void usage(void)
+     printf(USAGE_STR);
+     printf("\nReport bugs to %s\n", program_bug_address);
+ 
+-    exit(EXIT_FAILURE);
++    exit(status);
+ }
+ 
+ /* convert the argument string pointed to by arg to a long int representation,
+@@ -873,7 +873,7 @@ long sargtol(const char *restrict arg, int base)
+     {
+         fprintf(stderr, "Invalid option argument: %s\n", arg);
+         fprintf(stderr, "Error: %s\n\n", strerror(errno));
+-        usage();
++        usage(EXIT_FAILURE);
+     }
+     else if (endp == arg)
+     {
+@@ -901,7 +901,7 @@ long sargtol(const char *restrict arg, int base)
+ 
+ invalid:
+     fprintf(stderr, "Invalid option argument: %s\n\n", arg);
+-    usage();
++    usage(EXIT_FAILURE);
+     return 0; /* not actually reached */
+ }
+ 
+@@ -917,10 +917,10 @@ static long argtol(const char *restrict arg, int base)
+     if (errno != 0) {
+         fprintf(stderr, "Invalid option argument: %s\n", arg);
+         fprintf(stderr, "Error: %s\n\n", strerror(errno));
+-        usage();
++        usage(EXIT_FAILURE);
+     } else if (endp == arg || *endp != '\0') {
+         fprintf(stderr, "Invalid option argument: %s\n\n", arg);
+-        usage();
++        usage(EXIT_FAILURE);
+     }
+ 
+     return val;
+@@ -1090,7 +1090,7 @@ static void parse_args(int argc, char **argv)
+         { "discard-buffers", no_argument,      0, 'D' },
+         { "dont-disable-tracing", no_argument, 0, 'x' },
+         { "start-disabled", no_argument,       0, 'X' },
+-        { "help",           no_argument,       0, '?' },
++        { "help",           no_argument,       0, 'h' },
+         { "version",        no_argument,       0, 'V' },
+         { 0, 0, 0, 0 }
+     };
+@@ -1144,8 +1144,12 @@ static void parse_args(int argc, char **argv)
+             opts.memory_buffer = sargtol(optarg, 0);
+             break;
+ 
++        case 'h':
++            usage(EXIT_SUCCESS);
++            break;
++
+         default:
+-            usage();
++            usage(EXIT_FAILURE);
+         }
+     }
+ 
 
