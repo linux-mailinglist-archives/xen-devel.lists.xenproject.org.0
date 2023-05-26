@@ -2,29 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62E371253E
-	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 13:08:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540059.841520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CB7F712546
+	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 13:09:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540079.841564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2VIJ-000727-Ix; Fri, 26 May 2023 11:07:39 +0000
+	id 1q2VJk-0001Vw-11; Fri, 26 May 2023 11:09:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540059.841520; Fri, 26 May 2023 11:07:39 +0000
+Received: by outflank-mailman (output) from mailman id 540079.841564; Fri, 26 May 2023 11:09:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2VIJ-0006w8-DX; Fri, 26 May 2023 11:07:39 +0000
-Received: by outflank-mailman (input) for mailman id 540059;
- Fri, 26 May 2023 11:07:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q2VJj-0001SV-Ts; Fri, 26 May 2023 11:09:07 +0000
+Received: by outflank-mailman (input) for mailman id 540079;
+ Fri, 26 May 2023 11:09:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gDTS=BP=citrix.com=prvs=5031e17c9=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1q2VII-0006de-F4
- for xen-devel@lists.xenproject.org; Fri, 26 May 2023 11:07:38 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84a6571e-fbb5-11ed-8611-37d641c3527e;
- Fri, 26 May 2023 13:07:36 +0200 (CEST)
+ id 1q2VJi-0001SF-Ie
+ for xen-devel@lists.xenproject.org; Fri, 26 May 2023 11:09:06 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b95a61b4-fbb5-11ed-b230-6b7b168915f2;
+ Fri, 26 May 2023 13:09:05 +0200 (CEST)
+Received: from mail-mw2nam10lp2107.outbound.protection.outlook.com (HELO
+ NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.107])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 26 May 2023 07:08:58 -0400
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by PH7PR03MB7297.namprd03.prod.outlook.com (2603:10b6:510:24d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6411.27; Fri, 26 May
+ 2023 11:08:56 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::81d5:6cc1:5b52:3e0b]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::81d5:6cc1:5b52:3e0b%3]) with mapi id 15.20.6433.018; Fri, 26 May 2023
+ 11:08:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,167 +49,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84a6571e-fbb5-11ed-8611-37d641c3527e
+X-Inumbo-ID: b95a61b4-fbb5-11ed-b230-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1685099256;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=wC2o+30LdUKtUUpwusZsSoxUr8yh/q6D9ho4+eihRUc=;
-  b=gVfLAo0aa7IwytHWZHndmHdlkXSYTN7/yNj8L4kW70EEzAKVURQSRYaB
-   woJZXTbfNfz8H2EAFCtpaRnKiniv5bIKW8O0ngD+6ntuG5v+aUrETWM7R
-   dk/webmxF/tKuYJZH7L/z9Tf3pPQU+knZ8517FjeaeUl/ACJ3aKB2ZM7y
+  d=citrix.com; s=securemail; t=1685099345;
+  h=message-id:date:from:subject:to:references:in-reply-to:
+   content-transfer-encoding:mime-version;
+  bh=jOKHXyI8yUBES1UXZ5ks+cEpqCkC8PveEW4UQ9MmEtI=;
+  b=ZxCfU6lVB+H3PuNMvxq5tBnu8WSvGv8om+LLoca9vSljQTNa8fyfWYn3
+   kqw35xW9IxLGKN0DDXQCrQ30H7GZXIx/TeH5b3ZdIbCWRhAu3qBo7b1xC
+   HV7zcClJD/pLaR4BF3vnL99j/jTd1FYwTOchQhbkJyHZWxCXkGXvfE6fV
    c=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 113007431
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:Zymny6KieKkIhJKGFE+RwZUlxSXFcZb7ZxGr2PjKsXjdYENS3jFUm
- jMYUDiCO6zeZWGhL98jOYyypkoAscPdz9cyG1FlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrbwP9TlK6q4mhA4wZgPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c4rEFN+7
- KcjLQtcNDyZgdu20paCZ+Rz05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTHJ4NxhnE/
- TuuE2LRJkpHEMeCzjW8tXf0hfORgiHfZL4qG+jtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAbShZRZdpgs9U5LQHGz
- XfQwYmvX2Y29uTIFzTErOz8QS6O1TY9cX4wVTZfdg4+soPPuocKjgDrd/tuD/vg5jHqIg3Yz
- zePpSk4orwci88Xyqm2lWz6byKQSovhFVBsuFiONo6xxkYgPdP+OdT0gbTOxawYRLt1WGVtq
- 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hP0yT7FWyzyGskTKuMDirjUWGBX
- aMrkVkNjKK/xVPzBUONX6q/Ct4x0Y/rHsn/W/bfY7JmO8YhKVfcrX0yPBDBhQgBdXTAd4llZ
- f93lu71Vx4n5VlPlmLqF4/xL5d3rszB+Y8jbc+ilEn2uVZvTHWUVa0EIDOzUwzN14vd+F+92
- 48GZ6O3J+B3DLWWjt//rdRCcjjn7BETWfjLliCgXrTeelE6QDp4Wqa5LHFIU9UNopm5X9zgp
- hmVMnK0AnKk2RUr9S3ihqhfVY7S
-IronPort-HdrOrdr: A9a23:dVF/867Y88ohT6Z5EgPXwDjXdLJyesId70hD6qkQc3Fom62j5q
- STdZEgvyMc5wx/ZJhNo7690cq7MBbhHPxOkOos1N6ZNWGLhILPFuBfBOPZqAEIcBeOlNK1u5
- 0BT0EEMqyWMbB75/yKnDVREbwbsaa6GHbDv5ah859vJzsaGp2J921Ce2Cm+tUdfng9OXI+fq
- Dsn/Zvln6bVlk8SN+0PXUBV/irnay3qHq3CSR2fyLO8WO1/EiV1II=
-X-Talos-CUID: 9a23:+tN6sWCs5MboMu76E3V2xn4NQfsgSSyH4G3WGk+qLV9ERaLAHA==
-X-Talos-MUID: 9a23:Ph3L3Aq2Yv2gxBx1mkgezxU5aeNz/qOhMQcIyZYa5daGERBMAzjI2Q==
+X-IronPort-RemoteIP: 104.47.55.107
+X-IronPort-MID: 109859152
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:ndZfJanIl4mtbo5l9m/0k97o5gyNJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIaXDvUPquIY2TzLtx0bou+p0NQuZHVzdZhSFM9rygwHyMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE0p5KyaVA8w5ARkPqgW5gGGzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ dFfGAxSLVPbvtK74bvgFbQy3N14EfC+aevzulk4pd3YJdAPZMmbBoD1v5pf1jp2gd1SF/HDY
+ cZfcSBocBnLfxxIPBEQFY46m+CrwHL4dlW0qnrM/fZxvzeVkVE3ieCyWDbWUoXiqcF9t0CUv
+ G/ZuU/+BQkXLoe3wjuZ6HO8wOTImEsXXapLTOzoq68z3Qf7Kmo7ODAUfGu8o/6C00uRAo5ZA
+ HMX/C8qsv1nnKCsZpynN/Gim1aUsxhZV9dOHukS7ACW1rGS8wufHnIDTDNKdJohrsBeeNAx/
+ lqAntesACM1trSQECqZ7u3N9Wz0PjUJJ2gfYyNCVREC/9TovIA0iFTIU8pnF6m2yNbyHFkc3
+ gy3kcT3vJ1L5eZj6klx1Qmvb+6EznQRcjMI2w==
+IronPort-HdrOrdr: A9a23:GrAk6aPVUxXO+cBcTjGjsMiBIKoaSvp037BK7S1MoH1uA6ilfq
+ WV9sjzuiWatN98Yh8dcLO7Scy9qBHnhP1ICOAqVN/PYOCBggqVxelZhrcKqAeQeREWmNQ86U
+ 4aSdkYNDXxZ2IK8foT4mODYqkdKA/sytHXuQ/cpU0dPD2Dc8tbnmFE4p7wKDwNeOFBb6BJba
+ a01458iBeLX28YVci/DmltZZm/mzWa/KiWGSLvHnQcmXKzsQ8=
+X-Talos-CUID: 9a23:AFKXdW+Lx8zZFOlndvmVv2NTKvx6MT6F9UfdAkbjVjs3EqTOdGbFrQ==
+X-Talos-MUID: =?us-ascii?q?9a23=3A4iFksg2VylPSowi+NhZRMNsngjUj04msIXAKk5I?=
+ =?us-ascii?q?94syrbHB2EAieijGzXdpy?=
 X-IronPort-AV: E=Sophos;i="6.00,194,1681185600"; 
-   d="scan'208";a="113007431"
+   d="scan'208";a="109859152"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EXircX0PHbMBQulGBrbRzvmQEGVLHVkEfK6hTyxp3fOSM1qbZ3HAE2gShWyKQfKZAMg0aKMy4eOcM5x0nUNKuKgLKzIg0d+70R0fEfdWhSHSBKcws/g+n4oaVMRrV3osx4JP9Ci16dvGZ2NS4KQ3VwG5yxFksi+khjQXZBnjzG2i0UsYqPTYhNRFfVtbZ5lmbZanmJnF15dbd2wOZsjTiozBnAzAvWu9NC0vzWdU1qaY3LGDkVVyp2xD3ouj55tS+lSNkKpi0y+NJlaK9jHqIK/8xAnyGcba/GZQrd/bFt5OmJggNMLqJBV/lnHs+EPkId8BbFNRb4tri46xvRSL+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YBYY5bMh3hQvbzjPhGt+16NXqWuUmSKHdlWdKj+FKT4=;
+ b=L7LHNhJg5yeG51qstQLWGPyCAmBG/AO2g5kTkifyA/LidGC/w5hZddUrf24BGrre7Wd5Se9ny5T9lGQ+h4jVSNoDMDpsI9lZ2WEEZry2L94tj2MVxLmZXdUiMWzoqgqC0KKKqiKtgn3uwi4rVDLGcLGesIit41g2NADHwx6pTbm135M8kF/sBmcbkgE72dkKGzjFISLjDPq8bwcD2yiVzntgWi9+4EvM0QD/48175Ils86ZpazyQQ2nWw+N2S+dhh7oBrUta4fwAgB6qQDs1m1yI9VfDl/JS+kVi7SQkqkjbQxlVjQTWL2wgK/Gxjd7+8n7Y5G0RXoArPCtodmIZlg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YBYY5bMh3hQvbzjPhGt+16NXqWuUmSKHdlWdKj+FKT4=;
+ b=knafUeEQPEgkUCLwNW7qxwNNtPzRlBLm7cfNlatCX7OHS5QjVVvL0WLKIEIKqUFFiW7MmqTwcaDHlkTpwyyYgSXEzCnQZDqu4go30tGiU+8qprjQL1n5tTAYvnj2aBNQA9azCiC5c9hfzVvRo+DiwJxCVP04D2r3wWuS2HpklGo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <bf51f176-4076-8a1c-7cbe-c7ff24c1cf3e@citrix.com>
+Date: Fri, 26 May 2023 12:08:51 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 4/4] x86/cpu-policy: Derive {,R}RSBA for guest policies
-Date: Fri, 26 May 2023 12:06:56 +0100
-Message-ID: <20230526110656.4018711-6-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230526110656.4018711-1-andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 2/4] x86/spec-ctrl: Synthesize missing RSBA/RRSBA bits
+Content-Language: en-GB
+To: xen-devel <xen-devel@lists.xenproject.org>
 References: <20230526110656.4018711-1-andrew.cooper3@citrix.com>
+ <20230526110656.4018711-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20230526110656.4018711-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0595.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:295::12) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|PH7PR03MB7297:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06e19128-45f1-4e25-53af-08db5dd9987f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	u9jAPGNmDr8gNo8mhWlycW6OLkwBwzmzcc/X7gcjX6lghMp7c7kdcIaNAU5LmNiJoYl/zbmSVBcsBNk3D3122VFkUgOh22i00/jF+HVt23CYAmOyhHVu1v4sUPz1wL3zrUbyucgpZe2z+VXlu0vyfM7zNuk/OBNdjS1EgHTzNPObpkEkuhSkVdoIyrTo3Kj7E1XRqHexAZkHQSmkXYwSW8zkpYu2kcHvI8cGAPKrEHafFYw7cIUR7itIpnFhdHPmqHx12l9psoe8POqH5Y0md422rWJnnIgJb039uPGQC2n68ua9nSuxFq/sq8Dq8nzNx0jhpXkmfckMvWOvIt26ttHGDGrbzT0kzj005z6mPw4PCq/R2MPaysCOb5xWJhpF+BROrI0DWi8KmYyy528vpMvf+kEbENz2Ws3IwqshqpIN6JmmGh4BIqeHojmA7abQd+byepXw/VMo7E4pGutJIyCp4FYK+FMWrasVCXsPK30EqpPhchvghtwmky0NNNiOl1sIJp3Cxc5f6Xts4QT83PUo6skzPIgh9ys9q+NBMi4o8HtX/ptGPA397FTZpzUbsx/zbazjV5c1s26qn2ZAO4pI+a0zpEGQFYax+ttBE11dtCwsRCz72HziMApzw5G0x28E2d1Znd1UNVMUqSxDMg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(136003)(39860400002)(366004)(346002)(451199021)(5660300002)(8676002)(8936002)(2616005)(186003)(53546011)(4744005)(2906002)(86362001)(36756003)(83380400001)(82960400001)(31696002)(38100700002)(6506007)(6512007)(26005)(6916009)(316002)(66476007)(31686004)(66556008)(6666004)(66946007)(508600001)(6486002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OFFlSUlsdjg0eHBrc2dmbWV1OXYvOERJSkRtbitlRng5S0VaMjY2N002aExo?=
+ =?utf-8?B?MmJaTTh1K29qSU9tS0JHZTdIclFGWUtaOXhXd3ZEay9EdHJZb0xEaHdOS1FZ?=
+ =?utf-8?B?QnZadjNHZzlRYTdEYUtjK3lyc0kxZ1ViVEdwM2JFUVVWUVBTSG1OcmtTVG9o?=
+ =?utf-8?B?V25JQUlNalpLU2Z3MFV0YnFhZG1WSXFwSjhLQVlZMzUxUEZNWnBRZG91R1BG?=
+ =?utf-8?B?OS8ySkM2Q0tuRUNpODFmRkhMWlZFVWJXdG5jbE5HZ0Fxc0dKaU82dGNyUWRQ?=
+ =?utf-8?B?Y0c5WUFNTWhjTVFKRjF2aEVzbnBkUXVWZXhjSWJiVFVLN2l6RUtwN3BmNkNo?=
+ =?utf-8?B?QjZ3Vlo4TEU0aGs2aE5KcVg2SW1tZkdqNU1PV2NubmZBck43bXV2dEF6Sysr?=
+ =?utf-8?B?WStMWTYzV0pJczNwMy8yRHNGR2dKVHJSVnVwM2pldnF1eTNYMmhiTjkyQWc3?=
+ =?utf-8?B?NDY3bDdBRmVVcEdUTVNQTDllVERaZjlSYk03RUFUM2QxMlltY2c1TDhRUUlP?=
+ =?utf-8?B?VEVoS25Qa0lmeWw2OWNnTXcwN0w5bzZJVDd5OTBtTEp2OHZNZzR6dWFHYlR5?=
+ =?utf-8?B?Mkx4WkxkaGMzZkZtUkt0anYwaXM2d20xTnk2YitEYmZjMlE0NU01QjlXQy92?=
+ =?utf-8?B?UFBKbnd4b1lRd3RaVjdqR3Z6RzF2QzZVWGxURDI2YXBFRUtCWXZTRHluc3dl?=
+ =?utf-8?B?eHM5YnFIeVZqY3NUZkdCbEFGV1kzQmRyK3kzK2Y1VWtlYTd3R3dlQVJDZWJu?=
+ =?utf-8?B?VzF3bTZRcFN2NytTL3J6T1BhdmxoMFFIUVFXRjFtOUJLV0tmekJwM1RmQ3dv?=
+ =?utf-8?B?dlBKZHRVOHdjKzVYTFZ5SjVDdTRsU3g5NnBvdzRCUFRuQlEvZW5ZOStnNTNq?=
+ =?utf-8?B?ajZMRkFoT1lvQk91T1ZCWk5HdmNKTm5CZ0Noa2xLd3J2U2w0RWRRQVVVVStu?=
+ =?utf-8?B?SHJLUXNFcmpvdllYSXRnY3hGVFZwTlNXekNVcTY4T2tzbUpndDgvK3IyWEJv?=
+ =?utf-8?B?WXZRRkRRN0lJV0p1QXh0ak9tQzZOb3NGT3lzZjV5T3FSNGxoWSs1Ly9IbXQ0?=
+ =?utf-8?B?Wjd3TTZjdE5aRTNPaFY0TkZTaTRPZVk3aFV2VkVkRnNPWXZmU3RQN0pGcUtq?=
+ =?utf-8?B?YlRTTTlnN0tJam1Tem9vMEVVQmloVWtMRUt4RlN3OWkvWUs0Qk5RN3FhbTVr?=
+ =?utf-8?B?VEVoakZmTlUzVEhBQjVBbEtCTCtrU0JRcnRZQk1WWktIYlpwdzRLSVBWL0tO?=
+ =?utf-8?B?K2k3ajNZQmJPVWcrRCtHUTlvUHR3ckhNVW5iNUdyZjE2U0s4bkdOMlI2S0V6?=
+ =?utf-8?B?ZXhkWlJoMFE0N0VweFc0Y0ZOM0xER0ZDM1JWc2pkQm5SREwvWWRQSGFOS2t5?=
+ =?utf-8?B?VTJKRmRoS0xTa1Y2TW5ITFBva0tpdEhacTVRUkR4UXhwWThKYlh4a3NIMXJX?=
+ =?utf-8?B?YkhmZ3JjSlRyeEJHa21PVHdUdFFpTVlLelV4VGQ5Q09EN1NtTThkOFRjT1Zq?=
+ =?utf-8?B?aUlxYzQ4TmVqZU5rN1FYMnY1dnhUbmVUVWZpdW96UnREbTJQd0Q2K2FHc29v?=
+ =?utf-8?B?TDlGTFNlanYydm8yK01HWVUvNis3eWdpaHlRdVVsRTlCMWhBM1FBYXBVVUc5?=
+ =?utf-8?B?eERaOUpKYmIzc245eGZtd2w4eElhV0tUclh4S2t4bFJ3UW13dFVMcmxkaDlZ?=
+ =?utf-8?B?Mkg1QzNPaWtmYnFtenhjWFEvUjNrdHdiK2VMN2JrNDQ0cTdJWWFnZk9oMnZk?=
+ =?utf-8?B?dzZlVkFXY2ZVME5KQmVWTzRUQXkzd1ZKNlJUTjlHQjV1Vy8xSVRLTUZDaHdl?=
+ =?utf-8?B?bWpRaXc1ZVppOEtVdlVoM2EzbDQzMHZSUVY3YkE3dyt5TWpHQjdSRHpSeEQ3?=
+ =?utf-8?B?V2hBYWJUR0N0cHp1alVhNVZBczVtYjZGT0lWZ3dsQ20rTmRTV2xwNnlQbG5u?=
+ =?utf-8?B?VXdEblVhVStBYVV4R2FiRjRySCtMSG1PYXdLbUpqMmh0U0doaWwxMEltMXBJ?=
+ =?utf-8?B?VkJwOVZIVm5FKzFYWlJHSHQwbjl3YUswQnI5Z1Mwdko4WEU1ZDdZNzJPeUF5?=
+ =?utf-8?B?QytTRnQ2RXZ4NFN6Y3diYTFOa2YxMGdKOENBN0VhMkZ5enFOT09aQlVEVXJS?=
+ =?utf-8?B?QVk3QlljVHhCSjdmYXBUM2hCb25ROHdMRnNpMFo2SnZUOFZkOE1EK3BVUXRN?=
+ =?utf-8?B?WXc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	9F06OL06gmK37Xof6gWn+wesBEYfjB58T8wScBstD3CdzHum8bdWXlsMey9MdIZUEb1r5wukMSvgLGdXoxeWTg41885YfKwNHpp6HxatkixNe3EXAYSF05Y/IJfKazI08mSOjG1uHZNMgEHnrzS1Xptvpq+cvtF+lunv3LvQg0Y4gWU8VWdccsyZLWrRm3w530oKWjjFCT+FujwhEtLRL549ErecDRp5IKmW+nYQW/mZ1ggLEd9TTaoBseirEEZCaicbPQGqqbnm2VujN40pSzaNsQ71isB2a5Xo90l9QQ9XMMxS8O1ya2w8pZdRTTTPtY+JPhGfWsX/vsGggLmj4gKyEfPbkpT3dDEIPSUPNXp4vJ5f6AVLK/SvoDMtm3qtBt1Clfhve2hG1n3BEs45J9/2tOdR9AHcR9Fj7WbaGnIbxgEC2WA7Cs2KDZSTv7e+004WLsElqD/2ATYCtFDY3vzymEtaW+IgDbOFIzMz41DWZ5UNq5DbRlgwwb9gaVb3sy373kxAe8Rtork3oPNinkYUCnpK7mAEHfu4o/x1Or+S6X+tzuNkTkjt2+iB41MsYqlCer/V7yGqd4WKI4o240/N+Nvk/5gwFaFO7JsFL70yvLKZBZ5+TmnnHRwmKrJfDMZePUTJi17FAzBDMiY3BgpgfVaNsqKlN9AHtJkcLw4qH4n7SbD5PuaTSv+dZchaKYwjJMnqgfhPNf3wfCl72i1r7bc/BFcox2CuyZyAe/mSFvVrijbL4mWF891JcGHVhRuRfsR6CKG61XYe5nJ6ZA==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06e19128-45f1-4e25-53af-08db5dd9987f
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2023 11:08:55.4862
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hDzVgYjhzR9fSIJQdCd0blSRX3R9WWTHVKZe4RU6ryf66qSTBjC64b0JOzKu1gQgtPCz6sw27Lw8baoeZ2T+YhIGZeOC+kk34Urkc7c3GJc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7297
 
-The RSBA bit, "RSB Alternative", means that the RSB may use alternative
-predictors when empty.  From a practical point of view, this mean "Retpoline
-not safe".
+On 26/05/2023 12:06 pm, Andrew Cooper wrote:
+> ---
+>  xen/arch/x86/include/asm/cpufeature.h |  1 +
+>  xen/arch/x86/spec_ctrl.c              | 50 +++++++++++++++++++++++----
+>  2 files changed, 44 insertions(+), 7 deletions(-)
 
-Enhanced IBRS (officially IBRS_ALL in Intel's docs, previously IBRS_ATT) is a
-statement that IBRS is implemented in hardware (as opposed to the form
-retrofitted to existing CPUs in microcode).
+Sorry, please ignore this patch and look at the other patch 2, which has
+a commit message.
 
-The RRSBA bit, "Restricted-RSBA", is a combination of RSBA, and the eIBRS
-property that predictions are tagged with the mode in which they were learnt.
-Therefore, it means "when eIBRS is active, the RSB may fall back to
-alternative predictors but restricted to the current prediction mode".  As
-such, it's stronger statement than RSBA, but still means "Retpoline not safe".
-
-Add feature dependencies for EIBRS and RRSBA.  While technically they're not
-linked, absolutely nothing good can of letting the guest see RRSBA without
-EIBRS.  Furthermore, we use this dependency to simplify the max/default
-derivation logic.
-
-The max policies gets RSBA and RRSBA unconditionally set (with the EIBRS
-dependency maybe hiding RRSBA).  We can run any VM, even if it has been told
-"somewhere else, Retpoline isn't safe".
-
-The default policies inherit the host settings, because the guest wants to run
-with as few (anti)features as it can safely get away with.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/cpu-policy.c | 25 +++++++++++++++++++++++++
- xen/tools/gen-cpuid.py    |  5 ++++-
- 2 files changed, 29 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index bdbc5660acd4..eb1ecb75f593 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -423,8 +423,14 @@ static void __init guest_common_max_feature_adjustments(uint32_t *fs)
-          * Retpoline not safe)", so these need to be visible to a guest in all
-          * cases, even when it's only some other server in the pool which
-          * suffers the identified behaviour.
-+         *
-+         * We can always run any VM which has previously (or will
-+         * subsequently) run on hardware where Retpoline is not safe.  Note:
-+         * The dependency logic may hide RRSBA for other reasons.
-          */
-         __set_bit(X86_FEATURE_ARCH_CAPS, fs);
-+        __set_bit(X86_FEATURE_RSBA, fs);
-+        __set_bit(X86_FEATURE_RRSBA, fs);
-     }
- }
- 
-@@ -432,6 +438,25 @@ static void __init guest_common_default_feature_adjustments(uint32_t *fs)
- {
-     if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-     {
-+        /*
-+         * The {,R}RSBA bits under virt mean "you might migrate somewhere
-+         * where retpoline is not safe".  In particular, a VM's settings may
-+         * not be applicable to the current host.
-+         *
-+         * Discard the settings inherited from the max policy, and and feed in
-+         * the host values.  The ideal case for a VM is for neither of these
-+         * bits to be set, but toolstacks must accumuate them across anywhere
-+         * the VM might migrate to, in case any possible destination happens
-+         * to be unsafe.
-+         *
-+         * Note: The dependency logic might hide RRSBA for other reasons.
-+         */
-+        fs[FEATURESET_m10Al] &= ~(cpufeat_mask(X86_FEATURE_RSBA) |
-+                                  cpufeat_mask(X86_FEATURE_RRSBA));
-+        fs[FEATURESET_m10Al] |=
-+            host_cpu_policy.arch_caps.lo & (cpufeat_mask(X86_FEATURE_RSBA) |
-+                                            cpufeat_mask(X86_FEATURE_RRSBA));
-+
-         /*
-          * IvyBridge client parts suffer from leakage of RDRAND data due to SRBDS
-          * (XSA-320 / CVE-2020-0543), and won't be receiving microcode to
-diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
-index f28ff708a2fc..22294a26adc0 100755
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -318,7 +318,7 @@ def crunch_numbers(state):
-         # IBRSB/IBRS, and we pass this MSR directly to guests.  Treating them
-         # as dependent features simplifies Xen's logic, and prevents the guest
-         # from seeing implausible configurations.
--        IBRSB: [STIBP, SSBD, INTEL_PSFD],
-+        IBRSB: [STIBP, SSBD, INTEL_PSFD, EIBRS],
-         IBRS: [AMD_STIBP, AMD_SSBD, PSFD,
-                IBRS_ALWAYS, IBRS_FAST, IBRS_SAME_MODE],
-         AMD_STIBP: [STIBP_ALWAYS],
-@@ -328,6 +328,9 @@ def crunch_numbers(state):
- 
-         # The ARCH_CAPS CPUID bit enumerates the availability of the whole register.
-         ARCH_CAPS: list(range(RDCL_NO, RDCL_NO + 64)),
-+
-+        # The behaviour described by RRSBA depend on eIBRS being active.
-+        EIBRS: [RRSBA],
-     }
- 
-     deep_features = tuple(sorted(deps.keys()))
--- 
-2.30.2
-
+~Andrew
 
