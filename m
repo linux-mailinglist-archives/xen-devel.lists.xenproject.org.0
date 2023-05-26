@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 970F6712452
-	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 12:14:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540045.841483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D14BE712478
+	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 12:21:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540051.841493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2USo-0000b0-Mg; Fri, 26 May 2023 10:14:26 +0000
+	id 1q2UYN-000284-CE; Fri, 26 May 2023 10:20:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540045.841483; Fri, 26 May 2023 10:14:26 +0000
+Received: by outflank-mailman (output) from mailman id 540051.841493; Fri, 26 May 2023 10:20:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2USo-0000Z3-Hy; Fri, 26 May 2023 10:14:26 +0000
-Received: by outflank-mailman (input) for mailman id 540045;
- Fri, 26 May 2023 10:14:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8JpW=BP=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1q2USn-0000Yx-Hk
- for xen-devel@lists.xenproject.org; Fri, 26 May 2023 10:14:25 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 15f72935-fbae-11ed-8611-37d641c3527e;
- Fri, 26 May 2023 12:14:23 +0200 (CEST)
+	id 1q2UYN-00026N-9A; Fri, 26 May 2023 10:20:11 +0000
+Received: by outflank-mailman (input) for mailman id 540051;
+ Fri, 26 May 2023 10:20:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q2UYM-00026D-04; Fri, 26 May 2023 10:20:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q2UYL-0003xR-R4; Fri, 26 May 2023 10:20:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q2UYL-0001qe-Ga; Fri, 26 May 2023 10:20:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q2UYL-00074D-G7; Fri, 26 May 2023 10:20:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,112 +42,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15f72935-fbae-11ed-8611-37d641c3527e
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1685096062;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l0JCLWaWxAiVqnK2HID86lF3S13SCfgrB4rF/jITy/I=;
-	b=ip+IsKji95mPrphWLVAUcdYl0y7pMoo/0rzxXxKZorc2i1ogyDwgLlmNAyb0qqipND//Q9
-	mcdcjSKoJ1BmMv2yfve0Ih3RShF4W067n1L36VQOlRFjew11DbOIHP9BY3hPEmKWEMkYtF
-	3++Mlj3E1pedAPDLuSJp8O8yrjmKl61cO3sikLlCo0aFQA4sDzjqIug5Y2sHJzxAouulen
-	yWchVZzHYCyYvLl2IBhaE7LhZZ90HvEDnnYiIPfmZVnM5oPDhrPgISY7m926weiwqHfWOw
-	VMBPX/ASMwnX6UaU0XNMhsxdic6Oppo5GnIK5pHcSkZVNuJmv/nyAhmosdGW7Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1685096062;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l0JCLWaWxAiVqnK2HID86lF3S13SCfgrB4rF/jITy/I=;
-	b=mQPEsm7iwifOjyLdaiqWmBusXWewAsMMsfF7/82drVMMawEZjza+eT9dmICykmFbK9zGX6
-	K4OvjM1+WRhVDmDw==
-To: "Kirill A. Shutemov" <kirill@shutemov.name>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, David Woodhouse
- <dwmw2@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Brian
- Gerst <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>, Sean Christopherson
- <seanjc@google.com>, Oleksandr Natalenko <oleksandr@natalenko.name>, Paul
- Menzel <pmenzel@molgen.mpg.de>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Piotr Gorski <lucjan.lucjanov@gmail.com>, Usama
- Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org,
- Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-kernel@lists.infradead.org, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren
- <guoren@kernel.org>, linux-csky@vger.kernel.org, Thomas Bogendoerfer
- <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, "James E.J.
- Bottomley" <James.Bottomley@HansenPartnership.com>, Helge Deller
- <deller@gmx.de>, linux-parisc@vger.kernel.org, Paul Walmsley
- <paul.walmsley@sifive.com>, Palmer Dabbelt <palmer@dabbelt.com>,
- linux-riscv@lists.infradead.org, Mark Rutland <mark.rutland@arm.com>,
- Sabin Rapan <sabrapan@amazon.com>, "Michael Kelley (LINUX)"
- <mikelley@microsoft.com>, Dave Hansen <dave.hansen@linux.intel.com>
-Subject: Re: [patch v3 31/36] x86/apic: Provide cpu_primary_thread mask
-In-Reply-To: <20230524204818.3tjlwah2euncxzmh@box.shutemov.name>
-References: <20230508181633.089804905@linutronix.de>
- <20230508185218.962208640@linutronix.de>
- <20230524204818.3tjlwah2euncxzmh@box.shutemov.name>
-Date: Fri, 26 May 2023 12:14:21 +0200
-Message-ID: <87y1lbl7r6.ffs@tglx>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=mOIvvqvL5tmgMyzh0Oz/Qv89ROEfIhDo9KgaK/35azE=; b=EgwM1A1pk7DVM6eTZHNyny3OOw
+	qd+KO/pVjlaq2KFmgir5G/nn6ZD2EdvXxPBpPVPIWeJIK5DFP2lQp9C1CRdmeUFSnbu8ff/dfCRCB
+	fnfk9deZUPB/SZNFF8MU5dKEDJwjBjF+6ojrcQ4Xcbb/cjBT7YmbNjqMdrI50MkUtito=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-180956-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: [xen-unstable-smoke test] 180956: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=40cd186bfd15655b7d9d3ee149292c718c208917
+X-Osstest-Versions-That:
+    xen=354be8936d97d4f2cb8cc004bb0296826d89bd8d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 26 May 2023 10:20:09 +0000
 
-On Wed, May 24 2023 at 23:48, Kirill A. Shutemov wrote:
-> On Mon, May 08, 2023 at 09:44:17PM +0200, Thomas Gleixner wrote:
->>  #ifdef CONFIG_SMP
->> -/**
->> - * apic_id_is_primary_thread - Check whether APIC ID belongs to a primary thread
->> - * @apicid: APIC ID to check
->> - */
->> -bool apic_id_is_primary_thread(unsigned int apicid)
->> +static void cpu_mark_primary_thread(unsigned int cpu, unsigned int apicid)
->>  {
->> -	u32 mask;
->> -
->> -	if (smp_num_siblings == 1)
->> -		return true;
->>  	/* Isolate the SMT bit(s) in the APICID and check for 0 */
->> -	mask = (1U << (fls(smp_num_siblings) - 1)) - 1;
->> -	return !(apicid & mask);
->> +	u32 mask = (1U << (fls(smp_num_siblings) - 1)) - 1;
->> +
->> +	if (smp_num_siblings == 1 || !(apicid & mask))
->> +		cpumask_set_cpu(cpu, &__cpu_primary_thread_mask);
->>  }
->> +#else
->> +static inline void cpu_mark_primary_thread(unsigned int cpu, unsigned int apicid) { }
->>  #endif
->>  
->>  /*
->
-> This patch causes boot regression on TDX guest. The guest crashes on SMP
-> bring up.
+flight 180956 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180956/
 
-I rather call it a security feature: It makes TDX unbreakably secure.
+Failures :-/ but no regressions.
 
-> The change makes use of smp_num_siblings earlier than before: the mask get
-> constructed in acpi_boot_init() codepath. Later on smp_num_siblings gets
-> updated in detect_ht().
->
-> In my setup with 16 vCPUs, smp_num_siblings is 16 before detect_ht() and
-> set to 1 in detect_ht().
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-  early_init_intel(c)
-    if (detect_extended_topology_early(c) < 0)
-       detect_ht_early(c);
+version targeted for testing:
+ xen                  40cd186bfd15655b7d9d3ee149292c718c208917
+baseline version:
+ xen                  354be8936d97d4f2cb8cc004bb0296826d89bd8d
 
-  acpi_boot_init()
-    ....
+Last test of basis   180943  2023-05-25 13:01:48 Z    0 days
+Testing same since   180956  2023-05-26 08:01:52 Z    0 days    1 attempts
 
-  identify_boot_cpu(c)
-    detect_ht(c);
+------------------------------------------------------------
+People who touched revisions under test:
+  Alistair Francis <alistair.francis@wdc.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Olaf Hering <olaf@aepfle.de>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Yann Dirson <yann.dirson@vates.fr>
 
-Aaargh. That whole CPU identification code is a complete horrorshow.
-
-I'll have a look....
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   354be8936d..40cd186bfd  40cd186bfd15655b7d9d3ee149292c718c208917 -> smoke
 
