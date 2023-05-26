@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE6D071264B
-	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 14:10:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540104.841592 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DF6171267A
+	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 14:21:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540108.841603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2WGS-0001Zx-61; Fri, 26 May 2023 12:09:48 +0000
+	id 1q2WRJ-0004D2-4p; Fri, 26 May 2023 12:21:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540104.841592; Fri, 26 May 2023 12:09:48 +0000
+Received: by outflank-mailman (output) from mailman id 540108.841603; Fri, 26 May 2023 12:21:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2WGS-0001Xf-3P; Fri, 26 May 2023 12:09:48 +0000
-Received: by outflank-mailman (input) for mailman id 540104;
- Fri, 26 May 2023 12:09:46 +0000
+	id 1q2WRJ-0004Ak-23; Fri, 26 May 2023 12:21:01 +0000
+Received: by outflank-mailman (input) for mailman id 540108;
+ Fri, 26 May 2023 12:20:59 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1q2WGQ-0001XW-AF
- for xen-devel@lists.xenproject.org; Fri, 26 May 2023 12:09:46 +0000
+ (envelope-from <julien@xen.org>) id 1q2WRH-0004Ab-IT
+ for xen-devel@lists.xenproject.org; Fri, 26 May 2023 12:20:59 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1q2WGP-0007h1-JZ; Fri, 26 May 2023 12:09:45 +0000
+ id 1q2WRG-0008NE-Sj; Fri, 26 May 2023 12:20:58 +0000
 Received: from 54-240-197-226.amazon.com ([54.240.197.226] helo=[10.95.96.139])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1q2WGP-0002tG-DG; Fri, 26 May 2023 12:09:45 +0000
+ id 1q2WRG-0003Ex-M2; Fri, 26 May 2023 12:20:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,55 +42,51 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=oO6Lm0cwvoASXQTywWMRuAMiRTjNWPRWvHlEXdn1Iig=; b=wr8MQVIoUVJ5LNL9XrL7o5zZDs
-	10QoXI+O2wCK4tVaGWzsGanTZ7tV3DVaH7+jdybzSzeVfJv9aN8KH+BmIFQmX9Z2zuKFVlXpGYBtX
-	7EoUsD0Ilsg+k5cYJpfKwpcjE4CUTvzNTcWcuBwxpsO3eiGHpPZEVthrJAkbU0EcjkLA=;
-Message-ID: <06e6c3a1-e2ab-6e82-1899-fdcd8add31cf@xen.org>
-Date: Fri, 26 May 2023 13:09:43 +0100
+	bh=NNz7FVICZkmfqoG0QWZ3+XFh21dEf6szpZS9+lKViOw=; b=61shpGDvN3JjXrV54fTWweHvie
+	O+MsOUPey+5Hm7aePZVYazL5Mcg08BjSioxbR6PVGZfRVzBdmnTlhkvllotB2y5xEzAHu8E46Tr7v
+	bq1TAAJvydRYWFcQ1UxWwtEeua92VbeZ9lSAofH+TVUE+ZDXdq3MAqbrAcdQpE+UeGU0=;
+Message-ID: <fce78524-f6a0-1906-ae33-b2c8d469a678@xen.org>
+Date: Fri, 26 May 2023 13:20:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.11.0
-Subject: Re: [PATCH v2] xen/arm: un-break build with clang
+Subject: Re: [XEN v7 00/11] Add support for 32-bit physical address
 Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
  xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20230525191531.120224-1-stewart.hildebrand@amd.com>
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
+ wl@xen.org, rahul.singh@arm.com, michal.orzel@amd.com
+References: <20230518143920.43186-1-ayan.kumar.halder@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230525191531.120224-1-stewart.hildebrand@amd.com>
+In-Reply-To: <20230518143920.43186-1-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Ayan,
 
-On 25/05/2023 20:15, Stewart Hildebrand wrote:
-> clang doesn't like extern with __attribute__((__used__)):
-> 
->    ./arch/arm/include/asm/setup.h:171:8: error: 'used' attribute ignored [-Werror,-Wignored-attributes]
->    extern DEFINE_BOOT_PAGE_TABLE(boot_pgtable);
->           ^
->    ./arch/arm/include/asm/lpae.h:273:29: note: expanded from macro 'DEFINE_BOOT_PAGE_TABLE'
->    lpae_t __aligned(PAGE_SIZE) __section(".data.page_aligned")                   \
->                                ^
->    ./include/xen/compiler.h:71:27: note: expanded from macro '__section'
->    #define __section(s)      __used __attribute__((__section__(s)))
->                              ^
->    ./include/xen/compiler.h:104:39: note: expanded from macro '__used'
->    #define __used         __attribute__((__used__))
->                                          ^
-> 
-> Simplify the declarations by getting rid of the macro (and thus the
-> __aligned/__section/__used attributes) in the header. No functional change
-> intended as the macro/attributes are present in the respective definitions in
-> xen/arch/arm/mm.c.
-> 
-> Fixes: 1c78d76b67e1 ("xen/arm64: mm: Introduce helpers to prepare/enable/disable the identity mapping")
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+On 18/05/2023 15:39, Ayan Kumar Halder wrote:
+> Ayan Kumar Halder (11):
+>    xen/arm: domain_build: Track unallocated pages using the frame number
+>    xen/arm: Typecast the DT values into paddr_t
+>    xen/arm: Introduce a wrapper for dt_device_get_address() to handle
+>      paddr_t
+>    xen/arm: smmu: Use writeq_relaxed_non_atomic() for writing to
+>      SMMU_CBn_TTBR0
+>    xen/arm: domain_build: Check if the address fits the range of physical
+>      address
+>    xen: dt: Replace u64 with uint64_t as the callback function parameters
+>      for dt_for_each_range()
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+I have committed the patches up to here.
+
+>    xen/arm: p2m: Use the pa_range_info table to support ARM_32 and ARM_64
+>    xen/arm: Introduce choice to enable 64/32 bit physical addressing
+>    xen/arm: guest_walk: LPAE specific bits should be enclosed within
+>      "ifndef CONFIG_PHYS_ADDR_T_32"
+>    xen/arm: Restrict zeroeth_table_offset for ARM_64
+>    xen/arm: p2m: Enable support for 32bit IPA for ARM_32
 
 Cheers,
 
