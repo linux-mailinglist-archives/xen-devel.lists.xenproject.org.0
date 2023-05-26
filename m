@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9547712C76
-	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 20:32:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540200.841803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A25C713034
+	for <lists+xen-devel@lfdr.de>; Sat, 27 May 2023 01:02:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540213.841813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2cDn-0006F2-TM; Fri, 26 May 2023 18:31:27 +0000
+	id 1q2gR2-0007Ko-2c; Fri, 26 May 2023 23:01:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540200.841803; Fri, 26 May 2023 18:31:27 +0000
+Received: by outflank-mailman (output) from mailman id 540213.841813; Fri, 26 May 2023 23:01:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2cDn-0006D0-Q2; Fri, 26 May 2023 18:31:27 +0000
-Received: by outflank-mailman (input) for mailman id 540200;
- Fri, 26 May 2023 18:31:26 +0000
+	id 1q2gR1-0007Hh-Uh; Fri, 26 May 2023 23:01:23 +0000
+Received: by outflank-mailman (input) for mailman id 540213;
+ Fri, 26 May 2023 23:01:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1q2cDm-0006Cq-3F; Fri, 26 May 2023 18:31:26 +0000
+ id 1q2gR0-0007HX-GL; Fri, 26 May 2023 23:01:22 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1q2cDl-00053M-Pl; Fri, 26 May 2023 18:31:25 +0000
+ id 1q2gR0-0003KO-1X; Fri, 26 May 2023 23:01:22 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1q2cDl-0000wb-83; Fri, 26 May 2023 18:31:25 +0000
+ id 1q2gQz-0003vO-JT; Fri, 26 May 2023 23:01:21 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1q2cDl-0004iB-7Z; Fri, 26 May 2023 18:31:25 +0000
+ id 1q2gQz-0002pB-J1; Fri, 26 May 2023 23:01:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,15 +45,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=XZqu31LM3SMSyAPgKe3rFSoCGnH/VkE2MxeDSJ0A9i4=; b=giZRCyhMwg6Em5/5vnexa5uFfD
-	xsazmlcd0X3/Dbz+iPRjztRprv0Uk69uN0KxBxO63ic/2PZq2wjchZjSrcBEuBqzvWFIxt46qLtmJ
-	KtC3kzgDSa2tV76FeZ/u1TNuf/C7fowFbMqInbnaHuHltt6ne8X5fxKvTJxB7cWM8sD4=;
+	bh=3uPn305yzZtqOEPCb4EFIIoWDEmNvejjNCGmfIowl7g=; b=ddGl20srFAYFtqPmG6fBG77Mgf
+	ke9Z8ByFYrx6pfyrN0cxTK4FWmpn1U/wMwtf1LJNYhhAwZZffLgcbiJArZE+Y21OuPn3fAl8pfeXc
+	v1zs7IGFhbeKfUCq1RtO00Jhs5zCbbNpBMZkT2mFE/OCdjb6tJd000Y6B7Mz27F7d06k=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-180962-mainreport@xen.org>
+Message-ID: <osstest-180966-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 180962: regressions - FAIL
+Subject: [qemu-mainline test] 180966: regressions - FAIL
 X-Osstest-Failures:
     qemu-mainline:build-amd64:xen-build:fail:regression
     qemu-mainline:build-amd64-xsm:xen-build:fail:regression
@@ -133,21 +133,21 @@ X-Osstest-Failures:
     qemu-mainline:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
     qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
     qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
 X-Osstest-Versions-This:
-    qemuu=a3cb6d5004ff638aefe686ecd540718a793bd1b1
+    qemuu=f9bdb3818faae00b950f6a09eda1fa40193ef1f5
 X-Osstest-Versions-That:
     qemuu=6972ef1440a9d685482d78672620a7482f2bd09a
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 26 May 2023 18:31:25 +0000
+Date: Fri, 26 May 2023 23:01:21 +0000
 
-flight 180962 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/180962/
+flight 180966 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/180966/
 
 Regressions :-(
 
@@ -233,21 +233,21 @@ Tests which did not succeed, but are not blocking:
  test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
  test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
  test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
  test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
  test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
  test-amd64-i386-xl            1 build-check(1)               blocked  n/a
  test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
  test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
 
 version targeted for testing:
- qemuu                a3cb6d5004ff638aefe686ecd540718a793bd1b1
+ qemuu                f9bdb3818faae00b950f6a09eda1fa40193ef1f5
 baseline version:
  qemuu                6972ef1440a9d685482d78672620a7482f2bd09a
 
 Last test of basis   180691  2023-05-17 10:45:22 Z    9 days
-Failing since        180699  2023-05-18 07:21:24 Z    8 days   36 attempts
-Testing same since   180949  2023-05-25 22:08:34 Z    0 days    5 attempts
+Failing since        180699  2023-05-18 07:21:24 Z    8 days   37 attempts
+Testing same since   180966  2023-05-26 18:39:00 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
@@ -308,12 +308,14 @@ People who touched revisions under test:
   Paolo Bonzini <pbonzini@redhat.com>
   Peter Maydell <peter.maydell@linaro.org>
   Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daudé <philmd@linaro.org>
   Raghu H <raghuhack78@gmail.com>
   Richard Henderson <richard.henderson@linaro.org>
   Ricky Zhou <ricky@rzhou.org>
   Ryan Wendland <wendland@live.com.au>
   Sebastian Ott <sebott@redhat.com>
   Sid Manning <sidneym@quicinc.com>
+  Song Gao <gaosong@loongson.cn>
   Stefan Hajnoczi <stefanha@redhat.com>
   Steve Sistare <steven.sistare@oracle.com>
   Taylor Simpson <tsimpson@quicinc.com>
@@ -323,6 +325,7 @@ People who touched revisions under test:
   Timothée Cocault <timothee.cocault@gmail.com>
   Viktor Prutyanov <viktor@daynix.com>
   Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+  Volker Rümelin <vr_qemu@t-online.de>
   Xinyu Li <lixinyu20s@ict.ac.cn>
   Zeng Hao <zenghao@kylinos.cn>
   Zhenyu Zhang <zhenyzha@redhat.com>
@@ -437,5 +440,5 @@ Test harness code can be found at
 
 Not pushing.
 
-(No revision log; it would be 7534 lines long.)
+(No revision log; it would be 7943 lines long.)
 
