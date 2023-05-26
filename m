@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6860712540
-	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 13:08:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540057.841503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FE5C712543
+	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 13:08:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540060.841532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2VIG-0006g4-Uz; Fri, 26 May 2023 11:07:36 +0000
+	id 1q2VIK-0007QK-R9; Fri, 26 May 2023 11:07:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540057.841503; Fri, 26 May 2023 11:07:36 +0000
+Received: by outflank-mailman (output) from mailman id 540060.841532; Fri, 26 May 2023 11:07:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2VIG-0006dl-S6; Fri, 26 May 2023 11:07:36 +0000
-Received: by outflank-mailman (input) for mailman id 540057;
- Fri, 26 May 2023 11:07:35 +0000
+	id 1q2VIK-0007Lh-N3; Fri, 26 May 2023 11:07:40 +0000
+Received: by outflank-mailman (input) for mailman id 540060;
+ Fri, 26 May 2023 11:07:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gDTS=BP=citrix.com=prvs=5031e17c9=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1q2VIF-0006de-GA
- for xen-devel@lists.xenproject.org; Fri, 26 May 2023 11:07:35 +0000
+ id 1q2VIJ-0006de-D0
+ for xen-devel@lists.xenproject.org; Fri, 26 May 2023 11:07:39 +0000
 Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
  [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 822189af-fbb5-11ed-8611-37d641c3527e;
- Fri, 26 May 2023 13:07:32 +0200 (CEST)
+ id 85dd0dc6-fbb5-11ed-8611-37d641c3527e;
+ Fri, 26 May 2023 13:07:37 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,59 +36,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 822189af-fbb5-11ed-8611-37d641c3527e
+X-Inumbo-ID: 85dd0dc6-fbb5-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1685099252;
+  d=citrix.com; s=securemail; t=1685099257;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=anpmt4luKppeT0MDr6VWEfx6VCbmSawCR46DmW0f5Hg=;
-  b=dvJg3jA4R6QyLT8roDDUsv6TxrgBVbrMVBc30EnK7PTmIqpCh+lhwjf6
-   B5IVdmZX71+kzkGxsm1pXYoJu7vgS4plMl/BfB9txlH9NvhjXgAG5tNd3
-   B/VSD1dOqWpBndMfPndATRmuyzK+Clnt0SB1Ez9UfcIUXPWr1WHJ84prr
-   Y=;
+  bh=vEXEzdcx1S5fOqtwj2ao5hamG4txXf0RO67hpizdai4=;
+  b=FEAJ+gYBr6LYHULZViVJXq+m/QuHEC+/x629ZJUb2kajNMvkVAs7S8Sw
+   xGlZ9Qd3o+z8EQq1a0EGu5m6ajfEpHODhYhsHAMiXkFxbZ2Vo2b6bgzNu
+   V5dFj310rlpUSvWBLbKrX0ig6zfRxIyybX1DLyHKsISxSIxN2BduYgjas
+   4=;
 Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 113007427
+X-MesageID: 113007428
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:cickcK/WINsFFjzDL4PlDrUD836TJUtcMsCJ2f8bNWPcYEJGY0x3x
- msdDG/UOfaKYmP0eo0nO97loExTuZSGx4Q3SAtupS88E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ird7ks31BjOkGlA5AdmOKoV5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkkS5
- M4oMWs2ayvS3c6sxou7WM1Vq8k8eZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
- ZBDMHw2MUqGOkcUUrsUIMtWcOOAr3/zaTBH7nmSorI6+TP7xw1tyrn9dtHSf7RmQO0Mxx3A/
- j2apTuR7hcyLfvHlhS94HiVp8DQuT/Ad6gCJJr/z6s/6LGU7jNKU0BHPbehmtGph0j7V99BJ
- kg8/is1sbN05EGtVsP6XRCzvDiDpBF0ZjZLO7RkskfXkPOSulvHQDFeFVatdeDKqudqVA4az
- wSymui4XxB1toSVW1ak27qL+Gba1TcuEUcOYioNTA0g6tbloZ0ugh+ncuuPAJJZnfWuR2iun
- mniQDwWwuxK0JVVj/nTEUXv2WrEm3TfcuIiCuw7tEqB5xgxWoOqbpfABbPzvacZd9bxorVsU
- RE5dymiAAImV8nleM+lGr9l8FSVCxGtblXhbaZHRcVJythU0yfLkXpsyD9/Plx1Fc0PZCXkZ
- kTe0SsIus8OZCD7MfMuPdPrYyjP8UQGPY65PhwzRoMUCqWdiSfdpH0+DaJu9zyFfLcQfVEXZ
- s7ALJfE4YcyAqV71jumL9ogPUsQ7nlmnwv7HMmrpylLJJLCPBZ5v59ZagrRBg34hYvYyDjoH
- yF3bZbSkEkHC7SvO0E6M+c7dDg3EJTyPriuw+Q/SwJJClE5cI39I5c9GY8cRrE=
-IronPort-HdrOrdr: A9a23:Yx0NpK1fMEVRptAoccEy6AqjBEQkLtp133Aq2lEZdPU0SKGlfg
- 6V/MjztCWE7gr5PUtLpTnuAsa9qB/nm6KdpLNhX4tKPzOW31dATrsSjrcKqgeIc0HDH6xmpM
- JdmsBFY+EYZmIK6foSjjPYLz4hquP3j5xBh43lvglQpdcBUdAQ0+97YDzrYnGfXGN9dOME/A
- L33Ls7m9KnE05nFviTNz0+cMXogcbEr57iaQ5uPW9a1OHf5QnYk4ITCnKjr20jbw8=
-X-Talos-CUID: 9a23:cGaxMW9suFZKIxMsw72VvxIFKPA8KUbY9yaKD1W+MGZ7bIS4REDFrQ==
-X-Talos-MUID: 9a23:FStVZgt3Zg1Ra3R0I82nnRY6a+lQ8a6XKW8StYk9lOOUBQs3AmLI
+IronPort-Data: A9a23:tJ6uWqtd3OBBXcY/+tRZjNws5ufnVEZeMUV32f8akzHdYApBsoF/q
+ tZmKTvUaPzcYWLwc9B2bIu+8U4Bv56HyN5jSQJv/HswRi9A+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
+ Nfjy+XSI1bg0DNvWo4uw/vrRChH4rKq4Fv0gnRkPaoQ5AKEySFPZH4iDfrZw0XQE9E88tGSH
+ 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
+ Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
+ fMwdCE/XgnYvOeNkeiXUO9VhtYHFeTmI9ZK0p1g5Wmx4fcORJnCR+PB5MNC3Sd2jcdLdRrcT
+ 5NHM3w1Nk2GOkARfA5NU/rSn8/x7pX7WxRepEiYuuwc5G/LwRYq+LPsLMDUapqBQsA9ckOw/
+ zudpzymXktKXDCZ4WGl1m+plOH2pz7UfolLGrKq0sAwilLGkwT/DzVJDADm8JFVkHWWS99Zb
+ kAZ5Ccqhawz71CwCMnwWQWip3yJtQJaXMBfe8UYwgyQzqvf4y6CG3MJCDVGbbQOq8seVTEsk
+ FiTkLvU6SdH6ePPDyjHr/HN8G30YHJORYMfWcMaZVcU0en6+7o2tUOVYsxlKa6nquTYFC6ll
+ lhmsxMCr7kUiMcK0YCy8lbGny+gq/D1c+Il2unEdjn7t10kPeZJc6TtsAGGtqgYcO51W3Hb5
+ BA5d96iAPfi5H1nvAiEW60zEb6g/J5p2xWM0Ac0T/HNG9lAkkNPnLy8AhkkfC+F0e5eI1cFh
+ XM/XisPjKK/xFPwMcdKj3uZUqzGN5TIG9X/TezzZdFTeJV3fwLv1HgwNRPIhDGxzBFywPtX1
+ XKnnSCEVypy5UNPlWDeegvg+eVzmnBWKZ37GfgXMChLIZLBPSXIGN/pwXOFb/wj7bPsnTg5B
+ +13bpPQoz0GCb2WX8Ui2dJLRbz8BSRhVM+eRg0+XrLrHzeK70l7VqeKnet6It0890mX/8+Rl
+ kyAtoZj4AKXrRX6xc+iMS0LhG/HNXqnkU8GAA==
+IronPort-HdrOrdr: A9a23:wxLCwK0KRd9D0nOJOKu6kAqjBHYkLtp133Aq2lEZdPU0SKGlfq
+ GV7ZEmPHrP4gr5N0tOpTntAse9qBDnhPxICOsqXYtKNTOO0AeVxelZhrcKqAeQeBEWmNQ96U
+ 9hGZIOcuEZDzJB/LvHCN/TKadd/DGFmprY+ts31x1WPGVXgzkL1XYANu6ceHcGIzVuNN4CO7
+ e3wNFInDakcWR/VLXBOpFUN9KzweEijfjdEGc7OyI=
+X-Talos-CUID: =?us-ascii?q?9a23=3AWWr33mjv9KVZtgSkKcC2qGod5DJuLmzv/G6LGEq?=
+ =?us-ascii?q?DWDxFUrusSU20wY5pjJ87?=
+X-Talos-MUID: 9a23:r1ZrHwjq1uMW5mdymVQMK8Mpb+dM/qG8Bnk3jLogsJCKOj5UBW2Xg2Hi
 X-IronPort-AV: E=Sophos;i="6.00,194,1681185600"; 
-   d="scan'208";a="113007427"
+   d="scan'208";a="113007428"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 2/4] x86/spec-ctrl: Synthesize missing RSBA/RRSBA bits
-Date: Fri, 26 May 2023 12:06:53 +0100
-Message-ID: <20230526110656.4018711-3-andrew.cooper3@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH 2/4] x86/spec-ctrl: Synthesize RSBA/RRSBA bits with older microcode
+Date: Fri, 26 May 2023 12:06:54 +0100
+Message-ID: <20230526110656.4018711-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230526110656.4018711-1-andrew.cooper3@citrix.com>
 References: <20230526110656.4018711-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
+In order to level a VM safely for migration, the toolstack needs to know the
+RSBA/RRSBA properties of the CPU, whether or not they happen to be enumerated.
+
+Synthesize the bits when missing.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 ---
  xen/arch/x86/include/asm/cpufeature.h |  1 +
  xen/arch/x86/spec_ctrl.c              | 50 +++++++++++++++++++++++----
@@ -107,7 +121,7 @@ index 50235f098d70..08e3eedd1280 100644
  /* Synthesized. */
  #define cpu_has_arch_perfmon    boot_cpu_has(X86_FEATURE_ARCH_PERFMON)
 diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 0774d40627dd..daf77d77e139 100644
+index 0774d40627dd..2647784615cc 100644
 --- a/xen/arch/x86/spec_ctrl.c
 +++ b/xen/arch/x86/spec_ctrl.c
 @@ -578,7 +578,10 @@ static bool __init check_smt_enabled(void)
@@ -116,8 +130,8 @@ index 0774d40627dd..daf77d77e139 100644
  
 -/* Calculate whether Retpoline is known-safe on this CPU. */
 +/*
-+ * Calculate whether Retpoline is known-safe on this CPU.  Fixes up missing
-+ * RSBA/RRSBA enumeration from older microcode versions.
++ * Calculate whether Retpoline is known-safe on this CPU.  Synthesize missing
++ * RSBA/RRSBA bits when running with old microcode.
 + */
  static bool __init retpoline_calculations(void)
  {
