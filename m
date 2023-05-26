@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 940877120F6
-	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 09:30:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.539982.841388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88B9E7120F3
+	for <lists+xen-devel@lfdr.de>; Fri, 26 May 2023 09:30:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.539983.841400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2RtO-0003XF-C5; Fri, 26 May 2023 07:29:42 +0000
+	id 1q2RtP-0003ma-NC; Fri, 26 May 2023 07:29:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 539982.841388; Fri, 26 May 2023 07:29:42 +0000
+Received: by outflank-mailman (output) from mailman id 539983.841400; Fri, 26 May 2023 07:29:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2RtO-0003UD-9E; Fri, 26 May 2023 07:29:42 +0000
-Received: by outflank-mailman (input) for mailman id 539982;
- Fri, 26 May 2023 07:29:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q2RtP-0003k3-GR; Fri, 26 May 2023 07:29:43 +0000
+Received: by outflank-mailman (input) for mailman id 539983;
+ Fri, 26 May 2023 07:29:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Xc68=BP=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1q2RtM-0003Ci-Nj
- for xen-devel@lists.xenproject.org; Fri, 26 May 2023 07:29:40 +0000
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
- [81.169.146.160]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11cfd26e-fb97-11ed-8611-37d641c3527e;
- Fri, 26 May 2023 09:29:37 +0200 (CEST)
+ id 1q2RtO-0003UM-FD
+ for xen-devel@lists.xenproject.org; Fri, 26 May 2023 07:29:42 +0000
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.52]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 12f7af00-fb97-11ed-b230-6b7b168915f2;
+ Fri, 26 May 2023 09:29:41 +0200 (CEST)
 Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
- with ESMTPSA id x6987cz4Q7TV64U
+ with ESMTPSA id x6987cz4Q7TX64X
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Fri, 26 May 2023 09:29:31 +0200 (CEST)
+ Fri, 26 May 2023 09:29:33 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,57 +41,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11cfd26e-fb97-11ed-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; t=1685086171; cv=none;
+X-Inumbo-ID: 12f7af00-fb97-11ed-b230-6b7b168915f2
+ARC-Seal: i=1; a=rsa-sha256; t=1685086173; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=H/D+yzWwuRwNmOJCusUnT3mbUQFvhvq4V4befm3R/bj1yR8Iw5A7gv9CTBDnBS1yVJ
-    AD0TR2a3h/AJqqKmsLz3VjdLSvulHRzRRliCu5ZLlR+mCjreC6dOITwOz190XPO9/8F+
-    +YxJ8dHgPrkuGr3oqfAyzJTbUaH6V6uXaQKQ+DU1CGtE3CGrx9yBhcqt/LdZXUHoJHXB
-    yatqjrcgmmTY8hwySxNgS1PoNp+WhVIUPGPLycu+ma+igzsZ8ipwZmWBcr6wgSGHxRTR
-    7DntscX9NjZmRhpA4EU3yQoMUpynTmAQdm95ur8PxMJ9aYoPUFU5cKeALcPHKI2sRqPy
-    Lbbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1685086171;
+    b=l1i/SpN7IoXyLCxtKbRcE8qxemJPzqzhZiiabaWtd8WLn+qgtkSOJOsO07vC8PyCrH
+    0tU5ArybFAiqgIrW3AyIPnYeZBX/ilDR+HtbCuUcphuFrpuYhCsD9TCQf9pmrNHdPyzO
+    O4KMPY6v4oJAICXF853449xMDiyRgaQLIvC3Mgl6M7HI2fwAdySVQj+OOkcgEKdUcdLi
+    TkPpyp1D+8CiENDUdERdN5tYYTp/kmxico2RCNYFfxKWpPgp6f0iaibJbH2+ZW36+mm9
+    wa0TtLEe07LgMAHTZjySnonJU9xwv9RCcGXsL/MFskehM0QxxUTSfITeVNQwxSh72DbG
+    VK9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1685086173;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=xlUaEBLrDwvOI31K8HyKZ+e2YJX5bW2ka7iFu75oZV0=;
-    b=TolnBD0bn9B5uc4F/hAEjsr97WdpDc6OznbUV6sa/ETcmvT2Ew30QWcBM6m0drjvKi
-    bdILLfCWmbS5Fojjxy/kNtGxGF/OTa4oKwpR7pJ1Vzib0acmnPpOnNYSpp79RoWBeW7D
-    in45eGYsUiRo+Bq5MHl3IWFqiZeQDkM22osTZvPKnEXCvk60bWDmdNfXW+TNKCigvTR3
-    6JU30d6jz7arS8VL5tr4OCI9PxSq7AQlIXJRQZu9uJCv11rHnwS2yb3dH/pLSMoJ8ym0
-    IojFsGIy3apHCEaijSBmoV+z7NPAwJZO7qgvfoDlM/1EVX57/QbaGn8/W2rd8mH+LVB/
-    nWgA==
+    bh=WpoeBuGWahQjx/3EeADqCoRxafSHjWOb2yRv/RTe6Uo=;
+    b=CNJ3dvKAoMGNLpiIxAvXaQHTpNikEjPtwMG9JacnTIOf/iKgd7MdCIEQ1RSANa5M1y
+    E8zfs63wZJKlHIhW9WLT5BKZTX+jl34aA4Pvx2AUztlO6y+0YdvBFTztLJOMm6/AQ2Cq
+    5ZReVSJHjmKabF/skGUxoTW7TjaAdiDkuc2Gzq7iybW8yP09N4Hw5OyMRFXNxWqhn5Lp
+    ILfnRosz5OCSKTLCPjsA7e8nLdOvhwQAbyG9ap/uwFiQfMm2tCz4zyiVVwZc9a90fyOH
+    hYQ5CliZGoyip+WCXl8gLRXzMsSRnwXs5ZseL55Bbv1viJWAvDq/Hm9vXmBCBjfP7Mx4
+    oL2g==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1685086171;
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1685086173;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=xlUaEBLrDwvOI31K8HyKZ+e2YJX5bW2ka7iFu75oZV0=;
-    b=k0GlIgy9QGsr5QrtCgd0GqyeNVnC15yE/VDdnX3Inglo+desuHaVZUc2iUzjFAC5WC
-    +nSfTnJQ6J0rIH+pIPxkJgh+CXWgMH/qEq0evn/v+KnaPV0eVFNuvJW58UIS8JQnX8MS
-    oF8wBdjSpQ4gxUQ9dP1fUGuZRqJlwUvY6ugEd50o1EcQ/1eKsxrKzmg3GIANf81N/6jA
-    BB7fiuzsbci86YL1WfbpHR0+nqqrs+QJzMmQRZjEzOu6XKywvgqyzzrMc69svmE03Kaq
-    u7HYHGTdJc+pffTd4g2uZzW0nXq+WGYOQUYyBkO53GloBMqyHFu4sxfUkH4EPm7zrJD0
-    Y6lA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1685086171;
+    bh=WpoeBuGWahQjx/3EeADqCoRxafSHjWOb2yRv/RTe6Uo=;
+    b=T5w+qTlNfVPYH50sWMUQyIOgq2tZbX8fDtIAT+Rq9j6GRIDMB6NL0pHmsWW5B2c3N+
+    iCFt3SSZYaI6LMvvLK9eK00+S20chnJyigJRQXQZNB/fr4JWpNtuBCyoQzWmwLwewEP0
+    5BXurV1dRGRfXu+kKLSR1kiCwo3YbnZm/if2AUwHq4pbYnj6RovPTeDjWLlwsJt/3Yam
+    ea4+8selNmD6cfQwzfATMgc9IqXVp5SezkOy0km1OWyg5rDW1sKhCmRkd8Dwxo9ab2bC
+    m3/V7M491uiPxP1jgo00pY3dw6tirenWI3NcrtRDHUkGi59kX0X5W8VyKTGF5qs+aTLx
+    kJlg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1685086173;
     s=strato-dkim-0003; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=xlUaEBLrDwvOI31K8HyKZ+e2YJX5bW2ka7iFu75oZV0=;
-    b=GSWj0tmQJHv1LO/CZ10iNM94Pd5Ry6/9Vp1KdrRND+ItjXNGtFQ53S8BDUztz673cW
-    0yuTA3lo+cA98DhB23BQ==
+    bh=WpoeBuGWahQjx/3EeADqCoRxafSHjWOb2yRv/RTe6Uo=;
+    b=0huKukAolae739l9QzADDZQTc3VDAUFQwHadcUOSh4Vlxh7dRZQHLrz913NCWi2egX
+    09Ywh8DrvlUFlCLeVJDQ==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4xqFv7EJ0tgRX/vKfT/e8Ig6v0dNw4QAWpzMWrRQ=="
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
 Cc: George Dunlap <george.dunlap@citrix.com>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v1 1/3] xentrace: allow xentrace to write to stdout
-Date: Fri, 26 May 2023 09:29:14 +0200
-Message-Id: <20230526072916.7424-2-olaf@aepfle.de>
+Subject: [PATCH v1 2/3] xentrace: remove return value from monitor_tbufs
+Date: Fri, 26 May 2023 09:29:15 +0200
+Message-Id: <20230526072916.7424-3-olaf@aepfle.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230526072916.7424-1-olaf@aepfle.de>
 References: <20230526072916.7424-1-olaf@aepfle.de>
@@ -99,31 +99,53 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain; charset="us-ascii"
 
-The output file is optional. In case it is missing, xentrace is supposed
-to write to stdout - unless it is a tty, which is checked prior using it.
+The function always returns zero.
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/xentrace/xentrace.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ tools/xentrace/xentrace.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/tools/xentrace/xentrace.c b/tools/xentrace/xentrace.c
-index 864e30d50c..b81abe8a51 100644
+index b81abe8a51..a073cab26d 100644
 --- a/tools/xentrace/xentrace.c
 +++ b/tools/xentrace/xentrace.c
-@@ -1152,11 +1152,9 @@ static void parse_args(int argc, char **argv)
-         }
-     }
+@@ -668,7 +668,7 @@ static void wait_for_event_or_timeout(unsigned long milliseconds)
+  * monitor_tbufs - monitor the contents of tbufs and output to a file
+  * @logfile:       the FILE * representing the file to log to
+  */
+-static int monitor_tbufs(void)
++static void monitor_tbufs(void)
+ {
+     int i;
  
--    /* get outfile (required last argument) */
--    if (optind != (argc-1))
--        usage();
+@@ -795,8 +795,6 @@ static int monitor_tbufs(void)
+     free(data);
+     /* don't need to munmap - cleanup is automatic */
+     close(outfd);
 -
--    opts.outfile = argv[optind];
-+    /* get outfile (optional last argument) */
-+    if (argc > optind)
-+        opts.outfile = argv[optind];
+-    return 0;
  }
  
- /* *BSD has no O_LARGEFILE */
+ 
+@@ -1164,7 +1162,6 @@ static void parse_args(int argc, char **argv)
+ 
+ int main(int argc, char **argv)
+ {
+-    int ret;
+     struct sigaction act;
+ 
+     opts.outfile = 0;
+@@ -1226,9 +1223,9 @@ int main(int argc, char **argv)
+     sigaction(SIGINT,  &act, NULL);
+     sigaction(SIGALRM, &act, NULL);
+ 
+-    ret = monitor_tbufs();
++    monitor_tbufs();
+ 
+-    return ret;
++    return 0;
+ }
+ 
+ /*
 
