@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92D6E713569
-	for <lists+xen-devel@lfdr.de>; Sat, 27 May 2023 17:10:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540326.842033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E2737135E1
+	for <lists+xen-devel@lfdr.de>; Sat, 27 May 2023 19:24:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540331.842043 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2vYM-0006E4-7R; Sat, 27 May 2023 15:09:58 +0000
+	id 1q2xcp-0003mz-At; Sat, 27 May 2023 17:22:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540326.842033; Sat, 27 May 2023 15:09:58 +0000
+Received: by outflank-mailman (output) from mailman id 540331.842043; Sat, 27 May 2023 17:22:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q2vYM-0006Bi-3o; Sat, 27 May 2023 15:09:58 +0000
-Received: by outflank-mailman (input) for mailman id 540326;
- Sat, 27 May 2023 15:09:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q2xcp-0003kL-7l; Sat, 27 May 2023 17:22:43 +0000
+Received: by outflank-mailman (input) for mailman id 540331;
+ Sat, 27 May 2023 17:22:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PCBS=BQ=infradead.org=willy@srs-se1.protection.inumbo.net>)
- id 1q2vYJ-0006Bc-UP
- for xen-devel@lists.xenproject.org; Sat, 27 May 2023 15:09:56 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88cde50a-fca0-11ed-b231-6b7b168915f2;
- Sat, 27 May 2023 17:09:54 +0200 (CEST)
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1q2vXv-003tpc-6G; Sat, 27 May 2023 15:09:31 +0000
+ <SRS0=ljfk=BQ=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
+ id 1q2xco-0003kF-2P
+ for xen-devel@lists.xenproject.org; Sat, 27 May 2023 17:22:42 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 12b72635-fcb3-11ed-8611-37d641c3527e;
+ Sat, 27 May 2023 19:22:38 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id AC0AD60ED0;
+ Sat, 27 May 2023 17:22:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 17CC1C433D2;
+ Sat, 27 May 2023 17:22:35 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ EBE86C4166F; Sat, 27 May 2023 17:22:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,55 +47,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88cde50a-fca0-11ed-b231-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=u50hcZSLxjXk+ZnHObIQ29gSZuYnejTLeMWOgyxvfyQ=; b=kvDbU0q2z5jUTh3d5nQNpnIto9
-	5xrW767Q1PCPoDvq7cJx36GAZEG2mizda3DrQtiBOGyiytCq2OMTOEXq8TWh2LZ+xzaLqiKD9V9Eb
-	EJX8E77j208rlnFcLKHX2rZvcHGssHh261tJ08qNlv2+zYnLCkftBGtSrrF/p39TJSIPJr0ITg4/l
-	1g7Vh1u4qG6tN9I49LGc4DG6JUJ0KFWAYdrSkVV8XgiRrI/avMqTujLKkfiEnrTSZ/y+N3Nd9R9D8
-	/OJnFeU9SGlsUclnIO5MUMB9v4WCZl1IYBNx4a3hMv/KnLwfYzmktawxgr1m6qrMuAbL8hw04B8Os
-	8rYGwubA==;
-Date: Sat, 27 May 2023 16:09:31 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Vishal Moola <vishal.moola@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org
-Subject: Re: [PATCH v2 05/34] mm: add utility functions for ptdesc
-Message-ID: <ZHIdK+170XoK2jVe@casper.infradead.org>
-References: <20230501192829.17086-1-vishal.moola@gmail.com>
- <20230501192829.17086-6-vishal.moola@gmail.com>
- <20230525090956.GX4967@kernel.org>
- <CAOzc2pxSH6GhBnAoSOjvYJk2VdMDFZi3H_1qGC5Cdyp3j4AzPQ@mail.gmail.com>
- <20230525202537.GA4967@kernel.org>
- <CAOzc2pxD21mxisy-M5b_SDUv0MYwNHqaVDJnJpARuDG_HjCbOg@mail.gmail.com>
- <20230527104144.GH4967@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230527104144.GH4967@kernel.org>
+X-Inumbo-ID: 12b72635-fcb3-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1685208155;
+	bh=iLmQvKnR0W+7FxEY1A+v5WguoW1iSCLbA5KWnRCGKPw=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+	b=AHu3Z+8trOd0ClOKxvqkTTzNpWRx1bSts5AHV7HDO6qVSEdYY96pXN3wfcDR3uQVn
+	 2lsYHdNlsTMZyhu8tN6IEO9sMjAHbOIIXCk4qYpdEXbXcRTeKgcH6p7BjntXpMRu2p
+	 Wik+rvjWLFAZvsJ8m8WmNgxG5EFQ7r+B2G6UIh/HoAOfvNVe8LPCKp2WPfyO7jYsDZ
+	 IT9W38B4eZp4U6K2ZkDPh73nvUNbwNzK/ZSu/GXl1E9RoU6admHgkwe4U8UMGq8nwI
+	 hyK6Uh48bs5P+jHGfKIjt1+arTJIh+8hWjuT6V96LRBF2Po3U+aVDIhZSJwHsstmbf
+	 vfO3lSPFLLstQ==
+Subject: Re: [GIT PULL] xen: branch for v6.4-rc4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20230527053544.31822-1-jgross@suse.com>
+References: <20230527053544.31822-1-jgross@suse.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20230527053544.31822-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.4-rc4-tag
+X-PR-Tracked-Commit-Id: 335b4223466dd75f9f3ea4918187afbadd22e5c8
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 4e893b5aa4ac2c8a56a40d18fe87e9d2295e5dcf
+Message-Id: <168520815495.27218.6793284360828021541.pr-tracker-bot@kernel.org>
+Date: Sat, 27 May 2023 17:22:34 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
 
-On Sat, May 27, 2023 at 01:41:44PM +0300, Mike Rapoport wrote:
-> Sorry if I wasn't clear, by "page table page" I meant the page (or memory
-> for that matter) for actual page table rather than struct page describing
-> that memory.
-> 
-> So what we allocate here is the actual memory for the page tables and not
-> the memory for the metadata. That's why I think the name ptdesc_alloc is
-> confusing.
+The pull request you sent on Sat, 27 May 2023 07:35:44 +0200:
 
-But that's going to be the common pattern in the Glorious Future.
-You allocate a folio and that includes both the folio memory descriptor
-and the 2^n pages of memory described by that folio.  Similarly for all
-the other memory descriptors.
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.4-rc4-tag
+
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/4e893b5aa4ac2c8a56a40d18fe87e9d2295e5dcf
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
