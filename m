@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 663E2714663
-	for <lists+xen-devel@lfdr.de>; Mon, 29 May 2023 10:40:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540572.842403 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56F127146A0
+	for <lists+xen-devel@lfdr.de>; Mon, 29 May 2023 10:51:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540576.842413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q3YPc-0006No-1r; Mon, 29 May 2023 08:39:32 +0000
+	id 1q3Yab-0000Kz-1f; Mon, 29 May 2023 08:50:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540572.842403; Mon, 29 May 2023 08:39:32 +0000
+Received: by outflank-mailman (output) from mailman id 540576.842413; Mon, 29 May 2023 08:50:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q3YPb-0006M9-VJ; Mon, 29 May 2023 08:39:31 +0000
-Received: by outflank-mailman (input) for mailman id 540572;
- Mon, 29 May 2023 08:39:29 +0000
+	id 1q3Yaa-0000Ix-Uv; Mon, 29 May 2023 08:50:52 +0000
+Received: by outflank-mailman (input) for mailman id 540576;
+ Mon, 29 May 2023 08:50:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FxNl=BS=citrix.com=prvs=506ffa617=roger.pau@srs-se1.protection.inumbo.net>)
- id 1q3YPZ-0006M3-Su
- for xen-devel@lists.xenproject.org; Mon, 29 May 2023 08:39:29 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 51b17eed-fdfc-11ed-b231-6b7b168915f2;
- Mon, 29 May 2023 10:39:27 +0200 (CEST)
-Received: from mail-dm3nam02lp2044.outbound.protection.outlook.com (HELO
- NAM02-DM3-obe.outbound.protection.outlook.com) ([104.47.56.44])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 29 May 2023 04:39:25 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by BY1PR03MB7190.namprd03.prod.outlook.com (2603:10b6:a03:52d::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.22; Mon, 29 May
- 2023 08:39:20 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::192:6bdf:b105:64dd]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::192:6bdf:b105:64dd%3]) with mapi id 15.20.6433.020; Mon, 29 May 2023
- 08:39:20 +0000
+ <SRS0=DxYg=BS=redhat.com=sgarzare@srs-se1.protection.inumbo.net>)
+ id 1q3Yaa-0000Ir-2F
+ for xen-devel@lists.xenproject.org; Mon, 29 May 2023 08:50:52 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e8da86da-fdfd-11ed-b231-6b7b168915f2;
+ Mon, 29 May 2023 10:50:50 +0200 (CEST)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-175-O6i07ewmP02_dqMZo2c01A-1; Mon, 29 May 2023 04:50:47 -0400
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-3f60481749eso16155415e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 May 2023 01:50:47 -0700 (PDT)
+Received: from sgarzare-redhat (host-87-12-25-16.business.telecomitalia.it.
+ [87.12.25.16]) by smtp.gmail.com with ESMTPSA id
+ y8-20020a7bcd88000000b003f6038faa19sm16812744wmj.19.2023.05.29.01.50.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 May 2023 01:50:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,185 +49,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51b17eed-fdfc-11ed-b231-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1685349567;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=zyqsEN0u4JweN6CymyoR3leAD4A8ZzsxJ3ZEsOQjunw=;
-  b=Vm0gExyHlVLGrGAUe+w0oZ9sqlhpjTLXSjGBV0a4Rell89sNfs+3l7Jo
-   ZlS64fF/yF3LDcu+grud+k9G4N4Z2R3FOEQehD6lyrFvgd58SljqhHU1i
-   ORiG5/eZlLibkSQY5p7e4hcLh2Iu95ZXnoD0km+s+s9IBdOOGXoriqgt2
-   Q=;
-X-IronPort-RemoteIP: 104.47.56.44
-X-IronPort-MID: 110663272
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:4x37vq6uEklCkFHhHtq7KwxRtB/GchMFZxGqfqrLsTDasY5as4F+v
- jNOCDvTPavbN2LxKNsjbYXi9EkOsJPWyIJgHlZkrCBkHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9lU35JwehBtC5gZlPa0R7AeE/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5mz
- McjGgogLT25q+u8552lQdMrlOI4BZy+VG8fkikIITDxK98DGcqGb4CRoNhS0XE3m9xEGuvYa
- 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6OkkotjNABM/KMEjCObd9SkUuC4
- HrP4kzyAw0ANczZwj2Amp6prraWxX2lA9hNTtVU8NZDg0ydgWMSLSctC2apvMK9px+PXfFAf
- hl8Fi0G6PJaGFaQZtv3UgC8oXWElgUBQNcWGOo/gCmdx6yR7wuHC2wsSj9adMdgpMIwXSYt1
- FKCg5XuHzMHmKKRYWKQ8PGTtzzaBMQOBWoLZCtBQQ5e5dDm+Ns3lkiXEoolF7OphNroHz222
- yqNsCU1m7QUi4gMyrm/+lfExTmro/AlUzII2+keZUr9hisRWWJvT9bABYTzhRqYELukcw==
-IronPort-HdrOrdr: A9a23:NZxGWarLwHL+45F/wPcDxocaV5rUeYIsimQD101hICG9vPbo7P
- xG/c5rryMc5wxhP03I9erwXJVoBEmskKKdgrNhXotKPjOW3ldARbsKheCJrgEIWReOlNK1vp
- 0QCpSWZueAdWSSTvyU3OB7KbodKRW8kZyAtKPm1HFqQhhta6Z8qylEKivzKDwLeCB2QaMjEp
- yS/8xGoCflX082QICUOlkpNtKz2uEirvjdEGA77tocmXazZPqTht7HLyQ=
-X-Talos-CUID: 9a23:HJnNcGBuFzl4nM36ExBcz3wuN4MISFHUxlD/PUSCTnRPU5TAHA==
-X-Talos-MUID: 9a23:NrOc5wlKvLPKSJa01/fSdnpLN9ZmpKuvLXo2z6gUpvKAGH1BPRSC2WE=
-X-IronPort-AV: E=Sophos;i="6.00,200,1681185600"; 
-   d="scan'208";a="110663272"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gzgjkN+O6/2UiSLCs6XUNj2wnFmmZhcpT8vvOLEXfO4FU/3p8qlSzQhGQAqqNQL+ktvai4/RZJqy+fsd+fvITHxVoHJoHb7Q7tS1Z1OY19dCT84cHZlNpwuerz6M8kjdnXLUIoznxbzaPNM6nNweRBPd2frpdyYy9M+bFj8Y+BdOyXEANKp4UQj/NjG4l+vctXPJcaeVKZImgG7I1RdWtE27vaFgHB97Gm0X3BMvcYzNqDp6rYe0pX/uTluWdNlTA1Ax2xSrVqS2hdRW0xUqSAvzMuY6IRsBJ7eC8bs/bo/rXwwFbMj/2n45FB0bS1/Md0m7b9QLCV6sBqZ44B9vbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nu3VbNvYT/3P7tnAnz5ZryeArbkkmg+3pcEsfx5uZwk=;
- b=G6TM9ObRAaosUaAebq9xrXnGW8NCrFyXKcDAOjaK/KsEpXkmDv/vstvUKRhqLoJRtNAFEAzL5Z6pVm48ikoMlTlAXShIBpKslfPQq5dEWqjrb4gQ6qY5ulewflw4KzO6DAwTPsxK7+fvleG7KR36AAnixci5E5YEGpKGUXiABBuITODL98bkR+NEjAgsDTAvGQcuYMyxY8w9nTmoarbmuPkzjB+sY7F/ob26YuJYdU+cp8rGCGClwnxWOHDz4Ks7n54KLbOna8atMfYjOC4QXE8u0KbodmgSzYL5tPwjIeqD1iH2LEoMTty8v2p37XDzkcoMzxoYcyzv1ZiCdJIllQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nu3VbNvYT/3P7tnAnz5ZryeArbkkmg+3pcEsfx5uZwk=;
- b=HrVgKsOxaFANiF+M0Wif10vbacDsSA846OGrikCi5n+xw6DPAZaxueMmvSjLDsmqa7+626xMJh+26c9hzw8mX1X6DRDeOUn7JSTwBFvJszbb342CAJI88tSaYdX6OS61wHkm3dzRU9JRl9wHCfysF7R4+Dr1CylBJiN896XbNUY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 29 May 2023 10:39:14 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] x86/vPIC: register only one ELCR handler instance
-Message-ID: <ZHRkstB6UKWAadVZ@Air-de-Roger>
-References: <5567b45d-d8ee-7f43-526f-7f601c6ddd46@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <5567b45d-d8ee-7f43-526f-7f601c6ddd46@suse.com>
-X-ClientProxiedBy: LO4P123CA0321.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:197::20) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+X-Inumbo-ID: e8da86da-fdfd-11ed-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1685350249;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lzKl+ULfTc+HsRslEfywwM+DpjvalmbzGtSUSdUPWng=;
+	b=jVZ8PhYKvH698nV5TqP1ssPNohlGS95C2+/OIQIupA54uJWrjWQIHLypVG8qU0d59Fn2hE
+	s2RvpDkoSjQgEddSOjnRiMQRsFREmGtaL0sqpK1H/Vqn+myFbKvYiTWHTUS/9C6Z80o9p2
+	oxz3PCzbZd5H088u0r/TKyX06oanZK4=
+X-MC-Unique: O6i07ewmP02_dqMZo2c01A-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685350246; x=1687942246;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lzKl+ULfTc+HsRslEfywwM+DpjvalmbzGtSUSdUPWng=;
+        b=e23SjBbaSDrmB+K9jAx59gkP3cMUnkq0iyXan/WwggcaKYOocp81y2v2k/nMwmnrVI
+         zysbQdw018j88O5w+Eo4dpXWog6roQYxjgl4Q6piLDXR0ldrBa+VJB/43LnFGISuZS5L
+         QcaukKcOGh9tk0D4WbM1AJXI0mt6b86KTNdMTd/S5PnU7/UaqfO/E1txlWzZ0R8EZCJl
+         V64rfJP6fRY0CRW4PMsHKjAri7Ppy+j9M7uxTBZpYaClrjL/CaFLhl1NFlG9dTtYAWg1
+         eTgiV9ryFT0qrkdo8Pi7IcCZdMDjIKy1G8A+hUl8HY+9z4dFiL4nw9mQO9tOMIEt74YQ
+         22cA==
+X-Gm-Message-State: AC+VfDyGShafQkSRuc54RJQnuI4MeHIuix4ZHlAq3wqeoKtArOv4/2OS
+	KANJT/Xraz4iYu5CzyRisMkiilGeMcOs1PUcUfC8xpGRxfklz1M7CWuQAQNKnc1BWwZN8pqc8+G
+	wAk2v03h/lEvgryLah7tct7t9J2E=
+X-Received: by 2002:a05:600c:3d0d:b0:3f6:eae:7417 with SMTP id bh13-20020a05600c3d0d00b003f60eae7417mr6312397wmb.1.1685350246530;
+        Mon, 29 May 2023 01:50:46 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ7f6ydC3WQoJ5To9rb9W4gLmOML/1z0QINwg7VZr8e+1JLO+IwB0Gh6MUE4/gSFzctkGKbI+A==
+X-Received: by 2002:a05:600c:3d0d:b0:3f6:eae:7417 with SMTP id bh13-20020a05600c3d0d00b003f60eae7417mr6312372wmb.1.1685350246121;
+        Mon, 29 May 2023 01:50:46 -0700 (PDT)
+Date: Mon, 29 May 2023 10:50:34 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org, Aarushi Mehta <mehta.aaru20@gmail.com>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, Julia Suvorova <jusual@redhat.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, Hanna Reitz <hreitz@redhat.com>, 
+	Kevin Wolf <kwolf@redhat.com>, Fam Zheng <fam@euphon.net>, xen-devel@lists.xenproject.org, 
+	eblake@redhat.com, Anthony Perard <anthony.perard@citrix.com>, 
+	qemu-block@nongnu.org
+Subject: Re: [PATCH v2 5/6] block/linux-aio: convert to blk_io_plug_call() API
+Message-ID: <63lutuyufibun4jscbjjlshbqqw6otetzfi67rfnfrxacwutnj@igewwxh4uwys>
+References: <20230523171300.132347-1-stefanha@redhat.com>
+ <20230523171300.132347-6-stefanha@redhat.com>
+ <n6hik7dbl26lomhxvfal2kjrq6jhdiknjepb372dvxavuwiw6q@3l3mo4eywoxq>
+ <20230524193634.GB17357@fedora>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|BY1PR03MB7190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61f8e69a-59e3-43c2-0920-08db602031dd
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	g2zmfoc6yVIvFe3WUaVU9ZbygSVnbRKYf5zJLX1LfF5LrACCxYoV+YDZDwSfuPlh6xclxnFdmnzWdgLcyT+647fGtAKENwSER95X1cdSOM82DbVRtF3hhKLfJu1URy0uT4sAHhLYzYstdUmt3cDI4xWsLuZWnT4YUezUsaLLFQQbYPzt50ozITOw9bF78Lvsui3XOYyWamyg6ohOREfgdW59+3hnNZfgaNmxqouwxnvtIb+lKXCyagnty+GJLXbsRINUDIMLogi61Aq+/aBgLSNYWnX1U58Yk/oL/B/GwGykA8oZeA7gLWgpHp7ONNgF9UCA9IL+hY14/RyqRup6fGxMvYF8iCGV91lJhWm9vczd32tSVr22k5zfUJ4TKJ3rcueW9I8kyk7tWQRljFIYd8mdpMIhhzfr+pm96vHfrhbwwJ8xUQ7g2Ahjw6B8LkZzD1ESIXSLlsgQANrWkUdNrAP+YPu25jWR8gGsh2fg+qj1x6MUL02ftB4jyxgea4sOiBYvIb4GMAi/jxcI9XZG26GWG9MYk2sdtBXBJGGt9hVm11Gvm6IxJKky4xP/lZp+
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(39860400002)(366004)(346002)(396003)(136003)(376002)(451199021)(83380400001)(66556008)(5660300002)(6666004)(316002)(66946007)(85182001)(66476007)(6916009)(4326008)(33716001)(82960400001)(8676002)(6486002)(41300700001)(38100700002)(8936002)(86362001)(54906003)(2906002)(6506007)(6512007)(9686003)(186003)(478600001)(26005);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NFVUaEdjdFRzMWduS0JYMFlRZzZiNEZicm1hZ3E5UGx1QnpXZDZOVzJVbmo0?=
- =?utf-8?B?UFEvei8wei9NTzZ6NEIzVFZ4UW1sb0lGUTNRMGF2NTlHUTVUTVpGZit6SUEz?=
- =?utf-8?B?VE5xcXFSbFBWUVlpd1dtRS9VWlVOU1pDcjJlNlYraFpyNTdYbEpyanplN251?=
- =?utf-8?B?VkN0WlFRQ1ZDZ3hEdkdKVWlqME5KdnZHWHEzcG9wU0poV25mNHAwVkMyczkr?=
- =?utf-8?B?d0hjM2M3ZE9WY3gxVUpKcWlZd0VnMXNISHdOYUFiMlA4NEg1dng5TVh3NDQv?=
- =?utf-8?B?L2UzWHRpc3FZQUhjUzBEbVdoVnFseEM0SVVzT3ZUTjF2TjU3RzNSVXJKM2V5?=
- =?utf-8?B?WEkwZy9hMVNMV3F5NUVFLzdhTEtoSU8vL3RpWEsrZUFOYmRGRVpHdStXME5H?=
- =?utf-8?B?a1BrUFE1VkVYaUVTOWRScXVMQXM5Ulp3RDJnL290N09udFZiVlNHaTMvMXlq?=
- =?utf-8?B?d0dpczczeWJlVXpKeHYzYXBkZ3Zoc3g3V3FvLzlGZENWMXlHY01ZdUJyS0pn?=
- =?utf-8?B?V0I3R1QzNTBNTEJ6S3JBOUFMTE9hSHBPazYzUjZYV0oyQm96cmxqT0c2WW9y?=
- =?utf-8?B?VmF0WFAzKzY0VlllTVVTakFxaFUzWFZQTG45NDdrVUYycnVma3cxcWZCOG42?=
- =?utf-8?B?T3RSREc4MlliczV5NFMyREVZNVlmZExzNE5QL1M3TnV3NXNvTSs3aEpnNUw3?=
- =?utf-8?B?eEs3cDA0dDAzUXlpaUJ2emZlQ0tVVVRlVGZObWgzaTN1cGFvdHgyZWRsejJw?=
- =?utf-8?B?bTZPY0p0elluQTFvNysrSE9RWXZSNnFLWmdDcVArcXd4anVwMUNFZzRqZWd5?=
- =?utf-8?B?MVFYWEM5TkVsVVhHZUNCUEZkWFpZSkYrOE5jaCtpQzFnNm5tRU9CTElaNmFI?=
- =?utf-8?B?a0puOU1OMHZ6WVpoV0ZKcEhZcEdEQWxIU1VjOW9jWG1BbXcvSXpnT0l1V1NR?=
- =?utf-8?B?K2tTdW1mK1VTY08vb3c1NkljRU1TcnhHNndOVmlHUWhQem5RbExXK3lzdlZo?=
- =?utf-8?B?L3FLcXdDcXFscnBCdm9NUksrZ0U5M3hBdTV0SGxVajRSU2dKbC9LRG81MWpI?=
- =?utf-8?B?YVlGSW5nT04xcTVSSUcvUitEZUp6Qk9ncTBEemE3ZnhKQjBpVjU3UndtR21D?=
- =?utf-8?B?VGVvRlVQZCtOalJ0aXMvNXZ5ZytxUzBWU2x6enQ0NmZ5Uk81ZTdSVnNUVXhr?=
- =?utf-8?B?YzEwaGhXVUxrcG0wRjU2alM2UzE2UzdiUG9LdEFtK1d1RElobllFV2NBdi9n?=
- =?utf-8?B?N3MxMzhiTjI3YW9zKytDVEhza3RMUEVSRFFhMEhoeml6eUdxYjEvQzE5NEoy?=
- =?utf-8?B?TU1YcllhbXd3ekh4RlZ6U1B3NnZjQytMdjJCR3BDTDZPUFM4eURFK1BIZ0h3?=
- =?utf-8?B?TXNZOTUvNGtZUVJSU0pVamt6TmVSazljSmMycktWSVF4Q1RQMW5LS1ZQemti?=
- =?utf-8?B?OHpaaEY2WUF4V2hXeTc1ajB4b2VZUTI3SVI0OUI0MjFDMEUzekkzK3lGcm1w?=
- =?utf-8?B?RXlMdGtxc1ZpY3lqeFZteFhoZ3hMV1FlNE9HNDcxaXBxcEIzN3NuNjFvajVt?=
- =?utf-8?B?SC93d2RSWUxPZjJRbnNrc3B4N2VTVXBiMXFIYVJvWE9zRktvSnZ4ZmZsNlVC?=
- =?utf-8?B?elM1Z1ZtenJkOTlGZTFHb054ZDM5dnZnZW1lN2VqbzRWNzNBbUo5NHd2ZkQ4?=
- =?utf-8?B?aTlrMkdueFBJaXYxM2doQlBVVDNFTW9iaDkrWnprRnF0MEdUcWlseU1sMi9Y?=
- =?utf-8?B?T0RxU1VVVm5TbnRIYmpmeTFtYXNkN0hLVlREbXNuR2E2ZXNVSVZQcmFoaEtN?=
- =?utf-8?B?UW1lRFN5dWU4WFB4TDZaR1B4R0RIRnBDM29lOGdyRXdMWkV3bkxDM1JzQXpx?=
- =?utf-8?B?aWs3QkdSRGFmbVlZUjJ2SDZtMmZIR2JPbEdXNUVTenZsQ2F5YkJWdy90Z2l2?=
- =?utf-8?B?VkFobDdqK3FzWVpmVHpjTHJpUjRLZDFocTJEMDlobXpsbWI2ZWw3WjFHV3RZ?=
- =?utf-8?B?aWFRdmxMa2pUbU0xbnV5czNORHZoYjV6SWUraVo4LzVoWCsycFdwTXhHMkRt?=
- =?utf-8?B?R2FwWUV5aFhlM0p3cXJYby9TM2U5NWJHQTNLa2lvZGdPYWlWVktqNHI4WWJG?=
- =?utf-8?B?UjFHNi9RS3Z1eW5ySjdaTE10YThjdU9Nc2FkUHFjMHQza1BJbEx0TzA0R2lU?=
- =?utf-8?B?ekE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	QO2U6sZxvb4UZhFDi7mnl92Tq2shwuabOYWO1apaDAdSOOESSZzmz1uVikwWrBlWFBnc4/WnJtg0MtVhJD8Kp/pZwfu/tyeH7FwgDdCGsvVgmmCsmDjapbKtDwJbGbp5yZh4XPDfDrcaJCnQJVkt60cQpKV8jFMRk2W6bU4OeJLPwptwUIRLQV9AycUyv3nGrFwg9AyAWe8PqjDNpr/m/zA/6IqJSXo8xIpcfP3RKksa3Gt18vHFV2TQ9lP81wb+rmxtlOYW8PJRDGavxWS5GnGbP34vl2RrSWBByjDMzXJ4yazzX3CoJ3GzR5B8FbE8Iua8dZZNDJYqjm7Kpho4ehMexA4DTBqUh6Re6lM2Z7PGeO+BjAcd9KGuy//4eNZmsmlVqMFnt2B9dqQcl7+9tS830BtgQMrQP9JLA+8wP86KB99rCGX936iMceAcZO5gpW68uGLjywJWPOovZbJWL7CIUorZJWBrIE7/s1QW1YthxgILCItE6y0FOxHurKDhn55euFjh7tey8BOzYcRfdeasMlX+0BrroBoHbIZ2iCWJLm78+p+UoWRVyEBaWWR/81FAqht+ziGy8u+VGkXL6XHQWHbtDkYMGJ03TKBmc712SVirdPm+BJksbB7dliX8u8zHr3a25X3nyM8GJUXMBAC+4eoWUHhBYilXupHluXmgIogu+fhp8gg4FKgj+xa/5v9J789mjTzYw24/foqdWS6Ai/I021wczAzCFYbroM9rSD12uLyyx2ltZGoevFRrXKXrS7pEVRPhrvGmivuMSVjsE5TqjLM8708xcNM3jvFCiijOHzprTHYL00DlBShW
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61f8e69a-59e3-43c2-0920-08db602031dd
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2023 08:39:19.9054
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vM0SLOzsMCHaDPRnLe06ngSo+Ke/0UA1YaETVyxsPPX8+9B+fbRF/Xi9dWnSarTk6JyAZEfbL6BsdPYCK9JZNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR03MB7190
+In-Reply-To: <20230524193634.GB17357@fedora>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
 
-On Fri, May 26, 2023 at 09:35:04AM +0200, Jan Beulich wrote:
-> There's no point consuming two port-I/O slots. Even less so considering
-> that some real hardware permits both ports to be accessed in one go,
-> emulating of which requires there to be only a single instance.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> --- a/xen/arch/x86/hvm/vpic.c
-> +++ b/xen/arch/x86/hvm/vpic.c
-> @@ -377,25 +377,34 @@ static int cf_check vpic_intercept_elcr_
->      int dir, unsigned int port, unsigned int bytes, uint32_t *val)
->  {
->      struct hvm_hw_vpic *vpic;
-> -    uint32_t data;
-> +    unsigned int data, shift = 0;
->  
-> -    BUG_ON(bytes != 1);
-> +    BUG_ON(bytes > 2 - (port & 1));
->  
->      vpic = &current->domain->arch.hvm.vpic[port & 1];
->  
-> -    if ( dir == IOREQ_WRITE )
-> -    {
-> -        /* Some IRs are always edge trig. Slave IR is always level trig. */
-> -        data = *val & vpic_elcr_mask(vpic);
-> -        if ( vpic->is_master )
-> -            data |= 1 << 2;
-> -        vpic->elcr = data;
-> -    }
-> -    else
-> -    {
-> -        /* Reader should not see hardcoded level-triggered slave IR. */
-> -        *val = vpic->elcr & vpic_elcr_mask(vpic);
-> -    }
-> +    do {
-> +        if ( dir == IOREQ_WRITE )
-> +        {
-> +            /* Some IRs are always edge trig. Slave IR is always level trig. */
-> +            data = (*val >> shift) & vpic_elcr_mask(vpic);
-> +            if ( vpic->is_master )
-> +                data |= 1 << 2;
+On Wed, May 24, 2023 at 03:36:34PM -0400, Stefan Hajnoczi wrote:
+>On Wed, May 24, 2023 at 10:52:03AM +0200, Stefano Garzarella wrote:
+>> On Tue, May 23, 2023 at 01:12:59PM -0400, Stefan Hajnoczi wrote:
+>> > Stop using the .bdrv_co_io_plug() API because it is not multi-queue
+>> > block layer friendly. Use the new blk_io_plug_call() API to batch I/O
+>> > submission instead.
+>> >
+>> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+>> > Reviewed-by: Eric Blake <eblake@redhat.com>
+>> > ---
+>> > include/block/raw-aio.h |  7 -------
+>> > block/file-posix.c      | 28 ----------------------------
+>> > block/linux-aio.c       | 41 +++++++++++------------------------------
+>> > 3 files changed, 11 insertions(+), 65 deletions(-)
+>> >
+>> > diff --git a/include/block/raw-aio.h b/include/block/raw-aio.h
+>> > index da60ca13ef..0f63c2800c 100644
+>> > --- a/include/block/raw-aio.h
+>> > +++ b/include/block/raw-aio.h
+>> > @@ -62,13 +62,6 @@ int coroutine_fn laio_co_submit(int fd, uint64_t offset, QEMUIOVector *qiov,
+>> >
+>> > void laio_detach_aio_context(LinuxAioState *s, AioContext *old_context);
+>> > void laio_attach_aio_context(LinuxAioState *s, AioContext *new_context);
+>> > -
+>> > -/*
+>> > - * laio_io_plug/unplug work in the thread's current AioContext, therefore the
+>> > - * caller must ensure that they are paired in the same IOThread.
+>> > - */
+>> > -void laio_io_plug(void);
+>> > -void laio_io_unplug(uint64_t dev_max_batch);
+>> > #endif
+>> > /* io_uring.c - Linux io_uring implementation */
+>> > #ifdef CONFIG_LINUX_IO_URING
+>> > diff --git a/block/file-posix.c b/block/file-posix.c
+>> > index 7baa8491dd..ac1ed54811 100644
+>> > --- a/block/file-posix.c
+>> > +++ b/block/file-posix.c
+>> > @@ -2550,26 +2550,6 @@ static int coroutine_fn raw_co_pwritev(BlockDriverState *bs, int64_t offset,
+>> >     return raw_co_prw(bs, offset, bytes, qiov, QEMU_AIO_WRITE);
+>> > }
+>> >
+>> > -static void coroutine_fn raw_co_io_plug(BlockDriverState *bs)
+>> > -{
+>> > -    BDRVRawState __attribute__((unused)) *s = bs->opaque;
+>> > -#ifdef CONFIG_LINUX_AIO
+>> > -    if (s->use_linux_aio) {
+>> > -        laio_io_plug();
+>> > -    }
+>> > -#endif
+>> > -}
+>> > -
+>> > -static void coroutine_fn raw_co_io_unplug(BlockDriverState *bs)
+>> > -{
+>> > -    BDRVRawState __attribute__((unused)) *s = bs->opaque;
+>> > -#ifdef CONFIG_LINUX_AIO
+>> > -    if (s->use_linux_aio) {
+>> > -        laio_io_unplug(s->aio_max_batch);
+>> > -    }
+>> > -#endif
+>> > -}
+>> > -
+>> > static int coroutine_fn raw_co_flush_to_disk(BlockDriverState *bs)
+>> > {
+>> >     BDRVRawState *s = bs->opaque;
+>> > @@ -3914,8 +3894,6 @@ BlockDriver bdrv_file = {
+>> >     .bdrv_co_copy_range_from = raw_co_copy_range_from,
+>> >     .bdrv_co_copy_range_to  = raw_co_copy_range_to,
+>> >     .bdrv_refresh_limits = raw_refresh_limits,
+>> > -    .bdrv_co_io_plug        = raw_co_io_plug,
+>> > -    .bdrv_co_io_unplug      = raw_co_io_unplug,
+>> >     .bdrv_attach_aio_context = raw_aio_attach_aio_context,
+>> >
+>> >     .bdrv_co_truncate                   = raw_co_truncate,
+>> > @@ -4286,8 +4264,6 @@ static BlockDriver bdrv_host_device = {
+>> >     .bdrv_co_copy_range_from = raw_co_copy_range_from,
+>> >     .bdrv_co_copy_range_to  = raw_co_copy_range_to,
+>> >     .bdrv_refresh_limits = raw_refresh_limits,
+>> > -    .bdrv_co_io_plug        = raw_co_io_plug,
+>> > -    .bdrv_co_io_unplug      = raw_co_io_unplug,
+>> >     .bdrv_attach_aio_context = raw_aio_attach_aio_context,
+>> >
+>> >     .bdrv_co_truncate                   = raw_co_truncate,
+>> > @@ -4424,8 +4400,6 @@ static BlockDriver bdrv_host_cdrom = {
+>> >     .bdrv_co_pwritev        = raw_co_pwritev,
+>> >     .bdrv_co_flush_to_disk  = raw_co_flush_to_disk,
+>> >     .bdrv_refresh_limits    = cdrom_refresh_limits,
+>> > -    .bdrv_co_io_plug        = raw_co_io_plug,
+>> > -    .bdrv_co_io_unplug      = raw_co_io_unplug,
+>> >     .bdrv_attach_aio_context = raw_aio_attach_aio_context,
+>> >
+>> >     .bdrv_co_truncate                   = raw_co_truncate,
+>> > @@ -4552,8 +4526,6 @@ static BlockDriver bdrv_host_cdrom = {
+>> >     .bdrv_co_pwritev        = raw_co_pwritev,
+>> >     .bdrv_co_flush_to_disk  = raw_co_flush_to_disk,
+>> >     .bdrv_refresh_limits    = cdrom_refresh_limits,
+>> > -    .bdrv_co_io_plug        = raw_co_io_plug,
+>> > -    .bdrv_co_io_unplug      = raw_co_io_unplug,
+>> >     .bdrv_attach_aio_context = raw_aio_attach_aio_context,
+>> >
+>> >     .bdrv_co_truncate                   = raw_co_truncate,
+>> > diff --git a/block/linux-aio.c b/block/linux-aio.c
+>> > index 442c86209b..5021aed68f 100644
+>> > --- a/block/linux-aio.c
+>> > +++ b/block/linux-aio.c
+>> > @@ -15,6 +15,7 @@
+>> > #include "qemu/event_notifier.h"
+>> > #include "qemu/coroutine.h"
+>> > #include "qapi/error.h"
+>> > +#include "sysemu/block-backend.h"
+>> >
+>> > /* Only used for assertions.  */
+>> > #include "qemu/coroutine_int.h"
+>> > @@ -46,7 +47,6 @@ struct qemu_laiocb {
+>> > };
+>> >
+>> > typedef struct {
+>> > -    int plugged;
+>> >     unsigned int in_queue;
+>> >     unsigned int in_flight;
+>> >     bool blocked;
+>> > @@ -236,7 +236,7 @@ static void qemu_laio_process_completions_and_submit(LinuxAioState *s)
+>> > {
+>> >     qemu_laio_process_completions(s);
+>> >
+>> > -    if (!s->io_q.plugged && !QSIMPLEQ_EMPTY(&s->io_q.pending)) {
+>> > +    if (!QSIMPLEQ_EMPTY(&s->io_q.pending)) {
+>> >         ioq_submit(s);
+>> >     }
+>> > }
+>> > @@ -277,7 +277,6 @@ static void qemu_laio_poll_ready(EventNotifier *opaque)
+>> > static void ioq_init(LaioQueue *io_q)
+>> > {
+>> >     QSIMPLEQ_INIT(&io_q->pending);
+>> > -    io_q->plugged = 0;
+>> >     io_q->in_queue = 0;
+>> >     io_q->in_flight = 0;
+>> >     io_q->blocked = false;
+>> > @@ -354,31 +353,11 @@ static uint64_t laio_max_batch(LinuxAioState *s, uint64_t dev_max_batch)
+>> >     return max_batch;
+>> > }
+>> >
+>> > -void laio_io_plug(void)
+>> > +static void laio_unplug_fn(void *opaque)
+>> > {
+>> > -    AioContext *ctx = qemu_get_current_aio_context();
+>> > -    LinuxAioState *s = aio_get_linux_aio(ctx);
+>> > +    LinuxAioState *s = opaque;
+>> >
+>> > -    s->io_q.plugged++;
+>> > -}
+>> > -
+>> > -void laio_io_unplug(uint64_t dev_max_batch)
+>> > -{
+>> > -    AioContext *ctx = qemu_get_current_aio_context();
+>> > -    LinuxAioState *s = aio_get_linux_aio(ctx);
+>> > -
+>> > -    assert(s->io_q.plugged);
+>> > -    s->io_q.plugged--;
+>> > -
+>> > -    /*
+>> > -     * Why max batch checking is performed here:
+>> > -     * Another BDS may have queued requests with a higher dev_max_batch and
+>> > -     * therefore in_queue could now exceed our dev_max_batch. Re-check the max
+>> > -     * batch so we can honor our device's dev_max_batch.
+>> > -     */
+>> > -    if (s->io_q.in_queue >= laio_max_batch(s, dev_max_batch) ||
+>>
+>> Why are we removing this condition?
+>> Could the same situation occur with the new API?
+>
+>The semantics of unplug_fn() are different from .bdrv_co_unplug():
+>1. unplug_fn() is only called when the last blk_io_unplug() call occurs,
+>   not every time blk_io_unplug() is called.
+>2. unplug_fn() is per-thread, not per-BlockDriverState, so there is no
+>   way to get per-BlockDriverState fields like dev_max_batch.
+>
+>Therefore this condition cannot be moved to laio_unplug_fn().
 
-Not that you added this, but I'm confused.  The spec I'm reading
-explicitly states that bits 0:2 are reserved and must be 0.
+I see now.
 
-Is this some quirk of the specific chipset we aim to emulate?
+>
+>How important is this condition? I believe that dropping it does not
+>have much of an effect but maybe I missed something.
 
-Thanks, Roger.
+With Kevin we agreed to add it to avoid extra latency in some devices,
+but we didn't do much testing on this.
+
+IIRC what solved the performance degradation was the check in
+laio_do_submit() that we still have after this changes.
+
+So it may not have much effect, but maybe it's worth mentioning in
+the commit description.
+
+>
+>Also, does it make sense to define per-BlockDriverState batching limits
+>when the AIO engine (Linux AIO or io_uring) is thread-local and shared
+>between all BlockDriverStates? I believe the fundamental reason (that we
+>discovered later) why dev_max_batch is effective is because the Linux
+>kernel processes 32 I/O request submissions at a time. Anything above 32
+>adds latency without a batching benefit.
+
+This is a good point, maybe we should confirm it with some tests though.
+
+Thanks,
+Stefano
+
 
