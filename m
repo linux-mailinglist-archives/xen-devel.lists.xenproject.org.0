@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 276C971713C
-	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 01:06:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541522.844373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59427717177
+	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 01:17:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541526.844382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q48PQ-00058I-Bl; Tue, 30 May 2023 23:05:44 +0000
+	id 1q48Zd-0006cq-8z; Tue, 30 May 2023 23:16:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541522.844373; Tue, 30 May 2023 23:05:44 +0000
+Received: by outflank-mailman (output) from mailman id 541526.844382; Tue, 30 May 2023 23:16:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q48PQ-000565-8I; Tue, 30 May 2023 23:05:44 +0000
-Received: by outflank-mailman (input) for mailman id 541522;
- Tue, 30 May 2023 23:05:43 +0000
+	id 1q48Zd-0006ar-6I; Tue, 30 May 2023 23:16:17 +0000
+Received: by outflank-mailman (input) for mailman id 541526;
+ Tue, 30 May 2023 23:16:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FU5e=BT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1q48PP-00055z-AQ
- for xen-devel@lists.xenproject.org; Tue, 30 May 2023 23:05:43 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ <SRS0=aK1z=BT=chromium.org=keescook@srs-se1.protection.inumbo.net>)
+ id 1q48Zb-0006al-7V
+ for xen-devel@lists.xenproject.org; Tue, 30 May 2023 23:16:15 +0000
+Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
+ [2607:f8b0:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d761fa4-ff3e-11ed-8611-37d641c3527e;
- Wed, 31 May 2023 01:05:38 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E379661336;
- Tue, 30 May 2023 23:05:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3140C433D2;
- Tue, 30 May 2023 23:05:36 +0000 (UTC)
+ id f6d73150-ff3f-11ed-8611-37d641c3527e;
+ Wed, 31 May 2023 01:16:11 +0200 (CEST)
+Received: by mail-pf1-x42d.google.com with SMTP id
+ d2e1a72fcca58-64d30ab1ef2so3838540b3a.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 May 2023 16:16:12 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ v22-20020aa78516000000b0063d3d776910sm2123773pfn.138.2023.05.30.16.16.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 May 2023 16:16:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,248 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d761fa4-ff3e-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1685487937;
-	bh=W4qs1C3fqrpYJfUFup6WGc9s7xQH+F9LR2w3DLMz8gI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=CV5Svw/G1dVZFoLzHmRi/CkqKaK8eYofGD2cg0fTDhwFtPFCVH0YFMymrLQ1p9pc8
-	 yAR6Yh1gPpwJ11Usgg+oF+zQuV9+dTFwcXAbepLWmX2ioKbU1WkSxI0QgyKA3kxMR5
-	 G5oti36qyguGLHEq4TF3q1QEbnt832T3yh5pKxLwT+cNN+gvQD9UdSt6m+lwZs5EZp
-	 T26ev6ymsTVfUEy/DibhFV6Vi1tZm+FiDo/SFu0wueagoj/8QEcXidWS5zQj6CZ6r8
-	 X1GmOVCNjYJKiMMfF93TUMWP1j8eOBL1DAWEDqo5NAeFrKn0WZUaJ4OgSf5tbRbr6O
-	 WERjhjiYv6g2w==
-Date: Tue, 30 May 2023 16:05:35 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v3] vPCI: account for hidden devices
-In-Reply-To: <e1c6e297-0046-73f6-981d-af776b271f24@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2305301604530.44000@ubuntu-linux-20-04-desktop>
-References: <e1c6e297-0046-73f6-981d-af776b271f24@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: f6d73150-ff3f-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1685488571; x=1688080571;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=q6wOdCsvPcfL1AGuKhq7si1i+l1tB9VGHRhgBuI4hFQ=;
+        b=A6P9MRUqWxltKJ9Zgwok7DSDRoOxoww2FWlF6WQO1tYgoM5+Hi0Ez2oEaQQjsD1m8R
+         d4fRiNfemEoHsLbKtPfU643qi1eTaIaRbZTrXG8PIKxDT7zOE/fxQqSHWBsVd7zxgsD9
+         9LmT/yPeVeEdIlXyQ0jganlgblNgnS7PESvrk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685488571; x=1688080571;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=q6wOdCsvPcfL1AGuKhq7si1i+l1tB9VGHRhgBuI4hFQ=;
+        b=VapaaLoMBbAC9ofdaYuqscy2CC1i1hkgCU+GxcH6e9ARnQMnWuU3hD9ji6iTEyTHUe
+         UGHqjOnsgyTXuU7mY/ansOGcIXZOE/xy+df9+uSVtW7Ep1ltSRm7JtvsxSVu2GJ5lX/4
+         OS64EYxtQkaPwiFGiUA9kwlVHjwImIkXZ5VcDbhdAfMINoJwXqwz+8up/o248RSysgJ6
+         7+R5uOzzlipuGRUdZEPWU99yAAL6vCZDU43pWciFn2THx9wZXFTZz+lEbxmiTjjndotI
+         xBEl4nHMIENSAgkHoy8a2cwjNdzJ7ahbZnqqZhOLu4Pk8HxUXlLKkuHeKvQ/0z/kDy53
+         6qFw==
+X-Gm-Message-State: AC+VfDydEI/EGaNWqSepnH3xEJILCS69bxhkcCqwx4t4kvDsbip1kGof
+	e6kSwflQZP/UHtlXFI9S/7DM4g==
+X-Google-Smtp-Source: ACHHUZ5vUXK2I/pfuTav0TBfWy3DDrvFJsd+7uESTSUanu+Vl50RByVZpLds9PiU8F5GGbjiErQYOQ==
+X-Received: by 2002:a05:6a00:10c4:b0:646:663a:9d60 with SMTP id d4-20020a056a0010c400b00646663a9d60mr4308038pfu.10.1685488570875;
+        Tue, 30 May 2023 16:16:10 -0700 (PDT)
+Date: Tue, 30 May 2023 16:16:09 -0700
+From: Kees Cook <keescook@chromium.org>
+To: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>
+Cc: Wei Liu <wei.liu@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Alexander Graf <graf@amazon.com>,
+	Forrest Yuan Yu <yuanyu@google.com>,
+	James Morris <jamorris@linux.microsoft.com>,
+	John Andersen <john.s.andersen@intel.com>,
+	"Madhavan T . Venkataraman" <madvenka@linux.microsoft.com>,
+	Marian Rotariu <marian.c.rotariu@gmail.com>,
+	Mihai =?utf-8?B?RG9uyJt1?= <mdontu@bitdefender.com>,
+	=?utf-8?B?TmljdciZb3IgQ8OuyJt1?= <nicu.citu@icloud.com>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Thara Gopinath <tgopinath@microsoft.com>,
+	Will Deacon <will@kernel.org>,
+	Zahra Tarkhani <ztarkhani@microsoft.com>,
+	=?utf-8?Q?=C8=98tefan_=C8=98icleru?= <ssicleru@bitdefender.com>,
+	dev@lists.cloudhypervisor.org, kvm@vger.kernel.org,
+	linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+	qemu-devel@nongnu.org, virtualization@lists.linux-foundation.org,
+	x86@kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 5/9] KVM: x86: Add new hypercall to lock control
+ registers
+Message-ID: <202305301614.BF8D80D3D5@keescook>
+References: <20230505152046.6575-1-mic@digikod.net>
+ <20230505152046.6575-6-mic@digikod.net>
+ <ZFlllHjntehpthma@liuwe-devbox-debian-v2>
+ <901ff104-215c-8e81-fbae-5ecd8fa94449@digikod.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <901ff104-215c-8e81-fbae-5ecd8fa94449@digikod.net>
 
-On Tue, 30 May 2023, Jan Beulich wrote:
-> Hidden devices (e.g. an add-in PCI serial card used for Xen's serial
-> console) are associated with DomXEN, not Dom0. This means that while
-> looking for overlapping BARs such devices cannot be found on Dom0's list
-> of devices; DomXEN's list also needs to be scanned.
+On Mon, May 29, 2023 at 06:48:03PM +0200, Mickaël Salaün wrote:
 > 
-> Suppress vPCI init altogether for r/o devices (which constitute a subset
-> of hidden ones).
+> On 08/05/2023 23:11, Wei Liu wrote:
+> > On Fri, May 05, 2023 at 05:20:42PM +0200, Mickaël Salaün wrote:
+> > > This enables guests to lock their CR0 and CR4 registers with a subset of
+> > > X86_CR0_WP, X86_CR4_SMEP, X86_CR4_SMAP, X86_CR4_UMIP, X86_CR4_FSGSBASE
+> > > and X86_CR4_CET flags.
+> > > 
+> > > The new KVM_HC_LOCK_CR_UPDATE hypercall takes two arguments.  The first
+> > > is to identify the control register, and the second is a bit mask to
+> > > pin (i.e. mark as read-only).
+> > > 
+> > > These register flags should already be pinned by Linux guests, but once
+> > > compromised, this self-protection mechanism could be disabled, which is
+> > > not the case with this dedicated hypercall.
+> > > 
+> > > Cc: Borislav Petkov <bp@alien8.de>
+> > > Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> > > Cc: H. Peter Anvin <hpa@zytor.com>
+> > > Cc: Ingo Molnar <mingo@redhat.com>
+> > > Cc: Kees Cook <keescook@chromium.org>
+> > > Cc: Madhavan T. Venkataraman <madvenka@linux.microsoft.com>
+> > > Cc: Paolo Bonzini <pbonzini@redhat.com>
+> > > Cc: Sean Christopherson <seanjc@google.com>
+> > > Cc: Thomas Gleixner <tglx@linutronix.de>
+> > > Cc: Vitaly Kuznetsov <vkuznets@redhat.com>
+> > > Cc: Wanpeng Li <wanpengli@tencent.com>
+> > > Signed-off-by: Mickaël Salaün <mic@digikod.net>
+> > > Link: https://lore.kernel.org/r/20230505152046.6575-6-mic@digikod.net
+> > [...]
+> > >   	hw_cr4 = (cr4_read_shadow() & X86_CR4_MCE) | (cr4 & ~X86_CR4_MCE);
+> > >   	if (is_unrestricted_guest(vcpu))
+> > > diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> > > index ffab64d08de3..a529455359ac 100644
+> > > --- a/arch/x86/kvm/x86.c
+> > > +++ b/arch/x86/kvm/x86.c
+> > > @@ -7927,11 +7927,77 @@ static unsigned long emulator_get_cr(struct x86_emulate_ctxt *ctxt, int cr)
+> > >   	return value;
+> > >   }
+> > > +#ifdef CONFIG_HEKI
+> > > +
+> > > +extern unsigned long cr4_pinned_mask;
+> > > +
+> > 
+> > Can this be moved to a header file?
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Yep, but I'm not sure which one. Any preference Kees?
 
-Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+Uh, er, I was never expecting that mask to be non-static. ;) To that
+end, how about putting it in arch/x86/kvm/x86.h ?
 
-
-> ---
-> v3: Also consider pdev being DomXEN's in modify_bars(). Also consult
->     DomXEN in vpci_{read,write}(). Move vpci_write()'s check of the r/o
->     map out of mainline code. Re-base over the standalone addition of
->     the loop continuation in modify_bars(), and finally make the code
->     change there well-formed.
-> v2: Extend existing comment. Relax assertion. Don't initialize vPCI for
->     r/o devices.
-> 
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -218,6 +218,7 @@ static int modify_bars(const struct pci_
->      struct vpci_header *header = &pdev->vpci->header;
->      struct rangeset *mem = rangeset_new(NULL, NULL, 0);
->      struct pci_dev *tmp, *dev = NULL;
-> +    const struct domain *d;
->      const struct vpci_msix *msix = pdev->vpci->msix;
->      unsigned int i;
->      int rc;
-> @@ -285,58 +286,69 @@ static int modify_bars(const struct pci_
->  
->      /*
->       * Check for overlaps with other BARs. Note that only BARs that are
-> -     * currently mapped (enabled) are checked for overlaps.
-> +     * currently mapped (enabled) are checked for overlaps. Note also that
-> +     * for hwdom we also need to include hidden, i.e. DomXEN's, devices.
->       */
-> -    for_each_pdev ( pdev->domain, tmp )
-> +    for ( d = pdev->domain != dom_xen ? pdev->domain : hardware_domain; ; )
->      {
-> -        if ( !tmp->vpci )
-> -            /*
-> -             * For the hardware domain it's possible to have devices assigned
-> -             * to it that are not handled by vPCI, either because those are
-> -             * read-only devices, or because vPCI setup has failed.
-> -             */
-> -            continue;
-> -
-> -        if ( tmp == pdev )
-> +        for_each_pdev ( d, tmp )
->          {
-> -            /*
-> -             * Need to store the device so it's not constified and defer_map
-> -             * can modify it in case of error.
-> -             */
-> -            dev = tmp;
-> -            if ( !rom_only )
-> +            if ( !tmp->vpci )
->                  /*
-> -                 * If memory decoding is toggled avoid checking against the
-> -                 * same device, or else all regions will be removed from the
-> -                 * memory map in the unmap case.
-> +                 * For the hardware domain it's possible to have devices
-> +                 * assigned to it that are not handled by vPCI, either because
-> +                 * those are read-only devices, or because vPCI setup has
-> +                 * failed.
->                   */
->                  continue;
-> -        }
->  
-> -        for ( i = 0; i < ARRAY_SIZE(tmp->vpci->header.bars); i++ )
-> -        {
-> -            const struct vpci_bar *bar = &tmp->vpci->header.bars[i];
-> -            unsigned long start = PFN_DOWN(bar->addr);
-> -            unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
-> -
-> -            if ( !bar->enabled || !rangeset_overlaps_range(mem, start, end) ||
-> -                 /*
-> -                  * If only the ROM enable bit is toggled check against other
-> -                  * BARs in the same device for overlaps, but not against the
-> -                  * same ROM BAR.
-> -                  */
-> -                 (rom_only && tmp == pdev && bar->type == VPCI_BAR_ROM) )
-> -                continue;
-> +            if ( tmp == pdev )
-> +            {
-> +                /*
-> +                 * Need to store the device so it's not constified and defer_map
-> +                 * can modify it in case of error.
-> +                 */
-> +                dev = tmp;
-> +                if ( !rom_only )
-> +                    /*
-> +                     * If memory decoding is toggled avoid checking against the
-> +                     * same device, or else all regions will be removed from the
-> +                     * memory map in the unmap case.
-> +                     */
-> +                    continue;
-> +            }
->  
-> -            rc = rangeset_remove_range(mem, start, end);
-> -            if ( rc )
-> +            for ( i = 0; i < ARRAY_SIZE(tmp->vpci->header.bars); i++ )
->              {
-> -                printk(XENLOG_G_WARNING "Failed to remove [%lx, %lx]: %d\n",
-> -                       start, end, rc);
-> -                rangeset_destroy(mem);
-> -                return rc;
-> +                const struct vpci_bar *bar = &tmp->vpci->header.bars[i];
-> +                unsigned long start = PFN_DOWN(bar->addr);
-> +                unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
-> +
-> +                if ( !bar->enabled ||
-> +                     !rangeset_overlaps_range(mem, start, end) ||
-> +                     /*
-> +                      * If only the ROM enable bit is toggled check against
-> +                      * other BARs in the same device for overlaps, but not
-> +                      * against the same ROM BAR.
-> +                      */
-> +                     (rom_only && tmp == pdev && bar->type == VPCI_BAR_ROM) )
-> +                    continue;
-> +
-> +                rc = rangeset_remove_range(mem, start, end);
-> +                if ( rc )
-> +                {
-> +                    printk(XENLOG_G_WARNING "Failed to remove [%lx, %lx]: %d\n",
-> +                           start, end, rc);
-> +                    rangeset_destroy(mem);
-> +                    return rc;
-> +                }
->              }
->          }
-> +
-> +        if ( !is_hardware_domain(d) )
-> +            break;
-> +
-> +        d = dom_xen;
->      }
->  
->      ASSERT(dev);
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -70,6 +70,7 @@ void vpci_remove_device(struct pci_dev *
->  int vpci_add_handlers(struct pci_dev *pdev)
->  {
->      unsigned int i;
-> +    const unsigned long *ro_map;
->      int rc = 0;
->  
->      if ( !has_vpci(pdev->domain) )
-> @@ -78,6 +79,11 @@ int vpci_add_handlers(struct pci_dev *pd
->      /* We should not get here twice for the same device. */
->      ASSERT(!pdev->vpci);
->  
-> +    /* No vPCI for r/o devices. */
-> +    ro_map = pci_get_ro_map(pdev->sbdf.seg);
-> +    if ( ro_map && test_bit(pdev->sbdf.bdf, ro_map) )
-> +        return 0;
-> +
->      pdev->vpci = xzalloc(struct vpci);
->      if ( !pdev->vpci )
->          return -ENOMEM;
-> @@ -332,8 +338,13 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsi
->          return data;
->      }
->  
-> -    /* Find the PCI dev matching the address. */
-> +    /*
-> +     * Find the PCI dev matching the address, which for hwdom also requires
-> +     * consulting DomXEN.  Passthrough everything that's not trapped.
-> +     */
->      pdev = pci_get_pdev(d, sbdf);
-> +    if ( !pdev && is_hardware_domain(d) )
-> +        pdev = pci_get_pdev(dom_xen, sbdf);
->      if ( !pdev || !pdev->vpci )
->          return vpci_read_hw(sbdf, reg, size);
->  
-> @@ -427,7 +438,6 @@ void vpci_write(pci_sbdf_t sbdf, unsigne
->      const struct pci_dev *pdev;
->      const struct vpci_register *r;
->      unsigned int data_offset = 0;
-> -    const unsigned long *ro_map = pci_get_ro_map(sbdf.seg);
->  
->      if ( !size )
->      {
-> @@ -435,18 +445,20 @@ void vpci_write(pci_sbdf_t sbdf, unsigne
->          return;
->      }
->  
-> -    if ( ro_map && test_bit(sbdf.bdf, ro_map) )
-> -        /* Ignore writes to read-only devices. */
-> -        return;
-> -
->      /*
-> -     * Find the PCI dev matching the address.
-> -     * Passthrough everything that's not trapped.
-> +     * Find the PCI dev matching the address, which for hwdom also requires
-> +     * consulting DomXEN.  Passthrough everything that's not trapped.
->       */
->      pdev = pci_get_pdev(d, sbdf);
-> +    if ( !pdev && is_hardware_domain(d) )
-> +        pdev = pci_get_pdev(dom_xen, sbdf);
->      if ( !pdev || !pdev->vpci )
->      {
-> -        vpci_write_hw(sbdf, reg, size, data);
-> +        /* Ignore writes to read-only devices, which have no ->vpci. */
-> +        const unsigned long *ro_map = pci_get_ro_map(sbdf.seg);
-> +
-> +        if ( !ro_map || !test_bit(sbdf.bdf, ro_map) )
-> +            vpci_write_hw(sbdf, reg, size, data);
->          return;
->      }
->  
-> 
+-- 
+Kees Cook
 
