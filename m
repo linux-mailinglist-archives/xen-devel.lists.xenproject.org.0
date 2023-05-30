@@ -2,38 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3562716A5D
-	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 19:02:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541303.843923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C3E0716A88
+	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 19:12:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541316.843952 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q42jq-00049b-2X; Tue, 30 May 2023 17:02:26 +0000
+	id 1q42t4-0006oK-JI; Tue, 30 May 2023 17:11:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541303.843923; Tue, 30 May 2023 17:02:26 +0000
+Received: by outflank-mailman (output) from mailman id 541316.843952; Tue, 30 May 2023 17:11:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q42jp-00046K-W3; Tue, 30 May 2023 17:02:25 +0000
-Received: by outflank-mailman (input) for mailman id 541303;
- Tue, 30 May 2023 17:02:24 +0000
+	id 1q42t4-0006mI-Gg; Tue, 30 May 2023 17:11:58 +0000
+Received: by outflank-mailman (input) for mailman id 541316;
+ Tue, 30 May 2023 17:11:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m7B1=BT=shutemov.name=kirill@srs-se1.protection.inumbo.net>)
- id 1q42jo-00046B-DJ
- for xen-devel@lists.xenproject.org; Tue, 30 May 2023 17:02:24 +0000
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bc2e756d-ff0b-11ed-8611-37d641c3527e;
- Tue, 30 May 2023 19:02:20 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 0EA885C01FE;
- Tue, 30 May 2023 13:02:18 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Tue, 30 May 2023 13:02:18 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 30 May 2023 13:02:13 -0400 (EDT)
-Received: by box.shutemov.name (Postfix, from userid 1000)
- id 228F410BD95; Tue, 30 May 2023 20:02:10 +0300 (+03)
+ <SRS0=BJNG=BT=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1q42t3-0006mC-CV
+ for xen-devel@lists.xenproject.org; Tue, 30 May 2023 17:11:57 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1362bc0f-ff0d-11ed-8611-37d641c3527e;
+ Tue, 30 May 2023 19:11:55 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-631-dPfcO2s9MyOy4_j1vs0myg-1; Tue, 30 May 2023 13:11:50 -0400
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8340C38025FF;
+ Tue, 30 May 2023 17:11:49 +0000 (UTC)
+Received: from localhost (unknown [10.39.192.201])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id F367FC154D2;
+ Tue, 30 May 2023 17:11:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +50,289 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc2e756d-ff0b-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1685466137; x=
-	1685552537; bh=LP3nfKYA60CmRb8usg09zLfC4LK0DKsE4DbPaZWKkC8=; b=s
-	zV6WskACfFVEqKzRzZ6P7qAJe6qrFMSVHpBH+79Dp07d15X23DMKWcX0I0KFcXyT
-	tzvjPL6PVqxKmWl9OiZAluQTsrsRgXXSkeoGZmBjg2AqbpZoCv4E9eLQoG+5nJyS
-	HkVjFdxFuVE08S4971YSmjn/wkp41pa+PrkMvbhmYb5DpFzY5XaDud34Hh+Zhoz6
-	GurqkOPG4rEcEB8AJi91jlxm1UuPkwewI+Rc+Y0yep2GSLgqXZvuHbrcM3AwGmnK
-	nhvhwVE6CvdzeY2SmUcbH7u12o9rJdx3GhIBQURci3ZBnL3EtUUXUYCE5IO0j3Oy
-	+ve3Is8IMm7NEhKD6NgDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1685466137; x=1685552537; bh=LP3nfKYA60CmR
-	b8usg09zLfC4LK0DKsE4DbPaZWKkC8=; b=RrRPOp3HKdgjex3qNFuRyIK+z7hQt
-	HJxtGK/mchY8kBsvhzWBNaZITNLfVOjgxQFvAOTOf7PWbRIH/fhJZ3M68cpZl3Kn
-	HDUVS/n7Z+vZxwnvikIMopbIJPPmy57YeU8FBhAPUN2sSq8d9kvTt2KyQQkK8gs4
-	No0ajlXD9loe4/8muuMVBSwc6QJe1Lj9066iqw3R3OBSLwPg9Nby7zf3HGR8BFrS
-	dYSVo6XMqyuUOZCcoeZ3/3G5JLGm2OhrRi2RCgQxZ5fd/w1BJX5y/1Ihd/UcUUuz
-	E57DkJY8AxBbAzIrP2YlwBcSBfaZjdfjJciTnAVEgX/CKECNh69XtWHjA==
-X-ME-Sender: <xms:FSx2ZM4Mq2KAXSzW7xxZWvfpDiasjaZIBeacE7HlH1FClmBTxkzytg>
-    <xme:FSx2ZN6jM2ofnqd2UQ2vPVOctwBgLs5l_3lkVcIXxAiK_wk7w0xis6VpeGHxeSfMQ
-    MfGz3AihHCrPbPLMOY>
-X-ME-Received: <xmr:FSx2ZLeRPinJ2C5f9UrPoRvDeLWSbWpsQP0zjqFZOi8_cOsPLLOLFBLd6J4hz_zV5iLd1Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeekjedguddthecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehttddttddttddvnecuhfhrohhmpedfmfhi
-    rhhilhhlucetrdcuufhhuhhtvghmohhvfdcuoehkihhrihhllhesshhhuhhtvghmohhvrd
-    hnrghmvgeqnecuggftrfgrthhtvghrnhephfeigefhtdefhedtfedthefghedutddvueeh
-    tedttdehjeeukeejgeeuiedvkedtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrg
-    hmpehmrghilhhfrhhomhepkhhirhhilhhlsehshhhuthgvmhhovhdrnhgrmhgv
-X-ME-Proxy: <xmx:Fix2ZBLhJRJiOQvWIoDyOqk9SL9n8lDqxeC32Ul4urdF3eutnKxrvw>
-    <xmx:Fix2ZALFMhddyYQL6OktSRbWxIz8cLG6QYGTV0okFsA0NNYe2oPMJA>
-    <xmx:Fix2ZCxKXFgl20Rki5Rb1K8_TT3BALB_9tnh9UHkN9QeaU67GWhF0A>
-    <xmx:GSx2ZHr72m1Fde2ANoy9Cc4IuCDUtJgIl9vC2QblR6MMwhrZPaAhaw>
-Feedback-ID: ie3994620:Fastmail
-Date: Tue, 30 May 2023 20:02:10 +0300
-From: "Kirill A. Shutemov" <kirill@shutemov.name>
-To: Thomas Gleixner <tglx@linutronix.de>,
-	Tom Lendacky <thomas.lendacky@amd.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
-	David Woodhouse <dwmw2@infradead.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Brian Gerst <brgerst@gmail.com>,
-	Arjan van de Veen <arjan@linux.intel.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,	Paul McKenney <paulmck@kernel.org>,
-	Sean Christopherson <seanjc@google.com>,
-	Oleksandr Natalenko <oleksandr@natalenko.name>,
-	Paul Menzel <pmenzel@molgen.mpg.de>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Piotr Gorski <lucjan.lucjanov@gmail.com>,
-	Usama Arif <usama.arif@bytedance.com>,	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org,	Russell King <linux@armlinux.org.uk>,
- Arnd Bergmann <arnd@arndb.de>,	linux-arm-kernel@lists.infradead.org,
-	Catalin Marinas <catalin.marinas@arm.com>,	Will Deacon <will@kernel.org>,
- Guo Ren <guoren@kernel.org>,	linux-csky@vger.kernel.org,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Helge Deller <deller@gmx.de>, linux-parisc@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,	linux-riscv@lists.infradead.org,
-	Mark Rutland <mark.rutland@arm.com>,	Sabin Rapan <sabrapan@amazon.com>,
-	"Michael Kelley (LINUX)" <mikelley@microsoft.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: Re: [patch] x86/smpboot: Disable parallel bootup if cc_vendor != NONE
-Message-ID: <20230530170210.ujkv737uyjfvdoay@box.shutemov.name>
-References: <87sfbhlwp9.ffs@tglx>
- <20230529023939.mc2akptpxcg3eh2f@box.shutemov.name>
- <87bki3kkfi.ffs@tglx>
- <20230529203129.sthnhzgds7ynddxd@box.shutemov.name>
- <20230530005428.jyrc2ezx5raohlrt@box.shutemov.name>
- <87mt1mjhk3.ffs@tglx>
- <87jzwqjeey.ffs@tglx>
- <87cz2ija1e.ffs@tglx>
- <20230530122951.2wu5rwcu26ofov6f@box.shutemov.name>
- <87wn0pizbl.ffs@tglx>
+X-Inumbo-ID: 1362bc0f-ff0d-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1685466714;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=bmkH+iq/OmPHas9aSt5XErWUo4Wcii5lkj8crDV/n3g=;
+	b=ZJv+NYpUa4iyMZZjIMCDWij5hLhsxc4hfxqWlyiwn7d0ss41ej/yiNbGRdOZ0XiPIYAvih
+	gleicbcOm3a7EY/6wAu1ADzpjTiFQdrYrjYZ3l/6GYcTZMEqPOyW1aNStW1yFQPiEPvASj
+	Ow/oKuVIKWJ2AXwkhJILBSfMqxuSSWI=
+X-MC-Unique: dPfcO2s9MyOy4_j1vs0myg-1
+Date: Tue, 30 May 2023 13:11:47 -0400
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: qemu-devel@nongnu.org, Aarushi Mehta <mehta.aaru20@gmail.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Julia Suvorova <jusual@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Paul Durrant <paul@xen.org>, Hanna Reitz <hreitz@redhat.com>,
+	Kevin Wolf <kwolf@redhat.com>, Fam Zheng <fam@euphon.net>,
+	xen-devel@lists.xenproject.org, eblake@redhat.com,
+	Anthony Perard <anthony.perard@citrix.com>, qemu-block@nongnu.org
+Subject: Re: [PATCH v2 5/6] block/linux-aio: convert to blk_io_plug_call() API
+Message-ID: <20230530171147.GA991054@fedora>
+References: <20230523171300.132347-1-stefanha@redhat.com>
+ <20230523171300.132347-6-stefanha@redhat.com>
+ <n6hik7dbl26lomhxvfal2kjrq6jhdiknjepb372dvxavuwiw6q@3l3mo4eywoxq>
+ <20230524193634.GB17357@fedora>
+ <63lutuyufibun4jscbjjlshbqqw6otetzfi67rfnfrxacwutnj@igewwxh4uwys>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="E6/uC6M7CDHnrLPP"
+Content-Disposition: inline
+In-Reply-To: <63lutuyufibun4jscbjjlshbqqw6otetzfi67rfnfrxacwutnj@igewwxh4uwys>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+
+
+--E6/uC6M7CDHnrLPP
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87wn0pizbl.ffs@tglx>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 30, 2023 at 06:00:46PM +0200, Thomas Gleixner wrote:
-> On Tue, May 30 2023 at 15:29, Kirill A. Shutemov wrote:
-> > On Tue, May 30, 2023 at 02:09:17PM +0200, Thomas Gleixner wrote:
-> >> The decision to allow parallel bringup of secondary CPUs checks
-> >> CC_ATTR_GUEST_STATE_ENCRYPT to detect encrypted guests. Those cannot use
-> >> parallel bootup because accessing the local APIC is intercepted and raises
-> >> a #VC or #VE, which cannot be handled at that point.
-> >> 
-> >> The check works correctly, but only for AMD encrypted guests. TDX does not
-> >> set that flag.
-> >> 
-> >> Check for cc_vendor != CC_VENDOR_NONE instead. That might be overbroad, but
-> >> definitely works for both AMD and Intel.
-> >
-> > It boots fine with TDX, but I think it is wrong. cc_get_vendor() will
-> > report CC_VENDOR_AMD even on bare metal if SME is enabled. I don't think
-> > we want it.
-> 
-> Right. Did not think about that.
-> 
-> But the same way is CC_ATTR_GUEST_MEM_ENCRYPT overbroad for AMD. Only
-> SEV-ES traps RDMSR if I'm understandig that maze correctly.
+On Mon, May 29, 2023 at 10:50:34AM +0200, Stefano Garzarella wrote:
+> On Wed, May 24, 2023 at 03:36:34PM -0400, Stefan Hajnoczi wrote:
+> > On Wed, May 24, 2023 at 10:52:03AM +0200, Stefano Garzarella wrote:
+> > > On Tue, May 23, 2023 at 01:12:59PM -0400, Stefan Hajnoczi wrote:
+> > > > Stop using the .bdrv_co_io_plug() API because it is not multi-queue
+> > > > block layer friendly. Use the new blk_io_plug_call() API to batch I=
+/O
+> > > > submission instead.
+> > > >
+> > > > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> > > > Reviewed-by: Eric Blake <eblake@redhat.com>
+> > > > ---
+> > > > include/block/raw-aio.h |  7 -------
+> > > > block/file-posix.c      | 28 ----------------------------
+> > > > block/linux-aio.c       | 41 +++++++++++---------------------------=
+---
+> > > > 3 files changed, 11 insertions(+), 65 deletions(-)
+> > > >
+> > > > diff --git a/include/block/raw-aio.h b/include/block/raw-aio.h
+> > > > index da60ca13ef..0f63c2800c 100644
+> > > > --- a/include/block/raw-aio.h
+> > > > +++ b/include/block/raw-aio.h
+> > > > @@ -62,13 +62,6 @@ int coroutine_fn laio_co_submit(int fd, uint64_t=
+ offset, QEMUIOVector *qiov,
+> > > >
+> > > > void laio_detach_aio_context(LinuxAioState *s, AioContext *old_cont=
+ext);
+> > > > void laio_attach_aio_context(LinuxAioState *s, AioContext *new_cont=
+ext);
+> > > > -
+> > > > -/*
+> > > > - * laio_io_plug/unplug work in the thread's current AioContext, th=
+erefore the
+> > > > - * caller must ensure that they are paired in the same IOThread.
+> > > > - */
+> > > > -void laio_io_plug(void);
+> > > > -void laio_io_unplug(uint64_t dev_max_batch);
+> > > > #endif
+> > > > /* io_uring.c - Linux io_uring implementation */
+> > > > #ifdef CONFIG_LINUX_IO_URING
+> > > > diff --git a/block/file-posix.c b/block/file-posix.c
+> > > > index 7baa8491dd..ac1ed54811 100644
+> > > > --- a/block/file-posix.c
+> > > > +++ b/block/file-posix.c
+> > > > @@ -2550,26 +2550,6 @@ static int coroutine_fn raw_co_pwritev(Block=
+DriverState *bs, int64_t offset,
+> > > >     return raw_co_prw(bs, offset, bytes, qiov, QEMU_AIO_WRITE);
+> > > > }
+> > > >
+> > > > -static void coroutine_fn raw_co_io_plug(BlockDriverState *bs)
+> > > > -{
+> > > > -    BDRVRawState __attribute__((unused)) *s =3D bs->opaque;
+> > > > -#ifdef CONFIG_LINUX_AIO
+> > > > -    if (s->use_linux_aio) {
+> > > > -        laio_io_plug();
+> > > > -    }
+> > > > -#endif
+> > > > -}
+> > > > -
+> > > > -static void coroutine_fn raw_co_io_unplug(BlockDriverState *bs)
+> > > > -{
+> > > > -    BDRVRawState __attribute__((unused)) *s =3D bs->opaque;
+> > > > -#ifdef CONFIG_LINUX_AIO
+> > > > -    if (s->use_linux_aio) {
+> > > > -        laio_io_unplug(s->aio_max_batch);
+> > > > -    }
+> > > > -#endif
+> > > > -}
+> > > > -
+> > > > static int coroutine_fn raw_co_flush_to_disk(BlockDriverState *bs)
+> > > > {
+> > > >     BDRVRawState *s =3D bs->opaque;
+> > > > @@ -3914,8 +3894,6 @@ BlockDriver bdrv_file =3D {
+> > > >     .bdrv_co_copy_range_from =3D raw_co_copy_range_from,
+> > > >     .bdrv_co_copy_range_to  =3D raw_co_copy_range_to,
+> > > >     .bdrv_refresh_limits =3D raw_refresh_limits,
+> > > > -    .bdrv_co_io_plug        =3D raw_co_io_plug,
+> > > > -    .bdrv_co_io_unplug      =3D raw_co_io_unplug,
+> > > >     .bdrv_attach_aio_context =3D raw_aio_attach_aio_context,
+> > > >
+> > > >     .bdrv_co_truncate                   =3D raw_co_truncate,
+> > > > @@ -4286,8 +4264,6 @@ static BlockDriver bdrv_host_device =3D {
+> > > >     .bdrv_co_copy_range_from =3D raw_co_copy_range_from,
+> > > >     .bdrv_co_copy_range_to  =3D raw_co_copy_range_to,
+> > > >     .bdrv_refresh_limits =3D raw_refresh_limits,
+> > > > -    .bdrv_co_io_plug        =3D raw_co_io_plug,
+> > > > -    .bdrv_co_io_unplug      =3D raw_co_io_unplug,
+> > > >     .bdrv_attach_aio_context =3D raw_aio_attach_aio_context,
+> > > >
+> > > >     .bdrv_co_truncate                   =3D raw_co_truncate,
+> > > > @@ -4424,8 +4400,6 @@ static BlockDriver bdrv_host_cdrom =3D {
+> > > >     .bdrv_co_pwritev        =3D raw_co_pwritev,
+> > > >     .bdrv_co_flush_to_disk  =3D raw_co_flush_to_disk,
+> > > >     .bdrv_refresh_limits    =3D cdrom_refresh_limits,
+> > > > -    .bdrv_co_io_plug        =3D raw_co_io_plug,
+> > > > -    .bdrv_co_io_unplug      =3D raw_co_io_unplug,
+> > > >     .bdrv_attach_aio_context =3D raw_aio_attach_aio_context,
+> > > >
+> > > >     .bdrv_co_truncate                   =3D raw_co_truncate,
+> > > > @@ -4552,8 +4526,6 @@ static BlockDriver bdrv_host_cdrom =3D {
+> > > >     .bdrv_co_pwritev        =3D raw_co_pwritev,
+> > > >     .bdrv_co_flush_to_disk  =3D raw_co_flush_to_disk,
+> > > >     .bdrv_refresh_limits    =3D cdrom_refresh_limits,
+> > > > -    .bdrv_co_io_plug        =3D raw_co_io_plug,
+> > > > -    .bdrv_co_io_unplug      =3D raw_co_io_unplug,
+> > > >     .bdrv_attach_aio_context =3D raw_aio_attach_aio_context,
+> > > >
+> > > >     .bdrv_co_truncate                   =3D raw_co_truncate,
+> > > > diff --git a/block/linux-aio.c b/block/linux-aio.c
+> > > > index 442c86209b..5021aed68f 100644
+> > > > --- a/block/linux-aio.c
+> > > > +++ b/block/linux-aio.c
+> > > > @@ -15,6 +15,7 @@
+> > > > #include "qemu/event_notifier.h"
+> > > > #include "qemu/coroutine.h"
+> > > > #include "qapi/error.h"
+> > > > +#include "sysemu/block-backend.h"
+> > > >
+> > > > /* Only used for assertions.  */
+> > > > #include "qemu/coroutine_int.h"
+> > > > @@ -46,7 +47,6 @@ struct qemu_laiocb {
+> > > > };
+> > > >
+> > > > typedef struct {
+> > > > -    int plugged;
+> > > >     unsigned int in_queue;
+> > > >     unsigned int in_flight;
+> > > >     bool blocked;
+> > > > @@ -236,7 +236,7 @@ static void qemu_laio_process_completions_and_s=
+ubmit(LinuxAioState *s)
+> > > > {
+> > > >     qemu_laio_process_completions(s);
+> > > >
+> > > > -    if (!s->io_q.plugged && !QSIMPLEQ_EMPTY(&s->io_q.pending)) {
+> > > > +    if (!QSIMPLEQ_EMPTY(&s->io_q.pending)) {
+> > > >         ioq_submit(s);
+> > > >     }
+> > > > }
+> > > > @@ -277,7 +277,6 @@ static void qemu_laio_poll_ready(EventNotifier =
+*opaque)
+> > > > static void ioq_init(LaioQueue *io_q)
+> > > > {
+> > > >     QSIMPLEQ_INIT(&io_q->pending);
+> > > > -    io_q->plugged =3D 0;
+> > > >     io_q->in_queue =3D 0;
+> > > >     io_q->in_flight =3D 0;
+> > > >     io_q->blocked =3D false;
+> > > > @@ -354,31 +353,11 @@ static uint64_t laio_max_batch(LinuxAioState =
+*s, uint64_t dev_max_batch)
+> > > >     return max_batch;
+> > > > }
+> > > >
+> > > > -void laio_io_plug(void)
+> > > > +static void laio_unplug_fn(void *opaque)
+> > > > {
+> > > > -    AioContext *ctx =3D qemu_get_current_aio_context();
+> > > > -    LinuxAioState *s =3D aio_get_linux_aio(ctx);
+> > > > +    LinuxAioState *s =3D opaque;
+> > > >
+> > > > -    s->io_q.plugged++;
+> > > > -}
+> > > > -
+> > > > -void laio_io_unplug(uint64_t dev_max_batch)
+> > > > -{
+> > > > -    AioContext *ctx =3D qemu_get_current_aio_context();
+> > > > -    LinuxAioState *s =3D aio_get_linux_aio(ctx);
+> > > > -
+> > > > -    assert(s->io_q.plugged);
+> > > > -    s->io_q.plugged--;
+> > > > -
+> > > > -    /*
+> > > > -     * Why max batch checking is performed here:
+> > > > -     * Another BDS may have queued requests with a higher dev_max_=
+batch and
+> > > > -     * therefore in_queue could now exceed our dev_max_batch. Re-c=
+heck the max
+> > > > -     * batch so we can honor our device's dev_max_batch.
+> > > > -     */
+> > > > -    if (s->io_q.in_queue >=3D laio_max_batch(s, dev_max_batch) ||
+> > >=20
+> > > Why are we removing this condition?
+> > > Could the same situation occur with the new API?
+> >=20
+> > The semantics of unplug_fn() are different from .bdrv_co_unplug():
+> > 1. unplug_fn() is only called when the last blk_io_unplug() call occurs,
+> >   not every time blk_io_unplug() is called.
+> > 2. unplug_fn() is per-thread, not per-BlockDriverState, so there is no
+> >   way to get per-BlockDriverState fields like dev_max_batch.
+> >=20
+> > Therefore this condition cannot be moved to laio_unplug_fn().
+>=20
+> I see now.
+>=20
+> >=20
+> > How important is this condition? I believe that dropping it does not
+> > have much of an effect but maybe I missed something.
+>=20
+> With Kevin we agreed to add it to avoid extra latency in some devices,
+> but we didn't do much testing on this.
+>=20
+> IIRC what solved the performance degradation was the check in
+> laio_do_submit() that we still have after this changes.
+>=20
+> So it may not have much effect, but maybe it's worth mentioning in
+> the commit description.
 
-I don't know difference between SEV flavours that well.
+I'll update the commit description.
 
-I see there's that on SEV-SNP access to x2APIC MSR range (MSR 0x800-0x8FF)
-is intercepted regardless if MSR_AMD64_SNP_ALT_INJ feature is present. But
-I'm not sure what the state on SEV or SEV-ES.
+> >=20
+> > Also, does it make sense to define per-BlockDriverState batching limits
+> > when the AIO engine (Linux AIO or io_uring) is thread-local and shared
+> > between all BlockDriverStates? I believe the fundamental reason (that we
+> > discovered later) why dev_max_batch is effective is because the Linux
+> > kernel processes 32 I/O request submissions at a time. Anything above 32
+> > adds latency without a batching benefit.
+>=20
+> This is a good point, maybe we should confirm it with some tests though.
 
-Tom?
+Yes, I would benchmark it. Also, switching to per-thread max_batch
+involves a command-line interface change and we still need to keep
+aio-max-batch for compatibility for some time, so it's not urgent.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Stefan
+
+--E6/uC6M7CDHnrLPP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmR2LlMACgkQnKSrs4Gr
+c8h/Ggf7B7c65EZOrTNGL/839KEM85T6s0FUc1sNOCzsZju0RUmP/RLa23pmgTLW
+RftvkboiCIe370CmfeiDz98h7g9BE2QFqNIrztwxbq2SK3AC8N48lUCS0Ssn0ZgA
+Xtt6Qr9hiMBGBYmucYTp3SX7bw+eity223jOvhru/HRBUb9bvFq60fSwE8q5bTwT
+rWIAfW8HKeC/z9Kqb8hgtgpIQc3hxRP/B9LpwTRnAWy/0JPFgY0eHf0E7wtiAbKp
+9InSWGn55VQeAZDIqhgrDf3dSdcPYRMRq4UF9gU3hMvjVnCGZ/5KJk9VyZASenVS
+wzOd5uBnaXVA42cN7HLszt7UgwGr0A==
+=+o/P
+-----END PGP SIGNATURE-----
+
+--E6/uC6M7CDHnrLPP--
+
 
