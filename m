@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66FCA715AD7
-	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 11:57:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541048.843353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1AE4716A2C
+	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 18:58:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541290.843893 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q3w6S-0005VP-Ik; Tue, 30 May 2023 09:57:20 +0000
+	id 1q42fN-0001Tz-VH; Tue, 30 May 2023 16:57:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541048.843353; Tue, 30 May 2023 09:57:20 +0000
+Received: by outflank-mailman (output) from mailman id 541290.843893; Tue, 30 May 2023 16:57:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q3w6S-0005Sh-FN; Tue, 30 May 2023 09:57:20 +0000
-Received: by outflank-mailman (input) for mailman id 541048;
- Tue, 30 May 2023 09:57:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q42fN-0001RU-Qx; Tue, 30 May 2023 16:57:49 +0000
+Received: by outflank-mailman (input) for mailman id 541290;
+ Tue, 30 May 2023 16:57:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4Ox2=BT=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1q3w6Q-0005SY-Ed
- for xen-devel@lists.xenproject.org; Tue, 30 May 2023 09:57:18 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b64b964-fed0-11ed-8611-37d641c3527e;
- Tue, 30 May 2023 11:57:16 +0200 (CEST)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-3f6da07feb2so43741545e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 May 2023 02:57:16 -0700 (PDT)
-Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- p5-20020a5d4585000000b0030796e103a1sm2757861wrq.5.2023.05.30.02.57.15
+ <SRS0=wXld=BT=gmail.com=bobbyeshleman@srs-se1.protection.inumbo.net>)
+ id 1q42fM-0001RD-E2
+ for xen-devel@lists.xenproject.org; Tue, 30 May 2023 16:57:48 +0000
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [2607:f8b0:4864:20::433])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 19aed878-ff0b-11ed-b231-6b7b168915f2;
+ Tue, 30 May 2023 18:57:46 +0200 (CEST)
+Received: by mail-pf1-x433.google.com with SMTP id
+ d2e1a72fcca58-64d2f99c8c3so3439286b3a.0
+ for <xen-devel@lists.xenproject.org>; Tue, 30 May 2023 09:57:46 -0700 (PDT)
+Received: from localhost (ec2-52-9-159-93.us-west-1.compute.amazonaws.com.
+ [52.9.159.93]) by smtp.gmail.com with ESMTPSA id
+ k8-20020a635a48000000b0052cbd854927sm8830281pgm.18.2023.05.30.09.57.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 May 2023 02:57:15 -0700 (PDT)
+ Tue, 30 May 2023 09:57:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b64b964-fed0-11ed-8611-37d641c3527e
+X-Inumbo-ID: 19aed878-ff0b-11ed-b231-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1685440635; x=1688032635;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=P5oSMsY1ga/vmDE3/XkALs3Dzm2NZpe0Jaj6342SjPA=;
-        b=FSqNdSkyrN9B1JRLQvkvb/KEIqmlvCOQubt24iCDwVh6ca9NAqRewnx/BtoOgGlk8c
-         mLjy2Af9FFig+YNJOhtj4YtcPI+H/A9kEzKS/jh2Jw62g9DffsTz9hw1b7OtMgnNGGKv
-         5agIcF6N5dJymsTnRsAMKccJNwlAqE34HRjHc=
+        d=gmail.com; s=20221208; t=1685465865; x=1688057865;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=iuWqQbNxc4T0f/DD5bEBy0I3LDWfGOw8QZp3us3pmgE=;
+        b=A9AvHKYUdzFNAqzJpECrFSlpog12ItecR62EC7N/160mH8oO/LuQof1MztDRk5ZlGP
+         EvMiKoOoJhcTjrbStdshlQZXsAFeTamcUtvVxhNzFdKHGMuD0FNnQA0cgqXo//viZVA4
+         mdrGfsDayef8NCSQVHWe5KjAR15R5qCAB494JPe9Lohd37WbSOZSQcoB7UoULy9SwrWN
+         GWUJUGFLpHokW1d2XTye9RkbcjONc40tSbck382uhdiXBSSfdOkogXIdtOjRu6gv8KvW
+         bTv5kWAeM338pA0ggXAoo3LHh+6mGoAxZZmkzNuCcmFDRvtkmodWW7n2DRYcEcMxCO0R
+         t3wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685440635; x=1688032635;
-        h=in-reply-to:content-disposition:mime-version:references:subject:cc
-         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20221208; t=1685465865; x=1688057865;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=P5oSMsY1ga/vmDE3/XkALs3Dzm2NZpe0Jaj6342SjPA=;
-        b=eUaGbbh3R2dDYtmnZiW8JowHWqIVYgBH49K3BEJwx2aZUdkd1pRiaxNpSsylzKBkym
-         iLdEomOL+LnzL6gzwQgSFewpS3iV9YKvIO7pddB4Qph/JLc63lPxyu1MIHkpNOyqO1Q6
-         aBzxG8wZ2JT5XJARKg8Lzq3H8BU8pelskfsxywjh+7dSHenlXG7i74i9at/Yw6/Nc341
-         EABnpi3lVOlvVfP7ybhN7JPP/FUQNa5bCc7j5B7DbJxcqwY9SfYA76BvTF6HMEhAejVp
-         NcDicOKo2TueXsSnvgxbxlN0/4aLl5tcGRS/0mECmgEntMGIodUlgPM1WrCLRFOrBC9N
-         eSKw==
-X-Gm-Message-State: AC+VfDxLSNBJKYwSpwlk0XwffPF0SZV5fSbmxL1axDAxPjCo7aBfgmzQ
-	KbKdZC+mgUUZpE8KO3RQSnaaYg==
-X-Google-Smtp-Source: ACHHUZ7WZ8lG8a7tMRKwp+GxoSwp0WCcoh5ttPZP1yrMBlDDrfl6Xza54smftJJoLzqpqnaNU+IwoA==
-X-Received: by 2002:a1c:f70b:0:b0:3f1:72fb:461a with SMTP id v11-20020a1cf70b000000b003f172fb461amr1211396wmh.2.1685440635478;
-        Tue, 30 May 2023 02:57:15 -0700 (PDT)
-Message-ID: <6475c87b.5d0a0220.132eb.a83f@mx.google.com>
-X-Google-Original-Message-ID: <ZHXIedQKwDVWC820@EMEAENGAAD19049.>
-Date: Tue, 30 May 2023 10:57:13 +0100
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 2/3] x86: Add support for AMD's Automatic IBRS
-References: <20230526150044.31553-1-alejandro.vallejo@cloud.com>
- <20230526150044.31553-3-alejandro.vallejo@cloud.com>
- <64820a10-622e-dc10-988b-613542349ec9@suse.com>
+        bh=iuWqQbNxc4T0f/DD5bEBy0I3LDWfGOw8QZp3us3pmgE=;
+        b=dcMYtrWqylYxOpetn/lxRztKPicI0we+jsFlVlyuB/eXw4yDseHax/4wAXqzboe3GA
+         yxodwCIl8HaX5o4DCUrbfcJifyaZNsoTLRNnQ9OaB5FVcL5NlyqWPKIisydjeH6PWWW1
+         id+VVAZNuFs8cwwj15vLDSA5u5Stn0zZfIQxEQnxp/rDhl4+5+bEkn2RI7LjSJYbsKNx
+         KCbXzbRX+KDSRqyxiQYkiZ6boKPV4G67pkfkSOKOmWhg3ma/H7BVgkCz3qtcifPPCgrI
+         s00m0X13RRK5m0flM7yu+OjqbmmQOfu792Jg6aNOFfFyXmqRxrV/8/1ssyQp5yqLRBII
+         qJ5A==
+X-Gm-Message-State: AC+VfDxVr+cnZX1Pa5vEr6TRV4n+8IdhR/zb1ju/TSFBbZa0Zf7Sxwc/
+	ZNQUXFlDI33zZsGss64OQoY=
+X-Google-Smtp-Source: ACHHUZ4M9TQT1zLBpaeWEjnKr3UQ82+8kna3FkFH5W/yTFjYxZnzHn7aNfvFkFOw6DtihRA3RxdRBw==
+X-Received: by 2002:a05:6a20:8e1d:b0:10e:96b5:45fa with SMTP id y29-20020a056a208e1d00b0010e96b545famr2942711pzj.43.1685465865016;
+        Tue, 30 May 2023 09:57:45 -0700 (PDT)
+Date: Tue, 30 May 2023 09:57:40 +0000
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Gianluca Guida <gianluca@rivosinc.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: Re: [PATCH v9 1/5] xen/riscv: add VM space layout
+Message-ID: <ZHXIlG3bS437Dpow@bullseye>
+References: <cover.1685027257.git.oleksii.kurochko@gmail.com>
+ <1621fd09987d20b3233132d422e5c9dfe300e3f7.1685027257.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <64820a10-622e-dc10-988b-613542349ec9@suse.com>
+In-Reply-To: <1621fd09987d20b3233132d422e5c9dfe300e3f7.1685027257.git.oleksii.kurochko@gmail.com>
 
-On Tue, May 30, 2023 at 10:25:36AM +0200, Jan Beulich wrote:
-> On 26.05.2023 17:00, Alejandro Vallejo wrote:
-> > --- a/xen/arch/x86/smpboot.c
-> > +++ b/xen/arch/x86/smpboot.c
-> > @@ -376,6 +376,9 @@ void start_secondary(void *unused)
-> >      {
-> >          wrmsrl(MSR_SPEC_CTRL, default_xen_spec_ctrl);
-> >          info->last_spec_ctrl = default_xen_spec_ctrl;
-> > +
-> > +        if ( cpu_has_auto_ibrs && (default_xen_spec_ctrl & SPEC_CTRL_IBRS) )
-> > +            write_efer(read_efer() | EFER_AIBRSE);
-> >      }
+On Thu, May 25, 2023 at 06:28:14PM +0300, Oleksii Kurochko wrote:
+> Also it was added explanation about ignoring of top VA bits
 > 
-> Did you consider using trampoline_efer instead, which would then also take
-> care of the S3 resume path (which otherwise I think you'd also need to
-> fiddle with)?
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in V9:
+>  - Update comment for VM layout description.
+> ---
+> Changes in V8:
+>  - Add "#ifdef RV_STAGE1_MODE == SATP_MODE_SV39" instead of "#ifdef SV39"
+>    in the comment to VM layout description.
+>  - Update the upper bound of direct map area in VM layout description.
+> ---
+> Changes in V7:
+>  - Fix range of frametable range in RV64 layout.
+>  - Add ifdef SV39 to the RV64 layout comment to make it explicit that
+>    description if for SV39 mode.
+>  - Add missed row in the RV64 layout table.
+> ---
+> Changes in V6:
+>  - update comment above the RISCV-64 layout table
+>  - add Slot column to the table with RISCV-64 Layout
+>  - update RV-64 layout table.
+> ---
+> Changes in V5:
+> * the patch was introduced in the current patch series.
+> ---
+>  xen/arch/riscv/include/asm/config.h | 36 +++++++++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
 > 
-> Jan
-I didn't because I didn't know about it. Good call though, it's indeed a
-better place for it. Will do on v2.
+> diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
+> index 763a922a04..9900d29dab 100644
+> --- a/xen/arch/riscv/include/asm/config.h
+> +++ b/xen/arch/riscv/include/asm/config.h
+> @@ -4,6 +4,42 @@
+>  #include <xen/const.h>
+>  #include <xen/page-size.h>
+>  
+> +/*
+> + * RISC-V64 Layout:
+> + *
+> +#if RV_STAGE1_MODE == SATP_MODE_SV39
+> + *
+> + * From the riscv-privileged doc:
+> + *   When mapping between narrower and wider addresses,
+> + *   RISC-V zero-extends a narrower physical address to a wider size.
+> + *   The mapping between 64-bit virtual addresses and the 39-bit usable
+> + *   address space of Sv39 is not based on zero-extension but instead
+> + *   follows an entrenched convention that allows an OS to use one or
+> + *   a few of the most-significant bits of a full-size (64-bit) virtual
+> + *   address to quickly distinguish user and supervisor address regions.
+> + *
+> + * It means that:
+> + *   top VA bits are simply ignored for the purpose of translating to PA.
+> + *
+> + * ============================================================================
+> + *    Start addr    |   End addr        |  Size  | Slot       |area description
+> + * ============================================================================
+> + * FFFFFFFFC0800000 |  FFFFFFFFFFFFFFFF |1016 MB | L2 511     | Unused
+> + * FFFFFFFFC0600000 |  FFFFFFFFC0800000 |  2 MB  | L2 511     | Fixmap
+> + * FFFFFFFFC0200000 |  FFFFFFFFC0600000 |  4 MB  | L2 511     | FDT
+> + * FFFFFFFFC0000000 |  FFFFFFFFC0200000 |  2 MB  | L2 511     | Xen
+> + *                 ...                  |  1 GB  | L2 510     | Unused
+> + * 0000003200000000 |  0000007F80000000 | 309 GB | L2 200-509 | Direct map
+> + *                 ...                  |  1 GB  | L2 199     | Unused
+> + * 0000003100000000 |  00000031C0000000 |  3 GB  | L2 196-198 | Frametable
+> + *                 ...                  |  1 GB  | L2 195     | Unused
+> + * 0000003080000000 |  00000030C0000000 |  1 GB  | L2 194     | VMAP
+> + *                 ...                  | 194 GB | L2 0 - 193 | Unused
+> + * ============================================================================
+> + *
+> +#endif
+> + */
+> +
+>  #if defined(CONFIG_RISCV_64)
+>  # define LONG_BYTEORDER 3
+>  # define ELFSIZE 64
+> -- 
+> 2.40.1
+> 
+> 
 
-Alejandro
+Acked-by: Bobby Eshleman <bobbyeshleman@gmail.com>
 
