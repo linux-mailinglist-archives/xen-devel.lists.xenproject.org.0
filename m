@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1791716357
-	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 16:13:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541197.843692 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 573127163E6
+	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 16:24:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541202.843703 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q406J-0007nw-Co; Tue, 30 May 2023 14:13:27 +0000
+	id 1q40G3-00012R-Dk; Tue, 30 May 2023 14:23:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541197.843692; Tue, 30 May 2023 14:13:27 +0000
+Received: by outflank-mailman (output) from mailman id 541202.843703; Tue, 30 May 2023 14:23:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q406J-0007m0-A1; Tue, 30 May 2023 14:13:27 +0000
-Received: by outflank-mailman (input) for mailman id 541197;
- Tue, 30 May 2023 14:13:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q40G3-00010S-AP; Tue, 30 May 2023 14:23:31 +0000
+Received: by outflank-mailman (input) for mailman id 541202;
+ Tue, 30 May 2023 14:23:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8LP9=BT=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1q406I-0007lt-5W
- for xen-devel@lists.xenproject.org; Tue, 30 May 2023 14:13:26 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20626.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::626])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23c8afad-fef4-11ed-b231-6b7b168915f2;
- Tue, 30 May 2023 16:13:24 +0200 (CEST)
+ id 1q40G2-00010J-Bn
+ for xen-devel@lists.xenproject.org; Tue, 30 May 2023 14:23:30 +0000
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2060d.outbound.protection.outlook.com
+ [2a01:111:f400:fe1a::60d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 89b7d8b7-fef5-11ed-8611-37d641c3527e;
+ Tue, 30 May 2023 16:23:25 +0200 (CEST)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM0PR04MB7011.eurprd04.prod.outlook.com (2603:10a6:208:193::10)
+ by DB9PR04MB8362.eurprd04.prod.outlook.com (2603:10a6:10:241::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Tue, 30 May
- 2023 14:13:21 +0000
+ 2023 14:23:23 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6433.022; Tue, 30 May 2023
- 14:13:21 +0000
+ 14:23:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,233 +47,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23c8afad-fef4-11ed-b231-6b7b168915f2
+X-Inumbo-ID: 89b7d8b7-fef5-11ed-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LV+LmZKC+j3/Z05FY7YDKLCtZMoFEYhjT/Nd6OyNT+cugei4fOisvSNXRCBZTHCKhrNHqPyFZ3QhTwZ6aBFiqAqtjJ/6avcN7MtFZ6MxgnR7aBaBq+fSxd1rNOj4FTeS549RCd8F/UCH/VHUJ9We5hmnqZlKkOxPVrI4TSi4ue7StxewFmLExUdBA4D/510rafo9/d8MHvl7p9/G3j/CA3mOKimK0Sw44+HJ+D8dd2CUcP9yaKEZ+IXSvUElQSnsv6Y8Dvi6A8UJn7MQ4aEfwsoTz6QaFV6Yzf6nfibdljZccEh4Ki7kGS4OePe+hurjy8dTd3pUacYpmFeEVucynw==
+ b=mG13PowQrjIB3ZPLhcAQiFkrKgMWQZz3LwWBCtijeMxLYMByihSw1dlXbsSRumkKWOHBG5s9h5Y0gQEgUBHo806RfDMnHiM2ePNowkQqh1ud+GnAcSpmVAQIFFruF05K2jzgTarv2LHs44Z2azj0LeSx2DjAarZ7aE/8h8jcbfQgaHUkX0bhd6Jrhkb6sTb+0WuLhkVnCvJPlN01NFwAxqmcm/HOIbc9we9t1yTab8zZZJnTPCwhE0ZxaSPDqDIE6IFHcje57J8JG0n5Wv+FJl4RJw7QUfgID0nCq+vwM2kWKhScVCl2CSetgRr1fptpY9cncLN8tRWtRp/n4S318w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vRIiKMvf1Ub2FSk7gjbF9voZkCCyBDej9iR3/ntdWWE=;
- b=ZzboBCVsNZ8WKGKuIh8sj52f88sFjzh3dDtaQNK247FDQGmSCLtvSH9Sb+bpcfZWaIGlLdbDaMsAdPc432y/y9uavV0VuyUDyumRXYY6uKp+he61racXM2wOHt1brsNDzangJoSVsd/XHn9hZhkUzVE7Mw2gpQVAsoOLiPETvrRbndPEGhWTIex4wnKpyaspO73QjGp/wNwa4aE5Ct666oCgsQ4itV7FcOnFrprNqFJUKjdSCbmSawK522aUSBV2+hPGTyD2tfXFE4HL/+1nTjqn/gLZZGc2Iv3DWeTVL58ruvyBg64JdgnYSjLIa5N94f6hmIPK0J/b5zlKnHPwmw==
+ bh=q/1Cks03xJjEHAGe4ku6/7jOBIrbgv0Gsyl3WkiQDQg=;
+ b=F7UsFlT5EigGe2Deq6zCWdpFh9nEOasJIbRHTi0WlEHgEJQ9wS9Ra+ObdHX+8OR2L7Bq5f25RwlDntK8aqBh9jDuLKybvpw63dvRS711rBLNo1JvCOHRNissuhSw8BG4f2yv4trZ4abubpkayq85QF6tSErbtQwqNtmt5SSDizpRjCPui+IP+lh0rCZU4jqUcREsfpYs6VawkDJ/ltYlTXi6xZg7Zd/KGQAKzP5htl/d1ht1hUaWSkJNaOF8YBHaTM6EmPBXJNuh7UBfzSJZlSBIWIZOWt8ByGWqZtO3rPQ7lLMZSXeWfdXzb9O2WZAYPkSTxKYGLy8dWXrNWUpP7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vRIiKMvf1Ub2FSk7gjbF9voZkCCyBDej9iR3/ntdWWE=;
- b=bsvSLTIBXht/UXKmE8RL37xXARR5dzk9sLBfXD8gdISz2TiM6FG8qYOQLRc5mzRGRMTVi4tW/5jqPq/enXUBF/XwxllmhYOce7uPtrC1VzakCXZT9ZWIayK5dr+JsRyWB2dRt+DfpcRrm7qV9z6+eq2qtezYZgmmQ2f/p9FHYAjLC86cFTk6UhaQfBCWbKnzspbKtVLEyfrHZVMgqQCg/RVc6D+MAsdRQknNHWxkA8WXad9ZzF7D+QAdjGdNgWBnhEaPTe/OhEvoUpDOQoMDymVmKmyZo8v4Dj3j9VoY+c/MYQyFvBlhoFjU+7D4RtcQErOTtDjCDxItsOlCxopPDQ==
+ bh=q/1Cks03xJjEHAGe4ku6/7jOBIrbgv0Gsyl3WkiQDQg=;
+ b=oh2IdJpQX9ch2CMRCCAkkQ1adMvPZMjheKc2XsMDfNoGHqOEtuSU0z8iJkaYNkwhc6b5XtD76dXclxhDmbjUHkYifr0HnNrvHib17vddtrfFUR538L7IVu1xhxqUnqx19IL4wnk20nI5XlNGmqin/7ZYvJvv0lbZXLuyXwX4Hm/O/8QXdDegmKzQyr2zQnJ3oz/ETWmbMqxTjJgNRSpLLkTMF+my4/XZlKSNsO6sWrf6SzSYjYaqIghlztDDvGH0MpPSLzbeE70sy4TOqCW+5QyenuNoHlyjssy45bjr+Q01isRjjjV7vucj3pAQ1c6qghwy8I1b/xwZLWfTJ+nCmg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <527d819a-44f0-72c4-13ae-403df43f0b9f@suse.com>
-Date: Tue, 30 May 2023 16:13:19 +0200
+Message-ID: <f87cf1cd-61ba-aaf1-dd81-f2352acf4273@suse.com>
+Date: Tue, 30 May 2023 16:23:21 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
-Subject: Re: [PATCH v3] vPCI: account for hidden devices
+Subject: Re: [PATCH v2 1/2] x86: annotate entry points with type and size
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <e1c6e297-0046-73f6-981d-af776b271f24@suse.com>
- <ZHX746v6VZAehZsg@Air-de-Roger>
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Bobby Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>
+References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
+ <db10bc3d-962e-72a7-b53d-93a7ddd7f3ef@suse.com>
+ <fd492a4a-11ba-b63a-daf4-99697db0db0e@suse.com>
+ <ZHSp9+ouRrXFEY4R@Air-de-Roger>
+ <bba057a2-0a68-bf05-9a92-59546b52c73c@suse.com>
+ <ZHX4PR56MQZQCVUX@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ZHX746v6VZAehZsg@Air-de-Roger>
+In-Reply-To: <ZHX4PR56MQZQCVUX@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0093.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0167.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM0PR04MB7011:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96a1238e-9173-4874-86d1-08db611805e0
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8362:EE_
+X-MS-Office365-Filtering-Correlation-Id: b97d9fb5-9b32-4250-e350-08db61196cf8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	eNqvME5e6WLV5okY2MuBuEcEoO9qmCqtnVwe726do7N+WNIAdvB6X+/cVyEAX8B5SIudKikgA+ZpT/ZpIa3xUI6iqXejlenk8uxVumJlEDPfRlJE3QjvBzS/FxJPtk/NTtc580jPDQOEC6HDRkqS2U/2jXQIq8rgWRt7Z2vJDCdel+kyj+8HJ9xlUr8KpQahN3ixttcn+RCvMjwm5fMVR8SXk9DWh5lOutPC+F82Dwe4IgrUi74B7rLN2WeAfoRKQOmxkQueAtNKeve/hhHIkxwvh92LIKnLOja2lwrIcpmYxwFvZQpTURts61u1skzmqq708sFuZHHz6imYJsTSqr+KNqSlqVb2wJXnM8rmiePge/0yuwfr4YhpeBmqHPodZquffV6nkyxVLyE4YaGm7zwKkgSOGv5t5OPV9orO9kl/QQiA4Yrps+kZB6EH/GoQAyksI0Zw++hon3BM8drKKmYXWRcJ6YHRe1vA12hJKXVeWQzwGPXloON1taIM5aBOinaXZUtR2Of19WGahpXWaNVo1yYcWJEn7I/tAOYAYwenWgCAJQheFsHSmo/fe2sZMeYLjhV/rkfmQ5Bc0skWL8fFj2IF+GGq6KcHjEOYPz4sklXbC/37wJbT5hs/jUXF6oXy6C+2x0nHqb21xvY5Cw==
+	d1UrnbFzH2wy9KzxlwJM11RqAMEUiViFalabeT9ujtzE1f/zU7yeWurhNSzvpCPL+WGWkNDrPkZDcdkcZb7JTOZfqZTP6VRGTUtJBsXG16/Gi73MClaY5g8X1x+MBrHT8/9II+iY1IbRorm6HKsFv2cQl96YU3oWP1PenMW65p14kU5j3o6zZ5vE74eRpAugrxx54+TRpEKOkDh6MyPVx/aUZ+4VVZNC8O5ZQg3Ypw2gRvrw9AT1M4K53U4EBcWV3NjwXcFel7EjHUgACBrDDv2YRF84iyHs85fNaFliY/jb842rVM/1Bv5wMfgDb/5H4F1XEFGg8cpqWVJlA5a0fQ74ZRM33XwZNZwMe+KZOqg/1DHkY0RJsN5l5C/pB+73NOmvwiQCFyA6j4bMZrCt8qhMX33FzOCzDnIqrLUWEO/jk9jcl2JVbIQrpayXmY0roJiaumpjTjINXvTVLbPES3zI0gkdt5u4jx6nbiwPvtUegX4ENcj9+cz6Pe6nLV1M0UrPWiMMT2BCNzZeM+jkyNrLT6HzCbr2qZN4//1oz3xrDSInMGmnD0bzBCCzSlXuDvBbozVGPbzT2y0E6KaRL4ZeFgWaFRHvHWE5y0W0zBtg5a3h2rbPSPL6dcUYEapGRJRpx7Nsu3+WgbfRpAvd4g==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(366004)(346002)(136003)(396003)(39860400002)(376002)(451199021)(478600001)(54906003)(8676002)(8936002)(5660300002)(36756003)(31696002)(2906002)(86362001)(66556008)(66946007)(4326008)(6916009)(66476007)(316002)(41300700001)(38100700002)(26005)(31686004)(6512007)(53546011)(83380400001)(186003)(6506007)(2616005)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(396003)(366004)(376002)(346002)(39860400002)(451199021)(31696002)(6486002)(86362001)(41300700001)(478600001)(6916009)(4326008)(316002)(66476007)(66556008)(66946007)(36756003)(7416002)(5660300002)(186003)(2906002)(53546011)(6506007)(6512007)(31686004)(2616005)(83380400001)(26005)(66899021)(8936002)(8676002)(54906003)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WWZyK1FCb1hvYmZCYi9GbFB0R1BpMGx0b0MydWVrY0xpcTFHUzUza2MwNnJE?=
- =?utf-8?B?RjZzemtGaXBkZlVpRDZ5Y3lVSy9IaDhML3pzQ3FMYjlUYkZPb1ZTZ2pwWitI?=
- =?utf-8?B?djA1MUF5V2tHb1NQbXdUb0ZtSXIyWnltdzhqemY1QjZ4a1ZZZWttcm5LZ0Zu?=
- =?utf-8?B?Y3lhREdrT29OTm1YaEFhSklkM0gyOVVmQkFVQkttS1NjOUNIRlIrdjFwMkp6?=
- =?utf-8?B?YkZVSDBqSm9SaTRRclIwZ2QzZ0NFUktYVFJwUzg4NDhzTGY4L1oxMkhkajZO?=
- =?utf-8?B?LzNwWEx0Z0tQalFDTFQ1d211cFYyNllMNGN2YmJvVm14aDdDVldxV1h5R1lI?=
- =?utf-8?B?QVhBYnhBV2ZnOHdoK1R3bzlFNzY3WnovdFV1bU9obmJZcjVTeFd6WW1VUmRP?=
- =?utf-8?B?MmxWNVZsb1Vqd0ZwbnVLVFVCY3RkekowSnNqNXpHN243MWpPR3h6TmRpM0NQ?=
- =?utf-8?B?ZTVqeGtOMjk4YmZSQ2JYU3FBNTluTzJjWTY1cndObEY5TGMvUlFqMzlLV3lH?=
- =?utf-8?B?elFPRXNBRGlmTFJTTUhxOC9FNUJZL0gzekQ4VXJnbjEvZmk2bWZWQW9FQkdE?=
- =?utf-8?B?OSs0UnhkUnd6N1ROZmp0S2huL1hkVnY5MTRIMlZxVk53emJiZWVuUC9RQllN?=
- =?utf-8?B?RGNzcnhRRGkwL3MwMFFjMXd1akM3cGszZ1lMWEJsa0JDTnVZNGNKTVVzbFdH?=
- =?utf-8?B?SC9rMk5VZHM1ckt2R0dhV0I1RnZTNjZmTmxGeUExZjlSdm54REEvZU5WMlR0?=
- =?utf-8?B?U1lLRXhMbGR1blhXMzZVdWQ5YmQ5elV6TzhIZEJZZEFlSXEyeEVaWk1lcUlW?=
- =?utf-8?B?Wng3dG1BN3c4bnNraWV2bnJQQW5oMnFkSVQrWmlVQ1BDRXMwSUxKTHhBeXY2?=
- =?utf-8?B?MEt6VVZML3pGUUprR0JRTzlaeDVXbVlsYkNLVGM2RndQWTFWSG1uOWlkd3Nz?=
- =?utf-8?B?V3NHcFZ4UStTSUdRS0hiWTVZdlExUU83dVJwbmNrd256cFBsNjg3TkdBWGpQ?=
- =?utf-8?B?THFiNWxQQkZxMnE4OVdSN2hzbi8yVmVKZHZyZmRmNE45RmZwMjRnWjVoOVJH?=
- =?utf-8?B?Ym0rYUdOOUJ4TnRXUEZqOWxvaXlGS0JhL1FwcTRmbFhBbGVCUDJIUHgzZE44?=
- =?utf-8?B?clFybUd1ZUlZQldTejJ6RDFVQU1Gc0JPcWFJcnZ6UjFVdVByRTE2d01UMVBp?=
- =?utf-8?B?bFZWY0lINTd5OGJpVWxETkZzN21MQ3EzaEF0RUQzRklid2lEY3RnSkZlN2dR?=
- =?utf-8?B?V0d1Z0trckNGUXd5VHE2QUxQWGlnQW9jYXRpQ0RmUGN0WU5rY25GK1JCam5I?=
- =?utf-8?B?OEVGSVdwV3NhTFl6MElHTVRPd2g5ZUpPVjlOOGpxa09Qc1hzbFJRdHk2Syt6?=
- =?utf-8?B?cWxYWEdPdzFxUEVveVNFL3RMYlltRTdIODRJZFVweU01MjZvcWJqQTFuR3dp?=
- =?utf-8?B?L1hxZHVOMy8wRC9oOTR1cFZJWVpBNUJYWUpqS2lqVW5kazRaSHlOZ2FQWk4v?=
- =?utf-8?B?SWQxeWZBcFRiMmUxaVVPaEZYT3VRVzVOaTRMbkV6UkQzTWk3UVRHZjlqNHpM?=
- =?utf-8?B?NVZlbkRxc2crbHV4TURzZUlJdjZVa0RBZDRERGswNVJJWk1LN2Y3QU1nT3Bu?=
- =?utf-8?B?MXNiVUxvWjVLUUJPR1kwdUpkU0NlMnBwTTNBaFkyMzVZRWlYMUs4V1IyNmRQ?=
- =?utf-8?B?UFNuRUZUVzBnQ0k4ZmFORXdjdnVPcnl4YU40WnpSZXV5TnBSTjV5amJWS1F3?=
- =?utf-8?B?elQ4aXA0am4vRWtVdDBpTHBBNFkvWWlwUitCMmtZZmtuNHUzWUo0QTQvNDRX?=
- =?utf-8?B?cVFJNmhoZXBTVThOaVpQQWRMd1A4TFYwR0JxbkV1MlpNZE1QRTVHU21adXNO?=
- =?utf-8?B?R3ptU0lmSFI1MFVKQlF3MHg4NVVtUW1wUjFzdVV2alNHMVlJMjZGR0l1NVhQ?=
- =?utf-8?B?Rys1OGhQM1h0VEkyaTdBWWUxWlZyQUFNVzd1ZkpBMzhXWkJkdzBweWkrUE9F?=
- =?utf-8?B?L3czZzFwZlJmNGNSZTZCd1JrZy8xNHNPWU15dlVmazNVRGhQVzhFSGZxbHla?=
- =?utf-8?B?ckJIOEdwMmF0dVJHb1FNZVpmT2hPQXh0NTFiS0hPYmpWSlhXMG92WEJkdlhW?=
- =?utf-8?Q?h1hb9f39qafMNnpKoJm+S9vWQ?=
+	=?utf-8?B?b29tc1YyR2NJa1BYMENPeFZLbHRoR3IxL2dxZG9JV2RIa29vMW0xRUtUditp?=
+ =?utf-8?B?OU5OTThXdjZuTlhzVndrUjdsR2RhYlR2NE95eFdkMnEyeUlveEtvSzFZbi9i?=
+ =?utf-8?B?T2loODNZRkhkN1ptMmxyZ3lZbzNVNTd2R3JuS3ptQ01qMzlkVDJNOE1oMito?=
+ =?utf-8?B?a0tHb0xVY1Y3N214ZHVYbVJqTmdXaXNESDRBUDFUVytmTVFMREdFdmV2NklL?=
+ =?utf-8?B?T0RLSkgrMC9HaCtQMzFXa3RmWTVqWExDaUFsZ0E4RTFSRWZFc0VrYUhETWNI?=
+ =?utf-8?B?R3lEcFFTbDVWcFBMWDlJVDBRVXliZDRJb2lIZkxSdEU4aVkvVi80dXFCS3Nl?=
+ =?utf-8?B?WjBtQXdDNFFZclJpaWlOVXdQa1FKZDhicTdJMmRhbm5YdWwvdnVKY3FBQ0NH?=
+ =?utf-8?B?MElGQllSNkR3MDBUcXMzRDBDelBnYWgzZW9XcTZaNHhCMXNCaDNhdkgwcFhJ?=
+ =?utf-8?B?M0dPbTR4cjlNdmtTRElQc1V4bzhwL2tQM2hIWEttclRGc3B0TWtkRnZIT3Bn?=
+ =?utf-8?B?ZzIvNTBjSC8yakVNMFBnMDRpdTJrVzJlV2NlOHFnQTBpaWZqUUIyWDQwZHFo?=
+ =?utf-8?B?Mlk1QUIzUC8xNkU4amZvSm5TcXJVODhhakdkdHBPYUplTGdPOW1nRkdDUTFp?=
+ =?utf-8?B?UUVCdXNsVlJRZlVvYWgxMnpteEtMSXVKS1pvOXJmc2o3WU5uRi9mZC9pV2xH?=
+ =?utf-8?B?dktRalI4d0pOb1B5TnFvYmhWNGJIMWV5VFVmU2FSSXhURlhjUEF0QW0wajIv?=
+ =?utf-8?B?WlNqcm9qelc3UWw2c1JDVzdPZHl5RDdEVUphdThCbFdhOXc4Z1BUTURVaUxr?=
+ =?utf-8?B?Vk42QXdsbktFbG5TWkF6ell0dk04QldVQVFTaE00WmpBWDJUWnZHK25iRjlJ?=
+ =?utf-8?B?RzZVS1I0cy9nSXhXQ0lWRGRTWU9EWjVrNmxuY1VLT0JZUmVlVTJmcmpwYjQy?=
+ =?utf-8?B?UEdCbzhaQnNqZzhBTU0rZDZ4OGcwWm5LcGR4N2ZndE5Dd1kvY01iMWxsUCtN?=
+ =?utf-8?B?NjczWHJRUVRGQ1I0bk16L21VNk53SGFXWWhHTFlrQVhsNmM3bkI3ZElIUGVR?=
+ =?utf-8?B?MlBmWGVDR081VHd0N2tsSEM0OU1NVUpDMDJvN0o4QXNQdVJvQnQvN21hZHpD?=
+ =?utf-8?B?Z2hOQnVvL2E0WWQ5SlUwVlBnMkpYWDRWdVBsQU12SkJtMTJ0N080N3A1cG1T?=
+ =?utf-8?B?ZWdscHVxQUtmRzVybk1DNkl0MjB3UVRsWlJZOGc5QW5MWTNvejJkdU9BYXR3?=
+ =?utf-8?B?c0ZGK3czN2djQ1BoS0JYUUJ0S0FYaEJsakkxYmQzamhCc3hRcGVZUGhxMWJI?=
+ =?utf-8?B?Z016cjhhUTlQcit1b2xVc0dJZDRmMjlqMW9zUHB6ZENXZ2hxNkZDWVIydEcz?=
+ =?utf-8?B?SldXbVZSalpzbHBVTUVkMldERStxQmI4aWZjWWd0dGpWZ2xRbVpVNVlobWlU?=
+ =?utf-8?B?TnBodGVSbzdkM1RYMmpVQnZFZFVCWDlURTE4T0Y5K1J5dDJ4YS9ZNURaemZj?=
+ =?utf-8?B?K0lkTG00Kzc4RnFPTEZidFE2bmFxOWJ0aGN6U3psL3IxQ0prS2s0ZkNmdXVw?=
+ =?utf-8?B?Z2JiT3lNZjc4b1RJSUhJVEdIOU9QUnMzTTNGMnB4VUtwZlVHSUtSUGNTMXg2?=
+ =?utf-8?B?Vjg1WjBKREE4dit5TVRmbk55UlVXcnloTzB2UElIT1gxNks4cWtzOHFXb3lC?=
+ =?utf-8?B?cGVVNU0yNHAzR1hCTE5GOHkzM2x6RExyazlHOTlsQmlJZU5wZnVILzlQYS80?=
+ =?utf-8?B?NUg3NHNRVDdDMW13TTdqQnBHREJHaGRTYlNBOWpUUUt2aTJ1QlQ5WldjNUdl?=
+ =?utf-8?B?YzZVVXRRKzE5QTRRdDEvWHRPb3pDN1VuUzNmMWkrQVZ6eXdEdUxCcEdFcEtE?=
+ =?utf-8?B?TkIvenJQZlFOcWJZSE95cXdDUTk1VDMvUWpzQkxaREplNUJwaEViN1JGR3N5?=
+ =?utf-8?B?NEx3Q2RHNllpZkRBb3JoUURQNmNQUWFGNSsxVHI4TzVsb0VEMVFkOFRtWWZD?=
+ =?utf-8?B?aGFOK2IrTHFubklQVWZCSXE0NGhxNUJoVVI0ZFFzSDk1V2NJNzhCWUw2UUlF?=
+ =?utf-8?B?aGlLdDBZZVZaNG43SVgzODdtaVdzWkhPZlBEb0hsSk1ta096cEVwNDE2MFZ4?=
+ =?utf-8?Q?P8lfE7H1qQeTmpK66BcuxS28Z?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96a1238e-9173-4874-86d1-08db611805e0
+X-MS-Exchange-CrossTenant-Network-Message-Id: b97d9fb5-9b32-4250-e350-08db61196cf8
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 14:13:21.0997
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 May 2023 14:23:23.4991
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6TLbJq590LUA68dc7sFrxlnsGxtqqyt4xk7Upkoh2frgyboJMjTEKTrXGTPk9B2hc+PXf4oJ18d/kpBKV6oOCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7011
+X-MS-Exchange-CrossTenant-UserPrincipalName: MELE1O/IIBm5XqHz6eI8f6SMW3AJIO0arHQrrSAQCvEPQ3slvUPsM8M/emHqA+NVme5hpNwXGjbTA1Gu8AUqBA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8362
 
-On 30.05.2023 15:36, Roger Pau Monné wrote:
-> On Tue, May 30, 2023 at 02:38:56PM +0200, Jan Beulich wrote:
->> Hidden devices (e.g. an add-in PCI serial card used for Xen's serial
->> console) are associated with DomXEN, not Dom0. This means that while
->> looking for overlapping BARs such devices cannot be found on Dom0's list
->> of devices; DomXEN's list also needs to be scanned.
+On 30.05.2023 15:21, Roger Pau Monné wrote:
+> On Tue, May 30, 2023 at 10:06:27AM +0200, Jan Beulich wrote:
+>> On 29.05.2023 15:34, Roger Pau Monné wrote:
+>>> On Tue, May 23, 2023 at 01:30:51PM +0200, Jan Beulich wrote:
+>>>> Note that the FB-label in autogen_stubs() cannot be converted just yet:
+>>>> Such labels cannot be used with .type. We could further diverge from
+>>>> Linux'es model and avoid setting STT_NOTYPE explicitly (that's the type
+>>>> labels get by default anyway).
+>>>>
+>>>> Note that we can't use ALIGN() (in place of SYM_ALIGN()) as long as we
+>>>> still have ALIGN.
+>>>
+>>> FWIW, as I'm looking into using the newly added macros in order to add
+>>> annotations suitable for live-patching, I would need to switch some of
+>>> the LABEL usages into it's own functions, as it's not possible to
+>>> livepatch a function that has labels jumped into from code paths
+>>> outside of the function.
 >>
->> Suppress vPCI init altogether for r/o devices (which constitute a subset
->> of hidden ones).
+>> Hmm, I'm not sure what the best way is to overcome that restriction. I'm
+>> not convinced we want to arbitrarily name things "functions".
+> 
+> Any external entry point in the middle of a function-like block will
+> prevent it from being live patched.
+
+Is there actually any particular reason for this restriction? As long
+as old and new code has the same external entry points, redirecting
+all old ones to their new counterparts would seem feasible.
+
+> If you want I can try to do a pass on top of your patch and see how
+> that would end up looking.  I'm attempting to think about other
+> solutions, but every other solution seems quite horrible.
+
+Right, but splitting functions into piecemeal fragments isn't going
+to be very nice either.
+
+>>>> --- a/xen/arch/x86/include/asm/asm_defns.h
+>>>> +++ b/xen/arch/x86/include/asm/asm_defns.h
+>>>> @@ -81,6 +81,45 @@ register unsigned long current_stack_poi
+>>>>  
+>>>>  #ifdef __ASSEMBLY__
+>>>>  
+>>>> +#define SYM_ALIGN(algn...) .balign algn
+>>>> +
+>>>> +#define SYM_L_GLOBAL(name) .globl name
+>>>> +#define SYM_L_WEAK(name)   .weak name
+>>>
+>>> Won't this better be added when required?  I can't spot any weak
+>>> symbols in assembly ATM, and you don't introduce any _WEAK macro
+>>> variants below.
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> Well, Andrew specifically mentioned to desire to also have Linux'es
+>> support for weak symbols. Hence I decided to add it here despite
+>> (for now) being unused). I can certainly drop that again, but in
+>> particular if we wanted to use the scheme globally, I think we may
+>> want to make it "complete".
 > 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> OK, as long as we know it's unused.
 
-Thanks.
+I've added a sentence to this effect to the description.
 
->> @@ -285,58 +286,69 @@ static int modify_bars(const struct pci_
->>  
->>      /*
->>       * Check for overlaps with other BARs. Note that only BARs that are
->> -     * currently mapped (enabled) are checked for overlaps.
->> +     * currently mapped (enabled) are checked for overlaps. Note also that
->> +     * for hwdom we also need to include hidden, i.e. DomXEN's, devices.
->>       */
->> -    for_each_pdev ( pdev->domain, tmp )
->> +    for ( d = pdev->domain != dom_xen ? pdev->domain : hardware_domain; ; )
->>      {
->> -        if ( !tmp->vpci )
->> -            /*
->> -             * For the hardware domain it's possible to have devices assigned
->> -             * to it that are not handled by vPCI, either because those are
->> -             * read-only devices, or because vPCI setup has failed.
->> -             */
->> -            continue;
->> -
->> -        if ( tmp == pdev )
->> +        for_each_pdev ( d, tmp )
->>          {
->> -            /*
->> -             * Need to store the device so it's not constified and defer_map
->> -             * can modify it in case of error.
->> -             */
->> -            dev = tmp;
->> -            if ( !rom_only )
->> +            if ( !tmp->vpci )
->>                  /*
->> -                 * If memory decoding is toggled avoid checking against the
->> -                 * same device, or else all regions will be removed from the
->> -                 * memory map in the unmap case.
->> +                 * For the hardware domain it's possible to have devices
->> +                 * assigned to it that are not handled by vPCI, either because
->> +                 * those are read-only devices, or because vPCI setup has
->> +                 * failed.
->>                   */
->>                  continue;
->> -        }
->>  
->> -        for ( i = 0; i < ARRAY_SIZE(tmp->vpci->header.bars); i++ )
->> -        {
->> -            const struct vpci_bar *bar = &tmp->vpci->header.bars[i];
->> -            unsigned long start = PFN_DOWN(bar->addr);
->> -            unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
->> -
->> -            if ( !bar->enabled || !rangeset_overlaps_range(mem, start, end) ||
->> -                 /*
->> -                  * If only the ROM enable bit is toggled check against other
->> -                  * BARs in the same device for overlaps, but not against the
->> -                  * same ROM BAR.
->> -                  */
->> -                 (rom_only && tmp == pdev && bar->type == VPCI_BAR_ROM) )
->> -                continue;
->> +            if ( tmp == pdev )
->> +            {
->> +                /*
->> +                 * Need to store the device so it's not constified and defer_map
->> +                 * can modify it in case of error.
->> +                 */
->> +                dev = tmp;
->> +                if ( !rom_only )
->> +                    /*
->> +                     * If memory decoding is toggled avoid checking against the
->> +                     * same device, or else all regions will be removed from the
->> +                     * memory map in the unmap case.
->> +                     */
->> +                    continue;
->> +            }
->>  
->> -            rc = rangeset_remove_range(mem, start, end);
->> -            if ( rc )
->> +            for ( i = 0; i < ARRAY_SIZE(tmp->vpci->header.bars); i++ )
->>              {
->> -                printk(XENLOG_G_WARNING "Failed to remove [%lx, %lx]: %d\n",
->> -                       start, end, rc);
->> -                rangeset_destroy(mem);
->> -                return rc;
->> +                const struct vpci_bar *bar = &tmp->vpci->header.bars[i];
->> +                unsigned long start = PFN_DOWN(bar->addr);
->> +                unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
->> +
->> +                if ( !bar->enabled ||
->> +                     !rangeset_overlaps_range(mem, start, end) ||
->> +                     /*
->> +                      * If only the ROM enable bit is toggled check against
->> +                      * other BARs in the same device for overlaps, but not
->> +                      * against the same ROM BAR.
->> +                      */
->> +                     (rom_only && tmp == pdev && bar->type == VPCI_BAR_ROM) )
->> +                    continue;
->> +
->> +                rc = rangeset_remove_range(mem, start, end);
->> +                if ( rc )
->> +                {
->> +                    printk(XENLOG_G_WARNING "Failed to remove [%lx, %lx]: %d\n",
->> +                           start, end, rc);
->> +                    rangeset_destroy(mem);
->> +                    return rc;
->> +                }
->>              }
->>          }
->> +
->> +        if ( !is_hardware_domain(d) )
->> +            break;
->> +
->> +        d = dom_xen;
+>>>> +#define SYM_L_LOCAL(name)  /* nothing */
+>>>> +
+>>>> +#define SYM_T_FUNC         STT_FUNC
+>>>> +#define SYM_T_DATA         STT_OBJECT
+>>>> +#define SYM_T_NONE         STT_NOTYPE
+>>>> +
+>>>> +#define SYM(name, typ, linkage, algn...)          \
+>>>> +        .type name, SYM_T_ ## typ;                \
+>>>> +        SYM_L_ ## linkage(name);                  \
+>>>> +        SYM_ALIGN(algn);                          \
+>>>> +        name:
+>>>> +
+>>>> +#define END(name) .size name, . - name
+>>>> +
+>>>> +#define ARG1_(x, y...) (x)
+>>>> +#define ARG2_(x, y...) ARG1_(y)
+>>>> +
+>>>> +#define LAST__(nr) ARG ## nr ## _
+>>>> +#define LAST_(nr)  LAST__(nr)
+>>>> +#define LAST(x, y...) LAST_(count_args(x, ## y))(x, ## y)
+>>>
+>>> I find LAST not very descriptive, won't it better be named OPTIONAL()
+>>> or similar? (and maybe placed in lib.h?)
+>>
+>> I don't think OPTIONAL describes the purpose. I truly mean "last" here.
+>> As to placing in lib.h - perhaps, but then we may want to have forms
+>> with more than 2 arguments right away (and it would be a little unclear
+>> how far up to go).
 > 
-> Nit: don't you want to do this in the advancement to the next
-> iteration?
+> Hm, I would be fine with adding that version with just 2 arguments, as
+> it's better to have the helper in a generic place IMO.
 
-Well, I had it that way first, but I didn't like the need to wrap the
-line there. Hence I moved it here, which is functionally identical as
-long as no "continue" appears in this (now) outer loop.
+I'll think about this some more.
+
+>>>> +
+>>>> +#define FUNC(name, algn...) \
+>>>> +        SYM(name, FUNC, GLOBAL, LAST(16, ## algn), 0x90)
+>>>
+>>> A rant, should the alignment of functions use a different padding?
+>>> (ie: ret or ud2?) In order to prevent stray jumps falling in the
+>>> padding and fall trough into the next function.  That would also
+>>> prevent the implicit fall trough used in some places.
+>>
+>> Yes, but that's a separate topic (for which iirc patches are pending
+>> as well, just of course not integrated with the work here. There's
+>> the slight risk of overlooking some "fall-through" case ...
+> 
+> Oh, OK, wasn't aware patches are floating for this already, just came
+> across it while reviewing.
+
+Well, those don't cover padding yet, but they deal with straight-line
+speculation past RET or JMP.
+
+>>>>          sti
+>>>>          call  do_softirq
+>>>>          jmp   compat_test_all_events
+>>>>  
+>>>> -        ALIGN
+>>>>  /* %rbx: struct vcpu, %rdx: struct trap_bounce */
+>>>> -.Lcompat_process_trapbounce:
+>>>> +LABEL_LOCAL(.Lcompat_process_trapbounce)
+>>>
+>>> It's my understanding that here the '.L' prefix is pointless, since
+>>> LABEL_LOCAL() will forcefully create a symbol for the label due to the
+>>> usage of .type?
+>>
+>> I don't think .type has this effect. There's certainly no such label in
+>> the symbol table of the object file I have as a result.
+> 
+> I was expecting .type to force the creation of a symbol, so the '.L'
+> prefix does prevent the symbol from being created even if .type is
+> specified.
+> 
+> Shouldn't the assembler complain that we are attempting to set a type
+> for a not present symbol?
+
+But .L symbols are still normal symbols to gas, just that it knows to not
+emit them to the symbol table (unless there's a need, e.g. through a use
+in a relocation that cannot be expressed as section-relative one). It
+could flag the pointless use, but then it may get this wrong if in the
+end the symbol does need emitting.
 
 Jan
 
