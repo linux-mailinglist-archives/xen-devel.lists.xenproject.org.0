@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A954A716ECA
-	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 22:32:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541410.844223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56D78716ECB
+	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 22:32:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541413.844233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q460o-0005Vs-C1; Tue, 30 May 2023 20:32:10 +0000
+	id 1q460p-0005pu-R0; Tue, 30 May 2023 20:32:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541410.844223; Tue, 30 May 2023 20:32:10 +0000
+Received: by outflank-mailman (output) from mailman id 541413.844233; Tue, 30 May 2023 20:32:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q460o-0005Sr-7O; Tue, 30 May 2023 20:32:10 +0000
-Received: by outflank-mailman (input) for mailman id 541410;
- Tue, 30 May 2023 20:32:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q460p-0005m4-Mz; Tue, 30 May 2023 20:32:11 +0000
+Received: by outflank-mailman (input) for mailman id 541413;
+ Tue, 30 May 2023 20:32:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8QB4=BT=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1q460m-0001iX-Nd
- for xen-devel@lists.xenproject.org; Tue, 30 May 2023 20:32:08 +0000
+ id 1q460n-0001yj-UB
+ for xen-devel@lists.xenproject.org; Tue, 30 May 2023 20:32:09 +0000
 Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a5c0882-ff29-11ed-8611-37d641c3527e;
- Tue, 30 May 2023 22:32:06 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id F2B183200930;
- Tue, 30 May 2023 16:32:03 -0400 (EDT)
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0bda8dbd-ff29-11ed-b231-6b7b168915f2;
+ Tue, 30 May 2023 22:32:08 +0200 (CEST)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id C38563200948;
+ Tue, 30 May 2023 16:32:06 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 30 May 2023 16:32:04 -0400
+ by compute6.internal (MEProxy); Tue, 30 May 2023 16:32:07 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 30 May 2023 16:32:02 -0400 (EDT)
+ 30 May 2023 16:32:05 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,48 +43,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a5c0882-ff29-11ed-8611-37d641c3527e
+X-Inumbo-ID: 0bda8dbd-ff29-11ed-b231-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1685478723; x=1685565123; bh=rwGIL/9NRS
-	MhUwVWwsxjoxS5AMM8VOhnzZgHY9xGhxg=; b=qkBueq2r2OyWcbusDQUrjajFFr
-	8ESqGro3ggJwym7lFf9BI9ESX7xekhNhstWp8F1ueTG3NmoZqthNHTWOXbCGq5Vw
-	67eIWybB+EGrobvjODoQqwC70WtdLXTl2k5nQabcp3ZQs/dQWH2f+QrTvapYJOrW
-	JrHz90N9W+aLbcMlDjF0cjaNT1cyK5hLdd/RpV3VjOJWSictxkSNvJ89RwdrBPZG
-	E9Kxm85hwY5s7dhDK62GqfSywSV09msrreFFwcypf91DJsdE3WhAfmU038D6fTNC
-	IJwxS9XPoI4erBBQzlRsVtR6w58sX6QtAWlnzP3FUVoK+Ii+7VvWyJVHGyBA==
+	:subject:to:to; s=fm1; t=1685478726; x=1685565126; bh=eT2dle5SRu
+	lVFDzi62TQ1IQZDI2oVYJkexEdj7/Fslc=; b=TjsQAkSuKW8jtKf3DGsyG9k8zB
+	Trnwh7BYpObxsovagPyZP1xIVriYTxgHNSH5nj9ifAbA9gdN6AbnhABYUrz7X2Zz
+	KpEy+jDQaGp2QjfZ4PUwmZEO98fqknFuIn6qaYfZfNH4vntEEHsm4e4VAkqo4yo0
+	PnkSH+j3F9HYaNylPFWtqgof0/h6RnGJmADeTa+W0iOQ/33+BsxtUOzDvpOhuWyA
+	pRxIpcnJp87HASHTkoCnA+XuZLjzC5ReS3XQCm6OVf1wK7aoDpuRON/3CGE8D3hA
+	TVOl0GJyhdVvxWcF1R6HiMZ2JYdtrEIzCiMn7PYtSWSKaryTZBhGxMxOJMpQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1685478723; x=
-	1685565123; bh=rwGIL/9NRSMhUwVWwsxjoxS5AMM8VOhnzZgHY9xGhxg=; b=y
-	4N/s9MUZzZd4QAK3LutuCyRwXJa6PV0apyBdJJ0IvWA7d2gGhkz/XsZL7+VJH2SG
-	iOcTbZxxHnngGWA/vK1Cy/hWHcqG4/qzaYGV3DdLfQBhITU6JQPFY6rYK8F78XZs
-	GsFx5qwOlj2SIdDWk5FlJyasxkbCa3R96lDH1Hm2Dvhf2k7z0wpQK4fuV1Q/mMRI
-	fUSMAzPyoOA+uwmX+9p0bB+XYk6wNk3PB/5bWjVYO6PrYeHoE9udaLaxIrHaFqnW
-	IaScZZBdVbuKJ7vOHjBpV2ygqFDhJvzlolEe5vP4KmsAbmnCAoIBk1ZiIgIsCNXl
-	w1VoeHG8LsGkBO7eC24Bg==
-X-ME-Sender: <xms:Q112ZMJhVikC1UrX3Mb_HLcgL_u4cRjw7_2N3_37WA8f1GdiBc0pnw>
-    <xme:Q112ZMIHatiw5Vza07l_H3J8Q5Jo6SiJ0JklzDq2oVq19WcxL7-SLcq2Z6xIGOn9e
-    WudhjdY1xw9uGw>
-X-ME-Received: <xmr:Q112ZMvxVcJBiasn5UFXjTImzNzJJWI7pNevtYfQQmMTBB-b8IybX_PYolTn_jMKlOzP0fkNc-E>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1685478726; x=
+	1685565126; bh=eT2dle5SRulVFDzi62TQ1IQZDI2oVYJkexEdj7/Fslc=; b=f
+	x+WGuknoInsViw78HCTgMny6arWnrKDaevCR8NIQfxAqzpjLevOC+ucbiCUnt8No
+	wfD1dHHzk4dunu2DDvLgkxgvQcvcbLuITSJjFO1dZ6QYMU2EYxHMT4yLaVN4S07e
+	YWJ37QTAJGrcHBVA4qwlGST9+Hu998Nj53zoG9/psvzFlUVLP7246H1dAOyf2cO6
+	/TKVgGoVfRr6YDDbw7Wlv4ZUL1wEgu2LEIaitpXknaBbAtMtwdgCVZB86ZjR6/9s
+	V6CvT6TpCsRdaZOMkl0LfAzvQUxC1DMUqe5tQBYSfFcaz8Jjc2YKLKxsMqowUIfF
+	2SwuwNy1+1MMOXK1ij1PA==
+X-ME-Sender: <xms:Rl12ZAr9aQWa_Qa0egkowH06KsJYmTHtkA-E1EAvwWLgM4WfnS7R1g>
+    <xme:Rl12ZGrVpcCLx1UYJ8LeUhOzmhkSxM377BSRfIN9X1kgXYCC6gHdAwLxOekWNQZTl
+    c4d2H3hYG3E9y8>
+X-ME-Received: <xmr:Rl12ZFNycaVfEeQsS-3kpUA_-kT_bOrYQs8Q2OKWHBCjqSMutY820oVAFcuLdy_7KWZED9wrev0>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeekjedgudeglecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
     necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
     enucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeffvghm
     ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
     hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeejffejgffgueegudevvdejkefg
-    hefghffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedtne
+    hefghffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedune
     curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
     shhlrggsrdgtohhm
-X-ME-Proxy: <xmx:Q112ZJbB2ysOiize_ujypULuG_R3Cn4Yq-9hscSDMSK5ll_YW10Haw>
-    <xmx:Q112ZDb1CeOkQsN1ioyuZQeKryd91axJ67ADAgGmg8uxAd6cVc2vzw>
-    <xmx:Q112ZFCIOgBVdd0gvdQPehRl4EuciVdHt2_LQ9qvpSUR9DQCv8tXpQ>
-    <xmx:Q112ZH4GTf0whc09NpBt8a1c0iKBwD4CvlewH7ytbqUM7jnZPa7ciw>
+X-ME-Proxy: <xmx:Rl12ZH6rawH_UPbQ1nJIN6Dg0_P60CEXYxgPhsCW7h8JmvVTYQOPbQ>
+    <xmx:Rl12ZP78Vu93ETjN9w0f_BXL5M3BXAMEytqXeh_gjRJWPTkdz6CIeA>
+    <xmx:Rl12ZHiIZA4a_gkn5vv5uueUjEU59j_7sw1bIyolyLBtoEN5Hzqz5Q>
+    <xmx:Rl12ZCaON5yso2NsQujWogpPIv60NqpRS9-gP5P329739DVJCRA63A>
 Feedback-ID: iac594737:Fastmail
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Jens Axboe <axboe@kernel.dk>,
@@ -97,40 +97,39 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
 	linux-block@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v2 10/16] device-mapper: Refuse to create device named "control"
-Date: Tue, 30 May 2023 16:31:10 -0400
-Message-Id: <20230530203116.2008-11-demi@invisiblethingslab.com>
+Subject: [PATCH v2 11/16] device-mapper: "." and ".." are not valid symlink names
+Date: Tue, 30 May 2023 16:31:11 -0400
+Message-Id: <20230530203116.2008-12-demi@invisiblethingslab.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20230530203116.2008-1-demi@invisiblethingslab.com>
 References: <20230530203116.2008-1-demi@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Typical userspace setups create a symlink under /dev/mapper with the
-name of the device, but /dev/mapper/control is reserved for the control
-device.  Therefore, trying to create such a device is almost certain to
-be a userspace bug.
+Using either of these is going to greatly confuse userspace, as they are
+not valid symlink names and so creating the usual /dev/mapper/NAME
+symlink will not be possible.  As creating a device with either of these
+names is almost certainly a userspace bug, just error out.
 
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
- drivers/md/dm-ioctl.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/md/dm-ioctl.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 52aa5505d23b2f3d9c0faf6e8a91b74cd7845581..9ae00e3c1a72c19575814cf473774835b364320b 100644
+index 9ae00e3c1a72c19575814cf473774835b364320b..17ece816d490b6c40d019da131ade44c9a201dab 100644
 --- a/drivers/md/dm-ioctl.c
 +++ b/drivers/md/dm-ioctl.c
-@@ -771,7 +771,12 @@ static int get_target_version(struct file *filp, struct dm_ioctl *param, size_t
- static int check_name(const char *name)
- {
- 	if (strchr(name, '/')) {
--		DMERR("invalid device name");
-+		DMERR("device name cannot contain '/'");
-+		return -EINVAL;
-+	}
-+
-+	if (strcmp(name, DM_CONTROL_NODE) == 0) {
-+		DMERR("device name cannot be \"%s\"", DM_CONTROL_NODE);
+@@ -775,8 +775,10 @@ static int check_name(const char *name)
+ 		return -EINVAL;
+ 	}
+ 
+-	if (strcmp(name, DM_CONTROL_NODE) == 0) {
+-		DMERR("device name cannot be \"%s\"", DM_CONTROL_NODE);
++	if (strcmp(name, DM_CONTROL_NODE) == 0 ||
++	    strcmp(name, ".") == 0 ||
++	    strcmp(name, "..") == 0) {
++		DMERR("device name cannot be \"%s\", \".\", or \"..\"", DM_CONTROL_NODE);
  		return -EINVAL;
  	}
  
