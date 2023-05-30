@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BA06716934
-	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 18:25:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541277.843872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8945D716A2A
+	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 18:57:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541286.843882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q429W-0005eV-Cj; Tue, 30 May 2023 16:24:54 +0000
+	id 1q42eJ-0000xr-JU; Tue, 30 May 2023 16:56:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541277.843872; Tue, 30 May 2023 16:24:54 +0000
+Received: by outflank-mailman (output) from mailman id 541286.843882; Tue, 30 May 2023 16:56:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q429W-0005be-9D; Tue, 30 May 2023 16:24:54 +0000
-Received: by outflank-mailman (input) for mailman id 541277;
- Tue, 30 May 2023 16:24:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q429U-0005ZI-Im; Tue, 30 May 2023 16:24:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q429U-0004cH-EV; Tue, 30 May 2023 16:24:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q429U-0001v0-0y; Tue, 30 May 2023 16:24:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1q429U-0005Uj-0W; Tue, 30 May 2023 16:24:52 +0000
+	id 1q42eJ-0000vj-Gt; Tue, 30 May 2023 16:56:43 +0000
+Received: by outflank-mailman (input) for mailman id 541286;
+ Tue, 30 May 2023 16:56:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zKAq=BT=flex--seanjc.bounces.google.com=3wyp2ZAYKCRwK62FB48GG8D6.4GEP6F-56N6DDAKLK.P6FHJGB64L.GJ8@srs-se1.protection.inumbo.net>)
+ id 1q42eH-0000vd-U8
+ for xen-devel@lists.xenproject.org; Tue, 30 May 2023 16:56:41 +0000
+Received: from mail-pg1-x549.google.com (mail-pg1-x549.google.com
+ [2607:f8b0:4864:20::549])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0568309-ff0a-11ed-8611-37d641c3527e;
+ Tue, 30 May 2023 18:56:37 +0200 (CEST)
+Received: by mail-pg1-x549.google.com with SMTP id
+ 41be03b00d2f7-53f44c2566dso2594688a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 May 2023 09:56:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,226 +40,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=9i62zlCseA50x7E0mxAViWkBfsOahj2xaYLsj5R5gxk=; b=5NlgHo0I9MFya4s9lUQeBHukc8
-	RAVs54Fg5Aue760o3NLyP1DGP90xvwayfLMz9Xq2mIha63V96XVX4jrAp0ZzCY5FoZkdwHkgGK16U
-	fIAggarbjGAHwFyqSRLBY+hL4gcMIa0M1eFl8TUv7rCVMBN3jpjEsEyYPJuC8XZTgBEI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181014-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 181014: trouble: broken/pass
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:<job status>:broken:regression
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:host-install(5):broken:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=05422d276b56f2ebc2309a84a66fc5722c45ad74
-X-Osstest-Versions-That:
-    xen=f54dd5b53ee516fa1d4c106e0744ce0083acfcdc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 30 May 2023 16:24:52 +0000
+X-Inumbo-ID: f0568309-ff0a-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1685465796; x=1688057796;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to;
+        bh=zUIF7qczhJfL0tzqN+Wk4Y8s0fyjf+/encaeJ8i8zo8=;
+        b=RbEfFAAf2kcBOjvt74s5UVZKgWrUGFDUy+sd7fobbo+fCQD0px8ov63e8OeZXSJ8fh
+         HG4hHegtTrDVP700YjLnXteCxE6guE54Vbd8zH/t2rCli4QSiy5tmFSofJYIZgEMn1zj
+         Qsp4LrQqCDZwVqc25d9x6Ot8kXQSMfXIZ9gqaurkMyf4wf+UYa4w1aAbMwazKXlrtuiS
+         Kk616ydOwBRsdeEiUal2WEabr5ltpvlk9LlkPPxhELMLDRXHyhZJZ3Til0KRYe81otj+
+         tS/p/kiytx6/XARdF4p/h7eKZckIQCkqvbC4w6UMN19z2FxazUFpiFD2Hr1ZsYeU6F4t
+         XCEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685465796; x=1688057796;
+        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zUIF7qczhJfL0tzqN+Wk4Y8s0fyjf+/encaeJ8i8zo8=;
+        b=RHEdGEght3UPOQv0PilZND+qGeiHXiUJXHQWL1gDZsR3eCtdFXX1V7a/lUjwa133Jk
+         7RVWt9zCjbhrCQ444p35hiHtPaSEqJQ/Y/ByW37mNTPY7+e/Fsg/1cAwLKui13+jbVXt
+         /BzC47Jkv9KDkcnNppU3SKb+PaQ2jwtaPcFCyyHdCi+hTzNwoc1voRyvv6oXhTOrAt6p
+         m+EMCVUFGgMUbq+g0rcpFzckQIbWsCoTBWoR7/YC8+8Q2H0VCft0RQOZ5VXtU88kRhkv
+         OHn9ldyw0QOo0lrUQzDjqB/ZLX02jJ0k1C4C3YRRqjBkx/N4jZb9FfCFf+HHuNdortNa
+         h0bg==
+X-Gm-Message-State: AC+VfDykoNhAe5MvL1ApXQrlBrldix6qF28c1sCByi11kMUrVtG62oei
+	tqzybxiHjD6Z6NA+anVe0zVvSLSsX6o=
+X-Google-Smtp-Source: ACHHUZ6elIb9Xawt5kHr4iARsASD1eAmXyJrU7yMOnucjGsQDVEv6w8ENbA+wCa+rqHlmqnxd6WixqOcZs8=
+X-Received: from zagreus.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
+ (user=seanjc job=sendgmr) by 2002:a63:512:0:b0:52c:9e55:61ee with SMTP id
+ 18-20020a630512000000b0052c9e5561eemr545525pgf.3.1685465795799; Tue, 30 May
+ 2023 09:56:35 -0700 (PDT)
+Date: Tue, 30 May 2023 09:56:34 -0700
+In-Reply-To: <87wn0pizbl.ffs@tglx>
+Mime-Version: 1.0
+References: <87sfbhlwp9.ffs@tglx> <20230529023939.mc2akptpxcg3eh2f@box.shutemov.name>
+ <87bki3kkfi.ffs@tglx> <20230529203129.sthnhzgds7ynddxd@box.shutemov.name>
+ <20230530005428.jyrc2ezx5raohlrt@box.shutemov.name> <87mt1mjhk3.ffs@tglx>
+ <87jzwqjeey.ffs@tglx> <87cz2ija1e.ffs@tglx> <20230530122951.2wu5rwcu26ofov6f@box.shutemov.name>
+ <87wn0pizbl.ffs@tglx>
+Message-ID: <ZHYqwsCURnrFdsVm@google.com>
+Subject: Re: [patch] x86/smpboot: Disable parallel bootup if cc_vendor != NONE
+From: Sean Christopherson <seanjc@google.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: "Kirill A. Shutemov" <kirill@shutemov.name>, Tom Lendacky <thomas.lendacky@amd.com>, 
+	LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, 
+	David Woodhouse <dwmw2@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Brian Gerst <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>, 
+	Oleksandr Natalenko <oleksandr@natalenko.name>, Paul Menzel <pmenzel@molgen.mpg.de>, 
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Piotr Gorski <lucjan.lucjanov@gmail.com>, 
+	Usama Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org, 
+	Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>, 
+	linux-arm-kernel@lists.infradead.org, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	linux-csky@vger.kernel.org, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	linux-mips@vger.kernel.org, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	linux-parisc@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, linux-riscv@lists.infradead.org, 
+	Mark Rutland <mark.rutland@arm.com>, Sabin Rapan <sabrapan@amazon.com>, 
+	"Michael Kelley (LINUX)" <mikelley@microsoft.com>, Dave Hansen <dave.hansen@linux.intel.com>
+Content-Type: text/plain; charset="us-ascii"
 
-flight 181014 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181014/
+On Tue, May 30, 2023, Thomas Gleixner wrote:
+> On Tue, May 30 2023 at 15:29, Kirill A. Shutemov wrote:
+> > On Tue, May 30, 2023 at 02:09:17PM +0200, Thomas Gleixner wrote:
+> >> The decision to allow parallel bringup of secondary CPUs checks
+> >> CC_ATTR_GUEST_STATE_ENCRYPT to detect encrypted guests. Those cannot use
+> >> parallel bootup because accessing the local APIC is intercepted and raises
+> >> a #VC or #VE, which cannot be handled at that point.
+> >> 
+> >> The check works correctly, but only for AMD encrypted guests. TDX does not
+> >> set that flag.
+> >> 
+> >> Check for cc_vendor != CC_VENDOR_NONE instead. That might be overbroad, but
+> >> definitely works for both AMD and Intel.
+> >
+> > It boots fine with TDX, but I think it is wrong. cc_get_vendor() will
+> > report CC_VENDOR_AMD even on bare metal if SME is enabled. I don't think
+> > we want it.
+> 
+> Right. Did not think about that.
+> 
+> But the same way is CC_ATTR_GUEST_MEM_ENCRYPT overbroad for AMD. Only
+> SEV-ES traps RDMSR if I'm understandig that maze correctly.
 
-Failures and problems with tests :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-debianhvm-amd64    <job status>               broken
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 5 host-install(5) broken REGR. vs. 180963
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  05422d276b56f2ebc2309a84a66fc5722c45ad74
-baseline version:
- xen                  f54dd5b53ee516fa1d4c106e0744ce0083acfcdc
-
-Last test of basis   180963  2023-05-26 13:01:58 Z    4 days
-Testing same since   181014  2023-05-30 11:02:30 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Cyril Rébert <slack@rabbit.lu>
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Luca Fancellu <luca.fancellu@arm.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stewart Hildebrand <stewart.hildebrand@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    broken  
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job test-amd64-amd64-xl-qemuu-debianhvm-amd64 broken
-broken-step test-amd64-amd64-xl-qemuu-debianhvm-amd64 host-install(5)
-
-Not pushing.
-
-------------------------------------------------------------
-commit 05422d276b56f2ebc2309a84a66fc5722c45ad74
-Author: Anthony PERARD <anthony.perard@citrix.com>
-Date:   Tue May 30 12:12:59 2023 +0200
-
-    build: adjust compile.h compiler version command line
-    
-    CFLAGS is just from Config.mk, drop its use. Don't even bother to
-    instead use the flags used to build Xen.
-    
-    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit 352c917acfe1dd6afc2eee44aa4ab7c50d4bc48a
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Tue May 30 12:00:34 2023 +0200
-
-    x86/vPIC: register only one ELCR handler instance
-    
-    There's no point consuming two port-I/O slots. Even less so considering
-    that some real hardware permits both ports to be accessed in one go,
-    emulating of which requires there to be only a single instance.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit 647377ea06b86d7356f5975e4780b9a6a81c188e
-Author: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Date:   Tue May 30 11:59:33 2023 +0200
-
-    xen/arm: un-break build with clang
-    
-    clang doesn't like extern with __attribute__((__used__)):
-    
-      ./arch/arm/include/asm/setup.h:171:8: error: 'used' attribute ignored [-Werror,-Wignored-attributes]
-      extern DEFINE_BOOT_PAGE_TABLE(boot_pgtable);
-             ^
-      ./arch/arm/include/asm/lpae.h:273:29: note: expanded from macro 'DEFINE_BOOT_PAGE_TABLE'
-      lpae_t __aligned(PAGE_SIZE) __section(".data.page_aligned")                   \$
-                                  ^
-      ./include/xen/compiler.h:71:27: note: expanded from macro '__section'
-      #define __section(s)      __used __attribute__((__section__(s)))
-                                ^
-      ./include/xen/compiler.h:104:39: note: expanded from macro '__used'
-      #define __used         __attribute__((__used__))
-                                            ^
-    
-    Simplify the declarations by getting rid of the macro (and thus the
-    __aligned/__section/__used attributes) in the header. No functional change
-    intended as the macro/attributes are present in the respective definitions in
-    xen/arch/arm/mm.c.
-    
-    Fixes: 1c78d76b67e1 ("xen/arm64: mm: Introduce helpers to prepare/enable/disable the identity mapping")
-    Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 2a8a1681505d67dae5d3964f98cc1b1daf8e43f3
-Author: Cyril Rébert <slack@rabbit.lu>
-Date:   Tue May 30 11:57:42 2023 +0200
-
-    tools/xenstore: remove deprecated parameter from xenstore commands help
-    
-    Completing commit c65687e ("tools/xenstore: remove socket-only option from xenstore client").
-    As the socket-only option (-s) has been removed from the Xenstore access commands (xenstore-*),
-    also remove the parameter from the commands help (xenstore-* -h).
-    
-    Suggested-by: Yann Dirson <yann.dirson@vates.fr>
-    Signed-off-by: Cyril Rébert <slack@rabbit.lu>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-
-commit ca045140d90c7892ec0664cdb2ef3e16c97eb0b6
-Author: Luca Fancellu <luca.fancellu@arm.com>
-Date:   Tue May 30 11:57:17 2023 +0200
-
-    xen/misra: xen-analysis.py: Fix cppcheck report relative paths
-    
-    Fix the generation of the relative path from the repo, for cppcheck
-    reports, when the script is launching make with in-tree build.
-    
-    Fixes: b046f7e37489 ("xen/misra: xen-analysis.py: use the relative path from the ...")
-    Reported-by: Michal Orzel <michal.orzel@amd.com>
-    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-    Tested-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 8bd504290bc3e5fb4d04150f96a36783407661b4
-Author: Luca Fancellu <luca.fancellu@arm.com>
-Date:   Tue May 30 11:57:02 2023 +0200
-
-    xen/misra: xen-analysis.py: Fix latent bug
-    
-    Currenly there is a latent bug that is not triggered because
-    the function cppcheck_merge_txt_fragments is called with the
-    parameter strip_paths having a list of only one element.
-    
-    The bug is that the split function should not be in the
-    loop for strip_paths, but one level before, fix it.
-    
-    Fixes: 02b26c02c7c4 ("xen/scripts: add cppcheck tool to the xen-analysis.py script")
-    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-    Tested-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit e56f2106b6727223bd7de03e20fedd1f94da655d
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Tue May 30 11:56:22 2023 +0200
-
-    VMX/cpu-policy: disable RDTSCP and INVPCID insns as needed
-    
-    When either feature is available in hardware, but disabled for a guest,
-    the respective insn would better cause #UD if attempted to be used.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-commit 233a8f20cfbe999505c7b07b359f03fc04111008
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Tue May 30 11:54:55 2023 +0200
-
-    VMX/cpu-policy: check availability of RDTSCP and INVPCID
-    
-    Both have separate enable bits, which are optional. While on real
-    hardware we can perhaps expect these VMX controls to be available if
-    (and only if) the base CPU feature is available, when running
-    virtualized ourselves this may not be the case.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-(qemu changes not included)
+Ya, regular SEV doesn't encrypt register state.
 
