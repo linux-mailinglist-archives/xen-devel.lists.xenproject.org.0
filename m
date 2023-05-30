@@ -2,33 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38061716B2A
-	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 19:32:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541326.843983 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06FD4716BF3
+	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 20:11:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541336.844018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q43CN-0001tf-Rh; Tue, 30 May 2023 17:31:55 +0000
+	id 1q43nr-0006wg-Ms; Tue, 30 May 2023 18:10:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541326.843983; Tue, 30 May 2023 17:31:55 +0000
+Received: by outflank-mailman (output) from mailman id 541336.844018; Tue, 30 May 2023 18:10:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q43CN-0001rQ-OK; Tue, 30 May 2023 17:31:55 +0000
-Received: by outflank-mailman (input) for mailman id 541326;
- Tue, 30 May 2023 17:31:54 +0000
+	id 1q43nr-0006tY-Iy; Tue, 30 May 2023 18:10:39 +0000
+Received: by outflank-mailman (input) for mailman id 541336;
+ Tue, 30 May 2023 18:10:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zZuJ=BT=flex--seanjc.bounces.google.com=3BzN2ZAYKCXAgSObXQUccUZS.QcalSb-RSjSZZWghg.lSbdfcXSQh.cfU@srs-se1.protection.inumbo.net>)
- id 1q43CM-0001Na-6K
- for xen-devel@lists.xenproject.org; Tue, 30 May 2023 17:31:54 +0000
-Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
- [2607:f8b0:4864:20::54a])
+ <SRS0=BJNG=BT=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1q43np-0006Ma-T3
+ for xen-devel@lists.xenproject.org; Tue, 30 May 2023 18:10:37 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd93b758-ff0f-11ed-b231-6b7b168915f2;
- Tue, 30 May 2023 19:31:53 +0200 (CEST)
-Received: by mail-pg1-x54a.google.com with SMTP id
- 41be03b00d2f7-53445255181so2605152a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 May 2023 10:31:53 -0700 (PDT)
+ id 46a5f28c-ff15-11ed-b231-6b7b168915f2;
+ Tue, 30 May 2023 20:10:37 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-567-RcpP8Yb5O6-KCdzFrDVW0w-1; Tue, 30 May 2023 14:10:32 -0400
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB7E5185A78F;
+ Tue, 30 May 2023 18:10:31 +0000 (UTC)
+Received: from localhost (unknown [10.39.192.97])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 5A43B40CFD45;
+ Tue, 30 May 2023 18:10:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,105 +50,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd93b758-ff0f-11ed-b231-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20221208; t=1685467912; x=1688059912;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=5dIo9ozu/tftAp1UmpoAUrczqs99lWKXi5qA1UpHNYE=;
-        b=fcMt7E9oftWvnXylT0q0LSi2ovxYU6GROaZO/YpP+hWVROA5CGkN858ssUM/OEUsq+
-         cy2yKP5XxthrBWOhhRWmnMfaInbcFln+rmGuOYxtdLasZqdrf9i2ZKdgt/TEdCrBBjG7
-         ZT9ootqRsxe/NChBz/85WsRSsuU1KSVsGHKC2qIH/mmVq1mmccPpcHFqUeIQGRkih0S3
-         aGvDJJEkz3g8ZQ99QNMUDAP/dYZioxFkRygbUSwiPYm9+GJu5Jyv2dh2A01JO3qxQH41
-         6ykaek6RLxvtQMhW8/hOelD76pSAAtY75YP51exJDFZC+VMuMAXLJkFisg7dDXEPnO0i
-         fv+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685467912; x=1688059912;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=5dIo9ozu/tftAp1UmpoAUrczqs99lWKXi5qA1UpHNYE=;
-        b=GqQeARTJAIy0OCMnou0Vt/JPinTj7KJPa3u3g5owP1aXSvRugCBWy5UT3TO7eFis/I
-         4i0DflcahSN1fWJpq30oLlezVcCKXOwb7P062DaI5um3qhTjoFgt1C7yWz1vu09FDXLe
-         juRMvfEQJZ8HcTYO+3O9aXBhgdx64aLoFGTTuwlfKH4z1RKcYtiEbe6P5Td6jEvpycll
-         +KkstALS2X4ixpj2bkKtNDZe1jtyPJ9K7XSg3MjF3KaQ0uWRYu8z6x8vgpF7OJuYm+kP
-         uZiTvnwRlu8XZqJwjbw4swHjRinRZxs01dJLGS7CIdRatbD3FmIAcGFayILvyejVMcYW
-         gucA==
-X-Gm-Message-State: AC+VfDxU5zZhESBcIm0mGUnobpSyxLNVlTBPhKqKvuQRx8bZH/4xyRti
-	uQgzWBxtKo9mj3aZwVQc9mWb30Hllq0=
-X-Google-Smtp-Source: ACHHUZ5mA8belaIiWlXNNvjxlntxz+3HEXuwwih113OoUIVv+U+qOnHhtSEzZI4lNu6RqPJOqokzHLfKYhE=
-X-Received: from zagreus.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
- (user=seanjc job=sendgmr) by 2002:a63:510:0:b0:52c:9996:c1f8 with SMTP id
- 16-20020a630510000000b0052c9996c1f8mr555070pgf.10.1685467911952; Tue, 30 May
- 2023 10:31:51 -0700 (PDT)
-Date: Tue, 30 May 2023 10:31:50 -0700
-In-Reply-To: <20230530170210.ujkv737uyjfvdoay@box.shutemov.name>
-Mime-Version: 1.0
-References: <20230529023939.mc2akptpxcg3eh2f@box.shutemov.name>
- <87bki3kkfi.ffs@tglx> <20230529203129.sthnhzgds7ynddxd@box.shutemov.name>
- <20230530005428.jyrc2ezx5raohlrt@box.shutemov.name> <87mt1mjhk3.ffs@tglx>
- <87jzwqjeey.ffs@tglx> <87cz2ija1e.ffs@tglx> <20230530122951.2wu5rwcu26ofov6f@box.shutemov.name>
- <87wn0pizbl.ffs@tglx> <20230530170210.ujkv737uyjfvdoay@box.shutemov.name>
-Message-ID: <ZHYzBrLfT6DIKBw4@google.com>
-Subject: Re: [patch] x86/smpboot: Disable parallel bootup if cc_vendor != NONE
-From: Sean Christopherson <seanjc@google.com>
-To: "Kirill A. Shutemov" <kirill@shutemov.name>
-Cc: Thomas Gleixner <tglx@linutronix.de>, Tom Lendacky <thomas.lendacky@amd.com>, 
-	LKML <linux-kernel@vger.kernel.org>, x86@kernel.org, 
-	David Woodhouse <dwmw2@infradead.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Brian Gerst <brgerst@gmail.com>, Arjan van de Veen <arjan@linux.intel.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Paul McKenney <paulmck@kernel.org>, 
-	Oleksandr Natalenko <oleksandr@natalenko.name>, Paul Menzel <pmenzel@molgen.mpg.de>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Piotr Gorski <lucjan.lucjanov@gmail.com>, 
-	Usama Arif <usama.arif@bytedance.com>, Juergen Gross <jgross@suse.com>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org, 
-	Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>, 
-	linux-arm-kernel@lists.infradead.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, 
-	linux-csky@vger.kernel.org, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	linux-mips@vger.kernel.org, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
-	linux-parisc@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, linux-riscv@lists.infradead.org, 
-	Mark Rutland <mark.rutland@arm.com>, Sabin Rapan <sabrapan@amazon.com>, 
-	"Michael Kelley (LINUX)" <mikelley@microsoft.com>, Dave Hansen <dave.hansen@linux.intel.com>
-Content-Type: text/plain; charset="us-ascii"
+X-Inumbo-ID: 46a5f28c-ff15-11ed-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1685470236;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zspNQDN9x15zA+5+5xrrc00UJFsGuayW0uokDFqy9AA=;
+	b=XYJHL/P/KkDEEsC3eMla+VJrQ9/wsycqctSeYSkgrjLhbvoivv+mIXuqkS56XGA8AZoV5z
+	2nQGTswtB+0pS9NKMGkNoPneDSyQhK6ORRoAULjDWOfxqPUXuo+u9tHZTHYgIejRrFOC/T
+	O2JgVR4X3NOK1s8tiHy7o0ndgvije8Y=
+X-MC-Unique: RcpP8Yb5O6-KCdzFrDVW0w-1
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	eblake@redhat.com,
+	Hanna Reitz <hreitz@redhat.com>,
+	Fam Zheng <fam@euphon.net>,
+	sgarzare@redhat.com,
+	qemu-block@nongnu.org,
+	xen-devel@lists.xenproject.org,
+	Julia Suvorova <jusual@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Paul Durrant <paul@xen.org>,
+	Kevin Wolf <kwolf@redhat.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	Aarushi Mehta <mehta.aaru20@gmail.com>
+Subject: [PATCH v3 0/6] block: add blk_io_plug_call() API
+Date: Tue, 30 May 2023 14:09:53 -0400
+Message-Id: <20230530180959.1108766-1-stefanha@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 
-On Tue, May 30, 2023, Kirill A. Shutemov wrote:
-> On Tue, May 30, 2023 at 06:00:46PM +0200, Thomas Gleixner wrote:
-> > On Tue, May 30 2023 at 15:29, Kirill A. Shutemov wrote:
-> > > On Tue, May 30, 2023 at 02:09:17PM +0200, Thomas Gleixner wrote:
-> > >> The decision to allow parallel bringup of secondary CPUs checks
-> > >> CC_ATTR_GUEST_STATE_ENCRYPT to detect encrypted guests. Those cannot use
-> > >> parallel bootup because accessing the local APIC is intercepted and raises
-> > >> a #VC or #VE, which cannot be handled at that point.
-> > >> 
-> > >> The check works correctly, but only for AMD encrypted guests. TDX does not
-> > >> set that flag.
-> > >> 
-> > >> Check for cc_vendor != CC_VENDOR_NONE instead. That might be overbroad, but
-> > >> definitely works for both AMD and Intel.
-> > >
-> > > It boots fine with TDX, but I think it is wrong. cc_get_vendor() will
-> > > report CC_VENDOR_AMD even on bare metal if SME is enabled. I don't think
-> > > we want it.
-> > 
-> > Right. Did not think about that.
-> > 
-> > But the same way is CC_ATTR_GUEST_MEM_ENCRYPT overbroad for AMD. Only
-> > SEV-ES traps RDMSR if I'm understandig that maze correctly.
-> 
-> I don't know difference between SEV flavours that well.
-> 
-> I see there's that on SEV-SNP access to x2APIC MSR range (MSR 0x800-0x8FF)
-> is intercepted regardless if MSR_AMD64_SNP_ALT_INJ feature is present. But
-> I'm not sure what the state on SEV or SEV-ES.
+v3
+- Patch 5: Mention why dev_max_batch condition was dropped [Stefano]
+v2
+- Patch 1: "is not be freed" -> "is not freed" [Eric]
+- Patch 2: Remove unused nvme_process_completion_queue_plugged trace event
+  [Stefano]
+- Patch 3: Add missing #include and fix blkio_unplug_fn() prototype [Stefano]
+- Patch 4: Removed whitespace hunk [Eric]
 
-With SEV-ES, if the hypervisor intercepts an MSR access, the VM-Exit is instead
-morphed to a #VC (except for EFER).  The guest needs to do an explicit VMGEXIT
-(i.e. a hypercall) to explicitly request MSR emulation (this *can* be done in the
-#VC handler, but the guest can also do VMGEXIT directly, e.g. in lieu of a RDMSR).
+The existing blk_io_plug() API is not block layer multi-queue friendly because
+the plug state is per-BlockDriverState.
 
-With regular SEV, VM-Exits aren't reflected into the guest.  Register state isn't
-encrypted so the hypervisor can emulate MSR accesses (and other instructions)
-without needing an explicit hypercall from the guest.
+Change blk_io_plug()'s implementation so it is thread-local. This is done by
+introducing the blk_io_plug_call() function that block drivers use to batch
+calls while plugged. It is relatively easy to convert block drivers from
+.bdrv_co_io_plug() to blk_io_plug_call().
+
+Random read 4KB performance with virtio-blk on a host NVMe block device:
+
+iodepth   iops   change vs today
+1        45612   -4%
+2        87967   +2%
+4       129872   +0%
+8       171096   -3%
+16      194508   -4%
+32      208947   -1%
+64      217647   +0%
+128     229629   +0%
+
+The results are within the noise for these benchmarks. This is to be expected
+because the plugging behavior for a single thread hasn't changed in this patch
+series, only that the state is thread-local now.
+
+The following graph compares several approaches:
+https://vmsplice.net/~stefan/blk_io_plug-thread-local.png
+- v7.2.0: before most of the multi-queue block layer changes landed.
+- with-blk_io_plug: today's post-8.0.0 QEMU.
+- blk_io_plug-thread-local: this patch series.
+- no-blk_io_plug: what happens when we simply remove plugging?
+- call-after-dispatch: what if we integrate plugging into the event loop? I
+  decided against this approach in the end because it's more likely to
+  introduce performance regressions since I/O submission is deferred until the
+  end of the event loop iteration.
+
+Aside from the no-blk_io_plug case, which bottlenecks much earlier than the
+others, we see that all plugging approaches are more or less equivalent in this
+benchmark. It is also clear that QEMU 8.0.0 has lower performance than 7.2.0.
+
+The Ansible playbook, fio results, and a Jupyter notebook are available here:
+https://github.com/stefanha/qemu-perf/tree/remove-blk_io_plug
+
+Stefan Hajnoczi (6):
+  block: add blk_io_plug_call() API
+  block/nvme: convert to blk_io_plug_call() API
+  block/blkio: convert to blk_io_plug_call() API
+  block/io_uring: convert to blk_io_plug_call() API
+  block/linux-aio: convert to blk_io_plug_call() API
+  block: remove bdrv_co_io_plug() API
+
+ MAINTAINERS                       |   1 +
+ include/block/block-io.h          |   3 -
+ include/block/block_int-common.h  |  11 ---
+ include/block/raw-aio.h           |  14 ---
+ include/sysemu/block-backend-io.h |  13 +--
+ block/blkio.c                     |  43 ++++----
+ block/block-backend.c             |  22 -----
+ block/file-posix.c                |  38 -------
+ block/io.c                        |  37 -------
+ block/io_uring.c                  |  44 ++++-----
+ block/linux-aio.c                 |  41 +++-----
+ block/nvme.c                      |  44 +++------
+ block/plug.c                      | 159 ++++++++++++++++++++++++++++++
+ hw/block/dataplane/xen-block.c    |   8 +-
+ hw/block/virtio-blk.c             |   4 +-
+ hw/scsi/virtio-scsi.c             |   6 +-
+ block/meson.build                 |   1 +
+ block/trace-events                |   6 +-
+ 18 files changed, 239 insertions(+), 256 deletions(-)
+ create mode 100644 block/plug.c
+
+-- 
+2.40.1
+
 
