@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AD90715934
-	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 10:57:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540909.843075 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 608A5715922
+	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 10:55:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540893.843032 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q3vAe-0008GB-MD; Tue, 30 May 2023 08:57:36 +0000
+	id 1q3v8S-0005yv-OF; Tue, 30 May 2023 08:55:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540909.843075; Tue, 30 May 2023 08:57:36 +0000
+Received: by outflank-mailman (output) from mailman id 540893.843032; Tue, 30 May 2023 08:55:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q3vAe-00085t-ER; Tue, 30 May 2023 08:57:36 +0000
-Received: by outflank-mailman (input) for mailman id 540909;
- Tue, 30 May 2023 08:57:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q3v8S-0005vf-Jy; Tue, 30 May 2023 08:55:20 +0000
+Received: by outflank-mailman (input) for mailman id 540893;
+ Tue, 30 May 2023 08:55:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2tj/=BT=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1q3v8K-0001Xf-NR
- for xen-devel@lists.xenproject.org; Tue, 30 May 2023 08:55:12 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id afcd7abb-fec7-11ed-b231-6b7b168915f2;
- Tue, 30 May 2023 10:55:12 +0200 (CEST)
+ id 1q3v8R-00026J-Hq
+ for xen-devel@lists.xenproject.org; Tue, 30 May 2023 08:55:19 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b323688d-fec7-11ed-8611-37d641c3527e;
+ Tue, 30 May 2023 10:55:17 +0200 (CEST)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E13551F889;
- Tue, 30 May 2023 08:55:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7B8D61F889;
+ Tue, 30 May 2023 08:55:17 +0000 (UTC)
 Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 9C4641341B;
- Tue, 30 May 2023 08:55:11 +0000 (UTC)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 4F13C1341B;
+ Tue, 30 May 2023 08:55:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id nYboJO+5dWSbGwAAGKfGzw
- (envelope-from <jgross@suse.com>); Tue, 30 May 2023 08:55:11 +0000
+ by imap1.suse-dmz.suse.de with ESMTPSA id sl/qEfW5dWSlGwAAGKfGzw
+ (envelope-from <jgross@suse.com>); Tue, 30 May 2023 08:55:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,243 +51,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afcd7abb-fec7-11ed-b231-6b7b168915f2
+X-Inumbo-ID: b323688d-fec7-11ed-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1685436911; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1685436917; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TaRskO1LG2nxAfCeJXWFN3XQHUGJk1h0ZfPSHDmx7q4=;
-	b=qZdkvmmgsoHJaX8DKw66YyAIkNJEtvN0fNMRnBIIhceKr7ODWV5TY2PN866cWKpjGOc9Om
-	KL4kEipeiB3UgLkPUjc4bRb/PjtxXwgwvPMQ6YD1AO0qldnGCppdAKrNtEn8+SwbIhCJ3d
-	Rl9eXVwnGcaQmxKvYIqKrCvAgicbMrk=
+	bh=C/Ox51cVL9p1eHyc6sg+qCU7lAujcwGHF0wI/e2QVOQ=;
+	b=W7vChUNhEyba3TIvObcpqaw4ipjlkF/Oxa17NKQJqIUpgk1XuMwL/Zx4C2YI/1XW9/FGQ3
+	gfEFXx+1prc+c5Wa4TN71oPmfD/4/H6EI1VEHG25T3Qv9KVchysjnhqybNr/NRs0N3tjY1
+	tUGt1Tb+POeEiwXtMmpdPYLWMJvEgL4=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
+	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v3 09/16] tools/xenstore: remove support of file backed data base
-Date: Tue, 30 May 2023 10:54:11 +0200
-Message-Id: <20230530085418.5417-10-jgross@suse.com>
+Subject: [PATCH v3 10/16] tools/libs/store: use xen_list.h instead of xenstore/list.h
+Date: Tue, 30 May 2023 10:54:12 +0200
+Message-Id: <20230530085418.5417-11-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230530085418.5417-1-jgross@suse.com>
 References: <20230530085418.5417-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In order to prepare the replacement of TDB with direct accessible nodes
-in memory, remove the support for a file backed data base.
-
-This allows to remove xs_tdb_dump, too.
+Replace the usage of the xenstore private list.h header with the
+common xen_list.h one.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- .gitignore                      |  1 -
- tools/xenstore/Makefile         |  5 +-
- tools/xenstore/xenstored_core.c | 18 ++-----
- tools/xenstore/xs_tdb_dump.c    | 86 ---------------------------------
- 4 files changed, 4 insertions(+), 106 deletions(-)
- delete mode 100644 tools/xenstore/xs_tdb_dump.c
+V3:
+- new patch
+---
+ tools/libs/store/xs.c | 56 +++++++++++++++++++++----------------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
-diff --git a/.gitignore b/.gitignore
-index beac034784..26f532e77c 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -248,7 +248,6 @@ tools/xenstore/xenstore-rm
- tools/xenstore/xenstore-watch
- tools/xenstore/xenstore-write
- tools/xenstore/xenstored
--tools/xenstore/xs_tdb_dump
- tools/xentop/xentop
- tools/xentrace/xentrace_setsize
- tools/xentrace/tbctl
-diff --git a/tools/xenstore/Makefile b/tools/xenstore/Makefile
-index ce7a68178f..56723139a1 100644
---- a/tools/xenstore/Makefile
-+++ b/tools/xenstore/Makefile
-@@ -29,7 +29,7 @@ CLIENTS += xenstore-write xenstore-ls xenstore-watch
+diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
+index 7a9a8b1656..3813b69ae2 100644
+--- a/tools/libs/store/xs.c
++++ b/tools/libs/store/xs.c
+@@ -35,13 +35,13 @@
+ #include <errno.h>
+ #include "xenstore.h"
+ #include "xs_lib.h"
+-#include "list.h"
+ #include "utils.h"
  
- TARGETS := xenstore $(CLIENTS) xenstore-control
- ifeq ($(XENSTORE_XENSTORED),y)
--TARGETS += xs_tdb_dump xenstored
-+TARGETS += xenstored
- endif
+ #include <xentoolcore_internal.h>
++#include <xen_list.h>
  
- .PHONY: all
-@@ -50,9 +50,6 @@ xenstore: xenstore_client.o xs_lib.o
- xenstore-control: xenstore_control.o
- 	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@ $(APPEND_LDFLAGS)
+ struct xs_stored_msg {
+-	struct list_head list;
++	XEN_TAILQ_ENTRY(struct xs_stored_msg) list;
+ 	struct xsd_sockmsg hdr;
+ 	char *body;
+ };
+@@ -70,7 +70,7 @@ struct xs_handle {
+          * A list of fired watch messages, protected by a mutex. Users can
+          * wait on the conditional variable until a watch is pending.
+          */
+-	struct list_head watch_list;
++	XEN_TAILQ_HEAD(, struct xs_stored_msg) watch_list;
+ 	pthread_mutex_t watch_mutex;
+ 	pthread_cond_t watch_condvar;
  
--xs_tdb_dump: xs_tdb_dump.o utils.o tdb.o talloc.o
--	$(CC) $(LDFLAGS) $^ -o $@ $(APPEND_LDFLAGS)
--
- .PHONY: clean
- clean::
- 	$(RM) $(TARGETS) $(DEPS_RM)
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index e8f46495de..07fbac55ac 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -2301,8 +2301,6 @@ static void accept_connection(int sock)
- }
+@@ -84,7 +84,7 @@ struct xs_handle {
+          * because we serialise requests. The requester can wait on the
+          * conditional variable for its response.
+          */
+-	struct list_head reply_list;
++	XEN_TAILQ_HEAD(, struct xs_stored_msg) reply_list;
+ 	pthread_mutex_t reply_mutex;
+ 	pthread_cond_t reply_condvar;
+ 
+@@ -133,8 +133,8 @@ static void *read_thread(void *arg);
+ struct xs_handle {
+ 	int fd;
+ 	Xentoolcore__Active_Handle tc_ah; /* for restrict */
+-	struct list_head reply_list;
+-	struct list_head watch_list;
++	XEN_TAILQ_HEAD(, struct xs_stored_msg) reply_list;
++	XEN_TAILQ_HEAD(, struct xs_stored_msg) watch_list;
+ 	/* Clients can select() on this pipe to wait for a watch to fire. */
+ 	int watch_pipe[2];
+ 	/* Filtering watch event in unwatch function? */
+@@ -180,7 +180,7 @@ int xs_fileno(struct xs_handle *h)
+ 
+ 	if ((h->watch_pipe[0] == -1) && (pipe(h->watch_pipe) != -1)) {
+ 		/* Kick things off if the watch list is already non-empty. */
+-		if (!list_empty(&h->watch_list))
++		if (!XEN_TAILQ_EMPTY(&h->watch_list))
+ 			while (write(h->watch_pipe[1], &c, 1) != 1)
+ 				continue;
+ 	}
+@@ -262,8 +262,8 @@ static struct xs_handle *get_handle(const char *connect_to)
+ 	if (h->fd == -1)
+ 		goto err;
+ 
+-	INIT_LIST_HEAD(&h->reply_list);
+-	INIT_LIST_HEAD(&h->watch_list);
++	XEN_TAILQ_INIT(&h->reply_list);
++	XEN_TAILQ_INIT(&h->watch_list);
+ 
+ 	/* Watch pipe is allocated on demand in xs_fileno(). */
+ 	h->watch_pipe[0] = h->watch_pipe[1] = -1;
+@@ -329,12 +329,12 @@ struct xs_handle *xs_open(unsigned long flags)
+ static void close_free_msgs(struct xs_handle *h) {
+ 	struct xs_stored_msg *msg, *tmsg;
+ 
+-	list_for_each_entry_safe(msg, tmsg, &h->reply_list, list) {
++	XEN_TAILQ_FOREACH_SAFE(msg, &h->reply_list, list, tmsg) {
+ 		free(msg->body);
+ 		free(msg);
+ 	}
+ 
+-	list_for_each_entry_safe(msg, tmsg, &h->watch_list, list) {
++	XEN_TAILQ_FOREACH_SAFE(msg, &h->watch_list, list, tmsg) {
+ 		free(msg->body);
+ 		free(msg);
+ 	}
+@@ -459,17 +459,17 @@ static void *read_reply(
+ 
+ 	mutex_lock(&h->reply_mutex);
+ #ifdef USE_PTHREAD
+-	while (list_empty(&h->reply_list) && read_from_thread && h->fd != -1)
++	while (XEN_TAILQ_EMPTY(&h->reply_list) && read_from_thread && h->fd != -1)
+ 		condvar_wait(&h->reply_condvar, &h->reply_mutex);
  #endif
+-	if (list_empty(&h->reply_list)) {
++	if (XEN_TAILQ_EMPTY(&h->reply_list)) {
+ 		mutex_unlock(&h->reply_mutex);
+ 		errno = EINVAL;
+ 		return NULL;
+ 	}
+-	msg = list_top(&h->reply_list, struct xs_stored_msg, list);
+-	list_del(&msg->list);
+-	assert(list_empty(&h->reply_list));
++	msg = XEN_TAILQ_FIRST(&h->reply_list);
++	XEN_TAILQ_REMOVE(&h->reply_list, msg, list);
++	assert(XEN_TAILQ_EMPTY(&h->reply_list));
+ 	mutex_unlock(&h->reply_mutex);
  
--static int tdb_flags = TDB_INTERNAL | TDB_NOLOCK;
--
- /* We create initial nodes manually. */
- static void manual_node(const char *name, const char *child)
+ 	*type = msg->hdr.type;
+@@ -883,7 +883,7 @@ static void xs_maybe_clear_watch_pipe(struct xs_handle *h)
  {
-@@ -2354,14 +2352,11 @@ void setup_structure(bool live_update)
- {
- 	char *tdbname;
+ 	char c;
  
--	tdbname = talloc_strdup(talloc_autofree_context(), xs_daemon_tdb());
-+	tdbname = talloc_strdup(talloc_autofree_context(), "/dev/mem");
- 	if (!tdbname)
- 		barf_perror("Could not create tdbname");
+-	if (list_empty(&h->watch_list) && (h->watch_pipe[0] != -1))
++	if (XEN_TAILQ_EMPTY(&h->watch_list) && (h->watch_pipe[0] != -1))
+ 		while (read(h->watch_pipe[0], &c, 1) != 1)
+ 			continue;
+ }
+@@ -907,7 +907,7 @@ static char **read_watch_internal(struct xs_handle *h, unsigned int *num,
+ 	 * we haven't called xs_watch.	Presumably the application
+ 	 * will do so later; in the meantime we just block.
+ 	 */
+-	while (list_empty(&h->watch_list) && h->fd != -1) {
++	while (XEN_TAILQ_EMPTY(&h->watch_list) && h->fd != -1) {
+ 		if (nonblocking) {
+ 			mutex_unlock(&h->watch_mutex);
+ 			errno = EAGAIN;
+@@ -925,13 +925,13 @@ static char **read_watch_internal(struct xs_handle *h, unsigned int *num,
  
--	if (!(tdb_flags & TDB_INTERNAL))
--		unlink(tdbname);
--
--	tdb_ctx = tdb_open_ex(tdbname, 7919, tdb_flags,
-+	tdb_ctx = tdb_open_ex(tdbname, 7919, TDB_INTERNAL | TDB_NOLOCK,
- 			      O_RDWR | O_CREAT | O_EXCL | O_CLOEXEC,
- 			      0640, &tdb_logger, NULL);
- 	if (!tdb_ctx)
-@@ -2659,8 +2654,6 @@ static void usage(void)
- "                          watch-event: time a watch-event is kept pending\n"
- "  -R, --no-recovery       to request that no recovery should be attempted when\n"
- "                          the store is corrupted (debug only),\n"
--"  -I, --internal-db [on|off] store database in memory, not on disk, default is\n"
--"                          memory, with \"--internal-db off\" it is on disk\n"
- "  -K, --keep-orphans      don't delete nodes owned by a domain when the\n"
- "                          domain is deleted (this is a security risk!)\n"
- "  -V, --verbose           to request verbose execution.\n");
-@@ -2687,7 +2680,6 @@ static struct option options[] = {
- 	{ "quota-soft", 1, NULL, 'q' },
- 	{ "timeout", 1, NULL, 'w' },
- 	{ "no-recovery", 0, NULL, 'R' },
--	{ "internal-db", 2, NULL, 'I' },
- 	{ "keep-orphans", 0, NULL, 'K' },
- 	{ "verbose", 0, NULL, 'V' },
- 	{ "watch-nb", 1, NULL, 'W' },
-@@ -2811,7 +2803,7 @@ int main(int argc, char *argv[])
- 	orig_argv = argv;
+ #endif /* !defined(USE_PTHREAD) */
  
- 	while ((opt = getopt_long(argc, argv,
--				  "DE:F:HI::KNPS:t:A:M:Q:q:T:RVW:w:U",
-+				  "DE:F:H::KNPS:t:A:M:Q:q:T:RVW:w:U",
- 				  options, NULL)) != -1) {
- 		switch (opt) {
- 		case 'D':
-@@ -2848,10 +2840,6 @@ int main(int argc, char *argv[])
- 			if (set_trace_switch(optarg))
- 				barf("Illegal trace switch \"%s\"\n", optarg);
- 			break;
--		case 'I':
--			if (optarg && !strcmp(optarg, "off"))
--				tdb_flags = 0;
--			break;
- 		case 'K':
- 			keep_orphans = true;
- 			break;
-diff --git a/tools/xenstore/xs_tdb_dump.c b/tools/xenstore/xs_tdb_dump.c
-deleted file mode 100644
-index 5d2db392b4..0000000000
---- a/tools/xenstore/xs_tdb_dump.c
-+++ /dev/null
-@@ -1,86 +0,0 @@
--/* Simple program to dump out all records of TDB */
--#include <stdint.h>
--#include <stdlib.h>
--#include <fcntl.h>
--#include <stdio.h>
--#include <stdarg.h>
--#include <string.h>
--#include <sys/types.h>
--#include "xenstore_lib.h"
--#include "tdb.h"
--#include "talloc.h"
--#include "utils.h"
--
--static uint32_t total_size(struct xs_tdb_record_hdr *hdr)
--{
--	return sizeof(*hdr) + hdr->num_perms * sizeof(struct xs_permissions) 
--		+ hdr->datalen + hdr->childlen;
--}
--
--static char perm_to_char(unsigned int perm)
--{
--	return perm == XS_PERM_READ ? 'r' :
--		perm == XS_PERM_WRITE ? 'w' :
--		perm == XS_PERM_NONE ? '-' :
--		perm == (XS_PERM_READ|XS_PERM_WRITE) ? 'b' :
--		'?';
--}
--
--static void tdb_logger(TDB_CONTEXT *tdb, int level, const char * fmt, ...)
--{
--	va_list ap;
--
--	va_start(ap, fmt);
--	vfprintf(stderr, fmt, ap);
--	va_end(ap);
--}
--
--int main(int argc, char *argv[])
--{
--	TDB_DATA key;
--	TDB_CONTEXT *tdb;
--
--	if (argc != 2)
--		barf("Usage: xs_tdb_dump <tdbfile>");
--
--	tdb = tdb_open_ex(talloc_strdup(NULL, argv[1]), 0, 0, O_RDONLY, 0,
--			  &tdb_logger, NULL);
--	if (!tdb)
--		barf_perror("Could not open %s", argv[1]);
--
--	key = tdb_firstkey(tdb);
--	while (key.dptr) {
--		TDB_DATA data;
--		struct xs_tdb_record_hdr *hdr;
--
--		data = tdb_fetch(tdb, key);
--		hdr = (void *)data.dptr;
--		if (data.dsize < sizeof(*hdr))
--			fprintf(stderr, "%.*s: BAD truncated\n",
--				(int)key.dsize, key.dptr);
--		else if (data.dsize != total_size(hdr))
--			fprintf(stderr, "%.*s: BAD length %zu for %u/%u/%u (%u)\n",
--				(int)key.dsize, key.dptr, data.dsize,
--				hdr->num_perms, hdr->datalen,
--				hdr->childlen, total_size(hdr));
--		else {
--			unsigned int i;
--			char *p;
--
--			printf("%.*s: ", (int)key.dsize, key.dptr);
--			for (i = 0; i < hdr->num_perms; i++)
--				printf("%s%c%u",
--				       i == 0 ? "" : ",",
--				       perm_to_char(hdr->perms[i].perms),
--				       hdr->perms[i].id);
--			p = (void *)&hdr->perms[hdr->num_perms];
--			printf(" %.*s\n", hdr->datalen, p);
--			p += hdr->datalen;
--			for (i = 0; i < hdr->childlen; i += strlen(p+i)+1)
--				printf("\t-> %s\n", p+i);
--		}
--		key = tdb_nextkey(tdb, key);
--	}
--	return 0;
--}
--
+-	if (list_empty(&h->watch_list)) {
++	if (XEN_TAILQ_EMPTY(&h->watch_list)) {
+ 		mutex_unlock(&h->watch_mutex);
+ 		errno = EINVAL;
+ 		return NULL;
+ 	}
+-	msg = list_top(&h->watch_list, struct xs_stored_msg, list);
+-	list_del(&msg->list);
++	msg = XEN_TAILQ_FIRST(&h->watch_list);
++	XEN_TAILQ_REMOVE(&h->watch_list, msg, list);
+ 
+ 	xs_maybe_clear_watch_pipe(h);
+ 	mutex_unlock(&h->watch_mutex);
+@@ -1007,12 +1007,12 @@ bool xs_unwatch(struct xs_handle *h, const char *path, const char *token)
+ 	/* Filter the watch list to remove potential message */
+ 	mutex_lock(&h->watch_mutex);
+ 
+-	if (list_empty(&h->watch_list)) {
++	if (XEN_TAILQ_EMPTY(&h->watch_list)) {
+ 		mutex_unlock(&h->watch_mutex);
+ 		return res;
+ 	}
+ 
+-	list_for_each_entry_safe(msg, tmsg, &h->watch_list, list) {
++	XEN_TAILQ_FOREACH_SAFE(msg, &h->watch_list, list, tmsg) {
+ 		assert(msg->hdr.type == XS_WATCH_EVENT);
+ 
+ 		s = msg->body;
+@@ -1034,7 +1034,7 @@ bool xs_unwatch(struct xs_handle *h, const char *path, const char *token)
+ 
+ 		if (l_token && !strcmp(token, l_token) &&
+ 		    l_path && xs_path_is_subpath(path, l_path)) {
+-			list_del(&msg->list);
++			XEN_TAILQ_REMOVE(&h->watch_list, msg, list);
+ 			free(msg);
+ 		}
+ 	}
+@@ -1290,12 +1290,12 @@ static int read_message(struct xs_handle *h, int nonblocking)
+ 		cleanup_push(pthread_mutex_unlock, &h->watch_mutex);
+ 
+ 		/* Kick users out of their select() loop. */
+-		if (list_empty(&h->watch_list) &&
++		if (XEN_TAILQ_EMPTY(&h->watch_list) &&
+ 		    (h->watch_pipe[1] != -1))
+ 			while (write(h->watch_pipe[1], body, 1) != 1) /* Cancellation point */
+ 				continue;
+ 
+-		list_add_tail(&msg->list, &h->watch_list);
++		XEN_TAILQ_INSERT_TAIL(&h->watch_list, msg, list);
+ 
+ 		condvar_signal(&h->watch_condvar);
+ 
+@@ -1304,13 +1304,13 @@ static int read_message(struct xs_handle *h, int nonblocking)
+ 		mutex_lock(&h->reply_mutex);
+ 
+ 		/* There should only ever be one response pending! */
+-		if (!list_empty(&h->reply_list)) {
++		if (!XEN_TAILQ_EMPTY(&h->reply_list)) {
+ 			mutex_unlock(&h->reply_mutex);
+ 			saved_errno = EEXIST;
+ 			goto error_freebody;
+ 		}
+ 
+-		list_add_tail(&msg->list, &h->reply_list);
++		XEN_TAILQ_INSERT_TAIL(&h->reply_list, msg, list);
+ 		condvar_signal(&h->reply_condvar);
+ 
+ 		mutex_unlock(&h->reply_mutex);
 -- 
 2.35.3
 
