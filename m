@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02630715930
-	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 10:57:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.540913.843082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 792FD715959
+	for <lists+xen-devel@lfdr.de>; Tue, 30 May 2023 11:05:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.540942.843113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q3vAf-0008TM-9K; Tue, 30 May 2023 08:57:37 +0000
+	id 1q3vI5-0003pO-Rj; Tue, 30 May 2023 09:05:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 540913.843082; Tue, 30 May 2023 08:57:37 +0000
+Received: by outflank-mailman (output) from mailman id 540942.843113; Tue, 30 May 2023 09:05:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q3vAf-0008Ik-3L; Tue, 30 May 2023 08:57:37 +0000
-Received: by outflank-mailman (input) for mailman id 540913;
- Tue, 30 May 2023 08:57:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q3vI5-0003mW-O6; Tue, 30 May 2023 09:05:17 +0000
+Received: by outflank-mailman (input) for mailman id 540942;
+ Tue, 30 May 2023 09:05:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2tj/=BT=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1q3v8z-00026J-CP
- for xen-devel@lists.xenproject.org; Tue, 30 May 2023 08:55:53 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c745943a-fec7-11ed-8611-37d641c3527e;
- Tue, 30 May 2023 10:55:51 +0200 (CEST)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 44D3321AC5;
- Tue, 30 May 2023 08:55:51 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 1569E1341B;
- Tue, 30 May 2023 08:55:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id DpfgAxe6dWT+GwAAGKfGzw
- (envelope-from <jgross@suse.com>); Tue, 30 May 2023 08:55:51 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q3vI4-0003mM-At; Tue, 30 May 2023 09:05:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q3vI4-0001pD-2x; Tue, 30 May 2023 09:05:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q3vI3-0003oz-LI; Tue, 30 May 2023 09:05:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q3vI3-0002MP-Kv; Tue, 30 May 2023 09:05:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,290 +42,336 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c745943a-fec7-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1685436951; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FW0C2bAkKkIHGt/B2e/wyvut7P4v8g7aX6Xek0VYr58=;
-	b=bESitT7N/VP0RcKobx2Ra1Ydei7bdiX/KL8hFEx7S6bIBeTaaEXceb5h+DXATke7XSr5jB
-	/LeXVjTJIlME7gWKnYtS+44gsAxFYed9DbzxcTMo75zeW49esYQ2FypWirLv3vWiZ/RInF
-	habeMLuctjcg7YXClZa/VgCeKa5A0lw=
-From: Juergen Gross <jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=KfgMzgw0fBGiLNO+L6khCcBfuAR1KqmoiEL6tAaYnQg=; b=50GSESkSg+Eh3Umb5TKCG69CMw
+	pp+14cEawXDXsL/YJhlWfJn0AXPtIDUn19aATRRl6/vb3LEyruijxX9eofgNHhufU3JgZXNh4RVtW
+	dn7OKz9Y3RF5bAPS0H180QAxa/rWKSLAOKPs5kIyEaad3paAzWJHkMg0b3UpgLM16x5E=;
 To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v3 16/16] tools/xenstore: remove unused stuff from list.h
-Date: Tue, 30 May 2023 10:54:18 +0200
-Message-Id: <20230530085418.5417-17-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230530085418.5417-1-jgross@suse.com>
-References: <20230530085418.5417-1-jgross@suse.com>
-MIME-Version: 1.0
+Message-ID: <osstest-181006-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 181006: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:build-arm64:xen-build:fail:regression
+    qemu-mainline:build-arm64-xsm:xen-build:fail:regression
+    qemu-mainline:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=aa9bbd865502ed517624ab6fe7d4b5d89ca95e43
+X-Osstest-Versions-That:
+    qemuu=6972ef1440a9d685482d78672620a7482f2bd09a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 30 May 2023 09:05:15 +0000
 
-Remove the hlist defines/functions and the rcu related functions from
-tools/xenstore/list.h, as they are not used.
+flight 181006 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181006/
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- tools/xenstore/list.h | 227 ------------------------------------------
- 1 file changed, 227 deletions(-)
+Regressions :-(
 
-diff --git a/tools/xenstore/list.h b/tools/xenstore/list.h
-index a464a38b61..d722a91220 100644
---- a/tools/xenstore/list.h
-+++ b/tools/xenstore/list.h
-@@ -88,48 +88,6 @@ static inline void list_add_tail(struct list_head *new, struct list_head *head)
- 	__list_add(new, head->prev, head);
- }
- 
--/*
-- * Insert a new entry between two known consecutive entries. 
-- *
-- * This is only for internal list manipulation where we know
-- * the prev/next entries already!
-- */
--static __inline__ void __list_add_rcu(struct list_head * new,
--	struct list_head * prev,
--	struct list_head * next)
--{
--	new->next = next;
--	new->prev = prev;
--	next->prev = new;
--	prev->next = new;
--}
--
--/**
-- * list_add_rcu - add a new entry to rcu-protected list
-- * @new: new entry to be added
-- * @head: list head to add it after
-- *
-- * Insert a new entry after the specified head.
-- * This is good for implementing stacks.
-- */
--static __inline__ void list_add_rcu(struct list_head *new, struct list_head *head)
--{
--	__list_add_rcu(new, head, head->next);
--}
--
--/**
-- * list_add_tail_rcu - add a new entry to rcu-protected list
-- * @new: new entry to be added
-- * @head: list head to add it before
-- *
-- * Insert a new entry before the specified head.
-- * This is useful for implementing queues.
-- */
--static __inline__ void list_add_tail_rcu(struct list_head *new, struct list_head *head)
--{
--	__list_add_rcu(new, head->prev, head);
--}
--
- /*
-  * Delete a list entry by making the prev/next entries
-  * point to each other.
-@@ -156,23 +114,6 @@ static inline void list_del(struct list_head *entry)
- 	entry->prev = LIST_POISON2;
- }
- 
--/**
-- * list_del_rcu - deletes entry from list without re-initialization
-- * @entry: the element to delete from the list.
-- *
-- * Note: list_empty on entry does not return true after this, 
-- * the entry is in an undefined state. It is useful for RCU based
-- * lockfree traversal.
-- *
-- * In particular, it means that we can not poison the forward 
-- * pointers that may still be used for walking the list.
-- */
--static inline void list_del_rcu(struct list_head *entry)
--{
--	__list_del(entry->prev, entry->next);
--	entry->prev = LIST_POISON2;
--}
--
- /**
-  * list_del_init - deletes entry from list and reinitialize it.
-  * @entry: the element to delete from the list.
-@@ -339,172 +280,4 @@ static inline void list_splice_init(struct list_head *list,
- 	     &pos->member != (head); 					\
- 	     pos = n, n = list_entry(n->member.next, typeof(*n), member))
- 
--
--/* 
-- * Double linked lists with a single pointer list head. 
-- * Mostly useful for hash tables where the two pointer list head is 
-- * too wasteful.
-- * You lose the ability to access the tail in O(1).
-- */ 
--
--struct hlist_head { 
--	struct hlist_node *first; 
--}; 
--
--struct hlist_node { 
--	struct hlist_node *next, **pprev; 
--}; 
--
--#define HLIST_HEAD_INIT { .first = NULL } 
--#define HLIST_HEAD(name) struct hlist_head name = {  .first = NULL }
--#define INIT_HLIST_HEAD(ptr) ((ptr)->first = NULL) 
--#define INIT_HLIST_NODE(ptr) ((ptr)->next = NULL, (ptr)->pprev = NULL)
--
--static __inline__ int hlist_unhashed(struct hlist_node *h) 
--{ 
--	return !h->pprev;
--} 
--
--static __inline__ int hlist_empty(struct hlist_head *h) 
--{ 
--	return !h->first;
--} 
--
--static __inline__ void __hlist_del(struct hlist_node *n) 
--{
--	struct hlist_node *next = n->next;
--	struct hlist_node **pprev = n->pprev;
--	*pprev = next;  
--	if (next) 
--		next->pprev = pprev;
--}  
--
--static __inline__ void hlist_del(struct hlist_node *n)
--{
--	__hlist_del(n);
--	n->next = LIST_POISON1;
--	n->pprev = LIST_POISON2;
--}
--
--/**
-- * hlist_del_rcu - deletes entry from hash list without re-initialization
-- * @entry: the element to delete from the hash list.
-- *
-- * Note: list_unhashed() on entry does not return true after this, 
-- * the entry is in an undefined state. It is useful for RCU based
-- * lockfree traversal.
-- *
-- * In particular, it means that we can not poison the forward
-- * pointers that may still be used for walking the hash list.
-- */
--static inline void hlist_del_rcu(struct hlist_node *n)
--{
--	__hlist_del(n);
--	n->pprev = LIST_POISON2;
--}
--
--static __inline__ void hlist_del_init(struct hlist_node *n) 
--{
--	if (n->pprev)  {
--		__hlist_del(n);
--		INIT_HLIST_NODE(n);
--	}
--}  
--
--#define hlist_del_rcu_init hlist_del_init
--
--static __inline__ void hlist_add_head(struct hlist_node *n, struct hlist_head *h) 
--{ 
--	struct hlist_node *first = h->first;
--	n->next = first; 
--	if (first) 
--		first->pprev = &n->next;
--	h->first = n; 
--	n->pprev = &h->first; 
--} 
--
--static __inline__ void hlist_add_head_rcu(struct hlist_node *n, struct hlist_head *h) 
--{ 
--	struct hlist_node *first = h->first;
--	n->next = first;
--	n->pprev = &h->first; 
--	if (first) 
--		first->pprev = &n->next;
--	h->first = n; 
--} 
--
--/* next must be != NULL */
--static __inline__ void hlist_add_before(struct hlist_node *n, struct hlist_node *next)
--{
--	n->pprev = next->pprev;
--	n->next = next; 
--	next->pprev = &n->next; 
--	*(n->pprev) = n;
--}
--
--static __inline__ void hlist_add_after(struct hlist_node *n,
--				       struct hlist_node *next)
--{
--	next->next	= n->next;
--	*(next->pprev)	= n;
--	n->next		= next;
--}
--
--#define hlist_entry(ptr, type, member) container_of(ptr,type,member)
--
--/* Cannot easily do prefetch unfortunately */
--#define hlist_for_each(pos, head) \
--	for (pos = (head)->first; pos; pos = pos->next) 
--
--#define hlist_for_each_safe(pos, n, head) \
--	for (pos = (head)->first; n = pos ? pos->next : 0, pos; \
--	     pos = n)
--
--/**
-- * hlist_for_each_entry	- iterate over list of given type
-- * @tpos:	the type * to use as a loop counter.
-- * @pos:	the &struct hlist_node to use as a loop counter.
-- * @head:	the head for your list.
-- * @member:	the name of the hlist_node within the struct.
-- */
--#define hlist_for_each_entry(tpos, pos, head, member)			 \
--	for (pos = (head)->first;					 \
--	     pos && ({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
--	     pos = pos->next)
--
--/**
-- * hlist_for_each_entry_continue - iterate over a hlist continuing after existing point
-- * @tpos:	the type * to use as a loop counter.
-- * @pos:	the &struct hlist_node to use as a loop counter.
-- * @member:	the name of the hlist_node within the struct.
-- */
--#define hlist_for_each_entry_continue(tpos, pos, member)		 \
--	for (pos = (pos)->next;						 \
--	     pos && ({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
--	     pos = pos->next)
--
--/**
-- * hlist_for_each_entry_from - iterate over a hlist continuing from existing point
-- * @tpos:	the type * to use as a loop counter.
-- * @pos:	the &struct hlist_node to use as a loop counter.
-- * @member:	the name of the hlist_node within the struct.
-- */
--#define hlist_for_each_entry_from(tpos, pos, member)			 \
--	for (; pos && ({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
--	     pos = pos->next)
--
--/**
-- * hlist_for_each_entry_safe - iterate over list of given type safe against removal of list entry
-- * @tpos:	the type * to use as a loop counter.
-- * @pos:	the &struct hlist_node to use as a loop counter.
-- * @n:		another &struct hlist_node to use as temporary storage
-- * @head:	the head for your list.
-- * @member:	the name of the hlist_node within the struct.
-- */
--#define hlist_for_each_entry_safe(tpos, pos, n, head, member) 		 \
--	for (pos = (head)->first;					 \
--	     pos && ({ n = pos->next; 1; }) && 				 \
--		({ tpos = hlist_entry(pos, typeof(*tpos), member); 1;}); \
--	     pos = n)
--
- #endif
--- 
-2.35.3
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64                   6 xen-build                fail REGR. vs. 180691
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 180691
 
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 180691
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180691
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180691
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 180691
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 180691
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 180691
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180691
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 180691
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ qemuu                aa9bbd865502ed517624ab6fe7d4b5d89ca95e43
+baseline version:
+ qemuu                6972ef1440a9d685482d78672620a7482f2bd09a
+
+Last test of basis   180691  2023-05-17 10:45:22 Z   12 days
+Failing since        180699  2023-05-18 07:21:24 Z   12 days   48 attempts
+Testing same since   181006  2023-05-30 01:10:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Afonso Bordado <afonsobordado@gmail.com>
+  Akihiko Odaki <akihiko.odaki@daynix.com>
+  Akihiro Suda <akihiro.suda.cz@hco.ntt.co.jp>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Williamson <alex.williamson@redhat.com>
+  Alexander Bulekov <alxndr@bu.edu>
+  Alexander Graf <graf@amazon.com>
+  Alistair Francis <alistair.francis@wdc.com>
+  Ani Sinha <ani@anisinha.ca>
+  Ani Sinha <anisinha@redhat.com>
+  Anton Johansson <anjo@rev.ng>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bernhard Beschow <shentey@gmail.com>
+  Bin Meng <bin.meng@windriver.com>
+  Brian Cain <bcain@quicinc.com>
+  Brice Goglin <Brice.Goglin@inria.fr>
+  Camilla Conte <cconte@redhat.com>
+  Cindy Lu <lulu@redhat.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  Cédric Le Goater <clg@redhat.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniil Kovalev <dkovalev@compiler-toolchain-for.me>
+  David Hildenbrand <david@redhat.com>
+  Emanuele Giuseppe Esposito <eesposit@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Eric DeVolder <eric.devolder@oracle.com>
+  Erico Nunes <ernunes@redhat.com>
+  Eugenio Pérez <eperezma@redhat.com>
+  Fabiano Rosas <farosas@suse.de>
+  Fan Ni <fan.ni@samsung.com>
+  Fiona Ebner <f.ebner@proxmox.com>
+  Gavin Shan <gshan@redhat.com>
+  Gregory Price <gourry.memverge@gmail.com>
+  Gregory Price <gregory.price@memverge.com>
+  Hao Zeng <zenghao@kylinos.cn>
+  Hawkins Jiawei <yin31149@gmail.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Ira Weiny <ira.weiny@intel.com>
+  Jason Wang <jasowang@redhat.com>
+  John Snow <jsnow@redhat.com>
+  Jonathan Cameron <Jonathan.Cameron@huawei.com>
+  Juan Quintela <quintela@redhat.com>
+  Kevin Wolf <kwolf@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Lei Yang <leiyang@redhat.com>
+  Leonardo Bras <leobras@redhat.com>
+  Maksim Davydov <davydov-max@yandex-team.ru>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
+  Marco Liebel <quic_mliebel@quicinc.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Matheus Tavares Bernardino <quic_mathbern@quicinc.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michael Tokarev <mjt@tls.msk.ru>
+  Nicholas Piggin <npiggin@gmail.com>
+  Nicolas Saenz Julienne <nsaenz@amazon.com>
+  Palmer Dabbelt <palmer@rivosinc.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daudé <philmd@linaro.org>
+  Raghu H <raghuhack78@gmail.com>
+  Rene Engel <ReneEngel80@emailn.de>
+  Richard Henderson <richard.henderson@linaro.org>
+  Richard Purdie <richard.purdie@linuxfoundation.org>
+  Ricky Zhou <ricky@rzhou.org>
+  Ryan Wendland <wendland@live.com.au>
+  Sebastian Ott <sebott@redhat.com>
+  Sergio Lopez <slp@redhat.com>
+  Sid Manning <sidneym@quicinc.com>
+  Song Gao <gaosong@loongson.cn>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Steve Sistare <steven.sistare@oracle.com>
+  Taylor Simpson <tsimpson@quicinc.com>
+  Thomas Huth <thuth@redhat.com>
+  Thomas Weißschuh <thomas@t-8ch.de>
+  timothee.cocault@gmail.com <timothee.cocault@gmail.com>
+  Timothée Cocault <timothee.cocault@gmail.com>
+  Viktor Prutyanov <viktor@daynix.com>
+  Vivek Kasireddy <vivek.kasireddy@intel.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+  Volker Rümelin <vr_qemu@t-online.de>
+  Xinyu Li <lixinyu20s@ict.ac.cn>
+  Zeng Hao <zenghao@kylinos.cn>
+  Zhenyu Zhang <zhenyzha@redhat.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              fail    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  fail    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 8961 lines long.)
 
