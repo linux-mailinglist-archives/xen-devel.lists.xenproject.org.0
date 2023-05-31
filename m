@@ -2,44 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C298671783A
-	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 09:29:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541616.844553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27634717850
+	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 09:34:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541621.844563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4GGU-000472-NZ; Wed, 31 May 2023 07:29:02 +0000
+	id 1q4GLC-0005a4-CY; Wed, 31 May 2023 07:33:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541616.844553; Wed, 31 May 2023 07:29:02 +0000
+Received: by outflank-mailman (output) from mailman id 541621.844563; Wed, 31 May 2023 07:33:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4GGU-00044Q-JN; Wed, 31 May 2023 07:29:02 +0000
-Received: by outflank-mailman (input) for mailman id 541616;
- Wed, 31 May 2023 07:29:00 +0000
+	id 1q4GLC-0005Y0-9Z; Wed, 31 May 2023 07:33:54 +0000
+Received: by outflank-mailman (input) for mailman id 541621;
+ Wed, 31 May 2023 07:33:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0BFG=BU=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1q4GGS-00044K-Pv
- for xen-devel@lists.xenproject.org; Wed, 31 May 2023 07:29:00 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rqU/=BU=redhat.com=sgarzare@srs-se1.protection.inumbo.net>)
+ id 1q4GLA-0005Xu-Mp
+ for xen-devel@lists.xenproject.org; Wed, 31 May 2023 07:33:52 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cefe389d-ff84-11ed-b231-6b7b168915f2;
- Wed, 31 May 2023 09:28:59 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C92851FD5E;
- Wed, 31 May 2023 07:28:58 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 43E7F138E8;
- Wed, 31 May 2023 07:28:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id k3shDzr3dmSNPAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 31 May 2023 07:28:58 +0000
+ id 7c30baf7-ff85-11ed-b231-6b7b168915f2;
+ Wed, 31 May 2023 09:33:50 +0200 (CEST)
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com
+ [209.85.208.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-99-JBw-ZGEjOcihmvaln_Xh7w-1; Wed, 31 May 2023 03:33:45 -0400
+Received: by mail-lj1-f200.google.com with SMTP id
+ 38308e7fff4ca-2b05714a774so29388341fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 31 May 2023 00:33:45 -0700 (PDT)
+Received: from sgarzare-redhat (host-87-12-25-16.business.telecomitalia.it.
+ [87.12.25.16]) by smtp.gmail.com with ESMTPSA id
+ i13-20020a17090685cd00b0096f83b16ab1sm8499433ejy.136.2023.05.31.00.33.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 May 2023 00:33:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,184 +49,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cefe389d-ff84-11ed-b231-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1685518138; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 7c30baf7-ff85-11ed-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1685518429;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=idW4QU2kWkEZ0Jrv3EzvM9qxTCF40PCEp7KIJ87jyNY=;
-	b=OueEr3zKYEVkgIw1z8tt2xV5yzk85Kurm4nhTWPWFSbhsXTY+fkRxt+z2I+xzWM0N01ClB
-	LdySQNHYL+PZBnIrlcXYz0xcaz27B6tgFgh7tj0rWvWM+8CwoA6NUuWH0px7YxEssdyGpQ
-	o+KxruUCtu8q3TtnfHuSpuOT8/7d+dM=
-Message-ID: <888f860d-4307-54eb-01da-11f9adf65559@suse.com>
-Date: Wed, 31 May 2023 09:28:57 +0200
+	bh=8jvYQlhKuHyKtL4mNj/znMLADcf3tcavTDhI4smE8dw=;
+	b=XsNxPhP/8MBxxQyXBXzhG681qCuVcjMEiE5HzTG4zJ3zQVnHZfq4wr4G3Y5EpRi/4kHdlO
+	z8iT9E/Dh9LpWsn2YTjU5Fg54tydZBrvg43qGtE/bk7u5xjhdZSEHYgFa3hrPIMNgv+Akh
+	y2byYSKQPMeew0R+A/UJlI9r3ikeq4U=
+X-MC-Unique: JBw-ZGEjOcihmvaln_Xh7w-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685518424; x=1688110424;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=8jvYQlhKuHyKtL4mNj/znMLADcf3tcavTDhI4smE8dw=;
+        b=f/uPZ7zrZSJRo99Qi2PrInts5OAANRzfMo8WH0UuzBu6k2jYBNae+Rn5G6JaXaeUX6
+         chbCkr+0vRaTbTRCWWyYV5r+HpHpJ0A6KnCAWVOOcea1Zp0wLou9iIowKRtoQmzVqDDv
+         xPS6gPwJsSLKK4kEhGE1h6Oa0XU6Id8jwM2TTeKjMRGU/TRixP3M8rY81X8IpW6vPh6x
+         mdMC3BPMEScRSwoBEKN5UcFVYZ2NqXd54QrtEgFykmHRXD+2OnWGxE8xzznM1NTxR4b9
+         Rld+RXYT3F1dr1jGl+KPr5NDKJ9QGLQo6ry3Fs4G7A07nf/IwT5LvQSTHINtnNpXtCjw
+         XOww==
+X-Gm-Message-State: AC+VfDzl9Xp4NX9Qzlm6UIesj8N45IxgLBvfBdUZ09JF3bKRXy2xBaYz
+	LgMfJ9QmJR3P0k0+jY476NCIgOWEciz8f/vOFrcAsCt3fQjmDpN6HXC2ddIszHfDOGjxPgtFYsT
+	sIYPaAn4lFFD2S+Qm0IQn3A7MBFs=
+X-Received: by 2002:a2e:9e47:0:b0:2af:a696:3691 with SMTP id g7-20020a2e9e47000000b002afa6963691mr2125459ljk.40.1685518424311;
+        Wed, 31 May 2023 00:33:44 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ551RIeF9bnzkTrz/lia8+/hteNl9cJtKk1XRyhXQesUA8vv9D1oOPKoklfR2VDrpxdBxuWZw==
+X-Received: by 2002:a2e:9e47:0:b0:2af:a696:3691 with SMTP id g7-20020a2e9e47000000b002afa6963691mr2125438ljk.40.1685518423940;
+        Wed, 31 May 2023 00:33:43 -0700 (PDT)
+Date: Wed, 31 May 2023 09:33:41 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>, 
+	eblake@redhat.com, Hanna Reitz <hreitz@redhat.com>, Fam Zheng <fam@euphon.net>, 
+	qemu-block@nongnu.org, xen-devel@lists.xenproject.org, 
+	Julia Suvorova <jusual@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>, Paul Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>, 
+	Anthony Perard <anthony.perard@citrix.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Aarushi Mehta <mehta.aaru20@gmail.com>
+Subject: Re: [PATCH v3 5/6] block/linux-aio: convert to blk_io_plug_call() API
+Message-ID: <olpmomsccllt6s5yuzzznwoaf6mpx3vmcex5bt477uviettgra@owpdleplwg36>
+References: <20230530180959.1108766-1-stefanha@redhat.com>
+ <20230530180959.1108766-6-stefanha@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v6 00/16] x86/mtrr: fix handling with PAT but without MTRR
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org,
- mikelley@microsoft.com, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Jonathan Corbet <corbet@lwn.net>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-References: <20230502120931.20719-1-jgross@suse.com>
- <20230509201437.GFZFqprc6otRejDPUt@fat_crate.local>
- <20230509233641.GGZFrZCTDH7VwUMp5R@fat_crate.local>
- <20230510133024.GBZFuccC1FxIZNKL+8@fat_crate.local>
- <4c47a11c-0565-678d-3467-e01c5ec16600@suse.com>
- <20230511163208.GDZF0YiOfxQhSo4RDm@fat_crate.local>
- <0cd3899b-cf3b-61c1-14ae-60b6b49d14ab@suse.com>
- <20230530152825.GAZHYWGXAp8PHgN/w0@fat_crate.local>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230530152825.GAZHYWGXAp8PHgN/w0@fat_crate.local>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------zhKw5yvbvWkpWa8p6pNVDnxp"
+In-Reply-To: <20230530180959.1108766-6-stefanha@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------zhKw5yvbvWkpWa8p6pNVDnxp
-Content-Type: multipart/mixed; boundary="------------l2MouIcQ3q3ayPok03ThE0wp";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org,
- mikelley@microsoft.com, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Jonathan Corbet <corbet@lwn.net>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Message-ID: <888f860d-4307-54eb-01da-11f9adf65559@suse.com>
-Subject: Re: [PATCH v6 00/16] x86/mtrr: fix handling with PAT but without MTRR
-References: <20230502120931.20719-1-jgross@suse.com>
- <20230509201437.GFZFqprc6otRejDPUt@fat_crate.local>
- <20230509233641.GGZFrZCTDH7VwUMp5R@fat_crate.local>
- <20230510133024.GBZFuccC1FxIZNKL+8@fat_crate.local>
- <4c47a11c-0565-678d-3467-e01c5ec16600@suse.com>
- <20230511163208.GDZF0YiOfxQhSo4RDm@fat_crate.local>
- <0cd3899b-cf3b-61c1-14ae-60b6b49d14ab@suse.com>
- <20230530152825.GAZHYWGXAp8PHgN/w0@fat_crate.local>
-In-Reply-To: <20230530152825.GAZHYWGXAp8PHgN/w0@fat_crate.local>
+On Tue, May 30, 2023 at 02:09:58PM -0400, Stefan Hajnoczi wrote:
+>Stop using the .bdrv_co_io_plug() API because it is not multi-queue
+>block layer friendly. Use the new blk_io_plug_call() API to batch I/O
+>submission instead.
+>
+>Note that a dev_max_batch check is dropped in laio_io_unplug() because
+>the semantics of unplug_fn() are different from .bdrv_co_unplug():
+>1. unplug_fn() is only called when the last blk_io_unplug() call occurs,
+>   not every time blk_io_unplug() is called.
+>2. unplug_fn() is per-thread, not per-BlockDriverState, so there is no
+>   way to get per-BlockDriverState fields like dev_max_batch.
+>
+>Therefore this condition cannot be moved to laio_unplug_fn(). It is not
+>obvious that this condition affects performance in practice, so I am
+>removing it instead of trying to come up with a more complex mechanism
+>to preserve the condition.
+>
+>Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+>Reviewed-by: Eric Blake <eblake@redhat.com>
+>---
+> include/block/raw-aio.h |  7 -------
+> block/file-posix.c      | 28 ----------------------------
+> block/linux-aio.c       | 41 +++++++++++------------------------------
+> 3 files changed, 11 insertions(+), 65 deletions(-)
 
---------------l2MouIcQ3q3ayPok03ThE0wp
-Content-Type: multipart/mixed; boundary="------------2fH4jB2fLfQ4dxU1rma4JPUh"
+LGTM!
 
---------------2fH4jB2fLfQ4dxU1rma4JPUh
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 
-T24gMzAuMDUuMjMgMTc6MjgsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gTW9uLCBN
-YXkgMjIsIDIwMjMgYXQgMDQ6MTc6NTBQTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToN
-Cj4+IFRoZSBhdHRhY2hlZCBkaWZmIGlzIGZvciBwYXRjaCAxMy4NCj4gDQo+IE1lcmdlZCBh
-bmQgcHVzaGVkIG91dCBpbnRvIHNhbWUgYnJhbmNoLg0KPiANCj4gTmV4dCBpc3N1ZS4gRGlm
-ZmluZyAvcHJvYy9tdHJyIHNob3dzOg0KPiANCj4gLS0tIHByb2MtbXRyci42LjMJMjAyMy0w
-NS0zMCAxNzowMDoxMy4yMTU5OTk0ODMgKzAyMDANCj4gKysrIHByb2MtbXRyci5hZnRlcgky
-MDIzLTA1LTMwIDE2OjAxOjM4LjI4MTk5NzgxNiArMDIwMA0KPiBAQCAtMSw4ICsxLDggQEAN
-Cj4gICByZWcwMDogYmFzZT0weDAwMDAwMDAwMCAoICAgIDBNQiksIHNpemU9IDIwNDhNQiwg
-Y291bnQ9MTogd3JpdGUtYmFjaw0KPiAtcmVnMDE6IGJhc2U9MHgwODAwMDAwMDAgKCAyMDQ4
-TUIpLCBzaXplPSAgNTEyTUIsIGNvdW50PTE6IHdyaXRlLWJhY2sNCj4gK3JlZzAxOiBiYXNl
-PTB4MDgwMDAwMDAwICggMjA0OE1CKSwgc2l6ZT0gMTAyNE1CLCBjb3VudD0xOiB3cml0ZS1i
-YWNrDQo+ICAgcmVnMDI6IGJhc2U9MHgwYTAwMDAwMDAgKCAyNTYwTUIpLCBzaXplPSAgMjU2
-TUIsIGNvdW50PTE6IHdyaXRlLWJhY2sNCj4gICByZWcwMzogYmFzZT0weDBhZTAwMDAwMCAo
-IDI3ODRNQiksIHNpemU9ICAgMzJNQiwgY291bnQ9MTogdW5jYWNoYWJsZQ0KPiAtcmVnMDQ6
-IGJhc2U9MHgxMDAwMDAwMDAgKCA0MDk2TUIpLCBzaXplPSA0MDk2TUIsIGNvdW50PTE6IHdy
-aXRlLWJhY2sNCj4gK3JlZzA0OiBiYXNlPTB4MTAwMDAwMDAwICggNDA5Nk1CKSwgc2l6ZT0g
-IDI1Nk1CLCBjb3VudD0xOiB3cml0ZS1iYWNrDQo+ICAgcmVnMDU6IGJhc2U9MHgyMDAwMDAw
-MDAgKCA4MTkyTUIpLCBzaXplPSA4MTkyTUIsIGNvdW50PTE6IHdyaXRlLWJhY2sNCj4gICBy
-ZWcwNjogYmFzZT0weDQwMDAwMDAwMCAoMTYzODRNQiksIHNpemU9IDEwMjRNQiwgY291bnQ9
-MTogd3JpdGUtYmFjaw0KPiAgIHJlZzA3OiBiYXNlPTB4NDQwMDAwMDAwICgxNzQwOE1CKSwg
-c2l6ZT0gIDI1Nk1CLCBjb3VudD0xOiB3cml0ZS1iYWNrDQo+IA0KDQpXZWlyZC4NCg0KQ2Fu
-IHlvdSBwbGVhc2UgYm9vdCB0aGUgc3lzdGVtIHdpdGggdGhlIE1UUlIgcGF0Y2hlcyBhbmQg
-c3BlY2lmeSAibXRycj1kZWJ1ZyINCm9uIHRoZSBjb21tYW5kIGxpbmU/IEknZCBiZSBpbnRl
-cmVzdGVkIGluIHRoZSByYXcgcmVnaXN0ZXIgdmFsdWVzIGJlaW5nIHJlYWQNCmFuZCB0aGUg
-cmVzdWx0aW5nIG1lbW9yeSB0eXBlIG1hcC4NCg0KDQpKdWVyZ2VuDQo=
---------------2fH4jB2fLfQ4dxU1rma4JPUh
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------2fH4jB2fLfQ4dxU1rma4JPUh--
-
---------------l2MouIcQ3q3ayPok03ThE0wp--
-
---------------zhKw5yvbvWkpWa8p6pNVDnxp
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmR29zkFAwAAAAAACgkQsN6d1ii/Ey/D
-eQf/ThGqCy4WXGZTN+DrkW1qO3DxndwaGDgqfB97PAWRZa2Fdm/bQPCxbQfAtDJskHbz0dgSaoOq
-qi8fxA0Meqsuzin5B04UFXPDZY48P32IyDUF48pN15XFLgZF01uDKavtE5gFLQ2jBNx0ZkjK6sPw
-d9z9e3Lf3HBUYspPa1JRXM3qmzB0/rIE0dqr7b8QOLVE/Hv1M9GpSxwGnxY30sCPB0om5TqxMgmw
-g6r8jw99xzLTP7hxrhzwsUHNtZjbsRjciaV/EEGFuO0Q3RyevQR/T++Om99+gk2OPqx1sJRB22+d
-WLipU6se2j1skJrZujRoPBswW4DwMY06CPv31wcvOA==
-=bLto
------END PGP SIGNATURE-----
-
---------------zhKw5yvbvWkpWa8p6pNVDnxp--
 
