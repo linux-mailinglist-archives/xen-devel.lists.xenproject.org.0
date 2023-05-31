@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE5EB7188D5
-	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 19:51:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541917.845187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FCF4718902
+	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 20:05:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541923.845202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4Pyn-0004bk-0r; Wed, 31 May 2023 17:51:25 +0000
+	id 1q4QBa-0006Ee-78; Wed, 31 May 2023 18:04:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541917.845187; Wed, 31 May 2023 17:51:24 +0000
+Received: by outflank-mailman (output) from mailman id 541923.845202; Wed, 31 May 2023 18:04:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4Pym-0004a5-U8; Wed, 31 May 2023 17:51:24 +0000
-Received: by outflank-mailman (input) for mailman id 541917;
- Wed, 31 May 2023 17:51:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LOFA=BU=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1q4Pyl-0004Zx-OD
- for xen-devel@lists.xenproject.org; Wed, 31 May 2023 17:51:23 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1414dcc-ffdb-11ed-b231-6b7b168915f2;
- Wed, 31 May 2023 19:51:22 +0200 (CEST)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-3f6042d610fso62654015e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 31 May 2023 10:51:22 -0700 (PDT)
-Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- x4-20020a05600c21c400b003f0aefcc457sm25322982wmj.45.2023.05.31.10.51.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 May 2023 10:51:21 -0700 (PDT)
+	id 1q4QBa-0006Cr-42; Wed, 31 May 2023 18:04:38 +0000
+Received: by outflank-mailman (input) for mailman id 541923;
+ Wed, 31 May 2023 18:04:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q4QBY-0006CP-1N; Wed, 31 May 2023 18:04:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q4QBX-0003Qt-Un; Wed, 31 May 2023 18:04:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q4QBX-0004zU-Hs; Wed, 31 May 2023 18:04:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q4QBX-0006iz-HQ; Wed, 31 May 2023 18:04:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,139 +42,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1414dcc-ffdb-11ed-b231-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1685555482; x=1688147482;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mua9IhVSN1OtRUUfoVQkh1/qlL0MpIq8e2mssvEX7SI=;
-        b=RHqXNyePvzey2ogCJkNO6uqvvpqkm1iFCi3nA0zJCX2bLqpQQ0YNIg/vZ+7GbraBkS
-         JzTYlZna6OQ4NsLI/mlsGI5pcWJF9xguqb2LJL69ehoqiBWIGzsMy0hsRkZO75QQ/b/f
-         Pi6XctmR4dETXH1FgZJTF8npdCMS67lKzPh2Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685555482; x=1688147482;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mua9IhVSN1OtRUUfoVQkh1/qlL0MpIq8e2mssvEX7SI=;
-        b=dRW1M+NysPqRUF5cNVOaX7m4sSX55QaqwiphHvvpfvorsHhu0Ctj4JiMgcTv9TXnu7
-         G87uefJi9tCbDG+eKrFS6JFyxihbn732rYzv9NJodSq7P6UP0JQlo1+F2oVJwNyqN1qB
-         0ZMDELd39pU+XaYjG6kJPMkZXt93IlNGRgsiB80p6Y/cNxftBqRjzywil9FiGXQozXmk
-         v/GLlWruzlGv2RGI7BDxcIVlScVgl8u1FVKc8uy8C91b5trU3kfjhXVz/rHJ7PwYXIiQ
-         VX/IoZey9VdIbqA7TFI8K/socu6TXtVOrK3L7i2f9OfAtyrbw/p4EMkYu004NvDzBrCZ
-         HVtA==
-X-Gm-Message-State: AC+VfDzz/dtvVpv3kmzurYxWVbwaRloOkFLHr8ehg/aJ7mGqtLtVQpe2
-	CkGGeGsVfrJB4owFnyxvdeWtSTx2KyWtYu+5gmM=
-X-Google-Smtp-Source: ACHHUZ4sFxg4zHRjRHHQq7oKOt2KFUbEVgewfmEwDCdJXxazOJ98aQv4Rpakwovg8iEuMUJ09+bZzg==
-X-Received: by 2002:a7b:cbd6:0:b0:3f6:cdf7:a741 with SMTP id n22-20020a7bcbd6000000b003f6cdf7a741mr5157859wmi.25.1685555481838;
-        Wed, 31 May 2023 10:51:21 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/microcode: Prevent attempting updates known to fail
-Date: Wed, 31 May 2023 18:51:19 +0100
-Message-Id: <20230531175119.10830-1-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=+irzMzEaAhRfhLFP4CUGcqipvAx+5mISxhQMl07Y588=; b=OeZ099wxpsSJYhW+esUdKHlYwg
+	WbY3aiPL+B2htdNLGZ8UjJbvfFoc07lSpJTSUZz9gjZV7POVZYpqLj9TRcfkag6YVJAp5XK2aAcMV
+	qO6znk3KfxY7zWpDV836HL3W2f9BGXHfcaWyzjp9YbKcEacbR4zz2MeEo4UvxyCZyU94=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-unstable-smoke bisection] complete build-amd64
+Message-Id: <E1q4QBX-0006iz-HQ@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 31 May 2023 18:04:35 +0000
 
-If IA32_MSR_MCU_CONTROL exists, then it's possible a CPU may be unable to
-perform microcode updates. This is controlled through the DIS_MCU_LOAD bit.
+branch xen-unstable-smoke
+xenbranch xen-unstable-smoke
+job build-amd64
+testid xen-build
 
-This patch checks that the CPU that got the request is capable of doing an
-update. If it is, then we let the procedure go through. While not enough
-for the general case (different CPUs with different settings), this patch
-copes with the far more common scenario of all CPUs being locked.
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-Note that for the uncommon general case, we already have some logic in
-place to emit a message on xl-dmseg in order to notify the admin that they
-should reboot the machine ASAP.
+*** Found and reproduced problem changeset ***
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
- xen/arch/x86/cpu/microcode/core.c     | 27 +++++++++++++++++++++++++++
- xen/arch/x86/include/asm/cpufeature.h |  1 +
- xen/arch/x86/include/asm/msr-index.h  |  5 +++++
- 3 files changed, 33 insertions(+)
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  465217b0f872602b4084a1b0fa2ef75377cb3589
+  Bug not present: 445fdc641e304ff41a544f8f5926a13b604c08ad
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/181050/
 
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index cd456c476f..e507945932 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -697,6 +697,17 @@ static long cf_check microcode_update_helper(void *data)
-     return ret;
- }
- 
-+static bool this_cpu_can_install_update(void)
-+{
-+    uint64_t mcu_ctrl;
-+
-+    if ( !cpu_has_mcu_ctrl )
-+        return true;
-+
-+    rdmsrl(MSR_MCU_CONTROL, mcu_ctrl);
-+    return !(mcu_ctrl & MCU_CONTROL_DIS_MCU_LOAD);
-+}
-+
- int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len)
- {
-     int ret;
-@@ -708,6 +719,22 @@ int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len)
-     if ( !ucode_ops.apply_microcode )
-         return -EINVAL;
- 
-+    if ( !this_cpu_can_install_update() )
-+    {
-+        /*
-+         * This CPU can't install microcode, so it makes no sense to try to
-+         * go on. We're implicitly trusting firmware sanity in that all
-+         * CPUs are expected to have a homogeneous setting. If, for some
-+         * reason, another CPU happens to be locked down when this one
-+         * isn't then unpleasantness will follow. In particular, some CPUs
-+         * will be updated while others will not. A very stern message will
-+         * be displayed in xl-dmesg that case, strongly advising to reboot the
-+         * machine.
-+         */
-+        printk("WARNING: microcode not installed due to DIS_MCU_LOAD=1");
-+        return -EACCES;
-+    }
-+
-     buffer = xmalloc_flex_struct(struct ucode_buf, buffer, len);
-     if ( !buffer )
-         return -ENOMEM;
-diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
-index ace31e3b1f..0118171d7e 100644
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -192,6 +192,7 @@ static inline bool boot_cpu_has(unsigned int feat)
- #define cpu_has_if_pschange_mc_no boot_cpu_has(X86_FEATURE_IF_PSCHANGE_MC_NO)
- #define cpu_has_tsx_ctrl        boot_cpu_has(X86_FEATURE_TSX_CTRL)
- #define cpu_has_taa_no          boot_cpu_has(X86_FEATURE_TAA_NO)
-+#define cpu_has_mcu_ctrl        boot_cpu_has(X86_FEATURE_MCU_CTRL)
- #define cpu_has_fb_clear        boot_cpu_has(X86_FEATURE_FB_CLEAR)
- 
- /* Synthesized. */
-diff --git a/xen/arch/x86/include/asm/msr-index.h b/xen/arch/x86/include/asm/msr-index.h
-index 2749e433d2..5c1350b5f9 100644
---- a/xen/arch/x86/include/asm/msr-index.h
-+++ b/xen/arch/x86/include/asm/msr-index.h
-@@ -165,6 +165,11 @@
- #define  PASID_PASID_MASK                   0x000fffff
- #define  PASID_VALID                        (_AC(1, ULL) << 31)
- 
-+#define MSR_MCU_CONTROL                     0x00001406
-+#define  MCU_CONTROL_LOCK                   (_AC(1, ULL) <<  0)
-+#define  MCU_CONTROL_DIS_MCU_LOAD           (_AC(1, ULL) <<  1)
-+#define  MCU_CONTROL_EN_SMM_BYPASS          (_AC(1, ULL) <<  2)
-+
- #define MSR_UARCH_MISC_CTRL                 0x00001b01
- #define  UARCH_CTRL_DOITM                   (_AC(1, ULL) <<  0)
- 
--- 
-2.34.1
+
+  commit 465217b0f872602b4084a1b0fa2ef75377cb3589
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Wed May 31 12:01:11 2023 +0200
+  
+      vPCI: account for hidden devices
+      
+      Hidden devices (e.g. an add-in PCI serial card used for Xen's serial
+      console) are associated with DomXEN, not Dom0. This means that while
+      looking for overlapping BARs such devices cannot be found on Dom0's list
+      of devices; DomXEN's list also needs to be scanned.
+      
+      Suppress vPCI init altogether for r/o devices (which constitute a subset
+      of hidden ones).
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+      Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-amd64.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build --summary-out=tmp/181050.bisection-summary --basis-template=181018 --blessings=real,real-bisect,real-retry xen-unstable-smoke build-amd64 xen-build
+Searching for failure / basis pass:
+ 181035 fail [host=himrod2] / 181018 [host=himrod0] 181016 [host=himrod0] 180963 ok.
+Failure / basis pass flights: 181035 / 180963
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 465217b0f872602b4084a1b0fa2ef75377cb3589
+Basis pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 f54dd5b53ee516fa1d4c106e0744ce0083acfcdc
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#8c51cd970509b97d8378d175646ec32889828158-8c51cd970509b97d8378d175646ec32889828158 git://xenbits.xen.org/xen.git#f54dd5b53ee516fa1d4c106e0744ce0083acfcdc-465217b0f872602b4084a1b0fa2ef75377cb3589
+Loaded 5002 nodes in revision graph
+Searching for test results:
+ 180963 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 f54dd5b53ee516fa1d4c106e0744ce0083acfcdc
+ 181016 [host=himrod0]
+ 181018 [host=himrod0]
+ 181037 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 8347d6bb29bfd0c3b5acdc078574a8643c5a5637
+ 181031 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 465217b0f872602b4084a1b0fa2ef75377cb3589
+ 181032 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 f54dd5b53ee516fa1d4c106e0744ce0083acfcdc
+ 181034 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 465217b0f872602b4084a1b0fa2ef75377cb3589
+ 181038 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 e66003e7be1996c9dd8daca54ba34ad5bb58d668
+ 181039 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 0d74fc2b2f85586ceb5672aedc79c666e529381d
+ 181040 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 0f80a46ffa6bfd5d111fc2e64ee5983513627e4d
+ 181035 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 465217b0f872602b4084a1b0fa2ef75377cb3589
+ 181043 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 445fdc641e304ff41a544f8f5926a13b604c08ad
+ 181045 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 465217b0f872602b4084a1b0fa2ef75377cb3589
+ 181046 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 445fdc641e304ff41a544f8f5926a13b604c08ad
+ 181047 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 465217b0f872602b4084a1b0fa2ef75377cb3589
+ 181048 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 445fdc641e304ff41a544f8f5926a13b604c08ad
+ 181050 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 465217b0f872602b4084a1b0fa2ef75377cb3589
+Searching for interesting versions
+ Result found: flight 180963 (pass), for basis pass
+ For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 445fdc641e304ff41a544f8f5926a13b604c08ad, results HASH(0x55dc07d44900) HASH(0x55dc07d3b210) HASH(0x55dc07d328c8) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 0f80a46ffa6bfd5d111fc2e64ee5983513627e4d, results HASH(0x55dc07d40448) For basis failure, parent search stopping at 3d273dd05e51e5a1\
+ ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 0d74fc2b2f85586ceb5672aedc79c666e529381d, results HASH(0x55dc07d3e440) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 e66003e7be1996c9dd8daca54ba34ad5bb58d668, results HASH(0x55dc07d3c438) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 8347d6bb29bfd0c3b5acdc078574a8643c5a56\
+ 37, results HASH(0x55dc07d35df8) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 f54dd5b53ee516fa1d4c106e0744ce0083acfcdc, results HASH(0x55dc07d32bc8) HASH(0x55dc07d3b390) Result found: flight 181031 (fail), for basis failure (at ancestor ~1498)
+ Repro found: flight 181032 (pass), for basis pass
+ Repro found: flight 181034 (fail), for basis failure
+ 0 revisions at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8c51cd970509b97d8378d175646ec32889828158 445fdc641e304ff41a544f8f5926a13b604c08ad
+No revisions left to test, checking graph state.
+ Result found: flight 181043 (pass), for last pass
+ Result found: flight 181045 (fail), for first failure
+ Repro found: flight 181046 (pass), for last pass
+ Repro found: flight 181047 (fail), for first failure
+ Repro found: flight 181048 (pass), for last pass
+ Repro found: flight 181050 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  465217b0f872602b4084a1b0fa2ef75377cb3589
+  Bug not present: 445fdc641e304ff41a544f8f5926a13b604c08ad
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/181050/
+
+
+  commit 465217b0f872602b4084a1b0fa2ef75377cb3589
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Wed May 31 12:01:11 2023 +0200
+  
+      vPCI: account for hidden devices
+      
+      Hidden devices (e.g. an add-in PCI serial card used for Xen's serial
+      console) are associated with DomXEN, not Dom0. This means that while
+      looking for overlapping BARs such devices cannot be found on Dom0's list
+      of devices; DomXEN's list also needs to be scanned.
+      
+      Suppress vPCI init altogether for r/o devices (which constitute a subset
+      of hidden ones).
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+      Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+181050: tolerable ALL FAIL
+
+flight 181050 xen-unstable-smoke real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181050/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-amd64                   6 xen-build               fail baseline untested
+
+
+jobs:
+ build-amd64                                                  fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
