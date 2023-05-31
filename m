@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ECB1717CFF
-	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 12:16:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541709.844722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1274D717D3D
+	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 12:36:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541714.844732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4Is1-00052G-N8; Wed, 31 May 2023 10:15:57 +0000
+	id 1q4JAc-0007WK-CZ; Wed, 31 May 2023 10:35:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541709.844722; Wed, 31 May 2023 10:15:57 +0000
+Received: by outflank-mailman (output) from mailman id 541714.844732; Wed, 31 May 2023 10:35:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4Is1-0004zR-Jr; Wed, 31 May 2023 10:15:57 +0000
-Received: by outflank-mailman (input) for mailman id 541709;
- Wed, 31 May 2023 10:15:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q4JAc-0007Uf-9i; Wed, 31 May 2023 10:35:10 +0000
+Received: by outflank-mailman (input) for mailman id 541714;
+ Wed, 31 May 2023 10:35:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=X43w=BU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1q4Irz-0004zL-VN
- for xen-devel@lists.xenproject.org; Wed, 31 May 2023 10:15:56 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 202efdb9-ff9c-11ed-8611-37d641c3527e;
- Wed, 31 May 2023 12:15:53 +0200 (CEST)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2af30a12e84so60066441fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 31 May 2023 03:15:53 -0700 (PDT)
-Received: from [192.168.202.197] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- x8-20020a2e8808000000b002a9f022e8bcsm3163798ljh.65.2023.05.31.03.15.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 May 2023 03:15:52 -0700 (PDT)
+ <SRS0=ZHTS=BU=bounce.vates.fr=bounce-md_30504962.647722d9.v1-5d095d79e9f04458b3251c8f8a0efadc@srs-se1.protection.inumbo.net>)
+ id 1q4JAb-0007UZ-Bw
+ for xen-devel@lists.xenproject.org; Wed, 31 May 2023 10:35:09 +0000
+Received: from mail5.us4.mandrillapp.com (mail5.us4.mandrillapp.com
+ [205.201.136.5]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cf0de643-ff9e-11ed-b231-6b7b168915f2;
+ Wed, 31 May 2023 12:35:07 +0200 (CEST)
+Received: from pmta15.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail5.us4.mandrillapp.com (Mailchimp) with ESMTP id 4QWQd54qYczDRYW5k
+ for <xen-devel@lists.xenproject.org>; Wed, 31 May 2023 10:35:05 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 5d095d79e9f04458b3251c8f8a0efadc; Wed, 31 May 2023 10:35:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +41,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 202efdb9-ff9c-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685528153; x=1688120153;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=yEGi2e5xZC0+UnMTftABv8dWt3TREaq1MMTHsonbF2c=;
-        b=bu21Y4KLu0PE07UKpLyopbkfRpqLHOU4JfqUjHQ0KD9EeW2onKP/xHudW+FusxNMit
-         pBRs4/mBD1r4dvjUHaxkpQ+bPQifuCPUfdzCW9RD5iK79BzWPtOpk/T1uJCKgzrYJXNn
-         QEH8PnBT2lbTWzu7K66QkTlrx5lZaK3Z4CFRxPRtFQptm7QfXuaF38ZoZx5WZEIhp3wC
-         revtv175ywg+G02YooTDz0RSfkny69NoMqGkMUI/iVgxuOBZyD/HPzQzVyuCHCiz/10D
-         vuH9t+mHvIAUQRTzshxehHoIA2W5yti3+tznqGMuTvG/fB6u+TvtWhr4jYpYKPwhssTJ
-         bWew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685528153; x=1688120153;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yEGi2e5xZC0+UnMTftABv8dWt3TREaq1MMTHsonbF2c=;
-        b=kghPtzHB6Fl8GCxDtF1lDCg5DFtRA9Ab7RH4Y1MPYvDj6CPS+oAfvvHAKE6au6ys/E
-         6+TQFd5/feT9Ua0b3t91LPXYHmvGoWPFa8OWUrzSTpJN6KtV7w+5DHZrkJ10pbfsKwS8
-         dAKVLbmQ6QF3tOZw3VbPxMDut3h8qihactpn7HqGmhSLpne4y377B9nMhHBAUDvNI3R/
-         59GuzvJzByNBy/QlWWWuetZzHYOHwz9hrRJxbs1USL8D7qtEzE+kB5bUhvJvYWj2A61Q
-         70OzG1GXDFLyiFgrV8vat4NS/EwOQIXCgIuuhIUKAqDJppyjejFOexkBhkl1DTlbQB3+
-         6l3g==
-X-Gm-Message-State: AC+VfDwvD05uz26sSVzrF6+JdMLByQyvJr5IBfNDp2fBBG01QT41/rZF
-	UgnbOzBxbYL57LhaDCw9xHg=
-X-Google-Smtp-Source: ACHHUZ6ayb9I12LWn4FFY0stVngGqku4LfZItIQLrsnKo+VrEaiGPynitSyJFAuxQgVVUnDIHl22oQ==
-X-Received: by 2002:a2e:8245:0:b0:2ab:365b:dc7d with SMTP id j5-20020a2e8245000000b002ab365bdc7dmr2488048ljh.27.1685528153075;
-        Wed, 31 May 2023 03:15:53 -0700 (PDT)
-Message-ID: <0816b0790f85652ec688a21476bbb4bba05b5735.camel@gmail.com>
-Subject: Re: [PATCH v6 4/6] xen/riscv: introduce trap_init()
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>, 
- xen-devel@lists.xenproject.org
-Date: Wed, 31 May 2023 13:15:51 +0300
-In-Reply-To: <86dc868a-eda9-9de6-0430-26da6f5ad465@suse.com>
-References: <cover.1685359848.git.oleksii.kurochko@gmail.com>
-	 <f4c4b711106283e26536105105892b93bb39ea3e.1685359848.git.oleksii.kurochko@gmail.com>
-	 <86dc868a-eda9-9de6-0430-26da6f5ad465@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.2 (3.48.2-1.fc38) 
+X-Inumbo-ID: cf0de643-ff9e-11ed-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.fr;
+	s=mandrill; t=1685529305; x=1685789805; i=yann.dirson@vates.fr;
+	bh=6esGehIgFwWl9LvAG7GFoLkEcUZ39SrurMvnn+v971U=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=BcgoHN3CcLVgwmHQqLVpyZZY5G1VHfCz0PTPQNEIDM10oRevdP73a4KVLxo1xPfkG
+	 JiIvGoGbFiJUMunxvD8vPFbc0IZ4dV0sgqLl3D3+H3ZvFWOddtsoZhGVk08deMkCT7
+	 w20n84Cs+aJh9HISOy94+oSuDAAJpgrZHaHUYkmQ=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com; 
+ i=@mandrillapp.com; q=dns/txt; s=mandrill; t=1685529305; h=From : 
+ Subject : To : Cc : Message-Id : Date : MIME-Version : Content-Type : 
+ Content-Transfer-Encoding : From : Subject : Date : X-Mandrill-User : 
+ List-Unsubscribe; bh=6esGehIgFwWl9LvAG7GFoLkEcUZ39SrurMvnn+v971U=; 
+ b=TOY2Gf0rGNuiV6pm5lTIHRqL36lasWRT1NC5JXC6Ni9iV+de2Kq67WDwjlee0K3q95k5Hq
+ 7kUp6sYFL2629fzxl+eEcLZlC0LgByP8GJ1t1cZVIzY9Fm4jl0hRNTCsU7kNrwZ8Kd5JmxNA
+ 3X1eYo2Np69aSTpyfV3sCdtoU3KRI=
+From: Yann Dirson <yann.dirson@vates.fr>
+Subject: =?utf-8?Q?[PATCH=200/1]=20RFC:=20clarify=20intended=20usage=20of=20~/control/=20xentore=20path?=
+X-Mailer: git-send-email 2.30.2
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 9f954236-9dc1-4070-9d34-807dea7ccea1
+X-Bm-Transport-Timestamp: 1685529304177
+To: xen-devel@lists.xenproject.org
+Cc: Yann Dirson <yann.dirson@vates.fr>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Message-Id: <20230531103427.1551719-1-yann.dirson@vates.fr>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.5d095d79e9f04458b3251c8f8a0efadc?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20230531:md
+Date: Wed, 31 May 2023 10:35:05 +0000
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2023-05-30 at 17:44 +0200, Jan Beulich wrote:
-> On 29.05.2023 14:13, Oleksii Kurochko wrote:
-> > --- a/xen/arch/riscv/traps.c
-> > +++ b/xen/arch/riscv/traps.c
-> > @@ -12,6 +12,31 @@
-> > =C2=A0#include <asm/processor.h>
-> > =C2=A0#include <asm/traps.h>
-> > =C2=A0
-> > +#define cast_to_bug_frame(addr) \
-> > +=C2=A0=C2=A0=C2=A0 (const struct bug_frame *)(addr)
->=20
-> I can't find a use for this; should it be dropped or moved to some
-> later patch? In any event, if ti's intended to survive, it needs yet
-> another pair of parentheses.
-You are right. It should be a part of the next patch.
-Thanks.
+This proposal, spurred by a discrepancy between how toolstacks handles
+the control nodes, tries to summarize what I understand to be the
+spirit of ~/control/, from its children already described in the
+xenstore-paths document, and from the libxl behaviour.
 
->=20
-> > +/*
-> > + * Initialize the trap handling.
-> > + *
-> > + * The function is called after MMU is enabled.
-> > + */
-> > +void trap_init(void)
->=20
-> Is this going to be used for secondary processors as well? If not,
-> it will want to be __init.
-I think I'll use it for secondary processors.
+Yann Dirson (1):
+  doc: clarify intended usage of ~/control/ xentore path
 
->=20
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * When the MMU is off, addr varialbe will be =
-a physical
-> > address otherwise
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * it would be a virtual address.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * It will work fine as:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0 - access to addr is PC-relative.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0 - -nopie is used. -nopie really suppr=
-esses the compiler
-> > emitting
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 code going through .got (=
-which then indeed would mean
-> > using absolute
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 addresses).
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
->=20
-> Is all of this comment still relevant not that you're running with
-> the MMU already enabled.
-Not really. I think comment above trap_init() function will be enough.
-I'll remove this comment.
+ docs/misc/xenstore-paths.pandoc | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-~ Oleksii
+-- 
+2.30.2
+
+
+
+Yann Dirson | Vates Platform Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+w: vates.fr | xcp-ng.org | xen-orchestra.com
 
