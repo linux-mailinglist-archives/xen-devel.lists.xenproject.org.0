@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71F58717C9B
-	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 11:59:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.541704.844712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ECB1717CFF
+	for <lists+xen-devel@lfdr.de>; Wed, 31 May 2023 12:16:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.541709.844722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4Ib8-0002Vg-5m; Wed, 31 May 2023 09:58:30 +0000
+	id 1q4Is1-00052G-N8; Wed, 31 May 2023 10:15:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 541704.844712; Wed, 31 May 2023 09:58:30 +0000
+Received: by outflank-mailman (output) from mailman id 541709.844722; Wed, 31 May 2023 10:15:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4Ib8-0002SV-2y; Wed, 31 May 2023 09:58:30 +0000
-Received: by outflank-mailman (input) for mailman id 541704;
- Wed, 31 May 2023 09:58:28 +0000
+	id 1q4Is1-0004zR-Jr; Wed, 31 May 2023 10:15:57 +0000
+Received: by outflank-mailman (input) for mailman id 541709;
+ Wed, 31 May 2023 10:15:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5Ad7=BU=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1q4Ib6-0002SP-KH
- for xen-devel@lists.xenproject.org; Wed, 31 May 2023 09:58:28 +0000
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=X43w=BU=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1q4Irz-0004zL-VN
+ for xen-devel@lists.xenproject.org; Wed, 31 May 2023 10:15:56 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afc9d9dd-ff99-11ed-8611-37d641c3527e;
- Wed, 31 May 2023 11:58:26 +0200 (CEST)
-Received: from zn.tnic (pd9530d32.dip0.t-ipconnect.de [217.83.13.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A190C1EC04CB;
- Wed, 31 May 2023 11:58:25 +0200 (CEST)
+ id 202efdb9-ff9c-11ed-8611-37d641c3527e;
+ Wed, 31 May 2023 12:15:53 +0200 (CEST)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2af30a12e84so60066441fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 31 May 2023 03:15:53 -0700 (PDT)
+Received: from [192.168.202.197] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ x8-20020a2e8808000000b002a9f022e8bcsm3163798ljh.65.2023.05.31.03.15.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 31 May 2023 03:15:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,63 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afc9d9dd-ff99-11ed-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-	t=1685527105;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
-	bh=hV5YBOIQSuwVXJ+8Bq//nWeBhs0OtlO6df6O2vn8m1U=;
-	b=Z5dl/Esl28XcJGYLQMWLB7mDNT4HnJmuKuH7Q7rBtdBM4dZsUgVpe+otHybYon2eveTgiP
-	AsTaFAFSoetQQLdUoW1I/5GajpeRc7w7d27DQ5wtBU0egue/Hk38/BctN3oEqzR61+V4pC
-	P8u8HorX55f1Ee47CpUpGwCZiVcGwmM=
-Date: Wed, 31 May 2023 11:58:21 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
-	linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org,
-	mikelley@microsoft.com, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	xen-devel@lists.xenproject.org, Jonathan Corbet <corbet@lwn.net>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [PATCH v6 00/16] x86/mtrr: fix handling with PAT but without MTRR
-Message-ID: <20230531095821.GBZHcaPUvp8jo/IwV7@fat_crate.local>
-References: <20230509201437.GFZFqprc6otRejDPUt@fat_crate.local>
- <20230509233641.GGZFrZCTDH7VwUMp5R@fat_crate.local>
- <20230510133024.GBZFuccC1FxIZNKL+8@fat_crate.local>
- <4c47a11c-0565-678d-3467-e01c5ec16600@suse.com>
- <20230511163208.GDZF0YiOfxQhSo4RDm@fat_crate.local>
- <0cd3899b-cf3b-61c1-14ae-60b6b49d14ab@suse.com>
- <20230530152825.GAZHYWGXAp8PHgN/w0@fat_crate.local>
- <888f860d-4307-54eb-01da-11f9adf65559@suse.com>
- <20230531083508.GAZHcGvB68PUAH7f+a@fat_crate.local>
- <7e824a95-6676-9553-4158-d434f617fcbb@suse.com>
+X-Inumbo-ID: 202efdb9-ff9c-11ed-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1685528153; x=1688120153;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=yEGi2e5xZC0+UnMTftABv8dWt3TREaq1MMTHsonbF2c=;
+        b=bu21Y4KLu0PE07UKpLyopbkfRpqLHOU4JfqUjHQ0KD9EeW2onKP/xHudW+FusxNMit
+         pBRs4/mBD1r4dvjUHaxkpQ+bPQifuCPUfdzCW9RD5iK79BzWPtOpk/T1uJCKgzrYJXNn
+         QEH8PnBT2lbTWzu7K66QkTlrx5lZaK3Z4CFRxPRtFQptm7QfXuaF38ZoZx5WZEIhp3wC
+         revtv175ywg+G02YooTDz0RSfkny69NoMqGkMUI/iVgxuOBZyD/HPzQzVyuCHCiz/10D
+         vuH9t+mHvIAUQRTzshxehHoIA2W5yti3+tznqGMuTvG/fB6u+TvtWhr4jYpYKPwhssTJ
+         bWew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685528153; x=1688120153;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yEGi2e5xZC0+UnMTftABv8dWt3TREaq1MMTHsonbF2c=;
+        b=kghPtzHB6Fl8GCxDtF1lDCg5DFtRA9Ab7RH4Y1MPYvDj6CPS+oAfvvHAKE6au6ys/E
+         6+TQFd5/feT9Ua0b3t91LPXYHmvGoWPFa8OWUrzSTpJN6KtV7w+5DHZrkJ10pbfsKwS8
+         dAKVLbmQ6QF3tOZw3VbPxMDut3h8qihactpn7HqGmhSLpne4y377B9nMhHBAUDvNI3R/
+         59GuzvJzByNBy/QlWWWuetZzHYOHwz9hrRJxbs1USL8D7qtEzE+kB5bUhvJvYWj2A61Q
+         70OzG1GXDFLyiFgrV8vat4NS/EwOQIXCgIuuhIUKAqDJppyjejFOexkBhkl1DTlbQB3+
+         6l3g==
+X-Gm-Message-State: AC+VfDwvD05uz26sSVzrF6+JdMLByQyvJr5IBfNDp2fBBG01QT41/rZF
+	UgnbOzBxbYL57LhaDCw9xHg=
+X-Google-Smtp-Source: ACHHUZ6ayb9I12LWn4FFY0stVngGqku4LfZItIQLrsnKo+VrEaiGPynitSyJFAuxQgVVUnDIHl22oQ==
+X-Received: by 2002:a2e:8245:0:b0:2ab:365b:dc7d with SMTP id j5-20020a2e8245000000b002ab365bdc7dmr2488048ljh.27.1685528153075;
+        Wed, 31 May 2023 03:15:53 -0700 (PDT)
+Message-ID: <0816b0790f85652ec688a21476bbb4bba05b5735.camel@gmail.com>
+Subject: Re: [PATCH v6 4/6] xen/riscv: introduce trap_init()
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+ <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>, 
+ xen-devel@lists.xenproject.org
+Date: Wed, 31 May 2023 13:15:51 +0300
+In-Reply-To: <86dc868a-eda9-9de6-0430-26da6f5ad465@suse.com>
+References: <cover.1685359848.git.oleksii.kurochko@gmail.com>
+	 <f4c4b711106283e26536105105892b93bb39ea3e.1685359848.git.oleksii.kurochko@gmail.com>
+	 <86dc868a-eda9-9de6-0430-26da6f5ad465@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.48.2 (3.48.2-1.fc38) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7e824a95-6676-9553-4158-d434f617fcbb@suse.com>
 
-On Wed, May 31, 2023 at 11:31:37AM +0200, Juergen Gross wrote:
-> What it did would have been printed if pr_debug() would have been
-> active. :-(
+On Tue, 2023-05-30 at 17:44 +0200, Jan Beulich wrote:
+> On 29.05.2023 14:13, Oleksii Kurochko wrote:
+> > --- a/xen/arch/riscv/traps.c
+> > +++ b/xen/arch/riscv/traps.c
+> > @@ -12,6 +12,31 @@
+> > =C2=A0#include <asm/processor.h>
+> > =C2=A0#include <asm/traps.h>
+> > =C2=A0
+> > +#define cast_to_bug_frame(addr) \
+> > +=C2=A0=C2=A0=C2=A0 (const struct bug_frame *)(addr)
+>=20
+> I can't find a use for this; should it be dropped or moved to some
+> later patch? In any event, if ti's intended to survive, it needs yet
+> another pair of parentheses.
+You are right. It should be a part of the next patch.
+Thanks.
 
-Lemme turn those into pr_info(). pr_debug() is nuts.
+>=20
+> > +/*
+> > + * Initialize the trap handling.
+> > + *
+> > + * The function is called after MMU is enabled.
+> > + */
+> > +void trap_init(void)
+>=20
+> Is this going to be used for secondary processors as well? If not,
+> it will want to be __init.
+I think I'll use it for secondary processors.
 
-> Did you check whether CONFIG_MTRR_SANITIZER_ENABLE_DEFAULT was the same in both
-> kernels you've tested?
+>=20
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * When the MMU is off, addr varialbe will be =
+a physical
+> > address otherwise
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * it would be a virtual address.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * It will work fine as:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0 - access to addr is PC-relative.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0 - -nopie is used. -nopie really suppr=
+esses the compiler
+> > emitting
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 code going through .got (=
+which then indeed would mean
+> > using absolute
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0=C2=A0 addresses).
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
+>=20
+> Is all of this comment still relevant not that you're running with
+> the MMU already enabled.
+Not really. I think comment above trap_init() function will be enough.
+I'll remove this comment.
 
-Yes, it is enabled.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+~ Oleksii
 
