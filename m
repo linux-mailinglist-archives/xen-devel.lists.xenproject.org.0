@@ -2,38 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 972E371F107
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 19:45:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542696.846854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DC9A71F158
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 20:06:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542702.846866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4mKo-00020a-2C; Thu, 01 Jun 2023 17:43:38 +0000
+	id 1q4mgh-0004er-0K; Thu, 01 Jun 2023 18:06:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542696.846854; Thu, 01 Jun 2023 17:43:38 +0000
+Received: by outflank-mailman (output) from mailman id 542702.846866; Thu, 01 Jun 2023 18:06:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4mKn-0001xL-VE; Thu, 01 Jun 2023 17:43:37 +0000
-Received: by outflank-mailman (input) for mailman id 542696;
- Thu, 01 Jun 2023 17:43:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q4mgg-0004bh-Tc; Thu, 01 Jun 2023 18:06:14 +0000
+Received: by outflank-mailman (input) for mailman id 542702;
+ Thu, 01 Jun 2023 18:06:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=om5G=BV=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
- id 1q4mKl-0001xF-UX
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 17:43:35 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d235581e-00a3-11ee-8611-37d641c3527e;
- Thu, 01 Jun 2023 19:43:30 +0200 (CEST)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-30aeee7c8a0so942767f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 10:43:30 -0700 (PDT)
-Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- h12-20020a5d6e0c000000b002ca864b807csm11149310wrz.0.2023.06.01.10.43.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jun 2023 10:43:29 -0700 (PDT)
+ <SRS0=bFRJ=BV=citrix.com=prvs=509590c99=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1q4mgf-0004bb-O0
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 18:06:14 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f902f50e-00a6-11ee-b231-6b7b168915f2;
+ Thu, 01 Jun 2023 20:06:05 +0200 (CEST)
+Received: from mail-dm6nam11lp2177.outbound.protection.outlook.com (HELO
+ NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.177])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 01 Jun 2023 14:06:01 -0400
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by BY5PR03MB5169.namprd03.prod.outlook.com (2603:10b6:a03:219::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.24; Thu, 1 Jun
+ 2023 18:05:59 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::10bb:98bc:e36d:36ab]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::10bb:98bc:e36d:36ab%3]) with mapi id 15.20.6455.020; Thu, 1 Jun 2023
+ 18:05:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,183 +49,207 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d235581e-00a3-11ee-8611-37d641c3527e
+X-Inumbo-ID: f902f50e-00a6-11ee-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1685642765;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=0zFMCXucLysOYa0FF0t1njk1seLv5p9jq/CettK7p34=;
+  b=Dt+MWR4fzE/TjBBGycy6rHQWZF+jV/W2U1Gda4BgobDTYATIL7Pr8Cfs
+   HCMWXod0O/lHK2zsi+egqiUAknh5YFwadgP8gyRRkio7acAt8PInnvDPW
+   syeGPjEmd/5iyvbfOQ277bwQMxQBOVEpXjdZg8TcMhRMnK10Ze0unkK06
+   Q=;
+X-IronPort-RemoteIP: 104.47.57.177
+X-IronPort-MID: 111673884
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:00/djK1yPK0rR4PlEvbD5dNxkn2cJEfYwER7XKvMYLTBsI5bpzcCx
+ jAXD2rUOviPYjaketgga4m29R8BvcXVx9IxTAttpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefTAOK6ULWeUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8teTb8HuDgNyo4GlD5gJmPKgQ1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfOjoR6
+ sMoNW00RDODgu6H34niQ7Jtv5F2RCXrFNt3VnBI6xj8VK9jbbWdBqLA6JlfwSs6gd1IEbDGf
+ c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqvC6Kk1MZPLvFabI5fvSjQ8lPk1nej
+ WXB52njWTkRNcCFyCrD+XWp7gPKtXqiAdxNT+3oqpaGhnWy+S8JLDhIdGK0rN6o0228Qt92F
+ GAtr39GQa8asRbDosPGdxGxvnPCvhcaQNdWO+w89AyJjKHT5m6xAmkCUy4Ea9E8ssIybSIl2
+ 0XPnN7zAzFr9rqPRhq15rqS6D+/JyURBWsDfjMfCxsI5cH5p4M+hQ6JScxseIa3hNDoHTD7w
+ xiRsTMzwb4UiKYjy6q/7XjDgjSxuoLOSA8loAnaNkqg7wV2Y6a/aoCo4ESd5vFFRK6TVnGIu
+ HkJnZjY4O1mJZ2EiiHLQOwLB7yvz/KENiDMx19pA5QlsT+q/haLbdAOyDJzPkFkNoADYzCBS
+ E3cowRK/7dIIWCnK6RwZuqZAcMwzLOmEs/5TPfKddlfSp9rfQSD8WdlYkv493jvl04hioklN
+ JubeNrqBnEfYYxkyzysTus10rIxwC06g2TJSvjGIw+P1LOfYDuZTOkDOV7XN+Qhtvrb/0PS7
+ spVMNaMx1NHSuribyLL8IkVa1cXMXw8ApOwoMtSHgKeHjdb9KgaI6e56dscl0ZNxcy5Ss+gE
+ qmBZ3Jl
+IronPort-HdrOrdr: A9a23:HmAbsKA8Bb4N6pflHemH55DYdb4zR+YMi2TDtnoBLCC9F/bz+v
+ xG88526faZslkssQgb6Km90cq7MBHhHPxOgbX5VI3KNDUO3lHHEGgI1/qA/9SPIUzDH9lmpM
+ NdmvhFY+EY1WIK9voSOjPIderIHeP3l5xAWd2ut0uFkzsaEZ1d0w==
+X-Talos-CUID: 9a23:jn5zD26q/h9WlVyypNsszxVLBf8VbyDk5lTQJkOJFl0wQeaUcArF
+X-Talos-MUID: 9a23:3jdj+QuOExBAK4GFys2npQ4hLuNNvYWXB00qgMwludCJHBNcAmLI
+X-IronPort-AV: E=Sophos;i="6.00,210,1681185600"; 
+   d="scan'208";a="111673884"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ELI7ns5NGdVDGPhvN2kGrigykKbza1J0ZRAjyrpY7zIb9+f2JlEv4r53fM49yMIaJUmgckraAh+8sBJI9gzZGmD+kNfO3qgfQX/Tk9nURIH0pO5rx08CRupIWGrXLJ2Vg7e7u0Hypj72S/l9ju1ykgAxT7K5YVIfubERFxNzan8CgCh3xJY+w70oSVtJxr6Lbz1rtgR8+l88d6hg4HdV64L12rpc/Pct0n2KFzNYv+NdNOPK6ZxYyKf7+Xx8GK0oQey3RhXaV9ml2d1JBFHUjDof7QtdlqD5LOBWHQCT/CydqpQSufUcxz6490k89JhwLoIi8y30fDRfoyQ7dQ0P5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Pi7uD2ND6XW8mRc8inwQz8CFapHmqDbZDow354ZJhg0=;
+ b=ItIKHk6CJ/hxpZ6IfcyPHI2/vbz6YCM2wAg1fzhThebRMV6N8RpJZGP9/KtXMwfD1gjQqul5zvIX5r1/wiaofDk1WLL94g+IJWnGyWHP47tHXndpzbhkbyAEZR8jpcNRjYU962d1yxUl5D/C8EWWc8bbV7etAkyN19EpWGkZd7wdKTwS7EoXI4dZAn4WPjCbt3QOl970T+5hSwWtSpiERyX5SuJZOOfvwBZ+lTorYlXvU9b3E5feXdBf3CvRAwtqkNxXrMCVNRLsRNf9gKbzCaUfZEZ/7wQ4ucHTcVGCofW3TgAv1bD1F96JNyOgoPuBzTpMgV0VCnbmFDp0p8xiMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1685641409; x=1688233409;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UWNQNSoIT/qncl/3Jg92282yi87AP2Clk3QevAJ37uU=;
-        b=f96PSfWE9d8KbrTJBBBwjtTP0OJpyDZDAumXu6ietkLhhZQQJzbN3JpNmmYs14g4xU
-         orPAZdpykNQExiFj4XkRaDi1bcY5hfhBc/zTJnzuKcHI6i0DtYr9ywJKTXk7N77/yd9A
-         QFuthETfSeL1TAySku7piEuel9033LHfqif+Q=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685641409; x=1688233409;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=UWNQNSoIT/qncl/3Jg92282yi87AP2Clk3QevAJ37uU=;
-        b=J2EDOwUg42cl7PUH6CrgWcIcOzOTZqYY1ZY3kRX5HB3BAW2WgUC9Rh4jRUj5PC6ooa
-         Vqugh/8Pf6XyLNG2a9HjhhpW2/id1W7j1RYXfJ+wzbfIYR2SMUd73SubsFjC8o/Tu3fu
-         +aFb28Zr0zxKQqSAs1GGVgvGh5M9hkfXxEoLwty/9v191vGRymSoTb7FOvigkHV4DDci
-         k6ZImqacYNwTD+ojI7RbefYVP7r7NAjck27fF/Lgn/wSRzXrF/Incrx1x7NKLtbg59dD
-         OVeE5JkCaObUHpRY2KyWK2L48jnWXJEw77DjhYRiIZrbKzHbNBQxN4T508apV89q9hrQ
-         OcVA==
-X-Gm-Message-State: AC+VfDy8C/229K3nMeM2So+2SMpAI0AKSul6Wn3rBxIvm413i+vE7YXn
-	wODERFdcVKnwoaPrvkmhAZyk16CoMjEhMr7yNLM=
-X-Google-Smtp-Source: ACHHUZ7BBhLORWD4m+5oN9xiYbRt74+jV/FmGuRpjvo2BeFWX21fOG1hSjL27Xw3r7zAAFwOJTdHNA==
-X-Received: by 2002:adf:fa42:0:b0:30a:d944:b765 with SMTP id y2-20020adffa42000000b0030ad944b765mr2436047wrr.15.1685641409659;
-        Thu, 01 Jun 2023 10:43:29 -0700 (PDT)
-From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] x86: Add Kconfig option to require NX bit support
-Date: Thu,  1 Jun 2023 18:43:27 +0100
-Message-Id: <20230601174327.11401-1-alejandro.vallejo@cloud.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pi7uD2ND6XW8mRc8inwQz8CFapHmqDbZDow354ZJhg0=;
+ b=lW4w+HBVR8KA9yql4FbzuSBKXLER6GzhH7xPRSrQdzN9U8/NugH3X/vCNihB7v8bncGLCruer7haqwXzdLhlHl1I3fSMGMh+SVxbt8a3FKiVa7JavVxsaBrGewbdQI+1qp2qVuWPKU/2zJBHxcPPELTHBMQpjM6qKW+CUrO82xw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <5d1de7cf-495d-18bb-d4c2-227d9182a0e9@citrix.com>
+Date: Thu, 1 Jun 2023 19:05:50 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2] iscsi_ibft: Fix finding the iBFT under Xen Dom 0
+Content-Language: en-GB
+To: Dave Hansen <dave.hansen@intel.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Juergen Gross <jgross@suse.com>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Peter Jones <pjones@redhat.com>,
+ Konrad Rzeszutek Wilk <konrad@kernel.org>
+References: <20230530150106.2703849-1-ross.lagerwall@citrix.com>
+ <5aae0317-72cf-fc3c-6ce3-7e1fe1d6b699@intel.com>
+ <b6c4347d-bd03-0332-c4a9-9d2a11f17a6a@intel.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <b6c4347d-bd03-0332-c4a9-9d2a11f17a6a@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0136.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:193::15) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|BY5PR03MB5169:EE_
+X-MS-Office365-Filtering-Correlation-Id: aaa203f6-712f-4f34-b66b-08db62cada11
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	wv5Ia9cOKCrDYsIderCc2PsH9N+IAFgpVtrAwo27OrTwXGI/lr/OPpaIHly4wU85tYsTngup7tuKbhL0XtVGFenrNIr64O2Rw8hrM4bAQvm0EsS0MQ5DkRH1Li6Jl3MHHttQqBYsJApKScm0rIJhx3vG+fduyWyvR8AskT7FlnOati2glIEY/9wUcJSZtYlnt7h8MtwwWbkL6qGltCE03/Ux3T1orV152FLJOJ4e7zFPIhiEuVdRiwDx9NeqW27alf6N08C3mkC9+iW7zDu1JCoO95RYIMkYCMgZOmmLjfK1PRqdEr4SdZ/dwDqrobAmN74udRZSChAV3k7pM5Fsr4VyyNL7VU7+M1MT4liTwc/bHJwg4cygZFoavK5xDrfoMmnv29Q3xA24seZ7hfQzVSQ5ZnmiNmTEVc3pCy/FGCsKaX8eurs0Msz7uGJ1kaTZ5pvNW7ESWLXzpQaAQ4TXNIzfwTFwZ4q9ZRxWL6yI7hF9h44LswT91c1qmVIH7aMkDvFk6k5sj9mCCGr+5VnV6joy3TgowZxWTyIbxEHcqeQFQ/LW7/AYiqN+EhJYP8kaUKfLPlMptmih70aYsDIL9W3pPu/bM7reg6nCE0lcZoB+qrco4VUJip5ixiSnhJmkFSDOP1K568jwbrFzsCriDg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(376002)(366004)(396003)(136003)(346002)(451199021)(36756003)(2906002)(31696002)(86362001)(7416002)(5660300002)(31686004)(83380400001)(6666004)(6486002)(186003)(6506007)(26005)(6512007)(53546011)(82960400001)(478600001)(110136005)(54906003)(66476007)(66946007)(66556008)(41300700001)(4326008)(2616005)(38100700002)(316002)(8936002)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TER4Wkk0WUsxN21CRlJvayt3dHZHQnJvdkVlM2RyUnNQeTlMWDVHOHFXUExl?=
+ =?utf-8?B?V05JRnRnTUx6ajQ4TFd0a2NzcWhBTkVxQW1oa1JlbW9iZWU3c0ozVGhsOStZ?=
+ =?utf-8?B?WmdMRUdVVjhydnd2UHF3UkkrS0tTL1NwMFh4eUxncitWUkRMR1hNNThEWWU2?=
+ =?utf-8?B?aVkyZFpab1RyNUY0bTE0eEFVZUhOTXFWVktZZER5N1RLRTRMdmlGMVBoMGZ6?=
+ =?utf-8?B?YUJsSXJ1WWEyWnpNRmRmVGZFTnp6QkoxdENKRk11L1JFbzkvZTlnN2UxamlY?=
+ =?utf-8?B?STJKb0JMcXdXQnNzYlRTUzhXTGdJcTNYTDdtWE1OOVRMdkEydnBuTE9nb2Zx?=
+ =?utf-8?B?Q2UrMDdITWlvWUpRcW5OTFJyYVZXTFoxRmRWZFN2RXhEblE5dXUwUVF4eW56?=
+ =?utf-8?B?MWZ1RExRL0NpbXZNSFp6bVBFeGhsbDVRc250dXZqM3E0K0p4RHFDUHQ0THBW?=
+ =?utf-8?B?enNYczRtQW9kVitOaFpsUjVwRXlRUUtVNmJ3WjB3K0RFdXliYWhmUDJxYWY4?=
+ =?utf-8?B?Y1NqakpncGlndHhsT1RwWmVxY3FMZi9RZDRHTUpkZ0E4dm9hTTh4dVJYMkxx?=
+ =?utf-8?B?dFl2emFQVElzNmJrMkIvMldxTWZqcFVOSEVLejNqL252QXN3ZzVFeTRMdnlV?=
+ =?utf-8?B?a1pDN1Bydy9ZVzg3b1ZpUGdjaVVUZEZIZW9KcFRUVWg4M2YyTHh6TkFwRWxO?=
+ =?utf-8?B?YVhCTlVoaWlvTnZyUjYzMEhlM2liR2VwWmRLQjBac3VLUTdaWGRYakJqSHZR?=
+ =?utf-8?B?QnVjR2tiSE1wZnExWTByek9lMkdldGMxVitkTGd2TEsrT2xIcDNwdG4raVdE?=
+ =?utf-8?B?c1BZNXdxZ1ZXOUk0b3FhNGV0WnBqWWV5Z01GdGNMNVIxWFdNN3dBeStFbVda?=
+ =?utf-8?B?ZUtkZ1VycGVLTU5uRGdXc3JWV2hSYW1hV1ZpMUFqRW1KUG50eTc1YWRoSVJO?=
+ =?utf-8?B?aDIxS3RWckU1alpJRUhPTlp6Tkc3L1c5dnIzK1ExZVdobFlubThKK2hTanhE?=
+ =?utf-8?B?bTYzaXZxU2Y3Yk12ZldBNDZ2aWlTblF4aUNxZXBSaXVib01WZlM5THBFNXQz?=
+ =?utf-8?B?ZzNidXRRa0pJRUYyK3BhSTJEMjA3aU9KT1gzSjFKRStUdlRGdTdZVUFqSlph?=
+ =?utf-8?B?NkxkbUxNODlUbzZNOUVheGxJOUhHRWt4M3JWUStPN1ZnOVYvMTd0VFdjdERZ?=
+ =?utf-8?B?dHZkeFM5cThMaXR3SStsckF6QS9FTU9tNmZLRFNkc2hTek96cEtjUzZ6UmZo?=
+ =?utf-8?B?VFQxNFk4dXNHdnBoczhNbFp1VDIwVlZBTFkweGVBRWw4K0FzTllJckZGQVVJ?=
+ =?utf-8?B?bVh2aUNUWGw5ZCtRK2xLVlllZzdFbm55SU1OQW5GSzl4ZEpDYW5zVmxTdWVD?=
+ =?utf-8?B?SVpGK0s0eENhcEJ6R1FvVS9mRnFrMUdZMVd4YmpVMDJGdFBWcERjQUYxOUpU?=
+ =?utf-8?B?SDI3aHZ4QlRMcHhqWm1JaWorbUd5d05DZndDbzJJZjFUR0sweUZCNk9pUGZz?=
+ =?utf-8?B?Z1BCbmp0UnpQT3IwR0UweUlLd29ocEJMSFk2T3hsOHp4cTczRFI4azdBWjdv?=
+ =?utf-8?B?L3I2UDBqdEIyY2FVR25FeHFsSEwvbVFBK056TE00RG5iQnBZV1B2dDZoUjZR?=
+ =?utf-8?B?VytRMGZTeGRoeXdTUGtXWHZKME1NUWRYMEQ2Zkttcy8wb3VEUTlLK2d0VWlx?=
+ =?utf-8?B?RG4yNnp0akRnMkQ2TTN4NFJZa2Q4LzRPeXdmM3hOdENNTUJQODhLRFR0SXJi?=
+ =?utf-8?B?UzF0S1dYbUFtMldxdXBncUFKSWQ1eWFVdkN2MXliWlhFSExHZE1kSWdpLzVs?=
+ =?utf-8?B?bEdmOERFOXV3ZjE2RUQ4ZWxhRTRaZllnZ1VXejZIdmpaL3Bmd05UMzJkMTBl?=
+ =?utf-8?B?amVVK29oeDNybitZOFpLbWFaSTdmSUdtVFQzSzdkVVN5aWhvWWlHcnIxZmlv?=
+ =?utf-8?B?SUs3RUhKS2MrQlpEaktHOXBDTHplbjdvM2ZRcVZWa2RrTzRMS0Z1ZXkyOVVU?=
+ =?utf-8?B?bmRsVy9GaGcyRTFzR3hWcDF1RXpKc0d0czVYQlU1ZEJqUC9QbUdUSVdSSTdk?=
+ =?utf-8?B?YUtYT21leFJxbzN5c3pTVVNSeFNROTRlNm9MV3B1NmJzSzRvSnQveG9CNXVI?=
+ =?utf-8?B?aWVDOXozcWE4aW1BUTFicllXdTlGeXNiY1lwMUFiL2Y3cGdvMndyN20vWmt0?=
+ =?utf-8?B?T2c9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	=?utf-8?B?bUdkeU5OQmZLRE42Y0o0MU50d0FUR0V5QkhhU3NTVmZhcEhVbHBXdmNxVG9q?=
+ =?utf-8?B?T1NRQTVNM1hPbCtVendkT3l0UmdWRGJONnorL0JSc09sa1MrWW5kaDJBSmVv?=
+ =?utf-8?B?WkRXQVJzQkZOTk1OZy8vc3V1VVZzSjhiU3ljbkJOUjJFb2R4NHpyRUc5a0J6?=
+ =?utf-8?B?YmZseFhzV1hRK2w2T1lEN05mSzVodTg5QTlzdkJYV2NnZTBESGd6ZURxdXE5?=
+ =?utf-8?B?bGMrdUlTZkF3VXppRXNacitzYTdCbVpwcTNsT3ZWbHhUY21HZWMzRHFteUh2?=
+ =?utf-8?B?YzQ1Z1NRdHJROThqazZiME5iSVBYd2kyZ1Vjc1ZRRldHSWVkSHJCTWtiTXJk?=
+ =?utf-8?B?WUg2MGI5SGdvbEg4L2NIdzhXNm9pam95b1pYcEk5NEoyaVFTOWZ4WFNrZnd3?=
+ =?utf-8?B?M05IbnZwNXV6dnovUGY3Z2x6dEtkVTloc2lPRG5mMWZsTi9kOU9QR0cyZVRK?=
+ =?utf-8?B?K1BFSERveDM4a050eFFpMkhWRWIvMkU0QmxFVnBSM3JUclU3cnlYZXFYWjNP?=
+ =?utf-8?B?amhqb0N6MXBudmRjT0FUaXB1M1pvdCtoNTJib0xrSWZPVktORjZmbUlsekg1?=
+ =?utf-8?B?dTFxY2JxMUk4RW1HcWtjSS9JK1B3WENVTVlac3o1aTIyVkF0SjFhSXBzNzV1?=
+ =?utf-8?B?U3pncXk1R21XMVJpbnRldHFTSmpkdURxa2xCZGc5R2FvaTlWdnVEWUtmdjNZ?=
+ =?utf-8?B?QjlXcnVVci8xdTFQWnUydjdjaG5XeU5TWllndTBIbkh2THhOZDdPWXZWY2JT?=
+ =?utf-8?B?NFBaZmE4ZXZhaTBhbHBDM1hBa3ZBaVBINWx6WFU0UDBkUmI2bVdZVWlid1h2?=
+ =?utf-8?B?OENuZWs0MUduU1R5bVR5Y2c0eTZ0RnhxRDluWm84S1FSTkw2cGlzWTMwY2VC?=
+ =?utf-8?B?RTRRYml1UUxSNkViQ2V5RnZQUVZWeXZRVm9DSXNQZEVWaDNQb0QvajFwc3dv?=
+ =?utf-8?B?L0pmYkRvRkVRRnUxMWZYd3M2ZjF5ek4xL1JaUDAxV2JyRHNGVW56SGtlbSt0?=
+ =?utf-8?B?ZGhMejlpS2J0enNZd0h1UWE4Tmh3SmM2QXhjeng1L205WndNMXJWaisrTGVS?=
+ =?utf-8?B?cGptOStHNlg2RmNKUkZidWUvOG01Vjg1TVZGdW95U2hNMDkyUFN4RVdqRWJj?=
+ =?utf-8?B?blZpYTFNSnVVTEF4RmFhTmcwU1pIcGEvUUN1RHorTVJIc2htSG9VNXFWOVNS?=
+ =?utf-8?B?ZmV6ZjA3b1diY0NiVjB4R1duRkpPaVNhcjQ3aHlTVWNUM2V5TSttRmZ3SUdX?=
+ =?utf-8?B?NHNRL0ZSeXBadkVJb2E5Ujk3OHIxMzVWRFlBTEZJNjN5MHNBZVRvc2tRYWZj?=
+ =?utf-8?B?OHZhQVk0SWpBbFYxcTJBM0xXU3d3elhOcitRaHNPT1lidnBFbnJVUXNFZDlr?=
+ =?utf-8?B?Q2ZPVk9qMEZic3dlUFpSMkNjK1dYdmprSE1RTjJMbTMrRTVkWk9MUCtkNno3?=
+ =?utf-8?Q?4C5OG9Wh?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aaa203f6-712f-4f34-b66b-08db62cada11
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 18:05:58.8852
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZH33+koBq382yyUXjXguNwGkW0A1bHcUaWLZRke5lMKWxIanF+vMWKAKFi93h1RuNBnSIUWb72eHWaE3tohjGHTYiSaSDHfez0ieYraPZn0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5169
 
-This allows replacing many instances of runtime checks with folded
-constants. The patch asserts support for the NX bit in PTEs at boot time
-and if so short-circuits cpu_has_nx to 1. This has several knock-on effects
-that improve codegen:
-  * _PAGE_NX matches _PAGE_NX_BIT, optimising the macro to a constant.
-  * Many PAGE_HYPERVISOR_X are also folded into constants
-  * A few if ( cpu_has_nx ) statements are optimised out
+On 01/06/2023 6:08 pm, Dave Hansen wrote:
+> On 6/1/23 09:57, Dave Hansen wrote:
+>> On 5/30/23 08:01, Ross Lagerwall wrote:
+>>> Since firmware doesn't indicate the iBFT in the E820, add a reserved
+>>> region so that it gets identity mapped when running as Dom 0 so that it
+>>> is possible to search for it. Move the call to reserve_ibft_region()
+>>> later so that it is called after the Xen identity mapping adjustments
+>>> are applied.
+> Oh, and one more thing:
+>
+> What is the end user visible effect of this problem and of your solution?
+>
+> Do Xen Dom 0 systems fail to find their boot iSCSI volume and refuse to
+> boot?  I take it after this patch that they can boot again.
+>
 
-We save 2.5KiB off the text section and remove the runtime dependency for
-applying NX, which hardens our security posture. The config option defaults
-to OFF for compatibility with previous behaviour.
+Yeah, this isn't as clear as it could be.  In short...
 
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
----
- xen/arch/x86/Kconfig                  | 10 ++++++++++
- xen/arch/x86/boot/head.S              | 19 ++++++++++++++++---
- xen/arch/x86/boot/trampoline.S        |  3 ++-
- xen/arch/x86/efi/efi-boot.h           |  9 +++++++++
- xen/arch/x86/include/asm/cpufeature.h |  3 ++-
- 5 files changed, 39 insertions(+), 5 deletions(-)
+The iBFT suffers from the same problem as legacy ACPI RDSP.  You've got
+to search lowmem for a magic marker to find it.
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 406445a358..0983915372 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -307,6 +307,16 @@ config MEM_SHARING
- 	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
- 	depends on HVM
- 
-+config REQUIRE_NX_BIT
-+	def_bool n
-+	prompt "Require NX bit support"
-+	---help---
-+	  Makes Xen require NX bit support on page table entries. This
-+	  allows the resulting code to have folded constants where
-+	  otherwise branches are required, yielding a smaller binary as a
-+	  result. Requiring NX trades compatibility with older CPUs for
-+	  improvements in speed and code size.
-+
- endmenu
- 
- source "common/Kconfig"
-diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index 09bebf8635..8414266281 100644
---- a/xen/arch/x86/boot/head.S
-+++ b/xen/arch/x86/boot/head.S
-@@ -123,6 +123,7 @@ multiboot2_header:
- .Lbad_ldr_nih: .asciz "ERR: EFI ImageHandle is not provided by bootloader!"
- .Lbad_efi_msg: .asciz "ERR: EFI IA-32 platforms are not supported!"
- .Lbag_alg_msg: .asciz "ERR: Xen must be loaded at a 2Mb boundary!"
-+.Lno_nx_bit_msg: .asciz "ERR: Not an NX-bit capable CPU!"
- 
-         .section .init.data, "aw", @progbits
-         .align 4
-@@ -151,6 +152,11 @@ not_multiboot:
- .Lnot_aligned:
-         add     $sym_offs(.Lbag_alg_msg),%esi   # Error message
-         jmp     .Lget_vtb
-+#if IS_ENABLED(CONFIG_REQUIRE_NX_BIT)
-+no_nx_bit:
-+        add     $sym_offs(.Lno_nx_bit_msg),%esi   # Error message
-+        jmp     .Lget_vtb
-+#endif
- .Lmb2_no_st:
-         /*
-          * Here we are on EFI platform. vga_text_buffer was zapped earlier
-@@ -647,11 +653,18 @@ trampoline_setup:
-         cpuid
- 1:      mov     %edx, CPUINFO_FEATURE_OFFSET(X86_FEATURE_LM) + sym_esi(boot_cpu_data)
- 
--        /* Check for NX. Adjust EFER setting if available. */
-+        /*
-+         * Check for NX:
-+         *   - If Xen was compiled requiring it simply assert it's
-+         *     supported. The trampoline already has the right constant.
-+         *   - Otherwise, update the trampoline EFER mask accordingly.
-+         */
-         bt      $cpufeat_bit(X86_FEATURE_NX), %edx
--        jnc     1f
-+        jnc     no_nx_bit
-+#if !IS_ENABLED(CONFIG_REQUIRE_NX_BIT)
-         orb     $EFER_NXE >> 8, 1 + sym_esi(trampoline_efer)
--1:
-+no_nx_bit:
-+#endif
- 
-         /* Check for availability of long mode. */
-         bt      $cpufeat_bit(X86_FEATURE_LM),%edx
-diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoline.S
-index c6005fa33d..b964031085 100644
---- a/xen/arch/x86/boot/trampoline.S
-+++ b/xen/arch/x86/boot/trampoline.S
-@@ -147,7 +147,8 @@ GLOBAL(trampoline_misc_enable_off)
- 
- /* EFER OR-mask for boot paths.  SCE conditional on PV support, NX added when available. */
- GLOBAL(trampoline_efer)
--        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV))
-+        .long   EFER_LME | (EFER_SCE * IS_ENABLED(CONFIG_PV)) | \
-+                (EFER_NXE * IS_ENABLED(CONFIG_REQUIRE_NX_BIT))
- 
- GLOBAL(trampoline_xen_phys_start)
-         .long   0
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index c94e53d139..641d6996c9 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -751,6 +751,15 @@ static void __init efi_arch_cpu(void)
-     {
-         caps[FEATURESET_e1d] = cpuid_edx(0x80000001);
- 
-+        /*
-+         * This check purposefully doesn't use cpu_has_nx because
-+         * cpu_has_nx bypasses the boot_cpu_data read if Xen was compiled
-+         * with CONFIG_REQUIRE_NX_BIT
-+         */
-+        if ( IS_ENABLED(CONFIG_REQUIRE_NX_BIT) &&
-+             !boot_cpu_has(X86_FEATURE_NX) )
-+            blexit(L"This Xen build requires NX bit support");
-+
-         if ( cpu_has_nx )
-             trampoline_efer |= EFER_NXE;
-     }
-diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
-index ace31e3b1f..166f480bbc 100644
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -91,7 +91,8 @@ static inline bool boot_cpu_has(unsigned int feat)
- #define cpu_has_hypervisor      boot_cpu_has(X86_FEATURE_HYPERVISOR)
- 
- /* CPUID level 0x80000001.edx */
--#define cpu_has_nx              boot_cpu_has(X86_FEATURE_NX)
-+#define cpu_has_nx              (IS_ENABLED(CONFIG_REQUIRE_NX_BIT) || \
-+                                 boot_cpu_has(X86_FEATURE_NX))
- #define cpu_has_page1gb         boot_cpu_has(X86_FEATURE_PAGE1GB)
- #define cpu_has_rdtscp          boot_cpu_has(X86_FEATURE_RDTSCP)
- #define cpu_has_3dnow_ext       boot_cpu_has(X86_FEATURE_3DNOWEXT)
--- 
-2.34.1
+Xen dom0 is just a VM with root-like perms.  Anything it wants an
+identity map of, it has to ask for.  And because dom0 is commonly
+sharing ownership of hardware, it requests identity mappings for
+everything reserved in the E820 table.
 
+The consequence of not having this patch is that if you try iSCSI boot
+under Xen, dom0 can't find it's filesystem, because it can't get at the
+iSCSI initiator.
+
+~Andrew
 
