@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B68E3719FF1
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 16:28:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542546.846546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39F65719FF3
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 16:28:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542547.846556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4jHd-000732-Fu; Thu, 01 Jun 2023 14:28:09 +0000
+	id 1q4jHf-0007Mb-MH; Thu, 01 Jun 2023 14:28:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542546.846546; Thu, 01 Jun 2023 14:28:09 +0000
+Received: by outflank-mailman (output) from mailman id 542547.846556; Thu, 01 Jun 2023 14:28:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4jHd-000702-AP; Thu, 01 Jun 2023 14:28:09 +0000
-Received: by outflank-mailman (input) for mailman id 542546;
- Thu, 01 Jun 2023 14:28:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q4jHf-0007Jr-J3; Thu, 01 Jun 2023 14:28:11 +0000
+Received: by outflank-mailman (input) for mailman id 542547;
+ Thu, 01 Jun 2023 14:28:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2Xwn=BV=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1q4jHc-00066T-59
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 14:28:08 +0000
+ id 1q4jHd-0006Od-FO
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 14:28:09 +0000
 Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.165]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 86e6c215-0088-11ee-b231-6b7b168915f2;
+ [81.169.146.165]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8706b633-0088-11ee-8611-37d641c3527e;
  Thu, 01 Jun 2023 16:28:07 +0200 (CEST)
 Received: from sender by smtp.strato.de (RZmta 49.5.3 AUTH)
- with ESMTPSA id L38909z51ES11So
+ with ESMTPSA id L38909z51ES31Sp
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
  (Client did not present a certificate);
- Thu, 1 Jun 2023 16:28:01 +0200 (CEST)
+ Thu, 1 Jun 2023 16:28:03 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,57 +41,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86e6c215-0088-11ee-b231-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1685629681; cv=none;
+X-Inumbo-ID: 8706b633-0088-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1685629683; cv=none;
     d=strato.com; s=strato-dkim-0002;
-    b=RdU2wH2wP6gPwbVMH62EKme8z/QCnUaXOiHFqncxlGmIdDBvPrbQourb0aBlOgOH/V
-    obEQFi3tltEgdnzIzBgndNvHBHtH5tXZ0ovBWCdbGXBvgz/+pejT5xN5BaJjHBypQ7AQ
-    5ZFXDh0YBj01CetBE82YDSTEhuH/wYsqlPU8mq2E0T3TR4XoqYpzGn2KAJbNln5WjRzi
-    FLGFH4qIhYJG20bxyNK6+8QJvJxyF0tHqFUUdRfmPZ2UrAymCc1euy6GTpBbm2S1np75
-    DyoL4cv6zRYZTzWQdnpegGYyrtPTiMF9/1IyMQ2KwI04mWUQaFZEZcndXlylUS3XmRqh
-    coSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1685629681;
+    b=V2AqSPRTo2ADTBlHivIVmoTl6fbKn6rALIEKD0CK1dgvAg5Eym3dYkbWjRJXmvg4ZQ
+    3lpQuVHF8f5/wOufxMZ9gcH4Kk2fZaQW1hPrAycUd2m2pE3ihewnB1PizLVnzz9YXhNE
+    +L74NdAkQln/4Nt4W6ESDQeO1ZsvJMTAnGaTtPHiZlUduY7C5iTiK2te5fCpU3HkJn2J
+    KhLf+lM1CeWE7T26SGAZ9Sm9dDO3LP8OGpGPHtTFW58TsXPgvwkWWHuWwfO3nVCNbG24
+    0CqRMhT5Emn+SD1x+8Klghz+0doOIPFxL0576CLTlJVsZXN3b0si9al26gReeUbtRdq0
+    oYDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1685629683;
     s=strato-dkim-0002; d=strato.com;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=j6XBpMmDw+ppBy9pdGC4zIeWbEgfy6izbkgl65jdiEw=;
-    b=qJMe87sKlyuMaZB4GpR5nWLyeFEz1xReFafLn9OtuY39fPVQK43uqR6HucyloRHzak
-    r6iCLwWfGCbYkzg7zSNfTvpHF26kogC4aRlvVPdo2fSMHryaDig66ZK4iqW8LH1e6jTr
-    3KQbmuij/f24Zdvw0n4Yb1U0f7SsQnlKHXoKkgQ8rfOh4G6xbuMRF21X6eRWlk4RJKgW
-    U90i698cXEHjZSLv2NRTXgfLxAEANirPVD3RjzX/yde1YZjhoHCXu4XtKQJjN6RiO7X0
-    NsctqvyZph6HpnMbOeuVM6A48fEoAAPm9pzuUFWvJEai3OBP6zFjWWllNyJe5KEPMp65
-    djzA==
+    bh=xbEvrUB85PE48j/FXd9UoILkjnq6sVytJsciS71Vlqk=;
+    b=aAZILsivoofiPA8eOXvwifi1Qtilm4q5oGH1VeuW/rS7lsfklpZBCKbXw4r0l53X9N
+    AcmfmPztGQgZKaUB29h2QfgvN426qUO6oEFsLQaJAybU7UDhPJOmTXJDpZmLd7KXyWQC
+    hi40pvhocxOrG5hQAxbs9TQUcBErT0YaKjRcw54VNP4MQbTKQpK5jcf6zQ15yr5Zn3NP
+    Pc4l9dDN0YvwnG0ANYBHJ75Ayu1Ee43MRvMH3d6tlAdU3W1cQGIOhqEeD6QYx8HckEXX
+    flEuSVm4pA8pvTjjtNl1Ac0EkfYtaIl3WC9BA25+N3SD3jX3W+26DGTrTfu02ll7vinB
+    tCAQ==
 ARC-Authentication-Results: i=1; strato.com;
     arc=none;
     dkim=none
 X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1685629681;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1685629683;
     s=strato-dkim-0002; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=j6XBpMmDw+ppBy9pdGC4zIeWbEgfy6izbkgl65jdiEw=;
-    b=hYFBOR4+N24HBqH7GBW6Qcmj2MK/zxJ9kFTOQdnTwbDB/1DXy0aiRbWO5jxKEAUXMJ
-    Mp6v9zgB3pI8BJPKILRaLTj0qYFOkueRgX46SBJW0eUdj9fOsP9n1prpVEOOg80itDOV
-    px4cA+qv1FZTYBpRhQmQBoKH1+yLG53dwArkJwdv5QSDAZYeXl6dG0rlMN8bQ1Cvc2Cf
-    1P2wXENH7yWKVZb8JiMR1rfeBOR7V6RosILrNT+XkQ0oV2HADWLHXAhcGCcI+NijkhbQ
-    iNBlpxlDIPBuCuDwhfCdPhl6VSHV9cXPO1+lPop66vGMqhaIGCturjJhMuR4qCCUbMLi
-    pRdw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1685629681;
+    bh=xbEvrUB85PE48j/FXd9UoILkjnq6sVytJsciS71Vlqk=;
+    b=Vy38Eq7x8yzBr6kdTpvniKyWwah/aYicFwoiOz4B/PEZ/Rtsdr/e9Kl2/auVpXXmnJ
+    WzgVcsY+iWBH2GNvYUOzzpPzT1QxQImcMfxr9YwTkU6bffB+6O0oPGS4jl3dXY19zZHM
+    g76kX+eBCbEhyC8lJldCHMe0oVSP7+7JKno0sFVOYzDW7PUgLeiUO9arnPwLM0Q5rCRW
+    i74z0nqGeNiK4MIczK7UjiTPnoFmEQUfiHetkEmmYNiF+Vb0uLQqm4p7sKLB5hDt9h7m
+    nJ6eh1ftIOJ5me7RigoKrQrYnlgh7gONyDvsPKmBMK32L2f+W3dnrpCMnA1gY1vAl2NW
+    ReMw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1685629683;
     s=strato-dkim-0003; d=aepfle.de;
     h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Cc:Date:
     From:Subject:Sender;
-    bh=j6XBpMmDw+ppBy9pdGC4zIeWbEgfy6izbkgl65jdiEw=;
-    b=5nc3yv1RMR484ne3P7YoKcYcBhohN8FvCgQkyKZruYSi2v0xkJZQS8/d5kaiy17XMX
-    rAUTrvjMRd1xYKEWQTAg==
+    bh=xbEvrUB85PE48j/FXd9UoILkjnq6sVytJsciS71Vlqk=;
+    b=Hs4rrx8I/RUD3nHSaz4jwvkmnxPToiqLb3RE+rmgtd9E3E3/6FbO9v16KJA7hqOStc
+    ptaaTYlPfqpkfBqWK5BQ==
 X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4xqFv7EJ0tgRX/vKfT/e8Ig6v0dNw4QAWpzMWrRQ=="
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
 Cc: George Dunlap <george.dunlap@citrix.com>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v1 3/7] xenalyze: sync with vmx.h, use EXIT_REASON_PENDING_VIRT_INTR
-Date: Thu,  1 Jun 2023 16:27:38 +0200
-Message-Id: <20230601142742.15489-4-olaf@aepfle.de>
+Subject: [PATCH v1 4/7] xenalyze: sync with vmx.h, use EXIT_REASON_VMXOFF
+Date: Thu,  1 Jun 2023 16:27:39 +0200
+Message-Id: <20230601142742.15489-5-olaf@aepfle.de>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230601142742.15489-1-olaf@aepfle.de>
 References: <20230601142742.15489-1-olaf@aepfle.de>
@@ -101,38 +101,29 @@ Content-Type: text/plain; charset="us-ascii"
 
 Signed-off-by: Olaf Hering <olaf@aepfle.de>
 ---
- tools/xentrace/xenalyze.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ tools/xentrace/xenalyze.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/tools/xentrace/xenalyze.c b/tools/xentrace/xenalyze.c
-index a50538e9a8..1cae055ef4 100644
+index 1cae055ef4..d2e6c77590 100644
 --- a/tools/xentrace/xenalyze.c
 +++ b/tools/xentrace/xenalyze.c
-@@ -447,7 +447,7 @@ struct {
- #define EXIT_REASON_SIPI                4
- #define EXIT_REASON_IO_SMI              5
- #define EXIT_REASON_OTHER_SMI           6
--#define EXIT_REASON_PENDING_INTERRUPT   7
-+#define EXIT_REASON_PENDING_VIRT_INTR   7
- #define EXIT_REASON_PENDING_VIRT_NMI    8
- #define EXIT_REASON_TASK_SWITCH         9
- #define EXIT_REASON_CPUID               10
-@@ -503,7 +503,7 @@ const char * hvm_vmx_exit_reason_name[HVM_VMX_EXIT_REASON_MAX] = {
-     [EXIT_REASON_SIPI]="SIPI",
-     [EXIT_REASON_IO_SMI]="IO_SMI",
-     [EXIT_REASON_OTHER_SMI]="OTHER_SMI",
--    [EXIT_REASON_PENDING_INTERRUPT]="PENDING_INTERRUPT",
-+    [EXIT_REASON_PENDING_VIRT_INTR]="PENDING_VIRT_INTR",
-     [EXIT_REASON_PENDING_VIRT_NMI]="PENDING_VIRT_NMI",
-     [EXIT_REASON_TASK_SWITCH]="TASK_SWITCH",
-     [EXIT_REASON_CPUID]="CPUID",
-@@ -4632,7 +4632,7 @@ void hvm_generic_postprocess(struct hvm_data *h)
-             switch(h->exit_reason)
-             {
-                 /* These just need us to go through the return path */
--            case EXIT_REASON_PENDING_INTERRUPT:
-+            case EXIT_REASON_PENDING_VIRT_INTR:
-             case EXIT_REASON_TPR_BELOW_THRESHOLD:
-                 /* Not much to log now; may need later */
-             case EXIT_REASON_WBINVD:
+@@ -466,7 +466,7 @@ struct {
+ #define EXIT_REASON_VMREAD              23
+ #define EXIT_REASON_VMRESUME            24
+ #define EXIT_REASON_VMWRITE             25
+-#define EXIT_REASON_VMOFF               26
++#define EXIT_REASON_VMXOFF              26
+ #define EXIT_REASON_VMON                27
+ #define EXIT_REASON_CR_ACCESS           28
+ #define EXIT_REASON_DR_ACCESS           29
+@@ -522,7 +522,7 @@ const char * hvm_vmx_exit_reason_name[HVM_VMX_EXIT_REASON_MAX] = {
+     [EXIT_REASON_VMREAD]="VMREAD",
+     [EXIT_REASON_VMRESUME]="VMRESUME",
+     [EXIT_REASON_VMWRITE]="VMWRITE",
+-    [EXIT_REASON_VMOFF]="VMOFF",
++    [EXIT_REASON_VMXOFF]="VMXOFF",
+     [EXIT_REASON_VMON]="VMON",
+     [EXIT_REASON_CR_ACCESS]="CR_ACCESS",
+     [EXIT_REASON_DR_ACCESS]="DR_ACCESS",
 
