@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26AEE719606
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 10:51:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542336.846070 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E255719620
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 10:56:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542341.846080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4e0t-0000bJ-Cq; Thu, 01 Jun 2023 08:50:31 +0000
+	id 1q4e6a-0001IC-68; Thu, 01 Jun 2023 08:56:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542336.846070; Thu, 01 Jun 2023 08:50:31 +0000
+Received: by outflank-mailman (output) from mailman id 542341.846080; Thu, 01 Jun 2023 08:56:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4e0t-0000Xy-9V; Thu, 01 Jun 2023 08:50:31 +0000
-Received: by outflank-mailman (input) for mailman id 542336;
- Thu, 01 Jun 2023 08:50:30 +0000
+	id 1q4e6a-0001Er-3G; Thu, 01 Jun 2023 08:56:24 +0000
+Received: by outflank-mailman (input) for mailman id 542341;
+ Thu, 01 Jun 2023 08:56:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4ef9=BV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1q4e0r-0000Xs-Sq
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 08:50:30 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20623.outbound.protection.outlook.com
- [2a01:111:f400:7e8b::623])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ln7V=BV=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1q4e6Y-0001Ej-Nt
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 08:56:22 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59ee93f8-0059-11ee-b231-6b7b168915f2;
- Thu, 01 Jun 2023 10:50:26 +0200 (CEST)
-Received: from BN9PR03CA0934.namprd03.prod.outlook.com (2603:10b6:408:108::9)
- by PH0PR12MB5401.namprd12.prod.outlook.com (2603:10b6:510:d4::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23; Thu, 1 Jun
- 2023 08:50:22 +0000
-Received: from BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:108:cafe::41) by BN9PR03CA0934.outlook.office365.com
- (2603:10b6:408:108::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23 via Frontend
- Transport; Thu, 1 Jun 2023 08:50:22 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT088.mail.protection.outlook.com (10.13.177.81) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.23 via Frontend Transport; Thu, 1 Jun 2023 08:50:22 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Jun
- 2023 03:50:21 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Jun
- 2023 03:50:21 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Thu, 1 Jun 2023 03:50:20 -0500
+ id 2e17836a-005a-11ee-b231-6b7b168915f2;
+ Thu, 01 Jun 2023 10:56:21 +0200 (CEST)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-3f6ffc2b314so14439075e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 01:56:21 -0700 (PDT)
+Received: from [192.168.69.115] ([176.176.141.224])
+ by smtp.gmail.com with ESMTPSA id
+ a7-20020a05600c224700b003f421979398sm1537847wmm.26.2023.06.01.01.56.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 01 Jun 2023 01:56:20 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,115 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59ee93f8-0059-11ee-b231-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W1442Zn3ZvZ2m9U42BOmxBV8GGdblfDLYgzX/SxjJTaxp1V3w/oLY60AEcLgPGnJBPeTfNJBJ7iTdUQnr2nWdPy4up5EpV10kEscYWmUYusPPD4xloySmSdUgKOI3v/wyKA6qzBOwc3BBULrTkHszhDpyG3sdqJjpv+eMNtPVD/XzuBn9YBR+zDn1AUT8tctxXsa+j1aJWCvRG7SD9f6d76PeiLC71JjYtgboaa/TF35su2LZqiwLcdoMP2rljBdseNm1n94QYSCcAqx9u7TYsT1XLUDQTHby0SNHSoc09IcesaJObiQBxf7/Eg+9BYeM11bQV8JXVFn4bc/eTalBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RhhMDOjNPYL3+25tr9e14rvxZNeuEj3VcU9WF55+zWM=;
- b=c01EXnI4zewHLEaskLoWb2WWujbK5eQ9U1Ap6pIewUlYdIRQHv8Am6Xf0PxVra6K7JQfGuMY0CtUBBzyc0NGOp6H9KCIJtpHgMWZIISgAjGMBTbPHwdmfIPdYaoYJoIv/5ITDY1GLvCJhyGZtO5iJZvbArcBwri9eY8+uNhWwUJeFbcL4BtCuOp75Zq2MPleqGpBrtoaZLlz+fvA65dIxJ7TehLoVhEC5V98VzcnvBBMLNiZ3Pn25QvNaQzkTJM244EfREIMwcZuxXO3sWOy4Hfadg9YytENZ1JfoCgxxY3YC1lio0nFjGkVlEcgMEbhnfFORsiouiJFkz6Me7kJJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RhhMDOjNPYL3+25tr9e14rvxZNeuEj3VcU9WF55+zWM=;
- b=th7H3NyEbN8KoafaIt1kA1woPkD2BNh43tmaXPygjqcQGFAsrhFf5upiDHM6PjMflx2y66zANx4eBUs4sH9BrCnNTSsGxDhvyJ9FD+UDZ92TgmljOmRrhp0DXSHWvEdCErBRLmHq8WPH6GqxAlllmcaaOhQmXp2DCRsmHRRVOQ0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm: debug-pl011: Use 32-bit accessors for broader compatibility
-Date: Thu, 1 Jun 2023 10:50:01 +0200
-Message-ID: <20230601085001.1782-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 2e17836a-005a-11ee-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1685609781; x=1688201781;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=OPcIYzogUvkAuZPoOm75OhqrBG7H/WeIx3UuNAUp5fo=;
+        b=FX6eJkI6/zkoli5SwaO19QQzfQhZzeBHLijCM7/sPrm4NI9OhHW9t+FcxPIBhJiY/m
+         O/P6jVqhnrLbZmmZxN/as/m1wSc/IxtdqvZkPC9QgPdztN3nYYMffqOyqUn/BEG0VDfM
+         P2EToh2ekvhHYUfHsXHkjCJuE6gonTAL/QwKumqXUkd+4QDYsaFqwrKOTbIHYkYlCYpl
+         1/WlWRKYzg71AqKvRRmIefjMRNJdnXaSrF/Mp+ysQfvqA+ZGD7clQLws9JQlFq463kwH
+         Mokl5Sllh2jLO3Hddpx2Ug+3B0+b45xGMPOvdMV0benz0hP7oSebjDPf4FDb1FsegM2u
+         IWqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685609781; x=1688201781;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=OPcIYzogUvkAuZPoOm75OhqrBG7H/WeIx3UuNAUp5fo=;
+        b=KMDaxVeYzlztPOEXoqnsGzxU3UjvR0Xx8Ob+oQch3hmj3p20wF4jAksc870YVtvWN/
+         yn5vOvR+UhX5vJU/k1ueFSmNW3VGP7F8SUd125eYtRox0BELPlCrBovAqpCecEiiX4eG
+         Ttkpseeu+NIWa+n63kGbGhRHOm6WqTUot4+j66G3hURupwMMKKHwz34ll7kiu5HDgodK
+         pda5eeAXZf1j6GvXjA5Gij9CokBzTCxumKtN1utP42gKo+D0VgKNFGpOc5HXzczTMMZv
+         3kBOoeZNCYeoBkx5XHF8zrJWtE0kAdxNuCpMnMtED0l5Ki/LGwX8/gZapKZutkH/ruCV
+         0OUg==
+X-Gm-Message-State: AC+VfDz4Qndlo6zubuacc+bEYapiuUWovrBmRSoK0IhNM1SGD6xdG+P4
+	eM9mZgCLG5ya6WeKS8Fe7hy9GA==
+X-Google-Smtp-Source: ACHHUZ5qrcatzjgrO8GKXy9lGrNgCmQz1mWlw+kzyIt9WRRCbvhU9sqM/XTVz/7lLNRR51FSMvcHTg==
+X-Received: by 2002:a05:600c:218d:b0:3f6:3486:1391 with SMTP id e13-20020a05600c218d00b003f634861391mr915286wme.13.1685609781082;
+        Thu, 01 Jun 2023 01:56:21 -0700 (PDT)
+Message-ID: <f3dc3d82-3928-c75c-18cf-dc42b9060c65@linaro.org>
+Date: Thu, 1 Jun 2023 10:56:17 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.11.0
+Subject: Re: [PATCH v2 0/2] net: Update MemReentrancyGuard for NIC
+Content-Language: en-US
+To: Akihiko Odaki <akihiko.odaki@daynix.com>
+Cc: Mauro Matteo Cascella <mcascell@redhat.com>, P J P
+ <pj.pandit@yahoo.co.in>, Alexander Bulekov <alxndr@bu.edu>,
+ Dmitry Fleytman <dmitry.fleytman@gmail.com>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
+ Jason Wang <jasowang@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>, Stefan Weil <sw@weilnetz.de>,
+ =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Helge Deller <deller@gmx.de>, Sriram Yagnaraman
+ <sriram.yagnaraman@est.tech>, Thomas Huth <huth@tuxfamily.org>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Subbaraya Sundeep <sundeep.lkml@gmail.com>, Jan Kiszka <jan.kiszka@web.de>,
+ Tyrone Ting <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ David Gibson <david@gibson.dropbear.id.au>, Greg Kurz <groug@kaod.org>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ Sven Schnelle <svens@stackframe.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Rob Herring <robh@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ qemu-arm@nongnu.org, qemu-devel@nongnu.org, qemu-ppc@nongnu.org,
+ xen-devel@lists.xenproject.org
+References: <20230601031859.7115-1-akihiko.odaki@daynix.com>
+ <72ccd4c2-7c60-e015-2322-721d09a8334b@linaro.org>
+ <233b42b2-6fbb-3882-6158-d2a82bf88be1@daynix.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <233b42b2-6fbb-3882-6158-d2a82bf88be1@daynix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT088:EE_|PH0PR12MB5401:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0242eac6-b127-4595-7079-08db627d3c0d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	hGUabM30yQNiM9GrEJNtSRbOjVrMbG/W1m4CWoXiMbICCmeuK1YRJ3exaM9UW4hEuAM7fDmZRl+ucDhfBMCuP2YIcsdaAnLMIj6V6gkSroNp0N7i+adQSb8Sffjt3epJD1Q3qsTIDB5Zwpnyife9mAAmoL4Ma8ACKmOPG65wQM9riq6YQmNlxRbY/nsXjAsp0o6IQ0U54LYdZWJ9csj0eLOABrjQtX0z1QvDry4afVF+z0k8/7dU/QtL7TG6aHDtbIQbd/rIj0oSXdAhneKhCOcNjWauRcH6HKc4YdZfxP6BVK0OcrbYT7Lj+WPqm8J2CKD5Bu2krqTAlsUJMv2+yx1HovkanhOwDqjJ3ao4EbllX8Ykfdk28tcHfli1ux49GFU2FRkDllsVhYiTXHiSTTu0EB4xNj2knkTmgUjCFVLWk5Rz++fTcYiMWM1wk+IYGbm/Qnc+CoiKYg1DFGRtj0KI58Rz4rUZvGUBLWGTyCsSPrf22ex74hJzphw7GIHlENw+IO9npjEXTTnxNz38XJXhL9hYrLdWyeW1HjYAEhwggoIBViwJU+ulF6AzduB0TVrMO0eLwRRpyHovr6rR0dUdX0RgPA19t6wRdI/1QRt/vMUnvq2bgqSlzzKhVuUdhAWWTncY4S+QktrWT9Nkqiyj/2UBxAIrgYoRwXeb3MBHWNRdlGpaunA0bhfzwtObqm9Z48Aqh+pOHqYG0wQlsAyMbxhOX9IQP0zGVv7Rpo66zmHzm8XVwFbfOtwkK8vqy1aKVbYICy/rMqMhLNZNRg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(376002)(346002)(39860400002)(451199021)(46966006)(36840700001)(40470700004)(83380400001)(26005)(1076003)(336012)(426003)(41300700001)(6666004)(47076005)(186003)(36860700001)(2616005)(478600001)(40460700003)(54906003)(81166007)(4326008)(6916009)(356005)(70586007)(70206006)(40480700001)(82740400003)(316002)(82310400005)(5660300002)(8676002)(8936002)(44832011)(2906002)(86362001)(36756003)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 08:50:22.0536
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0242eac6-b127-4595-7079-08db627d3c0d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT088.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5401
 
-There are implementations of the PL011 that can only handle 32-bit
-accesses (i.e. no 16-bit or 8-bit), usually advertised by 'reg-io-width'
-dt property set to 4. On such UARTs, the current early printk code for
-arm64 does not work. To fix this issue, make all the accesses to be 32-bit
-by using ldr, str without a size field. This makes it possible to use
-early printk on such platforms, while all the other implementations should
-generally cope with 32-bit accesses. In case they do not, they would
-already fail as we explicitly use writel/readl in the runtime driver to
-maintain broader compatibility and to be SBSAv2 compliant. Therefore, this
-change makes the runtime/early handling consistent (also it matches the
-arm32 debug-pl011 code).
+On 1/6/23 09:41, Akihiko Odaki wrote:
+> On 2023/06/01 16:16, Philippe Mathieu-Daudé wrote:
+>> On 1/6/23 05:18, Akihiko Odaki wrote:
+>>> Recently MemReentrancyGuard was added to DeviceState to record that the
+>>> device is engaging in I/O. The network device backend needs to update it
+>>> when delivering a packet to a device.
+>>>
+>>> This implementation follows what bottom half does, but it does not add
+>>> a tracepoint for the case that the network device backend started
+>>> delivering a packet to a device which is already engaging in I/O. This
+>>> is because such reentrancy frequently happens for
+>>> qemu_flush_queued_packets() and is insignificant.
+>>>
+>>> This series consists of two patches. The first patch makes a bulk 
+>>> change to
+>>> add a new parameter to qemu_new_nic() and does not contain behavioral 
+>>> changes.
+>>> The second patch actually implements MemReentrancyGuard update.
+>>
+>> /me look at the 'net' API.
+>>
+>> So the NetReceive* handlers from NetClientInfo process the HW NIC
+>> data flow, independently from the CPUs.
+>>
+>> IIUC MemReentrancyGuard is supposed to protect reentrancy abuse from
+>> CPUs.
+>>
+>> NetReceive* handlers aren't restricted to any particular API, they
+>> just consume blob of data. Looking at e1000_receive_iov(), this data
+>> is filled into memory using the pci_dma_rw() API. pci_dma_rw() gets
+>> the AddressSpace to use calling pci_get_address_space(), which returns
+>> PCIDevice::bus_master_as. Then we use the dma_memory_rw(), followed
+>> by address_space_rw(). Beh, I fail to see why there is reentrancy
+>> checks from this NIC DMA HW path.
+>>
+>> Maybe the MemoryRegion API isn't the correct place to check for
+>> reentrancy abuse and we should do that at the AddressSpace level,
+>> keeping DMA ASes clear and only protecting CPU ASes?
+> 
+> The involvement of CPU is not essential in my understanding. A typical 
+> scenario of DMA reentrancy is like the following:
+> 1) The guest configures the DMA destination address register the device 
+> has to the address of another device register.
+> 2) The DMA gets triggered.
+> 3) The device performs the DMA, writing its own register.
+> 4) The write causes reentrancy.
+> 5) The re-entered device code corrupts the device state.
+> 
+> I guess 2) is done by CPU in most cases, but sometimes it happen with 
+> another cause. In fact, the current reentrancy protection code covers 
+> the case that bottom half handlers triggers DMA. The intention of this 
+> series is to extend the coverage and handles the case that incoming 
+> network traffic triggers DMA.
+> 
+> The essence of DMA reentrancy is in 3). This happens when the DMA 
+> address space contains the MMIO region of the device and there is no 
+> involvement of CPU here.
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
- xen/arch/arm/arm64/debug-pl011.inc | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/xen/arch/arm/arm64/debug-pl011.inc b/xen/arch/arm/arm64/debug-pl011.inc
-index 6d60e78c8ba3..80eb8fdc1ec7 100644
---- a/xen/arch/arm/arm64/debug-pl011.inc
-+++ b/xen/arch/arm/arm64/debug-pl011.inc
-@@ -25,9 +25,9 @@
-  */
- .macro early_uart_init xb, c
-         mov   x\c, #(7372800 / CONFIG_EARLY_UART_PL011_BAUD_RATE % 16)
--        strh  w\c, [\xb, #FBRD]      /* -> UARTFBRD (Baud divisor fraction) */
-+        str   w\c, [\xb, #FBRD]      /* -> UARTFBRD (Baud divisor fraction) */
-         mov   x\c, #(7372800 / CONFIG_EARLY_UART_PL011_BAUD_RATE / 16)
--        strh  w\c, [\xb, #IBRD]      /* -> UARTIBRD (Baud divisor integer) */
-+        str   w\c, [\xb, #IBRD]      /* -> UARTIBRD (Baud divisor integer) */
-         mov   x\c, #WLEN_8           /* 8n1 */
-         str   w\c, [\xb, #LCR_H]     /* -> UARTLCR_H (Line control) */
-         ldr   x\c, =(RXE | TXE | UARTEN)
-@@ -41,7 +41,7 @@
-  */
- .macro early_uart_ready xb, c
- 1:
--        ldrh  w\c, [\xb, #FR]        /* <- UARTFR (Flag register) */
-+        ldr   w\c, [\xb, #FR]        /* <- UARTFR (Flag register) */
-         tst   w\c, #BUSY             /* Check BUSY bit */
-         b.ne  1b                     /* Wait for the UART to be ready */
- .endm
-@@ -52,7 +52,7 @@
-  * wt: register which contains the character to transmit
-  */
- .macro early_uart_transmit xb, wt
--        strb  \wt, [\xb, #DR]        /* -> UARTDR (Data Register) */
-+        str   \wt, [\xb, #DR]        /* -> UARTDR (Data Register) */
- .endm
- 
- /*
--- 
-2.25.1
-
+OK, thanks for the explanation.
 
