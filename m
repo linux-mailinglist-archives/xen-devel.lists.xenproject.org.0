@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4EA171955C
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 10:21:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542318.846029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E13B71956A
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 10:22:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542324.846038 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4dYJ-0003rs-ES; Thu, 01 Jun 2023 08:20:59 +0000
+	id 1q4dZZ-0004UD-Nh; Thu, 01 Jun 2023 08:22:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542318.846029; Thu, 01 Jun 2023 08:20:59 +0000
+Received: by outflank-mailman (output) from mailman id 542324.846038; Thu, 01 Jun 2023 08:22:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4dYJ-0003q0-Ac; Thu, 01 Jun 2023 08:20:59 +0000
-Received: by outflank-mailman (input) for mailman id 542318;
- Thu, 01 Jun 2023 08:20:57 +0000
+	id 1q4dZZ-0004SA-Ki; Thu, 01 Jun 2023 08:22:17 +0000
+Received: by outflank-mailman (input) for mailman id 542324;
+ Thu, 01 Jun 2023 08:22:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2Xwn=BV=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
- id 1q4dYH-0003Gi-Oy
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 08:20:57 +0000
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [81.169.146.165]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b0d90a9-0055-11ee-b231-6b7b168915f2;
- Thu, 01 Jun 2023 10:20:56 +0200 (CEST)
-Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
- with ESMTPSA id x6987cz518KtQL8
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Thu, 1 Jun 2023 10:20:55 +0200 (CEST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Z8Gk=BV=gmail.com=vishal.moola@srs-se1.protection.inumbo.net>)
+ id 1q4dZX-0004Rm-Rn
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 08:22:15 +0000
+Received: from mail-yw1-x1133.google.com (mail-yw1-x1133.google.com
+ [2607:f8b0:4864:20::1133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 69b8db35-0055-11ee-b231-6b7b168915f2;
+ Thu, 01 Jun 2023 10:22:14 +0200 (CEST)
+Received: by mail-yw1-x1133.google.com with SMTP id
+ 00721157ae682-5689335d2b6so5063797b3.3
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 01:22:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,101 +40,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b0d90a9-0055-11ee-b231-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1685607655; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=aogfgoOge4+1ehOj2RozXEbT+yxsaGlbLgNbdU+fBAO9GTrQc1fkjs8/XCD7e2aw55
-    rnb9qmphj3xQiRtVCYbEQ32WRWndWdhKeLrNfk5uRrARFdvK5jFcTZmQLudrlnB3E1cI
-    wVfKlKU5qSUVOeIBBQeINsSKA3Ah33PU0y1YdqN+mCEdL86WWmsFHPY6tta56m9BONK/
-    oVS7I46H4UKTHDD3AW9Ga8b6L5fAclxAX/9eJbh+bOy5bQyISakDmc0cXjBxdg1skdE1
-    Upiyd19kYuLlPAH7kJVG0+aqoMJWvDrDwUsxiVZ3PO6Y+ZlpTXBN8RfS8DihzyYAbws8
-    +nVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1685607655;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=roOXRZIUoVjtbh3lM/5HG6gNcY6DDudOnKnbWp+tQeI=;
-    b=o9+sNIHtpitaASjRyBUQYN4HUEcOXw0sAThGguJLwC7CX/UPnczHq0EVMwJqnrR6Ui
-    z10bzWDtPrkUqnry/rS6U162ymy1ZAaK0STM/WpDcQequutE4wACwTrt1fPD1jCTewWl
-    t0tioejaJp45iW6TO6LJWLsNrp0etO9y0hOjM9KMD/byMa21Qut+UNGjZV8Ds7yBx9di
-    KIBwyZppvLTOeIRWW3rSQge870eZJTiYwkU9rCD8myXBlhzijTPNHflDy1kKxh5EXQYN
-    /xnSUNHW01t1Usjc++sqOzRspII1G8aAWwjNr5o3k2OsNJ8YMm0r6DkC8kMRzjaCO1KY
-    Wl+w==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1685607655;
-    s=strato-dkim-0002; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=roOXRZIUoVjtbh3lM/5HG6gNcY6DDudOnKnbWp+tQeI=;
-    b=dRKamFdQyitTr+JZTFNZkBxMZd9SfxfJA2Cf1Y1zi84UwRL4vAbwxv3ytcCLD0rhrb
-    t7w7AqxiCTQ66mGsfW22M/nPrwf8FXP3Y6qGP+WVnEaygCCdTZ1sL773jEUBeJJ32rIA
-    tmvIZCsCKpYPtLdo3Urdeb6McQyjH6xHSeTAG2iKcsEv4M+djsf499LJEFKD8yU/uo5i
-    D9Ot44iBGL1CQu3GXf1jYDfj1C2gmAU3TVaMVVC0T/eTayaEy9ob8CQayXYNCTeMYlZu
-    vOIR1pvtuEMgmQ5LBoXw2Ow7iE0Aa9mjR70s7B6kYfK1rYIlhm2ySPMov4oVLGvotQLD
-    MRfg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1685607655;
-    s=strato-dkim-0003; d=aepfle.de;
-    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
-    From:Subject:Sender;
-    bh=roOXRZIUoVjtbh3lM/5HG6gNcY6DDudOnKnbWp+tQeI=;
-    b=IsAC/dhabJ37kcLsZr7VZlS4IeXfyNeZiPr4rPfaDYyJu7ZdnKfMMN5qRcaSbYOIhk
-    w8JpHogFfYaAyb74M8BQ==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR4BhOIaRvsld/sN75OpaIeOWAiVTRkMz6wPlUdSg=="
-Date: Thu, 1 Jun 2023 10:20:41 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Anthony
- PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1] xentrace: adjust exit code for --help option
-Message-ID: <20230601102041.7e3b7ce4.olaf@aepfle.de>
-In-Reply-To: <cedfbf50-c68f-a19a-3c89-0206f0d26d93@suse.com>
-References: <20230601080833.32680-1-olaf@aepfle.de>
-	<cedfbf50-c68f-a19a-3c89-0206f0d26d93@suse.com>
-X-Mailer: Claws Mail 20230504T161344.b05adb60 hat ein Softwareproblem, kann man nichts machen.
+X-Inumbo-ID: 69b8db35-0055-11ee-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1685607734; x=1688199734;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=F3q8fSv1CYQ8OeBSkoHHq8yQzPVMEdcVj1sJJBohCe0=;
+        b=scnpKoycafdSA6Zmoxe64NtU1IPtpP1XoN7u6BxbHgaNpHHpBaRgfB2X/NbVQI3XUI
+         S43vtnrb0VpUQFKtCtNAL2Z4eQGxKB9jkDmQzBef6OSmzPFkANcNw2nEHbBaxtIGRJFx
+         F2gdbWX0/JO50BjGXzMMRjG/dVaN6/37Aaxe3j2XyiD9NBGl22snChdmfv7CpIBT4YsT
+         wzEsBAOaAGJLasaxdabRza57BmBoAT7cVmGOq5aUEFhtYj/c1WejBdPyTkL2OU+y9vxz
+         zNiBma0es8vOX0CahjWds9KH8J6DH6xHzp6sGGczNoDJQcyp7Q2snP8wt+QQc7Qs4GOa
+         fyBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685607734; x=1688199734;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=F3q8fSv1CYQ8OeBSkoHHq8yQzPVMEdcVj1sJJBohCe0=;
+        b=jK/7zikfBO0HrW8s3Ys7USYDbIE1w2mpyErdXtWmcWgDqwaC6CxT7FQZMEUCgYuuiM
+         nHBjQtE0pkel+mLm9sgnimBfoohLOSTq3a9boxO1iij68IS9A8nism9FnHUVU+nCIXFz
+         B6vBlrHYM+l3KBucaUECYg0UQ8Urpmto3lcAKkzDZaLB/HrcrCzSXNUmK9jWYywFm9u8
+         3uBdLPEpH/wOWQtE4ALOudSE0OljiBjLA1gQduNmDr/OochyN8SzBJPT3pfrl6m01KAw
+         lDYhD/R8EJq5PezKR6dXrhrb5mWKqtvfk7HYPjlOaokFrKbB6acfTefQyj2Yjtu28jRx
+         Q3Ug==
+X-Gm-Message-State: AC+VfDwkssz93bZvCyvzNfDuMUJGImoFDhvsK6dU81sLCIHxNzbVLi0s
+	4siFAOaPcMuaKhh5UobEf00mjCqthoGt69OqtAU=
+X-Google-Smtp-Source: ACHHUZ4BVGpqKx729yAA7sIpRRuJCk9B2q39qd4V84f+TNhLT6e1WTgI1mcqI+pCtHVuJpHfepvjflFti312UIm7bGk=
+X-Received: by 2002:a0d:f5c2:0:b0:568:d63e:dd2c with SMTP id
+ e185-20020a0df5c2000000b00568d63edd2cmr6202683ywf.11.1685607733835; Thu, 01
+ Jun 2023 01:22:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/zCs7rYEb2/sPvwiEVHKgFMA";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-Content-Transfer-Encoding: 7bit
-
---Sig_/zCs7rYEb2/sPvwiEVHKgFMA
-Content-Type: text/plain; charset=US-ASCII
+References: <20230531213032.25338-1-vishal.moola@gmail.com>
+ <20230531213032.25338-31-vishal.moola@gmail.com> <CAMuHMdU4t4ac_eCH0UaX9F+GQ5-9kYjB_=e+pSfTkxG=3b8DsA@mail.gmail.com>
+ <025fc34a24e1a1c26b187f15dba86d382d9617eb.camel@physik.fu-berlin.de>
+In-Reply-To: <025fc34a24e1a1c26b187f15dba86d382d9617eb.camel@physik.fu-berlin.de>
+From: Vishal Moola <vishal.moola@gmail.com>
+Date: Thu, 1 Jun 2023 01:22:03 -0700
+Message-ID: <CAOzc2pxnb6WXoVK5JXX42R0Q6FK59Q1uebQskK2fxLn6DuicqA@mail.gmail.com>
+Subject: Re: [PATCH v3 30/34] sh: Convert pte_free_tlb() to use ptdescs
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-csky@vger.kernel.org, 
+	linux-hexagon@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org, 
+	linux-openrisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
+	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linux-um@lists.infradead.org, xen-devel@lists.xenproject.org, 
+	kvm@vger.kernel.org, Yoshinori Sato <ysato@users.sourceforge.jp>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Thu, 1 Jun 2023 10:17:17 +0200 Jan Beulich <jbeulich@suse.com>:
+On Thu, Jun 1, 2023 at 12:28=E2=80=AFAM John Paul Adrian Glaubitz
+<glaubitz@physik.fu-berlin.de> wrote:
+>
+> Hi Geert!
+>
+> On Thu, 2023-06-01 at 09:20 +0200, Geert Uytterhoeven wrote:
+> > On Wed, May 31, 2023 at 11:33=E2=80=AFPM Vishal Moola (Oracle)
+> > <vishal.moola@gmail.com> wrote:
+> > > Part of the conversions to replace pgtable constructor/destructors wi=
+th
+> > > ptdesc equivalents. Also cleans up some spacing issues.
+> > >
+> > > Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+> >
+> > LGTM, so
+> > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>
+> I assume this series is supposed to go through some mm tree?
 
-> Is this any different from the v1 sent on May 26th?
-
-Yeah, this one still has the bogus commit message.
-I forgot that this patch was already sent earlier.
-
-Please ignore this one.
-
-
-Olaf
-
---Sig_/zCs7rYEb2/sPvwiEVHKgFMA
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmR4VNkACgkQ86SN7mm1
-DoBc8RAAgPCwQHBdhAZ2bYAETeBKc9DtG7u5wyOL9vjQ/0sMF1XUGFIV6v/nOdvy
-eyChl5Oog2Tn/+pKcBGx3ZV0yVV6ymxxVXvr94sbaYoop80pGydfv3w1vsXHtOP9
-mAVEbHNehFICa2+vHDqpA3xbFQm14Ixevq5L1SgR9A6k0yidYOcVP5MOJAF3RcMv
-z4UZfo8nIBlrNvxHfqJAreGmXYizMjWURsm48kpkc1ZaZZ1yvvLgQy6o3h6LjGmo
-jzCLs5Qd/kTt7H0H2hdcyx0IQ5my0YGelslKoYjLd+Hf+UZAtYEHqn/SsOBXhJcY
-xWDEUKKbIkdaogULWcrIgRuficF3zFaeAB83nHUYvtEGwZNKyfzPOBeXFJyoEUSW
-6hlw2Cdkn2oESL4Q1IQJU/cO0tz/ZPGwvzb/EdsOhId5YQSVZd/75p8hyRbgTnIT
-+nMddfbTfdrpxJNa/lsK5gR4HPjCO8aMwbMedYweKtodJc599nXLcz4a6OOxepmC
-ovxEXWRI/BukSlsL6lCFE/EdgFsrjDaPbX33u22JnmrgAxmE15tXMbGOhfMimhRF
-1/QbCujvaynh1M5PhuyNw1H8gWZ7mKjvCeygbHNTPNLTk8kcRg0SbMkQQsOxBoQh
-+8YNaVQ2Rn98uynaUlYRvsPtXP4vQ0cF/jMtjBUgA9r69qr4uEo=
-=sNWF
------END PGP SIGNATURE-----
-
---Sig_/zCs7rYEb2/sPvwiEVHKgFMA--
+Hi Adrian,
+I was going to have Andrew take this through mm-unstable
+once it gets enough review.
 
