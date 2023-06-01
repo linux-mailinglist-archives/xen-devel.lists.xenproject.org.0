@@ -2,40 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA51D7194EB
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 10:00:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542284.845969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D1E871950E
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 10:09:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542295.845980 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4dDL-0005c1-Sn; Thu, 01 Jun 2023 07:59:19 +0000
+	id 1q4dMd-0007i2-6k; Thu, 01 Jun 2023 08:08:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542284.845969; Thu, 01 Jun 2023 07:59:19 +0000
+Received: by outflank-mailman (output) from mailman id 542295.845980; Thu, 01 Jun 2023 08:08:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4dDL-0005Zj-PT; Thu, 01 Jun 2023 07:59:19 +0000
-Received: by outflank-mailman (input) for mailman id 542284;
- Thu, 01 Jun 2023 07:59:18 +0000
+	id 1q4dMd-0007em-3u; Thu, 01 Jun 2023 08:08:55 +0000
+Received: by outflank-mailman (input) for mailman id 542295;
+ Thu, 01 Jun 2023 08:08:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mTbf=BV=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1q4dDK-0005Zb-Ha
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 07:59:18 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20621.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::621])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34623a6e-0052-11ee-8611-37d641c3527e;
- Thu, 01 Jun 2023 09:59:16 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB9668.eurprd04.prod.outlook.com (2603:10a6:102:243::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.22; Thu, 1 Jun
- 2023 07:59:14 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6433.024; Thu, 1 Jun 2023
- 07:59:11 +0000
+ (envelope-from <SRS0=2Xwn=BV=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1q4dMc-0007eg-CC
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 08:08:54 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [81.169.146.220]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8b27a846-0053-11ee-8611-37d641c3527e;
+ Thu, 01 Jun 2023 10:08:51 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 49.4.0 AUTH)
+ with ESMTPSA id x6987cz5188aQGr
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Thu, 1 Jun 2023 10:08:36 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,138 +41,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34623a6e-0052-11ee-8611-37d641c3527e
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mvc50qa/kGd9Yn+eALAAtKC7891w8lXp+E7YlpHnyXhcSYH60lSNP+ji5VGaL/f/YN8vpChW2Ip1HDBATxDMGvk2+puVsTObS58bBc63WNuinG6a46DWk7tL4C/7mwhqOiZkU41Filwq2IWnabEyo8XSF3l7XeGuswD/M7kGWT8W3e4rSArHCfs0TyDs+jLUg7lBrCSLe2ceNzQ49UepaUTNZVW3vHzNXv2O8QO7iLltYlWrm+XLdcdWSU6wTawJEPnpAssMSfwzqeXgZGgv8wgSvpdIQw1+LhT6+VD+iSgI7D+eYljpUrtJQNrnasq8JUhmPd0rqdPvbAFgrXILEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2MoER1r269wAgXUNhYwrT5v4NEVmiygIQb8BKs0FnO4=;
- b=PQmkSWsYIu6eJz0knMwkTT8Tpfko4s0+fi33w53UydMfrtxAp7Qrwqsmd5e+UZhbHK9UrpE+kt/yi/bEQlwfUhuV/JuJLiz26umG/VS0BByH2f28FviMJChHRvewp6tFOJNXJazzt9vYdWScJzmoJmN2GchKemIq3x8luDceduhEChyHtx9TrabZQd0AcnpXJK7ti5l48hdo/TtxuW16dEM/ZyFwS6uvhtPlGNBghMlXPeuFQHIEcwdFGF9vE7LjEhNeDh3ZaBhjUB8IMMMJMEtSiH4ia1Ti4FXf9ZhJzSwD4R/gtbMjto9/jYU1LhpCbZ+A9mx4ov31SQQ0EYvnUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2MoER1r269wAgXUNhYwrT5v4NEVmiygIQb8BKs0FnO4=;
- b=JSyeurQIoew+u2JAWE8J8qZDoRwaqDjhpLKEJMgFCqm//9SQBMTZiWVnD5Fuj7Xv8xN1gdTVHrLJQwrAmVTbDvU2tux1uMJMIvdsPisaX+nvmESak2vTqSsXbKThF2C8ly4SRozvWdGnBfK5ncfe6gHkRXVKD8XATOElXn68PKNyxYyi5oEY4gnJsmoba82KhjFGZHee/1lek1VQKjqb7Hfc3xbxq6eJSdJ+7iX8OGGmFXQYCzX3cGUfLy05LxZk5FJaZuaXQHqmcHpmyWdjngC54segfgK+wpRT+dD9e2cMp5LcnmK3V8VRtXynLJcKBbU0y4NaRS0iwmyV7I6A7g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <eff59de3-d4f6-4f0a-7670-4223ac6f8f3e@suse.com>
-Date: Thu, 1 Jun 2023 09:59:09 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v6 5/6] xen/riscv: introduce an implementation of macros
- from <asm/bug.h>
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1685359848.git.oleksii.kurochko@gmail.com>
- <bd2dd42c778714f25e7e98f74ff5e98eee1cd0a5.1685359848.git.oleksii.kurochko@gmail.com>
- <92580a6f-e97a-c4a9-435c-bd95a84d4306@suse.com>
- <4073258b3a3c6a0cb19843f02941d1e62e6f882d.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <4073258b3a3c6a0cb19843f02941d1e62e6f882d.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0092.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 8b27a846-0053-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1685606917; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=sp8O3BnmaZ3Rvm+SUtXK2EJ6sNfFwqEUcdTDLZ/tXDWjJARWMiBemnNhfM6m0NPoXU
+    +WDeYlRt1EPNXdBAEXiQ+MLxH1RrGpSJosyugdI0v1i2cRZncwwWK7SNo1+hDIvxFgaw
+    nnoD99GYMngrboIzZEPa7a+G0OsZGKzNyXdngkVWLJqqZNjLWmzHWPt6OOlk2Tx1T8tR
+    yInQ0VvMa4fmmQkFyn+RoT9NmAwfyVwafbh0bPpp2O93DPqsihfhvq5y41zbuZw8P9vD
+    CSPNOkgTFbJi9srG7KuUohE5Mlx8fbfDjlteAlo+5gdkteoVYjcN1qGTq8szIf7yrNzZ
+    rg+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1685606917;
+    s=strato-dkim-0002; d=strato.com;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=1hod7D64Ri1wR1/q1jhkmlIlhHTQvlzAxtaOmwee5GI=;
+    b=VN88hp29lRstD101Sdc2zvLzOdFi7QbGT1qUTjRy3/PKSEOaBN5V1t8my1FBoEwBFu
+    EdxVbOToUlQMWBhzGIdXHcHY/PM1igWUYHnZnUo1mYo5LlxY+SKIiFK1ZA7FYjE0TWh4
+    y5iKIk1MJ2z9MzJYKrSnFFGuQG0dL5F345sIywYBJN4FMFZObtbGveiFAThAVutq7ATi
+    XveN5s/Ry+Rm8l/owfmr+iLliq9YvhflIVQdH0m+CfqQnJ0LXhPmgOCfSaGFSyKN5/kC
+    xLKePV+1pux+hxOHoWksCJdfHlh5UyvBm4pUdjm0wRKaOoJn8x+VK94Bv4a9x5ZzZk3W
+    Hbpw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1685606917;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=1hod7D64Ri1wR1/q1jhkmlIlhHTQvlzAxtaOmwee5GI=;
+    b=Iom3XnR6U19SLyJ6q859Pt9+BYsw9ag41BjFt1YA+AzruOt4KGIfwY49buUIsDkiXs
+    1oesqawoK+w0DdwoMQ5rc8vQNU9joig5Qa3SFdmc//7FY6r8+BXtUH3KXpdlj3WWMKf6
+    Qtc9qp0XvOi4+FzeTwktCjKCSTwe4llbYFLjp8nsjj+ewABBbZMYtYWk8kOAVmIcaxQ6
+    qbO9Gsnud6NM8PQFPuk1GrnTo5GStG4sv/2XeR6aya8FAgjVihdNWRsuG8Bkcn05tyAn
+    CisVFlak8Cl3EcGSHnxFPFLWmS+74l7oy8Mmxgx77UrEwHHWGPLAIJAQqpkHyUnRVtc+
+    WFIA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1685606917;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=Message-Id:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
+    bh=1hod7D64Ri1wR1/q1jhkmlIlhHTQvlzAxtaOmwee5GI=;
+    b=hSphYuUd6Ee1fP4927qmUtqiN5Cl7biGTz7jp7LyjdYlfbyB+NXv7SKlWMfnAy1nj/
+    6hgcGhMQdgK0EfIup9BQ==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzpIG0mv9coXAg4xqFv7EJ0tgRX/vKfT/e8Ig6v0dNw4QAWpzMWrRQ=="
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v1] xentrace: adjust exit code for --help option
+Date: Thu,  1 Jun 2023 10:08:33 +0200
+Message-Id: <20230601080833.32680-1-olaf@aepfle.de>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB9668:EE_
-X-MS-Office365-Filtering-Correlation-Id: b832eece-e559-46db-e438-08db627615d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	6+NlwPPbNNZemeeRMKw+OYTYKYsarXS3KZGxAT6VD1GwbCVdaNrgflB0+dUvDSXHgeh+G+1uKTkXNOjHG5aCif9+GyxUNLam9SzFgkAlN+7RSKFNG7B7yjQXrFpIKlkB8es5i0fam86/1AYL/TCWLOCfxB1nDnhsdkOJWvhLHT4J0tIFI29QgcA3ugl2VEKKoYEm3Fg58LM1H/veaPtKXjK0hIq5FRCS2PQ+UbvGdeIqR/7xReLetGX49XSqiNCfPCrQfq6Dm5XBR04TVdvkQ5j0qQarctyQ9GhzuGA7HsipelTvdTrAWLNhwYfqzPTT3Vt+3OFiTmaVJL+Ax2xk6xnbChe02i6ro9eIPRQ3Fz1VNnA3tE7zjAIlotxcyJJIdb0DxMo8oMxh7rGprDr+gnVtoNt0yj6wKdea5/Jo1rlaWHSG+6A5P35ZD1XI+WwXHAP4l8BFVUQeFRmCoALhqG3madZklSHOyiK2kUEjcEj2zXIunOJqzoAB9SYUb3StQCrp4I32XgX5bUlFNxKAIpW4ehJ5nGCfqLghQ2w+DNVMHPKN+ZhUWulJAg95dCpRj562/sbXloGPtEAu5ebcwnTN8VX/iPnxgStixUbYejjFo59yos7jUBQqfD9gfg1ARLtCMjTedzZRt7EMMk88Fg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(136003)(376002)(366004)(396003)(39860400002)(346002)(451199021)(4326008)(54906003)(478600001)(31686004)(66946007)(6916009)(66556008)(316002)(66476007)(6512007)(2616005)(26005)(6506007)(8676002)(5660300002)(8936002)(41300700001)(2906002)(186003)(53546011)(83380400001)(66899021)(38100700002)(36756003)(6486002)(86362001)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NE9HQlltR2Z1SkRMdTBwKy9nQUJYZjhwNlE1YmdHMVpQalkzYXhDWUVzUHN4?=
- =?utf-8?B?aHFMcU9hMTFIQTNDcThVd1I1SWdQTDNUdWJ2WVJkcmM3dEJmVTNaWFpYQW9x?=
- =?utf-8?B?TzJvYmdIV2s0ZkNJelpyY05WWVZ4ckpmOFlWa1pBRzBmOGFobzdBaFdQS3ov?=
- =?utf-8?B?VHZqbkgyY0oyVlZ2NzVja083NTMrU2tpMEltY2wwbDNCcjBTOTMwYmJwLzQz?=
- =?utf-8?B?d1c1NzlKZmZTcHdGdWxqRS9PZU95SlFYUUoxR055YkJwekVtWTdUVUVuTytI?=
- =?utf-8?B?S3FBcHdBOXcreXRJelBIUk5PMEtaRURsOXQyTXZYdXhpeHp0NWxFTjlHOVAy?=
- =?utf-8?B?aktqMUN1amVQb0FMRTZYYXhoYTZsN0NobFdDRHM5R1Z6SWpLSnVlNTRWS1ky?=
- =?utf-8?B?aEVPd0F0UjhOUUNiMytpVDl5MWw1UFRRYzRJKzdzWDFWazhsbmhySDBLcVVV?=
- =?utf-8?B?eTVvQVp6NGtVOUJyaDM4UjJzbjk3N0RJVjNvMkhEamR1bVp6NzRwRWQreE9T?=
- =?utf-8?B?SkJvdHBVYWovZFI3TWtvZCtHMlRMRXc0ZTh0QkpXMktiMVNMY2dJSmhjUUM1?=
- =?utf-8?B?RXFOMFRlelVlcEN6ZElVSzZEVjR3Vy84cWQ0M1IzMVBlS3Yxa2pPbzVTditK?=
- =?utf-8?B?VXM5cTBqWVpKcU5YWHNsN3h3azU2TlpqdzlFeVJTYlNtTjdXN1dJeml3VDlz?=
- =?utf-8?B?UzFlM01DengyMWRNQlVVTE8yd0FCZElZWjRoWFdRcG5mVnM5Y3lMbEppRTNC?=
- =?utf-8?B?ZGY0VGpzL2NCODJHbnpkRzlYbVZGYkt0VWZlZ0kvRXZoK0NUc3I5RGRTbEdo?=
- =?utf-8?B?SXF6WTRIci9MMFRNSkorSjI3dGJUTjZwbjlVbWhhUlhEVFNBZmc1YVNyQ1Nx?=
- =?utf-8?B?REpUZllMRHZkRE92SDk1UTQ2eTBRWmVBREZrYUxNQVRBbXlkKzJqUkx0MFNr?=
- =?utf-8?B?ajlhZHM3eDJ3ckV1SzlUNDRFMkF2TVgvcE43UzJpU0V5b052S01MWnJ5dDN0?=
- =?utf-8?B?cG9DODErUTNkZVo3dmt4ZlU3UXM5SzN1WXIxYm9kRTgvYmJoYzNVaC9BN0Ny?=
- =?utf-8?B?dkxsTTZOcERJWEt1bmVJSmpGbkVPMjlNTmZoVDlxa1UzSEcra3NaRVRZR2l1?=
- =?utf-8?B?bll0MXl5Y1JxNVo2ei9iakVmc0RCd3V3YjllUWgzMXRvVXBnR0hEcURSOW9m?=
- =?utf-8?B?c3pZWmhMelZ3bWVLWWtpV0N3QmxVeSsrZk5hVytYVENCTzFuZUJnTEQxb3VC?=
- =?utf-8?B?YVN6WjlrK1gyL0ZoV3JtSUhtN0hSL283SVI1OFByblFuaTBlU283c3RQMGRH?=
- =?utf-8?B?M1lGKzBUWEV2dDh0K09hVlVwSFlqVVZsTHpMUjA0citGaHAzOGZOY2EzOFZp?=
- =?utf-8?B?eUJXN092cXo4cm5YZmNkekRyNUFTcmtnRG1hTXFxVFRnZDhPU0VYTDRmd3RN?=
- =?utf-8?B?TFp0MFlTNThoOW1qSklBOCtjcWtFNEYxL0RHWkxRRE9lMW9XUU8xMTd3VFNM?=
- =?utf-8?B?WVRKWmNYSCs1Rm9TSE4vYzI4dkhQclVZcHlEQVVYOWd2cUNJU1VleDZHbnpV?=
- =?utf-8?B?cGl0MnBjQjJRSmpBSXJjb1Z1c2gwZEVVN01PWkJEQXdMRmU0REttWTNoQldq?=
- =?utf-8?B?RzQ4OGpXdENsY0dodE1IcGRCbWdwN2czTUo2ZTZxQ3hFdlZYbXo4VWM4dXJ0?=
- =?utf-8?B?UnpVWFppb3lSdGRXcG9pUjIyemZCMTVTeDVhT1ROekl6MXlDTUtWU0Y1bjVk?=
- =?utf-8?B?WUdObzNjNmYyUUNjTTZ6NnE5SFhCM1JUVGc0c2k0N3dQZFN0L0RpejRHWEEr?=
- =?utf-8?B?NHFEMnZocFZBaHYzbk1tWlBVUTBMdWV2WjNScStBbVBMYWlYZ2Frbk9RWldu?=
- =?utf-8?B?Z3c3WTN6RVlIRHd2VUxwc3gzNGJMSkZCSXYzaWVjSlBQZTlFS3I2N1pLVEdk?=
- =?utf-8?B?L3RtdXhOVWZUVVhNb2hyZ3JZemtyYmVEL05lamgzSXNycDNkVDhFM090RjNT?=
- =?utf-8?B?Ylk5VmJmZHNvcnpDUWx2NUkzRzJySFNod1dmWXdTMWp1WlFxMWJKQ0xCN09W?=
- =?utf-8?B?QmdhSWZkMFdsU3ZpS0JIbk56RHlhWnJGekg3Szlid1JrU0JveEVPbUd3UE1N?=
- =?utf-8?Q?vOGQIcT7j2mjZdPGzDtBCJo0B?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b832eece-e559-46db-e438-08db627615d2
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 07:59:11.8165
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NfFMXD1xOKN8LunDDiDo4pa3sIzzAveQZstsFh7YTPAiz/lsdvTu4aqgFUjZwGJriljDLFoKIEq7piF2nRcLnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9668
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-On 31.05.2023 22:06, Oleksii wrote:
-> On Tue, 2023-05-30 at 18:00 +0200, Jan Beulich wrote:
->>> +static uint32_t read_instr(unsigned long pc)
->>> +{
->>> +    uint16_t instr16 = *(uint16_t *)pc;
->>> +
->>> +    if ( GET_INSN_LENGTH(instr16) == 2 )
->>> +        return (uint32_t)instr16;
->>> +    else
->>> +        return *(uint32_t *)pc;
->>> +}
->>
->> As long as this function is only used on Xen code, it's kind of okay.
->> There you/we control whether code can change behind our backs. But as
->> soon as you might use this on guest code, the double read is going to
->> be a problem
-> Will it be enough to add a comment that read_instr() should be used
-> only on Xen code? Or it is needed to introduce some lock?
+Invoking the --help option of any tool should not return with an error,
+if that tool does indeed have a documented and implemented help option.
 
-A comment will do for now. A lock would be problematic: It won't help
-when the function is used on non-Xen code, and since you use this in
-exception handling you may deadlock unless you carefully use a
-recursive lock.
+Adjust the usage() function to exit with either error or success.
+Handle the existing entry in the option table to call usage accordingly.
 
->> (I think; I wonder how hardware is supposed to deal with
->> the situation: Maybe they indeed fetch in 16-bit quantities?).
-> I thought that it reads amount of bytes corresponded to i-cache size
-> and then the pipeline tracks whether an instruction is 16  or 32 bit.
+Adjust the getopt value for help. The char '?' is returned for unknown
+options. Returning 'h' instead of '?' makes it allows to handle --help.
 
-And what if an insn spans a cacheline boundary?
+Signed-off-by: Olaf Hering <olaf@aepfle.de>
+---
+ tools/xentrace/xentrace.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-Jan
+diff --git a/tools/xentrace/xentrace.c b/tools/xentrace/xentrace.c
+index 3548255123..be6226f088 100644
+--- a/tools/xentrace/xentrace.c
++++ b/tools/xentrace/xentrace.c
+@@ -807,7 +807,7 @@ static void monitor_tbufs(void)
+ const char *program_version     = "xentrace v1.2";
+ const char *program_bug_address = "<mark.a.williamson@intel.com>";
+ 
+-static void usage(void)
++static void usage(int status)
+ {
+ #define USAGE_STR \
+ "Usage: xentrace [OPTION...] [output file]\n" \
+@@ -854,7 +854,7 @@ static void usage(void)
+     printf(USAGE_STR);
+     printf("\nReport bugs to %s\n", program_bug_address);
+ 
+-    exit(EXIT_FAILURE);
++    exit(status);
+ }
+ 
+ /* convert the argument string pointed to by arg to a long int representation,
+@@ -873,7 +873,7 @@ long sargtol(const char *restrict arg, int base)
+     {
+         fprintf(stderr, "Invalid option argument: %s\n", arg);
+         fprintf(stderr, "Error: %s\n\n", strerror(errno));
+-        usage();
++        usage(EXIT_FAILURE);
+     }
+     else if (endp == arg)
+     {
+@@ -901,7 +901,7 @@ long sargtol(const char *restrict arg, int base)
+ 
+ invalid:
+     fprintf(stderr, "Invalid option argument: %s\n\n", arg);
+-    usage();
++    usage(EXIT_FAILURE);
+     return 0; /* not actually reached */
+ }
+ 
+@@ -917,10 +917,10 @@ static long argtol(const char *restrict arg, int base)
+     if (errno != 0) {
+         fprintf(stderr, "Invalid option argument: %s\n", arg);
+         fprintf(stderr, "Error: %s\n\n", strerror(errno));
+-        usage();
++        usage(EXIT_FAILURE);
+     } else if (endp == arg || *endp != '\0') {
+         fprintf(stderr, "Invalid option argument: %s\n\n", arg);
+-        usage();
++        usage(EXIT_FAILURE);
+     }
+ 
+     return val;
+@@ -1090,7 +1090,7 @@ static void parse_args(int argc, char **argv)
+         { "discard-buffers", no_argument,      0, 'D' },
+         { "dont-disable-tracing", no_argument, 0, 'x' },
+         { "start-disabled", no_argument,       0, 'X' },
+-        { "help",           no_argument,       0, '?' },
++        { "help",           no_argument,       0, 'h' },
+         { "version",        no_argument,       0, 'V' },
+         { 0, 0, 0, 0 }
+     };
+@@ -1144,8 +1144,12 @@ static void parse_args(int argc, char **argv)
+             opts.memory_buffer = sargtol(optarg, 0);
+             break;
+ 
++        case 'h':
++            usage(EXIT_SUCCESS);
++            break;
++
+         default:
+-            usage();
++            usage(EXIT_FAILURE);
+         }
+     }
+ 
 
