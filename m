@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FE7871A2E3
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 17:43:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542659.846769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAAB071EEE1
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 18:27:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542666.846788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4kRb-0002o1-Q9; Thu, 01 Jun 2023 15:42:31 +0000
+	id 1q4l7v-0007mj-5E; Thu, 01 Jun 2023 16:26:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542659.846769; Thu, 01 Jun 2023 15:42:31 +0000
+Received: by outflank-mailman (output) from mailman id 542666.846788; Thu, 01 Jun 2023 16:26:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4kRb-0002ki-N5; Thu, 01 Jun 2023 15:42:31 +0000
-Received: by outflank-mailman (input) for mailman id 542659;
- Thu, 01 Jun 2023 15:42:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q4l7v-0007l0-21; Thu, 01 Jun 2023 16:26:15 +0000
+Received: by outflank-mailman (input) for mailman id 542666;
+ Thu, 01 Jun 2023 16:26:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mSga=BV=citrix.com=prvs=509a852a5=roger.pau@srs-se1.protection.inumbo.net>)
- id 1q4kRZ-0002kc-CK
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 15:42:29 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e87d0a1a-0092-11ee-b231-6b7b168915f2;
- Thu, 01 Jun 2023 17:42:27 +0200 (CEST)
-Received: from mail-bn8nam12lp2172.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.172])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 01 Jun 2023 11:42:24 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by BN9PR03MB6009.namprd03.prod.outlook.com (2603:10b6:408:132::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Thu, 1 Jun
- 2023 15:42:22 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::192:6bdf:b105:64dd]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::192:6bdf:b105:64dd%3]) with mapi id 15.20.6433.024; Thu, 1 Jun 2023
- 15:42:22 +0000
+ <SRS0=Vl6P=BV=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
+ id 1q4l7t-0007ku-Ae
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 16:26:13 +0000
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ffb6f3e3-0098-11ee-8611-37d641c3527e;
+ Thu, 01 Jun 2023 18:26:03 +0200 (CEST)
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2023 09:26:00 -0700
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orsmga001.jf.intel.com with ESMTP; 01 Jun 2023 09:25:50 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1q4l7S-000SYH-2G; Thu, 01 Jun 2023 19:25:46 +0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,159 +44,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e87d0a1a-0092-11ee-b231-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1685634147;
+X-Inumbo-ID: ffb6f3e3-0098-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1685636764; x=1717172764;
   h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=g9IlkNFI+IQzSNwJVA+WOSizVbuvOTDfmd+6767ZHd4=;
-  b=IUa/dIzVcBfQh5wpY2qSF83a4Pzdsf1AZew4kuQxIh3Ji2KoAreDyDzd
-   KJIpRcyUcdHsCQ2txz1aihy4Q120ydFMvkMY8UjZpOvWuT5J18YJUGhC/
-   /XWiPFmGz+ybu1zTmIRnophbordHWnSpeC/SgZe90BJJ5qR93NQhwQOGP
-   w=;
-X-IronPort-RemoteIP: 104.47.55.172
-X-IronPort-MID: 111263211
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:yv5S5qlouiB0dsElYGKMDzHo5gxgJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
- xJKWTiBaP6CYDT8KtknOoq/80xX7JTRmt4xGwE6rS4wRSMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE0p5KyaVA8w5ARkPqgV5AaGzBH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- dIYFw1WaDecu9i78rGaF+Vq2+8SNvC+aevzulk4pd3YJdAPZMmZBo/stZpf1jp2gd1SF/HDY
- cZfcSBocBnLfxxIPBEQFY46m+CrwHL4dlW0qnrM/fZxvzeVkVE3iee3WDbWUoXiqcF9hEGXq
- 3iA523kKhobKMae2XyO9XfEaurnxHqiAtxJTuThnhJsqFmd9nRPNR43bAW28cv6llWBW/Buc
- UNBr0LCqoB3riRHVOLVWAajvHOfolsVV99RFcUq5QeV0K3W7g2FQG8eQVZpeNEg8cM7WzEu/
- luIhM/yQyxitqWPTnCQ/avSqim9UQAfIHUefyYCQU0A6sP6vYAophvVS5BoF6vdpt/oHTD9x
- RiaoS54gK8c5eYQzLmy913DhzOqp7DKQxQz6wGRWXiqhj6Vf6agbo2srFLdvfBJKd/DSkHb5
- Sde3c+D8OoJEJeB0jSXR/kAF62o4PDDNyDAhVloHN8q8DHFF2OfQL28KQpWfC9BWvvosxewC
- KMPkWu9PKNuAUY=
-IronPort-HdrOrdr: A9a23:qBzPvaGwIz1c64o6pLqE5seALOsnbusQ8zAXPiFKJSC9F/byqy
- nAppsmPHPP5gr5OktBpTnwAsi9qBrnnPYejLX5Vo3SPzUO1lHYSb1K3M/PxCDhBj271sM179
- YFT0GmMqyTMWRH
-X-Talos-CUID: 9a23:MvUFbW+t8sbjRu7djSeVv2AUJf1+dFrC8E3dEUyZVGpvFZakU2bFrQ==
-X-Talos-MUID: 9a23:tSvEfAbHu43gWuBTszHcnG1fN+ZRvan+OgMRiqoGmfjeOnkl
-X-IronPort-AV: E=Sophos;i="6.00,210,1681185600"; 
-   d="scan'208";a="111263211"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P0hhEAZ2i2BeBkK4AxJTeKJEFDvCjOwC8IPdluBg2XsAOlDIH9i+3yKA1CUbz/jLknAKTgoIOUSIjumf63wlAUHjGTxgEKGvzfG/doO1AuGyvL4Ooe4YwUeo9gFq8fONogtaFDdn3qPn7klB2DjGeKaxVgnkxBErlfCvf/NkBwlvxyinT4UfLVFe/LW+aXyjKmQPwaGlDM0mjYN5k3cQYRm6iJbT9UDh8IlDRtnSlq15kJk+Hv5ES7BQZ3EjRrZuZKDZCJfwUrbiX5qg4h1LH9+0J3chK5Cnng29cu4ler5NCScAQfe+xTFAeVDvmjLGz/SpVuCqVQdkNrqPfq1kcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vg5rDJdS7bIEO8PJ3knkH09wu6bNH/wmHA1jfhy93X0=;
- b=lcRuyl7T8IK4UhZC28y1WUFD/+nG82LSm1/4oXcNYXdbPFiyM3o+Oo9+xxXyp13MwMmHUA8sUkIjrISIesHqeZoWSGfASMEZuIyrhHrkRE8+lXDi1WwhyrP8X5VZmuMIx81kIdf7kuk9mJyRvrMMggPCbRMAgKpLFXM2l5bvHVanE9/v7UwVuWbbXOCEOJpn6j0773+Qq5iiJxx81aWby6vynZyatWw8Q87wa1uYsfwCl2YfTH0cheTrhu2XlVH5cZdRXv3OWk8s5R2EynX4ZJ4y2i6n+b/E+mAuUVGxjzJJece7rOctTLu4Yhn8mnDMqzK+Ryuh6djweefB9D6DHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vg5rDJdS7bIEO8PJ3knkH09wu6bNH/wmHA1jfhy93X0=;
- b=K8OalYrPWfa1K/YQueudqYvB6zEmx4P1i9cnfMAecrqK0ILZ/jfUT9L/eZ8bbIx0+y5L1GxeuISYgtkHqsw2QDdiPP9sJ8Rhh+oyJ2G2KxDqBUT7qfzbfzAdG9XKfQXLPH4SEFpksZ3mWLHSFjLqx8xVddk8L7Pb4SoEiV1jmr0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 1 Jun 2023 17:42:14 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: osstest service owner <osstest-admin@xenproject.org>
-Cc: xen-devel@lists.xenproject.org,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [linux-linus test] 181063: regressions - FAIL
-Message-ID: <ZHi8VpVHcRzk8SxL@Air-de-Roger>
-References: <osstest-181063-mainreport@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <osstest-181063-mainreport@xen.org>
-X-ClientProxiedBy: LO2P265CA0047.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:61::35) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+   mime-version:in-reply-to;
+  bh=q1NNNfNs1qkINp4+7F0o+S22gLPh78FVwhQOR7EmNDk=;
+  b=A650K9DDlM7WKsXZBUfBswm99ZyRhlvbRXT3+irw74KBNDtJWSEUHG4W
+   OE7gWS6+F1yJ6nge2hhrT3+Cr5zOEW36gr6vPKaNa1sxhLaAoNWyVt+0M
+   8rz+72PUT/+uX6UZGvlI8sO3ZCNFKbsckV81Nd87ZMil1fenkiMlDRXHd
+   nto/1LJ2mE/QnazX9t0ZHLQub3zNZt8hcwbwJe0Sq1tjn4t0NyOesAnqL
+   G4Qg9Q+wZLejsyQxnBQHHN/i0fWTMuSeH40gtqdRniBKqs/8FOviZNiQ5
+   zJcioT6nN2n1tiDhxPrTa8Ec48Ukn/jwEstGeDLQCEFJ/KUiYtExuvEPq
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="353103087"
+X-IronPort-AV: E=Sophos;i="6.00,210,1681196400"; 
+   d="scan'208";a="353103087"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="740424758"
+X-IronPort-AV: E=Sophos;i="6.00,210,1681196400"; 
+   d="scan'208";a="740424758"
+Date: Thu, 1 Jun 2023 19:25:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Jonas Gorski <jonas.gorski@gmail.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+	Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	Dominik Brodowski <linux@dominikbrodowski.net>,
+	linux-kernel@vger.kernel.org,
+	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	Andrew Lunn <andrew@lunn.ch>, sparclinux@vger.kernel.org,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Russell King <linux@armlinux.org.uk>, linux-acpi@vger.kernel.org,
+	Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
+	Matt Turner <mattst88@gmail.com>,
+	Anatolij Gustschin <agust@denx.de>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Niklas Schnelle <schnelle@linux.ibm.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org,
+	Juergen Gross <jgross@suse.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	linuxppc-dev@lists.ozlabs.org, Randy Dunlap <rdunlap@infradead.org>,
+	linux-mips@vger.kernel.org,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	linux-alpha@vger.kernel.org,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>
+Subject: Re: [PATCH v8 0/7] Add pci_dev_for_each_resource() helper and update
+ users
+Message-ID: <ZHjGik12vSFgi1eO@smile.fi.intel.com>
+References: <ZF6YIezraETr9iNM@bhelgaas>
+ <ZHZpcli2UmdzHgme@bhelgaas>
+ <CAOiHx==5YWhDiZP2PyHZiJrmtqRzvqCqoSO59RwuYuR85BezBg@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|BN9PR03MB6009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3aac741f-67fe-4585-3c31-08db62b6c9c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	rJpR62V7zhrtuatdFP8usQAveb/3qMOd157arARCCvgyCVDET9cyW2c2BHQ8yMmy1MKcKwxaeKnMzxgcAa00pyXg2JvfvfPNRc7Y7eKz9FEqzhbWIm2udUrRpJnJgnQnWRdrRtWQohDoijxTxzvvoBgXdhl+WmsMamVV/ooy2U80QTPkvxUMeOJojaN72wJWoixbuKBwuwm8an+mRZMcVYHW7QDsf9H0hONDayu4LaPGKEO0MKLGxN4yeLnO5duFeK7UBqebOC3kwW4kEkPCBeEETDF7tCMr6EtQt7w4e3o1Ww8wVWUrFz1axGqsPKAMp9tMK7SLxvz1RHyERyoryN/OlrB5xapgRos6cu0XOPdXkLog1BX6NZ8pLgaFG2afO81G3j4sqrvMgG6rN/OSeJpmS9to09I8ZGe8C4JvJ0U2rx/UMr85DgBcWPOUcyvn4mIQfit8s98NGCwViCcIyFeAvoWudwz5AR8TaByGfSpwsXi7Pg8NAwI38K86t/XfCZbbMUC9jvC9Xjc8FclI3UGOs4iriM+mcdJvNiaJjUw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(346002)(136003)(376002)(39860400002)(396003)(366004)(451199021)(6512007)(9686003)(83380400001)(26005)(6506007)(186003)(82960400001)(8936002)(54906003)(5660300002)(8676002)(478600001)(38100700002)(4744005)(2906002)(966005)(33716001)(41300700001)(86362001)(6486002)(66946007)(316002)(6666004)(85182001)(66556008)(66476007)(6916009)(4326008);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MDRuSE5HU3pKblMzbzEyekM1K05sSkV3RS9abXN3TDBpdXVjdE5DeDFqNlo2?=
- =?utf-8?B?S29xQVkwT256cFpDcWFoWjhOdkRLNzhma05oeG9GZ253QW1EQnJUUWtVTFZQ?=
- =?utf-8?B?ZnppT2FhZVptbGhGZTZNYTVjZC92UHFhMXNaZFd2akU1NTVKc0lQK0o3VGE5?=
- =?utf-8?B?TGswMEF2amhjd2ZvZjk5NEVhVzEyVTZZMldwWGhyZnVoV01pVUpSamxjbmdM?=
- =?utf-8?B?YVZzd2sxRmRrYnlmTWxIVDFXTjczcjBiMHFRWEhuSVhFZDgyeVZnTWNSR2hZ?=
- =?utf-8?B?T0pydVB2MDJnTXNhbWNBWjRtUTFJUGFscXI1M3lQR3YySU56Z2lQMSs4UjZi?=
- =?utf-8?B?aGhoazcrWlFXZ1Vxc2xic1RHR1Z2a3M5VFU2VXp1N3FQWW81TTJ2N1QzcGZx?=
- =?utf-8?B?aHVJR3RUb1kxVkNsajlmdWMrNGVacnp0QVg4UzArS202akhJTUNKMHJrRzg4?=
- =?utf-8?B?ZzNyd0ZKc3FIVjNoU3loLzAwbXdpWStDUVVjSThrcHZJakJmNXFMSVQ0UjlO?=
- =?utf-8?B?Z0tuS2sycVYxUzRmUGphNEdQQnNvSmMxUkdJZGtjWHhlTFZWRWtYMG5SMTcv?=
- =?utf-8?B?VFRiQTU2WldzajRNWXJyVTFhMkNCUml1L3BKY01pdzlWMDZtVWloTUlBRnhk?=
- =?utf-8?B?cENXd3pUWkM3V0J5TEpPN3d2TC9Ub3hISEs3bVNQQ2kxcTN6d1hyMXduZ3d0?=
- =?utf-8?B?NXdXU1lQd29JL2FGaEpqNEFrdEpnenUrRUxUNThtRVRtOXJPWVRzQXpsQkRE?=
- =?utf-8?B?dHhxUDV4VHZLY0R3VWlkM2s2M3BaN3gwd2pQQkE5di80UHA5c1pHTUc3eElW?=
- =?utf-8?B?dEp1czJibHc2dTNOOG9KbVFVQjRUWEk2czhrajNJSlpyeFZiNy9OU3ovZGEw?=
- =?utf-8?B?ajdHM09FLzEwMVZabS85UnFMNVpBaytxVVFMc3JUOCsrSkNiQndwUzRXMng1?=
- =?utf-8?B?Rk5MM0YrcVdjb0NrZGVvS1JTVjl0eGpVY1VWa0QrSmQyVERST2pza2hzdWUx?=
- =?utf-8?B?Z3NIYWk0eXJMcE5Ubng2bUp6akxUNUp0YVdyRVRNZ01WQ1NFY3B2VHhDOWtj?=
- =?utf-8?B?UlkxRHFVLzhwTTdsalF4NWtHREgvSGsrMXU2SUkvaFh6UHJKSTAvbkZWUjYw?=
- =?utf-8?B?T2FwNStzWi9wamE5MzZLc0RLK2FDUm03NUNtU0RkcG16K05mdUtvK3kwM1JQ?=
- =?utf-8?B?a3hQQ2h1VS9nU0VIcno1WUYzNnVjTThQRm9GNDNSSnN6ejBPelRkVk0rTnRY?=
- =?utf-8?B?dFMyZ0dmeElyZnFHejNTaC94TU5CRXVoTUc2WHF4dlhnWngybHZ2bHRQSDlX?=
- =?utf-8?B?ekREUzBkQ21tTk1rcW1ia05KTk5mMmFCdFFPd3V1eHJwVERCZmFFUmc4OEhB?=
- =?utf-8?B?dGp3NHZ4WjF4cTV6K01ESFdyWm9CcEpwRTlyS3UvZ1MyYUQ1bEZJSmwwcEg4?=
- =?utf-8?B?b2w5ZWNaZjNFUXZHczI1MHZnY2RubGxqK1F1QTFnaWV5ZEpJUStRMG5Jemtx?=
- =?utf-8?B?M1RqeWM2NlMrVW9jdHlVdHcvSk05RW42TUZtYlJBQm15MWNpdUdTdWZ5TmRy?=
- =?utf-8?B?aVI4U1VCMTdScDUvalJHR05EQm9XUVBCSVpRRmw3T0szY3laY2lIRzFkYkJk?=
- =?utf-8?B?WE9SeUpKZkZMNkNxWk9rWWtjK1ZVb0FvdTlwWnhyWTV1aFVFNlZ3NlljZUYz?=
- =?utf-8?B?RHR6Wmd2NjAxUnJhS1p4VVE2QlBGbHRJay9hRjh5TmhZVDZLbEkzMndDKzVV?=
- =?utf-8?B?RGZIUkloMlpWMWx5THBQWFM4RjRSd3F1SDQzeGtQRnZtdUUvMzQzSUVUcWl3?=
- =?utf-8?B?L1h2bFBPT3lkM3Z0cmFyZW1sNFJGREluZy91RTY4akJ2RUFOUXhsdTNXVEdx?=
- =?utf-8?B?dUtkeUcwdzZUZVVPK0puNmxybnpEM3gyV0ZxMnNaQmZVNWVJR1VQMUtsWHJT?=
- =?utf-8?B?Njc2clhqcmk1TUR6ZGc4RncrZFgxQUFaaCs1STJrZ3B5bi9HeE1ZQjJpTnh5?=
- =?utf-8?B?Q3BabVVMWHJ1VncrVXR6TUZPdklQQnZDMU44M3R5VjBtOW1pZDBUZVFSanJy?=
- =?utf-8?B?U0oyOEpMTCtacEJ6aHBlSzhSMEl2ZUQweXFUdk94R3dtdU0xSEZHOE5wc0dN?=
- =?utf-8?B?N2hMN2pnS3ZERTJDL3FKYVhzTlAzQTNLU01RRHR5ejVmYlRjZ0xHTE1mdjlh?=
- =?utf-8?B?MGc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	ypyESAMKbFDDsGKSOWVTscjAh2fGFG6tMK1Rc2ap0ssEwfMMmFIUux1h+QK2OODUonT3iVNnLDqsbNT4/jH7cHxmfyzFTMKIHOIeabb7XAkJMsn9c4Im7NuuDOLcY8RnPdD7fXcS7+dAh0fk0FY+aWFhBKcOox5ST6fMnsFUreiqu4rZKJCU4KOxHmulnjvoG0PqUgrXwkj5DnarwIyKBoJSFpB7jIqURPRNTT/vdb/PdaDVKUvhGdH8sD1/GJY/OaTZfuMXlTQtvIdWoFDPRfzzQpq9CQXbKNkgtCDOLTPrTZmilmH5kyRu4rt+zmW3CCTOIVB3Z2/2AMYcJSXr/uOhhJWeE4Y42QOtJnRfW+sBg18CTsBHitLBf0ljS+9ZMGAcQHG8kF75kM5AoCN0Uu0WYtaP0qWAC0RoTE29BYcw0Phb1pXCLtpD3RzD3FoI73pQuwetj8cZ/J9tq1Ov2+8UASwHYy7kzDT26C4dtGmBFeMWA73tjaoDvq8GRsM3x4ZW5YQ+6ar6WPUw5IO0DK8uzdi2StPhZHr1WHALTGJBelS8WPnxFz5Q9oZFrYKOR8FjuiaiPV7xfNK79LNfl0bMyRQTP9/BGag4DHKqT8WrHeFkhsb+Rc2Gi0hhlqEbYFFqmFHOUO7CI6k+z06rZLS6SkfoEiKWJw9ur2mtVJ7UUmBncyeiWGOhXu1/W2pQ/CTWk1+Bl+FsaJ6KBi005KXHOO/MmDxFM1Z0jSWZCYK6uYV3vyCFOuxhLqgQyZMF8H/mqe8xr8FJW1QZKNI/uAUWrvibPRYNJNsAndiW3u37/dGdwDHbvgiBIQN7O0rvkUaY0h+hHX+XrsB2JPfE4DgFT6yfvUPnfN81cU7Vk6TWUav6tb4I/l2jFmrNJX2D
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3aac741f-67fe-4585-3c31-08db62b6c9c1
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 15:42:21.9890
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f8GW+TsyfawUbHzccGzHjEvDxCh+XCghhDIhKfSPHpA3N3w5MTidrhbITc7ugkomzViFte8Rfi991ZMMTtFYFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR03MB6009
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAOiHx==5YWhDiZP2PyHZiJrmtqRzvqCqoSO59RwuYuR85BezBg@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-On Thu, Jun 01, 2023 at 01:20:26PM +0000, osstest service owner wrote:
-> flight 181063 linux-linus real [real]
-> flight 181077 linux-linus real-retest [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/181063/
-> http://logs.test-lab.xenproject.org/osstest/logs/181077/
+On Wed, May 31, 2023 at 08:48:35PM +0200, Jonas Gorski wrote:
+> On Tue, 30 May 2023 at 23:34, Bjorn Helgaas <helgaas@kernel.org> wrote:
+> > On Fri, May 12, 2023 at 02:48:51PM -0500, Bjorn Helgaas wrote:
+> > > On Fri, May 12, 2023 at 01:56:29PM +0300, Andy Shevchenko wrote:
+> > > > On Tue, May 09, 2023 at 01:21:22PM -0500, Bjorn Helgaas wrote:
+> > > > > On Tue, Apr 04, 2023 at 11:11:01AM -0500, Bjorn Helgaas wrote:
+> > > > > > On Thu, Mar 30, 2023 at 07:24:27PM +0300, Andy Shevchenko wrote:
+> > > > > > > Provide two new helper macros to iterate over PCI device resources and
+> > > > > > > convert users.
+> > > > >
+> > > > > > Applied 2-7 to pci/resource for v6.4, thanks, I really like this!
+> > > > >
+> > > > > This is 09cc90063240 ("PCI: Introduce pci_dev_for_each_resource()")
+> > > > > upstream now.
+> > > > >
+> > > > > Coverity complains about each use,
+> > > >
+> > > > It needs more clarification here. Use of reduced variant of the
+> > > > macro or all of them? If the former one, then I can speculate that
+> > > > Coverity (famous for false positives) simply doesn't understand `for
+> > > > (type var; var ...)` code.
+> > >
+> > > True, Coverity finds false positives.  It flagged every use in
+> > > drivers/pci and drivers/pnp.  It didn't mention the arch/alpha, arm,
+> > > mips, powerpc, sh, or sparc uses, but I think it just didn't look at
+> > > those.
+> > >
+> > > It flagged both:
+> > >
+> > >   pbus_size_io    pci_dev_for_each_resource(dev, r)
+> > >   pbus_size_mem   pci_dev_for_each_resource(dev, r, i)
+> > >
+> > > Here's a spreadsheet with a few more details (unfortunately I don't
+> > > know how to make it dump the actual line numbers or analysis like I
+> > > pasted below, so "pci_dev_for_each_resource" doesn't appear).  These
+> > > are mostly in the "Drivers-PCI" component.
+> > >
+> > > https://docs.google.com/spreadsheets/d/1ohOJwxqXXoDUA0gwopgk-z-6ArLvhN7AZn4mIlDkHhQ/edit?usp=sharing
+> > >
+> > > These particular reports are in the "High Impact Outstanding" tab.
+> >
+> > Where are we at?  Are we going to ignore this because some Coverity
+> > reports are false positives?
 > 
-> Regressions :-(
+> Looking at the code I understand where coverity is coming from:
 > 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
+> #define __pci_dev_for_each_res0(dev, res, ...)                         \
+>        for (unsigned int __b = 0;                                      \
+>             res = pci_resource_n(dev, __b), __b < PCI_NUM_RESOURCES;   \
+>             __b++)
+> 
+>  res will be assigned before __b is checked for being less than
+> PCI_NUM_RESOURCES, making it point to behind the array at the end of
+> the last loop iteration.
 
-History for the test:
+Which is fine and you stumbled over the same mistake I made, that's why the
+documentation has been added to describe why the heck this macro is written
+the way it's written.
 
-http://logs.test-lab.xenproject.org/osstest/results/history/test-armhf-armhf-xl/linux-linus.html
+Coverity sucks.
 
-Last working flight seems to be 173462, that was using hash
-9d84bb40bcb3.  First failure is 173462, which is hash e8bc52cb8df8.
+> Rewriting the test expression as
+> 
+> __b < PCI_NUM_RESOURCES && (res = pci_resource_n(dev, __b));
+> 
+> should avoid the (coverity) warning by making use of lazy evaluation.
 
-Roger.
+Obviously NAK.
+
+> It probably makes the code slightly less performant as res will now be
+> checked for being not NULL (which will always be true), but I doubt it
+> will be significant (or in any hot paths).
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
 
