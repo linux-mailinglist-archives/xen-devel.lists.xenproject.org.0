@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28CEF71EEED
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 18:28:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542671.846797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA2A171EF2F
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 18:36:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542676.846808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4l9R-0008Ot-J7; Thu, 01 Jun 2023 16:27:49 +0000
+	id 1q4lHa-0001UE-CC; Thu, 01 Jun 2023 16:36:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542671.846797; Thu, 01 Jun 2023 16:27:49 +0000
+Received: by outflank-mailman (output) from mailman id 542676.846808; Thu, 01 Jun 2023 16:36:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4l9R-0008Ll-GO; Thu, 01 Jun 2023 16:27:49 +0000
-Received: by outflank-mailman (input) for mailman id 542671;
- Thu, 01 Jun 2023 16:27:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q4lHa-0001SA-9L; Thu, 01 Jun 2023 16:36:14 +0000
+Received: by outflank-mailman (input) for mailman id 542676;
+ Thu, 01 Jun 2023 16:36:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vl6P=BV=linux.intel.com=andriy.shevchenko@srs-se1.protection.inumbo.net>)
- id 1q4l9Q-0008Lf-Or
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 16:27:48 +0000
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3cfaf302-0099-11ee-b231-6b7b168915f2;
- Thu, 01 Jun 2023 18:27:47 +0200 (CEST)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2023 09:27:44 -0700
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga003.jf.intel.com with ESMTP; 01 Jun 2023 09:27:34 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1q4l98-000SZF-0S; Thu, 01 Jun 2023 19:27:30 +0300
+ <SRS0=om5G=BV=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1q4lHZ-0001S4-8m
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 16:36:13 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 689a8c59-009a-11ee-8611-37d641c3527e;
+ Thu, 01 Jun 2023 18:36:07 +0200 (CEST)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-30af159b433so1073055f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 09:36:07 -0700 (PDT)
+Received: from EMEAENGAAD19049. (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ y10-20020a7bcd8a000000b003f4ecf1fcbcsm2868172wmj.22.2023.06.01.09.36.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Jun 2023 09:36:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,124 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3cfaf302-0099-11ee-b231-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1685636867; x=1717172867;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Re3XUbJYE5wz7BKtwG+m2aCGFJz7ak2dDNPkBnP/kmg=;
-  b=Vhg9aNMirc2ghSlR9tRGN/UnIGqJYm0CjLxYuRR+OMiS4t98RAqgbdA7
-   zV+SagJcNjP3867v7FzUgVl6GEfpI8IrLBN4NPoEvZjeOMTPpEOGubz3H
-   CmSeJ7vcTmEhtnwf33taHDLEaiffOtUkzoZbT7tegeABRf6vJxUeNM29k
-   DcPl6cFchEj8VdgbzkPTA6wsM2bgX49aVUxTA+mh3gJul4RiN7wNQF3GH
-   fbM3HlTTv7G5jp5yEDp547VkiAmgtyqN2J6heUdO7WAbj5dbVloVTdiZD
-   cGDX3Pgpv5OZIQayTtdMrf2z9U9G6cf133b/Wpr3XHK4TpJoepWGd2jEj
-   g==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="345169928"
-X-IronPort-AV: E=Sophos;i="6.00,210,1681196400"; 
-   d="scan'208";a="345169928"
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10728"; a="657859553"
-X-IronPort-AV: E=Sophos;i="6.00,210,1681196400"; 
-   d="scan'208";a="657859553"
-Date: Thu, 1 Jun 2023 19:27:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Jonas Gorski <jonas.gorski@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	Rich Felker <dalias@libc.org>, linux-sh@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	linux-kernel@vger.kernel.org,
-	=?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	Andrew Lunn <andrew@lunn.ch>, sparclinux@vger.kernel.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Russell King <linux@armlinux.org.uk>, linux-acpi@vger.kernel.org,
-	Miguel Ojeda <ojeda@kernel.org>, xen-devel@lists.xenproject.org,
-	Matt Turner <mattst88@gmail.com>,
-	Anatolij Gustschin <agust@denx.de>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Ivan Kokshaysky <ink@jurassic.park.msu.ru>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Juergen Gross <jgross@suse.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	linuxppc-dev@lists.ozlabs.org, Randy Dunlap <rdunlap@infradead.org>,
-	linux-mips@vger.kernel.org,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	linux-alpha@vger.kernel.org,
-	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>
-Subject: Re: [PATCH v8 0/7] Add pci_dev_for_each_resource() helper and update
- users
-Message-ID: <ZHjG8cBIdZsjhDOe@smile.fi.intel.com>
-References: <ZF6YIezraETr9iNM@bhelgaas>
- <ZHZpcli2UmdzHgme@bhelgaas>
- <CAOiHx==5YWhDiZP2PyHZiJrmtqRzvqCqoSO59RwuYuR85BezBg@mail.gmail.com>
- <ZHjGik12vSFgi1eO@smile.fi.intel.com>
+X-Inumbo-ID: 689a8c59-009a-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1685637367; x=1688229367;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=iah28SeMegZsgxJEkqt971vHwWhkPQuGbC3bMiLoC08=;
+        b=QHC3z1cTvIDg9F0IQ3QAjvRh9SP4BmflicjeJOt2LW0b9jLd7MEgnrfJAL0Kvd5kOB
+         x7dro4coPWopa8tqTNcxp0+g7uxb7OhO1+Cl5tEWXhywWlHoXFKDBBAUlOurDvq0VFK8
+         eCgCl0ix90eMTuhw00tqhHP4IUIQfREaWNyFY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685637367; x=1688229367;
+        h=in-reply-to:content-disposition:mime-version:references:subject:cc
+         :to:from:date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=iah28SeMegZsgxJEkqt971vHwWhkPQuGbC3bMiLoC08=;
+        b=YclaFh9jpmP4fcIpFgRs+jmTf33POO3OAqgpb+eqy10RLgK1HgWzhc89AHQfrqikDf
+         XdZvyAjDl1Ez1oP2MO4Pyhgdv9JZ9JusXZaa0O/eFiL3D5XCYDkm8wFKvXmfbo29qckZ
+         ElROziQ9Yv78b6BA8QOpSl/6DNIqua4+80zckva96bmln4cIiHVXltTGZpZcVa9zP7mG
+         Rq1l4kBI7PKb9ykujRPN8N7j7DmUGOwX4iZifNsuNyi2yxf+IcV+qBYxrAoP4fKSzKZ9
+         Ctu70Amvc+ZJxhb2ZDou6WKGkGlAEPS7xvcz+UYlCEoFOcFyzKwthQ5pn4mFGgpimlz/
+         7x/w==
+X-Gm-Message-State: AC+VfDzyvikBNhFdrd/DGexzbu9qIknCRhJ+oAiDt46ZHb0LiI2AFQn6
+	BlEA1UMBQQqv68/OxHn7Y2oILw==
+X-Google-Smtp-Source: ACHHUZ5SYigm6NWnzPQ9/AjR+UddaUI8I7RMfHNI5LP/ClRMqwV9fOv72f7/iVfSmsF39ecU7/yvDg==
+X-Received: by 2002:a5d:4651:0:b0:306:35d2:c33a with SMTP id j17-20020a5d4651000000b0030635d2c33amr2453301wrs.50.1685637367177;
+        Thu, 01 Jun 2023 09:36:07 -0700 (PDT)
+Message-ID: <6478c8f6.7b0a0220.12968.ab68@mx.google.com>
+X-Google-Original-Message-ID: <ZHjI9Ui+Ni64Zzfa@EMEAENGAAD19049.>
+Date: Thu, 1 Jun 2023 17:36:05 +0100
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/ucode: Exit early from early_update_cache() if
+ loading not available
+References: <20230601143813.1553740-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ZHjGik12vSFgi1eO@smile.fi.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <20230601143813.1553740-1-andrew.cooper3@citrix.com>
 
-On Thu, Jun 01, 2023 at 07:25:46PM +0300, Andy Shevchenko wrote:
-> On Wed, May 31, 2023 at 08:48:35PM +0200, Jonas Gorski wrote:
-> > On Tue, 30 May 2023 at 23:34, Bjorn Helgaas <helgaas@kernel.org> wrote:
-> > > On Fri, May 12, 2023 at 02:48:51PM -0500, Bjorn Helgaas wrote:
-
-...
-
-> > > Where are we at?  Are we going to ignore this because some Coverity
-> > > reports are false positives?
-> > 
-> > Looking at the code I understand where coverity is coming from:
-> > 
-> > #define __pci_dev_for_each_res0(dev, res, ...)                         \
-> >        for (unsigned int __b = 0;                                      \
-> >             res = pci_resource_n(dev, __b), __b < PCI_NUM_RESOURCES;   \
-> >             __b++)
-> > 
-> >  res will be assigned before __b is checked for being less than
-> > PCI_NUM_RESOURCES, making it point to behind the array at the end of
-> > the last loop iteration.
+On Thu, Jun 01, 2023 at 03:38:13PM +0100, Andrew Cooper wrote:
+> If for any reason early_microcode_init() concludes that no microcode loading
+> is available, early_update_cache() will fall over a NULL function pointer:
 > 
-> Which is fine and you stumbled over the same mistake I made, that's why the
-> documentation has been added to describe why the heck this macro is written
-> the way it's written.
+>   (XEN) Xen call trace:
+>   (XEN)    [<ffff82d04037372e>] R show_code+0x91/0x18f
+>   (XEN)    [<ffff82d040373a49>] F show_execution_state+0x2d/0x1fc
+>   (XEN)    [<ffff82d040374210>] F fatal_trap+0x87/0x19a
+>   (XEN)    [<ffff82d040647f2c>] F init_idt_traps+0/0x1bd
+>   (XEN)    [<ffff82d04063854f>] F early_page_fault+0x8f/0x94
+>   (XEN)    [<0000000000000000>] F 0000000000000000
+>   (XEN)    [<ffff82d040628c46>] F arch/x86/cpu/microcode/core.c#early_update_cache+0x11/0x74
+>   (XEN)    [<ffff82d040628e5c>] F microcode_init_cache+0x5a/0x5c
+>   (XEN)    [<ffff82d04064388f>] F __start_xen+0x1e11/0x27ee
+>   (XEN)    [<ffff82d040206184>] F __high_start+0x94/0xa0
 > 
-> Coverity sucks.
+> which is actually parse_blob()'s use of ucode_ops.collect_cpu_info.
 > 
-> > Rewriting the test expression as
-> > 
-> > __b < PCI_NUM_RESOURCES && (res = pci_resource_n(dev, __b));
-> > 
-> > should avoid the (coverity) warning by making use of lazy evaluation.
+> Skip trying to cache anything if microcode loading is unavailable.
+> [...]
+> ---
+>  xen/arch/x86/cpu/microcode/core.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> Obviously NAK.
-> 
-> > It probably makes the code slightly less performant as res will now be
-> > checked for being not NULL (which will always be true), but I doubt it
-> > will be significant (or in any hot paths).
+> diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+> index 5a5c0a8c70db..9029301107d6 100644
+> --- a/xen/arch/x86/cpu/microcode/core.c
+> +++ b/xen/arch/x86/cpu/microcode/core.c
+> @@ -789,6 +789,9 @@ int __init microcode_init_cache(unsigned long *module_map,
+>  {
+>      int rc = 0;
+>  
+> +    if ( !ucode_ops.apply_microcode )
+> +        return -ENODEV;
+> +
+>      if ( ucode_scan )
+>          /* Need to rescan the modules because they might have been relocated */
+>          microcode_scan_module(module_map, mbi);
 
-Oh my god, I mistakenly read this as bus macro, sorry for my rant,
-it's simply wrong.
+Ugh. These bugs are forever. IMO, it would be helpful to have a default set
+of stubs (ucode_ops_default?) that unconditionally return -ENODEV when
+called. At least the whole system won't crash under our feet if we forgot
+an "if ( !ucode_ops.foo ) return -1".
 
--- 
-With Best Regards,
-Andy Shevchenko
+It's still imperfect but there's far less room for errors.
 
+Alejandro
 
 
