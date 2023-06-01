@@ -2,64 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB368719B75
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 14:02:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542436.846290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88D34719BD0
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 14:18:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542442.846307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4gzl-0005nc-MX; Thu, 01 Jun 2023 12:01:33 +0000
+	id 1q4hFd-0007Nk-6l; Thu, 01 Jun 2023 12:17:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542436.846290; Thu, 01 Jun 2023 12:01:33 +0000
+Received: by outflank-mailman (output) from mailman id 542442.846307; Thu, 01 Jun 2023 12:17:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4gzl-0005km-Jl; Thu, 01 Jun 2023 12:01:33 +0000
-Received: by outflank-mailman (input) for mailman id 542436;
- Thu, 01 Jun 2023 12:01:32 +0000
+	id 1q4hFd-0007Lb-2U; Thu, 01 Jun 2023 12:17:57 +0000
+Received: by outflank-mailman (input) for mailman id 542442;
+ Thu, 01 Jun 2023 12:17:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mtZ5=BV=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1q4gzk-0005ke-2A
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 12:01:32 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on2049.outbound.protection.outlook.com [40.107.13.49])
+ <SRS0=Mhak=BV=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
+ id 1q4hFb-0007LV-KD
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 12:17:55 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b1b4a72-0074-11ee-b231-6b7b168915f2;
- Thu, 01 Jun 2023 14:01:29 +0200 (CEST)
-Received: from DUZPR01CA0035.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:468::13) by AS8PR08MB10196.eurprd08.prod.outlook.com
- (2603:10a6:20b:62b::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.24; Thu, 1 Jun
- 2023 12:00:59 +0000
-Received: from DBAEUR03FT021.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:468:cafe::a0) by DUZPR01CA0035.outlook.office365.com
- (2603:10a6:10:468::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23 via Frontend
- Transport; Thu, 1 Jun 2023 12:00:59 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT021.mail.protection.outlook.com (100.127.142.184) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6455.23 via Frontend Transport; Thu, 1 Jun 2023 12:00:59 +0000
-Received: ("Tessian outbound 8b05220b4215:v136");
- Thu, 01 Jun 2023 12:00:59 +0000
-Received: from d5087a6bcbdc.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 30B99B84-1A62-4280-BFB6-B5AD942AAA38.1; 
- Thu, 01 Jun 2023 12:00:52 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id d5087a6bcbdc.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 01 Jun 2023 12:00:52 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by PA4PR08MB6048.eurprd08.prod.outlook.com (2603:10a6:102:e6::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.22; Thu, 1 Jun
- 2023 12:00:49 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::5e17:39a6:eec7:c482]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::5e17:39a6:eec7:c482%4]) with mapi id 15.20.6433.024; Thu, 1 Jun 2023
- 12:00:49 +0000
+ id 55d606ea-0076-11ee-b231-6b7b168915f2;
+ Thu, 01 Jun 2023 14:17:54 +0200 (CEST)
+Received: by mail-lf1-x12e.google.com with SMTP id
+ 2adb3069b0e04-4f3bb61f860so887561e87.3
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 05:17:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,266 +40,485 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b1b4a72-0074-11ee-b231-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EAY98YQ51HlCVa8oaoeam8OUJUB5AUWMxdbhcX+TJqE=;
- b=hmIGza2VMH6CCz+zqPTAq3B5EsZWoWLK0jVNg84yThfLgDL0o4y8bzppiYoJRX6GpfExsETw8nY1wkoVEiaEum2ScgjFmACkqjAi8OOpIySIGj5AedhxK9bcN4y4RaCHh6RA3ro+us3wcmRjvMM0c0w1y6i6I0zAqUf5NzFkmQU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 7cd164d6b44ab823
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h2Qb6r3VoIuy1CsOndPFbm6eZBCKlF0dxVJxXPB/hPSwJP7epzi2vlTOAkWSC51h+/rO850yvEqvd123U/m3YoyfIiJcEejU0S0WFtE7rU6WuhJSM+tbZavkK4GrRFp0eGwlVRC0Ig8FQiD1eWmtrlHXts2VejMpk0aWLVg0nntD3ogIvLNKBmDauBYHtrYdMqOYwDctiXDBY6o1DHK3oGk1JMC1WusElhxtaDPMNaLiOxcRVAug8T4inR3zpwyP+Q8bLfy82RoIWLmQ40+vIQVWVRxYHka/UiZBdXbFZlswD+TuGg/CJlTs5T2MDiOT+/BP2CYZLcMo+j8VYUHxYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EAY98YQ51HlCVa8oaoeam8OUJUB5AUWMxdbhcX+TJqE=;
- b=UC6ewO/GhJPHaR5BDh6yaTtAE7Ma7IsndbYEr4nQ9dpRdM32fPNcXTmDeuj0RL6T2DORJ7Bg10QEf262XlLOOJOgsO3FfcW3PGqlTdwPZmTS8Uy05RF6ycCVB58xyR4fOI7tPam0w/gd7aDZT99Bz7PyB4pf7e2U6UQcyKotLBbiSVP+ngvqsBDk32RSGTdmDUAj4rbNJYgg0xekFPo0RSL+5Vm0+2yVFmu7G4VzfKUFs779WtIIGFDUC2Gx0tzQh82of0q89seLHyYs2pBZ3boIP0wkQWa+SZKt2kb9EMGa9pYbV5Ob6dSagqBz35VBx+ZCpewdLwDPmpIaTrGNRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EAY98YQ51HlCVa8oaoeam8OUJUB5AUWMxdbhcX+TJqE=;
- b=hmIGza2VMH6CCz+zqPTAq3B5EsZWoWLK0jVNg84yThfLgDL0o4y8bzppiYoJRX6GpfExsETw8nY1wkoVEiaEum2ScgjFmACkqjAi8OOpIySIGj5AedhxK9bcN4y4RaCHh6RA3ro+us3wcmRjvMM0c0w1y6i6I0zAqUf5NzFkmQU=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Anthony
- Perard <anthony.perard@citrix.com>
-Subject: Re: Ping: [PATCH v2 2/2] build: use $(dot-target)
-Thread-Topic: Ping: [PATCH v2 2/2] build: use $(dot-target)
-Thread-Index: AQHZgazgm2DvchatnEajUXqi97mBwK916tcAgAATKwA=
-Date: Thu, 1 Jun 2023 12:00:49 +0000
-Message-ID: <28E1491F-9A18-455F-9948-4DBD93F71B69@arm.com>
-References: <a261b10b-25e4-3374-d6c4-05b307619d81@suse.com>
- <9bc7544b-659f-4c09-f54d-647641483605@suse.com>
- <6d323d34-66ff-1608-1d91-9f7de78ad53b@suse.com>
-In-Reply-To: <6d323d34-66ff-1608-1d91-9f7de78ad53b@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.600.7)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|PA4PR08MB6048:EE_|DBAEUR03FT021:EE_|AS8PR08MB10196:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fed84e2-4010-4366-2fc0-08db6297dd3a
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- UTlhDdQ45bcGYMnc1wFEZZC1jaBz4ajpUqR7ongHpfVckODVmp63YvGsrncA6UI4HkooE2rmNqwwUqLUoTXBoIokqIpPxNushysrWddJFNaHVpyd56W+364P5XbbkwtdibwpRG2Mj6ZDAV3q7z7eSDbDyHQsM6EoJBJqza5n46/NRRx/4HFQ2I3DKxJ6/JNULpZEVl+jTCH6TeAW4CAvsAGw7qmbgUyn7alzg6co/MB14Sv0ti3wa9zM1i61C0bq6OvSekNIuc0e8UfUlR3p2gguTl8LrbpEyNodk2jEA038LJQcr+TAfDem2r4B4ccD9XXEsRBPrqOOKywWunu67EnliIAgBLXkqnF6iwwM4d/8xZqQwbUQ+hVIyoQ5ChsE6Qmg0i2uZyIPRIHGs+Z980d6m37q6gKgJUCtYW0eW+AIoImf6/GDyavmidGepTeGYRp9fBiKhV9WlZ8Lpo/PkwocgyihGtPnMYRJHh1Kd/3f6g1umtN4xvJS4DETvwkJ1rNlK5HrC2v+x8cyMvHdfa+JGwRMvkwf7+HfsHCReSJry7Gs2S+jJJvkj4dH85GITC25vxmZ5vu/2TsBcSnDfF9XfVvJe7tyRaB3SsLB8cffvlmrpDUyglAQcAomtVVwNE+2ZcresW+ZOqsDwzM2OQ==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(346002)(396003)(39860400002)(376002)(366004)(136003)(451199021)(54906003)(4326008)(8676002)(8936002)(2906002)(66946007)(6916009)(76116006)(91956017)(66476007)(66446008)(66556008)(64756008)(478600001)(41300700001)(5660300002)(316002)(71200400001)(6486002)(122000001)(6506007)(6512007)(53546011)(186003)(26005)(33656002)(36756003)(86362001)(2616005)(38070700005)(38100700002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <CB20F997C8D8134BAFA5A701DB48595A@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 55d606ea-0076-11ee-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1685621874; x=1688213874;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qs9+tnXanwgcK4qrGEwkuBM1Q57MST68fw5CtbuJTMA=;
+        b=BZRYUIQEgP44d4XsCczLEwM1p1QtOJFSxg5kb+asid/w7gjG6XYreSQxEw9mLT9I0K
+         pixvcNs+Xd8FZbmKtEp/gKCd49cVTvd62UzSt2Me/ouRIzX25TbInUfmyTu/uk+V9HQn
+         UOwu/ZIxCaBlkdGm4qw4TD6/55rzFRoDZTkH8HjFa7hAP8/RiR4XemQXR0PdFXc60TEd
+         5BuFKwgJB8IeB99971ChO+fhdiyyZ3OS0TGaH+AFPY30uiYOMQ7PwQchsRyzSoDfdRFA
+         E2JSPvX46RxAgf8J+QIjL9CEPhSF1Wt+JPPZiKLJfIqjDB2dvTe4p6eHOJXgYRwRz/ua
+         Qpew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685621874; x=1688213874;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Qs9+tnXanwgcK4qrGEwkuBM1Q57MST68fw5CtbuJTMA=;
+        b=F88BuilfQl1pvx0NOR5bzK3LNyd9wEb/oGTIiMs9kksjPt/z39YG1SeUQk5eAfFZT3
+         RoxKqMQobiIGFTrXFP9dJqRuglkHdPXVXyMatWSRrTMIKfFutR9qyF0B6bhL5oTTVI03
+         LdEFP/xKcZtcNk8pflXLZDnUBSOfLFCuyr5Q0D31y6gXv3Unj+WUAxhdEpsVJigLZuaF
+         +5IEE2wJc6Wr8v7WKAadVJm73auMu5/SexpTsRLo60G0ekBiKREQN5a7tZSM8h4iV/k1
+         KuElzUPJlQgLwwLMxOvi7KgajoApoxNiDe73gvOJa9ZdWF/zFGNd97Ec6zi0UaUepw4s
+         MMmw==
+X-Gm-Message-State: AC+VfDyV050DpW9zlbYhxQJ+A22+0yxsinGwyxNOYK9utrcjWj2Ky7u4
+	ydZ7Q8nOvUSkX4yoMpM3bYoAD/B4smDRaUjinUU=
+X-Google-Smtp-Source: ACHHUZ5eW811q473omos35ztfVZRcrdG7RLAhpwH316mBd2kSZdFT+vw5sKYKRoeMO6EY695sHz9J2iSgJblU5OAED4=
+X-Received: by 2002:ac2:5dd3:0:b0:4f3:a0f0:7c4e with SMTP id
+ x19-20020ac25dd3000000b004f3a0f07c4emr1432427lfq.35.1685621873377; Thu, 01
+ Jun 2023 05:17:53 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6048
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT021.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	e4b15ab6-6835-4c2a-9576-08db6297d723
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	vG1eiCHeO6k532LttZBAnJ6G5bPZ/AZ77X6vSFatBJnefrpgp4VxNqlDe3bp3eQtJ/Epy3PD7nnRQnq8NzQWLtiRhOIr2h2K3s0Iy3yIVhOSw4er40eZhpobPD/IFlZba7hCVUYmiwSj+V8upRDkCWdLUVQS4K57INohNe6p5MmGek61b0LSOK3a98pirdpxaspsX1vIMXRUiJ5qpjkO6NqDL8oEPCF7yO8f2zjPPag+MWMeC2FZfdSyVaZC2rJ3eKXE2LW1eyGUmbB78t0gkGKeSR6tPacQWVc5a724UxBorsdgb24XgXKIAdOyj4OifHu331HNcBlT+ifB8nHOTZHt93zjtls1ur+nazyG9kiv2h0TQ9e/N9J39v1j3j3A2Lm7NJXAGwVHI9/Ux1/wa+T3xYAU2CdRfYgLX5Z+fqhEvUfophTyro99LVvw7myhMR6eO1FZVf7hhMyAnP16SMMUMtjVPo9qFsF3Ly5nvsvcqnnjv4pHMW+5ngA3mHAzH4s2pXt8uCHz3fJWSo9Nl5oYePpm9YJ054BOsi+RaiGvTM0oIffkbU6cgmkuXVkZhtPKQWMEJlOBZTAhNE8o56uXKFCpS8t+cOlqxkmmRCeXPdLm7rQ34V4JxkfKlemBgApwpbhZ6R4BxJQVe+EO+h6+2mbdfPMB3bx9+6WIR7cJxdlP7N87w32Uc/uGigRI9HbOIsOjtwHrrUkjIDBFV35xsl6SPAf23E8oJJBBYF+nm4HmrR/Eo882JTrugeb0
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(39860400002)(136003)(451199021)(46966006)(40470700004)(36840700001)(6862004)(8936002)(40460700003)(336012)(2616005)(47076005)(186003)(36860700001)(4326008)(2906002)(70586007)(70206006)(478600001)(54906003)(316002)(6506007)(53546011)(6512007)(5660300002)(107886003)(26005)(8676002)(41300700001)(6486002)(40480700001)(356005)(81166007)(82740400003)(33656002)(82310400005)(86362001)(36756003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 12:00:59.4218
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fed84e2-4010-4366-2fc0-08db6297dd3a
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT021.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB10196
+References: <20230601085001.1782-1-michal.orzel@amd.com> <7C760D1D-DAAE-48AC-8B2B-E6140452BE4A@arm.com>
+ <73a143ee-8301-e0c0-a3fc-83ec10441c4c@amd.com> <CAJ=z9a3iZHwXPwWiJykeSJbi0YvfD-L6SO3LxxRom=DPAqPuVg@mail.gmail.com>
+ <703ccd1b-1908-4f5b-3b48-e02d317a2090@amd.com>
+In-Reply-To: <703ccd1b-1908-4f5b-3b48-e02d317a2090@amd.com>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Thu, 1 Jun 2023 14:17:41 +0200
+Message-ID: <CAJ=z9a1V2XNKyc9gQjxhqRmTjpfamQfC5DfZfXZ15VoNqp2wNQ@mail.gmail.com>
+Subject: Re: [PATCH] xen/arm: debug-pl011: Use 32-bit accessors for broader compatibility
+To: Michal Orzel <michal.orzel@amd.com>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000fd06dc05fd106c10"
 
-Hi Jan,
+--000000000000fd06dc05fd106c10
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On 1 Jun 2023, at 12:52, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> On 08.05.2023 14:58, Jan Beulich wrote:
->> While slightly longer, I agree with Andrew that using it helps
->> readability. Where touching them anyway, also wrap some overly long
->> lines.
->>=20
->> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->=20
-> I didn't expect this was controversial, so - any chance of an ack or two?
->=20
-> Thanks, Jan
+On Thu, 1 Jun 2023 at 13:48, Michal Orzel <michal.orzel@amd.com> wrote:
 
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Hi Julien,
+>
+> On 01/06/2023 13:12, Julien Grall wrote:
+> >
+> >
+> >
+> > Hi,
+> >
+> > Sorry for the formatting.
+> >
+> > On Thu, 1 Jun 2023 at 12:31, Michal Orzel <michal.orzel@amd.com <mailto=
+:
+> michal.orzel@amd.com>> wrote:
+> >
+> >     Hi Bertrand,
+> >
+> >     On 01/06/2023 12:19, Bertrand Marquis wrote:
+> >     >
+> >     >
+> >     > Hi Michal,
+> >     >
+> >     >> On 1 Jun 2023, at 10:50, Michal Orzel <michal.orzel@amd.com
+> <mailto:michal.orzel@amd.com>> wrote:
+> >     >>
+> >     >> There are implementations of the PL011 that can only handle 32-b=
+it
+> >     >> accesses (i.e. no 16-bit or 8-bit), usually advertised by
+> 'reg-io-width'
+> >     >> dt property set to 4. On such UARTs, the current early printk
+> code for
+> >     >> arm64 does not work. To fix this issue, make all the accesses to
+> be 32-bit
+> >     >> by using ldr, str without a size field. This makes it possible t=
+o
+> use
+> >     >> early printk on such platforms, while all the other
+> implementations should
+> >     >> generally cope with 32-bit accesses. In case they do not, they
+> would
+> >     >> already fail as we explicitly use writel/readl in the runtime
+> driver to
+> >     >> maintain broader compatibility and to be SBSAv2 compliant.
+> Therefore, this
+> >     >> change makes the runtime/early handling consistent (also it
+> matches the
+> >     >> arm32 debug-pl011 code).
+> >     >>
+> >     >> Signed-off-by: Michal Orzel <michal.orzel@amd.com <mailto:
+> michal.orzel@amd.com>>
+> >     >> ---
+> >     >> xen/arch/arm/arm64/debug-pl011.inc | 8 ++++----
+> >     >> 1 file changed, 4 insertions(+), 4 deletions(-)
+> >     >>
+> >     >> diff --git a/xen/arch/arm/arm64/debug-pl011.inc
+> b/xen/arch/arm/arm64/debug-pl011.inc
+> >     >> index 6d60e78c8ba3..80eb8fdc1ec7 100644
+> >     >> --- a/xen/arch/arm/arm64/debug-pl011.inc
+> >     >> +++ b/xen/arch/arm/arm64/debug-pl011.inc
+> >     >> @@ -25,9 +25,9 @@
+> >     >>  */
+> >     >> .macro early_uart_init xb, c
+> >     >>         mov   x\c, #(7372800 / CONFIG_EARLY_UART_PL011_BAUD_RATE
+> % 16)
+> >     >> -        strh  w\c, [\xb, #FBRD]      /* -> UARTFBRD (Baud
+> divisor fraction) */
+> >     >> +        str   w\c, [\xb, #FBRD]      /* -> UARTFBRD (Baud
+> divisor fraction) */
+> >     >>         mov   x\c, #(7372800 / CONFIG_EARLY_UART_PL011_BAUD_RATE
+> / 16)
+> >     >> -        strh  w\c, [\xb, #IBRD]      /* -> UARTIBRD (Baud
+> divisor integer) */
+> >     >> +        str   w\c, [\xb, #IBRD]      /* -> UARTIBRD (Baud
+> divisor integer) */
+> >     >>         mov   x\c, #WLEN_8           /* 8n1 */
+> >     >>         str   w\c, [\xb, #LCR_H]     /* -> UARTLCR_H (Line
+> control) */
+> >     >>         ldr   x\c, =3D(RXE | TXE | UARTEN)
+> >     >> @@ -41,7 +41,7 @@
+> >     >>  */
+> >     >> .macro early_uart_ready xb, c
+> >     >> 1:
+> >     >> -        ldrh  w\c, [\xb, #FR]        /* <- UARTFR (Flag
+> register) */
+> >     >> +        ldr   w\c, [\xb, #FR]        /* <- UARTFR (Flag
+> register) */
+> >     >>         tst   w\c, #BUSY             /* Check BUSY bit */
+> >     >>         b.ne <http://b.ne>  1b                     /* Wait for
+> the UART to be ready */
+> >     >> .endm
+> >     >> @@ -52,7 +52,7 @@
+> >     >>  * wt: register which contains the character to transmit
+> >     >>  */
+> >     >> .macro early_uart_transmit xb, wt
+> >     >> -        strb  \wt, [\xb, #DR]        /* -> UARTDR (Data
+> Register) */
+> >     >> +        str   \wt, [\xb, #DR]        /* -> UARTDR (Data
+> Register) */
+> >     >
+> >     > Is it really ok to drop the 8bit access here ?
+> >     It is not only ok, it is necessary. Otherwise it won't work on the
+> above mentioned UARTs (they can only perform 32-bit access).
+> >
+> >
+> > IIRC some compilers will complain because you use wN with =E2=80=9Cstr=
+=E2=80=9D.
+> Hmm, I would expect it to be totally ok as the size is determined by the
+> reg name. Any reference?
 
-Cheers
-Bertrand
 
->=20
->> --- a/xen/arch/arm/Makefile
->> +++ b/xen/arch/arm/Makefile
->> @@ -93,17 +93,19 @@ endif
->>=20
->> $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
->> $(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
->> -    $(objtree)/common/symbols-dummy.o -o $(@D)/.$(@F).0
->> - $(NM) -pa --format=3Dsysv $(@D)/.$(@F).0 \
->> - | $(objtree)/tools/symbols $(all_symbols) --sysv --sort >$(@D)/.$(@F).=
-0.S
->> - $(MAKE) $(build)=3D$(@D) $(@D)/.$(@F).0.o
->> +    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
->> + $(NM) -pa --format=3Dsysv $(dot-target).0 \
->> + | $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->> + > $(dot-target).0.S
->> + $(MAKE) $(build)=3D$(@D) $(dot-target).0.o
->> $(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< \
->> -    $(@D)/.$(@F).0.o -o $(@D)/.$(@F).1
->> - $(NM) -pa --format=3Dsysv $(@D)/.$(@F).1 \
->> - | $(objtree)/tools/symbols $(all_symbols) --sysv --sort >$(@D)/.$(@F).=
-1.S
->> - $(MAKE) $(build)=3D$(@D) $(@D)/.$(@F).1.o
->> +    $(dot-target).0.o -o $(dot-target).1
->> + $(NM) -pa --format=3Dsysv $(dot-target).1 \
->> + | $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->> + > $(dot-target).1.S
->> + $(MAKE) $(build)=3D$(@D) $(dot-target).1.o
->> $(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) \
->> -    $(@D)/.$(@F).1.o -o $@
->> +    $(dot-target).1.o -o $@
->> $(NM) -pa --format=3Dsysv $@ \
->> | $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
->> > $@.map
->> --- a/xen/arch/x86/Makefile
->> +++ b/xen/arch/x86/Makefile
->> @@ -123,7 +123,7 @@ syms-warn-dup-$(CONFIG_ENFORCE_UNIQUE_SY
->>=20
->> orphan-handling-$(call ld-option,--orphan-handling=3Dwarn) +=3D --orphan=
--handling=3Dwarn
->>=20
->> -$(TARGET): TMP =3D $(@D)/.$(@F).elf32
->> +$(TARGET): TMP =3D $(dot-target).elf32
->> $(TARGET): $(TARGET)-syms $(efi-y) $(obj)/boot/mkelf32
->> $(obj)/boot/mkelf32 $(notes_phdrs) $(TARGET)-syms $(TMP) $(XEN_IMG_OFFSE=
-T) \
->>               `$(NM) $(TARGET)-syms | sed -ne 's/^\([^ ]*\) . __2M_rwdat=
-a_end$$/0x\1/p'`
->> @@ -137,23 +137,23 @@ CFLAGS-$(XEN_BUILD_EFI) +=3D -DXEN_BUILD_E
->>=20
->> $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
->> $(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) \
->> -    $(objtree)/common/symbols-dummy.o -o $(@D)/.$(@F).0
->> - $(NM) -pa --format=3Dsysv $(@D)/.$(@F).0 \
->> +    $(objtree)/common/symbols-dummy.o -o $(dot-target).0
->> + $(NM) -pa --format=3Dsysv $(dot-target).0 \
->> | $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->> - >$(@D)/.$(@F).0.S
->> - $(MAKE) $(build)=3D$(@D) $(@D)/.$(@F).0.o
->> + > $(dot-target).0.S
->> + $(MAKE) $(build)=3D$(@D) $(dot-target).0.o
->> $(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) \
->> -    $(@D)/.$(@F).0.o -o $(@D)/.$(@F).1
->> - $(NM) -pa --format=3Dsysv $(@D)/.$(@F).1 \
->> +    $(dot-target).0.o -o $(dot-target).1
->> + $(NM) -pa --format=3Dsysv $(dot-target).1 \
->> | $(objtree)/tools/symbols $(all_symbols) --sysv --sort $(syms-warn-dup-=
-y) \
->> - >$(@D)/.$(@F).1.S
->> - $(MAKE) $(build)=3D$(@D) $(@D)/.$(@F).1.o
->> + > $(dot-target).1.S
->> + $(MAKE) $(build)=3D$(@D) $(dot-target).1.o
->> $(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds -N $< $(build_id_linker) \
->> -    $(orphan-handling-y) $(@D)/.$(@F).1.o -o $@
->> +    $(orphan-handling-y) $(dot-target).1.o -o $@
->> $(NM) -pa --format=3Dsysv $@ \
->> | $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
->> > $@.map
->> - rm -f $(@D)/.$(@F).[0-9]* $(@D)/..$(@F).[0-9]*
->> + rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
->> ifeq ($(CONFIG_XEN_IBT),y)
->> $(SHELL) $(srctree)/tools/check-endbr.sh $@
->> endif
->> @@ -210,27 +210,34 @@ ifeq ($(CONFIG_DEBUG_INFO),y)
->> endif
->> $(foreach base, $(VIRT_BASE) $(ALT_BASE), \
->>          $(LD) $(call EFI_LDFLAGS,$(base)) -T $(obj)/efi.lds -N $< $(rel=
-ocs-dummy) \
->> -                $(objtree)/common/symbols-dummy.o $(note_file_option) -=
-o $(@D)/.$(@F).$(base).0 &&) :
->> - $(MKRELOC) $(foreach base,$(VIRT_BASE) $(ALT_BASE),$(@D)/.$(@F).$(base=
-).0) >$(@D)/.$(@F).0r.S
->> - $(NM) -pa --format=3Dsysv $(@D)/.$(@F).$(VIRT_BASE).0 \
->> - | $(objtree)/tools/symbols $(all_symbols) --sysv --sort >$(@D)/.$(@F).=
-0s.S
->> +                $(objtree)/common/symbols-dummy.o $(note_file_option) \
->> +                -o $(dot-target).$(base).0 &&) :
->> + $(MKRELOC) $(foreach base,$(VIRT_BASE) $(ALT_BASE),$(dot-target).$(bas=
-e).0) \
->> + > $(dot-target).0r.S
->> + $(NM) -pa --format=3Dsysv $(dot-target).$(VIRT_BASE).0 \
->> + | $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->> + > $(dot-target).0s.S
->> $(MAKE) $(build)=3D$(@D) .$(@F).0r.o .$(@F).0s.o
->> $(foreach base, $(VIRT_BASE) $(ALT_BASE), \
->>          $(LD) $(call EFI_LDFLAGS,$(base)) -T $(obj)/efi.lds -N $< \
->> -                $(@D)/.$(@F).0r.o $(@D)/.$(@F).0s.o $(note_file_option)=
- -o $(@D)/.$(@F).$(base).1 &&) :
->> - $(MKRELOC) $(foreach base,$(VIRT_BASE) $(ALT_BASE),$(@D)/.$(@F).$(base=
-).1) >$(@D)/.$(@F).1r.S
->> - $(NM) -pa --format=3Dsysv $(@D)/.$(@F).$(VIRT_BASE).1 \
->> - | $(objtree)/tools/symbols $(all_symbols) --sysv --sort >$(@D)/.$(@F).=
-1s.S
->> +                $(dot-target).0r.o $(dot-target).0s.o $(note_file_optio=
-n) \
->> +                -o $(dot-target).$(base).1 &&) :
->> + $(MKRELOC) $(foreach base,$(VIRT_BASE) $(ALT_BASE),$(dot-target).$(bas=
-e).1) \
->> + > $(dot-target).1r.S
->> + $(NM) -pa --format=3Dsysv $(dot-target).$(VIRT_BASE).1 \
->> + | $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->> + > $(dot-target).1s.S
->> $(MAKE) $(build)=3D$(@D) .$(@F).1r.o .$(@F).1s.o
->> $(LD) $(call EFI_LDFLAGS,$(VIRT_BASE)) -T $(obj)/efi.lds -N $< \
->> -      $(@D)/.$(@F).1r.o $(@D)/.$(@F).1s.o $(orphan-handling-y) $(note_f=
-ile_option) -o $@
->> +      $(dot-target).1r.o $(dot-target).1s.o $(orphan-handling-y) \
->> +      $(note_file_option) -o $@
->> $(NM) -pa --format=3Dsysv $@ \
->> | $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
->> > $@.map
->> ifeq ($(CONFIG_DEBUG_INFO),y)
->> $(if $(filter --strip-debug,$(EFI_LDFLAGS)),:$(space))$(OBJCOPY) -O elf6=
-4-x86-64 $@ $@.elf
->> endif
->> - rm -f $(@D)/.$(@F).[0-9]* $(@D)/..$(@F).[0-9]*
->> + rm -f $(dot-target).[0-9]* $(@D)/..$(@F).[0-9]*
->> ifeq ($(CONFIG_XEN_IBT),y)
->> $(SHELL) $(srctree)/tools/check-endbr.sh $@
->> endif
->>=20
->>=20
->=20
+I don=E2=80=99t have the spec with me. I will have a look on Monday and rep=
+ly back
+here.
 
+
+>
+> >
+> >
+> >     And following to what I wrote in commit msg:
+> >     - we use str already in arm32 which results in 32-bit access
+> >
+> >
+> >     - we use reald/writel that end up as str/ldr in runtime driver
+> >
+> >
+> >     - we are down to SBSAv2 spec that runtime driver follows (meaning w=
+e
+> can use early printk for SBSA too)
+> >
+> >
+> > The runtime driver is meant to follow the PL011 spec first and may have
+> some adaptation for SBSA.
+> >
+> >
+> >     - this way we support broader list of PL011s consistently (i.e. bot=
+h
+> early and runtime driver works as oppose to only runtime)
+> >
+> >
+> >  I am not sure I agree here. You are focussing on HW that only support
+> 32-bit access. And, AFAICT this shouldn=E2=80=99t be the norm.
+> I'm focusing on supporting wider range of devices.
+> At the moment Xen PL011 runtime makes 32-bit accesses while early code
+> makes 8/16-bit accesses (arm32 uses 32-bit only as well).
+> So my patch can only improve things and not make them worse. In case of
+> some very old legacy device that cannot cope with 32-bit accesses,
+> such device would not work anyway with the runtime driver.
+
+
+It depends how you approach the problem. From my POV, a user that can=E2=80=
+=99t see
+logs will likely try to enable the early UART. Then they could debug the
+runtime driver. With your proposal, this would even be broken.
+
+Also, while I'm aware of platforms with 32-bit only UART and the normal one
+> that can cope with 32-bit as well, I'm not aware of any legacy one that
+> cannot do that.
+
+
+I am under the impression that the default behaviour on Linux is to use non
+32-big access. I would not want to diverge from that.
+
+
+>
+> Adding a config option like EARLY_UART_PL011_MMIO32 would be ok but it
+> would require to also modify arm32 early printk and runtime driver.
+
+
+I don=E2=80=99t view it as a requirement. It would be OK to have it only av=
+ailable
+for 64-but at the beginning. Same for the runtime.
+
+
+> Not mentioning things that we somehow do not want to look at like
+> hardcoded 7372800 HZ frequency for early_uart_init we can just pray
+> to match the HW UART clock or other not PL011 spec things (i.e. incorrect
+> FIFO size for most modern UARTs).
+
+
+I am aware of this issue but I don=E2=80=99t understand how this is related=
+ to this
+discussion.
+
+My only request is you don=E2=80=99t break the existing behavior of the ear=
+ly PL011
+driver on arm64.
+
+
+>
+> But if this is what you require, I'm somewhat forced to do so just so tha=
+t
+> our devices can be supported.
+
+
+See above.
+
+
+>
+> ~Michal
+>
+
+--000000000000fd06dc05fd106c10
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Thu, 1 Jun 2023 at 13:48, Michal Orzel &lt;<a href=3D"ma=
+ilto:michal.orzel@amd.com">michal.orzel@amd.com</a>&gt; wrote:<br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t-width:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(=
+204,204,204)">Hi Julien,<br>
+<br>
+On 01/06/2023 13:12, Julien Grall wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
+&gt; <br>
+&gt; <br>
+&gt; Hi,<br>
+&gt; <br>
+&gt; Sorry for the formatting.<br>
+&gt; <br>
+&gt; On Thu, 1 Jun 2023 at 12:31, Michal Orzel &lt;<a href=3D"mailto:michal=
+.orzel@amd.com" target=3D"_blank">michal.orzel@amd.com</a> &lt;mailto:<a hr=
+ef=3D"mailto:michal.orzel@amd.com" target=3D"_blank">michal.orzel@amd.com</=
+a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Hi Bertrand,<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On 01/06/2023 12:19, Bertrand Marquis wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; Hi Michal,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; On 1 Jun 2023, at 10:50, Michal Orzel &lt;=
+<a href=3D"mailto:michal.orzel@amd.com" target=3D"_blank">michal.orzel@amd.=
+com</a> &lt;mailto:<a href=3D"mailto:michal.orzel@amd.com" target=3D"_blank=
+">michal.orzel@amd.com</a>&gt;&gt; wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; There are implementations of the PL011 tha=
+t can only handle 32-bit<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; accesses (i.e. no 16-bit or 8-bit), usuall=
+y advertised by &#39;reg-io-width&#39;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; dt property set to 4. On such UARTs, the c=
+urrent early printk code for<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; arm64 does not work. To fix this issue, ma=
+ke all the accesses to be 32-bit<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; by using ldr, str without a size field. Th=
+is makes it possible to use<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; early printk on such platforms, while all =
+the other implementations should<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; generally cope with 32-bit accesses. In ca=
+se they do not, they would<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; already fail as we explicitly use writel/r=
+eadl in the runtime driver to<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; maintain broader compatibility and to be S=
+BSAv2 compliant. Therefore, this<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; change makes the runtime/early handling co=
+nsistent (also it matches the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; arm32 debug-pl011 code).<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; Signed-off-by: Michal Orzel &lt;<a href=3D=
+"mailto:michal.orzel@amd.com" target=3D"_blank">michal.orzel@amd.com</a> &l=
+t;mailto:<a href=3D"mailto:michal.orzel@amd.com" target=3D"_blank">michal.o=
+rzel@amd.com</a>&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; ---<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; xen/arch/arm/arm64/debug-pl011.inc | 8 +++=
++----<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; 1 file changed, 4 insertions(+), 4 deletio=
+ns(-)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; diff --git a/xen/arch/arm/arm64/debug-pl01=
+1.inc b/xen/arch/arm/arm64/debug-pl011.inc<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; index 6d60e78c8ba3..80eb8fdc1ec7 100644<br=
+>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; --- a/xen/arch/arm/arm64/debug-pl011.inc<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; +++ b/xen/arch/arm/arm64/debug-pl011.inc<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; @@ -25,9 +25,9 @@<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; .macro early_uart_init xb, c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mov=C2=A0=
+ =C2=A0x\c, #(7372800 / CONFIG_EARLY_UART_PL011_BAUD_RATE % 16)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 strh=C2=A0 w\=
+c, [\xb, #FBRD]=C2=A0 =C2=A0 =C2=A0 /* -&gt; UARTFBRD (Baud divisor fractio=
+n) */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 str=C2=A0 =C2=
+=A0w\c, [\xb, #FBRD]=C2=A0 =C2=A0 =C2=A0 /* -&gt; UARTFBRD (Baud divisor fr=
+action) */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mov=C2=A0=
+ =C2=A0x\c, #(7372800 / CONFIG_EARLY_UART_PL011_BAUD_RATE / 16)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 strh=C2=A0 w\=
+c, [\xb, #IBRD]=C2=A0 =C2=A0 =C2=A0 /* -&gt; UARTIBRD (Baud divisor integer=
+) */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 str=C2=A0 =C2=
+=A0w\c, [\xb, #IBRD]=C2=A0 =C2=A0 =C2=A0 /* -&gt; UARTIBRD (Baud divisor in=
+teger) */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mov=C2=A0=
+ =C2=A0x\c, #WLEN_8=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* 8n1 */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0str=C2=A0=
+ =C2=A0w\c, [\xb, #LCR_H]=C2=A0 =C2=A0 =C2=A0/* -&gt; UARTLCR_H (Line contr=
+ol) */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ldr=C2=A0=
+ =C2=A0x\c, =3D(RXE | TXE | UARTEN)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; @@ -41,7 +41,7 @@<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; .macro early_uart_ready xb, c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; 1:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 ldrh=C2=A0 w\=
+c, [\xb, #FR]=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* &lt;- UARTFR (Flag register) */=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 ldr=C2=A0 =C2=
+=A0w\c, [\xb, #FR]=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* &lt;- UARTFR (Flag registe=
+r) */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0tst=C2=A0=
+ =C2=A0w\c, #BUSY=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Check B=
+USY bit */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://b.ne" rel=3D"noreferrer" target=3D"_blank">b.ne</a> &lt;<a href=
+=3D"http://b.ne" rel=3D"noreferrer" target=3D"_blank">http://b.ne</a>&gt;=
+=C2=A0 1b=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0/* Wait for the UART to be ready */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; .endm<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; @@ -52,7 +52,7 @@<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 * wt: register which contains the ch=
+aracter to transmit<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt;=C2=A0 */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; .macro early_uart_transmit xb, wt<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 strb=C2=A0 \w=
+t, [\xb, #DR]=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* -&gt; UARTDR (Data Register) */=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 str=C2=A0 =C2=
+=A0\wt, [\xb, #DR]=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* -&gt; UARTDR (Data Registe=
+r) */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; Is it really ok to drop the 8bit access here ?=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0It is not only ok, it is necessary. Otherwise it wo=
+n&#39;t work on the above mentioned UARTs (they can only perform 32-bit acc=
+ess).<br>
+&gt; <br>
+&gt; <br>
+&gt; IIRC some compilers will complain because you use wN with =E2=80=9Cstr=
+=E2=80=9D.<br>
+Hmm, I would expect it to be totally ok as the size is determined by the re=
+g name. Any reference?</blockquote><div dir=3D"auto"><br></div><div dir=3D"=
+auto">I don=E2=80=99t have the spec with me. I will have a look on Monday a=
+nd reply back here.</div><div dir=3D"auto"><br></div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-=
+left-style:solid;padding-left:1ex;border-left-color:rgb(204,204,204)" dir=
+=3D"auto"><br>
+<br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0And following to what I wrote in commit msg:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0- we use str already in arm32 which results in 32-b=
+it access<br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0- we use reald/writel that end up as str/ldr in run=
+time driver<br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0- we are down to SBSAv2 spec that runtime driver fo=
+llows (meaning we can use early printk for SBSA too)<br>
+&gt; <br>
+&gt; <br>
+&gt; The runtime driver is meant to follow the PL011 spec first and may hav=
+e some adaptation for SBSA.<br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0- this way we support broader list of PL011s consis=
+tently (i.e. both early and runtime driver works as oppose to only runtime)=
+<br>
+&gt; <br>
+&gt; <br>
+&gt; =C2=A0I am not sure I agree here. You are focussing on HW that only su=
+pport 32-bit access. And, AFAICT this shouldn=E2=80=99t be the norm.<br>
+I&#39;m focusing on supporting wider range of devices.<br>
+At the moment Xen PL011 runtime makes 32-bit accesses while early code make=
+s 8/16-bit accesses (arm32 uses 32-bit only as well).<br>
+So my patch can only improve things and not make them worse. In case of som=
+e very old legacy device that cannot cope with 32-bit accesses,<br>
+such device would not work anyway with the runtime driver.</blockquote><div=
+ dir=3D"auto"><br></div><div dir=3D"auto">It depends how you approach the p=
+roblem. From my POV, a user that can=E2=80=99t see logs will likely try to =
+enable the early UART. Then they could debug the runtime driver. With your =
+proposal, this would even be broken.</div><div dir=3D"auto"><br></div><bloc=
+kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-=
+width:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(20=
+4,204,204)" dir=3D"auto">Also, while I&#39;m aware of platforms with 32-bit=
+ only UART and the normal one<br>
+that can cope with 32-bit as well, I&#39;m not aware of any legacy one that=
+ cannot do that.</blockquote><div dir=3D"auto"><br></div><div dir=3D"auto">=
+I am under the impression that the default behaviour on Linux is to use non=
+ 32-big access. I would not want to diverge from that.</div><div dir=3D"aut=
+o"><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left-width:1px;border-left-style:solid;padding-left:1ex;border=
+-left-color:rgb(204,204,204)" dir=3D"auto"><br>
+<br>
+Adding a config option like EARLY_UART_PL011_MMIO32 would be ok but it woul=
+d require to also modify arm32 early printk and runtime driver.</blockquote=
+><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border=
+-left-width:1px;border-left-style:solid;padding-left:1ex;border-left-color:=
+rgb(204,204,204)" dir=3D"auto"></blockquote><div dir=3D"auto"><br></div><di=
+v dir=3D"auto">I don=E2=80=99t view it as a requirement. It would be OK to =
+have it only available for 64-but at the beginning. Same for the runtime.</=
+div><div dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" style=3D"=
+margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;padd=
+ing-left:1ex;border-left-color:rgb(204,204,204)" dir=3D"auto"><br>
+Not mentioning things that we somehow do not want to look at like hardcoded=
+ 7372800 HZ frequency for early_uart_init we can just pray<br>
+to match the HW UART clock or other not PL011 spec things (i.e. incorrect F=
+IFO size for most modern UARTs).</blockquote><div dir=3D"auto"><br></div><d=
+iv dir=3D"auto">I am aware of this issue but I don=E2=80=99t understand how=
+ this is related to this discussion.</div><div dir=3D"auto"><br></div><div =
+dir=3D"auto">My only request is you don=E2=80=99t break the existing behavi=
+or of the early PL011 driver on arm64.</div><div dir=3D"auto"><br></div><bl=
+ockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-lef=
+t-width:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(=
+204,204,204)" dir=3D"auto"><br>
+<br>
+But if this is what you require, I&#39;m somewhat forced to do so just so t=
+hat our devices can be supported.</blockquote><div dir=3D"auto"><br></div><=
+div dir=3D"auto">See above.=C2=A0</div><div dir=3D"auto"><br></div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left-wid=
+th:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(204,2=
+04,204)" dir=3D"auto"><br>
+<br>
+~Michal<br>
+</blockquote></div></div>
+
+--000000000000fd06dc05fd106c10--
 
