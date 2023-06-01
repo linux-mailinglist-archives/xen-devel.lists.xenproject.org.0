@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B4F371A0D9
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 16:49:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542599.846646 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 419CE71A0DA
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 16:49:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542600.846656 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4jbn-0006Oz-9L; Thu, 01 Jun 2023 14:48:59 +0000
+	id 1q4jbo-0006fB-HG; Thu, 01 Jun 2023 14:49:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542599.846646; Thu, 01 Jun 2023 14:48:59 +0000
+Received: by outflank-mailman (output) from mailman id 542600.846656; Thu, 01 Jun 2023 14:49:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4jbn-0006NC-4o; Thu, 01 Jun 2023 14:48:59 +0000
-Received: by outflank-mailman (input) for mailman id 542599;
- Thu, 01 Jun 2023 14:48:57 +0000
+	id 1q4jbo-0006ce-DP; Thu, 01 Jun 2023 14:49:00 +0000
+Received: by outflank-mailman (input) for mailman id 542600;
+ Thu, 01 Jun 2023 14:48:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bFRJ=BV=citrix.com=prvs=509590c99=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1q4jbl-0005t4-F7
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 14:48:57 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6e93d0fc-008b-11ee-8611-37d641c3527e;
- Thu, 01 Jun 2023 16:48:55 +0200 (CEST)
+ id 1q4jbm-0005t4-Py
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 14:48:58 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6f7be821-008b-11ee-8611-37d641c3527e;
+ Thu, 01 Jun 2023 16:48:56 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,56 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e93d0fc-008b-11ee-8611-37d641c3527e
+X-Inumbo-ID: 6f7be821-008b-11ee-8611-37d641c3527e
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1685630935;
+  d=citrix.com; s=securemail; t=1685630936;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=4fvPFTN01BOhGOiMjRrOl+jDQlX0oz34/lNnkFP6f1o=;
-  b=AapmWM7nj3czncNMLMTeBt/y/3VVaC5Fk24jJRX8OZMW9JMQWdwaeWTD
-   5ixtnGu6brNGK7lEPUtkQkI/qUso61m/8cDjP2jw26qxxHUmEviNmVN4R
-   gpcCp4wbmtRTNO7YdVVxe++RvyeETcII1cso8BEaIP+JnBLwdsdgWKdKH
-   I=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=0Huqnszf3sCeFY36VmVwYFe6YJQ79qu8pbuCZc31GcY=;
+  b=ThLVIgkcCQgUucE+PbmfD90P8Pr4ewj31zBlJeKT5iIda3FzY1XJxN6Y
+   UP7KwmYV7SqjxBzwMeB4+1jdW3lAQLjRXwPExG9vJpGnA0SbVT31K/7BE
+   yYMNBYX7KhPFv5++vy875Ya29oVcWlM0CnsJ/cB6+QxkLVSA03e4VyC0F
+   8=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 111123535
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 113728657
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Y+K1nKITCehldSijFE+RzZUlxSXFcZb7ZxGr2PjKsXjdYENShWAOz
- GMaDz+FP/iDYmukLdB2aIWzoBhVvMPVy9RiQARlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrbwP9TlK6q4mhA4ARnPasjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5QGnkW3
- /YXBQsASVeBnt+ZwLfnZNlV05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTHJwMxB3F/
- T+uE2LRGEkQO9K+8ii+4HOGiu3vg3rwH6EJPejtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAbShZRZdpgs9U5LQHGz
- XfQwYmvX2Y29uTIFzTErOz8QS6O1TY9CnQaPQUOQiY+7v6kopgOoRLKEvhTKfvg5jHqIg3Yz
- zePpSk4orwci88Xyqm2lWz6byKQSovhFVBsuFiONo6xxkYgPdP+OdT0gbTOxawYRLt1WGVtq
- 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hP0yfyFWyzyGskTKuMDirjUWGBX
- aMrkVkNjKK/xVPzBUONX6q/Ct4x0Y/rHsn/W/bfY7JmO8YhKVLao3EzPRbNjwgBdXTAd4llY
- /93lu71XB4n5VlPlmLqF4/xL5d2rszB+Y8jbc+ilEn2uVZvTHWUVa0EIDOzghMRtcu5TPHu2
- 48HbaOikkwPONASlwGLqeb/23hWdylkbX03wuQLHtO+zv1OQzp5Va+BkO54J+SIXc19z4/1w
- 510YWcAoHKXuJENAV7ihqxLAF83YatCkA==
-IronPort-HdrOrdr: A9a23:iueOjaMUt1U+o8BcTjGjsMiBIKoaSvp037BK7S1MoH1uA6ulfq
- WV9sjzuiWatN98Yh8dcJW7Scq9qBDnhPpICOsqXYtKNTOO0AeVxcNZnOnfKlXbcBEWndQtsJ
- uIHZIeNDXxZ2IK8foT4mODYqkdKA/sytHXuQ/cpU0dPD2Dc8tbnmFE4p7wKDwNeOFBb6BJba
- a01458iBeLX28YVci/DmltZZm/mzWa/KiWGSLvHnQcmXKzsQ8=
-X-Talos-CUID: 9a23:MEpBj2zb1RQjoUzPsYl6BgUzAdh9WHfS4UzdBAi6EFtGSLjJZ2+prfY=
-X-Talos-MUID: =?us-ascii?q?9a23=3AnIQMxwx87zXHzQbFYOzgqDDv48CaqL72Ak8DsK4?=
- =?us-ascii?q?UgNuFHyByGynEh3OUWaZyfw=3D=3D?=
+IronPort-Data: A9a23:6Z+78q5pkiOxUOH8adAHDQxRtCTHchMFZxGqfqrLsTDasY5as4F+v
+ jFOXm+AbvaLYjT1fYhyO42w9E8CvpPRyoAyGgU6pCwyHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9lU35JwehBtC5gZlPa4T5QeF/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m7
+ P8HBypKSzW/tcmTnLulYPQ22+0sM5y+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
+ YxDM2MpNUmeJUQVYT/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9xx/D+
+ TiWoTmmav0cHOzD+xmJ6lOuurXKkX/4doM1KJOezsc/1TV/wURMUUZLBDNXu8KRmkO4Ht5SN
+ UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JyOeAn7ACGyoLP/h2UQGMDS1Zpd9gOpMIwAzsw2
+ Te0c8jBXGI19ufPEDTEq+nS9GnpUcQIEYMcTTYHUiQfpPzGnLMYq07GUPx+SvOcgcKgTFkc3
+ Au2hCQ5grwSi+sC2KO64U3LjlqQm3TZcuImzl6JBzz4t2uVcKbgPtX1sgaDsZ6sOa7DFjG8U
+ G44d99yBQzkJbWEj2SzTeoEB9lFDN7VYWSH0TaD83TMnglBGkJPn6gJsVmSx28zaK7onAMFh
+ 2eN0T69HLcJYBOXgVZfOupd8fgCw6n6DsjCXfvJdNdIaZUZXFbZrHwzOBHAgji1zRhEfUQD1
+ XGzK5zE4ZEyUPUP8dZLb71Fje9DKt4WmAs/uqwXPzz4iOHDNRZ5uJ8OMUeUb/BR0U93iFy9z
+ jqrDOPTk083eLSnMkHqHXs7cQhiwY4TWcqn9KS6t4erfmJbJY3WI6SKme1xK904xvg9eyWh1
+ ijVZ3K0AWHX3RXvQThmoFg/AF8zdf6TdU4GABE=
+IronPort-HdrOrdr: A9a23:srP37aldqolmakWOKiRMBtaA14vpDfOnimdD5ihNYBxZY6Wkfp
+ +V8cjzhCWftN9OYhodcIi7SdC9qXO1z+8X3WBjB8bbYOCGghrhEGgG1+ffKlLbakrDH4JmtJ
+ uIEJIOQ+EYb2IK6/oSiTPQe7lP/DDtytHLuQ6q9QYIcegcUdAE0+4WMGamO3wzYDMDKYsyFZ
+ Ka6MYCjSGnY24rYsOyAWRAd/TfpvXQ/aiWLCIuNloC0k2jnDmo4Ln1H1yzxREFSQ5Cxr8k7C
+ zsjxH53KO+qPu2oyWsm1M7rq4m1+cJ+OEzRfBkufJlagkETTzYJ7iJbofy8gzdZtvfqmrC3u
+ O85ivIdP4DkE85NlvF2ycFnTOQmgrGokWStWNxjRbY0LHEbSN/BMxbiY1DdBzFr0ImodFnya
+ pOm3mUrpxNEHr77VPADnfzJmFXf2eP0A8feNQo/ghieJpbbKUUoZ0U/UtTHptFFCXm6Jo/GO
+ 0rCM3H/v5ZfV6Tcnic5wBUsZWRd2V2Gg3DTlkJu8ST3TQTlHdlz1EAzMhamnsb7poyR5RN+u
+ yBOKV1k7NFSNMQcMtGdZE8aNryDnaITQPHMWqUL1iiHKYbO2jVo5qy+7kx7PHCQu178HLzou
+ WzbLp1jx9CR6u1M7zw4HRiyGGyfFmA
+X-Talos-CUID: 9a23:1kdhTmF3Hcaf1Q6lqmJ+91E7AIcAV0Hv51KMKlGSFDw0YbKKHAo=
+X-Talos-MUID: =?us-ascii?q?9a23=3AkuKL2Q7X4UQgx3yuUPcor6FqxoxYv5aNBFgsk6l?=
+ =?us-ascii?q?cvsXYNgJxHAuzqgyOF9o=3D?=
 X-IronPort-AV: E=Sophos;i="6.00,210,1681185600"; 
-   d="scan'208";a="111123535"
+   d="scan'208";a="113728657"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 2/3] x86/spec-ctrl: Fix up the RSBA/RRSBA bits as appropriate
-Date: Thu, 1 Jun 2023 15:48:44 +0100
-Message-ID: <20230601144845.1554589-3-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 3/3] x86/cpu-policy: Derive RSBA/RRSBA for guest policies
+Date: Thu, 1 Jun 2023 15:48:45 +0100
+Message-ID: <20230601144845.1554589-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20230601144845.1554589-1-andrew.cooper3@citrix.com>
 References: <20230601144845.1554589-1-andrew.cooper3@citrix.com>
@@ -93,10 +99,39 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-In order to level a VM safely for migration, the toolstack needs to know the
-RSBA/RRSBA properties of the CPU, whether or not they happen to be enumerated.
+The RSBA bit, "RSB Alternative", means that the RSB may use alternative
+predictors when empty.  From a practical point of view, this mean "Retpoline
+not safe".
 
-See the code comment for details.
+Enhanced IBRS (officially IBRS_ALL in Intel's docs, previously IBRS_ATT) is a
+statement that IBRS is implemented in hardware (as opposed to the form
+retrofitted to existing CPUs in microcode).
+
+The RRSBA bit, "Restricted-RSBA", is a combination of RSBA, and the eIBRS
+property that predictions are tagged with the mode in which they were learnt.
+Therefore, it means "when eIBRS is active, the RSB may fall back to
+alternative predictors but restricted to the current prediction mode".  As
+such, it's stronger statement than RSBA, but still means "Retpoline not safe".
+
+CPUs are not expected to enumerate both RSBA and RRSBA.
+
+Add feature dependencies for EIBRS and RRSBA.  While technically they're not
+linked, absolutely nothing good can of letting the guest see RRSBA without
+EIBRS.  Nor can anything good come of a guest seeing EIBRS without IBRSB.
+Furthermore, we use this dependency to simplify the max derivation logic.
+
+The max policies gets RSBA and RRSBA unconditionally set (with the EIBRS
+dependency maybe hiding RRSBA).  We can run any VM, even if it has been told
+"somewhere you might run, Retpoline isn't safe".
+
+The default policies are more complicated.  A guest shouldn't see both bits,
+but it needs to see one if the current host suffers from any form of RSBA, and
+which bit it needs to see depends on whether eIBRS is visible or not.
+Therefore, the calculation must be performed after sanitise_featureset().
+
+Finally, apply the same logic in recalculate_cpuid_policy(), as we do for
+other safety settings while we're still overhauling the toolstack logic in
+this area.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -105,154 +140,147 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
 v2:
- * Rewrite almost from scratch.
+ * Expand/adjust the comment for the max features.
+ * Rewrite the default feature derivation in light of new information.
+ * Fix up in recalculate_cpuid_policy() too.
 ---
- xen/arch/x86/include/asm/cpufeature.h |  1 +
- xen/arch/x86/spec_ctrl.c              | 92 +++++++++++++++++++++++++--
- 2 files changed, 88 insertions(+), 5 deletions(-)
+ xen/arch/x86/cpu-policy.c                   | 53 +++++++++++++++++++++
+ xen/include/public/arch-x86/cpufeatureset.h |  4 +-
+ xen/tools/gen-cpuid.py                      |  5 +-
+ 3 files changed, 59 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
-index ace31e3b1f1a..e2cb8f3cc728 100644
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -193,6 +193,7 @@ static inline bool boot_cpu_has(unsigned int feat)
- #define cpu_has_tsx_ctrl        boot_cpu_has(X86_FEATURE_TSX_CTRL)
- #define cpu_has_taa_no          boot_cpu_has(X86_FEATURE_TAA_NO)
- #define cpu_has_fb_clear        boot_cpu_has(X86_FEATURE_FB_CLEAR)
-+#define cpu_has_rrsba           boot_cpu_has(X86_FEATURE_RRSBA)
- 
- /* Synthesized. */
- #define cpu_has_arch_perfmon    boot_cpu_has(X86_FEATURE_ARCH_PERFMON)
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index daee61900afa..29ed410da47a 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -579,7 +579,10 @@ static bool __init check_smt_enabled(void)
-     return false;
+diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
+index ee256ff5a137..f3bcb1ea4101 100644
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -423,8 +423,17 @@ static void __init guest_common_max_feature_adjustments(uint32_t *fs)
+          * Retpoline not safe)", so these need to be visible to a guest in all
+          * cases, even when it's only some other server in the pool which
+          * suffers the identified behaviour.
++         *
++         * We can always run any VM which has previously (or will
++         * subsequently) run on hardware where Retpoline is not safe.
++         * Note:
++         *  - The dependency logic may hide RRSBA for other reasons.
++         *  - The max policy does not contitute a sensible configuration to
++         *    run a guest in.
+          */
+         __set_bit(X86_FEATURE_ARCH_CAPS, fs);
++        __set_bit(X86_FEATURE_RSBA, fs);
++        __set_bit(X86_FEATURE_RRSBA, fs);
+     }
  }
  
--/* Calculate whether Retpoline is known-safe on this CPU. */
-+/*
-+ * Calculate whether Retpoline is known-safe on this CPU.  Fix up the
-+ * RSBA/RRSBA bits as necessary.
-+ */
- static bool __init retpoline_calculations(void)
- {
-     unsigned int ucode_rev = this_cpu(cpu_sig).rev;
-@@ -593,15 +596,85 @@ static bool __init retpoline_calculations(void)
-         return false;
+@@ -532,6 +541,21 @@ static void __init calculate_pv_def_policy(void)
+     guest_common_default_feature_adjustments(fs);
  
-     /*
--     * RSBA may be set by a hypervisor to indicate that we may move to a
--     * processor which isn't retpoline-safe.
-+     * The meaning of the RSBA and RRSBA bits have evolved over time.  The
-+     * agreed upon meaning at the time of writing (May 2023) is thus:
-+     *
-+     * - RSBA (RSB Alternative) means that an RSB may fall back to an
-+     *   alternative predictor on underflow.  Skylake uarch and later all have
-+     *   this property.  Broadwell too, when running microcode versions prior
-+     *   to Jan 2018.
-+     *
-+     * - All eIBRS-capable processors suffer RSBA, but eIBRS also introduces
-+     *   tagging of predictions with the mode in which they were learned.  So
-+     *   when eIBRS is active, RSBA becomes RRSBA (Restricted RSBA).
-+     *
-+     * - CPUs are not expected to enumerate both RSBA and RRSBA.
-+     *
-+     * Some parts (Broadwell) are not expected to ever enumerate this
-+     * behaviour directly.  Other parts have differing enumeration with
-+     * microcode version.  Fix up Xen's idea, so we can advertise them safely
-+     * to guests, and so toolstacks can level a VM safety for migration.
-+     *
-+     * The following states exist:
-+     *
-+     * |   | RSBA | EIBRS | RRSBA | Notes              | Action        |
-+     * |---+------+-------+-------+--------------------+---------------|
-+     * | 1 |    0 |     0 |     0 | OK (older parts)   | Maybe +RSBA   |
-+     * | 2 |    0 |     0 |     1 | Broken             | +RSBA, -RRSBA |
-+     * | 3 |    0 |     1 |     0 | OK (pre-Aug ucode) | +RRSBA        |
-+     * | 4 |    0 |     1 |     1 | OK                 |               |
-+     * | 5 |    1 |     0 |     0 | OK                 |               |
-+     * | 6 |    1 |     0 |     1 | Broken             | -RRSBA        |
-+     * | 7 |    1 |     1 |     0 | Broken             | -RSBA, +RRSBA |
-+     * | 8 |    1 |     1 |     1 | Broken             | -RSBA         |
-      *
-+     * However, we doesn't need perfect adherence to the spec.  Identify the
-+     * broken cases (so we stand a chance of spotting violated assumptions),
-+     * and fix up Rows 1 and 3 so Xen can use RSBA || RRSBA to identify
-+     * "alternative predictors potentially in use".
-+     */
-+    if ( cpu_has_eibrs ? cpu_has_rsba  /* Rows 7, 8 */
-+                       : cpu_has_rrsba /* Rows 2, 6 */ )
-+        printk(XENLOG_ERR
-+               "FIRMWARE BUG: CPU %02x-%02x-%02x, ucode 0x%08x: RSBA %u, EIBRS %u, RRSBA %u\n",
-+               boot_cpu_data.x86, boot_cpu_data.x86_model,
-+               boot_cpu_data.x86_mask, ucode_rev,
-+               cpu_has_rsba, cpu_has_eibrs, cpu_has_rrsba);
+     sanitise_featureset(fs);
 +
 +    /*
-      * Processors offering Enhanced IBRS are not guarenteed to be
-      * repoline-safe.
-      */
--    if ( cpu_has_rsba || cpu_has_eibrs )
-+    if ( cpu_has_eibrs )
++     * If the host suffers from RSBA of any form, and the guest can see
++     * MSR_ARCH_CAPS, reflect the appropriate RSBA/RRSBA property to the guest
++     * depending on the visibility of eIBRS.
++     */
++    if ( test_bit(X86_FEATURE_ARCH_CAPS, fs) &&
++         (cpu_has_rsba || cpu_has_rrsba) )
 +    {
-+        /*
-+         * Prior to the August 2023 microcode, many eIBRS-capable parts did
-+         * not enumerate RRSBA.
-+         */
-+        if ( !cpu_has_rrsba )
-+            setup_force_cpu_cap(X86_FEATURE_RRSBA);
++        bool eibrs = test_bit(X86_FEATURE_EIBRS, fs);
 +
-+        return false;
++        __set_bit(eibrs ? X86_FEATURE_RRSBA
++                        : X86_FEATURE_RSBA, fs);
 +    }
 +
-+    /*
-+     * RSBA is explicitly enumerated in some cases, but may also be set by a
-+     * hypervisor to indicate that we may move to a processor which isn't
-+     * retpoline-safe.
-+     */
-+    if ( cpu_has_rsba )
-         return false;
- 
-+    /*
-+     * At this point, we've filtered all the legal RSBA || RRSBA cases (or the
-+     * known non-ideal cases).  If ARCH_CAPS is visible, trust the absence of
-+     * RSBA || RRSBA.  There's no known microcode which advertises ARCH_CAPS
-+     * without RSBA or EIBRS, and if we're virtualised we can't rely the model
-+     * check anyway.
-+     */
-+    if ( cpu_has_arch_caps )
-+        return true;
-+
-     switch ( boot_cpu_data.x86_model )
-     {
-     case 0x17: /* Penryn */
-@@ -689,6 +762,15 @@ static bool __init retpoline_calculations(void)
-         break;
-     }
- 
-+    if ( !safe )
-+    {
-+        /*
-+         * Note: the eIBRS-capable parts are filtered out earlier, so the
-+         * remainder here are the ones which suffer only RSBA behaviour.
-+         */
-+        setup_force_cpu_cap(X86_FEATURE_RSBA);
-+    }
-+
-     return safe;
+     x86_cpu_featureset_to_policy(fs, p);
+     recalculate_xstate(p);
  }
+@@ -664,6 +688,21 @@ static void __init calculate_hvm_def_policy(void)
+         __set_bit(X86_FEATURE_VIRT_SSBD, fs);
  
-@@ -1148,7 +1230,7 @@ void __init init_speculation_mitigations(void)
-             thunk = THUNK_JMP;
+     sanitise_featureset(fs);
++
++    /*
++     * If the host suffers from RSBA of any form, and the guest can see
++     * MSR_ARCH_CAPS, reflect the appropriate RSBA/RRSBA property to the guest
++     * depending on the visibility of eIBRS.
++     */
++    if ( test_bit(X86_FEATURE_ARCH_CAPS, fs) &&
++         (cpu_has_rsba || cpu_has_rrsba) )
++    {
++        bool eibrs = test_bit(X86_FEATURE_EIBRS, fs);
++
++        __set_bit(eibrs ? X86_FEATURE_RRSBA
++                        : X86_FEATURE_RSBA, fs);
++    }
++
+     x86_cpu_featureset_to_policy(fs, p);
+     recalculate_xstate(p);
+ }
+@@ -786,6 +825,20 @@ void recalculate_cpuid_policy(struct domain *d)
+ 
+     sanitise_featureset(fs);
+ 
++    /*
++     * If the host suffers from RSBA of any form, and the guest can see
++     * MSR_ARCH_CAPS, reflect the appropriate RSBA/RRSBA property to the guest
++     * depending on the visibility of eIBRS.
++     */
++    if ( test_bit(X86_FEATURE_ARCH_CAPS, fs) &&
++         (cpu_has_rsba || cpu_has_rrsba) )
++    {
++        bool eibrs = test_bit(X86_FEATURE_EIBRS, fs);
++
++        __set_bit(eibrs ? X86_FEATURE_RRSBA
++                        : X86_FEATURE_RSBA, fs);
++    }
++
+     /* Fold host's FDP_EXCP_ONLY and NO_FPU_SEL into guest's view. */
+     fs[FEATURESET_7b0] &= ~(cpufeat_mask(X86_FEATURE_FDP_EXCP_ONLY) |
+                             cpufeat_mask(X86_FEATURE_NO_FPU_SEL));
+diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
+index 4edf9aba7ff6..a0e46138d763 100644
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -311,7 +311,7 @@ XEN_CPUFEATURE(CET_SSS,            15*32+18) /*   CET Supervisor Shadow Stacks s
+ /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.eax, word 16 */
+ XEN_CPUFEATURE(RDCL_NO,            16*32+ 0) /*A  No Rogue Data Cache Load (Meltdown) */
+ XEN_CPUFEATURE(EIBRS,              16*32+ 1) /*A  Enhanced IBRS */
+-XEN_CPUFEATURE(RSBA,               16*32+ 2) /*!A RSB Alternative (Retpoline not safe) */
++XEN_CPUFEATURE(RSBA,               16*32+ 2) /*!  RSB Alternative (Retpoline not safe) */
+ XEN_CPUFEATURE(SKIP_L1DFL,         16*32+ 3) /*   Don't need to flush L1D on VMEntry */
+ XEN_CPUFEATURE(INTEL_SSB_NO,       16*32+ 4) /*A  No Speculative Store Bypass */
+ XEN_CPUFEATURE(MDS_NO,             16*32+ 5) /*A  No Microarchitectural Data Sampling */
+@@ -327,7 +327,7 @@ XEN_CPUFEATURE(FBSDP_NO,           16*32+14) /*A  No Fill Buffer Stale Data Prop
+ XEN_CPUFEATURE(PSDP_NO,            16*32+15) /*A  No Primary Stale Data Propagation */
+ XEN_CPUFEATURE(FB_CLEAR,           16*32+17) /*A  Fill Buffers cleared by VERW */
+ XEN_CPUFEATURE(FB_CLEAR_CTRL,      16*32+18) /*   MSR_OPT_CPU_CTRL.FB_CLEAR_DIS */
+-XEN_CPUFEATURE(RRSBA,              16*32+19) /*!A Restricted RSB Alternative */
++XEN_CPUFEATURE(RRSBA,              16*32+19) /*!  Restricted RSB Alternative */
+ XEN_CPUFEATURE(BHI_NO,             16*32+20) /*A  No Branch History Injection  */
+ XEN_CPUFEATURE(XAPIC_STATUS,       16*32+21) /*   MSR_XAPIC_DISABLE_STATUS */
+ XEN_CPUFEATURE(OVRCLK_STATUS,      16*32+23) /*   MSR_OVERCLOCKING_STATUS */
+diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
+index 973fcc1c64e8..72cf11654ba9 100755
+--- a/xen/tools/gen-cpuid.py
++++ b/xen/tools/gen-cpuid.py
+@@ -318,7 +318,7 @@ def crunch_numbers(state):
+         # IBRSB/IBRS, and we pass this MSR directly to guests.  Treating them
+         # as dependent features simplifies Xen's logic, and prevents the guest
+         # from seeing implausible configurations.
+-        IBRSB: [STIBP, SSBD, INTEL_PSFD],
++        IBRSB: [STIBP, SSBD, INTEL_PSFD, EIBRS],
+         IBRS: [AMD_STIBP, AMD_SSBD, PSFD, AUTO_IBRS,
+                IBRS_ALWAYS, IBRS_FAST, IBRS_SAME_MODE],
+         AMD_STIBP: [STIBP_ALWAYS],
+@@ -328,6 +328,9 @@ def crunch_numbers(state):
+ 
+         # The ARCH_CAPS CPUID bit enumerates the availability of the whole register.
+         ARCH_CAPS: list(range(RDCL_NO, RDCL_NO + 64)),
++
++        # The behaviour described by RRSBA depend on eIBRS being active.
++        EIBRS: [RRSBA],
      }
  
--    /* Determine if retpoline is safe on this CPU. */
-+    /* Determine if retpoline is safe on this CPU.  Fix up RSBA/RRSBA enumerations. */
-     retpoline_safe = retpoline_calculations();
- 
-     /*
+     deep_features = tuple(sorted(deps.keys()))
 -- 
 2.30.2
 
