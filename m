@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3704719546
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 10:19:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542309.846009 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83EEC719558
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 10:20:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542314.846018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4dWU-0001w1-O3; Thu, 01 Jun 2023 08:19:06 +0000
+	id 1q4dXr-0003JQ-1X; Thu, 01 Jun 2023 08:20:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542309.846009; Thu, 01 Jun 2023 08:19:06 +0000
+Received: by outflank-mailman (output) from mailman id 542314.846018; Thu, 01 Jun 2023 08:20:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4dWU-0001tO-KT; Thu, 01 Jun 2023 08:19:06 +0000
-Received: by outflank-mailman (input) for mailman id 542309;
- Thu, 01 Jun 2023 08:19:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=e20s=BV=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1q4dWT-0001tI-4w
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 08:19:05 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f7879566-0054-11ee-8611-37d641c3527e;
- Thu, 01 Jun 2023 10:19:02 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1E09C2195F;
- Thu,  1 Jun 2023 08:19:02 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 88747139B7;
- Thu,  1 Jun 2023 08:19:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gd/RH3VUeGTpfgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 01 Jun 2023 08:19:01 +0000
+	id 1q4dXq-0003Gv-Ub; Thu, 01 Jun 2023 08:20:30 +0000
+Received: by outflank-mailman (input) for mailman id 542314;
+ Thu, 01 Jun 2023 08:20:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Z8Gk=BV=gmail.com=vishal.moola@srs-se1.protection.inumbo.net>)
+ id 1q4dXo-0003Gi-VJ
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 08:20:29 +0000
+Received: from mail-yw1-x1132.google.com (mail-yw1-x1132.google.com
+ [2607:f8b0:4864:20::1132])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 29d95d85-0055-11ee-b231-6b7b168915f2;
+ Thu, 01 Jun 2023 10:20:27 +0200 (CEST)
+Received: by mail-yw1-x1132.google.com with SMTP id
+ 00721157ae682-565ba6aee5fso5776857b3.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 01:20:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,195 +40,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f7879566-0054-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1685607542; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WkaB/dK8xrG5SL8wE9N8/1S4RV6q2XZjN4rCgCLd8hE=;
-	b=SYvQRgTfg1o6Jc+MhsYnXDrEdiIAqCN+28AB4Ih6MC93GZzV46RJ1/9FDqnMvr5sEDh0pE
-	Zkeo4kK8K2+IoWbBfgYvRPMaYv8oWiF5ldbk3P56lTSgibnRDSdmw7vHZGVerCtOBjXlaK
-	3TNKX198dlMasClONwSG2jS/+AkawHY=
-Message-ID: <fe33476d-0ec1-16f1-5874-8a5ff1650c3f@suse.com>
-Date: Thu, 1 Jun 2023 10:19:01 +0200
+X-Inumbo-ID: 29d95d85-0055-11ee-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20221208; t=1685607627; x=1688199627;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tS4a1xOgxMUMLEbnCg0V4q+ycCWx2xlztmESkIXckyo=;
+        b=bIHOxHzjZXokee9j5bbLR5t5pc8c2Z3iggLrV1+hE0XnEXAKfoXhCLHOSa/72NNKfd
+         6fz4mYEsaohJNpEL4Rs9VL4vNpL+O0IFENkKP8Ed1r56LzcraMW5AYAo4x/ntCtiU2p3
+         x22qNSqmdrlW4Y/tGkgjrEwyv71XC2UWZFG42WlTnI/gnlPQ9bm7CQBxLeRufsNGf3b3
+         aSnEcs9elD0+6oKwXRc6fHvLfsfn4GZRVVoYihKOLOoIEu2kuGpVvxaorPdvDNijmjMi
+         d1rL9Zr7ifZGWT0hflvFwiRNteKQuaUR21zo007VMcTBghI8tw53RKKaLOkzxLItE6zV
+         XEtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685607627; x=1688199627;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=tS4a1xOgxMUMLEbnCg0V4q+ycCWx2xlztmESkIXckyo=;
+        b=U0SDMB8JePaQYqLv+NM1VxFsOdd4u969G0Sijkzu6Lj2EeWymt6TgbIE5LFu4U6z58
+         9YZXI3vQm5xwwV9NPRCznOH2XORgHsc77ax0dpYRl1NHBdV5sdehnfVgbhLaGsbj8mw4
+         +eL+G38U/2KARno//I/brnRQKaQ1LAx2Whe4dP9n9/fW2YTlvj6Dao4DDgdPUKQu3Yyj
+         /DoA7i3/fTcCmsCPKSiqjVSyfPZ3k+H+Q5KlYJWXr5DYRCsF5M78yPOMl/IpUXXqcuVr
+         ujVx3LUj/mm+Ur05G+gR9fWmg5h3wwiPpkxTVXkiETtVciCER7GU5pJkThXIE8pyPuQh
+         ReQQ==
+X-Gm-Message-State: AC+VfDzJ3nvmPfWCPax8iMhCqFQ1x034IP6F/hIP/GRA6EZzYrs2e4y3
+	7ZAM1l5Au3p0uFwh1G+bQESkY2nmQXVbS5OxlQg=
+X-Google-Smtp-Source: ACHHUZ4IZT44NtIfRs/xlbKnWFcG4D7AEEUxUuudHP/RnlDvS1B/rq8axgox+tzLkd9y6rosB3Zw4KNqjFWW/wbAOr8=
+X-Received: by 2002:a81:7785:0:b0:565:7d7:1356 with SMTP id
+ s127-20020a817785000000b0056507d71356mr8254467ywc.22.1685607626688; Thu, 01
+ Jun 2023 01:20:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org,
- mikelley@microsoft.com, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Jonathan Corbet <corbet@lwn.net>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-References: <20230509201437.GFZFqprc6otRejDPUt@fat_crate.local>
- <20230509233641.GGZFrZCTDH7VwUMp5R@fat_crate.local>
- <20230510133024.GBZFuccC1FxIZNKL+8@fat_crate.local>
- <4c47a11c-0565-678d-3467-e01c5ec16600@suse.com>
- <20230511163208.GDZF0YiOfxQhSo4RDm@fat_crate.local>
- <0cd3899b-cf3b-61c1-14ae-60b6b49d14ab@suse.com>
- <20230530152825.GAZHYWGXAp8PHgN/w0@fat_crate.local>
- <888f860d-4307-54eb-01da-11f9adf65559@suse.com>
- <20230531083508.GAZHcGvB68PUAH7f+a@fat_crate.local>
- <efe79c9e-1e31-adb9-8f93-962249bf01bb@suse.com>
- <20230531174857.GDZHeIib57h5lT5Vh1@fat_crate.local>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v6 00/16] x86/mtrr: fix handling with PAT but without MTRR
-In-Reply-To: <20230531174857.GDZHeIib57h5lT5Vh1@fat_crate.local>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------TKrpmhFrL3wVlG7bmD5W5KrA"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------TKrpmhFrL3wVlG7bmD5W5KrA
-Content-Type: multipart/mixed; boundary="------------avHWsmjs7KZwzreMH8jZG9gZ";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org,
- mikelley@microsoft.com, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Jonathan Corbet <corbet@lwn.net>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Message-ID: <fe33476d-0ec1-16f1-5874-8a5ff1650c3f@suse.com>
-Subject: Re: [PATCH v6 00/16] x86/mtrr: fix handling with PAT but without MTRR
-References: <20230509201437.GFZFqprc6otRejDPUt@fat_crate.local>
- <20230509233641.GGZFrZCTDH7VwUMp5R@fat_crate.local>
- <20230510133024.GBZFuccC1FxIZNKL+8@fat_crate.local>
- <4c47a11c-0565-678d-3467-e01c5ec16600@suse.com>
- <20230511163208.GDZF0YiOfxQhSo4RDm@fat_crate.local>
- <0cd3899b-cf3b-61c1-14ae-60b6b49d14ab@suse.com>
- <20230530152825.GAZHYWGXAp8PHgN/w0@fat_crate.local>
- <888f860d-4307-54eb-01da-11f9adf65559@suse.com>
- <20230531083508.GAZHcGvB68PUAH7f+a@fat_crate.local>
- <efe79c9e-1e31-adb9-8f93-962249bf01bb@suse.com>
- <20230531174857.GDZHeIib57h5lT5Vh1@fat_crate.local>
-In-Reply-To: <20230531174857.GDZHeIib57h5lT5Vh1@fat_crate.local>
-
---------------avHWsmjs7KZwzreMH8jZG9gZ
-Content-Type: multipart/mixed; boundary="------------rbANpMXHagpw1nH3ypDTwa0R"
-
---------------rbANpMXHagpw1nH3ypDTwa0R
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMzEuMDUuMjMgMTk6NDgsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gV2VkLCBN
-YXkgMzEsIDIwMjMgYXQgMDQ6MjA6MDhQTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToN
-Cj4+IE9uZSBvdGhlciBub3RlOiB3aHkgZG9lcyBtdHJyX2NsZWFudXAoKSB0aGluayB0aGF0
-IHVzaW5nIDggaW5zdGVhZCBvZiA2DQo+PiB2YXJpYWJsZSBNVFJScyB3b3VsZCBiZSBhbiAi
-b3B0aW1hbCBzZXR0aW5nIj8NCj4gDQo+IE1heWJlIHRoZSBtb3JlIGV4dGVuc2l2ZSBkZWJ1
-ZyBvdXRwdXQgYmVsb3cgd291bGQgaGVscCBhbnN3ZXIgdGhhdC4uLg0KDQpQYXRjaCAyIHdh
-bnRzIHRoaXMgZGlmZiBvbiB0b3A6DQoNCmRpZmYgLS1naXQgYS9hcmNoL3g4Ni9rZXJuZWwv
-Y3B1L210cnIvZ2VuZXJpYy5jIGIvYXJjaC94ODYva2VybmVsL2NwdS9tdHJyL2dlbmVyaWMu
-Yw0KaW5kZXggNTliNDhiZDgzODBjLi5jZTI1NGNhODljNjIgMTAwNjQ0DQotLS0gYS9hcmNo
-L3g4Ni9rZXJuZWwvY3B1L210cnIvZ2VuZXJpYy5jDQorKysgYi9hcmNoL3g4Ni9rZXJuZWwv
-Y3B1L210cnIvZ2VuZXJpYy5jDQpAQCAtNjU1LDcgKzY1NSw3IEBAIHN0YXRpYyBib29sIHNl
-dF9tdHJyX3Zhcl9yYW5nZXModW5zaWduZWQgaW50IGluZGV4LCBzdHJ1Y3QgDQptdHJyX3Zh
-cl9yYW5nZSAqdnIpDQogICAgICAgICBib29sIGNoYW5nZWQgPSBmYWxzZTsNCg0KICAgICAg
-ICAgcmRtc3IoTVRSUnBoeXNCYXNlX01TUihpbmRleCksIGxvLCBoaSk7DQotICAgICAgIGlm
-ICgodnItPmJhc2VfbG8gJiBNVFJSX1BIWVNCQVNFX1JTVkQpICE9IChsbyAmIE1UUlJfUEhZ
-U0JBU0VfUlNWRCkNCisgICAgICAgaWYgKCh2ci0+YmFzZV9sbyAmIH5NVFJSX1BIWVNCQVNF
-X1JTVkQpICE9IChsbyAmIH5NVFJSX1BIWVNCQVNFX1JTVkQpDQogICAgICAgICAgICAgfHwg
-KHZyLT5iYXNlX2hpICYgfnBoeXNfaGlfcnN2ZCkgIT0gKGhpICYgfnBoeXNfaGlfcnN2ZCkp
-IHsNCg0KICAgICAgICAgICAgICAgICBtdHJyX3dybXNyKE1UUlJwaHlzQmFzZV9NU1IoaW5k
-ZXgpLCB2ci0+YmFzZV9sbywgdnItPmJhc2VfaGkpOw0KQEAgLTY2NCw3ICs2NjQsNyBAQCBz
-dGF0aWMgYm9vbCBzZXRfbXRycl92YXJfcmFuZ2VzKHVuc2lnbmVkIGludCBpbmRleCwgc3Ry
-dWN0IA0KbXRycl92YXJfcmFuZ2UgKnZyKQ0KDQogICAgICAgICByZG1zcihNVFJScGh5c01h
-c2tfTVNSKGluZGV4KSwgbG8sIGhpKTsNCg0KLSAgICAgICBpZiAoKHZyLT5tYXNrX2xvICYg
-TVRSUl9QSFlTTUFTS19SU1ZEKSAhPSAobG8gJiBNVFJSX1BIWVNNQVNLX1JTVkQpDQorICAg
-ICAgIGlmICgodnItPm1hc2tfbG8gJiB+TVRSUl9QSFlTTUFTS19SU1ZEKSAhPSAobG8gJiB+
-TVRSUl9QSFlTTUFTS19SU1ZEKQ0KICAgICAgICAgICAgIHx8ICh2ci0+bWFza19oaSAmIH5w
-aHlzX2hpX3JzdmQpICE9IChoaSAmIH5waHlzX2hpX3JzdmQpKSB7DQogICAgICAgICAgICAg
-ICAgIG10cnJfd3Jtc3IoTVRSUnBoeXNNYXNrX01TUihpbmRleCksIHZyLT5tYXNrX2xvLCB2
-ci0+bWFza19oaSk7DQogICAgICAgICAgICAgICAgIGNoYW5nZWQgPSB0cnVlOw0KDQoNCg0K
-SnVlcmdlbg0K
---------------rbANpMXHagpw1nH3ypDTwa0R
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+References: <20230531213032.25338-1-vishal.moola@gmail.com>
+ <20230531213032.25338-26-vishal.moola@gmail.com> <CAMuHMdWCe=VsTJYNA_-k=JipeAGKzgBFjZ8i+XRK7U1DBei=7A@mail.gmail.com>
+In-Reply-To: <CAMuHMdWCe=VsTJYNA_-k=JipeAGKzgBFjZ8i+XRK7U1DBei=7A@mail.gmail.com>
+From: Vishal Moola <vishal.moola@gmail.com>
+Date: Thu, 1 Jun 2023 01:20:15 -0700
+Message-ID: <CAOzc2pzVEO_LSw1Ffwk1K3sXni_32wO0T+fEAnR6zVVB5x=vVA@mail.gmail.com>
+Subject: Re: [PATCH v3 25/34] m68k: Convert various functions to use ptdescs
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
+	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
+	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
+	xen-devel@lists.xenproject.org, kvm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Thu, Jun 1, 2023 at 12:40=E2=80=AFAM Geert Uytterhoeven <geert@linux-m68=
+k.org> wrote:
+>
+> Hi Vishal,
+>
+> On Wed, May 31, 2023 at 11:32=E2=80=AFPM Vishal Moola (Oracle)
+> <vishal.moola@gmail.com> wrote:
+> > As part of the conversions to replace pgtable constructor/destructors w=
+ith
+> > ptdesc equivalents, convert various page table functions to use ptdescs=
+.
+> >
+> > Some of the functions use the *get*page*() helper functions. Convert
+> > these to use pagetable_alloc() and ptdesc_address() instead to help
+> > standardize page tables further.
+> >
+> > Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+>
+> Thanks for your patch!
+>
+> > --- a/arch/m68k/include/asm/mcf_pgalloc.h
+> > +++ b/arch/m68k/include/asm/mcf_pgalloc.h
+> > @@ -7,20 +7,19 @@
+> >
+> >  extern inline void pte_free_kernel(struct mm_struct *mm, pte_t *pte)
+> >  {
+> > -       free_page((unsigned long) pte);
+> > +       pagetable_free(virt_to_ptdesc(pte));
+> >  }
+> >
+> >  extern const char bad_pmd_string[];
+> >
+> >  extern inline pte_t *pte_alloc_one_kernel(struct mm_struct *mm)
+> >  {
+> > -       unsigned long page =3D __get_free_page(GFP_DMA);
+> > +       struct ptdesc *ptdesc =3D pagetable_alloc(GFP_DMA | __GFP_ZERO,=
+ 0);
+> >
+> > -       if (!page)
+> > +       if (!ptdesc)
+> >                 return NULL;
+> >
+> > -       memset((void *)page, 0, PAGE_SIZE);
+> > -       return (pte_t *) (page);
+> > +       return (pte_t *) (ptdesc_address(ptdesc));
+>
+> No need to cast "void *" when returning a different pointer type.
+>
+> >  }
+> >
+> >  extern inline pmd_t *pmd_alloc_kernel(pgd_t *pgd, unsigned long addres=
+s)
+> > @@ -35,36 +34,36 @@ extern inline pmd_t *pmd_alloc_kernel(pgd_t *pgd, u=
+nsigned long address)
+> >  static inline void __pte_free_tlb(struct mmu_gather *tlb, pgtable_t pg=
+table,
+> >                                   unsigned long address)
+> >  {
+> > -       struct page *page =3D virt_to_page(pgtable);
+> > +       struct ptdesc *ptdesc =3D virt_to_ptdesc(pgtable);
+> >
+> > -       pgtable_pte_page_dtor(page);
+> > -       __free_page(page);
+> > +       pagetable_pte_dtor(ptdesc);
+> > +       pagetable_free(ptdesc);
+> >  }
+> >
+> >  static inline pgtable_t pte_alloc_one(struct mm_struct *mm)
+> >  {
+> > -       struct page *page =3D alloc_pages(GFP_DMA, 0);
+> > +       struct ptdesc *ptdesc =3D pagetable_alloc(GFP_DMA, 0);
+> >         pte_t *pte;
+> >
+> > -       if (!page)
+> > +       if (!ptdesc)
+> >                 return NULL;
+> > -       if (!pgtable_pte_page_ctor(page)) {
+> > -               __free_page(page);
+> > +       if (!pagetable_pte_ctor(ptdesc)) {
+> > +               pagetable_free(ptdesc);
+> >                 return NULL;
+> >         }
+> >
+> > -       pte =3D page_address(page);
+> > -       clear_page(pte);
+> > +       pte =3D ptdesc_address(ptdesc);
+> > +       pagetable_clear(pte);
+> >
+> >         return pte;
+> >  }
+> >
+> >  static inline void pte_free(struct mm_struct *mm, pgtable_t pgtable)
+> >  {
+> > -       struct page *page =3D virt_to_page(pgtable);
+> > +       struct ptdesc *ptdesc =3D virt_to_ptdesc(ptdesc);
+>
+> virt_to_ptdesc(pgtable)
+>
+> (You can build this using m5475evb_defconfig)
+>
+> >
+> > -       pgtable_pte_page_dtor(page);
+> > -       __free_page(page);
+> > +       pagetable_pte_dtor(ptdesc);
+> > +       pagetable_free(ptdesc);
+> >  }
+> >
+> >  /*
+> > @@ -75,16 +74,18 @@ static inline void pte_free(struct mm_struct *mm, p=
+gtable_t pgtable)
+> >
+> >  static inline void pgd_free(struct mm_struct *mm, pgd_t *pgd)
+> >  {
+> > -       free_page((unsigned long) pgd);
+> > +       pagetable_free(virt_to_ptdesc(pgd));
+> >  }
+> >
+> >  static inline pgd_t *pgd_alloc(struct mm_struct *mm)
+> >  {
+> >         pgd_t *new_pgd;
+> > +       struct ptdesc *ptdesc =3D pagetable_alloc(GFP_DMA | GFP_NOWARN,=
+ 0);
+> >
+> > -       new_pgd =3D (pgd_t *)__get_free_page(GFP_DMA | __GFP_NOWARN);
+> > -       if (!new_pgd)
+> > +       if (!ptdesc)
+> >                 return NULL;
+> > +       new_pgd =3D (pgd_t *) ptdesc_address(ptdesc);
+>
+> No need to cast "void *" when assigning to a different pointer type.
+>
+> > +
+> >         memcpy(new_pgd, swapper_pg_dir, PTRS_PER_PGD * sizeof(pgd_t));
+> >         memset(new_pgd, 0, PAGE_OFFSET >> PGDIR_SHIFT);
+> >         return new_pgd;
+>
+> The rest LGTM.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Thanks so much for the review! I'll make those changes in the next
+version.
 
---------------rbANpMXHagpw1nH3ypDTwa0R--
 
---------------avHWsmjs7KZwzreMH8jZG9gZ--
-
---------------TKrpmhFrL3wVlG7bmD5W5KrA
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmR4VHUFAwAAAAAACgkQsN6d1ii/Ey+J
-twf/eQjv8nuDSbYV2TCPrcrs+yZ/Jh9nuEt69gAXyJLlg62X3l+NThYbS8jT3yBmlIesvryNqixd
-W+Q29UtGgdqXjI/SpqWqCaMhNfRWrUFdXPfLZB4tsP8gi/nw/G6c4qvehl2WKOCI0F2LGxHtx+LV
-Ay+k2smkQaT1w6s4GU3sIcmi/+2Dd+ekm0ugo2aj2lQ2X6JpauyJ5hDqLm+KigQqbiPcaZ0Q7fzq
-937YGeNF6h1vkOVSDwWk2yxHlzRZ6b54WMY83z810obsLQnQsITDIMV8DOjDLszsoN3k3nxIQp4O
-odbvQrE3TePQ8ESO0vxg0K4qwk7LOoo9m0P8YykloQ==
-=fnFv
------END PGP SIGNATURE-----
-
---------------TKrpmhFrL3wVlG7bmD5W5KrA--
+> Gr{oetje,eeting}s,
+>
+>                         Geert
+>
+> --
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m6=
+8k.org
+>
+> In personal conversations with technical people, I call myself a hacker. =
+But
+> when I'm talking to journalists I just say "programmer" or something like=
+ that.
+>                                 -- Linus Torvalds
 
