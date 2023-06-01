@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1787871A024
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 16:34:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542583.846606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 998C971A067
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 16:38:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542592.846616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4jNZ-0003ho-4V; Thu, 01 Jun 2023 14:34:17 +0000
+	id 1q4jRZ-0004OS-L1; Thu, 01 Jun 2023 14:38:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542583.846606; Thu, 01 Jun 2023 14:34:17 +0000
+Received: by outflank-mailman (output) from mailman id 542592.846616; Thu, 01 Jun 2023 14:38:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4jNZ-0003f8-1G; Thu, 01 Jun 2023 14:34:17 +0000
-Received: by outflank-mailman (input) for mailman id 542583;
- Thu, 01 Jun 2023 14:34:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=e20s=BV=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1q4jNX-000390-MA
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 14:34:15 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 61518b82-0089-11ee-8611-37d641c3527e;
- Thu, 01 Jun 2023 16:34:14 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7E3AE1FDA9;
- Thu,  1 Jun 2023 14:34:13 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 676AA139B7;
- Thu,  1 Jun 2023 14:34:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id g+NjF2SseGTjTwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 01 Jun 2023 14:34:12 +0000
+	id 1q4jRZ-0004Lb-Hp; Thu, 01 Jun 2023 14:38:25 +0000
+Received: by outflank-mailman (input) for mailman id 542592;
+ Thu, 01 Jun 2023 14:38:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bFRJ=BV=citrix.com=prvs=509590c99=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1q4jRX-0004LV-FA
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 14:38:23 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f3da69a4-0089-11ee-b231-6b7b168915f2;
+ Thu, 01 Jun 2023 16:38:21 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,180 +36,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61518b82-0089-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1685630053; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IAdeXSJabeGGKNsb03xa8D/XXWlEFIu9Z5QHMJ3Opgk=;
-	b=l4JdkqJy5rwpZ4iwWO860llEQcsNzfi4rq7KMSN0F1HOElNFVvZVe1lV5acQkScEgI6Lde
-	d/cFhvOEOQvfjpvkylifiq2H5Qt7MX+fUQuhOsTNnD9mkd2NL2kSPlT+0oKRTx7yZdUS8u
-	cXVtkt0ACT13nDjOcVUmV3ew2A5DNEU=
-Message-ID: <57f6c455-4e62-963e-aae5-49abf7461d27@suse.com>
-Date: Thu, 1 Jun 2023 16:34:11 +0200
+X-Inumbo-ID: f3da69a4-0089-11ee-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1685630301;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=cS9WCOWJlS5yb6BIhP47joZYK01KQc2UU5TXtJ5OnQ0=;
+  b=QowgW3k9uFKmLtO2VDJpJU9RKHsQrz5NC8tnvFbxe9cZgUkUSMUutsgg
+   acZHviKkAhFHpbxLJ4L7ggVmd369dPHNOChNwcp4JRaje7fwpATtQtBOP
+   v6CAHyY6+7Q6ngncP7BbXxjOeOIF2tx1xIFl6LJpRcD8S3KHB9F9b8typ
+   I=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 109990665
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:JYjSFKmKBY8ZpHFx8V29bJLo5gydJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJLXjyOO66PY2LzKY9wYY2y/E8PupCGzN9rSQE9qH89QiMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE0p5KyaVA8w5ARkPqgV5AaGzBH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ aUUIhZSch2Ivu6V64unQdJr28McJta+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
+ ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglHWdTFCpU3Tjq0w+2XJlyR60aT3McqTcduPLSlQth/A9
+ zOXpzqnX3n2MvSw6yGj+Synwdbyuh7bdq1JTpSf/8Vl1Qj7Kms7V0RNCArTTeOCol6zXZdTJ
+ lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJ4Mcc39QWMwar8+BuCCy4PSTspQMMinN87Q3otz
+ FDhoj/yLWUx6vvPEyvbr+rK62roYkD5MFPuewddQQEjvMXuq7g/rTn2Ut1YF/OysdfqTGSYL
+ y+xkAAygLAajMgu3qq9/Ezajz/EmqUlXjLZ9S2MADv7s1oRiJqNItXxtAOFtaoowJOxFAHpg
+ ZQSpySJAAni57mpnTfFfugCFarBCx2tYGyF2g4H83XMGl2QF5+fkWJ4uWAWyKRBaJxsldrVj
+ Kj752tsCGd7ZifCUEOOS9vZ5z4W5abhD8/5cfvfc8BDZJN8HCfeonEzOBPPjz21yBV8+U3aB
+ Xt9WZz2ZZr9If02pAdaus9HieN7rszA7T67qW/HI+SPjuPFOS/9pUYtO1qSdOEphJ5oUy2Mm
+ +uzw/Cikk0FOMWnO3m/zGLmBQxSRZTNLcys+pM/my/qClYOJVzN/NeKmut/K9w0wv0J/goKl
+ 1nkMnJlJJPErSWvAW23hrpLM9sDgb4XQaoHABER
+IronPort-HdrOrdr: A9a23:XIuZS6jQCNLYvOe12cluiBsrK3BQX6p23DAbv31ZSRFFG/FwyP
+ re+cjzhCWE6gr5BktQ+uxoYJPwMk80laQZ3WEQVY3SJzUOy1HYXr2KjLGSgwEIfheVh4pgPM
+ hbAtdD4bHLfCFHZIPBkXmF+rUbsZq6GcKT9JnjJh5WJGkAB84PjmcJbXf8LqQ1fng2OXNTLu
+ vn2iMznUvdRZ1hVLXHOpBqZZm6m/T70LbdJTIWDR8u7weDyRmy7qThLhSe1hACFxtS3LYL6w
+ H+4knEz5Tml8v+5g7X1mfV4ZgTssDm0MF/CMuFjdVQAinwizyveJ9qV9S5zXQISaCUmREXee
+ v30k4d1vdImivsl6aO0EDQMjzboXATArnZuAWlaDXY0JHErXkBer98bMpiA2/kAgwbzZNB+Z
+ MO5nmesZVPCxPGgWDS2/jkPisayHackD4aiugUgGVYUYwCLJlrjaJa0n90Pf47bX3HAKZOKp
+ g/MCgZ3ocLAAKnRmGcsW91zNO2WHMvWh+AX0gZo8SQlyNbhXZj0iIjtYMid9g7hdoAorR/lq
+ n5255T5f1zZ95Tabg4CPYKQMOxBGCISRXQMHiKKVCiEK0cIXrCp5P+/b1wvYiRCd015Yp3nI
+ 6EXEJTtGY0dU6rAcqS3IdT+hSIRGmmRzzixsxX+pA8sLzhQ7jgNzGFVTkV4oWdiuRaBteeV+
+ e4OZpQDfOmJWzyGZxR1wm7QJVWIWl2arxehj/6YSPEnivmEPyiigWASoelGFPEK0dTZl/C
+X-Talos-CUID: 9a23:rsQqhWzwFcaGEM7briKABgVNFsoDLWHQx07cAGSBFW1ST+CSdlWPrfY=
+X-Talos-MUID: 9a23:iFPG3gYvRO4GIeBTmB33ojo8P4BR3oOTKG4iys8vnMC/Onkl
+X-IronPort-AV: E=Sophos;i="6.00,210,1681185600"; 
+   d="scan'208";a="109990665"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Alejandro Vallejo
+	<alejandro.vallejo@cloud.com>
+Subject: [PATCH] x86/ucode: Exit early from early_update_cache() if loading not available
+Date: Thu, 1 Jun 2023 15:38:13 +0100
+Message-ID: <20230601143813.1553740-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH v6 00/16] x86/mtrr: fix handling with PAT but without MTRR
-Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org,
- mikelley@microsoft.com, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Jonathan Corbet <corbet@lwn.net>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-References: <4c47a11c-0565-678d-3467-e01c5ec16600@suse.com>
- <20230511163208.GDZF0YiOfxQhSo4RDm@fat_crate.local>
- <0cd3899b-cf3b-61c1-14ae-60b6b49d14ab@suse.com>
- <20230530152825.GAZHYWGXAp8PHgN/w0@fat_crate.local>
- <888f860d-4307-54eb-01da-11f9adf65559@suse.com>
- <20230531083508.GAZHcGvB68PUAH7f+a@fat_crate.local>
- <efe79c9e-1e31-adb9-8f93-962249bf01bb@suse.com>
- <20230531174857.GDZHeIib57h5lT5Vh1@fat_crate.local>
- <fe33476d-0ec1-16f1-5874-8a5ff1650c3f@suse.com>
- <20230601132233.GCZHibmemkxYxvTjSu@fat_crate.local>
- <20230601143310.GDZHisJlbH5myXGQ8d@fat_crate.local>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230601143310.GDZHisJlbH5myXGQ8d@fat_crate.local>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------C1TJCTAVxCUY0FrAmz00Gqqp"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------C1TJCTAVxCUY0FrAmz00Gqqp
-Content-Type: multipart/mixed; boundary="------------NDYxO4taDq5YOM91RgNBPax0";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- linux-hyperv@vger.kernel.org, linux-doc@vger.kernel.org,
- mikelley@microsoft.com, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, Jonathan Corbet <corbet@lwn.net>,
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Message-ID: <57f6c455-4e62-963e-aae5-49abf7461d27@suse.com>
-Subject: Re: [PATCH v6 00/16] x86/mtrr: fix handling with PAT but without MTRR
-References: <4c47a11c-0565-678d-3467-e01c5ec16600@suse.com>
- <20230511163208.GDZF0YiOfxQhSo4RDm@fat_crate.local>
- <0cd3899b-cf3b-61c1-14ae-60b6b49d14ab@suse.com>
- <20230530152825.GAZHYWGXAp8PHgN/w0@fat_crate.local>
- <888f860d-4307-54eb-01da-11f9adf65559@suse.com>
- <20230531083508.GAZHcGvB68PUAH7f+a@fat_crate.local>
- <efe79c9e-1e31-adb9-8f93-962249bf01bb@suse.com>
- <20230531174857.GDZHeIib57h5lT5Vh1@fat_crate.local>
- <fe33476d-0ec1-16f1-5874-8a5ff1650c3f@suse.com>
- <20230601132233.GCZHibmemkxYxvTjSu@fat_crate.local>
- <20230601143310.GDZHisJlbH5myXGQ8d@fat_crate.local>
-In-Reply-To: <20230601143310.GDZHisJlbH5myXGQ8d@fat_crate.local>
+If for any reason early_microcode_init() concludes that no microcode loading
+is available, early_update_cache() will fall over a NULL function pointer:
 
---------------NDYxO4taDq5YOM91RgNBPax0
-Content-Type: multipart/mixed; boundary="------------02vIfnJHs0QvCdX0zN9z7j9g"
+  (XEN) Xen call trace:
+  (XEN)    [<ffff82d04037372e>] R show_code+0x91/0x18f
+  (XEN)    [<ffff82d040373a49>] F show_execution_state+0x2d/0x1fc
+  (XEN)    [<ffff82d040374210>] F fatal_trap+0x87/0x19a
+  (XEN)    [<ffff82d040647f2c>] F init_idt_traps+0/0x1bd
+  (XEN)    [<ffff82d04063854f>] F early_page_fault+0x8f/0x94
+  (XEN)    [<0000000000000000>] F 0000000000000000
+  (XEN)    [<ffff82d040628c46>] F arch/x86/cpu/microcode/core.c#early_update_cache+0x11/0x74
+  (XEN)    [<ffff82d040628e5c>] F microcode_init_cache+0x5a/0x5c
+  (XEN)    [<ffff82d04064388f>] F __start_xen+0x1e11/0x27ee
+  (XEN)    [<ffff82d040206184>] F __high_start+0x94/0xa0
 
---------------02vIfnJHs0QvCdX0zN9z7j9g
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+which is actually parse_blob()'s use of ucode_ops.collect_cpu_info.
 
-T24gMDEuMDYuMjMgMTY6MzMsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gVGh1LCBK
-dW4gMDEsIDIwMjMgYXQgMDM6MjI6MzNQTSArMDIwMCwgQm9yaXNsYXYgUGV0a292IHdyb3Rl
-Og0KPj4gTm93IGxlbW1lIHJlc3RhcnQgdGVzdGluZy4NCj4gDQo+IFRoaXMgaXMgZnJvbSBh
-bm90aGVyIGJveCwgd2l0aCB0aGUgbGF0ZXN0IGNoYW5nZXMgaW5jb3Jwb3JhdGVkOg0KPiAN
-Cj4gaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvYnAv
-YnAuZ2l0L2xvZy8/aD1yYzEtbXRycg0KPiANCj4gLS0tIHByb2MtbXRyci5iZWZvcmUgICAg
-MjAxMS0wMy0wNCAwMTowMzozNS4yNDM5OTQ3MzMgKzAxMDANCj4gKysrIHByb2MtbXRyci5h
-ZnRlciAgICAgMjAyMy0wNi0wMSAxNjoyODo1NC45NTk5OTk0NTYgKzAyMDANCj4gQEAgLTEs
-MyArMSwzIEBADQo+ICAgcmVnMDA6IGJhc2U9MHgwMDAwMDAwMDAgKCAgICAwTUIpLCBzaXpl
-PSAyMDQ4TUIsIGNvdW50PTE6IHdyaXRlLWJhY2sNCj4gICByZWcwMTogYmFzZT0weDA4MDAw
-MDAwMCAoIDIwNDhNQiksIHNpemU9IDEwMjRNQiwgY291bnQ9MTogd3JpdGUtYmFjaw0KPiAt
-cmVnMDI6IGJhc2U9MHgwYzAwMDAwMDAgKCAzMDcyTUIpLCBzaXplPSAgMjU2TUIsIGNvdW50
-PTE6IHdyaXRlLWJhY2sNCj4gK3JlZzAyOiBiYXNlPTB4MGMwMDAwMDAwICggMzA3Mk1CKSwg
-c2l6ZT0gIDEyOE1CLCBjb3VudD0xOiB3cml0ZS1iYWNrDQo+IA0KPiBXYW50IG10cnI9ZGVi
-dWcgb3V0cHV0IGFnYWluPw0KPiANCg0KWWVzLCBwbGVhc2UNCg0KDQpKdWVyZ2VuDQo=
---------------02vIfnJHs0QvCdX0zN9z7j9g
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Skip trying to cache anything if microcode loading is unavailable.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Fixes: dc380df12acf ("x86/ucode: load microcode earlier on boot CPU")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Found while doing something unrelated, but this is going to interact poorly
+with MCU_CONTROL_DIS_MCU_LOAD.
+---
+ xen/arch/x86/cpu/microcode/core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
---------------02vIfnJHs0QvCdX0zN9z7j9g--
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index 5a5c0a8c70db..9029301107d6 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -789,6 +789,9 @@ int __init microcode_init_cache(unsigned long *module_map,
+ {
+     int rc = 0;
+ 
++    if ( !ucode_ops.apply_microcode )
++        return -ENODEV;
++
+     if ( ucode_scan )
+         /* Need to rescan the modules because they might have been relocated */
+         microcode_scan_module(module_map, mbi);
 
---------------NDYxO4taDq5YOM91RgNBPax0--
+base-commit: 59d0bf62861f5c9b317ccf89f8b5c8b4d19927ad
+prerequisite-patch-id: c3f6ae7def85b63808449493e3b5185bc40c405d
+prerequisite-patch-id: 59a20dfb4778c62bf512f746e36b1bea0949b0a8
+prerequisite-patch-id: a70c8dd42245affe402b08cacd5872b5a32a6d69
+prerequisite-patch-id: 3efc26e008858670286c173f77f8ec34ddfd9df1
+prerequisite-patch-id: 5f6ddddf7dd6029f401d13bbb87ac3bb88c15700
+prerequisite-patch-id: 4133b7d49c978a89042e95f899f46c4ec4ac4498
+prerequisite-patch-id: d2d3a24a650f6b1b50e279be158cdd097eb43a4b
+prerequisite-patch-id: 358299b6b56983e3c069ea1f30e7cf214b0a2c54
+prerequisite-patch-id: b17530cf5672ada3e7792606b7a3bef55c8aa372
+prerequisite-patch-id: e9bc40cc80e61b24d90eeb7097cd9b703f0170a6
+-- 
+2.30.2
 
---------------C1TJCTAVxCUY0FrAmz00Gqqp
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmR4rGQFAwAAAAAACgkQsN6d1ii/Ey/x
-MAf9GZ/T8pb6wAxfvYqCDNKdUzl3D1fXrPkS3u6l/Vj2NHKre0u1b+cUNHDlwF3PwoAkI43OLQ1S
-GhTaKIrbEKqIdXStfbMez5F8zpNJa6bBhEDzYUsKaDSK4iq2imLXTLQ9oUS33kq+79R/ip1A27ih
-J7hZcr6JQyD8QHDqHDzDc6av271b7Tpk90qt53PJqGoWlkmiLEEMT4r4Q5QBGsyKMORH24VRS0Pl
-d/sS68BzaWwaNt78wizf5lhac0Ldtn79b9yM5BlxFJmD9x1PiRrJxo9B1aD1tQxj3qMLYGgZ9jxz
-t8pFc/216+o3O43qws6x+s2kTVoDFDJskjtcg/tGBQ==
-=lKYI
------END PGP SIGNATURE-----
-
---------------C1TJCTAVxCUY0FrAmz00Gqqp--
 
