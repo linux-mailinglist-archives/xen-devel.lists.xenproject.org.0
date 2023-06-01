@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A43A471F415
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 22:45:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542729.846925 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A5D271F50A
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 23:49:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542746.846982 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4p90-0005Or-Ql; Thu, 01 Jun 2023 20:43:38 +0000
+	id 1q4q9t-0003t7-3A; Thu, 01 Jun 2023 21:48:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542729.846925; Thu, 01 Jun 2023 20:43:38 +0000
+Received: by outflank-mailman (output) from mailman id 542746.846982; Thu, 01 Jun 2023 21:48:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4p90-0005Mp-O1; Thu, 01 Jun 2023 20:43:38 +0000
-Received: by outflank-mailman (input) for mailman id 542729;
- Thu, 01 Jun 2023 20:43:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q4q9t-0003ql-0M; Thu, 01 Jun 2023 21:48:37 +0000
+Received: by outflank-mailman (input) for mailman id 542746;
+ Thu, 01 Jun 2023 21:48:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z8Gk=BV=gmail.com=vishal.moola@srs-se1.protection.inumbo.net>)
- id 1q4p8y-0005Mj-P9
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 20:43:36 +0000
-Received: from mail-yw1-x112c.google.com (mail-yw1-x112c.google.com
- [2607:f8b0:4864:20::112c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f87521dc-00bc-11ee-8611-37d641c3527e;
- Thu, 01 Jun 2023 22:43:32 +0200 (CEST)
-Received: by mail-yw1-x112c.google.com with SMTP id
- 00721157ae682-565ba53f434so13144557b3.3
- for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 13:43:32 -0700 (PDT)
+ <SRS0=3NUk=BV=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1q4q9r-0003qa-Oe
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 21:48:36 +0000
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0c6fac26-00c6-11ee-b231-6b7b168915f2;
+ Thu, 01 Jun 2023 23:48:33 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 6CF635C019F;
+ Thu,  1 Jun 2023 17:48:30 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Thu, 01 Jun 2023 17:48:30 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Jun 2023 17:48:29 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,111 +43,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f87521dc-00bc-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20221208; t=1685652211; x=1688244211;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=F1D8lVOaAVBWbT9t2RmOD+26281abLHxtrNSt32Ap24=;
-        b=qLgbJbj5g8WGk9vr+h5GU3VAGYoZuUQfYy+Jk03a6BWdaBQStekzq99EEhSRb/apVE
-         r1wG5klq4xTuvlp4fzfvGwGvXsPOH5Z+EGzZ3xDm5VuokYBfnX2Z7EeXpvrNqoMOmFfA
-         JBLO6CGLz8pEI44d71tWawLxUIyiVrcZLnzOInnX4NDx0adjPFt4WqdjoFpvwTeJeP42
-         YdR8VtfFc5+TjUwWFHzsShyWmg/NGqDFZTc1nDT9EKaeGOrhYp9pTMhkn6c++xEXcw0Z
-         7/JenW6z+3FLVb69Ur5a6g5NHDXYEBFsl6KltuWvHl5pgiI7Ar5zj9KICtB4zwOfTiPP
-         PMcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685652211; x=1688244211;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=F1D8lVOaAVBWbT9t2RmOD+26281abLHxtrNSt32Ap24=;
-        b=WOCfScc07ohUUNF8CAwVrYjyuNZs4t/au85IQuZZ9VGvuSbkMA8lYIkxpm+EOLYyai
-         1tbjV9l6ApXrygZEgesfZtwW1WUyDl/1pL9RZKu8r4og2fm1HqB02XA9KLLqnVnR7p9U
-         efBhGOug1akUnfW/eClBUTc3EWCJTJ/rzrMgLCrDNv5aAh5KE1leIHvkV/SWGGHZz1rF
-         ++sZI78TbKTF/N4qCzvjihJVLLTdK6Jsm/UOS8xfPW6PGkC7LnsWv4Sv9Oauaon1nlN2
-         PU7Q6/MAGLB5q30v67ce/H9CGHkuGKBI9hzUHAtmibYKeyaGq5Itekb4JIUDlfAYmEMs
-         4XoA==
-X-Gm-Message-State: AC+VfDx5qqLIdCUfEau5jNF6PDbCRIDpohEyrZjHld87DmAn8xkcAP6p
-	0r0pXv0QjMDFb3z4TSfSedkUmS5LbDKTIj3Seck=
-X-Google-Smtp-Source: ACHHUZ5DfuhGus+PqmBDfDw3I8CUwiopOPmtEZnOXp6mFa4otjE0OnORW5aklQp2qVjtyKAx2ImFFxSDC1ok71Q6xew=
-X-Received: by 2002:a0d:e84b:0:b0:565:f045:18c3 with SMTP id
- r72-20020a0de84b000000b00565f04518c3mr10614817ywe.20.1685652211220; Thu, 01
- Jun 2023 13:43:31 -0700 (PDT)
+X-Inumbo-ID: 0c6fac26-00c6-11ee-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1685656110; x=1685742510; bh=bdCjoPxZZnywq2ne1+ZsCnnZgLbVMiaq/28
+	6mmmutp8=; b=I0u/vVfS+aQQ+0NyvrXyNE7UrhtCpWYEUyH1yA0k/YaGnrGS1c4
+	01wX2m+YKT/91fE3cXoj2QWpReEjBxmHwt5e3iLj/NGc6cCtFq3rH3pg3YkB0uBn
+	1yOG7XVTHtywUBGOD7jcMvEfhcFn2XycCQ94zyBmXtvcbFAzjgCaYRINelnUIKry
+	x8FM/Mb5Vusn8uNuo2jGxB4PXKixN2Phe7XX7Dv4WDgWxC+YSuPAB+1930fxc+CA
+	UnVyPVrdlCOILz/V7KB8Wzxh36K1FArblj5uzC/CuaywBwsWuysCIdg9W5lHIY1f
+	qbLdhltA9X6KZBNUAxp1PAFLsnHenkY2v2Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1685656110; x=1685742510; bh=bdCjoPxZZnywq
+	2ne1+ZsCnnZgLbVMiaq/286mmmutp8=; b=nvwzhuTV4f1CsVyy62FIihquWO3e0
+	KQQQjF3F4jxnPqzwepUo1AHzpLTusGT/UKSoj1LyX8P+/aO37Bpx8rJ3a9unNBQS
+	QUKindqIqfnlk9gYOA77MYLpc3RjggpZv4FagjqKDzSvKaeDYUEdlZkeBqsdVrqX
+	DwC3qhTc9+H0bwmwqMGne4mvbFzgcNidqo9TaXfjw4Pi/kmoAY2bpPR8jC7Czfkf
+	yTDFOqv+QX/WkQCGZlCdt6cglPlOVqYaiOz9lQifAoj1p0ynbx8JlumKVndpucH7
+	IeBZR7GsMxR+Wzk8YHyGTFaZzdNlCLOp6W4ntfVY3O7kqGTEmbrdgcZXA==
+X-ME-Sender: <xms:LhJ5ZFZZClwFk0Ne2HPNiOtA0frPkOyXxnrLHbhGlK_SWZ_O_tZMkA>
+    <xme:LhJ5ZMZp6bPz1ISVb3Sj3Y4HgmBFMo5MY4XRDXfCYvLGl16zrXzijQPG2-JfvTqvr
+    9DWOzd698LyGrw>
+X-ME-Received: <xmr:LhJ5ZH9FUn3zN2bK9M25oxNIB7K4UnUEBtyV_oUFsNEKtphcWDFips6MBg0kPM5BvZ9VT550Hvc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeelvddgtddvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvvefufffkofgggfestdekredtredttdenucfhrhhomhepffgvmhhiucfo
+    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
+    grsgdrtghomheqnecuggftrfgrthhtvghrnhepvdefgeekvdekgfffgeekhfeijedtffek
+    hefhleehfeejueetgfelgefgtdevieelnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
+    hrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgr
+    sgdrtghomh
+X-ME-Proxy: <xmx:LhJ5ZDodb76AlZos5MY2H6cYjcTBELvi5XZh6GIf2CSYgC0ahui4YA>
+    <xmx:LhJ5ZApSTWMU-6y87qwpel-P4at-CbmpDB-A1o_xP2hr1WeHicgINw>
+    <xmx:LhJ5ZJSGv40_8oLElEsspFZidDrrHaOQWytQY-jnaLcPvDa7uRStfg>
+    <xmx:LhJ5ZJnsAKkvM9L7uhAIKJheg_SzhhDmSXyBucJc9EeV6BZNlsdcfA>
+Feedback-ID: iac594737:Fastmail
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] xen/blkback: support delete-on-close block devices
+Date: Thu,  1 Jun 2023 17:48:21 -0400
+Message-Id: <20230601214823.1701-1-demi@invisiblethingslab.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-References: <20230531213032.25338-1-vishal.moola@gmail.com>
- <20230531213032.25338-4-vishal.moola@gmail.com> <20230601151900.6f184e8c@thinkpad-T15>
-In-Reply-To: <20230601151900.6f184e8c@thinkpad-T15>
-From: Vishal Moola <vishal.moola@gmail.com>
-Date: Thu, 1 Jun 2023 13:43:20 -0700
-Message-ID: <CAOzc2pyjLh_GV1PL7CPkkPGcASHULhir_rJgB+UhwzPgQZD8Bw@mail.gmail.com>
-Subject: Re: [PATCH v3 03/34] s390: Use pt_frag_refcount for pagetables
-To: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
-	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org, 
-	David Hildenbrand <david@redhat.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Hugh Dickins <hughd@google.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 1, 2023 at 6:19=E2=80=AFAM Gerald Schaefer
-<gerald.schaefer@linux.ibm.com> wrote:
->
->  On Wed, 31 May 2023 14:30:01 -0700
-> "Vishal Moola (Oracle)" <vishal.moola@gmail.com> wrote:
->
-> > s390 currently uses _refcount to identify fragmented page tables.
-> > The page table struct already has a member pt_frag_refcount used by
-> > powerpc, so have s390 use that instead of the _refcount field as well.
-> > This improves the safety for _refcount and the page table tracking.
-> >
-> > This also allows us to simplify the tracking since we can once again us=
-e
-> > the lower byte of pt_frag_refcount instead of the upper byte of _refcou=
-nt.
->
-> This would conflict with s390 impact of pte_free_defer() work from Hugh D=
-ickins
-> https://lore.kernel.org/lkml/35e983f5-7ed3-b310-d949-9ae8b130cdab@google.=
-com/
-> https://lore.kernel.org/lkml/6dd63b39-e71f-2e8b-7e0-83e02f3bcb39@google.c=
-om/
->
-> There he uses pt_frag_refcount, or rather pt_mm in the same union, to sav=
-e
-> the mm_struct for deferred pte_free().
->
-> I still need to look closer into both of your patch series, but so far it
-> seems that you have no hard functional requirement to switch from _refcou=
-nt
-> to pt_frag_refcount here, for s390.
->
-> If this is correct, and you do not e.g. need this to make some other use
-> of _refcount, I would suggest to drop this patch.
+These two patches allow userspace to provide an expected diskseq of a
+block device and discover when blkback has opened the device.  Together,
+these features allow using blkback with delete-on-close block devices,
+such as loop devices with autoclear set.
 
-The goal of this preparation patch is to consolidate s390's usage of
-struct page fields so that struct ptdesc can be smaller. Its not particular=
-ly
-mandatory; leaving _refcount in ptdesc only increases the struct by
-8 bytes and can always be changed later.
+Demi Marie Obenour (2):
+  xen-blkback: Implement diskseq checks
+  xen-blkback: Inform userspace that device has been opened
 
-However it is a little annoying since s390 is the only architecture
-that egregiously uses space throughout struct page for their page
-tables, rather than just the page table struct. For example, s390
-gmap uses page->index which also aliases with pt_mm and
-pt_frag_refcount. I'm not sure if/how gmap page tables interact
-with s390 process page tables at all, but if it does that could
-potentially cause problems with Hugh's patch as well :(
+ drivers/block/xen-blkback/xenbus.c | 147 ++++++++++++++++++++++++-----
+ 1 file changed, 124 insertions(+), 23 deletions(-)
 
-I can add _refcount to ptdesc if we would like, but I still
-prefer if s390 could be simplified instead.
+-- 
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
 
