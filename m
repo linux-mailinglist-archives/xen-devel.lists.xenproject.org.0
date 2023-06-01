@@ -2,56 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35FE0719B20
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 13:49:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542417.846261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7B39719B26
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 13:51:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542425.846271 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4gng-0001rt-RK; Thu, 01 Jun 2023 11:49:04 +0000
+	id 1q4gpK-0003b1-4e; Thu, 01 Jun 2023 11:50:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542417.846261; Thu, 01 Jun 2023 11:49:04 +0000
+Received: by outflank-mailman (output) from mailman id 542425.846271; Thu, 01 Jun 2023 11:50:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4gng-0001pM-NK; Thu, 01 Jun 2023 11:49:04 +0000
-Received: by outflank-mailman (input) for mailman id 542417;
- Thu, 01 Jun 2023 11:49:03 +0000
+	id 1q4gpK-0003Yj-1B; Thu, 01 Jun 2023 11:50:46 +0000
+Received: by outflank-mailman (input) for mailman id 542425;
+ Thu, 01 Jun 2023 11:50:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4ef9=BV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1q4gnf-0001lc-6s
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 11:49:03 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on20622.outbound.protection.outlook.com
- [2a01:111:f400:7e8c::622])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4bf8c047-0072-11ee-b231-6b7b168915f2;
- Thu, 01 Jun 2023 13:49:01 +0200 (CEST)
-Received: from BN9PR03CA0480.namprd03.prod.outlook.com (2603:10b6:408:139::35)
- by BY5PR12MB4259.namprd12.prod.outlook.com (2603:10b6:a03:202::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.22; Thu, 1 Jun
- 2023 11:48:56 +0000
-Received: from BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:139:cafe::9) by BN9PR03CA0480.outlook.office365.com
- (2603:10b6:408:139::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23 via Frontend
- Transport; Thu, 1 Jun 2023 11:48:56 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT005.mail.protection.outlook.com (10.13.176.69) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.23 via Frontend Transport; Thu, 1 Jun 2023 11:48:56 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Jun
- 2023 06:48:56 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Jun
- 2023 04:48:55 -0700
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 1 Jun 2023 06:48:54 -0500
+ <SRS0=mSga=BV=citrix.com=prvs=509a852a5=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1q4gpI-0003Yd-5i
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 11:50:44 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 88b7fdd6-0072-11ee-b231-6b7b168915f2;
+ Thu, 01 Jun 2023 13:50:42 +0200 (CEST)
+Received: from mail-dm6nam10lp2108.outbound.protection.outlook.com (HELO
+ NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.108])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 01 Jun 2023 07:50:40 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by DS7PR03MB5478.namprd03.prod.outlook.com (2603:10b6:5:2c7::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.24; Thu, 1 Jun
+ 2023 11:50:39 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::192:6bdf:b105:64dd]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::192:6bdf:b105:64dd%3]) with mapi id 15.20.6433.024; Thu, 1 Jun 2023
+ 11:50:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,178 +49,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bf8c047-0072-11ee-b231-6b7b168915f2
+X-Inumbo-ID: 88b7fdd6-0072-11ee-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1685620242;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=kIIX5L576OT6ux2p/dIWfslNIOHQfxGlkj91okEyvIQ=;
+  b=a3eycGApy3LsFENeBq4zdXKHjQRijQx96ZUsF3GKcvPe38ky3EzjWn4Y
+   IRBgQI+fOm6SE6NYEbIC0PcmRcWNDkKw/E3maqWvWTMg7mIQDd2RY5A4i
+   ot6K4b9pAorbsXWIT/GJU2EAhWHuCQeNc+nr6WI3qx3q2F9oKAzul/Jip
+   E=;
+X-IronPort-RemoteIP: 104.47.58.108
+X-IronPort-MID: 110541988
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:46KQPKpnNHV6mmGMx+izx1jvV5BeBmI+ZBIvgKrLsJaIsI4StFCzt
+ garIBmHbPqIZzT1KI9/bYvl8UhTvZ+GydIyTQtspSwwHitApJuZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GtwUmAWP6gR5weAzyBNV/rzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXAD8sagKGhNuO+fWmE7g8o/QBFcfCOoxK7xmMzRmBZRonabbqZvySoPN9gnI3jM0IGuvCb
+ c0EbzYpdA7HfxBEJlYQDtQ5gfusgX78NTZfrTp5p4JuuzSVkFM3jeiraYKFEjCJbZw9ckKwv
+ GXJ8n6/GhgHHNee1SCE4jSngeqncSbTAdtKSeHhp6466LGV7lEYTxpRegO4mOCgzWygQOMHE
+ WYk3BN7+MDe82TuFLERRSaQonSJoxodUNp4CPAh5UeGza+8yxaUAC0IQyBMbPQitdQqXno62
+ 1mRhdTrCDdz9rqPRhq16bO8vT60fy8PIgc/iTQsSAIE55zvpd81hxeWFtJ7Svft3pvyBC36x
+ C2MoG4mnbIPgMUX1qK9u1fanzaroZuPRQkwjunKYl+YAspCTNbNT+SVBZLzt56s8K7xooG9g
+ UU5
+IronPort-HdrOrdr: A9a23:RKGPNKyCB5U+F5OlceE9KrPxS+gkLtp133Aq2lEZdPULSKGlfp
+ GV9sjziyWetN9wYh4dcB67Scy9qFfnhOZICO4qTMyftWjdyRKVxeRZgbcKrAeBJ8STzJ8/6U
+ 4kSdkFNDSSNykEsS+Z2njeLz9I+rDunsGVbKXlvhFQpGlRGt1dBmxCe2Km+yNNNWt77c1TLu
+ vg2iMLnUvoRZxRBf7LdUUtbqzmnZnmhZjmaRkJC1oO7xSPtyqh7PrXAgWVxRAXVhJI2PMH/X
+ LemwL0y62/u7XjoyWsmlP73tBzop/M29FDDMuDhow8LSjtsB+hYMBMSqCPpzc8pcCo8RIPnM
+ PXqxktEsxv4zf6f32zozHqxw78uQxeoUPK+Bu9uz/OsMb5TDU1B45ogp9YSALQ7w4FsMtn2K
+ xG8mqFv94PZCmw1xjV1pztbVVHh0C0qX0tnao6iGFea5IXbPt0oZYE9E1YPZ8cFGbR6ZwhEs
+ NpEMbAjcwmOW+yXjT8hC1C0dasVnM8ElOvRVUDgNWc13xskHVw3yIjtbgit0ZF0Kh4Z4hP5u
+ zCPKgtvqpJVNUqYaV0A/pEaderC0TWKCi8cV66EBDCLuUqKnjNo5n47PEe/+exYqEFy5M0hd
+ DoTE5Yj2gvYEjjYPf+kqGjyiq9A1lVYA6diP23v/NCy/jBrfvQQGK+oWkV4oudS651OLyeZx
+ 6xUKgmdsMLY1GeXrqh5DeOK6W6GUNuLvH9hexLKm5mgvi7XbEC5darBsr7Ff7KLQsOfF/ZLz
+ 8qYAXTTf8wnHxDHEWIzCTsZw==
+X-Talos-CUID: 9a23:1HG7NWMLmXMZj+5DVwhj5ksXI/gcNWCEnSf1E22BB09vR+jA
+X-Talos-MUID: 9a23:jHBPgwunc3aIMg6TCM2nuTolM4BHu6eXEVlKs4sdipG+HxxWAmLI
+X-IronPort-AV: E=Sophos;i="6.00,210,1681185600"; 
+   d="scan'208";a="110541988"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CaOgXT2SENJ+9E1CrgyFXq2bm6xPmXHEMLbnTKG+O0lGp91n52YpAHTx2GNZAQf5hfw65FSFOIp2g4jZhWLk9V9AoobJYabyZvruBfcm4tlv4szbvSG5rEQQlAiOFEmU23qq9uJ72El5xVLOlxp/goOJG1bcpMfDtpVMR/fOZaYqSmAGAxFkp/zfaul65jjx/XLzIFTaUhsDWxRKIsFtz3mf5D/+f+pU2hQtcKOQbj4naZpT0EYCH0l68+6dFCMHxKurwdfXkPO99XPEjMK+4RBmjgJ9Ta7b9NsBkaifI4eNG2cbDZfPQm4SJFX9Lh/zr1lbSPTonc86ZzjLmDgp9Q==
+ b=AYulKnFJaXQ9AokybLzD+MUTal5zhcKOIz7xbSAzCdr+s28EiltV3MSiAPoyt9LK6k5w5nB3stbeyvt45KJsQdi3c2ZVrSVhWahX0ONP0xTkcTEUJIQ2rnc+L8QFKJDAV6QSJOkcfx5Sawg8WQJesCyqmmJO3QTuxmwJre8HPiL8UL2jULoT70Ks8pC+nIzOa/ompz9gEIAql5KlWFdBZ0KQnZIBm29oxIQU4ZmiYOwM90dOHCTCkw2b9So/ghKnlQJQ0wajyUTBTTgUoaqAjev4CpBrXM+dpgJ/uYll4HeaP2j6xp5TqQJQI40z9RM2tYZXaC2w8V8hWVSLE3jhug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uwY0cRq5yi/CyxEQ7rTTlWH1c9ghdBx9hVPEYMUHfHQ=;
- b=XkNNEoBwz84Kntjf8eOmBKliMqq1JIQIBNPZsjudc8Oqq75f/1Favg8H5DnoZ43pVOw8+0gBSW/2QxzzCAcRaKDLLI5pNDyVpQWVMt/mFAxrG1C6i/LkzMFmp9BcXThXBrQ5jIxTVmtvNH2wY64bn/gZ8Efx3nb4N+YQTTk0GcqeD5FIM31xEZhPdpWeiw2p0hxUu4yJ0W0c+PA1n7Z4PSa21TUTbmvnxBfYL4HIdHndfBMfY1Z2/qgtJZKLaIu4IaAU510GadAoK8oJpeoU7j9wdjWkfRSyBupfICYxBKLmkV2VYLMAI96t4oMloX8UliEqnw+12zfHfsl8HWKqMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=xGzawwoC9UY5qFe214NgHVjE2gGttr1uXclxyjAc6rU=;
+ b=KMXRQPqP6RTlnrvgnx/5iV7oeIbkKaJmbb9GC9Xh9K+AzF5zdDXemB832cYFY+2FD5hq4ABsQDjRnhQcASbu078RL2ZRnGZLfxDyQC4Z6JsxDZ4pnF4cBOK4Gv33QOPBMLoQIiwb5GZwPA4VGbt03zwXyptUotQVXSJQZoHS4iHh37eWfpzACLfUjNilU8mOSSUYrrGFyZ8fHTPEUj10cvaINy1UTObQaA+0Mldw0+LjzJ5RSB94zo9OR9DsoYW1MQ7xHERma7n0jYr21oZ6ubGu1sBtyEEQzIi7pU4Sd940s8ZcmvwtiVhl2dFYLKvis1vP3+dG+4gAIe0dfpJE2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uwY0cRq5yi/CyxEQ7rTTlWH1c9ghdBx9hVPEYMUHfHQ=;
- b=AM43o2DYgJ9JeZV3wQn3T/kxj5P334sfjouogLmSL5U4oBgUHyAgwXrec4ZP82uJUee08saso2zeTYxjUGI7gFXi+binwnzD7YI0s0qES4HOLSgcWjyMVLEyZzVNlJedrjMglo5HVU7D4w13ti2cqERILmIUaXnKfZCAw+JjIjo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <703ccd1b-1908-4f5b-3b48-e02d317a2090@amd.com>
-Date: Thu, 1 Jun 2023 13:48:54 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH] xen/arm: debug-pl011: Use 32-bit accessors for broader
- compatibility
-Content-Language: en-US
-To: Julien Grall <julien.grall.oss@gmail.com>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230601085001.1782-1-michal.orzel@amd.com>
- <7C760D1D-DAAE-48AC-8B2B-E6140452BE4A@arm.com>
- <73a143ee-8301-e0c0-a3fc-83ec10441c4c@amd.com>
- <CAJ=z9a3iZHwXPwWiJykeSJbi0YvfD-L6SO3LxxRom=DPAqPuVg@mail.gmail.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <CAJ=z9a3iZHwXPwWiJykeSJbi0YvfD-L6SO3LxxRom=DPAqPuVg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+ bh=xGzawwoC9UY5qFe214NgHVjE2gGttr1uXclxyjAc6rU=;
+ b=LJBXWakY8Snvo/2NWov4ELf6yvVuEZNPezQJSkqDp+vq/zDa7er1fiV2m1lotzZFGsuM2XEaW2jWbu3/ru9NF8FNAtMeKk6o/nUA47ueplBiPP9YG1A9InDLVOn8agKo9nZulEet7T6GFFJQM4qkpPYqcCIcZhJvJENk51+Tjts=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Thu, 1 Jun 2023 13:50:33 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 1/2] x86/vPIT: re-order functions
+Message-ID: <ZHiGCblQD42qfoY8@Air-de-Roger>
+References: <fd113adc-6d66-5a4f-78ee-766c197ced93@suse.com>
+ <b6cbf871-53a6-15ee-99d5-0ad2ab9c8b80@suse.com>
+ <ZHhiLgI0oL7jvKNc@Air-de-Roger>
+ <cf17abea-0ca2-5794-aa29-3d9c91355d4f@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+In-Reply-To: <cf17abea-0ca2-5794-aa29-3d9c91355d4f@suse.com>
+X-ClientProxiedBy: LO4P123CA0352.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18d::15) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT005:EE_|BY5PR12MB4259:EE_
-X-MS-Office365-Filtering-Correlation-Id: b655b705-f8e8-4bcf-36c2-08db62962e35
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|DS7PR03MB5478:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8972d64a-337d-4841-c18a-08db62966b49
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	SnfQ0RmhINA9wficcgvjoQrJXe2w1MpLfk7a6PNdMenz1Lqx6T/Ij45JHPGYvXgzOx6RIlBuoGbHxMjThzi+FERMLg1z+JB/5g2HmdpZoiwDH+/gMnza2UndPMVFGb+L7cvOcbOY2IAI2Ij9JaJkBPOMosBgjFjVOWIxV5QUJV0Ym4p6rIJuYj1ESDkPgnpK0jrroOsTplIJBZgWN9HK7ay+rw730aZ6XJC1gqFni2AMK4oUB78SKyU7vSgsX8lO/8tTDTl/UgCy+ul+gdnTYb00243U/vjh4yjiQTFPeEothy8QDKDfR35NXbHvG5i460eN1zOWlXBesAgRJZelfQf0ZnQklhoSpHAUPs/gu/RQzSETfqoPHdeGSubnkNIvCZijwCQ5i4Oyv8dXNt8RCs1csueFxhnS7pDrIlrsNFhve4s6HqqMv37JWscA2kQcT96VwVxMisfwyeTeMYP4NYvASUGmheSmOa3MokQVQPcuRSddB28QKrYpuIxlegDb/225f4hsTE7uGjQozpu4f+og2qB15mXU39yrQL3sm7Ryr44vdL3w5i4EIWAUa9TAXNsvisJlWCb5cHlYpvb6rnaMotOAhCJd1c2yELXGriXj7zft50zAfYavHmr64aO9uVoJOIVwKgNIwawGFLnJAcQaSN4ZyMaFwGyryWsUUK+ASfZz72lyc6YmqP7i31TTNP8Yd14cX+TEguEs1fi/33ld2SUTBZnUvqQ+vAXwuP/XnUab3zPGO+dcyRtV2a95kX8kxrllnUKQP3VLmLfoXnODgEZP9b/3dvMcN/e4YNw=
+	lHKbjYe4x2KHdRdotR6qcbpcCuubbCjmH8cfB+yBnT5kKqImATJvBjInL/5+Vp4RVLx3EUoHVA5p2pxvbEzV8IjhcQBx8+PMcXtugQM4GKP4tIuipKkpLYW0qBSJ+yBoBwYAwFN32yLlhKFzS0CMdCENGdaVpDu8017yYHRgBr3keVP/oEbHLxJNTqQxupuj4w3Kb4ijRWlmtlz/WU/1iVX1FQPAtekeSRgJof8cWNp6LoqFFfFjLc6ualr9scp1Yn88O8QQCixl2+0CZDeENhjBd66VPiI+pa/xbkusp4O+814ckVA+Sydxv0Yrwcl1YGVqNTnSJF1q0JW+ZMtjqW7a058XrxWkpDhk6p/iH8rISr6hKdw2BOl+yzDsgPpS89gWjZcXRGF3hbSztzmsFWOkJzEHL8P8ACE1S+3D+YwENMF9886F3t4X80uoGtxDczEdOPT2gerdp7zknitF5yzuzNzaJnmmzZpycXXm5GG9YYCoOaTuLy/zF8uVNN76S/uhFSC+kVJrXnahgHUyxQY9CimhnBxUl3kaEZg6SPQpZJZ9Gw8u2S1rm9EDtRVsagCI5t5l/FcLmctnPczbBfpaATyS+CP/pXhJw4wcKqg=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(39860400002)(136003)(346002)(451199021)(40470700004)(36840700001)(46966006)(41300700001)(40460700003)(5660300002)(186003)(82310400005)(8936002)(40480700001)(8676002)(53546011)(36756003)(6916009)(36860700001)(26005)(4326008)(16576012)(356005)(44832011)(81166007)(316002)(2906002)(54906003)(70206006)(83380400001)(70586007)(31686004)(426003)(47076005)(336012)(478600001)(2616005)(31696002)(82740400003)(86362001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 11:48:56.2444
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(7916004)(346002)(396003)(366004)(39860400002)(376002)(136003)(451199021)(83380400001)(33716001)(85182001)(4326008)(82960400001)(41300700001)(38100700002)(316002)(8676002)(6666004)(53546011)(66476007)(9686003)(6506007)(6512007)(26005)(66946007)(6486002)(6916009)(66556008)(86362001)(2906002)(8936002)(54906003)(5660300002)(478600001)(186003)(169823001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MVFaMS9oSkFOdjRiMFN0OGFjSVFvb2dHejc4Q0RKVTVZY05jTWpNNTNub0tR?=
+ =?utf-8?B?ZWN3NkR6Z292UVJ1VE8yV0JtWGcvbDlrZVBMU1g2bUVTdWhCWWloRHo4SVZ4?=
+ =?utf-8?B?Rks5R3hrWEcwblpqa2kxcjl2UUdOVFo4by9iOXNva2tCc0JkRjZWQmNNV1px?=
+ =?utf-8?B?U0d1NEc1SDJqM2I5akQ2SjRpLy9rckpJYXpKdlpNZDlpR0pJcXB2WEVqQWRY?=
+ =?utf-8?B?UHVoc3czMEhHUURwZ3dISnFMNjBFOGgyQXB1SGsrblg3cnpsYWxQeTh2M2lq?=
+ =?utf-8?B?M01zS3ZQeEplOEFaZmxLKzlJU0lQQmRrZ3NhbHlodkdKZFBnclAzeklkV08w?=
+ =?utf-8?B?VSt3Ty9OR2plejYwS1hKTUp2bHAycHV4cDYwbUsxU0FPZDBoMXdIYUp0V2ZT?=
+ =?utf-8?B?WlUxem1mTSs0V3Y3UzJRbWEzNkpRNEQzbllMR0EzTTNBYmgzL0gvQmVjYzgw?=
+ =?utf-8?B?RW00VEVEdSs1NkFLd2hLK0RnN1NMa3VKWDhkd1V0Ujhzd1hmVHhFVDByU2M1?=
+ =?utf-8?B?REc4Yk4vbm5YK09wa0xsQjQwdFVZWm5xRUxlcGFna0dWam9ucDFESEdybWpa?=
+ =?utf-8?B?WW0zZUQwemIweC9oTHVBT21wUFh4K1kxL01xV0xZeENqT0M3c1l3MkZqNkth?=
+ =?utf-8?B?OUVuQmJKWTRwbVRNdGplelh2dnJDYlBHU2s1dnlYK0YyejhQU3dNaHBnOFow?=
+ =?utf-8?B?SFliRFVBVW9DOWZYTkpIdnRGZzVXbDFvQXNmeFVBODYzWE5wd2t6Y3ZoSVFD?=
+ =?utf-8?B?MGw0WVRsZTNTdE1CMWJFRzNBa1NjbDh1WHA4RGJuNGhqUVlNV1dSa2RvWjNo?=
+ =?utf-8?B?VEN0NzhWNWZYNk40dzMzRUpjd0RMWk9jUWUwdmtPblFZb2dRQ1N5a0VlcHdS?=
+ =?utf-8?B?REVGQzdDYjBsN3lobHZwU21qSjM1c1F4VWhBSmhndXY5K2RCN3lMY3ZNY0M1?=
+ =?utf-8?B?TVlIdGlJQTVTL2dpOERxaVJnc1VYeDh6VFZBcG5HbUdiRUJtY2NBZUVzbWVz?=
+ =?utf-8?B?Z1NVdnJsbS8vNWZXRzVmL0hFV3NaTVd1WlpiU25ZRTJIay9NMStLUTlQNUk3?=
+ =?utf-8?B?VDVtY09PZlcwc0JtSnpraXdWZUpOVUtKQVlmNGJoelVEYlZ6ODM3a1ZNMVEy?=
+ =?utf-8?B?TnV0dXdrRU1PQWl0L3psd0tHRXhmYlliK0lPWFFCWlNobHZwdzhyVmxwL01U?=
+ =?utf-8?B?RC9JYWREcmZ4WmlsRWdHMk5sT1htQUFOdDBHZnpPTkdIZnovSDVwaVNFQysz?=
+ =?utf-8?B?TCtnVm1OWE1raVl6VHRwVzlyeHN4WHd6V2NoRk9rdXRUN1NhSHh2VnRKcmFv?=
+ =?utf-8?B?YmFNZVdZRXYza2FsZFgzazZHUm02RHB1Q1lxUWFidVNaSUJrTFFBV3dBczgx?=
+ =?utf-8?B?UW0yZnJVcU5aY0tiK0NuQndIVnhBZzdxbDZvNGRpbEpuWExyYitocmFPU1dV?=
+ =?utf-8?B?S2JhaGdDZ2ZlS0UzdTU5RXV4Z3RGZzliK05vQ0IxYzFtUXBFMWN3WVJLa3Jw?=
+ =?utf-8?B?VUR5NG9kU2xkRlBlQksvMFVuTFhWTUFSLzVFb3g5aG9ZZzRpRThSQXozaFIv?=
+ =?utf-8?B?dTd2MjduTG9BYnhNMzdPcW8xUGFkZGlobU00VEN3Rlp2dzVUN211YkF1cVVY?=
+ =?utf-8?B?YXYvZkE1NTcwZHZxc21lR3haSE1TQ2V5N2pGbm9PQ2N6Vm5aeVE0QnlZcnpq?=
+ =?utf-8?B?eEJBNkx4bTF4MUZqOG01UmxWbGhRdU9iWVFWaGpYUncya3FZTmtLVXRJa3F3?=
+ =?utf-8?B?dUorcFR2U1BUVUpGWnpZYUNadTBTb240a2hobjc5cFltKzc3RlNvSzlOVXZW?=
+ =?utf-8?B?UnZCRzRKbDdtYWZtRjc4NGRQdWF5bGVJbTJMdnVPNFUrQ2p0UlcveFFVaUJv?=
+ =?utf-8?B?blFtODdxbjFwWXJLQVBtVGNIdnVlL1ZIS3pJUkxURWdVWFF4bStyR1hkSktv?=
+ =?utf-8?B?em1aM0xpU0dtNGJBczVLY0tGdVROR3phV1U4MXByMmx0Y3NrdkgvOGErM2Jo?=
+ =?utf-8?B?WWhtbVB6QkYwb3YvMGt1VkpUOTJwMnl3YTdqbGtidlRjUTc0Vk1RMmR5RVRE?=
+ =?utf-8?B?RC9PQ2FBZVliQjhJQ2RJbHc0TkIwdXQwaVMyTnV5M1pwbVlUeStiYmFxMHov?=
+ =?utf-8?B?bUFLa2JEZFVIMk1tcnJwdnNlS3BUVlRzTTNLczJpTUsyVGd1dzcwTlBxMWVY?=
+ =?utf-8?B?TWc9PQ==?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	9CwwbUxEcwWwumHmaN9pYGWzwbP34NTKAB1oqqbDxDwBfcX8LfcKFFSPxe34Rg0JfB2ENdSuFqU0XOEPhX3eWXtiYn6i0Ss0nrO1o9LWV8cSr+UWThoPYutDhQBXjxANFDHDK1BhM1gW4iAloqzI90AqlylWfUmNeYzOk2/5H4iX9KwMcvTNzd46bzyYeD5W9VH+B/yo85ids8+ZLQoGTHYatLR4Q2v71BMZCyT1fp/gO8feffP0ny/6MKRB67EpGNGf1YUmhnVOC/p5w5lMs9/FLz98neS/Npr0CdgF2BFYBx3VTkShohV4PVaKGW2H5avg/6MKKZ+F+uxwCLluqaFcvOyeV+f/vROfyATeoavA7ACGLWXYsEBBbQZAyAQ1B168Imn5Rsjid+uRzgls97hf+7Wrh/zcJqB32R/ecIiMd8pNM+eBJn3jiEftLRTNbvYQt8t2xvVU6huNZku989E4yZQX2BGhg7paMEefb2TzmKLYfQp4oIcvgbZDlgeBdQdqQr3XZd2Huiyf+711rbBtI+ulK018rcrZeII1WTg9KQLTvccowd1VHNRMDB5sibPPL+vwhTW1uK0a98babUUVNYpb56tFQOOWHalyVKMTP6CpgGW6wCs9TzIrHb9YGr9uuKFilAiCqJobZD4qVUDMSVmaGwV+E+DtTf3RhjD+Gj8r6tfAsKZjl56Mpx8vONObBjaZw5tgsMAz5CYrnZMBbDf+R14+aLPbZKcRSzz+mW9VUpGNADsw+OpXV9Rxc7K/mZFgBI6CJfxrFdBtV0j9bPfG7lN0Q4J8bdJ3jQxqn0odkLT0FC1w0HfEjVSo
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8972d64a-337d-4841-c18a-08db62966b49
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 11:50:39.0241
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b655b705-f8e8-4bcf-36c2-08db62962e35
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT005.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4259
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /flM1lcXoiL1j6nS9cYEUUf9EJdPjNUow+qrrcyNSAzDDXHQKZraxUR0armQ7BRP6/hRKS4KFD1f2ki00devQQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5478
 
-Hi Julien,
+On Thu, Jun 01, 2023 at 11:56:12AM +0200, Jan Beulich wrote:
+> On 01.06.2023 11:17, Roger Pau Monné wrote:
+> > On Tue, May 30, 2023 at 05:30:02PM +0200, Jan Beulich wrote:
+> >> To avoid the need for a forward declaration of pit_load_count() in a
+> >> subsequent change, move it earlier in the file (along with its helper
+> >> callback).
+> >>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > 
+> > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Thanks.
+> 
+> > Just a couple of nits, which you might also noticed but decided to not
+> > fix given this is just code movement.
+> 
+> Indeed, I meant this to be pure code movement. Nevertheless I'd be happy
+> to take care of style issues, if that's deemed okay in a "pure code
+> movement" patch. However, ...
 
-On 01/06/2023 13:12, Julien Grall wrote:
-> 	
-> 
-> 
-> Hi,
-> 
-> Sorry for the formatting.
-> 
-> On Thu, 1 Jun 2023 at 12:31, Michal Orzel <michal.orzel@amd.com <mailto:michal.orzel@amd.com>> wrote:
-> 
->     Hi Bertrand,
-> 
->     On 01/06/2023 12:19, Bertrand Marquis wrote:
->     >
->     >
->     > Hi Michal,
->     >
->     >> On 1 Jun 2023, at 10:50, Michal Orzel <michal.orzel@amd.com <mailto:michal.orzel@amd.com>> wrote:
->     >>
->     >> There are implementations of the PL011 that can only handle 32-bit
->     >> accesses (i.e. no 16-bit or 8-bit), usually advertised by 'reg-io-width'
->     >> dt property set to 4. On such UARTs, the current early printk code for
->     >> arm64 does not work. To fix this issue, make all the accesses to be 32-bit
->     >> by using ldr, str without a size field. This makes it possible to use
->     >> early printk on such platforms, while all the other implementations should
->     >> generally cope with 32-bit accesses. In case they do not, they would
->     >> already fail as we explicitly use writel/readl in the runtime driver to
->     >> maintain broader compatibility and to be SBSAv2 compliant. Therefore, this
->     >> change makes the runtime/early handling consistent (also it matches the
->     >> arm32 debug-pl011 code).
->     >>
->     >> Signed-off-by: Michal Orzel <michal.orzel@amd.com <mailto:michal.orzel@amd.com>>
->     >> ---
->     >> xen/arch/arm/arm64/debug-pl011.inc | 8 ++++----
->     >> 1 file changed, 4 insertions(+), 4 deletions(-)
->     >>
->     >> diff --git a/xen/arch/arm/arm64/debug-pl011.inc b/xen/arch/arm/arm64/debug-pl011.inc
->     >> index 6d60e78c8ba3..80eb8fdc1ec7 100644
->     >> --- a/xen/arch/arm/arm64/debug-pl011.inc
->     >> +++ b/xen/arch/arm/arm64/debug-pl011.inc
->     >> @@ -25,9 +25,9 @@
->     >>  */
->     >> .macro early_uart_init xb, c
->     >>         mov   x\c, #(7372800 / CONFIG_EARLY_UART_PL011_BAUD_RATE % 16)
->     >> -        strh  w\c, [\xb, #FBRD]      /* -> UARTFBRD (Baud divisor fraction) */
->     >> +        str   w\c, [\xb, #FBRD]      /* -> UARTFBRD (Baud divisor fraction) */
->     >>         mov   x\c, #(7372800 / CONFIG_EARLY_UART_PL011_BAUD_RATE / 16)
->     >> -        strh  w\c, [\xb, #IBRD]      /* -> UARTIBRD (Baud divisor integer) */
->     >> +        str   w\c, [\xb, #IBRD]      /* -> UARTIBRD (Baud divisor integer) */
->     >>         mov   x\c, #WLEN_8           /* 8n1 */
->     >>         str   w\c, [\xb, #LCR_H]     /* -> UARTLCR_H (Line control) */
->     >>         ldr   x\c, =(RXE | TXE | UARTEN)
->     >> @@ -41,7 +41,7 @@
->     >>  */
->     >> .macro early_uart_ready xb, c
->     >> 1:
->     >> -        ldrh  w\c, [\xb, #FR]        /* <- UARTFR (Flag register) */
->     >> +        ldr   w\c, [\xb, #FR]        /* <- UARTFR (Flag register) */
->     >>         tst   w\c, #BUSY             /* Check BUSY bit */
->     >>         b.ne <http://b.ne>  1b                     /* Wait for the UART to be ready */
->     >> .endm
->     >> @@ -52,7 +52,7 @@
->     >>  * wt: register which contains the character to transmit
->     >>  */
->     >> .macro early_uart_transmit xb, wt
->     >> -        strb  \wt, [\xb, #DR]        /* -> UARTDR (Data Register) */
->     >> +        str   \wt, [\xb, #DR]        /* -> UARTDR (Data Register) */
->     >
->     > Is it really ok to drop the 8bit access here ?
->     It is not only ok, it is necessary. Otherwise it won't work on the above mentioned UARTs (they can only perform 32-bit access).
-> 
-> 
-> IIRC some compilers will complain because you use wN with “str”.
-Hmm, I would expect it to be totally ok as the size is determined by the reg name. Any reference?
+It's just small style issues, so it would be OK for me.
 
+> >> --- a/xen/arch/x86/emul-i8254.c
+> >> +++ b/xen/arch/x86/emul-i8254.c
+> >> @@ -87,6 +87,57 @@ static int pit_get_count(PITState *pit,
+> >>      return counter;
+> >>  }
+> >>  
+> >> +static void cf_check pit_time_fired(struct vcpu *v, void *priv)
+> > 
+> > Seems like v could be constified?
 > 
-> 
->     And following to what I wrote in commit msg:
->     - we use str already in arm32 which results in 32-bit access
-> 
-> 
->     - we use reald/writel that end up as str/ldr in runtime driver
-> 
-> 
->     - we are down to SBSAv2 spec that runtime driver follows (meaning we can use early printk for SBSA too)
-> 
-> 
-> The runtime driver is meant to follow the PL011 spec first and may have some adaptation for SBSA.
-> 
-> 
->     - this way we support broader list of PL011s consistently (i.e. both early and runtime driver works as oppose to only runtime)
-> 
-> 
->  I am not sure I agree here. You are focussing on HW that only support 32-bit access. And, AFAICT this shouldn’t be the norm.
-I'm focusing on supporting wider range of devices.
-At the moment Xen PL011 runtime makes 32-bit accesses while early code makes 8/16-bit accesses (arm32 uses 32-bit only as well).
-So my patch can only improve things and not make them worse. In case of some very old legacy device that cannot cope with 32-bit accesses,
-such device would not work anyway with the runtime driver. Also, while I'm aware of platforms with 32-bit only UART and the normal one
-that can cope with 32-bit as well, I'm not aware of any legacy one that cannot do that.
+> ... the function being used as a callback, I doubt adding const would
+> be possible. Otoh ...
 
-Adding a config option like EARLY_UART_PL011_MMIO32 would be ok but it would require to also modify arm32 early printk and runtime driver.
-Not mentioning things that we somehow do not want to look at like hardcoded 7372800 HZ frequency for early_uart_init we can just pray
-to match the HW UART clock or other not PL011 spec things (i.e. incorrect FIFO size for most modern UARTs).
+Oh, I see.
 
-But if this is what you require, I'm somewhat forced to do so just so that our devices can be supported.
+> >> +{
+> >> +    uint64_t *count_load_time = priv;
+> 
+> ... there's a blank line missing here, if I was to go for style
+> adjustments.
 
-~Michal
+Sure.
+
+Thanks, Roger.
 
