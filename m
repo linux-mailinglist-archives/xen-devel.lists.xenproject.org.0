@@ -2,41 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 690C8719480
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 09:41:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542267.845929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D40719481
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 09:42:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542272.845940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4cv4-0002I9-KG; Thu, 01 Jun 2023 07:40:26 +0000
+	id 1q4cwQ-0002so-1Y; Thu, 01 Jun 2023 07:41:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542267.845929; Thu, 01 Jun 2023 07:40:26 +0000
+Received: by outflank-mailman (output) from mailman id 542272.845940; Thu, 01 Jun 2023 07:41:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4cv4-0002Fh-FV; Thu, 01 Jun 2023 07:40:26 +0000
-Received: by outflank-mailman (input) for mailman id 542267;
- Thu, 01 Jun 2023 07:40:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q4cwP-0002pT-Un; Thu, 01 Jun 2023 07:41:49 +0000
+Received: by outflank-mailman (input) for mailman id 542272;
+ Thu, 01 Jun 2023 07:41:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ddig=BV=gmail.com=geert.uytterhoeven@srs-se1.protection.inumbo.net>)
- id 1q4cv2-0001R4-Aa
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 07:40:24 +0000
-Received: from mail-yb1-f177.google.com (mail-yb1-f177.google.com
- [209.85.219.177]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90bb0400-004f-11ee-b231-6b7b168915f2;
- Thu, 01 Jun 2023 09:40:23 +0200 (CEST)
-Received: by mail-yb1-f177.google.com with SMTP id
- 3f1490d57ef6-b9a6eec8611so2796910276.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 00:40:23 -0700 (PDT)
-Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com.
- [209.85.219.171]) by smtp.gmail.com with ESMTPSA id
- p187-20020a0dffc4000000b00545a08184cesm3332650ywf.94.2023.06.01.00.40.21
- for <xen-devel@lists.xenproject.org>
+ <SRS0=+w1M=BV=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
+ id 1q4cwP-0002ni-5E
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 07:41:49 +0000
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [2607:f8b0:4864:20::52d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c2b9300e-004f-11ee-8611-37d641c3527e;
+ Thu, 01 Jun 2023 09:41:47 +0200 (CEST)
+Received: by mail-pg1-x52d.google.com with SMTP id
+ 41be03b00d2f7-517ab9a4a13so501000a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 00:41:47 -0700 (PDT)
+Received: from ?IPV6:2400:4050:a840:1e00:78d2:b862:10a7:d486?
+ ([2400:4050:a840:1e00:78d2:b862:10a7:d486])
+ by smtp.gmail.com with ESMTPSA id
+ h22-20020a62b416000000b0064d1349dc31sm4424818pfn.199.2023.06.01.00.41.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Jun 2023 00:40:21 -0700 (PDT)
-Received: by mail-yb1-f171.google.com with SMTP id
- 3f1490d57ef6-b9a6eec8611so2796880276.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 00:40:21 -0700 (PDT)
+ Thu, 01 Jun 2023 00:41:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,192 +46,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90bb0400-004f-11ee-b231-6b7b168915f2
+X-Inumbo-ID: c2b9300e-004f-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=daynix-com.20221208.gappssmtp.com; s=20221208; t=1685605306; x=1688197306;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bc1VxBw2ts7gzODbDt725l/y9yXi0D1Tw4esM7ANdJo=;
+        b=YDujPal7wEEBLnpAJsvdWRdpTPTHWkcgLybiafBwUGy8Gv4A9m7mFoizaRlbqOxVAf
+         03TR1Kk/2g2omrqvungoh3GSuN6YGNnQ6+SC/j2J0RV9XQL4RlXW1yU3OPhywzp3Jf//
+         9b6khcU6Pts1pUs9oG4fuoQOnQCbreK6yl0+QmtMj5pxtbUdsoixB1RGMWMD7rYbgX9M
+         qFEUyRjOuqJ6OHPGLRC4g1LVzc0fxo5FFO71B3bljyarT6gj2y+dhL21gOSzKxZqqKJX
+         WjvAeU8+st8NK021a35W+pNz1SaePj0A6/zFrLF9k9tA5OTc6g+RSqyHAXZHG0FZ/TDN
+         ZmJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685605222; x=1688197222;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+Vy5gwXbACIYw+FA/+yi3OHDGD1kIURAtfeea/c7peI=;
-        b=h266wHCAICRSsZEdOdMeUOBd8a9PQBMmW9BTlGqBSnaUIeerf7YBb5j9bZuIsxFGur
-         dLnuqiJyikvrKGBA22Slv739ojK6u45RDSyY80EeiiGojCPa/3cB9EEwX9aewewtsbur
-         B41khPEnGUXGJIilgfwoSZ7IU58Toa/tQ7EzLIp/tn4JGX27XB7UyenNrmFEIWexm6EZ
-         7JzQr7j2QLyPswtjd3Dwgh5X5dR86lWzH2gE14Ee57Pj3WJAO2SyOSdN5OUVZZNSEVVp
-         TtN1lU9VxOGUAh9Qlh9S9Cx5ZmzNly1sC7Mywgufz3REu2wwZe8fg8trBO0gitpJfKG0
-         vWnQ==
-X-Gm-Message-State: AC+VfDw+YIbb+3oSjZwokTpBY1eoST8SQf/Exl1FFhprSoRG0YRtIH9A
-	/LeUm5hQpHib8mAEzoILstGjxNquDYVP7A==
-X-Google-Smtp-Source: ACHHUZ5torXLqj0xGp8GVg6G3NWX22V/SmkSZa8JcpBv5+1fSyc61EpRdHl/H4S9p0O71NqJoUnsxg==
-X-Received: by 2002:a81:6c95:0:b0:561:987e:27a with SMTP id h143-20020a816c95000000b00561987e027amr953304ywc.10.1685605222047;
-        Thu, 01 Jun 2023 00:40:22 -0700 (PDT)
-X-Received: by 2002:a81:a041:0:b0:565:9f61:c771 with SMTP id
- x62-20020a81a041000000b005659f61c771mr1176431ywg.9.1685605221248; Thu, 01 Jun
- 2023 00:40:21 -0700 (PDT)
+        d=1e100.net; s=20221208; t=1685605306; x=1688197306;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bc1VxBw2ts7gzODbDt725l/y9yXi0D1Tw4esM7ANdJo=;
+        b=dYmo5Q0oaN1yi4xbAsP1FPljdMvo5Np/YY0/ppBPOcPvYOgXKV3aTJnjhDXmHEaEQf
+         f4IQQE9VYA6kdarmNGZ7qVMMZ66N80CTd28n8dCFicUXpyEPnYYoTBIDertPNK+DK80G
+         XnOM/sW5VD3XKi4qne5lGygGH9kJk1LczJA2xKUPoXKsp5z3nceVl1AfO6viGGppNcf7
+         wwoPkooARAgfKMb8xblrv16aMj5TmFzaeYva9mNSta01/LfL4211Hc7F6iFp2aJJ24lO
+         xBsjlha985+HPHqnuUtemU4PBg0+gJT6rts4ZQ8nm0IsonvGtZomxL8q8MQ2niXmje+b
+         5DGA==
+X-Gm-Message-State: AC+VfDzRSH2+0OIlLDcaiOEhwbVfyRbbBci9j/CbTACgFQksbbN59Q4X
+	cR86OP5MuFE+UhYnp3w69IGeNg==
+X-Google-Smtp-Source: ACHHUZ7TDkTXVGJ/r9kX7PKwjBkqfm4bwdAX6ZtU3aCnPohgVAZ1rbRjP2ABSRQr4SAKEAvK6nYpfA==
+X-Received: by 2002:a05:6a20:3d0c:b0:10b:4539:fa0a with SMTP id y12-20020a056a203d0c00b0010b4539fa0amr11339542pzi.1.1685605305794;
+        Thu, 01 Jun 2023 00:41:45 -0700 (PDT)
+Message-ID: <233b42b2-6fbb-3882-6158-d2a82bf88be1@daynix.com>
+Date: Thu, 1 Jun 2023 16:41:36 +0900
 MIME-Version: 1.0
-References: <20230531213032.25338-1-vishal.moola@gmail.com> <20230531213032.25338-26-vishal.moola@gmail.com>
-In-Reply-To: <20230531213032.25338-26-vishal.moola@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 1 Jun 2023 09:40:07 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWCe=VsTJYNA_-k=JipeAGKzgBFjZ8i+XRK7U1DBei=7A@mail.gmail.com>
-Message-ID: <CAMuHMdWCe=VsTJYNA_-k=JipeAGKzgBFjZ8i+XRK7U1DBei=7A@mail.gmail.com>
-Subject: Re: [PATCH v3 25/34] m68k: Convert various functions to use ptdescs
-To: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Matthew Wilcox <willy@infradead.org>, linux-mm@kvack.org, 
-	linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
-	linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org, 
-	linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
-	xen-devel@lists.xenproject.org, kvm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v2 0/2] net: Update MemReentrancyGuard for NIC
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+Cc: Mauro Matteo Cascella <mcascell@redhat.com>, P J P
+ <pj.pandit@yahoo.co.in>, Alexander Bulekov <alxndr@bu.edu>,
+ Dmitry Fleytman <dmitry.fleytman@gmail.com>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
+ Jason Wang <jasowang@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>, Stefan Weil <sw@weilnetz.de>,
+ =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Helge Deller <deller@gmx.de>, Sriram Yagnaraman
+ <sriram.yagnaraman@est.tech>, Thomas Huth <huth@tuxfamily.org>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Subbaraya Sundeep <sundeep.lkml@gmail.com>, Jan Kiszka <jan.kiszka@web.de>,
+ Tyrone Ting <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>,
+ Max Filippov <jcmvbkbc@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ David Gibson <david@gibson.dropbear.id.au>, Greg Kurz <groug@kaod.org>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ Sven Schnelle <svens@stackframe.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Rob Herring <robh@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ qemu-arm@nongnu.org, qemu-devel@nongnu.org, qemu-ppc@nongnu.org,
+ xen-devel@lists.xenproject.org
+References: <20230601031859.7115-1-akihiko.odaki@daynix.com>
+ <72ccd4c2-7c60-e015-2322-721d09a8334b@linaro.org>
+Content-Language: en-US
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+In-Reply-To: <72ccd4c2-7c60-e015-2322-721d09a8334b@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Vishal,
+On 2023/06/01 16:16, Philippe Mathieu-Daudé wrote:
+> On 1/6/23 05:18, Akihiko Odaki wrote:
+>> Recently MemReentrancyGuard was added to DeviceState to record that the
+>> device is engaging in I/O. The network device backend needs to update it
+>> when delivering a packet to a device.
+>>
+>> This implementation follows what bottom half does, but it does not add
+>> a tracepoint for the case that the network device backend started
+>> delivering a packet to a device which is already engaging in I/O. This
+>> is because such reentrancy frequently happens for
+>> qemu_flush_queued_packets() and is insignificant.
+>>
+>> This series consists of two patches. The first patch makes a bulk 
+>> change to
+>> add a new parameter to qemu_new_nic() and does not contain behavioral 
+>> changes.
+>> The second patch actually implements MemReentrancyGuard update.
+> 
+> /me look at the 'net' API.
+> 
+> So the NetReceive* handlers from NetClientInfo process the HW NIC
+> data flow, independently from the CPUs.
+> 
+> IIUC MemReentrancyGuard is supposed to protect reentrancy abuse from
+> CPUs.
+> 
+> NetReceive* handlers aren't restricted to any particular API, they
+> just consume blob of data. Looking at e1000_receive_iov(), this data
+> is filled into memory using the pci_dma_rw() API. pci_dma_rw() gets
+> the AddressSpace to use calling pci_get_address_space(), which returns
+> PCIDevice::bus_master_as. Then we use the dma_memory_rw(), followed
+> by address_space_rw(). Beh, I fail to see why there is reentrancy
+> checks from this NIC DMA HW path.
+> 
+> Maybe the MemoryRegion API isn't the correct place to check for
+> reentrancy abuse and we should do that at the AddressSpace level,
+> keeping DMA ASes clear and only protecting CPU ASes?
 
-On Wed, May 31, 2023 at 11:32=E2=80=AFPM Vishal Moola (Oracle)
-<vishal.moola@gmail.com> wrote:
-> As part of the conversions to replace pgtable constructor/destructors wit=
-h
-> ptdesc equivalents, convert various page table functions to use ptdescs.
->
-> Some of the functions use the *get*page*() helper functions. Convert
-> these to use pagetable_alloc() and ptdesc_address() instead to help
-> standardize page tables further.
->
-> Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+The involvement of CPU is not essential in my understanding. A typical 
+scenario of DMA reentrancy is like the following:
+1) The guest configures the DMA destination address register the device 
+has to the address of another device register.
+2) The DMA gets triggered.
+3) The device performs the DMA, writing its own register.
+4) The write causes reentrancy.
+5) The re-entered device code corrupts the device state.
 
-Thanks for your patch!
+I guess 2) is done by CPU in most cases, but sometimes it happen with 
+another cause. In fact, the current reentrancy protection code covers 
+the case that bottom half handlers triggers DMA. The intention of this 
+series is to extend the coverage and handles the case that incoming 
+network traffic triggers DMA.
 
-> --- a/arch/m68k/include/asm/mcf_pgalloc.h
-> +++ b/arch/m68k/include/asm/mcf_pgalloc.h
-> @@ -7,20 +7,19 @@
->
->  extern inline void pte_free_kernel(struct mm_struct *mm, pte_t *pte)
->  {
-> -       free_page((unsigned long) pte);
-> +       pagetable_free(virt_to_ptdesc(pte));
->  }
->
->  extern const char bad_pmd_string[];
->
->  extern inline pte_t *pte_alloc_one_kernel(struct mm_struct *mm)
->  {
-> -       unsigned long page =3D __get_free_page(GFP_DMA);
-> +       struct ptdesc *ptdesc =3D pagetable_alloc(GFP_DMA | __GFP_ZERO, 0=
-);
->
-> -       if (!page)
-> +       if (!ptdesc)
->                 return NULL;
->
-> -       memset((void *)page, 0, PAGE_SIZE);
-> -       return (pte_t *) (page);
-> +       return (pte_t *) (ptdesc_address(ptdesc));
-
-No need to cast "void *" when returning a different pointer type.
-
->  }
->
->  extern inline pmd_t *pmd_alloc_kernel(pgd_t *pgd, unsigned long address)
-> @@ -35,36 +34,36 @@ extern inline pmd_t *pmd_alloc_kernel(pgd_t *pgd, uns=
-igned long address)
->  static inline void __pte_free_tlb(struct mmu_gather *tlb, pgtable_t pgta=
-ble,
->                                   unsigned long address)
->  {
-> -       struct page *page =3D virt_to_page(pgtable);
-> +       struct ptdesc *ptdesc =3D virt_to_ptdesc(pgtable);
->
-> -       pgtable_pte_page_dtor(page);
-> -       __free_page(page);
-> +       pagetable_pte_dtor(ptdesc);
-> +       pagetable_free(ptdesc);
->  }
->
->  static inline pgtable_t pte_alloc_one(struct mm_struct *mm)
->  {
-> -       struct page *page =3D alloc_pages(GFP_DMA, 0);
-> +       struct ptdesc *ptdesc =3D pagetable_alloc(GFP_DMA, 0);
->         pte_t *pte;
->
-> -       if (!page)
-> +       if (!ptdesc)
->                 return NULL;
-> -       if (!pgtable_pte_page_ctor(page)) {
-> -               __free_page(page);
-> +       if (!pagetable_pte_ctor(ptdesc)) {
-> +               pagetable_free(ptdesc);
->                 return NULL;
->         }
->
-> -       pte =3D page_address(page);
-> -       clear_page(pte);
-> +       pte =3D ptdesc_address(ptdesc);
-> +       pagetable_clear(pte);
->
->         return pte;
->  }
->
->  static inline void pte_free(struct mm_struct *mm, pgtable_t pgtable)
->  {
-> -       struct page *page =3D virt_to_page(pgtable);
-> +       struct ptdesc *ptdesc =3D virt_to_ptdesc(ptdesc);
-
-virt_to_ptdesc(pgtable)
-
-(You can build this using m5475evb_defconfig)
-
->
-> -       pgtable_pte_page_dtor(page);
-> -       __free_page(page);
-> +       pagetable_pte_dtor(ptdesc);
-> +       pagetable_free(ptdesc);
->  }
->
->  /*
-> @@ -75,16 +74,18 @@ static inline void pte_free(struct mm_struct *mm, pgt=
-able_t pgtable)
->
->  static inline void pgd_free(struct mm_struct *mm, pgd_t *pgd)
->  {
-> -       free_page((unsigned long) pgd);
-> +       pagetable_free(virt_to_ptdesc(pgd));
->  }
->
->  static inline pgd_t *pgd_alloc(struct mm_struct *mm)
->  {
->         pgd_t *new_pgd;
-> +       struct ptdesc *ptdesc =3D pagetable_alloc(GFP_DMA | GFP_NOWARN, 0=
-);
->
-> -       new_pgd =3D (pgd_t *)__get_free_page(GFP_DMA | __GFP_NOWARN);
-> -       if (!new_pgd)
-> +       if (!ptdesc)
->                 return NULL;
-> +       new_pgd =3D (pgd_t *) ptdesc_address(ptdesc);
-
-No need to cast "void *" when assigning to a different pointer type.
-
-> +
->         memcpy(new_pgd, swapper_pg_dir, PTRS_PER_PGD * sizeof(pgd_t));
->         memset(new_pgd, 0, PAGE_OFFSET >> PGDIR_SHIFT);
->         return new_pgd;
-
-The rest LGTM.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+The essence of DMA reentrancy is in 3). This happens when the DMA 
+address space contains the MMIO region of the device and there is no 
+involvement of CPU here.
 
