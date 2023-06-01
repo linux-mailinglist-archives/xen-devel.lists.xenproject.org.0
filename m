@@ -2,43 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01DE4719CDC
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 15:03:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542468.846359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5712719CE9
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Jun 2023 15:05:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542472.846370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4hwP-0006ae-Ie; Thu, 01 Jun 2023 13:02:09 +0000
+	id 1q4hzo-0007CZ-44; Thu, 01 Jun 2023 13:05:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542468.846359; Thu, 01 Jun 2023 13:02:09 +0000
+Received: by outflank-mailman (output) from mailman id 542472.846370; Thu, 01 Jun 2023 13:05:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4hwP-0006Yf-Fi; Thu, 01 Jun 2023 13:02:09 +0000
-Received: by outflank-mailman (input) for mailman id 542468;
- Thu, 01 Jun 2023 13:02:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q4hzo-00079C-0h; Thu, 01 Jun 2023 13:05:40 +0000
+Received: by outflank-mailman (input) for mailman id 542472;
+ Thu, 01 Jun 2023 13:05:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z77Y=BV=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1q4hwN-0006YZ-Uw
- for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 13:02:08 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 809a90e4-007c-11ee-b231-6b7b168915f2;
- Thu, 01 Jun 2023 15:02:04 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-607--nc5GY8eOiuW2vQmY4_7kg-1; Thu, 01 Jun 2023 09:02:00 -0400
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4EE0803C99;
- Thu,  1 Jun 2023 13:01:59 +0000 (UTC)
-Received: from localhost (unknown [10.39.194.5])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 450CB400F17;
- Thu,  1 Jun 2023 13:01:59 +0000 (UTC)
+ <SRS0=mSga=BV=citrix.com=prvs=509a852a5=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1q4hzm-000791-7S
+ for xen-devel@lists.xenproject.org; Thu, 01 Jun 2023 13:05:38 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fd13a2c7-007c-11ee-8611-37d641c3527e;
+ Thu, 01 Jun 2023 15:05:33 +0200 (CEST)
+Received: from mail-co1nam11lp2168.outbound.protection.outlook.com (HELO
+ NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.168])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 01 Jun 2023 09:05:29 -0400
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
+ by BY5PR03MB5347.namprd03.prod.outlook.com (2603:10b6:a03:218::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23; Thu, 1 Jun
+ 2023 13:05:28 +0000
+Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::192:6bdf:b105:64dd]) by SJ0PR03MB6423.namprd03.prod.outlook.com
+ ([fe80::192:6bdf:b105:64dd%3]) with mapi id 15.20.6433.024; Thu, 1 Jun 2023
+ 13:05:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,163 +49,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 809a90e4-007c-11ee-b231-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685624522;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QboDf9paz2VtErB2nR94ZAPz+TKHWRCWhSaiL0KRaBA=;
-	b=a13BDCQe2WdN7oS+JY2jaF7T0/HNVPsj9zFF42EUaupOOCGhHa1/y90mKns3LfYMuKqJ6A
-	WmEZvN8brN2IqgRO8kJKFIuqPiKwNt/mcvmZTNhIdEGJuHWS7WtYw/CmaiW8cONkdKwTnz
-	DI40wb2GhRh0HUa/yewEJuzFHO7+8YE=
-X-MC-Unique: -nc5GY8eOiuW2vQmY4_7kg-1
-Date: Thu, 1 Jun 2023 09:01:57 -0400
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>, eblake@redhat.com,
-	Hanna Reitz <hreitz@redhat.com>, Fam Zheng <fam@euphon.net>,
-	sgarzare@redhat.com, qemu-block@nongnu.org,
-	xen-devel@lists.xenproject.org, Julia Suvorova <jusual@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	Paul Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Aarushi Mehta <mehta.aaru20@gmail.com>
-Subject: Re: [PATCH v3 0/6] block: add blk_io_plug_call() API
-Message-ID: <20230601130157.GB1538357@fedora>
-References: <20230530180959.1108766-1-stefanha@redhat.com>
+X-Inumbo-ID: fd13a2c7-007c-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1685624732;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=3A/z6pMBM6dgseGzIcYV6+lyHTi0G1UcoKt9X7xxpOY=;
+  b=WMJjxgFLNn15NTSzjwsWVPV85IcqvOonNVMqu2wBWWM0cbCqd2H7NNpL
+   8xLkjW8fDIppR7JqOb5bTw+EUK9YkYJb9LMD867hr4gislZMCxE3c5O/u
+   yIKVVX1XxlecNogGgW6CdI1gIiZ/BpP4gszJygcosDSxm7F1CyZaMjoTS
+   I=;
+X-IronPort-RemoteIP: 104.47.56.168
+X-IronPort-MID: 111630270
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:if9BEq7w1RAFeJalJ8ZwOgxRtPbGchMFZxGqfqrLsTDasY5as4F+v
+ jMaDTjXPP2CZ2f9f4gibY7np0oD7JTXmNUySANvpHhmHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraCYnsrLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9lU35JwehBtC5gZlPa4T5QeF/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m7
+ qU0FTwMSBu4p9mc8LaRdPlnlMBzBZy+VG8fkikIITDxK98DGMmGaIKToNhS0XE3m9xEGuvYa
+ 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6OkkoojuiF3Nn9I7RmQe1PmUmVv
+ CTe9nnRCRAGLt2PjzGC9xpAg8eWxHqlA9pIS+XQGvhChle9mkMqDjAqUVq45qmaiV6PAtN1J
+ BlBksYphe1onKCxdfHtUhv9rHOasxo0X9tLD/Z8+AyL0rDT4QuSGi4DVDEpQN4sudIyRDcq/
+ kSUhN6vDjtq2JWKTVqN+7HSqim9UQAXMGsDaCksXQYDpd75r+kblQnTR9xuFKq0iNzdGjzqx
+ T2O6i8kiN0uYdUj0qy6+RXMhGuqr52QFwotvFyJDiSi8x9zY5Oja8qw81/H4P1cLYGfCF6co
+ HwDnMvY5+cLZX2QqBGwrCw2NOnBz5643Pf02DaDw7FJG+yRxkOe
+IronPort-HdrOrdr: A9a23:Cdwaiaut9dali3K6Pf3GMtVT7skDFdV00zEX/kB9WHVpm62j9/
+ xG+c5x6faaslsssR0b8+xoW5PgfZqjz/FICOAqVN+ftWLd1FdAQrsN0bff
+X-Talos-CUID: =?us-ascii?q?9a23=3Ap4cGqmpyoBL5f5QGIBpLuPbmUdt8XkDRzVHbGG+?=
+ =?us-ascii?q?DI1ZtYoOFQk2UqIoxxg=3D=3D?=
+X-Talos-MUID: 9a23:Ot8JBQkGTDkY+JPnGB2fdnpkPuk0zJ2oJXwJkJZB6+qHJR0pOh2S2WE=
+X-IronPort-AV: E=Sophos;i="6.00,210,1681185600"; 
+   d="scan'208";a="111630270"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WMAf2XrajjeXSrkpCmxXZSlzwE3Ttk2bjAUH+NYFFPsPueP94p3K3Ox39fcY2gKlJE9SNVmWuUopkqr1nJBhSy+OSta2ysSb43CFG1p1DzqAMoqCAD71SCE8zeUBX3lOTlOqQMDn+4QH71D+pGLYfD9AdRdpbWf/g1BOCXHhDbx7z84uEV0K8WtXqnmJwrxXcFXwpMP90dEAkL5EFJdPbTrLb7++OCPaBZs88LCD0vYWvFe3uc2tgk78Sw1dw0P7nN0m/UhV+ci7zlaXKTbkiK0z9VOmV0L4zPOtKmLVmLXDo4qK2q32cy9O2djZoqx0jVDvJm4nGB7j/fBJVw05zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eXXnRm+6U+AjsKIIcrkp7f+XMhptVWCTZpd5PCjoEYU=;
+ b=J4P6RXaip1hpgZ0xw9M/Mw1ndqwkd+E7wFcUcn/K3pr12we9RYic66uvt2FvvCAL591y1AJnJw3/uTdtsFmHxwQoxxgDhv+T6687O+whWoKDvFwgcoQuHQxthjCWU81QfkHYkuEY0bttlLiyKUcv0Moh+uApcT/9wxADNeoJqM8CsfqBU4ZnZtVDDvKQBg6KX0G1gbyXBsnYIe0NEZJaoYWdvQuOHwNvEISZlQ8V7aQv+wYfMw0uX1dKUZ2cQp/dX4/CvborRkky5ttXQPI7Nnlr/F7uIr7Kyy8MCmA3xjC3ZZrPitGJ21YT2uMnw35tvSx76FclBZZZs9a8vQ5dDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eXXnRm+6U+AjsKIIcrkp7f+XMhptVWCTZpd5PCjoEYU=;
+ b=vZEgbdXp+LpzbMJtjfj6WxjaSLKzvk4GmU1pBr0126o+8hP6GlDzlO++4M90t5HBAoXmPKDIV80EIFNqurItya8bifzv3YP2VkXXN/U2jYEzSFHDLSkErEIj9QKxZdB5w04QXljlbc7poJ99Alox2k6AWSY0SK0XcroAb7oJJmU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v3 0/3] x86/gfx: early boot improvements
+Date: Thu,  1 Jun 2023 15:05:15 +0200
+Message-Id: <20230601130518.48874-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.40.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0215.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:33a::15) To SJ0PR03MB6423.namprd03.prod.outlook.com
+ (2603:10b6:a03:38d::21)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="+rqeetX7bJGZaj5e"
-Content-Disposition: inline
-In-Reply-To: <20230530180959.1108766-1-stefanha@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|BY5PR03MB5347:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5912c0f1-2672-4f81-9b89-08db62a0deed
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	y7bV+MeEwh/UU7xs/yTwa4+Nx0d+d76TSzpwkpqT1lxQaYfSbbAoc0bQTEHNqgA3Rnjb1HLewOlI6xDtGKYS4MziUP2mAuXF3+lpp8sDTynYIZhdTyo8GqdRq8+9ndns6WieWD0oIfgziEzyMQMaA/xKYYOeRD8jOx1Ay8xPcq0O31N3Ap+LQ7WPPPSm/fY2rG7uSv8W63OOTWCu7+i80nrUuSg66VAxE9Jkyee5tHEk830PV9erUccAtsfEqmYLXfl2n5AEmYd8RFYeA9ELLTdvHzTH0AgJ05OvZap6G3Dqu7YpyDBk3BG+RJAgNw3KHJpFaGWXGEqS3Xk0LPlY/24XP3WOM6wzUDk1apv9gPg+1lawCU60iMb185TFIDuUPzA76ZRJWg6qN4F1WEOriIX0sV+AL6LFAF6Um+QUPifHfnYeMpG2lqAR4mvz4F+xzKU5QBr2Qn1Z+ndfVn8CYEELlb8MsXM2M4regVvyYxeYaQiMxcPIkmZSL/SXeIOez4NnMdJi2ttCA93Y6SHbeGTEbII/mZIJUpDVkGodobG7hfL6fJljY072VBX26zbW
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6423.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(396003)(136003)(39860400002)(346002)(366004)(451199021)(83380400001)(66556008)(6506007)(66946007)(66476007)(6916009)(6512007)(26005)(6666004)(1076003)(54906003)(2616005)(186003)(86362001)(6486002)(4744005)(2906002)(8936002)(5660300002)(478600001)(8676002)(36756003)(82960400001)(4326008)(41300700001)(38100700002)(316002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UFJKcW11MnV4VFpCd1VFQlF0bUVnUGlYT0ZiU1N6YjBzcFpvL2dqaERzemJh?=
+ =?utf-8?B?ckYybk9IMVloNkpxQ0FFYVVvZm9PUmtWVnA1ZEhvaFRnMDdteVNiK25BUHh2?=
+ =?utf-8?B?L1o3RmIyUjFvNmFHSllzN2RrK0hIdnpjaEpLUVp6QU5aZ1Bidk8xM0srZ2ZG?=
+ =?utf-8?B?YXc4R240a0c3WldKUXFESDAycDVjekNsc2xNczJrWmg0YTFNcnp2cHFhRkla?=
+ =?utf-8?B?b2ptVHQ0cG85YW5tNkM1Z2Y1ZEsxM21RZXdId3ppSS8zNGNmUEJpRkozcnMv?=
+ =?utf-8?B?RE1rOGhoTC9ZM0pTRXoxdDFEcjhjZjJGUVRsRmM0U1pQRktaeEU5SmRZaUdu?=
+ =?utf-8?B?aVNqbFVvM0tlSnF3KytnNm1QNEpXenhHTUd2WTZCSGZmNCt1ayswWXMyUjhE?=
+ =?utf-8?B?RElsaGF5QldQemVLOUx6SnBCNkJWQ1J6bjVBREtxZTZodnFpdFQ3akZQRTBF?=
+ =?utf-8?B?akQxMEk4eFVZMTZEZkJJay9EQk0yWXZsdlhwajlYTUFsZUhubzNheklndGF0?=
+ =?utf-8?B?OGpLcy9CZEhlL2ZTNXZlandWWEpUTFIzeDFMY25sV1drQkM0UU12ZjdaVWN5?=
+ =?utf-8?B?VldqTWttUXpaWjFWVXdTeFIzQ3MzS2pvRE1oSkNzeHYrV0dmMlpPY0JWTkpC?=
+ =?utf-8?B?Rm5wMnFHMVdjR1Z1Ykw0RUtScGt4S3RjQnprQTg0RW1BbzBmdWJ1bkM3bnRu?=
+ =?utf-8?B?eTBza2ZMTGdxN3BZajFkV0g0NlA5cXVUditESGtiZ29GRXlBWE11VUZUai9Q?=
+ =?utf-8?B?bDNpb1E2QXlTelJITzlLVWp4R1RZMktod0h0RlpQbS9sa3U5Rmw5STVxZDhX?=
+ =?utf-8?B?cEZiNTRKUDdLYWI3dDYrTCs3ZXc4d3Z3RmRZTEpmSTR5bXlhQ0NnZHNLNHpY?=
+ =?utf-8?B?T2RZTEt1d2tPWitOOVNjd0ltdUF6enNPNzFlSk9LMkhwY0xXSkJIaU5qTU5P?=
+ =?utf-8?B?RS8xM1Zic0xGUUp4N3M5N1hjMUcyR1FaRGRBZXo2SFh1YVZEcGpkbFE3L1F3?=
+ =?utf-8?B?T0VoYmdMb3BsZzlOUkN4eTA1MkxIbjdhZ1MzeXlQdDZWVURXM01hZ2I5S1gr?=
+ =?utf-8?B?UHNvR0xsdTBCT0V4d1RQVXdpeWpQdHJKNWFheTdpakFublVpOHdFaHhkbXFH?=
+ =?utf-8?B?UnZWaXp1MVA1WStxN25Vb2krY2Foa1VJWk1MWHZPeUxJQllvRVE2ZGxTb3c0?=
+ =?utf-8?B?MzRYaWRad1N0cFI2OVhGTk1kNGczNlhsbXUzdmtWU2NLSmtEZTNxQnFLUE5x?=
+ =?utf-8?B?dlFRbUQ4RXdWYkcvRUJtamwvWnQ3UjFoSmhBNUFpb0krNWdNcmg4S3dQaCtW?=
+ =?utf-8?B?clZ6SElkTDNIOXhIWGpGYnUxcFFoOTgrR0xXR0U5L2ZHc3ZQWXdiTmd1dzdU?=
+ =?utf-8?B?M212SmxEcjltU2RvM09QekxHazZZb05KS21WVVpCeEdhNHFRK2ROMXpuN29w?=
+ =?utf-8?B?bW5uRmxkdVkrb2RTK1JjTy9WaGNNeVdhTEUxSzg0NE1xVUdZREFuRG5TQnA4?=
+ =?utf-8?B?VnJubXNwUjZuQUFFU2VyTC9rYXZhSWIrNGlBYnpBT0ZVS1kxN0NsOGk3b0Vz?=
+ =?utf-8?B?QnRJM1UyQkloMFY5Szc4SmVjM1JySi9vaWFLTzNzNW9reElPWWF6V2h1bTBB?=
+ =?utf-8?B?Y2d5ZU5ydnpYWUNCSHNwaGJIWTBrTjVxQnZaTHNOVnloNFNONEMralpHeWhE?=
+ =?utf-8?B?MDFDTlZWL3BLNk44NVM4ZkdkL3lldXhBRTArd1BncGliS0gzN0svQ25sU29F?=
+ =?utf-8?B?Y09xeWJrMXExc05uY3F6R3Fpd2N5bWtLY0p3WDArMUg5VlF2aEdoSGtNeXVO?=
+ =?utf-8?B?c01RUi9JSFJKRjlXSk9GMk9rc1p6L1R5c241MnVzeWJoOFRpU3o1K21vS1Iw?=
+ =?utf-8?B?OStXU1EyVFJCNUFFNGxRK1pqVnhyUGcwVDg0V1lZazJaSUEzRkNDNEZMYVlO?=
+ =?utf-8?B?QVZOYzhmckZydVIvdENGdEFYZ2lRVE8ydGRqWFNKTGd5NjNxZzdOS0w5WENP?=
+ =?utf-8?B?Z012cEFEVFRsc1BBNDZSUGNuUjd3VSsxSU1VVVNXRU83K2NwdU9VTldneGVv?=
+ =?utf-8?B?OW9pM3pQUmxER3o1V3FiSnp4MlhyLzRvbWhBWlR0bWdYdHhEUG8yNlo4TUpU?=
+ =?utf-8?Q?6DPOZMjzUVOXSKtkGMO3uHwkI?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	iLev7O2Kw1h3mTrHB8S7/o0mXLxDvsMmAcwSZnYwZyTwpsa2z4JQI12YmMDjcJYKDUYAoeHoPqLNjHpFd3FGxzxPnCVja1cgC96yetiLb8YkQ5N59/0tuqf+O9sYCI/iYo+sHNwpdmfC7ez7qb2cVMSD/BE7PKI5NaPfFwMT6rRFyznq+jVXmBXr2tjIuUcD5FTMlngJKUR527QHUkxL3mmyAYQLrfIgrQrQuRQkJWuSx8P4OLPx+9Dx7zNL1QIF82ABXVImLg/kQD/RNzvSow25b83/qwUjY3sN9b1cecvEh2ulDMQ0vtQZahJ+q9kUTBVQHePG9hMDFponMsiLD5wrUBbqY39R+AHFoqK3i2uV8ubySSTNde12PSvWgHysYPjqDvfiXJy/Cq+qS6QBRKM5rtH5Q+CdHN1o6b3nk45kh48S9ZXK8QV0MEoRJ63+q08KPw7ku+Jdw3AdA9+u9Uve6JrL3Zk0ek6jhfVlqwrXEK1yUDO3L3lkdFTX/8MiXe6i1VwdeTH9Rrn0sncuXSTxAtTbjOJ0sUBtJ+NHMa6I+60vNpgEpBbE7ZqU3vK6ZLuzHuSuWeFUsu05vIb+xHaIfanG7NhaMI1PgMEmIc3AUneTIAWN2XYdN7j5MSa1fEC3T91FgyllQTTJvvfGkdnhlKWWn1kC6cnB4rPhT6b2egMGUs/C5vtyf9tynkMKcTpFUl1rLzCH4vgp/xXtKvpwiukFKKVwEBtHtL9VmT/FxSjdrGNr556vnuimMhUgvriDkoilTCBxdnIHdxGTx0LlmPphOgKVjaInfLxLQIGLYb6Rpa/wwQEQJI1lF/5I+iwm6TjxMYKFBej2rVmCmh1ChOMM/ZDGjbad023gGQw=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5912c0f1-2672-4f81-9b89-08db62a0deed
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2023 13:05:27.9711
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4FkGl7n4IbIAdzKKYYrBvqkIP0y71g3pMdEhrKsnSotnroRBv5jc5UOFvUsIrCwfUwEMXezO6XfCLkYT+xa65Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5347
 
+Hello,
 
---+rqeetX7bJGZaj5e
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The following series contains some fixes and improvements related to
+graphics usage when booting Xen.
 
-On Tue, May 30, 2023 at 02:09:53PM -0400, Stefan Hajnoczi wrote:
-> v3
-> - Patch 5: Mention why dev_max_batch condition was dropped [Stefano]
-> v2
-> - Patch 1: "is not be freed" -> "is not freed" [Eric]
-> - Patch 2: Remove unused nvme_process_completion_queue_plugged trace event
->   [Stefano]
-> - Patch 3: Add missing #include and fix blkio_unplug_fn() prototype [Stef=
-ano]
-> - Patch 4: Removed whitespace hunk [Eric]
->=20
-> The existing blk_io_plug() API is not block layer multi-queue friendly be=
-cause
-> the plug state is per-BlockDriverState.
->=20
-> Change blk_io_plug()'s implementation so it is thread-local. This is done=
- by
-> introducing the blk_io_plug_call() function that block drivers use to bat=
-ch
-> calls while plugged. It is relatively easy to convert block drivers from
-> .bdrv_co_io_plug() to blk_io_plug_call().
->=20
-> Random read 4KB performance with virtio-blk on a host NVMe block device:
->=20
-> iodepth   iops   change vs today
-> 1        45612   -4%
-> 2        87967   +2%
-> 4       129872   +0%
-> 8       171096   -3%
-> 16      194508   -4%
-> 32      208947   -1%
-> 64      217647   +0%
-> 128     229629   +0%
->=20
-> The results are within the noise for these benchmarks. This is to be expe=
-cted
-> because the plugging behavior for a single thread hasn't changed in this =
-patch
-> series, only that the state is thread-local now.
->=20
-> The following graph compares several approaches:
-> https://vmsplice.net/~stefan/blk_io_plug-thread-local.png
-> - v7.2.0: before most of the multi-queue block layer changes landed.
-> - with-blk_io_plug: today's post-8.0.0 QEMU.
-> - blk_io_plug-thread-local: this patch series.
-> - no-blk_io_plug: what happens when we simply remove plugging?
-> - call-after-dispatch: what if we integrate plugging into the event loop?=
- I
->   decided against this approach in the end because it's more likely to
->   introduce performance regressions since I/O submission is deferred unti=
-l the
->   end of the event loop iteration.
->=20
-> Aside from the no-blk_io_plug case, which bottlenecks much earlier than t=
-he
-> others, we see that all plugging approaches are more or less equivalent i=
-n this
-> benchmark. It is also clear that QEMU 8.0.0 has lower performance than 7.=
-2.0.
->=20
-> The Ansible playbook, fio results, and a Jupyter notebook are available h=
-ere:
-> https://github.com/stefanha/qemu-perf/tree/remove-blk_io_plug
->=20
-> Stefan Hajnoczi (6):
->   block: add blk_io_plug_call() API
->   block/nvme: convert to blk_io_plug_call() API
->   block/blkio: convert to blk_io_plug_call() API
->   block/io_uring: convert to blk_io_plug_call() API
->   block/linux-aio: convert to blk_io_plug_call() API
->   block: remove bdrv_co_io_plug() API
->=20
->  MAINTAINERS                       |   1 +
->  include/block/block-io.h          |   3 -
->  include/block/block_int-common.h  |  11 ---
->  include/block/raw-aio.h           |  14 ---
->  include/sysemu/block-backend-io.h |  13 +--
->  block/blkio.c                     |  43 ++++----
->  block/block-backend.c             |  22 -----
->  block/file-posix.c                |  38 -------
->  block/io.c                        |  37 -------
->  block/io_uring.c                  |  44 ++++-----
->  block/linux-aio.c                 |  41 +++-----
->  block/nvme.c                      |  44 +++------
->  block/plug.c                      | 159 ++++++++++++++++++++++++++++++
->  hw/block/dataplane/xen-block.c    |   8 +-
->  hw/block/virtio-blk.c             |   4 +-
->  hw/scsi/virtio-scsi.c             |   6 +-
->  block/meson.build                 |   1 +
->  block/trace-events                |   6 +-
->  18 files changed, 239 insertions(+), 256 deletions(-)
->  create mode 100644 block/plug.c
->=20
-> --=20
-> 2.40.1
->=20
+Proposed patches fix some shortcomings when using multiboot2, like the
+ignoring of the vga= parameter and forcefully switching the console to
+the maximum supported resolution.
 
-Thanks, applied to my block tree:
-https://gitlab.com/stefanha/qemu/commits/block
+Thanks, Roger.
 
-Stefan
+Roger Pau Monne (3):
+  multiboot2: parse vga= option when setting GOP mode
+  multiboot2: do not set StdOut mode unconditionally
+  cmdline: parse multiple instances of the vga option
 
---+rqeetX7bJGZaj5e
-Content-Type: application/pgp-signature; name="signature.asc"
+ docs/misc/xen-command-line.pandoc |  3 ++
+ xen/arch/x86/boot/cmdline.c       | 85 +++++++++++++++----------------
+ xen/arch/x86/boot/head.S          | 13 ++++-
+ xen/arch/x86/efi/efi-boot.h       | 69 +++++++++++++++++++++++--
+ xen/arch/x86/x86_64/asm-offsets.c |  1 +
+ 5 files changed, 123 insertions(+), 48 deletions(-)
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmR4lsUACgkQnKSrs4Gr
-c8hKywf6Ai2z8xv51+za7a/ioPSmYCxE+4OzREj4aifqUETMKNTd5V4vS3Ee4Zy1
-Ab/olnSS3uMy4XXM53+gEeegrXZwIRBx/8f60zTsVnYJSDTKjKfp5+muGOVjCCgI
-ejDkkuuHCdD2dmuCSBoD2FR4AQhzkImOTEo0l50GXUe2ORa7EA5Yr82WHI74LZQM
-mwH8nYhjjNOXyMq3WY1ibRkwMfDKvf9ZOFBTAsRXR2ibFR0G8xQ5V4j8x0EJ1OSp
-20vrK/R+c3R+9QC7DgiSteb3BTFxIwMiAc8IJ4d2mpfkG7sRjCfuUpS7FcGKNAUj
-otBYNx/Hsgk7UghmZb1y5Z2Gi7yOwA==
-=gggu
------END PGP SIGNATURE-----
-
---+rqeetX7bJGZaj5e--
+-- 
+2.40.0
 
 
