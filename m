@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C03B72012A
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 14:09:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.543118.847795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F72772012C
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 14:10:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.543125.847805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q53bB-0005s4-Ew; Fri, 02 Jun 2023 12:09:41 +0000
+	id 1q53bY-0007L9-US; Fri, 02 Jun 2023 12:10:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 543118.847795; Fri, 02 Jun 2023 12:09:41 +0000
+Received: by outflank-mailman (output) from mailman id 543125.847805; Fri, 02 Jun 2023 12:10:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q53bB-0005p8-BN; Fri, 02 Jun 2023 12:09:41 +0000
-Received: by outflank-mailman (input) for mailman id 543118;
- Fri, 02 Jun 2023 12:09:39 +0000
+	id 1q53bY-0007I1-Pq; Fri, 02 Jun 2023 12:10:04 +0000
+Received: by outflank-mailman (input) for mailman id 543125;
+ Fri, 02 Jun 2023 12:10:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1jAO=BW=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1q53b9-0003vL-5Q
- for xen-devel@lists.xenproject.org; Fri, 02 Jun 2023 12:09:39 +0000
+ id 1q53bX-0003vL-Q1
+ for xen-devel@lists.xenproject.org; Fri, 02 Jun 2023 12:10:03 +0000
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060c.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::60c])
+ (mail-bn8nam12on2061b.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::61b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5818c4ad-013e-11ee-8611-37d641c3527e;
- Fri, 02 Jun 2023 14:09:37 +0200 (CEST)
-Received: from MW4PR04CA0038.namprd04.prod.outlook.com (2603:10b6:303:6a::13)
- by DM6PR12MB4530.namprd12.prod.outlook.com (2603:10b6:5:2aa::19) with
+ id 6638a187-013e-11ee-8611-37d641c3527e;
+ Fri, 02 Jun 2023 14:10:01 +0200 (CEST)
+Received: from MW4PR03CA0272.namprd03.prod.outlook.com (2603:10b6:303:b5::7)
+ by PH0PR12MB5605.namprd12.prod.outlook.com (2603:10b6:510:129::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.24; Fri, 2 Jun
- 2023 12:09:33 +0000
-Received: from CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6a:cafe::1a) by MW4PR04CA0038.outlook.office365.com
- (2603:10b6:303:6a::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.26; Fri, 2 Jun
+ 2023 12:09:57 +0000
+Received: from CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b5:cafe::93) by MW4PR03CA0272.outlook.office365.com
+ (2603:10b6:303:b5::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.26 via Frontend
- Transport; Fri, 2 Jun 2023 12:09:33 +0000
+ Transport; Fri, 2 Jun 2023 12:09:57 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT048.mail.protection.outlook.com (10.13.175.148) with Microsoft SMTP
+ CO1NAM11FT036.mail.protection.outlook.com (10.13.174.124) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.26 via Frontend Transport; Fri, 2 Jun 2023 12:09:32 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ 15.20.6455.26 via Frontend Transport; Fri, 2 Jun 2023 12:09:56 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Jun
- 2023 07:09:30 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 07:09:55 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Jun
- 2023 05:09:30 -0700
+ 2023 07:09:55 -0500
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Fri, 2 Jun 2023 07:09:28 -0500
+ via Frontend Transport; Fri, 2 Jun 2023 07:09:53 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,22 +63,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5818c4ad-013e-11ee-8611-37d641c3527e
+X-Inumbo-ID: 6638a187-013e-11ee-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HemJZkUgx1RqEICn9a1iW4BLGQlujWr05rMb1rs3AQ9oHT3aCZ+g6uYl9m+i4In8lDAVgWD6F2OI9PV63Tfb/TNYO1ntkn9QHfjN0xFduT5E8n7tl1r2xRiMDAQ1FrzG05HcHAmVx/oddiz5nVJNkjn7GeVJ052qX/nUypfmpgJSnwdfbpBJb73+vZPxYK+ogwCysOOokJbcDWrFbsuIJzcpOxgap3b/3f1Ou2WzcPNJdRX47Wk/kwVTATexuyzyDlKulY98Za0WzJmQfB8AgROee6txegW47l5fyhBWnCYGWH48MfHIWsSqUuaVTyJZGOyJK/ZLZlAn29gAGP2eLw==
+ b=Uceq4vPzIjwOwdKEX6Hs8nmORpTOMQsCCDCk0XqkcS6+FsyHO5Oenv8/JA4g5cFzyxpuieoST7EoSRvAkJF3ypMauYjem3pWG8YJCPZOLB3e+tv2OThyS5qhevgmq1W+1VMQVFN/QGZRcBQql17WWQpWqtvasPSy0MKTGjD2FD5fJ1xXLmox0Dtl9i0sMQlxvCFKdVoJo81OIM16sz0w3nOzG4oOf+JE4Vcwp49/BgE19SyJPjHyawb+JfTbzWQl0qmObYwRCrUuuOPnbLtmBPCcko+wahd5/LxgC/db4PAI2L1A78tuyrn0+M+7TB9PW4gpIA89v7PpIWxNwK8ifg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rqCo6sY+sNGsyn7K+5qf+y8ONKXZ0EQ9Pa42dCYxQjw=;
- b=jn8NhQ7BOjMAvRACnvIcqI4NYsfL4TbEdvLsILhmrG550ZgxZgEnA3nXiXGRcLB+GIPwfkVSqlBzRIei/xUJggK0if4sdPZRNyMKeBGTsL7yINMbiTb7hJD8a5c23h8t1+Zqbxw5G7VPV8TXen5lYp0UO2MH6hScKmWgl84T0Wt+AKXmPuUeAG2b+KQcl+uqE/ZAPARd+HJE29wQz8P1UP4EBC3qcLUWuI6kL/czMjK9VTVhtolVMtkBeOpZKnZOOFZvxW/9wZLnMzbWbsPr/IaY0dcsCa5gVH+aX5p7J79dlwZAunYNSYCUMcD4oEcAo0OuJith+6GDLMGN3nVGFg==
+ bh=zLBAIbTyb40hmLGACIS/eIuTtif3YL9R0l6EzqD5g1c=;
+ b=VmuLyDWuo44wyTxKBZWXGJQFIxCrbE2IDkjdyceES32EWFxM6Jx5/p491BLhQ9dpfWKLWsQ5/XvRuv4BR+5sJg1mx7TYjO4RoWe74tRPavB2HfokQawly/UPXstH3Fl+lHQYMwvP+yYUENTI9cdJpAqBdhneMLWTjiu9XRucK1BsvxAGGuxOLHOYs9Rral8QsFcRHJuOc7wqpM/6ZbiQgsLTFquYEYtygXpIpgS5MwHS2OX02nKiymKAFl2WNEqs84liOYQwx1dzAGHpB+OD+AmGC7iZI/8YJzK2anhzpAFw+wSLQo41pBCc9pdIpkraWAGO0wmisIl3S8pocBhdqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rqCo6sY+sNGsyn7K+5qf+y8ONKXZ0EQ9Pa42dCYxQjw=;
- b=PQYIgR1XmoUcvkBzHFFs2RllyRNSzJUB70f7zOYdw+vztGsNZtIwIWIIx9Rh4EItDOzd84OtYX7SiPQFc2bU/GVm8yjrCX4wy91uyOwYpEjoXtZ8uwAMs63G1vjBHfg0DfpE8bBdRpG1R/2RJ/UMCHCR4Z9asny2YTnzbVVp/y0=
+ bh=zLBAIbTyb40hmLGACIS/eIuTtif3YL9R0l6EzqD5g1c=;
+ b=2fgv1nuikDTkOtJVd4zViXH8vc8Q4dtVC3M5LZlanXCC3hFAwWXFf7TNSNdPxFUowqkBrT8zShiT8me8wsDjtPLItW2Op2QEruFrBTxrWdjaptI9egxglktmFWVY3e48cNfa9AjTSS4mlS3+Vgty3K+xgXvR5J9EpOCGwGL8+Sw=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -92,9 +92,9 @@ CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
 	<wl@xen.org>, <rahul.singh@arm.com>, Ayan Kumar Halder
 	<ayan.kumar.halder@amd.com>
-Subject: [XEN v8 4/5] xen/arm: Restrict zeroeth_table_offset for ARM_64
-Date: Fri, 2 Jun 2023 13:07:53 +0100
-Message-ID: <20230602120754.23817-5-ayan.kumar.halder@amd.com>
+Subject: [XEN v8 5/5] xen/arm: p2m: Enable support for 32bit IPA for ARM_32
+Date: Fri, 2 Jun 2023 13:07:54 +0100
+Message-ID: <20230602120754.23817-6-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230602120754.23817-1-ayan.kumar.halder@amd.com>
 References: <20230602120754.23817-1-ayan.kumar.halder@amd.com>
@@ -102,97 +102,91 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT048:EE_|DM6PR12MB4530:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f2c90ab-c47d-42a7-0e7f-08db636239b3
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT036:EE_|PH0PR12MB5605:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f447898-408e-4180-e65a-08db636247d4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	NHHBN9100Obhp8+lRd0lDby/XDtUD58YAhaQFeYAti+/qJH4bz3OJTd4TRmgsL7G7c256PlcYxBn+cPInVdK4kqjnVmjwmOY12p5MmCmABCt0mBK3YZZdky1rC6XmLj+5WH53cu2GFxvJqbx0VIvT1TkKHpJdDdN+DU4Q6LoAE+7yksoHWTfMwZn/0gnOKt9DIvMtP6APqqJt1ByvADMOmVOSVpx5GezOwE/8xk+KKjHLOYV4Ec3iCMqx0EZAGml4GC8HyiASRTlwj2bHreLqYDhYI2IM/ddS4/oMcBiMKDyfCFInW5lrAznyH7uS9fbSGy2ZQjqnid3LyeqdZWbfluTiDp7VG8FSgEF/d30c7hGyGS9zK1GCWRPs46eHN4o9bqtg6atnyHoFC993nPzbBLXIQbnYfV3wbXTrSdkgbcOlCXJtCcS1CvKnVftBeKst2lhkgIH7OR8RmY9KRRrlGHLm9eIOqGtEtlCYdQvqHfoF4JY5WoqP14KRGtFtNJSSrApGbZG8UXf5YNO4S7bppmGrT80MclkdNdzJizST02RKJtrkkaWrrBziOyDzcEPCiYVgkPdFoRjstPro83l98bITHM58682iXCmttExucLk47Txc+W7kzPpaxkuTMcC20e3t/V0wRY70+C9suFyLzLij34a5bWKIOdapMmfDHqjFQf/bSLAxKVpXmUK6kQWZGzqnIfV0gNfbVkY4dP0Ew9BFLyMh/bkK6e9CPOOOcar7P+TG6oAeytw6aMirmQ7I/ANHUkqoMNqnPxkZq0xFw==
+	S6fWyp+mCtFeFEiSkt3ziO2w0TZswBwsT+abt9rmsuaW3rvUyELXKUSDp/tMrav6tJRAkTnG+t4ZCt43usBa8C31BERU2/7hQ555fq3DfeyavJcxUE3dEFKKWRyDGUeszCz8DL6RIjuzk7GxZB1de3Okwp2gsh2DnWRDicmtkfn85pgSks8lFk7CUxU0pVU6LOW3JHMhEvFES4XQjzZlgAZfXbEQwVYnriSbecJ0zkK01eXc8IEP/lm6tybjXliQ6yXVXBMGIPV7juAc1KWGyWBBiGPEdabsSqUKWqW63lxfFT8RXfiSoQxX98m6BpfllkBBFZSS+50OEEu1X/8VlhjbubrjjsDIn/RX0BoyWqq4TfcPv59K/Izea8KrFKoXex4YCn20uzsP7cUhxOxS5fqYjcRtWztdJRVnKPY8Uye49HwyZGXbwzohKCL+5W7NRyTDOWVjt2R/XmEhHPop6y0ZK6iFlwGIwWt0NS36cAFadcYottMwTg5paDv9wQ2RSzb9IKhtnb630QT0Y/PKTtl+x4QWnIpgpTCJvqa7O7H9gAMw02erdbYceMYOl19j0241GMlAepvyy9CmNbNFH33k6HAg5th4OWZbYIlhvhUhJHK6vzDs/GqCdYfb+cJTFr5BBstgu5rWPKCmg9+qeJ1ZzUrzQiBBjtmPn08S4bnrJ9nEagNdiHhHSMZ414g36LUeBLlNAKImye828aktWkOx/mACtP7nBZt4ydEIzdXJisgJKtext5Oj4m/sEGx+Koxf3yx/wOQTR8vB+/YL2w==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(39860400002)(346002)(396003)(451199021)(46966006)(40470700004)(36840700001)(82310400005)(4326008)(81166007)(356005)(47076005)(103116003)(26005)(1076003)(40460700003)(7416002)(2906002)(86362001)(5660300002)(8936002)(8676002)(186003)(6666004)(36756003)(54906003)(426003)(2616005)(336012)(316002)(82740400003)(83380400001)(41300700001)(40480700001)(36860700001)(478600001)(70586007)(70206006)(6916009)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199021)(40470700004)(36840700001)(46966006)(336012)(426003)(83380400001)(47076005)(40460700003)(103116003)(2616005)(2906002)(36756003)(86362001)(82310400005)(81166007)(356005)(82740400003)(36860700001)(40480700001)(316002)(5660300002)(4326008)(7416002)(41300700001)(478600001)(54906003)(8936002)(8676002)(186003)(6916009)(70206006)(70586007)(26005)(1076003)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 12:09:32.7163
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 12:09:56.4730
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f2c90ab-c47d-42a7-0e7f-08db636239b3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f447898-408e-4180-e65a-08db636247d4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT048.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT036.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4530
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5605
 
-When 32 bit physical addresses are used (ie PHYS_ADDR_T_32=y),
-"va >> ZEROETH_SHIFT" causes an overflow.
-Also, there is no zeroeth level page table on Arm32.
+Refer ARM DDI 0406C.d ID040418, B3-1345,
 
-Also took the opportunity to clean up dump_pt_walk(). One could use
-DECLARE_OFFSETS() macro instead of declaring an array of page table
-offsets.
+"A stage 2 translation with an input address range of 31-34 bits can
+start the translation either:
+
+- With a first-level lookup, accessing a first-level translation
+  table with 2-16 entries.
+
+- With a second-level lookup, accessing a set of concatenated
+  second-level translation tables"
+
+Thus, for 32 bit IPA, there will be no concatenated root level tables.
+So, the root-order is 0.
+
+Also, Refer ARM DDI 0406C.d ID040418, B3-1348
+"Determining the required first lookup level for stage 2 translations
+
+For a stage 2 translation, the output address range from the stage 1
+translations determines the required input address range for the stage 2
+translation. The permitted values of VTCR.SL0 are:
+0b00 Stage 2 translation lookup must start at the second level.
+0b01 Stage 2 translation lookup must start at the first level.
+
+VTCR.T0SZ must indicate the required input address range. The size of
+the input address region is 2^(32-T0SZ) bytes."
+
+Thus VTCR.SL0 = 1 (maximum value) and VTCR.T0SZ = 0 when the size of
+input address region is 2^32 bytes.
 
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-Acked-by: Julien Grall <jgrall@amazon.com>
 ---
 Changes from -
 
-v1 - Removed the duplicate declaration for DECLARE_OFFSETS.
+v1 - New patch.
 
-v2 - 1. Reworded the commit message. 
-2. Use CONFIG_ARM_PA_32 to restrict zeroeth_table_offset.
+v2 - 1. Added Ack.
 
-v3 - 1. Added R-b and Ack.
+v3 - 1. Dropped Ack. 
+2. Rebased the patch based on the previous change.
 
-v4 - 1. Removed R-b and Ack as we use CONFIG_PHYS_ADDR_T_32
-instead of CONFIG_ARM_PA_BITS_32. This is to be in parity with our earlier
-patches where we use CONFIG_PHYS_ADDR_T_32 to denote 32-bit physical addr
-support.
+v4 - 1. t0sz is 0 for 32-bit IPA on Arm32.
+2. Updated the commit message to explain t0sz, sl0 and root_order.
 
-v5 - 1. Added R-b and Ack.
+v5 - 1. Rebased on top of the changes in the previous patch.
 
-v6 - 1. No changes.
+v6 - 1. Removed the index for ARM_32.
 
 v7 - 1. No changes.
 
- xen/arch/arm/include/asm/lpae.h | 4 ++++
- xen/arch/arm/mm.c               | 7 +------
- 2 files changed, 5 insertions(+), 6 deletions(-)
+ xen/arch/arm/p2m.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/xen/arch/arm/include/asm/lpae.h b/xen/arch/arm/include/asm/lpae.h
-index 3fdd5d0de2..7d2f6fd1bd 100644
---- a/xen/arch/arm/include/asm/lpae.h
-+++ b/xen/arch/arm/include/asm/lpae.h
-@@ -259,7 +259,11 @@ lpae_t mfn_to_xen_entry(mfn_t mfn, unsigned int attr);
- #define first_table_offset(va)  TABLE_OFFSET(first_linear_offset(va))
- #define second_table_offset(va) TABLE_OFFSET(second_linear_offset(va))
- #define third_table_offset(va)  TABLE_OFFSET(third_linear_offset(va))
-+#ifdef CONFIG_PHYS_ADDR_T_32
-+#define zeroeth_table_offset(va)  0
-+#else
- #define zeroeth_table_offset(va)  TABLE_OFFSET(zeroeth_linear_offset(va))
-+#endif
- 
- /*
-  * Macros to define page-tables:
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index 5ef5fd8c49..e460249736 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -233,12 +233,7 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
- {
-     static const char *level_strs[4] = { "0TH", "1ST", "2ND", "3RD" };
-     const mfn_t root_mfn = maddr_to_mfn(ttbr);
--    const unsigned int offsets[4] = {
--        zeroeth_table_offset(addr),
--        first_table_offset(addr),
--        second_table_offset(addr),
--        third_table_offset(addr)
--    };
-+    DECLARE_OFFSETS(offsets, addr);
-     lpae_t pte, *mapping;
-     unsigned int level, root_table;
- 
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index 76388ba54b..a969068a68 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -2265,6 +2265,7 @@ void __init setup_virt_paging(void)
+         [6] = { 52,      12/*12*/,  4,          2 },
+         [7] = { 0 }  /* Invalid */
+ #else
++        { 32,      0/*0*/,    0,          1 },
+         { 40,      24/*24*/,  1,          1 }
+ #endif
+     };
 -- 
 2.17.1
 
