@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAC7371FC54
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 10:44:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.543000.847525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0977471FC81
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 10:49:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.543004.847535 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q50OC-0005qG-3L; Fri, 02 Jun 2023 08:44:04 +0000
+	id 1q50T7-0006Sp-Ml; Fri, 02 Jun 2023 08:49:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 543000.847525; Fri, 02 Jun 2023 08:44:04 +0000
+Received: by outflank-mailman (output) from mailman id 543004.847535; Fri, 02 Jun 2023 08:49:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q50OC-0005oK-0I; Fri, 02 Jun 2023 08:44:04 +0000
-Received: by outflank-mailman (input) for mailman id 543000;
- Fri, 02 Jun 2023 08:44:03 +0000
+	id 1q50T7-0006Pv-K1; Fri, 02 Jun 2023 08:49:09 +0000
+Received: by outflank-mailman (input) for mailman id 543004;
+ Fri, 02 Jun 2023 08:49:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NqWc=BW=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1q50OA-0005nv-Vn
- for xen-devel@lists.xenproject.org; Fri, 02 Jun 2023 08:44:02 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20625.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::625])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1jAO=BW=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1q50T5-0006Pl-Un
+ for xen-devel@lists.xenproject.org; Fri, 02 Jun 2023 08:49:08 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20614.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::614])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9df64cf9-0121-11ee-8611-37d641c3527e;
- Fri, 02 Jun 2023 10:43:59 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB9202.eurprd04.prod.outlook.com (2603:10a6:102:221::20)
+ id 53b21215-0122-11ee-8611-37d641c3527e;
+ Fri, 02 Jun 2023 10:49:05 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by BY5PR12MB4870.namprd12.prod.outlook.com (2603:10b6:a03:1de::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.24; Fri, 2 Jun
- 2023 08:43:56 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e442:306f:7711:e24c%5]) with mapi id 15.20.6433.024; Fri, 2 Jun 2023
- 08:43:56 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23; Fri, 2 Jun
+ 2023 08:49:00 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::8018:78f7:1b08:7a54]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::8018:78f7:1b08:7a54%2]) with mapi id 15.20.6455.020; Fri, 2 Jun 2023
+ 08:49:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,138 +47,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9df64cf9-0121-11ee-8611-37d641c3527e
+X-Inumbo-ID: 53b21215-0122-11ee-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n4TnGsABnIlGoy2FE8ghVTN0+UO1wg+cDvMbFLxSLGTWk3OehkU7k1/MnMCm9u1tb5P4lrNeDyWu/ds5JRTPfILFif1N9518jzZMjKEyaa1ng+nu9UDqYRMPxokjl9HPMJOjnsziek8F83hLDHLnisg/5tbocsmvwB0syF16CagZijbvcWNp6HZCO2Lh1kZJr+R+qlu6ArEE3KLPjHRiLt4AUKFT8Hv8zYeJ2HlJOmoHc7qh+OxmK9xgZ3612b5h6v4v2rkIm4ry9SAljxH7mnyJ6rpOWy1e4NPojYCduKxgileBI8UubcXnYatq14AcXLLAyfY5HaUnCwE8Q0WesA==
+ b=FY+BqSiJ+xBx1TJJ/feJheOB1KStZY/TcH7OUloMUb05yT0yl3OLF1A7MkCKngjWioXQBv7DCwCR6rkXVeEj3bpLG/6S8kIuq/qQoQjJkk03LDQaHPRvnmjzz1RIvNmZtMY1cNOtrqW3kEiGim8cO5HpYYxI4YKmkrkgJJDsR4KE6sniXaRIXHhcwO7uW5FSSnFubvIb79Ej6mXxQlF8vM54zAyLAvZH3nk+kf6bgv2gNpDJAjS3LzTuTmNLqiWZVL41XSWjeZqNk1NBMcFNbOiTue1AM0UT1/7DdCF5n2TOL+CazXEm1EkZQP4lRNEtO39POKydwe8vg2qtwbSfcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OgykzNIkOKeBygkc0tNwHF1BSFTXhBw87Hi0S5ViX7k=;
- b=Y7EV+hc+fR4jMG3QSSIva4Fl3jZ92vRUep1fgZ68N2JPA711t6BOoRnxvgcpBUKHcYcjUhg7+wyFwJFCoQaUFT6GzhPf1We+UpwFDDdFgiQY1hxKOHasdULwYec+23P05PyDdQE039C4KZRd/9A6MWdagt86HGsr2jmalhAxrU3I8fopQDzDl+2cKU5Ty3f6bAAHJ64KhtJdaeWa1NlA1Q4rvFwddCX7CnYRGWr7fgUfbmXvYh5/Pyu2tFsNcEqK4rbcVSbu3wUC2tpN8kLMl5PVkNymSs+SJ/vcUJZKZXQRT6L1HOSO9lraeiSg4XR8aiL09CxlSzXuu7zYw/cCCA==
+ bh=3DxF4x6maZ0+lFfy2d40jd0vG0I618b8vuBBVdhWFI4=;
+ b=MeHd5gxGQvARVk58TPZbnwRnx+7iQRzmGPeDNnXt+6Y+99yXcbyxteCYOrW4Xx3PpIR5RZ1UZasG8QGTjRw21YHD3J4wSfppOGPKVg3bvkRwKa7H7Jm0ipZldzO2l0RseSSnCzuXjzu3X0A8cKnxKBtF40xeda3kfD6b4BG/ZxYZXzhULuar8YDPnl4V9V3IU14oZbcUaJDdxlYGC2j0Wqb7fjVL0XxAe99rP7B1rVdULsT/E/mDcDlGQU/ZGMYRzwUuOQYP/4OeCBKpFbbTW/4Bo5aIuvsPUrHORurmOeLRZ49e1+a893rlC65ITb5gdxNX9xIXbQRr1iQsyALC+A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OgykzNIkOKeBygkc0tNwHF1BSFTXhBw87Hi0S5ViX7k=;
- b=ud0t7xH+oj4SR6uGRPAbWvTkwbL/sde3ImO3PAuM4c5hkVrNUl5PKmudAs+Tehw+6GfxYgGPBhqIAy4CZrZPucFbePW4D6MfmQ5ZIZav89vH60H1eZ7j4JdeaVB1I1CNAbS802yFhuWu3lnjKM07w0MVX4bQun4KxWdwgYCoRG/gaCZ8UxlXpqH8wgS4WIBM9PTYPwXPuVdttyGImbnM9g4jvnO4lf3WN8HKj4Ify8v38qC6i7X06qdNY6ikSYryjIovB+sBYAREC3g+qZ8841ONRazxEnTfC/yIFrf4AKs5OW4cgoncMidHVMiZWsc3AtAr5NfUwBXCEgJfWmvvPQ==
+ bh=3DxF4x6maZ0+lFfy2d40jd0vG0I618b8vuBBVdhWFI4=;
+ b=Nv/QEf8M5v5QikOB0znBUr6ru6z5z33rdXCc2nJ/8awPfLYhE1lRmdVlc9aRy9HGWhYZq6dS7C+ZZAYTRKFjU3Qn10UNdtrx9loL4VwqZf/OgolDAvH30pUSXO1m5aSZMxImPxjKBesdVwMXG5npUB0Y/FLniuM2XACmVZqhvJE=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <252ec541-bcc7-1b10-9831-520c959e06f9@suse.com>
-Date: Fri, 2 Jun 2023 10:43:54 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.2
-Subject: Re: [linux-linus test] 181082: regressions - FAIL
-Content-Language: en-US
-To: osstest service owner <osstest-admin@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <osstest-181082-mainreport@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <osstest-181082-mainreport@xen.org>
-Content-Type: text/plain; charset=UTF-8
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <baa9627c-51d3-1ef0-e125-f7803d72179c@amd.com>
+Date: Fri, 2 Jun 2023 09:48:48 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.11.0
+From: Ayan Kumar Halder <ayankuma@amd.com>
+To: "jbeulich@suse.com" <jbeulich@suse.com>, andrew.cooper3@citrix.com,
+ christopher.w.clark@gmail.com, nathan.studer@dornerworks.com,
+ Stewart Hildebrand <stewart@stew.dk>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+ Rahul Singh <rahul.singh@arm.com>, Henry Wang <Henry.Wang@arm.com>,
+ Doug Goldstein <cardoe@cardoe.com>, Juergen Gross <jgross@suse.com>,
+ dfaggioli@suse.com, elena.ufimtseva@oracle.com,
+ "<marmarek"@invisiblethingslab.com, anthony.perard@citrix.com,
+ george.dunlap@citrix.com, rosbrookn@gmail.com, lukasz@hawrylko.pl,
+ dpsmith@apertussolutions.com, mateusz.mowka@intel.com, kevin.tian@intel.com,
+ jun.nakajima@intel.com, paul@xen.org, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, konrad.wilk@oracle.com,
+ ross.lagerwall@citrix.com, samuel.thibault@ens-lyon.org, Wei Liu
+ <wl@xen.org>, christian.lindig@citrix.com, dfaggioli@suse.com,
+ mengxu@cis.upenn.edu, samuel.thibault@ens-lyon.org, tamas@tklengyel.com,
+ aisaila@bitdefender.com, ppircalabu@bitdefender.com
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ "Stabellini, Stefano" <stefano.stabellini@amd.com>,
+ "Garhwal, Vikram" <vikram.garhwal@amd.com>, Xenia.Ragiadakou@amd.com,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>
+Subject: Listing the tools required for Xen development/testing on x86 and Arm
+ by the community
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0109.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-ClientProxiedBy: LO2P265CA0418.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a0::22) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB9202:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d4ad4ad-4407-426f-65ea-08db63458059
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|BY5PR12MB4870:EE_
+X-MS-Office365-Filtering-Correlation-Id: f07b210b-bdaf-4c4e-3ef7-08db6346355d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	VcaYGTBVnL0s0C7ygI7cQvSoVZQoYkjhmLb3v1Ab1jQKBni1znOIGTRWYXBpDjZVxioNbVVSJeNtncCzMkguFlST3gKT64PFNmpr0HCLErkyh38Aydj6Et+1HF1kgtHSS9a0rArtWRQWnJRvrzax6/DpJSdrfFa12hIXSo87jE3qPA4jjoNdGeN+NQLzHJiP3L+OYoL2v995wD08akcBhvlqk0KoqYBnlKZ/5O2hJ+gqJYzAmJ9/TVG9UqzzZrfkEn1xRHRIdt0luXz+nPZ3JBW9s8ePvB8E/9ET81qTyltx3IbpJ+YZeIImDzqN+dS5SrGqPOWQx+EVtwa3Ge3tSUkqQm4mNvLf5+9Sz8Rj7Yc+HlDHCcWKeAYyynV6wlRVS8JtBUS+NThUHcaR5vBoVjkLhW0WcEB3IZeea08veYFiDM2ydtgBHl5DxcM2fCq8qYM3QNELUX6sfhxqImzJMYNSvFw4IpT1x+LaZpGjukuRl09PtAjB4Jd1kX9voAdGOrrHoYTWWqhtJ/mVfHGWNrkJGuBWC37KsM4ULt+y3lLzM19T9MJuAvEb673C69+v8OQFtY+XgEHPZT5Z/qPEl2xNeL1VZF5U5v8gNnPrYmomCGFB0pq0+hj+D+62kpoAh9yBlUKhUVN5qFFGD7Rvcw==
+	5D4C8LLoT811UKe2o+D6uS/a0BFhHitSCfTeukzPBb1spDidulD5TkulwfDgFdPpoUAV0HZtuDgcsubxjaZek79zJY+eA7pXRpv5B8Xwu5sm0YBh6zoJXjCzDaMHEy8WfXCX+XcD/8r6sirLuf6LlP6kyFYO2hi/LhTt/8yT8xjBMObqDYkK+09KKzgeGILhYKmnbr+CgivZljuZjr9J7nQtYnRPxHK7S2Zt7ijZNKkN2ASsD/l26WBUWuQDWtKgVs8TxZnWqw7JvUd9KcRXK4RxqGjAQURjBWvUbX1gB0chkCS7QsUIuQnMF126BT5IsBtGA5BkfIgHCVOI5CLiEPOyNRznGgKjZIOX4gWhQBAn0JcZ0yTzjUwDELOSmYZader+iKw0siK+E74SbStNThBhYTJMf7eA8UUTbcy+I3AxMrvP25I5AWpp7+k2wt2lsGojVSRg/zyyaVECl94u14XbEKfMLFmZC7ibK80uE59JVIMd3lO7InIPA/12hiHQnHw19avdR/q3LpHJTO6W3+9woktR2Zrn+C68bKTOPG9GKK+4a3PNcuju07SBv0SBUh1sOqH7qGJB6InH551f7zKYrEDWAhr7Q4K8xzpVko6KsZ0WPGVufEBU+KlW1zz1Z7Nfts/nOmON494nThTG5Wvx45XDXz7bfd/hA3jyy/g=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(39860400002)(376002)(346002)(396003)(136003)(366004)(451199021)(31686004)(83380400001)(36756003)(41300700001)(38100700002)(316002)(53546011)(26005)(6506007)(966005)(6486002)(66476007)(66946007)(66556008)(6512007)(478600001)(2906002)(8936002)(8676002)(31696002)(5660300002)(2616005)(86362001)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(136003)(366004)(396003)(376002)(346002)(451199021)(66556008)(66946007)(66476007)(31686004)(7406005)(7416002)(316002)(4326008)(41300700001)(110136005)(54906003)(5660300002)(8936002)(2906002)(8676002)(6486002)(478600001)(6666004)(921005)(6506007)(36756003)(186003)(6512007)(83380400001)(26005)(2616005)(31696002)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TUlmcG94TFBhTk1tZHlGbExvZ2ZZTG5JczRpV3FlVldwNVBCbFRxeG4xL25m?=
- =?utf-8?B?Sk8zM1dDOXNwMStrQmdnRnh3Zk9rL21STUF4ek84d25xU01JQ3d0OVE3eDJ0?=
- =?utf-8?B?cUpBWU9mSlpkSTNYN2lhMUFMbzlheHJpZ0JuQk8zYnBEYkpiOFBrZlFrY3cz?=
- =?utf-8?B?ek9CcGxVaFUvdENOWitJUjRLTXRGZzFIV0ZJVmpDYjFGZ0pER1NmU1RnWW9r?=
- =?utf-8?B?djNBbi9CRmRpeEVvbHd1U3VKZXZXZ2lqejczc0FGcWZTbmM5V3ZaU2hCTEE3?=
- =?utf-8?B?NkFSc3BzaWp1cWdzbEZQbitzQSt6d2JSMmtGWHpoNWdXNmpjdXVOR2hmWEM3?=
- =?utf-8?B?aUdpOWlJVXB6YWlxcnYzYnpPS2lYOU1pbTdkY2RFaGt0REpYaWtncXRySnNm?=
- =?utf-8?B?YzIwUUVIaHhibUExeWdsb3Uva05jc0RUL2xPRVhJWFpDc21Mcjh5dkZ6NVI0?=
- =?utf-8?B?SHFpSi9tK0NWVVc2bmdNR05FQWwvWUw1YnE2NmYzaHN2N0ZESDFjeWlVbFZY?=
- =?utf-8?B?SC9uQkFPVHBjYnV5MHozSmZlZTdDQjNwNWFnUTJUSElvclN0Z2x4RXE2NXRN?=
- =?utf-8?B?blZObVUyZzJiS3Jab3J5ZnpKeWtqeFNVSjlOT3FZa00xRU82SWlDTlhOWHRy?=
- =?utf-8?B?bElXeXd2WjU3NEFEQWxlOWlGTTE3U01xUjRLK2pMcklUcVdLQUJLMDVTVEQ2?=
- =?utf-8?B?T3BHWXFUZTJyZUVCWFl5K01LSHZBVUFEOG9sMng0SUpIVjJqS3lIOElWaEFL?=
- =?utf-8?B?S1lybUJjQWljU1FUN3lrdXlTQnE1dk1BVTlJNjZEUHg4WlpxRlFQQ1pGL1ht?=
- =?utf-8?B?UXRVcExISkVpZFJ0VE9DUmMvdW4yanFTMnJaV2x4emw2U042VFB2cXl5dk5s?=
- =?utf-8?B?L3VEQ0FRMU1ISTZnbVEzSEkvRmlJZDVRSEJ6RDFSdURKT1pPRUdKZ04yKyto?=
- =?utf-8?B?aERRd1h6Y3cvNTh4Wm5RamxVTXhXK0ZkZ0JnNGwzNERMUnV5OWx5c1ExSFJl?=
- =?utf-8?B?NitWNWcrRU5YTDNRNzlSUzJIb3dWVFBJUmpsQmZjZWoyTjZJSjM0MnBRUTNi?=
- =?utf-8?B?WldocEtuVktOZDc2bGhESDJmdzZGOG1JcXR6dkVKVWE4ZWpuampvY1Y0a2RS?=
- =?utf-8?B?Q2dXV01UZk91YUZkNmo0QnlPYWlUTnpwNzgwWHFReVFYWE5VYlcrdnJJK1l4?=
- =?utf-8?B?cUx3UFJ5RkpRaHhUa2tpclk4ZW11Y0YxMHpuTU8yV0FmOXh0TFFCb2lCc1hr?=
- =?utf-8?B?dHhxTy9NRWZyZU5nL2syeUw0L1NldjhKbmNjYzVkejZBUFlDekVlYldpRkIy?=
- =?utf-8?B?Y0FHcGdaL1Q3MGxKWVNteDExcm1KbFdDN3djUytKdCtMMUtuRFZHSktRRUFI?=
- =?utf-8?B?bjZRaG5tL0loQXM3NUhxeVBXTG4weW5IY1FSS1VkYzRXZStFYTJqRC9WMDRG?=
- =?utf-8?B?Z29LSFZVQUVadEpWMG1EcnRFZ3JyMXBRdTEzOFg4Q2N3a2lOV2NwQ0x2RU1j?=
- =?utf-8?B?YjNyV2NnS1hqSXJsMno0TU5sd0J0QUtwREpVdDNINFpTT3VLM0xhbk5iTGgy?=
- =?utf-8?B?ajBQVmtGRnpoTjRRWlVDZkNqZ0NrZ1NDWnpUQTFqYzNwL0w3M2ZsYk83WGpv?=
- =?utf-8?B?OFdIb3B4WkFzT2hpUmpMSDh2NmNyYmVTaER3N0VzazhkcDd1VlB6NFpFMTM0?=
- =?utf-8?B?MnlpZVBZemFUcklHWUtTTkc2VHVqVXUyeFBmdnc4SzdwTU9sR0k5ZktjaTEv?=
- =?utf-8?B?QUt4b2tlazhjeGJSdElaZ3VYUG1tSmNJdnF0OWtMeFE5alNoRTNoSFBsV3dk?=
- =?utf-8?B?S1E4ZXI1NHliSFppaUt0d0M1RkR5MUdxOUV1a3ZucGFkeW5GUmo5VEhQZE15?=
- =?utf-8?B?RjN5cDhSajloWFpNTFFMcUpubDRoYmYra2dlZ0F3K1EwRWxpUnJTZGQ4WXFR?=
- =?utf-8?B?YmNsSGd6K1NZdTZCL21jK1hVNncvVHlOQVhESVBqZmxkN1A3YmdtcnVXaHVI?=
- =?utf-8?B?Tm83UlZlZlhCZGpFMUN6c3hxUERURmM5MktraVpMZm5tMlRmY1RTUW9YajZv?=
- =?utf-8?B?eXVaK3VZNSsvVy85Uy9INUhleGRjYld2eHR5UTdteGthWks1WEZpYzZ3anB0?=
- =?utf-8?Q?bLED5beQX5Vhgwk5sdrscKDPr?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d4ad4ad-4407-426f-65ea-08db63458059
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?cmViZXBkM0daQnRDUjBiY040YllzZCtPYjRnOVF3ZlpkYmNScmh2NUFKUTBS?=
+ =?utf-8?B?cjhDRHlqR2plNURQQXlpaklhVXY1TFdrYkZ5TXhBSzFnSGpNSkd5MkdQTGRY?=
+ =?utf-8?B?QkxzaThsK1lycHcyc1VNSURka1J0OHdBSTdXRWhuYjcvc01nK2hlUnV4c0V2?=
+ =?utf-8?B?aTRScWRwZnZoTGZuZTJncjdlUkZqVFhDb0Mvc1k1N3IyenlRK25hak5oT2tD?=
+ =?utf-8?B?TGtWL1QzS2kzMy9GMVQ5V3VMRS95K0luaDJaS1pFaFhGZFhtWXVFUndoR05D?=
+ =?utf-8?B?cWtuSXViOHNWSnppTmNSS3JPazdMcWJ5K0pGcXFjdUlEMHBvVStaWTAzK0Ft?=
+ =?utf-8?B?NHluSXNDYjJyR2F4UkdHQWxaMWU4YndkR3gvMHV6bTlzckpMaGVNRnZUUDRx?=
+ =?utf-8?B?a3FNVG4rekpXNWM1SCs1T2d4ZThXWXdrUmV3RHNOSzJ0cnRrUkF2Q2w3TDdS?=
+ =?utf-8?B?U291WTl2NFU0SDhnSVlOTCtieVU1bTR5Q0hQUWRMMGR4d1o0cTVYTWFyZmVR?=
+ =?utf-8?B?WEV5bGhUWFhsR044RzcwTWxlYlQxSU5PQTFkbWMrNW1HVDdVOHMwNXlVbEVh?=
+ =?utf-8?B?ODhSZlZTclNWWkRsQmlUa2t4YkFiWVRjY1RXaGFmZlZoTkVXTzZiVGl6TmJN?=
+ =?utf-8?B?bGdWeThaT09PQ3JReG5aT1NJeUlkdnF6bDNWNVpYTWc0MDhvN2k3Y3g0N01V?=
+ =?utf-8?B?K2RQNWpWU0tvdjFnMklpL2NyQjl1a2pPQUdWdVVENXBCUGp0b0lXQjFDMzBQ?=
+ =?utf-8?B?cXp5eCs2cjNWeHlWL2hSc1JMcDZGOGttbGdlLytCVC90T05PcSs2ejAxdEZo?=
+ =?utf-8?B?Nys4elk3YTFLd1ZWa3FMbzhEQVpab0hnWjNldHVxV1hYRWg1VC9SeCtJWDls?=
+ =?utf-8?B?bG5kNVU1SEt3VEFZWUVFUW0vdlc4RlNPd3JEL2NaalRPYlhHRnA2TU1DbFV1?=
+ =?utf-8?B?RGJ0RjB6NmNFYjF4REVYNU9USFpXaTZmUWRkblVnTVlZaVdaeFZEemhxdGlO?=
+ =?utf-8?B?VWl5L2oyY3FtUzZqSEdJZWJqd1FNUkxnVjQ2aUVBalhEZ0tQQmdKajdSbStJ?=
+ =?utf-8?B?SXkycnhxOStqMi8zaWwzYlo0WGRrKzNVNWM2UjNNYjVwM1Nxd2hwTU5OLzlE?=
+ =?utf-8?B?ZHo3Z09IbnlQbEVnZUlPNmJXdjlKNmY0K2lhT05uOXpCTFZoTGNwRldxOEFW?=
+ =?utf-8?B?azNOZFRsMUhHR2trZ3pkVGppbEw3cy9jTmVITE1kQ09EdDN0bWpEYXhUb055?=
+ =?utf-8?B?cEJzczFSbzQ2VVZEMUIwTm4zZGZvZjFxa3NzekxqeFVYaVEyR2JTRnNVaFBn?=
+ =?utf-8?B?K1hsU2tGZFRySFJNRmFKL1laSWE1dzlXTDdYNUd0aXl6QTE5R3h3RS9zclUw?=
+ =?utf-8?B?TjAvU1RITjFISzdrRDdwR0d4Y1RGbDJhQko4bSs0QzRVeUdWNkFUTDlXODQw?=
+ =?utf-8?B?WVQwcjNKM1ZkVkF4ZFArK3V1eitkM3dManEwcmlET3JVL3pCeGVQL2FYV1Fs?=
+ =?utf-8?B?SWFsVk9uQW5tWVpDMnRCRnV6TGxrV1p3OFZsb2k1c0xVUWwxOXdKTW9HLzZP?=
+ =?utf-8?B?YWhxQ2taZzBmZlpjSFdwRVcyc3Z4TkpTZW5tc2RrbitoNE9jeWM5UXVTMU5r?=
+ =?utf-8?B?WUtCYmtXaVRLamVVRER1MGtLS2pBVWVhKzk2aDcwTm5VaGJSczFmdnArbUdn?=
+ =?utf-8?B?QVNwNWd1eVh4SUh2b0xtZlJtMkovdUVpbXlBZFVjMXZVWTZScFdrQ25CTzVn?=
+ =?utf-8?B?enFZOUpVNm1aSHZrTTBaTUEzS1dTODYwYjBqZGplOXdpTGlldHU3OER0dkU0?=
+ =?utf-8?B?MGZOS1k5cDBCdWtrckZrNGpNSzhxVktNakx0S0FNZWRzSWJEWjhIS3B5TG9Z?=
+ =?utf-8?B?eGJ3MlRTQ3dzUWNUN1p5dERtUnZqQUQzMzQ2YU84ZXBaUkcvYUJkMFpuNE1B?=
+ =?utf-8?B?ZXFHcTZDRkJ0YlQwaTI5OFdsWGthZlQxRVdQN29wTm9wNzU2b1hocTgvVEJD?=
+ =?utf-8?B?TWdSb3VscDB1QXV1amFEdkQxN3FVT2VXVFBVMk1Bd0p3T1ZuWFpEM1E5SENm?=
+ =?utf-8?B?Z08zSjVKQjdsVUMwdFpkNTk4QzdiMHFkMXFsRm4wUjVwQm5xNCtNNmx0SkxU?=
+ =?utf-8?Q?uY2XhZwi+7fnMgriKPeDv9pRf?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f07b210b-bdaf-4c4e-3ef7-08db6346355d
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 08:43:56.1943
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 08:49:00.0718
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Eo3civKiKeW1XXZ/hU4kB7+jCWwBCwiOTGed+8hzbuCNXXrajDqeBi8FIW98KwiSuUaf25a/sH7jWaDGDp6l9w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9202
+X-MS-Exchange-CrossTenant-UserPrincipalName: Kv4Z/vlN/15S3jupl1M8D9UzU43yslMSjeWo01DX1B9UYsa7jW71hipOyXtD3DafwCKLYyN0npWCWFecbj50Nw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4870
 
-On 02.06.2023 05:21, osstest service owner wrote:
-> flight 181082 linux-linus real [real]
-> flight 181098 linux-linus real-retest [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/181082/
-> http://logs.test-lab.xenproject.org/osstest/logs/181098/
-> 
-> Regressions :-(
-> 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 180278
+Hi Xen developers,
 
-Following up from yesterday's discussion, I've noticed only now that
-we had an apparently random success once in mid April. Without that,
-we'd see ... 
+We are trying to better document xen project development processes and 
+related tools. At present, we are targeting **x86 and Arm** only.
 
-> Tests which did not succeed, but are not blocking:
->  test-armhf-armhf-examine      8 reboot                       fail  like 180278
->  test-armhf-armhf-xl-arndale   8 xen-boot                     fail  like 180278
->  test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 180278
->  test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 180278
->  test-armhf-armhf-xl-credit2   8 xen-boot                     fail  like 180278
->  test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 180278
->  test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 180278
->  test-armhf-armhf-xl-multivcpu  8 xen-boot                     fail like 180278
->  test-armhf-armhf-libvirt-raw  8 xen-boot                     fail  like 180278
->  test-armhf-armhf-libvirt      8 xen-boot                     fail  like 180278
->  test-armhf-armhf-libvirt-qcow2  8 xen-boot                    fail like 180278
->  test-armhf-armhf-xl           8 xen-boot                     fail  like 180278
->  test-armhf-armhf-xl-vhd       8 xen-boot                     fail  like 180278
->  test-armhf-armhf-xl-rtds      8 xen-boot                     fail  like 180278
+These tools range from bug/change request tracking means, compilers, 
+infra, editors, code-review tools, etc which is connected in some way to 
+the Xen development and is being currently used by xen-devel community.
 
-that singular test in the same group as all the other armhf ones. I
-wonder whether we shouldn't try to get those in sync. Which direction
-depends - aiui a force push would allow subsequent automatic pushes
-if only the armhf tests fail. Whereas clearing the "fail like" state
-for all of them would give a better picture of what's actually
-broken right now.
+I appreciate if you can let me know anything I missed or mistaken and 
+the version currently being used (for some of the tools).
 
-Jan
+
+1. Code management portal - xenbits (https://xenbits.xenproject.org), 
+gitlab (https://gitlab.com/xen-project/xen)
+
+2. Project description - wiki.xenproject.org
+
+3. Project management - gitlab
+
+4. Code review - text based email clients (mutt, thunderbird), git-email, b4
+
+5. Text Editors such as vim, emacs
+
+6. Code review history - xen-devel mail archives
+
+7. Code revision management - git
+
+8. Xen coding language - C89, C99, Kconfig
+
+9. Testing tools for Arm64 in gitlab CI
+
+compiler - gcc-9.3.0 (Alpine 3.12)) (most commonly used version)
+
+binutils - GNU Binutils for Debian) 2.38.9
+
+emulator/hw - qemu-system-aarch64-6.0.0, qemuarm64 6.2.0 (From yocto, 
+poky disto - 4.0.5), zcu102 (**need the uboot, TF-A versions **)
+
+dom0/domU kernel - kernel-5.19.0
+
+rootfs - alpine-3.12-arm64-rootfs
+
+firmware - U-Boot 2022.10
+
+10. Testing tools for Arm in gitlab CI
+
+compiler - arm-poky-linux-gnueabi-gcc (GCC) 11.3.0, 
+arm-linux-gnueabihf-gcc (Debian 12.2.0-14) 12.2.0 (most commonly used 
+versions)
+
+emulator/hw - qemu-system-arm 6.2.0 (From yocto, poky disto - 4.0.5)
+
+dom0/domU kernel - kernel-5.15.72 (from Yocto), Kernel-5.10.0-22 (from 
+Debian)
+
+rootfs - alpine-minirootfs-3.15.1-armhf.tar.gz
+
+firmware - U-Boot 2022.10
+
+11. Testing tools for x86
+
+compiler - gcc-9.3.0 (Alpine Linux 9.3.0), gcc (Debian 12.2.0-14) 
+12.2.0, clang (from Debian) (most commonly used version)
+
+binutils - GNU ld (GNU Binutils for Debian) 2.40)
+
+emulator/hardware - Qubes HW (**need details regarding machine, 
+firmware, etc**) , qemu 6.2.0 (From yocto, poky distro - 4.0.5)
+
+dom0/domU kernel - kernel 6.1.19
+
+rootfs - alpine-3.12-rootfs
+
+firmware - BIOS Dasharo (coreboot+UEFI) v1.1.1 02/22/2023 , EFI v2.70 by 
+EDK II , SMBIOS 3.3.0 , SeaBIOS (version rel-1.16.2-0-gea1b7a0-Xen), 
+GRUB 2.06~rc1
+
+12. Debugger - gdb
+
+13. Xen code building infra - make
+
+14. Testing OS - CentOS 7, Ubuntu, OpenSuse, Arch Linux, Alpine 3.12.12, 
+Debian 10 (Buster), Fedora
+
+( **I could not get the version info for some of these ^^^**)
+
+15. Testing Infra - Gitlab runner, Docker
+
+16. Testing tools common to all architectures - All the host OS packages
+
+dtc, build-essential, zlib1g-dev, libncurses5-dev, libssl-dev, 
+python-dev, python3-dev, xorg-dev, uuid-dev, libyajl-dev, libaio-dev, 
+libglib2.0-dev, libpixman-1-dev, pkg-config, flex, bison, gettext, 
+acpica-tools, bin86, bcc, liblzma-dev, libc6-dev-i386, libnl-3-dev, 
+ocaml-nox, libfindlib-ocaml-dev, markdown, transfig, pandoc, 
+checkpolicy, wget, nasm, mkimage, uboot-tools
+
+17. Documentation related tools - doxygen, rst.
+
+
+Did I miss anything ?
+
+Kind regards,
+
+Ayan
+
+
+
+
 
