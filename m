@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0DA2720123
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 14:08:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.543107.847765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 160C5720128
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 14:09:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.543113.847775 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q53aD-0004T9-KC; Fri, 02 Jun 2023 12:08:41 +0000
+	id 1q53aj-00053A-V1; Fri, 02 Jun 2023 12:09:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 543107.847765; Fri, 02 Jun 2023 12:08:41 +0000
+Received: by outflank-mailman (output) from mailman id 543113.847775; Fri, 02 Jun 2023 12:09:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q53aD-0004QC-F8; Fri, 02 Jun 2023 12:08:41 +0000
-Received: by outflank-mailman (input) for mailman id 543107;
- Fri, 02 Jun 2023 12:08:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q53aj-00051C-Qx; Fri, 02 Jun 2023 12:09:13 +0000
+Received: by outflank-mailman (input) for mailman id 543113;
+ Fri, 02 Jun 2023 12:09:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1jAO=BW=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1q53aB-0003vL-SI
- for xen-devel@lists.xenproject.org; Fri, 02 Jun 2023 12:08:39 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20611.outbound.protection.outlook.com
- [2a01:111:f400:7e88::611])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33f3fb42-013e-11ee-8611-37d641c3527e;
- Fri, 02 Jun 2023 14:08:37 +0200 (CEST)
-Received: from MW4PR03CA0149.namprd03.prod.outlook.com (2603:10b6:303:8c::34)
- by CH0PR12MB5265.namprd12.prod.outlook.com (2603:10b6:610:d0::22)
+ id 1q53ai-00050i-5G
+ for xen-devel@lists.xenproject.org; Fri, 02 Jun 2023 12:09:12 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20618.outbound.protection.outlook.com
+ [2a01:111:f400:fe5a::618])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 478c0c6e-013e-11ee-b232-6b7b168915f2;
+ Fri, 02 Jun 2023 14:09:11 +0200 (CEST)
+Received: from BN9PR03CA0397.namprd03.prod.outlook.com (2603:10b6:408:111::12)
+ by MN0PR12MB6343.namprd12.prod.outlook.com (2603:10b6:208:3c0::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.24; Fri, 2 Jun
- 2023 12:08:34 +0000
-Received: from CO1NAM11FT070.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8c:cafe::ca) by MW4PR03CA0149.outlook.office365.com
- (2603:10b6:303:8c::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.26 via Frontend
- Transport; Fri, 2 Jun 2023 12:08:33 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT070.mail.protection.outlook.com (10.13.175.20) with Microsoft SMTP
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.26; Fri, 2 Jun
+ 2023 12:09:06 +0000
+Received: from BN8NAM11FT113.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:111:cafe::ac) by BN9PR03CA0397.outlook.office365.com
+ (2603:10b6:408:111::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.27 via Frontend
+ Transport; Fri, 2 Jun 2023 12:09:06 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT113.mail.protection.outlook.com (10.13.176.163) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.23 via Frontend Transport; Fri, 2 Jun 2023 12:08:33 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6455.26 via Frontend Transport; Fri, 2 Jun 2023 12:09:06 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Jun
- 2023 07:08:32 -0500
+ 2023 07:09:05 -0500
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Jun
+ 2023 07:09:04 -0500
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Fri, 2 Jun 2023 07:08:31 -0500
+ via Frontend Transport; Fri, 2 Jun 2023 07:09:03 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,28 +63,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33f3fb42-013e-11ee-8611-37d641c3527e
+X-Inumbo-ID: 478c0c6e-013e-11ee-b232-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O5CK5EPR3Bn7r0XVnsO0JiKxSzV3Eh8slaFfEbawrbIgsM3hTUc5LcZVbf1LHW74IpTmPVhrE9nveMyWngcq+V9Kxfy98tznHQQpuuQp6dHp8zoFYtq8FModo3emG/RkdO5zHq5eoVh4vDbwu6ppVn6L3OS6t0B//+vJtRcfWQOWlcUEWS7bc/mbWWWcQ3xmXP8qlHI96O5MerH3AfZLjcJPzYHi2mEp4eeICRq+0T/8iuis/v+d5q7NrHYCfQMs5itwSmrdKCYjC1Rx0FvM+VjBfqrnBVc+S9++fgfiPi7o5kKVMuw3xPAmrR0qQFoyGbP4HI9Eny9+RWxmITWPyw==
+ b=QWl9MsWQOEptry0CgWicNoOykTMCgS93GPcFBzq9sYA46kSG699ueTN98jesJhI3SxN5IeFL71Q1OnBjqWJUZLfTIFaZTncfHBS8xwPLS+ju7Ogw6Ealysiqn4ABIuxpzDUkp2oYeGsRLY+ucYpnmX+dLWV42cEOcJQOKOsp7gBnP0xn6gzllrrkTO+ICqToAdgbMvp0cMRquzFjh9/7sYqhD9OczM1TuRvm2tmD2KVpHw1i7rraC2pnChzm80V+JlZD0ij3h1TtPGp25hS9puofg6qx6wzrgVdje0k6GRKhrDzxnZCl4wiutoYIV9V8M3NFwEvpcwDkXWKQnJyoZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cJO54s7DIDIZBjYPzs3C8whg1R3i4ZDxSSR0xflu0JQ=;
- b=iSqdvw6ma59yQd2VpxKxgWGGjQtsdnW1hC+/MtuCi6cKBeKy4HXWURcH2W0RCnfT8Ozs0a1z+OIcQEFUpL5C+JmJeQfK63y5Oltf2cmZgA0OoDhxntGJfmeF0Bx43tw4J1vqnMqJOgxoTrW55mOnoa8PvBKf2J19bvxaqzRESI5HvDuIJmvEu425X1+y21kHsrNUJGMcwpG7OQe3PxR7v1HXifhHiZgo1RoI0WtQfdvm7zyap0PEpRrjifL/OVC+i6I/8dJvVMs/sWjM/EySxfhZwJdQ1GvvJRw2zkvyoyg+N1Rw47BvyCj7fYM3Bvf7vlrEL13R9gxDGkXpU0o7kQ==
+ bh=BWP1sjTCJ1CHkECWL9AfJ/baJ6+ufKsVZ9CEBrQnu9w=;
+ b=hFZ3ds6onvufH275g2v94ROIsYJ+WoKXeS3qPKSVPE8o96102BbZJG+4aaCpzXj/ksX7dOmkwCAsxtQneziaVMLuYFzHMlYcsMwV2pJj8+DSQXbvA1wfmBY4uZyUJqwTyjieKWoOIP0cl0vmuPjcHDeWUEbaMrgbFoawOizilfAGaRDetZDQDMT9sq/1YD6+bfEbiLfEiRdGHSR2TPo2ETJPVFtqICI13M4XtM0OIN3zIG+t+lYA8s6Y6qomga/Uwr4UIfdMamwxZgBu4diKr3LPAAABmtWIStKvdD/Ub+jv1fR+b8l5ISeAhK/2Ilu0qM1FLqIQUywKl0Jdn1nmrw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cJO54s7DIDIZBjYPzs3C8whg1R3i4ZDxSSR0xflu0JQ=;
- b=QKxSar5+3CMaMb+teiFK7fQdg3QbLd+8Qd0OAxKT0vGj9XiAXlCvEClrY1TXaKUVBP4xDGB92cHSlaGJDw0f/CfwAd36kHOJN6pANOrb/hV+wRli2YegKpAGyDnxK9B2WQw9D2dXbqFfb/ENgwH58pmgO8QimiLYwX3BhN1/sDI=
+ bh=BWP1sjTCJ1CHkECWL9AfJ/baJ6+ufKsVZ9CEBrQnu9w=;
+ b=kTB8EC6TYQJR+WrnUdkwDkT9KunoR9dlxl62gXuUMRs/XKNXKuyZGcGDwzsR7R69unhtooVAqGpJz9KbApRP10AVMAi95oLO0Q64VYPv7K0T/5y4ZnWNwjxy1Sa9TTQORsGlUYMRSMoLyJGp5oJTuofMPs//dwqltkuy2cVVbYI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
@@ -88,9 +92,9 @@ CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
 	<wl@xen.org>, <rahul.singh@arm.com>, Ayan Kumar Halder
 	<ayan.kumar.halder@amd.com>
-Subject: [XEN v8 1/5] xen/arm: p2m: Use the pa_range_info table to support ARM_32 and ARM_64
-Date: Fri, 2 Jun 2023 13:07:50 +0100
-Message-ID: <20230602120754.23817-2-ayan.kumar.halder@amd.com>
+Subject: [XEN v8 2/5] xen/arm: Introduce choice to enable 64/32 bit physical addressing
+Date: Fri, 2 Jun 2023 13:07:51 +0100
+Message-ID: <20230602120754.23817-3-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230602120754.23817-1-ayan.kumar.halder@amd.com>
 References: <20230602120754.23817-1-ayan.kumar.halder@amd.com>
@@ -98,249 +102,201 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT070:EE_|CH0PR12MB5265:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e691522-3180-4783-aff7-08db6362161a
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT113:EE_|MN0PR12MB6343:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3fdaa7b-8f92-4ca2-0f37-08db636229fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	lMahqJ0kUUby7vGKL2tu3UJjV8LCAGmdvyKL5flSHN2l2fryHH1lz1ZrDxXnXeGn0pV+BoBKyzRkz4OlubvHtqZkMmTtaPYyuElUTEWDW/NqHLvWudx2cF71LMkrwoYcLa/06O4kDuzC0gmqQJzqqt6zIPXCZGNTU3cSSXGBnhvMPWrIq8gNimfv19crCqsgSNMVpFyILNrocYZehEjtgJZYWm99j45nLr7dK6qFkqMzqNEac5Pi3YOf5HKXpAc7vwhzVScCaht7L59F+vWqFv07bm/QejiNDzpLZE8xV5MNYBTgosVL1AlN4GTinm07dOkLvcz3GduKh9fDJybiqltRJ9ol8+OY99XFVh7R9o2nbXlMhA3Rxs668w1DQZFX8bpGatfBqQG8sJ8t0lXpH4bUNFDn+Ia7j31HSyDjlaGS4BRQxdIkAiV+4rHPJ6RJTXoBQbW1l4a6oYqbswyV7GAbjwFThrq8TpKhkueoxRFl3YkESwL5Aqv7urTqxVq3j/gEyVyyehFW3clWACwMppXGyiiD+iNdyrQR2HFQAEgBrn76fla4cfYoPmirU3mm+lRHwuiVjjQ4jn6Se6/f8rzSyjNUenZzT051cdlkd6gz3hZYbP51qPSGEznpUdiy1zA15v5hLW4eSVh4PSiFV0vqXzKgnAom66u3QrlGTuokdXxqT83N3h9qm9vtHF9t6BwZ4dFQwSo9LbDzkUpNUB7ekltPGPYiWMXiqpjxk9rK1kOuCrVI7mPwy0lYaR36b4v9T0j2F3nM0KZjqcBU2Q==
+	k3Zd/kZrh+TkXUdEnz5Qmnr7VCHslPe0Eh5Fu5IiR1Z26Ti3cTVBgVJRnnAcinGvioOqCL7VmhvSHsTBRxwPu64291csktTCD1aHF6C/d9w3hFm64vpSbmjr8NzipuESik0sWWlYtCzucbDI+AZcT2Sz7fHuRYmp1Lh2smOnVqhdhD73m1qVhJb7YJ/TdA+fXt/zQtiLRc0YT3bqdB6wjYLkbWrTu8ISjZfjLiD3LVMa9nmcaM3o+Y9EzmWA8eagrJ3anKj+Y6/ChbvHPf+EstCV4TFoLwnuKhawt8O8xZi8PkY/GCB7Ae/r+xK/dnqf3+flqcSK1eo1aFfBwzu1+Uls6orxf7Lf3inb6/zNUuEgDmpU4pjsrhPKTI98V+jPcGwpzBL1oTYSmb1UfnAZ4lH0kQZX6g3oSdvt+2i6aWfs9EJKowjTBja+QeP9nGR8fjtb0oesp7RsO1KKLe1LZskV2d97kM0SKLdLPMD3bEnO2wR5fnVGO096Xb/4HN3Hm1kruUWPeE1zBGJZ0QZ1ESwN1Bc0FlElHIJXYys2+pHXv9eYZntFaZBdzZoAPEPf8ZGO4OI6dxPQK5vkU8mRwp/Xxc58n4QU0WWm/P7epaW9giriH8/1KI+RpXTUYYMHxmEEtNbbe3QNpmAiRXNsQvw1BT8v8L9SM6UXsu4SzLnQqdx2COlTtQ+ber8yv7U4XpSLI18g+PAbgOVXI4CyEYX4r+qMqZ2VAq+oqTw6TuA/VZkAKG9wnCkWOIQ22Dz+Y2tlkz+TG/g4Dn/MrVDzSA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199021)(36840700001)(46966006)(40470700004)(40480700001)(356005)(40460700003)(54906003)(82740400003)(478600001)(70586007)(8936002)(8676002)(6916009)(41300700001)(70206006)(81166007)(4326008)(316002)(2616005)(426003)(186003)(336012)(36860700001)(47076005)(83380400001)(6666004)(1076003)(26005)(103116003)(82310400005)(86362001)(7416002)(5660300002)(2906002)(36756003)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(376002)(136003)(39860400002)(346002)(396003)(451199021)(46966006)(40470700004)(36840700001)(82310400005)(4326008)(81166007)(356005)(47076005)(103116003)(26005)(1076003)(40460700003)(7416002)(2906002)(86362001)(5660300002)(8936002)(8676002)(186003)(6666004)(36756003)(54906003)(426003)(2616005)(336012)(316002)(82740400003)(83380400001)(41300700001)(40480700001)(36860700001)(478600001)(70586007)(70206006)(6916009)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 12:08:33.0443
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 12:09:06.4852
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e691522-3180-4783-aff7-08db6362161a
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3fdaa7b-8f92-4ca2-0f37-08db636229fb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT070.eop-nam11.prod.protection.outlook.com
+	BN8NAM11FT113.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5265
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6343
 
-Restructure the code so that one can use pa_range_info[] table for both
-ARM_32 as well as ARM_64.
+Some Arm based hardware platforms which does not support LPAE
+(eg Cortex-R52), uses 32 bit physical addresses.
+Also, users may choose to use 32 bits to represent physical addresses
+for optimization.
 
-Also, removed the hardcoding for P2M_ROOT_ORDER and P2M_ROOT_LEVEL as
-p2m_root_order can be obtained from the pa_range_info[].root_order and
-p2m_root_level can be obtained from pa_range_info[].sl0.
+To support the above use cases, we have introduced arch independent
+config to choose if the physical address can be represented using
+32 bits (PHYS_ADDR_T_32) or 64 bits (!PHYS_ADDR_T_32).
+For now only ARM_32 provides support to enable 32 bit physical
+addressing.
 
-Refer ARM DDI 0406C.d ID040418, B3-1345,
-"Use of concatenated first-level translation tables
+When PHYS_ADDR_T_32 is defined, PADDR_BITS is set to 32. Note that we
+use "unsigned long" (not "uint32_t") to denote the datatype of physical
+address. This is done to avoid using a cast each time PAGE_* macros are
+used on paddr_t. For eg PAGE_SIZE is defined as unsigned long. Thus,
+each time PAGE_SIZE is used with paddr_t, the result will be
+"unsigned long".
+On 32-bit architecture, "unsigned long" is 32-bit wide. Thus, it can be
+used to denote physical address.
 
-...However, a 40-bit input address range with a translation granularity of 4KB
-requires a total of 28 bits of address resolution. Therefore, a stage 2
-translation that supports a 40-bit input address range requires two concatenated
-first-level translation tables,..."
-
-Thus, root-order is 1 for 40-bit IPA on ARM_32.
-
-Refer ARM DDI 0406C.d ID040418, B3-1348,
-
-"Determining the required first lookup level for stage 2 translations
-
-For a stage 2 translation, the output address range from the stage 1
-translations determines the required input address range for the stage 2
-translation. The permitted values of VTCR.SL0 are:
-
-0b00 Stage 2 translation lookup must start at the second level.
-0b01 Stage 2 translation lookup must start at the first level.
-
-VTCR.T0SZ must indicate the required input address range. The size of the input
-address region is 2^(32-T0SZ) bytes."
-
-Thus VTCR.SL0 = 1 (maximum value) and VTCR.T0SZ = -8 when the size of input
-address region is 2^40 bytes.
-
-Thus, pa_range_info[].t0sz = 1 (VTCR.S) | 8 (VTCR.T0SZ) ie 11000b which is 24.
-
-VTCR.T0SZ, is bits [5:0] for ARM_64.
-VTCR.T0SZ is bits [3:0] and S(sign extension), bit[4] for ARM_32.
-
-For this, we have used struct bitfields to convert pa_range_info[].t0sz to its
-ARM_32 variant.
-
-pa_range_info[] is indexed by ID_AA64MMFR0_EL1.PARange which is present in Arm64
-only. This is the reason we do not specify the indices for ARM_32. Also, we
-duplicated the entry "{ 40,      24/*24*/,  1,          1 }" between ARM_64 and
-ARM_32. This is done to avoid introducing extra #if-defs.
+When PHYS_ADDR_T_32 is not defined for ARM_32, PADDR_BITS is set to 40.
+For ARM_64, PADDR_BITS is set to 48.
+The last two are same as the current configuration used today on Xen.
 
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 ---
 Changes from -
+v1 - 1. Extracted from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr".
 
-v3 - 1. New patch introduced in v4.
-2. Restructure the code such that pa_range_info[] is used both by ARM_32 as
-well as ARM_64.
+v2 - 1. Introduced Kconfig choice. ARM_64 can select PHYS_ADDR_64 only whereas
+ARM_32 can select PHYS_ADDR_32 or PHYS_ADDR_64.
+2. For CONFIG_ARM_PA_32, paddr_t is defined as 'unsigned long'. 
 
-v4 - 1. Removed the hardcoded definitions of P2M_ROOT_ORDER and P2M_ROOT_LEVEL.
-The reason being root_order will not be always 1 (See the next patch).
-2. Updated the commit message to explain t0sz, sl0 and root_order values for
-32-bit IPA on Arm32.
-3. Some sanity fixes.
+v3 - 1. Allow user to define PADDR_BITS by selecting different config options
+ARM_PA_BITS_32, ARM_PA_BITS_40 and ARM_PA_BITS_48.
+2. Add the choice under "Architecture Features".
 
-v5 - pa_range_info is indexed by system_cpuinfo.mm64.pa_range. ie
-when PARange is 0, the PA size is 32, 1 -> 36 and so on. So pa_range_info[] has
-been updated accordingly.
-For ARM_32 pa_range_info[0] = 0 and pa_range_info[1] = 0 as we do not support
-32-bit, 36-bit physical address range yet.
+v4 - 1. Removed PHYS_ADDR_T_64 as !PHYS_ADDR_T_32 means PHYS_ADDR_T_32.
 
-v6 - 1. Added pa_range_info[] entries for ARM_32 without indices. Some entry
-may be duplicated between ARM_64 and ARM_32.
-2. Recalculate p2m_ipa_bits for ARM_32 from T0SZ (similar to ARM_64).
-3. Introduced an union to reinterpret T0SZ bits between ARM_32 and ARM_64.
+v5 - 1. Removed ARM_PA_BITS_48 as there is no choice for ARM_64.
+2. In ARM_PA_BITS_32, "help" is moved to last, and "depends on" before "select".
 
-v7 - 1. Used struct bifield instead of union to reinterpret T0SZ bits between
-ARM_32 and ARM_64.
-2. Removed the invalid entry for ARM_32.
+v6 - 1. Explained why we use "unsigned long" to represent physical address
+for ARM_32.
 
- xen/arch/arm/include/asm/p2m.h |  6 ----
- xen/arch/arm/p2m.c             | 50 +++++++++++++++++++++++++---------
- 2 files changed, 37 insertions(+), 19 deletions(-)
+v7 - 1. Updated the reasoning for using "unsigned long" for paddr_t.
+2. Added R-b by Michal.
 
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index f67e9ddc72..940495d42b 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -14,16 +14,10 @@
- /* Holds the bit size of IPAs in p2m tables.  */
- extern unsigned int p2m_ipa_bits;
+ xen/arch/Kconfig                     |  3 +++
+ xen/arch/arm/Kconfig                 | 33 ++++++++++++++++++++++++++++
+ xen/arch/arm/include/asm/page-bits.h |  6 +----
+ xen/arch/arm/include/asm/types.h     | 14 ++++++++++++
+ xen/arch/arm/mm.c                    |  5 +++++
+ 5 files changed, 56 insertions(+), 5 deletions(-)
+
+diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
+index 7028f7b74f..67ba38f32f 100644
+--- a/xen/arch/Kconfig
++++ b/xen/arch/Kconfig
+@@ -1,6 +1,9 @@
+ config 64BIT
+ 	bool
+ 
++config PHYS_ADDR_T_32
++	bool
++
+ config NR_CPUS
+ 	int "Maximum number of CPUs"
+ 	range 1 4095
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 239d3aed3c..1e87fe0247 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -26,6 +26,39 @@ config ARCH_DEFCONFIG
+ 
+ menu "Architecture Features"
+ 
++choice
++	prompt "Physical address space size" if ARM_32
++	default ARM_PA_BITS_40 if ARM_32
++	help
++	  User can choose to represent the width of physical address. This can
++	  sometimes help in optimizing the size of image when user chooses a
++	  smaller size to represent physical address.
++
++config ARM_PA_BITS_32
++	bool "32-bit"
++	depends on ARM_32
++	select PHYS_ADDR_T_32
++	help
++	  On platforms where any physical address can be represented within 32 bits,
++	  user should choose this option. This will help in reduced size of the
++	  binary.
++	  Xen uses "unsigned long" and not "uint32_t" to denote the datatype of
++	  physical address. This is done to avoid using a cast each time PAGE_*
++	  macros are used on paddr_t. For eg PAGE_SIZE is defined as unsigned long.
++	  On 32-bit architecture, "unsigned long" is 32-bit wide. Thus, it can be
++	  used to denote physical address.
++
++config ARM_PA_BITS_40
++	bool "40-bit"
++	depends on ARM_32
++endchoice
++
++config PADDR_BITS
++	int
++	default 32 if ARM_PA_BITS_32
++	default 40 if ARM_PA_BITS_40
++	default 48 if ARM_64
++
+ source "arch/Kconfig"
+ 
+ config ACPI
+diff --git a/xen/arch/arm/include/asm/page-bits.h b/xen/arch/arm/include/asm/page-bits.h
+index 5d6477e599..deb381ceeb 100644
+--- a/xen/arch/arm/include/asm/page-bits.h
++++ b/xen/arch/arm/include/asm/page-bits.h
+@@ -3,10 +3,6 @@
+ 
+ #define PAGE_SHIFT              12
  
 -#ifdef CONFIG_ARM_64
- extern unsigned int p2m_root_order;
- extern unsigned int p2m_root_level;
- #define P2M_ROOT_ORDER    p2m_root_order
- #define P2M_ROOT_LEVEL p2m_root_level
+-#define PADDR_BITS              48
 -#else
--/* First level P2M is always 2 consecutive pages */
--#define P2M_ROOT_ORDER    1
--#define P2M_ROOT_LEVEL 1
+-#define PADDR_BITS              40
 -#endif
++#define PADDR_BITS              CONFIG_PADDR_BITS
  
- struct domain;
- 
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index 418997843d..76388ba54b 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -19,9 +19,9 @@
- 
- #define INVALID_VMID 0 /* VMID 0 is reserved */
- 
--#ifdef CONFIG_ARM_64
- unsigned int __read_mostly p2m_root_order;
- unsigned int __read_mostly p2m_root_level;
-+#ifdef CONFIG_ARM_64
- static unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
- /* VMID is by default 8 bit width on AArch64 */
- #define MAX_VMID       max_vmid
-@@ -2247,16 +2247,6 @@ void __init setup_virt_paging(void)
-     /* Setup Stage 2 address translation */
-     register_t val = VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
- 
--#ifdef CONFIG_ARM_32
--    if ( p2m_ipa_bits < 40 )
--        panic("P2M: Not able to support %u-bit IPA at the moment\n",
--              p2m_ipa_bits);
--
--    printk("P2M: 40-bit IPA\n");
--    p2m_ipa_bits = 40;
--    val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
--    val |= VTCR_SL0(0x1); /* P2M starts at first level */
--#else /* CONFIG_ARM_64 */
-     static const struct {
-         unsigned int pabits; /* Physical Address Size */
-         unsigned int t0sz;   /* Desired T0SZ, minimum in comment */
-@@ -2265,6 +2255,7 @@ void __init setup_virt_paging(void)
-     } pa_range_info[] __initconst = {
-         /* T0SZ minimum and SL0 maximum from ARM DDI 0487H.a Table D5-6 */
-         /*      PA size, t0sz(min), root-order, sl0(max) */
-+#ifdef CONFIG_ARM_64
-         [0] = { 32,      32/*32*/,  0,          1 },
-         [1] = { 36,      28/*28*/,  0,          1 },
-         [2] = { 40,      24/*24*/,  1,          1 },
-@@ -2273,11 +2264,28 @@ void __init setup_virt_paging(void)
-         [5] = { 48,      16/*16*/,  0,          2 },
-         [6] = { 52,      12/*12*/,  4,          2 },
-         [7] = { 0 }  /* Invalid */
+ #endif /* __ARM_PAGE_SHIFT_H__ */
+diff --git a/xen/arch/arm/include/asm/types.h b/xen/arch/arm/include/asm/types.h
+index e218ed77bd..fb6618ef24 100644
+--- a/xen/arch/arm/include/asm/types.h
++++ b/xen/arch/arm/include/asm/types.h
+@@ -34,9 +34,23 @@ typedef signed long long s64;
+ typedef unsigned long long u64;
+ typedef u32 vaddr_t;
+ #define PRIvaddr PRIx32
++#if defined(CONFIG_PHYS_ADDR_T_32)
++
++/*
++ * We use "unsigned long" and not "uint32_t" to denote the type. This is done
++ * to avoid having a cast each time PAGE_* macros are used on paddr_t. For eg
++ * PAGE_SIZE is defined as unsigned long.
++ * On 32-bit architecture, "unsigned long" is 32-bit wide. Thus, we can use it
++ * to denote physical address.
++ */
++typedef unsigned long paddr_t;
++#define INVALID_PADDR (~0UL)
++#define PRIpaddr "08lx"
 +#else
-+        { 40,      24/*24*/,  1,          1 }
+ typedef u64 paddr_t;
+ #define INVALID_PADDR (~0ULL)
+ #define PRIpaddr "016llx"
 +#endif
-     };
+ typedef u32 register_t;
+ #define PRIregister "08x"
+ #elif defined (CONFIG_ARM_64)
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index 74f6ff2c6f..5ef5fd8c49 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -703,6 +703,11 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+     const unsigned long mapping_size = frametable_size < MB(32) ? MB(2) : MB(32);
+     int rc;
  
-     unsigned int i;
-     unsigned int pa_range = 0x10; /* Larger than any possible value */
- 
-+#ifdef CONFIG_ARM_32
 +    /*
-+     * Typecast pa_range_info[].t0sz into ARM_32 bit variant.
-+     *
-+     * VTCR.T0SZ is bits [3:0] and S(sign extension), bit[4] for ARM_32.
-+     * Thus, pa_range_info[].t0sz is translated to its ARM_32 variant using
-+     * struct bitfields.
++     * The size of paddr_t should be sufficient for the complete range of
++     * physical address.
 +     */
-+    struct
-+    {
-+        signed int val:5;
-+    } t0sz_32;
-+#else
-+
-     /*
-      * Restrict "p2m_ipa_bits" if needed. As P2M table is always configured
-      * with IPA bits == PA bits, compare against "pabits".
-@@ -2291,6 +2299,7 @@ void __init setup_virt_paging(void)
-      */
-     if ( system_cpuinfo.mm64.vmid_bits == MM64_VMID_16_BITS_SUPPORT )
-         max_vmid = MAX_VMID_16_BIT;
-+#endif
++    BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
+     BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
  
-     /* Choose suitable "pa_range" according to the resulted "p2m_ipa_bits". */
-     for ( i = 0; i < ARRAY_SIZE(pa_range_info); i++ )
-@@ -2304,26 +2313,41 @@ void __init setup_virt_paging(void)
- 
-     /* pa_range is 4 bits but we don't support all modes */
-     if ( pa_range >= ARRAY_SIZE(pa_range_info) || !pa_range_info[pa_range].pabits )
--        panic("Unknown encoding of ID_AA64MMFR0_EL1.PARange %x\n", pa_range);
-+    {
-+        /*
-+         * In case of ARM_64, we do not support this encoding of
-+         * ID_AA64MMFR0_EL1.PARange
-+         */
-+        panic("Unsupported value for p2m_ipa_bits = 0x%x\n", p2m_ipa_bits);
-+    }
- 
-+#ifdef CONFIG_ARM_64
-     val |= VTCR_PS(pa_range);
-     val |= VTCR_TG0_4K;
- 
-     /* Set the VS bit only if 16 bit VMID is supported. */
-     if ( MAX_VMID == MAX_VMID_16_BIT )
-         val |= VTCR_VS;
-+#endif
-+
-     val |= VTCR_SL0(pa_range_info[pa_range].sl0);
-     val |= VTCR_T0SZ(pa_range_info[pa_range].t0sz);
- 
-     p2m_root_order = pa_range_info[pa_range].root_order;
-     p2m_root_level = 2 - pa_range_info[pa_range].sl0;
-+
-+#ifdef CONFIG_ARM_64
-     p2m_ipa_bits = 64 - pa_range_info[pa_range].t0sz;
-+#else
-+    t0sz_32.val = pa_range_info[pa_range].t0sz;
-+    p2m_ipa_bits = 32 - t0sz_32.val;
-+#endif
- 
-     printk("P2M: %d-bit IPA with %d-bit PA and %d-bit VMID\n",
-            p2m_ipa_bits,
-            pa_range_info[pa_range].pabits,
-            ( MAX_VMID == MAX_VMID_16_BIT ) ? 16 : 8);
--#endif
-+
-     printk("P2M: %d levels with order-%d root, VTCR 0x%"PRIregister"\n",
-            4 - P2M_ROOT_LEVEL, P2M_ROOT_ORDER, val);
- 
+     if ( frametable_size > FRAMETABLE_SIZE )
 -- 
 2.17.1
 
