@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A627F71F9C2
+	by mail.lfdr.de (Postfix) with ESMTPS id D715A71F9C3
 	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 07:50:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542926.847382 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.542925.847372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4xfN-0005Cb-Un; Fri, 02 Jun 2023 05:49:37 +0000
+	id 1q4xfM-0004x0-Lm; Fri, 02 Jun 2023 05:49:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542926.847382; Fri, 02 Jun 2023 05:49:37 +0000
+Received: by outflank-mailman (output) from mailman id 542925.847372; Fri, 02 Jun 2023 05:49:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4xfN-0005Aj-R9; Fri, 02 Jun 2023 05:49:37 +0000
-Received: by outflank-mailman (input) for mailman id 542926;
- Fri, 02 Jun 2023 05:49:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q4xfM-0004v3-Iz; Fri, 02 Jun 2023 05:49:36 +0000
+Received: by outflank-mailman (input) for mailman id 542925;
+ Fri, 02 Jun 2023 05:49:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dv8B=BW=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1q4xfM-0004uv-Qz
- for xen-devel@lists.xen.org; Fri, 02 Jun 2023 05:49:36 +0000
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [2607:f8b0:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ecb3489-0109-11ee-8611-37d641c3527e;
- Fri, 02 Jun 2023 07:49:32 +0200 (CEST)
-Received: by mail-ot1-x335.google.com with SMTP id
- 46e09a7af769-6af6df7f93aso1577128a34.0
- for <xen-devel@lists.xen.org>; Thu, 01 Jun 2023 22:49:32 -0700 (PDT)
+ id 1q4xfL-0004g6-LH
+ for xen-devel@lists.xen.org; Fri, 02 Jun 2023 05:49:35 +0000
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [2607:f8b0:4864:20::534])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4070913b-0109-11ee-b231-6b7b168915f2;
+ Fri, 02 Jun 2023 07:49:35 +0200 (CEST)
+Received: by mail-pg1-x534.google.com with SMTP id
+ 41be03b00d2f7-51b4ef5378bso1532511a12.1
+ for <xen-devel@lists.xen.org>; Thu, 01 Jun 2023 22:49:35 -0700 (PDT)
 Received: from localhost ([122.172.87.195]) by smtp.gmail.com with ESMTPSA id
- r14-20020a62e40e000000b0063b7a0b9cc5sm202964pfh.186.2023.06.01.22.49.30
+ 21-20020a170902c11500b001ac94b33ab1sm352303pli.304.2023.06.01.22.49.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jun 2023 22:49:30 -0700 (PDT)
+ Thu, 01 Jun 2023 22:49:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ecb3489-0109-11ee-8611-37d641c3527e
+X-Inumbo-ID: 4070913b-0109-11ee-b231-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1685684971; x=1688276971;
+        d=linaro.org; s=google; t=1685684973; x=1688276973;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=d+pJJng5fx4kFKejzKmDNFo2NgoyulchHXsMzQ/yQ64=;
-        b=GeoQ7drCwRTbT9YQXikTijbbCD21G4p5krtLy9rertAbvNElam6icECXzLQAMPNc7u
-         2gbzDbe5LySEEf7M2NMey1MFdwYnAAw/GC24PKEJqC/DCKOBcaXC1uAORwChLGrT3lBc
-         ivXFS9t/y8RLf/IbYCkozIevnHHzUT+Fcj/hPwbHW7l5qmEMyBuOJVHCvYReNhMyTKKe
-         efC7E4nOL/xL2nltdLfwqp75ZZ4FO0Oe8BuZ7dH8nygR1JcacJJtAMoCSxUfIzNQwdg+
-         XcRZp/CCNcuEUUXmXNcM+NtTePP94ekZrH6V4BNoSYeEbkTCxqmJBVBpleNXQDjI288h
-         hdDQ==
+        bh=jBN/RWcDvPOwXwPxKLJ7hwpbCSP4ps6soF57y3YX9cs=;
+        b=LiRvyhpBsWDJitVSWNQaI/YdwbEFhNZ2v7osl22Vwh5mAvifREoEYlY5UW4Y/V6Vtv
+         fF5uDnSA17Bo4PpIj9RtRPVPZxr14Ek8C52LRHpAiGqapviyDYvAoiugWbdVAe3adxwn
+         yf63zomYB2e5c5KwG0z0iHzwr+Kf+qSNKi8qkFhdoOQhxGs3CmV1szqqUyhIdU1Slv26
+         7wxOzHlGAhiRi3j8OXXv51D22pAEOFmOzwev8pAtPqHR5qSMCs6q7eRsd6RwrspiPxpC
+         gBfDLA5WVM5rtR57Jovt+zc26Rl2go16V138sZTQ8DfploIVOp9Nw8hF3H8TaPZDUMi6
+         9UqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1685684971; x=1688276971;
+        d=1e100.net; s=20221208; t=1685684973; x=1688276973;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=d+pJJng5fx4kFKejzKmDNFo2NgoyulchHXsMzQ/yQ64=;
-        b=UA2d92D/x2WLFXF1M5NS4KHiU62n+P8DhBm5GhiIG23AtTILZtuZzJSHtCT6hT8dwq
-         zQaOi6W5MSYZ4Djc6qj0bpLzeNdcghdhLaCAUF6rbXulsB/Q0whc8Q/TT3YbkGMwR0ub
-         UyYkX9hqQjixR3SsmKpGFE/QYtwyEh0UCP3W3AK5tw2dRk9W5BHaVtGEzGEWJHYpr6Jq
-         pbNQpV3/azNpYw3NMyZ5ivLQgtq/jPpngj/VB76QrbtlQ+327iT8H5uCCSzfhrI6/2Ox
-         XZusFl4AzQISklTD2+AEavovjeZUtxUoExBtZ8eC5B8veQMCOcMCG3WsQMPTrEIOv8Ba
-         X6cw==
-X-Gm-Message-State: AC+VfDwiF86VP/JHtKwtC4VrcdYcEpQBQhq+K+hik7QX8sTtr+P3dHed
-	+bwITWPWYuL/JbaocwN4x70EW+UcNW18NTu8f+0=
-X-Google-Smtp-Source: ACHHUZ4ugx2VyoJYBxh6uY8zyuOFk/yvO4vMH2g4Zrzo6rhpAQk/BVCNJXcg9q+OlOuAXFll5Q5Bqw==
-X-Received: by 2002:a9d:77c5:0:b0:6a6:6121:dc60 with SMTP id w5-20020a9d77c5000000b006a66121dc60mr1478045otl.10.1685684971046;
-        Thu, 01 Jun 2023 22:49:31 -0700 (PDT)
+        bh=jBN/RWcDvPOwXwPxKLJ7hwpbCSP4ps6soF57y3YX9cs=;
+        b=EVHqWinZQQhvugxJ4FM/taoT1YX8BglD7l2fAvYKyetSRvlBpwH33qNJYWsAxmVTP+
+         Vr/BauVPHb+zhOo8RXSmi/0/ni8t6mGVigrKffZMSTGA0VlT2nRtZItW1vqKE6HjgT3t
+         D948Pijsul4Xew5AI5NQ01qy+c8wALh4mg1L+RKOfV2iPNjP7vZXhbU2HKClpcKoKCw5
+         TSZOUNdD8LpW7p32Qu1Km/wV6kL/Qn0r4g8h0UwKIF78locSwDbQsY9cpymM0SHLxMhe
+         bz9RJSq+C0VUJz1S83Jnl5v090fm1yQzvwq5smRQq9a6I9MFJf9Br2Hrtftdy3+6PcNf
+         jyVg==
+X-Gm-Message-State: AC+VfDywTQQkrz36/Wf7XxILCKudGIfs4WLB3JF14xxu1zKUoEudD8Fk
+	PdKIUkjgs4Xe+QszTl7onGXsMZ4JcFuPs1vWh/0=
+X-Google-Smtp-Source: ACHHUZ6i8Yj/jn4nrWyKIq7yg+6FGl+3P9GNin6a55YolBhclgLGqi6thYCHu25BO4pR7fAOAlzXqA==
+X-Received: by 2002:a17:902:e5c4:b0:1af:981b:eeff with SMTP id u4-20020a170902e5c400b001af981beeffmr1424317plf.64.1685684973641;
+        Thu, 01 Jun 2023 22:49:33 -0700 (PDT)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: xen-devel@lists.xen.org,
 	Juergen Gross <jgross@suse.com>,
@@ -86,53 +86,58 @@ Cc: Viresh Kumar <viresh.kumar@linaro.org>,
 	Mathieu Poirier <mathieu.poirier@linaro.com>,
 	Oleksandr Tyshchenko <olekstysh@gmail.com>,
 	Erik Schilling <erik.schilling@linaro.org>
-Subject: [PATCH V3 1/3] libxl: virtio: Remove unused frontend nodes
-Date: Fri,  2 Jun 2023 11:19:07 +0530
-Message-Id: <fef3d3ca5b2c78eaf85e907f03561e82a05fdeb6.1685684586.git.viresh.kumar@linaro.org>
+Subject: [PATCH V3 2/3] libxl: Call libxl__virtio_devtype.set_default() early enough
+Date: Fri,  2 Jun 2023 11:19:08 +0530
+Message-Id: <61727b8e00dd9acb0621e98528bd5051d3bd5c58.1685684586.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
 In-Reply-To: <cover.1685684586.git.viresh.kumar@linaro.org>
 References: <cover.1685684586.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Only the VirtIO backend will watch xenstore to find out when a new
-instance needs to be created for a guest, and read the parameters from
-there. VirtIO frontend are only virtio, so they will not do anything
-with the xenstore nodes. They can be removed.
+The _setdefault() function for virtio devices is getting called after
+libxl__prepare_dtb(), which is late as libxl__prepare_dtb() expects the
+defaults to be already set by this time.
 
-While at it, also add a comment to the libxl_virtio.c file.
+Call libxl__virtio_devtype.set_default() from
+libxl__domain_config_setdefault(), in a similar way as other devices
+like disk, etc.
 
+Suggested-by: Anthony PERARD <anthony.perard@citrix.com>
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- tools/libs/light/libxl_virtio.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ tools/libs/light/libxl_create.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/tools/libs/light/libxl_virtio.c b/tools/libs/light/libxl_virtio.c
-index faada49e184e..f8a78e22d156 100644
---- a/tools/libs/light/libxl_virtio.c
-+++ b/tools/libs/light/libxl_virtio.c
-@@ -1,4 +1,9 @@
- /*
-+ * Setup VirtIO backend. This is intended to interact with a VirtIO
-+ * backend that is watching xenstore, and create new VirtIO devices
-+ * with the parameter found in xenstore (VirtIO frontend don't
-+ * interact with xenstore.)
-+ *
-  * Copyright (C) 2022 Linaro Ltd.
-  *
-  * This program is free software; you can redistribute it and/or modify
-@@ -49,11 +54,6 @@ static int libxl__set_xenstore_virtio(libxl__gc *gc, uint32_t domid,
-     flexarray_append_pair(back, "type", GCSPRINTF("%s", virtio->type));
-     flexarray_append_pair(back, "transport", GCSPRINTF("%s", transport));
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index ec8eab02c207..36770af6d4ff 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -1068,7 +1068,7 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
+                                     uint32_t domid /* for logging, only */)
+ {
+     libxl_ctx *ctx = libxl__gc_owner(gc);
+-    int ret;
++    int ret, i;
+     bool pod_enabled = false;
+     libxl_domain_create_info *c_info = &d_config->c_info;
  
--    flexarray_append_pair(front, "irq", GCSPRINTF("%u", virtio->irq));
--    flexarray_append_pair(front, "base", GCSPRINTF("%#"PRIx64, virtio->base));
--    flexarray_append_pair(front, "type", GCSPRINTF("%s", virtio->type));
--    flexarray_append_pair(front, "transport", GCSPRINTF("%s", transport));
--
-     return 0;
- }
+@@ -1266,6 +1266,15 @@ int libxl__domain_config_setdefault(libxl__gc *gc,
+         goto error_out;
+     }
  
++    for (i = 0; i < d_config->num_virtios; i++) {
++        ret = libxl__virtio_devtype.set_default(gc, domid,
++                                                &d_config->virtios[i], false);
++        if (ret) {
++            LOGD(ERROR, domid, "Unable to set virtio defaults for device %d", i);
++            goto error_out;
++        }
++    }
++
+     ret = 0;
+  error_out:
+     return ret;
 -- 
 2.31.1.272.g89b43f80a514
 
