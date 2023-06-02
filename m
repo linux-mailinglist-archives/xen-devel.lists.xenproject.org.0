@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53E7A71F5EE
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 00:30:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542775.847038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B9DA71F71A
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 02:25:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542783.847055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4qnk-0002MM-Qv; Thu, 01 Jun 2023 22:29:48 +0000
+	id 1q4saF-0006fP-P6; Fri, 02 Jun 2023 00:23:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542775.847038; Thu, 01 Jun 2023 22:29:48 +0000
+Received: by outflank-mailman (output) from mailman id 542783.847055; Fri, 02 Jun 2023 00:23:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4qnk-0002Jk-OM; Thu, 01 Jun 2023 22:29:48 +0000
-Received: by outflank-mailman (input) for mailman id 542775;
- Thu, 01 Jun 2023 22:29:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q4qnj-0002Ja-P1; Thu, 01 Jun 2023 22:29:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q4qnj-0006JI-Hr; Thu, 01 Jun 2023 22:29:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q4qnj-00018L-AP; Thu, 01 Jun 2023 22:29:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1q4qnj-00008G-9u; Thu, 01 Jun 2023 22:29:47 +0000
+	id 1q4saF-0006cV-M1; Fri, 02 Jun 2023 00:23:59 +0000
+Received: by outflank-mailman (input) for mailman id 542783;
+ Fri, 02 Jun 2023 00:23:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=r9Lj=BW=flex--seanjc.bounces.google.com=3mjZ5ZAYKCRcF1xA6z3BB381.zB9K1A-01I1885FGF.K1ACEB61zG.BE3@srs-se1.protection.inumbo.net>)
+ id 1q4saE-0006cP-T1
+ for xen-devel@lists.xenproject.org; Fri, 02 Jun 2023 00:23:58 +0000
+Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
+ [2607:f8b0:4864:20::54a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c28905d3-00db-11ee-b231-6b7b168915f2;
+ Fri, 02 Jun 2023 02:23:56 +0200 (CEST)
+Received: by mail-pg1-x54a.google.com with SMTP id
+ 41be03b00d2f7-53f6e194e7bso1351740a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Jun 2023 17:23:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,78 +40,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=+0YKojVoKfAxWDoxBugQBveb5VAKfZ/GZCs36EObBWI=; b=27bMYDjWICLAE3s7XYzlOLnXEF
-	dqZ8CAL8c9OnXmt1k3Y7a0x4yY2jobgAEDM2Q1AJc1T7cNsXAhfFu/RKQPgiuOK74G/3OyoxNKSA9
-	x+xvhjYC0ghxttgoRY+zy1nve+UBJ8kk5FbbheNtppDUDIT7d4Yi48u8H52W547sfavk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181091-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 181091: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=41abf00bf98e36830974bd669ab7ec3679bd5e67
-X-Osstest-Versions-That:
-    ovmf=ded1d5414b5a0161de8fcf234b7fb200fb59fb2c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 01 Jun 2023 22:29:47 +0000
+X-Inumbo-ID: c28905d3-00db-11ee-b231-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20221208; t=1685665435; x=1688257435;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kfVTz/MFdf1BdTl2DJtaA5MVU5d+x7qUPBQRynuzbEs=;
+        b=lsng6iSxrqz9R88Q59ewsOGcDaYkTH4vRqDXC5iFszzkH/L48SReX+ccLn2qqVohKu
+         SqRTT3wIMGLiTNYWwIKvQpUQy1rlArmCydKGFHXCUSm4HDybF/yCCEi4ngNdiHPHHIAO
+         IvE9MObzfShr0WlQx7CjRaOodhTuihevv7Kvb25V0NnX+aCj6e89Z3iKFeAL+lLhSweK
+         djWxmTAZR53Gd6ZwAEJJraDzBmWjEDJjAVLEUoTCsaFeXmgf0aQGIJKaiMkaQzmwqMTm
+         MDcuVqxl1ntCRLEQ+YYvdB2O6IC0xaDBz4EXjfHWwXcBoneakB4xjWXpWdEkTnS2DRwX
+         Al0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685665435; x=1688257435;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=kfVTz/MFdf1BdTl2DJtaA5MVU5d+x7qUPBQRynuzbEs=;
+        b=lBx3JCYvp8KO0YJ/yukRGgwqh/T0bLsKL5hLCBhdo2U84QzqjekKDIECcFsF/8zJ5D
+         MIFX3jz+xxgNecia1wjOd1OJ2Yq2ex1pBeuTkGJWewxNZDAqLm+1Fy4NzDZxt6yb0aVp
+         ETt61KEXFbH14u96hnQVZCPeYGS8SjN9v4NvcupFF0Rqqgx8M/oSorR0mHc7NJWN4zXq
+         oYIrqXYfknlq4JQx/TVhGm1EAx3pAlu2VCHgIccoBOod5uH/1Tb0q2MXqG1UG7ZE6MT9
+         rzb8fsSIXlBKs3GzkujidxyW97zV+27h152dQHrkf28oOezPnsEfBqNwnvetTq016caT
+         K7Bg==
+X-Gm-Message-State: AC+VfDyG7cl8p6UN/D+iZ6OM813pKDca75WcLmF7dxnLe9D/f7kfz6Ko
+	sao3pVF8FSE4AFHc5NX5aGRrlOJcB6I=
+X-Google-Smtp-Source: ACHHUZ4sKaezOgXXrB+dL2dh8BcQkqJaicrwtBGNqgWl2x1iGIzS7OMmnpETOlVJ/dFfp6qtQmgVV4r4kJ8=
+X-Received: from zagreus.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:5c37])
+ (user=seanjc job=sendgmr) by 2002:a63:fd47:0:b0:53f:5067:64ec with SMTP id
+ m7-20020a63fd47000000b0053f506764ecmr2104111pgj.0.1685665434956; Thu, 01 Jun
+ 2023 17:23:54 -0700 (PDT)
+Date: Thu, 1 Jun 2023 17:23:53 -0700
+In-Reply-To: <9a4edc66-a0a3-73e4-09c5-db68d4cfbb68@digikod.net>
+Mime-Version: 1.0
+References: <2f19f26e-20e5-8198-294e-27ea665b706f@redhat.com>
+ <4142c8dc-5385-fb1d-4f8b-2a98bb3f99af@digikod.net> <9a4edc66-a0a3-73e4-09c5-db68d4cfbb68@digikod.net>
+Message-ID: <ZHk2mVcBycjKCfGw@google.com>
+Subject: Re: [ANNOUNCE] KVM Microconference at LPC 2023
+From: Sean Christopherson <seanjc@google.com>
+To: "=?iso-8859-1?Q?Micka=EBl_Sala=FCn?=" <mic@digikod.net>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, James Morris <jamorris@linux.microsoft.com>, 
+	Marc Zyngier <maz@kernel.org>, Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Kees Cook <keescook@chromium.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Wanpeng Li <wanpengli@tencent.com>, Alexander Graf <graf@amazon.com>, 
+	Forrest Yuan Yu <yuanyu@google.com>, John Andersen <john.s.andersen@intel.com>, 
+	Liran Alon <liran.alon@oracle.com>, 
+	"Madhavan T . Venkataraman" <madvenka@linux.microsoft.com>, Marian Rotariu <marian.c.rotariu@gmail.com>, 
+	"Mihai =?utf-8?B?RG9uyJt1?=" <mdontu@bitdefender.com>, 
+	"=?utf-8?B?TmljdciZb3IgQ8OuyJt1?=" <nicu.citu@icloud.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Thara Gopinath <tgopinath@microsoft.com>, Will Deacon <will@kernel.org>, 
+	Zahra Tarkhani <ztarkhani@microsoft.com>, 
+	"=?utf-8?Q?=C8=98tefan_=C8=98icleru?=" <ssicleru@bitdefender.com>, dev@lists.cloudhypervisor.org, 
+	kvm@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, qemu-devel@nongnu.org, 
+	virtualization@lists.linux-foundation.org, x86@kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-flight 181091 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181091/
+On Thu, Jun 01, 2023, Micka=EF=BF=BDl Sala=EF=BF=BDn wrote:
+> Hi,
+>=20
+> What is the status of this microconference proposal? We'd be happy to tal=
+k
+> about Heki [1] and potentially other hypervisor supports.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 41abf00bf98e36830974bd669ab7ec3679bd5e67
-baseline version:
- ovmf                 ded1d5414b5a0161de8fcf234b7fb200fb59fb2c
-
-Last test of basis   181087  2023-06-01 17:10:49 Z    0 days
-Testing same since   181091  2023-06-01 19:43:55 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  Corvin Köhne <corvink@FreeBSD.org>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Pedro Falcato <pedro.falcato@gmail.com>
-  Peter Grehan <grehan@freebsd.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   ded1d5414b..41abf00bf9  41abf00bf98e36830974bd669ab7ec3679bd5e67 -> xen-tested-master
+Proposal submitted (deadline is/was today), now we wait :-)  IIUC, we shoul=
+d find
+out rather quickly whether or not the KVM MC is a go.
 
