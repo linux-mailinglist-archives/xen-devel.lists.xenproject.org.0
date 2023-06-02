@@ -2,53 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CF5971F74B
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 02:49:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.542789.847086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C7E071F753
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Jun 2023 02:49:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.542799.847176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4syQ-0001Jp-Ft; Fri, 02 Jun 2023 00:48:58 +0000
+	id 1q4sya-0003l7-UU; Fri, 02 Jun 2023 00:49:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 542789.847086; Fri, 02 Jun 2023 00:48:58 +0000
+Received: by outflank-mailman (output) from mailman id 542799.847176; Fri, 02 Jun 2023 00:49:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q4syQ-0001HE-9O; Fri, 02 Jun 2023 00:48:58 +0000
-Received: by outflank-mailman (input) for mailman id 542789;
- Fri, 02 Jun 2023 00:48:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q4syZ-0003Z8-Nl; Fri, 02 Jun 2023 00:49:07 +0000
+Received: by outflank-mailman (input) for mailman id 542799;
+ Fri, 02 Jun 2023 00:49:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CQ40=BW=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1q4syO-0000if-FO
- for xen-devel@lists.xenproject.org; Fri, 02 Jun 2023 00:48:56 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20615.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::615])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 40386ace-00df-11ee-b231-6b7b168915f2;
- Fri, 02 Jun 2023 02:48:55 +0200 (CEST)
-Received: from MW4PR04CA0053.namprd04.prod.outlook.com (2603:10b6:303:6a::28)
- by IA0PR12MB8352.namprd12.prod.outlook.com (2603:10b6:208:3dd::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.24; Fri, 2 Jun
- 2023 00:48:52 +0000
-Received: from CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:6a:cafe::69) by MW4PR04CA0053.outlook.office365.com
- (2603:10b6:303:6a::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.23 via Frontend
- Transport; Fri, 2 Jun 2023 00:48:52 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT088.mail.protection.outlook.com (10.13.175.131) with Microsoft SMTP
+ id 1q4syU-00018B-AB
+ for xen-devel@lists.xenproject.org; Fri, 02 Jun 2023 00:49:02 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061e.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::61e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 42edd0b9-00df-11ee-8611-37d641c3527e;
+ Fri, 02 Jun 2023 02:48:59 +0200 (CEST)
+Received: from DM6PR06CA0028.namprd06.prod.outlook.com (2603:10b6:5:120::41)
+ by DS0PR12MB6439.namprd12.prod.outlook.com (2603:10b6:8:c9::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6455.23; Fri, 2 Jun 2023 00:48:54 +0000
+Received: from DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:120:cafe::16) by DM6PR06CA0028.outlook.office365.com
+ (2603:10b6:5:120::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.24 via Frontend
+ Transport; Fri, 2 Jun 2023 00:48:54 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT052.mail.protection.outlook.com (10.13.172.111) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6455.24 via Frontend Transport; Fri, 2 Jun 2023 00:48:52 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.6455.24 via Frontend Transport; Fri, 2 Jun 2023 00:48:54 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Jun
- 2023 19:48:51 -0500
+ 2023 19:48:52 -0500
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
  (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 1 Jun
- 2023 17:48:51 -0700
+ 2023 17:48:52 -0700
 Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
  Transport; Thu, 1 Jun 2023 19:48:51 -0500
@@ -63,35 +62,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40386ace-00df-11ee-b231-6b7b168915f2
+X-Inumbo-ID: 42edd0b9-00df-11ee-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U11Fk2KsMWo+2lPhDY3uk8uCFVOius0ag6npTVCUO6xaQlpIMA16caiJetPB6TWUJW4QuMSRHD+JixfLjGkJ3P7l0keSvCEfC7HrJ3TEYgV/CsL+MlaT7vJnh/OULoeMxlhAucPDT151OT9lE1GfXbb1vt0HpTkliKVuw9N1NHqF4JL+M4x4MJLuKQG013wrO/N14IlVpAp9CK5WxQZug8LBYK0l5eX2sdXA9oMAm+ZgSRNehZSYqWmSWcStmEjv0JhtHsg8nvtM2c4fZzGnxVX7j4x43+280/wLJfEodtlT5ronu8Ff1jFoCxqBPzoGSWJbFi+MD2un+74mce5/mA==
+ b=G1dreupGVujvSg/z+Wqao6TRb24z6Eo5sPR42CqhbGe2reI8sJ9DUnie7v4Jp/Vk3coLPf7VWT941Vj+GoCvX9VuOlUfBzWbOLJD2EeN+bMpDWF6xfB/1kFeVYNVj6kb3Y952Oqc4VRfbfpXHFtUEqoaOq4pTNV4EoJl6/QbyAhvmiK5FHdoSHAKO6slyV135DRYpy7NTxKSvYcHan2vjeDoUaffcCy+BZ/MKGpoPWaXDCzC/GclrnEKmKr8Sd7F49z+havEQ85ZCrB55efaQKDs+Pxhu0t50RIsE3iDJlOn8i2eYYaknkqcATt7A4W99EfGYpeD/u1jMyYTWhg9pg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KBFUC7bBO53GfeOJbg8EGgk2RkSd5j7Jb685AIjqUEE=;
- b=Rz8eoGSljynJbzelfqgzuA+n6xhqXDeeSYxNXAl43vLNBE19ZrHsPqnn1on7CtRoAAwGb9CDXsrBsPs1BVRArnxjelRbnWGHEcb0u0c0Xf0hhG7Sin+6I8HszWgUM81H7o5P6G4Iyw/1X7WSF9B85IOSXqjyCWi003++i+ftV6pn9QmJw4FZyTAZ8hIGOr8dXmwLZ3c0KIYhT1QQKY4bDnQ3CFo00h8jp1IbsC2DCkaROBq4wuCvaNFBJmC2TnpS/jzT5n6nJhDvU3lsU+EMzpvml6E9O4wz0wfq/zlYwifUE5wJdYS0+tEThIwtr3AM54GVnB6VRWiJ3pjJe3Bn9A==
+ bh=vBab6IziVUb8VqAgLKyxqLfCTUlQNBsFeFHWzmZz53Q=;
+ b=lUCbA0cVQvu+JGz77SuhGKpUuFxm0vMmT1xi+oLSf7TwkcbrOSZpRZZ/YiR/7apFYlKRPmbHMzFOoC5ETcLzwvlTnFQJ90ipKWBDDUJjQAhUiEA61+dn/IJyJV7qRhrFwVLkuomcDCoyJ+wEzyIgHwzVASSKWcOABvJK4eLjueJUU+VoqECDrIPIEmoxPwjEOHestXj7K9DvIt4ZiFTOtwFACnJV/xKxyD06J9YlyWNgClxcLIRaURXZ9lLvZ2ugxJ+em9+LMKGQunLreVuaux3hcv/VSwjKpbIdRtMdkenkv+1aCOKl6f/MHzFl1j7HsIUNQow+iNukm3yvR+yIyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KBFUC7bBO53GfeOJbg8EGgk2RkSd5j7Jb685AIjqUEE=;
- b=lihDbixGeS3gsx7i09AqY2b5fcCJeEStvF9p+8oqaa1kWratGo//P8rPjRbx9UPcfBkpuuQLwFT5gndSrRGB5/L1eWijftnnomxnwTLDVp5+B6hMNcDfqJWj1HU1IZri1f97ywNIPTV33BBxRPTskVJDIMjIjWNfq647LGPorp4=
+ bh=vBab6IziVUb8VqAgLKyxqLfCTUlQNBsFeFHWzmZz53Q=;
+ b=4uc+/KsJhACoD8vcNwCd5CEbLUxco53XCTLFNFkQIxIoXwo6amGGz9fYYpZcxGvxXC+lpNHfw61koA3Mouf7DBHO2w06GGFLfRDBaHdFVciIVCqYIJ+eUMS0PONUa7Vy49uJFdKp0M+Xw0lcDBF4FnrwdjbPijfdJxlaVuskeR8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Vikram Garhwal <vikram.garhwal@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <michal.orzel@amd.com>, <sstabellini@kernel.org>,
-	<vikram.garhwal@amd.com>, <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-Subject: [XEN][PATCH v7 08/19] xen/device-tree: Add device_tree_find_node_by_path() to find nodes in device tree
-Date: Thu, 1 Jun 2023 17:48:13 -0700
-Message-ID: <20230602004824.20731-9-vikram.garhwal@amd.com>
+	<vikram.garhwal@amd.com>, <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [XEN][PATCH v7 09/19] xen/iommu: Move spin_lock from iommu_dt_device_is_assigned to caller
+Date: Thu, 1 Jun 2023 17:48:14 -0700
+Message-ID: <20230602004824.20731-10-vikram.garhwal@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230602004824.20731-1-vikram.garhwal@amd.com>
 References: <20230602004824.20731-1-vikram.garhwal@amd.com>
@@ -99,104 +100,150 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT088:EE_|IA0PR12MB8352:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb67910d-c2c0-4766-9edc-08db63032312
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT052:EE_|DS0PR12MB6439:EE_
+X-MS-Office365-Filtering-Correlation-Id: c22cd97e-2869-4017-2b83-08db630323f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Efkh05TJGh+0BR4M5S+17dbeAuR5r3XtOlHBXKsDvg2DvwMC8IvjkpjQk0wIu+vougJTc8/68n+2cc5QjJo7TElMae578b5LN0j1WYpqCAz6SrOlKERD9YFayQ9PJnu9NALcYuEJF4XJOKIHvw7pKeoeZ3v75WV6e2GNkY15xvorsELUJG4E4v21hNPnYTAtAqcJc3sPjK1GsCD69LeJUal3fjYjvQT0xZrQkgwUWB9CKoZCFsfEHVGaP4Xa4ITo6E/YCZESUdtrR5KPheOHWCnmIUdmSwmpdzSN9CNSS09Mw5y7AODrs3lNLotIyeS+q3EG1PhElf4TQN/YVv2OKO3r+zVViSdz82VDSSjmI1+v6GvzroBVIS1O0Ud7YaFSyUKm3L2jcB1cR2DOnkYMCcSyT58xPuwmdPiwF1nR+/tEfEBqdKeRTsrJdUwyJF9pSuU/XCb6LhBKwU7I0FC2jNprV/zpXdGVyzWOjb4iTv6TEoRU/ZFEK05A/Wr07yg3lEbsigH5wECdUqygymng3MU3KY8aC6y7A4LxlDRsy2l8Ui+bmkpUzFi8PWgjk2fctmAoGlfUd7SBqSUVV2ObpdcTwGH0qbrphk6Bh/wruZDy3RyjKqo9HIt6ILVRSCmYxeExu4ODooFfAFjGzMGORBPFSWkyX1YljI1L8muu73p4+KIZJfosrtmqc7/Y918v1eBYzc5p3Ev8yXgihprGMXWY3tE84S8T3HAUWPsu/LrdozJWzY0bOPz18o3mWZyAJPWSRAG0ZWh5+fGYxvP7eL2zgANC8IkF/9vEoLMJHVU=
+	2figlig/kEBWEXIlqMT7DFbL03nzTvTlqiYQPY3FY3AWx0nTwM6Y8NcETmvUuHbj3bVC6obAdyaYdJhzDX5dFDkdApkZ2+PZn7sInpguOK+EmBCB7mXPW4H3YuPGUJDmX89+vDBKGPDLt2ZfPFngDO2XMy2blHWKWIcm64k/wbohEXN0MxTpPZ7uzbTOfwqBElb/bobXYsaTqlrUqbNpmBUhxXigbh6jkWu1B4fdw8/f3DW98vmbBcLjFnpl2QlCej3utnOCFWNKit1G2oZWs1LbNQsM3QNdx3ceIX0JBImiGvM1DFuYbEBDTu73fho80uWrqqEJ/ivbeRgPytvN78J1jqtloHPwoOcsvf3OlaeF22Uft3lSYjbJbSnu9f7RTNBua7MXDzEttMvAr8vAgv/5UKcsB38MFSmiwjtGDwSc48MOdXVPQCYgiwjfaXnfBCwZStaTf6dXzCi/y9k+LFFjSqR8adJwKNGiqai7burq7LV/L5bru9ZnkXQzfYFonehQdH992ErjzWC7iRA/MySpBc2JPe317SdRlPvJy4sieeZZaP6QxAXP3x7xeDvaLF14tp/1wQo7hL7RpJlPkIAw/nGHzAzLMfqrwZBqj5raTsvuX7tz21cxlK1jAUQTR6ewPT9bPgiY7A/YeXHHHuw+lDtujOUOyeVc11x7e53cVJrZa4WVgJHJlwn8uAt07Yg1Gr+mibnkNaq7GCvZjtxPbvCw/h+gBXQBxTe5DjLFk1rvvkxKSYsWlf43YWIeYHZsA4PiKCWye431AXK9Rg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199021)(46966006)(40470700004)(36840700001)(40460700003)(1076003)(186003)(26005)(6666004)(47076005)(36860700001)(2616005)(83380400001)(41300700001)(336012)(426003)(316002)(2906002)(44832011)(5660300002)(8936002)(8676002)(478600001)(70206006)(70586007)(6916009)(54906003)(86362001)(40480700001)(36756003)(4326008)(82740400003)(81166007)(82310400005)(356005)(37363002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199021)(36840700001)(46966006)(40470700004)(54906003)(40460700003)(478600001)(44832011)(8676002)(8936002)(5660300002)(36756003)(86362001)(2906002)(81166007)(4326008)(6916009)(356005)(70586007)(70206006)(82310400005)(316002)(40480700001)(82740400003)(41300700001)(426003)(336012)(83380400001)(1076003)(26005)(2616005)(36860700001)(186003)(6666004)(47076005)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 00:48:52.5969
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2023 00:48:54.1270
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb67910d-c2c0-4766-9edc-08db63032312
+X-MS-Exchange-CrossTenant-Network-Message-Id: c22cd97e-2869-4017-2b83-08db630323f0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT052.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8352
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6439
 
-Add device_tree_find_node_by_path() to find a matching node with path for a
-dt_device_node.
+Rename iommu_dt_device_is_assigned() to iommu_dt_device_is_assigned_locked().
+Remove static type so this can also be used by SMMU drivers to check if the
+device is being used before removing.
 
-Reason behind this function:
-    Each time overlay nodes are added using .dtbo, a new fdt(memcpy of
-    device_tree_flattened) is created and updated with overlay nodes. This
-    updated fdt is further unflattened to a dt_host_new. Next, we need to find
-    the overlay nodes in dt_host_new, find the overlay node's parent in dt_host
-    and add the nodes as child under their parent in the dt_host. Thus we need
-    this function to search for node in different unflattened device trees.
-
-Also, make dt_find_node_by_path() static inline.
+Moving spin_lock to caller was done to prevent the concurrent access to
+iommu_dt_device_is_assigned while doing add/remove/assign/deassign.
 
 Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
 
 ---
 Changes from v6:
-    Rename "dt_node" to "from"
+    Created a private header and moved iommu_dt_device_is_assigned() to header.
 ---
- xen/common/device_tree.c      |  6 ++++--
- xen/include/xen/device_tree.h | 18 ++++++++++++++++--
- 2 files changed, 20 insertions(+), 4 deletions(-)
+ xen/drivers/passthrough/device_tree.c | 20 ++++++++++++++++----
+ xen/include/xen/iommu-private.h       | 27 +++++++++++++++++++++++++++
+ 2 files changed, 43 insertions(+), 4 deletions(-)
+ create mode 100644 xen/include/xen/iommu-private.h
 
-diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-index 16b4b4e946..c5250a1644 100644
---- a/xen/common/device_tree.c
-+++ b/xen/common/device_tree.c
-@@ -358,11 +358,13 @@ struct dt_device_node *dt_find_node_by_type(struct dt_device_node *from,
-     return np;
+diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
+index 1c32d7b50c..52e370db01 100644
+--- a/xen/drivers/passthrough/device_tree.c
++++ b/xen/drivers/passthrough/device_tree.c
+@@ -18,6 +18,7 @@
+ #include <xen/device_tree.h>
+ #include <xen/guest_access.h>
+ #include <xen/iommu.h>
++#include <xen/iommu-private.h>
+ #include <xen/lib.h>
+ #include <xen/sched.h>
+ #include <xsm/xsm.h>
+@@ -83,16 +84,14 @@ fail:
+     return rc;
  }
  
--struct dt_device_node *dt_find_node_by_path(const char *path)
-+struct dt_device_node *
-+                    device_tree_find_node_by_path(struct dt_device_node *from,
-+                                                  const char *path)
+-static bool_t iommu_dt_device_is_assigned(const struct dt_device_node *dev)
++bool_t iommu_dt_device_is_assigned_locked(const struct dt_device_node *dev)
  {
-     struct dt_device_node *np;
+     bool_t assigned = 0;
  
--    dt_for_each_device_node(dt_host, np)
-+    dt_for_each_device_node(from, np)
-         if ( np->full_name && (dt_node_cmp(np->full_name, path) == 0) )
+     if ( !dt_device_is_protected(dev) )
+         return 0;
+ 
+-    spin_lock(&dtdevs_lock);
+     assigned = !list_empty(&dev->domain_list);
+-    spin_unlock(&dtdevs_lock);
+ 
+     return assigned;
+ }
+@@ -213,27 +212,40 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
+         if ( (d && d->is_dying) || domctl->u.assign_device.flags )
              break;
  
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 2c35c0d391..e239f7de26 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -561,13 +561,27 @@ struct dt_device_node *dt_find_node_by_type(struct dt_device_node *from,
- struct dt_device_node *dt_find_node_by_alias(const char *alias);
++        spin_lock(&dtdevs_lock);
++
+         ret = dt_find_node_by_gpath(domctl->u.assign_device.u.dt.path,
+                                     domctl->u.assign_device.u.dt.size,
+                                     &dev);
+         if ( ret )
++        {
++            spin_unlock(&dtdevs_lock);
+             break;
++        }
  
- /**
-- * dt_find_node_by_path - Find a node matching a full DT path
-+ * device_tree_find_node_by_path - Generic function to find a node matching the
-+ * full DT path for any given unflatten device tree
-+ * @from: The device tree node to start searching from
-  * @path: The full path to match
-  *
-  * Returns a node pointer.
-  */
--struct dt_device_node *dt_find_node_by_path(const char *path);
-+struct dt_device_node *
-+                    device_tree_find_node_by_path(struct dt_device_node *from,
-+                                                  const char *path);
+         ret = xsm_assign_dtdevice(XSM_HOOK, d, dt_node_full_name(dev));
+         if ( ret )
++        {
++            spin_unlock(&dtdevs_lock);
+             break;
++        }
  
-+/**
-+ * dt_find_node_by_path - Find a node matching a full DT path in dt_host
-+ * @path: The full path to match
+         if ( domctl->cmd == XEN_DOMCTL_test_assign_device )
+         {
+-            if ( iommu_dt_device_is_assigned(dev) )
++
++            if ( iommu_dt_device_is_assigned_locked(dev) )
+             {
+                 printk(XENLOG_G_ERR "%s already assigned.\n",
+                        dt_node_full_name(dev));
+                 ret = -EINVAL;
+             }
++
++            spin_unlock(&dtdevs_lock);
+             break;
+         }
+ 
++        spin_unlock(&dtdevs_lock);
++
+         if ( d == dom_io )
+             return -EINVAL;
+ 
+diff --git a/xen/include/xen/iommu-private.h b/xen/include/xen/iommu-private.h
+new file mode 100644
+index 0000000000..5615decaff
+--- /dev/null
++++ b/xen/include/xen/iommu-private.h
+@@ -0,0 +1,27 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++ /*
++ * xen/iommu-private.h
 + *
-+ * Returns a node pointer.
++ *
++ * Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights Reserved.
++ * Written by Vikram Garhwal <vikram.garhwal@amd.com>
++ *
 + */
-+static inline struct dt_device_node *dt_find_node_by_path(const char *path)
-+{
-+    return device_tree_find_node_by_path(dt_host, path);
-+}
- 
- /**
-  * dt_find_node_by_gpath - Same as dt_find_node_by_path but retrieve the
++#ifndef __XEN_IOMMU_PRIVATE_H__
++#define __XEN_IOMMU_PRIVATE_H__
++
++#ifdef CONFIG_HAS_DEVICE_TREE
++#include <xen/device_tree.h>
++bool_t iommu_dt_device_is_assigned_locked(const struct dt_device_node *dev);
++#endif
++
++#endif /* __XEN_IOMMU_PRIVATE_H__ */
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.17.1
 
