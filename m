@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B162A723002
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jun 2023 21:46:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.543897.849260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B39BF723003
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jun 2023 21:46:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.543898.849270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6G9m-0000hK-CI; Mon, 05 Jun 2023 19:46:22 +0000
+	id 1q6GA3-00014Z-KE; Mon, 05 Jun 2023 19:46:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 543897.849260; Mon, 05 Jun 2023 19:46:22 +0000
+Received: by outflank-mailman (output) from mailman id 543898.849270; Mon, 05 Jun 2023 19:46:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6G9m-0000fX-9d; Mon, 05 Jun 2023 19:46:22 +0000
-Received: by outflank-mailman (input) for mailman id 543897;
- Mon, 05 Jun 2023 19:46:21 +0000
+	id 1q6GA3-000125-HR; Mon, 05 Jun 2023 19:46:39 +0000
+Received: by outflank-mailman (input) for mailman id 543898;
+ Mon, 05 Jun 2023 19:46:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1q6G9l-0000fQ-5g
- for xen-devel@lists.xenproject.org; Mon, 05 Jun 2023 19:46:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q6GA1-00011h-VC; Mon, 05 Jun 2023 19:46:37 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1q6G9k-0004WV-JM; Mon, 05 Jun 2023 19:46:20 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1q6G9k-00024K-Ds; Mon, 05 Jun 2023 19:46:20 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q6GA1-0004XK-UM; Mon, 05 Jun 2023 19:46:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q6GA1-00010K-CG; Mon, 05 Jun 2023 19:46:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q6GA1-0001Rm-BZ; Mon, 05 Jun 2023 19:46:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,96 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=P3r5vagAfkT2yE3C7r0zsu4z7Yq/yat9S7mvlTE1vUg=; b=G3sNxw/Ex7d5dm3xHt6bT9CXIG
-	4jY+4znkTza4QWnKAdKa+amrqVKVhTwcxgnvDjtMU28msW7wF9M2egVpYRBNHGSoAuuH7k07AkDIm
-	SQ3CigQWfDjTUHwqtHiiSsYgO5tAQbSKKcCIRxflzYbgvAtx1UAe9bbEpgHxja0w65Gk=;
-Message-ID: <49641d70-9540-1072-d496-772e83a555e4@xen.org>
-Date: Mon, 5 Jun 2023 20:46:17 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=QseIdhKNMxiSNWhDoxvD6K+3vyVUbzpEUOqF3aPvPW0=; b=JtgQkjjECOojVVbFdM+QariXfB
+	XcGIkcwBg+phKRFBTJqIOZzeMMViIjdsPVKqbX9kV3j9RaXO+higmqsooKsBvhdKIObhSlY7Nsikh
+	3q0XIhN7o5RnPhTK7aOgGqLtTmBXP6BsqMRb1oqZJDADd1gHGEqzknfSzjhRTxvL5dNg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181195-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.1
-Subject: Re: [XEN][PATCH v7 13/19] asm/smp.h: Fix circular dependency for
- device_tree.h and rwlock.h
-To: Vikram Garhwal <vikram.garhwal@amd.com>, xen-devel@lists.xenproject.org
-Cc: michal.orzel@amd.com, sstabellini@kernel.org, jbeulich@suse.com,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230602004824.20731-1-vikram.garhwal@amd.com>
- <20230602004824.20731-14-vikram.garhwal@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230602004824.20731-14-vikram.garhwal@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 181195: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=b35b22acb887f682efe8385b3df165220bc84c86
+X-Osstest-Versions-That:
+    xen=b3880c365db89051728e1de6b6889c750cbdd915
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 05 Jun 2023 19:46:37 +0000
 
-Hi,
+flight 181195 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181195/
 
-On 02/06/2023 01:48, Vikram Garhwal wrote:
-> Dynamic programming ops will modify the dt_host and there might be other
-> function which are browsing the dt_host at the same time. To avoid the race
-> conditions, adding rwlock for browsing the dt_host.
+Failures :-/ but no regressions.
 
-Reading this sentence, it sounds like you are adding the rwlock in this 
-patch. However, this is not the case. Also, the rwlock is not only for 
-browsing but also add new node. So how about ", we will need to add a 
-rwlock to protect access to the dt_host".
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> But adding rwlock in
-> device_tree.h causes following circular dependency:
->      device_tree.h->rwlock.h->smp.h->asm/smp.h->device_tree.h
-> 
-> To fix this, removed the "#include <xen/device_tree.h> and forward declared
-> "struct dt_device_node".
-> 
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> Reviewed-by: Henry Wang <Henry.Wang@arm.com>
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-> ---
->   xen/arch/arm/include/asm/smp.h | 3 ++-
->   xen/arch/arm/smpboot.c         | 1 +
->   2 files changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/smp.h b/xen/arch/arm/include/asm/smp.h
-> index a37ca55bff..b12949ba8a 100644
-> --- a/xen/arch/arm/include/asm/smp.h
-> +++ b/xen/arch/arm/include/asm/smp.h
-> @@ -3,13 +3,14 @@
->   
->   #ifndef __ASSEMBLY__
->   #include <xen/cpumask.h>
-> -#include <xen/device_tree.h>
->   #include <asm/current.h>
->   #endif
->   
->   DECLARE_PER_CPU(cpumask_var_t, cpu_sibling_mask);
->   DECLARE_PER_CPU(cpumask_var_t, cpu_core_mask);
->   
-> +struct dt_device_node;
+version targeted for testing:
+ xen                  b35b22acb887f682efe8385b3df165220bc84c86
+baseline version:
+ xen                  b3880c365db89051728e1de6b6889c750cbdd915
 
-Can you add the declaration just above arch_cpu_init()? This will make 
-clearer why the forward declaration is necessary.
+Last test of basis   181191  2023-06-05 14:01:55 Z    0 days
+Testing same since   181195  2023-06-05 17:02:08 Z    0 days    1 attempts
 
-> +
->   #define cpu_is_offline(cpu) unlikely(!cpu_online(cpu))
->   
->   #define smp_processor_id() get_processor_id()
-> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-> index e107b86b7b..eeb76cd551 100644
-> --- a/xen/arch/arm/smpboot.c
-> +++ b/xen/arch/arm/smpboot.c
-> @@ -10,6 +10,7 @@
->   #include <xen/cpu.h>
->   #include <xen/cpumask.h>
->   #include <xen/delay.h>
-> +#include <xen/device_tree.h>
->   #include <xen/domain_page.h>
->   #include <xen/errno.h>
->   #include <xen/init.h>
+------------------------------------------------------------
+People who touched revisions under test:
+  Alejandro Vallejo <alejandro.vallejo@cloud.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Henry Wang <Henry.Wang@arm.com> # CHANGELOG
+  Jan Beulich <jbeulich@suse.com>
 
-Cheers,
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
--- 
-Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   b3880c365d..b35b22acb8  b35b22acb887f682efe8385b3df165220bc84c86 -> smoke
 
