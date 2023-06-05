@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5879722910
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jun 2023 16:44:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.543740.848968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2F7D722A25
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jun 2023 17:02:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.543754.848989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6BQt-0005Uk-4R; Mon, 05 Jun 2023 14:43:43 +0000
+	id 1q6Bhy-0000Ri-Qm; Mon, 05 Jun 2023 15:01:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 543740.848968; Mon, 05 Jun 2023 14:43:43 +0000
+Received: by outflank-mailman (output) from mailman id 543754.848989; Mon, 05 Jun 2023 15:01:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6BQt-0005SU-1P; Mon, 05 Jun 2023 14:43:43 +0000
-Received: by outflank-mailman (input) for mailman id 543740;
- Mon, 05 Jun 2023 14:43:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q6Bhy-0000Po-Nz; Mon, 05 Jun 2023 15:01:22 +0000
+Received: by outflank-mailman (input) for mailman id 543754;
+ Mon, 05 Jun 2023 15:01:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wlJc=BZ=citrix.com=prvs=5133c6164=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1q6BQr-0005DU-4z
- for xen-devel@lists.xenproject.org; Mon, 05 Jun 2023 14:43:41 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5bddc795-03af-11ee-8611-37d641c3527e;
- Mon, 05 Jun 2023 16:43:39 +0200 (CEST)
+ <SRS0=dNO+=BZ=tibco.com=avallejo@srs-se1.protection.inumbo.net>)
+ id 1q6Bhx-0000Ph-HX
+ for xen-devel@lists.xenproject.org; Mon, 05 Jun 2023 15:01:21 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d3ebae38-03b1-11ee-b232-6b7b168915f2;
+ Mon, 05 Jun 2023 17:01:19 +0200 (CEST)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-3f739ec88b2so12426225e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Jun 2023 08:01:19 -0700 (PDT)
+Received: from localhost.localdomain (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ p25-20020a7bcc99000000b003f4289b18a7sm11103988wma.5.2023.06.05.08.01.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Jun 2023 08:01:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,120 +45,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bddc795-03af-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1685976219;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=jGBoLlQik/DdUsmblsNJ1iLT3fecu+Jt0ccxIilExLg=;
-  b=JXSp2pvlJIgbLamxHtaENRUvs+Y9qnptAa/IyubpEgzF0LpEaGt3LfUG
-   WpUpIc92BBWHOONW+kJPn7zILfiXss1BJWPlaqvJksoASDisSlOjlEL5o
-   pAJZnva4lY4WAUTtpKoyKlg4A7ZnSME+qs9Vjd9WVd5kEe1EmJTIMNHH6
-   Q=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 111652720
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:6ihxxKP22eyT3jjvrR1Nl8FynXyQoLVcMsEvi/4bfWQNrUoggT0Cm
- 2BLD26OaPrfMDGmc9h0b9638kMEsZWGzN5nHgto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGjxSs/rrRC9H5qyo42tG5gBmPJingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0uxzXGBy+
- 7tbEQ8EUyysosuI5eKcSsA506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w2Nk+ojx5nYz/7DLoXmuuyi2a5WDpfsF+P/oI84nTJzRw327/oWDbQUoXTHJsIxBnC/
- goq+Uz+WU5GMdO58QGDsWK3gN6S2i/cXrArQejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
- lcI4Ww+oK4q7kupQ9LhGRqirxaspQUAUtBdF+k77gClyafO5QudQG8eQVZpasEitcIwbSwn0
- BmOhdyBLQJotLqZWHeM7IC+pDm5OTUWBWIabCpCRgwAi/HprZsvlBvJQpBmGbSsk9zuMTjqx
- naBqy1Wr7cei9VNyKS4+VnBjz+2jpzISAcv4UPQRG3N0+9iTNf7PcryswGdtKseat/DFTFto
- UToheCU6L0PMZ/K1xWySdgxM5SA2dPVFz311AsH84Yayxyh/HuqfIZ16T54JVt0PstsRQIFc
- HM/qisKusYNYSLCgbtfJtvoVp90lfSI+cHNDKi8UzZYXnRmmOZrFglKbFXY4W3imVNEfUoXa
- cbCKpbE4Zr35M1aINuKqwU1i+RDKsMWnzm7qXXHI/OPj9KjiIa9E+ttDbd3RrlRAFm4iAvU6
- c1DEMCB1g9SVubzCgGOr95OfAhRcChnW8+owyCySgJkClA/cFzN9teLme9xE2Cbt/o9ehj0E
- oGVBRYDlQuXaYzvIgSWcHFzAI4Drr4mxU/XyRcEZA7ys1B6ONbH0UvqX8dvFVXR3LA5nKEco
- jhsU5noP8mjvRyep2xEPcil8N07HPlp7CrXVxeYjPEEV8YIb2T0FhXMJ2MDKAFm4vKLiPYD
-IronPort-HdrOrdr: A9a23:MmAZR6CyPNHqgF/lHel855DYdb4zR+YMi2TDsHoBMiC9E/bo7/
- xG+c5xvyMc5wx9ZJheo7C90cW7Lk80jKQFg7X5Xo3SJTUO2lHIEGg41/qG/9SIIUSXygc378
- ldmsZFZOEYB2IK7vrS0U2ZFMw8yN6M/MmT9IHjJwoBd3AMV0ho1XYCNi+rVnd7QxQDOpowfa
- DsgvZ6mw==
-X-Talos-CUID: 9a23:f09GgG7kEr0wUFQ3Mdss/kpJG/wrNT7k837tH2CdIFhMGJqVYArF
-X-Talos-MUID: =?us-ascii?q?9a23=3Ant0oXgyATgB5ptY9uSPA5s5WgG+aqKP1VxwInrM?=
- =?us-ascii?q?+gM/HJTd2CmragBOxcLZyfw=3D=3D?=
-X-IronPort-AV: E=Sophos;i="6.00,217,1681185600"; 
-   d="scan'208";a="111652720"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
+X-Inumbo-ID: d3ebae38-03b1-11ee-b232-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1685977279; x=1688569279;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FrKxDRBlDqtk7s2A2/hh/s4Mepj2N5HAw5jEMJdb02g=;
+        b=QdDoglhKDK3nfp8Zu8tam3Z/SAQuM2cQtaFM2eCxJr9rTz6ubElQ46khylBjuDQgWW
+         HKafYA3tdKnYIWID3Hy9brkUvR2TnvWc+7jQ40l+D7Ce7B6Vv2GDcaDvJ1Fu/XW5apSD
+         o92fc6gTYW/XqMnUtjzQ+Xmu9cHQ3Z552GvQg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20221208; t=1685977279; x=1688569279;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FrKxDRBlDqtk7s2A2/hh/s4Mepj2N5HAw5jEMJdb02g=;
+        b=e/7fT+vTQeAs3Vp2eFKJUWFm5NN5r0BjlJMLfcHmWG+4VYlZyWa0aQAorS7UrmaTMg
+         08NEEXVhiy0xPhFLaEmjVuLwV+5vC3xx9OwhUU0RUnQi4nqZFT4zTyRBHqbP2UPFEMgd
+         cGVGetx006AAVkwFNB2Sdv1cGJjM4AVhxe4nwMRaxmvKXdQakBGRPpXbfKp6XAmQ9VeX
+         L1u6LnkGPmczciWZOmXESkV+uJn3+BYOJXc1Mrmoa8fOMgLyNYhr1YpDRNgZ7X4a2nvh
+         bm2jXAEXHpsYhBP8nRS4vCgCkQ5ssp7/2/qUYHokA6znZ6/XABw8tLmspf0kLGVmdsZO
+         8StQ==
+X-Gm-Message-State: AC+VfDzIe4JOe7Ae9WN5zPOlWktiI5uaWXcAgTYwzcKHDOpR2dnyDTpC
+	TTdk1MWWTgPnsXyqQpkH17OEj0MGQxvWDTbiWIo=
+X-Google-Smtp-Source: ACHHUZ5gvY/q0okPR0439j7MEEdakwWCQDE+YWeRsqV0Livcf7sTHGlw8JUPJ8YyrOai23yWJ2pllA==
+X-Received: by 2002:a1c:e914:0:b0:3f7:30c0:c6a with SMTP id q20-20020a1ce914000000b003f730c00c6amr3817598wmc.25.1685977278848;
+        Mon, 05 Jun 2023 08:01:18 -0700 (PDT)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Jens Wiklander <jens.wiklander@linaro.org>
-Subject: [PATCH 2/2] arm: Boilerpate arch_domain_teardown()
-Date: Mon, 5 Jun 2023 15:43:31 +0100
-Message-ID: <20230605144331.1819452-3-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20230605144331.1819452-1-andrew.cooper3@citrix.com>
-References: <20230605144331.1819452-1-andrew.cooper3@citrix.com>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/microcode: Add missing unlock in microcode_update_helper()
+Date: Mon,  5 Jun 2023 16:01:16 +0100
+Message-Id: <20230605150116.29911-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-XXX to be filled in with TEE teardown.
+microcode_update_helper() may return early while holding
+cpu_add_remove_lock, hence preventing any writers from taking it again.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Leave through the `put` label instead so it's properly released.
+
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Jens Wiklander <jens.wiklander@linaro.org>
+ xen/arch/x86/cpu/microcode/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Jens: In the same was as the previous patch in the common path, you want to
-add a PROG_tee(?) here, and rearrange the right function(s).
----
- xen/arch/arm/domain.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
-
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index b3981d70a442..b00d0e4f30b7 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -752,6 +752,33 @@ int arch_domain_create(struct domain *d,
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index c1033f3bc2..e65af4b82e 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -599,7 +599,8 @@ static long cf_check microcode_update_helper(void *data)
+         printk(XENLOG_WARNING
+                "CPU%u is expected to lead ucode loading (but got CPU%u)\n",
+                nmi_cpu, cpumask_first(&cpu_online_map));
+-        return -EPERM;
++        ret = -EPERM;
++        goto put;
+     }
  
- int arch_domain_teardown(struct domain *d)
- {
-+    BUG_ON(!d->is_dying);
-+
-+    /* See domain_teardown() for an explanation of all of this magic. */
-+    switch ( d->teardown.arch_val )
-+    {
-+#define PROGRESS(x)                             \
-+        d->teardown.arch_val = PROG_ ## x;      \
-+        fallthrough;                            \
-+    case PROG_ ## x
-+
-+        enum {
-+            PROG_none,
-+            PROG_done,
-+        };
-+
-+    case PROG_none:
-+        BUILD_BUG_ON(PROG_none != 0);
-+
-+    PROGRESS(done):
-+        break;
-+
-+#undef PROGRESS
-+
-+    default:
-+        BUG();
-+    }
-+
-     return 0;
- }
- 
+     patch = parse_blob(buffer->buffer, buffer->len);
 -- 
-2.30.2
+2.34.1
 
 
