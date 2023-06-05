@@ -2,32 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7558D722759
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Jun 2023 15:27:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.543722.848928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7F557227BC
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Jun 2023 15:44:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.543728.848939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6AEM-0004L2-Ud; Mon, 05 Jun 2023 13:26:42 +0000
+	id 1q6AV0-0006jq-CT; Mon, 05 Jun 2023 13:43:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 543722.848928; Mon, 05 Jun 2023 13:26:42 +0000
+Received: by outflank-mailman (output) from mailman id 543728.848939; Mon, 05 Jun 2023 13:43:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6AEM-0004Ie-Rz; Mon, 05 Jun 2023 13:26:42 +0000
-Received: by outflank-mailman (input) for mailman id 543722;
- Mon, 05 Jun 2023 13:26:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q6AV0-0006h3-9V; Mon, 05 Jun 2023 13:43:54 +0000
+Received: by outflank-mailman (input) for mailman id 543728;
+ Mon, 05 Jun 2023 13:43:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5/oe=BZ=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
- id 1q6AEL-0004IU-Cm
- for xen-devel@lists.xenproject.org; Mon, 05 Jun 2023 13:26:41 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9a3ff98b-03a4-11ee-b232-6b7b168915f2;
- Mon, 05 Jun 2023 15:26:39 +0200 (CEST)
-Received: from [192.168.1.142] (unknown [151.47.122.133])
- by support.bugseng.com (Postfix) with ESMTPSA id 32D554EE073A;
- Mon,  5 Jun 2023 15:26:38 +0200 (CEST)
+ <SRS0=HqGI=BZ=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1q6AUy-0006gg-3b
+ for xen-devel@lists.xenproject.org; Mon, 05 Jun 2023 13:43:52 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20603.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::603])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fecfb4d0-03a6-11ee-8611-37d641c3527e;
+ Mon, 05 Jun 2023 15:43:47 +0200 (CEST)
+Received: from DUZP191CA0024.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f9::21)
+ by GV2PR08MB9880.eurprd08.prod.outlook.com (2603:10a6:150:de::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Mon, 5 Jun
+ 2023 13:43:44 +0000
+Received: from DBAEUR03FT005.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:4f9:cafe::e3) by DUZP191CA0024.outlook.office365.com
+ (2603:10a6:10:4f9::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32 via Frontend
+ Transport; Mon, 5 Jun 2023 13:43:43 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT005.mail.protection.outlook.com (100.127.142.81) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6477.19 via Frontend Transport; Mon, 5 Jun 2023 13:43:43 +0000
+Received: ("Tessian outbound 5bb4c51d5a1f:v136");
+ Mon, 05 Jun 2023 13:43:43 +0000
+Received: from 3b7421c586a3.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 777E5827-F92A-418F-AC9B-0B9A98588800.1; 
+ Mon, 05 Jun 2023 13:43:37 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 3b7421c586a3.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 05 Jun 2023 13:43:37 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by AS2PR08MB9024.eurprd08.prod.outlook.com (2603:10a6:20b:5fe::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Mon, 5 Jun
+ 2023 13:43:33 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::2db3:aa30:7be0:10a6]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::2db3:aa30:7be0:10a6%4]) with mapi id 15.20.6455.030; Mon, 5 Jun 2023
+ 13:43:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,227 +72,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a3ff98b-03a4-11ee-b232-6b7b168915f2
-Message-ID: <80a512ac-d90e-930a-7ef7-8ebb5a80e801@bugseng.com>
-Date: Mon, 5 Jun 2023 15:26:36 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
- Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
-Subject: Re: Xen reliance on non-standard GCC features
-Content-Language: en-US
+X-Inumbo-ID: fecfb4d0-03a6-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=185Qz9TKNGSasx82Cv1ifwrXG32QQ26gxGfE9bmFfNI=;
+ b=3crH89OC42iSOhzduuNcnlizmnpbPwWLDwvIq/oGF7p/4oy70UET5AO9g1ZUpP0L4U0x+ucr1g82y8GrJCeAJHysdDkXz8t3+DilkHUGNu9n5mHAcZqxf3WrJMu8X1fQ7fb4SkxrYIqj0/ciWtIwszUbFthpNzeeBHuxvdazWjs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Sl8uC/syV/zgCzKgTN7doigIbkEsV1GFfqo3B+prEya+Vl8G0fWlmtFgB4woVVEBJZE4ZigrEw6EEfjLl5TrUhxzKu83I2xXq9KSSNtCxminWCejM3ODUNDgqGElclBRg9cguWrcusvbXIn+3v41z5F2TxCWDjo+QrcJgVNyZ9luJUelr6U7XR9ScjJmA1JGEaPEvAKoZIPMWsiDlwcl/HxM6S/8HmSyTLrxhotQXYEixhLCIomQdE7lWIMqkj7QGtUJvv7yWrrtaGyEXzF90JbPB7G1ln233CHDa0c6le9I+wh1qABLC8Kf1iXvzeG3eDReGTlk5hPFW8zoTV3BtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=185Qz9TKNGSasx82Cv1ifwrXG32QQ26gxGfE9bmFfNI=;
+ b=Zv97muWSK5hSjdTdpm3LDHBOo46XxIFEKSgjiTLA52gh5YfRRydclPhg751esWrPZgyyXoTvkQVRM8JKm/qWO2OAJ6r1TVQUeFcq6VLNvJFj681Mljsbk4Mcp0vXTunXCxx2ONu9xy04a+bS0ETy8QOMVyId1wouEEcB5FfosmM/YuZDjnigGIQ4kXFzkJSKoTr4T89DNbFY5bsiXVVKTIj9IHW0o2B6ug8hkTBKvmzyldozulm1Jw9ZkBz7Osi6xdw62Omv0gHF4JQM7/j4D/UpuNuji1fAlJ/B+3PzX163O5lG5WyJwFOk/E1P/IVPtpFkSNtsU/No2spj3aDIQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=185Qz9TKNGSasx82Cv1ifwrXG32QQ26gxGfE9bmFfNI=;
+ b=3crH89OC42iSOhzduuNcnlizmnpbPwWLDwvIq/oGF7p/4oy70UET5AO9g1ZUpP0L4U0x+ucr1g82y8GrJCeAJHysdDkXz8t3+DilkHUGNu9n5mHAcZqxf3WrJMu8X1fQ7fb4SkxrYIqj0/ciWtIwszUbFthpNzeeBHuxvdazWjs=
+From: Henry Wang <Henry.Wang@arm.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <1cd359e7-5245-a621-3be2-9323ba5b327b@bugseng.com>
- <8314e0fc-4ead-40fa-ef7b-4da8ce0655b4@suse.com>
-From: Roberto Bagnara <roberto.bagnara@bugseng.com>
-In-Reply-To: <8314e0fc-4ead-40fa-ef7b-4da8ce0655b4@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v2 10/10] x86emul: AVX512-FP16 testing
+Thread-Topic: [PATCH v2 10/10] x86emul: AVX512-FP16 testing
+Thread-Index: AQHZZj0oGedpV97oKUGQjzlrrKT8eq98kQ+AgAAIv1A=
+Date: Mon, 5 Jun 2023 13:43:33 +0000
+Message-ID:
+ <AS8PR08MB79911B7440B7D078FD28E63F924DA@AS8PR08MB7991.eurprd08.prod.outlook.com>
+References: <8cbbab55-d670-5632-30ee-3e8ca352f048@suse.com>
+ <bf8fa747-d2df-8340-5f7c-6b29ef3bb543@suse.com>
+ <dd67e5ba-0113-5cff-f3d0-f6eac2cdbe59@suse.com>
+In-Reply-To: <dd67e5ba-0113-5cff-f3d0-f6eac2cdbe59@suse.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: B6B7ABE1D040164BA69B01FC8C8A4F7F.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|AS2PR08MB9024:EE_|DBAEUR03FT005:EE_|GV2PR08MB9880:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36b99d38-2c66-48bf-4616-08db65cae0e2
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ tagNP7Ai8cCI+qwodnwbKLierE6q+4rU4exc5Aatx8rf774Bngt73sz/Vf3Y+4/NqB4Lg44wQCdIXYWqfETgTkkkDicrilkr5muyAH69qdWOCHLVlHyxSD4x6qwCio6I7gSTgTob9w9OmyB9EVQ/2ZGshUuwFnivBIv9XjgVvYzKkzKdGnSKGW7khDM56b5JWWrCoU4EyeDZhaUU3hSftDJFYlWThhjS5o3r4fEPTFQyUvH41wWexCv+ZFkU5jEWtjHy1N+QfrSmbhWWJi9vOya+QB5FZQL4wjBHlcwxFnuqWF+pa5doofj6kHhb8r9OJzs5y0J0u5l/Iv9e/S9uV1Zu+GaMXTzEqTzFH/E/dHxy0j6cEd66lM5ppJxGI20XAgRS3m+GiV2R94yHipe1fZzSUgYLVy4fdY0fda/cAnzMOXfkSc8ZeysG3Kna9zfC5+yaGNQvQh1U9UQqksAvsCjGBnIRejC8Zcgfvf1cQWuR/GmpHFaMRfmGyfLqRaiFM3d85Jh9UY6dcXI/FZjbn9uuzMEyhkHscVJiPkQsZAGrGRWdnrSVgHk2yolEx4lk8NwTCSVfirxhGqAbACavCrshbuNeo5G8GTCCSnr8P3Q=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(396003)(366004)(39860400002)(346002)(451199021)(38070700005)(2906002)(4001150100001)(86362001)(33656002)(5660300002)(52536014)(55016003)(83380400001)(71200400001)(7696005)(186003)(26005)(6506007)(53546011)(9686003)(478600001)(54906003)(76116006)(66446008)(6916009)(122000001)(316002)(38100700002)(66476007)(64756008)(4326008)(66946007)(66556008)(41300700001)(8936002)(8676002);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9024
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT005.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	5b0ddd49-867a-48d3-120f-08db65cadaf5
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	fmS9QuGdVdJ8DRuz6Vqnm9VbWdPaiW1b/gBZYMjXiEE/deooE1BqDiXwd+1QNW2sj4PRhQTyEhJVwDVflnvxFu7CIeseJbWGAqNFOl1GTf1LbQRY1ppkiIUVoLZJ2eeGC6TPioffdzvXSX/3XhNGF7wi1VLGE4yzOlcOJ1JM8aghm+lHmI1yRmaZWidZNhkh0/qnTLbth8LYVEcJ9KzSKl6dUXPHwAOqr1gH4BBT3oaPc62qHW6naFvuEG43u/hZ0j4d00yczJULBBL1vf4mXsypeVHAreTG6mQr88GDPPeRBeVC26rE4xNgafLtBcb8OBDSz1WyEy8LbqBpj1xpBtTQyzGGu6WPO7ULJ+epsJ7HXWrOdqKdMjJv8lGf0fgNpoFtBM8TWzYPEkTEeaOo0jirPESjGPue6W8r9zM25Oemv125+nVVyrJJKU2LOrWxG4uoRomk6/vzR56xXoD8WAQbmjgN5bEs9q5CF9DigzF2fhQyrLu2R6uLdHL8a19YaIfGo2kveI58o8kkIZp0rhgvcFHcugrz43C8M7u+mNjNl1VWg0EAUVgr6qL38xNLMv/wgPRi0WyZ+GuG6viLS9IbcPlpax2AClD7KhM77lqg20h+9Jct2lExBvoSjezy3NUTYjca8JTf9LcZwXC0pjB4WCveU26IsGvhcDKy+HNF+Lgzz2PLBlG4+OaL7MLjCzKdzzLLVVo4ewCdPZaQb7lSz4mC0tR0QURvA64hUWE=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230028)(4636009)(136003)(376002)(39860400002)(346002)(396003)(451199021)(40470700004)(46966006)(36840700001)(40460700003)(6506007)(26005)(53546011)(9686003)(36860700001)(81166007)(47076005)(83380400001)(336012)(33656002)(86362001)(82310400005)(356005)(82740400003)(186003)(55016003)(40480700001)(54906003)(5660300002)(52536014)(2906002)(478600001)(4001150100001)(316002)(41300700001)(4326008)(70206006)(70586007)(8936002)(8676002)(6862004)(7696005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2023 13:43:43.3625
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36b99d38-2c66-48bf-4616-08db65cae0e2
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT005.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB9880
 
-On 05/06/23 11:28, Jan Beulich wrote:
-> On 05.06.2023 07:28, Roberto Bagnara wrote:
->> U1) Use of _Static_assert in C99 mode.
->>
->> U2) Empty initialization lists, both in C99 mode (ARM64 and X86_64)
->>       and C18 mode (only X86_64).
->>
->> U3) Returning void expressions.
-> 
-> As per above, tiny extensions like these are, I think, unlikely to be
-> mentioned anywhere explicitly (or more than in passing). For the last of
-> the three it may further be that it pre-dates when gcc started to
-> properly document extensions. Oh, actually - U3 is documented along with
-> -Wreturn-type.
-
-Noted: thanks!
-
-> Uses are generally intentional afaik, but eliminating cases of U2 and U3
-> would likely be possible with just slight overall impact.
-
-Ok.  As this has an impact on MISRA compliance at some stage we will need
-an official position on the subject.
-
-> As to U2, it's not clear why you distinguish C99 and C18 mode.
-
-I specified that because for MISRA compliance we need to stick
-to one version of the language: while most translation units
-are compiled in C99 mode, some are compiled in C18 mode and some
-in C90 mode.  However, I agree this is OT for the current discussion.
-
-> Throughout
-> this summary of yours it would likely have been helpful if an example was
-> provided for the behavior your describing, when the wording doesn't make
-> it crystal clear (e.g. no example needed for U1 and U3 above).
-
-You are right: here are a few examples for U2:
-
-xen/arch/arm/cpuerrata.c:92.12-92.35:
-empty initializer list (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7.8: "An empty initialization list." [STD.emptinit]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-xen/include/xen/spinlock.h:31.21-31.23: expanded from macro `_LOCK_DEBUG'
-xen/include/xen/spinlock.h:143.57-143.67: expanded from macro `SPIN_LOCK_UNLOCKED'
-xen/include/xen/spinlock.h:144.43-144.60: expanded from macro `DEFINE_SPINLOCK'
-
-xen/arch/arm/cpuerrata.c:678.5-678.6:
-empty initializer list (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7.8: "An empty initialization list." [STD.emptinit]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
-xen/arch/arm/cpufeature.c:33.5-33.6:
-empty initializer list (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7.8: "An empty initialization list." [STD.emptinit]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
-
-> As to U1, I'm afraid this statement very early in gcc's section
-> documenting C extensions simply hasn't been properly updated for newer
-> versions of the standard: "Some features that are in ISO C99 but not C90
-> or C++ are also, as extensions, accepted by GCC in C90 mode and in C++."
-> A somewhat similar statement in the middle of 2.1 "C Language" is
-> slightly better, thus covering at least the specific case of
-> _Static_assert.
-
-Noted: thanks!
-
->> U4) Static functions or variables used in inline functions with external
->>       linkage.
-> 
-> There's not a lot of "extern inline" that we've accumulated so far, I
-> think. The only ones I'm aware of are sort() and bsearch(), and there
-> the use is precisely for allowing the compiler to optimize away function
-> calls.
-> 
-> The documentation of this functionality is that of the gnu_inline
-> function attribute, afaict. That would be 6.33.1 "Common Function
-> Attributes" in 13.1.0 doc.
-
-No, it is not that one:
-
-xen/common/spinlock.c:316.29-316.40:
-static function `observe_head(spinlock_tickets_t*)' is used in an inline function with external linkage (ill-formed for the C99 standard, ISO/IEC 9899:1999: "An ill-formed source detected by the parser." [STD.diag/ext_internal_in_extern_inline_quiet]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-xen/common/spinlock.c:301.26-301.37:
-`observe_head(spinlock_tickets_t*)' declared here
-xen/include/xen/spinlock.h:180.1-180.4:
-use 'static' to give inline function `_spin_lock_cb(spinlock_t*, void(*)(void*), void*)' internal linkage
-
->> U5) Enumerator values outside the range of `int'.
-
-Examples:
-
-xen/arch/x86/include/asm/guest/hyperv-tlfs.h:477.9-477.26: Loc #1 [culprit: ISO C restricts enumerator values to range of 'int' (2147483648 is too large) (ill-formed for the C99 standard, ISO/IEC 9899:1999: "An ill-formed source detected by the parser." [STD.diag/ext_enum_value_not_int]). Tool used is `/usr/bin/x86_64-linux-gnu-gcc-12']
-xen/arch/x86/include/asm/guest/hyperv-tlfs.h:477.43-477.52: Loc #2 [evidence: ISO C restricts enumerator values to range of 'int' (2147483648 is too large)]
-
-xen/arch/x86/include/asm/guest/hyperv-tlfs.h:478.9-478.27: Loc #1 [culprit: ISO C restricts enumerator values to range of 'int' (2147483649 is too large) (ill-formed for the C99 standard, ISO/IEC 9899:1999: "An ill-formed source detected by the parser." [STD.diag/ext_enum_value_not_int]). Tool used is `/usr/bin/x86_64-linux-gnu-gcc-12']
-xen/arch/x86/include/asm/guest/hyperv-tlfs.h:478.43-478.52: Loc #2 [evidence: ISO C restricts enumerator values to range of 'int' (2147483649 is too large)]
-
-xen/arch/x86/include/asm/hvm/svm/vmcb.h:143.5-143.27: Loc #1 [culprit: ISO C restricts enumerator values to range of 'int' (2147483648 is too large) (ill-formed for the C99 standard, ISO/IEC 9899:1999: "An ill-formed source detected by the parser." [STD.diag/ext_enum_value_not_int]). Tool used is `/usr/bin/x86_64-linux-gnu-gcc-12']
-xen/arch/x86/include/asm/hvm/svm/vmcb.h:143.31-143.38: Loc #2 [evidence: ISO C restricts enumerator values to range of 'int' (2147483648 is too large)]
-
->> U6) Empty declarations.
-
-Examples:
-
-xen/arch/arm/arm64/lib/find_next_bit.c:57.29:
-empty declaration (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7: "An empty declaration." [STD.emptdecl]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
-xen/arch/arm/arm64/lib/find_next_bit.c:103.34:
-empty declaration (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7: "An empty declaration." [STD.emptdecl]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
-xen/arch/arm/include/asm/vreg.h:143.26:
-empty declaration (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7: "An empty declaration." [STD.emptdecl]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
-xen/arch/arm/include/asm/vreg.h:144.26:
-empty declaration (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7: "An empty declaration." [STD.emptdecl]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
-xen/arch/arm/include/asm/arm64/flushtlb.h:70.51:
-empty declaration (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7: "An empty declaration." [STD.emptdecl]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
->> U7) Empty enum definitions.
-
-Example:
-
-xen/arch/arm/include/asm/vgic.h:275.6-275.17:
-enum declaration `gic_sgi_mode' is incomplete (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7.2.2: "An incomplete enum declaration." [STD.emptenum]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
-> ... here I wonder whether instead you mean forward declaration of enums
-> (i.e. what the standard allows for structures and unions only).
-
-It is reported as an enum forward declaration if the enum is later
-properly declared.  My understanding is that this is not the case
-for the example above.
-
->> U8) Conversion between incompatible pointer types.
-> 
-> Do we have any uses that aren't, by using casts, documenting that the
-> conversions are deliberate? Otherwise I would expect the compiler to
-> warn, and hence the build to fail due to -Werror. Then again I'm sure
-> we have ample uses of casts left which are actually bogus.
-
-Examples:
-
-xen/common/kernel.c:552.18-552.47:
-implicit cast converts from `const __typeof__(*(&params))*' (that is `const struct xen_platform_parameters*') to `void*' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.5.16.1: "Implicit conversion from a pointer to an incompatible pointer." [STD.pteincmp]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-xen/include/xen/guest_access.h:65.23-65.24: expanded from macro `copy_to_guest_offset'
-xen/include/xen/guest_access.h:104.5-104.41: expanded from macro `copy_to_guest'
-
-xen/common/kernel.c:566.14-566.59:
-implicit cast converts from `const __typeof__(*(chgset))*' (that is `const char*') to `void*' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.5.16.1: "Implicit conversion from a pointer to an incompatible pointer." [STD.pteincmp]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-xen/include/xen/guest_access.h:65.23-65.24: expanded from macro `copy_to_guest_offset'
-xen/include/xen/guest_access.h:104.5-104.41: expanded from macro `copy_to_guest'
-
-xen/common/kernel.c:613.14-613.41:
-implicit cast converts from `const __typeof__(*(&fi))*' (that is `const struct xen_feature_info*') to `void*' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.5.16.1: "Implicit conversion from a pointer to an incompatible pointer." [STD.pteincmp]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-xen/include/xen/guest_access.h:123.23-123.24: expanded from macro `__copy_to_guest_offset'
-xen/include/xen/guest_access.h:152.5-152.43: expanded from macro `__copy_to_guest'
-
-xen/common/kernel.c:645.14-645.71:
-implicit cast converts from `const __typeof__(*(deny ? xen_deny() : saved_cmdline))*' (that is `const char*') to `void*' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.5.16.1: "Implicit conversion from a pointer to an incompatible pointer." [STD.pteincmp]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-xen/include/xen/guest_access.h:65.23-65.24: expanded from macro `copy_to_guest_offset'
-xen/include/xen/guest_access.h:104.5-104.41: expanded from macro `copy_to_guest'
-
-xen/common/memory.c:1745.20-1745.53:
-implicit cast converts from `const __typeof__(*(&topology))*' (that is `const struct xen_vnuma_topology_info*') to `void*' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.5.16.1: "Implicit conversion from a pointer to an incompatible pointer." [STD.pteincmp]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-xen/include/xen/guest_access.h:123.23-123.24: expanded from macro `__copy_to_guest_offset'
-xen/include/xen/guest_access.h:152.5-152.43: expanded from macro `__copy_to_guest'
-
-xen/common/memory.c:1808.14-1808.47:
-implicit cast converts from `const __typeof__(*(&topology))*' (that is `const struct xen_vnuma_topology_info*') to `void*' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.5.16.1: "Implicit conversion from a pointer to an incompatible pointer." [STD.pteincmp]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-xen/include/xen/guest_access.h:123.23-123.24: expanded from macro `__copy_to_guest_offset'
-xen/include/xen/guest_access.h:152.5-152.43: expanded from macro `__copy_to_guest'
-
-xen/common/memory.c:1841.14-1841.47:
-implicit cast converts from `const __typeof__(*(&grdm.map))*' (that is `const struct xen_reserved_device_memory_map*') to `void*' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.5.16.1: "Implicit conversion from a pointer to an incompatible pointer." [STD.pteincmp]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-xen/include/xen/guest_access.h:123.23-123.24: expanded from macro `__copy_to_guest_offset'
-xen/include/xen/guest_access.h:152.5-152.43: expanded from macro `__copy_to_guest'
-
-xen/common/efi/boot.c:335.16-335.56:
-implicit cast converts from `const CHAR16*' (that is `const unsigned short*') to `void*' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.5.16.1: "Implicit conversion from a pointer to an incompatible pointer." [STD.pteincmp]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
-xen/common/libfdt/fdt_overlay.c:733.69-733.87:
-implicit cast converts from `const char*' to `void*' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.5.16.1: "Implicit conversion from a pointer to an incompatible pointer." [STD.pteincmp]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-
->> U9) Conversion between function pointers and object pointers.
-
-Example:
-xen/arch/x86/apic.c:1159.16-1159.55: Loc #1 [culprit: c_style cast converts from `const void*' to `unsigned(*)(void)' (ill-formed for the C99 standard, ISO/IEC 9899:1999 Annex J.5.7: "A pointer to a function is converted to a pointer to an object or a pointer to an object is converted to a pointer to a function (6.5.4, 6.3.2.3)." [STD.funojptr]). Tool used is `/usr/bin/x86_64-linux-gnu-gcc-12']
-
-> Uses I'm readily aware of are deliberate. Plus isn't this shorthand
-> for going through uintptr_t intermediately only anyway?
-
-I don't understand the last sentence.
-
->> U10) \m escape sequence.
->>        Is this an undocumented GCC extension or just a typo?
-
-Already dealt with in another message.
-
->> Here is a list of extensions that are documented in the GCC manual:
-> 
-> I suppose that this list wasn't meant to be complete? The most
-> prominent example is probably asm().
-
-As far as I can tell the list was almost complete (I realize now
-that the use of the keyword __signed__ was omitted because
-investigation was not completed).  But I am probably misunderstanding
-you.
-
-Kind regards,
-
-    Roberto
+SGkgSmFuLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IFN1YmplY3Q6IFJlOiBb
+UEFUQ0ggdjIgMTAvMTBdIHg4NmVtdWw6IEFWWDUxMi1GUDE2IHRlc3RpbmcNCj4gDQo+IEhlbnJ5
+LA0KPiANCj4gT24gMDMuMDQuMjAyMyAxNzowMCwgSmFuIEJldWxpY2ggd3JvdGU6DQo+ID4gTmFt
+aW5nIG9mIHNvbWUgb2YgdGhlIGJ1aWx0aW5zIGlzbid0IGZ1bGx5IGNvbnNpc3RlbnQgd2l0aCB0
+aGF0IG9mIHByZS0NCj4gPiBleGlzdGluZyBvbmVzLCBzbyB0aGVyZSdzIGEgbmVlZCBmb3IgYSBu
+ZXcgQlIyKCkgd3JhcHBlciBtYWNyby4NCj4gPg0KPiA+IFdpdGggdGhlIHRlc3RzIHByb3ZpZGlu
+ZyBzb21lIHByb29mIG9mIHByb3BlciBmdW5jdGlvbmluZyBvZiB0aGUNCj4gPiBlbXVsYXRvciBj
+b2RlIGFsc28gZW5hYmxlIHVzZSBvZiB0aGUgZmVhdHVyZSBieSBndWVzdHMsIGFzIHRoZXJlJ3Mg
+bm8NCj4gPiBvdGhlciBpbmZyYXN0cnVjdHVyZSBpbnZvbHZlZCBpbiBlbmFibGluZyB0aGlzIElT
+QSBleHRlbnNpb24uDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBKYW4gQmV1bGljaCA8amJldWxp
+Y2hAc3VzZS5jb20+DQo+ID4gLS0tDQo+ID4gdjI6IEFkZCBDSEFOR0VMT0cubWQgZW50cnkuDQo+
+IA0KPiBJIG5vdGljZSBJIGZvcmdvdCB0byBDYyB5b3Ugb24gdGhpcyBzdWJtaXNzaW9uLCB3aXRo
+IHNhaWQgYWRkaXRpb24uDQo+IE1heSBJIGFzayBmb3IgeW91ciBhY2sgKG9yIG90aGVyd2lzZSks
+IHBsZWFzZT8NCg0KVGhhbmtzIGZvciBsZXR0aW5nIG1lIGtub3cgdGhpcyAoYW5kIGFsc28gcmVt
+ZW1iZXJpbmcgdGhlIGNoYW5nZWxvZw0KZW50cnkpISBNeSBzdWdnZXN0aW9uIHdvdWxkIGJlIG1h
+a2luZyB0aGUgZW50cnkgbG9vayBsaWtlIGEgY29tcGxldGUNCnNlbnRlbmNlIGluc3RlYWQgb2Yg
+dGhlIGN1cnJlbnQgZm9ybS4NCg0KQnV0IEkgYWxzbyB1bmRlcnN0YW5kIHRoaXMgaXMgcXVpdGUg
+bml0cGlja2luZyBzbyBJIHdpbGwgbGV0IHlvdSBkZWNpZGUsDQplaXRoZXIgbWFraW5nIGl0IG1v
+cmUgcmVhZGFibGUgb3Iga2VlcGluZyBpdHMgY3VycmVudCBmb3JtIGlzIGZpbmUgd2l0aA0KbWUs
+IGFuZCBpZiB5b3Ugd2FudCB0byBpbXByb3ZlIHRoZSB3b3JkaW5nLCB5b3UgY2FuIGRvIGl0IG9u
+IGNvbW1pdC4NCg0KU286DQpBY2tlZC1ieTogSGVucnkgV2FuZyA8SGVucnkuV2FuZ0Bhcm0uY29t
+PiAjIENIQU5HRUxPRw0KDQpLaW5kIHJlZ2FyZHMsDQpIZW5yeQ0KDQo+IA0KPiBUaGFua3MsIEph
+bg0KPiANCj4gPiAtLS0gYS9DSEFOR0VMT0cubWQNCj4gPiArKysgYi9DSEFOR0VMT0cubWQNCj4g
+PiBAQCAtMTQsNiArMTQsNyBAQCBUaGUgZm9ybWF0IGlzIGJhc2VkIG9uIFtLZWVwIGEgQ2hhbmdl
+bG9nDQo+ID4gICAgIC0gQnVzLWxvY2sgZGV0ZWN0aW9uLCB1c2VkIGJ5IFhlbiB0byBtaXRpZ2F0
+ZSAoYnkgcmF0ZS1saW1pdGluZykgdGhlIHN5c3RlbQ0KPiA+ICAgICAgIHdpZGUgaW1wYWN0IG9m
+IGEgZ3Vlc3QgbWlzdXNpbmcgYXRvbWljIGluc3RydWN0aW9ucy4NCj4gPiAgIC0geGwvbGlieGwg
+Y2FuIGN1c3RvbWl6ZSBTTUJJT1Mgc3RyaW5ncyBmb3IgSFZNIGd1ZXN0cy4NCj4gPiArIC0geDg2
+IEFWWDUxMi1GUDE2DQo+ID4NCj4gPiAgIyMNCj4gWzQuMTcuMF0oaHR0cHM6Ly94ZW5iaXRzLnhl
+bi5vcmcvZ2l0d2ViLz9wPXhlbi5naXQ7YT1zaG9ydGxvZztoPVJFTEVBU0UtDQo+IDQuMTcuMCkg
+LSAyMDIyLTEyLTEyDQo+ID4NCj4gPlsuLi5dDQoNCg==
 
