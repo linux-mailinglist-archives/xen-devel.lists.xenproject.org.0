@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AED0724E26
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Jun 2023 22:30:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.544231.849855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DBFE724E29
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Jun 2023 22:34:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.544236.849864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6dJ9-0002Pb-PT; Tue, 06 Jun 2023 20:29:35 +0000
+	id 1q6dNB-0003pS-AS; Tue, 06 Jun 2023 20:33:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 544231.849855; Tue, 06 Jun 2023 20:29:35 +0000
+Received: by outflank-mailman (output) from mailman id 544236.849864; Tue, 06 Jun 2023 20:33:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6dJ9-0002MG-Mc; Tue, 06 Jun 2023 20:29:35 +0000
-Received: by outflank-mailman (input) for mailman id 544231;
- Tue, 06 Jun 2023 20:29:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q6dNB-0003mN-73; Tue, 06 Jun 2023 20:33:45 +0000
+Received: by outflank-mailman (input) for mailman id 544236;
+ Tue, 06 Jun 2023 20:33:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nNFn=B2=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1q6dJ7-0002MA-ON
- for xen-devel@lists.xenproject.org; Tue, 06 Jun 2023 20:29:33 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20624.outbound.protection.outlook.com
- [2a01:111:f400:fe5a::624])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d52fb317-04a8-11ee-8611-37d641c3527e;
- Tue, 06 Jun 2023 22:29:29 +0200 (CEST)
+ id 1q6dNA-0003mH-Gn
+ for xen-devel@lists.xenproject.org; Tue, 06 Jun 2023 20:33:44 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20611.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::611])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6d37014c-04a9-11ee-b232-6b7b168915f2;
+ Tue, 06 Jun 2023 22:33:43 +0200 (CEST)
 Received: from MN2PR12MB4408.namprd12.prod.outlook.com (2603:10b6:208:26c::14)
- by BL0PR12MB4963.namprd12.prod.outlook.com (2603:10b6:208:17d::15)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DM6PR12MB4139.namprd12.prod.outlook.com (2603:10b6:5:214::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Tue, 6 Jun
- 2023 20:29:24 +0000
+ 2023 20:33:40 +0000
 Received: from MN2PR12MB4408.namprd12.prod.outlook.com
  ([fe80::61d6:7feb:e8e8:bc4]) by MN2PR12MB4408.namprd12.prod.outlook.com
  ([fe80::61d6:7feb:e8e8:bc4%6]) with mapi id 15.20.6455.030; Tue, 6 Jun 2023
- 20:29:23 +0000
+ 20:33:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,221 +47,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d52fb317-04a8-11ee-8611-37d641c3527e
+X-Inumbo-ID: 6d37014c-04a9-11ee-b232-6b7b168915f2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RByOfWuDcO60Mg+g9cAgp9AJg33go+rxhoYPHl+AEY4E7FuAyXjRTMZPCk8oBYttHhi1AuzEEeNvb7XlrKfSYR9LtyR4xX2Fotm7Pyl18Pc+sOdC+U4Jhw2ZkNjHPQlt0HLgismTlxJuWolauRDzo7zspVbJw06wFOApQAb6+chPiZVTQI9eVvBbXLdl0YWy6ZBJB17y0PidSgajX7zUxdWdAapWg7MVU99fESh2Bl1attYYz1LTj5JrgSfRtWTtjXvCOmOTRr7Xq8vMgq/zb69WHIU57GKN3Ov9DAtJ0MMpkcBQcSxib7zntOSrhpKp8KuuWAotegzijxjXm2RGKQ==
+ b=hBs6eQ9npMemXf9nxgz5nIMThxdQNdNjE1L2nhZssx1QzJoIutc8zFs3gcjQ/AJSQhkQfF5x0NeIfrstWWqPR3cHG3LezXpN9DhOQErNwYYLlEmHpKXJrmXWVmv6/ktpP9z8GdMRqPq4pZo49ARGHnf5cP18lwchk/ZlQmWC1shou5kUiWhCHS+Ly6Wm87unJuRzyt3ueHeBYBvyi3bLoREvww1h1e2CgadzPm7zA37i2Q3U4XolLmW2CxF/Qc90Ri/FCk4gNkrB0RwHx9nMI4hn5CpZJps8qrNuMDtjbhbVkYCC0N75UEkpWEOTkK6KiZarGMYAq26t0dQFVT1USA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KUtqmPhMdCgIo+SwNL8lNC0TyJD4G8ISM6axJOzb6ac=;
- b=Fj7uVqsEJ8m8oDTkq53IrS6c7P5778nokqRVt0WhtmNY2sIE+9K7bxJVLQu5dDevXqpYosoTd5QI888VlVV0PY5tDajbaapbupb+XdChp71YD+sYNbFsMJz8TqISWxCojQZwIOTzV3YJQVs1Z38qXRMeQ11E2e+JO4GcDCpWo08xuKPpgUtZjkVkFDPQ/yEtnX6Z5qmZOHrfF7mAK45fxd1qKq2RFGzAaY9xoUpRlDoQZErgNnodzSrcjuOi1tvOLBDSDZhTRUbMOLAH03IAzSk6vLWTcMz5j7DH7NeUwlEX1aY4JO31c0637a1b4ZQRzjNTkiAjf8BDSn1oacou4g==
+ bh=/6+p8zqO5QnQqWj79oCRJlUkmOshIvTqZgbo1ZyT3XQ=;
+ b=UDCoauNnxdrNW22Z3Jur5W83a8aCe66COHNXUaj1vhpXMVtL6JgjgqVsl7DhFgmTRI92irxDmJRNxrxtW9wAAOVAbZ5jXL37TYwV12cstEY8K3AYUbwy0BdN5d70vUHf4WYdiqtyArOUovjDpnKIU40hBZMCv9KtNN1XRimGozU282ZCBpyLIE0zRhCgCr3zplkSgpRSd3fTry3HPQCfAxb4LPmHr01wVbgPe7/xrABQT5kfILqAavDBN5q0OoP+qVYdIAAU0Z3xcns95EPWZGs5a/lzSxXvz13KMcR1GmbhVhApKCCMrbhaX5QdMVAyIm/jS9s/vubUogCx2/2KAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KUtqmPhMdCgIo+SwNL8lNC0TyJD4G8ISM6axJOzb6ac=;
- b=SWvG8efCxy5S275v5nHTYwYYN45Kc8m6KAlg4MFS2zvZ30Pk9GZxmk7/0cQj4ingZN1NW61AAbgyRRRxzZV1u3GJ2rG3DlQUT1Ei2jutQr4JAryXV/jGBTvULRkuEmPWBXc7O14xYNDEnZj7v9ODlCX+8oGn1ddbMkvuKb5+ZPI=
+ bh=/6+p8zqO5QnQqWj79oCRJlUkmOshIvTqZgbo1ZyT3XQ=;
+ b=4Z1YXclgIpwsyjx5XL7AKGQylmUnmeaeXE50ZoaY3EgMOsnmM8FSnp7ZlvCgjUP21ABLDn3wYlcY4jRnfjpK1W8J7C+UNeeTi2FPGqJaN3VFoUz5yDt2w47uljV0wznYsvxP2N8OnruNncmbKJJu7idX6ou1Z2khD1/J7LlOFSA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <007122c9-1ab2-dd5e-bed4-64333113e55a@amd.com>
-Date: Tue, 6 Jun 2023 13:29:21 -0700
+Message-ID: <ec06ab67-1868-dbe3-7b7f-491846183efb@amd.com>
+Date: Tue, 6 Jun 2023 13:33:36 -0700
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.11.2
-Subject: Re: [XEN][PATCH v7 08/19] xen/device-tree: Add
- device_tree_find_node_by_path() to find nodes in device tree
+Subject: Re: [XEN][PATCH v7 09/19] xen/iommu: Move spin_lock from
+ iommu_dt_device_is_assigned to caller
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: michal.orzel@amd.com, sstabellini@kernel.org, jbeulich@suse.com,
- Luca.Fancellu@arm.com, Henry.Wang@arm.com
+To: Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, jbeulich@suse.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
 References: <20230602004824.20731-1-vikram.garhwal@amd.com>
- <20230602004824.20731-9-vikram.garhwal@amd.com>
- <d6a40e00-e2e3-81d9-b596-45dcfb2becd6@xen.org>
+ <20230602004824.20731-10-vikram.garhwal@amd.com>
+ <a818b17e-c471-7920-d650-fa9736b514f3@amd.com>
+ <1d4705b1-8e0d-ace9-333c-1e23d30c8afb@xen.org>
 From: Vikram Garhwal <vikram.garhwal@amd.com>
-In-Reply-To: <d6a40e00-e2e3-81d9-b596-45dcfb2becd6@xen.org>
+In-Reply-To: <1d4705b1-8e0d-ace9-333c-1e23d30c8afb@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BYAPR11CA0053.namprd11.prod.outlook.com
- (2603:10b6:a03:80::30) To MN2PR12MB4408.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY3PR05CA0025.namprd05.prod.outlook.com
+ (2603:10b6:a03:254::30) To MN2PR12MB4408.namprd12.prod.outlook.com
  (2603:10b6:208:26c::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4408:EE_|BL0PR12MB4963:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ca353af-99f9-4397-3eb2-08db66ccb734
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4408:EE_|DM6PR12MB4139:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5eb1b42-b7a3-48fd-62ac-08db66cd4fd9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	YDTUGei3jAVJ72LLVCFq3E/AeiVsLoG/CLIO7SdNKUaP5RwPWZeYSBpBy9OeOvGwZKGpPipXfweE/v0l0hu6cx4/A+eVKfAElZhS+UfQuW5uVRcYRRx56+wMggQTTUFe57XojjbosGWH3D8YtQ9hCC6+qO56dLCj1DqWORWd2Kiozxd/2rOF7f1SqJOqQ/FdB0nsmYQs2BjqpddHXMZ8MMUPmaHt7JB5NUa83EwLowulMUXHLzRPPQMNRysRyaXWsGnejoWYeZtgdL57ugJXA05UGggvZqRbH1vTc/u36GWUazmKj9YirnZgb8FgLmIL9KwJNA/qbfQ8480pDJqkKQC48w35XN9Bzuh+rHM4TFvErMd5mfQiuGZUygDARA9Dj+xBVme3CavWlREGZmVr8pt30vIgvjWFJpWk1QnZAzCl/oWFHzclAnXBP14RcGUZxSNnNfEp8FHFci+Z5UOvh+PFuRgt0KLXMyHfxsJuROvUzFJB00lrpm471WDLifPAkeZhjj50fNp2H1nHNN9uS6vi6tpLCZGGaWSrMRrF2Qqx2hQf7mifxG4bLweTbznXF7Kv53W1tUuC65IBb2LEKUiMTUfl64nNAgDB8cgVGScAiDtdG19FKsO8hM3w2R6Dt9R4S3Xgb3qFdDXmdMWNz9e47bZG6BPcXZiUUgo+iPQ=
+	7FION6idDjnP/qlPmdGDQ8xr99S1aOuYVFvllyyR5b8QfoTeQomSKGbMdiwj18N9AfN34YiMJXx9ACttWAH35sAt6w7x8e/1LrXpUXhIWQ9Dijo79fhKTroVhjTBjIJUFY6U3h6WI3mcLZR8/9E8t8wx/U/QrXzmo9cM5dUqJrPk/CA4tmBizlSoUEZgSwSSlKsqFjNUfswUoxwYAyN9orlH/kVbRIo9Z8cCpS+jDweeco3b/WOHfsAbsgQp31vXsDnN6ZDJV8DIj5x6CT2pitbjN/7Q+Uh9ytOs3Wy16RVuM0slheKSmdlkU1j0K1FyER1NNHQvwqLI2bOhNiu2sujdQKvRQ9C9yOoKzEwqvYNz+PEaS75/smDRj3/1094kxb4V/Lr5Jn07F1WwfnCTn4mXALwZU6aqaAbin0DoNvkuGr2gu673q9HSRlhJU1RNMQb+1k9ceVfmclY+YVchfRxdZHRT6335faBELw/3NlJI9cR+eLk3plTgOyZI8gXlPLhxeU/r3zt2QjeBwX3Csm3WMdPe9q4akvytxsXGqdPGS3D3Bka+qEIRrkotm1WKx3mVclJm4SAbagb5ZfOjEhLPC/JUsJKbF5ermVh0hNw2+iVuTxTZ1vm1JcbVQ1uCSNaATcxrhsoIWIkQvCy1IA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB4408.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(376002)(346002)(136003)(396003)(39860400002)(366004)(451199021)(41300700001)(478600001)(316002)(44832011)(5660300002)(66556008)(2906002)(66946007)(4326008)(8676002)(66476007)(31686004)(8936002)(6486002)(86362001)(31696002)(36756003)(2616005)(38100700002)(186003)(53546011)(6506007)(83380400001)(26005)(6512007)(37363002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN2PR12MB4408.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230028)(4636009)(396003)(376002)(346002)(136003)(39860400002)(366004)(451199021)(66556008)(8936002)(66476007)(4326008)(66946007)(8676002)(316002)(54906003)(110136005)(41300700001)(2906002)(478600001)(31686004)(5660300002)(44832011)(6486002)(6512007)(6506007)(53546011)(26005)(186003)(83380400001)(6666004)(31696002)(86362001)(36756003)(2616005)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RXo2M3Y2eWxqK3RtL0dzZ3ZUNjZVYXp0bjI1d0Rrdy9FdWV2UFA5aGU1ZERM?=
- =?utf-8?B?bjErNCt4TzMvWnNJZUhXdDFmZ2pKZjZzNG5XejJqei8yMFk3SXpqc0xiVSsr?=
- =?utf-8?B?SElzdEpOS1BQNFhjdGQrQXFnbHJXa3BxdkFtbDFESUJzV2tNSUpmMWhZMmFs?=
- =?utf-8?B?RmV6ZnRNNlk2amZRQmx0NEhESEZkcGgzVGFhVENaWDRVem1XRlNjd3NOSDRk?=
- =?utf-8?B?WEFpL2taRnRuZklmUUdXV1VCSkEwVWt1ZmM3NVRKK1BkZzNRMzZXamZtOEtX?=
- =?utf-8?B?cjRpeDNmMVN0MDBhclhTRkQ4VStwZkhOMVdGalVpZTlEU29YNFpRVnNjZlNS?=
- =?utf-8?B?K3NKODl3a2tQd0prVGc3Q0g0RGROa3ZaejRkc1NCMGFVQXFFYWwwWE5MMW9H?=
- =?utf-8?B?eHBEL0h3eXF3cHNyQjJQV0pTU1BWcGNVZ1ZGdllyM29sOWxqdG95T0c1YkJn?=
- =?utf-8?B?SmNSMExvdDkzYldyUDFYc2xpaG1CT05UT2xTN1N1MG5DZXFCMmhRczE2d09y?=
- =?utf-8?B?aXA0Q294VnhzS3pPMG5KR2FINU1jamhNcXhvN0Z5ZzNWeGsvMXpVM1ZtY1N3?=
- =?utf-8?B?ZEx2VE8veEw2ZS8rZHBXY2EvbHpyN1d1ZGI5Ynl4RzRRUlVmSW1SVVIzMmhM?=
- =?utf-8?B?MkduOXpmdk5yMGlBMlN2cnU4UHR5K3lnV0x6bExGYmRSckYrOUw4SytwSFhX?=
- =?utf-8?B?U3h1bUg3ZDJNVmh3akJOUnB5U3FYNld5UVBRa3RhYUphUUs2U1lnWVFtRDY2?=
- =?utf-8?B?NTkzcS9MaGR2bUxLMnlrSFZWNjNnOGxqUE5COHRzK3FKZTZuQmhBdkVxUXNU?=
- =?utf-8?B?emtsTzFuTmMrRmRQbSs0YmtLdGxqZWk5NlBIc2hGWjZJZkZCNGZ6NHpZY3Vv?=
- =?utf-8?B?dUdDdFJCaDhzSWEzV1E1L2llT0VXdUE2bTRTcmR0QkZ1SUVtbEUvTHQ5SFox?=
- =?utf-8?B?WlU2UWdGUDVKUTdzaWZFeUliRm1KckdnVlZqMHdWTmxyTUVaOW4yZWJ4eENk?=
- =?utf-8?B?dnNRRndxeGRZaFBzeEJIYzN3ZmtJczl1M2Z0dmc5NytFL3JybkQ4UENWSmha?=
- =?utf-8?B?b0g0OFN2V0w4WldqYXNZQXFuc2s5YlFLMHhKNlBzYVpmV1B1MitFSG9yeWFI?=
- =?utf-8?B?R3VBc0s5RkJWMzUrTVFxUkpDV1FESnZWRjVCdmd3QkNoVGhPNGNpYW05eEMz?=
- =?utf-8?B?czVGcVYvbnhURUJMaXhrd1FjdW1lR2tKMTV0YURYZWlHN3YzL0ZNT2FTb3pI?=
- =?utf-8?B?UHpUenBiSldnME9SNkdRWVBCU3dTUEQ2K0pMelJ1UkwxQTdpeGRTb0YxWmFi?=
- =?utf-8?B?WGxNYjFSQ2w0UnVmYnpWTi9CazV6YkUyb3ZlaVlOOWUxVGkwWHpIaWxyZUZH?=
- =?utf-8?B?MVl3ZS9hZHRaNXdTVmhuellaemZ3NUsyc3VtRFBLaWVxclhaLzQrVDZIZDR4?=
- =?utf-8?B?eS91aWR5VUtBbDNHWklUaTEzUHh6UDdKYzhrZklVTTdrOXpmVkY5Y05nQUxU?=
- =?utf-8?B?S1pHSDg2RXZGaXRzNUdUNSt0RnhKZlA2VlVxalRDM1BxY3ZTZU15TVpxM2lG?=
- =?utf-8?B?VVVhckZxN0d5amhIdTBYVGJVYjFvSS95cHRKd3ZJcHlxVGx2MEVXUEx3SlMr?=
- =?utf-8?B?NVY4ZmVpRzhFUi9BUm1iTko2cjJkRkdIeWlaUlM1R1NIVThUVG9lTUYyWjFV?=
- =?utf-8?B?bnhqVjdWUTVXZDJVdXhHanJ1ZDRlLzlWYVZkUmRQcmViWVZNWHFHdmc5VTJs?=
- =?utf-8?B?cTg2MCtsZG4yankvOXJFN2tFUGF3cnBwYzlBcVFld3NuVWJtZTJ1eERUOE1Z?=
- =?utf-8?B?dmdTU2lESDJOWEErVlAzV2luRDBiUjE5WUM3djl4cU92bVRDVEVXWmY2UmNL?=
- =?utf-8?B?RkxTRDNDMy9UaFZ6ck9VVVJscEhKWE5pY0c4UnpuaUZEYVI0bDFubEV0ekpn?=
- =?utf-8?B?eFFjNm9VMjNNRWtVbUhOMEVlSnVIK3JzSVhYOGFyUG0vYjdjYkNrVExwR240?=
- =?utf-8?B?UE9udkpybGY3clVIL2xMTTNmY0NkUFl2YjBOdGF2UFd5eVZpMXRwWmNVaEZi?=
- =?utf-8?B?azBFN2NidmRMMjBxbVJmZmJFVXZVa1RpN3pEVUVlRi91cDVsV0ZuZTgvUUhY?=
- =?utf-8?Q?m01swbt8IHfN7b+OzNo/JKCGY?=
+	=?utf-8?B?bnh3Mnh3VkVTVGJmTzlLemJFc0ZEcXM1VDhYWFl0Sy9uanNpMkVEZEVkNE9O?=
+ =?utf-8?B?MTB1dmZVN2pRNERqRkt3ODJhWDd0cDVRQzJhdDd0dytzZGZzL3BFdVI5U2NC?=
+ =?utf-8?B?dmR6MnplRU1JbE1ER1UvSWJkcUhIUU9zSWcwM1hjRTMrZXJwdWtMRmtvREpH?=
+ =?utf-8?B?djRzWDE0d1pDcmw0NVN2anVUMXhVdWRobHBzdUtZdW9sTXg5QnNqMlZSTElJ?=
+ =?utf-8?B?YldhU1ZwNjNKWkRlY1B3dmk0aFZZd2VDVlVEZ29Ob0Q5RWRJTExRZzNveDQy?=
+ =?utf-8?B?Qi9kcXQyTlNiZEtDc0RaVFpUUnQxU2VXa1llUW1pVUhlMzA3THRiWFprYjJE?=
+ =?utf-8?B?UjRyRWFDWTNKaWEyeW5kc1hCNUFzK1ROa3hjNEtZQzVWTGFmeDhlaDRlZnU4?=
+ =?utf-8?B?MDBTN3BJNEhkSVQ4aXpnTmhaNDhaS290YUl4RVNINVQxK29DNWcwTExCMklW?=
+ =?utf-8?B?WkxUUHBSNVlGMzhTYmF6S1F5SlU2Y2dvUkFtSlcyellXSWxhSGVhbDFIbjl4?=
+ =?utf-8?B?S2d6Sm5ONS9zNXpZcFZEbGd1akZWb0dKWDM3Z3pXRXFUL1RsczZuNzBYZytH?=
+ =?utf-8?B?YmRDUUR4bVhnZTBuZ0JDN1lRZVM2Y2hXTEhEZVpwZlhpNmJiZlptUlBHYlFx?=
+ =?utf-8?B?TG5kbEpUaHMzTU5la2lObXJENnB0eHZtNk5wdk9KTTloRzB0clptU1d4YXd4?=
+ =?utf-8?B?Zm1XWjBHRW1GZGUrWjVkSXh6bEI2clg5dXp0aTVJakNnb3k2c2F1TE1FSUJE?=
+ =?utf-8?B?V0ErQkdwVUpPQjJlUEhBRG5BUUlXd2dtQ2RnNVRCMk1DdkJMV3IvNVdYMllw?=
+ =?utf-8?B?UHRmaHdwdUU0ZnduZzBuV0hvNXZmbG5zY2RKWFlISmFRU1ZDRkhCZjJxQWNu?=
+ =?utf-8?B?aFhaRU4yUmlkUXl1SG45aEIvT3A3N2J5SkMyYVA1MElNelNoM2FwblMyYWc2?=
+ =?utf-8?B?T3J1RG5aSlBDbVpHQk9oV1ZORDlGaU40aXhzRHNLSE9FRTAvREdUQjhBbjQ5?=
+ =?utf-8?B?b1FUU3lkUUVYYnJXdC9pQnpYaXo2REpsa2pDcTZMbmFOUnM0QThTVGdQTGVo?=
+ =?utf-8?B?WXd0Y28yTmVGb0xFRWxyUlhmSWlRVjBHYVpGaFV0Rml4RTg2NzNqVG9ReTZM?=
+ =?utf-8?B?Q21mL3ZTdlhTMWF6NG9hTU5tcW0xNGpsNW9ZZ3dnNlNaTnphbkc3T2F5MnBp?=
+ =?utf-8?B?cWh2aVBVWGhFUW9Va1FjdU5ZeFM0RmdWQ0JTVFAvVVdqdE9PNVZVV0Q3YkZk?=
+ =?utf-8?B?enBDRy9tTFJQeGpCbGFvb1UvQlNnTnJUZjBaaG9JQ3RSWWpvclZqVTNyYjNY?=
+ =?utf-8?B?S29zbUY4NTB3ZnM5ZU0wQUpjYW5VQXhOTU9kd2dReGltZmJ3dlhDbVVzV1pF?=
+ =?utf-8?B?T1h4cmlWZG9zMlpqc2REUzMvdUlKRXBvbVcyMGlNQnZGK1lObHBpSWhKSHl5?=
+ =?utf-8?B?TmNKaW1rWU1qdzJYL2xkYi8wME5lSWZDY0o5SzB0V0phL3dvd1BpbWR2cVRo?=
+ =?utf-8?B?aHZPcW1hTXowdG5VSHJQek1JOTBnM3BFSERWSU5DNVpLckxoTnAxN3BEbkJz?=
+ =?utf-8?B?RUppUmtYM0lWaFgxSFBXSitSUmNQbkNuV0drL00wT1JtSDZRT3FGRU10S3pj?=
+ =?utf-8?B?UlpxVEVrSVBNbjNxRXVGQ3k3N3d0NDFvOS9jZGVvRVFYc3FKOFJFbXhsZzRr?=
+ =?utf-8?B?WTN6Zm1qVDBUYStVOTEwWDd1Z3ZDVEtmd3MwNUFxRVpXcjdVamVVcUJUQ0VK?=
+ =?utf-8?B?NnpqVzF3a1lMU21IOUFTY2RvNHRZcUtXMEZPUFN1Y1VxODI3MjEyUGZIQVJP?=
+ =?utf-8?B?ZFByaGF6bU5aOFdSbFlyWU00RXRKV0pHMjZXTlpsNjRRZy9hcTRwWndOSUFL?=
+ =?utf-8?B?ZzA3bithekJnMkRKellWTVhUbDFPbDFDbTEwbkpFMVczdU0yVGw5SFJiRXNB?=
+ =?utf-8?B?VmFlazNsVTh5bWh2N3AvZGU4TTNueE1ZK0hhbmVPNmhZMTliWW9rTUhqWXh6?=
+ =?utf-8?B?SlBsRXpHTDRuaWpsZE1YcUVYeEJ6Z3dpWnkrOERsaU8vbm5zYnpkMjNtMHlr?=
+ =?utf-8?B?QjdRc1FMYnhIVUtQVng5Uk9SbnFVWDVIZnBWVFo1KzAxdHd6Tmt2Qi9EcFov?=
+ =?utf-8?Q?FMz6qsVhlLju4P82K4Oggct6I?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ca353af-99f9-4397-3eb2-08db66ccb734
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5eb1b42-b7a3-48fd-62ac-08db66cd4fd9
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4408.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2023 20:29:23.7698
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2023 20:33:39.8972
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: g9udkDcXsi3A/dKCu7pkGKisJSlq7sC3cx4IssaZOxk0ofohIWA/XohAXcSL/2aO7LT4BsOEgYYs79Vox28neA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4963
+X-MS-Exchange-CrossTenant-UserPrincipalName: EtuZSyXWexCU4cTIDDkJrNtyqQ18F/wa7YsSF2uj7LNZTKyDb05QQsOEUjQvVq1lD5S6hn37H2WZSBdrmpUqQQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4139
 
 Hi,
 
-On 6/5/23 12:12 PM, Julien Grall wrote:
+On 6/5/23 12:22 PM, Julien Grall wrote:
 > Hi,
 >
-> On 02/06/2023 01:48, Vikram Garhwal wrote:
->> Add device_tree_find_node_by_path() to find a matching node with path 
->> for a
+> On 02/06/2023 08:45, Michal Orzel wrote:
+>>
+>> On 02/06/2023 02:48, Vikram Garhwal wrote:
+>>> diff --git a/xen/include/xen/iommu-private.h 
+>>> b/xen/include/xen/iommu-private.h
+>>> new file mode 100644
+>>> index 0000000000..5615decaff
+>>> --- /dev/null
+>>> +++ b/xen/include/xen/iommu-private.h
+>>> @@ -0,0 +1,27 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> + /*
+>> incorrect indentation (<< 1)
+>>
+>>> + * xen/iommu-private.h
+>>> + *
+>>> + *
+>>> + * Copyright (C) 2023, Advanced Micro Devices, Inc. All Rights 
+>>> Reserved.
+>>> + * Written by Vikram Garhwal <vikram.garhwal@amd.com>
+>> I'm not sure if placing the copyright is appropriate, given a single 
+>> prototype for a function
+>> not really implemented by you with just spinlocks removed. But I 
+>> might be wrong.
 >
-> AFAICT, the only difference in name between the new function and the 
-> existing one is "device_tree" vs "dt". The latter is just a shorthand 
-> of "device tree", so it feels to me the name are a bit too similar.
+> I agree. If you want to add a copyright then it should be the one from 
+> the original author.
 >
-> From my understanding, the main difference between the two functions 
-> are that the current one is starting from root whereas the current one 
-> is starting from a given node. So how about 
-> "dt_find_node_by_path_from()"?
-Thank you for the suggestion. This name was added in v3 as Luca Fancellu 
-suggested to rename this function to "device_tree_find_node_by_path". I 
-am okay with renaming it to dt_find_node_by_path_from().
+> But in this case, I don't think we should add an copyright as there is 
+> nothing really interesting in the header.
 
-Luca, Michal and Henry: Does the dt_find_node_by_path_from() name works 
-for you?
-
-Regards,
-Vikram
->
->> dt_device_node.
->>
->> Reason behind this function:
->>      Each time overlay nodes are added using .dtbo, a new fdt(memcpy of
->>      device_tree_flattened) is created and updated with overlay 
->> nodes. This
->>      updated fdt is further unflattened to a dt_host_new. Next, we 
->> need to find
->>      the overlay nodes in dt_host_new, find the overlay node's parent 
->> in dt_host
->>      and add the nodes as child under their parent in the dt_host. 
->> Thus we need
->>      this function to search for node in different unflattened device 
->> trees.
->>
->> Also, make dt_find_node_by_path() static inline.
->>
->> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
->>
->> ---
->> Changes from v6:
->>      Rename "dt_node" to "from"
->> ---
->>   xen/common/device_tree.c      |  6 ++++--
->>   xen/include/xen/device_tree.h | 18 ++++++++++++++++--
->>   2 files changed, 20 insertions(+), 4 deletions(-)
->>
->> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
->> index 16b4b4e946..c5250a1644 100644
->> --- a/xen/common/device_tree.c
->> +++ b/xen/common/device_tree.c
->> @@ -358,11 +358,13 @@ struct dt_device_node 
->> *dt_find_node_by_type(struct dt_device_node *from,
->>       return np;
->>   }
->>   -struct dt_device_node *dt_find_node_by_path(const char *path)
->> +struct dt_device_node *
->> +                    device_tree_find_node_by_path(struct 
->> dt_device_node *from,
->> +                                                  const char *path)
->>   {
->>       struct dt_device_node *np;
->>   -    dt_for_each_device_node(dt_host, np)
->> +    dt_for_each_device_node(from, np)
->>           if ( np->full_name && (dt_node_cmp(np->full_name, path) == 
->> 0) )
->>               break;
->>   diff --git a/xen/include/xen/device_tree.h 
->> b/xen/include/xen/device_tree.h
->> index 2c35c0d391..e239f7de26 100644
->> --- a/xen/include/xen/device_tree.h
->> +++ b/xen/include/xen/device_tree.h
->> @@ -561,13 +561,27 @@ struct dt_device_node 
->> *dt_find_node_by_type(struct dt_device_node *from,
->>   struct dt_device_node *dt_find_node_by_alias(const char *alias);
->>     /**
->> - * dt_find_node_by_path - Find a node matching a full DT path
->> + * device_tree_find_node_by_path - Generic function to find a node 
->> matching the
->> + * full DT path for any given unflatten device tree
->> + * @from: The device tree node to start searching from
->>    * @path: The full path to match
->>    *
->>    * Returns a node pointer.
->>    */
->> -struct dt_device_node *dt_find_node_by_path(const char *path);
->> +struct dt_device_node *
->> +                    device_tree_find_node_by_path(struct 
->> dt_device_node *from,
->> +                                                  const char *path);
->
-> The indentation looks slightly odd. In general, if the return type is 
-> on its own line, then the function name is not indented on the new line.
-Will fix the indention.
->
->>   +/**
->> + * dt_find_node_by_path - Find a node matching a full DT path in 
->> dt_host
->> + * @path: The full path to match
->> + *
->> + * Returns a node pointer.
->> + */
->> +static inline struct dt_device_node *dt_find_node_by_path(const char 
->> *path)
->> +{
->> +    return device_tree_find_node_by_path(dt_host, path);
->> +}
->>     /**
->>    * dt_find_node_by_gpath - Same as dt_find_node_by_path but 
->> retrieve the
+Thanks for pointing this out and explaining the process. Will remove in 
+next version.
 >
 > Cheers,
 >
