@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7756F72659A
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jun 2023 18:15:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.544905.851008 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C9D7265A4
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jun 2023 18:17:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.544911.851018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6voG-0007NR-7H; Wed, 07 Jun 2023 16:14:56 +0000
+	id 1q6vqZ-0007vL-Ku; Wed, 07 Jun 2023 16:17:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 544905.851008; Wed, 07 Jun 2023 16:14:56 +0000
+Received: by outflank-mailman (output) from mailman id 544911.851018; Wed, 07 Jun 2023 16:17:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6voG-0007LF-4M; Wed, 07 Jun 2023 16:14:56 +0000
-Received: by outflank-mailman (input) for mailman id 544905;
- Wed, 07 Jun 2023 16:14:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ooln=B3=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1q6voE-0007L9-TU
- for xen-devel@lists.xenproject.org; Wed, 07 Jun 2023 16:14:54 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f711920-054e-11ee-b232-6b7b168915f2;
- Wed, 07 Jun 2023 18:14:53 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id B0E555C0156;
- Wed,  7 Jun 2023 12:14:52 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 07 Jun 2023 12:14:52 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 7 Jun 2023 12:14:51 -0400 (EDT)
+	id 1q6vqZ-0007tL-Go; Wed, 07 Jun 2023 16:17:19 +0000
+Received: by outflank-mailman (input) for mailman id 544911;
+ Wed, 07 Jun 2023 16:17:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q6vqY-0007tB-3H; Wed, 07 Jun 2023 16:17:18 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q6vqX-0000bt-Sf; Wed, 07 Jun 2023 16:17:17 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q6vqX-0000qR-Ef; Wed, 07 Jun 2023 16:17:17 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q6vqX-0001oz-E3; Wed, 07 Jun 2023 16:17:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,266 +42,406 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f711920-054e-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1686154492; x=1686240892; bh=QKN//D7ch2wGcis9ZuO+0faQUbCTNZMH3AV
-	l7UWGzdA=; b=Mgdjc0heA9TJLiUXmgzW+Y2ZlCDLFpas+Ymt4B9XT31z+LiMb79
-	5kTpRt5Q2Su+FIcVtau2DhPDXi7uL7Rj7JEwPG8TT9Nl2slnd4LTFfkycFqzMPuZ
-	Ug6XSb9X1kcGEt9AZxBYZ9Y4uOQCebobSkJ3By0Y1n3UEujGvyjlup82PlKfJT9c
-	MGP3qsimyrv3Cilu9LINDWsGySS2n9qGh082z4RpBK+psVpbfbT6UgOxNpz9HYvc
-	JmGpyyCRWdTcKbEDciAeUhVT0/lTVJuAFT8KmmWMP009BbPIt4GdmYW7trAwkRQN
-	0No89GkOZdl6sXurulELBgGguqtSrWSYnug==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1686154492; x=1686240892; bh=QKN//D7ch2wGc
-	is9ZuO+0faQUbCTNZMH3AVl7UWGzdA=; b=DpXRUWMGSsazhraVGXGV5QIr9QPqL
-	yyJmYEu8DScVfJV8rN/tpaCA2NSD+W0VYv/5xvfiW/bjOJY0591/U4itzKSgjQ71
-	SPEOcyB75zawDPN4Ok9jUEE8BxIIKCI3McyTMp1eXFWvTslRywp+lGPehhbZ6dBM
-	t8RVYGILdS04K1m6P32UB+/EyNSE/P4aqeKXXAmgp43Cv4nJkJtSXDdaq24ZCTvC
-	0dWQA5EthbGW4uTYC5yNBdF5csixSXWUYSAhoffZgnpEN9nUXB+RkcEOIevINvKs
-	qDbtnogdMkqtAuJ6N+O2v79apbt7O1a/I3MS6GwnpQvN0R3vYW5Fu9DrQ==
-X-ME-Sender: <xms:_KyAZHeOSw-jsF99MG_IgHo5j5v0U6HLhs1qZsvZTKzCAlA8foyDvQ>
-    <xme:_KyAZNOu1DQboiQVEHMGz5ou9TpzXYovtKt5zR--GMnuaR7HqpGoEIhTMppBeqSh2
-    QC5jezi2fenB7o>
-X-ME-Received: <xmr:_KyAZAhahK8g40SbSUWOKDRluKGcZb9FHGiMdooAKmhDLA0TRyVOj4EKBJM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgedtgedgleelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
-    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:_KyAZI_xgNif72LUXabvp63aNuL7PpsTIrEVrSvu36w2WSsS2EFd3w>
-    <xmx:_KyAZDsYBfammgWqsUKulry2Jgz0_CrtIpLFS63q1Ve2c_OSP5dIhQ>
-    <xmx:_KyAZHHvOlXoPL_U4Hf89KUkNdOXQSGx0smD6s0gzLwe2CskapQ2Tg>
-    <xmx:_KyAZHh_pVIzCPW8SwxhUC-8k14yC1qSGYuqGFApIjFNQyL73AwsWw>
-Feedback-ID: iac594737:Fastmail
-Date: Wed, 7 Jun 2023 12:14:46 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>, dm-devel@redhat.com,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 13/16] xen-blkback: Implement diskseq checks
-Message-ID: <ZICs+WYCPYdu2yoI@itl-email>
-References: <20230530203116.2008-1-demi@invisiblethingslab.com>
- <20230530203116.2008-14-demi@invisiblethingslab.com>
- <ZH7tizoYl8YVFN9B@Air-de-Roger>
- <ZH9mZGbM32CDmKGF@itl-email>
- <ZIA9uBJxx2gqA4Cq@Air-de-Roger>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=hjGRPmTfe5JUojXYPCaHauHHvLYYa9V6YUGxfTOfKuI=; b=WOGX9Na6uDM4wGQw/lggJTppl0
+	Umkjwwb/XI+PtktfRFfmEcg99kx/VAYkYgJ+RaTRetD6tJn8OxyETPy/d78fUPEPFrrx8MQ/qrmYw
+	6UrgDsSNx8d4TP0WNR2a7hDNn1agwhbRAzfEKkFgB3clNQTvJJXT9tQAmkI1mimGSpEs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181243-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0tmOeWojyIbdbJsu"
-Content-Disposition: inline
-In-Reply-To: <ZIA9uBJxx2gqA4Cq@Air-de-Roger>
+Subject: [xen-unstable test] 181243: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable:test-amd64-i386-libvirt-pair:xen-install/dst_host:fail:regression
+    xen-unstable:test-armhf-armhf-examine:reboot:fail:regression
+    xen-unstable:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
+    xen-unstable:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    xen-unstable:build-arm64-pvops:kernel-build:fail:regression
+    xen-unstable:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=64a647f8d817c6989edc000613b5afae19f03f99
+X-Osstest-Versions-That:
+    xen=b3880c365db89051728e1de6b6889c750cbdd915
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 07 Jun 2023 16:17:17 +0000
+
+flight 181243 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181243/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-libvirt-pair 11 xen-install/dst_host     fail REGR. vs. 181194
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 181194
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 181194
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 181194
+ build-arm64-pvops             6 kernel-build             fail REGR. vs. 181194
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 181194
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 181194
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 181194
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 181194
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 181194
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 181194
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 181194
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 181194
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 181194
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 181194
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 181194
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 181194
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+
+version targeted for testing:
+ xen                  64a647f8d817c6989edc000613b5afae19f03f99
+baseline version:
+ xen                  b3880c365db89051728e1de6b6889c750cbdd915
+
+Last test of basis   181194  2023-06-05 16:40:12 Z    1 days
+Failing since        181210  2023-06-06 08:53:29 Z    1 days    3 attempts
+Testing same since   181243  2023-06-07 08:19:16 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alejandro Vallejo <alejandro.vallejo@cloud.com>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Henry Wang <Henry.Wang@arm.com> # CHANGELOG
+  Jan Beulich <jbeulich@suse.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            fail    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
---0tmOeWojyIbdbJsu
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 7 Jun 2023 12:14:46 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>, dm-devel@redhat.com,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 13/16] xen-blkback: Implement diskseq checks
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Wed, Jun 07, 2023 at 10:20:08AM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Tue, Jun 06, 2023 at 01:01:20PM -0400, Demi Marie Obenour wrote:
-> > On Tue, Jun 06, 2023 at 10:25:47AM +0200, Roger Pau Monn=C3=A9 wrote:
-> > > On Tue, May 30, 2023 at 04:31:13PM -0400, Demi Marie Obenour wrote:
-> > > > This allows specifying a disk sequence number in XenStore.  If it d=
-oes
-> > > > not match the disk sequence number of the underlying device, the de=
-vice
-> > > > will not be exported and a warning will be logged.  Userspace can u=
-se
-> > > > this to eliminate race conditions due to major/minor number reuse.
-> > > > Old kernels do not support the new syntax, but a later patch will a=
-llow
-> > > > userspace to discover that the new syntax is supported.
-> > > >=20
-> > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > > > ---
-> > > >  drivers/block/xen-blkback/xenbus.c | 112 +++++++++++++++++++++++--=
-----
-> > > >  1 file changed, 89 insertions(+), 23 deletions(-)
-> > > >=20
-> > > > diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen=
--blkback/xenbus.c
-> > > > index 4807af1d58059394d7a992335dabaf2bc3901721..9c3eb148fbd802c74e6=
-26c3d7bcd69dcb09bd921 100644
-> > > > --- a/drivers/block/xen-blkback/xenbus.c
-> > > > +++ b/drivers/block/xen-blkback/xenbus.c
-> > > > @@ -24,6 +24,7 @@ struct backend_info {
-> > > >  	struct xenbus_watch	backend_watch;
-> > > >  	unsigned		major;
-> > > >  	unsigned		minor;
-> > > > +	unsigned long long	diskseq;
-> > >=20
-> > > Since diskseq is declared as u64 in gendisk, better use the same type
-> > > here too?
-> >=20
-> > simple_strtoull() returns an unsigned long long, and C permits unsigned
-> > long long to be larger than 64 bits.
->=20
-> Right, but the type of gendisk is u64.  It's fine if you want to store
-> the result of simple_strtoull() into an unsigned long long and do
-> whatever checks to assert it matches the format expected by gendisk,
-> but ultimately the field type would better use u64 for consistency IMO.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I changed my mind on this, not least because the 16-byte length limit
-means that the value is limited to UINT64_MAX anyway.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> > > > @@ -725,10 +749,46 @@ static void backend_changed(struct xenbus_wat=
-ch *watch,
-> > > >  		return;
-> > > >  	}
-> > > > =20
-> > > > -	if (be->major | be->minor) {
-> > > > -		if (be->major !=3D major || be->minor !=3D minor)
-> > > > -			pr_warn("changing physical device (from %x:%x to %x:%x) not sup=
-ported.\n",
-> > > > -				be->major, be->minor, major, minor);
-> > > > +	diskseq_str =3D xenbus_read(XBT_NIL, dev->nodename, "diskseq", &d=
-iskseq_len);
-> > > > +	if (IS_ERR(diskseq_str)) {
-> > > > +		int err =3D PTR_ERR(diskseq_str);
-> > > > +		diskseq_str =3D NULL;
-> > > > +
-> > > > +		/*
-> > > > +		 * If this does not exist, it means legacy userspace that does n=
-ot
-> > > > +		 * support diskseq.
-> > > > +		 */
-> > > > +		if (unlikely(!XENBUS_EXIST_ERR(err))) {
-> > > > +			xenbus_dev_fatal(dev, err, "reading diskseq");
-> > > > +			return;
-> > > > +		}
-> > > > +		diskseq =3D 0;
-> > > > +	} else if (diskseq_len <=3D 0) {
-> > > > +		xenbus_dev_fatal(dev, -EFAULT, "diskseq must not be empty");
-> > > > +		goto fail;
-> > > > +	} else if (diskseq_len > 16) {
-> > > > +		xenbus_dev_fatal(dev, -ERANGE, "diskseq too long: got %d but lim=
-it is 16",
-> > > > +				 diskseq_len);
-> > > > +		goto fail;
-> > > > +	} else if (diskseq_str[0] =3D=3D '0') {
-> > > > +		xenbus_dev_fatal(dev, -ERANGE, "diskseq must not start with '0'"=
-);
-> > > > +		goto fail;
-> > > > +	} else {
-> > > > +		char *diskseq_end;
-> > > > +		diskseq =3D simple_strtoull(diskseq_str, &diskseq_end, 16);
-> > > > +		if (diskseq_end !=3D diskseq_str + diskseq_len) {
-> > > > +			xenbus_dev_fatal(dev, -EINVAL, "invalid diskseq");
-> > > > +			goto fail;
-> > > > +		}
-> > > > +		kfree(diskseq_str);
-> > > > +		diskseq_str =3D NULL;
-> > > > +	}
-> > >=20
-> > > Won't it be simpler to use xenbus_scanf() with %llx formatter?
-> >=20
-> > xenbus_scanf() doesn=E2=80=99t check for overflow and accepts lots of j=
-unk it
-> > really should not.  Should this be fixed in xenbus_scanf()?
->=20
-> That would be my preference, so that you can use it here instead of
-> kind of open-coding it.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-This winds up being a much more invasive patch as it requires changing
-sscanf().  It also has a risk (probably mostly theoretical) of breaking
-buggy userspace that passes garbage values here.
 
-> > > Also, we might want to fetch "physical-device" and "diskseq" inside
-> > > the same xenstore transaction.
-> >=20
-> > Should the rest of the xenstore reads be included in the same
-> > transaction?
->=20
-> I guess it would make the code simpler to indeed fetch everything
-> inside the same transaction.
+Not pushing.
 
-Okay, will change in v3.
+------------------------------------------------------------
+commit 64a647f8d817c6989edc000613b5afae19f03f99
+Author: Luca Fancellu <luca.fancellu@arm.com>
+Date:   Thu May 25 09:34:01 2023 +0100
 
-> > > Also, you tie this logic to the "physical-device" watch, which
-> > > strictly implies that the "diskseq" node must be written to xenstore
-> > > before the "physical-device" node.  This seems fragile, but I don't
-> > > see much better optiono since the "diskseq" is optional.
-> >=20
-> > What about including the diskseq in the "physical-device" node?  Perhaps
-> > use diskseq@major:minor syntax?
->=20
-> Hm, how would you know whether the blkback instance in the kernel
-> supports the diskseq syntax in physical-device?
+    maintainers: Add Xen MISRA Analysis Tools section
+    
+    Add a section for the Xen MISRA Analysis Tools.
+    
+    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-That=E2=80=99s what the next patch is for =F0=9F=99=82.
+commit 1d7c45f895b6b1fc42086ac645765279fd52bc31
+Author: Luca Fancellu <luca.fancellu@arm.com>
+Date:   Thu May 25 09:34:00 2023 +0100
 
-> Can you fetch a disk using a diskseq identifier?
+    xen/misra: diff-report.py: add report patching feature
+    
+    Add a feature to the diff-report.py script that improves the comparison
+    between two analysis report, one from a baseline codebase and the other
+    from the changes applied to the baseline.
+    
+    The comparison between reports of different codebase is an issue because
+    entries in the baseline could have been moved in position due to addition
+    or deletion of unrelated lines or can disappear because of deletion of
+    the interested line, making the comparison between two revisions of the
+    code harder.
+    
+    Having a baseline report, a report of the codebase with the changes
+    called "new report" and a git diff format file that describes the
+    changes happened to the code from the baseline, this feature can
+    understand which entries from the baseline report are deleted or shifted
+    in position due to changes to unrelated lines and can modify them as
+    they will appear in the "new report".
+    
+    Having the "patched baseline" and the "new report", now it's simple
+    to make the diff between them and print only the entry that are new.
+    
+    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+    Tested-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Not yet, although I have considered adding this ability.  It would be
-one step towards a =E2=80=9Cdiskseqfs=E2=80=9D that userspace could use to =
-open a device
-by diskseq.
+commit 43840b53f6dbe220159a14d7beb9884947a76211
+Author: Luca Fancellu <luca.fancellu@arm.com>
+Date:   Thu May 25 09:33:59 2023 +0100
 
-> Why I understand that this is an extra safety check in order to assert
-> blkback is opening the intended device, is this attempting to fix some
-> existing issue?
+    xen/misra: add diff-report.py tool
+    
+    Add a new tool, diff-report.py that can be used to make diff between
+    reports generated by xen-analysis.py tool.
+    Currently this tool supports the Xen cppcheck text report format in
+    its operations.
+    
+    The tool prints every finding that is in the report passed with -r
+    (check report) which is not in the report passed with -b (baseline).
+    
+    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+    Tested-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Yes, it is.  I have a block script (written in C) that validates the
-device it has opened before passing the information to blkback.  It uses
-the diskseq to do this, but for that protection to be complete, blkback
-must also be aware of it.
+commit b35b22acb887f682efe8385b3df165220bc84c86
+Author: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Date:   Mon Jun 5 16:01:16 2023 +0100
 
-> I'm not sure I see how the major:minor numbers would point to a
-> different device than the one specified by the toolstack unless the
-> admin explicitly messes with the devices before blkback has got time
-> to open them.  But then the admin can already do pretty much
-> everything it wants with the system.
+    x86/microcode: Add missing unlock in microcode_update_helper()
+    
+    microcode_update_helper() may return early while holding
+    cpu_add_remove_lock, hence preventing any writers from taking it again.
+    
+    Leave through the `put` label instead so it's properly released.
+    
+    Fixes: 5ed12565aa32 ("microcode: rendezvous CPUs in NMI handler and load ucode")
+    Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Admins typically refer to e.g. device-mapper devices by name, not by
-major:minor number.  If a device is destroyed and recreated right as the
-block script is running, this race condition can occur.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+commit a5917ca28bf77a4770113446427fb22f81444b52
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jun 5 10:48:59 2023 +0100
 
---0tmOeWojyIbdbJsu
-Content-Type: application/pgp-signature; name="signature.asc"
+    xen: Fix incorrect taint constant
+    
+    Insecure is the word being looked for here.  Especially given the nature of
+    the sole caller, and the (correct) comment next to it.
+    
+    Also update the taint marker from 'U' to 'I' for consistency; this isn't
+    expected to impact anyone in practice.
+    
+    Fixes: 82c0d3d491cc ("xen: Add an unsecure Taint type")
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
------BEGIN PGP SIGNATURE-----
+commit e291c4c3e1ec1a693e6b8de5562d6a9607ad2722
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Jun 5 16:54:30 2023 +0200
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmSArPoACgkQsoi1X/+c
-IsG2Sw/+IRODwFvB3hw6+YXnA+p574mfNGw2RAkb4TUKRkKNV9k6a/f7TWk3gk52
-dYk5ddTL3KtZNQ0JHuP+MGSsrFHCtFSXR1hwC0jYOSFSrfIHlsFlMJVnYZpdoN0n
-vaCWJOthQ2GiUshPKEU5moQUY6h1ncIXazZ+qp+w9ys+NhSuFl1WS3mTg8sFYMH/
-DFjVJ34RJgE+l2HAaDfWTpWWD9KnaGSNtnbZT7X6xa3i0c65SeugbFqzi+dGYEJj
-kHki/FyHT4118O6S5+oK/4w2p+lr5iF71MqLxPlFLBjZuhjb+75uo7qDR8iN9bDU
-p+CH5NiBR9JjZ1AK5kZds8OdhRNjJTVpWfKQBkGd+CS0EXeKGhgCpFItjSmrtwCg
-jzClxpTP7/V4pLSjH8eotBIm2g8PX3lkTjyGHujhyQ8zNCAofL8rFVYa7gkkU5ZV
-Vr8MH7FNiUZuXkPVuotQ9/QI7XmnBnwxwxvddzo9F4nrewgOQP6/Xn9w7MnTiYN8
-O+ixXsULrj01Zna4lFUEwg95dscNrRKKjqoKsvxF/uJrLfdxHdAjZcYgSdJYr9gy
-ApUsWXuknsYldPizjC6qkLaJGU1v43xOUODGpELnOqC9mlW8d8TlmfrwnXDUpOhX
-i6Uvu+htPNKFH4x1ExbZ0k997nR0Pq1fmZc1mpCsv8wzPALSswY=
-=XMZ2
------END PGP SIGNATURE-----
-
---0tmOeWojyIbdbJsu--
+    x86emul: AVX512-FP16 testing
+    
+    Naming of some of the builtins isn't fully consistent with that of pre-
+    existing ones, so there's a need for a new BR2() wrapper macro.
+    
+    With the tests providing some proof of proper functioning of the
+    emulator code also enable use of the feature by guests, as there's no
+    other infrastructure involved in enabling this ISA extension.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Henry Wang <Henry.Wang@arm.com> # CHANGELOG
+(qemu changes not included)
 
