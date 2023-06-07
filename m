@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB074725626
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jun 2023 09:44:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.544415.850187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6570725628
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jun 2023 09:44:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.544416.850198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6nq6-0007T7-6E; Wed, 07 Jun 2023 07:44:18 +0000
+	id 1q6nqI-0007mM-Fo; Wed, 07 Jun 2023 07:44:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 544415.850187; Wed, 07 Jun 2023 07:44:18 +0000
+Received: by outflank-mailman (output) from mailman id 544416.850198; Wed, 07 Jun 2023 07:44:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6nq6-0007Pn-3b; Wed, 07 Jun 2023 07:44:18 +0000
-Received: by outflank-mailman (input) for mailman id 544415;
- Wed, 07 Jun 2023 07:44:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q6nqI-0007it-CG; Wed, 07 Jun 2023 07:44:30 +0000
+Received: by outflank-mailman (input) for mailman id 544416;
+ Wed, 07 Jun 2023 07:44:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VZNY=B3=antgroup.com=houwenlong.hwl@srs-se1.protection.inumbo.net>)
- id 1q6nq4-0007Ph-4a
- for xen-devel@lists.xenproject.org; Wed, 07 Jun 2023 07:44:16 +0000
-Received: from out0-216.mail.aliyun.com (out0-216.mail.aliyun.com
- [140.205.0.216]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 168f1fef-0507-11ee-8611-37d641c3527e;
- Wed, 07 Jun 2023 09:44:12 +0200 (CEST)
-Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
- fp:SMTPD_---.TNbNmQf_1686123841) by smtp.aliyun-inc.com;
- Wed, 07 Jun 2023 15:44:02 +0800
+ <SRS0=H/6g=B3=bombadil.srs.infradead.org=BATV+e57f13fd7911cf5fc1b0+7227+infradead.org+hch@srs-se1.protection.inumbo.net>)
+ id 1q6nqG-0007ht-O1
+ for xen-devel@lists.xenproject.org; Wed, 07 Jun 2023 07:44:29 +0000
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [2607:7c80:54:3::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2099ec7c-0507-11ee-b232-6b7b168915f2;
+ Wed, 07 Jun 2023 09:44:27 +0200 (CEST)
+Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1q6nqB-004n5l-03; Wed, 07 Jun 2023 07:44:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,85 +39,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 168f1fef-0507-11ee-8611-37d641c3527e
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=ay29a033018047198;MF=houwenlong.hwl@antgroup.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---.TNbNmQf_1686123841;
-Date: Wed, 07 Jun 2023 15:44:01 +0800
-From: "Hou Wenlong" <houwenlong.hwl@antgroup.com>
-To: linux-kernel@vger.kernel.org
-Cc: "Lai Jiangshan" <jiangshan.ljs@antgroup.com>,
-  "Alexey Makhalov" <amakhalov@vmware.com>,
-  "Andrew Morton" <akpm@linux-foundation.org>,
-  "Andy Lutomirski" <luto@kernel.org>,
-  "Anshuman Khandual" <anshuman.khandual@arm.com>,
-  "Borislav Petkov" <bp@alien8.de>,
-  "Boris Ostrovsky" <boris.ostrovsky@oracle.com>,
-  "Brian Gerst" <brgerst@gmail.com>,
-  "Dave Hansen" <dave.hansen@linux.intel.com>,
-  "David Woodhouse" <dwmw@amazon.co.uk>,
-  "H. Peter Anvin" <hpa@zytor.com>,
-  "Ingo Molnar" <mingo@redhat.com>,
-  "Josh Poimboeuf" <jpoimboe@kernel.org>,
-  "Juergen Gross" <jgross@suse.com>,
-  "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-  "=?UTF-8?B?TWlrZSBSYXBvcG9ydCAoSUJNKQ==?=" <rppt@kernel.org>,
-  "Pasha Tatashin" <pasha.tatashin@soleen.com>,
-  "Peter Zijlstra" <peterz@infradead.org>,
-  "=?UTF-8?B?U3JpdmF0c2EgUy4gQmhhdCAoVk13YXJlKQ==?=" <srivatsa@csail.mit.edu>,
-  "Suren Baghdasaryan" <surenb@google.com>,
-  "Thomas Gleixner" <tglx@linutronix.de>,
-  "Usama Arif" <usama.arif@bytedance.com>,
-   <virtualization@lists.linux-foundation.org>,
-  "VMware PV-Drivers Reviewers" <pv-drivers@vmware.com>,
-   <x86@kernel.org>,
-   <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH RFC 0/4] x86/fixmap: Unify FIXADDR_TOP
-Message-ID: <20230607074401.GA53666@k08j02272.eu95sqa>
-References: <cover.1684137557.git.houwenlong.hwl@antgroup.com>
+X-Inumbo-ID: 2099ec7c-0507-11ee-b232-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=4Sx6PZ8z7yUHSRyrSyhfNlQuLMPtcylN+zdcdoTWpXg=; b=KEHhRRtM/7119LZoHZ21PYKQvf
+	oxQ3RW7h1hm22BBehjrTIxZs+Hq4vNo2r7l6s04yZHqhXriMF63WHd9i5/zDyUJLhCmuIXXizFHjF
+	4Jsv/ky6uLqB5DrYaMtEapqpJJHQIp+5COiFf/fjdAb68jrejI06b4/3yOXZm25RDROV2sLsCI7/M
+	LzYuzlMAcsstPZ3ok7GYLmLvIlnHuHYvruYjB+JVdJQz2zhH7pKYEIBJ1kQdE+vY6qsnVevIkJy2M
+	ta9L6kYnOflYPdvVBtihfIYaqAzWLOjNSQvLp3cM2kFEDfgTrtzUdL7vORwRcQ+gVauExyOPeEpbw
+	JiOgiSfQ==;
+Date: Wed, 7 Jun 2023 00:44:22 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+	xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] xen-blkback: Implement diskseq checks
+Message-ID: <ZIA1VkDdgt5kmqEt@infradead.org>
+References: <20230601214823.1701-1-demi@invisiblethingslab.com>
+ <20230601214823.1701-2-demi@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <cover.1684137557.git.houwenlong.hwl@antgroup.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+In-Reply-To: <20230601214823.1701-2-demi@invisiblethingslab.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Mon, May 15, 2023 at 04:19:31PM +0800, Hou Wenlong wrote:
-> This patchset unifies FIXADDR_TOP as a variable for x86, allowing the
-> fixmap area to be movable and relocated with the kernel image in the
-> x86/PIE patchset [0]. This enables the kernel image to be relocated in
-> the top 512G of the address space.
-> 
-> [0] https://lore.kernel.org/lkml/cover.1682673542.git.houwenlong.hwl@antgroup.com
-> 
-> Hou Wenlong (4):
->   x86/vsyscall: Don't use set_fixmap() to map vsyscall page
->   x86/xen: Pin up to VSYSCALL_ADDR when vsyscall page is out of fixmap
->     area
->   x86/fixmap: Move vsyscall page out of fixmap area
->   x86/fixmap: Unify FIXADDR_TOP
-> 
->  arch/x86/entry/vsyscall/vsyscall_64.c |  7 +-----
->  arch/x86/include/asm/fixmap.h         | 28 ++++-------------------
->  arch/x86/include/asm/paravirt.h       |  7 ++++++
->  arch/x86/include/asm/paravirt_types.h |  4 ++++
->  arch/x86/include/asm/vsyscall.h       | 13 +++++++++++
->  arch/x86/kernel/head64.c              |  1 -
->  arch/x86/kernel/head_64.S             |  6 ++---
->  arch/x86/kernel/paravirt.c            |  4 ++++
->  arch/x86/mm/dump_pagetables.c         |  3 ++-
->  arch/x86/mm/fault.c                   |  1 -
->  arch/x86/mm/init_64.c                 |  2 +-
->  arch/x86/mm/ioremap.c                 |  5 ++---
->  arch/x86/mm/pgtable.c                 | 13 +++++++++++
->  arch/x86/mm/pgtable_32.c              |  3 ---
->  arch/x86/xen/mmu_pv.c                 | 32 +++++++++++++++++++--------
->  15 files changed, 77 insertions(+), 52 deletions(-)
-> 
-> 
-> base-commit: f585d5177e1aad174fd6da0e3936b682ed58ced0
-> --
-> 2.31.1
-Hi,
+On Thu, Jun 01, 2023 at 05:48:22PM -0400, Demi Marie Obenour wrote:
+> +	if (diskseq) {
+> +		struct gendisk *disk = bdev->bd_disk;
+> +
+> +		if (unlikely(disk == NULL)) {
+> +			pr_err("%s: device %08x has no gendisk\n",
+> +			       __func__, vbd->pdevice);
+> +			xen_vbd_free(vbd);
+> +			return -EFAULT;
+> +		}
 
-Just wanted to send a kind ping on this patchset.
+bdev->bd_disk is never NULL.
 
-Thanks.
+> +	diskseq_str = xenbus_read(XBT_NIL, dev->nodename, "diskseq", &diskseq_len);
+
+Please avoid the overly long line.
+
+> +	if (IS_ERR(diskseq_str)) {
+> +		int err = PTR_ERR(diskseq_str);
+> +		diskseq_str = NULL;
+> +
+> +		/*
+> +		 * If this does not exist, it means legacy userspace that does not
+
+.. even more so in comments.
+
+> +		 * support diskseq.
+> +		 */
+> +		if (unlikely(!XENBUS_EXIST_ERR(err))) {
+> +			xenbus_dev_fatal(dev, err, "reading diskseq");
+> +			return;
+> +		}
+> +		diskseq = 0;
+> +	} else if (diskseq_len <= 0) {
+> +		xenbus_dev_fatal(dev, -EFAULT, "diskseq must not be empty");
+> +		goto fail;
+> +	} else if (diskseq_len > 16) {
+
+No need for a else after a return.
+
+> +		xenbus_dev_fatal(dev, -ERANGE, "diskseq too long: got %d but limit is 16",
+> +				 diskseq_len);
+> +		goto fail;
+> +	} else if (diskseq_str[0] == '0') {
+> +		xenbus_dev_fatal(dev, -ERANGE, "diskseq must not start with '0'");
+> +		goto fail;
+> +	} else {
+> +		char *diskseq_end;
+> +		diskseq = simple_strtoull(diskseq_str, &diskseq_end, 16);
+> +		if (diskseq_end != diskseq_str + diskseq_len) {
+> +			xenbus_dev_fatal(dev, -EINVAL, "invalid diskseq");
+> +			goto fail;
+> +		}
+> +		kfree(diskseq_str);
+> +		diskseq_str = NULL;
+> +	}
+
+And I suspect the code will be a lot easier to follow if you move
+the diskseq validation into a separate helper.
 
