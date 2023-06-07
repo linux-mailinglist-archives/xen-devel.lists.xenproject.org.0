@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12B93725A5F
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Jun 2023 11:28:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.544581.850501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E38B725A61
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Jun 2023 11:28:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.544580.850496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6pSU-0000XF-N8; Wed, 07 Jun 2023 09:28:02 +0000
+	id 1q6pSU-0000S6-B3; Wed, 07 Jun 2023 09:28:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 544581.850501; Wed, 07 Jun 2023 09:28:02 +0000
+Received: by outflank-mailman (output) from mailman id 544580.850496; Wed, 07 Jun 2023 09:28:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q6pSU-0000SD-Hq; Wed, 07 Jun 2023 09:28:02 +0000
-Received: by outflank-mailman (input) for mailman id 544581;
+	id 1q6pSU-0000QR-7K; Wed, 07 Jun 2023 09:28:02 +0000
+Received: by outflank-mailman (input) for mailman id 544580;
  Wed, 07 Jun 2023 09:28:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=A2EA=B3=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1q6pSS-00089h-JL
+ id 1q6pSS-0007p9-IR
  for xen-devel@lists.xenproject.org; Wed, 07 Jun 2023 09:28:00 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [2a01:111:f400:7eae::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 956ecfd6-0515-11ee-b232-6b7b168915f2;
- Wed, 07 Jun 2023 11:27:56 +0200 (CEST)
-Received: from BN0PR10CA0025.namprd10.prod.outlook.com (2603:10b6:408:143::22)
- by SA1PR12MB8597.namprd12.prod.outlook.com (2603:10b6:806:251::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.36; Wed, 7 Jun
- 2023 09:27:53 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20612.outbound.protection.outlook.com
+ [2a01:111:f400:7e83::612])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 963355aa-0515-11ee-8611-37d641c3527e;
+ Wed, 07 Jun 2023 11:27:58 +0200 (CEST)
+Received: from BN0PR10CA0029.namprd10.prod.outlook.com (2603:10b6:408:143::7)
+ by DS0PR12MB6462.namprd12.prod.outlook.com (2603:10b6:8:c6::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33; Wed, 7 Jun
+ 2023 09:27:54 +0000
 Received: from BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:143:cafe::c) by BN0PR10CA0025.outlook.office365.com
- (2603:10b6:408:143::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6477.19 via Frontend
- Transport; Wed, 7 Jun 2023 09:27:53 +0000
+ (2603:10b6:408:143:cafe::83) by BN0PR10CA0029.outlook.office365.com
+ (2603:10b6:408:143::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.33 via Frontend
+ Transport; Wed, 7 Jun 2023 09:27:54 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
  BN8NAM11FT020.mail.protection.outlook.com (10.13.176.223) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6477.23 via Frontend Transport; Wed, 7 Jun 2023 09:27:52 +0000
+ 15.20.6477.23 via Frontend Transport; Wed, 7 Jun 2023 09:27:54 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 7 Jun
- 2023 04:27:50 -0500
+ 2023 04:27:52 -0500
 Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Wed, 7 Jun 2023 04:27:49 -0500
+ via Frontend Transport; Wed, 7 Jun 2023 04:27:51 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 956ecfd6-0515-11ee-b232-6b7b168915f2
+X-Inumbo-ID: 963355aa-0515-11ee-8611-37d641c3527e
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d5NxaWmhfcIBjwqdl2ZCR8gdUbJQ1d0kZbg1HfIYiV1O28f8uXe3NT3detUltOiHAf3dT+osibjO+XIe/ejs+UVjFlIIhRq+9b8C/eWMwh5s8shiNgxzlgzrjAOseaWGrEK+o2jthjMGJ7g+POPh0Fem0VX06ZTXFR27nWmJ2u+mMBxcRZbcy3aI1iEx89RzourLBIqd7NUoykgPUb6nUAXsHqOHhfGTn/G4GcpQ+U4Erp60Hpv6ETOL707DzrWS6c0yEU72ssRJdSWu0gdoiRz/m946twkJW3Q2MwgkmuutuJ8XHf3Mpsy8ysbtj1JkMkyfPRdCGfZUDe2bGL7r/A==
+ b=SGV4gzwikXD0RhBY7ZkIGrFXVMstyQ4eZQz+WRQbc57DKZ/IhdDAo3JRVwNwH65T/oaswEQ7gbeMJeeMqU4i+74x2FRyeMmIBmuYs0lH0X7CGmWrMrN/+BtNrX7JIttyryX35LOFYC4yniQqawQ8CueDMH6v4bgdha4nSyos6euLEj/tQEyfXCM+MTNaJhvGhC/pjaT0CRuj+PDmEAqmuOtDlTzigIQlSGpjWa3oeqHjhqeu2ftXbvBHfpTORP3HKQkXs8XkyTuHwhEiXIRY5ESOlMJ7hQzDY+A01lq14vdu+1K4CxtXyCdJkTl01JWcbBB1OzJk3eR942eyxNSLog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SCI9MwarsbRlj2FJ9hBho2GnuBuTU9RG25ioTaHG3ao=;
- b=SPHBuI9u3zdrWmfrZBT2sqAh38updItX+sdSX6yQzqlc+ud1RHUn16y3HYrvbY9hc9Pzu8PF4jr6sNRvEC261reWNV7Jomm4Tf2ErbY1AVzOzr4qaGusnHe70MnlF022v4U3RGet7ZCGKHC2EoYg0KKmddfhPTGgQE8MYE9Hmizl0+xRcYqT4vlO/xTAo8EZTvlTWebTG5f0DHkwXJZfRjrS0pU+8jYZ2dU071HfSIrSw9DdehBLlUCA/Drwf9QkIbOie8gbRW0Uea/z7Gx47+h0KbGSqebATug1Ab3HrzMEcFIlYx63CNbUC00pl9i6YFvb9t3HyUsABi+q6oDHfg==
+ bh=Bdyg4wduBHS4jVU1X22vJpEOlAmdB1Wdxc+0O1Wdu78=;
+ b=DvhLKzNwd7eZ3v/1347Dg+zNdhLBpfJLDffNfyPoDJBQw2G8dffACDy/sNk+4Y9JfeZetTaoyB1Wpb4MbeYjQM9qLN/xabBx92pUMx/3gPfnGkMEfRv6/PFi39KpIX0sRT3BojmS5M+v7wvI08gglscS5iEV74M2cV/eHqanJAnWa2hOXDYYjuLR81wl7Dt3hxb6dYEIvj4eV/iE/m4eVppf/6ZrKxKMq+Y4OeatzgswiX3rWV6jv1sIImCfFsco/6I99YM4qNuoRBWM7JchwT1dLXqZQhluCtDmdM3dCXFrGU65T82cCQhj+/8cMYvFC0A3HAQh/WJ0mUlwN+N7Hg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SCI9MwarsbRlj2FJ9hBho2GnuBuTU9RG25ioTaHG3ao=;
- b=HnOMR4yPVJKKaKpTYp8eaUCROER4ZnkkiXd1ElazADmvP6lHUTnIp0S+lwj9ls4pujd6tgemDNxdkU3cbJAgGyvGYJga62wnUJfpYF+dw+XPkPUO6Epi73gqUtmmH8FLqdNrYD530nQmEV/2uNBTtigqwHsLVndXav36zmdS6dM=
+ bh=Bdyg4wduBHS4jVU1X22vJpEOlAmdB1Wdxc+0O1Wdu78=;
+ b=T/bvn1wB22kPeu+r1903F9qEXPCpWzDOMgHByCwJC6n3CLKiF8iUcTD8jlOgRV6psMcll6/ijGXifmD4CGdz6JLa/A2/dbM0pUzTz9xsb8tWdZcKa/7OYzCYmoLQGxzAM7f2LRoE4ICxE0LUHnmDtS6bXpnomF+z8WMYd1Ur/TA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -86,9 +86,9 @@ To: <xen-devel@lists.xenproject.org>
 CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 3/4] xen/arm: pl011: Use correct accessors
-Date: Wed, 7 Jun 2023 11:27:26 +0200
-Message-ID: <20230607092727.19654-4-michal.orzel@amd.com>
+Subject: [PATCH 4/4] xen/arm: pl011: Add SBSA UART device-tree support
+Date: Wed, 7 Jun 2023 11:27:27 +0200
+Message-ID: <20230607092727.19654-5-michal.orzel@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230607092727.19654-1-michal.orzel@amd.com>
 References: <20230607092727.19654-1-michal.orzel@amd.com>
@@ -97,156 +97,79 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT020:EE_|SA1PR12MB8597:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9949e3a-1cb8-468d-c34f-08db6739780e
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT020:EE_|DS0PR12MB6462:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb995567-5812-46e7-2cf2-08db673978de
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	VEq5zneSHZgdJSAFFcnj+rIwQNozBtJj1PF9x31nRpnLIJmmu6BzOy5hBoEhhwMqzcWW3rgqBHTlHwn/fpwK5zuTn7mzsQFChxFijR9tAYRGZEgBWFDrMfFvq1J0DYyDgDtgag4J434blmqVstuA1RyDPF1VMEovLqqO63wxyhsGQF3EBAsI9EnvtzT2eFhrNLAyilmVTngVpZUfflH/x59pWyA5PNL0xO2GlS2Clhbhbo9z+LCkFiXlJRhkR2KM+0tpt4SbEc+slI9lYQvr0onVN4384/7v2PYRhINNdns9zEU6zp6MEttZJmbkwayXkwpzccR67CMpOHv2bwaFtJOQ9Aev9r1hs3l9iKF77iMoonV1+TdPJOL+lWr660g/zSybdUFNo3C+8rkz6JznhwBbB6T9ity2yUNjCqcV6xv65OPuRM8fX3CaA6wHSBtS5FE/6XTpC6xJKcftMYZ5pQ2uv2yv8CyQBwaaPnYHgq4LXFmXiXegGvHQVG4fWX6rhXjh/BklXNINre09Q0xLLG3z/wF3pVVw17OIL+3NGalXkEhjWX08aem+rCDbjXSWb6VyEo3Eil1j999UHwSswIgQOXi8ACFZCNBjs/dln1viLVPnHd1RHUAqDegSgIE42PnVQ3o1XOdJ/sajAl0M43vwaVjT7bUryhdd5XnSK+KjzCziRFw4MOlNKwHm0p2I6XQFtgk4VrARMwQyhKKi3V1jfZrNkfnCE0QH7PgZ8jZF3/vNcYJy+jcZVvPeqnlK89BDeJ5nJ0chGpiftVxi6g==
+	9SrKz96UMzrO9J2Gh0/6ejJLqJtYjeRQzXDNw1SCGUSzlc2XpIi4YvfO9AJY1MyO3BP7JQkuEaFhlnHxa3oAgJM9G64X4aeYfRlvZdJOOjsaolFlGngitbbWYzwF7T8vBXoqknM0AH0x/GTGwTmfkhOGOaGWlYNb5g3orJBcQRzxUFgcAC3oaUWhqru+5+rlZsj5zr7sOC0i0d2x5UIx3Gn2Pkqnjgqte4bpH082Lu7j+MRKjP6cVsDjXcL/fIaY9XYQw7r23Ze4cHwo2wIREqYGGZYgEmBAKJBOjCATG3kGquUJJtgJrGl8DPKt9FzV8cuRJCpapMpicoa+WDeXWSqvrH00tDFm98+PJ9IFSNHQgdV2TN5/WrXnRX6JP4Ete9RuXcyy/f38NNIOzf0cjvuPp/0NCx6xbrJ24/Mu7d6oal1OhoXmyonnRr0lsR693t1tt+Wcm8z8tfJRUvmu7Lb1gyzsd1n17FGehMtzA+eXti6FCMGv3zSSW3MY7DGor82XxppC6cx+0I3FF9T8hVxR8zVriAwdtDx7eMYz7r08k3UNAEqG0U6AIi4+cKRW57StnTeF2IBJ9jXf+F5pEFsxVxzXhNMLstxUaypL8loYlBq5hMYBUrn/BRxNXvtg5Ps+dPftgWgdcvlue24TAp5D8/f1Pg6NXzed8fWu+p0juqLf7MI0fZdI2cv7O/F+jujh8IgdQLfcsexfgGtm1yx6dxtWuV7caVk3/FrxLQgC/WS0Vma8qxDUMTaKoB2cotg/ZPVG3j61NYsJfQuomg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(136003)(396003)(376002)(346002)(39860400002)(451199021)(36840700001)(46966006)(40470700004)(316002)(40460700003)(41300700001)(426003)(336012)(2616005)(83380400001)(86362001)(82310400005)(36860700001)(47076005)(186003)(44832011)(1076003)(26005)(2906002)(81166007)(356005)(82740400003)(40480700001)(5660300002)(36756003)(8676002)(8936002)(70206006)(70586007)(54906003)(478600001)(4326008)(6916009)(6666004)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230028)(4636009)(396003)(346002)(136003)(39860400002)(376002)(451199021)(36840700001)(40470700004)(46966006)(1076003)(26005)(186003)(2616005)(426003)(336012)(83380400001)(47076005)(36756003)(6666004)(36860700001)(82310400005)(2906002)(8676002)(8936002)(54906003)(82740400003)(44832011)(478600001)(81166007)(4326008)(40480700001)(5660300002)(6916009)(316002)(40460700003)(86362001)(41300700001)(356005)(70586007)(70206006)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 09:27:52.7618
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jun 2023 09:27:54.1211
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9949e3a-1cb8-468d-c34f-08db6739780e
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb995567-5812-46e7-2cf2-08db673978de
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	BN8NAM11FT020.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8597
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6462
 
-At the moment, we use 32-bit only accessors (i.e. readl/writel) to match
-the SBSA v2.x requirement. This should not be the default case for normal
-PL011 where accesses shall be 8/16-bit (max register size is 16-bit).
-There are however implementations of this UART that can only handle 32-bit
-MMIO. This is advertised by dt property "reg-io-width" set to 4.
-
-Introduce new struct pl011 member mmio32 and replace pl011_{read/write}
-macros with static inline helpers that use 32-bit or 16-bit accessors
-(largest-common not to end up using different ones depending on the actual
-register size) according to mmio32 value. By default this property is set
-to false, unless:
- - reg-io-width is specified with value 4,
- - SBSA UART is in use.
-
-For now, no changes done for ACPI due to lack of testing possibilities
-(i.e. current behavior maintained resulting in 32-bit accesses).
+We already have all the bits necessary in PL011 driver to support SBSA
+UART thanks to commit 032ea8c736d10f02672863c6e369338f948f7ed8 that
+enabled it for ACPI. Plumb in the remaining part for device-tree boot:
+ - add arm,sbsa-uart compatible to pl011_dt_match (no need for a separate
+   struct and DT_DEVICE_START as SBSA is a subset of PL011),
+ - from pl011_dt_uart_init(), check for SBSA UART compatible to determine
+   the UART type in use.
 
 Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 ---
- xen/drivers/char/pl011.c | 53 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 47 insertions(+), 6 deletions(-)
+After this series the last thing not to be in spec for newer UARTs (well,
+for rev1.5 introduced in 2007 I believe) is incorrect FIFO size. We hardcode it
+to 16 but in r1.5 it is 32. This requires checking the peripheral ID register
+or using arm,primecell-periphid dt property for overriding HW. Something to
+be done in the future (at least 16 is not harmful).
+---
+ xen/drivers/char/pl011.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/xen/drivers/char/pl011.c b/xen/drivers/char/pl011.c
-index 052a6512515c..403b1ac06551 100644
+index 403b1ac06551..f7bf3ad117af 100644
 --- a/xen/drivers/char/pl011.c
 +++ b/xen/drivers/char/pl011.c
-@@ -41,6 +41,7 @@ static struct pl011 {
-     /* unsigned int timeout_ms; */
-     /* bool_t probing, intr_works; */
-     bool sbsa;  /* ARM SBSA generic interface */
-+    bool mmio32; /* 32-bit only MMIO */
- } pl011_com = {0};
- 
- /* These parity settings can be ORed directly into the LCR. */
-@@ -50,9 +51,30 @@ static struct pl011 {
- #define PARITY_MARK  (PEN|SPS)
- #define PARITY_SPACE (PEN|EPS|SPS)
- 
--/* SBSA v2.x document requires, all reads/writes must be 32-bit accesses */
--#define pl011_read(uart, off)           readl((uart)->regs + (off))
--#define pl011_write(uart, off,val)      writel((val), (uart)->regs + (off))
-+/*
-+ * By default, PL011 accesses shall be done using 8/16-bit accessors to
-+ * support legacy devices that cannot cope with 32-bit. On the other hand,
-+ * there are implementations of PL011 that can only handle 32-bit MMIO. Also,
-+ * SBSA v2.x requires 32-bit accesses. Note that for default case, we use
-+ * largest-common accessors (i.e. 16-bit) not to end up using different ones
-+ * depending on the actual register size.
-+ */
-+static inline void
-+pl011_write(struct pl011 *uart, unsigned int offset, unsigned int val)
-+{
-+    if ( uart->mmio32 )
-+        writel(val, uart->regs + offset);
-+    else
-+        writew(val, uart->regs + offset);
-+}
-+
-+static inline unsigned int pl011_read(struct pl011 *uart, unsigned int offset)
-+{
-+    if ( uart->mmio32 )
-+        return readl(uart->regs + offset);
-+
-+    return readw(uart->regs + offset);
-+}
- 
- static unsigned int pl011_intr_status(struct pl011 *uart)
- {
-@@ -222,7 +244,8 @@ static struct uart_driver __read_mostly pl011_driver = {
-     .vuart_info   = pl011_vuart,
- };
- 
--static int __init pl011_uart_init(int irq, paddr_t addr, paddr_t size, bool sbsa)
-+static int __init
-+pl011_uart_init(int irq, paddr_t addr, paddr_t size, bool sbsa, bool mmio32)
- {
-     struct pl011 *uart;
- 
-@@ -233,6 +256,9 @@ static int __init pl011_uart_init(int irq, paddr_t addr, paddr_t size, bool sbsa
-     uart->stop_bits = 1;
-     uart->sbsa      = sbsa;
- 
-+    /* Set 32-bit MMIO also for SBSA since v2.x requires it */
-+    uart->mmio32 = (mmio32 || sbsa);
-+
-     uart->regs = ioremap_nocache(addr, size);
-     if ( !uart->regs )
-     {
-@@ -259,6 +285,8 @@ static int __init pl011_dt_uart_init(struct dt_device_node *dev,
-     const char *config = data;
+@@ -286,7 +286,7 @@ static int __init pl011_dt_uart_init(struct dt_device_node *dev,
      int res;
      paddr_t addr, size;
-+    uint32_t io_width;
-+    bool mmio32 = false;
+     uint32_t io_width;
+-    bool mmio32 = false;
++    bool mmio32 = false, sbsa;
  
      if ( strcmp(config, "") )
      {
-@@ -280,7 +308,19 @@ static int __init pl011_dt_uart_init(struct dt_device_node *dev,
-         return -EINVAL;
+@@ -320,7 +320,9 @@ static int __init pl011_dt_uart_init(struct dt_device_node *dev,
+         }
      }
  
--    res = pl011_uart_init(res, addr, size, false);
-+    /* See linux Documentation/devicetree/bindings/serial/pl011.yaml */
-+    if ( dt_property_read_u32(dev, "reg-io-width", &io_width) )
-+    {
-+        if ( io_width == 4 )
-+            mmio32 = true;
-+        else if ( io_width != 1 )
-+        {
-+            printk("pl011: Unsupported reg-io-width (%"PRIu32")\n", io_width);
-+            return -EINVAL;
-+        }
-+    }
+-    res = pl011_uart_init(res, addr, size, false, mmio32);
++    sbsa = dt_device_is_compatible(dev, "arm,sbsa-uart");
 +
-+    res = pl011_uart_init(res, addr, size, false, mmio32);
++    res = pl011_uart_init(res, addr, size, sbsa, mmio32);
      if ( res < 0 )
      {
          printk("pl011: Unable to initialize\n");
-@@ -328,8 +368,9 @@ static int __init pl011_acpi_uart_init(const void *data)
-     /* trigger/polarity information is not available in spcr */
-     irq_set_type(spcr->interrupt, IRQ_TYPE_LEVEL_HIGH);
+@@ -335,6 +337,8 @@ static int __init pl011_dt_uart_init(struct dt_device_node *dev,
+ static const struct dt_device_match pl011_dt_match[] __initconst =
+ {
+     DT_MATCH_COMPATIBLE("arm,pl011"),
++    /* No need for a separate struct as SBSA UART is a subset of PL011 */
++    DT_MATCH_COMPATIBLE("arm,sbsa-uart"),
+     { /* sentinel */ },
+ };
  
-+    /* TODO - mmio32 proper handling (for now set to true) */
-     res = pl011_uart_init(spcr->interrupt, spcr->serial_port.address,
--                          PAGE_SIZE, sbsa);
-+                          PAGE_SIZE, sbsa, true);
-     if ( res < 0 )
-     {
-         printk("pl011: Unable to initialize\n");
 -- 
 2.25.1
 
