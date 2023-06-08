@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0516B728032
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 14:38:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.545288.851633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E43F772820A
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 16:00:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.545300.851654 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7Et5-0001NC-44; Thu, 08 Jun 2023 12:37:11 +0000
+	id 1q7GAk-0001ac-AU; Thu, 08 Jun 2023 13:59:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 545288.851633; Thu, 08 Jun 2023 12:37:11 +0000
+Received: by outflank-mailman (output) from mailman id 545300.851654; Thu, 08 Jun 2023 13:59:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7Et5-0001LI-18; Thu, 08 Jun 2023 12:37:11 +0000
-Received: by outflank-mailman (input) for mailman id 545288;
- Thu, 08 Jun 2023 12:37:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q7Et3-0001L8-CH; Thu, 08 Jun 2023 12:37:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q7Et3-0003Q5-7F; Thu, 08 Jun 2023 12:37:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q7Et3-0003mU-0E; Thu, 08 Jun 2023 12:37:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1q7Et2-0005CK-Vy; Thu, 08 Jun 2023 12:37:08 +0000
+	id 1q7GAk-0001YO-6d; Thu, 08 Jun 2023 13:59:30 +0000
+Received: by outflank-mailman (input) for mailman id 545300;
+ Thu, 08 Jun 2023 13:59:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pjZV=B4=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1q7GAi-0001YD-2k
+ for xen-devel@lists.xenproject.org; Thu, 08 Jun 2023 13:59:28 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id ac27c465-0604-11ee-8611-37d641c3527e;
+ Thu, 08 Jun 2023 15:59:23 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5DE77AB6;
+ Thu,  8 Jun 2023 07:00:08 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.1])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D5A413F6C4;
+ Thu,  8 Jun 2023 06:59:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,99 +42,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ygjGnT2/0KG6xXQrVrzkza+fIwX7vP8vJLryG+7DvHc=; b=Hp4LSWt1PXXdf8V4MfN407SoDX
-	NTL7vkf5vZMCUkHAwUN7MNwIgGl6kUb+fzHTmxw9Bkt7EwoZmVSX96p7moYP7+EjkWtirXJncW4Iq
-	ZP+uxLqlC+DG7fIoYnA2EyscuqTOfQzC6HHG39JFOeebsdutAXP871/qbBVr5JMrzClk=;
+X-Inumbo-ID: ac27c465-0604-11ee-8611-37d641c3527e
+From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181303-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH 1/2] tools: Fix ifdef for aarch64 that should include also arm
+Date: Thu,  8 Jun 2023 14:59:12 +0100
+Message-Id: <20230608135913.560413-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 181303: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-start/debianhvm.repeat:fail:regression
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=6915a120641b5d232762af7882266048cf039ca0
-X-Osstest-Versions-That:
-    xen=64a647f8d817c6989edc000613b5afae19f03f99
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 08 Jun 2023 12:37:08 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 181303 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181303/
+Commit 56a7aaa16bfe introduced some SVE related code that is protected by
+'#if defined(__aarch64__)', the issue is that this doesn't take into
+consideration when the toolstack is compiled for an arm32 Dom0 running on
+an arm64 platform, it should be able to create SVE enabled guests but with
+the current code it's not.
 
-Regressions :-(
+So fix the issue by compiling the code when the toolstack is compiled for
+both arm32 and arm64.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-xsm               6 xen-build                fail REGR. vs. 181233
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 20 guest-start/debianhvm.repeat fail REGR. vs. 181233
- build-armhf                   6 xen-build                fail REGR. vs. 181233
+Fixes: 56a7aaa16bfe ("tools: add physinfo arch_capabilities handling for Arm")
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+ tools/include/xen-tools/arm-arch-capabilities.h | 2 +-
+ tools/python/xen/lowlevel/xc/xc.c               | 2 +-
+ tools/xl/xl_info.c                              | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+diff --git a/tools/include/xen-tools/arm-arch-capabilities.h b/tools/include/xen-tools/arm-arch-capabilities.h
+index 3849e897925d..4aa4c6c34a99 100644
+--- a/tools/include/xen-tools/arm-arch-capabilities.h
++++ b/tools/include/xen-tools/arm-arch-capabilities.h
+@@ -14,7 +14,7 @@
+ static inline
+ unsigned int arch_capabilities_arm_sve(unsigned int arch_capabilities)
+ {
+-#if defined(__aarch64__)
++#if defined(__arm__) || defined(__aarch64__)
+     unsigned int sve_vl = MASK_EXTR(arch_capabilities,
+                                     XEN_SYSCTL_PHYSCAP_ARM_SVE_MASK);
+ 
+diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowlevel/xc/xc.c
+index 491e88977fd3..e14e223ec903 100644
+--- a/tools/python/xen/lowlevel/xc/xc.c
++++ b/tools/python/xen/lowlevel/xc/xc.c
+@@ -911,7 +911,7 @@ static PyObject *pyxc_physinfo(XcObject *self)
+                            "hw_caps",          cpu_cap,
+                            "virt_caps",        virt_caps);
+ 
+-#if defined(__aarch64__)
++#if defined(__arm__) || defined(__aarch64__)
+     if ( objret ) {
+         unsigned int sve_vl_bits;
+         PyObject *py_arm_sve_vl;
+diff --git a/tools/xl/xl_info.c b/tools/xl/xl_info.c
+index ddc42f96b979..72e87eac46d1 100644
+--- a/tools/xl/xl_info.c
++++ b/tools/xl/xl_info.c
+@@ -226,7 +226,7 @@ static void output_physinfo(void)
+         );
+ 
+     /* Print arm SVE vector length only on ARM platforms */
+-#if defined(__aarch64__)
++#if defined(__arm__) || defined(__aarch64__)
+     maybe_printf("arm_sve_vector_length  : %u\n",
+          arch_capabilities_arm_sve(info.arch_capabilities)
+         );
+-- 
+2.34.1
 
-version targeted for testing:
- xen                  6915a120641b5d232762af7882266048cf039ca0
-baseline version:
- xen                  64a647f8d817c6989edc000613b5afae19f03f99
-
-Last test of basis   181233  2023-06-07 02:04:37 Z    1 days
-Failing since        181246  2023-06-07 11:02:03 Z    1 days   12 attempts
-Testing same since   181303  2023-06-08 11:00:25 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Christian Lindig <christian.lindig@cloud.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Henry Wang <Henry.Wang@arm.com> # CHANGELOG
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Luca Fancellu <luca.fancellu@arm.com>
-  Michal Orzel <michal.orzel@amd.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  pass    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 504 lines long.)
 
