@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D033B7280EA
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 15:12:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.545286.851644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0516B728032
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 14:38:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.545288.851633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7FPz-0005ey-Oj; Thu, 08 Jun 2023 13:11:11 +0000
+	id 1q7Et5-0001NC-44; Thu, 08 Jun 2023 12:37:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 545286.851644; Thu, 08 Jun 2023 13:11:11 +0000
+Received: by outflank-mailman (output) from mailman id 545288.851633; Thu, 08 Jun 2023 12:37:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7FPz-0005cU-Ld; Thu, 08 Jun 2023 13:11:11 +0000
-Received: by outflank-mailman (input) for mailman id 545286;
- Thu, 08 Jun 2023 12:19:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c2ur=B4=cs.unipr.it=bagnara@srs-se1.protection.inumbo.net>)
- id 1q7EbV-0007um-UD
- for xen-devel@lists.xenproject.org; Thu, 08 Jun 2023 12:19:01 +0000
-Received: from spartacus.cs.unipr.it (unknown [160.78.48.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a51f0749-05f6-11ee-8611-37d641c3527e;
- Thu, 08 Jun 2023 14:18:59 +0200 (CEST)
-Received: from [160.78.167.217] (mozart.cs.unipr.it [160.78.167.217])
- by spartacus.cs.unipr.it (Postfix) with ESMTPSA id 2F338503EDF;
- Thu,  8 Jun 2023 14:18:58 +0200 (CEST)
+	id 1q7Et5-0001LI-18; Thu, 08 Jun 2023 12:37:11 +0000
+Received: by outflank-mailman (input) for mailman id 545288;
+ Thu, 08 Jun 2023 12:37:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q7Et3-0001L8-CH; Thu, 08 Jun 2023 12:37:09 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q7Et3-0003Q5-7F; Thu, 08 Jun 2023 12:37:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q7Et3-0003mU-0E; Thu, 08 Jun 2023 12:37:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q7Et2-0005CK-Vy; Thu, 08 Jun 2023 12:37:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,112 +42,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a51f0749-05f6-11ee-8611-37d641c3527e
-Message-ID: <9df8560d-4b06-2ab4-b09a-30241dd19676@cs.unipr.it>
-Date: Thu, 8 Jun 2023 14:18:57 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ygjGnT2/0KG6xXQrVrzkza+fIwX7vP8vJLryG+7DvHc=; b=Hp4LSWt1PXXdf8V4MfN407SoDX
+	NTL7vkf5vZMCUkHAwUN7MNwIgGl6kUb+fzHTmxw9Bkt7EwoZmVSX96p7moYP7+EjkWtirXJncW4Iq
+	ZP+uxLqlC+DG7fIoYnA2EyscuqTOfQzC6HHG39JFOeebsdutAXP871/qbBVr5JMrzClk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181303-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.7.12) Gecko/20050929
- Thunderbird/1.0.7 Fedora/1.0.7-1.1.fc4 Mnenhy/0.7.3.0
-Subject: Re: Xen reliance on non-standard GCC features
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <stefano.stabellini@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "consulting@bugseng.com" <consulting@bugseng.com>
-References: <1cd359e7-5245-a621-3be2-9323ba5b327b@bugseng.com>
- <8314e0fc-4ead-40fa-ef7b-4da8ce0655b4@suse.com>
- <80a512ac-d90e-930a-7ef7-8ebb5a80e801@bugseng.com>
- <968ba799-8fe4-e22f-b678-64e52f789026@suse.com>
-From: Roberto Bagnara <bagnara@cs.unipr.it>
-Organization: BUGSENG srl
-In-Reply-To: <968ba799-8fe4-e22f-b678-64e52f789026@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 181303: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-start/debianhvm.repeat:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=6915a120641b5d232762af7882266048cf039ca0
+X-Osstest-Versions-That:
+    xen=64a647f8d817c6989edc000613b5afae19f03f99
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 08 Jun 2023 12:37:08 +0000
 
-On 07/06/23 09:39, Jan Beulich wrote:
-> On 05.06.2023 15:26, Roberto Bagnara wrote:
->> On 05/06/23 11:28, Jan Beulich wrote:
->>> On 05.06.2023 07:28, Roberto Bagnara wrote:
->> You are right: here are a few examples for U2:
->>
->> xen/arch/arm/cpuerrata.c:92.12-92.35:
->> empty initializer list (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7.8: "An empty initialization list." [STD.emptinit]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
->> xen/include/xen/spinlock.h:31.21-31.23: expanded from macro `_LOCK_DEBUG'
->> xen/include/xen/spinlock.h:143.57-143.67: expanded from macro `SPIN_LOCK_UNLOCKED'
->> xen/include/xen/spinlock.h:144.43-144.60: expanded from macro `DEFINE_SPINLOCK'
-> 
-> I'm afraid this is a bad example, as it goes hand-in-hand with using
-> another extension. I don't think using a non-empty initialization list
-> is going to work with
-> 
-> union lock_debug { };
+flight 181303 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181303/
 
-Yes, this is C99 undefined behavior 58:
-"A structure or union is defined as containing no named members (6.7.2.1)."
+Regressions :-(
 
-Here is another example:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 181233
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 20 guest-start/debianhvm.repeat fail REGR. vs. 181233
+ build-armhf                   6 xen-build                fail REGR. vs. 181233
 
-lpae_t pte = {};
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
 
-whereas we have
+version targeted for testing:
+ xen                  6915a120641b5d232762af7882266048cf039ca0
+baseline version:
+ xen                  64a647f8d817c6989edc000613b5afae19f03f99
 
-typedef union {
-     uint64_t bits;
-     lpae_pt_t pt;
-     lpae_p2m_t p2m;
-     lpae_walk_t walk;
-} lpae_t;
+Last test of basis   181233  2023-06-07 02:04:37 Z    1 days
+Failing since        181246  2023-06-07 11:02:03 Z    1 days   12 attempts
+Testing same since   181303  2023-06-08 11:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Christian Lindig <christian.lindig@cloud.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Henry Wang <Henry.Wang@arm.com> # CHANGELOG
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  pass    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     pass    
 
 
->> xen/arch/arm/cpuerrata.c:678.5-678.6:
->> empty initializer list (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7.8: "An empty initialization list." [STD.emptinit]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
->>
->> xen/arch/arm/cpufeature.c:33.5-33.6:
->> empty initializer list (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7.8: "An empty initialization list." [STD.emptinit]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-> 
-> Both of these are a common idiom we use: The "sentinel" of an array
-> of compound type initializer.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Wouldn't it be possible writing such sentinels in a standard-compliant
-way, like {0} or similar, instead of {}?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->>>> U6) Empty declarations.
->>
->> Examples:
->>
->> xen/arch/arm/arm64/lib/find_next_bit.c:57.29:
->> empty declaration (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7: "An empty declaration." [STD.emptdecl]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
->>
->> xen/arch/arm/arm64/lib/find_next_bit.c:103.34:
->> empty declaration (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7: "An empty declaration." [STD.emptdecl]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-> 
-> Looks like these could be taken care of by finally purging our
-> EXPORT_SYMBOL() stub.
-> 
->> xen/arch/arm/include/asm/vreg.h:143.26:
->> empty declaration (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7: "An empty declaration." [STD.emptdecl]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
->>
->> xen/arch/arm/include/asm/vreg.h:144.26:
->> empty declaration (ill-formed for the C99 standard, ISO/IEC 9899:1999 Section 6.7: "An empty declaration." [STD.emptdecl]). Tool used is `/usr/bin/aarch64-linux-gnu-gcc-12'
-> 
-> I'm having trouble spotting anything suspicious there.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-The macro expands to definitions of inline functions
-and after the macro invocation there is a ";".
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-The preprocessed code is then:
 
-static inline void foo() { ... }
-;
+Not pushing.
 
-where the final ";" is an empty declaration not allowed by
-the C99 language standard.
-
-Removing the ";" after the macro invocation is a possible solution,
-but other possibilities exist if this is strongly unwanted.
-
-We are preparing a new list in RST format, which would go
-under docs/misra and constitute a more convenient way for
-the community to take note of the used extensions and
-contribute to the discussion about their adequacy.
+(No revision log; it would be 504 lines long.)
 
