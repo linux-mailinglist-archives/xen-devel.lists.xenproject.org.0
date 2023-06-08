@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D2C72863B
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 19:22:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.545393.851795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BD8972867B
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 19:41:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.545400.851805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7JKV-0004FU-4J; Thu, 08 Jun 2023 17:21:47 +0000
+	id 1q7Jcc-0006ml-HY; Thu, 08 Jun 2023 17:40:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 545393.851795; Thu, 08 Jun 2023 17:21:47 +0000
+Received: by outflank-mailman (output) from mailman id 545400.851805; Thu, 08 Jun 2023 17:40:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7JKV-0004D9-1H; Thu, 08 Jun 2023 17:21:47 +0000
-Received: by outflank-mailman (input) for mailman id 545393;
- Thu, 08 Jun 2023 17:21:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q7JKT-0004Cz-HM; Thu, 08 Jun 2023 17:21:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q7JKS-0001wg-DM; Thu, 08 Jun 2023 17:21:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1q7JKR-0001w0-Vd; Thu, 08 Jun 2023 17:21:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1q7JKR-0004MA-VB; Thu, 08 Jun 2023 17:21:43 +0000
+	id 1q7Jcc-0006lC-Eh; Thu, 08 Jun 2023 17:40:30 +0000
+Received: by outflank-mailman (input) for mailman id 545400;
+ Thu, 08 Jun 2023 17:40:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ydti=B4=citrix.com=prvs=5162bf623=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1q7Jca-0006l6-D8
+ for xen-devel@lists.xenproject.org; Thu, 08 Jun 2023 17:40:28 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8bdf1db7-0623-11ee-b232-6b7b168915f2;
+ Thu, 08 Jun 2023 19:40:25 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,142 +36,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=pXYu0mpLkbTUGa/7UEfcHi46PFMdZS5wdHngRTsXxOg=; b=bx4mUc0BokKldGcaED6MyYzU9w
-	Wu9H+5JuF3vyUWhqwrZyJGqsQ21I9FEgdoa7HhP++dRPVF7hu4umpLpCTME0LbN5ebH9w10SYkSP4
-	xsI82gW4qR7ISloBlPiYZJEokxxV86NkjG7Iy87nl0H7hemG0oZS4pt7T5CpARl649xY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-181293-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8bdf1db7-0623-11ee-b232-6b7b168915f2
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1686246025;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=wfkq+LBBsnzmQtNZri50TTkQkuzfMTjeadDBsGMpKlA=;
+  b=dxWwbdMdEZaSyqCblWgkarzM9BsBpeYJqzMi7v88tptJX3+ot09TSpSX
+   bCqrK18zfVIRoDgbjHY+Sfc7Liz+l94Ae1V7cEa1yw87xdT5tlZOmLZ1q
+   4ZPTKJkvpgs1e3lWbDw+Q/9DyGQTsHn+9tifZAFyyisWAQu0W9RYE3mu8
+   0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 112119566
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:2B2sd6MunL5hV23vrR27l8FynXyQoLVcMsEvi/4bfWQNrUog0jUBn
+ GdNXGrTaf6PZTb3L9F+a4ri9hsA78SHzNA2Ggto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
+ 63yTvGacajYm1eF/k/F3oDJ9CU6jufQAOKnUoYoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
+ Nj/uKUzAnf8s9JPGjxSs/rrRC9H5qyo42tG5gxmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
+ +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
+ HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0sJ7UGBz/
+ 8YXEzQqUAq5hMKE0Yy2ePY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
+ ZNEN3w2Nk+ojx5nYz/7DLoXmuuyi2a5WDpfsF+P/oI84nTJzRw327/oWDbQUoXTH5wMzxvG+
+ Aoq+UypDR0lOIzOkAOi9yu8rNDjvzPgSJAdQejQGvlC3wTImz175ActfUu2p7y1h1CzX/pbK
+ lcI4Ww+oK4q7kupQ9LhGRqirxasvBEGXMFLO/Yn8wzLwa3Riy6dG2MNCDBIbtcrsMsrbTUw0
+ xmCmNaBONB0mOTLEzTHrO7S9G7sf3FPdgfueBPoUyMh74jinYsJgSnLaeh5Kq2VvMzLFAPvl
+ mXiQDcFu50fissC1qOe9F/Bgi6xqpWhcjPZ9jk7TUr+sFonOdfNi5iArAGCsK0edNrxokyp5
+ iBspiSI0AwZ4XhhfgSpSf5FIrym7u3t3Nb00Q82RMlJG9hAFheekWFsDNNWfh8B3iUsI2WBj
+ KrvVeR5uvdu0IOCN/MfXm5II51CIVLcPdrkTOvISdFFf4J8cgSKlAk3Ox7Ohj63wBN2zvFmU
+ Xt+TSpLJSxDYZmLMRLsH7tNuVPV7n5WKZzvqWDTkE38jOv2iI+9QrYZKlqeBt3VH4vdyDg5B
+ +13bpPQoz0GCb2WX8Ui2dJLRbz8BSRhVM+eRg0+XrLrHzeK70l/U6GLm+lwJtANcmY8vr6gw
+ 0xRk3RwkDLX7UAr4y3QApy/QNsDhapCkE8=
+IronPort-HdrOrdr: A9a23:R2EyEKloR/XVvQYy73gSG3kaIfTpDfIN3DAbv31ZSRFFG/FwWf
+ re5cjztCWE8Ar5PUtLpTnuAtjkfZqxz+8X3WBzB9eftWvdyQ+VxehZhOOIogEIcBeOkdK1u5
+ 0QFZSWy+edMbG5t6vHCcWDfOrICePozImYwd3C1HtkT0VRZ7l94wByBkK3GlB/LTM2Z6YEKA
+ ==
+X-Talos-CUID: =?us-ascii?q?9a23=3AYh2pTGhl+5W/hJ5vF1h8pYXGfDJuVnGMzUraGUC?=
+ =?us-ascii?q?DDUFXUoeWaW2Bxq5WjJ87?=
+X-Talos-MUID: 9a23:fRDXcAXoUvzMcz7q/G/jiA5uZJYx2oOrUVAnrrkkq9KUJyMlbg==
+X-IronPort-AV: E=Sophos;i="6.00,227,1681185600"; 
+   d="scan'208";a="112119566"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, Luca Fancellu
+	<luca.fancellu@arm.com>
+Subject: [PATCH] tools: Move MASK_INSR to common-macros.h
+Date: Thu, 8 Jun 2023 18:40:14 +0100
+Message-ID: <20230608174014.2500954-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Subject: [libvirt test] 181293: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=9b743ee19053db2fc3da8fba1e9cf81915c1e2f4
-X-Osstest-Versions-That:
-    libvirt=17565ee0aa14cfb9e6114efb0354bc3a008351af
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 08 Jun 2023 17:21:43 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-flight 181293 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/181293/
+MASK_EXTR() and MASK_INSR() are a matching pair.  Keep them together.
 
-Failures :-/ but no regressions.
+Fixes: 56a7aaa16bfe ("tools: add physinfo arch_capabilities handling for Arm")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@citrix.com>
+CC: Juergen Gross <jgross@suse.com>
+CC: Luca Fancellu <luca.fancellu@arm.com>
+---
+ tools/include/xen-tools/common-macros.h | 1 +
+ tools/libs/light/libxl_internal.h       | 2 --
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 181239
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 181239
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 181239
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+diff --git a/tools/include/xen-tools/common-macros.h b/tools/include/xen-tools/common-macros.h
+index d53b88182560..168691be0e93 100644
+--- a/tools/include/xen-tools/common-macros.h
++++ b/tools/include/xen-tools/common-macros.h
+@@ -73,6 +73,7 @@
+ #endif
+ 
+ #define MASK_EXTR(v, m) (((v) & (m)) / ((m) & -(m)))
++#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
+ 
+ #ifndef __must_check
+ #define __must_check __attribute__((__warn_unused_result__))
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+index 8aba3e138909..61f4fe1dec55 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -132,8 +132,6 @@
+ 
+ #define DIV_ROUNDUP(n, d) (((n) + (d) - 1) / (d))
+ 
+-#define MASK_INSR(v, m) (((v) * ((m) & -(m))) & (m))
+-
+ #define LIBXL__LOGGING_ENABLED
+ 
+ #ifdef LIBXL__LOGGING_ENABLED
+-- 
+2.30.2
 
-version targeted for testing:
- libvirt              9b743ee19053db2fc3da8fba1e9cf81915c1e2f4
-baseline version:
- libvirt              17565ee0aa14cfb9e6114efb0354bc3a008351af
-
-Last test of basis   181239  2023-06-07 04:18:51 Z    1 days
-Testing same since   181293  2023-06-08 04:18:54 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jim Fehlig <jfehlig@suse.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   17565ee0aa..9b743ee190  9b743ee19053db2fc3da8fba1e9cf81915c1e2f4 -> xen-tested-master
 
