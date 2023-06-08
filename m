@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDC617283B0
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 17:24:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.545352.851740 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42A987283C9
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 17:34:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.545358.851751 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7HUk-0006GK-DI; Thu, 08 Jun 2023 15:24:14 +0000
+	id 1q7Hdn-0007o9-8J; Thu, 08 Jun 2023 15:33:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 545352.851740; Thu, 08 Jun 2023 15:24:14 +0000
+Received: by outflank-mailman (output) from mailman id 545358.851751; Thu, 08 Jun 2023 15:33:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7HUk-0006EG-A0; Thu, 08 Jun 2023 15:24:14 +0000
-Received: by outflank-mailman (input) for mailman id 545352;
- Thu, 08 Jun 2023 15:24:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q7Hdn-0007ko-4m; Thu, 08 Jun 2023 15:33:35 +0000
+Received: by outflank-mailman (input) for mailman id 545358;
+ Thu, 08 Jun 2023 15:33:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kofb=B4=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1q7HUj-00067D-FV
- for xen-devel@lists.xenproject.org; Thu, 08 Jun 2023 15:24:13 +0000
+ id 1q7Hdm-0007ki-3D
+ for xen-devel@lists.xenproject.org; Thu, 08 Jun 2023 15:33:34 +0000
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84307fcb-0610-11ee-8611-37d641c3527e;
- Thu, 08 Jun 2023 17:24:11 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 0F3BC5C01E9;
- Thu,  8 Jun 2023 11:24:10 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 08 Jun 2023 11:24:10 -0400
+ [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d313b2fe-0611-11ee-b232-6b7b168915f2;
+ Thu, 08 Jun 2023 17:33:32 +0200 (CEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id B39A65C00E4;
+ Thu,  8 Jun 2023 11:33:31 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Thu, 08 Jun 2023 11:33:31 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 8 Jun 2023 11:24:09 -0400 (EDT)
+ 8 Jun 2023 11:33:30 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84307fcb-0610-11ee-8611-37d641c3527e
+X-Inumbo-ID: d313b2fe-0611-11ee-b232-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1686237850; x=1686324250; bh=IUwV7Mu/3eeunQeH2XK30qt0uf9HHgiQtGt
-	/LtpN1XE=; b=qkWSqIIhlL3j6f0o2QA3qjwAhifNX1DVceBxIUx80pu40CAbu00
-	rG8BdFX5TCACouopEHlb/IMkNI6qtZMhwvR1Gpd2ltEgWLJhh+qDJTfx9LUwP2U+
-	o0Fnd4VynfaIdgELqjIQRNOIHQhlhIOySyb7sxw+A8h9WXGlJLNX5TuEaelLmWl9
-	IHXDFCtEKOBWm53s1hjhnawK1T6f4p0vAdJAR1bHw0WcxN/w0tYVo7/wNliOfqVw
-	QFshIhJe7kV1vhILMaT6wk7/PswRPwurSQM0aCBHgAisq8tgX3p1f37FDNrrNYlb
-	KFbLXDHXtO5kNgHG2pvFIdm2g/n67mDPTdg==
+	1686238411; x=1686324811; bh=bk7X7cG0vAXQHVnw4CA+kDw3ByHbOWHJInS
+	wfkkzHY8=; b=GBD0CSjijdigVUsvpDPVSARqWo7A/3D/qG+ji6CJ8nkz9tWCs7w
+	zl2Uuan4dpswf7TkqNwGmREgHmoZjfqWmDkFHet/tmyIYm8h4WlpNXbsC9PyzbG+
+	1F4uo8CkdvAcxL2MK6DoaPIgDgm6Mf9GIbtruQyT5aX8xLxlN+3Fzib5BXnGFtDy
+	2XtQB5lL+GcqvflWDaKw3Lf9DagabGt0/EboBfDTRuJwhGVCDXHCKn9LvS7FvGiR
+	aLHcgE1nH7RLX3PF9rF0YR8QjQq7D8z20woWsrd97LPk1Tf5nySZ67V2M4odgMp8
+	EQn26MbnsKJKE1sfp9qtocbi5jOVZZNCz8A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1686237850; x=1686324250; bh=IUwV7Mu/3eeun
-	QeH2XK30qt0uf9HHgiQtGt/LtpN1XE=; b=Wp7Efil1kW9JdynZmx2MHe+A9VB/H
-	TzHbaEQQCyWkxQ1ekigse3L5qwdYtyNNlAl5Gc0Q38lykiETgRSoo/IADKhUr1P1
-	PLZwmj2CWn1DNebeSS2a+J8JfTI6EhHn95VkHFtWe7bWG4VOeDVfbgwIJM8LFt9w
-	3lsWcrcB6a58Whlq4ynJ8YLYzmJ9dOXcFmWOUmDJVnfR8scNHQ0LZ5FrErrW+bJt
-	aHAcspBnYmYdLtxeQqvmSBpYyBmaV2jT6bT4bzaq+7AM5k4anQ1dCc8eMbqEanct
-	4j3nErhC4feMyerw6a4iCzJH247hXmm4itdQUHnSBPlX9s8ffOuagZSTw==
-X-ME-Sender: <xms:mfKBZOxI1o0PYMqIpPuxIUxANT07tGV5lD0i5iGnsIjqHBkIC7HOfQ>
-    <xme:mfKBZKQwRxPpdELe6J4ZFN-vjgmvg3Rp91LnJGWA0SpSoX8Dj2Cp0uaUvOPPE7xwz
-    1kfOR56rI4jzkI>
-X-ME-Received: <xmr:mfKBZAVmkzE4rEcFIEIMuhqkaXhVUZbLXu4fn6VNwXoAos7KHXa2UBvGFZw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgedtiedgkeejucetufdoteggodetrfdotf
+	:x-sasl-enc; s=fm1; t=1686238411; x=1686324811; bh=bk7X7cG0vAXQH
+	Vnw4CA+kDw3ByHbOWHJInSwfkkzHY8=; b=BcCHXL7O/AS+XCPF4rcyZ3lxI2UJ6
+	wO4Hg/SDkzmMPw/NFljpJ/N4DKuLTe59gczbSSgHWl2yFucjtYVFAQBIpPAtmN4k
+	jC5jC+HHF4mYmXEa1OmZDgFm6ylnsPdyF3mktGwKjK4w4YmeYBn6wlmAYw11u/h7
+	Dgd8GNHoYlh19kT3jiHH8QAWxAF5a5rP8t0O0SvwV0EiWifVdLkfADEvHCXLW8wQ
+	bbcUShcMnzSLHkiYILmwFmdTRXVscfEsuDXvY8Vxk7f6Ek5DKYnCDOf4+xsfkZKB
+	79pnyvKnIpq/FtatVgXMslaH/E/JTn7ed1ue+XWEWo3nBllRtNh0v9gNg==
+X-ME-Sender: <xms:y_SBZKoyNgkvu_49gCTyqEsEfd5RnM0FGYHHVxCq01vyk060pQsWZA>
+    <xme:y_SBZIpqRgb2evEMIwxmXhsnZZAzsnMbaAh6KLbdrmaUA6_fb14gCyqGPrvKWCB4X
+    uQ-053Jw8nv5cQ>
+X-ME-Received: <xmr:y_SBZPOwS8pInKm3zZWJMP8CVpMEKFz44rK4GKZzWmorOTYrKyxt7tQAopA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgedtiedgkeelucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
     cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
@@ -80,12 +80,12 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgedtiedgkeejucetufdoteggod
     gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
     frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
     lhgrsgdrtghomh
-X-ME-Proxy: <xmx:mfKBZEha6jDGZjXc0JmuBhTWJJEpwJXdEcExcinxHBVYjkNgUiJ1Jw>
-    <xmx:mfKBZADliEfQ41_FA0gBOwXt0thVTYm3OWhulErEFW9hhaffRUIWNw>
-    <xmx:mfKBZFId7g--5ZFhk3WSRKZI_EhndyUtmSTEl5e3Te3TsuDsLVwvnA>
-    <xmx:mvKBZC3BV-Ydv-Jp1hyhHhc-_ehW1LoJyYt6Zuki_sIl6b1uJ0ai-Q>
+X-ME-Proxy: <xmx:y_SBZJ4VHEJ6IODRlrD0AdCfRASzR991CxSln8nwuQWPGat8wLEIRg>
+    <xmx:y_SBZJ7sTI9LkWma72gNsSJJWq6NNL7qF2F0YqaJJ_Sxw4Eimi6mKg>
+    <xmx:y_SBZJhP5cYtaa7pcncXhrZyp-tZhoq-NSwSCodocfyQU8-AMKjvHQ>
+    <xmx:y_SBZGuWnSO2aEWvQjNZ4687abmS4GaS2U5x-OmgUMM-oxcwexNyBg>
 Feedback-ID: iac594737:Fastmail
-Date: Thu, 8 Jun 2023 11:24:06 -0400
+Date: Thu, 8 Jun 2023 11:33:26 -0400
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 Cc: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
@@ -93,24 +93,27 @@ Cc: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
 	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 16/16] xen-blkback: Inform userspace that device has
- been opened
-Message-ID: <ZIHyl3skhh/Yy5fe@itl-email>
+Subject: Re: [PATCH v2 13/16] xen-blkback: Implement diskseq checks
+Message-ID: <ZIH0yQCICZRpliSc@itl-email>
 References: <20230530203116.2008-1-demi@invisiblethingslab.com>
- <20230530203116.2008-17-demi@invisiblethingslab.com>
- <ZIGot1mn+lChK4q8@Air-de-Roger>
+ <20230530203116.2008-14-demi@invisiblethingslab.com>
+ <ZH7tizoYl8YVFN9B@Air-de-Roger>
+ <ZH9mZGbM32CDmKGF@itl-email>
+ <ZIA9uBJxx2gqA4Cq@Air-de-Roger>
+ <ZICs+WYCPYdu2yoI@itl-email>
+ <ZIGRXrSGmgLF/07O@Air-de-Roger>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DG4zdBvb0kvaNjmD"
+	protocol="application/pgp-signature"; boundary="r3sHQtKDb7zekSfB"
 Content-Disposition: inline
-In-Reply-To: <ZIGot1mn+lChK4q8@Air-de-Roger>
+In-Reply-To: <ZIGRXrSGmgLF/07O@Air-de-Roger>
 
 
---DG4zdBvb0kvaNjmD
+--r3sHQtKDb7zekSfB
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 8 Jun 2023 11:24:06 -0400
+Date: Thu, 8 Jun 2023 11:33:26 -0400
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 Cc: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
@@ -118,61 +121,182 @@ Cc: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
 	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 16/16] xen-blkback: Inform userspace that device has
- been opened
+Subject: Re: [PATCH v2 13/16] xen-blkback: Implement diskseq checks
 
-On Thu, Jun 08, 2023 at 12:08:55PM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Tue, May 30, 2023 at 04:31:16PM -0400, Demi Marie Obenour wrote:
-> > Set "opened" to "0" before the hotplug script is called.  Once the
-> > device node has been opened, set "opened" to "1".
+On Thu, Jun 08, 2023 at 10:29:18AM +0200, Roger Pau Monn=C3=A9 wrote:
+> On Wed, Jun 07, 2023 at 12:14:46PM -0400, Demi Marie Obenour wrote:
+> > On Wed, Jun 07, 2023 at 10:20:08AM +0200, Roger Pau Monn=C3=A9 wrote:
+> > > On Tue, Jun 06, 2023 at 01:01:20PM -0400, Demi Marie Obenour wrote:
+> > > > On Tue, Jun 06, 2023 at 10:25:47AM +0200, Roger Pau Monn=C3=A9 wrot=
+e:
+> > > > > On Tue, May 30, 2023 at 04:31:13PM -0400, Demi Marie Obenour wrot=
+e:
+> > > > > > -	if (be->major | be->minor) {
+> > > > > > -		if (be->major !=3D major || be->minor !=3D minor)
+> > > > > > -			pr_warn("changing physical device (from %x:%x to %x:%x) not=
+ supported.\n",
+> > > > > > -				be->major, be->minor, major, minor);
+> > > > > > +	diskseq_str =3D xenbus_read(XBT_NIL, dev->nodename, "diskseq"=
+, &diskseq_len);
+> > > > > > +	if (IS_ERR(diskseq_str)) {
+> > > > > > +		int err =3D PTR_ERR(diskseq_str);
+> > > > > > +		diskseq_str =3D NULL;
+> > > > > > +
+> > > > > > +		/*
+> > > > > > +		 * If this does not exist, it means legacy userspace that do=
+es not
+> > > > > > +		 * support diskseq.
+> > > > > > +		 */
+> > > > > > +		if (unlikely(!XENBUS_EXIST_ERR(err))) {
+> > > > > > +			xenbus_dev_fatal(dev, err, "reading diskseq");
+> > > > > > +			return;
+> > > > > > +		}
+> > > > > > +		diskseq =3D 0;
+> > > > > > +	} else if (diskseq_len <=3D 0) {
+> > > > > > +		xenbus_dev_fatal(dev, -EFAULT, "diskseq must not be empty");
+> > > > > > +		goto fail;
+> > > > > > +	} else if (diskseq_len > 16) {
+> > > > > > +		xenbus_dev_fatal(dev, -ERANGE, "diskseq too long: got %d but=
+ limit is 16",
+> > > > > > +				 diskseq_len);
+> > > > > > +		goto fail;
+> > > > > > +	} else if (diskseq_str[0] =3D=3D '0') {
+> > > > > > +		xenbus_dev_fatal(dev, -ERANGE, "diskseq must not start with =
+'0'");
+> > > > > > +		goto fail;
+> > > > > > +	} else {
+> > > > > > +		char *diskseq_end;
+> > > > > > +		diskseq =3D simple_strtoull(diskseq_str, &diskseq_end, 16);
+> > > > > > +		if (diskseq_end !=3D diskseq_str + diskseq_len) {
+> > > > > > +			xenbus_dev_fatal(dev, -EINVAL, "invalid diskseq");
+> > > > > > +			goto fail;
+> > > > > > +		}
+> > > > > > +		kfree(diskseq_str);
+> > > > > > +		diskseq_str =3D NULL;
+> > > > > > +	}
+> > > > >=20
+> > > > > Won't it be simpler to use xenbus_scanf() with %llx formatter?
+> > > >=20
+> > > > xenbus_scanf() doesn=E2=80=99t check for overflow and accepts lots =
+of junk it
+> > > > really should not.  Should this be fixed in xenbus_scanf()?
+> > >=20
+> > > That would be my preference, so that you can use it here instead of
+> > > kind of open-coding it.
 > >=20
-> > "opened" is used exclusively by userspace.  It serves two purposes:
-> >=20
-> > 1. It tells userspace that the diskseq Xenstore entry is supported.
-> >=20
-> > 2. It tells userspace that it can wait for "opened" to be set to 1.
-> >    Once "opened" is 1, blkback has a reference to the device, so
-> >    userspace doesn't need to keep one.
-> >=20
-> > Together, these changes allow userspace to use block devices with
-> > delete-on-close behavior, such as loop devices with the autoclear flag
-> > set or device-mapper devices with the deferred-remove flag set.
+> > This winds up being a much more invasive patch as it requires changing
+> > sscanf().  It also has a risk (probably mostly theoretical) of breaking
+> > buggy userspace that passes garbage values here.
 >=20
-> Now that I think a bit more about this, how are you planning to handle
-> reboot with such devices?  It's fine for loop (because those get
-> instantiated by the block script), but likely not with other block
-> devices, as on reboot the toolstack will find the block device is
-> gone.
->=20
-> I guess the delete-on-close is only intended to be used for loop
-> devices? (or in general block devices that are instantiated by the
-> block script itself)
+> Well, if the current function is not suitable for your purposes it
+> would be better to fix it rather than open-code what you need.  Mostly
+> because further usages would then also need to open-code whatever
+> required.
 
-You understand correctly.
+That is fair.
+
+> > > > > Also, you tie this logic to the "physical-device" watch, which
+> > > > > strictly implies that the "diskseq" node must be written to xenst=
+ore
+> > > > > before the "physical-device" node.  This seems fragile, but I don=
+'t
+> > > > > see much better optiono since the "diskseq" is optional.
+> > > >=20
+> > > > What about including the diskseq in the "physical-device" node?  Pe=
+rhaps
+> > > > use diskseq@major:minor syntax?
+> > >=20
+> > > Hm, how would you know whether the blkback instance in the kernel
+> > > supports the diskseq syntax in physical-device?
+> >=20
+> > That=E2=80=99s what the next patch is for =F0=9F=99=82.
+>=20
+> Hm, I think we should separate diskseq support from the notify open
+> stuff: it's possible a different (non-Linux) backend wants to
+> implement open notify support but doesn't have diskseq.
+
+I like this idea!  What about having blkback set diskseq to zero?
+Userspace could then replace it with the actual value.
+
+> > > Can you fetch a disk using a diskseq identifier?
+> >=20
+> > Not yet, although I have considered adding this ability.  It would be
+> > one step towards a =E2=80=9Cdiskseqfs=E2=80=9D that userspace could use=
+ to open a device
+> > by diskseq.
+> >=20
+> > > Why I understand that this is an extra safety check in order to assert
+> > > blkback is opening the intended device, is this attempting to fix some
+> > > existing issue?
+> >=20
+> > Yes, it is.  I have a block script (written in C) that validates the
+> > device it has opened before passing the information to blkback.  It uses
+> > the diskseq to do this, but for that protection to be complete, blkback
+> > must also be aware of it.
+>=20
+> But if your block script opens the device, and keeps it open until
+> blkback has also taken a reference to it, there's no way such device
+> could be removed and recreated in the window you point out above, as
+> there's always a reference on it taken?
+
+This assumes that the block script is not killed in the meantime,
+which is not a safe assumption due to timeouts and the OOM killer.
+
+> > > I'm not sure I see how the major:minor numbers would point to a
+> > > different device than the one specified by the toolstack unless the
+> > > admin explicitly messes with the devices before blkback has got time
+> > > to open them.  But then the admin can already do pretty much
+> > > everything it wants with the system.
+> >=20
+> > Admins typically refer to e.g. device-mapper devices by name, not by
+> > major:minor number.  If a device is destroyed and recreated right as the
+> > block script is running, this race condition can occur.
+>=20
+> Right, but what about this device recreation happening after the admin
+> has written the guest config file but before the call to (lib)xl
+> happens?  blkback would also end up using a different device than
+> indented, and your proposed approach doesn't fix this.  The only way to
+> solve this would be to reference devices by UUID (iow: diskseq)
+> directly in the guest config file.
+
+That would be a good idea, but it is orthogonal to this patch.  My
+script opens the device and uses various means to check that it did
+open the correct device.  It then passes the diskseq to blkback.
+
+> Then the block script will open the device by diskseq and pass the
+> major:minor numbers to blkback.
+
+Alternatively, the toolstack could write both the diskseq and
+major:minor numbers and be confident that it is referring to the
+correct device, no matter how long ago it got that information.
+This could be quite useful for e.g. one VM exporting a device to
+another VM by calling losetup(8) and expecting a human to make a
+decision based on various properties about the device.  In this
+case there is no upper bound on the race window.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
 
---DG4zdBvb0kvaNjmD
+--r3sHQtKDb7zekSfB
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmSB8pcACgkQsoi1X/+c
-IsFDgg/+LvYLn6bwcjUeONWEIyGKyw603h+1aYfMvgtLZNeFOldTtAfcVOMlZy8y
-SSlLFAqfePxh7n7mCyi03wisScbGDY+iDNI+6Y0pmCKmrKXzZEKkRdXld9mejI/c
-Sp5g2yz9lEV0lwqrX4vBMFux41AdCe9CwTxQ072RQabojUem8EdmvV82l88YJrBU
-ZPe6mgZEknzAIDrbth/FIA7eowKITBrEwdDmdsHw1HzGzJcHbfpzdxKgcdg0r/b0
-cqf2DdIi1DHUsCzjTILR6akwxuprAvEArGy00iB+wS+eXfZBZIBlLrwsAFYSwZSD
-tRAZ0BgjeL5b0MxTP5KP1rRB6p4hBPxVyuBduDEaaBdsNJJcAHGDgiuvkTVKqMZM
-HzaSWI9HCuJ/xIRTtAd620ogZDwlzjkVsc3vHo++hDEF3WvwEaKjfNjvVr1wg4HC
-NQ+Tc4JllfsJgwAp6D7zsEAL/KwlcoQqZYf1o/Z9ukjCU+iRL9NXhPtMPX4Kjdqn
-HPdBnnjAU8dyMebH0N4ltPt6CZw9cQ1V43QtJy89OpEt0PqF7BkIRkdXZ3yw8pAN
-jCjWYIKy54g5Qzm3G/zQ7J3oc83/o0KWdZIfpZCWdZmO3mHD3i2fb/opIngDxsbR
-M9HcUCFwbGOuwQ97S4t2XB2dXP106oxDkCRphDEwDFq9BpWmxQQ=
-=wJOc
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmSB9MkACgkQsoi1X/+c
+IsGCMxAAqG5vSBmNdrqnGJZtBSgrA3UZ/y3fsa0PnxKkWgF3nhun+A8UeKOmjz0t
+RW9nmG3h6EhpC6XwBop/HnjHIRUS7Z77yDPGtyCHluCNQM3Tj2LOoK6rPn5TVxiR
+lsfvUkI41GYaOBKbQ+IEo9IKqpZZE7QIAnVZG8xNW7Klb67Pgi+Q2zb535Ghw67u
+xCaV90KBqXTqPZj4hODd8FT/4ewealg7a8Gsb+94TiXMhNPLFMgUbldwURuVp7gl
++16jnXeKkgJ+ccw0Q6UueDxx5o5T3tArta/rfjy2YW18te6QKfv7Ro51eIjCBS3k
+uInhLdrnAbfUUW4Y6XzPWXIc2ggBgxIxbhO/illtppLzqBXnlRsXdsSijk3E2y4/
+Qg56hHb3xDNXKmN6J4HOIF03AEAoD4R3aqt0WB8SKHNN3YMhTequs2RCmGTOrHTf
+QdXVw07joEeYwsZhgrVVtHEGheBeM0+2zdzgF5rUyy/8dS7wyIliFQgNOW8fPRXt
+RYPLy6GV+BJZtgTL0LrSw/kCcXEozbPI7Ju4nqwmQVzeXuklYYDvt8nkLkeY3bzz
+o895IvUlQGKODDHxJb55eCN6A7ztY9K4sb6gij7ny0RWjHuQezGIA334zfV0n3EM
+J4QwgQsldOF/lYTnpCefwXdOWf5PxXENvQi1G25JJWn4Z8JvpGw=
+=TpT1
 -----END PGP SIGNATURE-----
 
---DG4zdBvb0kvaNjmD--
+--r3sHQtKDb7zekSfB--
 
