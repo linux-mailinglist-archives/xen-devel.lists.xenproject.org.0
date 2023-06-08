@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A30F6728535
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 18:38:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.545374.851775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5D037286B8
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Jun 2023 19:57:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.545381.851822 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7Ieb-0006qu-D3; Thu, 08 Jun 2023 16:38:29 +0000
+	id 1q7Jsx-0008P8-Vn; Thu, 08 Jun 2023 17:57:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 545374.851775; Thu, 08 Jun 2023 16:38:29 +0000
+Received: by outflank-mailman (output) from mailman id 545381.851822; Thu, 08 Jun 2023 17:57:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7Ieb-0006nc-AI; Thu, 08 Jun 2023 16:38:29 +0000
-Received: by outflank-mailman (input) for mailman id 545374;
- Thu, 08 Jun 2023 16:38:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q7Jsx-0008Lt-SQ; Thu, 08 Jun 2023 17:57:23 +0000
+Received: by outflank-mailman (input) for mailman id 545381;
+ Thu, 08 Jun 2023 16:41:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SM50=B4=gmail.com=konrad.r.wilk@srs-se1.protection.inumbo.net>)
- id 1q7IeZ-0006nW-7X
- for xen-devel@lists.xenproject.org; Thu, 08 Jun 2023 16:38:27 +0000
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com
- [209.85.222.52]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e313b5cb-061a-11ee-b232-6b7b168915f2;
- Thu, 08 Jun 2023 18:38:25 +0200 (CEST)
-Received: by mail-ua1-f52.google.com with SMTP id
- a1e0cc1a2514c-784f7f7deddso307485241.3
- for <xen-devel@lists.xenproject.org>; Thu, 08 Jun 2023 09:38:25 -0700 (PDT)
+ <SRS0=Rt+Z=B4=collabora.com=bob.beckett@srs-se1.protection.inumbo.net>)
+ id 1q7IhZ-0008Cm-Fb
+ for xen-devel@lists.xenproject.org; Thu, 08 Jun 2023 16:41:33 +0000
+Received: from madras.collabora.co.uk (madras.collabora.co.uk [46.235.227.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 522cacaa-061b-11ee-8611-37d641c3527e;
+ Thu, 08 Jun 2023 18:41:31 +0200 (CEST)
+Received: from [192.168.178.53] (82-71-8-225.dsl.in-addr.zen.co.uk
+ [82.71.8.225])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
+ (No client certificate requested) (Authenticated sender: bbeckett)
+ by madras.collabora.co.uk (Postfix) with ESMTPSA id 16AEE6606EC6;
+ Thu,  8 Jun 2023 17:41:30 +0100 (BST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,264 +43,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e313b5cb-061a-11ee-b232-6b7b168915f2
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686242304; x=1688834304;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:in-reply-to:references:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=maYgySw253aQp+1qS+G3fizKuN5LyFWhl5CeH3Pd1Rc=;
-        b=XzexsevLKj/uqZSFU8Fg6TWwxyWizkP8dGkBBdWlJZaOwscmYT/dcDO5yJC7FuSqXQ
-         CUYEl4IoQboStGZmxjmUPgf/EkYWMaMRY0T+WUSWxOYPNNmTVYws1HnRR32KUExwijcf
-         khHEqsXpC9n6Q+Oj+WxBsqD4F1TGYn1wLWJxqBG6YsEC+TfLGYK3IrhcbpuD1DQZI9MA
-         bnPr7751MCUQYOjKIdKrow5eqcW7/8ddd3M0GZnZuCvleKsbZ6SqjdEXrh4LbDRtZ74o
-         dK9PKGTct7uaBKHK8uD28YJa4kAe/EN6FDJtuhJuhw3hssseJZtLfJckghYFSUF93k0y
-         RxJQ==
-X-Gm-Message-State: AC+VfDyzU8wR3cOOFQDmtPUTPYh3aNs+f+DEOdDJgw7hrF1oxokrItdl
-	zzHYDL/4l8/uTYEdYR/kEVjoye8Sgij7Mcum4Sk=
-X-Google-Smtp-Source: ACHHUZ5OuS4967TKEwaba2HW4aCd+g3iM/cEQnhv0qE6rpTWD8+Kx3Y4nbhBskp4M2bmvvjQskRJR9egBehwEfbyMAY=
-X-Received: by 2002:a67:fb11:0:b0:437:e49d:634a with SMTP id
- d17-20020a67fb11000000b00437e49d634amr1996709vsr.35.1686242302273; Thu, 08
- Jun 2023 09:38:22 -0700 (PDT)
+X-Inumbo-ID: 522cacaa-061b-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1686242490;
+	bh=Rzujm8ZEu4vFHkLsK4BgjWVbvoM14g7ZNrm+vswmQsU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jWgmTkGu1rjEplOwPqxZHUReS50eP89h/htmAUkvtGNCAMCXYAqVHeYmUHwHz2LDX
+	 /U/GMLG4mBASufKBUXErAHExpIP4BlHJpNZNP5v+YQLkQkOLueACNSk72wLJi0wUsE
+	 MHU6siynd/dV/cZiyE11QRx9dRqF0aA+OpgoAS2QrmN2W44hdMF/eQknCsIjSRJp3t
+	 2amueOH5W3tCYW1TlHCVl1IS03QJnPpFrrPFNeNa31WIBaqHrJNhL40N7Y+Nva60z+
+	 flK15+ndQoMY+sJwl6UPlsDGCVklazd36BHYVS61OsxK3cc4TvzRGQ9auRWDfUZMzE
+	 n4DuGzs5oQmFA==
+Message-ID: <d52c64d6-8c42-373b-7543-ffdcea7dcbc2@collabora.com>
+Date: Thu, 8 Jun 2023 17:41:27 +0100
 MIME-Version: 1.0
-References: <20230605102840.1521549-1-ross.lagerwall@citrix.com>
-In-Reply-To: <20230605102840.1521549-1-ross.lagerwall@citrix.com>
-Reply-To: konrad@darnok.org
-From: Konrad Rzeszutek Wilk <konrad@darnok.org>
-Date: Thu, 8 Jun 2023 12:38:11 -0400
-Message-ID: <CAPbh3rsnBgeZJCvzg3Bh_VRxiYEOe0vgQkpyeyDeCBirBLhLiQ@mail.gmail.com>
-Subject: Re: [PATCH v3] iscsi_ibft: Fix finding the iBFT under Xen Dom 0
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	Jan Beulich <jbeulich@suse.com>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-	Peter Jones <pjones@redhat.com>, Konrad Rzeszutek Wilk <konrad@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+Subject: Re: [QEMU PATCH 1/1] virtgpu: do not destroy resources when guest
+ suspend
+To: Jiqian Chen <Jiqian.Chen@amd.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>, qemu-devel@nongnu.org,
+ xen-devel@lists.xenproject.org
+Cc: Alex Deucher <Alexander.Deucher@amd.com>,
+ Christian Koenig <Christian.Koenig@amd.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Honglei Huang <Honglei1.Huang@amd.com>, Julia Zhang <Julia.Zhang@amd.com>,
+ Huang Rui <Ray.Huang@amd.com>
+References: <20230608025655.1674357-1-Jiqian.Chen@amd.com>
+ <20230608025655.1674357-2-Jiqian.Chen@amd.com>
+Content-Language: en-US
+From: Robert Beckett <bob.beckett@collabora.com>
+In-Reply-To: <20230608025655.1674357-2-Jiqian.Chen@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-It looks fine to me, but could I ask you to triple check that on
-non-Xen it still detects the iBFT?
 
-Thx!
-
-On Mon, Jun 5, 2023 at 6:28=E2=80=AFAM Ross Lagerwall <ross.lagerwall@citri=
-x.com> wrote:
+On 08/06/2023 03:56, Jiqian Chen wrote:
+> After suspending and resuming guest VM, you will get
+> a black screen, and the display can't come back.
 >
-> To facilitate diskless iSCSI boot, the firmware can place a table of
-> configuration details in memory called the iBFT. The presence of this
-> table is not specified, nor is the precise location (and it's not in the
-> E820) so the kernel has to search for a magic marker to find it.
+> This is because when guest did suspending, it called
+> into qemu to call virtio_gpu_gl_reset. In function
+> virtio_gpu_gl_reset, it destroyed resources and reset
+> renderer, which were used for display. As a result,
+> guest's screen can't come back to the time when it was
+> suspended and only showed black.
 >
-> When running under Xen, Dom 0 does not have access to the entire host's
-> memory, only certain regions which are identity-mapped which means that
-> the pseudo-physical address in Dom0 =3D=3D real host physical address.
-> Add the iBFT search bounds as a reserved region which causes it to be
-> identity-mapped in xen_set_identity_and_remap_chunk() which allows Dom0
-> access to the specific physical memory to correctly search for the iBFT
-> magic marker (and later access the full table).
+> So, this patch adds a new ctrl message
+> VIRTIO_GPU_CMD_STATUS_FREEZING to get notification from
+> guest. If guest is during suspending, it sets freezing
+> status of virtgpu to true, this will prevent destroying
+> resources and resetting renderer when guest calls into
+> virtio_gpu_gl_reset. If guest is during resuming, it sets
+> freezing to false, and then virtio_gpu_gl_reset will keep
+> its origin actions and has no other impaction.
 >
-> This necessitates moving the call to reserve_ibft_region() somewhat
-> later so that it is called after e820__memory_setup() which is when the
-> Xen identity mapping adjustments are applied. The precise location of
-> the call is not too important so I've put it alongside dmi_setup() which
-> does similar scanning of memory for configuration tables.
->
-> Finally in the iBFT find code, instead of using isa_bus_to_virt() which
-> doesn't do the right thing under Xen, use early_memremap() like the
-> dmi_setup() code does.
->
-> The result of these changes is that it is possible to boot a diskless
-> Xen + Dom0 running off an iSCSI disk whereas previously it would fail to
-> find the iBFT and consequently, the iSCSI root disk.
->
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
 > ---
+>   hw/display/virtio-gpu-gl.c                  |  9 ++++++-
+>   hw/display/virtio-gpu-virgl.c               |  3 +++
+>   hw/display/virtio-gpu.c                     | 26 +++++++++++++++++++--
+>   include/hw/virtio/virtio-gpu.h              |  3 +++
+>   include/standard-headers/linux/virtio_gpu.h |  9 +++++++
+>   5 files changed, 47 insertions(+), 3 deletions(-)
 >
-> In v3:
-> * Expanded commit message.
-> * Used IBFT_ constants.
->
->  arch/x86/kernel/setup.c            |  2 +-
->  arch/x86/xen/setup.c               | 28 +++++++++++++++++++---------
->  drivers/firmware/iscsi_ibft_find.c | 26 +++++++++++++++++---------
->  include/linux/iscsi_ibft.h         | 10 +++++++++-
->  4 files changed, 46 insertions(+), 20 deletions(-)
->
-> diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-> index 16babff771bd..616b80507abd 100644
-> --- a/arch/x86/kernel/setup.c
-> +++ b/arch/x86/kernel/setup.c
-> @@ -796,7 +796,6 @@ static void __init early_reserve_memory(void)
->
->         memblock_x86_reserve_range_setup_data();
->
-> -       reserve_ibft_region();
->         reserve_bios_regions();
->         trim_snb_memory();
->  }
-> @@ -1032,6 +1031,7 @@ void __init setup_arch(char **cmdline_p)
->         if (efi_enabled(EFI_BOOT))
->                 efi_init();
->
-> +       reserve_ibft_region();
->         dmi_setup();
->
->         /*
-> diff --git a/arch/x86/xen/setup.c b/arch/x86/xen/setup.c
-> index c2be3efb2ba0..8b5cf7bb1f47 100644
-> --- a/arch/x86/xen/setup.c
-> +++ b/arch/x86/xen/setup.c
-> @@ -6,6 +6,7 @@
->   */
->
->  #include <linux/init.h>
-> +#include <linux/iscsi_ibft.h>
->  #include <linux/sched.h>
->  #include <linux/kstrtox.h>
->  #include <linux/mm.h>
-> @@ -764,17 +765,26 @@ char * __init xen_memory_setup(void)
->         BUG_ON(memmap.nr_entries =3D=3D 0);
->         xen_e820_table.nr_entries =3D memmap.nr_entries;
->
-> -       /*
-> -        * Xen won't allow a 1:1 mapping to be created to UNUSABLE
-> -        * regions, so if we're using the machine memory map leave the
-> -        * region as RAM as it is in the pseudo-physical map.
-> -        *
-> -        * UNUSABLE regions in domUs are not handled and will need
-> -        * a patch in the future.
-> -        */
-> -       if (xen_initial_domain())
-> +       if (xen_initial_domain()) {
-> +               /*
-> +                * Xen won't allow a 1:1 mapping to be created to UNUSABL=
-E
-> +                * regions, so if we're using the machine memory map leav=
-e the
-> +                * region as RAM as it is in the pseudo-physical map.
-> +                *
-> +                * UNUSABLE regions in domUs are not handled and will nee=
-d
-> +                * a patch in the future.
-> +                */
->                 xen_ignore_unusable();
->
-> +#ifdef CONFIG_ISCSI_IBFT_FIND
-> +               /* Reserve 0.5 MiB to 1 MiB region so iBFT can be found *=
-/
-> +               xen_e820_table.entries[xen_e820_table.nr_entries].addr =
-=3D IBFT_START;
-> +               xen_e820_table.entries[xen_e820_table.nr_entries].size =
-=3D IBFT_END - IBFT_START;
-> +               xen_e820_table.entries[xen_e820_table.nr_entries].type =
-=3D E820_TYPE_RESERVED;
-> +               xen_e820_table.nr_entries++;
-> +#endif
-> +       }
+> diff --git a/hw/display/virtio-gpu-gl.c b/hw/display/virtio-gpu-gl.c
+> index e06be60dfb..e11ad233eb 100644
+> --- a/hw/display/virtio-gpu-gl.c
+> +++ b/hw/display/virtio-gpu-gl.c
+> @@ -100,7 +100,14 @@ static void virtio_gpu_gl_reset(VirtIODevice *vdev)
+>        */
+>       if (gl->renderer_inited && !gl->renderer_reset) {
+>           virtio_gpu_virgl_reset_scanout(g);
+> -        gl->renderer_reset = true;
+> +        /*
+> +         * If guest is suspending, we shouldn't reset renderer,
+> +         * otherwise, the display can't come back to the time when
+> +         * it was suspended after guest resumed.
+> +         */
+> +        if (!g->freezing) {
+> +            gl->renderer_reset = true;
+> +        }
+>       }
+>   }
+>   
+> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+> index 73cb92c8d5..183ec92d53 100644
+> --- a/hw/display/virtio-gpu-virgl.c
+> +++ b/hw/display/virtio-gpu-virgl.c
+> @@ -464,6 +464,9 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+>       case VIRTIO_GPU_CMD_GET_EDID:
+>           virtio_gpu_get_edid(g, cmd);
+>           break;
+> +    case VIRTIO_GPU_CMD_STATUS_FREEZING:
+> +        virtio_gpu_cmd_status_freezing(g, cmd);
+> +        break;
+>       default:
+>           cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+>           break;
+> diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
+> index 5e15c79b94..8f235d7848 100644
+> --- a/hw/display/virtio-gpu.c
+> +++ b/hw/display/virtio-gpu.c
+> @@ -373,6 +373,16 @@ static void virtio_gpu_resource_create_blob(VirtIOGPU *g,
+>       QTAILQ_INSERT_HEAD(&g->reslist, res, next);
+>   }
+>   
+> +void virtio_gpu_cmd_status_freezing(VirtIOGPU *g,
+> +                         struct virtio_gpu_ctrl_command *cmd)
+> +{
+> +    struct virtio_gpu_status_freezing sf;
 > +
->         /* Make sure the Xen-supplied memory map is well-ordered. */
->         e820__update_table(&xen_e820_table);
->
-> diff --git a/drivers/firmware/iscsi_ibft_find.c b/drivers/firmware/iscsi_=
-ibft_find.c
-> index 94b49ccd23ac..71f51303c2ba 100644
-> --- a/drivers/firmware/iscsi_ibft_find.c
-> +++ b/drivers/firmware/iscsi_ibft_find.c
-> @@ -42,8 +42,6 @@ static const struct {
->  };
->
->  #define IBFT_SIGN_LEN 4
-> -#define IBFT_START 0x80000 /* 512kB */
-> -#define IBFT_END 0x100000 /* 1MB */
->  #define VGA_MEM 0xA0000 /* VGA buffer */
->  #define VGA_SIZE 0x20000 /* 128kB */
->
-> @@ -52,9 +50,9 @@ static const struct {
->   */
->  void __init reserve_ibft_region(void)
->  {
-> -       unsigned long pos;
-> +       unsigned long pos, virt_pos =3D 0;
->         unsigned int len =3D 0;
-> -       void *virt;
-> +       void *virt =3D NULL;
->         int i;
->
->         ibft_phys_addr =3D 0;
-> @@ -70,13 +68,20 @@ void __init reserve_ibft_region(void)
->                  * so skip that area */
->                 if (pos =3D=3D VGA_MEM)
->                         pos +=3D VGA_SIZE;
-> -               virt =3D isa_bus_to_virt(pos);
+> +    VIRTIO_GPU_FILL_CMD(sf);
+> +    virtio_gpu_bswap_32(&sf, sizeof(sf));
+> +    g->freezing = sf.freezing;
+> +}
 > +
-> +               /* Map page by page */
-> +               if (offset_in_page(pos) =3D=3D 0) {
-> +                       if (virt)
-> +                               early_memunmap(virt, PAGE_SIZE);
-> +                       virt =3D early_memremap_ro(pos, PAGE_SIZE);
-> +                       virt_pos =3D pos;
-> +               }
->
->                 for (i =3D 0; i < ARRAY_SIZE(ibft_signs); i++) {
-> -                       if (memcmp(virt, ibft_signs[i].sign, IBFT_SIGN_LE=
-N) =3D=3D
-> -                           0) {
-> +                       if (memcmp(virt + (pos - virt_pos), ibft_signs[i]=
-.sign,
-> +                                  IBFT_SIGN_LEN) =3D=3D 0) {
->                                 unsigned long *addr =3D
-> -                                   (unsigned long *)isa_bus_to_virt(pos =
-+ 4);
-> +                                   (unsigned long *)(virt + pos - virt_p=
-os + 4);
->                                 len =3D *addr;
->                                 /* if the length of the table extends pas=
-t 1M,
->                                  * the table cannot be valid. */
-> @@ -84,9 +89,12 @@ void __init reserve_ibft_region(void)
->                                         ibft_phys_addr =3D pos;
->                                         memblock_reserve(ibft_phys_addr, =
-PAGE_ALIGN(len));
->                                         pr_info("iBFT found at %pa.\n", &=
-ibft_phys_addr);
-> -                                       return;
-> +                                       goto out;
->                                 }
->                         }
->                 }
->         }
+>   static void virtio_gpu_disable_scanout(VirtIOGPU *g, int scanout_id)
+>   {
+>       struct virtio_gpu_scanout *scanout = &g->parent_obj.scanout[scanout_id];
+> @@ -986,6 +996,9 @@ void virtio_gpu_simple_process_cmd(VirtIOGPU *g,
+>       case VIRTIO_GPU_CMD_RESOURCE_DETACH_BACKING:
+>           virtio_gpu_resource_detach_backing(g, cmd);
+>           break;
+> +    case VIRTIO_GPU_CMD_STATUS_FREEZING:
+> +        virtio_gpu_cmd_status_freezing(g, cmd);
+> +        break;
+>       default:
+>           cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+>           break;
+> @@ -1344,6 +1357,8 @@ void virtio_gpu_device_realize(DeviceState *qdev, Error **errp)
+>       QTAILQ_INIT(&g->reslist);
+>       QTAILQ_INIT(&g->cmdq);
+>       QTAILQ_INIT(&g->fenceq);
 > +
-> +out:
-> +       early_memunmap(virt, PAGE_SIZE);
->  }
-> diff --git a/include/linux/iscsi_ibft.h b/include/linux/iscsi_ibft.h
-> index 790e7fcfc1a6..e2742748104d 100644
-> --- a/include/linux/iscsi_ibft.h
-> +++ b/include/linux/iscsi_ibft.h
-> @@ -21,12 +21,20 @@
->   */
->  extern phys_addr_t ibft_phys_addr;
->
-> +#ifdef CONFIG_ISCSI_IBFT_FIND
+> +    g->freezing = false;
+>   }
+>   
+>   void virtio_gpu_reset(VirtIODevice *vdev)
+> @@ -1352,8 +1367,15 @@ void virtio_gpu_reset(VirtIODevice *vdev)
+>       struct virtio_gpu_simple_resource *res, *tmp;
+>       struct virtio_gpu_ctrl_command *cmd;
+>   
+> -    QTAILQ_FOREACH_SAFE(res, &g->reslist, next, tmp) {
+> -        virtio_gpu_resource_destroy(g, res);
+> +    /*
+> +     * If guest is suspending, we shouldn't destroy resources,
+> +     * otherwise, the display can't come back to the time when
+> +     * it was suspended after guest resumed.
+> +     */
+
+
+What should happen if qemu is torn down while the guest is suspended.
+Currently there is no other place where the resources will be destroyed. 
+While it is likely viable to rely on process auto tear down of mem and 
+files from the host cleanup point of view, it feels bad to rely on that.
+Perhaps an inverted conditional with destroy loop in 
+virtio_gpu_device_unrealize() would suffice?
+
+I am not a qemu expert, but I am assuming that the unrealize call will 
+be called during machine destruction if the guest is suspended.
+Also if qemu supports (or intends to support in future) hotplugging of 
+the device, the would help avoid leaks until qemu exit too.
+
+
+> +    if (!g->freezing) {
+> +        QTAILQ_FOREACH_SAFE(res, &g->reslist, next, tmp) {
+> +            virtio_gpu_resource_destroy(g, res);
+> +        }
+>       }
+>   
+>       while (!QTAILQ_EMPTY(&g->cmdq)) {
+> diff --git a/include/hw/virtio/virtio-gpu.h b/include/hw/virtio/virtio-gpu.h
+> index 2e28507efe..c21c2990fb 100644
+> --- a/include/hw/virtio/virtio-gpu.h
+> +++ b/include/hw/virtio/virtio-gpu.h
+> @@ -173,6 +173,7 @@ struct VirtIOGPU {
+>   
+>       uint64_t hostmem;
+>   
+> +    bool freezing;
+>       bool processing_cmdq;
+>       QEMUTimer *fence_poll;
+>       QEMUTimer *print_stats;
+> @@ -284,5 +285,7 @@ void virtio_gpu_virgl_reset_scanout(VirtIOGPU *g);
+>   void virtio_gpu_virgl_reset(VirtIOGPU *g);
+>   int virtio_gpu_virgl_init(VirtIOGPU *g);
+>   int virtio_gpu_virgl_get_num_capsets(VirtIOGPU *g);
+> +void virtio_gpu_cmd_status_freezing(VirtIOGPU *g,
+> +                         struct virtio_gpu_ctrl_command *cmd);
+>   
+>   #endif
+> diff --git a/include/standard-headers/linux/virtio_gpu.h b/include/standard-headers/linux/virtio_gpu.h
+> index 2da48d3d4c..aefffbd751 100644
+> --- a/include/standard-headers/linux/virtio_gpu.h
+> +++ b/include/standard-headers/linux/virtio_gpu.h
+> @@ -116,6 +116,9 @@ enum virtio_gpu_ctrl_type {
+>   	VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID,
+>   	VIRTIO_GPU_RESP_ERR_INVALID_CONTEXT_ID,
+>   	VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER,
 > +
->  /*
->   * Routine used to find and reserve the iSCSI Boot Format Table. The
->   * physical address is set in the ibft_phys_addr variable.
->   */
-> -#ifdef CONFIG_ISCSI_IBFT_FIND
->  void reserve_ibft_region(void);
+> +	/* status */
+> +	VIRTIO_GPU_CMD_STATUS_FREEZING = 0x1300,
+>   };
+>   
+>   enum virtio_gpu_shm_id {
+> @@ -453,4 +456,10 @@ struct virtio_gpu_resource_unmap_blob {
+>   	uint32_t padding;
+>   };
+>   
+> +/* VIRTIO_GPU_CMD_STATUS_FREEZING */
+> +struct virtio_gpu_status_freezing {
+> +	struct virtio_gpu_ctrl_hdr hdr;
+> +	__u32 freezing;
+> +};
 > +
-> +/*
-> + * Physical bounds to search for the iSCSI Boot Format Table.
-> + */
-> +#define IBFT_START 0x80000 /* 512kB */
-> +#define IBFT_END 0x100000 /* 1MB */
-> +
->  #else
->  static inline void reserve_ibft_region(void) {}
->  #endif
-> --
-> 2.31.1
->
+>   #endif
 
