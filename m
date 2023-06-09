@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1164729DB2
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Jun 2023 17:02:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.546106.852723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F2F1729DDD
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Jun 2023 17:09:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.546111.852733 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7dcY-0002vy-9V; Fri, 09 Jun 2023 15:01:46 +0000
+	id 1q7djC-0003f5-0B; Fri, 09 Jun 2023 15:08:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 546106.852723; Fri, 09 Jun 2023 15:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 546111.852733; Fri, 09 Jun 2023 15:08:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7dcY-0002ta-6V; Fri, 09 Jun 2023 15:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 546106;
- Fri, 09 Jun 2023 15:01:44 +0000
+	id 1q7djB-0003br-Sb; Fri, 09 Jun 2023 15:08:37 +0000
+Received: by outflank-mailman (input) for mailman id 546111;
+ Fri, 09 Jun 2023 15:08:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=NPzv=B5=anastas.io=shawn@srs-se1.protection.inumbo.net>)
- id 1q7dcW-0002tU-Pt
- for xen-devel@lists.xenproject.org; Fri, 09 Jun 2023 15:01:44 +0000
-Received: from alpha.anastas.io (alpha.anastas.io [104.248.188.109])
+ (envelope-from <SRS0=Ugf8=B5=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1q7djA-0003bl-81
+ for xen-devel@lists.xenproject.org; Fri, 09 Jun 2023 15:08:36 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8a8cbb38-06d6-11ee-8611-37d641c3527e;
- Fri, 09 Jun 2023 17:01:42 +0200 (CEST)
-Received: from authenticated-user (alpha.anastas.io [104.248.188.109])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ id 8079b9a9-06d7-11ee-8611-37d641c3527e;
+ Fri, 09 Jun 2023 17:08:34 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by alpha.anastas.io (Postfix) with ESMTPSA id 3D6E73F08F;
- Fri,  9 Jun 2023 08:01:39 -0700 (PDT)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 86C721FDF7;
+ Fri,  9 Jun 2023 15:08:33 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3376613A47;
+ Fri,  9 Jun 2023 15:08:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id NnMoC3FAg2TjfAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 09 Jun 2023 15:08:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,63 +51,169 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a8cbb38-06d6-11ee-8611-37d641c3527e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=anastas.io; s=mail;
-	t=1686322900; bh=gGf3xBZw1bq2aiF9uzm2Kn4g3gEGfeF8irHjU0jGdSs=;
-	h=Date:Cc:Subject:From:To:References:In-Reply-To:From;
-	b=A6j/9LZfHyL2/ii4lCGSPrQziw7yLVfU/3RvOgFhzHtVBcCTuwGNkF6KXWx4qdl29
-	 U1pjYsoahzKiSjGbmcbe/RR7leXpObM2mmRkpxyaIjN+XxM8+HTwe3mSRr7mVyZ3Bk
-	 ai80yifsK9XwV88qiHLc05Kz6uHudB70mI2iaiT/R3mIp3hZO2N9tmLDmkEeHzF3C9
-	 4emEQ9jSvr4ihbaZyBM6K0+LutvjYokE+fasXmCLGyUjWkXzsurbwhIll16DWomjmU
-	 w+z1oKKRDL1D8OguHR0Egs6aVZamfC6ezQTGnZ5bmdQk36SPe8e0sM6/VFnJ5r7suw
-	 KqYIZVZPb7Ecw==
-Mime-Version: 1.0
+X-Inumbo-ID: 8079b9a9-06d7-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1686323313; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PyXQdqFRmgObnfEOQbBv8T12i3muDroYiZVMZoQ7xA4=;
+	b=AAkQV1lc0zKowuEDwSF71lAMUt6ug+Wf76t8n+l4ZPuEu+Zon6mXjNCCuhGXdOBeT0Xto8
+	y01RJ7l/V14zr+3rlRy0fv5x4Kce65aOTT3jhkb3MNZDLuisXTs5plfF+e00Wq8O6VD+lT
+	7c/BnWqvS0lIGO2p4VKqa66GLvwRj9w=
+Message-ID: <f2ccd563-4fac-084f-bd11-e6819dff5710@suse.com>
+Date: Fri, 9 Jun 2023 17:08:32 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+Subject: Re: [PATCH v3] iscsi_ibft: Fix finding the iBFT under Xen Dom 0
+Content-Language: en-US
+To: Ross Lagerwall <ross.lagerwall@citrix.com>, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Peter Jones
+ <pjones@redhat.com>, Konrad Rzeszutek Wilk <konrad@kernel.org>
+References: <20230605102840.1521549-1-ross.lagerwall@citrix.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20230605102840.1521549-1-ross.lagerwall@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------MpO0aqOHPizWxQTFzinPIViv"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------MpO0aqOHPizWxQTFzinPIViv
+Content-Type: multipart/mixed; boundary="------------VYzwh8M6sjS0dNkhphJsn5i2";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Ross Lagerwall <ross.lagerwall@citrix.com>, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Peter Jones
+ <pjones@redhat.com>, Konrad Rzeszutek Wilk <konrad@kernel.org>
+Message-ID: <f2ccd563-4fac-084f-bd11-e6819dff5710@suse.com>
+Subject: Re: [PATCH v3] iscsi_ibft: Fix finding the iBFT under Xen Dom 0
+References: <20230605102840.1521549-1-ross.lagerwall@citrix.com>
+In-Reply-To: <20230605102840.1521549-1-ross.lagerwall@citrix.com>
+
+--------------VYzwh8M6sjS0dNkhphJsn5i2
+Content-Type: multipart/mixed; boundary="------------FRRN0O07PbwvhNz4VuUV0kKu"
+
+--------------FRRN0O07PbwvhNz4VuUV0kKu
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMDUuMDYuMjMgMTI6MjgsIFJvc3MgTGFnZXJ3YWxsIHdyb3RlOg0KPiBUbyBmYWNpbGl0
+YXRlIGRpc2tsZXNzIGlTQ1NJIGJvb3QsIHRoZSBmaXJtd2FyZSBjYW4gcGxhY2UgYSB0YWJs
+ZSBvZg0KPiBjb25maWd1cmF0aW9uIGRldGFpbHMgaW4gbWVtb3J5IGNhbGxlZCB0aGUgaUJG
+VC4gVGhlIHByZXNlbmNlIG9mIHRoaXMNCj4gdGFibGUgaXMgbm90IHNwZWNpZmllZCwgbm9y
+IGlzIHRoZSBwcmVjaXNlIGxvY2F0aW9uIChhbmQgaXQncyBub3QgaW4gdGhlDQo+IEU4MjAp
+IHNvIHRoZSBrZXJuZWwgaGFzIHRvIHNlYXJjaCBmb3IgYSBtYWdpYyBtYXJrZXIgdG8gZmlu
+ZCBpdC4NCj4gDQo+IFdoZW4gcnVubmluZyB1bmRlciBYZW4sIERvbSAwIGRvZXMgbm90IGhh
+dmUgYWNjZXNzIHRvIHRoZSBlbnRpcmUgaG9zdCdzDQo+IG1lbW9yeSwgb25seSBjZXJ0YWlu
+IHJlZ2lvbnMgd2hpY2ggYXJlIGlkZW50aXR5LW1hcHBlZCB3aGljaCBtZWFucyB0aGF0DQo+
+IHRoZSBwc2V1ZG8tcGh5c2ljYWwgYWRkcmVzcyBpbiBEb20wID09IHJlYWwgaG9zdCBwaHlz
+aWNhbCBhZGRyZXNzLg0KPiBBZGQgdGhlIGlCRlQgc2VhcmNoIGJvdW5kcyBhcyBhIHJlc2Vy
+dmVkIHJlZ2lvbiB3aGljaCBjYXVzZXMgaXQgdG8gYmUNCj4gaWRlbnRpdHktbWFwcGVkIGlu
+IHhlbl9zZXRfaWRlbnRpdHlfYW5kX3JlbWFwX2NodW5rKCkgd2hpY2ggYWxsb3dzIERvbTAN
+Cj4gYWNjZXNzIHRvIHRoZSBzcGVjaWZpYyBwaHlzaWNhbCBtZW1vcnkgdG8gY29ycmVjdGx5
+IHNlYXJjaCBmb3IgdGhlIGlCRlQNCj4gbWFnaWMgbWFya2VyIChhbmQgbGF0ZXIgYWNjZXNz
+IHRoZSBmdWxsIHRhYmxlKS4NCj4gDQo+IFRoaXMgbmVjZXNzaXRhdGVzIG1vdmluZyB0aGUg
+Y2FsbCB0byByZXNlcnZlX2liZnRfcmVnaW9uKCkgc29tZXdoYXQNCj4gbGF0ZXIgc28gdGhh
+dCBpdCBpcyBjYWxsZWQgYWZ0ZXIgZTgyMF9fbWVtb3J5X3NldHVwKCkgd2hpY2ggaXMgd2hl
+biB0aGUNCj4gWGVuIGlkZW50aXR5IG1hcHBpbmcgYWRqdXN0bWVudHMgYXJlIGFwcGxpZWQu
+IFRoZSBwcmVjaXNlIGxvY2F0aW9uIG9mDQo+IHRoZSBjYWxsIGlzIG5vdCB0b28gaW1wb3J0
+YW50IHNvIEkndmUgcHV0IGl0IGFsb25nc2lkZSBkbWlfc2V0dXAoKSB3aGljaA0KPiBkb2Vz
+IHNpbWlsYXIgc2Nhbm5pbmcgb2YgbWVtb3J5IGZvciBjb25maWd1cmF0aW9uIHRhYmxlcy4N
+Cj4gDQo+IEZpbmFsbHkgaW4gdGhlIGlCRlQgZmluZCBjb2RlLCBpbnN0ZWFkIG9mIHVzaW5n
+IGlzYV9idXNfdG9fdmlydCgpIHdoaWNoDQo+IGRvZXNuJ3QgZG8gdGhlIHJpZ2h0IHRoaW5n
+IHVuZGVyIFhlbiwgdXNlIGVhcmx5X21lbXJlbWFwKCkgbGlrZSB0aGUNCj4gZG1pX3NldHVw
+KCkgY29kZSBkb2VzLg0KPiANCj4gVGhlIHJlc3VsdCBvZiB0aGVzZSBjaGFuZ2VzIGlzIHRo
+YXQgaXQgaXMgcG9zc2libGUgdG8gYm9vdCBhIGRpc2tsZXNzDQo+IFhlbiArIERvbTAgcnVu
+bmluZyBvZmYgYW4gaVNDU0kgZGlzayB3aGVyZWFzIHByZXZpb3VzbHkgaXQgd291bGQgZmFp
+bCB0bw0KPiBmaW5kIHRoZSBpQkZUIGFuZCBjb25zZXF1ZW50bHksIHRoZSBpU0NTSSByb290
+IGRpc2suDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBSb3NzIExhZ2Vyd2FsbCA8cm9zcy5sYWdl
+cndhbGxAY2l0cml4LmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9z
+c0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoNCg==
+--------------FRRN0O07PbwvhNz4VuUV0kKu
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 09 Jun 2023 10:01:38 -0500
-Message-Id: <CT87KSPVSBUG.2C4SWW2EDTA5Z@Shawns-Mac-mini.lan>
-Cc: <tpearson@raptorengineering.com>, "George Dunlap"
- <george.dunlap@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>,
- "Wei Liu" <wl@xen.org>, "Shawn Anastasio"
- <shawnanastasio@raptorengineering.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 2/3] xen/ppc: Implement early serial printk on
- PaPR/pseries
-From: "Shawn Anastasio" <shawn@anastas.io>
-To: "Julien Grall" <julien@xen.org>, "Andrew Cooper"
- <andrew.cooper3@citrix.com>, "Jan Beulich" <jbeulich@suse.com>
-References: <cover.1686148363.git.shawn@anastas.io>
- <e9a4878544d264688578d7899867df7e8207aba5.1686148363.git.shawn@anastas.io>
- <0c0a19de-dde3-8b98-4354-6d3d2019179b@suse.com>
- <0b24d36b-adbc-9e7c-df6e-8754c269855d@citrix.com>
- <d0d9b1be-a9e2-fff9-d631-149086ea1dfe@suse.com>
- <d52feaa7-4217-973e-19fe-9ec027eed5fc@citrix.com>
- <1c35f696-5a65-06da-8af5-685b8ad2e849@xen.org>
- <e16bcfa1-2b40-6bf0-57c9-5045ae1fdf80@citrix.com>
- <bcbab76d-ca8c-0772-3a9f-59fef3a2b5f5@xen.org>
-In-Reply-To: <bcbab76d-ca8c-0772-3a9f-59fef3a2b5f5@xen.org>
 
-On Fri Jun 9, 2023 at 5:12 AM CDT, Julien Grall wrote:
-> Strictly speaking we can refuse any code. That count for license as=20
-> well. Anyway, I didn't request a change here. I merely pointed out that=
-=20
-> any use of GPLv2+ should be justified because on Arm most of the people=
-=20
-> don't pay attention on the license and pick the one from an existing file=
-.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Hi Julien,
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-The choice of GPLv2+ for many of the files in this patchset was indeed
-inherited from old IBM-written Xen code that the files in question were
-derived from. I did not realize it was permissible or even desirable to
-relicense those to GPLv2-only.
+--------------FRRN0O07PbwvhNz4VuUV0kKu--
 
-As for the new files, GPLv2+ was chosen to remain consistent and to open
-the door for future derivations from GPLv2+ licensed code, either from
-the older Xen tree or from the Linux ppc tree, much of which is also
-licensed as GPLv2+. If it would reduce friction, these files could be
-relicensed to GPLv2-only.
+--------------VYzwh8M6sjS0dNkhphJsn5i2--
 
-Thanks,
-Shawn
+--------------MpO0aqOHPizWxQTFzinPIViv
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmSDQHAFAwAAAAAACgkQsN6d1ii/Ey/7
+UAf6A1EdYB1UDIAliXeURevLWbCz1ll1QMq2+0LNbTntjftcBzNckEif5Ee8IniwRlmAK/pPkYG4
+XIs0+zPlHTtdfK/7nQbd1DgaRB96W0AozwY0G2MroJ1cdWfOZ6N1KBggA21LvrzCO+Auxzj+Xwzi
+0jUx6i4hnWsudjOARbJQNJWomylj6xz0XSq+img8UIq8BF5seX/LIxdUfYbKdkDm1xe3cd2R8wDT
+f2cPijZUXJVw4nw4ip/svSR8pBx2H8Se1A8jbAfhH155Fvdlc0YnQ12JBUfWM3eaeZnxcvMXzF/R
+kSxcO4ovE9UbRYaRfuglJkTxyWmXIZdXdeHTIjZ+6Q==
+=WKT/
+-----END PGP SIGNATURE-----
+
+--------------MpO0aqOHPizWxQTFzinPIViv--
 
