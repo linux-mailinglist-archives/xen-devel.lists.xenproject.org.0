@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2575F72A0B9
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Jun 2023 18:56:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.546224.852928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A327E72A118
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Jun 2023 19:19:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.546233.852945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7fOy-0000Xq-G4; Fri, 09 Jun 2023 16:55:52 +0000
+	id 1q7flS-0003A3-Ci; Fri, 09 Jun 2023 17:19:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 546224.852928; Fri, 09 Jun 2023 16:55:52 +0000
+Received: by outflank-mailman (output) from mailman id 546233.852945; Fri, 09 Jun 2023 17:19:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q7fOy-0000VN-DG; Fri, 09 Jun 2023 16:55:52 +0000
-Received: by outflank-mailman (input) for mailman id 546224;
- Fri, 09 Jun 2023 16:55:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KOif=B5=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1q7fOw-0000VH-Ix
- for xen-devel@lists.xenproject.org; Fri, 09 Jun 2023 16:55:50 +0000
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ac49a08-06e6-11ee-b232-6b7b168915f2;
- Fri, 09 Jun 2023 18:55:48 +0200 (CEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4B65F5C0056;
- Fri,  9 Jun 2023 12:55:46 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 09 Jun 2023 12:55:46 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Jun 2023 12:55:44 -0400 (EDT)
+	id 1q7flS-000385-9f; Fri, 09 Jun 2023 17:19:06 +0000
+Received: by outflank-mailman (input) for mailman id 546233;
+ Fri, 09 Jun 2023 17:19:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q7flR-00037v-1i; Fri, 09 Jun 2023 17:19:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q7flQ-00025e-QY; Fri, 09 Jun 2023 17:19:04 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q7flQ-0006J7-FS; Fri, 09 Jun 2023 17:19:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q7flQ-0005DM-F1; Fri, 09 Jun 2023 17:19:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,244 +42,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ac49a08-06e6-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1686329746; x=1686416146; bh=jO2lbJWjlD3AhgpqUQ7r9uAT+WfB1wgKDIz
-	85pj33i8=; b=CFe8GJvCu68K0tqO7GAJP6Ph6cIOC2pvsTRjyaNHLMrLHIqfIrj
-	YNX4nMFHKqrYV/DXSlCwpi/YUqseg+9pvjoePMDxNbtwMAYglhGHcinU27Lv4Nge
-	iprtLLfS05YW420koXxSramZzljJ13kMSyGpcQDKMLu+l2UpLKoIW7JUnoBCC9w5
-	3WvQIwc30hDHL3STx5A28AG2gToQmSA/81lgiZGC1aVYYYhhynIITnwaqL0kUcit
-	UhqG2xxdv1xqUDE5CCezw2JSimg7m0Kw4MwAkbJSKmeaGTvh3NFF6JEgdWq7uHem
-	vm82rr1PCA10l657SPM1nZh1AJkv1cwWAsg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1686329746; x=1686416146; bh=jO2lbJWjlD3Ah
-	gpqUQ7r9uAT+WfB1wgKDIz85pj33i8=; b=w8IbCCCTVKAFYoq8dgC972pYva5Rb
-	mmPzwOwxgvYmOjUrELKiPGAM6xKit7KvVC5+LMnxgjZkkmXhX1BMtuM2vE7mcPAk
-	GUqBi3l7H46V8uaxggrhYHTiA+8rd8QGK4hoNe2gFaEUH0ZKdpuXoyZ8a4V2r3Ff
-	IQDBDuoVWMv/DvmZpg2ksqgOXP5ejpSurUM3D16H09COGtmlebrbEamBJ6dslAX0
-	E49uxqb41lq3OyLIbhztPb7oS54B1kP5qaV+P/G5OMka82JA2Ht8ZO3dqTj1P1kq
-	9/IbitskUvdGmOc2M5SWosWh4pucYOXQ5ISBq/itbcv/bowxxPPCfBhrQ==
-X-ME-Sender: <xms:kVmDZC9XOZM6ptkjSOu_HzwPcmVSxza92St4hphFJ7JJRn_TvOzYbQ>
-    <xme:kVmDZCt1CJ2HeRiSmUgAO84fKWAqR7_0tMIbF-CrMahSVI9FsYmjcKo2852XRBJaG
-    B9JD3erOYWGja8>
-X-ME-Received: <xmr:kVmDZIDd4roaVuvmRuTBFsW_9uyshMMr_FHPRXnUlemwKv8uKEj-qReXJ98>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgedtkedguddtjecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghm
-    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
-    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffeg
-    fffguddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtne
-    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
-    shhlrggsrdgtohhm
-X-ME-Proxy: <xmx:kVmDZKe7fNwLf_sshCBl8TDwl2n7fLQAEwQz93RdgWpXrtJnN4lmeQ>
-    <xmx:kVmDZHO06_1FTNq7mRU6Rkx6aJ9L1U4fwwe96uRP-7r4tPQsPH66ww>
-    <xmx:kVmDZEnDZXZLxSX7nDYzpAzBEhRJ6GQyNrKk1n0v0LPOIj5Od2DURw>
-    <xmx:klmDZDDm9qAHm16nDZgjqB1d0yGKjkRzPWSz64opTfCUZmIeyAtEIw>
-Feedback-ID: iac594737:Fastmail
-Date: Fri, 9 Jun 2023 12:55:39 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>, dm-devel@redhat.com,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 13/16] xen-blkback: Implement diskseq checks
-Message-ID: <ZINZj8ubQj7yFxdR@itl-email>
-References: <20230530203116.2008-1-demi@invisiblethingslab.com>
- <20230530203116.2008-14-demi@invisiblethingslab.com>
- <ZH7tizoYl8YVFN9B@Air-de-Roger>
- <ZH9mZGbM32CDmKGF@itl-email>
- <ZIA9uBJxx2gqA4Cq@Air-de-Roger>
- <ZICs+WYCPYdu2yoI@itl-email>
- <ZIGRXrSGmgLF/07O@Air-de-Roger>
- <ZIH0yQCICZRpliSc@itl-email>
- <ZINBqToBZVdfmr0e@Air-de-Roger>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=T5KtBU2LBcod6Cwr/hEFd/QAFlEnM9VGGYBg5f5aBaw=; b=OLpv/IRlOtEFRW74gldTdVZjAt
+	f74nM2L6eAMFlz44JzrAMO0MQEishxT/5dS9YBcWKgTdoS5FaaywnVtVfCX8Uy0z44WSvsJNq++7m
+	hCXPoJq+sUVgtfa1V6SkBgK1TrYzPpdfTSnCxoaFpDu6BE3UOZ0J6hU/l4TOD6TW3ApY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181344-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Ii0jDpZ9bgT07th0"
-Content-Disposition: inline
-In-Reply-To: <ZINBqToBZVdfmr0e@Air-de-Roger>
+Subject: [xen-unstable-smoke test] 181344: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=3a82e4501c4ec4d53b764c5b69955997b03d1137
+X-Osstest-Versions-That:
+    xen=64a647f8d817c6989edc000613b5afae19f03f99
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 09 Jun 2023 17:19:04 +0000
+
+flight 181344 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181344/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 181233
+ build-armhf                   6 xen-build                fail REGR. vs. 181233
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ xen                  3a82e4501c4ec4d53b764c5b69955997b03d1137
+baseline version:
+ xen                  64a647f8d817c6989edc000613b5afae19f03f99
+
+Last test of basis   181233  2023-06-07 02:04:37 Z    2 days
+Failing since        181246  2023-06-07 11:02:03 Z    2 days   26 attempts
+Testing same since   181342  2023-06-09 14:01:58 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Christian Lindig <christian.lindig@cloud.com>
+  George Dunlap <george.dunlap@citrix.com>
+  Henry Wang <Henry.Wang@arm.com> # CHANGELOG
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  pass    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
---Ii0jDpZ9bgT07th0
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 9 Jun 2023 12:55:39 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>, dm-devel@redhat.com,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 13/16] xen-blkback: Implement diskseq checks
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Fri, Jun 09, 2023 at 05:13:45PM +0200, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Jun 08, 2023 at 11:33:26AM -0400, Demi Marie Obenour wrote:
-> > On Thu, Jun 08, 2023 at 10:29:18AM +0200, Roger Pau Monn=C3=A9 wrote:
-> > > On Wed, Jun 07, 2023 at 12:14:46PM -0400, Demi Marie Obenour wrote:
-> > > > On Wed, Jun 07, 2023 at 10:20:08AM +0200, Roger Pau Monn=C3=A9 wrot=
-e:
-> > > > > On Tue, Jun 06, 2023 at 01:01:20PM -0400, Demi Marie Obenour wrot=
-e:
-> > > > > > On Tue, Jun 06, 2023 at 10:25:47AM +0200, Roger Pau Monn=C3=A9 =
-wrote:
-> > > > > > > On Tue, May 30, 2023 at 04:31:13PM -0400, Demi Marie Obenour =
-wrote:
-> > > > > > > Also, you tie this logic to the "physical-device" watch, which
-> > > > > > > strictly implies that the "diskseq" node must be written to x=
-enstore
-> > > > > > > before the "physical-device" node.  This seems fragile, but I=
- don't
-> > > > > > > see much better optiono since the "diskseq" is optional.
-> > > > > >=20
-> > > > > > What about including the diskseq in the "physical-device" node?=
-  Perhaps
-> > > > > > use diskseq@major:minor syntax?
-> > > > >=20
-> > > > > Hm, how would you know whether the blkback instance in the kernel
-> > > > > supports the diskseq syntax in physical-device?
-> > > >=20
-> > > > That=E2=80=99s what the next patch is for =F0=9F=99=82.
-> > >=20
-> > > Hm, I think we should separate diskseq support from the notify open
-> > > stuff: it's possible a different (non-Linux) backend wants to
-> > > implement open notify support but doesn't have diskseq.
-> >=20
-> > I like this idea!  What about having blkback set diskseq to zero?
-> > Userspace could then replace it with the actual value.
->=20
-> I think it would be better if we used a sysfs node, because blkfront
-> has no business is knowing whether diskseq is supported by the
-> backend or not.
->=20
-> xenstore should be reserved to features exposed between blkfront and
-> blkback if possible.  I know we haven't been very good at this
-> however.
->=20
-> > > > > Can you fetch a disk using a diskseq identifier?
-> > > >=20
-> > > > Not yet, although I have considered adding this ability.  It would =
-be
-> > > > one step towards a =E2=80=9Cdiskseqfs=E2=80=9D that userspace could=
- use to open a device
-> > > > by diskseq.
-> > > >=20
-> > > > > Why I understand that this is an extra safety check in order to a=
-ssert
-> > > > > blkback is opening the intended device, is this attempting to fix=
- some
-> > > > > existing issue?
-> > > >=20
-> > > > Yes, it is.  I have a block script (written in C) that validates the
-> > > > device it has opened before passing the information to blkback.  It=
- uses
-> > > > the diskseq to do this, but for that protection to be complete, blk=
-back
-> > > > must also be aware of it.
-> > >=20
-> > > But if your block script opens the device, and keeps it open until
-> > > blkback has also taken a reference to it, there's no way such device
-> > > could be removed and recreated in the window you point out above, as
-> > > there's always a reference on it taken?
-> >=20
-> > This assumes that the block script is not killed in the meantime,
-> > which is not a safe assumption due to timeouts and the OOM killer.
->=20
-> Doesn't seem very reliable to use with delete-on-close either then.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-That=E2=80=99s actually the purpose of delete-on-close!  It ensures that if=
- the
-block script gets killed, the device is automatically cleaned up.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> > > > > I'm not sure I see how the major:minor numbers would point to a
-> > > > > different device than the one specified by the toolstack unless t=
-he
-> > > > > admin explicitly messes with the devices before blkback has got t=
-ime
-> > > > > to open them.  But then the admin can already do pretty much
-> > > > > everything it wants with the system.
-> > > >=20
-> > > > Admins typically refer to e.g. device-mapper devices by name, not by
-> > > > major:minor number.  If a device is destroyed and recreated right a=
-s the
-> > > > block script is running, this race condition can occur.
-> > >=20
-> > > Right, but what about this device recreation happening after the admin
-> > > has written the guest config file but before the call to (lib)xl
-> > > happens?  blkback would also end up using a different device than
-> > > indented, and your proposed approach doesn't fix this.  The only way =
-to
-> > > solve this would be to reference devices by UUID (iow: diskseq)
-> > > directly in the guest config file.
-> >=20
-> > That would be a good idea, but it is orthogonal to this patch.  My
-> > script opens the device and uses various means to check that it did
-> > open the correct device.  It then passes the diskseq to blkback.
->=20
-> How you do this with losetup?  I guess there's an atomic way to setup
-> a loop device and get its diskseq?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-It can=E2=80=99t be done with losetup.  I use a C program that directly
-issues ioctls to /dev/loop-control and /dev/loop*.  Doing this with
-device-mapper requires kernel patches that have been submitted but are
-not yet upstream.
 
-> > > Then the block script will open the device by diskseq and pass the
-> > > major:minor numbers to blkback.
-> >=20
-> > Alternatively, the toolstack could write both the diskseq and
-> > major:minor numbers and be confident that it is referring to the
-> > correct device, no matter how long ago it got that information.
-> > This could be quite useful for e.g. one VM exporting a device to
-> > another VM by calling losetup(8) and expecting a human to make a
-> > decision based on various properties about the device.  In this
-> > case there is no upper bound on the race window.
->=20
-> Instead of playing with xenstore nodes, it might be better to simply
-> have blkback export on sysfs the diskseq of the opened device, and let
-> the block script check whether that's correct or not.  That implies
-> less code in the kernel side, and doesn't pollute xenstore.
+Not pushing.
 
-This would require that blkback delay exposing the device to the
-frontend until the block script has checked that the diskseq is correct.
-Much simpler for the block script to provide the diskseq in xenstore.
-If you want to avoid an extra xenstore node, I can make the diskseq part
-of the physical-device node.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---Ii0jDpZ9bgT07th0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmSDWY8ACgkQsoi1X/+c
-IsG4QxAA2SL5LAC2MiiRag652Tx+P83kIuMlP80Tw9d8diHvH0RXigUlTyFfvfWs
-I9kGjhjt+uLbxPwlyKxkEh4V6DqUjfOE7UP1gfIDy7e1kTJAv09LT/lXII5Bw/0f
-YihsdqSa9TwI19LxinadkWk213EgtmZPGE0jp6r6DU897mzg6mHsL94mo5PxmAMM
-MRRhQRABTHhggZLCx/JghFfb+C8CXO9mf88vAvClPwTs4BAYZrZG1R2g+Z6i8mHb
-y5Hk2++ImNB3FNT8j+dZKT9NdEqAXg8CHaOB5XsMcd4FFAeiFkFOCWr4n/4tRxAJ
-nJMgOIfAYFguSHz8UY2tenMh460dbtlKaE2YTKiS9vpCw7AZ+hSQIW/pysiTT0DO
-ZrLu3Vri6iWiDWOFx9gpoPR13/j07vlJyCG8Xo6yc4E/JPqUXKZrg8pZtiPmaLe7
-XLp+aLPyxTEGQqteROkZe6ZxdawI/DLcmHEc9xbR1iBtWCkBK0J9r5tg/N5nySKE
-RB40g9w94ZDkFTBDKZ1PrKWgu3FydVA+hZDMXJuNdl6XLOaGZQuaRUAw1pkB3ING
-/wxwQAFqkQCO51XPGKnNX3kwSJkedsMTYcLN8dtcsZ69IXq0sBpsbScVTjyYlVqE
-kQL6JEfCjZLiTQIVnwoSmcFmtun9Z+cS3t4RSeLUJHFuM9pJ/mo=
-=SvFi
------END PGP SIGNATURE-----
-
---Ii0jDpZ9bgT07th0--
+(No revision log; it would be 520 lines long.)
 
