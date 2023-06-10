@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92BA372AC9E
-	for <lists+xen-devel@lfdr.de>; Sat, 10 Jun 2023 17:33:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.546538.853482 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5053172AD51
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Jun 2023 18:34:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.546544.853493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q80a6-0005ho-Jh; Sat, 10 Jun 2023 15:32:46 +0000
+	id 1q81WW-0004Dh-Ms; Sat, 10 Jun 2023 16:33:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 546538.853482; Sat, 10 Jun 2023 15:32:46 +0000
+Received: by outflank-mailman (output) from mailman id 546544.853493; Sat, 10 Jun 2023 16:33:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q80a6-0005ep-Gq; Sat, 10 Jun 2023 15:32:46 +0000
-Received: by outflank-mailman (input) for mailman id 546538;
- Sat, 10 Jun 2023 15:32:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ujxR=B6=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1q80a4-0005ei-Ub
- for xen-devel@lists.xenproject.org; Sat, 10 Jun 2023 15:32:45 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 07a547e1-07a4-11ee-b232-6b7b168915f2;
- Sat, 10 Jun 2023 17:32:42 +0200 (CEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 7B5165C0094;
- Sat, 10 Jun 2023 11:32:37 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Sat, 10 Jun 2023 11:32:37 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 10 Jun 2023 11:32:36 -0400 (EDT)
+	id 1q81WW-0004Bq-JS; Sat, 10 Jun 2023 16:33:08 +0000
+Received: by outflank-mailman (input) for mailman id 546544;
+ Sat, 10 Jun 2023 16:33:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q81WU-0004Bg-Kd; Sat, 10 Jun 2023 16:33:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q81WU-0000rw-AC; Sat, 10 Jun 2023 16:33:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q81WT-0005ml-Um; Sat, 10 Jun 2023 16:33:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q81WT-0007SY-UD; Sat, 10 Jun 2023 16:33:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,205 +42,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07a547e1-07a4-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1686411157; x=1686497557; bh=E9OTs5ny+Fb91amwPPB8ZaWp4/OQurkf5gc
-	QxoQX9vA=; b=Da37icMjqR6GYRdNqfWZlRPFGrktUIW9LyZteNhfFX3EOQc+4mk
-	KK+r8BE3vRJl8mwyKBRXeat1qCe74eOw0CrXwAVPPooW97XcM7LzjnRmbKXPz7ep
-	caK1O+k0ojvQVNKYbbkBw/AjDsxfHVT+of3enFYUSJyfPZ5IX1Nqj4KmQmNW9iTX
-	A8wt6GSErWG7L8hKVltbEzPw2jPkZOam+LBjnNsp/JNV4Ro6yfiWKdZHPkqrTV+E
-	6PLKBWO9RjmZGvZ0OEmPgdWD+gvHDA1ftL5/Poq+AWYkZhA3aVdLXLAELnUhkdQv
-	QYGiW+CsL8BcjcfcJWUHcyLubLkJb94ClvA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1686411157; x=1686497557; bh=E9OTs5ny+Fb91
-	amwPPB8ZaWp4/OQurkf5gcQxoQX9vA=; b=EJG+MDFWDJ3y3FT3gQOh3PdijNfdt
-	+b1+8DLjbkNTU6RfdA6qWd+ivIwzlq06ncHRAVzWd3hcrwM0vk1wBjiZXAE8heGX
-	4ZOynEgpGT305IIUc8yMPxfIuc8HUgdhVai6baqqHlQ3+nCYmdzOfDb4DfjlTpgH
-	duNhOaGarpvUzVvMlbCaHArurU0gT8I/L6hnw0Z4ystLjefz2LnT4QkR9LhyKzhr
-	odInYrQYsA9VK2pNFZFAMoQCnf20CflHRNV1vrbmccjGfHH2xRjwLrln507KS4WT
-	VBinPGxCqIiul+YA3RDCtiQYg22wkPRmfQV2LzSEp8/gc9xXR2cuzL15A==
-X-ME-Sender: <xms:lZeEZLwOaHg7mdJTo6Ew312wiVM0urD1NhRsSn4_G0_NAk2UgAdK-w>
-    <xme:lZeEZDRK0aYwwxPqzlpr1ADv2amvaNXETXpOYNhP1R0rmih5sC67Nuxg7c-aN4XzI
-    gXVONWubq3R_fw>
-X-ME-Received: <xmr:lZeEZFWoF4cMDbvKmQmhANWmb5gnuNblpx7LfEqn_eETt3UfUhIcwvJ2_hsGjs41awIks7Opjco>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgedutddgleduucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvvefufffkofgggfestdekredtredttdenucfhrhhomhepffgvmhhiucfo
-    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomheqnecuggftrfgrthhtvghrnhepvdefgeekvdekgfffgeekhfeijedtffek
-    hefhleehfeejueetgfelgefgtdevieelnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
-    hrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgr
-    sgdrtghomh
-X-ME-Proxy: <xmx:lZeEZFh2ju-d1E65mVb5_fu0bA_iwdrGcCd7OO7OsN6F0ARqzOGL1A>
-    <xmx:lZeEZNA3X6PXyHOzNm0DQVF6_T4ype3b_3_DVhmsNCOW80cF_vw_BQ>
-    <xmx:lZeEZOI_VnABGB12eGANNHbpA9ajCxeQTnJCTILGaR0bmo6LWUPllQ>
-    <xmx:lZeEZP2aJjsuC7XuPrgsGc5TPKaioQ6E4ECsybYYOGL1SjrR4hTBmg>
-Feedback-ID: iac594737:Fastmail
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] xen: speed up grant-table reclaim
-Date: Sat, 10 Jun 2023 11:32:32 -0400
-Message-Id: <20230610153232.1859-1-demi@invisiblethingslab.com>
-X-Mailer: git-send-email 2.40.1
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZLUWpLKdi188nD59e2o7+lelY+RxZjr+ZcTjNa6r7PQ=; b=mf0r2MWKubZW7pK0/ioAIIHozG
+	tC+3xSgSuvw7jHs9OhzMdEhAfaUZh29KBLkNB0aCKUKrJUBtdYrz4gG18JYnUH0P6k+F26o4q8uLE
+	AqPnuc4WXqSBZ5MlEAT+jhXBCaxS+WZJozvRs2FaHZNGpXigs3nKW4ikKeHWmEAavMCQ=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181358-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 181358: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:test-amd64-i386-libvirt-pair:xen-install/src_host:fail:regression
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=97f0bd00b4d055f2329392d2f8b7fe566fc65901
+X-Osstest-Versions-That:
+    libvirt=d09b73b5601e7d974698fc62d1fbc64efb7093dc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 10 Jun 2023 16:33:05 +0000
 
-When a grant entry is still in use by the remote domain, Linux must put
-it on a deferred list.  Normally, this list is very short, because
-the PV network and block protocols expect the backend to unmap the grant
-first.  However, Qubes OS's GUI protocol is subject to the constraints
-of the X Window System, and as such winds up with the frontend unmapping
-the window first.  As a result, the list can grow very large, resulting
-in a massive memory leak and eventual VM freeze.
+flight 181358 libvirt real [real]
+flight 181366 libvirt real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181358/
+http://logs.test-lab.xenproject.org/osstest/logs/181366/
 
-To partially solve this problem, make the number of entries that the VM
-will attempt to free at each iteration tunable.  The default is still
-10, but it can be overridden at compile-time (via Kconfig), boot-time
-(via a kernel command-line option), or runtime (via sysfs).
+Regressions :-(
 
-Fixes: 569ca5b3f94c ("xen/gnttab: add deferred freeing logic")
-Cc: stable@vger.kernel.org
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
----
- drivers/xen/Kconfig       | 12 ++++++++++++
- drivers/xen/grant-table.c | 40 ++++++++++++++++++++++++++++-----------
- 2 files changed, 41 insertions(+), 11 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-libvirt-pair 10 xen-install/src_host     fail REGR. vs. 181328
 
-diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
-index d5d7c402b65112b8592ba10bd3fd1732c26b771e..8f96e1359eb102d6420775b66e7805004a4ce9fe 100644
---- a/drivers/xen/Kconfig
-+++ b/drivers/xen/Kconfig
-@@ -65,6 +65,18 @@ config XEN_MEMORY_HOTPLUG_LIMIT
- 	  This value is used to allocate enough space in internal
- 	  tables needed for physical memory administration.
- 
-+config XEN_GRANTS_RECLAIM_PER_ITERATION
-+	int "Default number of grant entries to reclaim per iteration"
-+	default 10
-+	range 10 4294967295
-+	help
-+	  This sets the default value for the grant_table.free_per_iteration
-+	  kernel command line option, which sets the number of grants that
-+	  Linux will try to reclaim at once.  The default is 10, but
-+	  workloads that make heavy use of gntalloc will likely want to
-+	  increase this.  The current value can be accessed and/or modified
-+	  via /sys/module/grant_table/parameters/free_per_iteration.
-+
- config XEN_SCRUB_PAGES_DEFAULT
- 	bool "Scrub pages before returning them to system by default"
- 	depends on XEN_BALLOON
-diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
-index e1ec725c2819d4d5dede063eb00d86a6d52944c0..fa666aa6abc3e786dddc94f895641505ec0b23d8 100644
---- a/drivers/xen/grant-table.c
-+++ b/drivers/xen/grant-table.c
-@@ -498,14 +498,20 @@ static LIST_HEAD(deferred_list);
- static void gnttab_handle_deferred(struct timer_list *);
- static DEFINE_TIMER(deferred_timer, gnttab_handle_deferred);
- 
-+static atomic64_t deferred_count;
-+static atomic64_t leaked_count;
-+static unsigned int free_per_iteration = CONFIG_XEN_GRANTS_RECLAIM_PER_ITERATION;
-+
- static void gnttab_handle_deferred(struct timer_list *unused)
- {
--	unsigned int nr = 10;
-+	unsigned int nr = READ_ONCE(free_per_iteration);
-+	const bool ignore_limit = nr == 0;
- 	struct deferred_entry *first = NULL;
- 	unsigned long flags;
-+	size_t freed = 0;
- 
- 	spin_lock_irqsave(&gnttab_list_lock, flags);
--	while (nr--) {
-+	while ((ignore_limit || nr--) && !list_empty(&deferred_list)) {
- 		struct deferred_entry *entry
- 			= list_first_entry(&deferred_list,
- 					   struct deferred_entry, list);
-@@ -515,10 +521,13 @@ static void gnttab_handle_deferred(struct timer_list *unused)
- 		list_del(&entry->list);
- 		spin_unlock_irqrestore(&gnttab_list_lock, flags);
- 		if (_gnttab_end_foreign_access_ref(entry->ref)) {
-+			uint64_t ret = atomic64_sub_return(1, &deferred_count);
- 			put_free_entry(entry->ref);
--			pr_debug("freeing g.e. %#x (pfn %#lx)\n",
--				 entry->ref, page_to_pfn(entry->page));
-+			pr_debug("freeing g.e. %#x (pfn %#lx), %llu remaining\n",
-+				 entry->ref, page_to_pfn(entry->page),
-+				 (unsigned long long)ret);
- 			put_page(entry->page);
-+			freed++;
- 			kfree(entry);
- 			entry = NULL;
- 		} else {
-@@ -530,21 +539,22 @@ static void gnttab_handle_deferred(struct timer_list *unused)
- 		spin_lock_irqsave(&gnttab_list_lock, flags);
- 		if (entry)
- 			list_add_tail(&entry->list, &deferred_list);
--		else if (list_empty(&deferred_list))
--			break;
- 	}
--	if (!list_empty(&deferred_list) && !timer_pending(&deferred_timer)) {
-+	if (list_empty(&deferred_list))
-+		WARN_ON(atomic64_read(&deferred_count));
-+	else if (!timer_pending(&deferred_timer)) {
- 		deferred_timer.expires = jiffies + HZ;
- 		add_timer(&deferred_timer);
- 	}
- 	spin_unlock_irqrestore(&gnttab_list_lock, flags);
-+	pr_debug("Freed %zu references", freed);
- }
- 
- static void gnttab_add_deferred(grant_ref_t ref, struct page *page)
- {
- 	struct deferred_entry *entry;
- 	gfp_t gfp = (in_atomic() || irqs_disabled()) ? GFP_ATOMIC : GFP_KERNEL;
--	const char *what = KERN_WARNING "leaking";
-+	uint64_t leaked, deferred;
- 
- 	entry = kmalloc(sizeof(*entry), gfp);
- 	if (!page) {
-@@ -567,12 +577,20 @@ static void gnttab_add_deferred(grant_ref_t ref, struct page *page)
- 			add_timer(&deferred_timer);
- 		}
- 		spin_unlock_irqrestore(&gnttab_list_lock, flags);
--		what = KERN_DEBUG "deferring";
-+		deferred = atomic64_add_return(1, &deferred_count);
-+		leaked = atomic64_read(&leaked_count);
-+		pr_debug("deferring g.e. %#x (pfn %#lx) (total deferred %llu, total leaked %llu)\n",
-+			 ref, page ? page_to_pfn(page) : -1, deferred, leaked);
-+	} else {
-+		deferred = atomic64_read(&deferred_count);
-+		leaked = atomic64_add_return(1, &leaked_count);
-+		pr_warn("leaking g.e. %#x (pfn %#lx) (total deferred %llu, total leaked %llu)\n",
-+			ref, page ? page_to_pfn(page) : -1, deferred, leaked);
- 	}
--	printk("%s g.e. %#x (pfn %#lx)\n",
--	       what, ref, page ? page_to_pfn(page) : -1);
- }
- 
-+module_param(free_per_iteration, uint, 0600);
-+
- int gnttab_try_end_foreign_access(grant_ref_t ref)
- {
- 	int ret = _gnttab_end_foreign_access_ref(ref);
--- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 181328
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 181328
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 181328
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ libvirt              97f0bd00b4d055f2329392d2f8b7fe566fc65901
+baseline version:
+ libvirt              d09b73b5601e7d974698fc62d1fbc64efb7093dc
+
+Last test of basis   181328  2023-06-09 04:21:22 Z    1 days
+Testing same since   181358  2023-06-10 04:20:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Malte Linke <malte.linke@outlook.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 fail    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 97f0bd00b4d055f2329392d2f8b7fe566fc65901
+Author: Malte Linke <malte.linke@outlook.com>
+Date:   Fri Jun 9 15:20:43 2023 +0200
+
+    Translated using Weblate (German)
+    
+    Currently translated at 47.4% (4932 of 10397 strings)
+    
+    Translation: libvirt/libvirt
+    Translate-URL: https://translate.fedoraproject.org/projects/libvirt/libvirt/de/
+    
+    Co-authored-by: Malte Linke <malte.linke@outlook.com>
+    Signed-off-by: Malte Linke <malte.linke@outlook.com>
 
