@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A368972AD96
-	for <lists+xen-devel@lfdr.de>; Sat, 10 Jun 2023 19:08:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.546555.853529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F35072AE22
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Jun 2023 20:38:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.546583.853558 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q824K-0008Mi-C2; Sat, 10 Jun 2023 17:08:04 +0000
+	id 1q83Sn-00025R-Ir; Sat, 10 Jun 2023 18:37:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 546555.853529; Sat, 10 Jun 2023 17:08:04 +0000
+Received: by outflank-mailman (output) from mailman id 546583.853558; Sat, 10 Jun 2023 18:37:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q824K-0008Fp-4p; Sat, 10 Jun 2023 17:08:04 +0000
-Received: by outflank-mailman (input) for mailman id 546555;
- Sat, 10 Jun 2023 17:08:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q83Sn-00023X-Fd; Sat, 10 Jun 2023 18:37:25 +0000
+Received: by outflank-mailman (input) for mailman id 546583;
+ Sat, 10 Jun 2023 18:37:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ujxR=B6=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1q824I-00084G-HX
- for xen-devel@lists.xenproject.org; Sat, 10 Jun 2023 17:08:02 +0000
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5b037abc-07b1-11ee-b232-6b7b168915f2;
- Sat, 10 Jun 2023 19:08:01 +0200 (CEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 19C3F5C00F9;
- Sat, 10 Jun 2023 13:08:01 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Sat, 10 Jun 2023 13:08:01 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 10 Jun 2023 13:07:59 -0400 (EDT)
+ <SRS0=Mkd/=B6=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1q83Sm-00023O-0e
+ for xen-devel@lists.xenproject.org; Sat, 10 Jun 2023 18:37:24 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d509df91-07bd-11ee-8611-37d641c3527e;
+ Sat, 10 Jun 2023 20:37:20 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,140 +36,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b037abc-07b1-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1686416881; x=1686503281; bh=TmbhH/0ly3
-	pB3JOqGw89diUDufWw9j78goS8q6skCyk=; b=QVjheJeyM7p0c069LT+BuB4f0m
-	JHFXKBOKLHyZdGN1dI7Xg2CHRbYbBz016p0MWQb1wJ0m/CkbOIqSGHQirxw9cB5r
-	dtEKQIvGtiavzaAPLb7q48jcqNep5y25/EXr7KdUd5hOHtnYROPu4wlzgCv6qedJ
-	V/i8hYS4e94/6Xn07dyYOoiU8WRkWNce47fxGLB++trtFUE4vZbDFbZ8TrAXCXqD
-	zY7dq5ZsPRGpyARXLEtEeorMF3Kfy8QlNq3KZz4Db6g7l3s0FkhbI6BOM4g2t3sU
-	80XR4vln+Xcdb16w6e6yg9r63q43HfFl20Mi9EHQevPpHy+yXEYb9XO2LXRg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1686416881; x=
-	1686503281; bh=TmbhH/0ly3pB3JOqGw89diUDufWw9j78goS8q6skCyk=; b=H
-	5Do6YlaaYtGxcuyqDWouK2yBlL0NP5Q1P/beUidzDtLeqCk6SyG+M/R7ZvvQh+GV
-	iBJ1PoRejG08Zr3Z4PG9EM3VFoBUkRr82a1KGgKpA6CnRhnf6sKJOIev99096QfK
-	UbjK09Z9bdS4FmAn01FvBycOBgBhe8ilmBauglnwjcEpUpkmcM+mFk9vZORX0Hz2
-	/8nvl3DfVH3bTjoHQ55VOJNj5vwNx9XuwCf1el4oW4sG1FTMzUHpCYZfoDpiDk+Z
-	b1UtwrYqj7lVkY78zIfJAC6V0P47Y9+DqGP68ZkKbJiGasS7uDFS55edLaOiwtn1
-	Kfdj0Hlg5T0+A+XJvKazQ==
-X-ME-Sender: <xms:8K2EZBVcnD-uBZYGKxiWqtCRsdoMqEkSsea3_VUIT3DYAgR6IJs83Q>
-    <xme:8K2EZBkvoPHydeNvuTnsS0_meXDdJSYXy2HLW-IE_70x-c_uqTGLLtXImjd0qWIUq
-    vB84dA5jXJpeKk>
-X-ME-Received: <xmr:8K2EZNbb8NttdXxlZpyVAy4In4plhQ5JRsGiZiw8CTXzZMWDIOgjGkqEP1u6_F5sAWZbyk9u8jM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgedutddgudduudcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeffvghm
-    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
-    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeejffejgffgueegudevvdejkefg
-    hefghffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedtne
-    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
-    shhlrggsrdgtohhm
-X-ME-Proxy: <xmx:8K2EZEVKO40jBTawR2O5FinOiWqtjX6HjQ2WYRIn9UhdhCQBq-g1mg>
-    <xmx:8K2EZLlh2PD7KLp9YP_pW7e-HPEjK0To5CcuEm-TUMSgndlBQjrTHQ>
-    <xmx:8K2EZBduYPm45AMHGmYGv5vpQtiYW7yvj4qk4zAfejJbLCOAw4xWGg>
-    <xmx:8a2EZKdnqYuIxd1XbN5rcAjKu2Szskw0NEOwN8-Nhlbc0DGFcqBq_w>
-Feedback-ID: iac594737:Fastmail
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Hans de Goede <hdegoede@redhat.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Lee Jones <lee@kernel.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Petr Mladek <pmladek@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v2 3/3] Strict XenStore entry parsing
-Date: Sat, 10 Jun 2023 13:07:43 -0400
-Message-Id: <20230610170743.2510-4-demi@invisiblethingslab.com>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20230610170743.2510-1-demi@invisiblethingslab.com>
-References: <20230610170743.2510-1-demi@invisiblethingslab.com>
+X-Inumbo-ID: d509df91-07bd-11ee-8611-37d641c3527e
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1686422239;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=N7WjIOv23GkoARnLqItYOF1clW2sOuIKmsM3GXO5Xpg=;
+	b=YCL2WcdNIO0s3K7UdC06CzI1RNfJDkJe7HEF4v5qdxN8RrO3sAaq8xX62f444BjcyFpI8P
+	dvsdlA/V4XzVxCD0n8uz5bQYGAgwsvDqWJ8rNLJDHj8k8iQwRRGGrRVWI0YDNiCXV818Ht
+	GruRrk0/QYF97Rhj5uVOQfTLlEitAY6Rs+rjvdpG7tob605G0Kvr/fVugOur6hufdowyf4
+	Ax62Ig7bPHia5hggr2KaWqBtF0qOBpkmhrvFk02kMofvAv6EhF1xBRXZSKW4DrYvu52o5K
+	D3W+c9UFX4owv7UrRYBLocORMja3sAJWQxRmRkowpokWoNy9GULDK6NIlr681w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1686422239;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=N7WjIOv23GkoARnLqItYOF1clW2sOuIKmsM3GXO5Xpg=;
+	b=S7g5PoBvQUVBSn498XvK9vJHSGy+5G3W0vpFYxeTng6YEJJyB4cAG/EGEkYC18Ui7RMwlG
+	7oqYWL4zDKXltfCg==
+To: Hou Wenlong <houwenlong.hwl@antgroup.com>, Dave Hansen
+ <dave.hansen@intel.com>
+Cc: linux-kernel@vger.kernel.org, Lai Jiangshan
+ <jiangshan.ljs@antgroup.com>, Alexey Makhalov <amakhalov@vmware.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Andy Lutomirski
+ <luto@kernel.org>, Anshuman Khandual <anshuman.khandual@arm.com>, Borislav
+ Petkov <bp@alien8.de>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Brian
+ Gerst <brgerst@gmail.com>, Dave Hansen <dave.hansen@linux.intel.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, Josh Poimboeuf <jpoimboe@kernel.org>,
+ Juergen Gross <jgross@suse.com>, "Kirill A. Shutemov"
+ <kirill.shutemov@linux.intel.com>, "Mike Rapoport (IBM)"
+ <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, Peter
+ Zijlstra <peterz@infradead.org>, "Srivatsa S. Bhat (VMware)"
+ <srivatsa@csail.mit.edu>, Suren Baghdasaryan <surenb@google.com>, Usama
+ Arif <usama.arif@bytedance.com>,
+ virtualization@lists.linux-foundation.org, VMware PV-Drivers Reviewers
+ <pv-drivers@vmware.com>, x86@kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH RFC 0/4] x86/fixmap: Unify FIXADDR_TOP
+In-Reply-To: <20230608093303.GA16983@k08j02272.eu95sqa>
+References: <cover.1684137557.git.houwenlong.hwl@antgroup.com>
+ <1f633e99-d294-6932-31e9-0eb158d030ea@intel.com>
+ <20230608093303.GA16983@k08j02272.eu95sqa>
+Date: Sat, 10 Jun 2023 20:37:18 +0200
+Message-ID: <87y1kr88pt.ffs@tglx>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-This rejects bogus xenstore node values that include e.g. leading spaces
-or overflow the expected integer type.
+On Thu, Jun 08 2023 at 17:33, Hou Wenlong wrote:
+> On Wed, Jun 07, 2023 at 08:49:15PM +0800, Dave Hansen wrote:
+>> What problems does this patch set solve?  How might that solution be
+>> visible to end users?  Why is this problem important to you?
+>
+> We want to build the kernel as PIE and allow the kernel image area,
+> including the fixmap area, to be placed at any virtual address.
 
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
----
- drivers/xen/xenbus/xenbus_xs.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+You are still failing to tell us why you want that and which problem
+this solves. Just that fact that you want to something is not an
+argument.
 
-diff --git a/drivers/xen/xenbus/xenbus_xs.c b/drivers/xen/xenbus/xenbus_xs.c
-index 12e02eb01f5991b31db451cc57037205359b347f..7cb2a22a7698ac40c81add23476594d9f27de8d0 100644
---- a/drivers/xen/xenbus/xenbus_xs.c
-+++ b/drivers/xen/xenbus/xenbus_xs.c
-@@ -569,16 +569,20 @@ int xenbus_scanf(struct xenbus_transaction t,
- 		 const char *dir, const char *node, const char *fmt, ...)
- {
- 	va_list ap;
--	int ret;
-+	int ret = 0;
-+	unsigned int len;
- 	char *val;
- 
--	val = xenbus_read(t, dir, node, NULL);
-+	val = xenbus_read(t, dir, node, &len);
- 	if (IS_ERR(val))
- 		return PTR_ERR(val);
-+	if (strlen(val) != len)
-+		goto bad;
- 
- 	va_start(ap, fmt);
- 	ret = vsscanf(val, fmt, ap);
- 	va_end(ap);
-+bad:
- 	kfree(val);
- 	/* Distinctive errno. */
- 	if (ret == 0)
-@@ -636,15 +640,18 @@ int xenbus_gather(struct xenbus_transaction t, const char *dir, ...)
- 	while (ret == 0 && (name = va_arg(ap, char *)) != NULL) {
- 		const char *fmt = va_arg(ap, char *);
- 		void *result = va_arg(ap, void *);
-+		unsigned len;
- 		char *p;
- 
--		p = xenbus_read(t, dir, name, NULL);
-+		p = xenbus_read(t, dir, name, &len);
- 		if (IS_ERR(p)) {
- 			ret = PTR_ERR(p);
- 			break;
- 		}
--		if (fmt) {
--			if (sscanf(p, fmt, result) == 0)
-+		if (strlen(p) != len)
-+			ret = -EINVAL;
-+		else if (fmt) {
-+			if (sscanf(p, fmt, result) <= 0)
- 				ret = -EINVAL;
- 			kfree(p);
- 		} else
--- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+> We have also implemented a PV Linux guest based on PIE, which can be
+> used in software virtualization similar to Lguest. PIE makes the guest
+> kernel share the host kernel space similar to a normal userspace
+> process.  Additionally, we are considering whether it is possible to
+> use PIE and PVOPS to implement a user-mode kernel.
 
+That solves what?
+
+Thanks,
+
+        tglx
 
