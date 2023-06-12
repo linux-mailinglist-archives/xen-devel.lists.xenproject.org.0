@@ -2,37 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9927B72C353
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 13:45:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547030.854243 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9755772C2F0
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 13:36:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547032.854203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8fzC-0007My-If; Mon, 12 Jun 2023 11:45:26 +0000
+	id 1q8fq7-0004YO-VD; Mon, 12 Jun 2023 11:36:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547030.854243; Mon, 12 Jun 2023 11:45:26 +0000
+Received: by outflank-mailman (output) from mailman id 547032.854203; Mon, 12 Jun 2023 11:36:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8fzC-0007Kc-Fu; Mon, 12 Jun 2023 11:45:26 +0000
-Received: by outflank-mailman (input) for mailman id 547030;
- Mon, 12 Jun 2023 11:20:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q8fq7-0004Vr-SP; Mon, 12 Jun 2023 11:36:03 +0000
+Received: by outflank-mailman (input) for mailman id 547032;
+ Mon, 12 Jun 2023 11:36:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LMUQ=CA=kernel.org=lee@srs-se1.protection.inumbo.net>)
- id 1q8fah-0003QD-Sb
- for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 11:20:07 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 14606e45-0913-11ee-b232-6b7b168915f2;
- Mon, 12 Jun 2023 13:20:06 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 070B960AEA;
- Mon, 12 Jun 2023 11:20:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517FEC433EF;
- Mon, 12 Jun 2023 11:19:59 +0000 (UTC)
+ (envelope-from <SRS0=f5dG=CA=aepfle.de=olaf@srs-se1.protection.inumbo.net>)
+ id 1q8fq5-0004Vl-My
+ for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 11:36:01 +0000
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [85.215.255.23]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4d7c0fa0-0915-11ee-8611-37d641c3527e;
+ Mon, 12 Jun 2023 13:35:59 +0200 (CEST)
+Received: from sender by smtp.strato.de (RZmta 49.5.3 AUTH)
+ with ESMTPSA id L38909z5CBZtc4e
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Mon, 12 Jun 2023 13:35:55 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,122 +41,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 14606e45-0913-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1686568803;
-	bh=23JwlmTrqv4IR+K4vNf3mjg3Y1quit9pjndWhP+WBVQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WbVmaT/k2NJ431omJScx8rn6Tr4xCwHvNKr6toopgTYPT/LQMqMpo7FBV6vIGJ4Ih
-	 +HSkHHWJ35Kcb4B/GPixREIZZBfO6jCqVm2Oj7ei4Ar3Tq5VdX+HzY8hRcQXP/+huS
-	 OJbyhn41f3IULnSq0wd/dz2lHKMxj8853QNGxSQmcax6UBGdjg1/NwAF+VG6M3OHL2
-	 ZzOOn7hwX4hqHpXo5AUa9bZN9l3F97lPwSQv46KeDu8M33XqdrFtdbw9tq1DG+/U0P
-	 7qVFwPAn09GyfkCtFxQ5HZGZsXWZZPEQgoJDyew2d9LSRvZgIIxDgS8gSf/0U6hnid
-	 f8spn2rSpOb/Q==
-Date: Mon, 12 Jun 2023 12:19:55 +0100
-From: Lee Jones <lee@kernel.org>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Hans de Goede <hdegoede@redhat.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>,
-	Petr Mladek <pmladek@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 1/4] limits.h: add UCHAR_MAX, SCHAR_MAX, and SCHAR_MIN
-Message-ID: <20230612111955.GM3635807@google.com>
-References: <20230610204044.3653-1-demi@invisiblethingslab.com>
- <20230610204044.3653-2-demi@invisiblethingslab.com>
+X-Inumbo-ID: 4d7c0fa0-0915-11ee-8611-37d641c3527e
+ARC-Seal: i=1; a=rsa-sha256; t=1686569756; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=pNrtVTYz4lyOmTy6g4Q2QNwSbHVe4QnycKb6jH+SNrbnAs4RSRitt5FzJLZHxo7euQ
+    vz3zaR51iyDt/bu4iBtq5N7T9hrTEfLuU+6mx/v5wqZ21KVXzcRcFmnJ6bWhtOVjTDq9
+    /IHpXG8EXyjWXQ/mfHe3jvojes6woj5/Kzr1/wbsUfUVVA4Pp97YpKAqwAoHoFHM/YLo
+    6bBNTkgisBGLiUSNfqA1AMkfmZqFPGADtZwMBTUst7EUONKKDd4PawyLKU+/zfZ88f7V
+    S+fMPJc5+g9VkLsac0TB0CXyBpZsP9r8PWpAY57veUbxZa/2ZUIsuNRxhIDhnyFjO12L
+    huNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1686569756;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=pKt57UxSqw7BkjX8dTFjIFf2WIs8BhjFcxJrxL5J7qs=;
+    b=p+YKlGiFBhTAKRNnqs2rhI/agAJrBIY5GK/LwJE5zMyUnobhR/HzF3n98TyHi88wq3
+    Rwqst7xODkqPH7yvNHKiUSoMv1iDazJ3PzEsfYAD37Mztq5u01djcfPTV3khOsSUIzrM
+    MCEg34atP4/rLd1m+K5iKOeAAPMGOOjxfX5Qih8BjAqwVcoFuWqLlyquEnqUGLsR5Bae
+    n1nWVTdCMCz8A9hJkN9UZIIT5EbfysFtnrJmej0fZaq98cay7Nt9shG6WuPqD3pQDMeq
+    LZy/Qn98aiHy9BfjfLooSk0ElLt/LMFREwMcQhwja50Ww4cawyQ5zOstZM0hNpPg1BmQ
+    9VgA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1686569756;
+    s=strato-dkim-0002; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=pKt57UxSqw7BkjX8dTFjIFf2WIs8BhjFcxJrxL5J7qs=;
+    b=gnjsdsy6LCSQ7EwRdEtXd37R/+T+N/8uAgRVqRmAA28E82OgrJUbEs6Z+L8xXlhDes
+    y82kmQ3+eJ6QeAkds020t5lhYzxDlmsd33p5Ox7ajmjmFTqF83kjtSoQeapNBT68qCQX
+    AdlffV2gU5r+xixYCANmOQRwSrp5Qy4y6y2hWwve4J1wIEDczAA0Ss62WuWxvrQ5anap
+    oQpwmFOK2wavpvwoaXxso6/sVJiAq7jINGUqsIEEKESdL4dGXVZ9CVylomcKSQFBIknH
+    /kTY8Cq5P858MX2d5dXnko9Gf+aMc6qr1dRHCXuEphb8AtoMqaeRG2rpEVFaoHSzfrKd
+    BphA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1686569756;
+    s=strato-dkim-0003; d=aepfle.de;
+    h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=pKt57UxSqw7BkjX8dTFjIFf2WIs8BhjFcxJrxL5J7qs=;
+    b=MfJ8ajAEsXALJ0oWrfstLb8O9QtGS1zXxrN6Z4bC/Jxry3iatahHKA3l2GaPLQs/CS
+    IIVRX4PA36dloHbigKBA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QLpd5ylWvMDX3y/OuD5rXVisR5AB2Ibh3sRFQAfajHZ8Hr2i7N1ImBUHmXWy0PQg=="
+Date: Mon, 12 Jun 2023 13:35:45 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v1] tools: fix make rpmball
+Message-ID: <20230612133545.1318ce98.olaf@aepfle.de>
+In-Reply-To: <6734a258-3396-4641-b9bf-edf6193a8095@perard>
+References: <20230530111807.6521-1-olaf@aepfle.de>
+	<6734a258-3396-4641-b9bf-edf6193a8095@perard>
+X-Mailer: Claws Mail 20230601T090920.68bc28c0 hat ein Softwareproblem, kann man nichts machen.
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230610204044.3653-2-demi@invisiblethingslab.com>
+Content-Type: multipart/signed; boundary="Sig_/mWNX_HgNO194q0y63bTk0ZQ";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 7bit
 
-On Sat, 10 Jun 2023, Demi Marie Obenour wrote:
+--Sig_/mWNX_HgNO194q0y63bTk0ZQ
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-> Some drivers already defined these, and they will be used by sscanf()
-> for overflow checks later.  Also add SSIZE_MIN to limits.h, which will
-> also be needed later.
-> 
-> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> ---
->  .../media/atomisp/pci/hive_isp_css_include/platform_support.h  | 1 -
->  include/linux/limits.h                                         | 1 +
->  include/linux/mfd/wl1273-core.h                                | 3 ---
+Mon, 12 Jun 2023 11:40:55 +0100 Anthony PERARD <anthony.perard@citrix.com>:
 
-Acked-by: Lee Jones <lee@kernel.org>
+> On Tue, May 30, 2023 at 01:18:07PM +0200, Olaf Hering wrote:
+> > +pushd %buildroot
+> > +popd =20
+> Are these 2 lines left over from testing? They don't appear to do
+> anything useful.
 
->  include/vdso/limits.h                                          | 3 +++
->  4 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_include/platform_support.h b/drivers/staging/media/atomisp/pci/hive_isp_css_include/platform_support.h
-> index 0cdef4a5e8b1bed9884133f1a0b9d853d59d43a4..e29b96d8bebf14839f6dd48fdc6c0f8b029ef31d 100644
-> --- a/drivers/staging/media/atomisp/pci/hive_isp_css_include/platform_support.h
-> +++ b/drivers/staging/media/atomisp/pci/hive_isp_css_include/platform_support.h
-> @@ -27,7 +27,6 @@
->  
->  #define UINT16_MAX USHRT_MAX
->  #define UINT32_MAX UINT_MAX
-> -#define UCHAR_MAX  (255)
->  
->  #define CSS_ALIGN(d, a) d __attribute__((aligned(a)))
->  
-> diff --git a/include/linux/limits.h b/include/linux/limits.h
-> index f6bcc936901071f496e3e85bb6e1d93905b12e32..8f7fd85b41fb46e6992d9e5912da00424119227a 100644
-> --- a/include/linux/limits.h
-> +++ b/include/linux/limits.h
-> @@ -8,6 +8,7 @@
->  
->  #define SIZE_MAX	(~(size_t)0)
->  #define SSIZE_MAX	((ssize_t)(SIZE_MAX >> 1))
-> +#define SSIZE_MIN	(-SSIZE_MAX - 1)
->  #define PHYS_ADDR_MAX	(~(phys_addr_t)0)
->  
->  #define U8_MAX		((u8)~0U)
-> diff --git a/include/linux/mfd/wl1273-core.h b/include/linux/mfd/wl1273-core.h
-> index c28cf76d5c31ee1c94a9319a2e2d318bf00283a6..b81a229135ed9f756c749122a8341816031c8311 100644
-> --- a/include/linux/mfd/wl1273-core.h
-> +++ b/include/linux/mfd/wl1273-core.h
-> @@ -204,9 +204,6 @@
->  				 WL1273_IS2_TRI_OPT | \
->  				 WL1273_IS2_RATE_48K)
->  
-> -#define SCHAR_MIN (-128)
-> -#define SCHAR_MAX 127
-> -
->  #define WL1273_FR_EVENT			BIT(0)
->  #define WL1273_BL_EVENT			BIT(1)
->  #define WL1273_RDS_EVENT		BIT(2)
-> diff --git a/include/vdso/limits.h b/include/vdso/limits.h
-> index 0197888ad0e00b2f853d3f25ffa764f61cca7385..0cad0a2490e5efc194d874025eb3e3b846a5c7b4 100644
-> --- a/include/vdso/limits.h
-> +++ b/include/vdso/limits.h
-> @@ -2,6 +2,9 @@
->  #ifndef __VDSO_LIMITS_H
->  #define __VDSO_LIMITS_H
->  
-> +#define UCHAR_MAX	((unsigned char)~0U)
-> +#define SCHAR_MAX	((signed char)(UCHAR_MAX >> 1))
-> +#define SCHAR_MIN	((signed char)(-SCHAR_MAX - 1))
->  #define USHRT_MAX	((unsigned short)~0U)
->  #define SHRT_MAX	((short)(USHRT_MAX >> 1))
->  #define SHRT_MIN	((short)(-SHRT_MAX - 1))
-> -- 
-> Sincerely,
-> Demi Marie Obenour (she/her/hers)
-> Invisible Things Lab
-> 
+I think the intention was to test if mkdir succeeded. But then it
+should have been right after mkdir...
 
--- 
-Lee Jones [李琼斯]
+I will send v2 without these two lines.
+
+
+Olaf
+
+--Sig_/mWNX_HgNO194q0y63bTk0ZQ
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAmSHAxEACgkQ86SN7mm1
+DoAAaQ/+KyH8JLPraZjzFp47cOs0alYFCQ8BgxNoavA+MjLlySwUqgu0JnDGq3Tx
+h+fqBLe5CF8BAfXsjXQacsRbGc/wEAuVCkD1WpPqBAs1YpCwCx5HUzk09e1IBEZq
+kipf2IeNVHjU+R+najygKuXQH21Pwq7bMh3MWpHE9GOM1ghQWhb8yvVqC8HADYZs
+IOjL2cJIdNYmpJJ76+0m5ew2gsfCep+dLBtSmCgUBYy4rgdQmECMXiZQ/yrjePRt
+litJhmPjEzZaic2TIySyaJO8+DKklDpGqVDCg/bG4rhtLfnKbB1dhtBG2OOv721O
+GOIxfwFmdarimd5af8WWDcxVdxb5OIND5O2q57RcFrpSSL4trpClm97lshUzTyUy
+arHRxnpmxB0dAjHxz7z3Ifp1WTUrCkK3sozsMf4B6wDXE25O+Xhxc1HKXJQKOnpk
+fa1U885DZ9kAuZD/3zzMSC9G6dpcsQsvQBt5HFAjrntiWg9JTYDOTKhEmDqfEAj0
+b70bTW9tm9Yqq7LT1A7IWWTyxFXqUJnXWk/s+2jbZPbpqmNxdPocoI8wX+Uakyij
+qqhE0TS624ac/8irG31URAt/M6EDZXk2LEKc/EaFRrA4Qsx7dt3IOi+yNyEiZc2Q
+Z3tJPH66aQmsvMYYrZi9yJ3Zy7F+qFtsWCOvFXGqrWwD5rijYKM=
+=aZIC
+-----END PGP SIGNATURE-----
+
+--Sig_/mWNX_HgNO194q0y63bTk0ZQ--
 
