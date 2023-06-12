@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A24F72C8F1
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 16:50:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547247.854517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A86F772C8F2
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 16:52:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547252.854527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8irI-0007rd-4A; Mon, 12 Jun 2023 14:49:28 +0000
+	id 1q8itn-0000rC-Ga; Mon, 12 Jun 2023 14:52:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547247.854517; Mon, 12 Jun 2023 14:49:28 +0000
+Received: by outflank-mailman (output) from mailman id 547252.854527; Mon, 12 Jun 2023 14:52:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8irI-0007pn-1I; Mon, 12 Jun 2023 14:49:28 +0000
-Received: by outflank-mailman (input) for mailman id 547247;
- Mon, 12 Jun 2023 14:49:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=COfM=CA=citrix.com=prvs=5202ad488=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1q8irG-0007ph-E5
- for xen-devel@lists.xen.org; Mon, 12 Jun 2023 14:49:26 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 514c58d7-0930-11ee-b232-6b7b168915f2;
- Mon, 12 Jun 2023 16:49:24 +0200 (CEST)
+	id 1q8itn-0000p4-Di; Mon, 12 Jun 2023 14:52:03 +0000
+Received: by outflank-mailman (input) for mailman id 547252;
+ Mon, 12 Jun 2023 14:52:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=abR0=CA=anastas.io=shawn@srs-se1.protection.inumbo.net>)
+ id 1q8itl-0000ov-Mr
+ for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 14:52:01 +0000
+Received: from alpha.anastas.io (alpha.anastas.io [104.248.188.109])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ae33b5a7-0930-11ee-8611-37d641c3527e;
+ Mon, 12 Jun 2023 16:51:59 +0200 (CEST)
+Received: from authenticated-user (alpha.anastas.io [104.248.188.109])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by alpha.anastas.io (Postfix) with ESMTPSA id 55A06439D2;
+ Mon, 12 Jun 2023 07:51:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,104 +42,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 514c58d7-0930-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1686581364;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Uis6XNWe+venr0IO8TUfpK2RVk+OiGSkLv7q3yoC9KA=;
-  b=NgR5OSTdz9RnQyxdCLwirh42gjDOE/XvZLn6uNIzerFiLk0w4rCXPQ23
-   t8Pl7yg9PBZWKI6ZK8WDEWBIWrQA4plhGu+QQThVjf/JnYziHSdZmf7UG
-   PW0VXD1+yb6Y9kPEAnLA+Z10CkMmFQRTm3eD+Ja4f/PVasRvTkjiVWF7N
-   E=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 112362273
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:rEwOGK84dUQWjq8DQkS7DrUDwnmTJUtcMsCJ2f8bNWPcYEJGY0x3z
- WsfWG6CM/+IYTP3Kox0Pdu+oE0CuJXRzoVqHQdoqXw8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKicYXoZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ird7ks31BjOkGlA5AdmO6kR5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkkez
- dM3GS4oNyyTuMCX+6q5a+VojZg8eZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
- ZBDMHw2MUqGOkcUUrsUIMtWcOOAj3/jczpeuRSNqLA++WT7xw1tyrn9dtHSf7RmQO0MxxzD+
- DicoD+R7hcyFu6zljSk/y2X2+6TkXKmA68bP+Cf+as/6LGU7jNKU0BHPbehmtGni1SzQNIZK
- FER8zAGqak0/VasCN7nUHWQsHOC+xIRRddUO+k78x2WjLrZ5UCeHGdsZjxOcts9r+ctWCcnk
- FSOmrvBByFrsbCTYWKQ8PGTtzzaETYUK2QPYzNCQhYE/8XkvKk3jxTGVNElF7S65vXuBSv53
- zeR6SQzmZ0UlYsP1r6n5hbDgjSlvJ+PSRQ6ji3eWm+1qAl0YoioaqSs6F7S9/EGK5yWJnGEt
- WQEmsWDqvgJDIuMmTalROQLFauuof2CNVX0hlpiHII95i+t03GmdIFUpjp5IS9BP9wFennya
- 0/SvQdQ4pB7OHqsZLVwJYWrBKwCxLDtD93/WtjIb9BFZd56cwrvwc11TRfOhSa3yhFqyPxhf
- 87BKq5AEEr2F4w39BWZdvk4iIM7+QIf/nvRZJz/xEi4hO/2iGGudVsVDLefRrlnvP3e8F6Oo
- os329iikEsGDrCnCsXD2ctKdA1RcyBmbXzjg5YPHtNvNDaKD43I5xX55bo6M7JokK1O/gsj1
- iHsAxQIoLYTaJCuFOlrVpyAQOm1NXqHhShnVRHAxH7xs5TZXa6h7b0Ea7w8dqQ9+epowJZcF
- qdVJZjYUqgXG2ybpVzxiKURS6Q4LXyWaf+mZXL5MFDTgbY9L+A2xjMUVlS2r3RfZsZGncA/v
- 6ehxmvmrWkrHmxf4DLtQKv3lTuZ5CFN8N+eqmOUerG/jm2wqtk1Q8Ew59drS/wxxeLrnGLCh
- 13KUEZB+4EgYeYdqbH0uExNlK/xe8MWI6aQNzSzAWqeXcUCwlee/A==
-IronPort-HdrOrdr: A9a23:LOy5yq/ifBXnA8uj23huk+F6db1zdoMgy1knxilNoENuEvBwxv
- rOoB1E73HJYW4qKQ4dcdDpAtjmfZquz+8K3WBxB8bsYOCIghrSEGgP1/qG/9SkIVyDygdR78
- xdmstFeZPN5DpB/LzHCWCDer5LrbXpgcPY59s2jU0dMD2CA5sQtzuRYTzrdHGeMTM2fabRY6
- Dsn/avyQDQHUg/X4CXI0BAZeLKoNrGmfvdEEQ7Li9izDPLoSKj6bb8HRTd9AwZSSlzzbAr9n
- WAuxDl54242svLiyP05iv21dB7idHhwtxMCIinkc4OMAjhjQ6uecBIR6CChjYou+uigWxa0O
- Uk4i1QfPib2UmhO11dkiGdnzUIFwxerEMK/GXow0cLZ/aJAg7SRfAx3L6xOSGpmnbI9OsMoJ
- 6jmVjp7Ka/RCmw7xjV9pzGUQpnmVGzpmdnmekPj2ZHWY9bc7NJq5cDlXklWqvoMRiKoLzPKt
- MeR/309bJTaxeXfnrZtm5gzJilWWkyBA6PRgwHttaO2zZbkXhlxw9ArfZv0kso5dY4Ud1J9u
- 7EOqNnmPVHSdIXd7t0AKMETdGsAmLATBrQOCaZIEjhFqsAJ3XRwqSHrYkd9aWvYtgF3ZEykJ
- POXBdRsnMzYVvnDYmU0JhC4nn2MSyAtXiH8LAo23G4gMyLeFPGC1z2dLl1qbrTnxw2OLyvZ8
- qO
-X-Talos-CUID: 9a23:etDO0Gwz+4yVdXbMZ0LNBgVEIu8KQ2P4lUvAHG2ZMn5rabGRQgOPrfY=
-X-Talos-MUID: 9a23:S8BT2QaNHeHKpeBTlQ3A2z9DOZhTvqXyBBFQyrgPkJSjOnkl
-X-IronPort-AV: E=Sophos;i="6.00,236,1681185600"; 
-   d="scan'208";a="112362273"
-Date: Mon, 12 Jun 2023 15:48:48 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Viresh Kumar <viresh.kumar@linaro.org>
-CC: <xen-devel@lists.xen.org>, Juergen Gross <jgross@suse.com>, Julien Grall
-	<julien@xen.org>, Vincent Guittot <vincent.guittot@linaro.org>,
-	<stratos-dev@op-lists.linaro.org>, Alex =?iso-8859-1?Q?Benn=E9e?=
-	<alex.bennee@linaro.org>, Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>, Erik Schilling
-	<erik.schilling@linaro.org>
-Subject: Re: [PATCH V3 3/3] libxl: arm: Add grant_usage parameter for virtio
- devices
-Message-ID: <7af57d20-6145-4416-9fa1-21cac0e2e5ea@perard>
-References: <cover.1685684586.git.viresh.kumar@linaro.org>
- <0e347b2f4817cc578a5f8e41bf70503ae8cf69e3.1685684586.git.viresh.kumar@linaro.org>
+X-Inumbo-ID: ae33b5a7-0930-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=anastas.io; s=mail;
+	t=1686581516; bh=D7A4d7ZM2ommNK6ie9He4O/eJo4imL2tbf/DPZ2VveE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=EBpLmuNnDKbUwRdaLBMA1j7FwxMFRUysRwqmFF1DDR9MdLyfacJzfbf1hDfWLDy3R
+	 jBlwPsc3x7C4SkcVcRml+SXjoZosI7piLOTifHavjQUYDRWA7Nmo7DI9NwqfvORH7/
+	 giInl3pWsnp8DRdeJy9Q3FzTxJtGAwPdERxskT1Bl90vXXYGXA+BJEVSk06dFAMPXW
+	 zJ6yhPFUruz6udAi6oqd9w7aI2GXyEcYv6/7uOyKKLcYRAUM27ZbgsUuhl4ZpEm8ID
+	 81DkHijYOmqpH4OjwecIEhpgHdSFZlM4NlM74Q53expgvDrHdEelu+j26ncW5geCGt
+	 stDP/SVINqmpA==
+From: Shawn Anastasio <shawn@anastas.io>
+To: xen-devel@lists.xenproject.org
+Cc: tpearson@raptorengineering.com,
+	Shawn Anastasio <shawn@anastas.io>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Wei Liu <wl@xen.org>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH v2 0/4] Initial support for Power
+Date: Mon, 12 Jun 2023 09:51:35 -0500
+Message-Id: <cover.1686580752.git.shawn@anastas.io>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <0e347b2f4817cc578a5f8e41bf70503ae8cf69e3.1685684586.git.viresh.kumar@linaro.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jun 02, 2023 at 11:19:09AM +0530, Viresh Kumar wrote:
-> diff --git a/tools/libs/light/libxl_virtio.c b/tools/libs/light/libxl_virtio.c
-> index f8a78e22d156..19d834984777 100644
-> --- a/tools/libs/light/libxl_virtio.c
-> +++ b/tools/libs/light/libxl_virtio.c
-> @@ -48,11 +56,13 @@ static int libxl__set_xenstore_virtio(libxl__gc *gc, uint32_t domid,
->                                        flexarray_t *ro_front)
->  {
->      const char *transport = libxl_virtio_transport_to_string(virtio->transport);
-> +    const char *grant_usage = libxl_defbool_to_string(virtio->grant_usage);
->  
->      flexarray_append_pair(back, "irq", GCSPRINTF("%u", virtio->irq));
->      flexarray_append_pair(back, "base", GCSPRINTF("%#"PRIx64, virtio->base));
->      flexarray_append_pair(back, "type", GCSPRINTF("%s", virtio->type));
->      flexarray_append_pair(back, "transport", GCSPRINTF("%s", transport));
-> +    flexarray_append_pair(back, "grant_usage", GCSPRINTF("%s", grant_usage));
+Hello all,
 
-It doesn't seems like a good idea to write a string like "True" or
-"False" in xenstore when a simple integer would work. Also I'm pretty
-sure all other bool are written as "0" or "1", for false or true.
-Could you change to write "0" or "1" instead of using
-libxl_defbool_to_string() ?
+This patch series adds support for building a minimal image
+(head.o-only) for Power ISA 2.07B+ (POWER8+) systems. The first patch
+boots to an infinite loop and the second adds early serial console
+support on pseries VMs, with bare metal support planned next.
 
+Since Xen previously had support for a much older version of the ISA in
+version 3.2.3, we were able to carry over some headers and support
+routines from that version. Unlike that initial port though, this effort
+focuses solely on POWER8+ CPUs that are capable of running in Little
+Endian mode.
 
-Beside this, patch looks good to me.
+With an appropriate powerpc64le-linux-gnu cross-toolchain, the minimal
+image can be built with:
 
-Cheers,
+$ make XEN_TARGET_ARCH=ppc64 -C xen openpower_defconfig
+$ make XEN_TARGET_ARCH=ppc64 SUBSYSTEMS=xen -C xen TARGET=ppc64/head.o
+
+The resulting head.o can then be booted in a standard QEMU/pseries VM:
+
+$ qemu-system-ppc64 -M pseries-5.2 -m 256M -kernel xen/ppc64/head.o \
+	-vga none -serial mon:stdio -nographic
+
+Thanks,
+Shawn
+
+--
+Changes from v2:
+  - Add ppc64le cross-build container patch
+  - Add ppc64le cross build CI job patch
+  - Drop serial output patch (will be in future patch series)
+  - Drop setup.c and unneeded headers from minimal build patch
+  - Fixed ordering of MAINTAINERS patch + add F: line
+  - Fix config/ppc64.mk option names
+  - Clarify Kconfig Baseline ISA option help strings
+
+Shawn Anastasio (4):
+  automation: Add container for ppc64le builds
+  xen: Add files needed for minimal ppc64le build
+  automation: Add ppc64le cross-build jobs
+  maintainers: Add ppc64 maintainer
+
+ MAINTAINERS                                   |   4 +
+ .../build/debian/bullseye-ppc64le.dockerfile  |  28 +++
+ automation/gitlab-ci/build.yaml               |  60 ++++++
+ automation/scripts/containerize               |   1 +
+ config/ppc64.mk                               |   5 +
+ xen/Makefile                                  |   5 +-
+ xen/arch/ppc/Kconfig                          |  42 +++++
+ xen/arch/ppc/Kconfig.debug                    |   0
+ xen/arch/ppc/Makefile                         |  16 ++
+ xen/arch/ppc/Rules.mk                         |   0
+ xen/arch/ppc/arch.mk                          |  11 ++
+ xen/arch/ppc/configs/openpower_defconfig      |  13 ++
+ xen/arch/ppc/include/asm/config.h             |  63 +++++++
+ xen/arch/ppc/include/asm/page-bits.h          |   7 +
+ xen/arch/ppc/ppc64/Makefile                   |   1 +
+ xen/arch/ppc/ppc64/asm-offsets.c              |   0
+ xen/arch/ppc/ppc64/head.S                     |  27 +++
+ xen/arch/ppc/xen.lds.S                        | 173 ++++++++++++++++++
+ 18 files changed, 454 insertions(+), 2 deletions(-)
+ create mode 100644 automation/build/debian/bullseye-ppc64le.dockerfile
+ create mode 100644 config/ppc64.mk
+ create mode 100644 xen/arch/ppc/Kconfig
+ create mode 100644 xen/arch/ppc/Kconfig.debug
+ create mode 100644 xen/arch/ppc/Makefile
+ create mode 100644 xen/arch/ppc/Rules.mk
+ create mode 100644 xen/arch/ppc/arch.mk
+ create mode 100644 xen/arch/ppc/configs/openpower_defconfig
+ create mode 100644 xen/arch/ppc/include/asm/config.h
+ create mode 100644 xen/arch/ppc/include/asm/page-bits.h
+ create mode 100644 xen/arch/ppc/ppc64/Makefile
+ create mode 100644 xen/arch/ppc/ppc64/asm-offsets.c
+ create mode 100644 xen/arch/ppc/ppc64/head.S
+ create mode 100644 xen/arch/ppc/xen.lds.S
 
 -- 
-Anthony PERARD
+2.30.2
+
 
