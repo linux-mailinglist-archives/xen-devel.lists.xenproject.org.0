@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B12B72CB2D
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 18:13:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547360.854728 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B6EC72CB2A
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 18:13:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547358.854708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8kAf-0002uo-Hz; Mon, 12 Jun 2023 16:13:33 +0000
+	id 1q8kAW-0002JP-VW; Mon, 12 Jun 2023 16:13:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547360.854728; Mon, 12 Jun 2023 16:13:33 +0000
+Received: by outflank-mailman (output) from mailman id 547358.854708; Mon, 12 Jun 2023 16:13:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8kAf-0002sR-DG; Mon, 12 Jun 2023 16:13:33 +0000
-Received: by outflank-mailman (input) for mailman id 547360;
- Mon, 12 Jun 2023 16:13:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1q8kAW-0002HM-Se; Mon, 12 Jun 2023 16:13:24 +0000
+Received: by outflank-mailman (input) for mailman id 547358;
+ Mon, 12 Jun 2023 16:13:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=abQ6=CA=citrix.com=prvs=520cb9a4c=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1q8kAd-0002qf-Ns
- for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 16:13:31 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 107476d3-093c-11ee-8611-37d641c3527e;
- Mon, 12 Jun 2023 18:13:29 +0200 (CEST)
+ id 1q8kAV-00021a-O2
+ for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 16:13:23 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0cd50c72-093c-11ee-b232-6b7b168915f2;
+ Mon, 12 Jun 2023 18:13:22 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,81 +36,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 107476d3-093c-11ee-8611-37d641c3527e
+X-Inumbo-ID: 0cd50c72-093c-11ee-b232-6b7b168915f2
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1686586408;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=LnylG9GKIeMaBr8coy+QDP81rdQ4PrwAB/g/UXeyp2Y=;
-  b=BBGFGdSSV2G09e5LaBbEeQe3ahoLSNPzx5GaNk7UOaxyfyF1UkS6l7Du
-   PZjx5ZRK+22wmxl9kPrFegBxdGUNQ7tDJ8uENzBbYYahXCUOeojGeQ22g
-   o6ehihQ7nLYQRgMULeSlzMr3df8G1g8xRJIyLZ8Lo9++cDf9qzEy1iAWX
-   s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1686586402;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=juo+5nxjgfadIrJ0bP+JWsuC+QxOfTnJ4UTN/JsNx78=;
+  b=T76T3SpWW2FMzv6hnjsrSw1o8cvy7adj20k4NHhUnpdOHCbGklHm4OC8
+   ZMceQv7Ee1S0BGP/Y6YRzTf5ivtbkelne2F8+74/6R1LLB1sHHB1DqwEI
+   yu5wyqBGzUUoY/SnBPEJDTNhgXVe3a1DCdl3dYTW9Zbi+Q1UPw8+Zf63v
+   k=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 111816752
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 112508902
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:NrH9Z6kVP4xDYKL7z6XXfiPo5gz7JkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIWCm2Ba62LM2fweIgjPYXi9E8BuZCAyYJkTQZk/ys1ECMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icfHgqH2eIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE0p5KyaVA8w5ARkPqgV5QWGzRH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- ccmORULaCqGvuSJx+qRcqpi3sU+EMa+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglHWdTFCpU3Tjq0w+2XJlyR60aT3McqTcduPLSlQth/B/
- zKfoTukWHn2MvSO5wHUyU2un9Tktj+8CK8qFrej/NdD1Qj7Kms7V0RNCArTTeOCol6zXZdTJ
- lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJ4Mcc39QWMwar8+BuCCy4PSTspQMMinN87Q3otz
- FDhoj/yLWUx6vvPEyvbr+rK62roYkD5MFPuewc/cxog5d/Zpbg1sRWXZO4gHva0k+H6TGSYL
- y+xkMQuu1kCpZdVh/vhrQuc0m/ESovhFVBsuFiONo6xxkYgPdP+OdT1gbTOxawYRLt1WGVtq
- 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hO0yT5FWyoyGsiTHqFy+5dEdMTX
- GfduBlK+LhYN2awYKl8buqZUpp6k/W4RYi9B6iIMLKih6SdkyfdpUlTibO4hTixwCDAb4liU
- XtkTSpcJSlDUvk2pNZHb+wczaUq1kgDKZD7HPjGI+Cc+ePGPha9EO5VWGZim8hltMtoVi2Jq
- YcAXyZLoj0DONDDjt7/q95DdA1bcSJqWfgbaaV/L4a+H+avI0l5Y9e5/F/rU9YNc3h9/gsQw
- kyAZw==
-IronPort-HdrOrdr: A9a23:a9Zk0aDzhDRE213lHelo55DYdb4zR+YMi2TDt3oddfU1SL38qy
- nKpp4mPHDP5wr5NEtPpTniAtjjfZq/z/5ICOAqVN/PYOCPggCVxepZnOjfKlPbehEX9oRmpN
- 1dm6oVMqyMMbCt5/yKnDVRELwbsaa6GLjDv5a785/0JzsaE52J6W1Ce2GmO3wzfiZqL7wjGq
- GR48JWzgDQAkj+PqyAdx84t/GonayzqK7b
-X-Talos-CUID: =?us-ascii?q?9a23=3AQ/Cm4mmGBijFY8KI3mFLLj3mJtXXOUbj3VLWJXW?=
- =?us-ascii?q?9MGBWT+W/cRyeoKJ5r8U7zg=3D=3D?=
-X-Talos-MUID: =?us-ascii?q?9a23=3AJv4RCA+/meLzzHGxctkdl6qQf9ZG2PWVN0IUqr4?=
- =?us-ascii?q?tp47UGBRyMSyXpR3iFw=3D=3D?=
+IronPort-Data: A9a23:iZxsrqq5eyK7lLZ2EpQ1JEWuhRJeBmJiZRIvgKrLsJaIsI4StFCzt
+ garIBnSM/mNa2X8ctglOdjk/R4DucLRx99iGwZs/3g0Fi8V85uZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKq04GtwUmAWP6gR5weAziNNVvrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXAD9dRRWMos+q/L22CdZW2eguKOb5GoxK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVxrl6PqLVxyG/U1AFri5DmMcbPe8zMTsJQ9qqdj
+ jufpTmhUkBCbrRzzxKq9W6pm9Dt3h/GArIuJra2+cU0gwWqkzl75Bo+CgLg/KjRZlSFc8JSL
+ QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUSyiuA167V6AaxHXUfQ3hKb9lOnNAybSwn0
+ BmOhdyBONB0mOTLEzTHrO7S9G7sf3FPdgfueBPoUyMKs/Lmr6Qeki7AQ5VcKvGZg9naCxf/l
+ mXiQDcFu1kDsSIa//zlrQ6d02n398Whoh0dvVuOAD/8hu9tTMv8PtHztwCGhRpVBNzBJmRtq
+ kTojCR3AAomKZiW3BKAT+wWdF1Cz6bUaWaM6bKD8nRIythMx5JAVdoKiN2GDB01WvvogBewC
+ KMphStf5YVIIFyhZrJtboS6BqwClPawS4m9BqyMP4ISPPCdkTNrGwk0PCatM53FyhBwwcnTx
+ 7/GGSpTMZrqIfs+l2fnLwvs+bQq2jo/1QvuqWPTlnyaPU6lTCfNE98taQLeBt3VGYvY+G05B
+ f4DbZrVo/ieOcWiChTqHXk7dwBadCVqWcqn96S6tIere2JbJY3oMNeJqZtJRmCvt/09ejvgl
+ p1lZnJl9Q==
+IronPort-HdrOrdr: A9a23:7rNLOqlub87YOFMeUI53yRFk9NvpDfIH3DAbv31ZSRFFG/Fw9v
+ re+cjzsCWf5Qr5N0tNpTntAsa9qArnhOdICOoqTNWftWvd2FdARbsKhbcKpQePJ8SUzJ8/6U
+ 4PSclD4erLfDxHZJbBizVQy+xQu+VvKprY49s2Ek0dKj2Ct5sQlzuR1DzraHFLeA==
+X-Talos-CUID: 9a23:1QnkNmOigS1zOu5DV3lM8UExN9wZfXCe802PD0K8JnRPR+jA
+X-Talos-MUID: 9a23:XMpfsAakS/nW++BTmDjwgSxdFoRU3v6eNHIGn5o95crcDHkl
 X-IronPort-AV: E=Sophos;i="6.00,236,1681185600"; 
-   d="scan'208";a="111816752"
+   d="scan'208";a="112508902"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v3 0/4] x86: RSBA and RRSBA handling
-Date: Mon, 12 Jun 2023 17:13:02 +0100
-Message-ID: <20230612161306.2739572-1-andrew.cooper3@citrix.com>
+Subject: [PATCH v3 1/4] x86/spec-ctrl: Use a taint for CET without MSR_SPEC_CTRL
+Date: Mon, 12 Jun 2023 17:13:03 +0100
+Message-ID: <20230612161306.2739572-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20230612161306.2739572-1-andrew.cooper3@citrix.com>
+References: <20230612161306.2739572-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-This series deals with the hanlding of the RSBA and RRSBA bits across all
-parts and all mistakes encountered in various microcode versions.
+Reword the comment for 'S' to include an incompatbile set of features on the
+same core.
 
-There are only minor changes from v2.  See patches for details.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-Andrew Cooper (4):
-  x86/spec-ctrl: Use a taint for CET without MSR_SPEC_CTRL
-  x86/spec-ctrl: Rename retpoline_safe() to retpoline_calculations()
-  x86/spec-ctrl: Fix up the RSBA/RRSBA bits as appropriate
-  x86/cpu-policy: Derive RSBA/RRSBA for guest policies
+v3:
+ * New
+---
+ xen/arch/x86/spec_ctrl.c | 3 +++
+ xen/common/kernel.c      | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
- xen/arch/x86/cpu-policy.c                   |  39 ++++++
- xen/arch/x86/include/asm/cpufeature.h       |   1 +
- xen/arch/x86/spec_ctrl.c                    | 142 +++++++++++++++++---
- xen/common/kernel.c                         |   2 +-
- xen/include/public/arch-x86/cpufeatureset.h |   4 +-
- xen/tools/gen-cpuid.py                      |   5 +-
- 6 files changed, 170 insertions(+), 23 deletions(-)
-
+diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
+index cd5ea6aa52d9..05b86edf73d3 100644
+--- a/xen/arch/x86/spec_ctrl.c
++++ b/xen/arch/x86/spec_ctrl.c
+@@ -1132,7 +1132,10 @@ void __init init_speculation_mitigations(void)
+     if ( read_cr4() & X86_CR4_CET )
+     {
+         if ( !has_spec_ctrl )
++        {
+             printk(XENLOG_WARNING "?!? CET active, but no MSR_SPEC_CTRL?\n");
++            add_taint(TAINT_CPU_OUT_OF_SPEC);
++        }
+         else if ( opt_ibrs == -1 )
+             opt_ibrs = ibrs = true;
+ 
+diff --git a/xen/common/kernel.c b/xen/common/kernel.c
+index fd975ae21ebc..719b08d6c76a 100644
+--- a/xen/common/kernel.c
++++ b/xen/common/kernel.c
+@@ -373,7 +373,7 @@ unsigned int tainted;
+  *  'H' - HVM forced emulation prefix is permitted.
+  *  'I' - Platform is insecure (usually due to an errata on the platform).
+  *  'M' - Machine had a machine check experience.
+- *  'S' - Out of spec CPU (One core has a feature incompatible with others).
++ *  'S' - Out of spec CPU (Incompatible features on one or more cores).
+  *
+  *      The string is overwritten by the next call to print_taint().
+  */
 -- 
 2.30.2
 
