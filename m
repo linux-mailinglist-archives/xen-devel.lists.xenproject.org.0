@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A932372CFCE
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 21:45:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547437.854828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1649F72D039
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 22:10:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547442.854838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8nSz-0004ra-TJ; Mon, 12 Jun 2023 19:44:41 +0000
+	id 1q8nrQ-0007ZO-Pj; Mon, 12 Jun 2023 20:09:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547437.854828; Mon, 12 Jun 2023 19:44:41 +0000
+Received: by outflank-mailman (output) from mailman id 547442.854838; Mon, 12 Jun 2023 20:09:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8nSz-0004p3-Q4; Mon, 12 Jun 2023 19:44:41 +0000
-Received: by outflank-mailman (input) for mailman id 547437;
- Mon, 12 Jun 2023 19:44:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q8nrQ-0007Wh-Mj; Mon, 12 Jun 2023 20:09:56 +0000
+Received: by outflank-mailman (input) for mailman id 547442;
+ Mon, 12 Jun 2023 20:09:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yXst=CA=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1q8nSy-0004ox-1q
- for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 19:44:40 +0000
-Received: from sender3-of-o59.zoho.com (sender3-of-o59.zoho.com
- [136.143.184.59]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8fb1e6e3-0959-11ee-b232-6b7b168915f2;
- Mon, 12 Jun 2023 21:44:37 +0200 (CEST)
-Received: from [10.10.1.82] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 168659907296010.997791154433571;
- Mon, 12 Jun 2023 12:44:32 -0700 (PDT)
+ <SRS0=B/5g=CA=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1q8nrO-0007WZ-Ro
+ for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 20:09:55 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 165167a4-095d-11ee-8611-37d641c3527e;
+ Mon, 12 Jun 2023 22:09:51 +0200 (CEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2BA5D5C00EF;
+ Mon, 12 Jun 2023 16:09:50 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Mon, 12 Jun 2023 16:09:50 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 12 Jun 2023 16:09:49 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,63 +43,352 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8fb1e6e3-0959-11ee-b232-6b7b168915f2
-ARC-Seal: i=1; a=rsa-sha256; t=1686599074; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=e3TsX/VqN5IsEGH8feCKgXw2o+bqOReL2QrNFggGGLD081vx+rIFvS64QVjS4oq5f6OrNQCwpeMSQ1+S2nr67J7I4aqK136HB3biKUv0GNuMn+gVgoHb2QHVcD0YLlGtMhd2sNC2YXVYJ17DFN/B9lwKjq41VfbcCO0pDJcYK6E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1686599074; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=dJqE0sJlYljjw4V/g9QK786r+d/iX2nD8sgbwxfPqmk=; 
-	b=grfBLYKmNBAC568xrTsgY559fRZOzTgjzoc6XNO02Mf1Gt9o9a5MbT0Di00dfMaxBXhkl42I930xkFNed08VSQC1KuCnMfDSpp11cgvPAA8/VjVyUhMgaPBBE3HDgmfnFN60vrIUJhMN6dNP2D8nVFeFuG+hfQzvqgGfGQXBn7g=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1686599074;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=dJqE0sJlYljjw4V/g9QK786r+d/iX2nD8sgbwxfPqmk=;
-	b=bJdmB2XwD5O/6MQPG5a/7bOV74vGBsZ7/iFEwLjmEYPEclqN8xPCeteAKxsHDkx3
-	7gXbK7CwugmhTHVky4u+RYt+7lLgtG07GnhcLgESzYvuRXmvHmPzYlKyhXnvfPtvCbG
-	4aYh6PBJkev15bUc1qT80/+a2eEqSr0VN2qukTGc=
-Message-ID: <fba4a77a-1d9e-6f7d-9b07-26481e7098c4@apertussolutions.com>
-Date: Mon, 12 Jun 2023 15:44:30 -0400
+X-Inumbo-ID: 165167a4-095d-11ee-8611-37d641c3527e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1686600590; x=1686686990; bh=w4PC2hcyqKw9l+AT+MtdSBx+TgTVoNSCI4D
+	kMzt4z5s=; b=jdl26A0DE5l2x90+ua4kXg7pGubgakMq2isPOTpVZdrLGHMj1e2
+	sDxH+41Yp2Lrod1/dcaUeNaxVKXAWUN1aJgnW329YTyOkNlCqpYBjR6aZHd7wNfG
+	Wh6/4AsYdK7paw2JRrEKjJ+F630O2Y8RflIlAQSLn1/5s9wXRIF6wkXcwx6vLRrW
+	2jv6XE0jZ62BMAqB/7Uhpjx825fIoLAcFa5W+PVHsJJSOqVBcPApF+2rfasO35gz
+	skkrBJeKGextTviMcNlBv+hZu2KyK67PDw8fbfPdWnIEMZAP8peoD9crQmQK/5qA
+	ImVQ7Ij2ryt8m9EZm2wwb+HwrVQGK204xPA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1686600590; x=1686686990; bh=w4PC2hcyqKw9l
+	+AT+MtdSBx+TgTVoNSCI4DkMzt4z5s=; b=IAvEN0O/HamDP+V/Pw5Jz8zuFNxQC
+	NYco3bA7tpdhF8MnBB2naxS4Gmk9oGjf8eV4qFvndL9XWfF/ljXbvOHeSgdmbaTX
+	MyIFkV67wxpxPSlIG6WyNMBZDeSYGExJR/hQOgLt8pzdovd52kxQo2G6hJZKg1sW
+	JijfcJFqtqdS7QLAqfNwi7jqvkCzRtUPHF1/Vf7xqI4s1lHEzDUAez5Mm0YDBqrS
+	9uy+W8afIQa2qH7usVudySG+pTAxFc1nd7ulZEMQFEkQJiBgC98urLCKB4m4X0lU
+	nsA7mm30YNga7g7bdnsE0IICt5yX1gC2KVpUryjjGJ/+TvI3JP9CmhM5Q==
+X-ME-Sender: <xms:jXuHZHakA9FlcgaMsbqisYKzYOD5MmCOAMv0Pq6UYJGk9zrG91LnIw>
+    <xme:jXuHZGYmDX0VLI-DuBLBz-3OaNQikdjCFDW9vG9oWD3yQd2N-VTZ0f_mcrJyCEX9P
+    HfXZf2i9Hym-X4>
+X-ME-Received: <xmr:jXuHZJ9VgeDxs5GwuZ-o3HQLiZFQaCNDGwVHXTBoFoxUKARA1KAmST67u8I>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeduhedgudeghecutefuodetggdotefrod
+    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghm
+    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffeg
+    fffguddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtne
+    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
+    shhlrggsrdgtohhm
+X-ME-Proxy: <xmx:jXuHZNq6dd8EijI-AoPdO2YUg9slvrUp-lVDxy20uG79FH3fJoe5Bw>
+    <xmx:jXuHZCovPHRhodmrNmClPZMJtRx6wE5iMUkLnpdHeCAVSbz7XCa8kw>
+    <xmx:jXuHZDRtnvercilt6-MGQIrHNQ_FtCM0ur7Tl3rzzUnhCfsqj6pSGw>
+    <xmx:jnuHZPBUofbrGfwCyfag-NczP1ijuWGj4_yqcb3aS1Ay2pJU-7QFeQ>
+Feedback-ID: iac594737:Fastmail
+Date: Mon, 12 Jun 2023 16:09:44 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xen: speed up grant-table reclaim
+Message-ID: <ZId7ixbqlCSygtvb@itl-email>
+References: <20230610153232.1859-1-demi@invisiblethingslab.com>
+ <85275900-6b6a-5391-a2a0-16704df3f00f@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-Subject: Re: [PATCH 2/5] libxl: drop dead assignments to "ret" from
- libxl__domain_config_setdefault()
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>,
- Juergen Gross <jgross@suse.com>
-References: <2dc50b58-a4e4-3e32-1876-94412b14b052@suse.com>
- <5eda17da-7185-9cf6-7e87-70da57aa0ebc@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <5eda17da-7185-9cf6-7e87-70da57aa0ebc@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JO1X+NAnjhRPpHa5"
+Content-Disposition: inline
+In-Reply-To: <85275900-6b6a-5391-a2a0-16704df3f00f@suse.com>
 
-On 6/12/23 07:46, Jan Beulich wrote:
-> The variable needs to be properly set only on the error paths.
-> 
-> Coverity ID: 1532311
-> Fixes: ab4440112bec ("xl / libxl: push parsing of SSID and CPU pool ID down to libxl")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.cm>
+--JO1X+NAnjhRPpHa5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 12 Jun 2023 16:09:44 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jan Beulich <JBeulich@suse.com>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] xen: speed up grant-table reclaim
 
-> ---
-> If XSM is disabled, is it really useful to issue the 2nd and 3rd calls
-> if the 1st yielded ENOSYS?
+On Mon, Jun 12, 2023 at 08:27:59AM +0200, Juergen Gross wrote:
+> On 10.06.23 17:32, Demi Marie Obenour wrote:
+> > When a grant entry is still in use by the remote domain, Linux must put
+> > it on a deferred list.
+>=20
+> This lacks quite some context.
+>=20
+> The main problem is related to the grant not having been unmapped after
+> the end of a request, but the side granting the access is assuming this
+> should be the case.
 
-Would you be okay with the calls staying if instead on the first 
-invocation of any libxl_flask_* method, flask status was checked and 
-stored in a variable that would then be checked by any subsequent calls 
-and immediately returned if flask was not enabled?
+The GUI agent has relied on deferred grant reclaim for as long as it has
+existed.  One could argue that doing so means that the agent is misusing
+gntalloc, but this is not documented anywhere.  A better fix would be to
+use IOCTL_GNTDEV_SET_UNMAP_NOTIFY in the GUI daemon.
 
-v/r,
-dps
+> In general this means that the two sides implementing the protocol don't
+> agree how it should work, or that the protocol itself has a flaw.
+
+What would a better solution be?  This is going to be particularly
+tricky with Wayland, as the wl_shm protocol makes absolutely no
+guarantees that compositors will promptly release the mapping and
+provides no way whatsoever for Wayland clients to know when this has
+happened.  Relying on an LD_PRELOAD hack is not sustainable.
+
+> > Normally, this list is very short, because
+> > the PV network and block protocols expect the backend to unmap the grant
+> > first.
+>=20
+> Normally the list is just empty. Only in very rare cases like premature
+> PV frontend module unloading it is expected to see cases of deferred
+> grant reclaims.
+
+In the case of a system using only properly-designed PV protocols
+implemented in kernel mode I agree.  However, both libxenvchan and the
+Qubes GUI protocol are implemented in user mode and this means that if
+the frontend process (the one that uses gntalloc) crashes, deferred
+grant reclaims will occur.  Worse, it is possible for the domain to use
+the grant in a PV protocol.  If the PV backend driver then maps and
+unmaps the grant and then tells the frontend driver to reclaim it, but
+the backend userspace process (the one using gntdev) maps it before the
+frontend does reclaim it, the frontend will think the backend is trying
+to exploit XSA-396 and freeze the connection.
+
+> > However, Qubes OS's GUI protocol is subject to the constraints
+> > of the X Window System, and as such winds up with the frontend unmapping
+> > the window first.  As a result, the list can grow very large, resulting
+> > in a massive memory leak and eventual VM freeze.
+>=20
+> I do understand that it is difficult to change the protocol and/or
+> behavior after the fact, or that performance considerations are in the
+> way of doing so.
+
+Would the correct fix be to use IOCTL_GNTDEV_SET_UNMAP_NOTIFY?  That
+would require that the agent either create a new event channel for each
+window or maintain a pool of event channels, but that should be doable.
+This still does not solve the problem of the frontend exiting
+unexpectedly, though.
+
+> > To partially solve this problem, make the number of entries that the VM
+> > will attempt to free at each iteration tunable.  The default is still
+> > 10, but it can be overridden at compile-time (via Kconfig), boot-time
+> > (via a kernel command-line option), or runtime (via sysfs).
+>=20
+> Is there really a need to have another Kconfig option for this? AFAICS
+> only QubesOS is affected by the problem you are trying to solve. I don't
+> see why you can't use the command-line option or sysfs node to set the
+> higher reclaim batch size.
+
+Fair.  In practice, Qubes OS will need to use the sysfs node, since
+the other two do not work with in-VM kernels.
+
+> > Fixes: 569ca5b3f94c ("xen/gnttab: add deferred freeing logic")
+>=20
+> I don't think this "Fixes:" tag is appropriate. The mentioned commit didn=
+'t
+> have a bug. You are adding new functionality on top of it.
+
+I=E2=80=99ll drop the "Fixes:" tag, but I will keep the "Cc: stable@vger.ke=
+rnel.org"
+as I believe this patch meets the following criterion for stable
+backport (from Documentation/process/stable-kernel-rules.rst):
+
+    Serious issues as reported by a user of a distribution kernel may also
+    be considered if they fix a notable performance or interactivity issue.
+
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > ---
+> >   drivers/xen/Kconfig       | 12 ++++++++++++
+> >   drivers/xen/grant-table.c | 40 ++++++++++++++++++++++++++++-----------
+> >   2 files changed, 41 insertions(+), 11 deletions(-)
+> >=20
+> > diff --git a/drivers/xen/Kconfig b/drivers/xen/Kconfig
+> > index d5d7c402b65112b8592ba10bd3fd1732c26b771e..8f96e1359eb102d6420775b=
+66e7805004a4ce9fe 100644
+> > --- a/drivers/xen/Kconfig
+> > +++ b/drivers/xen/Kconfig
+> > @@ -65,6 +65,18 @@ config XEN_MEMORY_HOTPLUG_LIMIT
+> >   	  This value is used to allocate enough space in internal
+> >   	  tables needed for physical memory administration.
+> > +config XEN_GRANTS_RECLAIM_PER_ITERATION
+> > +	int "Default number of grant entries to reclaim per iteration"
+> > +	default 10
+> > +	range 10 4294967295
+> > +	help
+> > +	  This sets the default value for the grant_table.free_per_iteration
+> > +	  kernel command line option, which sets the number of grants that
+> > +	  Linux will try to reclaim at once.  The default is 10, but
+> > +	  workloads that make heavy use of gntalloc will likely want to
+> > +	  increase this.  The current value can be accessed and/or modified
+> > +	  via /sys/module/grant_table/parameters/free_per_iteration.
+> > +
+>=20
+> Apart from the fact that I don't like adding a new Kconfig option, the he=
+lp
+> text is not telling the true story. Heavy use of gntalloc isn't to blame,=
+ but
+> the fact that your PV-device implementation is based on the reclaim
+> functionality. TBH, someone not familiar with the grant reclaim will have=
+ no
+> chance to select a sensible value based on your help text.
+
+That=E2=80=99s a good point.  Qubes OS will need to use the sysfs value any=
+way
+in order to support in-VM kernels, so the Kconfig option is not really
+useful.
+
+> >   config XEN_SCRUB_PAGES_DEFAULT
+> >   	bool "Scrub pages before returning them to system by default"
+> >   	depends on XEN_BALLOON
+> > diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
+> > index e1ec725c2819d4d5dede063eb00d86a6d52944c0..fa666aa6abc3e786dddc94f=
+895641505ec0b23d8 100644
+> > --- a/drivers/xen/grant-table.c
+> > +++ b/drivers/xen/grant-table.c
+> > @@ -498,14 +498,20 @@ static LIST_HEAD(deferred_list);
+> >   static void gnttab_handle_deferred(struct timer_list *);
+> >   static DEFINE_TIMER(deferred_timer, gnttab_handle_deferred);
+> > +static atomic64_t deferred_count;
+> > +static atomic64_t leaked_count;
+> > +static unsigned int free_per_iteration =3D CONFIG_XEN_GRANTS_RECLAIM_P=
+ER_ITERATION;
+> > +
+> >   static void gnttab_handle_deferred(struct timer_list *unused)
+> >   {
+> > -	unsigned int nr =3D 10;
+> > +	unsigned int nr =3D READ_ONCE(free_per_iteration);
+> > +	const bool ignore_limit =3D nr =3D=3D 0;
+> >   	struct deferred_entry *first =3D NULL;
+> >   	unsigned long flags;
+> > +	size_t freed =3D 0;
+> >   	spin_lock_irqsave(&gnttab_list_lock, flags);
+> > -	while (nr--) {
+> > +	while ((ignore_limit || nr--) && !list_empty(&deferred_list)) {
+> >   		struct deferred_entry *entry
+> >   			=3D list_first_entry(&deferred_list,
+> >   					   struct deferred_entry, list);
+> > @@ -515,10 +521,13 @@ static void gnttab_handle_deferred(struct timer_l=
+ist *unused)
+> >   		list_del(&entry->list);
+> >   		spin_unlock_irqrestore(&gnttab_list_lock, flags);
+> >   		if (_gnttab_end_foreign_access_ref(entry->ref)) {
+> > +			uint64_t ret =3D atomic64_sub_return(1, &deferred_count);
+> >   			put_free_entry(entry->ref);
+> > -			pr_debug("freeing g.e. %#x (pfn %#lx)\n",
+> > -				 entry->ref, page_to_pfn(entry->page));
+> > +			pr_debug("freeing g.e. %#x (pfn %#lx), %llu remaining\n",
+> > +				 entry->ref, page_to_pfn(entry->page),
+> > +				 (unsigned long long)ret);
+>=20
+> I'd prefer not to issue lots of prints (being it debug or info ones) if t=
+he
+> reclaim is expected to happen with a specific PV-device.
+>=20
+> My preferred solution would be a per-device flag, but at least you should
+> switch to pr_*_ratelimited(). Same applies further down.
+
+What do you mean by =E2=80=9Cper-device flag=E2=80=9D?  These grants are al=
+located by
+userspace using gntalloc, so there is no PV device on which the flag
+could be set.
+
+> >   			put_page(entry->page);
+> > +			freed++;
+> >   			kfree(entry);
+> >   			entry =3D NULL;
+> >   		} else {
+> > @@ -530,21 +539,22 @@ static void gnttab_handle_deferred(struct timer_l=
+ist *unused)
+> >   		spin_lock_irqsave(&gnttab_list_lock, flags);
+> >   		if (entry)
+> >   			list_add_tail(&entry->list, &deferred_list);
+> > -		else if (list_empty(&deferred_list))
+> > -			break;
+> >   	}
+> > -	if (!list_empty(&deferred_list) && !timer_pending(&deferred_timer)) {
+> > +	if (list_empty(&deferred_list))
+> > +		WARN_ON(atomic64_read(&deferred_count));
+> > +	else if (!timer_pending(&deferred_timer)) {
+> >   		deferred_timer.expires =3D jiffies + HZ;
+> >   		add_timer(&deferred_timer);
+> >   	}
+> >   	spin_unlock_irqrestore(&gnttab_list_lock, flags);
+> > +	pr_debug("Freed %zu references", freed);
+> >   }
+> >   static void gnttab_add_deferred(grant_ref_t ref, struct page *page)
+> >   {
+> >   	struct deferred_entry *entry;
+> >   	gfp_t gfp =3D (in_atomic() || irqs_disabled()) ? GFP_ATOMIC : GFP_KE=
+RNEL;
+> > -	const char *what =3D KERN_WARNING "leaking";
+> > +	uint64_t leaked, deferred;
+> >   	entry =3D kmalloc(sizeof(*entry), gfp);
+> >   	if (!page) {
+> > @@ -567,12 +577,20 @@ static void gnttab_add_deferred(grant_ref_t ref, =
+struct page *page)
+> >   			add_timer(&deferred_timer);
+> >   		}
+> >   		spin_unlock_irqrestore(&gnttab_list_lock, flags);
+> > -		what =3D KERN_DEBUG "deferring";
+> > +		deferred =3D atomic64_add_return(1, &deferred_count);
+> > +		leaked =3D atomic64_read(&leaked_count);
+> > +		pr_debug("deferring g.e. %#x (pfn %#lx) (total deferred %llu, total =
+leaked %llu)\n",
+> > +			 ref, page ? page_to_pfn(page) : -1, deferred, leaked);
+> > +	} else {
+> > +		deferred =3D atomic64_read(&deferred_count);
+> > +		leaked =3D atomic64_add_return(1, &leaked_count);
+> > +		pr_warn("leaking g.e. %#x (pfn %#lx) (total deferred %llu, total lea=
+ked %llu)\n",
+> > +			ref, page ? page_to_pfn(page) : -1, deferred, leaked);
+> >   	}
+> > -	printk("%s g.e. %#x (pfn %#lx)\n",
+> > -	       what, ref, page ? page_to_pfn(page) : -1);
+> >   }
+> > +module_param(free_per_iteration, uint, 0600);
+> > +
+>=20
+> Could you please move the parameter definition closer to the related
+> variable definition?
+
+Will fix in the next version.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--JO1X+NAnjhRPpHa5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmSHe4wACgkQsoi1X/+c
+IsHOxA/+Opak4BIZx8LtC0pNIOfHOaiSQpa3+u9k+ZVT+XK8aOlq0O4/Xls4NOED
+adAuJYptDhGpvUvfvo4AKKXmYQNintguTaCKsXgU8v/cXkiQ8uGLszG6FxX/aDh8
+fI22EloLk6rCB+WvmKrcqqmSl8yzruKFp3GrZgSjWZhYGrYydgJlrLC7jNCSyMl1
+U6sws4V5bkpeL5Y0/7vmy8AEwUJmxLwRI82X1MwDtrpki9yeMGdAPEgTi3OudViD
+856lLdxavipFsjQmNkcw40xUPtADG2RcP1sgMp2Qsai447XOehGEG8RRyQ/sNU0d
+016EiDRQxuWlhdViD4P+VEOnKmKgrPOdpzQc1ISJ03xMDuKhK3Eo8dEgenuDlMRr
+SMXd7yHb6gxHW1gZtbH0D9PIMyT5U0pAHQT1VY084HZZahKdoHfnesQSB5eQjjuB
+Wy7gzIhEQci4g8xdJxkxzazjCildaJv4pDqATxLIi+Qw6LQQtwT7+0cxU6IuFiVy
+PZ15jLTlo/R4B12XtXaJnDvswZdAXm2Sx780Dpf3ptQpYauOnJsAkeKDXFvLSJzc
+PBe3IN/1m3t+eB/2u8rczZPHHrCQboG/rMzOjlRhK/0Jmi1YcitcIQS+VrJhSu7X
+vAsAe598NTYGWNxYIQMZR/491qBeiapCuWwxeyEqOdoEfVm4Q7U=
+=g7U9
+-----END PGP SIGNATURE-----
+
+--JO1X+NAnjhRPpHa5--
 
