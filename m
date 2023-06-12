@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA0EB72C9BC
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 17:20:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.547310.854628 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5109372C9C6
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Jun 2023 17:22:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.547317.854638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8jKz-000121-44; Mon, 12 Jun 2023 15:20:09 +0000
+	id 1q8jMl-0001eR-Ii; Mon, 12 Jun 2023 15:21:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 547310.854628; Mon, 12 Jun 2023 15:20:09 +0000
+Received: by outflank-mailman (output) from mailman id 547317.854638; Mon, 12 Jun 2023 15:21:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1q8jKz-0000zg-0Z; Mon, 12 Jun 2023 15:20:09 +0000
-Received: by outflank-mailman (input) for mailman id 547310;
- Mon, 12 Jun 2023 15:20:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1q8jMl-0001bf-FK; Mon, 12 Jun 2023 15:21:59 +0000
+Received: by outflank-mailman (input) for mailman id 547317;
+ Mon, 12 Jun 2023 15:21:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YSOl=CA=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1q8jKx-0000yI-H3
- for xen-devel@lists.xenproject.org; Mon, 12 Jun 2023 15:20:07 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c6c4bee-0934-11ee-b232-6b7b168915f2;
- Mon, 12 Jun 2023 17:20:06 +0200 (CEST)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2b1bdfe51f8so66427281fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 12 Jun 2023 08:20:06 -0700 (PDT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8jMk-0001bV-EV; Mon, 12 Jun 2023 15:21:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8jMk-0002cs-Cd; Mon, 12 Jun 2023 15:21:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8jMj-0003uL-Ta; Mon, 12 Jun 2023 15:21:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1q8jMj-0004DF-T8; Mon, 12 Jun 2023 15:21:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,245 +42,447 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c6c4bee-0934-11ee-b232-6b7b168915f2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1686583206; x=1689175206;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=9STugGM9E7fBDOgF9MU/+Q3JjBle1xujN0bX4eP8zgo=;
-        b=aAkSUnr5fOM3YUzjcBKtdI+fC23E//NPs/VIch2u0xJF4e7Lj+EiDHUXRDXy2KTxOL
-         XDurBjWTjrBfQHO/13ngI5r0JaId8LFCVHCBTUI0BzY6GkbgyYwVRiLsIXByuhuZJ7+J
-         24egTuBVJsjGXQJnj2k05YMwDDFfftlyjqxpw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20221208; t=1686583206; x=1689175206;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9STugGM9E7fBDOgF9MU/+Q3JjBle1xujN0bX4eP8zgo=;
-        b=MhEcDbA7r9JLiZHArufRs+6x/4lWOnLY+lh3stcGuA6XyAKOKYjeb4Cmh2D/Tv4nfh
-         +W0iVt5FjCGSVZ7kfSsXtAI2FRV83yT5tIoOLoZm5g6GI3M1HfdQSLiU5yNN7Fxs3lMt
-         EBReX9khTUHPse7N/oB/A5uPmzk+kyX2zEAY+qOEPPstmlk0y3FzZWs/e012oSYhC4e4
-         Hnk2W3Mm97l8OGMcW683IfKTvPGmuAE9tId7QKfE2VZ0mTUugjhdqcHo6sGP+tBFRa4m
-         mPjoNVtvfuynYhvhLED4Wifryk0z9yvi3CQz6yULf9J6o9UbMCqG/RrNew13RZf3DYl9
-         IfIg==
-X-Gm-Message-State: AC+VfDyUp0mvVLxJH6RU/EfLq/y8m5oq8nohD508kkNC+Aq5j62U1c8N
-	6OxSbQRgccaqkHdmTCjdcAtkOeKjJab7T58p2Cuv4w==
-X-Google-Smtp-Source: ACHHUZ7vEiezo+cbwkhm6uxhqEZgiDR0smkutLS0ZLDSa/6jgOBYqG+1+MUWkIM5ru1uo3Y76aGLRrgLs3nKUTKIzxU=
-X-Received: by 2002:a2e:3314:0:b0:2a8:baea:2554 with SMTP id
- d20-20020a2e3314000000b002a8baea2554mr2361748ljc.3.1686583205740; Mon, 12 Jun
- 2023 08:20:05 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1686148363.git.shawn@anastas.io> <e9a4878544d264688578d7899867df7e8207aba5.1686148363.git.shawn@anastas.io>
- <0c0a19de-dde3-8b98-4354-6d3d2019179b@suse.com> <0b24d36b-adbc-9e7c-df6e-8754c269855d@citrix.com>
- <d0d9b1be-a9e2-fff9-d631-149086ea1dfe@suse.com> <d52feaa7-4217-973e-19fe-9ec027eed5fc@citrix.com>
- <1c35f696-5a65-06da-8af5-685b8ad2e849@xen.org> <e16bcfa1-2b40-6bf0-57c9-5045ae1fdf80@citrix.com>
- <bcbab76d-ca8c-0772-3a9f-59fef3a2b5f5@xen.org> <CT87KSPVSBUG.2C4SWW2EDTA5Z@Shawns-Mac-mini.lan>
- <3a7eca41-0ecf-4bf1-1daf-9d66f4aa6400@xen.org>
-In-Reply-To: <3a7eca41-0ecf-4bf1-1daf-9d66f4aa6400@xen.org>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 12 Jun 2023 16:19:54 +0100
-Message-ID: <CA+zSX=bZ7yx90geyCo3x0jxJy7X2f4E2XiazYEn0EDE+4O==pQ@mail.gmail.com>
-Subject: Re: [PATCH 2/3] xen/ppc: Implement early serial printk on PaPR/pseries
-To: Julien Grall <julien@xen.org>
-Cc: Shawn Anastasio <shawn@anastas.io>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, tpearson@raptorengineering.com, 
-	George Dunlap <george.dunlap@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	Shawn Anastasio <shawnanastasio@raptorengineering.com>, xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000dcda4205fdf0408f"
-
---000000000000dcda4205fdf0408f
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=fV5vnfPl5lwN+SlXlS/M6sULXAZDHjWaHOufYfPI9/w=; b=HJ2vDngsps+4AXGeOGWYslxVAO
+	6mZ39eD6n8fHzpUW2ZWNWCk3ClEK61/PYPf9jQ7jUqBJvXndyDi5sI3KXddW0qf6Tr59cHcGKPTm5
+	+gIJxypKMfsVcZnz/KPkEg1poKN5vE6pK+2t2rKFytaLzAGsTV9FBRRxiVfPBlaIWldM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-181390-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 181390: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:build-arm64-xsm:xen-build:fail:regression
+    qemu-mainline:build-arm64:xen-build:fail:regression
+    qemu-mainline:build-amd64:xen-build:fail:regression
+    qemu-mainline:build-i386:xen-build:fail:regression
+    qemu-mainline:build-amd64-xsm:xen-build:fail:regression
+    qemu-mainline:build-i386-xsm:xen-build:fail:regression
+    qemu-mainline:build-armhf:xen-build:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    qemu-mainline:build-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    qemuu=fdd0df5340a8ebc8de88078387ebc85c5af7b40f
+X-Osstest-Versions-That:
+    qemuu=6972ef1440a9d685482d78672620a7482f2bd09a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 12 Jun 2023 15:21:57 +0000
 
-On Fri, Jun 9, 2023 at 5:07=E2=80=AFPM Julien Grall <julien@xen.org> wrote:
+flight 181390 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/181390/
 
-> Hi Shawn,
->
-> On 09/06/2023 16:01, Shawn Anastasio wrote:
-> > On Fri Jun 9, 2023 at 5:12 AM CDT, Julien Grall wrote:
-> >> Strictly speaking we can refuse any code. That count for license as
-> >> well. Anyway, I didn't request a change here. I merely pointed out tha=
-t
-> >> any use of GPLv2+ should be justified because on Arm most of the peopl=
-e
-> >> don't pay attention on the license and pick the one from an existing
-> file.
-> >
-> > Hi Julien,
-> >
-> > The choice of GPLv2+ for many of the files in this patchset was indeed
-> > inherited from old IBM-written Xen code that the files in question were
-> > derived from. I did not realize it was permissible or even desirable to
-> > relicense those to GPLv2-only.
-> >
-> > As for the new files, GPLv2+ was chosen to remain consistent and to ope=
-n
-> > the door for future derivations from GPLv2+ licensed code, either from
-> > the older Xen tree or from the Linux ppc tree, much of which is also
-> > licensed as GPLv2+. If it would reduce friction, these files could be
-> > relicensed to GPLv2-only.
->
-> (Before someone points out, I know this is already a problem on other
-> part of Xen. But it would be ideal if we avoid spreading this mess on
-> new architectures :).
->
-> Thanks for the explanations. To clarify, are you saying that all the
-> files will be GPLv2+ or just some?
->
-> If the latter, then my concern would be that if you need to import
-> GPLv2-only code, then you may need to write your code in a different
-> file. This may become messy to handle and some developer may end up to
-> be confused.
->
-> I am not a lawyer though, so you may want to check the implications here.
->
+Regressions :-(
 
-Shawn,
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 180691
+ build-arm64                   6 xen-build                fail REGR. vs. 180691
+ build-amd64                   6 xen-build                fail REGR. vs. 180691
+ build-i386                    6 xen-build                fail REGR. vs. 180691
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 180691
+ build-i386-xsm                6 xen-build                fail REGR. vs. 180691
+ build-armhf                   6 xen-build                fail REGR. vs. 180691
 
-Again sorry that you've sort of bumped a hornet's nest here.
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-vhd        1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-pair          1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
+ test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
+ test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl            1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
 
-Just to clarify, the situation as I understand it is:
+version targeted for testing:
+ qemuu                fdd0df5340a8ebc8de88078387ebc85c5af7b40f
+baseline version:
+ qemuu                6972ef1440a9d685482d78672620a7482f2bd09a
 
-1. Large parts of Xen, being inherited from the Linux Kernel, are
-GPLv2-only; and the documentation clearly states that code is GPLv2-only
-unless explicitly stated otherwise.
+Last test of basis   180691  2023-05-17 10:45:22 Z   26 days
+Failing since        180699  2023-05-18 07:21:24 Z   25 days   90 attempts
+Testing same since   181372  2023-06-10 21:38:57 Z    1 days   11 attempts
 
-2. Some individual files in Xen are labelled as GPLv2-or-later; but as they
-rely on the "only" files, Xen as a whole can only be compiled under a GPLv2
-license.
+------------------------------------------------------------
+People who touched revisions under test:
+  Afonso Bordado <afonsobordado@gmail.com>
+  Akihiko Odaki <akihiko.odaki@daynix.com>
+  Akihiro Suda <akihiro.suda.cz@hco.ntt.co.jp>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alex Williamson <alex.williamson@redhat.com>
+  Alexander Bulekov <alxndr@bu.edu>
+  Alexander Graf <graf@amazon.com>
+  Alexander Ivanov <alexander.ivanov@virtuozzo.com>
+  Alistair Francis <alistair.francis@wdc.com>
+  Anastasia Belova <abelova@astralinux.ru>
+  Andrew Jeffery <andrew@aj.id.au>
+  Ani Sinha <ani@anisinha.ca>
+  Ani Sinha <anisinha@redhat.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Anton Johansson <anjo@rev.ng>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bastian Koppelmann <kbastian@mail.uni-paderborn.de>
+  Bernhard Beschow <shentey@gmail.com>
+  Bin Meng <bin.meng@windriver.com>
+  Brian Cain <bcain@quicinc.com>
+  Brice Goglin <Brice.Goglin@inria.fr>
+  Camilla Conte <cconte@redhat.com>
+  Carlos Santos <casantos@redhat.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Chuck Zmudzinski <brchuckz@aol.com>
+  Cindy Lu <lulu@redhat.com>
+  Clément Chigot <chigot@adacore.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Le Goater <clg@kaod.org>
+  Cédric Le Goater <clg@redhat.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniil Kovalev <dkovalev@compiler-toolchain-for.me>
+  David Hildenbrand <david@redhat.com>
+  David Woodhouse <dwmw@amazon.co.uk>
+  Emanuele Giuseppe Esposito <eesposit@redhat.com>
+  Enze Li <lienze@kylinos.cn>
+  Eric Auger <eric.auger@redhat.com>
+  Eric Blake <eblake@redhat.com>
+  Eric DeVolder <eric.devolder@oracle.com>
+  Erico Nunes <ernunes@redhat.com>
+  Eugenio Pérez <eperezma@redhat.com>
+  Fabiano Rosas <farosas@suse.de>
+  Fan Ni <fan.ni@samsung.com>
+  Fiona Ebner <f.ebner@proxmox.com>
+  Francesco Cagnin <fcagnin@quarkslab.com>
+  Francisco Iglesias <frasse.iglesias@gmail.com>
+  Frederic Barrat <fbarrat@linux.ibm.com>
+  Gavin Shan <gshan@redhat.com>
+  Gregory Price <gourry.memverge@gmail.com>
+  Gregory Price <gregory.price@memverge.com>
+  Hanna Czenczek <hreitz@redhat.com>
+  Hao Zeng <zenghao@kylinos.cn>
+  Hawkins Jiawei <yin31149@gmail.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Ilya Leoshkevich <iii@linux.ibm.com>
+  Ira Weiny <ira.weiny@intel.com>
+  Jagannathan Raman <jag.raman@oracle.com>
+  Jason Wang <jasowang@redhat.com>
+  Jean-Louis Dupond <jean-louis@dupond.be>
+  Jean-Philippe Brucker <jean-philippe@linaro.org>
+  Jiaxun Yang <jiaxun.yang@flygoat.com>
+  John Snow <jsnow@redhat.com>
+  Jonathan Cameron <Jonathan.Cameron@huawei.com>
+  Juan Quintela <quintela@redhat.com>
+  Kevin Wolf <kwolf@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Lei Yang <leiyang@redhat.com>
+  Leonardo Bras <leobras@redhat.com>
+  Maksim Davydov <davydov-max@yandex-team.ru>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
+  Marco Liebel <quic_mliebel@quicinc.com>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Matheus Tavares Bernardino <quic_mathbern@quicinc.com>
+  Mattias Nissler <mnissler@rivosinc.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Max Fritz <antischmock@googlemail.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Michael Tokarev <mjt@tls.msk.ru>
+  Michal Privoznik <mprivozn@redhat.com>
+  Milan Zamazal <mzamazal@redhat.com>
+  Mostafa Saleh <smostafa@google.com>
+  Nicholas Piggin <npiggin@gmail.com>
+  Nicolas Saenz Julienne <nsaenz@amazon.com>
+  Niek Linnenbank <nieklinnenbank@gmail.com>
+  Palmer Dabbelt <palmer@rivosinc.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Peter Xu <peterx@redhat.com>
+  Philippe Mathieu-Daudé <philmd@linaro.org>
+  qianfan Zhao <qianfanguijin@163.com>
+  Raghu H <raghuhack78@gmail.com>
+  Rene Engel <ReneEngel80@emailn.de>
+  Richard Henderson <richard.henderson@linaro.org>
+  Richard Purdie <richard.purdie@linuxfoundation.org>
+  Ricky Zhou <ricky@rzhou.org>
+  Ryan Wendland <wendland@live.com.au>
+  Sebastian Ott <sebott@redhat.com>
+  Sergio Lopez <slp@redhat.com>
+  Sid Manning <sidneym@quicinc.com>
+  Song Gao <gaosong@loongson.cn>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Stefano Garzarella <sgarzare@redhat.com>
+  Steve Sistare <steven.sistare@oracle.com>
+  Taylor Simpson <tsimpson@quicinc.com>
+  Thomas Huth <thuth@redhat.com>
+  Thomas Weißschuh <thomas@t-8ch.de>
+  timothee.cocault@gmail.com <timothee.cocault@gmail.com>
+  Timothée Cocault <timothee.cocault@gmail.com>
+  Tommy Wu <tommy.wu@sifive.com>
+  Vikram Garhwal <vikram.garhwal@amd.com>
+  Viktor Prutyanov <viktor@daynix.com>
+  Vitaly Cheptsov <cheptsov@ispras.ru>
+  Vivek Kasireddy <vivek.kasireddy@intel.com>
+  Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>
+  Volker Rümelin <vr_qemu@t-online.de>
+  Xinyu Li <lixinyu20s@ict.ac.cn>
+  Zeng Hao <zenghao@kylinos.cn>
+  Zhenyu Zhang <zhenyzha@redhat.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+  Zhuojia Shen <chaosdefinition@hotmail.com>
 
-3. New contributions to a file assumed to have the same license as the
-header of the file; i.e., the code contained in patches to GPLv2-or-later
-files is assumed to be granted according to a GPLv2-or-later license.
+jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-arm64                                                  fail    
+ build-armhf                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          blocked 
+ test-amd64-coresched-amd64-xl                                blocked 
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-i386-xl                                           blocked 
+ test-amd64-coresched-i386-xl                                 blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-i386-xl-xsm                                       blocked 
+ test-amd64-amd64-qemuu-nested-amd                            blocked 
+ test-amd64-amd64-xl-pvhv2-amd                                blocked 
+ test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
+ test-amd64-amd64-dom0pvh-xl-amd                              blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
+ test-amd64-i386-freebsd10-amd64                              blocked 
+ test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
+ test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
+ test-armhf-armhf-xl-arndale                                  blocked 
+ test-amd64-amd64-xl-credit1                                  blocked 
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  blocked 
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
+ test-amd64-i386-freebsd10-i386                               blocked 
+ test-amd64-amd64-qemuu-nested-intel                          blocked 
+ test-amd64-amd64-xl-pvhv2-intel                              blocked 
+ test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
+ test-amd64-amd64-dom0pvh-xl-intel                            blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-xl-multivcpu                                blocked 
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        blocked 
+ test-amd64-i386-pair                                         blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-xl-pvshim                                   blocked 
+ test-amd64-i386-xl-pvshim                                    blocked 
+ test-amd64-amd64-pygrub                                      blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-xl-rtds                                     blocked 
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
+ test-amd64-amd64-xl-shadow                                   blocked 
+ test-amd64-i386-xl-shadow                                    blocked 
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      blocked 
+ test-amd64-i386-xl-vhd                                       blocked 
 
-4. In the past, the legal teams of some contributors -- namely ARM -- were
-wary of the GPLv3; specifically the patent grant.  Since ARM doesn't make
-anything themselves, their patents are literally their product; they need
-to be very careful of not accidentally granting them to the world.  I think
-one thing ARM may have been afraid of at some point is one of their
-engineers accidentally submitting a patch to a GPLv2-or-later file which
-would, when taken with a GPLv3 (or GPLv4 license, once it comes out) cause
-them to lose too much control over their IP.
 
-My understanding is that Julien is afraid that if the "GPLv2-or-later"
-files start to proliferate, that companies like ARM will start to become
-more wary of contributing; and so has been generally trying to encourage
-new files to be labelled "GPLv2-only" unless there's a good reason to do
-otherwise.  (Other issues like copying code from GPLv2-only are potential
-pitfalls as well, but probably less important.)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-HOWEVER, as Andrew says, there is no official policy at this point; all the
-document say is that GPLv2-only is the default unless explicitly stated
-otherwise.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Furthermore, the concerns raised by ARM's legal team were nearly a decade
-ago; it's not clear to me whether they still care that much.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-All that to say: If you don't mind and feel that you can do so legally,
-then consider switching to GPLv2-only; but if you don't want to and/or feel
-that you can't do so legally, feel free to leave it as-is.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Additionally, I think it would be good if the community *did* have a
-discussion about whether we want an official policy; so that either we can
-point people to the relevant doc (with explanation), or stop bothering
-about it. :-)
 
- -George
+Not pushing.
 
---000000000000dcda4205fdf0408f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jun 9, 2023 at 5:07=E2=80=AFP=
-M Julien Grall &lt;<a href=3D"mailto:julien@xen.org">julien@xen.org</a>&gt;=
- wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Shawn=
-,<br>
-<br>
-On 09/06/2023 16:01, Shawn Anastasio wrote:<br>
-&gt; On Fri Jun 9, 2023 at 5:12 AM CDT, Julien Grall wrote:<br>
-&gt;&gt; Strictly speaking we can refuse any code. That count for license a=
-s<br>
-&gt;&gt; well. Anyway, I didn&#39;t request a change here. I merely pointed=
- out that<br>
-&gt;&gt; any use of GPLv2+ should be justified because on Arm most of the p=
-eople<br>
-&gt;&gt; don&#39;t pay attention on the license and pick the one from an ex=
-isting file.<br>
-&gt; <br>
-&gt; Hi Julien,<br>
-&gt; <br>
-&gt; The choice of GPLv2+ for many of the files in this patchset was indeed=
-<br>
-&gt; inherited from old IBM-written Xen code that the files in question wer=
-e<br>
-&gt; derived from. I did not realize it was permissible or even desirable t=
-o<br>
-&gt; relicense those to GPLv2-only.<br>
-&gt; <br>
-&gt; As for the new files, GPLv2+ was chosen to remain consistent and to op=
-en<br>
-&gt; the door for future derivations from GPLv2+ licensed code, either from=
-<br>
-&gt; the older Xen tree or from the Linux ppc tree, much of which is also<b=
-r>
-&gt; licensed as GPLv2+. If it would reduce friction, these files could be<=
-br>
-&gt; relicensed to GPLv2-only.<br>
-<br>
-(Before someone points out, I know this is already a problem on other <br>
-part of Xen. But it would be ideal if we avoid spreading this mess on <br>
-new architectures :).<br>
-<br>
-Thanks for the explanations. To clarify, are you saying that all the <br>
-files will be GPLv2+ or just some?<br>
-<br>
-If the latter, then my concern would be that if you need to import <br>
-GPLv2-only code, then you may need to write your code in a different <br>
-file. This may become messy to handle and some developer may end up to <br>
-be confused.<br>
-<br>
-I am not a lawyer though, so you may want to check the implications here.<b=
-r></blockquote><div><br></div><div>Shawn,</div><div><br></div><div>Again so=
-rry that you&#39;ve sort of bumped a hornet&#39;s nest here.</div><div><br>=
-</div><div>Just to clarify, the situation as I understand it is:</div><div>=
-<br></div><div>1. Large parts of Xen, being inherited from the Linux Kernel=
-, are GPLv2-only; and the documentation clearly states that code is GPLv2-o=
-nly unless explicitly stated otherwise.</div><div><br></div><div>2. Some in=
-dividual files in Xen are labelled as GPLv2-or-later; but as they rely on t=
-he &quot;only&quot; files, Xen as a whole can only be compiled under a GPLv=
-2 license.</div><div><br></div><div>3. New contributions to a file assumed =
-to have the same license as the header of the file; i.e., the code containe=
-d in patches to GPLv2-or-later files is assumed to be granted according to =
-a GPLv2-or-later license.</div><div><br></div><div>4. In the past, the lega=
-l teams of some contributors -- namely ARM -- were wary of the GPLv3; speci=
-fically the patent grant.=C2=A0 Since ARM doesn&#39;t make anything themsel=
-ves, their patents are literally their product; they need to be very carefu=
-l of not accidentally granting them to the world.=C2=A0 I think one thing A=
-RM may have been afraid of at some point is one of their engineers accident=
-ally submitting a patch to a GPLv2-or-later file which would, when taken wi=
-th a GPLv3 (or GPLv4 license, once it comes out) cause them to lose too muc=
-h control over their IP.</div><div><br></div><div>My understanding is that =
-Julien is afraid that if the &quot;GPLv2-or-later&quot; files start to prol=
-iferate, that companies like ARM will start to become more wary of contribu=
-ting; and so has been generally trying to encourage new files to be labelle=
-d &quot;GPLv2-only&quot; unless there&#39;s a good reason to do otherwise.=
-=C2=A0 (Other issues like copying code from GPLv2-only are potential pitfal=
-ls as well, but probably less important.)</div><div><br></div><div>HOWEVER,=
- as Andrew says, there is no official policy at this point; all the documen=
-t say is that GPLv2-only is the default unless explicitly stated otherwise.=
-</div><div><br></div><div>Furthermore, the concerns raised by ARM&#39;s leg=
-al team were nearly a decade ago; it&#39;s not clear to me whether they sti=
-ll care that much.</div><div><br></div><div>All that to say: If you don&#39=
-;t mind and feel that you can do so legally, then consider switching to GPL=
-v2-only; but if you don&#39;t want to and/or feel that you can&#39;t do so =
-legally, feel free to leave it as-is.</div><div><br></div><div>Additionally=
-, I think it would be good if the community *did* have a discussion about w=
-hether we want an official policy; so that either we can point people to th=
-e relevant doc (with explanation), or stop bothering about it. :-)</div><di=
-v><br></div><div>=C2=A0-George</div><div><br></div><div><br></div></div></d=
-iv>
-
---000000000000dcda4205fdf0408f--
+(No revision log; it would be 17052 lines long.)
 
